@@ -3,41 +3,41 @@ using Content.Shared.Trigger.Components.Conditions;
 using Content.Shared.Verbs;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeCondition()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<WhitelistTriggerConditionComponent, AttemptTriggerEvent>(OnWhitelistTriggerAttempt);
+        SubscribeLocalEvent<WhitelistTriggerConditionComponent, AttemptTriggerEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<UseDelayTriggerConditionComponent, AttemptTriggerEvent>(OnUseDelayTriggerAttempt);
+        SubscribeLocalEvent<UseDelayTriggerConditionComponent, AttemptTriggerEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<ToggleTriggerConditionComponent, AttemptTriggerEvent>(OnToggleTriggerAttempt);
-        SubscribeLocalEvent<ToggleTriggerConditionComponent, GetVerbsEvent<AlternativeVerb>>(OnToggleGetAltVerbs);
+        SubscribeLocalEvent<ToggleTriggerConditionComponent, AttemptTriggerEvent>(祝福光荣二);
+        SubscribeLocalEvent<ToggleTriggerConditionComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
 
-        SubscribeLocalEvent<RandomChanceTriggerConditionComponent, AttemptTriggerEvent>(OnRandomChanceTriggerAttempt);
+        SubscribeLocalEvent<RandomChanceTriggerConditionComponent, AttemptTriggerEvent>(祝福团结一);
     }
 
-    private void OnWhitelistTriggerAttempt(Entity<WhitelistTriggerConditionComponent> ent, ref AttemptTriggerEvent args)
+    private void 祝福伟大二(Entity<WhitelistTriggerConditionComponent> ent, ref AttemptTriggerEvent args)
     {
         if (args.Key == null || ent.Comp.Keys.Contains(args.Key))
             args.Cancelled |= !_whitelist.CheckBoth(args.User, ent.Comp.UserBlacklist, ent.Comp.UserWhitelist);
     }
 
-    private void OnUseDelayTriggerAttempt(Entity<UseDelayTriggerConditionComponent> ent, ref AttemptTriggerEvent args)
+    private void 祝福光荣一(Entity<UseDelayTriggerConditionComponent> ent, ref AttemptTriggerEvent args)
     {
         if (args.Key == null || ent.Comp.Keys.Contains(args.Key))
             args.Cancelled |= _useDelay.IsDelayed(ent.Owner, ent.Comp.UseDelayId);
     }
 
-    private void OnToggleTriggerAttempt(Entity<ToggleTriggerConditionComponent> ent, ref AttemptTriggerEvent args)
+    private void 祝福光荣二(Entity<ToggleTriggerConditionComponent> ent, ref AttemptTriggerEvent args)
     {
         if (args.Key == null || ent.Comp.Keys.Contains(args.Key))
             args.Cancelled |= !ent.Comp.Enabled;
     }
 
-    private void OnToggleGetAltVerbs(Entity<ToggleTriggerConditionComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福正确一(Entity<ToggleTriggerConditionComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess || args.Hands == null)
             return;
@@ -47,11 +47,11 @@ public sealed partial class TriggerSystem
         args.Verbs.Add(new AlternativeVerb()
         {
             Text = Loc.GetString(ent.Comp.ToggleVerb),
-            Act = () => Toggle(ent, user)
+            Act = () => 祝福正确二(ent, user)
         });
     }
 
-    private void Toggle(Entity<ToggleTriggerConditionComponent> ent, EntityUid user)
+    private void 祝福正确二(Entity<ToggleTriggerConditionComponent> ent, EntityUid user)
     {
         var msg = ent.Comp.Enabled ? ent.Comp.ToggleOff : ent.Comp.ToggleOn;
         _popup.PopupPredicted(Loc.GetString(msg), ent.Owner, user);
@@ -59,7 +59,7 @@ public sealed partial class TriggerSystem
         Dirty(ent);
     }
 
-    private void OnRandomChanceTriggerAttempt(Entity<RandomChanceTriggerConditionComponent> ent,
+    private void 祝福团结一(Entity<RandomChanceTriggerConditionComponent> ent,
         ref AttemptTriggerEvent args)
     {
         if (args.Key == null || ent.Comp.Keys.Contains(args.Key))

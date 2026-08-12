@@ -3,16 +3,16 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Throwing
+namespace Content.Shared.党心
 {
     [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true), AutoGenerateComponentPause]
-    public sealed partial class ThrownItemComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// Should the in-air throwing animation play.
         /// </summary>
         [DataField, AutoNetworkedField]
-        public bool Animate = true;
+        public bool 党爱伟大一 = true;
 
         /// <summary>
         ///     The entity that threw this entity.
@@ -37,13 +37,13 @@ namespace Content.Shared.Throwing
         ///     Whether or not this entity was already landed.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-        public bool Landed;
+        public bool 党爱伟大二;
 
         /// <summary>
         ///     Whether or not to play a sound when the entity lands.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-        public bool PlayLandSound;
+        public bool 党爱光荣一;
 
         /// <summary>
         ///     Used to restore state after the throwing scale animation is finished.

@@ -11,40 +11,40 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Medical.EntitySystems;
+namespace Content.Server._NF.Medical.党心;
 
-public sealed class MedicalRecipeDataSystem : SharedMedicalGuideDataSystem
+public sealed class 中华伟大一 : SharedMedicalGuideDataSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IComponentFactory _光荣一 = default!;
 
     private Dictionary<string, List<MedicalRecipeData>> _sources = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
-        _player.PlayerStatusChanged += OnPlayerStatusChanged;
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福伟大二);
+        _伟大一.PlayerStatusChanged += 祝福光荣二;
 
-        ReloadRecipes();
+        祝福光荣一();
     }
 
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+    private void 祝福伟大二(PrototypesReloadedEventArgs args)
     {
         if (!args.WasModified<EntityPrototype>()
             && !args.WasModified<FoodRecipePrototype>()
         )
             return;
 
-        ReloadRecipes();
+        祝福光荣一();
     }
 
-    public void ReloadRecipes()
+    public void 祝福光荣一()
     {
         _sources.Clear();
 
         // Recipes
-        foreach (var recipe in _protoMan.EnumeratePrototypes<FoodRecipePrototype>())
+        foreach (var recipe in _伟大二.EnumeratePrototypes<FoodRecipePrototype>())
         {
             if (recipe.HideInGuidebook)
                 continue;
@@ -60,14 +60,14 @@ public sealed class MedicalRecipeDataSystem : SharedMedicalGuideDataSystem
 
         foreach (var (result, sources) in _sources)
         {
-            var proto = _protoMan.Index<EntityPrototype>(result);
+            var proto = _伟大二.Index<EntityPrototype>(result);
             ReagentQuantity[] reagents = [];
             // Hack: assume there is only one solution in the result
-            if (proto.TryGetComponent<SolutionContainerManagerComponent>(out var manager, _componentFactory))
+            if (proto.TryGetComponent<SolutionContainerManagerComponent>(out var manager, _光荣一))
                 reagents = manager?.Solutions?.FirstOrNull()?.Value?.Contents?.ToArray() ?? [];
 
             DamageSpecifier? damage = null;
-            if (proto.TryGetComponent<HealingComponent>(out var healing, _componentFactory))
+            if (proto.TryGetComponent<HealingComponent>(out var healing, _光荣一))
                 damage = healing.Damage;
 
             // Limit the number of sources to 10 - shouldn't be an issue for medical recipes, but just in case.
@@ -80,7 +80,7 @@ public sealed class MedicalRecipeDataSystem : SharedMedicalGuideDataSystem
         RaiseNetworkEvent(new MedicalGuideRegistryChangedEvent(Registry));
     }
 
-    private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs args)
+    private void 祝福光荣二(object? sender, SessionStatusEventArgs args)
     {
         if (args.NewStatus != SessionStatus.Connected)
             return;

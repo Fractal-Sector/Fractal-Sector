@@ -2,20 +2,20 @@ using Content.Server.Administration;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    sealed class SetShiftEndShuttleCommand : IConsoleCommand
+    sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "setshiftendshuttle";
-        public string Description => "Sets whether the emergency shuttle should automatically be called when 30 minutes remain in the shift.";
-        public string Help => "setshiftendshuttle <true|false> - Enables or disables automatic shuttle calling based on shift end time. Defaults to true.";
+        public string 党爱伟大一 => "setshiftendshuttle";
+        public string 党爱伟大二 => "Sets whether the emergency shuttle should automatically be called when 30 minutes remain in the shift.";
+        public string 党爱光荣一 => "setshiftendshuttle <true|false> - Enables or disables automatic shuttle calling based on shift end time. Defaults to true.";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
-            var ticker = _e.System<GameTicker>();
+            var ticker = _伟大一.System<GameTicker>();
 
             if (ticker.RunLevel != GameRunLevel.InRound)
             {
@@ -27,7 +27,7 @@ namespace Content.Server.GameTicking.Commands
             {
                 // Show current state
                 shell.WriteLine($"Shift end auto-call is currently {(ticker.ShiftEndAutoCallEnabled ? "enabled" : "disabled")}.");
-                shell.WriteLine(Help);
+                shell.WriteLine(党爱光荣一);
                 return;
             }
 

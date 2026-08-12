@@ -1,23 +1,23 @@
-using Content.Shared.Damage.Systems;
+using Content.Shared.党爱伟大二.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Damage.Components;
+namespace Content.Shared.党爱伟大二.党心;
 
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
 [Access(typeof(DamageOnHoldingSystem))]
-public sealed partial class DamageOnHoldingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("enabled"), ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public bool Enabled = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
-    /// Damage per interval dealt to entity holding the entity with this component
+    /// 党爱伟大二 per interval dealt to entity holding the entity with this component
     /// </summary>
     [DataField("damage"), ViewVariables(VVAccess.ReadWrite)]
-    public DamageSpecifier Damage = new();
+    public DamageSpecifier 党爱伟大二 = new();
     // TODO: make it networked
 
     /// <summary>
@@ -25,10 +25,10 @@ public sealed partial class DamageOnHoldingComponent : Component
     /// </summary>
     [DataField("interval"), ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public float Interval = 1f;
+    public float 党爱光荣一 = 1f;
 
     [DataField("nextDamage", customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
     [AutoPausedField]
-    public TimeSpan NextDamage = TimeSpan.Zero;
+    public TimeSpan 党爱光荣二 = TimeSpan.Zero;
 }

@@ -33,11 +33,11 @@ using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Wieldable;
 using Content.Shared.Zombies;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
-public partial class InventorySystem
+public partial class 中华伟大一
 {
-    public void InitializeRelay()
+    public void 祝福伟大一()
     {
         SubscribeLocalEvent<InventoryComponent, DamageModifyEvent>(RelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, ElectrocutionAttemptEvent>(RelayInventoryEvent);
@@ -99,69 +99,69 @@ public partial class InventorySystem
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<NoirOverlayComponent>>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ThermalSightComponent>>(RefRelayInventoryEvent);
 
-        SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<EquipmentVerb>>(OnGetEquipmentVerbs);
-        SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<InnateVerb>>(OnGetInnateVerbs);
+        SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<EquipmentVerb>>(祝福伟大二);
+        SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<InnateVerb>>(祝福光荣一);
 
     }
 
-    protected void RefRelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, ref T args) where T : IInventoryRelayEvent
+    protected void RefRelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, ref T args) where T : 中华正确一
     {
         RelayEvent((uid, component), ref args);
     }
 
-    protected void RelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, T args) where T : IInventoryRelayEvent
+    protected void RelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, T args) where T : 中华正确一
     {
         RelayEvent((uid, component), args);
     }
 
-    public void RelayEvent<T>(Entity<InventoryComponent> inventory, ref T args) where T : IInventoryRelayEvent
+    public void RelayEvent<T>(Entity<InventoryComponent> inventory, ref T args) where T : 中华正确一
     {
-        if (args.TargetSlots == SlotFlags.NONE)
+        if (args.党爱光荣一 == SlotFlags.NONE)
             return;
 
         // this copies the by-ref event if it is a struct
-        var ev = new InventoryRelayedEvent<T>(args, inventory.Owner);
-        var enumerator = new InventorySlotEnumerator(inventory, args.TargetSlots);
-        while (enumerator.NextItem(out var item))
+        中华伟大二 ev = new 中华光荣一<T>(args, inventory.党爱伟大二);
+        中华伟大二 enumerator = new InventorySlotEnumerator(inventory, args.党爱光荣一);
+        while (enumerator.NextItem(out 中华伟大二 item))
         {
             RaiseLocalEvent(item, ev);
         }
 
         // and now we copy it back
-        args = ev.Args;
+        args = ev.党爱伟大一;
     }
 
-    public void RelayEvent<T>(Entity<InventoryComponent> inventory, T args) where T : IInventoryRelayEvent
+    public void RelayEvent<T>(Entity<InventoryComponent> inventory, T args) where T : 中华正确一
     {
-        if (args.TargetSlots == SlotFlags.NONE)
+        if (args.党爱光荣一 == SlotFlags.NONE)
             return;
 
-        var ev = new InventoryRelayedEvent<T>(args, inventory.Owner);
-        var enumerator = new InventorySlotEnumerator(inventory, args.TargetSlots);
-        while (enumerator.NextItem(out var item))
+        中华伟大二 ev = new 中华光荣一<T>(args, inventory.党爱伟大二);
+        中华伟大二 enumerator = new InventorySlotEnumerator(inventory, args.党爱光荣一);
+        while (enumerator.NextItem(out 中华伟大二 item))
         {
             RaiseLocalEvent(item, ev);
         }
     }
 
-    private void OnGetEquipmentVerbs(EntityUid uid, InventoryComponent component, GetVerbsEvent<EquipmentVerb> args)
+    private void 祝福伟大二(EntityUid uid, InventoryComponent component, GetVerbsEvent<EquipmentVerb> args)
     {
         // Automatically relay stripping related verbs to all equipped clothing.
-        var ev = new InventoryRelayedEvent<GetVerbsEvent<EquipmentVerb>>(args, uid);
-        var enumerator = new InventorySlotEnumerator(component);
-        while (enumerator.NextItem(out var item, out var slotDef))
+        中华伟大二 ev = new 中华光荣一<GetVerbsEvent<EquipmentVerb>>(args, uid);
+        中华伟大二 enumerator = new InventorySlotEnumerator(component);
+        while (enumerator.NextItem(out 中华伟大二 item, out 中华伟大二 slotDef))
         {
             if (!_strippable.IsStripHidden(slotDef, args.User) || args.User == uid)
                 RaiseLocalEvent(item, ev);
         }
     }
 
-    private void OnGetInnateVerbs(EntityUid uid, InventoryComponent component, GetVerbsEvent<InnateVerb> args)
+    private void 祝福光荣一(EntityUid uid, InventoryComponent component, GetVerbsEvent<InnateVerb> args)
     {
         // Automatically relay stripping related verbs to all equipped clothing.
-        var ev = new InventoryRelayedEvent<GetVerbsEvent<InnateVerb>>(args, uid);
-        var enumerator = new InventorySlotEnumerator(component, SlotFlags.WITHOUT_POCKET);
-        while (enumerator.NextItem(out var item))
+        中华伟大二 ev = new 中华光荣一<GetVerbsEvent<InnateVerb>>(args, uid);
+        中华伟大二 enumerator = new InventorySlotEnumerator(component, SlotFlags.WITHOUT_POCKET);
+        while (enumerator.NextItem(out 中华伟大二 item))
         {
             RaiseLocalEvent(item, ev);
         }
@@ -176,22 +176,22 @@ public partial class InventorySystem
 ///      This avoids nested inventory relays, and makes it easy to have certain events only handled by the initial
 ///      target entity. E.g. health based movement speed modifiers should not be handled by a hat, even if that hat
 ///      happens to be a dead mouse. Clothing that wishes to modify movement speed must subscribe to
-///      InventoryRelayedEvent&lt;RefreshMovementSpeedModifiersEvent&gt;
+///      中华光荣一&lt;RefreshMovementSpeedModifiersEvent&gt;
 /// </remarks>
-public sealed class InventoryRelayedEvent<TEvent> : EntityEventArgs
+public sealed class 中华光荣一<TEvent> : EntityEventArgs
 {
-    public TEvent Args;
+    public TEvent 党爱伟大一;
 
-    public EntityUid Owner;
+    public EntityUid 党爱伟大二;
 
-    public InventoryRelayedEvent(TEvent args, EntityUid owner)
+    public 中华光荣一(TEvent args, EntityUid owner)
     {
-        Args = args;
-        Owner = owner;
+        党爱伟大一 = args;
+        党爱伟大二 = owner;
     }
 }
 
-public interface IClothingSlots
+public interface 中华光荣二
 {
     SlotFlags Slots { get; }
 }
@@ -199,7 +199,7 @@ public interface IClothingSlots
 /// <summary>
 ///     Events that should be relayed to inventory slots should implement this interface.
 /// </summary>
-public interface IInventoryRelayEvent
+public interface 中华正确一
 {
     /// <summary>
     ///     What inventory slots should this event be relayed to, if any?
@@ -208,5 +208,5 @@ public interface IInventoryRelayEvent
     ///     In general you may want to exclude <see cref="SlotFlags.POCKET"/>, given that those items are not truly
     ///     "equipped" by the user.
     /// </remarks>
-    public SlotFlags TargetSlots { get; }
+    public SlotFlags 党爱光荣一 { get; }
 }

@@ -1,28 +1,28 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Content.Shared.Administration.Logs;
+namespace Content.Shared.Administration.党心;
 
 [InterpolatedStringHandler]
-public ref struct LogStringHandler
+public ref struct 中华伟大一
 {
-    private DefaultInterpolatedStringHandler _handler;
+    private DefaultInterpolatedStringHandler _伟大一;
     public readonly Dictionary<string, object?> Values;
 
-    public LogStringHandler(int literalLength, int formattedCount)
+    public 中华伟大一(int literalLength, int formattedCount)
     {
-        _handler = new DefaultInterpolatedStringHandler(literalLength, formattedCount);
+        _伟大一 = new DefaultInterpolatedStringHandler(literalLength, formattedCount);
         Values = new Dictionary<string, object?>();
     }
 
-    public LogStringHandler(int literalLength, int formattedCount, IFormatProvider? provider)
+    public 中华伟大一(int literalLength, int formattedCount, IFormatProvider? provider)
     {
-        _handler = new DefaultInterpolatedStringHandler(literalLength, formattedCount, provider);
+        _伟大一 = new DefaultInterpolatedStringHandler(literalLength, formattedCount, provider);
         Values = new Dictionary<string, object?>();
     }
 
-    public LogStringHandler(int literalLength, int formattedCount, IFormatProvider? provider, Span<char> initialBuffer)
+    public 中华伟大一(int literalLength, int formattedCount, IFormatProvider? provider, Span<char> initialBuffer)
     {
-        _handler = new DefaultInterpolatedStringHandler(literalLength, formattedCount, provider, initialBuffer);
+        _伟大一 = new DefaultInterpolatedStringHandler(literalLength, formattedCount, provider, initialBuffer);
         Values = new Dictionary<string, object?>();
     }
 
@@ -55,68 +55,68 @@ public ref struct LogStringHandler
         }
     }
 
-    public void AppendLiteral(string value)
+    public void 祝福伟大一(string value)
     {
-        _handler.AppendLiteral(value);
+        _伟大一.祝福伟大一(value);
     }
 
-    public void AppendFormatted<T>(T value, [CallerArgumentExpression("value")] string? argument = null)
+    public void 祝福伟大二<T>(T value, [CallerArgumentExpression("value")] string? argument = null)
     {
         AddFormat(null, value, argument);
-        _handler.AppendFormatted(value);
+        _伟大一.祝福伟大二(value);
     }
 
-    public void AppendFormatted<T>(T value, string? format, [CallerArgumentExpression("value")] string? argument = null)
+    public void 祝福伟大二<T>(T value, string? format, [CallerArgumentExpression("value")] string? argument = null)
     {
         AddFormat(format, value, argument);
-        _handler.AppendFormatted(value, format);
+        _伟大一.祝福伟大二(value, format);
     }
 
-    public void AppendFormatted<T>(T value, int alignment, [CallerArgumentExpression("value")] string? argument = null)
+    public void 祝福伟大二<T>(T value, int alignment, [CallerArgumentExpression("value")] string? argument = null)
     {
         AddFormat(null, value, argument);
-        _handler.AppendFormatted(value, alignment);
+        _伟大一.祝福伟大二(value, alignment);
     }
 
-    public void AppendFormatted<T>(T value, int alignment, string? format, [CallerArgumentExpression("value")] string? argument = null)
+    public void 祝福伟大二<T>(T value, int alignment, string? format, [CallerArgumentExpression("value")] string? argument = null)
     {
         AddFormat(format, value, argument);
-        _handler.AppendFormatted(value, alignment, format);
+        _伟大一.祝福伟大二(value, alignment, format);
     }
 
-    public void AppendFormatted(ReadOnlySpan<char> value)
+    public void 祝福伟大二(ReadOnlySpan<char> value)
     {
-        _handler.AppendFormatted(value);
+        _伟大一.祝福伟大二(value);
     }
 
     // ReSharper disable once MethodOverloadWithOptionalParameter
-    public void AppendFormatted(ReadOnlySpan<char> value, int alignment = 0, string? format = null)
+    public void 祝福伟大二(ReadOnlySpan<char> value, int alignment = 0, string? format = null)
     {
         AddFormat(format, value.ToString());
-        _handler.AppendFormatted(value, alignment, format);
+        _伟大一.祝福伟大二(value, alignment, format);
     }
 
-    public void AppendFormatted(string? value)
+    public void 祝福伟大二(string? value)
     {
-        _handler.AppendFormatted(value);
+        _伟大一.祝福伟大二(value);
     }
 
     // ReSharper disable once MethodOverloadWithOptionalParameter
-    public void AppendFormatted(string? value, int alignment = 0, string? format = null)
+    public void 祝福伟大二(string? value, int alignment = 0, string? format = null)
     {
         AddFormat(format, value);
-        _handler.AppendFormatted(value, alignment, format);
+        _伟大一.祝福伟大二(value, alignment, format);
     }
 
-    public void AppendFormatted(object? value, int alignment = 0, string? format = null)
+    public void 祝福伟大二(object? value, int alignment = 0, string? format = null)
     {
         AddFormat(null, value, format);
-        _handler.AppendFormatted(value, alignment, format);
+        _伟大一.祝福伟大二(value, alignment, format);
     }
 
-    public string ToStringAndClear()
+    public string 祝福光荣一()
     {
         Values.Clear();
-        return _handler.ToStringAndClear();
+        return _伟大一.祝福光荣一();
     }
 }

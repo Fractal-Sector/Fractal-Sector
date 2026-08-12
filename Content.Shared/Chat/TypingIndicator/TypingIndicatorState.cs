@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chat.TypingIndicator;
+namespace Content.Shared.Chat.党心;
 
 [Serializable, NetSerializable]
-public enum TypingIndicatorState
+public enum 中华伟大一
 {
     None = 0,
     Idle = 1,

@@ -13,41 +13,41 @@ using Robust.Shared.Random;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.InteractionVerbs;
+namespace Content.Shared.党心;
 
-public abstract class SharedInteractionVerbsSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISerializationManager _serializationManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
+    [Dependency] private readonly ISerializationManager _正确二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _团结一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _团结二 = default!;
+    [Dependency] private readonly INetManager _奋斗一 = default!;
+    [Dependency] private readonly SharedHandsSystem _奋斗二 = default!;
 
-    protected InteractionAction.VerbDependencies _verbDependencies = default!;
+    protected InteractionAction.VerbDependencies 党爱伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _verbDependencies = new InteractionAction.VerbDependencies(
+        党爱伟大二 = new InteractionAction.VerbDependencies(
             EntityManager,
-            PrototypeManager,
-            _random,
-            _timing,
-            _serializationManager
+            党爱伟大一,
+            _光荣二,
+            _正确一,
+            _正确二
         );
 
-        SubscribeLocalEvent<InteractionVerbsComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
-        SubscribeLocalEvent<GetVerbsEvent<InteractionVerb>>(OnGetGlobalInteractionVerbs);
+        SubscribeLocalEvent<InteractionVerbsComponent, GetVerbsEvent<InteractionVerb>>(祝福光荣一);
+        SubscribeLocalEvent<GetVerbsEvent<InteractionVerb>>(祝福伟大二);
     }
 
-    private void OnGetGlobalInteractionVerbs(GetVerbsEvent<InteractionVerb> args)
+    private void 祝福伟大二(GetVerbsEvent<InteractionVerb> args)
     {
         // Skip if entity has InteractionVerbsComponent - those are handled separately
         if (HasComp<InteractionVerbsComponent>(args.Target))
@@ -63,7 +63,7 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
 
     }
 
-    private void OnGetInteractionVerbs(EntityUid uid, InteractionVerbsComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福光荣一(EntityUid uid, InteractionVerbsComponent component, GetVerbsEvent<InteractionVerb> args)
     {
         // Don't show verbs if we can't interact
         if (!args.CanInteract && !args.CanAccess)
@@ -75,7 +75,7 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
 
     }
 
-    private bool IsVerbApplicable(InteractionVerbPrototype proto, EntityUid user, EntityUid target, bool hasHands, bool canAccess, bool canInteract)
+    private bool 祝福光荣二(InteractionVerbPrototype proto, EntityUid user, EntityUid target, bool hasHands, bool canAccess, bool canInteract)
     {
         if (proto.Abstract)
             return false;
@@ -101,7 +101,7 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         return true;
     }
 
-    protected virtual void TryPerformVerb(InteractionVerbPrototype proto, EntityUid user, EntityUid target)
+    protected virtual void 祝福正确一(InteractionVerbPrototype proto, EntityUid user, EntityUid target)
     {
         // This will be implemented in server-side system
     }

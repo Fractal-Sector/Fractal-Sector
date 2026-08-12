@@ -12,29 +12,29 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Consent;
+namespace Content.Server.党心;
 
-public sealed class ServerConsentManager : IServerConsentManager
+public sealed class 中华伟大一 : IServerConsentManager
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IServerNetManager _netManager = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IServerPreferencesManager _preferencesManager = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IServerNetManager _光荣二 = default!;
+    [Dependency] private readonly IServerDbManager _正确一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _正确二 = default!;
+    [Dependency] private readonly IServerPreferencesManager _团结一 = default!;
 
     /// <summary>
     /// Stores consent settigns for all connected players, including guests.
     /// </summary>
     private readonly Dictionary<NetUserId, PlayerConsentSettings> _consent = new();
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _netManager.RegisterNetMessage<MsgUpdateConsent>(HandleUpdateConsentMessage);
+        _光荣二.RegisterNetMessage<MsgUpdateConsent>(祝福伟大二);
     }
 
-    private async void HandleUpdateConsentMessage(MsgUpdateConsent message)
+    private async void 祝福伟大二(MsgUpdateConsent message)
     {
         var userId = message.MsgChannel.UserId;
 
@@ -43,59 +43,59 @@ public sealed class ServerConsentManager : IServerConsentManager
             return;
         }
 
-        message.Consent.EnsureValid(_configManager, _prototypeManager);
+        message.Consent.EnsureValid(_伟大一, _光荣一);
 
         _consent[userId] = message.Consent;
 
-        var session = _playerManager.GetSessionByChannel(message.MsgChannel);
+        var session = _伟大二.GetSessionByChannel(message.MsgChannel);
         var togglesPretty = String.Join(", ", message.Consent.Toggles.Select(t => $"[{t.Key}: {t.Value}]"));
-        _adminLogger.Add(LogType.Consent, LogImpact.Medium,
+        _正确二.Add(LogType.Consent, LogImpact.Medium,
             $"{session:Player} updated consent setting to: '{message.Consent.Freetext}' (character: '{message.Consent.CharacterFreetext}') with toggles {togglesPretty}");
 
-        if (ShouldStoreInDb(message.MsgChannel.AuthType))
+        if (祝福团结一(message.MsgChannel.AuthType))
         {
-            var prefs = _preferencesManager.GetPreferences(userId);
+            var prefs = _团结一.GetPreferences(userId);
             var characterSlot = prefs.SelectedCharacterIndex;
-            await _db.SavePlayerConsentSettingsAsync(userId, message.Consent, characterSlot);
+            await _正确一.SavePlayerConsentSettingsAsync(userId, message.Consent, characterSlot);
         }
 
         // send it back to confirm to client that consent was updated
-        _netManager.ServerSendMessage(message, message.MsgChannel);
+        _光荣二.ServerSendMessage(message, message.MsgChannel);
     }
 
-    public async Task LoadData(ICommonSession session, CancellationToken cancel)
+    public async Task 祝福光荣一(ICommonSession session, CancellationToken cancel)
     {
         var consent = new PlayerConsentSettings();
-        if (ShouldStoreInDb(session.AuthType))
+        if (祝福团结一(session.AuthType))
         {
             // Try to get preferences, but fall back to account-only consent if preferences aren't loaded yet
-            var prefs = _preferencesManager.GetPreferencesOrNull(session.UserId);
+            var prefs = _团结一.GetPreferencesOrNull(session.UserId);
             if (prefs != null)
             {
                 var characterSlot = prefs.SelectedCharacterIndex;
-                consent = await _db.GetPlayerConsentSettingsAsync(session.UserId, characterSlot);
+                consent = await _正确一.GetPlayerConsentSettingsAsync(session.UserId, characterSlot);
             }
             else
             {
                 // Preferences not loaded yet, just load account-level consent
-                consent = await _db.GetPlayerConsentSettingsAsync(session.UserId);
+                consent = await _正确一.GetPlayerConsentSettingsAsync(session.UserId);
             }
         }
 
-        consent.EnsureValid(_configManager, _prototypeManager);
+        consent.EnsureValid(_伟大一, _光荣一);
         _consent[session.UserId] = consent;
 
         var message = new MsgUpdateConsent() { Consent = consent };
-        _netManager.ServerSendMessage(message, session.Channel);
+        _光荣二.ServerSendMessage(message, session.Channel);
     }
 
-    public void OnClientDisconnected(ICommonSession session)
+    public void 祝福光荣二(ICommonSession session)
     {
         _consent.Remove(session.UserId);
     }
 
     /// <inheritdoc />
-    public PlayerConsentSettings GetPlayerConsentSettings(NetUserId userId)
+    public PlayerConsentSettings 祝福正确一(NetUserId userId)
     {
         if (_consent.TryGetValue(userId, out var consent))
         {
@@ -107,25 +107,25 @@ public sealed class ServerConsentManager : IServerConsentManager
     }
 
     /// <inheritdoc />
-    public async Task ReloadCharacterConsent(NetUserId userId, int characterSlot)
+    public async Task 祝福正确二(NetUserId userId, int characterSlot)
     {
-        if (!_playerManager.TryGetSessionById(userId, out var session))
+        if (!_伟大二.TryGetSessionById(userId, out var session))
             return;
 
-        if (!ShouldStoreInDb(session.AuthType))
+        if (!祝福团结一(session.AuthType))
             return;
 
         // Load consent with the new character slot
-        var consent = await _db.GetPlayerConsentSettingsAsync(userId, characterSlot);
-        consent.EnsureValid(_configManager, _prototypeManager);
+        var consent = await _正确一.GetPlayerConsentSettingsAsync(userId, characterSlot);
+        consent.EnsureValid(_伟大一, _光荣一);
         _consent[userId] = consent;
 
         // Send updated consent to client
         var message = new MsgUpdateConsent() { Consent = consent };
-        _netManager.ServerSendMessage(message, session.Channel);
+        _光荣二.ServerSendMessage(message, session.Channel);
     }
 
-    private static bool ShouldStoreInDb(LoginType loginType)
+    private static bool 祝福团结一(LoginType loginType)
     {
         return loginType.HasStaticUserId();
     }

@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Temperature;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum EntityHeaterVisuals
+public enum 中华伟大一
 {
     Setting
 }
@@ -12,7 +12,7 @@ public enum EntityHeaterVisuals
 /// What heat the heater is set to, if on at all.
 /// </summary>
 [Serializable, NetSerializable]
-public enum EntityHeaterSetting
+public enum 中华伟大二
 {
     Off,
     Low,

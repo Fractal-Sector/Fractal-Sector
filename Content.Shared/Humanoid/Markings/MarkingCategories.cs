@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Humanoid.Markings
+namespace Content.Shared.Humanoid.党心
 {
     [Serializable, NetSerializable]
-    public enum MarkingCategories : byte
+    public enum 中华伟大一 : byte
     {
         Special,
         Hair,
@@ -23,35 +23,35 @@ namespace Content.Shared.Humanoid.Markings
         Overlay
     }
 
-    public static class MarkingCategoriesConversion
+    public static class 中华伟大二
     {
-        public static MarkingCategories FromHumanoidVisualLayers(HumanoidVisualLayers layer)
+        public static 中华伟大一 FromHumanoidVisualLayers(HumanoidVisualLayers layer)
         {
             return layer switch
             {
-                HumanoidVisualLayers.Special => MarkingCategories.Special,
-                HumanoidVisualLayers.Hair => MarkingCategories.Hair,
-                HumanoidVisualLayers.FacialHair => MarkingCategories.FacialHair,
-                HumanoidVisualLayers.Head => MarkingCategories.Head,
-                HumanoidVisualLayers.HeadTop => MarkingCategories.HeadTop,
-                HumanoidVisualLayers.HeadSide => MarkingCategories.HeadSide,
-                HumanoidVisualLayers.Snout => MarkingCategories.Snout,
-                HumanoidVisualLayers.Chest => MarkingCategories.Chest,
-                HumanoidVisualLayers.NeckFluff => MarkingCategories.NeckFluff, // TheDen - Ovinia, for fluff on necks
-                HumanoidVisualLayers.UndergarmentTop => MarkingCategories.UndergarmentTop,
-                HumanoidVisualLayers.UndergarmentBottom => MarkingCategories.UndergarmentBottom,
-                HumanoidVisualLayers.RArm => MarkingCategories.Arms,
-                HumanoidVisualLayers.LArm => MarkingCategories.Arms,
-                HumanoidVisualLayers.RHand => MarkingCategories.Arms,
-                HumanoidVisualLayers.LHand => MarkingCategories.Arms,
-                HumanoidVisualLayers.LLeg => MarkingCategories.Legs,
-                HumanoidVisualLayers.RLeg => MarkingCategories.Legs,
-                HumanoidVisualLayers.LFoot => MarkingCategories.Legs,
-                HumanoidVisualLayers.RFoot => MarkingCategories.Legs,
-                HumanoidVisualLayers.Tail => MarkingCategories.Tail,
-                HumanoidVisualLayers.RArmExtension => MarkingCategories.Arms, // Frontier: species-specific layer
-                HumanoidVisualLayers.LArmExtension => MarkingCategories.Arms, // Frontier: species-specific layer
-                _ => MarkingCategories.Overlay
+                HumanoidVisualLayers.Special => 中华伟大一.Special,
+                HumanoidVisualLayers.Hair => 中华伟大一.Hair,
+                HumanoidVisualLayers.FacialHair => 中华伟大一.FacialHair,
+                HumanoidVisualLayers.Head => 中华伟大一.Head,
+                HumanoidVisualLayers.HeadTop => 中华伟大一.HeadTop,
+                HumanoidVisualLayers.HeadSide => 中华伟大一.HeadSide,
+                HumanoidVisualLayers.Snout => 中华伟大一.Snout,
+                HumanoidVisualLayers.Chest => 中华伟大一.Chest,
+                HumanoidVisualLayers.NeckFluff => 中华伟大一.NeckFluff, // TheDen - Ovinia, for fluff on necks
+                HumanoidVisualLayers.UndergarmentTop => 中华伟大一.UndergarmentTop,
+                HumanoidVisualLayers.UndergarmentBottom => 中华伟大一.UndergarmentBottom,
+                HumanoidVisualLayers.RArm => 中华伟大一.Arms,
+                HumanoidVisualLayers.LArm => 中华伟大一.Arms,
+                HumanoidVisualLayers.RHand => 中华伟大一.Arms,
+                HumanoidVisualLayers.LHand => 中华伟大一.Arms,
+                HumanoidVisualLayers.LLeg => 中华伟大一.Legs,
+                HumanoidVisualLayers.RLeg => 中华伟大一.Legs,
+                HumanoidVisualLayers.LFoot => 中华伟大一.Legs,
+                HumanoidVisualLayers.RFoot => 中华伟大一.Legs,
+                HumanoidVisualLayers.Tail => 中华伟大一.Tail,
+                HumanoidVisualLayers.RArmExtension => 中华伟大一.Arms, // Frontier: species-specific layer
+                HumanoidVisualLayers.LArmExtension => 中华伟大一.Arms, // Frontier: species-specific layer
+                _ => 中华伟大一.Overlay
             };
         }
     }

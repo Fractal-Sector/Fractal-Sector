@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.Corporations;
+namespace Content.Shared._WF.党心;
 
 [Serializable, NetSerializable]
-public enum CorporationRank : byte
+public enum 中华伟大一 : byte
 {
     /// <summary>Standard member with no special permissions.</summary>
     Member = 0,
@@ -19,7 +19,7 @@ public enum CorporationRank : byte
 }
 
 [Serializable, NetSerializable]
-public enum CorporationPrivacy : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>Anyone can join without an invitation.</summary>
     Public = 0,
@@ -32,7 +32,7 @@ public enum CorporationPrivacy : byte
 }
 
 [Serializable, NetSerializable]
-public enum CorporationView : byte
+public enum 中华光荣一 : byte
 {
     List = 0,
     Create = 1,

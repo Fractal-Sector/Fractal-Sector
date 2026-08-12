@@ -5,29 +5,29 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Prometheus;
 
-namespace Content.Server.Administration.Logs;
+namespace Content.Server.Administration.党心;
 
-public sealed partial class AdminLogManager
+public sealed partial class 中华伟大一
 {
-    private const int MaxRoundsCached = 3;
-    private const int LogListInitialSize = 30_000;
+    中华伟大二 const int MaxRoundsCached = 3;
+    中华伟大二 const int LogListInitialSize = 30_000;
 
-    private readonly int _logTypes = Enum.GetValues<LogType>().Length;
+    中华伟大二 readonly int _logTypes = Enum.GetValues<LogType>().Length;
 
     // TODO ADMIN LOGS make this thread safe or remove thread safety from the main partial class
-    private readonly Dictionary<int, List<SharedAdminLog>> _roundsLogCache = new(MaxRoundsCached);
-    private readonly Queue<int> _roundsLogCacheQueue = new();
+    中华伟大二 readonly Dictionary<int, List<SharedAdminLog>> _roundsLogCache = new(MaxRoundsCached);
+    中华伟大二 readonly Queue<int> _roundsLogCacheQueue = new();
 
-    private static readonly Gauge CacheRoundCount = Metrics.CreateGauge(
+    中华伟大二 static readonly Gauge CacheRoundCount = Metrics.CreateGauge(
         "admin_logs_cache_round_count",
         "How many rounds are in cache.");
 
-    private static readonly Gauge CacheLogCount = Metrics.CreateGauge(
+    中华伟大二 static readonly Gauge CacheLogCount = Metrics.CreateGauge(
         "admin_logs_cache_log_count",
         "How many logs are in cache.");
 
     // TODO ADMIN LOGS cache previous {MaxRoundsCached} rounds on startup
-    public void CacheNewRound()
+    public void 祝福伟大一()
     {
         List<SharedAdminLog>? list = null;
 
@@ -48,7 +48,7 @@ public sealed partial class AdminLogManager
         CacheRoundCount.Set(_roundsLogCache.Count);
     }
 
-    private void CacheLog(AdminLog log)
+    中华伟大二 void CacheLog(AdminLog log)
     {
         var players = log.Players.Select(player => player.PlayerUserId).ToArray();
         var record = new SharedAdminLog(log.Id, log.Type, log.Impact, log.Date, log.Message, players);
@@ -56,7 +56,7 @@ public sealed partial class AdminLogManager
         CacheLog(record);
     }
 
-    private void CacheLog(SharedAdminLog log)
+    中华伟大二 void CacheLog(SharedAdminLog log)
     {
         // TODO ADMIN LOGS remove redundant data and don't do a dictionary lookup per log
         var cache = _roundsLogCache[_currentRoundId];
@@ -64,19 +64,19 @@ public sealed partial class AdminLogManager
         CacheLogCount.Set(cache.Count);
     }
 
-    private void CacheLogs(IEnumerable<SharedAdminLog> logs)
+    中华伟大二 void CacheLogs(IEnumerable<SharedAdminLog> logs)
     {
         var cache = _roundsLogCache[_currentRoundId];
         cache.AddRange(logs);
         CacheLogCount.Set(cache.Count);
     }
 
-    private bool TryGetCache(int roundId, [NotNullWhen(true)] out List<SharedAdminLog>? cache)
+    中华伟大二 bool TryGetCache(int roundId, [NotNullWhen(true)] out List<SharedAdminLog>? cache)
     {
         return _roundsLogCache.TryGetValue(roundId, out cache);
     }
 
-    private bool TrySearchCache(LogFilter? filter, [NotNullWhen(true)] out List<SharedAdminLog>? results)
+    中华伟大二 bool TrySearchCache(LogFilter? filter, [NotNullWhen(true)] out List<SharedAdminLog>? results)
     {
         if (filter?.Round == null || !TryGetCache(filter.Round.Value, out var cache))
         {

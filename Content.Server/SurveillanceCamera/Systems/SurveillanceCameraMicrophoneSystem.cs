@@ -5,26 +5,26 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Player;
 using static Content.Server.Chat.Systems.ChatSystem;
 
-namespace Content.Server.SurveillanceCamera;
+namespace Content.Server.党心;
 
-public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _xforms = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    public override void Initialize()
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大二 = default!;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SurveillanceCameraMicrophoneComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<SurveillanceCameraMicrophoneComponent, ListenEvent>(RelayEntityMessage);
-        SubscribeLocalEvent<SurveillanceCameraMicrophoneComponent, ListenAttemptEvent>(CanListen);
-        SubscribeLocalEvent<ExpandICChatRecipientsEvent>(OnExpandRecipients);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SurveillanceCameraMicrophoneComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<SurveillanceCameraMicrophoneComponent, ListenEvent>(祝福正确一);
+        SubscribeLocalEvent<SurveillanceCameraMicrophoneComponent, ListenAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<ExpandICChatRecipientsEvent>(祝福伟大二);
     }
 
-    private void OnExpandRecipients(ExpandICChatRecipientsEvent ev)
+    private void 祝福伟大二(ExpandICChatRecipientsEvent ev)
     {
         var xformQuery = GetEntityQuery<TransformComponent>();
         var sourceXform = Transform(ev.Source);
-        var sourcePos = _xforms.GetWorldPosition(sourceXform, xformQuery);
+        var sourcePos = _伟大一.GetWorldPosition(sourceXform, xformQuery);
 
         // This function ensures that chat popups appear on camera views that have connected microphones.
         foreach (var (_, __, camera, xform) in EntityQuery<SurveillanceCameraMicrophoneComponent, ActiveListenerComponent, SurveillanceCameraComponent, TransformComponent>())
@@ -35,7 +35,7 @@ public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
             // get range to camera. This way wispers will still appear as obfuscated if they are too far from the camera's microphone
             var range = (xform.MapID != sourceXform.MapID)
                 ? -1
-                : (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
+                : (sourcePos - _伟大一.GetWorldPosition(xform, xformQuery)).Length();
 
             if (range < 0 || range > ev.VoiceRange)
                 continue;
@@ -50,7 +50,7 @@ public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
         }
     }
 
-    private void OnInit(EntityUid uid, SurveillanceCameraMicrophoneComponent component, ComponentInit args)
+    private void 祝福光荣一(EntityUid uid, SurveillanceCameraMicrophoneComponent component, ComponentInit args)
     {
         if (component.Enabled)
             EnsureComp<ActiveListenerComponent>(uid).Range = component.Range;
@@ -58,19 +58,19 @@ public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
             RemCompDeferred<ActiveListenerComponent>(uid);
     }
 
-    public void CanListen(EntityUid uid, SurveillanceCameraMicrophoneComponent microphone, ListenAttemptEvent args)
+    public void 祝福光荣二(EntityUid uid, SurveillanceCameraMicrophoneComponent microphone, ListenAttemptEvent args)
     {
         // TODO maybe just make this a part of ActiveListenerComponent?
-        if (_whitelistSystem.IsBlacklistPass(microphone.Blacklist, args.Source))
+        if (_伟大二.IsBlacklistPass(microphone.Blacklist, args.Source))
             args.Cancel();
     }
 
-    public void RelayEntityMessage(EntityUid uid, SurveillanceCameraMicrophoneComponent component, ListenEvent args)
+    public void 祝福正确一(EntityUid uid, SurveillanceCameraMicrophoneComponent component, ListenEvent args)
     {
         if (!TryComp(uid, out SurveillanceCameraComponent? camera))
             return;
 
-        var ev = new SurveillanceCameraSpeechSendEvent(args.Source, args.Message);
+        var ev = new 中华伟大二(args.Source, args.党爱伟大二);
 
         foreach (var monitor in camera.ActiveMonitors)
         {
@@ -78,7 +78,7 @@ public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
         }
     }
 
-    public void SetEnabled(EntityUid uid, bool value, SurveillanceCameraMicrophoneComponent? microphone = null)
+    public void 祝福正确二(EntityUid uid, bool value, SurveillanceCameraMicrophoneComponent? microphone = null)
     {
         if (!Resolve(uid, ref microphone))
             return;
@@ -95,15 +95,15 @@ public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
     }
 }
 
-public sealed class SurveillanceCameraSpeechSendEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public EntityUid Speaker { get; }
-    public string Message { get; }
+    public EntityUid 党爱伟大一 { get; }
+    public string 党爱伟大二 { get; }
 
-    public SurveillanceCameraSpeechSendEvent(EntityUid speaker, string message)
+    public 中华伟大二(EntityUid speaker, string message)
     {
-        Speaker = speaker;
-        Message = message;
+        党爱伟大一 = speaker;
+        党爱伟大二 = message;
     }
 }
 

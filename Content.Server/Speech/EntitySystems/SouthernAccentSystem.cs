@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class SouthernAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     private static readonly Regex RegexLowerIng = new(@"ing\b");
     private static readonly Regex RegexUpperIng = new(@"ING\b");
@@ -13,19 +13,19 @@ public sealed class SouthernAccentSystem : EntitySystem
     private static readonly Regex RegexLowerDve = new(@"d've\b");
     private static readonly Regex RegexUpperDve = new(@"D'VE\b");
 
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency] private readonly ReplacementAccentSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SouthernAccentComponent, AccentGetEvent>(OnAccent);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SouthernAccentComponent, AccentGetEvent>(祝福伟大二);
     }
 
-    private void OnAccent(EntityUid uid, SouthernAccentComponent component, AccentGetEvent args)
+    private void 祝福伟大二(EntityUid uid, SouthernAccentComponent component, AccentGetEvent args)
     {
         var message = args.Message;
 
-        message = _replacement.ApplyReplacements(message, "southern");
+        message = _伟大一.ApplyReplacements(message, "southern");
 
         //They shoulda started runnin' an' hidin' from me!
         message = RegexLowerIng.Replace(message, "in'");

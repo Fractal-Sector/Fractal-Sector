@@ -5,20 +5,20 @@ using Content.Shared.Singularity.Components;
 using Content.Shared.Wires;
 using Robust.Shared.Player;
 
-namespace Content.Server.ParticleAccelerator.Wires;
+namespace Content.Server.ParticleAccelerator.党心;
 
-public sealed partial class ParticleAcceleratorStrengthWireAction : ComponentWireAction<ParticleAcceleratorControlBoxComponent>
+public sealed partial class 中华伟大一 : ComponentWireAction<ParticleAcceleratorControlBoxComponent>
 {
-    public override string Name { get; set; } = "wire-name-pa-strength";
-    public override Color Color { get; set; } = Color.Blue;
-    public override object StatusKey { get; } = ParticleAcceleratorWireStatus.Strength;
+    public override string 党爱伟大一 { get; set; } = "wire-name-pa-strength";
+    public override 党爱伟大二 党爱伟大二 { get; set; } = 党爱伟大二.Blue;
+    public override object 党爱光荣一 { get; } = ParticleAcceleratorWireStatus.Strength;
 
     public override StatusLightState? GetLightState(Wire wire, ParticleAcceleratorControlBoxComponent component)
     {
         return component.StrengthLocked ? StatusLightState.BlinkingSlow : StatusLightState.On;
     }
 
-    public override bool Cut(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
+    public override bool 祝福伟大一(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
     {
         controller.StrengthLocked = true;
         var paSystem = EntityManager.System<ParticleAcceleratorSystem>();
@@ -26,7 +26,7 @@ public sealed partial class ParticleAcceleratorStrengthWireAction : ComponentWir
         return true;
     }
 
-    public override bool Mend(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
+    public override bool 祝福伟大二(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
     {
         controller.StrengthLocked = false;
         var paSystem = EntityManager.System<ParticleAcceleratorSystem>();
@@ -34,7 +34,7 @@ public sealed partial class ParticleAcceleratorStrengthWireAction : ComponentWir
         return true;
     }
 
-    public override void Pulse(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
+    public override void 祝福光荣一(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
     {
         var paSystem = EntityManager.System<ParticleAcceleratorSystem>();
         paSystem.SetStrength(wire.Owner, (ParticleAcceleratorPowerState) ((int) controller.SelectedStrength + 1), user, controller);

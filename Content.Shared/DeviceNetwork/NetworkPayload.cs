@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.DeviceNetwork;
+namespace Content.Shared.党心;
 
-public sealed class NetworkPayload : Dictionary<string, object?>
+public sealed class 中华伟大一 : Dictionary<string, object?>
 {
     /// <summary>
     /// Tries to get a value from the payload and checks if that value is of type  T.

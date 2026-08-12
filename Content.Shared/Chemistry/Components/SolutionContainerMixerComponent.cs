@@ -6,29 +6,29 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Chemistry.Components;
+namespace Content.Shared.Chemistry.党心;
 
 /// <summary>
 /// This is used for an entity that uses <see cref="ReactionMixerComponent"/> to mix any container with a solution after a period of time.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedSolutionContainerMixerSystem))]
-public sealed partial class SolutionContainerMixerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public string ContainerId = "mixer";
+    public string 党爱伟大一 = "mixer";
 
     [DataField, AutoNetworkedField]
-    public bool Mixing;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// How long it takes for mixing to occurs.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public TimeSpan MixDuration;
+    public TimeSpan 党爱光荣一;
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public TimeSpan MixTimeEnd;
+    public TimeSpan 党爱光荣二;
 
     [DataField, AutoNetworkedField]
     public SoundSpecifier? MixingSound;
@@ -38,7 +38,7 @@ public sealed partial class SolutionContainerMixerComponent : Component
 }
 
 [Serializable, NetSerializable]
-public enum SolutionContainerMixerVisuals : byte
+public enum 中华伟大二 : byte
 {
-    Mixing
+    党爱伟大二
 }

@@ -3,15 +3,15 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Preferences
+namespace Content.Shared.党心
 {
-    public interface ICharacterProfile
+    public interface 中华伟大一
     {
         string Name { get; }
 
         ICharacterAppearance CharacterAppearance { get; }
 
-        bool MemberwiseEquals(ICharacterProfile other);
+        bool MemberwiseEquals(中华伟大一 other);
 
         /// <summary>
         ///     Makes this profile valid so there's no bad data like negative ages.
@@ -21,6 +21,6 @@ namespace Content.Shared.Preferences
         /// <summary>
         /// Gets a copy of this profile that has <see cref="EnsureValid"/> applied, i.e. no invalid data.
         /// </summary>
-        ICharacterProfile Validated(ICommonSession session, IDependencyCollection collection);
+        中华伟大一 Validated(ICommonSession session, IDependencyCollection collection);
     }
 }

@@ -7,30 +7,30 @@ using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Content.Shared.Toilet.Components;
 
-namespace Content.Shared.Toilet.Systems;
+namespace Content.Shared.Toilet.党心;
 
 /// <summary>
 /// Handles sprite changes for both toilet seat up and down as well as for lid
 /// open and closed.
 /// </summary>
-public sealed class ToiletSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ToiletComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ToiletComponent, GetVerbsEvent<AlternativeVerb>>(OnToggleSeatVerb);
-        SubscribeLocalEvent<ToiletComponent, ActivateInWorldEvent>(OnActivateInWorld);
+        SubscribeLocalEvent<ToiletComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ToiletComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<ToiletComponent, ActivateInWorldEvent>(祝福光荣二);
     }
 
-    private void OnMapInit(Entity<ToiletComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ToiletComponent> ent, ref MapInitEvent args)
     {
-        if (_random.Prob(0.5f))
+        if (_伟大一.Prob(0.5f))
         {
             ent.Comp.ToggleSeat = true;
             Dirty(ent);
@@ -39,12 +39,12 @@ public sealed class ToiletSystem : EntitySystem
         // Frontier: selectively clog toilets, unclogged toilets don't get free stuff
         if (TryComp<PlungerUseComponent>(ent, out var plunger))
         {
-            plunger.NeedsPlunger = _random.Prob(ent.Comp.ClogProbability);
+            plunger.NeedsPlunger = _伟大一.Prob(ent.Comp.ClogProbability);
             plunger.Plunged = !plunger.NeedsPlunger;
             Dirty(ent, plunger);
         }
 
-        // if (_random.Prob(0.3f)
+        // if (_伟大一.Prob(0.3f)
         //     && TryComp<PlungerUseComponent>(ent, out var plunger))
         // {
         //     plunger.NeedsPlunger = true;
@@ -52,16 +52,16 @@ public sealed class ToiletSystem : EntitySystem
         // }
         // End Frontier
 
-        UpdateAppearance(ent);
+        祝福正确一(ent);
     }
 
-    private void OnToggleSeatVerb(Entity<ToiletComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(Entity<ToiletComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanInteract || !args.CanAccess || args.Hands == null || !CanToggle(ent))
+        if (!args.CanInteract || !args.CanAccess || args.Hands == null || !祝福团结一(ent))
             return;
 
         var user = args.User;
-        AlternativeVerb toggleVerb = new() { Act = () => ToggleToiletSeat(ent.AsNullable(), user) };
+        AlternativeVerb toggleVerb = new() { Act = () => 祝福正确二(ent.AsNullable(), user) };
 
         if (ent.Comp.ToggleSeat)
         {
@@ -78,18 +78,18 @@ public sealed class ToiletSystem : EntitySystem
         args.Verbs.Add(toggleVerb);
     }
 
-    private void OnActivateInWorld(Entity<ToiletComponent> ent, ref ActivateInWorldEvent args)
+    private void 祝福光荣二(Entity<ToiletComponent> ent, ref ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
 
         args.Handled = true;
-        ToggleToiletSeat(ent.AsNullable(), args.User);
+        祝福正确二(ent.AsNullable(), args.User);
     }
 
-    private void UpdateAppearance(Entity<ToiletComponent> ent)
+    private void 祝福正确一(Entity<ToiletComponent> ent)
     {
-        _appearance.SetData(ent,
+        _光荣一.SetData(ent,
             ToiletVisuals.SeatVisualState,
             ent.Comp.ToggleSeat ? SeatVisualState.SeatUp : SeatVisualState.SeatDown);
     }
@@ -100,16 +100,16 @@ public sealed class ToiletSystem : EntitySystem
     /// </summary>
     /// <param name="ent">The toilet being seat-toggled.</param>
     /// <param name="user">The user doing the toggling; used for predicted audio.</param>
-    /// <seealso cref="CanToggle" />
-    public void ToggleToiletSeat(Entity<ToiletComponent?> ent, EntityUid? user = null)
+    /// <seealso cref="祝福团结一" />
+    public void 祝福正确二(Entity<ToiletComponent?> ent, EntityUid? user = null)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
 
         ent.Comp.ToggleSeat = !ent.Comp.ToggleSeat;
 
-        _audio.PlayPredicted(ent.Comp.SeatSound, ent, user);
-        UpdateAppearance((ent, ent.Comp));
+        _伟大二.PlayPredicted(ent.Comp.SeatSound, ent, user);
+        祝福正确一((ent, ent.Comp));
         Dirty(ent);
     }
 
@@ -117,8 +117,8 @@ public sealed class ToiletSystem : EntitySystem
     /// Whether or not a toilet seat can be toggled without phasing through
     /// someone's back. (That is, no one is seated on it.)
     /// </summary>
-    /// <seealso cref="ToggleToiletSeat" />
-    public bool CanToggle(EntityUid uid)
+    /// <seealso cref="祝福正确二" />
+    public bool 祝福团结一(EntityUid uid)
     {
         return TryComp<StrapComponent>(uid, out var strap) && strap.BuckledEntities.Count == 0;
     }

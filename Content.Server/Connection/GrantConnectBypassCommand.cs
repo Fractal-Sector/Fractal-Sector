@@ -2,19 +2,19 @@
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Connection;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class GrantConnectBypassCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
     private static readonly TimeSpan DefaultDuration = TimeSpan.FromHours(1);
 
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IConnectionManager _connectionManager = default!;
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly IConnectionManager _伟大二 = default!;
 
-    public override string Command => "grant_connect_bypass";
+    public override string 党爱伟大一 => "grant_connect_bypass";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length is not (1 or 2))
         {
@@ -23,7 +23,7 @@ public sealed class GrantConnectBypassCommand : LocalizedCommands
         }
 
         var argPlayer = args[0];
-        var info = await _playerLocator.LookupIdByNameOrIdAsync(argPlayer);
+        var info = await _伟大一.LookupIdByNameOrIdAsync(argPlayer);
         if (info == null)
         {
             shell.WriteError(Loc.GetString("cmd-grant_connect_bypass-unknown-user", ("user", argPlayer)));
@@ -43,11 +43,11 @@ public sealed class GrantConnectBypassCommand : LocalizedCommands
             duration = TimeSpan.FromMinutes(minutes);
         }
 
-        _connectionManager.AddTemporaryConnectBypass(info.UserId, duration);
+        _伟大二.AddTemporaryConnectBypass(info.UserId, duration);
         shell.WriteLine(Loc.GetString("cmd-grant_connect_bypass-success", ("user", argPlayer)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
             return CompletionResult.FromHint(Loc.GetString("cmd-grant_connect_bypass-arg-user"));

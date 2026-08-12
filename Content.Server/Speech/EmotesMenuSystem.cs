@@ -2,29 +2,29 @@
 using Content.Shared.Chat;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Speech;
+namespace Content.Server.党心;
 
-public sealed partial class EmotesMenuSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly ChatSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeAllEvent<PlayEmoteMessage>(OnPlayEmote);
+        SubscribeAllEvent<PlayEmoteMessage>(祝福伟大二);
     }
 
-    private void OnPlayEmote(PlayEmoteMessage msg, EntitySessionEventArgs args)
+    private void 祝福伟大二(PlayEmoteMessage msg, EntitySessionEventArgs args)
     {
         var player = args.SenderSession.AttachedEntity;
         if (!player.HasValue)
             return;
 
-        if (!_prototypeManager.TryIndex(msg.ProtoId, out var proto) || proto.ChatTriggers.Count == 0)
+        if (!_伟大一.TryIndex(msg.ProtoId, out var proto) || proto.ChatTriggers.Count == 0)
             return;
 
-        _chat.TryEmoteWithChat(player.Value, msg.ProtoId);
+        _伟大二.TryEmoteWithChat(player.Value, msg.ProtoId);
     }
 }

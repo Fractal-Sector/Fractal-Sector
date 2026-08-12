@@ -2,7 +2,7 @@ using Content.Server._NF.PublicTransit.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server._NF.PublicTransit.Components;
+namespace Content.Server._NF.PublicTransit.党心;
 
 /// <summary>
 /// Added to a grid to have it act as an automated public transit bus.
@@ -10,20 +10,20 @@ namespace Content.Server._NF.PublicTransit.Components;
 /// Mappers may add it to their shuttle if they wish, but this is going to force it's use and function as a public transit bus
 /// </summary>
 [RegisterComponent, Access(typeof(PublicTransitSystem)), AutoGenerateComponentPause]
-public sealed partial class TransitShuttleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The grid that the shuttle is either at or travelling to.
     /// </summary>
     [DataField]
-    public EntityUid CurrentGrid;
+    public EntityUid 党爱伟大一;
 
     /// <summary>
     /// The time that the shuttle should leave for the next grid.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan NextTransfer;
+    public TimeSpan 党爱伟大二;
 
     /// <summary>
     /// The priority tag to use for docking the shuttle.
@@ -35,7 +35,7 @@ public sealed partial class TransitShuttleComponent : Component
     /// The prototype ID for the bus route this bus covers.
     /// </summary>
     [DataField]
-    public ProtoId<PublicTransitRoutePrototype> RouteId;
+    public ProtoId<PublicTransitRoutePrototype> 党爱光荣一;
 
     /// <summary>
     /// The text to use on any screens on the bus.

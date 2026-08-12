@@ -1,9 +1,9 @@
 using Content.Server.StationEvents.Events;
 using JetBrains.Annotations;
 
-namespace Content.Server._FS.StationEvents;
+namespace Content.Server._FS.党心;
 
 [UsedImplicitly]
-public sealed class FalseAlarmRule : StationEventSystem<BlankRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<BlankRuleComponent>
 {
 }

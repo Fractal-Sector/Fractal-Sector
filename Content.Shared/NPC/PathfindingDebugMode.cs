@@ -1,7 +1,7 @@
-namespace Content.Shared.NPC;
+namespace Content.Shared.党心;
 
 [Flags]
-public enum PathfindingDebugMode : ushort
+public enum 中华伟大一 : ushort
 {
     None = 0,
 

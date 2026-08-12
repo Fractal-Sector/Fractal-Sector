@@ -1,11 +1,11 @@
 ﻿using Content.Shared.Hands;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Helper functions for subscribing to component events that are also relayed via hands/inventory.
 /// </summary>
-public static class RelaySubscriptionHelpers
+public static class 中华伟大一
 {
     /// <summary>
     /// Subscribe to an event, along with different relayed event wrappers, in one call.

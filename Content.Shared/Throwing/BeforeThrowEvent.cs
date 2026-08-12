@@ -1,22 +1,22 @@
 using System.Numerics;
 
-namespace Content.Shared.Throwing;
+namespace Content.Shared.党心;
 
 [ByRefEvent]
-public struct BeforeThrowEvent
+public struct 中华伟大一
 {
-    public BeforeThrowEvent(EntityUid itemUid, Vector2 direction, float throwSpeed,  EntityUid playerUid)
+    public 中华伟大一(EntityUid itemUid, Vector2 direction, float throwSpeed,  EntityUid playerUid)
     {
-        ItemUid = itemUid;
-        Direction = direction;
-        ThrowSpeed = throwSpeed;
-        PlayerUid = playerUid;
+        党爱伟大一 = itemUid;
+        党爱伟大二 = direction;
+        党爱光荣一 = throwSpeed;
+        党爱光荣二 = playerUid;
     }
 
-    public EntityUid ItemUid { get; set; }
-    public Vector2 Direction { get; set; } // Frontier: added set
-    public float ThrowSpeed { get; set;}
-    public EntityUid PlayerUid { get; }
+    public EntityUid 党爱伟大一 { get; set; }
+    public Vector2 党爱伟大二 { get; set; } // Frontier: added set
+    public float 党爱光荣一 { get; set;}
+    public EntityUid 党爱光荣二 { get; }
 
-    public bool Cancelled = false;
+    public bool 党爱正确一 = false;
 }

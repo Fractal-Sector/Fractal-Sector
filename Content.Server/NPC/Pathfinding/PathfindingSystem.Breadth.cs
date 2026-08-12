@@ -1,6 +1,6 @@
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
     /*
      * Handle BFS searches from Start->End. Doesn't consider NPC pathfinding.
@@ -9,22 +9,22 @@ public sealed partial class PathfindingSystem
     /// <summary>
     /// Pathfinding args for a 1-many path.
     /// </summary>
-    public record struct BreadthPathArgs()
+    public record 中华伟大二 BreadthPathArgs()
     {
         public required Vector2i Start;
         public required List<Vector2i> Ends;
 
-        public bool Diagonals = false;
+        public bool 党爱伟大一 = false;
 
         public Func<Vector2i, float>? TileCost;
 
-        public int Limit = 10000;
+        public int 党爱伟大二 = 10000;
     }
 
     /// <summary>
     /// Gets a BFS path from start to any end. Can also supply an optional tile-cost for tiles.
     /// </summary>
-    public SimplePathResult GetBreadthPath(BreadthPathArgs args)
+    public SimplePathResult 祝福伟大一(BreadthPathArgs args)
     {
         var cameFrom = new Dictionary<Vector2i, Vector2i>();
         var costSoFar = new Dictionary<Vector2i, float>();
@@ -34,7 +34,7 @@ public sealed partial class PathfindingSystem
         frontier.Enqueue(args.Start, 0f);
         var count = 0;
 
-        while (frontier.TryDequeue(out var node, out _) && count < args.Limit)
+        while (frontier.TryDequeue(out var node, out _) && count < args.党爱伟大二)
         {
             count++;
 
@@ -52,7 +52,7 @@ public sealed partial class PathfindingSystem
 
             var gCost = costSoFar[node];
 
-            if (args.Diagonals)
+            if (args.党爱伟大一)
             {
                 for (var x = -1; x <= 1; x++)
                 {

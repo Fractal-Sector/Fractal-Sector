@@ -1,13 +1,13 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.DeviceLinking;
+namespace Content.Shared.党心;
 
 
 /// <summary>
 /// Types of logic gates that can be used, determines how the output port is set.
 /// </summary>
 [Serializable, NetSerializable]
-public enum LogicGate : byte
+public enum 中华伟大一 : byte
 {
     Or,
     And,
@@ -21,7 +21,7 @@ public enum LogicGate : byte
 /// Tells clients which logic gate layer to draw.
 /// </summary>
 [Serializable, NetSerializable]
-public enum LogicGateVisuals : byte
+public enum 中华伟大二 : byte
 {
     Gate,
     InputA,
@@ -33,7 +33,7 @@ public enum LogicGateVisuals : byte
 /// Sprite layer for the logic gate.
 /// </summary>
 [Serializable, NetSerializable]
-public enum LogicGateLayers : byte
+public enum 中华光荣一 : byte
 {
     Gate,
     InputA,
@@ -46,7 +46,7 @@ public enum LogicGateLayers : byte
 /// Stored in network payload data of device network messages.
 /// </summary>
 [Serializable, NetSerializable]
-public enum SignalState : byte
+public enum 中华光荣二 : byte
 {
     Momentary, // Instantaneous pulse high, compatibility behavior
     Low,

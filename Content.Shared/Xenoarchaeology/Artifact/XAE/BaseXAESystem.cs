@@ -1,21 +1,21 @@
-namespace Content.Shared.Xenoarchaeology.Artifact.XAE;
+namespace Content.Shared.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
-/// Base class for 
+/// Base class 中华伟大一 
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public abstract class BaseXAESystem<T> : EntitySystem where T : Component
+public abstract class 中华伟大二<T> : EntitySystem where T : Component
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<T, XenoArtifactNodeActivatedEvent>(OnActivated);
+        SubscribeLocalEvent<T, XenoArtifactNodeActivatedEvent>(祝福伟大二);
     }
 
     /// <summary>
-    /// Handler for node activation.
+    /// Handler 中华伟大一 node activation.
     /// </summary>
     /// <param name="ent">Entity (node) that got activated.</param>
     /// <param name="args">Activation event (containing artifact and other useful info).</param>
-    protected abstract void OnActivated(Entity<T> ent, ref XenoArtifactNodeActivatedEvent args);
+    protected abstract void 祝福伟大二(Entity<T> ent, ref XenoArtifactNodeActivatedEvent args);
 }

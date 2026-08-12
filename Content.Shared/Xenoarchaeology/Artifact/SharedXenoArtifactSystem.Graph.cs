@@ -3,19 +3,19 @@ using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Xenoarchaeology.Artifact;
+namespace Content.Shared.Xenoarchaeology.党心;
 
 /// <summary>
 /// User-friendly API for viewing and modifying the complex graph relationship in XenoArtifacts
 /// </summary>
-public abstract partial class SharedXenoArtifactSystem
+public abstract partial class 中华伟大一
 {
     /// <summary>
     /// Gets the index, corresponding to a given node, throwing if the node is not present.
     /// </summary>
-    public int GetIndex(Entity<XenoArtifactComponent> ent, EntityUid node)
+    public int 祝福伟大一(Entity<XenoArtifactComponent> ent, EntityUid node)
     {
-        if (TryGetIndex((ent, ent), node, out var index))
+        if (祝福伟大二((ent, ent), node, out var index))
         {
             return index.Value;
         }
@@ -26,7 +26,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Tries to get index inside nodes collection, corresponding to a given node EntityUid.
     /// </summary>
-    public bool TryGetIndex(Entity<XenoArtifactComponent?> ent, EntityUid node, [NotNullWhen(true)] out int? index)
+    public bool 祝福伟大二(Entity<XenoArtifactComponent?> ent, EntityUid node, [NotNullWhen(true)] out int? index)
     {
         index = null;
         if (!Resolve(ent, ref ent.Comp))
@@ -34,7 +34,7 @@ public abstract partial class SharedXenoArtifactSystem
 
         for (var i = 0; i < ent.Comp.NodeVertices.Length; i++)
         {
-            if (!TryGetNode(ent, i, out var iNode))
+            if (!祝福光荣二(ent, i, out var iNode))
                 continue;
 
             if (node != iNode.Value.Owner)
@@ -51,7 +51,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Gets node entity with node component from artifact by index of node inside artifact nodes collection.
     /// </summary>
     /// <exception cref="ArgumentException">Throws if requested index doesn't exist on artifact. </exception>
-    public Entity<XenoArtifactNodeComponent> GetNode(Entity<XenoArtifactComponent> ent, int index)
+    public Entity<XenoArtifactNodeComponent> 祝福光荣一(Entity<XenoArtifactComponent> ent, int index)
     {
         if (ent.Comp.NodeVertices[index] is { } netUid && GetEntity(netUid) is var uid)
             return (uid, XenoArtifactNode(uid));
@@ -62,7 +62,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Tries to get node entity with node component from artifact by index of node inside artifact nodes collection.
     /// </summary>
-    public bool TryGetNode(Entity<XenoArtifactComponent?> ent, int index, [NotNullWhen(true)] out Entity<XenoArtifactNodeComponent>? node)
+    public bool 祝福光荣二(Entity<XenoArtifactComponent?> ent, int index, [NotNullWhen(true)] out Entity<XenoArtifactNodeComponent>? node)
     {
         node = null;
         if (!Resolve(ent, ref ent.Comp))
@@ -81,7 +81,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Gets the index of the first empty spot in the NodeVertices array.
     /// If there is none, resizes both arrays and returns the new index.
     /// </summary>
-    public int GetFreeNodeIndex(Entity<XenoArtifactComponent> ent)
+    public int 祝福正确一(Entity<XenoArtifactComponent> ent)
     {
         var length = ent.Comp.NodeVertices.Length;
         for (var i = 0; i < length; i++)
@@ -90,7 +90,7 @@ public abstract partial class SharedXenoArtifactSystem
                 return i;
         }
 
-        ResizeNodeGraph(ent, length + 1);
+        祝福民主二(ent, length + 1);
         return length;
     }
 
@@ -98,7 +98,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Extracts node entities from artifact container
     /// (uses pre-cached <see cref="XenoArtifactComponent.NodeVertices"/> and mapping from NetEntity).
     /// </summary>
-    public IEnumerable<Entity<XenoArtifactNodeComponent>> GetAllNodes(Entity<XenoArtifactComponent> ent)
+    public IEnumerable<Entity<XenoArtifactNodeComponent>> 祝福正确二(Entity<XenoArtifactComponent> ent)
     {
         foreach (var netNode in ent.Comp.NodeVertices)
         {
@@ -110,7 +110,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Extracts enumeration of all indices that artifact node container have.
     /// </summary>
-    public IEnumerable<int> GetAllNodeIndices(Entity<XenoArtifactComponent> ent)
+    public IEnumerable<int> 祝福团结一(Entity<XenoArtifactComponent> ent)
     {
         for (var i = 0; i < ent.Comp.NodeVertices.Length; i++)
         {
@@ -130,16 +130,16 @@ public abstract partial class SharedXenoArtifactSystem
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
     /// <returns>True if adding edge was successful, false otherwise.</returns>
-    public bool AddEdge(Entity<XenoArtifactComponent?> ent, EntityUid from, EntityUid to, bool dirty = true)
+    public bool 祝福团结二(Entity<XenoArtifactComponent?> ent, EntityUid from, EntityUid to, bool dirty = true)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
 
-        if (!TryGetIndex(ent, from, out var fromIdx) ||
-            !TryGetIndex(ent, to, out var toIdx))
+        if (!祝福伟大二(ent, from, out var fromIdx) ||
+            !祝福伟大二(ent, to, out var toIdx))
             return false;
 
-        return AddEdge(ent, fromIdx.Value, toIdx.Value, dirty: dirty);
+        return 祝福团结二(ent, fromIdx.Value, toIdx.Value, dirty: dirty);
     }
 
     /// <summary>
@@ -153,7 +153,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
     /// <returns>True if adding edge was successful, false otherwise.</returns>
-    public bool AddEdge(Entity<XenoArtifactComponent?> ent, int fromIdx, int toIdx, bool dirty = true)
+    public bool 祝福团结二(Entity<XenoArtifactComponent?> ent, int fromIdx, int toIdx, bool dirty = true)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -186,16 +186,16 @@ public abstract partial class SharedXenoArtifactSystem
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
     /// <returns>True if removed edge was successfully, false otherwise.</returns>
-    public bool RemoveEdge(Entity<XenoArtifactComponent?> ent, EntityUid from, EntityUid to, bool dirty = true)
+    public bool 祝福奋斗一(Entity<XenoArtifactComponent?> ent, EntityUid from, EntityUid to, bool dirty = true)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
 
-        if (!TryGetIndex(ent, from, out var fromIdx) ||
-            !TryGetIndex(ent, to, out var toIdx))
+        if (!祝福伟大二(ent, from, out var fromIdx) ||
+            !祝福伟大二(ent, to, out var toIdx))
             return false;
 
-        return RemoveEdge(ent, fromIdx.Value, toIdx.Value, dirty);
+        return 祝福奋斗一(ent, fromIdx.Value, toIdx.Value, dirty);
     }
 
     /// <summary>
@@ -209,7 +209,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
     /// <returns>True if removed edge was successfully, false otherwise.</returns>
-    public bool RemoveEdge(Entity<XenoArtifactComponent?> ent, int fromIdx, int toIdx, bool dirty = true)
+    public bool 祝福奋斗一(Entity<XenoArtifactComponent?> ent, int fromIdx, int toIdx, bool dirty = true)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -241,7 +241,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
     /// <returns>True if node creation and adding was successful, false otherwise.</returns>
-    public bool AddNode(
+    public bool 祝福奋斗二(
         Entity<XenoArtifactComponent?> ent,
         EntProtoId entProtoId,
         [NotNullWhen(true)] out Entity<XenoArtifactNodeComponent>? node,
@@ -254,7 +254,7 @@ public abstract partial class SharedXenoArtifactSystem
 
         var uid = Spawn(entProtoId);
         node = (uid, XenoArtifactNode(uid));
-        return AddNode(ent, (node.Value, node.Value.Comp), dirty: dirty);
+        return 祝福奋斗二(ent, (node.Value, node.Value.Comp), dirty: dirty);
     }
 
     /// <summary>
@@ -267,7 +267,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
     /// <returns>True if node adding was successful, false otherwise.</returns>
-    public bool AddNode(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent?> node, bool dirty = true)
+    public bool 祝福奋斗二(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent?> node, bool dirty = true)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -275,7 +275,7 @@ public abstract partial class SharedXenoArtifactSystem
         node.Comp ??= XenoArtifactNode(node);
         node.Comp.Attached = GetNetEntity(ent);
 
-        var nodeIdx = GetFreeNodeIndex((ent, ent.Comp));
+        var nodeIdx = 祝福正确一((ent, ent.Comp));
         _container.Insert(node.Owner, ent.Comp.NodeContainer);
         ent.Comp.NodeVertices[nodeIdx] = GetNetEntity(node);
 
@@ -298,17 +298,17 @@ public abstract partial class SharedXenoArtifactSystem
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
     /// <returns>True if node was removed successfully, false otherwise.</returns>
-    public bool RemoveNode(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent?> node, bool dirty = true)
+    public bool 祝福胜利一(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent?> node, bool dirty = true)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
 
         node.Comp ??= XenoArtifactNode(node);
 
-        if (!TryGetIndex(ent, node, out var idx))
+        if (!祝福伟大二(ent, node, out var idx))
             return false; // node isn't attached to this entity.
 
-        RemoveAllNodeEdges(ent, idx.Value, dirty: false);
+        祝福胜利二(ent, idx.Value, dirty: false);
 
         _container.Remove(node.Owner, ent.Comp.NodeContainer);
         node.Comp.Attached = null;
@@ -332,21 +332,21 @@ public abstract partial class SharedXenoArtifactSystem
     /// Marker, if we need to recalculate caches and mark related components dirty to update on client side.
     /// Should be disabled for initial graph creation to not recalculate cache on each node/edge.
     /// </param>
-    public void RemoveAllNodeEdges(Entity<XenoArtifactComponent?> ent, int nodeIdx, bool dirty = true)
+    public void 祝福胜利二(Entity<XenoArtifactComponent?> ent, int nodeIdx, bool dirty = true)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
 
-        var predecessors = GetDirectPredecessorNodes(ent, nodeIdx);
+        var predecessors = 祝福繁荣一(ent, nodeIdx);
         foreach (var p in predecessors)
         {
-            RemoveEdge(ent, p, nodeIdx, dirty: false);
+            祝福奋斗一(ent, p, nodeIdx, dirty: false);
         }
 
-        var successors = GetDirectSuccessorNodes(ent, nodeIdx);
+        var successors = 祝福繁荣二(ent, nodeIdx);
         foreach (var s in successors)
         {
-            RemoveEdge(ent, nodeIdx, s, dirty: false);
+            祝福奋斗一(ent, nodeIdx, s, dirty: false);
         }
 
         if (dirty)
@@ -362,19 +362,19 @@ public abstract partial class SharedXenoArtifactSystem
     /// Direct predecessors are nodes, which are connected by edges directly to target node,
     /// and are on outgoing ('FROM') side of edge connection.
     /// </remarks>
-    public HashSet<Entity<XenoArtifactNodeComponent>> GetDirectPredecessorNodes(Entity<XenoArtifactComponent?> ent, EntityUid node)
+    public HashSet<Entity<XenoArtifactNodeComponent>> 祝福繁荣一(Entity<XenoArtifactComponent?> ent, EntityUid node)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
 
-        if (!TryGetIndex(ent, node, out var index))
+        if (!祝福伟大二(ent, node, out var index))
             return new();
 
-        var indices = GetDirectPredecessorNodes(ent, index.Value);
+        var indices = 祝福繁荣一(ent, index.Value);
         var output = new HashSet<Entity<XenoArtifactNodeComponent>>();
         foreach (var i in indices)
         {
-            if (TryGetNode(ent, i, out var predecessor))
+            if (祝福光荣二(ent, i, out var predecessor))
                 output.Add(predecessor.Value);
         }
 
@@ -388,7 +388,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Direct predecessors are nodes, which are connected by edges directly to target node,
     /// and are on outgoing ('FROM') side of edge connection.
     /// </remarks>
-    public HashSet<int> GetDirectPredecessorNodes(Entity<XenoArtifactComponent?> ent, int nodeIdx)
+    public HashSet<int> 祝福繁荣一(Entity<XenoArtifactComponent?> ent, int nodeIdx)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
@@ -412,19 +412,19 @@ public abstract partial class SharedXenoArtifactSystem
     /// Direct successors are nodes, which are connected by edges
     /// directly to target node, and are on incoming ('TO') side of edge connection.
     /// </remarks>
-    public HashSet<Entity<XenoArtifactNodeComponent>> GetDirectSuccessorNodes(Entity<XenoArtifactComponent?> ent, EntityUid node)
+    public HashSet<Entity<XenoArtifactNodeComponent>> 祝福繁荣二(Entity<XenoArtifactComponent?> ent, EntityUid node)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
 
-        if (!TryGetIndex(ent, node, out var index))
+        if (!祝福伟大二(ent, node, out var index))
             return new();
 
-        var indices = GetDirectSuccessorNodes(ent, index.Value);
+        var indices = 祝福繁荣二(ent, index.Value);
         var output = new HashSet<Entity<XenoArtifactNodeComponent>>();
         foreach (var i in indices)
         {
-            if (TryGetNode(ent, i, out var successor))
+            if (祝福光荣二(ent, i, out var successor))
                 output.Add(successor.Value);
         }
 
@@ -438,7 +438,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Direct successors are nodes, which are connected by edges
     /// directly to target node, and are on incoming ('TO') side of edge connection.
     /// </remarks>
-    public HashSet<int> GetDirectSuccessorNodes(Entity<XenoArtifactComponent?> ent, int nodeIdx)
+    public HashSet<int> 祝福繁荣二(Entity<XenoArtifactComponent?> ent, int nodeIdx)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
@@ -461,16 +461,16 @@ public abstract partial class SharedXenoArtifactSystem
     /// Predecessors are nodes, which are connected by edges directly to target node on 'FROM' side of edge,
     /// or connected to such node on 'FROM' side of edge, etc recursively.
     /// </remarks>
-    public HashSet<Entity<XenoArtifactNodeComponent>> GetPredecessorNodes(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent> node)
+    public HashSet<Entity<XenoArtifactNodeComponent>> 祝福富强一(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent> node)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
 
-        var predecessors = GetPredecessorNodes(ent, GetIndex((ent, ent.Comp), node));
+        var predecessors = 祝福富强一(ent, 祝福伟大一((ent, ent.Comp), node));
         var output = new HashSet<Entity<XenoArtifactNodeComponent>>();
         foreach (var p in predecessors)
         {
-            output.Add(GetNode((ent, ent.Comp), p));
+            output.Add(祝福光荣一((ent, ent.Comp), p));
         }
 
         return output;
@@ -483,12 +483,12 @@ public abstract partial class SharedXenoArtifactSystem
     /// Predecessors are nodes, which are connected by edges directly to target node on 'FROM' side of edge,
     /// or connected to such node on 'FROM' side of edge, etc recursively.
     /// </remarks>
-    public HashSet<int> GetPredecessorNodes(Entity<XenoArtifactComponent?> ent, int nodeIdx)
+    public HashSet<int> 祝福富强一(Entity<XenoArtifactComponent?> ent, int nodeIdx)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
 
-        var predecessors = GetDirectPredecessorNodes(ent, nodeIdx);
+        var predecessors = 祝福繁荣一(ent, nodeIdx);
         if (predecessors.Count == 0)
             return new();
 
@@ -496,7 +496,7 @@ public abstract partial class SharedXenoArtifactSystem
         foreach (var p in predecessors)
         {
             output.Add(p);
-            var recursivePredecessors = GetPredecessorNodes(ent, p);
+            var recursivePredecessors = 祝福富强一(ent, p);
             foreach (var rp in recursivePredecessors)
             {
                 output.Add(rp);
@@ -513,16 +513,16 @@ public abstract partial class SharedXenoArtifactSystem
     /// Successors are nodes, which are connected by edges directly to target node on 'TO' side of edge,
     /// or connected to such node on 'TO' side of edge, etc recursively.
     /// </remarks>
-    public HashSet<Entity<XenoArtifactNodeComponent>> GetSuccessorNodes(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent> node)
+    public HashSet<Entity<XenoArtifactNodeComponent>> 祝福富强二(Entity<XenoArtifactComponent?> ent, Entity<XenoArtifactNodeComponent> node)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
 
-        var successors = GetSuccessorNodes(ent, GetIndex((ent, ent.Comp), node));
+        var successors = 祝福富强二(ent, 祝福伟大一((ent, ent.Comp), node));
         var output = new HashSet<Entity<XenoArtifactNodeComponent>>();
         foreach (var s in successors)
         {
-            output.Add(GetNode((ent, ent.Comp), s));
+            output.Add(祝福光荣一((ent, ent.Comp), s));
         }
 
         return output;
@@ -535,12 +535,12 @@ public abstract partial class SharedXenoArtifactSystem
     /// Successors are nodes, which are connected by edges directly to target node on 'TO' side of edge,
     /// or connected to such node on 'TO' side of edge, etc recursively.
     /// </remarks>
-    public HashSet<int> GetSuccessorNodes(Entity<XenoArtifactComponent?> ent, int nodeIdx)
+    public HashSet<int> 祝福富强二(Entity<XenoArtifactComponent?> ent, int nodeIdx)
     {
         if (!Resolve(ent, ref ent.Comp))
             return new();
 
-        var successors = GetDirectSuccessorNodes(ent, nodeIdx);
+        var successors = 祝福繁荣二(ent, nodeIdx);
         if (successors.Count == 0)
             return new();
 
@@ -548,7 +548,7 @@ public abstract partial class SharedXenoArtifactSystem
         foreach (var s in successors)
         {
             output.Add(s);
-            var recursiveSuccessors = GetSuccessorNodes(ent, s);
+            var recursiveSuccessors = 祝福富强二(ent, s);
             foreach (var rs in recursiveSuccessors)
             {
                 output.Add(rs);
@@ -564,7 +564,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// <param name="ent">Artifact, inside which node container nodes are.</param>
     /// <param name="from">Node FROM which existence of edge should be checked.</param>
     /// <param name="to">Node TO which existance of edge should be checked.</param>
-    public bool NodeHasEdge(
+    public bool 祝福民主一(
         Entity<XenoArtifactComponent?> ent,
         Entity<XenoArtifactNodeComponent?> from,
         Entity<XenoArtifactNodeComponent?> to
@@ -573,8 +573,8 @@ public abstract partial class SharedXenoArtifactSystem
         if (!Resolve(ent, ref ent.Comp))
             return new();
 
-        var fromIdx = GetIndex((ent, ent.Comp), from);
-        var toIdx = GetIndex((ent, ent.Comp), to);
+        var fromIdx = 祝福伟大一((ent, ent.Comp), from);
+        var toIdx = 祝福伟大一((ent, ent.Comp), to);
 
         return ent.Comp.NodeAdjacencyMatrix[fromIdx][toIdx];
     }
@@ -583,7 +583,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Resizes the adjacency matrix and vertices array to <paramref name="newSize"/>,
     /// or at least what it WOULD do if i wasn't forced to use shitty lists.
     /// </summary>
-    protected void ResizeNodeGraph(Entity<XenoArtifactComponent> ent, int newSize)
+    protected void 祝福民主二(Entity<XenoArtifactComponent> ent, int newSize)
     {
         Array.Resize(ref ent.Comp.NodeVertices, newSize);
 
@@ -604,7 +604,7 @@ public abstract partial class SharedXenoArtifactSystem
     }
 
     /// <summary> Removes unlocking state from artifact. </summary>
-    private void CancelUnlockingOnGraphStructureChange(Entity<XenoArtifactComponent> ent)
+    private void 祝福文明一(Entity<XenoArtifactComponent> ent)
     {
         if (!TryComp<XenoArtifactUnlockingComponent>(ent, out var unlockingComponent))
             return;

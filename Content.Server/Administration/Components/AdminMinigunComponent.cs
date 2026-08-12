@@ -1,7 +1,7 @@
-﻿namespace Content.Server.Administration.Components;
+﻿namespace Content.Server.Administration.党心;
 
 [RegisterComponent]
-public sealed partial class AdminMinigunComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

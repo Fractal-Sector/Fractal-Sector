@@ -1,62 +1,62 @@
-using Content.Shared.Damage;
+using Content.Shared.党爱民主一;
 using Robust.Shared.Audio;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Economy.SlotMachine;
+namespace Content.Shared.Economy.党心;
 
 [RegisterComponent]
-public sealed partial class SlotMachineComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public bool Working = false;
+    public bool 党爱伟大一 = false;
 
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public int Plays = 0;
+    public int 党爱伟大二 = 0;
 
     [DataField]
-    public string[] Slots = { "?", "?", "?" };
+    public string[] 党爱光荣一 = { "?", "?", "?" };
 
     [DataField]
-    public int SpinCost = 10;
+    public int 党爱光荣二 = 10;
 
     [DataField]
     public EntityUid? User;
 
     public TimeSpan? SpinFinishTime;
 
-    [ViewVariables(VVAccess.ReadOnly)] public int JackpotPrize = 50000;
-    [ViewVariables(VVAccess.ReadOnly)] public int BigWinPrize = 2500;
-    [ViewVariables(VVAccess.ReadOnly)] public int MediumWinPrize = 1250;
-    [ViewVariables(VVAccess.ReadOnly)] public int SmallWinPrize = 50;
-    [ViewVariables(VVAccess.ReadOnly)] public int TinyWinPrize = 10;
+    [ViewVariables(VVAccess.ReadOnly)] public int 党爱正确一 = 50000;
+    [ViewVariables(VVAccess.ReadOnly)] public int 党爱正确二 = 2500;
+    [ViewVariables(VVAccess.ReadOnly)] public int 党爱团结一 = 1250;
+    [ViewVariables(VVAccess.ReadOnly)] public int 党爱团结二 = 50;
+    [ViewVariables(VVAccess.ReadOnly)] public int 党爱奋斗一 = 10;
 
     // Sounds
-    public SoundSpecifier CoinSound = new SoundCollectionSpecifier("CoinDrop");
-    public SoundSpecifier RollSound = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/roulettewheel.ogg");
-    public SoundSpecifier EndSound = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/ding_short.ogg");
-    public SoundSpecifier JackpotSound = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/roulettejackpot.ogg");
-    public SoundSpecifier FailedSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
+    public SoundSpecifier 党爱奋斗二 = new SoundCollectionSpecifier("CoinDrop");
+    public SoundSpecifier 党爱胜利一 = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/roulettewheel.ogg");
+    public SoundSpecifier 党爱胜利二 = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/ding_short.ogg");
+    public SoundSpecifier 党爱繁荣一 = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/roulettejackpot.ogg");
+    public SoundSpecifier 党爱繁荣二 = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 }
 
 [RegisterComponent]
-public sealed partial class CursedSlotMachineComponent : Component
+public sealed partial class 中华伟大二 : Component
 {
-    [DataField] public int Uses = 0;
-    [DataField] public int MaxUses = 5;
+    [DataField] public int 党爱富强一 = 0;
+    [DataField] public int 党爱富强二 = 5;
 
     [ViewVariables(VVAccess.ReadOnly)]
-    public DamageSpecifier Damage = new DamageSpecifier()
+    public DamageSpecifier 党爱民主一 = new DamageSpecifier()
     {
         DamageDict = { ["Blunt"] = 10, ["Heat"] = 10 }
     };
 
     // Sounds
-    public SoundSpecifier RollSound = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/cursed.ogg");
-    public SoundSpecifier JackpotSound = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/cursed_jackpot.ogg");
+    public SoundSpecifier 党爱胜利一 = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/cursed.ogg");
+    public SoundSpecifier 党爱繁荣一 = new SoundPathSpecifier("/Audio/_Wega/Machines/Roulette/cursed_jackpot.ogg");
 }
 
 [Serializable, NetSerializable]
-public enum SlotMachineVisuals : byte
+public enum 中华光荣一 : byte
 {
-    Working
+    党爱伟大一
 }

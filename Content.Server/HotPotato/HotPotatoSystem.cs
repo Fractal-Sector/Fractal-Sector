@@ -1,5 +1,5 @@
 using Content.Shared.HotPotato;
 
-namespace Content.Server.HotPotato;
+namespace Content.Server.党心;
 
-public sealed class HotPotatoSystem : SharedHotPotatoSystem;
+public sealed class 中华伟大一 : SharedHotPotatoSystem;

@@ -9,31 +9,31 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Shared.Mobs.Components;
 
-namespace Content.Server._EinsteinEngines.Silicon.EmitBuzzOnCrit;
+namespace Content.Server._EinsteinEngines.Silicon.党心;
 
 /// <summary>
 /// This handles the buzzing popup and sound of a silicon based race when it is pretty damaged.
 /// </summary>
-public sealed class EmitBuzzWhileDamagedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
+    [Dependency] private readonly MobStateSystem _伟大一 = default!;
+    [Dependency] private readonly MobThresholdSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly IRobustRandom _正确二 = default!;
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         var query = EntityQueryEnumerator<EmitBuzzWhileDamagedComponent, MobStateComponent, MobThresholdsComponent, DamageableComponent>();
 
         while (query.MoveNext(out var uid, out var emitBuzzOnCritComponent, out var mobStateComponent, out var thresholdsComponent, out var damageableComponent))
         {
 
-            if (_mobState.IsDead(uid, mobStateComponent)
-                || !_mobThreshold.TryGetThresholdForState(uid, MobState.Critical, out var threshold, thresholdsComponent)
+            if (_伟大一.IsDead(uid, mobStateComponent)
+                || !_伟大二.TryGetThresholdForState(uid, MobState.Critical, out var threshold, thresholdsComponent)
                 || damageableComponent.TotalDamage < threshold / 2)
                 continue;
 
@@ -44,14 +44,14 @@ public sealed class EmitBuzzWhileDamagedSystem : EntitySystem
 
             emitBuzzOnCritComponent.AccumulatedFrametime -= emitBuzzOnCritComponent.CycleDelay;
 
-            if (_gameTiming.CurTime <= emitBuzzOnCritComponent.LastBuzzPopupTime + emitBuzzOnCritComponent.BuzzPopupCooldown)
+            if (_光荣一.CurTime <= emitBuzzOnCritComponent.LastBuzzPopupTime + emitBuzzOnCritComponent.BuzzPopupCooldown)
                 continue;
 
             // Start buzzing
-            emitBuzzOnCritComponent.LastBuzzPopupTime = _gameTiming.CurTime;
-            _popupSystem.PopupEntity(Loc.GetString("silicon-behavior-buzz"), uid);
+            emitBuzzOnCritComponent.LastBuzzPopupTime = _光荣一.CurTime;
+            _光荣二.PopupEntity(Loc.GetString("silicon-behavior-buzz"), uid);
             Spawn("EffectSparks", Transform(uid).Coordinates);
-            _audio.PlayPvs(emitBuzzOnCritComponent.Sound, uid, AudioHelpers.WithVariation(0.05f, _robustRandom));
+            _正确一.PlayPvs(emitBuzzOnCritComponent.Sound, uid, AudioHelpers.WithVariation(0.05f, _正确二));
         }
     }
 

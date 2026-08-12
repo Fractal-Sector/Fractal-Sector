@@ -4,13 +4,13 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Xenoarchaeology.Equipment.Components;
+namespace Content.Shared.Xenoarchaeology.Equipment.党心;
 
 /// <summary>
 /// The console that is used for artifact analysis
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class AnalysisConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The analyzer entity the console is linked.
@@ -38,15 +38,15 @@ public sealed partial class AnalysisConsoleComponent : Component
     /// The machine linking port for the analyzer
     /// </summary>
     [DataField]
-    public ProtoId<SourcePortPrototype> LinkingPort = "ArtifactAnalyzerSender";
+    public ProtoId<SourcePortPrototype> 党爱伟大一 = "ArtifactAnalyzerSender";
 }
 
 [Serializable, NetSerializable]
-public enum ArtifactAnalyzerUiKey : byte
+public enum 中华伟大二 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class AnalysisConsoleExtractButtonPressedMessage : BoundUserInterfaceMessage;
+public sealed class 中华光荣一 : BoundUserInterfaceMessage;
 

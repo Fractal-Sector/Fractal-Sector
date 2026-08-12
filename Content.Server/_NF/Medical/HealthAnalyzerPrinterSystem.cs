@@ -20,40 +20,40 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Medical;
+namespace Content.Server._NF.党心;
 
-public sealed class HealthAnalyzerPrinterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedGameTicker _gameTicker = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly LabelSystem _label = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+    [Dependency] private readonly HandsSystem _伟大一 = default!;
+    [Dependency] private readonly AudioSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly SharedGameTicker _正确一 = default!;
+    [Dependency] private readonly PaperSystem _正确二 = default!;
+    [Dependency] private readonly LabelSystem _团结一 = default!;
+    [Dependency] private readonly TransformSystem _团结二 = default!;
+    [Dependency] private readonly CartridgeLoaderSystem _奋斗一 = default!;
 
     private static readonly Regex TemplateInsert = new(@"\{([\w.]+)\}");
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MedTekCartridgePrinterComponent, CartridgeAddedEvent>(OnCartridgeAdded);
-        SubscribeLocalEvent<MedTekCartridgePrinterComponent, CartridgeRemovedEvent>(OnCartridgeRemoved);
+        SubscribeLocalEvent<MedTekCartridgePrinterComponent, CartridgeAddedEvent>(祝福伟大二);
+        SubscribeLocalEvent<MedTekCartridgePrinterComponent, CartridgeRemovedEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<HealthAnalyzerPrinterComponent, HealthAnalyzerPrintPatientRecordMessage>(OnPrint);
+        SubscribeLocalEvent<HealthAnalyzerPrinterComponent, HealthAnalyzerPrintPatientRecordMessage>(祝福光荣二);
     }
 
     // Cartridge handling
-    private void OnCartridgeAdded(Entity<MedTekCartridgePrinterComponent> ent, ref CartridgeAddedEvent args)
+    private void 祝福伟大二(Entity<MedTekCartridgePrinterComponent> ent, ref CartridgeAddedEvent args)
     {
         // We're cloning some settings from the cartridge to the PDA, because that way it's easier to retrieve later
         EnsureComp<HealthAnalyzerPrinterComponent>(args.Loader).PrintTemplate = ent.Comp.PrintTemplate;
     }
 
-    private void OnCartridgeRemoved(Entity<MedTekCartridgePrinterComponent> ent, ref CartridgeRemovedEvent args)
+    private void 祝福光荣一(Entity<MedTekCartridgePrinterComponent> ent, ref CartridgeRemovedEvent args)
     {
-        if (_cartridgeLoader.TryGetProgram<MedTekCartridgePrinterComponent>(args.Loader, out _, out var program))
+        if (_奋斗一.TryGetProgram<MedTekCartridgePrinterComponent>(args.Loader, out _, out var program))
         {
             // If someone has, for whatever reason, added more than one variant of the MedTek printer, arbitrarily
             // choose the template of any of them
@@ -72,11 +72,11 @@ public sealed class HealthAnalyzerPrinterSystem : EntitySystem
     }
 
     // Printing
-    private void OnPrint(Entity<HealthAnalyzerPrinterComponent> entity, ref HealthAnalyzerPrintPatientRecordMessage args)
+    private void 祝福光荣二(Entity<HealthAnalyzerPrinterComponent> entity, ref HealthAnalyzerPrintPatientRecordMessage args)
     {
         var printer = entity.Comp;
         // Prevent users from printing too quickly
-        if (printer.PrintAllowedAfter >= _gameTiming.CurTime)
+        if (printer.PrintAllowedAfter >= _光荣二.CurTime)
         {
             return;
         }
@@ -94,37 +94,37 @@ public sealed class HealthAnalyzerPrinterSystem : EntitySystem
         }
 
         var user = args.Actor;
-        if (!IsInRange(patient, user, analyzer.MaxScanRange))
+        if (!祝福正确一(patient, user, analyzer.MaxScanRange))
         {
             return;
         }
 
         // Create slip of paper according to template
         var paper = Spawn(printer.PrintTemplate, Transform(user).Coordinates);
-        ComposePatientRecord(paper, user, patient);
-        _label.Label(paper, GetEntityName(patient));
-        _hands.PickupOrDrop(user, paper);
-        _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/printer.ogg"), user);
+        祝福正确二(paper, user, patient);
+        _团结一.Label(paper, 祝福团结二(patient));
+        _伟大一.PickupOrDrop(user, paper);
+        _伟大二.PlayPvs(new SoundPathSpecifier("/Audio/Machines/printer.ogg"), user);
 
         // Start cooldown
-        printer.PrintAllowedAfter = _gameTiming.CurTime + printer.PrintCooldown;
+        printer.PrintAllowedAfter = _光荣二.CurTime + printer.PrintCooldown;
     }
 
-    private bool IsInRange(EntityUid patient, EntityUid user, float? maxScanRange)
+    private bool 祝福正确一(EntityUid patient, EntityUid user, float? maxScanRange)
     {
         if (maxScanRange == null)
         {
             return true;
         }
 
-        return _transform.InRange(
+        return _团结二.InRange(
             (patient, Transform(patient)),
             (user, Transform(user)),
             maxScanRange.Value
         );
     }
 
-    private void ComposePatientRecord(EntityUid uid, EntityUid responder, EntityUid patient)
+    private void 祝福正确二(EntityUid uid, EntityUid responder, EntityUid patient)
     {
         PaperComponent? paper = null;
         DamageableComponent? damageable = null;
@@ -138,11 +138,11 @@ public sealed class HealthAnalyzerPrinterSystem : EntitySystem
         // Anything in this dictionary can be interpolated into the print template
         Dictionary<string, Func<string>> inserts = new()
         {
-            { "patient.name", () => GetEntityName(patient) },
-            { "patient.species", () => GetEntitySpecies(patient) },
-            { "responder.name", () => GetEntityName(responder) },
-            { "roundTime", () => FormatShiftTime(_gameTiming.CurTime - _gameTicker.RoundStartTimeSpan) },
-            { "damageList", () => ComposeDamageList(damageable) },
+            { "patient.name", () => 祝福团结二(patient) },
+            { "patient.species", () => 祝福奋斗一(patient) },
+            { "responder.name", () => 祝福团结二(responder) },
+            { "roundTime", () => 祝福奋斗二(_光荣二.CurTime - _正确一.RoundStartTimeSpan) },
+            { "damageList", () => 祝福团结一(damageable) },
         };
 
         var content = TemplateInsert.Replace(template,
@@ -157,10 +157,10 @@ public sealed class HealthAnalyzerPrinterSystem : EntitySystem
                 return match.Value;
             });
 
-        _paper.SetContent((uid, paper), content);
+        _正确二.SetContent((uid, paper), content);
     }
 
-    private string ComposeDamageList(DamageableComponent damageable)
+    private string 祝福团结一(DamageableComponent damageable)
     {
         if (damageable.TotalDamage <= 0)
         {
@@ -177,7 +177,7 @@ public sealed class HealthAnalyzerPrinterSystem : EntitySystem
                 continue;
             }
 
-            var group = _prototypes.Index<DamageGroupPrototype>(groupId);
+            var group = _光荣一.Index<DamageGroupPrototype>(groupId);
 
             // Group header
             var groupTitleText = Loc.GetString(
@@ -199,7 +199,7 @@ public sealed class HealthAnalyzerPrinterSystem : EntitySystem
 
                 report.AddText(Loc.GetString(
                     "health-analyzer-printout-damage-type-text",
-                    ("damageType", _prototypes.Index<DamageTypePrototype>(type).LocalizedName),
+                    ("damageType", _光荣一.Index<DamageTypePrototype>(type).LocalizedName),
                     ("amount", amount)
                 ));
                 report.PushNewline();
@@ -209,23 +209,23 @@ public sealed class HealthAnalyzerPrinterSystem : EntitySystem
         return report.ToMarkup();
     }
 
-    private string GetEntityName(EntityUid uid)
+    private string 祝福团结二(EntityUid uid)
     {
         return HasComp<MetaDataComponent>(uid)
             ? Identity.Name(uid, EntityManager)
             : Loc.GetString("health-analyzer-window-entity-unknown-text");
     }
 
-    private string GetEntitySpecies(EntityUid uid)
+    private string 祝福奋斗一(EntityUid uid)
     {
         return Loc.GetString(
             TryComp<HumanoidAppearanceComponent>(uid, out var appearance)
-                ? _prototypes.Index(appearance.Species).Name
+                ? _光荣一.Index(appearance.Species).Name
                 : "health-analyzer-window-entity-unknown-species-text"
         );
     }
 
-    private string FormatShiftTime(TimeSpan time)
+    private string 祝福奋斗二(TimeSpan time)
     {
         // Format time to show days if the shift is longer than 24 hours
         if (time.TotalDays >= 1)

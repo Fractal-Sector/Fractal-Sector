@@ -1,12 +1,12 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._EinsteinEngines.Silicon.BlindHealing;
+namespace Content.Shared._EinsteinEngines.Silicon.党心;
 
-public abstract partial class SharedBlindHealingSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
     [Serializable, NetSerializable]
-    protected sealed partial class HealingDoAfterEvent : SimpleDoAfterEvent
+    protected sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 }

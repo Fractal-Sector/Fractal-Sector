@@ -6,18 +6,18 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Network;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
-    sealed class RespawnCommand : LocalizedEntityCommands
+    sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _player = default!;
-        [Dependency] private readonly IPlayerLocator _locator = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
-        [Dependency] private readonly MindSystem _mind = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IPlayerLocator _伟大二 = default!;
+        [Dependency] private readonly GameTicker _光荣一 = default!;
+        [Dependency] private readonly MindSystem _光荣二 = default!;
 
-        public override string Command => "respawn";
+        public override string 党爱伟大一 => "respawn";
 
-        public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (args.Length > 1)
@@ -39,7 +39,7 @@ namespace Content.Server.GameTicking.Commands
             }
             else
             {
-                var located = await _locator.LookupIdByNameOrIdAsync(args[0]);
+                var located = await _伟大二.LookupIdByNameOrIdAsync(args[0]);
 
                 if (located == null)
                 {
@@ -50,28 +50,28 @@ namespace Content.Server.GameTicking.Commands
                 userId = located.UserId;
             }
 
-            if (!_player.TryGetSessionById(userId, out var targetPlayer))
+            if (!_伟大一.TryGetSessionById(userId, out var targetPlayer))
             {
-                if (!_player.TryGetPlayerData(userId, out var data))
+                if (!_伟大一.TryGetPlayerData(userId, out var data))
                 {
                     shell.WriteError(Loc.GetString("cmd-respawn-unknown-player"));
                     return;
                 }
 
-                _mind.WipeMind(data.ContentData()?.Mind);
+                _光荣二.WipeMind(data.ContentData()?.Mind);
                 shell.WriteError(Loc.GetString("cmd-respawn-player-not-online"));
                 return;
             }
 
-            _gameTicker.Respawn(targetPlayer);
+            _光荣一.Respawn(targetPlayer);
         }
 
-      public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+      public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
         {
             if (args.Length != 1)
                 return CompletionResult.Empty;
 
-            var options = _player.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
+            var options = _伟大一.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
 
             return CompletionResult.FromHintOptions(options, Loc.GetString("cmd-respawn-player-completion"));
         }

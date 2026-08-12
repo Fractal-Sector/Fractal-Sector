@@ -4,23 +4,23 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Verbs;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Engineering.Systems;
+namespace Content.Shared.Engineering.党心;
 
-public sealed partial class DisassembleOnAltVerbSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DisassembleOnAltVerbComponent, GetVerbsEvent<AlternativeVerb>>(AddDisassembleVerb);
-        SubscribeLocalEvent<DisassembleOnAltVerbComponent, DisassembleDoAfterEvent>(OnDisassembleDoAfter);
+        SubscribeLocalEvent<DisassembleOnAltVerbComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<DisassembleOnAltVerbComponent, DisassembleDoAfterEvent>(祝福光荣二);
     }
 
-    public void StartDisassembly(Entity<DisassembleOnAltVerbComponent> entity, EntityUid user)
+    public void 祝福伟大二(Entity<DisassembleOnAltVerbComponent> entity, EntityUid user)
     {
         // Doafter setup
         var doAfterArgs = new DoAfterArgs(EntityManager,
@@ -33,10 +33,10 @@ public sealed partial class DisassembleOnAltVerbSystem : EntitySystem
             BreakOnMove = true,
         };
 
-        _doAfter.TryStartDoAfter(doAfterArgs);
+        _伟大一.TryStartDoAfter(doAfterArgs);
     }
 
-    private void AddDisassembleVerb(Entity<DisassembleOnAltVerbComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(Entity<DisassembleOnAltVerbComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess || args.Hands == null)
             return;
@@ -48,7 +48,7 @@ public sealed partial class DisassembleOnAltVerbSystem : EntitySystem
         {
             Act = () =>
             {
-                StartDisassembly(entity, user);
+                祝福伟大二(entity, user);
             },
             Text = Loc.GetString("disassemble-system-verb-disassemble"),
             Priority = 2
@@ -56,13 +56,13 @@ public sealed partial class DisassembleOnAltVerbSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void OnDisassembleDoAfter(Entity<DisassembleOnAltVerbComponent> entity, ref DisassembleDoAfterEvent args)
+    private void 祝福光荣二(Entity<DisassembleOnAltVerbComponent> entity, ref DisassembleDoAfterEvent args)
     {
-        if (!_net.IsServer || args.Cancelled) // This is odd but it works :)
+        if (!_光荣一.IsServer || args.Cancelled) // This is odd but it works :)
             return;
 
         if (TrySpawnNextTo(entity.Comp.PrototypeToSpawn, entity.Owner, out var spawnedEnt))
-            _handsSystem.TryPickup(args.User, spawnedEnt.Value);
+            _伟大二.TryPickup(args.User, spawnedEnt.Value);
 
         QueueDel(entity.Owner);
     }

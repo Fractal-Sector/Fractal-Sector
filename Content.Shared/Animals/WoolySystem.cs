@@ -6,33 +6,33 @@ using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Animals;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Gives ability to produce fiber reagents;
 ///     produces endlessly if the owner has no HungerComponent.
 /// </summary>
-public sealed class WoolySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private readonly HungerSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly MobStateSystem _光荣一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<WoolyComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<WoolyComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
+        SubscribeLocalEvent<WoolyComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<WoolyComponent, EntRemovedFromContainerMessage>(祝福光荣一);
     }
 
-    private void OnMapInit(EntityUid uid, WoolyComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, WoolyComponent component, MapInitEvent args)
     {
-        component.NextGrowth = _timing.CurTime + component.GrowthDelay;
+        component.NextGrowth = _伟大二.CurTime + component.GrowthDelay;
     }
 
-    private void OnEntRemoved(Entity<WoolyComponent> entity, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣一(Entity<WoolyComponent> entity, ref EntRemovedFromContainerMessage args)
     {
         // Make sure the removed entity was our contained solution
         if (entity.Comp.Solution == null || args.Entity != entity.Comp.Solution.Value.Owner)
@@ -42,22 +42,22 @@ public sealed class WoolySystem : EntitySystem
         entity.Comp.Solution = null;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
         var query = EntityQueryEnumerator<WoolyComponent>();
         while (query.MoveNext(out var uid, out var wooly))
         {
-            if (_timing.CurTime < wooly.NextGrowth)
+            if (_伟大二.CurTime < wooly.NextGrowth)
                 continue;
 
             wooly.NextGrowth += wooly.GrowthDelay;
 
-            if (_mobState.IsDead(uid))
+            if (_光荣一.IsDead(uid))
                 continue;
 
-            if (!_solutionContainer.ResolveSolution(uid, wooly.SolutionName, ref wooly.Solution, out var solution))
+            if (!_光荣二.ResolveSolution(uid, wooly.SolutionName, ref wooly.Solution, out var solution))
                 continue;
 
             if (solution.AvailableVolume == 0)
@@ -67,13 +67,13 @@ public sealed class WoolySystem : EntitySystem
             if (TryComp(uid, out HungerComponent? hunger))
             {
                 // Is there enough nutrition to produce reagent?
-                if (_hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
+                if (_伟大一.GetHungerThreshold(hunger) < HungerThreshold.Okay)
                     continue;
 
-                _hunger.ModifyHunger(uid, -wooly.HungerUsage, hunger);
+                _伟大一.ModifyHunger(uid, -wooly.HungerUsage, hunger);
             }
 
-            _solutionContainer.TryAddReagent(wooly.Solution.Value, wooly.ReagentId, wooly.Quantity, out _);
+            _光荣二.TryAddReagent(wooly.Solution.Value, wooly.ReagentId, wooly.Quantity, out _);
         }
     }
 }

@@ -3,13 +3,13 @@ using JetBrains.Annotations;
 using Content.Shared.Examine;
 using Content.Shared.Buckle.Components;
 
-namespace Content.Server.Construction.Conditions;
+namespace Content.Server.Construction.党心;
 
 [UsedImplicitly]
 [DataDefinition]
-public sealed partial class NFStrapEmpty : IGraphCondition
+public sealed partial class 中华伟大一 : IGraphCondition
 {
-    public bool Condition(EntityUid uid, IEntityManager entityManager)
+    public bool 祝福伟大一(EntityUid uid, IEntityManager entityManager)
     {
         if (!entityManager.TryGetComponent(uid, out StrapComponent? strap))
             return true; // No strap, nothing can be buckled.
@@ -17,7 +17,7 @@ public sealed partial class NFStrapEmpty : IGraphCondition
         return strap.BuckledEntities.Count == 0;
     }
 
-    public bool DoExamine(ExaminedEvent args)
+    public bool 祝福伟大二(ExaminedEvent args)
     {
         var entity = args.Examined;
 
@@ -34,7 +34,7 @@ public sealed partial class NFStrapEmpty : IGraphCondition
         return false;
     }
 
-    public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
+    public IEnumerable<ConstructionGuideEntry> 祝福光荣一()
     {
         yield return new ConstructionGuideEntry()
         {

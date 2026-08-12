@@ -3,17 +3,17 @@ using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public partial class SharedGunSystem
+public partial class 中华伟大一
 {
-    protected virtual void InitializeSolution()
+    protected virtual void 祝福伟大一()
     {
-        SubscribeLocalEvent<SolutionAmmoProviderComponent, TakeAmmoEvent>(OnSolutionTakeAmmo);
-        SubscribeLocalEvent<SolutionAmmoProviderComponent, GetAmmoCountEvent>(OnSolutionAmmoCount);
+        SubscribeLocalEvent<SolutionAmmoProviderComponent, TakeAmmoEvent>(祝福伟大二);
+        SubscribeLocalEvent<SolutionAmmoProviderComponent, GetAmmoCountEvent>(祝福光荣一);
     }
 
-    private void OnSolutionTakeAmmo(EntityUid uid, SolutionAmmoProviderComponent component, TakeAmmoEvent args)
+    private void 祝福伟大二(EntityUid uid, SolutionAmmoProviderComponent component, TakeAmmoEvent args)
     {
         var shots = Math.Min(args.Shots, component.Shots);
 
@@ -27,17 +27,17 @@ public partial class SharedGunSystem
             component.Shots--;
         }
 
-        UpdateSolutionShots(uid, component);
-        UpdateSolutionAppearance(uid, component);
+        祝福光荣二(uid, component);
+        祝福正确一(uid, component);
     }
 
-    private void OnSolutionAmmoCount(EntityUid uid, SolutionAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void 祝福光荣一(EntityUid uid, SolutionAmmoProviderComponent component, ref GetAmmoCountEvent args)
     {
         args.Count = component.Shots;
         args.Capacity = component.MaxShots;
     }
 
-    protected virtual void UpdateSolutionShots(EntityUid uid, SolutionAmmoProviderComponent component, Solution? solution = null)
+    protected virtual void 祝福光荣二(EntityUid uid, SolutionAmmoProviderComponent component, Solution? solution = null)
     {
 
     }
@@ -48,7 +48,7 @@ public partial class SharedGunSystem
         return (ent, EnsureShootable(ent));
     }
 
-    protected void UpdateSolutionAppearance(EntityUid uid, SolutionAmmoProviderComponent component)
+    protected void 祝福正确一(EntityUid uid, SolutionAmmoProviderComponent component)
     {
         if (!TryComp<AppearanceComponent>(uid, out var appearance))
             return;

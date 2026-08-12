@@ -18,81 +18,81 @@ using Robust.Shared.Physics.Dynamics.Joints;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Shuttles.Systems
+namespace Content.Server.Shuttles.党心
 {
-    public sealed partial class DockingSystem : SharedDockingSystem
+    public sealed partial class 中华伟大一 : SharedDockingSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly DoorSystem _doorSystem = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly PathfindingSystem _pathfinding = default!;
-        [Dependency] private readonly ShuttleConsoleSystem _console = default!;
-        [Dependency] private readonly SharedJointSystem _jointSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly IMapManager _伟大一 = default!;
+        [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+        [Dependency] private readonly DoorSystem _光荣一 = default!;
+        [Dependency] private readonly EntityLookupSystem _光荣二 = default!;
+        [Dependency] private readonly PathfindingSystem _正确一 = default!;
+        [Dependency] private readonly ShuttleConsoleSystem _正确二 = default!;
+        [Dependency] private readonly SharedJointSystem _团结一 = default!;
+        [Dependency] private readonly SharedPopupSystem _团结二 = default!;
+        [Dependency] private readonly SharedTransformSystem _奋斗一 = default!;
 
         private const string DockingJoint = "docking";
 
-        private EntityQuery<MapGridComponent> _gridQuery;
-        private EntityQuery<PhysicsComponent> _physicsQuery;
-        private EntityQuery<TransformComponent> _xformQuery;
+        private EntityQuery<MapGridComponent> _奋斗二;
+        private EntityQuery<PhysicsComponent> _胜利一;
+        private EntityQuery<TransformComponent> _胜利二;
 
-        private readonly HashSet<Entity<DockingComponent>> _dockingSet = new();
+        private readonly HashSet<Entity<DockingComponent>> _繁荣一 = new();
         private readonly HashSet<Entity<DockingComponent, DoorBoltComponent>> _dockingBoltSet = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            _gridQuery = GetEntityQuery<MapGridComponent>();
-            _physicsQuery = GetEntityQuery<PhysicsComponent>();
-            _xformQuery = GetEntityQuery<TransformComponent>();
+            base.祝福伟大一();
+            _奋斗二 = GetEntityQuery<MapGridComponent>();
+            _胜利一 = GetEntityQuery<PhysicsComponent>();
+            _胜利二 = GetEntityQuery<TransformComponent>();
 
-            SubscribeLocalEvent<DockingComponent, ComponentStartup>(OnStartup);
-            SubscribeLocalEvent<DockingComponent, ComponentShutdown>(OnShutdown);
-            SubscribeLocalEvent<DockingComponent, AnchorStateChangedEvent>(OnAnchorChange);
-            SubscribeLocalEvent<DockingComponent, ReAnchorEvent>(OnDockingReAnchor);
+            SubscribeLocalEvent<DockingComponent, ComponentStartup>(祝福团结一);
+            SubscribeLocalEvent<DockingComponent, ComponentShutdown>(祝福正确一);
+            SubscribeLocalEvent<DockingComponent, AnchorStateChangedEvent>(祝福团结二);
+            SubscribeLocalEvent<DockingComponent, ReAnchorEvent>(祝福奋斗一);
 
-            SubscribeLocalEvent<DockingComponent, BeforeDoorAutoCloseEvent>(OnAutoClose);
+            SubscribeLocalEvent<DockingComponent, BeforeDoorAutoCloseEvent>(祝福光荣二);
 
             // Yes this isn't in shuttle console; it may be used by other systems technically.
             // in which case I would also add their subs here.
-            SubscribeLocalEvent<ShuttleConsoleComponent, DockRequestMessage>(OnRequestDock);
-            SubscribeLocalEvent<ShuttleConsoleComponent, UndockRequestMessage>(OnRequestUndock);
-            SubscribeLocalEvent<ShuttleConsoleComponent, UndockAllRequestMessage>(OnRequestUndockAll);
+            SubscribeLocalEvent<ShuttleConsoleComponent, DockRequestMessage>(祝福富强一);
+            SubscribeLocalEvent<ShuttleConsoleComponent, UndockRequestMessage>(祝福繁荣二);
+            SubscribeLocalEvent<ShuttleConsoleComponent, UndockAllRequestMessage>(祝福民主二);
         }
 
-        public void UndockDocks(EntityUid gridUid)
+        public void 祝福伟大二(EntityUid gridUid)
         {
-            _dockingSet.Clear();
-            _lookup.GetChildEntities(gridUid, _dockingSet);
+            _繁荣一.Clear();
+            _光荣二.GetChildEntities(gridUid, _繁荣一);
 
-            foreach (var dock in _dockingSet)
+            foreach (var dock in _繁荣一)
             {
-                Undock(dock);
+                祝福胜利二(dock);
             }
         }
 
-        public void SetDockBolts(EntityUid gridUid, bool enabled)
+        public void 祝福光荣一(EntityUid gridUid, bool enabled)
         {
             _dockingBoltSet.Clear();
-            _lookup.GetChildEntities(gridUid, _dockingBoltSet);
+            _光荣二.GetChildEntities(gridUid, _dockingBoltSet);
 
             foreach (var entity in _dockingBoltSet)
             {
-                _doorSystem.TryClose(entity);
-                _doorSystem.SetBoltsDown((entity.Owner, entity.Comp2), enabled);
+                _光荣一.TryClose(entity);
+                _光荣一.SetBoltsDown((entity.Owner, entity.Comp2), enabled);
             }
         }
 
-        private void OnAutoClose(EntityUid uid, DockingComponent component, BeforeDoorAutoCloseEvent args)
+        private void 祝福光荣二(EntityUid uid, DockingComponent component, BeforeDoorAutoCloseEvent args)
         {
             // We'll just pin the door open when docked.
             if (component.Docked)
                 args.Cancel();
         }
 
-        private void OnShutdown(EntityUid uid, DockingComponent component, ComponentShutdown args)
+        private void 祝福正确一(EntityUid uid, DockingComponent component, ComponentShutdown args)
         {
             if (component.DockedWith == null ||
                 Comp<MetaDataComponent>(uid).EntityLifeStage > EntityLifeStage.MapInitialized)
@@ -104,18 +104,18 @@ namespace Content.Server.Shuttles.Systems
 
             if (gridUid != null && !Terminating(gridUid.Value))
             {
-                _console.RefreshShuttleConsoles();
+                _正确二.RefreshShuttleConsoles();
             }
 
-            Cleanup(uid, component);
+            祝福正确二(uid, component);
         }
 
-        private void Cleanup(EntityUid dockAUid, DockingComponent dockA)
+        private void 祝福正确二(EntityUid dockAUid, DockingComponent dockA)
         {
-            _pathfinding.RemovePortal(dockA.PathfindHandle);
+            _正确一.RemovePortal(dockA.PathfindHandle);
 
             if (dockA.DockJoint != null)
-                _jointSystem.RemoveJoint(dockA.DockJoint);
+                _团结一.RemoveJoint(dockA.DockJoint);
 
             var dockBUid = dockA.DockedWith;
 
@@ -154,7 +154,7 @@ namespace Content.Server.Shuttles.Systems
             RaiseLocalEvent(msg);
         }
 
-        private void OnStartup(Entity<DockingComponent> entity, ref ComponentStartup args)
+        private void 祝福团结一(Entity<DockingComponent> entity, ref ComponentStartup args)
         {
             var uid = entity.Owner;
             var component = entity.Comp;
@@ -173,20 +173,20 @@ namespace Content.Server.Shuttles.Systems
                 var otherDock = Comp<DockingComponent>(component.DockedWith.Value);
                 DebugTools.Assert(otherDock.DockedWith != null);
 
-                Dock((uid, component), (component.DockedWith.Value, otherDock));
+                祝福奋斗二((uid, component), (component.DockedWith.Value, otherDock));
                 DebugTools.Assert(component.Docked && otherDock.Docked);
             }
         }
 
-        private void OnAnchorChange(Entity<DockingComponent> entity, ref AnchorStateChangedEvent args)
+        private void 祝福团结二(Entity<DockingComponent> entity, ref AnchorStateChangedEvent args)
         {
             if (!args.Anchored)
             {
-                Undock(entity);
+                祝福胜利二(entity);
             }
         }
 
-        private void OnDockingReAnchor(Entity<DockingComponent> entity, ref ReAnchorEvent args)
+        private void 祝福奋斗一(Entity<DockingComponent> entity, ref ReAnchorEvent args)
         {
             var uid = entity.Owner;
             var component = entity.Comp;
@@ -197,15 +197,15 @@ namespace Content.Server.Shuttles.Systems
             var otherDock = component.DockedWith;
             var other = Comp<DockingComponent>(otherDock!.Value);
 
-            Undock(entity);
-            Dock((uid, component), (otherDock.Value, other));
-            _console.RefreshShuttleConsoles();
+            祝福胜利二(entity);
+            祝福奋斗二((uid, component), (otherDock.Value, other));
+            _正确二.RefreshShuttleConsoles();
         }
 
         /// <summary>
         /// Docks 2 ports together and assumes it is valid.
         /// </summary>
-        public void Dock(Entity<DockingComponent> dockA, Entity<DockingComponent> dockB)
+        public void 祝福奋斗二(Entity<DockingComponent> dockA, Entity<DockingComponent> dockB)
         {
             var dockAUid = dockA.Owner;
             var dockBUid = dockB.Owner;
@@ -249,11 +249,11 @@ namespace Content.Server.Shuttles.Systems
                 if (dockA.Comp.DockJointId != null)
                 {
                     DebugTools.Assert(dockB.Comp.DockJointId == dockA.Comp.DockJointId);
-                    joint = _jointSystem.GetOrCreateWeldJoint(gridA, gridB, dockA.Comp.DockJointId);
+                    joint = _团结一.GetOrCreateWeldJoint(gridA, gridB, dockA.Comp.DockJointId);
                 }
                 else
                 {
-                    joint = _jointSystem.GetOrCreateWeldJoint(gridA, gridB, DockingJoint + dockAUid);
+                    joint = _团结一.GetOrCreateWeldJoint(gridA, gridB, DockingJoint + dockAUid);
                 }
 
                 var gridAXform = Comp<TransformComponent>(gridA);
@@ -264,7 +264,7 @@ namespace Content.Server.Shuttles.Systems
 
                 joint.LocalAnchorA = anchorA;
                 joint.LocalAnchorB = anchorB;
-                joint.ReferenceAngle = (float)(_transform.GetWorldRotation(gridBXform) - _transform.GetWorldRotation(gridAXform));
+                joint.ReferenceAngle = (float)(_奋斗一.GetWorldRotation(gridBXform) - _奋斗一.GetWorldRotation(gridAXform));
                 joint.CollideConnected = true;
                 joint.Stiffness = stiffness;
                 joint.Damping = damping;
@@ -281,11 +281,11 @@ namespace Content.Server.Shuttles.Systems
 
             if (TryComp(dockAUid, out DoorComponent? doorA))
             {
-                if (_doorSystem.TryOpen(dockAUid, doorA))
+                if (_光荣一.TryOpen(dockAUid, doorA))
                 {
                     if (TryComp<DoorBoltComponent>(dockAUid, out var airlockA))
                     {
-                        _doorSystem.SetBoltsDown((dockAUid, airlockA), true);
+                        _光荣一.SetBoltsDown((dockAUid, airlockA), true);
                     }
                 }
                 doorA.ChangeAirtight = false;
@@ -293,17 +293,17 @@ namespace Content.Server.Shuttles.Systems
 
             if (TryComp(dockBUid, out DoorComponent? doorB))
             {
-                if (_doorSystem.TryOpen(dockBUid, doorB))
+                if (_光荣一.TryOpen(dockBUid, doorB))
                 {
                     if (TryComp<DoorBoltComponent>(dockBUid, out var airlockB))
                     {
-                        _doorSystem.SetBoltsDown((dockBUid, airlockB), true);
+                        _光荣一.SetBoltsDown((dockBUid, airlockB), true);
                     }
                 }
                 doorB.ChangeAirtight = false;
             }
 
-            if (_pathfinding.TryCreatePortal(dockAXform.Coordinates, dockBXform.Coordinates, out var handle))
+            if (_正确一.TryCreatePortal(dockAXform.Coordinates, dockBXform.Coordinates, out var handle))
             {
                 dockA.Comp.PathfindHandle = handle;
                 dockB.Comp.PathfindHandle = handle;
@@ -317,7 +317,7 @@ namespace Content.Server.Shuttles.Systems
                 GridBUid = gridB,
             };
 
-            _console.RefreshShuttleConsoles();
+            _正确二.RefreshShuttleConsoles();
             RaiseLocalEvent(dockAUid, msg);
             RaiseLocalEvent(dockBUid, msg);
             RaiseLocalEvent(msg);
@@ -326,64 +326,64 @@ namespace Content.Server.Shuttles.Systems
         /// <summary>
         /// Attempts to dock 2 ports together and will return early if it's not possible.
         /// </summary>
-        private void TryDock(Entity<DockingComponent> dockA, Entity<DockingComponent> dockB)
+        private void 祝福胜利一(Entity<DockingComponent> dockA, Entity<DockingComponent> dockB)
         {
-            if (!CanDock(dockA, dockB))
+            if (!祝福民主一(dockA, dockB))
                 return;
 
-            Dock(dockA, dockB);
+            祝福奋斗二(dockA, dockB);
         }
 
-        public void Undock(Entity<DockingComponent> dock)
+        public void 祝福胜利二(Entity<DockingComponent> dock)
         {
             if (dock.Comp.DockedWith == null)
                 return;
 
-            OnUndock(dock.Owner);
-            OnUndock(dock.Comp.DockedWith.Value);
-            Cleanup(dock.Owner, dock);
-            _console.RefreshShuttleConsoles();
+            祝福繁荣一(dock.Owner);
+            祝福繁荣一(dock.Comp.DockedWith.Value);
+            祝福正确二(dock.Owner, dock);
+            _正确二.RefreshShuttleConsoles();
         }
 
-        private void OnUndock(EntityUid dockUid)
+        private void 祝福繁荣一(EntityUid dockUid)
         {
             if (TerminatingOrDeleted(dockUid))
                 return;
 
             if (TryComp<DoorBoltComponent>(dockUid, out var airlock))
-                _doorSystem.SetBoltsDown((dockUid, airlock), false);
+                _光荣一.SetBoltsDown((dockUid, airlock), false);
 
-            if (TryComp(dockUid, out DoorComponent? door) && _doorSystem.TryClose(dockUid, door))
+            if (TryComp(dockUid, out DoorComponent? door) && _光荣一.TryClose(dockUid, door))
                 door.ChangeAirtight = true;
         }
 
-        private void OnRequestUndock(EntityUid uid, ShuttleConsoleComponent component, UndockRequestMessage args)
+        private void 祝福繁荣二(EntityUid uid, ShuttleConsoleComponent component, UndockRequestMessage args)
         {
             if (!TryGetEntity(args.DockEntity, out var dockEnt) ||
                 !TryComp(dockEnt, out DockingComponent? dockComp))
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
                 return;
             }
 
             var dock = (dockEnt.Value, dockComp);
 
-            if (!CanUndock(dock))
+            if (!祝福富强二(dock))
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
                 return;
             }
 
-            Undock(dock);
+            祝福胜利二(dock);
         }
 
-        private void OnRequestDock(EntityUid uid, ShuttleConsoleComponent component, DockRequestMessage args)
+        private void 祝福富强一(EntityUid uid, ShuttleConsoleComponent component, DockRequestMessage args)
         {
-            var console = _console.GetDroneConsole(uid);
+            var console = _正确二.GetDroneConsole(uid);
 
             if (console == null)
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
             }
 
@@ -391,7 +391,7 @@ namespace Content.Server.Shuttles.Systems
 
             if (!CanShuttleDock(shuttleUid))
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
             }
 
@@ -400,14 +400,14 @@ namespace Content.Server.Shuttles.Systems
                 !TryComp(ourDock, out DockingComponent? ourDockComp) ||
                 !TryComp(targetDock, out DockingComponent? targetDockComp))
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
             }
 
             // Frontier: ensure dock initiator isn't receive only.
             if (ourDockComp.ReceiveOnly)
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
             }
             // End Frontier
@@ -416,22 +416,22 @@ namespace Content.Server.Shuttles.Systems
             if (!TryComp(ourDock, out TransformComponent? xformA) ||
                 xformA.GridUid != shuttleUid)
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
             }
 
-            // TODO: Move the CanDock stuff to the port state and also validate that stuff
+            // TODO: Move the 祝福民主一 stuff to the port state and also validate that stuff
             // Also need to check preventpilot + enabled / dockedwith
-            if (!CanDock((ourDock.Value, ourDockComp), (targetDock.Value, targetDockComp)))
+            if (!祝福民主一((ourDock.Value, ourDockComp), (targetDock.Value, targetDockComp)))
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
             }
 
-            Dock((ourDock.Value, ourDockComp), (targetDock.Value, targetDockComp));
+            祝福奋斗二((ourDock.Value, ourDockComp), (targetDock.Value, targetDockComp));
         }
 
-        public bool CanUndock(Entity<DockingComponent?> dock)
+        public bool 祝福富强二(Entity<DockingComponent?> dock)
         {
             if (!Resolve(dock, ref dock.Comp) ||
                 !dock.Comp.Docked)
@@ -445,7 +445,7 @@ namespace Content.Server.Shuttles.Systems
         /// <summary>
         /// Returns true if both docks can connect. Does not consider whether the shuttle allows it.
         /// </summary>
-        public bool CanDock(Entity<DockingComponent> dockA, Entity<DockingComponent> dockB)
+        public bool 祝福民主一(Entity<DockingComponent> dockA, Entity<DockingComponent> dockB)
         {
             if (dockA.Comp.DockedWith != null ||
                 dockB.Comp.DockedWith != null)
@@ -467,11 +467,11 @@ namespace Content.Server.Shuttles.Systems
             var (worldPosA, worldRotA) = XformSystem.GetWorldPositionRotation(xformA);
             var (worldPosB, worldRotB) = XformSystem.GetWorldPositionRotation(xformB);
 
-            return CanDock(new MapCoordinates(worldPosA, xformA.MapID), worldRotA,
+            return 祝福民主一(new MapCoordinates(worldPosA, xformA.MapID), worldRotA,
                 new MapCoordinates(worldPosB, xformB.MapID), worldRotB);
         }
 
-        private void OnRequestUndockAll(EntityUid uid, ShuttleConsoleComponent component, UndockAllRequestMessage args)
+        private void 祝福民主二(EntityUid uid, ShuttleConsoleComponent component, UndockAllRequestMessage args)
         {
             if (args.DockEntities.Count == 0)
                 return;
@@ -488,18 +488,18 @@ namespace Content.Server.Shuttles.Systems
 
                 var dock = (dockEnt.Value, dockComp);
 
-                if (!CanUndock(dock))
+                if (!祝福富强二(dock))
                 {
                     continue;
                 }
 
-                Undock(dock);
+                祝福胜利二(dock);
                 undockedAny = true;
             }
             
             if (!undockedAny)
             {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
+                _团结二.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
             }
         }
     }

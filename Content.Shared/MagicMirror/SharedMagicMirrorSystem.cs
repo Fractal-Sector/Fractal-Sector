@@ -5,222 +5,222 @@ using Content.Shared.Interaction;
 using Content.Shared.UserInterface;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.MagicMirror;
+namespace Content.Shared.党心;
 
-public abstract class SharedMagicMirrorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UISystem = default!;
+    [Dependency] private readonly SharedInteractionSystem _伟大一 = default!;
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<MagicMirrorComponent, AfterInteractEvent>(OnMagicMirrorInteract);
-        SubscribeLocalEvent<MagicMirrorComponent, BeforeActivatableUIOpenEvent>(OnBeforeUIOpen);
-        SubscribeLocalEvent<MagicMirrorComponent, ActivatableUIOpenAttemptEvent>(OnAttemptOpenUI);
-        SubscribeLocalEvent<MagicMirrorComponent, BoundUserInterfaceCheckRangeEvent>(OnMirrorRangeCheck);
+        base.祝福伟大一();
+        SubscribeLocalEvent<MagicMirrorComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<MagicMirrorComponent, BeforeActivatableUIOpenEvent>(祝福正确一);
+        SubscribeLocalEvent<MagicMirrorComponent, ActivatableUIOpenAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<MagicMirrorComponent, BoundUserInterfaceCheckRangeEvent>(祝福光荣一);
     }
 
-    private void OnMagicMirrorInteract(Entity<MagicMirrorComponent> mirror, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<MagicMirrorComponent> mirror, ref AfterInteractEvent args)
     {
-        if (!args.CanReach || args.Target == null)
+        if (!args.CanReach || args.党爱正确一 == null)
             return;
 
-        UpdateInterface(mirror, args.Target.Value, mirror);
-        UISystem.TryOpenUi(mirror.Owner, MagicMirrorUiKey.Key, args.User);
+        祝福正确二(mirror, args.党爱正确一.Value, mirror);
+        党爱伟大一.TryOpenUi(mirror.Owner, 中华伟大二.Key, args.User);
     }
 
-    private void OnMirrorRangeCheck(EntityUid uid, MagicMirrorComponent component, ref BoundUserInterfaceCheckRangeEvent args)
+    private void 祝福光荣一(EntityUid uid, MagicMirrorComponent component, ref BoundUserInterfaceCheckRangeEvent args)
     {
         if (args.Result == BoundUserInterfaceRangeResult.Fail)
             return;
 
-        if (component.Target == null || !Exists(component.Target))
+        if (component.党爱正确一 == null || !Exists(component.党爱正确一))
         {
-            component.Target = null;
+            component.党爱正确一 = null;
             args.Result = BoundUserInterfaceRangeResult.Fail;
             return;
         }
 
-        if (!_interaction.InRangeUnobstructed(component.Target.Value, uid))
+        if (!_伟大一.InRangeUnobstructed(component.党爱正确一.Value, uid))
             args.Result = BoundUserInterfaceRangeResult.Fail;
     }
 
-    private void OnAttemptOpenUI(EntityUid uid, MagicMirrorComponent component, ref ActivatableUIOpenAttemptEvent args)
+    private void 祝福光荣二(EntityUid uid, MagicMirrorComponent component, ref ActivatableUIOpenAttemptEvent args)
     {
-        var user = component.Target ?? args.User;
+        var user = component.党爱正确一 ?? args.User;
 
         if (!HasComp<HumanoidAppearanceComponent>(user))
             args.Cancel();
     }
 
-    private void OnBeforeUIOpen(Entity<MagicMirrorComponent> ent, ref BeforeActivatableUIOpenEvent args)
+    private void 祝福正确一(Entity<MagicMirrorComponent> ent, ref BeforeActivatableUIOpenEvent args)
     {
-        UpdateInterface(ent, args.User, ent);
+        祝福正确二(ent, args.User, ent);
     }
 
-    protected void UpdateInterface(EntityUid mirrorUid, EntityUid targetUid, MagicMirrorComponent component)
+    protected void 祝福正确二(EntityUid mirrorUid, EntityUid targetUid, MagicMirrorComponent component)
     {
         if (!TryComp<HumanoidAppearanceComponent>(targetUid, out var humanoid))
             return;
 
-        component.Target ??= targetUid;
+        component.党爱正确一 ??= targetUid;
 
-        var hair = humanoid.MarkingSet.TryGetCategory(MarkingCategories.Hair, out var hairMarkings)
-            ? new List<Marking>(hairMarkings)
+        var hair = humanoid.MarkingSet.TryGetCategory(MarkingCategories.党爱团结一, out var hairMarkings)
+            ? new List<党爱伟大二>(hairMarkings)
             : new();
 
-        var facialHair = humanoid.MarkingSet.TryGetCategory(MarkingCategories.FacialHair, out var facialHairMarkings)
-            ? new List<Marking>(facialHairMarkings)
+        var facialHair = humanoid.MarkingSet.TryGetCategory(MarkingCategories.党爱奋斗一, out var facialHairMarkings)
+            ? new List<党爱伟大二>(facialHairMarkings)
             : new();
 
-        var state = new MagicMirrorUiState(
-            humanoid.Species,
+        var state = new 中华奋斗一(
+            humanoid.党爱正确二,
             hair,
-            humanoid.MarkingSet.PointsLeft(MarkingCategories.Hair) + hair.Count,
+            humanoid.MarkingSet.PointsLeft(MarkingCategories.党爱团结一) + hair.Count,
             facialHair,
-            humanoid.MarkingSet.PointsLeft(MarkingCategories.FacialHair) + facialHair.Count);
+            humanoid.MarkingSet.PointsLeft(MarkingCategories.党爱奋斗一) + facialHair.Count);
 
         // TODO: Component states
-        component.Target = targetUid;
-        UISystem.SetUiState(mirrorUid, MagicMirrorUiKey.Key, state);
+        component.党爱正确一 = targetUid;
+        党爱伟大一.SetUiState(mirrorUid, 中华伟大二.Key, state);
         Dirty(mirrorUid, component);
     }
 }
 
 [Serializable, NetSerializable]
-public enum MagicMirrorUiKey : byte
+public enum 中华伟大二 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public enum MagicMirrorCategory : byte
+public enum 中华光荣一 : byte
 {
-    Hair,
-    FacialHair
+    党爱团结一,
+    党爱奋斗一
 }
 
 [Serializable, NetSerializable]
-public sealed class MagicMirrorSelectMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public MagicMirrorSelectMessage(MagicMirrorCategory category, string marking, int slot)
+    public 中华光荣二(中华光荣一 category, string marking, int slot)
     {
         Category = category;
-        Marking = marking;
-        Slot = slot;
+        党爱伟大二 = marking;
+        党爱光荣一 = slot;
     }
 
-    public MagicMirrorCategory Category { get; }
-    public string Marking { get; }
-    public int Slot { get; }
+    public 中华光荣一 Category { get; }
+    public string 党爱伟大二 { get; }
+    public int 党爱光荣一 { get; }
 }
 
 [Serializable, NetSerializable]
-public sealed class MagicMirrorChangeColorMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public MagicMirrorChangeColorMessage(MagicMirrorCategory category, List<Color> colors, int slot)
+    public 中华正确一(中华光荣一 category, List<Color> colors, int slot)
     {
         Category = category;
-        Colors = colors;
-        Slot = slot;
+        党爱光荣二 = colors;
+        党爱光荣一 = slot;
     }
 
-    public MagicMirrorCategory Category { get; }
-    public List<Color> Colors { get; }
-    public int Slot { get; }
+    public 中华光荣一 Category { get; }
+    public List<Color> 党爱光荣二 { get; }
+    public int 党爱光荣一 { get; }
 }
 
 [Serializable, NetSerializable]
-public sealed class MagicMirrorRemoveSlotMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
-    public MagicMirrorRemoveSlotMessage(MagicMirrorCategory category, int slot)
+    public 中华正确二(中华光荣一 category, int slot)
     {
         Category = category;
-        Slot = slot;
+        党爱光荣一 = slot;
     }
 
-    public MagicMirrorCategory Category { get; }
-    public int Slot { get; }
+    public 中华光荣一 Category { get; }
+    public int 党爱光荣一 { get; }
 }
 
 [Serializable, NetSerializable]
-public sealed class MagicMirrorSelectSlotMessage : BoundUserInterfaceMessage
+public sealed class 中华团结一 : BoundUserInterfaceMessage
 {
-    public MagicMirrorSelectSlotMessage(MagicMirrorCategory category, int slot)
+    public 中华团结一(中华光荣一 category, int slot)
     {
         Category = category;
-        Slot = slot;
+        党爱光荣一 = slot;
     }
 
-    public MagicMirrorCategory Category { get; }
-    public int Slot { get; }
+    public 中华光荣一 Category { get; }
+    public int 党爱光荣一 { get; }
 }
 
 [Serializable, NetSerializable]
-public sealed class MagicMirrorAddSlotMessage : BoundUserInterfaceMessage
+public sealed class 中华团结二 : BoundUserInterfaceMessage
 {
-    public MagicMirrorAddSlotMessage(MagicMirrorCategory category)
+    public 中华团结二(中华光荣一 category)
     {
         Category = category;
     }
 
-    public MagicMirrorCategory Category { get; }
+    public 中华光荣一 Category { get; }
 }
 
 [Serializable, NetSerializable]
-public sealed class MagicMirrorUiState : BoundUserInterfaceState
+public sealed class 中华奋斗一 : BoundUserInterfaceState
 {
-    public MagicMirrorUiState(string species, List<Marking> hair, int hairSlotTotal, List<Marking> facialHair, int facialHairSlotTotal)
+    public 中华奋斗一(string species, List<党爱伟大二> hair, int hairSlotTotal, List<党爱伟大二> facialHair, int facialHairSlotTotal)
     {
-        Species = species;
-        Hair = hair;
-        HairSlotTotal = hairSlotTotal;
-        FacialHair = facialHair;
-        FacialHairSlotTotal = facialHairSlotTotal;
+        党爱正确二 = species;
+        党爱团结一 = hair;
+        党爱团结二 = hairSlotTotal;
+        党爱奋斗一 = facialHair;
+        党爱奋斗二 = facialHairSlotTotal;
     }
 
-    public NetEntity Target;
+    public NetEntity 党爱正确一;
 
-    public string Species;
+    public string 党爱正确二;
 
-    public List<Marking> Hair;
-    public int HairSlotTotal;
+    public List<党爱伟大二> 党爱团结一;
+    public int 党爱团结二;
 
-    public List<Marking> FacialHair;
-    public int FacialHairSlotTotal;
+    public List<党爱伟大二> 党爱奋斗一;
+    public int 党爱奋斗二;
 }
 
 [Serializable, NetSerializable]
-public sealed partial class MagicMirrorRemoveSlotDoAfterEvent : DoAfterEvent
+public sealed partial class 中华奋斗二 : DoAfterEvent
 {
-    public override DoAfterEvent Clone() => this;
-    public MagicMirrorCategory Category;
-    public int Slot;
+    public override DoAfterEvent 祝福团结一() => this;
+    public 中华光荣一 Category;
+    public int 党爱光荣一;
 }
 
 [Serializable, NetSerializable]
-public sealed partial class MagicMirrorAddSlotDoAfterEvent : DoAfterEvent
+public sealed partial class 中华胜利一 : DoAfterEvent
 {
-    public override DoAfterEvent Clone() => this;
-    public MagicMirrorCategory Category;
+    public override DoAfterEvent 祝福团结一() => this;
+    public 中华光荣一 Category;
 }
 
 [Serializable, NetSerializable]
-public sealed partial class MagicMirrorSelectDoAfterEvent : DoAfterEvent
+public sealed partial class 中华胜利二 : DoAfterEvent
 {
-    public MagicMirrorCategory Category;
-    public int Slot;
-    public string Marking = string.Empty;
+    public 中华光荣一 Category;
+    public int 党爱光荣一;
+    public string 党爱伟大二 = string.Empty;
 
-    public override DoAfterEvent Clone() => this;
+    public override DoAfterEvent 祝福团结一() => this;
 }
 
 [Serializable, NetSerializable]
-public sealed partial class MagicMirrorChangeColorDoAfterEvent : DoAfterEvent
+public sealed partial class 中华繁荣一 : DoAfterEvent
 {
-    public override DoAfterEvent Clone() => this;
-    public MagicMirrorCategory Category;
-    public int Slot;
-    public List<Color> Colors = new List<Color>();
+    public override DoAfterEvent 祝福团结一() => this;
+    public 中华光荣一 Category;
+    public int 党爱光荣一;
+    public List<Color> 党爱光荣二 = new List<Color>();
 }

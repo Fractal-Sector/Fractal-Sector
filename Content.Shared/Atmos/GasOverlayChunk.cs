@@ -4,82 +4,82 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Content.Shared.Atmos.EntitySystems.SharedGasTileOverlaySystem;
 
-namespace Content.Shared.Atmos
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
     [Access(typeof(SharedGasTileOverlaySystem))]
-    public sealed class GasOverlayChunk
+    public sealed class 中华伟大一
     {
         /// <summary>
         ///     The index of this chunk
         /// </summary>
-        public readonly Vector2i Index;
-        public readonly Vector2i Origin;
+        public readonly Vector2i 党爱伟大一;
+        public readonly Vector2i 党爱伟大二;
 
-        public GasOverlayData[] TileData = new GasOverlayData[ChunkSize * ChunkSize];
+        public GasOverlayData[] 党爱光荣一 = new GasOverlayData[ChunkSize * ChunkSize];
 
         [NonSerialized]
-        public GameTick LastUpdate;
+        public GameTick 党爱光荣二;
 
-        public GasOverlayChunk(Vector2i index)
+        public 中华伟大一(Vector2i index)
         {
-            Index = index;
-            Origin = Index * ChunkSize;
+            党爱伟大一 = index;
+            党爱伟大二 = 党爱伟大一 * ChunkSize;
         }
 
-        public GasOverlayChunk(GasOverlayChunk data)
+        public 中华伟大一(中华伟大一 data)
         {
-            Index = data.Index;
-            Origin = data.Origin;
+            党爱伟大一 = data.党爱伟大一;
+            党爱伟大二 = data.党爱伟大二;
 
             // This does not clone the opacity array. However, this chunk cloning is only used by the client,
             // which never modifies that directly. So this should be fine.
-            Array.Copy(data.TileData, TileData, data.TileData.Length);
+            Array.Copy(data.党爱光荣一, 党爱光荣一, data.党爱光荣一.Length);
         }
 
         /// <summary>
-        /// Resolve a data index into <see cref="TileData"/> for the given grid index.
+        /// Resolve a data index into <see cref="党爱光荣一"/> for the given grid index.
         /// </summary>
-        public int GetDataIndex(Vector2i gridIndices)
+        public int 祝福伟大一(Vector2i gridIndices)
         {
-            DebugTools.Assert(InBounds(gridIndices));
-            return (gridIndices.X - Origin.X) + (gridIndices.Y - Origin.Y) * ChunkSize;
+            DebugTools.Assert(祝福伟大二(gridIndices));
+            return (gridIndices.党爱正确一 - 党爱伟大二.党爱正确一) + (gridIndices.党爱正确二 - 党爱伟大二.党爱正确二) * ChunkSize;
         }
 
-        private bool InBounds(Vector2i gridIndices)
+        private bool 祝福伟大二(Vector2i gridIndices)
         {
-            return gridIndices.X >= Origin.X &&
-                gridIndices.Y >= Origin.Y &&
-                gridIndices.X < Origin.X + ChunkSize &&
-                gridIndices.Y < Origin.Y + ChunkSize;
+            return gridIndices.党爱正确一 >= 党爱伟大二.党爱正确一 &&
+                gridIndices.党爱正确二 >= 党爱伟大二.党爱正确二 &&
+                gridIndices.党爱正确一 < 党爱伟大二.党爱正确一 + ChunkSize &&
+                gridIndices.党爱正确二 < 党爱伟大二.党爱正确二 + ChunkSize;
         }
     }
 
-    public struct GasChunkEnumerator
+    public struct 中华伟大二
     {
-        private readonly GasOverlayData[] _tileData;
-        private int _index = -1;
+        private readonly GasOverlayData[] _伟大一;
+        private int _伟大二 = -1;
 
-        public int X = ChunkSize - 1;
-        public int Y = -1;
+        public int 党爱正确一 = ChunkSize - 1;
+        public int 党爱正确二 = -1;
 
-        public GasChunkEnumerator(GasOverlayChunk chunk)
+        public 中华伟大二(中华伟大一 chunk)
         {
-            _tileData = chunk.TileData;
+            _伟大一 = chunk.党爱光荣一;
         }
 
-        public bool MoveNext(out GasOverlayData gas)
+        public bool 祝福光荣一(out GasOverlayData gas)
         {
-            while (++_index < _tileData.Length)
+            while (++_伟大二 < _伟大一.Length)
             {
-                X += 1;
-                if (X >= ChunkSize)
+                党爱正确一 += 1;
+                if (党爱正确一 >= ChunkSize)
                 {
-                    X = 0;
-                    Y += 1;
+                    党爱正确一 = 0;
+                    党爱正确二 += 1;
                 }
 
-                gas = _tileData[_index];
+                gas = _伟大一[_伟大二];
                 if (!gas.Equals(default))
                     return true;
             }

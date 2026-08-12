@@ -1,11 +1,11 @@
-﻿namespace Content.Server.Xenoarchaeology.Artifact.XAE.Components;
+﻿namespace Content.Server.Xenoarchaeology.Artifact.XAE.党心;
 
 /// <summary>
 ///     Harmless artifact that broadcast "thoughts" to players nearby.
 ///     Thoughts are shown as popups and unique for each player.
 /// </summary>
 [RegisterComponent, Access(typeof(XAETelepathicSystem))]
-public sealed partial class XAETelepathicComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Loc string ids of telepathic messages.
@@ -13,7 +13,7 @@ public sealed partial class XAETelepathicComponent : Component
     /// </summary>
     [DataField("messages")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public List<string> Messages = default!;
+    public List<string> 党爱伟大一 = default!;
 
     /// <summary>
     ///     Loc string ids of telepathic messages (spooky version).
@@ -28,12 +28,12 @@ public sealed partial class XAETelepathicComponent : Component
     /// </summary>
     [DataField("drasticProb")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float DrasticMessageProb = 0.2f;
+    public float 党爱伟大二 = 0.2f;
 
     /// <summary>
     ///     Radius in which player can receive artifacts messages.
     /// </summary>
     [DataField("range")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float Range = 10f;
+    public float 党爱光荣一 = 10f;
 }

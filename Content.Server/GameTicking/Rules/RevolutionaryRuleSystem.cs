@@ -31,84 +31,84 @@ using Robust.Shared.Timing;
 using Content.Shared.Cuffs.Components;
 using Robust.Shared.Player;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
 /// <summary>
 /// Where all the main stuff for Revolutionaries happens (Assigning Head Revs, Command on station, and checking for the game to end.)
 /// </summary>
-public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<RevolutionaryRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
-    [Dependency] private readonly EuiManager _euiMan = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly RoleSystem _role = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency] private readonly AntagSelectionSystem _伟大一 = default!;
+    [Dependency] private readonly EmergencyShuttleSystem _伟大二 = default!;
+    [Dependency] private readonly EuiManager _光荣一 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _正确二 = default!;
+    [Dependency] private readonly MindSystem _团结一 = default!;
+    [Dependency] private readonly MobStateSystem _团结二 = default!;
+    [Dependency] private readonly NpcFactionSystem _奋斗一 = default!;
+    [Dependency] private readonly PopupSystem _奋斗二 = default!;
+    [Dependency] private readonly RoleSystem _胜利一 = default!;
+    [Dependency] private readonly RoundEndSystem _胜利二 = default!;
+    [Dependency] private readonly SharedStunSystem _繁荣一 = default!;
+    [Dependency] private readonly StationSystem _繁荣二 = default!;
 
-    //Used in OnPostFlash, no reference to the rule component is available
-    public readonly ProtoId<NpcFactionPrototype> RevolutionaryNpcFaction = "Revolutionary";
-    public readonly ProtoId<NpcFactionPrototype> RevPrototypeId = "Rev";
+    //Used in 祝福正确二, no reference to the rule component is available
+    public readonly ProtoId<NpcFactionPrototype> 党爱伟大一 = "Revolutionary";
+    public readonly ProtoId<NpcFactionPrototype> 党爱伟大二 = "Rev";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<CommandStaffComponent, MobStateChangedEvent>(OnCommandMobStateChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<CommandStaffComponent, MobStateChangedEvent>(祝福团结一);
 
-        SubscribeLocalEvent<HeadRevolutionaryComponent, AfterFlashedEvent>(OnPostFlash);
-        SubscribeLocalEvent<HeadRevolutionaryComponent, MobStateChangedEvent>(OnHeadRevMobStateChanged);
+        SubscribeLocalEvent<HeadRevolutionaryComponent, AfterFlashedEvent>(祝福正确二);
+        SubscribeLocalEvent<HeadRevolutionaryComponent, MobStateChangedEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<RevolutionaryRoleComponent, GetBriefingEvent>(OnGetBriefing);
+        SubscribeLocalEvent<RevolutionaryRoleComponent, GetBriefingEvent>(祝福正确一);
 
     }
 
-    protected override void Started(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
-        component.CommandCheck = _timing.CurTime + component.TimerWait;
+        base.祝福伟大二(uid, component, gameRule, args);
+        component.CommandCheck = _正确一.CurTime + component.TimerWait;
     }
 
-    protected override void ActiveTick(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void 祝福光荣一(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, float frameTime)
     {
-        base.ActiveTick(uid, component, gameRule, frameTime);
-        if (component.CommandCheck <= _timing.CurTime)
+        base.祝福光荣一(uid, component, gameRule, frameTime);
+        if (component.CommandCheck <= _正确一.CurTime)
         {
-            component.CommandCheck = _timing.CurTime + component.TimerWait;
+            component.CommandCheck = _正确一.CurTime + component.TimerWait;
 
-            if (CheckCommandLose())
+            if (祝福团结二())
             {
-                _roundEnd.DoRoundEndBehavior(RoundEndBehavior.ShuttleCall, component.ShuttleCallTime);
+                _胜利二.DoRoundEndBehavior(RoundEndBehavior.ShuttleCall, component.ShuttleCallTime);
                 GameTicker.EndGameRule(uid, gameRule);
             }
         }
     }
 
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void 祝福光荣二(EntityUid uid,
         RevolutionaryRuleComponent component,
         GameRuleComponent gameRule,
         ref RoundEndTextAppendEvent args)
     {
-        base.AppendRoundEndText(uid, component, gameRule, ref args);
+        base.祝福光荣二(uid, component, gameRule, ref args);
 
-        var revsLost = CheckRevsLose();
-        var commandLost = CheckCommandLose();
+        var revsLost = 祝福奋斗二();
+        var commandLost = 祝福团结二();
         // This is (revsLost, commandsLost) concatted together
         // (moony wrote this comment idk what it means)
         var index = (commandLost ? 1 : 0) | (revsLost ? 2 : 0);
         args.AddLine(Loc.GetString(Outcomes[index]));
 
-        var sessionData = _antag.GetAntagIdentifiers(uid);
+        var sessionData = _伟大一.GetAntagIdentifiers(uid);
         args.AddLine(Loc.GetString("rev-headrev-count", ("initialCount", sessionData.Count)));
         foreach (var (mind, data, name) in sessionData)
         {
-            _role.MindHasRole<RevolutionaryRoleComponent>(mind, out var role);
+            _胜利一.MindHasRole<RevolutionaryRoleComponent>(mind, out var role);
             var count = CompOrNull<RevolutionaryRoleComponent>(role)?.ConvertedCount ?? 0;
 
             args.AddLine(Loc.GetString("rev-headrev-name-user",
@@ -120,7 +120,7 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         }
     }
 
-    private void OnGetBriefing(EntityUid uid, RevolutionaryRoleComponent comp, ref GetBriefingEvent args)
+    private void 祝福正确一(EntityUid uid, RevolutionaryRoleComponent comp, ref GetBriefingEvent args)
     {
         var ent = args.Mind.Comp.OwnedEntity;
         var head = HasComp<HeadRevolutionaryComponent>(ent);
@@ -130,38 +130,38 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
     /// <summary>
     /// Called when a Head Rev uses a flash in melee to convert somebody else.
     /// </summary>
-    private void OnPostFlash(EntityUid uid, HeadRevolutionaryComponent comp, ref AfterFlashedEvent ev)
+    private void 祝福正确二(EntityUid uid, HeadRevolutionaryComponent comp, ref AfterFlashedEvent ev)
     {
         if (uid != ev.User || !ev.Melee)
             return;
 
         var alwaysConvertible = HasComp<AlwaysRevolutionaryConvertibleComponent>(ev.Target);
 
-        if (!_mind.TryGetMind(ev.Target, out var mindId, out var mind) && !alwaysConvertible)
+        if (!_团结一.TryGetMind(ev.Target, out var mindId, out var mind) && !alwaysConvertible)
             return;
 
         if (HasComp<RevolutionaryComponent>(ev.Target) ||
             HasComp<MindShieldComponent>(ev.Target) ||
             !HasComp<HumanoidAppearanceComponent>(ev.Target) &&
             !alwaysConvertible ||
-            !_mobState.IsAlive(ev.Target) ||
+            !_团结二.IsAlive(ev.Target) ||
             HasComp<ZombieComponent>(ev.Target))
         {
             return;
         }
 
-        _npcFaction.AddFaction(ev.Target, RevolutionaryNpcFaction);
+        _奋斗一.AddFaction(ev.Target, 党爱伟大一);
         var revComp = EnsureComp<RevolutionaryComponent>(ev.Target);
 
         if (ev.User != null)
         {
-            _adminLogManager.Add(LogType.Mind,
+            _光荣二.Add(LogType.Mind,
                 LogImpact.Medium,
                 $"{ToPrettyString(ev.User.Value)} converted {ToPrettyString(ev.Target)} into a Revolutionary");
 
-            if (_mind.TryGetMind(ev.User.Value, out var revMindId, out _))
+            if (_团结一.TryGetMind(ev.User.Value, out var revMindId, out _))
             {
-                if (_role.MindHasRole<RevolutionaryRoleComponent>(revMindId, out var role))
+                if (_胜利一.MindHasRole<RevolutionaryRoleComponent>(revMindId, out var role))
                 {
                     role.Value.Comp2.ConvertedCount++;
                     Dirty(role.Value.Owner, role.Value.Comp2);
@@ -169,26 +169,26 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
             }
         }
 
-        if (mindId == default || !_role.MindHasRole<RevolutionaryRoleComponent>(mindId))
+        if (mindId == default || !_胜利一.MindHasRole<RevolutionaryRoleComponent>(mindId))
         {
-            _role.MindAddRole(mindId, "MindRoleRevolutionary");
+            _胜利一.MindAddRole(mindId, "MindRoleRevolutionary");
         }
 
-        if (mind is { UserId: not null } && _player.TryGetSessionById(mind.UserId, out var session))
-            _antag.SendBriefing(session, Loc.GetString("rev-role-greeting"), Color.Red, revComp.RevStartSound);
+        if (mind is { UserId: not null } && _正确二.TryGetSessionById(mind.UserId, out var session))
+            _伟大一.SendBriefing(session, Loc.GetString("rev-role-greeting"), Color.Red, revComp.RevStartSound);
     }
 
     //TODO: Enemies of the revolution
-    private void OnCommandMobStateChanged(EntityUid uid, CommandStaffComponent comp, MobStateChangedEvent ev)
+    private void 祝福团结一(EntityUid uid, CommandStaffComponent comp, MobStateChangedEvent ev)
     {
         if (ev.NewMobState == MobState.Dead || ev.NewMobState == MobState.Invalid)
-            CheckCommandLose();
+            祝福团结二();
     }
 
     /// <summary>
     /// Checks if all of command is dead and if so will remove all sec and command jobs if there were any left.
     /// </summary>
-    private bool CheckCommandLose()
+    private bool 祝福团结二()
     {
         var commandList = new List<EntityUid>();
 
@@ -198,19 +198,19 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
             commandList.Add(id);
         }
 
-        return IsGroupDetainedOrDead(commandList, true, true, true);
+        return 祝福胜利一(commandList, true, true, true);
     }
 
-    private void OnHeadRevMobStateChanged(EntityUid uid, HeadRevolutionaryComponent comp, MobStateChangedEvent ev)
+    private void 祝福奋斗一(EntityUid uid, HeadRevolutionaryComponent comp, MobStateChangedEvent ev)
     {
         if (ev.NewMobState == MobState.Dead || ev.NewMobState == MobState.Invalid)
-            CheckRevsLose();
+            祝福奋斗二();
     }
 
     /// <summary>
     /// Checks if all the Head Revs are dead and if so will deconvert all regular revs.
     /// </summary>
-    private bool CheckRevsLose()
+    private bool 祝福奋斗二()
     {
         var stunTime = TimeSpan.FromSeconds(4);
         var headRevList = new List<EntityUid>();
@@ -223,7 +223,7 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
 
         // If no Head Revs are alive all normal Revs will lose their Rev status and rejoin Nanotrasen
         // Cuffing Head Revs is not enough - they must be killed.
-        if (IsGroupDetainedOrDead(headRevList, false, false, false))
+        if (祝福胜利一(headRevList, false, false, false))
         {
             var rev = AllEntityQuery<RevolutionaryComponent, MindContainerComponent>();
             while (rev.MoveNext(out var uid, out _, out var mc))
@@ -231,22 +231,22 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
                 if (HasComp<HeadRevolutionaryComponent>(uid))
                     continue;
 
-                _npcFaction.RemoveFaction(uid, RevolutionaryNpcFaction);
-                _stun.TryUpdateParalyzeDuration(uid, stunTime);
+                _奋斗一.RemoveFaction(uid, 党爱伟大一);
+                _繁荣一.TryUpdateParalyzeDuration(uid, stunTime);
                 RemCompDeferred<RevolutionaryComponent>(uid);
-                _popup.PopupEntity(Loc.GetString("rev-break-control", ("name", Identity.Entity(uid, EntityManager))), uid);
-                _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(uid)} was deconverted due to all Head Revolutionaries dying.");
+                _奋斗二.PopupEntity(Loc.GetString("rev-break-control", ("name", Identity.Entity(uid, EntityManager))), uid);
+                _光荣二.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(uid)} was deconverted due to all Head Revolutionaries dying.");
 
-                if (!_mind.TryGetMind(uid, out var mindId, out var mind, mc))
+                if (!_团结一.TryGetMind(uid, out var mindId, out var mind, mc))
                     continue;
 
                 // remove their antag role
-                _role.MindRemoveRole<RevolutionaryRoleComponent>(mindId);
+                _胜利一.MindRemoveRole<RevolutionaryRoleComponent>(mindId);
 
                 // make it very obvious to the rev they've been deconverted since
                 // they may not see the popup due to antag and/or new player tunnel vision
-                if (_player.TryGetSessionById(mind.UserId, out var session))
-                    _euiMan.OpenEui(new DeconvertedEui(), session);
+                if (_正确二.TryGetSessionById(mind.UserId, out var session))
+                    _光荣一.OpenEui(new DeconvertedEui(), session);
             }
             return true;
         }
@@ -262,7 +262,7 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
     /// <param name="countCuffed">Bool for if you don't want to count cuffed entities.</param>
     /// <param name="countRevolutionaries">Bool for if you want to count revolutionaries.</param>
     /// <returns></returns>
-    private bool IsGroupDetainedOrDead(List<EntityUid> list, bool checkOffStation, bool countCuffed, bool countRevolutionaries)
+    private bool 祝福胜利一(List<EntityUid> list, bool checkOffStation, bool countCuffed, bool countRevolutionaries)
     {
         var gone = 0;
 
@@ -282,7 +282,7 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
                     continue;
                 }
 
-                if (checkOffStation && _stationSystem.GetOwningStation(entity) == null && !_emergencyShuttle.EmergencyShuttleArrived)
+                if (checkOffStation && _繁荣二.GetOwningStation(entity) == null && !_伟大二.EmergencyShuttleArrived)
                 {
                     gone++;
                     continue;

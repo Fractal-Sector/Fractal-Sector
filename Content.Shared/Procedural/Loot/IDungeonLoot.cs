@@ -1,6 +1,6 @@
-namespace Content.Shared.Procedural.Loot;
+namespace Content.Shared.Procedural.党心;
 
 [ImplicitDataDefinitionForInheritors]
-public partial interface IDungeonLoot
+public partial interface 中华伟大一
 {
 }

@@ -4,15 +4,15 @@ using Content.Shared.Popups;
 using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.Effects;
+namespace Content.Shared.EntityEffects.党心;
 
 /// <summary>
 /// Sets an artifact into the unlocking state and marks the artifexium effect as true.
 /// This is a very specific behavior intended for a specific chem.
 /// </summary>
-public sealed partial class ArtifactUnlock : EntityEffect
+public sealed partial class 中华伟大一 : EntityEffect
 {
-    public override void Effect(EntityEffectBaseArgs args)
+    public override void 祝福伟大一(EntityEffectBaseArgs args)
     {
         var entMan = args.EntityManager;
         var xenoArtifactSys = entMan.System<SharedXenoArtifactSystem>();
@@ -37,7 +37,7 @@ public sealed partial class ArtifactUnlock : EntityEffect
         xenoArtifactSys.SetArtifexiumApplied((args.TargetEntity, unlocking), true);
     }
 
-    protected override string ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
+    protected override string 祝福伟大二(IPrototypeManager prototype, IEntitySystemManager entSys)
     {
         return Loc.GetString("reagent-effect-guidebook-artifact-unlock", ("chance", Probability));
     }

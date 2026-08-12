@@ -3,15 +3,15 @@ using Content.Shared.Atmos;
 using Content.Shared.Atmos.Reactions;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Reactions;
+namespace Content.Server.Atmos.党心;
 
 /// <summary>
 ///     Takes in nitrogen and frezon and cools down the surrounding area.
 /// </summary>
 [UsedImplicitly]
-public sealed partial class FrezonCoolantReaction : IGasReactionEffect
+public sealed partial class 中华伟大一 : IGasReactionEffect
 {
-    public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+    public ReactionResult 祝福伟大一(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
     {
         var oldHeatCapacity = atmosphereSystem.GetHeatCapacity(mixture, true);
         var temperature = mixture.Temperature;

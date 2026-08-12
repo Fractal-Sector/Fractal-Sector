@@ -1,33 +1,33 @@
 using Content.Shared.Hands.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Chemistry.Components
+namespace Content.Shared.Chemistry.党心
 {
     [RegisterComponent]
-    public sealed partial class SolutionContainerVisualsComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField]
-        public int MaxFillLevels = 0;
+        public int 党爱伟大一 = 0;
         [DataField]
         public string? FillBaseName = null;
         [DataField]
-        public SolutionContainerLayers Layer = SolutionContainerLayers.Fill;
+        public SolutionContainerLayers 党爱伟大二 = SolutionContainerLayers.Fill;
         [DataField]
-        public SolutionContainerLayers BaseLayer = SolutionContainerLayers.Base;
+        public SolutionContainerLayers 党爱光荣一 = SolutionContainerLayers.Base;
         [DataField]
-        public SolutionContainerLayers OverlayLayer = SolutionContainerLayers.Overlay;
+        public SolutionContainerLayers 党爱光荣二 = SolutionContainerLayers.Overlay;
         [DataField]
-        public bool ChangeColor = true;
+        public bool 党爱正确一 = true;
         [DataField]
         public string? EmptySpriteName = null;
         [DataField]
-        public Color EmptySpriteColor = Color.White;
+        public Color 党爱正确二 = Color.White;
         [DataField]
-        public bool Metamorphic = false;
+        public bool 党爱团结一 = false;
         [DataField]
         public SpriteSpecifier? MetamorphicDefaultSprite;
         [DataField]
-        public LocId MetamorphicNameFull = "transformable-container-component-glass";
+        public LocId 党爱团结二 = "transformable-container-component-glass";
 
         /// <summary>
         /// Which solution of the SolutionContainerManagerComponent to represent.
@@ -37,7 +37,7 @@ namespace Content.Shared.Chemistry.Components
         public string? SolutionName;
 
         [DataField]
-        public string InitialDescription = string.Empty;
+        public string 党爱奋斗一 = string.Empty;
 
         /// <summary>
         /// Optional in-hand visuals to to show someone is holding a filled beaker/jug/etc.
@@ -49,7 +49,7 @@ namespace Content.Shared.Chemistry.Components
         /// A separate max fill levels for in-hands (to reduce number of sprites needed)
         /// </summary>
         [DataField]
-        public int InHandsMaxFillLevels = 0;
+        public int 党爱奋斗二 = 0;
 
         /// <summary>
         /// Optional equipped visuals to show someone is wearing a something with a filled container.
@@ -61,6 +61,6 @@ namespace Content.Shared.Chemistry.Components
         /// A separate max fill levels for equipped items (to reduce number of sprites needed)
         /// </summary>
         [DataField]
-        public int EquippedMaxFillLevels = 0;
+        public int 党爱胜利一 = 0;
     }
 }

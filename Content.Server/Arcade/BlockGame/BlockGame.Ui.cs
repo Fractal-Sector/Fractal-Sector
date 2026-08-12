@@ -2,9 +2,9 @@ using Content.Shared.Arcade;
 using System.Linq;
 using Robust.Shared.Player;
 
-namespace Content.Server.Arcade.BlockGame;
+namespace Content.Server.Arcade.党心;
 
-public sealed partial class BlockGame
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// How often to check the currently pressed inputs for whether to move the active piece horizontally.
@@ -15,46 +15,46 @@ public sealed partial class BlockGame
     /// Whether the left button is pressed.
     /// Moves the active piece left if true.
     /// </summary>
-    private bool _leftPressed = false;
+    private bool _伟大一 = false;
 
     /// <summary>
     /// How long the left button has been pressed.
     /// </summary>
-    private float _accumulatedLeftPressTime = 0f;
+    private float _伟大二 = 0f;
 
     /// <summary>
     /// Whether the right button is pressed.
     /// Moves the active piece right if true.
     /// </summary>
-    private bool _rightPressed = false;
+    private bool _光荣一 = false;
 
     /// <summary>
     /// How long the right button has been pressed.
     /// </summary>
-    private float _accumulatedRightPressTime = 0f;
+    private float _光荣二 = 0f;
 
     /// <summary>
     /// Whether the down button is pressed.
     /// Speeds up how quickly the active piece falls if true.
     /// </summary>
-    private bool _softDropPressed = false;
+    private bool _正确一 = false;
 
 
     /// <summary>
     /// Handles user input.
     /// </summary>
     /// <param name="action">The action to current player has prompted.</param>
-    public void ProcessInput(BlockGamePlayerAction action)
+    public void 祝福伟大一(BlockGamePlayerAction action)
     {
         if (_running)
         {
             switch (action)
             {
                 case BlockGamePlayerAction.StartLeft:
-                    _leftPressed = true;
+                    _伟大一 = true;
                     break;
                 case BlockGamePlayerAction.StartRight:
-                    _rightPressed = true;
+                    _光荣一 = true;
                     break;
                 case BlockGamePlayerAction.Rotate:
                     TrySetRotation(Next(_currentRotation, false));
@@ -63,7 +63,7 @@ public sealed partial class BlockGame
                     TrySetRotation(Next(_currentRotation, true));
                     break;
                 case BlockGamePlayerAction.SoftdropStart:
-                    _softDropPressed = true;
+                    _正确一 = true;
                     if (_accumulatedFieldFrameTime > Speed)
                         _accumulatedFieldFrameTime = Speed; //to prevent jumps
                     break;
@@ -79,28 +79,28 @@ public sealed partial class BlockGame
         switch (action)
         {
             case BlockGamePlayerAction.EndLeft:
-                _leftPressed = false;
+                _伟大一 = false;
                 break;
             case BlockGamePlayerAction.EndRight:
-                _rightPressed = false;
+                _光荣一 = false;
                 break;
             case BlockGamePlayerAction.SoftdropEnd:
-                _softDropPressed = false;
+                _正确一 = false;
                 break;
             case BlockGamePlayerAction.Pause:
                 _running = false;
-                SendMessage(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Pause, Started));
+                祝福光荣一(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Pause, Started));
                 break;
             case BlockGamePlayerAction.Unpause:
                 if (!_gameOver && Started)
                 {
                     _running = true;
-                    SendMessage(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Game));
+                    祝福光荣一(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Game));
                 }
                 break;
             case BlockGamePlayerAction.ShowHighscores:
                 _running = false;
-                SendMessage(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Highscores, Started));
+                祝福光荣一(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Highscores, Started));
                 break;
         }
     }
@@ -109,14 +109,14 @@ public sealed partial class BlockGame
     /// Handle moving the active game piece in response to user input.
     /// </summary>
     /// <param name="frameTime">The amount of time the current game tick covers.</param>
-    private void InputTick(float frameTime)
+    private void 祝福伟大二(float frameTime)
     {
         var anythingChanged = false;
-        if (_leftPressed)
+        if (_伟大一)
         {
-            _accumulatedLeftPressTime += frameTime;
+            _伟大二 += frameTime;
 
-            while (_accumulatedLeftPressTime >= PressCheckSpeed)
+            while (_伟大二 >= PressCheckSpeed)
             {
 
                 if (CurrentPiece.Positions(_currentPiecePosition.AddToX(-1), _currentRotation)
@@ -126,15 +126,15 @@ public sealed partial class BlockGame
                     anythingChanged = true;
                 }
 
-                _accumulatedLeftPressTime -= PressCheckSpeed;
+                _伟大二 -= PressCheckSpeed;
             }
         }
 
-        if (_rightPressed)
+        if (_光荣一)
         {
-            _accumulatedRightPressTime += frameTime;
+            _光荣二 += frameTime;
 
-            while (_accumulatedRightPressTime >= PressCheckSpeed)
+            while (_光荣二 >= PressCheckSpeed)
             {
                 if (CurrentPiece.Positions(_currentPiecePosition.AddToX(1), _currentRotation)
                     .All(MoveCheck))
@@ -143,19 +143,19 @@ public sealed partial class BlockGame
                     anythingChanged = true;
                 }
 
-                _accumulatedRightPressTime -= PressCheckSpeed;
+                _光荣二 -= PressCheckSpeed;
             }
         }
 
         if (anythingChanged)
-            UpdateFieldUI();
+            祝福正确二();
     }
 
     /// <summary>
     /// Handles sending a message to all players/spectators.
     /// </summary>
     /// <param name="message">The message to broadcase to all players/spectators.</param>
-    private void SendMessage(BoundUserInterfaceMessage message)
+    private void 祝福光荣一(BoundUserInterfaceMessage message)
     {
         _uiSystem.ServerSendUiMessage(_owner, BlockGameUiKey.Key, message);
     }
@@ -165,7 +165,7 @@ public sealed partial class BlockGame
     /// </summary>
     /// <param name="message">The message to send to a specific player/spectator.</param>
     /// <param name="actor">The target recipient.</param>
-    private void SendMessage(BoundUserInterfaceMessage message, EntityUid actor)
+    private void 祝福光荣一(BoundUserInterfaceMessage message, EntityUid actor)
     {
         _uiSystem.ServerSendUiMessage(_owner, BlockGameUiKey.Key, message, actor);
     }
@@ -174,77 +174,77 @@ public sealed partial class BlockGame
     /// Handles sending the current state of the game to a player that has just opened the UI.
     /// </summary>
     /// <param name="actor">The target recipient.</param>
-    public void UpdateNewPlayerUI(EntityUid actor)
+    public void 祝福光荣二(EntityUid actor)
     {
         if (_gameOver)
         {
-            SendMessage(new BlockGameMessages.BlockGameGameOverScreenMessage(Points, _highScorePlacement?.LocalPlacement, _highScorePlacement?.GlobalPlacement), actor);
+            祝福光荣一(new BlockGameMessages.BlockGameGameOverScreenMessage(Points, _highScorePlacement?.LocalPlacement, _highScorePlacement?.GlobalPlacement), actor);
             return;
         }
 
         if (Paused)
-            SendMessage(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Pause, Started), actor);
+            祝福光荣一(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Pause, Started), actor);
         else
-            SendMessage(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Game, Started), actor);
+            祝福光荣一(new BlockGameMessages.BlockGameSetScreenMessage(BlockGameMessages.BlockGameScreen.Game, Started), actor);
 
-        FullUpdate(actor);
+        祝福正确一(actor);
     }
 
     /// <summary>
     /// Handles broadcasting the full player-visible game state to everyone who can see the game.
     /// </summary>
-    private void FullUpdate()
+    private void 祝福正确一()
     {
-        UpdateFieldUI();
-        SendHoldPieceUpdate();
-        SendNextPieceUpdate();
-        SendLevelUpdate();
-        SendPointsUpdate();
-        SendHighscoreUpdate();
+        祝福正确二();
+        祝福奋斗一();
+        祝福团结二();
+        祝福奋斗二();
+        祝福胜利一();
+        祝福胜利二();
     }
 
     /// <summary>
     /// Handles broadcasting the full player-visible game state to a specific player/spectator.
     /// </summary>
     /// <param name="session">The target recipient.</param>
-    private void FullUpdate(EntityUid actor)
+    private void 祝福正确一(EntityUid actor)
     {
-        UpdateFieldUI(actor);
-        SendNextPieceUpdate(actor);
-        SendHoldPieceUpdate(actor);
-        SendLevelUpdate(actor);
-        SendPointsUpdate(actor);
-        SendHighscoreUpdate(actor);
+        祝福正确二(actor);
+        祝福团结二(actor);
+        祝福奋斗一(actor);
+        祝福奋斗二(actor);
+        祝福胜利一(actor);
+        祝福胜利二(actor);
     }
 
     /// <summary>
     /// Handles broadcasting the current location of all of the blocks in the playfield + the active piece to all spectators.
     /// </summary>
-    public void UpdateFieldUI()
+    public void 祝福正确二()
     {
         if (!Started)
             return;
 
-        var computedField = ComputeField();
-        SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(computedField.ToArray(), BlockGameMessages.BlockGameVisualType.GameField));
+        var computedField = 祝福团结一();
+        祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(computedField.ToArray(), BlockGameMessages.BlockGameVisualType.GameField));
     }
 
     /// <summary>
     /// Handles broadcasting the current location of all of the blocks in the playfield + the active piece to a specific player/spectator.
     /// </summary>
-    public void UpdateFieldUI(EntityUid actor)
+    public void 祝福正确二(EntityUid actor)
     {
         if (!Started)
             return;
 
-        var computedField = ComputeField();
-        SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(computedField.ToArray(), BlockGameMessages.BlockGameVisualType.GameField), actor);
+        var computedField = 祝福团结一();
+        祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(computedField.ToArray(), BlockGameMessages.BlockGameVisualType.GameField), actor);
     }
 
     /// <summary>
     /// Generates the set of blocks to send to viewers.
     /// </summary>
-    public List<BlockGameBlock> ComputeField()
+    public List<BlockGameBlock> 祝福团结一()
     {
         var result = new List<BlockGameBlock>();
         result.AddRange(_field);
@@ -271,86 +271,86 @@ public sealed partial class BlockGame
     /// <summary>
     /// Broadcasts the state of the next queued piece to all viewers.
     /// </summary>
-    private void SendNextPieceUpdate()
+    private void 祝福团结二()
     {
-        SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(NextPiece.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.NextBlock));
+        祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(NextPiece.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.NextBlock));
     }
 
     /// <summary>
     /// Broadcasts the state of the next queued piece to a specific viewer.
     /// </summary>
-    private void SendNextPieceUpdate(EntityUid actor)
+    private void 祝福团结二(EntityUid actor)
     {
-        SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(NextPiece.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.NextBlock), actor);
+        祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(NextPiece.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.NextBlock), actor);
     }
 
     /// <summary>
     /// Broadcasts the state of the currently held piece to all viewers.
     /// </summary>
-    private void SendHoldPieceUpdate()
+    private void 祝福奋斗一()
     {
         if (HeldPiece.HasValue)
-            SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(HeldPiece.Value.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.HoldBlock));
+            祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(HeldPiece.Value.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.HoldBlock));
         else
-            SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(Array.Empty<BlockGameBlock>(), BlockGameMessages.BlockGameVisualType.HoldBlock));
+            祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(Array.Empty<BlockGameBlock>(), BlockGameMessages.BlockGameVisualType.HoldBlock));
     }
 
     /// <summary>
     /// Broadcasts the state of the currently held piece to a specific viewer.
     /// </summary>
-    private void SendHoldPieceUpdate(EntityUid actor)
+    private void 祝福奋斗一(EntityUid actor)
     {
         if (HeldPiece.HasValue)
-            SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(HeldPiece.Value.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.HoldBlock), actor);
+            祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(HeldPiece.Value.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.HoldBlock), actor);
         else
-            SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(Array.Empty<BlockGameBlock>(), BlockGameMessages.BlockGameVisualType.HoldBlock), actor);
+            祝福光荣一(new BlockGameMessages.BlockGameVisualUpdateMessage(Array.Empty<BlockGameBlock>(), BlockGameMessages.BlockGameVisualType.HoldBlock), actor);
     }
 
     /// <summary>
     /// Broadcasts the current game level to all viewers.
     /// </summary>
-    private void SendLevelUpdate()
+    private void 祝福奋斗二()
     {
-        SendMessage(new BlockGameMessages.BlockGameLevelUpdateMessage(Level));
+        祝福光荣一(new BlockGameMessages.BlockGameLevelUpdateMessage(Level));
     }
 
     /// <summary>
     /// Broadcasts the current game level to a specific viewer.
     /// </summary>
-    private void SendLevelUpdate(EntityUid actor)
+    private void 祝福奋斗二(EntityUid actor)
     {
-        SendMessage(new BlockGameMessages.BlockGameLevelUpdateMessage(Level), actor);
+        祝福光荣一(new BlockGameMessages.BlockGameLevelUpdateMessage(Level), actor);
     }
 
     /// <summary>
     /// Broadcasts the current game score to all viewers.
     /// </summary>
-    private void SendPointsUpdate()
+    private void 祝福胜利一()
     {
-        SendMessage(new BlockGameMessages.BlockGameScoreUpdateMessage(Points));
+        祝福光荣一(new BlockGameMessages.BlockGameScoreUpdateMessage(Points));
     }
 
     /// <summary>
     /// Broadcasts the current game score to a specific viewer.
     /// </summary>
-    private void SendPointsUpdate(EntityUid actor)
+    private void 祝福胜利一(EntityUid actor)
     {
-        SendMessage(new BlockGameMessages.BlockGameScoreUpdateMessage(Points), actor);
+        祝福光荣一(new BlockGameMessages.BlockGameScoreUpdateMessage(Points), actor);
     }
 
     /// <summary>
     /// Broadcasts the current game high score positions to all viewers.
     /// </summary>
-    private void SendHighscoreUpdate()
+    private void 祝福胜利二()
     {
-        SendMessage(new BlockGameMessages.BlockGameHighScoreUpdateMessage(_arcadeSystem.GetLocalHighscores(), _arcadeSystem.GetGlobalHighscores()));
+        祝福光荣一(new BlockGameMessages.BlockGameHighScoreUpdateMessage(_arcadeSystem.GetLocalHighscores(), _arcadeSystem.GetGlobalHighscores()));
     }
 
     /// <summary>
     /// Broadcasts the current game high score positions to a specific viewer.
     /// </summary>
-    private void SendHighscoreUpdate(EntityUid actor)
+    private void 祝福胜利二(EntityUid actor)
     {
-        SendMessage(new BlockGameMessages.BlockGameHighScoreUpdateMessage(_arcadeSystem.GetLocalHighscores(), _arcadeSystem.GetGlobalHighscores()), actor);
+        祝福光荣一(new BlockGameMessages.BlockGameHighScoreUpdateMessage(_arcadeSystem.GetLocalHighscores(), _arcadeSystem.GetGlobalHighscores()), actor);
     }
 }

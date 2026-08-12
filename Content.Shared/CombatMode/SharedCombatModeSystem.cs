@@ -7,55 +7,55 @@ using Content.Shared.MouseRotator;
 using Content.Shared.Movement.Components;
 using Content.Shared.Popups;
 using Robust.Shared.Network;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.CombatMode;
+namespace Content.Shared.党心;
 
-public abstract class SharedCombatModeSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private   readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private   readonly SharedPopupSystem _popup = default!;
-    [Dependency] private   readonly SharedMindSystem  _mind = default!;
-    [Dependency] private   readonly MobStateSystem _mobState = default!; // FS: combat indicator
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private   readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private   readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private   readonly SharedMindSystem  _光荣一 = default!;
+    [Dependency] private   readonly MobStateSystem _光荣二 = default!; // FS: combat indicator
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CombatModeComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<CombatModeComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<CombatModeComponent, ToggleCombatActionEvent>(OnActionPerform);
+        SubscribeLocalEvent<CombatModeComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<CombatModeComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<CombatModeComponent, 中华伟大二>(祝福光荣二);
     }
 
-    private void OnMapInit(EntityUid uid, CombatModeComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, CombatModeComponent component, MapInitEvent args)
     {
-        _actionsSystem.AddAction(uid, ref component.CombatToggleActionEntity, component.CombatToggleAction);
+        _伟大一.AddAction(uid, ref component.CombatToggleActionEntity, component.CombatToggleAction);
         Dirty(uid, component);
     }
 
-    private void OnShutdown(EntityUid uid, CombatModeComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, CombatModeComponent component, ComponentShutdown args)
     {
-        _actionsSystem.RemoveAction(uid, component.CombatToggleActionEntity);
+        _伟大一.RemoveAction(uid, component.CombatToggleActionEntity);
 
-        SetMouseRotatorComponents(uid, false);
+        祝福团结二(uid, false);
     }
 
-    private void OnActionPerform(EntityUid uid, CombatModeComponent component, ToggleCombatActionEvent args)
+    private void 祝福光荣二(EntityUid uid, CombatModeComponent component, 中华伟大二 args)
     {
         if (args.Handled)
             return;
 
         args.Handled = true;
-        SetInCombatMode(uid, !component.IsInCombatMode, component);
+        祝福团结一(uid, !component.祝福正确二, component);
 
         /* FS: combat indicator
-        var msg = component.IsInCombatMode ? "action-popup-combat-enabled" : "action-popup-combat-disabled";
-        _popup.PopupClient(Loc.GetString(msg), args.Performer, args.Performer);
+        var msg = component.祝福正确二 ? "action-popup-combat-enabled" : "action-popup-combat-disabled";
+        _伟大二.PopupClient(Loc.GetString(msg), args.Performer, args.Performer);
         */
     }
 
-    public void SetCanDisarm(EntityUid entity, bool canDisarm, CombatModeComponent? component = null)
+    public void 祝福正确一(EntityUid entity, bool canDisarm, CombatModeComponent? component = null)
     {
         if (!Resolve(entity, ref component))
             return;
@@ -63,41 +63,41 @@ public abstract class SharedCombatModeSystem : EntitySystem
         component.CanDisarm = canDisarm;
     }
 
-    public bool IsInCombatMode(EntityUid? entity, CombatModeComponent? component = null)
+    public bool 祝福正确二(EntityUid? entity, CombatModeComponent? component = null)
     {
-        return entity != null && Resolve(entity.Value, ref component, false) && component.IsInCombatMode;
+        return entity != null && Resolve(entity.Value, ref component, false) && component.祝福正确二;
     }
 
-    public virtual void SetInCombatMode(EntityUid entity, bool value, CombatModeComponent? component = null)
+    public virtual void 祝福团结一(EntityUid entity, bool value, CombatModeComponent? component = null)
     {
         if (!Resolve(entity, ref component))
             return;
 
-        if (component.IsInCombatMode == value)
+        if (component.祝福正确二 == value)
             return;
 
         // FS: combat indicator
-        if (_mobState.IsDead(entity) || _mobState.IsCritical(entity) || HasComp<SleepingComponent>(entity))
+        if (_光荣二.IsDead(entity) || _光荣二.IsCritical(entity) || HasComp<SleepingComponent>(entity))
         {
             if (value)
                 return;
         }
         // FS end
 
-        component.IsInCombatMode = value;
+        component.祝福正确二 = value;
         Dirty(entity, component);
 
         if (component.CombatToggleActionEntity != null)
-            _actionsSystem.SetToggled(component.CombatToggleActionEntity, component.IsInCombatMode);
+            _伟大一.SetToggled(component.CombatToggleActionEntity, component.祝福正确二);
 
         // Change mouse rotator comps if flag is set
-        if (!component.ToggleMouseRotator || IsNpc(entity) && !_mind.TryGetMind(entity, out _, out _))
+        if (!component.ToggleMouseRotator || 祝福奋斗一(entity) && !_光荣一.TryGetMind(entity, out _, out _))
             return;
 
-        SetMouseRotatorComponents(entity, value);
+        祝福团结二(entity, value);
     }
 
-    private void SetMouseRotatorComponents(EntityUid uid, bool value)
+    private void 祝福团结二(EntityUid uid, bool value)
     {
         if (value)
         {
@@ -112,10 +112,10 @@ public abstract class SharedCombatModeSystem : EntitySystem
     }
 
     // todo: When we stop making fucking garbage abstract shared components, remove this shit too.
-    protected abstract bool IsNpc(EntityUid uid);
+    protected abstract bool 祝福奋斗一(EntityUid uid);
 }
 
-public sealed partial class ToggleCombatActionEvent : InstantActionEvent
+public sealed partial class 中华伟大二 : InstantActionEvent
 {
 
 }

@@ -1,8 +1,8 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.InteractionVerbs;
+namespace Content.Shared.党心;
 
-public sealed partial class InteractionArgs
+public sealed partial class 中华伟大一
 {
     public EntityUid User, Target;
     public EntityUid? Used;
@@ -24,7 +24,7 @@ public sealed partial class InteractionArgs
     /// </remarks>
     public Dictionary<string, object> CustomData = new();
 
-    public InteractionArgs(EntityUid user, EntityUid target, EntityUid? used, bool canAccess, bool canInteract, bool hasHands, float? contestAdvantage)
+    public 中华伟大一(EntityUid user, EntityUid target, EntityUid? used, bool canAccess, bool canInteract, bool hasHands, float? contestAdvantage)
     {
         User = user;
         Target = target;
@@ -35,5 +35,5 @@ public sealed partial class InteractionArgs
         ContestAdvantage = contestAdvantage;
     }
 
-    public InteractionArgs(InteractionArgs other) : this(other.User, other.Target, other.Used, other.CanAccess, other.CanInteract, other.HasHands, other.ContestAdvantage) {}
+    public 中华伟大一(中华伟大一 other) : this(other.User, other.Target, other.Used, other.CanAccess, other.CanInteract, other.HasHands, other.ContestAdvantage) {}
 }

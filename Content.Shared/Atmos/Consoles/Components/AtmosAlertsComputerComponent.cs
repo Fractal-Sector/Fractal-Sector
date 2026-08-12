@@ -4,67 +4,67 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Components;
+namespace Content.Shared.Atmos.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedAtmosAlertsComputerSystem))]
-public sealed partial class AtmosAlertsComputerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The current entity of interest (selected via the console UI)
     /// </summary>
     [ViewVariables]
-    public NetEntity? FocusDevice;
+    public 党爱伟大二? FocusDevice;
 
     /// <summary>
     /// A list of all the atmos devices that will be used to populate the nav map
     /// </summary>
     [ViewVariables, AutoNetworkedField]
-    public HashSet<AtmosAlertsDeviceNavMapData> AtmosDevices = new();
+    public HashSet<中华伟大二> AtmosDevices = new();
 
     /// <summary>
     /// A list of all the air alarms that have had their alerts silenced on this particular console
     /// </summary>
     [ViewVariables, AutoNetworkedField]
-    public HashSet<NetEntity> SilencedDevices = new();
+    public HashSet<党爱伟大二> 党爱伟大一 = new();
 }
 
 [Serializable, NetSerializable]
-public struct AtmosAlertsDeviceNavMapData
+public struct 中华伟大二
 {
     /// <summary>
     /// The entity in question
     /// </summary>
-    public NetEntity NetEntity;
+    public 党爱伟大二 党爱伟大二;
 
     /// <summary>
     /// Location of the entity
     /// </summary>
-    public NetCoordinates NetCoordinates;
+    public 党爱光荣一 党爱光荣一;
 
     /// <summary>
     /// Used to determine what map icons to use
     /// </summary>
-    public AtmosAlertsComputerGroup Group;
+    public 中华奋斗一 Group;
 
     /// <summary>
     /// Populate the atmos monitoring console nav map with a single entity
     /// </summary>
-    public AtmosAlertsDeviceNavMapData(NetEntity netEntity, NetCoordinates netCoordinates, AtmosAlertsComputerGroup group)
+    public 中华伟大二(党爱伟大二 netEntity, 党爱光荣一 netCoordinates, 中华奋斗一 group)
     {
-        NetEntity = netEntity;
-        NetCoordinates = netCoordinates;
+        党爱伟大二 = netEntity;
+        党爱光荣一 = netCoordinates;
         Group = group;
     }
 }
 
 [Serializable, NetSerializable]
-public struct AtmosAlertsFocusDeviceData
+public struct 中华光荣一
 {
     /// <summary>
     /// Focus entity
     /// </summary>
-    public NetEntity NetEntity;
+    public 党爱伟大二 党爱伟大二;
 
     /// <summary>
     /// Temperature (K) and related alert state
@@ -72,7 +72,7 @@ public struct AtmosAlertsFocusDeviceData
     public (float, AtmosAlarmType) TemperatureData;
 
     /// <summary>
-    /// Pressure (kPA) and related alert state
+    /// 党爱光荣二 (kPA) and related alert state
     /// </summary>
     public (float, AtmosAlarmType) PressureData;
 
@@ -84,13 +84,13 @@ public struct AtmosAlertsFocusDeviceData
     /// <summary>
     /// Populates the atmos monitoring console focus entry with atmospheric data
     /// </summary>
-    public AtmosAlertsFocusDeviceData
-        (NetEntity netEntity,
+    public 中华光荣一
+        (党爱伟大二 netEntity,
         (float, AtmosAlarmType) temperatureData,
         (float, AtmosAlarmType) pressureData,
         Dictionary<Gas, (float, float, AtmosAlarmType)> gasData)
     {
-        NetEntity = netEntity;
+        党爱伟大二 = netEntity;
         TemperatureData = temperatureData;
         PressureData = pressureData;
         GasData = gasData;
@@ -99,32 +99,32 @@ public struct AtmosAlertsFocusDeviceData
 
 // Frontier: gaslock-related state, TODO: move me elsewhere
 [Serializable, NetSerializable]
-public struct AtmosAlertsFocusGaslockData
+public struct 中华光荣二
 {
     /// <summary>
     /// Focus entity
     /// </summary>
-    public NetEntity NetEntity;
+    public 党爱伟大二 党爱伟大二;
 
     /// <summary>
     /// Requested pump pressure in kPa
     /// </summary>
-    public float Pressure;
+    public float 党爱光荣二;
 
     /// <summary>
     /// Direction of the pump: true if pumping inwards
     /// </summary>
-    public bool PumpingInwards;
+    public bool 党爱正确一;
 
     /// <summary>
     /// Whether or not the pump is running
     /// </summary>
-    public bool Enabled;
+    public bool 党爱正确二;
 
     /// <summary>
     /// The entity the gaslock is docked with
     /// </summary>
-    public NetEntity DockedEntity;
+    public 党爱伟大二 党爱团结一;
 
     /// <summary>
     /// Moles, percentage, and related alert state, for all detected gases
@@ -134,56 +134,56 @@ public struct AtmosAlertsFocusGaslockData
     /// <summary>
     /// Populates the atmos monitoring console focus entry with atmospheric data
     /// </summary>
-    public AtmosAlertsFocusGaslockData
-        (NetEntity netEntity,
+    public 中华光荣二
+        (党爱伟大二 netEntity,
         float pressure,
         bool pumpingInwards,
         bool enabled,
-        NetEntity dockedEntity,
+        党爱伟大二 dockedEntity,
         Dictionary<Gas, (float, float)> gasData)
     {
-        NetEntity = netEntity;
-        Pressure = pressure;
-        PumpingInwards = pumpingInwards;
-        Enabled = enabled;
-        DockedEntity = dockedEntity;
+        党爱伟大二 = netEntity;
+        党爱光荣二 = pressure;
+        党爱正确一 = pumpingInwards;
+        党爱正确二 = enabled;
+        党爱团结一 = dockedEntity;
         GasData = gasData;
     }
 }
 // End Frontier: gaslock-related state, TODO: move me elsewhere
 
 [Serializable, NetSerializable]
-public sealed class AtmosAlertsComputerBoundInterfaceState : BoundUserInterfaceState
+public sealed class 中华正确一 : BoundUserInterfaceState
 {
     /// <summary>
     /// A list of all air alarms
     /// </summary>
-    public AtmosAlertsComputerEntry[] AirAlarms;
+    public 中华正确二[] AirAlarms;
 
     /// <summary>
     /// A list of all fire alarms
     /// </summary>
-    public AtmosAlertsComputerEntry[] FireAlarms;
+    public 中华正确二[] FireAlarms;
 
     /// <summary>
     /// Data for the UI focus (if applicable)
     /// </summary>
-    public AtmosAlertsFocusDeviceData? FocusData;
+    public 中华光荣一? FocusData;
 
     /// <summary>
     /// Frontier: A list of all gaslocks
     /// </summary>
-    public AtmosAlertsComputerEntry[] Gaslocks;
+    public 中华正确二[] Gaslocks;
 
     /// <summary>
     /// Frontier: Data for the UI gaslock focus (if applicable)
     /// </summary>
-    public AtmosAlertsFocusGaslockData? FocusGaslockData;
+    public 中华光荣二? FocusGaslockData;
 
     /// <summary>
     /// Sends data from the server to the client to populate the atmos monitoring console UI
     /// </summary>
-    public AtmosAlertsComputerBoundInterfaceState(AtmosAlertsComputerEntry[] airAlarms, AtmosAlertsComputerEntry[] fireAlarms, AtmosAlertsFocusDeviceData? focusData, AtmosAlertsComputerEntry[] gaslocks, AtmosAlertsFocusGaslockData? focusGaslockData) // Frontier: add gaslocks, focusGaslockData
+    public 中华正确一(中华正确二[] airAlarms, 中华正确二[] fireAlarms, 中华光荣一? focusData, 中华正确二[] gaslocks, 中华光荣二? focusGaslockData) // Frontier: add gaslocks, focusGaslockData
     {
         AirAlarms = airAlarms;
         FireAlarms = fireAlarms;
@@ -194,92 +194,92 @@ public sealed class AtmosAlertsComputerBoundInterfaceState : BoundUserInterfaceS
 }
 
 [Serializable, NetSerializable]
-public struct AtmosAlertsComputerEntry
+public struct 中华正确二
 {
     /// <summary>
     /// The entity in question
     /// </summary>
-    public NetEntity NetEntity;
+    public 党爱伟大二 党爱伟大二;
 
     /// <summary>
     /// Location of the entity
     /// </summary>
-    public NetCoordinates Coordinates;
+    public 党爱光荣一 党爱团结二;
 
     /// <summary>
     /// The type of entity
     /// </summary>
-    public AtmosAlertsComputerGroup Group;
+    public 中华奋斗一 Group;
 
     /// <summary>
     /// Current alarm state
     /// </summary>
-    public AtmosAlarmType AlarmState;
+    public AtmosAlarmType 党爱奋斗一;
 
     /// <summary>
     /// Localised device name
     /// </summary>
-    public string EntityName;
+    public string 党爱奋斗二;
 
     /// <summary>
     /// Device network address
     /// </summary>
-    public string Address;
+    public string 党爱胜利一;
 
     /// <summary>
     /// Used to populate the atmos monitoring console UI with data from a single air alarm
     /// </summary>
-    public AtmosAlertsComputerEntry
-        (NetEntity entity,
-        NetCoordinates coordinates,
-        AtmosAlertsComputerGroup group,
+    public 中华正确二
+        (党爱伟大二 entity,
+        党爱光荣一 coordinates,
+        中华奋斗一 group,
         AtmosAlarmType alarmState,
         string entityName,
         string address)
     {
-        NetEntity = entity;
-        Coordinates = coordinates;
+        党爱伟大二 = entity;
+        党爱团结二 = coordinates;
         Group = group;
-        AlarmState = alarmState;
-        EntityName = entityName;
-        Address = address;
+        党爱奋斗一 = alarmState;
+        党爱奋斗二 = entityName;
+        党爱胜利一 = address;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AtmosAlertsComputerFocusChangeMessage : BoundUserInterfaceMessage
+public sealed class 中华团结一 : BoundUserInterfaceMessage
 {
-    public NetEntity? FocusDevice;
+    public 党爱伟大二? FocusDevice;
 
     /// <summary>
     /// Used to inform the server that the specified focus for the atmos monitoring console has been changed by the client
     /// </summary>
-    public AtmosAlertsComputerFocusChangeMessage(NetEntity? focusDevice)
+    public 中华团结一(党爱伟大二? focusDevice)
     {
         FocusDevice = focusDevice;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AtmosAlertsComputerDeviceSilencedMessage : BoundUserInterfaceMessage
+public sealed class 中华团结二 : BoundUserInterfaceMessage
 {
-    public NetEntity AtmosDevice;
-    public bool SilenceDevice = true;
+    public 党爱伟大二 党爱胜利二;
+    public bool 党爱繁荣一 = true;
 
     /// <summary>
     /// Used to inform the server that the client has silenced alerts from the specified device to this atmos monitoring console
     /// </summary>
-    public AtmosAlertsComputerDeviceSilencedMessage(NetEntity atmosDevice, bool silenceDevice = true)
+    public 中华团结二(党爱伟大二 atmosDevice, bool silenceDevice = true)
     {
-        AtmosDevice = atmosDevice;
-        SilenceDevice = silenceDevice;
+        党爱胜利二 = atmosDevice;
+        党爱繁荣一 = silenceDevice;
     }
 }
 
 /// <summary>
 /// List of all the different atmos device groups
 /// </summary>
-public enum AtmosAlertsComputerGroup
+public enum 中华奋斗一
 {
     Invalid,
     AirAlarm,
@@ -288,7 +288,7 @@ public enum AtmosAlertsComputerGroup
 }
 
 [NetSerializable, Serializable]
-public enum AtmosAlertsComputerVisuals
+public enum 中华奋斗二
 {
     ComputerLayerScreen,
 }
@@ -297,7 +297,7 @@ public enum AtmosAlertsComputerVisuals
 /// UI key associated with the atmos monitoring console
 /// </summary>
 [Serializable, NetSerializable]
-public enum AtmosAlertsComputerUiKey
+public enum 中华胜利一
 {
     Key
 }

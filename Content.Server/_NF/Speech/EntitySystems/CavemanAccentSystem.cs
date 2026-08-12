@@ -5,26 +5,26 @@ using Content.Server.Speech.EntitySystems;
 using System.Linq;
 using Content.Server.Chat.Systems;
 
-namespace Content.Server._NF.Speech.EntitySystems;
+namespace Content.Server._NF.Speech.党心;
 
-public sealed class CavemanAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly ReplacementAccentSystem _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
 
-    public readonly string[] PunctuationStringsToRemove = { "'", "\"", ".", ",", "!", "?", ";", ":" }; // Leave hyphens
+    public readonly string[] 党爱伟大一 = { "'", "\"", ".", ",", "!", "?", ";", ":" }; // Leave hyphens
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CavemanAccentComponent, AccentGetEvent>(OnAccentGet);
+        SubscribeLocalEvent<CavemanAccentComponent, AccentGetEvent>(祝福光荣一);
     }
 
-    private string Convert(string message, CavemanAccentComponent component)
+    private string 祝福伟大二(string message, CavemanAccentComponent component)
     {
-        string msg = _replacement.ApplyReplacements(message, "caveman");
+        string msg = _伟大二.ApplyReplacements(message, "caveman");
 
         string[] words = msg.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         List<string> modifiedWords = new List<string>();
@@ -51,8 +51,8 @@ public sealed class CavemanAccentSystem : EntitySystem
 
             if (actualLength > component.MaxWordLength)
             {
-                modifiedWord = GetGrunt();
-                CapitalizeReplacement(word, ref modifiedWord);
+                modifiedWord = 祝福光荣二();
+                祝福正确一(word, ref modifiedWord);
                 modifiedWord += endPunctuation;
 
                 modifiedWords.Add(modifiedWord);
@@ -60,9 +60,9 @@ public sealed class CavemanAccentSystem : EntitySystem
                 continue;
             }
 
-            modifiedWord = TryRemovePunctuation(modifiedWord);
+            modifiedWord = 祝福正确二(modifiedWord);
 
-            modifiedWord = TryConvertNumbers(modifiedWord);
+            modifiedWord = 祝福团结一(modifiedWord);
 
             // If it's all punctuation, append the punctuation to the last word if it exists, otherwise add a grunt.
             if (modifiedWord.Length <= 0)
@@ -74,7 +74,7 @@ public sealed class CavemanAccentSystem : EntitySystem
                 }
                 else
                 {
-                    modifiedWord = GetGrunt();
+                    modifiedWord = 祝福光荣二();
                 }
             }
 
@@ -85,30 +85,30 @@ public sealed class CavemanAccentSystem : EntitySystem
 
         if (modifiedWords.Count == 0)
         {
-            modifiedWords.Add(GetGrunt());
+            modifiedWords.Add(祝福光荣二());
         }
 
-        return _chat.SanitizeMessageCapital(string.Join(' ', modifiedWords));
+        return _光荣一.SanitizeMessageCapital(string.Join(' ', modifiedWords));
     }
 
-    private void OnAccentGet(EntityUid uid, CavemanAccentComponent component, AccentGetEvent args)
+    private void 祝福光荣一(EntityUid uid, CavemanAccentComponent component, AccentGetEvent args)
     {
-        args.Message = Convert(args.Message, component);
+        args.Message = 祝福伟大二(args.Message, component);
     }
 
-    private string GetGrunt()
+    private string 祝福光荣二()
     {
-        var grunt = Loc.GetString(_random.Pick(CavemanAccentComponent.Grunts));
+        var grunt = Loc.GetString(_伟大一.Pick(CavemanAccentComponent.Grunts));
 
-        if (_random.Prob(0.5f))
+        if (_伟大一.Prob(0.5f))
         {
             grunt += "-";
-            grunt += Loc.GetString(_random.Pick(CavemanAccentComponent.Grunts));
+            grunt += Loc.GetString(_伟大一.Pick(CavemanAccentComponent.Grunts));
         }
         return grunt;
     }
 
-    private void CapitalizeReplacement(string input, ref string replacement)
+    private void 祝福正确一(string input, ref string replacement)
     {
         if (!input.Any(char.IsLower) && (input.Length > 1 || replacement.Length == 1))
         {
@@ -120,16 +120,16 @@ public sealed class CavemanAccentSystem : EntitySystem
         }
     }
 
-    private string TryRemovePunctuation(string word)
+    private string 祝福正确二(string word)
     {
-        foreach (var punctStr in PunctuationStringsToRemove)
+        foreach (var punctStr in 党爱伟大一)
         {
             word = word.Replace(punctStr, "");
         }
         return word;
     }
 
-    private string TryConvertNumbers(string word)
+    private string 祝福团结一(string word)
     {
         int num;
 

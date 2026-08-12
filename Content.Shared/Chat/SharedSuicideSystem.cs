@@ -4,19 +4,19 @@ using Content.Shared.Mobs.Components;
 using Robust.Shared.Prototypes;
 using System.Linq;
 
-namespace Content.Shared.Chat;
+namespace Content.Shared.党心;
 
-public sealed class SharedSuicideSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     private static readonly ProtoId<DamageTypePrototype> FallbackDamageType = "Blunt";
 
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly DamageableSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
     /// <summary>
     /// Applies lethal damage spread out across the damage types given.
     /// </summary>
-    public void ApplyLethalDamage(Entity<DamageableComponent> target, DamageSpecifier damageSpecifier)
+    public void 祝福伟大一(Entity<DamageableComponent> target, DamageSpecifier damageSpecifier)
     {
         // Create a new damageSpecifier so that we don't make alterations to the original DamageSpecifier
         // Failing  to do this will permanently change a weapon's damage making it insta-kill people
@@ -40,13 +40,13 @@ public sealed class SharedSuicideSystem : EntitySystem
             appliedDamageSpecifier.DamageDict[key] = Math.Ceiling((double) (value * lethalAmountOfDamage / totalDamage));
         }
 
-        _damageableSystem.TryChangeDamage(target, appliedDamageSpecifier, true, origin: target);
+        _伟大一.TryChangeDamage(target, appliedDamageSpecifier, true, origin: target);
     }
 
     /// <summary>
     /// Applies lethal damage in a single type, specified by a single damage type.
     /// </summary>
-    public void ApplyLethalDamage(Entity<DamageableComponent> target, ProtoId<DamageTypePrototype>? damageType)
+    public void 祝福伟大一(Entity<DamageableComponent> target, ProtoId<DamageTypePrototype>? damageType)
     {
         if (!TryComp<MobThresholdsComponent>(target, out var mobThresholds))
             return;
@@ -57,13 +57,13 @@ public sealed class SharedSuicideSystem : EntitySystem
         var lethalAmountOfDamage = mobThresholds.Thresholds.Keys.Last() - target.Comp.TotalDamage;
 
         // We don't want structural damage for the same reasons listed above
-        if (!_prototypeManager.TryIndex(damageType, out var damagePrototype) || damagePrototype.ID == "Structural")
+        if (!_伟大二.TryIndex(damageType, out var damagePrototype) || damagePrototype.ID == "Structural")
         {
-            Log.Error($"{nameof(SharedSuicideSystem)} could not find the damage type prototype associated with {damageType}. Falling back to {FallbackDamageType}");
-            damagePrototype = _prototypeManager.Index(FallbackDamageType);
+            Log.Error($"{nameof(中华伟大一)} could not find the damage type prototype associated with {damageType}. Falling back to {FallbackDamageType}");
+            damagePrototype = _伟大二.Index(FallbackDamageType);
         }
 
         var damage = new DamageSpecifier(damagePrototype, lethalAmountOfDamage);
-        _damageableSystem.TryChangeDamage(target, damage, true, origin: target);
+        _伟大一.TryChangeDamage(target, damage, true, origin: target);
     }
 }

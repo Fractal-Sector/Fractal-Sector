@@ -6,32 +6,32 @@ using Content.Shared.Mobs.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Administration.Systems;
+namespace Content.Server.Administration.党心;
 
-public sealed class SuperBonkSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly ClumsySystem _clumsySystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly ClumsySystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SuperBonkComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<SuperBonkComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<SuperBonkComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<SuperBonkComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<SuperBonkComponent, MobStateChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<SuperBonkComponent, ComponentShutdown>(祝福光荣二);
     }
 
-    private void OnInit(Entity<SuperBonkComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<SuperBonkComponent> ent, ref ComponentInit args)
     {
         var (_, component) = ent;
 
-        component.NextBonk = _timing.CurTime + component.BonkCooldown;
+        component.NextBonk = _光荣二.CurTime + component.BonkCooldown;
     }
 
-    private void OnMobStateChanged(Entity<SuperBonkComponent> ent, ref MobStateChangedEvent args)
+    private void 祝福光荣一(Entity<SuperBonkComponent> ent, ref MobStateChangedEvent args)
     {
         var (uid, component) = ent;
 
@@ -39,7 +39,7 @@ public sealed class SuperBonkSystem : EntitySystem
             RemCompDeferred<SuperBonkComponent>(uid);
     }
 
-    private void OnShutdown(Entity<SuperBonkComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<SuperBonkComponent> ent, ref ComponentShutdown args)
     {
         var (uid, component) = ent;
 
@@ -47,17 +47,17 @@ public sealed class SuperBonkSystem : EntitySystem
             RemComp<ClumsyComponent>(uid);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
         var comps = EntityQueryEnumerator<SuperBonkComponent>();
 
         while (comps.MoveNext(out var uid, out var comp))
         {
-            if (comp.NextBonk > _timing.CurTime)
+            if (comp.NextBonk > _光荣二.CurTime)
                 continue;
 
-            if (!TryBonk(uid, comp.Tables.Current) || !comp.Tables.MoveNext())
+            if (!祝福团结一(uid, comp.Tables.Current) || !comp.Tables.MoveNext())
             {
                 RemComp<SuperBonkComponent>(uid);
                 continue;
@@ -67,7 +67,7 @@ public sealed class SuperBonkSystem : EntitySystem
         }
     }
 
-    public void StartSuperBonk(EntityUid target, bool stopWhenDead = false)
+    public void 祝福正确二(EntityUid target, bool stopWhenDead = false)
     {
         //The other check in the code to stop when the target dies does not work if the target is already dead.
         if (stopWhenDead && TryComp<MobStateComponent>(target, out var mobState) && mobState.CurrentState == MobState.Dead)
@@ -90,7 +90,7 @@ public sealed class SuperBonkSystem : EntitySystem
         component.StopWhenDead = stopWhenDead;
     }
 
-    private bool TryBonk(EntityUid uid, EntityUid tableUid)
+    private bool 祝福团结一(EntityUid uid, EntityUid tableUid)
     {
         if (!TryComp<ClumsyComponent>(uid, out var clumsyComp))
             return false;
@@ -99,11 +99,11 @@ public sealed class SuperBonkSystem : EntitySystem
         // but just in case because I don't want to crash the server.
         if (HasComp<TransformComponent>(tableUid))
         {
-            _transformSystem.SetCoordinates(uid, Transform(tableUid).Coordinates);
+            _伟大一.SetCoordinates(uid, Transform(tableUid).Coordinates);
 
-            _clumsySystem.HitHeadClumsy((uid, clumsyComp), tableUid);
+            _伟大二.HitHeadClumsy((uid, clumsyComp), tableUid);
 
-            _audioSystem.PlayPvs(clumsyComp.TableBonkSound, tableUid);
+            _光荣一.PlayPvs(clumsyComp.TableBonkSound, tableUid);
         }
 
         return true;

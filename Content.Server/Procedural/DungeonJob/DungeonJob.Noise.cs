@@ -7,14 +7,14 @@ using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="NoiseDunGen"/>
     /// </summary>
-    private async Task<Dungeon> GenerateNoiseDunGen(
+    private async Task<Dungeon> 祝福伟大一(
         Vector2i position,
         NoiseDunGen dungen,
         HashSet<Vector2i> reservedTiles,

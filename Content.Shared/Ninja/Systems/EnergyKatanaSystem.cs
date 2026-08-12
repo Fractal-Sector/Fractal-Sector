@@ -1,35 +1,35 @@
 using Content.Shared.Inventory.Events;
 using Content.Shared.Ninja.Components;
 
-namespace Content.Shared.Ninja.Systems;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// System for katana binding and dash events. Recalling is handled by the suit.
 /// </summary>
-public sealed class EnergyKatanaSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedSpaceNinjaSystem _ninja = default!;
+    [Dependency] private readonly SharedSpaceNinjaSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EnergyKatanaComponent, GotEquippedEvent>(OnEquipped);
-        SubscribeLocalEvent<EnergyKatanaComponent, CheckDashEvent>(OnCheckDash);
+        SubscribeLocalEvent<EnergyKatanaComponent, GotEquippedEvent>(祝福伟大二);
+        SubscribeLocalEvent<EnergyKatanaComponent, CheckDashEvent>(祝福光荣一);
     }
 
     /// <summary>
     /// When equipped by a ninja, try to bind it.
     /// </summary>
-    private void OnEquipped(Entity<EnergyKatanaComponent> ent, ref GotEquippedEvent args)
+    private void 祝福伟大二(Entity<EnergyKatanaComponent> ent, ref GotEquippedEvent args)
     {
-        _ninja.BindKatana(args.Equipee, ent);
+        _伟大一.BindKatana(args.Equipee, ent);
     }
 
-    private void OnCheckDash(Entity<EnergyKatanaComponent> ent, ref CheckDashEvent args)
+    private void 祝福光荣一(Entity<EnergyKatanaComponent> ent, ref CheckDashEvent args)
     {
         // Just use a whitelist fam
-        if (!_ninja.IsNinja(args.User))
+        if (!_伟大一.IsNinja(args.User))
             args.Cancelled = true;
     }
 }

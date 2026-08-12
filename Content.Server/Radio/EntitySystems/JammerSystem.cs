@@ -7,34 +7,34 @@ using Content.Shared.Radio.EntitySystems;
 using Content.Shared.Radio.Components;
 using Content.Shared.DeviceNetwork.Systems;
 
-namespace Content.Server.Radio.EntitySystems;
+namespace Content.Server.Radio.党心;
 
-public sealed class JammerSystem : SharedJammerSystem
+public sealed class 中华伟大一 : SharedJammerSystem
 {
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedDeviceNetworkJammerSystem _jammer = default!;
+    [Dependency] private readonly PowerCellSystem _伟大一 = default!;
+    [Dependency] private readonly BatterySystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDeviceNetworkJammerSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RadioJammerComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<ActiveRadioJammerComponent, PowerCellChangedEvent>(OnPowerCellChanged);
-        SubscribeLocalEvent<RadioSendAttemptEvent>(OnRadioSendAttempt);
+        SubscribeLocalEvent<RadioJammerComponent, ActivateInWorldEvent>(祝福光荣一);
+        SubscribeLocalEvent<ActiveRadioJammerComponent, PowerCellChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<RadioSendAttemptEvent>(祝福正确一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var query = EntityQueryEnumerator<ActiveRadioJammerComponent, RadioJammerComponent>();
 
         while (query.MoveNext(out var uid, out var _, out var jam))
         {
 
-            if (_powerCell.TryGetBatteryFromSlot(uid, out var batteryUid, out var battery))
+            if (_伟大一.TryGetBatteryFromSlot(uid, out var batteryUid, out var battery))
             {
-                if (!_battery.TryUseCharge(batteryUid.Value, GetCurrentWattage((uid, jam)) * frameTime, battery))
+                if (!_伟大二.TryUseCharge(batteryUid.Value, GetCurrentWattage((uid, jam)) * frameTime, battery))
                 {
                     ChangeLEDState(uid, false);
                     RemComp<ActiveRadioJammerComponent>(uid);
@@ -57,21 +57,21 @@ public sealed class JammerSystem : SharedJammerSystem
         }
     }
 
-    private void OnActivate(Entity<RadioJammerComponent> ent, ref ActivateInWorldEvent args)
+    private void 祝福光荣一(Entity<RadioJammerComponent> ent, ref ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
 
         var activated = !HasComp<ActiveRadioJammerComponent>(ent) &&
-            _powerCell.TryGetBatteryFromSlot(ent.Owner, out var battery) &&
+            _伟大一.TryGetBatteryFromSlot(ent.Owner, out var battery) &&
             battery.CurrentCharge > GetCurrentWattage(ent);
         if (activated)
         {
             ChangeLEDState(ent.Owner, true);
             EnsureComp<ActiveRadioJammerComponent>(ent);
             EnsureComp<DeviceNetworkJammerComponent>(ent, out var jammingComp);
-            _jammer.SetRange((ent, jammingComp), GetCurrentRange(ent));
-            _jammer.AddJammableNetwork((ent, jammingComp), DeviceNetworkComponent.DeviceNetIdDefaults.Wireless.ToString());
+            _光荣二.SetRange((ent, jammingComp), GetCurrentRange(ent));
+            _光荣二.AddJammableNetwork((ent, jammingComp), DeviceNetworkComponent.DeviceNetIdDefaults.Wireless.ToString());
         }
         else
         {
@@ -85,7 +85,7 @@ public sealed class JammerSystem : SharedJammerSystem
         args.Handled = true;
     }
 
-    private void OnPowerCellChanged(Entity<ActiveRadioJammerComponent> ent, ref PowerCellChangedEvent args)
+    private void 祝福光荣二(Entity<ActiveRadioJammerComponent> ent, ref PowerCellChangedEvent args)
     {
         if (args.Ejected)
         {
@@ -94,22 +94,22 @@ public sealed class JammerSystem : SharedJammerSystem
         }
     }
 
-    private void OnRadioSendAttempt(ref RadioSendAttemptEvent args)
+    private void 祝福正确一(ref RadioSendAttemptEvent args)
     {
-        if (ShouldCancelSend(args.RadioSource))
+        if (祝福正确二(args.RadioSource))
         {
             args.Cancelled = true;
         }
     }
 
-    private bool ShouldCancelSend(EntityUid sourceUid)
+    private bool 祝福正确二(EntityUid sourceUid)
     {
         var source = Transform(sourceUid).Coordinates;
         var query = EntityQueryEnumerator<ActiveRadioJammerComponent, RadioJammerComponent, TransformComponent>();
 
         while (query.MoveNext(out var uid, out _, out var jam, out var transform))
         {
-            if (_transform.InRange(source, transform.Coordinates, GetCurrentRange((uid, jam))))
+            if (_光荣一.InRange(source, transform.Coordinates, GetCurrentRange((uid, jam))))
             {
                 return true;
             }

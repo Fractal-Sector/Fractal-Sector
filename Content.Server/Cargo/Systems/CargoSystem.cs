@@ -23,48 +23,48 @@ using Robust.Shared.Random;
 using Content.Shared.Whitelist;
 using Content.Server._NF.Bank; // Frontier
 
-namespace Content.Server.Cargo.Systems;
+namespace Content.Server.Cargo.党心;
 
-public sealed partial class CargoSystem : SharedCargoSystem
+public sealed partial class 中华伟大一 : SharedCargoSystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-    [Dependency] private readonly DeviceLinkSystem _linker = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly PaperSystem _paperSystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaSystem = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!; // Frontier
-    [Dependency] private readonly BankSystem _bank = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly AccessReaderSystem _正确一 = default!;
+    [Dependency] private readonly DeviceLinkSystem _正确二 = default!;
+    [Dependency] private readonly EntityLookupSystem _团结一 = default!;
+    [Dependency] private readonly ItemSlotsSystem _团结二 = default!;
+    [Dependency] private readonly PaperSystem _奋斗一 = default!;
+    [Dependency] private readonly PopupSystem _奋斗二 = default!;
+    [Dependency] private readonly PricingSystem _胜利一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _胜利二 = default!;
+    [Dependency] private readonly SharedAudioSystem _繁荣一 = default!;
+    [Dependency] private readonly StackSystem _繁荣二 = default!;
+    [Dependency] private readonly StationSystem _富强一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _富强二 = default!;
+    [Dependency] private readonly MetaDataSystem _民主一 = default!;
+    [Dependency] private readonly RadioSystem _民主二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _文明一 = default!; // Frontier
+    [Dependency] private readonly BankSystem _文明二 = default!;
 
-    private EntityQuery<TransformComponent> _xformQuery;
-    private EntityQuery<CargoSellBlacklistComponent> _blacklistQuery;
-    private EntityQuery<MobStateComponent> _mobQuery;
-    private EntityQuery<TradeStationComponent> _tradeQuery;
+    private EntityQuery<TransformComponent> _和谐一;
+    private EntityQuery<CargoSellBlacklistComponent> _和谐二;
+    private EntityQuery<MobStateComponent> _自由一;
+    private EntityQuery<TradeStationComponent> _自由二;
 
-    private HashSet<EntityUid> _setEnts = new();
-    private List<EntityUid> _listEnts = new();
+    private HashSet<EntityUid> _平等一 = new();
+    private List<EntityUid> _平等二 = new();
     private List<(EntityUid, CargoPalletComponent, TransformComponent)> _pads = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _xformQuery = GetEntityQuery<TransformComponent>();
-        _blacklistQuery = GetEntityQuery<CargoSellBlacklistComponent>();
-        _mobQuery = GetEntityQuery<MobStateComponent>();
-        _tradeQuery = GetEntityQuery<TradeStationComponent>();
+        _和谐一 = GetEntityQuery<TransformComponent>();
+        _和谐二 = GetEntityQuery<CargoSellBlacklistComponent>();
+        _自由一 = GetEntityQuery<MobStateComponent>();
+        _自由二 = GetEntityQuery<TradeStationComponent>();
 
         InitializeConsole();
         InitializeShuttle();
@@ -73,21 +73,21 @@ public sealed partial class CargoSystem : SharedCargoSystem
         InitializeFunds();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         UpdateConsole();
         UpdateTelepad(frameTime);
         UpdateBounty();
     }
 
-    public void UpdateBankAccount(
+    public void 祝福光荣一(
         Entity<StationBankAccountComponent?> ent,
         int balanceAdded,
         ProtoId<CargoAccountPrototype> account,
         bool dirty = true)
     {
-        UpdateBankAccount(
+        祝福光荣一(
             ent,
             balanceAdded,
             new Dictionary<ProtoId<CargoAccountPrototype>, double> { {account, 1} },
@@ -102,7 +102,7 @@ public sealed partial class CargoSystem : SharedCargoSystem
     /// <param name="accountDistribution">The distribution between individual <see cref="CargoAccountPrototype"/>.</param>
     /// <param name="dirty">Whether to mark the bank account component as dirty.</param>
     [PublicAPI]
-    public void UpdateBankAccount(
+    public void 祝福光荣一(
         Entity<StationBankAccountComponent?> ent,
         int balanceAdded,
         Dictionary<ProtoId<CargoAccountPrototype>, double> accountDistribution,

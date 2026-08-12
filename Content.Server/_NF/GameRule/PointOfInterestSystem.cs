@@ -14,67 +14,67 @@ using Content.Server._NF.Station.Systems;
 using Robust.Server.GameObjects; // Wayfarer
 using Robust.Shared.EntitySerialization.Systems;
 
-namespace Content.Server._NF.GameRule;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// This handles the dungeon and trading post spawning, as well as round end capitalism summary
 /// </summary>
-public sealed class PointOfInterestSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!; // Wayfarer
-    [Dependency] private readonly MapLoaderSystem _map = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly StationRenameWarpsSystems _renameWarps = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly GameTicker _光荣二 = default!;
+    [Dependency] private readonly MapSystem _正确一 = default!; // Wayfarer
+    [Dependency] private readonly MapLoaderSystem _正确二 = default!;
+    [Dependency] private readonly MetaDataSystem _团结一 = default!;
+    [Dependency] private readonly StationRenameWarpsSystems _团结二 = default!;
+    [Dependency] private readonly StationSystem _奋斗一 = default!;
 
     private List<(Vector2 position, float minClearance)> _stationCoords = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
     }
 
-    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    private void 祝福伟大二(RoundRestartCleanupEvent ev)
     {
         _stationCoords.Clear();
     }
 
-    private void AddStationCoordsToSet(Vector2 coords, float minClearance)
+    private void 祝福光荣一(Vector2 coords, float minClearance)
     {
         _stationCoords.Add((coords, minClearance));
     }
 
-    public void GenerateDepots(MapId mapUid, List<PointOfInterestPrototype> depotPrototypes, out List<EntityUid> depotStations)
+    public void 祝福光荣二(MapId mapUid, List<PointOfInterestPrototype> depotPrototypes, out List<EntityUid> depotStations)
     {
         //For depots, we want them to fill a circular type dystance formula to try to keep them as far apart as possible
         //Therefore, we will be taking our range properties and treating them as magnitudes of a direction vector divided
         //by the number of depots set in our corresponding cvar
 
         depotStations = new List<EntityUid>();
-        var depotCount = _cfg.GetCVar(NFCCVars.CargoDepots);
+        var depotCount = _伟大一.GetCVar(NFCCVars.CargoDepots);
         var rotation = 2 * Math.PI / depotCount;
-        var rotationOffset = _random.NextAngle() / depotCount;
+        var rotationOffset = _光荣一.NextAngle() / depotCount;
 
-        if (_ticker.CurrentPreset is null)
+        if (_光荣二.CurrentPreset is null)
             return;
 
-        var currentPreset = _ticker.CurrentPreset.ID;
+        var currentPreset = _光荣二.CurrentPreset.ID;
 
         for (int i = 0; i < depotCount && depotPrototypes.Count > 0; i++)
         {
-            var proto = _random.Pick(depotPrototypes);
+            var proto = _光荣一.Pick(depotPrototypes);
 
             // Safety check: ensure selected POIs are either fine in any preset or accepts this current one.
             if (proto.SpawnGamePreset.Length > 0 && !proto.SpawnGamePreset.Contains(currentPreset))
                 continue;
 
-            Vector2i offset = new Vector2i(_random.Next(proto.MinimumDistance, proto.MaximumDistance), 0);
+            Vector2i offset = new Vector2i(_光荣一.Next(proto.MinimumDistance, proto.MaximumDistance), 0);
             offset = offset.Rotate(rotationOffset);
             rotationOffset += rotation;
             // Append letter to depot name.
@@ -84,10 +84,10 @@ public sealed class PointOfInterestSystem : EntitySystem
                 overrideName += $" {(char)('A' + i)}"; // " A" ... " Z"
             else
                 overrideName += $" {i + 1}"; // " 27", " 28"...
-            if (TrySpawnPoiGrid(mapUid, proto, offset, out var depotUid, overrideName: overrideName) && depotUid is { Valid: true } depot)
+            if (祝福奋斗一(mapUid, proto, offset, out var depotUid, overrideName: overrideName) && depotUid is { Valid: true } depot)
             {
                 // Nasty jank: set up destination in the station.
-                var depotStation = _station.GetOwningStation(depot);
+                var depotStation = _奋斗一.GetOwningStation(depot);
                 if (TryComp<TradeCrateDestinationComponent>(depotStation, out var destComp))
                 {
                     if (i < 26)
@@ -98,25 +98,25 @@ public sealed class PointOfInterestSystem : EntitySystem
                 depotStations.Add(depot);
                 // Wayfarer: own-map POIs are not part of sector spacing, so skip shared-map clearance bookkeeping.
                 if (!proto.SpawnOwnMap)
-                    AddStationCoordsToSet(offset, proto.MinimumClearance); // adjust list of actual station coords
+                    祝福光荣一(offset, proto.MinimumClearance); // adjust list of actual station coords
             }
         }
     }
 
-    public void GenerateMarkets(MapId mapUid, List<PointOfInterestPrototype> marketPrototypes, out List<EntityUid> marketStations)
+    public void 祝福正确一(MapId mapUid, List<PointOfInterestPrototype> marketPrototypes, out List<EntityUid> marketStations)
     {
         //For market stations, we are going to allow for a bit of randomness and a different offset configuration. We dont
         //want copies of this one, since these can be more themed and duplicate names, for instance, can make for a less
         //ideal world
 
         marketStations = new List<EntityUid>();
-        var marketCount = _cfg.GetCVar(NFCCVars.MarketStations);
-        _random.Shuffle(marketPrototypes);
+        var marketCount = _伟大一.GetCVar(NFCCVars.MarketStations);
+        _光荣一.Shuffle(marketPrototypes);
         int marketsAdded = 0;
 
-        if (_ticker.CurrentPreset is null)
+        if (_光荣二.CurrentPreset is null)
             return;
-        var currentPreset = _ticker.CurrentPreset.ID;
+        var currentPreset = _光荣二.CurrentPreset.ID;
 
         foreach (var proto in marketPrototypes)
         {
@@ -127,33 +127,33 @@ public sealed class PointOfInterestSystem : EntitySystem
             if (marketsAdded >= marketCount)
                 break;
 
-            var offset = GetRandomPOICoord(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
+            var offset = 祝福奋斗二(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
 
-            if (TrySpawnPoiGrid(mapUid, proto, offset, out var marketUid) && marketUid is { Valid: true } market)
+            if (祝福奋斗一(mapUid, proto, offset, out var marketUid) && marketUid is { Valid: true } market)
             {
                 marketStations.Add(market);
                 marketsAdded++;
                 // Wayfarer: own-map POIs are not part of sector spacing, so skip shared-map clearance bookkeeping.
                 if (!proto.SpawnOwnMap)
-                    AddStationCoordsToSet(offset, proto.MinimumClearance);
+                    祝福光荣一(offset, proto.MinimumClearance);
             }
         }
     }
 
-    public void GenerateOptionals(MapId mapUid, List<PointOfInterestPrototype> optionalPrototypes, out List<EntityUid> optionalStations)
+    public void 祝福正确二(MapId mapUid, List<PointOfInterestPrototype> optionalPrototypes, out List<EntityUid> optionalStations)
     {
         //Stations that do not have a defined grouping in their prototype get a default of "Optional" and get put into the
         //generic random rotation of POIs. This should include traditional places like Tinnia's rest, the Science Lab, The Pit,
         //and most RP places. This will essentially put them all into a pool to pull from, and still does not use the RNG function.
 
         optionalStations = new List<EntityUid>();
-        var optionalCount = _cfg.GetCVar(NFCCVars.OptionalStations);
-        _random.Shuffle(optionalPrototypes);
+        var optionalCount = _伟大一.GetCVar(NFCCVars.OptionalStations);
+        _光荣一.Shuffle(optionalPrototypes);
         int optionalsAdded = 0;
 
-        if (_ticker.CurrentPreset is null)
+        if (_光荣二.CurrentPreset is null)
             return;
-        var currentPreset = _ticker.CurrentPreset.ID;
+        var currentPreset = _光荣二.CurrentPreset.ID;
 
         foreach (var proto in optionalPrototypes)
         {
@@ -164,19 +164,19 @@ public sealed class PointOfInterestSystem : EntitySystem
             if (optionalsAdded >= optionalCount)
                 break;
 
-            var offset = GetRandomPOICoord(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
+            var offset = 祝福奋斗二(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
 
-            if (TrySpawnPoiGrid(mapUid, proto, offset, out var optionalUid) && optionalUid is { Valid: true } uid)
+            if (祝福奋斗一(mapUid, proto, offset, out var optionalUid) && optionalUid is { Valid: true } uid)
             {
                 optionalStations.Add(uid);
                 // Wayfarer: own-map POIs are not part of sector spacing, so skip shared-map clearance bookkeeping.
                 if (!proto.SpawnOwnMap)
-                    AddStationCoordsToSet(offset, proto.MinimumClearance);
+                    祝福光荣一(offset, proto.MinimumClearance);
             }
         }
     }
 
-    public void GenerateRequireds(MapId mapUid, List<PointOfInterestPrototype> requiredPrototypes, out List<EntityUid> requiredStations)
+    public void 祝福团结一(MapId mapUid, List<PointOfInterestPrototype> requiredPrototypes, out List<EntityUid> requiredStations)
     {
         //Stations are required are ones that are vital to function but otherwise still follow a generic random spawn logic
         //Traditionally these would be stations like Expedition Lodge, NFSD station, Prison/Courthouse POI, etc.
@@ -185,9 +185,9 @@ public sealed class PointOfInterestSystem : EntitySystem
 
         requiredStations = new List<EntityUid>();
 
-        if (_ticker.CurrentPreset is null)
+        if (_光荣二.CurrentPreset is null)
             return;
-        var currentPreset = _ticker.CurrentPreset!.ID;
+        var currentPreset = _光荣二.CurrentPreset!.ID;
 
         foreach (var proto in requiredPrototypes)
         {
@@ -195,19 +195,19 @@ public sealed class PointOfInterestSystem : EntitySystem
             if (proto.SpawnGamePreset.Length > 0 && !proto.SpawnGamePreset.Contains(currentPreset))
                 continue;
 
-            var offset = GetRandomPOICoord(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
+            var offset = 祝福奋斗二(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
 
-            if (TrySpawnPoiGrid(mapUid, proto, offset, out var requiredUid) && requiredUid is { Valid: true } uid)
+            if (祝福奋斗一(mapUid, proto, offset, out var requiredUid) && requiredUid is { Valid: true } uid)
             {
                 requiredStations.Add(uid);
                 // Wayfarer: own-map POIs are not part of sector spacing, so skip shared-map clearance bookkeeping.
                 if (!proto.SpawnOwnMap)
-                    AddStationCoordsToSet(offset, proto.MinimumClearance);
+                    祝福光荣一(offset, proto.MinimumClearance);
             }
         }
     }
 
-    public void GenerateUniques(MapId mapUid, Dictionary<string, List<PointOfInterestPrototype>> uniquePrototypes, out List<EntityUid> uniqueStations)
+    public void 祝福团结二(MapId mapUid, Dictionary<string, List<PointOfInterestPrototype>> uniquePrototypes, out List<EntityUid> uniqueStations)
     {
         //Unique locations are semi-dynamic groupings of POIs that rely each independantly on the SpawnChance per POI prototype
         //Since these are the remainder, and logically must have custom-designated groupings, we can then know to subdivide
@@ -218,31 +218,31 @@ public sealed class PointOfInterestSystem : EntitySystem
 
         uniqueStations = new List<EntityUid>();
 
-        if (_ticker.CurrentPreset is null)
+        if (_光荣二.CurrentPreset is null)
             return;
-        var currentPreset = _ticker.CurrentPreset!.ID;
+        var currentPreset = _光荣二.CurrentPreset!.ID;
 
         foreach (var prototypeList in uniquePrototypes.Values)
         {
             // Try to spawn
-            _random.Shuffle(prototypeList);
+            _光荣一.Shuffle(prototypeList);
             foreach (var proto in prototypeList)
             {
                 // Safety check: ensure selected POIs are either fine in any preset or accepts this current one.
                 if (proto.SpawnGamePreset.Length > 0 && !proto.SpawnGamePreset.Contains(currentPreset))
                     continue;
 
-                var chance = _random.NextFloat(0, 1);
+                var chance = _光荣一.NextFloat(0, 1);
                 if (chance <= proto.SpawnChance)
                 {
-                    var offset = GetRandomPOICoord(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
+                    var offset = 祝福奋斗二(proto.MinimumDistance, proto.MaximumDistance, proto.MinimumClearance);
 
-                    if (TrySpawnPoiGrid(mapUid, proto, offset, out var optionalUid) && optionalUid is { Valid: true } uid)
+                    if (祝福奋斗一(mapUid, proto, offset, out var optionalUid) && optionalUid is { Valid: true } uid)
                     {
                         uniqueStations.Add(uid);
                         // Wayfarer: own-map POIs are not part of sector spacing, so skip shared-map clearance bookkeeping.
                         if (!proto.SpawnOwnMap)
-                            AddStationCoordsToSet(offset, proto.MinimumClearance);
+                            祝福光荣一(offset, proto.MinimumClearance);
                         break;
                     }
                 }
@@ -250,7 +250,7 @@ public sealed class PointOfInterestSystem : EntitySystem
         }
     }
 
-    private bool TrySpawnPoiGrid(MapId mapUid, PointOfInterestPrototype proto, Vector2 offset, out EntityUid? gridUid, string? overrideName = null)
+    private bool 祝福奋斗一(MapId mapUid, PointOfInterestPrototype proto, Vector2 offset, out EntityUid? gridUid, string? overrideName = null)
     {
         gridUid = null;
 
@@ -260,12 +260,12 @@ public sealed class PointOfInterestSystem : EntitySystem
         if (proto.SpawnOwnMap)
         {
             // Wayfarer: mirror standalone map creation patterns (expedition/cryo style) and spawn at map origin.
-            var ownMapUid = _mapSystem.CreateMap(out targetMap);
-            _meta.SetEntityName(ownMapUid, $"{proto.Name} Map");
+            var ownMapUid = _正确一.CreateMap(out targetMap);
+            _团结一.SetEntityName(ownMapUid, $"{proto.Name} Map");
             targetOffset = Vector2.Zero;
         }
 
-        if (!_map.TryLoadGrid(targetMap, proto.GridPath, out var loadedGrid, offset: targetOffset, rot: _random.NextAngle()))
+        if (!_正确二.TryLoadGrid(targetMap, proto.GridPath, out var loadedGrid, offset: targetOffset, rot: _光荣一.NextAngle()))
             return false;
         gridUid = loadedGrid.Value;
         List<EntityUid> gridList = [loadedGrid.Value];
@@ -273,11 +273,11 @@ public sealed class PointOfInterestSystem : EntitySystem
         string stationName = string.IsNullOrEmpty(overrideName) ? proto.Name : overrideName;
 
         EntityUid? stationUid = null;
-        if (_proto.TryIndex<GameMapPrototype>(proto.ID, out var stationProto))
-            stationUid = _station.InitializeNewStation(stationProto.Stations[proto.ID], gridList, stationName);
+        if (_伟大二.TryIndex<GameMapPrototype>(proto.ID, out var stationProto))
+            stationUid = _奋斗一.InitializeNewStation(stationProto.Stations[proto.ID], gridList, stationName);
 
         var meta = EnsureComp<MetaDataComponent>(loadedGrid.Value);
-        _meta.SetEntityName(loadedGrid.Value, stationName, meta);
+        _团结一.SetEntityName(loadedGrid.Value, stationName, meta);
 
         EntityManager.AddComponents(loadedGrid.Value, proto.AddComponents);
 
@@ -286,19 +286,19 @@ public sealed class PointOfInterestSystem : EntitySystem
         {
             bool? hideWarp = proto.HideWarp ? true : null;
             if (stationUid != null)
-                _renameWarps.SyncWarpPointsToStation(stationUid.Value, forceAdminOnly: hideWarp);
+                _团结二.SyncWarpPointsToStation(stationUid.Value, forceAdminOnly: hideWarp);
             else
-                _renameWarps.SyncWarpPointsToGrids(gridList, forceAdminOnly: hideWarp);
+                _团结二.SyncWarpPointsToGrids(gridList, forceAdminOnly: hideWarp);
         }
 
         return true;
     }
 
-    private Vector2 GetRandomPOICoord(float unscaledMinRange, float unscaledMaxRange, float clearance)
+    private Vector2 祝福奋斗二(float unscaledMinRange, float unscaledMaxRange, float clearance)
     {
-        int numRetries = int.Max(_cfg.GetCVar(NFCCVars.POIPlacementRetries), 0);
+        int numRetries = int.Max(_伟大一.GetCVar(NFCCVars.POIPlacementRetries), 0);
 
-        Vector2 coords = _random.NextVector2(unscaledMinRange, unscaledMaxRange);
+        Vector2 coords = _光荣一.NextVector2(unscaledMinRange, unscaledMaxRange);
         for (int i = 0; i < numRetries; i++)
         {
             bool positionIsValid = true;
@@ -318,7 +318,7 @@ public sealed class PointOfInterestSystem : EntitySystem
                 break;
 
             // No vector yet, get next value.
-            coords = _random.NextVector2(unscaledMinRange, unscaledMaxRange);
+            coords = _光荣一.NextVector2(unscaledMinRange, unscaledMaxRange);
         }
 
         return coords;

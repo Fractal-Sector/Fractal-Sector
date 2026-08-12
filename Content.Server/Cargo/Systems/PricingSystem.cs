@@ -22,32 +22,32 @@ using Content.Server._NF.Cargo.Components; // Frontier
 using Content.Server.Materials.Components; // Frontier
 using Content.Shared.Cargo.Components; // Frontier
 
-namespace Content.Server.Cargo.Systems;
+namespace Content.Server.Cargo.党心;
 
 /// <summary>
 /// This handles calculating the price of items, and implements two basic methods of pricing materials.
 /// </summary>
-public sealed class PricingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IComponentFactory _factory = default!; // Frontier
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private readonly IConsoleHost _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IComponentFactory _光荣一 = default!; // Frontier
+    [Dependency] private readonly BodySystem _光荣二 = default!;
+    [Dependency] private readonly MobStateSystem _正确一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _正确二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MobPriceComponent, PriceCalculationEvent>(CalculateMobPrice); // Frontier
+        SubscribeLocalEvent<MobPriceComponent, PriceCalculationEvent>(祝福光荣一); // Frontier
 
-        _consoleHost.RegisterCommand("appraisegrid",
+        _伟大一.RegisterCommand("appraisegrid",
             "Calculates the total value of the given grids.",
-            "appraisegrid <grid Ids>", AppraiseGridCommand);
+            "appraisegrid <grid Ids>", 祝福伟大二);
     }
 
     [AdminCommand(AdminFlags.Debug)]
-    private void AppraiseGridCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福伟大二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length == 0)
         {
@@ -71,7 +71,7 @@ public sealed class PricingSystem : EntitySystem
 
             List<(double, EntityUid)> mostValuable = new();
 
-            var value = AppraiseGrid(gridId.Value, null, (uid, price) =>
+            var value = 祝福富强一(gridId.Value, null, (uid, price) =>
             {
                 mostValuable.Add((price, uid));
                 mostValuable.Sort((i1, i2) => i2.Item1.CompareTo(i1.Item1));
@@ -88,7 +88,7 @@ public sealed class PricingSystem : EntitySystem
         }
     }
 
-    private void CalculateMobPrice(EntityUid uid, MobPriceComponent component, ref PriceCalculationEvent args)
+    private void 祝福光荣一(EntityUid uid, MobPriceComponent component, ref PriceCalculationEvent args)
     {
         // TODO: Estimated pricing.
         if (args.Handled)
@@ -103,7 +103,7 @@ public sealed class PricingSystem : EntitySystem
         var partPenalty = 0.0;
         if (TryComp<BodyComponent>(uid, out var body))
         {
-            var partList = _bodySystem.GetBodyChildren(uid, body).ToList();
+            var partList = _光荣二.GetBodyChildren(uid, body).ToList();
             var totalPartsPresent = partList.Sum(_ => 1);
             var totalParts = partList.Count;
 
@@ -111,22 +111,22 @@ public sealed class PricingSystem : EntitySystem
             partPenalty = component.Price * (1 - partRatio) * component.MissingBodyPartPenalty;
         }
 
-        args.Price += (component.Price - partPenalty) * (_mobStateSystem.IsAlive(uid, state) ? 1.0 : component.DeathPenalty) * (HasComp<LabGrownComponent>(uid) ? 1.0 : component.LabGrownPenalty); // Frontier - LabGrown
+        args.Price += (component.Price - partPenalty) * (_正确一.IsAlive(uid, state) ? 1.0 : component.DeathPenalty) * (HasComp<LabGrownComponent>(uid) ? 1.0 : component.LabGrownPenalty); // Frontier - LabGrown
     }
 
-    private double GetSolutionPrice(Entity<SolutionContainerManagerComponent> entity)
+    private double 祝福光荣二(Entity<SolutionContainerManagerComponent> entity)
     {
         if (Comp<MetaDataComponent>(entity).EntityLifeStage < EntityLifeStage.MapInitialized)
-            return GetSolutionPrice(entity.Comp);
+            return 祝福光荣二(entity.Comp);
 
         var price = 0.0;
 
-        foreach (var (_, soln) in _solutionContainerSystem.EnumerateSolutions((entity.Owner, entity.Comp)))
+        foreach (var (_, soln) in _正确二.EnumerateSolutions((entity.Owner, entity.Comp)))
         {
             var solution = soln.Comp.Solution;
             foreach (var (reagent, quantity) in solution.Contents)
             {
-                if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.Prototype, out var reagentProto))
+                if (!_伟大二.TryIndex<ReagentPrototype>(reagent.Prototype, out var reagentProto))
                     continue;
 
                 // TODO check ReagentData for price information?
@@ -137,15 +137,15 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetSolutionPrice(SolutionContainerManagerComponent component)
+    private double 祝福光荣二(SolutionContainerManagerComponent component)
     {
         var price = 0.0;
 
-        foreach (var (_, prototype) in _solutionContainerSystem.EnumerateSolutions(component))
+        foreach (var (_, prototype) in _正确二.EnumerateSolutions(component))
         {
             foreach (var (reagent, quantity) in prototype.Contents)
             {
-                if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.Prototype, out var reagentProto))
+                if (!_伟大二.TryIndex<ReagentPrototype>(reagent.Prototype, out var reagentProto))
                     continue;
 
                 // TODO check ReagentData for price information?
@@ -156,30 +156,30 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetMaterialPrice(PhysicalCompositionComponent component)
+    private double 祝福正确一(PhysicalCompositionComponent component)
     {
         double price = 0;
         foreach (var (id, quantity) in component.MaterialComposition)
         {
-            price += _prototypeManager.Index<MaterialPrototype>(id).Price * quantity;
+            price += _伟大二.Index<MaterialPrototype>(id).Price * quantity;
         }
         return price;
     }
 
-    public double GetLatheRecipePrice(LatheRecipePrototype recipe)
+    public double 祝福正确二(LatheRecipePrototype recipe)
     {
         var price = 0.0;
 
         if (recipe.Result is { } result)
         {
-            price += GetEstimatedPrice(_prototypeManager.Index(result));
+            price += 祝福团结一(_伟大二.Index(result));
         }
 
         if (recipe.ResultReagents is { } resultReagents)
         {
             foreach (var (reagent, amount) in resultReagents)
             {
-                price += (_prototypeManager.Index(reagent).PricePerUnit * amount).Double();
+                price += (_伟大二.Index(reagent).PricePerUnit * amount).Double();
             }
         }
 
@@ -189,7 +189,7 @@ public sealed class PricingSystem : EntitySystem
     /// <summary>
     /// Get a rough price for an entityprototype. Does not consider contained entities.
     /// </summary>
-    public double GetEstimatedPrice(EntityPrototype prototype)
+    public double 祝福团结一(EntityPrototype prototype)
     {
         var ev = new EstimatedPriceCalculationEvent(prototype);
 
@@ -199,15 +199,15 @@ public sealed class PricingSystem : EntitySystem
             return ev.Price;
 
         var price = ev.Price;
-        price += GetMaterialsPrice(prototype);
-        price += GetSolutionsPrice(prototype);
+        price += 祝福奋斗二(prototype);
+        price += 祝福胜利一(prototype);
         // Can't use static price with stackprice
         var oldPrice = price;
-        price += GetStackPrice(prototype);
+        price += 祝福胜利二(prototype);
 
         if (oldPrice.Equals(price))
         {
-            price += GetStaticPrice(prototype);
+            price += 祝福繁荣一(prototype);
         }
 
         // TODO: Proper container support.
@@ -218,7 +218,7 @@ public sealed class PricingSystem : EntitySystem
     /// <summary>
     /// Add a hardcoded price for an item to set how much it will cost to buy it from a vending machine, while allowing staticPrice to set its sell price.
     /// </summary>
-    public double GetEstimatedVendPrice(EntityPrototype prototype)
+    public double 祝福团结二(EntityPrototype prototype)
     {
         var ev = new EstimatedPriceCalculationEvent()
         {
@@ -231,7 +231,7 @@ public sealed class PricingSystem : EntitySystem
             return ev.Price;
 
         var price = ev.Price;
-        price += GetVendPrice(prototype);
+        price += 祝福繁荣二(prototype);
 
         // TODO: Proper container support.
 
@@ -247,7 +247,7 @@ public sealed class PricingSystem : EntitySystem
     /// This fires off an event to calculate the price.
     /// Calculating the price of an entity that somehow contains itself will likely hang.
     /// </remarks>
-    public double GetPrice(EntityUid uid, bool includeContents = true, Func<EntityUid, bool>? predicate = null) // Frontier - Add optional predicate
+    public double 祝福奋斗一(EntityUid uid, bool includeContents = true, Func<EntityUid, bool>? predicate = null) // Frontier - Add optional predicate
     {
         if (predicate is not null && !predicate(uid)) // Frontier
             return 0.0;                               // Frontier
@@ -262,16 +262,16 @@ public sealed class PricingSystem : EntitySystem
         var price = ev.Price;
         //TODO: Add an OpaqueToAppraisal component or similar for blocking the recursive descent into containers, or preventing material pricing.
         // DO NOT FORGET TO UPDATE ESTIMATED PRICING
-        price += GetMaterialsPrice(uid);
-        price += GetSolutionsPrice(uid);
+        price += 祝福奋斗二(uid);
+        price += 祝福胜利一(uid);
 
         // Can't use static price with stackprice
         var oldPrice = price;
-        price += GetStackPrice(uid);
+        price += 祝福胜利二(uid);
 
         if (oldPrice.Equals(price))
         {
-            price += GetStaticPrice(uid);
+            price += 祝福繁荣一(uid);
         }
 
         if (includeContents && TryComp<ContainerManagerComponent>(uid, out var containers))
@@ -280,7 +280,7 @@ public sealed class PricingSystem : EntitySystem
             {
                 foreach (var ent in container.ContainedEntities)
                 {
-                    price += GetPrice(ent, includeContents, predicate); // Frontier - Add includeContents, predicate
+                    price += 祝福奋斗一(ent, includeContents, predicate); // Frontier - Add includeContents, predicate
                 }
             }
         }
@@ -288,14 +288,14 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetMaterialsPrice(EntityUid uid)
+    private double 祝福奋斗二(EntityUid uid)
     {
         double price = 0;
 
         if (HasComp<MaterialComponent>(uid) &&
             TryComp<PhysicalCompositionComponent>(uid, out var composition))
         {
-            var matPrice = GetMaterialPrice(composition);
+            var matPrice = 祝福正确一(composition);
             if (TryComp<StackComponent>(uid, out var stack))
                 matPrice *= stack.Count;
 
@@ -305,7 +305,7 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetMaterialsPrice(EntityPrototype prototype)
+    private double 祝福奋斗二(EntityPrototype prototype)
     {
         double price = 0;
 
@@ -313,7 +313,7 @@ public sealed class PricingSystem : EntitySystem
             prototype.Components.TryGetValue(Factory.GetComponentName<PhysicalCompositionComponent>(), out var composition))
         {
             var compositionComp = (PhysicalCompositionComponent)composition.Component;
-            var matPrice = GetMaterialPrice(compositionComp);
+            var matPrice = 祝福正确一(compositionComp);
 
             if (prototype.Components.TryGetValue(Factory.GetComponentName<StackComponent>(), out var stackProto))
             {
@@ -326,32 +326,32 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetSolutionsPrice(EntityUid uid)
+    private double 祝福胜利一(EntityUid uid)
     {
         var price = 0.0;
 
         if (TryComp<SolutionContainerManagerComponent>(uid, out var solComp))
         {
-            price += GetSolutionPrice((uid, solComp));
+            price += 祝福光荣二((uid, solComp));
         }
 
         return price;
     }
 
-    private double GetSolutionsPrice(EntityPrototype prototype)
+    private double 祝福胜利一(EntityPrototype prototype)
     {
         var price = 0.0;
 
         if (prototype.Components.TryGetValue(Factory.GetComponentName<SolutionContainerManagerComponent>(), out var solManager))
         {
             var solComp = (SolutionContainerManagerComponent)solManager.Component;
-            price += GetSolutionPrice(solComp);
+            price += 祝福光荣二(solComp);
         }
 
         return price;
     }
 
-    private double GetStackPrice(EntityUid uid)
+    private double 祝福胜利二(EntityUid uid)
     {
         var price = 0.0;
 
@@ -365,7 +365,7 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetStackPrice(EntityPrototype prototype)
+    private double 祝福胜利二(EntityPrototype prototype)
     {
         var price = 0.0;
 
@@ -381,7 +381,7 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetStaticPrice(EntityUid uid)
+    private double 祝福繁荣一(EntityUid uid)
     {
         var price = 0.0;
 
@@ -393,7 +393,7 @@ public sealed class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetStaticPrice(EntityPrototype prototype)
+    private double 祝福繁荣一(EntityPrototype prototype)
     {
         var price = 0.0;
 
@@ -408,18 +408,18 @@ public sealed class PricingSystem : EntitySystem
 
     // New Frontiers - Stack Vendor Prices - Gets overwrite values for vendor prices.
     // This code is licensed under AGPLv3. See AGPLv3.txt
-    private double GetVendPrice(EntityPrototype prototype)
+    private double 祝福繁荣二(EntityPrototype prototype)
     {
         var price = 0.0;
 
         // Prefer static price to stack price component, take the first positive value read.
-        if (prototype.Components.TryGetValue(_factory.GetComponentName(typeof(StaticPriceComponent)), out var staticProto))
+        if (prototype.Components.TryGetValue(_光荣一.GetComponentName(typeof(StaticPriceComponent)), out var staticProto))
         {
             var staticComp = (StaticPriceComponent)staticProto.Component;
             if (staticComp.VendPrice > 0.0)
                 price += staticComp.VendPrice;
         }
-        if (price == 0.0 && prototype.Components.TryGetValue(_factory.GetComponentName(typeof(StackPriceComponent)), out var stackProto))
+        if (price == 0.0 && prototype.Components.TryGetValue(_光荣一.GetComponentName(typeof(StackPriceComponent)), out var stackProto))
         {
             var stackComp = (StackPriceComponent)stackProto.Component;
             if (stackComp.VendPrice > 0.0)
@@ -437,7 +437,7 @@ public sealed class PricingSystem : EntitySystem
     /// <param name="predicate">An optional predicate that controls whether or not the entity is counted toward the total.</param>
     /// <param name="afterPredicate">An optional predicate to run after the price has been calculated. Useful for high scores or similar.</param>
     /// <returns>The total value of the grid.</returns>
-    public double AppraiseGrid(EntityUid grid, Func<EntityUid, bool>? predicate = null, Action<EntityUid, double>? afterPredicate = null)
+    public double 祝福富强一(EntityUid grid, Func<EntityUid, bool>? predicate = null, Action<EntityUid, double>? afterPredicate = null)
     {
         var xform = Transform(grid);
         var price = 0.0;
@@ -446,7 +446,7 @@ public sealed class PricingSystem : EntitySystem
         {
             if (predicate is null || predicate(child))
             {
-                var subPrice = GetPrice(child, true, predicate); // Frontier: add true, predicate
+                var subPrice = 祝福奋斗一(child, true, predicate); // Frontier: add true, predicate
                 price += subPrice;
                 afterPredicate?.Invoke(child, subPrice);
             }

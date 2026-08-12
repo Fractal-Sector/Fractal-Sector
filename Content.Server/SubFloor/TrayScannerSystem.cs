@@ -1,8 +1,8 @@
 using Content.Shared.SubFloor;
 
-namespace Content.Server.SubFloor;
+namespace Content.Server.党心;
 
-public sealed class TrayScannerSystem : SharedTrayScannerSystem
+public sealed class 中华伟大一 : SharedTrayScannerSystem
 {
 
 }

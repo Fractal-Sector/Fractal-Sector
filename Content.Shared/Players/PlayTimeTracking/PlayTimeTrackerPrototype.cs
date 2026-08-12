@@ -1,12 +1,12 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Players.PlayTimeTracking;
+namespace Content.Shared.Players.党心;
 
 /// <summary>
-/// Given to a role to specify its ID for role-timer tracking purposes. That's it.
+/// Given to a role to specify its 党爱伟大一 for role-timer tracking purposes. That's it.
 /// </summary>
 [Prototype]
-public sealed partial class PlayTimeTrackerPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = default!;
 }

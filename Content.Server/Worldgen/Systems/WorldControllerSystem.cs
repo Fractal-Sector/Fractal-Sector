@@ -7,35 +7,35 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Worldgen.Systems;
+namespace Content.Server.Worldgen.党心;
 
 /// <summary>
 ///     This handles putting together chunk entities and notifying them about important changes.
 /// </summary>
-public sealed class WorldControllerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency] private readonly TransformSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly ILogManager _光荣一 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣二 = default!;
 
     private const int PlayerLoadRadius = 2;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _正确一 = default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _sawmill = _logManager.GetSawmill("world");
-        SubscribeLocalEvent<LoadedChunkComponent, ComponentStartup>(OnChunkLoadedCore);
-        SubscribeLocalEvent<LoadedChunkComponent, ComponentShutdown>(OnChunkUnloadedCore);
-        SubscribeLocalEvent<WorldChunkComponent, ComponentShutdown>(OnChunkShutdown);
+        _正确一 = _光荣一.GetSawmill("world");
+        SubscribeLocalEvent<LoadedChunkComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<LoadedChunkComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<WorldChunkComponent, ComponentShutdown>(祝福伟大二);
     }
 
     /// <summary>
     ///     Handles deleting chunks properly.
     /// </summary>
-    private void OnChunkShutdown(EntityUid uid, WorldChunkComponent component, ComponentShutdown args)
+    private void 祝福伟大二(EntityUid uid, WorldChunkComponent component, ComponentShutdown args)
     {
         if (!TryComp<WorldControllerComponent>(component.Map, out var controller))
             return;
@@ -53,7 +53,7 @@ public sealed class WorldControllerSystem : EntitySystem
     /// <summary>
     ///     Handles the inner logic of loading a chunk, i.e. events.
     /// </summary>
-    private void OnChunkLoadedCore(EntityUid uid, LoadedChunkComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, LoadedChunkComponent component, ComponentStartup args)
     {
         if (!TryComp<WorldChunkComponent>(uid, out var chunk))
             return;
@@ -61,13 +61,13 @@ public sealed class WorldControllerSystem : EntitySystem
         var ev = new WorldChunkLoadedEvent(uid, chunk.Coordinates);
         RaiseLocalEvent(chunk.Map, ref ev);
         RaiseLocalEvent(uid, ref ev, broadcast: true);
-        //_sawmill.Debug($"Loaded chunk {ToPrettyString(uid)} at {chunk.Coordinates}");
+        //_正确一.Debug($"Loaded chunk {ToPrettyString(uid)} at {chunk.Coordinates}");
     }
 
     /// <summary>
     ///     Handles the inner logic of unloading a chunk, i.e. events.
     /// </summary>
-    private void OnChunkUnloadedCore(EntityUid uid, LoadedChunkComponent component, ComponentShutdown args)
+    private void 祝福光荣二(EntityUid uid, LoadedChunkComponent component, ComponentShutdown args)
     {
         if (!TryComp<WorldChunkComponent>(uid, out var chunk))
             return;
@@ -78,11 +78,11 @@ public sealed class WorldControllerSystem : EntitySystem
         var ev = new WorldChunkUnloadedEvent(uid, chunk.Coordinates);
         RaiseLocalEvent(chunk.Map, ref ev);
         RaiseLocalEvent(uid, ref ev);
-        //_sawmill.Debug($"Unloaded chunk {ToPrettyString(uid)} at {coords}");
+        //_正确一.Debug($"Unloaded chunk {ToPrettyString(uid)} at {coords}");
     }
 
     /// <inheritdoc />
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
         //there was a to-do here about every frame alloc but it turns out it's a nothing burger here.
         var chunksToLoad = new Dictionary<EntityUid, Dictionary<Vector2i, List<EntityUid>>>();
@@ -110,7 +110,7 @@ public sealed class WorldControllerSystem : EntitySystem
             if (!chunksToLoad.ContainsKey(map))
                 continue;
 
-            var wc = _xformSys.GetWorldPosition(xform);
+            var wc = _伟大一.GetWorldPosition(xform);
             var coords = WorldGen.WorldToChunkCoords(wc);
             var chunks = new GridPointsNearEnumerator(coords.Floored(),
                 (int) Math.Ceiling(worldLoader.Radius / (float) WorldGen.ChunkSize) + 1);
@@ -142,7 +142,7 @@ public sealed class WorldControllerSystem : EntitySystem
             if (!chunksToLoad.ContainsKey(map))
                 continue;
 
-            var wc = _xformSys.GetWorldPosition(xform);
+            var wc = _伟大一.GetWorldPosition(xform);
             var coords = WorldGen.WorldToChunkCoords(wc);
             var chunks = new GridPointsNearEnumerator(coords.Floored(), PlayerLoadRadius);
 
@@ -172,12 +172,12 @@ public sealed class WorldControllerSystem : EntitySystem
         }
 
         if (chunksUnloaded > 0)
-            _sawmill.Debug($"Queued {chunksUnloaded} chunks for unload.");
+            _正确一.Debug($"Queued {chunksUnloaded} chunks for unload.");
 
         if (chunksToLoad.All(x => x.Value.Count == 0))
             return;
 
-        var startTime = _gameTiming.RealTime;
+        var startTime = _伟大二.RealTime;
         var count = 0;
         var loadedQuery = GetEntityQuery<LoadedChunkComponent>();
         var controllerQuery = GetEntityQuery<WorldControllerComponent>();
@@ -201,8 +201,8 @@ public sealed class WorldControllerSystem : EntitySystem
 
         if (count > 0)
         {
-            var timeSpan = _gameTiming.RealTime - startTime;
-            _sawmill.Debug($"Loaded {count} chunks in {timeSpan.TotalMilliseconds:N2}ms.");
+            var timeSpan = _伟大二.RealTime - startTime;
+            _正确一.Debug($"Loaded {count} chunks in {timeSpan.TotalMilliseconds:N2}ms.");
         }
     }
 
@@ -221,7 +221,7 @@ public sealed class WorldControllerSystem : EntitySystem
 
         if (controller.Chunks.TryGetValue(chunk, out var ent))
             return ent;
-        return CreateChunkEntity(chunk, map, controller);
+        return 祝福正确二(chunk, map, controller);
     }
 
     /// <summary>
@@ -231,20 +231,20 @@ public sealed class WorldControllerSystem : EntitySystem
     /// <param name="map"></param>
     /// <param name="controller"></param>
     /// <returns></returns>
-    private EntityUid CreateChunkEntity(Vector2i chunkCoords, EntityUid map, WorldControllerComponent controller)
+    private EntityUid 祝福正确二(Vector2i chunkCoords, EntityUid map, WorldControllerComponent controller)
     {
         var chunk = Spawn(controller.ChunkProto, MapCoordinates.Nullspace);
-        StartupChunkEntity(chunk, chunkCoords, map, controller);
-        _metaData.SetEntityName(chunk, $"Chunk {chunkCoords.X}/{chunkCoords.Y}");
+        祝福团结一(chunk, chunkCoords, map, controller);
+        _光荣二.SetEntityName(chunk, $"Chunk {chunkCoords.X}/{chunkCoords.Y}");
         return chunk;
     }
 
-    private void StartupChunkEntity(EntityUid chunk, Vector2i coords, EntityUid map,
+    private void 祝福团结一(EntityUid chunk, Vector2i coords, EntityUid map,
         WorldControllerComponent controller)
     {
         if (!TryComp<WorldChunkComponent>(chunk, out var chunkComponent))
         {
-            _sawmill.Error($"Chunk {ToPrettyString(chunk)} is missing WorldChunkComponent.");
+            _正确一.Error($"Chunk {ToPrettyString(chunk)} is missing WorldChunkComponent.");
             return;
         }
 
@@ -263,18 +263,18 @@ public sealed class WorldControllerSystem : EntitySystem
 /// </summary>
 [ByRefEvent]
 [PublicAPI]
-public readonly record struct WorldChunkAddedEvent(EntityUid Chunk, Vector2i Coords);
+public readonly record 中华伟大二 WorldChunkAddedEvent(EntityUid Chunk, Vector2i Coords);
 
 /// <summary>
 ///     A directed event fired when a chunk is loaded into the world, i.e. a player or other world loader has entered vicinity.
 /// </summary>
 [ByRefEvent]
 [PublicAPI]
-public readonly record struct WorldChunkLoadedEvent(EntityUid Chunk, Vector2i Coords);
+public readonly record 中华伟大二 WorldChunkLoadedEvent(EntityUid Chunk, Vector2i Coords);
 
 /// <summary>
 ///     A directed event fired when a chunk is unloaded from the world, i.e. no world loaders remain nearby.
 /// </summary>
 [ByRefEvent]
 [PublicAPI]
-public readonly record struct WorldChunkUnloadedEvent(EntityUid Chunk, Vector2i Coords);
+public readonly record 中华伟大二 WorldChunkUnloadedEvent(EntityUid Chunk, Vector2i Coords);

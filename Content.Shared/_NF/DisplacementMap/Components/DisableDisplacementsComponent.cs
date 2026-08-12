@@ -1,8 +1,8 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared._NF.DisplacementMap.Components;
+namespace Content.Shared._NF.DisplacementMap.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class DisableDisplacementsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

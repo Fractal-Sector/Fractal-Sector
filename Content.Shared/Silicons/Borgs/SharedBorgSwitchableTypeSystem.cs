@@ -4,37 +4,37 @@ using Content.Shared.Interaction.Components;
 using Content.Shared.Movement.Components;
 using Content.Shared.Silicons.Borgs.Components;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.Silicons.Borgs;
+namespace Content.Shared.Silicons.党心;
 
 /// <summary>
 /// Implements borg type switching.
 /// </summary>
 /// <seealso cref="BorgSwitchableTypeComponent"/>
-public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     // TODO: Allow borgs to be reset to default configuration.
 
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _userInterface = default!;
-    [Dependency] protected readonly IPrototypeManager Prototypes = default!;
-    [Dependency] private readonly InteractionPopupSystem _interactionPopup = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _伟大二 = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+    [Dependency] private readonly InteractionPopupSystem _光荣一 = default!;
 
-    public static readonly EntProtoId ActionId = "ActionSelectBorgType";
+    public static readonly EntProtoId 党爱伟大二 = "ActionSelectBorgType";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BorgSwitchableTypeComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<BorgSwitchableTypeComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<BorgSwitchableTypeComponent, BorgToggleSelectTypeEvent>(OnSelectBorgTypeAction);
+        SubscribeLocalEvent<BorgSwitchableTypeComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<BorgSwitchableTypeComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<BorgSwitchableTypeComponent, BorgToggleSelectTypeEvent>(祝福光荣二);
 
         Subs.BuiEvents<BorgSwitchableTypeComponent>(BorgSwitchableTypeUiKey.SelectBorgType,
             sub =>
             {
-                sub.Event<BorgSelectTypeMessage>(SelectTypeMessageHandler);
+                sub.Event<BorgSelectTypeMessage>(祝福正确一);
             });
     }
 
@@ -42,78 +42,78 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
     // UI-adjacent code
     //
 
-    private void OnMapInit(Entity<BorgSwitchableTypeComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<BorgSwitchableTypeComponent> ent, ref MapInitEvent args)
     {
-        _actionsSystem.AddAction(ent, ref ent.Comp.SelectTypeAction, ActionId);
+        _伟大一.AddAction(ent, ref ent.Comp.SelectTypeAction, 党爱伟大二);
         Dirty(ent);
 
         if (ent.Comp.SelectedBorgType != null)
         {
-            SelectBorgModule(ent, ent.Comp.SelectedBorgType.Value);
+            祝福正确二(ent, ent.Comp.SelectedBorgType.Value);
         }
     }
 
-    private void OnShutdown(Entity<BorgSwitchableTypeComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣一(Entity<BorgSwitchableTypeComponent> ent, ref ComponentShutdown args)
     {
-        _actionsSystem.RemoveAction(ent.Owner, ent.Comp.SelectTypeAction);
+        _伟大一.RemoveAction(ent.Owner, ent.Comp.SelectTypeAction);
     }
 
-    private void OnSelectBorgTypeAction(Entity<BorgSwitchableTypeComponent> ent, ref BorgToggleSelectTypeEvent args)
+    private void 祝福光荣二(Entity<BorgSwitchableTypeComponent> ent, ref BorgToggleSelectTypeEvent args)
     {
         if (args.Handled || !TryComp<ActorComponent>(ent, out var actor))
             return;
 
         args.Handled = true;
 
-        _userInterface.TryToggleUi((ent.Owner, null), BorgSwitchableTypeUiKey.SelectBorgType, actor.PlayerSession);
+        _伟大二.TryToggleUi((ent.Owner, null), BorgSwitchableTypeUiKey.SelectBorgType, actor.PlayerSession);
     }
 
-    private void SelectTypeMessageHandler(Entity<BorgSwitchableTypeComponent> ent, ref BorgSelectTypeMessage args)
+    private void 祝福正确一(Entity<BorgSwitchableTypeComponent> ent, ref BorgSelectTypeMessage args)
     {
         if (ent.Comp.SelectedBorgType != null)
             return;
 
-        if (!Prototypes.HasIndex(args.Prototype))
+        if (!党爱伟大一.HasIndex(args.Prototype))
             return;
 
-        SelectBorgModule(ent, args.Prototype);
+        祝福正确二(ent, args.Prototype);
     }
 
     //
     // Implementation
     //
 
-    protected virtual void SelectBorgModule(
+    protected virtual void 祝福正确二(
         Entity<BorgSwitchableTypeComponent> ent,
         ProtoId<BorgTypePrototype> borgType)
     {
         ent.Comp.SelectedBorgType = borgType;
 
-        _actionsSystem.RemoveAction(ent.Owner, ent.Comp.SelectTypeAction);
+        _伟大一.RemoveAction(ent.Owner, ent.Comp.SelectTypeAction);
         ent.Comp.SelectTypeAction = null;
         Dirty(ent);
 
-        _userInterface.CloseUi((ent.Owner, null), BorgSwitchableTypeUiKey.SelectBorgType);
+        _伟大二.CloseUi((ent.Owner, null), BorgSwitchableTypeUiKey.SelectBorgType);
 
-        UpdateEntityAppearance(ent);
+        祝福团结一(ent);
     }
 
-    protected void UpdateEntityAppearance(Entity<BorgSwitchableTypeComponent> entity)
+    protected void 祝福团结一(Entity<BorgSwitchableTypeComponent> entity)
     {
-        if (!Prototypes.TryIndex(entity.Comp.SelectedBorgType, out var proto))
+        if (!党爱伟大一.TryIndex(entity.Comp.SelectedBorgType, out var proto))
             return;
 
-        UpdateEntityAppearance(entity, proto);
+        祝福团结一(entity, proto);
     }
 
-    protected virtual void UpdateEntityAppearance(
+    protected virtual void 祝福团结一(
         Entity<BorgSwitchableTypeComponent> entity,
         BorgTypePrototype prototype)
     {
         if (TryComp(entity, out InteractionPopupComponent? popup))
         {
-            _interactionPopup.SetInteractSuccessString((entity.Owner, popup), prototype.PetSuccessString);
-            _interactionPopup.SetInteractFailureString((entity.Owner, popup), prototype.PetFailureString);
+            _光荣一.SetInteractSuccessString((entity.Owner, popup), prototype.PetSuccessString);
+            _光荣一.SetInteractFailureString((entity.Owner, popup), prototype.PetFailureString);
         }
 
         if (TryComp(entity, out FootstepModifierComponent? footstepModifier))

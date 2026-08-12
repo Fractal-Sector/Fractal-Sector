@@ -1,4 +1,4 @@
-namespace Content.Server.Vocalization.Components;
+namespace Content.Server.Vocalization.党心;
 
 /// <summary>
 /// Used in combination with <see cref="VocalizerComponent"/>.
@@ -6,4 +6,4 @@ namespace Content.Server.Vocalization.Components;
 /// and is currently unpowered.
 /// </summary>
 [RegisterComponent]
-public sealed partial class VocalizerRequiresPowerComponent : Component;
+public sealed partial class 中华伟大一 : Component;

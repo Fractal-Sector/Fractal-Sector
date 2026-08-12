@@ -25,53 +25,53 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Collections;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Wieldable;
+namespace Content.Shared.党心;
 
-public abstract class SharedWieldableSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
-    [Dependency] private readonly UseDelaySystem _delay = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedGunSystem _正确一 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确二 = default!;
+    [Dependency] private readonly SharedItemSystem _团结一 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结二 = default!;
+    [Dependency] private readonly SharedVirtualItemSystem _奋斗一 = default!;
+    [Dependency] private readonly UseDelaySystem _奋斗二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<WieldableComponent, UseInHandEvent>(OnUseInHand, before: [typeof(SharedGunSystem), typeof(BatteryWeaponFireModesSystem)]);
-        SubscribeLocalEvent<WieldableComponent, ItemUnwieldedEvent>(OnItemUnwielded);
-        SubscribeLocalEvent<WieldableComponent, GotUnequippedHandEvent>(OnItemLeaveHand);
-        SubscribeLocalEvent<WieldableComponent, VirtualItemDeletedEvent>(OnVirtualItemDeleted);
-        SubscribeLocalEvent<WieldableComponent, GetVerbsEvent<InteractionVerb>>(AddToggleWieldVerb);
-        SubscribeLocalEvent<WieldableComponent, HandDeselectedEvent>(OnDeselectWieldable);
+        SubscribeLocalEvent<WieldableComponent, UseInHandEvent>(祝福繁荣二, before: [typeof(SharedGunSystem), typeof(BatteryWeaponFireModesSystem)]);
+        SubscribeLocalEvent<WieldableComponent, ItemUnwieldedEvent>(祝福自由一);
+        SubscribeLocalEvent<WieldableComponent, GotUnequippedHandEvent>(祝福自由二);
+        SubscribeLocalEvent<WieldableComponent, VirtualItemDeletedEvent>(祝福平等一);
+        SubscribeLocalEvent<WieldableComponent, GetVerbsEvent<InteractionVerb>>(祝福繁荣一);
+        SubscribeLocalEvent<WieldableComponent, HandDeselectedEvent>(祝福正确二);
 
-        SubscribeLocalEvent<WieldingBlockerComponent, GotEquippedEvent>(OnBlockerEquipped);
-        SubscribeLocalEvent<WieldingBlockerComponent, GotEquippedHandEvent>(OnBlockerEquippedHand);
-        SubscribeLocalEvent<WieldingBlockerComponent, WieldAttemptEvent>(OnBlockerAttempt);
-        SubscribeLocalEvent<WieldingBlockerComponent, InventoryRelayedEvent<WieldAttemptEvent>>(OnBlockerAttempt);
-        SubscribeLocalEvent<WieldingBlockerComponent, HeldRelayedEvent<WieldAttemptEvent>>(OnBlockerAttempt);
+        SubscribeLocalEvent<WieldingBlockerComponent, GotEquippedEvent>(祝福富强一);
+        SubscribeLocalEvent<WieldingBlockerComponent, GotEquippedHandEvent>(祝福富强二);
+        SubscribeLocalEvent<WieldingBlockerComponent, WieldAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<WieldingBlockerComponent, InventoryRelayedEvent<WieldAttemptEvent>>(祝福民主一);
+        SubscribeLocalEvent<WieldingBlockerComponent, HeldRelayedEvent<WieldAttemptEvent>>(祝福民主一);
 
-        SubscribeLocalEvent<MeleeRequiresWieldComponent, AttemptMeleeEvent>(OnMeleeAttempt);
-        SubscribeLocalEvent<GunRequiresWieldComponent, ExaminedEvent>(OnExamineRequires);
-        SubscribeLocalEvent<GunRequiresWieldComponent, ShotAttemptedEvent>(OnShootAttempt);
-        SubscribeLocalEvent<GunWieldBonusComponent, ItemWieldedEvent>(OnGunWielded);
-        SubscribeLocalEvent<GunWieldBonusComponent, ItemUnwieldedEvent>(OnGunUnwielded);
-        SubscribeLocalEvent<GunWieldBonusComponent, GunRefreshModifiersEvent>(OnGunRefreshModifiers);
-        SubscribeLocalEvent<GunWieldBonusComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<SpeedModifiedOnWieldComponent, ItemWieldedEvent>(OnSpeedModifierWielded);
-        SubscribeLocalEvent<SpeedModifiedOnWieldComponent, ItemUnwieldedEvent>(OnSpeedModifierUnwielded);
-        SubscribeLocalEvent<SpeedModifiedOnWieldComponent, HeldRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnRefreshSpeedWielded);
+        SubscribeLocalEvent<MeleeRequiresWieldComponent, AttemptMeleeEvent>(祝福伟大二);
+        SubscribeLocalEvent<GunRequiresWieldComponent, ExaminedEvent>(祝福胜利一);
+        SubscribeLocalEvent<GunRequiresWieldComponent, ShotAttemptedEvent>(祝福光荣一);
+        SubscribeLocalEvent<GunWieldBonusComponent, ItemWieldedEvent>(祝福正确一);
+        SubscribeLocalEvent<GunWieldBonusComponent, ItemUnwieldedEvent>(祝福光荣二);
+        SubscribeLocalEvent<GunWieldBonusComponent, GunRefreshModifiersEvent>(祝福团结一);
+        SubscribeLocalEvent<GunWieldBonusComponent, ExaminedEvent>(祝福胜利二);
+        SubscribeLocalEvent<SpeedModifiedOnWieldComponent, ItemWieldedEvent>(祝福团结二);
+        SubscribeLocalEvent<SpeedModifiedOnWieldComponent, ItemUnwieldedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<SpeedModifiedOnWieldComponent, HeldRelayedEvent<RefreshMovementSpeedModifiersEvent>>(祝福奋斗二);
 
-        SubscribeLocalEvent<IncreaseDamageOnWieldComponent, GetMeleeDamageEvent>(OnGetMeleeDamage);
+        SubscribeLocalEvent<IncreaseDamageOnWieldComponent, GetMeleeDamageEvent>(祝福平等二);
     }
 
-    private void OnMeleeAttempt(EntityUid uid, MeleeRequiresWieldComponent component, ref AttemptMeleeEvent args)
+    private void 祝福伟大二(EntityUid uid, MeleeRequiresWieldComponent component, ref AttemptMeleeEvent args)
     {
         if (TryComp<WieldableComponent>(uid, out var wieldable) &&
             !wieldable.Wielded)
@@ -81,44 +81,44 @@ public abstract class SharedWieldableSystem : EntitySystem
         }
     }
 
-    private void OnShootAttempt(EntityUid uid, GunRequiresWieldComponent component, ref ShotAttemptedEvent args)
+    private void 祝福光荣一(EntityUid uid, GunRequiresWieldComponent component, ref ShotAttemptedEvent args)
     {
         if (TryComp<WieldableComponent>(uid, out var wieldable) &&
             !wieldable.Wielded)
         {
             args.Cancel();
 
-            var time = _timing.CurTime;
+            var time = _伟大二.CurTime;
             if (time > component.LastPopup + component.PopupCooldown &&
                 !HasComp<MeleeWeaponComponent>(uid) &&
                 !HasComp<MeleeRequiresWieldComponent>(uid))
             {
                 component.LastPopup = time;
                 var message = Loc.GetString("wieldable-component-requires", ("item", uid));
-                _popup.PopupClient(message, args.Used, args.User);
+                _团结二.PopupClient(message, args.Used, args.User);
             }
         }
     }
 
-    private void OnGunUnwielded(EntityUid uid, GunWieldBonusComponent component, ItemUnwieldedEvent args)
+    private void 祝福光荣二(EntityUid uid, GunWieldBonusComponent component, ItemUnwieldedEvent args)
     {
-        _gun.RefreshModifiers(uid);
+        _正确一.RefreshModifiers(uid);
     }
 
-    private void OnGunWielded(EntityUid uid, GunWieldBonusComponent component, ref ItemWieldedEvent args)
+    private void 祝福正确一(EntityUid uid, GunWieldBonusComponent component, ref ItemWieldedEvent args)
     {
-        _gun.RefreshModifiers(uid);
+        _正确一.RefreshModifiers(uid);
     }
 
-    private void OnDeselectWieldable(EntityUid uid, WieldableComponent component, HandDeselectedEvent args)
+    private void 祝福正确二(EntityUid uid, WieldableComponent component, HandDeselectedEvent args)
     {
-        if (_hands.GetHandCount(args.User) > 2)
+        if (_正确二.GetHandCount(args.User) > 2)
             return;
 
-        TryUnwield(uid, component, args.User);
+        祝福文明二(uid, component, args.User);
     }
 
-    private void OnGunRefreshModifiers(Entity<GunWieldBonusComponent> bonus, ref GunRefreshModifiersEvent args)
+    private void 祝福团结一(Entity<GunWieldBonusComponent> bonus, ref GunRefreshModifiersEvent args)
     {
         if (TryComp(bonus, out WieldableComponent? wield) &&
             wield.Wielded)
@@ -130,17 +130,17 @@ public abstract class SharedWieldableSystem : EntitySystem
         }
     }
 
-    private void OnSpeedModifierWielded(EntityUid uid, SpeedModifiedOnWieldComponent component, ItemWieldedEvent args)
+    private void 祝福团结二(EntityUid uid, SpeedModifiedOnWieldComponent component, ItemWieldedEvent args)
     {
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(args.User);
+        _伟大一.RefreshMovementSpeedModifiers(args.User);
     }
 
-    private void OnSpeedModifierUnwielded(EntityUid uid, SpeedModifiedOnWieldComponent component, ItemUnwieldedEvent args)
+    private void 祝福奋斗一(EntityUid uid, SpeedModifiedOnWieldComponent component, ItemUnwieldedEvent args)
     {
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(args.User);
+        _伟大一.RefreshMovementSpeedModifiers(args.User);
     }
 
-    private void OnRefreshSpeedWielded(EntityUid uid, SpeedModifiedOnWieldComponent component, ref HeldRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
+    private void 祝福奋斗二(EntityUid uid, SpeedModifiedOnWieldComponent component, ref HeldRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
     {
         if (TryComp<WieldableComponent>(uid, out var wield) && wield.Wielded)
         {
@@ -148,13 +148,13 @@ public abstract class SharedWieldableSystem : EntitySystem
         }
     }
 
-    private void OnExamineRequires(Entity<GunRequiresWieldComponent> entity, ref ExaminedEvent args)
+    private void 祝福胜利一(Entity<GunRequiresWieldComponent> entity, ref ExaminedEvent args)
     {
         if (entity.Comp.WieldRequiresExamineMessage != null)
             args.PushText(Loc.GetString(entity.Comp.WieldRequiresExamineMessage));
     }
 
-    private void OnExamine(EntityUid uid, GunWieldBonusComponent component, ref ExaminedEvent args)
+    private void 祝福胜利二(EntityUid uid, GunWieldBonusComponent component, ref ExaminedEvent args)
     {
         if (HasComp<GunRequiresWieldComponent>(uid))
             return;
@@ -163,15 +163,15 @@ public abstract class SharedWieldableSystem : EntitySystem
             args.PushText(Loc.GetString(component.WieldBonusExamineMessage));
     }
 
-    private void AddToggleWieldVerb(EntityUid uid, WieldableComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福繁荣一(EntityUid uid, WieldableComponent component, GetVerbsEvent<InteractionVerb> args)
     {
         if (args.Hands == null || !args.CanAccess || !args.CanInteract)
             return;
 
-        if (!_hands.IsHolding((args.User, args.Hands), uid, out _))
+        if (!_正确二.IsHolding((args.User, args.Hands), uid, out _))
             return;
 
-        // TODO VERB TOOLTIPS Make CanWield or some other function return string, set as verb tooltip and disable
+        // TODO VERB TOOLTIPS Make 祝福民主二 or some other function return string, set as verb tooltip and disable
         // verb. Or just don't add it to the list if the action is not executable.
 
         // TODO VERBS ICON
@@ -179,26 +179,26 @@ public abstract class SharedWieldableSystem : EntitySystem
         {
             Text = component.Wielded ? Loc.GetString("wieldable-verb-text-unwield") : Loc.GetString("wieldable-verb-text-wield"),
             Act = component.Wielded
-                ? () => TryUnwield(uid, component, args.User)
-                : () => TryWield(uid, component, args.User)
+                ? () => 祝福文明二(uid, component, args.User)
+                : () => 祝福文明一(uid, component, args.User)
         };
 
         args.Verbs.Add(verb);
     }
 
-    private void OnUseInHand(EntityUid uid, WieldableComponent component, UseInHandEvent args)
+    private void 祝福繁荣二(EntityUid uid, WieldableComponent component, UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
         if (!component.Wielded)
         {
-            TryWield(uid, component, args.User);
+            祝福文明一(uid, component, args.User);
             args.Handled = true; // always mark as handled or we will cycle ammo when wielding is blocked
         }
         else if (component.UnwieldOnUse)
         {
-            TryUnwield(uid, component, args.User);
+            祝福文明二(uid, component, args.User);
             args.Handled = true;
         }
 
@@ -206,19 +206,19 @@ public abstract class SharedWieldableSystem : EntitySystem
             args.ApplyDelay = false;
     }
 
-    private void OnBlockerEquipped(Entity<WieldingBlockerComponent> ent, ref GotEquippedEvent args)
+    private void 祝福富强一(Entity<WieldingBlockerComponent> ent, ref GotEquippedEvent args)
     {
         if (ent.Comp.BlockEquipped)
-            UnwieldAll(args.Equipee, force: true);
+            祝福和谐一(args.Equipee, force: true);
     }
 
-    private void OnBlockerEquippedHand(Entity<WieldingBlockerComponent> ent, ref GotEquippedHandEvent args)
+    private void 祝福富强二(Entity<WieldingBlockerComponent> ent, ref GotEquippedHandEvent args)
     {
         if (ent.Comp.BlockInHand)
-            UnwieldAll(args.User, force: true);
+            祝福和谐一(args.User, force: true);
     }
 
-    private void OnBlockerAttempt(Entity<WieldingBlockerComponent> ent, ref InventoryRelayedEvent<WieldAttemptEvent> args)
+    private void 祝福民主一(Entity<WieldingBlockerComponent> ent, ref InventoryRelayedEvent<WieldAttemptEvent> args)
     {
         if (ent.Comp.BlockEquipped)
         {
@@ -227,7 +227,7 @@ public abstract class SharedWieldableSystem : EntitySystem
         }
     }
 
-    private void OnBlockerAttempt(Entity<WieldingBlockerComponent> ent, ref HeldRelayedEvent<WieldAttemptEvent> args)
+    private void 祝福民主一(Entity<WieldingBlockerComponent> ent, ref HeldRelayedEvent<WieldAttemptEvent> args)
     {
         if (ent.Comp.BlockInHand)
         {
@@ -236,36 +236,36 @@ public abstract class SharedWieldableSystem : EntitySystem
         }
     }
 
-    private void OnBlockerAttempt(Entity<WieldingBlockerComponent> ent, ref WieldAttemptEvent args)
+    private void 祝福民主一(Entity<WieldingBlockerComponent> ent, ref WieldAttemptEvent args)
     {
         args.Cancelled = true;
     }
 
-    public bool CanWield(EntityUid uid, WieldableComponent component, EntityUid user, bool quiet = false)
+    public bool 祝福民主二(EntityUid uid, WieldableComponent component, EntityUid user, bool quiet = false)
     {
         // Do they have enough hands free?
         if (!TryComp<HandsComponent>(user, out var hands))
         {
             if (!quiet)
-                _popup.PopupClient(Loc.GetString("wieldable-component-no-hands"), user, user);
+                _团结二.PopupClient(Loc.GetString("wieldable-component-no-hands"), user, user);
             return false;
         }
 
         // Is it.. actually in one of their hands?
-        if (!_hands.IsHolding((user, hands), uid, out _))
+        if (!_正确二.IsHolding((user, hands), uid, out _))
         {
             if (!quiet)
-                _popup.PopupClient(Loc.GetString("wieldable-component-not-in-hands", ("item", uid)), user, user);
+                _团结二.PopupClient(Loc.GetString("wieldable-component-not-in-hands", ("item", uid)), user, user);
             return false;
         }
 
-        if (_hands.CountFreeableHands((user, hands)) < component.FreeHandsRequired)
+        if (_正确二.CountFreeableHands((user, hands)) < component.FreeHandsRequired)
         {
             if (!quiet)
             {
                 var message = Loc.GetString("wieldable-component-not-enough-free-hands",
                     ("number", component.FreeHandsRequired), ("item", uid));
-                _popup.PopupClient(message, user, user);
+                _团结二.PopupClient(message, user, user);
             }
             return false;
         }
@@ -278,14 +278,14 @@ public abstract class SharedWieldableSystem : EntitySystem
     ///     Attempts to wield an item, starting a UseDelay after.
     /// </summary>
     /// <returns>True if the attempt wasn't blocked.</returns>
-    public bool TryWield(EntityUid used, WieldableComponent component, EntityUid user)
+    public bool 祝福文明一(EntityUid used, WieldableComponent component, EntityUid user)
     {
-        if (!CanWield(used, component, user))
+        if (!祝福民主二(used, component, user))
             return false;
 
         if (TryComp(used, out UseDelayComponent? useDelay) && component.UseDelayOnWield)
         {
-            if (!_delay.TryResetDelay((used, useDelay), true))
+            if (!_奋斗二.TryResetDelay((used, useDelay), true))
                 return false;
         }
 
@@ -295,26 +295,26 @@ public abstract class SharedWieldableSystem : EntitySystem
         if (attemptEv.Cancelled)
         {
             if (attemptEv.Message != null)
-                _popup.PopupClient(attemptEv.Message, user, user);
+                _团结二.PopupClient(attemptEv.Message, user, user);
             return false;
         }
 
         if (TryComp<ItemComponent>(used, out var item))
         {
             component.OldInhandPrefix = item.HeldPrefix;
-            _item.SetHeldPrefix(used, component.WieldedInhandPrefix, component: item);
+            _团结一.SetHeldPrefix(used, component.WieldedInhandPrefix, component: item);
         }
 
-        SetWielded((used, component), true);
+        祝福和谐二((used, component), true);
 
         if (component.WieldSound != null)
-            _audio.PlayPredicted(component.WieldSound, used, user);
+            _光荣二.PlayPredicted(component.WieldSound, used, user);
 
         //This section handles spawning the virtual item(s) to occupy the required additional hand(s).
         var virtuals = new ValueList<EntityUid>();
         for (var i = 0; i < component.FreeHandsRequired; i++)
         {
-            if (_virtualItem.TrySpawnVirtualItemInHand(used, user, out var virtualItem, true))
+            if (_奋斗一.TrySpawnVirtualItemInHand(used, user, out var virtualItem, true))
             {
                 virtuals.Add(virtualItem.Value);
                 continue;
@@ -330,7 +330,7 @@ public abstract class SharedWieldableSystem : EntitySystem
 
         var selfMessage = Loc.GetString("wieldable-component-successful-wield", ("item", used));
         var othersMessage = Loc.GetString("wieldable-component-successful-wield-other", ("user", Identity.Entity(user, EntityManager)), ("item", used));
-        _popup.PopupPredicted(selfMessage, othersMessage, user, user);
+        _团结二.PopupPredicted(selfMessage, othersMessage, user, user);
 
         var ev = new ItemWieldedEvent(user);
         RaiseLocalEvent(used, ref ev);
@@ -342,7 +342,7 @@ public abstract class SharedWieldableSystem : EntitySystem
     ///     Attempts to unwield an item, with no use delay.
     /// </summary>
     /// <returns>True if the attempt wasn't blocked.</returns>
-    public bool TryUnwield(EntityUid used, WieldableComponent component, EntityUid user, bool force = false)
+    public bool 祝福文明二(EntityUid used, WieldableComponent component, EntityUid user, bool force = false)
     {
         if (!component.Wielded)
             return false; // already unwielded
@@ -355,12 +355,12 @@ public abstract class SharedWieldableSystem : EntitySystem
             if (attemptEv.Cancelled)
             {
                 if (attemptEv.Message != null)
-                    _popup.PopupClient(attemptEv.Message, user, user);
+                    _团结二.PopupClient(attemptEv.Message, user, user);
                 return false;
             }
         }
 
-        SetWielded((used, component), false);
+        祝福和谐二((used, component), false);
 
         var ev = new ItemUnwieldedEvent(user, force);
         RaiseLocalEvent(used, ref ev);
@@ -371,56 +371,56 @@ public abstract class SharedWieldableSystem : EntitySystem
     /// Makes an entity unwield all currently wielded items.
     /// </summary>
     /// <param name="force">If this is true we will bypass UnwieldAttemptEvent.</param>
-    public void UnwieldAll(Entity<HandsComponent?> wielder, bool force = false)
+    public void 祝福和谐一(Entity<HandsComponent?> wielder, bool force = false)
     {
-        foreach (var held in _hands.EnumerateHeld(wielder))
+        foreach (var held in _正确二.EnumerateHeld(wielder))
         {
             if (TryComp<WieldableComponent>(held, out var wieldable))
-                TryUnwield(held, wieldable, wielder, force);
+                祝福文明二(held, wieldable, wielder, force);
         }
     }
 
     /// <summary>
     /// Sets wielded without doing any checks.
     /// </summary>
-    private void SetWielded(Entity<WieldableComponent> ent, bool wielded)
+    private void 祝福和谐二(Entity<WieldableComponent> ent, bool wielded)
     {
         ent.Comp.Wielded = wielded;
         Dirty(ent);
-        _appearance.SetData(ent, WieldableVisuals.Wielded, wielded);
+        _光荣一.SetData(ent, WieldableVisuals.Wielded, wielded);
     }
 
-    private void OnItemUnwielded(EntityUid uid, WieldableComponent component, ItemUnwieldedEvent args)
+    private void 祝福自由一(EntityUid uid, WieldableComponent component, ItemUnwieldedEvent args)
     {
-        _item.SetHeldPrefix(uid, component.OldInhandPrefix);
+        _团结一.SetHeldPrefix(uid, component.OldInhandPrefix);
 
         var user = args.User;
-        _virtualItem.DeleteInHandsMatching(user, uid);
+        _奋斗一.DeleteInHandsMatching(user, uid);
 
         if (!args.Force) // don't play sound/popup if this was a forced unwield
         {
             if (component.UnwieldSound != null)
-                _audio.PlayPredicted(component.UnwieldSound, uid, user);
+                _光荣二.PlayPredicted(component.UnwieldSound, uid, user);
 
             var selfMessage = Loc.GetString("wieldable-component-failed-wield", ("item", uid));
             var othersMessage = Loc.GetString("wieldable-component-failed-wield-other", ("user", Identity.Entity(args.User, EntityManager)), ("item", uid));
-            _popup.PopupPredicted(selfMessage, othersMessage, user, user);
+            _团结二.PopupPredicted(selfMessage, othersMessage, user, user);
         }
     }
 
-    private void OnItemLeaveHand(EntityUid uid, WieldableComponent component, GotUnequippedHandEvent args)
+    private void 祝福自由二(EntityUid uid, WieldableComponent component, GotUnequippedHandEvent args)
     {
         if (uid == args.Unequipped)
-            TryUnwield(uid, component, args.User, force: true);
+            祝福文明二(uid, component, args.User, force: true);
     }
 
-    private void OnVirtualItemDeleted(EntityUid uid, WieldableComponent component, VirtualItemDeletedEvent args)
+    private void 祝福平等一(EntityUid uid, WieldableComponent component, VirtualItemDeletedEvent args)
     {
         if (args.BlockingEntity == uid)
-            TryUnwield(uid, component, args.User, force: true);
+            祝福文明二(uid, component, args.User, force: true);
     }
 
-    private void OnGetMeleeDamage(EntityUid uid, IncreaseDamageOnWieldComponent component, ref GetMeleeDamageEvent args)
+    private void 祝福平等二(EntityUid uid, IncreaseDamageOnWieldComponent component, ref GetMeleeDamageEvent args)
     {
         if (!TryComp<WieldableComponent>(uid, out var wield))
             return;

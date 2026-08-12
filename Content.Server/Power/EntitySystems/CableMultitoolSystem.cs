@@ -10,44 +10,44 @@ using Content.Shared.Verbs;
 using JetBrains.Annotations;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Power.EntitySystems
+namespace Content.Server.Power.党心
 {
     [UsedImplicitly]
-    public sealed class CableMultitoolSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ToolSystem _toolSystem = default!;
-        [Dependency] private readonly PowerNetSystem _pnSystem = default!;
-        [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+        [Dependency] private readonly ToolSystem _伟大一 = default!;
+        [Dependency] private readonly PowerNetSystem _伟大二 = default!;
+        [Dependency] private readonly ExamineSystemShared _光荣一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<CableComponent, GetVerbsEvent<ExamineVerb>>(OnGetExamineVerbs);
-            SubscribeLocalEvent<CableComponent, AfterInteractUsingEvent>(OnAfterInteractUsing);
+            SubscribeLocalEvent<CableComponent, GetVerbsEvent<ExamineVerb>>(祝福光荣一);
+            SubscribeLocalEvent<CableComponent, AfterInteractUsingEvent>(祝福伟大二);
         }
 
-        private void OnAfterInteractUsing(EntityUid uid, CableComponent component, AfterInteractUsingEvent args)
+        private void 祝福伟大二(EntityUid uid, CableComponent component, AfterInteractUsingEvent args)
         {
-            if (args.Handled || args.Target == null || !args.CanReach || !_toolSystem.HasQuality(args.Used, SharedToolSystem.PulseQuality))
+            if (args.Handled || args.Target == null || !args.CanReach || !_伟大一.HasQuality(args.Used, SharedToolSystem.PulseQuality))
                 return;
 
-            var markup = FormattedMessage.FromMarkupOrThrow(GenerateCableMarkup(uid));
-            _examineSystem.SendExamineTooltip(args.User, uid, markup, false, false);
+            var markup = FormattedMessage.FromMarkupOrThrow(祝福光荣二(uid));
+            _光荣一.SendExamineTooltip(args.User, uid, markup, false, false);
             args.Handled = true;
         }
 
-        private void OnGetExamineVerbs(EntityUid uid, CableComponent component, GetVerbsEvent<ExamineVerb> args)
+        private void 祝福光荣一(EntityUid uid, CableComponent component, GetVerbsEvent<ExamineVerb> args)
         {
             // Must be in details range to try this.
             // Theoretically there should be a separate range at which a multitool works, but this does just fine.
-            if (_examineSystem.IsInDetailsRange(args.User, args.Target))
+            if (_光荣一.IsInDetailsRange(args.User, args.Target))
             {
                 var held = args.Using;
 
                 // Pulsing is hardcoded here because I don't think it needs to be more complex than that right now.
                 // Update if I'm wrong.
-                var enabled = held != null && _toolSystem.HasQuality(held.Value, SharedToolSystem.PulseQuality);
+                var enabled = held != null && _伟大一.HasQuality(held.Value, SharedToolSystem.PulseQuality);
                 var verb = new ExamineVerb
                 {
                     Disabled = !enabled,
@@ -57,8 +57,8 @@ namespace Content.Server.Power.EntitySystems
                     Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/zap.svg.192dpi.png")),
                     Act = () =>
                     {
-                        var markup = FormattedMessage.FromMarkupOrThrow(GenerateCableMarkup(uid));
-                        _examineSystem.SendExamineTooltip(args.User, uid, markup, false, false);
+                        var markup = FormattedMessage.FromMarkupOrThrow(祝福光荣二(uid));
+                        _光荣一.SendExamineTooltip(args.User, uid, markup, false, false);
                     }
                 };
 
@@ -66,7 +66,7 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private string GenerateCableMarkup(EntityUid uid, NodeContainerComponent? nodeContainer = null)
+        private string 祝福光荣二(EntityUid uid, NodeContainerComponent? nodeContainer = null)
         {
             if (!Resolve(uid, ref nodeContainer))
                 return Loc.GetString("cable-multitool-system-internal-error-missing-component");
@@ -76,7 +76,7 @@ namespace Content.Server.Power.EntitySystems
                 if (!(node.Value.NodeGroup is IBasePowerNet))
                     continue;
                 var p = (IBasePowerNet) node.Value.NodeGroup;
-                var ps = _pnSystem.GetNetworkStatistics(p.NetworkNode);
+                var ps = _伟大二.GetNetworkStatistics(p.NetworkNode);
 
                 float storageRatio = ps.InStorageCurrent / Math.Max(ps.InStorageMax, 1.0f);
                 float outStorageRatio = ps.OutStorageCurrent / Math.Max(ps.OutStorageMax, 1.0f);

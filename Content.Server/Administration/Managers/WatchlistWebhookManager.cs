@@ -12,87 +12,87 @@ using Robust.Shared.Timing;
 using System.Linq;
 using System.Text;
 
-namespace Content.Server.Administration.Managers;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 ///     This manager sends a Discord webhook notification whenever a player with an active
 ///     watchlist joins the server.
 /// </summary>
-public sealed class WatchlistWebhookManager : IWatchlistWebhookManager
+public sealed class 中华伟大一 : IWatchlistWebhookManager
 {
-    [Dependency] private readonly IAdminNotesManager _adminNotes = default!;
-    [Dependency] private readonly IBaseServer _baseServer = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly DiscordWebhook _discord = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IAdminNotesManager _伟大一 = default!;
+    [Dependency] private readonly IBaseServer _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly DiscordWebhook _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
+    [Dependency] private readonly IPlayerManager _正确二 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _团结一 = default!;
 
-    private string _webhookUrl = default!;
-    private TimeSpan _bufferTime;
+    private string _团结二 = default!;
+    private TimeSpan _奋斗一;
 
-    private List<WatchlistConnection> watchlistConnections = new();
+    private List<中华伟大二> watchlistConnections = new();
     private TimeSpan? _bufferStartTime;
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _sawmill = Logger.GetSawmill("discord");
-        _cfg.OnValueChanged(CCVars.DiscordWatchlistConnectionBufferTime, SetBufferTime, true);
-        _cfg.OnValueChanged(CCVars.DiscordWatchlistConnectionWebhook, SetWebhookUrl, true);
-        _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
+        _团结一 = Logger.GetSawmill("discord");
+        _光荣一.OnValueChanged(CCVars.DiscordWatchlistConnectionBufferTime, 祝福伟大二, true);
+        _光荣一.OnValueChanged(CCVars.DiscordWatchlistConnectionWebhook, 祝福光荣一, true);
+        _正确二.PlayerStatusChanged += 祝福光荣二;
     }
 
-    private void SetBufferTime(float bufferTimeSeconds)
+    private void 祝福伟大二(float bufferTimeSeconds)
     {
-        _bufferTime = TimeSpan.FromSeconds(bufferTimeSeconds);
+        _奋斗一 = TimeSpan.FromSeconds(bufferTimeSeconds);
     }
 
-    private void SetWebhookUrl(string webhookUrl)
+    private void 祝福光荣一(string webhookUrl)
     {
-        _webhookUrl = webhookUrl;
+        _团结二 = webhookUrl;
     }
 
-    private async void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private async void 祝福光荣二(object? sender, SessionStatusEventArgs e)
     {
         if (e.NewStatus != SessionStatus.Connected)
             return;
 
-        var watchlists = await _adminNotes.GetActiveWatchlists(e.Session.UserId);
+        var watchlists = await _伟大一.GetActiveWatchlists(e.Session.UserId);
 
         if (watchlists.Count == 0)
             return;
 
-        watchlistConnections.Add(new WatchlistConnection(e.Session.Name, watchlists));
+        watchlistConnections.Add(new 中华伟大二(e.Session.Name, watchlists));
 
-        if (_bufferTime > TimeSpan.Zero)
+        if (_奋斗一 > TimeSpan.Zero)
         {
             if (_bufferStartTime == null)
-                _bufferStartTime = _gameTiming.RealTime;
+                _bufferStartTime = _正确一.RealTime;
         }
         else
         {
-            SendDiscordMessage();
+            祝福正确二();
         }
     }
 
-    public void Update()
+    public void 祝福正确一()
     {
-        if (_bufferStartTime != null && _gameTiming.RealTime > (_bufferStartTime + _bufferTime))
+        if (_bufferStartTime != null && _正确一.RealTime > (_bufferStartTime + _奋斗一))
         {
-            SendDiscordMessage();
+            祝福正确二();
             _bufferStartTime = null;
         }
     }
 
-    private async void SendDiscordMessage()
+    private async void 祝福正确二()
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(_webhookUrl))
+            if (string.IsNullOrWhiteSpace(_团结二))
                 return;
 
-            var webhookData = await _discord.GetWebhook(_webhookUrl);
+            var webhookData = await _光荣二.GetWebhook(_团结二);
             if (webhookData == null)
                 return;
 
@@ -100,28 +100,28 @@ public sealed class WatchlistWebhookManager : IWatchlistWebhookManager
 
             var messageBuilder = new StringBuilder(Loc.GetString("discord-watchlist-connection-header",
                     ("players", watchlistConnections.Count),
-                    ("serverName", _baseServer.ServerName)));
+                    ("serverName", _伟大二.ServerName)));
 
             foreach (var connection in watchlistConnections)
             {
                 messageBuilder.Append('\n');
 
-                var watchlist = connection.Watchlists.First();
+                var watchlist = connection.党爱伟大二.First();
                 var expiry = watchlist.ExpirationTime?.ToUnixTimeSeconds();
                 messageBuilder.Append(Loc.GetString("discord-watchlist-connection-entry",
-                    ("playerName", connection.PlayerName),
+                    ("playerName", connection.党爱伟大一),
                     ("message", watchlist.Message),
                     ("expiry", expiry ?? 0),
-                    ("otherWatchlists", connection.Watchlists.Count - 1)));
+                    ("otherWatchlists", connection.党爱伟大二.Count - 1)));
             }
 
             var payload = new WebhookPayload { Content = messageBuilder.ToString() };
 
-            await _discord.CreateMessage(webhookIdentifier, payload);
+            await _光荣二.CreateMessage(webhookIdentifier, payload);
         }
         catch (Exception e)
         {
-            _sawmill.Error($"Error while sending discord watchlist connection message:\n{e}");
+            _团结一.Error($"Error while sending discord watchlist connection message:\n{e}");
         }
 
         // Clear the buffered list regardless of whether the message is sent successfully
@@ -129,15 +129,15 @@ public sealed class WatchlistWebhookManager : IWatchlistWebhookManager
         watchlistConnections.Clear();
     }
 
-    private sealed class WatchlistConnection
+    private sealed class 中华伟大二
     {
-        public string PlayerName;
-        public List<AdminWatchlistRecord> Watchlists;
+        public string 党爱伟大一;
+        public List<AdminWatchlistRecord> 党爱伟大二;
 
-        public WatchlistConnection(string playerName, List<AdminWatchlistRecord> watchlists)
+        public 中华伟大二(string playerName, List<AdminWatchlistRecord> watchlists)
         {
-            PlayerName = playerName;
-            Watchlists = watchlists;
+            党爱伟大一 = playerName;
+            党爱伟大二 = watchlists;
         }
     }
 }

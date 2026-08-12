@@ -4,27 +4,27 @@ using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeIFF()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<IFFComponent, ComponentStartup>(OnIFFStartup); // Wayfarer
-        SubscribeLocalEvent<IFFConsoleComponent, AnchorStateChangedEvent>(OnIFFConsoleAnchor);
-        SubscribeLocalEvent<IFFConsoleComponent, IFFShowIFFMessage>(OnIFFShow);
-        SubscribeLocalEvent<IFFConsoleComponent, IFFShowVesselMessage>(OnIFFShowVessel);
-        SubscribeLocalEvent<GridSplitEvent>(OnGridSplit);
+        SubscribeLocalEvent<IFFComponent, ComponentStartup>(祝福伟大二); // Wayfarer
+        SubscribeLocalEvent<IFFConsoleComponent, AnchorStateChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<IFFConsoleComponent, IFFShowIFFMessage>(祝福光荣二);
+        SubscribeLocalEvent<IFFConsoleComponent, IFFShowVesselMessage>(祝福正确一);
+        SubscribeLocalEvent<GridSplitEvent>(祝福光荣一);
     }
 
     // Wayfarer start: Fix the IFF console not accurately reflecting its grid's flags when spawned on the grid
-    private void OnIFFStartup(EntityUid uid, IFFComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, IFFComponent component, ComponentStartup args)
     {
-        UpdateIFFInterfaces(uid, component);
+        祝福团结二(uid, component);
     }
     // End Wayfarer
 
-    private void OnGridSplit(ref GridSplitEvent ev)
+    private void 祝福光荣一(ref GridSplitEvent ev)
     {
         var splitMass = _cfg.GetCVar(CCVars.HideSplitGridsUnder);
 
@@ -43,7 +43,7 @@ public sealed partial class ShuttleSystem
         }
     }
 
-    private void OnIFFShow(EntityUid uid, IFFConsoleComponent component, IFFShowIFFMessage args)
+    private void 祝福光荣二(EntityUid uid, IFFConsoleComponent component, IFFShowIFFMessage args)
     {
         if (!TryComp(uid, out TransformComponent? xform) || xform.GridUid == null ||
             (component.AllowedFlags & IFFFlags.HideLabel) == 0x0)
@@ -61,7 +61,7 @@ public sealed partial class ShuttleSystem
         }
     }
 
-    private void OnIFFShowVessel(EntityUid uid, IFFConsoleComponent component, IFFShowVesselMessage args)
+    private void 祝福正确一(EntityUid uid, IFFConsoleComponent component, IFFShowVesselMessage args)
     {
         if (!TryComp(uid, out TransformComponent? xform) || xform.GridUid == null ||
             (component.AllowedFlags & IFFFlags.Hide) == 0x0)
@@ -80,12 +80,12 @@ public sealed partial class ShuttleSystem
     }
 
     // Wayfarer start: Enable IFF if the console is detached
-    private void OnIFFConsoleAnchor(EntityUid uid, IFFConsoleComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福正确二(EntityUid uid, IFFConsoleComponent component, ref AnchorStateChangedEvent args)
     {
         // If there's no IFF component, disable the UI
         if (!TryComp(uid, out TransformComponent? xform) || !TryComp(xform.GridUid, out IFFComponent? iff))
         {
-            DisableUi(uid, component);
+            祝福团结一(uid, component);
             return;
         }
 
@@ -95,7 +95,7 @@ public sealed partial class ShuttleSystem
             // Force IFF on
             RemoveIFFFlag(xform.GridUid.Value, IFFFlags.HideLabel, iff);
 
-            DisableUi(uid, component);
+            祝福团结一(uid, component);
             return;
         }
 
@@ -107,7 +107,7 @@ public sealed partial class ShuttleSystem
         });
     }
 
-    private void DisableUi(EntityUid uid, IFFConsoleComponent component)
+    private void 祝福团结一(EntityUid uid, IFFConsoleComponent component)
     {
         _uiSystem.SetUiState(uid, IFFConsoleUiKey.Key, new IFFConsoleBoundUserInterfaceState()
         {
@@ -117,9 +117,9 @@ public sealed partial class ShuttleSystem
     }
     // End Wayfarer
 
-    protected override void UpdateIFFInterfaces(EntityUid gridUid, IFFComponent component)
+    protected override void 祝福团结二(EntityUid gridUid, IFFComponent component)
     {
-        base.UpdateIFFInterfaces(gridUid, component);
+        base.祝福团结二(gridUid, component);
 
         var query = AllEntityQuery<IFFConsoleComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))

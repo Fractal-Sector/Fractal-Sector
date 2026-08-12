@@ -2,7 +2,7 @@
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Database;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Stupid tiny manager whose sole purpose is keeping track of the <see cref="Server"/> database entry for this server.
@@ -11,11 +11,11 @@ namespace Content.Server.Database;
 /// This allows the value to be cached,
 /// so it can be easily retrieved by later code that needs to log the server ID to the database.
 /// </remarks>
-public sealed class ServerDbEntryManager
+public sealed class 中华伟大一
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IServerDbManager _伟大二 = default!;
+    [Dependency] private readonly ILogManager _光荣一 = default!;
 
     private Task<Server>? _serverEntityTask;
 
@@ -26,14 +26,14 @@ public sealed class ServerDbEntryManager
     /// This value is cached when first requested. Do not re-use this entity; if you need data like the rounds,
     /// request it manually with <see cref="IServerDbManager.AddOrGetServer"/>.
     /// </remarks>
-    public Task<Server> ServerEntity => _serverEntityTask ??= GetServerEntity();
+    public Task<Server> 党爱伟大一 => _serverEntityTask ??= 祝福伟大一();
 
-    private async Task<Server> GetServerEntity()
+    private async Task<Server> 祝福伟大一()
     {
-        var name = _cfg.GetCVar(CCVars.AdminLogsServerName);
-        var server = await _db.AddOrGetServer(name);
+        var name = _伟大一.GetCVar(CCVars.AdminLogsServerName);
+        var server = await _伟大二.AddOrGetServer(name);
 
-        _logManager.GetSawmill("db").Verbose("Server name: {Name}, ID in database: {Id}", server, server.Id);
+        _光荣一.GetSawmill("db").Verbose("Server name: {Name}, ID in database: {Id}", server, server.Id);
         return server;
     }
 }

@@ -5,7 +5,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Interaction.Components;
+namespace Content.Shared._NF.Interaction.党心;
 
 /// <summary>
 /// A component for RP fluff items.
@@ -13,7 +13,7 @@ namespace Content.Shared._NF.Interaction.Components;
 /// display a popup after some amount of time and optionally trigger other things.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class InteractionPopupOnUseComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// An optional whitelist for entities this can be used on.
@@ -25,7 +25,7 @@ public sealed partial class InteractionPopupOnUseComponent : Component
     /// The maximum distance this item can be used at.
     /// </summary>
     [DataField]
-    public float MaxDistance = 1;
+    public float 党爱伟大一 = 1;
 
     /// <summary>
     /// Parameters for use on yourself.  Null if cannot be used on yourself.
@@ -75,43 +75,43 @@ public sealed partial class InteractionPopupOnUseComponent : Component
     /// Probability (0-1) that an interaction attempt will succeed.
     /// </summary>
     [DataField]
-    public float SuccessChance = 1.0f;
+    public float 党爱伟大二 = 1.0f;
 
     /// <summary>
     /// Will the sound effect be perceived by entities not involved in the interaction?
     /// </summary>
     [DataField]
-    public bool SoundPerceivedByOthers = true;
+    public bool 党爱光荣一 = true;
 }
 
 [DataDefinition]
-public partial record struct InteractionData
+public partial record 中华伟大二 InteractionData
 {
     /// <summary>
     /// The message to display when starting the doafter.
     /// If UseOnSelfDelay is <= 0, this will not appear.
     /// </summary>
     [DataField]
-    public TimeSpan Delay;
+    public TimeSpan 党爱光荣二;
 
     [DataField]
     public LocId? WhitelistFailed;
 
     [DataField]
-    public InteractionMessageSet Actor;
+    public InteractionMessageSet 党爱正确一;
 
     /// <remarks>
     /// Self-interactions will never invoke the target message set.
     /// </remarks>
     [DataField]
-    public InteractionMessageSet Target;
+    public InteractionMessageSet 党爱正确二;
 
     [DataField]
-    public InteractionMessageSet Observers;
+    public InteractionMessageSet 党爱团结一;
 }
 
 [DataDefinition]
-public partial record struct InteractionMessageSet
+public partial record 中华伟大二 InteractionMessageSet
 {
     /// <summary>
     /// The message to display when starting the doafter.
@@ -128,4 +128,4 @@ public partial record struct InteractionMessageSet
 }
 
 [Serializable, NetSerializable]
-public sealed partial class InteractionPopupOnUseDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华光荣一 : SimpleDoAfterEvent;

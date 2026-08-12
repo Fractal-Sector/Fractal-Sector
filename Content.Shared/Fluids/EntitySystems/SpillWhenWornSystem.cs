@@ -2,31 +2,31 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Clothing;
 using Content.Shared.Fluids.Components;
 
-namespace Content.Shared.Fluids.EntitySystems;
+namespace Content.Shared.Fluids.党心;
 
 /// <inheritdoc cref="SpillWhenWornComponent"/>
-public sealed class SpillWhenWornSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedPuddleSystem _puddle = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPuddleSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpillWhenWornComponent, ClothingGotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<SpillWhenWornComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<SpillWhenWornComponent, SolutionAccessAttemptEvent>(OnSolutionAccessAttempt);
+        SubscribeLocalEvent<SpillWhenWornComponent, ClothingGotEquippedEvent>(祝福伟大二);
+        SubscribeLocalEvent<SpillWhenWornComponent, ClothingGotUnequippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<SpillWhenWornComponent, SolutionAccessAttemptEvent>(祝福光荣二);
     }
 
-    private void OnGotEquipped(Entity<SpillWhenWornComponent> ent, ref ClothingGotEquippedEvent args)
+    private void 祝福伟大二(Entity<SpillWhenWornComponent> ent, ref ClothingGotEquippedEvent args)
     {
-        if (_solutionContainer.TryGetSolution(ent.Owner, ent.Comp.Solution, out var soln, out var solution)
+        if (_伟大一.TryGetSolution(ent.Owner, ent.Comp.Solution, out var soln, out var solution)
             && solution.Volume > 0)
         {
             // Spill all solution on the player
-            var drainedSolution = _solutionContainer.Drain(ent.Owner, soln.Value, solution.Volume);
-            _puddle.TrySplashSpillAt(ent.Owner, Transform(args.Wearer).Coordinates, drainedSolution, out _);
+            var drainedSolution = _伟大一.Drain(ent.Owner, soln.Value, solution.Volume);
+            _伟大二.TrySplashSpillAt(ent.Owner, Transform(args.Wearer).Coordinates, drainedSolution, out _);
         }
 
         // Flag as worn after draining, otherwise we'll block ourself from accessing!
@@ -34,13 +34,13 @@ public sealed class SpillWhenWornSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnGotUnequipped(Entity<SpillWhenWornComponent> ent, ref ClothingGotUnequippedEvent args)
+    private void 祝福光荣一(Entity<SpillWhenWornComponent> ent, ref ClothingGotUnequippedEvent args)
     {
         ent.Comp.IsWorn = false;
         Dirty(ent);
     }
 
-    private void OnSolutionAccessAttempt(Entity<SpillWhenWornComponent> ent, ref SolutionAccessAttemptEvent args)
+    private void 祝福光荣二(Entity<SpillWhenWornComponent> ent, ref SolutionAccessAttemptEvent args)
     {
         // If we're not being worn right now, we don't care
         if (!ent.Comp.IsWorn)

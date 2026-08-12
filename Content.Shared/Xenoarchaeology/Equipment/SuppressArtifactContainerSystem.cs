@@ -3,32 +3,32 @@ using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Content.Shared.Xenoarchaeology.Equipment.Components;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Xenoarchaeology.Equipment;
+namespace Content.Shared.Xenoarchaeology.党心;
 
-public sealed class SuppressArtifactContainerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedXenoArtifactSystem _xenoArtifact = default!;
+    [Dependency] private readonly SharedXenoArtifactSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SuppressArtifactContainerComponent, EntInsertedIntoContainerMessage>(OnInserted);
-        SubscribeLocalEvent<SuppressArtifactContainerComponent, EntRemovedFromContainerMessage>(OnRemoved);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SuppressArtifactContainerComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<SuppressArtifactContainerComponent, EntRemovedFromContainerMessage>(祝福光荣一);
     }
 
-    private void OnInserted(EntityUid uid, SuppressArtifactContainerComponent component, EntInsertedIntoContainerMessage args)
+    private void 祝福伟大二(EntityUid uid, SuppressArtifactContainerComponent component, EntInsertedIntoContainerMessage args)
     {
         if (!TryComp<XenoArtifactComponent>(args.Entity, out var artifact))
             return;
 
-        _xenoArtifact.SetSuppressed((args.Entity, artifact), true);
+        _伟大一.SetSuppressed((args.Entity, artifact), true);
     }
 
-    private void OnRemoved(EntityUid uid, SuppressArtifactContainerComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福光荣一(EntityUid uid, SuppressArtifactContainerComponent component, EntRemovedFromContainerMessage args)
     {
         if (!TryComp<XenoArtifactComponent>(args.Entity, out var artifact))
             return;
 
-        _xenoArtifact.SetSuppressed((args.Entity, artifact), false);
+        _伟大一.SetSuppressed((args.Entity, artifact), false);
     }
 }

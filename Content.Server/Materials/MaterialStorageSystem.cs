@@ -15,46 +15,46 @@ using Robust.Shared.Prototypes;
 using Content.Server.Storage.Components; // Frontier
 using Content.Shared.Cargo; // Frontier
 
-namespace Content.Server.Materials;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles <see cref="SharedMaterialStorageSystem"/>
 /// </summary>
-public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
+public sealed class 中华伟大一 : SharedMaterialStorageSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly StackSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<MaterialStorageComponent, MachineDeconstructedEvent>(OnDeconstructed);
-        SubscribeLocalEvent<MaterialStorageComponent, PriceCalculationEvent>(OnPriceCalculation); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<MaterialStorageComponent, MachineDeconstructedEvent>(祝福伟大二);
+        SubscribeLocalEvent<MaterialStorageComponent, PriceCalculationEvent>(祝福光荣一); // Frontier
 
-        SubscribeAllEvent<EjectMaterialMessage>(OnEjectMessage);
+        SubscribeAllEvent<EjectMaterialMessage>(祝福光荣二);
     }
 
-    private void OnDeconstructed(EntityUid uid, MaterialStorageComponent component, MachineDeconstructedEvent args)
+    private void 祝福伟大二(EntityUid uid, MaterialStorageComponent component, MachineDeconstructedEvent args)
     {
         if (!component.DropOnDeconstruct)
             return;
 
         foreach (var (material, amount) in component.Storage)
         {
-            SpawnMultipleFromMaterial(amount, material, Transform(uid).Coordinates);
+            祝福团结一(amount, material, Transform(uid).Coordinates);
         }
     }
 
     // Start Frontier: add value of contents to appraisal price
-    private void OnPriceCalculation(EntityUid uid, MaterialStorageComponent component, ref PriceCalculationEvent ev)
+    private void 祝福光荣一(EntityUid uid, MaterialStorageComponent component, ref PriceCalculationEvent ev)
     {
         foreach (var (materialProto, amount) in component.Storage)
         {
-            if (!_prototypeManager.TryIndex<MaterialPrototype>(materialProto, out var material))
+            if (!_伟大二.TryIndex<MaterialPrototype>(materialProto, out var material))
             {
                 Log.Error("Failed to index material prototype " + materialProto);
                 continue;
@@ -64,7 +64,7 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     }
     // End Frontier: add value of contents to appraisal price
 
-    private void OnEjectMessage(EjectMaterialMessage msg, EntitySessionEventArgs args)
+    private void 祝福光荣二(EjectMaterialMessage msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { } player)
             return;
@@ -77,21 +77,21 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
         if (!Exists(uid))
             return;
 
-        if (!_actionBlocker.CanInteract(player, uid))
+        if (!_光荣一.CanInteract(player, uid))
             return;
 
-        if (!component.CanEjectStoredMaterials || !_prototypeManager.TryIndex<MaterialPrototype>(msg.Material, out var material))
+        if (!component.CanEjectStoredMaterials || !_伟大二.TryIndex<MaterialPrototype>(msg.Material, out var material))
             return;
 
         var volume = 0;
 
         if (material.StackEntity != null)
         {
-            if (!_prototypeManager.Index<EntityPrototype>(material.StackEntity).TryGetComponent<PhysicalCompositionComponent>(out var composition, EntityManager.ComponentFactory))
+            if (!_伟大二.Index<EntityPrototype>(material.StackEntity).TryGetComponent<PhysicalCompositionComponent>(out var composition, EntityManager.ComponentFactory))
                 return;
 
             var volumePerSheet = composition.MaterialComposition.FirstOrDefault(kvp => kvp.Key == msg.Material).Value;
-            var sheetsToExtract = Math.Min(msg.SheetsToExtract, _stackSystem.GetMaxCount(material.StackEntity));
+            var sheetsToExtract = Math.Min(msg.SheetsToExtract, _正确二.GetMaxCount(material.StackEntity));
 
             volume = sheetsToExtract * volumePerSheet;
         }
@@ -107,14 +107,14 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
         }
         // end Frontier
 
-        var mats = SpawnMultipleFromMaterial(volume, material, Transform(uid).Coordinates, out _);
+        var mats = 祝福团结一(volume, material, Transform(uid).Coordinates, out _);
         foreach (var mat in mats.Where(mat => !TerminatingOrDeleted(mat)))
         {
-            _stackSystem.TryMergeToContacts(mat);
+            _正确二.TryMergeToContacts(mat);
         }
     }
 
-    public override bool TryInsertMaterialEntity(EntityUid user,
+    public override bool 祝福正确一(EntityUid user,
         EntityUid toInsert,
         EntityUid receiver,
         MaterialStorageComponent? storage = null,
@@ -125,10 +125,10 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
             return false;
         if (TryComp<ApcPowerReceiverComponent>(receiver, out var power) && !power.Powered)
             return false;
-        if (!base.TryInsertMaterialEntity(user, toInsert, receiver, storage, material, composition))
+        if (!base.祝福正确一(user, toInsert, receiver, storage, material, composition))
             return false;
-        _audio.PlayPvs(storage.InsertingSound, receiver);
-        _popup.PopupEntity(Loc.GetString("machine-insert-item",
+        _光荣二.PlayPvs(storage.InsertingSound, receiver);
+        _正确一.PopupEntity(Loc.GetString("machine-insert-item",
                 ("user", user),
                 ("machine", receiver),
                 ("item", toInsert)),
@@ -138,7 +138,7 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
         // Logging
         TryComp<StackComponent>(toInsert, out var stack);
         var count = stack?.Count ?? 1;
-        _adminLogger.Add(LogType.Action,
+        _伟大一.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(user):player} inserted {count} {ToPrettyString(toInsert):inserted} into {ToPrettyString(receiver):receiver}");
         Del(toInsert); // Frontier: delete immediately, don't queue
@@ -146,7 +146,7 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     }
 
     // Frontier: partial stack insertion
-    public override bool TryInsertMaxPossibleMaterialEntity(EntityUid user,
+    public override bool 祝福正确二(EntityUid user,
         EntityUid toInsert,
         EntityUid receiver,
         out bool empty,
@@ -161,15 +161,15 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
             return false;
         // Cache old count
         var initialCount = TryComp<StackComponent>(toInsert, out var stack) ? stack.Count : 1;
-        if (!base.TryInsertMaxPossibleMaterialEntity(user, toInsert, receiver, out empty, storage, material, composition))
+        if (!base.祝福正确二(user, toInsert, receiver, out empty, storage, material, composition))
             return false;
-        _audio.PlayPvs(storage.InsertingSound, receiver);
-        _popup.PopupEntity(Loc.GetString("machine-insert-item", ("user", user), ("machine", receiver),
+        _光荣二.PlayPvs(storage.InsertingSound, receiver);
+        _正确一.PopupEntity(Loc.GetString("machine-insert-item", ("user", user), ("machine", receiver),
             ("item", toInsert)), receiver);
 
         // Logging
         var newCount = stack?.Count ?? 0;
-        _adminLogger.Add(LogType.Action, LogImpact.Low,
+        _伟大一.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(user):player} inserted {initialCount - newCount} item(s) from {ToPrettyString(toInsert):inserted} into {ToPrettyString(receiver):receiver}");
         if (empty)
             Del(toInsert);
@@ -183,9 +183,9 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     ///     1 biomass = 1 biomass in its stack,
     ///     but 100 plasma = 1 sheet of plasma, etc.
     /// </summary>
-    public List<EntityUid> SpawnMultipleFromMaterial(int amount, string material, EntityCoordinates coordinates)
+    public List<EntityUid> 祝福团结一(int amount, string material, EntityCoordinates coordinates)
     {
-        return SpawnMultipleFromMaterial(amount, material, coordinates, out _);
+        return 祝福团结一(amount, material, coordinates, out _);
     }
 
     /// <summary>
@@ -194,16 +194,16 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     ///     1 biomass = 1 biomass in its stack,
     ///     but 100 plasma = 1 sheet of plasma, etc.
     /// </summary>
-    public List<EntityUid> SpawnMultipleFromMaterial(int amount, string material, EntityCoordinates coordinates, out int overflowMaterial)
+    public List<EntityUid> 祝福团结一(int amount, string material, EntityCoordinates coordinates, out int overflowMaterial)
     {
         overflowMaterial = 0;
-        if (!_prototypeManager.TryIndex<MaterialPrototype>(material, out var stackType))
+        if (!_伟大二.TryIndex<MaterialPrototype>(material, out var stackType))
         {
             Log.Error("Failed to index material prototype " + material);
             return new List<EntityUid>();
         }
 
-        return SpawnMultipleFromMaterial(amount, stackType, coordinates, out overflowMaterial);
+        return 祝福团结一(amount, stackType, coordinates, out overflowMaterial);
     }
 
     /// <summary>
@@ -213,9 +213,9 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     ///     but 100 plasma = 1 sheet of plasma, etc.
     /// </summary>
     [PublicAPI]
-    public List<EntityUid> SpawnMultipleFromMaterial(int amount, MaterialPrototype materialProto, EntityCoordinates coordinates)
+    public List<EntityUid> 祝福团结一(int amount, MaterialPrototype materialProto, EntityCoordinates coordinates)
     {
-        return SpawnMultipleFromMaterial(amount, materialProto, coordinates, out _);
+        return 祝福团结一(amount, materialProto, coordinates, out _);
     }
 
     /// <summary>
@@ -224,14 +224,14 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     ///     1 biomass = 1 biomass in its stack,
     ///     but 100 plasma = 1 sheet of plasma, etc.
     /// </summary>
-    public List<EntityUid> SpawnMultipleFromMaterial(int amount, MaterialPrototype materialProto, EntityCoordinates coordinates, out int overflowMaterial)
+    public List<EntityUid> 祝福团结一(int amount, MaterialPrototype materialProto, EntityCoordinates coordinates, out int overflowMaterial)
     {
         overflowMaterial = 0;
 
         if (amount <= 0 || materialProto.StackEntity == null)
             return new List<EntityUid>();
 
-        var entProto = _prototypeManager.Index<EntityPrototype>(materialProto.StackEntity);
+        var entProto = _伟大二.Index<EntityPrototype>(materialProto.StackEntity);
         if (!entProto.TryGetComponent<PhysicalCompositionComponent>(out var composition, EntityManager.ComponentFactory))
             return new List<EntityUid>();
 
@@ -242,7 +242,7 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
         if (amountToSpawn == 0)
             return new List<EntityUid>();
 
-        return _stackSystem.SpawnMultiple(materialProto.StackEntity, amountToSpawn, coordinates);
+        return _正确二.SpawnMultiple(materialProto.StackEntity, amountToSpawn, coordinates);
     }
 
     /// <summary>
@@ -255,7 +255,7 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     /// <param name="coordinates">The position where to spawn the created sheets. If not given, they're spawned next to the entity.</param>
     /// <param name="component">The storage component on <paramref name="entity"/>. Resolved automatically if not given.</param>
     /// <returns>The stack entities that were spawned.</returns>
-    public List<EntityUid> EjectMaterial(
+    public List<EntityUid> 祝福团结二(
         EntityUid entity,
         string material,
         int? maxAmount = null,
@@ -271,20 +271,20 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
         if (maxAmount != null)
             amount = Math.Min(maxAmount.Value, amount);
 
-        var spawned = SpawnMultipleFromMaterial(amount, material, coordinates.Value, out var overflow);
+        var spawned = 祝福团结一(amount, material, coordinates.Value, out var overflow);
 
         TryChangeMaterialAmount(entity, material, -(amount - overflow), component);
         return spawned;
     }
 
     /// <summary>
-    /// Eject all material stored in an entity, with the same mechanics as <see cref="EjectMaterial"/>.
+    /// Eject all material stored in an entity, with the same mechanics as <see cref="祝福团结二"/>.
     /// </summary>
     /// <param name="entity">The entity with storage to eject from.</param>
     /// <param name="coordinates">The position where to spawn the created sheets. If not given, they're spawned next to the entity.</param>
     /// <param name="component">The storage component on <paramref name="entity"/>. Resolved automatically if not given.</param>
     /// <returns>The stack entities that were spawned.</returns>
-    public List<EntityUid> EjectAllMaterial(
+    public List<EntityUid> 祝福奋斗一(
         EntityUid entity,
         EntityCoordinates? coordinates = null,
         MaterialStorageComponent? component = null)
@@ -297,7 +297,7 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
         var allSpawned = new List<EntityUid>();
         foreach (var material in component.Storage.Keys.ToArray())
         {
-            var spawned = EjectMaterial(entity, material, null, coordinates, component);
+            var spawned = 祝福团结二(entity, material, null, coordinates, component);
             allSpawned.AddRange(spawned);
         }
 

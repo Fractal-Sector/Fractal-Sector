@@ -4,7 +4,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Movement.Components;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// A component for configuring the settings for the jump action.
@@ -12,13 +12,13 @@ namespace Content.Shared.Movement.Components;
 /// The basic action prototype is "ActionGravityJump".
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(SharedJumpAbilitySystem))]
-public sealed partial class JumpAbilityComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The action prototype that allows you to jump.
     /// </summary>
     [DataField]
-    public EntProtoId Action = "ActionGravityJump";
+    public EntProtoId 党爱伟大一 = "ActionGravityJump";
 
     /// <summary>
     /// Entity to hold the action prototype.
@@ -30,25 +30,25 @@ public sealed partial class JumpAbilityComponent : Component
     /// How far you will jump (in tiles).
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float JumpDistance = 5f;
+    public float 党爱伟大二 = 5f;
 
     /// <summary>
     /// Basic “throwing” speed for TryThrow method.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float JumpThrowSpeed = 10f;
+    public float 党爱光荣一 = 10f;
 
     /// <summary>
     /// Whether this entity can collide with another entity, leading to it getting knocked down.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool CanCollide = false;
+    public bool 党爱光荣二 = false;
 
     /// <summary>
-    /// The duration of the knockdown in case of a collision from CanCollide.
+    /// The duration of the knockdown in case of a collision from 党爱光荣二.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan CollideKnockdown = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(2);
 
     /// <summary>
     /// This gets played whenever the jump action is used.
@@ -63,5 +63,5 @@ public sealed partial class JumpAbilityComponent : Component
     public LocId? JumpFailedPopup = "jump-ability-failure";
 }
 
-public sealed partial class GravityJumpEvent : InstantActionEvent;
+public sealed partial class 中华伟大二 : InstantActionEvent;
 

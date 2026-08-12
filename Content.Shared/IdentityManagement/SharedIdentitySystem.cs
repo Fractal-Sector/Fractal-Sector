@@ -3,24 +3,24 @@ using Content.Shared.IdentityManagement.Components;
 using Content.Shared.Inventory;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.IdentityManagement;
+namespace Content.Shared.党心;
 
-public abstract class SharedIdentitySystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
     private static string SlotName = "identity";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<IdentityComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<IdentityBlockerComponent, SeeIdentityAttemptEvent>(OnSeeIdentity);
-        SubscribeLocalEvent<IdentityBlockerComponent, InventoryRelayedEvent<SeeIdentityAttemptEvent>>((e, c, ev) => OnSeeIdentity(e, c, ev.Args));
-        SubscribeLocalEvent<IdentityBlockerComponent, ItemMaskToggledEvent>(OnMaskToggled);
+        SubscribeLocalEvent<IdentityComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<IdentityBlockerComponent, SeeIdentityAttemptEvent>(祝福伟大二);
+        SubscribeLocalEvent<IdentityBlockerComponent, InventoryRelayedEvent<SeeIdentityAttemptEvent>>((e, c, ev) => 祝福伟大二(e, c, ev.Args));
+        SubscribeLocalEvent<IdentityBlockerComponent, ItemMaskToggledEvent>(祝福光荣二);
     }
 
-    private void OnSeeIdentity(EntityUid uid, IdentityBlockerComponent component, SeeIdentityAttemptEvent args)
+    private void 祝福伟大二(EntityUid uid, IdentityBlockerComponent component, SeeIdentityAttemptEvent args)
     {
         if (component.Enabled)
         {
@@ -30,12 +30,12 @@ public abstract class SharedIdentitySystem : EntitySystem
         }
     }
 
-    protected virtual void OnComponentInit(EntityUid uid, IdentityComponent component, ComponentInit args)
+    protected virtual void 祝福光荣一(EntityUid uid, IdentityComponent component, ComponentInit args)
     {
-        component.IdentityEntitySlot = _container.EnsureContainer<ContainerSlot>(uid, SlotName);
+        component.IdentityEntitySlot = _伟大一.EnsureContainer<ContainerSlot>(uid, SlotName);
     }
 
-    private void OnMaskToggled(Entity<IdentityBlockerComponent> ent, ref ItemMaskToggledEvent args)
+    private void 祝福光荣二(Entity<IdentityBlockerComponent> ent, ref ItemMaskToggledEvent args)
     {
         ent.Comp.Enabled = !args.Mask.Comp.IsToggled;
     }
@@ -43,10 +43,10 @@ public abstract class SharedIdentitySystem : EntitySystem
     /// <summary>
     /// Queues an identity update to the start of the next tick.
     /// </summary>
-    public virtual void QueueIdentityUpdate(EntityUid uid) { }
+    public virtual void 祝福正确一(EntityUid uid) { }
 }
 /// <summary>
 ///     Gets called whenever an entity changes their identity.
 /// </summary>
 [ByRefEvent]
-public record struct IdentityChangedEvent(EntityUid CharacterEntity, EntityUid IdentityEntity);
+public record 中华伟大二 IdentityChangedEvent(EntityUid CharacterEntity, EntityUid IdentityEntity);

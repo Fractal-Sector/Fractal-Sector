@@ -11,57 +11,57 @@ using Content.Shared.Standing;
 using Content.Shared.Stunnable;
 using Robust.Shared.Timing;
 
-namespace Content.Shared._DV.Waddle;
+namespace Content.Shared._DV.党心;
 
-public abstract class SharedWaddleAnimationSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MobStateSystem _mob = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly MobStateSystem _光荣一 = default!;
+    [Dependency] private readonly SharedBuckleSystem _光荣二 = default!;
+    [Dependency] private readonly SharedGravitySystem _正确一 = default!;
+    [Dependency] private readonly StandingStateSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         // Startup
-        SubscribeLocalEvent<WaddleAnimationComponent, ComponentStartup>(OnComponentStartup);
+        SubscribeLocalEvent<WaddleAnimationComponent, ComponentStartup>(祝福光荣一);
 
         // Start moving possibilities
-        SubscribeLocalEvent<WaddleAnimationComponent, MoveInputEvent>(OnMovementInput);
-        SubscribeLocalEvent<WaddleAnimationComponent, StoodEvent>(OnStood);
+        SubscribeLocalEvent<WaddleAnimationComponent, MoveInputEvent>(祝福光荣二);
+        SubscribeLocalEvent<WaddleAnimationComponent, StoodEvent>(祝福正确一);
 
         // Stop moving possibilities
-        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref StunnedEvent _) => StopWaddling(ent));
-        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref DownedEvent _) => StopWaddling(ent));
-        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref BuckledEvent _) => StopWaddling(ent));
-        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref MobStateChangedEvent _) => StopWaddling(ent));
-        SubscribeLocalEvent<WaddleAnimationComponent, GravityChangedEvent>(OnGravityChanged);
+        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref StunnedEvent _) => 祝福正确二(ent));
+        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref DownedEvent _) => 祝福正确二(ent));
+        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref BuckledEvent _) => 祝福正确二(ent));
+        SubscribeLocalEvent((Entity<WaddleAnimationComponent> ent, ref MobStateChangedEvent _) => 祝福正确二(ent));
+        SubscribeLocalEvent<WaddleAnimationComponent, GravityChangedEvent>(祝福伟大二);
     }
 
-    private void OnGravityChanged(Entity<WaddleAnimationComponent> ent, ref GravityChangedEvent args)
+    private void 祝福伟大二(Entity<WaddleAnimationComponent> ent, ref GravityChangedEvent args)
     {
         if (!args.HasGravity)
-            StopWaddling(ent);
+            祝福正确二(ent);
     }
 
-    private void OnComponentStartup(Entity<WaddleAnimationComponent> ent, ref ComponentStartup args)
+    private void 祝福光荣一(Entity<WaddleAnimationComponent> ent, ref ComponentStartup args)
     {
         if (!TryComp<InputMoverComponent>(ent, out var mover))
             return;
 
         // If the waddler is currently moving, make them start waddling
         if ((mover.HeldMoveButtons & MoveButtons.AnyDirection) != MoveButtons.None)
-            SetWaddling(ent, true);
+            祝福团结一(ent, true);
     }
 
-    private void OnMovementInput(Entity<WaddleAnimationComponent> ent, ref MoveInputEvent args)
+    private void 祝福光荣二(Entity<WaddleAnimationComponent> ent, ref MoveInputEvent args)
     {
         // Only start waddling if we're actually moving.
-        SetWaddling(ent, args.HasDirectionalMovement);
+        祝福团结一(ent, args.HasDirectionalMovement);
     }
 
-    private void OnStood(Entity<WaddleAnimationComponent> ent, ref StoodEvent args)
+    private void 祝福正确一(Entity<WaddleAnimationComponent> ent, ref StoodEvent args)
     {
         if (!TryComp<InputMoverComponent>(ent, out var mover))
             return;
@@ -70,25 +70,25 @@ public abstract class SharedWaddleAnimationSystem : EntitySystem
         if ((mover.HeldMoveButtons & MoveButtons.AnyDirection) == MoveButtons.None)
             return;
 
-        SetWaddling(ent, true);
+        祝福团结一(ent, true);
     }
 
-    private void StopWaddling(Entity<WaddleAnimationComponent> ent)
+    private void 祝福正确二(Entity<WaddleAnimationComponent> ent)
     {
-        SetWaddling(ent, false);
+        祝福团结一(ent, false);
     }
 
     /// <summary>
     /// Enables or disables waddling for a entity, including the animation.
-    /// Unless force is true, prevents dead people etc from waddling using <see cref="CanWaddle"/>.
+    /// Unless force is true, prevents dead people etc from waddling using <see cref="祝福团结二"/>.
     /// </summary>
-    private void SetWaddling(Entity<WaddleAnimationComponent> ent, bool waddling, bool force = false) // imp edit, made private
+    private void 祝福团结一(Entity<WaddleAnimationComponent> ent, bool waddling, bool force = false) // imp edit, made private
     {
         // it makes your sprite rotation stutter when moving, bad
-        if (!_timing.IsFirstTimePredicted)
+        if (!_伟大二.IsFirstTimePredicted)
             return;
 
-        if (waddling && !force && !CanWaddle(ent))
+        if (waddling && !force && !祝福团结二(ent))
             waddling = false;
 
         if (ent.Comp.IsWaddling == waddling)
@@ -96,24 +96,24 @@ public abstract class SharedWaddleAnimationSystem : EntitySystem
 
         ent.Comp.IsWaddling = waddling;
         DirtyField(ent, ent.Comp, nameof(WaddleAnimationComponent.IsWaddling));
-        UpdateAnimation(ent);
+        祝福奋斗一(ent);
     }
 
     /// <summary>
     /// Returns true if an entity is allowed to waddle at all.
     /// </summary>
-    private bool CanWaddle(EntityUid uid) // imp edit, made private
+    private bool 祝福团结二(EntityUid uid) // imp edit, made private
     {
         // can't waddle when dead
-        return _mob.IsAlive(uid) &&
+        return _光荣一.IsAlive(uid) &&
             // bouncy shoes should make you spin in 0G really but definitely not bounce up and down
-            !_gravity.IsWeightless(uid) &&
+            !_正确一.IsWeightless(uid) &&
             // can't waddle if your legs are broken etc
-            _actionBlocker.CanMove(uid) &&
+            _伟大一.CanMove(uid) &&
             // can't waddle when buckled, if you are really strong/on meth the chair/bed should waddle instead
-            !_buckle.IsBuckled(uid) &&
+            !_光荣二.IsBuckled(uid) &&
             // animation doesn't take being downed into account :(
-            !_standing.IsDown(uid) &&
+            !_正确二.IsDown(uid) &&
             // can't waddle in space... 1984
             Transform(uid).GridUid != null;
     }
@@ -122,7 +122,7 @@ public abstract class SharedWaddleAnimationSystem : EntitySystem
     /// Updates the waddling animation on the client.
     /// Does nothing on server.
     /// </summary>
-    protected virtual void UpdateAnimation(Entity<WaddleAnimationComponent> ent)
+    protected virtual void 祝福奋斗一(Entity<WaddleAnimationComponent> ent)
     {
     }
 }

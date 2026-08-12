@@ -2,7 +2,7 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Rejuvenate;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.StatusEffectNew.Components;
+namespace Content.Shared.StatusEffectNew.党心;
 
 /// <summary>
 /// Marker component for a status effect that should be removed on rejuvenation
@@ -11,4 +11,4 @@ namespace Content.Shared.StatusEffectNew.Components;
 /// </summary>
 /// <seealso cref="RejuvenateEvent"/>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class RejuvenateRemovedStatusEffectComponent : Component;
+public sealed partial class 中华伟大一 : Component;

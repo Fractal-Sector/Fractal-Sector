@@ -9,19 +9,19 @@ using Content.Shared.Spillable;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee;
 
-namespace Content.Shared.Fluids;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedPuddleSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] protected readonly OpenableSystem Openable = default!;
+    [Dependency] protected readonly OpenableSystem 党爱伟大一 = default!;
 
-    protected virtual void InitializeSpillable()
+    protected virtual void 祝福伟大一()
     {
-        SubscribeLocalEvent<SpillableComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<SpillableComponent, GetVerbsEvent<Verb>>(AddSpillVerb);
+        SubscribeLocalEvent<SpillableComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<SpillableComponent, GetVerbsEvent<Verb>>(祝福光荣一);
     }
 
-    private void OnExamined(Entity<SpillableComponent> entity, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<SpillableComponent> entity, ref ExaminedEvent args)
     {
         using (args.PushGroup(nameof(SpillableComponent)))
         {
@@ -32,7 +32,7 @@ public abstract partial class SharedPuddleSystem
         }
     }
 
-    private void AddSpillVerb(Entity<SpillableComponent> entity, ref GetVerbsEvent<Verb> args)
+    private void 祝福光荣一(Entity<SpillableComponent> entity, ref GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
@@ -40,7 +40,7 @@ public abstract partial class SharedPuddleSystem
         if (!_solutionContainerSystem.TryGetSolution(args.Target, entity.Comp.SolutionName, out var soln, out var solution))
             return;
 
-        if (Openable.IsClosed(args.Target))
+        if (党爱伟大一.IsClosed(args.Target))
             return;
 
         if (solution.Volume == FixedPoint2.Zero)

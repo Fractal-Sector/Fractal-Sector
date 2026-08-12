@@ -12,67 +12,67 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Ninja.Systems;
+namespace Content.Server.Ninja.党心;
 
 /// <summary>
 /// Shocks clicked mobs using battery charge.
 /// </summary>
-public sealed class StunProviderSystem : SharedStunProviderSystem
+public sealed class 中华伟大一 : SharedStunProviderSystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedNinjaGlovesSystem _gloves = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly BatterySystem _伟大一 = default!;
+    [Dependency] private readonly DamageableSystem _伟大二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedNinjaGlovesSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly SharedStunSystem _团结一 = default!;
+    [Dependency] private readonly UseDelaySystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StunProviderComponent, BeforeInteractHandEvent>(OnBeforeInteractHand);
-        SubscribeLocalEvent<StunProviderComponent, NinjaBatteryChangedEvent>(OnBatteryChanged);
+        SubscribeLocalEvent<StunProviderComponent, BeforeInteractHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<StunProviderComponent, NinjaBatteryChangedEvent>(祝福光荣一);
     }
 
     /// <summary>
     /// Stun clicked mobs on the whitelist, if there is enough power.
     /// </summary>
-    private void OnBeforeInteractHand(Entity<StunProviderComponent> ent, ref BeforeInteractHandEvent args)
+    private void 祝福伟大二(Entity<StunProviderComponent> ent, ref BeforeInteractHandEvent args)
     {
         // TODO: generic check
         var (uid, comp) = ent;
-        if (args.Handled || comp.BatteryUid == null || !_gloves.AbilityCheck(uid, args, out var target))
+        if (args.Handled || comp.BatteryUid == null || !_正确一.AbilityCheck(uid, args, out var target))
             return;
 
-        if (target == uid || _whitelist.IsWhitelistFail(comp.Whitelist, target))
+        if (target == uid || _光荣一.IsWhitelistFail(comp.Whitelist, target))
             return;
 
         var useDelay = EnsureComp<UseDelayComponent>(uid);
-        if (_useDelay.IsDelayed((uid, useDelay), id: comp.DelayId))
+        if (_团结二.IsDelayed((uid, useDelay), id: comp.DelayId))
             return;
 
         // take charge from battery
-        if (!_battery.TryUseCharge(comp.BatteryUid.Value, comp.StunCharge))
+        if (!_伟大一.TryUseCharge(comp.BatteryUid.Value, comp.StunCharge))
         {
-            _popup.PopupEntity(Loc.GetString(comp.NoPowerPopup), uid, uid);
+            _正确二.PopupEntity(Loc.GetString(comp.NoPowerPopup), uid, uid);
             return;
         }
 
-        _audio.PlayPvs(comp.Sound, target);
+        _光荣二.PlayPvs(comp.Sound, target);
 
-        _damageable.TryChangeDamage(target, comp.StunDamage, false, true, null, origin: uid);
-        _stun.TryAddParalyzeDuration(target, comp.StunTime);
+        _伟大二.TryChangeDamage(target, comp.StunDamage, false, true, null, origin: uid);
+        _团结一.TryAddParalyzeDuration(target, comp.StunTime);
 
         // short cooldown to prevent instant stunlocking
-        _useDelay.SetLength((uid, useDelay), comp.Cooldown, id: comp.DelayId);
-        _useDelay.TryResetDelay((uid, useDelay), id: comp.DelayId);
+        _团结二.SetLength((uid, useDelay), comp.Cooldown, id: comp.DelayId);
+        _团结二.TryResetDelay((uid, useDelay), id: comp.DelayId);
 
         args.Handled = true;
     }
 
-    private void OnBatteryChanged(Entity<StunProviderComponent> ent, ref NinjaBatteryChangedEvent args)
+    private void 祝福光荣一(Entity<StunProviderComponent> ent, ref NinjaBatteryChangedEvent args)
     {
         SetBattery((ent, ent.Comp), args.Battery);
     }

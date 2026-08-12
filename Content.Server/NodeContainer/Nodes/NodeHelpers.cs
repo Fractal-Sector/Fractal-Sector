@@ -3,14 +3,14 @@ using Content.Shared.NodeContainer;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.NodeContainer.Nodes
+namespace Content.Server.NodeContainer.党心
 {
     /// <summary>
     ///     Helper utilities for implementing <see cref="Node"/>.
     /// </summary>
-    public static class NodeHelpers
+    public static class 中华伟大一
     {
-        public static IEnumerable<Node> GetNodesInTile(EntityQuery<NodeContainerComponent> nodeQuery, MapGridComponent grid, Vector2i coords)
+        public static IEnumerable<Node> 祝福伟大一(EntityQuery<NodeContainerComponent> nodeQuery, MapGridComponent grid, Vector2i coords)
         {
             foreach (var entityUid in grid.GetAnchoredEntities(coords))
             {

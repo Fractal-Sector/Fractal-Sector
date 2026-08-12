@@ -4,22 +4,22 @@ using Content.Shared.Mind;
 using Content.Shared.Objectives.Systems;
 using Content.Server.Body.Systems;
 
-namespace Content.Server.Gibbing.Systems;
-public sealed class GibOnRoundEndSystem : EntitySystem
+namespace Content.Server.Gibbing.党心;
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
+    [Dependency] private readonly BodySystem _伟大一 = default!;
+    [Dependency] private readonly SharedMindSystem _伟大二 = default!;
+    [Dependency] private readonly SharedObjectivesSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // this is raised after RoundEndTextAppendEvent, so they can successfully greentext before we gib them
-        SubscribeLocalEvent<RoundEndMessageEvent>(OnRoundEnd);
+        SubscribeLocalEvent<RoundEndMessageEvent>(祝福伟大二);
     }
 
-    private void OnRoundEnd(RoundEndMessageEvent args)
+    private void 祝福伟大二(RoundEndMessageEvent args)
     {
         var gibQuery = EntityQueryEnumerator<GibOnRoundEndComponent>();
 
@@ -28,12 +28,12 @@ public sealed class GibOnRoundEndSystem : EntitySystem
         {
             var gib = false;
             // if they fulfill all objectives given in the component they are not gibbed
-            if (_mind.TryGetMind(uid, out var mindId, out var mindComp))
+            if (_伟大二.TryGetMind(uid, out var mindId, out var mindComp))
             {
                 foreach (var objectiveId in gibComp.PreventGibbingObjectives)
                 {
-                    if (!_mind.TryFindObjective((mindId, mindComp), objectiveId, out var objective)
-                        || !_objectives.IsCompleted(objective.Value, (mindId, mindComp)))
+                    if (!_伟大二.TryFindObjective((mindId, mindComp), objectiveId, out var objective)
+                        || !_光荣一.IsCompleted(objective.Value, (mindId, mindComp)))
                     {
                         gib = true;
                         break;
@@ -49,7 +49,7 @@ public sealed class GibOnRoundEndSystem : EntitySystem
             if (gibComp.SpawnProto != null)
                 SpawnAtPosition(gibComp.SpawnProto, Transform(uid).Coordinates);
 
-            _body.GibBody(uid, splatModifier: 5f);
+            _伟大一.GibBody(uid, splatModifier: 5f);
         }
     }
 }

@@ -6,20 +6,20 @@ using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 using Robust.Shared.Console;
 
-namespace Content.Server.Sandbox.Commands
+namespace Content.Server.Sandbox.党心
 {
     [AnyCommand]
-    public sealed class ColorNetworkCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly AtmosPipeColorSystem _pipeColorSystem = default!;
-        [Dependency] private readonly SandboxSystem _sandboxSystem = default!;
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
+        [Dependency] private readonly AtmosPipeColorSystem _伟大二 = default!;
+        [Dependency] private readonly SandboxSystem _光荣一 = default!;
 
-        public override string Command => "colornetwork";
+        public override string 党爱伟大一 => "colornetwork";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
-            if (shell.IsClient || (!_sandboxSystem.IsSandboxEnabled && !_adminManager.HasAdminFlag(shell.Player!, AdminFlags.Mapping)))
+            if (shell.IsClient || (!_光荣一.IsSandboxEnabled && !_伟大一.HasAdminFlag(shell.Player!, AdminFlags.Mapping)))
             {
                 shell.WriteError(Loc.GetString("cmd-colornetwork-no-access"));
             }
@@ -63,10 +63,10 @@ namespace Content.Server.Sandbox.Commands
                 return;
             }
 
-            PaintNodes(nodeContainerComponent, nodeGroupId, color.Value);
+            祝福伟大二(nodeContainerComponent, nodeGroupId, color.Value);
         }
 
-        private void PaintNodes(NodeContainerComponent nodeContainerComponent, NodeGroupID nodeGroupId, Color color)
+        private void 祝福伟大二(NodeContainerComponent nodeContainerComponent, NodeGroupID nodeGroupId, Color color)
         {
             var group = nodeContainerComponent.Nodes[nodeGroupId.ToString().ToLower()].NodeGroup;
 
@@ -78,7 +78,7 @@ namespace Content.Server.Sandbox.Commands
                 if (!EntityManager.TryGetComponent(x.Owner, out AtmosPipeColorComponent? atmosPipeColorComponent))
                     continue;
 
-                _pipeColorSystem.SetColor(x.Owner, atmosPipeColorComponent, color);
+                _伟大二.SetColor(x.Owner, atmosPipeColorComponent, color);
             }
         }
     }

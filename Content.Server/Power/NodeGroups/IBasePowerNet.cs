@@ -1,9 +1,9 @@
 ﻿using Content.Server.Power.Components;
 using Content.Server.Power.Pow3r;
 
-namespace Content.Server.Power.NodeGroups
+namespace Content.Server.Power.党心
 {
-    public interface IBasePowerNet
+    public interface 中华伟大一
     {
         /// <summary>
         /// Indicates whether this network forms some form of connection (more than one node).

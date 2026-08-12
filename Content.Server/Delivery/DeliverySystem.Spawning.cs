@@ -5,30 +5,30 @@ using Content.Shared.EntityTable;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Delivery;
+namespace Content.Server.党心;
 
 /// <summary>
 /// System for managing deliveries spawned by the mail teleporter.
 /// This covers for spawning deliveries.
 /// </summary>
-public sealed partial class DeliverySystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityTableSystem _entityTable = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly EntityTableSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _光荣二 = default!;
 
-    private void InitializeSpawning()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<CargoDeliveryDataComponent, MapInitEvent>(OnDataMapInit);
+        SubscribeLocalEvent<CargoDeliveryDataComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnDataMapInit(Entity<CargoDeliveryDataComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<CargoDeliveryDataComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextDelivery = _timing.CurTime + ent.Comp.MinDeliveryCooldown; // We want an early wave of mail so cargo doesn't have to wait
+        ent.Comp.NextDelivery = _伟大一.CurTime + ent.Comp.MinDeliveryCooldown; // We want an early wave of mail so cargo doesn't have to wait
     }
 
-    protected override void SpawnDeliveries(Entity<DeliverySpawnerComponent?> ent)
+    protected override void 祝福光荣一(Entity<DeliverySpawnerComponent?> ent)
     {
         if (!Resolve(ent.Owner, ref ent.Comp))
             return;
@@ -37,7 +37,7 @@ public sealed partial class DeliverySystem
 
         for (int i = 0; i < ent.Comp.ContainedDeliveryAmount; i++)
         {
-            var spawns = _entityTable.GetSpawns(ent.Comp.Table);
+            var spawns = _光荣一.GetSpawns(ent.Comp.Table);
 
             foreach (var id in spawns)
             {
@@ -49,12 +49,12 @@ public sealed partial class DeliverySystem
         Dirty(ent);
     }
 
-    private void AdjustStationDeliveries(Entity<CargoDeliveryDataComponent> ent)
+    private void 祝福光荣二(Entity<CargoDeliveryDataComponent> ent)
     {
         if (!TryComp<StationRecordsComponent>(ent, out var records))
             return;
 
-        var spawners = GetValidSpawners(ent);
+        var spawners = 祝福正确一(ent);
 
         // Skip if theres no spawners available
         if (spawners.Count == 0)
@@ -73,7 +73,7 @@ public sealed partial class DeliverySystem
         {
             foreach (var spawner in spawners)
             {
-                AddDeliveriesToSpawner(spawner, deliveryCount);
+                祝福正确二(spawner, deliveryCount);
             }
         }
         else
@@ -83,18 +83,18 @@ public sealed partial class DeliverySystem
             // Distribute items randomly
             for (int i = 0; i < deliveryCount; i++)
             {
-                var randomListIndex = _random.Next(spawners.Count);
+                var randomListIndex = _伟大二.Next(spawners.Count);
                 amounts[randomListIndex]++;
             }
             for (int j = 0; j < spawners.Count; j++)
             {
-                AddDeliveriesToSpawner(spawners[j], amounts[j]);
+                祝福正确二(spawners[j], amounts[j]);
             }
         }
 
     }
 
-    private List<Entity<DeliverySpawnerComponent>> GetValidSpawners(Entity<CargoDeliveryDataComponent> ent)
+    private List<Entity<DeliverySpawnerComponent>> 祝福正确一(Entity<CargoDeliveryDataComponent> ent)
     {
         var validSpawners = new List<Entity<DeliverySpawnerComponent>>();
 
@@ -106,7 +106,7 @@ public sealed partial class DeliverySystem
             if (spawnerStation != ent.Owner)
                 continue;
 
-            if (!_power.IsPowered(spawnerUid))
+            if (!_光荣二.IsPowered(spawnerUid))
                 continue;
 
             if (spawnerComp.ContainedDeliveryAmount >= spawnerComp.MaxContainedDeliveryAmount)
@@ -118,7 +118,7 @@ public sealed partial class DeliverySystem
         return validSpawners;
     }
 
-    private void AddDeliveriesToSpawner(Entity<DeliverySpawnerComponent> ent, int amount)
+    private void 祝福正确二(Entity<DeliverySpawnerComponent> ent, int amount)
     {
         ent.Comp.ContainedDeliveryAmount += Math.Clamp(amount, 0, ent.Comp.MaxContainedDeliveryAmount - ent.Comp.ContainedDeliveryAmount);
         _audio.PlayPvs(ent.Comp.SpawnSound, ent.Owner);
@@ -126,18 +126,18 @@ public sealed partial class DeliverySystem
         Dirty(ent);
     }
 
-    private void UpdateSpawner(float frameTime)
+    private void 祝福团结一(float frameTime)
     {
         var dataQuery = EntityQueryEnumerator<CargoDeliveryDataComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
 
         while (dataQuery.MoveNext(out var uid, out var deliveryData))
         {
             if (deliveryData.NextDelivery > curTime)
                 continue;
 
-            deliveryData.NextDelivery += _random.Next(deliveryData.MinDeliveryCooldown, deliveryData.MaxDeliveryCooldown); // Random cooldown between min and max
-            AdjustStationDeliveries((uid, deliveryData));
+            deliveryData.NextDelivery += _伟大二.Next(deliveryData.MinDeliveryCooldown, deliveryData.MaxDeliveryCooldown); // Random cooldown between min and max
+            祝福光荣二((uid, deliveryData));
         }
     }
 }

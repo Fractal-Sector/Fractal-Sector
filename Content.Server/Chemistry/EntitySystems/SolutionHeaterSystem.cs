@@ -7,90 +7,90 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Placeable;
 using Content.Shared.Power;
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
-public sealed class SolutionHeaterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PowerReceiverSystem _powerReceiver = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private readonly PowerReceiverSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SolutionHeaterComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<SolutionHeaterComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<SolutionHeaterComponent, UpgradeExamineEvent>(OnUpgradeExamine);
-        SubscribeLocalEvent<SolutionHeaterComponent, ItemPlacedEvent>(OnItemPlaced);
-        SubscribeLocalEvent<SolutionHeaterComponent, ItemRemovedEvent>(OnItemRemoved);
+        SubscribeLocalEvent<SolutionHeaterComponent, PowerChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<SolutionHeaterComponent, RefreshPartsEvent>(祝福正确二);
+        SubscribeLocalEvent<SolutionHeaterComponent, UpgradeExamineEvent>(祝福团结一);
+        SubscribeLocalEvent<SolutionHeaterComponent, ItemPlacedEvent>(祝福团结二);
+        SubscribeLocalEvent<SolutionHeaterComponent, ItemRemovedEvent>(祝福奋斗一);
     }
 
-    private void TurnOn(EntityUid uid)
+    private void 祝福伟大二(EntityUid uid)
     {
-        _appearance.SetData(uid, SolutionHeaterVisuals.IsOn, true);
+        _伟大二.SetData(uid, SolutionHeaterVisuals.IsOn, true);
         EnsureComp<ActiveSolutionHeaterComponent>(uid);
     }
 
-    public bool TryTurnOn(EntityUid uid, ItemPlacerComponent? placer = null)
+    public bool 祝福光荣一(EntityUid uid, ItemPlacerComponent? placer = null)
     {
         if (!Resolve(uid, ref placer))
             return false;
 
-        if (placer.PlacedEntities.Count <= 0 || !_powerReceiver.IsPowered(uid))
+        if (placer.PlacedEntities.Count <= 0 || !_伟大一.IsPowered(uid))
             return false;
 
-        TurnOn(uid);
+        祝福伟大二(uid);
         return true;
     }
 
-    public void TurnOff(EntityUid uid)
+    public void 祝福光荣二(EntityUid uid)
     {
-        _appearance.SetData(uid, SolutionHeaterVisuals.IsOn, false);
+        _伟大二.SetData(uid, SolutionHeaterVisuals.IsOn, false);
         RemComp<ActiveSolutionHeaterComponent>(uid);
     }
 
-    private void OnPowerChanged(Entity<SolutionHeaterComponent> entity, ref PowerChangedEvent args)
+    private void 祝福正确一(Entity<SolutionHeaterComponent> entity, ref PowerChangedEvent args)
     {
         var placer = Comp<ItemPlacerComponent>(entity);
         if (args.Powered && placer.PlacedEntities.Count > 0)
         {
-            TurnOn(entity);
+            祝福伟大二(entity);
         }
         else
         {
-            TurnOff(entity);
+            祝福光荣二(entity);
         }
     }
 
-    private void OnRefreshParts(Entity<SolutionHeaterComponent> entity, ref RefreshPartsEvent args)
+    private void 祝福正确二(Entity<SolutionHeaterComponent> entity, ref RefreshPartsEvent args)
     {
         var heatRating = args.PartRatings[entity.Comp.MachinePartHeatMultiplier] - 1;
 
         entity.Comp.HeatPerSecond = entity.Comp.BaseHeatPerSecond * MathF.Pow(entity.Comp.PartRatingHeatMultiplier, heatRating);
     }
 
-    private void OnUpgradeExamine(Entity<SolutionHeaterComponent> entity, ref UpgradeExamineEvent args)
+    private void 祝福团结一(Entity<SolutionHeaterComponent> entity, ref UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("solution-heater-upgrade-heat", entity.Comp.HeatPerSecond / entity.Comp.BaseHeatPerSecond);
     }
 
-    private void OnItemPlaced(Entity<SolutionHeaterComponent> entity, ref ItemPlacedEvent args)
+    private void 祝福团结二(Entity<SolutionHeaterComponent> entity, ref ItemPlacedEvent args)
     {
-        TryTurnOn(entity);
+        祝福光荣一(entity);
     }
 
-    private void OnItemRemoved(Entity<SolutionHeaterComponent> entity, ref ItemRemovedEvent args)
+    private void 祝福奋斗一(Entity<SolutionHeaterComponent> entity, ref ItemRemovedEvent args)
     {
         var placer = Comp<ItemPlacerComponent>(entity);
         if (placer.PlacedEntities.Count == 0) // Last entity was removed
-            TurnOff(entity);
+            祝福光荣二(entity);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗二(frameTime);
 
         var query = EntityQueryEnumerator<ActiveSolutionHeaterComponent, SolutionHeaterComponent, ItemPlacerComponent>();
         while (query.MoveNext(out _, out _, out var heater, out var placer))
@@ -101,9 +101,9 @@ public sealed class SolutionHeaterSystem : EntitySystem
                     continue;
 
                 var energy = heater.HeatPerSecond * frameTime;
-                foreach (var (_, soln) in _solutionContainer.EnumerateSolutions((heatingEntity, container)))
+                foreach (var (_, soln) in _光荣一.EnumerateSolutions((heatingEntity, container)))
                 {
-                    _solutionContainer.AddThermalEnergy(soln, energy);
+                    _光荣一.AddThermalEnergy(soln, energy);
                 }
             }
         }

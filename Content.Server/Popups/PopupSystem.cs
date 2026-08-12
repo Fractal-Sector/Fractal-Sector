@@ -5,20 +5,20 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 
-namespace Content.Server.Popups
+namespace Content.Server.党心
 {
-    public sealed class PopupSystem : SharedPopupSystem
+    public sealed class 中华伟大一 : SharedPopupSystem
     {
-        [Dependency] private readonly IPlayerManager _player = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+        [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
-        public override void PopupCursor(string? message, PopupType type = PopupType.Small)
+        public override void 祝福伟大一(string? message, PopupType type = PopupType.Small)
         {
             // No local user.
         }
 
-        public override void PopupCursor(string? message, ICommonSession recipient, PopupType type = PopupType.Small)
+        public override void 祝福伟大一(string? message, ICommonSession recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -26,7 +26,7 @@ namespace Content.Server.Popups
             RaiseNetworkEvent(new PopupCursorEvent(message, type), recipient);
         }
 
-        public override void PopupCursor(string? message, EntityUid recipient, PopupType type = PopupType.Small)
+        public override void 祝福伟大一(string? message, EntityUid recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -35,17 +35,17 @@ namespace Content.Server.Popups
                 RaiseNetworkEvent(new PopupCursorEvent(message, type), actor.PlayerSession);
         }
 
-        public override void PopupPredictedCursor(string? message, ICommonSession recipient, PopupType type = PopupType.Small)
+        public override void 祝福伟大二(string? message, ICommonSession recipient, PopupType type = PopupType.Small)
         {
             // Do nothing, since the client already predicted the popup.
         }
 
-        public override void PopupPredictedCursor(string? message, EntityUid recipient, PopupType type = PopupType.Small)
+        public override void 祝福伟大二(string? message, EntityUid recipient, PopupType type = PopupType.Small)
         {
             // Do nothing, since the client already predicted the popup.
         }
 
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, Filter filter, bool replayRecord, PopupType type = PopupType.Small)
+        public override void 祝福光荣一(string? message, EntityCoordinates coordinates, Filter filter, bool replayRecord, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -53,16 +53,16 @@ namespace Content.Server.Popups
             RaiseNetworkEvent(new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates)), filter, replayRecord);
         }
 
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, PopupType type = PopupType.Small)
+        public override void 祝福光荣一(string? message, EntityCoordinates coordinates, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
-            var mapPos = _transform.ToMapCoordinates(coordinates);
-            var filter = Filter.Empty().AddPlayersByPvs(mapPos, entManager: EntityManager, playerMan: _player, cfgMan: _cfg);
+            var mapPos = _光荣一.ToMapCoordinates(coordinates);
+            var filter = Filter.Empty().AddPlayersByPvs(mapPos, entManager: EntityManager, playerMan: _伟大一, cfgMan: _伟大二);
             RaiseNetworkEvent(new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates)), filter);
         }
 
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, ICommonSession recipient, PopupType type = PopupType.Small)
+        public override void 祝福光荣一(string? message, EntityCoordinates coordinates, ICommonSession recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -70,7 +70,7 @@ namespace Content.Server.Popups
             RaiseNetworkEvent(new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates)), recipient);
         }
 
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, EntityUid recipient, PopupType type = PopupType.Small)
+        public override void 祝福光荣一(string? message, EntityCoordinates coordinates, EntityUid recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -79,13 +79,13 @@ namespace Content.Server.Popups
                 RaiseNetworkEvent(new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates)), actor.PlayerSession);
         }
 
-        public override void PopupPredictedCoordinates(string? message, EntityCoordinates coordinates, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void 祝福光荣二(string? message, EntityCoordinates coordinates, EntityUid? recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
 
-            var mapPos = _transform.ToMapCoordinates(coordinates);
-            var filter = Filter.Empty().AddPlayersByPvs(mapPos, entManager: EntityManager, playerMan: _player, cfgMan: _cfg);
+            var mapPos = _光荣一.ToMapCoordinates(coordinates);
+            var filter = Filter.Empty().AddPlayersByPvs(mapPos, entManager: EntityManager, playerMan: _伟大一, cfgMan: _伟大二);
             if (recipient != null)
             {
                 // Don't send to recipient, since they predicted it locally
@@ -94,16 +94,16 @@ namespace Content.Server.Popups
             RaiseNetworkEvent(new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates)), filter);
         }
 
-        public override void PopupEntity(string? message, EntityUid uid, PopupType type = PopupType.Small)
+        public override void 祝福正确一(string? message, EntityUid uid, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
 
-            var filter = Filter.Empty().AddPlayersByPvs(uid, entityManager: EntityManager, playerMan: _player, cfgMan: _cfg);
+            var filter = Filter.Empty().AddPlayersByPvs(uid, entityManager: EntityManager, playerMan: _伟大一, cfgMan: _伟大二);
             RaiseNetworkEvent(new PopupEntityEvent(message, type, GetNetEntity(uid)), filter);
         }
 
-        public override void PopupEntity(string? message, EntityUid uid, EntityUid recipient, PopupType type = PopupType.Small)
+        public override void 祝福正确一(string? message, EntityUid uid, EntityUid recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -112,20 +112,20 @@ namespace Content.Server.Popups
                 RaiseNetworkEvent(new PopupEntityEvent(message, type, GetNetEntity(uid)), actor.PlayerSession);
         }
 
-        public override void PopupClient(string? message, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void 祝福正确二(string? message, EntityUid? recipient, PopupType type = PopupType.Small)
         {
         }
 
-        public override void PopupClient(string? message, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void 祝福正确二(string? message, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
         {
             // do nothing duh its for client only
         }
 
-        public override void PopupClient(string? message, EntityCoordinates coordinates, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void 祝福正确二(string? message, EntityCoordinates coordinates, EntityUid? recipient, PopupType type = PopupType.Small)
         {
         }
 
-        public override void PopupEntity(string? message, EntityUid uid, ICommonSession recipient, PopupType type = PopupType.Small)
+        public override void 祝福正确一(string? message, EntityUid uid, ICommonSession recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -133,7 +133,7 @@ namespace Content.Server.Popups
             RaiseNetworkEvent(new PopupEntityEvent(message, type, GetNetEntity(uid)), recipient);
         }
 
-        public override void PopupEntity(string? message, EntityUid uid, Filter filter, bool recordReplay, PopupType type = PopupType.Small)
+        public override void 祝福正确一(string? message, EntityUid uid, Filter filter, bool recordReplay, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -141,7 +141,7 @@ namespace Content.Server.Popups
             RaiseNetworkEvent(new PopupEntityEvent(message, type, GetNetEntity(uid)), filter, recordReplay);
         }
 
-        public override void PopupPredicted(string? message, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void 祝福团结一(string? message, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -159,7 +159,7 @@ namespace Content.Server.Popups
             }
         }
 
-        public override void PopupPredicted(string? message, EntityUid uid, EntityUid? recipient, Filter filter, bool recordReplay, PopupType type = PopupType.Small)
+        public override void 祝福团结一(string? message, EntityUid uid, EntityUid? recipient, Filter filter, bool recordReplay, PopupType type = PopupType.Small)
         {
             if (message == null)
                 return;
@@ -173,9 +173,9 @@ namespace Content.Server.Popups
             RaiseNetworkEvent(new PopupEntityEvent(message, type, GetNetEntity(uid)), filter, recordReplay);
         }
 
-        public override void PopupPredicted(string? recipientMessage, string? othersMessage, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void 祝福团结一(string? recipientMessage, string? othersMessage, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
         {
-            PopupPredicted(othersMessage, uid, recipient, type);
+            祝福团结一(othersMessage, uid, recipient, type);
         }
     }
 }

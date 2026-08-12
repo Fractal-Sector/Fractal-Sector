@@ -5,43 +5,43 @@ using Content.Shared.Xenoarchaeology.Artifact;
 using Content.Shared.Xenoarchaeology.Artifact.XAE;
 using Robust.Shared.Random;
 
-namespace Content.Server.Xenoarchaeology.Artifact.XAE;
+namespace Content.Server.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// System for xeno artifact activation effect that ignites any flammable entity in range.
 /// </summary>
-public sealed class XAEIgniteSystem : BaseXAESystem<XAEIgniteComponent>
+public sealed class 中华伟大一 : BaseXAESystem<XAEIgniteComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly FlammableSystem _flammable = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly FlammableSystem _光荣一 = default!;
 
-    private EntityQuery<FlammableComponent> _flammables;
+    private EntityQuery<FlammableComponent> _光荣二;
 
     /// <summary> Pre-allocated and re-used collection.</summary>
-    private readonly HashSet<EntityUid> _entities = new();
+    private readonly HashSet<EntityUid> _正确一 = new();
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _flammables = GetEntityQuery<FlammableComponent>();
+        _光荣二 = GetEntityQuery<FlammableComponent>();
     }
 
     /// <inheritdoc />
-    protected override void OnActivated(Entity<XAEIgniteComponent> ent, ref XenoArtifactNodeActivatedEvent args)
+    protected override void 祝福伟大二(Entity<XAEIgniteComponent> ent, ref XenoArtifactNodeActivatedEvent args)
     {
         var component = ent.Comp;
-        _entities.Clear();
-        _lookup.GetEntitiesInRange(ent.Owner, component.Range, _entities);
-        foreach (var target in _entities)
+        _正确一.Clear();
+        _伟大二.GetEntitiesInRange(ent.Owner, component.Range, _正确一);
+        foreach (var target in _正确一)
         {
-            if (!_flammables.TryGetComponent(target, out var fl))
+            if (!_光荣二.TryGetComponent(target, out var fl))
                 continue;
 
-            fl.FireStacks += component.FireStack.Next(_random);
-            _flammable.Ignite(target, ent.Owner, fl);
+            fl.FireStacks += component.FireStack.Next(_伟大一);
+            _光荣一.Ignite(target, ent.Owner, fl);
         }
     }
 }

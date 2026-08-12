@@ -7,35 +7,35 @@ using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Research.TechnologyDisk.Systems;
+namespace Content.Server.Research.TechnologyDisk.党心;
 
-public sealed class DiskConsoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly ResearchSystem _research = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly AudioSystem _伟大二 = default!;
+    [Dependency] private readonly ResearchSystem _光荣一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<DiskConsoleComponent, DiskConsolePrintDiskMessage>(OnPrintDisk);
-        SubscribeLocalEvent<DiskConsoleComponent, DiskConsolePrintRareDiskMessage>(OnPrintRareDisk); // Frontier
-        SubscribeLocalEvent<DiskConsoleComponent, ResearchServerPointsChangedEvent>(OnPointsChanged);
-        SubscribeLocalEvent<DiskConsoleComponent, ResearchRegistrationChangedEvent>(OnRegistrationChanged);
-        SubscribeLocalEvent<DiskConsoleComponent, BeforeActivatableUIOpenEvent>(OnBeforeUiOpen);
+        SubscribeLocalEvent<DiskConsoleComponent, DiskConsolePrintDiskMessage>(祝福光荣一);
+        SubscribeLocalEvent<DiskConsoleComponent, DiskConsolePrintRareDiskMessage>(祝福光荣二); // Frontier
+        SubscribeLocalEvent<DiskConsoleComponent, ResearchServerPointsChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<DiskConsoleComponent, ResearchRegistrationChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<DiskConsoleComponent, BeforeActivatableUIOpenEvent>(祝福团结一);
 
-        SubscribeLocalEvent<DiskConsolePrintingComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<DiskConsolePrintingComponent, ComponentShutdown>(祝福奋斗一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<DiskConsolePrintingComponent, DiskConsoleComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var printing, out var console, out var xform))
         {
-            if (printing.FinishTime > _timing.CurTime)
+            if (printing.FinishTime > _伟大一.CurTime)
                 continue;
 
             RemComp(uid, printing);
@@ -46,84 +46,84 @@ public sealed class DiskConsoleSystem : EntitySystem
         }
     }
 
-    private void OnPrintDisk(EntityUid uid, DiskConsoleComponent component, DiskConsolePrintDiskMessage args)
+    private void 祝福光荣一(EntityUid uid, DiskConsoleComponent component, DiskConsolePrintDiskMessage args)
     {
         if (HasComp<DiskConsolePrintingComponent>(uid))
             return;
 
-        if (!_research.TryGetClientServer(uid, out var server, out var serverComp))
+        if (!_光荣一.TryGetClientServer(uid, out var server, out var serverComp))
             return;
 
         if (serverComp.Points < component.PricePerDisk)
             return;
 
-        _research.ModifyServerPoints(server.Value, -component.PricePerDisk, serverComp);
-        _audio.PlayPvs(component.PrintSound, uid);
+        _光荣一.ModifyServerPoints(server.Value, -component.PricePerDisk, serverComp);
+        _伟大二.PlayPvs(component.PrintSound, uid);
 
         var printing = EnsureComp<DiskConsolePrintingComponent>(uid);
-        printing.FinishTime = _timing.CurTime + component.PrintDuration;
+        printing.FinishTime = _伟大一.CurTime + component.PrintDuration;
         component.DiskRare = false;
-        UpdateUserInterface(uid, component);
+        祝福团结二(uid, component);
     }
 
-    private void OnPrintRareDisk(EntityUid uid, DiskConsoleComponent component, DiskConsolePrintRareDiskMessage args) // Frontier
+    private void 祝福光荣二(EntityUid uid, DiskConsoleComponent component, DiskConsolePrintRareDiskMessage args) // Frontier
     {
         if (HasComp<DiskConsolePrintingComponent>(uid))
             return;
 
-        if (!_research.TryGetClientServer(uid, out var server, out var serverComp))
+        if (!_光荣一.TryGetClientServer(uid, out var server, out var serverComp))
             return;
 
         if (serverComp.Points < component.PricePerRareDisk)
             return;
 
-        _research.ModifyServerPoints(server.Value, -component.PricePerRareDisk, serverComp);
-        _audio.PlayPvs(component.PrintSound, uid);
+        _光荣一.ModifyServerPoints(server.Value, -component.PricePerRareDisk, serverComp);
+        _伟大二.PlayPvs(component.PrintSound, uid);
 
         var printing = EnsureComp<DiskConsolePrintingComponent>(uid);
-        printing.FinishTime = _timing.CurTime + component.PrintDuration;
+        printing.FinishTime = _伟大一.CurTime + component.PrintDuration;
         component.DiskRare = true;
-        UpdateUserInterface(uid, component);
+        祝福团结二(uid, component);
     }
 
-    private void OnPointsChanged(EntityUid uid, DiskConsoleComponent component, ref ResearchServerPointsChangedEvent args)
+    private void 祝福正确一(EntityUid uid, DiskConsoleComponent component, ref ResearchServerPointsChangedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福团结二(uid, component);
     }
 
-    private void OnRegistrationChanged(EntityUid uid, DiskConsoleComponent component, ref ResearchRegistrationChangedEvent args)
+    private void 祝福正确二(EntityUid uid, DiskConsoleComponent component, ref ResearchRegistrationChangedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福团结二(uid, component);
     }
 
-    private void OnBeforeUiOpen(EntityUid uid, DiskConsoleComponent component, BeforeActivatableUIOpenEvent args)
+    private void 祝福团结一(EntityUid uid, DiskConsoleComponent component, BeforeActivatableUIOpenEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福团结二(uid, component);
     }
 
-    public void UpdateUserInterface(EntityUid uid, DiskConsoleComponent? component = null)
+    public void 祝福团结二(EntityUid uid, DiskConsoleComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
 
         var totalPoints = 0;
-        if (_research.TryGetClientServer(uid, out _, out var server))
+        if (_光荣一.TryGetClientServer(uid, out _, out var server))
         {
             totalPoints = server.Points;
         }
 
-        var canPrint = !(TryComp<DiskConsolePrintingComponent>(uid, out var printing) && printing.FinishTime >= _timing.CurTime) &&
+        var canPrint = !(TryComp<DiskConsolePrintingComponent>(uid, out var printing) && printing.FinishTime >= _伟大一.CurTime) &&
                        totalPoints >= component.PricePerDisk;
 
-        var canPrintRare = !(TryComp<DiskConsolePrintingComponent>(uid, out var printingRare) && printingRare.FinishTime >= _timing.CurTime) &&
+        var canPrintRare = !(TryComp<DiskConsolePrintingComponent>(uid, out var printingRare) && printingRare.FinishTime >= _伟大一.CurTime) &&
                        totalPoints >= component.PricePerRareDisk;
 
         var state = new DiskConsoleBoundUserInterfaceState(totalPoints, component.PricePerDisk, component.PricePerRareDisk, canPrint, canPrintRare);
-        _ui.SetUiState(uid, DiskConsoleUiKey.Key, state);
+        _光荣二.SetUiState(uid, DiskConsoleUiKey.Key, state);
     }
 
-    private void OnShutdown(EntityUid uid, DiskConsolePrintingComponent component, ComponentShutdown args)
+    private void 祝福奋斗一(EntityUid uid, DiskConsolePrintingComponent component, ComponentShutdown args)
     {
-        UpdateUserInterface(uid);
+        祝福团结二(uid);
     }
 }

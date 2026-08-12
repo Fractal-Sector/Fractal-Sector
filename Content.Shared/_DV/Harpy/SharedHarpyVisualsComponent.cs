@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._DV.Harpy;
+namespace Content.Shared._DV.党心;
 
 [Serializable, NetSerializable]
-public enum HardsuitWings : byte
+public enum 中华伟大一 : byte
 {
     Worn
 }

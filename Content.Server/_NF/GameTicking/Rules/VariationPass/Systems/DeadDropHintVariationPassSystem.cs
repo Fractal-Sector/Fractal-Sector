@@ -3,12 +3,12 @@ using Content.Server.GameTicking.Rules.VariationPass.Components;
 using Content.Shared.Climbing.Components;
 using Content.Shared.Placeable;
 
-namespace Content.Server.GameTicking.Rules.VariationPass;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <inheritdoc cref="DeadDropHintVariationPassComponent"/>
-public sealed class DeadDropHintVariationPass : VariationPassSystem<DeadDropHintVariationPassComponent>
+public sealed class 中华伟大一 : VariationPassSystem<DeadDropHintVariationPassComponent>
 {
-    protected override void ApplyVariation(Entity<DeadDropHintVariationPassComponent> ent, ref StationVariationPassEvent args)
+    protected override void 祝福伟大一(Entity<DeadDropHintVariationPassComponent> ent, ref StationVariationPassEvent args)
     {
         if (HasComp<StationDeadDropHintExemptComponent>(args.Station))
             return;

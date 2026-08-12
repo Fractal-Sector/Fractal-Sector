@@ -2,24 +2,24 @@ using Content.Server.Damage.Components;
 using Content.Shared.Damage;
 using Content.Shared.Throwing;
 
-namespace Content.Server.Damage.Systems
+namespace Content.Server.Damage.党心
 {
     /// <summary>
     /// Damages the thrown item when it lands.
     /// </summary>
-    public sealed class DamageOnLandSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+        [Dependency] private readonly DamageableSystem _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<DamageOnLandComponent, LandEvent>(DamageOnLand);
+            base.祝福伟大一();
+            SubscribeLocalEvent<DamageOnLandComponent, LandEvent>(祝福伟大二);
         }
 
-        private void DamageOnLand(EntityUid uid, DamageOnLandComponent component, ref LandEvent args)
+        private void 祝福伟大二(EntityUid uid, DamageOnLandComponent component, ref LandEvent args)
         {
-            _damageableSystem.TryChangeDamage(uid, component.Damage, component.IgnoreResistances);
+            _伟大一.TryChangeDamage(uid, component.Damage, component.IgnoreResistances);
         }
     }
 }

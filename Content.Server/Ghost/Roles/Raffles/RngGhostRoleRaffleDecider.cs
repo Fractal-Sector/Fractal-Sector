@@ -3,15 +3,15 @@ using JetBrains.Annotations;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
-namespace Content.Server.Ghost.Roles.Raffles;
+namespace Content.Server.Ghost.Roles.党心;
 
 /// <summary>
 /// Chooses the winner of a ghost role raffle entirely randomly, without any weighting.
 /// </summary>
 [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-public sealed partial class RngGhostRoleRaffleDecider : IGhostRoleRaffleDecider
+public sealed partial class 中华伟大一 : IGhostRoleRaffleDecider
 {
-    public void PickWinner(IEnumerable<ICommonSession> candidates, Func<ICommonSession, bool> tryTakeover)
+    public void 祝福伟大一(IEnumerable<ICommonSession> candidates, Func<ICommonSession, bool> tryTakeover)
     {
         var random = IoCManager.Resolve<IRobustRandom>();
 

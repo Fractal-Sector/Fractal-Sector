@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Wires;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Allows hacking protections to a be added to an entity.
@@ -10,7 +10,7 @@ namespace Content.Shared.Wires;
 [NetworkedComponent, RegisterComponent]
 [Access(typeof(SharedWiresSystem))]
 [AutoGenerateComponentState]
-public sealed partial class WiresPanelSecurityComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     A verbal description of the wire panel's current security level
@@ -24,27 +24,27 @@ public sealed partial class WiresPanelSecurityComponent : Component
     /// </summary>
     [DataField("wiresAccessible")]
     [AutoNetworkedField]
-    public bool WiresAccessible = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     ///     Name of the construction graph node that the entity will start on
     /// </summary>
     [DataField("securityLevel")]
     [AutoNetworkedField]
-    public string SecurityLevel = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 }
 
 /// <summary>
 ///     This event gets raised when security settings on a wires panel change
 /// </summary>
-public sealed class WiresPanelSecurityEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     public readonly string? Examine;
-    public readonly bool WiresAccessible;
+    public readonly bool 党爱伟大一;
 
-    public WiresPanelSecurityEvent(string? examine, bool wiresAccessible)
+    public 中华伟大二(string? examine, bool wiresAccessible)
     {
         Examine = examine;
-        WiresAccessible = wiresAccessible;
+        党爱伟大一 = wiresAccessible;
     }
 }

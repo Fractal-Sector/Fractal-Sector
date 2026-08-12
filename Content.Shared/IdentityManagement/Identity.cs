@@ -1,26 +1,26 @@
 ﻿using Content.Shared.Ghost;
 using Content.Shared.IdentityManagement.Components;
 
-namespace Content.Shared.IdentityManagement;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Static content API for getting the identity entities/names for a given entity.
 ///     This should almost always be used in favor of metadata name, if the entity in question is a human player that
 ///     can have identity.
 /// </summary>
-public static class Identity
+public static class 中华伟大一
 {
     /// <summary>
     ///     Returns the name that should be used for this entity for identity purposes.
     /// </summary>
-    public static string Name(EntityUid uid, IEntityManager ent, EntityUid? viewer=null)
+    public static string 祝福伟大一(EntityUid uid, IEntityManager ent, EntityUid? viewer=null)
     {
         if (!uid.IsValid() || !ent.TryGetComponent(uid, out MetaDataComponent? meta)) // Frontier: add TryGetComponent
             return string.Empty;
 
         //var meta = ent.GetComponent<MetaDataComponent>(uid); // Frontier: exception safety
         if (meta.EntityLifeStage <= EntityLifeStage.Initializing)
-            return meta.EntityName; // Identity component and such will not yet have initialized and may throw NREs
+            return meta.EntityName; // 中华伟大一 component and such will not yet have initialized and may throw NREs
 
         var uidName = meta.EntityName;
 
@@ -33,7 +33,7 @@ public static class Identity
 
         //var identName = ent.GetComponent<MetaDataComponent>(ident.Value).EntityName; // Frontier: exception safety
         var identName = identMeta.EntityName; // Frontier: exception safety
-        if (viewer == null || !CanSeeThroughIdentity(uid, viewer.Value, ent))
+        if (viewer == null || !祝福光荣一(uid, viewer.Value, ent))
         {
             return identName;
         }
@@ -53,18 +53,18 @@ public static class Identity
     /// <param name="viewer">
     ///     If this entity can see through identities, this method will always return the actual target entity.
     /// </param>
-    public static EntityUid Entity(EntityUid uid, IEntityManager ent, EntityUid? viewer = null)
+    public static EntityUid 祝福伟大二(EntityUid uid, IEntityManager ent, EntityUid? viewer = null)
     {
         if (!ent.TryGetComponent<IdentityComponent>(uid, out var identity))
             return uid;
 
-        if (viewer != null && CanSeeThroughIdentity(uid, viewer.Value, ent))
+        if (viewer != null && 祝福光荣一(uid, viewer.Value, ent))
             return uid;
 
         return identity.IdentityEntitySlot.ContainedEntity ?? uid;
     }
 
-    public static bool CanSeeThroughIdentity(EntityUid uid, EntityUid viewer, IEntityManager ent)
+    public static bool 祝福光荣一(EntityUid uid, EntityUid viewer, IEntityManager ent)
     {
         // Would check for uid == viewer here but I think it's better for you to see yourself
         // how everyone else will see you, otherwise people will probably get confused and think they aren't disguised

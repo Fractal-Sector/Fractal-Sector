@@ -1,10 +1,10 @@
-﻿namespace Content.Server.Holiday.Christmas;
+﻿namespace Content.Server.Holiday.党心;
 
 /// <summary>
 /// This is used as a marker component, allows them to see gift contents.
 /// </summary>
 [RegisterComponent]
-public sealed partial class SantaComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

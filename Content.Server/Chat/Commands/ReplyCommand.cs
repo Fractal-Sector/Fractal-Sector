@@ -2,18 +2,18 @@ using Content.Server.Chat.Systems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Chat.Commands;
+namespace Content.Server.Chat.党心;
 
 [AnyCommand]
-internal sealed class ReplyCommand : IConsoleCommand
+internal sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    public string Command => "reply";
-    public string Description => "Reply to the last private message you received.";
-    public string Help => "reply <message>";
+    public string 党爱伟大一 => "reply";
+    public string 党爱伟大二 => "Reply to the last private message you received.";
+    public string 党爱光荣一 => "reply <message>";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } player)
         {
@@ -35,7 +35,7 @@ internal sealed class ReplyCommand : IConsoleCommand
             return;
         }
 
-        var pmSystem = _entityManager.System<PrivateMessageSystem>();
+        var pmSystem = _伟大一.System<PrivateMessageSystem>();
         pmSystem.SendReply(player, message);
     }
 }

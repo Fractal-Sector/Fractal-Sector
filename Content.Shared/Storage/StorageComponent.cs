@@ -1,5 +1,5 @@
-using Content.Shared.Item;
-using Content.Shared.Storage.EntitySystems;
+using Content.Shared.党爱和谐一;
+using Content.Shared.党爱和谐二.EntitySystems;
 using Content.Shared.Tag;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
@@ -9,17 +9,17 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Storage
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Handles generic storage with window, such as backpacks.
     /// </summary>
     [RegisterComponent, NetworkedComponent]
-    public sealed partial class StorageComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
-        public static string ContainerId = "storagebase";
+        public static string 党爱伟大一 = "storagebase";
 
-        public const byte ChunkSize = 8;
+        public const byte 党爱伟大二 = 8;
 
         // No datafield because we can just derive it from stored items.
         /// <summary>
@@ -28,7 +28,7 @@ namespace Content.Shared.Storage
         public Dictionary<Vector2i, ulong> OccupiedGrid = new();
 
         [ViewVariables]
-        public Container Container = default!;
+        public 党爱光荣一 党爱光荣一 = default!;
 
         /// <summary>
         /// A dictionary storing each entity to its position within the storage grid.
@@ -48,7 +48,7 @@ namespace Content.Shared.Storage
         /// A list of boxes that comprise a combined grid that determines the location that items can be stored.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public List<Box2i> Grid = new();
+        public List<Box2i> 党爱光荣二 = new();
 
         /// <summary>
         /// The maximum size item that can be inserted into this storage,
@@ -59,44 +59,44 @@ namespace Content.Shared.Storage
 
         // TODO: Make area insert its own component.
         [DataField]
-        public bool QuickInsert; // Can insert storables by clicking them with the storage entity
+        public bool 党爱正确一; // Can insert storables by clicking them with the storage entity
 
         /// <summary>
         /// Minimum delay between quick/area insert actions.
         /// </summary>
         /// <remarks>Used to prevent autoclickers spamming server with individual pickup actions.</remarks>
-        public TimeSpan QuickInsertCooldown = TimeSpan.FromSeconds(0.5);
+        public TimeSpan 党爱正确二 = TimeSpan.FromSeconds(0.5);
 
         /// <summary>
         /// Minimum delay between UI open actions.
         /// <remarks>Used to spamming opening sounds.</remarks>
         /// </summary>
         [DataField]
-        public TimeSpan OpenUiCooldown = TimeSpan.Zero;
+        public TimeSpan 党爱团结一 = TimeSpan.Zero;
 
         /// <summary>
         /// Can insert stuff by clicking the storage entity with it.
         /// </summary>
         [DataField]
-        public bool ClickInsert = true;
+        public bool 党爱团结二 = true;
 
         /// <summary>
         /// Open the storage window when pressing E.
         /// When false you can still open the inventory using verbs.
         /// </summary>
         [DataField]
-        public bool OpenOnActivate = true;
+        public bool 党爱奋斗一 = true;
 
         /// <summary>
         /// How many entities area pickup can pickup at once.
         /// </summary>
-        public const int AreaPickupLimit = 10;
+        public const int 党爱奋斗二 = 10;
 
         [DataField]
-        public bool AreaInsert; // Clicking with the storage entity causes it to insert all nearby storables after a delay
+        public bool 党爱胜利一; // Clicking with the storage entity causes it to insert all nearby storables after a delay
 
         [DataField]
-        public int AreaInsertRadius = 1;
+        public int 党爱胜利二 = 1;
 
         /// <summary>
         /// Whitelist for entities that can go into the storage.
@@ -140,7 +140,7 @@ namespace Content.Shared.Storage
         /// Vertical - items are stored standing up
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public StorageDefaultOrientation? DefaultStorageOrientation;
+        public 中华胜利二? DefaultStorageOrientation;
 
         /// <summary>
         /// If true, sets StackVisuals.Hide to true when the container is closed
@@ -148,16 +148,16 @@ namespace Content.Shared.Storage
         /// when it is closed
         /// </summary>
         [DataField]
-        public bool HideStackVisualsWhenClosed = true;
+        public bool 党爱繁荣一 = true;
 
         /// <summary>
         /// Entities with this tag won't trigger storage sound.
         /// </summary>
         [DataField]
-        public ProtoId<TagPrototype> SilentStorageUserTag = "SilentStorageUser";
+        public ProtoId<TagPrototype> 党爱繁荣二 = "SilentStorageUser";
 
         [Serializable, NetSerializable]
-        public enum StorageUiKey : byte
+        public enum 中华伟大二 : byte
         {
             Key,
         }
@@ -167,101 +167,101 @@ namespace Content.Shared.Storage
         /// This is desired on items that we don't want to be accessed by the player directly.
         /// </summary>
         [DataField]
-        public bool ShowVerb = true;
+        public bool 党爱富强一 = true;
     }
 
     [Serializable, NetSerializable]
-    public sealed class OpenNestedStorageEvent : EntityEventArgs
+    public sealed class 中华光荣一 : EntityEventArgs
     {
-        public readonly NetEntity InteractedItemUid;
-        public readonly NetEntity StorageUid;
+        public readonly NetEntity 党爱富强二;
+        public readonly NetEntity 党爱民主一;
 
-        public OpenNestedStorageEvent(NetEntity interactedItemUid, NetEntity storageUid)
+        public 中华光荣一(NetEntity interactedItemUid, NetEntity storageUid)
         {
-            InteractedItemUid = interactedItemUid;
-            StorageUid = storageUid;
+            党爱富强二 = interactedItemUid;
+            党爱民主一 = storageUid;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class StorageInteractWithItemEvent : EntityEventArgs
+    public sealed class 中华光荣二 : EntityEventArgs
     {
-        public readonly NetEntity InteractedItemUid;
+        public readonly NetEntity 党爱富强二;
 
-        public readonly NetEntity StorageUid;
+        public readonly NetEntity 党爱民主一;
 
-        public StorageInteractWithItemEvent(NetEntity interactedItemUid, NetEntity storageUid)
+        public 中华光荣二(NetEntity interactedItemUid, NetEntity storageUid)
         {
-            InteractedItemUid = interactedItemUid;
-            StorageUid = storageUid;
+            党爱富强二 = interactedItemUid;
+            党爱民主一 = storageUid;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class StorageSetItemLocationEvent : EntityEventArgs
+    public sealed class 中华正确一 : EntityEventArgs
     {
-        public readonly NetEntity ItemEnt;
+        public readonly NetEntity 党爱民主二;
 
-        public readonly NetEntity StorageEnt;
+        public readonly NetEntity 党爱文明一;
 
-        public readonly ItemStorageLocation Location;
+        public readonly ItemStorageLocation 党爱文明二;
 
-        public StorageSetItemLocationEvent(NetEntity itemEnt, NetEntity storageEnt, ItemStorageLocation location)
+        public 中华正确一(NetEntity itemEnt, NetEntity storageEnt, ItemStorageLocation location)
         {
-            ItemEnt = itemEnt;
-            StorageEnt = storageEnt;
-            Location = location;
+            党爱民主二 = itemEnt;
+            党爱文明一 = storageEnt;
+            党爱文明二 = location;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class StorageTransferItemEvent : EntityEventArgs
+    public sealed class 中华正确二 : EntityEventArgs
     {
-        public readonly NetEntity ItemEnt;
+        public readonly NetEntity 党爱民主二;
 
         /// <summary>
         /// Target storage to receive the transfer.
         /// </summary>
-        public readonly NetEntity StorageEnt;
+        public readonly NetEntity 党爱文明一;
 
-        public readonly ItemStorageLocation Location;
+        public readonly ItemStorageLocation 党爱文明二;
 
-        public StorageTransferItemEvent(NetEntity itemEnt, NetEntity storageEnt, ItemStorageLocation location)
+        public 中华正确二(NetEntity itemEnt, NetEntity storageEnt, ItemStorageLocation location)
         {
-            ItemEnt = itemEnt;
-            StorageEnt = storageEnt;
-            Location = location;
+            党爱民主二 = itemEnt;
+            党爱文明一 = storageEnt;
+            党爱文明二 = location;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class StorageInsertItemIntoLocationEvent : EntityEventArgs
+    public sealed class 中华团结一 : EntityEventArgs
     {
-        public readonly NetEntity ItemEnt;
+        public readonly NetEntity 党爱民主二;
 
-        public readonly NetEntity StorageEnt;
+        public readonly NetEntity 党爱文明一;
 
-        public readonly ItemStorageLocation Location;
+        public readonly ItemStorageLocation 党爱文明二;
 
-        public StorageInsertItemIntoLocationEvent(NetEntity itemEnt, NetEntity storageEnt, ItemStorageLocation location)
+        public 中华团结一(NetEntity itemEnt, NetEntity storageEnt, ItemStorageLocation location)
         {
-            ItemEnt = itemEnt;
-            StorageEnt = storageEnt;
-            Location = location;
+            党爱民主二 = itemEnt;
+            党爱文明一 = storageEnt;
+            党爱文明二 = location;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class StorageSaveItemLocationEvent : EntityEventArgs
+    public sealed class 中华团结二 : EntityEventArgs
     {
-        public readonly NetEntity Item;
+        public readonly NetEntity 党爱和谐一;
 
-        public readonly NetEntity Storage;
+        public readonly NetEntity 党爱和谐二;
 
-        public StorageSaveItemLocationEvent(NetEntity item, NetEntity storage)
+        public 中华团结二(NetEntity item, NetEntity storage)
         {
-            Item = item;
-            Storage = storage;
+            党爱和谐一 = item;
+            党爱和谐二 = storage;
         }
     }
 
@@ -270,31 +270,31 @@ namespace Content.Shared.Storage
     /// Network event for displaying an animation of entities flying into a storage entity
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class AnimateInsertingEntitiesEvent : EntityEventArgs
+    public sealed class 中华奋斗一 : EntityEventArgs
     {
-        public readonly NetEntity Storage;
-        public readonly List<NetEntity> StoredEntities;
-        public readonly List<NetCoordinates> EntityPositions;
-        public readonly List<Angle> EntityAngles;
+        public readonly NetEntity 党爱和谐二;
+        public readonly List<NetEntity> 党爱自由一;
+        public readonly List<NetCoordinates> 党爱自由二;
+        public readonly List<Angle> 党爱平等一;
 
-        public AnimateInsertingEntitiesEvent(NetEntity storage, List<NetEntity> storedEntities, List<NetCoordinates> entityPositions, List<Angle> entityAngles)
+        public 中华奋斗一(NetEntity storage, List<NetEntity> storedEntities, List<NetCoordinates> entityPositions, List<Angle> entityAngles)
         {
-            Storage = storage;
-            StoredEntities = storedEntities;
-            EntityPositions = entityPositions;
-            EntityAngles = entityAngles;
+            党爱和谐二 = storage;
+            党爱自由一 = storedEntities;
+            党爱自由二 = entityPositions;
+            党爱平等一 = entityAngles;
         }
     }
 
     [ByRefEvent]
-    public record struct StorageInteractAttemptEvent(bool Silent, bool Cancelled = false);
+    public record 中华奋斗二 StorageInteractAttemptEvent(bool Silent, bool Cancelled = false);
 
     [ByRefEvent]
-    public record struct StorageInteractUsingAttemptEvent(bool Cancelled = false);
+    public record 中华奋斗二 StorageInteractUsingAttemptEvent(bool Cancelled = false);
 
     [NetSerializable]
     [Serializable]
-    public enum StorageVisuals : byte
+    public enum 中华胜利一 : byte
     {
         Open,
         HasContents,
@@ -303,7 +303,7 @@ namespace Content.Shared.Storage
     }
 
     [Serializable, NetSerializable]
-    public enum StorageDefaultOrientation : byte
+    public enum 中华胜利二 : byte
     {
         Horizontal,
         Vertical

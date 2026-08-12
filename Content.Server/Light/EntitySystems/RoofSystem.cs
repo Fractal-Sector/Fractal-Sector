@@ -2,29 +2,29 @@ using Content.Server.Light.Components;
 using Content.Shared.Light.EntitySystems;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Light.EntitySystems;
+namespace Content.Server.Light.党心;
 
 /// <inheritdoc/>
-public sealed class RoofSystem : SharedRoofSystem
+public sealed class 中华伟大一 : SharedRoofSystem
 {
-    [Dependency] private readonly SharedMapSystem _maps = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
 
-    private EntityQuery<MapGridComponent> _gridQuery;
+    private EntityQuery<MapGridComponent> _伟大二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _gridQuery = GetEntityQuery<MapGridComponent>();
-        SubscribeLocalEvent<SetRoofComponent, ComponentStartup>(OnFlagStartup);
+        base.祝福伟大一();
+        _伟大二 = GetEntityQuery<MapGridComponent>();
+        SubscribeLocalEvent<SetRoofComponent, ComponentStartup>(祝福伟大二);
     }
 
-    private void OnFlagStartup(Entity<SetRoofComponent> ent, ref ComponentStartup args)
+    private void 祝福伟大二(Entity<SetRoofComponent> ent, ref ComponentStartup args)
     {
         var xform = Transform(ent.Owner);
 
-        if (_gridQuery.TryComp(xform.GridUid, out var grid))
+        if (_伟大二.TryComp(xform.GridUid, out var grid))
         {
-            var index = _maps.LocalToTile(xform.GridUid.Value, grid, xform.Coordinates);
+            var index = _伟大一.LocalToTile(xform.GridUid.Value, grid, xform.Coordinates);
             SetRoof((xform.GridUid.Value, grid, null), index, ent.Comp.Value);
         }
 

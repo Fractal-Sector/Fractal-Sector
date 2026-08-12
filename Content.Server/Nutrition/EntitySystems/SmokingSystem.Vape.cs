@@ -15,26 +15,26 @@ using Content.Shared.Nutrition.EntitySystems;
 /// <summary>
 /// System for vapes
 /// </summary>
-namespace Content.Server.Nutrition.EntitySystems
+namespace Content.Server.Nutrition.党心
 {
-    public sealed partial class SmokingSystem
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly EmagSystem _emag = default!;
-        [Dependency] private readonly IngestionSystem _ingestion = default!;
-        [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
+        [Dependency] private readonly DoAfterSystem _伟大一 = default!;
+        [Dependency] private readonly DamageableSystem _伟大二 = default!;
+        [Dependency] private readonly EmagSystem _光荣一 = default!;
+        [Dependency] private readonly IngestionSystem _光荣二 = default!;
+        [Dependency] private readonly ExplosionSystem _正确一 = default!;
+        [Dependency] private readonly PopupSystem _正确二 = default!;
 
-        private void InitializeVapes()
+        private void 祝福伟大一()
         {
-            SubscribeLocalEvent<VapeComponent, AfterInteractEvent>(OnVapeInteraction);
-            SubscribeLocalEvent<VapeComponent, VapeDoAfterEvent>(OnVapeDoAfter);
-            SubscribeLocalEvent<VapeComponent, GotEmaggedEvent>(OnEmagged);
-            SubscribeLocalEvent<VapeComponent, GotUnEmaggedEvent>(OnUnemagged); // Frontier
+            SubscribeLocalEvent<VapeComponent, AfterInteractEvent>(祝福伟大二);
+            SubscribeLocalEvent<VapeComponent, VapeDoAfterEvent>(祝福光荣一);
+            SubscribeLocalEvent<VapeComponent, GotEmaggedEvent>(祝福光荣二);
+            SubscribeLocalEvent<VapeComponent, GotUnEmaggedEvent>(祝福正确一); // Frontier
         }
 
-        private void OnVapeInteraction(Entity<VapeComponent> entity, ref AfterInteractEvent args)
+        private void 祝福伟大二(Entity<VapeComponent> entity, ref AfterInteractEvent args)
         {
             var delay = entity.Comp.Delay;
             var forced = true;
@@ -43,7 +43,7 @@ namespace Content.Server.Nutrition.EntitySystems
             if (!args.CanReach
                 || !_solutionContainerSystem.TryGetRefillableSolution(entity.Owner, out _, out var solution)
                 || !HasComp<BloodstreamComponent>(args.Target)
-                || !_ingestion.HasMouthAvailable(args.Target.Value, args.User)
+                || !_光荣二.HasMouthAvailable(args.Target.Value, args.User)
                 )
             {
                 return;
@@ -51,7 +51,7 @@ namespace Content.Server.Nutrition.EntitySystems
 
             if (solution.Contents.Count == 0)
             {
-                _popupSystem.PopupEntity(
+                _正确二.PopupEntity(
                     Loc.GetString("vape-component-vape-empty"), args.Target.Value,
                     args.User);
                 return;
@@ -63,9 +63,9 @@ namespace Content.Server.Nutrition.EntitySystems
                 forced = false;
             }
 
-            if (entity.Comp.ExplodeOnUse || _emag.CheckFlag(entity, EmagType.Interaction))
+            if (entity.Comp.ExplodeOnUse || _光荣一.CheckFlag(entity, EmagType.Interaction))
             {
-                _explosionSystem.QueueExplosion(entity.Owner, "Default", entity.Comp.ExplosionIntensity, 0.5f, 3, canCreateVacuum: false);
+                _正确一.QueueExplosion(entity.Owner, "Default", entity.Comp.ExplosionIntensity, 0.5f, 3, canCreateVacuum: false);
                 Del(entity);
                 exploded = true;
             }
@@ -81,7 +81,7 @@ namespace Content.Server.Nutrition.EntitySystems
                     if (name.Reagent.Prototype != entity.Comp.SolutionNeeded)
                     {
                         exploded = true;
-                        _explosionSystem.QueueExplosion(entity.Owner, "Default", entity.Comp.ExplosionIntensity, 0.5f, 3, canCreateVacuum: false);
+                        _正确一.QueueExplosion(entity.Owner, "Default", entity.Comp.ExplosionIntensity, 0.5f, 3, canCreateVacuum: false);
                         Del(entity);
                         break;
                     }
@@ -93,17 +93,17 @@ namespace Content.Server.Nutrition.EntitySystems
                 var targetName = Identity.Entity(args.Target.Value, EntityManager);
                 var userName = Identity.Entity(args.User, EntityManager);
 
-                _popupSystem.PopupEntity(
+                _正确二.PopupEntity(
                     Loc.GetString("vape-component-try-use-vape-forced", ("user", userName)), args.Target.Value,
                     args.Target.Value);
 
-                _popupSystem.PopupEntity(
+                _正确二.PopupEntity(
                     Loc.GetString("vape-component-try-use-vape-forced-user", ("target", targetName)), args.User,
                     args.User);
             }
             else
             {
-                _popupSystem.PopupEntity(
+                _正确二.PopupEntity(
                     Loc.GetString("vape-component-try-use-vape"), args.User,
                     args.User);
             }
@@ -111,7 +111,7 @@ namespace Content.Server.Nutrition.EntitySystems
             if (!exploded)
             {
                 var vapeDoAfterEvent = new VapeDoAfterEvent(solution, forced);
-                _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, vapeDoAfterEvent, entity.Owner, target: args.Target, used: entity.Owner)
+                _伟大一.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, vapeDoAfterEvent, entity.Owner, target: args.Target, used: entity.Owner)
                 {
                     BreakOnMove = false,
                     BreakOnDamage = true
@@ -120,7 +120,7 @@ namespace Content.Server.Nutrition.EntitySystems
             args.Handled = true;
         }
 
-        private void OnVapeDoAfter(Entity<VapeComponent> entity, ref VapeDoAfterEvent args)
+        private void 祝福光荣一(Entity<VapeComponent> entity, ref VapeDoAfterEvent args)
         {
             if (args.Cancelled || args.Handled || args.Args.Target == null)
                 return;
@@ -132,7 +132,7 @@ namespace Content.Server.Nutrition.EntitySystems
             }
 
             //Smoking kills(your lungs, but there is no organ damage yet)
-            _damageableSystem.TryChangeDamage(args.Args.Target.Value, entity.Comp.Damage, true);
+            _伟大二.TryChangeDamage(args.Args.Target.Value, entity.Comp.Damage, true);
 
             var merger = new GasMixture(1) { Temperature = args.Solution.Temperature };
             merger.SetMoles(entity.Comp.GasType, args.Solution.Volume.Value / entity.Comp.ReductionFactor);
@@ -146,40 +146,40 @@ namespace Content.Server.Nutrition.EntitySystems
                 var targetName = Identity.Entity(args.Args.Target.Value, EntityManager);
                 var userName = Identity.Entity(args.Args.User, EntityManager);
 
-                _popupSystem.PopupEntity(
+                _正确二.PopupEntity(
                     Loc.GetString("vape-component-vape-success-forced", ("user", userName)), args.Args.Target.Value,
                     args.Args.Target.Value);
 
-                _popupSystem.PopupEntity(
+                _正确二.PopupEntity(
                     Loc.GetString("vape-component-vape-success-user-forced", ("target", targetName)), args.Args.User,
                     args.Args.Target.Value);
             }
             else
             {
-                _popupSystem.PopupEntity(
+                _正确二.PopupEntity(
                     Loc.GetString("vape-component-vape-success"), args.Args.Target.Value,
                     args.Args.Target.Value);
             }
         }
 
-        private void OnEmagged(Entity<VapeComponent> entity, ref GotEmaggedEvent args)
+        private void 祝福光荣二(Entity<VapeComponent> entity, ref GotEmaggedEvent args)
         {
-            if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+            if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
                 return;
 
-            if (_emag.CheckFlag(entity, EmagType.Interaction))
+            if (_光荣一.CheckFlag(entity, EmagType.Interaction))
                 return;
 
             args.Handled = true;
         }
 
         // Frontier: demag
-        private void OnUnemagged(Entity<VapeComponent> entity, ref GotUnEmaggedEvent args)
+        private void 祝福正确一(Entity<VapeComponent> entity, ref GotUnEmaggedEvent args)
         {
-            if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+            if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
                 return;
 
-            if (!_emag.CheckFlag(entity, EmagType.Interaction))
+            if (!_光荣一.CheckFlag(entity, EmagType.Interaction))
                 return;
 
             args.Handled = true;

@@ -12,42 +12,42 @@ using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 
-namespace Content.Server.Beam;
+namespace Content.Server.党心;
 
-public sealed class BeamSystem : SharedBeamSystem
+public sealed class 中华伟大一 : SharedBeamSystem
 {
-    [Dependency] private readonly FixtureSystem _fixture = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedBroadphaseSystem _broadphase = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly FixtureSystem _伟大一 = default!;
+    [Dependency] private readonly TransformSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedBroadphaseSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BeamComponent, CreateBeamSuccessEvent>(OnBeamCreationSuccess);
-        SubscribeLocalEvent<BeamComponent, BeamControllerCreatedEvent>(OnControllerCreated);
-        SubscribeLocalEvent<BeamComponent, BeamFiredEvent>(OnBeamFired);
-        SubscribeLocalEvent<BeamComponent, ComponentRemove>(OnRemove);
+        SubscribeLocalEvent<BeamComponent, CreateBeamSuccessEvent>(祝福伟大二);
+        SubscribeLocalEvent<BeamComponent, BeamControllerCreatedEvent>(祝福光荣一);
+        SubscribeLocalEvent<BeamComponent, BeamFiredEvent>(祝福光荣二);
+        SubscribeLocalEvent<BeamComponent, ComponentRemove>(祝福正确一);
     }
 
-    private void OnBeamCreationSuccess(EntityUid uid, BeamComponent component, CreateBeamSuccessEvent args)
+    private void 祝福伟大二(EntityUid uid, BeamComponent component, CreateBeamSuccessEvent args)
     {
         component.BeamShooter = args.User;
     }
 
-    private void OnControllerCreated(EntityUid uid, BeamComponent component, BeamControllerCreatedEvent args)
+    private void 祝福光荣一(EntityUid uid, BeamComponent component, BeamControllerCreatedEvent args)
     {
         component.OriginBeam = args.OriginBeam;
     }
 
-    private void OnBeamFired(EntityUid uid, BeamComponent component, BeamFiredEvent args)
+    private void 祝福光荣二(EntityUid uid, BeamComponent component, BeamFiredEvent args)
     {
         component.CreatedBeams.Add(args.CreatedBeam);
     }
 
-    private void OnRemove(EntityUid uid, BeamComponent component, ComponentRemove args)
+    private void 祝福正确一(EntityUid uid, BeamComponent component, ComponentRemove args)
     {
         if (component.VirtualBeamController == null)
             return;
@@ -57,7 +57,7 @@ public sealed class BeamSystem : SharedBeamSystem
     }
 
     /// <summary>
-    /// If <see cref="TryCreateBeam"/> is successful, it spawns a beam from the user to the target.
+    /// If <see cref="祝福团结一"/> is successful, it spawns a beam from the user to the target.
     /// </summary>
     /// <param name="prototype">The prototype used to make the beam</param>
     /// <param name="userAngle">Angle of the user firing the beam</param>
@@ -67,7 +67,7 @@ public sealed class BeamSystem : SharedBeamSystem
     /// <param name="controller"> The virtual beam controller that this beam will use. If one doesn't exist it will be created here.</param>
     /// <param name="bodyState">Optional sprite state for the <see cref="prototype"/> if it needs a dynamic one</param>
     /// <param name="shader">Optional shader for the <see cref="prototype"/> and <see cref="bodyState"/> if it needs something other than default</param>
-    private void CreateBeam(string prototype,
+    private void 祝福正确二(string prototype,
         Angle userAngle,
         Vector2 calculatedDistance,
         MapCoordinates beamStartPos,
@@ -84,7 +84,7 @@ public sealed class BeamSystem : SharedBeamSystem
             return;
 
         FixturesComponent? manager = null;
-        _fixture.TryCreateFixture(
+        _伟大一.TryCreateFixture(
             ent,
             shape,
             "BeamBody",
@@ -94,9 +94,9 @@ public sealed class BeamSystem : SharedBeamSystem
             manager: manager,
             body: physics);
 
-        _physics.SetBodyType(ent, BodyType.Dynamic, manager: manager, body: physics);
-        _physics.SetCanCollide(ent, true, manager: manager, body: physics);
-        _broadphase.RegenerateContacts((ent, physics, manager));
+        _正确一.SetBodyType(ent, BodyType.Dynamic, manager: manager, body: physics);
+        _正确一.SetCanCollide(ent, true, manager: manager, body: physics);
+        _光荣二.RegenerateContacts((ent, physics, manager));
 
         var distanceLength = distanceCorrection.Length();
 
@@ -111,7 +111,7 @@ public sealed class BeamSystem : SharedBeamSystem
             var controllerEnt = Spawn("VirtualBeamEntityController", beamSpawnPos);
             beam.VirtualBeamController = controllerEnt;
 
-            _audio.PlayPvs(beam.Sound, ent);
+            _光荣一.PlayPvs(beam.Sound, ent);
 
             var beamControllerCreatedEvent = new BeamControllerCreatedEvent(ent, controllerEnt);
             RaiseLocalEvent(controllerEnt, beamControllerCreatedEvent);
@@ -141,13 +141,13 @@ public sealed class BeamSystem : SharedBeamSystem
     /// <param name="bodyState">Optional sprite state for the <see cref="bodyPrototype"/> if a default one is not given</param>
     /// <param name="shader">Optional shader for the <see cref="bodyPrototype"/> if a default one is not given</param>
     /// <param name="controller"></param>
-    public void TryCreateBeam(EntityUid user, EntityUid target, string bodyPrototype, string? bodyState = null, string shader = "unshaded", EntityUid? controller = null)
+    public void 祝福团结一(EntityUid user, EntityUid target, string bodyPrototype, string? bodyState = null, string shader = "unshaded", EntityUid? controller = null)
     {
         if (Deleted(user) || Deleted(target))
             return;
 
-        var userMapPos = _transform.GetMapCoordinates(user);
-        var targetMapPos = _transform.GetMapCoordinates(target);
+        var userMapPos = _伟大二.GetMapCoordinates(user);
+        var targetMapPos = _伟大二.GetMapCoordinates(target);
 
         //The distance between the target and the user.
         var calculatedDistance = targetMapPos.Position - userMapPos.Position;
@@ -171,7 +171,7 @@ public sealed class BeamSystem : SharedBeamSystem
 
         var distanceCorrection = calculatedDistance - calculatedDistance.Normalized();
 
-        CreateBeam(bodyPrototype, userAngle, calculatedDistance, beamStartPos, distanceCorrection, controller, bodyState, shader);
+        祝福正确二(bodyPrototype, userAngle, calculatedDistance, beamStartPos, distanceCorrection, controller, bodyState, shader);
 
         var ev = new CreateBeamSuccessEvent(user, target);
         RaiseLocalEvent(user, ev);

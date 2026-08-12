@@ -1,6 +1,6 @@
-namespace Content.Shared.Sound;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedSpamEmitSoundRequirePowerSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly SharedEmitSoundSystem EmitSound = default!;
+    [Dependency] protected readonly SharedEmitSoundSystem 党爱伟大一 = default!;
 }

@@ -4,7 +4,7 @@ using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Temperature.Components;
+namespace Content.Server.Temperature.党心;
 
 /// <summary>
 /// Handles changing temperature,
@@ -12,28 +12,28 @@ namespace Content.Server.Temperature.Components;
 /// and taking fire damage from high temperature.
 /// </summary>
 [RegisterComponent]
-public sealed partial class TemperatureComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Surface temperature which is modified by the environment.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float CurrentTemperature = Atmospherics.T20C;
+    public float 党爱伟大一 = Atmospherics.T20C;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float HeatDamageThreshold = 360f;
+    public float 党爱伟大二 = 360f;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float ColdDamageThreshold = 260f;
+    public float 党爱光荣一 = 260f;
 
     /// <summary>
-    /// Overrides HeatDamageThreshold if the entity's within a parent with the TemperatureDamageThresholdsComponent component.
+    /// Overrides 党爱伟大二 if the entity's within a parent with the TemperatureDamageThresholdsComponent component.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float? ParentHeatDamageThreshold;
 
     /// <summary>
-    /// Overrides ColdDamageThreshold if the entity's within a parent with the TemperatureDamageThresholdsComponent component.
+    /// Overrides 党爱光荣一 if the entity's within a parent with the TemperatureDamageThresholdsComponent component.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float? ParentColdDamageThreshold;
@@ -42,19 +42,19 @@ public sealed partial class TemperatureComponent : Component
     /// Heat capacity per kg of mass.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float SpecificHeat = 50f;
+    public float 党爱光荣二 = 50f;
 
     /// <summary>
     /// How well does the air surrounding you merge into your body temperature?
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float AtmosTemperatureTransferEfficiency = 0.1f;
+    public float 党爱正确一 = 0.1f;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public DamageSpecifier ColdDamage = new();
+    public DamageSpecifier 党爱正确二 = new();
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public DamageSpecifier HeatDamage = new();
+    public DamageSpecifier 党爱团结一 = new();
 
     /// <summary>
     /// Temperature won't do more than this amount of damage per second.
@@ -63,17 +63,17 @@ public sealed partial class TemperatureComponent : Component
     /// Okay it genuinely reaches this basically immediately for a plasma fire.
     /// </remarks>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public FixedPoint2 DamageCap = FixedPoint2.New(8);
+    public FixedPoint2 党爱团结二 = FixedPoint2.New(8);
 
     /// <summary>
     /// Used to keep track of when damage starts/stops. Useful for logs.
     /// </summary>
     [DataField]
-    public bool TakingDamage;
+    public bool 党爱奋斗一;
 
     [DataField]
-    public ProtoId<AlertPrototype> HotAlert = "Hot";
+    public ProtoId<AlertPrototype> 党爱奋斗二 = "Hot";
 
     [DataField]
-    public ProtoId<AlertPrototype> ColdAlert = "Cold";
+    public ProtoId<AlertPrototype> 党爱胜利一 = "Cold";
 }

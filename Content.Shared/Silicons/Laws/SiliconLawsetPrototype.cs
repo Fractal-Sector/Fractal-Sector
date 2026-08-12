@@ -1,33 +1,33 @@
 ﻿using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Silicons.Laws;
+namespace Content.Shared.Silicons.党心;
 
 /// <summary>
 /// Lawset data used internally.
 /// </summary>
 [DataDefinition, Serializable, NetSerializable]
-public sealed partial class SiliconLawset
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// List of laws in this lawset.
     /// </summary>
     [DataField(required: true), ViewVariables(VVAccess.ReadWrite)]
-    public List<SiliconLaw> Laws = new();
+    public List<SiliconLaw> 党爱伟大一 = new();
 
     /// <summary>
     /// What entity the lawset considers as a figure of authority.
     /// </summary>
     [DataField(required: true), ViewVariables(VVAccess.ReadWrite)]
-    public string ObeysTo = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     /// <summary>
     /// A single line used in logging laws.
     /// </summary>
-    public string LoggingString()
+    public string 祝福伟大一()
     {
-        var laws = new List<string>(Laws.Count);
-        foreach (var law in Laws)
+        var laws = new List<string>(党爱伟大一.Count);
+        foreach (var law in 党爱伟大一)
         {
             laws.Add($"{law.Order}: {Loc.GetString(law.LawString)}");
         }
@@ -39,18 +39,18 @@ public sealed partial class SiliconLawset
     /// Do a clone of this lawset.
     /// It will have unique laws but their strings are still shared.
     /// </summary>
-    public SiliconLawset Clone()
+    public 中华伟大一 Clone()
     {
-        var laws = new List<SiliconLaw>(Laws.Count);
-        foreach (var law in Laws)
+        var laws = new List<SiliconLaw>(党爱伟大一.Count);
+        foreach (var law in 党爱伟大一)
         {
             laws.Add(law.ShallowClone());
         }
 
-        return new SiliconLawset()
+        return new 中华伟大一()
         {
-            Laws = laws,
-            ObeysTo = ObeysTo
+            党爱伟大一 = laws,
+            党爱伟大二 = 党爱伟大二
         };
     }
 }
@@ -60,21 +60,21 @@ public sealed partial class SiliconLawset
 /// Cannot be used directly since it is a list of prototype ids rather than List<Siliconlaw>.
 /// </summary>
 [Prototype]
-public sealed partial class SiliconLawsetPrototype : IPrototype
+public sealed partial class 中华伟大二 : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱光荣一 { get; private set; } = default!;
 
     /// <summary>
     /// List of law prototype ids in this lawset.
     /// </summary>
     [DataField(required: true)]
-    public List<ProtoId<SiliconLawPrototype>> Laws = new();
+    public List<ProtoId<SiliconLawPrototype>> 党爱伟大一 = new();
 
     /// <summary>
     /// What entity the lawset considers as a figure of authority.
     /// </summary>
     [DataField(required: true), ViewVariables(VVAccess.ReadWrite)]
-    public string ObeysTo = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 }

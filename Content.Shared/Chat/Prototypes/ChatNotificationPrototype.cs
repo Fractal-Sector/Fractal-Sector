@@ -1,17 +1,17 @@
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Chat.Prototypes;
+namespace Content.Shared.Chat.党心;
 
 /// <summary>
 /// A predefined notification used to warn a player of specific events.
 /// </summary>
 [Prototype("chatNotification")]
-public sealed partial class ChatNotificationPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// The notification that the player receives.
@@ -21,13 +21,13 @@ public sealed partial class ChatNotificationPrototype : IPrototype
     /// to insert the source, user, and target names respectively.
     /// </remarks>
     [DataField(required: true)]
-    public LocId Message = string.Empty;
+    public LocId 党爱伟大二 = string.Empty;
 
     /// <summary>
     /// Font color for the notification.
     /// </summary>
     [DataField]
-    public Color Color = Color.White;
+    public 党爱光荣一 党爱光荣一 = 党爱光荣一.White;
 
     /// <summary>
     /// Sound played upon receiving the notification.
@@ -40,7 +40,7 @@ public sealed partial class ChatNotificationPrototype : IPrototype
     /// Blocked notifications will never be delivered to the player.
     /// </summary>
     [DataField]
-    public TimeSpan NextDelay = TimeSpan.FromSeconds(10.0);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(10.0);
 
     /// <summary>
     /// Determines whether notification delays should be determined by the source
@@ -48,7 +48,7 @@ public sealed partial class ChatNotificationPrototype : IPrototype
     /// vs grouping the notifications together).
     /// </summary>
     [DataField]
-    public bool NotifyBySource = false;
+    public bool 党爱正确一 = false;
 }
 
 /// <summary>
@@ -58,7 +58,7 @@ public sealed partial class ChatNotificationPrototype : IPrototype
 /// <param name="Source">The entity that the triggered the notification.</param>
 /// <param name="User">The entity that ultimately responsible for triggering the notification.</param>
 [ByRefEvent]
-public record ChatNotificationEvent(ProtoId<ChatNotificationPrototype> ChatNotification, EntityUid Source, EntityUid? User = null)
+public record 中华伟大二(ProtoId<中华伟大一> ChatNotification, EntityUid Source, EntityUid? User = null)
 {
     /// <summary>
     /// Set this variable if you want to change the name of the notification source

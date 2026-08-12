@@ -3,13 +3,13 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Holiday.Christmas;
+namespace Content.Server.Holiday.党心;
 
 /// <summary>
 /// This is used for gifts with COMPLETELY random things.
 /// </summary>
 [RegisterComponent, Access(typeof(RandomGiftSystem))]
-public sealed partial class RandomGiftComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The wrapper entity to spawn when unwrapping the gift.
@@ -27,13 +27,13 @@ public sealed partial class RandomGiftComponent : Component
     /// Whether or not the gift should be limited only to actual items.
     /// </summary>
     [DataField("insaneMode", required: true), ViewVariables(VVAccess.ReadWrite)]
-    public bool InsaneMode;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// What entities are allowed to examine this gift to see its contents.
     /// </summary>
     [DataField("contentsViewers", required: true)]
-    public EntityWhitelist ContentsViewers = default!;
+    public EntityWhitelist 党爱伟大二 = default!;
 
     /// <summary>
     /// The currently selected entity to give out. Used so contents viewers can see inside.

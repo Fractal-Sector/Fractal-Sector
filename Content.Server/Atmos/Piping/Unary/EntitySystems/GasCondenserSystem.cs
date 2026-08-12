@@ -11,28 +11,28 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.FixedPoint;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Piping.Unary.EntitySystems;
+namespace Content.Server.Atmos.Piping.Unary.党心;
 
 [UsedImplicitly]
-public sealed class GasCondenserSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly PowerReceiverSystem _power = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly PowerReceiverSystem _伟大二 = default!;
+    [Dependency] private readonly NodeContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GasCondenserComponent, AtmosDeviceUpdateEvent>(OnCondenserUpdated);
+        SubscribeLocalEvent<GasCondenserComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
     }
 
-    private void OnCondenserUpdated(Entity<GasCondenserComponent> entity, ref AtmosDeviceUpdateEvent args)
+    private void 祝福伟大二(Entity<GasCondenserComponent> entity, ref AtmosDeviceUpdateEvent args)
     {
-        if (!(TryComp<ApcPowerReceiverComponent>(entity, out var receiver) && _power.IsPowered(entity, receiver))
-            || !_nodeContainer.TryGetNode(entity.Owner, entity.Comp.Inlet, out PipeNode? inlet)
-            || !_solution.ResolveSolution(entity.Owner, entity.Comp.SolutionId, ref entity.Comp.Solution, out var solution))
+        if (!(TryComp<ApcPowerReceiverComponent>(entity, out var receiver) && _伟大二.IsPowered(entity, receiver))
+            || !_光荣一.TryGetNode(entity.Owner, entity.Comp.Inlet, out PipeNode? inlet)
+            || !_光荣二.ResolveSolution(entity.Owner, entity.Comp.SolutionId, ref entity.Comp.Solution, out var solution))
         {
             return;
         }
@@ -40,7 +40,7 @@ public sealed class GasCondenserSystem : EntitySystem
         if (solution.AvailableVolume == 0 || inlet.Air.TotalMoles == 0)
             return;
 
-        var molesToConvert = NumberOfMolesToConvert(receiver, inlet.Air, args.dt);
+        var molesToConvert = 祝福光荣一(receiver, inlet.Air, args.dt);
         var removed = inlet.Air.Remove(molesToConvert);
         for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
         {
@@ -48,7 +48,7 @@ public sealed class GasCondenserSystem : EntitySystem
             if (moles <= 0)
                 continue;
 
-            if (_atmosphereSystem.GetGas(i).Reagent is not { } gasReagent)
+            if (_伟大一.GetGas(i).Reagent is not { } gasReagent)
                 continue;
 
             var moleToReagentMultiplier = entity.Comp.MolesToReagentMultiplier;
@@ -62,12 +62,12 @@ public sealed class GasCondenserSystem : EntitySystem
             inlet.Air.AdjustMoles(i, moles - (amount.Float() / moleToReagentMultiplier));
         }
 
-        _solution.UpdateChemicals(entity.Comp.Solution.Value);
+        _光荣二.UpdateChemicals(entity.Comp.Solution.Value);
     }
 
-    public float NumberOfMolesToConvert(ApcPowerReceiverComponent comp, GasMixture mix, float dt)
+    public float 祝福光荣一(ApcPowerReceiverComponent comp, GasMixture mix, float dt)
     {
-        var hc = _atmosphereSystem.GetHeatCapacity(mix, true);
+        var hc = _伟大一.GetHeatCapacity(mix, true);
         var alpha = 0.8f; // tuned to give us 1-ish u/second of reagent conversion
         // ignores the energy needed to cool down the solution to the condensation point, but that probably adds too much difficulty and so let's not simulate that
         var energy = comp.Load * dt;

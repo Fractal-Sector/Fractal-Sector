@@ -32,36 +32,36 @@ using Robust.Shared.Map.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Revenant.EntitySystems;
+namespace Content.Server.Revenant.党心;
 
-public sealed partial class RevenantSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly EmagSystem _emagSystem = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly EmagSystem _伟大一 = default!;
+    [Dependency] private readonly ThrowingSystem _伟大二 = default!;
+    [Dependency] private readonly EntityStorageSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly MobThresholdSystem _正确一 = default!;
+    [Dependency] private readonly GhostSystem _正确二 = default!;
+    [Dependency] private readonly TileSystem _团结一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结二 = default!;
+    [Dependency] private readonly SharedTransformSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedMapSystem _奋斗二 = default!;
 
     private static readonly ProtoId<TagPrototype> WindowTag = "Window";
 
-    private void InitializeAbilities()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<RevenantComponent, UserActivateInWorldEvent>(OnInteract);
-        SubscribeLocalEvent<RevenantComponent, SoulEvent>(OnSoulSearch);
-        SubscribeLocalEvent<RevenantComponent, HarvestEvent>(OnHarvest);
+        SubscribeLocalEvent<RevenantComponent, UserActivateInWorldEvent>(祝福伟大二);
+        SubscribeLocalEvent<RevenantComponent, SoulEvent>(祝福光荣二);
+        SubscribeLocalEvent<RevenantComponent, HarvestEvent>(祝福正确二);
 
-        SubscribeLocalEvent<RevenantComponent, RevenantDefileActionEvent>(OnDefileAction);
-        SubscribeLocalEvent<RevenantComponent, RevenantOverloadLightsActionEvent>(OnOverloadLightsAction);
-        SubscribeLocalEvent<RevenantComponent, RevenantBlightActionEvent>(OnBlightAction);
-        SubscribeLocalEvent<RevenantComponent, RevenantMalfunctionActionEvent>(OnMalfunctionAction);
+        SubscribeLocalEvent<RevenantComponent, RevenantDefileActionEvent>(祝福团结一);
+        SubscribeLocalEvent<RevenantComponent, RevenantOverloadLightsActionEvent>(祝福团结二);
+        SubscribeLocalEvent<RevenantComponent, RevenantBlightActionEvent>(祝福奋斗一);
+        SubscribeLocalEvent<RevenantComponent, RevenantMalfunctionActionEvent>(祝福奋斗二);
     }
 
-    private void OnInteract(EntityUid uid, RevenantComponent component, UserActivateInWorldEvent args)
+    private void 祝福伟大二(EntityUid uid, RevenantComponent component, UserActivateInWorldEvent args)
     {
         if (args.Handled)
             return;
@@ -72,7 +72,7 @@ public sealed partial class RevenantSystem
 
         if (HasComp<PoweredLightComponent>(target))
         {
-            args.Handled = _ghost.DoGhostBooEvent(target);
+            args.Handled = _正确二.DoGhostBooEvent(target);
             return;
         }
 
@@ -83,17 +83,17 @@ public sealed partial class RevenantSystem
         if (!TryComp<EssenceComponent>(target, out var essence) || !essence.SearchComplete)
         {
             EnsureComp<EssenceComponent>(target);
-            BeginSoulSearchDoAfter(uid, target, component);
+            祝福光荣一(uid, target, component);
         }
         else
         {
-            BeginHarvestDoAfter(uid, target, component, essence);
+            祝福正确一(uid, target, component, essence);
         }
 
         args.Handled = true;
     }
 
-    private void BeginSoulSearchDoAfter(EntityUid uid, EntityUid target, RevenantComponent revenant)
+    private void 祝福光荣一(EntityUid uid, EntityUid target, RevenantComponent revenant)
     {
         var searchDoAfter = new DoAfterArgs(EntityManager, uid, revenant.SoulSearchDuration, new SoulEvent(), uid, target: target)
         {
@@ -108,7 +108,7 @@ public sealed partial class RevenantSystem
         _popup.PopupEntity(Loc.GetString("revenant-soul-searching", ("target", target)), uid, uid, PopupType.Medium);
     }
 
-    private void OnSoulSearch(EntityUid uid, RevenantComponent component, SoulEvent args)
+    private void 祝福光荣二(EntityUid uid, RevenantComponent component, SoulEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
@@ -135,7 +135,7 @@ public sealed partial class RevenantSystem
         args.Handled = true;
     }
 
-    private void BeginHarvestDoAfter(EntityUid uid, EntityUid target, RevenantComponent revenant, EssenceComponent essence)
+    private void 祝福正确一(EntityUid uid, EntityUid target, RevenantComponent revenant, EssenceComponent essence)
     {
         if (essence.Harvested)
         {
@@ -166,7 +166,7 @@ public sealed partial class RevenantSystem
         if (!_doAfter.TryStartDoAfter(doAfter))
             return;
 
-        _appearance.SetData(uid, RevenantVisuals.Harvesting, true);
+        _光荣二.SetData(uid, RevenantVisuals.Harvesting, true);
 
         _popup.PopupEntity(Loc.GetString("revenant-soul-begin-harvest", ("target", target)),
             target, PopupType.Large);
@@ -174,18 +174,18 @@ public sealed partial class RevenantSystem
         TryUseAbility(uid, revenant, 0, revenant.HarvestDebuffs);
     }
 
-    private void OnHarvest(EntityUid uid, RevenantComponent component, HarvestEvent args)
+    private void 祝福正确二(EntityUid uid, RevenantComponent component, HarvestEvent args)
     {
         if (args.Cancelled)
         {
-            _appearance.SetData(uid, RevenantVisuals.Harvesting, false);
+            _光荣二.SetData(uid, RevenantVisuals.Harvesting, false);
             return;
         }
 
         if (args.Handled || args.Args.Target == null)
             return;
 
-        _appearance.SetData(uid, RevenantVisuals.Harvesting, false);
+        _光荣二.SetData(uid, RevenantVisuals.Harvesting, false);
 
         if (!TryComp<EssenceComponent>(args.Args.Target, out var essence))
             return;
@@ -209,7 +209,7 @@ public sealed partial class RevenantSystem
 
         //KILL THEMMMM
 
-        if (!_mobThresholdSystem.TryGetThresholdForState(args.Args.Target.Value, MobState.Dead, out var damage))
+        if (!_正确一.TryGetThresholdForState(args.Args.Target.Value, MobState.Dead, out var damage))
             return;
         DamageSpecifier dspec = new();
         dspec.DamageDict.Add("Cold", damage.Value);
@@ -218,7 +218,7 @@ public sealed partial class RevenantSystem
         args.Handled = true;
     }
 
-    private void OnDefileAction(EntityUid uid, RevenantComponent component, RevenantDefileActionEvent args)
+    private void 祝福团结一(EntityUid uid, RevenantComponent component, RevenantDefileActionEvent args)
     {
         if (args.Handled)
             return;
@@ -233,10 +233,10 @@ public sealed partial class RevenantSystem
         var xform = Transform(uid);
         if (!TryComp<MapGridComponent>(xform.GridUid, out var map))
             return;
-        var tiles = _mapSystem.GetTilesIntersecting(
+        var tiles = _奋斗二.GetTilesIntersecting(
             xform.GridUid.Value,
             map,
-            Box2.CenteredAround(_transformSystem.GetWorldPosition(xform),
+            Box2.CenteredAround(_奋斗一.GetWorldPosition(xform),
             new Vector2(component.DefileRadius * 2, component.DefileRadius)))
             .ToArray();
 
@@ -246,7 +246,7 @@ public sealed partial class RevenantSystem
         {
             if (!tiles.TryGetValue(i, out var value))
                 continue;
-            _tile.PryTile(value);
+            _团结一.PryTile(value);
         }
 
         var lookup = _lookup.GetEntitiesInRange(uid, component.DefileRadius, LookupFlags.Approximate | LookupFlags.Static);
@@ -271,20 +271,20 @@ public sealed partial class RevenantSystem
 
             //randomly opens some lockers and such.
             if (entityStorage.TryGetComponent(ent, out var entstorecomp))
-                _entityStorage.OpenStorage(ent, entstorecomp);
+                _光荣一.OpenStorage(ent, entstorecomp);
 
             //chucks shit
             if (items.HasComponent(ent) &&
                 TryComp<PhysicsComponent>(ent, out var phys) && phys.BodyType != BodyType.Static)
-                _throwing.TryThrow(ent, _random.NextAngle().ToWorldVec());
+                _伟大二.TryThrow(ent, _random.NextAngle().ToWorldVec());
 
             //flicker lights
             if (lights.HasComponent(ent))
-                _ghost.DoGhostBooEvent(ent);
+                _正确二.DoGhostBooEvent(ent);
         }
     }
 
-    private void OnOverloadLightsAction(EntityUid uid, RevenantComponent component, RevenantOverloadLightsActionEvent args)
+    private void 祝福团结二(EntityUid uid, RevenantComponent component, RevenantOverloadLightsActionEvent args)
     {
         if (args.Handled)
             return;
@@ -319,7 +319,7 @@ public sealed partial class RevenantSystem
         }
     }
 
-    private void OnBlightAction(EntityUid uid, RevenantComponent component, RevenantBlightActionEvent args)
+    private void 祝福奋斗一(EntityUid uid, RevenantComponent component, RevenantBlightActionEvent args)
     {
         if (args.Handled)
             return;
@@ -331,7 +331,7 @@ public sealed partial class RevenantSystem
         // TODO: When disease refactor is in.
     }
 
-    private void OnMalfunctionAction(EntityUid uid, RevenantComponent component, RevenantMalfunctionActionEvent args)
+    private void 祝福奋斗二(EntityUid uid, RevenantComponent component, RevenantMalfunctionActionEvent args)
     {
         if (args.Handled)
             return;
@@ -343,11 +343,11 @@ public sealed partial class RevenantSystem
 
         foreach (var ent in _lookup.GetEntitiesInRange(uid, component.MalfunctionRadius))
         {
-            if (_whitelistSystem.IsWhitelistFail(component.MalfunctionWhitelist, ent) ||
-                _whitelistSystem.IsBlacklistPass(component.MalfunctionBlacklist, ent))
+            if (_团结二.IsWhitelistFail(component.MalfunctionWhitelist, ent) ||
+                _团结二.IsBlacklistPass(component.MalfunctionBlacklist, ent))
                 continue;
 
-            _emagSystem.TryEmagEffect(uid, uid, ent);
+            _伟大一.TryEmagEffect(uid, uid, ent);
         }
     }
 }

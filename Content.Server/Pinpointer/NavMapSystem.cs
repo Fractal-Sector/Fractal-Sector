@@ -14,79 +14,79 @@ using Robust.Shared.Timing;
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Warps;
 
-namespace Content.Server.Pinpointer;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Handles data to be used for in-grid map displays.
 /// </summary>
-public sealed partial class NavMapSystem : SharedNavMapSystem
+public sealed partial class 中华伟大一 : SharedNavMapSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly TurfSystem _turfSystem = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly IMapManager _正确一 = default!;
+    [Dependency] private readonly IGameTiming _正确二 = default!;
+    [Dependency] private readonly TurfSystem _团结一 = default!;
 
-    public const float CloseDistance = 15f;
-    public const float FarDistance = 30f;
+    public const float 党爱伟大一 = 15f;
+    public const float 党爱伟大二 = 30f;
 
-    private EntityQuery<AirtightComponent> _airtightQuery;
-    private EntityQuery<MapGridComponent> _gridQuery;
-    private EntityQuery<NavMapComponent> _navQuery;
+    private EntityQuery<AirtightComponent> _团结二;
+    private EntityQuery<MapGridComponent> _奋斗一;
+    private EntityQuery<NavMapComponent> _奋斗二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         var categories = Enum.GetNames(typeof(NavMapChunkType)).Length - 1; // -1 due to "Invalid" entry.
         if (Categories != categories)
             throw new Exception($"{nameof(Categories)} must be equal to the number of chunk types");
 
-        _airtightQuery = GetEntityQuery<AirtightComponent>();
-        _gridQuery = GetEntityQuery<MapGridComponent>();
-        _navQuery = GetEntityQuery<NavMapComponent>();
+        _团结二 = GetEntityQuery<AirtightComponent>();
+        _奋斗一 = GetEntityQuery<MapGridComponent>();
+        _奋斗二 = GetEntityQuery<NavMapComponent>();
 
         // Initialization events
-        SubscribeLocalEvent<StationGridAddedEvent>(OnStationInit);
+        SubscribeLocalEvent<StationGridAddedEvent>(祝福伟大二);
 
         // Grid change events
-        SubscribeLocalEvent<GridSplitEvent>(OnNavMapSplit);
-        SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
+        SubscribeLocalEvent<GridSplitEvent>(祝福光荣一);
+        SubscribeLocalEvent<TileChangedEvent>(祝福正确一);
 
-        SubscribeLocalEvent<AirtightChanged>(OnAirtightChange);
+        SubscribeLocalEvent<AirtightChanged>(祝福团结一);
 
         // Beacon events
-        SubscribeLocalEvent<NavMapBeaconComponent, MapInitEvent>(OnNavMapBeaconMapInit);
-        SubscribeLocalEvent<NavMapBeaconComponent, AnchorStateChangedEvent>(OnNavMapBeaconAnchor);
-        SubscribeLocalEvent<ConfigurableNavMapBeaconComponent, NavMapBeaconConfigureBuiMessage>(OnConfigureMessage);
-        SubscribeLocalEvent<ConfigurableNavMapBeaconComponent, MapInitEvent>(OnConfigurableMapInit);
+        SubscribeLocalEvent<NavMapBeaconComponent, MapInitEvent>(祝福团结二);
+        SubscribeLocalEvent<NavMapBeaconComponent, AnchorStateChangedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<ConfigurableNavMapBeaconComponent, NavMapBeaconConfigureBuiMessage>(祝福奋斗二);
+        SubscribeLocalEvent<ConfigurableNavMapBeaconComponent, MapInitEvent>(祝福胜利一);
     }
 
-    private void OnStationInit(StationGridAddedEvent ev)
+    private void 祝福伟大二(StationGridAddedEvent ev)
     {
         var comp = EnsureComp<NavMapComponent>(ev.GridId);
-        RefreshGrid(ev.GridId, comp, Comp<MapGridComponent>(ev.GridId));
+        祝福胜利二(ev.GridId, comp, Comp<MapGridComponent>(ev.GridId));
     }
 
     #region: Grid change event handling
 
-    private void OnNavMapSplit(ref GridSplitEvent args)
+    private void 祝福光荣一(ref GridSplitEvent args)
     {
-        if (!_navQuery.TryComp(args.Grid, out var comp))
+        if (!_奋斗二.TryComp(args.Grid, out var comp))
             return;
 
         foreach (var grid in args.NewGrids)
         {
             var newComp = EnsureComp<NavMapComponent>(grid);
-            RefreshGrid(grid, newComp, _gridQuery.GetComponent(grid));
+            祝福胜利二(grid, newComp, _奋斗一.GetComponent(grid));
         }
 
-        RefreshGrid(args.Grid, comp, _gridQuery.GetComponent(args.Grid));
+        祝福胜利二(args.Grid, comp, _奋斗一.GetComponent(args.Grid));
     }
 
-    private NavMapChunk EnsureChunk(NavMapComponent component, Vector2i origin)
+    private NavMapChunk 祝福光荣二(NavMapComponent component, Vector2i origin)
     {
         if (!component.Chunks.TryGetValue(origin, out var chunk))
         {
@@ -97,9 +97,9 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         return chunk;
     }
 
-    private void OnTileChanged(ref TileChangedEvent ev)
+    private void 祝福正确一(ref TileChangedEvent ev)
     {
-        if (!_navQuery.TryComp(ev.Entity, out var navMap))
+        if (!_奋斗二.TryComp(ev.Entity, out var navMap))
             return;
 
         foreach (var change in ev.Changes)
@@ -110,16 +110,16 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
             var tile = change.GridIndices;
             var chunkOrigin = SharedMapSystem.GetChunkIndices(tile, ChunkSize);
 
-            var chunk = EnsureChunk(navMap, chunkOrigin);
+            var chunk = 祝福光荣二(navMap, chunkOrigin);
 
             // This could be easily replaced in the future to accommodate diagonal tiles
             var relative = SharedMapSystem.GetChunkRelative(tile, ChunkSize);
             ref var tileData = ref chunk.TileData[GetTileIndex(relative)];
 
-            if (_turfSystem.IsSpace(change.NewTile))
+            if (_团结一.IsSpace(change.NewTile))
             {
                 tileData = 0;
-                if (PruneEmpty((ev.Entity, navMap), chunk))
+                if (祝福繁荣一((ev.Entity, navMap), chunk))
                     continue;
             }
             else
@@ -127,28 +127,28 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
                 tileData = FloorMask;
             }
 
-            DirtyChunk((ev.Entity, navMap), chunk);
+            祝福正确二((ev.Entity, navMap), chunk);
         }
     }
 
-    private void DirtyChunk(Entity<NavMapComponent> entity, NavMapChunk chunk)
+    private void 祝福正确二(Entity<NavMapComponent> entity, NavMapChunk chunk)
     {
-        if (chunk.LastUpdate == _gameTiming.CurTick)
+        if (chunk.LastUpdate == _正确二.CurTick)
             return;
 
-        chunk.LastUpdate = _gameTiming.CurTick;
+        chunk.LastUpdate = _正确二.CurTick;
         Dirty(entity);
     }
 
-    private void OnAirtightChange(ref AirtightChanged args)
+    private void 祝福团结一(ref AirtightChanged args)
     {
         if (args.AirBlockedChanged)
             return;
 
         var gridUid = args.Position.Grid;
 
-        if (!_navQuery.TryComp(gridUid, out var navMap) ||
-            !_gridQuery.TryComp(gridUid, out var mapGrid))
+        if (!_奋斗二.TryComp(gridUid, out var navMap) ||
+            !_奋斗一.TryComp(gridUid, out var mapGrid))
         {
             return;
         }
@@ -156,17 +156,17 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         var chunkOrigin = SharedMapSystem.GetChunkIndices(args.Position.Tile, ChunkSize);
         var (newValue, chunk) = RefreshTileEntityContents(gridUid, navMap, mapGrid, chunkOrigin, args.Position.Tile, setFloor: false);
 
-        if (newValue == 0 && PruneEmpty((gridUid, navMap), chunk))
+        if (newValue == 0 && 祝福繁荣一((gridUid, navMap), chunk))
             return;
 
-        DirtyChunk((gridUid, navMap), chunk);
+        祝福正确二((gridUid, navMap), chunk);
     }
 
     #endregion
 
     #region: Beacon event handling
 
-    private void OnNavMapBeaconMapInit(EntityUid uid, NavMapBeaconComponent component, MapInitEvent args)
+    private void 祝福团结二(EntityUid uid, NavMapBeaconComponent component, MapInitEvent args)
     {
         if (component.DefaultText == null || component.Text != null)
             return;
@@ -174,16 +174,16 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         component.Text = Loc.GetString(component.DefaultText);
         Dirty(uid, component);
 
-        UpdateNavMapBeaconData(uid, component);
+        祝福繁荣二(uid, component);
     }
 
-    private void OnNavMapBeaconAnchor(EntityUid uid, NavMapBeaconComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福奋斗一(EntityUid uid, NavMapBeaconComponent component, ref AnchorStateChangedEvent args)
     {
-        UpdateBeaconEnabledVisuals((uid, component));
-        UpdateNavMapBeaconData(uid, component);
+        祝福富强一((uid, component));
+        祝福繁荣二(uid, component);
     }
 
-    private void OnConfigureMessage(Entity<ConfigurableNavMapBeaconComponent> ent, ref NavMapBeaconConfigureBuiMessage args)
+    private void 祝福奋斗二(Entity<ConfigurableNavMapBeaconComponent> ent, ref NavMapBeaconConfigureBuiMessage args)
     {
         if (!TryComp<NavMapBeaconComponent>(ent, out var beacon))
             return;
@@ -193,7 +193,7 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
             beacon.Enabled == args.Enabled)
             return;
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium,
+        _伟大一.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(args.Actor):player} configured NavMapBeacon \'{ToPrettyString(ent):entity}\' with text \'{args.Text}\', color {args.Color.ToHexNoAlpha()}, and {(args.Enabled ? "enabled" : "disabled")} it.");
 
         if (TryComp<WarpPointComponent>(ent, out var warpPoint))
@@ -206,11 +206,11 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         beacon.Enabled = args.Enabled;
         Dirty(ent, beacon);
 
-        UpdateBeaconEnabledVisuals((ent, beacon));
-        UpdateNavMapBeaconData(ent, beacon);
+        祝福富强一((ent, beacon));
+        祝福繁荣二(ent, beacon);
     }
 
-    private void OnConfigurableMapInit(Entity<ConfigurableNavMapBeaconComponent> ent, ref MapInitEvent args)
+    private void 祝福胜利一(Entity<ConfigurableNavMapBeaconComponent> ent, ref MapInitEvent args)
     {
         if (!TryComp<NavMapBeaconComponent>(ent, out var navMap))
             return;
@@ -219,14 +219,14 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         if (TryComp<WarpPointComponent>(ent, out var warpPoint))
             warpPoint.Location = navMap.Text;
 
-        UpdateBeaconEnabledVisuals((ent, navMap));
+        祝福富强一((ent, navMap));
     }
 
     #endregion
 
     #region: Grid functions
 
-    private void RefreshGrid(EntityUid uid, NavMapComponent component, MapGridComponent mapGrid)
+    private void 祝福胜利二(EntityUid uid, NavMapComponent component, MapGridComponent mapGrid)
     {
         // Clear stale data
         component.Chunks.Clear();
@@ -239,19 +239,19 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
             if (qTransComp.ParentUid != uid)
                 continue;
 
-            UpdateNavMapBeaconData(qUid, qNavComp);
+            祝福繁荣二(qUid, qNavComp);
         }
 
         // Loop over all tiles
-        var tileRefs = _mapSystem.GetAllTiles(uid, mapGrid);
+        var tileRefs = _光荣一.GetAllTiles(uid, mapGrid);
 
         foreach (var tileRef in tileRefs)
         {
             var tile = tileRef.GridIndices;
             var chunkOrigin = SharedMapSystem.GetChunkIndices(tile, ChunkSize);
 
-            var chunk = EnsureChunk(component, chunkOrigin);
-            chunk.LastUpdate = _gameTiming.CurTick;
+            var chunk = 祝福光荣二(component, chunkOrigin);
+            chunk.LastUpdate = _正确二.CurTick;
             RefreshTileEntityContents(uid, component, mapGrid, chunkOrigin, tile, setFloor: true);
         }
 
@@ -266,7 +266,7 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         bool setFloor)
     {
         var relative = SharedMapSystem.GetChunkRelative(tile, ChunkSize);
-        var chunk = EnsureChunk(component, chunkOrigin);
+        var chunk = 祝福光荣二(component, chunkOrigin);
         ref var tileData = ref chunk.TileData[GetTileIndex(relative)];
 
         // Clear all data except for floor bits
@@ -275,10 +275,10 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         else
             tileData &= FloorMask;
 
-        var enumerator = _mapSystem.GetAnchoredEntitiesEnumerator(uid, mapGrid, tile);
+        var enumerator = _光荣一.GetAnchoredEntitiesEnumerator(uid, mapGrid, tile);
         while (enumerator.MoveNext(out var ent))
         {
-            if (!_airtightQuery.TryComp(ent, out var airtight))
+            if (!_团结二.TryComp(ent, out var airtight))
                 continue;
 
             var category = GetEntityType(ent.Value);
@@ -302,7 +302,7 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         return (tileData, chunk);
     }
 
-    private bool PruneEmpty(Entity<NavMapComponent> entity, NavMapChunk chunk)
+    private bool 祝福繁荣一(Entity<NavMapComponent> entity, NavMapChunk chunk)
     {
         foreach (var val in chunk.TileData)
         {
@@ -320,7 +320,7 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
 
     #region: Beacon functions
 
-    private void UpdateNavMapBeaconData(EntityUid uid, NavMapBeaconComponent component, TransformComponent? xform = null)
+    private void 祝福繁荣二(EntityUid uid, NavMapBeaconComponent component, TransformComponent? xform = null)
     {
         if (!Resolve(uid, ref xform))
             return;
@@ -328,7 +328,7 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         if (xform.GridUid == null)
             return;
 
-        if (!_navQuery.TryComp(xform.GridUid, out var navMap))
+        if (!_奋斗二.TryComp(xform.GridUid, out var navMap))
             return;
 
         var meta = MetaData(uid);
@@ -344,32 +344,32 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
             Dirty(xform.GridUid.Value, navMap);
     }
 
-    private void UpdateBeaconEnabledVisuals(Entity<NavMapBeaconComponent> ent)
+    private void 祝福富强一(Entity<NavMapBeaconComponent> ent)
     {
-        _appearance.SetData(ent, NavMapBeaconVisuals.Enabled, ent.Comp.Enabled && Transform(ent).Anchored);
+        _伟大二.SetData(ent, NavMapBeaconVisuals.Enabled, ent.Comp.Enabled && Transform(ent).Anchored);
     }
 
     /// <summary>
     /// Sets the beacon's Enabled field and refreshes the grid.
     /// </summary>
-    public void SetBeaconEnabled(EntityUid uid, bool enabled, NavMapBeaconComponent? comp = null)
+    public void 祝福富强二(EntityUid uid, bool enabled, NavMapBeaconComponent? comp = null)
     {
         if (!Resolve(uid, ref comp) || comp.Enabled == enabled)
             return;
 
         comp.Enabled = enabled;
-        UpdateBeaconEnabledVisuals((uid, comp));
+        祝福富强一((uid, comp));
     }
 
     /// <summary>
     /// Toggles the beacon's Enabled field and refreshes the grid.
     /// </summary>
-    public void ToggleBeacon(EntityUid uid, NavMapBeaconComponent? comp = null)
+    public void 祝福民主一(EntityUid uid, NavMapBeaconComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
 
-        SetBeaconEnabled(uid, !comp.Enabled, comp);
+        祝福富强二(uid, !comp.Enabled, comp);
     }
 
     /// <summary>
@@ -377,7 +377,7 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
     /// This is used for things like announcements where you want to find the closest "landmark" to something.
     /// </summary>
     [PublicAPI]
-    public bool TryGetNearestBeacon(Entity<TransformComponent?> ent,
+    public bool 祝福民主二(Entity<TransformComponent?> ent,
         [NotNullWhen(true)] out Entity<NavMapBeaconComponent>? beacon,
         [NotNullWhen(true)] out MapCoordinates? beaconCoords)
     {
@@ -386,14 +386,14 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         if (!Resolve(ent, ref ent.Comp))
             return false;
 
-        return TryGetNearestBeacon(_transformSystem.GetMapCoordinates(ent, ent.Comp), out beacon, out beaconCoords);
+        return 祝福民主二(_光荣二.GetMapCoordinates(ent, ent.Comp), out beacon, out beaconCoords);
     }
 
     /// <summary>
     /// For a given position, tries to find the nearest configurable beacon that is marked as visible.
     /// This is used for things like announcements where you want to find the closest "landmark" to something.
     /// </summary>
-    public bool TryGetNearestBeacon(MapCoordinates coordinates,
+    public bool 祝福民主二(MapCoordinates coordinates,
         [NotNullWhen(true)] out Entity<NavMapBeaconComponent>? beacon,
         [NotNullWhen(true)] out MapCoordinates? beaconCoords)
     {
@@ -413,7 +413,7 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
             if (coordinates.MapId != xform.MapID)
                 continue;
 
-            var coords = _transformSystem.GetWorldPosition(xform);
+            var coords = _光荣二.GetWorldPosition(xform);
             var distanceSquared = (coordinates.Position - coords).LengthSquared();
             if (!float.IsInfinity(minDistance) && distanceSquared >= minDistance)
                 continue;
@@ -431,12 +431,12 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
     /// to the position of <paramref name="ent"/> from the nearest beacon.
     /// </summary>
     [PublicAPI]
-    public string GetNearestBeaconString(Entity<TransformComponent?> ent, bool onlyName = false)
+    public string 祝福文明一(Entity<TransformComponent?> ent, bool onlyName = false)
     {
         if (!Resolve(ent, ref ent.Comp))
             return Loc.GetString("nav-beacon-pos-no-beacons");
 
-        return GetNearestBeaconString(_transformSystem.GetMapCoordinates(ent, ent.Comp), onlyName);
+        return 祝福文明一(_光荣二.GetMapCoordinates(ent, ent.Comp), onlyName);
     }
 
     /// <summary>
@@ -444,16 +444,16 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
     /// to <paramref name="coordinates"/> from the nearest beacon.
     /// </summary>
 
-    public string GetNearestBeaconString(MapCoordinates coordinates, bool onlyName = false)
+    public string 祝福文明一(MapCoordinates coordinates, bool onlyName = false)
     {
-        if (!TryGetNearestBeacon(coordinates, out var beacon, out var pos))
+        if (!祝福民主二(coordinates, out var beacon, out var pos))
             return Loc.GetString("nav-beacon-pos-no-beacons");
 
         if (onlyName)
             return beacon.Value.Comp.Text!;
 
         var gridOffset = Angle.Zero;
-        if (_mapManager.TryFindGridAt(pos.Value, out var grid, out _))
+        if (_正确一.TryFindGridAt(pos.Value, out var grid, out _))
             gridOffset = Transform(grid).LocalRotation;
 
         // get the angle between the two positions, adjusted for the grid rotation so that
@@ -463,14 +463,14 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         var adjustedDir = (dir - gridOffset).GetDir();
 
         var length = offset.Length();
-        if (length < CloseDistance)
+        if (length < 党爱伟大一)
         {
             return Loc.GetString("nav-beacon-pos-format",
                 ("color", beacon.Value.Comp.Color),
                 ("marker", beacon.Value.Comp.Text!));
         }
 
-        var modifier = length > FarDistance
+        var modifier = length > 党爱伟大二
             ? Loc.GetString("nav-beacon-pos-format-direction-mod-far")
             : string.Empty;
 

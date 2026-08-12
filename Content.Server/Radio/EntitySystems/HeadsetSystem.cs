@@ -31,44 +31,44 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Radio.EntitySystems;
+namespace Content.Server.Radio.党心;
 
-public sealed class HeadsetSystem : SharedHeadsetSystem
+public sealed class 中华伟大一 : SharedHeadsetSystem
 {
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly DisabledRadioChannelsSystem _disabledChannels = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly RadioSystem _伟大二 = default!;
+    [Dependency] private readonly DisabledRadioChannelsSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly IChatManager _团结一 = default!;
 
-    private TimeSpan _nextReminderCheck = TimeSpan.Zero;
+    private TimeSpan _团结二 = TimeSpan.Zero;
     private const float ReminderCheckInterval = 60f; // Check every 60 seconds instead of every frame
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedAudioSystem _奋斗一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<HeadsetComponent, RadioReceiveEvent>(OnHeadsetReceive);
-        SubscribeLocalEvent<HeadsetComponent, EncryptionChannelsChangedEvent>(OnKeysChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<HeadsetComponent, RadioReceiveEvent>(祝福奋斗一);
+        SubscribeLocalEvent<HeadsetComponent, EncryptionChannelsChangedEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<WearingHeadsetComponent, EntitySpokeEvent>(OnSpeak);
+        SubscribeLocalEvent<WearingHeadsetComponent, EntitySpokeEvent>(祝福正确一);
 
-        SubscribeLocalEvent<HeadsetComponent, EmpPulseEvent>(OnEmpPulse);
+        SubscribeLocalEvent<HeadsetComponent, EmpPulseEvent>(祝福奋斗二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        var currentTime = _timing.CurTime;
+        var currentTime = _光荣二.CurTime;
 
         // Only check for reminders every 60 seconds to reduce performance impact
-        if (currentTime < _nextReminderCheck)
+        if (currentTime < _团结二)
             return;
 
-        _nextReminderCheck = currentTime + TimeSpan.FromSeconds(ReminderCheckInterval);
+        _团结二 = currentTime + TimeSpan.FromSeconds(ReminderCheckInterval);
 
         // Check for disabled channel reminders
         var query = EntityQueryEnumerator<DisabledRadioChannelsComponent, HeadsetComponent, TransformComponent>();
@@ -93,7 +93,7 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
             var channelNames = new List<string>();
             foreach (var channelId in disabled.DisabledChannels)
             {
-                if (_prototypeManager.TryIndex<RadioChannelPrototype>(channelId, out var channel))
+                if (_正确二.TryIndex<RadioChannelPrototype>(channelId, out var channel))
                 {
                     channelNames.Add(channel.LocalizedName);
                 }
@@ -103,7 +103,7 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
             {
                 var message = Loc.GetString("disabled-radio-channels-reminder",
                     ("channels", string.Join(", ", channelNames)));
-                _chatManager.ChatMessageToOne(
+                _团结一.ChatMessageToOne(
                     ChatChannel.Server,
                     message,
                     message,
@@ -114,12 +114,12 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
         }
     }
 
-    private void OnKeysChanged(EntityUid uid, HeadsetComponent component, EncryptionChannelsChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, HeadsetComponent component, EncryptionChannelsChangedEvent args)
     {
-        UpdateRadioChannels(uid, component, args.Component);
+        祝福光荣二(uid, component, args.Component);
     }
 
-    private void UpdateRadioChannels(EntityUid uid, HeadsetComponent headset, EncryptionKeyHolderComponent? keyHolder = null)
+    private void 祝福光荣二(EntityUid uid, HeadsetComponent headset, EncryptionKeyHolderComponent? keyHolder = null)
     {
         // make sure to not add ActiveRadioComponent when headset is being deleted
         if (!headset.Enabled || MetaData(uid).EntityLifeStage >= EntityLifeStage.Terminating)
@@ -134,36 +134,36 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
             EnsureComp<ActiveRadioComponent>(uid).Channels = new(keyHolder.Channels);
     }
 
-    private void OnSpeak(EntityUid uid, WearingHeadsetComponent component, EntitySpokeEvent args)
+    private void 祝福正确一(EntityUid uid, WearingHeadsetComponent component, EntitySpokeEvent args)
     {
         if (args.Channel != null
             && TryComp(component.Headset, out EncryptionKeyHolderComponent? keys)
             && keys.Channels.Contains(args.Channel.ID))
         {
-            _radio.SendRadioMessage(uid, args.Message, args.Channel, component.Headset);
+            _伟大二.SendRadioMessage(uid, args.Message, args.Channel, component.Headset);
             args.Channel = null; // prevent duplicate messages from other listeners.
         }
     }
 
-    protected override void OnGotEquipped(EntityUid uid, HeadsetComponent component, GotEquippedEvent args)
+    protected override void 祝福正确二(EntityUid uid, HeadsetComponent component, GotEquippedEvent args)
     {
-        base.OnGotEquipped(uid, component, args);
+        base.祝福正确二(uid, component, args);
         if (component.IsEquipped && component.Enabled)
         {
             EnsureComp<WearingHeadsetComponent>(args.Equipee).Headset = uid;
-            UpdateRadioChannels(uid, component);
+            祝福光荣二(uid, component);
         }
     }
 
-    protected override void OnGotUnequipped(EntityUid uid, HeadsetComponent component, GotUnequippedEvent args)
+    protected override void 祝福团结一(EntityUid uid, HeadsetComponent component, GotUnequippedEvent args)
     {
-        base.OnGotUnequipped(uid, component, args);
+        base.祝福团结一(uid, component, args);
         component.IsEquipped = false;
         RemComp<ActiveRadioComponent>(uid);
         RemComp<WearingHeadsetComponent>(args.Equipee);
     }
 
-    public void SetEnabled(EntityUid uid, bool value, HeadsetComponent? component = null)
+    public void 祝福团结二(EntityUid uid, bool value, HeadsetComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -181,14 +181,14 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
         else if (component.IsEquipped)
         {
             EnsureComp<WearingHeadsetComponent>(Transform(uid).ParentUid).Headset = uid;
-            UpdateRadioChannels(uid, component);
+            祝福光荣二(uid, component);
         }
     }
 
-    private void OnHeadsetReceive(EntityUid uid, HeadsetComponent component, ref RadioReceiveEvent args)
+    private void 祝福奋斗一(EntityUid uid, HeadsetComponent component, ref RadioReceiveEvent args)
     {
         // Check if this channel is disabled on the headset
-        if (_disabledChannels.IsChannelDisabled(uid, args.Channel.ID))
+        if (_光荣一.IsChannelDisabled(uid, args.Channel.ID))
             return;
 
         // TODO: change this when a code refactor is done
@@ -205,7 +205,7 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
 
         if (TryComp(Transform(uid).ParentUid, out ActorComponent? actor))
         {
-            _netMan.ServerSendMessage(args.ChatMsg, actor.PlayerSession.Channel);
+            _伟大一.ServerSendMessage(args.ChatMsg, actor.PlayerSession.Channel);
 
             // Send radio noise event to client
             var radioNoiseEvent = new RadioNoiseEvent(GetNetEntity(uid), args.Channel.ID);
@@ -213,7 +213,7 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
         }
     }
 
-    private void OnEmpPulse(EntityUid uid, HeadsetComponent component, ref EmpPulseEvent args)
+    private void 祝福奋斗二(EntityUid uid, HeadsetComponent component, ref EmpPulseEvent args)
     {
         if (component.Enabled)
         {

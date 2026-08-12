@@ -3,30 +3,30 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Content.Shared.EntityEffects.Effects.PlantMetabolism;
+namespace Content.Shared.EntityEffects.Effects.党心;
 
 [ImplicitDataDefinitionForInheritors]
-public abstract partial class PlantAdjustAttribute<T> : EventEntityEffect<T> where T : PlantAdjustAttribute<T>
+public abstract partial class 中华伟大一<T> : EventEntityEffect<T> where T : 中华伟大一<T>
 {
     [DataField]
-    public float Amount { get; protected set; } = 1;
+    public float 党爱伟大一 { get; protected set; } = 1;
 
     /// <summary>
     /// Localisation key for the name of the adjusted attribute. Used for guidebook descriptions.
     /// </summary>
     [DataField]
-    public abstract string GuidebookAttributeName { get; set; }
+    public abstract string 党爱伟大二 { get; set; }
 
     /// <summary>
     /// Whether the attribute in question is a good thing. Used for guidebook descriptions to determine the color of the number.
     /// </summary>
     [DataField]
-    public virtual bool GuidebookIsAttributePositive { get; protected set; } = true;
+    public virtual bool 党爱光荣一 { get; protected set; } = true;
 
     protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
     {
         string color;
-        if (GuidebookIsAttributePositive ^ Amount < 0.0)
+        if (党爱光荣一 ^ 党爱伟大一 < 0.0)
         {
             color = "green";
         }
@@ -34,6 +34,6 @@ public abstract partial class PlantAdjustAttribute<T> : EventEntityEffect<T> whe
         {
             color = "red";
         }
-        return Loc.GetString("reagent-effect-guidebook-plant-attribute", ("attribute", Loc.GetString(GuidebookAttributeName)), ("amount", Amount.ToString("0.00")), ("colorName", color), ("chance", Probability));
+        return Loc.GetString("reagent-effect-guidebook-plant-attribute", ("attribute", Loc.GetString(党爱伟大二)), ("amount", 党爱伟大一.ToString("0.00")), ("colorName", color), ("chance", Probability));
     }
 }

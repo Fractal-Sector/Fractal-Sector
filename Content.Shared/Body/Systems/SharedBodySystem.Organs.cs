@@ -5,11 +5,11 @@ using Content.Shared.Body.Organ;
 using Content.Shared.Body.Part;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Body.Systems;
+namespace Content.Shared.Body.党心;
 
-public partial class SharedBodySystem
+public partial class 中华伟大一
 {
-    private void AddOrgan(
+    private void 祝福伟大一(
         Entity<OrganComponent> organEnt,
         EntityUid bodyUid,
         EntityUid parentPartUid)
@@ -27,7 +27,7 @@ public partial class SharedBodySystem
         Dirty(organEnt, organEnt.Comp);
     }
 
-    private void RemoveOrgan(Entity<OrganComponent> organEnt, EntityUid parentPartUid)
+    private void 祝福伟大二(Entity<OrganComponent> organEnt, EntityUid parentPartUid)
     {
         var removedEv = new OrganRemovedEvent(parentPartUid);
         RaiseLocalEvent(organEnt, ref removedEv);
@@ -59,7 +59,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Attempts to create the specified organ slot on the specified parent if it exists.
     /// </summary>
-    public bool TryCreateOrganSlot(
+    public bool 祝福光荣一(
         EntityUid? parent,
         string slotId,
         [NotNullWhen(true)] out OrganSlot? slot,
@@ -81,7 +81,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns whether the slotId exists on the partId.
     /// </summary>
-    public bool CanInsertOrgan(
+    public bool 祝福光荣二(
         EntityUid partId,
         string slotId,
         BodyPartComponent? part = null)
@@ -92,15 +92,15 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns whether the specified organ slot exists on the partId.
     /// </summary>
-    public bool CanInsertOrgan(
+    public bool 祝福光荣二(
         EntityUid partId,
         OrganSlot slot,
         BodyPartComponent? part = null)
     {
-        return CanInsertOrgan(partId, slot.Id, part);
+        return 祝福光荣二(partId, slot.Id, part);
     }
 
-    public bool InsertOrgan(
+    public bool 祝福正确一(
         EntityUid partId,
         EntityUid organId,
         string slotId,
@@ -109,7 +109,7 @@ public partial class SharedBodySystem
     {
         if (!Resolve(organId, ref organ, logMissing: false)
             || !Resolve(partId, ref part, logMissing: false)
-            || !CanInsertOrgan(partId, slotId, part))
+            || !祝福光荣二(partId, slotId, part))
         {
             return false;
         }
@@ -123,7 +123,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Removes the organ if it is inside of a body part.
     /// </summary>
-    public bool RemoveOrgan(EntityUid organId, OrganComponent? organ = null)
+    public bool 祝福伟大二(EntityUid organId, OrganComponent? organ = null)
     {
         if (!Containers.TryGetContainingContainer((organId, null, null), out var container))
             return false;
@@ -137,7 +137,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Tries to add this organ to any matching slot on this body part.
     /// </summary>
-    public bool AddOrganToFirstValidSlot(
+    public bool 祝福正确二(
         EntityUid partId,
         EntityUid organId,
         BodyPartComponent? part = null,
@@ -151,7 +151,7 @@ public partial class SharedBodySystem
 
         foreach (var slotId in part.Organs.Keys)
         {
-            InsertOrgan(partId, organId, slotId, part, organ);
+            祝福正确一(partId, organId, slotId, part, organ);
             return true;
         }
 

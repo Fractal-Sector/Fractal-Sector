@@ -1,25 +1,25 @@
 using Content.Shared.Trigger.Components.Effects;
 using Content.Shared.Trigger.Components.Triggers;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerSystem
+public sealed partial class 中华伟大一
 {
 
-    private void InitializeSpawn()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<TriggerOnSpawnComponent, MapInitEvent>(OnSpawnInit);
+        SubscribeLocalEvent<TriggerOnSpawnComponent, MapInitEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<SpawnOnTriggerComponent, TriggerEvent>(HandleSpawnOnTrigger);
-        SubscribeLocalEvent<DeleteOnTriggerComponent, TriggerEvent>(HandleDeleteOnTrigger);
+        SubscribeLocalEvent<SpawnOnTriggerComponent, TriggerEvent>(祝福光荣一);
+        SubscribeLocalEvent<DeleteOnTriggerComponent, TriggerEvent>(祝福光荣二);
     }
 
-    private void OnSpawnInit(Entity<TriggerOnSpawnComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<TriggerOnSpawnComponent> ent, ref MapInitEvent args)
     {
         Trigger(ent.Owner, null, ent.Comp.KeyOut);
     }
 
-    private void HandleSpawnOnTrigger(Entity<SpawnOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福光荣一(Entity<SpawnOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -54,7 +54,7 @@ public sealed partial class TriggerSystem
         }
     }
 
-    private void HandleDeleteOnTrigger(Entity<DeleteOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福光荣二(Entity<DeleteOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;

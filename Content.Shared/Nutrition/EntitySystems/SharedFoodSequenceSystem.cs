@@ -1,5 +1,5 @@
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
-public abstract class SharedFoodSequenceSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 }

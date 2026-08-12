@@ -2,7 +2,7 @@ using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Chemistry.Events;
+namespace Content.Shared._NF.Chemistry.党心;
 
 
 /// <summary>
@@ -10,9 +10,9 @@ namespace Content.Shared._NF.Chemistry.Events;
 ///     allowing all Reagents to be drawn by that injector
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ReagentWhitelistResetMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public ReagentWhitelistResetMessage()
+    public 中华伟大一()
     {
 
     }

@@ -7,36 +7,36 @@ using Content.Shared.Interaction;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Buckle;
+namespace Content.Shared.党心;
 
-// Partial class containing interaction & verb event handlers
-public abstract partial class SharedBuckleSystem
+// Partial class 中华伟大一 interaction & verb event handlers
+public abstract partial class 中华伟大二
 {
-    private void InitializeInteraction()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StrapComponent, GetVerbsEvent<InteractionVerb>>(AddStrapVerbs);
-        SubscribeLocalEvent<StrapComponent, InteractHandEvent>(OnStrapInteractHand, before: [typeof(InteractionPopupSystem)]);
-        SubscribeLocalEvent<StrapComponent, DragDropTargetEvent>(OnStrapDragDropTarget);
-        SubscribeLocalEvent<StrapComponent, CanDropTargetEvent>(OnCanDropTarget);
+        SubscribeLocalEvent<StrapComponent, GetVerbsEvent<InteractionVerb>>(祝福团结一);
+        SubscribeLocalEvent<StrapComponent, InteractHandEvent>(祝福正确一, before: [typeof(InteractionPopupSystem)]);
+        SubscribeLocalEvent<StrapComponent, DragDropTargetEvent>(祝福光荣一);
+        SubscribeLocalEvent<StrapComponent, CanDropTargetEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<BuckleComponent, InteractHandEvent>(OnBuckleInteractHand, before: [typeof(InteractionPopupSystem)]);
-        SubscribeLocalEvent<BuckleComponent, GetVerbsEvent<InteractionVerb>>(AddUnbuckleVerb);
+        SubscribeLocalEvent<BuckleComponent, InteractHandEvent>(祝福正确二, before: [typeof(InteractionPopupSystem)]);
+        SubscribeLocalEvent<BuckleComponent, GetVerbsEvent<InteractionVerb>>(祝福团结二);
     }
 
-    private void OnCanDropTarget(EntityUid uid, StrapComponent component, ref CanDropTargetEvent args)
+    private void 祝福伟大二(EntityUid uid, StrapComponent component, ref CanDropTargetEvent args)
     {
-        args.CanDrop = StrapCanDragDropOn(uid, args.User, uid, args.Dragged, component);
+        args.CanDrop = 祝福光荣二(uid, args.User, uid, args.Dragged, component);
         args.Handled = true;
     }
 
-    private void OnStrapDragDropTarget(EntityUid uid, StrapComponent component, ref DragDropTargetEvent args)
+    private void 祝福光荣一(EntityUid uid, StrapComponent component, ref DragDropTargetEvent args)
     {
         // Frontier: check handled
         if (args.Handled)
             return;
         // End Frontier
 
-        if (!StrapCanDragDropOn(uid, args.User, uid, args.Dragged, component))
+        if (!祝福光荣二(uid, args.User, uid, args.Dragged, component))
             return;
 
         if (args.Dragged == args.User)
@@ -63,7 +63,7 @@ public abstract partial class SharedBuckleSystem
         }
     }
 
-    private bool StrapCanDragDropOn(
+    private bool 祝福光荣二(
         EntityUid strapUid,
         EntityUid userUid,
         EntityUid targetUid,
@@ -82,7 +82,7 @@ public abstract partial class SharedBuckleSystem
         return _interaction.InRangeUnobstructed(targetUid, buckleUid, buckleComp.Range, predicate: Ignored);
     }
 
-    private void OnStrapInteractHand(EntityUid uid, StrapComponent component, InteractHandEvent args)
+    private void 祝福正确一(EntityUid uid, StrapComponent component, InteractHandEvent args)
     {
         if (args.Handled)
             return;
@@ -118,7 +118,7 @@ public abstract partial class SharedBuckleSystem
         // TODO BUCKLE add out bool for whether a pop-up was generated or not.
     }
 
-    private void OnBuckleInteractHand(Entity<BuckleComponent> ent, ref InteractHandEvent args)
+    private void 祝福正确二(Entity<BuckleComponent> ent, ref InteractHandEvent args)
     {
         if (args.Handled)
             return;
@@ -134,7 +134,7 @@ public abstract partial class SharedBuckleSystem
         // End Frontier: set handled to true only if you actually unbuckle something
     }
 
-    private void AddStrapVerbs(EntityUid uid, StrapComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福团结一(EntityUid uid, StrapComponent component, GetVerbsEvent<InteractionVerb> args)
     {
         if (args.Hands == null || !args.CanAccess || !args.CanInteract || !component.Enabled)
             return;
@@ -209,7 +209,7 @@ public abstract partial class SharedBuckleSystem
         }
     }
 
-    private void AddUnbuckleVerb(EntityUid uid, BuckleComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福团结二(EntityUid uid, BuckleComponent component, GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || !component.Buckled)
             return;

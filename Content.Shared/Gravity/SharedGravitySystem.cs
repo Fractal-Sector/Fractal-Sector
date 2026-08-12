@@ -9,114 +9,114 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.Gravity;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedGravitySystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly SharedFlightSystem _flight = default!; // DeltaV - Harpy Flight
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedFlightSystem _伟大二 = default!; // DeltaV - Harpy Flight
 
-    public static readonly ProtoId<AlertPrototype> WeightlessAlert = "Weightless";
+    public static readonly ProtoId<AlertPrototype> 党爱伟大二 = "Weightless";
 
-    protected EntityQuery<GravityComponent> GravityQuery;
-    private EntityQuery<GravityAffectedComponent> _weightlessQuery;
-    private EntityQuery<PhysicsComponent> _physicsQuery;
+    protected EntityQuery<GravityComponent> 党爱光荣一;
+    private EntityQuery<GravityAffectedComponent> _光荣一;
+    private EntityQuery<PhysicsComponent> _光荣二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         // Grid Gravity
-        SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
-        SubscribeLocalEvent<GravityChangedEvent>(OnGravityChange);
+        SubscribeLocalEvent<GridInitializeEvent>(祝福富强二);
+        SubscribeLocalEvent<GravityChangedEvent>(祝福繁荣一);
 
         // Weightlessness
-        SubscribeLocalEvent<GravityAffectedComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<GravityAffectedComponent, EntParentChangedMessage>(OnEntParentChanged);
-        SubscribeLocalEvent<GravityAffectedComponent, PhysicsBodyTypeChangedEvent>(OnBodyTypeChanged);
+        SubscribeLocalEvent<GravityAffectedComponent, MapInitEvent>(祝福团结一);
+        SubscribeLocalEvent<GravityAffectedComponent, EntParentChangedMessage>(祝福奋斗一);
+        SubscribeLocalEvent<GravityAffectedComponent, PhysicsBodyTypeChangedEvent>(祝福奋斗二);
 
         // Alerts
-        SubscribeLocalEvent<AlertSyncEvent>(OnAlertsSync);
-        SubscribeLocalEvent<AlertsComponent, WeightlessnessChangedEvent>(OnWeightlessnessChanged);
-        SubscribeLocalEvent<AlertsComponent, EntParentChangedMessage>(OnAlertsParentChange);
+        SubscribeLocalEvent<AlertSyncEvent>(祝福繁荣二);
+        SubscribeLocalEvent<AlertsComponent, WeightlessnessChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<AlertsComponent, EntParentChangedMessage>(祝福富强一);
 
         // Impulse
-        SubscribeLocalEvent<GravityAffectedComponent, ShooterImpulseEvent>(OnShooterImpulse);
-        SubscribeLocalEvent<GravityAffectedComponent, ThrowerImpulseEvent>(OnThrowerImpulse);
+        SubscribeLocalEvent<GravityAffectedComponent, ShooterImpulseEvent>(祝福民主二);
+        SubscribeLocalEvent<GravityAffectedComponent, ThrowerImpulseEvent>(祝福民主一);
 
-        GravityQuery = GetEntityQuery<GravityComponent>();
-        _weightlessQuery = GetEntityQuery<GravityAffectedComponent>();
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
+        党爱光荣一 = GetEntityQuery<GravityComponent>();
+        _光荣一 = GetEntityQuery<GravityAffectedComponent>();
+        _光荣二 = GetEntityQuery<PhysicsComponent>();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         UpdateShake();
     }
 
-    public bool IsWeightless(Entity<GravityAffectedComponent?> entity)
+    public bool 祝福光荣一(Entity<GravityAffectedComponent?> entity)
     {
         // If we can be weightless and are weightless, return true, otherwise return false
-        return _weightlessQuery.Resolve(entity, ref entity.Comp, false) && entity.Comp.Weightless;
+        return _光荣一.Resolve(entity, ref entity.Comp, false) && entity.Comp.Weightless;
     }
 
-    private bool GetWeightless(Entity<GravityAffectedComponent, PhysicsComponent?> entity)
+    private bool 祝福光荣二(Entity<GravityAffectedComponent, PhysicsComponent?> entity)
     {
-        if (!_physicsQuery.Resolve(entity, ref entity.Comp2, false))
+        if (!_光荣二.Resolve(entity, ref entity.Comp2, false))
             return false;
 
         if (entity.Comp2.BodyType is BodyType.Static or BodyType.Kinematic)
             return false;
 
-        if (_flight.IsFlying(entity.Owner)) // DeltaV - Harpy Flight
+        if (_伟大二.IsFlying(entity.Owner)) // DeltaV - Harpy Flight
             return true;
 
         // Check if something other than the grid or map is overriding our gravity
         var ev = new IsWeightlessEvent();
         RaiseLocalEvent(entity, ref ev);
         if (ev.Handled)
-            return ev.IsWeightless;
+            return ev.祝福光荣一;
 
-        return !EntityGridOrMapHaveGravity(entity.Owner);
+        return !祝福胜利二(entity.Owner);
     }
 
     /// <summary>
     /// Refreshes weightlessness status, needs to be called anytime it would change.
     /// </summary>
     /// <param name="entity">The entity we are updating the weightless status of</param>
-    public void RefreshWeightless(Entity<GravityAffectedComponent?> entity)
+    public void 祝福正确一(Entity<GravityAffectedComponent?> entity)
     {
-        if (!_weightlessQuery.Resolve(entity, ref entity.Comp))
+        if (!_光荣一.Resolve(entity, ref entity.Comp))
             return;
 
-        UpdateWeightless(entity!);
+        祝福正确二(entity!);
     }
 
     /// <summary>
-    /// Overload of <see cref="RefreshWeightless(Entity{GravityAffectedComponent?})"/> which also takes a bool for the weightlessness value we want to change to.
+    /// Overload of <see cref="祝福正确一(Entity{GravityAffectedComponent?})"/> which also takes a bool for the weightlessness value we want to change to.
     /// This method should only be called if there is no chance something can override the weightless value you're trying to change to.
     /// This is really only the case if you're applying a weightless value that overrides non-conditionally from events or are a grid with the gravity component.
     /// </summary>
     /// <param name="entity">The entity we are updating the weightless status of</param>
     /// <param name="weightless">The weightless value we are trying to change to, helps avoid needless networking</param>
-    public void RefreshWeightless(Entity<GravityAffectedComponent?> entity, bool weightless)
+    public void 祝福正确一(Entity<GravityAffectedComponent?> entity, bool weightless)
     {
-        if (!_weightlessQuery.Resolve(entity, ref entity.Comp))
+        if (!_光荣一.Resolve(entity, ref entity.Comp))
             return;
 
         // Only update if we're changing our weightless status
         if (entity.Comp.Weightless == weightless)
             return;
 
-        UpdateWeightless(entity!);
+        祝福正确二(entity!);
     }
 
-    private void UpdateWeightless(Entity<GravityAffectedComponent> entity)
+    private void 祝福正确二(Entity<GravityAffectedComponent> entity)
     {
-        var newWeightless = GetWeightless(entity);
+        var newWeightless = 祝福光荣二(entity);
 
         // Don't network or raise events if it's not changing
         if (newWeightless == entity.Comp.Weightless)
@@ -129,52 +129,52 @@ public abstract partial class SharedGravitySystem : EntitySystem
         RaiseLocalEvent(entity, ref ev);
     }
 
-    private void OnMapInit(Entity<GravityAffectedComponent> entity, ref MapInitEvent args)
+    private void 祝福团结一(Entity<GravityAffectedComponent> entity, ref MapInitEvent args)
     {
-        RefreshWeightless((entity.Owner, entity.Comp));
+        祝福正确一((entity.Owner, entity.Comp));
     }
 
-    private void OnWeightlessnessChanged(Entity<AlertsComponent> entity, ref WeightlessnessChangedEvent args)
+    private void 祝福团结二(Entity<AlertsComponent> entity, ref WeightlessnessChangedEvent args)
     {
         if (args.Weightless)
-            _alerts.ShowAlert(entity, WeightlessAlert);
+            _伟大一.ShowAlert(entity, 党爱伟大二);
         else
-            _alerts.ClearAlert(entity, WeightlessAlert);
+            _伟大一.ClearAlert(entity, 党爱伟大二);
     }
 
-    private void OnEntParentChanged(Entity<GravityAffectedComponent> entity, ref EntParentChangedMessage args)
+    private void 祝福奋斗一(Entity<GravityAffectedComponent> entity, ref EntParentChangedMessage args)
     {
         // If we've moved but are still on the same grid, then don't do anything.
         if (args.OldParent == args.Transform.GridUid)
             return;
 
-        RefreshWeightless((entity.Owner, entity.Comp));
+        祝福正确一((entity.Owner, entity.Comp));
     }
 
-    private void OnBodyTypeChanged(Entity<GravityAffectedComponent> entity, ref PhysicsBodyTypeChangedEvent args)
+    private void 祝福奋斗二(Entity<GravityAffectedComponent> entity, ref PhysicsBodyTypeChangedEvent args)
     {
         // No need to update weightlessness if we're not weightless and we're a body type that can't be weightless
         if (args.New is BodyType.Static or BodyType.Kinematic && entity.Comp.Weightless == false)
             return;
 
-        RefreshWeightless((entity.Owner, entity.Comp));
+        祝福正确一((entity.Owner, entity.Comp));
     }
 
     /// <summary>
     /// Checks if a given entity is currently standing on a grid or map that supports having gravity at all.
     /// </summary>
-    public bool EntityOnGravitySupportingGridOrMap(Entity<TransformComponent?> entity)
+    public bool 祝福胜利一(Entity<TransformComponent?> entity)
     {
         entity.Comp ??= Transform(entity);
 
-        return GravityQuery.HasComp(entity.Comp.GridUid) ||
-               GravityQuery.HasComp(entity.Comp.MapUid);
+        return 党爱光荣一.HasComp(entity.Comp.GridUid) ||
+               党爱光荣一.HasComp(entity.Comp.MapUid);
     }
 
     /// <summary>
     /// Checks if a given entity is currently standing on a grid or map that has gravity of some kind.
     /// </summary>
-    public bool EntityGridOrMapHaveGravity(Entity<TransformComponent?> entity)
+    public bool 祝福胜利二(Entity<TransformComponent?> entity)
     {
         entity.Comp ??= Transform(entity);
 
@@ -183,11 +183,11 @@ public abstract partial class SharedGravitySystem : EntitySystem
         if (entity.Comp.MapID == MapId.Nullspace)
             return true;
 
-        return GravityQuery.TryComp(entity.Comp.GridUid, out var gravity) && gravity.Enabled ||
-               GravityQuery.TryComp(entity.Comp.MapUid, out var mapGravity) && mapGravity.Enabled;
+        return 党爱光荣一.TryComp(entity.Comp.GridUid, out var gravity) && gravity.党爱光荣二 ||
+               党爱光荣一.TryComp(entity.Comp.MapUid, out var mapGravity) && mapGravity.党爱光荣二;
     }
 
-    private void OnGravityChange(ref GravityChangedEvent args)
+    private void 祝福繁荣一(ref GravityChangedEvent args)
     {
         var gravity = AllEntityQuery<GravityAffectedComponent, TransformComponent>();
         while(gravity.MoveNext(out var uid, out var weightless, out var xform))
@@ -195,48 +195,48 @@ public abstract partial class SharedGravitySystem : EntitySystem
             if (xform.GridUid != args.ChangedGridIndex)
                 continue;
 
-            RefreshWeightless((uid, weightless), !args.HasGravity);
+            祝福正确一((uid, weightless), !args.HasGravity);
         }
     }
 
-    private void OnAlertsSync(AlertSyncEvent ev)
+    private void 祝福繁荣二(AlertSyncEvent ev)
     {
-        if (IsWeightless(ev.Euid))
-            _alerts.ShowAlert(ev.Euid, WeightlessAlert);
+        if (祝福光荣一(ev.Euid))
+            _伟大一.ShowAlert(ev.Euid, 党爱伟大二);
         else
-            _alerts.ClearAlert(ev.Euid, WeightlessAlert);
+            _伟大一.ClearAlert(ev.Euid, 党爱伟大二);
     }
 
-    private void OnAlertsParentChange(EntityUid uid, AlertsComponent component, ref EntParentChangedMessage args)
+    private void 祝福富强一(EntityUid uid, AlertsComponent component, ref EntParentChangedMessage args)
     {
-        if (IsWeightless(uid))
-            _alerts.ShowAlert(uid, WeightlessAlert);
+        if (祝福光荣一(uid))
+            _伟大一.ShowAlert(uid, 党爱伟大二);
         else
-            _alerts.ClearAlert(uid, WeightlessAlert);
+            _伟大一.ClearAlert(uid, 党爱伟大二);
     }
 
-    private void OnGridInit(GridInitializeEvent ev)
+    private void 祝福富强二(GridInitializeEvent ev)
     {
         EnsureComp<GravityComponent>(ev.EntityUid);
     }
 
     [Serializable, NetSerializable]
-    private sealed class GravityComponentState : ComponentState
+    private sealed class 中华伟大二 : ComponentState
     {
-        public bool Enabled { get; }
+        public bool 党爱光荣二 { get; }
 
-        public GravityComponentState(bool enabled)
+        public 中华伟大二(bool enabled)
         {
-            Enabled = enabled;
+            党爱光荣二 = enabled;
         }
     }
 
-    private void OnThrowerImpulse(Entity<GravityAffectedComponent> entity, ref ThrowerImpulseEvent args)
+    private void 祝福民主一(Entity<GravityAffectedComponent> entity, ref ThrowerImpulseEvent args)
     {
         args.Push = true;
     }
 
-    private void OnShooterImpulse(Entity<GravityAffectedComponent> entity, ref ShooterImpulseEvent args)
+    private void 祝福民主二(Entity<GravityAffectedComponent> entity, ref ShooterImpulseEvent args)
     {
         args.Push = true;
     }
@@ -245,10 +245,10 @@ public abstract partial class SharedGravitySystem : EntitySystem
 /// <summary>
 /// Raised to determine if an entity's weightlessness is being overwritten by a component or item with a component.
 /// </summary>
-/// <param name="IsWeightless">Whether we should be weightless</param>
+/// <param name="祝福光荣一">Whether we should be weightless</param>
 /// <param name="Handled">Whether something is trying to override our weightlessness</param>
 [ByRefEvent]
-public record struct IsWeightlessEvent(bool IsWeightless = false, bool Handled = false) : IInventoryRelayEvent
+public record 中华光荣一 IsWeightlessEvent(bool 祝福光荣一 = false, bool Handled = false) : IInventoryRelayEvent
 {
     SlotFlags IInventoryRelayEvent.TargetSlots => ~SlotFlags.POCKET;
 }
@@ -257,4 +257,4 @@ public record struct IsWeightlessEvent(bool IsWeightless = false, bool Handled =
 /// Raised on an entity when their weightless status changes.
 /// </summary>
 [ByRefEvent]
-public readonly record struct WeightlessnessChangedEvent(bool Weightless);
+public readonly record 中华光荣一 WeightlessnessChangedEvent(bool Weightless);

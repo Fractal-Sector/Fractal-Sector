@@ -8,14 +8,14 @@ using Content.Shared.Examine; // Frontier
 using Content.Server.Popups; // Frontier
 using Content.Shared.Power; // Frontier
 
-namespace Content.Server.Weapons.Ranged.Systems;
+namespace Content.Server.Weapons.Ranged.党心;
 
-public sealed partial class GunSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] public PopupSystem _popup = default!; // Frontier
-    public override void Update(float frameTime)
+    [Dependency] public PopupSystem 党爱伟大一 = default!; // Frontier
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         /*
          * On server because client doesn't want to predict other's guns.
@@ -50,7 +50,7 @@ public sealed partial class GunSystem
     // New Frontiers - Shuttle Gun Power Draw - makes shuttle guns require power if they
     // have an ApcPowerReceiverComponent
     // This code is licensed under AGPLv3. See AGPLv3.txt
-    private void OnGunExamine(EntityUid uid, AutoShootGunComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, AutoShootGunComponent component, ExaminedEvent args)
     {
         // Powered is already handled by other power components
         var enabled = Loc.GetString(component.On ? "gun-comp-enabled" : "gun-comp-disabled");
@@ -58,7 +58,7 @@ public sealed partial class GunSystem
         args.PushMarkup(enabled);
     }
 
-    private void OnActivateGun(EntityUid uid, AutoShootGunComponent component, ActivateInWorldEvent args)
+    private void 祝福光荣一(EntityUid uid, AutoShootGunComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -70,35 +70,35 @@ public sealed partial class GunSystem
             if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad != 0)
                 apcPower.Load = 1;
 
-            DisableGun(uid, component);
+            祝福光荣二(uid, component);
             args.Handled = true;
-            _popup.PopupEntity(Loc.GetString("auto-fire-disabled"), uid, args.User);
+            党爱伟大一.PopupEntity(Loc.GetString("auto-fire-disabled"), uid, args.User);
         }
-        else if (CanEnable(uid, component))
+        else if (祝福正确一(uid, component))
         {
             if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad != apcPower.Load)
                 apcPower.Load = component.OriginalLoad;
 
-            EnableGun(uid, component);
+            祝福正确二(uid, component);
             args.Handled = true;
-            _popup.PopupEntity(Loc.GetString("auto-fire-enabled"), uid, args.User);
+            党爱伟大一.PopupEntity(Loc.GetString("auto-fire-enabled"), uid, args.User);
         }
         else
         {
-            _popup.PopupEntity(Loc.GetString("auto-fire-enabled-no-power"), uid, args.User);
+            党爱伟大一.PopupEntity(Loc.GetString("auto-fire-enabled-no-power"), uid, args.User);
         }
     }
 
     /// <summary>
     /// Tries to disable the AutoShootGun.
     /// </summary>
-    public void DisableGun(EntityUid uid, AutoShootGunComponent component)
+    public void 祝福光荣二(EntityUid uid, AutoShootGunComponent component)
     {
         if (component.CanFire)
             component.CanFire = false;
     }
 
-    public bool CanEnable(EntityUid uid, AutoShootGunComponent component)
+    public bool 祝福正确一(EntityUid uid, AutoShootGunComponent component)
     {
         var xform = Transform(uid);
 
@@ -117,21 +117,21 @@ public sealed partial class GunSystem
         return this.IsPowered(uid, EntityManager);
     }
 
-    public void EnableGun(EntityUid uid, AutoShootGunComponent component, TransformComponent? xform = null)
+    public void 祝福正确二(EntityUid uid, AutoShootGunComponent component, TransformComponent? xform = null)
     {
         if (!component.CanFire)
             component.CanFire = true;
     }
 
-    private void OnAnchorChange(EntityUid uid, AutoShootGunComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福团结一(EntityUid uid, AutoShootGunComponent component, ref AnchorStateChangedEvent args)
     {
-        if (args.Anchored && CanEnable(uid, component))
-            EnableGun(uid, component);
+        if (args.Anchored && 祝福正确一(uid, component))
+            祝福正确二(uid, component);
         else
-            DisableGun(uid, component);
+            祝福光荣二(uid, component);
     }
 
-    private void OnGunInit(EntityUid uid, AutoShootGunComponent component, ComponentInit args)
+    private void 祝福团结二(EntityUid uid, AutoShootGunComponent component, ComponentInit args)
     {
         if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad == 0)
             component.OriginalLoad = apcPower.Load;
@@ -139,21 +139,21 @@ public sealed partial class GunSystem
         if (!component.On)
             return;
 
-        if (CanEnable(uid, component))
-            EnableGun(uid, component);
+        if (祝福正确一(uid, component))
+            祝福正确二(uid, component);
     }
 
-    private void OnGunShutdown(EntityUid uid, AutoShootGunComponent component, ComponentShutdown args)
+    private void 祝福奋斗一(EntityUid uid, AutoShootGunComponent component, ComponentShutdown args)
     {
-        DisableGun(uid, component);
+        祝福光荣二(uid, component);
     }
 
-    private void OnPowerChange(EntityUid uid, AutoShootGunComponent component, ref PowerChangedEvent args)
+    private void 祝福奋斗二(EntityUid uid, AutoShootGunComponent component, ref PowerChangedEvent args)
     {
-        if (args.Powered && CanEnable(uid, component))
-            EnableGun(uid, component);
+        if (args.Powered && 祝福正确一(uid, component))
+            祝福正确二(uid, component);
         else
-            DisableGun(uid, component);
+            祝福光荣二(uid, component);
     }
     // End of modified code
 }

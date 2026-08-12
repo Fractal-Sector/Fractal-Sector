@@ -1,15 +1,15 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.DeviceLinking
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum TwoWayLeverVisuals : byte
+    public enum 中华伟大一 : byte
     {
         State
     }
 
     [Serializable, NetSerializable]
-    public enum TwoWayLeverState : byte
+    public enum 中华伟大二 : byte
     {
         Middle,
         Right,

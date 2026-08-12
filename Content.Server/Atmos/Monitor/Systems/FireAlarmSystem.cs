@@ -9,26 +9,26 @@ using Content.Shared.Interaction;
 using Content.Shared.Emag.Systems;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Atmos.Monitor.Systems;
+namespace Content.Server.Atmos.Monitor.党心;
 
-public sealed class FireAlarmSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AtmosDeviceNetworkSystem _atmosDevNet = default!;
-    [Dependency] private readonly AtmosAlarmableSystem _atmosAlarmable = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency] private readonly AtmosDeviceNetworkSystem _伟大一 = default!;
+    [Dependency] private readonly AtmosAlarmableSystem _伟大二 = default!;
+    [Dependency] private readonly EmagSystem _光荣一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _光荣二 = default!;
+    [Dependency] private readonly AccessReaderSystem _正确一 = default!;
+    [Dependency] private readonly IConfigurationManager _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<FireAlarmComponent, InteractHandEvent>(OnInteractHand);
-        SubscribeLocalEvent<FireAlarmComponent, DeviceListUpdateEvent>(OnDeviceListSync);
-        SubscribeLocalEvent<FireAlarmComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<FireAlarmComponent, GotUnEmaggedEvent>(OnUnemagged); // Frontier
+        SubscribeLocalEvent<FireAlarmComponent, InteractHandEvent>(祝福光荣一);
+        SubscribeLocalEvent<FireAlarmComponent, DeviceListUpdateEvent>(祝福伟大二);
+        SubscribeLocalEvent<FireAlarmComponent, GotEmaggedEvent>(祝福光荣二);
+        SubscribeLocalEvent<FireAlarmComponent, GotUnEmaggedEvent>(祝福正确一); // Frontier
     }
 
-    private void OnDeviceListSync(EntityUid uid, FireAlarmComponent component, DeviceListUpdateEvent args)
+    private void 祝福伟大二(EntityUid uid, FireAlarmComponent component, DeviceListUpdateEvent args)
     {
         var query = GetEntityQuery<DeviceNetworkComponent>();
         foreach (var device in args.OldDevices)
@@ -38,70 +38,70 @@ public sealed class FireAlarmSystem : EntitySystem
                 continue;
             }
 
-            _atmosDevNet.Deregister(uid, deviceNet.Address);
+            _伟大一.Deregister(uid, deviceNet.Address);
         }
 
-        _atmosDevNet.Register(uid, null);
-        _atmosDevNet.Sync(uid, null);
+        _伟大一.Register(uid, null);
+        _伟大一.Sync(uid, null);
     }
 
-    private void OnInteractHand(EntityUid uid, FireAlarmComponent component, InteractHandEvent args)
+    private void 祝福光荣一(EntityUid uid, FireAlarmComponent component, InteractHandEvent args)
     {
-        if (!_interactionSystem.InRangeUnobstructed(args.User, args.Target))
+        if (!_光荣二.InRangeUnobstructed(args.User, args.Target))
             return;
 
-        if (!_configManager.GetCVar(CCVars.FireAlarmAllAccess) && !_access.IsAllowed(args.User, args.Target))
+        if (!_正确二.GetCVar(CCVars.FireAlarmAllAccess) && !_正确一.IsAllowed(args.User, args.Target))
             return;
 
         if (this.IsPowered(uid, EntityManager))
         {
-            if (!_atmosAlarmable.TryGetHighestAlert(uid, out var alarm))
+            if (!_伟大二.TryGetHighestAlert(uid, out var alarm))
             {
                 alarm = AtmosAlarmType.Normal;
             }
 
             if (alarm == AtmosAlarmType.Normal)
             {
-                _atmosAlarmable.ForceAlert(uid, AtmosAlarmType.Danger);
+                _伟大二.ForceAlert(uid, AtmosAlarmType.Danger);
             }
             else
             {
-                _atmosAlarmable.ResetAllOnNetwork(uid);
+                _伟大二.ResetAllOnNetwork(uid);
             }
         }
     }
 
-    private void OnEmagged(EntityUid uid, FireAlarmComponent component, ref GotEmaggedEvent args)
+    private void 祝福光荣二(EntityUid uid, FireAlarmComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_光荣一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         if (!TryComp<AtmosAlarmableComponent>(uid, out var alarmable))
             return;
 
         // Remove the atmos alarmable component permanently from this device.
-        _atmosAlarmable.ForceAlert(uid, AtmosAlarmType.Emagged, alarmable);
+        _伟大二.ForceAlert(uid, AtmosAlarmType.Emagged, alarmable);
         RemCompDeferred<AtmosAlarmableComponent>(uid);
         args.Handled = true;
     }
 
     // Frontier: demag
-    private void OnUnemagged(EntityUid uid, FireAlarmComponent component, ref GotUnEmaggedEvent args)
+    private void 祝福正确一(EntityUid uid, FireAlarmComponent component, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_光荣一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         if (!HasComp<AtmosAlarmableComponent>(uid))
         {
             // Restore the atmos alarmable component to this device.
             var alarmable = EnsureComp<AtmosAlarmableComponent>(uid);
-            _atmosAlarmable.Reset(uid, alarmable);
+            _伟大二.Reset(uid, alarmable);
         }
         args.Handled = true;
     }

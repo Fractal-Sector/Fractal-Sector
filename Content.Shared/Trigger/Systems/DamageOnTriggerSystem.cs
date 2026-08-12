@@ -1,20 +1,20 @@
 using Content.Shared.Damage;
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class DamageOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency] private readonly DamageableSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DamageOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<DamageOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<DamageOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<DamageOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -28,7 +28,7 @@ public sealed class DamageOnTriggerSystem : EntitySystem
         var ev = new BeforeDamageOnTriggerEvent(damage, target.Value);
         RaiseLocalEvent(ent.Owner, ref ev);
 
-        args.Handled |= _damageableSystem.TryChangeDamage(target, ev.Damage, ent.Comp.IgnoreResistances, origin: ent.Owner) is not null;
+        args.Handled |= _伟大一.TryChangeDamage(target, ev.Damage, ent.Comp.IgnoreResistances, origin: ent.Owner) is not null;
     }
 }
 
@@ -37,4 +37,4 @@ public sealed class DamageOnTriggerSystem : EntitySystem
 /// Used to modify the damage that will be dealt.
 /// </summary>
 [ByRefEvent]
-public record struct BeforeDamageOnTriggerEvent(DamageSpecifier Damage, EntityUid Tripper);
+public record 中华伟大二 BeforeDamageOnTriggerEvent(DamageSpecifier Damage, EntityUid Tripper);

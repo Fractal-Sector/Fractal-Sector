@@ -1,26 +1,26 @@
-namespace Content.Server.GameTicking
+namespace Content.Server.党心
 {
     /// <summary>
     ///     Describes an entry in the crew manifest.
     /// </summary>
-    public sealed class ManifestEntry
+    public sealed class 中华伟大一
     {
-        public ManifestEntry(string characterName, string jobId)
+        public 中华伟大一(string characterName, string jobId)
         {
-            CharacterName = characterName;
-            JobId = jobId;
+            党爱伟大一 = characterName;
+            党爱伟大二 = jobId;
         }
 
         /// <summary>
         ///     The name of the character on the manifest.
         /// </summary>
         [ViewVariables]
-        public string CharacterName { get; }
+        public string 党爱伟大一 { get; }
 
         /// <summary>
         ///     The ID of the job they picked.
         /// </summary>
         [ViewVariables]
-        public string JobId { get; }
+        public string 党爱伟大二 { get; }
     }
 }

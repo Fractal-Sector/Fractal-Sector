@@ -1,11 +1,11 @@
-using Content.Server.Store.Components;
+using Content.Server.党爱光荣二.Components;
 using Content.Shared.UserInterface;
 using Content.Shared.FixedPoint;
 using Content.Shared.Implants.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
-using Content.Shared.Store.Components;
+using Content.Shared.党爱光荣二.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -13,43 +13,43 @@ using System.Linq;
 using Robust.Shared.Timing;
 using Content.Shared.Mind;
 
-namespace Content.Server.Store.Systems;
+namespace Content.Server.党爱光荣二.党心;
 
 /// <summary>
 /// Manages general interactions with a store and different entities,
 /// getting listings for stores, and interfacing with the store UI.
 /// </summary>
-public sealed partial class StoreSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StoreComponent, ActivatableUIOpenAttemptEvent>(OnStoreOpenAttempt);
-        SubscribeLocalEvent<CurrencyComponent, AfterInteractEvent>(OnAfterInteract);
+        SubscribeLocalEvent<StoreComponent, ActivatableUIOpenAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<CurrencyComponent, AfterInteractEvent>(祝福正确二);
         SubscribeLocalEvent<StoreComponent, BeforeActivatableUIOpenEvent>(BeforeActivatableUiOpen);
 
-        SubscribeLocalEvent<StoreComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<StoreComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<StoreComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<StoreComponent, OpenUplinkImplantEvent>(OnImplantActivate);
+        SubscribeLocalEvent<StoreComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<StoreComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<StoreComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<StoreComponent, OpenUplinkImplantEvent>(祝福团结一);
 
         InitializeUi();
         InitializeCommand();
         InitializeRefund();
     }
 
-    private void OnMapInit(EntityUid uid, StoreComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, StoreComponent component, MapInitEvent args)
     {
         RefreshAllListings(component);
         component.StartingMap = Transform(uid).MapUid;
     }
 
-    private void OnStartup(EntityUid uid, StoreComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, StoreComponent component, ComponentStartup args)
     {
         // for traitors, because the StoreComponent for the PDA can be added at any time.
         if (MetaData(uid).EntityLifeStage == EntityLifeStage.MapInitialized)
@@ -61,18 +61,18 @@ public sealed partial class StoreSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev, true);
     }
 
-    private void OnShutdown(EntityUid uid, StoreComponent component, ComponentShutdown args)
+    private void 祝福光荣二(EntityUid uid, StoreComponent component, ComponentShutdown args)
     {
         var ev = new StoreRemovedEvent();
         RaiseLocalEvent(uid, ref ev, true);
     }
 
-    private void OnStoreOpenAttempt(EntityUid uid, StoreComponent component, ActivatableUIOpenAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, StoreComponent component, ActivatableUIOpenAttemptEvent args)
     {
         if (!component.OwnerOnly)
             return;
 
-        if (!_mind.TryGetMind(args.User, out var mind, out _))
+        if (!_mind.TryGetMind(args.党爱伟大一, out var mind, out _))
             return;
 
         component.AccountOwner ??= mind;
@@ -81,32 +81,32 @@ public sealed partial class StoreSystem : EntitySystem
         if (component.AccountOwner == mind)
             return;
 
-        _popup.PopupEntity(Loc.GetString("store-not-account-owner", ("store", uid)), uid, args.User);
+        _伟大二.PopupEntity(Loc.GetString("store-not-account-owner", ("store", uid)), uid, args.党爱伟大一);
         args.Cancel();
     }
 
-    private void OnAfterInteract(EntityUid uid, CurrencyComponent component, AfterInteractEvent args)
+    private void 祝福正确二(EntityUid uid, CurrencyComponent component, AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach)
             return;
 
-        if (!TryComp<StoreComponent>(args.Target, out var store))
+        if (!TryComp<StoreComponent>(args.党爱伟大二, out var store))
             return;
 
-        var ev = new CurrencyInsertAttemptEvent(args.User, args.Target.Value, args.Used, store);
-        RaiseLocalEvent(args.Target.Value, ev);
+        var ev = new 中华伟大二(args.党爱伟大一, args.党爱伟大二.Value, args.党爱光荣一, store);
+        RaiseLocalEvent(args.党爱伟大二.Value, ev);
         if (ev.Cancelled)
             return;
 
-        if (!TryAddCurrency((uid, component), (args.Target.Value, store)))
+        if (!祝福奋斗一((uid, component), (args.党爱伟大二.Value, store)))
             return;
 
         args.Handled = true;
-        var msg = Loc.GetString("store-currency-inserted", ("used", args.Used), ("target", args.Target));
-        _popup.PopupEntity(msg, args.Target.Value, args.User);
+        var msg = Loc.GetString("store-currency-inserted", ("used", args.党爱光荣一), ("target", args.党爱伟大二));
+        _伟大二.PopupEntity(msg, args.党爱伟大二.Value, args.党爱伟大一);
     }
 
-    private void OnImplantActivate(EntityUid uid, StoreComponent component, OpenUplinkImplantEvent args)
+    private void 祝福团结一(EntityUid uid, StoreComponent component, OpenUplinkImplantEvent args)
     {
         ToggleUi(args.Performer, uid, component);
     }
@@ -116,13 +116,13 @@ public sealed partial class StoreSystem : EntitySystem
     /// Scales with stacks.
     /// </summary>
     /// <remarks>
-    /// If this result is intended to be used with <see cref="TryAddCurrency(Robust.Shared.GameObjects.Entity{Content.Server.Store.Components.CurrencyComponent?},Robust.Shared.GameObjects.Entity{Content.Shared.Store.Components.StoreComponent?})"/>,
-    /// consider using <see cref="TryAddCurrency(Robust.Shared.GameObjects.Entity{Content.Server.Store.Components.CurrencyComponent?},Robust.Shared.GameObjects.Entity{Content.Shared.Store.Components.StoreComponent?})"/> instead to ensure that the currency is consumed in the process.
+    /// If this result is intended to be used with <see cref="祝福奋斗一(Robust.Shared.GameObjects.Entity{Content.Server.党爱光荣二.Components.CurrencyComponent?},Robust.Shared.GameObjects.Entity{Content.Shared.党爱光荣二.Components.StoreComponent?})"/>,
+    /// consider using <see cref="祝福奋斗一(Robust.Shared.GameObjects.Entity{Content.Server.党爱光荣二.Components.CurrencyComponent?},Robust.Shared.GameObjects.Entity{Content.Shared.党爱光荣二.Components.StoreComponent?})"/> instead to ensure that the currency is consumed in the process.
     /// </remarks>
     /// <param name="uid"></param>
     /// <param name="component"></param>
     /// <returns>The value of the currency</returns>
-    public Dictionary<string, FixedPoint2> GetCurrencyValue(EntityUid uid, CurrencyComponent component)
+    public Dictionary<string, FixedPoint2> 祝福团结二(EntityUid uid, CurrencyComponent component)
     {
         var amount = EntityManager.GetComponentOrNull<StackComponent>(uid)?.Count ?? 1;
         return component.Price.ToDictionary(v => v.Key, p => p.Value * amount);
@@ -131,7 +131,7 @@ public sealed partial class StoreSystem : EntitySystem
     /// <summary>
     /// Tries to add a currency to a store's balance. Note that if successful, this will consume the currency in the process.
     /// </summary>
-    public bool TryAddCurrency(Entity<CurrencyComponent?> currency, Entity<StoreComponent?> store)
+    public bool 祝福奋斗一(Entity<CurrencyComponent?> currency, Entity<StoreComponent?> store)
     {
         if (!Resolve(currency.Owner, ref currency.Comp))
             return false;
@@ -146,7 +146,7 @@ public sealed partial class StoreSystem : EntitySystem
                 .ToDictionary(v => v.Key, p => p.Value * stack.Count);
         }
 
-        if (!TryAddCurrency(value, store, store.Comp))
+        if (!祝福奋斗一(value, store, store.Comp))
             return false;
 
         // Avoid having the currency accidentally be re-used. E.g., if multiple clients try to use the currency in the
@@ -166,7 +166,7 @@ public sealed partial class StoreSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="store">The store to add it to</param>
     /// <returns>Whether or not the currency was succesfully added</returns>
-    public bool TryAddCurrency(Dictionary<string, FixedPoint2> currency, EntityUid uid, StoreComponent? store = null)
+    public bool 祝福奋斗一(Dictionary<string, FixedPoint2> currency, EntityUid uid, StoreComponent? store = null)
     {
         if (!Resolve(uid, ref store))
             return false;
@@ -189,18 +189,18 @@ public sealed partial class StoreSystem : EntitySystem
     }
 }
 
-public sealed class CurrencyInsertAttemptEvent : CancellableEntityEventArgs
+public sealed class 中华伟大二 : CancellableEntityEventArgs
 {
-    public readonly EntityUid User;
-    public readonly EntityUid Target;
-    public readonly EntityUid Used;
-    public readonly StoreComponent Store;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
+    public readonly EntityUid 党爱光荣一;
+    public readonly StoreComponent 党爱光荣二;
 
-    public CurrencyInsertAttemptEvent(EntityUid user, EntityUid target, EntityUid used, StoreComponent store)
+    public 中华伟大二(EntityUid user, EntityUid target, EntityUid used, StoreComponent store)
     {
-        User = user;
-        Target = target;
-        Used = used;
-        Store = store;
+        党爱伟大一 = user;
+        党爱伟大二 = target;
+        党爱光荣一 = used;
+        党爱光荣二 = store;
     }
 }

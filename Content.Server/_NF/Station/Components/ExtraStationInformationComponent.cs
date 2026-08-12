@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Station.Components;
+namespace Content.Server._NF.Station.党心;
 
 [RegisterComponent]
-public sealed partial class ExtraStationInformationComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
     public SpriteSpecifier? Icon;
@@ -23,5 +23,5 @@ public sealed partial class ExtraStationInformationComponent : Component
      * 0 -- 'wysiwyg' and will be listed below sorted stations
      */
     [DataField]
-    public int LobbySortOrder;
+    public int 党爱伟大一;
 }

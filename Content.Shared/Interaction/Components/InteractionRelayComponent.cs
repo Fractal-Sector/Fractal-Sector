@@ -1,6 +1,6 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.Interaction.Components;
+namespace Content.Shared.Interaction.党心;
 
 /// <summary>
 /// Relays an entities interactions to another entity.
@@ -11,7 +11,7 @@ namespace Content.Shared.Interaction.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedInteractionSystem))]
-public sealed partial class InteractionRelayComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The entity the interactions are being relayed to.

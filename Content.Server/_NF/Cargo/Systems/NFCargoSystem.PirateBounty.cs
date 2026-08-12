@@ -20,35 +20,35 @@ using Robust.Shared.Containers;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Cargo.Systems;
+namespace Content.Server._NF.Cargo.党心;
 
-public sealed partial class NFCargoSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly NameIdentifierSystem _nameIdentifier = default!;
+    [Dependency] private readonly NameIdentifierSystem _伟大一 = default!;
 
     [ValidatePrototypeId<NameIdentifierGroupPrototype>]
     private const string PirateBountyNameIdentifierGroup = "Bounty"; // Use the bounty name ID group (0-999) for now.
 
-    private EntityQuery<ContainerManagerComponent> _containerQuery;
-    private EntityQuery<PirateBountyLabelComponent> _pirateBountyLabelQuery;
+    private EntityQuery<ContainerManagerComponent> _伟大二;
+    private EntityQuery<PirateBountyLabelComponent> _光荣一;
 
-    private readonly TimeSpan _redemptionDelay = TimeSpan.FromSeconds(2);
+    private readonly TimeSpan _光荣二 = TimeSpan.FromSeconds(2);
 
-    private void InitializePirateBounty()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<PirateBountyConsoleComponent, BoundUIOpenedEvent>(OnPirateBountyConsoleOpened);
-        SubscribeLocalEvent<PirateBountyConsoleComponent, PirateBountyAcceptMessage>(OnPirateBountyAccept);
-        SubscribeLocalEvent<PirateBountyConsoleComponent, PirateBountySkipMessage>(OnSkipPirateBountyMessage);
+        SubscribeLocalEvent<PirateBountyConsoleComponent, BoundUIOpenedEvent>(祝福伟大二);
+        SubscribeLocalEvent<PirateBountyConsoleComponent, PirateBountyAcceptMessage>(祝福光荣一);
+        SubscribeLocalEvent<PirateBountyConsoleComponent, PirateBountySkipMessage>(祝福光荣二);
 
-        SubscribeLocalEvent<PirateBountyRedemptionConsoleComponent, PirateBountyRedemptionMessage>(OnRedeemBounty);
+        SubscribeLocalEvent<PirateBountyRedemptionConsoleComponent, PirateBountyRedemptionMessage>(祝福富强一);
 
-        SubscribeLocalEvent<SectorPirateBountyDatabaseComponent, MapInitEvent>(OnPirateMapInit);
+        SubscribeLocalEvent<SectorPirateBountyDatabaseComponent, MapInitEvent>(祝福团结二);
 
-        _pirateBountyLabelQuery = GetEntityQuery<PirateBountyLabelComponent>();
-        _containerQuery = GetEntityQuery<ContainerManagerComponent>();
+        _光荣一 = GetEntityQuery<PirateBountyLabelComponent>();
+        _伟大二 = GetEntityQuery<ContainerManagerComponent>();
     }
 
-    private void OnPirateBountyConsoleOpened(EntityUid uid, PirateBountyConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福伟大二(EntityUid uid, PirateBountyConsoleComponent component, BoundUIOpenedEvent args)
     {
         var service = _sectorService.GetServiceEntity();
         if (!TryComp<SectorPirateBountyDatabaseComponent>(service, out var bountyDb))
@@ -60,13 +60,13 @@ public sealed partial class NFCargoSystem
         _ui.SetUiState(uid, PirateConsoleUiKey.Bounty, new PirateBountyConsoleState(bountyDb.Bounties, untilNextSkip));
     }
 
-    private void OnPirateBountyAccept(EntityUid uid, PirateBountyConsoleComponent component, PirateBountyAcceptMessage args)
+    private void 祝福光荣一(EntityUid uid, PirateBountyConsoleComponent component, PirateBountyAcceptMessage args)
     {
         if (_timing.CurTime < component.NextPrintTime)
             return;
 
         var service = _sectorService.GetServiceEntity();
-        if (!TryGetPirateBountyFromId(service, args.BountyId, out var bounty))
+        if (!祝福胜利二(service, args.BountyId, out var bounty))
             return;
 
         var bountyObj = bounty.Value;
@@ -77,26 +77,26 @@ public sealed partial class NFCargoSystem
 
         PirateBountyData bountyData = new PirateBountyData(bountyPrototype!, bountyObj.Id, true);
 
-        TryOverwritePirateBountyFromId(service, bountyData);
+        祝福繁荣一(service, bountyData);
 
         if (bountyPrototype.SpawnChest)
         {
             var chest = Spawn(component.BountyCrateId, Transform(uid).Coordinates);
-            SetupPirateBountyChest(chest, bountyData, bountyPrototype);
+            祝福正确一(chest, bountyData, bountyPrototype);
             _audio.PlayPvs(component.SpawnChestSound, uid);
         }
         else
         {
             var label = Spawn(component.BountyLabelId, Transform(uid).Coordinates);
-            SetupPirateBountyManifest(label, bountyData, bountyPrototype);
+            祝福正确二(label, bountyData, bountyPrototype);
             _audio.PlayPvs(component.PrintSound, uid);
         }
 
         component.NextPrintTime = _timing.CurTime + component.PrintDelay;
-        UpdatePirateBountyConsoles();
+        祝福繁荣二();
     }
 
-    private void OnSkipPirateBountyMessage(EntityUid uid, PirateBountyConsoleComponent component, PirateBountySkipMessage args)
+    private void 祝福光荣二(EntityUid uid, PirateBountyConsoleComponent component, PirateBountySkipMessage args)
     {
         var service = _sectorService.GetServiceEntity();
         if (!TryComp<SectorPirateBountyDatabaseComponent>(service, out var db))
@@ -105,7 +105,7 @@ public sealed partial class NFCargoSystem
         if (_timing.CurTime < db.NextSkipTime)
             return;
 
-        if (!TryGetPirateBountyFromId(service, args.BountyId, out var bounty))
+        if (!祝福胜利二(service, args.BountyId, out var bounty))
             return;
 
         if (args.Actor is not { Valid: true } mob)
@@ -118,10 +118,10 @@ public sealed partial class NFCargoSystem
             return;
         }
 
-        if (!TryRemovePirateBounty(service, bounty.Value.Id))
+        if (!祝福胜利一(service, bounty.Value.Id))
             return;
 
-        FillPirateBountyDatabase(service);
+        祝福奋斗一(service);
         if (bounty.Value.Accepted)
             db.NextSkipTime = _timing.CurTime + db.SkipDelay;
         else
@@ -132,7 +132,7 @@ public sealed partial class NFCargoSystem
         _audio.PlayPvs(component.SkipSound, uid);
     }
 
-    private void SetupPirateBountyChest(EntityUid uid, PirateBountyData bounty, PirateBountyPrototype prototype)
+    private void 祝福正确一(EntityUid uid, PirateBountyData bounty, PirateBountyPrototype prototype)
     {
         _meta.SetEntityName(uid, Loc.GetString("pirate-bounty-chest-name", ("id", bounty.Id)));
 
@@ -154,7 +154,7 @@ public sealed partial class NFCargoSystem
             label.Id = bounty.Id;
     }
 
-    private void SetupPirateBountyManifest(EntityUid uid, PirateBountyData bounty, PirateBountyPrototype prototype, PaperComponent? paper = null)
+    private void 祝福正确二(EntityUid uid, PirateBountyData bounty, PirateBountyPrototype prototype, PaperComponent? paper = null)
     {
         _meta.SetEntityName(uid, Loc.GetString("pirate-bounty-manifest-name", ("id", bounty.Id)));
 
@@ -177,13 +177,13 @@ public sealed partial class NFCargoSystem
         _paper.SetContent((uid, paper), msg.ToMarkup());
     }
 
-    private bool TryGetPirateBountyLabel(EntityUid uid,
+    private bool 祝福团结一(EntityUid uid,
         [NotNullWhen(true)] out EntityUid? labelEnt,
         [NotNullWhen(true)] out PirateBountyLabelComponent? labelComp)
     {
         labelEnt = null;
         labelComp = null;
-        if (!_containerQuery.TryGetComponent(uid, out var containerMan))
+        if (!_伟大二.TryGetComponent(uid, out var containerMan))
             return false;
 
         // make sure this label was actually applied to a crate.
@@ -191,7 +191,7 @@ public sealed partial class NFCargoSystem
             return false;
 
         if (container.ContainedEntities.FirstOrNull() is not { } label ||
-            !_pirateBountyLabelQuery.TryGetComponent(label, out var component))
+            !_光荣一.TryGetComponent(label, out var component))
             return false;
 
         labelEnt = label;
@@ -199,30 +199,30 @@ public sealed partial class NFCargoSystem
         return true;
     }
 
-    private void OnPirateMapInit(EntityUid uid, SectorPirateBountyDatabaseComponent component, MapInitEvent args)
+    private void 祝福团结二(EntityUid uid, SectorPirateBountyDatabaseComponent component, MapInitEvent args)
     {
-        FillPirateBountyDatabase(uid, component);
+        祝福奋斗一(uid, component);
     }
 
     /// <summary>
     /// Fills up the bounty database with random bounties.
     /// </summary>
-    public void FillPirateBountyDatabase(EntityUid serviceId, SectorPirateBountyDatabaseComponent? component = null)
+    public void 祝福奋斗一(EntityUid serviceId, SectorPirateBountyDatabaseComponent? component = null)
     {
         if (!Resolve(serviceId, ref component))
             return;
 
         while (component?.Bounties.Count < component?.MaxBounties)
         {
-            if (!TryAddPirateBounty(serviceId, component))
+            if (!祝福奋斗二(serviceId, component))
                 break;
         }
 
-        UpdatePirateBountyConsoles();
+        祝福繁荣二();
     }
 
     [PublicAPI]
-    public bool TryAddPirateBounty(EntityUid serviceId, SectorPirateBountyDatabaseComponent? component = null)
+    public bool 祝福奋斗二(EntityUid serviceId, SectorPirateBountyDatabaseComponent? component = null)
     {
         if (!Resolve(serviceId, ref component))
             return false;
@@ -239,19 +239,19 @@ public sealed partial class NFCargoSystem
 
         var pool = filteredBounties.Count == 0 ? allBounties : filteredBounties;
         var bounty = _random.Pick(pool);
-        return TryAddPirateBounty(serviceId, bounty, component);
+        return 祝福奋斗二(serviceId, bounty, component);
     }
 
     [PublicAPI]
-    public bool TryAddPirateBounty(EntityUid serviceId, string bountyId, SectorPirateBountyDatabaseComponent? component = null)
+    public bool 祝福奋斗二(EntityUid serviceId, string bountyId, SectorPirateBountyDatabaseComponent? component = null)
     {
         if (!_proto.TryIndex<PirateBountyPrototype>(bountyId, out var bounty))
             return false;
 
-        return TryAddPirateBounty(serviceId, bounty, component);
+        return 祝福奋斗二(serviceId, bounty, component);
     }
 
-    public bool TryAddPirateBounty(EntityUid serviceId, PirateBountyPrototype bounty, SectorPirateBountyDatabaseComponent? component = null)
+    public bool 祝福奋斗二(EntityUid serviceId, PirateBountyPrototype bounty, SectorPirateBountyDatabaseComponent? component = null)
     {
         if (!Resolve(serviceId, ref component))
             return false;
@@ -259,7 +259,7 @@ public sealed partial class NFCargoSystem
         if (component.Bounties.Count >= component.MaxBounties)
             return false;
 
-        _nameIdentifier.GenerateUniqueName(serviceId, PirateBountyNameIdentifierGroup, out var randomVal); // Need a string ID for internal name, probably doesn't need to be outward facing.
+        _伟大一.GenerateUniqueName(serviceId, PirateBountyNameIdentifierGroup, out var randomVal); // Need a string ID for internal name, probably doesn't need to be outward facing.
         component.Bounties.Add(new PirateBountyData(bounty, randomVal, false));
         _adminLogger.Add(LogType.Action, LogImpact.Low, $"Added pirate bounty \"{bounty.ID}\" (id:{component.TotalBounties}) to service {ToPrettyString(serviceId)}");
         component.TotalBounties++;
@@ -267,15 +267,15 @@ public sealed partial class NFCargoSystem
     }
 
     [PublicAPI]
-    public bool TryRemovePirateBounty(EntityUid serviceId, string dataId, SectorPirateBountyDatabaseComponent? component = null)
+    public bool 祝福胜利一(EntityUid serviceId, string dataId, SectorPirateBountyDatabaseComponent? component = null)
     {
-        if (!TryGetPirateBountyFromId(serviceId, dataId, out var data, component))
+        if (!祝福胜利二(serviceId, dataId, out var data, component))
             return false;
 
-        return TryRemovePirateBounty(serviceId, data.Value, component);
+        return 祝福胜利一(serviceId, data.Value, component);
     }
 
-    public bool TryRemovePirateBounty(EntityUid serviceId, PirateBountyData data, SectorPirateBountyDatabaseComponent? component = null)
+    public bool 祝福胜利一(EntityUid serviceId, PirateBountyData data, SectorPirateBountyDatabaseComponent? component = null)
     {
         if (!Resolve(serviceId, ref component))
             return false;
@@ -292,7 +292,7 @@ public sealed partial class NFCargoSystem
         return false;
     }
 
-    public bool TryGetPirateBountyFromId(
+    public bool 祝福胜利二(
         EntityUid uid,
         string id,
         [NotNullWhen(true)] out PirateBountyData? bounty,
@@ -313,7 +313,7 @@ public sealed partial class NFCargoSystem
         return bounty != null;
     }
 
-    private bool TryOverwritePirateBountyFromId(
+    private bool 祝福繁荣一(
         EntityUid uid,
         PirateBountyData bounty,
         SectorPirateBountyDatabaseComponent? component = null)
@@ -332,7 +332,7 @@ public sealed partial class NFCargoSystem
         return false;
     }
 
-    public void UpdatePirateBountyConsoles()
+    public void 祝福繁荣二()
     {
         // Wayfarer: keep outlaw bounty cartridges up to date
         RaiseLocalEvent(new SectorPirateBountyDatabaseUpdatedEvent());
@@ -369,12 +369,12 @@ public sealed partial class NFCargoSystem
         return pads;
     }
 
-    private void OnRedeemBounty(EntityUid uid, PirateBountyRedemptionConsoleComponent component, PirateBountyRedemptionMessage args)
+    private void 祝福富强一(EntityUid uid, PirateBountyRedemptionConsoleComponent component, PirateBountyRedemptionMessage args)
     {
         var amount = 0;
 
         // Component still cooling down.
-        if (component.LastRedeemAttempt + _redemptionDelay > _timing.CurTime)
+        if (component.LastRedeemAttempt + _光荣二 > _timing.CurTime)
             return;
 
         EntityUid gridUid = Transform(uid).GridUid ?? EntityUid.Invalid;
@@ -385,7 +385,7 @@ public sealed partial class NFCargoSystem
         if (!TryComp<SectorPirateBountyDatabaseComponent>(_sectorService.GetServiceEntity(), out var bountyDb))
             return;
 
-        PirateBountyEntitySearchState bountySearchState = new PirateBountyEntitySearchState();
+        中华光荣一 bountySearchState = new 中华光荣一();
 
         foreach (var bounty in bountyDb.Bounties)
         {
@@ -395,7 +395,7 @@ public sealed partial class NFCargoSystem
                     continue;
                 if (bountyPrototype.SpawnChest)
                 {
-                    var newState = new PirateBountyState(bounty, bountyPrototype);
+                    var newState = new 中华伟大二(bounty, bountyPrototype);
                     foreach (var entry in bountyPrototype.Entries)
                     {
                         newState.Entries[entry.Name] = 0;
@@ -404,7 +404,7 @@ public sealed partial class NFCargoSystem
                 }
                 else
                 {
-                    var newState = new PirateBountyState(bounty, bountyPrototype);
+                    var newState = new 中华伟大二(bounty, bountyPrototype);
                     foreach (var entry in bountyPrototype.Entries)
                     {
                         newState.Entries[entry.Name] = 0;
@@ -422,14 +422,14 @@ public sealed partial class NFCargoSystem
             {
                 // Dont match:
                 // - anything anchored (e.g. light fixtures)
-                // Checks against already handled set done by CheckEntityForPirateBounties
+                // Checks against already handled set done by 祝福民主一
                 if (_xformQuery.TryGetComponent(ent, out var xform) &&
                     xform.Anchored)
                 {
                     continue;
                 }
 
-                CheckEntityForPirateBounties(ent, ref bountySearchState);
+                祝福民主一(ent, ref bountySearchState);
             }
         }
 
@@ -439,7 +439,7 @@ public sealed partial class NFCargoSystem
         foreach (var (id, bounty) in bountySearchState.CrateBounties)
         {
             bool bountyMet = true;
-            var prototype = bounty.Prototype;
+            var prototype = bounty.党爱伟大二;
             foreach (var entry in prototype.Entries)
             {
                 if (!bounty.Entries.ContainsKey(entry.Name) ||
@@ -455,9 +455,9 @@ public sealed partial class NFCargoSystem
                 bountiesRemoved = true;
                 redeemedBounties = Loc.GetString("pirate-bounty-redemption-append", ("bounty", id), ("empty", string.IsNullOrEmpty(redeemedBounties) ? 0 : 1), ("prev", redeemedBounties));
 
-                TryRemovePirateBounty(_sectorService.GetServiceEntity(), id);
+                祝福胜利一(_sectorService.GetServiceEntity(), id);
                 amount += prototype.Reward;
-                foreach (var entity in bounty.Entities)
+                foreach (var entity in bounty.党爱光荣一)
                 {
                     Del(entity);
                 }
@@ -467,7 +467,7 @@ public sealed partial class NFCargoSystem
         foreach (var (id, bounty) in bountySearchState.LooseObjectBounties)
         {
             bool bountyMet = true;
-            var prototype = bounty.Prototype;
+            var prototype = bounty.党爱伟大二;
             foreach (var entry in prototype.Entries)
             {
                 if (!bounty.Entries.ContainsKey(entry.Name) ||
@@ -483,9 +483,9 @@ public sealed partial class NFCargoSystem
                 bountiesRemoved = true;
                 redeemedBounties = Loc.GetString("pirate-bounty-redemption-append", ("bounty", id), ("empty", string.IsNullOrEmpty(redeemedBounties) ? 0 : 1), ("prev", redeemedBounties));
 
-                TryRemovePirateBounty(_sectorService.GetServiceEntity(), id);
+                祝福胜利一(_sectorService.GetServiceEntity(), id);
                 amount += prototype.Reward;
-                foreach (var entity in bounty.Entities)
+                foreach (var entity in bounty.党爱光荣一)
                 {
                     Del(entity);
                 }
@@ -509,51 +509,51 @@ public sealed partial class NFCargoSystem
         // Bounties removed, restore database list
         if (bountiesRemoved)
         {
-            FillPirateBountyDatabase(_sectorService.GetServiceEntity());
+            祝福奋斗一(_sectorService.GetServiceEntity());
         }
         component.LastRedeemAttempt = _timing.CurTime;
     }
 
-    sealed class PirateBountyState
+    sealed class 中华伟大二
     {
-        public readonly PirateBountyData Data;
-        public PirateBountyPrototype Prototype;
-        public HashSet<EntityUid> Entities = new();
+        public readonly PirateBountyData 党爱伟大一;
+        public PirateBountyPrototype 党爱伟大二;
+        public HashSet<EntityUid> 党爱光荣一 = new();
         public Dictionary<string, int> Entries = new();
-        public bool Calculating = false; // Relevant only for crate bounties (due to tree traversal)
+        public bool 党爱光荣二 = false; // Relevant only for crate bounties (due to tree traversal)
 
-        public PirateBountyState(PirateBountyData data, PirateBountyPrototype prototype)
+        public 中华伟大二(PirateBountyData data, PirateBountyPrototype prototype)
         {
-            Data = data;
-            Prototype = prototype;
+            党爱伟大一 = data;
+            党爱伟大二 = prototype;
         }
     }
 
-    sealed class PirateBountyEntitySearchState
+    sealed class 中华光荣一
     {
-        public HashSet<EntityUid> HandledEntities = new();
-        public Dictionary<string, PirateBountyState> LooseObjectBounties = new();
-        public Dictionary<string, PirateBountyState> CrateBounties = new();
+        public HashSet<EntityUid> 党爱正确一 = new();
+        public Dictionary<string, 中华伟大二> LooseObjectBounties = new();
+        public Dictionary<string, 中华伟大二> CrateBounties = new();
     }
 
-    private void CheckEntityForPirateCrateBounty(EntityUid uid, ref PirateBountyEntitySearchState state, string id)
+    private void 祝福富强二(EntityUid uid, ref 中华光荣一 state, string id)
     {
         // Sanity check: entity previously handled, this subtree is done.
-        if (state.HandledEntities.Contains(uid))
+        if (state.党爱正确一.Contains(uid))
             return;
 
         // Add this container to the list of entities to remove.
         var bounty = state.CrateBounties[id]; // store the particular bounty we're looking up.
-        if (bounty.Calculating) // Bounty check is already happening in a parent, return.
+        if (bounty.党爱光荣二) // Bounty check is already happening in a parent, return.
         {
-            state.HandledEntities.Add(uid);
+            state.党爱正确一.Add(uid);
             return;
         }
 
         if (TryComp<ContainerManagerComponent>(uid, out var containers))
         {
-            bounty.Entities.Add(uid);
-            bounty.Calculating = true;
+            bounty.党爱光荣一.Add(uid);
+            bounty.党爱光荣二 = true;
 
             foreach (var container in containers.Containers.Values)
             {
@@ -562,45 +562,45 @@ public sealed partial class NFCargoSystem
                     // Subtree has a separate label, run check on that label
                     if (TryComp<PirateBountyLabelComponent>(ent, out var label))
                     {
-                        CheckEntityForPirateCrateBounty(ent, ref state, label.Id);
+                        祝福富强二(ent, ref state, label.Id);
                     }
                     else
                     {
-                        AdjustBountyForEntity(ent, bounty);
-                        state.HandledEntities.Add(ent);
+                        祝福民主二(ent, bounty);
+                        state.党爱正确一.Add(ent);
                     }
                 }
             }
         }
-        state.HandledEntities.Add(uid);
+        state.党爱正确一.Add(uid);
     }
 
     // Return two lists: a list of non-labelled entities (nodes), and a list of labelled entities (subtrees)
-    private void CheckEntityForPirateBounties(EntityUid uid, ref PirateBountyEntitySearchState state)
+    private void 祝福民主一(EntityUid uid, ref 中华光荣一 state)
     {
         // Entity previously handled, this subtree is done.
-        if (state.HandledEntities.Contains(uid))
+        if (state.党爱正确一.Contains(uid))
             return;
 
         // 3a. If tagged as labelled, check contents against crate bounties.  If it satisfies any of them, note it as solved.
         if (TryComp<PirateBountyLabelComponent>(uid, out var label))
-            CheckEntityForPirateCrateBounty(uid, ref state, label.Id);
+            祝福富强二(uid, ref state, label.Id);
         else
         {
             // 3b. If not tagged as labelled, check contents against non-create bounties.  If it satisfies any of them, increase the quantity.
             foreach (var (_, bounty) in state.LooseObjectBounties)
             {
-                if (AdjustBountyForEntity(uid, bounty))
+                if (祝福民主二(uid, bounty))
                     break;
             }
         }
-        state.HandledEntities.Add(uid);
+        state.党爱正确一.Add(uid);
     }
 
     // Checks an object against a bounty, adjusts the bounty's state and returns true if it matches.
-    private bool AdjustBountyForEntity(EntityUid target, PirateBountyState bounty)
+    private bool 祝福民主二(EntityUid target, 中华伟大二 bounty)
     {
-        foreach (var entry in bounty.Prototype.Entries)
+        foreach (var entry in bounty.党爱伟大二.Entries)
         {
             // Should add an assertion here, entry.Name should exist.
             // Entry already fulfilled, skip this entity.
@@ -616,7 +616,7 @@ public sealed partial class NFCargoSystem
                     bounty.Entries[entry.Name] += stack.Count;
                 else
                     bounty.Entries[entry.Name]++;
-                bounty.Entities.Add(target);
+                bounty.党爱光荣一.Add(target);
                 return true;
             }
         }

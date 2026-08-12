@@ -16,7 +16,7 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Server._FarHorizons.Power.Generation.党心;
 
 // Ported and modified from goonstation by Jhrushbe.
 // CC-BY-NC-SA-3.0
@@ -24,60 +24,60 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 // Performance optimizations adapted from Far-Horizons-SS14/Far-Horizons-SS14#1000
 // and ss14Starlight/space-station-14#3967.
 
-public sealed partial class ReactorPartSystem : SharedReactorPartSystem
+public sealed partial class 中华伟大一 : SharedReactorPartSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly SharedPointLightSystem _lightSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly EntityManager _光荣一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
 
     /// <summary>
     /// Changes the overall rate of events
     /// </summary>
-    private readonly float _rate = 5;
+    private readonly float _正确二 = 5;
 
     /// <summary>
     /// Changes the likelyhood of neutron interactions
     /// </summary>
-    private readonly float _bias = 1.5f;
+    private readonly float _团结一 = 1.5f;
 
     /// <summary>
     /// The amount of a property consumed by a reaction
     /// </summary>
-    private readonly float _reactant = 0.01f;
+    private readonly float _团结二 = 0.01f;
 
     /// <summary>
     /// The amount of a property resultant from a reaction
     /// </summary>
-    private readonly float _product = 0.005f;
+    private readonly float _奋斗一 = 0.005f;
 
     /// <summary>
     /// Temperature (in C) when people's hands can be burnt
     /// </summary>
-    private readonly static float _hotTemp = 80;
+    private readonly static float _奋斗二 = 80;
 
     /// <summary>
     /// Temperature (in C) when insulated gloves can no longer protect
     /// </summary>
-    private readonly static float _burnTemp = 400;
+    private readonly static float _胜利一 = 400;
 
-    private readonly static float _burnDiv = (_burnTemp - _hotTemp) / 5; // The 5 is how much heat damage insulated gloves protect from
+    private readonly static float _胜利二 = (_胜利一 - _奋斗二) / 5; // The 5 is how much heat damage insulated gloves protect from
 
-    private readonly float _threshold = 1f;
-    private float _accumulator = 0f;
+    private readonly float _繁荣一 = 1f;
+    private float _繁荣二 = 0f;
 
     #region Item Methods
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ReactorPartComponent, MapInitEvent>(OnInit);
-        SubscribeLocalEvent<ReactorPartComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<ReactorPartComponent, IngestedEvent>(OnIngest);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ReactorPartComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ReactorPartComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<ReactorPartComponent, IngestedEvent>(祝福光荣二);
         SubscribeLocalEvent<ReactorPartComponent, AtmosExposedUpdateEvent>(OnAtmosExposed);
     }
 
-    private void OnInit(EntityUid uid, ReactorPartComponent component, ref MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, ReactorPartComponent component, ref MapInitEvent args)
     {
         var radvalue = (component.Properties.Radioactivity * 0.1f) + (component.Properties.NeutronRadioactivity * 0.15f) + (component.Properties.FissileIsotopes * 0.125f);
         if (radvalue > 0)
@@ -88,14 +88,14 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
 
         if (component.Properties.NeutronRadioactivity > 0)
         {
-            var lightcomp = _lightSystem.EnsureLight(uid);
-            _lightSystem.SetEnergy(uid, component.Properties.NeutronRadioactivity, lightcomp);
-            _lightSystem.SetColor(uid, Color.FromHex("#22bbff"), lightcomp);
-            _lightSystem.SetRadius(uid, 1.2f, lightcomp);
+            var lightcomp = _光荣二.EnsureLight(uid);
+            _光荣二.SetEnergy(uid, component.Properties.NeutronRadioactivity, lightcomp);
+            _光荣二.SetColor(uid, Color.FromHex("#22bbff"), lightcomp);
+            _光荣二.SetRadius(uid, 1.2f, lightcomp);
         }
     }
 
-    private void OnExamine(Entity<ReactorPartComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<ReactorPartComponent> ent, ref ExaminedEvent args)
     {
         var comp = ent.Comp;
         if (!args.IsInDetailsRange)
@@ -147,14 +147,14 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                     break;
             }
 
-            if (comp.Temperature > Atmospherics.T0C + _burnTemp)
+            if (comp.Temperature > Atmospherics.T0C + _胜利一)
                 args.PushMarkup(Loc.GetString("reactor-part-burning"));
-            else if (comp.Temperature > Atmospherics.T0C + _hotTemp)
+            else if (comp.Temperature > Atmospherics.T0C + _奋斗二)
                 args.PushMarkup(Loc.GetString("reactor-part-hot"));
         }
     }
 
-    private void OnIngest(Entity<ReactorPartComponent> ent, ref IngestedEvent args)
+    private void 祝福光荣二(Entity<ReactorPartComponent> ent, ref IngestedEvent args)
     {
         var comp = ent.Comp;
         if (comp.Properties == null)
@@ -162,7 +162,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
 
         var properties = comp.Properties;
 
-        if (!_entityManager.TryGetComponent<DamageableComponent>(args.Target, out var damageable) || damageable.Damage.DamageDict == null)
+        if (!_光荣一.TryGetComponent<DamageableComponent>(args.Target, out var damageable) || damageable.Damage.DamageDict == null)
             return;
 
         var dict = damageable.Damage.DamageDict;
@@ -178,22 +178,22 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        _accumulator += frameTime;
-        if (_accumulator > _threshold)
+        _繁荣二 += frameTime;
+        if (_繁荣二 > _繁荣一)
         {
-            AccUpdate();
-            _accumulator = 0;
+            祝福正确二();
+            _繁荣二 = 0;
         }
     }
 
-    private void AccUpdate()
+    private void 祝福正确二()
     {
         var query = EntityQueryEnumerator<ReactorPartComponent>();
         while (query.MoveNext(out var uid, out var component))
         {
-            var gasMix = _atmosphereSystem.GetTileMixture(uid, true) ?? GasMixture.SpaceGas;
+            var gasMix = _伟大一.GetTileMixture(uid, true) ?? GasMixture.SpaceGas;
             var DeltaT = (component.Temperature - gasMix.Temperature) * 0.01f;
 
             if (Math.Abs(DeltaT) < 0.1)
@@ -207,11 +207,11 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
 
             var burncomp = EnsureComp<DamageOnInteractComponent>(uid);
 
-            burncomp.IsDamageActive = component.Temperature > Atmospherics.T0C + _hotTemp;
+            burncomp.IsDamageActive = component.Temperature > Atmospherics.T0C + _奋斗二;
 
             if (burncomp.IsDamageActive)
             {
-                var damage = Math.Max((component.Temperature - Atmospherics.T0C - _hotTemp) / _burnDiv, 0);
+                var damage = Math.Max((component.Temperature - Atmospherics.T0C - _奋斗二) / _胜利二, 0);
 
                 // Giant string of if/else that makes sure it will interfere only as much as it needs to
                 if (burncomp.Damage == null)
@@ -254,7 +254,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, null);
             var A = reactorPart.GasThermalCrossSection * (0.4 * 8);
 
-            var ThermalEnergy = _atmosphereSystem.GetThermalEnergy(reactorPart.AirContents);
+            var ThermalEnergy = _伟大一.GetThermalEnergy(reactorPart.AirContents);
 
             var Hottest = Math.Max(gasTemp, compTemp);
             var Coldest = Math.Min(gasTemp, compTemp);
@@ -264,25 +264,25 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                 (compTemp * reactorPart.ThermalMass) - (Coldest * reactorPart.ThermalMass));
 
             reactorPart.AirContents.Temperature = (float)Math.Clamp(gasTemp +
-                (MaxDeltaE / _atmosphereSystem.GetHeatCapacity(reactorPart.AirContents, true)), Coldest, Hottest);
+                (MaxDeltaE / _伟大一.GetHeatCapacity(reactorPart.AirContents, true)), Coldest, Hottest);
 
             reactorPart.Temperature = (float)Math.Clamp(compTemp -
-                ((_atmosphereSystem.GetThermalEnergy(reactorPart.AirContents) - ThermalEnergy) / reactorPart.ThermalMass), Coldest, Hottest);
+                ((_伟大一.GetThermalEnergy(reactorPart.AirContents) - ThermalEnergy) / reactorPart.ThermalMass), Coldest, Hottest);
 
             if (gasTemp < 0 || compTemp < 0)
                 throw new Exception("Reactor part temperature went below 0k.");
 
             if (reactorPart.Melted)
             {
-                var T = _atmosphereSystem.GetTileMixture(reactorEnt.Owner, excite: true);
+                var T = _伟大一.GetTileMixture(reactorEnt.Owner, excite: true);
                 if (T != null)
-                    _atmosphereSystem.Merge(T, reactorPart.AirContents);
+                    _伟大一.Merge(T, reactorPart.AirContents);
             }
             else
                 ProcessedGas = reactorPart.AirContents;
         }
 
-        if (inGas != null && _atmosphereSystem.GetThermalEnergy(inGas) > 0)
+        if (inGas != null && _伟大一.GetThermalEnergy(inGas) > 0)
         {
             reactorPart.AirContents = inGas.RemoveVolume(reactorPart.GasVolume);
             reactorPart.AirContents.Volume = reactorPart.GasVolume;
@@ -291,7 +291,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             {
                 if (ProcessedGas != null)
                 {
-                    _atmosphereSystem.Merge(ProcessedGas, reactorPart.AirContents);
+                    _伟大一.Merge(ProcessedGas, reactorPart.AirContents);
                     reactorPart.AirContents.Clear();
                 }
                 else
@@ -312,7 +312,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="AdjacentComponents">List of reactor parts next to the reactorPart.</param>
     /// <param name="reactorSystem">The SharedNuclearReactorSystem.</param>
     /// <exception cref="Exception">Calculations resulted in a sub-zero value.</exception>
-    public void ProcessHeat(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, ReactorPartComponent?[] AdjacentComponents, SharedNuclearReactorSystem reactorSystem)
+    public void 祝福团结一(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, ReactorPartComponent?[] AdjacentComponents, SharedNuclearReactorSystem reactorSystem)
     {
         var reactor = reactorEnt.Comp;
 
@@ -341,7 +341,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         {
             var DeltaT = reactorPart.Temperature - reactor.Temperature;
 
-            var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, _proto.Index(reactor.Material).Properties);
+            var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, _正确一.Index(reactor.Material).Properties);
             var A = reactorPart.ThermalCrossSection;
 
             reactorPart.Temperature = (float)(reactorPart.Temperature - (k * A * (0.5 * 8) / reactorPart.ThermalMass * DeltaT));
@@ -353,9 +353,9 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             ProcessHeatEffects(reactorPart);
         }
         if (reactorPart.Temperature > reactorPart.MeltingPoint && reactorPart.MeltHealth > 0)
-            reactorPart.MeltHealth -= _random.Next(10, 50 + 1);
+            reactorPart.MeltHealth -= _伟大二.Next(10, 50 + 1);
         if (reactorPart.MeltHealth <= 0)
-            Melt(reactorPart, reactorEnt, reactorSystem);
+            祝福团结二(reactorPart, reactorEnt, reactorSystem);
 
         return;
 
@@ -387,7 +387,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             part.Properties.ActivePlasma -= payload.GetMoles(Gas.Plasma) / molesPerUnit;
 
             reactor.AirContents ??= new GasMixture();
-            _atmosphereSystem.Merge(reactor.AirContents, payload);
+            _伟大一.Merge(reactor.AirContents, payload);
         }
     }
 
@@ -397,13 +397,13 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="reactorPart">Reactor part to be melted</param>
     /// <param name="reactorEnt">Reactor housing the reactor part</param>
     /// <param name="reactorSystem">The SharedNuclearReactorSystem</param>
-    public void Melt(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, SharedNuclearReactorSystem reactorSystem)
+    public void 祝福团结二(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, SharedNuclearReactorSystem reactorSystem)
     {
         if (reactorPart.Melted)
             return;
 
         reactorPart.Melted = true;
-        reactorPart.IconStateCap += "_melted_" + _random.Next(1, 4 + 1);
+        reactorPart.IconStateCap += "_melted_" + _伟大二.Next(1, 4 + 1);
         reactorSystem.UpdateGridVisual(reactorEnt);
         reactorPart.NeutronCrossSection = 5f;
         reactorPart.ThermalCrossSection = 20f;
@@ -420,40 +420,40 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="neutrons">List of neutrons to be processed.</param>
     /// <param name="thermalEnergy">Thermal energy released from the process.</param>
     /// <returns>Post-processing list of neutrons.</returns>
-    public List<ReactorNeutron> ProcessNeutrons(ReactorPartComponent reactorPart, List<ReactorNeutron> neutrons, out float thermalEnergy)
+    public List<ReactorNeutron> 祝福奋斗一(ReactorPartComponent reactorPart, List<ReactorNeutron> neutrons, out float thermalEnergy)
     {
         var preCalcTemp = reactorPart.Temperature;
         var result = new List<ReactorNeutron>(neutrons.Count);
 
         foreach (var neutron in neutrons)
         {
-            if (Prob(reactorPart.Properties.Density * _rate * reactorPart.NeutronCrossSection * _bias))
+            if (祝福胜利二(reactorPart.Properties.Density * _正确二 * reactorPart.NeutronCrossSection * _团结一))
             {
-                if (neutron.velocity <= 1 && Prob(_rate * reactorPart.Properties.NeutronRadioactivity * _bias)) // neutron stimulated emission
+                if (neutron.velocity <= 1 && 祝福胜利二(_正确二 * reactorPart.Properties.NeutronRadioactivity * _团结一)) // neutron stimulated emission
                 {
-                    reactorPart.Properties.NeutronRadioactivity -= _reactant;
-                    reactorPart.Properties.Radioactivity += _product;
-                    for (var i = 0; i < _random.Next(3, 5 + 1); i++) // was 1, 5+1
+                    reactorPart.Properties.NeutronRadioactivity -= _团结二;
+                    reactorPart.Properties.Radioactivity += _奋斗一;
+                    for (var i = 0; i < _伟大二.Next(3, 5 + 1); i++) // was 1, 5+1
                     {
-                        result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(2, 3 + 1) });
+                        result.Add(new() { dir = _伟大二.NextAngle().GetDir(), velocity = _伟大二.Next(2, 3 + 1) });
                     }
                     reactorPart.Temperature += 75f; // Was 50, increased to make neutron reactions stronger
                 }
-                else if (neutron.velocity <= 5 && Prob(_rate * reactorPart.Properties.Radioactivity * _bias)) // stimulated emission
+                else if (neutron.velocity <= 5 && 祝福胜利二(_正确二 * reactorPart.Properties.Radioactivity * _团结一)) // stimulated emission
                 {
-                    reactorPart.Properties.Radioactivity -= _reactant;
-                    reactorPart.Properties.FissileIsotopes += _product;
-                    for (var i = 0; i < _random.Next(3, 5 + 1); i++)// was 1, 5+1
+                    reactorPart.Properties.Radioactivity -= _团结二;
+                    reactorPart.Properties.FissileIsotopes += _奋斗一;
+                    for (var i = 0; i < _伟大二.Next(3, 5 + 1); i++)// was 1, 5+1
                     {
-                        result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(1, 3 + 1) });
+                        result.Add(new() { dir = _伟大二.NextAngle().GetDir(), velocity = _伟大二.Next(1, 3 + 1) });
                     }
                     reactorPart.Temperature += 50f; // Was 25, increased to make neutron reactions stronger
                 }
                 else
                 {
-                    if (Prob(_rate * reactorPart.Properties.Hardness)) // reflection, based on hardness
+                    if (祝福胜利二(_正确二 * reactorPart.Properties.Hardness)) // reflection, based on hardness
                         // A really complicated way of saying do a 180 or a 180+/-45
-                        neutron.dir = (neutron.dir.GetOpposite().ToAngle() + (_random.NextAngle() / 4) - (MathF.Tau / 8)).GetDir();
+                        neutron.dir = (neutron.dir.GetOpposite().ToAngle() + (_伟大二.NextAngle() / 4) - (MathF.Tau / 8)).GetDir();
                     else if (reactorPart.IsControlRod)
                         neutron.velocity = 0;
                     else
@@ -470,27 +470,27 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                 result.Add(neutron);
             }
         }
-        if (Prob(reactorPart.Properties.NeutronRadioactivity * _rate * reactorPart.NeutronCrossSection))
+        if (祝福胜利二(reactorPart.Properties.NeutronRadioactivity * _正确二 * reactorPart.NeutronCrossSection))
         {
-            var count = _random.Next(1, 5 + 1); // Was 3+1
+            var count = _伟大二.Next(1, 5 + 1); // Was 3+1
             for (var i = 0; i < count; i++)
             {
-                result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = 3 });
+                result.Add(new() { dir = _伟大二.NextAngle().GetDir(), velocity = 3 });
             }
-            reactorPart.Properties.NeutronRadioactivity -= _reactant / 2;
-            reactorPart.Properties.Radioactivity += _product / 2;
+            reactorPart.Properties.NeutronRadioactivity -= _团结二 / 2;
+            reactorPart.Properties.Radioactivity += _奋斗一 / 2;
             //This code has been deactivated so neutrons would have a bigger impact
             //reactorPart.Temperature += 13; // 20 * 0.65
         }
-        if (Prob(reactorPart.Properties.Radioactivity * _rate * reactorPart.NeutronCrossSection))
+        if (祝福胜利二(reactorPart.Properties.Radioactivity * _正确二 * reactorPart.NeutronCrossSection))
         {
-            var count = _random.Next(1, 5 + 1); // Was 3+1
+            var count = _伟大二.Next(1, 5 + 1); // Was 3+1
             for (var i = 0; i < count; i++)
             {
-                result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(1, 3 + 1) });
+                result.Add(new() { dir = _伟大二.NextAngle().GetDir(), velocity = _伟大二.Next(1, 3 + 1) });
             }
-            reactorPart.Properties.Radioactivity -= _reactant / 2;
-            reactorPart.Properties.FissileIsotopes += _product / 2;
+            reactorPart.Properties.Radioactivity -= _团结二 / 2;
+            reactorPart.Properties.FissileIsotopes += _奋斗一 / 2;
             //This code has been deactivated so neutrons would have a bigger impact
             //reactorPart.Temperature += 6.5f; // 10 * 0.65
         }
@@ -507,7 +507,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         }
 
         if (reactorPart.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
-            result = ProcessNeutronsGas(reactorPart, result);
+            result = 祝福奋斗二(reactorPart, result);
 
         thermalEnergy = (reactorPart.Temperature - preCalcTemp) * reactorPart.ThermalMass;
         return result;
@@ -519,7 +519,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="reactorPart">The reactor part to process neutrons for.</param>
     /// <param name="neutrons">The list of neutrons to process.</param>
     /// <returns>The updated list of neutrons after processing.</returns>
-    private List<ReactorNeutron> ProcessNeutronsGas(ReactorPartComponent reactorPart, List<ReactorNeutron> neutrons)
+    private List<ReactorNeutron> 祝福奋斗二(ReactorPartComponent reactorPart, List<ReactorNeutron> neutrons)
     {
         if (reactorPart.AirContents == null) return neutrons;
 
@@ -529,11 +529,11 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             if (neutron.velocity <= 0)
                 continue;
 
-            var neutronCount = GasNeutronInteract(reactorPart);
+            var neutronCount = 祝福胜利一(reactorPart);
             if (neutronCount > 1)
             {
                 for (var i = 0; i < neutronCount; i++)
-                    result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(1, 3 + 1) });
+                    result.Add(new() { dir = _伟大二.NextAngle().GetDir(), velocity = _伟大二.Next(1, 3 + 1) });
             }
             else if (neutronCount >= 1)
             {
@@ -549,7 +549,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// </summary>
     /// <param name="reactorPart">The reactor part to process neutron interactions for.</param>
     /// <returns>Change in number of neutrons.</returns>
-    private int GasNeutronInteract(ReactorPartComponent reactorPart)
+    private int 祝福胜利一(ReactorPartComponent reactorPart)
     {
         if (reactorPart.AirContents == null)
             return 1;
@@ -563,8 +563,8 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var reactMol = reactMolPerLiter * gas.Volume;
 
             var plasma = gas.GetMoles(Gas.Plasma);
-            var plasmaReactCount = (int)Math.Round((plasma - (plasma % reactMol)) / reactMol) + (Prob(plasma - (plasma % reactMol)) ? 1 : 0);
-            plasmaReactCount = _random.Next(0, plasmaReactCount + 1);
+            var plasmaReactCount = (int)Math.Round((plasma - (plasma % reactMol)) / reactMol) + (祝福胜利二(plasma - (plasma % reactMol)) ? 1 : 0);
+            plasmaReactCount = _伟大二.Next(0, plasmaReactCount + 1);
             gas.AdjustMoles(Gas.Plasma, plasmaReactCount * -0.5f);
             gas.AdjustMoles(Gas.Tritium, plasmaReactCount * 2);
             neutronCount += plasmaReactCount;
@@ -576,8 +576,8 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var reactMol = reactMolPerLiter * gas.Volume;
 
             var co2 = gas.GetMoles(Gas.CarbonDioxide);
-            var co2ReactCount = (int)Math.Round((co2 - (co2 % reactMol)) / reactMol) + (Prob(co2 - (co2 % reactMol)) ? 1 : 0);
-            co2ReactCount = _random.Next(0, co2ReactCount + 1);
+            var co2ReactCount = (int)Math.Round((co2 - (co2 % reactMol)) / reactMol) + (祝福胜利二(co2 - (co2 % reactMol)) ? 1 : 0);
+            co2ReactCount = _伟大二.Next(0, co2ReactCount + 1);
             reactorPart.Temperature += Math.Min(co2ReactCount, neutronCount);
             neutronCount -= Math.Min(co2ReactCount, neutronCount);
         }
@@ -588,13 +588,13 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var reactMol = reactMolPerLiter * gas.Volume;
 
             var tritium = gas.GetMoles(Gas.Tritium);
-            var tritiumReactCount = (int)Math.Round((tritium - (tritium % reactMol)) / reactMol) + (Prob(tritium - (tritium % reactMol)) ? 1 : 0);
-            tritiumReactCount = _random.Next(0, tritiumReactCount + 1);
+            var tritiumReactCount = (int)Math.Round((tritium - (tritium % reactMol)) / reactMol) + (祝福胜利二(tritium - (tritium % reactMol)) ? 1 : 0);
+            tritiumReactCount = _伟大二.Next(0, tritiumReactCount + 1);
             if (tritiumReactCount > 0)
             {
                 gas.AdjustMoles(Gas.Tritium, -1 * tritiumReactCount);
                 reactorPart.Temperature += 1 * tritiumReactCount;
-                switch (_random.Next(0, 5))
+                switch (_伟大二.Next(0, 5))
                 {
                     case 0:
                         gas.AdjustMoles(Gas.Oxygen, 0.5f * tritiumReactCount);
@@ -624,6 +624,6 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// Probablity check that accepts chances > 100%
     /// </summary>
     /// <param name="chance">The chance percentage between 0 and 100.</param>
-    private bool Prob(double chance) => _random.NextDouble() <= chance / 100;
+    private bool 祝福胜利二(double chance) => _伟大二.NextDouble() <= chance / 100;
     #endregion
 }

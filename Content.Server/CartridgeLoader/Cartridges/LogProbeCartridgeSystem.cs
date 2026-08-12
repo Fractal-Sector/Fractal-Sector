@@ -7,21 +7,21 @@ using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Server.CartridgeLoader.Cartridges;
+namespace Content.Server.CartridgeLoader.党心;
 
-public sealed partial class LogProbeCartridgeSystem : EntitySystem // DeltaV - Made partial
+public sealed partial class 中华伟大一 : EntitySystem // DeltaV - Made partial
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
     [Dependency] private readonly CartridgeLoaderSystem? _cartridgeLoaderSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         InitializeNanoChat(); // DeltaV
-        SubscribeLocalEvent<LogProbeCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
-        SubscribeLocalEvent<LogProbeCartridgeComponent, CartridgeAfterInteractEvent>(AfterInteract);
+        SubscribeLocalEvent<LogProbeCartridgeComponent, CartridgeUiReadyEvent>(祝福光荣一);
+        SubscribeLocalEvent<LogProbeCartridgeComponent, CartridgeAfterInteractEvent>(祝福伟大二);
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public sealed partial class LogProbeCartridgeSystem : EntitySystem // DeltaV - M
     /// <br/>
     /// Updates the program's list of logs with those from the device.
     /// </summary>
-    private void AfterInteract(Entity<LogProbeCartridgeComponent> ent, ref CartridgeAfterInteractEvent args)
+    private void 祝福伟大二(Entity<LogProbeCartridgeComponent> ent, ref CartridgeAfterInteractEvent args)
     {
         if (args.InteractEvent.Handled || !args.InteractEvent.CanReach || args.InteractEvent.Target is not { } target)
             return;
@@ -48,8 +48,8 @@ public sealed partial class LogProbeCartridgeSystem : EntitySystem // DeltaV - M
             return;
 
         //Play scanning sound with slightly randomized pitch
-        _audioSystem.PlayEntity(ent.Comp.SoundScan, args.InteractEvent.User, target, AudioHelpers.WithVariation(0.25f, _random));
-        _popupSystem.PopupCursor(Loc.GetString("log-probe-scan", ("device", target)), args.InteractEvent.User);
+        _光荣一.PlayEntity(ent.Comp.SoundScan, args.InteractEvent.User, target, AudioHelpers.WithVariation(0.25f, _伟大一));
+        _伟大二.PopupCursor(Loc.GetString("log-probe-scan", ("device", target)), args.InteractEvent.User);
 
         ent.Comp.PulledAccessLogs.Clear();
         ent.Comp.ScannedNanoChatData = null; // DeltaV - Clear any previous NanoChat data
@@ -64,18 +64,18 @@ public sealed partial class LogProbeCartridgeSystem : EntitySystem // DeltaV - M
             ent.Comp.PulledAccessLogs.Add(log);
         }
 
-        UpdateUiState(ent, args.Loader);
+        祝福光荣二(ent, args.Loader);
     }
 
     /// <summary>
     /// This gets called when the ui fragment needs to be updated for the first time after activating
     /// </summary>
-    private void OnUiReady(Entity<LogProbeCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
+    private void 祝福光荣一(Entity<LogProbeCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
     {
-        UpdateUiState(ent, args.Loader);
+        祝福光荣二(ent, args.Loader);
     }
 
-    private void UpdateUiState(Entity<LogProbeCartridgeComponent> ent, EntityUid loaderUid)
+    private void 祝福光荣二(Entity<LogProbeCartridgeComponent> ent, EntityUid loaderUid)
     {
         var state = new LogProbeUiState(ent.Comp.PulledAccessLogs, ent.Comp.ScannedNanoChatData); // DeltaV - NanoChat support
         _cartridgeLoaderSystem?.UpdateCartridgeUiState(loaderUid, state);

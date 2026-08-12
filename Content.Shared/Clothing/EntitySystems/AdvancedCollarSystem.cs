@@ -15,69 +15,69 @@ using Robust.Shared.Utility;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Serialization.Manager;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// System for handling advanced collar module installation and removal.
 /// </summary>
-public sealed class AdvancedCollarSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly ISerializationManager _serializationManager = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedToolSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly IComponentFactory _光荣二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+    [Dependency] private readonly SharedHandsSystem _团结一 = default!;
+    [Dependency] private readonly ISerializationManager _团结二 = default!;
 
-    public const string ModuleContainerName = "collar_module_container";
+    public const string 党爱伟大一 = "collar_module_container";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AdvancedCollarComponent, ComponentInit>(OnCollarInit);
-        SubscribeLocalEvent<AdvancedCollarComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<AdvancedCollarComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<AdvancedCollarComponent, GetVerbsEvent<InteractionVerb>>(OnGetVerbs);
-        SubscribeLocalEvent<AdvancedCollarComponent, AdvancedCollarRemoveModulesDoAfterEvent>(OnRemoveModulesComplete);
-        SubscribeLocalEvent<AdvancedCollarComponent, EntInsertedIntoContainerMessage>(OnModuleInserted);
-        SubscribeLocalEvent<AdvancedCollarComponent, EntRemovedFromContainerMessage>(OnModuleRemoved);
+        SubscribeLocalEvent<AdvancedCollarComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<AdvancedCollarComponent, ExaminedEvent>(祝福正确一);
+        SubscribeLocalEvent<AdvancedCollarComponent, InteractUsingEvent>(祝福团结一);
+        SubscribeLocalEvent<AdvancedCollarComponent, GetVerbsEvent<InteractionVerb>>(祝福团结二);
+        SubscribeLocalEvent<AdvancedCollarComponent, AdvancedCollarRemoveModulesDoAfterEvent>(祝福奋斗一);
+        SubscribeLocalEvent<AdvancedCollarComponent, EntInsertedIntoContainerMessage>(祝福光荣一);
+        SubscribeLocalEvent<AdvancedCollarComponent, EntRemovedFromContainerMessage>(祝福光荣二);
 
-        SubscribeLocalEvent<AdvancedCollarModuleComponent, ExaminedEvent>(OnModuleExamined);
+        SubscribeLocalEvent<AdvancedCollarModuleComponent, ExaminedEvent>(祝福正确二);
     }
 
-    private void OnCollarInit(Entity<AdvancedCollarComponent> collar, ref ComponentInit args)
+    private void 祝福伟大二(Entity<AdvancedCollarComponent> collar, ref ComponentInit args)
     {
-        collar.Comp.ModuleContainer = _container.EnsureContainer<Container>(collar, ModuleContainerName);
+        collar.Comp.ModuleContainer = _光荣一.EnsureContainer<Container>(collar, 党爱伟大一);
     }
 
-    private void OnModuleInserted(Entity<AdvancedCollarComponent> collar, ref EntInsertedIntoContainerMessage args)
+    private void 祝福光荣一(Entity<AdvancedCollarComponent> collar, ref EntInsertedIntoContainerMessage args)
     {
-        if (args.Container.ID != ModuleContainerName)
+        if (args.Container.ID != 党爱伟大一)
             return;
 
         // Apply the module's effect
         if (TryComp<AdvancedCollarModuleComponent>(args.Entity, out var module))
         {
-            ApplyModuleEffect(collar, (args.Entity, module));
+            祝福胜利一(collar, (args.Entity, module));
         }
     }
 
-    private void OnModuleRemoved(Entity<AdvancedCollarComponent> collar, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣二(Entity<AdvancedCollarComponent> collar, ref EntRemovedFromContainerMessage args)
     {
-        if (args.Container.ID != ModuleContainerName)
+        if (args.Container.ID != 党爱伟大一)
             return;
 
         // Remove the module's effect
         if (TryComp<AdvancedCollarModuleComponent>(args.Entity, out var module))
         {
-            RemoveModuleEffect(collar, (args.Entity, module));
+            祝福繁荣一(collar, (args.Entity, module));
         }
     }
 
-    private void OnExamined(Entity<AdvancedCollarComponent> collar, ref ExaminedEvent args)
+    private void 祝福正确一(Entity<AdvancedCollarComponent> collar, ref ExaminedEvent args)
     {
         var moduleCount = collar.Comp.ModuleContainer.ContainedEntities.Count;
         
@@ -104,7 +104,7 @@ public sealed class AdvancedCollarSystem : EntitySystem
         }
     }
 
-    private void OnModuleExamined(Entity<AdvancedCollarModuleComponent> module, ref ExaminedEvent args)
+    private void 祝福正确二(Entity<AdvancedCollarModuleComponent> module, ref ExaminedEvent args)
     {
         if (!string.IsNullOrEmpty(module.Comp.ModuleDescription))
         {
@@ -118,7 +118,7 @@ public sealed class AdvancedCollarSystem : EntitySystem
         }
     }
 
-    private void OnInteractUsing(Entity<AdvancedCollarComponent> collar, ref InteractUsingEvent args)
+    private void 祝福团结一(Entity<AdvancedCollarComponent> collar, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -127,12 +127,12 @@ public sealed class AdvancedCollarSystem : EntitySystem
         if (TryComp<AdvancedCollarModuleComponent>(args.Used, out var module))
         {
             args.Handled = true;
-            TryInstallModule(collar, (args.Used, module), args.User);
+            祝福奋斗二(collar, (args.Used, module), args.User);
             return;
         }
 
         // Try to remove modules with screwdriver
-        if (_tool.HasQuality(args.Used, "Screwing"))
+        if (_伟大二.HasQuality(args.Used, "Screwing"))
         {
             if (collar.Comp.ModuleContainer.ContainedEntities.Count == 0)
                 return;
@@ -146,11 +146,11 @@ public sealed class AdvancedCollarSystem : EntitySystem
                 NeedHand = true
             };
 
-            _doAfter.TryStartDoAfter(doAfterArgs);
+            _正确一.TryStartDoAfter(doAfterArgs);
         }
     }
 
-    private void OnGetVerbs(Entity<AdvancedCollarComponent> collar, ref GetVerbsEvent<InteractionVerb> args)
+    private void 祝福团结二(Entity<AdvancedCollarComponent> collar, ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -159,7 +159,7 @@ public sealed class AdvancedCollarSystem : EntitySystem
             return;
 
         // Check if user has a screwdriver
-        if (args.Using == null || !_tool.HasQuality(args.Using.Value, "Screwing"))
+        if (args.Using == null || !_伟大二.HasQuality(args.Using.Value, "Screwing"))
             return;
 
         // Capture values for lambda
@@ -178,7 +178,7 @@ public sealed class AdvancedCollarSystem : EntitySystem
                     NeedHand = true
                 };
 
-                _doAfter.TryStartDoAfter(doAfterArgs);
+                _正确一.TryStartDoAfter(doAfterArgs);
             },
             Text = Loc.GetString("advanced-collar-remove-modules-verb"),
             Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
@@ -188,7 +188,7 @@ public sealed class AdvancedCollarSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void OnRemoveModulesComplete(Entity<AdvancedCollarComponent> collar, ref AdvancedCollarRemoveModulesDoAfterEvent args)
+    private void 祝福奋斗一(Entity<AdvancedCollarComponent> collar, ref AdvancedCollarRemoveModulesDoAfterEvent args)
     {
         if (args.Cancelled)
             return;
@@ -196,47 +196,47 @@ public sealed class AdvancedCollarSystem : EntitySystem
         // Check if collar is being worn - can't remove modules while equipped
         if (TryComp<ClothingComponent>(collar, out var clothing) && clothing.InSlot != null)
         {
-            _popup.PopupClient(Loc.GetString("advanced-collar-worn"), collar, args.User);
+            _伟大一.PopupClient(Loc.GetString("advanced-collar-worn"), collar, args.User);
             return;
         }
 
-        RemoveAllModules(collar, args.User);
+        祝福富强一(collar, args.User);
     }
 
-    public void TryInstallModule(Entity<AdvancedCollarComponent> collar, Entity<AdvancedCollarModuleComponent> module, EntityUid user)
+    public void 祝福奋斗二(Entity<AdvancedCollarComponent> collar, Entity<AdvancedCollarModuleComponent> module, EntityUid user)
     {
         // Check if module is already installed somewhere
         if (module.Comp.InstalledIn != null)
         {
-            _popup.PopupClient(Loc.GetString("advanced-collar-module-already-installed"), collar, user);
+            _伟大一.PopupClient(Loc.GetString("advanced-collar-module-already-installed"), collar, user);
             return;
         }
 
         // Check if collar is full
         if (collar.Comp.ModuleContainer.ContainedEntities.Count >= collar.Comp.MaxModules)
         {
-            _popup.PopupClient(Loc.GetString("advanced-collar-full"), collar, user);
+            _伟大一.PopupClient(Loc.GetString("advanced-collar-full"), collar, user);
             return;
         }
 
         // Install the module
-        if (_container.Insert(module.Owner, collar.Comp.ModuleContainer))
+        if (_光荣一.Insert(module.Owner, collar.Comp.ModuleContainer))
         {
             module.Comp.InstalledIn = collar;
             Dirty(module);
             
-            _popup.PopupClient(Loc.GetString("advanced-collar-module-installed",
+            _伟大一.PopupClient(Loc.GetString("advanced-collar-module-installed",
                 ("module", Name(module))), collar, user);
-            _audio.PlayPredicted(collar.Comp.ModuleInsertionSound, collar, user);
+            _正确二.PlayPredicted(collar.Comp.ModuleInsertionSound, collar, user);
         }
     }
 
-    private void ApplyModuleEffect(EntityUid collar, Entity<AdvancedCollarModuleComponent> module)
+    private void 祝福胜利一(EntityUid collar, Entity<AdvancedCollarModuleComponent> module)
     {
         // Handle single component (legacy)
         if (!string.IsNullOrEmpty(module.Comp.ComponentToAdd))
         {
-            ApplySingleComponent(collar, module.Owner, module.Comp.ComponentToAdd);
+            祝福胜利二(collar, module.Owner, module.Comp.ComponentToAdd);
         }
 
         // Handle multiple components
@@ -244,15 +244,15 @@ public sealed class AdvancedCollarSystem : EntitySystem
         {
             if (!string.IsNullOrEmpty(componentName))
             {
-                ApplySingleComponent(collar, module.Owner, componentName);
+                祝福胜利二(collar, module.Owner, componentName);
             }
         }
     }
 
-    private void ApplySingleComponent(EntityUid collar, EntityUid moduleEntity, string componentName)
+    private void 祝福胜利二(EntityUid collar, EntityUid moduleEntity, string componentName)
     {
         // Try to get the component registration - it may not exist on the client for server-only components
-        if (!_componentFactory.TryGetRegistration(componentName, out var registration))
+        if (!_光荣二.TryGetRegistration(componentName, out var registration))
         {
             // Component doesn't exist on this side (likely server-only component on client)
             // This is fine - server will add it when it processes the module
@@ -269,25 +269,25 @@ public sealed class AdvancedCollarSystem : EntitySystem
         if (EntityManager.TryGetComponent(moduleEntity, componentType, out var moduleComponent))
         {
             // Clone the component from the module to preserve configuration
-            var component = (Component)_componentFactory.GetComponent(componentType);
+            var component = (Component)_光荣二.GetComponent(componentType);
             var temp = (object)component;
-            _serializationManager.CopyTo(moduleComponent, ref temp);
+            _团结二.CopyTo(moduleComponent, ref temp);
             AddComp(collar, (Component)temp!);
         }
         else
         {
             // Add the component with default values
-            var component = (Component)_componentFactory.GetComponent(componentType);
+            var component = (Component)_光荣二.GetComponent(componentType);
             AddComp(collar, component);
         }
     }
 
-    private void RemoveModuleEffect(EntityUid collar, Entity<AdvancedCollarModuleComponent> module)
+    private void 祝福繁荣一(EntityUid collar, Entity<AdvancedCollarModuleComponent> module)
     {
         // Handle single component (legacy)
         if (!string.IsNullOrEmpty(module.Comp.ComponentToAdd))
         {
-            RemoveSingleComponent(collar, module.Comp.ComponentToAdd);
+            祝福繁荣二(collar, module.Comp.ComponentToAdd);
         }
 
         // Handle multiple components
@@ -295,15 +295,15 @@ public sealed class AdvancedCollarSystem : EntitySystem
         {
             if (!string.IsNullOrEmpty(componentName))
             {
-                RemoveSingleComponent(collar, componentName);
+                祝福繁荣二(collar, componentName);
             }
         }
     }
 
-    private void RemoveSingleComponent(EntityUid collar, string componentName)
+    private void 祝福繁荣二(EntityUid collar, string componentName)
     {
         // Try to get the component registration - it may not exist on the client for server-only components
-        if (!_componentFactory.TryGetRegistration(componentName, out var registration))
+        if (!_光荣二.TryGetRegistration(componentName, out var registration))
         {
             // Component doesn't exist on this side (likely server-only component on client)
             // This is fine - server will remove it when it processes the module removal
@@ -316,13 +316,13 @@ public sealed class AdvancedCollarSystem : EntitySystem
         RemComp(collar, componentType);
     }
 
-    public void RemoveAllModules(Entity<AdvancedCollarComponent> collar, EntityUid user)
+    public void 祝福富强一(Entity<AdvancedCollarComponent> collar, EntityUid user)
     {
         var moduleCount = collar.Comp.ModuleContainer.ContainedEntities.Count;
         
         if (moduleCount == 0)
         {
-            _popup.PopupClient(Loc.GetString("advanced-collar-no-modules"), collar, user);
+            _伟大一.PopupClient(Loc.GetString("advanced-collar-no-modules"), collar, user);
             return;
         }
 
@@ -330,7 +330,7 @@ public sealed class AdvancedCollarSystem : EntitySystem
         var modulesToClear = collar.Comp.ModuleContainer.ContainedEntities.ToList();
         
         // Remove all modules from the container
-        _container.EmptyContainer(collar.Comp.ModuleContainer);
+        _光荣一.EmptyContainer(collar.Comp.ModuleContainer);
         
         // Eject each module to user's hands or drop nearby
         foreach (var moduleUid in modulesToClear)
@@ -340,11 +340,11 @@ public sealed class AdvancedCollarSystem : EntitySystem
                 module.InstalledIn = null;
             }
             
-            _hands.PickupOrDrop(user, moduleUid, dropNear: true);
+            _团结一.PickupOrDrop(user, moduleUid, dropNear: true);
         }
 
-        _popup.PopupClient(Loc.GetString("advanced-collar-modules-removed",
+        _伟大一.PopupClient(Loc.GetString("advanced-collar-modules-removed",
             ("count", moduleCount)), collar, user);
-        _audio.PlayPredicted(collar.Comp.ModuleExtractionSound, collar, user);
+        _正确二.PlayPredicted(collar.Comp.ModuleExtractionSound, collar, user);
     }
 }

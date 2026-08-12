@@ -1,14 +1,14 @@
-namespace Content.Server._NF.Projectile.Components;
+namespace Content.Server._NF.Projectile.党心;
 
 /// <summary>
 /// Randomly blinds an entity hitting something else as a projectile.
 /// </summary>
 [RegisterComponent]
-public sealed partial class BlindOnProjectileHitComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public float Prob = 1.0f;
+    public float 党爱伟大一 = 1.0f;
 
     [DataField]
-    public TimeSpan BlindTime = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(2);
 }

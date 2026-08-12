@@ -10,26 +10,26 @@ using Content.Shared.Fluids.Components;
 using Content.Shared.Rootable;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Rootable;
+namespace Content.Server.党心;
 
 // TODO: Move all of this to shared
 /// <summary>
 /// Adds an action to toggle rooting to the ground, primarily for the Diona species.
 /// </summary>
-public sealed class RootableSystem : SharedRootableSystem
+public sealed class 中华伟大一 : SharedRootableSystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _logger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly ReactiveSystem _reactive = default!;
-    [Dependency] private readonly BloodstreamSystem _blood = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣一 = default!;
+    [Dependency] private readonly ReactiveSystem _光荣二 = default!;
+    [Dependency] private readonly BloodstreamSystem _正确一 = default!;
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         var query = EntityQueryEnumerator<RootableComponent, BloodstreamComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大二.CurTime;
         while (query.MoveNext(out var uid, out var rooted, out var bloodstream))
         {
             if (!rooted.Rooted || rooted.PuddleEntity == null || curTime < rooted.NextUpdate || !PuddleQuery.TryComp(rooted.PuddleEntity, out var puddleComp))
@@ -37,42 +37,42 @@ public sealed class RootableSystem : SharedRootableSystem
 
             rooted.NextUpdate += rooted.TransferFrequency;
 
-            PuddleReact((uid, rooted, bloodstream), (rooted.PuddleEntity.Value, puddleComp!));
+            祝福伟大二((uid, rooted, bloodstream), (rooted.PuddleEntity.Value, puddleComp!));
         }
     }
 
     /// <summary>
     /// Determines if the puddle is set up properly and if so, moves on to reacting.
     /// </summary>
-    private void PuddleReact(Entity<RootableComponent, BloodstreamComponent> entity, Entity<PuddleComponent> puddleEntity)
+    private void 祝福伟大二(Entity<RootableComponent, BloodstreamComponent> entity, Entity<PuddleComponent> puddleEntity)
     {
-        if (!_solutionContainer.ResolveSolution(puddleEntity.Owner, puddleEntity.Comp.SolutionName, ref puddleEntity.Comp.Solution, out var solution) ||
+        if (!_光荣一.ResolveSolution(puddleEntity.Owner, puddleEntity.Comp.SolutionName, ref puddleEntity.Comp.Solution, out var solution) ||
             solution.Contents.Count == 0)
         {
             return;
         }
 
-        ReactWithEntity(entity, puddleEntity, solution);
+        祝福光荣一(entity, puddleEntity, solution);
     }
 
     /// <summary>
     /// Attempt to transfer an amount of the solution to the entity's bloodstream.
     /// </summary>
-    private void ReactWithEntity(Entity<RootableComponent, BloodstreamComponent> entity, Entity<PuddleComponent> puddleEntity, Solution solution)
+    private void 祝福光荣一(Entity<RootableComponent, BloodstreamComponent> entity, Entity<PuddleComponent> puddleEntity, Solution solution)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp2.ChemicalSolutionName, ref entity.Comp2.ChemicalSolution, out var chemSolution) || chemSolution.AvailableVolume <= 0)
+        if (!_光荣一.ResolveSolution(entity.Owner, entity.Comp2.ChemicalSolutionName, ref entity.Comp2.ChemicalSolution, out var chemSolution) || chemSolution.AvailableVolume <= 0)
             return;
 
         var availableTransfer = FixedPoint2.Min(solution.Volume, entity.Comp1.TransferRate);
         var transferAmount = FixedPoint2.Min(availableTransfer, chemSolution.AvailableVolume);
-        var transferSolution = _solutionContainer.SplitSolution(puddleEntity.Comp.Solution!.Value, transferAmount);
+        var transferSolution = _光荣一.SplitSolution(puddleEntity.Comp.Solution!.Value, transferAmount);
 
-        _reactive.DoEntityReaction(entity, transferSolution, ReactionMethod.Ingestion);
+        _光荣二.DoEntityReaction(entity, transferSolution, ReactionMethod.Ingestion);
 
-        if (_blood.TryAddToChemicals((entity, entity.Comp2), transferSolution))
+        if (_正确一.TryAddToChemicals((entity, entity.Comp2), transferSolution))
         {
             // Log solution addition by puddle
-            _logger.Add(LogType.ForceFeed, LogImpact.Medium, $"{ToPrettyString(entity):target} absorbed puddle {SharedSolutionContainerSystem.ToPrettyString(transferSolution)}");
+            _伟大一.Add(LogType.ForceFeed, LogImpact.Medium, $"{ToPrettyString(entity):target} absorbed puddle {SharedSolutionContainerSystem.ToPrettyString(transferSolution)}");
         }
     }
 }

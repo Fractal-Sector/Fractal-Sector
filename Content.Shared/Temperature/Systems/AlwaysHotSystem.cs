@@ -1,18 +1,18 @@
 using Content.Shared.Temperature;
 using Content.Shared.Temperature.Components;
 
-namespace Content.Shared.Temperature.Systems;
+namespace Content.Shared.Temperature.党心;
 
-public sealed class AlwaysHotSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AlwaysHotComponent, IsHotEvent>(OnIsHot);
+        SubscribeLocalEvent<AlwaysHotComponent, IsHotEvent>(祝福伟大二);
     }
 
-    private void OnIsHot(Entity<AlwaysHotComponent> ent, ref IsHotEvent args)
+    private void 祝福伟大二(Entity<AlwaysHotComponent> ent, ref IsHotEvent args)
     {
         args.IsHot = true;
     }

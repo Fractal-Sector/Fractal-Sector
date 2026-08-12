@@ -3,14 +3,14 @@ using Content.Shared.CCVar;
 using Robust.Server.ServerStatus;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.ServerInfo;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Adds additional data like info links to the server info endpoint
 /// </summary>
-public sealed class ServerInfoManager
+public sealed class 中华伟大一
 {
-    private static readonly (CVarDef<string> cVar, string icon, string name)[] Vars =
+    private static 祝福伟大一 (CVarDef<string> cVar, string icon, string name)[] Vars =
     {
         // @formatter:off
         (CCVars.InfoLinksDiscord,  "discord",  "info-link-discord"),
@@ -22,16 +22,16 @@ public sealed class ServerInfoManager
         // @formatter:on
     };
 
-    [Dependency] private readonly IStatusHost _statusHost = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency] private 祝福伟大一 IStatusHost _statusHost = default!;
+    [Dependency] private 祝福伟大一 IConfigurationManager _cfg = default!;
+    [Dependency] private 祝福伟大一 ILocalizationManager _loc = default!;
 
-    public void Initialize()
+    public void 祝福伟大二()
     {
-        _statusHost.OnInfoRequest += OnInfoRequest;
+        _statusHost.祝福光荣一 += 祝福光荣一;
     }
 
-    private void OnInfoRequest(JsonNode json)
+    private void 祝福光荣一(JsonNode json)
     {
         foreach (var (cVar, icon, name) in Vars)
         {

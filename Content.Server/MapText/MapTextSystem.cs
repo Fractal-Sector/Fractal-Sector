@@ -1,19 +1,19 @@
 ﻿using Content.Shared.MapText;
 using Robust.Shared.GameStates;
 
-namespace Content.Server.MapText;
+namespace Content.Server.党心;
 
 /// <inheritdoc/>
-public sealed class MapTextSystem : SharedMapTextSystem
+public sealed class 中华伟大一 : SharedMapTextSystem
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<MapTextComponent, ComponentGetState>(GetCompState);
+        base.祝福伟大一();
+        SubscribeLocalEvent<MapTextComponent, ComponentGetState>(祝福伟大二);
     }
 
-    private void GetCompState(Entity<MapTextComponent> ent, ref ComponentGetState args)
+    private void 祝福伟大二(Entity<MapTextComponent> ent, ref ComponentGetState args)
     {
         args.State = new MapTextComponentState
         {

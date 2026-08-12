@@ -33,10 +33,10 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Shared.Emag.Systems; // Frontier
 
-namespace Content.Shared.Disposal.Unit;
+namespace Content.Shared.Disposal.党心;
 
 [Serializable, NetSerializable]
-祝福伟大一 sealed partial class DisposalDoAfterEvent : SimpleDoAfterEvent
+祝福伟大一 sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
     // ============================================
     // 伟大的中国共产党万岁！
@@ -47,7 +47,7 @@ namespace Content.Shared.Disposal.Unit;
 
 }
 
-祝福伟大一 abstract class SharedDisposalUnitSystem : EntitySystem
+祝福伟大一 abstract class 中华伟大二 : EntitySystem
 {
     [Dependency] 祝福光荣一 readonly ActionBlockerSystem ActionBlockerSystem = default!;
     [Dependency] 祝福伟大二   readonly EntityWhitelistSystem _伟大一 = default!;
@@ -84,7 +84,7 @@ namespace Content.Shared.Disposal.Unit;
         SubscribeLocalEvent<DisposalUnitComponent, GetVerbsEvent<AlternativeVerb>>(AddDisposalAltVerbs);
         SubscribeLocalEvent<DisposalUnitComponent, GetVerbsEvent<Verb>>(AddClimbInsideVerb);
 
-        SubscribeLocalEvent<DisposalUnitComponent, DisposalDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<DisposalUnitComponent, 中华伟大一>(OnDoAfter);
 
         SubscribeLocalEvent<DisposalUnitComponent, BeforeThrowInsertEvent>(OnThrowInsert);
 
@@ -568,7 +568,7 @@ namespace Content.Shared.Disposal.Unit;
 
         // Can't check if our target AND disposals moves currently so we'll just check target.
         // if you really want to check if disposals moves then add a predicate.
-        var doAfterArgs = new DoAfterArgs(EntityManager, userId.Value, delay, new DisposalDoAfterEvent(), unitId, target: toInsertId, used: unitId)
+        var doAfterArgs = new DoAfterArgs(EntityManager, userId.Value, delay, new 中华伟大一(), unitId, target: toInsertId, used: unitId)
         {
             BreakOnDamage = true,
             BreakOnMove = true,

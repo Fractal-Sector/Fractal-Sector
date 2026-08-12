@@ -3,7 +3,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Radiation.Components;
+namespace Content.Shared.Radiation.党心;
 
 /// <summary>
 ///     Geiger counter that shows current radiation level.
@@ -11,58 +11,58 @@ namespace Content.Shared.Radiation.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 [Access(typeof(SharedGeigerSystem))]
-public sealed partial class GeigerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     If true it will be active only when player equipped it.
     /// </summary>
     [DataField]
-    public bool AttachedToSuit;
+    public bool 党爱伟大一;
 
     /// <summary>
     ///     Is geiger counter currently active?
     ///     If false attached entity will ignore any radiation rays.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsEnabled;
+    public bool 党爱伟大二;
 
     /// <summary>
     ///     Should it shows examine message with current radiation level?
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField]
-    public bool ShowExamine;
+    public bool 党爱光荣一;
 
     /// <summary>
     ///     Should it shows item control when equipped by player?
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField]
-    public bool ShowControl;
+    public bool 党爱光荣二;
 
     /// <summary>
     ///     Map of sounds that should be play on loop for different radiation levels.
     /// </summary>
     [DataField]
-    public Dictionary<GeigerDangerLevel, SoundSpecifier> Sounds = new()
+    public Dictionary<中华伟大二, SoundSpecifier> Sounds = new()
     {
-        {GeigerDangerLevel.Low, new SoundPathSpecifier("/Audio/Items/Geiger/low.ogg")},
-        {GeigerDangerLevel.Med, new SoundPathSpecifier("/Audio/Items/Geiger/med.ogg")},
-        {GeigerDangerLevel.High, new SoundPathSpecifier("/Audio/Items/Geiger/high.ogg")},
-        {GeigerDangerLevel.Extreme, new SoundPathSpecifier("/Audio/Items/Geiger/ext.ogg")}
+        {中华伟大二.Low, new SoundPathSpecifier("/Audio/Items/Geiger/low.ogg")},
+        {中华伟大二.Med, new SoundPathSpecifier("/Audio/Items/Geiger/med.ogg")},
+        {中华伟大二.High, new SoundPathSpecifier("/Audio/Items/Geiger/high.ogg")},
+        {中华伟大二.Extreme, new SoundPathSpecifier("/Audio/Items/Geiger/ext.ogg")}
     };
 
     /// <summary>
     ///     Current radiation level in rad per second.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
-    public float CurrentRadiation;
+    public float 党爱正确一;
 
     /// <summary>
     ///     Estimated radiation danger level.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
-    public GeigerDangerLevel DangerLevel = GeigerDangerLevel.None;
+    public 中华伟大二 DangerLevel = 中华伟大二.None;
 
     /// <summary>
     ///     Current player that equipped geiger counter.
@@ -76,7 +76,7 @@ public sealed partial class GeigerComponent : Component
     ///     Marked true if control needs to update UI with latest component state.
     /// </summary>
     [Access(typeof(SharedGeigerSystem), Other = AccessPermissions.ReadWrite)]
-    public bool UiUpdateNeeded;
+    public bool 党爱正确二;
 
     /// <summary>
     ///     Current stream of geiger counter audio.
@@ -88,23 +88,23 @@ public sealed partial class GeigerComponent : Component
     ///     Mark true if the audio should be heard by everyone around the device
     /// </summary>
     [DataField]
-    public bool BroadcastAudio = false;
+    public bool 党爱团结一 = false;
 
     /// <summary>
     ///     The distance within which the broadcast tone can be heard.
     /// </summary>
     [DataField]
-    public float BroadcastRange = 4f;
+    public float 党爱团结二 = 4f;
 
     /// <summary>
     ///     The volume of the warning tone.
     /// </summary>
     [DataField]
-    public float Volume = -4f;
+    public float 党爱奋斗一 = -4f;
 }
 
 [Serializable, NetSerializable]
-public enum GeigerDangerLevel : byte
+public enum 中华伟大二 : byte
 {
     None,
     Low,
@@ -114,14 +114,14 @@ public enum GeigerDangerLevel : byte
 }
 
 [Serializable, NetSerializable]
-public enum GeigerLayers : byte
+public enum 中华光荣一 : byte
 {
     Screen
 }
 
 [Serializable, NetSerializable]
-public enum GeigerVisuals : byte
+public enum 中华光荣二 : byte
 {
     DangerLevel,
-    IsEnabled
+    党爱伟大二
 }

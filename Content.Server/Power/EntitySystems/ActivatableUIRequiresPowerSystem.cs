@@ -4,20 +4,20 @@ using Content.Shared.Power.EntitySystems;
 using Content.Shared.UserInterface;
 using ActivatableUISystem = Content.Shared.UserInterface.ActivatableUISystem;
 
-namespace Content.Server.Power.EntitySystems;
+namespace Content.Server.Power.党心;
 
-public sealed class ActivatableUIRequiresPowerSystem : SharedActivatableUIRequiresPowerSystem
+public sealed class 中华伟大一 : SharedActivatableUIRequiresPowerSystem
 {
-    [Dependency] private readonly ActivatableUISystem _activatableUI = default!;
+    [Dependency] private readonly ActivatableUISystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ActivatableUIRequiresPowerComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<ActivatableUIRequiresPowerComponent, PowerChangedEvent>(祝福光荣一);
     }
 
-    protected override void OnActivate(Entity<ActivatableUIRequiresPowerComponent> ent, ref ActivatableUIOpenAttemptEvent args)
+    protected override void 祝福伟大二(Entity<ActivatableUIRequiresPowerComponent> ent, ref ActivatableUIOpenAttemptEvent args)
     {
         if (args.Cancelled || this.IsPowered(ent.Owner, EntityManager))
         {
@@ -27,9 +27,9 @@ public sealed class ActivatableUIRequiresPowerSystem : SharedActivatableUIRequir
         args.Cancel();
     }
 
-    private void OnPowerChanged(EntityUid uid, ActivatableUIRequiresPowerComponent component, ref PowerChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, ActivatableUIRequiresPowerComponent component, ref PowerChangedEvent args)
     {
         if (!args.Powered)
-            _activatableUI.CloseAll(uid);
+            _伟大一.CloseAll(uid);
     }
 }

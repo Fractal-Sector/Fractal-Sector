@@ -2,21 +2,21 @@ using Content.Server._NF.Stacks.Components;
 using Content.Server.Stack;
 using Robust.Shared.Random;
 
-namespace Content.Server._NF.Stacks.Systems;
+namespace Content.Server._NF.Stacks.党心;
 
-public sealed class RandomStackSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly StackSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RandomStackCountComponent, ComponentInit>(OnInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RandomStackCountComponent, ComponentInit>(祝福伟大二);
     }
 
-    private void OnInit(Entity<RandomStackCountComponent> ent, ref ComponentInit init)
+    private void 祝福伟大二(Entity<RandomStackCountComponent> ent, ref ComponentInit init)
     {
-        _stack.SetCount(ent, _random.Next(ent.Comp.Min, ent.Comp.Max + 1));
+        _伟大一.SetCount(ent, _伟大二.Next(ent.Comp.Min, ent.Comp.Max + 1));
     }
 }

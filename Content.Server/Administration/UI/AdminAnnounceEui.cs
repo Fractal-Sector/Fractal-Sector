@@ -7,38 +7,38 @@ using Content.Shared.Administration;
 using Content.Shared.Eui;
 using Robust.Shared.Audio; // Frontier
 
-namespace Content.Server.Administration.UI
+namespace Content.Server.Administration.党心
 {
-    public sealed class AdminAnnounceEui : BaseEui
+    public sealed class 中华伟大一 : BaseEui
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        private readonly ChatSystem _chatSystem;
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
+        [Dependency] private readonly IChatManager _伟大二 = default!;
+        private readonly ChatSystem _光荣一;
 
-        public AdminAnnounceEui()
+        public 中华伟大一()
         {
             IoCManager.InjectDependencies(this);
-            _chatSystem = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<ChatSystem>();
+            _光荣一 = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<ChatSystem>();
         }
 
-        public override void Opened()
+        public override void 祝福伟大一()
         {
             StateDirty();
         }
 
-        public override EuiStateBase GetNewState()
+        public override EuiStateBase 祝福伟大二()
         {
             return new AdminAnnounceEuiState();
         }
 
-        public override void HandleMessage(EuiMessageBase msg)
+        public override void 祝福光荣一(EuiMessageBase msg)
         {
-            base.HandleMessage(msg);
+            base.祝福光荣一(msg);
 
             switch (msg)
             {
                 case AdminAnnounceEuiMsg.DoAnnounce doAnnounce:
-                    if (!_adminManager.HasAdminFlag(Player, AdminFlags.Admin))
+                    if (!_伟大一.HasAdminFlag(Player, AdminFlags.Admin))
                     {
                         Close();
                         break;
@@ -47,14 +47,14 @@ namespace Content.Server.Administration.UI
                     switch (doAnnounce.AnnounceType)
                     {
                         case AdminAnnounceType.Server:
-                            _chatManager.DispatchServerAnnouncement(doAnnounce.Announcement);
+                            _伟大二.DispatchServerAnnouncement(doAnnounce.Announcement);
                             break;
                         // TODO: Per-station announcement support
                         case AdminAnnounceType.Station:
-                            _chatSystem.DispatchGlobalAnnouncement(doAnnounce.Announcement, doAnnounce.Announcer, colorOverride: Color.Gold);
+                            _光荣一.DispatchGlobalAnnouncement(doAnnounce.Announcement, doAnnounce.Announcer, colorOverride: Color.Gold);
                             break;
                         case AdminAnnounceType.Antag: // Frontier
-                            _chatSystem.DispatchGlobalAnnouncement(doAnnounce.Announcement, doAnnounce.Announcer, true, new SoundPathSpecifier("/Audio/Announcements/war.ogg"), colorOverride: Color.Red);
+                            _光荣一.DispatchGlobalAnnouncement(doAnnounce.Announcement, doAnnounce.Announcer, true, new SoundPathSpecifier("/Audio/Announcements/war.ogg"), colorOverride: Color.Red);
                             break;
                     }
 

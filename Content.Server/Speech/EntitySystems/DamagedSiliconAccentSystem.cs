@@ -7,21 +7,21 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Speech;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class DamagedSiliconAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly DestructibleSystem _destructibleSystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly PowerCellSystem _伟大二 = default!;
+    [Dependency] private readonly DestructibleSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DamagedSiliconAccentComponent, AccentGetEvent>(OnAccent, after: [typeof(ReplacementAccentSystem)]);
+        base.祝福伟大一();
+        SubscribeLocalEvent<DamagedSiliconAccentComponent, AccentGetEvent>(祝福伟大二, after: [typeof(ReplacementAccentSystem)]);
     }
 
-    private void OnAccent(Entity<DamagedSiliconAccentComponent> ent, ref AccentGetEvent args)
+    private void 祝福伟大二(Entity<DamagedSiliconAccentComponent> ent, ref AccentGetEvent args)
     {
         var uid = ent.Owner;
 
@@ -32,13 +32,13 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
             {
                 currentChargeLevel = ent.Comp.OverrideChargeLevel.Value;
             }
-            else if (_powerCell.TryGetBatteryFromSlot(uid, out var battery))
+            else if (_伟大二.TryGetBatteryFromSlot(uid, out var battery))
             {
                 currentChargeLevel = battery.CurrentCharge / battery.MaxCharge;
             }
             currentChargeLevel = Math.Clamp(currentChargeLevel, 0.0f, 1.0f);
             // Corrupt due to low power (drops characters on longer messages)
-            args.Message = CorruptPower(args.Message, currentChargeLevel, ent.Comp);
+            args.Message = 祝福光荣一(args.Message, currentChargeLevel, ent.Comp);
         }
 
         if (ent.Comp.EnableDamageCorruption)
@@ -53,11 +53,11 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
                 damage = damageable.TotalDamage;
             }
             // Corrupt due to damage (drop, repeat, replace with symbols)
-            args.Message = CorruptDamage(args.Message, damage, ent);
+            args.Message = 祝福光荣二(args.Message, damage, ent);
         }
     }
 
-    public string CorruptPower(string message, float chargeLevel, DamagedSiliconAccentComponent comp)
+    public string 祝福光荣一(string message, float chargeLevel, DamagedSiliconAccentComponent comp)
     {
         // The first idxMin characters are SAFE
         var idxMin = comp.StartPowerCorruptionAtCharIdx;
@@ -91,10 +91,10 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
             // Ensure we're in the range for Prob()
             probToDrop = Math.Clamp(probToDrop, 0.0f, 1.0f);
 
-            if (_random.Prob(probToDrop)) // Lose a character
+            if (_伟大一.Prob(probToDrop)) // Lose a character
             {
                 // Additional chance to change to dot for flavor instead of full drop
-                if (_random.Prob(comp.ProbToCorruptDotFromPower))
+                if (_伟大一.Prob(comp.ProbToCorruptDotFromPower))
                 {
                     outMsg.Append('.');
                 }
@@ -107,7 +107,7 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
         return outMsg.ToString();
     }
 
-    private string CorruptDamage(string message, FixedPoint2 totalDamage, Entity<DamagedSiliconAccentComponent> ent)
+    private string 祝福光荣二(string message, FixedPoint2 totalDamage, Entity<DamagedSiliconAccentComponent> ent)
     {
         var outMsg = new StringBuilder();
 
@@ -118,7 +118,7 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
             if (!TryComp<DestructibleComponent>(ent, out var destructible))
                 return message;
 
-            damageAtMaxCorruption = _destructibleSystem.DestroyedAt(ent, destructible);
+            damageAtMaxCorruption = _光荣一.DestroyedAt(ent, destructible);
         }
 
         // Linear interpolation of character damage probability
@@ -126,9 +126,9 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
         var chanceToCorruptLetter = damagePercent * ent.Comp.MaxDamageCorruption;
         foreach (var letter in message)
         {
-            if (_random.Prob(chanceToCorruptLetter)) // Corrupt!
+            if (_伟大一.Prob(chanceToCorruptLetter)) // Corrupt!
             {
-                outMsg.Append(CorruptLetterDamage(letter));
+                outMsg.Append(祝福正确一(letter));
             }
             else // Safe!
             {
@@ -138,26 +138,26 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
         return outMsg.ToString();
     }
 
-    private string CorruptLetterDamage(char letter)
+    private string 祝福正确一(char letter)
     {
-        var res = _random.NextDouble();
+        var res = _伟大一.NextDouble();
         return res switch
         {
             < 0.0 => letter.ToString(), // shouldn't be less than 0!
-            < 0.5 => CorruptPunctuize(), // 50% chance to replace with random punctuation
+            < 0.5 => 祝福正确二(), // 50% chance to replace with random punctuation
             < 0.75 => "", // 25% chance to remove character
-            < 1.00 => CorruptRepeat(letter), // 25% to repeat the character
+            < 1.00 => 祝福团结一(letter), // 25% to repeat the character
             _ => letter.ToString(), // shouldn't be greater than 1!
         };
     }
 
-    private string CorruptPunctuize()
+    private string 祝福正确二()
     {
         const string punctuation = "\"\\`~!@#$%^&*()_+-={}[]|\\;:<>,.?/";
-        return punctuation[_random.NextByte((byte)punctuation.Length)].ToString();
+        return punctuation[_伟大一.NextByte((byte)punctuation.Length)].ToString();
     }
 
-    private string CorruptRepeat(char letter)
+    private string 祝福团结一(char letter)
     {
         // 25% chance to add another character in the streak
         // (kind of like "exploding dice")
@@ -171,7 +171,7 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
          *     def prob_cum(streak, p=.25):
          *         return np.sum([prob(i, p) for i in range(streak+1)])
          */
-        var numRepeats = _random.NextDouble() switch
+        var numRepeats = _伟大一.NextDouble() switch
         {
             < 0.75000000 => 2,
             < 0.93750000 => 3,

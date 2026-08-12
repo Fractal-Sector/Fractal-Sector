@@ -4,13 +4,13 @@ using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Errors;
 using Robust.Shared.Toolshed.Syntax;
 
-namespace Content.Server.Mind.Toolshed;
+namespace Content.Server.Mind.党心;
 
 /// <summary>
 ///     Contains various mind-manipulation commands like getting minds, controlling mobs, etc.
 /// </summary>
 [ToolshedCommand]
-public sealed class MindCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private SharedMindSystem? _mind;
 
@@ -29,7 +29,7 @@ public sealed class MindCommand : ToolshedCommand
     }
 
     [CommandImplementation("control")]
-    public EntityUid Control(IInvocationContext ctx, [PipedArgument] EntityUid target, ICommonSession player)
+    public EntityUid 祝福伟大一(IInvocationContext ctx, [PipedArgument] EntityUid target, ICommonSession player)
     {
         _mind ??= GetSys<SharedMindSystem>();
 

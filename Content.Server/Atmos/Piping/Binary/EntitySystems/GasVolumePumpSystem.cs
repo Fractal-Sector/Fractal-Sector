@@ -15,36 +15,36 @@ using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Server.Atmos.Piping.Binary.EntitySystems
+namespace Content.Server.Atmos.Piping.Binary.党心
 {
     [UsedImplicitly]
-    public sealed class GasVolumePumpSystem : SharedGasVolumePumpSystem
+    public sealed class 中华伟大一 : SharedGasVolumePumpSystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+        [Dependency] private readonly UserInterfaceSystem _伟大二 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _光荣一 = default!;
+        [Dependency] private readonly NodeContainerSystem _光荣二 = default!;
+        [Dependency] private readonly DeviceNetworkSystem _正确一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasVolumePumpComponent, AtmosDeviceUpdateEvent>(OnVolumePumpUpdated);
-            SubscribeLocalEvent<GasVolumePumpComponent, AtmosDeviceDisabledEvent>(OnVolumePumpLeaveAtmosphere);
+            SubscribeLocalEvent<GasVolumePumpComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
+            SubscribeLocalEvent<GasVolumePumpComponent, AtmosDeviceDisabledEvent>(祝福光荣一);
 
-            SubscribeLocalEvent<GasVolumePumpComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
+            SubscribeLocalEvent<GasVolumePumpComponent, DeviceNetworkPacketEvent>(祝福光荣二);
 
-            SubscribeLocalEvent<GasVolumePumpComponent, MapInitEvent>(OnMapInit); // Frontier
+            SubscribeLocalEvent<GasVolumePumpComponent, MapInitEvent>(祝福正确一); // Frontier
         }
 
-        private void OnVolumePumpUpdated(EntityUid uid, GasVolumePumpComponent pump, ref AtmosDeviceUpdateEvent args)
+        private void 祝福伟大二(EntityUid uid, GasVolumePumpComponent pump, ref AtmosDeviceUpdateEvent args)
         {
             if (!pump.Enabled ||
                 (TryComp<ApcPowerReceiverComponent>(uid, out var power) && !power.Powered) ||
-                !_nodeContainer.TryGetNodes(uid, pump.InletName, pump.OutletName, out PipeNode? inlet, out PipeNode? outlet))
+                !_光荣二.TryGetNodes(uid, pump.InletName, pump.OutletName, out PipeNode? inlet, out PipeNode? outlet))
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
+                _光荣一.SetAmbience(uid, false);
                 return;
             }
 
@@ -72,35 +72,35 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
                 return;
 
             // We multiply the transfer rate in L/s by the seconds passed since the last process to get the liters.
-            var removed = inlet.Air.RemoveVolume(pump.TransferRate * _atmosphereSystem.PumpSpeedup() * args.dt);
+            var removed = inlet.Air.RemoveVolume(pump.TransferRate * _伟大一.PumpSpeedup() * args.dt);
 
             // Some of the gas from the mixture leaks when overclocked.
             if (pump.Overclocked)
             {
-                var tile = _atmosphereSystem.GetTileMixture(uid, excite: true);
+                var tile = _伟大一.GetTileMixture(uid, excite: true);
 
                 if (tile != null)
                 {
                     var leaked = removed.RemoveRatio(pump.LeakRatio);
-                    _atmosphereSystem.Merge(tile, leaked);
+                    _伟大一.Merge(tile, leaked);
                 }
             }
 
             pump.LastMolesTransferred = removed.TotalMoles;
 
-            _atmosphereSystem.Merge(outlet.Air, removed);
-            _ambientSoundSystem.SetAmbience(uid, removed.TotalMoles > 0f);
+            _伟大一.Merge(outlet.Air, removed);
+            _光荣一.SetAmbience(uid, removed.TotalMoles > 0f);
         }
 
-        private void OnVolumePumpLeaveAtmosphere(EntityUid uid, GasVolumePumpComponent pump, ref AtmosDeviceDisabledEvent args)
+        private void 祝福光荣一(EntityUid uid, GasVolumePumpComponent pump, ref AtmosDeviceDisabledEvent args)
         {
             pump.Enabled = false;
             Dirty(uid, pump);
             UpdateAppearance(uid, pump);
-            _userInterfaceSystem.CloseUi(uid, GasVolumePumpUiKey.Key);
+            _伟大二.CloseUi(uid, GasVolumePumpUiKey.Key);
         }
 
-        private void OnPacketRecv(EntityUid uid, GasVolumePumpComponent component, DeviceNetworkPacketEvent args)
+        private void 祝福光荣二(EntityUid uid, GasVolumePumpComponent component, DeviceNetworkPacketEvent args)
         {
             if (!TryComp(uid, out DeviceNetworkComponent? netConn)
                 || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd))
@@ -116,20 +116,20 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
                     payload.Add(DeviceNetworkConstants.Command, AtmosDeviceNetworkSystem.SyncData);
                     payload.Add(AtmosDeviceNetworkSystem.SyncData, new GasVolumePumpData(component.LastMolesTransferred));
 
-                    _deviceNetwork.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
+                    _正确一.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
                     return;
             }
         }
 
         // Frontier: start-on pumps
-        private void OnMapInit(EntityUid uid, GasVolumePumpComponent pump, MapInitEvent args)
+        private void 祝福正确一(EntityUid uid, GasVolumePumpComponent pump, MapInitEvent args)
         {
             if (pump.StartOnMapInit)
             {
                 pump.Enabled = true;
                 Dirty(uid, pump);
                 UpdateAppearance(uid, pump);
-                _userInterfaceSystem.CloseUi(uid, GasVolumePumpUiKey.Key);
+                _伟大二.CloseUi(uid, GasVolumePumpUiKey.Key);
             }
         }
         // End Frontier: start-on pumps

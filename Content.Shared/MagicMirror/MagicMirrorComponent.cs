@@ -2,13 +2,13 @@ using Content.Shared.DoAfter;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.MagicMirror;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Allows humanoids to change their appearance mid-round.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class MagicMirrorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
     public DoAfterId? DoAfter;
@@ -23,25 +23,25 @@ public sealed partial class MagicMirrorComponent : Component
     /// Do after time to add a new slot, adding hair to a person
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan AddSlotTime = TimeSpan.FromSeconds(7);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(7);
 
     /// <summary>
     /// Do after time to remove a slot, removing hair from a person
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan RemoveSlotTime = TimeSpan.FromSeconds(7);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(7);
 
     /// <summary>
     /// Do after time to change a person's hairstyle
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan SelectSlotTime = TimeSpan.FromSeconds(7);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(7);
 
     /// <summary>
     /// Do after time to change a person's hair color
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan ChangeSlotTime = TimeSpan.FromSeconds(7);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(7);
 
     /// <summary>
     /// Sound emitted when slots are changed

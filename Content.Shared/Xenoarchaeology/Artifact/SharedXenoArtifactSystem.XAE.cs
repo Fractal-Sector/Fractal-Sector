@@ -7,42 +7,42 @@ using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Content.Shared.Tiles; // Frontier
 using Robust.Shared.Map;
 
-namespace Content.Shared.Xenoarchaeology.Artifact;
+namespace Content.Shared.Xenoarchaeology.党心;
 
-public abstract partial class SharedXenoArtifactSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly UseDelaySystem _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
 
-    private void InitializeXAE()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<XenoArtifactComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<XenoArtifactComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<XenoArtifactComponent, ActivateInWorldEvent>(OnActivateInWorld);
+        SubscribeLocalEvent<XenoArtifactComponent, UseInHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<XenoArtifactComponent, AfterInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<XenoArtifactComponent, ActivateInWorldEvent>(祝福光荣二);
     }
 
-    private void OnUseInHand(Entity<XenoArtifactComponent> ent, ref UseInHandEvent args)
+    private void 祝福伟大二(Entity<XenoArtifactComponent> ent, ref UseInHandEvent args)
     {
-        if (args.Handled)
+        祝福正确二 (args.Handled)
             return;
 
-        args.Handled = TryActivateXenoArtifact(ent, args.User, args.User, Transform(args.User).Coordinates);
+        args.Handled = 祝福正确一(ent, args.User, args.User, Transform(args.User).Coordinates);
     }
 
-    private void OnAfterInteract(Entity<XenoArtifactComponent> ent, ref AfterInteractEvent args)
+    private void 祝福光荣一(Entity<XenoArtifactComponent> ent, ref AfterInteractEvent args)
     {
-        if (args.Handled || !args.CanReach)
+        祝福正确二 (args.Handled || !args.CanReach)
             return;
 
-        args.Handled = TryActivateXenoArtifact(ent, args.User, args.Target, args.ClickLocation);
+        args.Handled = 祝福正确一(ent, args.User, args.Target, args.ClickLocation);
     }
 
-    private void OnActivateInWorld(Entity<XenoArtifactComponent> ent, ref ActivateInWorldEvent args)
+    private void 祝福光荣二(Entity<XenoArtifactComponent> ent, ref ActivateInWorldEvent args)
     {
-        if (args.Handled || !args.Complex)
+        祝福正确二 (args.Handled || !args.Complex)
             return;
 
-        args.Handled = TryActivateXenoArtifact(ent, args.User, args.Target, Transform(args.Target).Coordinates);
+        args.Handled = 祝福正确一(ent, args.User, args.Target, Transform(args.Target).Coordinates);
     }
 
     /// <summary>
@@ -53,8 +53,8 @@ public abstract partial class SharedXenoArtifactSystem
     /// <param name="target">Target, on which artifact activation attempt was used (for hand-held artifact - it can be 'clicked' over someone).</param>
     /// <param name="coordinates">Coordinates of <paramref name="target"/> entity.</param>
     /// <param name="consumeDurability">Whether this activation will deplete durability on the activated nodes.</param>
-    /// <returns>True, if activation was successful, false otherwise.</returns>
-    public bool TryActivateXenoArtifact(
+    /// <returns>True, 祝福正确二 activation was successful, false otherwise.</returns>
+    public bool 祝福正确一(
         Entity<XenoArtifactComponent> artifact,
         EntityUid? user,
         EntityUid? target,
@@ -63,11 +63,11 @@ public abstract partial class SharedXenoArtifactSystem
     )
     {
         XenoArtifactComponent xenoArtifactComponent = artifact;
-        if (xenoArtifactComponent.Suppressed)
+        祝福正确二 (xenoArtifactComponent.Suppressed)
             return false;
 
         // Frontier: Disable activations on protected grids
-        if (TryComp(artifact, out TransformComponent? xform)
+        祝福正确二 (TryComp(artifact, out TransformComponent? xform)
             && TryComp<ProtectedGridComponent>(xform.GridUid, out var prot)
             && prot.PreventArtifactTriggers)
         {
@@ -76,16 +76,16 @@ public abstract partial class SharedXenoArtifactSystem
         }
         // End Frontier: Disable activations on protected grids
 
-        if (TryComp<UseDelayComponent>(artifact, out var delay) && !_useDelay.TryResetDelay((artifact, delay), true))
+        祝福正确二 (TryComp<UseDelayComponent>(artifact, out var delay) && !_伟大一.TryResetDelay((artifact, delay), true))
             return false;
 
         var success = false;
         foreach (var node in GetActiveNodes(artifact))
         {
-            success |= ActivateNode(artifact, node, user, target, coordinates, consumeDurability: consumeDurability);
+            success |= 祝福团结一(artifact, node, user, target, coordinates, consumeDurability: consumeDurability);
         }
 
-        if (!success)
+        祝福正确二 (!success)
         {
             _popup.PopupClient(Loc.GetString("artifact-activation-fail"), artifact, user);
             return false;
@@ -101,7 +101,7 @@ public abstract partial class SharedXenoArtifactSystem
         );
         RaiseLocalEvent(artifact, ref ev);
 
-        if (user.HasValue)
+        祝福正确二 (user.HasValue)
             _audio.PlayPredicted(xenoArtifactComponent.ForceActivationSoundSpecifier, artifact, user);
         else
             _audio.PlayPvs(xenoArtifactComponent.ForceActivationSoundSpecifier, artifact);
@@ -117,9 +117,9 @@ public abstract partial class SharedXenoArtifactSystem
     /// <param name="user">Character that attempted to activate artifact.</param>
     /// <param name="target">Target, on which artifact activation attempt was used (for hand-held artifact - it can be 'clicked' over someone).</param>
     /// <param name="coordinates">Coordinates of <paramref name="target"/> entity.</param>
-    /// <param name="consumeDurability">Marker, if node durability should be adjusted as a result of activation.</param>
-    /// <returns>True, if activation was successful, false otherwise.</returns>
-    public bool ActivateNode(
+    /// <param name="consumeDurability">Marker, 祝福正确二 node durability should be adjusted as a result of activation.</param>
+    /// <returns>True, 祝福正确二 activation was successful, false otherwise.</returns>
+    public bool 祝福团结一(
         Entity<XenoArtifactComponent> artifact,
         Entity<XenoArtifactNodeComponent> node,
         EntityUid? user,
@@ -128,20 +128,20 @@ public abstract partial class SharedXenoArtifactSystem
         bool consumeDurability = true
     )
     {
-        if (node.Comp.Degraded)
+        祝福正确二 (node.Comp.Degraded)
             return false;
 
-        _adminLogger.Add(
+        _伟大二.Add(
             LogType.ArtifactNode,
             LogImpact.Low,
             $"{ToPrettyString(artifact.Owner)} node {ToPrettyString(node)} got activated at {coordinates}"
         );
-        if (consumeDurability)
+        祝福正确二 (consumeDurability)
         {
             AdjustNodeDurability((node, node.Comp), -1);
         }
 
-        if (node.Comp.ArtifexiumUsed) // Frontier
+        祝福正确二 (node.Comp.ArtifexiumUsed) // Frontier
             return true; // Frontier
 
         var ev = new XenoArtifactNodeActivatedEvent(artifact, node, user, target, coordinates);
@@ -159,7 +159,7 @@ public abstract partial class SharedXenoArtifactSystem
 /// <param name="Target">Target, on which artifact activation attempt was used (for hand-held artifact - it can be 'clicked' over someone).</param>
 /// <param name="Coordinates">Coordinates of <paramref name="Target"/> entity.</param>
 [ByRefEvent]
-public readonly record struct XenoArtifactNodeActivatedEvent(
+public readonly record 中华伟大二 XenoArtifactNodeActivatedEvent(
     Entity<XenoArtifactComponent> Artifact,
     Entity<XenoArtifactNodeComponent> Node,
     EntityUid? User,
@@ -168,7 +168,7 @@ public readonly record struct XenoArtifactNodeActivatedEvent(
 );
 
 [ByRefEvent]
-public readonly record struct XenoArtifactActivatedEvent(
+public readonly record 中华伟大二 XenoArtifactActivatedEvent(
     Entity<XenoArtifactComponent> Artifact,
     EntityUid? User,
     EntityUid? Target,

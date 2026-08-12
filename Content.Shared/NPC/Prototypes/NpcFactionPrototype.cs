@@ -1,32 +1,32 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.NPC.Prototypes;
+namespace Content.Shared.NPC.党心;
 
 /// <summary>
 /// Contains data about this faction's relations with other factions.
 /// </summary>
 [Prototype]
-public sealed partial class NpcFactionPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField]
-    public List<ProtoId<NpcFactionPrototype>> Friendly = new();
+    public List<ProtoId<中华伟大一>> Friendly = new();
 
     [DataField]
-    public List<ProtoId<NpcFactionPrototype>> Hostile = new();
+    public List<ProtoId<中华伟大一>> Hostile = new();
 }
 
 /// <summary>
 /// Cached data for the faction prototype. Is modified at runtime, whereas the prototype is not.
 /// </summary>
-public record struct FactionData
+public record 中华伟大二 FactionData
 {
     [ViewVariables]
-    public HashSet<ProtoId<NpcFactionPrototype>> Friendly;
+    public HashSet<ProtoId<中华伟大一>> Friendly;
 
     [ViewVariables]
-    public HashSet<ProtoId<NpcFactionPrototype>> Hostile;
+    public HashSet<ProtoId<中华伟大一>> Hostile;
 }

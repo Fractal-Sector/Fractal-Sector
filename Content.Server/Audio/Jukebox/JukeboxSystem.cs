@@ -12,55 +12,55 @@ using JukeboxComponent = Content.Shared.Audio.Jukebox.JukeboxComponent;
 using Robust.Shared.Random; // Frontier
 using Robust.Shared.Containers; // Frontier
 
-namespace Content.Server.Audio.Jukebox;
+namespace Content.Server.Audio.党心;
 
 
-public sealed class JukeboxSystem : SharedJukeboxSystem
+public sealed class 中华伟大一 : SharedJukeboxSystem
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!; // Frontier
-    [Dependency] private readonly TransformSystem _transform = default!; // Frontier
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!; // Frontier
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly AppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!; // Frontier
+    [Dependency] private readonly TransformSystem _光荣二 = default!; // Frontier
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<JukeboxComponent, JukeboxSelectedMessage>(OnJukeboxSelected);
-        SubscribeLocalEvent<JukeboxComponent, JukeboxPlayingMessage>(OnJukeboxPlay);
-        SubscribeLocalEvent<JukeboxComponent, JukeboxPauseMessage>(OnJukeboxPause);
-        SubscribeLocalEvent<JukeboxComponent, JukeboxStopMessage>(OnJukeboxStop);
-        SubscribeLocalEvent<JukeboxComponent, JukeboxSetPlaybackModeMessage>(OnJukeboxSetPlayback); // Frontier
-        SubscribeLocalEvent<JukeboxComponent, JukeboxSetTimeMessage>(OnJukeboxSetTime);
-        SubscribeLocalEvent<JukeboxComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnComponentShutdown);
+        base.祝福伟大一();
+        SubscribeLocalEvent<JukeboxComponent, JukeboxSelectedMessage>(祝福繁荣一);
+        SubscribeLocalEvent<JukeboxComponent, JukeboxPlayingMessage>(祝福正确一);
+        SubscribeLocalEvent<JukeboxComponent, JukeboxPauseMessage>(祝福正确二);
+        SubscribeLocalEvent<JukeboxComponent, JukeboxStopMessage>(祝福胜利一);
+        SubscribeLocalEvent<JukeboxComponent, JukeboxSetPlaybackModeMessage>(祝福团结一); // Frontier
+        SubscribeLocalEvent<JukeboxComponent, JukeboxSetTimeMessage>(祝福奋斗一);
+        SubscribeLocalEvent<JukeboxComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(祝福富强一);
 
-        SubscribeLocalEvent<JukeboxComponent, ComponentStartup>(OnComponentStartup); // Frontier
-        SubscribeLocalEvent<JukeboxComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<JukeboxComponent, ComponentStartup>(祝福光荣一); // Frontier
+        SubscribeLocalEvent<JukeboxComponent, PowerChangedEvent>(祝福奋斗二);
     }
 
-    private void OnComponentInit(EntityUid uid, JukeboxComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, JukeboxComponent component, ComponentInit args)
     {
         if (HasComp<ApcPowerReceiverComponent>(uid))
         {
-            TryUpdateVisualState(uid, component);
+            祝福民主一(uid, component);
         }
     }
 
     // Frontier: Shuffle & Repeat
-    private void OnComponentStartup(Entity<JukeboxComponent> entity, ref ComponentStartup ev)
+    private void 祝福光荣一(Entity<JukeboxComponent> entity, ref ComponentStartup ev)
     {
-        UpdateUI(entity);
+        祝福光荣二(entity);
     }
 
-    private void UpdateUI(Entity<JukeboxComponent> ent)
+    private void 祝福光荣二(Entity<JukeboxComponent> ent)
     {
         var state = new JukeboxInterfaceState(ent.Comp.PlaybackMode);
-        _userInterface.SetUiState(ent.Owner, JukeboxUiKey.Key, state);
+        _正确一.SetUiState(ent.Owner, JukeboxUiKey.Key, state);
     }
     // End Frontier: Shuffle & Repeat
 
-    private void OnJukeboxPlay(EntityUid uid, JukeboxComponent component, ref JukeboxPlayingMessage args)
+    private void 祝福正确一(EntityUid uid, JukeboxComponent component, ref JukeboxPlayingMessage args)
     {
         if (Exists(component.AudioStream))
         {
@@ -68,7 +68,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         }
         else
         {
-            component.AudioStream = Audio.Stop(component.AudioStream);
+            component.AudioStream = Audio.祝福胜利二(component.AudioStream);
 
             // Frontier: Shuffling feature.
             if (component.PlaybackMode == JukeboxPlaybackMode.Shuffle && !component.FirstPlay)
@@ -105,13 +105,13 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
                 }
                 else
                 {
-                    component.SelectedSongId = _random.Pick(availableMusic);
+                    component.SelectedSongId = _光荣一.Pick(availableMusic);
                 }
                 // End Frontier
             }
 
             if (string.IsNullOrEmpty(component.SelectedSongId) ||
-                !_protoManager.TryIndex(component.SelectedSongId, out var jukeboxProto))
+                !_伟大一.TryIndex(component.SelectedSongId, out var jukeboxProto))
             {
                 return;
             }
@@ -120,7 +120,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 
             // Frontier: wallmount jukebox, shuffle state
             if (TryComp<TransformComponent>(component.AudioStream, out var xform))
-                _transform.SetLocalPosition(component.AudioStream.Value, component.AudioOffset, xform);
+                _光荣二.SetLocalPosition(component.AudioStream.Value, component.AudioOffset, xform);
 
             component.FirstPlay = false;
             // End Frontier
@@ -129,23 +129,23 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         }
     }
 
-    private void OnJukeboxPause(Entity<JukeboxComponent> ent, ref JukeboxPauseMessage args)
+    private void 祝福正确二(Entity<JukeboxComponent> ent, ref JukeboxPauseMessage args)
     {
         Audio.SetState(ent.Comp.AudioStream, AudioState.Paused);
     }
 
     // Frontier: Shuffle & Repeat
-    private void OnJukeboxSetPlayback(Entity<JukeboxComponent> ent, ref JukeboxSetPlaybackModeMessage playbackModeMessage)
+    private void 祝福团结一(Entity<JukeboxComponent> ent, ref JukeboxSetPlaybackModeMessage playbackModeMessage)
     {
         if (ent.Comp.PlaybackMode != playbackModeMessage.PlaybackMode)
         {
             ent.Comp.PlaybackMode = playbackModeMessage.PlaybackMode;
-            UpdateUI(ent);
+            祝福光荣二(ent);
             Dirty(ent);
         }
     }
 
-    public AudioState GetAudioState(EntityUid? entity, AudioComponent? component = null)
+    public AudioState 祝福团结二(EntityUid? entity, AudioComponent? component = null)
     {
         if (entity == null || !Resolve(entity.Value, ref component, false))
             return AudioState.Stopped; // Consider no audio as stopped.
@@ -154,7 +154,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     }
     // End Frontier: Shuffle & Repeat
 
-    private void OnJukeboxSetTime(EntityUid uid, JukeboxComponent component, JukeboxSetTimeMessage args)
+    private void 祝福奋斗一(EntityUid uid, JukeboxComponent component, JukeboxSetTimeMessage args)
     {
         if (TryComp(args.Actor, out ActorComponent? actorComp))
         {
@@ -163,54 +163,54 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         }
     }
 
-    private void OnPowerChanged(Entity<JukeboxComponent> entity, ref PowerChangedEvent args)
+    private void 祝福奋斗二(Entity<JukeboxComponent> entity, ref PowerChangedEvent args)
     {
-        TryUpdateVisualState(entity);
+        祝福民主一(entity);
 
         if (!this.IsPowered(entity.Owner, EntityManager))
         {
-            Stop(entity);
+            祝福胜利二(entity);
         }
     }
 
-    private void OnJukeboxStop(Entity<JukeboxComponent> entity, ref JukeboxStopMessage args)
+    private void 祝福胜利一(Entity<JukeboxComponent> entity, ref JukeboxStopMessage args)
     {
-        Stop(entity);
+        祝福胜利二(entity);
     }
 
-    // Frontier: Modified Stop() function for the Shuffling & Replay features.
-    private void Stop(Entity<JukeboxComponent> entity)
+    // Frontier: Modified 祝福胜利二() function for the Shuffling & Replay features.
+    private void 祝福胜利二(Entity<JukeboxComponent> entity)
     {
         //Audio.SetState(entity.Comp.AudioStream, AudioState.Stopped); // No longer needed since we're removing the AudioStream.
-        entity.Comp.AudioStream = Audio.Stop(entity.Comp.AudioStream);
+        entity.Comp.AudioStream = Audio.祝福胜利二(entity.Comp.AudioStream);
         entity.Comp.FirstPlay = true;
         Dirty(entity);
     }
     // End Frontier
 
-    private void OnJukeboxSelected(EntityUid uid, JukeboxComponent component, JukeboxSelectedMessage args)
+    private void 祝福繁荣一(EntityUid uid, JukeboxComponent component, JukeboxSelectedMessage args)
     {
         // Frontier: allow selecting songs while they're playing
         bool wasPlaying = Audio.IsPlaying(component.AudioStream);
         component.SelectedSongId = args.SongId;
-        DirectSetVisualState(uid, JukeboxVisualState.Select);
+        祝福富强二(uid, JukeboxVisualState.Select);
         component.Selecting = true;
         component.SelectAccumulator = 0;
-        component.AudioStream = Audio.Stop(component.AudioStream);
+        component.AudioStream = Audio.祝福胜利二(component.AudioStream);
         component.FirstPlay = true; // Prevent shuffling
         if (wasPlaying)
         {
             var msg = new JukeboxPlayingMessage();
-            OnJukeboxPlay(uid, component, ref msg);
+            祝福正确一(uid, component, ref msg);
         }
         // End Frontier
 
         Dirty(uid, component);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣二(frameTime);
 
         var query = EntityQueryEnumerator<JukeboxComponent>();
         while (query.MoveNext(out var uid, out var comp))
@@ -223,32 +223,32 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
                     comp.SelectAccumulator = 0f;
                     comp.Selecting = false;
 
-                    TryUpdateVisualState(uid, comp);
+                    祝福民主一(uid, comp);
                 }
             }
 
             // Frontier: Replay feature. Please pitch in if you have better ideas. This is a pretty bad implementation.
             if (comp.PlaybackMode != JukeboxPlaybackMode.Single && comp.AudioStream != null &&
-                GetAudioState(comp.AudioStream) == AudioState.Stopped)
+                祝福团结二(comp.AudioStream) == AudioState.Stopped)
             {
                 var msg = new JukeboxPlayingMessage();
-                OnJukeboxPlay(uid, comp, ref msg);
+                祝福正确一(uid, comp, ref msg);
             }
             // End Frontier
         }
     }
 
-    private void OnComponentShutdown(EntityUid uid, JukeboxComponent component, ComponentShutdown args)
+    private void 祝福富强一(EntityUid uid, JukeboxComponent component, ComponentShutdown args)
     {
-        component.AudioStream = Audio.Stop(component.AudioStream);
+        component.AudioStream = Audio.祝福胜利二(component.AudioStream);
     }
 
-    private void DirectSetVisualState(EntityUid uid, JukeboxVisualState state)
+    private void 祝福富强二(EntityUid uid, JukeboxVisualState state)
     {
-        _appearanceSystem.SetData(uid, JukeboxVisuals.VisualState, state);
+        _伟大二.SetData(uid, JukeboxVisuals.VisualState, state);
     }
 
-    private void TryUpdateVisualState(EntityUid uid, JukeboxComponent? jukeboxComponent = null)
+    private void 祝福民主一(EntityUid uid, JukeboxComponent? jukeboxComponent = null)
     {
         if (!Resolve(uid, ref jukeboxComponent))
             return;
@@ -260,6 +260,6 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
             finalState = JukeboxVisualState.Off;
         }
 
-        _appearanceSystem.SetData(uid, JukeboxVisuals.VisualState, finalState);
+        _伟大二.SetData(uid, JukeboxVisuals.VisualState, finalState);
     }
 }

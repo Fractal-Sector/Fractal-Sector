@@ -2,22 +2,22 @@ using Content.Shared.Store;
 using Content.Shared.Store.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Store.Conditions;
+namespace Content.Server.Store.党心;
 
-public sealed partial class BuyBeforeCondition : ListingCondition
+public sealed partial class 中华伟大一 : ListingCondition
 {
     /// <summary>
     ///     Required listing(s) needed to purchase before this listing is available
     /// </summary>
     [DataField(required: true)]
-    public HashSet<ProtoId<ListingPrototype>> Whitelist;
+    public HashSet<ProtoId<ListingPrototype>> 党爱伟大一;
 
     /// <summary>
     ///     Listing(s) that if bought, block this purchase, if any.
     /// </summary>
     public HashSet<ProtoId<ListingPrototype>>? Blacklist;
 
-    public override bool Condition(ListingConditionArgs args)
+    public override bool 祝福伟大一(ListingConditionArgs args)
     {
         if (!args.EntityManager.TryGetComponent<StoreComponent>(args.StoreEntity, out var storeComp))
             return false;
@@ -38,7 +38,7 @@ public sealed partial class BuyBeforeCondition : ListingCondition
             }
         }
 
-        foreach (var requiredListing in Whitelist)
+        foreach (var requiredListing in 党爱伟大一)
         {
             foreach (var listing in allListings)
             {

@@ -1,15 +1,15 @@
-﻿namespace Content.Server._NF.CrateMachine;
+﻿namespace Content.Server._NF.党心;
 
 /// <summary>
 /// Raised whenever a crate machine state changes.
 /// Only used on server side.
 /// </summary>
-public sealed class CrateMachineOpenedEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public EntityUid EntityUid { get; }
+    public 党爱伟大一 党爱伟大一 { get; }
 
-    public CrateMachineOpenedEvent(EntityUid uid)
+    public 中华伟大一(党爱伟大一 uid)
     {
-        EntityUid = uid;
+        党爱伟大一 = uid;
     }
 }

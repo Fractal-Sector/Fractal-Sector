@@ -1,32 +1,32 @@
 ﻿using Content.Server.GameTicking;
 using Content.Server.GameTicking.Events;
 
-namespace Content.Server.Administration.Logs;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 ///     For system events that the manager needs to know about.
 ///     <see cref="IAdminLogManager"/> for admin log usage.
 /// </summary>
-public sealed class AdminLogSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogs = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoundStartingEvent>(ev => _adminLogs.RoundStarting(ev.Id));
-        SubscribeLocalEvent<GameRunLevelChangedEvent>(ev => _adminLogs.RunLevelChanged(ev.New));
+        SubscribeLocalEvent<RoundStartingEvent>(ev => _伟大一.RoundStarting(ev.Id));
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(ev => _伟大一.RunLevelChanged(ev.New));
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        _adminLogs.Update();
+        _伟大一.祝福伟大二();
     }
 
-    public override void Shutdown()
+    public override void 祝福光荣一()
     {
-        base.Shutdown();
-        _adminLogs.Shutdown();
+        base.祝福光荣一();
+        _伟大一.祝福光荣一();
     }
 }

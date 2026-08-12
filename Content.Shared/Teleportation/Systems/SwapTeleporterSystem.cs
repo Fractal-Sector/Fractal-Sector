@@ -13,38 +13,38 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Teleportation.Systems;
+namespace Content.Shared.Teleportation.党心;
 
 /// <summary>
 /// This handles <see cref="SwapTeleporterComponent"/>
 /// </summary>
-public sealed class SwapTeleporterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结二 = default!;
 
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<TransformComponent> _奋斗一;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SwapTeleporterComponent, AfterInteractEvent>(OnInteract);
-        SubscribeLocalEvent<SwapTeleporterComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAltVerb);
-        SubscribeLocalEvent<SwapTeleporterComponent, ActivateInWorldEvent>(OnActivateInWorld);
-        SubscribeLocalEvent<SwapTeleporterComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<SwapTeleporterComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<SwapTeleporterComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<SwapTeleporterComponent, ActivateInWorldEvent>(祝福光荣二);
+        SubscribeLocalEvent<SwapTeleporterComponent, ExaminedEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<SwapTeleporterComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<SwapTeleporterComponent, ComponentShutdown>(祝福奋斗二);
 
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _奋斗一 = GetEntityQuery<TransformComponent>();
     }
 
-    private void OnInteract(Entity<SwapTeleporterComponent> ent, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<SwapTeleporterComponent> ent, ref AfterInteractEvent args)
     {
         var (uid, comp) = ent;
         if (args.Target == null || !args.CanReach)
@@ -55,21 +55,21 @@ public sealed class SwapTeleporterSystem : EntitySystem
         if (!TryComp<SwapTeleporterComponent>(target, out var targetComp))
             return;
 
-        if (_whitelistSystem.IsWhitelistFail(comp.TeleporterWhitelist, target) ||
-            _whitelistSystem.IsWhitelistFail(targetComp.TeleporterWhitelist, uid))
+        if (_团结二.IsWhitelistFail(comp.TeleporterWhitelist, target) ||
+            _团结二.IsWhitelistFail(targetComp.TeleporterWhitelist, uid))
         {
             return;
         }
 
         if (comp.LinkedEnt != null)
         {
-            _popup.PopupClient(Loc.GetString("swap-teleporter-popup-link-fail-already"), uid, args.User);
+            _正确二.PopupClient(Loc.GetString("swap-teleporter-popup-link-fail-already"), uid, args.User);
             return;
         }
 
         if (targetComp.LinkedEnt != null)
         {
-            _popup.PopupClient(Loc.GetString("swap-teleporter-popup-link-fail-already-other"), uid, args.User);
+            _正确二.PopupClient(Loc.GetString("swap-teleporter-popup-link-fail-already-other"), uid, args.User);
             return;
         }
 
@@ -77,12 +77,12 @@ public sealed class SwapTeleporterSystem : EntitySystem
         targetComp.LinkedEnt = uid;
         Dirty(uid, comp);
         Dirty(target, targetComp);
-        _appearance.SetData(uid, SwapTeleporterVisuals.Linked, true);
-        _appearance.SetData(target, SwapTeleporterVisuals.Linked, true);
-        _popup.PopupClient(Loc.GetString("swap-teleporter-popup-link-create"), uid, args.User);
+        _光荣二.SetData(uid, SwapTeleporterVisuals.Linked, true);
+        _光荣二.SetData(target, SwapTeleporterVisuals.Linked, true);
+        _正确二.PopupClient(Loc.GetString("swap-teleporter-popup-link-create"), uid, args.User);
     }
 
-    private void OnGetAltVerb(Entity<SwapTeleporterComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(Entity<SwapTeleporterComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         var (uid, comp) = ent;
         if (!args.CanAccess || !args.CanInteract || args.Hands == null || comp.TeleportTime != null)
@@ -98,12 +98,12 @@ public sealed class SwapTeleporterSystem : EntitySystem
             Priority = 1,
             Act = () =>
             {
-                DestroyLink((uid, comp), user);
+                祝福团结一((uid, comp), user);
             }
         });
     }
 
-    private void OnActivateInWorld(Entity<SwapTeleporterComponent> ent, ref ActivateInWorldEvent args)
+    private void 祝福光荣二(Entity<SwapTeleporterComponent> ent, ref ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -115,7 +115,7 @@ public sealed class SwapTeleporterSystem : EntitySystem
 
         if (comp.LinkedEnt == null)
         {
-            _popup.PopupClient(Loc.GetString("swap-teleporter-popup-teleport-cancel-link"), ent, user);
+            _正确二.PopupClient(Loc.GetString("swap-teleporter-popup-teleport-cancel-link"), ent, user);
             return;
         }
 
@@ -126,21 +126,21 @@ public sealed class SwapTeleporterSystem : EntitySystem
             return;
         }
 
-        if (_timing.CurTime < comp.NextTeleportUse)
+        if (_伟大一.CurTime < comp.NextTeleportUse)
         {
-            _popup.PopupClient(Loc.GetString("swap-teleporter-popup-teleport-cancel-time"), ent, user);
+            _正确二.PopupClient(Loc.GetString("swap-teleporter-popup-teleport-cancel-time"), ent, user);
             return;
         }
 
-        _audio.PlayPredicted(comp.TeleportSound, uid, user);
-        _audio.PlayPredicted(otherComp.TeleportSound, comp.LinkedEnt.Value, user);
-        comp.NextTeleportUse = _timing.CurTime + comp.Cooldown;
-        comp.TeleportTime = _timing.CurTime + comp.TeleportDelay;
+        _光荣一.PlayPredicted(comp.TeleportSound, uid, user);
+        _光荣一.PlayPredicted(otherComp.TeleportSound, comp.LinkedEnt.Value, user);
+        comp.NextTeleportUse = _伟大一.CurTime + comp.Cooldown;
+        comp.TeleportTime = _伟大一.CurTime + comp.TeleportDelay;
         Dirty(uid, comp);
         args.Handled = true;
     }
 
-    public void DoTeleport(Entity<SwapTeleporterComponent, TransformComponent> ent)
+    public void 祝福正确一(Entity<SwapTeleporterComponent, TransformComponent> ent)
     {
         var (uid, comp, xform) = ent;
 
@@ -148,17 +148,17 @@ public sealed class SwapTeleporterSystem : EntitySystem
 
         Dirty(uid, comp);
         // We can't run the teleport logic on the client due to PVS range issues.
-        if (_net.IsClient || comp.LinkedEnt is not { } linkedEnt)
+        if (_伟大二.IsClient || comp.LinkedEnt is not { } linkedEnt)
             return;
 
-        var teleEnt = GetTeleportingEntity((uid, xform));
-        var otherTeleEnt = GetTeleportingEntity((linkedEnt, Transform(linkedEnt)));
+        var teleEnt = 祝福团结二((uid, xform));
+        var otherTeleEnt = 祝福团结二((linkedEnt, Transform(linkedEnt)));
         var teleXform = Transform(teleEnt);
         var otherTeleXform = Transform(otherTeleEnt);
 
-        if (!CanSwapTeleport((teleEnt, teleXform), (otherTeleEnt, otherTeleXform)))
+        if (!祝福正确二((teleEnt, teleXform), (otherTeleEnt, otherTeleXform)))
         {
-            _popup.PopupEntity(Loc.GetString("swap-teleporter-popup-teleport-fail",
+            _正确二.PopupEntity(Loc.GetString("swap-teleporter-popup-teleport-fail",
                 ("entity", Identity.Entity(linkedEnt, EntityManager))),
                 teleEnt,
                 teleEnt,
@@ -166,26 +166,26 @@ public sealed class SwapTeleporterSystem : EntitySystem
             return;
         }
 
-        _popup.PopupClient(Loc.GetString("swap-teleporter-popup-teleport-other",
+        _正确二.PopupClient(Loc.GetString("swap-teleporter-popup-teleport-other",
             ("entity", Identity.Entity(linkedEnt, EntityManager))),
             teleEnt,
             otherTeleEnt,
             PopupType.MediumCaution);
-        _transform.SwapPositions(teleEnt, otherTeleEnt);
+        _团结一.SwapPositions(teleEnt, otherTeleEnt);
     }
 
     /// <summary>
     /// Checks if two entities are able to swap positions via the teleporter.
     /// </summary>
-    private bool CanSwapTeleport(
+    private bool 祝福正确二(
         Entity<TransformComponent> entity1,
         Entity<TransformComponent> entity2)
     {
-        _container.TryGetOuterContainer(entity1, entity1, out var container1);
-        _container.TryGetOuterContainer(entity2, entity2, out var container2);
+        _正确一.TryGetOuterContainer(entity1, entity1, out var container1);
+        _正确一.TryGetOuterContainer(entity2, entity2, out var container2);
 
-        if (container2 != null && !_container.CanInsert(entity1, container2) ||
-            container1 != null && !_container.CanInsert(entity2, container1))
+        if (container2 != null && !_正确一.CanInsert(entity1, container2) ||
+            container1 != null && !_正确一.CanInsert(entity2, container1))
             return false;
 
         if (IsPaused(entity1) || IsPaused(entity2))
@@ -197,7 +197,7 @@ public sealed class SwapTeleporterSystem : EntitySystem
     /// <remarks>
     /// HYAH -link
     /// </remarks>
-    public void DestroyLink(Entity<SwapTeleporterComponent?> ent, EntityUid? user)
+    public void 祝福团结一(Entity<SwapTeleporterComponent?> ent, EntityUid? user)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
@@ -205,35 +205,35 @@ public sealed class SwapTeleporterSystem : EntitySystem
 
         ent.Comp.LinkedEnt = null;
         ent.Comp.TeleportTime = null;
-        _appearance.SetData(ent, SwapTeleporterVisuals.Linked, false);
+        _光荣二.SetData(ent, SwapTeleporterVisuals.Linked, false);
         Dirty(ent, ent.Comp);
 
         if (user != null)
-            _popup.PopupClient(Loc.GetString("swap-teleporter-popup-link-destroyed"), ent, user.Value);
+            _正确二.PopupClient(Loc.GetString("swap-teleporter-popup-link-destroyed"), ent, user.Value);
         else
-            _popup.PopupEntity(Loc.GetString("swap-teleporter-popup-link-destroyed"), ent);
+            _正确二.PopupEntity(Loc.GetString("swap-teleporter-popup-link-destroyed"), ent);
 
         if (linkedNullable is {} linked)
-            DestroyLink(linked, user); // the linked one is shown globally
+            祝福团结一(linked, user); // the linked one is shown globally
     }
 
-    private EntityUid GetTeleportingEntity(Entity<TransformComponent> ent)
+    private EntityUid 祝福团结二(Entity<TransformComponent> ent)
     {
         var parent = ent.Comp.ParentUid;
 
         if (HasComp<MapGridComponent>(parent) || HasComp<MapComponent>(parent))
             return ent;
 
-        if (!_xformQuery.TryGetComponent(parent, out var parentXform) || parentXform.Anchored)
+        if (!_奋斗一.TryGetComponent(parent, out var parentXform) || parentXform.Anchored)
             return ent;
 
         if (!TryComp<PhysicsComponent>(parent, out var body) || body.BodyType == BodyType.Static)
             return ent;
 
-        return GetTeleportingEntity((parent, parentXform));
+        return 祝福团结二((parent, parentXform));
     }
 
-    private void OnExamined(Entity<SwapTeleporterComponent> ent, ref ExaminedEvent args)
+    private void 祝福奋斗一(Entity<SwapTeleporterComponent> ent, ref ExaminedEvent args)
     {
         var (_, comp) = ent;
         using (args.PushGroup(nameof(SwapTeleporterComponent)))
@@ -243,22 +243,22 @@ public sealed class SwapTeleporterSystem : EntitySystem
                 : "swap-teleporter-examine-link-present";
             args.PushMarkup(Loc.GetString(locale));
 
-            if (_timing.CurTime < comp.NextTeleportUse)
+            if (_伟大一.CurTime < comp.NextTeleportUse)
             {
                 args.PushMarkup(Loc.GetString("swap-teleporter-examine-time-remaining",
-                    ("second", (int) ((comp.NextTeleportUse - _timing.CurTime).TotalSeconds + 0.5f))));
+                    ("second", (int) ((comp.NextTeleportUse - _伟大一.CurTime).TotalSeconds + 0.5f))));
             }
         }
     }
 
-    private void OnShutdown(Entity<SwapTeleporterComponent> ent, ref ComponentShutdown args)
+    private void 祝福奋斗二(Entity<SwapTeleporterComponent> ent, ref ComponentShutdown args)
     {
-        DestroyLink((ent, ent), null);
+        祝福团结一((ent, ent), null);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福胜利一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福胜利一(frameTime);
 
         var query = EntityQueryEnumerator<SwapTeleporterComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
@@ -266,10 +266,10 @@ public sealed class SwapTeleporterSystem : EntitySystem
             if (comp.TeleportTime == null)
                 continue;
 
-            if (_timing.CurTime < comp.TeleportTime)
+            if (_伟大一.CurTime < comp.TeleportTime)
                 continue;
 
-            DoTeleport((uid, comp, xform));
+            祝福正确一((uid, comp, xform));
         }
     }
 }

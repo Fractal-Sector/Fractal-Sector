@@ -1,28 +1,28 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.HUD
+namespace Content.Shared.党心
 {
     [Prototype]
-    public sealed partial class HudThemePrototype : IPrototype, IComparable<HudThemePrototype>
+    public sealed partial class 中华伟大一 : IPrototype, IComparable<中华伟大一>
     {
         [DataField("name", required: true)]
-        public string Name { get; private set; } = string.Empty;
+        public string 党爱伟大一 { get; private set; } = string.Empty;
 
         [IdDataField]
-        public string ID { get; private set; } = string.Empty;
+        public string 党爱伟大二 { get; private set; } = string.Empty;
 
         [DataField("path", required: true)]
-        public string Path { get; private set; } = string.Empty;
+        public string 党爱光荣一 { get; private set; } = string.Empty;
 
         /// <summary>
         /// An order for the themes to be displayed in the UI
         /// </summary>
         [DataField]
-        public int Order = 0;
+        public int 党爱光荣二 = 0;
 
-        public int CompareTo(HudThemePrototype? other)
+        public int 祝福伟大一(中华伟大一? other)
         {
-            return Order.CompareTo(other?.Order);
+            return 党爱光荣二.祝福伟大一(other?.党爱光荣二);
         }
     }
 }

@@ -10,21 +10,21 @@ using Robust.Shared.Random;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
 using System.Linq;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class ImmovableRodRule : StationEventSystem<ImmovableRodRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<ImmovableRodRuleComponent>
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly GunSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
 
-    protected override void Started(EntityUid uid, ImmovableRodRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, ImmovableRodRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
         var protoName = EntitySpawnCollection.GetSpawns(component.RodPrototypes).First();
 
-        var proto = _prototypeManager.Index<EntityPrototype>(protoName);
+        var proto = _光荣一.Index<EntityPrototype>(protoName);
 
         if (proto.TryGetComponent<ImmovableRodComponent>(out var rod, EntityManager.ComponentFactory) &&
             proto.TryGetComponent<TimedDespawnComponent>(out var despawn, EntityManager.ComponentFactory))
@@ -35,9 +35,9 @@ public sealed class ImmovableRodRule : StationEventSystem<ImmovableRodRuleCompon
             var speed = RobustRandom.NextFloat(rod.MinSpeed, rod.MaxSpeed);
             var angle = RobustRandom.NextAngle();
             var direction = angle.ToVec();
-            var spawnCoords = targetCoords.ToMap(EntityManager, _transform).Offset(-direction * speed * despawn.Lifetime / 2);
+            var spawnCoords = targetCoords.ToMap(EntityManager, _伟大一).Offset(-direction * speed * despawn.Lifetime / 2);
             var ent = Spawn(protoName, spawnCoords);
-            _gun.ShootProjectile(ent, direction, Vector2.Zero, uid, speed: speed);
+            _伟大二.ShootProjectile(ent, direction, Vector2.Zero, uid, speed: speed);
         }
         else
         {

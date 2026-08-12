@@ -1,10 +1,10 @@
 ﻿using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration.BanList;
+namespace Content.Shared.Administration.党心;
 
 [Serializable, NetSerializable]
-public record SharedServerBan(
+public record 中华伟大一(
     int? Id,
     NetUserId? UserId,
     (string address, int cidrMask)? Address,

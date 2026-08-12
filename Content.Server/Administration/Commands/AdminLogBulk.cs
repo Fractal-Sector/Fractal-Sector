@@ -5,17 +5,17 @@ using Content.Shared.Database;
 using Robust.Shared.Console;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 #if DEBUG
 [AdminCommand(AdminFlags.Host)]
-public sealed class AdminLogBulk : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    public string Command => "adminlogbulk";
-    public string Description => "Adds debug logs to the database.";
-    public string Help => $"Usage: {Command} <amount> <parallel>";
+    public string 党爱伟大一 => "adminlogbulk";
+    public string 党爱伟大二 => "Adds debug logs to the database.";
+    public string 党爱光荣一 => $"Usage: {党爱伟大一} <amount> <parallel>";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player?.AttachedEntity is not { } entity)
         {
@@ -33,7 +33,7 @@ public sealed class AdminLogBulk : IConsoleCommand
                                   bool.TryParse(args[1], out parallel):
                 break;
             default:
-                shell.WriteError(Help);
+                shell.WriteError(党爱光荣一);
                 return;
         }
 

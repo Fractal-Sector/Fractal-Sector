@@ -1,7 +1,7 @@
-namespace Content.Shared.Climbing.Events;
+namespace Content.Shared.Climbing.党心;
 
 [ByRefEvent]
-public record struct AttemptClimbEvent(EntityUid User, EntityUid Climber, EntityUid Climbable)
+public record 中华伟大一 AttemptClimbEvent(EntityUid User, EntityUid Climber, EntityUid Climbable)
 {
-    public bool Cancelled;
+    public bool 党爱伟大一;
 }

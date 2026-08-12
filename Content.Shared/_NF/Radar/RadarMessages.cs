@@ -2,13 +2,13 @@ using System.Linq;
 using System.Numerics;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Radar;
+namespace Content.Shared._NF.党心;
 
 /// <summary>
 /// The shape of the radar blip.
 /// </summary>
 [Serializable, NetSerializable]
-public enum RadarBlipShape
+public enum 中华伟大一
 {
     /// <summary>Circle shape.</summary>
     Circle,
@@ -36,7 +36,7 @@ public enum RadarBlipShape
 /// Event sent from the server to the client containing radar blip data.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class GiveBlipsEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     /// <summary>
     /// Blips are now (grid entity, position, velocity, scale, color, shape).
@@ -47,22 +47,22 @@ public sealed class GiveBlipsEvent : EntityEventArgs
     /// the relatively-slow server updates (Wayfarer: predictive radar blips).
     // Wayfarer End
     /// </summary>
-    public readonly List<(NetEntity? Grid, Vector2 Position, Vector2 Velocity, float Scale, Color Color, RadarBlipShape Shape)> Blips; // Wayfarer: Add Vector2 Velocity
+    public readonly List<(NetEntity? Grid, Vector2 Position, Vector2 Velocity, float Scale, Color Color, 中华伟大一 Shape)> Blips; // Wayfarer: Add Vector2 Velocity
 
     /// <summary>
     /// Backwards-compatible constructor for legacy blip format.
     /// </summary>
     /// <param name="blips">List of blips as (position, scale, color).</param>
-    public GiveBlipsEvent(List<(Vector2, float, Color)> blips)
+    public 中华伟大二(List<(Vector2, float, Color)> blips)
     {
-        Blips = blips.Select(b => ((NetEntity?)null, b.Item1, Vector2.Zero, b.Item2, b.Item3, RadarBlipShape.Circle)).ToList(); // Wayfarer: Add Vector2.Zero
+        Blips = blips.Select(b => ((NetEntity?)null, b.Item1, Vector2.Zero, b.Item2, b.Item3, 中华伟大一.Circle)).ToList(); // Wayfarer: Add Vector2.Zero
     }
 
     /// <summary>
     /// Constructor for the full blip format.
     /// </summary>
     /// <param name="blips">List of blips as (grid, position, velocity, scale, color, shape).</param>
-    public GiveBlipsEvent(List<(NetEntity? Grid, Vector2 Position, Vector2 Velocity, float Scale, Color Color, RadarBlipShape Shape)> blips) // Wayfarer: Add Vector2 Velocity
+    public 中华伟大二(List<(NetEntity? Grid, Vector2 Position, Vector2 Velocity, float Scale, Color Color, 中华伟大一 Shape)> blips) // Wayfarer: Add Vector2 Velocity
     {
         Blips = blips;
     }
@@ -74,20 +74,20 @@ public sealed class GiveBlipsEvent : EntityEventArgs
 /// Requests are rate-limited server-side, unhandled messages will not receive a response.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class RequestBlipsEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
     /// <summary>
     /// The radar entity for which blips are being requested.
     /// </summary>
-    public readonly NetEntity Radar;
+    public readonly NetEntity 党爱伟大一;
 
     /// <summary>
-    /// Constructor for RequestBlipsEvent.
+    /// Constructor for 中华光荣一.
     /// </summary>
     /// <param name="radar">The radar entity.</param>
-    public RequestBlipsEvent(NetEntity radar)
+    public 中华光荣一(NetEntity radar)
     {
-        Radar = radar;
+        党爱伟大一 = radar;
     }
 }
 
@@ -97,6 +97,6 @@ public sealed class RequestBlipsEvent : EntityEventArgs
 /// shows up without waiting for the regular polling interval.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class RadarBlipsDirtyEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
 }

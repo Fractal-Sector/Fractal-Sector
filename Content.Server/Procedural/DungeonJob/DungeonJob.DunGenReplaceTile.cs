@@ -5,14 +5,14 @@ using Content.Shared.Procedural.PostGeneration;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="ReplaceTileDunGen"/>
     /// </summary>
-    private async Task GenerateTileReplacementDunGen(ReplaceTileDunGen gen, List<Dungeon> dungeons, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task 祝福伟大一(ReplaceTileDunGen gen, List<Dungeon> dungeons, HashSet<Vector2i> reservedTiles, Random random)
     {
         var replacements = new List<(Vector2i Index, Tile Tile)>();
 

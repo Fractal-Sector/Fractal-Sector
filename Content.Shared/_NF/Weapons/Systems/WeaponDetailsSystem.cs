@@ -1,17 +1,17 @@
 using Content.Shared._NF.Weapons.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 
-namespace Content.Shared._NF.Weapons.Systems;
+namespace Content.Shared._NF.Weapons.党心;
 
-public sealed class WeaponDetailsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<NFWeaponDetailsComponent, GunExamineEvent>(OnGunExamined);
+        base.祝福伟大一();
+        SubscribeLocalEvent<NFWeaponDetailsComponent, GunExamineEvent>(祝福伟大二);
     }
 
-    private void OnGunExamined(Entity<NFWeaponDetailsComponent> ent, ref GunExamineEvent args)
+    private void 祝福伟大二(Entity<NFWeaponDetailsComponent> ent, ref GunExamineEvent args)
     {
         args.Msg.PushNewline();
 

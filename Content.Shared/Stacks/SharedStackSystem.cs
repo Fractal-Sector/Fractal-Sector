@@ -1,7 +1,7 @@
 using System.Numerics;
 using Content.Shared.Examine;
-using Content.Shared.Hands.Components;
-using Content.Shared.Hands.EntitySystems;
+using Content.Shared.党爱伟大二.Components;
+using Content.Shared.党爱伟大二.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Nutrition;
 using Content.Shared.Popups;
@@ -14,46 +14,46 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Stacks
+namespace Content.Shared.党心
 {
     [UsedImplicitly]
-    public abstract class SharedStackSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
-        [Dependency] private readonly IViewVariablesManager _vvm = default!;
-        [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-        [Dependency] protected readonly SharedHandsSystem Hands = default!;
-        [Dependency] protected readonly SharedTransformSystem Xform = default!;
-        [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] protected readonly SharedPopupSystem Popup = default!;
-        [Dependency] private readonly SharedStorageSystem _storage = default!;
-        [Dependency] private readonly SharedUserInterfaceSystem _ui = default!; // Cherry-picked from space-station-14#32938 courtesy of Ilya246
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly IViewVariablesManager _光荣一 = default!;
+        [Dependency] protected readonly SharedAppearanceSystem 党爱伟大一 = default!;
+        [Dependency] protected readonly SharedHandsSystem 党爱伟大二 = default!;
+        [Dependency] protected readonly SharedTransformSystem 党爱光荣一 = default!;
+        [Dependency] private readonly EntityLookupSystem _光荣二 = default!;
+        [Dependency] private readonly SharedPhysicsSystem _正确一 = default!;
+        [Dependency] protected readonly SharedPopupSystem 党爱光荣二 = default!;
+        [Dependency] private readonly SharedStorageSystem _正确二 = default!;
+        [Dependency] private readonly SharedUserInterfaceSystem _团结一 = default!; // Cherry-picked from space-station-14#32938 courtesy of Ilya246
 
-        public static readonly int[] DefaultSplitAmounts = { 1, 5, 10, 20, 30, 50, 100, 500, 1000, 5000, 10000 }; // Frontier: add 100, 500, 1000, 5000, 10000
+        public static readonly int[] 党爱正确一 = { 1, 5, 10, 20, 30, 50, 100, 500, 1000, 5000, 10000 }; // Frontier: add 100, 500, 1000, 5000, 10000
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<StackComponent, ComponentGetState>(OnStackGetState);
-            SubscribeLocalEvent<StackComponent, ComponentHandleState>(OnStackHandleState);
-            SubscribeLocalEvent<StackComponent, ComponentStartup>(OnStackStarted);
-            SubscribeLocalEvent<StackComponent, ExaminedEvent>(OnStackExamined);
-            SubscribeLocalEvent<StackComponent, InteractUsingEvent>(OnStackInteractUsing);
-            SubscribeLocalEvent<StackComponent, StackCustomSplitAmountMessage>(OnCustomSplitMessage); // cherry-pick #32938
-            SubscribeLocalEvent<StackComponent, BeforeIngestedEvent>(OnBeforeEaten);
-            SubscribeLocalEvent<StackComponent, IngestedEvent>(OnEaten);
-            SubscribeLocalEvent<StackComponent, GetVerbsEvent<AlternativeVerb>>(OnStackAlternativeInteract);
+            SubscribeLocalEvent<StackComponent, ComponentGetState>(祝福富强二);
+            SubscribeLocalEvent<StackComponent, ComponentHandleState>(祝福民主一);
+            SubscribeLocalEvent<StackComponent, ComponentStartup>(祝福富强一);
+            SubscribeLocalEvent<StackComponent, ExaminedEvent>(祝福民主二);
+            SubscribeLocalEvent<StackComponent, InteractUsingEvent>(祝福光荣二);
+            SubscribeLocalEvent<StackComponent, StackCustomSplitAmountMessage>(祝福伟大二); // cherry-pick #32938
+            SubscribeLocalEvent<StackComponent, BeforeIngestedEvent>(祝福文明一);
+            SubscribeLocalEvent<StackComponent, IngestedEvent>(祝福文明二);
+            SubscribeLocalEvent<StackComponent, GetVerbsEvent<AlternativeVerb>>(祝福和谐一);
 
-            _vvm.GetTypeHandler<StackComponent>()
-                .AddPath(nameof(StackComponent.Count), (_, comp) => comp.Count, SetCount);
+            _光荣一.GetTypeHandler<StackComponent>()
+                .AddPath(nameof(StackComponent.Count), (_, comp) => comp.Count, 祝福团结一);
         }
 
         // Frontier
         // Cherry-picked from ss14#32938 courtesy of Ilya246
-        protected void OnCustomSplitMessage(Entity<StackComponent> ent, ref StackCustomSplitAmountMessage message)
+        protected void 祝福伟大二(Entity<StackComponent> ent, ref StackCustomSplitAmountMessage message)
         {
             var (uid, comp) = ent;
 
@@ -62,19 +62,19 @@ namespace Content.Shared.Stacks
                 return;
 
             var amount = message.Amount;
-            UserSplit(uid, user, amount, comp);
+            祝福和谐二(uid, user, amount, comp);
         }
         // End cherry-pick from ss14#32938 courtesy of Ilya246
 
-        public override void Shutdown()
+        public override void 祝福光荣一()
         {
-            base.Shutdown();
+            base.祝福光荣一();
 
-            _vvm.GetTypeHandler<StackComponent>()
+            _光荣一.GetTypeHandler<StackComponent>()
                 .RemovePath(nameof(StackComponent.Count));
         }
 
-        private void OnStackInteractUsing(EntityUid uid, StackComponent stack, InteractUsingEvent args)
+        private void 祝福光荣二(EntityUid uid, StackComponent stack, InteractUsingEvent args)
         {
             if (args.Handled)
                 return;
@@ -84,14 +84,14 @@ namespace Content.Shared.Stacks
 
             var localRotation = Transform(args.Used).LocalRotation;
 
-            if (!TryMergeStacks(uid, args.Used, out var transfered, stack, recipientStack))
+            if (!祝福正确一(uid, args.Used, out var transfered, stack, recipientStack))
                 return;
 
             args.Handled = true;
 
             // interaction is done, the rest is just generating a pop-up
 
-            if (!_gameTiming.IsFirstTimePredicted)
+            if (!_伟大一.IsFirstTimePredicted)
                 return;
 
             var popupPos = args.ClickLocation;
@@ -105,25 +105,25 @@ namespace Content.Shared.Stacks
             switch (transfered)
             {
                 case > 0:
-                    Popup.PopupCoordinates($"+{transfered}", popupPos, Filter.Local(), false);
+                    党爱光荣二.PopupCoordinates($"+{transfered}", popupPos, Filter.Local(), false);
 
-                    if (GetAvailableSpace(recipientStack) == 0)
+                    if (祝福繁荣一(recipientStack) == 0)
                     {
-                        Popup.PopupCoordinates(Loc.GetString("comp-stack-becomes-full"),
+                        党爱光荣二.PopupCoordinates(Loc.GetString("comp-stack-becomes-full"),
                             popupPos.Offset(new Vector2(0, -0.5f)), Filter.Local(), false);
                     }
 
                     break;
 
-                case 0 when GetAvailableSpace(recipientStack) == 0:
-                    Popup.PopupCoordinates(Loc.GetString("comp-stack-already-full"), popupPos, Filter.Local(), false);
+                case 0 when 祝福繁荣一(recipientStack) == 0:
+                    党爱光荣二.PopupCoordinates(Loc.GetString("comp-stack-already-full"), popupPos, Filter.Local(), false);
                     break;
             }
 
-            _storage.PlayPickupAnimation(args.Used, popupPos, userCoords, localRotation, args.User);
+            _正确二.PlayPickupAnimation(args.Used, popupPos, userCoords, localRotation, args.User);
         }
 
-        private bool TryMergeStacks(
+        private bool 祝福正确一(
             EntityUid donor,
             EntityUid recipient,
             out int transferred,
@@ -140,9 +140,9 @@ namespace Content.Shared.Stacks
             if (string.IsNullOrEmpty(recipientStack.StackTypeId) || !recipientStack.StackTypeId.Equals(donorStack.StackTypeId))
                 return false;
 
-            transferred = Math.Min(donorStack.Count, GetAvailableSpace(recipientStack));
-            SetCount(donor, donorStack.Count - transferred, donorStack);
-            SetCount(recipient, recipientStack.Count + transferred, recipientStack);
+            transferred = Math.Min(donorStack.Count, 祝福繁荣一(recipientStack));
+            祝福团结一(donor, donorStack.Count - transferred, donorStack);
+            祝福团结一(recipient, recipientStack.Count + transferred, recipientStack);
             return transferred > 0;
         }
 
@@ -153,7 +153,7 @@ namespace Content.Shared.Stacks
         ///     If the interaction fails to fully merge the stack, or if this is just not a stack, it will instead try
         ///     to place it in the user's hand normally.
         /// </remarks>
-        public void TryMergeToHands(
+        public void 祝福正确二(
             EntityUid item,
             EntityUid user,
             StackComponent? itemStack = null,
@@ -165,23 +165,23 @@ namespace Content.Shared.Stacks
             if (!Resolve(item, ref itemStack, false))
             {
                 // This isn't even a stack. Just try to pickup as normal.
-                Hands.PickupOrDrop(user, item, handsComp: hands);
+                党爱伟大二.PickupOrDrop(user, item, handsComp: hands);
                 return;
             }
 
             // This is shit code until hands get fixed and give an easy way to enumerate over items, starting with the currently active item.
-            foreach (var held in Hands.EnumerateHeld((user, hands)))
+            foreach (var held in 党爱伟大二.EnumerateHeld((user, hands)))
             {
-                TryMergeStacks(item, held, out _, donorStack: itemStack);
+                祝福正确一(item, held, out _, donorStack: itemStack);
 
                 if (itemStack.Count == 0)
                     return;
             }
 
-            Hands.PickupOrDrop(user, item, handsComp: hands);
+            党爱伟大二.PickupOrDrop(user, item, handsComp: hands);
         }
 
-        public virtual void SetCount(EntityUid uid, int amount, StackComponent? component = null)
+        public virtual void 祝福团结一(EntityUid uid, int amount, StackComponent? component = null)
         {
             if (!Resolve(uid, ref component))
                 return;
@@ -194,21 +194,21 @@ namespace Content.Shared.Stacks
             var old = component.Count;
 
             // Clamp the value.
-            amount = Math.Min(amount, GetMaxCount(component));
+            amount = Math.Min(amount, 祝福胜利二(component));
             amount = Math.Max(amount, 0);
 
             // Server-side override deletes the entity if count == 0
             component.Count = amount;
             Dirty(uid, component);
 
-            Appearance.SetData(uid, StackVisuals.Actual, component.Count);
-            RaiseLocalEvent(uid, new StackCountChangedEvent(old, component.Count));
+            党爱伟大一.SetData(uid, StackVisuals.Actual, component.Count);
+            RaiseLocalEvent(uid, new 中华伟大二(old, component.Count));
         }
 
         /// <summary>
         ///     Try to use an amount of items on this stack. Returns whether this succeeded.
         /// </summary>
-        public bool Use(EntityUid uid, int amount, StackComponent? stack = null)
+        public bool 祝福团结二(EntityUid uid, int amount, StackComponent? stack = null)
         {
             if (!Resolve(uid, ref stack))
                 return false;
@@ -223,7 +223,7 @@ namespace Content.Shared.Stacks
             // We do have enough things in the stack, so remove them and change.
             if (!stack.Unlimited)
             {
-                SetCount(uid, stack.Count - amount, stack);
+                祝福团结一(uid, stack.Count - amount, stack);
             }
 
             return true;
@@ -233,15 +233,15 @@ namespace Content.Shared.Stacks
         /// Tries to merge a stack into any of the stacks it is touching.
         /// </summary>
         /// <returns>Whether or not it was successfully merged into another stack</returns>
-        public bool TryMergeToContacts(EntityUid uid, StackComponent? stack = null, TransformComponent? xform = null)
+        public bool 祝福奋斗一(EntityUid uid, StackComponent? stack = null, TransformComponent? xform = null)
         {
             if (!Resolve(uid, ref stack, ref xform, false))
                 return false;
 
             var map = xform.MapID;
-            var bounds = _physics.GetWorldAABB(uid);
+            var bounds = _正确一.GetWorldAABB(uid);
             var intersecting = new HashSet<Entity<StackComponent>>();
-            _entityLookup.GetEntitiesIntersecting(map, bounds, intersecting, LookupFlags.Dynamic | LookupFlags.Sundries);
+            _光荣二.GetEntitiesIntersecting(map, bounds, intersecting, LookupFlags.Dynamic | LookupFlags.Sundries);
 
             var merged = false;
             foreach (var otherStack in intersecting)
@@ -251,7 +251,7 @@ namespace Content.Shared.Stacks
                 if (TerminatingOrDeleted(otherEnt) || EntityManager.IsQueuedForDeletion(otherEnt))
                     continue;
 
-                if (!TryMergeStacks(uid, otherEnt, out _, stack, otherStack))
+                if (!祝福正确一(uid, otherEnt, out _, stack, otherStack))
                     continue;
                 merged = true;
 
@@ -267,7 +267,7 @@ namespace Content.Shared.Stacks
         /// <param name="uid"></param>
         /// <param name="component"></param>
         /// <returns></returns>
-        public int GetCount(EntityUid uid, StackComponent? component = null)
+        public int 祝福奋斗二(EntityUid uid, StackComponent? component = null)
         {
             return Resolve(uid, ref component, false) ? component.Count : 1;
         }
@@ -278,7 +278,7 @@ namespace Content.Shared.Stacks
         /// </summary>
         /// <seealso cref="TryUse"/>
         [PublicAPI]
-        public void ReduceCount(Entity<StackComponent?> ent, int amount)
+        public void 祝福胜利一(Entity<StackComponent?> ent, int amount)
         {
             if (!Resolve(ent.Owner, ref ent.Comp))
                 return;
@@ -287,7 +287,7 @@ namespace Content.Shared.Stacks
             if (ent.Comp.Unlimited)
                 return;
 
-            SetCount(ent, ent.Comp.Count - amount);
+            祝福团结一(ent, ent.Comp.Count - amount);
         }
 
         /// <summary>
@@ -296,11 +296,11 @@ namespace Content.Shared.Stacks
         /// <param name="entityId"></param>
         /// <returns></returns>
         [PublicAPI]
-        public int GetMaxCount(string entityId)
+        public int 祝福胜利二(string entityId)
         {
-            var entProto = _prototype.Index<EntityPrototype>(entityId);
+            var entProto = _伟大二.Index<EntityPrototype>(entityId);
             entProto.TryGetComponent<StackComponent>(out var stackComp, EntityManager.ComponentFactory);
-            return GetMaxCount(stackComp);
+            return 祝福胜利二(stackComp);
         }
 
         /// <summary>
@@ -309,9 +309,9 @@ namespace Content.Shared.Stacks
         /// <param name="uid"></param>
         /// <returns></returns>
         [PublicAPI]
-        public int GetMaxCount(EntityUid uid)
+        public int 祝福胜利二(EntityUid uid)
         {
-            return GetMaxCount(CompOrNull<StackComponent>(uid));
+            return 祝福胜利二(CompOrNull<StackComponent>(uid));
         }
 
         /// <summary>
@@ -327,7 +327,7 @@ namespace Content.Shared.Stacks
         /// </remarks>
         /// <param name="component"></param>
         /// <returns></returns>
-        public int GetMaxCount(StackComponent? component)
+        public int 祝福胜利二(StackComponent? component)
         {
             if (component == null)
                 return 1;
@@ -338,7 +338,7 @@ namespace Content.Shared.Stacks
             if (string.IsNullOrEmpty(component.StackTypeId))
                 return 1;
 
-            var stackProto = _prototype.Index<StackPrototype>(component.StackTypeId);
+            var stackProto = _伟大二.Index<StackPrototype>(component.StackTypeId);
 
             return stackProto.MaxCount ?? int.MaxValue;
         }
@@ -349,27 +349,27 @@ namespace Content.Shared.Stacks
         /// <param name="component"></param>
         /// <returns></returns>
         [PublicAPI]
-        public int GetAvailableSpace(StackComponent component)
+        public int 祝福繁荣一(StackComponent component)
         {
-            return GetMaxCount(component) - component.Count;
+            return 祝福胜利二(component) - component.Count;
         }
 
         /// <summary>
         /// Tries to add one stack to another. May have some leftover count in the inserted entity.
         /// </summary>
-        public bool TryAdd(EntityUid insertEnt, EntityUid targetEnt, StackComponent? insertStack = null, StackComponent? targetStack = null)
+        public bool 祝福繁荣二(EntityUid insertEnt, EntityUid targetEnt, StackComponent? insertStack = null, StackComponent? targetStack = null)
         {
             if (!Resolve(insertEnt, ref insertStack) || !Resolve(targetEnt, ref targetStack))
                 return false;
 
             var count = insertStack.Count;
-            return TryAdd(insertEnt, targetEnt, count, insertStack, targetStack);
+            return 祝福繁荣二(insertEnt, targetEnt, count, insertStack, targetStack);
         }
 
         /// <summary>
         /// Tries to add one stack to another. May have some leftover count in the inserted entity.
         /// </summary>
-        public bool TryAdd(EntityUid insertEnt, EntityUid targetEnt, int count, StackComponent? insertStack = null, StackComponent? targetStack = null)
+        public bool 祝福繁荣二(EntityUid insertEnt, EntityUid targetEnt, int count, StackComponent? insertStack = null, StackComponent? targetStack = null)
         {
             if (!Resolve(insertEnt, ref insertStack) || !Resolve(targetEnt, ref targetStack))
                 return false;
@@ -377,44 +377,44 @@ namespace Content.Shared.Stacks
             if (insertStack.StackTypeId != targetStack.StackTypeId)
                 return false;
 
-            var available = GetAvailableSpace(targetStack);
+            var available = 祝福繁荣一(targetStack);
 
             if (available <= 0)
                 return false;
 
             var change = Math.Min(available, count);
 
-            SetCount(targetEnt, targetStack.Count + change, targetStack);
-            SetCount(insertEnt, insertStack.Count - change, insertStack);
+            祝福团结一(targetEnt, targetStack.Count + change, targetStack);
+            祝福团结一(insertEnt, insertStack.Count - change, insertStack);
             return true;
         }
 
-        private void OnStackStarted(EntityUid uid, StackComponent component, ComponentStartup args)
+        private void 祝福富强一(EntityUid uid, StackComponent component, ComponentStartup args)
         {
             if (!TryComp(uid, out AppearanceComponent? appearance))
                 return;
 
-            Appearance.SetData(uid, StackVisuals.Actual, component.Count, appearance);
-            Appearance.SetData(uid, StackVisuals.MaxCount, GetMaxCount(component), appearance);
-            Appearance.SetData(uid, StackVisuals.Hide, false, appearance);
+            党爱伟大一.SetData(uid, StackVisuals.Actual, component.Count, appearance);
+            党爱伟大一.SetData(uid, StackVisuals.MaxCount, 祝福胜利二(component), appearance);
+            党爱伟大一.SetData(uid, StackVisuals.Hide, false, appearance);
         }
 
-        private void OnStackGetState(EntityUid uid, StackComponent component, ref ComponentGetState args)
+        private void 祝福富强二(EntityUid uid, StackComponent component, ref ComponentGetState args)
         {
             args.State = new StackComponentState(component.Count, component.MaxCountOverride);
         }
 
-        private void OnStackHandleState(EntityUid uid, StackComponent component, ref ComponentHandleState args)
+        private void 祝福民主一(EntityUid uid, StackComponent component, ref ComponentHandleState args)
         {
             if (args.Current is not StackComponentState cast)
                 return;
 
             component.MaxCountOverride = cast.MaxCount;
             // This will change the count and call events.
-            SetCount(uid, cast.Count, component);
+            祝福团结一(uid, cast.Count, component);
         }
 
-        private void OnStackExamined(EntityUid uid, StackComponent component, ExaminedEvent args)
+        private void 祝福民主二(EntityUid uid, StackComponent component, ExaminedEvent args)
         {
             if (!args.IsInDetailsRange)
                 return;
@@ -427,7 +427,7 @@ namespace Content.Shared.Stacks
             );
         }
 
-        private void OnBeforeEaten(Entity<StackComponent> eaten, ref BeforeIngestedEvent args)
+        private void 祝福文明一(Entity<StackComponent> eaten, ref BeforeIngestedEvent args)
         {
             if (args.Cancelled)
                 return;
@@ -456,9 +456,9 @@ namespace Content.Shared.Stacks
             args.Cancelled = true;
         }
 
-        private void OnEaten(Entity<StackComponent> eaten, ref IngestedEvent args)
+        private void 祝福文明二(Entity<StackComponent> eaten, ref IngestedEvent args)
         {
-            if (!Use(eaten, 1))
+            if (!祝福团结二(eaten, 1))
                 return;
 
             // We haven't eaten the whole stack yet or are unable to eat it completely.
@@ -472,14 +472,14 @@ namespace Content.Shared.Stacks
             args.Destroy = true;
         }
 
-        private void OnStackAlternativeInteract(EntityUid uid, StackComponent stack, GetVerbsEvent<AlternativeVerb> args)
+        private void 祝福和谐一(EntityUid uid, StackComponent stack, GetVerbsEvent<AlternativeVerb> args)
         {
-            if (!args.CanAccess || !args.CanInteract || args.Hands == null || stack.Count == 1)
+            if (!args.CanAccess || !args.CanInteract || args.党爱伟大二 == null || stack.Count == 1)
                 return;
 
             // Frontier: cherry-picked from ss14#32938, moved up top
             var priority = 1;
-            if (_ui.HasUi(uid, StackCustomSplitUiKey.Key)) // Frontier: check for interface
+            if (_团结一.HasUi(uid, StackCustomSplitUiKey.Key)) // Frontier: check for interface
             {
                 AlternativeVerb custom = new()
                 {
@@ -487,7 +487,7 @@ namespace Content.Shared.Stacks
                     Category = VerbCategory.Split,
                     Act = () =>
                     {
-                        _ui.OpenUi(uid, StackCustomSplitUiKey.Key, args.User);
+                        _团结一.OpenUi(uid, StackCustomSplitUiKey.Key, args.User);
                     },
                     Priority = priority--
                 };
@@ -499,12 +499,12 @@ namespace Content.Shared.Stacks
             {
                 Text = Loc.GetString("comp-stack-split-halve"),
                 Category = VerbCategory.Split,
-                Act = () => UserSplit(uid, args.User, stack.Count / 2, stack),
+                Act = () => 祝福和谐二(uid, args.User, stack.Count / 2, stack),
                 Priority = priority-- // Frontier: 1<priority--
             };
             args.Verbs.Add(halve);
 
-            foreach (var amount in DefaultSplitAmounts)
+            foreach (var amount in 党爱正确一)
             {
                 if (amount >= stack.Count)
                     continue;
@@ -513,7 +513,7 @@ namespace Content.Shared.Stacks
                 {
                     Text = amount.ToString(),
                     Category = VerbCategory.Split,
-                    Act = () => UserSplit(uid, args.User, amount, stack),
+                    Act = () => 祝福和谐二(uid, args.User, amount, stack),
                     // we want to sort by size, not alphabetically by the verb text.
                     Priority = priority
                 };
@@ -525,13 +525,13 @@ namespace Content.Shared.Stacks
         }
 
         /// <remarks>
-        ///     OnStackAlternativeInteract() was moved to shared in order to faciliate prediction of stack splitting verbs.
+        ///     祝福和谐一() was moved to shared in order to faciliate prediction of stack splitting verbs.
         ///     However, prediction of interacitons with spawned entities is non-functional (or so i'm told)
-        ///     So, UserSplit() and Split() should remain on the server for the time being.
-        ///     This empty virtual method allows for UserSplit() to be called on the server from the client.
+        ///     So, 祝福和谐二() and Split() should remain on the server for the time being.
+        ///     This empty virtual method allows for 祝福和谐二() to be called on the server from the client.
         ///     When prediction is improved, those two methods should be moved to shared, in order to predict the splitting itself (not just the verbs)
         /// </remarks>
-        protected virtual void UserSplit(EntityUid uid, EntityUid userUid, int amount,
+        protected virtual void 祝福和谐二(EntityUid uid, EntityUid userUid, int amount,
             StackComponent? stack = null,
             TransformComponent? userTransform = null)
         {
@@ -542,22 +542,22 @@ namespace Content.Shared.Stacks
     /// <summary>
     ///     Event raised when a stack's count has changed.
     /// </summary>
-    public sealed class StackCountChangedEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
         /// <summary>
         ///     The old stack count.
         /// </summary>
-        public int OldCount;
+        public int 党爱正确二;
 
         /// <summary>
         ///     The new stack count.
         /// </summary>
-        public int NewCount;
+        public int 党爱团结一;
 
-        public StackCountChangedEvent(int oldCount, int newCount)
+        public 中华伟大二(int oldCount, int newCount)
         {
-            OldCount = oldCount;
-            NewCount = newCount;
+            党爱正确二 = oldCount;
+            党爱团结一 = newCount;
         }
     }
 }

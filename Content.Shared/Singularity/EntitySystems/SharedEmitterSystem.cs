@@ -6,22 +6,22 @@ using Content.Shared.Singularity.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Singularity.EntitySystems;
+namespace Content.Shared.Singularity.党心;
 
-public abstract class SharedEmitterSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EmitterComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<EmitterComponent, GetVerbsEvent<Verb>>(OnGetVerb);
+        SubscribeLocalEvent<EmitterComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<EmitterComponent, GetVerbsEvent<Verb>>(祝福伟大二);
     }
 
-    private void OnGetVerb(Entity<EmitterComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void 祝福伟大二(Entity<EmitterComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract || !args.CanComplexInteract || args.Hands == null)
             return;
@@ -34,7 +34,7 @@ public abstract class SharedEmitterSystem : EntitySystem
 
         foreach (var type in ent.Comp.SelectableTypes)
         {
-            var proto = _prototype.Index(type);
+            var proto = _伟大一.Index(type);
 
             var v = new Verb
             {
@@ -48,19 +48,19 @@ public abstract class SharedEmitterSystem : EntitySystem
                 {
                     ent.Comp.BoltType = type;
                     Dirty(ent);
-                    _popup.PopupClient(Loc.GetString("emitter-component-type-set", ("type", proto.Name)), ent.Owner);
+                    _伟大二.PopupClient(Loc.GetString("emitter-component-type-set", ("type", proto.Name)), ent.Owner);
                 },
             };
             args.Verbs.Add(v);
         }
     }
 
-    private void OnExamined(Entity<EmitterComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<EmitterComponent> ent, ref ExaminedEvent args)
     {
         if (ent.Comp.SelectableTypes.Count < 2)
             return;
 
-        var proto = _prototype.Index(ent.Comp.BoltType);
+        var proto = _伟大一.Index(ent.Comp.BoltType);
         args.PushMarkup(Loc.GetString("emitter-component-current-type", ("type", proto.Name)));
     }
 }

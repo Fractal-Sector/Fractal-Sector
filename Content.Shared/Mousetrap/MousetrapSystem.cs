@@ -4,22 +4,22 @@ using Content.Shared.StepTrigger.Systems;
 using Robust.Shared.Physics.Components;
 using Content.Shared.Abilities; // DeltaV
 
-namespace Content.Shared.Mousetrap;
+namespace Content.Shared.党心;
 
-public sealed class MousetrapSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MousetrapComponent, BeforeDamageOnTriggerEvent>(BeforeDamageOnTrigger);
-        SubscribeLocalEvent<MousetrapComponent, StepTriggerAttemptEvent>(OnStepTriggerAttempt);
+        SubscribeLocalEvent<MousetrapComponent, BeforeDamageOnTriggerEvent>(祝福光荣一);
+        SubscribeLocalEvent<MousetrapComponent, StepTriggerAttemptEvent>(祝福伟大二);
     }
 
     // only allow step triggers to trigger if the trap is armed
     // TODO: refactor Steptriggers to get rid of this
     // they should just use the new trigger conditions
-    private void OnStepTriggerAttempt(Entity<MousetrapComponent> ent, ref StepTriggerAttemptEvent args)
+    private void 祝福伟大二(Entity<MousetrapComponent> ent, ref StepTriggerAttemptEvent args)
     {
         if (!TryComp<ItemToggleComponent>(ent, out var toggle))
             return;
@@ -32,7 +32,7 @@ public sealed class MousetrapSystem : EntitySystem
     }
 
     // scale the damage according to mass
-    private void BeforeDamageOnTrigger(Entity<MousetrapComponent> ent, ref BeforeDamageOnTriggerEvent args)
+    private void 祝福光荣一(Entity<MousetrapComponent> ent, ref BeforeDamageOnTriggerEvent args)
     {
         if (TryComp(args.Tripper, out PhysicsComponent? physics) && physics.Mass != 0)
         {

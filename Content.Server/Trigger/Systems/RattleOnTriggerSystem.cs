@@ -9,24 +9,24 @@ using Robust.Server.GameObjects; // Frontier
 using Content.Server.Station.Systems; // Frontier
 using Content.Shared.Humanoid; // Frontier
 
-namespace Content.Server.Trigger.Systems;
+namespace Content.Server.Trigger.党心;
 
-public sealed class RattleOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly TransformSystem _transform = default!; // Frontier
-    [Dependency] private readonly StationSystem _station = default!; // Frontier
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly RadioSystem _伟大二 = default!;
+    [Dependency] private readonly NavMapSystem _光荣一 = default!;
+    [Dependency] private readonly TransformSystem _光荣二 = default!; // Frontier
+    [Dependency] private readonly StationSystem _正确一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RattleOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<RattleOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<RattleOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<RattleOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -47,17 +47,17 @@ public sealed class RattleOnTriggerSystem : EntitySystem
         // Frontier: more specific species, grid and coordinate messages
 
         // // Gets the location of the user
-        // var posText = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(target.Value));
+        // var posText = FormattedMessage.RemoveMarkupOrThrow(_光荣一.GetNearestBeaconString(target.Value));
         // var message = Loc.GetString(messageId, ("user", target.Value), ("position", posText));
 
         // Gets location of the implant
-        var pos = _transform.GetMapCoordinates(target.Value);
+        var pos = _光荣二.GetMapCoordinates(target.Value);
         var x = (int)pos.X;
         var y = (int)pos.Y;
         var posText = $"({x}, {y})";
 
         // Frontier: Gets station location of the implant
-        var station = _station.GetOwningStation(ent);
+        var station = _正确一.GetOwningStation(ent);
         var stationText = station is null ? "" : $"{Name(station.Value)} ";
 
         // Frontier: Gets species of the implant user
@@ -69,6 +69,6 @@ public sealed class RattleOnTriggerSystem : EntitySystem
         // End Frontier
 
         // Sends a message to the radio channel specified by the implant
-        _radio.SendRadioMessage(ent.Owner, message, _prototypeManager.Index(ent.Comp.RadioChannel), ent.Owner);
+        _伟大二.SendRadioMessage(ent.Owner, message, _伟大一.Index(ent.Comp.RadioChannel), ent.Owner);
     }
 }

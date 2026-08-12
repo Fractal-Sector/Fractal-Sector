@@ -2,23 +2,23 @@ using Content.Server.Wires;
 using Content.Shared.VendingMachines;
 using Content.Shared.Wires;
 
-namespace Content.Server.VendingMachines;
+namespace Content.Server.党心;
 
 [DataDefinition]
-public sealed partial class VendingMachineContrabandWireAction : BaseToggleWireAction
+public sealed partial class 中华伟大一 : BaseToggleWireAction
 {
-    private VendingMachineSystem _vendingMachineSystem = default!;
+    private VendingMachineSystem _伟大一 = default!;
 
-    public override Color Color { get; set; } = Color.Green;
-    public override string Name { get; set; } = "wire-name-vending-contraband";
+    public override 党爱伟大一 党爱伟大一 { get; set; } = 党爱伟大一.Green;
+    public override string 党爱伟大二 { get; set; } = "wire-name-vending-contraband";
     public override object? StatusKey { get; } = ContrabandWireKey.StatusKey;
     public override object? TimeoutKey { get; } = ContrabandWireKey.TimeoutKey;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _vendingMachineSystem = EntityManager.System<VendingMachineSystem>();
+        _伟大一 = EntityManager.System<VendingMachineSystem>();
     }
 
     public override StatusLightState? GetLightState(Wire wire)
@@ -33,15 +33,15 @@ public sealed partial class VendingMachineContrabandWireAction : BaseToggleWireA
         return StatusLightState.Off;
     }
 
-    public override void ToggleValue(EntityUid owner, bool setting)
+    public override void 祝福伟大二(EntityUid owner, bool setting)
     {
         if (EntityManager.TryGetComponent(owner, out VendingMachineComponent? vending))
         {
-            _vendingMachineSystem.SetContraband(owner, !vending.Contraband, vending);
+            _伟大一.SetContraband(owner, !vending.Contraband, vending);
         }
     }
 
-    public override bool GetValue(EntityUid owner)
+    public override bool 祝福光荣一(EntityUid owner)
     {
         return EntityManager.TryGetComponent(owner, out VendingMachineComponent? vending) && !vending.Contraband;
     }

@@ -1,35 +1,35 @@
-using Content.Shared.Access;
-using Content.Shared.Access.Components;
-using Content.Shared.Access.Systems;
+using Content.Shared.党爱光荣一;
+using Content.Shared.党爱光荣一.Components;
+using Content.Shared.党爱光荣一.Systems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Random.Rules;
+namespace Content.Shared.Random.党心;
 
 /// <summary>
 /// Checks for an entity nearby with the specified access.
 /// </summary>
-public sealed partial class NearbyAccessRule : RulesRule
+public sealed partial class 中华伟大一 : RulesRule
 {
     // This exists because of door electronics contained inside doors.
     /// <summary>
     /// Does the access entity need to be anchored.
     /// </summary>
     [DataField]
-    public bool Anchored = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
-    /// Count of entities that need to be nearby.
+    /// 党爱伟大二 of entities that need to be nearby.
     /// </summary>
     [DataField]
-    public int Count = 1;
+    public int 党爱伟大二 = 1;
 
     [DataField(required: true)]
-    public List<ProtoId<AccessLevelPrototype>> Access = new();
+    public List<ProtoId<AccessLevelPrototype>> 党爱光荣一 = new();
 
     [DataField]
-    public float Range = 10f;
+    public float 党爱光荣二 = 10f;
 
-    public override bool Check(EntityManager entManager, EntityUid uid)
+    public override bool 祝福伟大一(EntityManager entManager, EntityUid uid)
     {
         var xformQuery = entManager.GetEntityQuery<TransformComponent>();
 
@@ -49,20 +49,20 @@ public sealed partial class NearbyAccessRule : RulesRule
 
         // TODO: Update this when we get the callback version
         var entities = new HashSet<Entity<AccessReaderComponent>>();
-        lookup.GetEntitiesInRange(xform.MapID, worldPos, Range, entities);
+        lookup.GetEntitiesInRange(xform.MapID, worldPos, 党爱光荣二, entities);
         foreach (var comp in entities)
         {
-            if (!reader.AreAccessTagsAllowed(Access, comp) ||
-                Anchored &&
+            if (!reader.AreAccessTagsAllowed(党爱光荣一, comp) ||
+                党爱伟大一 &&
                 (!xformQuery.TryGetComponent(comp, out var compXform) ||
-                 !compXform.Anchored))
+                 !compXform.党爱伟大一))
             {
                 continue;
             }
 
             count++;
 
-            if (count < Count)
+            if (count < 党爱伟大二)
                 continue;
 
             found = true;

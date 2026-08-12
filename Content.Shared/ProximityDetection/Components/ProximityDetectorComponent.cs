@@ -3,7 +3,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.ProximityDetection.Components;
+namespace Content.Shared.ProximityDetection.党心;
 
 /// <summary>
 /// Used to search for the closest entity with a range that matches specified requirements (tags and/or components).
@@ -11,13 +11,13 @@ namespace Content.Shared.ProximityDetection.Components;
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState(fieldDeltas: true), AutoGenerateComponentPause]
 [Access(typeof(ProximityDetectionSystem))]
-public sealed partial class ProximityDetectorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Entities that detector will search for.
     /// </summary>
     [DataField(required: true)]
-    public ComponentRegistry Components;
+    public ComponentRegistry 党爱伟大一;
 
     /// <summary>
     /// The entity that was found.
@@ -29,23 +29,23 @@ public sealed partial class ProximityDetectorComponent : Component
     /// The distance to <see cref="Target"/>.
     /// </summary>
     [ViewVariables, AutoNetworkedField]
-    public float Distance = float.PositiveInfinity;
+    public float 党爱伟大二 = float.PositiveInfinity;
 
     /// <summary>
     /// The farthest distance to search for targets.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float Range = 10f;
+    public float 党爱光荣一 = 10f;
 
     /// <summary>
     /// How often detector updates.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan UpdateCooldown = TimeSpan.FromSeconds(1);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(1);
 
     /// <summary>
     /// Next time detector updates.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, AutoPausedField]
-    public TimeSpan NextUpdate = TimeSpan.Zero;
+    public TimeSpan 党爱正确一 = TimeSpan.Zero;
 }

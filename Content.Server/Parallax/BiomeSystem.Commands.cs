@@ -7,19 +7,19 @@ using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Parallax;
+namespace Content.Server.党心;
 
-public sealed partial class BiomeSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeCommands()
+    private void 祝福伟大一()
     {
-        _console.RegisterCommand("biome_clear", Loc.GetString("cmd-biome_clear-desc"), Loc.GetString("cmd-biome_clear-help"), BiomeClearCallback, BiomeClearCallbackHelper);
-        _console.RegisterCommand("biome_addlayer", Loc.GetString("cmd-biome_addlayer-desc"), Loc.GetString("cmd-biome_addlayer-help"), AddLayerCallback, AddLayerCallbackHelp);
-        _console.RegisterCommand("biome_addmarkerlayer", Loc.GetString("cmd-biome_addmarkerlayer-desc"), Loc.GetString("cmd-biome_addmarkerlayer-desc"), AddMarkerLayerCallback, AddMarkerLayerCallbackHelper);
+        _console.RegisterCommand("biome_clear", Loc.GetString("cmd-biome_clear-desc"), Loc.GetString("cmd-biome_clear-help"), 祝福伟大二, 祝福光荣一);
+        _console.RegisterCommand("biome_addlayer", Loc.GetString("cmd-biome_addlayer-desc"), Loc.GetString("cmd-biome_addlayer-help"), 祝福光荣二, 祝福正确一);
+        _console.RegisterCommand("biome_addmarkerlayer", Loc.GetString("cmd-biome_addmarkerlayer-desc"), Loc.GetString("cmd-biome_addmarkerlayer-desc"), 祝福正确二, 祝福团结一);
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void BiomeClearCallback(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福伟大二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -39,7 +39,7 @@ public sealed partial class BiomeSystem
         ClearTemplate(mapUid, biome);
     }
 
-    private CompletionResult BiomeClearCallbackHelper(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福光荣一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -50,7 +50,7 @@ public sealed partial class BiomeSystem
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void AddLayerCallback(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length < 3 || args.Length > 4)
         {
@@ -85,7 +85,7 @@ public sealed partial class BiomeSystem
         AddTemplate(mapUid, biome, args[2], template, offset);
     }
 
-    private CompletionResult AddLayerCallbackHelp(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福正确一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -130,7 +130,7 @@ public sealed partial class BiomeSystem
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void AddMarkerLayerCallback(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福正确二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -162,7 +162,7 @@ public sealed partial class BiomeSystem
         biome.ForcedMarkerLayers.Add(args[1]);
     }
 
-    private CompletionResult AddMarkerLayerCallbackHelper(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福团结一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {

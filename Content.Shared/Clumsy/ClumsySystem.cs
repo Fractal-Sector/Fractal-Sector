@@ -17,30 +17,30 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Clumsy;
+namespace Content.Shared.党心;
 
-public sealed class ClumsySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedStunSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly DamageableSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
+    [Dependency] private readonly IConfigurationManager _正确二 = default!;
+    [Dependency] private readonly INetManager _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ClumsyComponent, SelfBeforeHyposprayInjectsEvent>(BeforeHyposprayEvent);
-        SubscribeLocalEvent<ClumsyComponent, SelfBeforeDefibrillatorZapsEvent>(BeforeDefibrillatorZapsEvent);
-        SubscribeLocalEvent<ClumsyComponent, SelfBeforeGunShotEvent>(BeforeGunShotEvent);
-        SubscribeLocalEvent<ClumsyComponent, CatchAttemptEvent>(OnCatchAttempt);
-        SubscribeLocalEvent<ClumsyComponent, SelfBeforeClimbEvent>(OnBeforeClimbEvent);
+        SubscribeLocalEvent<ClumsyComponent, SelfBeforeHyposprayInjectsEvent>(祝福伟大二);
+        SubscribeLocalEvent<ClumsyComponent, SelfBeforeDefibrillatorZapsEvent>(祝福光荣一);
+        SubscribeLocalEvent<ClumsyComponent, SelfBeforeGunShotEvent>(祝福正确一);
+        SubscribeLocalEvent<ClumsyComponent, CatchAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<ClumsyComponent, SelfBeforeClimbEvent>(祝福正确二);
     }
 
     // If you add more clumsy interactions add them in this section!
     #region Clumsy interaction events
-    private void BeforeHyposprayEvent(Entity<ClumsyComponent> ent, ref SelfBeforeHyposprayInjectsEvent args)
+    private void 祝福伟大二(Entity<ClumsyComponent> ent, ref SelfBeforeHyposprayInjectsEvent args)
     {
         // Clumsy people sometimes inject themselves! Apparently syringes are clumsy proof...
 
@@ -49,17 +49,17 @@ public sealed class ClumsySystem : EntitySystem
             return;
 
         // TODO: Replace with RandomPredicted once the engine PR is merged
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(ent).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_正确一.CurTick.Value, GetNetEntity(ent).Id });
         var rand = new System.Random(seed);
         if (!rand.Prob(ent.Comp.ClumsyDefaultCheck))
             return;
 
         args.TargetGettingInjected = args.EntityUsingHypospray;
         args.InjectMessageOverride = Loc.GetString(ent.Comp.HypoFailedMessage);
-        _audio.PlayPredicted(ent.Comp.ClumsySound, ent, args.EntityUsingHypospray);
+        _伟大二.PlayPredicted(ent.Comp.ClumsySound, ent, args.EntityUsingHypospray);
     }
 
-    private void BeforeDefibrillatorZapsEvent(Entity<ClumsyComponent> ent, ref SelfBeforeDefibrillatorZapsEvent args)
+    private void 祝福光荣一(Entity<ClumsyComponent> ent, ref SelfBeforeDefibrillatorZapsEvent args)
     {
         // Clumsy people sometimes defib themselves!
 
@@ -68,17 +68,17 @@ public sealed class ClumsySystem : EntitySystem
             return;
 
         // TODO: Replace with RandomPredicted once the engine PR is merged
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(ent).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_正确一.CurTick.Value, GetNetEntity(ent).Id });
         var rand = new System.Random(seed);
         if (!rand.Prob(ent.Comp.ClumsyDefaultCheck))
             return;
 
         args.DefibTarget = args.EntityUsingDefib;
-        _audio.PlayPvs(ent.Comp.ClumsySound, ent);
+        _伟大二.PlayPvs(ent.Comp.ClumsySound, ent);
 
     }
 
-    private void OnCatchAttempt(Entity<ClumsyComponent> ent, ref CatchAttemptEvent args)
+    private void 祝福光荣二(Entity<ClumsyComponent> ent, ref CatchAttemptEvent args)
     {
         // Clumsy people sometimes fail to catch items!
 
@@ -87,7 +87,7 @@ public sealed class ClumsySystem : EntitySystem
             return;
 
         // TODO: Replace with RandomPredicted once the engine PR is merged
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(args.Item).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_正确一.CurTick.Value, GetNetEntity(args.Item).Id });
         var rand = new System.Random(seed);
         if (!rand.Prob(ent.Comp.ClumsyDefaultCheck))
             return;
@@ -95,21 +95,21 @@ public sealed class ClumsySystem : EntitySystem
         args.Cancelled = true; // fail to catch
 
         if (ent.Comp.CatchingFailDamage != null)
-            _damageable.TryChangeDamage(ent, ent.Comp.CatchingFailDamage, origin: args.Item);
+            _光荣二.TryChangeDamage(ent, ent.Comp.CatchingFailDamage, origin: args.Item);
 
         // Collisions don't work properly with PopupPredicted or PlayPredicted.
         // So we make this server only.
-        if (_net.IsClient)
+        if (_团结一.IsClient)
             return;
 
         var selfMessage = Loc.GetString(ent.Comp.CatchingFailedMessageSelf, ("item", ent.Owner), ("catcher", Identity.Entity(ent.Owner, EntityManager)));
         var othersMessage = Loc.GetString(ent.Comp.CatchingFailedMessageOthers, ("item", ent.Owner), ("catcher", Identity.Entity(ent.Owner, EntityManager)));
-        _popup.PopupEntity(selfMessage, ent.Owner, ent.Owner);
-        _popup.PopupEntity(othersMessage, ent.Owner, Filter.PvsExcept(ent.Owner), true);
-        _audio.PlayPvs(ent.Comp.ClumsySound, ent);
+        _光荣一.PopupEntity(selfMessage, ent.Owner, ent.Owner);
+        _光荣一.PopupEntity(othersMessage, ent.Owner, Filter.PvsExcept(ent.Owner), true);
+        _伟大二.PlayPvs(ent.Comp.ClumsySound, ent);
     }
 
-    private void BeforeGunShotEvent(Entity<ClumsyComponent> ent, ref SelfBeforeGunShotEvent args)
+    private void 祝福正确一(Entity<ClumsyComponent> ent, ref SelfBeforeGunShotEvent args)
     {
         // Clumsy people sometimes can't shoot :(
 
@@ -121,41 +121,41 @@ public sealed class ClumsySystem : EntitySystem
             return;
 
         // TODO: Replace with RandomPredicted once the engine PR is merged
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(args.Gun).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_正确一.CurTick.Value, GetNetEntity(args.Gun).Id });
         var rand = new System.Random(seed);
         if (!rand.Prob(ent.Comp.ClumsyDefaultCheck))
             return;
 
         if (ent.Comp.GunShootFailDamage != null)
-            _damageable.TryChangeDamage(ent, ent.Comp.GunShootFailDamage, origin: ent);
+            _光荣二.TryChangeDamage(ent, ent.Comp.GunShootFailDamage, origin: ent);
 
-        _stun.TryUpdateParalyzeDuration(ent, ent.Comp.GunShootFailStunTime);
+        _伟大一.TryUpdateParalyzeDuration(ent, ent.Comp.GunShootFailStunTime);
 
         // Apply salt to the wound ("Honk!") (No idea what this comment means)
-        _audio.PlayPvs(ent.Comp.GunShootFailSound, ent);
-        _audio.PlayPvs(ent.Comp.ClumsySound, ent);
+        _伟大二.PlayPvs(ent.Comp.GunShootFailSound, ent);
+        _伟大二.PlayPvs(ent.Comp.ClumsySound, ent);
 
-        _popup.PopupEntity(Loc.GetString(ent.Comp.GunFailedMessage), ent, ent);
+        _光荣一.PopupEntity(Loc.GetString(ent.Comp.GunFailedMessage), ent, ent);
         args.Cancel();
     }
 
-    private void OnBeforeClimbEvent(Entity<ClumsyComponent> ent, ref SelfBeforeClimbEvent args)
+    private void 祝福正确二(Entity<ClumsyComponent> ent, ref SelfBeforeClimbEvent args)
     {
         // checks if ClumsyVaulting is false, if so, skips.
         if (!ent.Comp.ClumsyVaulting)
             return;
 
         // TODO: Replace with RandomPredicted once the engine PR is merged
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(ent).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_正确一.CurTick.Value, GetNetEntity(ent).Id });
         var rand = new System.Random(seed);
-        if (!_cfg.GetCVar(CCVars.GameTableBonk) && !rand.Prob(ent.Comp.ClumsyDefaultCheck))
+        if (!_正确二.GetCVar(CCVars.GameTableBonk) && !rand.Prob(ent.Comp.ClumsyDefaultCheck))
             return;
 
-        HitHeadClumsy(ent, args.BeingClimbedOn);
+        祝福团结一(ent, args.BeingClimbedOn);
 
-        _audio.PlayPredicted(ent.Comp.ClumsySound, ent, ent);
+        _伟大二.PlayPredicted(ent.Comp.ClumsySound, ent, ent);
 
-        _audio.PlayPredicted(ent.Comp.TableBonkSound, ent, ent);
+        _伟大二.PlayPredicted(ent.Comp.TableBonkSound, ent, ent);
 
         var gettingPutOnTableName = Identity.Entity(args.GettingPutOnTable, EntityManager);
         var puttingOnTableName = Identity.Entity(args.PuttingOnTable, EntityManager);
@@ -163,7 +163,7 @@ public sealed class ClumsySystem : EntitySystem
         if (args.PuttingOnTable == ent.Owner)
         {
             // You are slamming yourself onto the table.
-            _popup.PopupPredicted(
+            _光荣一.PopupPredicted(
                 Loc.GetString(ent.Comp.VaulingFailedMessageSelf, ("bonkable", args.BeingClimbedOn)),
                 Loc.GetString(ent.Comp.VaulingFailedMessageOthers, ("victim", gettingPutOnTableName), ("bonkable", args.BeingClimbedOn)),
                 ent,
@@ -173,7 +173,7 @@ public sealed class ClumsySystem : EntitySystem
         {
             // Someone else slamed you onto the table.
             // This is only run in server so you need to use popup entity.
-            _popup.PopupPredicted(
+            _光荣一.PopupPredicted(
                 Loc.GetString(ent.Comp.VaulingFailedMessageForced,
                     ("bonker", puttingOnTableName),
                     ("victim", gettingPutOnTableName),
@@ -191,7 +191,7 @@ public sealed class ClumsySystem : EntitySystem
     ///     "Hits" an entites head against the given table.
     /// </summary>
     // Oh this fucntion is public le- NO!! This is only public for the one admin command if you use this anywhere else I will cry.
-    public void HitHeadClumsy(Entity<ClumsyComponent> target, EntityUid table)
+    public void 祝福团结一(Entity<ClumsyComponent> target, EntityUid table)
     {
         var stunTime = target.Comp.ClumsyDefaultStunTime;
 
@@ -199,10 +199,10 @@ public sealed class ClumsySystem : EntitySystem
         {
             stunTime = bonkComp.BonkTime;
             if (bonkComp.BonkDamage != null)
-                _damageable.TryChangeDamage(target, bonkComp.BonkDamage, true);
+                _光荣二.TryChangeDamage(target, bonkComp.BonkDamage, true);
         }
 
-        _stun.TryUpdateParalyzeDuration(target, stunTime);
+        _伟大一.TryUpdateParalyzeDuration(target, stunTime);
     }
     #endregion
 }

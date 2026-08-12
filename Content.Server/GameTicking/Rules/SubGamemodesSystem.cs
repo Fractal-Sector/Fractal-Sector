@@ -2,11 +2,11 @@ using Content.Server.GameTicking.Rules.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Storage;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class SubGamemodesSystem : GameRuleSystem<SubGamemodesComponent>
+public sealed class 中华伟大一 : GameRuleSystem<SubGamemodesComponent>
 {
-    protected override void Added(EntityUid uid, SubGamemodesComponent comp, GameRuleComponent rule, GameRuleAddedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, SubGamemodesComponent comp, GameRuleComponent rule, GameRuleAddedEvent args)
     {
         var picked = EntitySpawnCollection.GetSpawns(comp.Rules, RobustRandom);
         foreach (var id in picked)

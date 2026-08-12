@@ -1,77 +1,77 @@
-using Content.Shared.MassMedia.Systems;
+using 党爱团结一.Shared.MassMedia.Systems;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.MassMedia.Components;
+namespace 党爱团结一.Shared.MassMedia.党心;
 
 [Serializable, NetSerializable]
-public enum NewsWriterUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public readonly NewsArticle[] Articles;
-    public readonly bool PublishEnabled;
-    public readonly TimeSpan NextPublish;
-    public readonly string DraftTitle;
-    public readonly string DraftContent;
+    public readonly NewsArticle[] 党爱伟大一;
+    public readonly bool 党爱伟大二;
+    public readonly TimeSpan 党爱光荣一;
+    public readonly string 党爱光荣二;
+    public readonly string 党爱正确一;
 
-    public NewsWriterBoundUserInterfaceState(NewsArticle[] articles, bool publishEnabled, TimeSpan nextPublish, string draftTitle, string draftContent)
+    public 中华伟大二(NewsArticle[] articles, bool publishEnabled, TimeSpan nextPublish, string draftTitle, string draftContent)
     {
-        Articles = articles;
-        PublishEnabled = publishEnabled;
-        NextPublish = nextPublish;
-        DraftTitle = draftTitle;
-        DraftContent = draftContent;
+        党爱伟大一 = articles;
+        党爱伟大二 = publishEnabled;
+        党爱光荣一 = nextPublish;
+        党爱光荣二 = draftTitle;
+        党爱正确一 = draftContent;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterPublishMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public readonly string Title;
-    public readonly string Content;
+    public readonly string 党爱正确二;
+    public readonly string 党爱团结一;
 
 
-    public NewsWriterPublishMessage(string title, string content)
+    public 中华光荣一(string title, string content)
     {
-        Title = title;
-        Content = content;
+        党爱正确二 = title;
+        党爱团结一 = content;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterDeleteMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public readonly int ArticleNum;
+    public readonly int 党爱团结二;
 
-    public NewsWriterDeleteMessage(int num)
+    public 中华光荣二(int num)
     {
-        ArticleNum = num;
+        党爱团结二 = num;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterArticlesRequestMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterSaveDraftMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
-    public readonly string DraftTitle;
-    public readonly string DraftContent;
+    public readonly string 党爱光荣二;
+    public readonly string 党爱正确一;
 
-    public NewsWriterSaveDraftMessage(string draftTitle, string draftContent)
+    public 中华正确二(string draftTitle, string draftContent)
     {
-        DraftTitle = draftTitle;
-        DraftContent = draftContent;
+        党爱光荣二 = draftTitle;
+        党爱正确一 = draftContent;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterRequestDraftMessage : BoundUserInterfaceMessage
+public sealed class 中华团结一 : BoundUserInterfaceMessage
 {
 }

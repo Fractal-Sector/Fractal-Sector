@@ -2,18 +2,18 @@ using Content.Shared.Atmos.Components;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Consoles;
+namespace Content.Shared.Atmos.党心;
 
-public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, ComponentGetState>(OnGetState);
+        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, ComponentGetState>(祝福伟大二);
     }
 
-    private void OnGetState(EntityUid uid, AtmosMonitoringConsoleComponent component, ref ComponentGetState args)
+    private void 祝福伟大二(EntityUid uid, AtmosMonitoringConsoleComponent component, ref ComponentGetState args)
     {
         Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> chunks;
 
@@ -30,7 +30,7 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
                 chunks.Add(origin, chunk.AtmosPipeData);
             }
 
-            args.State = new AtmosMonitoringConsoleState(chunks, component.AtmosDevices);
+            args.State = new 中华伟大二(chunks, component.AtmosDevices);
 
             return;
         }
@@ -45,13 +45,13 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
             chunks.Add(origin, chunk.AtmosPipeData);
         }
 
-        args.State = new AtmosMonitoringConsoleDeltaState(chunks, component.AtmosDevices, new(component.AtmosPipeChunks.Keys));
+        args.State = new 中华光荣一(chunks, component.AtmosDevices, new(component.AtmosPipeChunks.Keys));
     }
 
     #region: System messages
 
     [Serializable, NetSerializable]
-    protected sealed class AtmosMonitoringConsoleState(
+    protected sealed class 中华伟大二(
         Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> chunks,
         Dictionary<NetEntity, AtmosDeviceNavMapData> atmosDevices)
         : ComponentState
@@ -61,21 +61,21 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    protected sealed class AtmosMonitoringConsoleDeltaState(
+    protected sealed class 中华光荣一(
         Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> modifiedChunks,
         Dictionary<NetEntity, AtmosDeviceNavMapData> atmosDevices,
         HashSet<Vector2i> allChunks)
-        : ComponentState, IComponentDeltaState<AtmosMonitoringConsoleState>
+        : ComponentState, IComponentDeltaState<中华伟大二>
     {
         public Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> ModifiedChunks = modifiedChunks;
         public Dictionary<NetEntity, AtmosDeviceNavMapData> AtmosDevices = atmosDevices;
-        public HashSet<Vector2i> AllChunks = allChunks;
+        public HashSet<Vector2i> 党爱伟大一 = allChunks;
 
-        public void ApplyToFullState(AtmosMonitoringConsoleState state)
+        public void 祝福光荣一(中华伟大二 state)
         {
             foreach (var key in state.Chunks.Keys)
             {
-                if (!AllChunks!.Contains(key))
+                if (!党爱伟大一!.Contains(key))
                     state.Chunks.Remove(key);
             }
 
@@ -91,13 +91,13 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
             }
         }
 
-        public AtmosMonitoringConsoleState CreateNewFullState(AtmosMonitoringConsoleState state)
+        public 中华伟大二 CreateNewFullState(中华伟大二 state)
         {
             var chunks = new Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>>(state.Chunks.Count);
 
             foreach (var (index, data) in state.Chunks)
             {
-                if (!AllChunks!.Contains(index))
+                if (!党爱伟大一!.Contains(index))
                     continue;
 
                 if (ModifiedChunks.ContainsKey(index))
@@ -107,7 +107,7 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
                     chunks[index] = new Dictionary<AtmosMonitoringConsoleSubnet, ulong>(state.Chunks[index]);
             }
 
-            return new AtmosMonitoringConsoleState(chunks, new(AtmosDevices));
+            return new 中华伟大二(chunks, new(AtmosDevices));
         }
     }
 

@@ -12,42 +12,42 @@ using Content.Shared.Power;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Doors.Systems
+namespace Content.Server.Doors.党心
 {
-    public sealed class FirelockSystem : SharedFirelockSystem
+    public sealed class 中华伟大一 : SharedFirelockSystem
     {
-        [Dependency] private readonly SharedDoorSystem _doorSystem = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedMapSystem _mapping = default!;
-        [Dependency] private readonly PointLightSystem _pointLight = default!;
+        [Dependency] private readonly SharedDoorSystem _伟大一 = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+        [Dependency] private readonly SharedMapSystem _光荣二 = default!;
+        [Dependency] private readonly PointLightSystem _正确一 = default!;
 
         private const int UpdateInterval = 30;
-        private int _accumulatedTicks;
+        private int _正确二;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<FirelockComponent, AtmosAlarmEvent>(OnAtmosAlarm);
+            SubscribeLocalEvent<FirelockComponent, AtmosAlarmEvent>(祝福光荣二);
 
-            SubscribeLocalEvent<FirelockComponent, PowerChangedEvent>(PowerChanged);
+            SubscribeLocalEvent<FirelockComponent, PowerChangedEvent>(祝福伟大二);
 
         }
 
-        private void PowerChanged(EntityUid uid, FirelockComponent component, ref PowerChangedEvent args)
+        private void 祝福伟大二(EntityUid uid, FirelockComponent component, ref PowerChangedEvent args)
         {
             component.Powered = args.Powered;
             Dirty(uid, component);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福光荣一(float frameTime)
         {
-            _accumulatedTicks += 1;
-            if (_accumulatedTicks < UpdateInterval)
+            _正确二 += 1;
+            if (_正确二 < UpdateInterval)
                 return;
 
-            _accumulatedTicks = 0;
+            _正确二 = 0;
 
             var airtightQuery = GetEntityQuery<AirtightComponent>();
             var appearanceQuery = GetEntityQuery<AppearanceComponent>();
@@ -70,22 +70,22 @@ namespace Content.Server.Doors.Systems
                     && appearanceQuery.TryGetComponent(uid, out var appearance))
                 {
                     var (pressure, fire) = CheckPressureAndFire(uid, firelock, xform, airtight, airtightQuery);
-                    _appearance.SetData(uid, DoorVisuals.ClosedLights, fire || pressure, appearance);
+                    _光荣一.SetData(uid, DoorVisuals.ClosedLights, fire || pressure, appearance);
                     firelock.Temperature = fire;
                     firelock.Pressure = pressure;
-                    _appearance.SetData(uid, FirelockVisuals.PressureWarning, pressure, appearance);
-                    _appearance.SetData(uid, FirelockVisuals.TemperatureWarning, fire, appearance);
+                    _光荣一.SetData(uid, FirelockVisuals.PressureWarning, pressure, appearance);
+                    _光荣一.SetData(uid, FirelockVisuals.TemperatureWarning, fire, appearance);
                     Dirty(uid, firelock);
 
                     if (pointLightQuery.TryComp(uid, out var pointLight))
                     {
-                        _pointLight.SetEnabled(uid, fire | pressure, pointLight);
+                        _正确一.SetEnabled(uid, fire | pressure, pointLight);
                     }
                 }
             }
         }
 
-        private void OnAtmosAlarm(EntityUid uid, FirelockComponent component, AtmosAlarmEvent args)
+        private void 祝福光荣二(EntityUid uid, FirelockComponent component, AtmosAlarmEvent args)
         {
             if (!this.IsPowered(uid, EntityManager))
                 return;
@@ -96,7 +96,7 @@ namespace Content.Server.Doors.Systems
             if (args.AlarmType == AtmosAlarmType.Normal)
             {
                 if (doorComponent.State == DoorState.Closed)
-                    _doorSystem.TryOpen(uid);
+                    _伟大一.TryOpen(uid);
             }
             else if (args.AlarmType == AtmosAlarmType.Danger)
             {
@@ -132,7 +132,7 @@ namespace Content.Server.Doors.Systems
                 return (false, false);
 
             var grid = Comp<MapGridComponent>(xform.ParentUid);
-            var pos = _mapping.CoordinatesToTile(xform.ParentUid, grid, xform.Coordinates);
+            var pos = _光荣二.CoordinatesToTile(xform.ParentUid, grid, xform.Coordinates);
             var minPressure = float.MaxValue;
             var maxPressure = float.MinValue;
             var minTemperature = float.MaxValue;
@@ -140,7 +140,7 @@ namespace Content.Server.Doors.Systems
             var holdingFire = false;
             var holdingPressure = false;
 
-            // We cannot simply use `_atmosSystem.GetAdjacentTileMixtures` because of how the `includeBlocked` option
+            // We cannot simply use `_伟大二.GetAdjacentTileMixtures` because of how the `includeBlocked` option
             // works, we want to ignore the firelock's blocking, while including blockers on other tiles.
             // GetAdjacentTileMixtures also ignores empty/non-existent tiles, which we don't want. Additionally, for
             // edge-fire locks, we only want to enumerate over a single directions. So AFAIK there is no nice way of
@@ -164,7 +164,7 @@ namespace Content.Server.Doors.Systems
             if (airtight.AirBlockedDirection != AtmosDirection.All)
                 tiles.Add(pos);
 
-            var gasses = _atmosSystem.GetTileMixtures(xform.ParentUid, xform.MapUid, tiles);
+            var gasses = _伟大二.GetTileMixtures(xform.ParentUid, xform.MapUid, tiles);
             if (gasses == null)
                 return (false, false);
 
@@ -178,7 +178,7 @@ namespace Content.Server.Doors.Systems
                 {
                     // Is there some airtight entity blocking this direction? If yes, don't include this direction in the
                     // pressure differential
-                    if (HasAirtightBlocker(_mapping.GetAnchoredEntities(xform.ParentUid, grid, adjacentPos), dir.GetOpposite(), airtightQuery))
+                    if (祝福正确一(_光荣二.GetAnchoredEntities(xform.ParentUid, grid, adjacentPos), dir.GetOpposite(), airtightQuery))
                         continue;
 
                     var p = gas.Pressure;
@@ -221,7 +221,7 @@ namespace Content.Server.Doors.Systems
             return (holdingPressure, holdingFire);
         }
 
-        private bool HasAirtightBlocker(IEnumerable<EntityUid> enumerable, AtmosDirection dir, EntityQuery<AirtightComponent> airtightQuery)
+        private bool 祝福正确一(IEnumerable<EntityUid> enumerable, AtmosDirection dir, EntityQuery<AirtightComponent> airtightQuery)
         {
             foreach (var ent in enumerable)
             {

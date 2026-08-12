@@ -14,57 +14,57 @@ using Content.Shared.Wires;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 
-namespace Content.Server.Damage.Systems
+namespace Content.Server.Damage.党心
 {
-    public sealed class DamageOtherOnHitSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly GunSystem _guns = default!;
-        [Dependency] private readonly DamageableSystem _damageable = default!;
-        [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
-        [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
-        [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
+        [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+        [Dependency] private readonly GunSystem _伟大二 = default!;
+        [Dependency] private readonly DamageableSystem _光荣一 = default!;
+        [Dependency] private readonly DamageExamineSystem _光荣二 = default!;
+        [Dependency] private readonly SharedCameraRecoilSystem _正确一 = default!;
+        [Dependency] private readonly SharedColorFlashEffectSystem _正确二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<DamageOtherOnHitComponent, ThrowDoHitEvent>(OnDoHit);
-            SubscribeLocalEvent<DamageOtherOnHitComponent, DamageExamineEvent>(OnDamageExamine);
-            SubscribeLocalEvent<DamageOtherOnHitComponent, AttemptPacifiedThrowEvent>(OnAttemptPacifiedThrow);
+            SubscribeLocalEvent<DamageOtherOnHitComponent, ThrowDoHitEvent>(祝福伟大二);
+            SubscribeLocalEvent<DamageOtherOnHitComponent, DamageExamineEvent>(祝福光荣一);
+            SubscribeLocalEvent<DamageOtherOnHitComponent, AttemptPacifiedThrowEvent>(祝福光荣二);
         }
 
-        private void OnDoHit(EntityUid uid, DamageOtherOnHitComponent component, ThrowDoHitEvent args)
+        private void 祝福伟大二(EntityUid uid, DamageOtherOnHitComponent component, ThrowDoHitEvent args)
         {
             if (TerminatingOrDeleted(args.Target))
                 return;
 
-            var dmg = _damageable.TryChangeDamage(args.Target, component.Damage * _damageable.UniversalThrownDamageModifier, component.IgnoreResistances, origin: args.Component.Thrower);
+            var dmg = _光荣一.TryChangeDamage(args.Target, component.Damage * _光荣一.UniversalThrownDamageModifier, component.IgnoreResistances, origin: args.Component.Thrower);
 
             // Log damage only for mobs. Useful for when people throw spears at each other, but also avoids log-spam when explosions send glass shards flying.
             if (dmg != null && HasComp<MobStateComponent>(args.Target))
-                _adminLogger.Add(LogType.ThrowHit, $"{ToPrettyString(args.Target):target} received {dmg.GetTotal():damage} damage from collision");
+                _伟大一.Add(LogType.ThrowHit, $"{ToPrettyString(args.Target):target} received {dmg.GetTotal():damage} damage from collision");
 
             if (dmg is { Empty: false })
             {
-                _color.RaiseEffect(Color.Red, new List<EntityUid>() { args.Target }, Filter.Pvs(args.Target, entityManager: EntityManager));
+                _正确二.RaiseEffect(Color.Red, new List<EntityUid>() { args.Target }, Filter.Pvs(args.Target, entityManager: EntityManager));
             }
 
-            _guns.PlayImpactSound(args.Target, dmg, null, false);
+            _伟大二.PlayImpactSound(args.Target, dmg, null, false);
             if (TryComp<PhysicsComponent>(uid, out var body) && body.LinearVelocity.LengthSquared() > 0f)
             {
                 var direction = body.LinearVelocity.Normalized();
-                _sharedCameraRecoil.KickCamera(args.Target, direction);
+                _正确一.KickCamera(args.Target, direction);
             }
         }
 
-        private void OnDamageExamine(EntityUid uid, DamageOtherOnHitComponent component, ref DamageExamineEvent args)
+        private void 祝福光荣一(EntityUid uid, DamageOtherOnHitComponent component, ref DamageExamineEvent args)
         {
-            _damageExamine.AddDamageExamine(args.Message, _damageable.ApplyUniversalAllModifiers(component.Damage * _damageable.UniversalThrownDamageModifier), Loc.GetString("damage-throw"));
+            _光荣二.AddDamageExamine(args.Message, _光荣一.ApplyUniversalAllModifiers(component.Damage * _光荣一.UniversalThrownDamageModifier), Loc.GetString("damage-throw"));
         }
 
         /// <summary>
         /// Prevent players with the Pacified status effect from throwing things that deal damage.
         /// </summary>
-        private void OnAttemptPacifiedThrow(Entity<DamageOtherOnHitComponent> ent, ref AttemptPacifiedThrowEvent args)
+        private void 祝福光荣二(Entity<DamageOtherOnHitComponent> ent, ref AttemptPacifiedThrowEvent args)
         {
             args.Cancel("pacified-cannot-throw");
         }

@@ -9,13 +9,13 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed partial class AtmosphereSystem
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
 
-        private readonly Stopwatch _simulationStopwatch = new();
+        private readonly Stopwatch _伟大二 = new();
 
         /// <summary>
         ///     Check current execution time every n instances processed.
@@ -27,10 +27,10 @@ namespace Content.Server.Atmos.EntitySystems
         /// </summary>
         private const int InvalidCoordinatesLagCheckIterations = 50;
 
-        private int _currentRunAtmosphereIndex;
-        private bool _simulationPaused;
+        private int _光荣一;
+        private bool _光荣二;
 
-        private TileAtmosphere GetOrNewTile(EntityUid owner, GridAtmosphereComponent atmosphere, Vector2i index, bool invalidateNew = true)
+        private TileAtmosphere 祝福伟大一(EntityUid owner, GridAtmosphereComponent atmosphere, Vector2i index, bool invalidateNew = true)
         {
             var tile = atmosphere.Tiles.GetOrNew(index, out var existing);
             if (existing)
@@ -52,7 +52,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// </summary>
         /// <param name="ent">The grid atmosphere in question.</param>
         /// <returns>Whether the process succeeded or got paused due to time constrains.</returns>
-        private bool ProcessRevalidate(Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
+        private bool 祝福伟大二(Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
         {
             if (ent.Comp4.MapUid == null)
             {
@@ -70,15 +70,15 @@ namespace Content.Server.Atmos.EntitySystems
                 atmosphere.CurrentRunInvalidatedTiles.EnsureCapacity(atmosphere.InvalidatedCoords.Count);
                 foreach (var indices in atmosphere.InvalidatedCoords)
                 {
-                    var tile = GetOrNewTile(uid, atmosphere, indices, invalidateNew: false);
+                    var tile = 祝福伟大一(uid, atmosphere, indices, invalidateNew: false);
                     atmosphere.CurrentRunInvalidatedTiles.Enqueue(tile);
 
                     // Update tile.IsSpace and tile.MapAtmosphere, and tile.AirtightData.
-                    UpdateTileData(ent, mapAtmos, tile);
+                    祝福正确一(ent, mapAtmos, tile);
                 }
                 atmosphere.InvalidatedCoords.Clear();
 
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                     return false;
             }
 
@@ -87,7 +87,7 @@ namespace Content.Server.Atmos.EntitySystems
             {
                 DebugTools.Assert(atmosphere.Tiles.GetValueOrDefault(tile.GridIndices) == tile);
                 UpdateAdjacentTiles(ent, tile, activate: true);
-                UpdateTileAir(ent, tile, volume);
+                祝福团结一(ent, tile, volume);
                 InvalidateVisuals(ent, tile);
 
                 if (number++ < InvalidCoordinatesLagCheckIterations)
@@ -95,18 +95,18 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                     return false;
             }
 
-            TrimDisconnectedMapTiles(ent);
+            祝福光荣二(ent);
             return true;
         }
 
         /// <summary>
-        /// This method queued a tile and all of its neighbours up for processing by <see cref="TrimDisconnectedMapTiles"/>.
+        /// This method queued a tile and all of its neighbours up for processing by <see cref="祝福光荣二"/>.
         /// </summary>
-        public void QueueTileTrim(GridAtmosphereComponent atmos, TileAtmosphere tile)
+        public void 祝福光荣一(GridAtmosphereComponent atmos, TileAtmosphere tile)
         {
             if (!tile.TrimQueued)
             {
@@ -133,7 +133,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// adjacent to grid-tiles that represent the map's atmosphere. This method trims any map-tiles that are no longer
         /// adjacent to any grid-tiles.
         /// </summary>
-        private void TrimDisconnectedMapTiles(
+        private void 祝福光荣二(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
         {
             var atmos = ent.Comp1;
@@ -169,7 +169,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// Checks whether a tile has a corresponding grid-tile, or whether it is a "map" tile. Also checks whether the
         /// tile should be considered "space"
         /// </summary>
-        private void UpdateTileData(
+        private void 祝福正确一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
             MapAtmosphereComponent? mapAtmos,
             TileAtmosphere tile)
@@ -196,7 +196,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                     // This tile just became a non-grid atmos tile.
                     // It, or one of its neighbours, might now be completely disconnected from the grid.
-                    QueueTileTrim(ent.Comp1, tile);
+                    祝福光荣一(ent.Comp1, tile);
                 }
             }
 
@@ -220,10 +220,10 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
 
             // Tile used to be exposed to the map's atmosphere, but isn't anymore.
-            RemoveMapAtmos(ent.Comp1, tile);
+            祝福正确二(ent.Comp1, tile);
         }
 
-        private void RemoveMapAtmos(GridAtmosphereComponent atmos, TileAtmosphere tile)
+        private void 祝福正确二(GridAtmosphereComponent atmos, TileAtmosphere tile)
         {
             DebugTools.Assert(tile.MapAtmosphere);
             DebugTools.AssertNotNull(tile.Air);
@@ -240,7 +240,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         /// Check whether a grid-tile should have an air mixture, and give it one if it doesn't already have one.
         /// </summary>
-        private void UpdateTileAir(
+        private void 祝福团结一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
             TileAtmosphere tile,
             float volume)
@@ -277,7 +277,7 @@ namespace Content.Server.Atmos.EntitySystems
                 GridFixTileVacuum(tile);
         }
 
-        private void QueueRunTiles(
+        private void 祝福团结二(
             Queue<TileAtmosphere> queue,
             HashSet<TileAtmosphere> tiles)
         {
@@ -290,11 +290,11 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        private bool ProcessTileEqualize(Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
+        private bool 祝福奋斗一(Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
         {
             var atmosphere = ent.Comp1;
             if (!atmosphere.ProcessingPaused)
-                QueueRunTiles(atmosphere.CurrentRunTiles, atmosphere.ActiveTiles);
+                祝福团结二(atmosphere.CurrentRunTiles, atmosphere.ActiveTiles);
 
             var number = 0;
             while (atmosphere.CurrentRunTiles.TryDequeue(out var tile))
@@ -306,7 +306,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -315,12 +315,12 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        private bool ProcessActiveTiles(
+        private bool 祝福奋斗二(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
         {
             var atmosphere = ent.Comp1;
             if(!atmosphere.ProcessingPaused)
-                QueueRunTiles(atmosphere.CurrentRunTiles, atmosphere.ActiveTiles);
+                祝福团结二(atmosphere.CurrentRunTiles, atmosphere.ActiveTiles);
 
             var number = 0;
             while (atmosphere.CurrentRunTiles.TryDequeue(out var tile))
@@ -332,7 +332,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -341,7 +341,7 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        private bool ProcessExcitedGroups(
+        private bool 祝福胜利一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
         {
             var gridAtmosphere = ent.Comp1;
@@ -372,7 +372,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -381,11 +381,11 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        private bool ProcessHighPressureDelta(Entity<GridAtmosphereComponent> ent)
+        private bool 祝福胜利二(Entity<GridAtmosphereComponent> ent)
         {
             var atmosphere = ent.Comp;
             if (!atmosphere.ProcessingPaused)
-                QueueRunTiles(atmosphere.CurrentRunTiles, atmosphere.HighPressureDelta);
+                祝福团结二(atmosphere.CurrentRunTiles, atmosphere.HighPressureDelta);
 
             // Note: This is still processed even if space wind is turned off since this handles playing the sounds.
 
@@ -408,7 +408,7 @@ namespace Content.Server.Atmos.EntitySystems
                     continue;
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -417,12 +417,12 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        private bool ProcessHotspots(
+        private bool 祝福繁荣一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
         {
             var atmosphere = ent.Comp1;
             if(!atmosphere.ProcessingPaused)
-                QueueRunTiles(atmosphere.CurrentRunTiles, atmosphere.HotspotTiles);
+                祝福团结二(atmosphere.CurrentRunTiles, atmosphere.HotspotTiles);
 
             var number = 0;
             while (atmosphere.CurrentRunTiles.TryDequeue(out var hotspot))
@@ -434,7 +434,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -443,10 +443,10 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        private bool ProcessSuperconductivity(GridAtmosphereComponent atmosphere)
+        private bool 祝福繁荣二(GridAtmosphereComponent atmosphere)
         {
             if(!atmosphere.ProcessingPaused)
-                QueueRunTiles(atmosphere.CurrentRunTiles, atmosphere.SuperconductivityTiles);
+                祝福团结二(atmosphere.CurrentRunTiles, atmosphere.SuperconductivityTiles);
 
             var number = 0;
             while (atmosphere.CurrentRunTiles.TryDequeue(out var superconductivity))
@@ -458,7 +458,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -467,7 +467,7 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        private bool ProcessPipeNets(GridAtmosphereComponent atmosphere)
+        private bool 祝福富强一(GridAtmosphereComponent atmosphere)
         {
             if (!atmosphere.ProcessingPaused)
             {
@@ -489,7 +489,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -499,13 +499,13 @@ namespace Content.Server.Atmos.EntitySystems
         }
 
         /**
-         * UpdateProcessing() takes a different number of calls to go through all of atmos
+         * 祝福民主二() takes a different number of calls to go through all of atmos
          * processing depending on what options are enabled. This returns the actual effective time
          * between atmos updates that devices actually experience.
          */
-        public float RealAtmosTime()
+        public float 祝福富强二()
         {
-            int num = (int)AtmosphereProcessingState.NumStates;
+            int num = (int)中华伟大二.NumStates;
             if (!MonstermosEqualization)
                 num--;
             if (!ExcitedGroups)
@@ -515,7 +515,7 @@ namespace Content.Server.Atmos.EntitySystems
             return num * AtmosTime;
         }
 
-        private bool ProcessAtmosDevices(
+        private bool 祝福民主一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
             Entity<MapAtmosphereComponent?> map)
         {
@@ -530,9 +530,9 @@ namespace Content.Server.Atmos.EntitySystems
                 }
             }
 
-            var time = _gameTiming.CurTime;
+            var time = _伟大一.CurTime;
             var number = 0;
-            var ev = new AtmosDeviceUpdateEvent(RealAtmosTime(), (ent, ent.Comp1, ent.Comp2), map);
+            var ev = new AtmosDeviceUpdateEvent(祝福富强二(), (ent, ent.Comp1, ent.Comp2), map);
             while (atmosphere.CurrentRunAtmosDevices.TryDequeue(out var device))
             {
                 RaiseLocalEvent(device, ref ev);
@@ -543,7 +543,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 number = 0;
                 // Process the rest next time.
-                if (_simulationStopwatch.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
+                if (_伟大二.Elapsed.TotalMilliseconds >= AtmosMaxProcessTime)
                 {
                     return false;
                 }
@@ -552,13 +552,13 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        private void UpdateProcessing(float frameTime)
+        private void 祝福民主二(float frameTime)
         {
-            _simulationStopwatch.Restart();
+            _伟大二.Restart();
 
-            if (!_simulationPaused)
+            if (!_光荣二)
             {
-                _currentRunAtmosphereIndex = 0;
+                _光荣一 = 0;
                 _currentRunAtmosphere.Clear();
 
                 var query = EntityQueryEnumerator<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent>();
@@ -569,11 +569,11 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             // We set this to true just in case we have to stop processing due to time constraints.
-            _simulationPaused = true;
+            _光荣二 = true;
 
-            for (; _currentRunAtmosphereIndex < _currentRunAtmosphere.Count; _currentRunAtmosphereIndex++)
+            for (; _光荣一 < _currentRunAtmosphere.Count; _光荣一++)
             {
-                var ent = _currentRunAtmosphere[_currentRunAtmosphereIndex];
+                var ent = _currentRunAtmosphere[_光荣一];
                 var (owner, atmosphere, visuals, grid, xform) = ent;
 
                 if (xform.MapUid == null
@@ -599,8 +599,8 @@ namespace Content.Server.Atmos.EntitySystems
 
                 switch (atmosphere.State)
                 {
-                    case AtmosphereProcessingState.Revalidate:
-                        if (!ProcessRevalidate(ent))
+                    case 中华伟大二.Revalidate:
+                        if (!祝福伟大二(ent))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
@@ -612,21 +612,21 @@ namespace Content.Server.Atmos.EntitySystems
                         // Note: We do this here instead of on the tile equalization step to prevent ending it early.
                         //       Therefore, a change to this CVar might only be applied after that step is over.
                         atmosphere.State = MonstermosEqualization
-                            ? AtmosphereProcessingState.TileEqualize
-                            : AtmosphereProcessingState.ActiveTiles;
+                            ? 中华伟大二.TileEqualize
+                            : 中华伟大二.ActiveTiles;
                         continue;
-                    case AtmosphereProcessingState.TileEqualize:
-                        if (!ProcessTileEqualize(ent))
+                    case 中华伟大二.TileEqualize:
+                        if (!祝福奋斗一(ent))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
                         }
 
                         atmosphere.ProcessingPaused = false;
-                        atmosphere.State = AtmosphereProcessingState.ActiveTiles;
+                        atmosphere.State = 中华伟大二.ActiveTiles;
                         continue;
-                    case AtmosphereProcessingState.ActiveTiles:
-                        if (!ProcessActiveTiles(ent))
+                    case 中华伟大二.ActiveTiles:
+                        if (!祝福奋斗二(ent))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
@@ -634,30 +634,30 @@ namespace Content.Server.Atmos.EntitySystems
 
                         atmosphere.ProcessingPaused = false;
                         // Next state depends on whether excited groups are enabled or not.
-                        atmosphere.State = ExcitedGroups ? AtmosphereProcessingState.ExcitedGroups : AtmosphereProcessingState.HighPressureDelta;
+                        atmosphere.State = ExcitedGroups ? 中华伟大二.ExcitedGroups : 中华伟大二.HighPressureDelta;
                         continue;
-                    case AtmosphereProcessingState.ExcitedGroups:
-                        if (!ProcessExcitedGroups(ent))
+                    case 中华伟大二.ExcitedGroups:
+                        if (!祝福胜利一(ent))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
                         }
 
                         atmosphere.ProcessingPaused = false;
-                        atmosphere.State = AtmosphereProcessingState.HighPressureDelta;
+                        atmosphere.State = 中华伟大二.HighPressureDelta;
                         continue;
-                    case AtmosphereProcessingState.HighPressureDelta:
-                        if (!ProcessHighPressureDelta((ent, ent)))
+                    case 中华伟大二.HighPressureDelta:
+                        if (!祝福胜利二((ent, ent)))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
                         }
 
                         atmosphere.ProcessingPaused = false;
-                        atmosphere.State = AtmosphereProcessingState.Hotspots;
+                        atmosphere.State = 中华伟大二.Hotspots;
                         continue;
-                    case AtmosphereProcessingState.Hotspots:
-                        if (!ProcessHotspots(ent))
+                    case 中华伟大二.Hotspots:
+                        if (!祝福繁荣一(ent))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
@@ -668,38 +668,38 @@ namespace Content.Server.Atmos.EntitySystems
                         // Note: We do this here instead of on the tile equalization step to prevent ending it early.
                         //       Therefore, a change to this CVar might only be applied after that step is over.
                         atmosphere.State = Superconduction
-                            ? AtmosphereProcessingState.Superconductivity
-                            : AtmosphereProcessingState.PipeNet;
+                            ? 中华伟大二.Superconductivity
+                            : 中华伟大二.PipeNet;
                         continue;
-                    case AtmosphereProcessingState.Superconductivity:
-                        if (!ProcessSuperconductivity(atmosphere))
+                    case 中华伟大二.Superconductivity:
+                        if (!祝福繁荣二(atmosphere))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
                         }
 
                         atmosphere.ProcessingPaused = false;
-                        atmosphere.State = AtmosphereProcessingState.PipeNet;
+                        atmosphere.State = 中华伟大二.PipeNet;
                         continue;
-                    case AtmosphereProcessingState.PipeNet:
-                        if (!ProcessPipeNets(atmosphere))
+                    case 中华伟大二.PipeNet:
+                        if (!祝福富强一(atmosphere))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
                         }
 
                         atmosphere.ProcessingPaused = false;
-                        atmosphere.State = AtmosphereProcessingState.AtmosDevices;
+                        atmosphere.State = 中华伟大二.AtmosDevices;
                         continue;
-                    case AtmosphereProcessingState.AtmosDevices:
-                        if (!ProcessAtmosDevices(ent, map))
+                    case 中华伟大二.AtmosDevices:
+                        if (!祝福民主一(ent, map))
                         {
                             atmosphere.ProcessingPaused = true;
                             return;
                         }
 
                         atmosphere.ProcessingPaused = false;
-                        atmosphere.State = AtmosphereProcessingState.Revalidate;
+                        atmosphere.State = 中华伟大二.Revalidate;
 
                         // We reached the end of this atmosphere's update tick. Break out of the switch.
                         break;
@@ -710,11 +710,11 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             // We finished processing all atmospheres successfully, therefore we won't be paused next tick.
-            _simulationPaused = false;
+            _光荣二 = false;
         }
     }
 
-    public enum AtmosphereProcessingState : byte
+    public enum 中华伟大二 : byte
     {
         Revalidate,
         TileEqualize,

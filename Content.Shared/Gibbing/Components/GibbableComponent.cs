@@ -3,22 +3,22 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Gibbing.Components;
+namespace Content.Shared.Gibbing.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(GibbingSystem))]
-public sealed partial class GibbableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Giblet entity prototypes to randomly select from when spawning additional giblets
     /// </summary>
     [DataField, AutoNetworkedField]
-    public List<EntProtoId> GibPrototypes = new();
+    public List<EntProtoId> 党爱伟大一 = new();
 
     /// <summary>
     /// Number of giblet entities to spawn in addition to entity contents
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int GibCount;
+    public int 党爱伟大二;
 
     /// <summary>
     /// Sound to be played when this entity is gibbed, only played when playsound is true on the gibbing function
@@ -30,5 +30,5 @@ public sealed partial class GibbableComponent : Component
     /// Max distance giblets can be dropped from an entity when NOT using physics-based scattering
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float GibScatterRange = 0.3f;
+    public float 党爱光荣一 = 0.3f;
 }

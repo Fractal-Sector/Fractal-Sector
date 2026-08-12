@@ -1,16 +1,16 @@
 using Content.Shared.Damage.Components;
 
-namespace Content.Shared.Damage.Systems;
+namespace Content.Shared.Damage.党心;
 
-public partial class SharedStaminaSystem
+public partial class 中华伟大一
 {
-    private void InitializeModifier()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StaminaModifierComponent, ComponentStartup>(OnModifierStartup);
-        SubscribeLocalEvent<StaminaModifierComponent, ComponentShutdown>(OnModifierShutdown);
+        SubscribeLocalEvent<StaminaModifierComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<StaminaModifierComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnModifierStartup(EntityUid uid, StaminaModifierComponent comp, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, StaminaModifierComponent comp, ComponentStartup args)
     {
         if (!TryComp<StaminaComponent>(uid, out var stamina))
             return;
@@ -18,7 +18,7 @@ public partial class SharedStaminaSystem
         stamina.CritThreshold *= comp.Modifier;
     }
 
-    private void OnModifierShutdown(EntityUid uid, StaminaModifierComponent comp, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, StaminaModifierComponent comp, ComponentShutdown args)
     {
         if (!TryComp<StaminaComponent>(uid, out var stamina))
             return;
@@ -30,7 +30,7 @@ public partial class SharedStaminaSystem
     /// Change the stamina modifier for an entity.
     /// If it has <see cref="StaminaComponent"/> it will also be updated.
     /// </summary>
-    public void SetModifier(EntityUid uid, float modifier, StaminaComponent? stamina = null, StaminaModifierComponent? comp = null)
+    public void 祝福光荣二(EntityUid uid, float modifier, StaminaComponent? stamina = null, StaminaModifierComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;

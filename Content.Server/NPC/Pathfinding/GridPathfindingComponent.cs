@@ -1,22 +1,22 @@
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// Stores the relevant pathfinding data for grids.
 /// </summary>
 [RegisterComponent, Access(typeof(PathfindingSystem)), AutoGenerateComponentPause]
-public sealed partial class GridPathfindingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables]
-    public readonly HashSet<Vector2i> DirtyChunks = new();
+    public readonly HashSet<Vector2i> 党爱伟大一 = new();
 
     /// <summary>
     /// Next time the graph is allowed to update.
     /// </summary>
     /// Removing this datafield is the lazy fix HOWEVER I want to purge this anyway and do pathfinding at runtime.
     [AutoPausedField]
-    public TimeSpan NextUpdate;
+    public TimeSpan 党爱伟大二;
 
     [ViewVariables]
     public readonly Dictionary<Vector2i, GridPathfindingChunk> Chunks = new();
@@ -28,5 +28,5 @@ public sealed partial class GridPathfindingComponent : Component
     public readonly Dictionary<PathPortal, Vector2i> PortalLookup = new();
 
     [ViewVariables]
-    public readonly List<PathPortal> DirtyPortals = new();
+    public readonly List<PathPortal> 党爱光荣一 = new();
 }

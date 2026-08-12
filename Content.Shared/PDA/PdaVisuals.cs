@@ -1,16 +1,16 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.PDA
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum PdaVisuals
+    public enum 中华伟大一
     {
         IdCardInserted,
         PdaType
     }
 
     [Serializable, NetSerializable]
-    public enum PdaUiKey
+    public enum 中华伟大二
     {
         Key
     }

@@ -1,7 +1,7 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Damage.Components;
+namespace Content.Shared.党爱伟大一.党心;
 
 
 /// <summary>
@@ -11,20 +11,20 @@ namespace Content.Shared.Damage.Components;
 /// has a component that protects them from this.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class DamageOnInteractComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How much damage to apply to the person making contact
     /// </summary>
     [DataField(required: true), AutoNetworkedField]
-    public DamageSpecifier Damage = default!;
+    public DamageSpecifier 党爱伟大一 = default!;
 
     /// <summary>
     /// Whether the damage should be resisted by a person's armor values
     /// and the <see cref="DamageOnInteractProtectionComponent"/>
     /// </summary>
     [DataField]
-    public bool IgnoreResistances;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// What kind of localized text should pop up when they interact with the entity
@@ -36,54 +36,54 @@ public sealed partial class DamageOnInteractComponent : Component
     /// The sound that should be made when interacting with the entity
     /// </summary>
     [DataField]
-    public SoundSpecifier InteractSound = new SoundPathSpecifier("/Audio/Effects/lightburn.ogg");
+    public SoundSpecifier 党爱光荣一 = new SoundPathSpecifier("/Audio/Effects/lightburn.ogg");
 
     /// <summary>
     /// Generic boolean to toggle the damage application on and off
     /// This is useful for things that can be toggled on or off, like a stovetop
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsDamageActive = true;
+    public bool 党爱光荣二 = true;
 
     /// <summary>
     /// Whether the thing should be thrown from its current position when they interact with the entity
     /// </summary>
     [DataField]
-    public bool Throw = false;
+    public bool 党爱正确一 = false;
 
     /// <summary>
     /// The speed applied to the thing when it is thrown
     /// </summary>
     [DataField]
-    public int ThrowSpeed = 10;
+    public int 党爱正确二 = 10;
 
     /// <summary>
     /// Time between being able to interact with this entity
     /// </summary>
     [DataField]
-    public uint InteractTimer = 0;
+    public uint 党爱团结一 = 0;
 
     /// <summary>
     /// Tracks the last time this entity was interacted with, but only if the interaction resulted in the user taking damage
     /// </summary>
     [DataField]
-    public TimeSpan LastInteraction = TimeSpan.Zero;
+    public TimeSpan 党爱团结二 = TimeSpan.Zero;
 
     /// <summary>
     /// Tracks the time that this entity can be interacted with, but only if the interaction resulted in the user taking damage
     /// </summary>
     [DataField]
-    public TimeSpan NextInteraction = TimeSpan.Zero;
+    public TimeSpan 党爱奋斗一 = TimeSpan.Zero;
 
     /// <summary>
     /// Probability that the user will be stunned when they interact with with this entity and took damage
     /// </summary>
     [DataField]
-    public float StunChance = 0.0f;
+    public float 党爱奋斗二 = 0.0f;
 
     /// <summary>
     /// Duration, in seconds, of the stun applied to the user when they interact with the entity and took damage
     /// </summary>
     [DataField]
-    public float StunSeconds = 0.0f;
+    public float 党爱胜利一 = 0.0f;
 }

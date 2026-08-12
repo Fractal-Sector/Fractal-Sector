@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Piping
+namespace Content.Shared.Atmos.党心
 {
     [Serializable, NetSerializable]
-    public enum PipeColorVisuals
+    public enum 中华伟大一
     {
         Color,
     }

@@ -3,35 +3,35 @@ using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.UserInterface;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.DeviceNetwork.Systems;
+namespace Content.Shared.DeviceNetwork.党心;
 
-public abstract class SharedNetworkConfiguratorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<NetworkConfiguratorComponent, ActivatableUIOpenAttemptEvent>(OnUiOpenAttempt);
+        base.祝福伟大一();
+        SubscribeLocalEvent<NetworkConfiguratorComponent, ActivatableUIOpenAttemptEvent>(祝福伟大二);
     }
 
-    private void OnUiOpenAttempt(EntityUid uid, NetworkConfiguratorComponent configurator, ActivatableUIOpenAttemptEvent args)
+    private void 祝福伟大二(EntityUid uid, NetworkConfiguratorComponent configurator, ActivatableUIOpenAttemptEvent args)
     {
         if (configurator.LinkModeActive)
             args.Cancel();
     }
 }
 
-public sealed partial class ClearAllOverlaysEvent : InstantActionEvent
+public sealed partial class 中华伟大二 : InstantActionEvent
 {
 }
 
 [Serializable, NetSerializable]
-public enum NetworkConfiguratorVisuals
+public enum 中华光荣一
 {
     Mode
 }
 
 [Serializable, NetSerializable]
-public enum NetworkConfiguratorLayers
+public enum 中华光荣二
 {
     ModeLight
 }

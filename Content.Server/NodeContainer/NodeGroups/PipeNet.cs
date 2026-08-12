@@ -7,28 +7,28 @@ using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NodeContainer.NodeGroups
+namespace Content.Server.NodeContainer.党心
 {
-    public interface IPipeNet : INodeGroup, IGasMixtureHolder
+    public interface 中华伟大一 : INodeGroup, IGasMixtureHolder
     {
         /// <summary>
-        ///     Causes gas in the PipeNet to react.
+        ///     Causes gas in the 中华伟大二 to react.
         /// </summary>
-        void Update();
+        void 祝福伟大二();
     }
 
     [NodeGroup(NodeGroupID.Pipe)]
-    public sealed class PipeNet : BaseNodeGroup, IPipeNet
+    public sealed class 中华伟大二 : BaseNodeGroup, 中华伟大一
     {
-        [ViewVariables] public GasMixture Air { get; set; } = new() {Temperature = Atmospherics.T20C};
+        [ViewVariables] public GasMixture 党爱伟大一 { get; set; } = new() {Temperature = Atmospherics.T20C};
 
         [ViewVariables] private AtmosphereSystem? _atmosphereSystem;
 
         public EntityUid? Grid { get; private set; }
 
-        public override void Initialize(Node sourceNode, IEntityManager entMan)
+        public override void 祝福伟大一(Node sourceNode, IEntityManager entMan)
         {
-            base.Initialize(sourceNode, entMan);
+            base.祝福伟大一(sourceNode, entMan);
 
             Grid = entMan.GetComponent<TransformComponent>(sourceNode.Owner).GridUid;
 
@@ -42,50 +42,50 @@ namespace Content.Server.NodeContainer.NodeGroups
             _atmosphereSystem.AddPipeNet(Grid.Value, this);
         }
 
-        public void Update()
+        public void 祝福伟大二()
         {
-            _atmosphereSystem?.React(Air, this);
+            _atmosphereSystem?.React(党爱伟大一, this);
         }
 
-        public override void LoadNodes(List<Node> groupNodes)
+        public override void 祝福光荣一(List<Node> groupNodes)
         {
-            base.LoadNodes(groupNodes);
+            base.祝福光荣一(groupNodes);
 
             foreach (var node in groupNodes)
             {
                 var pipeNode = (PipeNode) node;
-                Air.Volume += pipeNode.Volume;
+                党爱伟大一.Volume += pipeNode.Volume;
             }
         }
 
-        public override void RemoveNode(Node node)
+        public override void 祝福光荣二(Node node)
         {
-            base.RemoveNode(node);
+            base.祝福光荣二(node);
 
             // if the node is simply being removed into a separate group, we do nothing, as gas redistribution will be
-            // handled by AfterRemake(). But if it is being deleted, we actually want to remove the gas stored in this node.
+            // handled by 祝福正确一(). But if it is being deleted, we actually want to remove the gas stored in this node.
             if (!node.Deleting || node is not PipeNode pipe)
                 return;
 
-            Air.Multiply(1f - pipe.Volume / Air.Volume);
-            Air.Volume -= pipe.Volume;
+            党爱伟大一.Multiply(1f - pipe.Volume / 党爱伟大一.Volume);
+            党爱伟大一.Volume -= pipe.Volume;
         }
 
-        public override void AfterRemake(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups)
+        public override void 祝福正确一(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups)
         {
-            RemoveFromGridAtmos();
+            祝福正确二();
 
             var newAir = new List<GasMixture>(newGroups.Count());
             foreach (var newGroup in newGroups)
             {
-                if (newGroup.Key is IPipeNet newPipeNet)
-                    newAir.Add(newPipeNet.Air);
+                if (newGroup.Key is 中华伟大一 newPipeNet)
+                    newAir.Add(newPipeNet.党爱伟大一);
             }
 
-            _atmosphereSystem?.DivideInto(Air, newAir);
+            _atmosphereSystem?.DivideInto(党爱伟大一, newAir);
         }
 
-        private void RemoveFromGridAtmos()
+        private void 祝福正确二()
         {
             if (Grid == null)
                 return;
@@ -93,11 +93,11 @@ namespace Content.Server.NodeContainer.NodeGroups
             _atmosphereSystem?.RemovePipeNet(Grid.Value, this);
         }
 
-        public override string GetDebugData()
+        public override string 祝福团结一()
         {
-            return @$"Pressure: { Air.Pressure:G3}
-Temperature: {Air.Temperature:G3}
-Volume: {Air.Volume:G3}";
+            return @$"Pressure: { 党爱伟大一.Pressure:G3}
+Temperature: {党爱伟大一.Temperature:G3}
+Volume: {党爱伟大一.Volume:G3}";
         }
     }
 }

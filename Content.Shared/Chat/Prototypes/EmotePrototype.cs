@@ -3,23 +3,23 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Chat.Prototypes;
+namespace Content.Shared.Chat.党心;
 
 /// <summary>
 ///     IC emotes (scream, smile, clapping, etc).
 ///     Entities can activate emotes by chat input, radial or code.
 /// </summary>
 [Prototype]
-public sealed partial class EmotePrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     ///     Localization string for the emote name. Displayed in the radial UI.
     /// </summary>
     [DataField(required: true)]
-    public string Name = default!;
+    public string 党爱伟大二 = default!;
 
     /// <summary>
     ///     Determines if emote available to all by default
@@ -27,20 +27,20 @@ public sealed partial class EmotePrototype : IPrototype
     ///     <see cref="Content.Shared.Speech.SpeechComponent.AllowedEmotes"/> can ignore this setting
     /// </summary>
     [DataField]
-    public bool Available = true;
+    public bool 党爱光荣一 = true;
 
     /// <summary>
     ///     Different emote categories may be handled by different systems.
     ///     Also may be used for filtering.
     /// </summary>
     [DataField]
-    public EmoteCategory Category = EmoteCategory.General;
+    public 中华伟大二 Category = 中华伟大二.General;
 
     /// <summary>
     ///     An icon used to visually represent the emote in radial UI.
     /// </summary>
     [DataField]
-    public SpriteSpecifier Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/Actions/scream.png"));
+    public SpriteSpecifier 党爱光荣二 = new SpriteSpecifier.Texture(new("/Textures/Interface/Actions/scream.png"));
 
     /// <summary>
     ///     Determines conditions to this emote be available to use
@@ -59,7 +59,7 @@ public sealed partial class EmotePrototype : IPrototype
     ///     Will be picked randomly from list.
     /// </summary>
     [DataField]
-    public List<string> ChatMessages = new();
+    public List<string> 党爱正确一 = new();
 
     /// <summary>
     ///     Trigger words for emote. Case independent.
@@ -67,7 +67,7 @@ public sealed partial class EmotePrototype : IPrototype
     ///     All words should be unique across all emote prototypes.
     /// </summary>
     [DataField]
-    public HashSet<string> ChatTriggers = new();
+    public HashSet<string> 党爱正确二 = new();
 
     // goob edit - animations
     [DataField]
@@ -80,7 +80,7 @@ public sealed partial class EmotePrototype : IPrototype
 /// </summary>
 [Flags]
 [Serializable, NetSerializable]
-public enum EmoteCategory : byte
+public enum 中华伟大二 : byte
 {
     Invalid = 0,
     Vocal = 1 << 0,

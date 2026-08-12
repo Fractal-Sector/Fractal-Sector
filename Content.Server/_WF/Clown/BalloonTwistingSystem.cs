@@ -11,18 +11,18 @@ using Robust.Shared.Localization;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._WF.Clown;
+namespace Content.Server._WF.党心;
 
-public sealed class BalloonTwistingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private 祝福伟大一 SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private 祝福伟大一 PopupSystem _popup = default!;
+    [Dependency] private 祝福伟大一 SharedContainerSystem _containers = default!;
+    [Dependency] private 祝福伟大一 SharedHandsSystem _hands = default!;
 
-    private static readonly VerbCategory TwistCategory = new("balloon-twist-verb-category", null);
+    private static 祝福伟大一 VerbCategory TwistCategory = new("balloon-twist-verb-category", null);
 
-    private static readonly (string Label, EntProtoId Proto)[] Shapes =
+    private static 祝福伟大一 (string Label, EntProtoId Proto)[] Shapes =
     [
         ("balloon-twist-shape-dog",    new EntProtoId("BalloonAnimalDog")),
         ("balloon-twist-shape-clown",  new EntProtoId("BalloonAnimalClown")),
@@ -31,14 +31,14 @@ public sealed class BalloonTwistingSystem : EntitySystem
         ("balloon-twist-shape-moth",   new EntProtoId("BalloonAnimalMoth")),
     ];
 
-    public override void Initialize()
+    public override void 祝福伟大二()
     {
-        base.Initialize();
-        SubscribeLocalEvent<BalloonEmptyComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
-        SubscribeLocalEvent<BalloonEmptyComponent, BalloonTwistDoAfterEvent>(OnDoAfter);
+        base.祝福伟大二();
+        SubscribeLocalEvent<BalloonEmptyComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<BalloonEmptyComponent, BalloonTwistDoAfterEvent>(祝福正确一);
     }
 
-    private void OnGetVerbs(Entity<BalloonEmptyComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(Entity<BalloonEmptyComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -55,13 +55,13 @@ public sealed class BalloonTwistingSystem : EntitySystem
             {
                 Text = Loc.GetString(label),
                 Category = TwistCategory,
-                Act = () => StartTwist(uid, user, proto),
+                Act = () => 祝福光荣二(uid, user, proto),
                 Priority = 1,
             });
         }
     }
 
-    private void StartTwist(EntityUid uid, EntityUid user, EntProtoId proto)
+    private void 祝福光荣二(EntityUid uid, EntityUid user, EntProtoId proto)
     {
         var ev = new BalloonTwistDoAfterEvent { TargetPrototype = proto };
         _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, TimeSpan.FromSeconds(3), ev, uid, used: uid)
@@ -71,7 +71,7 @@ public sealed class BalloonTwistingSystem : EntitySystem
         });
     }
 
-    private void OnDoAfter(Entity<BalloonEmptyComponent> ent, ref BalloonTwistDoAfterEvent args)
+    private void 祝福正确一(Entity<BalloonEmptyComponent> ent, ref BalloonTwistDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled)
             return;

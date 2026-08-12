@@ -1,15 +1,15 @@
 using Content.Shared.Power.Components;
 using Content.Shared.UserInterface;
 
-namespace Content.Shared.Power.EntitySystems;
+namespace Content.Shared.Power.党心;
 
-public abstract class SharedActivatableUIRequiresPowerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ActivatableUIRequiresPowerComponent, ActivatableUIOpenAttemptEvent>(OnActivate);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ActivatableUIRequiresPowerComponent, ActivatableUIOpenAttemptEvent>(祝福伟大二);
     }
 
-    protected abstract void OnActivate(Entity<ActivatableUIRequiresPowerComponent> ent, ref ActivatableUIOpenAttemptEvent args);
+    protected abstract void 祝福伟大二(Entity<ActivatableUIRequiresPowerComponent> ent, ref ActivatableUIOpenAttemptEvent args);
 }

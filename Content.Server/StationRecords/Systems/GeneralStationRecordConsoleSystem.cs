@@ -13,73 +13,73 @@ using Content.Shared.Database; // Frontier
 using Content.Shared._NF.StationRecords; // Frontier
 using Content.Shared._WF.StationRecords.Components; // Wayfarer
 
-namespace Content.Server.StationRecords.Systems;
+namespace Content.Server.StationRecords.党心;
 
-public sealed class GeneralStationRecordConsoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobsSystem = default!; // Frontier
-    [Dependency] private readonly AccessReaderSystem _access = default!; // Frontier
-    [Dependency] private readonly IPrototypeManager _proto = default!; // Frontier
-    [Dependency] private readonly IAdminLogManager _adminLog = default!; // Frontier
+    [Dependency] private readonly UserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly StationSystem _伟大二 = default!;
+    [Dependency] private readonly StationRecordsSystem _光荣一 = default!;
+    [Dependency] private readonly StationJobsSystem _光荣二 = default!; // Frontier
+    [Dependency] private readonly AccessReaderSystem _正确一 = default!; // Frontier
+    [Dependency] private readonly IPrototypeManager _正确二 = default!; // Frontier
+    [Dependency] private readonly IAdminLogManager _团结一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<GeneralStationRecordConsoleComponent, RecordModifiedEvent>(UpdateUserInterface);
-        SubscribeLocalEvent<GeneralStationRecordConsoleComponent, AfterGeneralRecordCreatedEvent>(UpdateUserInterface);
-        SubscribeLocalEvent<GeneralStationRecordConsoleComponent, RecordRemovedEvent>(UpdateUserInterface);
+        SubscribeLocalEvent<GeneralStationRecordConsoleComponent, RecordModifiedEvent>(祝福团结二);
+        SubscribeLocalEvent<GeneralStationRecordConsoleComponent, AfterGeneralRecordCreatedEvent>(祝福团结二);
+        SubscribeLocalEvent<GeneralStationRecordConsoleComponent, RecordRemovedEvent>(祝福团结二);
 
         Subs.BuiEvents<GeneralStationRecordConsoleComponent>(GeneralStationRecordConsoleKey.Key, subs =>
         {
-            subs.Event<BoundUIOpenedEvent>(UpdateUserInterface);
-            subs.Event<SelectStationRecord>(OnKeySelected);
-            subs.Event<SetStationRecordFilter>(OnFiltersChanged);
-            subs.Event<DeleteStationRecord>(OnRecordDelete);
-            subs.Event<AdjustStationJobMsg>(OnAdjustJob); // Frontier
-            subs.Event<SetStationAdvertisementMsg>(OnAdvertisementChanged); // Frontier
+            subs.Event<BoundUIOpenedEvent>(祝福团结二);
+            subs.Event<SelectStationRecord>(祝福光荣一);
+            subs.Event<SetStationRecordFilter>(祝福正确一);
+            subs.Event<DeleteStationRecord>(祝福伟大二);
+            subs.Event<AdjustStationJobMsg>(祝福光荣二); // Frontier
+            subs.Event<SetStationAdvertisementMsg>(祝福正确二); // Frontier
         });
     }
 
-    private void OnRecordDelete(Entity<GeneralStationRecordConsoleComponent> ent, ref DeleteStationRecord args)
+    private void 祝福伟大二(Entity<GeneralStationRecordConsoleComponent> ent, ref DeleteStationRecord args)
     {
         if (!ent.Comp.CanDeleteEntries)
             return;
 
-        var owning = _station.GetOwningStation(ent.Owner);
+        var owning = _伟大二.GetOwningStation(ent.Owner);
 
         if (owning != null)
-            _stationRecords.RemoveRecord(new StationRecordKey(args.Id, owning.Value));
-        UpdateUserInterface(ent); // Apparently an event does not get raised for this.
+            _光荣一.RemoveRecord(new StationRecordKey(args.Id, owning.Value));
+        祝福团结二(ent); // Apparently an event does not get raised for this.
     }
 
-    private void UpdateUserInterface<T>(Entity<GeneralStationRecordConsoleComponent> ent, ref T args)
+    private void 祝福团结二<T>(Entity<GeneralStationRecordConsoleComponent> ent, ref T args)
     {
-        UpdateUserInterface(ent);
+        祝福团结二(ent);
     }
 
-    // TODO: instead of copy paste shitcode for each record console, have a shared records console comp they all use
+    // TODO: instead of copy paste shitcode for each record 中华伟大二, have a shared records 中华伟大二 comp they all use
     // then have this somehow play nicely with creating ui state
-    // if that gets done put it in StationRecordsSystem console helpers section :)
-    private void OnKeySelected(Entity<GeneralStationRecordConsoleComponent> ent, ref SelectStationRecord msg)
+    // if that gets done put it in StationRecordsSystem 中华伟大二 helpers section :)
+    private void 祝福光荣一(Entity<GeneralStationRecordConsoleComponent> ent, ref SelectStationRecord msg)
     {
         ent.Comp.ActiveKey = msg.SelectedKey;
-        UpdateUserInterface(ent);
+        祝福团结二(ent);
     }
 
     // Frontier: job counts, advertisements
-    private void OnAdjustJob(Entity<GeneralStationRecordConsoleComponent> ent, ref AdjustStationJobMsg msg)
+    private void 祝福光荣二(Entity<GeneralStationRecordConsoleComponent> ent, ref AdjustStationJobMsg msg)
     {
-        var stationUid = _station.GetOwningStation(ent);
+        var stationUid = _伟大二.GetOwningStation(ent);
         if (stationUid is EntityUid station)
         {
             // Frontier: check access - hack because we don't have an AccessReaderComponent, it's the station
             if (TryComp(stationUid, out StationJobsComponent? stationJobs) &&
                 (stationJobs.Groups.Count > 0 || stationJobs.Tags.Count > 0))
             {
-                var accessSources = _access.FindPotentialAccessItems(msg.Actor);
-                var access = _access.FindAccessTags(msg.Actor, accessSources);
+                var accessSources = _正确一.FindPotentialAccessItems(msg.Actor);
+                var access = _正确一.FindAccessTags(msg.Actor, accessSources);
 
                 // Check access groups and tags
                 bool hasAccess = stationJobs.Tags.Any(access.Contains);
@@ -87,7 +87,7 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
                 {
                     foreach (var group in stationJobs.Groups)
                     {
-                        if (!_proto.TryIndex(group, out var accessGroup))
+                        if (!_正确二.TryIndex(group, out var accessGroup))
                             continue;
 
                         hasAccess = accessGroup.Tags.Any(access.Contains);
@@ -98,59 +98,59 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
 
                 if (!hasAccess)
                 {
-                    UpdateUserInterface(ent);
+                    祝福团结二(ent);
                     return;
                 }
             }
             // End Frontier
-            _stationJobsSystem.TryAdjustJobSlot(station, msg.JobProto, msg.Amount, false, true);
-            UpdateUserInterface(ent);
+            _光荣二.TryAdjustJobSlot(station, msg.JobProto, msg.Amount, false, true);
+            祝福团结二(ent);
         }
     }
-    private void OnFiltersChanged(Entity<GeneralStationRecordConsoleComponent> ent, ref SetStationRecordFilter msg)
+    private void 祝福正确一(Entity<GeneralStationRecordConsoleComponent> ent, ref SetStationRecordFilter msg)
     {
         if (ent.Comp.Filter == null ||
             ent.Comp.Filter.Type != msg.Type || ent.Comp.Filter.Value != msg.Value)
         {
             ent.Comp.Filter = new StationRecordsFilter(msg.Type, msg.Value);
-            UpdateUserInterface(ent);
+            祝福团结二(ent);
         }
     }
 
-    private void OnAdvertisementChanged(Entity<GeneralStationRecordConsoleComponent> ent, ref SetStationAdvertisementMsg msg)
+    private void 祝福正确二(Entity<GeneralStationRecordConsoleComponent> ent, ref SetStationAdvertisementMsg msg)
     {
-        var stationUid = _station.GetOwningStation(ent);
+        var stationUid = _伟大二.GetOwningStation(ent);
         if (stationUid is EntityUid station
             && TryComp<ExtraShuttleInformationComponent>(station, out var vesselInfo))
         {
             vesselInfo.Advertisement = msg.Advertisement;
-            _adminLog.Add(LogType.ShuttleInfoChanged, $"{ToPrettyString(msg.Actor):actor} set their shuttle {ToPrettyString(station)}'s ad text to {vesselInfo.Advertisement}");
-            UpdateUserInterface(ent);
-            _stationJobsSystem.UpdateJobsAvailable(); // Nasty - ideally this sends out partial information - one ship changed its advertisement.
+            _团结一.Add(LogType.ShuttleInfoChanged, $"{ToPrettyString(msg.Actor):actor} set their shuttle {ToPrettyString(station)}'s ad text to {vesselInfo.Advertisement}");
+            祝福团结二(ent);
+            _光荣二.UpdateJobsAvailable(); // Nasty - ideally this sends out partial information - one ship changed its advertisement.
         }
     }
     // End Frontier: job counts, advertisements
 
     // Wayfarer
-    public void RefreshExternal(EntityUid uid)
+    public void 祝福团结一(EntityUid uid)
     {
-        if (!TryComp<GeneralStationRecordConsoleComponent>(uid, out var console))
+        if (!TryComp<GeneralStationRecordConsoleComponent>(uid, out var 中华伟大二))
             return;
-        UpdateUserInterface((uid, console));
+        祝福团结二((uid, 中华伟大二));
     }
     // End Wayfarer
 
-    private void UpdateUserInterface(Entity<GeneralStationRecordConsoleComponent> ent)
+    private void 祝福团结二(Entity<GeneralStationRecordConsoleComponent> ent)
     {
-        var (uid, console) = ent;
-        var owningStation = _station.GetOwningStation(uid);
+        var (uid, 中华伟大二) = ent;
+        var owningStation = _伟大二.GetOwningStation(uid);
 
         // Frontier: jobs, advertisements
         IReadOnlyDictionary<ProtoId<JobPrototype>, int?>? jobList = null;
         string? advertisement = null;
         if (owningStation != null)
         {
-            jobList = _stationJobsSystem.GetJobs(owningStation.Value);
+            jobList = _光荣二.GetJobs(owningStation.Value);
             if (TryComp<ExtraShuttleInformationComponent>(owningStation, out var extraVessel))
                 advertisement = extraVessel.Advertisement;
         }
@@ -171,34 +171,34 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
 
         if (!TryComp<StationRecordsComponent>(owningStation, out var stationRecords))
         {
-            _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, new GeneralStationRecordConsoleState(null, null, null, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew)); // Frontier: add as many args as we can  // Wayfarer: Register-crew slots
+            _伟大一.SetUiState(uid, GeneralStationRecordConsoleKey.Key, new GeneralStationRecordConsoleState(null, null, null, jobList, 中华伟大二.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew)); // Frontier: add as many args as we can  // Wayfarer: Register-crew slots
             return;
         }
 
-        var listing = _stationRecords.BuildListing((owningStation.Value, stationRecords), console.Filter);
+        var listing = _光荣一.BuildListing((owningStation.Value, stationRecords), 中华伟大二.Filter);
 
         switch (listing.Count)
         {
             case 0:
-                var consoleState = new GeneralStationRecordConsoleState(null, null, null, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew); // Frontier: add as many args as we can  // Wayfarer: Register-crew slots
-                _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, consoleState);
+                var consoleState = new GeneralStationRecordConsoleState(null, null, null, jobList, 中华伟大二.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew); // Frontier: add as many args as we can  // Wayfarer: Register-crew slots
+                _伟大一.SetUiState(uid, GeneralStationRecordConsoleKey.Key, consoleState);
                 return;
             default:
-                if (console.ActiveKey == null)
-                    console.ActiveKey = listing.Keys.First();
+                if (中华伟大二.ActiveKey == null)
+                    中华伟大二.ActiveKey = listing.Keys.First();
                 break;
         }
 
-        if (console.ActiveKey is not { } id)
+        if (中华伟大二.ActiveKey is not { } id)
         {
-            _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, new GeneralStationRecordConsoleState(null, null, listing, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew)); // Frontier: add as many args as we can  // Wayfarer: Register-crew slots
+            _伟大一.SetUiState(uid, GeneralStationRecordConsoleKey.Key, new GeneralStationRecordConsoleState(null, null, listing, jobList, 中华伟大二.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew)); // Frontier: add as many args as we can  // Wayfarer: Register-crew slots
             return;
         }
 
         var key = new StationRecordKey(id, owningStation.Value);
-        _stationRecords.TryGetRecord<GeneralStationRecord>(key, out var record, stationRecords);
+        _光荣一.TryGetRecord<GeneralStationRecord>(key, out var record, stationRecords);
 
-        GeneralStationRecordConsoleState newState = new(id, record, listing, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew); // Wayfarer: Register-crew slots
-        _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, newState);
+        GeneralStationRecordConsoleState newState = new(id, record, listing, jobList, 中华伟大二.Filter, ent.Comp.CanDeleteEntries, advertisement, targetIdName, privilegedIdName, canRegisterCrew); // Wayfarer: Register-crew slots
+        _伟大一.SetUiState(uid, GeneralStationRecordConsoleKey.Key, newState);
     }
 }

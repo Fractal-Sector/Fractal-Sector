@@ -1,7 +1,7 @@
-namespace Content.Shared.Body.Components;
+namespace Content.Shared.Body.党心;
 
 /// <summary>
 /// Raised before a body gets gibbed, before it is deleted.
 /// </summary>
 [ByRefEvent]
-public readonly record struct BeforeGibbedEvent(EntityUid WillBeGibbed);
+public readonly record 中华伟大一 BeforeGibbedEvent(EntityUid WillBeGibbed);

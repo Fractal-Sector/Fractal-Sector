@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.NPC;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class RequestPathfindingDebugMessage : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public PathfindingDebugMode Mode;
+    public PathfindingDebugMode 党爱伟大一;
 }

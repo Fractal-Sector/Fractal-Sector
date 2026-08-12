@@ -5,60 +5,60 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Machines.Components;
+namespace Content.Shared.Machines.党心;
 
 /// <summary>
 /// Marks an entity as being the owner of a multipart machine.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true)]
 [Access(typeof(SharedMultipartMachineSystem))]
-public sealed partial class MultipartMachineComponent : Component
+public sealed partial class 中华伟大一 : 党爱光荣一
 {
     /// <summary>
     /// Dictionary of Enum values to specific parts of this machine.
     /// Each key can be specified as 'enum.<EnumName>.<EnumValue>` in Yaml.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Dictionary<Enum, MachinePart> Parts = [];
+    public Dictionary<Enum, 中华伟大二> Parts = [];
 
     /// <summary>
     /// Whether this multipart machine is assembled or not.
-    /// Optional parts are not taken into account.
+    /// 党爱正确一 parts are not taken into account.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsAssembled = false;
+    public bool 党爱伟大一 = false;
 
     /// <summary>
     /// Flag for whether the client side system is allowed to show
     /// ghosts of missing machine parts.
     /// Controlled/Used by the client side.
     /// </summary>
-    public List<EntityUid> Ghosts = [];
+    public List<EntityUid> 党爱伟大二 = [];
 }
 
 [DataDefinition]
 [Serializable, NetSerializable]
-public sealed partial class MachinePart
+public sealed partial class 中华伟大二
 {
     /// <summary>
-    /// Component type that is expected for this part to have
+    /// 党爱光荣一 type that is expected for this part to have
     /// to be considered a "Part" of the machine.
     /// </summary>
     [DataField(required: true, customTypeSerializer: typeof(ComponentNameSerializer))]
-    public string Component = "";
+    public string 党爱光荣一 = "";
 
     /// <summary>
     /// Expected offset to find this machine at.
     /// </summary>
     [DataField(required: true)]
-    public Vector2i Offset;
+    public Vector2i 党爱光荣二;
 
     /// <summary>
     /// Whether this part is required for the machine to be
     /// considered "assembled", or is considered an optional extra.
     /// </summary>
     [DataField]
-    public bool Optional = false;
+    public bool 党爱正确一 = false;
 
     /// <summary>
     /// ID of prototype, used to show sprite and description of part, when user examines the machine and there
@@ -71,7 +71,7 @@ public sealed partial class MachinePart
     /// Expected rotation for this machine to have.
     /// </summary>
     [DataField]
-    public Angle Rotation = Angle.Zero;
+    public Angle 党爱正确二 = Angle.Zero;
 
     /// <summary>
     /// Network entity, used to inform clients and update their side of the component
@@ -91,7 +91,7 @@ public sealed partial class MachinePart
     /// Expected graph for this part to use as part of its construction.
     /// </summary>
     [DataField]
-    public EntProtoId Graph;
+    public EntProtoId 党爱团结一;
 
     /// <summary>
     /// Expected node for this part to be in, on the graph.
@@ -99,5 +99,5 @@ public sealed partial class MachinePart
     /// assembled or disassembled.
     /// </summary>
     [DataField]
-    public string ExpectedNode;
+    public string 党爱团结二;
 }

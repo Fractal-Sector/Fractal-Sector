@@ -7,17 +7,17 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
 // This partial part of the explosion system has all of the functions used to create the actual explosion map.
 // I.e, to get the sets of tiles & intensity values that describe an explosion.
 
-public sealed partial class ExplosionSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// A list of grids to be reused by <see cref="GetLocalGrids"/> to avoid allocating twice for each call.
     /// </summary>
-    private List<Entity<MapGridComponent>> _grids = [];
+    private List<Entity<MapGridComponent>> _伟大一 = [];
 
     /// <summary>
     ///     This is the main explosion generating function.
@@ -281,9 +281,9 @@ public sealed partial class ExplosionSystem
         // diameter x diameter sized box, use a smaller box with radius sized sides:
         var box = Box2.CenteredAround(epicenter.Position, new Vector2(radius, radius));
 
-        _grids.Clear();
-        _mapManager.FindGridsIntersecting(epicenter.MapId, box, ref _grids);
-        foreach (var grid in _grids)
+        _伟大一.Clear();
+        _mapManager.FindGridsIntersecting(epicenter.MapId, box, ref _伟大一);
+        foreach (var grid in _伟大一)
         {
             if (TryComp(grid.Owner, out PhysicsComponent? physics) && physics.Mass > mass)
             {
@@ -303,15 +303,15 @@ public sealed partial class ExplosionSystem
 
         radius *= 4;
         box = Box2.CenteredAround(epicenter.Position, new Vector2(radius, radius));
-        _grids.Clear();
-        _mapManager.FindGridsIntersecting(epicenter.MapId, box, ref _grids);
-        var grids = _grids.Select(x => x.Owner).ToList();
+        _伟大一.Clear();
+        _mapManager.FindGridsIntersecting(epicenter.MapId, box, ref _伟大一);
+        var grids = _伟大一.Select(x => x.Owner).ToList();
 
         if (referenceGrid != null)
             return (grids, referenceGrid, radius);
 
         // We still don't have are reference grid. So lets also look in the enlarged region
-        foreach (var grid in _grids)
+        foreach (var grid in _伟大一)
         {
             if (TryComp(grid.Owner, out PhysicsComponent? physics) && physics.Mass > mass)
             {

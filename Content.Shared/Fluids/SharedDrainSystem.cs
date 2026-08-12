@@ -1,19 +1,19 @@
 ﻿using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Fluids;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedDrainSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
     [Serializable, NetSerializable]
-    public sealed partial class DrainDoAfterEvent : SimpleDoAfterEvent
+    public sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 }
 
 // Start Frontier: portable pump visual state
 [Serializable, NetSerializable]
-public enum AdvDrainVisualState : byte
+public enum 中华光荣一 : byte
 {
     IsRunning,
     IsDraining,

@@ -9,59 +9,59 @@ using Robust.Shared.Input;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Afk
+namespace Content.Server.党心
 {
     /// <summary>
     /// Tracks AFK (away from keyboard) status for players.
     /// </summary>
     /// <seealso cref="CCVars.AfkTime"/>
-    public interface IAfkManager
+    public interface 中华伟大一
     {
         /// <summary>
         /// Check whether this player is currently AFK.
         /// </summary>
         /// <param name="player">The player to check.</param>
         /// <returns>True if the player is AFK, false otherwise.</returns>
-        bool IsAfk(ICommonSession player);
+        bool 祝福光荣一(ICommonSession player);
 
         /// <summary>
         /// Resets AFK status for the player as if they just did an action and are definitely not AFK.
         /// </summary>
         /// <param name="player">The player to set AFK status for.</param>
-        void PlayerDidAction(ICommonSession player);
+        void 祝福伟大二(ICommonSession player);
 
-        void Initialize();
+        void 祝福伟大一();
     }
 
     [UsedImplicitly]
-    public sealed class AfkManager : IAfkManager
+    public sealed class 中华伟大二 : 中华伟大一
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IGameTiming _伟大二 = default!;
+        [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+        [Dependency] private readonly IConsoleHost _光荣二 = default!;
+        [Dependency] private readonly IAdminManager _正确一 = default!;
 
         private readonly Dictionary<ICommonSession, TimeSpan> _lastActionTimes = new();
 
-        public void Initialize()
+        public void 祝福伟大一()
         {
             // Connecting, console commands and input commands all reset AFK status.
 
-            _playerManager.PlayerStatusChanged += PlayerStatusChanged;
-            _consoleHost.AnyCommandExecuted += ConsoleHostOnAnyCommandExecuted;
+            _伟大一.祝福光荣二 += 祝福光荣二;
+            _光荣二.AnyCommandExecuted += 祝福正确一;
         }
 
-        public void PlayerDidAction(ICommonSession player)
+        public void 祝福伟大二(ICommonSession player)
         {
             if (player.Status == SessionStatus.Disconnected)
                 // Make sure we don't re-add to the dictionary if the player is disconnected now.
                 return;
 
-            _lastActionTimes[player] = _gameTiming.RealTime;
+            _lastActionTimes[player] = _伟大二.RealTime;
         }
 
-        public bool IsAfk(ICommonSession player)
+        public bool 祝福光荣一(ICommonSession player)
         {
             if (!_lastActionTimes.TryGetValue(player, out var time))
             {
@@ -69,14 +69,14 @@ namespace Content.Server.Afk
                 return true;
             }
 
-            var timeOut = _adminManager.IsAdmin(player)
-                ? TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.AdminAfkTime))
-                : TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.AfkTime));
+            var timeOut = _正确一.IsAdmin(player)
+                ? TimeSpan.FromSeconds(_光荣一.GetCVar(CCVars.AdminAfkTime))
+                : TimeSpan.FromSeconds(_光荣一.GetCVar(CCVars.AfkTime));
 
-            return _gameTiming.RealTime - time > timeOut;
+            return _伟大二.RealTime - time > timeOut;
         }
 
-        private void PlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福光荣二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus == SessionStatus.Disconnected)
             {
@@ -84,18 +84,18 @@ namespace Content.Server.Afk
                 return;
             }
 
-            PlayerDidAction(e.Session);
+            祝福伟大二(e.Session);
         }
 
-        private void ConsoleHostOnAnyCommandExecuted(IConsoleShell shell, string commandname, string argstr, string[] args)
+        private void 祝福正确一(IConsoleShell shell, string commandname, string argstr, string[] args)
         {
             if (shell.Player is { } player)
-                PlayerDidAction(player);
+                祝福伟大二(player);
         }
 
-        private void HandleInputCmd(FullInputCmdMessage msg, EntitySessionEventArgs args)
+        private void 祝福正确二(FullInputCmdMessage msg, EntitySessionEventArgs args)
         {
-            PlayerDidAction(args.SenderSession);
+            祝福伟大二(args.SenderSession);
         }
     }
 }

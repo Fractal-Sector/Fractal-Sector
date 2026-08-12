@@ -1,27 +1,27 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.StationRecords;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public sealed class AdjustStationJobMsg : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public string JobProto { get; }
-    public int Amount { get; }
+    public string 党爱伟大一 { get; }
+    public int 党爱伟大二 { get; }
 
-    public AdjustStationJobMsg(string jobProto, int amount)
+    public 中华伟大一(string jobProto, int amount)
     {
-        JobProto = jobProto;
-        Amount = amount;
+        党爱伟大一 = jobProto;
+        党爱伟大二 = amount;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class SetStationAdvertisementMsg : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public string Advertisement { get; }
+    public string 党爱光荣一 { get; }
 
-    public SetStationAdvertisementMsg(string advertisement)
+    public 中华伟大二(string advertisement)
     {
-        Advertisement = advertisement;
+        党爱光荣一 = advertisement;
     }
 }

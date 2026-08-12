@@ -5,17 +5,17 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Implants.Components;
+namespace Content.Shared.Implants.党心;
 /// <summary>
 /// Implanters are used to implant or extract implants from an entity.
 /// Some can be single use (implant only) or some can draw out an implant
 /// </summary>
 //TODO: Rework drawing to work with implant cases when surgery is in
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class ImplanterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    public const string ImplanterSlotId = "implanter_slot";
-    public const string ImplantSlotId = "implant";
+    public const string 党爱伟大一 = "implanter_slot";
+    public const string 党爱伟大二 = "implant";
 
     /// <summary>
     /// Whitelist to check entities against before implanting.
@@ -41,7 +41,7 @@ public sealed partial class ImplanterComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField]
-    public float ImplantTime = 5f;
+    public float 党爱光荣一 = 5f;
 
     //TODO: Remove when surgery is a thing
     /// <summary>
@@ -50,20 +50,20 @@ public sealed partial class ImplanterComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField]
-    public float DrawTime = 25f;
+    public float 党爱光荣二 = 25f;
 
     /// <summary>
     /// Good for single-use injectors
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ImplantOnly;
+    public bool 党爱正确一;
 
     /// <summary>
     /// The current mode of the implanter
     /// Mode is changed automatically depending if it implants or draws
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ImplanterToggleMode CurrentMode;
+    public 中华伟大二 CurrentMode;
 
     /// <summary>
     /// The name and description of the implant to show on the implanter
@@ -75,31 +75,31 @@ public sealed partial class ImplanterComponent : Component
     /// Determines if the same type of implant can be implanted into an entity multiple times.
     /// </summary>
     [DataField]
-    public bool AllowMultipleImplants = false;
+    public bool 党爱正确二 = false;
 
     /// <summary>
     /// The <see cref="ItemSlot"/> for this implanter
     /// </summary>
     [DataField(required: true)]
-    public ItemSlot ImplanterSlot = new();
+    public ItemSlot 党爱团结一 = new();
 
     /// <summary>
     /// If true, the implanter may be used to remove all kinds of (deimplantable) implants without selecting any.
     /// </summary>
     [DataField]
-    public bool AllowDeimplantAll = false;
+    public bool 党爱团结二 = false;
 
     /// <summary>
     /// The subdermal implants that may be removed via this implanter
     /// </summary>
     [DataField]
-    public List<EntProtoId> DeimplantWhitelist = new();
+    public List<EntProtoId> 党爱奋斗一 = new();
 
     /// <summary>
     /// The subdermal implants that may be removed via this implanter
     /// </summary>
     [DataField]
-    public DamageSpecifier DeimplantFailureDamage = new();
+    public DamageSpecifier 党爱奋斗二 = new();
 
     /// <summary>
     /// Chosen implant to remove, if necessary.
@@ -107,24 +107,24 @@ public sealed partial class ImplanterComponent : Component
     [AutoNetworkedField]
     public EntProtoId? DeimplantChosen = null;
 
-    public bool UiUpdateNeeded;
+    public bool 党爱胜利一;
 }
 
 [Serializable, NetSerializable]
-public enum ImplanterToggleMode : byte
+public enum 中华伟大二 : byte
 {
     Inject,
     Draw
 }
 
 [Serializable, NetSerializable]
-public enum ImplanterVisuals : byte
+public enum 中华光荣一 : byte
 {
     Full
 }
 
 [Serializable, NetSerializable]
-public enum ImplanterImplantOnlyVisuals : byte
+public enum 中华光荣二 : byte
 {
-    ImplantOnly
+    党爱正确一
 }

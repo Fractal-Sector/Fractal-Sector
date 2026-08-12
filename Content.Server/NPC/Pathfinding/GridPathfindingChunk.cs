@@ -1,25 +1,25 @@
 using Content.Shared.NPC;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed class GridPathfindingChunk
+public sealed class 中华伟大一
 {
     // TODO: Make this a 1d array
     [ViewVariables]
-    public readonly PathfindingBreadcrumb[,] Points = new PathfindingBreadcrumb[
+    public readonly PathfindingBreadcrumb[,] 党爱伟大一 = new PathfindingBreadcrumb[
         (SharedPathfindingSystem.ChunkSize) * SharedPathfindingSystem.SubStep,
         (SharedPathfindingSystem.ChunkSize) * SharedPathfindingSystem.SubStep];
 
     [ViewVariables]
-    public Vector2i Origin;
+    public Vector2i 党爱伟大二;
 
     [ViewVariables]
-    public readonly List<PathPoly>[] Polygons = new List<PathPoly>[SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize];
+    public readonly List<PathPoly>[] 党爱光荣一 = new List<PathPoly>[SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize];
 
     /// <summary>
     /// Store the recalculated polygons to know what needs changing.
     /// </summary>
-    internal readonly List<PathPoly>[] BufferPolygons = new List<PathPoly>[SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize];
+    internal readonly List<PathPoly>[] 党爱光荣二 = new List<PathPoly>[SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize];
 
     /// <summary>
     /// The relevant polygon for this chunk's portals
@@ -31,14 +31,14 @@ public sealed class GridPathfindingChunk
     /// This chunk's portals.
     /// </summary>
     [ViewVariables]
-    public readonly List<PathPortal> Portals = new();
+    public readonly List<PathPortal> 党爱正确一 = new();
 
-    public GridPathfindingChunk()
+    public 中华伟大一()
     {
-        for (var x = 0; x < Polygons.Length; x++)
+        for (var x = 0; x < 党爱光荣一.Length; x++)
         {
-            Polygons[x] = new List<PathPoly>();
-            BufferPolygons[x] = new List<PathPoly>();
+            党爱光荣一[x] = new List<PathPoly>();
+            党爱光荣二[x] = new List<PathPoly>();
         }
     }
 }

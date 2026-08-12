@@ -3,19 +3,19 @@ using Content.Shared.Administration;
 using Content.Shared.Maps;
 using Robust.Shared.Console;
 
-namespace Content.Server.Maps;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Toggles GridDragging on the system.
 /// </summary>
 [AdminCommand(AdminFlags.Fun)]
-public sealed class GridDraggingCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly GridDraggingSystem _grid = default!;
+    [Dependency] private readonly GridDraggingSystem _伟大一 = default!;
 
-    public override string Command => SharedGridDraggingSystem.CommandName;
+    public override string 党爱伟大一 => SharedGridDraggingSystem.CommandName;
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player == null)
         {
@@ -23,7 +23,7 @@ public sealed class GridDraggingCommand : LocalizedEntityCommands
             return;
         }
 
-        _grid.Toggle(shell.Player);
-        shell.WriteLine(Loc.GetString($"cmd-griddrag-status", ("status", _grid.IsEnabled(shell.Player))));
+        _伟大一.Toggle(shell.Player);
+        shell.WriteLine(Loc.GetString($"cmd-griddrag-status", ("status", _伟大一.IsEnabled(shell.Player))));
     }
 }

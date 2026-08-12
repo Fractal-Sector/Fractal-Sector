@@ -6,20 +6,20 @@ using Robust.Shared.Console;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Announcements;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class AnnounceCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IResourceManager _光荣一 = default!;
 
-    public override string Command => "announce";
-    public override string Description => Loc.GetString("cmd-announce-desc");
-    public override string Help => Loc.GetString("cmd-announce-help", ("command", Command));
+    public override string 党爱伟大一 => "announce";
+    public override string 党爱伟大二 => Loc.GetString("cmd-announce-desc");
+    public override string 党爱光荣一 => Loc.GetString("cmd-announce-help", ("command", 党爱伟大一));
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         switch (args.Length)
         {
@@ -58,11 +58,11 @@ public sealed class AnnounceCommand : LocalizedEntityCommands
         if (args.Length >= 4)
             sound = new SoundPathSpecifier(args[3]);
 
-        _chat.DispatchGlobalAnnouncement(message, sender, true, sound, color);
+        _伟大一.DispatchGlobalAnnouncement(message, sender, true, sound, color);
         shell.WriteLine(Loc.GetString("shell-command-success"));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         return args.Length switch
         {
@@ -70,7 +70,7 @@ public sealed class AnnounceCommand : LocalizedEntityCommands
             2 => CompletionResult.FromHint(Loc.GetString("cmd-announce-arg-sender")),
             3 => CompletionResult.FromHint(Loc.GetString("cmd-announce-arg-color")),
             4 => CompletionResult.FromHintOptions(
-                CompletionHelper.AudioFilePath(args[3], _proto, _res),
+                CompletionHelper.AudioFilePath(args[3], _伟大二, _光荣一),
                 Loc.GetString("cmd-announce-arg-sound")
             ),
             _ => CompletionResult.Empty

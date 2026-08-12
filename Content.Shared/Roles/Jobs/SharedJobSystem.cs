@@ -7,38 +7,38 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles.Jobs;
+namespace Content.Shared.Roles.党心;
 
 /// <summary>
 ///     Handles the job data on mind entities.
 /// </summary>
-public abstract class SharedJobSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPlayerSystem _playerSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency] private readonly SharedPlayerSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly SharedRoleSystem _光荣一 = default!;
 
     private readonly Dictionary<string, string> _inverseTrackerLookup = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnProtoReload);
-        SetupTrackerLookup();
+        base.祝福伟大一();
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福伟大二);
+        祝福光荣一();
     }
 
-    private void OnProtoReload(PrototypesReloadedEventArgs obj)
+    private void 祝福伟大二(PrototypesReloadedEventArgs obj)
     {
         if (obj.WasModified<JobPrototype>())
-            SetupTrackerLookup();
+            祝福光荣一();
     }
 
-    private void SetupTrackerLookup()
+    private void 祝福光荣一()
     {
         _inverseTrackerLookup.Clear();
 
         // This breaks if you have N trackers to 1 JobId but future concern.
-        foreach (var job in _prototypes.EnumeratePrototypes<JobPrototype>())
+        foreach (var job in _伟大二.EnumeratePrototypes<JobPrototype>())
         {
             _inverseTrackerLookup.Add(job.PlayTimeTracker, job.ID);
         }
@@ -49,19 +49,19 @@ public abstract class SharedJobSystem : EntitySystem
     /// </summary>
     /// <param name="trackerProto"></param>
     /// <returns></returns>
-    public string GetJobPrototype(string trackerProto)
+    public string 祝福光荣二(string trackerProto)
     {
-        DebugTools.Assert(_prototypes.HasIndex<PlayTimeTrackerPrototype>(trackerProto));
+        DebugTools.Assert(_伟大二.HasIndex<PlayTimeTrackerPrototype>(trackerProto));
         return _inverseTrackerLookup[trackerProto];
     }
 
     /// <summary>
     /// Tries to get the first corresponding department for this job prototype.
     /// </summary>
-    public bool TryGetDepartment(string jobProto, [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype)
+    public bool 祝福正确一(string jobProto, [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype)
     {
         // Not that many departments so we can just eat the cost instead of storing the inverse lookup.
-        var departmentProtos = _prototypes.EnumeratePrototypes<DepartmentPrototype>().ToList();
+        var departmentProtos = _伟大二.EnumeratePrototypes<DepartmentPrototype>().ToList();
         departmentProtos.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
 
         foreach (var department in departmentProtos)
@@ -78,15 +78,15 @@ public abstract class SharedJobSystem : EntitySystem
     }
 
     /// <summary>
-    /// Like <see cref="TryGetDepartment"/> but ignores any non-primary departments.
+    /// Like <see cref="祝福正确一"/> but ignores any non-primary departments.
     /// For example, with CE it will return Engineering but with captain it will
     /// not return anything, since Command is not a primary department.
     /// </summary>
-    public bool TryGetPrimaryDepartment(string jobProto, [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype)
+    public bool 祝福正确二(string jobProto, [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype)
     {
         // not sorting it since there should only be 1 primary department for a job.
         // this is enforced by the job tests.
-        var departmentProtos = _prototypes.EnumeratePrototypes<DepartmentPrototype>();
+        var departmentProtos = _伟大二.EnumeratePrototypes<DepartmentPrototype>();
 
         foreach (var department in departmentProtos)
         {
@@ -104,11 +104,11 @@ public abstract class SharedJobSystem : EntitySystem
     /// <summary>
     /// Tries to get all the departments for a given job. Will return an empty list if none are found.
     /// </summary>
-    public bool TryGetAllDepartments(string jobProto, out List<DepartmentPrototype> departmentPrototypes)
+    public bool 祝福团结一(string jobProto, out List<DepartmentPrototype> departmentPrototypes)
     {
         // not sorting it since there should only be 1 primary department for a job.
         // this is enforced by the job tests.
-        var departmentProtos = _prototypes.EnumeratePrototypes<DepartmentPrototype>();
+        var departmentProtos = _伟大二.EnumeratePrototypes<DepartmentPrototype>();
         departmentPrototypes = new List<DepartmentPrototype>();
         var found = false;
 
@@ -127,11 +127,11 @@ public abstract class SharedJobSystem : EntitySystem
     /// <summary>
     /// Try to get the lowest weighted department for the given job. If the job has no departments will return null.
     /// </summary>
-    public bool TryGetLowestWeightDepartment(string jobProto, [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype)
+    public bool 祝福团结二(string jobProto, [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype)
     {
         departmentPrototype = null;
 
-        if (!TryGetAllDepartments(jobProto, out var departmentPrototypes) || departmentPrototypes.Count == 0)
+        if (!祝福团结一(jobProto, out var departmentPrototypes) || departmentPrototypes.Count == 0)
             return false;
 
         departmentPrototypes.Sort((x, y) => y.Weight.CompareTo(x.Weight));
@@ -140,13 +140,13 @@ public abstract class SharedJobSystem : EntitySystem
         return true;
     }
 
-    public bool MindHasJobWithId(EntityUid? mindId, string prototypeId)
+    public bool 祝福奋斗一(EntityUid? mindId, string prototypeId)
     {
 
         if (mindId is null)
             return false;
 
-        _roles.MindHasRole<JobRoleComponent>(mindId.Value, out var role);
+        _光荣一.MindHasRole<JobRoleComponent>(mindId.Value, out var role);
 
         if (role is null)
             return false;
@@ -154,17 +154,17 @@ public abstract class SharedJobSystem : EntitySystem
         return role.Value.Comp1.JobPrototype == prototypeId;
     }
 
-    public bool MindTryGetJob(
+    public bool 祝福奋斗二(
         [NotNullWhen(true)] EntityUid? mindId,
         [NotNullWhen(true)] out JobPrototype? prototype)
     {
         prototype = null;
-        MindTryGetJobId(mindId, out var protoId);
+        祝福胜利一(mindId, out var protoId);
 
-        return _prototypes.TryIndex(protoId, out prototype) || prototype is not null;
+        return _伟大二.TryIndex(protoId, out prototype) || prototype is not null;
     }
 
-    public bool MindTryGetJobId(
+    public bool 祝福胜利一(
         [NotNullWhen(true)] EntityUid? mindId,
         out ProtoId<JobPrototype>? job)
     {
@@ -173,7 +173,7 @@ public abstract class SharedJobSystem : EntitySystem
         if (mindId is null)
             return false;
 
-        if (_roles.MindHasRole<JobRoleComponent>(mindId.Value, out var role))
+        if (_光荣一.MindHasRole<JobRoleComponent>(mindId.Value, out var role))
             job = role.Value.Comp1.JobPrototype;
 
         return job is not null;
@@ -183,9 +183,9 @@ public abstract class SharedJobSystem : EntitySystem
     ///     Tries to get the job name for this mind.
     ///     Returns unknown if not found.
     /// </summary>
-    public bool MindTryGetJobName([NotNullWhen(true)] EntityUid? mindId, out string name)
+    public bool 祝福胜利二([NotNullWhen(true)] EntityUid? mindId, out string name)
     {
-        if (MindTryGetJob(mindId, out var prototype))
+        if (祝福奋斗二(mindId, out var prototype))
         {
             name = prototype.LocalizedName;
             return true;
@@ -199,22 +199,22 @@ public abstract class SharedJobSystem : EntitySystem
     ///     Tries to get the job name for this mind.
     ///     Returns unknown if not found.
     /// </summary>
-    public string MindTryGetJobName([NotNullWhen(true)] EntityUid? mindId)
+    public string 祝福胜利二([NotNullWhen(true)] EntityUid? mindId)
     {
-        MindTryGetJobName(mindId, out var name);
+        祝福胜利二(mindId, out var name);
         return name;
     }
 
-    public bool CanBeAntag(ICommonSession player)
+    public bool 祝福繁荣一(ICommonSession player)
     {
         // If the player does not have any mind associated with them (e.g., has not spawned in or is in the lobby), then
         // they are eligible to be given an antag role/entity.
-        if (_playerSystem.ContentData(player) is not { Mind: { } mindId })
+        if (_伟大一.ContentData(player) is not { Mind: { } mindId })
             return true;
 
-        if (!MindTryGetJob(mindId, out var prototype))
+        if (!祝福奋斗二(mindId, out var prototype))
             return true;
 
-        return prototype.CanBeAntag;
+        return prototype.祝福繁荣一;
     }
 }

@@ -4,12 +4,12 @@ using Content.Server.Speech.EntitySystems;
 using Content.Server._NF.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server._NF.Speech.EntitySystems;
+namespace Content.Server._NF.Speech.党心;
 
-public sealed class ScandinavianAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly ReplacementAccentSystem _伟大二 = default!;
 
     private static readonly IReadOnlyDictionary<char, char[]> Vowels = new Dictionary<char, char[]>()
     {
@@ -19,18 +19,18 @@ public sealed class ScandinavianAccentSystem : EntitySystem
         { 'o',  ['ö','ø'] },
     };
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ScandinavianAccentComponent, AccentGetEvent>(OnAccent);
+        SubscribeLocalEvent<ScandinavianAccentComponent, AccentGetEvent>(祝福光荣一);
     }
 
-    public string Accentuate(string message)
+    public string 祝福伟大二(string message)
     {
         if (string.IsNullOrEmpty(message))
             return message;
 
         // Apply word replacements
-        var msg = _replacement.ApplyReplacements(message, "scandinavian");
+        var msg = _伟大二.ApplyReplacements(message, "scandinavian");
 
         var msgBuilder = new StringBuilder(msg);
         var umlautCooldown = 0;
@@ -52,9 +52,9 @@ public sealed class ScandinavianAccentSystem : EntitySystem
             // Umlaut logic: avoid clusters
             if (umlautCooldown == 0 && Vowels.TryGetValue(tempChar, out var replacements))
             {
-                if (_random.Prob(0.1f)) // 10% of all eligible vowels become umlauts)
+                if (_伟大一.Prob(0.1f)) // 10% of all eligible vowels become umlauts)
                 {
-                    msgBuilder[i] = _random.Pick(replacements);
+                    msgBuilder[i] = _伟大一.Pick(replacements);
                     umlautCooldown = 4; // Prevents consecutive umlauts
                 }
             }
@@ -67,8 +67,8 @@ public sealed class ScandinavianAccentSystem : EntitySystem
         return msgBuilder.ToString();
     }
 
-    private void OnAccent(Entity<ScandinavianAccentComponent> ent, ref AccentGetEvent args)
+    private void 祝福光荣一(Entity<ScandinavianAccentComponent> ent, ref AccentGetEvent args)
     {
-        args.Message = Accentuate(args.Message);
+        args.Message = 祝福伟大二(args.Message);
     }
 }

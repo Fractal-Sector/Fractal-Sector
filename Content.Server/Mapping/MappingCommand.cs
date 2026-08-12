@@ -11,28 +11,28 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 using Content.Shared.Administration.Managers; // Frontier
 
-namespace Content.Server.Mapping
+namespace Content.Server.党心
 {
     [AdminCommand(AdminFlags.Server | AdminFlags.Mapping)]
-    public sealed class MappingCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IResourceManager _resourceMgr = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly MappingSystem _mappingSystem = default!;
-        [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
-        [Dependency] private readonly ISharedAdminManager _admin = default!; // Frontier
+        [Dependency] private readonly IResourceManager _伟大一 = default!;
+        [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+        [Dependency] private readonly MappingSystem _光荣一 = default!;
+        [Dependency] private readonly MapLoaderSystem _光荣二 = default!;
+        [Dependency] private readonly ISharedAdminManager _正确一 = default!; // Frontier
 
-        public override string Command => "mapping";
+        public override string 党爱伟大一 => "mapping";
 
-        public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public override CompletionResult 祝福伟大一(IConsoleShell shell, string[] args)
         {
             switch (args.Length)
             {
                 case 1:
                     return CompletionResult.FromHint(Loc.GetString("cmd-hint-mapping-id"));
                 case 2:
-                    var opts = CompletionHelper.UserFilePath(args[1], _resourceMgr.UserData)
-                        .Concat(CompletionHelper.ContentFilePath(args[1], _resourceMgr));
+                    var opts = CompletionHelper.UserFilePath(args[1], _伟大一.UserData)
+                        .Concat(CompletionHelper.ContentFilePath(args[1], _伟大一));
                     return CompletionResult.FromHintOptions(opts, Loc.GetString("cmd-hint-mapping-path"));
                 case 3:
                     return CompletionResult.FromHintOptions(["false", "true"], Loc.GetString("cmd-mapping-hint-grid"));
@@ -40,7 +40,7 @@ namespace Content.Server.Mapping
             return CompletionResult.Empty;
         }
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大二(IConsoleShell shell, string argStr, string[] args)
         {
             if (shell.Player is not { } player)
             {
@@ -88,7 +88,7 @@ namespace Content.Server.Mapping
                     return;
                 }
 
-                if (_mapSystem.MapExists(mapId))
+                if (_伟大二.MapExists(mapId))
                 {
                     shell.WriteError(Loc.GetString("cmd-mapping-exists", ("mapId", mapId)));
                     return;
@@ -97,7 +97,7 @@ namespace Content.Server.Mapping
                 // either load a map or create a new one.
                 if (args.Length <= 1)
                 {
-                    _mapSystem.CreateMap(mapId, runMapInit: false);
+                    _伟大二.CreateMap(mapId, runMapInit: false);
                 }
                 else
                 {
@@ -107,15 +107,15 @@ namespace Content.Server.Mapping
 
                     if (isGrid == true)
                     {
-                        _mapSystem.CreateMap(mapId, runMapInit: false);
-                        if (!_mapLoader.TryLoadGrid(mapId, path, out grid, opts))
+                        _伟大二.CreateMap(mapId, runMapInit: false);
+                        if (!_光荣二.TryLoadGrid(mapId, path, out grid, opts))
                         {
                             shell.WriteError(Loc.GetString("cmd-mapping-error"));
-                            _mapSystem.DeleteMap(mapId);
+                            _伟大二.DeleteMap(mapId);
                             return;
                         }
                     }
-                    else if (!_mapLoader.TryLoadMapWithId(mapId, path, out _, out _, opts))
+                    else if (!_光荣二.TryLoadMapWithId(mapId, path, out _, out _, opts))
                     {
                         if (isGrid == false)
                         {
@@ -126,25 +126,25 @@ namespace Content.Server.Mapping
                         // isGrid was not specified and loading it as a map failed, so we fall back to trying to load
                         // the file as a grid
                         shell.WriteLine(Loc.GetString("cmd-mapping-try-grid"));
-                        _mapSystem.CreateMap(mapId, runMapInit: false);
-                        if (!_mapLoader.TryLoadGrid(mapId, path, out grid, opts))
+                        _伟大二.CreateMap(mapId, runMapInit: false);
+                        if (!_光荣二.TryLoadGrid(mapId, path, out grid, opts))
                         {
                             shell.WriteError(Loc.GetString("cmd-mapping-error"));
-                            _mapSystem.DeleteMap(mapId);
+                            _伟大二.DeleteMap(mapId);
                             return;
                         }
                     }
                 }
 
                 // was the map actually created or did it fail somehow?
-                if (!_mapSystem.MapExists(mapId))
+                if (!_伟大二.MapExists(mapId))
                 {
                     shell.WriteError(Loc.GetString("cmd-mapping-error"));
                     return;
                 }
             }
             else
-                _mapSystem.CreateMap(out mapId, runMapInit: false);
+                _伟大二.CreateMap(out mapId, runMapInit: false);
 
             // map successfully created. run misc helpful mapping commands
             if (player.AttachedEntity is { Valid: true } playerEntity &&
@@ -154,7 +154,7 @@ namespace Content.Server.Mapping
             }
 
             // Frontier: check if user is the host before disabling events
-            if (_admin.HasAdminFlag(player, AdminFlags.Host))
+            if (_正确一.HasAdminFlag(player, AdminFlags.Host))
             {
                 // don't interrupt mapping with events or auto-shuttle
                 shell.ExecuteCommand("changecvar events.enabled false");
@@ -163,13 +163,13 @@ namespace Content.Server.Mapping
             // End Frontier: check if user is the host before disabling events
 
             if (grid != null)
-                _mappingSystem.ToggleAutosave(grid.Value.Owner, toLoad ?? "NEWGRID");
+                _光荣一.ToggleAutosave(grid.Value.Owner, toLoad ?? "NEWGRID");
             else
-                _mappingSystem.ToggleAutosave(mapId, toLoad ?? "NEWMAP");
+                _光荣一.ToggleAutosave(mapId, toLoad ?? "NEWMAP");
 
             shell.ExecuteCommand($"tp 0 0 {mapId}");
             shell.RemoteExecuteCommand("mappingclientsidesetup");
-            DebugTools.Assert(_mapSystem.IsPaused(mapId));
+            DebugTools.Assert(_伟大二.IsPaused(mapId));
 
             if (args.Length != 2)
                 shell.WriteLine(Loc.GetString("cmd-mapping-success", ("mapId", mapId)));

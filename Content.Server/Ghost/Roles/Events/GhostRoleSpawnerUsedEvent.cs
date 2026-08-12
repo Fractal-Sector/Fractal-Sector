@@ -1,25 +1,25 @@
-namespace Content.Server.Ghost.Roles.Events
+namespace Content.Server.Ghost.Roles.党心
 {
     /// <summary>
     /// Raised on a spawned entity after they use a ghost role mob spawner.
     /// </summary>
-    public sealed class GhostRoleSpawnerUsedEvent : EntityEventArgs
+    public sealed class 中华伟大一 : EntityEventArgs
     {
         /// <summary>
         /// The entity that spawned this.
         /// </summary>
-        public EntityUid Spawner;
+        public EntityUid 党爱伟大一;
 
         /// <summary>
         /// The entity spawned.
         /// </summary>
-        public EntityUid Spawned;
+        public EntityUid 党爱伟大二;
 
-        public GhostRoleSpawnerUsedEvent(EntityUid spawner, EntityUid spawned)
+        public 中华伟大一(EntityUid spawner, EntityUid spawned)
         {
-            Spawner = spawner;
+            党爱伟大一 = spawner;
 
-            Spawned = spawned;
+            党爱伟大二 = spawned;
         }
     }
 }

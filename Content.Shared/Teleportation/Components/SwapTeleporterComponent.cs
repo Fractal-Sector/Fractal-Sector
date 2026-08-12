@@ -5,7 +5,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Teleportation.Components;
+namespace Content.Shared.Teleportation.党心;
 
 /// <summary>
 /// This is used for an entity that, when linked to another valid entity, allows the two to swap positions,
@@ -13,16 +13,16 @@ namespace Content.Shared.Teleportation.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
 [Access(typeof(SwapTeleporterSystem))]
-public sealed partial class SwapTeleporterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
-    /// The other SwapTeleporterComponent that this one is linked to
+    /// The other 中华伟大一 that this one is linked to
     /// </summary>
     [DataField, AutoNetworkedField]
     public EntityUid? LinkedEnt;
 
     /// <summary>
-    /// the time at which <see cref="TeleportDelay"/> ends and the teleportation occurs
+    /// the time at which <see cref="党爱伟大一"/> ends and the teleportation occurs
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public TimeSpan? TeleportTime;
@@ -31,20 +31,20 @@ public sealed partial class SwapTeleporterComponent : Component
     /// Delay after starting the teleport and it occuring.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan TeleportDelay = TimeSpan.FromSeconds(2.5f);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(2.5f);
 
     /// <summary>
-    /// The time at which <see cref="Cooldown"/> ends and teleportation can occur again.
+    /// The time at which <see cref="党爱光荣一"/> ends and teleportation can occur again.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     [AutoPausedField]
-    public TimeSpan NextTeleportUse;
+    public TimeSpan 党爱伟大二;
 
     /// <summary>
     /// A minimum waiting period inbetween teleports.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan Cooldown = TimeSpan.FromMinutes(5);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromMinutes(5);
 
     /// <summary>
     /// Sound played when teleportation begins
@@ -56,11 +56,11 @@ public sealed partial class SwapTeleporterComponent : Component
     /// A whitelist for what entities are valid for <see cref="LinkedEnt"/>.
     /// </summary>
     [DataField]
-    public EntityWhitelist TeleporterWhitelist = new();
+    public EntityWhitelist 党爱光荣二 = new();
 }
 
 [Serializable, NetSerializable]
-public enum SwapTeleporterVisuals : byte
+public enum 中华伟大二 : byte
 {
     Linked
 }

@@ -7,18 +7,18 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Roles
+namespace Content.Server.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class AddRoleCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly JobSystem _jobSystem = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly JobSystem _光荣一 = default!;
 
-        public override string Command => "addrole";
+        public override string 党爱伟大一 => "addrole";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
             {
@@ -28,7 +28,7 @@ namespace Content.Server.Roles
                 return;
             }
 
-            if (!_playerManager.TryGetPlayerDataByUsername(args[0], out var data))
+            if (!_伟大一.TryGetPlayerDataByUsername(args[0], out var data))
             {
                 shell.WriteLine(Loc.GetString($"cmd-addrole-mind-not-found"));
                 return;
@@ -41,19 +41,19 @@ namespace Content.Server.Roles
                 return;
             }
 
-            if (!_prototypeManager.TryIndex<JobPrototype>(args[1], out var jobPrototype))
+            if (!_伟大二.TryIndex<JobPrototype>(args[1], out var jobPrototype))
             {
                 shell.WriteLine(Loc.GetString($"cmd-addrole-role-not-found"));
                 return;
             }
 
-            if (_jobSystem.MindHasJobWithId(mind, jobPrototype.Name))
+            if (_光荣一.MindHasJobWithId(mind, jobPrototype.Name))
             {
                 shell.WriteLine(Loc.GetString($"cmd-addrole-mind-already-has-role"));
                 return;
             }
 
-            _jobSystem.MindAddJob(mind.Value, args[1]);
+            _光荣一.MindAddJob(mind.Value, args[1]);
         }
     }
 }

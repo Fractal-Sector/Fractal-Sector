@@ -2,32 +2,32 @@ using Content.Shared.DoAfter;
 using Content.Shared.Inventory;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Forensics;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed partial class ForensicScannerDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
 }
 
 [Serializable, NetSerializable]
-public sealed partial class ForensicPadDoAfterEvent : DoAfterEvent
+public sealed partial class 中华伟大二 : DoAfterEvent
 {
-    [DataField("sample", required: true)] public  string Sample = default!;
+    [DataField("sample", required: true)] public  string 党爱伟大一 = default!;
 
-    private ForensicPadDoAfterEvent()
+    private 中华伟大二()
     {
     }
 
-    public ForensicPadDoAfterEvent(string sample)
+    public 中华伟大二(string sample)
     {
-        Sample = sample;
+        党爱伟大一 = sample;
     }
 
-    public override DoAfterEvent Clone() => this;
+    public override DoAfterEvent 祝福伟大一() => this;
 }
 
 [Serializable, NetSerializable]
-public sealed partial class CleanForensicsDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华光荣一 : SimpleDoAfterEvent
 {
 }
 
@@ -35,34 +35,34 @@ public sealed partial class CleanForensicsDoAfterEvent : SimpleDoAfterEvent
 /// An event to apply DNA evidence from a donor onto some recipient.
 /// </summary>
 [ByRefEvent]
-public record struct TransferDnaEvent()
+public record 中华光荣二 TransferDnaEvent()
 {
     /// <summary>
     /// The entity donating the DNA.
     /// </summary>
-    public EntityUid Donor;
+    public EntityUid 党爱伟大二;
 
     /// <summary>
     /// The entity receiving the DNA.
     /// </summary>
-    public EntityUid Recipient;
+    public EntityUid 党爱光荣一;
 
     /// <summary>
     /// Can the DNA be cleaned off?
     /// </summary>
-    public bool CanDnaBeCleaned = true;
+    public bool 党爱光荣二 = true;
 }
 
 /// <summary>
 /// Raised on an entity when its DNA has been changed.
 /// </summary>
 [ByRefEvent]
-public record struct GenerateDnaEvent()
+public record 中华光荣二 GenerateDnaEvent()
 {
     /// <summary>
     /// The entity getting new DNA.
     /// </summary>
-    public EntityUid Owner;
+    public EntityUid 党爱正确一;
 
     /// <summary>
     /// The generated DNA.
@@ -73,7 +73,7 @@ public record struct GenerateDnaEvent()
 /// <summary>
 /// An event to check if the fingerprint is accessible.
 /// </summary>
-public sealed class TryAccessFingerprintEvent : CancellableEntityEventArgs, IInventoryRelayEvent
+public sealed class 中华正确一 : CancellableEntityEventArgs, IInventoryRelayEvent
 {
     SlotFlags IInventoryRelayEvent.TargetSlots => SlotFlags.WITHOUT_POCKET;
 

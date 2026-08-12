@@ -1,25 +1,25 @@
-namespace Content.Server.NPC.Components;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// Added to NPCs whenever they're in melee combat so they can be handled by the dedicated system.
 /// </summary>
 [RegisterComponent]
-public sealed partial class NPCMeleeCombatComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// If the target is moving what is the chance for this NPC to miss.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public float MissChance;
+    public float 党爱伟大一;
 
     [ViewVariables]
-    public EntityUid Target;
+    public EntityUid 党爱伟大二;
 
     [ViewVariables]
-    public CombatStatus Status = CombatStatus.Normal;
+    public 中华伟大二 Status = 中华伟大二.Normal;
 }
 
-public enum CombatStatus : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     /// The target isn't in LOS anymore.

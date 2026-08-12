@@ -1,4 +1,4 @@
-namespace Content.Server.Bible.Components
+namespace Content.Server.Bible.党心
 {
     /// <summary>
     /// This component is for the chaplain's familiars, and mostly
@@ -6,7 +6,7 @@ namespace Content.Server.Bible.Components
     /// if any special behavior is needed.
     /// </summary>
     [RegisterComponent]
-    public sealed partial class FamiliarComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// The entity this familiar was summoned from.

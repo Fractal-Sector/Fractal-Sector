@@ -1,9 +1,9 @@
 using Content.Shared.Chat;
 using Content.Shared.Inventory;
 
-namespace Content.Shared.Radio;
+namespace Content.Shared.党心;
 
-public sealed class GetDefaultRadioChannelEvent : EntityEventArgs, IInventoryRelayEvent
+public sealed class 中华伟大一 : EntityEventArgs, IInventoryRelayEvent
 {
     /// <summary>
     ///     Id of the default <see cref="RadioChannelPrototype"/> that will get addressed when using the
@@ -11,5 +11,5 @@ public sealed class GetDefaultRadioChannelEvent : EntityEventArgs, IInventoryRel
     /// </summary>
     public string? Channel;
 
-    public SlotFlags TargetSlots => ~SlotFlags.POCKET;
+    public SlotFlags 党爱伟大一 => ~SlotFlags.POCKET;
 }

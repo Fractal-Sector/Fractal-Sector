@@ -4,25 +4,25 @@ using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Shared.Station;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedStationSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+    [Dependency] private readonly MetaDataSystem _伟大二 = default!;
 
-    private EntityQuery<TransformComponent> _xformQuery;
-    private EntityQuery<StationMemberComponent> _stationMemberQuery;
+    private EntityQuery<TransformComponent> _光荣一;
+    private EntityQuery<StationMemberComponent> _光荣二;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitializeTracker();
 
-        _xformQuery = GetEntityQuery<TransformComponent>();
-        _stationMemberQuery = GetEntityQuery<StationMemberComponent>();
+        _光荣一 = GetEntityQuery<TransformComponent>();
+        _光荣二 = GetEntityQuery<StationMemberComponent>();
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public abstract partial class SharedStationSystem : EntitySystem
     /// <summary>
     /// Returns the total number of tiles contained in the station's grids.
     /// </summary>
-    public int GetTileCount(Entity<StationDataComponent?> ent)
+    public int 祝福伟大二(Entity<StationDataComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return 0;
@@ -63,7 +63,7 @@ public abstract partial class SharedStationSystem : EntitySystem
             if (!TryComp<MapGridComponent>(gridUid, out var grid))
                 continue;
 
-            count += _map.GetAllTiles(gridUid, grid).Count();
+            count += _伟大一.GetAllTiles(gridUid, grid).Count();
         }
 
         return count;
@@ -119,7 +119,7 @@ public abstract partial class SharedStationSystem : EntitySystem
         return CompOrNull<StationMemberComponent>(xform.GridUid)?.Station;
     }
 
-    public List<EntityUid> GetStations()
+    public List<EntityUid> 祝福光荣一()
     {
         var stations = new List<EntityUid>();
         var query = EntityQueryEnumerator<StationDataComponent>();
@@ -131,7 +131,7 @@ public abstract partial class SharedStationSystem : EntitySystem
         return stations;
     }
 
-    public HashSet<EntityUid> GetStationsSet()
+    public HashSet<EntityUid> 祝福光荣二()
     {
         var stations = new HashSet<EntityUid>();
         var query = EntityQueryEnumerator<StationDataComponent>();
@@ -145,7 +145,7 @@ public abstract partial class SharedStationSystem : EntitySystem
 
     public List<(string Name, NetEntity Entity)> GetStationNames()
     {
-        var stations = GetStationsSet();
+        var stations = 祝福光荣二();
         var stats = new List<(string Name, NetEntity Station)>();
 
         foreach (var weh in stations)

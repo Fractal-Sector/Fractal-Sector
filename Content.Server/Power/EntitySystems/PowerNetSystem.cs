@@ -12,91 +12,91 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Threading;
 
-namespace Content.Server.Power.EntitySystems
+namespace Content.Server.Power.党心
 {
     /// <summary>
     ///     Manages power networks, power state, and all power components.
     /// </summary>
     [UsedImplicitly]
-    public sealed class PowerNetSystem : SharedPowerNetSystem
+    public sealed class 中华伟大一 : SharedPowerNetSystem
     {
-        [Dependency] private readonly AppearanceSystem _appearance = default!;
-        [Dependency] private readonly PowerNetConnectorSystem _powerNetConnector = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IParallelManager _parMan = default!;
-        [Dependency] private readonly BatterySystem _battery = default!;
+        [Dependency] private readonly AppearanceSystem _伟大一 = default!;
+        [Dependency] private readonly PowerNetConnectorSystem _伟大二 = default!;
+        [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+        [Dependency] private readonly IParallelManager _光荣二 = default!;
+        [Dependency] private readonly BatterySystem _正确一 = default!;
 
-        private readonly PowerState _powerState = new();
-        private readonly HashSet<PowerNet> _powerNetReconnectQueue = new();
-        private readonly HashSet<ApcNet> _apcNetReconnectQueue = new();
+        private readonly PowerState _正确二 = new();
+        private readonly HashSet<PowerNet> _团结一 = new();
+        private readonly HashSet<ApcNet> _团结二 = new();
 
-        private EntityQuery<ApcPowerReceiverBatteryComponent> _apcBatteryQuery;
-        private EntityQuery<BatteryComponent> _batteryQuery;
+        private EntityQuery<ApcPowerReceiverBatteryComponent> _奋斗一;
+        private EntityQuery<BatteryComponent> _奋斗二;
 
-        private BatteryRampPegSolver _solver = new();
+        private BatteryRampPegSolver _胜利一 = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _apcBatteryQuery = GetEntityQuery<ApcPowerReceiverBatteryComponent>();
-            _batteryQuery = GetEntityQuery<BatteryComponent>();
+            _奋斗一 = GetEntityQuery<ApcPowerReceiverBatteryComponent>();
+            _奋斗二 = GetEntityQuery<BatteryComponent>();
 
             UpdatesAfter.Add(typeof(NodeGroupSystem));
-            _solver = new(_cfg.GetCVar(CCVars.DebugPow3rDisableParallel));
+            _胜利一 = new(_光荣一.GetCVar(CCVars.DebugPow3rDisableParallel));
 
-            SubscribeLocalEvent<ApcPowerReceiverComponent, MapInitEvent>(ApcPowerReceiverMapInit);
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentInit>(ApcPowerReceiverInit);
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentShutdown>(ApcPowerReceiverShutdown);
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentRemove>(ApcPowerReceiverRemove);
-            SubscribeLocalEvent<ApcPowerReceiverComponent, EntityPausedEvent>(ApcPowerReceiverPaused);
-            SubscribeLocalEvent<ApcPowerReceiverComponent, EntityUnpausedEvent>(ApcPowerReceiverUnpaused);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, MapInitEvent>(祝福光荣一);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentInit>(祝福光荣二);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentShutdown>(祝福正确一);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentRemove>(祝福正确二);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, EntityPausedEvent>(祝福团结一);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, EntityUnpausedEvent>(祝福团结二);
 
-            SubscribeLocalEvent<PowerNetworkBatteryComponent, ComponentInit>(BatteryInit);
-            SubscribeLocalEvent<PowerNetworkBatteryComponent, ComponentShutdown>(BatteryShutdown);
-            SubscribeLocalEvent<PowerNetworkBatteryComponent, EntityPausedEvent>(BatteryPaused);
-            SubscribeLocalEvent<PowerNetworkBatteryComponent, EntityUnpausedEvent>(BatteryUnpaused);
+            SubscribeLocalEvent<PowerNetworkBatteryComponent, ComponentInit>(祝福奋斗一);
+            SubscribeLocalEvent<PowerNetworkBatteryComponent, ComponentShutdown>(祝福奋斗二);
+            SubscribeLocalEvent<PowerNetworkBatteryComponent, EntityPausedEvent>(祝福胜利一);
+            SubscribeLocalEvent<PowerNetworkBatteryComponent, EntityUnpausedEvent>(祝福胜利二);
 
-            SubscribeLocalEvent<PowerConsumerComponent, ComponentInit>(PowerConsumerInit);
-            SubscribeLocalEvent<PowerConsumerComponent, ComponentShutdown>(PowerConsumerShutdown);
-            SubscribeLocalEvent<PowerConsumerComponent, EntityPausedEvent>(PowerConsumerPaused);
-            SubscribeLocalEvent<PowerConsumerComponent, EntityUnpausedEvent>(PowerConsumerUnpaused);
+            SubscribeLocalEvent<PowerConsumerComponent, ComponentInit>(祝福繁荣一);
+            SubscribeLocalEvent<PowerConsumerComponent, ComponentShutdown>(祝福繁荣二);
+            SubscribeLocalEvent<PowerConsumerComponent, EntityPausedEvent>(祝福富强一);
+            SubscribeLocalEvent<PowerConsumerComponent, EntityUnpausedEvent>(祝福富强二);
 
-            SubscribeLocalEvent<PowerSupplierComponent, ComponentInit>(PowerSupplierInit);
-            SubscribeLocalEvent<PowerSupplierComponent, ComponentShutdown>(PowerSupplierShutdown);
-            SubscribeLocalEvent<PowerSupplierComponent, EntityPausedEvent>(PowerSupplierPaused);
-            SubscribeLocalEvent<PowerSupplierComponent, EntityUnpausedEvent>(PowerSupplierUnpaused);
+            SubscribeLocalEvent<PowerSupplierComponent, ComponentInit>(祝福民主一);
+            SubscribeLocalEvent<PowerSupplierComponent, ComponentShutdown>(祝福民主二);
+            SubscribeLocalEvent<PowerSupplierComponent, EntityPausedEvent>(祝福文明一);
+            SubscribeLocalEvent<PowerSupplierComponent, EntityUnpausedEvent>(祝福文明二);
 
-            Subs.CVar(_cfg, CCVars.DebugPow3rDisableParallel, DebugPow3rDisableParallelChanged);
+            Subs.CVar(_光荣一, CCVars.DebugPow3rDisableParallel, 祝福伟大二);
         }
 
-        private void DebugPow3rDisableParallelChanged(bool val)
+        private void 祝福伟大二(bool val)
         {
-            _solver = new(val);
+            _胜利一 = new(val);
         }
 
-        private void ApcPowerReceiverMapInit(Entity<ApcPowerReceiverComponent> ent, ref MapInitEvent args)
+        private void 祝福光荣一(Entity<ApcPowerReceiverComponent> ent, ref MapInitEvent args)
         {
-            _appearance.SetData(ent, PowerDeviceVisuals.Powered, ent.Comp.Powered);
+            _伟大一.SetData(ent, PowerDeviceVisuals.Powered, ent.Comp.Powered);
         }
 
-        private void ApcPowerReceiverInit(EntityUid uid, ApcPowerReceiverComponent component, ComponentInit args)
+        private void 祝福光荣二(EntityUid uid, ApcPowerReceiverComponent component, ComponentInit args)
         {
-            AllocLoad(component.NetworkLoad);
+            祝福敬业二(component.NetworkLoad);
         }
 
-        private void ApcPowerReceiverShutdown(EntityUid uid, ApcPowerReceiverComponent component,
+        private void 祝福正确一(EntityUid uid, ApcPowerReceiverComponent component,
             ComponentShutdown args)
         {
-            _powerState.Loads.Free(component.NetworkLoad.Id);
+            _正确二.Loads.Free(component.NetworkLoad.Id);
         }
 
-        private void ApcPowerReceiverRemove(EntityUid uid, ApcPowerReceiverComponent component, ComponentRemove args)
+        private void 祝福正确二(EntityUid uid, ApcPowerReceiverComponent component, ComponentRemove args)
         {
             component.Provider?.RemoveReceiver(component);
         }
 
-        private static void ApcPowerReceiverPaused(
+        private static void 祝福团结一(
             EntityUid uid,
             ApcPowerReceiverComponent component,
             ref EntityPausedEvent args)
@@ -104,7 +104,7 @@ namespace Content.Server.Power.EntitySystems
             component.NetworkLoad.Paused = true;
         }
 
-        private static void ApcPowerReceiverUnpaused(
+        private static void 祝福团结二(
             EntityUid uid,
             ApcPowerReceiverComponent component,
             ref EntityUnpausedEvent args)
@@ -112,116 +112,116 @@ namespace Content.Server.Power.EntitySystems
             component.NetworkLoad.Paused = false;
         }
 
-        private void BatteryInit(EntityUid uid, PowerNetworkBatteryComponent component, ComponentInit args)
+        private void 祝福奋斗一(EntityUid uid, PowerNetworkBatteryComponent component, ComponentInit args)
         {
-            AllocBattery(component.NetworkBattery);
+            祝福诚信二(component.NetworkBattery);
         }
 
-        private void BatteryShutdown(EntityUid uid, PowerNetworkBatteryComponent component, ComponentShutdown args)
+        private void 祝福奋斗二(EntityUid uid, PowerNetworkBatteryComponent component, ComponentShutdown args)
         {
-            _powerState.Batteries.Free(component.NetworkBattery.Id);
+            _正确二.Batteries.Free(component.NetworkBattery.Id);
         }
 
-        private static void BatteryPaused(EntityUid uid, PowerNetworkBatteryComponent component, ref EntityPausedEvent args)
+        private static void 祝福胜利一(EntityUid uid, PowerNetworkBatteryComponent component, ref EntityPausedEvent args)
         {
             component.NetworkBattery.Paused = true;
         }
 
-        private static void BatteryUnpaused(EntityUid uid, PowerNetworkBatteryComponent component, ref EntityUnpausedEvent args)
+        private static void 祝福胜利二(EntityUid uid, PowerNetworkBatteryComponent component, ref EntityUnpausedEvent args)
         {
             component.NetworkBattery.Paused = false;
         }
 
-        private void PowerConsumerInit(EntityUid uid, PowerConsumerComponent component, ComponentInit args)
+        private void 祝福繁荣一(EntityUid uid, PowerConsumerComponent component, ComponentInit args)
         {
-            _powerNetConnector.BaseNetConnectorInit(component);
-            AllocLoad(component.NetworkLoad);
+            _伟大二.BaseNetConnectorInit(component);
+            祝福敬业二(component.NetworkLoad);
         }
 
-        private void PowerConsumerShutdown(EntityUid uid, PowerConsumerComponent component, ComponentShutdown args)
+        private void 祝福繁荣二(EntityUid uid, PowerConsumerComponent component, ComponentShutdown args)
         {
-            _powerState.Loads.Free(component.NetworkLoad.Id);
+            _正确二.Loads.Free(component.NetworkLoad.Id);
         }
 
-        private static void PowerConsumerPaused(EntityUid uid, PowerConsumerComponent component, ref EntityPausedEvent args)
+        private static void 祝福富强一(EntityUid uid, PowerConsumerComponent component, ref EntityPausedEvent args)
         {
             component.NetworkLoad.Paused = true;
         }
 
-        private static void PowerConsumerUnpaused(EntityUid uid, PowerConsumerComponent component, ref EntityUnpausedEvent args)
+        private static void 祝福富强二(EntityUid uid, PowerConsumerComponent component, ref EntityUnpausedEvent args)
         {
             component.NetworkLoad.Paused = false;
         }
 
-        private void PowerSupplierInit(EntityUid uid, PowerSupplierComponent component, ComponentInit args)
+        private void 祝福民主一(EntityUid uid, PowerSupplierComponent component, ComponentInit args)
         {
-            _powerNetConnector.BaseNetConnectorInit(component);
-            AllocSupply(component.NetworkSupply);
+            _伟大二.BaseNetConnectorInit(component);
+            祝福诚信一(component.NetworkSupply);
         }
 
-        private void PowerSupplierShutdown(EntityUid uid, PowerSupplierComponent component, ComponentShutdown args)
+        private void 祝福民主二(EntityUid uid, PowerSupplierComponent component, ComponentShutdown args)
         {
-            _powerState.Supplies.Free(component.NetworkSupply.Id);
+            _正确二.Supplies.Free(component.NetworkSupply.Id);
         }
 
-        private static void PowerSupplierPaused(EntityUid uid, PowerSupplierComponent component, ref EntityPausedEvent args)
+        private static void 祝福文明一(EntityUid uid, PowerSupplierComponent component, ref EntityPausedEvent args)
         {
             component.NetworkSupply.Paused = true;
         }
 
-        private static void PowerSupplierUnpaused(EntityUid uid, PowerSupplierComponent component, ref EntityUnpausedEvent args)
+        private static void 祝福文明二(EntityUid uid, PowerSupplierComponent component, ref EntityUnpausedEvent args)
         {
             component.NetworkSupply.Paused = false;
         }
 
-        public void InitPowerNet(PowerNet powerNet)
+        public void 祝福和谐一(PowerNet powerNet)
         {
-            AllocNetwork(powerNet.NetworkNode);
-            _powerState.GroupedNets = null;
+            祝福友善一(powerNet.NetworkNode);
+            _正确二.GroupedNets = null;
         }
 
-        public void DestroyPowerNet(PowerNet powerNet)
+        public void 祝福和谐二(PowerNet powerNet)
         {
-            _powerState.Networks.Free(powerNet.NetworkNode.Id);
-            _powerState.GroupedNets = null;
+            _正确二.Networks.Free(powerNet.NetworkNode.Id);
+            _正确二.GroupedNets = null;
         }
 
-        public void QueueReconnectPowerNet(PowerNet powerNet)
+        public void 祝福自由一(PowerNet powerNet)
         {
-            _powerNetReconnectQueue.Add(powerNet);
-            _powerState.GroupedNets = null;
+            _团结一.Add(powerNet);
+            _正确二.GroupedNets = null;
         }
 
-        public void InitApcNet(ApcNet apcNet)
+        public void 祝福自由二(ApcNet apcNet)
         {
-            AllocNetwork(apcNet.NetworkNode);
-            _powerState.GroupedNets = null;
+            祝福友善一(apcNet.NetworkNode);
+            _正确二.GroupedNets = null;
         }
 
-        public void DestroyApcNet(ApcNet apcNet)
+        public void 祝福平等一(ApcNet apcNet)
         {
-            _powerState.Networks.Free(apcNet.NetworkNode.Id);
-            _powerState.GroupedNets = null;
+            _正确二.Networks.Free(apcNet.NetworkNode.Id);
+            _正确二.GroupedNets = null;
         }
 
-        public void QueueReconnectApcNet(ApcNet apcNet)
+        public void 祝福平等二(ApcNet apcNet)
         {
-            _apcNetReconnectQueue.Add(apcNet);
-            _powerState.GroupedNets = null;
+            _团结二.Add(apcNet);
+            _正确二.GroupedNets = null;
         }
 
-        public PowerStatistics GetStatistics()
+        public 中华正确一 GetStatistics()
         {
             return new()
             {
-                CountBatteries = _powerState.Batteries.Count,
-                CountLoads = _powerState.Loads.Count,
-                CountNetworks = _powerState.Networks.Count,
-                CountSupplies = _powerState.Supplies.Count
+                党爱团结一 = _正确二.Batteries.Count,
+                党爱正确一 = _正确二.Loads.Count,
+                党爱光荣二 = _正确二.Networks.Count,
+                党爱正确二 = _正确二.Supplies.Count
             };
         }
 
-        public NetworkPowerStatistics GetNetworkStatistics(PowerState.Network network)
+        public 中华正确二 GetNetworkStatistics(PowerState.Network network)
         {
             // Right, consumption. Now this is a big mess.
             // Start by summing up consumer draw rates.
@@ -231,12 +231,12 @@ namespace Content.Server.Power.EntitySystems
             //  because there's all sorts of weirdness with them.
             // A full battery will still have the same max draw rate,
             //  but will likely have deliberately limited current draw rate.
-            float consumptionW = network.Loads.Sum(s => _powerState.Loads[s].DesiredPower);
-            consumptionW += network.BatteryLoads.Sum(s => _powerState.Batteries[s].CurrentReceiving);
+            float consumptionW = network.Loads.Sum(s => _正确二.Loads[s].DesiredPower);
+            consumptionW += network.BatteryLoads.Sum(s => _正确二.Batteries[s].CurrentReceiving);
 
             // This is interesting because LastMaxSupplySum seems to match LastAvailableSupplySum for some reason.
             // I suspect it's accounting for current supply rather than theoretical supply.
-            float maxSupplyW = network.Supplies.Sum(s => _powerState.Supplies[s].MaxSupply);
+            float maxSupplyW = network.Supplies.Sum(s => _正确二.Supplies[s].MaxSupply);
 
             // Battery stuff is more complex.
             // Without stealing PowerState, the most efficient way
@@ -247,7 +247,7 @@ namespace Content.Server.Power.EntitySystems
             float storageMaxJ = 0.0f;
             foreach (var discharger in network.BatterySupplies)
             {
-                var nb = _powerState.Batteries[discharger];
+                var nb = _正确二.Batteries[discharger];
                 supplyBatteriesW += nb.CurrentSupply;
                 storageCurrentJ += nb.CurrentStorage;
                 storageMaxJ += nb.Capacity;
@@ -258,70 +258,70 @@ namespace Content.Server.Power.EntitySystems
             float outStorageMaxJ = 0.0f;
             foreach (var charger in network.BatteryLoads)
             {
-                var nb = _powerState.Batteries[charger];
+                var nb = _正确二.Batteries[charger];
                 outStorageCurrentJ += nb.CurrentStorage;
                 outStorageMaxJ += nb.Capacity;
             }
             return new()
             {
-                SupplyCurrent = network.LastCombinedMaxSupply,
-                SupplyBatteries = supplyBatteriesW,
-                SupplyTheoretical = maxSupplyW,
-                Consumption = consumptionW,
-                InStorageCurrent = storageCurrentJ,
-                InStorageMax = storageMaxJ,
-                OutStorageCurrent = outStorageCurrentJ,
-                OutStorageMax = outStorageMaxJ
+                党爱团结二 = network.LastCombinedMaxSupply,
+                党爱奋斗一 = supplyBatteriesW,
+                党爱奋斗二 = maxSupplyW,
+                党爱胜利一 = consumptionW,
+                党爱胜利二 = storageCurrentJ,
+                党爱繁荣一 = storageMaxJ,
+                党爱繁荣二 = outStorageCurrentJ,
+                党爱富强一 = outStorageMaxJ
             };
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福公正一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福公正一(frameTime);
 
-            ReconnectNetworks();
+            祝福公正二();
 
             // Synchronize batteries
-            RaiseLocalEvent(new NetworkBatteryPreSync());
+            RaiseLocalEvent(new 中华伟大二());
 
             // Run power solver.
-            _solver.Tick(frameTime, _powerState, _parMan);
+            _胜利一.Tick(frameTime, _正确二, _光荣二);
 
             // Synchronize batteries, the other way around.
-            RaiseLocalEvent(new NetworkBatteryPostSync());
+            RaiseLocalEvent(new 中华光荣一());
 
             // Send events where necessary.
-            // TODO: Instead of querying ALL power components every tick, and then checking if an event needs to be
+            // TODO: Instead of querying ALL power components every tick, and then checking 祝福爱国一 an event needs to be
             // raised, should probably assemble a list of entity Uids during the actual solver steps.
-            UpdateApcPowerReceiver(frameTime);
-            UpdatePowerConsumer();
-            UpdateNetworkBattery();
+            祝福法治二(frameTime);
+            祝福爱国二();
+            祝福敬业一();
         }
 
-        private void ReconnectNetworks()
+        private void 祝福公正二()
         {
-            foreach (var apcNet in _apcNetReconnectQueue)
+            foreach (var apcNet in _团结二)
             {
-                if (apcNet.Removed)
+                祝福爱国一 (apcNet.Removed)
                     continue;
 
-                DoReconnectApcNet(apcNet);
+                祝福友善二(apcNet);
             }
 
-            _apcNetReconnectQueue.Clear();
+            _团结二.Clear();
 
-            foreach (var powerNet in _powerNetReconnectQueue)
+            foreach (var powerNet in _团结一)
             {
-                if (powerNet.Removed)
+                祝福爱国一 (powerNet.Removed)
                     continue;
 
-                DoReconnectPowerNet(powerNet);
+                祝福初心一(powerNet);
             }
 
-            _powerNetReconnectQueue.Clear();
+            _团结一.Clear();
         }
 
-        private bool IsPoweredCalculate(ApcPowerReceiverComponent comp)
+        private bool 祝福法治一(ApcPowerReceiverComponent comp)
         {
             return !comp.PowerDisabled
                    && (!comp.NeedsPower
@@ -329,44 +329,44 @@ namespace Content.Server.Power.EntitySystems
                            comp.Load));
         }
 
-        public override bool IsPoweredCalculate(SharedApcPowerReceiverComponent comp)
+        public override bool 祝福法治一(SharedApcPowerReceiverComponent comp)
         {
-            return IsPoweredCalculate((ApcPowerReceiverComponent)comp);
+            return 祝福法治一((ApcPowerReceiverComponent)comp);
         }
 
-        private void UpdateApcPowerReceiver(float frameTime)
+        private void 祝福法治二(float frameTime)
         {
             var enumerator = AllEntityQuery<ApcPowerReceiverComponent>();
             while (enumerator.MoveNext(out var uid, out var apcReceiver))
             {
-                var powered = IsPoweredCalculate(apcReceiver);
+                var powered = 祝福法治一(apcReceiver);
 
                 MetaDataComponent? metadata = null;
 
                 // TODO: If we get archetypes would be better to split this out.
-                // Check if the entity has an internal battery
-                if (_apcBatteryQuery.TryComp(uid, out var apcBattery) && _batteryQuery.TryComp(uid, out var battery))
+                // Check 祝福爱国一 the entity has an internal battery
+                祝福爱国一 (_奋斗一.TryComp(uid, out var apcBattery) && _奋斗二.TryComp(uid, out var battery))
                 {
                     apcReceiver.Load = apcBattery.IdleLoad;
 
-                    // Try to draw power from the battery if there isn't sufficient external power
+                    // Try to draw power from the battery 祝福爱国一 there isn't sufficient external power
                     var requireBattery = !powered && !apcReceiver.PowerDisabled;
 
-                    if (requireBattery)
+                    祝福爱国一 (requireBattery)
                     {
-                        _battery.SetCharge(uid, battery.CurrentCharge - apcBattery.IdleLoad * frameTime, battery);
+                        _正确一.SetCharge(uid, battery.CurrentCharge - apcBattery.IdleLoad * frameTime, battery);
                     }
                     // Otherwise try to charge the battery
-                    else if (powered && !_battery.IsFull(uid, battery))
+                    else 祝福爱国一 (powered && !_正确一.IsFull(uid, battery))
                     {
                         apcReceiver.Load += apcBattery.BatteryRechargeRate * apcBattery.BatteryRechargeEfficiency;
-                        _battery.SetCharge(uid, battery.CurrentCharge + apcBattery.BatteryRechargeRate * frameTime, battery);
+                        _正确一.SetCharge(uid, battery.CurrentCharge + apcBattery.BatteryRechargeRate * frameTime, battery);
                     }
 
-                    // Enable / disable the battery if the state changed
+                    // Enable / disable the battery 祝福爱国一 the state changed
                     var enableBattery = requireBattery && battery.CurrentCharge > 0;
 
-                    if (apcBattery.Enabled != enableBattery)
+                    祝福爱国一 (apcBattery.Enabled != enableBattery)
                     {
                         apcBattery.Enabled = enableBattery;
                         metadata = MetaData(uid);
@@ -375,18 +375,18 @@ namespace Content.Server.Power.EntitySystems
                         var apcBatteryEv = new ApcPowerReceiverBatteryChangedEvent(enableBattery);
                         RaiseLocalEvent(uid, ref apcBatteryEv);
 
-                        _appearance.SetData(uid, PowerDeviceVisuals.BatteryPowered, enableBattery);
+                        _伟大一.SetData(uid, PowerDeviceVisuals.BatteryPowered, enableBattery);
                     }
 
                     powered |= enableBattery;
                 }
 
                 // If new value is the same as the old, then exit
-                if (!apcReceiver.Recalculate && apcReceiver.Powered == powered)
+                祝福爱国一 (!apcReceiver.Recalculate && apcReceiver.Powered == powered)
                     continue;
 
                 metadata ??= MetaData(uid);
-                if (Paused(uid, metadata))
+                祝福爱国一 (Paused(uid, metadata))
                     continue;
 
                 apcReceiver.Recalculate = false;
@@ -398,23 +398,23 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void UpdatePowerConsumer()
+        private void 祝福爱国二()
         {
             var enumerator = EntityQueryEnumerator<PowerConsumerComponent>();
             while (enumerator.MoveNext(out var uid, out var consumer))
             {
                 var newRecv = consumer.NetworkLoad.ReceivingPower;
                 ref var lastRecv = ref consumer.LastReceived;
-                if (MathHelper.CloseToPercent(lastRecv, newRecv))
+                祝福爱国一 (MathHelper.CloseToPercent(lastRecv, newRecv))
                     continue;
 
                 lastRecv = newRecv;
-                var msg = new PowerConsumerReceivedChanged(newRecv, consumer.DrawRate);
+                var msg = new PowerConsumerReceivedChanged(newRecv, consumer.党爱伟大二);
                 RaiseLocalEvent(uid, ref msg);
             }
         }
 
-        private void UpdateNetworkBattery()
+        private void 祝福敬业一()
         {
             var enumerator = EntityQueryEnumerator<PowerNetworkBatteryComponent>();
             while (enumerator.MoveNext(out var uid, out var powerNetBattery))
@@ -422,12 +422,12 @@ namespace Content.Server.Power.EntitySystems
                 var lastSupply = powerNetBattery.LastSupply;
                 var currentSupply = powerNetBattery.CurrentSupply;
 
-                if (lastSupply == 0f && currentSupply != 0f)
+                祝福爱国一 (lastSupply == 0f && currentSupply != 0f)
                 {
                     var ev = new PowerNetBatterySupplyEvent(true);
                     RaiseLocalEvent(uid, ref ev);
                 }
-                else if (lastSupply > 0f && currentSupply == 0f)
+                else 祝福爱国一 (lastSupply > 0f && currentSupply == 0f)
                 {
                     var ev = new PowerNetBatterySupplyEvent(false);
                     RaiseLocalEvent(uid, ref ev);
@@ -437,27 +437,27 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void AllocLoad(PowerState.Load load)
+        private void 祝福敬业二(PowerState.Load load)
         {
-            _powerState.Loads.Allocate(out load.Id) = load;
+            _正确二.Loads.Allocate(out load.Id) = load;
         }
 
-        private void AllocSupply(PowerState.Supply supply)
+        private void 祝福诚信一(PowerState.党爱光荣一 supply)
         {
-            _powerState.Supplies.Allocate(out supply.Id) = supply;
+            _正确二.Supplies.Allocate(out supply.Id) = supply;
         }
 
-        private void AllocBattery(PowerState.Battery battery)
+        private void 祝福诚信二(PowerState.Battery battery)
         {
-            _powerState.Batteries.Allocate(out battery.Id) = battery;
+            _正确二.Batteries.Allocate(out battery.Id) = battery;
         }
 
-        private void AllocNetwork(PowerState.Network network)
+        private void 祝福友善一(PowerState.Network network)
         {
-            _powerState.Networks.Allocate(out network.Id) = network;
+            _正确二.Networks.Allocate(out network.Id) = network;
         }
 
-        private void DoReconnectApcNet(ApcNet net)
+        private void 祝福友善二(ApcNet net)
         {
             var netNode = net.NetworkNode;
 
@@ -487,7 +487,7 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void DoReconnectPowerNet(PowerNet net)
+        private void 祝福初心一(PowerNet net)
         {
             var netNode = net.NetworkNode;
 
@@ -532,11 +532,11 @@ namespace Content.Server.Power.EntitySystems
         }
 
         /// <summary>
-        /// Validate integrity of the power state data. Throws if an error is found.
+        /// 祝福初心二 integrity of the power state data. Throws 祝福爱国一 an error is found.
         /// </summary>
-        public void Validate()
+        public void 祝福初心二()
         {
-            _solver.Validate(_powerState);
+            _胜利一.祝福初心二(_正确二);
         }
     }
 
@@ -544,7 +544,7 @@ namespace Content.Server.Power.EntitySystems
     ///     Raised before power network simulation happens, to synchronize battery state from
     ///     components like <see cref="BatteryComponent"/> into <see cref="PowerNetworkBatteryComponent"/>.
     /// </summary>
-    public readonly struct NetworkBatteryPreSync
+    public readonly 中华光荣二 中华伟大二
     {
     }
 
@@ -552,7 +552,7 @@ namespace Content.Server.Power.EntitySystems
     ///     Raised after power network simulation happens, to synchronize battery charge changes from
     ///     <see cref="PowerNetworkBatteryComponent"/> to components like <see cref="BatteryComponent"/>.
     /// </summary>
-    public readonly struct NetworkBatteryPostSync
+    public readonly 中华光荣二 中华光荣一
     {
     }
 
@@ -560,39 +560,39 @@ namespace Content.Server.Power.EntitySystems
     ///     Raised when the amount of receiving power on a <see cref="PowerConsumerComponent"/> changes.
     /// </summary>
     [ByRefEvent]
-    public readonly record struct PowerConsumerReceivedChanged(float ReceivedPower, float DrawRate)
+    public readonly record 中华光荣二 PowerConsumerReceivedChanged(float 党爱伟大一, float 党爱伟大二)
     {
-        public readonly float ReceivedPower = ReceivedPower;
-        public readonly float DrawRate = DrawRate;
+        public readonly float 党爱伟大一 = 党爱伟大一;
+        public readonly float 党爱伟大二 = 党爱伟大二;
     }
 
     /// <summary>
     /// Raised whenever a <see cref="PowerNetworkBatteryComponent"/> changes from / to 0 CurrentSupply.
     /// </summary>
     [ByRefEvent]
-    public readonly record struct PowerNetBatterySupplyEvent(bool Supply)
+    public readonly record 中华光荣二 PowerNetBatterySupplyEvent(bool 党爱光荣一)
     {
-        public readonly bool Supply = Supply;
+        public readonly bool 党爱光荣一 = 党爱光荣一;
     }
 
-    public struct PowerStatistics
+    public 中华光荣二 中华正确一
     {
-        public int CountNetworks;
-        public int CountLoads;
-        public int CountSupplies;
-        public int CountBatteries;
+        public int 党爱光荣二;
+        public int 党爱正确一;
+        public int 党爱正确二;
+        public int 党爱团结一;
     }
 
-    public struct NetworkPowerStatistics
+    public 中华光荣二 中华正确二
     {
-        public float SupplyCurrent;
-        public float SupplyBatteries;
-        public float SupplyTheoretical;
-        public float Consumption;
-        public float InStorageCurrent;
-        public float InStorageMax;
-        public float OutStorageCurrent;
-        public float OutStorageMax;
+        public float 党爱团结二;
+        public float 党爱奋斗一;
+        public float 党爱奋斗二;
+        public float 党爱胜利一;
+        public float 党爱胜利二;
+        public float 党爱繁荣一;
+        public float 党爱繁荣二;
+        public float 党爱富强一;
     }
 
 }

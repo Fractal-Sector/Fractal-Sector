@@ -11,34 +11,34 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Item;
+namespace Content.Shared.党心;
 
-public abstract class SharedItemSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private   readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private   readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] protected readonly SharedContainerSystem 党爱伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ItemComponent, GetVerbsEvent<InteractionVerb>>(AddPickupVerb);
-        SubscribeLocalEvent<ItemComponent, InteractHandEvent>(OnHandInteract);
-        SubscribeLocalEvent<ItemComponent, AfterAutoHandleStateEvent>(OnItemAutoState);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ItemComponent, GetVerbsEvent<InteractionVerb>>(祝福奋斗一);
+        SubscribeLocalEvent<ItemComponent, InteractHandEvent>(祝福团结二);
+        SubscribeLocalEvent<ItemComponent, AfterAutoHandleStateEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<ItemComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<ItemComponent, ExaminedEvent>(祝福奋斗二);
 
-        SubscribeLocalEvent<ItemToggleSizeComponent, ItemToggledEvent>(OnItemToggle);
+        SubscribeLocalEvent<ItemToggleSizeComponent, ItemToggledEvent>(祝福民主一);
     }
 
-    private void OnItemAutoState(EntityUid uid, ItemComponent component, ref AfterAutoHandleStateEvent args)
+    private void 祝福伟大二(EntityUid uid, ItemComponent component, ref AfterAutoHandleStateEvent args)
     {
-        SetHeldPrefix(uid, component.HeldPrefix, force: true, component);
+        祝福正确二(uid, component.HeldPrefix, force: true, component);
     }
 
     #region Public API
 
-    public void SetSize(EntityUid uid, ProtoId<ItemSizePrototype> size, ItemComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, ProtoId<ItemSizePrototype> size, ItemComponent? component = null)
     {
         if (!Resolve(uid, ref component, false) || component.Size == size)
             return;
@@ -49,7 +49,7 @@ public abstract class SharedItemSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev, broadcast: true);
     }
 
-    public void SetShape(EntityUid uid, List<Box2i>? shape, ItemComponent? component = null)
+    public void 祝福光荣二(EntityUid uid, List<Box2i>? shape, ItemComponent? component = null)
     {
         if (!Resolve(uid, ref component, false) || component.Shape == shape)
             return;
@@ -65,7 +65,7 @@ public abstract class SharedItemSystem : EntitySystem
     /// Dirties.
     /// </summary>
     [PublicAPI]
-    public void SetStoredOffset(EntityUid uid, Vector2i newOffset, ItemComponent? component = null)
+    public void 祝福正确一(EntityUid uid, Vector2i newOffset, ItemComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
@@ -74,7 +74,7 @@ public abstract class SharedItemSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    public void SetHeldPrefix(EntityUid uid, string? heldPrefix, bool force = false, ItemComponent? component = null)
+    public void 祝福正确二(EntityUid uid, string? heldPrefix, bool force = false, ItemComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
@@ -84,13 +84,13 @@ public abstract class SharedItemSystem : EntitySystem
 
         component.HeldPrefix = heldPrefix;
         Dirty(uid, component);
-        VisualsChanged(uid);
+        祝福胜利二(uid);
     }
 
     /// <summary>
     ///     Copy all item specific visuals from another item.
     /// </summary>
-    public void CopyVisuals(EntityUid uid, ItemComponent otherItem, ItemComponent? item = null)
+    public void 祝福团结一(EntityUid uid, ItemComponent otherItem, ItemComponent? item = null)
     {
         if (!Resolve(uid, ref item))
             return;
@@ -100,37 +100,37 @@ public abstract class SharedItemSystem : EntitySystem
         item.HeldPrefix = otherItem.HeldPrefix;
 
         Dirty(uid, item);
-        VisualsChanged(uid);
+        祝福胜利二(uid);
     }
 
     #endregion
 
-    private void OnHandInteract(EntityUid uid, ItemComponent component, InteractHandEvent args)
+    private void 祝福团结二(EntityUid uid, ItemComponent component, InteractHandEvent args)
     {
         if (args.Handled)
             return;
 
-        args.Handled = _handsSystem.TryPickup(args.User, uid, null, animateUser: false);
+        args.Handled = _伟大二.TryPickup(args.User, uid, null, animateUser: false);
     }
 
-    private void AddPickupVerb(EntityUid uid, ItemComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福奋斗一(EntityUid uid, ItemComponent component, GetVerbsEvent<InteractionVerb> args)
     {
         if (args.Hands == null ||
             args.Using != null ||
             !args.CanAccess ||
             !args.CanInteract ||
-            !_handsSystem.CanPickupAnyHand(args.User, args.Target, handsComp: args.Hands, item: component))
+            !_伟大二.CanPickupAnyHand(args.User, args.Target, handsComp: args.Hands, item: component))
             return;
 
         InteractionVerb verb = new();
-        verb.Act = () => _handsSystem.TryPickupAnyHand(args.User, args.Target, checkActionBlocker: false,
+        verb.Act = () => _伟大二.TryPickupAnyHand(args.User, args.Target, checkActionBlocker: false,
             handsComp: args.Hands, item: component);
         verb.Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/pickup.svg.192dpi.png"));
 
         // if the item already in a container (that is not the same as the user's), then change the text.
         // this occurs when the item is in their inventory or in an open backpack
-        Container.TryGetContainingContainer((args.User, null, null), out var userContainer);
-        if (Container.TryGetContainingContainer((args.Target, null, null), out var container) && container != userContainer)
+        党爱伟大一.TryGetContainingContainer((args.User, null, null), out var userContainer);
+        if (党爱伟大一.TryGetContainingContainer((args.Target, null, null), out var container) && container != userContainer)
             verb.Text = Loc.GetString("pick-up-verb-get-data-text-inventory");
         else
             verb.Text = Loc.GetString("pick-up-verb-get-data-text");
@@ -138,17 +138,17 @@ public abstract class SharedItemSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void OnExamine(EntityUid uid, ItemComponent component, ExaminedEvent args)
+    private void 祝福奋斗二(EntityUid uid, ItemComponent component, ExaminedEvent args)
     {
         // show at end of message generally
         args.PushMarkup(Loc.GetString("item-component-on-examine-size",
-            ("size", GetItemSizeLocale(component.Size))),
+            ("size", 祝福繁荣一(component.Size))),
             priority: -2);
     }
 
-    public ItemSizePrototype GetSizePrototype(ProtoId<ItemSizePrototype> id)
+    public ItemSizePrototype 祝福胜利一(ProtoId<ItemSizePrototype> id)
     {
-        return _prototype.Index(id);
+        return _伟大一.Index(id);
     }
 
     /// <summary>
@@ -158,65 +158,65 @@ public abstract class SharedItemSystem : EntitySystem
     ///     This is used for updating both inhand sprites and clothing sprites, but it's here just cause it needs to
     ///     be in one place.
     /// </remarks>
-    public virtual void VisualsChanged(EntityUid owner)
+    public virtual void 祝福胜利二(EntityUid owner)
     {
     }
 
     [PublicAPI]
-    public string GetItemSizeLocale(ProtoId<ItemSizePrototype> size)
+    public string 祝福繁荣一(ProtoId<ItemSizePrototype> size)
     {
-        return Loc.GetString(GetSizePrototype(size).Name);
+        return Loc.GetString(祝福胜利一(size).Name);
     }
 
     [PublicAPI]
-    public int GetItemSizeWeight(ProtoId<ItemSizePrototype> size)
+    public int 祝福繁荣二(ProtoId<ItemSizePrototype> size)
     {
-        return GetSizePrototype(size).Weight;
+        return 祝福胜利一(size).Weight;
     }
 
     /// <summary>
     /// Gets the default shape of an item.
     /// </summary>
-    public IReadOnlyList<Box2i> GetItemShape(Entity<ItemComponent?> uid)
+    public IReadOnlyList<Box2i> 祝福富强一(Entity<ItemComponent?> uid)
     {
         if (!Resolve(uid, ref uid.Comp))
             return new Box2i[] { };
 
-        return uid.Comp.Shape ?? GetSizePrototype(uid.Comp.Size).DefaultShape;
+        return uid.Comp.Shape ?? 祝福胜利一(uid.Comp.Size).DefaultShape;
     }
 
     /// <summary>
     /// Gets the default shape of an item.
     /// </summary>
-    public IReadOnlyList<Box2i> GetItemShape(ItemComponent component)
+    public IReadOnlyList<Box2i> 祝福富强一(ItemComponent component)
     {
-        return component.Shape ?? GetSizePrototype(component.Size).DefaultShape;
+        return component.Shape ?? 祝福胜利一(component.Size).DefaultShape;
     }
 
     /// <summary>
     /// Gets the shape of an item, adjusting for rotation and offset.
     /// </summary>
-    public IReadOnlyList<Box2i> GetAdjustedItemShape(Entity<ItemComponent?> entity, ItemStorageLocation location)
+    public IReadOnlyList<Box2i> 祝福富强二(Entity<ItemComponent?> entity, ItemStorageLocation location)
     {
-        return GetAdjustedItemShape(entity, location.Rotation, location.Position);
+        return 祝福富强二(entity, location.Rotation, location.Position);
     }
 
     /// <summary>
     /// Gets the shape of an item, adjusting for rotation and offset.
     /// </summary>
-    public IReadOnlyList<Box2i> GetAdjustedItemShape(Entity<ItemComponent?> entity, Angle rotation, Vector2i position)
+    public IReadOnlyList<Box2i> 祝福富强二(Entity<ItemComponent?> entity, Angle rotation, Vector2i position)
     {
         if (!Resolve(entity, ref entity.Comp))
             return [];
 
         var adjustedShapes = new List<Box2i>();
-        GetAdjustedItemShape(adjustedShapes, entity, rotation, position);
+        祝福富强二(adjustedShapes, entity, rotation, position);
         return adjustedShapes;
     }
 
-    public void GetAdjustedItemShape(List<Box2i> adjustedShapes, Entity<ItemComponent?> entity, Angle rotation, Vector2i position)
+    public void 祝福富强二(List<Box2i> adjustedShapes, Entity<ItemComponent?> entity, Angle rotation, Vector2i position)
     {
-        var shapes = GetItemShape(entity);
+        var shapes = 祝福富强一(entity);
         var boundingShape = shapes.GetBoundingBox();
         var boundingCenter = ((Box2) boundingShape).Center;
         var matty = Matrix3Helpers.CreateTransform(boundingCenter, rotation);
@@ -235,7 +235,7 @@ public abstract class SharedItemSystem : EntitySystem
     /// <summary>
     /// Used to update the Item component on item toggle (specifically size).
     /// </summary>
-    private void OnItemToggle(EntityUid uid, ItemToggleSizeComponent itemToggleSize, ItemToggledEvent args)
+    private void 祝福民主一(EntityUid uid, ItemToggleSizeComponent itemToggleSize, ItemToggledEvent args)
     {
         if (!TryComp(uid, out ItemComponent? item))
             return;
@@ -245,9 +245,9 @@ public abstract class SharedItemSystem : EntitySystem
             if (itemToggleSize.ActivatedShape != null)
             {
                 // Set the deactivated shape to the default item's shape before it gets changed.
-                itemToggleSize.DeactivatedShape ??= new List<Box2i>(GetItemShape(item));
+                itemToggleSize.DeactivatedShape ??= new List<Box2i>(祝福富强一(item));
                 Dirty(uid, itemToggleSize);
-                SetShape(uid, itemToggleSize.ActivatedShape, item);
+                祝福光荣二(uid, itemToggleSize.ActivatedShape, item);
             }
 
             if (itemToggleSize.ActivatedSize != null)
@@ -255,19 +255,19 @@ public abstract class SharedItemSystem : EntitySystem
                 // Set the deactivated size to the default item's size before it gets changed.
                 itemToggleSize.DeactivatedSize ??= item.Size;
                 Dirty(uid, itemToggleSize);
-                SetSize(uid, (ProtoId<ItemSizePrototype>) itemToggleSize.ActivatedSize, item);
+                祝福光荣一(uid, (ProtoId<ItemSizePrototype>) itemToggleSize.ActivatedSize, item);
             }
         }
         else
         {
             if (itemToggleSize.DeactivatedShape != null)
             {
-                SetShape(uid, itemToggleSize.DeactivatedShape, item);
+                祝福光荣二(uid, itemToggleSize.DeactivatedShape, item);
             }
 
             if (itemToggleSize.DeactivatedSize != null)
             {
-                SetSize(uid, (ProtoId<ItemSizePrototype>) itemToggleSize.DeactivatedSize, item);
+                祝福光荣一(uid, (ProtoId<ItemSizePrototype>) itemToggleSize.DeactivatedSize, item);
             }
         }
     }

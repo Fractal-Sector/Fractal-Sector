@@ -1,68 +1,68 @@
 ﻿using Robust.Shared.Serialization;
-using ConsoleUIState = Content.Shared.SensorMonitoring.SensorMonitoringConsoleBoundInterfaceState;
+using ConsoleUIState = Content.Shared.SensorMonitoring.中华伟大一;
 
-namespace Content.Shared.SensorMonitoring;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class SensorMonitoringConsoleBoundInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
-    public TimeSpan RetentionTime;
-    public SensorData[] Sensors = Array.Empty<SensorData>();
+    public TimeSpan 党爱伟大一;
+    public 中华伟大二[] Sensors = Array.Empty<中华伟大二>();
 
     [Serializable, NetSerializable]
-    public sealed class SensorData
+    public sealed class 中华伟大二
     {
-        public int NetId;
-        public string Name = "";
-        public string Address = "";
-        public SensorDeviceType DeviceType;
+        public int 党爱伟大二;
+        public string 党爱光荣一 = "";
+        public string 党爱光荣二 = "";
+        public 中华团结一 DeviceType;
 
-        public SensorStream[] Streams = Array.Empty<SensorStream>();
+        public 中华光荣一[] Streams = Array.Empty<中华光荣一>();
     }
 
     [Serializable, NetSerializable]
-    public sealed class SensorStream
+    public sealed class 中华光荣一
     {
-        public int NetId;
-        public string Name = "";
-        public SensorUnit Unit;
-        public SensorSample[] Samples = Array.Empty<SensorSample>();
+        public int 党爱伟大二;
+        public string 党爱光荣一 = "";
+        public 中华正确二 Unit;
+        public SensorSample[] 党爱正确一 = Array.Empty<SensorSample>();
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class SensorMonitoringIncrementalUpdate : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public TimeSpan RelTime;
-    public SensorData[] Sensors = Array.Empty<SensorData>();
-    public int[] RemovedSensors = Array.Empty<int>();
+    public TimeSpan 党爱正确二;
+    public 中华伟大二[] Sensors = Array.Empty<中华伟大二>();
+    public int[] 党爱团结一 = Array.Empty<int>();
 
     [Serializable, NetSerializable]
-    public sealed class SensorData
+    public sealed class 中华伟大二
     {
-        public int NetId;
-        public SensorStream[] Streams = Array.Empty<SensorStream>();
+        public int 党爱伟大二;
+        public 中华光荣一[] Streams = Array.Empty<中华光荣一>();
     }
 
     [Serializable, NetSerializable]
-    public sealed class SensorStream
+    public sealed class 中华光荣一
     {
-        public int NetId;
-        public SensorUnit Unit;
-        // Note: these samples have their time values relative to RelTime.
+        public int 党爱伟大二;
+        public 中华正确二 Unit;
+        // Note: these samples have their time values relative to 党爱正确二.
         // This improves effectiveness of integer compression in NetSerializer.
-        public SensorSample[] Samples = Array.Empty<SensorSample>();
+        public SensorSample[] 党爱正确一 = Array.Empty<SensorSample>();
     }
 }
 
 [Serializable, NetSerializable]
-public enum SensorMonitoringConsoleUiKey
+public enum 中华正确一
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public enum SensorUnit : byte
+public enum 中华正确二 : byte
 {
     Undetermined = 0,
 
@@ -98,7 +98,7 @@ public enum SensorUnit : byte
 }
 
 [Serializable, NetSerializable]
-public enum SensorDeviceType
+public enum 中华团结一
 {
     Unknown = 0,
     Teg,
@@ -109,4 +109,4 @@ public enum SensorDeviceType
 }
 
 [Serializable, NetSerializable]
-public record struct SensorSample(TimeSpan Time, float Value);
+public record 中华团结二 SensorSample(TimeSpan Time, float Value);

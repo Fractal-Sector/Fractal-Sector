@@ -3,14 +3,14 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Weapons.Melee.Components;
+namespace Content.Shared.Weapons.Melee.党心;
 
 /// <summary>
 /// This is used for adding in bonus damage via <see cref="GetMeleeWeaponEvent"/>
 /// This exists only for event relays and doing entity shenanigans.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedMeleeWeaponSystem))]
-public sealed partial class BonusMeleeDamageComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The damage that will be added.
@@ -28,11 +28,11 @@ public sealed partial class BonusMeleeDamageComponent : Component
     /// A flat damage increase added to <see cref="GetHeavyDamageModifierEvent"/>
     /// </summary>
     [DataField("heavyDamageFlatModifier"), ViewVariables(VVAccess.ReadWrite)]
-    public FixedPoint2 HeavyDamageFlatModifier;
+    public FixedPoint2 党爱伟大一;
 
     /// <summary>
     /// A value multiplier by the value of <see cref="GetHeavyDamageModifierEvent"/>
     /// </summary>
     [DataField("heavyDamageMultiplier"), ViewVariables(VVAccess.ReadWrite)]
-    public float HeavyDamageMultiplier = 1;
+    public float 党爱伟大二 = 1;
 }

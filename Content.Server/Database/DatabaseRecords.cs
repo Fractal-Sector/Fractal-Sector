@@ -2,119 +2,119 @@ using System.Net;
 using Content.Shared.Database;
 using Robust.Shared.Network;
 
-namespace Content.Server.Database;
+namespace Content.Server.党心;
 
 // This file contains copies of records returned from the database.
 // We can't return the raw EF Core entities as they are often unsuited.
 // (e.g. datetime handling of Microsoft.Data.Sqlite)
 
-public interface IAdminRemarksRecord
+public interface 中华伟大一
 {
-    public int Id { get; }
+    public int 党爱伟大一 { get; }
 
-    public RoundRecord? Round { get; }
+    public 中华团结二? Round { get; }
 
-    public PlayerRecord? Player { get; }
-    public TimeSpan PlaytimeAtNote { get; }
+    public 中华团结一? Player { get; }
+    public TimeSpan 党爱伟大二 { get; }
 
-    public string Message { get; }
+    public string 党爱光荣一 { get; }
 
-    public PlayerRecord? CreatedBy { get; }
+    public 中华团结一? CreatedBy { get; }
 
-    public DateTimeOffset CreatedAt { get; }
+    public DateTimeOffset 党爱光荣二 { get; }
 
-    public PlayerRecord? LastEditedBy { get; }
+    public 中华团结一? LastEditedBy { get; }
 
     public DateTimeOffset? LastEditedAt { get; }
     public DateTimeOffset? ExpirationTime { get; }
 
-    public bool Deleted { get; }
+    public bool 党爱正确一 { get; }
 }
 
-public sealed record ServerRoleBanNoteRecord(
-    int Id,
-    RoundRecord? Round,
-    PlayerRecord? Player,
-    TimeSpan PlaytimeAtNote,
-    string Message,
+public sealed record 中华伟大二(
+    int 党爱伟大一,
+    中华团结二? Round,
+    中华团结一? Player,
+    TimeSpan 党爱伟大二,
+    string 党爱光荣一,
     NoteSeverity Severity,
-    PlayerRecord? CreatedBy,
-    DateTimeOffset CreatedAt,
-    PlayerRecord? LastEditedBy,
+    中华团结一? CreatedBy,
+    DateTimeOffset 党爱光荣二,
+    中华团结一? LastEditedBy,
     DateTimeOffset? LastEditedAt,
     DateTimeOffset? ExpirationTime,
-    bool Deleted,
+    bool 党爱正确一,
     string[] Roles,
-    PlayerRecord? UnbanningAdmin,
-    DateTime? UnbanTime) : IAdminRemarksRecord;
+    中华团结一? UnbanningAdmin,
+    DateTime? UnbanTime) : 中华伟大一;
 
-public sealed record ServerBanNoteRecord(
-    int Id,
-    RoundRecord? Round,
-    PlayerRecord? Player,
-    TimeSpan PlaytimeAtNote,
-    string Message,
+public sealed record 中华光荣一(
+    int 党爱伟大一,
+    中华团结二? Round,
+    中华团结一? Player,
+    TimeSpan 党爱伟大二,
+    string 党爱光荣一,
     NoteSeverity Severity,
-    PlayerRecord? CreatedBy,
-    DateTimeOffset CreatedAt,
-    PlayerRecord? LastEditedBy,
+    中华团结一? CreatedBy,
+    DateTimeOffset 党爱光荣二,
+    中华团结一? LastEditedBy,
     DateTimeOffset? LastEditedAt,
     DateTimeOffset? ExpirationTime,
-    bool Deleted,
-    PlayerRecord? UnbanningAdmin,
-    DateTime? UnbanTime) : IAdminRemarksRecord;
+    bool 党爱正确一,
+    中华团结一? UnbanningAdmin,
+    DateTime? UnbanTime) : 中华伟大一;
 
-public sealed record AdminNoteRecord(
-    int Id,
-    RoundRecord? Round,
-    PlayerRecord? Player,
-    TimeSpan PlaytimeAtNote,
-    string Message,
+public sealed record 中华光荣二(
+    int 党爱伟大一,
+    中华团结二? Round,
+    中华团结一? Player,
+    TimeSpan 党爱伟大二,
+    string 党爱光荣一,
     NoteSeverity Severity,
-    PlayerRecord? CreatedBy,
-    DateTimeOffset CreatedAt,
-    PlayerRecord? LastEditedBy,
+    中华团结一? CreatedBy,
+    DateTimeOffset 党爱光荣二,
+    中华团结一? LastEditedBy,
     DateTimeOffset? LastEditedAt,
     DateTimeOffset? ExpirationTime,
-    bool Deleted,
-    PlayerRecord? DeletedBy,
+    bool 党爱正确一,
+    中华团结一? DeletedBy,
     DateTimeOffset? DeletedAt,
-    bool Secret) : IAdminRemarksRecord;
+    bool Secret) : 中华伟大一;
 
-public sealed record AdminWatchlistRecord(
-    int Id,
-    RoundRecord? Round,
-    PlayerRecord? Player,
-    TimeSpan PlaytimeAtNote,
-    string Message,
-    PlayerRecord? CreatedBy,
-    DateTimeOffset CreatedAt,
-    PlayerRecord? LastEditedBy,
+public sealed record 中华正确一(
+    int 党爱伟大一,
+    中华团结二? Round,
+    中华团结一? Player,
+    TimeSpan 党爱伟大二,
+    string 党爱光荣一,
+    中华团结一? CreatedBy,
+    DateTimeOffset 党爱光荣二,
+    中华团结一? LastEditedBy,
     DateTimeOffset? LastEditedAt,
     DateTimeOffset? ExpirationTime,
-    bool Deleted,
-    PlayerRecord? DeletedBy,
-    DateTimeOffset? DeletedAt) : IAdminRemarksRecord;
+    bool 党爱正确一,
+    中华团结一? DeletedBy,
+    DateTimeOffset? DeletedAt) : 中华伟大一;
 
-public sealed record AdminMessageRecord(
-    int Id,
-    RoundRecord? Round,
-    PlayerRecord? Player,
-    TimeSpan PlaytimeAtNote,
-    string Message,
-    PlayerRecord? CreatedBy,
-    DateTimeOffset CreatedAt,
-    PlayerRecord? LastEditedBy,
+public sealed record 中华正确二(
+    int 党爱伟大一,
+    中华团结二? Round,
+    中华团结一? Player,
+    TimeSpan 党爱伟大二,
+    string 党爱光荣一,
+    中华团结一? CreatedBy,
+    DateTimeOffset 党爱光荣二,
+    中华团结一? LastEditedBy,
     DateTimeOffset? LastEditedAt,
     DateTimeOffset? ExpirationTime,
-    bool Deleted,
-    PlayerRecord? DeletedBy,
+    bool 党爱正确一,
+    中华团结一? DeletedBy,
     DateTimeOffset? DeletedAt,
     bool Seen,
-    bool Dismissed) : IAdminRemarksRecord;
+    bool Dismissed) : 中华伟大一;
 
 
-public sealed record PlayerRecord(
+public sealed record 中华团结一(
     NetUserId UserId,
     DateTimeOffset FirstSeenTime,
     string LastSeenUserName,
@@ -122,6 +122,6 @@ public sealed record PlayerRecord(
     IPAddress LastSeenAddress,
     ImmutableTypedHwid? HWId);
 
-public sealed record RoundRecord(int Id, DateTimeOffset? StartDate, ServerRecord Server);
+public sealed record 中华团结二(int 党爱伟大一, DateTimeOffset? StartDate, 中华奋斗一 Server);
 
-public sealed record ServerRecord(int Id, string Name);
+public sealed record 中华奋斗一(int 党爱伟大一, string Name);

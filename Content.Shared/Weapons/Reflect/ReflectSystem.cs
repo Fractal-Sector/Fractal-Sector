@@ -18,39 +18,39 @@ using Robust.Shared.Random;
 using Content.Shared.Examine;
 using Content.Shared.Localizations;
 
-namespace Content.Shared.Weapons.Reflect;
+namespace Content.Shared.Weapons.党心;
 
 /// <summary>
 /// This handles reflecting projectiles and hitscan shots.
 /// </summary>
-public sealed class ReflectSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly ItemToggleSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _正确二 = default!;
+    [Dependency] private readonly SharedAudioSystem _团结一 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        Subs.SubscribeWithRelay<ReflectComponent, ProjectileReflectAttemptEvent>(OnReflectUserCollide, baseEvent: false);
-        Subs.SubscribeWithRelay<ReflectComponent, HitScanReflectAttemptEvent>(OnReflectUserHitscan, baseEvent: false);
-        SubscribeLocalEvent<ReflectComponent, ProjectileReflectAttemptEvent>(OnReflectCollide);
-        SubscribeLocalEvent<ReflectComponent, HitScanReflectAttemptEvent>(OnReflectHitscan);
+        Subs.SubscribeWithRelay<ReflectComponent, ProjectileReflectAttemptEvent>(祝福伟大二, baseEvent: false);
+        Subs.SubscribeWithRelay<ReflectComponent, HitScanReflectAttemptEvent>(祝福光荣一, baseEvent: false);
+        SubscribeLocalEvent<ReflectComponent, ProjectileReflectAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<ReflectComponent, HitScanReflectAttemptEvent>(祝福正确一);
 
-        SubscribeLocalEvent<ReflectComponent, GotEquippedEvent>(OnReflectEquipped);
-        SubscribeLocalEvent<ReflectComponent, GotUnequippedEvent>(OnReflectUnequipped);
-        SubscribeLocalEvent<ReflectComponent, GotEquippedHandEvent>(OnReflectHandEquipped);
-        SubscribeLocalEvent<ReflectComponent, GotUnequippedHandEvent>(OnReflectHandUnequipped);
-        SubscribeLocalEvent<ReflectComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<ReflectComponent, GotEquippedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<ReflectComponent, GotUnequippedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<ReflectComponent, GotEquippedHandEvent>(祝福胜利一);
+        SubscribeLocalEvent<ReflectComponent, GotUnequippedHandEvent>(祝福胜利二);
+        SubscribeLocalEvent<ReflectComponent, ExaminedEvent>(祝福繁荣一);
     }
 
-    private void OnReflectUserCollide(Entity<ReflectComponent> ent, ref ProjectileReflectAttemptEvent args)
+    private void 祝福伟大二(Entity<ReflectComponent> ent, ref ProjectileReflectAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -58,11 +58,11 @@ public sealed class ReflectSystem : EntitySystem
         if (!ent.Comp.InRightPlace)
             return; // only reflect when equipped correctly
 
-        if (TryReflectProjectile(ent, ent.Owner, args.ProjUid))
+        if (祝福正确二(ent, ent.Owner, args.ProjUid))
             args.Cancelled = true;
     }
 
-    private void OnReflectUserHitscan(Entity<ReflectComponent> ent, ref HitScanReflectAttemptEvent args)
+    private void 祝福光荣一(Entity<ReflectComponent> ent, ref HitScanReflectAttemptEvent args)
     {
         if (args.Reflected)
             return;
@@ -70,64 +70,64 @@ public sealed class ReflectSystem : EntitySystem
         if (!ent.Comp.InRightPlace)
             return; // only reflect when equipped correctly
 
-        if (TryReflectHitscan(ent, ent.Owner, args.Shooter, args.SourceItem, args.Direction, args.Reflective, out var dir))
+        if (祝福团结一(ent, ent.Owner, args.Shooter, args.SourceItem, args.Direction, args.Reflective, out var dir))
         {
             args.Direction = dir.Value;
             args.Reflected = true;
         }
     }
 
-    private void OnReflectCollide(Entity<ReflectComponent> ent, ref ProjectileReflectAttemptEvent args)
+    private void 祝福光荣二(Entity<ReflectComponent> ent, ref ProjectileReflectAttemptEvent args)
     {
         if (args.Cancelled)
             return;
 
-        if (TryReflectProjectile(ent, ent.Owner, args.ProjUid))
+        if (祝福正确二(ent, ent.Owner, args.ProjUid))
             args.Cancelled = true;
     }
 
-    private void OnReflectHitscan(Entity<ReflectComponent> ent, ref HitScanReflectAttemptEvent args)
+    private void 祝福正确一(Entity<ReflectComponent> ent, ref HitScanReflectAttemptEvent args)
     {
         if (args.Reflected)
             return;
 
-        if (TryReflectHitscan(ent, ent.Owner, args.Shooter, args.SourceItem, args.Direction, args.Reflective, out var dir))
+        if (祝福团结一(ent, ent.Owner, args.Shooter, args.SourceItem, args.Direction, args.Reflective, out var dir))
         {
             args.Direction = dir.Value;
             args.Reflected = true;
         }
     }
 
-    private bool TryReflectProjectile(Entity<ReflectComponent> reflector, EntityUid user, Entity<ProjectileComponent?> projectile)
+    private bool 祝福正确二(Entity<ReflectComponent> reflector, EntityUid user, Entity<ProjectileComponent?> projectile)
     {
         if (!TryComp<ReflectiveComponent>(projectile, out var reflective) ||
             (reflector.Comp.Reflects & reflective.Reflective) == 0x0 ||
-            !_toggle.IsActivated(reflector.Owner) ||
-            !_random.Prob(reflector.Comp.ReflectProb) ||
+            !_光荣二.IsActivated(reflector.Owner) ||
+            !_伟大二.Prob(reflector.Comp.ReflectProb) ||
             !TryComp<PhysicsComponent>(projectile, out var physics))
         {
             return false;
         }
 
-        var rotation = _random.NextAngle(-reflector.Comp.Spread / 2, reflector.Comp.Spread / 2).Opposite();
-        var existingVelocity = _physics.GetMapLinearVelocity(projectile, component: physics);
-        var relativeVelocity = existingVelocity - _physics.GetMapLinearVelocity(user);
+        var rotation = _伟大二.NextAngle(-reflector.Comp.Spread / 2, reflector.Comp.Spread / 2).Opposite();
+        var existingVelocity = _正确二.GetMapLinearVelocity(projectile, component: physics);
+        var relativeVelocity = existingVelocity - _正确二.GetMapLinearVelocity(user);
         var newVelocity = rotation.RotateVec(relativeVelocity);
 
         // Have the velocity in world terms above so need to convert it back to local.
         var difference = newVelocity - existingVelocity;
 
-        _physics.SetLinearVelocity(projectile, physics.LinearVelocity + difference, body: physics);
+        _正确二.SetLinearVelocity(projectile, physics.LinearVelocity + difference, body: physics);
 
         var locRot = Transform(projectile).LocalRotation;
         var newRot = rotation.RotateVec(locRot.ToVec());
-        _transform.SetLocalRotation(projectile, newRot.ToAngle());
+        _团结二.SetLocalRotation(projectile, newRot.ToAngle());
 
-        PlayAudioAndPopup(reflector.Comp, user);
+        祝福团结二(reflector.Comp, user);
 
         if (Resolve(projectile, ref projectile.Comp, false))
         {
-            _adminLogger.Add(LogType.BulletHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)} from {ToPrettyString(projectile.Comp.Weapon)} shot by {projectile.Comp.Shooter}");
+            _光荣一.Add(LogType.BulletHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)} from {ToPrettyString(projectile.Comp.Weapon)} shot by {projectile.Comp.Shooter}");
 
             projectile.Comp.Shooter = user;
             projectile.Comp.Weapon = user;
@@ -135,12 +135,12 @@ public sealed class ReflectSystem : EntitySystem
         }
         else
         {
-            _adminLogger.Add(LogType.BulletHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)}");
+            _光荣一.Add(LogType.BulletHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)}");
         }
 
         return true;
     }
-    private bool TryReflectHitscan(
+    private bool 祝福团结一(
         Entity<ReflectComponent> reflector,
         EntityUid user,
         EntityUid? shooter,
@@ -150,68 +150,68 @@ public sealed class ReflectSystem : EntitySystem
         [NotNullWhen(true)] out Vector2? newDirection)
     {
         if ((reflector.Comp.Reflects & hitscanReflectType) == 0x0 ||
-            !_toggle.IsActivated(reflector.Owner) ||
-            !_random.Prob(reflector.Comp.ReflectProb))
+            !_光荣二.IsActivated(reflector.Owner) ||
+            !_伟大二.Prob(reflector.Comp.ReflectProb))
         {
             newDirection = null;
             return false;
         }
 
-        PlayAudioAndPopup(reflector.Comp, user);
+        祝福团结二(reflector.Comp, user);
 
-        var spread = _random.NextAngle(-reflector.Comp.Spread / 2, reflector.Comp.Spread / 2);
+        var spread = _伟大二.NextAngle(-reflector.Comp.Spread / 2, reflector.Comp.Spread / 2);
         newDirection = -spread.RotateVec(direction);
 
         if (shooter != null)
-            _adminLogger.Add(LogType.HitScanHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)} shot by {ToPrettyString(shooter.Value)}");
+            _光荣一.Add(LogType.HitScanHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)} shot by {ToPrettyString(shooter.Value)}");
         else
-            _adminLogger.Add(LogType.HitScanHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)}");
+            _光荣一.Add(LogType.HitScanHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)}");
 
         return true;
     }
 
-    private void PlayAudioAndPopup(ReflectComponent reflect, EntityUid user)
+    private void 祝福团结二(ReflectComponent reflect, EntityUid user)
     {
         // Can probably be changed for prediction
-        if (_netManager.IsServer)
+        if (_伟大一.IsServer)
         {
-            _popup.PopupEntity(Loc.GetString("reflect-shot"), user);
-            _audio.PlayPvs(reflect.SoundOnReflect, user);
+            _正确一.PopupEntity(Loc.GetString("reflect-shot"), user);
+            _团结一.PlayPvs(reflect.SoundOnReflect, user);
         }
     }
 
-    private void OnReflectEquipped(Entity<ReflectComponent> ent, ref GotEquippedEvent args)
+    private void 祝福奋斗一(Entity<ReflectComponent> ent, ref GotEquippedEvent args)
     {
         ent.Comp.InRightPlace = (ent.Comp.SlotFlags & args.SlotFlags) == args.SlotFlags;
         Dirty(ent);
     }
 
-    private void OnReflectUnequipped(Entity<ReflectComponent> ent, ref GotUnequippedEvent args)
+    private void 祝福奋斗二(Entity<ReflectComponent> ent, ref GotUnequippedEvent args)
     {
         ent.Comp.InRightPlace = false;
         Dirty(ent);
     }
 
-    private void OnReflectHandEquipped(Entity<ReflectComponent> ent, ref GotEquippedHandEvent args)
+    private void 祝福胜利一(Entity<ReflectComponent> ent, ref GotEquippedHandEvent args)
     {
         ent.Comp.InRightPlace = ent.Comp.ReflectingInHands;
         Dirty(ent);
     }
 
-    private void OnReflectHandUnequipped(Entity<ReflectComponent> ent, ref GotUnequippedHandEvent args)
+    private void 祝福胜利二(Entity<ReflectComponent> ent, ref GotUnequippedHandEvent args)
     {
         ent.Comp.InRightPlace = false;
         Dirty(ent);
     }
 
     #region Examine
-    private void OnExamine(Entity<ReflectComponent> ent, ref ExaminedEvent args)
+    private void 祝福繁荣一(Entity<ReflectComponent> ent, ref ExaminedEvent args)
     {
         // This isn't examine verb or something just because it looks too much bad.
         // Trust me, universal verb for the potential weapons, armor and walls looks awful.
         var value = MathF.Round(ent.Comp.ReflectProb * 100, 1);
 
-        if (!_toggle.IsActivated(ent.Owner) || value == 0 || ent.Comp.Reflects == ReflectType.None)
+        if (!_光荣二.IsActivated(ent.Owner) || value == 0 || ent.Comp.Reflects == ReflectType.None)
             return;
 
         var compTypes = ent.Comp.Reflects.ToString().Split(", ");

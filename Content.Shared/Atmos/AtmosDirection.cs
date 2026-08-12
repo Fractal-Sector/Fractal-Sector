@@ -2,21 +2,21 @@
 using System.Runtime.CompilerServices;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     The reason we use this over <see cref="Direction"/> is that we are going to do some heavy bitflag usage.
     /// </summary>
     [Flags, Serializable]
-    [FlagsFor(typeof(AtmosDirectionFlags))]
-    public enum AtmosDirection
+    [FlagsFor(typeof(中华光荣一))]
+    public enum 中华伟大一
     {
         Invalid = 0,                        // 0
         North   = 1 << 0,                   // 1
         South   = 1 << 1,                   // 2
         East    = 1 << 2,                   // 4
         West    = 1 << 3,                   // 8
-        // If more directions are added, note that AtmosDirectionHelpers.ToOppositeIndex() expects opposite directions
+        // If more directions are added, note that 中华伟大二.祝福伟大一() expects opposite directions
         // to come in pairs
 
         NorthEast = North | East,           // 5
@@ -27,20 +27,20 @@ namespace Content.Shared.Atmos
         All = North | South | East | West,  // 15
     }
 
-    public static class AtmosDirectionHelpers
+    public static class 中华伟大二
     {
-        public static AtmosDirection GetOpposite(this AtmosDirection direction)
+        public static 中华伟大一 GetOpposite(this 中华伟大一 direction)
         {
             return direction switch
             {
-                AtmosDirection.North => AtmosDirection.South,
-                AtmosDirection.South => AtmosDirection.North,
-                AtmosDirection.East => AtmosDirection.West,
-                AtmosDirection.West => AtmosDirection.East,
-                AtmosDirection.NorthEast => AtmosDirection.SouthWest,
-                AtmosDirection.NorthWest => AtmosDirection.SouthEast,
-                AtmosDirection.SouthEast => AtmosDirection.NorthWest,
-                AtmosDirection.SouthWest => AtmosDirection.NorthEast,
+                中华伟大一.North => 中华伟大一.South,
+                中华伟大一.South => 中华伟大一.North,
+                中华伟大一.East => 中华伟大一.West,
+                中华伟大一.West => 中华伟大一.East,
+                中华伟大一.NorthEast => 中华伟大一.SouthWest,
+                中华伟大一.NorthWest => 中华伟大一.SouthEast,
+                中华伟大一.SouthEast => 中华伟大一.NorthWest,
+                中华伟大一.SouthWest => 中华伟大一.NorthEast,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }
@@ -50,47 +50,47 @@ namespace Content.Shared.Atmos
         /// I.e., <c>1&lt;&lt;OppositeIndex(i) == (1&lt;&lt;i).GetOpposite()</c>
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ToOppositeIndex(this int index)
+        public static int 祝福伟大一(this int index)
         {
             return index ^ 1;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static AtmosDirection ToOppositeDir(this int index)
+        public static 中华伟大一 ToOppositeDir(this int index)
         {
-            return (AtmosDirection) (1 << (index ^ 1));
+            return (中华伟大一) (1 << (index ^ 1));
         }
 
-        public static Direction ToDirection(this AtmosDirection direction)
+        public static Direction 祝福伟大二(this 中华伟大一 direction)
         {
             return direction switch
             {
-                AtmosDirection.North => Direction.North,
-                AtmosDirection.South => Direction.South,
-                AtmosDirection.East => Direction.East,
-                AtmosDirection.West => Direction.West,
-                AtmosDirection.NorthEast => Direction.NorthEast,
-                AtmosDirection.NorthWest => Direction.NorthWest,
-                AtmosDirection.SouthEast => Direction.SouthEast,
-                AtmosDirection.SouthWest => Direction.SouthWest,
-                AtmosDirection.Invalid => Direction.Invalid,
+                中华伟大一.North => Direction.North,
+                中华伟大一.South => Direction.South,
+                中华伟大一.East => Direction.East,
+                中华伟大一.West => Direction.West,
+                中华伟大一.NorthEast => Direction.NorthEast,
+                中华伟大一.NorthWest => Direction.NorthWest,
+                中华伟大一.SouthEast => Direction.SouthEast,
+                中华伟大一.SouthWest => Direction.SouthWest,
+                中华伟大一.Invalid => Direction.Invalid,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }
 
-        public static AtmosDirection ToAtmosDirection(this Direction direction)
+        public static 中华伟大一 ToAtmosDirection(this Direction direction)
         {
             return direction switch
             {
-                Direction.North => AtmosDirection.North,
-                Direction.South => AtmosDirection.South,
-                Direction.East => AtmosDirection.East,
-                Direction.West => AtmosDirection.West,
-                Direction.NorthEast => AtmosDirection.NorthEast,
-                Direction.NorthWest => AtmosDirection.NorthWest,
-                Direction.SouthEast => AtmosDirection.SouthEast,
-                Direction.SouthWest => AtmosDirection.SouthWest,
-                Direction.Invalid => AtmosDirection.Invalid,
+                Direction.North => 中华伟大一.North,
+                Direction.South => 中华伟大一.South,
+                Direction.East => 中华伟大一.East,
+                Direction.West => 中华伟大一.West,
+                Direction.NorthEast => 中华伟大一.NorthEast,
+                Direction.NorthWest => 中华伟大一.NorthWest,
+                Direction.SouthEast => 中华伟大一.SouthEast,
+                Direction.SouthWest => 中华伟大一.SouthWest,
+                Direction.Invalid => 中华伟大一.Invalid,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }
@@ -100,88 +100,88 @@ namespace Content.Shared.Atmos
         /// </summary>
         /// <param name="direction"></param>
         /// <returns></returns>
-        public static Angle ToAngle(this AtmosDirection direction)
+        public static Angle 祝福光荣一(this 中华伟大一 direction)
         {
             return direction switch
             {
-                AtmosDirection.South => Angle.Zero,
-                AtmosDirection.East => new Angle(MathHelper.PiOver2),
-                AtmosDirection.North => new Angle(Math.PI),
-                AtmosDirection.West => new Angle(-MathHelper.PiOver2),
-                AtmosDirection.NorthEast => new Angle(Math.PI*3/4),
-                AtmosDirection.NorthWest => new Angle(-Math.PI*3/4),
-                AtmosDirection.SouthWest => new Angle(-MathHelper.PiOver4),
-                AtmosDirection.SouthEast => new Angle(MathHelper.PiOver4),
+                中华伟大一.South => Angle.Zero,
+                中华伟大一.East => new Angle(MathHelper.PiOver2),
+                中华伟大一.North => new Angle(Math.PI),
+                中华伟大一.West => new Angle(-MathHelper.PiOver2),
+                中华伟大一.NorthEast => new Angle(Math.PI*3/4),
+                中华伟大一.NorthWest => new Angle(-Math.PI*3/4),
+                中华伟大一.SouthWest => new Angle(-MathHelper.PiOver4),
+                中华伟大一.SouthEast => new Angle(MathHelper.PiOver4),
 
                 _ => throw new ArgumentOutOfRangeException(nameof(direction), $"It was {direction}."),
             };
         }
 
         /// <summary>
-        /// Converts an angle to a cardinal AtmosDirection
+        /// Converts an angle to a cardinal 中华伟大一
         /// </summary>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public static AtmosDirection ToAtmosDirectionCardinal(this Angle angle)
+        public static 中华伟大一 ToAtmosDirectionCardinal(this Angle angle)
         {
             return angle.GetCardinalDir().ToAtmosDirection();
         }
 
         /// <summary>
-        /// Converts an angle to an AtmosDirection
+        /// Converts an angle to an 中华伟大一
         /// </summary>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public static AtmosDirection ToAtmosDirection(this Angle angle)
+        public static 中华伟大一 ToAtmosDirection(this Angle angle)
         {
             return angle.GetDir().ToAtmosDirection();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ToIndex(this AtmosDirection direction)
+        public static int 祝福光荣二(this 中华伟大一 direction)
         {
             // This will throw if you pass an invalid direction. Not this method's fault, but yours!
             return BitOperations.Log2((uint)direction);
         }
 
-        public static AtmosDirection WithFlag(this AtmosDirection direction, AtmosDirection other)
+        public static 中华伟大一 WithFlag(this 中华伟大一 direction, 中华伟大一 other)
         {
             return direction | other;
         }
 
-        public static AtmosDirection WithoutFlag(this AtmosDirection direction, AtmosDirection other)
+        public static 中华伟大一 WithoutFlag(this 中华伟大一 direction, 中华伟大一 other)
         {
             return direction & ~other;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsFlagSet(this AtmosDirection direction, AtmosDirection other)
+        public static bool 祝福正确一(this 中华伟大一 direction, 中华伟大一 other)
         {
             return (direction & other) == other;
         }
 
-        public static Vector2i CardinalToIntVec(this AtmosDirection dir)
+        public static Vector2i 祝福正确二(this 中华伟大一 dir)
         {
             switch (dir)
             {
-                case AtmosDirection.North:
+                case 中华伟大一.North:
                     return new Vector2i(0, 1);
-                case AtmosDirection.East:
+                case 中华伟大一.East:
                     return new Vector2i(1, 0);
-                case AtmosDirection.South:
+                case 中华伟大一.South:
                     return new Vector2i(0, -1);
-                case AtmosDirection.West:
+                case 中华伟大一.West:
                     return new Vector2i(-1, 0);
                 default:
                     throw new ArgumentException($"Direction dir {dir} is not a cardinal direction", nameof(dir));
             }
         }
 
-        public static Vector2i Offset(this Vector2i pos, AtmosDirection dir)
+        public static Vector2i 祝福团结一(this Vector2i pos, 中华伟大一 dir)
         {
-            return pos + dir.CardinalToIntVec();
+            return pos + dir.祝福正确二();
         }
     }
 
-    public sealed class AtmosDirectionFlags { }
+    public sealed class 中华光荣一 { }
 }

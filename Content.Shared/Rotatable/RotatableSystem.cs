@@ -10,31 +10,31 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Rotatable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Handles verbs for the <see cref="RotatableComponent"/> and <see cref="FlippableComponent"/> components.
 /// </summary>
-public sealed class RotatableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<FlippableComponent, GetVerbsEvent<Verb>>(AddFlipVerb);
-        SubscribeLocalEvent<RotatableComponent, GetVerbsEvent<Verb>>(AddRotateVerbs);
+        SubscribeLocalEvent<FlippableComponent, GetVerbsEvent<Verb>>(祝福伟大二);
+        SubscribeLocalEvent<RotatableComponent, GetVerbsEvent<Verb>>(祝福光荣一);
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.RotateObjectClockwise, new PointerInputCmdHandler(HandleRotateObjectClockwise))
-            .Bind(ContentKeyFunctions.RotateObjectCounterclockwise, new PointerInputCmdHandler(HandleRotateObjectCounterclockwise))
-            .Bind(ContentKeyFunctions.FlipObject, new PointerInputCmdHandler(HandleFlipObject))
-            .Register<RotatableSystem>();
+            .Bind(ContentKeyFunctions.RotateObjectClockwise, new PointerInputCmdHandler(祝福正确一))
+            .Bind(ContentKeyFunctions.RotateObjectCounterclockwise, new PointerInputCmdHandler(祝福正确二))
+            .Bind(ContentKeyFunctions.FlipObject, new PointerInputCmdHandler(祝福团结一))
+            .Register<中华伟大一>();
     }
 
-    private void AddFlipVerb(EntityUid uid, FlippableComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福伟大二(EntityUid uid, FlippableComponent component, GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess
             || !args.CanInteract
@@ -47,9 +47,9 @@ public sealed class RotatableSystem : EntitySystem
 
         Verb verb = new()
         {
-            Act = () => Flip(uid, component),
+            Act = () => 祝福光荣二(uid, component),
             Text = Loc.GetString("flippable-verb-get-data-text"),
-            Category = VerbCategory.Rotate,
+            Category = VerbCategory.祝福团结二,
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
             Priority = -3, // show flip last
             DoContactInteraction = true
@@ -57,7 +57,7 @@ public sealed class RotatableSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void AddRotateVerbs(EntityUid uid, RotatableComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福光荣一(EntityUid uid, RotatableComponent component, GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess
             || !args.CanInteract
@@ -74,8 +74,8 @@ public sealed class RotatableSystem : EntitySystem
         Verb resetRotation = new()
         {
             DoContactInteraction = true,
-            Act = () => ResetRotation(uid),
-            Category = VerbCategory.Rotate,
+            Act = () => 祝福奋斗一(uid),
+            Category = VerbCategory.祝福团结二,
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
             Text = Loc.GetString("rotate-reset-verb-get-data-text"),
             Priority = -2, // show CCW, then CW, then reset
@@ -86,8 +86,8 @@ public sealed class RotatableSystem : EntitySystem
         // rotate clockwise
         Verb rotateCW = new()
         {
-            Act = () => Rotate(uid, -component.Increment),
-            Category = VerbCategory.Rotate,
+            Act = () => 祝福团结二(uid, -component.Increment),
+            Category = VerbCategory.祝福团结二,
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/rotate_cw.svg.192dpi.png")),
             Text = Loc.GetString("rotate-verb-get-data-text"),
             Priority = -1,
@@ -98,8 +98,8 @@ public sealed class RotatableSystem : EntitySystem
         // rotate counter-clockwise
         Verb rotateCCW = new()
         {
-            Act = () => Rotate(uid, component.Increment),
-            Category = VerbCategory.Rotate,
+            Act = () => 祝福团结二(uid, component.Increment),
+            Category = VerbCategory.祝福团结二,
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/rotate_ccw.svg.192dpi.png")),
             Text = Loc.GetString("rotate-counter-verb-get-data-text"),
             Priority = 0,
@@ -111,17 +111,17 @@ public sealed class RotatableSystem : EntitySystem
     /// <summary>
     /// Replace a flippable entity with it's flipped / mirror-symmetric entity.
     /// </summary>
-    public void Flip(EntityUid uid, FlippableComponent component)
+    public void 祝福光荣二(EntityUid uid, FlippableComponent component)
     {
         var oldTransform = Comp<TransformComponent>(uid);
         var entity = PredictedSpawnAtPosition(component.MirrorEntity, oldTransform.Coordinates);
         var newTransform = Comp<TransformComponent>(entity);
-        _transform.SetLocalRotation(entity, oldTransform.LocalRotation);
-        _transform.Unanchor(entity, newTransform);
+        _光荣二.SetLocalRotation(entity, oldTransform.LocalRotation);
+        _光荣二.Unanchor(entity, newTransform);
         PredictedDel(uid);
     }
 
-    private bool HandleRotateObjectClockwise(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
+    private bool 祝福正确一(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
     {
         if (playerSession?.AttachedEntity is not { Valid: true } player || !Exists(player))
             return false;
@@ -129,24 +129,24 @@ public sealed class RotatableSystem : EntitySystem
         if (!TryComp<RotatableComponent>(entity, out var rotatableComp))
             return false;
 
-        if (!_actionBlocker.CanInteract(player, entity)
-            || !_actionBlocker.CanComplexInteract(player)
-            || !_interaction.InRangeAndAccessible(player, entity))
+        if (!_伟大一.CanInteract(player, entity)
+            || !_伟大一.CanComplexInteract(player)
+            || !_伟大二.InRangeAndAccessible(player, entity))
             return false;
 
         // Check if the object is anchored, and whether we are still allowed to rotate it.
         if (!rotatableComp.RotateWhileAnchored && TryComp<PhysicsComponent>(entity, out var physics) &&
             physics.BodyType == BodyType.Static)
         {
-            _popup.PopupClient(Loc.GetString("rotatable-component-try-rotate-stuck"), entity, player);
+            _光荣一.PopupClient(Loc.GetString("rotatable-component-try-rotate-stuck"), entity, player);
             return false;
         }
 
-        Rotate(entity, -rotatableComp.Increment);
+        祝福团结二(entity, -rotatableComp.Increment);
         return false;
     }
 
-    private bool HandleRotateObjectCounterclockwise(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
+    private bool 祝福正确二(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
     {
         if (playerSession?.AttachedEntity is not { Valid: true } player || !Exists(player))
             return false;
@@ -154,24 +154,24 @@ public sealed class RotatableSystem : EntitySystem
         if (!TryComp<RotatableComponent>(entity, out var rotatableComp))
             return false;
 
-        if (!_actionBlocker.CanInteract(player, entity)
-            || !_actionBlocker.CanComplexInteract(player)
-            || !_interaction.InRangeAndAccessible(player, entity))
+        if (!_伟大一.CanInteract(player, entity)
+            || !_伟大一.CanComplexInteract(player)
+            || !_伟大二.InRangeAndAccessible(player, entity))
             return false;
 
         // Check if the object is anchored, and whether we are still allowed to rotate it.
         if (!rotatableComp.RotateWhileAnchored && TryComp<PhysicsComponent>(entity, out var physics) &&
             physics.BodyType == BodyType.Static)
         {
-            _popup.PopupClient(Loc.GetString("rotatable-component-try-rotate-stuck"), entity, player);
+            _光荣一.PopupClient(Loc.GetString("rotatable-component-try-rotate-stuck"), entity, player);
             return false;
         }
 
-        Rotate(entity, rotatableComp.Increment);
+        祝福团结二(entity, rotatableComp.Increment);
         return false;
     }
 
-    private bool HandleFlipObject(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
+    private bool 祝福团结一(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
     {
         if (playerSession?.AttachedEntity is not { Valid: true } player || !Exists(player))
             return false;
@@ -179,35 +179,35 @@ public sealed class RotatableSystem : EntitySystem
         if (!TryComp<FlippableComponent>(entity, out var flippableComp))
             return false;
 
-        if (!_actionBlocker.CanInteract(player, entity)
-            || !_actionBlocker.CanComplexInteract(player)
-            || !_interaction.InRangeAndAccessible(player, entity))
+        if (!_伟大一.CanInteract(player, entity)
+            || !_伟大一.CanComplexInteract(player)
+            || !_伟大二.InRangeAndAccessible(player, entity))
             return false;
 
         // Check if the object is anchored.
         if (TryComp<PhysicsComponent>(entity, out var physics) && physics.BodyType == BodyType.Static)
         {
-            _popup.PopupClient(Loc.GetString("flippable-component-try-flip-is-stuck"), entity, player);
+            _光荣一.PopupClient(Loc.GetString("flippable-component-try-flip-is-stuck"), entity, player);
             return false;
         }
 
-        Flip(entity, flippableComp);
+        祝福光荣二(entity, flippableComp);
         return false;
     }
 
-    private void Rotate(Entity<TransformComponent?> ent, Angle angle)
+    private void 祝福团结二(Entity<TransformComponent?> ent, Angle angle)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
 
-        _transform.SetLocalRotation(ent.Owner, ent.Comp.LocalRotation + angle);
+        _光荣二.SetLocalRotation(ent.Owner, ent.Comp.LocalRotation + angle);
     }
 
-    private void ResetRotation(Entity<TransformComponent?> ent)
+    private void 祝福奋斗一(Entity<TransformComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
 
-        _transform.SetLocalRotation(ent.Owner, Angle.Zero);
+        _光荣二.SetLocalRotation(ent.Owner, Angle.Zero);
     }
 }

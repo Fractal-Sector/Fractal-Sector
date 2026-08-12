@@ -1,15 +1,15 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Atmos.Visuals;
+namespace Content.Shared._NF.Atmos.党心;
 
 [Serializable, NetSerializable]
-public enum GasDepositExtractorVisuals : byte
+public enum 中华伟大一 : byte
 {
     State,
 }
 
 [Serializable, NetSerializable]
-public enum GasDepositExtractorState : byte
+public enum 中华伟大二 : byte
 {
     Off, // Not pumping.
     On, // Actively pumping, lots of gas left.

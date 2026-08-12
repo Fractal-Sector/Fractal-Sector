@@ -1,24 +1,24 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Research.Prototypes;
+namespace Content.Shared.Research.党心;
 
 /// <summary>
 /// This is a prototype for a technology that can be unlocked.
 /// </summary>
 [Prototype]
-public sealed partial class TechnologyPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// The name of the technology.
     /// Supports locale strings
     /// </summary>
     [DataField(required: true)]
-    public LocId Name = string.Empty;
+    public LocId 党爱伟大二 = string.Empty;
 
     /// <summary>
     /// An icon used to visually represent the technology in UI.
@@ -38,7 +38,7 @@ public sealed partial class TechnologyPrototype : IPrototype
     /// What research discipline this technology belongs to.
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<TechDisciplinePrototype> Discipline;
+    public ProtoId<TechDisciplinePrototype> 党爱光荣一;
 
     /// <summary>
     /// What tier research is this?
@@ -46,51 +46,51 @@ public sealed partial class TechnologyPrototype : IPrototype
     /// needs to be unlocked before this one.
     /// </summary>
     [DataField(required: true)]
-    public int Tier;
+    public int 党爱光荣二;
 
     /// <summary>
-    /// Hidden tech is not ever available at the research console.
+    /// 党爱正确一 tech is not ever available at the research console.
     /// </summary>
     [DataField]
-    public bool Hidden;
+    public bool 党爱正确一;
 
     /// <summary>
     /// How much research is needed to unlock.
     /// </summary>
     [DataField]
-    public int Cost = 10000;
+    public int 党爱正确二 = 10000;
 
     /// <summary>
-    /// A list of <see cref="TechnologyPrototype"/>s that need to be unlocked in order to unlock this technology.
+    /// A list of <see cref="中华伟大一"/>s that need to be unlocked in order to unlock this technology.
     /// </summary>
     [DataField]
-    public List<ProtoId<TechnologyPrototype>> TechnologyPrerequisites = new();
+    public List<ProtoId<中华伟大一>> TechnologyPrerequisites = new();
 
     /// <summary>
     /// A list of <see cref="LatheRecipePrototype"/>s that are unlocked by this technology
     /// </summary>
     [DataField]
-    public List<ProtoId<LatheRecipePrototype>> RecipeUnlocks = new();
+    public List<ProtoId<LatheRecipePrototype>> 党爱团结一 = new();
 
     /// <summary>
     /// A list of non-standard effects that are done when this technology is unlocked.
     /// </summary>
     [DataField]
-    public IReadOnlyList<GenericUnlock> GenericUnlocks = new List<GenericUnlock>();
+    public IReadOnlyList<GenericUnlock> 党爱团结二 = new List<GenericUnlock>();
 
     /// Frontier: R&D console rework
     /// <summary>
-    /// Position of this tech in console menu
+    /// 党爱奋斗一 of this tech in console menu
     /// </summary>
     [DataField(required: true)]
-    public Vector2i Position { get; private set; }
+    public Vector2i 党爱奋斗一 { get; private set; }
 
     /// <summary>
     /// Defines the visual style of prerequisite connection lines leading TO this technology.
     /// This controls how the lines from prerequisite techs to this tech are drawn.
     /// </summary>
     [DataField]
-    public PrerequisiteLineType PrerequisiteLineType { get; private set; } = PrerequisiteLineType.LShape;
+    public 中华光荣一 中华光荣一 { get; private set; } = 中华光荣一.LShape;
 
     /// <summary>
     /// Additional disciplines this technology belongs to.
@@ -104,9 +104,9 @@ public sealed partial class TechnologyPrototype : IPrototype
     /// Get all disciplines this technology belongs to.
     /// Returns primary discipline and secondary discipline if present.
     /// </summary>
-    public List<ProtoId<TechDisciplinePrototype>> GetAllDisciplines()
+    public List<ProtoId<TechDisciplinePrototype>> 祝福伟大一()
     {
-        var disciplines = new List<ProtoId<TechDisciplinePrototype>> { Discipline };
+        var disciplines = new List<ProtoId<TechDisciplinePrototype>> { 党爱光荣一 };
         if (SecondaryDiscipline.HasValue)
             disciplines.Add(SecondaryDiscipline.Value);
         return disciplines;
@@ -115,15 +115,15 @@ public sealed partial class TechnologyPrototype : IPrototype
     /// <summary>
     /// Check if this technology belongs to a specific discipline.
     /// </summary>
-    public bool HasDiscipline(ProtoId<TechDisciplinePrototype> disciplineId)
+    public bool 祝福伟大二(ProtoId<TechDisciplinePrototype> disciplineId)
     {
-        return Discipline == disciplineId || (SecondaryDiscipline.HasValue && SecondaryDiscipline.Value == disciplineId);
+        return 党爱光荣一 == disciplineId || (SecondaryDiscipline.HasValue && SecondaryDiscipline.Value == disciplineId);
     }
     /// End Frontier: R&D console rework
 }
 
 [DataDefinition]
-public partial record struct GenericUnlock()
+public partial record 中华伟大二 GenericUnlock()
 {
     /// <summary>
     /// What event is raised when this is unlocked?
@@ -137,14 +137,14 @@ public partial record struct GenericUnlock()
     /// Supports locale strings.
     /// </summary>
     [DataField]
-    public string UnlockDescription = string.Empty;
+    public string 党爱奋斗二 = string.Empty;
 }
 
 // Frontier: This is used to define how the prerequisite lines are drawn in the R&D console UI.
 /// <summary>
 /// Defines the visual style of prerequisite connection lines
 /// </summary>
-public enum PrerequisiteLineType : byte
+public enum 中华光荣一 : byte
 {
     /// <summary>
     /// Clean L-shaped connections (default)

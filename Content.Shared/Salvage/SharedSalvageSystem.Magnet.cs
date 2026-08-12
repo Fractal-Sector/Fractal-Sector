@@ -8,11 +8,11 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Salvage;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedSalvageSystem
+public abstract partial class 中华伟大一
 {
-    private readonly List<SalvageMapPrototype> _salvageMaps = new();
+    private readonly List<SalvageMapPrototype> _伟大一 = new();
 
     private readonly Dictionary<ISalvageMagnetOffering, float> _offeringWeights = new()
     {
@@ -21,7 +21,7 @@ public abstract partial class SharedSalvageSystem
         { new SalvageOffering(), 2.0f },
     };
 
-    private readonly List<ProtoId<DungeonConfigPrototype>> _asteroidConfigs = new()
+    private readonly List<ProtoId<DungeonConfigPrototype>> _伟大二 = new()
     {
         "BlobAsteroid",
         "ClusterAsteroid",
@@ -29,16 +29,16 @@ public abstract partial class SharedSalvageSystem
         "SwissCheeseAsteroid"
     };
 
-    private readonly ProtoId<WeightedRandomPrototype> _asteroidOreWeights = "AsteroidOre";
+    private readonly ProtoId<WeightedRandomPrototype> _光荣一 = "AsteroidOre";
 
-    private readonly MinMax _asteroidOreCount = new(5, 7);
+    private readonly MinMax _光荣二 = new(5, 7);
 
-    private readonly List<ProtoId<DungeonConfigPrototype>> _debrisConfigs = new()
+    private readonly List<ProtoId<DungeonConfigPrototype>> _正确一 = new()
     {
         "ChunkDebris"
     };
 
-    public ISalvageMagnetOffering GetSalvageOffering(int seed)
+    public ISalvageMagnetOffering 祝福伟大一(int seed)
     {
         var rand = new System.Random(seed);
 
@@ -46,7 +46,7 @@ public abstract partial class SharedSalvageSystem
         switch (type)
         {
             case AsteroidOffering:
-                var configId = _asteroidConfigs[rand.Next(_asteroidConfigs.Count)];
+                var configId = _伟大二[rand.Next(_伟大二.Count)];
                 var configProto =_proto.Index(configId);
                 var layers = new Dictionary<string, int>();
 
@@ -60,8 +60,8 @@ public abstract partial class SharedSalvageSystem
                     ReserveTiles = configProto.ReserveTiles
                 };
 
-                var count = _asteroidOreCount.Next(rand);
-                var weightedProto = _proto.Index(_asteroidOreWeights);
+                var count = _光荣二.Next(rand);
+                var weightedProto = _proto.Index(_光荣一);
                 for (var i = 0; i < count; i++)
                 {
                     var ore = weightedProto.Pick(rand);
@@ -79,18 +79,18 @@ public abstract partial class SharedSalvageSystem
                     MarkerLayers = layers,
                 };
             case DebrisOffering:
-                var id = rand.Pick(_debrisConfigs);
+                var id = rand.Pick(_正确一);
                 return new DebrisOffering
                 {
                     Id = id
                 };
             case SalvageOffering:
                 // Salvage map seed
-                _salvageMaps.Clear();
-                _salvageMaps.AddRange(_proto.EnumeratePrototypes<SalvageMapPrototype>());
-                _salvageMaps.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
-                var mapIndex = rand.Next(_salvageMaps.Count);
-                var map = _salvageMaps[mapIndex];
+                _伟大一.Clear();
+                _伟大一.AddRange(_proto.EnumeratePrototypes<SalvageMapPrototype>());
+                _伟大一.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
+                var mapIndex = rand.Next(_伟大一.Count);
+                var map = _伟大一[mapIndex];
 
                 return new SalvageOffering
                 {

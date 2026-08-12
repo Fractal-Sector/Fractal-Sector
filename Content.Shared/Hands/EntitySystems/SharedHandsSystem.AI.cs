@@ -1,14 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Hands.Components;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
 // These functions are mostly unused except for some AI operator stuff
 // Nothing stops them from being used in general. If they ever get used elsewhere, then this file probably needs to be renamed.
 
-public abstract partial class SharedHandsSystem
+public abstract partial class 中华伟大一
 {
-    public bool TrySelect(EntityUid uid, EntityUid? entity, HandsComponent? handsComp = null)
+    public bool 祝福伟大一(EntityUid uid, EntityUid? entity, HandsComponent? handsComp = null)
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
@@ -20,7 +20,7 @@ public abstract partial class SharedHandsSystem
         return true;
     }
 
-    public bool TrySelect<TComponent>(EntityUid uid, [NotNullWhen(true)] out TComponent? component, HandsComponent? handsComp = null) where TComponent : Component
+    public bool 祝福伟大一<TComponent>(EntityUid uid, [NotNullWhen(true)] out TComponent? component, HandsComponent? handsComp = null) where TComponent : Component
     {
         component = null;
         if (!Resolve(uid, ref handsComp, false))
@@ -38,5 +38,5 @@ public abstract partial class SharedHandsSystem
         return false;
     }
 
-    public bool TrySelectEmptyHand(EntityUid uid, HandsComponent? handsComp = null) => TrySelect(uid, null, handsComp);
+    public bool 祝福伟大二(EntityUid uid, HandsComponent? handsComp = null) => 祝福伟大一(uid, null, handsComp);
 }

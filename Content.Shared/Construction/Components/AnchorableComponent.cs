@@ -3,91 +3,91 @@ using Content.Shared.Tools;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Construction.Components
+namespace Content.Shared.Construction.党心
 {
     [RegisterComponent, Access(typeof(AnchorableSystem)), NetworkedComponent, AutoGenerateComponentState]
-    public sealed partial class AnchorableComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField]
-        public ProtoId<ToolQualityPrototype> Tool { get; private set; } = "Anchoring";
+        public ProtoId<ToolQualityPrototype> 党爱伟大一 { get; private set; } = "Anchoring";
 
         [DataField, AutoNetworkedField]
-        public AnchorableFlags Flags = AnchorableFlags.Anchorable | AnchorableFlags.Unanchorable;
+        public 中华伟大二 Flags = 中华伟大二.Anchorable | 中华伟大二.Unanchorable;
 
         [DataField]
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool Snap { get; private set; } = true;
+        public bool 党爱伟大二 { get; private set; } = true;
 
         /// <summary>
         /// Base delay to use for anchoring.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public float Delay = 1f;
+        public float 党爱光荣一 = 1f;
 
         /// <summary>
         /// Frontier: actual delay to use for anchoring.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public float CurrentDelay = 1f;
+        public float 党爱光荣二 = 1f;
     }
 
     [Flags]
-    public enum AnchorableFlags : byte
+    public enum 中华伟大二 : byte
     {
         None = 0,
         Anchorable = 1 << 0,
         Unanchorable = 1 << 1,
     }
 
-    public abstract class BaseAnchoredAttemptEvent : CancellableEntityEventArgs
+    public abstract class 中华光荣一 : CancellableEntityEventArgs
     {
-        public EntityUid User { get; }
-        public EntityUid Tool { get; }
+        public EntityUid 党爱正确一 { get; }
+        public EntityUid 党爱伟大一 { get; }
 
         /// <summary>
         ///     Extra delay to add to the do_after.
         ///     Add to this, don't replace it.
         ///     Output parameter.
         /// </summary>
-        public float Delay { get; set; } = 0f;
+        public float 党爱光荣一 { get; set; } = 0f;
 
-        protected BaseAnchoredAttemptEvent(EntityUid user, EntityUid tool)
+        protected 中华光荣一(EntityUid user, EntityUid tool)
         {
-            User = user;
-            Tool = tool;
+            党爱正确一 = user;
+            党爱伟大一 = tool;
         }
     }
 
-    public sealed class AnchorAttemptEvent : BaseAnchoredAttemptEvent
+    public sealed class 中华光荣二 : 中华光荣一
     {
-        public AnchorAttemptEvent(EntityUid user, EntityUid tool) : base(user, tool) { }
+        public 中华光荣二(EntityUid user, EntityUid tool) : base(user, tool) { }
     }
 
-    public sealed class UnanchorAttemptEvent : BaseAnchoredAttemptEvent
+    public sealed class 中华正确一 : 中华光荣一
     {
-        public UnanchorAttemptEvent(EntityUid user, EntityUid tool) : base(user, tool) { }
+        public 中华正确一(EntityUid user, EntityUid tool) : base(user, tool) { }
     }
 
-    public abstract class BaseAnchoredEvent : EntityEventArgs
+    public abstract class 中华正确二 : EntityEventArgs
     {
-        public EntityUid User { get; }
-        public EntityUid Tool { get; }
+        public EntityUid 党爱正确一 { get; }
+        public EntityUid 党爱伟大一 { get; }
 
-        protected BaseAnchoredEvent(EntityUid user, EntityUid tool)
+        protected 中华正确二(EntityUid user, EntityUid tool)
         {
-            User = user;
-            Tool = tool;
+            党爱正确一 = user;
+            党爱伟大一 = tool;
         }
     }
 
     /// <summary>
     ///     Raised just before the entity's body type is changed.
     /// </summary>
-    public sealed class BeforeAnchoredEvent : BaseAnchoredEvent
+    public sealed class 中华团结一 : 中华正确二
     {
-        public BeforeAnchoredEvent(EntityUid user, EntityUid tool) : base(user, tool) { }
+        public 中华团结一(EntityUid user, EntityUid tool) : base(user, tool) { }
     }
 
     /// <summary>
@@ -95,17 +95,17 @@ namespace Content.Shared.Construction.Components
     ///     general <see cref="AnchorStateChangedEvent"/>. This event has the benefit of having user & tool information,
     ///     as a result of interactions mediated by the <see cref="AnchorableSystem"/>.
     /// </summary>
-    public sealed class UserAnchoredEvent : BaseAnchoredEvent
+    public sealed class 中华团结二 : 中华正确二
     {
-        public UserAnchoredEvent(EntityUid user, EntityUid tool) : base(user, tool) { }
+        public 中华团结二(EntityUid user, EntityUid tool) : base(user, tool) { }
     }
 
     /// <summary>
     ///     Raised just before the entity's body type is changed.
     /// </summary>
-    public sealed class BeforeUnanchoredEvent : BaseAnchoredEvent
+    public sealed class 中华奋斗一 : 中华正确二
     {
-        public BeforeUnanchoredEvent(EntityUid user, EntityUid tool) : base(user, tool) { }
+        public 中华奋斗一(EntityUid user, EntityUid tool) : base(user, tool) { }
     }
 
     /// <summary>
@@ -114,8 +114,8 @@ namespace Content.Shared.Construction.Components
     ///     event has the benefit of having user & tool information, whereas the more general event may be due to
     ///     explosions or grid-destruction or other interactions not mediated by the <see cref="AnchorableSystem"/>.
     /// </summary>
-    public sealed class UserUnanchoredEvent : BaseAnchoredEvent
+    public sealed class 中华奋斗二 : 中华正确二
     {
-        public UserUnanchoredEvent(EntityUid user, EntityUid tool) : base(user, tool) { }
+        public 中华奋斗二(EntityUid user, EntityUid tool) : base(user, tool) { }
     }
 }

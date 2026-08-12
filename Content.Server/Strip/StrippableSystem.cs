@@ -20,9 +20,9 @@ using Content.Shared.Verbs;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Strip;
+namespace Content.Server.党心;
 
-public sealed class StrippableSystem : SharedStrippableSystem
+public sealed class 中华伟大一 : SharedStrippableSystem
 {
 
 }

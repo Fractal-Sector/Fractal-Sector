@@ -7,43 +7,43 @@ using Content.Shared.Tag;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Shared.Ninja.Systems;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// Handles emagging whitelisted objects when clicked.
 /// </summary>
-public sealed class EmagProviderSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedNinjaGlovesSystem _gloves = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly SharedNinjaGlovesSystem _光荣二 = default!;
+    [Dependency] private readonly TagSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EmagProviderComponent, BeforeInteractHandEvent>(OnBeforeInteractHand);
+        SubscribeLocalEvent<EmagProviderComponent, BeforeInteractHandEvent>(祝福伟大二);
     }
 
     /// <summary>
     /// Emag clicked entities that are on the whitelist.
     /// </summary>
-    private void OnBeforeInteractHand(Entity<EmagProviderComponent> ent, ref BeforeInteractHandEvent args)
+    private void 祝福伟大二(Entity<EmagProviderComponent> ent, ref BeforeInteractHandEvent args)
     {
         // TODO: change this into a generic check event thing
-        if (args.Handled || !_gloves.AbilityCheck(ent, args, out var target))
+        if (args.Handled || !_光荣二.AbilityCheck(ent, args, out var target))
             return;
 
         var (uid, comp) = ent;
 
         // only allowed to emag entities on the whitelist
-        if (_whitelist.IsWhitelistFail(comp.Whitelist, target))
+        if (_伟大二.IsWhitelistFail(comp.Whitelist, target))
             return;
 
         // only allowed to emag non-immune entities
-        if (_tag.HasTag(target, comp.AccessBreakerImmuneTag))
+        if (_正确一.HasTag(target, comp.AccessBreakerImmuneTag))
             return;
 
         var emagEv = new GotEmaggedEvent(uid, EmagType.Access);
@@ -52,9 +52,9 @@ public sealed class EmagProviderSystem : EntitySystem
         if (!emagEv.Handled)
             return;
 
-        _audio.PlayPredicted(comp.EmagSound, uid, uid);
+        _伟大一.PlayPredicted(comp.EmagSound, uid, uid);
 
-        _adminLogger.Add(LogType.Emag, LogImpact.High, $"{ToPrettyString(uid):player} emagged {ToPrettyString(target):target} with flag(s): {ent.Comp.EmagType}");
+        _光荣一.Add(LogType.Emag, LogImpact.High, $"{ToPrettyString(uid):player} emagged {ToPrettyString(target):target} with flag(s): {ent.Comp.EmagType}");
         var ev = new EmaggedSomethingEvent(target);
         RaiseLocalEvent(uid, ref ev);
         args.Handled = true;
@@ -65,4 +65,4 @@ public sealed class EmagProviderSystem : EntitySystem
 /// Raised on the player when access breaking something.
 /// </summary>
 [ByRefEvent]
-public record struct EmaggedSomethingEvent(EntityUid Target);
+public record 中华伟大二 EmaggedSomethingEvent(EntityUid Target);

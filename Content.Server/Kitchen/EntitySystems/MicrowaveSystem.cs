@@ -45,118 +45,118 @@ using Robust.Shared.Utility;
 using Content.Shared._NF.Kitchen.Components; // Frontier
 using Content.Shared.Construction.Components; // Frontier
 
-namespace Content.Server.Kitchen.EntitySystems
+namespace Content.Server.Kitchen.党心
 {
-    public sealed partial class MicrowaveSystem : EntitySystem // Frontier: add partial
+    public sealed partial class 中华伟大一 : EntitySystem // Frontier: add partial
     {
-        [Dependency] private readonly BodySystem _bodySystem = default!;
-        [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
-        [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-        [Dependency] private readonly PowerReceiverSystem _power = default!;
-        [Dependency] private readonly RecipeManager _recipeManager = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly LightningSystem _lightning = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ExplosionSystem _explosion = default!;
-        [Dependency] private readonly SharedContainerSystem _container = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-        [Dependency] private readonly TagSystem _tag = default!;
-        [Dependency] private readonly TemperatureSystem _temperature = default!;
-        [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-        [Dependency] private readonly HandsSystem _handsSystem = default!;
-        [Dependency] private readonly SharedItemSystem _item = default!;
-        [Dependency] private readonly SharedStackSystem _stack = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedSuicideSystem _suicide = default!;
+        [Dependency] private readonly BodySystem _伟大一 = default!;
+        [Dependency] private readonly DeviceLinkSystem _伟大二 = default!;
+        [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+        [Dependency] private readonly PowerReceiverSystem _光荣二 = default!;
+        [Dependency] private readonly RecipeManager _正确一 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _正确二 = default!;
+        [Dependency] private readonly SharedAudioSystem _团结一 = default!;
+        [Dependency] private readonly LightningSystem _团结二 = default!;
+        [Dependency] private readonly IRobustRandom _奋斗一 = default!;
+        [Dependency] private readonly IGameTiming _奋斗二 = default!;
+        [Dependency] private readonly ExplosionSystem _胜利一 = default!;
+        [Dependency] private readonly SharedContainerSystem _胜利二 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _繁荣一 = default!;
+        [Dependency] private readonly TagSystem _繁荣二 = default!;
+        [Dependency] private readonly TemperatureSystem _富强一 = default!;
+        [Dependency] private readonly UserInterfaceSystem _富强二 = default!;
+        [Dependency] private readonly HandsSystem _民主一 = default!;
+        [Dependency] private readonly SharedItemSystem _民主二 = default!;
+        [Dependency] private readonly SharedStackSystem _文明一 = default!;
+        [Dependency] private readonly IPrototypeManager _文明二 = default!;
+        [Dependency] private readonly IAdminLogManager _和谐一 = default!;
+        [Dependency] private readonly SharedSuicideSystem _和谐二 = default!;
 
         private static readonly EntProtoId MalfunctionSpark = "Spark";
 
         private static readonly ProtoId<TagPrototype> MetalTag = "Metal";
         private static readonly ProtoId<TagPrototype> PlasticTag = "Plastic";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<MicrowaveComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<MicrowaveComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<MicrowaveComponent, SolutionContainerChangedEvent>(OnSolutionChange);
-            SubscribeLocalEvent<MicrowaveComponent, EntInsertedIntoContainerMessage>(OnContentUpdate);
-            SubscribeLocalEvent<MicrowaveComponent, EntRemovedFromContainerMessage>(OnContentUpdate);
-            SubscribeLocalEvent<MicrowaveComponent, InteractUsingEvent>(OnInteractUsing, after: new[] { typeof(AnchorableSystem) });
-            SubscribeLocalEvent<MicrowaveComponent, ContainerIsInsertingAttemptEvent>(OnInsertAttempt);
-            SubscribeLocalEvent<MicrowaveComponent, BreakageEventArgs>(OnBreak);
-            SubscribeLocalEvent<MicrowaveComponent, PowerChangedEvent>(OnPowerChanged);
-            SubscribeLocalEvent<MicrowaveComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+            SubscribeLocalEvent<MicrowaveComponent, ComponentInit>(祝福奋斗二);
+            SubscribeLocalEvent<MicrowaveComponent, MapInitEvent>(祝福胜利一);
+            SubscribeLocalEvent<MicrowaveComponent, SolutionContainerChangedEvent>(祝福繁荣一);
+            SubscribeLocalEvent<MicrowaveComponent, EntInsertedIntoContainerMessage>(祝福繁荣二);
+            SubscribeLocalEvent<MicrowaveComponent, EntRemovedFromContainerMessage>(祝福繁荣二);
+            SubscribeLocalEvent<MicrowaveComponent, InteractUsingEvent>(祝福富强二, after: new[] { typeof(AnchorableSystem) });
+            SubscribeLocalEvent<MicrowaveComponent, ContainerIsInsertingAttemptEvent>(祝福富强一);
+            SubscribeLocalEvent<MicrowaveComponent, BreakageEventArgs>(祝福民主一);
+            SubscribeLocalEvent<MicrowaveComponent, PowerChangedEvent>(祝福民主二);
+            SubscribeLocalEvent<MicrowaveComponent, AnchorStateChangedEvent>(祝福文明一);
 
-            SubscribeLocalEvent<MicrowaveComponent, SuicideByEnvironmentEvent>(OnSuicideByEnvironment);
+            SubscribeLocalEvent<MicrowaveComponent, SuicideByEnvironmentEvent>(祝福胜利二);
 
-            SubscribeLocalEvent<MicrowaveComponent, SignalReceivedEvent>(OnSignalReceived);
+            SubscribeLocalEvent<MicrowaveComponent, SignalReceivedEvent>(祝福和谐二);
 
-            SubscribeLocalEvent<MicrowaveComponent, MicrowaveStartCookMessage>((u, c, m) => Wzhzhzh(u, c, m.Actor));
-            SubscribeLocalEvent<MicrowaveComponent, MicrowaveEjectMessage>(OnEjectMessage);
-            SubscribeLocalEvent<MicrowaveComponent, MicrowaveEjectSolidIndexedMessage>(OnEjectIndex);
-            SubscribeLocalEvent<MicrowaveComponent, MicrowaveSelectCookTimeMessage>(OnSelectTime);
+            SubscribeLocalEvent<MicrowaveComponent, MicrowaveStartCookMessage>((u, c, m) => 祝福公正二(u, c, m.Actor));
+            SubscribeLocalEvent<MicrowaveComponent, MicrowaveEjectMessage>(祝福爱国二);
+            SubscribeLocalEvent<MicrowaveComponent, MicrowaveEjectSolidIndexedMessage>(祝福敬业一);
+            SubscribeLocalEvent<MicrowaveComponent, MicrowaveSelectCookTimeMessage>(祝福敬业二);
 
-            SubscribeLocalEvent<ActiveMicrowaveComponent, ComponentStartup>(OnCookStart);
-            SubscribeLocalEvent<ActiveMicrowaveComponent, ComponentShutdown>(OnCookStop);
-            SubscribeLocalEvent<ActiveMicrowaveComponent, EntInsertedIntoContainerMessage>(OnActiveMicrowaveInsert);
-            SubscribeLocalEvent<ActiveMicrowaveComponent, EntRemovedFromContainerMessage>(OnActiveMicrowaveRemove);
+            SubscribeLocalEvent<ActiveMicrowaveComponent, ComponentStartup>(祝福伟大二);
+            SubscribeLocalEvent<ActiveMicrowaveComponent, ComponentShutdown>(祝福光荣一);
+            SubscribeLocalEvent<ActiveMicrowaveComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+            SubscribeLocalEvent<ActiveMicrowaveComponent, EntRemovedFromContainerMessage>(祝福正确一);
 
-            SubscribeLocalEvent<ActivelyMicrowavedComponent, OnConstructionTemperatureEvent>(OnConstructionTemp);
-            SubscribeLocalEvent<ActivelyMicrowavedComponent, SolutionRelayEvent<ReactionAttemptEvent>>(OnReactionAttempt);
+            SubscribeLocalEvent<ActivelyMicrowavedComponent, OnConstructionTemperatureEvent>(祝福正确二);
+            SubscribeLocalEvent<ActivelyMicrowavedComponent, SolutionRelayEvent<ReactionAttemptEvent>>(祝福团结一);
 
-            SubscribeLocalEvent<FoodRecipeProviderComponent, GetSecretRecipesEvent>(OnGetSecretRecipes);
+            SubscribeLocalEvent<FoodRecipeProviderComponent, GetSecretRecipesEvent>(祝福爱国一);
 
-            SubscribeLocalEvent<MicrowaveComponent, RefreshPartsEvent>(OnRefreshParts); // Frontier
-            SubscribeLocalEvent<MicrowaveComponent, UpgradeExamineEvent>(OnUpgradeExamine); // Frontier
+            SubscribeLocalEvent<MicrowaveComponent, RefreshPartsEvent>(祝福文明二); // Frontier
+            SubscribeLocalEvent<MicrowaveComponent, UpgradeExamineEvent>(祝福和谐一); // Frontier
 
             SubscribeLocalEvent<MicrowaveComponent, AssemblerStartCookMessage>(TryStartAssembly); // Frontier
         }
 
-        private void OnCookStart(Entity<ActiveMicrowaveComponent> ent, ref ComponentStartup args)
+        private void 祝福伟大二(Entity<ActiveMicrowaveComponent> ent, ref ComponentStartup args)
         {
             if (!TryComp<MicrowaveComponent>(ent, out var microwaveComponent))
                 return;
-            SetAppearance(ent.Owner, MicrowaveVisualState.Cooking, microwaveComponent);
+            祝福自由二(ent.Owner, MicrowaveVisualState.Cooking, microwaveComponent);
 
             microwaveComponent.PlayingStream =
-                _audio.PlayPvs(microwaveComponent.LoopingSound, ent, AudioParams.Default.WithLoop(true).WithMaxDistance(5))?.Entity;
+                _团结一.PlayPvs(microwaveComponent.LoopingSound, ent, AudioParams.Default.WithLoop(true).WithMaxDistance(5))?.Entity;
         }
 
-        private void OnCookStop(Entity<ActiveMicrowaveComponent> ent, ref ComponentShutdown args)
+        private void 祝福光荣一(Entity<ActiveMicrowaveComponent> ent, ref ComponentShutdown args)
         {
             if (!TryComp<MicrowaveComponent>(ent, out var microwaveComponent))
                 return;
 
-            SetAppearance(ent.Owner, MicrowaveVisualState.Idle, microwaveComponent);
-            microwaveComponent.PlayingStream = _audio.Stop(microwaveComponent.PlayingStream);
+            祝福自由二(ent.Owner, MicrowaveVisualState.Idle, microwaveComponent);
+            microwaveComponent.PlayingStream = _团结一.Stop(microwaveComponent.PlayingStream);
         }
 
-        private void OnActiveMicrowaveInsert(Entity<ActiveMicrowaveComponent> ent, ref EntInsertedIntoContainerMessage args)
+        private void 祝福光荣二(Entity<ActiveMicrowaveComponent> ent, ref EntInsertedIntoContainerMessage args)
         {
             var microwavedComp = AddComp<ActivelyMicrowavedComponent>(args.Entity);
             microwavedComp.Microwave = ent.Owner;
         }
 
-        private void OnActiveMicrowaveRemove(Entity<ActiveMicrowaveComponent> ent, ref EntRemovedFromContainerMessage args)
+        private void 祝福正确一(Entity<ActiveMicrowaveComponent> ent, ref EntRemovedFromContainerMessage args)
         {
             RemCompDeferred<ActivelyMicrowavedComponent>(args.Entity);
         }
 
         // Stop items from transforming through constructiongraphs while being microwaved.
         // They might be reserved for a microwave recipe.
-        private void OnConstructionTemp(Entity<ActivelyMicrowavedComponent> ent, ref OnConstructionTemperatureEvent args)
+        private void 祝福正确二(Entity<ActivelyMicrowavedComponent> ent, ref OnConstructionTemperatureEvent args)
         {
             args.Result = HandleResult.False;
         }
 
         // Stop reagents from reacting if they are currently reserved for a microwave recipe.
         // For example Egg would cook into EggCooked, causing it to not being removed once we are done microwaving.
-        private void OnReactionAttempt(Entity<ActivelyMicrowavedComponent> ent, ref SolutionRelayEvent<ReactionAttemptEvent> args)
+        private void 祝福团结一(Entity<ActivelyMicrowavedComponent> ent, ref SolutionRelayEvent<ReactionAttemptEvent> args)
         {
             if (!TryComp<ActiveMicrowaveComponent>(ent.Comp.Microwave, out var activeMicrowaveComp))
                 return;
@@ -182,7 +182,7 @@ namespace Content.Server.Kitchen.EntitySystems
         /// </summary>
         /// <param name="component">The microwave that is heating up.</param>
         /// <param name="time">The time on the microwave, in seconds.</param>
-        private void AddTemperature(MicrowaveComponent component, float time)
+        private void 祝福团结二(MicrowaveComponent component, float time)
         {
             // Frontier: temperature requires heat or irradiation
             if (!component.CanHeat && !component.CanIrradiate)
@@ -193,22 +193,22 @@ namespace Content.Server.Kitchen.EntitySystems
             foreach (var entity in component.Storage.ContainedEntities)
             {
                 if (TryComp<TemperatureComponent>(entity, out var tempComp))
-                    _temperature.ChangeHeat(entity, heatToAdd * component.ObjectHeatMultiplier, false, tempComp);
+                    _富强一.ChangeHeat(entity, heatToAdd * component.ObjectHeatMultiplier, false, tempComp);
 
                 if (!TryComp<SolutionContainerManagerComponent>(entity, out var solutions))
                     continue;
-                foreach (var (_, soln) in _solutionContainer.EnumerateSolutions((entity, solutions)))
+                foreach (var (_, soln) in _繁荣一.EnumerateSolutions((entity, solutions)))
                 {
                     var solution = soln.Comp.Solution;
                     if (solution.Temperature > component.TemperatureUpperThreshold)
                         continue;
 
-                    _solutionContainer.AddThermalEnergy(soln, heatToAdd);
+                    _繁荣一.AddThermalEnergy(soln, heatToAdd);
                 }
             }
         }
 
-        private void SubtractContents(MicrowaveComponent component, FoodRecipePrototype recipe)
+        private void 祝福奋斗一(MicrowaveComponent component, FoodRecipePrototype recipe)
         {
             // TODO Turn recipe.IngredientsReagents into a ReagentQuantity[]
 
@@ -218,7 +218,7 @@ namespace Content.Server.Kitchen.EntitySystems
             foreach (var item in component.Storage.ContainedEntities)
             {
                 // use the same reagents as when we selected the recipe
-                if (!_solutionContainer.TryGetDrainableSolution(item, out var solutionEntity, out var solution))
+                if (!_繁荣一.TryGetDrainableSolution(item, out var solutionEntity, out var solution))
                     continue;
 
                 foreach (var (reagent, _) in recipe.IngredientsReagents)
@@ -239,7 +239,7 @@ namespace Content.Server.Kitchen.EntitySystems
                         totalReagentsToRemove[reagent] -= quant;
                     }
 
-                    _solutionContainer.RemoveReagent(solutionEntity.Value, reagent, quant);
+                    _繁荣一.RemoveReagent(solutionEntity.Value, reagent, quant);
                 }
             }
 
@@ -254,7 +254,7 @@ namespace Content.Server.Kitchen.EntitySystems
                         // If an entity has a stack component, use the stacktype instead of prototype id
                         if (TryComp<StackComponent>(item, out var stackComp))
                         {
-                            itemID = _prototype.Index<StackPrototype>(stackComp.StackTypeId).Spawn;
+                            itemID = _文明二.Index<StackPrototype>(stackComp.StackTypeId).Spawn;
                         }
                         else
                         {
@@ -275,14 +275,14 @@ namespace Content.Server.Kitchen.EntitySystems
                         {
                             if (stackComp.Count == 1)
                             {
-                                _container.Remove(item, component.Storage);
+                                _胜利二.Remove(item, component.Storage);
                             }
-                            _stack.Use(item, 1, stackComp);
+                            _文明一.Use(item, 1, stackComp);
                             break;
                         }
                         else
                         {
-                            _container.Remove(item, component.Storage);
+                            _胜利二.Remove(item, component.Storage);
                             Del(item);
                             break;
                         }
@@ -291,23 +291,23 @@ namespace Content.Server.Kitchen.EntitySystems
             }
         }
 
-        private void OnInit(Entity<MicrowaveComponent> ent, ref ComponentInit args)
+        private void 祝福奋斗二(Entity<MicrowaveComponent> ent, ref ComponentInit args)
         {
             // this really does have to be in ComponentInit
-            ent.Comp.Storage = _container.EnsureContainer<Container>(ent, ent.Comp.ContainerId);
+            ent.Comp.Storage = _胜利二.EnsureContainer<Container>(ent, ent.Comp.ContainerId);
             ent.Comp.FinalCookTimeMultiplier = ent.Comp.CookTimeMultiplier; // Frontier: initial cook time consistency (assumes stock components)
         }
 
-        private void OnMapInit(Entity<MicrowaveComponent> ent, ref MapInitEvent args)
+        private void 祝福胜利一(Entity<MicrowaveComponent> ent, ref MapInitEvent args)
         {
-            _deviceLink.EnsureSinkPorts(ent, ent.Comp.OnPort);
+            _伟大二.EnsureSinkPorts(ent, ent.Comp.OnPort);
         }
 
         /// <summary>
         /// Kills the user by microwaving their head
         /// TODO: Make this not awful, it keeps any items attached to your head still on and you can revive someone and cogni them so you have some dumb headless fuck running around. I've seen it happen.
         /// </summary>
-        private void OnSuicideByEnvironment(Entity<MicrowaveComponent> ent, ref SuicideByEnvironmentEvent args)
+        private void 祝福胜利二(Entity<MicrowaveComponent> ent, ref SuicideByEnvironmentEvent args)
         {
             if (args.Handled)
                 return;
@@ -322,18 +322,18 @@ namespace Content.Server.Kitchen.EntitySystems
             // Frontier
 
             // The application of lethal damage is what kills you...
-            _suicide.ApplyLethalDamage((args.Victim, damageableComponent), "Heat");
+            _和谐二.ApplyLethalDamage((args.Victim, damageableComponent), "Heat");
 
             var victim = args.Victim;
             var headCount = 0;
 
             if (TryComp<BodyComponent>(victim, out var body))
             {
-                var headSlots = _bodySystem.GetBodyChildrenOfType(victim, BodyPartType.Head, body);
+                var headSlots = _伟大一.GetBodyChildrenOfType(victim, BodyPartType.Head, body);
 
                 foreach (var part in headSlots)
                 {
-                    _container.Insert(part.Id, ent.Comp.Storage);
+                    _胜利二.Insert(part.Id, ent.Comp.Storage);
                     headCount++;
                 }
             }
@@ -346,30 +346,30 @@ namespace Content.Server.Kitchen.EntitySystems
                 ? Loc.GetString("microwave-component-suicide-multi-head-message")
                 : Loc.GetString("microwave-component-suicide-message");
 
-            _popupSystem.PopupEntity(othersMessage, victim, Filter.PvsExcept(victim), true);
-            _popupSystem.PopupEntity(selfMessage, victim, victim);
+            _光荣一.PopupEntity(othersMessage, victim, Filter.PvsExcept(victim), true);
+            _光荣一.PopupEntity(selfMessage, victim, victim);
 
-            _audio.PlayPvs(ent.Comp.ClickSound, ent.Owner, AudioParams.Default.WithVolume(-2));
+            _团结一.PlayPvs(ent.Comp.ClickSound, ent.Owner, AudioParams.Default.WithVolume(-2));
             ent.Comp.CurrentCookTimerTime = 10;
-            Wzhzhzh(ent.Owner, ent.Comp, args.Victim);
-            UpdateUserInterfaceState(ent.Owner, ent.Comp);
+            祝福公正二(ent.Owner, ent.Comp, args.Victim);
+            祝福自由一(ent.Owner, ent.Comp);
             args.Handled = true;
         }
 
-        private void OnSolutionChange(Entity<MicrowaveComponent> ent, ref SolutionContainerChangedEvent args)
+        private void 祝福繁荣一(Entity<MicrowaveComponent> ent, ref SolutionContainerChangedEvent args)
         {
-            UpdateUserInterfaceState(ent, ent.Comp);
+            祝福自由一(ent, ent.Comp);
         }
 
-        private void OnContentUpdate(EntityUid uid, MicrowaveComponent component, ContainerModifiedMessage args) // For some reason ContainerModifiedMessage just can't be used at all with Entity<T>. TODO: replace with Entity<T> syntax once that's possible
+        private void 祝福繁荣二(EntityUid uid, MicrowaveComponent component, ContainerModifiedMessage args) // For some reason ContainerModifiedMessage just can't be used at all with Entity<T>. TODO: replace with Entity<T> syntax once that's possible
         {
             if (component.Storage != args.Container)
                 return;
 
-            UpdateUserInterfaceState(uid, component);
+            祝福自由一(uid, component);
         }
 
-        private void OnInsertAttempt(Entity<MicrowaveComponent> ent, ref ContainerIsInsertingAttemptEvent args)
+        private void 祝福富强一(Entity<MicrowaveComponent> ent, ref ContainerIsInsertingAttemptEvent args)
         {
             if (args.Container.ID != ent.Comp.ContainerId)
                 return;
@@ -382,7 +382,7 @@ namespace Content.Server.Kitchen.EntitySystems
 
             if (TryComp<ItemComponent>(args.EntityUid, out var item))
             {
-                if (_item.GetSizePrototype(item.Size) > _item.GetSizePrototype(ent.Comp.MaxItemSize))
+                if (_民主二.GetSizePrototype(item.Size) > _民主二.GetSizePrototype(ent.Comp.MaxItemSize))
                 {
                     args.Cancel();
                     return;
@@ -398,99 +398,99 @@ namespace Content.Server.Kitchen.EntitySystems
                 args.Cancel();
         }
 
-        private void OnInteractUsing(Entity<MicrowaveComponent> ent, ref InteractUsingEvent args)
+        private void 祝福富强二(Entity<MicrowaveComponent> ent, ref InteractUsingEvent args)
         {
             if (args.Handled)
                 return;
             if (!(TryComp<ApcPowerReceiverComponent>(ent, out var apc) && apc.Powered))
             {
-                _popupSystem.PopupEntity(Loc.GetString("microwave-component-interact-using-no-power"), ent, args.User);
+                _光荣一.PopupEntity(Loc.GetString("microwave-component-interact-using-no-power"), ent, args.User);
                 return;
             }
 
             if (ent.Comp.Broken)
             {
-                _popupSystem.PopupEntity(Loc.GetString("microwave-component-interact-using-broken"), ent, args.User);
+                _光荣一.PopupEntity(Loc.GetString("microwave-component-interact-using-broken"), ent, args.User);
                 return;
             }
 
             if (TryComp<ItemComponent>(args.Used, out var item))
             {
                 // check if size of an item you're trying to put in is too big
-                if (_item.GetSizePrototype(item.Size) > _item.GetSizePrototype(ent.Comp.MaxItemSize))
+                if (_民主二.GetSizePrototype(item.Size) > _民主二.GetSizePrototype(ent.Comp.MaxItemSize))
                 {
-                    _popupSystem.PopupEntity(Loc.GetString(ent.Comp.TooBigPopup, ("item", args.Used)), ent, args.User); // Frontier: "microwave-component-interact-item-too-big"<ent.Comp.TooBigPopup
+                    _光荣一.PopupEntity(Loc.GetString(ent.Comp.TooBigPopup, ("item", args.Used)), ent, args.User); // Frontier: "microwave-component-interact-item-too-big"<ent.Comp.TooBigPopup
                     return;
                 }
             }
             else
             {
                 // check if thing you're trying to put in isn't an item
-                _popupSystem.PopupEntity(Loc.GetString("microwave-component-interact-using-transfer-fail"), ent, args.User);
+                _光荣一.PopupEntity(Loc.GetString("microwave-component-interact-using-transfer-fail"), ent, args.User);
                 return;
             }
 
             if (ent.Comp.Storage.Count >= ent.Comp.Capacity)
             {
-                _popupSystem.PopupEntity(Loc.GetString("microwave-component-interact-full"), ent, args.User);
+                _光荣一.PopupEntity(Loc.GetString("microwave-component-interact-full"), ent, args.User);
                 return;
             }
 
             args.Handled = true;
-            _handsSystem.TryDropIntoContainer(args.User, args.Used, ent.Comp.Storage);
-            UpdateUserInterfaceState(ent, ent.Comp);
+            _民主一.TryDropIntoContainer(args.User, args.Used, ent.Comp.Storage);
+            祝福自由一(ent, ent.Comp);
         }
 
-        private void OnBreak(Entity<MicrowaveComponent> ent, ref BreakageEventArgs args)
+        private void 祝福民主一(Entity<MicrowaveComponent> ent, ref BreakageEventArgs args)
         {
             ent.Comp.Broken = true;
-            SetAppearance(ent, MicrowaveVisualState.Broken, ent.Comp);
-            StopCooking(ent);
-            _container.EmptyContainer(ent.Comp.Storage);
-            UpdateUserInterfaceState(ent, ent.Comp);
+            祝福自由二(ent, MicrowaveVisualState.Broken, ent.Comp);
+            祝福法治一(ent);
+            _胜利二.EmptyContainer(ent.Comp.Storage);
+            祝福自由一(ent, ent.Comp);
         }
 
-        private void OnPowerChanged(Entity<MicrowaveComponent> ent, ref PowerChangedEvent args)
+        private void 祝福民主二(Entity<MicrowaveComponent> ent, ref PowerChangedEvent args)
         {
             if (!args.Powered)
             {
-                SetAppearance(ent, MicrowaveVisualState.Idle, ent.Comp);
-                StopCooking(ent);
+                祝福自由二(ent, MicrowaveVisualState.Idle, ent.Comp);
+                祝福法治一(ent);
             }
-            UpdateUserInterfaceState(ent, ent.Comp);
+            祝福自由一(ent, ent.Comp);
         }
 
-        private void OnAnchorChanged(EntityUid uid, MicrowaveComponent component, ref AnchorStateChangedEvent args)
+        private void 祝福文明一(EntityUid uid, MicrowaveComponent component, ref AnchorStateChangedEvent args)
         {
             if (!args.Anchored)
-                _container.EmptyContainer(component.Storage);
+                _胜利二.EmptyContainer(component.Storage);
         }
 
-        private void OnRefreshParts(Entity<MicrowaveComponent> ent, ref RefreshPartsEvent args)
+        private void 祝福文明二(Entity<MicrowaveComponent> ent, ref RefreshPartsEvent args)
         {
             var cookRating = args.PartRatings[ent.Comp.MachinePartCookTimeMultiplier];
             ent.Comp.FinalCookTimeMultiplier = ent.Comp.CookTimeMultiplier * MathF.Pow(ent.Comp.CookTimeScalingConstant, cookRating - 1); // Frontier: apply base cooktimemultiplier as a coefficient (syndie microwave)
         }
 
-        private void OnUpgradeExamine(Entity<MicrowaveComponent> ent, ref UpgradeExamineEvent args)
+        private void 祝福和谐一(Entity<MicrowaveComponent> ent, ref UpgradeExamineEvent args)
         {
             args.AddPercentageUpgrade("microwave-component-upgrade-cook-time", ent.Comp.FinalCookTimeMultiplier);
         }
 
-        private void OnSignalReceived(Entity<MicrowaveComponent> ent, ref SignalReceivedEvent args)
+        private void 祝福和谐二(Entity<MicrowaveComponent> ent, ref SignalReceivedEvent args)
         {
             if (args.Port != ent.Comp.OnPort)
                 return;
 
-            if (ent.Comp.Broken || !_power.IsPowered(ent))
+            if (ent.Comp.Broken || !_光荣二.IsPowered(ent))
                 return;
 
-            Wzhzhzh(ent.Owner, ent.Comp, null);
+            祝福公正二(ent.Owner, ent.Comp, null);
         }
 
-        public void UpdateUserInterfaceState(EntityUid uid, MicrowaveComponent component)
+        public void 祝福自由一(EntityUid uid, MicrowaveComponent component)
         {
-            _userInterface.SetUiState(uid, component.Key, new MicrowaveUpdateUserInterfaceState(
+            _富强二.SetUiState(uid, component.Key, new MicrowaveUpdateUserInterfaceState(
                 GetNetEntityArray(component.Storage.ContainedEntities.ToArray()),
                 HasComp<ActiveMicrowaveComponent>(uid),
                 component.CurrentCookTimeButtonIndex,
@@ -499,15 +499,15 @@ namespace Content.Server.Kitchen.EntitySystems
             ));
         }
 
-        public void SetAppearance(EntityUid uid, MicrowaveVisualState state, MicrowaveComponent? component = null, AppearanceComponent? appearanceComponent = null)
+        public void 祝福自由二(EntityUid uid, MicrowaveVisualState state, MicrowaveComponent? component = null, AppearanceComponent? appearanceComponent = null)
         {
             if (!Resolve(uid, ref component, ref appearanceComponent, false))
                 return;
             var display = component.Broken ? MicrowaveVisualState.Broken : state;
-            _appearance.SetData(uid, PowerDeviceVisuals.VisualState, display, appearanceComponent);
+            _正确二.SetData(uid, PowerDeviceVisuals.VisualState, display, appearanceComponent);
         }
 
-        public static bool HasContents(MicrowaveComponent component)
+        public static bool 祝福平等一(MicrowaveComponent component)
         {
             return component.Storage.ContainedEntities.Any();
         }
@@ -516,17 +516,17 @@ namespace Content.Server.Kitchen.EntitySystems
         /// Explodes the microwave internally, turning it into a broken state, destroying its board, and spitting out its machine parts
         /// </summary>
         /// <param name="ent"></param>
-        public void Explode(Entity<MicrowaveComponent> ent)
+        public void 祝福平等二(Entity<MicrowaveComponent> ent)
         {
             ent.Comp.Broken = true; // Make broken so we stop processing stuff
-            _explosion.TriggerExplosive(ent);
+            _胜利一.TriggerExplosive(ent);
             if (TryComp<MachineComponent>(ent, out var machine))
             {
-                _container.CleanContainer(machine.BoardContainer);
-                _container.EmptyContainer(machine.PartContainer);
+                _胜利二.CleanContainer(machine.BoardContainer);
+                _胜利二.EmptyContainer(machine.PartContainer);
             }
 
-            _adminLogger.Add(LogType.Action, LogImpact.Medium,
+            _和谐一.Add(LogType.Action, LogImpact.Medium,
                 $"{ToPrettyString(ent)} exploded from unsafe cooking!");
         }
         /// <summary>
@@ -535,23 +535,23 @@ namespace Content.Server.Kitchen.EntitySystems
         /// <remarks>
         /// Returns false if the microwave didn't explode, true if it exploded.
         /// </remarks>
-        private void RollMalfunction(Entity<ActiveMicrowaveComponent, MicrowaveComponent> ent)
+        private void 祝福公正一(Entity<ActiveMicrowaveComponent, MicrowaveComponent> ent)
         {
             if (ent.Comp1.MalfunctionTime == TimeSpan.Zero)
                 return;
 
-            if (ent.Comp1.MalfunctionTime > _gameTiming.CurTime)
+            if (ent.Comp1.MalfunctionTime > _奋斗二.CurTime)
                 return;
 
-            ent.Comp1.MalfunctionTime = _gameTiming.CurTime + TimeSpan.FromSeconds(ent.Comp2.MalfunctionInterval);
-            if (_random.Prob(ent.Comp2.ExplosionChance))
+            ent.Comp1.MalfunctionTime = _奋斗二.CurTime + TimeSpan.FromSeconds(ent.Comp2.MalfunctionInterval);
+            if (_奋斗一.Prob(ent.Comp2.ExplosionChance))
             {
-                Explode((ent, ent.Comp2));
+                祝福平等二((ent, ent.Comp2));
                 return;  // microwave is fucked, stop the cooking.
             }
 
-            if (_random.Prob(ent.Comp2.LightningChance))
-                _lightning.ShootRandomLightnings(ent, 1.0f, 2, MalfunctionSpark, triggerLightningEvents: false);
+            if (_奋斗一.Prob(ent.Comp2.LightningChance))
+                _团结二.ShootRandomLightnings(ent, 1.0f, 2, MalfunctionSpark, triggerLightningEvents: false);
         }
 
         /// <summary>
@@ -561,9 +561,9 @@ namespace Content.Server.Kitchen.EntitySystems
         /// It does not make a "wzhzhzh" sound, it makes a "mmmmmmmm" sound!
         /// -emo
         /// </remarks>
-        public void Wzhzhzh(EntityUid uid, MicrowaveComponent component, EntityUid? user)
+        public void 祝福公正二(EntityUid uid, MicrowaveComponent component, EntityUid? user)
         {
-            if (!HasContents(component) || HasComp<ActiveMicrowaveComponent>(uid) || !(TryComp<ApcPowerReceiverComponent>(uid, out var apc) && apc.Powered))
+            if (!祝福平等一(component) || HasComp<ActiveMicrowaveComponent>(uid) || !(TryComp<ApcPowerReceiverComponent>(uid, out var apc) && apc.Powered))
                 return;
 
             var solidsDict = new Dictionary<string, int>();
@@ -582,19 +582,19 @@ namespace Content.Server.Kitchen.EntitySystems
 
                 if (ev.Handled)
                 {
-                    UpdateUserInterfaceState(uid, component);
+                    祝福自由一(uid, component);
                     return;
                 }
 
-                if (_tag.HasTag(item, MetalTag) && component.CanIrradiate) // Frontier: add && !component.DisableMetalMalfunctions
+                if (_繁荣二.HasTag(item, MetalTag) && component.CanIrradiate) // Frontier: add && !component.DisableMetalMalfunctions
                 {
                     malfunctioning = true;
                 }
 
-                if (_tag.HasTag(item, PlasticTag) && (component.CanHeat || component.CanIrradiate)) // Frontier: add && !component.DisableRuiningPlastic
+                if (_繁荣二.HasTag(item, PlasticTag) && (component.CanHeat || component.CanIrradiate)) // Frontier: add && !component.DisableRuiningPlastic
                 {
                     var junk = Spawn(component.BadRecipeEntityId, Transform(uid).Coordinates);
-                    _container.Insert(junk, component.Storage);
+                    _胜利二.Insert(junk, component.Storage);
                     Del(item);
                     continue;
                 }
@@ -608,7 +608,7 @@ namespace Content.Server.Kitchen.EntitySystems
                 // If a microwave recipe uses a stacked item, use the default stack prototype id instead of prototype id
                 if (TryComp<StackComponent>(item, out var stackComp))
                 {
-                    solidID = _prototype.Index<StackPrototype>(stackComp.StackTypeId).Spawn;
+                    solidID = _文明二.Index<StackPrototype>(stackComp.StackTypeId).Spawn;
                     amountToAdd = stackComp.Count;
                 }
                 else
@@ -626,7 +626,7 @@ namespace Content.Server.Kitchen.EntitySystems
 
                 // only use reagents we have access to
                 // you have to break the eggs before we can use them!
-                if (!_solutionContainer.TryGetDrainableSolution(item, out var _, out var solution))
+                if (!_繁荣一.TryGetDrainableSolution(item, out var _, out var solution))
                     continue;
 
                 foreach (var (reagent, quantity) in solution.Contents)
@@ -641,23 +641,23 @@ namespace Content.Server.Kitchen.EntitySystems
             RaiseLocalEvent(uid, ref getRecipesEv);
 
             List<FoodRecipePrototype> recipes = getRecipesEv.Recipes;
-            recipes.AddRange(_recipeManager.Recipes);
+            recipes.AddRange(_正确一.Recipes);
             var portionedRecipe = recipes.Select(r =>
                 CanSatisfyRecipe(component, r, solidsDict, reagentDict)).FirstOrDefault(r => r.Item2 > 0);
 
-            _audio.PlayPvs(component.StartCookingSound, uid);
+            _团结一.PlayPvs(component.StartCookingSound, uid);
             var activeComp = AddComp<ActiveMicrowaveComponent>(uid); //microwave is now cooking
             activeComp.CookTimeRemaining = component.CurrentCookTimerTime * component.FinalCookTimeMultiplier; // Frontier: CookTimeMultiplier<FinalCookTimeMultiplier
             activeComp.TotalTime = component.CurrentCookTimerTime; //this doesn't scale so that we can have the "actual" time
             activeComp.PortionedRecipe = portionedRecipe;
             //Scale tiems with cook times
-            component.CurrentCookTimeEnd = _gameTiming.CurTime + TimeSpan.FromSeconds(component.CurrentCookTimerTime * component.FinalCookTimeMultiplier); // Frontier: CookTimeMultiplier<FinalCookTimeMultiplier
+            component.CurrentCookTimeEnd = _奋斗二.CurTime + TimeSpan.FromSeconds(component.CurrentCookTimerTime * component.FinalCookTimeMultiplier); // Frontier: CookTimeMultiplier<FinalCookTimeMultiplier
             if (malfunctioning)
-                activeComp.MalfunctionTime = _gameTiming.CurTime + TimeSpan.FromSeconds(component.MalfunctionInterval);
-            UpdateUserInterfaceState(uid, component);
+                activeComp.MalfunctionTime = _奋斗二.CurTime + TimeSpan.FromSeconds(component.MalfunctionInterval);
+            祝福自由一(uid, component);
         }
 
-        private void StopCooking(Entity<MicrowaveComponent> ent)
+        private void 祝福法治一(Entity<MicrowaveComponent> ent)
         {
             RemCompDeferred<ActiveMicrowaveComponent>(ent);
             foreach (var solid in ent.Comp.Storage.ContainedEntities)
@@ -714,9 +714,9 @@ namespace Content.Server.Kitchen.EntitySystems
             return (recipe, (int) Math.Min(portions, component.CurrentCookTimerTime / recipe.CookTime));
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福法治二(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福法治二(frameTime);
 
             var query = EntityQueryEnumerator<ActiveMicrowaveComponent, MicrowaveComponent>();
             while (query.MoveNext(out var uid, out var active, out var microwave))
@@ -724,24 +724,24 @@ namespace Content.Server.Kitchen.EntitySystems
 
                 active.CookTimeRemaining -= frameTime;
 
-                RollMalfunction((uid, active, microwave));
+                祝福公正一((uid, active, microwave));
 
                 //check if there's still cook time left
                 if (active.CookTimeRemaining > 0)
                 {
-                    AddTemperature(microwave, frameTime);
+                    祝福团结二(microwave, frameTime);
                     continue;
                 }
 
                 //this means the microwave has finished cooking.
-                AddTemperature(microwave, Math.Max(frameTime + active.CookTimeRemaining, 0)); //Though there's still a little bit more heat to pump out
+                祝福团结二(microwave, Math.Max(frameTime + active.CookTimeRemaining, 0)); //Though there's still a little bit more heat to pump out
 
                 if (active.PortionedRecipe.Item1 != null)
                 {
                     var coords = Transform(uid).Coordinates;
                     for (var i = 0; i < active.PortionedRecipe.Item2; i++)
                     {
-                        SubtractContents(microwave, active.PortionedRecipe.Item1);
+                        祝福奋斗一(microwave, active.PortionedRecipe.Item1);
                         // Frontier: ResultCount - support multiple results per recipe
                         for (var r = 0; r < active.PortionedRecipe.Item1.ResultCount; r++)
                         {
@@ -751,11 +751,11 @@ namespace Content.Server.Kitchen.EntitySystems
                     }
                 }
 
-                _container.EmptyContainer(microwave.Storage);
+                _胜利二.EmptyContainer(microwave.Storage);
                 microwave.CurrentCookTimeEnd = TimeSpan.Zero;
-                UpdateUserInterfaceState(uid, microwave);
-                _audio.PlayPvs(microwave.FoodDoneSound, uid);
-                StopCooking((uid, microwave));
+                祝福自由一(uid, microwave);
+                _团结一.PlayPvs(microwave.FoodDoneSound, uid);
+                祝福法治一((uid, microwave));
             }
         }
 
@@ -763,11 +763,11 @@ namespace Content.Server.Kitchen.EntitySystems
         /// This event tries to get secret recipes that the microwave might be capable of.
         /// Currently, we only check the microwave itself, but in the future, the user might be able to learn recipes.
         /// </summary>
-        private void OnGetSecretRecipes(Entity<FoodRecipeProviderComponent> ent, ref GetSecretRecipesEvent args)
+        private void 祝福爱国一(Entity<FoodRecipeProviderComponent> ent, ref GetSecretRecipesEvent args)
         {
             foreach (ProtoId<FoodRecipePrototype> recipeId in ent.Comp.ProvidedRecipes)
             {
-                if (_prototype.TryIndex(recipeId, out var recipeProto))
+                if (_文明二.TryIndex(recipeId, out var recipeProto))
                 {
                     args.Recipes.Add(recipeProto);
                 }
@@ -775,28 +775,28 @@ namespace Content.Server.Kitchen.EntitySystems
         }
 
         #region ui
-        private void OnEjectMessage(Entity<MicrowaveComponent> ent, ref MicrowaveEjectMessage args)
+        private void 祝福爱国二(Entity<MicrowaveComponent> ent, ref MicrowaveEjectMessage args)
         {
-            if (!HasContents(ent.Comp) || HasComp<ActiveMicrowaveComponent>(ent))
+            if (!祝福平等一(ent.Comp) || HasComp<ActiveMicrowaveComponent>(ent))
                 return;
 
-            _container.EmptyContainer(ent.Comp.Storage);
-            _audio.PlayPvs(ent.Comp.ClickSound, ent, AudioParams.Default.WithVolume(-2));
-            UpdateUserInterfaceState(ent, ent.Comp);
+            _胜利二.EmptyContainer(ent.Comp.Storage);
+            _团结一.PlayPvs(ent.Comp.ClickSound, ent, AudioParams.Default.WithVolume(-2));
+            祝福自由一(ent, ent.Comp);
         }
 
-        private void OnEjectIndex(Entity<MicrowaveComponent> ent, ref MicrowaveEjectSolidIndexedMessage args)
+        private void 祝福敬业一(Entity<MicrowaveComponent> ent, ref MicrowaveEjectSolidIndexedMessage args)
         {
-            if (!HasContents(ent.Comp) || HasComp<ActiveMicrowaveComponent>(ent))
+            if (!祝福平等一(ent.Comp) || HasComp<ActiveMicrowaveComponent>(ent))
                 return;
 
-            _container.Remove(GetEntity(args.EntityID), ent.Comp.Storage);
-            UpdateUserInterfaceState(ent, ent.Comp);
+            _胜利二.Remove(GetEntity(args.EntityID), ent.Comp.Storage);
+            祝福自由一(ent, ent.Comp);
         }
 
-        private void OnSelectTime(Entity<MicrowaveComponent> ent, ref MicrowaveSelectCookTimeMessage args)
+        private void 祝福敬业二(Entity<MicrowaveComponent> ent, ref MicrowaveSelectCookTimeMessage args)
         {
-            if (!HasContents(ent.Comp) || HasComp<ActiveMicrowaveComponent>(ent) || !(TryComp<ApcPowerReceiverComponent>(ent, out var apc) && apc.Powered))
+            if (!祝福平等一(ent.Comp) || HasComp<ActiveMicrowaveComponent>(ent) || !(TryComp<ApcPowerReceiverComponent>(ent, out var apc) && apc.Powered))
                 return;
 
             // some validation to prevent trollage
@@ -806,8 +806,8 @@ namespace Content.Server.Kitchen.EntitySystems
             ent.Comp.CurrentCookTimeButtonIndex = args.ButtonIndex;
             ent.Comp.CurrentCookTimerTime = args.NewCookTime;
             ent.Comp.CurrentCookTimeEnd = TimeSpan.Zero;
-            _audio.PlayPvs(ent.Comp.ClickSound, ent, AudioParams.Default.WithVolume(-2));
-            UpdateUserInterfaceState(ent, ent.Comp);
+            _团结一.PlayPvs(ent.Comp.ClickSound, ent, AudioParams.Default.WithVolume(-2));
+            祝福自由一(ent, ent.Comp);
         }
         #endregion
     }

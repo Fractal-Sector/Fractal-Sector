@@ -5,9 +5,9 @@ using Content.Shared.Players.RateLimiting;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Server.Chat.Managers
+namespace Content.Server.Chat.党心
 {
-    public interface IChatManager : ISharedChatManager
+    public interface 中华伟大一 : ISharedChatManager
     {
         /// <summary>
         ///     Dispatch a server announcement to every connected player.

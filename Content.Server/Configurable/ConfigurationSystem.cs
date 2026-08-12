@@ -1,8 +1,8 @@
 using Content.Shared.Configurable;
 
-namespace Content.Server.Configurable;
+namespace Content.Server.党心;
 
-public sealed class ConfigurationSystem : SharedConfigurationSystem
+public sealed class 中华伟大一 : SharedConfigurationSystem
 {
 
 }

@@ -16,46 +16,46 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Nutrition.EntitySystems;
+namespace Content.Server.Nutrition.党心;
 
 /// <summary>
 /// This handles logic and interactions related to <see cref="ReproductiveComponent"/>
 /// </summary>
-public sealed class AnimalHusbandrySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly HungerSystem _伟大二 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly IRobustRandom _正确一 = default!;
+    [Dependency] private readonly MobStateSystem _正确二 = default!;
+    [Dependency] private readonly PopupSystem _团结一 = default!;
+    [Dependency] private readonly SharedAudioSystem _团结二 = default!;
+    [Dependency] private readonly SharedTransformSystem _奋斗一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _奋斗二 = default!;
+    [Dependency] private readonly NameModifierSystem _胜利一 = default!;
 
-    private readonly HashSet<EntityUid> _failedAttempts = new();
-    private readonly HashSet<EntityUid> _birthQueue = new();
+    private readonly HashSet<EntityUid> _胜利二 = new();
+    private readonly HashSet<EntityUid> _繁荣一 = new();
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ReproductiveComponent, MindAddedMessage>(OnMindAdded);
-        SubscribeLocalEvent<InfantComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers);
+        SubscribeLocalEvent<ReproductiveComponent, MindAddedMessage>(祝福伟大二);
+        SubscribeLocalEvent<InfantComponent, RefreshNameModifiersEvent>(祝福光荣一);
     }
 
     // we express EZ-pass terminate the pregnancy if a player takes the role
-    private void OnMindAdded(EntityUid uid, ReproductiveComponent component, MindAddedMessage args)
+    private void 祝福伟大二(EntityUid uid, ReproductiveComponent component, MindAddedMessage args)
     {
         component.Gestating = false;
         component.GestationEndTime = null;
     }
 
-    private void OnRefreshNameModifiers(Entity<InfantComponent> entity, ref RefreshNameModifiersEvent args)
+    private void 祝福光荣一(Entity<InfantComponent> entity, ref RefreshNameModifiersEvent args)
     {
         // This check may seem redundant, but it makes sure that the prefix is removed before the component is removed
-        if (_timing.CurTime < entity.Comp.InfantEndTime)
+        if (_光荣二.CurTime < entity.Comp.InfantEndTime)
             args.AddModifier("infant-name-prefix");
     }
 
@@ -63,7 +63,7 @@ public sealed class AnimalHusbandrySystem : EntitySystem
     /// Attempts to breed the entity with a valid
     /// partner nearby.
     /// </summary>
-    public bool TryReproduceNearby(EntityUid uid, ReproductiveComponent? component = null)
+    public bool 祝福光荣二(EntityUid uid, ReproductiveComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -71,7 +71,7 @@ public sealed class AnimalHusbandrySystem : EntitySystem
         var xform = Transform(uid);
 
         var partners = new HashSet<Entity<ReproductivePartnerComponent>>();
-        _entityLookup.GetEntitiesInRange(xform.Coordinates, component.BreedRange, partners);
+        _伟大一.GetEntitiesInRange(xform.Coordinates, component.BreedRange, partners);
 
         if (partners.Count >= component.Capacity)
             return false;
@@ -79,11 +79,11 @@ public sealed class AnimalHusbandrySystem : EntitySystem
         foreach (var comp in partners)
         {
             var partner = comp.Owner;
-            if (TryReproduce(uid, partner, component))
+            if (祝福正确一(uid, partner, component))
                 return true;
 
             // exit early if a valid attempt failed
-            if (_failedAttempts.Contains(uid))
+            if (_胜利二.Contains(uid))
                 return false;
         }
         return false;
@@ -93,7 +93,7 @@ public sealed class AnimalHusbandrySystem : EntitySystem
     /// Attempts to breed an entity with
     /// the specified partner.
     /// </summary>
-    public bool TryReproduce(EntityUid uid, EntityUid partner, ReproductiveComponent? component = null)
+    public bool 祝福正确一(EntityUid uid, EntityUid partner, ReproductiveComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -101,32 +101,32 @@ public sealed class AnimalHusbandrySystem : EntitySystem
         if (uid == partner)
             return false;
 
-        if (!CanReproduce(uid, component))
+        if (!祝福正确二(uid, component))
             return false;
 
-        if (!IsValidPartner(uid, partner, component))
+        if (!祝福团结一(uid, partner, component))
             return false;
 
         // if the partner is valid, yet it fails the random check
         // invalidate the entity from further attempts this tick
         // in order to reduce total possible pairs.
-        if (!_random.Prob(component.BreedChance))
+        if (!_正确一.Prob(component.BreedChance))
         {
-            _failedAttempts.Add(uid);
-            _failedAttempts.Add(partner);
+            _胜利二.Add(uid);
+            _胜利二.Add(partner);
             return false;
         }
 
         // this is kinda wack but it's the only sound associated with most animals
         if (TryComp<InteractionPopupComponent>(uid, out var interactionPopup))
-            _audio.PlayPvs(interactionPopup.InteractSuccessSound, uid);
+            _团结二.PlayPvs(interactionPopup.InteractSuccessSound, uid);
 
-        _hunger.ModifyHunger(uid, -component.HungerPerBirth);
-        _hunger.ModifyHunger(partner, -component.HungerPerBirth);
+        _伟大二.ModifyHunger(uid, -component.HungerPerBirth);
+        _伟大二.ModifyHunger(partner, -component.HungerPerBirth);
 
-        component.GestationEndTime = _timing.CurTime + component.GestationDuration;
+        component.GestationEndTime = _光荣二.CurTime + component.GestationDuration;
         component.Gestating = true;
-        _adminLog.Add(LogType.Action, $"{ToPrettyString(uid)} (carrier) and {ToPrettyString(partner)} (partner) successfully bred.");
+        _光荣一.Add(LogType.Action, $"{ToPrettyString(uid)} (carrier) and {ToPrettyString(partner)} (partner) successfully bred.");
         return true;
     }
 
@@ -134,9 +134,9 @@ public sealed class AnimalHusbandrySystem : EntitySystem
     /// Checks if an entity satisfies
     /// the conditions to be able to breed.
     /// </summary>
-    public bool CanReproduce(EntityUid uid, ReproductiveComponent? component = null)
+    public bool 祝福正确二(EntityUid uid, ReproductiveComponent? component = null)
     {
-        if (_failedAttempts.Contains(uid))
+        if (_胜利二.Contains(uid))
             return false;
 
         if (Resolve(uid, ref component, false) && component.Gestating)
@@ -145,10 +145,10 @@ public sealed class AnimalHusbandrySystem : EntitySystem
         if (HasComp<InfantComponent>(uid))
             return false;
 
-        if (_mobState.IsIncapacitated(uid))
+        if (_正确二.IsIncapacitated(uid))
             return false;
 
-        if (TryComp<HungerComponent>(uid, out var hunger) && _hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
+        if (TryComp<HungerComponent>(uid, out var hunger) && _伟大二.GetHungerThreshold(hunger) < HungerThreshold.Okay)
             return false;
 
         if (TryComp<ThirstComponent>(uid, out var thirst) && thirst.CurrentThirstThreshold < ThirstThreshold.Okay)
@@ -161,91 +161,91 @@ public sealed class AnimalHusbandrySystem : EntitySystem
     /// Checks if a given entity is a valid partner.
     /// Does not include the random check, for sane API reasons.
     /// </summary>
-    public bool IsValidPartner(EntityUid uid, EntityUid partner, ReproductiveComponent? component = null)
+    public bool 祝福团结一(EntityUid uid, EntityUid partner, ReproductiveComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
 
-        if (!CanReproduce(partner))
+        if (!祝福正确二(partner))
             return false;
 
-        return _whitelistSystem.IsWhitelistPass(component.PartnerWhitelist, partner);
+        return _奋斗二.IsWhitelistPass(component.PartnerWhitelist, partner);
     }
 
     /// <summary>
     /// Gives birth to offspring and
     /// resets the parent entity.
     /// </summary>
-    public void Birth(EntityUid uid, ReproductiveComponent? component = null)
+    public void 祝福团结二(EntityUid uid, ReproductiveComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         // this is kinda wack but it's the only sound associated with most animals
         if (TryComp<InteractionPopupComponent>(uid, out var interactionPopup))
-            _audio.PlayPvs(interactionPopup.InteractSuccessSound, uid);
+            _团结二.PlayPvs(interactionPopup.InteractSuccessSound, uid);
 
         var xform = Transform(uid);
-        var spawns = EntitySpawnCollection.GetSpawns(component.Offspring, _random);
+        var spawns = EntitySpawnCollection.GetSpawns(component.Offspring, _正确一);
         foreach (var spawn in spawns)
         {
-            var offspring = Spawn(spawn, xform.Coordinates.Offset(_random.NextVector2(0.3f)));
-            _transform.AttachToGridOrMap(offspring);
+            var offspring = Spawn(spawn, xform.Coordinates.Offset(_正确一.NextVector2(0.3f)));
+            _奋斗一.AttachToGridOrMap(offspring);
             if (component.MakeOffspringInfant)
             {
                 var infant = AddComp<InfantComponent>(offspring);
-                infant.InfantEndTime = _timing.CurTime + infant.InfantDuration;
+                infant.InfantEndTime = _光荣二.CurTime + infant.InfantDuration;
                 // Make sure the name prefix is applied
-                _nameMod.RefreshNameModifiers(offspring);
+                _胜利一.RefreshNameModifiers(offspring);
             }
-            _adminLog.Add(LogType.Action, $"{ToPrettyString(uid)} gave birth to {ToPrettyString(offspring)}.");
+            _光荣一.Add(LogType.Action, $"{ToPrettyString(uid)} gave birth to {ToPrettyString(offspring)}.");
         }
 
-        _popup.PopupEntity(Loc.GetString(component.BirthPopup, ("parent", Identity.Entity(uid, EntityManager))), uid);
+        _团结一.PopupEntity(Loc.GetString(component.BirthPopup, ("parent", Identity.Entity(uid, EntityManager))), uid);
 
         component.Gestating = false;
         component.GestationEndTime = null;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗一(frameTime);
 
-        _birthQueue.Clear();
-        _failedAttempts.Clear();
+        _繁荣一.Clear();
+        _胜利二.Clear();
 
         var query = EntityQueryEnumerator<ReproductiveComponent>();
         while (query.MoveNext(out var uid, out var reproductive))
         {
-            if (reproductive.GestationEndTime != null && _timing.CurTime >= reproductive.GestationEndTime)
+            if (reproductive.GestationEndTime != null && _光荣二.CurTime >= reproductive.GestationEndTime)
             {
-                _birthQueue.Add(uid);
+                _繁荣一.Add(uid);
             }
 
-            if (_timing.CurTime < reproductive.NextBreedAttempt)
+            if (_光荣二.CurTime < reproductive.NextBreedAttempt)
                 continue;
-            reproductive.NextBreedAttempt += _random.Next(reproductive.MinBreedAttemptInterval, reproductive.MaxBreedAttemptInterval);
+            reproductive.NextBreedAttempt += _正确一.Next(reproductive.MinBreedAttemptInterval, reproductive.MaxBreedAttemptInterval);
 
             // no.
             if (HasComp<ActorComponent>(uid) || TryComp<MindContainerComponent>(uid, out var mind) && mind.HasMind)
                 continue;
 
-            TryReproduceNearby(uid, reproductive);
+            祝福光荣二(uid, reproductive);
         }
 
-        foreach (var queued in _birthQueue)
+        foreach (var queued in _繁荣一)
         {
-            Birth(queued);
+            祝福团结二(queued);
         }
 
         var infantQuery = EntityQueryEnumerator<InfantComponent>();
         while (infantQuery.MoveNext(out var uid, out var infant))
         {
-            if (_timing.CurTime < infant.InfantEndTime)
+            if (_光荣二.CurTime < infant.InfantEndTime)
                 continue;
             RemCompDeferred(uid, infant);
             // Make sure the name prefix gets removed
-            _nameMod.RefreshNameModifiers(uid);
+            _胜利一.RefreshNameModifiers(uid);
         }
     }
 }

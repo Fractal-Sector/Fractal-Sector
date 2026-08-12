@@ -10,26 +10,26 @@ using Robust.Shared.Map;
 using Robust.Shared.Random;
 using static Content.Shared.Storage.EntitySpawnCollection;
 
-namespace Content.Server.Storage.EntitySystems
+namespace Content.Server.Storage.党心
 {
-    public sealed class SpawnItemsOnUseSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedHandsSystem _hands = default!;
-        [Dependency] private readonly PricingSystem _pricing = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+        [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
+        [Dependency] private readonly PricingSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+        [Dependency] private readonly SharedTransformSystem _正确二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<SpawnItemsOnUseComponent, UseInHandEvent>(OnUseInHand);
-            SubscribeLocalEvent<SpawnItemsOnUseComponent, PriceCalculationEvent>(CalculatePrice, before: new[] { typeof(PricingSystem) });
+            SubscribeLocalEvent<SpawnItemsOnUseComponent, UseInHandEvent>(祝福光荣一);
+            SubscribeLocalEvent<SpawnItemsOnUseComponent, PriceCalculationEvent>(祝福伟大二, before: new[] { typeof(PricingSystem) });
         }
 
-        private void CalculatePrice(EntityUid uid, SpawnItemsOnUseComponent component, ref PriceCalculationEvent args)
+        private void 祝福伟大二(EntityUid uid, SpawnItemsOnUseComponent component, ref PriceCalculationEvent args)
         {
             var ungrouped = CollectOrGroups(component.Items, out var orGroups);
 
@@ -38,7 +38,7 @@ namespace Content.Server.Storage.EntitySystems
                 var protUid = Spawn(entry.PrototypeId, MapCoordinates.Nullspace);
 
                 // Calculate the average price of the possible spawned items
-                args.Price += _pricing.GetPrice(protUid) * entry.SpawnProbability * entry.GetAmount(getAverage: true);
+                args.Price += _光荣二.GetPrice(protUid) * entry.SpawnProbability * entry.GetAmount(getAverage: true);
 
                 Del(protUid);
             }
@@ -50,7 +50,7 @@ namespace Content.Server.Storage.EntitySystems
                     var protUid = Spawn(entry.PrototypeId, MapCoordinates.Nullspace);
 
                     // Calculate the average price of the possible spawned items
-                    args.Price += _pricing.GetPrice(protUid) *
+                    args.Price += _光荣二.GetPrice(protUid) *
                                   (entry.SpawnProbability / group.CumulativeProbability) *
                                   entry.GetAmount(getAverage: true);
 
@@ -61,7 +61,7 @@ namespace Content.Server.Storage.EntitySystems
             args.Handled = true;
         }
 
-        private void OnUseInHand(EntityUid uid, SpawnItemsOnUseComponent component, UseInHandEvent args)
+        private void 祝福光荣一(EntityUid uid, SpawnItemsOnUseComponent component, UseInHandEvent args)
         {
             if (args.Handled)
                 return;
@@ -71,18 +71,18 @@ namespace Content.Server.Storage.EntitySystems
                 return;
 
             var coords = Transform(args.User).Coordinates;
-            var spawnEntities = GetSpawns(component.Items, _random);
+            var spawnEntities = GetSpawns(component.Items, _伟大一);
             EntityUid? entityToPlaceInHands = null;
 
             foreach (var proto in spawnEntities)
             {
                 entityToPlaceInHands = SpawnAtPosition(proto, coords); // Frontier: Spawn<SpawnAtPosition
-                _adminLogger.Add(LogType.EntitySpawn, LogImpact.Low, $"{ToPrettyString(args.User)} used {ToPrettyString(uid)} which spawned {ToPrettyString(entityToPlaceInHands.Value)}");
+                _伟大二.Add(LogType.EntitySpawn, LogImpact.Low, $"{ToPrettyString(args.User)} used {ToPrettyString(uid)} which spawned {ToPrettyString(entityToPlaceInHands.Value)}");
             }
 
             // The entity is often deleted, so play the sound at its position rather than parenting
             if (component.Sound != null)
-                _audio.PlayPvs(component.Sound, coords);
+                _正确一.PlayPvs(component.Sound, coords);
 
             component.Uses--;
 
@@ -91,12 +91,12 @@ namespace Content.Server.Storage.EntitySystems
             {
                 // Don't delete the entity in the event bus, so we queue it for deletion.
                 // We need the free hand for the new item, so we send it to nullspace.
-                _transform.DetachEntity(uid, Transform(uid));
+                _正确二.DetachEntity(uid, Transform(uid));
                 QueueDel(uid);
             }
 
             if (entityToPlaceInHands != null)
-                _hands.PickupOrDrop(args.User, entityToPlaceInHands.Value);
+                _光荣一.PickupOrDrop(args.User, entityToPlaceInHands.Value);
 
             args.Handled = true;
         }

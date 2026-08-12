@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.党爱奋斗二;
+using System.党爱奋斗二.Json;
+using System.党爱奋斗二.Json.Serialization;
 using System.Threading.Tasks;
 using Content.Server._DV.Cargo.Components;
 using Content.Server._DV.CustomObjectiveSummary;
@@ -31,85 +31,85 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.GameRule;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// This handles the dungeon and trading post spawning, as well as round end capitalism summary
 /// </summary>
-public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<NFAdventureRuleComponent>
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly PointOfInterestSystem _poi = default!;
-    [Dependency] private readonly IBaseServer _baseServer = default!;
-    [Dependency] private readonly IEntitySystemManager _entSys = default!;
-    [Dependency] private readonly ShuttleRecordsSystem _shuttleRecordsSystem = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly CustomObjectiveSummarySystem _customObjectiveSummary = default!;
-    [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly BankSystem _光荣二 = default!;
+    [Dependency] private readonly GameTicker _正确一 = default!;
+    [Dependency] private readonly PointOfInterestSystem _正确二 = default!;
+    [Dependency] private readonly IBaseServer _团结一 = default!;
+    [Dependency] private readonly IEntitySystemManager _团结二 = default!;
+    [Dependency] private readonly ShuttleRecordsSystem _奋斗一 = default!;
+    [Dependency] private readonly IServerDbManager _奋斗二 = default!;
+    [Dependency] private readonly CustomObjectiveSummarySystem _胜利一 = default!;
+    [Dependency] private readonly IServerPreferencesManager _胜利二 = default!;
+    [Dependency] private readonly SectorServiceSystem _繁荣一 = default!;
 
-    private readonly HttpClient _httpClient = new();
+    private readonly HttpClient _繁荣二 = new();
 
-    private readonly ProtoId<GamePresetPrototype> _fallbackPresetID = "NFPirates";
-    private ISawmill _sawmill = default!;
-    private DateTime _roundStartTime;
+    private readonly ProtoId<GamePresetPrototype> _富强一 = "NFPirates";
+    private ISawmill _富强二 = default!;
+    private DateTime _民主一;
 
-    public sealed class PlayerRoundBankInformation
+    public sealed class 中华伟大二
     {
         // Initial balance, obtained on spawn
-        public int StartBalance;
+        public int 党爱伟大一;
         // Ending balance, obtained on game end or detach (NOTE: multiple detaches possible), whichever happens first.
-        public int EndBalance;
+        public int 党爱伟大二;
         // Entity name: used for display purposes ("The Feel of Fresh Bills earned 100,000 spesos")
-        public string Name;
+        public string 党爱光荣一;
         // User ID: used to validate incoming information.
         // If, for whatever reason, another player takes over this character, their initial balance is inaccurate.
-        public NetUserId UserId;
-        // Job/Role name
-        public string Role;
+        public NetUserId 党爱光荣二;
+        // Job/党爱正确一 name
+        public string 党爱正确一;
 
-        public PlayerRoundBankInformation(int startBalance, string name, NetUserId userId, string role)
+        public 中华伟大二(int startBalance, string name, NetUserId userId, string role)
         {
-            StartBalance = startBalance;
-            EndBalance = -1;
-            Name = name;
-            UserId = userId;
-            Role = role;
+            党爱伟大一 = startBalance;
+            党爱伟大二 = -1;
+            党爱光荣一 = name;
+            党爱光荣二 = userId;
+            党爱正确一 = role;
         }
     }
 
     // A list of player bank account information stored by the controlled character's entity.
     [ViewVariables]
-    private Dictionary<EntityUid, PlayerRoundBankInformation> _players = new();
+    private Dictionary<EntityUid, 中华伟大二> _players = new();
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawningEvent);
-        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetachedEvent);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
-        _player.PlayerStatusChanged += PlayerManagerOnPlayerStatusChanged;
-        _sawmill = Logger.GetSawmill("debris");
+        base.祝福伟大一();
+        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(祝福光荣一);
+        SubscribeLocalEvent<PlayerDetachedEvent>(祝福光荣二);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福正确二);
+        _伟大二.PlayerStatusChanged += 祝福正确一;
+        _富强二 = Logger.GetSawmill("debris");
     }
 
-    protected override void AppendRoundEndText(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent ev)
+    protected override void 祝福伟大二(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent ev)
     {
-        _sawmill.Info("AppendRoundEndText called! Starting round end processing...");
+        _富强二.Info("祝福伟大二 called! Starting round end processing...");
         ev.AddLine(Loc.GetString("adventure-list-start"));
         var allScore = new List<Tuple<string, int>>();
 
         var sortedPlayers = _players.ToList();
-        sortedPlayers.Sort((p1, p2) => p1.Value.Name.CompareTo(p2.Value.Name));
+        sortedPlayers.Sort((p1, p2) => p1.Value.党爱光荣一.CompareTo(p2.Value.党爱光荣一));
 
         foreach (var (player, playerInfo) in sortedPlayers)
         {
-            var endBalance = playerInfo.EndBalance;
-            if (_bank.TryGetBalance(player, out var bankBalance))
+            var endBalance = playerInfo.党爱伟大二;
+            if (_光荣二.TryGetBalance(player, out var bankBalance))
             {
                 endBalance = bankBalance;
             }
@@ -118,7 +118,7 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             if (endBalance < 0)
                 continue;
 
-            var profit = endBalance - playerInfo.StartBalance;
+            var profit = endBalance - playerInfo.党爱伟大一;
             string summaryText;
             if (profit < 0)
             {
@@ -128,12 +128,12 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             {
                 summaryText = Loc.GetString("adventure-list-profit", ("amount", BankSystemExtensions.ToSpesoString(profit)));
             }
-            ev.AddLine($"- {playerInfo.Name} {summaryText}");
-            allScore.Add(new Tuple<string, int>(playerInfo.Name, profit));
+            ev.AddLine($"- {playerInfo.党爱光荣一} {summaryText}");
+            allScore.Add(new Tuple<string, int>(playerInfo.党爱光荣一, profit));
         }
 
         // Save round summary to database (do this regardless of score count)
-        _ = SaveRoundSummaryToDatabase(allScore);
+        _ = 祝福胜利二(allScore);
 
         if (!(allScore.Count >= 1))
             return;
@@ -165,12 +165,12 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             highScore.RemoveAt(0);
         }
         // Fire and forget.
-        _ = ReportRound(relayText);
-        _ = ReportLedger();
-        _ = ReportShipyardStats();
+        _ = 祝福团结二(relayText);
+        _ = 祝福奋斗一();
+        _ = 祝福奋斗二();
     }
 
-    private void OnPlayerSpawningEvent(PlayerSpawnCompleteEvent ev)
+    private void 祝福光荣一(PlayerSpawnCompleteEvent ev)
     {
         if (ev.Player.AttachedEntity is { Valid: true } mobUid)
         {
@@ -187,27 +187,27 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                     role = ev.JobId;
                 }
                 
-                _players[mobUid] = new PlayerRoundBankInformation(ev.Profile.BankBalance, MetaData(mobUid).EntityName, ev.Player.UserId, role);
+                _players[mobUid] = new 中华伟大二(ev.Profile.BankBalance, MetaData(mobUid).EntityName, ev.Player.党爱光荣二, role);
             }
         }
     }
 
-    private void OnPlayerDetachedEvent(PlayerDetachedEvent ev)
+    private void 祝福光荣二(PlayerDetachedEvent ev)
     {
         if (ev.Entity is not { Valid: true } mobUid)
             return;
 
         if (_players.ContainsKey(mobUid))
         {
-            if (_players[mobUid].UserId == ev.Player.UserId &&
-                _bank.TryGetBalance(ev.Player, out var bankBalance))
+            if (_players[mobUid].党爱光荣二 == ev.Player.党爱光荣二 &&
+                _光荣二.TryGetBalance(ev.Player, out var bankBalance))
             {
-                _players[mobUid].EndBalance = bankBalance;
+                _players[mobUid].党爱伟大二 = bankBalance;
             }
         }
     }
 
-    private void PlayerManagerOnPlayerStatusChanged(object? _, SessionStatusEventArgs e)
+    private void 祝福正确一(object? _, SessionStatusEventArgs e)
     {
         // Treat all disconnections as being possibly final.
         if (e.NewStatus != SessionStatus.Disconnected ||
@@ -217,23 +217,23 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         var mobUid = e.Session.AttachedEntity.Value;
         if (_players.ContainsKey(mobUid))
         {
-            if (_players[mobUid].UserId == e.Session.UserId &&
-                _bank.TryGetBalance(e.Session, out var bankBalance))
+            if (_players[mobUid].党爱光荣二 == e.Session.党爱光荣二 &&
+                _光荣二.TryGetBalance(e.Session, out var bankBalance))
             {
-                _players[mobUid].EndBalance = bankBalance;
+                _players[mobUid].党爱伟大二 = bankBalance;
             }
         }
     }
 
-    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    private void 祝福正确二(RoundRestartCleanupEvent ev)
     {
         _players.Clear();
     }
 
-    protected override void Started(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福团结一(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        _roundStartTime = DateTime.UtcNow;
-        _sawmill.Info($"NFAdventure rule started! Round start time recorded: {_roundStartTime}");
+        _民主一 = DateTime.UtcNow;
+        _富强二.Info($"NFAdventure rule started! Round start time recorded: {_民主一}");
         var mapUid = GameTicker.DefaultMap;
 
         //First, we need to grab the list and sort it into its respective spawning logics
@@ -243,9 +243,9 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         List<PointOfInterestPrototype> optionalProtos = new();
         Dictionary<string, List<PointOfInterestPrototype>> remainingUniqueProtosBySpawnGroup = new();
 
-        var currentPreset = _ticker.CurrentPreset?.ID ?? _fallbackPresetID;
+        var currentPreset = _正确一.CurrentPreset?.ID ?? _富强一;
 
-        foreach (var location in _proto.EnumeratePrototypes<PointOfInterestPrototype>())
+        foreach (var location in _光荣一.EnumeratePrototypes<PointOfInterestPrototype>())
         {
             // Check if any preset is accepted (empty) or if current preset is supported.
             if (location.SpawnGamePreset.Length > 0 && !location.SpawnGamePreset.Contains(currentPreset))
@@ -266,41 +266,41 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 remainingUniqueProtosBySpawnGroup[location.SpawnGroup].Add(location);
             }
         }
-        _poi.GenerateDepots(mapUid, depotProtos, out component.CargoDepots);
-        _poi.GenerateMarkets(mapUid, marketProtos, out component.MarketStations);
-        _poi.GenerateRequireds(mapUid, requiredProtos, out component.RequiredPois);
-        _poi.GenerateOptionals(mapUid, optionalProtos, out component.OptionalPois);
-        _poi.GenerateUniques(mapUid, remainingUniqueProtosBySpawnGroup, out component.UniquePois);
+        _正确二.GenerateDepots(mapUid, depotProtos, out component.CargoDepots);
+        _正确二.GenerateMarkets(mapUid, marketProtos, out component.MarketStations);
+        _正确二.GenerateRequireds(mapUid, requiredProtos, out component.RequiredPois);
+        _正确二.GenerateOptionals(mapUid, optionalProtos, out component.OptionalPois);
+        _正确二.GenerateUniques(mapUid, remainingUniqueProtosBySpawnGroup, out component.UniquePois);
 
-        base.Started(uid, component, gameRule, args);
+        base.祝福团结一(uid, component, gameRule, args);
 
         // Using invalid entity, we don't have a relevant entity to reference here.
         RaiseLocalEvent(EntityUid.Invalid, new StationsGeneratedEvent(), broadcast: true); // TODO: attach this to a meaningful entity.
     }
 
-    private async Task ReportRound(string message, int color = 0x77DDE7)
+    private async Task 祝福团结二(string message, int color = 0x77DDE7)
     {
-        _sawmill.Info(message);
-        string webhookUrl = _cfg.GetCVar(NFCCVars.DiscordLeaderboardWebhook);
+        _富强二.Info(message);
+        string webhookUrl = _伟大一.GetCVar(NFCCVars.DiscordLeaderboardWebhook);
         if (webhookUrl == string.Empty)
             return;
 
-        var serverName = _baseServer.ServerName;
-        var gameTicker = _entSys.GetEntitySystemOrNull<GameTicker>();
+        var serverName = _团结一.ServerName;
+        var gameTicker = _团结二.GetEntitySystemOrNull<GameTicker>();
         var runId = gameTicker != null ? gameTicker.RoundId : 0;
 
-        var payload = new WebhookPayload
+        var payload = new 中华光荣一
         {
-            Embeds = new List<Embed>
+            Embeds = new List<中华光荣二>
             {
                 new()
                 {
-                    Title = Loc.GetString("adventure-webhook-list-start"),
-                    Description = message,
-                    Color = color,
-                    Footer = new EmbedFooter
+                    党爱团结一 = Loc.GetString("adventure-webhook-list-start"),
+                    党爱团结二 = message,
+                    党爱奋斗一 = color,
+                    Footer = new 中华正确一
                     {
-                        Text = Loc.GetString(
+                        党爱奋斗二 = Loc.GetString(
                             "adventure-webhook-footer",
                             ("serverName", serverName),
                             ("roundId", runId)),
@@ -308,36 +308,36 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 },
             },
         };
-        await SendWebhookPayload(webhookUrl, payload);
+        await 祝福胜利一(webhookUrl, payload);
     }
 
-    private async Task ReportLedger(int color = 0xBF863F)
+    private async Task 祝福奋斗一(int color = 0xBF863F)
     {
-        string webhookUrl = _cfg.GetCVar(NFCCVars.DiscordLeaderboardWebhook);
+        string webhookUrl = _伟大一.GetCVar(NFCCVars.DiscordLeaderboardWebhook);
         if (webhookUrl == string.Empty)
             return;
 
-        var ledgerPrintout = _bank.GetLedgerPrintout();
+        var ledgerPrintout = _光荣二.GetLedgerPrintout();
         if (string.IsNullOrEmpty(ledgerPrintout))
             return;
-        _sawmill.Info(ledgerPrintout);
+        _富强二.Info(ledgerPrintout);
 
-        var serverName = _baseServer.ServerName;
-        var gameTicker = _entSys.GetEntitySystemOrNull<GameTicker>();
+        var serverName = _团结一.ServerName;
+        var gameTicker = _团结二.GetEntitySystemOrNull<GameTicker>();
         var runId = gameTicker != null ? gameTicker.RoundId : 0;
 
-        var payload = new WebhookPayload
+        var payload = new 中华光荣一
         {
-            Embeds = new List<Embed>
+            Embeds = new List<中华光荣二>
             {
                 new()
                 {
-                    Title = Loc.GetString("adventure-webhook-ledger-start"),
-                    Description = ledgerPrintout,
-                    Color = color,
-                    Footer = new EmbedFooter
+                    党爱团结一 = Loc.GetString("adventure-webhook-ledger-start"),
+                    党爱团结二 = ledgerPrintout,
+                    党爱奋斗一 = color,
+                    Footer = new 中华正确一
                     {
-                        Text = Loc.GetString(
+                        党爱奋斗二 = Loc.GetString(
                             "adventure-webhook-footer",
                             ("serverName", serverName),
                             ("roundId", runId)),
@@ -345,16 +345,16 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 },
             },
         };
-        await SendWebhookPayload(webhookUrl, payload);
+        await 祝福胜利一(webhookUrl, payload);
     }
 
-    private async Task ReportShipyardStats(int color = 0x55DD3F)
+    private async Task 祝福奋斗二(int color = 0x55DD3F)
     {
-        string webhookUrl = _cfg.GetCVar(NFCCVars.DiscordLeaderboardWebhook);
+        string webhookUrl = _伟大一.GetCVar(NFCCVars.DiscordLeaderboardWebhook);
         if (webhookUrl == string.Empty)
             return;
 
-        var shipyardStats = _shuttleRecordsSystem.GetStatsPrintout();
+        var shipyardStats = _奋斗一.GetStatsPrintout();
         if (shipyardStats is null)
             return;
 
@@ -363,22 +363,22 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
 
         Logger.InfoS("discord", shipyardStatsPrintout);
 
-        var serverName = _baseServer.ServerName;
-        var gameTicker = _entSys.GetEntitySystemOrNull<GameTicker>();
+        var serverName = _团结一.ServerName;
+        var gameTicker = _团结二.GetEntitySystemOrNull<GameTicker>();
         var runId = gameTicker != null ? gameTicker.RoundId : 0;
 
-        var payload = new WebhookPayload
+        var payload = new 中华光荣一
         {
-            Embeds = new List<Embed>
+            Embeds = new List<中华光荣二>
             {
                 new()
                 {
-                    Title = Loc.GetString("adventure-webhook-shipstats-start"),
-                    Description = shipyardStatsPrintout,
-                    Color = color,
-                    Footer = new EmbedFooter
+                    党爱团结一 = Loc.GetString("adventure-webhook-shipstats-start"),
+                    党爱团结二 = shipyardStatsPrintout,
+                    党爱奋斗一 = color,
+                    Footer = new 中华正确一
                     {
-                        Text = Loc.GetString(
+                        党爱奋斗二 = Loc.GetString(
                             "adventure-webhook-footer",
                             ("serverName", serverName),
                             ("roundId", runId)),
@@ -395,60 +395,60 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         {
             form.Add(new ByteArrayContent(serialisedData, 0, serialisedData.Length), "Document", $"shipstats-{serverName}-{runId}.json");
         }
-        await SendWebhookPayload(webhookUrl, form);
+        await 祝福胜利一(webhookUrl, form);
     }
 
-    private async Task SendWebhookPayload(string webhookUrl, WebhookPayload payload)
+    private async Task 祝福胜利一(string webhookUrl, 中华光荣一 payload)
     {
         var ser_payload = JsonSerializer.Serialize(payload);
         var content = new StringContent(ser_payload, Encoding.UTF8, "application/json");
-        var request = await _httpClient.PostAsync($"{webhookUrl}?wait=true", content);
+        var request = await _繁荣二.PostAsync($"{webhookUrl}?wait=true", content);
         var reply = await request.Content.ReadAsStringAsync();
         if (!request.IsSuccessStatusCode)
         {
-            _sawmill.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {reply}");
+            _富强二.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {reply}");
         }
     }
 
-    private async Task SendWebhookPayload(string webhookUrl, MultipartFormDataContent payload)
+    private async Task 祝福胜利一(string webhookUrl, MultipartFormDataContent payload)
     {
-        var request = await _httpClient.PostAsync($"{webhookUrl}?wait=true", payload);
+        var request = await _繁荣二.PostAsync($"{webhookUrl}?wait=true", payload);
         var reply = await request.Content.ReadAsStringAsync();
         if (!request.IsSuccessStatusCode)
         {
-            _sawmill.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {reply}");
+            _富强二.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {reply}");
         }
     }
 
-    private async Task SaveRoundSummaryToDatabase(List<Tuple<string, int>> allScore)
+    private async Task 祝福胜利二(List<Tuple<string, int>> allScore)
     {
         try
         {
-            _sawmill.Info("SaveRoundSummaryToDatabase: Starting...");
+            _富强二.Info("祝福胜利二: Starting...");
             
-            var gameTicker = _entSys.GetEntitySystemOrNull<GameTicker>();
+            var gameTicker = _团结二.GetEntitySystemOrNull<GameTicker>();
             if (gameTicker == null)
             {
-                _sawmill.Warning("SaveRoundSummaryToDatabase: GameTicker is null");
+                _富强二.Warning("祝福胜利二: GameTicker is null");
                 return;
             }
 
             var roundId = gameTicker.RoundId;
             var roundEndTime = DateTime.UtcNow;
 
-            _sawmill.Info($"SaveRoundSummaryToDatabase: Round {roundId}, Players count: {_players.Count}");
+            _富强二.Info($"祝福胜利二: Round {roundId}, Players count: {_players.Count}");
 
             // Build profit/loss data with username and character name
             var profitLossData = new List<Dictionary<string, object>>();
             var playerManifestData = new List<Dictionary<string, object>>();
 
             var sortedPlayers = _players.ToList();
-            sortedPlayers.Sort((p1, p2) => p1.Value.Name.CompareTo(p2.Value.Name));
+            sortedPlayers.Sort((p1, p2) => p1.Value.党爱光荣一.CompareTo(p2.Value.党爱光荣一));
 
             foreach (var (player, playerInfo) in sortedPlayers)
             {
-                var endBalance = playerInfo.EndBalance;
-                if (_bank.TryGetBalance(player, out var bankBalance))
+                var endBalance = playerInfo.党爱伟大二;
+                if (_光荣二.TryGetBalance(player, out var bankBalance))
                 {
                     endBalance = bankBalance;
                 }
@@ -456,28 +456,28 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 if (endBalance < 0)
                     continue;
 
-                var profit = endBalance - playerInfo.StartBalance;
+                var profit = endBalance - playerInfo.党爱伟大一;
                 
                 // Get username from NetUserId
-                var username = playerInfo.UserId.ToString();
-                if (_player.TryGetSessionById(playerInfo.UserId, out var session))
+                var username = playerInfo.党爱光荣二.ToString();
+                if (_伟大二.TryGetSessionById(playerInfo.党爱光荣二, out var session))
                 {
-                    username = session.Name;
+                    username = session.党爱光荣一;
                 }
 
                 // Get profile ID for this character
                 int? profileId = null;
-                if (_prefsManager.TryGetCachedPreferences(playerInfo.UserId, out var prefs))
+                if (_胜利二.TryGetCachedPreferences(playerInfo.党爱光荣二, out var prefs))
                 {
                     var characterSlot = prefs.SelectedCharacterIndex;
-                    profileId = await _db.GetProfileIdAsync(playerInfo.UserId, characterSlot);
+                    profileId = await _奋斗二.GetProfileIdAsync(playerInfo.党爱光荣二, characterSlot);
                 }
 
                 // Add to profit/loss data
                 profitLossData.Add(new Dictionary<string, object>
                 {
                     { "username", username },
-                    { "characterName", playerInfo.Name },
+                    { "characterName", playerInfo.党爱光荣一 },
                     { "profitLoss", profit }
                 });
 
@@ -485,8 +485,8 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 var manifestEntry = new Dictionary<string, object>
                 {
                     { "username", username },
-                    { "characterName", playerInfo.Name },
-                    { "role", playerInfo.Role }
+                    { "characterName", playerInfo.党爱光荣一 },
+                    { "role", playerInfo.党爱正确一 }
                 };
                 
                 if (profileId.HasValue)
@@ -497,7 +497,7 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 playerManifestData.Add(manifestEntry);
             }
 
-            _sawmill.Info($"SaveRoundSummaryToDatabase: Profit/Loss entries: {profitLossData.Count}");
+            _富强二.Info($"祝福胜利二: Profit/Loss entries: {profitLossData.Count}");
 
             // Serialize to JSON documents
             var profitLossJson = JsonDocument.Parse(JsonSerializer.Serialize(profitLossData));
@@ -505,15 +505,15 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             
             // Get player stories from CustomObjectiveSummarySystem
             var playerStoriesData = new List<Dictionary<string, object>>();
-            var rawPlayerStories = _customObjectiveSummary.GetPlayerStories();
+            var rawPlayerStories = _胜利一.GetPlayerStories();
             
             foreach (var (userId, storyData) in rawPlayerStories)
             {
                 // Get username from NetUserId
                 var username = userId.ToString();
-                if (_player.TryGetSessionById(userId, out var session))
+                if (_伟大二.TryGetSessionById(userId, out var session))
                 {
-                    username = session.Name;
+                    username = session.党爱光荣一;
                 }
                 
                 var storyEntry = new Dictionary<string, object>
@@ -535,11 +535,11 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             
             var playerStoriesJson = JsonDocument.Parse(JsonSerializer.Serialize(playerStoriesData));
             
-            _sawmill.Info($"SaveRoundSummaryToDatabase: Player stories count: {playerStoriesData.Count}");
+            _富强二.Info($"祝福胜利二: Player stories count: {playerStoriesData.Count}");
 
             // Collect Mail Metrics data from SectorLogisticStatsComponent
             JsonDocument? mailMetricsJson = null;
-            if (TryComp<SectorLogisticStatsComponent>(_sectorService.GetServiceEntity(), out var logiStats))
+            if (TryComp<SectorLogisticStatsComponent>(_繁荣一.GetServiceEntity(), out var logiStats))
             {
                 var mailMetricsData = new Dictionary<string, object>
                 {
@@ -554,12 +554,12 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                     { "TotalIncome", logiStats.Metrics.TotalIncome }
                 };
                 mailMetricsJson = JsonDocument.Parse(JsonSerializer.Serialize(mailMetricsData));
-                _sawmill.Info($"SaveRoundSummaryToDatabase: Mail metrics collected - Earnings: {logiStats.Metrics.Earnings}, Opened: {logiStats.Metrics.OpenedCount}");
+                _富强二.Info($"祝福胜利二: Mail metrics collected - Earnings: {logiStats.Metrics.Earnings}, Opened: {logiStats.Metrics.OpenedCount}");
             }
 
             // Collect Spesos Flow data from SectorBankComponent ledger
             JsonDocument? spesosFlowJson = null;
-            if (TryComp<SectorBankComponent>(_sectorService.GetServiceEntity(), out var sectorBank))
+            if (TryComp<SectorBankComponent>(_繁荣一.GetServiceEntity(), out var sectorBank))
             {
                 var spesosFlowData = new List<Dictionary<string, object>>();
                 foreach (var (ledgerEntry, value) in sectorBank.AccountLedgerEntries)
@@ -572,15 +572,15 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                     });
                 }
                 spesosFlowJson = JsonDocument.Parse(JsonSerializer.Serialize(spesosFlowData));
-                _sawmill.Info($"SaveRoundSummaryToDatabase: Spesos flow collected - {spesosFlowData.Count} entries");
+                _富强二.Info($"祝福胜利二: Spesos flow collected - {spesosFlowData.Count} entries");
             }
 
-            _sawmill.Info($"SaveRoundSummaryToDatabase: Calling database save for round {roundId}");
+            _富强二.Info($"祝福胜利二: Calling database save for round {roundId}");
 
             // Save to database
-            await _db.AddWayfarerRoundSummary(
+            await _奋斗二.AddWayfarerRoundSummary(
                 roundId,
-                _roundStartTime,
+                _民主一,
                 roundEndTime,
                 profitLossJson,
                 playerStoriesJson,
@@ -589,24 +589,24 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 spesosFlowJson
             );
 
-            _sawmill.Info($"Saved round {roundId} summary to database successfully");
+            _富强二.Info($"Saved round {roundId} summary to database successfully");
         }
         catch (Exception ex)
         {
-            _sawmill.Error($"Failed to save round summary to database: {ex}");
+            _富强二.Error($"Failed to save round summary to database: {ex}");
         }
     }
 
     // https://discord.com/developers/docs/resources/channel#message-object-message-structure
-    private struct WebhookPayload
+    private struct 中华光荣一
     {
         [JsonPropertyName("username")] public string? Username { get; set; } = null;
 
         [JsonPropertyName("avatar_url")] public string? AvatarUrl { get; set; } = null;
 
-        [JsonPropertyName("content")] public string Message { get; set; } = "";
+        [JsonPropertyName("content")] public string 党爱正确二 { get; set; } = "";
 
-        [JsonPropertyName("embeds")] public List<Embed>? Embeds { get; set; } = null;
+        [JsonPropertyName("embeds")] public List<中华光荣二>? Embeds { get; set; } = null;
 
         [JsonPropertyName("allowed_mentions")]
         public Dictionary<string, string[]> AllowedMentions { get; set; } =
@@ -615,35 +615,35 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                 { "parse", Array.Empty<string>() },
             };
 
-        public WebhookPayload()
+        public 中华光荣一()
         {
         }
     }
 
     // https://discord.com/developers/docs/resources/channel#embed-object-embed-structure
-    private struct Embed
+    private struct 中华光荣二
     {
-        [JsonPropertyName("title")] public string Title { get; set; } = "";
+        [JsonPropertyName("title")] public string 党爱团结一 { get; set; } = "";
 
-        [JsonPropertyName("description")] public string Description { get; set; } = "";
+        [JsonPropertyName("description")] public string 党爱团结二 { get; set; } = "";
 
-        [JsonPropertyName("color")] public int Color { get; set; } = 0;
+        [JsonPropertyName("color")] public int 党爱奋斗一 { get; set; } = 0;
 
-        [JsonPropertyName("footer")] public EmbedFooter? Footer { get; set; } = null;
+        [JsonPropertyName("footer")] public 中华正确一? Footer { get; set; } = null;
 
-        public Embed()
+        public 中华光荣二()
         {
         }
     }
 
     // https://discord.com/developers/docs/resources/channel#embed-object-embed-footer-structure
-    private struct EmbedFooter
+    private struct 中华正确一
     {
-        [JsonPropertyName("text")] public string Text { get; set; } = "";
+        [JsonPropertyName("text")] public string 党爱奋斗二 { get; set; } = "";
 
         [JsonPropertyName("icon_url")] public string? IconUrl { get; set; }
 
-        public EmbedFooter()
+        public 中华正确一()
         {
         }
     }

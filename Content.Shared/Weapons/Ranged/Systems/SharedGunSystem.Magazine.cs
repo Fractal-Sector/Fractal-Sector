@@ -4,30 +4,30 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem
+public abstract partial class 中华伟大一
 {
-    protected const string MagazineSlot = "gun_magazine";
+    protected const string 党爱伟大一 = "gun_magazine";
 
-    protected virtual void InitializeMagazine()
+    protected virtual void 祝福伟大一()
     {
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, MapInitEvent>(OnMagazineMapInit);
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, TakeAmmoEvent>(OnMagazineTakeAmmo);
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, GetAmmoCountEvent>(OnMagazineAmmoCount);
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, GetVerbsEvent<AlternativeVerb>>(OnMagazineVerb);
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, EntInsertedIntoContainerMessage>(OnMagazineSlotChange);
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, EntRemovedFromContainerMessage>(OnMagazineSlotChange);
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, UseInHandEvent>(OnMagazineUse);
-        SubscribeLocalEvent<MagazineAmmoProviderComponent, ExaminedEvent>(OnMagazineExamine);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, TakeAmmoEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, GetAmmoCountEvent>(祝福团结二);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, EntInsertedIntoContainerMessage>(祝福正确二);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, EntRemovedFromContainerMessage>(祝福正确二);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, UseInHandEvent>(祝福光荣二);
+        SubscribeLocalEvent<MagazineAmmoProviderComponent, ExaminedEvent>(祝福光荣一);
     }
 
-    private void OnMagazineMapInit(Entity<MagazineAmmoProviderComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<MagazineAmmoProviderComponent> ent, ref MapInitEvent args)
     {
-        MagazineSlotChanged(ent);
+        祝福团结一(ent);
     }
 
-    private void OnMagazineExamine(EntityUid uid, MagazineAmmoProviderComponent component, ExaminedEvent args)
+    private void 祝福光荣一(EntityUid uid, MagazineAmmoProviderComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -36,7 +36,7 @@ public abstract partial class SharedGunSystem
         args.PushMarkup(Loc.GetString("gun-magazine-examine", ("color", AmmoExamineColor), ("count", count)));
     }
 
-    private void OnMagazineUse(EntityUid uid, MagazineAmmoProviderComponent component, UseInHandEvent args)
+    private void 祝福光荣二(EntityUid uid, MagazineAmmoProviderComponent component, UseInHandEvent args)
     {
         // not checking for args.Handled or marking as such because we only relay the event to the magazine entity
 
@@ -47,10 +47,10 @@ public abstract partial class SharedGunSystem
 
         RaiseLocalEvent(magEnt.Value, args);
         UpdateAmmoCount(uid);
-        UpdateMagazineAppearance(uid, component, magEnt.Value);
+        祝福胜利一(uid, component, magEnt.Value);
     }
 
-    private void OnMagazineVerb(EntityUid uid, MagazineAmmoProviderComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福正确一(EntityUid uid, MagazineAmmoProviderComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -60,19 +60,19 @@ public abstract partial class SharedGunSystem
         if (magEnt != null)
         {
             RaiseLocalEvent(magEnt.Value, args);
-            UpdateMagazineAppearance(magEnt.Value, component, magEnt.Value);
+            祝福胜利一(magEnt.Value, component, magEnt.Value);
         }
     }
 
-    protected virtual void OnMagazineSlotChange(EntityUid uid, MagazineAmmoProviderComponent component, ContainerModifiedMessage args)
+    protected virtual void 祝福正确二(EntityUid uid, MagazineAmmoProviderComponent component, ContainerModifiedMessage args)
     {
-        if (MagazineSlot != args.Container.ID)
+        if (党爱伟大一 != args.Container.ID)
             return;
 
-        MagazineSlotChanged((uid, component));
+        祝福团结一((uid, component));
     }
 
-    private void MagazineSlotChanged(Entity<MagazineAmmoProviderComponent> ent)
+    private void 祝福团结一(Entity<MagazineAmmoProviderComponent> ent)
     {
         UpdateAmmoCount(ent);
         if (!TryComp<AppearanceComponent>(ent, out var appearance))
@@ -83,7 +83,7 @@ public abstract partial class SharedGunSystem
 
         if (magEnt != null)
         {
-            UpdateMagazineAppearance(ent, ent, magEnt.Value);
+            祝福胜利一(ent, ent, magEnt.Value);
         }
     }
 
@@ -106,7 +106,7 @@ public abstract partial class SharedGunSystem
 
     protected EntityUid? GetMagazineEntity(EntityUid uid)
     {
-        if (!Containers.TryGetContainer(uid, MagazineSlot, out var container) ||
+        if (!Containers.TryGetContainer(uid, 党爱伟大一, out var container) ||
             container is not ContainerSlot slot)
         {
             return null;
@@ -115,7 +115,7 @@ public abstract partial class SharedGunSystem
         return slot.ContainedEntity;
     }
 
-    private void OnMagazineAmmoCount(EntityUid uid, MagazineAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void 祝福团结二(EntityUid uid, MagazineAmmoProviderComponent component, ref GetAmmoCountEvent args)
     {
         var magEntity = GetMagazineEntity(uid);
 
@@ -125,7 +125,7 @@ public abstract partial class SharedGunSystem
         RaiseLocalEvent(magEntity.Value, ref args);
     }
 
-    private void OnMagazineTakeAmmo(EntityUid uid, MagazineAmmoProviderComponent component, TakeAmmoEvent args)
+    private void 祝福奋斗一(EntityUid uid, MagazineAmmoProviderComponent component, TakeAmmoEvent args)
     {
         var magEntity = GetMagazineEntity(uid);
         TryComp<AppearanceComponent>(uid, out var appearance);
@@ -142,23 +142,23 @@ public abstract partial class SharedGunSystem
 
         var ammoEv = new GetAmmoCountEvent();
         RaiseLocalEvent(magEntity.Value, ref ammoEv);
-        FinaliseMagazineTakeAmmo(uid, component, ammoEv.Count, ammoEv.Capacity, args.User, appearance);
+        祝福奋斗二(uid, component, ammoEv.Count, ammoEv.Capacity, args.User, appearance);
     }
 
-    private void FinaliseMagazineTakeAmmo(EntityUid uid, MagazineAmmoProviderComponent component, int count, int capacity, EntityUid? user, AppearanceComponent? appearance)
+    private void 祝福奋斗二(EntityUid uid, MagazineAmmoProviderComponent component, int count, int capacity, EntityUid? user, AppearanceComponent? appearance)
     {
         // If no ammo then check for autoeject
         var ejectMag = component.AutoEject && count == 0;
         if (ejectMag)
         {
-            EjectMagazine(uid, component);
+            祝福胜利二(uid, component);
             Audio.PlayPredicted(component.SoundAutoEject, uid, user);
         }
 
-        UpdateMagazineAppearance(uid, appearance, !ejectMag, count, capacity);
+        祝福胜利一(uid, appearance, !ejectMag, count, capacity);
     }
 
-    private void UpdateMagazineAppearance(EntityUid uid, MagazineAmmoProviderComponent component, EntityUid magEnt)
+    private void 祝福胜利一(EntityUid uid, MagazineAmmoProviderComponent component, EntityUid magEnt)
     {
         TryComp<AppearanceComponent>(uid, out var appearance);
 
@@ -173,10 +173,10 @@ public abstract partial class SharedGunSystem
             capacity += addCapacity;
         }
 
-        UpdateMagazineAppearance(uid, appearance, true, count, capacity);
+        祝福胜利一(uid, appearance, true, count, capacity);
     }
 
-    private void UpdateMagazineAppearance(EntityUid uid, AppearanceComponent? appearance, bool magLoaded, int count, int capacity)
+    private void 祝福胜利一(EntityUid uid, AppearanceComponent? appearance, bool magLoaded, int count, int capacity)
     {
         if (appearance == null)
             return;
@@ -188,13 +188,13 @@ public abstract partial class SharedGunSystem
         Appearance.SetData(uid, AmmoVisuals.AmmoMax, capacity, appearance);
     }
 
-    private void EjectMagazine(EntityUid uid, MagazineAmmoProviderComponent component)
+    private void 祝福胜利二(EntityUid uid, MagazineAmmoProviderComponent component)
     {
         var ent = GetMagazineEntity(uid);
 
         if (ent == null)
             return;
 
-        _slots.TryEject(uid, MagazineSlot, null, out var a, excludeUserAudio: true);
+        _slots.TryEject(uid, 党爱伟大一, null, out var a, excludeUserAudio: true);
     }
 }

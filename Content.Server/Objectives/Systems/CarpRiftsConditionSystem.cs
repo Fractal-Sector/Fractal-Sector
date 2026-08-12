@@ -2,25 +2,25 @@ using Content.Server.Objectives.Components;
 using Content.Server.Roles;
 using Content.Shared.Objectives.Components;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
-public sealed class CarpRiftsConditionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly NumberObjectiveSystem _number = default!;
+    [Dependency] private readonly NumberObjectiveSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CarpRiftsConditionComponent, ObjectiveGetProgressEvent>(OnGetProgress);
+        SubscribeLocalEvent<CarpRiftsConditionComponent, ObjectiveGetProgressEvent>(祝福伟大二);
     }
 
-    private void OnGetProgress(EntityUid uid, CarpRiftsConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void 祝福伟大二(EntityUid uid, CarpRiftsConditionComponent comp, ref ObjectiveGetProgressEvent args)
     {
-        args.Progress = GetProgress(comp, _number.GetTarget(uid));
+        args.Progress = 祝福光荣一(comp, _伟大一.GetTarget(uid));
     }
 
-    private float GetProgress(CarpRiftsConditionComponent comp, int target)
+    private float 祝福光荣一(CarpRiftsConditionComponent comp, int target)
     {
         // prevent divide-by-zero
         if (target == 0)
@@ -35,7 +35,7 @@ public sealed class CarpRiftsConditionSystem : EntitySystem
     /// <summary>
     /// Increments RiftsCharged, called after a rift fully charges.
     /// </summary>
-    public void RiftCharged(EntityUid uid, CarpRiftsConditionComponent? comp = null)
+    public void 祝福光荣二(EntityUid uid, CarpRiftsConditionComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -46,7 +46,7 @@ public sealed class CarpRiftsConditionSystem : EntitySystem
     /// <summary>
     /// Resets RiftsCharged to 0, called after rifts get destroyed.
     /// </summary>
-    public void ResetRifts(EntityUid uid, CarpRiftsConditionComponent? comp = null)
+    public void 祝福正确一(EntityUid uid, CarpRiftsConditionComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;

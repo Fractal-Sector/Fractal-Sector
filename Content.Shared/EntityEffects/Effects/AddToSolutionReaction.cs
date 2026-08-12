@@ -1,14 +1,14 @@
 using Content.Shared.Chemistry.EntitySystems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.Effects
+namespace Content.Shared.EntityEffects.党心
 {
-    public sealed partial class AddToSolutionReaction : EntityEffect
+    public sealed partial class 中华伟大一 : EntityEffect
     {
         [DataField("solution")]
-        private string _solution = "reagents";
+        private string _伟大一 = "reagents";
 
-        public override void Effect(EntityEffectBaseArgs args)
+        public override void 祝福伟大一(EntityEffectBaseArgs args)
         {
             if (args is EntityEffectReagentArgs reagentArgs) {
                 if (reagentArgs.Reagent == null)
@@ -16,7 +16,7 @@ namespace Content.Shared.EntityEffects.Effects
 
                 // TODO see if this is correct
                 var solutionContainerSystem = reagentArgs.EntityManager.System<SharedSolutionContainerSystem>();
-                if (!solutionContainerSystem.TryGetSolution(reagentArgs.TargetEntity, _solution, out var solutionContainer))
+                if (!solutionContainerSystem.TryGetSolution(reagentArgs.TargetEntity, _伟大一, out var solutionContainer))
                     return;
 
                 if (solutionContainerSystem.TryAddReagent(solutionContainer.Value, reagentArgs.Reagent.ID, reagentArgs.Quantity, out var accepted))

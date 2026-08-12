@@ -1,19 +1,19 @@
-namespace Content.Shared.DeviceLinking.Events;
+namespace Content.Shared.DeviceLinking.党心;
 
-public sealed class LinkAttemptEvent : CancellableEntityEventArgs
+public sealed class 中华伟大一 : CancellableEntityEventArgs
 {
-    public readonly EntityUid Source;
-    public readonly EntityUid Sink;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
     public readonly EntityUid? User;
-    public readonly string SourcePort;
-    public readonly string SinkPort;
+    public readonly string 党爱光荣一;
+    public readonly string 党爱光荣二;
 
-    public LinkAttemptEvent(EntityUid? user, EntityUid source, string sourcePort, EntityUid sink, string sinkPort)
+    public 中华伟大一(EntityUid? user, EntityUid source, string sourcePort, EntityUid sink, string sinkPort)
     {
         User = user;
-        Source = source;
-        SourcePort = sourcePort;
-        Sink = sink;
-        SinkPort = sinkPort;
+        党爱伟大一 = source;
+        党爱光荣一 = sourcePort;
+        党爱伟大二 = sink;
+        党爱光荣二 = sinkPort;
     }
 }

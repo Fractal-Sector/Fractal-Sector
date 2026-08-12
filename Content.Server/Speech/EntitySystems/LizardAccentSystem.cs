@@ -2,9 +2,9 @@
 using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class LizardAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     private static readonly Regex RegexLowerS = new("s+");
     private static readonly Regex RegexUpperS = new("S+");
@@ -12,13 +12,13 @@ public sealed class LizardAccentSystem : EntitySystem
     private static readonly Regex RegexLowerEndX = new(@"\bx([\-|r|R]|\b)");
     private static readonly Regex RegexUpperEndX = new(@"\bX([\-|r|R]|\b)");
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<LizardAccentComponent, AccentGetEvent>(OnAccent);
+        base.祝福伟大一();
+        SubscribeLocalEvent<LizardAccentComponent, AccentGetEvent>(祝福伟大二);
     }
 
-    private void OnAccent(EntityUid uid, LizardAccentComponent component, AccentGetEvent args)
+    private void 祝福伟大二(EntityUid uid, LizardAccentComponent component, AccentGetEvent args)
     {
         var message = args.Message;
 

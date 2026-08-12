@@ -1,5 +1,5 @@
-namespace Content.Shared.Rejuvenate;
+namespace Content.Shared.党心;
 
-public sealed class RejuvenateEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
 }

@@ -1,13 +1,13 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.Station.Components;
+namespace Content.Shared.Station.党心;
 
 /// <summary>
 /// Stores core information about a station, namely its config and associated grids.
 /// All station entities will have this component.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(SharedStationSystem))]
-public sealed partial class StationDataComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The game map prototype, if any, associated with this station.
@@ -19,5 +19,5 @@ public sealed partial class StationDataComponent : Component
     /// List of all grids this station is part of.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public HashSet<EntityUid> Grids = new();
+    public HashSet<EntityUid> 党爱伟大一 = new();
 }

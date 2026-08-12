@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Trigger.Components.Triggers;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Triggers when something is strapped to the entity.
@@ -8,4 +8,4 @@ namespace Content.Shared.Trigger.Components.Triggers;
 /// The user is the entity strapped to the component owner.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class TriggerOnStrappedComponent : BaseTriggerOnXComponent;
+public sealed partial class 中华伟大一 : BaseTriggerOnXComponent;

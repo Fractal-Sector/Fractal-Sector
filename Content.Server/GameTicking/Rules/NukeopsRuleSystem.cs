@@ -29,45 +29,45 @@ using Content.Shared.Station.Components;
 using Content.Shared.Store.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<NukeopsRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _emergency = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly AntagSelectionSystem _伟大一 = default!;
+    [Dependency] private readonly EmergencyShuttleSystem _伟大二 = default!;
+    [Dependency] private readonly NpcFactionSystem _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
+    [Dependency] private readonly RoundEndSystem _正确一 = default!;
+    [Dependency] private readonly StoreSystem _正确二 = default!;
+    [Dependency] private readonly TagSystem _团结一 = default!;
 
     private static readonly ProtoId<CurrencyPrototype> TelecrystalCurrencyPrototype = "Telecrystal";
     private static readonly ProtoId<TagPrototype> NukeOpsUplinkTagPrototype = "NukeOpsUplink";
 
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NukeExplodedEvent>(OnNukeExploded);
-        SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRunLevelChanged);
-        SubscribeLocalEvent<NukeDisarmSuccessEvent>(OnNukeDisarm);
+        SubscribeLocalEvent<NukeExplodedEvent>(祝福光荣二);
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<NukeDisarmSuccessEvent>(祝福团结一);
 
-        SubscribeLocalEvent<NukeOperativeComponent, ComponentRemove>(OnComponentRemove);
-        SubscribeLocalEvent<NukeOperativeComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<NukeOperativeComponent, EntityZombifiedEvent>(OnOperativeZombified);
+        SubscribeLocalEvent<NukeOperativeComponent, ComponentRemove>(祝福团结二);
+        SubscribeLocalEvent<NukeOperativeComponent, MobStateChangedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<NukeOperativeComponent, EntityZombifiedEvent>(祝福奋斗二);
 
-        SubscribeLocalEvent<NukeopsRoleComponent, GetBriefingEvent>(OnGetBriefing);
+        SubscribeLocalEvent<NukeopsRoleComponent, GetBriefingEvent>(祝福文明二);
 
-        SubscribeLocalEvent<ConsoleFTLAttemptEvent>(OnShuttleFTLAttempt);
-        SubscribeLocalEvent<WarDeclaredEvent>(OnWarDeclared);
-        SubscribeLocalEvent<CommunicationConsoleCallShuttleAttemptEvent>(OnShuttleCallAttempt);
+        SubscribeLocalEvent<ConsoleFTLAttemptEvent>(祝福胜利二);
+        SubscribeLocalEvent<WarDeclaredEvent>(祝福繁荣二);
+        SubscribeLocalEvent<CommunicationConsoleCallShuttleAttemptEvent>(祝福繁荣一);
 
-        SubscribeLocalEvent<NukeopsRuleComponent, AfterAntagEntitySelectedEvent>(OnAfterAntagEntSelected);
-        SubscribeLocalEvent<NukeopsRuleComponent, RuleLoadedGridsEvent>(OnRuleLoadedGrids);
+        SubscribeLocalEvent<NukeopsRuleComponent, AfterAntagEntitySelectedEvent>(祝福文明一);
+        SubscribeLocalEvent<NukeopsRuleComponent, RuleLoadedGridsEvent>(祝福胜利一);
     }
 
-    protected override void Started(EntityUid uid,
+    protected override void 祝福伟大二(EntityUid uid,
         NukeopsRuleComponent component,
         GameRuleComponent gameRule,
         GameRuleStartedEvent args)
@@ -76,7 +76,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         var eligibleQuery = EntityQueryEnumerator<StationEventEligibleComponent, NpcFactionMemberComponent>();
         while (eligibleQuery.MoveNext(out var eligibleUid, out var eligibleComp, out var member))
         {
-            if (!_npcFaction.IsFactionHostile(component.Faction, (eligibleUid, member)))
+            if (!_光荣一.IsFactionHostile(component.Faction, (eligibleUid, member)))
                 continue;
 
             eligible.Add((eligibleUid, eligibleComp, member));
@@ -89,7 +89,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
     }
 
     #region Event Handlers
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void 祝福光荣一(EntityUid uid,
         NukeopsRuleComponent component,
         GameRuleComponent gameRule,
         ref RoundEndTextAppendEvent args)
@@ -105,7 +105,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 
         args.AddLine(Loc.GetString("nukeops-list-start"));
 
-        var antags = _antag.GetAntagIdentifiers(uid);
+        var antags = _伟大一.GetAntagIdentifiers(uid);
 
         foreach (var (_, sessionData, name) in antags)
         {
@@ -113,7 +113,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         }
     }
 
-    private void OnNukeExploded(NukeExplodedEvent ev)
+    private void 祝福光荣二(NukeExplodedEvent ev)
     {
         var query = QueryActiveRules();
         while (query.MoveNext(out var uid, out _, out var nukeops, out _))
@@ -123,7 +123,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
                 if (ev.OwningStation == GetOutpost(uid))
                 {
                     nukeops.WinConditions.Add(WinCondition.NukeExplodedOnNukieOutpost);
-                    SetWinType((uid, nukeops), WinType.CrewMajor, GameTicker.IsGameRuleActive("Nukeops")); // End the round ONLY if the actual gamemode is NukeOps.
+                    祝福民主一((uid, nukeops), WinType.CrewMajor, GameTicker.IsGameRuleActive("Nukeops")); // End the round ONLY if the actual gamemode is NukeOps.
                     if (!GameTicker.IsGameRuleActive("Nukeops")) // End the rule if the LoneOp shuttle got nuked, because that particular LoneOp clearly failed, and should not be considered a Syndie victory even if a future LoneOp wins.
                         GameTicker.EndGameRule(uid);
                     continue;
@@ -140,7 +140,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
                         }
 
                         nukeops.WinConditions.Add(WinCondition.NukeExplodedOnCorrectStation);
-                        SetWinType((uid, nukeops), WinType.OpsMajor);
+                        祝福民主一((uid, nukeops), WinType.OpsMajor);
                         correctStation = true;
                     }
 
@@ -157,7 +157,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 
             if (GameTicker.IsGameRuleActive("Nukeops")) // If it's Nukeops then end the round on any detonation
             {
-                _roundEndSystem.EndRound();
+                _正确一.EndRound();
             }
             else
             { // It's a LoneOp. Only end the round if the station was destroyed
@@ -166,7 +166,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
                 {
                     if (cond.ToString().ToLower() == "NukeExplodedOnCorrectStation") // If this is true, then the nuke destroyed the station! It's likely everyone is very dead so keeping the round going is pointless.
                     {
-                        _roundEndSystem.EndRound(); // end the round!
+                        _正确一.EndRound(); // end the round!
                         handled = true;
                         break;
                     }
@@ -179,7 +179,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         }
     }
 
-    private void OnRunLevelChanged(GameRunLevelChangedEvent ev)
+    private void 祝福正确一(GameRunLevelChangedEvent ev)
     {
         if (ev.New is not GameRunLevel.PostRound)
             return;
@@ -187,18 +187,18 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         var query = QueryActiveRules();
         while (query.MoveNext(out var uid, out _, out var nukeops, out _))
         {
-            OnRoundEnd((uid, nukeops));
+            祝福正确二((uid, nukeops));
         }
     }
 
-    private void OnRoundEnd(Entity<NukeopsRuleComponent> ent)
+    private void 祝福正确二(Entity<NukeopsRuleComponent> ent)
     {
         // If the win condition was set to operative/crew major win, ignore.
         if (ent.Comp.WinType == WinType.OpsMajor || ent.Comp.WinType == WinType.CrewMajor)
             return;
 
         var nukeQuery = AllEntityQuery<NukeComponent, TransformComponent>();
-        var centcomms = _emergency.GetCentcommMaps();
+        var centcomms = _伟大二.GetCentcommMaps();
 
         while (nukeQuery.MoveNext(out var nuke, out var nukeTransform))
         {
@@ -209,7 +209,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             if (nukeTransform.MapUid != null && centcomms.Contains(nukeTransform.MapUid.Value))
             {
                 ent.Comp.WinConditions.Add(WinCondition.NukeActiveAtCentCom);
-                SetWinType((ent, ent), WinType.OpsMajor);
+                祝福民主一((ent, ent), WinType.OpsMajor);
                 return;
             }
 
@@ -225,19 +225,19 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
                     continue;
 
                 ent.Comp.WinConditions.Add(WinCondition.NukeActiveInStation);
-                SetWinType(ent, WinType.OpsMajor);
+                祝福民主一(ent, WinType.OpsMajor);
                 return;
             }
         }
 
-        if (_antag.AllAntagsAlive(ent.Owner))
+        if (_伟大一.AllAntagsAlive(ent.Owner))
         {
-            SetWinType(ent, WinType.OpsMinor);
+            祝福民主一(ent, WinType.OpsMinor);
             ent.Comp.WinConditions.Add(WinCondition.AllNukiesAlive);
             return;
         }
 
-        ent.Comp.WinConditions.Add(_antag.AnyAliveAntags(ent.Owner)
+        ent.Comp.WinConditions.Add(_伟大一.AnyAliveAntags(ent.Owner)
             ? WinCondition.SomeNukiesAlive
             : WinCondition.AllNukiesDead);
 
@@ -246,7 +246,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         while (diskQuery.MoveNext(out var diskUid, out _, out var transform))
         {
             diskAtCentCom = transform.MapUid != null && centcomms.Contains(transform.MapUid.Value);
-            diskAtCentCom |= _emergency.IsTargetEscaping(diskUid);
+            diskAtCentCom |= _伟大二.IsTargetEscaping(diskUid);
 
             // TODO: The target station should be stored, and the nuke disk should store its original station.
             // This is fine for now, because we can assume a single station in base SS14.
@@ -255,7 +255,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 
         // If the disk is currently at Central Command, the crew wins - just slightly.
         // This also implies that some nuclear operatives have died.
-        SetWinType(ent,
+        祝福民主一(ent,
             diskAtCentCom
             ? WinType.CrewMinor
             : WinType.OpsMinor);
@@ -264,28 +264,28 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             : WinCondition.NukeDiskNotOnCentCom);
     }
 
-    private void OnNukeDisarm(NukeDisarmSuccessEvent ev)
+    private void 祝福团结一(NukeDisarmSuccessEvent ev)
     {
-        CheckRoundShouldEnd();
+        祝福民主二();
     }
 
-    private void OnComponentRemove(EntityUid uid, NukeOperativeComponent component, ComponentRemove args)
+    private void 祝福团结二(EntityUid uid, NukeOperativeComponent component, ComponentRemove args)
     {
-        CheckRoundShouldEnd();
+        祝福民主二();
     }
 
-    private void OnMobStateChanged(EntityUid uid, NukeOperativeComponent component, MobStateChangedEvent ev)
+    private void 祝福奋斗一(EntityUid uid, NukeOperativeComponent component, MobStateChangedEvent ev)
     {
         if (ev.NewMobState == MobState.Dead)
-            CheckRoundShouldEnd();
+            祝福民主二();
     }
 
-    private void OnOperativeZombified(EntityUid uid, NukeOperativeComponent component, ref EntityZombifiedEvent args)
+    private void 祝福奋斗二(EntityUid uid, NukeOperativeComponent component, ref EntityZombifiedEvent args)
     {
         RemCompDeferred(uid, component);
     }
 
-    private void OnRuleLoadedGrids(Entity<NukeopsRuleComponent> ent, ref RuleLoadedGridsEvent args)
+    private void 祝福胜利一(Entity<NukeopsRuleComponent> ent, ref RuleLoadedGridsEvent args)
     {
         // Check each nukie shuttle
         var query = EntityQueryEnumerator<NukeOpsShuttleComponent>();
@@ -300,7 +300,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         }
     }
 
-    private void OnShuttleFTLAttempt(ref ConsoleFTLAttemptEvent ev)
+    private void 祝福胜利二(ref ConsoleFTLAttemptEvent ev)
     {
         var query = QueryActiveRules();
         while (query.MoveNext(out var uid, out _, out var nukeops, out _))
@@ -325,7 +325,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         }
     }
 
-    private void OnShuttleCallAttempt(ref CommunicationConsoleCallShuttleAttemptEvent ev)
+    private void 祝福繁荣一(ref CommunicationConsoleCallShuttleAttemptEvent ev)
     {
         var query = QueryActiveRules();
         while (query.MoveNext(out _, out _, out var nukeops, out _))
@@ -345,7 +345,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         }
     }
 
-    private void OnWarDeclared(ref WarDeclaredEvent ev)
+    private void 祝福繁荣二(ref WarDeclaredEvent ev)
     {
         // TODO: this is VERY awful for multi-nukies
         var query = QueryActiveRules();
@@ -357,7 +357,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             if (TryComp<RuleGridsComponent>(uid, out var grids) && Transform(ev.DeclaratorEntity).MapID != grids.Map)
                 continue;
 
-            var newStatus = GetWarCondition(nukeops, ev.Status);
+            var newStatus = 祝福富强一(nukeops, ev.Status);
             ev.Status = newStatus;
             if (newStatus == WarConditionStatus.WarReady)
             {
@@ -365,7 +365,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
                 var timeRemain = nukeops.WarNukieArriveDelay + Timing.CurTime;
                 ev.DeclaratorEntity.Comp.ShuttleDisabledTime = timeRemain;
 
-                DistributeExtraTc((uid, nukeops));
+                祝福富强二((uid, nukeops));
             }
         }
     }
@@ -375,7 +375,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
     /// <summary>
     ///     Returns conditions for war declaration
     /// </summary>
-    public WarConditionStatus GetWarCondition(NukeopsRuleComponent nukieRule, WarConditionStatus? oldStatus)
+    public WarConditionStatus 祝福富强一(NukeopsRuleComponent nukieRule, WarConditionStatus? oldStatus)
     {
         if (!nukieRule.CanEnableWarOps)
             return WarConditionStatus.NoWarUnknown;
@@ -392,12 +392,12 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         return WarConditionStatus.YesWar;
     }
 
-    private void DistributeExtraTc(Entity<NukeopsRuleComponent> nukieRule)
+    private void 祝福富强二(Entity<NukeopsRuleComponent> nukieRule)
     {
         var enumerator = EntityQueryEnumerator<StoreComponent>();
         while (enumerator.MoveNext(out var uid, out var component))
         {
-            if (!_tag.HasTag(uid, NukeOpsUplinkTagPrototype))
+            if (!_团结一.HasTag(uid, NukeOpsUplinkTagPrototype))
                 continue;
 
             if (GetOutpost(nukieRule.Owner) is not { } outpost)
@@ -406,31 +406,31 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             if (Transform(uid).MapID != Transform(outpost).MapID) // Will receive bonus TC only on their start outpost
                 continue;
 
-            _store.TryAddCurrency(new() { { TelecrystalCurrencyPrototype, nukieRule.Comp.WarTcAmountPerNukie } }, uid, component);
+            _正确二.TryAddCurrency(new() { { TelecrystalCurrencyPrototype, nukieRule.Comp.WarTcAmountPerNukie } }, uid, component);
 
             var msg = Loc.GetString("store-currency-war-boost-given", ("target", uid));
-            _popupSystem.PopupEntity(msg, uid);
+            _光荣二.PopupEntity(msg, uid);
         }
     }
 
-    private void SetWinType(Entity<NukeopsRuleComponent> ent, WinType type, bool endRound = true)
+    private void 祝福民主一(Entity<NukeopsRuleComponent> ent, WinType type, bool endRound = true)
     {
         ent.Comp.WinType = type;
 
         if (endRound && (type == WinType.CrewMajor || type == WinType.OpsMajor))
-            _roundEndSystem.EndRound();
+            _正确一.EndRound();
     }
 
-    private void CheckRoundShouldEnd()
+    private void 祝福民主二()
     {
         var query = QueryActiveRules();
         while (query.MoveNext(out var uid, out _, out var nukeops, out _))
         {
-            CheckRoundShouldEnd((uid, nukeops));
+            祝福民主二((uid, nukeops));
         }
     }
 
-    private void CheckRoundShouldEnd(Entity<NukeopsRuleComponent> ent)
+    private void 祝福民主二(Entity<NukeopsRuleComponent> ent)
     {
         var nukeops = ent.Comp;
 
@@ -483,12 +483,12 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             ? WinCondition.NukiesAbandoned
             : WinCondition.AllNukiesDead);
 
-        SetWinType(ent, WinType.CrewMajor, false);
+        祝福民主一(ent, WinType.CrewMajor, false);
 
         if (nukeops.RoundEndBehavior == RoundEndBehavior.Nothing) // It's still worth checking if operatives have all died, even if the round-end behaviour is nothing.
             return; // Shouldn't actually try to end the round in the case of nothing though.
 
-        _roundEndSystem.DoRoundEndBehavior(nukeops.RoundEndBehavior,
+        _正确一.DoRoundEndBehavior(nukeops.RoundEndBehavior,
         nukeops.EvacShuttleTime,
         nukeops.RoundEndTextSender,
         nukeops.RoundEndTextShuttleCall,
@@ -499,11 +499,11 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         nukeops.RoundEndBehavior = RoundEndBehavior.Nothing;
     }
 
-    private void OnAfterAntagEntSelected(Entity<NukeopsRuleComponent> ent, ref AfterAntagEntitySelectedEvent args)
+    private void 祝福文明一(Entity<NukeopsRuleComponent> ent, ref AfterAntagEntitySelectedEvent args)
     {
         var target = (ent.Comp.TargetStation is not null) ? Name(ent.Comp.TargetStation.Value) : "the target";
 
-        _antag.SendBriefing(args.Session,
+        _伟大一.SendBriefing(args.Session,
             Loc.GetString("nukeops-welcome",
                 ("station", target),
                 ("name", Name(ent))),
@@ -511,7 +511,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             ent.Comp.GreetSoundNotification);
     }
 
-    private void OnGetBriefing(Entity<NukeopsRoleComponent> role, ref GetBriefingEvent args)
+    private void 祝福文明二(Entity<NukeopsRoleComponent> role, ref GetBriefingEvent args)
     {
         // TODO Different character screen briefing for the 3 nukie types
         args.Append(Loc.GetString("nukeops-briefing"));

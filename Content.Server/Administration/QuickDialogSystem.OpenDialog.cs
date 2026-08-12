@@ -2,9 +2,9 @@ using Content.Shared.Administration;
 using JetBrains.Annotations;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration;
+namespace Content.Server.党心;
 
-public sealed partial class QuickDialogSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Opens a dialog for the given client, allowing them to enter in the desired data.

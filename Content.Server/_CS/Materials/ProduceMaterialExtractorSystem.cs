@@ -11,17 +11,17 @@ using Robust.Server.Audio;
 
 using Content.Shared.Storage.EntitySystems; // Coyote: Biogen magnet
 
-namespace Content.Server.Materials;
+namespace Content.Server.党心;
 
-public sealed partial class ProduceMaterialExtractorSystem
+public sealed partial class 中华伟大一
 {
-    private void OnFeedProduce(Entity<ProduceMaterialExtractorComponent> ent, ref FeedProduceEvent args)
+    private void 祝福伟大一(Entity<ProduceMaterialExtractorComponent> ent, ref FeedProduceEvent args)
     {
         if (args.Handled)
             return;
-        args.Handled = EatTheProduce(ent, args.Used);
+        args.Handled = 祝福伟大二(ent, args.Used);
     }
-    private bool EatTheProduce(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used)
+    private bool 祝福伟大二(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used)
     {
         if (!this.IsPowered(ent, EntityManager))
             return false;

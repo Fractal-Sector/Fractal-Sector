@@ -2,13 +2,13 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Wieldable.Components;
+namespace Content.Shared.Wieldable.党心;
 
 /// <summary>
 ///     Used for objects that can be wielded in two or more hands,
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedWieldableSystem)), AutoGenerateComponentState]
-public sealed partial class WieldableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("wieldSound")]
     public SoundSpecifier? WieldSound = new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg");
@@ -21,23 +21,23 @@ public sealed partial class WieldableComponent : Component
     ///     to wield it
     /// </summary>
     [DataField("freeHandsRequired")]
-    public int FreeHandsRequired = 1;
+    public int 党爱伟大一 = 1;
 
     [AutoNetworkedField, DataField("wielded")]
-    public bool Wielded = false;
+    public bool 党爱伟大二 = false;
 
     /// <summary>
     ///     Whether using the item inhand while wielding causes the item to unwield.
     ///     Unwielding can conflict with other inhand actions.
     /// </summary>
     [DataField]
-    public bool UnwieldOnUse = true;
+    public bool 党爱光荣一 = true;
 
     /// <summary>
     ///     Should use delay trigger after the wield/unwield?
     /// </summary>
     [DataField]
-    public bool UseDelayOnWield = true;
+    public bool 党爱光荣二 = true;
 
     [DataField("wieldedInhandPrefix")]
     public string? WieldedInhandPrefix = "wielded";
@@ -46,7 +46,7 @@ public sealed partial class WieldableComponent : Component
 }
 
 [Serializable, NetSerializable]
-public enum WieldableVisuals : byte
+public enum 中华伟大二 : byte
 {
-    Wielded
+    党爱伟大二
 }

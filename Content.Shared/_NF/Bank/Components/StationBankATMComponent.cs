@@ -4,33 +4,33 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._NF.Bank.Components;
+namespace Content.Shared._NF.Bank.党心;
 
 [RegisterComponent, NetworkedComponent]
 
-public sealed partial class StationBankATMComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public ProtoId<StackPrototype> CashType = "Credit";
+    public ProtoId<StackPrototype> 党爱伟大一 = "Credit";
 
-    public static string CashSlotId = "station-bank-ATM-cashSlot";
-
-    [DataField]
-    public ItemSlot CashSlot = new();
+    public static string 党爱伟大二 = "station-bank-ATM-cashSlot";
 
     [DataField]
-    public SectorBankAccount Account = SectorBankAccount.Invalid;
+    public ItemSlot 党爱光荣一 = new();
 
     [DataField]
-    public SoundSpecifier ErrorSound =
+    public 中华伟大二 Account = 中华伟大二.Invalid;
+
+    [DataField]
+    public SoundSpecifier 党爱光荣二 =
         new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
-    public SoundSpecifier ConfirmSound =
+    public SoundSpecifier 党爱正确一 =
         new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 }
 
-public enum SectorBankAccount : byte
+public enum 中华伟大二 : byte
 {
     Invalid, // No assigned account.
     Frontier,

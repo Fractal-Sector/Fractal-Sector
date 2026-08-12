@@ -1,9 +1,9 @@
 using Content.Shared.Actions;
 
-namespace Content.Shared.Magic.Events;
+namespace Content.Shared.Magic.党心;
 
 // TODO: Can probably just be an entity or something
-public sealed partial class TeleportSpellEvent : WorldTargetActionEvent
+public sealed partial class 中华伟大一 : WorldTargetActionEvent
 {
 
     // TODO: Move to magic component
@@ -13,5 +13,5 @@ public sealed partial class TeleportSpellEvent : WorldTargetActionEvent
     /// Volume control for the spell.
     /// </summary>
     [DataField]
-    public float BlinkVolume = 5f;
+    public float 党爱伟大一 = 5f;
 }

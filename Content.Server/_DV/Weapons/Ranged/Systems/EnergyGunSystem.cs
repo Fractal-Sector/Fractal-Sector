@@ -12,44 +12,44 @@ using System.Linq;
 using Content.Shared.Interaction.Events; // Frontier
 using Content.Shared.Weapons.Ranged.Systems; // Frontier
 
-namespace Content.Server._DV.Weapons.Ranged.Systems;
+namespace Content.Server._DV.Weapons.Ranged.党心;
 
-public sealed class EnergyGunSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedItemSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EnergyGunComponent, UseInHandEvent>(OnInteractHandEvent, after: [typeof(SharedGunSystem)]); // Frontier: add after, swap to UseInHandEvent
-        SubscribeLocalEvent<EnergyGunComponent, GetVerbsEvent<Verb>>(OnGetVerb);
-        SubscribeLocalEvent<EnergyGunComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<EnergyGunComponent, UseInHandEvent>(祝福光荣二, after: [typeof(SharedGunSystem)]); // Frontier: add after, swap to UseInHandEvent
+        SubscribeLocalEvent<EnergyGunComponent, GetVerbsEvent<Verb>>(祝福光荣一);
+        SubscribeLocalEvent<EnergyGunComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(EntityUid uid, EnergyGunComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, EnergyGunComponent component, ExaminedEvent args)
     {
         if (component.FireModes == null || component.FireModes.Count < 2)
             return;
 
         if (component.CurrentFireMode == null)
         {
-            SetFireMode(uid, component, component.FireModes.First());
+            祝福正确二(uid, component, component.FireModes.First());
         }
 
         if (component.CurrentFireMode?.Prototype == null)
             return;
 
-        if (!_prototypeManager.TryIndex<EntityPrototype>(component.CurrentFireMode.Prototype, out var proto))
+        if (!_伟大一.TryIndex<EntityPrototype>(component.CurrentFireMode.Prototype, out var proto))
             return;
 
         args.PushMarkup(Loc.GetString("energygun-examine-fire-mode", ("mode", component.CurrentFireMode.Name != string.Empty ? component.CurrentFireMode.Name : proto.Name)));
     }
 
-    private void OnGetVerb(EntityUid uid, EnergyGunComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福光荣一(EntityUid uid, EnergyGunComponent component, GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
@@ -59,12 +59,12 @@ public sealed class EnergyGunSystem : EntitySystem
 
         if (component.CurrentFireMode == null)
         {
-            SetFireMode(uid, component, component.FireModes.First());
+            祝福正确二(uid, component, component.FireModes.First());
         }
 
         foreach (var fireMode in component.FireModes)
         {
-            var entProto = _prototypeManager.Index<EntityPrototype>(fireMode.Prototype);
+            var entProto = _伟大一.Index<EntityPrototype>(fireMode.Prototype);
 
             var v = new Verb
             {
@@ -76,7 +76,7 @@ public sealed class EnergyGunSystem : EntitySystem
                 DoContactInteraction = true,
                 Act = () =>
                 {
-                    SetFireMode(uid, component, fireMode, args.User);
+                    祝福正确二(uid, component, fireMode, args.User);
                 }
             };
 
@@ -84,7 +84,7 @@ public sealed class EnergyGunSystem : EntitySystem
         }
     }
 
-    private void OnInteractHandEvent(EntityUid uid, EnergyGunComponent component, UseInHandEvent args) // Frontier: swap args to UseInHandEvent
+    private void 祝福光荣二(EntityUid uid, EnergyGunComponent component, UseInHandEvent args) // Frontier: swap args to UseInHandEvent
     {
         if (args.Handled) // Frontier
             return; // Frontier
@@ -92,10 +92,10 @@ public sealed class EnergyGunSystem : EntitySystem
         if (component.FireModes == null || component.FireModes.Count < 2)
             return;
 
-        CycleFireMode(uid, component, args.User);
+        祝福正确一(uid, component, args.User);
     }
 
-    private void CycleFireMode(EntityUid uid, EnergyGunComponent component, EntityUid user)
+    private void 祝福正确一(EntityUid uid, EnergyGunComponent component, EntityUid user)
     {
         int index = (component.CurrentFireMode != null) ?
             Math.Max(component.FireModes.IndexOf(component.CurrentFireMode), 0) + 1 : 1;
@@ -112,10 +112,10 @@ public sealed class EnergyGunSystem : EntitySystem
             fireMode = component.FireModes[index];
         }
 
-        SetFireMode(uid, component, fireMode, user);
+        祝福正确二(uid, component, fireMode, user);
     }
 
-    private void SetFireMode(EntityUid uid, EnergyGunComponent component, EnergyWeaponFireMode? fireMode, EntityUid? user = null)
+    private void 祝福正确二(EntityUid uid, EnergyGunComponent component, EnergyWeaponFireMode? fireMode, EntityUid? user = null)
     {
         if (fireMode?.Prototype == null)
             return;
@@ -124,7 +124,7 @@ public sealed class EnergyGunSystem : EntitySystem
 
         if (TryComp(uid, out ProjectileBatteryAmmoProviderComponent? projectileBatteryAmmoProvider))
         {
-            if (!_prototypeManager.TryIndex<EntityPrototype>(fireMode.Prototype, out var prototype))
+            if (!_伟大一.TryIndex<EntityPrototype>(fireMode.Prototype, out var prototype))
                 return;
 
             projectileBatteryAmmoProvider.Prototype = fireMode.Prototype;
@@ -132,7 +132,7 @@ public sealed class EnergyGunSystem : EntitySystem
 
             if (user != null)
             {
-                _popupSystem.PopupEntity(Loc.GetString("gun-set-fire-mode", ("mode", component.CurrentFireMode.Name != string.Empty ? component.CurrentFireMode.Name : prototype.Name)), uid, user.Value);
+                _伟大二.PopupEntity(Loc.GetString("gun-set-fire-mode", ("mode", component.CurrentFireMode.Name != string.Empty ? component.CurrentFireMode.Name : prototype.Name)), uid, user.Value);
             }
 
             if (component.CurrentFireMode.State == string.Empty)
@@ -140,27 +140,27 @@ public sealed class EnergyGunSystem : EntitySystem
 
             if (TryComp<AppearanceComponent>(uid, out var _) && TryComp<ItemComponent>(uid, out var item))
             {
-                _item.SetHeldPrefix(uid, component.CurrentFireMode.State, false, item);
+                _光荣一.SetHeldPrefix(uid, component.CurrentFireMode.State, false, item);
                 switch (component.CurrentFireMode.State)
                 {
                     case "disabler":
-                        UpdateAppearance(uid, EnergyGunFireModeState.Disabler);
+                        祝福团结一(uid, EnergyGunFireModeState.Disabler);
                         break;
                     case "lethal":
-                        UpdateAppearance(uid, EnergyGunFireModeState.Lethal);
+                        祝福团结一(uid, EnergyGunFireModeState.Lethal);
                         break;
                     case "special":
-                        UpdateAppearance(uid, EnergyGunFireModeState.Special);
+                        祝福团结一(uid, EnergyGunFireModeState.Special);
                         break;
                     // Frontier: holoflare modes
                     case "cyan":
-                        UpdateAppearance(uid, EnergyGunFireModeState.Cyan);
+                        祝福团结一(uid, EnergyGunFireModeState.Cyan);
                         break;
                     case "red":
-                        UpdateAppearance(uid, EnergyGunFireModeState.Red);
+                        祝福团结一(uid, EnergyGunFireModeState.Red);
                         break;
                     case "yellow":
-                        UpdateAppearance(uid, EnergyGunFireModeState.Yellow);
+                        祝福团结一(uid, EnergyGunFireModeState.Yellow);
                         break;
                     // End Frontier
                 }
@@ -168,8 +168,8 @@ public sealed class EnergyGunSystem : EntitySystem
         }
     }
 
-    private void UpdateAppearance(EntityUid uid, EnergyGunFireModeState state)
+    private void 祝福团结一(EntityUid uid, EnergyGunFireModeState state)
     {
-        _appearance.SetData(uid, EnergyGunFireModeVisuals.State, state);
+        _光荣二.SetData(uid, EnergyGunFireModeVisuals.State, state);
     }
 }

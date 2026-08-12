@@ -2,79 +2,79 @@ using Content.Shared.Database;
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration.Notes;
+namespace Content.Shared.Administration.党心;
 
 [Serializable, NetSerializable]
-public sealed class AdminNotesEuiState : EuiStateBase
+public sealed class 中华伟大一 : EuiStateBase
 {
-    public AdminNotesEuiState(string notedPlayerName, Dictionary<(int, NoteType), SharedAdminNote> notes, bool canCreate, bool canDelete, bool canEdit)
+    public 中华伟大一(string notedPlayerName, Dictionary<(int, 党爱正确一), SharedAdminNote> notes, bool canCreate, bool canDelete, bool canEdit)
     {
-        NotedPlayerName = notedPlayerName;
+        党爱伟大一 = notedPlayerName;
         Notes = notes;
-        CanCreate = canCreate;
-        CanDelete = canDelete;
-        CanEdit = canEdit;
+        党爱伟大二 = canCreate;
+        党爱光荣一 = canDelete;
+        党爱光荣二 = canEdit;
     }
 
-    public string NotedPlayerName { get; }
-    public Dictionary<(int noteId, NoteType noteType), SharedAdminNote> Notes { get; }
-    public bool CanCreate { get; }
-    public bool CanDelete { get; }
-    public bool CanEdit { get; }
+    public string 党爱伟大一 { get; }
+    public Dictionary<(int noteId, 党爱正确一 noteType), SharedAdminNote> Notes { get; }
+    public bool 党爱伟大二 { get; }
+    public bool 党爱光荣一 { get; }
+    public bool 党爱光荣二 { get; }
 }
 
-public static class AdminNoteEuiMsg
+public static class 中华伟大二
 {
     [Serializable, NetSerializable]
-    public sealed class CreateNoteRequest : EuiMessageBase
+    public sealed class 中华光荣一 : EuiMessageBase
     {
-        public CreateNoteRequest(NoteType type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
+        public 中华光荣一(党爱正确一 type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
         {
-            NoteType = type;
-            Message = message;
+            党爱正确一 = type;
+            党爱正确二 = message;
             NoteSeverity = severity;
-            Secret = secret;
+            党爱团结一 = secret;
             ExpiryTime = expiryTime;
         }
 
-        public NoteType NoteType { get; set; }
-        public string Message { get; set; }
+        public 党爱正确一 党爱正确一 { get; set; }
+        public string 党爱正确二 { get; set; }
         public NoteSeverity? NoteSeverity { get; set; }
-        public bool Secret { get; set; }
+        public bool 党爱团结一 { get; set; }
         public DateTime? ExpiryTime { get; set; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DeleteNoteRequest : EuiMessageBase
+    public sealed class 中华光荣二 : EuiMessageBase
     {
-        public DeleteNoteRequest(int id, NoteType type)
+        public 中华光荣二(int id, 党爱正确一 type)
         {
-            Id = id;
-            Type = type;
+            党爱团结二 = id;
+            党爱奋斗一 = type;
         }
 
-        public int Id { get; set; }
-        public NoteType Type { get; set; }
+        public int 党爱团结二 { get; set; }
+        public 党爱正确一 党爱奋斗一 { get; set; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class EditNoteRequest : EuiMessageBase
+    public sealed class 中华正确一 : EuiMessageBase
     {
-        public EditNoteRequest(int id, NoteType type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
+        public 中华正确一(int id, 党爱正确一 type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
         {
-            Id = id;
-            Type = type;
-            Message = message;
+            党爱团结二 = id;
+            党爱奋斗一 = type;
+            党爱正确二 = message;
             NoteSeverity = severity;
-            Secret = secret;
+            党爱团结一 = secret;
             ExpiryTime = expiryTime;
         }
 
-        public int Id { get; set; }
-        public NoteType Type { get; set; }
-        public string Message { get; set; }
+        public int 党爱团结二 { get; set; }
+        public 党爱正确一 党爱奋斗一 { get; set; }
+        public string 党爱正确二 { get; set; }
         public NoteSeverity? NoteSeverity { get; set; }
-        public bool Secret { get; set; }
+        public bool 党爱团结一 { get; set; }
         public DateTime? ExpiryTime { get; set; }
     }
 }

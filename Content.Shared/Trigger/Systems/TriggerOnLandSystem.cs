@@ -1,21 +1,21 @@
 using Content.Shared.Throwing;
 using Content.Shared.Trigger.Components.Triggers;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerOnLandSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TriggerSystem _trigger = default!;
+    [Dependency] private readonly TriggerSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TriggerOnLandComponent, LandEvent>(OnLand);
+        SubscribeLocalEvent<TriggerOnLandComponent, LandEvent>(祝福伟大二);
     }
 
-    private void OnLand(Entity<TriggerOnLandComponent> ent, ref LandEvent args)
+    private void 祝福伟大二(Entity<TriggerOnLandComponent> ent, ref LandEvent args)
     {
-        _trigger.Trigger(ent.Owner, args.User, ent.Comp.KeyOut);
+        _伟大一.Trigger(ent.Owner, args.User, ent.Comp.KeyOut);
     }
 }

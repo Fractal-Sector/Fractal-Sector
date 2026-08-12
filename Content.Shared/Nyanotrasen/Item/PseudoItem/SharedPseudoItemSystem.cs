@@ -14,35 +14,35 @@ using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Nyanotrasen.Item.PseudoItem;
+namespace Content.Shared.Nyanotrasen.Item.党心;
 
-public abstract partial class SharedPseudoItemSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedStorageSystem _伟大一 = default!;
+    [Dependency] private readonly SharedItemSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly TagSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly SharedActionsSystem _正确二 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结一 = default!;
 
-    private readonly ProtoId<TagPrototype> _preventTag = "PreventLabel";
-    private readonly EntProtoId _sleepActionId = "ActionSleep"; // The action used for sleeping inside bags. Currently uses the default sleep action (same as beds)
+    private readonly ProtoId<TagPrototype> _团结二 = "PreventLabel";
+    private readonly EntProtoId _奋斗一 = "ActionSleep"; // The action used for sleeping inside bags. Currently uses the default sleep action (same as beds)
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PseudoItemComponent, GetVerbsEvent<InnateVerb>>(AddInsertVerb);
-        SubscribeLocalEvent<PseudoItemComponent, EntGotRemovedFromContainerMessage>(OnEntRemoved);
-        SubscribeLocalEvent<PseudoItemComponent, GettingPickedUpAttemptEvent>(OnGettingPickedUpAttempt);
-        SubscribeLocalEvent<PseudoItemComponent, DropAttemptEvent>(OnDropAttempt);
-        SubscribeLocalEvent<PseudoItemComponent, ContainerGettingInsertedAttemptEvent>(OnInsertAttempt);
-        SubscribeLocalEvent<PseudoItemComponent, InteractionAttemptEvent>(OnInteractAttempt);
-        SubscribeLocalEvent<PseudoItemComponent, PseudoItemInsertDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<PseudoItemComponent, AttackAttemptEvent>(OnAttackAttempt);
+        base.祝福伟大一();
+        SubscribeLocalEvent<PseudoItemComponent, GetVerbsEvent<InnateVerb>>(祝福伟大二);
+        SubscribeLocalEvent<PseudoItemComponent, EntGotRemovedFromContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<PseudoItemComponent, GettingPickedUpAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<PseudoItemComponent, DropAttemptEvent>(祝福正确二);
+        SubscribeLocalEvent<PseudoItemComponent, ContainerGettingInsertedAttemptEvent>(祝福团结一);
+        SubscribeLocalEvent<PseudoItemComponent, InteractionAttemptEvent>(祝福团结二);
+        SubscribeLocalEvent<PseudoItemComponent, PseudoItemInsertDoAfterEvent>(祝福奋斗一);
+        SubscribeLocalEvent<PseudoItemComponent, AttackAttemptEvent>(祝福胜利一);
     }
 
-    private void AddInsertVerb(EntityUid uid, PseudoItemComponent component, GetVerbsEvent<InnateVerb> args)
+    private void 祝福伟大二(EntityUid uid, PseudoItemComponent component, GetVerbsEvent<InnateVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -63,7 +63,7 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
         {
             Act = () =>
             {
-                TryInsert(args.Target, uid, component, targetStorage);
+                祝福光荣一(args.Target, uid, component, targetStorage);
             },
             Text = Loc.GetString("action-name-insert-self"),
             Priority = 2
@@ -71,7 +71,7 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    public bool TryInsert(EntityUid storageUid, EntityUid toInsert, PseudoItemComponent component,
+    public bool 祝福光荣一(EntityUid storageUid, EntityUid toInsert, PseudoItemComponent component,
         StorageComponent? storage = null)
     {
         if (!Resolve(storageUid, ref storage))
@@ -88,11 +88,11 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
             StoredRotation = component.StoredRotation
         }; // Frontier: added StoredRotation
         AddComp(toInsert, itemComp);
-        _item.VisualsChanged(toInsert);
+        _伟大二.VisualsChanged(toInsert);
 
-        _tag.TryAddTag(toInsert, _preventTag);
+        _光荣二.TryAddTag(toInsert, _团结二);
 
-        if (!_storage.Insert(storageUid, toInsert, out _, null, storage))
+        if (!_伟大一.Insert(storageUid, toInsert, out _, null, storage))
         {
             component.Active = false;
             RemComp<ItemComponent>(toInsert);
@@ -101,13 +101,13 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
 
         // If the storage allows sleeping inside, add the respective action
         if (HasComp<AllowsSleepInsideComponent>(storageUid))
-            _actions.AddAction(toInsert, ref component.SleepAction, _sleepActionId, toInsert);
+            _正确二.AddAction(toInsert, ref component.SleepAction, _奋斗一, toInsert);
 
         component.Active = true;
         return true;
     }
 
-    private void OnEntRemoved(EntityUid uid, PseudoItemComponent component, EntGotRemovedFromContainerMessage args)
+    private void 祝福光荣二(EntityUid uid, PseudoItemComponent component, EntGotRemovedFromContainerMessage args)
     {
         if (!component.Active)
             return;
@@ -115,26 +115,26 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
         RemComp<ItemComponent>(uid);
         component.Active = false;
 
-        _actions.RemoveAction(uid, component.SleepAction); // Remove sleep action if it was added
+        _正确二.RemoveAction(uid, component.SleepAction); // Remove sleep action if it was added
     }
 
-    protected virtual void OnGettingPickedUpAttempt(EntityUid uid, PseudoItemComponent component,
+    protected virtual void 祝福正确一(EntityUid uid, PseudoItemComponent component,
         GettingPickedUpAttemptEvent args)
     {
         if (args.User == args.Item)
             return;
 
-        _transform.AttachToGridOrMap(uid);
+        _团结一.AttachToGridOrMap(uid);
         args.Cancel();
     }
 
-    private void OnDropAttempt(EntityUid uid, PseudoItemComponent component, DropAttemptEvent args)
+    private void 祝福正确二(EntityUid uid, PseudoItemComponent component, DropAttemptEvent args)
     {
         if (component.Active)
             args.Cancel();
     }
 
-    private void OnInsertAttempt(EntityUid uid, PseudoItemComponent component,
+    private void 祝福团结一(EntityUid uid, PseudoItemComponent component,
         ContainerGettingInsertedAttemptEvent args)
     {
         if (!component.Active)
@@ -144,21 +144,21 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
     }
 
     // Prevents moving within the bag :)
-    private void OnInteractAttempt(EntityUid uid, PseudoItemComponent component, InteractionAttemptEvent args)
+    private void 祝福团结二(EntityUid uid, PseudoItemComponent component, InteractionAttemptEvent args)
     {
         if (args.Uid == args.Target && component.Active)
             args.Cancelled = true;
     }
 
-    private void OnDoAfter(EntityUid uid, PseudoItemComponent component, DoAfterEvent args)
+    private void 祝福奋斗一(EntityUid uid, PseudoItemComponent component, DoAfterEvent args)
     {
         if (args.Handled || args.Cancelled || args.Args.Used == null)
             return;
 
-        args.Handled = TryInsert(args.Args.Used.Value, uid, component);
+        args.Handled = 祝福光荣一(args.Args.Used.Value, uid, component);
     }
 
-    protected void StartInsertDoAfter(EntityUid inserter, EntityUid toInsert, EntityUid storageEntity,
+    protected void 祝福奋斗二(EntityUid inserter, EntityUid toInsert, EntityUid storageEntity,
         PseudoItemComponent? pseudoItem = null)
     {
         if (!Resolve(toInsert, ref pseudoItem))
@@ -171,14 +171,14 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
             NeedHand = true
         };
 
-        if (_doAfter.TryStartDoAfter(args))
+        if (_光荣一.TryStartDoAfter(args))
         {
             // Show a popup to the person getting picked up
-            _popupSystem.PopupEntity(Loc.GetString("carry-started", ("carrier", inserter)), toInsert, toInsert);
+            _正确一.PopupEntity(Loc.GetString("carry-started", ("carrier", inserter)), toInsert, toInsert);
         }
     }
 
-    private void OnAttackAttempt(EntityUid uid, PseudoItemComponent component, AttackAttemptEvent args)
+    private void 祝福胜利一(EntityUid uid, PseudoItemComponent component, AttackAttemptEvent args)
     {
         if (component.Active)
             args.Cancel();

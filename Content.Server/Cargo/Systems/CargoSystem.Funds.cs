@@ -6,25 +6,25 @@ using Content.Shared.Emag.Systems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.UserInterface;
 
-namespace Content.Server.Cargo.Systems;
+namespace Content.Server.Cargo.党心;
 
-public sealed partial class CargoSystem
+public sealed partial class 中华伟大一
 {
-    private bool _allowPrimaryAccountAllocation;
-    private bool _allowPrimaryCutAdjustment;
+    private bool _伟大一;
+    private bool _伟大二;
 
-    public void InitializeFunds()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<CargoOrderConsoleComponent, CargoConsoleWithdrawFundsMessage>(OnWithdrawFunds);
-        SubscribeLocalEvent<CargoOrderConsoleComponent, CargoConsoleToggleLimitMessage>(OnToggleLimit);
-        SubscribeLocalEvent<FundingAllocationConsoleComponent, SetFundingAllocationBuiMessage>(OnSetFundingAllocation);
-        SubscribeLocalEvent<FundingAllocationConsoleComponent, BeforeActivatableUIOpenEvent>(OnFundAllocationBuiOpen);
+        SubscribeLocalEvent<CargoOrderConsoleComponent, CargoConsoleWithdrawFundsMessage>(祝福伟大二);
+        SubscribeLocalEvent<CargoOrderConsoleComponent, CargoConsoleToggleLimitMessage>(祝福光荣一);
+        SubscribeLocalEvent<FundingAllocationConsoleComponent, SetFundingAllocationBuiMessage>(祝福光荣二);
+        SubscribeLocalEvent<FundingAllocationConsoleComponent, BeforeActivatableUIOpenEvent>(祝福正确一);
 
-        _cfg.OnValueChanged(CCVars.AllowPrimaryAccountAllocation, enabled => { _allowPrimaryAccountAllocation = enabled; }, true);
-        _cfg.OnValueChanged(CCVars.AllowPrimaryCutAdjustment, enabled => { _allowPrimaryCutAdjustment = enabled; }, true);
+        _cfg.OnValueChanged(CCVars.AllowPrimaryAccountAllocation, enabled => { _伟大一 = enabled; }, true);
+        _cfg.OnValueChanged(CCVars.AllowPrimaryCutAdjustment, enabled => { _伟大二 = enabled; }, true);
     }
 
-    private void OnWithdrawFunds(Entity<CargoOrderConsoleComponent> ent, ref CargoConsoleWithdrawFundsMessage args)
+    private void 祝福伟大二(Entity<CargoOrderConsoleComponent> ent, ref CargoConsoleWithdrawFundsMessage args)
     {
         if (_station.GetOwningStation(ent) is not { } station ||
             !TryComp<StationBankAccountComponent>(station, out var bank))
@@ -88,7 +88,7 @@ public sealed partial class CargoSystem
         }
     }
 
-    private void OnToggleLimit(Entity<CargoOrderConsoleComponent> ent, ref CargoConsoleToggleLimitMessage args)
+    private void 祝福光荣一(Entity<CargoOrderConsoleComponent> ent, ref CargoConsoleToggleLimitMessage args)
     {
         if (!_accessReaderSystem.FindAccessTags(args.Actor).Intersect(ent.Comp.RemoveLimitAccess).Any())
         {
@@ -103,13 +103,13 @@ public sealed partial class CargoSystem
     }
 
 
-    private void OnSetFundingAllocation(Entity<FundingAllocationConsoleComponent> ent, ref SetFundingAllocationBuiMessage args)
+    private void 祝福光荣二(Entity<FundingAllocationConsoleComponent> ent, ref SetFundingAllocationBuiMessage args)
     {
         if (_station.GetOwningStation(ent) is not { } station ||
             !TryComp<StationBankAccountComponent>(station, out var bank))
             return;
 
-        var expectedCount = _allowPrimaryAccountAllocation ? bank.RevenueDistribution.Count : bank.RevenueDistribution.Count - 1;
+        var expectedCount = _伟大一 ? bank.RevenueDistribution.Count : bank.RevenueDistribution.Count - 1;
         if (args.Percents.Count != expectedCount)
             return;
 
@@ -136,12 +136,12 @@ public sealed partial class CargoSystem
         {
             bank.RevenueDistribution.Add(account, percent / 100.0);
         }
-        if (!_allowPrimaryAccountAllocation)
+        if (!_伟大一)
         {
             bank.RevenueDistribution.Add(bank.PrimaryAccount, 0);
         }
 
-        if (_allowPrimaryCutAdjustment && args.PrimaryCut is >= 0.0 and <= 1.0)
+        if (_伟大二 && args.PrimaryCut is >= 0.0 and <= 1.0)
         {
             bank.PrimaryCut = args.PrimaryCut;
         }
@@ -159,7 +159,7 @@ public sealed partial class CargoSystem
             $"{ToPrettyString(args.Actor):player} set station {ToPrettyString(station)} fund distribution: {string.Join(',', bank.RevenueDistribution.Select(p => $"{p.Key}: {p.Value}").ToList())}, primary cut: {bank.PrimaryCut}, lockbox cut: {bank.LockboxCut}");
     }
 
-    private void OnFundAllocationBuiOpen(Entity<FundingAllocationConsoleComponent> ent, ref BeforeActivatableUIOpenEvent args)
+    private void 祝福正确一(Entity<FundingAllocationConsoleComponent> ent, ref BeforeActivatableUIOpenEvent args)
     {
         if (_station.GetOwningStation(ent) is { } station)
             _uiSystem.SetUiState(ent.Owner, FundingAllocationConsoleUiKey.Key, new FundingAllocationConsoleBuiState(GetNetEntity(station)));

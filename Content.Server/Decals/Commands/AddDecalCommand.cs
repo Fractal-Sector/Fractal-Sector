@@ -9,26 +9,26 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Decals.Commands
+namespace Content.Server.Decals.党心
 {
     [AdminCommand(AdminFlags.Mapping)]
-    public sealed class AddDecalCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-        public string Command => "adddecal";
-        public string Description => "Creates a decal on the map";
-        public string Help => $"{Command} <id> <x position> <y position> <gridId> [angle=<angle> zIndex=<zIndex> color=<color>]";
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public string 党爱伟大一 => "adddecal";
+        public string 党爱伟大二 => "Creates a decal on the map";
+        public string 党爱光荣一 => $"{党爱伟大一} <id> <x position> <y position> <gridId> [angle=<angle> zIndex=<zIndex> color=<color>]";
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 4 || args.Length > 7)
             {
-                shell.WriteError($"Received invalid amount of arguments arguments. Expected 4 to 7, got {args.Length}.\nUsage: {Help}");
+                shell.WriteError($"Received invalid amount of arguments arguments. Expected 4 to 7, got {args.Length}.\nUsage: {党爱光荣一}");
                 return;
             }
 
-            if (!_protoManager.HasIndex<DecalPrototype>(args[0]))
+            if (!_伟大二.HasIndex<DecalPrototype>(args[0]))
             {
                 shell.WriteError($"Cannot find decalprototype '{args[0]}'.");
             }
@@ -46,15 +46,15 @@ namespace Content.Server.Decals.Commands
             }
 
             if (!NetEntity.TryParse(args[3], out var gridIdNet) ||
-                !_entManager.TryGetEntity(gridIdNet, out var gridIdRaw) ||
-                !_entManager.TryGetComponent(gridIdRaw, out MapGridComponent? grid))
+                !_伟大一.TryGetEntity(gridIdNet, out var gridIdRaw) ||
+                !_伟大一.TryGetComponent(gridIdRaw, out MapGridComponent? grid))
             {
                 shell.WriteError($"Failed parsing gridId '{args[3]}'.");
                 return;
             }
 
-            var mapSystem = _entManager.System<MapSystem>();
-            var turfSystem = _entManager.System<TurfSystem>();
+            var mapSystem = _伟大一.System<MapSystem>();
+            var turfSystem = _伟大一.System<TurfSystem>();
             var coordinates = new EntityCoordinates(gridIdRaw.Value, new Vector2(x, y));
             if (turfSystem.IsSpace(mapSystem.GetTileRef(gridIdRaw.Value, grid, coordinates)))
             {
@@ -109,7 +109,7 @@ namespace Content.Server.Decals.Commands
                 }
             }
 
-            if (_entManager.System<DecalSystem>().TryAddDecal(args[0], coordinates, out var uid, color, rotation, zIndex))
+            if (_伟大一.System<DecalSystem>().TryAddDecal(args[0], coordinates, out var uid, color, rotation, zIndex))
             {
                 shell.WriteLine($"Successfully created decal {uid}.");
             }

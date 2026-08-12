@@ -17,42 +17,42 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Light.EntitySystems
+namespace Content.Server.Light.党心
 {
     [UsedImplicitly]
-    public sealed class ExpendableLightSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedItemSystem _item = default!;
-        [Dependency] private readonly ClothingSystem _clothing = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly StackSystem _stackSystem = default!;
-        [Dependency] private readonly NameModifierSystem _nameModifier = default!;
+        [Dependency] private readonly SharedItemSystem _伟大一 = default!;
+        [Dependency] private readonly ClothingSystem _伟大二 = default!;
+        [Dependency] private readonly TagSystem _光荣一 = default!;
+        [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _正确一 = default!;
+        [Dependency] private readonly StackSystem _正确二 = default!;
+        [Dependency] private readonly NameModifierSystem _团结一 = default!;
 
         private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<ExpendableLightComponent, ComponentInit>(OnExpLightInit);
-            SubscribeLocalEvent<ExpendableLightComponent, UseInHandEvent>(OnExpLightUse);
-            SubscribeLocalEvent<ExpendableLightComponent, GetVerbsEvent<ActivationVerb>>(AddIgniteVerb);
-            SubscribeLocalEvent<ExpendableLightComponent, InteractUsingEvent>(OnInteractUsing);
-            SubscribeLocalEvent<ExpendableLightComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers);
+            SubscribeLocalEvent<ExpendableLightComponent, ComponentInit>(祝福奋斗一);
+            SubscribeLocalEvent<ExpendableLightComponent, UseInHandEvent>(祝福奋斗二);
+            SubscribeLocalEvent<ExpendableLightComponent, GetVerbsEvent<ActivationVerb>>(祝福胜利一);
+            SubscribeLocalEvent<ExpendableLightComponent, InteractUsingEvent>(祝福正确一);
+            SubscribeLocalEvent<ExpendableLightComponent, RefreshNameModifiersEvent>(祝福正确二);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福伟大二(float frameTime)
         {
             var query = EntityQueryEnumerator<ExpendableLightComponent>();
             while (query.MoveNext(out var uid, out var light))
             {
-                UpdateLight((uid, light), frameTime);
+                祝福光荣一((uid, light), frameTime);
             }
         }
 
-        private void UpdateLight(Entity<ExpendableLightComponent> ent, float frameTime)
+        private void 祝福光荣一(Entity<ExpendableLightComponent> ent, float frameTime)
         {
             var component = ent.Comp;
             if (!component.Activated)
@@ -68,23 +68,23 @@ namespace Content.Server.Light.EntitySystems
                         component.CurrentState = ExpendableLightState.Fading;
                         component.StateExpiryTime = (float)component.FadeOutDuration.TotalSeconds;
 
-                        UpdateVisualizer(ent);
+                        祝福团结一(ent);
 
                         break;
 
                     default:
                     case ExpendableLightState.Fading:
                         component.CurrentState = ExpendableLightState.Dead;
-                        _nameModifier.RefreshNameModifiers(ent.Owner);
+                        _团结一.RefreshNameModifiers(ent.Owner);
 
-                        _tagSystem.AddTag(ent, TrashTag);
+                        _光荣一.AddTag(ent, TrashTag);
 
-                        UpdateSounds(ent);
-                        UpdateVisualizer(ent);
+                        祝福团结二(ent);
+                        祝福团结一(ent);
 
                         if (TryComp<ItemComponent>(ent, out var item))
                         {
-                            _item.SetHeldPrefix(ent, "unlit", component: item);
+                            _伟大一.SetHeldPrefix(ent, "unlit", component: item);
                         }
 
                         break;
@@ -95,14 +95,14 @@ namespace Content.Server.Light.EntitySystems
         /// <summary>
         ///     Enables the light if it is not active. Once active it cannot be turned off.
         /// </summary>
-        public bool TryActivate(Entity<ExpendableLightComponent> ent)
+        public bool 祝福光荣二(Entity<ExpendableLightComponent> ent)
         {
             var component = ent.Comp;
             if (!component.Activated && component.CurrentState == ExpendableLightState.BrandNew)
             {
                 if (TryComp<ItemComponent>(ent, out var item))
                 {
-                    _item.SetHeldPrefix(ent, "lit", component: item);
+                    _伟大一.SetHeldPrefix(ent, "lit", component: item);
                 }
 
                 var ignite = new IgnitionEvent(true);
@@ -110,13 +110,13 @@ namespace Content.Server.Light.EntitySystems
 
                 component.CurrentState = ExpendableLightState.Lit;
 
-                UpdateSounds(ent);
-                UpdateVisualizer(ent);
+                祝福团结二(ent);
+                祝福团结一(ent);
             }
             return true;
         }
 
-        private void OnInteractUsing(EntityUid uid, ExpendableLightComponent component, ref InteractUsingEvent args)
+        private void 祝福正确一(EntityUid uid, ExpendableLightComponent component, ref InteractUsingEvent args)
         {
             if (args.Handled)
                 return;
@@ -135,76 +135,76 @@ namespace Content.Server.Light.EntitySystems
                 component.CurrentState = ExpendableLightState.BrandNew;
                 component.StateExpiryTime = (float)component.RefuelMaterialTime.TotalSeconds;
 
-                _nameModifier.RefreshNameModifiers(uid);
-                _stackSystem.SetCount(args.Used, stack.Count - 1, stack);
-                UpdateVisualizer((uid, component));
+                _团结一.RefreshNameModifiers(uid);
+                _正确二.SetCount(args.Used, stack.Count - 1, stack);
+                祝福团结一((uid, component));
                 return;
             }
 
             component.StateExpiryTime += (float)component.RefuelMaterialTime.TotalSeconds;
-            _stackSystem.SetCount(args.Used, stack.Count - 1, stack);
+            _正确二.SetCount(args.Used, stack.Count - 1, stack);
             args.Handled = true;
         }
 
-        private void OnRefreshNameModifiers(Entity<ExpendableLightComponent> entity, ref RefreshNameModifiersEvent args)
+        private void 祝福正确二(Entity<ExpendableLightComponent> entity, ref RefreshNameModifiersEvent args)
         {
             if (entity.Comp.CurrentState is ExpendableLightState.Dead)
                 args.AddModifier("expendable-light-spent-prefix");
         }
 
-        private void UpdateVisualizer(Entity<ExpendableLightComponent> ent, AppearanceComponent? appearance = null)
+        private void 祝福团结一(Entity<ExpendableLightComponent> ent, AppearanceComponent? appearance = null)
         {
             var component = ent.Comp;
             if (!Resolve(ent, ref appearance, false))
                 return;
 
-            _appearance.SetData(ent, ExpendableLightVisuals.State, component.CurrentState, appearance);
+            _正确一.SetData(ent, ExpendableLightVisuals.State, component.CurrentState, appearance);
 
             switch (component.CurrentState)
             {
                 case ExpendableLightState.Lit:
-                    _appearance.SetData(ent, ExpendableLightVisuals.Behavior, component.TurnOnBehaviourID, appearance);
+                    _正确一.SetData(ent, ExpendableLightVisuals.Behavior, component.TurnOnBehaviourID, appearance);
                     break;
 
                 case ExpendableLightState.Fading:
-                    _appearance.SetData(ent, ExpendableLightVisuals.Behavior, component.FadeOutBehaviourID, appearance);
+                    _正确一.SetData(ent, ExpendableLightVisuals.Behavior, component.FadeOutBehaviourID, appearance);
                     break;
 
                 case ExpendableLightState.Dead:
-                    _appearance.SetData(ent, ExpendableLightVisuals.Behavior, string.Empty, appearance);
+                    _正确一.SetData(ent, ExpendableLightVisuals.Behavior, string.Empty, appearance);
                     var ignite = new IgnitionEvent(false);
                     RaiseLocalEvent(ent, ref ignite);
                     break;
             }
         }
 
-        private void UpdateSounds(Entity<ExpendableLightComponent> ent)
+        private void 祝福团结二(Entity<ExpendableLightComponent> ent)
         {
             var component = ent.Comp;
 
             switch (component.CurrentState)
             {
                 case ExpendableLightState.Lit:
-                    _audio.PlayPvs(component.LitSound, ent);
+                    _光荣二.PlayPvs(component.LitSound, ent);
                     break;
                 case ExpendableLightState.Fading:
                     break;
                 default:
-                    _audio.PlayPvs(component.DieSound, ent);
+                    _光荣二.PlayPvs(component.DieSound, ent);
                     break;
             }
 
             if (TryComp<ClothingComponent>(ent, out var clothing))
             {
-                _clothing.SetEquippedPrefix(ent, component.Activated ? "Activated" : string.Empty, clothing);
+                _伟大二.SetEquippedPrefix(ent, component.Activated ? "Activated" : string.Empty, clothing);
             }
         }
 
-        private void OnExpLightInit(EntityUid uid, ExpendableLightComponent component, ComponentInit args)
+        private void 祝福奋斗一(EntityUid uid, ExpendableLightComponent component, ComponentInit args)
         {
             if (TryComp<ItemComponent>(uid, out var item))
             {
-                _item.SetHeldPrefix(uid, "unlit", component: item);
+                _伟大一.SetHeldPrefix(uid, "unlit", component: item);
             }
 
             component.CurrentState = ExpendableLightState.BrandNew;
@@ -212,16 +212,16 @@ namespace Content.Server.Light.EntitySystems
             EnsureComp<PointLightComponent>(uid);
         }
 
-        private void OnExpLightUse(Entity<ExpendableLightComponent> ent, ref UseInHandEvent args)
+        private void 祝福奋斗二(Entity<ExpendableLightComponent> ent, ref UseInHandEvent args)
         {
             if (args.Handled)
                 return;
 
-            if (TryActivate(ent))
+            if (祝福光荣二(ent))
                 args.Handled = true;
         }
 
-        private void AddIgniteVerb(Entity<ExpendableLightComponent> ent, ref GetVerbsEvent<ActivationVerb> args)
+        private void 祝福胜利一(Entity<ExpendableLightComponent> ent, ref GetVerbsEvent<ActivationVerb> args)
         {
             if (!args.CanAccess || !args.CanInteract)
                 return;
@@ -235,7 +235,7 @@ namespace Content.Server.Light.EntitySystems
             {
                 Text = Loc.GetString("expendable-light-start-verb"),
                 Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/light.svg.192dpi.png")),
-                Act = () => TryActivate(ent)
+                Act = () => 祝福光荣二(ent)
             };
             args.Verbs.Add(verb);
         }

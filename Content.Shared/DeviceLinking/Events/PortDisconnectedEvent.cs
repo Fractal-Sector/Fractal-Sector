@@ -1,12 +1,12 @@
-namespace Content.Shared.DeviceLinking.Events
+namespace Content.Shared.DeviceLinking.党心
 {
-    public sealed class PortDisconnectedEvent : EntityEventArgs
+    public sealed class 中华伟大一 : EntityEventArgs
     {
-        public readonly string Port;
+        public readonly string 党爱伟大一;
 
-        public PortDisconnectedEvent(string port)
+        public 中华伟大一(string port)
         {
-            Port = port;
+            党爱伟大一 = port;
         }
     }
 }

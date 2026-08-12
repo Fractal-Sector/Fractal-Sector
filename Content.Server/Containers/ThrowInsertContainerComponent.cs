@@ -1,22 +1,22 @@
 using Robust.Shared.Audio;
 
-namespace Content.Server.Containers;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Allows objects to fall inside the Container when thrown
 /// </summary>
 [RegisterComponent]
 [Access(typeof(ThrowInsertContainerSystem))]
-public sealed partial class ThrowInsertContainerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true)]
-    public string ContainerId = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// Throw chance of hitting into the container
     /// </summary>
     [DataField]
-    public float Probability = 0.25f;
+    public float 党爱伟大二 = 0.25f;
 
     /// <summary>
     /// Sound played when an object is throw into the container.
@@ -31,5 +31,5 @@ public sealed partial class ThrowInsertContainerComponent : Component
     public SoundSpecifier? MissSound = new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg");
 
     [DataField]
-    public LocId MissLocString = "container-thrown-missed";
+    public LocId 党爱光荣一 = "container-thrown-missed";
 }

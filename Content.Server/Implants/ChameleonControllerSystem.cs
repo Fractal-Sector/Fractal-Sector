@@ -14,45 +14,45 @@ using Content.Shared.Timing;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Implants;
+namespace Content.Server.党心;
 
-public sealed class ChameleonControllerSystem : SharedChameleonControllerSystem
+public sealed class 中华伟大一 : SharedChameleonControllerSystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedStationSpawningSystem _stationSpawningSystem = default!;
-    [Dependency] private readonly ChameleonClothingSystem _chameleonClothingSystem = default!;
-    [Dependency] private readonly IServerPreferencesManager _preferences = default!;
-    [Dependency] private readonly UseDelaySystem _delay = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly SharedStationSpawningSystem _光荣一 = default!;
+    [Dependency] private readonly ChameleonClothingSystem _光荣二 = default!;
+    [Dependency] private readonly IServerPreferencesManager _正确一 = default!;
+    [Dependency] private readonly UseDelaySystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ChameleonControllerImplantComponent, ChameleonControllerSelectedOutfitMessage>(OnSelected);
+        SubscribeLocalEvent<ChameleonControllerImplantComponent, ChameleonControllerSelectedOutfitMessage>(祝福伟大二);
 
-        SubscribeLocalEvent<ChameleonClothingComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(ChameleonControllerOutfitItemSelected);
+        SubscribeLocalEvent<ChameleonClothingComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(祝福正确一);
     }
 
-    private void OnSelected(Entity<ChameleonControllerImplantComponent> ent, ref ChameleonControllerSelectedOutfitMessage args)
+    private void 祝福伟大二(Entity<ChameleonControllerImplantComponent> ent, ref ChameleonControllerSelectedOutfitMessage args)
     {
-        if (!TryComp<SubdermalImplantComponent>(ent, out var implantComp) || implantComp.ImplantedEntity == null || !_delay.TryResetDelay(ent.Owner, true))
+        if (!TryComp<SubdermalImplantComponent>(ent, out var implantComp) || implantComp.ImplantedEntity == null || !_正确二.TryResetDelay(ent.Owner, true))
             return;
 
-        ChangeChameleonClothingToOutfit(implantComp.ImplantedEntity.Value, args.SelectedChameleonOutfit);
+        祝福光荣一(implantComp.ImplantedEntity.Value, args.SelectedChameleonOutfit);
     }
 
     /// <summary>
     ///     Switches all the chameleon clothing that the implant user is wearing to look like the selected job.
     /// </summary>
-    private void ChangeChameleonClothingToOutfit(EntityUid user, ProtoId<ChameleonOutfitPrototype> outfit)
+    private void 祝福光荣一(EntityUid user, ProtoId<ChameleonOutfitPrototype> outfit)
     {
-        var outfitPrototype = _proto.Index(outfit);
+        var outfitPrototype = _伟大一.Index(outfit);
 
-        _proto.TryIndex(outfitPrototype.Job, out var jobPrototype);
-        _proto.TryIndex(outfitPrototype.StartingGear, out var startingGearPrototype);
+        _伟大一.TryIndex(outfitPrototype.Job, out var jobPrototype);
+        _伟大一.TryIndex(outfitPrototype.StartingGear, out var startingGearPrototype);
 
-        GetJobEquipmentInformation(jobPrototype, user, out var customRoleLoadout, out var defaultRoleLoadout, out var jobStartingGearPrototype);
+        祝福光荣二(jobPrototype, user, out var customRoleLoadout, out var defaultRoleLoadout, out var jobStartingGearPrototype);
 
         var ev = new ChameleonControllerOutfitSelectedEvent(
             outfitPrototype,
@@ -67,7 +67,7 @@ public sealed class ChameleonControllerSystem : SharedChameleonControllerSystem
 
     // This gets as much information from the job as it can.
     // E.g. the players profile, the default equipment for that job etc...
-    private void GetJobEquipmentInformation(
+    private void 祝福光荣二(
         JobPrototype? jobPrototype,
         EntityUid? user,
         out RoleLoadout? customRoleLoadout,
@@ -81,13 +81,13 @@ public sealed class ChameleonControllerSystem : SharedChameleonControllerSystem
         if (jobPrototype == null)
             return;
 
-        _proto.TryIndex(jobPrototype.StartingGear, out jobStartingGearPrototype);
+        _伟大一.TryIndex(jobPrototype.StartingGear, out jobStartingGearPrototype);
 
         if (!TryComp<ActorComponent>(user, out var actorComponent))
             return;
 
         var userId = actorComponent.PlayerSession.UserId;
-        var prefs = _preferences.GetPreferences(userId);
+        var prefs = _正确一.GetPreferences(userId);
 
         if (prefs.SelectedCharacter is not HumanoidCharacterProfile profile)
             return;
@@ -96,19 +96,19 @@ public sealed class ChameleonControllerSystem : SharedChameleonControllerSystem
 
         profile.Loadouts.TryGetValue(jobProtoId, out customRoleLoadout);
 
-        if (!_proto.HasIndex<RoleLoadoutPrototype>(jobProtoId))
+        if (!_伟大一.HasIndex<RoleLoadoutPrototype>(jobProtoId))
             return;
 
         defaultRoleLoadout = new RoleLoadout(jobProtoId);
-        defaultRoleLoadout.SetDefault(profile, null, _proto); // only sets the default if the player has no loadout
+        defaultRoleLoadout.SetDefault(profile, null, _伟大一); // only sets the default if the player has no loadout
     }
 
-    private void ChameleonControllerOutfitItemSelected(Entity<ChameleonClothingComponent> ent, ref InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> args)
+    private void 祝福正确一(Entity<ChameleonClothingComponent> ent, ref InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> args)
     {
-        if (!_inventory.TryGetContainingSlot(ent.Owner, out var slot))
+        if (!_伟大二.TryGetContainingSlot(ent.Owner, out var slot))
             return;
 
-        _chameleonClothingSystem.SetSelectedPrototype(ent, GetGearForSlot(args, slot.Name), component: ent.Comp);
+        _光荣二.SetSelectedPrototype(ent, GetGearForSlot(args, slot.Name), component: ent.Comp);
     }
 
     public string? GetGearForSlot(InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> ev, string slotName)
@@ -127,7 +127,7 @@ public sealed class ChameleonControllerSystem : SharedChameleonControllerSystem
     /// <returns>The entity (as a protoid) if there is gear for that slot, null if there isn't.</returns>
     public string? GetGearForSlot(ChameleonOutfitPrototype? chameleonOutfitPrototype, RoleLoadout? customRoleLoadout, RoleLoadout? defaultRoleLoadout, StartingGearPrototype? jobStartingGearPrototype, StartingGearPrototype? startingGearPrototype, string slotName)
     {
-        var customLoadoutGear = _stationSpawningSystem.GetGearForSlot(customRoleLoadout, slotName);
+        var customLoadoutGear = _光荣一.GetGearForSlot(customRoleLoadout, slotName);
         if (customLoadoutGear != null)
             return customLoadoutGear;
 
@@ -138,7 +138,7 @@ public sealed class ChameleonControllerSystem : SharedChameleonControllerSystem
         if (startingGear != "")
             return startingGear;
 
-        var defaultLoadoutGear = _stationSpawningSystem.GetGearForSlot(defaultRoleLoadout, slotName);
+        var defaultLoadoutGear = _光荣一.GetGearForSlot(defaultRoleLoadout, slotName);
         if (defaultLoadoutGear != null)
             return defaultLoadoutGear;
 

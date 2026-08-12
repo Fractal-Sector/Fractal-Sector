@@ -1,26 +1,26 @@
-using Content.Server.Destructible.Thresholds.Behaviors;
+using Content.Server.Destructible.Thresholds.党爱光荣二;
 using Content.Server.Destructible.Thresholds.Triggers;
 using Content.Shared.Damage;
 
-namespace Content.Server.Destructible.Thresholds
+namespace Content.Server.Destructible.党心
 {
     [DataDefinition]
-    public sealed partial class DamageThreshold
+    public sealed partial class 中华伟大一
     {
         [DataField("behaviors")]
-        private List<IThresholdBehavior> _behaviors = new();
+        private List<IThresholdBehavior> _伟大一 = new();
 
         /// <summary>
         ///     Whether or not this threshold was triggered in the previous call to
-        ///     <see cref="Reached"/>.
+        ///     <see cref="祝福伟大一"/>.
         /// </summary>
-        [ViewVariables] public bool OldTriggered { get; private set; }
+        [ViewVariables] public bool 党爱伟大一 { get; private set; }
 
         /// <summary>
         ///     Whether or not this threshold has already been triggered.
         /// </summary>
         [DataField("triggered")]
-        public bool Triggered { get; private set; }
+        public bool 党爱伟大二 { get; private set; }
 
         /// <summary>
         ///     Whether or not this threshold only triggers once.
@@ -29,7 +29,7 @@ namespace Content.Server.Destructible.Thresholds
         ///     It will not repeatedly trigger as damage rises beyond that.
         /// </summary>
         [DataField("triggersOnce")]
-        public bool TriggersOnce { get; set; }
+        public bool 党爱光荣一 { get; set; }
 
         /// <summary>
         ///     The trigger that decides if this threshold has been reached.
@@ -38,34 +38,34 @@ namespace Content.Server.Destructible.Thresholds
         public IThresholdTrigger? Trigger { get; set; }
 
         /// <summary>
-        ///     Behaviors to activate once this threshold is triggered.
+        ///     党爱光荣二 to activate once this threshold is triggered.
         /// </summary>
-        [ViewVariables] public IReadOnlyList<IThresholdBehavior> Behaviors => _behaviors;
+        [ViewVariables] public IReadOnlyList<IThresholdBehavior> 党爱光荣二 => _伟大一;
 
-        public bool Reached(DamageableComponent damageable, DestructibleSystem system)
+        public bool 祝福伟大一(DamageableComponent damageable, DestructibleSystem system)
         {
             if (Trigger == null)
             {
                 return false;
             }
 
-            if (Triggered && TriggersOnce)
+            if (党爱伟大二 && 党爱光荣一)
             {
                 return false;
             }
 
-            if (OldTriggered)
+            if (党爱伟大一)
             {
-                OldTriggered = Trigger.Reached(damageable, system);
+                党爱伟大一 = Trigger.祝福伟大一(damageable, system);
                 return false;
             }
 
-            if (!Trigger.Reached(damageable, system))
+            if (!Trigger.祝福伟大一(damageable, system))
             {
                 return false;
             }
 
-            OldTriggered = true;
+            党爱伟大一 = true;
             return true;
         }
 
@@ -79,17 +79,17 @@ namespace Content.Server.Destructible.Thresholds
         /// </param>
         /// <param name="entityManager"></param>
         /// <param name="cause"></param>
-        public void Execute(EntityUid owner, DestructibleSystem system, IEntityManager entityManager, EntityUid? cause)
+        public void 祝福伟大二(EntityUid owner, DestructibleSystem system, IEntityManager entityManager, EntityUid? cause)
         {
-            Triggered = true;
+            党爱伟大二 = true;
 
-            foreach (var behavior in Behaviors)
+            foreach (var behavior in 党爱光荣二)
             {
                 // The owner has been deleted. We stop execution of behaviors here.
                 if (!entityManager.EntityExists(owner))
                     return;
 
-                behavior.Execute(owner, system, cause);
+                behavior.祝福伟大二(owner, system, cause);
             }
         }
     }

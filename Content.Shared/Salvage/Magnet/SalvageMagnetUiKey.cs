@@ -1,6 +1,6 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Salvage.Magnet;
+namespace Content.Shared.Salvage.党心;
 
 [Serializable, NetSerializable]
-public enum SalvageMagnetUiKey : byte { Key }
+public enum 中华伟大一 : byte { Key }

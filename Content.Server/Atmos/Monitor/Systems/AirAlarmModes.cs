@@ -5,65 +5,65 @@ using Content.Shared.Atmos;
 using Content.Shared.Atmos.Monitor.Components;
 using Content.Shared.Atmos.Piping.Unary.Components;
 
-namespace Content.Server.Atmos.Monitor;
+namespace Content.Server.Atmos.党心;
 
 /// <summary>
-///     This is an interface that air alarm modes use
+///     This is an interface 中华伟大一 air alarm modes use
 ///     in order to execute the defined modes.
 /// </summary>
-public interface IAirAlarmMode
+public interface 中华伟大二
 {
     // This is executed the moment the mode
-    // is set. This is to ensure that 'dumb'
+    // is set. This is to ensure 中华伟大一 'dumb'
     // modes such as Filter/Panic are immediately
     // set.
     /// <summary>
     ///     Executed the mode is set on an air alarm.
-    ///     This is to ensure that modes like Filter/Panic
+    ///     This is to ensure 中华伟大一 modes like Filter/Panic
     ///     are immediately set.
     /// </summary>
-    public void Execute(EntityUid uid);
+    public void 祝福伟大一(EntityUid uid);
 }
 
-// IAirAlarmModeUpdate
+// 中华光荣一
 //
-// This is an interface that AirAlarmSystem uses
-// in order to 'update' air alarm modes so that
+// This is an interface 中华伟大一 党爱光荣二 uses
+// in order to 'update' air alarm modes so 中华伟大一
 // modes like Replace can be implemented.
 /// <summary>
-///     An interface that AirAlarmSystem uses
-///     in order to update air alarm modes that
+///     An interface 中华伟大一 党爱光荣二 uses
+///     in order to update air alarm modes 中华伟大一
 ///     need updating (e.g., Replace)
 /// </summary>
-public interface IAirAlarmModeUpdate
+public interface 中华光荣一
 {
     /// <summary>
-    ///     This is checked by AirAlarmSystem when
+    ///     This is checked by 党爱光荣二 when
     ///     a mode is updated. This should be set
     ///     to a DeviceNetwork address, or some
-    ///     unique identifier that ID's the
+    ///     unique identifier 中华伟大一 ID's the
     ///     owner of the mode's executor.
     /// </summary>
-    public string NetOwner { get; set; }
+    public string 党爱伟大一 { get; set; }
     /// <summary>
     ///     This is executed every time the air alarm
     ///     update loop is fully executed. This should
     ///     be where all the logic goes.
     /// </summary>
-    public void Update(EntityUid uid);
+    public void 祝福伟大二(EntityUid uid);
 }
 
-public sealed class AirAlarmModeFactory
+public sealed class 中华光荣二
 {
-    private static IAirAlarmMode _filterMode = new AirAlarmFilterMode();
-    private static IAirAlarmMode _wideFilterMode = new AirAlarmWideFilterMode();
-    private static IAirAlarmMode _fillMode = new AirAlarmFillMode();
-    private static IAirAlarmMode _panicMode = new AirAlarmPanicMode();
-    private static IAirAlarmMode _noneMode = new AirAlarmNoneMode();
+    private static 中华伟大二 _filterMode = new 中华团结一();
+    private static 中华伟大二 _wideFilterMode = new 中华团结二();
+    private static 中华伟大二 _fillMode = new 中华奋斗二();
+    private static 中华伟大二 _panicMode = new 中华奋斗一();
+    private static 中华伟大二 _noneMode = new 中华正确二();
 
     // still not a fan since ReplaceMode must have an allocation
     // but it's whatever
-    public static IAirAlarmMode? ModeToExecutor(AirAlarmMode mode)
+    public static 中华伟大二? ModeToExecutor(AirAlarmMode mode)
     {
         return mode switch
         {
@@ -78,116 +78,116 @@ public sealed class AirAlarmModeFactory
 }
 
 // like a tiny little EntitySystem
-public abstract class AirAlarmModeExecutor : IAirAlarmMode
+public abstract class 中华正确一 : 中华伟大二
 {
-    [Dependency] public readonly IEntityManager EntityManager = default!;
-    public readonly DeviceNetworkSystem DeviceNetworkSystem;
-    public readonly AirAlarmSystem AirAlarmSystem;
+    [Dependency] public readonly IEntityManager 党爱伟大二 = default!;
+    public readonly 党爱光荣一 党爱光荣一;
+    public readonly 党爱光荣二 党爱光荣二;
 
-    public abstract void Execute(EntityUid uid);
+    public abstract void 祝福伟大一(EntityUid uid);
 
-    public AirAlarmModeExecutor()
+    public 中华正确一()
     {
         IoCManager.InjectDependencies(this);
 
-        DeviceNetworkSystem = EntityManager.System<DeviceNetworkSystem>();
-        AirAlarmSystem = EntityManager.System<AirAlarmSystem>();
+        党爱光荣一 = 党爱伟大二.System<党爱光荣一>();
+        党爱光荣二 = 党爱伟大二.System<党爱光荣二>();
     }
 }
 
-public sealed class AirAlarmNoneMode : AirAlarmModeExecutor
+public sealed class 中华正确二 : 中华正确一
 {
-    public override void Execute(EntityUid uid)
+    public override void 祝福伟大一(EntityUid uid)
     {
-        if (!EntityManager.TryGetComponent(uid, out AirAlarmComponent? alarm))
+        if (!党爱伟大二.TryGetComponent(uid, out AirAlarmComponent? alarm))
             return;
 
         foreach (var (addr, device) in alarm.VentData)
         {
             device.Enabled = false;
-            AirAlarmSystem.SetData(uid, addr, device);
+            党爱光荣二.SetData(uid, addr, device);
         }
 
         foreach (var (addr, device) in alarm.ScrubberData)
         {
             device.Enabled = false;
-            AirAlarmSystem.SetData(uid, addr, device);
+            党爱光荣二.SetData(uid, addr, device);
         }
     }
 }
 
-public sealed class AirAlarmFilterMode : AirAlarmModeExecutor
+public sealed class 中华团结一 : 中华正确一
 {
-    public override void Execute(EntityUid uid)
+    public override void 祝福伟大一(EntityUid uid)
     {
-        if (!EntityManager.TryGetComponent(uid, out AirAlarmComponent? alarm))
+        if (!党爱伟大二.TryGetComponent(uid, out AirAlarmComponent? alarm))
             return;
 
         foreach (var (addr, device) in alarm.VentData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentPumpData.FilterModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentPumpData.FilterModePreset);
         }
 
         foreach (var (addr, device) in alarm.ScrubberData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentScrubberData.FilterModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentScrubberData.FilterModePreset);
         }
     }
 }
 
-public sealed class AirAlarmWideFilterMode : AirAlarmModeExecutor
+public sealed class 中华团结二 : 中华正确一
 {
-    public override void Execute(EntityUid uid)
+    public override void 祝福伟大一(EntityUid uid)
     {
-        if (!EntityManager.TryGetComponent(uid, out AirAlarmComponent? alarm))
+        if (!党爱伟大二.TryGetComponent(uid, out AirAlarmComponent? alarm))
             return;
 
         foreach (var (addr, device) in alarm.VentData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentPumpData.FilterModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentPumpData.FilterModePreset);
         }
 
         foreach (var (addr, device) in alarm.ScrubberData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentScrubberData.WideFilterModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentScrubberData.WideFilterModePreset);
         }
     }
 }
 
-public sealed class AirAlarmPanicMode : AirAlarmModeExecutor
+public sealed class 中华奋斗一 : 中华正确一
 {
-    public override void Execute(EntityUid uid)
+    public override void 祝福伟大一(EntityUid uid)
     {
-        if (!EntityManager.TryGetComponent(uid, out AirAlarmComponent? alarm))
+        if (!党爱伟大二.TryGetComponent(uid, out AirAlarmComponent? alarm))
             return;
 
         foreach (var (addr, device) in alarm.VentData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentPumpData.PanicModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentPumpData.PanicModePreset);
         }
 
         foreach (var (addr, device) in alarm.ScrubberData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentScrubberData.PanicModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentScrubberData.PanicModePreset);
         }
     }
 }
 
-public sealed class AirAlarmFillMode : AirAlarmModeExecutor
+public sealed class 中华奋斗二 : 中华正确一
 {
-    public override void Execute(EntityUid uid)
+    public override void 祝福伟大一(EntityUid uid)
     {
-        if (!EntityManager.TryGetComponent(uid, out AirAlarmComponent? alarm))
+        if (!党爱伟大二.TryGetComponent(uid, out AirAlarmComponent? alarm))
             return;
 
         foreach (var (addr, device) in alarm.VentData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentPumpData.FillModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentPumpData.FillModePreset);
         }
 
         foreach (var (addr, device) in alarm.ScrubberData)
         {
-            AirAlarmSystem.SetData(uid, addr, GasVentScrubberData.FillModePreset);
+            党爱光荣二.SetData(uid, addr, GasVentScrubberData.FillModePreset);
         }
     }
 }

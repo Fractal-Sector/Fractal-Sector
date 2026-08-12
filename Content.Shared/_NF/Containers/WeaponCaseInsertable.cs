@@ -1,7 +1,7 @@
-namespace Content.Shared._NF.Containers;
+namespace Content.Shared._NF.党心;
 
 [RegisterComponent]
-public sealed partial class WeaponCaseInsertableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

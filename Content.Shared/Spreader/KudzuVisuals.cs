@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Spreader;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum KudzuVisuals : byte
+public enum 中华伟大一 : byte
 {
     GrowthLevel,
     Variant

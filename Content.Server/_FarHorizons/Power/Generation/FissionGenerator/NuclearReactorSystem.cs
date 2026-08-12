@@ -47,7 +47,7 @@ using Robust.Shared.Timing;
 
 using Robust.Shared.Player; // Wayfarer
 
-namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Server._FarHorizons.Power.Generation.党心;
 
 // Ported and modified from goonstation by Jhrushbe.
 // CC-BY-NC-SA-3.0
@@ -55,78 +55,78 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 // Performance optimizations adapted from Far-Horizons-SS14/Far-Horizons-SS14#1000
 // and ss14Starlight/space-station-14#3967.
 
-public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
+public sealed partial class 中华伟大一 : SharedNuclearReactorSystem
 {
     // The great wall of dependencies
-    [Dependency] private readonly AlertLevelSystem _alertLevel = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly RadioSystem _radioSystem = default!;
-    [Dependency] private readonly ReactorPartSystem _partSystem = default!;
-    [Dependency] private readonly ServerGlobalSoundSystem _soundSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = null!;
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
-    [Dependency] private readonly SharedPointLightSystem _lightSystem = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSoundSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly AlertLevelSystem _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
+    [Dependency] private readonly EntityManager _光荣二 = default!;
+    [Dependency] private readonly ExplosionSystem _正确一 = default!;
+    [Dependency] private readonly IAdminLogManager _正确二 = default!;
+    [Dependency] private readonly IPrototypeManager _团结一 = default!;
+    [Dependency] private readonly IRobustRandom _团结二 = default!;
+    [Dependency] private readonly NodeContainerSystem _奋斗一 = default!;
+    [Dependency] private readonly RadioSystem _奋斗二 = default!;
+    [Dependency] private readonly ReactorPartSystem _胜利一 = default!;
+    [Dependency] private readonly ServerGlobalSoundSystem _胜利二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _繁荣二 = default!;
+    [Dependency] private readonly StationSystem _富强一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _富强二 = null!;
+    [Dependency] private readonly DeviceLinkSystem _民主一 = default!;
+    [Dependency] private readonly PopupSystem _民主二 = default!;
+    [Dependency] private readonly SharedTransformSystem _文明一 = default!;
+    [Dependency] private readonly ThrowingSystem _文明二 = default!;
+    [Dependency] private readonly TransformSystem _和谐一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _和谐二 = default!;
+    [Dependency] private readonly AmbientSoundSystem _自由一 = default!;
+    [Dependency] private readonly IGameTiming _自由二 = default!;
 
-    private sealed class LogData
+    private sealed class 中华伟大二
     {
-        public TimeSpan CreationTime;
+        public TimeSpan 党爱伟大一;
         public float? SetControlRodInsertion;
     }
 
-    private readonly Dictionary<KeyValuePair<EntityUid, EntityUid>, LogData> _logQueue = [];
+    private readonly Dictionary<KeyValuePair<EntityUid, EntityUid>, 中华伟大二> _logQueue = [];
     private static readonly ReactorPartComponent?[] _neighborBuffer = new ReactorPartComponent?[4];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Component events
-        SubscribeLocalEvent<NuclearReactorComponent, MapInitEvent>(OnInit);
-        SubscribeLocalEvent<NuclearReactorComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<NuclearReactorComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<NuclearReactorComponent, ComponentShutdown>(祝福奋斗一);
 
-        SubscribeLocalEvent<NuclearReactorComponent, DamageChangedEvent>(OnDamaged);
-        SubscribeLocalEvent<NuclearReactorComponent, RejuvenateEvent>(OnRejuvenate);
+        SubscribeLocalEvent<NuclearReactorComponent, DamageChangedEvent>(祝福法治一);
+        SubscribeLocalEvent<NuclearReactorComponent, RejuvenateEvent>(祝福法治二);
 
         // Atmos events
-        SubscribeLocalEvent<NuclearReactorComponent, AtmosDeviceUpdateEvent>(OnUpdate);
-        SubscribeLocalEvent<NuclearReactorComponent, GasAnalyzerScanEvent>(OnAnalyze);
+        SubscribeLocalEvent<NuclearReactorComponent, AtmosDeviceUpdateEvent>(祝福奋斗二);
+        SubscribeLocalEvent<NuclearReactorComponent, GasAnalyzerScanEvent>(祝福团结一);
 
         // Item events
-        SubscribeLocalEvent<NuclearReactorComponent, EntInsertedIntoContainerMessage>(OnPartChanged);
-        SubscribeLocalEvent<NuclearReactorComponent, EntRemovedFromContainerMessage>(OnPartChanged);
+        SubscribeLocalEvent<NuclearReactorComponent, EntInsertedIntoContainerMessage>(祝福团结二);
+        SubscribeLocalEvent<NuclearReactorComponent, EntRemovedFromContainerMessage>(祝福团结二);
 
         // BUI events
-        SubscribeLocalEvent<NuclearReactorComponent, ReactorItemActionMessage>(OnItemActionMessage);
-        SubscribeLocalEvent<NuclearReactorComponent, ReactorControlRodModifyMessage>(OnControlRodMessage);
+        SubscribeLocalEvent<NuclearReactorComponent, ReactorItemActionMessage>(祝福文明一);
+        SubscribeLocalEvent<NuclearReactorComponent, ReactorControlRodModifyMessage>(祝福文明二);
 
         // Signal events
-        SubscribeLocalEvent<NuclearReactorComponent, SignalReceivedEvent>(OnSignalReceived);
-        SubscribeLocalEvent<NuclearReactorComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<NuclearReactorComponent, SignalReceivedEvent>(祝福和谐二);
+        SubscribeLocalEvent<NuclearReactorComponent, PortDisconnectedEvent>(祝福自由一);
 
         // Anchor events
-        SubscribeLocalEvent<NuclearReactorComponent, AnchorStateChangedEvent>(OnAnchorChanged);
-        SubscribeLocalEvent<NuclearReactorComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
+        SubscribeLocalEvent<NuclearReactorComponent, AnchorStateChangedEvent>(祝福自由二);
+        SubscribeLocalEvent<NuclearReactorComponent, UnanchorAttemptEvent>(祝福平等一);
     }
 
-    private void OnInit(EntityUid uid, NuclearReactorComponent comp, ref MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, NuclearReactorComponent comp, ref MapInitEvent args)
     {
-        _signal.EnsureSinkPorts(uid, comp.ControlRodInsertPort, comp.ControlRodRetractPort);
+        _民主一.EnsureSinkPorts(uid, comp.ControlRodInsertPort, comp.ControlRodRetractPort);
 
         var gridWidth = comp.ReactorGridWidth;
         var gridHeight = comp.ReactorGridHeight;
@@ -137,20 +137,20 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         comp.TemperatureGrid = new double[gridWidth, gridHeight];
         comp.NeutronGrid = new int[gridWidth, gridHeight];
 
-        ApplyPrefab(uid, comp);
+        祝福光荣一(uid, comp);
 
         // I hate everything about this, but it ensures the audio doesn't just stop if you don't look at it
         comp.AlarmAudioHighThermal = SpawnAttachedTo("ReactorAlarmEntity", new(uid, 0, 0));
         comp.AlarmAudioHighTemp = SpawnAttachedTo("ReactorAlarmEntity", new(uid, 0, 0));
-        _ambientSoundSystem.SetSound(comp.AlarmAudioHighTemp.Value, new SoundPathSpecifier("/Audio/_FarHorizons/Machines/reactor_alarm_2.ogg"));
+        _自由一.SetSound(comp.AlarmAudioHighTemp.Value, new SoundPathSpecifier("/Audio/_FarHorizons/Machines/reactor_alarm_2.ogg"));
         comp.AlarmAudioHighRads = SpawnAttachedTo("ReactorAlarmEntity", new(uid, 0, 0));
-        _ambientSoundSystem.SetSound(comp.AlarmAudioHighRads.Value, new SoundPathSpecifier("/Audio/_FarHorizons/Machines/reactor_alarm_3.ogg"));
+        _自由一.SetSound(comp.AlarmAudioHighRads.Value, new SoundPathSpecifier("/Audio/_FarHorizons/Machines/reactor_alarm_3.ogg"));
     }
 
     #region Prefab
-    private void ApplyPrefab(EntityUid uid, NuclearReactorComponent comp)
+    private void 祝福光荣一(EntityUid uid, NuclearReactorComponent comp)
     {
-        var prefab = comp.Prefab == "random" ? GenerateRandomPrefab(comp) : GetPrefabFromProto(comp);
+        var prefab = comp.Prefab == "random" ? 祝福光荣二(comp) : 祝福正确二(comp);
         for (var x = 0; x < comp.ReactorGridWidth; x++)
             for (var y = 0; y < comp.ReactorGridHeight; y++)
             {
@@ -159,44 +159,44 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
                 comp.FluxGridScratch[x, y] = [];
             }
 
-        UpdateGasVolume(comp);
+        祝福胜利二(comp);
         UpdateGridVisual((uid, comp));
     }
 
-    private Dictionary<Vector2i, ReactorPartComponent> GenerateRandomPrefab(NuclearReactorComponent comp)
+    private Dictionary<Vector2i, ReactorPartComponent> 祝福光荣二(NuclearReactorComponent comp)
     {
         var exportDict = new Dictionary<Vector2i, ReactorPartComponent>();
         for (var x = 0; x < comp.ReactorGridWidth; x++)
             for (var y = 0; y < comp.ReactorGridHeight; y++)
-                if (_random.Prob(comp.RandomPrefabFill))
-                    exportDict.Add(new Vector2i(x, y), RandomComponent());
+                if (_团结二.Prob(comp.RandomPrefabFill))
+                    exportDict.Add(new Vector2i(x, y), 祝福正确一());
         return exportDict;
     }
 
-    private ReactorPartComponent RandomComponent()
+    private ReactorPartComponent 祝福正确一()
     {
         var compName = Factory.GetComponentName<ReactorPartComponent>();
         var source = "NuclearReactorRandomParts";
-        var protoID = _prototypes.Index<WeightedRandomPrototype>(source).Pick(_random);
-        if (!_prototypes.TryIndex(protoID, out var entProto)
+        var protoID = _团结一.Index<WeightedRandomPrototype>(source).Pick(_团结二);
+        if (!_团结一.TryIndex(protoID, out var entProto)
                 || !entProto.TryGetComponent<ReactorPartComponent>(compName, out var comp))
             return new();
         comp.ProtoId = protoID;
         return comp;
     }
 
-    private Dictionary<Vector2i, ReactorPartComponent> GetPrefabFromProto(NuclearReactorComponent comp)
+    private Dictionary<Vector2i, ReactorPartComponent> 祝福正确二(NuclearReactorComponent comp)
     {
         var exportDict = new Dictionary<Vector2i, ReactorPartComponent>();
 
-        if (!_prototypes.TryIndex<NuclearReactorPrefabPrototype>(comp.Prefab, out var proto) || proto.ReactorComponents == null)
+        if (!_团结一.TryIndex<NuclearReactorPrefabPrototype>(comp.Prefab, out var proto) || proto.ReactorComponents == null)
             return exportDict;
 
         var compName = Factory.GetComponentName<ReactorPartComponent>();
 
         foreach (var pair in proto.ReactorComponents)
         {
-            if (!_prototypes.TryIndex(pair.Value, out var entProto)
+            if (!_团结一.TryIndex(pair.Value, out var entProto)
                 || !entProto.TryGetComponent<ReactorPartComponent>(compName, out var reactorPart))
                 continue;
 
@@ -208,14 +208,14 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
     }
     #endregion
 
-    private void OnAnalyze(EntityUid uid, NuclearReactorComponent comp, ref GasAnalyzerScanEvent args)
+    private void 祝福团结一(EntityUid uid, NuclearReactorComponent comp, ref GasAnalyzerScanEvent args)
     {
         if (!comp.InletEnt.HasValue || !comp.OutletEnt.HasValue)
             return;
 
         args.GasMixtures ??= [];
 
-        if (_nodeContainer.TryGetNode(comp.InletEnt.Value, comp.PipeName, out PipeNode? inlet) && inlet.Air.Volume != 0f)
+        if (_奋斗一.TryGetNode(comp.InletEnt.Value, comp.PipeName, out PipeNode? inlet) && inlet.Air.Volume != 0f)
         {
             var inletAirLocal = inlet.Air.Clone();
             inletAirLocal.Multiply(inlet.Volume / inlet.Air.Volume);
@@ -223,7 +223,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
             args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-inlet"), inletAirLocal));
         }
 
-        if (_nodeContainer.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out PipeNode? outlet) && outlet.Air.Volume != 0f)
+        if (_奋斗一.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out PipeNode? outlet) && outlet.Air.Volume != 0f)
         {
             var outletAirLocal = outlet.Air.Clone();
             outletAirLocal.Multiply(outlet.Volume / outlet.Air.Volume);
@@ -232,41 +232,41 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         }
     }
 
-    private void OnPartChanged(EntityUid uid, NuclearReactorComponent component, ContainerModifiedMessage args)
+    private void 祝福团结二(EntityUid uid, NuclearReactorComponent component, ContainerModifiedMessage args)
     {
         ReactorTryGetSlot(uid, "part_slot", out component.PartSlot!);
-        UpdateUI(uid, component);
+        祝福民主二(uid, component);
     }
 
-    private void OnShutdown(Entity<NuclearReactorComponent> ent, ref ComponentShutdown args) => CleanUp(ent.Comp);
+    private void 祝福奋斗一(Entity<NuclearReactorComponent> ent, ref ComponentShutdown args) => 祝福公正二(ent.Comp);
 
     #region Main Loop
-    private void OnUpdate(Entity<NuclearReactorComponent> ent, ref AtmosDeviceUpdateEvent args)
+    private void 祝福奋斗二(Entity<NuclearReactorComponent> ent, ref AtmosDeviceUpdateEvent args)
     {
         var comp = ent.Comp;
         var uid = ent.Owner;
 
-        _appearance.SetData(uid, ReactorVisuals.Sprite, comp.Melted ? Reactors.Melted : Reactors.Normal);
+        _繁荣一.SetData(uid, ReactorVisuals.Sprite, comp.Melted ? Reactors.Melted : Reactors.Normal);
 
-        ProcessCaseRadiation(ent);
+        祝福胜利一(ent);
 
         if (comp.Melted)
             return;
 
-        if(!GetPipes(uid, comp, out var inlet, out var outlet))
+        if(!祝福公正一(uid, comp, out var inlet, out var outlet))
             return;
 
         var gridWidth = comp.ReactorGridWidth;
         var gridHeight = comp.ReactorGridHeight;
 
-        if (comp.ApplyPrefab)
+        if (comp.祝福光荣一)
         {
-            ApplyPrefab(uid, comp);
-            comp.ApplyPrefab = false;
+            祝福光荣一(uid, comp);
+            comp.祝福光荣一 = false;
         }
 
-        _appearance.SetData(uid, ReactorVisuals.Input, inlet.Air.TotalMoles > 20);
-        _appearance.SetData(uid, ReactorVisuals.Output, outlet.Air.TotalMoles > 20);
+        _繁荣一.SetData(uid, ReactorVisuals.Input, inlet.Air.TotalMoles > 20);
+        _繁荣一.SetData(uid, ReactorVisuals.Output, outlet.Air.TotalMoles > 20);
 
 
         var TempRads = 0;
@@ -281,12 +281,12 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         var TotalRads = 0f;
         var TotalSpent = 0f;
 
-        var transferVolume = CalculateTransferVolume(inlet.Air.Volume, inlet, outlet, args.dt);
+        var transferVolume = 祝福繁荣一(inlet.Air.Volume, inlet, outlet, args.dt);
         var GasInput = inlet.Air.RemoveVolume(transferVolume);
 
         GasInput.Volume = inlet.Volume;
 
-        // Update control rod insertion based on device network
+        // 祝福和谐一 control rod insertion based on device network
         if (comp.InsertPortState != SignalState.Low)
             AdjustControlRods(comp, 0.1f);
         if (comp.RetractPortState != SignalState.Low)
@@ -311,13 +311,13 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
                 }
                 else
                 {
-                    var gas = _partSystem.ProcessGas(ReactorComp, ent, GasInput);
+                    var gas = _胜利一.ProcessGas(ReactorComp, ent, GasInput);
                     GasInput.Volume -= ReactorComp.GasVolume;
 
                     if (gas != null)
-                        _atmosphereSystem.Merge(outlet.Air, gas);
+                        _伟大二.Merge(outlet.Air, gas);
 
-                    _partSystem.ProcessHeat(ReactorComp, ent, GetGridNeighbors(comp, x, y, _neighborBuffer), this);
+                    _胜利一.ProcessHeat(ReactorComp, ent, GetGridNeighbors(comp, x, y, _neighborBuffer), this);
                     comp.TemperatureGrid[x, y] = ReactorComp.Temperature;
 
                     if (ReactorComp.HasRodType(ReactorPartComponent.RodTypes.ControlRod) && ReactorComp.IsControlRod)
@@ -329,7 +329,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
                     if (ReactorComp.Melted)
                         MeltedComps++;
 
-                    comp.FluxGrid[x, y] = _partSystem.ProcessNeutrons(ReactorComp, comp.FluxGrid[x, y], out var deltaT);
+                    comp.FluxGrid[x, y] = _胜利一.ProcessNeutrons(ReactorComp, comp.FluxGrid[x, y], out var deltaT);
                     TempChange += deltaT;
 
                     // Second check so that AvgControlRodInsertion represents the present instead of 1 tick in the past
@@ -366,7 +366,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
                 if (comp.SimTime.Elapsed.TotalMilliseconds > 500)
                 {
                     QueueDel(uid);
-                    _adminLog.Add(LogType.EntityDelete, LogImpact.Extreme, $"{ToPrettyString(uid):reactor} simulation took too long ({comp.SimTime.Elapsed.TotalMilliseconds} ms).");
+                    _正确二.Add(LogType.EntityDelete, LogImpact.Extreme, $"{ToPrettyString(uid):reactor} simulation took too long ({comp.SimTime.Elapsed.TotalMilliseconds} ms).");
                     return;
                 }
             }
@@ -385,14 +385,14 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
 
         // Sound for the control rods moving, basically an audio cue that the reactor's doing something important
         if (ControlRods > 0 && !MathHelper.CloseTo(comp.AvgInsertion, AvgControlRodInsertion))
-            _audio.PlayPvs(new SoundPathSpecifier("/Audio/_FarHorizons/Machines/relay_click.ogg"), uid);
+            _繁荣二.PlayPvs(new SoundPathSpecifier("/Audio/_FarHorizons/Machines/relay_click.ogg"), uid);
 
         var CasingGas = ProcessCasingGas(comp, GasInput);
         if (CasingGas != null)
-            _atmosphereSystem.Merge(outlet.Air, CasingGas);
+            _伟大二.Merge(outlet.Air, CasingGas);
 
         // If there's still input gas left over
-        _atmosphereSystem.Merge(outlet.Air, GasInput);
+        _伟大二.Merge(outlet.Air, GasInput);
 
         comp.RadiationLevel = Math.Max(comp.RadiationLevel + TempRads, 0);
 
@@ -410,18 +410,18 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
 
         if (comp.Temperature > comp.ReactorMeltdownTemp) // Disabled the explode if over 1000 rads thing, hope the server survives
         {
-            CatastrophicOverload(ent);
+            祝福繁荣二(ent);
         }
 
-        UpdateVisuals(ent);
-        UpdateAudio(ent);
-        UpdateRadio(ent);
+        祝福富强一(ent);
+        祝福富强二(ent);
+        祝福民主一(ent);
         UpdateTempIndicators(ent);
 
-        UpdateUI(uid, comp);
+        祝福民主二(uid, comp);
     }
 
-    private void ProcessCaseRadiation(Entity<NuclearReactorComponent> ent)
+    private void 祝福胜利一(Entity<NuclearReactorComponent> ent)
     {
         var reactor = ent.Comp;
         var comp = EnsureComp<RadiationSourceComponent>(ent.Owner);
@@ -440,12 +440,12 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         return buffer;
     }
 
-    private void UpdateGasVolume(NuclearReactorComponent reactor)
+    private void 祝福胜利二(NuclearReactorComponent reactor)
     {
         if (reactor.InletEnt == null || reactor.OutletEnt == null)
             return;
 
-        if (!_nodeContainer.TryGetNode(reactor.InletEnt.Value, reactor.PipeName, out PipeNode? inlet) || !_nodeContainer.TryGetNode(reactor.OutletEnt.Value, reactor.PipeName, out PipeNode? outlet))
+        if (!_奋斗一.TryGetNode(reactor.InletEnt.Value, reactor.PipeName, out PipeNode? inlet) || !_奋斗一.TryGetNode(reactor.OutletEnt.Value, reactor.PipeName, out PipeNode? outlet))
             return;
 
         var totalGasVolume = reactor.ReactorVesselGasVolume;
@@ -466,10 +466,10 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
             var DeltaT = reactor.Temperature - reactor.AirContents.Temperature;
             var DeltaTr = Math.Pow(reactor.Temperature, 4) - Math.Pow(reactor.AirContents.Temperature, 4);
 
-            var k = MaterialSystem.CalculateHeatTransferCoefficient(_prototypes.Index(reactor.Material).Properties, null);
+            var k = MaterialSystem.CalculateHeatTransferCoefficient(_团结一.Index(reactor.Material).Properties, null);
             var A = 1 * (0.4 * 8);
 
-            var ThermalEnergy = _atmosphereSystem.GetThermalEnergy(reactor.AirContents);
+            var ThermalEnergy = _伟大二.GetThermalEnergy(reactor.AirContents);
 
             var Hottest = Math.Max(reactor.AirContents.Temperature, reactor.Temperature);
             var Coldest = Math.Min(reactor.AirContents.Temperature, reactor.Temperature);
@@ -479,10 +479,10 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
                 (reactor.Temperature * reactor.ThermalMass) - (Coldest * reactor.ThermalMass));
 
             reactor.AirContents.Temperature = (float)Math.Clamp(reactor.AirContents.Temperature +
-                (MaxDeltaE / _atmosphereSystem.GetHeatCapacity(reactor.AirContents, true)), Coldest, Hottest);
+                (MaxDeltaE / _伟大二.GetHeatCapacity(reactor.AirContents, true)), Coldest, Hottest);
 
             reactor.Temperature = (float)Math.Clamp(reactor.Temperature -
-                ((_atmosphereSystem.GetThermalEnergy(reactor.AirContents) - ThermalEnergy) / reactor.ThermalMass), Coldest, Hottest);
+                ((_伟大二.GetThermalEnergy(reactor.AirContents) - ThermalEnergy) / reactor.ThermalMass), Coldest, Hottest);
 
             if (reactor.AirContents.Temperature < 0 || reactor.Temperature < 0)
                 throw new Exception("Reactor casing temperature calculation resulted in sub-zero value.");
@@ -490,7 +490,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
             ProcessedGas = reactor.AirContents;
         }
 
-        if (inGas != null && _atmosphereSystem.GetThermalEnergy(inGas) > 0)
+        if (inGas != null && _伟大二.GetThermalEnergy(inGas) > 0)
         {
             reactor.AirContents = inGas.RemoveVolume(reactor.ReactorVesselGasVolume);
 
@@ -498,7 +498,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
             {
                 if (ProcessedGas != null)
                 {
-                    _atmosphereSystem.Merge(ProcessedGas, reactor.AirContents);
+                    _伟大二.Merge(ProcessedGas, reactor.AirContents);
                     reactor.AirContents.Clear();
                 }
                 else
@@ -511,9 +511,9 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         return ProcessedGas;
     }
 
-    private float CalculateTransferVolume(float volume, PipeNode inlet, PipeNode outlet, float dt)
+    private float 祝福繁荣一(float volume, PipeNode inlet, PipeNode outlet, float dt)
     {
-        var wantToTransfer = volume * _atmosphereSystem.PumpSpeedup() * dt;
+        var wantToTransfer = volume * _伟大二.PumpSpeedup() * dt;
         var transferVolume = Math.Min(inlet.Air.Volume, wantToTransfer);
         var transferMoles = inlet.Air.Pressure * transferVolume / (inlet.Air.Temperature * Atmospherics.R);
         var molesSpaceLeft = ((Atmospherics.MaxOutputPressure * 3) - outlet.Air.Pressure) * outlet.Air.Volume / (outlet.Air.Temperature * Atmospherics.R);
@@ -521,23 +521,23 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         return Math.Max(0, actualMolesTransfered * inlet.Air.Temperature * Atmospherics.R / inlet.Air.Pressure);
     }
 
-    private void CatastrophicOverload(Entity<NuclearReactorComponent> ent)
+    private void 祝福繁荣二(Entity<NuclearReactorComponent> ent)
     {
         var comp = ent.Comp;
         var uid = ent.Owner;
 
-        var stationUid = _station.GetStationInMap(Transform(uid).MapID);
+        var stationUid = _富强一.GetStationInMap(Transform(uid).MapID);
         if (stationUid != null)
-            _alertLevel.SetLevel(stationUid.Value, comp.MeltdownAlertLevel, true, true, true);
+            _伟大一.SetLevel(stationUid.Value, comp.MeltdownAlertLevel, true, true, true);
 
         string stationName = GetReactorLocation(uid); // Wayfarer
         //var announcement = Loc.GetString("reactor-meltdown-announcement"); // Wayfarer: Edited for the one below
         var announcement = Loc.GetString("reactor-meltdown-announcement-wf", ("station", stationName));
         var sender = Loc.GetString("reactor-meltdown-announcement-sender");
-        _chatSystem.DispatchStationAnnouncement(stationUid ?? uid, announcement, sender, false, null, Color.Orange);
+        _光荣一.DispatchStationAnnouncement(stationUid ?? uid, announcement, sender, false, null, Color.Orange);
 
-        //_soundSystem.PlayGlobalOnStation(uid, _audio.ResolveSound(comp.MeltdownSound)); // Wayfarer: Commented for the one below
-        _audio.PlayGlobal(comp.MeltdownSound, Filter.Broadcast(), true);
+        //_胜利二.PlayGlobalOnStation(uid, _繁荣二.ResolveSound(comp.MeltdownSound)); // Wayfarer: Commented for the one below
+        _繁荣二.PlayGlobal(comp.MeltdownSound, Filter.Broadcast(), true);
 
         comp.Melted = true;
         var MeltdownBadness = 0f;
@@ -555,7 +555,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
                     MeltdownBadness += ((RC.Properties.Radioactivity * 2) + (RC.Properties.NeutronRadioactivity * 5) + (RC.Properties.FissileIsotopes * 10)) * (RC.Melted ? 2 : 1);
                     if (RC.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
                     {
-                        _atmosphereSystem.Merge(comp.AirContents, RC.AirContents ?? new());
+                        _伟大二.Merge(comp.AirContents, RC.AirContents ?? new());
                         (RC.AirContents ?? new()).Clear();
                     }
 
@@ -574,24 +574,24 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         comp.AirContents.AdjustMoles(Gas.Tritium, MeltdownBadness * 15);
         comp.AirContents.Temperature = Math.Max(comp.Temperature, comp.AirContents.Temperature);
 
-        var T = _atmosphereSystem.GetTileMixture(ent.Owner, excite: true);
+        var T = _伟大二.GetTileMixture(ent.Owner, excite: true);
         if (T != null)
-            _atmosphereSystem.Merge(T, comp.AirContents);
+            _伟大二.Merge(T, comp.AirContents);
 
-        _adminLog.Add(LogType.Explosion, LogImpact.Extreme, $"{ToPrettyString(ent):reactor} catastrophically overloads, meltdown badness: {MeltdownBadness}");
+        _正确二.Add(LogType.Explosion, LogImpact.Extreme, $"{ToPrettyString(ent):reactor} catastrophically overloads, meltdown badness: {MeltdownBadness}");
 
         // You did not see graphite on the roof. You're in shock. Report to medical.
-        for (var i = 0; i < _random.Next(10, 30); i++)
-            _throwingSystem.TryThrow(Spawn("NuclearDebrisChunk", _transformSystem.GetMapCoordinates(uid)), _random.NextAngle().ToVec().Normalized(), _random.NextFloat(8, 16), uid);
+        for (var i = 0; i < _团结二.Next(10, 30); i++)
+            _文明二.TryThrow(Spawn("NuclearDebrisChunk", _和谐一.GetMapCoordinates(uid)), _团结二.NextAngle().ToVec().Normalized(), _团结二.NextFloat(8, 16), uid);
 
-        _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/metal_break5.ogg"), uid);
-        _explosionSystem.QueueExplosion(ent.Owner, "Radioactive", Math.Max(100, MeltdownBadness * 5), 1, 5, 0, canCreateVacuum: false);
+        _繁荣二.PlayPvs(new SoundPathSpecifier("/Audio/Effects/metal_break5.ogg"), uid);
+        _正确一.QueueExplosion(ent.Owner, "Radioactive", Math.Max(100, MeltdownBadness * 5), 1, 5, 0, canCreateVacuum: false);
 
-        var lightcomp = _lightSystem.EnsureLight(uid);
-        _lightSystem.SetEnergy(uid, 0.1f, lightcomp);
-        _lightSystem.SetFalloff(uid, 2, lightcomp);
-        _lightSystem.SetRadius(uid, (comp.ReactorGridWidth + comp.ReactorGridHeight) / 4, lightcomp);
-        _lightSystem.SetColor(uid, Color.FromHex("#FFAAAAFF"), lightcomp);
+        var lightcomp = _和谐二.EnsureLight(uid);
+        _和谐二.SetEnergy(uid, 0.1f, lightcomp);
+        _和谐二.SetFalloff(uid, 2, lightcomp);
+        _和谐二.SetRadius(uid, (comp.ReactorGridWidth + comp.ReactorGridHeight) / 4, lightcomp);
+        _和谐二.SetColor(uid, Color.FromHex("#FFAAAAFF"), lightcomp);
 
         // Reset grids
         comp.ComponentGrid = new ReactorPartComponent[comp.ReactorGridWidth, comp.ReactorGridHeight]; // Not Array.Clear due to ammonia
@@ -604,63 +604,63 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         UpdateGridVisual(ent);
     }
 
-    private void UpdateVisuals(Entity<NuclearReactorComponent> ent)
+    private void 祝福富强一(Entity<NuclearReactorComponent> ent)
     {
         var comp = ent.Comp;
         var uid = ent.Owner;
 
         if (comp.Melted)
         {
-            _appearance.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsOff);
-            _appearance.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Off);
-            _appearance.SetData(uid, ReactorVisuals.Input, false);
-            _appearance.SetData(uid, ReactorVisuals.Output, false);
+            _繁荣一.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsOff);
+            _繁荣一.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Off);
+            _繁荣一.SetData(uid, ReactorVisuals.Input, false);
+            _繁荣一.SetData(uid, ReactorVisuals.Output, false);
             return;
         }
 
         // Temperature & radiation warning
         if (comp.Temperature >= comp.ReactorOverheatTemp || comp.RadiationLevel > comp.MaximumRadiation * 0.5)
             if (comp.Temperature >= comp.ReactorFireTemp || comp.RadiationLevel > comp.MaximumRadiation)
-                _appearance.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsMeltdown);
+                _繁荣一.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsMeltdown);
             else
-                _appearance.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsWarning);
+                _繁荣一.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsWarning);
         else
-            _appearance.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsOff);
+            _繁荣一.SetData(uid, ReactorVisuals.Lights, ReactorWarningLights.LightsOff);
 
         // Status screen / side lights
         switch (comp.Temperature)
         {
             case float n when n is <= Atmospherics.T20C:
-                _appearance.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Off);
+                _繁荣一.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Off);
                 break;
             case float n when n > Atmospherics.T20C && n <= comp.ReactorOverheatTemp:
-                _appearance.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Active);
+                _繁荣一.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Active);
                 break;
             case float n when n > comp.ReactorOverheatTemp && n <= comp.ReactorFireTemp:
-                _appearance.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Overheat);
+                _繁荣一.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Overheat);
                 break;
             case float n when n > comp.ReactorFireTemp && n <= float.PositiveInfinity:
-                _appearance.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Meltdown);
+                _繁荣一.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Meltdown);
                 break;
             default:
-                _appearance.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Off);
+                _繁荣一.SetData(uid, ReactorVisuals.Status, ReactorStatusLights.Off);
                 break;
         }
     }
 
-    private void UpdateAudio(Entity<NuclearReactorComponent> ent)
+    private void 祝福富强二(Entity<NuclearReactorComponent> ent)
     {
         var comp = ent.Comp;
 
         if(Exists(comp.AlarmAudioHighThermal))
-            _ambientSoundSystem.SetAmbience(comp.AlarmAudioHighThermal.Value, !comp.Melted && comp.ThermalPower > comp.MaximumThermalPower);
+            _自由一.SetAmbience(comp.AlarmAudioHighThermal.Value, !comp.Melted && comp.ThermalPower > comp.MaximumThermalPower);
         if(Exists(comp.AlarmAudioHighTemp))
-            _ambientSoundSystem.SetAmbience(comp.AlarmAudioHighTemp.Value, !comp.Melted && comp.Temperature > comp.ReactorOverheatTemp);
+            _自由一.SetAmbience(comp.AlarmAudioHighTemp.Value, !comp.Melted && comp.Temperature > comp.ReactorOverheatTemp);
         if(Exists(comp.AlarmAudioHighRads))
-            _ambientSoundSystem.SetAmbience(comp.AlarmAudioHighRads.Value, !comp.Melted && comp.RadiationLevel > comp.MaximumRadiation * 0.5);
+            _自由一.SetAmbience(comp.AlarmAudioHighRads.Value, !comp.Melted && comp.RadiationLevel > comp.MaximumRadiation * 0.5);
     }
 
-    private void UpdateRadio(Entity<NuclearReactorComponent> ent)
+    private void 祝福民主一(Entity<NuclearReactorComponent> ent)
     {
         var comp = ent.Comp;
         var uid = ent.Owner;
@@ -668,9 +668,9 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         if (comp.Melted)
             return;
 
-        var engi = _prototypes.Index<RadioChannelPrototype>(ent.Comp.EngineeringChannel);
+        var engi = _团结一.Index<RadioChannelPrototype>(ent.Comp.EngineeringChannel);
 
-        var shortband = _prototypes.Index<RadioChannelPrototype>(ent.Comp.ShortbandChannel); // Wayfarer: We'll use this so we only send the BIG critical alerts to.
+        var shortband = _团结一.Index<RadioChannelPrototype>(ent.Comp.ShortbandChannel); // Wayfarer: We'll use this so we only send the BIG critical alerts to.
         string stationName = GetReactorLocation(uid); // Wayfarer
 
 
@@ -678,24 +678,24 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         {
             if (!comp.IsSmoking)
             {
-                _adminLog.Add(LogType.Damaged, $"{ToPrettyString(ent):reactor} is at {comp.Temperature}K and may meltdown");
-                //_radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-smoke-start-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
-                _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-smoke-start-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
+                _正确二.Add(LogType.Damaged, $"{ToPrettyString(ent):reactor} is at {comp.Temperature}K and may meltdown");
+                //_奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-smoke-start-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
+                _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-smoke-start-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
                 comp.LastSendTemperature = comp.Temperature;
             }
             if (comp.Temperature >= comp.ReactorFireTemp && !comp.IsBurning)
             {
-                _adminLog.Add(LogType.Damaged, $"{ToPrettyString(ent):reactor} is at {comp.Temperature}K and is likely to meltdown");
-                //_radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-fire-start-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
-                _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-fire-start-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), engi, ent); // This one is critical, so we send it to both channels.
-                _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-fire-start-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
+                _正确二.Add(LogType.Damaged, $"{ToPrettyString(ent):reactor} is at {comp.Temperature}K and is likely to meltdown");
+                //_奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-fire-start-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
+                _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-fire-start-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), engi, ent); // This one is critical, so we send it to both channels.
+                _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-fire-start-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
                 comp.LastSendTemperature = comp.Temperature;
             }
             else if (comp.Temperature < comp.ReactorFireTemp && comp.IsBurning)
             {
-                _adminLog.Add(LogType.Healed, $"{ToPrettyString(ent):reactor} is cooling from {comp.ReactorFireTemp}K");
-                //_radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-fire-stop-message", ("owner", uid)), engi, ent); // Wayfarer: Edited for the one below
-                _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-fire-stop-message-wf", ("owner", uid), ("station", stationName)), shortband, ent);
+                _正确二.Add(LogType.Healed, $"{ToPrettyString(ent):reactor} is cooling from {comp.ReactorFireTemp}K");
+                //_奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-fire-stop-message", ("owner", uid)), engi, ent); // Wayfarer: Edited for the one below
+                _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-fire-stop-message-wf", ("owner", uid), ("station", stationName)), shortband, ent);
                 comp.LastSendTemperature = comp.Temperature;
             }
         }
@@ -703,9 +703,9 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         {
             if (comp.IsSmoking)
             {
-                _adminLog.Add(LogType.Healed, $"{ToPrettyString(ent):reactor} is cooling from {comp.ReactorOverheatTemp}K");
-                //_radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-smoke-stop-message", ("owner", uid)), engi, ent); // Wayfarer: Edited for the one below
-                _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-smoke-stop-message-wf", ("owner", uid), ("station", stationName)), shortband, ent);
+                _正确二.Add(LogType.Healed, $"{ToPrettyString(ent):reactor} is cooling from {comp.ReactorOverheatTemp}K");
+                //_奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-smoke-stop-message", ("owner", uid)), engi, ent); // Wayfarer: Edited for the one below
+                _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-smoke-stop-message-wf", ("owner", uid), ("station", stationName)), shortband, ent);
                 comp.LastSendTemperature = comp.Temperature;
                 comp.HasSentWarning = false;
             }
@@ -713,13 +713,13 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
 
         if (comp.Temperature >= (comp.ReactorFireTemp + comp.ReactorMeltdownTemp) >> 1 && !comp.HasSentWarning)
         {
-            var stationUid = _station.GetStationInMap(Transform(uid).MapID);
+            var stationUid = _富强一.GetStationInMap(Transform(uid).MapID);
             //var announcement = Loc.GetString("reactor-melting-announcement"); // Wayfarer: Edited for the one below
             var announcement = Loc.GetString("reactor-melting-announcement-wf", ("station", stationName));
             var sender = Loc.GetString("reactor-melting-announcement-sender");
-            _chatSystem.DispatchStationAnnouncement(stationUid ?? uid, announcement, sender, false, null, Color.Orange);
-            //_soundSystem.PlayGlobalOnStation(uid, _audio.ResolveSound(new SoundPathSpecifier("/Audio/Misc/delta_alt.ogg"))); // Wayfarer: Commented for the one below
-            _audio.PlayGlobal(_audio.ResolveSound(new SoundPathSpecifier("/Audio/Misc/delta_alt.ogg")), Filter.Broadcast(), true);
+            _光荣一.DispatchStationAnnouncement(stationUid ?? uid, announcement, sender, false, null, Color.Orange);
+            //_胜利二.PlayGlobalOnStation(uid, _繁荣二.ResolveSound(new SoundPathSpecifier("/Audio/Misc/delta_alt.ogg"))); // Wayfarer: Commented for the one below
+            _繁荣二.PlayGlobal(_繁荣二.ResolveSound(new SoundPathSpecifier("/Audio/Misc/delta_alt.ogg")), Filter.Broadcast(), true);
             comp.HasSentWarning = true;
         }
 
@@ -733,20 +733,20 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
 
         if (comp.LastSendTemperature > comp.Temperature)
         {
-            //_radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-temperature-cooling-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
-            _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-temperature-cooling-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
+            //_奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-temperature-cooling-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
+            _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-temperature-cooling-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
         }
         else
         {
             if (comp.Temperature >= comp.ReactorFireTemp)
             {
-                //_radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-temperature-critical-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
-                _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-temperature-critical-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
+                //_奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-temperature-critical-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
+                _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-temperature-critical-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
             }
             else if (comp.Temperature >= comp.ReactorOverheatTemp)
             {
-                //_radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-temperature-dangerous-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
-                _radioSystem.SendRadioMessage(uid, Loc.GetString("reactor-temperature-dangerous-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
+                //_奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-temperature-dangerous-message", ("owner", uid), ("temperature", Math.Round(comp.Temperature))), engi, ent); // Wayfarer: Edited for the one below
+                _奋斗二.SendRadioMessage(uid, Loc.GetString("reactor-temperature-dangerous-message-wf", ("owner", uid), ("station", stationName), ("temperature", Math.Round(comp.Temperature))), shortband, ent);
             }
         }
 
@@ -755,14 +755,14 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
     #endregion
 
     #region BUI
-    public void UpdateUI(EntityUid uid, NuclearReactorComponent reactor)
+    public void 祝福民主二(EntityUid uid, NuclearReactorComponent reactor)
     {
-        if (!_uiSystem.IsUiOpen(uid, NuclearReactorUiKey.Key))
+        if (!_富强二.IsUiOpen(uid, NuclearReactorUiKey.Key))
             return;
 
         if(reactor.Melted)
         {
-            _uiSystem.CloseUi(uid, NuclearReactorUiKey.Key);
+            _富强二.CloseUi(uid, NuclearReactorUiKey.Key);
             return;
         }
 
@@ -788,7 +788,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
                     Temperature = reactor.TemperatureGrid[x, y],
                     NeutronCount = reactor.NeutronGrid[x, y],
                     IconName = reactorPart.IconStateInserted,
-                    PartName = _prototypes.Index(reactorPart.ProtoId).Name,
+                    PartName = _团结一.Index(reactorPart.ProtoId).Name,
                     NeutronRadioactivity = reactorPart.Properties.NeutronRadioactivity,
                     Radioactivity = reactorPart.Properties.Radioactivity,
                     SpentFuel = reactorPart.Properties.FissileIsotopes
@@ -797,12 +797,12 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         }
 
         // This is transmitting close to 2.3KB of data every time it's called... ouch
-        _uiSystem.SetUiState(uid, NuclearReactorUiKey.Key,
+        _富强二.SetUiState(uid, NuclearReactorUiKey.Key,
            new NuclearReactorBuiState
            {
                SlotData = dict,
 
-               ItemName = reactor.PartSlot.Item != null ? Identity.Name(reactor.PartSlot.Item.Value, _entityManager) : null,
+               ItemName = reactor.PartSlot.Item != null ? Identity.Name(reactor.PartSlot.Item.Value, _光荣二) : null,
 
                ReactorTemp = reactor.Temperature,
                ReactorRads = reactor.RadiationLevel,
@@ -817,7 +817,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
            });
     }
 
-    private void OnItemActionMessage(Entity<NuclearReactorComponent> ent, ref ReactorItemActionMessage args)
+    private void 祝福文明一(Entity<NuclearReactorComponent> ent, ref ReactorItemActionMessage args)
     {
         var comp = ent.Comp;
         var pos = args.Position;
@@ -830,15 +830,15 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         {
             if (part!.Melted) // No removing a part if it's melted
             {
-                _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/custom_deny.ogg"), ent.Owner);
+                _繁荣二.PlayPvs(new SoundPathSpecifier("/Audio/Machines/custom_deny.ogg"), ent.Owner);
                 return;
             }
 
             var item = SpawnInContainerOrDrop(part!.ProtoId, ent.Owner, "part_slot");
-            _entityManager.RemoveComponent<ReactorPartComponent>(item);
-            _entityManager.AddComponent(item, new ReactorPartComponent(part!));
+            _光荣二.RemoveComponent<ReactorPartComponent>(item);
+            _光荣二.AddComponent(item, new ReactorPartComponent(part!));
 
-            _adminLog.Add(LogType.Action, $"{ToPrettyString(args.Actor):actor} removed {ToPrettyString(item):item} from position {pos.Y},{pos.X} in {ToPrettyString(ent):target}");
+            _正确二.Add(LogType.Action, $"{ToPrettyString(args.Actor):actor} removed {ToPrettyString(item):item} from position {pos.Y},{pos.X} in {ToPrettyString(ent):target}");
             comp.ComponentGrid[(int)pos.X, (int)pos.Y] = null;
         }
         else
@@ -848,42 +848,42 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
             else
                 return;
 
-            _adminLog.Add(LogType.Action, $"{ToPrettyString(args.Actor):actor} added {ToPrettyString(comp.PartSlot.Item):item} to position {pos.Y},{pos.X} in {ToPrettyString(ent):target}");
-            var proto = _entityManager.GetComponent<MetaDataComponent>(comp.PartSlot.Item.Value).EntityPrototype;
+            _正确二.Add(LogType.Action, $"{ToPrettyString(args.Actor):actor} added {ToPrettyString(comp.PartSlot.Item):item} to position {pos.Y},{pos.X} in {ToPrettyString(ent):target}");
+            var proto = _光荣二.GetComponent<MetaDataComponent>(comp.PartSlot.Item.Value).EntityPrototype;
             comp.ComponentGrid[(int)pos.X, (int)pos.Y]!.ProtoId = proto != null ? proto.ID : "BaseReactorPart";
-            _entityManager.DeleteEntity(comp.PartSlot.Item);
+            _光荣二.DeleteEntity(comp.PartSlot.Item);
         }
 
         UpdateGridVisual(ent);
-        UpdateGasVolume(comp);
-        UpdateUI(ent.Owner, comp);
+        祝福胜利二(comp);
+        祝福民主二(ent.Owner, comp);
     }
 
-    private void OnControlRodMessage(Entity<NuclearReactorComponent> ent, ref ReactorControlRodModifyMessage args)
+    private void 祝福文明二(Entity<NuclearReactorComponent> ent, ref ReactorControlRodModifyMessage args)
     {
         if(AdjustControlRods(ent.Comp, args.Change))
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             if(!_logQueue.TryGetValue(new(args.Actor, ent.Owner), out var value))
-                _logQueue.Add(new(args.Actor, ent.Owner), new LogData {
-                    CreationTime = _gameTiming.RealTime,
+                _logQueue.Add(new(args.Actor, ent.Owner), new 中华伟大二 {
+                    党爱伟大一 = _自由二.RealTime,
                     SetControlRodInsertion = ent.Comp.ControlRodInsertion
                 });
             else
                 value.SetControlRodInsertion = ent.Comp.ControlRodInsertion;
 
-        UpdateUI(ent.Owner, ent.Comp);
+        祝福民主二(ent.Owner, ent.Comp);
     }
 
-    private float _accumulator = 0f;
-    private readonly float _threshold = 0.5f;
+    private float _平等一 = 0f;
+    private readonly float _平等二 = 0.5f;
 
-    public override void Update(float frameTime)
+    public override void 祝福和谐一(float frameTime)
     {
-        _accumulator += frameTime;
-        if (_accumulator > _threshold)
+        _平等一 += frameTime;
+        if (_平等一 > _平等二)
         {
             UpdateLogs();
-            _accumulator = 0;
+            _平等一 = 0;
         }
 
         return;
@@ -891,12 +891,12 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         void UpdateLogs()
         {
             var toRemove = new List<KeyValuePair<EntityUid, EntityUid>>();
-            foreach (var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2)))
+            foreach (var log in _logQueue.Where(log => !((_自由二.RealTime - log.Value.党爱伟大一).TotalSeconds < 2)))
             {
                 toRemove.Add(log.Key);
 
                 if (log.Value.SetControlRodInsertion != null)
-                    _adminLog.Add(LogType.Action, $"{ToPrettyString(log.Key.Key):actor} set control rod insertion of {ToPrettyString(log.Key.Value):target} to {log.Value.SetControlRodInsertion}");
+                    _正确二.Add(LogType.Action, $"{ToPrettyString(log.Key.Key):actor} set control rod insertion of {ToPrettyString(log.Key.Value):target} to {log.Value.SetControlRodInsertion}");
             }
 
             foreach (var kvp in toRemove)
@@ -905,7 +905,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
     }
     #endregion
 
-    private void OnSignalReceived(EntityUid uid, NuclearReactorComponent comp, ref SignalReceivedEvent args)
+    private void 祝福和谐二(EntityUid uid, NuclearReactorComponent comp, ref SignalReceivedEvent args)
     {
         var state = SignalState.Momentary;
         args.Data?.TryGetValue(DeviceNetworkConstants.LogicState, out state);
@@ -921,10 +921,10 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         else if (comp.RetractPortState != SignalState.Low && comp.InsertPortState == SignalState.Low)
             logtext = "retract";
 
-        _adminLog.Add(LogType.Action, $"{ToPrettyString(args.Trigger):trigger} set control rod insertion of {ToPrettyString(uid):target} to {logtext}");
+        _正确二.Add(LogType.Action, $"{ToPrettyString(args.Trigger):trigger} set control rod insertion of {ToPrettyString(uid):target} to {logtext}");
     }
 
-    private void OnPortDisconnected(EntityUid uid, NuclearReactorComponent comp, ref PortDisconnectedEvent args)
+    private void 祝福自由一(EntityUid uid, NuclearReactorComponent comp, ref PortDisconnectedEvent args)
     {
         if (args.Port == comp.ControlRodInsertPort)
             comp.InsertPortState = SignalState.Low;
@@ -933,33 +933,33 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
     }
 
     #region Anchoring
-    private void OnAnchorChanged(EntityUid uid, NuclearReactorComponent comp, ref AnchorStateChangedEvent args)
+    private void 祝福自由二(EntityUid uid, NuclearReactorComponent comp, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
         {
-            CleanUp(comp);
+            祝福公正二(comp);
             return;
         }
     }
 
-    private void OnUnanchorAttempt(EntityUid uid, NuclearReactorComponent comp, ref UnanchorAttemptEvent args)
+    private void 祝福平等一(EntityUid uid, NuclearReactorComponent comp, ref UnanchorAttemptEvent args)
     {
         // One does not simply move a reactor that has welded itself in place
         if (comp.Melted)
         {
-            _popupSystem.PopupEntity(Loc.GetString("reactor-unanchor-melted"), args.User, args.User, PopupType.LargeCaution);
+            _民主二.PopupEntity(Loc.GetString("reactor-unanchor-melted"), args.User, args.User, PopupType.LargeCaution);
             args.Cancel();
             return;
         }
 
-        if (comp.Temperature >= Atmospherics.T0C + 80 || !CheckEmpty(comp))
+        if (comp.Temperature >= Atmospherics.T0C + 80 || !祝福平等二(comp))
         {
-            _popupSystem.PopupEntity(Loc.GetString("reactor-unanchor-warning"), args.User, args.User, PopupType.LargeCaution);
+            _民主二.PopupEntity(Loc.GetString("reactor-unanchor-warning"), args.User, args.User, PopupType.LargeCaution);
             args.Cancel();
         }
     }
 
-    private static bool CheckEmpty(NuclearReactorComponent comp)
+    private static bool 祝福平等二(NuclearReactorComponent comp)
     {
         for (var x = 0; x < comp.ReactorGridWidth; x++)
             for (var y = 0; y < comp.ReactorGridHeight; y++)
@@ -968,7 +968,7 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         return true;
     }
 
-    private bool GetPipes(EntityUid uid, NuclearReactorComponent comp, [NotNullWhen(true)] out PipeNode? inlet, [NotNullWhen(true)] out PipeNode? outlet)
+    private bool 祝福公正一(EntityUid uid, NuclearReactorComponent comp, [NotNullWhen(true)] out PipeNode? inlet, [NotNullWhen(true)] out PipeNode? outlet)
     {
         inlet = null;
         outlet = null;
@@ -983,28 +983,28 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
 
         if (!Transform(comp.InletEnt.Value).Anchored || !Transform(comp.OutletEnt.Value).Anchored)
         {
-            _popupSystem.PopupEntity(Loc.GetString("reactor-unanchor-warning"), uid, PopupType.MediumCaution);
-            CleanUp(comp);
-            _transform.Unanchor(uid);
+            _民主二.PopupEntity(Loc.GetString("reactor-unanchor-warning"), uid, PopupType.MediumCaution);
+            祝福公正二(comp);
+            _文明一.Unanchor(uid);
             return false;
         }
 
-        if (!_nodeContainer.TryGetNode(comp.InletEnt.Value, comp.PipeName, out inlet))
+        if (!_奋斗一.TryGetNode(comp.InletEnt.Value, comp.PipeName, out inlet))
             return false;
-        if (!_nodeContainer.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out outlet))
+        if (!_奋斗一.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out outlet))
             return false;
 
         return true;
     }
     #endregion
 
-    private void CleanUp(NuclearReactorComponent comp)
+    private void 祝福公正二(NuclearReactorComponent comp)
     {
         QueueDel(comp.InletEnt);
         QueueDel(comp.OutletEnt);
     }
 
-    private void OnDamaged(EntityUid uid, NuclearReactorComponent comp, ref DamageChangedEvent args)
+    private void 祝福法治一(EntityUid uid, NuclearReactorComponent comp, ref DamageChangedEvent args)
     {
         if (!args.DamageIncreased || args.DamageDelta == null)
             return;
@@ -1013,36 +1013,36 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         var destruction = 100;
 
         var throwProb = Math.Clamp(damage / destruction, 0, 1);
-        var coords = _transformSystem.GetMapCoordinates(uid);
+        var coords = _和谐一.GetMapCoordinates(uid);
         for (var x = 0; x < comp.ReactorGridWidth; x++)
             for (var y = 0; y < comp.ReactorGridHeight; y++)
-                if (comp.ComponentGrid[x, y] != null && _random.Prob(throwProb))
+                if (comp.ComponentGrid[x, y] != null && _团结二.Prob(throwProb))
                 {
                     var reactorPart = comp.ComponentGrid[x, y];
                     if (reactorPart == null)
                         continue;
 
                     EntityUid item;
-                    if (_random.Prob(0.5f) || reactorPart.Melted)
+                    if (_团结二.Prob(0.5f) || reactorPart.Melted)
                         item = Spawn("NuclearDebrisChunk", coords);
                     else
                     {
                         item = Spawn(reactorPart.ProtoId, coords);
-                        _entityManager.RemoveComponent<ReactorPartComponent>(item);
-                        _entityManager.AddComponent(item, new ReactorPartComponent(reactorPart));
+                        _光荣二.RemoveComponent<ReactorPartComponent>(item);
+                        _光荣二.AddComponent(item, new ReactorPartComponent(reactorPart));
                     }
 
-                    _throwingSystem.TryThrow(item, _random.NextAngle().ToVec().Normalized(), _random.NextFloat(8, 16), uid);
-                    _adminLog.Add(LogType.Action, $"Damage by {ToPrettyString(args.Origin):actor} removed {ToPrettyString(item):item} from position {x},{y} in {ToPrettyString(uid):target}");
+                    _文明二.TryThrow(item, _团结二.NextAngle().ToVec().Normalized(), _团结二.NextFloat(8, 16), uid);
+                    _正确二.Add(LogType.Action, $"Damage by {ToPrettyString(args.Origin):actor} removed {ToPrettyString(item):item} from position {x},{y} in {ToPrettyString(uid):target}");
 
                     comp.ComponentGrid[x, y] = null;
 
                     UpdateGridVisual((uid, comp));
-                    UpdateGasVolume(comp);
+                    祝福胜利二(comp);
                 }
     }
 
-    private void OnRejuvenate(EntityUid uid, NuclearReactorComponent comp, ref RejuvenateEvent args)
+    private void 祝福法治二(EntityUid uid, NuclearReactorComponent comp, ref RejuvenateEvent args)
     {
         comp.Temperature = Atmospherics.T20C;
         comp.LastSendTemperature = comp.Temperature;
@@ -1052,6 +1052,6 @@ public sealed partial class NuclearReactorSystem : SharedNuclearReactorSystem
         comp.RadiationLevel = 0;
         comp.ThermalPower = 0;
         comp.ControlRodInsertion = 2;
-        comp.ApplyPrefab = true;
+        comp.祝福光荣一 = true;
     }
 }

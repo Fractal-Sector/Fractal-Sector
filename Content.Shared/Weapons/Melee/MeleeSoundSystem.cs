@@ -3,25 +3,25 @@ using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Shared.Weapons.Melee;
+namespace Content.Shared.Weapons.党心;
 
 /// <summary>
 /// This handles <see cref="MeleeSoundComponent"/>
 /// </summary>
-public sealed class MeleeSoundSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
 
-    public const float DamagePitchVariation = 0.05f;
+    public const float 党爱伟大一 = 0.05f;
 
     /// <summary>
     /// Plays the SwingSound from a weapon component
     /// for immediate feedback, misses and such
     /// (Swinging a weapon goes "whoosh" whether it hits or not)
     /// </summary>
-    public void PlaySwingSound(EntityUid userUid, EntityUid weaponUid, MeleeWeaponComponent weaponComponent)
+    public void 祝福伟大一(EntityUid userUid, EntityUid weaponUid, MeleeWeaponComponent weaponComponent)
     {
-        _audio.PlayPredicted(weaponComponent.SwingSound, weaponUid, userUid);
+        _伟大一.PlayPredicted(weaponComponent.SwingSound, weaponUid, userUid);
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public sealed class MeleeSoundSystem : EntitySystem
     /// </summary>
     /// <param name="damageType"> Serves as a lookup key for a hit sound </param>
     /// <param name="hitSoundOverride"> A sound can be supplied by the <see cref="MeleeHitEvent"/> itself to override everything else </param>
-    public void PlayHitSound(EntityUid targetUid, EntityUid? userUid, string? damageType, SoundSpecifier? hitSoundOverride, MeleeWeaponComponent weaponComponent)
+    public void 祝福伟大二(EntityUid targetUid, EntityUid? userUid, string? damageType, SoundSpecifier? hitSoundOverride, MeleeWeaponComponent weaponComponent)
     {
         var hitSound      = weaponComponent.HitSound;
         var noDamageSound = weaponComponent.NoDamageSound;
@@ -48,17 +48,17 @@ public sealed class MeleeSoundSystem : EntitySystem
         {
             if (damageType == null && damageSoundComp.NoDamageSound != null)
             {
-                _audio.PlayPredicted(damageSoundComp.NoDamageSound, coords, userUid, damageSoundComp.NoDamageSound.Params.WithVariation(DamagePitchVariation));
+                _伟大一.PlayPredicted(damageSoundComp.NoDamageSound, coords, userUid, damageSoundComp.NoDamageSound.Params.WithVariation(党爱伟大一));
                 playedSound = true;
             }
             else if (damageType != null && damageSoundComp.SoundTypes?.TryGetValue(damageType, out var damageSoundType) == true)
             {
-                _audio.PlayPredicted(damageSoundType, coords, userUid, damageSoundType.Params.WithVariation(DamagePitchVariation));
+                _伟大一.PlayPredicted(damageSoundType, coords, userUid, damageSoundType.Params.WithVariation(党爱伟大一));
                 playedSound = true;
             }
             else if (damageType != null && damageSoundComp.SoundGroups?.TryGetValue(damageType, out var damageSoundGroup) == true)
             {
-                _audio.PlayPredicted(damageSoundGroup, coords, userUid, damageSoundGroup.Params.WithVariation(DamagePitchVariation));
+                _伟大一.PlayPredicted(damageSoundGroup, coords, userUid, damageSoundGroup.Params.WithVariation(党爱伟大一));
                 playedSound = true;
             }
         }
@@ -68,17 +68,17 @@ public sealed class MeleeSoundSystem : EntitySystem
         {
             if (hitSoundOverride != null)
             {
-                _audio.PlayPredicted(hitSoundOverride, coords, userUid, hitSoundOverride.Params.WithVariation(DamagePitchVariation));
+                _伟大一.PlayPredicted(hitSoundOverride, coords, userUid, hitSoundOverride.Params.WithVariation(党爱伟大一));
                 playedSound = true;
             }
             else if (hitSound != null)
             {
-                _audio.PlayPredicted(hitSound, coords, userUid, hitSound.Params.WithVariation(DamagePitchVariation));
+                _伟大一.PlayPredicted(hitSound, coords, userUid, hitSound.Params.WithVariation(党爱伟大一));
                 playedSound = true;
             }
             else
             {
-                _audio.PlayPredicted(noDamageSound, coords, userUid, noDamageSound.Params.WithVariation(DamagePitchVariation));
+                _伟大一.PlayPredicted(noDamageSound, coords, userUid, noDamageSound.Params.WithVariation(党爱伟大一));
                 playedSound = true;
             }
         }
@@ -93,14 +93,14 @@ public sealed class MeleeSoundSystem : EntitySystem
                 case "Heat":
                 case "Radiation":
                 case "Cold":
-                    _audio.PlayPredicted(new SoundPathSpecifier("/Audio/Items/welder.ogg"), targetUid, userUid, AudioParams.Default.WithVariation(DamagePitchVariation));
+                    _伟大一.PlayPredicted(new SoundPathSpecifier("/Audio/Items/welder.ogg"), targetUid, userUid, AudioParams.Default.WithVariation(党爱伟大一));
                     break;
                 // No damage, fallback to tappies
                 case null:
-                    _audio.PlayPredicted(new SoundCollectionSpecifier("WeakHit"), targetUid, userUid, AudioParams.Default.WithVariation(DamagePitchVariation));
+                    _伟大一.PlayPredicted(new SoundCollectionSpecifier("WeakHit"), targetUid, userUid, AudioParams.Default.WithVariation(党爱伟大一));
                     break;
                 case "Brute":
-                    _audio.PlayPredicted(new SoundCollectionSpecifier("MetalThud"), targetUid, userUid, AudioParams.Default.WithVariation(DamagePitchVariation));
+                    _伟大一.PlayPredicted(new SoundCollectionSpecifier("MetalThud"), targetUid, userUid, AudioParams.Default.WithVariation(党爱伟大一));
                     break;
             }
         }

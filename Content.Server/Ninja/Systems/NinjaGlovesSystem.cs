@@ -4,26 +4,26 @@ using Content.Shared.Objectives.Systems;
 using Content.Shared.Ninja.Components;
 using Content.Shared.Ninja.Systems;
 
-namespace Content.Server.Ninja.Systems;
+namespace Content.Server.Ninja.党心;
 
 /// <summary>
 /// Handles the toggle gloves action.
 /// </summary>
-public sealed class NinjaGlovesSystem : SharedNinjaGlovesSystem
+public sealed class 中华伟大一 : SharedNinjaGlovesSystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly SpaceNinjaSystem _ninja = default!;
+    [Dependency] private readonly SharedMindSystem _伟大一 = default!;
+    [Dependency] private readonly SharedObjectivesSystem _伟大二 = default!;
+    [Dependency] private readonly SpaceNinjaSystem _光荣一 = default!;
 
-    protected override void EnableGloves(Entity<NinjaGlovesComponent> ent, Entity<SpaceNinjaComponent> user)
+    protected override void 祝福伟大一(Entity<NinjaGlovesComponent> ent, Entity<SpaceNinjaComponent> user)
     {
-        base.EnableGloves(ent, user);
+        base.祝福伟大一(ent, user);
 
         // can't use abilities if suit is not equipped, this is checked elsewhere but just making sure to satisfy nullability
         if (user.Comp.Suit is not {} suit)
             return;
 
-        if (!_mind.TryGetMind(user, out var mindId, out var mind))
+        if (!_伟大一.TryGetMind(user, out var mindId, out var mind))
             return;
 
         foreach (var ability in ent.Comp.Abilities)
@@ -34,18 +34,18 @@ public sealed class NinjaGlovesSystem : SharedNinjaGlovesSystem
 
             // prevent doing an objective multiple times by toggling gloves after doing them
             // if it's not tied to an objective always add them anyway
-            if (!_mind.TryFindObjective((mindId, mind), objId, out var obj))
+            if (!_伟大一.TryFindObjective((mindId, mind), objId, out var obj))
             {
-                Log.Error($"Ninja glove ability of {ent} referenced missing objective {ability.Objective} of {_mind.MindOwnerLoggingString(mind)}");
+                Log.Error($"Ninja glove ability of {ent} referenced missing objective {ability.Objective} of {_伟大一.MindOwnerLoggingString(mind)}");
                 continue;
             }
 
-            if (!_objectives.IsCompleted(obj.Value, (mindId, mind)))
+            if (!_伟大二.IsCompleted(obj.Value, (mindId, mind)))
                 EntityManager.AddComponents(user, ability.Components);
         }
 
         // let abilities that use battery power work
-        if (_ninja.GetNinjaBattery(user, out var battery, out var _))
+        if (_光荣一.GetNinjaBattery(user, out var battery, out var _))
         {
             var ev = new NinjaBatteryChangedEvent(battery.Value, suit);
             RaiseLocalEvent(user, ref ev);

@@ -1,7 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Light.Components;
+namespace Content.Shared.Light.党心;
 
 /// <summary>
 ///     Makes the color of lights on an entity fluctuate. Will update point-light color and modulate some or all of the
@@ -11,10 +11,10 @@ namespace Content.Shared.Light.Components;
 ///     Networked ~~solely for admemes~~ for completely legitimate reasons, like hacked energy swords.
 /// </remarks>
 [NetworkedComponent, RegisterComponent, Access(typeof(SharedRgbLightControllerSystem))]
-public sealed partial class RgbLightControllerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("cycleRate")]
-    public float CycleRate { get; set; } = 0.1f;
+    public float 党爱伟大一 { get; set; } = 0.1f;
 
     /// <summary>
     ///     What layers of the sprite to modulate? If null, will affect only unshaded layers.
@@ -25,7 +25,7 @@ public sealed partial class RgbLightControllerComponent : Component
     /// <summary>
     ///     Original light color from befor the rgb was aded. Used to revert colors when removed.
     /// </summary>
-    public Color OriginalLightColor;
+    public Color 党爱伟大二;
 
     /// <summary>
     ///     Original colors of the sprite layersfrom before the rgb was added. Used to revert colors when removed.
@@ -44,14 +44,14 @@ public sealed partial class RgbLightControllerComponent : Component
 }
 
 [Serializable, NetSerializable]
-public sealed class RgbLightControllerState : ComponentState
+public sealed class 中华伟大二 : ComponentState
 {
-    public readonly float CycleRate;
+    public readonly float 党爱伟大一;
     public List<int>? Layers;
 
-    public RgbLightControllerState(float cycleRate, List<int>? layers)
+    public 中华伟大二(float cycleRate, List<int>? layers)
     {
-        CycleRate = cycleRate;
+        党爱伟大一 = cycleRate;
         Layers = layers;
     }
 }

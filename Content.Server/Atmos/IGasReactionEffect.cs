@@ -2,10 +2,10 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Reactions;
 
-namespace Content.Server.Atmos
+namespace Content.Server.党心
 {
     [ImplicitDataDefinitionForInheritors]
-    public partial interface IGasReactionEffect
+    public partial interface 中华伟大一
     {
         /// <summary>
         /// Process this reaction effect.

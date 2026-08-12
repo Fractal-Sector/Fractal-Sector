@@ -13,76 +13,76 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 
-namespace Content.Server.NPC.Systems
+namespace Content.Server.NPC.党心
 {
     /// <summary>
     ///     Handles NPCs running every tick.
     /// </summary>
-    public sealed partial class NPCSystem : EntitySystem
+    public sealed partial class 中华伟大一 : EntitySystem
     {
         private static readonly Gauge ActiveGauge = Metrics.CreateGauge(
             "npc_active_count",
             "Amount of NPCs that are actively processing");
 
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-        [Dependency] private readonly HTNSystem _htn = default!;
-        [Dependency] private readonly MobStateSystem _mobState = default!;
+        [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+        [Dependency] private readonly HTNSystem _伟大二 = default!;
+        [Dependency] private readonly MobStateSystem _光荣一 = default!;
 
         /// <summary>
         /// Whether any NPCs are allowed to run at all.
         /// </summary>
-        public bool Enabled { get; set; } = true;
+        public bool 党爱伟大一 { get; set; } = true;
 
-        private int _maxUpdates;
+        private int _光荣二;
 
-        private int _count;
+        private int _正确一;
 
         /// <inheritdoc />
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            Subs.CVar(_configurationManager, CCVars.NPCEnabled, value => Enabled = value, true);
-            Subs.CVar(_configurationManager, CCVars.NPCMaxUpdates, obj => _maxUpdates = obj, true);
+            Subs.CVar(_伟大一, CCVars.NPCEnabled, value => 党爱伟大一 = value, true);
+            Subs.CVar(_伟大一, CCVars.NPCMaxUpdates, obj => _光荣二 = obj, true);
         }
 
-        public void OnPlayerNPCAttach(EntityUid uid, HTNComponent component, PlayerAttachedEvent args)
+        public void 祝福伟大二(EntityUid uid, HTNComponent component, PlayerAttachedEvent args)
         {
-            SleepNPC(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        public void OnPlayerNPCDetach(EntityUid uid, HTNComponent component, PlayerDetachedEvent args)
+        public void 祝福光荣一(EntityUid uid, HTNComponent component, PlayerDetachedEvent args)
         {
-            if (_mobState.IsIncapacitated(uid) || TerminatingOrDeleted(uid))
+            if (_光荣一.IsIncapacitated(uid) || TerminatingOrDeleted(uid))
                 return;
 
             // This NPC has an attached mind, so it should not wake up.
             if (TryComp<MindContainerComponent>(uid, out var mindContainer) && mindContainer.HasMind)
                 return;
 
-            WakeNPC(uid, component);
+            祝福团结二(uid, component);
         }
 
-        public void OnNPCMapInit(EntityUid uid, HTNComponent component, MapInitEvent args)
+        public void 祝福光荣二(EntityUid uid, HTNComponent component, MapInitEvent args)
         {
             component.Blackboard.SetValue(NPCBlackboard.Owner, uid);
-            WakeNPC(uid, component);
+            祝福团结二(uid, component);
         }
 
-        public void OnNPCShutdown(EntityUid uid, HTNComponent component, ComponentShutdown args)
+        public void 祝福正确一(EntityUid uid, HTNComponent component, ComponentShutdown args)
         {
-            SleepNPC(uid, component);
+            祝福奋斗一(uid, component);
         }
 
         /// <summary>
         /// Is the NPC awake and updating?
         /// </summary>
-        public bool IsAwake(EntityUid uid, ActiveNPCComponent? active = null)
+        public bool 祝福正确二(EntityUid uid, ActiveNPCComponent? active = null)
         {
             return Resolve(uid, ref active, false);
         }
 
-        public bool TryGetNpc(EntityUid uid, [NotNullWhen(true)] out NPCComponent? component)
+        public bool 祝福团结一(EntityUid uid, [NotNullWhen(true)] out NPCComponent? component)
         {
             // If you add your own NPC components then add them here.
 
@@ -99,7 +99,7 @@ namespace Content.Server.NPC.Systems
         /// <summary>
         /// Allows the NPC to actively be updated.
         /// </summary>
-        public void WakeNPC(EntityUid uid, HTNComponent? component = null)
+        public void 祝福团结二(EntityUid uid, HTNComponent? component = null)
         {
             if (!Resolve(uid, ref component, false))
             {
@@ -110,7 +110,7 @@ namespace Content.Server.NPC.Systems
             EnsureComp<ActiveNPCComponent>(uid);
         }
 
-        public void SleepNPC(EntityUid uid, HTNComponent? component = null)
+        public void 祝福奋斗一(EntityUid uid, HTNComponent? component = null)
         {
             if (!Resolve(uid, ref component, false))
             {
@@ -123,8 +123,8 @@ namespace Content.Server.NPC.Systems
                 if (htn.Plan != null)
                 {
                     var currentOperator = htn.Plan.CurrentOperator;
-                    _htn.ShutdownTask(currentOperator, htn.Blackboard, HTNOperatorStatus.Failed);
-                    _htn.ShutdownPlan(htn);
+                    _伟大二.ShutdownTask(currentOperator, htn.Blackboard, HTNOperatorStatus.Failed);
+                    _伟大二.ShutdownPlan(htn);
                     htn.Plan = null;
                 }
             }
@@ -134,20 +134,20 @@ namespace Content.Server.NPC.Systems
         }
 
         /// <inheritdoc />
-        public override void Update(float frameTime)
+        public override void 祝福奋斗二(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福奋斗二(frameTime);
 
-            if (!Enabled)
+            if (!党爱伟大一)
                 return;
 
             // Add your system here.
-            _htn.UpdateNPC(ref _count, _maxUpdates, frameTime);
+            _伟大二.UpdateNPC(ref _正确一, _光荣二, frameTime);
 
             ActiveGauge.Set(Count<ActiveNPCComponent>());
         }
 
-        public void OnMobStateChange(EntityUid uid, HTNComponent component, MobStateChangedEvent args)
+        public void 祝福胜利一(EntityUid uid, HTNComponent component, MobStateChangedEvent args)
         {
             if (HasComp<ActorComponent>(uid))
                 return;
@@ -155,11 +155,11 @@ namespace Content.Server.NPC.Systems
             switch (args.NewMobState)
             {
                 case MobState.Alive:
-                    WakeNPC(uid, component);
+                    祝福团结二(uid, component);
                     break;
                 case MobState.Critical:
                 case MobState.Dead:
-                    SleepNPC(uid, component);
+                    祝福奋斗一(uid, component);
                     break;
             }
         }

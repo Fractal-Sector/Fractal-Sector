@@ -1,7 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared._DV.Abilities;
+namespace Content.Shared._DV.党心;
 
 /// <summary>
 /// Spawns the item from <see cref="ItemCougherComponent"/> after the coughing sound is finished.
@@ -11,9 +11,9 @@ namespace Content.Shared._DV.Abilities;
 /// </remarks>
 [RegisterComponent, NetworkedComponent, Access(typeof(ItemCougherSystem))]
 [AutoGenerateComponentPause]
-public sealed partial class CoughingUpItemComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan NextCough;
+    public TimeSpan 党爱伟大一;
 }

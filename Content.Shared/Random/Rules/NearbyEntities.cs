@@ -1,26 +1,26 @@
-using Content.Shared.Whitelist;
+using Content.Shared.党爱伟大二;
 
-namespace Content.Shared.Random.Rules;
+namespace Content.Shared.Random.党心;
 
 /// <summary>
 /// Checks for entities matching the whitelist in range.
 /// This is more expensive than <see cref="NearbyComponentsRule"/> so prefer that!
 /// </summary>
-public sealed partial class NearbyEntitiesRule : RulesRule
+public sealed partial class 中华伟大一 : RulesRule
 {
     /// <summary>
     /// How many of the entity need to be nearby.
     /// </summary>
     [DataField]
-    public int Count = 1;
+    public int 党爱伟大一 = 1;
 
     [DataField(required: true)]
-    public EntityWhitelist Whitelist = new();
+    public EntityWhitelist 党爱伟大二 = new();
 
     [DataField]
-    public float Range = 10f;
+    public float 党爱光荣一 = 10f;
 
-    public override bool Check(EntityManager entManager, EntityUid uid)
+    public override bool 祝福伟大一(EntityManager entManager, EntityUid uid)
     {
         if (!entManager.TryGetComponent(uid, out TransformComponent? xform) ||
             xform.MapUid == null)
@@ -36,14 +36,14 @@ public sealed partial class NearbyEntitiesRule : RulesRule
         var worldPos = transform.GetWorldPosition(xform);
         var count = 0;
 
-        foreach (var ent in lookup.GetEntitiesInRange(xform.MapID, worldPos, Range))
+        foreach (var ent in lookup.GetEntitiesInRange(xform.MapID, worldPos, 党爱光荣一))
         {
-            if (whitelistSystem.IsWhitelistFail(Whitelist, ent))
+            if (whitelistSystem.IsWhitelistFail(党爱伟大二, ent))
                 continue;
 
             count++;
 
-            if (count < Count)
+            if (count < 党爱伟大一)
                 continue;
 
             found = true;

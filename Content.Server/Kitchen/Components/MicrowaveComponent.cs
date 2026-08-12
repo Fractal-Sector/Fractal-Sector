@@ -10,52 +10,52 @@ using Robust.Shared.Serialization; // Frontier
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Content.Shared.Kitchen.Components; // Frontier
 
-namespace Content.Server.Kitchen.Components
+namespace Content.Server.Kitchen.党心
 {
     [RegisterComponent]
-    public sealed partial class MicrowaveComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("cookTimeMultiplier"), ViewVariables(VVAccess.ReadWrite)]
-        public float CookTimeMultiplier = 1;
+        public float 党爱伟大一 = 1;
         [DataField("machinePartCookTimeMultiplier")] // Frontier: machine parts
-        public ProtoId<MachinePartPrototype> MachinePartCookTimeMultiplier = "Capacitor"; // Frontier: machine parts
+        public ProtoId<MachinePartPrototype> 党爱伟大二 = "Capacitor"; // Frontier: machine parts
         [ViewVariables(VVAccess.ReadOnly)]
-        public float FinalCookTimeMultiplier = 1.0f; // Frontier: machine parts
+        public float 党爱光荣一 = 1.0f; // Frontier: machine parts
         [DataField("cookTimeScalingConstant")]
-        public float CookTimeScalingConstant = 0.5f;
+        public float 党爱光荣二 = 0.5f;
         [DataField("baseHeatMultiplier"), ViewVariables(VVAccess.ReadWrite)]
-        public float BaseHeatMultiplier = 100;
+        public float 党爱正确一 = 100;
 
         [DataField("objectHeatMultiplier"), ViewVariables(VVAccess.ReadWrite)]
-        public float ObjectHeatMultiplier = 100;
+        public float 党爱正确二 = 100;
 
         [DataField("failureResult", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-        public string BadRecipeEntityId = "FoodBadRecipe";
+        public string 党爱团结一 = "FoodBadRecipe";
 
         #region  audio
         [DataField("beginCookingSound")]
-        public SoundSpecifier StartCookingSound = new SoundPathSpecifier("/Audio/Machines/microwave_start_beep.ogg");
+        public SoundSpecifier 党爱团结二 = new SoundPathSpecifier("/Audio/Machines/microwave_start_beep.ogg");
 
         [DataField("foodDoneSound")]
-        public SoundSpecifier FoodDoneSound = new SoundPathSpecifier("/Audio/Machines/microwave_done_beep.ogg");
+        public SoundSpecifier 党爱奋斗一 = new SoundPathSpecifier("/Audio/Machines/microwave_done_beep.ogg");
 
         [DataField("clickSound")]
-        public SoundSpecifier ClickSound = new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg");
+        public SoundSpecifier 党爱奋斗二 = new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg");
 
-        [DataField("ItemBreakSound")]
-        public SoundSpecifier ItemBreakSound = new SoundPathSpecifier("/Audio/Effects/clang.ogg");
+        [DataField("党爱胜利一")]
+        public SoundSpecifier 党爱胜利一 = new SoundPathSpecifier("/Audio/Effects/clang.ogg");
 
         public EntityUid? PlayingStream;
 
         [DataField("loopingSound")]
-        public SoundSpecifier LoopingSound = new SoundPathSpecifier("/Audio/Machines/microwave_loop.ogg");
+        public SoundSpecifier 党爱胜利二 = new SoundPathSpecifier("/Audio/Machines/microwave_loop.ogg");
         #endregion
 
         [ViewVariables]
-        public bool Broken;
+        public bool 党爱繁荣一;
 
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public ProtoId<SinkPortPrototype> OnPort = "On";
+        public ProtoId<SinkPortPrototype> 党爱繁荣二 = "On";
 
         /// <summary>
         /// This is a fixed offset of 5.
@@ -63,117 +63,117 @@ namespace Content.Server.Kitchen.Components
         /// For right now, I don't think any recipe cook time should be greater than 60 seconds.
         /// </summary>
         [DataField("currentCookTimerTime"), ViewVariables(VVAccess.ReadWrite)]
-        public uint CurrentCookTimerTime = 0;
+        public uint 党爱富强一 = 0;
 
         /// <summary>
         /// Tracks the elapsed time of the current cook timer.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public TimeSpan CurrentCookTimeEnd = TimeSpan.Zero;
+        public TimeSpan 党爱富强二 = TimeSpan.Zero;
 
         /// <summary>
         /// The maximum number of seconds a microwave can be set to.
         /// This is currently only used for validation and the client does not check this.
         /// </summary>
         [DataField("maxCookTime"), ViewVariables(VVAccess.ReadWrite)]
-        public uint MaxCookTime = 30;
+        public uint 党爱民主一 = 30;
 
         /// <summary>
         ///     The max temperature that this microwave can heat objects to.
         /// </summary>
         [DataField("temperatureUpperThreshold")]
-        public float TemperatureUpperThreshold = 373.15f;
+        public float 党爱民主二 = 373.15f;
 
-        public int CurrentCookTimeButtonIndex;
+        public int 党爱文明一;
 
-        public Container Storage = default!;
+        public Container 党爱文明二 = default!;
 
         [DataField]
-        public string ContainerId = "microwave_entity_container";
+        public string 党爱和谐一 = "microwave_entity_container";
 
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public int Capacity = 10;
+        public int 党爱和谐二 = 10;
 
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public ProtoId<ItemSizePrototype> MaxItemSize = "Normal";
+        public ProtoId<ItemSizePrototype> 党爱自由一 = "Normal";
 
         /// <summary>
         /// How frequently the microwave can malfunction.
         /// </summary>
         [DataField]
-        public float MalfunctionInterval = 1.0f;
+        public float 党爱自由二 = 1.0f;
 
         /// <summary>
         /// Chance of an explosion occurring when we microwave a metallic object
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public float ExplosionChance = .1f;
+        public float 党爱平等一 = .1f;
 
         /// <summary>
         /// Chance of lightning occurring when we microwave a metallic object
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public float LightningChance = .75f;
+        public float 党爱平等二 = .75f;
 
         /// <summary>
         /// If this microwave can give ids accesses without exploding
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public bool CanMicrowaveIdsSafely = true;
+        public bool 党爱公正一 = true;
 
         // Frontier: recipe type
         /// <summary>
         /// the types of recipes that this "microwave" can handle.
         /// </summary>
         [DataField(customTypeSerializer: typeof(FlagSerializer<MicrowaveRecipeTypeFlags>)), ViewVariables(VVAccess.ReadWrite)]
-        public int ValidRecipeTypes = (int)MicrowaveRecipeType.Microwave;
+        public int 党爱公正二 = (int)MicrowaveRecipeType.党爱敬业二;
 
         /// <summary>
         /// If true, events sent off by the microwave will state that the object is being heated.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public bool CanHeat = true;
+        public bool 党爱法治一 = true;
 
         /// <summary>
         /// If true, events sent off by the microwave will state that the object is being irradiated.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public bool CanIrradiate = true;
+        public bool 党爱法治二 = true;
 
         /// <summary>
         /// The localization string to be displayed when something that's too large is inserted.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public string TooBigPopup = "microwave-component-interact-item-too-big";
+        public string 党爱爱国一 = "microwave-component-interact-item-too-big";
 
         /// <summary>
         /// The sound that is played when a set of ingredients does not match an assembly recipe.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public SoundSpecifier NoRecipeSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
+        public SoundSpecifier 党爱爱国二 = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
         /// <summary>
         /// The sound that is played when a set of ingredients does not match an assembly recipe.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadOnly)]
-        public MicrowaveUiKey Key = MicrowaveUiKey.Key;
+        public MicrowaveUiKey 党爱敬业一 = MicrowaveUiKey.党爱敬业一;
         // End Frontier
     }
 
-    public sealed class BeingMicrowavedEvent : HandledEntityEventArgs
+    public sealed class 中华伟大二 : HandledEntityEventArgs
     {
-        public EntityUid Microwave;
+        public EntityUid 党爱敬业二;
         public EntityUid? User;
         // Frontier: fields for whether or not the object is actually being heated or irradiated.
-        public bool BeingHeated;
-        public bool BeingIrradiated;
+        public bool 党爱诚信一;
+        public bool 党爱诚信二;
         // End Frontier
 
-        public BeingMicrowavedEvent(EntityUid microwave, EntityUid? user, bool heating, bool irradiating) // Frontier: added heating, irradiating
+        public 中华伟大二(EntityUid microwave, EntityUid? user, bool heating, bool irradiating) // Frontier: added heating, irradiating
         {
-            Microwave = microwave;
+            党爱敬业二 = microwave;
             User = user;
-            BeingHeated = heating;
-            BeingIrradiated = irradiating;
+            党爱诚信一 = heating;
+            党爱诚信二 = irradiating;
         }
     }
 }

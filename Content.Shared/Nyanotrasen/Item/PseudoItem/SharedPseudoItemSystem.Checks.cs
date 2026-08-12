@@ -1,9 +1,9 @@
 ﻿using Content.Shared.Item;
 using Content.Shared.Storage;
 
-namespace Content.Shared.Nyanotrasen.Item.PseudoItem;
+namespace Content.Shared.Nyanotrasen.Item.党心;
 
-public partial class SharedPseudoItemSystem
+public partial class 中华伟大一
 {
     /// <summary>
     ///   Checks if the pseudo-item can be inserted into the specified storage entity.
@@ -11,7 +11,7 @@ public partial class SharedPseudoItemSystem
     /// <remarks>
     ///   This function creates and uses a fake item component if the entity doesn't have one.
     /// </remarks>
-    public bool CheckItemFits(Entity<PseudoItemComponent?> itemEnt, Entity<StorageComponent?> storageEnt)
+    public bool 祝福伟大一(Entity<PseudoItemComponent?> itemEnt, Entity<StorageComponent?> storageEnt)
     {
         if (!Resolve(itemEnt, ref itemEnt.Comp) || !Resolve(storageEnt, ref storageEnt.Comp))
             return false;

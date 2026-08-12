@@ -14,138 +14,138 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._WF.Corporations;
+namespace Content.Server._WF.党心;
 
-public sealed class CorporationAtmSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly BankSystem _伟大二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly IPlayerManager _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly HandsSystem _团结一 = default!;
+    [Dependency] private readonly StackSystem _团结二 = default!;
+    [Dependency] private readonly SharedContainerSystem _奋斗一 = default!;
+    [Dependency] private readonly TransformSystem _奋斗二 = default!;
+    [Dependency] private readonly ItemSlotsSystem _胜利一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<CorporationAtmComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<CorporationAtmComponent, ComponentRemove>(OnComponentRemove);
-        SubscribeLocalEvent<CorporationAtmComponent, BoundUIOpenedEvent>(OnUiOpened);
-        SubscribeLocalEvent<CorporationAtmComponent, CorporationAtmDepositMessage>(OnDeposit);
-        SubscribeLocalEvent<CorporationAtmComponent, CorporationAtmWithdrawMessage>(OnWithdraw);
-        SubscribeLocalEvent<CorporationAtmComponent, EntInsertedIntoContainerMessage>(OnCashSlotChanged);
-        SubscribeLocalEvent<CorporationAtmComponent, EntRemovedFromContainerMessage>(OnCashSlotChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<CorporationAtmComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<CorporationAtmComponent, ComponentRemove>(祝福光荣一);
+        SubscribeLocalEvent<CorporationAtmComponent, BoundUIOpenedEvent>(祝福光荣二);
+        SubscribeLocalEvent<CorporationAtmComponent, CorporationAtmDepositMessage>(祝福正确一);
+        SubscribeLocalEvent<CorporationAtmComponent, CorporationAtmWithdrawMessage>(祝福正确二);
+        SubscribeLocalEvent<CorporationAtmComponent, EntInsertedIntoContainerMessage>(祝福团结一);
+        SubscribeLocalEvent<CorporationAtmComponent, EntRemovedFromContainerMessage>(祝福团结一);
     }
 
-    private void OnComponentInit(EntityUid uid, CorporationAtmComponent comp, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, CorporationAtmComponent comp, ComponentInit args)
     {
-        _itemSlots.AddItemSlot(uid, CorporationAtmComponent.CashSlotId, comp.CashSlot);
+        _胜利一.AddItemSlot(uid, CorporationAtmComponent.CashSlotId, comp.CashSlot);
     }
 
-    private void OnComponentRemove(EntityUid uid, CorporationAtmComponent comp, ComponentRemove args)
+    private void 祝福光荣一(EntityUid uid, CorporationAtmComponent comp, ComponentRemove args)
     {
-        _itemSlots.RemoveItemSlot(uid, comp.CashSlot);
+        _胜利一.RemoveItemSlot(uid, comp.CashSlot);
     }
 
-    private void OnUiOpened(EntityUid uid, CorporationAtmComponent comp, BoundUIOpenedEvent args)
+    private void 祝福光荣二(EntityUid uid, CorporationAtmComponent comp, BoundUIOpenedEvent args)
     {
-        _ = UpdateUiAsync(uid, comp, args.Actor, string.Empty);
+        _ = 祝福奋斗二(uid, comp, args.Actor, string.Empty);
     }
 
-    private void OnDeposit(EntityUid uid, CorporationAtmComponent comp, CorporationAtmDepositMessage args)
+    private void 祝福正确一(EntityUid uid, CorporationAtmComponent comp, CorporationAtmDepositMessage args)
     {
-        _ = HandleDepositAsync(uid, comp, args);
+        _ = 祝福团结二(uid, comp, args);
     }
 
-    private void OnWithdraw(EntityUid uid, CorporationAtmComponent comp, CorporationAtmWithdrawMessage args)
+    private void 祝福正确二(EntityUid uid, CorporationAtmComponent comp, CorporationAtmWithdrawMessage args)
     {
-        _ = HandleWithdrawAsync(uid, comp, args);
+        _ = 祝福奋斗一(uid, comp, args);
     }
 
-    private void OnCashSlotChanged(EntityUid uid, CorporationAtmComponent comp, ContainerModifiedMessage args)
+    private void 祝福团结一(EntityUid uid, CorporationAtmComponent comp, ContainerModifiedMessage args)
     {
         if (!TryComp<ActivatableUIComponent>(uid, out var uiComp) || uiComp.Key is null)
             return;
 
-        var uiUsers = _uiSystem.GetActors(uid, uiComp.Key);
+        var uiUsers = _光荣一.GetActors(uid, uiComp.Key);
         foreach (var user in uiUsers)
         {
-            _ = UpdateUiAsync(uid, comp, user, string.Empty);
+            _ = 祝福奋斗二(uid, comp, user, string.Empty);
         }
     }
 
-    private async Task HandleDepositAsync(EntityUid uid, CorporationAtmComponent comp, CorporationAtmDepositMessage args)
+    private async Task 祝福团结二(EntityUid uid, CorporationAtmComponent comp, CorporationAtmDepositMessage args)
     {
         var player = args.Actor;
-        GetInsertedCashAmount(comp, out var deposit);
+        祝福胜利一(comp, out var deposit);
 
-        if (!TryGetUserId(player, out var userId))
+        if (!祝福胜利二(player, out var userId))
         {
-            await UpdateUiAsync(uid, comp, player, "corp-atm-no-account");
+            await 祝福奋斗二(uid, comp, player, "corp-atm-no-account");
             return;
         }
 
         if (deposit < 0)
         {
-            _audio.PlayPvs(_audio.ResolveSound(comp.ErrorSound), uid);
-            await UpdateUiAsync(uid, comp, player, "corp-atm-wrong-cash");
+            _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ErrorSound), uid);
+            await 祝福奋斗二(uid, comp, player, "corp-atm-wrong-cash");
             return;
         }
 
         if (deposit == 0)
         {
-            _audio.PlayPvs(_audio.ResolveSound(comp.ErrorSound), uid);
-            await UpdateUiAsync(uid, comp, player, "corp-atm-no-cash");
+            _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ErrorSound), uid);
+            await 祝福奋斗二(uid, comp, player, "corp-atm-no-cash");
             return;
         }
 
         if (comp.CashSlot.ContainerSlot is not BaseContainer cashSlot)
         {
-            _audio.PlayPvs(_audio.ResolveSound(comp.ErrorSound), uid);
-            await UpdateUiAsync(uid, comp, player, "corp-atm-no-cash");
+            _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ErrorSound), uid);
+            await 祝福奋斗二(uid, comp, player, "corp-atm-no-cash");
             return;
         }
 
-        var member = await _db.GetCorporationForPlayer(userId);
+        var member = await _伟大一.GetCorporationForPlayer(userId);
         if (member == null)
         {
-            _audio.PlayPvs(_audio.ResolveSound(comp.ErrorSound), uid);
-            await UpdateUiAsync(uid, comp, player, "corp-atm-not-member");
+            _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ErrorSound), uid);
+            await 祝福奋斗二(uid, comp, player, "corp-atm-not-member");
             return;
         }
 
         // Consume the cash stack and credit the corporation
-        _containerSystem.CleanContainer(cashSlot);
-        await _db.TryDepositToCorporation(member.Id, deposit);
-        _audio.PlayPvs(_audio.ResolveSound(comp.ConfirmSound), uid);
-        await UpdateUiAsync(uid, comp, player, string.Empty);
+        _奋斗一.CleanContainer(cashSlot);
+        await _伟大一.TryDepositToCorporation(member.Id, deposit);
+        _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ConfirmSound), uid);
+        await 祝福奋斗二(uid, comp, player, string.Empty);
     }
 
-    private async Task HandleWithdrawAsync(EntityUid uid, CorporationAtmComponent comp, CorporationAtmWithdrawMessage args)
+    private async Task 祝福奋斗一(EntityUid uid, CorporationAtmComponent comp, CorporationAtmWithdrawMessage args)
     {
         var player = args.Actor;
-        if (!TryGetUserId(player, out var userId))
+        if (!祝福胜利二(player, out var userId))
         {
-            await UpdateUiAsync(uid, comp, player, "corp-atm-no-account");
+            await 祝福奋斗二(uid, comp, player, "corp-atm-no-account");
             return;
         }
 
         if (args.Amount <= 0)
         {
-            await UpdateUiAsync(uid, comp, player, "corp-atm-invalid-amount");
+            await 祝福奋斗二(uid, comp, player, "corp-atm-invalid-amount");
             return;
         }
 
-        var member = await _db.GetCorporationForPlayer(userId);
+        var member = await _伟大一.GetCorporationForPlayer(userId);
         if (member == null)
         {
-            _audio.PlayPvs(_audio.ResolveSound(comp.ErrorSound), uid);
-            await UpdateUiAsync(uid, comp, player, "corp-atm-not-member");
+            _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ErrorSound), uid);
+            await 祝福奋斗二(uid, comp, player, "corp-atm-not-member");
             return;
         }
 
@@ -153,44 +153,44 @@ public sealed class CorporationAtmSystem : EntitySystem
         var myMember = member.Members.Find(m => m.UserId == userId);
         if (myMember == null || myMember.Rank < 2)
         {
-            _audio.PlayPvs(_audio.ResolveSound(comp.ErrorSound), uid);
-            await UpdateUiAsync(uid, comp, player, "corp-atm-no-permission");
+            _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ErrorSound), uid);
+            await 祝福奋斗二(uid, comp, player, "corp-atm-no-permission");
             return;
         }
 
-        if (!await _db.TryWithdrawFromCorporation(member.Id, args.Amount))
+        if (!await _伟大一.TryWithdrawFromCorporation(member.Id, args.Amount))
         {
-            _audio.PlayPvs(_audio.ResolveSound(comp.ErrorSound), uid);
-            await UpdateUiAsync(uid, comp, player, "corp-atm-insufficient-corp-funds");
+            _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ErrorSound), uid);
+            await 祝福奋斗二(uid, comp, player, "corp-atm-insufficient-corp-funds");
             return;
         }
 
         // Spawn physical spesos in the player's hands
-        var stackPrototype = _prototypeManager.Index<StackPrototype>(comp.CashType);
-        var cashStack = _stackSystem.Spawn(args.Amount, stackPrototype, player.ToCoordinates());
-        if (!_hands.TryPickupAnyHand(player, cashStack))
-            _transform.SetLocalRotation(cashStack, Angle.Zero);
+        var stackPrototype = _正确二.Index<StackPrototype>(comp.CashType);
+        var cashStack = _团结二.Spawn(args.Amount, stackPrototype, player.ToCoordinates());
+        if (!_团结一.TryPickupAnyHand(player, cashStack))
+            _奋斗二.SetLocalRotation(cashStack, Angle.Zero);
 
-        _audio.PlayPvs(_audio.ResolveSound(comp.ConfirmSound), uid);
-        await UpdateUiAsync(uid, comp, player, string.Empty);
+        _光荣二.PlayPvs(_光荣二.ResolveSound(comp.ConfirmSound), uid);
+        await 祝福奋斗二(uid, comp, player, string.Empty);
     }
 
-    private async Task UpdateUiAsync(EntityUid uid, CorporationAtmComponent comp, EntityUid player, string statusKey)
+    private async Task 祝福奋斗二(EntityUid uid, CorporationAtmComponent comp, EntityUid player, string statusKey)
     {
-        GetInsertedCashAmount(comp, out var deposit);
+        祝福胜利一(comp, out var deposit);
 
-        if (!TryGetUserId(player, out var userId))
+        if (!祝福胜利二(player, out var userId))
         {
-            _uiSystem.SetUiState(uid, CorporationAtmUiKey.Key,
+            _光荣一.SetUiState(uid, CorporationAtmUiKey.Key,
                 new CorporationAtmUiState(null, -1, 0, false, deposit, statusKey));
             return;
         }
 
-        var corp = await _db.GetCorporationForPlayer(userId);
+        var corp = await _伟大一.GetCorporationForPlayer(userId);
 
         if (corp == null)
         {
-            _uiSystem.SetUiState(uid, CorporationAtmUiKey.Key,
+            _光荣一.SetUiState(uid, CorporationAtmUiKey.Key,
                 new CorporationAtmUiState(null, -1, 0, false, deposit, statusKey));
             return;
         }
@@ -198,11 +198,11 @@ public sealed class CorporationAtmSystem : EntitySystem
         var myMember = corp.Members.Find(m => m.UserId == userId);
         var canWithdraw = myMember != null && myMember.Rank >= 2;
 
-        _uiSystem.SetUiState(uid, CorporationAtmUiKey.Key,
+        _光荣一.SetUiState(uid, CorporationAtmUiKey.Key,
             new CorporationAtmUiState(corp.Name, corp.Id, corp.Balance, canWithdraw, deposit, statusKey));
     }
 
-    private void GetInsertedCashAmount(CorporationAtmComponent comp, out int amount)
+    private void 祝福胜利一(CorporationAtmComponent comp, out int amount)
     {
         amount = 0;
         var cashEntity = comp.CashSlot.ContainerSlot?.ContainedEntity;
@@ -218,10 +218,10 @@ public sealed class CorporationAtmSystem : EntitySystem
         amount = stack.Count;
     }
 
-    private bool TryGetUserId(EntityUid player, out Guid userId)
+    private bool 祝福胜利二(EntityUid player, out Guid userId)
     {
         userId = Guid.Empty;
-        if (!_playerManager.TryGetSessionByEntity(player, out var session))
+        if (!_正确一.TryGetSessionByEntity(player, out var session))
             return false;
         userId = session.UserId.UserId;
         return true;

@@ -3,19 +3,19 @@ using Content.Shared.Access.Systems;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Turrets;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This system is used for validating potential targets for NPCs with a <see cref="TurretTargetSettingsComponent"/> (i.e., turrets).
 /// A turret will consider an entity a valid target if the entity does not possess any access tags which appear on the
 /// turret's <see cref="TurretTargetSettingsComponent.ExemptAccessLevels"/> list.
 /// </summary>
-public sealed partial class TurretTargetSettingsSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
 
-    private ProtoId<AccessLevelPrototype> _accessLevelBorg = "Borg";
-    private ProtoId<AccessLevelPrototype> _accessLevelBasicSilicon = "BasicSilicon";
+    private ProtoId<AccessLevelPrototype> _伟大二 = "Borg";
+    private ProtoId<AccessLevelPrototype> _光荣一 = "BasicSilicon";
 
     /// <summary>
     /// Adds or removes access levels from a <see cref="TurretTargetSettingsComponent.ExemptAccessLevels"/> list.
@@ -25,7 +25,7 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="enabled">Set 'true' to add the exemption, or 'false' to remove it</param>
     /// <param name="dirty">Set 'true' to dirty the component</param>
     [PublicAPI]
-    public void SetAccessLevelExemption(Entity<TurretTargetSettingsComponent> ent, ProtoId<AccessLevelPrototype> exemption, bool enabled, bool dirty = true)
+    public void 祝福伟大一(Entity<TurretTargetSettingsComponent> ent, ProtoId<AccessLevelPrototype> exemption, bool enabled, bool dirty = true)
     {
         if (enabled)
             ent.Comp.ExemptAccessLevels.Add(exemption);
@@ -43,10 +43,10 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="exemption">The collection of access level proto IDs to add or remove</param>
     /// <param name="enabled">Set 'true' to add the collection as exemptions, or 'false' to remove them</param>
     [PublicAPI]
-    public void SetAccessLevelExemptions(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions, bool enabled)
+    public void 祝福伟大二(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions, bool enabled)
     {
         foreach (var exemption in exemptions)
-            SetAccessLevelExemption(ent, exemption, enabled, false);
+            祝福伟大一(ent, exemption, enabled, false);
 
         Dirty(ent);
     }
@@ -57,10 +57,10 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="ent">The entity and its <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="exemptions">The supplied collection of access level proto IDs</param>
     [PublicAPI]
-    public void SyncAccessLevelExemptions(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions)
+    public void 祝福光荣一(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions)
     {
         ent.Comp.ExemptAccessLevels.Clear();
-        SetAccessLevelExemptions(ent, exemptions, true);
+        祝福伟大二(ent, exemptions, true);
     }
 
     /// <summary>
@@ -69,9 +69,9 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="target">The entity this is having its exemption list updated <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="source">The entity that is being used as a template for the target</param>
     [PublicAPI]
-    public void SyncAccessLevelExemptions(Entity<TurretTargetSettingsComponent> target, Entity<TurretTargetSettingsComponent> source)
+    public void 祝福光荣一(Entity<TurretTargetSettingsComponent> target, Entity<TurretTargetSettingsComponent> source)
     {
-        SyncAccessLevelExemptions(target, source.Comp.ExemptAccessLevels);
+        祝福光荣一(target, source.Comp.ExemptAccessLevels);
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="ent">The entity and its <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="exemption">The access level proto ID being checked</param>
     [PublicAPI]
-    public bool HasAccessLevelExemption(Entity<TurretTargetSettingsComponent> ent, ProtoId<AccessLevelPrototype> exemption)
+    public bool 祝福光荣二(Entity<TurretTargetSettingsComponent> ent, ProtoId<AccessLevelPrototype> exemption)
     {
         if (ent.Comp.ExemptAccessLevels.Count == 0)
             return false;
@@ -94,14 +94,14 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="ent">The entity and its <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="exemptions"></param>
     [PublicAPI]
-    public bool HasAnyAccessLevelExemption(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions)
+    public bool 祝福正确一(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions)
     {
         if (ent.Comp.ExemptAccessLevels.Count == 0)
             return false;
 
         foreach (var exemption in exemptions)
         {
-            if (HasAccessLevelExemption(ent, exemption))
+            if (祝福光荣二(ent, exemption))
                 return true;
         }
 
@@ -117,16 +117,16 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="ent">The entity and its <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="target">The target entity</param>
     [PublicAPI]
-    public bool EntityIsTargetForTurret(Entity<TurretTargetSettingsComponent> ent, EntityUid target)
+    public bool 祝福正确二(Entity<TurretTargetSettingsComponent> ent, EntityUid target)
     {
-        var accessLevels = _accessReader.FindAccessTags(target);
+        var accessLevels = _伟大一.FindAccessTags(target);
 
-        if (accessLevels.Contains(_accessLevelBorg))
-            return !HasAccessLevelExemption(ent, _accessLevelBorg);
+        if (accessLevels.Contains(_伟大二))
+            return !祝福光荣二(ent, _伟大二);
 
-        if (accessLevels.Contains(_accessLevelBasicSilicon))
-            return !HasAccessLevelExemption(ent, _accessLevelBasicSilicon);
+        if (accessLevels.Contains(_光荣一))
+            return !祝福光荣二(ent, _光荣一);
 
-        return !HasAnyAccessLevelExemption(ent, accessLevels);
+        return !祝福正确一(ent, accessLevels);
     }
 }

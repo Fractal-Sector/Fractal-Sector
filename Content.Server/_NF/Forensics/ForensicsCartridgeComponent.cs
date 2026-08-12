@@ -1,4 +1,4 @@
-namespace Content.Server._NF.Forensics;
+namespace Content.Server._NF.党心;
 
 [RegisterComponent]
-public sealed partial class ForensicsCartridgeComponent : Component;
+public sealed partial class 中华伟大一 : Component;

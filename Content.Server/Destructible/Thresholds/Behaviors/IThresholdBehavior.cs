@@ -1,10 +1,10 @@
 ﻿using Content.Shared.Database;
 
-namespace Content.Server.Destructible.Thresholds.Behaviors
+namespace Content.Server.Destructible.Thresholds.党心
 {
-    public interface IThresholdBehavior
+    public interface 中华伟大一
     {
-        public LogImpact Impact => LogImpact.Low;
+        public LogImpact 党爱伟大一 => LogImpact.Low;
 
         /// <summary>
         ///     Executes this behavior.

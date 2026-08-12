@@ -1,14 +1,14 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.NukeOps;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum WarDeclaratorUiKey
+public enum 中华伟大一
 {
     Key,
 }
 
-public enum WarConditionStatus : byte
+public enum 中华伟大二 : byte
 {
     WarReady,
     YesWar,
@@ -19,28 +19,28 @@ public enum WarConditionStatus : byte
 }
 
 [Serializable, NetSerializable]
-public sealed class WarDeclaratorBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华光荣一 : BoundUserInterfaceState
 {
-    public WarConditionStatus? Status;
-    public TimeSpan ShuttleDisabledTime;
-    public TimeSpan EndTime;
+    public 中华伟大二? Status;
+    public TimeSpan 党爱伟大一;
+    public TimeSpan 党爱伟大二;
 
-    public WarDeclaratorBoundUserInterfaceState(WarConditionStatus? status, TimeSpan endTime, TimeSpan shuttleDisabledTime)
+    public 中华光荣一(中华伟大二? status, TimeSpan endTime, TimeSpan shuttleDisabledTime)
     {
         Status = status;
-        EndTime = endTime;
-        ShuttleDisabledTime = shuttleDisabledTime;
+        党爱伟大二 = endTime;
+        党爱伟大一 = shuttleDisabledTime;
     }
 
 }
 
 [Serializable, NetSerializable]
-public sealed class WarDeclaratorActivateMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public string Message { get; }
+    public string 党爱光荣一 { get; }
 
-    public WarDeclaratorActivateMessage(string msg)
+    public 中华光荣二(string msg)
     {
-        Message = msg;
+        党爱光荣一 = msg;
     }
 }

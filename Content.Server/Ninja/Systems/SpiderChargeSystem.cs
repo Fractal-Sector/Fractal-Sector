@@ -8,59 +8,59 @@ using Content.Shared.Roles.Components;
 using Content.Shared.Sticky;
 using Content.Shared.Trigger;
 
-namespace Content.Server.Ninja.Systems;
+namespace Content.Server.Ninja.党心;
 
 /// <summary>
 /// Prevents planting a spider charge outside of its location and handles greentext.
 /// </summary>
-public sealed class SpiderChargeSystem : SharedSpiderChargeSystem
+public sealed class 中华伟大一 : SharedSpiderChargeSystem
 {
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedRoleSystem _role = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SpaceNinjaSystem _ninja = default!;
+    [Dependency] private readonly MindSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedRoleSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly SpaceNinjaSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpiderChargeComponent, AttemptEntityStickEvent>(OnAttemptStick);
-        SubscribeLocalEvent<SpiderChargeComponent, EntityStuckEvent>(OnStuck);
-        SubscribeLocalEvent<SpiderChargeComponent, TriggerEvent>(OnExplode);
+        SubscribeLocalEvent<SpiderChargeComponent, AttemptEntityStickEvent>(祝福伟大二);
+        SubscribeLocalEvent<SpiderChargeComponent, EntityStuckEvent>(祝福光荣一);
+        SubscribeLocalEvent<SpiderChargeComponent, TriggerEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// Require that the planter is a ninja and the charge is near the target warp point.
     /// </summary>
-    private void OnAttemptStick(EntityUid uid, SpiderChargeComponent comp, ref AttemptEntityStickEvent args)
+    private void 祝福伟大二(EntityUid uid, SpiderChargeComponent comp, ref AttemptEntityStickEvent args)
     {
         if (args.Cancelled)
             return;
 
         var user = args.User;
 
-        if (!_mind.TryGetMind(args.User, out var mind, out _))
+        if (!_伟大一.TryGetMind(args.User, out var mind, out _))
             return;
 
-        if (!_role.MindHasRole<NinjaRoleComponent>(mind))
+        if (!_光荣一.MindHasRole<NinjaRoleComponent>(mind))
         {
-            _popup.PopupEntity(Loc.GetString("spider-charge-not-ninja"), user, user);
+            _伟大二.PopupEntity(Loc.GetString("spider-charge-not-ninja"), user, user);
             args.Cancelled = true;
             return;
         }
 
         // allow planting anywhere if there is no target, which should never happen
-        if (!_mind.TryGetObjectiveComp<SpiderChargeConditionComponent>(user, out var obj) || obj.Target == null)
+        if (!_伟大一.TryGetObjectiveComp<SpiderChargeConditionComponent>(user, out var obj) || obj.Target == null)
             return;
 
         // assumes warp point still exists
         var targetXform = Transform(obj.Target.Value);
         var locXform = Transform(args.Target);
         if (locXform.MapID != targetXform.MapID ||
-            (_transform.GetWorldPosition(locXform) - _transform.GetWorldPosition(targetXform)).LengthSquared() > comp.Range * comp.Range)
+            (_光荣二.GetWorldPosition(locXform) - _光荣二.GetWorldPosition(targetXform)).LengthSquared() > comp.Range * comp.Range)
         {
-            _popup.PopupEntity(Loc.GetString("spider-charge-too-far"), user, user);
+            _伟大二.PopupEntity(Loc.GetString("spider-charge-too-far"), user, user);
             args.Cancelled = true;
             return;
         }
@@ -69,7 +69,7 @@ public sealed class SpiderChargeSystem : SharedSpiderChargeSystem
     /// <summary>
     /// Allows greentext to occur after exploding.
     /// </summary>
-    private void OnStuck(EntityUid uid, SpiderChargeComponent comp, ref EntityStuckEvent args)
+    private void 祝福光荣一(EntityUid uid, SpiderChargeComponent comp, ref EntityStuckEvent args)
     {
         comp.Planter = args.User;
     }
@@ -78,7 +78,7 @@ public sealed class SpiderChargeSystem : SharedSpiderChargeSystem
     /// Handles greentext after exploding.
     /// Assumes it didn't move and the target was destroyed so be nice.
     /// </summary>
-    private void OnExplode(EntityUid uid, SpiderChargeComponent comp, TriggerEvent args)
+    private void 祝福光荣二(EntityUid uid, SpiderChargeComponent comp, TriggerEvent args)
     {
         if (args.Key != comp.TriggerKey)
             return;
@@ -87,6 +87,6 @@ public sealed class SpiderChargeSystem : SharedSpiderChargeSystem
             return;
 
         // assumes the target was destroyed, that the charge wasn't moved somehow
-        _ninja.DetonatedSpiderCharge((comp.Planter.Value, ninja));
+        _正确一.DetonatedSpiderCharge((comp.Planter.Value, ninja));
     }
 }

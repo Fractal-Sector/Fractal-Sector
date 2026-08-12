@@ -22,34 +22,34 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Cargo.Systems;
+namespace Content.Server.Cargo.党心;
 
-public sealed partial class CargoSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly NameIdentifierSystem _nameIdentifier = default!;
+    [Dependency] private readonly ContainerSystem _伟大一 = default!;
+    [Dependency] private readonly NameIdentifierSystem _伟大二 = default!;
 
     private static readonly ProtoId<NameIdentifierGroupPrototype> BountyNameIdentifierGroup = "Bounty";
 
-    private EntityQuery<StackComponent> _stackQuery;
-    private EntityQuery<ContainerManagerComponent> _containerQuery;
-    private EntityQuery<CargoBountyLabelComponent> _bountyLabelQuery;
+    private EntityQuery<StackComponent> _光荣一;
+    private EntityQuery<ContainerManagerComponent> _光荣二;
+    private EntityQuery<CargoBountyLabelComponent> _正确一;
 
-    private void InitializeBounty()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<CargoBountyConsoleComponent, BoundUIOpenedEvent>(OnBountyConsoleOpened);
-        SubscribeLocalEvent<CargoBountyConsoleComponent, BountyPrintLabelMessage>(OnPrintLabelMessage);
-        SubscribeLocalEvent<CargoBountyConsoleComponent, BountySkipMessage>(OnSkipBountyMessage);
-        SubscribeLocalEvent<CargoBountyLabelComponent, PriceCalculationEvent>(OnGetBountyPrice);
-        SubscribeLocalEvent<EntitySoldEvent>(OnSold);
-        SubscribeLocalEvent<StationCargoBountyDatabaseComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<CargoBountyConsoleComponent, BoundUIOpenedEvent>(祝福伟大二);
+        SubscribeLocalEvent<CargoBountyConsoleComponent, BountyPrintLabelMessage>(祝福光荣一);
+        SubscribeLocalEvent<CargoBountyConsoleComponent, BountySkipMessage>(祝福光荣二);
+        SubscribeLocalEvent<CargoBountyLabelComponent, PriceCalculationEvent>(祝福正确二);
+        SubscribeLocalEvent<EntitySoldEvent>(祝福团结一);
+        SubscribeLocalEvent<StationCargoBountyDatabaseComponent, MapInitEvent>(祝福奋斗一);
 
-        _stackQuery = GetEntityQuery<StackComponent>();
-        _containerQuery = GetEntityQuery<ContainerManagerComponent>();
-        _bountyLabelQuery = GetEntityQuery<CargoBountyLabelComponent>();
+        _光荣一 = GetEntityQuery<StackComponent>();
+        _光荣二 = GetEntityQuery<ContainerManagerComponent>();
+        _正确一 = GetEntityQuery<CargoBountyLabelComponent>();
     }
 
-    private void OnBountyConsoleOpened(EntityUid uid, CargoBountyConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福伟大二(EntityUid uid, CargoBountyConsoleComponent component, BoundUIOpenedEvent args)
     {
         if (_station.GetOwningStation(uid) is not { } station ||
             !TryComp<StationCargoBountyDatabaseComponent>(station, out var bountyDb))
@@ -59,7 +59,7 @@ public sealed partial class CargoSystem
         _uiSystem.SetUiState(uid, CargoConsoleUiKey.Bounty, new CargoBountyConsoleState(bountyDb.Bounties, bountyDb.History, untilNextSkip));
     }
 
-    private void OnPrintLabelMessage(EntityUid uid, CargoBountyConsoleComponent component, BountyPrintLabelMessage args)
+    private void 祝福光荣一(EntityUid uid, CargoBountyConsoleComponent component, BountyPrintLabelMessage args)
     {
         if (Timing.CurTime < component.NextPrintTime)
             return;
@@ -67,16 +67,16 @@ public sealed partial class CargoSystem
         if (_station.GetOwningStation(uid) is not { } station)
             return;
 
-        if (!TryGetBountyFromId(station, args.BountyId, out var bounty))
+        if (!祝福民主一(station, args.BountyId, out var bounty))
             return;
 
         var label = Spawn(component.BountyLabelId, Transform(uid).Coordinates);
         component.NextPrintTime = Timing.CurTime + component.PrintDelay;
-        SetupBountyLabel(label, station, bounty.Value);
+        祝福正确一(label, station, bounty.Value);
         _audio.PlayPvs(component.PrintSound, uid);
     }
 
-    private void OnSkipBountyMessage(EntityUid uid, CargoBountyConsoleComponent component, BountySkipMessage args)
+    private void 祝福光荣二(EntityUid uid, CargoBountyConsoleComponent component, BountySkipMessage args)
     {
         if (_station.GetOwningStation(uid) is not { } station || !TryComp<StationCargoBountyDatabaseComponent>(station, out var db))
             return;
@@ -84,7 +84,7 @@ public sealed partial class CargoSystem
         if (Timing.CurTime < db.NextSkipTime)
             return;
 
-        if (!TryGetBountyFromId(station, args.BountyId, out var bounty))
+        if (!祝福民主一(station, args.BountyId, out var bounty))
             return;
 
         if (args.Actor is not { Valid: true } mob)
@@ -101,17 +101,17 @@ public sealed partial class CargoSystem
             return;
         }
 
-        if (!TryRemoveBounty(station, bounty.Value, true, args.Actor))
+        if (!祝福富强二(station, bounty.Value, true, args.Actor))
             return;
 
-        FillBountyDatabase(station);
+        祝福奋斗二(station);
         db.NextSkipTime = Timing.CurTime + db.SkipDelay;
         var untilNextSkip = db.NextSkipTime - Timing.CurTime;
         _uiSystem.SetUiState(uid, CargoConsoleUiKey.Bounty, new CargoBountyConsoleState(db.Bounties, db.History, untilNextSkip));
         _audio.PlayPvs(component.SkipSound, uid);
     }
 
-    public void SetupBountyLabel(EntityUid uid, EntityUid stationId, CargoBountyData bounty, PaperComponent? paper = null, CargoBountyLabelComponent? label = null)
+    public void 祝福正确一(EntityUid uid, EntityUid stationId, CargoBountyData bounty, PaperComponent? paper = null, CargoBountyLabelComponent? label = null)
     {
         if (!Resolve(uid, ref paper, ref label) || !_protoMan.TryIndex<CargoBountyPrototype>(bounty.Bounty, out var prototype))
             return;
@@ -137,13 +137,13 @@ public sealed partial class CargoSystem
     /// <summary>
     /// calculated after it is sold separately from the selling system.
     /// </summary>
-    private void OnGetBountyPrice(EntityUid uid, CargoBountyLabelComponent component, ref PriceCalculationEvent args)
+    private void 祝福正确二(EntityUid uid, CargoBountyLabelComponent component, ref PriceCalculationEvent args)
     {
         if (args.Handled || component.Calculating)
             return;
 
         // make sure this label was actually applied to a crate.
-        if (!_container.TryGetContainingContainer((uid, null, null), out var container) || container.ID != LabelSystem.ContainerName)
+        if (!_伟大一.TryGetContainingContainer((uid, null, null), out var container) || container.ID != LabelSystem.ContainerName)
             return;
 
         if (component.AssociatedStationId is not { } station || !TryComp<StationCargoBountyDatabaseComponent>(station, out var database))
@@ -152,11 +152,11 @@ public sealed partial class CargoSystem
         if (database.CheckedBounties.Contains(component.Id))
             return;
 
-        if (!TryGetBountyFromId(station, component.Id, out var bounty, database))
+        if (!祝福民主一(station, component.Id, out var bounty, database))
             return;
 
         if (!_protoMan.TryIndex(bounty.Value.Bounty, out var bountyPrototype) ||
-            !IsBountyComplete(container.Owner, bountyPrototype))
+            !祝福胜利二(container.Owner, bountyPrototype))
             return;
 
         database.CheckedBounties.Add(component.Id);
@@ -167,44 +167,44 @@ public sealed partial class CargoSystem
         component.Calculating = false;
     }
 
-    private void OnSold(ref EntitySoldEvent args)
+    private void 祝福团结一(ref EntitySoldEvent args)
     {
         foreach (var sold in args.Sold)
         {
-            if (!TryGetBountyLabel(sold, out _, out var component))
+            if (!祝福团结二(sold, out _, out var component))
                 continue;
 
-            if (component.AssociatedStationId is not { } station || !TryGetBountyFromId(station, component.Id, out var bounty))
+            if (component.AssociatedStationId is not { } station || !祝福民主一(station, component.Id, out var bounty))
             {
                 continue;
             }
 
-            if (!IsBountyComplete(sold, bounty.Value))
+            if (!祝福胜利二(sold, bounty.Value))
             {
                 continue;
             }
 
-            TryRemoveBounty(station, bounty.Value, false);
-            FillBountyDatabase(station);
+            祝福富强二(station, bounty.Value, false);
+            祝福奋斗二(station);
             _adminLogger.Add(LogType.Action, LogImpact.Low, $"Bounty \"{bounty.Value.Bounty}\" (id:{bounty.Value.Id}) was fulfilled");
         }
     }
 
-    private bool TryGetBountyLabel(EntityUid uid,
+    private bool 祝福团结二(EntityUid uid,
         [NotNullWhen(true)] out EntityUid? labelEnt,
         [NotNullWhen(true)] out CargoBountyLabelComponent? labelComp)
     {
         labelEnt = null;
         labelComp = null;
-        if (!_containerQuery.TryGetComponent(uid, out var containerMan))
+        if (!_光荣二.TryGetComponent(uid, out var containerMan))
             return false;
 
         // make sure this label was actually applied to a crate.
-        if (!_container.TryGetContainer(uid, LabelSystem.ContainerName, out var container, containerMan))
+        if (!_伟大一.TryGetContainer(uid, LabelSystem.ContainerName, out var container, containerMan))
             return false;
 
         if (container.ContainedEntities.FirstOrNull() is not { } label ||
-            !_bountyLabelQuery.TryGetComponent(label, out var component))
+            !_正确一.TryGetComponent(label, out var component))
             return false;
 
         labelEnt = label;
@@ -212,40 +212,40 @@ public sealed partial class CargoSystem
         return true;
     }
 
-    private void OnMapInit(EntityUid uid, StationCargoBountyDatabaseComponent component, MapInitEvent args)
+    private void 祝福奋斗一(EntityUid uid, StationCargoBountyDatabaseComponent component, MapInitEvent args)
     {
-        FillBountyDatabase(uid, component);
+        祝福奋斗二(uid, component);
     }
 
     /// <summary>
     /// Fills up the bounty database with random bounties.
     /// </summary>
-    public void FillBountyDatabase(EntityUid uid, StationCargoBountyDatabaseComponent? component = null)
+    public void 祝福奋斗二(EntityUid uid, StationCargoBountyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         while (component.Bounties.Count < component.MaxBounties)
         {
-            if (!TryAddBounty(uid, component))
+            if (!祝福富强一(uid, component))
                 break;
         }
 
-        UpdateBountyConsoles();
+        祝福民主二();
     }
 
-    public void RerollBountyDatabase(Entity<StationCargoBountyDatabaseComponent?> entity)
+    public void 祝福胜利一(Entity<StationCargoBountyDatabaseComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp))
             return;
 
         entity.Comp.Bounties.Clear();
-        FillBountyDatabase(entity);
+        祝福奋斗二(entity);
     }
 
-    public bool IsBountyComplete(EntityUid container, out HashSet<EntityUid> bountyEntities)
+    public bool 祝福胜利二(EntityUid container, out HashSet<EntityUid> bountyEntities)
     {
-        if (!TryGetBountyLabel(container, out _, out var component))
+        if (!祝福团结二(container, out _, out var component))
         {
             bountyEntities = new();
             return false;
@@ -258,21 +258,21 @@ public sealed partial class CargoSystem
             return false;
         }
 
-        if (!TryGetBountyFromId(station.Value, component.Id, out var bounty))
+        if (!祝福民主一(station.Value, component.Id, out var bounty))
         {
             bountyEntities = new();
             return false;
         }
 
-        return IsBountyComplete(container, bounty.Value, out bountyEntities);
+        return 祝福胜利二(container, bounty.Value, out bountyEntities);
     }
 
-    public bool IsBountyComplete(EntityUid container, CargoBountyData data)
+    public bool 祝福胜利二(EntityUid container, CargoBountyData data)
     {
-        return IsBountyComplete(container, data, out _);
+        return 祝福胜利二(container, data, out _);
     }
 
-    public bool IsBountyComplete(EntityUid container, CargoBountyData data, out HashSet<EntityUid> bountyEntities)
+    public bool 祝福胜利二(EntityUid container, CargoBountyData data, out HashSet<EntityUid> bountyEntities)
     {
         if (!_protoMan.TryIndex(data.Bounty, out var proto))
         {
@@ -280,44 +280,44 @@ public sealed partial class CargoSystem
             return false;
         }
 
-        return IsBountyComplete(container, proto.Entries, out bountyEntities);
+        return 祝福胜利二(container, proto.Entries, out bountyEntities);
     }
 
-    public bool IsBountyComplete(EntityUid container, string id)
+    public bool 祝福胜利二(EntityUid container, string id)
     {
         if (!_protoMan.TryIndex<CargoBountyPrototype>(id, out var proto))
             return false;
 
-        return IsBountyComplete(container, proto.Entries);
+        return 祝福胜利二(container, proto.Entries);
     }
 
-    public bool IsBountyComplete(EntityUid container, ProtoId<CargoBountyPrototype> prototypeId)
+    public bool 祝福胜利二(EntityUid container, ProtoId<CargoBountyPrototype> prototypeId)
     {
         var prototype = _protoMan.Index(prototypeId);
 
-        return IsBountyComplete(container, prototype.Entries);
+        return 祝福胜利二(container, prototype.Entries);
     }
 
-    public bool IsBountyComplete(EntityUid container, CargoBountyPrototype prototype)
+    public bool 祝福胜利二(EntityUid container, CargoBountyPrototype prototype)
     {
-        return IsBountyComplete(container, prototype.Entries);
+        return 祝福胜利二(container, prototype.Entries);
     }
 
-    public bool IsBountyComplete(EntityUid container, IEnumerable<CargoBountyItemEntry> entries)
+    public bool 祝福胜利二(EntityUid container, IEnumerable<CargoBountyItemEntry> entries)
     {
-        return IsBountyComplete(container, entries, out _);
+        return 祝福胜利二(container, entries, out _);
     }
 
-    public bool IsBountyComplete(EntityUid container, IEnumerable<CargoBountyItemEntry> entries, out HashSet<EntityUid> bountyEntities)
+    public bool 祝福胜利二(EntityUid container, IEnumerable<CargoBountyItemEntry> entries, out HashSet<EntityUid> bountyEntities)
     {
-        return IsBountyComplete(GetBountyEntities(container), entries, out bountyEntities);
+        return 祝福胜利二(祝福繁荣二(container), entries, out bountyEntities);
     }
 
     /// <summary>
     /// Determines whether the <paramref name="entity"/> meets the criteria for the bounty <paramref name="entry"/>.
     /// </summary>
     /// <returns>true if <paramref name="entity"/> is a valid item for the bounty entry, otherwise false</returns>
-    public bool IsValidBountyEntry(EntityUid entity, CargoBountyItemEntry entry)
+    public bool 祝福繁荣一(EntityUid entity, CargoBountyItemEntry entry)
     {
         if (!_whitelist.IsValid(entry.Whitelist, entity))
             return false;
@@ -328,7 +328,7 @@ public sealed partial class CargoSystem
         return true;
     }
 
-    public bool IsBountyComplete(HashSet<EntityUid> entities, IEnumerable<CargoBountyItemEntry> entries, out HashSet<EntityUid> bountyEntities)
+    public bool 祝福胜利二(HashSet<EntityUid> entities, IEnumerable<CargoBountyItemEntry> entries, out HashSet<EntityUid> bountyEntities)
     {
         bountyEntities = new();
 
@@ -341,10 +341,10 @@ public sealed partial class CargoSystem
             var temp = new HashSet<EntityUid>();
             foreach (var entity in entities)
             {
-                if (!IsValidBountyEntry(entity, entry))
+                if (!祝福繁荣一(entity, entry))
                     continue;
 
-                count += _stackQuery.CompOrNull(entity)?.Count ?? 1;
+                count += _光荣一.CompOrNull(entity)?.Count ?? 1;
                 temp.Add(entity);
 
                 if (count >= entry.Amount)
@@ -364,7 +364,7 @@ public sealed partial class CargoSystem
         return true;
     }
 
-    private HashSet<EntityUid> GetBountyEntities(EntityUid uid)
+    private HashSet<EntityUid> 祝福繁荣二(EntityUid uid)
     {
         var entities = new HashSet<EntityUid>
         {
@@ -377,10 +377,10 @@ public sealed partial class CargoSystem
         {
             foreach (var ent in container.ContainedEntities)
             {
-                if (_bountyLabelQuery.HasComponent(ent))
+                if (_正确一.HasComponent(ent))
                     continue;
 
-                var children = GetBountyEntities(ent);
+                var children = 祝福繁荣二(ent);
                 foreach (var child in children)
                 {
                     entities.Add(child);
@@ -392,7 +392,7 @@ public sealed partial class CargoSystem
     }
 
     [PublicAPI]
-    public bool TryAddBounty(EntityUid uid, StationCargoBountyDatabaseComponent? component = null)
+    public bool 祝福富强一(EntityUid uid, StationCargoBountyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -411,21 +411,21 @@ public sealed partial class CargoSystem
 
         var pool = filteredBounties.Count == 0 ? allBounties : filteredBounties;
         var bounty = _random.Pick(pool);
-        return TryAddBounty(uid, bounty, component);
+        return 祝福富强一(uid, bounty, component);
     }
 
     [PublicAPI]
-    public bool TryAddBounty(EntityUid uid, string bountyId, StationCargoBountyDatabaseComponent? component = null)
+    public bool 祝福富强一(EntityUid uid, string bountyId, StationCargoBountyDatabaseComponent? component = null)
     {
         if (!_protoMan.TryIndex<CargoBountyPrototype>(bountyId, out var bounty))
         {
             return false;
         }
 
-        return TryAddBounty(uid, bounty, component);
+        return 祝福富强一(uid, bounty, component);
     }
 
-    public bool TryAddBounty(EntityUid uid, CargoBountyPrototype bounty, StationCargoBountyDatabaseComponent? component = null)
+    public bool 祝福富强一(EntityUid uid, CargoBountyPrototype bounty, StationCargoBountyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -433,7 +433,7 @@ public sealed partial class CargoSystem
         if (component.Bounties.Count >= component.MaxBounties)
             return false;
 
-        _nameIdentifier.GenerateUniqueName(uid, BountyNameIdentifierGroup, out var randomVal);
+        _伟大二.GenerateUniqueName(uid, BountyNameIdentifierGroup, out var randomVal);
         var newBounty = new CargoBountyData(bounty, randomVal);
         // This bounty id already exists! Probably because NameIdentifierSystem ran out of ids.
         if (component.Bounties.Any(b => b.Id == newBounty.Id))
@@ -448,18 +448,18 @@ public sealed partial class CargoSystem
     }
 
     [PublicAPI]
-    public bool TryRemoveBounty(Entity<StationCargoBountyDatabaseComponent?> ent,
+    public bool 祝福富强二(Entity<StationCargoBountyDatabaseComponent?> ent,
         string dataId,
         bool skipped,
         EntityUid? actor = null)
     {
-        if (!TryGetBountyFromId(ent.Owner, dataId, out var data, ent.Comp))
+        if (!祝福民主一(ent.Owner, dataId, out var data, ent.Comp))
             return false;
 
-        return TryRemoveBounty(ent, data.Value, skipped, actor);
+        return 祝福富强二(ent, data.Value, skipped, actor);
     }
 
-    public bool TryRemoveBounty(Entity<StationCargoBountyDatabaseComponent?> ent,
+    public bool 祝福富强二(Entity<StationCargoBountyDatabaseComponent?> ent,
         CargoBountyData data,
         bool skipped,
         EntityUid? actor = null)
@@ -493,7 +493,7 @@ public sealed partial class CargoSystem
         return false;
     }
 
-    public bool TryGetBountyFromId(
+    public bool 祝福民主一(
         EntityUid uid,
         string id,
         [NotNullWhen(true)] out CargoBountyData? bounty,
@@ -514,7 +514,7 @@ public sealed partial class CargoSystem
         return bounty != null;
     }
 
-    public void UpdateBountyConsoles()
+    public void 祝福民主二()
     {
         var query = EntityQueryEnumerator<CargoBountyConsoleComponent, UserInterfaceComponent>();
         while (query.MoveNext(out var uid, out _, out var ui))
@@ -530,7 +530,7 @@ public sealed partial class CargoSystem
         }
     }
 
-    private void UpdateBounty()
+    private void 祝福文明一()
     {
         var query = EntityQueryEnumerator<StationCargoBountyDatabaseComponent>();
         while (query.MoveNext(out var bountyDatabase))

@@ -1,4 +1,4 @@
-namespace Content.Server.Disposal.Unit
+namespace Content.Server.Disposal.党心
 {
-    public record DoInsertDisposalUnitEvent(EntityUid? User, EntityUid ToInsert, EntityUid Unit);
+    public record 中华伟大一(EntityUid? User, EntityUid ToInsert, EntityUid Unit);
 }

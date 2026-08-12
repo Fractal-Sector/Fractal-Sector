@@ -7,52 +7,52 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Cloning;
+namespace Content.Shared.党心;
 
 [RegisterComponent]
-public sealed partial class CloningPodComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public ProtoId<SinkPortPrototype> PodPort = "CloningPodReceiver";
+    public ProtoId<SinkPortPrototype> 党爱伟大一 = "CloningPodReceiver";
 
     [ViewVariables]
-    public ContainerSlot BodyContainer = default!;
+    public ContainerSlot 党爱伟大二 = default!;
 
     /// <summary>
     /// How long the cloning has been going on for.
     /// </summary>
     [ViewVariables]
-    public float CloningProgress = 0;
+    public float 党爱光荣一 = 0;
 
     [ViewVariables]
-    public int UsedBiomass = 70;
+    public int 党爱光荣二 = 70;
 
     [ViewVariables]
-    public bool FailedClone = false;
+    public bool 党爱正确一 = false;
 
     /// <summary>
     /// The material that is used to clone entities.
     /// </summary>
     [DataField]
-    public ProtoId<MaterialPrototype> RequiredMaterial = "Biomass";
+    public ProtoId<MaterialPrototype> 党爱正确二 = "Biomass";
 
     /// <summary>
     /// The current amount of time it takes to clone a body.
     /// </summary>
     [DataField]
-    public float CloningTime = 30f;
+    public float 党爱团结一 = 30f;
 
     /// <summary>
     /// The mob to spawn on emag.
     /// </summary>
     [DataField]
-    public EntProtoId MobSpawnId = "MobAbomination";
+    public EntProtoId 党爱团结二 = "MobAbomination";
 
     /// <summary>
     /// The sound played when a mob is spawned from an emagged cloning pod.
     /// </summary>
     [DataField]
-    public SoundSpecifier ScreamSound = new SoundCollectionSpecifier("ZombieScreams")
+    public SoundSpecifier 党爱奋斗一 = new SoundCollectionSpecifier("ZombieScreams")
     {
         Params = AudioParams.Default.WithVolume(4),
     };
@@ -61,7 +61,7 @@ public sealed partial class CloningPodComponent : Component
     /// The machine part that affects how much biomass is needed to clone a body.
     /// </summary>
     [DataField("partRatingMaterialMultiplier")]
-    public float PartRatingMaterialMultiplier = 0.85f;
+    public float 党爱奋斗二 = 0.85f;
 
     // Frontier: machine part upgrades
     /// <summary>
@@ -69,7 +69,7 @@ public sealed partial class CloningPodComponent : Component
     /// amount of biomass needed to clone, and is affected by part upgrades.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float BaseBiomassRequirementMultiplier = 1;
+    public float 党爱胜利一 = 1;
 
     // Frontier: machine part upgrades
     /// <summary>
@@ -77,16 +77,16 @@ public sealed partial class CloningPodComponent : Component
     /// amount of biomass needed to clone.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float BiomassRequirementMultiplier = 1;
+    public float 党爱胜利二 = 1;
 
     /// <summary>
     /// The machine part that decreases the amount of material needed for cloning
     /// </summary>
     [DataField("machinePartMaterialUse"), ViewVariables(VVAccess.ReadWrite)]
-    public ProtoId<MachinePartPrototype> MachinePartMaterialUse = "MatterBin";
+    public ProtoId<MachinePartPrototype> 党爱繁荣一 = "MatterBin";
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public CloningPodStatus Status;
+    public 中华光荣一 Status;
 
     [ViewVariables]
     public EntityUid? ConnectedConsole;
@@ -96,30 +96,30 @@ public sealed partial class CloningPodComponent : Component
     /// The base amount of time it takes to clone a body
     /// </summary>
     [DataField]
-    public float BaseCloningTime = 30f;
+    public float 党爱繁荣二 = 30f;
 
     /// <summary>
     /// The multiplier for cloning duration
     /// </summary>
     [DataField]
-    public float PartRatingSpeedMultiplier = 0.75f;
+    public float 党爱富强一 = 0.75f;
 
     /// <summary>
     /// The machine part that affects cloning speed
     /// </summary>
     [DataField]
-    public ProtoId<MachinePartPrototype> MachinePartCloningSpeed = "Manipulator";
+    public ProtoId<MachinePartPrototype> 党爱富强二 = "Manipulator";
     // End Frontier: machine upgrades
 }
 
 [Serializable, NetSerializable]
-public enum CloningPodVisuals : byte
+public enum 中华伟大二 : byte
 {
     Status
 }
 
 [Serializable, NetSerializable]
-public enum CloningPodStatus : byte
+public enum 中华光荣一 : byte
 {
     Idle,
     Cloning,

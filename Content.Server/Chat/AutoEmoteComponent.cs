@@ -1,4 +1,4 @@
-namespace Content.Server.Chat;
+namespace Content.Server.党心;
 
 using Content.Server.Chat.Systems;
 using Content.Shared.Chat.Prototypes;
@@ -8,14 +8,14 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 /// Causes an entity to automatically emote at a set interval.
 /// </summary>
 [RegisterComponent, Access(typeof(AutoEmoteSystem))]
-public sealed partial class AutoEmoteComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A set of emotes that the entity will preform.
     /// <see cref="AutoEmotePrototype"/>
     /// </summary>
     [DataField("emotes", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<AutoEmotePrototype>)), ViewVariables(VVAccess.ReadOnly)]
-    public HashSet<string> Emotes = new HashSet<string>();
+    public HashSet<string> 党爱伟大一 = new HashSet<string>();
 
     /// <summary>
     /// A dictionary storing the time of the next emote attempt for each emote.
@@ -28,5 +28,5 @@ public sealed partial class AutoEmoteComponent : Component
     /// Time of the next emote. Redundant, but avoids having to iterate EmoteTimers each update.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
-    public TimeSpan NextEmoteTime = TimeSpan.MaxValue;
+    public TimeSpan 党爱伟大二 = TimeSpan.MaxValue;
 }

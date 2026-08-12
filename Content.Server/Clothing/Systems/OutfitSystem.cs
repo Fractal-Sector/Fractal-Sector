@@ -13,22 +13,22 @@ using Content.Shared.Station;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Clothing.Systems;
+namespace Content.Server.Clothing.党心;
 
-public sealed class OutfitSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IServerPreferencesManager _preferenceManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly HandsSystem _handSystem = default!;
-    [Dependency] private readonly InventorySystem _invSystem = default!;
-    [Dependency] private readonly SharedStationSpawningSystem _spawningSystem = default!;
+    [Dependency] private readonly IServerPreferencesManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly HandsSystem _光荣一 = default!;
+    [Dependency] private readonly InventorySystem _光荣二 = default!;
+    [Dependency] private readonly SharedStationSpawningSystem _正确一 = default!;
 
-    public bool SetOutfit(EntityUid target, string gear, Action<EntityUid, EntityUid>? onEquipped = null)
+    public bool 祝福伟大一(EntityUid target, string gear, Action<EntityUid, EntityUid>? onEquipped = null)
     {
         if (!EntityManager.TryGetComponent(target, out InventoryComponent? inventoryComponent))
             return false;
 
-        if (!_prototypeManager.TryIndex<StartingGearPrototype>(gear, out var startingGear))
+        if (!_伟大二.TryIndex<StartingGearPrototype>(gear, out var startingGear))
             return false;
 
         HumanoidCharacterProfile? profile = null;
@@ -38,15 +38,15 @@ public sealed class OutfitSystem : EntitySystem
         {
             session = actorComponent.PlayerSession;
             var userId = actorComponent.PlayerSession.UserId;
-            var prefs = _preferenceManager.GetPreferences(userId);
+            var prefs = _伟大一.GetPreferences(userId);
             profile = prefs.SelectedCharacter as HumanoidCharacterProfile;
         }
 
-        if (_invSystem.TryGetSlots(target, out var slots))
+        if (_光荣二.TryGetSlots(target, out var slots))
         {
             foreach (var slot in slots)
             {
-                _invSystem.TryUnequip(target, slot.Name, true, true, false, inventoryComponent);
+                _光荣二.TryUnequip(target, slot.Name, true, true, false, inventoryComponent);
                 var gearStr = ((IEquipmentLoadout) startingGear).GetGear(slot.Name);
                 if (gearStr == string.Empty)
                     continue;
@@ -59,7 +59,7 @@ public sealed class OutfitSystem : EntitySystem
                     id.FullName = EntityManager.GetComponent<MetaDataComponent>(target).EntityName;
                 }
 
-                _invSystem.TryEquip(target, equipmentEntity, slot.Name, silent: true, force: true, inventory: inventoryComponent);
+                _光荣二.TryEquip(target, equipmentEntity, slot.Name, silent: true, force: true, inventory: inventoryComponent);
 
                 onEquipped?.Invoke(target, equipmentEntity);
             }
@@ -71,19 +71,19 @@ public sealed class OutfitSystem : EntitySystem
             foreach (var prototype in startingGear.Inhand)
             {
                 var inhandEntity = EntityManager.SpawnEntity(prototype, coords);
-                _handSystem.TryPickup(target, inhandEntity, checkActionBlocker: false, handsComp: handsComponent);
+                _光荣一.TryPickup(target, inhandEntity, checkActionBlocker: false, handsComp: handsComponent);
             }
         }
 
         // See if this starting gear is associated with a job
-        var jobs = _prototypeManager.EnumeratePrototypes<JobPrototype>();
+        var jobs = _伟大二.EnumeratePrototypes<JobPrototype>();
         foreach (var job in jobs)
         {
             if (job.StartingGear != gear)
                 continue;
 
             var jobProtoId = LoadoutSystem.GetJobPrototype(job.ID);
-            if (!_prototypeManager.TryIndex<RoleLoadoutPrototype>(jobProtoId, out var jobProto))
+            if (!_伟大二.TryIndex<RoleLoadoutPrototype>(jobProtoId, out var jobProto))
                 break;
 
             // Don't require a player, so this works on Urists
@@ -97,11 +97,11 @@ public sealed class OutfitSystem : EntitySystem
             {
                 // If they don't have a loadout for the role, make a default one
                 roleLoadout = new RoleLoadout(jobProtoId);
-                roleLoadout.SetDefault(profile, session, _prototypeManager);
+                roleLoadout.SetDefault(profile, session, _伟大二);
             }
 
             // Equip the target with the job loadout
-            _spawningSystem.EquipRoleLoadout(target, roleLoadout, jobProto);
+            _正确一.EquipRoleLoadout(target, roleLoadout, jobProto);
         }
 
         return true;

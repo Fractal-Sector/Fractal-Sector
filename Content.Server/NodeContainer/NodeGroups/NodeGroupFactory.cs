@@ -2,32 +2,32 @@ using System.Reflection;
 using Content.Shared.NodeContainer.NodeGroups;
 using Robust.Shared.Reflection;
 
-namespace Content.Server.NodeContainer.NodeGroups
+namespace Content.Server.NodeContainer.党心
 {
-    public interface INodeGroupFactory
+    public interface 中华伟大一
     {
         /// <summary>
         ///     Performs reflection to associate <see cref="INodeGroup"/> implementations with the
         ///     string specified in their <see cref="NodeGroupAttribute"/>.
         /// </summary>
-        void Initialize();
+        void 祝福伟大一();
 
         /// <summary>
         ///     Returns a new <see cref="INodeGroup"/> instance.
         /// </summary>
-        INodeGroup MakeNodeGroup(NodeGroupID id);
+        INodeGroup 祝福伟大二(NodeGroupID id);
     }
 
-    public sealed class NodeGroupFactory : INodeGroupFactory
+    public sealed class 中华伟大二 : 中华伟大一
     {
-        [Dependency] private readonly IReflectionManager _reflectionManager = default!;
-        [Dependency] private readonly IDynamicTypeFactory _typeFactory = default!;
+        [Dependency] private readonly IReflectionManager _伟大一 = default!;
+        [Dependency] private readonly IDynamicTypeFactory _伟大二 = default!;
 
         private readonly Dictionary<NodeGroupID, Type> _groupTypes = new();
 
-        public void Initialize()
+        public void 祝福伟大一()
         {
-            var nodeGroupTypes = _reflectionManager.GetAllChildren<INodeGroup>();
+            var nodeGroupTypes = _伟大一.GetAllChildren<INodeGroup>();
             foreach (var nodeGroupType in nodeGroupTypes)
             {
                 var att = nodeGroupType.GetCustomAttribute<NodeGroupAttribute>();
@@ -41,12 +41,12 @@ namespace Content.Server.NodeContainer.NodeGroups
             }
         }
 
-        public INodeGroup MakeNodeGroup(NodeGroupID id)
+        public INodeGroup 祝福伟大二(NodeGroupID id)
         {
             if (!_groupTypes.TryGetValue(id, out var type))
                 throw new ArgumentException($"{id} did not have an associated {nameof(INodeGroup)} implementation.");
 
-            var instance = _typeFactory.CreateInstance<INodeGroup>(type);
+            var instance = _伟大二.CreateInstance<INodeGroup>(type);
             instance.Create(id);
             return instance;
         }

@@ -6,34 +6,34 @@ using Content.Shared.Machines.Events;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Machines.EntitySystems;
+namespace Content.Server.Machines.党心;
 
 /// <summary>
 /// Server side handling of multipart machines.
 /// When requested, performs scans of the map area around the specified entity
 /// to find and match parts of the machine.
 /// </summary>
-public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
+public sealed class 中华伟大一 : SharedMultipartMachineSystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookupSystem = default!;
+    [Dependency] private readonly IComponentFactory _伟大一 = default!;
+    [Dependency] private readonly MapSystem _伟大二 = default!;
+    [Dependency] private readonly EntityLookupSystem _光荣一 = default!;
 
     // The largest size ANY machine can theoretically have.
     // Used to aid search for machines in range of parts that have been anchored/constructed.
     private const float MaximumRange = 30;
-    private readonly HashSet<Entity<MultipartMachineComponent>> _entitiesInRange = [];
+    private readonly HashSet<Entity<MultipartMachineComponent>> _光荣二 = [];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MultipartMachineComponent, ComponentStartup>(OnComponentStartup);
+        SubscribeLocalEvent<MultipartMachineComponent, ComponentStartup>(祝福正确一);
 
-        SubscribeLocalEvent<MultipartMachineComponent, AnchorStateChangedEvent>(OnMachineAnchorChanged);
+        SubscribeLocalEvent<MultipartMachineComponent, AnchorStateChangedEvent>(祝福正确二);
 
-        SubscribeLocalEvent<MultipartMachinePartComponent, AfterConstructionChangeEntityEvent>(OnPartConstructionNodeChanged);
-        SubscribeLocalEvent<MultipartMachinePartComponent, AnchorStateChangedEvent>(OnPartAnchorChanged);
+        SubscribeLocalEvent<MultipartMachinePartComponent, AfterConstructionChangeEntityEvent>(祝福团结一);
+        SubscribeLocalEvent<MultipartMachinePartComponent, AnchorStateChangedEvent>(祝福团结二);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// </summary>
     /// <param name="ent">Entity to clear the part for.</param>
     /// <param name="part">Enum value for the part to clear.</param>
-    public void ClearPartEntity(Entity<MultipartMachineComponent?> ent, Enum part)
+    public void 祝福伟大二(Entity<MultipartMachineComponent?> ent, Enum part)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -72,7 +72,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// <param name="ent">Entity to rescan for.</param>
     /// <param name="user">Optional user entity which has caused this rescan.</param>
     /// <returns>True the state of the machine's assembly has changed, false otherwise.</returns>
-    public bool Rescan(Entity<MultipartMachineComponent> ent, EntityUid? user = null)
+    public bool 祝福光荣一(Entity<MultipartMachineComponent> ent, EntityUid? user = null)
     {
         // Get all required transform information to start looking for the other parts based on their offset
         if (!XformQuery.TryGetComponent(ent.Owner, out var xform) || !xform.Anchored)
@@ -83,7 +83,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
             return false;
 
         // Whichever component has the MultipartMachine component should be treated as the origin
-        var machineOrigin = _mapSystem.TileIndicesFor(gridUid.Value, grid, xform.Coordinates);
+        var machineOrigin = _伟大二.TileIndicesFor(gridUid.Value, grid, xform.Coordinates);
 
         // Set to true if any of the parts' state changes
         var stateHasChanged = false;
@@ -99,12 +99,12 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
             var originalPart = part.Entity;
             part.Entity = null;
 
-            if (!_factory.TryGetRegistration(part.Component, out var registration))
+            if (!_伟大一.TryGetRegistration(part.Component, out var registration))
                 break;
 
             var query = EntityManager.GetEntityQuery(registration.Type);
 
-            ScanPart(machineOrigin, machineRotation, query, gridUid.Value, grid, part);
+            祝福奋斗一(machineOrigin, machineRotation, query, gridUid.Value, grid, part);
 
             if (!part.Entity.HasValue && !part.Optional)
                 missingParts = true;
@@ -161,7 +161,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// Will also raise the assembly state change and dirty event for it.
     /// </summary>
     /// <param name="ent">Machine to completely clear the parts of.</param>
-    private void ClearAllParts(Entity<MultipartMachineComponent> ent)
+    private void 祝福光荣二(Entity<MultipartMachineComponent> ent)
     {
         var stateHasChanged = false;
 
@@ -206,12 +206,12 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// </summary>
     /// <param name="ent">Entity/Component that just started.</param>
     /// <param name="args">Args for the startup.</param>
-    private void OnComponentStartup(Entity<MultipartMachineComponent> ent, ref ComponentStartup args)
+    private void 祝福正确一(Entity<MultipartMachineComponent> ent, ref ComponentStartup args)
     {
         // If anchored, perform a rescan of this machine when the component starts so we can immediately
         // jump to an assembled state if needed.
         if (XformQuery.TryGetComponent(ent.Owner, out var xform) && xform.Anchored)
-            Rescan(ent);
+            祝福光荣一(ent);
     }
 
     /// <summary>
@@ -221,13 +221,13 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// </summary>
     /// <param name="ent">Machine entity that has been anchored or unanchored.</param>
     /// <param name="args">Args for this event.</param>
-    private void OnMachineAnchorChanged(Entity<MultipartMachineComponent> ent,
+    private void 祝福正确二(Entity<MultipartMachineComponent> ent,
         ref AnchorStateChangedEvent args)
     {
         if (args.Anchored)
-            Rescan(ent);
+            祝福光荣一(ent);
         else
-            ClearAllParts(ent);
+            祝福光荣二(ent);
     }
 
     /// <summary>
@@ -237,21 +237,21 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// </summary>
     /// <param name="ent">Machine part entity that has moved in a graph.</param>
     /// <param name="args">Args for this event.</param>
-    private void OnPartConstructionNodeChanged(Entity<MultipartMachinePartComponent> ent,
+    private void 祝福团结一(Entity<MultipartMachinePartComponent> ent,
         ref AfterConstructionChangeEntityEvent args)
     {
         if (!XformQuery.TryGetComponent(ent.Owner, out var constructXform))
             return;
 
-        _lookupSystem.GetEntitiesInRange(constructXform.Coordinates, MaximumRange, _entitiesInRange);
-        foreach (var machine in _entitiesInRange)
+        _光荣一.GetEntitiesInRange(constructXform.Coordinates, MaximumRange, _光荣二);
+        foreach (var machine in _光荣二)
         {
             foreach (var part in machine.Comp.Parts.Values)
             {
                 if (args.Graph == part.Graph &&
                     (args.PreviousNode == part.ExpectedNode || args.CurrentNode == part.ExpectedNode))
                 {
-                    Rescan(machine);
+                    祝福光荣一(machine);
                     break; // No need to scan the same machine again
                 }
             }
@@ -266,7 +266,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// </summary>
     /// <param name="ent">Machine part entity that has been anchored or unanchored.</param>
     /// <param name="args">Args for this event, notably the anchor status.</param>
-    private void OnPartAnchorChanged(Entity<MultipartMachinePartComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福团结二(Entity<MultipartMachinePartComponent> ent, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
         {
@@ -277,7 +277,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
             if (!TryComp<MultipartMachineComponent>(part.Master, out var machine))
                 return;
 
-            Rescan((part.Master.Value, machine));
+            祝福光荣一((part.Master.Value, machine));
             return;
         }
 
@@ -286,10 +286,10 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
         if (!XformQuery.TryGetComponent(ent.Owner, out var constructXform))
             return;
 
-        _lookupSystem.GetEntitiesInRange(constructXform.Coordinates, MaximumRange, _entitiesInRange);
-        foreach (var machine in _entitiesInRange)
+        _光荣一.GetEntitiesInRange(constructXform.Coordinates, MaximumRange, _光荣二);
+        foreach (var machine in _光荣二)
         {
-            if (Rescan(machine) && HasPartEntity(machine.AsNullable(), ent.Owner))
+            if (祝福光荣一(machine) && HasPartEntity(machine.AsNullable(), ent.Owner))
                 return; // This machine is using this entity so we don't need to go any further
         }
     }
@@ -305,7 +305,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// <param name="grid">Grid to use for the lookup.</param>
     /// <param name="part">Part we're searching for.</param>
     /// <returns>True when part is found and matches requirements, false otherwise.</returns>
-    private bool ScanPart(
+    private bool 祝福奋斗一(
         Vector2i machineOrigin,
         Angle rotation,
         EntityQuery<IComponent> query,
@@ -319,7 +319,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
         var expectedLocation = machineOrigin + part.Offset.Rotate(rotation);
         var expectedRotation = part.Rotation + rotation;
 
-        foreach (var entity in _mapSystem.GetAnchoredEntities(gridUid, grid, expectedLocation))
+        foreach (var entity in _伟大二.GetAnchoredEntities(gridUid, grid, expectedLocation))
         {
             if (TerminatingOrDeleted(entity))
             {

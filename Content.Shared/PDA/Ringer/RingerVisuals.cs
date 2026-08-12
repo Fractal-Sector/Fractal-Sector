@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.PDA.Ringer;
+namespace Content.Shared.PDA.党心;
 
 [Serializable, NetSerializable]
-public enum RingerUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key,
 }

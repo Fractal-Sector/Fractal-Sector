@@ -6,56 +6,56 @@ using Content.Shared.SMES;
 using JetBrains.Annotations;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Power.SMES;
+namespace Content.Server.Power.党心;
 
 [UsedImplicitly]
-internal sealed class SmesSystem : EntitySystem
+internal sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         UpdatesAfter.Add(typeof(PowerNetSystem));
 
-        SubscribeLocalEvent<SmesComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<SmesComponent, ChargeChangedEvent>(OnBatteryChargeChanged);
+        SubscribeLocalEvent<SmesComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<SmesComponent, ChargeChangedEvent>(祝福光荣一);
     }
 
-    private void OnMapInit(EntityUid uid, SmesComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, SmesComponent component, MapInitEvent args)
     {
-        UpdateSmesState(uid, component);
+        祝福光荣二(uid, component);
     }
 
-    private void OnBatteryChargeChanged(EntityUid uid, SmesComponent component, ref ChargeChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, SmesComponent component, ref ChargeChangedEvent args)
     {
-        UpdateSmesState(uid, component);
+        祝福光荣二(uid, component);
     }
 
-    private void UpdateSmesState(EntityUid uid, SmesComponent smes)
+    private void 祝福光荣二(EntityUid uid, SmesComponent smes)
     {
-        var newLevel = CalcChargeLevel(uid);
-        if (newLevel != smes.LastChargeLevel && smes.LastChargeLevelTime + smes.VisualsChangeDelay < _gameTiming.CurTime)
+        var newLevel = 祝福正确一(uid);
+        if (newLevel != smes.LastChargeLevel && smes.LastChargeLevelTime + smes.VisualsChangeDelay < _伟大一.CurTime)
         {
             smes.LastChargeLevel = newLevel;
-            smes.LastChargeLevelTime = _gameTiming.CurTime;
+            smes.LastChargeLevelTime = _伟大一.CurTime;
 
-            _appearance.SetData(uid, SmesVisuals.LastChargeLevel, newLevel);
+            _伟大二.SetData(uid, SmesVisuals.LastChargeLevel, newLevel);
         }
 
-        var newChargeState = CalcChargeState(uid);
-        if (newChargeState != smes.LastChargeState && smes.LastChargeStateTime + smes.VisualsChangeDelay < _gameTiming.CurTime)
+        var newChargeState = 祝福正确二(uid);
+        if (newChargeState != smes.LastChargeState && smes.LastChargeStateTime + smes.VisualsChangeDelay < _伟大一.CurTime)
         {
             smes.LastChargeState = newChargeState;
-            smes.LastChargeStateTime = _gameTiming.CurTime;
+            smes.LastChargeStateTime = _伟大一.CurTime;
 
-            _appearance.SetData(uid, SmesVisuals.LastChargeState, newChargeState);
+            _伟大二.SetData(uid, SmesVisuals.LastChargeState, newChargeState);
         }
     }
 
-    private int CalcChargeLevel(EntityUid uid, BatteryComponent? battery = null)
+    private int 祝福正确一(EntityUid uid, BatteryComponent? battery = null)
     {
         if (!Resolve(uid, ref battery, false))
             return 0;
@@ -63,7 +63,7 @@ internal sealed class SmesSystem : EntitySystem
         return ContentHelpers.RoundToLevels(battery.CurrentCharge, battery.MaxCharge, 6);
     }
 
-    private ChargeState CalcChargeState(EntityUid uid, PowerNetworkBatteryComponent? netBattery = null)
+    private ChargeState 祝福正确二(EntityUid uid, PowerNetworkBatteryComponent? netBattery = null)
     {
         if (!Resolve(uid, ref netBattery, false))
             return ChargeState.Still;

@@ -3,9 +3,9 @@ using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Mobs.Systems;
+namespace Content.Shared.Mobs.党心;
 
-public partial class MobStateSystem
+public partial class 中华伟大一
 {
     #region Public API
 
@@ -16,7 +16,7 @@ public partial class MobStateSystem
     /// <param name="mobState">MobState to check</param>
     /// <param name="component">MobState Component owned by the target</param>
     /// <returns>If the entity can be set to that MobState</returns>
-    public bool HasState(EntityUid entity, MobState mobState, MobStateComponent? component = null)
+    public bool 祝福伟大一(EntityUid entity, MobState mobState, MobStateComponent? component = null)
     {
         return _mobStateQuery.Resolve(entity, ref component, false) &&
                component.AllowedStates.Contains(mobState);
@@ -28,31 +28,31 @@ public partial class MobStateSystem
     /// <param name="entity">Target Entity we want to change the MobState of</param>
     /// <param name="component">MobState Component attached to the entity</param>
     /// <param name="origin">Entity that caused the state update (if applicable)</param>
-    public void UpdateMobState(EntityUid entity, MobStateComponent? component = null, EntityUid? origin = null)
+    public void 祝福伟大二(EntityUid entity, MobStateComponent? component = null, EntityUid? origin = null)
     {
         if (!_mobStateQuery.Resolve(entity, ref component))
             return;
 
         var ev = new UpdateMobStateEvent {Target = entity, Component = component, Origin = origin};
         RaiseLocalEvent(entity, ref ev);
-        ChangeState(entity, component, ev.State, origin: origin);
+        祝福团结一(entity, component, ev.State, origin: origin);
     }
 
     /// <summary>
-    /// Change the MobState without triggering UpdateMobState events.
+    /// Change the MobState without triggering 祝福伟大二 events.
     /// WARNING: use this sparingly when you need to override other systems (MobThresholds)
     /// </summary>
     /// <param name="entity">Target Entity we want to change the MobState of</param>
     /// <param name="mobState">The new MobState we want to set</param>
     /// <param name="component">MobState Component attached to the entity</param>
     /// <param name="origin">Entity that caused the state update (if applicable)</param>
-    public void ChangeMobState(EntityUid entity, MobState mobState, MobStateComponent? component = null,
+    public void 祝福光荣一(EntityUid entity, MobState mobState, MobStateComponent? component = null,
         EntityUid? origin = null)
     {
         if (!_mobStateQuery.Resolve(entity, ref component))
             return;
 
-        ChangeState(entity, component, mobState, origin: origin);
+        祝福团结一(entity, component, mobState, origin: origin);
     }
 
     #endregion
@@ -65,7 +65,7 @@ public partial class MobStateSystem
     /// <param name="entity">The owner of the MobState Component</param>
     /// <param name="component">MobState Component owned by the target</param>
     /// <param name="state">The new MobState</param>
-    protected virtual void OnEnterState(EntityUid entity, MobStateComponent component, MobState state)
+    protected virtual void 祝福光荣二(EntityUid entity, MobStateComponent component, MobState state)
     {
         OnStateEnteredSubscribers(entity, component, state);
     }
@@ -77,7 +77,7 @@ public partial class MobStateSystem
     /// <param name="component">MobState Component owned by the target</param>
     /// <param name="oldState">The previous MobState</param>
     /// <param name="newState">The new MobState</param>
-    protected virtual void OnStateChanged(EntityUid entity, MobStateComponent component, MobState oldState,
+    protected virtual void 祝福正确一(EntityUid entity, MobStateComponent component, MobState oldState,
         MobState newState)
     {
     }
@@ -88,7 +88,7 @@ public partial class MobStateSystem
     /// <param name="entity">The owner of the MobState Component</param>
     /// <param name="component">MobState Component owned by the target</param>
     /// <param name="state">The old MobState</param>
-    protected virtual void OnExitState(EntityUid entity, MobStateComponent component, MobState state)
+    protected virtual void 祝福正确二(EntityUid entity, MobStateComponent component, MobState state)
     {
         OnStateExitSubscribers(entity, component, state);
     }
@@ -98,19 +98,19 @@ public partial class MobStateSystem
     #region Private Implementation
 
     //Actually change the MobState
-    private void ChangeState(EntityUid target, MobStateComponent component, MobState newState, EntityUid? origin = null)
+    private void 祝福团结一(EntityUid target, MobStateComponent component, MobState newState, EntityUid? origin = null)
     {
         var oldState = component.CurrentState;
         //make sure we are allowed to enter the new state
         if (oldState == newState || !component.AllowedStates.Contains(newState))
             return;
 
-        OnExitState(target, component, oldState);
+        祝福正确二(target, component, oldState);
         component.CurrentState = newState;
-        OnEnterState(target, component, newState);
+        祝福光荣二(target, component, newState);
 
         var ev = new MobStateChangedEvent(target, component, oldState, newState, origin);
-        OnStateChanged(target, component, oldState, newState);
+        祝福正确一(target, component, oldState, newState);
         RaiseLocalEvent(target, ev, true);
         if (origin != null && HasComp<ActorComponent>(origin) && HasComp<ActorComponent>(target) && oldState < newState)
             _adminLogger.Add(LogType.Damaged, LogImpact.High, $"{ToPrettyString(origin):player} caused {ToPrettyString(target):player} state to change from {oldState} to {newState}");
@@ -130,5 +130,5 @@ public partial class MobStateSystem
 /// <param name="State">The new MobState we want to set</param>
 /// <param name="Origin">Entity that caused the state update (if applicable)</param>
 [ByRefEvent]
-public record struct UpdateMobStateEvent(EntityUid Target, MobStateComponent Component, MobState State,
+public record 中华伟大二 UpdateMobStateEvent(EntityUid Target, MobStateComponent Component, MobState State,
     EntityUid? Origin = null);

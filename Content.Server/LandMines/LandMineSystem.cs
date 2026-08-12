@@ -6,53 +6,53 @@ using Content.Shared.StepTrigger.Systems;
 using Content.Shared.Trigger.Systems;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server.LandMines;
+namespace Content.Server.党心;
 
-public sealed class LandMineSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly TriggerSystem _trigger = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly TriggerSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LandMineComponent, StepTriggeredOnEvent>(HandleStepOnTriggered);
-        SubscribeLocalEvent<LandMineComponent, StepTriggeredOffEvent>(HandleStepOffTriggered);
-        SubscribeLocalEvent<LandMineComponent, StepTriggerAttemptEvent>(HandleStepTriggerAttempt);
+        SubscribeLocalEvent<LandMineComponent, StepTriggeredOnEvent>(祝福伟大二);
+        SubscribeLocalEvent<LandMineComponent, StepTriggeredOffEvent>(祝福光荣一);
+        SubscribeLocalEvent<LandMineComponent, StepTriggerAttemptEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// Warns the player when stepped on.
     /// </summary>
-    private void HandleStepOnTriggered(EntityUid uid, LandMineComponent component, ref StepTriggeredOnEvent args)
+    private void 祝福伟大二(EntityUid uid, LandMineComponent component, ref StepTriggeredOnEvent args)
     {
         if (!string.IsNullOrEmpty(component.TriggerText))
         {
-            _popupSystem.PopupCoordinates(
+            _伟大二.PopupCoordinates(
                 Loc.GetString(component.TriggerText, ("mine", uid)),
                 Transform(uid).Coordinates,
                 args.Tripper,
                 PopupType.LargeCaution);
         }
-        _audioSystem.PlayPvs(component.Sound, uid);
+        _伟大一.PlayPvs(component.Sound, uid);
     }
 
     /// <summary>
     /// Sends a trigger when stepped off.
     /// </summary>
-    private void HandleStepOffTriggered(EntityUid uid, LandMineComponent component, ref StepTriggeredOffEvent args)
+    private void 祝福光荣一(EntityUid uid, LandMineComponent component, ref StepTriggeredOffEvent args)
     {
         // TODO: Adjust to the new trigger system
-        _trigger.Trigger(uid, args.Tripper, TriggerSystem.DefaultTriggerKey);
+        _光荣一.Trigger(uid, args.Tripper, TriggerSystem.DefaultTriggerKey);
     }
 
     /// <summary>
     /// Presumes that the landmine isn't armable and should be treated as always armed.
     /// If Armable and ItemToggle is present the event will continue only if the mine is activated.
     /// </summary>
-    private void HandleStepTriggerAttempt(EntityUid uid, LandMineComponent component, ref StepTriggerAttemptEvent args)
+    private void 祝福光荣二(EntityUid uid, LandMineComponent component, ref StepTriggerAttemptEvent args)
     {
         args.Continue = true;
 

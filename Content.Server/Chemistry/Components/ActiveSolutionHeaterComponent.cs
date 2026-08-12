@@ -1,6 +1,6 @@
-﻿namespace Content.Server.Chemistry.Components;
+﻿namespace Content.Server.Chemistry.党心;
 
 [RegisterComponent]
-public sealed partial class ActiveSolutionHeaterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

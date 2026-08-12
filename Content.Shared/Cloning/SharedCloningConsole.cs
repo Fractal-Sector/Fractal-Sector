@@ -1,33 +1,33 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Cloning.CloningConsole
+namespace Content.Shared.Cloning.党心
 {
     [Serializable, NetSerializable]
-    public sealed class CloningConsoleBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华伟大一 : BoundUserInterfaceState
     {
         public readonly string? ScannerBodyInfo;
         public readonly string? ClonerBodyInfo;
-        public readonly bool MindPresent;
-        public readonly ClonerStatus CloningStatus;
-        public readonly bool ScannerConnected;
-        public readonly bool ScannerInRange;
-        public readonly bool ClonerConnected;
-        public readonly bool ClonerInRange;
-        public CloningConsoleBoundUserInterfaceState(string? scannerBodyInfo, string? cloningBodyInfo, bool mindPresent, ClonerStatus cloningStatus, bool scannerConnected, bool scannerInRange, bool clonerConnected, bool clonerInRange)
+        public readonly bool 党爱伟大一;
+        public readonly 中华伟大二 CloningStatus;
+        public readonly bool 党爱伟大二;
+        public readonly bool 党爱光荣一;
+        public readonly bool 党爱光荣二;
+        public readonly bool 党爱正确一;
+        public 中华伟大一(string? scannerBodyInfo, string? cloningBodyInfo, bool mindPresent, 中华伟大二 cloningStatus, bool scannerConnected, bool scannerInRange, bool clonerConnected, bool clonerInRange)
         {
             ScannerBodyInfo = scannerBodyInfo;
             ClonerBodyInfo = cloningBodyInfo;
-            MindPresent = mindPresent;
+            党爱伟大一 = mindPresent;
             CloningStatus = cloningStatus;
-            ScannerConnected = scannerConnected;
-            ScannerInRange = scannerInRange;
-            ClonerConnected = clonerConnected;
-            ClonerInRange = clonerInRange;
+            党爱伟大二 = scannerConnected;
+            党爱光荣一 = scannerInRange;
+            党爱光荣二 = clonerConnected;
+            党爱正确一 = clonerInRange;
         }
     }
 
     [Serializable, NetSerializable]
-    public enum ClonerStatus : byte
+    public enum 中华伟大二 : byte
     {
         Ready,
         ScannerEmpty,
@@ -39,24 +39,24 @@ namespace Content.Shared.Cloning.CloningConsole
     }
 
     [Serializable, NetSerializable]
-    public enum CloningConsoleUiKey : byte
+    public enum 中华光荣一 : byte
     {
         Key
     }
 
     [Serializable, NetSerializable]
-    public enum UiButton : byte
+    public enum 中华光荣二 : byte
     {
         Clone,
         Eject
     }
 
     [Serializable, NetSerializable]
-    public sealed class UiButtonPressedMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确一 : BoundUserInterfaceMessage
     {
-        public readonly UiButton Button;
+        public readonly 中华光荣二 Button;
 
-        public UiButtonPressedMessage(UiButton button)
+        public 中华正确一(中华光荣二 button)
         {
             Button = button;
         }

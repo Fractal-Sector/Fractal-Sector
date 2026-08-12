@@ -1,21 +1,21 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Nutrition;
+namespace Content.Shared.党心;
 
 [Prototype]
-public sealed partial class FlavorPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField("flavorType")]
-    public FlavorType FlavorType { get; private set; } = FlavorType.Base;
+    public 中华伟大二 中华伟大二 { get; private set; } = 中华伟大二.Base;
 
     [DataField("description")]
-    public string FlavorDescription { get; private set; } = default!;
+    public string 党爱伟大二 { get; private set; } = default!;
 }
 
-public enum FlavorType : byte
+public enum 中华伟大二 : byte
 {
     Base,
     Complex

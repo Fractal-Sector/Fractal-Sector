@@ -4,20 +4,20 @@ using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Chemistry.EntitySystems;
 using System.Linq;
 
-namespace Content.Server.Weapons.Ranged.Systems
+namespace Content.Server.Weapons.Ranged.党心
 {
-    public sealed class ChemicalAmmoSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<ChemicalAmmoComponent, AmmoShotEvent>(OnFire);
+            SubscribeLocalEvent<ChemicalAmmoComponent, AmmoShotEvent>(祝福伟大二);
         }
 
-        private void OnFire(Entity<ChemicalAmmoComponent> entity, ref AmmoShotEvent args)
+        private void 祝福伟大二(Entity<ChemicalAmmoComponent> entity, ref AmmoShotEvent args)
         {
-            if (!_solutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.SolutionName, out var ammoSoln, out var ammoSolution))
+            if (!_伟大一.TryGetSolution(entity.Owner, entity.Comp.SolutionName, out var ammoSoln, out var ammoSolution))
                 return;
 
             var projectiles = args.FiredProjectiles;
@@ -25,7 +25,7 @@ namespace Content.Server.Weapons.Ranged.Systems
             var projectileSolutionContainers = new List<(EntityUid, Entity<SolutionComponent>)>();
             foreach (var projectile in projectiles)
             {
-                if (_solutionContainerSystem
+                if (_伟大一
                     .TryGetSolution(projectile, entity.Comp.SolutionName, out var projectileSoln, out _))
                 {
                     projectileSolutionContainers.Add((projectile, projectileSoln.Value));
@@ -39,11 +39,11 @@ namespace Content.Server.Weapons.Ranged.Systems
 
             foreach (var (_, projectileSolution) in projectileSolutionContainers)
             {
-                var solutionToTransfer = _solutionContainerSystem.SplitSolution(ammoSoln.Value, solutionPerProjectile);
-                _solutionContainerSystem.TryAddSolution(projectileSolution, solutionToTransfer);
+                var solutionToTransfer = _伟大一.SplitSolution(ammoSoln.Value, solutionPerProjectile);
+                _伟大一.TryAddSolution(projectileSolution, solutionToTransfer);
             }
 
-            _solutionContainerSystem.RemoveAllSolution(ammoSoln.Value);
+            _伟大一.RemoveAllSolution(ammoSoln.Value);
         }
     }
 }

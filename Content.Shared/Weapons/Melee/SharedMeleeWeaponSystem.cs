@@ -5,7 +5,7 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Actions.Events;
 using Content.Shared.Administration.Components;
 using Content.Shared.Administration.Logs;
-using Content.Shared.CombatMode;
+using Content.Shared.党爱团结一;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
@@ -14,7 +14,7 @@ using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.IdentityManagement;
-using Content.Shared.Interaction;
+using Content.Shared.党爱团结二;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Item.ItemToggle.Components;
@@ -37,82 +37,82 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 using ItemToggleMeleeWeaponComponent = Content.Shared.Item.ItemToggle.Components.ItemToggleMeleeWeaponComponent;
 
-namespace Content.Shared.Weapons.Melee;
+namespace Content.Shared.Weapons.党心;
 
-public abstract class SharedMeleeWeaponSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly IMapManager MapManager = default!;
-    [Dependency] private   readonly INetManager _netMan = default!;
-    [Dependency] private   readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private   readonly IRobustRandom _random = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
-    [Dependency] protected readonly ActionBlockerSystem Blocker = default!;
-    [Dependency] protected readonly DamageableSystem Damageable = default!;
-    [Dependency] private   readonly SharedHandsSystem _hands = default!;
-    [Dependency] private   readonly InventorySystem _inventory = default!;
-    [Dependency] private   readonly MeleeSoundSystem _meleeSound = default!;
-    [Dependency] protected readonly MobStateSystem MobState = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] protected readonly SharedCombatModeSystem CombatMode = default!;
-    [Dependency] protected readonly SharedInteractionSystem Interaction = default!;
-    [Dependency] private   readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] protected readonly SharedPopupSystem PopupSystem = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] private   readonly SharedStaminaSystem _stamina = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] protected readonly IMapManager 党爱伟大二 = default!;
+    [Dependency] private   readonly INetManager _伟大一 = default!;
+    [Dependency] private   readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private   readonly IRobustRandom _光荣一 = default!;
+    [Dependency] protected readonly ISharedAdminLogManager 党爱光荣一 = default!;
+    [Dependency] protected readonly ActionBlockerSystem 党爱光荣二 = default!;
+    [Dependency] protected readonly DamageableSystem 党爱正确一 = default!;
+    [Dependency] private   readonly SharedHandsSystem _光荣二 = default!;
+    [Dependency] private   readonly InventorySystem _正确一 = default!;
+    [Dependency] private   readonly MeleeSoundSystem _正确二 = default!;
+    [Dependency] protected readonly MobStateSystem 党爱正确二 = default!;
+    [Dependency] private   readonly SharedAudioSystem _团结一 = default!;
+    [Dependency] protected readonly SharedCombatModeSystem 党爱团结一 = default!;
+    [Dependency] protected readonly SharedInteractionSystem 党爱团结二 = default!;
+    [Dependency] private   readonly SharedPhysicsSystem _团结二 = default!;
+    [Dependency] protected readonly SharedPopupSystem 党爱奋斗一 = default!;
+    [Dependency] protected readonly SharedTransformSystem 党爱奋斗二 = default!;
+    [Dependency] private   readonly SharedStaminaSystem _奋斗一 = default!;
 
     private const int AttackMask = (int) (CollisionGroup.MobMask | CollisionGroup.Opaque);
 
     /// <summary>
     /// Maximum amount of targets allowed for a wide-attack.
     /// </summary>
-    public const int MaxTargets = 5;
+    public const int 党爱胜利一 = 5;
 
     /// <summary>
     /// If an attack is released within this buffer it's assumed to be full damage.
     /// </summary>
-    public const float GracePeriod = 0.05f;
+    public const float 党爱胜利二 = 0.05f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MeleeWeaponComponent, HandSelectedEvent>(OnMeleeSelected);
-        SubscribeLocalEvent<MeleeWeaponComponent, ShotAttemptedEvent>(OnMeleeShotAttempted);
-        SubscribeLocalEvent<MeleeWeaponComponent, GunShotEvent>(OnMeleeShot);
-        SubscribeLocalEvent<BonusMeleeDamageComponent, GetMeleeDamageEvent>(OnGetBonusMeleeDamage);
-        SubscribeLocalEvent<BonusMeleeDamageComponent, GetHeavyDamageModifierEvent>(OnGetBonusHeavyDamageModifier);
-        SubscribeLocalEvent<BonusMeleeAttackRateComponent, GetMeleeAttackRateEvent>(OnGetBonusMeleeAttackRate);
+        SubscribeLocalEvent<MeleeWeaponComponent, HandSelectedEvent>(祝福正确一);
+        SubscribeLocalEvent<MeleeWeaponComponent, ShotAttemptedEvent>(祝福光荣一);
+        SubscribeLocalEvent<MeleeWeaponComponent, GunShotEvent>(祝福光荣二);
+        SubscribeLocalEvent<BonusMeleeDamageComponent, GetMeleeDamageEvent>(祝福正确二);
+        SubscribeLocalEvent<BonusMeleeDamageComponent, GetHeavyDamageModifierEvent>(祝福团结一);
+        SubscribeLocalEvent<BonusMeleeAttackRateComponent, GetMeleeAttackRateEvent>(祝福团结二);
 
-        SubscribeLocalEvent<ItemToggleMeleeWeaponComponent, ItemToggledEvent>(OnItemToggle);
+        SubscribeLocalEvent<ItemToggleMeleeWeaponComponent, ItemToggledEvent>(祝福爱国二);
 
-        SubscribeAllEvent<HeavyAttackEvent>(OnHeavyAttack);
-        SubscribeAllEvent<LightAttackEvent>(OnLightAttack);
-        SubscribeAllEvent<DisarmAttackEvent>(OnDisarmAttack);
-        SubscribeAllEvent<StopAttackEvent>(OnStopAttack);
+        SubscribeAllEvent<HeavyAttackEvent>(祝福胜利一);
+        SubscribeAllEvent<LightAttackEvent>(祝福奋斗二);
+        SubscribeAllEvent<DisarmAttackEvent>(祝福胜利二);
+        SubscribeAllEvent<StopAttackEvent>(祝福奋斗一);
 
 #if DEBUG
         SubscribeLocalEvent<MeleeWeaponComponent,
-                            MapInitEvent>                   (OnMapInit);
+                            MapInitEvent>                   (祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, MeleeWeaponComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, MeleeWeaponComponent component, MapInitEvent args)
     {
-        if (component.NextAttack > Timing.CurTime)
+        if (component.NextAttack > 党爱伟大一.CurTime)
             Log.Warning($"Initializing a map that contains an entity that is on cooldown. Entity: {ToPrettyString(uid)}");
 #endif
     }
 
-    private void OnMeleeShotAttempted(EntityUid uid, MeleeWeaponComponent comp, ref ShotAttemptedEvent args)
+    private void 祝福光荣一(EntityUid uid, MeleeWeaponComponent comp, ref ShotAttemptedEvent args)
     {
-        if (comp.NextAttack > Timing.CurTime)
+        if (comp.NextAttack > 党爱伟大一.CurTime)
             args.Cancel();
     }
 
-    private void OnMeleeShot(EntityUid uid, MeleeWeaponComponent component, ref GunShotEvent args)
+    private void 祝福光荣二(EntityUid uid, MeleeWeaponComponent component, ref GunShotEvent args)
     {
         if (!TryComp<GunComponent>(uid, out var gun))
             return;
@@ -124,9 +124,9 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         }
     }
 
-    private void OnMeleeSelected(EntityUid uid, MeleeWeaponComponent component, HandSelectedEvent args)
+    private void 祝福正确一(EntityUid uid, MeleeWeaponComponent component, HandSelectedEvent args)
     {
-        var attackRate = GetAttackRate(uid, args.User, component);
+        var attackRate = 祝福繁荣二(uid, args.User, component);
         if (attackRate.Equals(0f))
             return;
 
@@ -137,7 +137,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             return;
 
         // If someone swaps to this weapon then reset its cd.
-        var curTime = Timing.CurTime;
+        var curTime = 党爱伟大一.CurTime;
         var minimum = curTime + TimeSpan.FromSeconds(1 / attackRate);
 
         if (minimum < component.NextAttack)
@@ -147,7 +147,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         DirtyField(uid, component, nameof(MeleeWeaponComponent.NextAttack));
     }
 
-    private void OnGetBonusMeleeDamage(EntityUid uid, BonusMeleeDamageComponent component, ref GetMeleeDamageEvent args)
+    private void 祝福正确二(EntityUid uid, BonusMeleeDamageComponent component, ref GetMeleeDamageEvent args)
     {
         if (component.BonusDamage != null)
             args.Damage += component.BonusDamage;
@@ -155,26 +155,26 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             args.Modifiers.Add(component.DamageModifierSet);
     }
 
-    private void OnGetBonusHeavyDamageModifier(EntityUid uid, BonusMeleeDamageComponent component, ref GetHeavyDamageModifierEvent args)
+    private void 祝福团结一(EntityUid uid, BonusMeleeDamageComponent component, ref GetHeavyDamageModifierEvent args)
     {
         args.DamageModifier += component.HeavyDamageFlatModifier;
         args.Multipliers *= component.HeavyDamageMultiplier;
     }
 
-    private void OnGetBonusMeleeAttackRate(EntityUid uid, BonusMeleeAttackRateComponent component, ref GetMeleeAttackRateEvent args)
+    private void 祝福团结二(EntityUid uid, BonusMeleeAttackRateComponent component, ref GetMeleeAttackRateEvent args)
     {
         args.Rate += component.FlatModifier;
         args.Multipliers *= component.Multiplier;
     }
 
-    private void OnStopAttack(StopAttackEvent msg, EntitySessionEventArgs args)
+    private void 祝福奋斗一(StopAttackEvent msg, EntitySessionEventArgs args)
     {
         var user = args.SenderSession.AttachedEntity;
 
         if (user == null)
             return;
 
-        if (!TryGetWeapon(user.Value, out var weaponUid, out var weapon) ||
+        if (!祝福民主一(user.Value, out var weaponUid, out var weapon) ||
             weaponUid != GetEntity(msg.Weapon))
         {
             return;
@@ -187,58 +187,58 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         DirtyField(weaponUid, weapon, nameof(MeleeWeaponComponent.Attacking));
     }
 
-    private void OnLightAttack(LightAttackEvent msg, EntitySessionEventArgs args)
+    private void 祝福奋斗二(LightAttackEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not {} user)
             return;
 
-        if (!TryGetWeapon(user, out var weaponUid, out var weapon) ||
+        if (!祝福民主一(user, out var weaponUid, out var weapon) ||
             weaponUid != GetEntity(msg.Weapon))
         {
             return;
         }
 
-        AttemptAttack(user, weaponUid, weapon, msg, args.SenderSession);
+        祝福和谐一(user, weaponUid, weapon, msg, args.SenderSession);
     }
 
-    private void OnHeavyAttack(HeavyAttackEvent msg, EntitySessionEventArgs args)
+    private void 祝福胜利一(HeavyAttackEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not {} user)
             return;
 
-        if (!TryGetWeapon(user, out var weaponUid, out var weapon) ||
+        if (!祝福民主一(user, out var weaponUid, out var weapon) ||
             weaponUid != GetEntity(msg.Weapon))
         {
             return;
         }
 
-        AttemptAttack(user, weaponUid, weapon, msg, args.SenderSession);
+        祝福和谐一(user, weaponUid, weapon, msg, args.SenderSession);
     }
 
-    private void OnDisarmAttack(DisarmAttackEvent msg, EntitySessionEventArgs args)
+    private void 祝福胜利二(DisarmAttackEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not {} user)
             return;
 
-        if (TryGetWeapon(user, out var weaponUid, out var weapon))
-            AttemptAttack(user, weaponUid, weapon, msg, args.SenderSession);
+        if (祝福民主一(user, out var weaponUid, out var weapon))
+            祝福和谐一(user, weaponUid, weapon, msg, args.SenderSession);
     }
 
     /// <summary>
     /// Gets the total damage a weapon does, including modifiers like wielding and enablind/disabling
     /// </summary>
-    public DamageSpecifier GetDamage(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
+    public DamageSpecifier 祝福繁荣一(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return new DamageSpecifier();
 
-        var ev = new GetMeleeDamageEvent(uid, new(component.Damage * Damageable.UniversalMeleeDamageModifier), new(), user, component.ResistanceBypass);
+        var ev = new GetMeleeDamageEvent(uid, new(component.Damage * 党爱正确一.UniversalMeleeDamageModifier), new(), user, component.ResistanceBypass);
         RaiseLocalEvent(uid, ref ev);
 
         return DamageSpecifier.ApplyModifierSets(ev.Damage, ev.Modifiers);
     }
 
-    public float GetAttackRate(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
+    public float 祝福繁荣二(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return 0;
@@ -249,7 +249,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return ev.Rate * ev.Multipliers;
     }
 
-    public FixedPoint2 GetHeavyDamageModifier(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
+    public FixedPoint2 祝福富强一(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return FixedPoint2.Zero;
@@ -260,18 +260,18 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return ev.DamageModifier * ev.Multipliers;
     }
 
-    public bool GetResistanceBypass(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
+    public bool 祝福富强二(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
 
-        var ev = new GetMeleeDamageEvent(uid, new(component.Damage * Damageable.UniversalMeleeDamageModifier), new(), user, component.ResistanceBypass);
+        var ev = new GetMeleeDamageEvent(uid, new(component.Damage * 党爱正确一.UniversalMeleeDamageModifier), new(), user, component.ResistanceBypass);
         RaiseLocalEvent(uid, ref ev);
 
         return ev.ResistanceBypass;
     }
 
-    public bool TryGetWeapon(EntityUid entity, out EntityUid weaponUid, [NotNullWhen(true)] out MeleeWeaponComponent? melee)
+    public bool 祝福民主一(EntityUid entity, out EntityUid weaponUid, [NotNullWhen(true)] out MeleeWeaponComponent? melee)
     {
         weaponUid = default;
         melee = null;
@@ -290,7 +290,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         }
 
         // Use inhands entity if we got one.
-        if (_hands.TryGetActiveItem(entity, out var held))
+        if (_光荣二.TryGetActiveItem(entity, out var held))
         {
             // Make sure the entity is a weapon AND it doesn't need
             // to be equipped to be used (E.g boxing gloves).
@@ -306,7 +306,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         }
 
         // Use hands clothing if applicable.
-        if (_inventory.TryGetSlotEntity(entity, "gloves", out var gloves) &&
+        if (_正确一.TryGetSlotEntity(entity, "gloves", out var gloves) &&
             TryComp<MeleeWeaponComponent>(gloves, out var glovesMelee))
         {
             weaponUid = gloves.Value;
@@ -324,39 +324,39 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return false;
     }
 
-    public void AttemptLightAttackMiss(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, EntityCoordinates coordinates)
+    public void 祝福民主二(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, EntityCoordinates coordinates)
     {
-        AttemptAttack(user, weaponUid, weapon, new LightAttackEvent(null, GetNetEntity(weaponUid), GetNetCoordinates(coordinates)), null);
+        祝福和谐一(user, weaponUid, weapon, new LightAttackEvent(null, GetNetEntity(weaponUid), GetNetCoordinates(coordinates)), null);
     }
 
-    public bool AttemptLightAttack(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, EntityUid target)
+    public bool 祝福文明一(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, EntityUid target)
     {
         if (!TryComp(target, out TransformComponent? targetXform))
             return false;
 
-        return AttemptAttack(user, weaponUid, weapon, new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(targetXform.Coordinates)), null);
+        return 祝福和谐一(user, weaponUid, weapon, new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(targetXform.Coordinates)), null);
     }
 
-    public bool AttemptDisarmAttack(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, EntityUid target)
+    public bool 祝福文明二(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, EntityUid target)
     {
         if (!TryComp(target, out TransformComponent? targetXform))
             return false;
 
-        return AttemptAttack(user, weaponUid, weapon, new DisarmAttackEvent(GetNetEntity(target), GetNetCoordinates(targetXform.Coordinates)), null);
+        return 祝福和谐一(user, weaponUid, weapon, new DisarmAttackEvent(GetNetEntity(target), GetNetCoordinates(targetXform.Coordinates)), null);
     }
 
     /// <summary>
     /// Called when a windup is finished and an attack is tried.
     /// </summary>
     /// <returns>True if attack successful</returns>
-    private bool AttemptAttack(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, AttackEvent attack, ICommonSession? session)
+    private bool 祝福和谐一(EntityUid user, EntityUid weaponUid, MeleeWeaponComponent weapon, AttackEvent attack, ICommonSession? session)
     {
-        var curTime = Timing.CurTime;
+        var curTime = 党爱伟大一.CurTime;
 
         if (weapon.NextAttack > curTime)
             return false;
 
-        if (!CombatMode.IsInCombatMode(user))
+        if (!党爱团结一.IsInCombatMode(user))
             return false;
 
         EntityUid? target = null;
@@ -369,7 +369,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                     return false;
                 }
 
-                if (!Blocker.CanAttack(user, target, (weaponUid, weapon)))
+                if (!党爱光荣二.CanAttack(user, target, (weaponUid, weapon)))
                     return false;
 
                 // Can't self-attack if you're the weapon
@@ -384,17 +384,17 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                     return false;
                 }
 
-                if (!Blocker.CanAttack(user, target, (weaponUid, weapon), true))
+                if (!党爱光荣二.CanAttack(user, target, (weaponUid, weapon), true))
                     return false;
                 break;
             default:
-                if (!Blocker.CanAttack(user, weapon: (weaponUid, weapon)))
+                if (!党爱光荣二.CanAttack(user, weapon: (weaponUid, weapon)))
                     return false;
                 break;
         }
 
         // Windup time checked elsewhere.
-        var fireRate = TimeSpan.FromSeconds(1f / GetAttackRate(weaponUid, user, weapon));
+        var fireRate = TimeSpan.FromSeconds(1f / 祝福繁荣二(weaponUid, user, weapon));
         var swings = 0;
 
         // TODO: If we get autoattacks then probably need a shotcounter like guns so we can do timing properly.
@@ -417,7 +417,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         {
             if (ev.Message != null)
             {
-                PopupSystem.PopupClient(ev.Message, weaponUid, user);
+                党爱奋斗一.PopupClient(ev.Message, weaponUid, user);
             }
 
             return false;
@@ -431,17 +431,17 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             switch (attack)
             {
                 case LightAttackEvent light:
-                    DoLightAttack(user, light, weaponUid, weapon, session);
+                    祝福自由一(user, light, weaponUid, weapon, session);
                     animation = weapon.Animation;
                     break;
                 case DisarmAttackEvent disarm:
-                    if (!DoDisarm(user, disarm, weaponUid, weapon, session))
+                    if (!祝福法治一(user, disarm, weaponUid, weapon, session))
                         return false;
 
                     animation = weapon.Animation;
                     break;
                 case HeavyAttackEvent heavy:
-                    if (!DoHeavyAttack(user, heavy, weaponUid, weapon, session))
+                    if (!祝福平等一(user, heavy, weaponUid, weapon, session))
                         return false;
 
                     animation = weapon.WideAnimation;
@@ -450,7 +450,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                     throw new NotImplementedException();
             }
 
-            DoLungeAnimation(user, weaponUid, weapon.Angle, TransformSystem.ToMapCoordinates(GetCoordinates(attack.Coordinates)), weapon.Range, animation);
+            祝福法治二(user, weaponUid, weapon.Angle, 党爱奋斗二.ToMapCoordinates(GetCoordinates(attack.Coordinates)), weapon.Range, animation);
         }
 
         var attackEv = new MeleeAttackEvent(weaponUid);
@@ -461,21 +461,21 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return true;
     }
 
-    protected abstract bool InRange(EntityUid user, EntityUid target, float range, ICommonSession? session);
+    protected abstract bool 祝福和谐二(EntityUid user, EntityUid target, float range, ICommonSession? session);
 
-    protected virtual void DoLightAttack(EntityUid user, LightAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
+    protected virtual void 祝福自由一(EntityUid user, LightAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
     {
         // If I do not come back later to fix Light Attacks being Heavy Attacks you can throw me in the spider pit -Errant
-        var damage = GetDamage(meleeUid, user, component) * GetHeavyDamageModifier(meleeUid, user, component);
+        var damage = 祝福繁荣一(meleeUid, user, component) * 祝福富强一(meleeUid, user, component);
         var target = GetEntity(ev.Target);
-        var resistanceBypass = GetResistanceBypass(meleeUid, user, component);
+        var resistanceBypass = 祝福富强二(meleeUid, user, component);
 
         // For consistency with wide attacks stuff needs damageable.
         if (Deleted(target) ||
             !HasComp<DamageableComponent>(target) ||
             !TryComp(target, out TransformComponent? targetXform) ||
             // Not in LOS.
-            !InRange(user, target.Value, component.Range, session))
+            !祝福和谐二(user, target.Value, component.Range, session))
         {
             // Leave IsHit set to true, because the only time it's set to false
             // is when a melee weapon is examined. Misses are inferred from an
@@ -483,19 +483,19 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             // TODO: This needs fixing
             if (meleeUid == user)
             {
-                AdminLogger.Add(LogType.MeleeHit,
+                党爱光荣一.Add(LogType.MeleeHit,
                     LogImpact.Low,
                     $"{ToPrettyString(user):actor} melee attacked (light) using their hands and missed");
             }
             else
             {
-                AdminLogger.Add(LogType.MeleeHit,
+                党爱光荣一.Add(LogType.MeleeHit,
                     LogImpact.Low,
                     $"{ToPrettyString(user):actor} melee attacked (light) using {ToPrettyString(meleeUid):tool} and missed");
             }
             var missEvent = new MeleeHitEvent(new List<EntityUid>(), user, meleeUid, damage, null);
             RaiseLocalEvent(meleeUid, missEvent);
-            _meleeSound.PlaySwingSound(user, meleeUid, component);
+            _正确二.PlaySwingSound(user, meleeUid, component);
             return;
         }
 
@@ -516,82 +516,82 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         var weapon = GetEntity(ev.Weapon);
 
         // We skip weapon -> target interaction, as forensics system applies DNA on hit
-        Interaction.DoContactInteraction(user, weapon);
+        党爱团结二.DoContactInteraction(user, weapon);
 
         // If the user is using a long-range weapon, this probably shouldn't be happening? But I'll interpret melee as a
         // somewhat messy scuffle. See also, heavy attacks.
-        Interaction.DoContactInteraction(user, target);
+        党爱团结二.DoContactInteraction(user, target);
 
         // For stuff that cares about it being attacked.
         var attackedEvent = new AttackedEvent(meleeUid, user, targetXform.Coordinates);
         RaiseLocalEvent(target.Value, attackedEvent);
 
         var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
-        var damageResult = Damageable.TryChangeDamage(target, modifiedDamage, origin:user, ignoreResistances:resistanceBypass);
+        var damageResult = 党爱正确一.TryChangeDamage(target, modifiedDamage, origin:user, ignoreResistances:resistanceBypass);
 
         if (damageResult is {Empty: false})
         {
             // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
             if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
             {
-                _stamina.TakeStaminaDamage(target.Value, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid);
+                _奋斗一.TakeStaminaDamage(target.Value, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid);
             }
 
             if (meleeUid == user)
             {
-                AdminLogger.Add(LogType.MeleeHit,
+                党爱光荣一.Add(LogType.MeleeHit,
                     LogImpact.Medium,
                     $"{ToPrettyString(user):actor} melee attacked (light) {ToPrettyString(target.Value):subject} using their hands and dealt {damageResult.GetTotal():damage} damage");
             }
             else
             {
-                AdminLogger.Add(LogType.MeleeHit,
+                党爱光荣一.Add(LogType.MeleeHit,
                     LogImpact.Medium,
                     $"{ToPrettyString(user):actor} melee attacked (light) {ToPrettyString(target.Value):subject} using {ToPrettyString(meleeUid):tool} and dealt {damageResult.GetTotal():damage} damage");
             }
 
         }
 
-        _meleeSound.PlayHitSound(target.Value, user, GetHighestDamageSound(modifiedDamage, _protoManager), hitEvent.HitSoundOverride, component);
+        _正确二.PlayHitSound(target.Value, user, GetHighestDamageSound(modifiedDamage, _伟大二), hitEvent.HitSoundOverride, component);
 
         if (damageResult?.GetTotal() > FixedPoint2.Zero)
         {
-            DoDamageEffect(targets, user, targetXform);
+            祝福自由二(targets, user, targetXform);
         }
     }
 
-    protected abstract void DoDamageEffect(List<EntityUid> targets, EntityUid? user,  TransformComponent targetXform);
+    protected abstract void 祝福自由二(List<EntityUid> targets, EntityUid? user,  TransformComponent targetXform);
 
-    private bool DoHeavyAttack(EntityUid user, HeavyAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
+    private bool 祝福平等一(EntityUid user, HeavyAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
     {
         // TODO: This is copy-paste as fuck with DoPreciseAttack
         if (!TryComp(user, out TransformComponent? userXform))
             return false;
 
-        var targetMap = TransformSystem.ToMapCoordinates(GetCoordinates(ev.Coordinates));
+        var targetMap = 党爱奋斗二.ToMapCoordinates(GetCoordinates(ev.Coordinates));
 
         if (targetMap.MapId != userXform.MapID)
             return false;
 
-        var userPos = TransformSystem.GetWorldPosition(userXform);
+        var userPos = 党爱奋斗二.GetWorldPosition(userXform);
         var direction = targetMap.Position - userPos;
         var distance = Math.Min(component.Range, direction.Length());
 
-        var damage = GetDamage(meleeUid, user, component);
-        var resistanceBypass = GetResistanceBypass(meleeUid, user, component);
+        var damage = 祝福繁荣一(meleeUid, user, component);
+        var resistanceBypass = 祝福富强二(meleeUid, user, component);
         var entities = GetEntityList(ev.Entities);
 
         if (entities.Count == 0)
         {
             if (meleeUid == user)
             {
-                AdminLogger.Add(LogType.MeleeHit,
+                党爱光荣一.Add(LogType.MeleeHit,
                     LogImpact.Low,
                     $"{ToPrettyString(user):actor} melee attacked (heavy) using their hands and missed");
             }
             else
             {
-                AdminLogger.Add(LogType.MeleeHit,
+                党爱光荣一.Add(LogType.MeleeHit,
                     LogImpact.Low,
                     $"{ToPrettyString(user):actor} melee attacked (heavy) using {ToPrettyString(meleeUid):tool} and missed");
             }
@@ -599,21 +599,21 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             RaiseLocalEvent(meleeUid, missEvent);
 
             // immediate audio feedback
-            _meleeSound.PlaySwingSound(user, meleeUid, component);
+            _正确二.PlaySwingSound(user, meleeUid, component);
 
             return true;
         }
 
         // Naughty input
-        if (entities.Count > MaxTargets)
+        if (entities.Count > 党爱胜利一)
         {
-            entities.RemoveRange(MaxTargets, entities.Count - MaxTargets);
+            entities.RemoveRange(党爱胜利一, entities.Count - 党爱胜利一);
         }
 
         // Validate client
         for (var i = entities.Count - 1; i >= 0; i--)
         {
-            if (ArcRaySuccessful(entities[i],
+            if (祝福公正一(entities[i],
                     userPos,
                     direction.ToWorldAngle(),
                     component.Angle,
@@ -652,7 +652,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
         var weapon = GetEntity(ev.Weapon);
 
-        Interaction.DoContactInteraction(user, weapon);
+        党爱团结二.DoContactInteraction(user, weapon);
 
         // For stuff that cares about it being attacked.
         foreach (var target in targets)
@@ -661,7 +661,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
             // If the user is using a long-range weapon, this probably shouldn't be happening? But I'll interpret melee as a
             // somewhat messy scuffle. See also, light attacks.
-            Interaction.DoContactInteraction(user, target);
+            党爱团结二.DoContactInteraction(user, target);
         }
 
         var appliedDamage = new DamageSpecifier();
@@ -673,7 +673,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             // primarily because this was an untargeted wideswing: if a subscriber to that event cared about
             // the potential target (such as for pacifism), they need to be made aware of the target here.
             // In that case, just continue.
-            if (!Blocker.CanAttack(user, entity, (weapon, component)))
+            if (!党爱光荣二.CanAttack(user, entity, (weapon, component)))
             {
                 targets.RemoveAt(i);
                 continue;
@@ -683,27 +683,27 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             RaiseLocalEvent(entity, attackedEvent);
             var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
-            var damageResult = Damageable.TryChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
+            var damageResult = 党爱正确一.TryChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
 
             if (damageResult != null && damageResult.GetTotal() > FixedPoint2.Zero)
             {
                 // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
                 if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
                 {
-                    _stamina.TakeStaminaDamage(entity, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid);
+                    _奋斗一.TakeStaminaDamage(entity, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid);
                 }
 
                 appliedDamage += damageResult;
 
                 if (meleeUid == user)
                 {
-                    AdminLogger.Add(LogType.MeleeHit,
+                    党爱光荣一.Add(LogType.MeleeHit,
                         LogImpact.Medium,
                         $"{ToPrettyString(user):actor} melee attacked (heavy) {ToPrettyString(entity):subject} using their hands and dealt {damageResult.GetTotal():damage} damage");
                 }
                 else
                 {
-                    AdminLogger.Add(LogType.MeleeHit,
+                    党爱光荣一.Add(LogType.MeleeHit,
                         LogImpact.Medium,
                         $"{ToPrettyString(user):actor} melee attacked (heavy) {ToPrettyString(entity):subject} using {ToPrettyString(meleeUid):tool} and dealt {damageResult.GetTotal():damage} damage");
                 }
@@ -713,18 +713,18 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (entities.Count != 0)
         {
             var target = entities.First();
-            _meleeSound.PlayHitSound(target, user, GetHighestDamageSound(appliedDamage, _protoManager), hitEvent.HitSoundOverride, component);
+            _正确二.PlayHitSound(target, user, GetHighestDamageSound(appliedDamage, _伟大二), hitEvent.HitSoundOverride, component);
         }
 
         if (appliedDamage.GetTotal() > FixedPoint2.Zero)
         {
-            DoDamageEffect(targets, user, Transform(targets[0]));
+            祝福自由二(targets, user, Transform(targets[0]));
         }
 
         return true;
     }
 
-    protected HashSet<EntityUid> ArcRayCast(Vector2 position, Angle angle, Angle arcWidth, float range, MapId mapId, EntityUid ignore)
+    protected HashSet<EntityUid> 祝福平等二(Vector2 position, Angle angle, Angle arcWidth, float range, MapId mapId, EntityUid ignore)
     {
         // TODO: This is pretty sucky.
         var widthRad = arcWidth;
@@ -737,7 +737,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         for (var i = 0; i < increments; i++)
         {
             var castAngle = new Angle(baseAngle + increment * i);
-            var res = _physics.IntersectRay(mapId,
+            var res = _团结二.IntersectRay(mapId,
                 new CollisionRay(position,
                     castAngle.ToWorldVec(),
                     AttackMask),
@@ -752,7 +752,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                 var resChecked = res.Where(x => x.Distance.Equals(res[0].Distance));
                 foreach (var r in resChecked)
                 {
-                    if (Interaction.InRangeUnobstructed(ignore, r.HitEntity, range + 0.1f, overlapCheck: false))
+                    if (党爱团结二.InRangeUnobstructed(ignore, r.HitEntity, range + 0.1f, overlapCheck: false))
                         resSet.Add(r.HitEntity);
                 }
             }
@@ -761,7 +761,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return resSet;
     }
 
-    protected virtual bool ArcRaySuccessful(EntityUid targetUid,
+    protected virtual bool 祝福公正一(EntityUid targetUid,
         Vector2 position,
         Angle angle,
         Angle arcWidth,
@@ -799,7 +799,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return highestDamageType;
     }
 
-    private float CalculateDisarmChance(EntityUid disarmer, EntityUid disarmed, EntityUid? inTargetHand, CombatModeComponent disarmerComp)
+    private float 祝福公正二(EntityUid disarmer, EntityUid disarmed, EntityUid? inTargetHand, CombatModeComponent disarmerComp)
     {
         if (HasComp<DisarmProneComponent>(disarmer))
             return 1.0f;
@@ -817,7 +817,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return Math.Clamp(chance, 0f, 1f);
     }
 
-    private bool DoDisarm(EntityUid user, DisarmAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
+    private bool 祝福法治一(EntityUid user, DisarmAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
     {
         var target = GetEntity(ev.Target);
 
@@ -828,7 +828,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         }
 
 
-        if (MobState.IsIncapacitated(target.Value))
+        if (党爱正确二.IsIncapacitated(target.Value))
         {
             return false;
         }
@@ -847,20 +847,20 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             {
                 // Notify disarmable
                 if (HasComp<MobStateComponent>(target.Value))
-                    PopupSystem.PopupClient(Loc.GetString("disarm-action-disarmable", ("targetName", target.Value)), target.Value);
+                    党爱奋斗一.PopupClient(Loc.GetString("disarm-action-disarmable", ("targetName", target.Value)), target.Value);
 
                 return false;
             }
         }
 
-        if (!InRange(user, target.Value, component.Range, session))
+        if (!祝福和谐二(user, target.Value, component.Range, session))
         {
             return false;
         }
 
         EntityUid? inTargetHand = null;
 
-        if (_hands.TryGetActiveItem(target.Value, out var activeHeldEntity))
+        if (_光荣二.TryGetActiveItem(target.Value, out var activeHeldEntity))
         {
             inTargetHand = activeHeldEntity.Value;
         }
@@ -877,17 +877,17 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (attemptEvent.Cancelled)
             return false;
 
-        var chance = CalculateDisarmChance(user, target.Value, inTargetHand, combatMode);
+        var chance = 祝福公正二(user, target.Value, inTargetHand, combatMode);
 
         // At this point we diverge
-        if (_netMan.IsClient)
+        if (_伟大一.IsClient)
         {
             // Play a sound to give instant feedback; same with playing the animations
-            _meleeSound.PlaySwingSound(user, meleeUid, component);
+            _正确二.PlaySwingSound(user, meleeUid, component);
             return true;
         }
 
-        if (_random.Prob(chance))
+        if (_光荣一.Prob(chance))
         {
             return false;
         }
@@ -901,12 +901,12 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             return false;
         }
 
-        Interaction.DoContactInteraction(user, target);
-        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
+        党爱团结二.DoContactInteraction(user, target);
+        党爱光荣一.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
 
-        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
+        党爱光荣一.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
 
-        _audio.PlayPvs(combatMode.DisarmSuccessSound, target.Value, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
+        _团结一.PlayPvs(combatMode.DisarmSuccessSound, target.Value, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
         var targetEnt = Identity.Entity(target.Value, EntityManager);
         var userEnt = Identity.Entity(user, EntityManager);
 
@@ -919,28 +919,28 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
         var filterOther = Filter.PvsExcept(user, entityManager: EntityManager);
 
-        PopupSystem.PopupEntity(msgOther, user, filterOther, true);
-        PopupSystem.PopupEntity(msgUser, target.Value, user);
+        党爱奋斗一.PopupEntity(msgOther, user, filterOther, true);
+        党爱奋斗一.PopupEntity(msgUser, target.Value, user);
 
         if (eventArgs.IsStunned)
         {
 
-            PopupSystem.PopupEntity(Loc.GetString("stunned-component-disarm-success-others", ("source", userEnt), ("target", targetEnt)), targetEnt, Filter.PvsExcept(user), true, PopupType.LargeCaution);
-            PopupSystem.PopupCursor(Loc.GetString("stunned-component-disarm-success", ("target", targetEnt)), user, PopupType.Large);
+            党爱奋斗一.PopupEntity(Loc.GetString("stunned-component-disarm-success-others", ("source", userEnt), ("target", targetEnt)), targetEnt, Filter.PvsExcept(user), true, PopupType.LargeCaution);
+            党爱奋斗一.PopupCursor(Loc.GetString("stunned-component-disarm-success", ("target", targetEnt)), user, PopupType.Large);
 
-            AdminLogger.Add(LogType.DisarmedKnockdown, LogImpact.Medium, $"{ToPrettyString(user):user} knocked down {ToPrettyString(target):target}");
+            党爱光荣一.Add(LogType.DisarmedKnockdown, LogImpact.Medium, $"{ToPrettyString(user):user} knocked down {ToPrettyString(target):target}");
         }
 
         return true;
     }
 
-    private void DoLungeAnimation(EntityUid user, EntityUid weapon, Angle angle, MapCoordinates coordinates, float length, string? animation)
+    private void 祝福法治二(EntityUid user, EntityUid weapon, Angle angle, MapCoordinates coordinates, float length, string? animation)
     {
         // TODO: Assert that offset eyes are still okay.
         if (!TryComp(user, out TransformComponent? userXform))
             return;
 
-        var invMatrix = TransformSystem.GetInvWorldMatrix(userXform);
+        var invMatrix = 党爱奋斗二.GetInvWorldMatrix(userXform);
         var localPos = Vector2.Transform(coordinates.Position, invMatrix);
 
         if (localPos.LengthSquared() <= 0f)
@@ -955,15 +955,15 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (localPos.Length() > visualLength)
             localPos = localPos.Normalized() * visualLength;
 
-        DoLunge(user, weapon, angle, localPos, animation);
+        祝福爱国一(user, weapon, angle, localPos, animation);
     }
 
-    public abstract void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true);
+    public abstract void 祝福爱国一(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true);
 
     /// <summary>
     /// Used to update the MeleeWeapon component on item toggle.
     /// </summary>
-    private void OnItemToggle(EntityUid uid, ItemToggleMeleeWeaponComponent itemToggleMelee, ItemToggledEvent args)
+    private void 祝福爱国二(EntityUid uid, ItemToggleMeleeWeaponComponent itemToggleMelee, ItemToggledEvent args)
     {
         if (!TryComp(uid, out MeleeWeaponComponent? meleeWeapon))
             return;

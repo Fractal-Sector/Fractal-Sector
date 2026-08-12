@@ -7,36 +7,36 @@ using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Map;
 
-namespace Content.Server.Weapons.Ranged.Systems;
+namespace Content.Server.Weapons.Ranged.党心;
 
-public sealed partial class GunSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大一 = default!;
 
-    protected override void InitializeSolution()
+    protected override void 祝福伟大一()
     {
-        base.InitializeSolution();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SolutionAmmoProviderComponent, MapInitEvent>(OnSolutionMapInit);
-        SubscribeLocalEvent<SolutionAmmoProviderComponent, SolutionContainerChangedEvent>(OnSolutionChanged);
+        SubscribeLocalEvent<SolutionAmmoProviderComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<SolutionAmmoProviderComponent, SolutionContainerChangedEvent>(祝福光荣一);
     }
 
-    private void OnSolutionMapInit(Entity<SolutionAmmoProviderComponent> entity, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<SolutionAmmoProviderComponent> entity, ref MapInitEvent args)
     {
-        UpdateSolutionShots(entity.Owner, entity.Comp);
+        祝福光荣二(entity.Owner, entity.Comp);
     }
 
-    private void OnSolutionChanged(Entity<SolutionAmmoProviderComponent> entity, ref SolutionContainerChangedEvent args)
+    private void 祝福光荣一(Entity<SolutionAmmoProviderComponent> entity, ref SolutionContainerChangedEvent args)
     {
         if (args.Solution.Name == entity.Comp.SolutionId)
-            UpdateSolutionShots(entity.Owner, entity.Comp, args.Solution);
+            祝福光荣二(entity.Owner, entity.Comp, args.Solution);
     }
 
-    protected override void UpdateSolutionShots(EntityUid uid, SolutionAmmoProviderComponent component, Solution? solution = null)
+    protected override void 祝福光荣二(EntityUid uid, SolutionAmmoProviderComponent component, Solution? solution = null)
     {
         var shots = 0;
         var maxShots = 0;
-        if (solution == null && !_solutionContainer.TryGetSolution(uid, component.SolutionId, out _, out solution))
+        if (solution == null && !_伟大一.TryGetSolution(uid, component.SolutionId, out _, out solution))
         {
             component.Shots = shots;
             DirtyField(uid, component, nameof(SolutionAmmoProviderComponent.Shots));
@@ -61,10 +61,10 @@ public sealed partial class GunSystem
     {
         var (ent, shootable) = base.GetSolutionShot(uid, component, position);
 
-        if (!_solutionContainer.TryGetSolution(uid, component.SolutionId, out var solution, out _))
+        if (!_伟大一.TryGetSolution(uid, component.SolutionId, out var solution, out _))
             return (ent, shootable);
 
-        var newSolution = _solutionContainer.SplitSolution(solution.Value, component.FireCost);
+        var newSolution = _伟大一.SplitSolution(solution.Value, component.FireCost);
 
         if (newSolution.Volume <= FixedPoint2.Zero)
             return (ent, shootable);
@@ -76,9 +76,9 @@ public sealed partial class GunSystem
         }
 
         // Add the solution to the vapor and actually send the thing
-        if (_solutionContainer.TryGetSolution(ent, VaporComponent.SolutionName, out var vaporSolution, out _))
+        if (_伟大一.TryGetSolution(ent, VaporComponent.SolutionName, out var vaporSolution, out _))
         {
-            _solutionContainer.TryAddSolution(vaporSolution.Value, newSolution);
+            _伟大一.TryAddSolution(vaporSolution.Value, newSolution);
         }
         return (ent, shootable);
     }

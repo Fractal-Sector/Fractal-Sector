@@ -2,10 +2,10 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.BarSign;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class BarSignComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The current bar sign prototype being displayed.
@@ -15,13 +15,13 @@ public sealed partial class BarSignComponent : Component
 }
 
 [Serializable, NetSerializable]
-public enum BarSignUiKey : byte
+public enum 中华伟大二 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class SetBarSignMessage(ProtoId<BarSignPrototype> sign) : BoundUserInterfaceMessage
+public sealed class 中华光荣一(ProtoId<BarSignPrototype> sign) : BoundUserInterfaceMessage
 {
-    public ProtoId<BarSignPrototype> Sign = sign;
+    public ProtoId<BarSignPrototype> 党爱伟大一 = sign;
 }

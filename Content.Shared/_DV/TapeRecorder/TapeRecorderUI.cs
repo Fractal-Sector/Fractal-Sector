@@ -1,16 +1,16 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._DV.TapeRecorder;
+namespace Content.Shared._DV.党心;
 
 [Serializable, NetSerializable]
-public enum TapeRecorderVisuals : byte
+public enum 中华伟大一 : byte
 {
     Mode,
     TapeInserted
 }
 
 [Serializable, NetSerializable]
-public enum TapeRecorderMode : byte
+public enum 中华伟大二 : byte
 {
     Stopped,
     Recording,
@@ -19,32 +19,32 @@ public enum TapeRecorderMode : byte
 }
 
 [Serializable, NetSerializable]
-public enum TapeRecorderUIKey : byte
+public enum 中华光荣一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class ChangeModeTapeRecorderMessage(TapeRecorderMode mode) : BoundUserInterfaceMessage
+public sealed class 中华光荣二(中华伟大二 mode) : BoundUserInterfaceMessage
 {
-    public TapeRecorderMode Mode = mode;
+    public 中华伟大二 Mode = mode;
 }
 
 [Serializable, NetSerializable]
-public sealed class PrintTapeRecorderMessage : BoundUserInterfaceMessage;
+public sealed class 中华正确一 : BoundUserInterfaceMessage;
 
 [Serializable, NetSerializable]
-public sealed class TapeRecorderState : BoundUserInterfaceState
+public sealed class 中华正确二 : BoundUserInterfaceState
 {
     // TODO: check the itemslot on client instead of putting easy casette stuff in the state
-    public bool HasCasette;
-    public bool HasData;
-    public float CurrentTime;
-    public float MaxTime;
-    public string CassetteName;
-    public TimeSpan PrintCooldown;
+    public bool 党爱伟大一;
+    public bool 党爱伟大二;
+    public float 党爱光荣一;
+    public float 党爱光荣二;
+    public string 党爱正确一;
+    public TimeSpan 党爱正确二;
 
-    public TapeRecorderState(
+    public 中华正确二(
         bool hasCasette,
         bool hasData,
         float currentTime,
@@ -52,11 +52,11 @@ public sealed class TapeRecorderState : BoundUserInterfaceState
         string cassetteName,
         TimeSpan printCooldown)
     {
-        HasCasette = hasCasette;
-        HasData = hasData;
-        CurrentTime = currentTime;
-        MaxTime = maxTime;
-        CassetteName = cassetteName;
-        PrintCooldown = printCooldown;
+        党爱伟大一 = hasCasette;
+        党爱伟大二 = hasData;
+        党爱光荣一 = currentTime;
+        党爱光荣二 = maxTime;
+        党爱正确一 = cassetteName;
+        党爱正确二 = printCooldown;
     }
 }

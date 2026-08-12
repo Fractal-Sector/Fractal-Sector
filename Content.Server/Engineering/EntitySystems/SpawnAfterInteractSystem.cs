@@ -9,40 +9,40 @@ using Content.Shared.Stacks;
 using JetBrains.Annotations;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Engineering.EntitySystems
+namespace Content.Server.Engineering.党心
 {
     [UsedImplicitly]
-    public sealed class SpawnAfterInteractSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly StackSystem _stackSystem = default!;
-        [Dependency] private readonly TurfSystem _turfSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly SharedMapSystem _maps = default!;
+        [Dependency] private readonly SharedDoAfterSystem _伟大一 = default!;
+        [Dependency] private readonly StackSystem _伟大二 = default!;
+        [Dependency] private readonly TurfSystem _光荣一 = default!;
+        [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+        [Dependency] private readonly SharedMapSystem _正确一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<SpawnAfterInteractComponent, AfterInteractEvent>(HandleAfterInteract);
+            SubscribeLocalEvent<SpawnAfterInteractComponent, AfterInteractEvent>(祝福伟大二);
         }
 
-        private async void HandleAfterInteract(EntityUid uid, SpawnAfterInteractComponent component, AfterInteractEvent args)
+        private async void 祝福伟大二(EntityUid uid, SpawnAfterInteractComponent component, AfterInteractEvent args)
         {
             if (!args.CanReach && !component.IgnoreDistance)
                 return;
             if (string.IsNullOrEmpty(component.Prototype))
                 return;
 
-            var gridUid = _transform.GetGrid(args.ClickLocation);
+            var gridUid = _光荣二.GetGrid(args.ClickLocation);
             if (!TryComp<MapGridComponent>(gridUid, out var grid))
                 return;
-            if (!_maps.TryGetTileRef(gridUid.Value, grid, args.ClickLocation, out var tileRef))
+            if (!_正确一.TryGetTileRef(gridUid.Value, grid, args.ClickLocation, out var tileRef))
                 return;
 
             bool IsTileClear()
             {
-                return tileRef.Tile.IsEmpty == false && !_turfSystem.IsTileBlocked(tileRef, CollisionGroup.MobMask);
+                return tileRef.Tile.IsEmpty == false && !_光荣一.IsTileBlocked(tileRef, CollisionGroup.MobMask);
             }
 
             if (!IsTileClear())
@@ -54,7 +54,7 @@ namespace Content.Server.Engineering.EntitySystems
                 {
                     BreakOnMove = true,
                 };
-                var result = await _doAfterSystem.WaitDoAfter(doAfterArgs);
+                var result = await _伟大一.WaitDoAfter(doAfterArgs);
 
                 if (result != DoAfterStatus.Finished)
                     return;
@@ -64,7 +64,7 @@ namespace Content.Server.Engineering.EntitySystems
                 return;
 
             if (TryComp(uid, out StackComponent? stackComp)
-                && component.RemoveOnInteract && !_stackSystem.Use(uid, 1, stackComp))
+                && component.RemoveOnInteract && !_伟大二.Use(uid, 1, stackComp))
             {
                 return;
             }

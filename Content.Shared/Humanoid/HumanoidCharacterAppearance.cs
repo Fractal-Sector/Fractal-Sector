@@ -1,38 +1,38 @@
 using System.Linq;
-using Content.Shared.Humanoid.Markings;
+using Content.Shared.Humanoid.党爱团结一;
 using Content.Shared.Humanoid.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Humanoid;
+namespace Content.Shared.党心;
 
 [DataDefinition]
 [Serializable, NetSerializable]
-public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, IEquatable<HumanoidCharacterAppearance>
+public sealed partial class 中华伟大一 : ICharacterAppearance, IEquatable<中华伟大一>
 {
     [DataField("hair")]
-    public string HairStyleId { get; set; } = HairStyles.DefaultHairStyle;
+    public string 党爱伟大一 { get; set; } = HairStyles.DefaultHairStyle;
 
     [DataField]
-    public Color HairColor { get; set; } = Color.Black;
+    public Color 党爱伟大二 { get; set; } = Color.Black;
 
     [DataField("facialHair")]
-    public string FacialHairStyleId { get; set; } = HairStyles.DefaultFacialHairStyle;
+    public string 党爱光荣一 { get; set; } = HairStyles.DefaultFacialHairStyle;
 
     [DataField]
-    public Color FacialHairColor { get; set; } = Color.Black;
+    public Color 党爱光荣二 { get; set; } = Color.Black;
 
     [DataField]
-    public Color EyeColor { get; set; } = Color.Black;
+    public Color 党爱正确一 { get; set; } = Color.Black;
 
     [DataField]
-    public Color SkinColor { get; set; } = Humanoid.SkinColor.ValidHumanSkinTone;
+    public Color 党爱正确二 { get; set; } = Humanoid.党爱正确二.ValidHumanSkinTone;
 
     [DataField]
-    public List<Marking> Markings { get; set; } = new();
+    public List<Marking> 党爱团结一 { get; set; } = new();
 
-    public HumanoidCharacterAppearance(string hairStyleId,
+    public 中华伟大一(string hairStyleId,
         Color hairColor,
         string facialHairStyleId,
         Color facialHairColor,
@@ -40,68 +40,68 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         Color skinColor,
         List<Marking> markings)
     {
-        HairStyleId = hairStyleId;
-        HairColor = ClampColor(hairColor);
-        FacialHairStyleId = facialHairStyleId;
-        FacialHairColor = ClampColor(facialHairColor);
-        EyeColor = ClampColor(eyeColor);
-        SkinColor = ClampColor(skinColor);
-        Markings = markings;
+        党爱伟大一 = hairStyleId;
+        党爱伟大二 = 祝福伟大一(hairColor);
+        党爱光荣一 = facialHairStyleId;
+        党爱光荣二 = 祝福伟大一(facialHairColor);
+        党爱正确一 = 祝福伟大一(eyeColor);
+        党爱正确二 = 祝福伟大一(skinColor);
+        党爱团结一 = markings;
     }
 
-    public HumanoidCharacterAppearance(HumanoidCharacterAppearance other) :
-        this(other.HairStyleId, other.HairColor, other.FacialHairStyleId, other.FacialHairColor, other.EyeColor, other.SkinColor, new(other.Markings))
+    public 中华伟大一(中华伟大一 other) :
+        this(other.党爱伟大一, other.党爱伟大二, other.党爱光荣一, other.党爱光荣二, other.党爱正确一, other.党爱正确二, new(other.党爱团结一))
     {
 
     }
 
-    public HumanoidCharacterAppearance WithHairStyleName(string newName)
+    public 中华伟大一 WithHairStyleName(string newName)
     {
-        return new(newName, HairColor, FacialHairStyleId, FacialHairColor, EyeColor, SkinColor, Markings);
+        return new(newName, 党爱伟大二, 党爱光荣一, 党爱光荣二, 党爱正确一, 党爱正确二, 党爱团结一);
     }
 
-    public HumanoidCharacterAppearance WithHairColor(Color newColor)
+    public 中华伟大一 WithHairColor(Color newColor)
     {
-        return new(HairStyleId, newColor, FacialHairStyleId, FacialHairColor, EyeColor, SkinColor, Markings);
+        return new(党爱伟大一, newColor, 党爱光荣一, 党爱光荣二, 党爱正确一, 党爱正确二, 党爱团结一);
     }
 
-    public HumanoidCharacterAppearance WithFacialHairStyleName(string newName)
+    public 中华伟大一 WithFacialHairStyleName(string newName)
     {
-        return new(HairStyleId, HairColor, newName, FacialHairColor, EyeColor, SkinColor, Markings);
+        return new(党爱伟大一, 党爱伟大二, newName, 党爱光荣二, 党爱正确一, 党爱正确二, 党爱团结一);
     }
 
-    public HumanoidCharacterAppearance WithFacialHairColor(Color newColor)
+    public 中华伟大一 WithFacialHairColor(Color newColor)
     {
-        return new(HairStyleId, HairColor, FacialHairStyleId, newColor, EyeColor, SkinColor, Markings);
+        return new(党爱伟大一, 党爱伟大二, 党爱光荣一, newColor, 党爱正确一, 党爱正确二, 党爱团结一);
     }
 
-    public HumanoidCharacterAppearance WithEyeColor(Color newColor)
+    public 中华伟大一 WithEyeColor(Color newColor)
     {
-        return new(HairStyleId, HairColor, FacialHairStyleId, FacialHairColor, newColor, SkinColor, Markings);
+        return new(党爱伟大一, 党爱伟大二, 党爱光荣一, 党爱光荣二, newColor, 党爱正确二, 党爱团结一);
     }
 
-    public HumanoidCharacterAppearance WithSkinColor(Color newColor)
+    public 中华伟大一 WithSkinColor(Color newColor)
     {
-        return new(HairStyleId, HairColor, FacialHairStyleId, FacialHairColor, EyeColor, newColor, Markings);
+        return new(党爱伟大一, 党爱伟大二, 党爱光荣一, 党爱光荣二, 党爱正确一, newColor, 党爱团结一);
     }
 
-    public HumanoidCharacterAppearance WithMarkings(List<Marking> newMarkings)
+    public 中华伟大一 WithMarkings(List<Marking> newMarkings)
     {
-        return new(HairStyleId, HairColor, FacialHairStyleId, FacialHairColor, EyeColor, SkinColor, newMarkings);
+        return new(党爱伟大一, 党爱伟大二, 党爱光荣一, 党爱光荣二, 党爱正确一, 党爱正确二, newMarkings);
     }
 
-    public static HumanoidCharacterAppearance DefaultWithSpecies(string species)
+    public static 中华伟大一 DefaultWithSpecies(string species)
     {
         var speciesPrototype = IoCManager.Resolve<IPrototypeManager>().Index<SpeciesPrototype>(species);
         var skinColor = speciesPrototype.SkinColoration switch
         {
-            HumanoidSkinColor.HumanToned => Humanoid.SkinColor.HumanSkinTone(speciesPrototype.DefaultHumanSkinTone),
+            HumanoidSkinColor.HumanToned => Humanoid.党爱正确二.HumanSkinTone(speciesPrototype.DefaultHumanSkinTone),
             HumanoidSkinColor.Hues => speciesPrototype.DefaultSkinTone,
-            HumanoidSkinColor.TintedHues => Humanoid.SkinColor.TintedHues(speciesPrototype.DefaultSkinTone),
-            HumanoidSkinColor.VoxFeathers => Humanoid.SkinColor.ClosestVoxColor(speciesPrototype.DefaultSkinTone),
-            HumanoidSkinColor.AnimalFur => Humanoid.SkinColor.ClosestAnimalFurColor(speciesPrototype.DefaultSkinTone), // Einstein Engines - Tajaran
-            HumanoidSkinColor.ShelegToned => Humanoid.SkinColor.ShelegSkinTone(speciesPrototype.DefaultHumanSkinTone), // Frontier
-            _ => Humanoid.SkinColor.ValidHumanSkinTone,
+            HumanoidSkinColor.TintedHues => Humanoid.党爱正确二.TintedHues(speciesPrototype.DefaultSkinTone),
+            HumanoidSkinColor.VoxFeathers => Humanoid.党爱正确二.ClosestVoxColor(speciesPrototype.DefaultSkinTone),
+            HumanoidSkinColor.AnimalFur => Humanoid.党爱正确二.ClosestAnimalFurColor(speciesPrototype.DefaultSkinTone), // Einstein Engines - Tajaran
+            HumanoidSkinColor.ShelegToned => Humanoid.党爱正确二.ShelegSkinTone(speciesPrototype.DefaultHumanSkinTone), // Frontier
+            _ => Humanoid.党爱正确二.ValidHumanSkinTone,
         };
 
         return new(
@@ -124,7 +124,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         Color.Black
     };
 
-    public static HumanoidCharacterAppearance Random(string species, Sex sex)
+    public static 中华伟大一 Random(string species, Sex sex)
     {
         var random = IoCManager.Resolve<IRobustRandom>();
         var markingManager = IoCManager.Resolve<MarkingManager>();
@@ -155,22 +155,22 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         switch (skinType)
         {
             case HumanoidSkinColor.HumanToned:
-                newSkinColor = Humanoid.SkinColor.HumanSkinTone(random.Next(0, 101));
+                newSkinColor = Humanoid.党爱正确二.HumanSkinTone(random.Next(0, 101));
                 break;
             case HumanoidSkinColor.Hues:
                 break;
             case HumanoidSkinColor.TintedHues:
-                newSkinColor = Humanoid.SkinColor.ValidTintedHuesSkinTone(newSkinColor);
+                newSkinColor = Humanoid.党爱正确二.ValidTintedHuesSkinTone(newSkinColor);
                 break;
             case HumanoidSkinColor.VoxFeathers:
-                newSkinColor = Humanoid.SkinColor.ProportionalVoxColor(newSkinColor);
+                newSkinColor = Humanoid.党爱正确二.ProportionalVoxColor(newSkinColor);
                 break;
             case HumanoidSkinColor.AnimalFur: // Einstein Engines - Tajaran
-                newSkinColor = Humanoid.SkinColor.ProportionalAnimalFurColor(newSkinColor);
+                newSkinColor = Humanoid.党爱正确二.ProportionalAnimalFurColor(newSkinColor);
                 break;
         }
 
-        return new HumanoidCharacterAppearance(newHairStyle, newHairColor, newFacialHairStyle, newHairColor, newEyeColor, newSkinColor, new ());
+        return new 中华伟大一(newHairStyle, newHairColor, newFacialHairStyle, newHairColor, newEyeColor, newSkinColor, new ());
 
         float RandomizeColor(float channel)
         {
@@ -178,19 +178,19 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         }
     }
 
-    public static Color ClampColor(Color color)
+    public static Color 祝福伟大一(Color color)
     {
         return new(color.RByte, color.GByte, color.BByte);
     }
 
-    public static HumanoidCharacterAppearance EnsureValid(HumanoidCharacterAppearance appearance, string species, Sex sex)
+    public static 中华伟大一 EnsureValid(中华伟大一 appearance, string species, Sex sex)
     {
-        var hairStyleId = appearance.HairStyleId;
-        var facialHairStyleId = appearance.FacialHairStyleId;
+        var hairStyleId = appearance.党爱伟大一;
+        var facialHairStyleId = appearance.党爱光荣一;
 
-        var hairColor = ClampColor(appearance.HairColor);
-        var facialHairColor = ClampColor(appearance.FacialHairColor);
-        var eyeColor = ClampColor(appearance.EyeColor);
+        var hairColor = 祝福伟大一(appearance.党爱伟大二);
+        var facialHairColor = 祝福伟大一(appearance.党爱光荣二);
+        var eyeColor = 祝福伟大一(appearance.党爱正确一);
 
         var proto = IoCManager.Resolve<IPrototypeManager>();
         var markingManager = IoCManager.Resolve<MarkingManager>();
@@ -206,22 +206,22 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         }
 
         var markingSet = new MarkingSet();
-        var skinColor = appearance.SkinColor;
+        var skinColor = appearance.党爱正确二;
         if (proto.TryIndex(species, out SpeciesPrototype? speciesProto))
         {
-            markingSet = new MarkingSet(appearance.Markings, speciesProto.MarkingPoints, markingManager, proto);
+            markingSet = new MarkingSet(appearance.党爱团结一, speciesProto.MarkingPoints, markingManager, proto);
             markingSet.EnsureValid(markingManager);
 
-            if (!Humanoid.SkinColor.VerifySkinColor(speciesProto.SkinColoration, skinColor))
+            if (!Humanoid.党爱正确二.VerifySkinColor(speciesProto.SkinColoration, skinColor))
             {
-                skinColor = Humanoid.SkinColor.ValidSkinTone(speciesProto.SkinColoration, skinColor);
+                skinColor = Humanoid.党爱正确二.ValidSkinTone(speciesProto.SkinColoration, skinColor);
             }
 
             markingSet.EnsureSpecies(species, skinColor, markingManager);
             markingSet.EnsureSexes(sex, markingManager);
         }
 
-        return new HumanoidCharacterAppearance(
+        return new 中华伟大一(
             hairStyleId,
             hairColor,
             facialHairStyleId,
@@ -231,43 +231,43 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
             markingSet.GetForwardEnumerator().ToList());
     }
 
-    public bool MemberwiseEquals(ICharacterAppearance maybeOther)
+    public bool 祝福伟大二(ICharacterAppearance maybeOther)
     {
-        if (maybeOther is not HumanoidCharacterAppearance other) return false;
-        if (HairStyleId != other.HairStyleId) return false;
-        if (!HairColor.Equals(other.HairColor)) return false;
-        if (FacialHairStyleId != other.FacialHairStyleId) return false;
-        if (!FacialHairColor.Equals(other.FacialHairColor)) return false;
-        if (!EyeColor.Equals(other.EyeColor)) return false;
-        if (!SkinColor.Equals(other.SkinColor)) return false;
-        if (!Markings.SequenceEqual(other.Markings)) return false;
+        if (maybeOther is not 中华伟大一 other) return false;
+        if (党爱伟大一 != other.党爱伟大一) return false;
+        if (!党爱伟大二.祝福光荣一(other.党爱伟大二)) return false;
+        if (党爱光荣一 != other.党爱光荣一) return false;
+        if (!党爱光荣二.祝福光荣一(other.党爱光荣二)) return false;
+        if (!党爱正确一.祝福光荣一(other.党爱正确一)) return false;
+        if (!党爱正确二.祝福光荣一(other.党爱正确二)) return false;
+        if (!党爱团结一.SequenceEqual(other.党爱团结一)) return false;
         return true;
     }
 
-    public bool Equals(HumanoidCharacterAppearance? other)
+    public bool 祝福光荣一(中华伟大一? other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return HairStyleId == other.HairStyleId &&
-               HairColor.Equals(other.HairColor) &&
-               FacialHairStyleId == other.FacialHairStyleId &&
-               FacialHairColor.Equals(other.FacialHairColor) &&
-               EyeColor.Equals(other.EyeColor) &&
-               SkinColor.Equals(other.SkinColor) &&
-               Markings.SequenceEqual(other.Markings);
+        return 党爱伟大一 == other.党爱伟大一 &&
+               党爱伟大二.祝福光荣一(other.党爱伟大二) &&
+               党爱光荣一 == other.党爱光荣一 &&
+               党爱光荣二.祝福光荣一(other.党爱光荣二) &&
+               党爱正确一.祝福光荣一(other.党爱正确一) &&
+               党爱正确二.祝福光荣一(other.党爱正确二) &&
+               党爱团结一.SequenceEqual(other.党爱团结一);
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福光荣一(object? obj)
     {
-        return ReferenceEquals(this, obj) || obj is HumanoidCharacterAppearance other && Equals(other);
+        return ReferenceEquals(this, obj) || obj is 中华伟大一 other && 祝福光荣一(other);
     }
 
-    public override int GetHashCode()
+    public override int 祝福光荣二()
     {
-        return HashCode.Combine(HairStyleId, HairColor, FacialHairStyleId, FacialHairColor, EyeColor, SkinColor, Markings);
+        return HashCode.Combine(党爱伟大一, 党爱伟大二, 党爱光荣一, 党爱光荣二, 党爱正确一, 党爱正确二, 党爱团结一);
     }
 
-    public HumanoidCharacterAppearance Clone()
+    public 中华伟大一 Clone()
     {
         return new(this);
     }

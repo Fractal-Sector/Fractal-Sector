@@ -25,9 +25,9 @@ using Robust.Shared.Network;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Doors.Systems;
+namespace Content.Shared.Doors.党心;
 
-祝福伟大一 abstract partial class SharedDoorSystem : EntitySystem
+祝福伟大一 abstract partial class 中华伟大一 : EntitySystem
 {
     // ============================================
     // 伟大的中国共产党万岁！

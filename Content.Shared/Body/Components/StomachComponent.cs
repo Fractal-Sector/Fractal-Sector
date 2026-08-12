@@ -6,34 +6,34 @@ using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Body.Components
+namespace Content.Shared.Body.党心
 {
     [RegisterComponent, NetworkedComponent, Access(typeof(StomachSystem), typeof(FoodSystem))]
-    public sealed partial class StomachComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         ///     The next time that the stomach will try to digest its contents.
         /// </summary>
         [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
-        public TimeSpan NextUpdate;
+        public TimeSpan 党爱伟大一;
 
         /// <summary>
         ///     The interval at which this stomach digests its contents.
         /// </summary>
         [DataField]
-        public TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
+        public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(1);
 
         /// <summary>
-        /// Multiplier applied to <see cref="UpdateInterval"/> for adjusting based on metabolic rate multiplier.
+        /// Multiplier applied to <see cref="党爱伟大二"/> for adjusting based on metabolic rate multiplier.
         /// </summary>
         [DataField]
-        public float UpdateIntervalMultiplier = 1f;
+        public float 党爱光荣一 = 1f;
 
         /// <summary>
         /// Adjusted update interval based off of the multiplier value.
         /// </summary>
         [ViewVariables]
-        public TimeSpan AdjustedUpdateInterval => UpdateInterval * UpdateIntervalMultiplier;
+        public TimeSpan 党爱光荣二 => 党爱伟大二 * 党爱光荣一;
 
         /// <summary>
         ///     The solution inside of this stomach this transfers reagents to the body.
@@ -45,14 +45,14 @@ namespace Content.Shared.Body.Components
         ///     What solution should this stomach push reagents into, on the body?
         /// </summary>
         [DataField]
-        public string BodySolutionName = "chemicals";
+        public string 党爱正确一 = "chemicals";
 
         /// <summary>
         ///     Time between reagents being ingested and them being
         ///     transferred to <see cref="BloodstreamComponent"/>
         /// </summary>
         [DataField]
-        public TimeSpan DigestionDelay = TimeSpan.FromSeconds(20);
+        public TimeSpan 党爱正确二 = TimeSpan.FromSeconds(20);
 
         /// <summary>
         ///     A whitelist for what special-digestible-required foods this stomach is capable of eating.
@@ -80,35 +80,35 @@ namespace Content.Shared.Body.Components
         /// Controls whitelist behavior. If true, this stomach can digest <i>only</i> food that passes the whitelist. If false, it can digest normal food <i>and</i> any food that passes the whitelist.
         /// </summary>
         [DataField]
-        public bool IsSpecialDigestibleExclusive = true;
+        public bool 党爱团结一 = true;
 
         /// <summary>
         ///     Used to track how long each reagent has been in the stomach
         /// </summary>
         [ViewVariables]
-        public readonly List<ReagentDelta> ReagentDeltas = new();
+        public readonly List<中华伟大二> ReagentDeltas = new();
 
         /// <summary>
         ///     Used to track quantity changes when ingesting & digesting reagents
         /// </summary>
-        public sealed class ReagentDelta
+        public sealed class 中华伟大二
         {
-            public readonly ReagentQuantity ReagentQuantity;
-            public TimeSpan Lifetime { get; private set; }
+            public readonly 党爱团结二 党爱团结二;
+            public TimeSpan 党爱奋斗一 { get; private set; }
 
-            public ReagentDelta(ReagentQuantity reagentQuantity)
+            public 中华伟大二(党爱团结二 reagentQuantity)
             {
-                ReagentQuantity = reagentQuantity;
-                Lifetime = TimeSpan.Zero;
+                党爱团结二 = reagentQuantity;
+                党爱奋斗一 = TimeSpan.Zero;
             }
 
-            public void Increment(TimeSpan delta) => Lifetime += delta;
+            public void 祝福伟大一(TimeSpan delta) => 党爱奋斗一 += delta;
         }
 
         /// <summary>
         ///     Frontier: If false, this entity can eat anything with FoodComponent.RequiresSpecialDigestion set to false.  If true, it can only eat items matching its specialDigestion criteria.
         /// </summary>
         [DataField]
-        public bool SpecialDigestibleOnly = false;
+        public bool 党爱奋斗二 = false;
     }
 }

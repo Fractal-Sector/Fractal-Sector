@@ -1,9 +1,9 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared._DV.TapeRecorder.Components;
+namespace Content.Shared._DV.TapeRecorder.党心;
 
 /// <summary>
 /// Added to tape records that are updating, winding or rewinding the tape.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ActiveTapeRecorderComponent : Component;
+public sealed partial class 中华伟大一 : Component;

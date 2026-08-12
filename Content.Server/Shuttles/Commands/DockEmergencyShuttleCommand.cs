@@ -3,20 +3,20 @@ using Content.Server.Shuttles.Systems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Shuttles.Commands;
+namespace Content.Server.Shuttles.党心;
 
 /// <summary>
 /// Calls in the emergency shuttle.
 /// </summary>
 [AdminCommand(AdminFlags.Fun)]
-public sealed class DockEmergencyShuttleCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly EmergencyShuttleSystem _shuttleSystem = default!;
+    [Dependency] private readonly EmergencyShuttleSystem _伟大一 = default!;
 
-    public override string Command => "dockemergencyshuttle";
+    public override string 党爱伟大一 => "dockemergencyshuttle";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        _shuttleSystem.DockEmergencyShuttle();
+        _伟大一.DockEmergencyShuttle();
     }
 }

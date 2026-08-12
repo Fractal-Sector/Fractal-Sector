@@ -3,35 +3,35 @@ using Content.Shared.Chemistry.Events;
 using Content.Shared.Projectiles;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
 /// <summary>
 /// System for handling injecting into an entity while a projectile is embedded.
 /// </summary>
-public sealed class SolutionInjectWhileEmbeddedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-	[Dependency] private readonly IGameTiming _gameTiming = default!;
+	[Dependency] private readonly IGameTiming _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SolutionInjectWhileEmbeddedComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<SolutionInjectWhileEmbeddedComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<SolutionInjectWhileEmbeddedComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<SolutionInjectWhileEmbeddedComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextUpdate = _gameTiming.CurTime + ent.Comp.UpdateInterval;
+        ent.Comp.NextUpdate = _伟大一.CurTime + ent.Comp.UpdateInterval;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
         var query = EntityQueryEnumerator<SolutionInjectWhileEmbeddedComponent, EmbeddableProjectileComponent>();
         while (query.MoveNext(out var uid, out var injectComponent, out var projectileComponent))
         {
-            if (_gameTiming.CurTime < injectComponent.NextUpdate)
+            if (_伟大一.CurTime < injectComponent.NextUpdate)
                 continue;
 
             injectComponent.NextUpdate += injectComponent.UpdateInterval;

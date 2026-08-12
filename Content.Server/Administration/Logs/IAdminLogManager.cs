@@ -4,9 +4,9 @@ using Content.Server.Database;
 using Content.Server.GameTicking;
 using Content.Shared.Administration.Logs;
 
-namespace Content.Server.Administration.Logs;
+namespace Content.Server.Administration.党心;
 
-public interface IAdminLogManager : ISharedAdminLogManager
+public interface 中华伟大一 : ISharedAdminLogManager
 {
     void Initialize();
     Task Shutdown();

@@ -6,16 +6,16 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary; // Frontier: upgradeable machine parts
 
-namespace Content.Server.Construction.Components
+namespace Content.Server.Construction.党心
 {
     [RegisterComponent]
-    public sealed partial class MachineFrameComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
-        public const string PartContainerName = "machine_parts";
-        public const string BoardContainerName = "machine_board";
+        public const string 党爱伟大一 = "machine_parts";
+        public const string 党爱伟大二 = "machine_board";
 
         [ViewVariables]
-        public bool HasBoard => BoardContainer?.ContainedEntities.Count != 0;
+        public bool 党爱光荣一 => 党爱光荣二?.ContainedEntities.Count != 0;
 
         [ViewVariables] // Frontier: upgradeable machine parts
         public Dictionary<ProtoId<MachinePartPrototype>, int> Progress = new(); // Frontier: upgradeable machine parts
@@ -42,10 +42,10 @@ namespace Content.Server.Construction.Components
         public Dictionary<ProtoId<TagPrototype>, GenericPartInfo> TagRequirements = new();
 
         [ViewVariables]
-        public Container BoardContainer = default!;
+        public Container 党爱光荣二 = default!;
 
         [ViewVariables]
-        public Container PartContainer = default!;
+        public Container 党爱正确一 = default!;
 
         // Mono - sets the framesize of boards it accepts.
         [DataField]

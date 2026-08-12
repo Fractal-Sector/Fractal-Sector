@@ -9,19 +9,19 @@ using Robust.Shared.Audio;
 using Robust.Shared.Player;
 using Content.Shared._NF.CrateMachine.Components;
 
-namespace Content.Server._NF.Market.Systems;
+namespace Content.Server._NF.Market.党心;
 
-public sealed partial class MarketSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly CrateMachineSystem _crateMachine = default!;
+    [Dependency] private readonly CrateMachineSystem _伟大一 = default!;
 
-    private void InitializeCrateMachine()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<MarketConsoleComponent, MarketPurchaseMessage>(OnMarketConsolePurchaseCrateMessage);
-        SubscribeLocalEvent<CrateMachineComponent, CrateMachineOpenedEvent>(OnCrateMachineOpened);
+        SubscribeLocalEvent<MarketConsoleComponent, MarketPurchaseMessage>(祝福伟大二);
+        SubscribeLocalEvent<CrateMachineComponent, CrateMachineOpenedEvent>(祝福正确二);
     }
 
-    private void OnMarketConsolePurchaseCrateMessage(EntityUid consoleUid,
+    private void 祝福伟大二(EntityUid consoleUid,
         MarketConsoleComponent component,
         ref MarketPurchaseMessage args)
     {
@@ -31,17 +31,17 @@ public sealed partial class MarketSystem
             marketMod = marketModComponent.Mod;
         }
 
-        if (!_crateMachine.FindNearestUnoccupied(consoleUid, component.MaxCrateMachineDistance, out var machineUid) || !_entityManager.TryGetComponent<CrateMachineComponent> (machineUid, out var comp))
+        if (!_伟大一.FindNearestUnoccupied(consoleUid, component.MaxCrateMachineDistance, out var machineUid) || !_entityManager.TryGetComponent<CrateMachineComponent> (machineUid, out var comp))
         {
             _popup.PopupEntity(Loc.GetString("market-no-crate-machine-available"), consoleUid, Filter.PvsExcept(consoleUid), true);
             _audio.PlayPredicted(component.ErrorSound, consoleUid, null, AudioParams.Default.WithMaxDistance(5f));
 
             return;
         }
-        OnPurchaseCrateMessage(machineUid.Value, consoleUid, comp, component, marketMod, args);
+        祝福光荣一(machineUid.Value, consoleUid, comp, component, marketMod, args);
     }
 
-    private void OnPurchaseCrateMessage(EntityUid crateMachineUid,
+    private void 祝福光荣一(EntityUid crateMachineUid,
         EntityUid consoleUid,
         CrateMachineComponent component,
         MarketConsoleComponent consoleComponent,
@@ -54,10 +54,10 @@ public sealed partial class MarketSystem
         if (!HasComp<BankAccountComponent>(player))
             return;
 
-        TrySpawnCrate(crateMachineUid, player, consoleUid, component, consoleComponent, marketMod);
+        祝福光荣二(crateMachineUid, player, consoleUid, component, consoleComponent, marketMod);
     }
 
-    private void TrySpawnCrate(EntityUid crateMachineUid,
+    private void 祝福光荣二(EntityUid crateMachineUid,
         EntityUid player,
         EntityUid consoleUid,
         CrateMachineComponent component,
@@ -81,10 +81,10 @@ public sealed partial class MarketSystem
 
         itemSpawner.ItemsToSpawn = consoleComponent.CartDataList;
         consoleComponent.CartDataList = [];
-        _crateMachine.OpenFor(crateMachineUid, component);
+        _伟大一.OpenFor(crateMachineUid, component);
     }
 
-    private void SpawnCrateItems(List<MarketData> spawnList, EntityUid targetCrate)
+    private void 祝福正确一(List<MarketData> spawnList, EntityUid targetCrate)
     {
         var coordinates = Transform(targetCrate).Coordinates;
         foreach (var data in spawnList)
@@ -94,7 +94,7 @@ public sealed partial class MarketSystem
                 var entityList = _stackSystem.SpawnMultiple(stackPrototype.Spawn, data.Quantity, coordinates);
                 foreach (var entity in entityList)
                 {
-                    _crateMachine.InsertIntoCrate(entity, targetCrate);
+                    _伟大一.InsertIntoCrate(entity, targetCrate);
                 }
             }
             else
@@ -102,19 +102,19 @@ public sealed partial class MarketSystem
                 for (int i = 0; i < data.Quantity; i++)
                 {
                     var spawn = Spawn(data.Prototype, coordinates);
-                    _crateMachine.InsertIntoCrate(spawn, targetCrate);
+                    _伟大一.InsertIntoCrate(spawn, targetCrate);
                 }
             }
         }
     }
 
-    private void OnCrateMachineOpened(EntityUid uid, CrateMachineComponent component, CrateMachineOpenedEvent args)
+    private void 祝福正确二(EntityUid uid, CrateMachineComponent component, CrateMachineOpenedEvent args)
     {
         if (!TryComp<MarketItemSpawnerComponent>(uid, out var itemSpawner))
             return;
 
-        var targetCrate = _crateMachine.SpawnCrate(uid, component);
-        SpawnCrateItems(itemSpawner.ItemsToSpawn, targetCrate);
+        var targetCrate = _伟大一.SpawnCrate(uid, component);
+        祝福正确一(itemSpawner.ItemsToSpawn, targetCrate);
         itemSpawner.ItemsToSpawn = [];
     }
 }

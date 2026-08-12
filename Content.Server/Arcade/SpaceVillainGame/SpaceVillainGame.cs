@@ -4,69 +4,69 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Server.Arcade.SpaceVillain;
+namespace Content.Server.Arcade.党心;
 
 
 /// <summary>
 /// A Class to handle all the game-logic of the SpaceVillain-game.
 /// </summary>
-public sealed partial class SpaceVillainGame
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    private readonly SharedAudioSystem _audioSystem = default!;
-    private readonly UserInterfaceSystem _uiSystem = default!;
-    private readonly SpaceVillainArcadeSystem _svArcade = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    private readonly SharedAudioSystem _光荣一 = default!;
+    private readonly UserInterfaceSystem _光荣二 = default!;
+    private readonly SpaceVillainArcadeSystem _正确一 = default!;
 
 
     [ViewVariables]
-    private readonly EntityUid _owner = default!;
+    private readonly EntityUid _正确二 = default!;
 
     [ViewVariables]
-    private bool _running = true;
+    private bool _团结一 = true;
 
     [ViewVariables]
-    public string Name => $"{_fightVerb} {_villainName}";
+    public string 党爱伟大一 => $"{_团结二} {_奋斗一}";
 
     [ViewVariables]
-    private readonly string _fightVerb;
+    private readonly string _团结二;
 
     [ViewVariables]
-    public readonly Fighter PlayerChar;
+    public readonly Fighter 党爱伟大二;
 
     [ViewVariables]
-    private readonly string _villainName;
+    private readonly string _奋斗一;
 
     [ViewVariables]
-    public readonly Fighter VillainChar;
+    public readonly Fighter 党爱光荣一;
 
     [ViewVariables]
-    private int _turtleTracker = 0;
+    private int _奋斗二 = 0;
 
     [ViewVariables]
-    private string _latestPlayerActionMessage = "";
+    private string _胜利一 = "";
 
     [ViewVariables]
-    private string _latestEnemyActionMessage = "";
+    private string _胜利二 = "";
 
-    public SpaceVillainGame(EntityUid owner, SpaceVillainArcadeComponent arcade, SpaceVillainArcadeSystem arcadeSystem)
+    public 中华伟大一(EntityUid owner, SpaceVillainArcadeComponent arcade, SpaceVillainArcadeSystem arcadeSystem)
         : this(owner, arcade, arcadeSystem, arcadeSystem.GenerateFightVerb(arcade), arcadeSystem.GenerateEnemyName(arcade))
     {
     }
 
-    public SpaceVillainGame(EntityUid owner, SpaceVillainArcadeComponent arcade, SpaceVillainArcadeSystem arcadeSystem, string fightVerb, string enemyName)
+    public 中华伟大一(EntityUid owner, SpaceVillainArcadeComponent arcade, SpaceVillainArcadeSystem arcadeSystem, string fightVerb, string enemyName)
     {
         IoCManager.InjectDependencies(this);
-        _audioSystem = _entityManager.System<SharedAudioSystem>();
-        _uiSystem = _entityManager.System<UserInterfaceSystem>();
-        _svArcade = _entityManager.System<SpaceVillainArcadeSystem>();
+        _光荣一 = _伟大一.System<SharedAudioSystem>();
+        _光荣二 = _伟大一.System<UserInterfaceSystem>();
+        _正确一 = _伟大一.System<SpaceVillainArcadeSystem>();
 
-        _owner = owner;
+        _正确二 = owner;
         //todo defeat the curse secret game mode
-        _fightVerb = fightVerb;
-        _villainName = enemyName;
+        _团结二 = fightVerb;
+        _奋斗一 = enemyName;
 
-        PlayerChar = new()
+        党爱伟大二 = new()
         {
             HpMax = 30,
             Hp = 30,
@@ -74,7 +74,7 @@ public sealed partial class SpaceVillainGame
             Mp = 10
         };
 
-        VillainChar = new()
+        党爱光荣一 = new()
         {
             HpMax = 45,
             Hp = 45,
@@ -89,57 +89,57 @@ public sealed partial class SpaceVillainGame
     /// <param name="uid">The action the user picked.</param>
     /// <param name="action">The action the user picked.</param>
     /// <param name="arcade">The action the user picked.</param>
-    public void ExecutePlayerAction(EntityUid uid, PlayerAction action, SpaceVillainArcadeComponent arcade)
+    public void 祝福伟大一(EntityUid uid, PlayerAction action, SpaceVillainArcadeComponent arcade)
     {
-        if (!_running)
+        if (!_团结一)
             return;
 
         switch (action)
         {
             case PlayerAction.Attack:
-                var attackAmount = _random.Next(2, 6);
-                _latestPlayerActionMessage = Loc.GetString(
+                var attackAmount = _伟大二.Next(2, 6);
+                _胜利一 = Loc.GetString(
                     "space-villain-game-player-attack-message",
-                    ("enemyName", _villainName),
+                    ("enemyName", _奋斗一),
                     ("attackAmount", attackAmount)
                 );
-                _audioSystem.PlayPvs(arcade.PlayerAttackSound, uid, AudioParams.Default.WithVolume(-4f));
-                if (!VillainChar.Invincible)
-                    VillainChar.Hp -= attackAmount;
-                _turtleTracker -= _turtleTracker > 0 ? 1 : 0;
+                _光荣一.PlayPvs(arcade.PlayerAttackSound, uid, AudioParams.Default.WithVolume(-4f));
+                if (!党爱光荣一.Invincible)
+                    党爱光荣一.Hp -= attackAmount;
+                _奋斗二 -= _奋斗二 > 0 ? 1 : 0;
                 break;
             case PlayerAction.Heal:
-                var pointAmount = _random.Next(1, 3);
-                var healAmount = _random.Next(6, 8);
-                _latestPlayerActionMessage = Loc.GetString(
+                var pointAmount = _伟大二.Next(1, 3);
+                var healAmount = _伟大二.Next(6, 8);
+                _胜利一 = Loc.GetString(
                     "space-villain-game-player-heal-message",
                     ("magicPointAmount", pointAmount),
                     ("healAmount", healAmount)
                 );
-                _audioSystem.PlayPvs(arcade.PlayerHealSound, uid, AudioParams.Default.WithVolume(-4f));
-                if (!PlayerChar.Invincible)
-                    PlayerChar.Mp -= pointAmount;
-                PlayerChar.Hp += healAmount;
-                _turtleTracker++;
+                _光荣一.PlayPvs(arcade.PlayerHealSound, uid, AudioParams.Default.WithVolume(-4f));
+                if (!党爱伟大二.Invincible)
+                    党爱伟大二.Mp -= pointAmount;
+                党爱伟大二.Hp += healAmount;
+                _奋斗二++;
                 break;
             case PlayerAction.Recharge:
-                var chargeAmount = _random.Next(4, 7);
-                _latestPlayerActionMessage = Loc.GetString(
+                var chargeAmount = _伟大二.Next(4, 7);
+                _胜利一 = Loc.GetString(
                     "space-villain-game-player-recharge-message",
                     ("regainedPoints", chargeAmount)
                 );
-                _audioSystem.PlayPvs(arcade.PlayerChargeSound, uid, AudioParams.Default.WithVolume(-4f));
-                PlayerChar.Mp += chargeAmount;
-                _turtleTracker -= _turtleTracker > 0 ? 1 : 0;
+                _光荣一.PlayPvs(arcade.PlayerChargeSound, uid, AudioParams.Default.WithVolume(-4f));
+                党爱伟大二.Mp += chargeAmount;
+                _奋斗二 -= _奋斗二 > 0 ? 1 : 0;
                 break;
         }
 
-        if (!CheckGameConditions(uid, arcade))
+        if (!祝福光荣一(uid, arcade))
             return;
 
-        ExecuteAiAction();
+        祝福伟大二();
 
-        if (!CheckGameConditions(uid, arcade))
+        if (!祝福光荣一(uid, arcade))
             return;
 
         UpdateUi(uid);
@@ -148,105 +148,105 @@ public sealed partial class SpaceVillainGame
     /// <summary>
     /// Handles the logic of the AI
     /// </summary>
-    private void ExecuteAiAction()
+    private void 祝福伟大二()
     {
-        if (_turtleTracker >= 4)
+        if (_奋斗二 >= 4)
         {
-            var boomAmount = _random.Next(5, 10);
-            _latestEnemyActionMessage = Loc.GetString(
+            var boomAmount = _伟大二.Next(5, 10);
+            _胜利二 = Loc.GetString(
                 "space-villain-game-enemy-throws-bomb-message",
-                ("enemyName", _villainName),
+                ("enemyName", _奋斗一),
                 ("damageReceived", boomAmount)
             );
-            if (PlayerChar.Invincible)
+            if (党爱伟大二.Invincible)
                 return;
-            PlayerChar.Hp -= boomAmount;
-            _turtleTracker--;
+            党爱伟大二.Hp -= boomAmount;
+            _奋斗二--;
             return;
         }
 
-        if (VillainChar.Mp <= 5 && _random.Prob(0.7f))
+        if (党爱光荣一.Mp <= 5 && _伟大二.Prob(0.7f))
         {
-            var stealAmount = _random.Next(2, 3);
-            _latestEnemyActionMessage = Loc.GetString(
+            var stealAmount = _伟大二.Next(2, 3);
+            _胜利二 = Loc.GetString(
                 "space-villain-game-enemy-steals-player-power-message",
-                ("enemyName", _villainName),
+                ("enemyName", _奋斗一),
                 ("stolenAmount", stealAmount)
             );
-            if (PlayerChar.Invincible)
+            if (党爱伟大二.Invincible)
                 return;
-            PlayerChar.Mp -= stealAmount;
-            VillainChar.Mp += stealAmount;
+            党爱伟大二.Mp -= stealAmount;
+            党爱光荣一.Mp += stealAmount;
             return;
         }
 
-        if (VillainChar.Hp <= 10 && VillainChar.Mp > 4)
+        if (党爱光荣一.Hp <= 10 && 党爱光荣一.Mp > 4)
         {
-            VillainChar.Hp += 4;
-            VillainChar.Mp -= 4;
-            _latestEnemyActionMessage = Loc.GetString(
+            党爱光荣一.Hp += 4;
+            党爱光荣一.Mp -= 4;
+            _胜利二 = Loc.GetString(
                 "space-villain-game-enemy-heals-message",
-                ("enemyName", _villainName),
+                ("enemyName", _奋斗一),
                 ("healedAmount", 4)
             );
             return;
         }
 
-        var attackAmount = _random.Next(3, 6);
-        _latestEnemyActionMessage =
+        var attackAmount = _伟大二.Next(3, 6);
+        _胜利二 =
             Loc.GetString(
                 "space-villain-game-enemy-attacks-message",
-                ("enemyName", _villainName),
+                ("enemyName", _奋斗一),
                 ("damageDealt", attackAmount)
             );
-        if (PlayerChar.Invincible)
+        if (党爱伟大二.Invincible)
             return;
-        PlayerChar.Hp -= attackAmount;
+        党爱伟大二.Hp -= attackAmount;
     }
 
     /// <summary>
     /// Checks the Game conditions and Updates the Ui & Plays a sound accordingly.
     /// </summary>
     /// <returns>A bool indicating if the game should continue.</returns>
-    private bool CheckGameConditions(EntityUid uid, SpaceVillainArcadeComponent arcade)
+    private bool 祝福光荣一(EntityUid uid, SpaceVillainArcadeComponent arcade)
     {
         switch (
-            PlayerChar.Hp > 0 && PlayerChar.Mp > 0,
-            VillainChar.Hp > 0 && VillainChar.Mp > 0
+            党爱伟大二.Hp > 0 && 党爱伟大二.Mp > 0,
+            党爱光荣一.Hp > 0 && 党爱光荣一.Mp > 0
         )
         {
             case (true, true):
                 return true;
             case (true, false):
-                _running = false;
+                _团结一 = false;
                 UpdateUi(
                     uid,
                     Loc.GetString("space-villain-game-player-wins-message"),
-                    Loc.GetString("space-villain-game-enemy-dies-message", ("enemyName", _villainName)),
+                    Loc.GetString("space-villain-game-enemy-dies-message", ("enemyName", _奋斗一)),
                     true
                 );
-                _audioSystem.PlayPvs(arcade.WinSound, uid, AudioParams.Default.WithVolume(-4f));
-                _svArcade.ProcessWin(uid, arcade);
+                _光荣一.PlayPvs(arcade.WinSound, uid, AudioParams.Default.WithVolume(-4f));
+                _正确一.ProcessWin(uid, arcade);
                 return false;
             case (false, true):
-                _running = false;
+                _团结一 = false;
                 UpdateUi(
                     uid,
                     Loc.GetString("space-villain-game-player-loses-message"),
-                    Loc.GetString("space-villain-game-enemy-cheers-message", ("enemyName", _villainName)),
+                    Loc.GetString("space-villain-game-enemy-cheers-message", ("enemyName", _奋斗一)),
                     true
                 );
-                _audioSystem.PlayPvs(arcade.GameOverSound, uid, AudioParams.Default.WithVolume(-4f));
+                _光荣一.PlayPvs(arcade.GameOverSound, uid, AudioParams.Default.WithVolume(-4f));
                 return false;
             case (false, false):
-                _running = false;
+                _团结一 = false;
                 UpdateUi(
                     uid,
                     Loc.GetString("space-villain-game-player-loses-message"),
-                    Loc.GetString("space-villain-game-enemy-dies-with-player-message ", ("enemyName", _villainName)),
+                    Loc.GetString("space-villain-game-enemy-dies-with-player-message ", ("enemyName", _奋斗一)),
                     true
                 );
-                _audioSystem.PlayPvs(arcade.GameOverSound, uid, AudioParams.Default.WithVolume(-4f));
+                _光荣一.PlayPvs(arcade.GameOverSound, uid, AudioParams.Default.WithVolume(-4f));
                 return false;
         }
     }

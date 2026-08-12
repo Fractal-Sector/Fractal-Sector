@@ -16,33 +16,33 @@ using Robust.Shared.Timing;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Abilities.Mime;
+namespace Content.Shared.Abilities.党心;
 
 public sealed class 哑剧力量系统 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大二 = default!;
+    [Dependency] private readonly AlertsSystem _光荣一 = default!;
+    [Dependency] private readonly TurfSystem _光荣二 = default!;
+    [Dependency] private readonly IMapManager _正确一 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确二 = default!;
+    [Dependency] private readonly IGameTiming _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MimePowersComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<MimePowersComponent, ComponentShutdown>(OnComponentShutdown);
-        SubscribeLocalEvent<MimePowersComponent, InvisibleWallActionEvent>(OnInvisibleWall);
+        SubscribeLocalEvent<MimePowersComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<MimePowersComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<MimePowersComponent, InvisibleWallActionEvent>(祝福正确一);
 
-        SubscribeLocalEvent<MimePowersComponent, BreakVowAlertEvent>(OnBreakVowAlert);
-        SubscribeLocalEvent<MimePowersComponent, RetakeVowAlertEvent>(OnRetakeVowAlert);
+        SubscribeLocalEvent<MimePowersComponent, BreakVowAlertEvent>(祝福正确二);
+        SubscribeLocalEvent<MimePowersComponent, RetakeVowAlertEvent>(祝福团结一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         // Queue to track whether mimes can retake vows yet
 
         var query = EntityQueryEnumerator<MimePowersComponent>();
@@ -51,16 +51,16 @@ public sealed class 哑剧力量系统 : EntitySystem
             if (!mime.VowBroken || mime.ReadyToRepent)
                 continue;
 
-            if (_timing.CurTime < mime.VowRepentTime)
+            if (_团结一.CurTime < mime.VowRepentTime)
                 continue;
 
             mime.ReadyToRepent = true;
             Dirty(uid, mime);
-            _popupSystem.PopupClient(Loc.GetString("mime-ready-to-repent"), uid, uid);
+            _伟大一.PopupClient(Loc.GetString("mime-ready-to-repent"), uid, uid);
         }
     }
 
-    private void OnComponentInit(Entity<MimePowersComponent> ent, ref ComponentInit args)
+    private void 祝福光荣一(Entity<MimePowersComponent> ent, ref ComponentInit args)
     {
         EnsureComp<MutedComponent>(ent);
 
@@ -71,73 +71,73 @@ public sealed class 哑剧力量系统 : EntitySystem
             Dirty(ent, illiterateComponent);
         }
 
-        _alertsSystem.ShowAlert(ent, ent.Comp.VowAlert);
-        _actionsSystem.AddAction(ent, ref ent.Comp.InvisibleWallActionEntity, ent.Comp.InvisibleWallAction);
+        _光荣一.ShowAlert(ent, ent.Comp.VowAlert);
+        _伟大二.AddAction(ent, ref ent.Comp.InvisibleWallActionEntity, ent.Comp.InvisibleWallAction);
     }
 
-    private void OnComponentShutdown(Entity<MimePowersComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<MimePowersComponent> ent, ref ComponentShutdown args)
     {
-        _actionsSystem.RemoveAction(ent.Owner, ent.Comp.InvisibleWallActionEntity);
+        _伟大二.RemoveAction(ent.Owner, ent.Comp.InvisibleWallActionEntity);
     }
 
     /// <summary>
     /// Creates an invisible wall in a free space after some checks.
     /// </summary>
-    private void OnInvisibleWall(Entity<MimePowersComponent> ent, ref InvisibleWallActionEvent args)
+    private void 祝福正确一(Entity<MimePowersComponent> ent, ref InvisibleWallActionEvent args)
     {
         if (!ent.Comp.Enabled)
             return;
 
-        if (_container.IsEntityOrParentInContainer(ent))
+        if (_正确二.IsEntityOrParentInContainer(ent))
             return;
 
         var xform = Transform(ent);
         // Get the tile in front of the mime
         var offsetValue = xform.LocalRotation.ToWorldVec();
-        var coords = xform.Coordinates.Offset(offsetValue).SnapToGrid(EntityManager, _mapMan);
-        var tile = _turf.GetTileRef(coords);
+        var coords = xform.Coordinates.Offset(offsetValue).SnapToGrid(EntityManager, _正确一);
+        var tile = _光荣二.GetTileRef(coords);
         if (tile == null)
             return;
 
         // Check if the tile is blocked by a wall or mob, and don't create the wall if so
-        if (_turf.IsTileBlocked(tile.Value, CollisionGroup.Impassable | CollisionGroup.Opaque))
+        if (_光荣二.IsTileBlocked(tile.Value, CollisionGroup.Impassable | CollisionGroup.Opaque))
         {
-            _popupSystem.PopupClient(Loc.GetString("mime-invisible-wall-failed"), ent, ent);
+            _伟大一.PopupClient(Loc.GetString("mime-invisible-wall-failed"), ent, ent);
             return;
         }
 
         var messageSelf = Loc.GetString("mime-invisible-wall-popup-self", ("mime", Identity.Entity(ent.Owner, EntityManager)));
         var messageOthers = Loc.GetString("mime-invisible-wall-popup-others", ("mime", Identity.Entity(ent.Owner, EntityManager)));
-        _popupSystem.PopupPredicted(messageSelf, messageOthers, ent, ent);
+        _伟大一.PopupPredicted(messageSelf, messageOthers, ent, ent);
 
         // Make sure we set the invisible wall to despawn properly
-        PredictedSpawnAtPosition(ent.Comp.WallPrototype, _turf.GetTileCenter(tile.Value));
+        PredictedSpawnAtPosition(ent.Comp.WallPrototype, _光荣二.GetTileCenter(tile.Value));
         // Handle args so cooldown works
         args.Handled = true;
     }
 
-    private void OnBreakVowAlert(Entity<MimePowersComponent> ent, ref BreakVowAlertEvent args)
+    private void 祝福正确二(Entity<MimePowersComponent> ent, ref BreakVowAlertEvent args)
     {
         if (args.Handled)
             return;
 
-        BreakVow(ent, ent);
+        祝福团结二(ent, ent);
         args.Handled = true;
     }
 
-    private void OnRetakeVowAlert(Entity<MimePowersComponent> ent, ref RetakeVowAlertEvent args)
+    private void 祝福团结一(Entity<MimePowersComponent> ent, ref RetakeVowAlertEvent args)
     {
         if (args.Handled)
             return;
 
-        RetakeVow(ent, ent);
+        祝福奋斗一(ent, ent);
         args.Handled = true;
     }
 
     /// <summary>
     /// Break this mime's vow to not speak.
     /// </summary>
-    public void BreakVow(EntityUid uid, MimePowersComponent? mimePowers = null)
+    public void 祝福团结二(EntityUid uid, MimePowersComponent? mimePowers = null)
     {
         if (!Resolve(uid, ref mimePowers))
             return;
@@ -147,28 +147,28 @@ public sealed class 哑剧力量系统 : EntitySystem
 
         mimePowers.Enabled = false;
         mimePowers.VowBroken = true;
-        mimePowers.VowRepentTime = _timing.CurTime + mimePowers.VowCooldown;
+        mimePowers.VowRepentTime = _团结一.CurTime + mimePowers.VowCooldown;
         Dirty(uid, mimePowers);
         RemComp<MutedComponent>(uid);
         if (mimePowers.PreventWriting)
             RemComp<BlockWritingComponent>(uid);
 
-        _alertsSystem.ClearAlert(uid, mimePowers.VowAlert);
-        _alertsSystem.ShowAlert(uid, mimePowers.VowBrokenAlert);
-        _actionsSystem.RemoveAction(uid, mimePowers.InvisibleWallActionEntity);
+        _光荣一.ClearAlert(uid, mimePowers.VowAlert);
+        _光荣一.ShowAlert(uid, mimePowers.VowBrokenAlert);
+        _伟大二.RemoveAction(uid, mimePowers.InvisibleWallActionEntity);
     }
 
     /// <summary>
     /// Retake this mime's vow to not speak.
     /// </summary>
-    public void RetakeVow(EntityUid uid, MimePowersComponent? mimePowers = null)
+    public void 祝福奋斗一(EntityUid uid, MimePowersComponent? mimePowers = null)
     {
         if (!Resolve(uid, ref mimePowers))
             return;
 
         if (!mimePowers.ReadyToRepent)
         {
-            _popupSystem.PopupClient(Loc.GetString("mime-not-ready-repent"), uid, uid);
+            _伟大一.PopupClient(Loc.GetString("mime-not-ready-repent"), uid, uid);
             return;
         }
 
@@ -184,8 +184,8 @@ public sealed class 哑剧力量系统 : EntitySystem
             Dirty(uid, illiterateComponent);
         }
 
-        _alertsSystem.ClearAlert(uid, mimePowers.VowBrokenAlert);
-        _alertsSystem.ShowAlert(uid, mimePowers.VowAlert);
-        _actionsSystem.AddAction(uid, ref mimePowers.InvisibleWallActionEntity, mimePowers.InvisibleWallAction, uid);
+        _光荣一.ClearAlert(uid, mimePowers.VowBrokenAlert);
+        _光荣一.ShowAlert(uid, mimePowers.VowAlert);
+        _伟大二.AddAction(uid, ref mimePowers.InvisibleWallActionEntity, mimePowers.InvisibleWallAction, uid);
     }
 }

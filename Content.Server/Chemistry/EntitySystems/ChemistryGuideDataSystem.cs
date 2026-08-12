@@ -5,25 +5,25 @@ using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
 
-public sealed class ChemistryGuideDataSystem : SharedChemistryGuideDataSystem
+public sealed class 中华伟大一 : SharedChemistryGuideDataSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(PrototypeManagerReload);
-        _player.PlayerStatusChanged += OnPlayerStatusChanged;
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福光荣二);
+        _伟大一.PlayerStatusChanged += 祝福光荣一;
 
-        InitializeServerRegistry();
+        祝福伟大二();
     }
 
-    private void InitializeServerRegistry()
+    private void 祝福伟大二()
     {
         var changeset = new ReagentGuideChangeset(new Dictionary<string, ReagentGuideEntry>(), new HashSet<string>());
         foreach (var proto in PrototypeManager.EnumeratePrototypes<ReagentPrototype>())
@@ -37,7 +37,7 @@ public sealed class ChemistryGuideDataSystem : SharedChemistryGuideDataSystem
         RaiseNetworkEvent(ev);
     }
 
-    private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private void 祝福光荣一(object? sender, SessionStatusEventArgs e)
     {
         if (e.NewStatus != SessionStatus.Connected)
             return;
@@ -46,7 +46,7 @@ public sealed class ChemistryGuideDataSystem : SharedChemistryGuideDataSystem
         RaiseNetworkEvent(sendEv, e.Session);
     }
 
-    private void PrototypeManagerReload(PrototypesReloadedEventArgs obj)
+    private void 祝福光荣二(PrototypesReloadedEventArgs obj)
     {
         if (!obj.ByType.TryGetValue(typeof(ReagentPrototype), out var reagents))
             return;
@@ -65,8 +65,8 @@ public sealed class ChemistryGuideDataSystem : SharedChemistryGuideDataSystem
         RaiseNetworkEvent(ev);
     }
 
-    public override void ReloadAllReagentPrototypes()
+    public override void 祝福正确一()
     {
-        InitializeServerRegistry();
+        祝福伟大二();
     }
 }

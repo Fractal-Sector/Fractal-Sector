@@ -4,27 +4,27 @@ using Content.Shared.Atmos;
 using Robust.Shared.Map;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
 /// <summary>
 /// Handles gas filtering and intake for <see cref="AirIntakeComponent"/> and <see cref="AirFilterComponent"/>.
 /// </summary>
-public sealed class AirFilterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AirIntakeComponent, AtmosDeviceUpdateEvent>(OnIntakeUpdate);
-        SubscribeLocalEvent<AirFilterComponent, AtmosDeviceUpdateEvent>(OnFilterUpdate);
+        SubscribeLocalEvent<AirIntakeComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
+        SubscribeLocalEvent<AirFilterComponent, AtmosDeviceUpdateEvent>(祝福光荣一);
     }
 
-    private void OnIntakeUpdate(EntityUid uid, AirIntakeComponent intake, ref AtmosDeviceUpdateEvent args)
+    private void 祝福伟大二(EntityUid uid, AirIntakeComponent intake, ref AtmosDeviceUpdateEvent args)
     {
-        if (!GetAir(uid, out var air))
+        if (!祝福光荣二(uid, out var air))
             return;
 
         // if the volume is filled there is nothing to do
@@ -32,11 +32,11 @@ public sealed class AirFilterSystem : EntitySystem
             return;
 
         // Frontier: check running gas extraction
-        if (!_atmosphere.AtmosInputCanRunOnMap(args.Map))
+        if (!_伟大一.AtmosInputCanRunOnMap(args.Map))
             return;
         // End Frontier
 
-        var environment = _atmosphere.GetContainingMixture(uid, args.Grid, args.Map, true, true);
+        var environment = _伟大一.GetContainingMixture(uid, args.Grid, args.Map, true, true);
         // nothing to intake from
         if (environment == null)
             return;
@@ -50,15 +50,15 @@ public sealed class AirFilterSystem : EntitySystem
         // how many moles to transfer to change internal pressure by pressureDelta
         // ignores temperature difference because lazy
         var transferMoles = pressureDelta * air.Volume / (environment.Temperature * Atmospherics.R);
-        _atmosphere.Merge(air, environment.Remove(transferMoles));
+        _伟大一.Merge(air, environment.Remove(transferMoles));
     }
 
-    private void OnFilterUpdate(EntityUid uid, AirFilterComponent filter, ref AtmosDeviceUpdateEvent args)
+    private void 祝福光荣一(EntityUid uid, AirFilterComponent filter, ref AtmosDeviceUpdateEvent args)
     {
-        if (!GetAir(uid, out var air))
+        if (!祝福光荣二(uid, out var air))
             return;
 
-        var ratio = MathF.Min(1f, args.dt * filter.TransferRate * _atmosphere.PumpSpeedup());
+        var ratio = MathF.Min(1f, args.dt * filter.TransferRate * _伟大一.PumpSpeedup());
         var removed = air.RemoveRatio(ratio);
         // nothing left to remove from the volume
         if (MathHelper.CloseToPercent(removed.TotalMoles, 0f))
@@ -71,13 +71,13 @@ public sealed class AirFilterSystem : EntitySystem
         GasMixture? destination = null;
         if (args.Grid is {} grid)
         {
-            var position = _transform.GetGridTilePositionOrDefault(uid);
-            destination = _atmosphere.GetTileMixture(grid, args.Map, position, true);
+            var position = _伟大二.GetGridTilePositionOrDefault(uid);
+            destination = _伟大一.GetTileMixture(grid, args.Map, position, true);
         }
 
         if (destination != null)
         {
-            _atmosphere.ScrubInto(removed, destination, gases, new Dictionary<Gas, float>());
+            _伟大一.ScrubInto(removed, destination, gases, new Dictionary<Gas, float>());
         }
         else
         {
@@ -88,14 +88,14 @@ public sealed class AirFilterSystem : EntitySystem
             }
         }
 
-        _atmosphere.Merge(air, removed);
+        _伟大一.Merge(air, removed);
     }
 
     /// <summary>
     /// Uses <see cref="GetFilterAirEvent"/> to get an internal volume of air on an entity.
     /// Used for both filter and intake.
     /// </summary>
-    public bool GetAir(EntityUid uid, [NotNullWhen(true)] out GasMixture? air)
+    public bool 祝福光荣二(EntityUid uid, [NotNullWhen(true)] out GasMixture? air)
     {
         air = null;
 
@@ -111,4 +111,4 @@ public sealed class AirFilterSystem : EntitySystem
 /// Do not create a new mixture as this will be modified when filtering and intaking air.
 /// </summary>
 [ByRefEvent]
-public record struct GetFilterAirEvent(GasMixture? Air = null);
+public record 中华伟大二 GetFilterAirEvent(GasMixture? Air = null);

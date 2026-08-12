@@ -1,21 +1,21 @@
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class DirtyCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    public override string Command => "dirty";
+    public override string 党爱伟大一 => "dirty";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         switch (args.Length)
         {
             case 0:
                 foreach (var entity in EntityManager.GetEntities())
                 {
-                    DirtyAll(entity);
+                    祝福伟大二(entity);
                 }
                 break;
             case 1:
@@ -24,7 +24,7 @@ public sealed class DirtyCommand : LocalizedEntityCommands
                     shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
                     return;
                 }
-                DirtyAll(EntityManager.GetEntity(parsedTarget));
+                祝福伟大二(EntityManager.GetEntity(parsedTarget));
                 break;
             default:
                 shell.WriteLine(Loc.GetString("shell-wrong-arguments-number"));
@@ -32,7 +32,7 @@ public sealed class DirtyCommand : LocalizedEntityCommands
         }
     }
 
-    private void DirtyAll(EntityUid entityUid)
+    private void 祝福伟大二(EntityUid entityUid)
     {
         foreach (var component in EntityManager.GetNetComponents(entityUid))
         {

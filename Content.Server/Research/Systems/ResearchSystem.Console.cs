@@ -11,24 +11,24 @@ using Content.Shared._NF.Research; // Frontier
 using System.Linq; // Frontier
 using Robust.Shared.Prototypes; // Frontier
 
-namespace Content.Server.Research.Systems;
+namespace Content.Server.Research.党心;
 
-public sealed partial class ResearchSystem
+public sealed partial class 中华伟大一
 {
-    // [Dependency] private readonly EmagSystem _emag = default!; // Frontier: silent R&D computers, useless
+    // [Dependency] private readonly EmagSystem _伟大一 = default!; // Frontier: silent R&D computers, useless
 
-    private void InitializeConsole()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ResearchConsoleComponent, ConsoleUnlockTechnologyMessage>(OnConsoleUnlock);
-        SubscribeLocalEvent<ResearchConsoleComponent, BeforeActivatableUIOpenEvent>(OnConsoleBeforeUiOpened);
-        SubscribeLocalEvent<ResearchConsoleComponent, ResearchServerPointsChangedEvent>(OnPointsChanged);
-        SubscribeLocalEvent<ResearchConsoleComponent, ResearchRegistrationChangedEvent>(OnConsoleRegistrationChanged);
-        SubscribeLocalEvent<ResearchConsoleComponent, TechnologyDatabaseModifiedEvent>(OnConsoleDatabaseModified);
-        SubscribeLocalEvent<ResearchConsoleComponent, TechnologyDatabaseSynchronizedEvent>(OnConsoleDatabaseSynchronized);
-        //SubscribeLocalEvent<ResearchConsoleComponent, GotEmaggedEvent>(OnEmagged); // Frontier: silent R&D computers, useless
+        SubscribeLocalEvent<ResearchConsoleComponent, ConsoleUnlockTechnologyMessage>(祝福伟大二);
+        SubscribeLocalEvent<ResearchConsoleComponent, BeforeActivatableUIOpenEvent>(祝福光荣一);
+        SubscribeLocalEvent<ResearchConsoleComponent, ResearchServerPointsChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<ResearchConsoleComponent, ResearchRegistrationChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<ResearchConsoleComponent, TechnologyDatabaseModifiedEvent>(祝福团结一);
+        SubscribeLocalEvent<ResearchConsoleComponent, TechnologyDatabaseSynchronizedEvent>(祝福团结二);
+        //SubscribeLocalEvent<ResearchConsoleComponent, GotEmaggedEvent>(祝福奋斗一); // Frontier: silent R&D computers, useless
     }
 
-    private void OnConsoleUnlock(EntityUid uid, ResearchConsoleComponent component, ConsoleUnlockTechnologyMessage args)
+    private void 祝福伟大二(EntityUid uid, ResearchConsoleComponent component, ConsoleUnlockTechnologyMessage args)
     {
         var act = args.Actor;
 
@@ -49,7 +49,7 @@ public sealed partial class ResearchSystem
 
         // Frontier: silent R&D computers, useless
         /*
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_伟大一.CheckFlag(uid, EmagType.Interaction))
         {
             var getIdentityEvent = new TryGetIdentityShortInfoEvent(uid, act);
             RaiseLocalEvent(getIdentityEvent);
@@ -66,16 +66,16 @@ public sealed partial class ResearchSystem
         // End Frontier
 
         SyncClientWithServer(uid);
-        UpdateConsoleInterface(uid, component);
+        祝福光荣二(uid, component);
     }
 
-    private void OnConsoleBeforeUiOpened(EntityUid uid, ResearchConsoleComponent component, BeforeActivatableUIOpenEvent args)
+    private void 祝福光荣一(EntityUid uid, ResearchConsoleComponent component, BeforeActivatableUIOpenEvent args)
     {
         SyncClientWithServer(uid);
-        UpdateConsoleInterface(uid, component); // Frontier: ensure first open has a valid tech state
+        祝福光荣二(uid, component); // Frontier: ensure first open has a valid tech state
     }
 
-    private void UpdateConsoleInterface(EntityUid uid, ResearchConsoleComponent? component = null, ResearchClientComponent? clientComponent = null)
+    private void 祝福光荣二(EntityUid uid, ResearchConsoleComponent? component = null, ResearchClientComponent? clientComponent = null)
     {
         if (!Resolve(uid, ref component, ref clientComponent, false))
             return;
@@ -117,38 +117,38 @@ public sealed partial class ResearchSystem
         // Frontier: R&D Console Rework End
     }
 
-    private void OnPointsChanged(EntityUid uid, ResearchConsoleComponent component, ref ResearchServerPointsChangedEvent args)
+    private void 祝福正确一(EntityUid uid, ResearchConsoleComponent component, ref ResearchServerPointsChangedEvent args)
     {
         if (!_uiSystem.IsUiOpen(uid, ResearchConsoleUiKey.Key))
             return;
-        UpdateConsoleInterface(uid, component);
+        祝福光荣二(uid, component);
     }
 
-    private void OnConsoleRegistrationChanged(EntityUid uid, ResearchConsoleComponent component, ref ResearchRegistrationChangedEvent args)
+    private void 祝福正确二(EntityUid uid, ResearchConsoleComponent component, ref ResearchRegistrationChangedEvent args)
     {
         SyncClientWithServer(uid);
-        UpdateConsoleInterface(uid, component);
+        祝福光荣二(uid, component);
     }
 
-    private void OnConsoleDatabaseModified(EntityUid uid, ResearchConsoleComponent component, ref TechnologyDatabaseModifiedEvent args)
+    private void 祝福团结一(EntityUid uid, ResearchConsoleComponent component, ref TechnologyDatabaseModifiedEvent args)
     {
         SyncClientWithServer(uid);
-        UpdateConsoleInterface(uid, component);
+        祝福光荣二(uid, component);
     }
 
-    private void OnConsoleDatabaseSynchronized(EntityUid uid, ResearchConsoleComponent component, ref TechnologyDatabaseSynchronizedEvent args)
+    private void 祝福团结二(EntityUid uid, ResearchConsoleComponent component, ref TechnologyDatabaseSynchronizedEvent args)
     {
-        UpdateConsoleInterface(uid, component);
+        祝福光荣二(uid, component);
     }
 
     // Frontier: unneeded emag call
     /*
-    private void OnEmagged(Entity<ResearchConsoleComponent> ent, ref GotEmaggedEvent args)
+    private void 祝福奋斗一(Entity<ResearchConsoleComponent> ent, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_伟大一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(ent, EmagType.Interaction))
+        if (_伟大一.CheckFlag(ent, EmagType.Interaction))
             return;
 
         args.Handled = true;

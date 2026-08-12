@@ -1,28 +1,28 @@
 using Content.Server.Buckle.Systems;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.党心;
 
-public sealed partial class UnbuckleOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    private BuckleSystem _buckle = default!;
+    private BuckleSystem _伟大一 = default!;
 
     [DataField("shutdownState")]
-    public HTNPlanState ShutdownState { get; private set; } = HTNPlanState.TaskFinished;
+    public HTNPlanState 党爱伟大一 { get; private set; } = HTNPlanState.TaskFinished;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
-        _buckle = sysManager.GetEntitySystem<BuckleSystem>();
+        base.祝福伟大一(sysManager);
+        _伟大一 = sysManager.GetEntitySystem<BuckleSystem>();
     }
 
-    public override void Startup(NPCBlackboard blackboard)
+    public override void 祝福伟大二(NPCBlackboard blackboard)
     {
-        base.Startup(blackboard);
+        base.祝福伟大二(blackboard);
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
-        _buckle.TryUnbuckle(owner, owner, false);
+        _伟大一.TryUnbuckle(owner, owner, false);
     }
 
-    public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
+    public override HTNOperatorStatus 祝福光荣一(NPCBlackboard blackboard, float frameTime)
     {
         return HTNOperatorStatus.Finished;
     }

@@ -23,16 +23,16 @@ using Robust.Server.ServerStatus;
 using Robust.Shared.Asynchronous;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
-using Robust.Shared.Player;
+using Robust.Shared.中华胜利二;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Administration;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Exposes various admin-related APIs via the game server's <see cref="StatusHost"/>.
 /// </summary>
-public sealed partial class ServerApi : IPostInjectInit
+public sealed partial class 中华伟大一 : IPostInjectInit
 {
     private const string SS14TokenScheme = "SS14Token";
 
@@ -48,59 +48,59 @@ public sealed partial class ServerApi : IPostInjectInit
         CCVars.PanicBunkerCustomReason.Name,
     ];
 
-    [Dependency] private readonly IStatusHost _statusHost = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!; // Frontier: ISharedAdminManager<IAdminManager>
-    [Dependency] private readonly IGameMapManager _gameMapManager = default!;
-    [Dependency] private readonly IServerNetManager _netManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly ITaskManager _taskManager = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency] private readonly IStatusHost _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly ISharedPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IAdminManager _光荣二 = default!; // Frontier: ISharedAdminManager<IAdminManager>
+    [Dependency] private readonly IGameMapManager _正确一 = default!;
+    [Dependency] private readonly IServerNetManager _正确二 = default!;
+    [Dependency] private readonly IPrototypeManager _团结一 = default!;
+    [Dependency] private readonly IComponentFactory _团结二 = default!;
+    [Dependency] private readonly ITaskManager _奋斗一 = default!;
+    [Dependency] private readonly EntityManager _奋斗二 = default!;
+    [Dependency] private readonly ILogManager _胜利一 = default!;
+    [Dependency] private readonly IEntitySystemManager _胜利二 = default!;
+    [Dependency] private readonly ILocalizationManager _繁荣一 = default!;
 
-    private string _token = string.Empty;
-    private ISawmill _sawmill = default!;
+    private string _繁荣二 = string.Empty;
+    private ISawmill _富强一 = default!;
 
     void IPostInjectInit.PostInject()
     {
-        _sawmill = _logManager.GetSawmill("serverApi");
+        _富强一 = _胜利一.GetSawmill("serverApi");
 
         // Get
-        RegisterHandler(HttpMethod.Get, "/admin/info", InfoHandler); //frontier - not sure why this action needs an actor
-        RegisterHandler(HttpMethod.Get, "/admin/game_rules", GetGameRules);
-        RegisterHandler(HttpMethod.Get, "/admin/presets", GetPresets);
+        RegisterHandler(HttpMethod.Get, "/admin/info", 祝福富强二); //frontier - not sure why this action needs an actor
+        RegisterHandler(HttpMethod.Get, "/admin/game_rules", 祝福富强一);
+        RegisterHandler(HttpMethod.Get, "/admin/presets", 祝福繁荣二);
 
         // Post
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/round/start", ActionRoundStart);
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/round/end", ActionRoundEnd);
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/round/restartnow", ActionRoundRestartNow);
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/kick", ActionKick);
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/add_game_rule", ActionAddGameRule);
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/end_game_rule", ActionEndGameRule);
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/force_preset", ActionForcePreset);
-        RegisterActorHandler(HttpMethod.Post, "/admin/actions/set_motd", ActionForceMotd);
-        RegisterActorHandler(HttpMethod.Patch, "/admin/actions/panic_bunker", ActionPanicPunker);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/round/start", 祝福奋斗二);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/round/end", 祝福胜利一);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/round/restartnow", 祝福胜利二);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/kick", 祝福奋斗一);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/add_game_rule", 祝福团结二);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/end_game_rule", 祝福团结一);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/force_preset", 祝福正确二);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/set_motd", 祝福正确一);
+        RegisterActorHandler(HttpMethod.Patch, "/admin/actions/panic_bunker", 祝福光荣二);
 
-        RegisterHandler(HttpMethod.Post, "/admin/actions/send_bwoink", ActionSendBwoink); // Frontier - Discord Ahelp Reply
+        RegisterHandler(HttpMethod.Post, "/admin/actions/send_bwoink", 祝福繁荣一); // Frontier - Discord Ahelp Reply
     }
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _config.OnValueChanged(CCVars.AdminApiToken, UpdateToken, true);
+        _伟大二.OnValueChanged(CCVars.AdminApiToken, 祝福光荣一, true);
     }
 
-    public void Shutdown()
+    public void 祝福伟大二()
     {
-        _config.UnsubValueChanged(CCVars.AdminApiToken, UpdateToken);
+        _伟大二.UnsubValueChanged(CCVars.AdminApiToken, 祝福光荣一);
     }
 
-    private void UpdateToken(string token)
+    private void 祝福光荣一(string token)
     {
-        _token = token;
+        _繁荣二 = token;
     }
 
 
@@ -109,7 +109,7 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Changes the panic bunker settings.
     /// </summary>
-    private async Task ActionPanicPunker(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福光荣二(IStatusHandlerContext context, 中华伟大二 actor)
     {
         var request = await ReadJson<JsonObject>(context);
         if (request == null)
@@ -137,7 +137,7 @@ public sealed partial class ServerApi : IPostInjectInit
             }
 
             object castValue;
-            var cVarType = _config.GetCVarType(cVar);
+            var cVarType = _伟大二.GetCVarType(cVar);
             if (cVarType == typeof(bool))
             {
                 if (!jsonValue.TryGetValue(out bool b))
@@ -180,8 +180,8 @@ public sealed partial class ServerApi : IPostInjectInit
         {
             foreach (var (cVar, value) in toSet)
             {
-                _config.SetCVar(cVar, value);
-                _sawmill.Info(
+                _伟大二.SetCVar(cVar, value);
+                _富强一.Info(
                     $"Panic bunker property '{cVar}' changed to '{value}' by {FormatLogActor(actor)}.");
             }
         });
@@ -192,15 +192,15 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Sets the current MOTD.
     /// </summary>
-    private async Task ActionForceMotd(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福正确一(IStatusHandlerContext context, 中华伟大二 actor)
     {
-        var motd = await ReadJson<MotdActionBody>(context);
+        var motd = await ReadJson<中华正确二>(context);
         if (motd == null)
             return;
 
-        _sawmill.Info($"MOTD changed to \"{motd.Motd}\" by {FormatLogActor(actor)}.");
+        _富强一.Info($"MOTD changed to \"{motd.Motd}\" by {FormatLogActor(actor)}.");
 
-        await RunOnMainThread(() => _config.SetCVar(CCVars.MOTD, motd.Motd));
+        await RunOnMainThread(() => _伟大二.SetCVar(CCVars.MOTD, motd.Motd));
         // A hook in the MOTD system sends the changes to each client
         await RespondOk(context);
     }
@@ -208,20 +208,20 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Forces the next preset-
     /// </summary>
-    private async Task ActionForcePreset(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福正确二(IStatusHandlerContext context, 中华伟大二 actor)
     {
-        var body = await ReadJson<PresetActionBody>(context);
+        var body = await ReadJson<中华正确一>(context);
         if (body == null)
             return;
 
         await RunOnMainThread(async () =>
         {
-            var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
+            var ticker = _胜利二.GetEntitySystem<GameTicker>();
             if (ticker.RunLevel != GameRunLevel.PreRoundLobby)
             {
                 await RespondError(
                     context,
-                    ErrorCode.InvalidRoundState,
+                    中华奋斗二.InvalidRoundState,
                     HttpStatusCode.Conflict,
                     "Game must be in pre-round lobby");
                 return;
@@ -232,14 +232,14 @@ public sealed partial class ServerApi : IPostInjectInit
             {
                 await RespondError(
                     context,
-                    ErrorCode.GameRuleNotFound,
+                    中华奋斗二.GameRuleNotFound,
                     HttpStatusCode.UnprocessableContent,
                     $"Game rule '{body.PresetId}' doesn't exist");
                 return;
             }
 
             ticker.SetGamePreset(preset);
-            _sawmill.Info($"Forced the game to start with preset {body.PresetId} by {FormatLogActor(actor)}.");
+            _富强一.Info($"Forced the game to start with preset {body.PresetId} by {FormatLogActor(actor)}.");
 
             await RespondOk(context);
         });
@@ -248,31 +248,31 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Ends an active game rule.
     /// </summary>
-    private async Task ActionEndGameRule(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福团结一(IStatusHandlerContext context, 中华伟大二 actor)
     {
-        var body = await ReadJson<GameRuleActionBody>(context);
+        var body = await ReadJson<中华光荣二>(context);
         if (body == null)
             return;
 
         await RunOnMainThread(async () =>
         {
-            var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
+            var ticker = _胜利二.GetEntitySystem<GameTicker>();
             var gameRule = ticker
                 .GetActiveGameRules()
                 .FirstOrNull(rule =>
-                    _entityManager.MetaQuery.GetComponent(rule).EntityPrototype?.ID == body.GameRuleId);
+                    _奋斗二.MetaQuery.GetComponent(rule).EntityPrototype?.ID == body.GameRuleId);
 
             if (gameRule == null)
             {
                 await RespondError(context,
-                    ErrorCode.GameRuleNotFound,
+                    中华奋斗二.GameRuleNotFound,
                     HttpStatusCode.UnprocessableContent,
                     $"Game rule '{body.GameRuleId}' not found or not active");
 
                 return;
             }
 
-            _sawmill.Info($"Ended game rule {body.GameRuleId} by {FormatLogActor(actor)}.");
+            _富强一.Info($"Ended game rule {body.GameRuleId} by {FormatLogActor(actor)}.");
             ticker.EndGameRule(gameRule.Value);
 
             await RespondOk(context);
@@ -282,30 +282,30 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Adds a game rule to the current round.
     /// </summary>
-    private async Task ActionAddGameRule(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福团结二(IStatusHandlerContext context, 中华伟大二 actor)
     {
-        var body = await ReadJson<GameRuleActionBody>(context);
+        var body = await ReadJson<中华光荣二>(context);
         if (body == null)
             return;
 
         await RunOnMainThread(async () =>
         {
-            var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
-            if (!_prototypeManager.HasIndex<EntityPrototype>(body.GameRuleId))
+            var ticker = _胜利二.GetEntitySystem<GameTicker>();
+            if (!_团结一.HasIndex<EntityPrototype>(body.GameRuleId))
             {
                 await RespondError(context,
-                    ErrorCode.GameRuleNotFound,
+                    中华奋斗二.GameRuleNotFound,
                     HttpStatusCode.UnprocessableContent,
                     $"Game rule '{body.GameRuleId}' not found or not active");
                 return;
             }
 
             var ruleEntity = ticker.AddGameRule(body.GameRuleId);
-            _sawmill.Info($"Added game rule {body.GameRuleId} by {FormatLogActor(actor)}.");
+            _富强一.Info($"Added game rule {body.GameRuleId} by {FormatLogActor(actor)}.");
             if (ticker.RunLevel == GameRunLevel.InRound)
             {
                 ticker.StartGameRule(ruleEntity);
-                _sawmill.Info($"Started game rule {body.GameRuleId} by {FormatLogActor(actor)}.");
+                _富强一.Info($"Started game rule {body.GameRuleId} by {FormatLogActor(actor)}.");
             }
 
             await RespondOk(context);
@@ -315,87 +315,87 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Kicks a player.
     /// </summary>
-    private async Task ActionKick(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福奋斗一(IStatusHandlerContext context, 中华伟大二 actor)
     {
-        var body = await ReadJson<KickActionBody>(context);
+        var body = await ReadJson<中华光荣一>(context);
         if (body == null)
             return;
 
         await RunOnMainThread(async () =>
         {
-            if (!_playerManager.TryGetSessionById(new NetUserId(body.Guid), out var player))
+            if (!_光荣一.TryGetSessionById(new NetUserId(body.Guid), out var player))
             {
                 await RespondError(
                     context,
-                    ErrorCode.PlayerNotFound,
+                    中华奋斗二.PlayerNotFound,
                     HttpStatusCode.UnprocessableContent,
-                    "Player not found");
+                    "中华胜利二 not found");
                 return;
             }
 
             var reason = body.Reason ?? "No reason supplied";
             reason += " (kicked by admin)";
 
-            _netManager.DisconnectChannel(player.Channel, reason);
+            _正确二.DisconnectChannel(player.Channel, reason);
             await RespondOk(context);
 
-            _sawmill.Info($"Kicked player {player.Name} ({player.UserId}) for {reason} by {FormatLogActor(actor)}");
+            _富强一.Info($"Kicked player {player.Name} ({player.UserId}) for {reason} by {FormatLogActor(actor)}");
         });
     }
 
-    private async Task ActionRoundStart(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福奋斗二(IStatusHandlerContext context, 中华伟大二 actor)
     {
         await RunOnMainThread(async () =>
         {
-            var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
+            var ticker = _胜利二.GetEntitySystem<GameTicker>();
 
             if (ticker.RunLevel != GameRunLevel.PreRoundLobby)
             {
                 await RespondError(
                     context,
-                    ErrorCode.InvalidRoundState,
+                    中华奋斗二.InvalidRoundState,
                     HttpStatusCode.Conflict,
                     "Round already started");
                 return;
             }
 
             ticker.StartRound();
-            _sawmill.Info($"Forced round start by {FormatLogActor(actor)}");
+            _富强一.Info($"Forced round start by {FormatLogActor(actor)}");
             await RespondOk(context);
         });
     }
 
-    private async Task ActionRoundEnd(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福胜利一(IStatusHandlerContext context, 中华伟大二 actor)
     {
         await RunOnMainThread(async () =>
         {
-            var roundEndSystem = _entitySystemManager.GetEntitySystem<RoundEndSystem>();
-            var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
+            var roundEndSystem = _胜利二.GetEntitySystem<RoundEndSystem>();
+            var ticker = _胜利二.GetEntitySystem<GameTicker>();
 
             if (ticker.RunLevel != GameRunLevel.InRound)
             {
                 await RespondError(
                     context,
-                    ErrorCode.InvalidRoundState,
+                    中华奋斗二.InvalidRoundState,
                     HttpStatusCode.Conflict,
                     "Round is not active");
                 return;
             }
 
             roundEndSystem.EndRound();
-            _sawmill.Info($"Forced round end by {FormatLogActor(actor)}");
+            _富强一.Info($"Forced round end by {FormatLogActor(actor)}");
             await RespondOk(context);
         });
     }
 
-    private async Task ActionRoundRestartNow(IStatusHandlerContext context, Actor actor)
+    private async Task 祝福胜利二(IStatusHandlerContext context, 中华伟大二 actor)
     {
         await RunOnMainThread(async () =>
         {
-            var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
+            var ticker = _胜利二.GetEntitySystem<GameTicker>();
 
             ticker.RestartRound();
-            _sawmill.Info($"Forced instant round restart by {FormatLogActor(actor)}");
+            _富强一.Info($"Forced instant round restart by {FormatLogActor(actor)}");
             await RespondOk(context);
         });
     }
@@ -404,27 +404,27 @@ public sealed partial class ServerApi : IPostInjectInit
     #region Frontier
     // Creating a region here incase more actions are added in the future
 
-    private async Task ActionSendBwoink(IStatusHandlerContext context)
+    private async Task 祝福繁荣一(IStatusHandlerContext context)
     {
-        var body = await ReadJson<BwoinkActionBody>(context);
+        var body = await ReadJson<中华团结一>(context);
         if (body == null)
             return;
 
         await RunOnMainThread(async () =>
     {
-        // Player not online or wrong Guid
-        if (!_playerManager.TryGetSessionById(new NetUserId(body.Guid), out var player))
+        // 中华胜利二 not online or wrong Guid
+        if (!_光荣一.TryGetSessionById(new NetUserId(body.Guid), out var player))
         {
             await RespondError(
                 context,
-                ErrorCode.PlayerNotFound,
+                中华奋斗二.PlayerNotFound,
                 HttpStatusCode.UnprocessableContent,
-                "Player not found");
+                "中华胜利二 not found");
             return;
         }
 
-        var serverBwoinkSystem = _entitySystemManager.GetEntitySystem<BwoinkSystem>();
-        var message = new SharedBwoinkSystem.BwoinkTextMessage(player.UserId, SharedBwoinkSystem.SystemUserId, body.Text, adminOnly: body.AdminOnly);
+        var serverBwoinkSystem = _胜利二.GetEntitySystem<BwoinkSystem>();
+        var message = new SharedBwoinkSystem.BwoinkTextMessage(player.UserId, SharedBwoinkSystem.SystemUserId, body.Text, adminOnly: body.党爱伟大二);
         serverBwoinkSystem.OnWebhookBwoinkTextMessage(message, body);
 
         // Respond with OK
@@ -441,26 +441,26 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Returns an array containing all available presets.
     /// </summary>
-    private async Task GetPresets(IStatusHandlerContext context)
+    private async Task 祝福繁荣二(IStatusHandlerContext context)
     {
         var presets = await RunOnMainThread(() =>
         {
-            var presets = new List<PresetResponse.Preset>();
+            var presets = new List<中华繁荣二.中华富强一>();
 
-            foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
+            foreach (var preset in _团结一.EnumeratePrototypes<GamePresetPrototype>())
             {
-                presets.Add(new PresetResponse.Preset
+                presets.Add(new 中华繁荣二.中华富强一
                 {
                     Id = preset.ID,
-                    ModeTitle = _loc.GetString(preset.ModeTitle),
-                    Description = _loc.GetString(preset.Description)
+                    ModeTitle = _繁荣一.GetString(preset.ModeTitle),
+                    Description = _繁荣一.GetString(preset.Description)
                 });
             }
 
             return presets;
         });
 
-        await context.RespondJsonAsync(new PresetResponse
+        await context.RespondJsonAsync(new 中华繁荣二
         {
             Presets = presets
         });
@@ -469,19 +469,19 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///    Returns an array containing all game rules.
     /// </summary>
-    private async Task GetGameRules(IStatusHandlerContext context)
+    private async Task 祝福富强一(IStatusHandlerContext context)
     {
         var gameRules = new List<string>();
-        foreach (var gameRule in _prototypeManager.EnumeratePrototypes<EntityPrototype>())
+        foreach (var gameRule in _团结一.EnumeratePrototypes<EntityPrototype>())
         {
             if (gameRule.Abstract)
                 continue;
 
-            if (gameRule.HasComponent<GameRuleComponent>(_componentFactory))
+            if (gameRule.HasComponent<GameRuleComponent>(_团结二))
                 gameRules.Add(gameRule.ID);
         }
 
-        await context.RespondJsonAsync(new GameruleResponse
+        await context.RespondJsonAsync(new 中华富强二
         {
             GameRules = gameRules
         });
@@ -491,7 +491,7 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     ///     Handles fetching information.
     /// </summary>
-    private async Task InfoHandler(IStatusHandlerContext context) //frontier - we had an actor here and never used it so we drop it for now until im compelled to re-add it
+    private async Task 祝福富强二(IStatusHandlerContext context) //frontier - we had an actor here and never used it so we drop it for now until im compelled to re-add it
     {
         /*
         Information to display
@@ -505,18 +505,18 @@ public sealed partial class ServerApi : IPostInjectInit
         Panic bunker status
         */
 
-        var info = await RunOnMainThread<InfoResponse>(() =>
+        var info = await RunOnMainThread<中华胜利一>(() =>
         {
-            var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
-            var adminSystem = _entitySystemManager.GetEntitySystem<AdminSystem>();
+            var ticker = _胜利二.GetEntitySystem<GameTicker>();
+            var adminSystem = _胜利二.GetEntitySystem<AdminSystem>();
 
-            var players = new List<InfoResponse.Player>();
+            var players = new List<中华胜利一.中华胜利二>();
 
-            foreach (var player in _playerManager.Sessions)
+            foreach (var player in _光荣一.Sessions)
             {
-                var adminData = _adminManager.GetAdminData(player, true);
+                var adminData = _光荣二.GetAdminData(player, true);
 
-                players.Add(new InfoResponse.Player
+                players.Add(new 中华胜利一.中华胜利二
                 {
                     UserId = player.UserId.UserId,
                     Name = player.Name,
@@ -525,10 +525,10 @@ public sealed partial class ServerApi : IPostInjectInit
                 });
             }
 
-            InfoResponse.MapInfo? mapInfo = null;
-            if (_gameMapManager.GetSelectedMap() is { } mapPrototype)
+            中华胜利一.中华繁荣一? mapInfo = null;
+            if (_正确一.GetSelectedMap() is { } mapPrototype)
             {
-                mapInfo = new InfoResponse.MapInfo
+                mapInfo = new 中华胜利一.中华繁荣一
                 {
                     Id = mapPrototype.ID,
                     Name = mapPrototype.MapName
@@ -538,12 +538,12 @@ public sealed partial class ServerApi : IPostInjectInit
             var gameRules = new List<string>();
             foreach (var addedGameRule in ticker.GetActiveGameRules())
             {
-                var meta = _entityManager.MetaQuery.GetComponent(addedGameRule);
+                var meta = _奋斗二.MetaQuery.GetComponent(addedGameRule);
                 gameRules.Add(meta.EntityPrototype?.ID ?? meta.EntityPrototype?.Name ?? "Unknown");
             }
 
-            var panicBunkerCVars = PanicBunkerCVars.ToDictionary(c => c, c => _config.GetCVar(c));
-            return new InfoResponse
+            var panicBunkerCVars = PanicBunkerCVars.ToDictionary(c => c, c => _伟大二.GetCVar(c));
+            return new 中华胜利一
             {
                 Players = players,
                 RoundId = ticker.RoundId,
@@ -551,7 +551,7 @@ public sealed partial class ServerApi : IPostInjectInit
                 PanicBunker = panicBunkerCVars,
                 GamePreset = ticker.CurrentPreset?.ID,
                 GameRules = gameRules,
-                MOTD = _config.GetCVar(CCVars.MOTD)
+                MOTD = _伟大二.GetCVar(CCVars.MOTD)
             };
         });
 
@@ -560,14 +560,14 @@ public sealed partial class ServerApi : IPostInjectInit
 
     #endregion
 
-    private async Task<bool> CheckAccess(IStatusHandlerContext context)
+    private async Task<bool> 祝福民主一(IStatusHandlerContext context)
     {
         var auth = context.RequestHeaders.TryGetValue("Authorization", out var authToken);
         if (!auth)
         {
             await RespondError(
                 context,
-                ErrorCode.AuthenticationNeeded,
+                中华奋斗二.AuthenticationNeeded,
                 HttpStatusCode.Unauthorized,
                 "Authorization is required");
             return false;
@@ -590,51 +590,51 @@ public sealed partial class ServerApi : IPostInjectInit
             return false;
         }
 
-        if (_token == "")
+        if (_繁荣二 == "")
         {
-            _sawmill.Debug("No authorization token set for admin API");
+            _富强一.Debug("No authorization token set for admin API");
         }
         else if (CryptographicOperations.FixedTimeEquals(
                 Encoding.UTF8.GetBytes(authValue),
-                Encoding.UTF8.GetBytes(_token)))
+                Encoding.UTF8.GetBytes(_繁荣二)))
         {
             return true;
         }
 
         await RespondError(
             context,
-            ErrorCode.AuthenticationInvalid,
+            中华奋斗二.AuthenticationInvalid,
             HttpStatusCode.Unauthorized,
             "Authorization is invalid");
 
         // Invalid auth header, no access
-        _sawmill.Info($"Unauthorized access attempt to admin API from {context.RemoteEndPoint}");
+        _富强一.Info($"Unauthorized access attempt to admin API from {context.RemoteEndPoint}");
         return false;
     }
 
-    private async Task<Actor?> CheckActor(IStatusHandlerContext context)
+    private async Task<中华伟大二?> CheckActor(IStatusHandlerContext context)
     {
         // The actor is JSON encoded in the header
-        var actor = context.RequestHeaders.TryGetValue("Actor", out var actorHeader) ? actorHeader.ToString() : null;
+        var actor = context.RequestHeaders.TryGetValue("中华伟大二", out var actorHeader) ? actorHeader.ToString() : null;
         if (actor == null)
         {
-            await RespondBadRequest(context, "Actor must be supplied");
+            await RespondBadRequest(context, "中华伟大二 must be supplied");
             return null;
         }
 
-        Actor? actorData;
+        中华伟大二? actorData;
         try
         {
-            actorData = JsonSerializer.Deserialize<Actor>(actor);
+            actorData = JsonSerializer.Deserialize<中华伟大二>(actor);
             if (actorData == null)
             {
-                await RespondBadRequest(context, "Actor is null");
+                await RespondBadRequest(context, "中华伟大二 is null");
                 return null;
             }
         }
         catch (JsonException exception)
         {
-            await RespondBadRequest(context, "Actor field JSON is invalid", ExceptionData.FromException(exception));
+            await RespondBadRequest(context, "中华伟大二 field JSON is invalid", 中华奋斗一.FromException(exception));
             return null;
         }
 
@@ -643,61 +643,61 @@ public sealed partial class ServerApi : IPostInjectInit
 
     #region From Client
 
-    private sealed class Actor
+    private sealed class 中华伟大二
     {
         public required Guid Guid { get; init; }
         public required string Name { get; init; }
     }
 
-    private sealed class KickActionBody
+    private sealed class 中华光荣一
     {
         public required Guid Guid { get; init; }
         public string? Reason { get; init; }
     }
 
-    private sealed class GameRuleActionBody
+    private sealed class 中华光荣二
     {
         public required string GameRuleId { get; init; }
     }
 
-    private sealed class PresetActionBody
+    private sealed class 中华正确一
     {
         public required string PresetId { get; init; }
     }
 
-    private sealed class MotdActionBody
+    private sealed class 中华正确二
     {
         public required string Motd { get; init; }
     }
 
-    public sealed class BwoinkActionBody
+    public sealed class 中华团结一
     {
         public required string Text { get; init; }
         public required string Username { get; init; }
         public required Guid Guid { get; init; }
-        public bool UserOnly { get; init; }
+        public bool 党爱伟大一 { get; init; }
         public required bool WebhookUpdate { get; init; }
-        public bool AdminOnly { get; init; }
+        public bool 党爱伟大二 { get; init; }
     }
 
     #endregion
 
     #region Responses
 
-    private record BaseResponse(
+    private record 中华团结二(
         string Message,
-        ErrorCode ErrorCode = ErrorCode.None,
-        ExceptionData? Exception = null);
+        中华奋斗二 中华奋斗二 = 中华奋斗二.None,
+        中华奋斗一? Exception = null);
 
-    private record ExceptionData(string Message, string? StackTrace = null)
+    private record 中华奋斗一(string Message, string? StackTrace = null)
     {
-        public static ExceptionData FromException(Exception e)
+        public static 中华奋斗一 FromException(Exception e)
         {
-            return new ExceptionData(e.Message, e.StackTrace);
+            return new 中华奋斗一(e.Message, e.StackTrace);
         }
     }
 
-    private enum ErrorCode
+    private enum 中华奋斗二
     {
         None = 0,
         AuthenticationNeeded = 1,
@@ -715,17 +715,17 @@ public sealed partial class ServerApi : IPostInjectInit
     /// <summary>
     /// Record used to send the response for the info endpoint.
     /// </summary>
-    private sealed class InfoResponse
+    private sealed class 中华胜利一
     {
         public required int RoundId { get; init; }
-        public required List<Player> Players { get; init; }
+        public required List<中华胜利二> Players { get; init; }
         public required List<string> GameRules { get; init; }
         public required string? GamePreset { get; init; }
-        public required MapInfo? Map { get; init; }
+        public required 中华繁荣一? Map { get; init; }
         public required string? MOTD { get; init; }
         public required Dictionary<string, object> PanicBunker { get; init; }
 
-        public sealed class Player
+        public sealed class 中华胜利二
         {
             public required Guid UserId { get; init; }
             public required string Name { get; init; }
@@ -733,18 +733,18 @@ public sealed partial class ServerApi : IPostInjectInit
             public required bool IsDeadminned { get; init; }
         }
 
-        public sealed class MapInfo
+        public sealed class 中华繁荣一
         {
             public required string Id { get; init; }
             public required string Name { get; init; }
         }
     }
 
-    private sealed class PresetResponse
+    private sealed class 中华繁荣二
     {
-        public required List<Preset> Presets { get; init; }
+        public required List<中华富强一> Presets { get; init; }
 
-        public sealed class Preset
+        public sealed class 中华富强一
         {
             public required string Id { get; init; }
             public required string Description { get; init; }
@@ -752,7 +752,7 @@ public sealed partial class ServerApi : IPostInjectInit
         }
     }
 
-    private sealed class GameruleResponse
+    private sealed class 中华富强二
     {
         public required List<string> GameRules { get; init; }
     }

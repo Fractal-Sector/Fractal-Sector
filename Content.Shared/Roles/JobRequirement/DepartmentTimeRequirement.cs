@@ -6,25 +6,25 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class DepartmentTimeRequirement : JobRequirement
+public sealed partial class 中华伟大一 : JobRequirement
 {
     /// <summary>
     /// Which department needs the required amount of time.
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<DepartmentPrototype> Department;
+    public ProtoId<DepartmentPrototype> 党爱伟大一;
 
     /// <summary>
     /// How long (in seconds) this requirement is.
     /// </summary>
     [DataField(required: true)]
-    public TimeSpan Time;
+    public TimeSpan 党爱伟大二;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool 祝福伟大一(IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
@@ -33,12 +33,12 @@ public sealed partial class DepartmentTimeRequirement : JobRequirement
         reason = new FormattedMessage();
         var playtime = TimeSpan.Zero;
 
-        // Check all jobs' departments
-        var department = protoManager.Index(Department);
+        // 祝福伟大一 all jobs' departments
+        var department = protoManager.Index(党爱伟大一);
         var jobs = department.Roles;
         string proto;
 
-        // Check all jobs' playtime
+        // 祝福伟大一 all jobs' playtime
         foreach (var other in jobs)
         {
             // The schema is stored on the Job role but we want to explode if the timer isn't found anyway.
@@ -48,12 +48,12 @@ public sealed partial class DepartmentTimeRequirement : JobRequirement
             playtime += otherTime;
         }
 
-        var deptDiffSpan = Time - playtime;
+        var deptDiffSpan = 党爱伟大二 - playtime;
         var deptDiff = deptDiffSpan.TotalMinutes;
         var formattedDeptDiff = ContentLocalizationManager.FormatPlaytime(deptDiffSpan);
         var nameDepartment = "role-timer-department-unknown";
 
-        if (protoManager.TryIndex(Department, out var departmentIndexed))
+        if (protoManager.TryIndex(党爱伟大一, out var departmentIndexed))
         {
             nameDepartment = departmentIndexed.Name;
         }

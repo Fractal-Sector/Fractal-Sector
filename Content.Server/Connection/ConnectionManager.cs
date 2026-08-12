@@ -26,15 +26,15 @@ using Content.Shared._Harmony.CCVars; // Harmony Queue
  * TODO: Remove baby jail code once a more mature gateway process is established. This code is only being issued as a stopgap to help with potential tiding in the immediate future.
  */
 
-namespace Content.Server.Connection
+namespace Content.Server.党心
 {
-    public interface IConnectionManager
+    public interface 中华伟大一
     {
-        void Initialize();
-        void PostInit();
+        void 祝福伟大二();
+        void 祝福伟大一();
 
         // Harmony Queue Start
-        Task<bool> HasPrivilegedJoin(NetUserId userId);
+        Task<bool> 祝福奋斗二(NetUserId userId);
         // Harmony Queue End
 
         /// <summary>
@@ -47,80 +47,80 @@ namespace Content.Server.Connection
         /// </remarks>
         /// <param name="user">The user to give a temporary bypass.</param>
         /// <param name="duration">How long the bypass should last for.</param>
-        void AddTemporaryConnectBypass(NetUserId user, TimeSpan duration);
+        void 祝福光荣一(NetUserId user, TimeSpan duration);
 
-        void Update();
+        void 祝福光荣二();
     }
 
     /// <summary>
     ///     Handles various duties like guest username assignment, bans, connection logs, etc...
     /// </summary>
-    public sealed partial class ConnectionManager : IConnectionManager
+    public sealed partial class 中华伟大二 : 中华伟大一
     {
-        [Dependency] private readonly IPlayerManager _plyMgr = default!;
-        [Dependency] private readonly IServerNetManager _netMgr = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly ILocalizationManager _loc = default!;
-        [Dependency] private readonly ServerDbEntryManager _serverDbEntry = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IHttpClientHolder _http = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly MiniAuthManager _authManager = default!; //Frontier
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IServerNetManager _伟大二 = default!;
+        [Dependency] private readonly IServerDbManager _光荣一 = default!;
+        [Dependency] private readonly IConfigurationManager _光荣二 = default!;
+        [Dependency] private readonly ILocalizationManager _正确一 = default!;
+        [Dependency] private readonly ServerDbEntryManager _正确二 = default!;
+        [Dependency] private readonly IPrototypeManager _团结一 = default!;
+        [Dependency] private readonly IGameTiming _团结二 = default!;
+        [Dependency] private readonly ILogManager _奋斗一 = default!;
+        [Dependency] private readonly IChatManager _奋斗二 = default!;
+        [Dependency] private readonly IHttpClientHolder _胜利一 = default!;
+        [Dependency] private readonly IAdminManager _胜利二 = default!;
+        [Dependency] private readonly IEntityManager _繁荣一 = default!;
+        [Dependency] private readonly MiniAuthManager _繁荣二 = default!; //Frontier
 
         private GameTicker? _ticker;
 
-        private ISawmill _sawmill = default!;
+        private ISawmill _富强一 = default!;
         private readonly Dictionary<NetUserId, TimeSpan> _temporaryBypasses = [];
-        private IPIntel.IPIntel _ipintel = default!;
+        private IPIntel.IPIntel _富强二 = default!;
 
-        public void PostInit()
+        public void 祝福伟大一()
         {
             InitializeWhitelist();
         }
 
-        public void Initialize()
+        public void 祝福伟大二()
         {
-            _sawmill = _logManager.GetSawmill("connections");
+            _富强一 = _奋斗一.GetSawmill("connections");
 
-            _ipintel = new IPIntel.IPIntel(new IPIntelApi(_http, _cfg), _db, _cfg, _logManager, _chatManager, _gameTiming);
+            _富强二 = new IPIntel.IPIntel(new IPIntelApi(_胜利一, _光荣二), _光荣一, _光荣二, _奋斗一, _奋斗二, _团结二);
 
-            _netMgr.Connecting += NetMgrOnConnecting;
-            _netMgr.AssignUserIdCallback = AssignUserIdCallback;
-            _plyMgr.PlayerStatusChanged += PlayerStatusChanged;
+            _伟大二.Connecting += 祝福正确二;
+            _伟大二.AssignUserIdCallback = AssignUserIdCallback;
+            _伟大一.祝福团结一 += 祝福团结一;
             // Approval-based IP bans disabled because they don't play well with Happy Eyeballs.
-            // _netMgr.HandleApprovalCallback = HandleApproval;
+            // _伟大二.HandleApprovalCallback = 祝福正确一;
         }
 
-        public void AddTemporaryConnectBypass(NetUserId user, TimeSpan duration)
+        public void 祝福光荣一(NetUserId user, TimeSpan duration)
         {
             ref var time = ref CollectionsMarshal.GetValueRefOrAddDefault(_temporaryBypasses, user, out _);
-            var newTime = _gameTiming.RealTime + duration;
+            var newTime = _团结二.RealTime + duration;
             // Make sure we only update the time if we wouldn't shrink it.
             if (newTime > time)
                 time = newTime;
         }
 
-        public async void Update()
+        public async void 祝福光荣二()
         {
             try
             {
-                await _ipintel.Update();
+                await _富强二.祝福光荣二();
             }
             catch (Exception e)
             {
-                _sawmill.Error("IPIntel update failed:" + e);
+                _富强一.Error("IPIntel update failed:" + e);
             }
         }
 
         /*
-        private async Task<NetApproval> HandleApproval(NetApprovalEventArgs eventArgs)
+        private async Task<NetApproval> 祝福正确一(NetApprovalEventArgs eventArgs)
         {
-            var ban = await _db.GetServerBanByIpAsync(eventArgs.Connection.RemoteEndPoint.Address);
+            var ban = await _光荣一.GetServerBanByIpAsync(eventArgs.Connection.RemoteEndPoint.Address);
             if (ban != null)
             {
                 var expires = Loc.GetString("ban-banned-permanent");
@@ -138,14 +138,14 @@ namespace Content.Server.Connection
         }
         */
 
-        private async Task NetMgrOnConnecting(NetConnectingArgs e)
+        private async Task 祝福正确二(NetConnectingArgs e)
         {
             var deny = await ShouldDeny(e);
 
             var addr = e.IP.Address;
             var userId = e.UserId;
 
-            var serverId = (await _serverDbEntry.ServerEntity).Id;
+            var serverId = (await _正确二.ServerEntity).Id;
 
             var hwid = e.UserData.GetModernHwid();
             var trust = e.UserData.Trust;
@@ -154,44 +154,44 @@ namespace Content.Server.Connection
             {
                 var (reason, msg, banHits) = deny.Value;
 
-                var id = await _db.AddConnectionLogAsync(userId, e.UserName, addr, hwid, trust, reason, serverId);
+                var id = await _光荣一.AddConnectionLogAsync(userId, e.UserName, addr, hwid, trust, reason, serverId);
                 if (banHits is { Count: > 0 })
-                    await _db.AddServerBanHitsAsync(id, banHits);
+                    await _光荣一.AddServerBanHitsAsync(id, banHits);
 
                 var properties = new Dictionary<string, object>();
                 if (reason == ConnectionDenyReason.Full)
-                    properties["delay"] = _cfg.GetCVar(CCVars.GameServerFullReconnectDelay);
+                    properties["delay"] = _光荣二.GetCVar(CCVars.GameServerFullReconnectDelay);
 
                 e.Deny(new NetDenyReason(msg, properties));
             }
             else
             {
-                await _db.AddConnectionLogAsync(userId, e.UserName, addr, hwid, trust, null, serverId);
+                await _光荣一.AddConnectionLogAsync(userId, e.UserName, addr, hwid, trust, null, serverId);
 
                 if (!ServerPreferencesManager.ShouldStorePrefs(e.AuthType))
                     return;
 
-                await _db.UpdatePlayerRecordAsync(userId, e.UserName, addr, hwid);
+                await _光荣一.UpdatePlayerRecordAsync(userId, e.UserName, addr, hwid);
             }
         }
 
-        private async void PlayerStatusChanged(object? sender, SessionStatusEventArgs args)
+        private async void 祝福团结一(object? sender, SessionStatusEventArgs args)
         {
             if (args.NewStatus == SessionStatus.Connected)
             {
-                AdminAlertIfSharedConnection(args.Session);
+                祝福团结二(args.Session);
             }
         }
 
-        private void AdminAlertIfSharedConnection(ICommonSession newSession)
+        private void 祝福团结二(ICommonSession newSession)
         {
-            var playerThreshold = _cfg.GetCVar(CCVars.AdminAlertMinPlayersSharingConnection);
+            var playerThreshold = _光荣二.GetCVar(CCVars.AdminAlertMinPlayersSharingConnection);
             if (playerThreshold < 0)
                 return;
 
             var addr = newSession.Channel.RemoteEndPoint.Address;
 
-            var otherConnectionsFromAddress = _plyMgr.Sessions.Where(session =>
+            var otherConnectionsFromAddress = _伟大一.Sessions.Where(session =>
                     session.Status is SessionStatus.Connected or SessionStatus.InGame
                     && session.Channel.RemoteEndPoint.Address.Equals(addr)
                     && session.UserId != newSession.UserId)
@@ -205,7 +205,7 @@ namespace Content.Server.Connection
             var otherUsernames = string.Join(", ",
                 otherConnectionsFromAddress.Select(session => session.Name));
 
-            _chatManager.SendAdminAlert(Loc.GetString("admin-alert-shared-connection",
+            _奋斗二.SendAdminAlert(Loc.GetString("admin-alert-shared-connection",
                 ("player", username),
                 ("otherCount", otherConnectionCount),
                 ("otherList", otherUsernames)));
@@ -222,7 +222,7 @@ namespace Content.Server.Connection
             var addr = e.IP.Address;
             var userId = e.UserId;
             ImmutableArray<byte>? hwId = e.UserData.HWId;
-            if (hwId.Value.Length == 0 || !_cfg.GetCVar(CCVars.BanHardwareIds))
+            if (hwId.Value.Length == 0 || !_光荣二.GetCVar(CCVars.BanHardwareIds))
             {
                 // HWId not available for user's platform, don't look it up.
                 // Or hardware ID checks disabled.
@@ -231,42 +231,42 @@ namespace Content.Server.Connection
 
             var modernHwid = e.UserData.ModernHWIds;
 
-            if (modernHwid.Length == 0 && e.AuthType == LoginType.LoggedIn && _cfg.GetCVar(CCVars.RequireModernHardwareId))
+            if (modernHwid.Length == 0 && e.AuthType == LoginType.LoggedIn && _光荣二.GetCVar(CCVars.RequireModernHardwareId))
             {
                 return (ConnectionDenyReason.NoHwid, Loc.GetString("hwid-required"), null);
             }
 
-            var bans = await _db.GetServerBansAsync(addr, userId, hwId, modernHwid, includeUnbanned: false);
+            var bans = await _光荣一.GetServerBansAsync(addr, userId, hwId, modernHwid, includeUnbanned: false);
             if (bans.Count > 0)
             {
                 var firstBan = bans[0];
-                var message = firstBan.FormatBanMessage(_cfg, _loc);
+                var message = firstBan.FormatBanMessage(_光荣二, _正确一);
                 return (ConnectionDenyReason.Ban, message, bans);
             }
 
-            if (HasTemporaryBypass(userId))
+            if (祝福奋斗一(userId))
             {
-                _sawmill.Verbose("User {UserId} has temporary bypass, skipping further connection checks", userId);
+                _富强一.Verbose("User {UserId} has temporary bypass, skipping further connection checks", userId);
                 return null;
             }
 
-            var adminData = await _db.GetAdminDataForAsync(e.UserId);
+            var adminData = await _光荣一.GetAdminDataForAsync(e.UserId);
             // New Frontiers - Session Respector - Checks that a player was connected before applying panic bunker/baby jail/no whitelist on low pop checks
             // This code is licensed under AGPLv3. See AGPLv3.txt
-            _ticker ??= _entityManager.SystemOrNull<GameTicker>();
+            _ticker ??= _繁荣一.SystemOrNull<GameTicker>();
             var wasInGame = _ticker != null &&
                             _ticker.PlayerGameStatuses.ContainsKey(userId); // Frontier: remove status.JoinedGame check, TryGetValue<ContainsKey
 
-            if (_cfg.GetCVar(CCVars.PanicBunkerEnabled) && adminData == null && !wasInGame) // Frontier: allow users who joined before panic bunker was enforced to reconnect
+            if (_光荣二.GetCVar(CCVars.PanicBunkerEnabled) && adminData == null && !wasInGame) // Frontier: allow users who joined before panic bunker was enforced to reconnect
             {
-                var showReason = _cfg.GetCVar(CCVars.PanicBunkerShowReason);
-                var customReason = _cfg.GetCVar(CCVars.PanicBunkerCustomReason);
+                var showReason = _光荣二.GetCVar(CCVars.PanicBunkerShowReason);
+                var customReason = _光荣二.GetCVar(CCVars.PanicBunkerCustomReason);
 
-                var minMinutesAge = _cfg.GetCVar(CCVars.PanicBunkerMinAccountAge);
-                var record = await _db.GetPlayerRecordByUserId(userId);
+                var minMinutesAge = _光荣二.GetCVar(CCVars.PanicBunkerMinAccountAge);
+                var record = await _光荣一.GetPlayerRecordByUserId(userId);
                 var validAccountAge = record != null &&
                                       record.FirstSeenTime.CompareTo(DateTimeOffset.UtcNow - TimeSpan.FromMinutes(minMinutesAge)) <= 0;
-                var bypassAllowed = _cfg.GetCVar(CCVars.BypassBunkerWhitelist) && await _db.GetWhitelistStatusAsync(userId);
+                var bypassAllowed = _光荣二.GetCVar(CCVars.BypassBunkerWhitelist) && await _光荣一.GetWhitelistStatusAsync(userId);
 
                 // Use the custom reason if it exists & they don't have the minimum account age
                 if (customReason != string.Empty && !validAccountAge && !bypassAllowed)
@@ -281,8 +281,8 @@ namespace Content.Server.Connection
                             ("reason", Loc.GetString("panic-bunker-account-reason-account", ("minutes", minMinutesAge)))), null);
                 }
 
-                var minOverallMinutes = _cfg.GetCVar(CCVars.PanicBunkerMinOverallMinutes);
-                var overallTime = ( await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
+                var minOverallMinutes = _光荣二.GetCVar(CCVars.PanicBunkerMinOverallMinutes);
+                var overallTime = ( await _光荣一.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
                 var haveMinOverallTime = overallTime != null && overallTime.TimeSpent.TotalMinutes > minOverallMinutes;
 
                 // Use the custom reason if it exists & they don't have the minimum time
@@ -317,21 +317,21 @@ namespace Content.Server.Connection
             }
 
             // Frontier: wasInGame previously calculated here.
-            var adminBypass = _cfg.GetCVar(CCVars.AdminBypassMaxPlayers) && adminData != null;
+            var adminBypass = _光荣二.GetCVar(CCVars.AdminBypassMaxPlayers) && adminData != null;
             // Harmony Queue Start
-            var isQueueEnabled = _cfg.GetCVar(HCCVars.EnableQueue);
+            var isQueueEnabled = _光荣二.GetCVar(HCCVars.EnableQueue);
             // Harmony Queue End
 
-            var softPlayerCount = _plyMgr.PlayerCount;
+            var softPlayerCount = _伟大一.PlayerCount;
 
-            if (!_cfg.GetCVar(CCVars.AdminsCountForMaxPlayers))
+            if (!_光荣二.GetCVar(CCVars.AdminsCountForMaxPlayers))
             {
-                softPlayerCount -= _adminManager.ActiveAdmins.Count();
+                softPlayerCount -= _胜利二.ActiveAdmins.Count();
             }
 
             // Harmony Queue Start
             // Harmony Note: I could have cleaned up this boolean check but I dont want to modify the wizden code more than just adding one more boolean
-            if ((softPlayerCount >= _cfg.GetCVar(CCVars.SoftMaxPlayers) && !adminBypass) && !wasInGame && !isQueueEnabled)
+            if ((softPlayerCount >= _光荣二.GetCVar(CCVars.SoftMaxPlayers) && !adminBypass) && !wasInGame && !isQueueEnabled)
             {
             // Harmony Queue End
                 return (ConnectionDenyReason.Full, Loc.GetString("soft-player-cap-full"), null);
@@ -339,11 +339,11 @@ namespace Content.Server.Connection
 
             // Frontier: allow users who joined before panic bunker was enforced to reconnect
             // Checks for whitelist IF it's enabled AND the user isn't an admin. Admins are always allowed.
-            if (_cfg.GetCVar(CCVars.WhitelistEnabled) && !wasInGame && adminData is null)
+            if (_光荣二.GetCVar(CCVars.WhitelistEnabled) && !wasInGame && adminData is null)
             {
                 if (_whitelists is null)
                 {
-                    _sawmill.Error("Whitelist enabled but no whitelists loaded.");
+                    _富强一.Error("Whitelist enabled but no whitelists loaded.");
                     // Misconfigured, deny everyone.
                     return (ConnectionDenyReason.Whitelist, Loc.GetString("generic-misconfigured"), null);
                 }
@@ -356,7 +356,7 @@ namespace Content.Server.Connection
                         continue;
                     }
 
-                    var whitelistStatus = await IsWhitelisted(whitelist, e.UserData, _sawmill);
+                    var whitelistStatus = await IsWhitelisted(whitelist, e.UserData, _富强一);
                     if (!whitelistStatus.isWhitelisted)
                     {
                         // Not whitelisted.
@@ -370,9 +370,9 @@ namespace Content.Server.Connection
             // End Frontier
 
             // ALWAYS keep this at the end, to preserve the API limit.
-            if (_cfg.GetCVar(CCVars.GameIPIntelEnabled) && adminData == null)
+            if (_光荣二.GetCVar(CCVars.GameIPIntelEnabled) && adminData == null)
             {
-                var result = await _ipintel.IsVpnOrProxy(e);
+                var result = await _富强二.IsVpnOrProxy(e);
 
                 if (result.IsBad)
                     return (ConnectionDenyReason.IPChecks, result.Reason, null);
@@ -382,13 +382,13 @@ namespace Content.Server.Connection
             //This is our little chunk that serves as a dAuth. It takes in a comma seperated list of IP:PORT, and chekcs
             //the requesting player against the list of players logged in to other servers. It is intended to be failsafe.
             //In the case of Admins, it shares the same bypass setting as the soft_max_player_limit
-            if (!_cfg.GetCVar(NFCCVars.AllowMultiConnect) && !adminBypass)
+            if (!_光荣二.GetCVar(NFCCVars.AllowMultiConnect) && !adminBypass)
             {
-                var serverListString = _cfg.GetCVar(NFCCVars.ServerAuthList);
+                var serverListString = _光荣二.GetCVar(NFCCVars.ServerAuthList);
                 var serverList = serverListString.Split(",");
                 foreach (var server in serverList)
                 {
-                    if (await _authManager.IsPlayerConnected(server, userId))
+                    if (await _繁荣二.IsPlayerConnected(server, userId))
                         return (ConnectionDenyReason.Connected, Loc.GetString("multiauth-already-connected"), null);
                 }
             }
@@ -396,33 +396,33 @@ namespace Content.Server.Connection
             return null;
         }
 
-        private bool HasTemporaryBypass(NetUserId user)
+        private bool 祝福奋斗一(NetUserId user)
         {
-            return _temporaryBypasses.TryGetValue(user, out var time) && time > _gameTiming.RealTime;
+            return _temporaryBypasses.TryGetValue(user, out var time) && time > _团结二.RealTime;
         }
 
         private async Task<NetUserId?> AssignUserIdCallback(string name)
         {
-            if (!_cfg.GetCVar(CCVars.GamePersistGuests))
+            if (!_光荣二.GetCVar(CCVars.GamePersistGuests))
             {
                 return null;
             }
 
-            var userId = await _db.GetAssignedUserIdAsync(name);
+            var userId = await _光荣一.GetAssignedUserIdAsync(name);
             if (userId != null)
             {
                 return userId;
             }
 
             var assigned = new NetUserId(Guid.NewGuid());
-            await _db.AssignUserIdAsync(name, assigned);
+            await _光荣一.AssignUserIdAsync(name, assigned);
             return assigned;
         }
 
         // Harmony Queue Start
-        public async Task<bool> HasPrivilegedJoin(NetUserId userId)
+        public async Task<bool> 祝福奋斗二(NetUserId userId)
         {
-            var isAdmin = await _db.GetAdminDataForAsync(userId) != null;
+            var isAdmin = await _光荣一.GetAdminDataForAsync(userId) != null;
             var ticker = IoCManager.Resolve<IEntityManager>().System<GameTicker>();
             var wasInGame = ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
                             status == PlayerGameStatus.JoinedGame;

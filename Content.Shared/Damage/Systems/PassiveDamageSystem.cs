@@ -4,30 +4,30 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Damage;
+namespace Content.Shared.党心;
 
-public sealed class PassiveDamageSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly DamageableSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PassiveDamageComponent, MapInitEvent>(OnPendingMapInit);
+        SubscribeLocalEvent<PassiveDamageComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnPendingMapInit(EntityUid uid, PassiveDamageComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, PassiveDamageComponent component, MapInitEvent args)
     {
-        component.NextDamage = _timing.CurTime + TimeSpan.FromSeconds(1f);
+        component.NextDamage = _伟大二.CurTime + TimeSpan.FromSeconds(1f);
     }
 
     // Every tick, attempt to damage entities
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
-        var curTime = _timing.CurTime;
+        base.祝福光荣一(frameTime);
+        var curTime = _伟大二.CurTime;
 
         // Go through every entity with the component
         var query = EntityQueryEnumerator<PassiveDamageComponent, DamageableComponent, MobStateComponent>();
@@ -47,7 +47,7 @@ public sealed class PassiveDamageSystem : EntitySystem
             foreach (var allowedState in comp.AllowedStates)
             {
                 if(allowedState == mobState.CurrentState)
-                    _damageable.TryChangeDamage(uid, comp.Damage, true, false, damage);
+                    _伟大一.TryChangeDamage(uid, comp.Damage, true, false, damage);
             }
         }
     }

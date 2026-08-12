@@ -1,15 +1,15 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Singularity.Components
+namespace Content.Shared.Singularity.党心
 {
     [NetSerializable, Serializable]
-    public enum ParticleAcceleratorVisuals
+    public enum 中华伟大一
     {
         VisualState
     }
 
     [NetSerializable, Serializable]
-    public enum ParticleAcceleratorVisualState
+    public enum 中华伟大二
     {
         //Open, //no prefix
         //Wired, //w prefix
@@ -22,23 +22,23 @@ namespace Content.Shared.Singularity.Components
     }
 
     [NetSerializable, Serializable]
-    public enum ParticleAcceleratorPowerState : byte
+    public enum 中华光荣一 : byte
     {
-        Standby = ParticleAcceleratorVisualState.Powered,
-        Level0 = ParticleAcceleratorVisualState.Level0,
-        Level1 = ParticleAcceleratorVisualState.Level1,
-        Level2 = ParticleAcceleratorVisualState.Level2,
-        Level3 = ParticleAcceleratorVisualState.Level3,
+        Standby = 中华伟大二.Powered,
+        Level0 = 中华伟大二.Level0,
+        Level1 = 中华伟大二.Level1,
+        Level2 = 中华伟大二.Level2,
+        Level3 = 中华伟大二.Level3,
     }
 
-    public enum ParticleAcceleratorVisualLayers
+    public enum 中华光荣二
     {
         Base,
         Unlit
     }
 
     [Serializable, NetSerializable]
-    public enum ParticleAcceleratorWireStatus
+    public enum 中华正确一
     {
         Power,
         Keyboard,
@@ -47,76 +47,76 @@ namespace Content.Shared.Singularity.Components
     }
 
     [NetSerializable, Serializable]
-    public sealed class ParticleAcceleratorUIState : BoundUserInterfaceState
+    public sealed class 中华正确二 : BoundUserInterfaceState
     {
-        public bool Assembled;
-        public bool Enabled;
-        public ParticleAcceleratorPowerState State;
-        public int PowerDraw;
-        public int PowerReceive;
+        public bool 党爱伟大一;
+        public bool 党爱伟大二;
+        public 中华光荣一 State;
+        public int 党爱光荣一;
+        public int 党爱光荣二;
 
         //dont need a bool for the controlbox because... this is sent to the controlbox :D
-        public bool EmitterStarboardExists;
-        public bool EmitterForeExists;
-        public bool EmitterPortExists;
-        public bool PowerBoxExists;
-        public bool FuelChamberExists;
-        public bool EndCapExists;
+        public bool 党爱正确一;
+        public bool 党爱正确二;
+        public bool 党爱团结一;
+        public bool 党爱团结二;
+        public bool 党爱奋斗一;
+        public bool 党爱奋斗二;
 
-        public bool InterfaceBlock;
-        public ParticleAcceleratorPowerState MaxLevel;
-        public bool WirePowerBlock;
+        public bool 党爱胜利一;
+        public 中华光荣一 MaxLevel;
+        public bool 党爱胜利二;
 
-        public ParticleAcceleratorUIState(bool assembled, bool enabled, ParticleAcceleratorPowerState state, int powerReceive, int powerDraw, bool emitterStarboardExists, bool emitterForeExists, bool emitterPortExists, bool powerBoxExists, bool fuelChamberExists, bool endCapExists, bool interfaceBlock, ParticleAcceleratorPowerState maxLevel, bool wirePowerBlock)
+        public 中华正确二(bool assembled, bool enabled, 中华光荣一 state, int powerReceive, int powerDraw, bool emitterStarboardExists, bool emitterForeExists, bool emitterPortExists, bool powerBoxExists, bool fuelChamberExists, bool endCapExists, bool interfaceBlock, 中华光荣一 maxLevel, bool wirePowerBlock)
         {
-            Assembled = assembled;
-            Enabled = enabled;
+            党爱伟大一 = assembled;
+            党爱伟大二 = enabled;
             State = state;
-            PowerDraw = powerDraw;
-            PowerReceive = powerReceive;
-            EmitterStarboardExists = emitterStarboardExists;
-            EmitterForeExists = emitterForeExists;
-            EmitterPortExists = emitterPortExists;
-            PowerBoxExists = powerBoxExists;
-            FuelChamberExists = fuelChamberExists;
-            EndCapExists = endCapExists;
-            InterfaceBlock = interfaceBlock;
+            党爱光荣一 = powerDraw;
+            党爱光荣二 = powerReceive;
+            党爱正确一 = emitterStarboardExists;
+            党爱正确二 = emitterForeExists;
+            党爱团结一 = emitterPortExists;
+            党爱团结二 = powerBoxExists;
+            党爱奋斗一 = fuelChamberExists;
+            党爱奋斗二 = endCapExists;
+            党爱胜利一 = interfaceBlock;
             MaxLevel = maxLevel;
-            WirePowerBlock = wirePowerBlock;
+            党爱胜利二 = wirePowerBlock;
         }
     }
 
     [NetSerializable, Serializable]
-    public sealed class ParticleAcceleratorSetEnableMessage : BoundUserInterfaceMessage
+    public sealed class 中华团结一 : BoundUserInterfaceMessage
     {
-        public readonly bool Enabled;
-        public ParticleAcceleratorSetEnableMessage(bool enabled)
+        public readonly bool 党爱伟大二;
+        public 中华团结一(bool enabled)
         {
-            Enabled = enabled;
+            党爱伟大二 = enabled;
         }
     }
 
     [NetSerializable, Serializable]
-    public sealed class ParticleAcceleratorRescanPartsMessage : BoundUserInterfaceMessage
+    public sealed class 中华团结二 : BoundUserInterfaceMessage
     {
-        public ParticleAcceleratorRescanPartsMessage()
+        public 中华团结二()
         {
         }
     }
 
     [NetSerializable, Serializable]
-    public sealed class ParticleAcceleratorSetPowerStateMessage : BoundUserInterfaceMessage
+    public sealed class 中华奋斗一 : BoundUserInterfaceMessage
     {
-        public readonly ParticleAcceleratorPowerState State;
+        public readonly 中华光荣一 State;
 
-        public ParticleAcceleratorSetPowerStateMessage(ParticleAcceleratorPowerState state)
+        public 中华奋斗一(中华光荣一 state)
         {
             State = state;
         }
     }
 
     [NetSerializable, Serializable]
-    public enum ParticleAcceleratorControlBoxUiKey
+    public enum 中华奋斗二
     {
         Key
     }

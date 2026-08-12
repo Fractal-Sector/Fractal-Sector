@@ -1,11 +1,11 @@
-namespace Content.Shared.Rotation;
+namespace Content.Shared.党心;
 
-public abstract class SharedRotationVisualsSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     /// <summary>
     /// Sets the rotation an entity will have when it is "horizontal"
     /// </summary>
-    public void SetHorizontalAngle(Entity<RotationVisualsComponent?> ent, Angle angle)
+    public void 祝福伟大一(Entity<RotationVisualsComponent?> ent, Angle angle)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
@@ -21,9 +21,9 @@ public abstract class SharedRotationVisualsSystem : EntitySystem
     /// <summary>
     /// Resets the rotation an entity will have when it is "horizontal" back to it's default value.
     /// </summary>
-    public void ResetHorizontalAngle(Entity<RotationVisualsComponent?> ent)
+    public void 祝福伟大二(Entity<RotationVisualsComponent?> ent)
     {
         if (Resolve(ent, ref ent.Comp, false))
-            SetHorizontalAngle(ent, ent.Comp.DefaultRotation);
+            祝福伟大一(ent, ent.Comp.DefaultRotation);
     }
 }

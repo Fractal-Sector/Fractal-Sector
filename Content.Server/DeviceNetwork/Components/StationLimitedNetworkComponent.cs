@@ -1,10 +1,10 @@
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 
-namespace Content.Server.DeviceNetwork.Components
+namespace Content.Server.DeviceNetwork.党心
 {
     [RegisterComponent]
-    public sealed partial class StationLimitedNetworkComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// The station id the device is limited to.
@@ -17,6 +17,6 @@ namespace Content.Server.DeviceNetwork.Components
         /// </summary>
         [DataField("allowNonStationPackets")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool AllowNonStationPackets = false;
+        public bool 党爱伟大一 = false;
     }
 }

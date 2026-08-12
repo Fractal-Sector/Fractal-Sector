@@ -22,86 +22,86 @@ using Content.Shared.Tools.Systems;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Atmos.Piping.Unary.EntitySystems
+namespace Content.Server.Atmos.Piping.Unary.党心
 {
     [UsedImplicitly]
-    public sealed class GasVentScrubberSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly TransformSystem _transformSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly WeldableSystem _weldable = default!;
-        [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
+        [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+        [Dependency] private readonly DeviceNetworkSystem _光荣一 = default!;
+        [Dependency] private readonly NodeContainerSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _正确一 = default!;
+        [Dependency] private readonly TransformSystem _正确二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _团结一 = default!;
+        [Dependency] private readonly WeldableSystem _团结二 = default!;
+        [Dependency] private readonly PowerReceiverSystem _奋斗一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasVentScrubberComponent, AtmosDeviceUpdateEvent>(OnVentScrubberUpdated);
-            SubscribeLocalEvent<GasVentScrubberComponent, AtmosDeviceEnabledEvent>(OnVentScrubberEnterAtmosphere);
-            SubscribeLocalEvent<GasVentScrubberComponent, AtmosDeviceDisabledEvent>(OnVentScrubberLeaveAtmosphere);
-            SubscribeLocalEvent<GasVentScrubberComponent, AtmosAlarmEvent>(OnAtmosAlarm);
-            SubscribeLocalEvent<GasVentScrubberComponent, PowerChangedEvent>(OnPowerChanged);
-            SubscribeLocalEvent<GasVentScrubberComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
-            SubscribeLocalEvent<GasVentScrubberComponent, WeldableChangedEvent>(OnWeldChanged);
+            SubscribeLocalEvent<GasVentScrubberComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
+            SubscribeLocalEvent<GasVentScrubberComponent, AtmosDeviceEnabledEvent>(祝福光荣二);
+            SubscribeLocalEvent<GasVentScrubberComponent, AtmosDeviceDisabledEvent>(祝福光荣一);
+            SubscribeLocalEvent<GasVentScrubberComponent, AtmosAlarmEvent>(祝福正确二);
+            SubscribeLocalEvent<GasVentScrubberComponent, PowerChangedEvent>(祝福团结一);
+            SubscribeLocalEvent<GasVentScrubberComponent, DeviceNetworkPacketEvent>(祝福团结二);
+            SubscribeLocalEvent<GasVentScrubberComponent, WeldableChangedEvent>(祝福奋斗二);
         }
 
-        private void OnVentScrubberUpdated(EntityUid uid, GasVentScrubberComponent scrubber, ref AtmosDeviceUpdateEvent args)
+        private void 祝福伟大二(EntityUid uid, GasVentScrubberComponent scrubber, ref AtmosDeviceUpdateEvent args)
         {
-            if (_weldable.IsWelded(uid))
+            if (_团结二.IsWelded(uid))
                 return;
 
             var timeDelta = args.dt;
 
-            if (!_powerReceiverSystem.IsPowered(uid))
+            if (!_奋斗一.IsPowered(uid))
                 return;
 
-            if (!scrubber.Enabled || !_nodeContainer.TryGetNode(uid, scrubber.OutletName, out PipeNode? outlet))
+            if (!scrubber.Enabled || !_光荣二.TryGetNode(uid, scrubber.OutletName, out PipeNode? outlet))
                 return;
 
             if (args.Grid is not {} grid)
                 return;
 
             // Frontier: check running gas extraction
-            if (!_atmosphereSystem.AtmosInputCanRunOnMap(args.Map))
+            if (!_伟大二.AtmosInputCanRunOnMap(args.Map))
                 return;
             // End Frontier
 
-            var position = _transformSystem.GetGridTilePositionOrDefault(uid);
-            var environment = _atmosphereSystem.GetTileMixture(grid, args.Map, position, true);
+            var position = _正确二.GetGridTilePositionOrDefault(uid);
+            var environment = _伟大二.GetTileMixture(grid, args.Map, position, true);
 
-            Scrub(timeDelta, scrubber, environment, outlet);
+            祝福正确一(timeDelta, scrubber, environment, outlet);
 
             if (!scrubber.WideNet)
                 return;
 
-            // Scrub adjacent tiles too.
-            var enumerator = _atmosphereSystem.GetAdjacentTileMixtures(grid, position, false, true);
+            // 祝福正确一 adjacent tiles too.
+            var enumerator = _伟大二.GetAdjacentTileMixtures(grid, position, false, true);
             while (enumerator.MoveNext(out var adjacent))
             {
-                Scrub(timeDelta, scrubber, adjacent, outlet);
+                祝福正确一(timeDelta, scrubber, adjacent, outlet);
             }
         }
 
-        private void OnVentScrubberLeaveAtmosphere(EntityUid uid, GasVentScrubberComponent component,
-            AtmosDeviceDisabledEvent args) => UpdateState(uid, component);
+        private void 祝福光荣一(EntityUid uid, GasVentScrubberComponent component,
+            AtmosDeviceDisabledEvent args) => 祝福奋斗一(uid, component);
 
-        private void OnVentScrubberEnterAtmosphere(EntityUid uid, GasVentScrubberComponent component,
-            AtmosDeviceEnabledEvent args) => UpdateState(uid, component);
+        private void 祝福光荣二(EntityUid uid, GasVentScrubberComponent component,
+            AtmosDeviceEnabledEvent args) => 祝福奋斗一(uid, component);
 
-        private void Scrub(float timeDelta, GasVentScrubberComponent scrubber, GasMixture? tile, PipeNode outlet)
+        private void 祝福正确一(float timeDelta, GasVentScrubberComponent scrubber, GasMixture? tile, PipeNode outlet)
         {
-            Scrub(timeDelta, scrubber.TransferRate * _atmosphereSystem.PumpSpeedup(), scrubber.PumpDirection, scrubber.FilterGases, scrubber.FilterGasLimits, tile, outlet.Air);
+            祝福正确一(timeDelta, scrubber.TransferRate * _伟大二.PumpSpeedup(), scrubber.PumpDirection, scrubber.FilterGases, scrubber.FilterGasLimits, tile, outlet.Air);
         }
 
         /// <summary>
         /// True if we were able to scrub, false if we were not.
         /// </summary>
-        public bool Scrub(float timeDelta, float transferRate, ScrubberPumpDirection mode, HashSet<Gas> filterGases, Dictionary<Gas, float> filterLimits, GasMixture? tile, GasMixture destination)
+        public bool 祝福正确一(float timeDelta, float transferRate, ScrubberPumpDirection mode, HashSet<Gas> filterGases, Dictionary<Gas, float> filterLimits, GasMixture? tile, GasMixture destination)
         {
             // Cannot scrub if tile is null or air-blocked.
             if (tile == null
@@ -120,19 +120,19 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 
             if (mode == ScrubberPumpDirection.Scrubbing)
             {
-                _atmosphereSystem.ScrubInto(removed, destination, filterGases, filterLimits);
+                _伟大二.ScrubInto(removed, destination, filterGases, filterLimits);
 
                 // Remix the gases.
-                _atmosphereSystem.Merge(tile, removed);
+                _伟大二.Merge(tile, removed);
             }
             else if (mode == ScrubberPumpDirection.Siphoning)
             {
-                _atmosphereSystem.Merge(destination, removed);
+                _伟大二.Merge(destination, removed);
             }
             return true;
         }
 
-        private void OnAtmosAlarm(EntityUid uid, GasVentScrubberComponent component, AtmosAlarmEvent args)
+        private void 祝福正确二(EntityUid uid, GasVentScrubberComponent component, AtmosAlarmEvent args)
         {
             if (args.AlarmType == AtmosAlarmType.Danger)
             {
@@ -143,15 +143,15 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 component.Enabled = true;
             }
 
-            UpdateState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        private void OnPowerChanged(EntityUid uid, GasVentScrubberComponent component, ref PowerChangedEvent args)
+        private void 祝福团结一(EntityUid uid, GasVentScrubberComponent component, ref PowerChangedEvent args)
         {
-            UpdateState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        private void OnPacketRecv(EntityUid uid, GasVentScrubberComponent component, DeviceNetworkPacketEvent args)
+        private void 祝福团结二(EntityUid uid, GasVentScrubberComponent component, DeviceNetworkPacketEvent args)
         {
             if (!TryComp(uid, out DeviceNetworkComponent? netConn)
                 || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd))
@@ -165,7 +165,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     payload.Add(DeviceNetworkConstants.Command, AtmosDeviceNetworkSystem.SyncData);
                     payload.Add(AtmosDeviceNetworkSystem.SyncData, component.ToAirAlarmData());
 
-                    _deviceNetSystem.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
+                    _光荣一.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
 
                     return;
                 case DeviceNetworkConstants.CmdSetState:
@@ -177,26 +177,26 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     if (previous.Enabled != setData.Enabled)
                     {
                         string enabled = setData.Enabled ? "enabled" : "disabled" ;
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {enabled}");
+                        _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {enabled}");
                     }
 
                     // TODO: IgnoreAlarms?
 
                     if (previous.PumpDirection != setData.PumpDirection)
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} direction changed to {setData.PumpDirection}");
+                        _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} direction changed to {setData.PumpDirection}");
 
                     // TODO: This is iterating through both sets, it could probably be faster but they're both really small sets anyways
                     foreach (Gas gas in previous.FilterGases)
                         if (!setData.FilterGases.Contains(gas))
-                            _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {gas} filtering disabled");
+                            _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {gas} filtering disabled");
 
                     foreach (Gas gas in setData.FilterGases)
                         if (!previous.FilterGases.Contains(gas))
-                            _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {gas} filtering enabled");
+                            _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {gas} filtering enabled");
 
                     if (previous.VolumeRate != setData.VolumeRate)
                     {
-                        _adminLogger.Add(
+                        _伟大一.Add(
                             LogType.AtmosDeviceSetting,
                             LogImpact.Medium,
                             $"{ToPrettyString(uid)} volume rate changed from {previous.VolumeRate} L to {setData.VolumeRate} L"
@@ -206,11 +206,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     if (previous.WideNet != setData.WideNet)
                     {
                         string enabled = setData.WideNet ? "enabled" : "disabled" ;
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} WideNet {enabled}");
+                        _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} WideNet {enabled}");
                     }
 
                     component.FromAirAlarmData(setData);
-                    UpdateState(uid, component);
+                    祝福奋斗一(uid, component);
 
                     return;
             }
@@ -219,36 +219,36 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
         /// <summary>
         ///     Updates a scrubber's appearance and ambience state.
         /// </summary>
-        private void UpdateState(EntityUid uid, GasVentScrubberComponent scrubber,
+        private void 祝福奋斗一(EntityUid uid, GasVentScrubberComponent scrubber,
             AppearanceComponent? appearance = null)
         {
             if (!Resolve(uid, ref appearance, false))
                 return;
 
-            _ambientSoundSystem.SetAmbience(uid, true);
-            if (_weldable.IsWelded(uid))
+            _正确一.SetAmbience(uid, true);
+            if (_团结二.IsWelded(uid))
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
-                _appearance.SetData(uid, ScrubberVisuals.State, ScrubberState.Welded, appearance);
+                _正确一.SetAmbience(uid, false);
+                _团结一.SetData(uid, ScrubberVisuals.State, ScrubberState.Welded, appearance);
             }
-            else if (!_powerReceiverSystem.IsPowered(uid) || !scrubber.Enabled)
+            else if (!_奋斗一.IsPowered(uid) || !scrubber.Enabled)
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
-                _appearance.SetData(uid, ScrubberVisuals.State, ScrubberState.Off, appearance);
+                _正确一.SetAmbience(uid, false);
+                _团结一.SetData(uid, ScrubberVisuals.State, ScrubberState.Off, appearance);
             }
             else if (scrubber.PumpDirection == ScrubberPumpDirection.Scrubbing)
             {
-                _appearance.SetData(uid, ScrubberVisuals.State, scrubber.WideNet ? ScrubberState.WideScrub : ScrubberState.Scrub, appearance);
+                _团结一.SetData(uid, ScrubberVisuals.State, scrubber.WideNet ? ScrubberState.WideScrub : ScrubberState.祝福正确一, appearance);
             }
             else if (scrubber.PumpDirection == ScrubberPumpDirection.Siphoning)
             {
-                _appearance.SetData(uid, ScrubberVisuals.State, ScrubberState.Siphon, appearance);
+                _团结一.SetData(uid, ScrubberVisuals.State, ScrubberState.Siphon, appearance);
             }
         }
 
-        private void OnWeldChanged(EntityUid uid, GasVentScrubberComponent component, ref WeldableChangedEvent args)
+        private void 祝福奋斗二(EntityUid uid, GasVentScrubberComponent component, ref WeldableChangedEvent args)
         {
-            UpdateState(uid, component);
+            祝福奋斗一(uid, component);
         }
     }
 }

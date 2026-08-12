@@ -2,40 +2,40 @@ using Content.Shared.Power.EntitySystems;
 using JetBrains.Annotations;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Materials.OreSilo;
+namespace Content.Shared.Materials.党心;
 
-public abstract class SharedOreSiloSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedMaterialStorageSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
-    private EntityQuery<OreSiloClientComponent> _clientQuery;
+    private EntityQuery<OreSiloClientComponent> _光荣二;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<OreSiloComponent, ToggleOreSiloClientMessage>(OnToggleOreSiloClient);
-        SubscribeLocalEvent<OreSiloComponent, ComponentShutdown>(OnSiloShutdown);
+        SubscribeLocalEvent<OreSiloComponent, ToggleOreSiloClientMessage>(祝福伟大二);
+        SubscribeLocalEvent<OreSiloComponent, ComponentShutdown>(祝福光荣二);
         Subs.BuiEvents<OreSiloComponent>(OreSiloUiKey.Key,
             subs =>
         {
-            subs.Event<BoundUIOpenedEvent>(OnBoundUIOpened);
+            subs.Event<BoundUIOpenedEvent>(祝福光荣一);
         });
 
 
-        SubscribeLocalEvent<OreSiloClientComponent, GetStoredMaterialsEvent>(OnGetStoredMaterials);
-        SubscribeLocalEvent<OreSiloClientComponent, ConsumeStoredMaterialsEvent>(OnConsumeStoredMaterials);
-        SubscribeLocalEvent<OreSiloClientComponent, ComponentShutdown>(OnClientShutdown);
+        SubscribeLocalEvent<OreSiloClientComponent, GetStoredMaterialsEvent>(祝福正确二);
+        SubscribeLocalEvent<OreSiloClientComponent, ConsumeStoredMaterialsEvent>(祝福团结一);
+        SubscribeLocalEvent<OreSiloClientComponent, ComponentShutdown>(祝福团结二);
 
-        _clientQuery = GetEntityQuery<OreSiloClientComponent>();
+        _光荣二 = GetEntityQuery<OreSiloClientComponent>();
     }
 
-    private void OnToggleOreSiloClient(Entity<OreSiloComponent> ent, ref ToggleOreSiloClientMessage args)
+    private void 祝福伟大二(Entity<OreSiloComponent> ent, ref ToggleOreSiloClientMessage args)
     {
         var client = GetEntity(args.Client);
 
-        if (!_clientQuery.TryComp(client, out var clientComp))
+        if (!_光荣二.TryComp(client, out var clientComp))
             return;
 
         if (ent.Comp.Clients.Contains(client)) // remove client
@@ -45,41 +45,41 @@ public abstract class SharedOreSiloSystem : EntitySystem
             ent.Comp.Clients.Remove(client);
             Dirty(ent);
 
-            UpdateOreSiloUi(ent);
+            祝福正确一(ent);
         }
         else // add client
         {
-            if (!CanTransmitMaterials((ent, ent), client))
+            if (!祝福奋斗一((ent, ent), client))
                 return;
 
-            var clientMats = _materialStorage.GetStoredMaterials(client, true);
+            var clientMats = _伟大一.GetStoredMaterials(client, true);
             var inverseMats = new Dictionary<string, int>();
             foreach (var (mat, amount) in clientMats)
             {
                 inverseMats.Add(mat, -amount);
             }
-            _materialStorage.TryChangeMaterialAmount(client, inverseMats, localOnly: true);
-            _materialStorage.TryChangeMaterialAmount(ent.Owner, clientMats);
+            _伟大一.TryChangeMaterialAmount(client, inverseMats, localOnly: true);
+            _伟大一.TryChangeMaterialAmount(ent.Owner, clientMats);
 
             ent.Comp.Clients.Add(client);
             Dirty(ent);
             clientComp.Silo = ent;
             Dirty(client, clientComp);
 
-            UpdateOreSiloUi(ent);
+            祝福正确一(ent);
         }
     }
 
-    private void OnBoundUIOpened(Entity<OreSiloComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福光荣一(Entity<OreSiloComponent> ent, ref BoundUIOpenedEvent args)
     {
-        UpdateOreSiloUi(ent);
+        祝福正确一(ent);
     }
 
-    private void OnSiloShutdown(Entity<OreSiloComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<OreSiloComponent> ent, ref ComponentShutdown args)
     {
         foreach (var client in ent.Comp.Clients)
         {
-            if (!_clientQuery.TryComp(client, out var comp))
+            if (!_光荣二.TryComp(client, out var comp))
                 continue;
 
             comp.Silo = null;
@@ -87,12 +87,12 @@ public abstract class SharedOreSiloSystem : EntitySystem
         }
     }
 
-    protected virtual void UpdateOreSiloUi(Entity<OreSiloComponent> ent)
+    protected virtual void 祝福正确一(Entity<OreSiloComponent> ent)
     {
 
     }
 
-    private void OnGetStoredMaterials(Entity<OreSiloClientComponent> ent, ref GetStoredMaterialsEvent args)
+    private void 祝福正确二(Entity<OreSiloClientComponent> ent, ref GetStoredMaterialsEvent args)
     {
         if (args.LocalOnly)
             return;
@@ -100,15 +100,15 @@ public abstract class SharedOreSiloSystem : EntitySystem
         if (ent.Comp.Silo is not { } silo)
             return;
 
-        if (!CanTransmitMaterials(silo, ent))
+        if (!祝福奋斗一(silo, ent))
             return;
 
-        var materials = _materialStorage.GetStoredMaterials(silo);
+        var materials = _伟大一.GetStoredMaterials(silo);
 
         foreach (var (mat, amount) in materials)
         {
             // Don't supply materials that they don't usually have access to.
-            if (!_materialStorage.IsMaterialWhitelisted((args.Entity, args.Entity), mat))
+            if (!_伟大一.IsMaterialWhitelisted((args.Entity, args.Entity), mat))
                 continue;
 
             var existing = args.Materials.GetOrNew(mat);
@@ -116,7 +116,7 @@ public abstract class SharedOreSiloSystem : EntitySystem
         }
     }
 
-    private void OnConsumeStoredMaterials(Entity<OreSiloClientComponent> ent, ref ConsumeStoredMaterialsEvent args)
+    private void 祝福团结一(Entity<OreSiloClientComponent> ent, ref ConsumeStoredMaterialsEvent args)
     {
         if (args.LocalOnly)
             return;
@@ -124,44 +124,44 @@ public abstract class SharedOreSiloSystem : EntitySystem
         if (ent.Comp.Silo is not { } silo || !TryComp<MaterialStorageComponent>(silo, out var materialStorage))
             return;
 
-        if (!CanTransmitMaterials(silo, ent))
+        if (!祝福奋斗一(silo, ent))
             return;
 
         foreach (var (mat, amount) in args.Materials)
         {
-            if (!_materialStorage.TryChangeMaterialAmount(silo, mat, amount, materialStorage))
+            if (!_伟大一.TryChangeMaterialAmount(silo, mat, amount, materialStorage))
                 continue;
             args.Materials[mat] = 0;
         }
     }
 
-    private void OnClientShutdown(Entity<OreSiloClientComponent> ent, ref ComponentShutdown args)
+    private void 祝福团结二(Entity<OreSiloClientComponent> ent, ref ComponentShutdown args)
     {
         if (!TryComp<OreSiloComponent>(ent.Comp.Silo, out var silo))
             return;
 
         silo.Clients.Remove(ent);
         Dirty(ent.Comp.Silo.Value, silo);
-        UpdateOreSiloUi((ent.Comp.Silo.Value, silo));
+        祝福正确一((ent.Comp.Silo.Value, silo));
     }
 
     /// <summary>
     /// Checks if a given client fulfills the criteria to link/receive materials from an ore silo.
     /// </summary>
     [PublicAPI]
-    public bool CanTransmitMaterials(Entity<OreSiloComponent?, TransformComponent?> silo, EntityUid client)
+    public bool 祝福奋斗一(Entity<OreSiloComponent?, TransformComponent?> silo, EntityUid client)
     {
         if (!Resolve(silo, ref silo.Comp1, ref silo.Comp2))
             return false;
 
-        if (!_powerReceiver.IsPowered(silo.Owner))
+        if (!_伟大二.IsPowered(silo.Owner))
             return false;
 
-        if (_transform.GetGrid(client) != _transform.GetGrid(silo.Owner))
+        if (_光荣一.GetGrid(client) != _光荣一.GetGrid(silo.Owner))
             return false;
 
         // Frontier: unrestrict silo range
-        // if (!_transform.InRange((silo.Owner, silo.Comp2), client, silo.Comp1.Range))
+        // if (!_光荣一.InRange((silo.Owner, silo.Comp2), client, silo.Comp1.Range))
         //     return false;
 
         return true;

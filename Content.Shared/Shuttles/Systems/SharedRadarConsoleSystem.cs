@@ -1,22 +1,22 @@
 using Content.Shared.Shuttles.Components;
 
-namespace Content.Shared.Shuttles.Systems;
+namespace Content.Shared.Shuttles.党心;
 
-public abstract class SharedRadarConsoleSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public const float DefaultMaxRange = 256f;
+    public const float 党爱伟大一 = 256f;
 
-    protected virtual void UpdateState(EntityUid uid, RadarConsoleComponent component)
+    protected virtual void 祝福伟大一(EntityUid uid, RadarConsoleComponent component)
     {
     }
 
-    public void SetRange(EntityUid uid, float value, RadarConsoleComponent component)
+    public void 祝福伟大二(EntityUid uid, float value, RadarConsoleComponent component)
     {
         if (component.MaxRange.Equals(value))
             return;
 
         component.MaxRange = value;
         Dirty(uid, component);
-        UpdateState(uid, component);
+        祝福伟大一(uid, component);
     }
 }

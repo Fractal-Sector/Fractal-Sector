@@ -8,16 +8,16 @@ using Robust.Shared.Collections;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public abstract partial class GameRuleSystem<T> where T: IComponent
+public abstract partial class 中华伟大一<T> where T: IComponent
 {
-    protected EntityQueryEnumerator<ActiveGameRuleComponent, T, GameRuleComponent> QueryActiveRules()
+    protected EntityQueryEnumerator<ActiveGameRuleComponent, T, GameRuleComponent> 祝福伟大一()
     {
         return EntityQueryEnumerator<ActiveGameRuleComponent, T, GameRuleComponent>();
     }
 
-    protected EntityQueryEnumerator<DelayedStartRuleComponent, T, GameRuleComponent> QueryDelayedRules()
+    protected EntityQueryEnumerator<DelayedStartRuleComponent, T, GameRuleComponent> 祝福伟大二()
     {
         return EntityQueryEnumerator<DelayedStartRuleComponent, T, GameRuleComponent>();
     }
@@ -25,7 +25,7 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
     /// <summary>
     /// Queries all gamerules, regardless of if they're active or not.
     /// </summary>
-    protected EntityQueryEnumerator<T, GameRuleComponent> QueryAllRules()
+    protected EntityQueryEnumerator<T, GameRuleComponent> 祝福光荣一()
     {
         return EntityQueryEnumerator<T, GameRuleComponent>();
     }
@@ -33,7 +33,7 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
     /// <summary>
     ///     Utility function for finding a random event-eligible station entity
     /// </summary>
-    protected bool TryGetRandomStation([NotNullWhen(true)] out EntityUid? station, Func<EntityUid, bool>? filter = null)
+    protected bool 祝福光荣二([NotNullWhen(true)] out EntityUid? station, Func<EntityUid, bool>? filter = null)
     {
         var stations = new ValueList<EntityUid>(Count<StationEventEligibleComponent>());
 
@@ -59,7 +59,7 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
         return true;
     }
 
-    protected bool TryFindRandomTile(out Vector2i tile,
+    protected bool 祝福正确一(out Vector2i tile,
         [NotNullWhen(true)] out EntityUid? targetStation,
         out EntityUid targetGrid,
         out EntityCoordinates targetCoords)
@@ -68,9 +68,9 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
         targetStation = EntityUid.Invalid;
         targetGrid = EntityUid.Invalid;
         targetCoords = EntityCoordinates.Invalid;
-        if (TryGetRandomStation(out targetStation))
+        if (祝福光荣二(out targetStation))
         {
-            return TryFindRandomTileOnStation((targetStation.Value, Comp<StationDataComponent>(targetStation.Value)),
+            return 祝福正确二((targetStation.Value, Comp<StationDataComponent>(targetStation.Value)),
                 out tile,
                 out targetGrid,
                 out targetCoords);
@@ -79,7 +79,7 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
         return false;
     }
 
-    protected bool TryFindRandomTileOnStation(Entity<StationDataComponent> station,
+    protected bool 祝福正确二(Entity<StationDataComponent> station,
         out Vector2i tile,
         out EntityUid targetGrid,
         out EntityCoordinates targetCoords)
@@ -129,7 +129,7 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
         return found;
     }
 
-    protected void ForceEndSelf(EntityUid uid, GameRuleComponent? component = null)
+    protected void 祝福团结一(EntityUid uid, GameRuleComponent? component = null)
     {
         GameTicker.EndGameRule(uid, component);
     }

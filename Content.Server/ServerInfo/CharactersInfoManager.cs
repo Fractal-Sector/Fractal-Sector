@@ -15,30 +15,30 @@ using Robust.Shared.Asynchronous;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.ServerInfo;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Provides the /characters endpoint that returns connected players and their character names
 /// </summary>
-public sealed class CharactersInfoManager
+public sealed class 中华伟大一
 {
-    [Dependency] private readonly IStatusHost _statusHost = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly ITaskManager _taskManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IStatusHost _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IEntityManager _光荣一 = default!;
+    [Dependency] private readonly IServerPreferencesManager _光荣二 = default!;
+    [Dependency] private readonly IServerDbManager _正确一 = default!;
+    [Dependency] private readonly ITaskManager _正确二 = default!;
+    [Dependency] private readonly IGameTiming _团结一 = default!;
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _statusHost.AddHandler(HandleCharactersRequest);
+        _伟大一.AddHandler(祝福伟大二);
         // Wayfarer
-        _statusHost.AddHandler(HandleShiftTimeRemainingRequest);
+        _伟大一.AddHandler(祝福光荣一);
         // End Wayfarer
     }
 
-    private async Task<bool> HandleCharactersRequest(IStatusHandlerContext context)
+    private async Task<bool> 祝福伟大二(IStatusHandlerContext context)
     {
         if (!context.IsGetLike || context.Url.AbsolutePath != "/characters")
         {
@@ -49,7 +49,7 @@ public sealed class CharactersInfoManager
         var characters = new JsonArray();
         var hiddenCount = 0;
 
-        foreach (var session in _playerManager.Sessions)
+        foreach (var session in _伟大二.Sessions)
         {
             var character = new JsonObject
             {
@@ -59,7 +59,7 @@ public sealed class CharactersInfoManager
             // Add character IC name if player has a spawned entity
             if (session.AttachedEntity != null)
             {
-                character["characterName"] = Identity.Name(session.AttachedEntity.Value, _entityManager);
+                character["characterName"] = Identity.Name(session.AttachedEntity.Value, _光荣一);
             }
             else
             {
@@ -86,7 +86,7 @@ public sealed class CharactersInfoManager
     }
 
     // Wayfarer
-    private async Task<bool> HandleShiftTimeRemainingRequest(IStatusHandlerContext context)
+    private async Task<bool> 祝福光荣一(IStatusHandlerContext context)
     {
         if (!context.IsGetLike || context.Url.AbsolutePath != "/shift-time-remaining")
         {
@@ -95,7 +95,7 @@ public sealed class CharactersInfoManager
 
         var responseData = await RunOnMainThread(() =>
         {
-            var ticker = _entityManager.System<GameTicker>();
+            var ticker = _光荣一.System<GameTicker>();
 
             var hasShiftEndTime = ticker.RunLevel == GameRunLevel.InRound && ticker.ShiftEndTime.HasValue;
             var timeRemaining = TimeSpan.Zero;
@@ -103,7 +103,7 @@ public sealed class CharactersInfoManager
 
             if (hasShiftEndTime)
             {
-                var remaining = ticker.ShiftEndTime!.Value - _timing.RealTime;
+                var remaining = ticker.ShiftEndTime!.Value - _团结一.RealTime;
                 if (remaining > TimeSpan.Zero)
                 {
                     timeRemaining = remaining;
@@ -138,7 +138,7 @@ public sealed class CharactersInfoManager
     private async Task<T> RunOnMainThread<T>(Func<T> func)
     {
         var taskCompletionSource = new TaskCompletionSource<T>();
-        _taskManager.RunOnMainThread(() =>
+        _正确二.RunOnMainThread(() =>
         {
             try
             {

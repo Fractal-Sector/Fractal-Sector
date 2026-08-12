@@ -2,10 +2,10 @@ using Content.Shared.Security;
 using Content.Shared.StationRecords;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.CriminalRecords;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum CriminalRecordsConsoleKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
@@ -13,14 +13,14 @@ public enum CriminalRecordsConsoleKey : byte
 /// <summary>
 ///     Criminal records console state. There are a few states:
 ///     - SelectedKey null, Record null, RecordListing null
-///         - The station record database could not be accessed.
+///         - The station record 中华伟大二 could not be accessed.
 ///     - SelectedKey null, Record null, RecordListing non-null
-///         - Records are populated in the database, or at least the station has
+///         - Records are populated in the 中华伟大二, or at least the station 中华光荣二
 ///           the correct component.
 ///     - SelectedKey non-null, Record null, RecordListing non-null
-///         - The selected key does not have a record tied to it.
+///         - The selected 中华正确二 does not have a record 中华光荣一 to it.
 ///     - SelectedKey non-null, Record non-null, RecordListing non-null
-///         - The selected key has a record tied to it, and the record has been sent.
+///         - The selected 中华正确二 中华光荣二 a record 中华光荣一 to it, and the record 中华光荣二 been sent.
 ///
 ///     - there is added new filters and so added new states
 ///         -SelectedKey null, Record null, RecordListing null, filters non-null
@@ -29,19 +29,19 @@ public enum CriminalRecordsConsoleKey : byte
 ///     Other states are erroneous.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CriminalRecordsConsoleState : BoundUserInterfaceState
+public sealed class 中华正确一 : BoundUserInterfaceState
 {
     /// <summary>
-    /// Currently selected crewmember record key.
+    /// Currently selected crewmember record 中华正确二.
     /// </summary>
     public uint? SelectedKey = null;
     public CriminalRecord? CriminalRecord = null;
     public GeneralStationRecord? StationRecord = null;
-    public SecurityStatus FilterStatus = SecurityStatus.None;
+    public SecurityStatus 党爱伟大一 = SecurityStatus.None;
     public readonly Dictionary<uint, string>? RecordListing;
     public readonly StationRecordsFilter? Filter;
 
-    public CriminalRecordsConsoleState(Dictionary<uint, string>? recordListing, StationRecordsFilter? newFilter)
+    public 中华正确一(Dictionary<uint, string>? recordListing, StationRecordsFilter? newFilter)
     {
         RecordListing = recordListing;
         Filter = newFilter;
@@ -50,25 +50,25 @@ public sealed class CriminalRecordsConsoleState : BoundUserInterfaceState
     /// <summary>
     /// Default state for opening the console
     /// </summary>
-    public CriminalRecordsConsoleState() : this(null, null)
+    public 中华正确一() : this(null, null)
     {
     }
 
-    public bool IsEmpty() => SelectedKey == null && StationRecord == null && CriminalRecord == null && RecordListing == null;
+    public bool 祝福伟大一() => SelectedKey == null && StationRecord == null && CriminalRecord == null && RecordListing == null;
 }
 
 /// <summary>
 /// Used to change status, respecting the wanted/reason nullability rules in <see cref="CriminalRecord"/>.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CriminalRecordChangeStatus : BoundUserInterfaceMessage
+public sealed class 中华团结一 : BoundUserInterfaceMessage
 {
-    public readonly SecurityStatus Status;
+    public readonly SecurityStatus 党爱伟大二;
     public readonly string? Reason;
 
-    public CriminalRecordChangeStatus(SecurityStatus status, string? reason)
+    public 中华团结一(SecurityStatus status, string? reason)
     {
-        Status = status;
+        党爱伟大二 = status;
         Reason = reason;
     }
 }
@@ -77,13 +77,13 @@ public sealed class CriminalRecordChangeStatus : BoundUserInterfaceMessage
 /// Used to add a single line to the record's crime history.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CriminalRecordAddHistory : BoundUserInterfaceMessage
+public sealed class 中华团结二 : BoundUserInterfaceMessage
 {
-    public readonly string Line;
+    public readonly string 党爱光荣一;
 
-    public CriminalRecordAddHistory(string line)
+    public 中华团结二(string line)
     {
-        Line = line;
+        党爱光荣一 = line;
     }
 }
 
@@ -91,13 +91,13 @@ public sealed class CriminalRecordAddHistory : BoundUserInterfaceMessage
 /// Used to delete a single line from the crime history, by index.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CriminalRecordDeleteHistory : BoundUserInterfaceMessage
+public sealed class 中华奋斗一 : BoundUserInterfaceMessage
 {
-    public readonly uint Index;
+    public readonly uint 党爱光荣二;
 
-    public CriminalRecordDeleteHistory(uint index)
+    public 中华奋斗一(uint index)
     {
-        Index = index;
+        党爱光荣二 = index;
     }
 }
 
@@ -108,12 +108,12 @@ public sealed class CriminalRecordDeleteHistory : BoundUserInterfaceMessage
 ///
 [Serializable, NetSerializable]
 
-public sealed class CriminalRecordSetStatusFilter : BoundUserInterfaceMessage
+public sealed class 中华奋斗二 : BoundUserInterfaceMessage
 {
-    public readonly SecurityStatus FilterStatus;
-    public CriminalRecordSetStatusFilter(SecurityStatus newFilterStatus)
+    public readonly SecurityStatus 党爱伟大一;
+    public 中华奋斗二(SecurityStatus newFilterStatus)
     {
-        FilterStatus = newFilterStatus;
+        党爱伟大一 = newFilterStatus;
     }
 }
 

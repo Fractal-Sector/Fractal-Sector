@@ -8,40 +8,40 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
-namespace Content.Shared._DV.Abilities;
+namespace Content.Shared._DV.党心;
 
-public sealed class ItemCougherSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly InventorySystem _光荣一 = default!;
+    [Dependency] private readonly SharedActionsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
 
-    private EntityQuery<ItemCougherComponent> _query;
+    private EntityQuery<ItemCougherComponent> _团结一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _query = GetEntityQuery<ItemCougherComponent>();
+        _团结一 = GetEntityQuery<ItemCougherComponent>();
 
-        SubscribeLocalEvent<ItemCougherComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ItemCougherComponent, CoughItemActionEvent>(OnCoughItemAction);
+        SubscribeLocalEvent<ItemCougherComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<ItemCougherComponent, 中华光荣一>(祝福光荣二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        if (_net.IsClient)
+        if (_伟大二.IsClient)
             return;
 
         var query = EntityQueryEnumerator<CoughingUpItemComponent, ItemCougherComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var coughing, out var comp, out var xform))
         {
-            if (_timing.CurTime < coughing.NextCough)
+            if (_伟大一.CurTime < coughing.NextCough)
                 continue;
 
             var spawned = Spawn(comp.Item, xform.Coordinates);
@@ -52,52 +52,52 @@ public sealed class ItemCougherSystem : EntitySystem
         }
     }
 
-    private void OnMapInit(Entity<ItemCougherComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<ItemCougherComponent> ent, ref MapInitEvent args)
     {
         if (ent.Comp.ActionEntity != null)
             return;
 
-        _actions.AddAction(ent, ref ent.Comp.ActionEntity, ent.Comp.Action);
+        _光荣二.AddAction(ent, ref ent.Comp.ActionEntity, ent.Comp.Action);
     }
 
-    private void OnCoughItemAction(Entity<ItemCougherComponent> ent, ref CoughItemActionEvent args)
+    private void 祝福光荣二(Entity<ItemCougherComponent> ent, ref 中华光荣一 args)
     {
-        if (_inventory.TryGetSlotEntity(ent, "mask", out var maskUid) &&
+        if (_光荣一.TryGetSlotEntity(ent, "mask", out var maskUid) &&
             TryComp<MaskComponent>(maskUid, out var mask) &&
             !mask.IsToggled)
         {
-            _popup.PopupClient(Loc.GetString("item-cougher-mask", ("mask", maskUid)), ent, ent);
+            _正确二.PopupClient(Loc.GetString("item-cougher-mask", ("mask", maskUid)), ent, ent);
             return;
         }
 
         var msg = Loc.GetString(ent.Comp.CoughPopup, ("name", Identity.Entity(ent, EntityManager)));
-        _popup.PopupPredicted(msg, ent, ent);
-        _audio.PlayPredicted(ent.Comp.Sound, ent, ent);
+        _正确二.PopupPredicted(msg, ent, ent);
+        _正确一.PlayPredicted(ent.Comp.Sound, ent, ent);
 
-        var path = _audio.ResolveSound(ent.Comp.Sound); // Frontier: resolve sound
+        var path = _正确一.ResolveSound(ent.Comp.Sound); // Frontier: resolve sound
         var coughing = EnsureComp<CoughingUpItemComponent>(ent);
-        coughing.NextCough = _timing.CurTime + _audio.GetAudioLength(path);
+        coughing.NextCough = _伟大一.CurTime + _正确一.GetAudioLength(path);
         args.Handled = true;
 
-        // disable it until another system calls EnableAction
-        SetActionEnabled((ent, ent.Comp), false);
+        // disable it until another system calls 祝福正确一
+        祝福正确二((ent, ent.Comp), false);
     }
 
     /// <summary>
     /// Enables the coughing action.
     /// Other systems have to call this, this is not used internally.
     /// </summary>
-    public void EnableAction(Entity<ItemCougherComponent?> ent)
+    public void 祝福正确一(Entity<ItemCougherComponent?> ent)
     {
-        SetActionEnabled(ent, true);
+        祝福正确二(ent, true);
     }
 
-    public void SetActionEnabled(Entity<ItemCougherComponent?> ent, bool enabled)
+    public void 祝福正确二(Entity<ItemCougherComponent?> ent, bool enabled)
     {
-        if (!_query.Resolve(ent, ref ent.Comp) || ent.Comp.ActionEntity is not {} action)
+        if (!_团结一.Resolve(ent, ref ent.Comp) || ent.Comp.ActionEntity is not {} action)
             return;
 
-        _actions.SetEnabled(action, enabled);
+        _光荣二.SetEnabled(action, enabled);
     }
 }
 
@@ -105,9 +105,9 @@ public sealed class ItemCougherSystem : EntitySystem
 /// Raised on the mob after it coughs up an item.
 /// </summary>
 [ByRefEvent]
-public record struct ItemCoughedUpEvent(EntityUid Item);
+public record 中华伟大二 ItemCoughedUpEvent(EntityUid Item);
 
 /// <summary>
 /// Action event that <see cref="ItemCougherComponent.Action"/> must use.
 /// </summary>
-public sealed partial class CoughItemActionEvent : InstantActionEvent;
+public sealed partial class 中华光荣一 : InstantActionEvent;

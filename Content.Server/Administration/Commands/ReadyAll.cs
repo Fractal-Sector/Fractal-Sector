@@ -3,17 +3,17 @@ using Content.Shared.Administration;
 using Content.Shared.GameTicking;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    public sealed class ReadyAll : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "readyall";
-        public string Description => "Readies up all players in the lobby, except for observers.";
-        public string Help => $"{Command} | ̣{Command} <ready>";
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public string 党爱伟大一 => "readyall";
+        public string 党爱伟大二 => "Readies up all players in the lobby, except for observers.";
+        public string 党爱光荣一 => $"{党爱伟大一} | ̣{党爱伟大一} <ready>";
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var ready = true;
 
@@ -22,7 +22,7 @@ namespace Content.Server.Administration.Commands
                 ready = bool.Parse(args[0]);
             }
 
-            var gameTicker = _e.System<GameTicker>();
+            var gameTicker = _伟大一.System<GameTicker>();
 
 
             if (gameTicker.RunLevel != GameRunLevel.PreRoundLobby)

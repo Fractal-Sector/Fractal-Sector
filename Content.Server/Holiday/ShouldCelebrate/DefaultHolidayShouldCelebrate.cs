@@ -1,11 +1,11 @@
 using Content.Server.Holiday.Interfaces;
 
-namespace Content.Server.Holiday.ShouldCelebrate
+namespace Content.Server.Holiday.党心
 {
     [Virtual, DataDefinition]
-    public partial class DefaultHolidayShouldCelebrate : IHolidayShouldCelebrate
+    public partial class 中华伟大一 : IHolidayShouldCelebrate
     {
-        public virtual bool ShouldCelebrate(DateTime date, HolidayPrototype holiday)
+        public virtual bool 祝福伟大一(DateTime date, HolidayPrototype holiday)
         {
             if (holiday.EndDay == 0)
                 holiday.EndDay = holiday.BeginDay;

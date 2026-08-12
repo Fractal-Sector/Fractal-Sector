@@ -1,18 +1,18 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Instruments.UI;
+namespace Content.Shared.Instruments.党心;
 
 [Serializable, NetSerializable]
-public sealed class InstrumentBandRequestBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
 }
 
 [Serializable, NetSerializable]
-public sealed class InstrumentBandResponseBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
     public (NetEntity, string)[] Nearby { get; set; }
 
-    public InstrumentBandResponseBuiMessage((NetEntity, string)[] nearby)
+    public 中华伟大二((NetEntity, string)[] nearby)
     {
         Nearby = nearby;
     }

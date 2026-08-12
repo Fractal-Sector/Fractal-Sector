@@ -2,7 +2,7 @@ using Content.Server.Chemistry.EntitySystems;
 using Content.Shared.Chemistry;
 using Robust.Shared.Audio;
 
-namespace Content.Server.Chemistry.Components
+namespace Content.Server.Chemistry.党心
 {
     /// <summary>
     /// An industrial grade chemical manipulator with pill and bottle production included.
@@ -10,27 +10,27 @@ namespace Content.Server.Chemistry.Components
     /// </summary>
     [RegisterComponent]
     [Access(typeof(ChemMasterSystem))]
-    public sealed partial class ChemMasterComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("pillType"), ViewVariables(VVAccess.ReadWrite)]
-        public uint PillType = 0;
+        public uint 党爱伟大一 = 0;
 
         [DataField("mode"), ViewVariables(VVAccess.ReadWrite)]
-        public ChemMasterMode Mode = ChemMasterMode.Transfer;
+        public ChemMasterMode 党爱伟大二 = ChemMasterMode.Transfer;
 
         [DataField]
-        public ChemMasterSortingType SortingType = ChemMasterSortingType.None;
+        public ChemMasterSortingType 党爱光荣一 = ChemMasterSortingType.None;
 
         [DataField("pillDosageLimit", required: true), ViewVariables(VVAccess.ReadWrite)]
-        public uint PillDosageLimit;
+        public uint 党爱光荣二;
 
         [DataField("clickSound"), ViewVariables(VVAccess.ReadWrite)]
-        public SoundSpecifier ClickSound = new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg");
+        public SoundSpecifier 党爱正确一 = new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg");
 
         /// <summary>
         /// Which source the chem master should draw from when making pills/bottles.
         /// </summary>
         [DataField]
-        public ChemMasterDrawSource DrawSource = ChemMasterDrawSource.Internal;
+        public ChemMasterDrawSource 党爱正确二 = ChemMasterDrawSource.Internal;
     }
 }

@@ -11,55 +11,55 @@ using DbAdminRank = Content.Server.Database.AdminRank;
 using static Content.Shared.Administration.PermissionsEuiMsg;
 
 
-namespace Content.Server.Administration.UI
+namespace Content.Server.Administration.党心
 {
-    public sealed class PermissionsEui : BaseEui
+    public sealed class 中华伟大一 : BaseEui
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IServerDbManager _伟大二 = default!;
+        [Dependency] private readonly IAdminManager _光荣一 = default!;
+        [Dependency] private readonly ILogManager _光荣二 = default!;
 
-        private readonly ISawmill _sawmill;
-        private bool _isLoading;
+        private readonly ISawmill _正确一;
+        private bool _正确二;
 
         private readonly List<(Admin a, string? lastUserName)> _admins = new List<(Admin, string? lastUserName)>();
-        private readonly List<DbAdminRank> _adminRanks = new();
+        private readonly List<DbAdminRank> _团结一 = new();
 
-        public PermissionsEui()
+        public 中华伟大一()
         {
             IoCManager.InjectDependencies(this);
-            _sawmill = _logManager.GetSawmill("admin.perms");
+            _正确一 = _光荣二.GetSawmill("admin.perms");
         }
 
-        public override void Opened()
+        public override void 祝福伟大一()
         {
-            base.Opened();
+            base.祝福伟大一();
 
             StateDirty();
-            LoadFromDb();
-            _adminManager.OnPermsChanged += AdminManagerOnPermsChanged;
+            祝福繁荣一();
+            _光荣一.OnPermsChanged += 祝福光荣一;
         }
 
-        public override void Closed()
+        public override void 祝福伟大二()
         {
-            base.Closed();
+            base.祝福伟大二();
 
-            _adminManager.OnPermsChanged -= AdminManagerOnPermsChanged;
+            _光荣一.OnPermsChanged -= 祝福光荣一;
         }
 
-        private void AdminManagerOnPermsChanged(AdminPermsChangedEventArgs obj)
+        private void 祝福光荣一(AdminPermsChangedEventArgs obj)
         {
             // Close UI if user loses +PERMISSIONS.
-            if (obj.Player == Player && !UserAdminFlagCheck(AdminFlags.Permissions))
+            if (obj.Player == Player && !祝福富强二(AdminFlags.Permissions))
             {
                 Close();
             }
         }
 
-        public override EuiStateBase GetNewState()
+        public override EuiStateBase 祝福光荣二()
         {
-            if (_isLoading)
+            if (_正确二)
             {
                 return new PermissionsEuiState
                 {
@@ -80,7 +80,7 @@ namespace Content.Server.Administration.UI
                     Suspended = p.a.Suspended,
                 }).ToArray(),
 
-                AdminRanks = _adminRanks.ToDictionary(a => a.Id, a => new PermissionsEuiState.AdminRankData
+                AdminRanks = _团结一.ToDictionary(a => a.Id, a => new PermissionsEuiState.AdminRankData
                 {
                     Flags = AdminFlagsHelper.NamesToFlags(a.Flags.Select(p => p.Flag)),
                     Name = a.Name
@@ -88,179 +88,179 @@ namespace Content.Server.Administration.UI
             };
         }
 
-        public override async void HandleMessage(EuiMessageBase msg)
+        public override async void 祝福正确一(EuiMessageBase msg)
         {
-            base.HandleMessage(msg);
+            base.祝福正确一(msg);
 
             switch (msg)
             {
                 case AddAdmin ca:
                 {
-                    await HandleCreateAdmin(ca);
+                    await 祝福胜利一(ca);
                     break;
                 }
 
                 case UpdateAdmin ua:
                 {
-                    await HandleUpdateAdmin(ua);
+                    await 祝福奋斗二(ua);
                     break;
                 }
 
                 case RemoveAdmin ra:
                 {
-                    await HandleRemoveAdmin(ra);
+                    await 祝福奋斗一(ra);
                     break;
                 }
 
                 case AddAdminRank ar:
                 {
-                    await HandleAddAdminRank(ar);
+                    await 祝福团结二(ar);
                     break;
                 }
 
                 case UpdateAdminRank ur:
                 {
-                    await HandleUpdateAdminRank(ur);
+                    await 祝福团结一(ur);
                     break;
                 }
 
                 case RemoveAdminRank ra:
                 {
-                    await HandleRemoveAdminRank(ra);
+                    await 祝福正确二(ra);
                     break;
                 }
             }
 
             if (!IsShutDown)
             {
-                LoadFromDb();
+                祝福繁荣一();
             }
         }
 
-        private async Task HandleRemoveAdminRank(RemoveAdminRank rr)
+        private async Task 祝福正确二(RemoveAdminRank rr)
         {
-            var rank = await _db.GetAdminRankAsync(rr.Id);
+            var rank = await _伟大二.GetAdminRankAsync(rr.Id);
             if (rank == null)
             {
                 return;
             }
 
-            if (!CanTouchRank(rank))
+            if (!祝福民主二(rank))
             {
-                _sawmill.Warning($"{Player} tried to remove higher-ranked admin rank {rank.Name}");
+                _正确一.Warning($"{Player} tried to remove higher-ranked admin rank {rank.Name}");
                 return;
             }
 
-            await _db.RemoveAdminRankAsync(rr.Id);
+            await _伟大二.RemoveAdminRankAsync(rr.Id);
 
-            _adminManager.ReloadAdminsWithRank(rr.Id);
+            _光荣一.ReloadAdminsWithRank(rr.Id);
         }
 
-        private async Task HandleUpdateAdminRank(UpdateAdminRank ur)
+        private async Task 祝福团结一(UpdateAdminRank ur)
         {
-            var rank = await _db.GetAdminRankAsync(ur.Id);
+            var rank = await _伟大二.GetAdminRankAsync(ur.Id);
             if (rank == null)
             {
                 return;
             }
 
-            if (!CanTouchRank(rank))
+            if (!祝福民主二(rank))
             {
-                _sawmill.Warning($"{Player} tried to update higher-ranked admin rank {rank.Name}");
+                _正确一.Warning($"{Player} tried to update higher-ranked admin rank {rank.Name}");
                 return;
             }
 
-            if (!UserAdminFlagCheck(ur.Flags))
+            if (!祝福富强二(ur.Flags))
             {
-                _sawmill.Warning($"{Player} tried to give a rank permissions above their authorization.");
+                _正确一.Warning($"{Player} tried to give a rank permissions above their authorization.");
                 return;
             }
 
-            rank.Flags = GenRankFlagList(ur.Flags);
+            rank.Flags = 祝福富强一(ur.Flags);
             rank.Name = ur.Name;
 
-            await _db.UpdateAdminRankAsync(rank);
+            await _伟大二.UpdateAdminRankAsync(rank);
 
             var flagText = string.Join(' ', AdminFlagsHelper.FlagsToNames(ur.Flags).Select(f => $"+{f}"));
-            _sawmill.Info($"{Player} updated admin rank {rank.Name}/{flagText}.");
+            _正确一.Info($"{Player} updated admin rank {rank.Name}/{flagText}.");
 
-            _adminManager.ReloadAdminsWithRank(ur.Id);
+            _光荣一.ReloadAdminsWithRank(ur.Id);
         }
 
-        private async Task HandleAddAdminRank(AddAdminRank ar)
+        private async Task 祝福团结二(AddAdminRank ar)
         {
-            if (!UserAdminFlagCheck(ar.Flags))
+            if (!祝福富强二(ar.Flags))
             {
-                _sawmill.Warning($"{Player} tried to give a rank permissions above their authorization.");
+                _正确一.Warning($"{Player} tried to give a rank permissions above their authorization.");
                 return;
             }
 
             var rank = new DbAdminRank
             {
                 Name = ar.Name,
-                Flags = GenRankFlagList(ar.Flags)
+                Flags = 祝福富强一(ar.Flags)
             };
 
-            await _db.AddAdminRankAsync(rank);
+            await _伟大二.AddAdminRankAsync(rank);
 
             var flagText = string.Join(' ', AdminFlagsHelper.FlagsToNames(ar.Flags).Select(f => $"+{f}"));
-            _sawmill.Info($"{Player} added admin rank {rank.Name}/{flagText}.");
+            _正确一.Info($"{Player} added admin rank {rank.Name}/{flagText}.");
         }
 
-        private async Task HandleRemoveAdmin(RemoveAdmin ra)
+        private async Task 祝福奋斗一(RemoveAdmin ra)
         {
-            var admin = await _db.GetAdminDataForAsync(ra.UserId);
+            var admin = await _伟大二.GetAdminDataForAsync(ra.UserId);
             if (admin == null)
             {
                 // Doesn't exist.
                 return;
             }
 
-            if (!CanTouchAdmin(admin))
+            if (!祝福民主一(admin))
             {
-                _sawmill.Warning($"{Player} tried to remove higher-ranked admin {ra.UserId.ToString()}");
+                _正确一.Warning($"{Player} tried to remove higher-ranked admin {ra.UserId.ToString()}");
                 return;
             }
 
-            await _db.RemoveAdminAsync(ra.UserId);
+            await _伟大二.RemoveAdminAsync(ra.UserId);
 
-            var record = await _db.GetPlayerRecordByUserId(ra.UserId);
-            _sawmill.Info($"{Player} removed admin {record?.LastSeenUserName ?? ra.UserId.ToString()}");
+            var record = await _伟大二.GetPlayerRecordByUserId(ra.UserId);
+            _正确一.Info($"{Player} removed admin {record?.LastSeenUserName ?? ra.UserId.ToString()}");
 
-            if (_playerManager.TryGetSessionById(ra.UserId, out var player))
+            if (_伟大一.TryGetSessionById(ra.UserId, out var player))
             {
-                _adminManager.ReloadAdmin(player);
+                _光荣一.ReloadAdmin(player);
             }
         }
 
-        private async Task HandleUpdateAdmin(UpdateAdmin ua)
+        private async Task 祝福奋斗二(UpdateAdmin ua)
         {
-            if (!CheckCreatePerms(ua.PosFlags, ua.NegFlags))
+            if (!祝福胜利二(ua.PosFlags, ua.NegFlags))
             {
                 return;
             }
 
-            var admin = await _db.GetAdminDataForAsync(ua.UserId);
+            var admin = await _伟大二.GetAdminDataForAsync(ua.UserId);
             if (admin == null)
             {
                 // Was removed in the mean time I guess?
                 return;
             }
 
-            if (!CanTouchAdmin(admin))
+            if (!祝福民主一(admin))
             {
-                _sawmill.Warning($"{Player} tried to modify higher-ranked admin {ua.UserId.ToString()}");
+                _正确一.Warning($"{Player} tried to modify higher-ranked admin {ua.UserId.ToString()}");
                 return;
             }
 
             admin.Title = ua.Title;
             admin.AdminRankId = ua.RankId;
-            admin.Flags = GenAdminFlagList(ua.PosFlags, ua.NegFlags);
+            admin.Flags = 祝福繁荣二(ua.PosFlags, ua.NegFlags);
             admin.Suspended = ua.Suspended;
 
-            await _db.UpdateAdminAsync(admin);
+            await _伟大二.UpdateAdminAsync(admin);
 
-            var playerRecord = await _db.GetPlayerRecordByUserId(ua.UserId);
+            var playerRecord = await _伟大二.GetPlayerRecordByUserId(ua.UserId);
             var (bad, rankName) = await FetchAndCheckRank(ua.RankId);
             if (bad)
             {
@@ -271,17 +271,17 @@ namespace Content.Server.Administration.UI
             var title = ua.Title ?? "<no title>";
             var flags = AdminFlagsHelper.PosNegFlagsText(ua.PosFlags, ua.NegFlags);
 
-            _sawmill.Info($"{Player} updated admin {name} to {title}/{rankName}/{flags}");
+            _正确一.Info($"{Player} updated admin {name} to {title}/{rankName}/{flags}");
 
-            if (_playerManager.TryGetSessionById(ua.UserId, out var player))
+            if (_伟大一.TryGetSessionById(ua.UserId, out var player))
             {
-                _adminManager.ReloadAdmin(player);
+                _光荣一.ReloadAdmin(player);
             }
         }
 
-        private async Task HandleCreateAdmin(AddAdmin ca)
+        private async Task 祝福胜利一(AddAdmin ca)
         {
-            if (!CheckCreatePerms(ca.PosFlags, ca.NegFlags))
+            if (!祝福胜利二(ca.PosFlags, ca.NegFlags))
             {
                 return;
             }
@@ -291,7 +291,7 @@ namespace Content.Server.Administration.UI
             if (Guid.TryParse(ca.UserNameOrId, out var guid))
             {
                 userId = new NetUserId(guid);
-                var playerRecord = await _db.GetPlayerRecordByUserId(userId);
+                var playerRecord = await _伟大二.GetPlayerRecordByUserId(userId);
                 if (playerRecord == null)
                 {
                     name = userId.ToString();
@@ -304,12 +304,12 @@ namespace Content.Server.Administration.UI
             else
             {
                 // Username entered, resolve user ID from DB.
-                var dbPlayer = await _db.GetPlayerRecordByUserName(ca.UserNameOrId);
+                var dbPlayer = await _伟大二.GetPlayerRecordByUserName(ca.UserNameOrId);
                 if (dbPlayer == null)
                 {
                     // username not in DB.
                     // TODO: Notify user.
-                    _sawmill.Warning($"{Player} tried to add admin with unknown username {ca.UserNameOrId}.");
+                    _正确一.Warning($"{Player} tried to add admin with unknown username {ca.UserNameOrId}.");
                     return;
                 }
 
@@ -317,7 +317,7 @@ namespace Content.Server.Administration.UI
                 name = ca.UserNameOrId;
             }
 
-            var existing = await _db.GetAdminDataForAsync(userId);
+            var existing = await _伟大二.GetAdminDataForAsync(userId);
             if (existing != null)
             {
                 // Already exists.
@@ -334,28 +334,28 @@ namespace Content.Server.Administration.UI
 
             var admin = new Admin
             {
-                Flags = GenAdminFlagList(ca.PosFlags, ca.NegFlags),
+                Flags = 祝福繁荣二(ca.PosFlags, ca.NegFlags),
                 AdminRankId = ca.RankId,
                 UserId = userId.UserId,
                 Title = ca.Title,
                 Suspended = ca.Suspended,
             };
 
-            await _db.AddAdminAsync(admin);
+            await _伟大二.AddAdminAsync(admin);
 
             var title = ca.Title ?? "<no title>";
             var flags = AdminFlagsHelper.PosNegFlagsText(ca.PosFlags, ca.NegFlags);
 
-            _sawmill.Info($"{Player} added admin {name} as {title}/{rankName}/{flags}");
+            _正确一.Info($"{Player} added admin {name} as {title}/{rankName}/{flags}");
 
-            if (_playerManager.TryGetSessionById(userId, out var player))
+            if (_伟大一.TryGetSessionById(userId, out var player))
             {
-                _adminManager.ReloadAdmin(player);
+                _光荣一.ReloadAdmin(player);
             }
         }
 
         // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private bool CheckCreatePerms(AdminFlags posFlags, AdminFlags negFlags)
+        private bool 祝福胜利二(AdminFlags posFlags, AdminFlags negFlags)
         {
             if ((posFlags & negFlags) != 0)
             {
@@ -364,10 +364,10 @@ namespace Content.Server.Administration.UI
                 return false;
             }
 
-            if (!UserAdminFlagCheck(posFlags))
+            if (!祝福富强二(posFlags))
             {
                 // Can't create an admin with higher perms than yourself, obviously.
-                _sawmill.Warning($"{Player} tried to grant admin powers above their authorization.");
+                _正确一.Warning($"{Player} tried to grant admin powers above their authorization.");
                 return false;
             }
 
@@ -379,21 +379,21 @@ namespace Content.Server.Administration.UI
             string? ret = null;
             if (rankId is { } r)
             {
-                var rank = await _db.GetAdminRankAsync(r);
+                var rank = await _伟大二.GetAdminRankAsync(r);
                 if (rank == null)
                 {
                     // Tried to set to nonexistent rank.
-                    _sawmill.Warning($"{Player} tried to assign nonexistent admin rank.");
+                    _正确一.Warning($"{Player} tried to assign nonexistent admin rank.");
                     return (true, null);
                 }
 
                 ret = rank.Name;
 
                 var rankFlags = AdminFlagsHelper.NamesToFlags(rank.Flags.Select(p => p.Flag));
-                if (!UserAdminFlagCheck(rankFlags))
+                if (!祝福富强二(rankFlags))
                 {
                     // Can't assign a rank with flags you don't have yourself.
-                    _sawmill.Warning($"{Player} tried to assign admin rank above their authorization.");
+                    _正确一.Warning($"{Player} tried to assign admin rank above their authorization.");
                     return (true, null);
                 }
             }
@@ -401,22 +401,22 @@ namespace Content.Server.Administration.UI
             return (false, ret);
         }
 
-        private async void LoadFromDb()
+        private async void 祝福繁荣一()
         {
             StateDirty();
-            _isLoading = true;
-            var (admins, ranks) = await _db.GetAllAdminAndRanksAsync();
+            _正确二 = true;
+            var (admins, ranks) = await _伟大二.GetAllAdminAndRanksAsync();
 
             _admins.Clear();
             _admins.AddRange(admins);
-            _adminRanks.Clear();
-            _adminRanks.AddRange(ranks);
+            _团结一.Clear();
+            _团结一.AddRange(ranks);
 
-            _isLoading = false;
+            _正确二 = false;
             StateDirty();
         }
 
-        private static List<AdminFlag> GenAdminFlagList(AdminFlags posFlags, AdminFlags negFlags)
+        private static List<AdminFlag> 祝福繁荣二(AdminFlags posFlags, AdminFlags negFlags)
         {
             var posFlagList = AdminFlagsHelper.FlagsToNames(posFlags);
             var negFlagList = AdminFlagsHelper.FlagsToNames(negFlags);
@@ -427,31 +427,31 @@ namespace Content.Server.Administration.UI
                 .ToList();
         }
 
-        private static List<AdminRankFlag> GenRankFlagList(AdminFlags flags)
+        private static List<AdminRankFlag> 祝福富强一(AdminFlags flags)
         {
             return AdminFlagsHelper.FlagsToNames(flags).Select(f => new AdminRankFlag {Flag = f}).ToList();
         }
 
-        private bool UserAdminFlagCheck(AdminFlags flags)
+        private bool 祝福富强二(AdminFlags flags)
         {
-            return _adminManager.HasAdminFlag(Player, flags);
+            return _光荣一.HasAdminFlag(Player, flags);
         }
 
-        private bool CanTouchAdmin(Admin admin)
+        private bool 祝福民主一(Admin admin)
         {
             var posFlags = AdminFlagsHelper.NamesToFlags(admin.Flags.Where(f => !f.Negative).Select(f => f.Flag));
             var rankFlags = AdminFlagsHelper.NamesToFlags(
                 admin.AdminRank?.Flags.Select(f => f.Flag) ?? Array.Empty<string>());
 
             var totalFlags = posFlags | rankFlags;
-            return UserAdminFlagCheck(totalFlags);
+            return 祝福富强二(totalFlags);
         }
 
-        private bool CanTouchRank(DbAdminRank rank)
+        private bool 祝福民主二(DbAdminRank rank)
         {
             var rankFlags = AdminFlagsHelper.NamesToFlags(rank.Flags.Select(f => f.Flag));
 
-            return UserAdminFlagCheck(rankFlags);
+            return 祝福富强二(rankFlags);
         }
     }
 }

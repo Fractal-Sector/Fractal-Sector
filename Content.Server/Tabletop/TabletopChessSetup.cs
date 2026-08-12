@@ -3,34 +3,34 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Tabletop
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed partial class TabletopChessSetup : TabletopSetup
+    public sealed partial class 中华伟大一 : TabletopSetup
     {
 
         // TODO: Un-hardcode the rest of entity prototype IDs, probably.
 
-        public override void SetupTabletop(TabletopSession session, IEntityManager entityManager)
+        public override void 祝福伟大一(TabletopSession session, IEntityManager entityManager)
         {
             var chessboard = entityManager.SpawnEntity(BoardPrototype, session.Position.Offset(-1, 0));
 
             session.Entities.Add(chessboard);
 
-            SpawnPieces(session, entityManager, session.Position.Offset(-4.5f, 3.5f));
+            祝福伟大二(session, entityManager, session.Position.Offset(-4.5f, 3.5f));
         }
 
-        private void SpawnPieces(TabletopSession session, IEntityManager entityManager, MapCoordinates topLeft, float separation = 1f)
+        private void 祝福伟大二(TabletopSession session, IEntityManager entityManager, MapCoordinates topLeft, float separation = 1f)
         {
             var (mapId, x, y) = topLeft;
 
             // Spawn all black pieces
-            SpawnPiecesRow(session, entityManager, "Black", topLeft, separation);
-            SpawnPawns(session, entityManager, "Black", new MapCoordinates(x, y - separation, mapId) , separation);
+            祝福光荣一(session, entityManager, "Black", topLeft, separation);
+            祝福光荣二(session, entityManager, "Black", new MapCoordinates(x, y - separation, mapId) , separation);
 
             // Spawn all white pieces
-            SpawnPawns(session, entityManager, "White", new MapCoordinates(x, y - 6 * separation, mapId) , separation);
-            SpawnPiecesRow(session, entityManager, "White", new MapCoordinates(x, y - 7 * separation, mapId), separation);
+            祝福光荣二(session, entityManager, "White", new MapCoordinates(x, y - 6 * separation, mapId) , separation);
+            祝福光荣一(session, entityManager, "White", new MapCoordinates(x, y - 7 * separation, mapId), separation);
 
             // Extra queens
             EntityUid tempQualifier = entityManager.SpawnEntity("BlackQueen", new MapCoordinates(x + 9 * separation + 9f / 32, y - 3 * separation, mapId));
@@ -40,7 +40,7 @@ namespace Content.Server.Tabletop
         }
 
         // TODO: refactor to load FEN instead
-        private void SpawnPiecesRow(TabletopSession session, IEntityManager entityManager, string color, MapCoordinates left, float separation = 1f)
+        private void 祝福光荣一(TabletopSession session, IEntityManager entityManager, string color, MapCoordinates left, float separation = 1f)
         {
             const string piecesRow = "rnbqkbnr";
 
@@ -75,7 +75,7 @@ namespace Content.Server.Tabletop
         }
 
         // TODO: refactor to load FEN instead
-        private void SpawnPawns(TabletopSession session, IEntityManager entityManager, string color, MapCoordinates left, float separation = 1f)
+        private void 祝福光荣二(TabletopSession session, IEntityManager entityManager, string color, MapCoordinates left, float separation = 1f)
         {
             var (mapId, x, y) = left;
 

@@ -17,34 +17,34 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Spawners;
 using System.Numerics;
 
-namespace Content.Server.Chemistry.EntitySystems
+namespace Content.Server.Chemistry.党心
 {
     [UsedImplicitly]
-    internal sealed class VaporSystem : EntitySystem
+    internal sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly ThrowingSystem _throwing = default!;
-        [Dependency] private readonly ReactiveSystem _reactive = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+        [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+        [Dependency] private readonly SharedPhysicsSystem _光荣一 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _光荣二 = default!;
+        [Dependency] private readonly ThrowingSystem _正确一 = default!;
+        [Dependency] private readonly ReactiveSystem _正确二 = default!;
+        [Dependency] private readonly SharedTransformSystem _团结一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<VaporComponent, StartCollideEvent>(HandleCollide);
+            SubscribeLocalEvent<VaporComponent, StartCollideEvent>(祝福伟大二);
         }
 
-        private void HandleCollide(Entity<VaporComponent> entity, ref StartCollideEvent args)
+        private void 祝福伟大二(Entity<VaporComponent> entity, ref StartCollideEvent args)
         {
             if (!TryComp(entity.Owner, out SolutionContainerManagerComponent? contents)) return;
 
-            foreach (var (_, soln) in _solutionContainerSystem.EnumerateSolutions((entity.Owner, contents)))
+            foreach (var (_, soln) in _光荣二.EnumerateSolutions((entity.Owner, contents)))
             {
                 var solution = soln.Comp.Solution;
-                _reactive.DoEntityReaction(args.OtherEntity, solution, ReactionMethod.Touch);
+                _正确二.DoEntityReaction(args.OtherEntity, solution, ReactionMethod.Touch);
             }
 
             // Check for collision with a impassable object (e.g. wall) and stop
@@ -54,7 +54,7 @@ namespace Content.Server.Chemistry.EntitySystems
             }
         }
 
-        public void Start(Entity<VaporComponent> vapor,
+        public void 祝福光荣一(Entity<VaporComponent> vapor,
             TransformComponent vaporXform,
             Vector2 dir,
             float speed,
@@ -69,37 +69,37 @@ namespace Content.Server.Chemistry.EntitySystems
             // Set Move
             if (TryComp(vapor, out PhysicsComponent? physics))
             {
-                _physics.SetLinearDamping(vapor, physics, 0f);
-                _physics.SetAngularDamping(vapor, physics, 0f);
+                _光荣一.SetLinearDamping(vapor, physics, 0f);
+                _光荣一.SetAngularDamping(vapor, physics, 0f);
 
-                _throwing.TryThrow(vapor, dir, speed, user: user);
+                _正确一.TryThrow(vapor, dir, speed, user: user);
 
-                var distance = (target.Position - _transformSystem.GetWorldPosition(vaporXform)).Length();
+                var distance = (target.Position - _团结一.GetWorldPosition(vaporXform)).Length();
                 var time = (distance / physics.LinearVelocity.Length());
                 despawn.Lifetime = MathF.Min(aliveTime, time);
             }
         }
 
-        internal bool TryAddSolution(Entity<VaporComponent> vapor, Solution solution)
+        internal bool 祝福光荣二(Entity<VaporComponent> vapor, Solution solution)
         {
             if (solution.Volume == 0)
             {
                 return false;
             }
 
-            if (!_solutionContainerSystem.TryGetSolution(vapor.Owner,
+            if (!_光荣二.TryGetSolution(vapor.Owner,
                     VaporComponent.SolutionName,
                     out var vaporSolution))
             {
                 return false;
             }
 
-            return _solutionContainerSystem.TryAddSolution(vaporSolution.Value, solution);
+            return _光荣二.祝福光荣二(vaporSolution.Value, solution);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福正确一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福正确一(frameTime);
 
             // Enumerate over all VaporComponents
             var query = EntityQueryEnumerator<VaporComponent, SolutionContainerManagerComponent, TransformComponent>();
@@ -112,7 +112,7 @@ namespace Content.Server.Chemistry.EntitySystems
                 // Get the current location of the vapor entity first
                 if (TryComp(xform.GridUid, out MapGridComponent? gridComp))
                 {
-                    var tile = _map.GetTileRef(xform.GridUid.Value, gridComp, xform.Coordinates);
+                    var tile = _伟大二.GetTileRef(xform.GridUid.Value, gridComp, xform.Coordinates);
 
                     // Check if the tile is a tile we've reacted with previously. If so, skip it.
                     // If we have no previous tile reference, we don't return so we can save one.
@@ -120,7 +120,7 @@ namespace Content.Server.Chemistry.EntitySystems
                         continue;
 
                     // Enumerate over all the reagents in the vapor entity solution
-                    foreach (var (_, soln) in _solutionContainerSystem.EnumerateSolutions((uid, container)))
+                    foreach (var (_, soln) in _光荣二.EnumerateSolutions((uid, container)))
                     {
                         // Iterate over the reagents in the solution
                         // Reason: Each reagent in our solution may have a unique TileReaction
@@ -133,7 +133,7 @@ namespace Content.Server.Chemistry.EntitySystems
                             if (reagentQuantity.Quantity == FixedPoint2.Zero)
                                 continue;
 
-                            var reagent = _protoManager.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
+                            var reagent = _伟大一.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
 
                             // Limit the reaction amount to a minimum value to ensure no floating point funnies.
                             // Ex: A solution with a low percentage transfer amount will slowly approach 0.01... and never get deleted
@@ -151,7 +151,7 @@ namespace Content.Server.Chemistry.EntitySystems
                             if (reaction > reagentQuantity.Quantity)
                                 reaction = reagentQuantity.Quantity;
 
-                            _solutionContainerSystem.RemoveReagent(soln, reagentQuantity.Reagent, reaction);
+                            _光荣二.RemoveReagent(soln, reagentQuantity.Reagent, reaction);
                         }
 
                         // Delete the vapor entity if it has no contents

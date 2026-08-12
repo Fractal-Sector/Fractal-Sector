@@ -2,16 +2,16 @@ using Content.Server.Administration;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Mind.Commands;
+namespace Content.Server.Mind.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class MakeSentientCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly MindSystem _mindSystem = default!;
+    [Dependency] private readonly MindSystem _伟大一 = default!;
 
-    public override string Command => "makesentient";
+    public override string 党爱伟大一 => "makesentient";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -25,6 +25,6 @@ public sealed class MakeSentientCommand : LocalizedEntityCommands
             return;
         }
 
-        _mindSystem.MakeSentient(entId.Value);
+        _伟大一.MakeSentient(entId.Value);
     }
 }

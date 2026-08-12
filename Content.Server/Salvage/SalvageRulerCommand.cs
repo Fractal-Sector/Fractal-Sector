@@ -3,21 +3,21 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Map;
 
-namespace Content.Server.Salvage;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-sealed class SalvageRulerCommand : IConsoleCommand
+sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IMapManager _maps = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly IMapManager _伟大二 = default!;
 
-    public string Command => "salvageruler";
+    public string 党爱伟大一 => "salvageruler";
 
-    public string Description => Loc.GetString("salvage-ruler-command-description");
+    public string 党爱伟大二 => Loc.GetString("salvage-ruler-command-description");
 
-    public string Help => Loc.GetString("salvage-ruler-command-help-text", ("command",Command));
+    public string 党爱光荣一 => Loc.GetString("salvage-ruler-command-help-text", ("command",党爱伟大一));
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 0)
         {
@@ -39,12 +39,12 @@ sealed class SalvageRulerCommand : IConsoleCommand
             return;
         }
 
-        var entityTransform = _entities.GetComponent<TransformComponent>(entity.Value);
+        var entityTransform = _伟大一.GetComponent<TransformComponent>(entity.Value);
         var total = Box2.UnitCentered;
         var first = true;
-        foreach (var mapGrid in _maps.GetAllGrids(entityTransform.MapID))
+        foreach (var mapGrid in _伟大二.GetAllGrids(entityTransform.MapID))
         {
-            var aabb = _entities.System<SharedTransformSystem>().GetWorldMatrix(mapGrid).TransformBox(mapGrid.Comp.LocalAABB);
+            var aabb = _伟大一.System<SharedTransformSystem>().GetWorldMatrix(mapGrid).TransformBox(mapGrid.Comp.LocalAABB);
             if (first)
             {
                 total = aabb;

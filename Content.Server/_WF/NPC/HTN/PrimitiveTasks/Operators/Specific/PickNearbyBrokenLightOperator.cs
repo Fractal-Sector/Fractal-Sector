@@ -8,37 +8,37 @@ using Content.Shared.Interaction;
 using Content.Shared._WF.Silicons.Bots;
 using Content.Server.NPC;
 
-namespace Content.Server._WF.NPC.HTN.PrimitiveTasks.Operators.Specific;
+namespace Content.Server._WF.NPC.HTN.PrimitiveTasks.Operators.党心;
 
 /// <summary>
 /// Operator for finding nearby broken lights that need replacement.
 /// </summary>
-public sealed partial class PickNearbyBrokenLightOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    private LightbotSystem _lightbot = default!;
-    private PathfindingSystem _pathfinding = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    private LightbotSystem _伟大二 = default!;
+    private PathfindingSystem _光荣一 = default!;
 
     [DataField("rangeKey")]
-    public string RangeKey = "LightbotRange";
+    public string 党爱伟大一 = "LightbotRange";
 
     /// <summary>
     /// Target light fixture entity to replace.
     /// </summary>
     [DataField("targetKey", required: true)]
-    public string TargetKey = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     /// <summary>
     /// Target coordinates to move to.
     /// </summary>
     [DataField("targetMoveKey", required: true)]
-    public string TargetMoveKey = string.Empty;
+    public string 党爱光荣一 = string.Empty;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
-        _lightbot = sysManager.GetEntitySystem<LightbotSystem>();
-        _pathfinding = sysManager.GetEntitySystem<PathfindingSystem>();
+        base.祝福伟大一(sysManager);
+        _伟大二 = sysManager.GetEntitySystem<LightbotSystem>();
+        _光荣一 = sysManager.GetEntitySystem<PathfindingSystem>();
     }
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
@@ -46,14 +46,14 @@ public sealed partial class PickNearbyBrokenLightOperator : HTNOperator
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!blackboard.TryGetValue<float>(RangeKey, out var range, _entManager))
+        if (!blackboard.TryGetValue<float>(党爱伟大一, out var range, _伟大一))
             return (false, null);
 
-        if (!_entManager.TryGetComponent<LightbotComponent>(owner, out var lightbot))
+        if (!_伟大一.TryGetComponent<LightbotComponent>(owner, out var lightbot))
             return (false, null);
 
         // Find all broken lights in range
-        var brokenLights = _lightbot.GetBrokenLightsInRange(owner, range).ToList();
+        var brokenLights = _伟大二.GetBrokenLightsInRange(owner, range).ToList();
 
         if (brokenLights.Count == 0)
             return (false, null);
@@ -61,11 +61,11 @@ public sealed partial class PickNearbyBrokenLightOperator : HTNOperator
         // Pick the closest broken light
         EntityUid? bestTarget = null;
         var bestDistance = float.MaxValue;
-        var ownerXform = _entManager.GetComponent<TransformComponent>(owner);
+        var ownerXform = _伟大一.GetComponent<TransformComponent>(owner);
 
         foreach (var light in brokenLights)
         {
-            var lightXform = _entManager.GetComponent<TransformComponent>(light);
+            var lightXform = _伟大一.GetComponent<TransformComponent>(light);
 
             // Skip if on different map
             if (lightXform.MapID != ownerXform.MapID)
@@ -83,19 +83,19 @@ public sealed partial class PickNearbyBrokenLightOperator : HTNOperator
         if (bestTarget == null)
             return (false, null);
 
-        var targetXform = _entManager.GetComponent<TransformComponent>(bestTarget.Value);
+        var targetXform = _伟大一.GetComponent<TransformComponent>(bestTarget.Value);
 
         // Check if we can path to the target
         var pathRange = SharedInteractionSystem.InteractionRange - 0.5f;
-        var path = await _pathfinding.GetPath(owner, bestTarget.Value, pathRange, cancelToken);
+        var path = await _光荣一.GetPath(owner, bestTarget.Value, pathRange, cancelToken);
 
         if (path.Result != PathResult.Path)
             return (false, null);
 
         return (true, new Dictionary<string, object>
         {
-            { TargetKey, bestTarget.Value },
-            { TargetMoveKey, targetXform.Coordinates },
+            { 党爱伟大二, bestTarget.Value },
+            { 党爱光荣一, targetXform.Coordinates },
             { NPCBlackboard.PathfindKey, path }
         });
     }

@@ -9,27 +9,27 @@ using Content.Shared.Database;
 using Content.Shared.Popups;
 using Robust.Shared.Player;
 
-namespace Content.Server._NF.Salvage;
+namespace Content.Server._NF.党心;
 
-public sealed class SalvageMobRestrictionsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency] private readonly BodySystem _伟大一 = default!;
+    [Dependency] private readonly ExplosionSystem _伟大二 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, ComponentRemove>(OnRemove);
-        SubscribeLocalEvent<SalvageMobRestrictionsGridComponent, ComponentRemove>(OnRemoveGrid);
-        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, MobStateChangedEvent>(OnMobState);
-        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, EntParentChangedMessage>(OnParentChanged);
+        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, ComponentRemove>(祝福光荣一);
+        SubscribeLocalEvent<SalvageMobRestrictionsGridComponent, ComponentRemove>(祝福光荣二);
+        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, MobStateChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<NFSalvageMobRestrictionsComponent, EntParentChangedMessage>(祝福正确二);
     }
 
-    private void OnInit(EntityUid uid, NFSalvageMobRestrictionsComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, NFSalvageMobRestrictionsComponent component, ComponentInit args)
     {
         var gridUid = Transform(uid).ParentUid;
         if (!EntityManager.EntityExists(gridUid))
@@ -47,7 +47,7 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
         component.LinkedGridEntity = gridUid;
     }
 
-    private void OnRemove(EntityUid uid, NFSalvageMobRestrictionsComponent component, ComponentRemove args)
+    private void 祝福光荣一(EntityUid uid, NFSalvageMobRestrictionsComponent component, ComponentRemove args)
     {
         if (TryComp(component.LinkedGridEntity, out SalvageMobRestrictionsGridComponent? rg))
         {
@@ -55,7 +55,7 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
         }
     }
 
-    private void OnRemoveGrid(EntityUid uid, SalvageMobRestrictionsGridComponent component, ComponentRemove args)
+    private void 祝福光荣二(EntityUid uid, SalvageMobRestrictionsGridComponent component, ComponentRemove args)
     {
         foreach (EntityUid target in component.MobsToKill)
         {
@@ -74,20 +74,20 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
             if (TryComp(target, out BodyComponent? body))
             {
                 // Creates a pool of blood on death, but remove the organs.
-                var gibs = _body.GibBody(target, body: body, gibOrgans: true);
+                var gibs = _伟大一.GibBody(target, body: body, gibOrgans: true);
                 foreach (var gib in gibs)
                     Del(gib);
             }
             else
             {
                 // No body, probably a robot - explode it and delete the body
-                // _explosion.QueueExplosion(target, ExplosionSystem.DefaultExplosionPrototypeId, 5, 10, 5);
+                // _伟大二.QueueExplosion(target, ExplosionSystem.DefaultExplosionPrototypeId, 5, 10, 5);
                 Del(target);
             }
         }
     }
 
-    private void OnMobState(EntityUid uid, NFSalvageMobRestrictionsComponent component, MobStateChangedEvent args)
+    private void 祝福正确一(EntityUid uid, NFSalvageMobRestrictionsComponent component, MobStateChangedEvent args)
     {
         // If this entity is being destroyed, no need to fiddle with components
         if (TerminatingOrDeleted(uid))
@@ -105,7 +105,7 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
         }
     }
 
-    private void OnParentChanged(EntityUid uid, NFSalvageMobRestrictionsComponent component, ref EntParentChangedMessage args)
+    private void 祝福正确二(EntityUid uid, NFSalvageMobRestrictionsComponent component, ref EntParentChangedMessage args)
     {
         // If this entity is being destroyed, no need to fiddle with components
         if (TerminatingOrDeleted(uid))
@@ -126,7 +126,7 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
                 return;
 
             if (component.DespawnIfOffLinkedGrid)
-                _adminLogger.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(actor.PlayerSession.AttachedEntity.Value):player} returned to dungeon grid");
+                _光荣一.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(actor.PlayerSession.AttachedEntity.Value):player} returned to dungeon grid");
         }
         else
         {
@@ -141,8 +141,8 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
 
             if (component.DespawnIfOffLinkedGrid)
             {
-                _adminLogger.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(actor.PlayerSession.AttachedEntity.Value):player} left the dungeon grid");
-                _popupSystem.PopupEntity(popupMessage, actor.PlayerSession.AttachedEntity.Value, actor.PlayerSession, PopupType.MediumCaution);
+                _光荣一.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(actor.PlayerSession.AttachedEntity.Value):player} left the dungeon grid");
+                _光荣二.PopupEntity(popupMessage, actor.PlayerSession.AttachedEntity.Value, actor.PlayerSession, PopupType.MediumCaution);
             }
         }
     }

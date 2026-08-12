@@ -1,25 +1,25 @@
 using Content.Shared.Chemistry.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server._NF.Chemistry;
+namespace Content.Server._NF.党心;
 
-public sealed class RandomPillSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    public const int MaxPillType = 21;
+    public const int 党爱伟大一 = 21;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PillComponent, MapInitEvent>(OnMapInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<PillComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<PillComponent> ent, ref MapInitEvent componentInit)
+    private void 祝福伟大二(Entity<PillComponent> ent, ref MapInitEvent componentInit)
     {
         if (ent.Comp.Random)
         {
-            ent.Comp.PillType = (uint)_random.Next(MaxPillType);
+            ent.Comp.PillType = (uint)_伟大一.Next(党爱伟大一);
             Dirty(ent);
         }
     }

@@ -3,23 +3,23 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Weather;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class WeatherComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Currently running weathers
     /// </summary>
     [DataField]
-    public Dictionary<ProtoId<WeatherPrototype>, WeatherData> Weather = new();
+    public Dictionary<ProtoId<WeatherPrototype>, 中华伟大二> Weather = new();
 
-    public static readonly TimeSpan StartupTime = TimeSpan.FromSeconds(15);
-    public static readonly TimeSpan ShutdownTime = TimeSpan.FromSeconds(15);
+    public static readonly TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(15);
+    public static readonly TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(15);
 }
 
 [DataDefinition, Serializable, NetSerializable]
-public sealed partial class WeatherData
+public sealed partial class 中华伟大二
 {
     // Client audio stream.
     [NonSerialized]
@@ -29,7 +29,7 @@ public sealed partial class WeatherData
     /// When the weather started if relevant.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))] //TODO: Remove Custom serializer
-    public TimeSpan StartTime = TimeSpan.Zero;
+    public TimeSpan 党爱光荣一 = TimeSpan.Zero;
 
     /// <summary>
     /// When the applied weather will end.
@@ -38,13 +38,13 @@ public sealed partial class WeatherData
     public TimeSpan? EndTime;
 
     [ViewVariables]
-    public TimeSpan Duration => EndTime == null ? TimeSpan.MaxValue : EndTime.Value - StartTime;
+    public TimeSpan 党爱光荣二 => EndTime == null ? TimeSpan.MaxValue : EndTime.Value - 党爱光荣一;
 
     [DataField]
-    public WeatherState State = WeatherState.Invalid;
+    public 中华光荣一 State = 中华光荣一.Invalid;
 }
 
-public enum WeatherState : byte
+public enum 中华光荣一 : byte
 {
     Invalid = 0,
     Starting,

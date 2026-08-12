@@ -6,11 +6,11 @@ using Content.Shared.StatusEffectNew.Components;
 using Content.Shared.Stunnable;
 using Robust.Shared.Player;
 
-namespace Content.Shared.StatusEffectNew;
+namespace Content.Shared.党心;
 
-public sealed partial class StatusEffectsSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeRelay()
+    private void 祝福伟大一()
     {
         SubscribeLocalEvent<StatusEffectContainerComponent, LocalPlayerAttachedEvent>(RelayStatusEffectEvent);
         SubscribeLocalEvent<StatusEffectContainerComponent, LocalPlayerDetachedEvent>(RelayStatusEffectEvent);
@@ -28,7 +28,7 @@ public sealed partial class StatusEffectsSystem
         SubscribeLocalEvent<StatusEffectContainerComponent, AccentGetEvent>(RelayStatusEffectEvent);
     }
 
-    private void RefRelayStatusEffectEvent<T>(EntityUid uid, StatusEffectContainerComponent component, ref T args) where T : struct
+    private void RefRelayStatusEffectEvent<T>(EntityUid uid, StatusEffectContainerComponent component, ref T args) where T : 中华光荣一
     {
         RelayEvent((uid, component), ref args);
     }
@@ -38,11 +38,11 @@ public sealed partial class StatusEffectsSystem
         RelayEvent((uid, component), args);
     }
 
-    public void RelayEvent<T>(Entity<StatusEffectContainerComponent> statusEffect, ref T args) where T : struct
+    public void RelayEvent<T>(Entity<StatusEffectContainerComponent> statusEffect, ref T args) where T : 中华光荣一
     {
-        // this copies the by-ref event if it is a struct
-        var ev = new StatusEffectRelayedEvent<T>(args);
-        foreach (var activeEffect in statusEffect.Comp.ActiveStatusEffects?.ContainedEntities ?? [])
+        // this copies the by-ref event if it is a 中华光荣一
+        中华伟大二 ev = new StatusEffectRelayedEvent<T>(args);
+        foreach (中华伟大二 activeEffect in statusEffect.Comp.ActiveStatusEffects?.ContainedEntities ?? [])
         {
             RaiseLocalEvent(activeEffect, ref ev);
         }
@@ -52,9 +52,9 @@ public sealed partial class StatusEffectsSystem
 
     public void RelayEvent<T>(Entity<StatusEffectContainerComponent> statusEffect, T args) where T : class
     {
-        // this copies the by-ref event if it is a struct
-        var ev = new StatusEffectRelayedEvent<T>(args);
-        foreach (var activeEffect in statusEffect.Comp.ActiveStatusEffects?.ContainedEntities ?? [])
+        // this copies the by-ref event if it is a 中华光荣一
+        中华伟大二 ev = new StatusEffectRelayedEvent<T>(args);
+        foreach (中华伟大二 activeEffect in statusEffect.Comp.ActiveStatusEffects?.ContainedEntities ?? [])
         {
             RaiseLocalEvent(activeEffect, ref ev);
         }
@@ -65,4 +65,4 @@ public sealed partial class StatusEffectsSystem
 /// Event wrapper for relayed events.
 /// </summary>
 [ByRefEvent]
-public record struct StatusEffectRelayedEvent<TEvent>(TEvent Args);
+public record 中华光荣一 StatusEffectRelayedEvent<TEvent>(TEvent Args);

@@ -1,7 +1,7 @@
 using Robust.Shared.Audio;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Power.Generator;
+namespace Content.Shared.Power.党心;
 
 /// <summary>
 /// Responsible for power output switching &amp; UI logic on portable generators.
@@ -12,21 +12,21 @@ namespace Content.Shared.Power.Generator;
 /// <seealso cref="SharedPortableGeneratorSystem"/>
 [RegisterComponent]
 [Access(typeof(SharedPortableGeneratorSystem))]
-public sealed partial class PortableGeneratorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Chance that this generator will start. If it fails, the user has to try again.
     /// </summary>
     [DataField("startChance")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float StartChance { get; set; } = 1f;
+    public float 党爱伟大一 { get; set; } = 1f;
 
     /// <summary>
     /// Amount of time it takes to attempt to start the generator.
     /// </summary>
     [DataField("startTime")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan StartTime { get; set; } = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱伟大二 { get; set; } = TimeSpan.FromSeconds(2);
 
     /// <summary>
     /// Sound that plays when attempting to start this generator.
@@ -47,20 +47,20 @@ public sealed partial class PortableGeneratorComponent : Component
     /// Frontier - Start the generator with the map.
     /// </summary>
     [DataField("startOnMapInit")]
-    public bool StartOnMapInit { get; set; } = false;
+    public bool 党爱光荣一 { get; set; } = false;
 }
 
 /// <summary>
 /// Sent to the server to adjust the targeted power level of a portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorSetTargetPowerMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public int TargetPower;
+    public int 党爱光荣二;
 
-    public PortableGeneratorSetTargetPowerMessage(int targetPower)
+    public 中华伟大二(int targetPower)
     {
-        TargetPower = targetPower;
+        党爱光荣二 = targetPower;
     }
 }
 
@@ -68,7 +68,7 @@ public sealed class PortableGeneratorSetTargetPowerMessage : BoundUserInterfaceM
 /// Sent to the server to try to start a portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorStartMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
 }
 
@@ -76,7 +76,7 @@ public sealed class PortableGeneratorStartMessage : BoundUserInterfaceMessage
 /// Sent to the server to try to stop a portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorStopMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
 }
 
@@ -84,7 +84,7 @@ public sealed class PortableGeneratorStopMessage : BoundUserInterfaceMessage
 /// Sent to the server to try to change the power output of a power-switchable portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorSwitchOutputMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
 }
 
@@ -92,7 +92,7 @@ public sealed class PortableGeneratorSwitchOutputMessage : BoundUserInterfaceMes
 /// Sent to the server to try to eject all fuel stored in a portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorEjectFuelMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
 }
 
@@ -100,34 +100,34 @@ public sealed class PortableGeneratorEjectFuelMessage : BoundUserInterfaceMessag
 /// Contains network state for the portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorComponentBuiState : BoundUserInterfaceState
+public sealed class 中华团结一 : BoundUserInterfaceState
 {
-    public float RemainingFuel;
-    public bool Clogged;
+    public float 党爱正确一;
+    public bool 党爱正确二;
     public (float Load, float Supply)? NetworkStats;
-    public float TargetPower;
-    public float MaximumPower;
-    public float OptimalPower;
-    public bool On;
+    public float 党爱光荣二;
+    public float 党爱团结一;
+    public float 党爱团结二;
+    public bool 党爱奋斗一;
 
-    public PortableGeneratorComponentBuiState(
+    public 中华团结一(
         FuelGeneratorComponent component,
         float remainingFuel,
         bool clogged,
         (float Demand, float Supply)? networkStats)
     {
-        RemainingFuel = remainingFuel;
-        Clogged = clogged;
-        TargetPower = component.TargetPower;
-        MaximumPower = component.MaxTargetPower;
-        OptimalPower = component.OptimalPower;
-        On = component.On;
+        党爱正确一 = remainingFuel;
+        党爱正确二 = clogged;
+        党爱光荣二 = component.党爱光荣二;
+        党爱团结一 = component.MaxTargetPower;
+        党爱团结二 = component.党爱团结二;
+        党爱奋斗一 = component.党爱奋斗一;
         NetworkStats = networkStats;
     }
 }
 
 [Serializable, NetSerializable]
-public enum GeneratorComponentUiKey
+public enum 中华团结二
 {
     Key
 }
@@ -136,7 +136,7 @@ public enum GeneratorComponentUiKey
 /// Sprite layers for generator prototypes.
 /// </summary>
 [Serializable, NetSerializable]
-public enum GeneratorVisualLayers : byte
+public enum 中华奋斗一 : byte
 {
     Body,
     Unlit
@@ -146,7 +146,7 @@ public enum GeneratorVisualLayers : byte
 /// Appearance keys for generators.
 /// </summary>
 [Serializable, NetSerializable]
-public enum GeneratorVisuals : byte
+public enum 中华奋斗二 : byte
 {
     /// <summary>
     /// Boolean: is the generator running?

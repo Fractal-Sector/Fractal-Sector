@@ -1,13 +1,13 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._FS.UI.AnimatedBackground;
+namespace Content.Shared._FS.UI.党心;
 
 [Prototype]
-public sealed partial class AnimatedLobbyScreenPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; set; } = default!;
+    public string 党爱伟大一 { get; set; } = default!;
 
     [DataField(required: true)]
-    public string Path = default!;
+    public string 党爱伟大二 = default!;
 }

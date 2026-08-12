@@ -2,37 +2,37 @@ using Content.Shared.Tiles;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Map.Enumerators;
 
-namespace Content.Server.Tiles;
+namespace Content.Server.党心;
 
-public sealed class RequiresTileSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     /*
      * Needs to be on server as client can't predict QueueDel.
      */
 
-    [Dependency] private readonly SharedMapSystem _maps = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
 
-    private EntityQuery<RequiresTileComponent> _tilesQuery;
+    private EntityQuery<RequiresTileComponent> _伟大二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _tilesQuery = GetEntityQuery<RequiresTileComponent>();
-        SubscribeLocalEvent<TileChangedEvent>(OnTileChange);
+        base.祝福伟大一();
+        _伟大二 = GetEntityQuery<RequiresTileComponent>();
+        SubscribeLocalEvent<TileChangedEvent>(祝福伟大二);
     }
 
-    private void OnTileChange(ref TileChangedEvent ev)
+    private void 祝福伟大二(ref TileChangedEvent ev)
     {
         if (!TryComp<MapGridComponent>(ev.Entity, out var grid))
             return;
 
         foreach (var change in ev.Changes)
         {
-            var anchored = _maps.GetAnchoredEntitiesEnumerator(ev.Entity, grid, change.GridIndices);
+            var anchored = _伟大一.GetAnchoredEntitiesEnumerator(ev.Entity, grid, change.GridIndices);
 
             while (anchored.MoveNext(out var ent))
             {
-                if (!_tilesQuery.HasComponent(ent.Value))
+                if (!_伟大二.HasComponent(ent.Value))
                     continue;
 
                 QueueDel(ent.Value);

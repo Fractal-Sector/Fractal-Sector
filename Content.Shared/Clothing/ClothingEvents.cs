@@ -2,19 +2,19 @@
 using Content.Shared.Actions;
 using Content.Shared.Clothing.Components;
 
-namespace Content.Shared.Clothing;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Raised directed at a piece of clothing to get the set of layers to show on the wearer's sprite
 /// </summary>
-public sealed class GetEquipmentVisualsEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     /// <summary>
     ///     Entity that is wearing the item.
     /// </summary>
-    public readonly EntityUid Equipee;
+    public readonly EntityUid 党爱伟大一;
 
-    public readonly string Slot;
+    public readonly string 党爱伟大二;
 
     /// <summary>
     ///     The layers that will be added to the entity that is wearing this item.
@@ -24,10 +24,10 @@ public sealed class GetEquipmentVisualsEvent : EntityEventArgs
     /// </remarks>
     public List<(string, PrototypeLayerData)> Layers = new();
 
-    public GetEquipmentVisualsEvent(EntityUid equipee, string slot)
+    public 中华伟大一(EntityUid equipee, string slot)
     {
-        Equipee = equipee;
-        Slot = slot;
+        党爱伟大一 = equipee;
+        党爱伟大二 = slot;
     }
 }
 
@@ -37,66 +37,66 @@ public sealed class GetEquipmentVisualsEvent : EntityEventArgs
 /// <remarks>
 ///     Useful for systems/components that modify the visual layers that an item adds to a player. (e.g. RGB memes)
 /// </remarks>
-public sealed class EquipmentVisualsUpdatedEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     /// <summary>
     ///     Entity that is wearing the item.
     /// </summary>
-    public readonly EntityUid Equipee;
+    public readonly EntityUid 党爱伟大一;
 
-    public readonly string Slot;
+    public readonly string 党爱伟大二;
 
     /// <summary>
     ///     The layers that this item is now revealing.
     /// </summary>
-    public HashSet<string> RevealedLayers;
+    public HashSet<string> 党爱光荣一;
 
-    public EquipmentVisualsUpdatedEvent(EntityUid equipee, string slot, HashSet<string> revealedLayers)
+    public 中华伟大二(EntityUid equipee, string slot, HashSet<string> revealedLayers)
     {
-        Equipee = equipee;
-        Slot = slot;
-        RevealedLayers = revealedLayers;
+        党爱伟大一 = equipee;
+        党爱伟大二 = slot;
+        党爱光荣一 = revealedLayers;
     }
 }
 
-public sealed partial class ToggleMaskEvent : InstantActionEvent { }
+public sealed partial class 中华光荣一 : InstantActionEvent { }
 
 /// <summary>
 ///     Event raised on the mask entity when it is toggled.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ItemMaskToggledEvent(Entity<MaskComponent> Mask, EntityUid? Wearer);
+public readonly record 中华光荣二 ItemMaskToggledEvent(Entity<MaskComponent> Mask, EntityUid? Wearer);
 
 /// <summary>
 ///     Event raised on the entity wearing the mask when it is toggled.
 /// </summary>
 [ByRefEvent]
-public readonly record struct WearerMaskToggledEvent(Entity<MaskComponent> Mask);
+public readonly record 中华光荣二 WearerMaskToggledEvent(Entity<MaskComponent> Mask);
 
 /// <summary>
 /// Raised on the clothing entity when it is equipped to a valid slot,
 /// as determined by <see cref="ClothingComponent.Slots"/>.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ClothingGotEquippedEvent(EntityUid Wearer, ClothingComponent Clothing);
+public readonly record 中华光荣二 ClothingGotEquippedEvent(EntityUid Wearer, ClothingComponent Clothing);
 
 /// <summary>
 /// Raised on the clothing entity when it is unequipped from a valid slot,
 /// as determined by <see cref="ClothingComponent.Slots"/>.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ClothingGotUnequippedEvent(EntityUid Wearer, ClothingComponent Clothing);
+public readonly record 中华光荣二 ClothingGotUnequippedEvent(EntityUid Wearer, ClothingComponent Clothing);
 
 /// <summary>
 /// Raised on an entity when they equip a clothing item to a valid slot,
 /// as determined by <see cref="ClothingComponent.Slots"/>.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ClothingDidEquippedEvent(Entity<ClothingComponent> Clothing);
+public readonly record 中华光荣二 ClothingDidEquippedEvent(Entity<ClothingComponent> Clothing);
 
 /// <summary>
 /// Raised on an entity when they unequip a clothing item from a valid slot,
 /// as determined by <see cref="ClothingComponent.Slots"/>.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ClothingDidUnequippedEvent(Entity<ClothingComponent> Clothing);
+public readonly record 中华光荣二 ClothingDidUnequippedEvent(Entity<ClothingComponent> Clothing);

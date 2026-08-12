@@ -1,11 +1,11 @@
 using Robust.Shared.Serialization;
 using Content.Shared.DoAfter;
 
-namespace Content.Shared.Item.PseudoItem;
+namespace Content.Shared.Item.党心;
 
 
 [Serializable, NetSerializable]
-public sealed partial class PseudoItemInsertDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
 }
 

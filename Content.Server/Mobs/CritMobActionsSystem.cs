@@ -9,60 +9,60 @@ using Robust.Server.Console;
 using Robust.Shared.Player;
 using Content.Shared.Speech.Muting;
 
-namespace Content.Server.Mobs;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     Handles performing crit-specific actions.
 /// </summary>
-public sealed class CritMobActionsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly DeathgaspSystem _deathgasp = default!;
-    [Dependency] private readonly IServerConsoleHost _host = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
+    [Dependency] private readonly DeathgaspSystem _伟大二 = default!;
+    [Dependency] private readonly IServerConsoleHost _光荣一 = default!;
+    [Dependency] private readonly MobStateSystem _光荣二 = default!;
+    [Dependency] private readonly PopupSystem _正确一 = default!;
+    [Dependency] private readonly QuickDialogSystem _正确二 = default!;
 
     private const int MaxLastWordsLength = 30;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MobStateActionsComponent, CritSuccumbEvent>(OnSuccumb);
-        SubscribeLocalEvent<MobStateActionsComponent, CritFakeDeathEvent>(OnFakeDeath);
-        SubscribeLocalEvent<MobStateActionsComponent, CritLastWordsEvent>(OnLastWords);
+        SubscribeLocalEvent<MobStateActionsComponent, CritSuccumbEvent>(祝福伟大二);
+        SubscribeLocalEvent<MobStateActionsComponent, CritFakeDeathEvent>(祝福光荣一);
+        SubscribeLocalEvent<MobStateActionsComponent, CritLastWordsEvent>(祝福光荣二);
     }
 
-    private void OnSuccumb(EntityUid uid, MobStateActionsComponent component, CritSuccumbEvent args)
+    private void 祝福伟大二(EntityUid uid, MobStateActionsComponent component, CritSuccumbEvent args)
     {
-        if (!TryComp<ActorComponent>(uid, out var actor) || !_mobState.IsCritical(uid))
+        if (!TryComp<ActorComponent>(uid, out var actor) || !_光荣二.IsCritical(uid))
             return;
 
-        _host.ExecuteCommand(actor.PlayerSession, "ghost");
+        _光荣一.ExecuteCommand(actor.PlayerSession, "ghost");
         args.Handled = true;
     }
 
-    private void OnFakeDeath(EntityUid uid, MobStateActionsComponent component, CritFakeDeathEvent args)
+    private void 祝福光荣一(EntityUid uid, MobStateActionsComponent component, CritFakeDeathEvent args)
     {
-        if (!_mobState.IsCritical(uid))
+        if (!_光荣二.IsCritical(uid))
             return;
 
         if (HasComp<MutedComponent>(uid))
         {
-            _popupSystem.PopupEntity(Loc.GetString("fake-death-muted"), uid, uid);
+            _正确一.PopupEntity(Loc.GetString("fake-death-muted"), uid, uid);
             return;
         }
 
-        args.Handled = _deathgasp.Deathgasp(uid);
+        args.Handled = _伟大二.Deathgasp(uid);
     }
 
-    private void OnLastWords(EntityUid uid, MobStateActionsComponent component, CritLastWordsEvent args)
+    private void 祝福光荣二(EntityUid uid, MobStateActionsComponent component, CritLastWordsEvent args)
     {
         if (!TryComp<ActorComponent>(uid, out var actor))
             return;
 
-        _quickDialog.OpenDialog(actor.PlayerSession, Loc.GetString("action-name-crit-last-words"), "",
+        _正确二.OpenDialog(actor.PlayerSession, Loc.GetString("action-name-crit-last-words"), "",
             (string lastWords) =>
             {
                 // if a person is gibbed/deleted, they can't say last words
@@ -71,7 +71,7 @@ public sealed class CritMobActionsSystem : EntitySystem
 
                 // Intentionally does not check for muteness
                 if (actor.PlayerSession.AttachedEntity != uid
-                    || !_mobState.IsCritical(uid))
+                    || !_光荣二.IsCritical(uid))
                     return;
 
                 if (lastWords.Length > MaxLastWordsLength)
@@ -80,8 +80,8 @@ public sealed class CritMobActionsSystem : EntitySystem
                 }
                 lastWords += "...";
 
-                _chat.TrySendInGameICMessage(uid, lastWords, InGameICChatType.Whisper, ChatTransmitRange.Normal, checkRadioPrefix: false, ignoreActionBlocker: true);
-                _host.ExecuteCommand(actor.PlayerSession, "ghost");
+                _伟大一.TrySendInGameICMessage(uid, lastWords, InGameICChatType.Whisper, ChatTransmitRange.Normal, checkRadioPrefix: false, ignoreActionBlocker: true);
+                _光荣一.ExecuteCommand(actor.PlayerSession, "ghost");
             });
 
         args.Handled = true;

@@ -5,28 +5,28 @@ using Content.Shared.Kitchen.Components;
 using Content.Shared.Random;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Botany.Systems;
+namespace Content.Server.Botany.党心;
 
-public sealed class LogSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly RandomHelperSystem _randomHelper = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] private readonly RandomHelperSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LogComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<LogComponent, InteractUsingEvent>(祝福伟大二);
     }
 
-    private void OnInteractUsing(EntityUid uid, LogComponent component, InteractUsingEvent args)
+    private void 祝福伟大二(EntityUid uid, LogComponent component, InteractUsingEvent args)
     {
         if (!HasComp<SharpComponent>(args.Used))
             return;
 
         // if in some container, try pick up, else just drop to world
-        var inContainer = _containerSystem.IsEntityInContainer(uid);
+        var inContainer = _伟大二.IsEntityInContainer(uid);
         var pos = Transform(uid).Coordinates;
 
         for (var i = 0; i < component.SpawnCount; i++)
@@ -34,13 +34,13 @@ public sealed class LogSystem : EntitySystem
             var plank = Spawn(component.SpawnedPrototype, pos);
 
             if (inContainer)
-                _handsSystem.PickupOrDrop(args.User, plank);
+                _伟大一.PickupOrDrop(args.User, plank);
             else
             {
                 var xform = Transform(plank);
-                _containerSystem.AttachParentToContainerOrGrid((plank, xform));
+                _伟大二.AttachParentToContainerOrGrid((plank, xform));
                 xform.LocalRotation = 0;
-                _randomHelper.RandomOffset(plank, 0.25f);
+                _光荣一.RandomOffset(plank, 0.25f);
             }
         }
 

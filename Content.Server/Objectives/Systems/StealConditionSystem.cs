@@ -13,36 +13,36 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Stacks;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
-public sealed class StealConditionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣一 = default!;
+    [Dependency] private readonly MobStateSystem _光荣二 = default!;
+    [Dependency] private readonly SharedInteractionSystem _正确一 = default!;
+    [Dependency] private readonly SharedObjectivesSystem _正确二 = default!;
+    [Dependency] private readonly EntityLookupSystem _团结一 = default!;
 
-    private EntityQuery<ContainerManagerComponent> _containerQuery;
+    private EntityQuery<ContainerManagerComponent> _团结二;
 
-    private HashSet<Entity<TransformComponent>> _nearestEnts = new();
-    private HashSet<EntityUid> _countedItems = new();
+    private HashSet<Entity<TransformComponent>> _奋斗一 = new();
+    private HashSet<EntityUid> _奋斗二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _containerQuery = GetEntityQuery<ContainerManagerComponent>();
+        _团结二 = GetEntityQuery<ContainerManagerComponent>();
 
-        SubscribeLocalEvent<StealConditionComponent, ObjectiveAssignedEvent>(OnAssigned);
-        SubscribeLocalEvent<StealConditionComponent, ObjectiveAfterAssignEvent>(OnAfterAssign);
-        SubscribeLocalEvent<StealConditionComponent, ObjectiveGetProgressEvent>(OnGetProgress);
+        SubscribeLocalEvent<StealConditionComponent, ObjectiveAssignedEvent>(祝福伟大二);
+        SubscribeLocalEvent<StealConditionComponent, ObjectiveAfterAssignEvent>(祝福光荣一);
+        SubscribeLocalEvent<StealConditionComponent, ObjectiveGetProgressEvent>(祝福光荣二);
     }
 
     /// start checks of target acceptability, and generation of start values.
-    private void OnAssigned(Entity<StealConditionComponent> condition, ref ObjectiveAssignedEvent args)
+    private void 祝福伟大二(Entity<StealConditionComponent> condition, ref ObjectiveAssignedEvent args)
     {
         List<StealTargetComponent?> targetList = new();
 
@@ -70,13 +70,13 @@ public sealed class StealConditionSystem : EntitySystem
             ? Math.Min(targetList.Count, condition.Comp.MinCollectionSize)
             : condition.Comp.MinCollectionSize;
 
-        condition.Comp.CollectionSize = _random.Next(minSize, maxSize);
+        condition.Comp.CollectionSize = _伟大一.Next(minSize, maxSize);
     }
 
     //Set the visual, name, icon for the objective.
-    private void OnAfterAssign(Entity<StealConditionComponent> condition, ref ObjectiveAfterAssignEvent args)
+    private void 祝福光荣一(Entity<StealConditionComponent> condition, ref ObjectiveAfterAssignEvent args)
     {
-        var group = _proto.Index(condition.Comp.StealGroup);
+        var group = _伟大二.Index(condition.Comp.StealGroup);
         string localizedName = Loc.GetString(group.Name);
 
         var title = condition.Comp.OwnerText == null
@@ -87,24 +87,24 @@ public sealed class StealConditionSystem : EntitySystem
             ? Loc.GetString(condition.Comp.DescriptionMultiplyText, ("itemName", localizedName), ("count", condition.Comp.CollectionSize))
             : Loc.GetString(condition.Comp.DescriptionText, ("itemName", localizedName));
 
-        _metaData.SetEntityName(condition.Owner, title, args.Meta);
-        _metaData.SetEntityDescription(condition.Owner, description, args.Meta);
-        _objectives.SetIcon(condition.Owner, group.Sprite, args.Objective);
+        _光荣一.SetEntityName(condition.Owner, title, args.Meta);
+        _光荣一.SetEntityDescription(condition.Owner, description, args.Meta);
+        _正确二.SetIcon(condition.Owner, group.Sprite, args.Objective);
     }
-    private void OnGetProgress(Entity<StealConditionComponent> condition, ref ObjectiveGetProgressEvent args)
+    private void 祝福光荣二(Entity<StealConditionComponent> condition, ref ObjectiveGetProgressEvent args)
     {
-        args.Progress = GetProgress((args.MindId, args.Mind), condition);
+        args.Progress = 祝福正确一((args.MindId, args.Mind), condition);
     }
 
-    private float GetProgress(Entity<MindComponent> mind, StealConditionComponent condition)
+    private float 祝福正确一(Entity<MindComponent> mind, StealConditionComponent condition)
     {
-        if (!_containerQuery.TryGetComponent(mind.Comp.OwnedEntity, out var currentManager))
+        if (!_团结二.TryGetComponent(mind.Comp.OwnedEntity, out var currentManager))
             return 0;
 
         var containerStack = new Stack<ContainerManagerComponent>();
         var count = 0;
 
-        _countedItems.Clear();
+        _奋斗二.Clear();
 
         //check stealAreas
         if (condition.CheckStealAreas)
@@ -115,14 +115,14 @@ public sealed class StealConditionSystem : EntitySystem
                 if (!area.Owners.Contains(mind.Owner))
                     continue;
 
-                _nearestEnts.Clear();
-                _lookup.GetEntitiesInRange<TransformComponent>(xform.Coordinates, area.Range, _nearestEnts);
-                foreach (var ent in _nearestEnts)
+                _奋斗一.Clear();
+                _团结一.GetEntitiesInRange<TransformComponent>(xform.Coordinates, area.Range, _奋斗一);
+                foreach (var ent in _奋斗一)
                 {
-                    if (!_interaction.InRangeUnobstructed((uid, xform), (ent, ent.Comp), range: area.Range))
+                    if (!_正确一.InRangeUnobstructed((uid, xform), (ent, ent.Comp), range: area.Range))
                         continue;
 
-                    CheckEntity(ent, condition, ref containerStack, ref count);
+                    祝福正确二(ent, condition, ref containerStack, ref count);
                 }
             }
         }
@@ -133,7 +133,7 @@ public sealed class StealConditionSystem : EntitySystem
             var pulledEntity = pull.Pulling;
             if (pulledEntity != null)
             {
-                CheckEntity(pulledEntity.Value, condition, ref containerStack, ref count);
+                祝福正确二(pulledEntity.Value, condition, ref containerStack, ref count);
             }
         }
 
@@ -146,10 +146,10 @@ public sealed class StealConditionSystem : EntitySystem
                 foreach (var entity in container.ContainedEntities)
                 {
                     // check if this is the item
-                    count += CheckStealTarget(entity, condition);
+                    count += 祝福团结一(entity, condition);
 
                     // if it is a container check its contents
-                    if (_containerQuery.TryGetComponent(entity, out var containerManager))
+                    if (_团结二.TryGetComponent(entity, out var containerManager))
                         containerStack.Push(containerManager);
                 }
             }
@@ -160,23 +160,23 @@ public sealed class StealConditionSystem : EntitySystem
         return result;
     }
 
-    private void CheckEntity(EntityUid entity, StealConditionComponent condition, ref Stack<ContainerManagerComponent> containerStack, ref int counter)
+    private void 祝福正确二(EntityUid entity, StealConditionComponent condition, ref Stack<ContainerManagerComponent> containerStack, ref int counter)
     {
         // check if this is the item
-        counter += CheckStealTarget(entity, condition);
+        counter += 祝福团结一(entity, condition);
 
         //we don't check the inventories of sentient entity
         if (!TryComp<MindContainerComponent>(entity, out var pullMind))
         {
             // if it is a container check its contents
-            if (_containerQuery.TryGetComponent(entity, out var containerManager))
+            if (_团结二.TryGetComponent(entity, out var containerManager))
                 containerStack.Push(containerManager);
         }
     }
 
-    private int CheckStealTarget(EntityUid entity, StealConditionComponent condition)
+    private int 祝福团结一(EntityUid entity, StealConditionComponent condition)
     {
-        if (_countedItems.Contains(entity))
+        if (_奋斗二.Contains(entity))
             return 0;
 
         // check if this is the target
@@ -196,12 +196,12 @@ public sealed class StealConditionSystem : EntitySystem
         {
             if (TryComp<MobStateComponent>(entity, out var state))
             {
-                if (!_mobState.IsAlive(entity, state))
+                if (!_光荣二.IsAlive(entity, state))
                     return 0;
             }
         }
 
-        _countedItems.Add(entity);
+        _奋斗二.Add(entity);
 
         return TryComp<StackComponent>(entity, out var stack) ? stack.Count : 1;
     }

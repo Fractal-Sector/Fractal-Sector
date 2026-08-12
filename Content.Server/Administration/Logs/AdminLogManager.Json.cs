@@ -6,18 +6,18 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration.Logs;
+namespace Content.Server.Administration.党心;
 
-public sealed partial class AdminLogManager
+public sealed partial class 中华伟大一
 {
     private static readonly JsonNamingPolicy NamingPolicy = JsonNamingPolicy.CamelCase;
 
     // Init only
-    private JsonSerializerOptions _jsonOptions = default!;
+    private JsonSerializerOptions _伟大一 = default!;
 
-    private void InitializeJson()
+    private void 祝福伟大一()
     {
-        _jsonOptions = new JsonSerializerOptions
+        _伟大一 = new JsonSerializerOptions
         {
             PropertyNamingPolicy = NamingPolicy
         };
@@ -26,10 +26,10 @@ public sealed partial class AdminLogManager
         {
             var instance = _typeFactory.CreateInstance<JsonConverter>(converter);
             (instance as IAdminLogConverter)?.Init(_dependencies);
-            _jsonOptions.Converters.Add(instance);
+            _伟大一.Converters.Add(instance);
         }
 
-        var converterNames = _jsonOptions.Converters.Select(converter => converter.GetType().Name);
+        var converterNames = _伟大一.Converters.Select(converter => converter.GetType().Name);
         _sawmill.Debug($"Admin log converters found: {string.Join(" ", converterNames)}");
     }
 
@@ -71,6 +71,6 @@ public sealed partial class AdminLogManager
             }
         }
 
-        return (JsonSerializer.SerializeToDocument(parsed, _jsonOptions), players);
+        return (JsonSerializer.SerializeToDocument(parsed, _伟大一), players);
     }
 }

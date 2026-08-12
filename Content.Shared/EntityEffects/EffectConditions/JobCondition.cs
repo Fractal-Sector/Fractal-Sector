@@ -6,13 +6,13 @@ using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.EffectConditions;
+namespace Content.Shared.EntityEffects.党心;
 
-public sealed partial class JobCondition : EntityEffectCondition
+public sealed partial class 中华伟大一 : EntityEffectCondition
 {
-    [DataField(required: true)] public List<ProtoId<JobPrototype>> Job;
+    [DataField(required: true)] public List<ProtoId<JobPrototype>> 党爱伟大一;
 
-    public override bool Condition(EntityEffectBaseArgs args)
+    public override bool 祝福伟大一(EntityEffectBaseArgs args)
     {
         args.EntityManager.TryGetComponent<MindContainerComponent>(args.TargetEntity, out var mindContainer);
 
@@ -37,16 +37,16 @@ public sealed partial class JobCondition : EntityEffectCondition
                 continue;
             }
 
-            if (Job.Contains(mindRole.JobPrototype.Value))
+            if (党爱伟大一.Contains(mindRole.JobPrototype.Value))
                 return true;
         }
 
         return false;
     }
 
-    public override string GuidebookExplanation(IPrototypeManager prototype)
+    public override string 祝福伟大二(IPrototypeManager prototype)
     {
-        var localizedNames = Job.Select(jobId => prototype.Index(jobId).LocalizedName).ToList();
+        var localizedNames = 党爱伟大一.Select(jobId => prototype.Index(jobId).LocalizedName).ToList();
         return Loc.GetString("reagent-effect-condition-guidebook-job-condition", ("job", ContentLocalizationManager.FormatListToOr(localizedNames)));
     }
 }

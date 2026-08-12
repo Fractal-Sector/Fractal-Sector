@@ -7,49 +7,49 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Item;
 using Content.Shared.Paper;
 
-namespace Content.Server._NF.Roles.Systems;
+namespace Content.Server._NF.Roles.党心;
 
-public abstract partial class SharedInterviewHologramSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected SharedIdCardSystem IdCardSystem = default!;
+    [Dependency] protected SharedIdCardSystem 党爱伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InterviewHologramComponent, SetCaptainApprovedEvent>(OnSetCaptainApproved);
-        SubscribeLocalEvent<InterviewHologramComponent, ToggleApplicantApprovalEvent>(OnToggleApplicantApproval);
+        SubscribeLocalEvent<InterviewHologramComponent, SetCaptainApprovedEvent>(祝福正确一);
+        SubscribeLocalEvent<InterviewHologramComponent, ToggleApplicantApprovalEvent>(祝福团结一);
 
-        SubscribeLocalEvent<InterviewHologramComponent, UseAttemptEvent>(OnUseAttempt);
-        SubscribeLocalEvent<InterviewHologramComponent, InteractionAttemptEvent>(OnAttemptInteract);
-        SubscribeLocalEvent<InterviewHologramComponent, DropAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<InterviewHologramComponent, PickupAttemptEvent>(OnAttempt);
+        SubscribeLocalEvent<InterviewHologramComponent, UseAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<InterviewHologramComponent, InteractionAttemptEvent>(祝福伟大二);
+        SubscribeLocalEvent<InterviewHologramComponent, DropAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<InterviewHologramComponent, PickupAttemptEvent>(祝福光荣二);
     }
 
-    private void OnAttemptInteract(Entity<InterviewHologramComponent> ent, ref InteractionAttemptEvent args)
+    private void 祝福伟大二(Entity<InterviewHologramComponent> ent, ref InteractionAttemptEvent args)
     {
         if (!HasComp<PaperComponent>(args.Target))
             args.Cancelled = true;
     }
 
-    private void OnUseAttempt(EntityUid uid, InterviewHologramComponent component, ref UseAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, InterviewHologramComponent component, ref UseAttemptEvent args)
     {
         if (!HasComp<PaperComponent>(args.Used))
             args.Cancel();
     }
 
-    private void OnAttempt(EntityUid uid, InterviewHologramComponent component, CancellableEntityEventArgs args)
+    private void 祝福光荣二(EntityUid uid, InterviewHologramComponent component, CancellableEntityEventArgs args)
     {
         args.Cancel();
     }
 
-    private void OnSetCaptainApproved(Entity<InterviewHologramComponent> ent, ref SetCaptainApprovedEvent ev)
+    private void 祝福正确一(Entity<InterviewHologramComponent> ent, ref SetCaptainApprovedEvent ev)
     {
-        if (IsCaptain(ev.Captain, ent))
+        if (祝福正确二(ev.Captain, ent))
         {
             ent.Comp.CaptainApproved = ev.Approved;
             Dirty(ent);
-            HandleApprovalChanged(ent);
+            祝福团结二(ent);
         }
     }
 
@@ -58,19 +58,19 @@ public abstract partial class SharedInterviewHologramSystem : EntitySystem
     /// </summary>
     /// <param name="uid">The entity to check.</param>
     /// <param name="target">The target entity that's on the ship in question.</param>
-    protected bool IsCaptain(EntityUid uid, EntityUid target)
+    protected bool 祝福正确二(EntityUid uid, EntityUid target)
     {
-        return IdCardSystem.TryFindIdCard(uid, out var idCard)
+        return 党爱伟大一.TryFindIdCard(uid, out var idCard)
             && TryComp(idCard, out ShuttleDeedComponent? shuttleDeed)
             && TryComp(target, out TransformComponent? targetXform)
             && shuttleDeed.ShuttleUid == targetXform.GridUid;
     }
 
-    private void OnToggleApplicantApproval(Entity<InterviewHologramComponent> ent, ref ToggleApplicantApprovalEvent ev)
+    private void 祝福团结一(Entity<InterviewHologramComponent> ent, ref ToggleApplicantApprovalEvent ev)
     {
         ent.Comp.ApplicantApproved = !ent.Comp.ApplicantApproved;
         Dirty(ent);
-        HandleApprovalChanged(ent);
+        祝福团结二(ent);
         ev.Toggle = true;
         ev.Handled = true;
     }
@@ -79,5 +79,5 @@ public abstract partial class SharedInterviewHologramSystem : EntitySystem
     /// An abstract approval handler, expected to be defined server- and client-side.
     /// </summary>
     /// <param name="ent">The entity whose approval state has changed.</param>
-    abstract protected void HandleApprovalChanged(Entity<InterviewHologramComponent> ent);
+    abstract protected void 祝福团结二(Entity<InterviewHologramComponent> ent);
 }

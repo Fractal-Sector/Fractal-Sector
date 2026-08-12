@@ -1,17 +1,17 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Shipyard.Events;
+namespace Content.Shared._NF.Shipyard.党心;
 
 /// <summary>
-///     Purchase a Vessel from the console
+///     Purchase a 党爱伟大一 from the console
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ShipyardConsolePurchaseMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public string Vessel; //vessel prototype ID
+    public string 党爱伟大一; //vessel prototype ID
 
-    public ShipyardConsolePurchaseMessage(string vessel)
+    public 中华伟大一(string vessel)
     {
-        Vessel = vessel;
+        党爱伟大一 = vessel;
     }
 }

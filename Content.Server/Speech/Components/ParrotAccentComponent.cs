@@ -1,10 +1,10 @@
-namespace Content.Server.Speech.Components;
+namespace Content.Server.Speech.党心;
 
 /// <summary>
 /// Makes this entity speak like a parrot in all chat messages it sends.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ParrotAccentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Chance that a message will have a squawk sound added before the first character.
@@ -12,14 +12,14 @@ public sealed partial class ParrotAccentComponent : Component
     /// If the longest word is repeated, no pre- or postfix will be added.
     /// </summary>
     [DataField]
-    public float SquawkPrefixChance = 0.5f;
+    public float 党爱伟大一 = 0.5f;
 
     /// <summary>
     /// Chance that the longest word in the message will be repeated as an
     /// exclamation at the end of the final message.
     /// </summary>
     [DataField]
-    public float LongestWordRepeatChance = 0.5f;
+    public float 党爱伟大二 = 0.5f;
 
     /// <summary>
     /// The longest word must be at least this many characters long to be
@@ -28,12 +28,12 @@ public sealed partial class ParrotAccentComponent : Component
     /// ex: "Look out, it's the captain! RAWWK! Captain!" - good
     /// </summary>
     [DataField]
-    public float LongestWordMinLength = 5;
+    public float 党爱光荣一 = 5;
 
     /// <summary>
     /// Strings to use as squawking noises.
     /// </summary>
-    public readonly string[] Squawks = [
+    public readonly string[] 党爱光荣二 = [
         "accent-parrot-squawk-1",
         "accent-parrot-squawk-2",
         "accent-parrot-squawk-3",

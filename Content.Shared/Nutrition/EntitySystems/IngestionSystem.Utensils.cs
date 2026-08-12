@@ -8,36 +8,36 @@ using Robust.Shared.Audio;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
-public sealed partial class IngestionSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedInteractionSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
 
-    private EntityQuery<UtensilComponent> _utensilsQuery;
+    private EntityQuery<UtensilComponent> _光荣一;
 
-    public void InitializeUtensils()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<UtensilComponent, AfterInteractEvent>(OnAfterInteract, after: new[] { typeof(ToolOpenableSystem) });
+        SubscribeLocalEvent<UtensilComponent, AfterInteractEvent>(祝福伟大二, after: new[] { typeof(ToolOpenableSystem) });
 
-        SubscribeLocalEvent<EdibleComponent, GetUtensilsEvent>(OnGetEdibleUtensils);
+        SubscribeLocalEvent<EdibleComponent, GetUtensilsEvent>(祝福团结一);
 
-        _utensilsQuery = GetEntityQuery<UtensilComponent>();
+        _光荣一 = GetEntityQuery<UtensilComponent>();
     }
 
     /// <summary>
     /// Clicked with utensil
     /// </summary>
-    private void OnAfterInteract(Entity<UtensilComponent> entity, ref AfterInteractEvent ev)
+    private void 祝福伟大二(Entity<UtensilComponent> entity, ref AfterInteractEvent ev)
     {
         if (ev.Handled || ev.Target == null || !ev.CanReach)
             return;
 
-        ev.Handled = TryUseUtensil(ev.User, ev.Target.Value, entity);
+        ev.Handled = 祝福光荣一(ev.User, ev.Target.Value, entity);
     }
 
-    public bool TryUseUtensil(EntityUid user, EntityUid target, Entity<UtensilComponent> utensil)
+    public bool 祝福光荣一(EntityUid user, EntityUid target, Entity<UtensilComponent> utensil)
     {
         var ev = new GetUtensilsEvent();
         RaiseLocalEvent(target, ref ev);
@@ -49,7 +49,7 @@ public sealed partial class IngestionSystem
             return true;
         }
 
-        if (!_interactionSystem.InRangeUnobstructed(user, target, popup: true))
+        if (!_伟大一.InRangeUnobstructed(user, target, popup: true))
             return true;
 
         return TryIngest(user, user, target);
@@ -60,13 +60,13 @@ public sealed partial class IngestionSystem
     /// </summary>
     /// <param name="entity">Utensil.</param>
     /// <param name="userUid">User of the utensil.</param>
-    public void TryBreak(Entity<UtensilComponent?> entity, EntityUid userUid)
+    public void 祝福光荣二(Entity<UtensilComponent?> entity, EntityUid userUid)
     {
         if (!Resolve(entity, ref entity.Comp))
             return;
 
         // TODO: Once we have predicted randomness delete this for something sane...
-        var seed = SharedRandomExtensions.HashCodeCombine(new() {(int)_timing.CurTick.Value, GetNetEntity(entity).Id, GetNetEntity(userUid).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() {(int)_伟大二.CurTick.Value, GetNetEntity(entity).Id, GetNetEntity(userUid).Id });
         var rand = new System.Random(seed);
 
         if (!rand.Prob(entity.Comp.BreakChance))
@@ -84,15 +84,15 @@ public sealed partial class IngestionSystem
     /// <param name="food">The types of utensils we need.</param>
     /// <param name="utensils">The utensils needed to eat the food item.</param>
     /// <returns>True if we are able to eat the item.</returns>
-    public bool TryGetUtensils(Entity<HandsComponent?> entity, EntityUid food, out List<EntityUid> utensils)
+    public bool 祝福正确一(Entity<HandsComponent?> entity, EntityUid food, out List<EntityUid> utensils)
     {
         var ev = new GetUtensilsEvent();
         RaiseLocalEvent(food, ref ev);
 
-        return TryGetUtensils(entity, ev.Types, ev.RequiredTypes, out utensils);
+        return 祝福正确一(entity, ev.Types, ev.RequiredTypes, out utensils);
     }
 
-    public bool TryGetUtensils(Entity<HandsComponent?> entity, UtensilType types, UtensilType requiredTypes, out List<EntityUid> utensils)
+    public bool 祝福正确一(Entity<HandsComponent?> entity, UtensilType types, UtensilType requiredTypes, out List<EntityUid> utensils)
     {
         utensils = new List<EntityUid>();
 
@@ -111,7 +111,7 @@ public sealed partial class IngestionSystem
         foreach (var item in _hands.EnumerateHeld(entity))
         {
             // Is utensil?
-            if (!_utensilsQuery.TryComp(item, out var utensil))
+            if (!_光荣一.TryComp(item, out var utensil))
                 continue;
 
             // Do we have a new and unused utensil type?
@@ -139,12 +139,12 @@ public sealed partial class IngestionSystem
     /// <param name="entity">The entity doing the action who has the utensils.</param>
     /// <param name="types">The types of utensils we need.</param>
     /// <returns>Returns true if we have the utensils we need.</returns>
-    public bool HasRequiredUtensils(EntityUid entity, UtensilType types)
+    public bool 祝福正确二(EntityUid entity, UtensilType types)
     {
-        return TryGetUtensils(entity, types, types, out _);
+        return 祝福正确一(entity, types, types, out _);
     }
 
-    private void OnGetEdibleUtensils(Entity<EdibleComponent> entity, ref GetUtensilsEvent args)
+    private void 祝福团结一(Entity<EdibleComponent> entity, ref GetUtensilsEvent args)
     {
         if (entity.Comp.Utensil == UtensilType.None)
             return;

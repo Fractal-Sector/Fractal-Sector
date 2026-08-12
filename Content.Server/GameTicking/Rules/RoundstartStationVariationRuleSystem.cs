@@ -7,30 +7,30 @@ using Content.Shared.Station.Components;
 using Content.Shared.Storage;
 using Robust.Shared.Random;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
 /// <inheritdoc cref="RoundstartStationVariationRuleComponent"/>
-public sealed class RoundstartStationVariationRuleSystem : GameRuleSystem<RoundstartStationVariationRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<RoundstartStationVariationRuleComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StationPostInitEvent>(OnStationPostInit, after: new []{typeof(ShuttleSystem)});
+        SubscribeLocalEvent<StationPostInitEvent>(祝福光荣一, after: new []{typeof(ShuttleSystem)});
     }
 
-    protected override void Added(EntityUid uid, RoundstartStationVariationRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, RoundstartStationVariationRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        var spawns = EntitySpawnCollection.GetSpawns(component.Rules, _random);
+        var spawns = EntitySpawnCollection.GetSpawns(component.Rules, _伟大一);
         foreach (var rule in spawns)
         {
             GameTicker.AddGameRule(rule);
         }
     }
 
-    private void OnStationPostInit(ref StationPostInitEvent ev)
+    private void 祝福光荣一(ref StationPostInitEvent ev)
     {
         // as long as one is running
         if (!GameTicker.IsGameRuleAdded<RoundstartStationVariationRuleComponent>())
@@ -67,4 +67,4 @@ public sealed class RoundstartStationVariationRuleSystem : GameRuleSystem<Rounds
 /// </summary>
 /// <param name="Station">The new station that was added, and its config & grids.</param>
 [ByRefEvent]
-public readonly record struct StationVariationPassEvent(Entity<StationDataComponent> Station);
+public readonly record 中华伟大二 StationVariationPassEvent(Entity<StationDataComponent> Station);

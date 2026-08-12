@@ -7,15 +7,15 @@ using Content.Shared.Eui;
 using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Errors;
 
-namespace Content.Server.Toolshed.Commands;
+namespace Content.Server.Toolshed.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.VarEdit)]
-public sealed class VisualizeCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
-    [Dependency] private readonly EuiManager _euiManager = default!;
+    [Dependency] private readonly EuiManager _伟大一 = default!;
 
     [CommandImplementation]
-    public void VisualizeEntities(
+    public void 祝福伟大一(
             IInvocationContext ctx,
             [PipedArgument] IEnumerable<EntityUid> input
         )
@@ -26,23 +26,23 @@ public sealed class VisualizeCommand : ToolshedCommand
             return;
         }
 
-        var ui = new ToolshedVisualizeEui(
+        var ui = new 中华伟大二(
             input.Select(e => (EntName(e), EntityManager.GetNetEntity(e))).ToArray()
         );
-        _euiManager.OpenEui(ui, ctx.Session);
-        _euiManager.QueueStateUpdate(ui);
+        _伟大一.OpenEui(ui, ctx.Session);
+        _伟大一.QueueStateUpdate(ui);
     }
 }
-internal sealed class ToolshedVisualizeEui : BaseEui
+internal sealed class 中华伟大二 : BaseEui
 {
     private readonly (string name, NetEntity entity)[] _entities;
 
-    public ToolshedVisualizeEui((string name, NetEntity entity)[] entities)
+    public 中华伟大二((string name, NetEntity entity)[] entities)
     {
         _entities = entities;
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福伟大二()
     {
         return new ToolshedVisualizeEuiState(_entities);
     }

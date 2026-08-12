@@ -2,21 +2,21 @@ using Content.Server.Objectives.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Objectives.Components;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Handles species requirement for objectives that require a certain species.
 /// </summary>
-public sealed class SpeciesRequirementSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpeciesRequirementComponent, RequirementCheckEvent>(OnCheck);
+        SubscribeLocalEvent<SpeciesRequirementComponent, RequirementCheckEvent>(祝福伟大二);
     }
 
-    private void OnCheck(Entity<SpeciesRequirementComponent> requirement, ref RequirementCheckEvent args)
+    private void 祝福伟大二(Entity<SpeciesRequirementComponent> requirement, ref RequirementCheckEvent args)
     {
         if (args.Cancelled)
             return;

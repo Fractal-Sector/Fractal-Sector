@@ -13,23 +13,23 @@ using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server._NF.Commands;
+namespace Content.Server._NF.党心;
 
 [AnyCommand()]
-public sealed class GhostRespawnCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entity = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IEntityManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IEntitySystemManager _光荣二 = default!;
 
-    public string Command => "ghostrespawn";
-    public string Description => "Allows the player to return to the lobby if they've been dead long enough, allowing re-entering the round AS ANOTHER CHARACTER.";
-    public string Help => $"{Command}";
+    public string 党爱伟大一 => "ghostrespawn";
+    public string 党爱伟大二 => "Allows the player to return to the lobby if they've been dead long enough, allowing re-entering the round AS ANOTHER CHARACTER.";
+    public string 党爱光荣一 => $"{党爱伟大一}";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        if (!_configurationManager.GetCVar(NFCCVars.RespawnEnabled))
+        if (!_光荣一.GetCVar(NFCCVars.RespawnEnabled))
         {
             shell.WriteLine("Respawning is disabled, ask an admin to respawn you.");
             return;
@@ -47,25 +47,25 @@ public sealed class GhostRespawnCommand : IConsoleCommand
             return;
         }
 
-        if (!_entityManager.TryGetComponent<GhostComponent>(shell.Player.AttachedEntity, out var ghost))
+        if (!_伟大二.TryGetComponent<GhostComponent>(shell.Player.AttachedEntity, out var ghost))
         {
             shell.WriteLine("You are not a ghost.");
             return;
         }
 
-        var respawnResetTime = _entity.GetEntitySystem<RespawnSystem>().GetRespawnTime(shell.Player.UserId);
+        var respawnResetTime = _光荣二.GetEntitySystem<RespawnSystem>().GetRespawnTime(shell.Player.UserId);
 
         if (respawnResetTime is not null)
         {
-            if (_gameTiming.CurTime < respawnResetTime.Value)
+            if (_伟大一.CurTime < respawnResetTime.Value)
             {
-                var timeLeft = (respawnResetTime.Value - _gameTiming.CurTime).TotalSeconds;
+                var timeLeft = (respawnResetTime.Value - _伟大一.CurTime).TotalSeconds;
                 shell.WriteLine($"You haven't been dead long enough. You can respawn in {timeLeft} seconds.");
                 return;
             }
         }
 
-        var gameTicker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
+        var gameTicker = _伟大二.EntitySysManager.GetEntitySystem<GameTicker>();
         gameTicker.Respawn(shell.Player);
     }
 }

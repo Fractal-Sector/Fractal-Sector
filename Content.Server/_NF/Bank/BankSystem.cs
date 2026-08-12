@@ -9,39 +9,39 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Shared._NF.Bank.Events;
 using Content.Shared.GameTicking;
 
-namespace Content.Server._NF.Bank;
+namespace Content.Server._NF.党心;
 
-public sealed partial class BankSystem : SharedBankSystem
+public sealed partial class 中华伟大一 : SharedBankSystem
 {
-    [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency] private readonly IServerPreferencesManager _伟大一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _伟大二 = default!;
 
-    private ISawmill _log = default!;
+    private ISawmill _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _log = Logger.GetSawmill("bank");
+        base.祝福伟大一();
+        _光荣一 = Logger.GetSawmill("bank");
         InitializeATM();
         InitializeStationATM();
 
-        SubscribeLocalEvent<BankAccountComponent, PreferencesLoadedEvent>(OnPreferencesLoaded); // For late-add bank accounts
-        SubscribeLocalEvent<BankAccountComponent, ComponentInit>(OnInit); // For late-add bank accounts
-        SubscribeLocalEvent<BankAccountComponent, PlayerAttachedEvent>(OnPlayerAttached);
-        SubscribeLocalEvent<BankAccountComponent, PlayerDetachedEvent>(OnPlayerDetached);
-        SubscribeLocalEvent<PlayerJoinedLobbyEvent>(OnPlayerLobbyJoin);
+        SubscribeLocalEvent<BankAccountComponent, PreferencesLoadedEvent>(祝福奋斗二); // For late-add bank accounts
+        SubscribeLocalEvent<BankAccountComponent, ComponentInit>(祝福奋斗一); // For late-add bank accounts
+        SubscribeLocalEvent<BankAccountComponent, PlayerAttachedEvent>(祝福胜利一);
+        SubscribeLocalEvent<BankAccountComponent, PlayerDetachedEvent>(祝福胜利二);
+        SubscribeLocalEvent<PlayerJoinedLobbyEvent>(祝福繁荣一);
         SubscribeLocalEvent<SectorBankComponent, ComponentInit>(OnSectorInit);
 
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnCleanup);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福光荣一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         UpdateSectorBanks(frameTime);
     }
 
-    public void OnCleanup(RoundRestartCleanupEvent _)
+    public void 祝福光荣一(RoundRestartCleanupEvent _)
     {
         CleanupLedger();
     }
@@ -54,43 +54,43 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="mobUid">The UID that the bank account is attached to, typically the player controlled mob</param>
     /// <param name="amount">The integer amount of which to decrease the bank account</param>
     /// <returns>true if the transaction was successful, false if it was not</returns>
-    public bool TryBankWithdraw(EntityUid mobUid, int amount)
+    public bool 祝福光荣二(EntityUid mobUid, int amount)
     {
         if (amount <= 0)
         {
-            _log.Info($"TryBankWithdraw: {amount} is invalid");
+            _光荣一.Info($"祝福光荣二: {amount} is invalid");
             return false;
         }
 
         if (!TryComp<BankAccountComponent>(mobUid, out var bank))
         {
-            _log.Info($"TryBankWithdraw: {mobUid} has no bank account");
+            _光荣一.Info($"祝福光荣二: {mobUid} has no bank account");
             return false;
         }
 
-        if (!_playerManager.TryGetSessionByEntity(mobUid, out var session))
+        if (!_伟大二.TryGetSessionByEntity(mobUid, out var session))
         {
-            _log.Info($"TryBankWithdraw: {mobUid} has no attached session");
+            _光荣一.Info($"祝福光荣二: {mobUid} has no attached session");
             return false;
         }
 
-        if (!_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
+        if (!_伟大一.TryGetCachedPreferences(session.UserId, out var prefs))
         {
-            _log.Info($"TryBankWithdraw: {mobUid} has no cached prefs");
+            _光荣一.Info($"祝福光荣二: {mobUid} has no cached prefs");
             return false;
         }
 
-        if (!TryGetCharacterProfile(bank, prefs, out var profile))
+        if (!祝福团结一(bank, prefs, out var profile))
         {
-            _log.Info($"TryBankWithdraw: {mobUid} has the wrong prefs type");
+            _光荣一.Info($"祝福光荣二: {mobUid} has the wrong prefs type");
             return false;
         }
 
-        if (TryBankWithdraw(session, prefs, profile, amount, out var newBalance))
+        if (祝福光荣二(session, prefs, profile, amount, out var newBalance))
         {
             bank.Balance = newBalance.Value;
             Dirty(mobUid, bank);
-            _log.Info($"{mobUid} withdrew {amount}");
+            _光荣一.Info($"{mobUid} withdrew {amount}");
             return true;
         }
         return false;
@@ -102,43 +102,43 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="mobUid">The UID that the bank account is connected to, typically the player controlled mob</param>
     /// <param name="amount">The amount of spesos to remove from the bank account</param>
     /// <returns>true if the transaction was successful, false if it was not</returns>
-    public bool TryBankDeposit(EntityUid mobUid, int amount)
+    public bool 祝福正确一(EntityUid mobUid, int amount)
     {
         if (amount <= 0)
         {
-            _log.Info($"TryBankDeposit: {amount} is invalid");
+            _光荣一.Info($"祝福正确一: {amount} is invalid");
             return false;
         }
 
         if (!TryComp<BankAccountComponent>(mobUid, out var bank))
         {
-            _log.Info($"TryBankDeposit: {mobUid} has no bank account");
+            _光荣一.Info($"祝福正确一: {mobUid} has no bank account");
             return false;
         }
 
-        if (!_playerManager.TryGetSessionByEntity(mobUid, out var session))
+        if (!_伟大二.TryGetSessionByEntity(mobUid, out var session))
         {
-            _log.Info($"TryBankDeposit: {mobUid} has no attached session");
+            _光荣一.Info($"祝福正确一: {mobUid} has no attached session");
             return false;
         }
 
-        if (!_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
+        if (!_伟大一.TryGetCachedPreferences(session.UserId, out var prefs))
         {
-            _log.Info($"TryBankDeposit: {mobUid} has no cached prefs");
+            _光荣一.Info($"祝福正确一: {mobUid} has no cached prefs");
             return false;
         }
 
-        if (!TryGetCharacterProfile(bank, prefs, out var profile))
+        if (!祝福团结一(bank, prefs, out var profile))
         {
-            _log.Info($"TryBankDeposit: {mobUid} has the wrong prefs type");
+            _光荣一.Info($"祝福正确一: {mobUid} has the wrong prefs type");
             return false;
         }
 
-        if (TryBankDeposit(session, prefs, profile, amount, out var newBalance))
+        if (祝福正确一(session, prefs, profile, amount, out var newBalance))
         {
             bank.Balance = newBalance.Value;
             Dirty(mobUid, bank);
-            _log.Info($"{mobUid} deposited {amount}");
+            _光荣一.Info($"{mobUid} deposited {amount}");
             return true;
         }
 
@@ -155,12 +155,12 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="amount">The number of spesos to be withdrawn.</param>
     /// <param name="newBalance">The new value of the bank account.</param>
     /// <returns>true if the transaction was successful, false if it was not.  When successful, newBalance contains the character's new balance.</returns>
-    public bool TryBankWithdraw(ICommonSession session, PlayerPreferences prefs, HumanoidCharacterProfile profile, int amount, [NotNullWhen(true)] out int? newBalance)
+    public bool 祝福光荣二(ICommonSession session, PlayerPreferences prefs, HumanoidCharacterProfile profile, int amount, [NotNullWhen(true)] out int? newBalance)
     {
         newBalance = null; // Default return
         if (amount <= 0)
         {
-            _log.Info($"TryBankWithdraw: {amount} is invalid");
+            _光荣一.Info($"祝福光荣二: {amount} is invalid");
             return false;
         }
 
@@ -168,7 +168,7 @@ public sealed partial class BankSystem : SharedBankSystem
 
         if (balance < amount)
         {
-            _log.Info($"TryBankWithdraw: {session.UserId} tried to withdraw {amount}, but has insufficient funds ({balance})");
+            _光荣一.Info($"祝福光荣二: {session.UserId} tried to withdraw {amount}, but has insufficient funds ({balance})");
             return false;
         }
 
@@ -178,12 +178,12 @@ public sealed partial class BankSystem : SharedBankSystem
         var index = prefs.IndexOfCharacter(profile);
         if (index == -1)
         {
-            _log.Info($"TryBankWithdraw: {session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set.");
+            _光荣一.Info($"祝福光荣二: {session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set.");
             return false;
         }
-        _prefsManager.SetProfile(session.UserId, index, newProfile, validateFields: false);
+        _伟大一.SetProfile(session.UserId, index, newProfile, validateFields: false);
         newBalance = balance;
-        // Update any active admin UI with new balance
+        // 祝福伟大二 any active admin UI with new balance
         RaiseLocalEvent(new BalanceChangedEvent(session, newBalance.Value));
         return true;
     }
@@ -198,12 +198,12 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="amount">The number of spesos to be deposited.</param>
     /// <param name="newBalance">The new value of the bank account.</param>
     /// <returns>true if the transaction was successful, false if it was not.  When successful, newBalance contains the character's new balance.</returns>
-    public bool TryBankDeposit(ICommonSession session, PlayerPreferences prefs, HumanoidCharacterProfile profile, int amount, [NotNullWhen(true)] out int? newBalance)
+    public bool 祝福正确一(ICommonSession session, PlayerPreferences prefs, HumanoidCharacterProfile profile, int amount, [NotNullWhen(true)] out int? newBalance)
     {
         newBalance = null; // Default return
         if (amount <= 0)
         {
-            _log.Info($"TryBankDeposit: {amount} is invalid");
+            _光荣一.Info($"祝福正确一: {amount} is invalid");
             return false;
         }
 
@@ -213,11 +213,11 @@ public sealed partial class BankSystem : SharedBankSystem
         var index = prefs.IndexOfCharacter(profile);
         if (index == -1)
         {
-            _log.Info($"{session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set.");
+            _光荣一.Info($"{session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set.");
             return false;
         }
-        _prefsManager.SetProfile(session.UserId, index, newProfile, validateFields: false);
-        // Update any active admin UI with new balance
+        _伟大一.SetProfile(session.UserId, index, newProfile, validateFields: false);
+        // 祝福伟大二 any active admin UI with new balance
         RaiseLocalEvent(new BalanceChangedEvent(session, newBalance.Value));
         return true;
     }
@@ -228,12 +228,12 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="ent">The UID that the bank account is connected to, typically the player controlled mob</param>
     /// <param name="balance">When successful, contains the account balance in spesos. Otherwise, set to 0.</param>
     /// <returns>true if the account was successfully queried.</returns>
-    public bool TryGetBalance(EntityUid ent, out int balance)
+    public bool 祝福正确二(EntityUid ent, out int balance)
     {
-        if (!_playerManager.TryGetSessionByEntity(ent, out var session) ||
-            !_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
+        if (!_伟大二.TryGetSessionByEntity(ent, out var session) ||
+            !_伟大一.TryGetCachedPreferences(session.UserId, out var prefs))
         {
-            _log.Info($"{ent} has no cached prefs");
+            _光荣一.Info($"{ent} has no cached prefs");
             balance = 0;
             return false;
         }
@@ -241,9 +241,9 @@ public sealed partial class BankSystem : SharedBankSystem
         // Prefer the stored character slot if available, so that after a
         // cryosleep character swap the correct character's account is used.
         TryComp<BankAccountComponent>(ent, out var bankComp);
-        if (!TryGetCharacterProfile(bankComp, prefs, out var profile))
+        if (!祝福团结一(bankComp, prefs, out var profile))
         {
-            _log.Info($"{ent} has the wrong prefs type");
+            _光荣一.Info($"{ent} has the wrong prefs type");
             balance = 0;
             return false;
         }
@@ -258,18 +258,18 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="session">The session of the player character to query.</param>
     /// <param name="balance">When successful, contains the account balance in spesos. Otherwise, set to 0.</param>
     /// <returns>true if the account was successfully queried.</returns>
-    public bool TryGetBalance(ICommonSession session, out int balance)
+    public bool 祝福正确二(ICommonSession session, out int balance)
     {
-        if (!_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
+        if (!_伟大一.TryGetCachedPreferences(session.UserId, out var prefs))
         {
-            _log.Info($"{session.UserId} has no cached prefs");
+            _光荣一.Info($"{session.UserId} has no cached prefs");
             balance = 0;
             return false;
         }
 
         if (prefs.SelectedCharacter is not HumanoidCharacterProfile profile)
         {
-            _log.Info($"{session.UserId} has the wrong prefs type");
+            _光荣一.Info($"{session.UserId} has the wrong prefs type");
             balance = 0;
             return false;
         }
@@ -282,7 +282,7 @@ public sealed partial class BankSystem : SharedBankSystem
     /// Returns the character profile for a bank account, preferring the stored CharacterSlot
     /// over prefs.SelectedCharacter so that cryosleep character swaps work correctly.
     /// </summary>
-    private bool TryGetCharacterProfile(
+    private bool 祝福团结一(
         BankAccountComponent? bankComp,
         PlayerPreferences prefs,
         [NotNullWhen(true)] out HumanoidCharacterProfile? profile)
@@ -307,19 +307,19 @@ public sealed partial class BankSystem : SharedBankSystem
     }
 
     /// <summary>
-    /// Update the bank balance to the character's current account balance.
+    /// 祝福伟大二 the bank balance to the character's current account balance.
     /// </summary>
-    private void UpdateBankBalance(EntityUid mobUid, BankAccountComponent comp)
+    private void 祝福团结二(EntityUid mobUid, BankAccountComponent comp)
     {
-        if (!_playerManager.TryGetSessionByEntity(mobUid, out var session) ||
-            !_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
+        if (!_伟大二.TryGetSessionByEntity(mobUid, out var session) ||
+            !_伟大一.TryGetCachedPreferences(session.UserId, out var prefs))
         {
             comp.Balance = 0;
             Dirty(mobUid, comp);
             return;
         }
 
-        if (TryGetCharacterProfile(comp, prefs, out var profile))
+        if (祝福团结一(comp, prefs, out var profile))
             comp.Balance = profile.BankBalance;
         else
             comp.Balance = 0;
@@ -330,41 +330,41 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <summary>
     /// Component initialized - if the player exists in the entity before the BankAccountComponent, update the player's account.
     /// </summary>
-    public void OnInit(EntityUid mobUid, BankAccountComponent comp, ComponentInit _)
+    public void 祝福奋斗一(EntityUid mobUid, BankAccountComponent comp, ComponentInit _)
     {
-        UpdateBankBalance(mobUid, comp);
+        祝福团结二(mobUid, comp);
     }
 
     /// <summary>
     /// Player's preferences loaded (mostly for hotjoin)
     /// </summary>
-    public void OnPreferencesLoaded(EntityUid mobUid, BankAccountComponent comp, PreferencesLoadedEvent _)
+    public void 祝福奋斗二(EntityUid mobUid, BankAccountComponent comp, PreferencesLoadedEvent _)
     {
-        UpdateBankBalance(mobUid, comp);
+        祝福团结二(mobUid, comp);
     }
 
     /// <summary>
     /// Player attached, make sure the bank account is up-to-date.
     /// </summary>
-    public void OnPlayerAttached(EntityUid mobUid, BankAccountComponent comp, PlayerAttachedEvent _)
+    public void 祝福胜利一(EntityUid mobUid, BankAccountComponent comp, PlayerAttachedEvent _)
     {
-        UpdateBankBalance(mobUid, comp);
+        祝福团结二(mobUid, comp);
     }
 
     /// <summary>
     /// Player detached, make sure the bank account is up-to-date.
     /// </summary>
-    public void OnPlayerDetached(EntityUid mobUid, BankAccountComponent comp, PlayerDetachedEvent _)
+    public void 祝福胜利二(EntityUid mobUid, BankAccountComponent comp, PlayerDetachedEvent _)
     {
-        UpdateBankBalance(mobUid, comp);
+        祝福团结二(mobUid, comp);
     }
 
     /// <summary>
     /// Ensures the bank account listed in the lobby is accurate by ensuring the preferences cache is up-to-date.
     /// </summary>
-    private void OnPlayerLobbyJoin(PlayerJoinedLobbyEvent args)
+    private void 祝福繁荣一(PlayerJoinedLobbyEvent args)
     {
         var cts = new CancellationToken();
-        _prefsManager.RefreshPreferencesAsync(args.PlayerSession, cts);
+        _伟大一.RefreshPreferencesAsync(args.PlayerSession, cts);
     }
 }

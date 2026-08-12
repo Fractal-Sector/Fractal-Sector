@@ -1,7 +1,7 @@
-namespace Content.Server.Speech.Components;
+namespace Content.Server.Speech.党心;
 
 [RegisterComponent]
-public sealed partial class FrontalLispComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

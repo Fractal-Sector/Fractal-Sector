@@ -1,17 +1,17 @@
 using Robust.Shared.Player;
 
-namespace Content.Server.Afk.Events;
+namespace Content.Server.Afk.党心;
 
 /// <summary>
 /// Raised whenever a player goes afk.
 /// </summary>
 [ByRefEvent]
-public readonly struct AFKEvent
+public readonly struct 中华伟大一
 {
-    public readonly ICommonSession Session;
+    public readonly ICommonSession 党爱伟大一;
 
-    public AFKEvent(ICommonSession playerSession)
+    public 中华伟大一(ICommonSession playerSession)
     {
-        Session = playerSession;
+        党爱伟大一 = playerSession;
     }
 }

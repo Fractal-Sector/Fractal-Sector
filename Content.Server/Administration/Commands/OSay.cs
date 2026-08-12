@@ -5,17 +5,17 @@ using Content.Shared.Administration;
 using Content.Shared.Database;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class OSay : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IEntityManager _伟大二 = default!;
 
-    public override string Command => "osay";
+    public override string 党爱伟大一 => "osay";
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -36,7 +36,7 @@ public sealed class OSay : LocalizedCommands
         return CompletionResult.Empty;
     }
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大二(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 3)
         {
@@ -46,7 +46,7 @@ public sealed class OSay : LocalizedCommands
 
         var chatType = (InGameICChatType) Enum.Parse(typeof(InGameICChatType), args[1]);
 
-        if (!NetEntity.TryParse(args[0], out var sourceNet) || !_entityManager.TryGetEntity(sourceNet, out var source) || !_entityManager.EntityExists(source))
+        if (!NetEntity.TryParse(args[0], out var sourceNet) || !_伟大二.TryGetEntity(sourceNet, out var source) || !_伟大二.EntityExists(source))
         {
             shell.WriteLine(Loc.GetString("osay-command-error-euid", ("arg", args[0])));
             return;
@@ -56,7 +56,7 @@ public sealed class OSay : LocalizedCommands
         if (string.IsNullOrEmpty(message))
             return;
 
-        _entityManager.System<ChatSystem>().TrySendInGameICMessage(source.Value, message, chatType, false);
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"{(shell.Player != null ? shell.Player.Name : "An administrator")} forced {_entityManager.ToPrettyString(source.Value)} to {args[1]}: {message}");
+        _伟大二.System<ChatSystem>().TrySendInGameICMessage(source.Value, message, chatType, false);
+        _伟大一.Add(LogType.Action, LogImpact.Low, $"{(shell.Player != null ? shell.Player.Name : "An administrator")} forced {_伟大二.ToPrettyString(source.Value)} to {args[1]}: {message}");
     }
 }

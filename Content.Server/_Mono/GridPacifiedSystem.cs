@@ -14,59 +14,59 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 using Content.Server._NF.CryoSleep;
 
-namespace Content.Server._Mono;
+namespace Content.Server.党心;
 
 /// <summary>
 /// System that handles the GridPacifiedComponent, which has the GridPacifierComponent apply pacification to certain entities within range.
 /// </summary>
-public sealed class GridPacifiedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _光荣一 = default!;
 
-    private ISawmill _logger = default!;
+    private ISawmill _光荣二 = default!;
     private static readonly TimeSpan RequiredPlaytime = TimeSpan.FromHours(1);
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GridPacifiedComponent, ComponentStartup>(OnGridPacifiedStartup);
-        SubscribeLocalEvent<GridPacifiedComponent, ComponentShutdown>(OnGridPacifiedShutdown);
-        SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
-        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
+        SubscribeLocalEvent<GridPacifiedComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<GridPacifiedComponent, ComponentShutdown>(祝福正确一);
+        SubscribeLocalEvent<PlayerAttachedEvent>(祝福伟大二);
+        SubscribeLocalEvent<PlayerDetachedEvent>(祝福光荣一);
     }
 
-    private void OnPlayerAttached(PlayerAttachedEvent ev)
+    private void 祝福伟大二(PlayerAttachedEvent ev)
     {
         var uid = ev.Entity;
         var player = ev.Player;
         // Only affect players with less than 1 hour of overall playtime
-        var getTime = _playTimeTracking.TryGetTrackerTimes(player, out var time);
+        var getTime = _光荣一.TryGetTrackerTimes(player, out var time);
 
         if (getTime == false)
         {
-            _logger?.Info($"Could not find playtime for: {uid} id: {player}");
+            _光荣二?.Info($"Could not find playtime for: {uid} id: {player}");
             return;
         }
-        var overallPlaytime = _playTimeTracking.GetOverallPlaytime(player);
+        var overallPlaytime = _光荣一.GetOverallPlaytime(player);
         if (overallPlaytime < RequiredPlaytime)
         {
             var comp = AddComp<GridPacifiedComponent>(uid);
-            var curTime = _gameTiming.CurTime;
+            var curTime = _伟大二.CurTime;
             comp.PacifiedTime = curTime + RequiredPlaytime - overallPlaytime;
             return;
         }
     }
 
-    private void OnPlayerDetached(PlayerDetachedEvent ev)
+    private void 祝福光荣一(PlayerDetachedEvent ev)
     {
         var uid = ev.Entity;
         RemComp<GridPacifiedComponent>(uid);
         return;
     }
 
-    private void OnGridPacifiedStartup(EntityUid uid, GridPacifiedComponent component, ComponentStartup args)
+    private void 祝福光荣二(EntityUid uid, GridPacifiedComponent component, ComponentStartup args)
     {
 
         if (HasComp<PacifiedComponent>(uid))
@@ -77,16 +77,16 @@ public sealed class GridPacifiedSystem : EntitySystem
 
     }
 
-    private void OnGridPacifiedShutdown(EntityUid uid, GridPacifiedComponent component, ComponentShutdown args)
+    private void 祝福正确一(EntityUid uid, GridPacifiedComponent component, ComponentShutdown args)
     {
-        RemovePacified(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确二(frameTime);
 
-        var curTime = _gameTiming.CurTime;
+        var curTime = _伟大二.CurTime;
 
         // Find all entities with a GridPacifiedComponent
         var query = EntityQueryEnumerator<GridPacifiedComponent, MobStateComponent, TransformComponent>();
@@ -104,16 +104,16 @@ public sealed class GridPacifiedSystem : EntitySystem
 
             // Schedule the next update
             component.NextUpdate = curTime + component.UpdateInterval;
-            ProcessPacificationRange(uid, component, xform);
+            祝福团结一(uid, component, xform);
         }
     }
 
     /// <summary>
     /// Processes entities
     /// </summary>
-    private void ProcessPacificationRange(EntityUid uid, GridPacifiedComponent component, TransformComponent xform)
+    private void 祝福团结一(EntityUid uid, GridPacifiedComponent component, TransformComponent xform)
     {
-        var uidPos = _transform.GetMapCoordinates(uid, xform);
+        var uidPos = _伟大一.GetMapCoordinates(uid, xform);
         var query = EntityQueryEnumerator<GridPacifierComponent, TransformComponent>();
         while (query.MoveNext(out var gridUid, out var gridComponent, out var gridXform))
         {
@@ -121,21 +121,21 @@ public sealed class GridPacifiedSystem : EntitySystem
             if (gridXform.MapUid != xform.MapUid)
                 continue;
 
-            var gridPos = _transform.GetMapCoordinates(gridUid, gridXform);
+            var gridPos = _伟大一.GetMapCoordinates(gridUid, gridXform);
             var distance = (gridPos.Position - uidPos.Position).Length();
             if (component.PacifyRadius > distance)
             {
-                ApplyPacified(uid, component);
+                祝福团结二(uid, component);
                 return;
             }
         }
-        RemovePacified(uid, component);
+        祝福奋斗一(uid, component);
     }
 
     /// <summary>
     /// Performs the actual pacification checks and applies Pacified if appropriate
     /// </summary>
-    private void ApplyPacified(EntityUid entityUid, GridPacifiedComponent component)
+    private void 祝福团结二(EntityUid entityUid, GridPacifiedComponent component)
     {
         // Skip entities that already have the Pacified component
         if (HasComp<PacifiedComponent>(entityUid))
@@ -148,7 +148,7 @@ public sealed class GridPacifiedSystem : EntitySystem
     /// <summary>
     /// Removes Pacified from an entity
     /// </summary>
-    private void RemovePacified(EntityUid entityUid, GridPacifiedComponent component)
+    private void 祝福奋斗一(EntityUid entityUid, GridPacifiedComponent component)
     {
         if (component.PrePacified == true)
             return;

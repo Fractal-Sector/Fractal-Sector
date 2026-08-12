@@ -14,27 +14,27 @@ using Content.Shared.MedicalScanner;
 using Content.Shared.UserInterface;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Medical;
+namespace Content.Server.党心;
 
-public sealed partial class CryoPodSystem : SharedCryoPodSystem
+public sealed partial class 中华伟大一 : SharedCryoPodSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly GasCanisterSystem _gasCanisterSystem = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly GasCanisterSystem _伟大二 = default!;
+    [Dependency] private readonly NodeContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CryoPodComponent, AfterActivatableUIOpenEvent>(OnActivateUI);
-        SubscribeLocalEvent<CryoPodComponent, AtmosDeviceUpdateEvent>(OnCryoPodUpdateAtmosphere);
-        SubscribeLocalEvent<CryoPodComponent, GasAnalyzerScanEvent>(OnGasAnalyzed);
-        SubscribeLocalEvent<CryoPodComponent, EntRemovedFromContainerMessage>(OnEjected);
+        SubscribeLocalEvent<CryoPodComponent, AfterActivatableUIOpenEvent>(祝福伟大二);
+        SubscribeLocalEvent<CryoPodComponent, AtmosDeviceUpdateEvent>(祝福光荣一);
+        SubscribeLocalEvent<CryoPodComponent, GasAnalyzerScanEvent>(祝福光荣二);
+        SubscribeLocalEvent<CryoPodComponent, EntRemovedFromContainerMessage>(祝福正确一);
     }
 
-    private void OnActivateUI(Entity<CryoPodComponent> entity, ref AfterActivatableUIOpenEvent args)
+    private void 祝福伟大二(Entity<CryoPodComponent> entity, ref AfterActivatableUIOpenEvent args)
     {
         if (!entity.Comp.BodyContainer.ContainedEntity.HasValue)
             return;
@@ -48,12 +48,12 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         }
 
         // TODO: This should be a state my dude
-        _uiSystem.ServerSendUiMessage(
+        _光荣二.ServerSendUiMessage(
             entity.Owner,
             HealthAnalyzerUiKey.Key,
             new HealthAnalyzerScannedUserMessage(GetNetEntity(entity.Comp.BodyContainer.ContainedEntity),
             temp?.CurrentTemperature ?? 0,
-            (bloodstream != null && _solutionContainerSystem.ResolveSolution(entity.Comp.BodyContainer.ContainedEntity.Value,
+            (bloodstream != null && _正确一.ResolveSolution(entity.Comp.BodyContainer.ContainedEntity.Value,
                 bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution))
                 ? bloodSolution.FillFraction
                 : 0,
@@ -64,23 +64,23 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         ));
     }
 
-    private void OnCryoPodUpdateAtmosphere(Entity<CryoPodComponent> entity, ref AtmosDeviceUpdateEvent args)
+    private void 祝福光荣一(Entity<CryoPodComponent> entity, ref AtmosDeviceUpdateEvent args)
     {
-        if (!_nodeContainer.TryGetNode(entity.Owner, entity.Comp.PortName, out PortablePipeNode? portNode))
+        if (!_光荣一.TryGetNode(entity.Owner, entity.Comp.PortName, out PortablePipeNode? portNode))
             return;
 
         if (!TryComp(entity, out CryoPodAirComponent? cryoPodAir))
             return;
 
-        _atmosphereSystem.React(cryoPodAir.Air, portNode);
+        _伟大一.React(cryoPodAir.Air, portNode);
 
         if (portNode.NodeGroup is PipeNet { NodeCount: > 1 } net)
         {
-            _gasCanisterSystem.MixContainerWithPipeNet(cryoPodAir.Air, net.Air);
+            _伟大二.MixContainerWithPipeNet(cryoPodAir.Air, net.Air);
         }
     }
 
-    private void OnGasAnalyzed(Entity<CryoPodComponent> entity, ref GasAnalyzerScanEvent args)
+    private void 祝福光荣二(Entity<CryoPodComponent> entity, ref GasAnalyzerScanEvent args)
     {
         if (!TryComp(entity, out CryoPodAirComponent? cryoPodAir))
             return;
@@ -89,7 +89,7 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         args.GasMixtures.Add((Name(entity.Owner), cryoPodAir.Air));
         // If it's connected to a port, include the port side
         // multiply by volume fraction to make sure to send only the gas inside the analyzed pipe element, not the whole pipe system
-        if (_nodeContainer.TryGetNode(entity.Owner, entity.Comp.PortName, out PipeNode? port) && port.Air.Volume != 0f)
+        if (_光荣一.TryGetNode(entity.Owner, entity.Comp.PortName, out PipeNode? port) && port.Air.Volume != 0f)
         {
             var portAirLocal = port.Air.Clone();
             portAirLocal.Multiply(port.Volume / port.Air.Volume);
@@ -98,7 +98,7 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         }
     }
 
-    private void OnEjected(Entity<CryoPodComponent> cryoPod, ref EntRemovedFromContainerMessage args)
+    private void 祝福正确一(Entity<CryoPodComponent> cryoPod, ref EntRemovedFromContainerMessage args)
     {
         if (TryComp<HealthAnalyzerComponent>(cryoPod.Owner, out var healthAnalyzer))
         {
@@ -106,6 +106,6 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         }
 
         // if body is ejected - no need to display health-analyzer
-        _uiSystem.CloseUi(cryoPod.Owner, HealthAnalyzerUiKey.Key);
+        _光荣二.CloseUi(cryoPod.Owner, HealthAnalyzerUiKey.Key);
     }
 }

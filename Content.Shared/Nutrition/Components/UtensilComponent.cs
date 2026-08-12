@@ -2,16 +2,16 @@ using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Nutrition.Components
+namespace Content.Shared.Nutrition.党心
 {
     [RegisterComponent, NetworkedComponent, Access(typeof(IngestionSystem))]
-    public sealed partial class UtensilComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("types")]
-        private UtensilType _types = UtensilType.None;
+        private 中华伟大二 _types = 中华伟大二.None;
 
         [ViewVariables]
-        public UtensilType Types
+        public 中华伟大二 Types
         {
             get => _types;
             set
@@ -28,19 +28,19 @@ namespace Content.Shared.Nutrition.Components
         /// A value of 0 means that it is unbreakable.
         /// </summary>
         [DataField("breakChance")]
-        public float BreakChance;
+        public float 党爱伟大一;
 
         /// <summary>
         /// The sound to be played if the utensil breaks.
         /// </summary>
         [DataField("breakSound")]
-        public SoundSpecifier BreakSound = new SoundPathSpecifier("/Audio/Items/snap.ogg");
+        public SoundSpecifier 党爱伟大二 = new SoundPathSpecifier("/Audio/Items/snap.ogg");
     }
 
     // If you want to make a fancy output on "wrong" composite utensil use (like: you need fork and knife)
-    // There should be Dictionary I guess (Dictionary<UtensilType, string>)
+    // There should be Dictionary I guess (Dictionary<中华伟大二, string>)
     [Flags]
-    public enum UtensilType : byte
+    public enum 中华伟大二 : byte
     {
         None = 0,
         Fork = 1,

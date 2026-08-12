@@ -2,13 +2,13 @@ using Content.Shared.Damage.Prototypes;
 using Robust.Shared.Audio;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Shared.Weapons.Melee.Components;
+namespace Content.Shared.Weapons.Melee.党心;
 
 /// <summary>
 /// Plays the specified sound upon receiving damage of the specified type.
 /// </summary>
 [RegisterComponent]
-public sealed partial class MeleeSoundComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Specified sounds to apply when the entity takes damage with the specified group.

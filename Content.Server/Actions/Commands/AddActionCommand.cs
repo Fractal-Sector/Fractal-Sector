@@ -7,17 +7,17 @@ using Content.Shared.Prototypes;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Actions.Commands;
+namespace Content.Server.Actions.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class AddActionCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-    public override string Command => "addaction";
+    public override string 党爱伟大一 => "addaction";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -37,20 +37,20 @@ public sealed class AddActionCommand : LocalizedEntityCommands
             return;
         }
 
-        if (!_prototypeManager.TryIndex<EntityPrototype>(args[1], out var proto) ||
+        if (!_伟大二.TryIndex<EntityPrototype>(args[1], out var proto) ||
             !proto.HasComponent<ActionComponent>())
         {
             shell.WriteError(Loc.GetString("cmd-addaction-action-not-found", ("action", args[1])));
             return;
         }
 
-        if (_actions.AddAction(targetEntity.Value, args[1]) == null)
+        if (_伟大一.AddAction(targetEntity.Value, args[1]) == null)
         {
             shell.WriteError(Loc.GetString("cmd-addaction-adding-failed"));
         }
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -62,7 +62,7 @@ public sealed class AddActionCommand : LocalizedEntityCommands
         if (args.Length != 2)
             return CompletionResult.Empty;
 
-        var actionPrototypes = _prototypeManager.EnumeratePrototypes<EntityPrototype>()
+        var actionPrototypes = _伟大二.EnumeratePrototypes<EntityPrototype>()
             .Where(p => p.HasComponent<ActionComponent>())
             .Select(p => p.ID)
             .Order();

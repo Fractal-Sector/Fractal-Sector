@@ -5,19 +5,19 @@ using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Verbs;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeVoice()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<TriggerOnVoiceComponent, ComponentInit>(OnVoiceInit);
-        SubscribeLocalEvent<TriggerOnVoiceComponent, ExaminedEvent>(OnVoiceExamine);
-        SubscribeLocalEvent<TriggerOnVoiceComponent, ListenEvent>(OnListen);
-        SubscribeLocalEvent<TriggerOnVoiceComponent, GetVerbsEvent<AlternativeVerb>>(OnVoiceGetAltVerbs);
+        SubscribeLocalEvent<TriggerOnVoiceComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<TriggerOnVoiceComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<TriggerOnVoiceComponent, ListenEvent>(祝福光荣二);
+        SubscribeLocalEvent<TriggerOnVoiceComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
     }
 
-    private void OnVoiceInit(Entity<TriggerOnVoiceComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<TriggerOnVoiceComponent> ent, ref ComponentInit args)
     {
         if (ent.Comp.IsListening)
             EnsureComp<ActiveListenerComponent>(ent).Range = ent.Comp.ListenRange;
@@ -25,7 +25,7 @@ public sealed partial class TriggerSystem
             RemCompDeferred<ActiveListenerComponent>(ent);
     }
 
-    private void OnVoiceExamine(EntityUid uid, TriggerOnVoiceComponent component, ExaminedEvent args)
+    private void 祝福光荣一(EntityUid uid, TriggerOnVoiceComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange || !component.ShowExamine)
             return;
@@ -40,7 +40,7 @@ public sealed partial class TriggerSystem
         }
     }
 
-    private void OnListen(Entity<TriggerOnVoiceComponent> ent, ref ListenEvent args)
+    private void 祝福光荣二(Entity<TriggerOnVoiceComponent> ent, ref ListenEvent args)
     {
         var component = ent.Comp;
         var message = args.Message.Trim();
@@ -54,7 +54,7 @@ public sealed partial class TriggerSystem
                 return;
 
             if (message.Length >= component.MinLength && message.Length <= component.MaxLength)
-                FinishRecording(ent, args.Source, args.Message);
+                祝福团结二(ent, args.Source, args.Message);
             else if (message.Length > component.MaxLength)
                 _popup.PopupEntity(Loc.GetString("trigger-on-voice-record-failed-too-long"), ent);
             else if (message.Length < component.MinLength)
@@ -75,7 +75,7 @@ public sealed partial class TriggerSystem
         }
     }
 
-    private void OnVoiceGetAltVerbs(Entity<TriggerOnVoiceComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福正确一(Entity<TriggerOnVoiceComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess || !ent.Comp.ShowVerbs)
             return;
@@ -87,9 +87,9 @@ public sealed partial class TriggerSystem
             Act = () =>
             {
                 if (ent.Comp.IsRecording)
-                    StopRecording(ent, user);
+                    祝福团结一(ent, user);
                 else
-                    StartRecording(ent, user);
+                    祝福正确二(ent, user);
             },
             Priority = 1
         });
@@ -102,7 +102,7 @@ public sealed partial class TriggerSystem
             Text = Loc.GetString(ent.Comp.ClearRecordingVerb),
             Act = () =>
             {
-                ClearRecording(ent);
+                祝福奋斗一(ent);
             }
         });
     }
@@ -110,7 +110,7 @@ public sealed partial class TriggerSystem
     /// <summary>
     /// Start recording a new keyphrase.
     /// </summary>
-    public void StartRecording(Entity<TriggerOnVoiceComponent> ent, EntityUid? user)
+    public void 祝福正确二(Entity<TriggerOnVoiceComponent> ent, EntityUid? user)
     {
         ent.Comp.IsRecording = true;
         Dirty(ent);
@@ -127,7 +127,7 @@ public sealed partial class TriggerSystem
     /// <summary>
     /// Stop recording without setting a keyphrase.
     /// </summary>
-    public void StopRecording(Entity<TriggerOnVoiceComponent> ent, EntityUid? user)
+    public void 祝福团结一(Entity<TriggerOnVoiceComponent> ent, EntityUid? user)
     {
         ent.Comp.IsRecording = false;
         Dirty(ent);
@@ -141,7 +141,7 @@ public sealed partial class TriggerSystem
     /// <summary>
     /// Stop recording and set the current keyphrase message.
     /// </summary>
-    public void FinishRecording(Entity<TriggerOnVoiceComponent> ent, EntityUid source, string message)
+    public void 祝福团结二(Entity<TriggerOnVoiceComponent> ent, EntityUid source, string message)
     {
         ent.Comp.KeyPhrase = message;
         ent.Comp.IsRecording = false;
@@ -156,7 +156,7 @@ public sealed partial class TriggerSystem
     /// <summary>
     /// Resets the key phrase and stops recording.
     /// </summary>
-    public void ClearRecording(Entity<TriggerOnVoiceComponent> ent)
+    public void 祝福奋斗一(Entity<TriggerOnVoiceComponent> ent)
     {
         ent.Comp.KeyPhrase = null;
         ent.Comp.IsRecording = false;

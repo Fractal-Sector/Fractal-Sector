@@ -1,21 +1,21 @@
 ﻿using Content.Shared.Storage.Components;
 using Content.Shared.Storage.Events;
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
-public sealed class StoreAfterFailedInteractSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
+    [Dependency] private readonly SharedStorageSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StoreAfterFailedInteractComponent, StorageInsertFailedEvent>(OnStorageInsertFailed);
+        SubscribeLocalEvent<StoreAfterFailedInteractComponent, StorageInsertFailedEvent>(祝福伟大二);
     }
 
-    private void OnStorageInsertFailed(Entity<StoreAfterFailedInteractComponent> ent, ref StorageInsertFailedEvent args)
+    private void 祝福伟大二(Entity<StoreAfterFailedInteractComponent> ent, ref StorageInsertFailedEvent args)
     {
-        _storage.PlayerInsertHeldEntity(args.Storage, args.Player);
+        _伟大一.PlayerInsertHeldEntity(args.Storage, args.Player);
     }
 }

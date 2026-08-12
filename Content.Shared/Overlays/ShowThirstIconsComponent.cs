@@ -1,9 +1,9 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Overlays;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     This component allows you to see the thirstiness of mobs.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ShowThirstIconsComponent : Component { }
+public sealed partial class 中华伟大一 : Component { }

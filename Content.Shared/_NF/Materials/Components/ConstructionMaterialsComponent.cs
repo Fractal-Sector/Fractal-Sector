@@ -1,7 +1,7 @@
-namespace Content.Server.Materials.Components;
+namespace Content.Server.Materials.党心;
 
 [RegisterComponent]
-public sealed partial class ConstructionMaterialsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

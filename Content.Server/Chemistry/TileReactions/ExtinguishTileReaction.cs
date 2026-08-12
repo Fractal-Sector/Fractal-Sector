@@ -6,15 +6,15 @@ using Content.Shared.FixedPoint;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-namespace Content.Server.Chemistry.TileReactions
+namespace Content.Server.Chemistry.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class ExtinguishTileReaction : ITileReaction
+    public sealed partial class 中华伟大一 : ITileReaction
     {
-        [DataField("coolingTemperature")] private float _coolingTemperature = 2f;
+        [DataField("coolingTemperature")] private float _伟大一 = 2f;
 
-        public FixedPoint2 TileReact(TileRef tile,
+        public FixedPoint2 祝福伟大一(TileRef tile,
             ReagentPrototype reagent,
             FixedPoint2 reactVolume,
             IEntityManager entityManager,
@@ -31,8 +31,8 @@ namespace Content.Server.Chemistry.TileReactions
                 return FixedPoint2.Zero;
 
             environment.Temperature =
-                MathF.Max(MathF.Min(environment.Temperature - (_coolingTemperature * 1000f),
-                        environment.Temperature / _coolingTemperature), Atmospherics.TCMB);
+                MathF.Max(MathF.Min(environment.Temperature - (_伟大一 * 1000f),
+                        environment.Temperature / _伟大一), Atmospherics.TCMB);
 
             atmosphereSystem.ReactTile(tile.GridUid, tile.GridIndices);
             atmosphereSystem.HotspotExtinguish(tile.GridUid, tile.GridIndices);

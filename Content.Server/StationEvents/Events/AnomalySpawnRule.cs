@@ -3,13 +3,13 @@ using Content.Server.StationEvents.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Station.Components;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class AnomalySpawnRule : StationEventSystem<AnomalySpawnRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<AnomalySpawnRuleComponent>
 {
-    [Dependency] private readonly AnomalySystem _anomaly = default!;
+    [Dependency] private readonly AnomalySystem _伟大一 = default!;
 
-    protected override void Added(EntityUid uid, AnomalySpawnRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, AnomalySpawnRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
@@ -18,12 +18,12 @@ public sealed class AnomalySpawnRule : StationEventSystem<AnomalySpawnRuleCompon
             ("sighting", Loc.GetString($"anomaly-spawn-sighting-{RobustRandom.Next(1, 6)}")));
         stationEvent.StartAnnouncement = str;
 
-        base.Added(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
     }
 
-    protected override void Started(EntityUid uid, AnomalySpawnRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, AnomalySpawnRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大二(uid, component, gameRule, args);
 
         if (!TryGetRandomStation(out var chosenStation))
             return;
@@ -39,7 +39,7 @@ public sealed class AnomalySpawnRule : StationEventSystem<AnomalySpawnRuleCompon
         var amountToSpawn = 1;
         for (var i = 0; i < amountToSpawn; i++)
         {
-            _anomaly.SpawnOnRandomGridLocation(grid.Value, component.AnomalySpawnerPrototype);
+            _伟大一.SpawnOnRandomGridLocation(grid.Value, component.AnomalySpawnerPrototype);
         }
     }
 }

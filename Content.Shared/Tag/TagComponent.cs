@@ -1,11 +1,11 @@
 ﻿using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Tag;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(TagSystem))]
-public sealed partial class TagComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, ViewVariables, AutoNetworkedField]
-    public HashSet<ProtoId<TagPrototype>> Tags = new();
+    public HashSet<ProtoId<TagPrototype>> 党爱伟大一 = new();
 }

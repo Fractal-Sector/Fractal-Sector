@@ -5,13 +5,13 @@ using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Power.Generator;
+namespace Content.Server.Power.党心;
 
 /// <summary>
 /// This is used for chemical fuel input into generators.
 /// </summary>
 [RegisterComponent, Access(typeof(GeneratorSystem))]
-public sealed partial class ChemicalFuelGeneratorAdapterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A dictionary relating a reagent to accept as fuel to a value to multiply reagent amount by to get fuel amount.
@@ -24,7 +24,7 @@ public sealed partial class ChemicalFuelGeneratorAdapterComponent : Component
     /// </summary>
     [DataField("solution")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public string SolutionName = "tank";
+    public string 党爱伟大一 = "tank";
 
     /// <summary>
     /// The solution on the <see cref="SolutionContainerManagerComponent"/> to use.

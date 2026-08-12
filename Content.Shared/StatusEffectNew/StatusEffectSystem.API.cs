@@ -2,9 +2,9 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Shared.StatusEffectNew.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.StatusEffectNew;
+namespace Content.Shared.党心;
 
-public sealed partial class StatusEffectsSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Increments duration of status effect by <see cref="duration"/>.
@@ -12,10 +12,10 @@ public sealed partial class StatusEffectsSystem
     /// </summary>
     /// <param name="target">The target entity to which the effect should be added.</param>
     /// <param name="effectProto">ProtoId of the status effect entity. Make sure it has StatusEffectComponent on it.</param>
-    /// <param name="duration">Duration of status effect. Leave null and the effect will be permanent until it is removed using <c>TryRemoveStatusEffect</c>.</param>
+    /// <param name="duration">Duration of status effect. Leave null and the effect will be permanent until it is removed using <c>祝福光荣二</c>.</param>
     /// <param name="statusEffect">The EntityUid of the status effect we have just created or null if it doesn't exist.</param>
     /// <returns>True if effect exists and its duration is set properly, false in case effect cannot be applied.</returns>
-    public bool TryAddStatusEffectDuration(
+    public bool 祝福伟大一(
         EntityUid target,
         EntProtoId effectProto,
         [NotNullWhen(true)] out EntityUid? statusEffect,
@@ -29,7 +29,7 @@ public sealed partial class StatusEffectsSystem
         }
 
         // We check to make sure time is greater than zero here because sometimes you want to use TryAddStatusEffect to remove duration instead...
-        if (!TryGetStatusEffect(target, effectProto, out statusEffect))
+        if (!祝福正确二(target, effectProto, out statusEffect))
             return TryAddStatusEffect(target, effectProto, out statusEffect, duration);
 
         AddStatusEffectTime(statusEffect.Value, duration);
@@ -38,10 +38,10 @@ public sealed partial class StatusEffectsSystem
     }
 
 
-    ///<inheritdoc cref="TryAddStatusEffectDuration(EntityUid,EntProtoId,out EntityUid?,TimeSpan)"/>
-    public bool TryAddStatusEffectDuration(EntityUid target, EntProtoId effectProto, TimeSpan duration)
+    ///<inheritdoc cref="祝福伟大一(EntityUid,EntProtoId,out EntityUid?,TimeSpan)"/>
+    public bool 祝福伟大一(EntityUid target, EntProtoId effectProto, TimeSpan duration)
     {
-        return TryAddStatusEffectDuration(target, effectProto, out _, duration);
+        return 祝福伟大一(target, effectProto, out _, duration);
     }
 
     /// <summary>
@@ -50,10 +50,10 @@ public sealed partial class StatusEffectsSystem
     /// </summary>
     /// <param name="target">The target entity to which the effect should be added.</param>
     /// <param name="effectProto">ProtoId of the status effect entity. Make sure it has StatusEffectComponent on it.</param>
-    /// <param name="duration">Duration of status effect. Leave null and the effect will be permanent until it is removed using <c>TryRemoveStatusEffect</c>.</param>
+    /// <param name="duration">Duration of status effect. Leave null and the effect will be permanent until it is removed using <c>祝福光荣二</c>.</param>
     /// <param name="statusEffect">The EntityUid of the status effect we have just created or null if it doesn't exist.</param>
     /// <returns>True if effect exists and its duration is set properly, false in case effect cannot be applied.</returns>
-    public bool TrySetStatusEffectDuration(
+    public bool 祝福伟大二(
         EntityUid target,
         EntProtoId effectProto,
         [NotNullWhen(true)] out EntityUid? statusEffect,
@@ -66,7 +66,7 @@ public sealed partial class StatusEffectsSystem
             return false;
         }
 
-        if (!TryGetStatusEffect(target, effectProto, out statusEffect))
+        if (!祝福正确二(target, effectProto, out statusEffect))
             return TryAddStatusEffect(target, effectProto, out statusEffect, duration);
 
         SetStatusEffectEndTime(statusEffect.Value, duration);
@@ -74,10 +74,10 @@ public sealed partial class StatusEffectsSystem
         return true;
     }
 
-    /// <inheritdoc cref="TrySetStatusEffectDuration(EntityUid,EntProtoId,out EntityUid?,TimeSpan?)"/>
-    public bool TrySetStatusEffectDuration(EntityUid target, EntProtoId effectProto, TimeSpan? duration = null)
+    /// <inheritdoc cref="祝福伟大二(EntityUid,EntProtoId,out EntityUid?,TimeSpan?)"/>
+    public bool 祝福伟大二(EntityUid target, EntProtoId effectProto, TimeSpan? duration = null)
     {
-        return TrySetStatusEffectDuration(target, effectProto, out _, duration);
+        return 祝福伟大二(target, effectProto, out _, duration);
     }
 
     /// <summary>
@@ -86,10 +86,10 @@ public sealed partial class StatusEffectsSystem
     /// </summary>
     /// <param name="target">The target entity to which the effect should be added.</param>
     /// <param name="effectProto">ProtoId of the status effect entity. Make sure it has StatusEffectComponent on it.</param>
-    /// <param name="duration">Duration of status effect. Leave null and the effect will be permanent until it is removed using <c>TryRemoveStatusEffect</c>.</param>
+    /// <param name="duration">Duration of status effect. Leave null and the effect will be permanent until it is removed using <c>祝福光荣二</c>.</param>
     /// <param name="statusEffect">The EntityUid of the status effect we have just created or null if it doesn't exist.</param>
     /// <returns>True if effect exists and its duration is set properly, false in case effect cannot be applied.</returns>
-    public bool TryUpdateStatusEffectDuration(
+    public bool 祝福光荣一(
         EntityUid target,
         EntProtoId effectProto,
         [NotNullWhen(true)] out EntityUid? statusEffect,
@@ -102,7 +102,7 @@ public sealed partial class StatusEffectsSystem
             return false;
         }
 
-        if (!TryGetStatusEffect(target, effectProto, out statusEffect))
+        if (!祝福正确二(target, effectProto, out statusEffect))
             return TryAddStatusEffect(target, effectProto, out statusEffect, duration);
 
         UpdateStatusEffectTime(statusEffect.Value, duration);
@@ -110,17 +110,17 @@ public sealed partial class StatusEffectsSystem
         return true;
     }
 
-    /// <inheritdoc cref="TryUpdateStatusEffectDuration(EntityUid,EntProtoId,out EntityUid?,TimeSpan?)"/>
-    public bool TryUpdateStatusEffectDuration(EntityUid target, EntProtoId effectProto, TimeSpan? duration = null)
+    /// <inheritdoc cref="祝福光荣一(EntityUid,EntProtoId,out EntityUid?,TimeSpan?)"/>
+    public bool 祝福光荣一(EntityUid target, EntProtoId effectProto, TimeSpan? duration = null)
     {
-        return TryUpdateStatusEffectDuration(target, effectProto, out _, duration);
+        return 祝福光荣一(target, effectProto, out _, duration);
     }
 
     /// <summary>
     /// Attempting to remove a status effect from an entity.
     /// Returns True if the status effect existed on the entity and was successfully removed, and False in otherwise.
     /// </summary>
-    public bool TryRemoveStatusEffect(EntityUid target, EntProtoId effectProto)
+    public bool 祝福光荣二(EntityUid target, EntProtoId effectProto)
     {
         if (!_containerQuery.TryComp(target, out var container))
             return false;
@@ -146,7 +146,7 @@ public sealed partial class StatusEffectsSystem
     /// <summary>
     /// Checks whether the specified entity is under a specific status effect.
     /// </summary>
-    public bool HasStatusEffect(EntityUid target, EntProtoId effectProto)
+    public bool 祝福正确一(EntityUid target, EntProtoId effectProto)
     {
         if (!_containerQuery.TryComp(target, out var container))
             return false;
@@ -164,7 +164,7 @@ public sealed partial class StatusEffectsSystem
     /// <summary>
     /// Attempting to retrieve the EntityUid of a status effect from an entity.
     /// </summary>
-    public bool TryGetStatusEffect(EntityUid target, EntProtoId effectProto, [NotNullWhen(true)] out EntityUid? effect)
+    public bool 祝福正确二(EntityUid target, EntProtoId effectProto, [NotNullWhen(true)] out EntityUid? effect)
     {
         effect = null;
         if (!_containerQuery.TryComp(target, out var container))
@@ -190,7 +190,7 @@ public sealed partial class StatusEffectsSystem
     /// <param name="effectProto">The prototype ID of the status effect to retrieve.</param>
     /// <param name="time">The output tuple containing the effect entity and its remaining time.</param>
     /// <param name="container">Optional. The status effect container component of the entity.</param>
-    public bool TryGetTime(
+    public bool 祝福团结一(
         EntityUid uid,
         EntProtoId effectProto,
         out (EntityUid EffectEnt, TimeSpan? EndEffectTime) time,
@@ -257,7 +257,7 @@ public sealed partial class StatusEffectsSystem
     /// while negative values reduce it.
     /// </param>
     /// <returns> True if duration was edited successfully, false otherwise.</returns>
-    public bool TryAddTime(EntityUid uid, EntProtoId effectProto, TimeSpan time)
+    public bool 祝福团结二(EntityUid uid, EntProtoId effectProto, TimeSpan time)
     {
         if (!_containerQuery.TryComp(uid, out var container))
             return false;
@@ -281,7 +281,7 @@ public sealed partial class StatusEffectsSystem
     /// <param name="effectProto">The prototype ID of the status effect to modify.</param>
     /// <param name="time">The new duration for the status effect.</param>
     /// <returns> True if duration was set successfully, false otherwise.</returns>
-    public bool TrySetTime(EntityUid uid, EntProtoId effectProto, TimeSpan time)
+    public bool 祝福奋斗一(EntityUid uid, EntProtoId effectProto, TimeSpan time)
     {
         if (!_containerQuery.TryComp(uid, out var container))
             return false;

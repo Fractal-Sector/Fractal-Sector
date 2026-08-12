@@ -1,15 +1,15 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Piping.Unary.Visuals
+namespace Content.Shared.Atmos.Piping.Unary.党心
 {
     [Serializable, NetSerializable]
-    public enum ScrubberVisuals : byte
+    public enum 中华伟大一 : byte
     {
         State,
     }
 
     [Serializable, NetSerializable]
-    public enum ScrubberState : byte
+    public enum 中华伟大二 : byte
     {
         Off,
         Scrub,

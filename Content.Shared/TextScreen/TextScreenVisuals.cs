@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.TextScreen;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum TextScreenVisuals : byte
+public enum 中华伟大一 : byte
 {
     // TODO: support for a small image, I think. Probably want to rename textscreen to just screen then.
     /// <summary>

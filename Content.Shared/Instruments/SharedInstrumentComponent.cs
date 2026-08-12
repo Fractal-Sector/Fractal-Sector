@@ -4,35 +4,35 @@ using Robust.Shared.Audio.Midi;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Instruments;
+namespace Content.Shared.党心;
 
 [NetworkedComponent]
 [Access(typeof(SharedInstrumentSystem))]
-public abstract partial class SharedInstrumentComponent : Component
+public abstract partial class 中华伟大一 : Component
 {
     [ViewVariables]
-    public bool Playing { get; set; }
+    public bool 党爱伟大一 { get; set; }
 
     [DataField("program"), ViewVariables(VVAccess.ReadWrite)]
-    public byte InstrumentProgram { get; set; }
+    public byte 党爱伟大二 { get; set; }
 
     [DataField("bank"), ViewVariables(VVAccess.ReadWrite)]
-    public byte InstrumentBank { get; set; }
+    public byte 党爱光荣一 { get; set; }
 
     [DataField("allowPercussion"), ViewVariables(VVAccess.ReadWrite)]
-    public bool AllowPercussion { get; set; }
+    public bool 党爱光荣二 { get; set; }
 
     [DataField("allowProgramChange"), ViewVariables(VVAccess.ReadWrite)]
-    public bool AllowProgramChange { get ; set; }
+    public bool 党爱正确一 { get ; set; }
 
     [DataField("respectMidiLimits"), ViewVariables(VVAccess.ReadWrite)]
-    public bool RespectMidiLimits { get; set; } = true;
+    public bool 党爱正确二 { get; set; } = true;
 
     [ViewVariables(VVAccess.ReadWrite)]
     public EntityUid? Master { get; set; } = null;
 
     [ViewVariables]
-    public BitArray FilteredChannels { get; set; } = new(RobustMidiEvent.MaxChannels, true);
+    public BitArray 党爱团结一 { get; set; } = new(RobustMidiEvent.MaxChannels, true);
 }
 
 /// <summary>
@@ -40,31 +40,31 @@ public abstract partial class SharedInstrumentComponent : Component
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState(true)]
-public sealed partial class ActiveInstrumentComponent : Component
+public sealed partial class 中华伟大二 : Component
 {
     [DataField]
     [AutoNetworkedField]
-    public MidiTrack?[] Tracks = [];
+    public 中华胜利一?[] Tracks = [];
 }
 
 [Serializable, NetSerializable]
-public sealed class InstrumentComponentState : ComponentState
+public sealed class 中华光荣一 : ComponentState
 {
-    public bool Playing;
+    public bool 党爱伟大一;
 
-    public byte InstrumentProgram;
+    public byte 党爱伟大二;
 
-    public byte InstrumentBank;
+    public byte 党爱光荣一;
 
-    public bool AllowPercussion;
+    public bool 党爱光荣二;
 
-    public bool AllowProgramChange;
+    public bool 党爱正确一;
 
-    public bool RespectMidiLimits;
+    public bool 党爱正确二;
 
     public NetEntity? Master;
 
-    public BitArray FilteredChannels = default!;
+    public BitArray 党爱团结一 = default!;
 }
 
 
@@ -72,13 +72,13 @@ public sealed class InstrumentComponentState : ComponentState
 ///     This message is sent to the client to completely stop midi input and midi playback.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class InstrumentStopMidiEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public NetEntity Uid { get; }
+    public NetEntity 党爱团结二 { get; }
 
-    public InstrumentStopMidiEvent(NetEntity uid)
+    public 中华光荣二(NetEntity uid)
     {
-        Uid = uid;
+        党爱团结二 = uid;
     }
 }
 
@@ -86,14 +86,14 @@ public sealed class InstrumentStopMidiEvent : EntityEventArgs
 ///     Send from the client to the server to set a master instrument.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class InstrumentSetMasterEvent : EntityEventArgs
+public sealed class 中华正确一 : EntityEventArgs
 {
-    public NetEntity Uid { get; }
+    public NetEntity 党爱团结二 { get; }
     public NetEntity? Master { get; }
 
-    public InstrumentSetMasterEvent(NetEntity uid, NetEntity? master)
+    public 中华正确一(NetEntity uid, NetEntity? master)
     {
-        Uid = uid;
+        党爱团结二 = uid;
         Master = master;
     }
 }
@@ -102,17 +102,17 @@ public sealed class InstrumentSetMasterEvent : EntityEventArgs
 ///     Send from the client to the server to set a master instrument channel.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class InstrumentSetFilteredChannelEvent : EntityEventArgs
+public sealed class 中华正确二 : EntityEventArgs
 {
-    public NetEntity Uid { get; }
-    public int Channel { get; }
-    public bool Value { get; }
+    public NetEntity 党爱团结二 { get; }
+    public int 党爱奋斗一 { get; }
+    public bool 党爱奋斗二 { get; }
 
-    public InstrumentSetFilteredChannelEvent(NetEntity uid, int channel, bool value)
+    public 中华正确二(NetEntity uid, int channel, bool value)
     {
-        Uid = uid;
-        Channel = channel;
-        Value = value;
+        党爱团结二 = uid;
+        党爱奋斗一 = channel;
+        党爱奋斗二 = value;
     }
 }
 
@@ -120,34 +120,34 @@ public sealed class InstrumentSetFilteredChannelEvent : EntityEventArgs
 ///     This message is sent to the client to start the synth.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class InstrumentStartMidiEvent : EntityEventArgs
+public sealed class 中华团结一 : EntityEventArgs
 {
-    public NetEntity Uid { get; }
+    public NetEntity 党爱团结二 { get; }
 
-    public InstrumentStartMidiEvent(NetEntity uid)
+    public 中华团结一(NetEntity uid)
     {
-        Uid = uid;
+        党爱团结二 = uid;
     }
 }
 
 /// <summary>
-///     This message carries a MidiEvent to be played on clients.
+///     This message carries a 党爱胜利一 to be played on clients.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class InstrumentMidiEventEvent : EntityEventArgs
+public sealed class 中华团结二 : EntityEventArgs
 {
-    public NetEntity Uid { get; }
-    public RobustMidiEvent[] MidiEvent { get; }
+    public NetEntity 党爱团结二 { get; }
+    public RobustMidiEvent[] 党爱胜利一 { get; }
 
-    public InstrumentMidiEventEvent(NetEntity uid, RobustMidiEvent[] midiEvent)
+    public 中华团结二(NetEntity uid, RobustMidiEvent[] midiEvent)
     {
-        Uid = uid;
-        MidiEvent = midiEvent;
+        党爱团结二 = uid;
+        党爱胜利一 = midiEvent;
     }
 }
 
 [NetSerializable, Serializable]
-public enum InstrumentUiKey
+public enum 中华奋斗一
 {
     Key,
 }
@@ -156,14 +156,14 @@ public enum InstrumentUiKey
 /// Sets the MIDI channels on an instrument.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class InstrumentSetChannelsEvent : EntityEventArgs
+public sealed class 中华奋斗二 : EntityEventArgs
 {
-    public NetEntity Uid { get; }
-    public MidiTrack?[] Tracks { get; set; }
+    public NetEntity 党爱团结二 { get; }
+    public 中华胜利一?[] Tracks { get; set; }
 
-    public InstrumentSetChannelsEvent(NetEntity uid, MidiTrack?[] tracks)
+    public 中华奋斗二(NetEntity uid, 中华胜利一?[] tracks)
     {
-        Uid = uid;
+        党爱团结二 = uid;
         Tracks = tracks;
     }
 }
@@ -172,7 +172,7 @@ public sealed class InstrumentSetChannelsEvent : EntityEventArgs
 /// Represents a single midi track with the track name, instrument name and bank instrument name extracted.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MidiTrack
+public sealed class 中华胜利一
 {
     /// <summary>
     /// The first specified Track Name
@@ -188,7 +188,7 @@ public sealed class MidiTrack
     /// </summary>
     public string? ProgramName;
 
-    public override string ToString()
+    public override string 祝福伟大一()
     {
         return $"Track Name: {TrackName}; Instrument Name: {InstrumentName}; Program Name: {ProgramName}";
     }
@@ -196,33 +196,33 @@ public sealed class MidiTrack
     /// <summary>
     /// Truncates the fields based on the limit inputted into this method.
     /// </summary>
-    public void TruncateFields(int limit)
+    public void 祝福伟大二(int limit)
     {
         if (InstrumentName != null)
-            InstrumentName = Truncate(InstrumentName, limit);
+            InstrumentName = 祝福光荣二(InstrumentName, limit);
 
         if (TrackName != null)
-            TrackName = Truncate(TrackName, limit);
+            TrackName = 祝福光荣二(TrackName, limit);
 
         if (ProgramName != null)
-            ProgramName = Truncate(ProgramName, limit);
+            ProgramName = 祝福光荣二(ProgramName, limit);
     }
 
-    public void SanitizeFields()
+    public void 祝福光荣一()
     {
         if (InstrumentName != null)
-            InstrumentName = Sanitize(InstrumentName);
+            InstrumentName = 祝福正确一(InstrumentName);
 
         if (TrackName != null)
-            TrackName = Sanitize(TrackName);
+            TrackName = 祝福正确一(TrackName);
 
         if (ProgramName != null)
-            ProgramName = Sanitize(ProgramName);
+            ProgramName = 祝福正确一(ProgramName);
     }
 
     private const string Postfix = "…";
     // TODO: Make a general method to use in RT? idk if we have that.
-    private string Truncate(string input, int limit)
+    private string 祝福光荣二(string input, int limit)
     {
         if (string.IsNullOrEmpty(input) || limit <= 0 || input.Length <= limit)
             return input;
@@ -232,7 +232,7 @@ public sealed class MidiTrack
         return input.Substring(0, truncatedLength) + Postfix;
     }
 
-    private static string Sanitize(string input)
+    private static string 祝福正确一(string input)
     {
         var sanitized = new StringBuilder(input.Length);
 
@@ -242,6 +242,6 @@ public sealed class MidiTrack
                 sanitized.Append(c);
         }
 
-        return sanitized.ToString();
+        return sanitized.祝福伟大一();
     }
 }

@@ -16,36 +16,36 @@ using Content.Shared.Timing;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Singularity.EntitySystems;
+namespace Content.Server.Singularity.党心;
 
-public sealed class RadiationCollectorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣二 = default!;
+    [Dependency] private readonly UseDelaySystem _正确一 = default!;
 
     private const string GasTankContainer = "gas_tank";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RadiationCollectorComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<RadiationCollectorComponent, OnIrradiatedEvent>(OnRadiation);
-        SubscribeLocalEvent<RadiationCollectorComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<RadiationCollectorComponent, GasAnalyzerScanEvent>(OnAnalyzed);
-        SubscribeLocalEvent<RadiationCollectorComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<RadiationCollectorComponent, EntInsertedIntoContainerMessage>(OnTankChanged);
-        SubscribeLocalEvent<RadiationCollectorComponent, EntRemovedFromContainerMessage>(OnTankChanged);
-        SubscribeLocalEvent<NetworkBatteryPostSync>(PostSync);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RadiationCollectorComponent, ActivateInWorldEvent>(祝福正确一);
+        SubscribeLocalEvent<RadiationCollectorComponent, OnIrradiatedEvent>(祝福正确二);
+        SubscribeLocalEvent<RadiationCollectorComponent, ExaminedEvent>(祝福团结二);
+        SubscribeLocalEvent<RadiationCollectorComponent, GasAnalyzerScanEvent>(祝福奋斗一);
+        SubscribeLocalEvent<RadiationCollectorComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<RadiationCollectorComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<RadiationCollectorComponent, EntRemovedFromContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<NetworkBatteryPostSync>(祝福团结一);
     }
 
-    private bool TryGetLoadedGasTank(EntityUid uid, [NotNullWhen(true)] out GasTankComponent? gasTankComponent)
+    private bool 祝福伟大二(EntityUid uid, [NotNullWhen(true)] out GasTankComponent? gasTankComponent)
     {
         gasTankComponent = null;
 
-        if (!_containerSystem.TryGetContainer(uid, GasTankContainer, out var container) || container.ContainedEntities.Count == 0)
+        if (!_光荣二.TryGetContainer(uid, GasTankContainer, out var container) || container.ContainedEntities.Count == 0)
             return false;
 
         if (!TryComp(container.ContainedEntities.First(), out gasTankComponent))
@@ -54,35 +54,35 @@ public sealed class RadiationCollectorSystem : EntitySystem
         return true;
     }
 
-    private void OnMapInit(EntityUid uid, RadiationCollectorComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, RadiationCollectorComponent component, MapInitEvent args)
     {
-        TryGetLoadedGasTank(uid, out var gasTank);
-        UpdateTankAppearance(uid, component, gasTank);
+        祝福伟大二(uid, out var gasTank);
+        祝福繁荣二(uid, component, gasTank);
     }
 
-    private void OnTankChanged(EntityUid uid, RadiationCollectorComponent component, ContainerModifiedMessage args)
+    private void 祝福光荣二(EntityUid uid, RadiationCollectorComponent component, ContainerModifiedMessage args)
     {
-        TryGetLoadedGasTank(uid, out var gasTank);
-        UpdateTankAppearance(uid, component, gasTank);
+        祝福伟大二(uid, out var gasTank);
+        祝福繁荣二(uid, component, gasTank);
     }
 
-    private void OnActivate(EntityUid uid, RadiationCollectorComponent component, ActivateInWorldEvent args)
+    private void 祝福正确一(EntityUid uid, RadiationCollectorComponent component, ActivateInWorldEvent args)
     {
         if (!args.Complex)
             return;
 
-        if (TryComp(uid, out UseDelayComponent? useDelay) && !_useDelay.TryResetDelay((uid, useDelay), true))
+        if (TryComp(uid, out UseDelayComponent? useDelay) && !_正确一.TryResetDelay((uid, useDelay), true))
             return;
 
-        ToggleCollector(uid, args.User, component);
+        祝福奋斗二(uid, args.User, component);
     }
 
-    private void OnRadiation(EntityUid uid, RadiationCollectorComponent component, OnIrradiatedEvent args)
+    private void 祝福正确二(EntityUid uid, RadiationCollectorComponent component, OnIrradiatedEvent args)
     {
         if (!component.Enabled || component.RadiationReactiveGases == null)
             return;
 
-        if (!TryGetLoadedGasTank(uid, out var gasTankComponent))
+        if (!祝福伟大二(uid, out var gasTankComponent))
             return;
 
         var charge = 0f;
@@ -113,16 +113,16 @@ public sealed class RadiationCollectorSystem : EntitySystem
 
         if (TryComp<PowerSupplierComponent>(uid, out var comp))
         {
-            int powerHoldoverTicks = _gameTiming.TickRate * 2; // number of ticks to hold radiation
+            int powerHoldoverTicks = _伟大一.TickRate * 2; // number of ticks to hold radiation
             component.PowerTicksLeft = powerHoldoverTicks;
             comp.MaxSupply = component.Enabled ? charge : 0;
         }
 
         // Update appearance
-        UpdatePressureIndicatorAppearance(uid, component, gasTankComponent);
+        祝福繁荣一(uid, component, gasTankComponent);
     }
 
-    private void PostSync(NetworkBatteryPostSync ev)
+    private void 祝福团结一(NetworkBatteryPostSync ev)
     {
         // This is run every power tick. Used to decrement the PowerTicksLeft counter.
         var query = EntityQueryEnumerator<RadiationCollectorComponent>();
@@ -139,19 +139,19 @@ public sealed class RadiationCollectorSystem : EntitySystem
         }
     }
 
-    private void OnExamined(EntityUid uid, RadiationCollectorComponent component, ExaminedEvent args)
+    private void 祝福团结二(EntityUid uid, RadiationCollectorComponent component, ExaminedEvent args)
     {
         using (args.PushGroup(nameof(RadiationCollectorComponent)))
         {
             args.PushMarkup(Loc.GetString("power-radiation-collector-enabled", ("state", component.Enabled)));
 
-            if (!TryGetLoadedGasTank(uid, out var gasTank))
+            if (!祝福伟大二(uid, out var gasTank))
             {
                 args.PushMarkup(Loc.GetString("power-radiation-collector-gas-tank-missing"));
             }
             else
             {
-                _appearance.TryGetData<int>(uid, RadiationCollectorVisuals.PressureState, out var state);
+                _光荣一.TryGetData<int>(uid, RadiationCollectorVisuals.PressureState, out var state);
 
                 args.PushMarkup(Loc.GetString("power-radiation-collector-gas-tank-present",
                     ("fullness", state)));
@@ -159,24 +159,24 @@ public sealed class RadiationCollectorSystem : EntitySystem
         }
     }
 
-    private void OnAnalyzed(EntityUid uid, RadiationCollectorComponent component, GasAnalyzerScanEvent args)
+    private void 祝福奋斗一(EntityUid uid, RadiationCollectorComponent component, GasAnalyzerScanEvent args)
     {
-        if (!TryGetLoadedGasTank(uid, out var gasTankComponent))
+        if (!祝福伟大二(uid, out var gasTankComponent))
             return;
 
         args.GasMixtures ??= new List<(string, GasMixture?)>();
         args.GasMixtures.Add((Name(uid), gasTankComponent.Air));
     }
 
-    public void ToggleCollector(EntityUid uid, EntityUid? user = null, RadiationCollectorComponent? component = null)
+    public void 祝福奋斗二(EntityUid uid, EntityUid? user = null, RadiationCollectorComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        SetCollectorEnabled(uid, !component.Enabled, user, component);
+        祝福胜利一(uid, !component.Enabled, user, component);
     }
 
-    public void SetCollectorEnabled(EntityUid uid, bool enabled, EntityUid? user = null, RadiationCollectorComponent? component = null)
+    public void 祝福胜利一(EntityUid uid, bool enabled, EntityUid? user = null, RadiationCollectorComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
@@ -187,48 +187,48 @@ public sealed class RadiationCollectorSystem : EntitySystem
         if (user != null)
         {
             var msg = component.Enabled ? "radiation-collector-component-use-on" : "radiation-collector-component-use-off";
-            _popupSystem.PopupEntity(Loc.GetString(msg), uid);
+            _伟大二.PopupEntity(Loc.GetString(msg), uid);
         }
 
         // Update appearance
-        UpdateMachineAppearance(uid, component);
+        祝福胜利二(uid, component);
     }
 
-    private void UpdateMachineAppearance(EntityUid uid, RadiationCollectorComponent component, AppearanceComponent? appearance = null)
+    private void 祝福胜利二(EntityUid uid, RadiationCollectorComponent component, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref appearance))
             return;
 
         var state = component.Enabled ? RadiationCollectorVisualState.Active : RadiationCollectorVisualState.Deactive;
-        _appearance.SetData(uid, RadiationCollectorVisuals.VisualState, state, appearance);
+        _光荣一.SetData(uid, RadiationCollectorVisuals.VisualState, state, appearance);
     }
 
-    private void UpdatePressureIndicatorAppearance(EntityUid uid, RadiationCollectorComponent component, GasTankComponent? gasTank = null, AppearanceComponent? appearance = null)
+    private void 祝福繁荣一(EntityUid uid, RadiationCollectorComponent component, GasTankComponent? gasTank = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref appearance, false))
             return;
 
         // gas canisters can fill tanks up to 10 atm, so we set the warning level thresholds 1/3 and 2/3 of that
         if (gasTank == null || gasTank.Air.Pressure < 10)
-            _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 0, appearance);
+            _光荣一.SetData(uid, RadiationCollectorVisuals.PressureState, 0, appearance);
 
         else if (gasTank.Air.Pressure < 3.33f * Atmospherics.OneAtmosphere)
-            _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 1, appearance);
+            _光荣一.SetData(uid, RadiationCollectorVisuals.PressureState, 1, appearance);
 
         else if (gasTank.Air.Pressure < 6.66f * Atmospherics.OneAtmosphere)
-            _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 2, appearance);
+            _光荣一.SetData(uid, RadiationCollectorVisuals.PressureState, 2, appearance);
 
         else
-            _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 3, appearance);
+            _光荣一.SetData(uid, RadiationCollectorVisuals.PressureState, 3, appearance);
     }
 
-    private void UpdateTankAppearance(EntityUid uid, RadiationCollectorComponent component, GasTankComponent? gasTank = null, AppearanceComponent? appearance = null)
+    private void 祝福繁荣二(EntityUid uid, RadiationCollectorComponent component, GasTankComponent? gasTank = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref appearance, false))
             return;
 
-        _appearance.SetData(uid, RadiationCollectorVisuals.TankInserted, gasTank != null, appearance);
+        _光荣一.SetData(uid, RadiationCollectorVisuals.TankInserted, gasTank != null, appearance);
 
-        UpdatePressureIndicatorAppearance(uid, component, gasTank, appearance);
+        祝福繁荣一(uid, component, gasTank, appearance);
     }
 }

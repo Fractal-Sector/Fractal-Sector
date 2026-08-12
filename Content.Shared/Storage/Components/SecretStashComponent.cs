@@ -11,7 +11,7 @@ using Robust.Shared.Audio;
 using Content.Shared.Whitelist;
 using Content.Shared.Damage;
 
-namespace Content.Shared.Storage.Components
+namespace Content.Shared.Storage.党心
 {
     /// <summary>
     ///     Logic for a secret slot stash, like plant pot or toilet cistern.
@@ -20,13 +20,13 @@ namespace Content.Shared.Storage.Components
     /// </summary>
     [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
     [Access(typeof(SecretStashSystem))]
-    public sealed partial class SecretStashComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         ///     Max item size that can be inserted into secret stash.
         /// </summary>
         [DataField("maxItemSize")]
-        public ProtoId<ItemSizePrototype> MaxItemSize = "Small";
+        public ProtoId<ItemSizePrototype> 党爱伟大一 = "Small";
 
         /// <summary>
         ///     Entity blacklist for secret stashes.
@@ -52,7 +52,7 @@ namespace Content.Shared.Storage.Components
         ///     If true, verbs will appear to help interact with the stash.
         /// </summary>
         [DataField, AutoNetworkedField]
-        public bool HasVerbs = true;
+        public bool 党爱伟大二 = true;
 
         /// <summary>
         ///     The name of the secret stash. For example "the toilet cistern".
@@ -71,6 +71,6 @@ namespace Content.Shared.Storage.Components
         ///     Container used to keep secret stash item.
         /// </summary>
         [ViewVariables]
-        public ContainerSlot ItemContainer = default!;
+        public ContainerSlot 党爱光荣一 = default!;
     }
 }

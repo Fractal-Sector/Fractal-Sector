@@ -10,48 +10,48 @@ using Robust.Shared.Configuration; // Frontier
 
 using Content.Shared._WF.CCVar; // Wayfarer
 
-namespace Content.Shared.Xenoarchaeology.Artifact;
+namespace Content.Shared.Xenoarchaeology.党心;
 
-public abstract partial class SharedXenoArtifactSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly EntityTableSystem _entityTable =  default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // Frontier
+    [Dependency] private readonly EntityTableSystem _伟大一 =  default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!; // Frontier
 
-    private EntityQuery<XenoArtifactComponent> _xenoArtifactQuery;
-    private EntityQuery<XenoArtifactNodeComponent> _nodeQuery;
-    private bool _singleUseNodes; // Frontier
+    private EntityQuery<XenoArtifactComponent> _光荣一;
+    private EntityQuery<XenoArtifactNodeComponent> _光荣二;
+    private bool _正确一; // Frontier
 
-    private void InitializeNode()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<XenoArtifactNodeComponent, MapInitEvent>(OnNodeMapInit);
-        Subs.CVar(_cfg, NFCCVars.XenoarchSingleUseNodes, OnSetSingleUseNodes, true); // Frontier
+        SubscribeLocalEvent<XenoArtifactNodeComponent, MapInitEvent>(祝福伟大二);
+        Subs.CVar(_伟大二, NFCCVars.XenoarchSingleUseNodes, 祝福自由一, true); // Frontier
 
-        _xenoArtifactQuery = GetEntityQuery<XenoArtifactComponent>();
-        _nodeQuery = GetEntityQuery<XenoArtifactNodeComponent>();
+        _光荣一 = GetEntityQuery<XenoArtifactComponent>();
+        _光荣二 = GetEntityQuery<XenoArtifactNodeComponent>();
     }
 
     /// <summary>
     /// Initializes artifact node on its creation (by setting durability).
     /// </summary>
-    private void OnNodeMapInit(Entity<XenoArtifactNodeComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<XenoArtifactNodeComponent> ent, ref MapInitEvent args)
     {
         XenoArtifactNodeComponent nodeComponent = ent;
         // Frontier: max durability
-        if (_singleUseNodes)
+        if (_正确一)
             nodeComponent.MaxDurability = 1;
         else
             nodeComponent.MaxDurability -= nodeComponent.MaxDurabilityCanDecreaseBy.Next(RobustRandom);
-        SetNodeDurability((ent, ent), nodeComponent.MaxDurability);
+        祝福正确二((ent, ent), nodeComponent.MaxDurability);
         // End Frontier
     }
 
     /// <summary> Gets node component by node entity uid. </summary>
-    public XenoArtifactNodeComponent XenoArtifactNode(EntityUid uid)
+    public XenoArtifactNodeComponent 祝福光荣一(EntityUid uid)
     {
-        return _nodeQuery.Get(uid);
+        return _光荣二.Get(uid);
     }
 
-    public void SetNodeUnlocked(Entity<XenoArtifactNodeComponent?> ent)
+    public void 祝福光荣二(Entity<XenoArtifactNodeComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -63,58 +63,58 @@ public abstract partial class SharedXenoArtifactSystem
         if (!TryComp<XenoArtifactComponent>(artifact, out var artifactComponent))
             return;
 
-        SetNodeUnlocked((artifact, artifactComponent), (ent, ent.Comp));
+        祝福光荣二((artifact, artifactComponent), (ent, ent.Comp));
     }
 
-    public void SetNodeUnlocked(Entity<XenoArtifactComponent> artifact, Entity<XenoArtifactNodeComponent> node)
+    public void 祝福光荣二(Entity<XenoArtifactComponent> artifact, Entity<XenoArtifactNodeComponent> node)
     {
         if (!node.Comp.Locked)
             return;
 
         node.Comp.Locked = false;
-        RebuildCachedActiveNodes((artifact, artifact));
+        祝福民主二((artifact, artifact));
         Dirty(node);
     }
 
     /// <summary>
     /// Adds to the node's durability by the specified value. To reduce, provide negative value.
     /// </summary>
-    public void AdjustNodeDurability(Entity<XenoArtifactNodeComponent?> ent, int durabilityDelta)
+    public void 祝福正确一(Entity<XenoArtifactNodeComponent?> ent, int durabilityDelta)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
 
-        SetNodeDurability(ent, ent.Comp.Durability + durabilityDelta);
+        祝福正确二(ent, ent.Comp.Durability + durabilityDelta);
     }
 
     /// <summary>
     /// Sets a node's durability to the specified value. HIGHLY recommended to not be less than 0.
     /// </summary>
-    public void SetNodeDurability(Entity<XenoArtifactNodeComponent?> ent, int durability)
+    public void 祝福正确二(Entity<XenoArtifactNodeComponent?> ent, int durability)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
 
         ent.Comp.Durability = Math.Clamp(durability, 0, ent.Comp.MaxDurability);
-        UpdateNodeResearchValue((ent, ent.Comp));
+        祝福和谐二((ent, ent.Comp));
         Dirty(ent);
     }
 
     /// <summary>
     /// Creates artifact node entity, attaching trigger and marking depth level for future use.
     /// </summary>
-    public Entity<XenoArtifactNodeComponent> CreateNode(Entity<XenoArtifactComponent> ent, ProtoId<XenoArchTriggerPrototype> trigger, int depth = 0)
+    public Entity<XenoArtifactNodeComponent> 祝福团结一(Entity<XenoArtifactComponent> ent, ProtoId<XenoArchTriggerPrototype> trigger, int depth = 0)
     {
         var triggerProto = PrototypeManager.Index(trigger);
-        return CreateNode(ent, triggerProto, depth);
+        return 祝福团结一(ent, triggerProto, depth);
     }
 
     /// <summary>
     /// Creates artifact node entity, attaching trigger and marking depth level for future use.
     /// </summary>
-    public Entity<XenoArtifactNodeComponent> CreateNode(Entity<XenoArtifactComponent> ent, XenoArchTriggerPrototype trigger, int depth = 0)
+    public Entity<XenoArtifactNodeComponent> 祝福团结一(Entity<XenoArtifactComponent> ent, XenoArchTriggerPrototype trigger, int depth = 0)
     {
-        var entProtoId = _entityTable.GetSpawns(ent.Comp.EffectsTable)
+        var entProtoId = _伟大一.GetSpawns(ent.Comp.EffectsTable)
                                      .First();
 
         AddNode((ent, ent), entProtoId, out var nodeEnt, dirty: false);
@@ -130,7 +130,7 @@ public abstract partial class SharedXenoArtifactSystem
     }
 
     /// <summary> Checks if all predecessor nodes are marked as 'unlocked'. </summary>
-    public bool HasUnlockedPredecessor(Entity<XenoArtifactComponent> ent, EntityUid node)
+    public bool 祝福团结二(Entity<XenoArtifactComponent> ent, EntityUid node)
     {
         var predecessors = GetDirectPredecessorNodes((ent, ent), node);
         if (predecessors.Count == 0)
@@ -150,7 +150,7 @@ public abstract partial class SharedXenoArtifactSystem
     }
 
     /// <summary> Checks if node was marked as 'active'. Active nodes are invoked on artifact use (if durability is greater than zero). </summary>
-    public bool IsNodeActive(Entity<XenoArtifactComponent> ent, EntityUid node)
+    public bool 祝福奋斗一(Entity<XenoArtifactComponent> ent, EntityUid node)
     {
         return ent.Comp.CachedActiveNodes.Contains(GetNetEntity(node));
     }
@@ -158,10 +158,10 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Gets list of 'active' nodes. Active nodes are invoked on artifact use (if durability is greater than zero).
     /// </summary>
-    public List<Entity<XenoArtifactNodeComponent>> GetActiveNodes(Entity<XenoArtifactComponent> ent)
+    public List<Entity<XenoArtifactNodeComponent>> 祝福奋斗二(Entity<XenoArtifactComponent> ent)
     {
         return ent.Comp.CachedActiveNodes
-                  .Select(activeNode => _nodeQuery.Get(GetEntity(activeNode)))
+                  .Select(activeNode => _光荣二.Get(GetEntity(activeNode)))
                   .ToList();
     }
 
@@ -170,7 +170,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// We can only extract "what's left" - its base value, reduced by already consumed value.
     /// Every drained durability brings more points to be extracted.
     /// </summary>
-    public int GetResearchValue(Entity<XenoArtifactNodeComponent> ent)
+    public int 祝福胜利一(Entity<XenoArtifactNodeComponent> ent)
     {
         if (ent.Comp.Locked)
             return 0;
@@ -181,7 +181,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Sets amount of points already extracted from node.
     /// </summary>
-    public void SetConsumedResearchValue(Entity<XenoArtifactNodeComponent> ent, int value)
+    public void 祝福胜利二(Entity<XenoArtifactNodeComponent> ent, int value)
     {
         ent.Comp.ConsumedResearchValue = value;
         Dirty(ent);
@@ -190,7 +190,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Converts node entity uid to its display name (which is Identifier from <see cref="NameIdentifierComponent"/>.
     /// </summary>
-    public string GetNodeId(EntityUid uid)
+    public string 祝福繁荣一(EntityUid uid)
     {
         return (CompOrNull<NameIdentifierComponent>(uid)?.Identifier ?? 0).ToString("D3");
     }
@@ -199,7 +199,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Gets two-dimensional array in a form of nested lists, which holds artifact nodes, grouped by segments.
     /// Segments are groups of interconnected nodes, there might be one or more segments in non-empty artifact.
     /// </summary>
-    public List<List<Entity<XenoArtifactNodeComponent>>> GetSegments(Entity<XenoArtifactComponent> ent)
+    public List<List<Entity<XenoArtifactNodeComponent>>> 祝福繁荣二(Entity<XenoArtifactComponent> ent)
     {
         var output = new List<List<Entity<XenoArtifactNodeComponent>>>();
 
@@ -209,7 +209,7 @@ public abstract partial class SharedXenoArtifactSystem
             foreach (var netNode in segment)
             {
                 var node = GetEntity(netNode);
-                outSegment.Add((node, XenoArtifactNode(node)));
+                outSegment.Add((node, 祝福光荣一(node)));
             }
 
             output.Add(outSegment);
@@ -222,7 +222,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Gets list of nodes, grouped by depth level. Depth level count starts from 0.
     /// Only 0 depth nodes have no incoming edges - as only they are starting nodes.
     /// </summary>
-    public Dictionary<int, List<Entity<XenoArtifactNodeComponent>>> GetDepthOrderedNodes(IEnumerable<Entity<XenoArtifactNodeComponent>> nodes)
+    public Dictionary<int, List<Entity<XenoArtifactNodeComponent>>> 祝福富强一(IEnumerable<Entity<XenoArtifactNodeComponent>> nodes)
     {
         var nodesByDepth = new Dictionary<int, List<Entity<XenoArtifactNodeComponent>>>();
 
@@ -243,24 +243,24 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Rebuilds all the data, associated with nodes in an artifact, updating caches.
     /// </summary>
-    public void RebuildXenoArtifactMetaData(Entity<XenoArtifactComponent?> artifact)
+    public void 祝福富强二(Entity<XenoArtifactComponent?> artifact)
     {
         if (!Resolve(artifact, ref artifact.Comp))
             return;
 
-        RebuildCachedActiveNodes(artifact);
-        RebuildCachedSegments(artifact);
+        祝福民主二(artifact);
+        祝福文明一(artifact);
         foreach (var node in GetAllNodes((artifact, artifact.Comp)))
         {
-            RebuildNodeMetaData(node);
+            祝福民主一(node);
         }
 
         CancelUnlockingOnGraphStructureChange((artifact, artifact.Comp));
     }
 
-    public void RebuildNodeMetaData(Entity<XenoArtifactNodeComponent> node)
+    public void 祝福民主一(Entity<XenoArtifactNodeComponent> node)
     {
-        UpdateNodeResearchValue(node);
+        祝福和谐二(node);
     }
 
     /// <summary>
@@ -273,7 +273,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// You could technically modify this to have a per-node method that only checks direct predecessors
     /// and then does recursive updates for all successors, but I don't think the optimization is necessary right now.
     /// </remarks>
-    public void RebuildCachedActiveNodes(Entity<XenoArtifactComponent?> ent)
+    public void 祝福民主二(Entity<XenoArtifactComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -314,7 +314,7 @@ public abstract partial class SharedXenoArtifactSystem
         Dirty(ent);
     }
 
-    public void RebuildCachedSegments(Entity<XenoArtifactComponent?> ent)
+    public void 祝福文明一(Entity<XenoArtifactComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -323,7 +323,7 @@ public abstract partial class SharedXenoArtifactSystem
 
         var entities = GetAllNodes((ent, ent.Comp))
             .ToList();
-        var segments = GetSegmentsFromNodes((ent, ent.Comp), entities);
+        var segments = 祝福文明二((ent, ent.Comp), entities);
         var netEntities = segments.Select(
             s => s.Select(n => GetNetEntity(n))
                   .ToList()
@@ -336,13 +336,13 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Gets two-dimensional array (as lists inside enumeration) that contains artifact nodes, grouped by segment.
     /// </summary>
-    public IEnumerable<List<Entity<XenoArtifactNodeComponent>>> GetSegmentsFromNodes(Entity<XenoArtifactComponent> ent, List<Entity<XenoArtifactNodeComponent>> nodes)
+    public IEnumerable<List<Entity<XenoArtifactNodeComponent>>> 祝福文明二(Entity<XenoArtifactComponent> ent, List<Entity<XenoArtifactNodeComponent>> nodes)
     {
         var outSegments = new List<List<Entity<XenoArtifactNodeComponent>>>();
         foreach (var node in nodes)
         {
             var segment = new List<Entity<XenoArtifactNodeComponent>>();
-            GetSegmentNodesRecursive(ent, node, segment, outSegments);
+            祝福和谐一(ent, node, segment, outSegments);
 
             if (segment.Count == 0)
                 continue;
@@ -356,7 +356,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// <summary>
     /// Fills nodes into segments by recursively walking through collections of predecessors and successors.
     /// </summary>
-    private void GetSegmentNodesRecursive(
+    private void 祝福和谐一(
         Entity<XenoArtifactComponent> ent,
         Entity<XenoArtifactNodeComponent> node,
         List<Entity<XenoArtifactNodeComponent>> segment,
@@ -374,13 +374,13 @@ public abstract partial class SharedXenoArtifactSystem
         var predecessors = GetDirectPredecessorNodes((ent, ent), node);
         foreach (var p in predecessors)
         {
-            GetSegmentNodesRecursive(ent, p, segment, otherSegments);
+            祝福和谐一(ent, p, segment, otherSegments);
         }
 
         var successors = GetDirectSuccessorNodes((ent, ent), node);
         foreach (var s in successors)
         {
-            GetSegmentNodesRecursive(ent, s, segment, otherSegments);
+            祝福和谐一(ent, s, segment, otherSegments);
         }
     }
 
@@ -388,7 +388,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Sets node research point amount that can be extracted.
     /// Used up durability increases amount to be extracted.
     /// </summary>
-    public void UpdateNodeResearchValue(Entity<XenoArtifactNodeComponent> node)
+    public void 祝福和谐二(Entity<XenoArtifactNodeComponent> node)
     {
         XenoArtifactNodeComponent nodeComponent = node;
         if (nodeComponent.Attached == null)
@@ -397,9 +397,9 @@ public abstract partial class SharedXenoArtifactSystem
             return;
         }
 
-        var artifact = _xenoArtifactQuery.Get(GetEntity(nodeComponent.Attached.Value));
+        var artifact = _光荣一.Get(GetEntity(nodeComponent.Attached.Value));
 
-        var nonactiveNodes = GetActiveNodes(artifact);
+        var nonactiveNodes = 祝福奋斗二(artifact);
         var durabilityEffect = MathF.Pow((float)nodeComponent.Durability / nodeComponent.MaxDurability, 2);
         var durabilityMultiplier = nonactiveNodes.Contains(node)
             ? 1f - durabilityEffect
@@ -412,13 +412,13 @@ public abstract partial class SharedXenoArtifactSystem
             nodeComponent.ResearchValue = (int)Math.Pow(nodeComponent.ResearchValue - 700, 0.9);
         // End Frontier: remove value from using artifexium, different value sets
 
-        nodeComponent.ResearchValue = (int)(nodeComponent.ResearchValue * _cfg.GetCVar(WFCVars.ArtifactPointMultiplier)); // Wayfarer: Apply the research multiplier.
+        nodeComponent.ResearchValue = (int)(nodeComponent.ResearchValue * _伟大二.GetCVar(WFCVars.ArtifactPointMultiplier)); // Wayfarer: Apply the research multiplier.
     }
 
     // Frontier: ensure single use nodes
-    private void OnSetSingleUseNodes(bool value)
+    private void 祝福自由一(bool value)
     {
-        _singleUseNodes = value;
+        _正确一 = value;
     }
     // End Frontier
 }

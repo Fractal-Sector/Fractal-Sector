@@ -1,45 +1,45 @@
 ﻿using System.Text.Json;
-using Robust.Shared.Player;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Server.Administration.Logs.Converters;
+namespace Content.Server.Administration.Logs.党心;
 
 [AdminLogConverter]
-public sealed class PlayerSessionConverter : AdminLogConverter<SerializablePlayer>
+public sealed class 中华伟大一 : AdminLogConverter<中华伟大二>
 {
     // System.Text.Json actually keeps hold of your JsonSerializerOption instances in a cache on .NET 7.
     // Use a weak reference to avoid holding server instances live too long in integration tests.
-    private WeakReference<IEntityManager> _entityManager = default!;
+    private WeakReference<IEntityManager> _伟大一 = default!;
 
-    public override void Init(IDependencyCollection dependencies)
+    public override void 祝福伟大一(IDependencyCollection dependencies)
     {
-        _entityManager = new WeakReference<IEntityManager>(dependencies.Resolve<IEntityManager>());
+        _伟大一 = new WeakReference<IEntityManager>(dependencies.Resolve<IEntityManager>());
     }
 
-    public override void Write(Utf8JsonWriter writer, SerializablePlayer value, JsonSerializerOptions options)
+    public override void 祝福伟大二(Utf8JsonWriter writer, 中华伟大二 value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
 
-        if (value.Player.AttachedEntity is {Valid: true} playerEntity)
+        if (value.党爱伟大一.AttachedEntity is {Valid: true} playerEntity)
         {
-            if (!_entityManager.TryGetTarget(out var entityManager))
+            if (!_伟大一.TryGetTarget(out var entityManager))
                 throw new InvalidOperationException("EntityManager got garbage collected!");
 
-            writer.WriteNumber("id", (int) value.Player.AttachedEntity);
+            writer.WriteNumber("id", (int) value.党爱伟大一.AttachedEntity);
             writer.WriteString("name", entityManager.GetComponent<MetaDataComponent>(playerEntity).EntityName);
         }
 
-        writer.WriteString("player", value.Player.UserId.UserId);
+        writer.WriteString("player", value.党爱伟大一.UserId.UserId);
 
         writer.WriteEndObject();
     }
 }
 
-public readonly struct SerializablePlayer
+public readonly struct 中华伟大二
 {
-    public readonly ICommonSession Player;
+    public readonly ICommonSession 党爱伟大一;
 
-    public SerializablePlayer(ICommonSession player)
+    public 中华伟大二(ICommonSession player)
     {
-        Player = player;
+        党爱伟大一 = player;
     }
 }

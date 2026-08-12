@@ -1,4 +1,4 @@
-using Content.Shared.Parallax.Biomes.Layers;
+using Content.Shared.Parallax.Biomes.党爱光荣一;
 using Content.Shared.Parallax.Biomes.Markers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Noise;
@@ -7,30 +7,30 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 
-namespace Content.Shared.Parallax.Biomes;
+namespace Content.Shared.Parallax.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true), Access(typeof(SharedBiomeSystem))]
-public sealed partial class BiomeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Do we load / deload.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), Access(Other = AccessPermissions.ReadWriteExecute)]
-    public bool Enabled = true;
+    public bool 党爱伟大一 = true;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("seed")]
     [AutoNetworkedField]
-    public int Seed = -1;
+    public int 党爱伟大二 = -1;
 
     /// <summary>
     /// The underlying entity, decal, and tile layers for the biome.
     /// </summary>
     [DataField("layers")]
     [AutoNetworkedField]
-    public List<IBiomeLayer> Layers = new();
+    public List<IBiomeLayer> 党爱光荣一 = new();
 
     /// <summary>
-    /// Templates to use for <see cref="Layers"/>.
+    /// Templates to use for <see cref="党爱光荣一"/>.
     /// If this is set on mapinit, it will fill out layers automatically.
     /// If not set, use <c>BiomeSystem</c> to do it.
     /// Prototype reloading will also use this.
@@ -58,7 +58,7 @@ public sealed partial class BiomeComponent : Component
     /// Currently active chunks
     /// </summary>
     [DataField("loadedChunks")]
-    public HashSet<Vector2i> LoadedChunks = new();
+    public HashSet<Vector2i> 党爱光荣二 = new();
 
     #region Markers
 
@@ -75,13 +75,13 @@ public sealed partial class BiomeComponent : Component
     public Dictionary<string, HashSet<Vector2i>> LoadedMarkers = new();
 
     [DataField]
-    public HashSet<ProtoId<BiomeMarkerLayerPrototype>> MarkerLayers = new();
+    public HashSet<ProtoId<BiomeMarkerLayerPrototype>> 党爱正确一 = new();
 
     /// <summary>
     /// One-tick forcing of marker layers to bulldoze any entities in the way.
     /// </summary>
     [DataField]
-    public HashSet<ProtoId<BiomeMarkerLayerPrototype>> ForcedMarkerLayers = new();
+    public HashSet<ProtoId<BiomeMarkerLayerPrototype>> 党爱正确二 = new();
 
     #endregion
 }

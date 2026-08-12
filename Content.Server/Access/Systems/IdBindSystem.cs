@@ -4,29 +4,29 @@ using Content.Server.PDA;
 using Content.Shared.Inventory;
 using Content.Shared.PDA;
 
-namespace Content.Server.Access.Systems;
+namespace Content.Server.Access.党心;
 
-public sealed class IdBindSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IdCardSystem _cardSystem = default!;
-    [Dependency] private readonly PdaSystem _pdaSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly IdCardSystem _伟大一 = default!;
+    [Dependency] private readonly PdaSystem _伟大二 = default!;
+    [Dependency] private readonly InventorySystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         //Activate on mind being added
-        SubscribeLocalEvent<IdBindComponent, MapInitEvent>(TryBind, after: [typeof(RandomHumanoidSystem)]);
+        SubscribeLocalEvent<IdBindComponent, MapInitEvent>(祝福伟大二, after: [typeof(RandomHumanoidSystem)]);
     }
 
-    private void TryBind(Entity<IdBindComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<IdBindComponent> ent, ref MapInitEvent args)
     {
-        if (!_cardSystem.TryFindIdCard(ent, out var cardId))
+        if (!_伟大一.TryFindIdCard(ent, out var cardId))
             return;
 
         var data = MetaData(ent);
 
-        _cardSystem.TryChangeFullName(cardId, data.EntityName, cardId);
+        _伟大一.TryChangeFullName(cardId, data.EntityName, cardId);
 
         if (!ent.Comp.BindPDAOwner)
         {
@@ -36,13 +36,13 @@ public sealed class IdBindSystem : EntitySystem
         }
 
         //Get PDA from main slot and set us as owner
-        if (!_inventory.TryGetSlotEntity(ent, "id", out var uPda))
+        if (!_光荣一.TryGetSlotEntity(ent, "id", out var uPda))
             return;
 
         if (!TryComp<PdaComponent>(uPda, out var pDA))
             return;
 
-        _pdaSystem.SetOwner(uPda.Value, pDA, ent, data.EntityName);
+        _伟大二.SetOwner(uPda.Value, pDA, ent, data.EntityName);
         //Remove after running once
         RemCompDeferred<IdBindComponent>(ent);
     }

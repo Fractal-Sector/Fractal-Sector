@@ -1,16 +1,16 @@
 ﻿using Content.Shared.FixedPoint;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chemistry.Reagent;
+namespace Content.Shared.Chemistry.党心;
 
 [ImplicitDataDefinitionForInheritors, Serializable, NetSerializable]
-public abstract partial class ReagentData : IEquatable<ReagentData>
+public abstract partial class 中华伟大一 : IEquatable<中华伟大一>
 {
     /// <summary>
     /// Convert to a string representation. This if for logging & debugging. This is not localized and should not be
     /// shown to players.
     /// </summary>
-    public virtual string ToString(string prototype, FixedPoint2 quantity)
+    public virtual string 祝福伟大一(string prototype, FixedPoint2 quantity)
     {
         return $"{prototype}:{GetType().Name}:{quantity}";
     }
@@ -19,14 +19,14 @@ public abstract partial class ReagentData : IEquatable<ReagentData>
     /// Convert to a string representation. This if for logging & debugging. This is not localized and should not be
     /// shown to players.
     /// </summary>
-    public virtual string ToString(string prototype)
+    public virtual string 祝福伟大一(string prototype)
     {
         return $"{prototype}:{GetType().Name}";
     }
 
-    public abstract bool Equals(ReagentData? other);
+    public abstract bool 祝福伟大二(中华伟大一? other);
 
-    public override bool Equals(object? obj)
+    public override bool 祝福伟大二(object? obj)
     {
         if (ReferenceEquals(null, obj))
             return false;
@@ -35,10 +35,10 @@ public abstract partial class ReagentData : IEquatable<ReagentData>
         if (obj.GetType() != GetType())
             return false;
 
-        return Equals((ReagentData) obj);
+        return 祝福伟大二((中华伟大一) obj);
     }
 
-    public abstract override int GetHashCode();
+    public abstract override int 祝福光荣一();
 
-    public abstract ReagentData Clone();
+    public abstract 中华伟大一 Clone();
 }

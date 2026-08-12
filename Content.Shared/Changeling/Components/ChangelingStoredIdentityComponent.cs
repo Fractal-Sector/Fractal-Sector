@@ -1,14 +1,14 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Changeling.Components;
+namespace Content.Shared.Changeling.党心;
 
 /// <summary>
 /// Marker component for cloned identities devoured by a changeling.
 /// These are stored on a paused map so that the changeling can transform into them.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ChangelingStoredIdentityComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The original entity the identity was cloned from.

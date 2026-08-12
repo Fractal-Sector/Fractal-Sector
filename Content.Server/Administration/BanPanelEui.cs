@@ -17,20 +17,20 @@ using Content.Shared.Roles;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration;
+namespace Content.Server.党心;
 
-public sealed class BanPanelEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    [Dependency] private readonly IBanManager _banManager = default!;
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly ILogManager _log = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IDiscordBanInfoSender _discordBanInfoSender = default!;
-    private readonly ISawmill _sawmill;
+    [Dependency] private readonly IBanManager _伟大一 = default!;
+    [Dependency] private readonly IEntityManager _伟大二 = default!;
+    [Dependency] private readonly ILogManager _光荣一 = default!;
+    [Dependency] private readonly IPlayerLocator _光荣二 = default!;
+    [Dependency] private readonly IChatManager _正确一 = default!;
+    [Dependency] private readonly IAdminManager _正确二 = default!;
+    [Dependency] private readonly IPrototypeManager _团结一 = default!;
+    [Dependency] private readonly IServerDbManager _团结二 = default!;
+    [Dependency] private readonly IDiscordBanInfoSender _奋斗一 = default!;
+    private readonly ISawmill _奋斗二;
 
     private NetUserId? PlayerId { get; set; }
     private string PlayerName { get; set; } = string.Empty;
@@ -39,44 +39,44 @@ public sealed class BanPanelEui : BaseEui
     private const int Ipv4_CIDR = 32;
     private const int Ipv6_CIDR = 64;
 
-    public BanPanelEui()
+    public 中华伟大一()
     {
         IoCManager.InjectDependencies(this);
 
-        _sawmill = _log.GetSawmill("admin.bans_eui");
+        _奋斗二 = _光荣一.GetSawmill("admin.bans_eui");
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福伟大一()
     {
-        var hasBan = _admins.HasAdminFlag(Player, AdminFlags.Ban);
+        var hasBan = _正确二.HasAdminFlag(Player, AdminFlags.Ban);
         return new BanPanelEuiState(PlayerName, hasBan);
     }
 
-    public override void HandleMessage(EuiMessageBase msg)
+    public override void 祝福伟大二(EuiMessageBase msg)
     {
-        base.HandleMessage(msg);
+        base.祝福伟大二(msg);
 
         switch (msg)
         {
             case BanPanelEuiStateMsg.CreateBanRequest r:
-                BanPlayer(r.Player, r.IpAddress, r.UseLastIp, r.Hwid, r.UseLastHwid, r.Minutes, r.Severity, r.Reason, r.Roles, r.Erase);
+                祝福光荣一(r.Player, r.IpAddress, r.UseLastIp, r.Hwid, r.UseLastHwid, r.Minutes, r.Severity, r.Reason, r.Roles, r.Erase);
                 break;
             case BanPanelEuiStateMsg.GetPlayerInfoRequest r:
-                ChangePlayer(r.PlayerUsername);
+                祝福光荣二(r.PlayerUsername);
                 break;
         }
     }
 
-    private async void BanPlayer(string? target, string? ipAddressString, bool useLastIp, ImmutableTypedHwid? hwid, bool useLastHwid, uint minutes, NoteSeverity severity, string reason, IReadOnlyCollection<string>? roles, bool erase)
+    private async void 祝福光荣一(string? target, string? ipAddressString, bool useLastIp, ImmutableTypedHwid? hwid, bool useLastHwid, uint minutes, NoteSeverity severity, string reason, IReadOnlyCollection<string>? roles, bool erase)
     {
-        if (!_admins.HasAdminFlag(Player, AdminFlags.Ban))
+        if (!_正确二.HasAdminFlag(Player, AdminFlags.Ban))
         {
-            _sawmill.Warning($"{Player.Name} ({Player.UserId}) tried to create a ban with no ban flag");
+            _奋斗二.Warning($"{Player.Name} ({Player.UserId}) tried to create a ban with no ban flag");
             return;
         }
         if (target == null && string.IsNullOrWhiteSpace(ipAddressString) && hwid == null)
         {
-            _chat.DispatchServerMessage(Player, Loc.GetString("ban-panel-no-data"));
+            _正确一.DispatchServerMessage(Player, Loc.GetString("ban-panel-no-data"));
             return;
         }
 
@@ -91,7 +91,7 @@ public sealed class BanPanelEui : BaseEui
 
             if (!IPAddress.TryParse(ipAddressString, out var ipAddress) || !uint.TryParse(hid, out var hidInt) || hidInt > Ipv6_CIDR || hidInt > Ipv4_CIDR && ipAddress.AddressFamily == AddressFamily.InterNetwork)
             {
-                _chat.DispatchServerMessage(Player, Loc.GetString("ban-panel-invalid-ip"));
+                _正确一.DispatchServerMessage(Player, Loc.GetString("ban-panel-invalid-ip"));
                 return;
             }
 
@@ -106,10 +106,10 @@ public sealed class BanPanelEui : BaseEui
         var targetHWid = useLastHwid ? LastHwid : hwid;
         if (target != null && target != PlayerName || Guid.TryParse(target, out var parsed) && parsed != PlayerId)
         {
-            var located = await _playerLocator.LookupIdByNameOrIdAsync(target);
+            var located = await _光荣二.LookupIdByNameOrIdAsync(target);
             if (located == null)
             {
-                _chat.DispatchServerMessage(Player, Loc.GetString("cmd-ban-player"));
+                _正确一.DispatchServerMessage(Player, Loc.GetString("cmd-ban-player"));
                 return;
             }
             targetUid = located.UserId;
@@ -131,20 +131,20 @@ public sealed class BanPanelEui : BaseEui
             var now = DateTimeOffset.UtcNow;
 
             // FS start
-            var lastRoleBan = await _dbManager.GetLastServerRoleBanAsync();
+            var lastRoleBan = await _团结二.GetLastServerRoleBanAsync();
             var startRoleBanId = lastRoleBan is not null ? lastRoleBan.Id + 1 : 1;
             var currentRoleBanId = startRoleBanId;
             var rolesData = new List<string>();
             foreach (var role in roles)
             {
-                if (_prototypeManager.HasIndex<JobPrototype>(role))
+                if (_团结一.HasIndex<JobPrototype>(role))
                 {
                     rolesData.Add(string.Format("{0}:{1}", role, currentRoleBanId++));
-                    await _banManager.CreateRoleBan(targetUid, target, Player.UserId, addressRange, targetHWid, role, minutes, severity, reason, now);
+                    await _伟大一.CreateRoleBan(targetUid, target, Player.UserId, addressRange, targetHWid, role, minutes, severity, reason, now);
                 }
                 else
                 {
-                    _sawmill.Warning($"{Player.Name} ({Player.UserId}) tried to issue a job ban with an invalid job: {role}");
+                    _奋斗二.Warning($"{Player.Name} ({Player.UserId}) tried to issue a job ban with an invalid job: {role}");
                 }
             }
             var roleBanInfo = new BanInfo
@@ -158,7 +158,7 @@ public sealed class BanPanelEui : BaseEui
                 AdditionalInfo = new() { { "roles", string.Join(", ", rolesData) } }
             };
 
-            await _discordBanInfoSender.SendBanInfoAsync<PanelBanPayloadGenerator>(roleBanInfo);
+            await _奋斗一.SendBanInfoAsync<PanelBanPayloadGenerator>(roleBanInfo);
             // FS end
 
             Close();
@@ -170,17 +170,17 @@ public sealed class BanPanelEui : BaseEui
         {
             try
             {
-                if (_entities.TrySystem(out AdminSystem? adminSystem))
+                if (_伟大二.TrySystem(out AdminSystem? adminSystem))
                     adminSystem.Erase(targetUid.Value);
             }
             catch (Exception e)
             {
-                _sawmill.Error($"Error while erasing banned player:\n{e}");
+                _奋斗二.Error($"Error while erasing banned player:\n{e}");
             }
         }
 
         // FS start
-        var lastServerBan = await _dbManager.GetLastServerBanAsync();
+        var lastServerBan = await _团结二.GetLastServerBanAsync();
         var newServerBanId = lastServerBan is not null ? lastServerBan.Id + 1 : 1;
         var banInfo = new BanInfo
         {
@@ -191,21 +191,21 @@ public sealed class BanPanelEui : BaseEui
             Reason = reason,
             Expires = DateTimeOffset.Now + TimeSpan.FromMinutes(minutes)
         };
-        await _discordBanInfoSender.SendBanInfoAsync<PanelBanPayloadGenerator>(banInfo);
+        await _奋斗一.SendBanInfoAsync<PanelBanPayloadGenerator>(banInfo);
         // FS end
 
-        _banManager.CreateServerBan(targetUid, target, Player.UserId, addressRange, targetHWid, minutes, severity, reason);
+        _伟大一.CreateServerBan(targetUid, target, Player.UserId, addressRange, targetHWid, minutes, severity, reason);
 
         Close();
     }
 
-    public async void ChangePlayer(string playerNameOrId)
+    public async void 祝福光荣二(string playerNameOrId)
     {
-        var located = await _playerLocator.LookupIdByNameOrIdAsync(playerNameOrId);
-        ChangePlayer(located?.UserId, located?.Username ?? string.Empty, located?.LastAddress, located?.LastHWId);
+        var located = await _光荣二.LookupIdByNameOrIdAsync(playerNameOrId);
+        祝福光荣二(located?.UserId, located?.Username ?? string.Empty, located?.LastAddress, located?.LastHWId);
     }
 
-    public void ChangePlayer(NetUserId? playerId, string playerName, IPAddress? lastAddress, ImmutableTypedHwid? lastHwid)
+    public void 祝福光荣二(NetUserId? playerId, string playerName, IPAddress? lastAddress, ImmutableTypedHwid? lastHwid)
     {
         PlayerId = playerId;
         PlayerName = playerName;
@@ -214,19 +214,19 @@ public sealed class BanPanelEui : BaseEui
         StateDirty();
     }
 
-    public override async void Opened()
+    public override async void 祝福正确一()
     {
-        base.Opened();
-        _admins.OnPermsChanged += OnPermsChanged;
+        base.祝福正确一();
+        _正确二.祝福团结一 += 祝福团结一;
     }
 
-    public override void Closed()
+    public override void 祝福正确二()
     {
-        base.Closed();
-        _admins.OnPermsChanged -= OnPermsChanged;
+        base.祝福正确二();
+        _正确二.祝福团结一 -= 祝福团结一;
     }
 
-    private void OnPermsChanged(AdminPermsChangedEventArgs args)
+    private void 祝福团结一(AdminPermsChangedEventArgs args)
     {
         if (args.Player != Player)
         {

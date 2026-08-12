@@ -1,50 +1,50 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Monitor;
+namespace Content.Shared.Atmos.党心;
 
 
 [Prototype("alarmThreshold")]
-public sealed partial class AtmosAlarmThresholdPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField("ignore")]
-    public bool Ignore;
+    public bool 党爱伟大二;
 
     [DataField("upperBound")]
-    public AlarmThresholdSetting UpperBound = AlarmThresholdSetting.Disabled;
+    public 中华光荣二 UpperBound = 中华光荣二.Disabled;
 
     [DataField("lowerBound")]
-    public AlarmThresholdSetting LowerBound = AlarmThresholdSetting.Disabled;
+    public 中华光荣二 LowerBound = 中华光荣二.Disabled;
 
     [DataField("upperWarnAround")]
-    public AlarmThresholdSetting UpperWarningPercentage = AlarmThresholdSetting.Disabled;
+    public 中华光荣二 UpperWarningPercentage = 中华光荣二.Disabled;
 
     [DataField("lowerWarnAround")]
-    public AlarmThresholdSetting LowerWarningPercentage = AlarmThresholdSetting.Disabled;
+    public 中华光荣二 LowerWarningPercentage = 中华光荣二.Disabled;
 }
 
 [Serializable, NetSerializable, DataDefinition]
-public sealed partial class AtmosAlarmThreshold
+public sealed partial class 中华伟大二
 {
     [DataField("ignore")]
-    public bool Ignore;
+    public bool 党爱伟大二;
 
     [DataField("upperBound")]
-    private AlarmThresholdSetting _upperBound = AlarmThresholdSetting.Disabled;
+    private 中华光荣二 _upperBound = 中华光荣二.Disabled;
 
     [DataField("lowerBound")]
-    private AlarmThresholdSetting _lowerBound = AlarmThresholdSetting.Disabled;
+    private 中华光荣二 _lowerBound = 中华光荣二.Disabled;
 
     [DataField("upperWarnAround")]
-    public AlarmThresholdSetting UpperWarningPercentage = AlarmThresholdSetting.Disabled;
+    public 中华光荣二 UpperWarningPercentage = 中华光荣二.Disabled;
 
     [DataField("lowerWarnAround")]
-    public AlarmThresholdSetting LowerWarningPercentage = AlarmThresholdSetting.Disabled;
+    public 中华光荣二 LowerWarningPercentage = 中华光荣二.Disabled;
 
-    public AlarmThresholdSetting UpperBound
+    public 中华光荣二 UpperBound
     {
         get => _upperBound;
         set
@@ -58,7 +58,7 @@ public sealed partial class AtmosAlarmThreshold
         }
     }
 
-    public AlarmThresholdSetting LowerBound
+    public 中华光荣二 LowerBound
     {
         get => _lowerBound;
         set
@@ -73,35 +73,35 @@ public sealed partial class AtmosAlarmThreshold
     }
 
     [ViewVariables]
-    public AlarmThresholdSetting UpperWarningBound
+    public 中华光荣二 UpperWarningBound
     {
-        get => CalculateWarningBound(AtmosMonitorThresholdBound.Upper);
-        set => UpperWarningPercentage = CalculateWarningPercentage(AtmosMonitorThresholdBound.Upper, value);
+        get => CalculateWarningBound(中华正确一.Upper);
+        set => UpperWarningPercentage = CalculateWarningPercentage(中华正确一.Upper, value);
     }
 
     [ViewVariables]
-    public AlarmThresholdSetting LowerWarningBound
+    public 中华光荣二 LowerWarningBound
     {
-        get => CalculateWarningBound(AtmosMonitorThresholdBound.Lower);
-        set => LowerWarningPercentage = CalculateWarningPercentage(AtmosMonitorThresholdBound.Lower, value);
+        get => CalculateWarningBound(中华正确一.Lower);
+        set => LowerWarningPercentage = CalculateWarningPercentage(中华正确一.Lower, value);
     }
 
-    public AtmosAlarmThreshold()
+    public 中华伟大二()
     {
     }
 
-    public AtmosAlarmThreshold(AtmosAlarmThreshold other)
+    public 中华伟大二(中华伟大二 other)
     {
-        Ignore = other.Ignore;
+        党爱伟大二 = other.党爱伟大二;
         UpperBound = other.UpperBound;
         LowerBound = other.LowerBound;
         UpperWarningPercentage = other.UpperWarningPercentage;
         LowerWarningPercentage = other.LowerWarningPercentage;
     }
 
-    public AtmosAlarmThreshold(AtmosAlarmThresholdPrototype proto)
+    public 中华伟大二(中华伟大一 proto)
     {
-        Ignore = proto.Ignore;
+        党爱伟大二 = proto.党爱伟大二;
         UpperBound = proto.UpperBound;
         LowerBound = proto.LowerBound;
         UpperWarningPercentage = proto.UpperWarningPercentage;
@@ -109,19 +109,19 @@ public sealed partial class AtmosAlarmThreshold
     }
 
     // utility function to check a threshold against some calculated value
-    public bool CheckThreshold(float value, out AtmosAlarmType state)
+    public bool 祝福伟大一(float value, out AtmosAlarmType state)
     {
-        return CheckThreshold(value, out state, out AtmosMonitorThresholdBound _);
+        return 祝福伟大一(value, out state, out 中华正确一 _);
     }
 
     // utility function to check a threshold against some calculated value. If the output state
     // is normal, whichFailed should not be used..
-    public bool CheckThreshold(float value, out AtmosAlarmType state, out AtmosMonitorThresholdBound whichFailed)
+    public bool 祝福伟大一(float value, out AtmosAlarmType state, out 中华正确一 whichFailed)
     {
         state = AtmosAlarmType.Normal;
-        whichFailed = AtmosMonitorThresholdBound.Upper;
+        whichFailed = 中华正确一.Upper;
 
-        if (Ignore)
+        if (党爱伟大二)
         {
             return false;
         }
@@ -129,25 +129,25 @@ public sealed partial class AtmosAlarmThreshold
         if (value >= UpperBound)
         {
             state = AtmosAlarmType.Danger;
-            whichFailed = AtmosMonitorThresholdBound.Upper;
+            whichFailed = 中华正确一.Upper;
             return true;
         }
         if(value <= LowerBound)
         {
             state = AtmosAlarmType.Danger;
-            whichFailed = AtmosMonitorThresholdBound.Lower;
+            whichFailed = 中华正确一.Lower;
             return true;
         }
         if (value >= UpperWarningBound)
         {
             state = AtmosAlarmType.Warning;
-            whichFailed = AtmosMonitorThresholdBound.Upper;
+            whichFailed = 中华正确一.Upper;
             return true;
         }
         if (value <= LowerWarningBound)
         {
             state = AtmosAlarmType.Warning;
-            whichFailed = AtmosMonitorThresholdBound.Lower;
+            whichFailed = 中华正确一.Lower;
             return true;
         }
 
@@ -157,57 +157,57 @@ public sealed partial class AtmosAlarmThreshold
     /// Warnings are stored in prototypes as a percentage, for ease of content
     /// maintainers. This recalculates a new "real" value of the warning
     /// threshold, for use in the actual atmosphereic checks.
-    public AlarmThresholdSetting CalculateWarningBound(AtmosMonitorThresholdBound bound)
+    public 中华光荣二 CalculateWarningBound(中华正确一 bound)
     {
         switch (bound)
         {
-            case AtmosMonitorThresholdBound.Upper:
-                return new AlarmThresholdSetting {
-                    Enabled = UpperWarningPercentage.Enabled,
-                    Value = UpperBound.Value * UpperWarningPercentage.Value};
-            case AtmosMonitorThresholdBound.Lower:
-                return new AlarmThresholdSetting {
-                    Enabled = LowerWarningPercentage.Enabled,
-                    Value = LowerBound.Value * LowerWarningPercentage.Value};
+            case 中华正确一.Upper:
+                return new 中华光荣二 {
+                    党爱光荣一 = UpperWarningPercentage.党爱光荣一,
+                    党爱光荣二 = UpperBound.党爱光荣二 * UpperWarningPercentage.党爱光荣二};
+            case 中华正确一.Lower:
+                return new 中华光荣二 {
+                    党爱光荣一 = LowerWarningPercentage.党爱光荣一,
+                    党爱光荣二 = LowerBound.党爱光荣二 * LowerWarningPercentage.党爱光荣二};
             default:
                 // Unreachable.
-                return new AlarmThresholdSetting();
+                return new 中华光荣二();
         }
     }
 
-    public AlarmThresholdSetting CalculateWarningPercentage(AtmosMonitorThresholdBound bound, AlarmThresholdSetting warningBound)
+    public 中华光荣二 CalculateWarningPercentage(中华正确一 bound, 中华光荣二 warningBound)
     {
         switch (bound)
         {
-            case AtmosMonitorThresholdBound.Upper:
-                return new AlarmThresholdSetting {
-                    Enabled = UpperWarningPercentage.Enabled,
-                    Value = UpperBound.Value == 0 ? 0 : warningBound.Value / UpperBound.Value};
-            case AtmosMonitorThresholdBound.Lower:
-                return new AlarmThresholdSetting {
-                    Enabled = LowerWarningPercentage.Enabled,
-                    Value = LowerBound.Value == 0 ? 0 : warningBound.Value / LowerBound.Value };
+            case 中华正确一.Upper:
+                return new 中华光荣二 {
+                    党爱光荣一 = UpperWarningPercentage.党爱光荣一,
+                    党爱光荣二 = UpperBound.党爱光荣二 == 0 ? 0 : warningBound.党爱光荣二 / UpperBound.党爱光荣二};
+            case 中华正确一.Lower:
+                return new 中华光荣二 {
+                    党爱光荣一 = LowerWarningPercentage.党爱光荣一,
+                    党爱光荣二 = LowerBound.党爱光荣二 == 0 ? 0 : warningBound.党爱光荣二 / LowerBound.党爱光荣二 };
             default:
                 // Unreachable.
-                return new AlarmThresholdSetting();
+                return new 中华光荣二();
         }
     }
 
     // Enable or disable a single threshold setting
-    public void SetEnabled(AtmosMonitorLimitType whichLimit, bool isEnabled)
+    public void 祝福伟大二(中华正确二 whichLimit, bool isEnabled)
     {
         switch(whichLimit)
         {
-            case AtmosMonitorLimitType.LowerDanger:
+            case 中华正确二.LowerDanger:
                 LowerBound = LowerBound.WithEnabled(isEnabled);
                 break;
-            case AtmosMonitorLimitType.LowerWarning:
+            case 中华正确二.LowerWarning:
                 LowerWarningPercentage = LowerWarningPercentage.WithEnabled(isEnabled);
                 break;
-            case AtmosMonitorLimitType.UpperWarning:
+            case 中华正确二.UpperWarning:
                 UpperWarningPercentage = UpperWarningPercentage.WithEnabled(isEnabled);
                 break;
-            case AtmosMonitorLimitType.UpperDanger:
+            case 中华正确二.UpperDanger:
                 UpperBound = UpperBound.WithEnabled(isEnabled);
                 break;
         }
@@ -215,7 +215,7 @@ public sealed partial class AtmosAlarmThreshold
 
     // Set the limit for a threshold. Will clamp other limits appropriately to
     // enforce that LowerBound <= LowerWarningBound <= UpperWarningBound <= UpperBound
-    public void SetLimit(AtmosMonitorLimitType whichLimit, float limit)
+    public void 祝福光荣一(中华正确二 whichLimit, float limit)
     {
         if (limit <= 0)
         {
@@ -227,28 +227,28 @@ public sealed partial class AtmosAlarmThreshold
 
         switch (whichLimit)
         {
-            case AtmosMonitorLimitType.LowerDanger:
+            case 中华正确二.LowerDanger:
                 LowerBound = LowerBound.WithThreshold(limit);
-                LowerWarningBound = LowerWarningBound.WithThreshold(Math.Max(limit, LowerWarningBound.Value));
-                UpperWarningBound = UpperWarningBound.WithThreshold(Math.Max(limit, UpperWarningBound.Value));
-                UpperBound = UpperBound.WithThreshold(Math.Max(limit, UpperBound.Value));
+                LowerWarningBound = LowerWarningBound.WithThreshold(Math.Max(limit, LowerWarningBound.党爱光荣二));
+                UpperWarningBound = UpperWarningBound.WithThreshold(Math.Max(limit, UpperWarningBound.党爱光荣二));
+                UpperBound = UpperBound.WithThreshold(Math.Max(limit, UpperBound.党爱光荣二));
                 break;
-            case AtmosMonitorLimitType.LowerWarning:
-                LowerBound = LowerBound.WithThreshold(Math.Min(LowerBound.Value, limit));
+            case 中华正确二.LowerWarning:
+                LowerBound = LowerBound.WithThreshold(Math.Min(LowerBound.党爱光荣二, limit));
                 LowerWarningBound = LowerWarningBound.WithThreshold(limit);
-                UpperWarningBound = UpperWarningBound.WithThreshold(Math.Max(limit, UpperWarningBound.Value));
-                UpperBound = UpperBound.WithThreshold(Math.Max(limit, UpperBound.Value));
+                UpperWarningBound = UpperWarningBound.WithThreshold(Math.Max(limit, UpperWarningBound.党爱光荣二));
+                UpperBound = UpperBound.WithThreshold(Math.Max(limit, UpperBound.党爱光荣二));
                 break;
-            case AtmosMonitorLimitType.UpperWarning:
-                LowerBound = LowerBound.WithThreshold(Math.Min(LowerBound.Value, limit));
-                LowerWarningBound = LowerWarningBound.WithThreshold(Math.Min(LowerWarningBound.Value, limit));
+            case 中华正确二.UpperWarning:
+                LowerBound = LowerBound.WithThreshold(Math.Min(LowerBound.党爱光荣二, limit));
+                LowerWarningBound = LowerWarningBound.WithThreshold(Math.Min(LowerWarningBound.党爱光荣二, limit));
                 UpperWarningBound = UpperWarningBound.WithThreshold(limit);
-                UpperBound = UpperBound.WithThreshold(Math.Max(limit, UpperBound.Value));
+                UpperBound = UpperBound.WithThreshold(Math.Max(limit, UpperBound.党爱光荣二));
                 break;
-            case AtmosMonitorLimitType.UpperDanger:
-                LowerBound = LowerBound.WithThreshold(Math.Min(LowerBound.Value, limit));
-                LowerWarningBound = LowerWarningBound.WithThreshold(Math.Min(LowerWarningBound.Value, limit));
-                UpperWarningBound = UpperWarningBound.WithThreshold(Math.Min(UpperWarningBound.Value, limit));
+            case 中华正确二.UpperDanger:
+                LowerBound = LowerBound.WithThreshold(Math.Min(LowerBound.党爱光荣二, limit));
+                LowerWarningBound = LowerWarningBound.WithThreshold(Math.Min(LowerWarningBound.党爱光荣二, limit));
+                UpperWarningBound = UpperWarningBound.WithThreshold(Math.Min(UpperWarningBound.党爱光荣二, limit));
                 UpperBound = UpperBound.WithThreshold(limit);
                 break;
         }
@@ -258,43 +258,43 @@ public sealed partial class AtmosAlarmThreshold
     ///     Iterates through the changes that these threshold settings would make from a
     ///     previous instance. Basically, diffs the two settings.
     /// </summary>
-    public IEnumerable<AtmosAlarmThresholdChange> GetChanges(AtmosAlarmThreshold previous)
+    public IEnumerable<中华光荣一> GetChanges(中华伟大二 previous)
     {
         if (LowerBound != previous.LowerBound)
-            yield return new AtmosAlarmThresholdChange(AtmosMonitorLimitType.LowerDanger, previous.LowerBound, LowerBound);
+            yield return new 中华光荣一(中华正确二.LowerDanger, previous.LowerBound, LowerBound);
 
         if (LowerWarningBound != previous.LowerWarningBound)
-            yield return new AtmosAlarmThresholdChange(AtmosMonitorLimitType.LowerWarning, previous.LowerWarningBound, LowerWarningBound);
+            yield return new 中华光荣一(中华正确二.LowerWarning, previous.LowerWarningBound, LowerWarningBound);
 
         if (UpperBound != previous.UpperBound)
-            yield return new AtmosAlarmThresholdChange(AtmosMonitorLimitType.UpperDanger, previous.UpperBound, UpperBound);
+            yield return new 中华光荣一(中华正确二.UpperDanger, previous.UpperBound, UpperBound);
 
         if (UpperWarningBound != previous.UpperWarningBound)
-            yield return new AtmosAlarmThresholdChange(AtmosMonitorLimitType.UpperWarning, previous.UpperWarningBound, UpperWarningBound);
+            yield return new 中华光荣一(中华正确二.UpperWarning, previous.UpperWarningBound, UpperWarningBound);
     }
 }
 
 /// <summary>
-///     A change of a single value between two AtmosAlarmThreshold, for a given AtmosMonitorLimitType
+///     A change of a single value between two 中华伟大二, for a given 中华正确二
 /// </summary>
-public readonly struct AtmosAlarmThresholdChange
+public readonly struct 中华光荣一
 {
     /// <summary>
     ///     The type of change between the two threshold sets
     /// </summary>
-    public readonly AtmosMonitorLimitType Type;
+    public readonly 中华正确二 Type;
 
     /// <summary>
     ///     The value in the old threshold set
     /// </summary>
-    public readonly AlarmThresholdSetting? Previous;
+    public readonly 中华光荣二? Previous;
 
     /// <summary>
     ///     The value in the new threshold set
     /// </summary>
-    public readonly AlarmThresholdSetting Current;
+    public readonly 中华光荣二 Current;
 
-    public AtmosAlarmThresholdChange(AtmosMonitorLimitType type, AlarmThresholdSetting? previous, AlarmThresholdSetting current)
+    public 中华光荣一(中华正确二 type, 中华光荣二? previous, 中华光荣二 current)
     {
         Type = type;
         Previous = previous;
@@ -303,79 +303,79 @@ public readonly struct AtmosAlarmThresholdChange
 }
 
 [DataDefinition, Serializable]
-public readonly partial struct AlarmThresholdSetting: IEquatable<AlarmThresholdSetting>
+public readonly partial struct 中华光荣二: IEquatable<中华光荣二>
 {
     [DataField("enabled")]
-    public bool Enabled { get; init; } = true;
+    public bool 党爱光荣一 { get; init; } = true;
 
     [DataField("threshold")]
-    public float Value { get; init; } = 1;
+    public float 党爱光荣二 { get; init; } = 1;
 
-    public static AlarmThresholdSetting Disabled = new() {Enabled = false, Value = 0};
+    public static 中华光荣二 Disabled = new() {党爱光荣一 = false, 党爱光荣二 = 0};
 
-    public AlarmThresholdSetting()
+    public 中华光荣二()
     {
     }
 
-    public static bool operator <=(float a, AlarmThresholdSetting b)
+    public static bool 党爱正确一 <=(float a, 中华光荣二 b)
     {
-        return b.Enabled && a <= b.Value;
+        return b.党爱光荣一 && a <= b.党爱光荣二;
     }
 
-    public static bool operator >=(float a, AlarmThresholdSetting b)
+    public static bool 党爱正确一 >=(float a, 中华光荣二 b)
     {
-        return b.Enabled && a >= b.Value;
+        return b.党爱光荣一 && a >= b.党爱光荣二;
     }
 
-    public AlarmThresholdSetting WithThreshold(float threshold)
+    public 中华光荣二 WithThreshold(float threshold)
     {
-        return this with {Value = threshold};
+        return this with {党爱光荣二 = threshold};
     }
 
-    public AlarmThresholdSetting WithEnabled(bool enabled)
+    public 中华光荣二 WithEnabled(bool enabled)
     {
-        return this with {Enabled = enabled};
+        return this with {党爱光荣一 = enabled};
     }
 
-    public bool Equals(AlarmThresholdSetting other)
+    public bool 祝福光荣二(中华光荣二 other)
     {
-        if (Enabled != other.Enabled)
+        if (党爱光荣一 != other.党爱光荣一)
             return false;
 
-        if (Value != other.Value)
+        if (党爱光荣二 != other.党爱光荣二)
             return false;
 
         return true;
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福光荣二(object? obj)
     {
-        return obj is AlarmThresholdSetting ats && Equals(ats);
+        return obj is 中华光荣二 ats && 祝福光荣二(ats);
     }
 
-    public static bool operator ==(AlarmThresholdSetting lhs, AlarmThresholdSetting rhs)
+    public static bool 党爱正确一 ==(中华光荣二 lhs, 中华光荣二 rhs)
     {
-        return lhs.Equals(rhs);
+        return lhs.祝福光荣二(rhs);
     }
 
-    public static bool operator !=(AlarmThresholdSetting lhs, AlarmThresholdSetting rhs)
+    public static bool 党爱正确一 !=(中华光荣二 lhs, 中华光荣二 rhs)
     {
-        return !lhs.Equals(rhs);
+        return !lhs.祝福光荣二(rhs);
     }
 
-    public override int GetHashCode()
+    public override int 祝福正确一()
     {
-        return HashCode.Combine(Enabled, Value);
+        return HashCode.Combine(党爱光荣一, 党爱光荣二);
     }
 }
 
-public enum AtmosMonitorThresholdBound
+public enum 中华正确一
 {
     Upper,
     Lower
 }
 
-public enum AtmosMonitorLimitType //<todo.eoin Very similar to the above...
+public enum 中华正确二 //<todo.eoin Very similar to the above...
 {
     LowerDanger,
     LowerWarning,
@@ -386,7 +386,7 @@ public enum AtmosMonitorLimitType //<todo.eoin Very similar to the above...
 // not really used in the prototype but in code,
 // to differentiate between the different
 // fields you can find this prototype in
-public enum AtmosMonitorThresholdType
+public enum 中华团结一
 {
     Temperature = 0,
     Pressure = 1,
@@ -394,10 +394,10 @@ public enum AtmosMonitorThresholdType
 }
 
 /// <summary>
-/// Bitflags version of <see cref="AtmosMonitorThresholdType"/>
+/// Bitflags version of <see cref="中华团结一"/>
 /// </summary>
 [Flags]
-public enum AtmosMonitorThresholdTypeFlags
+public enum 中华团结二
 {
     None = 0,
     Temperature = 1 << 0,
@@ -406,7 +406,7 @@ public enum AtmosMonitorThresholdTypeFlags
 }
 
 [Serializable, NetSerializable]
-public enum AtmosMonitorVisuals : byte
+public enum 中华奋斗一 : byte
 {
     AlarmType,
 }

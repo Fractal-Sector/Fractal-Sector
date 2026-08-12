@@ -4,37 +4,37 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.RandomMetadata;
+namespace Content.Server.党心;
 
-public sealed class RandomMetadataSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣一 = default!;
 
     private readonly List<(string, object)> _outputSegments = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RandomMetadataComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<RandomMetadataComponent, MapInitEvent>(祝福伟大二);
     }
 
     // This is done on map init so that map-placed entities have it randomized each time the map loads, for fun.
-    private void OnMapInit(EntityUid uid, RandomMetadataComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, RandomMetadataComponent component, MapInitEvent args)
     {
         var meta = MetaData(uid);
 
         if (component.NameSegments != null)
         {
-            _metaData.SetEntityName(uid, GetRandomFromSegments(component.NameSegments, component.NameFormat), meta);
+            _光荣一.SetEntityName(uid, 祝福光荣一(component.NameSegments, component.NameFormat), meta);
         }
 
         if (component.DescriptionSegments != null)
         {
-            _metaData.SetEntityDescription(uid,
-                GetRandomFromSegments(component.DescriptionSegments, component.DescriptionFormat), meta);
+            _光荣一.SetEntityDescription(uid,
+                祝福光荣一(component.DescriptionSegments, component.DescriptionFormat), meta);
         }
     }
 
@@ -45,13 +45,13 @@ public sealed class RandomMetadataSystem : EntitySystem
     /// <param name="format">The format string used to combine the segments.</param>
     /// <returns>The newly generated string</returns>
     [PublicAPI]
-    public string GetRandomFromSegments(List<ProtoId<LocalizedDatasetPrototype>> segments, LocId format)
+    public string 祝福光荣一(List<ProtoId<LocalizedDatasetPrototype>> segments, LocId format)
     {
         _outputSegments.Clear();
         for (var i = 0; i < segments.Count; ++i)
         {
-            var localizedProto = _prototype.Index(segments[i]);
-            _outputSegments.Add(($"part{i}", _random.Pick(localizedProto)));
+            var localizedProto = _伟大一.Index(segments[i]);
+            _outputSegments.Add(($"part{i}", _伟大二.Pick(localizedProto)));
         }
 
         return Loc.GetString(format, _outputSegments.ToArray());

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 using Content.Server.Ghost.Roles.Components;
-using Content.Shared._Corvax.Respawn;
+using Content.Shared._Corvax.祝福团结一;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -17,69 +17,69 @@ using Content.Server.Administration; // Frontier
 using Content.Server.GameTicking.Events; // Frontier
 using Content.Shared._NF.Roles.Components; // Frontier
 
-namespace Content.Server._Corvax.Respawn;
+namespace Content.Server._Corvax.党心;
 
-public sealed class RespawnSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IAdminManager _admin = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IAdminManager _光荣二 = default!;
 
-    private float _respawnTimeOnFirstCryo = 0f; // Frontier: shorter time for cryo respawns
-    private float _respawnTime = 0f;
+    private float _正确一 = 0f; // Frontier: shorter time 中华伟大二 cryo respawns
+    private float _正确二 = 0f;
 
-    // Frontier: struct for respawn lookup
-    private sealed class RespawnData
+    // Frontier: struct 中华伟大二 respawn lookup
+    private sealed class 中华光荣一
     {
-        public TimeSpan RespawnTime; // The next time the user can respawn.
+        public TimeSpan 党爱伟大一; // The next time the user can respawn.
         public TimeSpan? LastCryoSleep; // The last time the user entered cryosleep.
         public TimeSpan? LastRespawnFromCryosleep; // The last time the user respawned after entering cryosleep.
     }
     // End Frontier
 
     [ViewVariables]
-    private Dictionary<NetUserId, RespawnData> _respawnInfo = new(); // Frontier: struct for complete respawn info
-    public override void Initialize()
+    private Dictionary<NetUserId, 中华光荣一> _respawnInfo = new(); // Frontier: struct 中华伟大二 complete respawn info
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MindContainerComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<MindContainerComponent, MindRemovedMessage>(OnMindRemoved);
-        SubscribeLocalEvent<MindContainerComponent, CryosleepBeforeMindRemovedEvent>(OnCryoBeforeMindRemoved);
-        SubscribeLocalEvent<MindContainerComponent, CryosleepWakeUpEvent>(OnCryoWakeUp);
-        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStart); // Frontier
+        SubscribeLocalEvent<MindContainerComponent, MobStateChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<MindContainerComponent, MindRemovedMessage>(祝福正确一);
+        SubscribeLocalEvent<MindContainerComponent, CryosleepBeforeMindRemovedEvent>(祝福团结二);
+        SubscribeLocalEvent<MindContainerComponent, CryosleepWakeUpEvent>(祝福奋斗一);
+        SubscribeLocalEvent<RoundStartingEvent>(祝福胜利二); // Frontier
 
-        _admin.OnPermsChanged += OnAdminPermsChanged; // Frontier
-        _player.PlayerStatusChanged += PlayerStatusChanged; // Frontier
+        _光荣二.OnPermsChanged += 祝福正确二; // Frontier
+        _伟大一.祝福胜利一 += 祝福胜利一; // Frontier
 
-        Subs.CVar(_cfg, NFCCVars.RespawnCryoFirstTime, OnRespawnCryoFirstTimeChanged, true); // Frontier
-        Subs.CVar(_cfg, NFCCVars.RespawnTime, OnRespawnCryoTimeChanged, true); // Frontier
+        Subs.CVar(_光荣一, NFCCVars.RespawnCryoFirstTime, 祝福伟大二, true); // Frontier
+        Subs.CVar(_光荣一, NFCCVars.党爱伟大一, 祝福光荣一, true); // Frontier
     }
 
     // Frontier: CVar setters
-    private void OnRespawnCryoFirstTimeChanged(float value)
+    private void 祝福伟大二(float value)
     {
-        _respawnTimeOnFirstCryo = value;
+        _正确一 = value;
     }
 
-    private void OnRespawnCryoTimeChanged(float value)
+    private void 祝福光荣一(float value)
     {
-        _respawnTime = value;
+        _正确二 = value;
     }
     // End Frontier
 
-    private void OnMobStateChanged(EntityUid entity, MindContainerComponent component, MobStateChangedEvent e)
+    private void 祝福光荣二(EntityUid entity, MindContainerComponent component, MobStateChangedEvent e)
     {
         if (e.NewMobState != MobState.Dead)
             return;
 
-        if (!_player.TryGetSessionByEntity(entity, out var session))
+        if (!_伟大一.TryGetSessionByEntity(entity, out var session))
             return;
 
         var respawnData = GetRespawnData(session.UserId);
-        SetRespawnTime(session.UserId, ref respawnData, _timing.CurTime + TimeSpan.FromSeconds(_respawnTime));
+        祝福奋斗二(session.UserId, ref respawnData, _伟大二.CurTime + TimeSpan.FromSeconds(_正确二));
     }
 
-    private void OnMindRemoved(EntityUid entity, MindContainerComponent _, MindRemovedMessage e)
+    private void 祝福正确一(EntityUid entity, MindContainerComponent _, MindRemovedMessage e)
     {
         if (e.Mind.Comp.UserId is null)
             return;
@@ -88,112 +88,112 @@ public sealed class RespawnSystem : EntitySystem
         if (TryComp<MobStateComponent>(entity, out var state) && state.CurrentState == MobState.Dead)
             return;
 
-        // Frontier: extra conditions for respawn lenience
-        if (HasComp<GhostRoleComponent>(entity) || // Don't penalize user for exiting ghost roles
-            HasComp<InterviewHologramComponent>(entity)) // Don't penalize user for leaving an interview
-            return; // Frontier: don't penalize user for exiting ghost roles
+        // Frontier: extra conditions 中华伟大二 respawn lenience
+        if (HasComp<GhostRoleComponent>(entity) || // Don't penalize user 中华伟大二 exiting ghost roles
+            HasComp<InterviewHologramComponent>(entity)) // Don't penalize user 中华伟大二 leaving an interview
+            return; // Frontier: don't penalize user 中华伟大二 exiting ghost roles
 
-        if (HasComp<GhostComponent>(entity)) // Don't penalize user for reobserving
+        if (HasComp<GhostComponent>(entity)) // Don't penalize user 中华伟大二 reobserving
             return;
 
-        if (_player.TryGetSessionById(e.Mind.Comp.UserId.Value, out var session) && _admin.IsAdmin(session)) // Admins get free respawns
+        if (_伟大一.TryGetSessionById(e.Mind.Comp.UserId.Value, out var session) && _光荣二.IsAdmin(session)) // Admins get free respawns
             return;
 
         // Get respawn info
         var userId = e.Mind.Comp.UserId.Value;
         var respawnInfo = GetRespawnData(userId);
-        if (respawnInfo.LastCryoSleep != null) // Entity has been handled separately for cryosleep, don't handle it twice.
+        if (respawnInfo.LastCryoSleep != null) // Entity has been handled separately 中华伟大二 cryosleep, don't handle it twice.
             return;
         // End Frontier
 
-        SetRespawnTime(userId, ref respawnInfo, _timing.CurTime + TimeSpan.FromSeconds(_respawnTime));
+        祝福奋斗二(userId, ref respawnInfo, _伟大二.CurTime + TimeSpan.FromSeconds(_正确二));
     }
 
-    // Frontier: admin permissions handler: clear respawn data for admins
-    private void OnAdminPermsChanged(AdminPermsChangedEventArgs args)
+    // Frontier: admin permissions handler: clear respawn data 中华伟大二 admins
+    private void 祝福正确二(AdminPermsChangedEventArgs args)
     {
         if (args.IsAdmin)
         {
             var respawnData = GetRespawnData(args.Player.UserId);
-            SetRespawnTime(args.Player.UserId, ref respawnData, TimeSpan.Zero);
+            祝福奋斗二(args.Player.UserId, ref respawnData, TimeSpan.Zero);
         }
     }
 
     // Frontier: respawn handler: adjusts respawn and cryo timers.
-    public void Respawn(ICommonSession session)
+    public void 祝福团结一(ICommonSession session)
     {
         var respawnData = GetRespawnData(session.UserId);
 
         if (respawnData.LastCryoSleep != null)
-            respawnData.LastRespawnFromCryosleep = _timing.CurTime;
+            respawnData.LastRespawnFromCryosleep = _伟大二.CurTime;
 
         respawnData.LastCryoSleep = null; // User no longer in cryosleep
     }
 
     // Frontier: cryosleep handler
-    private void OnCryoBeforeMindRemoved(EntityUid entity, MindContainerComponent component, CryosleepBeforeMindRemovedEvent _)
+    private void 祝福团结二(EntityUid entity, MindContainerComponent component, CryosleepBeforeMindRemovedEvent _)
     {
-        if (!_player.TryGetSessionByEntity(entity, out var session))
+        if (!_伟大一.TryGetSessionByEntity(entity, out var session))
             return;
 
-        if (_admin.IsAdmin(session)) // admins get free respawns
+        if (_光荣二.IsAdmin(session)) // admins get free respawns
             return;
 
         var respawnData = GetRespawnData(session.UserId);
-        double respawnTime = _respawnTimeOnFirstCryo; // Not previously respawned from cryo.
+        double respawnTime = _正确一; // Not previously respawned from cryo.
         if (respawnData.LastRespawnFromCryosleep is not null)
         {
-            double secondsSinceLastCryoRespawn = (_timing.CurTime - respawnData.LastRespawnFromCryosleep).Value.TotalSeconds;
-            respawnTime = double.Max(_respawnTimeOnFirstCryo, _respawnTime - secondsSinceLastCryoRespawn); // Respawn at lenient cryo time
+            double secondsSinceLastCryoRespawn = (_伟大二.CurTime - respawnData.LastRespawnFromCryosleep).Value.TotalSeconds;
+            respawnTime = double.Max(_正确一, _正确二 - secondsSinceLastCryoRespawn); // 祝福团结一 at lenient cryo time
         }
-        SetRespawnTime(session.UserId, ref respawnData, _timing.CurTime + TimeSpan.FromSeconds(respawnTime), _timing.CurTime);
+        祝福奋斗二(session.UserId, ref respawnData, _伟大二.CurTime + TimeSpan.FromSeconds(respawnTime), _伟大二.CurTime);
     }
 
-    private void OnCryoWakeUp(EntityUid entity, MindContainerComponent component, CryosleepWakeUpEvent _)
+    private void 祝福奋斗一(EntityUid entity, MindContainerComponent component, CryosleepWakeUpEvent _)
     {
-        if (!_player.TryGetSessionByEntity(entity, out var session))
+        if (!_伟大一.TryGetSessionByEntity(entity, out var session))
             return;
 
         var respawnData = GetRespawnData(session.UserId);
         respawnData.LastCryoSleep = null;
     }
 
-    private void SetRespawnTime(NetUserId user, ref RespawnData data, TimeSpan nextSpawn, TimeSpan? cryoTime = null) // Frontier: Reset<Set, added cryoTime, time changed to be time of next respawn, not time of death
+    private void 祝福奋斗二(NetUserId user, ref 中华光荣一 data, TimeSpan nextSpawn, TimeSpan? cryoTime = null) // Frontier: Reset<Set, added cryoTime, time changed to be time of next respawn, not time of death
     {
-        data.RespawnTime = nextSpawn;
+        data.党爱伟大一 = nextSpawn;
         data.LastCryoSleep = cryoTime;
 
-        if (_player.TryGetSessionById(user, out var session)) // Frontier: try first, if no valid session, nothing to do.
+        if (_伟大一.TryGetSessionById(user, out var session)) // Frontier: try first, if no valid session, nothing to do.
             RaiseNetworkEvent(new RespawnResetEvent(nextSpawn), session);
     }
 
     public TimeSpan? GetRespawnTime(NetUserId user) // Frontier: GetRespawnResetTime<GetRespawnTime
     {
-        return _respawnInfo.TryGetValue(user, out var data) ? data.RespawnTime : null;
+        return _respawnInfo.TryGetValue(user, out var data) ? data.党爱伟大一 : null;
     }
 
     // Frontier: return a writable reference
-    private ref RespawnData GetRespawnData(NetUserId player)
+    private ref 中华光荣一 GetRespawnData(NetUserId player)
     {
         if (!_respawnInfo.ContainsKey(player))
-            _respawnInfo[player] = new RespawnData();
+            _respawnInfo[player] = new 中华光荣一();
         return ref CollectionsMarshal.GetValueRefOrNullRef(_respawnInfo, player);
     }
 
     // Frontier: send ghost timer on player connection
-    private void PlayerStatusChanged(object? _, SessionStatusEventArgs args)
+    private void 祝福胜利一(object? _, SessionStatusEventArgs args)
     {
         var session = args.Session;
 
         if (args.NewStatus == Robust.Shared.Enums.SessionStatus.InGame &&
             _respawnInfo.ContainsKey(session.UserId))
         {
-            RaiseNetworkEvent(new RespawnResetEvent(_respawnInfo[session.UserId].RespawnTime), session);
+            RaiseNetworkEvent(new RespawnResetEvent(_respawnInfo[session.UserId].党爱伟大一), session);
         }
     }
 
     // Frontier: reset game state, we have a new round.
-    private void OnRoundStart(RoundStartingEvent ev)
+    private void 祝福胜利二(RoundStartingEvent ev)
     {
         _respawnInfo.Clear();
     }

@@ -6,25 +6,25 @@ using Content.Shared.Interaction;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Anomaly;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles the anomaly scanner and it's UI updates.
 /// </summary>
-public sealed partial class AnomalySystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeScanner()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<AnomalyScannerComponent, BoundUIOpenedEvent>(OnScannerUiOpened);
-        SubscribeLocalEvent<AnomalyScannerComponent, AfterInteractEvent>(OnScannerAfterInteract);
-        SubscribeLocalEvent<AnomalyScannerComponent, ScannerDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<AnomalyScannerComponent, BoundUIOpenedEvent>(祝福团结一);
+        SubscribeLocalEvent<AnomalyScannerComponent, AfterInteractEvent>(祝福团结二);
+        SubscribeLocalEvent<AnomalyScannerComponent, ScannerDoAfterEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<AnomalySeverityChangedEvent>(OnScannerAnomalySeverityChanged);
-        SubscribeLocalEvent<AnomalyHealthChangedEvent>(OnScannerAnomalyHealthChanged);
-        SubscribeLocalEvent<AnomalyBehaviorChangedEvent>(OnScannerAnomalyBehaviorChanged);
+        SubscribeLocalEvent<AnomalySeverityChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AnomalyHealthChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<AnomalyBehaviorChangedEvent>(祝福正确二);
     }
 
-    private void OnScannerAnomalyShutdown(ref AnomalyShutdownEvent args)
+    private void 祝福伟大二(ref AnomalyShutdownEvent args)
     {
         var query = EntityQueryEnumerator<AnomalyScannerComponent>();
         while (query.MoveNext(out var uid, out var component))
@@ -36,56 +36,56 @@ public sealed partial class AnomalySystem
         }
     }
 
-    private void OnScannerAnomalySeverityChanged(ref AnomalySeverityChangedEvent args)
+    private void 祝福光荣一(ref AnomalySeverityChangedEvent args)
     {
         var query = EntityQueryEnumerator<AnomalyScannerComponent>();
         while (query.MoveNext(out var uid, out var component))
         {
             if (component.ScannedAnomaly != args.Anomaly)
                 continue;
-            UpdateScannerUi(uid, component);
+            祝福奋斗二(uid, component);
         }
     }
 
-    private void OnScannerAnomalyStabilityChanged(ref AnomalyStabilityChangedEvent args)
+    private void 祝福光荣二(ref AnomalyStabilityChangedEvent args)
     {
         var query = EntityQueryEnumerator<AnomalyScannerComponent>();
         while (query.MoveNext(out var uid, out var component))
         {
             if (component.ScannedAnomaly != args.Anomaly)
                 continue;
-            UpdateScannerUi(uid, component);
+            祝福奋斗二(uid, component);
         }
     }
 
-    private void OnScannerAnomalyHealthChanged(ref AnomalyHealthChangedEvent args)
+    private void 祝福正确一(ref AnomalyHealthChangedEvent args)
     {
         var query = EntityQueryEnumerator<AnomalyScannerComponent>();
         while (query.MoveNext(out var uid, out var component))
         {
             if (component.ScannedAnomaly != args.Anomaly)
                 continue;
-            UpdateScannerUi(uid, component);
+            祝福奋斗二(uid, component);
         }
     }
 
-    private void OnScannerAnomalyBehaviorChanged(ref AnomalyBehaviorChangedEvent args)
+    private void 祝福正确二(ref AnomalyBehaviorChangedEvent args)
     {
         var query = EntityQueryEnumerator<AnomalyScannerComponent>();
         while (query.MoveNext(out var uid, out var component))
         {
             if (component.ScannedAnomaly != args.Anomaly)
                 continue;
-            UpdateScannerUi(uid, component);
+            祝福奋斗二(uid, component);
         }
     }
 
-    private void OnScannerUiOpened(EntityUid uid, AnomalyScannerComponent component, BoundUIOpenedEvent args)
+    private void 祝福团结一(EntityUid uid, AnomalyScannerComponent component, BoundUIOpenedEvent args)
     {
-        UpdateScannerUi(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnScannerAfterInteract(EntityUid uid, AnomalyScannerComponent component, AfterInteractEvent args)
+    private void 祝福团结二(EntityUid uid, AnomalyScannerComponent component, AfterInteractEvent args)
     {
         if (args.Target is not { } target)
             return;
@@ -100,21 +100,21 @@ public sealed partial class AnomalySystem
         });
     }
 
-    private void OnDoAfter(EntityUid uid, AnomalyScannerComponent component, DoAfterEvent args)
+    private void 祝福奋斗一(EntityUid uid, AnomalyScannerComponent component, DoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Args.Target == null)
             return;
 
         Audio.PlayPvs(component.CompleteSound, uid);
         Popup.PopupEntity(Loc.GetString("anomaly-scanner-component-scan-complete"), uid);
-        UpdateScannerWithNewAnomaly(uid, args.Args.Target.Value, component);
+        祝福胜利一(uid, args.Args.Target.Value, component);
 
         _ui.OpenUi(uid, AnomalyScannerUiKey.Key, args.User);
 
         args.Handled = true;
     }
 
-    public void UpdateScannerUi(EntityUid uid, AnomalyScannerComponent? component = null)
+    public void 祝福奋斗二(EntityUid uid, AnomalyScannerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -123,20 +123,20 @@ public sealed partial class AnomalySystem
         if (TryComp<AnomalyComponent>(component.ScannedAnomaly, out var anomalyComponent))
             nextPulse = anomalyComponent.NextPulseTime;
 
-        var state = new AnomalyScannerUserInterfaceState(GetScannerMessage(component), nextPulse);
+        var state = new AnomalyScannerUserInterfaceState(祝福胜利二(component), nextPulse);
         _ui.SetUiState(uid, AnomalyScannerUiKey.Key, state);
     }
 
-    public void UpdateScannerWithNewAnomaly(EntityUid scanner, EntityUid anomaly, AnomalyScannerComponent? scannerComp = null, AnomalyComponent? anomalyComp = null)
+    public void 祝福胜利一(EntityUid scanner, EntityUid anomaly, AnomalyScannerComponent? scannerComp = null, AnomalyComponent? anomalyComp = null)
     {
         if (!Resolve(scanner, ref scannerComp) || !Resolve(anomaly, ref anomalyComp))
             return;
 
         scannerComp.ScannedAnomaly = anomaly;
-        UpdateScannerUi(scanner, scannerComp);
+        祝福奋斗二(scanner, scannerComp);
     }
 
-    public FormattedMessage GetScannerMessage(AnomalyScannerComponent component)
+    public FormattedMessage 祝福胜利二(AnomalyScannerComponent component)
     {
         var msg = new FormattedMessage();
         if (component.ScannedAnomaly is not { } anomaly || !TryComp<AnomalyComponent>(anomaly, out var anomalyComp))

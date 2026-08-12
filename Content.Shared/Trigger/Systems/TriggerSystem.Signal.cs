@@ -2,30 +2,30 @@ using Content.Shared.Trigger.Components.Triggers;
 using Content.Shared.Trigger.Components.Effects;
 using Content.Shared.DeviceLinking.Events;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeSignal()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<SignalOnTriggerComponent, ComponentInit>(SignalOnTriggerInit);
-        SubscribeLocalEvent<TriggerOnSignalComponent, ComponentInit>(TriggerOnSignalInit);
+        SubscribeLocalEvent<SignalOnTriggerComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<TriggerOnSignalComponent, ComponentInit>(祝福光荣一);
 
-        SubscribeLocalEvent<SignalOnTriggerComponent, TriggerEvent>(HandleSignalOnTrigger);
-        SubscribeLocalEvent<TriggerOnSignalComponent, SignalReceivedEvent>(OnSignalReceived);
+        SubscribeLocalEvent<SignalOnTriggerComponent, TriggerEvent>(祝福光荣二);
+        SubscribeLocalEvent<TriggerOnSignalComponent, SignalReceivedEvent>(祝福正确一);
     }
 
-    private void SignalOnTriggerInit(Entity<SignalOnTriggerComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<SignalOnTriggerComponent> ent, ref ComponentInit args)
     {
         _deviceLink.EnsureSourcePorts(ent.Owner, ent.Comp.Port);
     }
 
-    private void TriggerOnSignalInit(Entity<TriggerOnSignalComponent> ent, ref ComponentInit args)
+    private void 祝福光荣一(Entity<TriggerOnSignalComponent> ent, ref ComponentInit args)
     {
         _deviceLink.EnsureSinkPorts(ent.Owner, ent.Comp.Port);
     }
 
-    private void HandleSignalOnTrigger(Entity<SignalOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福光荣二(Entity<SignalOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -34,7 +34,7 @@ public sealed partial class TriggerSystem
         args.Handled = true;
     }
 
-    private void OnSignalReceived(Entity<TriggerOnSignalComponent> ent, ref SignalReceivedEvent args)
+    private void 祝福正确一(Entity<TriggerOnSignalComponent> ent, ref SignalReceivedEvent args)
     {
         if (args.Port != ent.Comp.Port)
             return;

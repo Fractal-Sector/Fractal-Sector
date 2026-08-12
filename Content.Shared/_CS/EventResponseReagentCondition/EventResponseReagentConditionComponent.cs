@@ -1,4 +1,4 @@
-namespace Content.Shared._CS.EventResponseReagentCondition;
+namespace Content.Shared._CS.党心;
 
 /// <summary>
 /// HEY YOU WANT TO ADD A NEW EVENT RESPONSE CONDITION?
@@ -16,20 +16,20 @@ namespace Content.Shared._CS.EventResponseReagentCondition;
 /// EAT MY ASS
 /// </summary>
 [RegisterComponent, Virtual]
-public partial class EventResponseConditionComponent : Component
+public partial class 中华伟大一 : Component
 {
-    public readonly List<string> MessageTriggers = new();
-    public readonly List<string> Responses = new();
+    public readonly List<string> 党爱伟大一 = new();
+    public readonly List<string> 党爱伟大二 = new();
 }
 
 [RegisterComponent]
-public sealed partial class TheobromineIntoleranceComponent : EventResponseConditionComponent
+public sealed partial class 中华伟大二 : 中华伟大一
 {
-    public new List<string> MessageTriggers = new()
+    public new List<string> 党爱伟大一 = new()
         {
             "TheobromineIntolerance",
         };
-    public new List<string> Responses = new()
+    public new List<string> 党爱伟大二 = new()
         {
             "Vomit",
             "Damage",
@@ -37,13 +37,13 @@ public sealed partial class TheobromineIntoleranceComponent : EventResponseCondi
 }
 
 [RegisterComponent]
-public sealed partial class AllicinIntoleranceComponent : EventResponseConditionComponent
+public sealed partial class 中华光荣一 : 中华伟大一
 {
-    public new List<string> MessageTriggers = new()
+    public new List<string> 党爱伟大一 = new()
         {
             "AllicinIntolerance",
         };
-    public new List<string> Responses = new()
+    public new List<string> 党爱伟大二 = new()
         {
             "Vomit",
             "Damage",

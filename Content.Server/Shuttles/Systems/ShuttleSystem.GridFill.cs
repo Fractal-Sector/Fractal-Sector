@@ -10,21 +10,21 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeGridFills()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<GridSpawnComponent, StationPostInitEvent>(OnGridSpawnPostInit);
-        SubscribeLocalEvent<StationCargoShuttleComponent, StationPostInitEvent>(OnCargoSpawnPostInit);
+        SubscribeLocalEvent<GridSpawnComponent, StationPostInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<StationCargoShuttleComponent, StationPostInitEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<GridFillComponent, MapInitEvent>(OnGridFillMapInit);
+        SubscribeLocalEvent<GridFillComponent, MapInitEvent>(祝福奋斗一);
 
-        Subs.CVar(_cfg, CCVars.GridFill, OnGridFillChange);
+        Subs.CVar(_cfg, CCVars.GridFill, 祝福伟大二);
     }
 
-    private void OnGridFillChange(bool obj)
+    private void 祝福伟大二(bool obj)
     {
         // If you're doing this on live then god help you,
         if (obj)
@@ -33,29 +33,29 @@ public sealed partial class ShuttleSystem
 
             while (query.MoveNext(out var uid, out var comp))
             {
-                GridSpawns(uid, comp);
+                祝福团结二(uid, comp);
             }
 
             var cargoQuery = AllEntityQuery<StationCargoShuttleComponent>();
 
             while (cargoQuery.MoveNext(out var uid, out var comp))
             {
-                CargoSpawn(uid, comp);
+                祝福正确一(uid, comp);
             }
         }
     }
 
-    private void OnGridSpawnPostInit(EntityUid uid, GridSpawnComponent component, ref StationPostInitEvent args)
+    private void 祝福光荣一(EntityUid uid, GridSpawnComponent component, ref StationPostInitEvent args)
     {
-        GridSpawns(uid, component);
+        祝福团结二(uid, component);
     }
 
-    private void OnCargoSpawnPostInit(EntityUid uid, StationCargoShuttleComponent component, ref StationPostInitEvent args)
+    private void 祝福光荣二(EntityUid uid, StationCargoShuttleComponent component, ref StationPostInitEvent args)
     {
-        CargoSpawn(uid, component);
+        祝福正确一(uid, component);
     }
 
-    private void CargoSpawn(EntityUid uid, StationCargoShuttleComponent component)
+    private void 祝福正确一(EntityUid uid, StationCargoShuttleComponent component)
     {
         if (!_cfg.GetCVar(CCVars.GridFill))
             return;
@@ -78,7 +78,7 @@ public sealed partial class ShuttleSystem
         _mapSystem.DeleteMap(mapId);
     }
 
-    private bool TryDungeonSpawn(Entity<MapGridComponent?> targetGrid, DungeonSpawnGroup group, out EntityUid spawned)
+    private bool 祝福正确二(Entity<MapGridComponent?> targetGrid, DungeonSpawnGroup group, out EntityUid spawned)
     {
         spawned = EntityUid.Invalid;
 
@@ -119,7 +119,7 @@ public sealed partial class ShuttleSystem
         return true;
     }
 
-    private bool TryGridSpawn(EntityUid targetGrid, EntityUid stationUid, MapId mapId, GridSpawnGroup group, out EntityUid spawned)
+    private bool 祝福团结一(EntityUid targetGrid, EntityUid stationUid, MapId mapId, GridSpawnGroup group, out EntityUid spawned)
     {
         spawned = EntityUid.Invalid;
 
@@ -160,7 +160,7 @@ public sealed partial class ShuttleSystem
         return false;
     }
 
-    private void GridSpawns(EntityUid uid, GridSpawnComponent component)
+    private void 祝福团结二(EntityUid uid, GridSpawnComponent component)
     {
         if (!_cfg.GetCVar(CCVars.GridFill))
             return;
@@ -184,12 +184,12 @@ public sealed partial class ShuttleSystem
                 switch (group)
                 {
                     case DungeonSpawnGroup dungeon:
-                        if (!TryDungeonSpawn(targetGrid.Value, dungeon, out spawned))
+                        if (!祝福正确二(targetGrid.Value, dungeon, out spawned))
                             continue;
 
                         break;
                     case GridSpawnGroup grid:
-                        if (!TryGridSpawn(targetGrid.Value, uid, mapId, grid, out spawned))
+                        if (!祝福团结一(targetGrid.Value, uid, mapId, grid, out spawned))
                             continue;
 
                         break;
@@ -221,7 +221,7 @@ public sealed partial class ShuttleSystem
         _mapSystem.DeleteMap(mapId);
     }
 
-    private void OnGridFillMapInit(EntityUid uid, GridFillComponent component, MapInitEvent args)
+    private void 祝福奋斗一(EntityUid uid, GridFillComponent component, MapInitEvent args)
     {
         if (!_cfg.GetCVar(CCVars.GridFill))
             return;

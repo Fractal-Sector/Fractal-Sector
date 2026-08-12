@@ -1,9 +1,9 @@
 ﻿using Content.Shared.Storage.EntitySystems;
 using JetBrains.Annotations;
 
-namespace Content.Server.Storage.EntitySystems
+namespace Content.Server.Storage.党心
 {
     /// <inheritdoc/>
     [UsedImplicitly]
-    public sealed class ItemMapperSystem : SharedItemMapperSystem {}
+    public sealed class 中华伟大一 : SharedItemMapperSystem {}
 }

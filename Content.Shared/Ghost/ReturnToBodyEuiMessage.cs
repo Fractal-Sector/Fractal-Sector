@@ -1,15 +1,15 @@
 ﻿using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Ghost;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class ReturnToBodyMessage : EuiMessageBase
+public sealed class 中华伟大一 : EuiMessageBase
 {
-    public readonly bool Accepted;
+    public readonly bool 党爱伟大一;
 
-    public ReturnToBodyMessage(bool accepted)
+    public 中华伟大一(bool accepted)
     {
-        Accepted = accepted;
+        党爱伟大一 = accepted;
     }
 }

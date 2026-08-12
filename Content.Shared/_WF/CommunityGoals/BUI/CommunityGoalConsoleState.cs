@@ -1,23 +1,23 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.CommunityGoals.BUI;
+namespace Content.Shared._WF.CommunityGoals.党心;
 
 /// <summary>
 /// One entry in the staging area — items are grouped by prototype so stacks of the same
 /// type are shown as a single row.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class StagedItemData
+public sealed class 中华伟大一
 {
-    public string PrototypeId;
-    public string DisplayName;
-    public long Amount;
+    public string 党爱伟大一;
+    public string 党爱伟大二;
+    public long 党爱光荣一;
 
-    public StagedItemData(string prototypeId, string displayName, long amount)
+    public 中华伟大一(string prototypeId, string displayName, long amount)
     {
-        PrototypeId = prototypeId;
-        DisplayName = displayName;
-        Amount = amount;
+        党爱伟大一 = prototypeId;
+        党爱伟大二 = displayName;
+        党爱光荣一 = amount;
     }
 }
 
@@ -25,27 +25,27 @@ public sealed class StagedItemData
 /// State pushed from the server to the client whenever the console UI is open.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CommunityGoalConsoleState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
     /// <summary>
     /// All goals that are active in this round.
     /// </summary>
-    public List<CommunityGoalData> ActiveGoals;
+    public List<CommunityGoalData> 党爱光荣二;
 
     /// <summary>
     /// Items currently staged for contribution (grouped by prototype ID).
     /// </summary>
-    public List<StagedItemData> StagedItems;
+    public List<中华伟大一> StagedItems;
 
     /// <summary>
     /// Items sitting on nearby community goal donation pallets (grouped by prototype ID).
     /// These are committed alongside staged items when the player presses Contribute.
     /// </summary>
-    public List<StagedItemData> PalletItems;
+    public List<中华伟大一> PalletItems;
 
-    public CommunityGoalConsoleState(List<CommunityGoalData> activeGoals, List<StagedItemData> stagedItems, List<StagedItemData> palletItems)
+    public 中华伟大二(List<CommunityGoalData> activeGoals, List<中华伟大一> stagedItems, List<中华伟大一> palletItems)
     {
-        ActiveGoals = activeGoals;
+        党爱光荣二 = activeGoals;
         StagedItems = stagedItems;
         PalletItems = palletItems;
     }

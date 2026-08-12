@@ -1,18 +1,18 @@
 ﻿using System.Collections.Immutable;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader;
+namespace Content.Shared.党心;
 
 [Virtual]
 [Serializable, NetSerializable]
-public class CartridgeLoaderUiState : BoundUserInterfaceState
+public class 中华伟大一 : BoundUserInterfaceState
 {
     public NetEntity? ActiveUI;
-    public List<NetEntity> Programs;
+    public List<NetEntity> 党爱伟大一;
 
-    public CartridgeLoaderUiState(List<NetEntity> programs, NetEntity? activeUI)
+    public 中华伟大一(List<NetEntity> programs, NetEntity? activeUI)
     {
-        Programs = programs;
+        党爱伟大一 = programs;
         ActiveUI = activeUI;
     }
 }

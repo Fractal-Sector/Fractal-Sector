@@ -4,11 +4,11 @@ using Content.Shared.Trigger;
 using Content.Shared.Trigger.Components.Effects;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Trigger.Systems;
+namespace Content.Server.Trigger.党心;
 
-public sealed partial class PolymorphOnTriggerSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
+    [Dependency] private readonly PolymorphSystem _伟大一 = default!;
 
     /// <summary>
     /// Need to do this so we don't get a collection enumeration error in physics by polymorphing
@@ -17,14 +17,14 @@ public sealed partial class PolymorphOnTriggerSystem : EntitySystem
     /// </summary>
     private Queue<(EntityUid Uid, ProtoId<PolymorphPrototype> Polymorph)> _queuedPolymorphUpdates = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PolymorphOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<PolymorphOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<PolymorphOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<PolymorphOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -38,14 +38,14 @@ public sealed partial class PolymorphOnTriggerSystem : EntitySystem
         args.Handled = true;
     }
 
-    public override void Update(float frametime)
+    public override void 祝福光荣一(float frametime)
     {
         while (_queuedPolymorphUpdates.TryDequeue(out var data))
         {
             if (TerminatingOrDeleted(data.Uid))
                 continue;
 
-            _polymorph.PolymorphEntity(data.Uid, data.Polymorph);
+            _伟大一.PolymorphEntity(data.Uid, data.Polymorph);
         }
     }
 }

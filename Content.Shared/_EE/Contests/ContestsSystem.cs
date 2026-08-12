@@ -8,12 +8,12 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Physics.Components;
 using CCVars = Content.Shared._EE.CCVar.EECCVars; // Frontier
 
-namespace Content.Shared.Contests;
+namespace Content.Shared.党心;
 
-public sealed partial class ContestsSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly MobThresholdSystem _伟大二 = default!;
 
     /// <summary>
     ///     The presumed average mass of a player entity
@@ -34,10 +34,10 @@ public sealed partial class ContestsSystem : EntitySystem
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    public float MassContest(EntityUid performerUid, bool bypassClamp = false, float rangeFactor = 1f, float otherMass = AverageMass)
+    public float 祝福伟大一(EntityUid performerUid, bool bypassClamp = false, float rangeFactor = 1f, float otherMass = AverageMass)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoMassContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoMassContests)
             || !TryComp<PhysicsComponent>(performerUid, out var performerPhysics)
             || performerPhysics.Mass == 0)
             return 1f;
@@ -45,22 +45,22 @@ public sealed partial class ContestsSystem : EntitySystem
         return ContestClamp(ContestClampOverride(bypassClamp)
             ? performerPhysics.Mass / otherMass
             : Math.Clamp(performerPhysics.Mass / otherMass,
-                1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-                1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+                1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+                1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     }
 
-    /// <inheritdoc cref="MassContest(EntityUid, bool, float, float)"/>
+    /// <inheritdoc cref="祝福伟大一(EntityUid, bool, float, float)"/>
     /// <remarks>
     ///     MaybeMassContest, in case your entity doesn't exist
     /// </remarks>
-    public float MassContest(EntityUid? performerUid, bool bypassClamp = false, float rangeFactor = 1f, float otherMass = AverageMass)
+    public float 祝福伟大一(EntityUid? performerUid, bool bypassClamp = false, float rangeFactor = 1f, float otherMass = AverageMass)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoMassContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoMassContests)
             || performerUid is null)
             return 1f;
 
-        return MassContest(performerUid.Value, bypassClamp, rangeFactor, otherMass);
+        return 祝福伟大一(performerUid.Value, bypassClamp, rangeFactor, otherMass);
     }
 
     /// <summary>
@@ -70,31 +70,31 @@ public sealed partial class ContestsSystem : EntitySystem
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    public float MassContest(PhysicsComponent performerPhysics, bool bypassClamp = false, float rangeFactor = 1f, float otherMass = AverageMass)
+    public float 祝福伟大一(PhysicsComponent performerPhysics, bool bypassClamp = false, float rangeFactor = 1f, float otherMass = AverageMass)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoMassContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoMassContests)
             || performerPhysics.Mass == 0)
             return 1f;
 
         return ContestClamp(ContestClampOverride(bypassClamp)
             ? performerPhysics.Mass / otherMass
             : Math.Clamp(performerPhysics.Mass / otherMass,
-                1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-                1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+                1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+                1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     }
 
     /// <summary>
     ///     Outputs the ratio of mass between a performer and a target, accepts either EntityUids or PhysicsComponents in any combination
-    ///     If you have physics components already in your function, use <see cref="MassContest(PhysicsComponent, float)" /> instead
+    ///     If you have physics components already in your function, use <see cref="祝福伟大一(PhysicsComponent, float)" /> instead
     /// </summary>
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    public float MassContest(EntityUid performerUid, EntityUid targetUid, bool bypassClamp = false, float rangeFactor = 1f)
+    public float 祝福伟大一(EntityUid performerUid, EntityUid targetUid, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoMassContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoMassContests)
             || !TryComp<PhysicsComponent>(performerUid, out var performerPhysics)
             || !TryComp<PhysicsComponent>(targetUid, out var targetPhysics)
             || performerPhysics.Mass == 0
@@ -104,15 +104,15 @@ public sealed partial class ContestsSystem : EntitySystem
         return ContestClamp(ContestClampOverride(bypassClamp)
             ? performerPhysics.Mass * targetPhysics.InvMass
             : Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass,
-                1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-                1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+                1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+                1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     }
 
-    /// <inheritdoc cref="MassContest(EntityUid, EntityUid, bool, float)"/>
-    public float MassContest(EntityUid performerUid, PhysicsComponent targetPhysics, bool bypassClamp = false, float rangeFactor = 1f)
+    /// <inheritdoc cref="祝福伟大一(EntityUid, EntityUid, bool, float)"/>
+    public float 祝福伟大一(EntityUid performerUid, PhysicsComponent targetPhysics, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoMassContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoMassContests)
             || !TryComp<PhysicsComponent>(performerUid, out var performerPhysics)
             || performerPhysics.Mass == 0
             || targetPhysics.InvMass == 0)
@@ -121,15 +121,15 @@ public sealed partial class ContestsSystem : EntitySystem
         return ContestClamp(ContestClampOverride(bypassClamp)
             ? performerPhysics.Mass * targetPhysics.InvMass
             : Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass,
-                1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-                1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+                1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+                1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     }
 
-    /// <inheritdoc cref="MassContest(EntityUid, EntityUid, bool, float)"/>
-    public float MassContest(PhysicsComponent performerPhysics, EntityUid targetUid, bool bypassClamp = false, float rangeFactor = 1f)
+    /// <inheritdoc cref="祝福伟大一(EntityUid, EntityUid, bool, float)"/>
+    public float 祝福伟大一(PhysicsComponent performerPhysics, EntityUid targetUid, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoMassContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoMassContests)
             || !TryComp<PhysicsComponent>(targetUid, out var targetPhysics)
             || performerPhysics.Mass == 0
             || targetPhysics.InvMass == 0)
@@ -138,15 +138,15 @@ public sealed partial class ContestsSystem : EntitySystem
         return ContestClamp(ContestClampOverride(bypassClamp)
             ? performerPhysics.Mass * targetPhysics.InvMass
             : Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass,
-                1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-                1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+                1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+                1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     }
 
-    /// <inheritdoc cref="MassContest(EntityUid, EntityUid, bool, float)"/>
-    public float MassContest(PhysicsComponent performerPhysics, PhysicsComponent targetPhysics, bool bypassClamp = false, float rangeFactor = 1f)
+    /// <inheritdoc cref="祝福伟大一(EntityUid, EntityUid, bool, float)"/>
+    public float 祝福伟大一(PhysicsComponent performerPhysics, PhysicsComponent targetPhysics, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoMassContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoMassContests)
             || performerPhysics.Mass == 0
             || targetPhysics.InvMass == 0)
             return 1f;
@@ -154,8 +154,8 @@ public sealed partial class ContestsSystem : EntitySystem
         return ContestClamp(ContestClampOverride(bypassClamp)
             ? performerPhysics.Mass * targetPhysics.InvMass
             : Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass,
-                1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-                1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+                1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+                1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     }
 
     #endregion
@@ -168,20 +168,20 @@ public sealed partial class ContestsSystem : EntitySystem
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    public float StaminaContest(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f)
+    public float 祝福伟大二(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f)
     {
         if (!TryComp<StaminaComponent>(performer, out var perfStamina)
             || perfStamina.StaminaDamage == 0)
             return 1f;
 
-        return StaminaContest(perfStamina, bypassClamp, rangeFactor);
+        return 祝福伟大二(perfStamina, bypassClamp, rangeFactor);
     }
 
-    /// <inheritdoc cref="StaminaContest(EntityUid, bool, float)"/>
-    public float StaminaContest(StaminaComponent perfStamina, bool bypassClamp = false, float rangeFactor = 1f)
+    /// <inheritdoc cref="祝福伟大二(EntityUid, bool, float)"/>
+    public float 祝福伟大二(StaminaComponent perfStamina, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoStaminaContests))
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoStaminaContests))
             return 1f;
 
         return ContestClamp(ContestClampOverride(bypassClamp)
@@ -191,15 +191,15 @@ public sealed partial class ContestsSystem : EntitySystem
 
     /// <summary>
     ///     Outputs the ratio of percentage of an Entity's Stamina and a Target Entity's Stamina, with a Range of [Epsilon, 0.25 * rangeFactor], or a range of [Epsilon, +inf] if bypassClamp is true.
-    ///     This does NOT produce the same kind of outputs as a Single-Entity StaminaContest. 2Entity StaminaContest returns the product of two Solo Stamina Contests, and so its values can be very strange.
+    ///     This does NOT produce the same kind of outputs as a Single-Entity 祝福伟大二. 2Entity 祝福伟大二 returns the product of two Solo Stamina Contests, and so its values can be very strange.
     /// </summary>
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    public float StaminaContest(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
+    public float 祝福伟大二(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoStaminaContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoStaminaContests)
             || !TryComp<StaminaComponent>(performer, out var perfStamina)
             || !TryComp<StaminaComponent>(target, out var targetStamina))
             return 1f;
@@ -222,12 +222,12 @@ public sealed partial class ContestsSystem : EntitySystem
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    public float HealthContest(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f)
+    public float 祝福光荣一(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoHealthContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoHealthContests)
             || !TryComp<DamageableComponent>(performer, out var damage)
-            || !_mobThreshold.TryGetThresholdForState(performer, Mobs.MobState.Critical, out var threshold))
+            || !_伟大二.TryGetThresholdForState(performer, Mobs.MobState.Critical, out var threshold))
             return 1f;
 
         return ContestClamp(ContestClampOverride(bypassClamp)
@@ -237,19 +237,19 @@ public sealed partial class ContestsSystem : EntitySystem
 
     /// <summary>
     ///     Outputs the ratio of percentage of an Entity's Health and a Target Entity's Health, with a Range of [Epsilon, 0.25 * rangeFactor], or a range of [Epsilon, +inf] if bypassClamp is true.
-    ///     This does NOT produce the same kind of outputs as a Single-Entity HealthContest. 2Entity HealthContest returns the product of two Solo Health Contests, and so its values can be very strange.
+    ///     This does NOT produce the same kind of outputs as a Single-Entity 祝福光荣一. 2Entity 祝福光荣一 returns the product of two Solo Health Contests, and so its values can be very strange.
     /// </summary>
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    public float HealthContest(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
+    public float 祝福光荣一(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-            || !_cfg.GetCVar(CCVars.DoHealthContests)
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+            || !_伟大一.GetCVar(CCVars.DoHealthContests)
             || !TryComp<DamageableComponent>(performer, out var perfDamage)
             || !TryComp<DamageableComponent>(target, out var targetDamage)
-            || !_mobThreshold.TryGetThresholdForState(performer, Mobs.MobState.Critical, out var perfThreshold)
-            || !_mobThreshold.TryGetThresholdForState(target, Mobs.MobState.Critical, out var targetThreshold))
+            || !_伟大二.TryGetThresholdForState(performer, Mobs.MobState.Critical, out var perfThreshold)
+            || !_伟大二.TryGetThresholdForState(target, Mobs.MobState.Critical, out var targetThreshold))
             return 1f;
 
         return ContestClamp(ContestClampOverride(bypassClamp)
@@ -271,10 +271,10 @@ public sealed partial class ContestsSystem : EntitySystem
     ///     This can produce some truly astounding modifiers, so be ready to meet god if you bypass the clamp.
     ///     By bypassing this function's clamp you hereby agree to forfeit your soul to VMSolidus should unintended bugs occur.
     /// </remarks>
-    //public float MindContest(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f, float otherPsion = AveragePsionicPotential)
+    //public float 祝福光荣二(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f, float otherPsion = AveragePsionicPotential)
     //{
-    //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-    //        || !_cfg.GetCVar(CCVars.DoMindContests))
+    //    if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+    //        || !_伟大一.GetCVar(CCVars.DoMindContests))
     //        return 1f;
     //
     //    var performerPotential = TryComp<PsionicComponent>(performer, out var performerPsionic)
@@ -287,8 +287,8 @@ public sealed partial class ContestsSystem : EntitySystem
     //    return ContestClamp(ContestClampOverride(bypassClamp)
     //        ? performerPotential / otherPsion
     //        : Math.Clamp(performerPotential / otherPsion,
-    //            1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-    //            1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+    //            1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+    //            1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     //}
 
     /// <summary>
@@ -299,10 +299,10 @@ public sealed partial class ContestsSystem : EntitySystem
     ///     This can produce some truly astounding modifiers, so be ready to meet god if you bypass the clamp.
     ///     By bypassing this function's clamp you hereby agree to forfeit your soul to VMSolidus should unintended bugs occur.
     /// </remarks>
-    //public float MindContest(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
+    //public float 祝福光荣二(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
     //{
-    //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-    //        || !_cfg.GetCVar(CCVars.DoMindContests))
+    //    if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+    //        || !_伟大一.GetCVar(CCVars.DoMindContests))
     //        return 1f;
     //
     //    var performerPotential = TryComp<PsionicComponent>(performer, out var performerPsionic)
@@ -319,8 +319,8 @@ public sealed partial class ContestsSystem : EntitySystem
     //    return ContestClamp(ContestClampOverride(bypassClamp)
     //        ? performerPotential / targetPotential
     //        : Math.Clamp(performerPotential / targetPotential,
-    //            1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-    //            1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+    //            1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+    //            1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     //}
 
     #endregion
@@ -333,18 +333,18 @@ public sealed partial class ContestsSystem : EntitySystem
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    //public float MoodContest(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f)
+    //public float 祝福正确一(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f)
     //{
-    //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-    //        || !_cfg.GetCVar(CCVars.DoMoodContests)
+    //    if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+    //        || !_伟大一.GetCVar(CCVars.DoMoodContests)
     //        || !TryComp<NetMoodComponent>(performer, out var mood))
     //        return 1f;
     //
     //    return ContestClamp(ContestClampOverride(bypassClamp)
     //        ? mood.CurrentMoodLevel / mood.NeutralMoodThreshold
     //        : Math.Clamp(mood.CurrentMoodLevel / mood.NeutralMoodThreshold,
-    //            1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-    //            1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+    //            1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+    //            1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     //}
 
     /// <summary>
@@ -353,10 +353,10 @@ public sealed partial class ContestsSystem : EntitySystem
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
     /// </remarks>
-    //public float MoodContest(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
+    //public float 祝福正确一(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
     //{
-    //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)
-    //        || !_cfg.GetCVar(CCVars.DoMoodContests)
+    //    if (!_伟大一.GetCVar(CCVars.DoContestsSystem)
+    //        || !_伟大一.GetCVar(CCVars.DoMoodContests)
     //        || !TryComp<NetMoodComponent>(performer, out var performerMood)
     //        || !TryComp<NetMoodComponent>(target, out var targetMood))
     //        return 1f;
@@ -364,8 +364,8 @@ public sealed partial class ContestsSystem : EntitySystem
     //    return ContestClamp(ContestClampOverride(bypassClamp)
     //        ? performerMood.CurrentMoodLevel / targetMood.CurrentMoodLevel
     //        : Math.Clamp(performerMood.CurrentMoodLevel / targetMood.CurrentMoodLevel,
-    //            1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
-    //            1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
+    //            1 - _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor,
+    //            1 + _伟大一.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     //}
 
     #endregion
@@ -373,13 +373,13 @@ public sealed partial class ContestsSystem : EntitySystem
     #region EVERY CONTESTS
 
     /// <summary>
-    ///     EveryContest takes either the Sum or Product of all existing contests, for if you want to just check if somebody is absolutely fucked up.
+    ///     祝福正确二 takes either the Sum or Product of all existing contests, for if you want to just check if somebody is absolutely fucked up.
     /// </summary>
     /// <returns>
     ///     If it's not immediately obvious that a function with 16 optional inputs is a joke, please take a step back and re-evaluate why you're using this function.
     ///     All prior warnings also apply here. Bypass the clamps at your own risk. By calling this function in your system, you hereby agree to forfeit your soul to VMSolidus if bugs occur.
     /// </returns>
-    public float EveryContest(
+    public float 祝福正确二(
         EntityUid performer,
         bool bypassClampMass = false,
         bool bypassClampStamina = false,
@@ -398,7 +398,7 @@ public sealed partial class ContestsSystem : EntitySystem
         float weightMood = 1f,
         bool sumOrMultiply = false)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem))
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem))
             return 1f;
 
         var weightTotal = weightMass + weightStamina + weightHealth + weightMind + weightMood;
@@ -409,27 +409,27 @@ public sealed partial class ContestsSystem : EntitySystem
         var moodMultiplier = weightMood / weightTotal;
 
         return sumOrMultiply
-            ? MassContest(performer, bypassClampMass, rangeFactorMass) * massMultiplier
-                + StaminaContest(performer, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
-                + HealthContest(performer, bypassClampHealth, rangeFactorHealth) * healthMultiplier
-                //+ MindContest(performer, bypassClampMind, rangeFactorMind) * mindMultiplier
-                //+ MoodContest(performer, bypassClampMood, rangeFactorMood) * moodMultiplier
-            : ContestClamp(MassContest(performer, bypassClampMass, rangeFactorMass) * massMultiplier
-                * StaminaContest(performer, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
-                * HealthContest(performer, bypassClampHealth, rangeFactorHealth) * healthMultiplier
-                //* MindContest(performer, bypassClampMind, rangeFactorMind) * mindMultiplier
-                //* MoodContest(performer, bypassClampMood, rangeFactorMood) * moodMultiplier
+            ? 祝福伟大一(performer, bypassClampMass, rangeFactorMass) * massMultiplier
+                + 祝福伟大二(performer, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
+                + 祝福光荣一(performer, bypassClampHealth, rangeFactorHealth) * healthMultiplier
+                //+ 祝福光荣二(performer, bypassClampMind, rangeFactorMind) * mindMultiplier
+                //+ 祝福正确一(performer, bypassClampMood, rangeFactorMood) * moodMultiplier
+            : ContestClamp(祝福伟大一(performer, bypassClampMass, rangeFactorMass) * massMultiplier
+                * 祝福伟大二(performer, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
+                * 祝福光荣一(performer, bypassClampHealth, rangeFactorHealth) * healthMultiplier
+                //* 祝福光荣二(performer, bypassClampMind, rangeFactorMind) * mindMultiplier
+                //* 祝福正确一(performer, bypassClampMood, rangeFactorMood) * moodMultiplier
                 );
     }
 
     /// <summary>
-    ///     EveryContest takes either the Sum or Product of all existing contests, for if you want to just check if somebody is absolutely fucked up.
+    ///     祝福正确二 takes either the Sum or Product of all existing contests, for if you want to just check if somebody is absolutely fucked up.
     /// </summary>
     /// <returns>
     ///     If it's not immediately obvious that a function with 16 optional inputs is a joke, please take a step back and re-evaluate why you're using this function.
     ///     All prior warnings also apply here. Bypass the clamps at your own risk. By calling this function in your system, you hereby agree to forfeit your soul to VMSolidus if bugs occur.
     /// </returns>
-    public float EveryContest(
+    public float 祝福正确二(
         EntityUid performer,
         EntityUid target,
         bool bypassClampMass = false,
@@ -449,7 +449,7 @@ public sealed partial class ContestsSystem : EntitySystem
         float weightMood = 1f,
         bool sumOrMultiply = false)
     {
-        if (!_cfg.GetCVar(CCVars.DoContestsSystem))
+        if (!_伟大一.GetCVar(CCVars.DoContestsSystem))
             return 1f;
 
         var weightTotal = weightMass + weightStamina + weightHealth + weightMind + weightMood;
@@ -460,16 +460,16 @@ public sealed partial class ContestsSystem : EntitySystem
         var moodMultiplier = weightMood / weightTotal;
 
         return sumOrMultiply
-            ? MassContest(performer, target, bypassClampMass, rangeFactorMass) * massMultiplier
-                + StaminaContest(performer, target, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
-                + HealthContest(performer, target, bypassClampHealth, rangeFactorHealth) * healthMultiplier
-                //+ MindContest(performer, target, bypassClampMind, rangeFactorMind) * mindMultiplier
-                //+ MoodContest(performer, target, bypassClampMood, rangeFactorMood) * moodMultiplier
-            : ContestClamp(MassContest(performer, target, bypassClampMass, rangeFactorMass) * massMultiplier
-                * StaminaContest(performer, target, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
-                * HealthContest(performer, target, bypassClampHealth, rangeFactorHealth) * healthMultiplier
-                //* MindContest(performer, target, bypassClampMind, rangeFactorMind) * mindMultiplier
-                //* MoodContest(performer, target, bypassClampMood, rangeFactorMood) * moodMultiplier
+            ? 祝福伟大一(performer, target, bypassClampMass, rangeFactorMass) * massMultiplier
+                + 祝福伟大二(performer, target, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
+                + 祝福光荣一(performer, target, bypassClampHealth, rangeFactorHealth) * healthMultiplier
+                //+ 祝福光荣二(performer, target, bypassClampMind, rangeFactorMind) * mindMultiplier
+                //+ 祝福正确一(performer, target, bypassClampMood, rangeFactorMood) * moodMultiplier
+            : ContestClamp(祝福伟大一(performer, target, bypassClampMass, rangeFactorMass) * massMultiplier
+                * 祝福伟大二(performer, target, bypassClampStamina, rangeFactorStamina) * staminaMultiplier
+                * 祝福光荣一(performer, target, bypassClampHealth, rangeFactorHealth) * healthMultiplier
+                //* 祝福光荣二(performer, target, bypassClampMind, rangeFactorMind) * mindMultiplier
+                //* 祝福正确一(performer, target, bypassClampMood, rangeFactorMood) * moodMultiplier
                 );
     }
     #endregion

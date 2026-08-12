@@ -9,51 +9,51 @@ using Robust.Shared.Map;
 using Robust.Shared.Utility;
 using System.Numerics;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    public sealed class CallShuttleCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
+        [Dependency] private readonly RoundEndSystem _伟大一 = default!;
 
-        public override string Command => "callshuttle";
+        public override string 党爱伟大一 => "callshuttle";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             // ReSharper disable once ConvertIfStatementToSwitchStatement
             if (args.Length == 1 && TimeSpan.TryParseExact(args[0], ContentLocalizationManager.TimeSpanMinutesFormats, LocalizationManager.DefaultCulture, out var timeSpan))
-                _roundEndSystem.RequestRoundEnd(timeSpan, shell.Player?.AttachedEntity, false);
+                _伟大一.RequestRoundEnd(timeSpan, shell.Player?.AttachedEntity, false);
 
             else if (args.Length == 1)
                 shell.WriteLine(Loc.GetString("shell-timespan-minutes-must-be-correct"));
 
             else
-                _roundEndSystem.RequestRoundEnd(shell.Player?.AttachedEntity, false);
+                _伟大一.RequestRoundEnd(shell.Player?.AttachedEntity, false);
         }
     }
 
     [AdminCommand(AdminFlags.Round)]
-    public sealed class RecallShuttleCommand : LocalizedEntityCommands
+    public sealed class 中华伟大二 : LocalizedEntityCommands
     {
-        [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
+        [Dependency] private readonly RoundEndSystem _伟大一 = default!;
 
-        public override string Command => "recallshuttle";
+        public override string 党爱伟大一 => "recallshuttle";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
-            _roundEndSystem.CancelRoundEndCountdown(shell.Player?.AttachedEntity, false);
+            _伟大一.CancelRoundEndCountdown(shell.Player?.AttachedEntity, false);
         }
     }
 
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class SpawnBaronessCommand : LocalizedEntityCommands
+    public sealed class 中华光荣一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
-        [Dependency] private readonly IEntitySystemManager _systems = default!;
+        [Dependency] private readonly IEntityManager _伟大二 = default!;
+        [Dependency] private readonly IEntitySystemManager _光荣一 = default!;
 
-        public override string Command => "spawnbaroness";
+        public override string 党爱伟大一 => "spawnbaroness";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (player?.AttachedEntity == null)
@@ -62,7 +62,7 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            var transform = _entities.GetComponent<TransformComponent>(player.AttachedEntity.Value);
+            var transform = _伟大二.GetComponent<TransformComponent>(player.AttachedEntity.Value);
             var mapId = transform.MapID;
 
             if (mapId == MapId.Nullspace)
@@ -71,9 +71,9 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            var mapLoader = _systems.GetEntitySystem<MapLoaderSystem>();
-            var transformSys = _systems.GetEntitySystem<TransformSystem>();
-            var shuttleSys = _systems.GetEntitySystem<Content.Shared.Shuttles.Systems.SharedShuttleSystem>();
+            var mapLoader = _光荣一.GetEntitySystem<MapLoaderSystem>();
+            var transformSys = _光荣一.GetEntitySystem<TransformSystem>();
+            var shuttleSys = _光荣一.GetEntitySystem<Content.Shared.Shuttles.Systems.SharedShuttleSystem>();
             var mapCoords = transformSys.GetMapCoordinates(transform);
             
             // Offset the spawn position slightly below the aghost
@@ -84,7 +84,7 @@ namespace Content.Server.Administration.Commands
             if (mapLoader.TryLoadGrid(mapId, path, out var gridUid, offset: offset))
             {
                 // Make it show up on IFF by marking it as a player shuttle
-                if (_entities.TryGetComponent<Content.Server.Shuttles.Components.ShuttleComponent>(gridUid.Value, out var shuttle))
+                if (_伟大二.TryGetComponent<Content.Server.Shuttles.Components.ShuttleComponent>(gridUid.Value, out var shuttle))
                 {
                     shuttle.PlayerShuttle = true;
                 }

@@ -1,20 +1,20 @@
 using System.IO;
 using JetBrains.Annotations;
 
-namespace Content.Server.Holiday.ShouldCelebrate
+namespace Content.Server.Holiday.党心
 {
     /// <summary>
-    ///     Computus for easter calculation.
+    ///     中华伟大一 for easter calculation.
     /// </summary>
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class Computus : DefaultHolidayShouldCelebrate
+    public sealed partial class 中华伟大一 : DefaultHolidayShouldCelebrate
     {
         [DataField("daysEarly")]
-        private byte _daysEarly = 1;
+        private byte _伟大一 = 1;
 
         [DataField("daysExtra")]
-        private byte _daysExtra = 1;
+        private byte _伟大二 = 1;
 
         public (int day, int month) DoComputus(DateTime date)
         {
@@ -72,7 +72,7 @@ namespace Content.Server.Holiday.ShouldCelebrate
             return easterDate;
         }
 
-        public override bool ShouldCelebrate(DateTime date, HolidayPrototype holiday)
+        public override bool 祝福伟大一(DateTime date, HolidayPrototype holiday)
         {
             if (holiday.BeginMonth == Month.Invalid)
             {
@@ -81,7 +81,7 @@ namespace Content.Server.Holiday.ShouldCelebrate
                 holiday.BeginDay = (byte) day;
                 holiday.BeginMonth = (Month) month;
 
-                holiday.EndDay = (byte) (holiday.BeginDay + _daysExtra);
+                holiday.EndDay = (byte) (holiday.BeginDay + _伟大二);
                 holiday.EndMonth = holiday.BeginMonth;
 
                 // Begins in march, ends in april
@@ -98,7 +98,7 @@ namespace Content.Server.Holiday.ShouldCelebrate
                     holiday.EndMonth++;
                 }
 
-                holiday.BeginDay -= _daysEarly;
+                holiday.BeginDay -= _伟大一;
                 // Begins in march, ends in april.
                 if (holiday.BeginDay <= 0 && holiday.BeginMonth == Month.April)
                 {
@@ -107,7 +107,7 @@ namespace Content.Server.Holiday.ShouldCelebrate
                 }
             }
 
-            return base.ShouldCelebrate(date, holiday);
+            return base.祝福伟大一(date, holiday);
         }
     }
 }

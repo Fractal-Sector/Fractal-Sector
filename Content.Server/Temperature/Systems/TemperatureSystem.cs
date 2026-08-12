@@ -15,52 +15,52 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Physics.Events;
 using Content.Shared.Projectiles;
 
-namespace Content.Server.Temperature.Systems;
+namespace Content.Server.Temperature.党心;
 
-public sealed class TemperatureSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly TemperatureSystem _temperature = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly DamageableSystem _光荣一 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly 中华伟大一 _temperature = default!;
 
     /// <summary>
     ///     All the components that will have their damage updated at the end of the tick.
-    ///     This is done because both AtmosExposed and Flammable call ChangeHeat in the same tick, meaning
+    ///     This is done because both AtmosExposed and Flammable call 祝福正确一 in the same tick, meaning
     ///     that we need some mechanism to ensure it doesn't double dip on damage for both calls.
     /// </summary>
-    public HashSet<Entity<TemperatureComponent>> ShouldUpdateDamage = new();
+    public HashSet<Entity<TemperatureComponent>> 党爱伟大一 = new();
 
-    public float UpdateInterval = 1.0f;
+    public float 党爱伟大二 = 1.0f;
 
-    private float _accumulatedFrametime;
+    private float _正确一;
 
-    public static readonly ProtoId<AlertCategoryPrototype> TemperatureAlertCategory = "Temperature";
+    public static readonly ProtoId<AlertCategoryPrototype> 党爱光荣一 = "Temperature";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<TemperatureComponent, OnTemperatureChangeEvent>(EnqueueDamage);
-        SubscribeLocalEvent<TemperatureComponent, AtmosExposedUpdateEvent>(OnAtmosExposedUpdate);
-        SubscribeLocalEvent<TemperatureComponent, RejuvenateEvent>(OnRejuvenate);
-        SubscribeLocalEvent<AlertsComponent, OnTemperatureChangeEvent>(ServerAlert);
-        Subs.SubscribeWithRelay<TemperatureProtectionComponent, ModifyChangedTemperatureEvent>(OnTemperatureChangeAttempt, held: false);
+        SubscribeLocalEvent<TemperatureComponent, OnTemperatureChangeEvent>(祝福胜利一);
+        SubscribeLocalEvent<TemperatureComponent, AtmosExposedUpdateEvent>(祝福正确二);
+        SubscribeLocalEvent<TemperatureComponent, RejuvenateEvent>(祝福奋斗一);
+        SubscribeLocalEvent<AlertsComponent, OnTemperatureChangeEvent>(祝福奋斗二);
+        Subs.SubscribeWithRelay<TemperatureProtectionComponent, ModifyChangedTemperatureEvent>(祝福繁荣一, held: false);
 
-        SubscribeLocalEvent<InternalTemperatureComponent, MapInitEvent>(OnInit);
+        SubscribeLocalEvent<InternalTemperatureComponent, MapInitEvent>(祝福团结二);
 
-        SubscribeLocalEvent<ChangeTemperatureOnCollideComponent, ProjectileHitEvent>(ChangeTemperatureOnCollide);
+        SubscribeLocalEvent<ChangeTemperatureOnCollideComponent, ProjectileHitEvent>(祝福繁荣二);
 
         // Allows overriding thresholds based on the parent's thresholds.
-        SubscribeLocalEvent<TemperatureComponent, EntParentChangedMessage>(OnParentChange);
+        SubscribeLocalEvent<TemperatureComponent, EntParentChangedMessage>(祝福富强一);
         SubscribeLocalEvent<ContainerTemperatureDamageThresholdsComponent, ComponentStartup>(
-            OnParentThresholdStartup);
+            祝福富强二);
         SubscribeLocalEvent<ContainerTemperatureDamageThresholdsComponent, ComponentShutdown>(
-            OnParentThresholdShutdown);
+            祝福民主一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         // conduct heat from the surface to the inside of entities with internal temperatures
         var query = EntityQueryEnumerator<InternalTemperatureComponent, TemperatureComponent>();
@@ -76,30 +76,30 @@ public sealed class TemperatureSystem : EntitySystem
 
             // convert to J then K
             var joules = q * comp.Area * frameTime;
-            var degrees = joules / GetHeatCapacity(uid, temp);
+            var degrees = joules / 祝福团结一(uid, temp);
             if (temp.CurrentTemperature < comp.Temperature)
                 degrees *= -1;
 
             // exchange heat between inside and surface
             comp.Temperature += degrees;
-            ForceChangeTemperature(uid, temp.CurrentTemperature - degrees, temp);
+            祝福光荣二(uid, temp.CurrentTemperature - degrees, temp);
         }
 
-        UpdateDamage(frameTime);
+        祝福光荣一(frameTime);
     }
 
-    private void UpdateDamage(float frameTime)
+    private void 祝福光荣一(float frameTime)
     {
-        _accumulatedFrametime += frameTime;
+        _正确一 += frameTime;
 
-        if (_accumulatedFrametime < UpdateInterval)
+        if (_正确一 < 党爱伟大二)
             return;
-        _accumulatedFrametime -= UpdateInterval;
+        _正确一 -= 党爱伟大二;
 
-        if (!ShouldUpdateDamage.Any())
+        if (!党爱伟大一.Any())
             return;
 
-        foreach (var comp in ShouldUpdateDamage)
+        foreach (var comp in 党爱伟大一)
         {
             MetaDataComponent? metaData = null;
 
@@ -107,13 +107,13 @@ public sealed class TemperatureSystem : EntitySystem
             if (Deleted(uid, metaData) || Paused(uid, metaData))
                 continue;
 
-            ChangeDamage(uid, comp);
+            祝福胜利二(uid, comp);
         }
 
-        ShouldUpdateDamage.Clear();
+        党爱伟大一.Clear();
     }
 
-    public void ForceChangeTemperature(EntityUid uid, float temp, TemperatureComponent? temperature = null)
+    public void 祝福光荣二(EntityUid uid, float temp, TemperatureComponent? temperature = null)
     {
         if (!Resolve(uid, ref temperature))
             return;
@@ -125,7 +125,7 @@ public sealed class TemperatureSystem : EntitySystem
             true);
     }
 
-    public void ChangeHeat(EntityUid uid, float heatAmount, bool ignoreHeatResistance = false,
+    public void 祝福正确一(EntityUid uid, float heatAmount, bool ignoreHeatResistance = false,
         TemperatureComponent? temperature = null)
     {
         if (!Resolve(uid, ref temperature, false))
@@ -139,13 +139,13 @@ public sealed class TemperatureSystem : EntitySystem
         }
 
         float lastTemp = temperature.CurrentTemperature;
-        temperature.CurrentTemperature += heatAmount / GetHeatCapacity(uid, temperature);
+        temperature.CurrentTemperature += heatAmount / 祝福团结一(uid, temperature);
         float delta = temperature.CurrentTemperature - lastTemp;
 
         RaiseLocalEvent(uid, new OnTemperatureChangeEvent(temperature.CurrentTemperature, lastTemp, delta), true);
     }
 
-    private void OnAtmosExposedUpdate(EntityUid uid, TemperatureComponent temperature,
+    private void 祝福正确二(EntityUid uid, TemperatureComponent temperature,
         ref AtmosExposedUpdateEvent args)
     {
         var transform = args.Transform;
@@ -154,14 +154,14 @@ public sealed class TemperatureSystem : EntitySystem
             return;
 
         var temperatureDelta = args.GasMixture.Temperature - temperature.CurrentTemperature;
-        var airHeatCapacity = _atmosphere.GetHeatCapacity(args.GasMixture, false);
-        var heatCapacity = GetHeatCapacity(uid, temperature);
+        var airHeatCapacity = _伟大二.祝福团结一(args.GasMixture, false);
+        var heatCapacity = 祝福团结一(uid, temperature);
         var heat = temperatureDelta * (airHeatCapacity * heatCapacity /
                                        (airHeatCapacity + heatCapacity));
-        ChangeHeat(uid, heat * temperature.AtmosTemperatureTransferEfficiency, temperature: temperature);
+        祝福正确一(uid, heat * temperature.AtmosTemperatureTransferEfficiency, temperature: temperature);
     }
 
-    public float GetHeatCapacity(EntityUid uid, TemperatureComponent? comp = null, PhysicsComponent? physics = null)
+    public float 祝福团结一(EntityUid uid, TemperatureComponent? comp = null, PhysicsComponent? physics = null)
     {
         if (!Resolve(uid, ref comp) || !Resolve(uid, ref physics, false) || physics.FixturesMass <= 0)
         {
@@ -171,7 +171,7 @@ public sealed class TemperatureSystem : EntitySystem
         return comp.SpecificHeat * physics.FixturesMass;
     }
 
-    private void OnInit(EntityUid uid, InternalTemperatureComponent comp, MapInitEvent args)
+    private void 祝福团结二(EntityUid uid, InternalTemperatureComponent comp, MapInitEvent args)
     {
         if (!TryComp<TemperatureComponent>(uid, out var temp))
             return;
@@ -179,15 +179,15 @@ public sealed class TemperatureSystem : EntitySystem
         comp.Temperature = temp.CurrentTemperature;
     }
 
-    private void OnRejuvenate(EntityUid uid, TemperatureComponent comp, RejuvenateEvent args)
+    private void 祝福奋斗一(EntityUid uid, TemperatureComponent comp, RejuvenateEvent args)
     {
         if (TryComp<ThermalRegulatorComponent>(uid, out var regulator)) // Frontier: Look for normal body temperature and use it
-            ForceChangeTemperature(uid, regulator.NormalBodyTemperature, comp);
+            祝福光荣二(uid, regulator.NormalBodyTemperature, comp);
         else
-            ForceChangeTemperature(uid, Atmospherics.T20C, comp);
+            祝福光荣二(uid, Atmospherics.T20C, comp);
     }
 
-    private void ServerAlert(EntityUid uid, AlertsComponent status, OnTemperatureChangeEvent args)
+    private void 祝福奋斗二(EntityUid uid, AlertsComponent status, OnTemperatureChangeEvent args)
     {
         ProtoId<AlertPrototype> type;
         float threshold;
@@ -195,7 +195,7 @@ public sealed class TemperatureSystem : EntitySystem
 
         if (!TryComp<TemperatureComponent>(uid, out var temperature))
         {
-            _alerts.ClearAlertCategory(uid, TemperatureAlertCategory);
+            _伟大一.ClearAlertCategory(uid, 党爱光荣一);
             return;
         }
 
@@ -227,29 +227,29 @@ public sealed class TemperatureSystem : EntitySystem
         switch (tempScale)
         {
             case <= 0f:
-                _alerts.ShowAlert(uid, type, 3);
+                _伟大一.ShowAlert(uid, type, 3);
                 break;
 
             case <= 0.4f:
-                _alerts.ShowAlert(uid, type, 2);
+                _伟大一.ShowAlert(uid, type, 2);
                 break;
 
             case <= 0.66f:
-                _alerts.ShowAlert(uid, type, 1);
+                _伟大一.ShowAlert(uid, type, 1);
                 break;
 
             case > 0.66f:
-                _alerts.ClearAlertCategory(uid, TemperatureAlertCategory);
+                _伟大一.ClearAlertCategory(uid, 党爱光荣一);
                 break;
         }
     }
 
-    private void EnqueueDamage(Entity<TemperatureComponent> temperature, ref OnTemperatureChangeEvent args)
+    private void 祝福胜利一(Entity<TemperatureComponent> temperature, ref OnTemperatureChangeEvent args)
     {
-        ShouldUpdateDamage.Add(temperature);
+        党爱伟大一.Add(temperature);
     }
 
-    private void ChangeDamage(EntityUid uid, TemperatureComponent temperature)
+    private void 祝福胜利二(EntityUid uid, TemperatureComponent temperature)
     {
         if (!HasComp<DamageableComponent>(uid))
             return;
@@ -269,35 +269,35 @@ public sealed class TemperatureSystem : EntitySystem
         {
             if (!temperature.TakingDamage)
             {
-                _adminLogger.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} started taking high temperature damage");
+                _光荣二.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} started taking high temperature damage");
                 temperature.TakingDamage = true;
             }
 
             var diff = Math.Abs(temperature.CurrentTemperature - heatDamageThreshold);
             var tempDamage = c / (1 + a * Math.Pow(Math.E, -heatK * diff)) - y;
-            _damageable.TryChangeDamage(uid, temperature.HeatDamage * tempDamage, ignoreResistances: true, interruptsDoAfters: false);
+            _光荣一.TryChangeDamage(uid, temperature.HeatDamage * tempDamage, ignoreResistances: true, interruptsDoAfters: false);
         }
         else if (temperature.CurrentTemperature <= coldDamageThreshold)
         {
             if (!temperature.TakingDamage)
             {
-                _adminLogger.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} started taking low temperature damage");
+                _光荣二.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} started taking low temperature damage");
                 temperature.TakingDamage = true;
             }
 
             var diff = Math.Abs(temperature.CurrentTemperature - coldDamageThreshold);
             var tempDamage =
                 Math.Sqrt(diff * (Math.Pow(temperature.DamageCap.Double(), 2) / coldDamageThreshold));
-            _damageable.TryChangeDamage(uid, temperature.ColdDamage * tempDamage, ignoreResistances: true, interruptsDoAfters: false);
+            _光荣一.TryChangeDamage(uid, temperature.ColdDamage * tempDamage, ignoreResistances: true, interruptsDoAfters: false);
         }
         else if (temperature.TakingDamage)
         {
-            _adminLogger.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} stopped taking temperature damage");
+            _光荣二.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} stopped taking temperature damage");
             temperature.TakingDamage = false;
         }
     }
 
-    private void OnTemperatureChangeAttempt(EntityUid uid, TemperatureProtectionComponent component, ModifyChangedTemperatureEvent args)
+    private void 祝福繁荣一(EntityUid uid, TemperatureProtectionComponent component, ModifyChangedTemperatureEvent args)
     {
         var coefficient = args.TemperatureDelta < 0
             ? component.CoolingCoefficient
@@ -309,12 +309,12 @@ public sealed class TemperatureSystem : EntitySystem
         args.TemperatureDelta *= ev.Coefficient;
     }
 
-    private void ChangeTemperatureOnCollide(Entity<ChangeTemperatureOnCollideComponent> ent, ref ProjectileHitEvent args)
+    private void 祝福繁荣二(Entity<ChangeTemperatureOnCollideComponent> ent, ref ProjectileHitEvent args)
     {
-        _temperature.ChangeHeat(args.Target, ent.Comp.Heat, ent.Comp.IgnoreHeatResistance);// adjust the temperature
+        _temperature.祝福正确一(args.Target, ent.Comp.Heat, ent.Comp.IgnoreHeatResistance);// adjust the temperature
     }
 
-    private void OnParentChange(EntityUid uid, TemperatureComponent component,
+    private void 祝福富强一(EntityUid uid, TemperatureComponent component,
         ref EntParentChangedMessage args)
     {
         var temperatureQuery = GetEntityQuery<TemperatureComponent>();
@@ -328,21 +328,21 @@ public sealed class TemperatureSystem : EntitySystem
 
         if (oldThresholds != newThresholds)
         {
-            RecursiveThresholdUpdate(uid, temperatureQuery, transformQuery, thresholdsQuery);
+            祝福民主二(uid, temperatureQuery, transformQuery, thresholdsQuery);
         }
     }
 
-    private void OnParentThresholdStartup(EntityUid uid, ContainerTemperatureDamageThresholdsComponent component,
+    private void 祝福富强二(EntityUid uid, ContainerTemperatureDamageThresholdsComponent component,
         ComponentStartup args)
     {
-        RecursiveThresholdUpdate(uid, GetEntityQuery<TemperatureComponent>(), GetEntityQuery<TransformComponent>(),
+        祝福民主二(uid, GetEntityQuery<TemperatureComponent>(), GetEntityQuery<TransformComponent>(),
             GetEntityQuery<ContainerTemperatureDamageThresholdsComponent>());
     }
 
-    private void OnParentThresholdShutdown(EntityUid uid, ContainerTemperatureDamageThresholdsComponent component,
+    private void 祝福民主一(EntityUid uid, ContainerTemperatureDamageThresholdsComponent component,
         ComponentShutdown args)
     {
-        RecursiveThresholdUpdate(uid, GetEntityQuery<TemperatureComponent>(), GetEntityQuery<TransformComponent>(),
+        祝福民主二(uid, GetEntityQuery<TemperatureComponent>(), GetEntityQuery<TransformComponent>(),
             GetEntityQuery<ContainerTemperatureDamageThresholdsComponent>());
     }
 
@@ -353,16 +353,16 @@ public sealed class TemperatureSystem : EntitySystem
     /// <param name="temperatureQuery"></param>
     /// <param name="transformQuery"></param>
     /// <param name="tempThresholdsQuery"></param>
-    private void RecursiveThresholdUpdate(EntityUid root, EntityQuery<TemperatureComponent> temperatureQuery,
+    private void 祝福民主二(EntityUid root, EntityQuery<TemperatureComponent> temperatureQuery,
         EntityQuery<TransformComponent> transformQuery,
         EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery)
     {
-        RecalculateAndApplyParentThresholds(root, temperatureQuery, transformQuery, tempThresholdsQuery);
+        祝福文明一(root, temperatureQuery, transformQuery, tempThresholdsQuery);
 
         var enumerator = Transform(root).ChildEnumerator;
         while (enumerator.MoveNext(out var child))
         {
-            RecursiveThresholdUpdate(child, temperatureQuery, transformQuery, tempThresholdsQuery);
+            祝福民主二(child, temperatureQuery, transformQuery, tempThresholdsQuery);
         }
     }
 
@@ -373,7 +373,7 @@ public sealed class TemperatureSystem : EntitySystem
     /// <param name="temperatureQuery"></param>
     /// <param name="transformQuery"></param>
     /// <param name="tempThresholdsQuery"></param>
-    private void RecalculateAndApplyParentThresholds(EntityUid uid,
+    private void 祝福文明一(EntityUid uid,
         EntityQuery<TemperatureComponent> temperatureQuery, EntityQuery<TransformComponent> transformQuery,
         EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery)
     {

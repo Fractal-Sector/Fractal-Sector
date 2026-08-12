@@ -15,9 +15,9 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Body.Systems;
+namespace Content.Shared.Body.党心;
 
-public partial class SharedBodySystem
+public partial class 中华伟大一
 {
     /*
      * tl;dr of how bobby works
@@ -26,25 +26,25 @@ public partial class SharedBodySystem
      * - Each "connection" is a body part (e.g. arm, hand, etc.) and each part can also contain organs.
      */
 
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly GibbingSystem _gibbingSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+    [Dependency] private readonly InventorySystem _伟大一 = default!;
+    [Dependency] private readonly GibbingSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
 
     private const float GibletLaunchImpulse = 8;
     private const float GibletLaunchImpulseVariance = 3;
 
-    private void InitializeBody()
+    private void 祝福伟大一()
     {
         // Body here to handle root body parts.
-        SubscribeLocalEvent<BodyComponent, EntInsertedIntoContainerMessage>(OnBodyInserted);
-        SubscribeLocalEvent<BodyComponent, EntRemovedFromContainerMessage>(OnBodyRemoved);
+        SubscribeLocalEvent<BodyComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<BodyComponent, EntRemovedFromContainerMessage>(祝福光荣一);
 
-        SubscribeLocalEvent<BodyComponent, ComponentInit>(OnBodyInit);
-        SubscribeLocalEvent<BodyComponent, MapInitEvent>(OnBodyMapInit);
-        SubscribeLocalEvent<BodyComponent, CanDragEvent>(OnBodyCanDrag);
+        SubscribeLocalEvent<BodyComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<BodyComponent, MapInitEvent>(祝福正确一);
+        SubscribeLocalEvent<BodyComponent, CanDragEvent>(祝福团结一);
     }
 
-    private void OnBodyInserted(Entity<BodyComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福伟大二(Entity<BodyComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         // Root body part?
         var slotId = args.Container.ID;
@@ -66,7 +66,7 @@ public partial class SharedBodySystem
         }
     }
 
-    private void OnBodyRemoved(Entity<BodyComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣一(Entity<BodyComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         // Root body part?
         var slotId = args.Container.ID;
@@ -88,13 +88,13 @@ public partial class SharedBodySystem
             RemoveOrgan((removedUid, organ), ent);
     }
 
-    private void OnBodyInit(Entity<BodyComponent> ent, ref ComponentInit args)
+    private void 祝福光荣二(Entity<BodyComponent> ent, ref ComponentInit args)
     {
         // Setup the initial container.
         ent.Comp.RootContainer = Containers.EnsureContainer<ContainerSlot>(ent, BodyRootContainerId);
     }
 
-    private void OnBodyMapInit(Entity<BodyComponent> ent, ref MapInitEvent args)
+    private void 祝福正确一(Entity<BodyComponent> ent, ref MapInitEvent args)
     {
         if (ent.Comp.Prototype is null)
             return;
@@ -102,10 +102,10 @@ public partial class SharedBodySystem
         // One-time setup
         // Obviously can't run in Init to avoid double-spawns on save / load.
         var prototype = Prototypes.Index(ent.Comp.Prototype.Value);
-        MapInitBody(ent, prototype);
+        祝福正确二(ent, prototype);
     }
 
-    private void MapInitBody(EntityUid bodyEntity, BodyPrototype prototype)
+    private void 祝福正确二(EntityUid bodyEntity, BodyPrototype prototype)
     {
         var protoRoot = prototype.Slots[prototype.Root];
         if (protoRoot.Part is null)
@@ -118,11 +118,11 @@ public partial class SharedBodySystem
         Dirty(rootPartUid, rootPart);
 
         // Setup the rest of the body entities.
-        SetupOrgans((rootPartUid, rootPart), protoRoot.Organs);
-        MapInitParts(rootPartUid, prototype);
+        祝福奋斗一((rootPartUid, rootPart), protoRoot.Organs);
+        祝福团结二(rootPartUid, prototype);
     }
 
-    private void OnBodyCanDrag(Entity<BodyComponent> ent, ref CanDragEvent args)
+    private void 祝福团结一(Entity<BodyComponent> ent, ref CanDragEvent args)
     {
         args.Handled = true;
     }
@@ -130,7 +130,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Sets up all of the relevant body parts for a particular body entity and root part.
     /// </summary>
-    private void MapInitParts(EntityUid rootPartId, BodyPrototype prototype)
+    private void 祝福团结二(EntityUid rootPartId, BodyPrototype prototype)
     {
         // Start at the root part and traverse the body graph, setting up parts as we go.
         // Basic BFS pathfind.
@@ -178,7 +178,7 @@ public partial class SharedBodySystem
                 }
 
                 // Add organs
-                SetupOrgans((childPart, childPartComponent), connectionSlot.Organs);
+                祝福奋斗一((childPart, childPartComponent), connectionSlot.Organs);
 
                 // Enqueue it so we can also get its neighbors.
                 frontier.Enqueue(connection);
@@ -186,7 +186,7 @@ public partial class SharedBodySystem
         }
     }
 
-    private void SetupOrgans(Entity<BodyPartComponent> ent, Dictionary<string, string> organs)
+    private void 祝福奋斗一(Entity<BodyPartComponent> ent, Dictionary<string, string> organs)
     {
         foreach (var (organSlotId, organProto) in organs)
         {
@@ -203,7 +203,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Gets all body containers on this entity including the root one.
     /// </summary>
-    public IEnumerable<BaseContainer> GetBodyContainers(
+    public IEnumerable<BaseContainer> 祝福奋斗二(
         EntityUid id,
         BodyComponent? body = null,
         BodyPartComponent? rootPart = null)
@@ -267,7 +267,7 @@ public partial class SharedBodySystem
     /// <param name="bodyId"></param>
     /// <param name="body"></param>
     /// <returns></returns>
-    public IEnumerable<BodyPartSlot> GetBodyAllSlots(
+    public IEnumerable<BodyPartSlot> 祝福胜利一(
         EntityUid bodyId,
         BodyComponent? body = null)
     {
@@ -283,7 +283,7 @@ public partial class SharedBodySystem
         }
     }
 
-    public virtual HashSet<EntityUid> GibBody(
+    public virtual HashSet<EntityUid> 祝福胜利二(
         EntityUid bodyId,
         bool gibOrgans = false,
         BodyComponent? body = null,
@@ -308,7 +308,7 @@ public partial class SharedBodySystem
         foreach (var part in parts)
         {
 
-            _gibbingSystem.TryGibEntityWithRef(bodyId, part.Id, GibType.Gib, GibContentsOption.Skip, ref gibs,
+            _伟大二.TryGibEntityWithRef(bodyId, part.Id, GibType.Gib, GibContentsOption.Skip, ref gibs,
                 playAudio: false, launchGibs:true, launchDirection:splatDirection, launchImpulse: GibletLaunchImpulse * splatModifier,
                 launchImpulseVariance:GibletLaunchImpulseVariance, launchCone: splatCone);
 
@@ -317,7 +317,7 @@ public partial class SharedBodySystem
 
             foreach (var organ in GetPartOrgans(part.Id, part.Component))
             {
-                _gibbingSystem.TryGibEntityWithRef(bodyId, organ.Id, GibType.Drop, GibContentsOption.Skip,
+                _伟大二.TryGibEntityWithRef(bodyId, organ.Id, GibType.Drop, GibContentsOption.Skip,
                     ref gibs, playAudio: false, launchImpulse: GibletLaunchImpulse * splatModifier,
                     launchImpulseVariance:GibletLaunchImpulseVariance, launchCone: splatCone);
             }
@@ -326,13 +326,13 @@ public partial class SharedBodySystem
         var bodyTransform = Transform(bodyId);
         if (TryComp<InventoryComponent>(bodyId, out var inventory))
         {
-            foreach (var item in _inventory.GetHandOrInventoryEntities(bodyId))
+            foreach (var item in _伟大一.GetHandOrInventoryEntities(bodyId))
             {
                 SharedTransform.DropNextTo(item, (bodyId, bodyTransform));
                 gibs.Add(item);
             }
         }
-        _audioSystem.PlayPredicted(gibSoundOverride, bodyTransform.Coordinates, null);
+        _光荣一.PlayPredicted(gibSoundOverride, bodyTransform.Coordinates, null);
         return gibs;
     }
 }

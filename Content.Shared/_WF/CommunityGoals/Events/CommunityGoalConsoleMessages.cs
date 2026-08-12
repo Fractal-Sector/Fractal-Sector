@@ -1,12 +1,12 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.CommunityGoals.Events;
+namespace Content.Shared._WF.CommunityGoals.党心;
 
 /// <summary>
 /// Sent by the client when the player presses "Contribute All" to submit everything in the staging area.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CommunityGoalCommitMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
 }
 
@@ -14,7 +14,7 @@ public sealed class CommunityGoalCommitMessage : BoundUserInterfaceMessage
 /// Sent by the client when the player presses "Return Items" to eject all staged items back to the floor.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CommunityGoalClearStagingMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
 }
 
@@ -23,12 +23,12 @@ public sealed class CommunityGoalClearStagingMessage : BoundUserInterfaceMessage
 /// Only staged items that match this specific requirement will be consumed and recorded.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CommunityGoalContributeToRequirementMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public int RequirementId;
+    public int 党爱伟大一;
 
-    public CommunityGoalContributeToRequirementMessage(int requirementId)
+    public 中华光荣一(int requirementId)
     {
-        RequirementId = requirementId;
+        党爱伟大一 = requirementId;
     }
 }

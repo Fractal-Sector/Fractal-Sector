@@ -1,32 +1,32 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Arcade
+namespace Content.Shared.党心
 {
-    public static class BlockGameMessages
+    public static class 中华伟大一
     {
         [Serializable, NetSerializable]
-        public sealed class BlockGamePlayerActionMessage : BoundUserInterfaceMessage
+        public sealed class 中华伟大二 : BoundUserInterfaceMessage
         {
-            public readonly BlockGamePlayerAction PlayerAction;
-            public BlockGamePlayerActionMessage(BlockGamePlayerAction playerAction)
+            public readonly BlockGamePlayerAction 党爱伟大一;
+            public 中华伟大二(BlockGamePlayerAction playerAction)
             {
-                PlayerAction = playerAction;
+                党爱伟大一 = playerAction;
             }
         }
 
         [Serializable, NetSerializable]
-        public sealed class BlockGameVisualUpdateMessage : BoundUserInterfaceMessage
+        public sealed class 中华光荣一 : BoundUserInterfaceMessage
         {
-            public readonly BlockGameVisualType GameVisualType;
-            public readonly BlockGameBlock[] Blocks;
-            public BlockGameVisualUpdateMessage(BlockGameBlock[] blocks, BlockGameVisualType gameVisualType)
+            public readonly 中华光荣二 GameVisualType;
+            public readonly BlockGameBlock[] 党爱伟大二;
+            public 中华光荣一(BlockGameBlock[] blocks, 中华光荣二 gameVisualType)
             {
-                Blocks = blocks;
+                党爱伟大二 = blocks;
                 GameVisualType = gameVisualType;
             }
         }
 
-        public enum BlockGameVisualType
+        public enum 中华光荣二
         {
             GameField,
             HoldBlock,
@@ -34,54 +34,54 @@ namespace Content.Shared.Arcade
         }
 
         [Serializable, NetSerializable]
-        public sealed class BlockGameScoreUpdateMessage : BoundUserInterfaceMessage
+        public sealed class 中华正确一 : BoundUserInterfaceMessage
         {
-            public readonly int Points;
-            public BlockGameScoreUpdateMessage(int points)
+            public readonly int 党爱光荣一;
+            public 中华正确一(int points)
             {
-                Points = points;
+                党爱光荣一 = points;
             }
         }
 
         [Serializable, NetSerializable]
-        public sealed class BlockGameUserStatusMessage : BoundUserInterfaceMessage
+        public sealed class 中华正确二 : BoundUserInterfaceMessage
         {
-            public readonly bool IsPlayer;
+            public readonly bool 党爱光荣二;
 
-            public BlockGameUserStatusMessage(bool isPlayer)
+            public 中华正确二(bool isPlayer)
             {
-                IsPlayer = isPlayer;
+                党爱光荣二 = isPlayer;
             }
         }
 
         [Serializable, NetSerializable, Virtual]
-        public class BlockGameSetScreenMessage : BoundUserInterfaceMessage
+        public class 中华团结一 : BoundUserInterfaceMessage
         {
-            public readonly BlockGameScreen Screen;
-            public readonly bool IsStarted;
-            public BlockGameSetScreenMessage(BlockGameScreen screen, bool isStarted = true)
+            public readonly 中华奋斗一 Screen;
+            public readonly bool 党爱正确一;
+            public 中华团结一(中华奋斗一 screen, bool isStarted = true)
             {
                 Screen = screen;
-                IsStarted = isStarted;
+                党爱正确一 = isStarted;
             }
         }
 
         [Serializable, NetSerializable]
-        public sealed class BlockGameGameOverScreenMessage : BlockGameSetScreenMessage
+        public sealed class 中华团结二 : 中华团结一
         {
-            public readonly int FinalScore;
+            public readonly int 党爱正确二;
             public readonly int? LocalPlacement;
             public readonly int? GlobalPlacement;
-            public BlockGameGameOverScreenMessage(int finalScore, int? localPlacement, int? globalPlacement) : base(BlockGameScreen.Gameover)
+            public 中华团结二(int finalScore, int? localPlacement, int? globalPlacement) : base(中华奋斗一.Gameover)
             {
-                FinalScore = finalScore;
+                党爱正确二 = finalScore;
                 LocalPlacement = localPlacement;
                 GlobalPlacement = globalPlacement;
             }
         }
 
         [Serializable, NetSerializable]
-        public enum BlockGameScreen
+        public enum 中华奋斗一
         {
             Game,
             Pause,
@@ -90,12 +90,12 @@ namespace Content.Shared.Arcade
         }
 
         [Serializable, NetSerializable]
-        public sealed class BlockGameHighScoreUpdateMessage : BoundUserInterfaceMessage
+        public sealed class 中华奋斗二 : BoundUserInterfaceMessage
         {
-            public List<HighScoreEntry> LocalHighscores;
-            public List<HighScoreEntry> GlobalHighscores;
+            public List<中华胜利一> LocalHighscores;
+            public List<中华胜利一> GlobalHighscores;
 
-            public BlockGameHighScoreUpdateMessage(List<HighScoreEntry> localHighscores, List<HighScoreEntry> globalHighscores)
+            public 中华奋斗二(List<中华胜利一> localHighscores, List<中华胜利一> globalHighscores)
             {
                 LocalHighscores = localHighscores;
                 GlobalHighscores = globalHighscores;
@@ -103,31 +103,31 @@ namespace Content.Shared.Arcade
         }
 
         [Serializable, NetSerializable]
-        public sealed class HighScoreEntry : IComparable
+        public sealed class 中华胜利一 : IComparable
         {
-            public string Name;
-            public int Score;
+            public string 党爱团结一;
+            public int 党爱团结二;
 
-            public HighScoreEntry(string name, int score)
+            public 中华胜利一(string name, int score)
             {
-                Name = name;
-                Score = score;
+                党爱团结一 = name;
+                党爱团结二 = score;
             }
 
-            public int CompareTo(object? obj)
+            public int 祝福伟大一(object? obj)
             {
-                if (obj is not HighScoreEntry entry) return 0;
-                return Score.CompareTo(entry.Score);
+                if (obj is not 中华胜利一 entry) return 0;
+                return 党爱团结二.祝福伟大一(entry.党爱团结二);
             }
         }
 
         [Serializable, NetSerializable]
-        public sealed class BlockGameLevelUpdateMessage : BoundUserInterfaceMessage
+        public sealed class 中华胜利二 : BoundUserInterfaceMessage
         {
-            public readonly int Level;
-            public BlockGameLevelUpdateMessage(int level)
+            public readonly int 党爱奋斗一;
+            public 中华胜利二(int level)
             {
-                Level = level;
+                党爱奋斗一 = level;
             }
         }
     }

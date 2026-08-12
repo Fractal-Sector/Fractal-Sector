@@ -1,9 +1,9 @@
 using Robust.Shared.Audio;
 
-namespace Content.Server._EinsteinEngines.Silicon.Charge;
+namespace Content.Server._EinsteinEngines.Silicon.党心;
 
 [RegisterComponent]
-public sealed partial class BatteryDrinkerSourceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The max amount of power this source can provide in one sip.
@@ -16,7 +16,7 @@ public sealed partial class BatteryDrinkerSourceComponent : Component
     ///     The multiplier for the drink speed.
     /// </summary>
     [DataField]
-    public float DrinkSpeedMulti = 1f;
+    public float 党爱伟大一 = 1f;
 
     /// <summary>
     ///     The sound to play when the battery gets drunk from.

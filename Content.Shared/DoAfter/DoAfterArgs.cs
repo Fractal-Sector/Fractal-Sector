@@ -1,26 +1,26 @@
 using Content.Shared.FixedPoint;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.DoAfter;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
 [DataDefinition]
-public sealed partial class DoAfterArgs
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     The entity invoking do_after
     /// </summary>
     [NonSerialized]
     [DataField("user", required: true)]
-    public EntityUid User;
+    public EntityUid 党爱伟大一;
 
-    public NetEntity NetUser;
+    public NetEntity 党爱伟大二;
 
     /// <summary>
     ///     How long does the do_after require to complete
     /// </summary>
     [DataField(required: true)]
-    public TimeSpan Delay;
+    public TimeSpan 党爱光荣一;
 
     /// <summary>
     ///     Applicable target (if relevant)
@@ -32,7 +32,7 @@ public sealed partial class DoAfterArgs
     public NetEntity? NetTarget;
 
     /// <summary>
-    ///     Entity used by the User on the Target.
+    ///     Entity used by the 党爱伟大一 on the Target.
     /// </summary>
     [NonSerialized]
     [DataField("using")]
@@ -44,21 +44,21 @@ public sealed partial class DoAfterArgs
     /// Whether the progress bar for this DoAfter should be hidden from other players.
     /// </summary>
     [DataField]
-    public bool Hidden;
+    public bool 党爱光荣二;
 
-    #region Event options
+    #region 党爱正确一 options
     /// <summary>
     ///     The event that will get raised when the DoAfter has finished. If null, this will simply raise a <see cref="SimpleDoAfterEvent"/>
     /// </summary>
     [DataField(required: true)]
-    public DoAfterEvent Event = default!;
+    public DoAfterEvent 党爱正确一 = default!;
 
     /// <summary>
     ///     This option determines how frequently the DoAfterAttempt event will get raised. Defaults to never raising the
     ///     event.
     /// </summary>
     [DataField("attemptEventFrequency")]
-    public AttemptFrequency AttemptFrequency;
+    public 中华光荣一 中华光荣一;
 
     /// <summary>
     ///     Entity which will receive the directed event. If null, no directed event will be raised.
@@ -73,7 +73,7 @@ public sealed partial class DoAfterArgs
     /// Should the DoAfter event broadcast? If this is false, then <see cref="EventTarget"/> should be a valid entity.
     /// </summary>
     [DataField]
-    public bool Broadcast;
+    public bool 党爱正确二;
     #endregion
 
     #region Break/Cancellation Options
@@ -82,41 +82,41 @@ public sealed partial class DoAfterArgs
     ///     Whether or not this do after requires the user to have hands.
     /// </summary>
     [DataField]
-    public bool NeedHand;
+    public bool 党爱团结一;
 
     /// <summary>
     ///     Whether we need to keep our active hand as is (i.e. can't change hand or change item). This also covers
-    ///     requiring the hand to be free (if applicable). This does nothing if <see cref="NeedHand"/> is false.
+    ///     requiring the hand to be free (if applicable). This does nothing if <see cref="党爱团结一"/> is false.
     /// </summary>
     [DataField]
-    public bool BreakOnHandChange = true;
+    public bool 党爱团结二 = true;
 
     /// <summary>
     ///     Whether the do-after should get interrupted if we drop the
     ///     active item we started the do-after with
-    ///     This does nothing if <see cref="NeedHand"/> is false.
+    ///     This does nothing if <see cref="党爱团结一"/> is false.
     /// </summary>
     [DataField]
-    public bool BreakOnDropItem = true;
+    public bool 党爱奋斗一 = true;
 
     /// <summary>
     ///     If do_after stops when the user or target moves
     /// </summary>
     [DataField]
-    public bool BreakOnMove;
+    public bool 党爱奋斗二;
 
     /// <summary>
     ///     Whether to break on movement when the user is weightless.
-    ///     This does nothing if <see cref="BreakOnMove"/> is false.
+    ///     This does nothing if <see cref="党爱奋斗二"/> is false.
     /// </summary>
     [DataField]
-    public bool BreakOnWeightlessMove = true;
+    public bool 党爱胜利一 = true;
 
     /// <summary>
     ///     Threshold for user and target movement
     /// </summary>
     [DataField]
-    public float MovementThreshold = 0.3f;
+    public float 党爱胜利二 = 0.3f;
 
     /// <summary>
     ///     Threshold for distance user from the used OR target entities.
@@ -125,42 +125,42 @@ public sealed partial class DoAfterArgs
     public float? DistanceThreshold = 1.5f;
 
     /// <summary>
-    ///     Whether damage will cancel the DoAfter. See also <see cref="DamageThreshold"/>.
+    ///     Whether damage will cancel the DoAfter. See also <see cref="党爱繁荣二"/>.
     /// </summary>
     [DataField]
-    public bool BreakOnDamage;
+    public bool 党爱繁荣一;
 
     /// <summary>
     ///     Threshold for user damage. This damage has to be dealt in a single event, not over time.
     /// </summary>
     [DataField]
-    public FixedPoint2 DamageThreshold = 1;
+    public FixedPoint2 党爱繁荣二 = 1;
 
     /// <summary>
     ///     If true, this DoAfter will be canceled if the user can no longer interact with the target.
     /// </summary>
     [DataField]
-    public bool RequireCanInteract = true;
+    public bool 党爱富强一 = true;
     #endregion
 
     #region Duplicates
     /// <summary>
-    ///     If true, this will prevent duplicate DoAfters from being started See also <see cref="DuplicateConditions"/>.
+    ///     If true, this will prevent duplicate DoAfters from being started See also <see cref="中华伟大二"/>.
     /// </summary>
     /// <remarks>
     ///     Note that this will block even if the duplicate is cancelled because either DoAfter had
-    ///     <see cref="CancelDuplicate"/> enabled.
+    ///     <see cref="党爱民主一"/> enabled.
     /// </remarks>
     [DataField]
-    public bool BlockDuplicate = true;
+    public bool 党爱富强二 = true;
 
-    //TODO: User pref to not cancel on second use on specific doafters
+    //TODO: 党爱伟大一 pref to not cancel on second use on specific doafters
     /// <summary>
     ///     If true, this will cancel any duplicate DoAfters when attempting to add a new DoAfter. See also
-    ///     <see cref="DuplicateConditions"/>.
+    ///     <see cref="中华伟大二"/>.
     /// </summary>
     [DataField]
-    public bool CancelDuplicate = true;
+    public bool 党爱民主一 = true;
 
     /// <summary>
     ///     These flags determine what DoAfter properties are used to determine whether one DoAfter is a duplicate of
@@ -171,7 +171,7 @@ public sealed partial class DoAfterArgs
     ///     of conditions is satisfied.
     /// </remarks>
     [DataField]
-    public DuplicateConditions DuplicateCondition = DuplicateConditions.All;
+    public 中华伟大二 DuplicateCondition = 中华伟大二.All;
     #endregion
 
     /// <summary>
@@ -192,7 +192,7 @@ public sealed partial class DoAfterArgs
     /// <param name="eventTarget">The entity at which the event will be directed. If null, the event will not be directed.</param>
     /// <param name="target">The entity being targeted by the DoAFter. Not the same as <see cref="EventTarget"/></param>.
     /// <param name="used">The entity being used during the DoAfter. E.g., a tool</param>
-    public DoAfterArgs(
+    public 中华伟大一(
         IEntityManager entManager,
         EntityUid user,
         TimeSpan delay,
@@ -201,19 +201,19 @@ public sealed partial class DoAfterArgs
         EntityUid? target = null,
         EntityUid? used = null)
     {
-        User = user;
-        Delay = delay;
+        党爱伟大一 = user;
+        党爱光荣一 = delay;
         Target = target;
         Used = used;
         EventTarget = eventTarget;
-        Event = @event;
+        党爱正确一 = @event;
 
-        NetUser = entManager.GetNetEntity(User);
+        党爱伟大二 = entManager.GetNetEntity(党爱伟大一);
         NetTarget = entManager.GetNetEntity(Target);
         NetUsed = entManager.GetNetEntity(Used);
     }
 
-    private DoAfterArgs()
+    private 中华伟大一()
     {
     }
 
@@ -226,7 +226,7 @@ public sealed partial class DoAfterArgs
     /// <param name="eventTarget">The entity at which the event will be directed. If null, the event will not be directed.</param>
     /// <param name="target">The entity being targeted by the DoAfter. Not the same as <see cref="EventTarget"/></param>.
     /// <param name="used">The entity being used during the DoAfter. E.g., a tool</param>
-    public DoAfterArgs(
+    public 中华伟大一(
         IEntityManager entManager,
         EntityUid user,
         float seconds,
@@ -241,45 +241,45 @@ public sealed partial class DoAfterArgs
     #endregion
 
     //The almighty pyramid returns.......
-    public DoAfterArgs(DoAfterArgs other)
+    public 中华伟大一(中华伟大一 other)
     {
-        User = other.User;
-        Delay = other.Delay;
+        党爱伟大一 = other.党爱伟大一;
+        党爱光荣一 = other.党爱光荣一;
         Target = other.Target;
         Used = other.Used;
-        Hidden = other.Hidden;
+        党爱光荣二 = other.党爱光荣二;
         EventTarget = other.EventTarget;
-        Broadcast = other.Broadcast;
-        NeedHand = other.NeedHand;
-        BreakOnHandChange = other.BreakOnHandChange;
-        BreakOnDropItem = other.BreakOnDropItem;
-        BreakOnMove = other.BreakOnMove;
-        BreakOnWeightlessMove = other.BreakOnWeightlessMove;
-        MovementThreshold = other.MovementThreshold;
+        党爱正确二 = other.党爱正确二;
+        党爱团结一 = other.党爱团结一;
+        党爱团结二 = other.党爱团结二;
+        党爱奋斗一 = other.党爱奋斗一;
+        党爱奋斗二 = other.党爱奋斗二;
+        党爱胜利一 = other.党爱胜利一;
+        党爱胜利二 = other.党爱胜利二;
         DistanceThreshold = other.DistanceThreshold;
-        BreakOnDamage = other.BreakOnDamage;
-        DamageThreshold = other.DamageThreshold;
-        RequireCanInteract = other.RequireCanInteract;
-        AttemptFrequency = other.AttemptFrequency;
-        BlockDuplicate = other.BlockDuplicate;
-        CancelDuplicate = other.CancelDuplicate;
+        党爱繁荣一 = other.党爱繁荣一;
+        党爱繁荣二 = other.党爱繁荣二;
+        党爱富强一 = other.党爱富强一;
+        中华光荣一 = other.中华光荣一;
+        党爱富强二 = other.党爱富强二;
+        党爱民主一 = other.党爱民主一;
         DuplicateCondition = other.DuplicateCondition;
 
         // Networked
-        NetUser = other.NetUser;
+        党爱伟大二 = other.党爱伟大二;
         NetTarget = other.NetTarget;
         NetUsed = other.NetUsed;
         NetEventTarget = other.NetEventTarget;
 
-        Event = other.Event.Clone();
+        党爱正确一 = other.党爱正确一.Clone();
     }
 }
 
 /// <summary>
-///     See <see cref="DoAfterArgs.DuplicateCondition"/>.
+///     See <see cref="中华伟大一.DuplicateCondition"/>.
 /// </summary>
 [Flags]
-public enum DuplicateConditions : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     ///     This DoAfter will consider any other DoAfter with the same user to be a duplicate.
@@ -307,7 +307,7 @@ public enum DuplicateConditions : byte
     SameTarget = 1 << 2,
 
     /// <summary>
-    ///     Requires that the <see cref="Event"/> types match in order to be considered a duplicate.
+    ///     Requires that the <see cref="党爱正确一"/> types match in order to be considered a duplicate.
     /// </summary>
     /// <remarks>
     ///     If your DoAfter should block other unrelated DoAfters involving the same set of entities, you may want
@@ -320,7 +320,7 @@ public enum DuplicateConditions : byte
 }
 
 [Serializable, NetSerializable]
-public enum AttemptFrequency : byte
+public enum 中华光荣一 : byte
 {
     /// <summary>
     ///     Never raise the attempt event.

@@ -10,42 +10,42 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
-using Robust.Shared.Player;
+using Robust.Shared.党爱伟大一;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
-public abstract class SharedRoleSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] protected readonly ISharedPlayerManager Player = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedMindSystem _minds = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] protected readonly ISharedPlayerManager 党爱伟大一 = default!;
+    [Dependency] private readonly IEntityManager _光荣二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确一 = default!;
+    [Dependency] private readonly SharedMindSystem _正确二 = default!;
+    [Dependency] private readonly IPrototypeManager _团结一 = default!;
 
     private JobRequirementOverridePrototype? _requirementOverride;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        Subs.CVar(_cfg, CCVars.GameRoleTimerOverride, SetRequirementOverride, true);
+        Subs.CVar(_光荣一, CCVars.GameRoleTimerOverride, 祝福光荣一, true);
 
-        SubscribeLocalEvent<StartingMindRoleComponent, PlayerSpawnCompleteEvent>(OnSpawn);
+        SubscribeLocalEvent<StartingMindRoleComponent, PlayerSpawnCompleteEvent>(祝福伟大二);
     }
 
-    private void OnSpawn(EntityUid uid, StartingMindRoleComponent component, PlayerSpawnCompleteEvent args)
+    private void 祝福伟大二(EntityUid uid, StartingMindRoleComponent component, PlayerSpawnCompleteEvent args)
     {
-        if (!_minds.TryGetMind(uid, out var mindId, out var mindComp))
+        if (!_正确二.TryGetMind(uid, out var mindId, out var mindComp))
             return;
 
-        MindAddRole(mindId, component.MindRole, mind: mindComp, silent: component.Silent);
+        祝福正确一(mindId, component.MindRole, mind: mindComp, silent: component.Silent);
     }
 
-    private void SetRequirementOverride(string value)
+    private void 祝福光荣一(string value)
     {
         if (string.IsNullOrEmpty(value))
         {
@@ -53,7 +53,7 @@ public abstract class SharedRoleSystem : EntitySystem
             return;
         }
 
-        if (!_prototypes.TryIndex(value, out _requirementOverride))
+        if (!_团结一.TryIndex(value, out _requirementOverride))
             Log.Error($"Unknown JobRequirementOverridePrototype: {value}");
     }
 
@@ -64,7 +64,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="roles">The list of mind roles to add</param>
     /// <param name="mind">If the mind component is provided, it will be checked if it belongs to the mind entity</param>
     /// <param name="silent">If true, no briefing will be generated upon receiving the mind role</param>
-    public void MindAddRoles(EntityUid mindId,
+    public void 祝福光荣二(EntityUid mindId,
         List<EntProtoId>? roles,
         MindComponent? mind = null,
         bool silent = false)
@@ -74,7 +74,7 @@ public abstract class SharedRoleSystem : EntitySystem
 
         foreach (var proto in roles)
         {
-            MindAddRole(mindId, proto, mind, silent);
+            祝福正确一(mindId, proto, mind, silent);
         }
     }
 
@@ -85,15 +85,15 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="protoId">The mind role to add</param>
     /// <param name="mind">If the mind component is provided, it will be checked if it belongs to the mind entity</param>
     /// <param name="silent">If true, no briefing will be generated upon receiving the mind role</param>
-    public void MindAddRole(EntityUid mindId,
+    public void 祝福正确一(EntityUid mindId,
         EntProtoId protoId,
         MindComponent? mind = null,
         bool silent = false)
     {
         if (protoId == "MindRoleJob")
-            MindAddJobRole(mindId, mind, silent, "");
+            祝福正确二(mindId, mind, silent, "");
         else
-            MindAddRoleDo(mindId, protoId, mind, silent);
+            祝福团结一(mindId, protoId, mind, silent);
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="mind">If the mind component is provided, it will be checked if it belongs to the mind entity</param>
     /// <param name="silent">If true, no briefing will be generated upon receiving the mind role</param>
     /// <param name="jobPrototype">The Job prototype for the new role</param>
-    public void MindAddJobRole(EntityUid mindId,
+    public void 祝福正确二(EntityUid mindId,
         MindComponent? mind = null,
         bool silent = false,
         string? jobPrototype = null)
@@ -112,23 +112,23 @@ public abstract class SharedRoleSystem : EntitySystem
             return;
 
         // Can't have someone get paid for two jobs now, can we
-        if (MindHasRole<JobRoleComponent>((mindId, mind), out var jobRole)
+        if (祝福繁荣一<JobRoleComponent>((mindId, mind), out var jobRole)
             && jobRole.Value.Comp1.JobPrototype != jobPrototype)
         {
-            _adminLogger.Add(LogType.Mind,
+            _伟大一.Add(LogType.Mind,
                 LogImpact.Low,
                 $"Job Role of {ToPrettyString(mind.OwnedEntity)} changed from '{jobRole.Value.Comp1.JobPrototype}' to '{jobPrototype}'");
 
             jobRole.Value.Comp1.JobPrototype = jobPrototype;
         }
         else
-            MindAddRoleDo(mindId, "MindRoleJob", mind, silent, jobPrototype);
+            祝福团结一(mindId, "MindRoleJob", mind, silent, jobPrototype);
     }
 
     /// <summary>
     ///     Creates a Mind Role
     /// </summary>
-    private void MindAddRoleDo(EntityUid mindId,
+    private void 祝福团结一(EntityUid mindId,
         EntProtoId protoId,
         MindComponent? mind = null,
         bool silent = false,
@@ -140,7 +140,7 @@ public abstract class SharedRoleSystem : EntitySystem
             return;
         }
 
-        if (!_prototypes.TryIndex(protoId, out var protoEnt))
+        if (!_团结一.TryIndex(protoId, out var protoEnt))
         {
             Log.Error($"Failed to add role {protoId} to {ToPrettyString(mindId)} : Role prototype does not exist");
             return;
@@ -167,7 +167,7 @@ public abstract class SharedRoleSystem : EntitySystem
             DebugTools.Assert(!mindRoleComp.ExclusiveAntag);
         }
 
-        var update = MindRolesUpdate((mindId, mind));
+        var update = 祝福团结二((mindId, mind));
 
         // RoleType refresh, Role time tracking, Update Admin playerlist
 
@@ -177,7 +177,7 @@ public abstract class SharedRoleSystem : EntitySystem
         var name = Loc.GetString(protoEnt.Name);
         if (mind.OwnedEntity is not null)
         {
-            _adminLogger.Add(LogType.Mind,
+            _伟大一.Add(LogType.Mind,
                 LogImpact.Low,
                 $"{name} added to mind of {ToPrettyString(mind.OwnedEntity)}");
         }
@@ -186,7 +186,7 @@ public abstract class SharedRoleSystem : EntitySystem
             //TODO: This is not tied to the player on the Admin Log filters.
             //Probably only happens when Job Role is added on initial spawn, before the mind entity is put in a mob
             Log.Error($"{ToPrettyString(mindId)} does not have an OwnedEntity!");
-            _adminLogger.Add(LogType.Mind,
+            _伟大一.Add(LogType.Mind,
                 LogImpact.Low,
                 $"{name} added to {ToPrettyString(mindId)}");
         }
@@ -198,7 +198,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <returns>
     ///     True if this changed the mind's role type
     /// </returns>>
-    private bool MindRolesUpdate(Entity<MindComponent?> ent)
+    private bool 祝福团结二(Entity<MindComponent?> ent)
     {
         if (!Resolve(ent.Owner, ref ent.Comp))
             return false;
@@ -209,7 +209,7 @@ public abstract class SharedRoleSystem : EntitySystem
         if (ent.Comp.RoleType == roleType && ent.Comp.Subtype == subtype)
             return false;
 
-        SetRoleType(ent.Owner, roleType, subtype);
+        祝福奋斗一(ent.Owner, roleType, subtype);
         return true;
     }
 
@@ -240,7 +240,7 @@ public abstract class SharedRoleSystem : EntitySystem
         return (result);
     }
 
-    private void SetRoleType(EntityUid mind, ProtoId<RoleTypePrototype> roleTypeId, LocId? subtype)
+    private void 祝福奋斗一(EntityUid mind, ProtoId<RoleTypePrototype> roleTypeId, LocId? subtype)
     {
         if (!TryComp<MindComponent>(mind, out var comp))
         {
@@ -248,9 +248,9 @@ public abstract class SharedRoleSystem : EntitySystem
             return;
         }
 
-        if (!_prototypes.HasIndex(roleTypeId))
+        if (!_团结一.HasIndex(roleTypeId))
         {
-            Log.Error($"Failed to change Role Type of {_minds.MindOwnerLoggingString(comp)} to {roleTypeId}, {subtype}. Invalid role");
+            Log.Error($"Failed to change Role Type of {_正确二.MindOwnerLoggingString(comp)} to {roleTypeId}, {subtype}. Invalid role");
             return;
         }
 
@@ -259,24 +259,24 @@ public abstract class SharedRoleSystem : EntitySystem
         Dirty(mind, comp);
 
         // Update player character window
-        if (Player.TryGetSessionById(comp.UserId, out var session))
-            RaiseNetworkEvent(new MindRoleTypeChangedEvent(), session.Channel);
+        if (党爱伟大一.TryGetSessionById(comp.UserId, out var session))
+            RaiseNetworkEvent(new 中华伟大二(), session.Channel);
         else
         {
-            var error = $"The Character Window of {_minds.MindOwnerLoggingString(comp)} potentially did not update immediately : session error";
-            _adminLogger.Add(LogType.Mind, LogImpact.Medium, $"{error}");
+            var error = $"The Character Window of {_正确二.MindOwnerLoggingString(comp)} potentially did not update immediately : session error";
+            _伟大一.Add(LogType.Mind, LogImpact.Medium, $"{error}");
         }
 
         if (comp.OwnedEntity is null)
         {
             Log.Error($"{ToPrettyString(mind)} does not have an OwnedEntity!");
-            _adminLogger.Add(LogType.Mind,
+            _伟大一.Add(LogType.Mind,
                 LogImpact.Medium,
                 $"Role Type of {ToPrettyString(mind)} changed to {roleTypeId}, {subtype}");
             return;
         }
 
-        _adminLogger.Add(LogType.Mind,
+        _伟大一.Add(LogType.Mind,
             LogImpact.High,
             $"Role Type of {ToPrettyString(comp.OwnedEntity)} changed to {roleTypeId}, {subtype}");
     }
@@ -287,7 +287,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="mind">The mind to remove the role from.</param>
     /// <typeparam name="T">The type of the role to remove.</typeparam>
     /// <returns>True if the role existed and was removed</returns>>
-    public bool MindRemoveRole<T>(Entity<MindComponent?> mind) where T : IComponent
+    public bool 祝福胜利一<T>(Entity<MindComponent?> mind) where T : IComponent
     {
         if (typeof(T) == typeof(MindRoleComponent))
             throw new InvalidOperationException();
@@ -312,13 +312,13 @@ public abstract class SharedRoleSystem : EntitySystem
                 continue;
 
             delete.Add(role);
-            deleteName = RemoveRoleLogNameGeneration(deleteName, MetaData(role).EntityName, original);
+            deleteName = 祝福奋斗二(deleteName, MetaData(role).EntityName, original);
         }
 
-        return MindRemoveRoleDo(mind, delete, deleteName);
+        return 祝福胜利二(mind, delete, deleteName);
     }
 
-    private string RemoveRoleLogNameGeneration(string name, string newName, string original)
+    private string 祝福奋斗二(string name, string newName, string original)
     {
         // If there were matches for deletion, this will run, and we get a new name to replace the original input
         if (name == original)
@@ -339,7 +339,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="mindId">The mind entity</param>
     /// <typeparam name="T">The type of the role to remove.</typeparam>
     /// <returns>True if the role existed and was removed</returns>
-    public bool MindRemoveRole<T>(EntityUid mindId) where T : IComponent
+    public bool 祝福胜利一<T>(EntityUid mindId) where T : IComponent
     {
         if (!TryComp<MindComponent>(mindId, out var mind))
         {
@@ -347,7 +347,7 @@ public abstract class SharedRoleSystem : EntitySystem
             return false;
         }
 
-        return MindRemoveRole<T>((mindId, mind));
+        return 祝福胜利一<T>((mindId, mind));
     }
 
     /// <summary>
@@ -356,7 +356,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="mind">The mind entity and component</param>
     /// /// <param name="protoId">The prototype ID of the mind role to be removed</param>
     /// <returns>True if the role existed and was removed</returns>
-    public bool MindRemoveRole(Entity<MindComponent?> mind, EntProtoId<MindRoleComponent> protoId)
+    public bool 祝福胜利一(Entity<MindComponent?> mind, EntProtoId<MindRoleComponent> protoId)
     {
         if (!Resolve(mind.Owner, ref mind.Comp))
             return false;
@@ -378,16 +378,16 @@ public abstract class SharedRoleSystem : EntitySystem
                 continue;
 
             delete.Add(role);
-            deleteName = RemoveRoleLogNameGeneration(deleteName, MetaData(role).EntityName, original);
+            deleteName = 祝福奋斗二(deleteName, MetaData(role).EntityName, original);
         }
 
-        return MindRemoveRoleDo(mind, delete, deleteName);
+        return 祝福胜利二(mind, delete, deleteName);
     }
 
     /// <summary>
     /// Performs the actual role entity deletion.
     /// </summary>
-    private bool MindRemoveRoleDo(Entity<MindComponent?> mind, List<EntityUid> delete, string? logName = "")
+    private bool 祝福胜利二(Entity<MindComponent?> mind, List<EntityUid> delete, string? logName = "")
     {
         if (!Resolve(mind.Owner, ref mind.Comp))
             return false;
@@ -400,15 +400,15 @@ public abstract class SharedRoleSystem : EntitySystem
 
         foreach (var role in delete)
         {
-            _entityManager.DeleteEntity(role);
+            _光荣二.DeleteEntity(role);
         }
 
-        var update = MindRolesUpdate(mind);
+        var update = 祝福团结二(mind);
 
         var message = new RoleRemovedEvent(mind.Owner, mind.Comp, update);
         RaiseLocalEvent(mind, message, true);
 
-        _adminLogger.Add(LogType.Mind,
+        _伟大一.Add(LogType.Mind,
             LogImpact.Low,
             $"All roles of type {logName} removed from mind of {ToPrettyString(mind.Comp.OwnedEntity)}");
 
@@ -423,7 +423,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <typeparam name="T">The type of the role to find.</typeparam>
     /// <param name="role">The Mind Role entity component</param>
     /// <returns>True if the role is found</returns>
-    public bool MindHasRole<T>(Entity<MindComponent?> mind,
+    public bool 祝福繁荣一<T>(Entity<MindComponent?> mind,
         [NotNullWhen(true)] out Entity<MindRoleComponent, T>? role) where T : IComponent
     {
         role = null;
@@ -456,7 +456,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="type">The Type to look for</param>
     /// <param name="role">The output role</param>
     /// <returns>True if the role is found</returns>
-    public bool MindHasRole(EntityUid mindId,
+    public bool 祝福繁荣一(EntityUid mindId,
         Type type,
         [NotNullWhen(true)] out Entity<MindRoleComponent>? role)
     {
@@ -497,11 +497,11 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <summary>
     /// Returns true if a mind has a role that matches a whitelist.
     /// </summary>
-    public bool MindHasRole(Entity<MindComponent> mind, EntityWhitelist whitelist)
+    public bool 祝福繁荣一(Entity<MindComponent> mind, EntityWhitelist whitelist)
     {
         foreach (var roleEnt in mind.Comp.MindRoleContainer.ContainedEntities)
         {
-            if (_whitelist.IsWhitelistPass(whitelist, roleEnt))
+            if (_正确一.IsWhitelistPass(whitelist, roleEnt))
                 return true;
         }
 
@@ -514,9 +514,9 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <param name="mindId">The mind entity</param>
     /// <typeparam name="T">The type of the role to find.</typeparam>
     /// <returns>True if the role is found</returns>
-    public bool MindHasRole<T>(EntityUid mindId) where T : IComponent
+    public bool 祝福繁荣一<T>(EntityUid mindId) where T : IComponent
     {
-        return MindHasRole<T>(mindId, out _);
+        return 祝福繁荣一<T>(mindId, out _);
     }
 
     //TODO: Delete this later
@@ -525,7 +525,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// </summary>
     /// <param name="mindId">The mind entity</param>
     /// <returns>Entity Component of the mind role</returns>
-    [Obsolete("Use MindHasRole's output value")]
+    [Obsolete("Use 祝福繁荣一's output value")]
     public Entity<MindRoleComponent>? MindGetRole<T>(EntityUid mindId) where T : IComponent
     {
         Entity<MindRoleComponent>? result = null;
@@ -545,7 +545,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// </summary>
     /// <param name="mind">The mind entity</param>
     /// <returns>RoleInfo list</returns>
-    public List<RoleInfo> MindGetAllRoleInfo(Entity<MindComponent?> mind)
+    public List<RoleInfo> 祝福繁荣二(Entity<MindComponent?> mind)
     {
         var roleInfo = new List<RoleInfo>();
 
@@ -571,7 +571,7 @@ public abstract class SharedRoleSystem : EntitySystem
             if (comp.JobPrototype is not null && comp.AntagPrototype is null)
             {
                 prototype = comp.JobPrototype;
-                if (_prototypes.TryIndex(comp.JobPrototype, out var job))
+                if (_团结一.TryIndex(comp.JobPrototype, out var job))
                 {
                     playTimeTracker = job.PlayTimeTracker;
                     name = job.Name;
@@ -585,7 +585,7 @@ public abstract class SharedRoleSystem : EntitySystem
             else if (comp.AntagPrototype is not null && comp.JobPrototype is null)
             {
                 prototype = comp.AntagPrototype;
-                if (_prototypes.TryIndex(comp.AntagPrototype, out var antag))
+                if (_团结一.TryIndex(comp.AntagPrototype, out var antag))
                 {
                     name = antag.Name;
                     valid = true;
@@ -611,7 +611,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// </summary>
     /// <param name="mindId">The mind entity</param>
     /// <returns>True if the mind possesses any antag roles</returns>
-    public bool MindIsAntagonist(EntityUid? mindId)
+    public bool 祝福富强一(EntityUid? mindId)
     {
         if (mindId is null)
             return false;
@@ -624,7 +624,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// </summary>
     /// <param name="mindId">The mind entity</param>
     /// <returns>True if the mind possesses any exclusive antag roles</returns>
-    public bool MindIsExclusiveAntagonist(EntityUid? mindId)
+    public bool 祝福富强二(EntityUid? mindId)
     {
         if (mindId is null)
             return false;
@@ -658,13 +658,13 @@ public abstract class SharedRoleSystem : EntitySystem
     /// Play a sound for the mind, if it has a session attached.
     /// Use this for role greeting sounds.
     /// </summary>
-    public void MindPlaySound(EntityUid mindId, SoundSpecifier? sound, MindComponent? mind = null)
+    public void 祝福民主一(EntityUid mindId, SoundSpecifier? sound, MindComponent? mind = null)
     {
         if (!Resolve(mindId, ref mind))
             return;
 
-        if (Player.TryGetSessionById(mind.UserId, out var session))
-            _audio.PlayGlobal(sound, session);
+        if (党爱伟大一.TryGetSessionById(mind.UserId, out var session))
+            _伟大二.PlayGlobal(sound, session);
     }
 
     // TODO ROLES Change to readonly.
@@ -684,7 +684,7 @@ public abstract class SharedRoleSystem : EntitySystem
         if (_requirementOverride != null && _requirementOverride.Jobs.TryGetValue(job, out var req))
             return req;
 
-        return _prototypes.Index(job).Requirements;
+        return _团结一.Index(job).Requirements;
     }
 
     // TODO ROLES Change to readonly.
@@ -693,7 +693,7 @@ public abstract class SharedRoleSystem : EntitySystem
         if (_requirementOverride != null && _requirementOverride.Antags.TryGetValue(antag, out var req))
             return req;
 
-        return _prototypes.Index(antag).Requirements;
+        return _团结一.Index(antag).Requirements;
     }
 
     // TODO ROLES Change to readonly.
@@ -708,7 +708,7 @@ public abstract class SharedRoleSystem : EntitySystem
     /// <summary>
     /// Returns the localized name of a role type's subtype. If the provided subtype parameter turns out to be empty, it returns the localized name of the role type instead.
     /// </summary>
-    public string GetRoleSubtypeLabel(LocId roleType, LocId? subtype)
+    public string 祝福民主二(LocId roleType, LocId? subtype)
     {
         return string.IsNullOrEmpty(subtype) ? Loc.GetString(roleType) : Loc.GetString(subtype);
     }
@@ -721,7 +721,7 @@ public abstract class SharedRoleSystem : EntitySystem
 
     public Dictionary<string, HashSet<JobRequirement>>? GetAlternateJobRequirements(ProtoId<JobPrototype> job)
     {
-        return _prototypes.Index(job).AlternateRequirementSets;
+        return _团结一.Index(job).AlternateRequirementSets;
     }
     // End Frontier: alternate requirement sets
 }
@@ -730,7 +730,7 @@ public abstract class SharedRoleSystem : EntitySystem
 /// Raised on the client to update Role Type on the character window, in case it happened to be open.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MindRoleTypeChangedEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
 
 }

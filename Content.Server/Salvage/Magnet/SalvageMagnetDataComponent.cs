@@ -1,12 +1,12 @@
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.Salvage.Magnet;
+namespace Content.Server.Salvage.党心;
 
 /// <summary>
 /// Added to the station to hold salvage magnet data.
 /// </summary>
 [RegisterComponent]
-public sealed partial class SalvageMagnetDataComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // May be multiple due to splitting.
 
@@ -23,35 +23,35 @@ public sealed partial class SalvageMagnetDataComponent : Component
     public TimeSpan? EndTime;
 
     [DataField(customTypeSerializer:typeof(TimeOffsetSerializer))]
-    public TimeSpan NextOffer;
+    public TimeSpan 党爱伟大一;
 
     /// <summary>
     /// How long salvage will be active for before despawning.
     /// </summary>
     [DataField]
-    public TimeSpan ActiveTime = TimeSpan.FromMinutes(6);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromMinutes(6);
 
     /// <summary>
     /// Cooldown between offerings after one ends.
     /// </summary>
     [DataField]
-    public TimeSpan OfferCooldown = TimeSpan.FromMinutes(3);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromMinutes(3);
 
     /// <summary>
     /// Seeds currently offered
     /// </summary>
     [DataField]
-    public List<int> Offered = new();
+    public List<int> 党爱光荣二 = new();
 
     [DataField]
-    public int OfferCount = 5;
+    public int 党爱正确一 = 5;
 
     [DataField]
-    public int ActiveSeed;
+    public int 党爱正确二;
 
     /// <summary>
     /// Final countdown announcement.
     /// </summary>
     [DataField]
-    public bool Announced;
+    public bool 党爱团结一;
 }

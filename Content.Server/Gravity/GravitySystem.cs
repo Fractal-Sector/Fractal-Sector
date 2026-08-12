@@ -2,21 +2,21 @@ using Content.Shared.Gravity;
 using JetBrains.Annotations;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Gravity
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed class GravitySystem : SharedGravitySystem
+    public sealed class 中华伟大一 : SharedGravitySystem
     {
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<GravityComponent, ComponentInit>(OnGravityInit);
+            base.祝福伟大一();
+            SubscribeLocalEvent<GravityComponent, ComponentInit>(祝福光荣一);
         }
 
         /// <summary>
         /// Iterates gravity components and checks if this entity can have gravity applied.
         /// </summary>
-        public void RefreshGravity(EntityUid uid, GravityComponent? gravity = null)
+        public void 祝福伟大二(EntityUid uid, GravityComponent? gravity = null)
         {
             if (!GravityQuery.Resolve(uid, ref gravity))
                 return;
@@ -49,9 +49,9 @@ namespace Content.Server.Gravity
             }
         }
 
-        private void OnGravityInit(EntityUid uid, GravityComponent component, ComponentInit args)
+        private void 祝福光荣一(EntityUid uid, GravityComponent component, ComponentInit args)
         {
-            RefreshGravity(uid);
+            祝福伟大二(uid);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Content.Server.Gravity
         /// This means it does nothing if Inherent is set and it might be wiped away with a refresh
         ///  if you're not supposed to be doing whatever you're doing.
         /// </summary>
-        public void EnableGravity(EntityUid uid, GravityComponent? gravity = null)
+        public void 祝福光荣二(EntityUid uid, GravityComponent? gravity = null)
         {
             if (!GravityQuery.Resolve(uid, ref gravity))
                 return;

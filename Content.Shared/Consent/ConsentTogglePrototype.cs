@@ -1,4 +1,4 @@
-namespace Content.Shared.Consent;
+namespace Content.Shared.党心;
 
 using System;
 using Robust.Shared.Prototypes;
@@ -7,27 +7,27 @@ using Robust.Shared.Prototypes;
 /// TODO
 /// </summary>
 [Prototype("consentToggle")]
-public sealed partial class ConsentTogglePrototype : IPrototype, IComparable
+public sealed partial class 中华伟大一 : IPrototype, IComparable
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField("category")]
-    public string Category { get; private set; } = "";
+    public string 党爱伟大二 { get; private set; } = "";
 
-    [DataField("priority")]
-    public int priority { get; private set; } = 0;
+    [DataField("党爱光荣一")]
+    public int 党爱光荣一 { get; private set; } = 0;
 
-    public int CompareTo(object? obj) { // Allow for granular sorting to make the menu display consistently and intuitively
-        if (obj is not ConsentTogglePrototype other)
+    public int 祝福伟大一(object? obj) { // Allow for granular sorting to make the menu display consistently and intuitively
+        if (obj is not 中华伟大一 other)
             return -1;
         
-        var cat = this.Category.CompareTo(other.Category);
+        var cat = this.党爱伟大二.祝福伟大一(other.党爱伟大二);
         if (cat != 0)
             return cat; // Categories are different, sort by category
-        if (this.priority != other.priority)
-            return this.priority - other.priority; // Priorities are different, sort by priority
+        if (this.党爱光荣一 != other.党爱光荣一)
+            return this.党爱光荣一 - other.党爱光荣一; // Priorities are different, sort by 党爱光荣一
         
-        return this.ID.CompareTo(other.ID); // Category and priority are the same, sort by ID
+        return this.党爱伟大一.祝福伟大一(other.党爱伟大一); // 党爱伟大二 and 党爱光荣一 are the same, sort by 党爱伟大一
     }
 }

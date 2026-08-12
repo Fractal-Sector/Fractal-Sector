@@ -5,14 +5,14 @@ using Content.Shared.Procedural.PostGeneration;
 using Content.Shared.Storage;
 using Robust.Shared.Random;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="WallMountDunGen"/>
     /// </summary>
-    private async Task PostGen(WallMountDunGen gen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task 祝福伟大一(WallMountDunGen gen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
     {
         var checkedTiles = new HashSet<Vector2i>();
         var allExterior = new HashSet<Vector2i>(dungeon.CorridorExteriorTiles);

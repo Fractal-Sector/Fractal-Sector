@@ -24,58 +24,58 @@ using Timer = Robust.Shared.Timing.Timer;
 using Content.Server._NF.SectorServices; // Frontier
 using Content.Shared.GameTicking.Components; // FS
 
-namespace Content.Server.RoundEnd
+namespace Content.Server.党心
 {
     /// <summary>
     /// Handles ending rounds normally and also via requesting it (e.g. via comms console)
     /// If you request a round end then an escape shuttle will be used.
     /// </summary>
-    public sealed class RoundEndSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-        [Dependency] private readonly EmergencyShuttleSystem _shuttle = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly StationSystem _stationSystem = default!;
-        [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier: sector-wide alerts
+        [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+        [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+        [Dependency] private readonly IChatManager _光荣一 = default!;
+        [Dependency] private readonly IGameTiming _光荣二 = default!;
+        [Dependency] private readonly IPrototypeManager _正确一 = default!;
+        [Dependency] private readonly ChatSystem _正确二 = default!;
+        [Dependency] private readonly GameTicker _团结一 = default!;
+        [Dependency] private readonly DeviceNetworkSystem _团结二 = default!;
+        [Dependency] private readonly EmergencyShuttleSystem _奋斗一 = default!;
+        [Dependency] private readonly SharedAudioSystem _奋斗二 = default!;
+        [Dependency] private readonly StationSystem _胜利一 = default!;
+        [Dependency] private readonly SectorServiceSystem _胜利二 = default!; // Frontier: sector-wide alerts
 
-        public TimeSpan DefaultCooldownDuration { get; set; } = TimeSpan.FromSeconds(30);
+        public TimeSpan 党爱伟大一 { get; set; } = TimeSpan.FromSeconds(30);
 
         /// <summary>
         /// Countdown to use where there is no station alert countdown to be found.
         /// </summary>
-        public TimeSpan DefaultCountdownDuration { get; set; } = TimeSpan.FromMinutes(10);
+        public TimeSpan 党爱伟大二 { get; set; } = TimeSpan.FromMinutes(10);
 
         private CancellationTokenSource? _countdownTokenSource = null;
         private CancellationTokenSource? _cooldownTokenSource = null;
         public TimeSpan? LastCountdownStart { get; set; } = null;
         public TimeSpan? ExpectedCountdownEnd { get; set; } = null;
         public TimeSpan? ExpectedShuttleLength => ExpectedCountdownEnd - LastCountdownStart;
-        public TimeSpan? ShuttleTimeLeft => ExpectedCountdownEnd - _gameTiming.CurTime;
+        public TimeSpan? ShuttleTimeLeft => ExpectedCountdownEnd - _光荣二.CurTime;
 
-        public TimeSpan AutoCallStartTime;
-        private bool _autoCalledBefore = false;
-        private bool _shiftEndAutoCalledBefore = false;
+        public TimeSpan 党爱光荣一;
+        private bool _繁荣一 = false;
+        private bool _繁荣二 = false;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => Reset());
-            SetAutoCallTime();
+            base.祝福伟大一();
+            SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => 祝福光荣一());
+            祝福伟大二();
         }
 
-        private void SetAutoCallTime()
+        private void 祝福伟大二()
         {
-            AutoCallStartTime = _gameTiming.CurTime;
+            党爱光荣一 = _光荣二.CurTime;
         }
 
-        private void Reset()
+        private void 祝福光荣一()
         {
             if (_countdownTokenSource != null)
             {
@@ -91,10 +91,10 @@ namespace Content.Server.RoundEnd
 
             LastCountdownStart = null;
             ExpectedCountdownEnd = null;
-            SetAutoCallTime();
-            _autoCalledBefore = false;
-            _shiftEndAutoCalledBefore = false;
-            RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
+            祝福伟大二();
+            _繁荣一 = false;
+            _繁荣二 = false;
+            RaiseLocalEvent(中华伟大二.Default);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Content.Server.RoundEnd
             AllEntityQuery<StationEmergencyShuttleComponent, StationDataComponent>().MoveNext(out var uid, out _, out var data);
             if (data == null)
                 return null;
-            var targetGrid = _stationSystem.GetLargestGrid((uid, data));
+            var targetGrid = _胜利一.GetLargestGrid((uid, data));
             return targetGrid == null ? null : Transform(targetGrid.Value).MapUid;
         }
 
@@ -119,38 +119,38 @@ namespace Content.Server.RoundEnd
             return centcomm == null ? null : centcomm.MapEntity;
         }
 
-        public bool CanCallOrRecall()
+        public bool 祝福光荣二()
         {
             return _cooldownTokenSource == null;
         }
 
-        public bool IsRoundEndRequested()
+        public bool 祝福正确一()
         {
             return _countdownTokenSource != null;
         }
 
-        public void RequestRoundEnd(EntityUid? requester = null, bool checkCooldown = true, string text = "nf-round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement") // Frontier
+        public void 祝福正确二(EntityUid? requester = null, bool checkCooldown = true, string text = "nf-round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement") // Frontier
         {
-            var duration = DefaultCountdownDuration;
+            var duration = 党爱伟大二;
 
             if (requester != null)
             {
-                var stationUid = _sectorService.GetServiceEntity(); // Frontier: sector-wide alerts
-                // var stationUid = _stationSystem.GetOwningStation(requester.Value); // Frontier: sector-wide alerts
+                var stationUid = _胜利二.GetServiceEntity(); // Frontier: sector-wide alerts
+                // var stationUid = _胜利一.GetOwningStation(requester.Value); // Frontier: sector-wide alerts
                 if (TryComp<AlertLevelComponent>(stationUid, out var alertLevel))
                 {
-                    duration = _protoManager
+                    duration = _正确一
                         .Index<AlertLevelPrototype>(AlertLevelSystem.DefaultAlertLevelSet)
                         .Levels[alertLevel.CurrentLevel].ShuttleTime;
                 }
             }
 
-            RequestRoundEnd(duration, requester, checkCooldown, text, name);
+            祝福正确二(duration, requester, checkCooldown, text, name);
         }
 
-        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, bool checkCooldown = true, string text = "nf-round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement") // Frontier
+        public void 祝福正确二(TimeSpan countdownTime, EntityUid? requester = null, bool checkCooldown = true, string text = "nf-round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement") // Frontier
         {
-            if (_gameTicker.RunLevel != GameRunLevel.InRound)
+            if (_团结一.RunLevel != GameRunLevel.InRound)
                 return;
 
             if (checkCooldown && _cooldownTokenSource != null)
@@ -163,11 +163,11 @@ namespace Content.Server.RoundEnd
 
             if (requester != null)
             {
-                _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called by {ToPrettyString(requester.Value):user}");
+                _伟大一.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called by {ToPrettyString(requester.Value):user}");
             }
             else
             {
-                _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called");
+                _伟大一.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called");
             }
 
             // I originally had these set up here but somehow time gets passed as 0 to Loc so IDEK.
@@ -185,7 +185,7 @@ namespace Content.Server.RoundEnd
                 units = "eta-units-minutes";
             }
 
-            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(text,
+            _正确二.DispatchGlobalAnnouncement(Loc.GetString(text,
                 ("time", time),
                 ("units", Loc.GetString(units))),
                 Loc.GetString(name),
@@ -193,18 +193,18 @@ namespace Content.Server.RoundEnd
                 null,
                 Color.Gold);
 
-            _audio.PlayGlobal("/Audio/_NF/Announcements/PocketSizedAndy/andy1_shift_near.ogg", Filter.Broadcast(), true); // Frontier
+            _奋斗二.PlayGlobal("/Audio/_NF/Announcements/PocketSizedAndy/andy1_shift_near.ogg", Filter.Broadcast(), true); // Frontier
 
-            LastCountdownStart = _gameTiming.CurTime;
-            ExpectedCountdownEnd = _gameTiming.CurTime + countdownTime;
+            LastCountdownStart = _光荣二.CurTime;
+            ExpectedCountdownEnd = _光荣二.CurTime + countdownTime;
 
             // TODO full game saves
-            Timer.Spawn(countdownTime, _shuttle.DockEmergencyShuttle, _countdownTokenSource.Token);
+            Timer.Spawn(countdownTime, _奋斗一.DockEmergencyShuttle, _countdownTokenSource.Token);
 
-            ActivateCooldown();
-            RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
+            祝福胜利一();
+            RaiseLocalEvent(中华伟大二.Default);
 
-            var shuttle = _shuttle.GetShuttle();
+            var shuttle = _奋斗一.GetShuttle();
             if (shuttle != null && TryComp<DeviceNetworkComponent>(shuttle, out var net))
             {
                 var payload = new NetworkPayload
@@ -213,16 +213,16 @@ namespace Content.Server.RoundEnd
                     [ShuttleTimerMasks.SourceMap] = GetCentcomm(),
                     [ShuttleTimerMasks.DestMap] = GetStation(),
                     [ShuttleTimerMasks.ShuttleTime] = countdownTime,
-                    [ShuttleTimerMasks.SourceTime] = countdownTime + TimeSpan.FromSeconds(_shuttle.TransitTime + _cfg.GetCVar(CCVars.EmergencyShuttleDockTime)),
+                    [ShuttleTimerMasks.SourceTime] = countdownTime + TimeSpan.FromSeconds(_奋斗一.TransitTime + _伟大二.GetCVar(CCVars.EmergencyShuttleDockTime)),
                     [ShuttleTimerMasks.DestTime] = countdownTime,
                 };
-                _deviceNetworkSystem.QueuePacket(shuttle.Value, null, payload, net.TransmitFrequency);
+                _团结二.QueuePacket(shuttle.Value, null, payload, net.TransmitFrequency);
             }
         }
 
-        public void CancelRoundEndCountdown(EntityUid? requester = null, bool checkCooldown = true)
+        public void 祝福团结一(EntityUid? requester = null, bool checkCooldown = true)
         {
-            if (_gameTicker.RunLevel != GameRunLevel.InRound) return;
+            if (_团结一.RunLevel != GameRunLevel.InRound) return;
             if (checkCooldown && _cooldownTokenSource != null) return;
 
             if (_countdownTokenSource == null) return;
@@ -231,26 +231,26 @@ namespace Content.Server.RoundEnd
 
             if (requester != null)
             {
-                _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled by {ToPrettyString(requester.Value):user}");
+                _伟大一.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled by {ToPrettyString(requester.Value):user}");
             }
             else
             {
-                _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled");
+                _伟大一.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled");
             }
 
-            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-recalled-announcement"),
+            _正确二.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-recalled-announcement"),
                 Loc.GetString("round-end-system-shuttle-sender-announcement"), false, colorOverride: Color.Gold);
 
-            _audio.PlayGlobal("/Audio/_NF/Announcements/PocketSizedAndy/andy1_shift_extend.ogg", Filter.Broadcast(), true); // Frontier
+            _奋斗二.PlayGlobal("/Audio/_NF/Announcements/PocketSizedAndy/andy1_shift_extend.ogg", Filter.Broadcast(), true); // Frontier
 
             LastCountdownStart = null;
             ExpectedCountdownEnd = null;
-            ActivateCooldown();
-            RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
+            祝福胜利一();
+            RaiseLocalEvent(中华伟大二.Default);
 
             // remove active clientside evac shuttle timers by zeroing the target time
             var zero = TimeSpan.Zero;
-            var shuttle = _shuttle.GetShuttle();
+            var shuttle = _奋斗一.GetShuttle();
             if (shuttle != null && TryComp<DeviceNetworkComponent>(shuttle, out var net))
             {
                 var payload = new NetworkPayload
@@ -262,21 +262,21 @@ namespace Content.Server.RoundEnd
                     [ShuttleTimerMasks.SourceTime] = zero,
                     [ShuttleTimerMasks.DestTime] = zero,
                 };
-                _deviceNetworkSystem.QueuePacket(shuttle.Value, null, payload, net.TransmitFrequency);
+                _团结二.QueuePacket(shuttle.Value, null, payload, net.TransmitFrequency);
             }
         }
 
-        public void EndRound(TimeSpan? countdownTime = null)
+        public void 祝福团结二(TimeSpan? countdownTime = null)
         {
-            if (_gameTicker.RunLevel != GameRunLevel.InRound) return;
+            if (_团结一.RunLevel != GameRunLevel.InRound) return;
             LastCountdownStart = null;
             ExpectedCountdownEnd = null;
-            RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
-            _gameTicker.EndRound();
+            RaiseLocalEvent(中华伟大二.Default);
+            _团结一.祝福团结二();
             _countdownTokenSource?.Cancel();
             _countdownTokenSource = new();
 
-            countdownTime ??= TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.RoundRestartTime));
+            countdownTime ??= TimeSpan.FromSeconds(_伟大二.GetCVar(CCVars.RoundRestartTime));
             int time;
             string unitsLocString;
             if (countdownTime.Value.TotalSeconds < 60)
@@ -289,13 +289,13 @@ namespace Content.Server.RoundEnd
                 time = countdownTime.Value.Minutes;
                 unitsLocString = "eta-units-minutes";
             }
-            _chatManager.DispatchServerAnnouncement(
+            _光荣一.DispatchServerAnnouncement(
                 Loc.GetString(
                     "round-end-system-round-restart-eta-announcement",
                     ("time", time),
                     ("units", Loc.GetString(unitsLocString))));
-            Timer.Spawn(countdownTime.Value, AfterEndRoundRestart, _countdownTokenSource.Token);
-            _audio.PlayGlobal("/Audio/_NF/Announcements/PocketSizedAndy/andy1_shift_end.ogg", Filter.Broadcast(), true); // Frontier
+            Timer.Spawn(countdownTime.Value, 祝福奋斗二, _countdownTokenSource.Token);
+            _奋斗二.PlayGlobal("/Audio/_NF/Announcements/PocketSizedAndy/andy1_shift_end.ogg", Filter.Broadcast(), true); // Frontier
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace Content.Server.RoundEnd
         /// <param name="sender"></param>
         /// <param name="textCall"></param>
         /// <param name="textAnnounce"></param>
-        public void DoRoundEndBehavior(RoundEndBehavior behavior,
+        public void 祝福奋斗一(中华光荣一 behavior,
             TimeSpan time,
             string sender = "comms-console-announcement-title-centcom",
             string textCall = "nf-round-end-system-shuttle-called-announcement", // Frontier
@@ -314,80 +314,80 @@ namespace Content.Server.RoundEnd
         {
             switch (behavior)
             {
-                case RoundEndBehavior.InstantEnd:
-                    EndRound();
+                case 中华光荣一.InstantEnd:
+                    祝福团结二();
                     break;
-                case RoundEndBehavior.ShuttleCall:
+                case 中华光荣一.ShuttleCall:
                     // Check is shuttle called or not. We should only dispatch announcement if it's already called
-                    if (IsRoundEndRequested())
+                    if (祝福正确一())
                     {
-                        _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(textAnnounce),
+                        _正确二.DispatchGlobalAnnouncement(Loc.GetString(textAnnounce),
                             Loc.GetString(sender),
                             colorOverride: Color.Gold);
                     }
                     else
                     {
-                        RequestRoundEnd(time, null, false, textCall,
+                        祝福正确二(time, null, false, textCall,
                             Loc.GetString(sender));
                     }
                     break;
             }
         }
 
-        private void AfterEndRoundRestart()
+        private void 祝福奋斗二()
         {
-            if (_gameTicker.RunLevel != GameRunLevel.PostRound) return;
-            Reset();
-            _gameTicker.RestartRound();
+            if (_团结一.RunLevel != GameRunLevel.PostRound) return;
+            祝福光荣一();
+            _团结一.RestartRound();
         }
 
-        private void ActivateCooldown()
+        private void 祝福胜利一()
         {
             _cooldownTokenSource?.Cancel();
             _cooldownTokenSource = new();
 
             // TODO full game saves
-            Timer.Spawn(DefaultCooldownDuration, () =>
+            Timer.Spawn(党爱伟大一, () =>
             {
                 _cooldownTokenSource.Cancel();
                 _cooldownTokenSource = null;
-                RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
+                RaiseLocalEvent(中华伟大二.Default);
             }, _cooldownTokenSource.Token);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福胜利二(float frameTime)
         {
             // Check if we should auto-call based on shift end time (30 minutes remaining)
-            if (_gameTicker.ShiftEndAutoCallEnabled &&
-                _gameTicker.ShiftEndTime.HasValue &&
-                !_shiftEndAutoCalledBefore &&
-                !_shuttle.EmergencyShuttleArrived &&
+            if (_团结一.ShiftEndAutoCallEnabled &&
+                _团结一.ShiftEndTime.HasValue &&
+                !_繁荣二 &&
+                !_奋斗一.EmergencyShuttleArrived &&
                 ExpectedCountdownEnd is null)
             {
-                var timeRemaining = _gameTicker.ShiftEndTime.Value - _gameTiming.RealTime;
+                var timeRemaining = _团结一.ShiftEndTime.Value - _光荣二.RealTime;
                 if (timeRemaining <= TimeSpan.FromMinutes(30) && timeRemaining > TimeSpan.Zero)
                 {
                     // Send announcement about shift ending
-                    _chatSystem.DispatchGlobalAnnouncement(
+                    _正确二.DispatchGlobalAnnouncement(
                         Loc.GetString("round-end-system-shift-ending-announcement"),
                         Loc.GetString("round-end-system-shuttle-sender-announcement"),
                         false,
                         colorOverride: Color.Orange);
 
                     // Call shuttle with 30 minute ETA to align with shift end time
-                    RequestRoundEnd(TimeSpan.FromMinutes(30), null, false, "round-end-system-shuttle-auto-called-announcement");
-                    _shiftEndAutoCalledBefore = true;
+                    祝福正确二(TimeSpan.FromMinutes(30), null, false, "round-end-system-shuttle-auto-called-announcement");
+                    _繁荣二 = true;
                 }
             }
         }
     }
 
-    public sealed class RoundEndSystemChangedEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public static RoundEndSystemChangedEvent Default { get; } = new();
+        public static 中华伟大二 Default { get; } = new();
     }
 
-    public enum RoundEndBehavior : byte
+    public enum 中华光荣一 : byte
     {
         /// <summary>
         /// Instantly end round

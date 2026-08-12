@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 
-namespace Content.Server.Discord;
+namespace Content.Server.党心;
 
 // https://discord.com/developers/docs/resources/channel#message-object-message-structure
-public struct WebhookPayload
+public struct 中华伟大一
 {
     [JsonPropertyName("UserID")] // Frontier, this is used to identify the players in the webhook
     public Guid? UserID { get; set; }
@@ -23,9 +23,9 @@ public struct WebhookPayload
     public List<WebhookEmbed>? Embeds { get; set; } = null;
 
     [JsonPropertyName("allowed_mentions")]
-    public WebhookMentions AllowedMentions { get; set; } = new();
+    public WebhookMentions 党爱伟大一 { get; set; } = new();
 
-    public WebhookPayload()
+    public 中华伟大一()
     {
     }
 }

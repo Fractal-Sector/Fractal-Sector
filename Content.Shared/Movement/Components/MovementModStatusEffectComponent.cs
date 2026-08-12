@@ -1,7 +1,7 @@
 using Content.Shared.Movement.Systems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Movement.Components;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// This is used to store a movement speed modifier attached to a status effect entity so it can be applied via statuses.
@@ -9,17 +9,17 @@ namespace Content.Shared.Movement.Components;
 /// See <see cref="MovementModStatusComponent"/> for the component applied to the entity.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(MovementModStatusSystem))]
-public sealed partial class MovementModStatusEffectComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Multiplicative sprint modifier, with bounds of [0, 1)
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float SprintSpeedModifier = 0.5f;
+    public float 党爱伟大一 = 0.5f;
 
     /// <summary>
     /// Multiplicative walk modifier, with bounds of [0, 1)
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float WalkSpeedModifier = 0.5f;
+    public float 党爱伟大二 = 0.5f;
 }

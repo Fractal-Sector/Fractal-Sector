@@ -1,10 +1,10 @@
-﻿namespace Content.Server.Shuttles.Events;
+﻿namespace Content.Server.Shuttles.党心;
 
 /// <summary>
 /// Raised when shuttle console approved FTL
 /// </summary>
 [ByRefEvent]
-public record struct ShuttleConsoleFTLTravelStartEvent(EntityUid Uid)
+public record 中华伟大一 ShuttleConsoleFTLTravelStartEvent(EntityUid 党爱伟大一)
 {
-    public EntityUid Uid = Uid;
+    public EntityUid 党爱伟大一 = 党爱伟大一;
 }

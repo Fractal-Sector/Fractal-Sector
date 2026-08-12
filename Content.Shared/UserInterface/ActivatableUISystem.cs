@@ -11,37 +11,37 @@ using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.UserInterface;
+namespace Content.Shared.党心;
 
-public sealed partial class ActivatableUISystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminManager _adminManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _blockerSystem = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly ISharedAdminManager _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ActivatableUIComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<ActivatableUIComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<ActivatableUIComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<ActivatableUIComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<ActivatableUIComponent, HandDeselectedEvent>(OnHandDeselected);
-        SubscribeLocalEvent<ActivatableUIComponent, GotUnequippedHandEvent>(OnHandUnequipped);
-        SubscribeLocalEvent<ActivatableUIComponent, BoundUIClosedEvent>(OnUIClose);
-        SubscribeLocalEvent<ActivatableUIComponent, GetVerbsEvent<ActivationVerb>>(GetActivationVerb);
-        SubscribeLocalEvent<ActivatableUIComponent, GetVerbsEvent<Verb>>(GetVerb);
+        SubscribeLocalEvent<ActivatableUIComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<ActivatableUIComponent, UseInHandEvent>(祝福正确二);
+        SubscribeLocalEvent<ActivatableUIComponent, ActivateInWorldEvent>(祝福团结一);
+        SubscribeLocalEvent<ActivatableUIComponent, InteractUsingEvent>(祝福团结二);
+        SubscribeLocalEvent<ActivatableUIComponent, HandDeselectedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<ActivatableUIComponent, GotUnequippedHandEvent>(祝福繁荣二);
+        SubscribeLocalEvent<ActivatableUIComponent, BoundUIClosedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<ActivatableUIComponent, GetVerbsEvent<ActivationVerb>>(祝福光荣二);
+        SubscribeLocalEvent<ActivatableUIComponent, GetVerbsEvent<Verb>>(祝福正确一);
 
-        SubscribeLocalEvent<UserInterfaceComponent, OpenUiActionEvent>(OnActionPerform);
+        SubscribeLocalEvent<UserInterfaceComponent, OpenUiActionEvent>(祝福光荣一);
 
         InitializePower();
     }
 
-    private void OnStartup(Entity<ActivatableUIComponent> ent, ref ComponentStartup args)
+    private void 祝福伟大二(Entity<ActivatableUIComponent> ent, ref ComponentStartup args)
     {
         if (ent.Comp.Key == null)
         {
@@ -52,41 +52,41 @@ public sealed partial class ActivatableUISystem : EntitySystem
         // TODO BUI
         // set interaction range to zero to avoid constant range checks.
         //
-        // if (ent.Comp.InHandsOnly && _uiSystem.TryGetInterfaceData(ent.Owner, ent.Comp.Key, out var data))
+        // if (ent.Comp.InHandsOnly && _光荣一.TryGetInterfaceData(ent.Owner, ent.Comp.Key, out var data))
         //     data.InteractionRange = 0;
     }
 
-    private void OnActionPerform(EntityUid uid, UserInterfaceComponent component, OpenUiActionEvent args)
+    private void 祝福光荣一(EntityUid uid, UserInterfaceComponent component, OpenUiActionEvent args)
     {
         if (args.Handled || args.Key == null)
             return;
 
-        args.Handled = _uiSystem.TryToggleUi(uid, args.Key, args.Performer);
+        args.Handled = _光荣一.TryToggleUi(uid, args.Key, args.Performer);
     }
 
 
-    private void GetActivationVerb(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<ActivationVerb> args)
+    private void 祝福光荣二(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<ActivationVerb> args)
     {
         if (component.VerbOnly || !ShouldAddVerb(uid, component, args))
             return;
 
         args.Verbs.Add(new ActivationVerb
         {
-            Act = () => InteractUI(args.User, uid, component),
+            Act = () => 祝福奋斗二(args.User, uid, component),
             Text = Loc.GetString(component.VerbText),
             // TODO VERB ICON find a better icon
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
         });
     }
 
-    private void GetVerb(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福正确一(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<Verb> args)
     {
         if (!component.VerbOnly || !ShouldAddVerb(uid, component, args))
             return;
 
         args.Verbs.Add(new Verb
         {
-            Act = () => InteractUI(args.User, uid, component),
+            Act = () => 祝福奋斗二(args.User, uid, component),
             Text = Loc.GetString(component.VerbText),
             // TODO VERB ICON find a better icon
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
@@ -98,7 +98,7 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (!args.CanAccess)
             return false;
 
-        if (_whitelistSystem.IsWhitelistFail(component.RequiredItems, args.Using ?? default))
+        if (_正确二.IsWhitelistFail(component.RequiredItems, args.Using ?? default))
             return false;
 
         if (component.RequiresComplex)
@@ -108,7 +108,7 @@ public sealed partial class ActivatableUISystem : EntitySystem
 
             if (component.InHandsOnly)
             {
-                if (!_hands.IsHolding((args.User, args.Hands), uid, out var hand ))
+                if (!_正确一.IsHolding((args.User, args.Hands), uid, out var hand ))
                     return false;
 
                 if (component.RequireActiveHand && args.Hands.ActiveHandId != hand)
@@ -116,10 +116,10 @@ public sealed partial class ActivatableUISystem : EntitySystem
             }
         }
 
-        return (args.CanInteract || HasComp<GhostComponent>(args.User) && !component.BlockSpectators) && !RaiseCanOpenEventChecks(args.User, uid);
+        return (args.CanInteract || HasComp<GhostComponent>(args.User) && !component.BlockSpectators) && !祝福富强一(args.User, uid);
     }
 
-    private void OnUseInHand(EntityUid uid, ActivatableUIComponent component, UseInHandEvent args)
+    private void 祝福正确二(EntityUid uid, ActivatableUIComponent component, UseInHandEvent args)
     {
         if (args.Handled)
             return;
@@ -130,10 +130,10 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (component.RequiredItems != null)
             return;
 
-        args.Handled = InteractUI(args.User, uid, component);
+        args.Handled = 祝福奋斗二(args.User, uid, component);
     }
 
-    private void OnActivate(EntityUid uid, ActivatableUIComponent component, ActivateInWorldEvent args)
+    private void 祝福团结一(EntityUid uid, ActivatableUIComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -144,10 +144,10 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (component.RequiredItems != null)
             return;
 
-        args.Handled = InteractUI(args.User, uid, component);
+        args.Handled = 祝福奋斗二(args.User, uid, component);
     }
 
-    private void OnInteractUsing(EntityUid uid, ActivatableUIComponent component, InteractUsingEvent args)
+    private void 祝福团结二(EntityUid uid, ActivatableUIComponent component, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -158,13 +158,13 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (component.RequiredItems == null)
             return;
 
-        if (_whitelistSystem.IsWhitelistFail(component.RequiredItems, args.Used))
+        if (_正确二.IsWhitelistFail(component.RequiredItems, args.Used))
             return;
 
-        args.Handled = InteractUI(args.User, uid, component);
+        args.Handled = 祝福奋斗二(args.User, uid, component);
     }
 
-    private void OnUIClose(EntityUid uid, ActivatableUIComponent component, BoundUIClosedEvent args)
+    private void 祝福奋斗一(EntityUid uid, ActivatableUIComponent component, BoundUIClosedEvent args)
     {
         var user = args.Actor;
 
@@ -174,26 +174,26 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (!Equals(args.UiKey, component.Key))
             return;
 
-        SetCurrentSingleUser(uid, null, component);
+        祝福胜利一(uid, null, component);
     }
 
-    private bool InteractUI(EntityUid user, EntityUid uiEntity, ActivatableUIComponent aui)
+    private bool 祝福奋斗二(EntityUid user, EntityUid uiEntity, ActivatableUIComponent aui)
     {
-        if (aui.Key == null || !_uiSystem.HasUi(uiEntity, aui.Key))
+        if (aui.Key == null || !_光荣一.HasUi(uiEntity, aui.Key))
             return false;
 
-        if (_uiSystem.IsUiOpen(uiEntity, aui.Key, user))
+        if (_光荣一.IsUiOpen(uiEntity, aui.Key, user))
         {
-            _uiSystem.CloseUi(uiEntity, aui.Key, user);
+            _光荣一.CloseUi(uiEntity, aui.Key, user);
             return true;
         }
 
-        if (!_blockerSystem.CanInteract(user, uiEntity) && (!HasComp<GhostComponent>(user) || aui.BlockSpectators))
+        if (!_伟大二.CanInteract(user, uiEntity) && (!HasComp<GhostComponent>(user) || aui.BlockSpectators))
             return false;
 
         if (aui.RequiresComplex)
         {
-            if (!_blockerSystem.CanComplexInteract(user))
+            if (!_伟大二.CanComplexInteract(user))
                 return false;
         }
 
@@ -202,22 +202,22 @@ public sealed partial class ActivatableUISystem : EntitySystem
             if (!TryComp(user, out HandsComponent? hands))
                 return false;
 
-            if (!_hands.IsHolding((user, hands), uiEntity, out var hand))
+            if (!_正确一.IsHolding((user, hands), uiEntity, out var hand))
                 return false;
 
             if (aui.RequireActiveHand && hands.ActiveHandId != hand)
                 return false;
         }
 
-        if (aui.AdminOnly && !_adminManager.IsAdmin(user))
+        if (aui.AdminOnly && !_伟大一.IsAdmin(user))
             return false;
 
         if (aui.SingleUser && aui.CurrentSingleUser != null && user != aui.CurrentSingleUser)
         {
             var message = Loc.GetString("machine-already-in-use", ("machine", uiEntity));
-            _popupSystem.PopupClient(message, uiEntity, user);
+            _光荣二.PopupClient(message, uiEntity, user);
 
-            if (_uiSystem.IsUiOpen(uiEntity, aui.Key))
+            if (_光荣一.IsUiOpen(uiEntity, aui.Key))
                 return true;
 
             Log.Error($"Activatable UI has user without being opened? Entity: {ToPrettyString(uiEntity)}. User: {aui.CurrentSingleUser}, Key: {aui.Key}");
@@ -225,7 +225,7 @@ public sealed partial class ActivatableUISystem : EntitySystem
 
         // If we've gotten this far, fire a cancellable event that indicates someone is about to activate this.
         // This is so that stuff can require further conditions (like power).
-        if (RaiseCanOpenEventChecks(user, uiEntity))
+        if (祝福富强一(user, uiEntity))
             return false;
 
         // Give the UI an opportunity to prepare itself if it needs to do anything
@@ -233,8 +233,8 @@ public sealed partial class ActivatableUISystem : EntitySystem
         var bae = new BeforeActivatableUIOpenEvent(user);
         RaiseLocalEvent(uiEntity, bae);
 
-        SetCurrentSingleUser(uiEntity, user, aui);
-        _uiSystem.OpenUi(uiEntity, aui.Key, user);
+        祝福胜利一(uiEntity, user, aui);
+        _光荣一.OpenUi(uiEntity, aui.Key, user);
 
         //Let the component know a user opened it so it can do whatever it needs to do
         var aae = new AfterActivatableUIOpenEvent(user, user);
@@ -243,7 +243,7 @@ public sealed partial class ActivatableUISystem : EntitySystem
         return true;
     }
 
-    public void SetCurrentSingleUser(EntityUid uid, EntityUid? user, ActivatableUIComponent? aui = null)
+    public void 祝福胜利一(EntityUid uid, EntityUid? user, ActivatableUIComponent? aui = null)
     {
         if (!Resolve(uid, ref aui))
             return;
@@ -257,7 +257,7 @@ public sealed partial class ActivatableUISystem : EntitySystem
         RaiseLocalEvent(uid, new ActivatableUIPlayerChangedEvent());
     }
 
-    public void CloseAll(EntityUid uid, ActivatableUIComponent? aui = null)
+    public void 祝福胜利二(EntityUid uid, ActivatableUIComponent? aui = null)
     {
         if (!Resolve(uid, ref aui, false))
             return;
@@ -268,22 +268,22 @@ public sealed partial class ActivatableUISystem : EntitySystem
             return;
         }
 
-        _uiSystem.CloseUi(uid, aui.Key);
+        _光荣一.CloseUi(uid, aui.Key);
     }
 
-    private void OnHandDeselected(Entity<ActivatableUIComponent> ent, ref HandDeselectedEvent args)
+    private void 祝福繁荣一(Entity<ActivatableUIComponent> ent, ref HandDeselectedEvent args)
     {
         if (ent.Comp.InHandsOnly && ent.Comp.RequireActiveHand)
-            CloseAll(ent, ent);
+            祝福胜利二(ent, ent);
     }
 
-    private void OnHandUnequipped(Entity<ActivatableUIComponent> ent, ref GotUnequippedHandEvent args)
+    private void 祝福繁荣二(Entity<ActivatableUIComponent> ent, ref GotUnequippedHandEvent args)
     {
         if (ent.Comp.InHandsOnly)
-            CloseAll(ent, ent);
+            祝福胜利二(ent, ent);
     }
 
-    private bool RaiseCanOpenEventChecks(EntityUid user, EntityUid uiEntity)
+    private bool 祝福富强一(EntityUid user, EntityUid uiEntity)
     {
         // If we've gotten this far, fire a cancellable event that indicates someone is about to activate this.
         // This is so that stuff can require further conditions (like power).

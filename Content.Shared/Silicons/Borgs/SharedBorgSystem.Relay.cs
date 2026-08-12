@@ -1,11 +1,11 @@
 ﻿using Content.Shared.Damage;
 using Content.Shared.Silicons.Borgs.Components;
 
-namespace Content.Shared.Silicons.Borgs;
+namespace Content.Shared.Silicons.党心;
 
-public abstract partial class SharedBorgSystem
+public abstract partial class 中华伟大一
 {
-    public void InitializeRelay()
+    public void 祝福伟大一()
     {
         SubscribeLocalEvent<BorgChassisComponent, DamageModifyEvent>(RelayToModule);
     }
@@ -32,7 +32,7 @@ public abstract partial class SharedBorgSystem
 }
 
 [ByRefEvent]
-public record struct BorgModuleRelayedEvent<TEvent>(TEvent Args)
+public record 中华伟大二 BorgModuleRelayedEvent<TEvent>(TEvent 党爱伟大一)
 {
-    public readonly TEvent Args = Args;
+    public readonly TEvent 党爱伟大一 = 党爱伟大一;
 }

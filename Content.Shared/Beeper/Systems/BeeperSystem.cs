@@ -6,54 +6,54 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Beeper.Systems;
+namespace Content.Shared.Beeper.党心;
 
 
 //This handles generic proximity beeper logic
-public sealed class BeeperSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly ItemToggleSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
         var query = EntityQueryEnumerator<BeeperComponent, ItemToggleComponent>();
         while (query.MoveNext(out var uid, out var beeper, out var toggle))
         {
             if (toggle.Activated)
-                RunUpdate_Internal(uid, beeper);
+                祝福团结一(uid, beeper);
         }
     }
 
-    public void SetIntervalScaling(EntityUid owner, BeeperComponent beeper, FixedPoint2 newScaling)
+    public void 祝福伟大二(EntityUid owner, BeeperComponent beeper, FixedPoint2 newScaling)
     {
         newScaling = FixedPoint2.Clamp(newScaling, 0, 1);
         beeper.IntervalScaling = newScaling;
-        RunUpdate_Internal(owner, beeper);
+        祝福团结一(owner, beeper);
         Dirty(owner, beeper);
     }
 
-    public void SetInterval(EntityUid owner, BeeperComponent beeper, TimeSpan newInterval)
+    public void 祝福光荣一(EntityUid owner, BeeperComponent beeper, TimeSpan newInterval)
     {
         if (newInterval < beeper.MinBeepInterval)
             newInterval = beeper.MinBeepInterval;
         if (newInterval > beeper.MaxBeepInterval)
             newInterval = beeper.MaxBeepInterval;
         beeper.Interval = newInterval;
-        RunUpdate_Internal(owner, beeper);
+        祝福团结一(owner, beeper);
         Dirty(owner, beeper);
     }
 
-    public void SetIntervalScaling(EntityUid owner, FixedPoint2 newScaling, BeeperComponent? beeper = null)
+    public void 祝福伟大二(EntityUid owner, FixedPoint2 newScaling, BeeperComponent? beeper = null)
     {
         if (!Resolve(owner, ref beeper))
             return;
-        SetIntervalScaling(owner, beeper, newScaling);
+        祝福伟大二(owner, beeper, newScaling);
     }
 
-    public void SetMute(EntityUid owner, bool isMuted, BeeperComponent? comp = null)
+    public void 祝福光荣二(EntityUid owner, bool isMuted, BeeperComponent? comp = null)
     {
         if (!Resolve(owner, ref comp))
             return;
@@ -61,7 +61,7 @@ public sealed class BeeperSystem : EntitySystem
         Dirty(owner, comp);
     }
 
-    private void UpdateBeepInterval(EntityUid owner, BeeperComponent beeper)
+    private void 祝福正确一(EntityUid owner, BeeperComponent beeper)
     {
         var scalingFactor = beeper.IntervalScaling.Float();
         var interval = (beeper.MaxBeepInterval - beeper.MinBeepInterval) * scalingFactor + beeper.MinBeepInterval;
@@ -71,26 +71,26 @@ public sealed class BeeperSystem : EntitySystem
         Dirty(owner, beeper);
     }
 
-    public void ForceUpdate(EntityUid owner, BeeperComponent? beeper = null)
+    public void 祝福正确二(EntityUid owner, BeeperComponent? beeper = null)
     {
         if (!Resolve(owner, ref beeper))
             return;
-        RunUpdate_Internal(owner, beeper);
+        祝福团结一(owner, beeper);
     }
 
-    private void RunUpdate_Internal(EntityUid owner, BeeperComponent beeper)
+    private void 祝福团结一(EntityUid owner, BeeperComponent beeper)
     {
-        if (!_toggle.IsActivated(owner))
+        if (!_光荣一.IsActivated(owner))
             return;
 
-        UpdateBeepInterval(owner, beeper);
-        if (beeper.NextBeep >= _timing.CurTime)
+        祝福正确一(owner, beeper);
+        if (beeper.NextBeep >= _伟大一.CurTime)
             return;
 
         var beepEvent = new BeepPlayedEvent(beeper.IsMuted);
         RaiseLocalEvent(owner, ref beepEvent);
-        if (!beeper.IsMuted && _net.IsServer)
-            _audio.PlayPvs(beeper.BeepSound, owner);
-        beeper.LastBeepTime = _timing.CurTime;
+        if (!beeper.IsMuted && _伟大二.IsServer)
+            _光荣二.PlayPvs(beeper.BeepSound, owner);
+        beeper.LastBeepTime = _伟大一.CurTime;
     }
 }

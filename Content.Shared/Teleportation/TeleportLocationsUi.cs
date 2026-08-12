@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Teleportation;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum TeleportLocationUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
@@ -12,8 +12,8 @@ public enum TeleportLocationUiKey : byte
 /// Sends message to request that the clicker teleports to the requested location
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class TeleportLocationDestinationMessage(NetEntity netEnt, string pointName) : BoundUserInterfaceMessage
+public sealed class 中华伟大二(NetEntity netEnt, string pointName) : BoundUserInterfaceMessage
 {
-    public NetEntity NetEnt = netEnt;
-    public string PointName = pointName;
+    public NetEntity 党爱伟大一 = netEnt;
+    public string 党爱伟大二 = pointName;
 }

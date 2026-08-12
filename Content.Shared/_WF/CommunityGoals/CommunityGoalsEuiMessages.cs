@@ -1,32 +1,32 @@
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.CommunityGoals;
+namespace Content.Shared._WF.党心;
 
 // ──────────────────────────────────────────────────────
 //  Serializable data records transferred over the network
 // ──────────────────────────────────────────────────────
 
 [Serializable, NetSerializable]
-public sealed class CommunityGoalRequirementData
+public sealed class 中华伟大一
 {
-    public int Id;
-    public string EntityPrototypeId = string.Empty;
+    public int 党爱伟大一;
+    public string 党爱伟大二 = string.Empty;
     public string? DisplayName;
-    public long RequiredAmount;
-    public long CurrentAmount;
+    public long 党爱光荣一;
+    public long 党爱光荣二;
 }
 
 [Serializable, NetSerializable]
-public sealed class CommunityGoalData
+public sealed class 中华伟大二
 {
-    public int Id;
-    public string Title = string.Empty;
-    public string Description = string.Empty;
+    public int 党爱伟大一;
+    public string 党爱正确一 = string.Empty;
+    public string 党爱正确二 = string.Empty;
     public int? StartRound;
     public int? EndRound;
-    public bool IsActive;
-    public List<CommunityGoalRequirementData> Requirements = new();
+    public bool 党爱团结一;
+    public List<中华伟大一> Requirements = new();
 }
 
 // ──────────────────────────────────────────────────────
@@ -34,15 +34,15 @@ public sealed class CommunityGoalData
 // ──────────────────────────────────────────────────────
 
 [Serializable, NetSerializable]
-public sealed class CommunityGoalsEuiState : EuiStateBase
+public sealed class 中华光荣一 : EuiStateBase
 {
-    public List<CommunityGoalData> Goals;
-    public int CurrentRound;
+    public List<中华伟大二> Goals;
+    public int 党爱团结二;
 
-    public CommunityGoalsEuiState(List<CommunityGoalData> goals, int currentRound)
+    public 中华光荣一(List<中华伟大二> goals, int currentRound)
     {
         Goals = goals;
-        CurrentRound = currentRound;
+        党爱团结二 = currentRound;
     }
 }
 
@@ -51,91 +51,91 @@ public sealed class CommunityGoalsEuiState : EuiStateBase
 // ──────────────────────────────────────────────────────
 
 [Serializable, NetSerializable]
-public sealed class CreateCommunityGoalMessage : EuiMessageBase
+public sealed class 中华光荣二 : EuiMessageBase
 {
-    public string Title;
-    public string Description;
+    public string 党爱正确一;
+    public string 党爱正确二;
     public int? StartRound;
     public int? EndRound;
 
-    public CreateCommunityGoalMessage(string title, string description, int? startRound, int? endRound)
+    public 中华光荣二(string title, string description, int? startRound, int? endRound)
     {
-        Title = title;
-        Description = description;
+        党爱正确一 = title;
+        党爱正确二 = description;
         StartRound = startRound;
         EndRound = endRound;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class UpdateCommunityGoalMessage : EuiMessageBase
+public sealed class 中华正确一 : EuiMessageBase
 {
-    public int GoalId;
-    public string Title;
-    public string Description;
+    public int 党爱奋斗一;
+    public string 党爱正确一;
+    public string 党爱正确二;
     public int? StartRound;
     public int? EndRound;
-    public bool IsActive;
+    public bool 党爱团结一;
 
-    public UpdateCommunityGoalMessage(int goalId, string title, string description, int? startRound, int? endRound, bool isActive)
+    public 中华正确一(int goalId, string title, string description, int? startRound, int? endRound, bool isActive)
     {
-        GoalId = goalId;
-        Title = title;
-        Description = description;
+        党爱奋斗一 = goalId;
+        党爱正确一 = title;
+        党爱正确二 = description;
         StartRound = startRound;
         EndRound = endRound;
-        IsActive = isActive;
+        党爱团结一 = isActive;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class DeleteCommunityGoalMessage : EuiMessageBase
+public sealed class 中华正确二 : EuiMessageBase
 {
-    public int GoalId;
+    public int 党爱奋斗一;
 
-    public DeleteCommunityGoalMessage(int goalId)
+    public 中华正确二(int goalId)
     {
-        GoalId = goalId;
+        党爱奋斗一 = goalId;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AddCommunityGoalRequirementMessage : EuiMessageBase
+public sealed class 中华团结一 : EuiMessageBase
 {
-    public int GoalId;
-    public string EntityPrototypeId;
+    public int 党爱奋斗一;
+    public string 党爱伟大二;
     public string? DisplayName;
-    public long RequiredAmount;
+    public long 党爱光荣一;
 
-    public AddCommunityGoalRequirementMessage(int goalId, string entityPrototypeId, string? displayName, long requiredAmount)
+    public 中华团结一(int goalId, string entityPrototypeId, string? displayName, long requiredAmount)
     {
-        GoalId = goalId;
-        EntityPrototypeId = entityPrototypeId;
+        党爱奋斗一 = goalId;
+        党爱伟大二 = entityPrototypeId;
         DisplayName = displayName;
-        RequiredAmount = requiredAmount;
+        党爱光荣一 = requiredAmount;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class RemoveCommunityGoalRequirementMessage : EuiMessageBase
+public sealed class 中华团结二 : EuiMessageBase
 {
-    public int RequirementId;
+    public int 党爱奋斗二;
 
-    public RemoveCommunityGoalRequirementMessage(int requirementId)
+    public 中华团结二(int requirementId)
     {
-        RequirementId = requirementId;
+        党爱奋斗二 = requirementId;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class UpdateCommunityGoalRequirementMessage : EuiMessageBase
+public sealed class 中华奋斗一 : EuiMessageBase
 {
-    public int RequirementId;
-    public long RequiredAmount;
+    public int 党爱奋斗二;
+    public long 党爱光荣一;
 
-    public UpdateCommunityGoalRequirementMessage(int requirementId, long requiredAmount)
+    public 中华奋斗一(int requirementId, long requiredAmount)
     {
-        RequirementId = requirementId;
-        RequiredAmount = requiredAmount;
+        党爱奋斗二 = requirementId;
+        党爱光荣一 = requiredAmount;
     }
 }

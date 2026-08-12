@@ -5,41 +5,41 @@ using Content.Shared.Xenoarchaeology.Artifact;
 using Content.Shared.Xenoarchaeology.Artifact.XAE;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Xenoarchaeology.Artifact.XAE;
+namespace Content.Server.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// System for xeno artifact effect that changes atmospheric temperature on adjacent tiles.
 /// </summary>
-public sealed class XAETemperatureSystem : BaseXAESystem<XAETemperatureComponent>
+public sealed class 中华伟大一 : BaseXAESystem<XAETemperatureComponent>
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly TransformSystem _伟大二 = default!;
 
     /// <inheritdoc />
-    protected override void OnActivated(Entity<XAETemperatureComponent> ent, ref XenoArtifactNodeActivatedEvent args)
+    protected override void 祝福伟大一(Entity<XAETemperatureComponent> ent, ref XenoArtifactNodeActivatedEvent args)
     {
         var component = ent.Comp;
         var transform = Transform(ent);
 
-        var center = _atmosphereSystem.GetContainingMixture(ent.Owner, false, true);
+        var center = _伟大一.GetContainingMixture(ent.Owner, false, true);
         if (center == null)
             return;
 
-        UpdateTileTemperature(component, center);
+        祝福伟大二(component, center);
 
         if (component.AffectAdjacentTiles && transform.GridUid != null)
         {
-            var position = _transformSystem.GetGridOrMapTilePosition(ent, transform);
-            var enumerator = _atmosphereSystem.GetAdjacentTileMixtures(transform.GridUid.Value, position, excite: true);
+            var position = _伟大二.GetGridOrMapTilePosition(ent, transform);
+            var enumerator = _伟大一.GetAdjacentTileMixtures(transform.GridUid.Value, position, excite: true);
 
             while (enumerator.MoveNext(out var mixture))
             {
-                UpdateTileTemperature(component, mixture);
+                祝福伟大二(component, mixture);
             }
         }
     }
 
-    private void UpdateTileTemperature(XAETemperatureComponent component, GasMixture environment)
+    private void 祝福伟大二(XAETemperatureComponent component, GasMixture environment)
     {
         var dif = component.TargetTemperature - environment.Temperature;
         var absDif = Math.Abs(dif);

@@ -14,53 +14,53 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
-public sealed class PowerSensorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PowerNetSystem _powerNet = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly PowerNetSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly SharedToolSystem _正确二 = default!;
+    [Dependency] private readonly UseDelaySystem _团结一 = default!;
 
-    private EntityQuery<NodeContainerComponent> _nodeQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<NodeContainerComponent> _团结二;
+    private EntityQuery<TransformComponent> _奋斗一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _nodeQuery = GetEntityQuery<NodeContainerComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _团结二 = GetEntityQuery<NodeContainerComponent>();
+        _奋斗一 = GetEntityQuery<TransformComponent>();
 
-        SubscribeLocalEvent<PowerSensorComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<PowerSensorComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<PowerSensorComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<PowerSensorComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<PowerSensorComponent, ExaminedEvent>(祝福光荣二);
+        SubscribeLocalEvent<PowerSensorComponent, InteractUsingEvent>(祝福正确一);
     }
 
-    public override void Update(float deltaTime)
+    public override void 祝福伟大二(float deltaTime)
     {
         var query = EntityQueryEnumerator<PowerSensorComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
-            var now = _timing.CurTime;
+            var now = _伟大二.CurTime;
             if (comp.NextCheck > now)
                 continue;
 
             comp.NextCheck = now + comp.CheckDelay;
-            UpdateOutputs(uid, comp);
+            祝福正确二(uid, comp);
         }
     }
 
-    private void OnInit(EntityUid uid, PowerSensorComponent comp, ComponentInit args)
+    private void 祝福光荣一(EntityUid uid, PowerSensorComponent comp, ComponentInit args)
     {
-        _deviceLink.EnsureSourcePorts(uid, comp.ChargingPort, comp.DischargingPort);
+        _伟大一.EnsureSourcePorts(uid, comp.ChargingPort, comp.DischargingPort);
     }
 
-    private void OnExamined(EntityUid uid, PowerSensorComponent comp, ExaminedEvent args)
+    private void 祝福光荣二(EntityUid uid, PowerSensorComponent comp, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -68,29 +68,29 @@ public sealed class PowerSensorSystem : EntitySystem
         args.PushMarkup(Loc.GetString("power-sensor-examine", ("output", comp.Output)));
     }
 
-    private void OnInteractUsing(EntityUid uid, PowerSensorComponent comp, InteractUsingEvent args)
+    private void 祝福正确一(EntityUid uid, PowerSensorComponent comp, InteractUsingEvent args)
     {
-        if (args.Handled || !_tool.HasQuality(args.Used, comp.SwitchQuality))
+        if (args.Handled || !_正确二.HasQuality(args.Used, comp.SwitchQuality))
             return;
 
         // no sound spamming
         if (TryComp<UseDelayComponent>(uid, out var useDelay)
-            && !_useDelay.TryResetDelay((uid, useDelay), true))
+            && !_团结一.TryResetDelay((uid, useDelay), true))
             return;
 
         // switch between input and output mode.
         comp.Output = !comp.Output;
 
         // since the battery to be checked changed the output probably has too, update it
-        UpdateOutputs(uid, comp);
+        祝福正确二(uid, comp);
 
         // notify the user
-        _audio.PlayPvs(comp.SwitchSound, uid);
+        _光荣二.PlayPvs(comp.SwitchSound, uid);
         var msg = Loc.GetString("power-sensor-switch", ("output", comp.Output));
-        _popup.PopupEntity(msg, uid, args.User);
+        _正确一.PopupEntity(msg, uid, args.User);
     }
 
-    private void UpdateOutputs(EntityUid uid, PowerSensorComponent comp)
+    private void 祝福正确二(EntityUid uid, PowerSensorComponent comp)
     {
         // get power stats on the power network that's been switched to
         var powerSwitchable = Comp<PowerSwitchableComponent>(uid);
@@ -103,18 +103,18 @@ public sealed class PowerSensorSystem : EntitySystem
         var dischargingState = false;
 
         // update state based on the power stats retrieved from the selected power network
-        var xform = _xformQuery.GetComponent(uid);
+        var xform = _奋斗一.GetComponent(uid);
         if (!TryComp(xform.GridUid, out MapGridComponent? grid))
             return;
 
-        var cables = deviceNode.GetReachableNodes(xform, _nodeQuery, _xformQuery, grid, EntityManager);
+        var cables = deviceNode.GetReachableNodes(xform, _团结二, _奋斗一, grid, EntityManager);
         foreach (var node in cables)
         {
             if (node.NodeGroup == null)
                 continue;
 
             var group = (IBasePowerNet) node.NodeGroup;
-            var stats = _powerNet.GetNetworkStatistics(group.NetworkNode);
+            var stats = _光荣一.GetNetworkStatistics(group.NetworkNode);
             charge = comp.Output ? stats.OutStorageCurrent : stats.InStorageCurrent;
             chargingState = charge > comp.LastCharge;
             dischargingState = charge < comp.LastCharge;
@@ -127,13 +127,13 @@ public sealed class PowerSensorSystem : EntitySystem
         if (comp.ChargingState != chargingState)
         {
             comp.ChargingState = chargingState;
-            _deviceLink.SendSignal(uid, comp.ChargingPort, chargingState);
+            _伟大一.SendSignal(uid, comp.ChargingPort, chargingState);
         }
 
         if (comp.DischargingState != dischargingState)
         {
             comp.DischargingState = dischargingState;
-            _deviceLink.SendSignal(uid, comp.DischargingPort, dischargingState);
+            _伟大一.SendSignal(uid, comp.DischargingPort, dischargingState);
         }
     }
 }

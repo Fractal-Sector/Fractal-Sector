@@ -1,15 +1,15 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Medical;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum MedicalBountyRedemptionUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public enum MedicalBountyRedemptionStatus : byte
+public enum 中华伟大二 : byte
 {
     NoBody,
     NoBounty,
@@ -19,22 +19,22 @@ public enum MedicalBountyRedemptionStatus : byte
 }
 
 [Serializable, NetSerializable]
-public enum MedicalBountyRedemptionVisuals : byte
+public enum 中华光荣一 : byte
 {
     Full
 }
 
 [Serializable, NetSerializable]
-public sealed class MedicalBountyRedemptionUIState : BoundUserInterfaceState
+public sealed class 中华光荣二 : BoundUserInterfaceState
 {
-    public int BountyValue { get; }
-    public MedicalBountyRedemptionStatus BountyStatus { get; }
-    public bool PaidToStation { get; }
+    public int 党爱伟大一 { get; }
+    public 中华伟大二 BountyStatus { get; }
+    public bool 党爱伟大二 { get; }
 
-    public MedicalBountyRedemptionUIState(MedicalBountyRedemptionStatus bountyStatus, int bountyValue, bool paidToStation)
+    public 中华光荣二(中华伟大二 bountyStatus, int bountyValue, bool paidToStation)
     {
         BountyStatus = bountyStatus;
-        BountyValue = bountyValue;
-        PaidToStation = paidToStation;
+        党爱伟大一 = bountyValue;
+        党爱伟大二 = paidToStation;
     }
 }

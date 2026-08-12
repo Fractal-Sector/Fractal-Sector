@@ -1,7 +1,7 @@
-namespace Content.Shared.Mind.Components;
+namespace Content.Shared.Mind.党心;
 
 [RegisterComponent]
-public sealed partial class IsDeadICComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }
 

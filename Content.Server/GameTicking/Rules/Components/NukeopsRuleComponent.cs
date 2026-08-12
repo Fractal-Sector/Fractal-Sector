@@ -6,52 +6,52 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.GameTicking.Rules.Components;
+namespace Content.Server.GameTicking.Rules.党心;
 
 [RegisterComponent, Access(typeof(NukeopsRuleSystem))]
-public sealed partial class NukeopsRuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// What will happen if all of the nuclear operatives will die. Used by LoneOpsSpawn event.
     /// </summary>
     [DataField]
-    public RoundEndBehavior RoundEndBehavior = RoundEndBehavior.ShuttleCall;
+    public 党爱伟大一 党爱伟大一 = 党爱伟大一.ShuttleCall;
 
     /// <summary>
-    /// Text for shuttle call if RoundEndBehavior is ShuttleCall.
+    /// Text for shuttle call if 党爱伟大一 is ShuttleCall.
     /// </summary>
     [DataField]
-    public string RoundEndTextSender = "comms-console-announcement-title-centcom";
+    public string 党爱伟大二 = "comms-console-announcement-title-centcom";
 
     /// <summary>
-    /// Text for shuttle call if RoundEndBehavior is ShuttleCall.
+    /// Text for shuttle call if 党爱伟大一 is ShuttleCall.
     /// </summary>
     [DataField]
-    public string RoundEndTextShuttleCall = "nuke-ops-no-more-threat-announcement-shuttle-call";
+    public string 党爱光荣一 = "nuke-ops-no-more-threat-announcement-shuttle-call";
 
     /// <summary>
-    /// Text for announcement if RoundEndBehavior is ShuttleCall. Used if shuttle is already called
+    /// Text for announcement if 党爱伟大一 is ShuttleCall. Used if shuttle is already called
     /// </summary>
     [DataField]
-    public string RoundEndTextAnnouncement = "nuke-ops-no-more-threat-announcement";
+    public string 党爱光荣二 = "nuke-ops-no-more-threat-announcement";
 
     /// <summary>
-    /// Time to emergency shuttle to arrive if RoundEndBehavior is ShuttleCall.
+    /// Time to emergency shuttle to arrive if 党爱伟大一 is ShuttleCall.
     /// </summary>
     [DataField]
-    public TimeSpan EvacShuttleTime = TimeSpan.FromMinutes(3);
+    public TimeSpan 党爱正确一 = TimeSpan.FromMinutes(3);
 
     /// <summary>
     /// Whether or not nukie left their outpost
     /// </summary>
     [DataField]
-    public bool LeftOutpost;
+    public bool 党爱正确二;
 
     /// <summary>
     ///     Enables opportunity to get extra TC for war declaration
     /// </summary>
     [DataField]
-    public bool CanEnableWarOps = true;
+    public bool 党爱团结一 = true;
 
     /// <summary>
     ///     Indicates time when war has been declared, null if not declared
@@ -63,46 +63,46 @@ public sealed partial class NukeopsRuleComponent : Component
     ///     This amount of TC will be given to each nukie
     /// </summary>
     [DataField]
-    public int WarTcAmountPerNukie = 40;
+    public int 党爱团结二 = 40;
 
     /// <summary>
     ///     Delay between war declaration and nuke ops arrival on station map. Gives crew time to prepare
     /// </summary>
     [DataField]
-    public TimeSpan WarNukieArriveDelay = TimeSpan.FromMinutes(15);
+    public TimeSpan 党爱奋斗一 = TimeSpan.FromMinutes(15);
 
     /// <summary>
     ///     Time crew can't call emergency shuttle after war declaration.
     /// </summary>
     [DataField]
-    public TimeSpan WarEvacShuttleDisabled = TimeSpan.FromMinutes(25);
+    public TimeSpan 党爱奋斗二 = TimeSpan.FromMinutes(25);
 
     /// <summary>
     ///     Minimal operatives count for war declaration
     /// </summary>
     [DataField]
-    public int WarDeclarationMinOps = 4;
+    public int 党爱胜利一 = 4;
 
     [DataField]
-    public WinType WinType = WinType.Neutral;
+    public 中华伟大二 中华伟大二 = 中华伟大二.Neutral;
 
     [DataField]
-    public List<WinCondition> WinConditions = new ();
+    public List<中华光荣一> WinConditions = new ();
 
     [DataField]
     public EntityUid? TargetStation;
 
     [DataField]
-    public ProtoId<NpcFactionPrototype> Faction = "Syndicate";
+    public ProtoId<NpcFactionPrototype> 党爱胜利二 = "Syndicate";
 
     /// <summary>
     ///     Path to antagonist alert sound.
     /// </summary>
     [DataField]
-    public SoundSpecifier GreetSoundNotification = new SoundPathSpecifier("/Audio/Ambience/Antag/nukeops_start.ogg");
+    public SoundSpecifier 党爱繁荣一 = new SoundPathSpecifier("/Audio/Ambience/Antag/nukeops_start.ogg");
 }
 
-public enum WinType : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     ///     Operative major win. This means they nuked the station.
@@ -129,7 +129,7 @@ public enum WinType : byte
     CrewMajor
 }
 
-public enum WinCondition : byte
+public enum 中华光荣一 : byte
 {
     NukeExplodedOnCorrectStation,
     NukeExplodedOnNukieOutpost,

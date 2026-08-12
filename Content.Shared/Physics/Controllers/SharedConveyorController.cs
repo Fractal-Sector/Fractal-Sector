@@ -14,59 +14,59 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Threading;
 
-namespace Content.Shared.Physics.Controllers;
+namespace Content.Shared.Physics.党心;
 
-public abstract class SharedConveyorController : VirtualController
+public abstract class 中华伟大一 : VirtualController
 {
-    [Dependency] protected readonly IMapManager MapManager = default!;
-    [Dependency] private readonly IParallelManager _parallel = default!;
-    [Dependency] private readonly CollisionWakeSystem _wake = default!;
-    [Dependency] protected readonly EntityLookupSystem Lookup = default!;
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private   readonly SharedStackSystem _stack = default!;
+    [Dependency] protected readonly IMapManager 党爱伟大一 = default!;
+    [Dependency] private readonly IParallelManager _伟大一 = default!;
+    [Dependency] private readonly CollisionWakeSystem _伟大二 = default!;
+    [Dependency] protected readonly EntityLookupSystem 党爱伟大二 = default!;
+    [Dependency] private readonly FixtureSystem _光荣一 = default!;
+    [Dependency] private readonly SharedGravitySystem _光荣二 = default!;
+    [Dependency] private readonly SharedMoverController _正确一 = default!;
+    [Dependency] private   readonly SharedStackSystem _正确二 = default!;
 
-    protected const string ConveyorFixture = "conveyor";
+    protected const string 党爱光荣一 = "conveyor";
 
-    private ConveyorJob _job;
+    private ConveyorJob _团结一;
 
-    private EntityQuery<ConveyorComponent> _conveyorQuery;
-    private EntityQuery<ConveyedComponent> _conveyedQuery;
-    protected EntityQuery<PhysicsComponent> PhysicsQuery;
-    protected EntityQuery<TransformComponent> XformQuery;
+    private EntityQuery<ConveyorComponent> _团结二;
+    private EntityQuery<ConveyedComponent> _奋斗一;
+    protected EntityQuery<PhysicsComponent> 党爱光荣二;
+    protected EntityQuery<TransformComponent> 党爱正确一;
 
-    protected HashSet<EntityUid> Intersecting = new();
+    protected HashSet<EntityUid> 党爱正确二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _job = new ConveyorJob(this);
-        _conveyorQuery = GetEntityQuery<ConveyorComponent>();
-        _conveyedQuery = GetEntityQuery<ConveyedComponent>();
-        PhysicsQuery = GetEntityQuery<PhysicsComponent>();
-        XformQuery = GetEntityQuery<TransformComponent>();
+        _团结一 = new ConveyorJob(this);
+        _团结二 = GetEntityQuery<ConveyorComponent>();
+        _奋斗一 = GetEntityQuery<ConveyedComponent>();
+        党爱光荣二 = GetEntityQuery<PhysicsComponent>();
+        党爱正确一 = GetEntityQuery<TransformComponent>();
 
         UpdatesAfter.Add(typeof(SharedMoverController));
 
-        SubscribeLocalEvent<ConveyedComponent, TileFrictionEvent>(OnConveyedFriction);
-        SubscribeLocalEvent<ConveyedComponent, ComponentStartup>(OnConveyedStartup);
-        SubscribeLocalEvent<ConveyedComponent, ComponentShutdown>(OnConveyedShutdown);
+        SubscribeLocalEvent<ConveyedComponent, TileFrictionEvent>(祝福伟大二);
+        SubscribeLocalEvent<ConveyedComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<ConveyedComponent, ComponentShutdown>(祝福光荣二);
 
-        SubscribeLocalEvent<ConveyorComponent, StartCollideEvent>(OnConveyorStartCollide);
-        SubscribeLocalEvent<ConveyorComponent, ComponentStartup>(OnConveyorStartup);
+        SubscribeLocalEvent<ConveyorComponent, StartCollideEvent>(祝福团结二);
+        SubscribeLocalEvent<ConveyorComponent, ComponentStartup>(祝福正确一);
 
-        base.Initialize();
+        base.祝福伟大一();
     }
 
-    private void OnConveyedFriction(Entity<ConveyedComponent> ent, ref TileFrictionEvent args)
+    private void 祝福伟大二(Entity<ConveyedComponent> ent, ref TileFrictionEvent args)
     {
         if(!ent.Comp.Conveying)
             return;
         // Wizden#37468: Conveyors spin fix
-        if (!TryComp<FixturesComponent>(ent, out var fixture) || !IsConveyed((ent, fixture)))
+        if (!TryComp<FixturesComponent>(ent, out var fixture) || !祝福富强一((ent, fixture)))
             return;
 
-        if (!PhysicsQuery.TryComp(ent, out var body) || body.BodyStatus != BodyStatus.OnGround)
+        if (!党爱光荣二.TryComp(ent, out var body) || body.BodyStatus != BodyStatus.OnGround)
             return;
         // End Wizden#37468: Conveyors spin fix
 
@@ -74,33 +74,33 @@ public abstract class SharedConveyorController : VirtualController
         args.Modifier = 0f;
     }
 
-    private void OnConveyedStartup(Entity<ConveyedComponent> ent, ref ComponentStartup args)
+    private void 祝福光荣一(Entity<ConveyedComponent> ent, ref ComponentStartup args)
     {
         // We need waking / sleeping to work and don't want collisionwake interfering with us.
-        _wake.SetEnabled(ent.Owner, false);
+        _伟大二.SetEnabled(ent.Owner, false);
     }
 
-    private void OnConveyedShutdown(Entity<ConveyedComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<ConveyedComponent> ent, ref ComponentShutdown args)
     {
-        _wake.SetEnabled(ent.Owner, true);
+        _伟大二.SetEnabled(ent.Owner, true);
     }
 
-    private void OnConveyorStartup(Entity<ConveyorComponent> ent, ref ComponentStartup args)
+    private void 祝福正确一(Entity<ConveyorComponent> ent, ref ComponentStartup args)
     {
-        AwakenConveyor(ent.Owner);
+        祝福正确二(ent.Owner);
     }
 
     /// <summary>
     /// Forcefully awakens all entities near the conveyor.
     /// </summary>
-    protected virtual void AwakenConveyor(Entity<TransformComponent?> ent)
+    protected virtual void 祝福正确二(Entity<TransformComponent?> ent)
     {
     }
 
     /// <summary>
     /// Wakes all conveyed entities contacting this conveyor.
     /// </summary>
-    protected void WakeConveyed(EntityUid conveyorUid)
+    protected void 祝福团结一(EntityUid conveyorUid)
     {
         var contacts = PhysicsSystem.GetContacts(conveyorUid);
 
@@ -113,14 +113,14 @@ public abstract class SharedConveyorController : VirtualController
                 EnsureComp<ConveyedComponent>(other);
             }
 
-            if (_conveyedQuery.HasComp(other))
+            if (_奋斗一.HasComp(other))
             {
                 PhysicsSystem.WakeBody(other);
             }
         }
     }
 
-    private void OnConveyorStartCollide(Entity<ConveyorComponent> conveyor, ref StartCollideEvent args)
+    private void 祝福团结二(Entity<ConveyorComponent> conveyor, ref StartCollideEvent args)
     {
         var otherUid = args.OtherEntity;
 
@@ -130,23 +130,23 @@ public abstract class SharedConveyorController : VirtualController
         EnsureComp<ConveyedComponent>(otherUid);
     }
 
-    public override void UpdateBeforeSolve(bool prediction, float frameTime)
+    public override void 祝福奋斗一(bool prediction, float frameTime)
     {
-        base.UpdateBeforeSolve(prediction, frameTime);
+        base.祝福奋斗一(prediction, frameTime);
 
-        _job.Prediction = prediction;
-        _job.Conveyed.Clear();
+        _团结一.党爱团结二 = prediction;
+        _团结一.Conveyed.Clear();
 
         var query = EntityQueryEnumerator<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent>();
 
         while (query.MoveNext(out var uid, out var comp, out var fixtures, out var physics, out var xform))
         {
-            _job.Conveyed.Add(((uid, comp, fixtures, physics, xform), Vector2.Zero, false));
+            _团结一.Conveyed.Add(((uid, comp, fixtures, physics, xform), Vector2.Zero, false));
         }
 
-        _parallel.ProcessNow(_job, _job.Conveyed.Count);
+        _伟大一.ProcessNow(_团结一, _团结一.Conveyed.Count);
 
-        foreach (var ent in _job.Conveyed)
+        foreach (var ent in _团结一.Conveyed)
         {
             if (!ent.Entity.Comp3.Predict && prediction)
                 continue;
@@ -155,7 +155,7 @@ public abstract class SharedConveyorController : VirtualController
 
             if (physics.BodyStatus != BodyStatus.OnGround) // Wizden#37468
             {
-                SetConveying(ent.Entity.Owner, ent.Entity.Comp1, false);
+                祝福奋斗二(ent.Entity.Owner, ent.Entity.Comp1, false);
                 continue;
             }
 
@@ -164,7 +164,7 @@ public abstract class SharedConveyorController : VirtualController
             var targetDir = ent.Direction;
 
             // If mob is moving with the conveyor then combine the directions.
-            var wishDir = _mover.GetWishDir(ent.Entity.Owner);
+            var wishDir = _正确一.GetWishDir(ent.Entity.Owner);
 
             if (Vector2.Dot(wishDir, targetDir) > 0f)
             {
@@ -175,46 +175,46 @@ public abstract class SharedConveyorController : VirtualController
             {
                 if (targetDir.LengthSquared() > 0f)
                 {
-                    SetConveying(ent.Entity.Owner, ent.Entity.Comp1, true);
+                    祝福奋斗二(ent.Entity.Owner, ent.Entity.Comp1, true);
                 }
                 else if (ent.Entity.Comp1.Conveying)
                 {
-                    SetConveying(ent.Entity.Owner, ent.Entity.Comp1, false);
-                    _stack.TryMergeToContacts(ent.Entity.Owner);
+                    祝福奋斗二(ent.Entity.Owner, ent.Entity.Comp1, false);
+                    _正确二.TryMergeToContacts(ent.Entity.Owner);
                 }
 
                 // We apply friction here so when we push items towards the center of the conveyor they don't go overspeed.
                 // We also don't want this to apply to mobs as they apply their own friction and otherwise
                 // they'll go too slow.
-                if (!_mover.UsedMobMovement.TryGetValue(ent.Entity.Owner, out var usedMob) || !usedMob)
+                if (!_正确一.UsedMobMovement.TryGetValue(ent.Entity.Owner, out var usedMob) || !usedMob)
                 {
                     // We provide a small minimum friction speed as well for those times where the friction would stop large objects
                     // snagged on corners from sliding into the centerline.
-                    _mover.Friction(0.2f, frameTime: frameTime, friction: 5f, ref velocity);
-                    _mover.Friction(0.2f, frameTime: frameTime, friction: 5f, ref angularVelocity); // Wizden#37468
+                    _正确一.Friction(0.2f, frameTime: frameTime, friction: 5f, ref velocity);
+                    _正确一.Friction(0.2f, frameTime: frameTime, friction: 5f, ref angularVelocity); // Wizden#37468
                 }
 
                 SharedMoverController.Accelerate(ref velocity, targetDir, 20f, frameTime);
             }
-            else if (!_mover.UsedMobMovement.TryGetValue(ent.Entity.Owner, out var usedMob) || !usedMob)
+            else if (!_正确一.UsedMobMovement.TryGetValue(ent.Entity.Owner, out var usedMob) || !usedMob)
             {
                 // Need friction to outweigh the movement as it will bounce a bit against the wall.
                 // This facilitates being able to sleep entities colliding into walls.
-                _mover.Friction(0f, frameTime: frameTime, friction: 40f, ref velocity);
-                _mover.Friction(0f, frameTime: frameTime, friction: 40f, ref angularVelocity); // Wizden#37468
+                _正确一.Friction(0f, frameTime: frameTime, friction: 40f, ref velocity);
+                _正确一.Friction(0f, frameTime: frameTime, friction: 40f, ref angularVelocity); // Wizden#37468
             }
 
             PhysicsSystem.SetAngularVelocity(ent.Entity.Owner, angularVelocity); // Wizden#37468
             PhysicsSystem.SetLinearVelocity(ent.Entity.Owner, velocity, wakeBody: false);
 
-            if (!IsConveyed((ent.Entity.Owner, ent.Entity.Comp2)))
+            if (!祝福富强一((ent.Entity.Owner, ent.Entity.Comp2)))
             {
                 RemComp<ConveyedComponent>(ent.Entity.Owner);
             }
         }
     }
 
-    private void SetConveying(EntityUid uid, ConveyedComponent conveyed, bool value)
+    private void 祝福奋斗二(EntityUid uid, ConveyedComponent conveyed, bool value)
     {
         if (conveyed.Conveying == value)
             return;
@@ -227,7 +227,7 @@ public abstract class SharedConveyorController : VirtualController
     /// Gets the conveying direction for an entity.
     /// </summary>
     /// <returns>False if we should no longer be considered actively conveyed.</returns>
-    private bool TryConvey(Entity<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent> entity,
+    private bool 祝福胜利一(Entity<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent> entity,
         bool prediction,
         out Vector2 direction)
     {
@@ -247,7 +247,7 @@ public abstract class SharedConveyorController : VirtualController
             return true;
 
         if (physics.BodyStatus == BodyStatus.InAir ||
-            _gravity.IsWeightless(entity.Owner))
+            _光荣二.IsWeightless(entity.Owner))
         {
             return true;
         }
@@ -269,7 +269,7 @@ public abstract class SharedConveyorController : VirtualController
             // Check for blocked, if so then we can't convey at all and just try to sleep
             // Otherwise we may just keep pushing it into the wall
 
-            if (!_conveyorQuery.TryComp(other, out var conveyor))
+            if (!_团结二.TryComp(other, out var conveyor))
                 continue;
 
             anyConveyors = true;
@@ -277,10 +277,10 @@ public abstract class SharedConveyorController : VirtualController
             var otherTransform = PhysicsSystem.GetPhysicsTransform(other);
 
             // Check if our center is over the conveyor, otherwise ignore it.
-            if (!_fixtures.TestPoint(otherFixture.Item2.Shape, otherTransform, transform.Position))
+            if (!_光荣一.TestPoint(otherFixture.Item2.Shape, otherTransform, transform.Position))
                 continue;
 
-            if (conveyor.Speed > bestSpeed && CanRun(conveyor))
+            if (conveyor.Speed > bestSpeed && 祝福繁荣一(conveyor))
             {
                 bestSpeed = conveyor.Speed;
                 bestConveyor = (other, conveyor);
@@ -295,7 +295,7 @@ public abstract class SharedConveyorController : VirtualController
             return true;
 
         var comp = bestConveyor.Comp!;
-        var conveyorXform = XformQuery.GetComponent(bestConveyor.Owner);
+        var conveyorXform = 党爱正确一.GetComponent(bestConveyor.Owner);
         var (conveyorPos, conveyorRot) = TransformSystem.GetWorldPositionRotation(conveyorXform);
 
         conveyorRot += bestConveyor.Comp!.Angle;
@@ -307,7 +307,7 @@ public abstract class SharedConveyorController : VirtualController
         direction = conveyorDirection;
 
         var itemRelative = conveyorPos - transform.Position;
-        direction = Convey(direction, bestSpeed, itemRelative);
+        direction = 祝福胜利二(direction, bestSpeed, itemRelative);
 
         // Do a final check for hard contacts so if we're conveying into a wall then NOOP.
         contacts = PhysicsSystem.GetContacts((entity.Owner, fixtures));
@@ -338,7 +338,7 @@ public abstract class SharedConveyorController : VirtualController
 
         return true;
     }
-    private static Vector2 Convey(Vector2 direction, float speed, Vector2 itemRelative)
+    private static Vector2 祝福胜利二(Vector2 direction, float speed, Vector2 itemRelative)
     {
         if (speed == 0 || direction.LengthSquared() == 0)
             return Vector2.Zero;
@@ -376,33 +376,33 @@ public abstract class SharedConveyorController : VirtualController
         }
     }
 
-    public bool CanRun(ConveyorComponent component)
+    public bool 祝福繁荣一(ConveyorComponent component)
     {
         return component.State != ConveyorState.Off && component.Powered;
     }
 
-    private record struct ConveyorJob : IParallelRobustJob
+    private record 中华伟大二 ConveyorJob : IParallelRobustJob
     {
-        public int BatchSize => 16;
+        public int 党爱团结一 => 16;
 
         public List<(Entity<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent> Entity, Vector2 Direction, bool Result)> Conveyed = new();
 
-        public SharedConveyorController System;
+        public 中华伟大一 System;
 
-        public bool Prediction;
+        public bool 党爱团结二;
 
-        public ConveyorJob(SharedConveyorController controller)
+        public ConveyorJob(中华伟大一 controller)
         {
             System = controller;
         }
 
-        public void Execute(int index)
+        public void 祝福繁荣二(int index)
         {
             var convey = Conveyed[index];
 
-            var result = System.TryConvey(
+            var result = System.祝福胜利一(
                 (convey.Entity.Owner, convey.Entity.Comp1, convey.Entity.Comp2, convey.Entity.Comp3, convey.Entity.Comp4),
-                Prediction,
+                党爱团结二,
                 out var direction);
 
             Conveyed[index] = (convey.Entity, direction, result);
@@ -412,7 +412,7 @@ public abstract class SharedConveyorController : VirtualController
     /// <summary>
     /// Checks an entity's contacts to see if it's still being conveyed.
     /// </summary>
-    private bool IsConveyed(Entity<FixturesComponent?> ent)
+    private bool 祝福富强一(Entity<FixturesComponent?> ent)
     {
         if (!Resolve(ent.Owner, ref ent.Comp))
             return false;
@@ -426,7 +426,7 @@ public abstract class SharedConveyorController : VirtualController
 
             var other = contact.OtherEnt(ent.Owner);
 
-            if (_conveyorQuery.TryComp(other, out var comp) && CanRun(comp))
+            if (_团结二.TryComp(other, out var comp) && 祝福繁荣一(comp))
                 return true;
         }
 

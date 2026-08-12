@@ -4,28 +4,28 @@ using Content.Shared.Materials.OreSilo;
 using Robust.Server.GameStates;
 using Robust.Shared.Player;
 
-namespace Content.Server.Materials;
+namespace Content.Server.党心;
 
 /// <inheritdoc/>
-public sealed class OreSiloSystem : SharedOreSiloSystem
+public sealed class 中华伟大一 : SharedOreSiloSystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _userInterface = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly NavMapSystem _伟大二 = default!;
+    [Dependency] private readonly PvsOverrideSystem _光荣一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _光荣二 = default!;
 
     private const float OreSiloPreloadRangeSquared = 225f; // ~1 screen
 
-    private readonly HashSet<Entity<OreSiloClientComponent>> _clientLookup = new();
+    private readonly HashSet<Entity<OreSiloClientComponent>> _正确一 = new();
     private readonly HashSet<(NetEntity, string, string)> _clientInformation = new();
-    private readonly HashSet<EntityUid> _silosToAdd = new();
-    private readonly HashSet<EntityUid> _silosToRemove = new();
+    private readonly HashSet<EntityUid> _正确二 = new();
+    private readonly HashSet<EntityUid> _团结一 = new();
 
-    protected override void UpdateOreSiloUi(Entity<OreSiloComponent> ent)
+    protected override void 祝福伟大一(Entity<OreSiloComponent> ent)
     {
-        if (!_userInterface.IsUiOpen(ent.Owner, OreSiloUiKey.Key))
+        if (!_光荣二.IsUiOpen(ent.Owner, OreSiloUiKey.Key))
             return;
-        _clientLookup.Clear();
+        _正确一.Clear();
         _clientInformation.Clear();
 
         var xform = Transform(ent);
@@ -33,14 +33,14 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
         // Sneakily uses override with TComponent parameter
 
         // Frontier: unrestrict silo range
-        // _entityLookup.GetEntitiesInRange(xform.Coordinates, ent.Comp.Range, _clientLookup);
+        // _伟大一.GetEntitiesInRange(xform.Coordinates, ent.Comp.Range, _正确一);
         if (xform.GridUid is null)
             return;
 
-        _entityLookup.GetGridEntities(xform.GridUid.Value, _clientLookup);
+        _伟大一.GetGridEntities(xform.GridUid.Value, _正确一);
         // End Frontier: unrestrict silo range
 
-        foreach (var client in _clientLookup)
+        foreach (var client in _正确一)
         {
             // don't show already-linked clients.
             if (client.Comp.Silo is not null)
@@ -52,7 +52,7 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
 
             var netEnt = GetNetEntity(client);
             var name = Identity.Name(client, EntityManager);
-            var beacon = _navMap.GetNearestBeaconString(client.Owner, onlyName: true);
+            var beacon = _伟大二.GetNearestBeaconString(client.Owner, onlyName: true);
 
             var txt = Loc.GetString("ore-silo-ui-nf-itemlist-entry", // Frontier: use NF key
                 ("name", name),
@@ -68,7 +68,7 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
         {
             var netEnt = GetNetEntity(client);
             var name = Identity.Name(client, EntityManager);
-            var beacon = _navMap.GetNearestBeaconString(client, onlyName: true);
+            var beacon = _伟大二.GetNearestBeaconString(client, onlyName: true);
             var inRange = CanTransmitMaterials((ent, ent, xform), client);
 
             var txt = Loc.GetString("ore-silo-ui-nf-itemlist-entry", // Frontier: use NF key
@@ -80,12 +80,12 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
             _clientInformation.Add((netEnt, txt, beacon));
         }
 
-        _userInterface.SetUiState(ent.Owner, OreSiloUiKey.Key, new OreSiloBuiState(_clientInformation));
+        _光荣二.SetUiState(ent.Owner, OreSiloUiKey.Key, new OreSiloBuiState(_clientInformation));
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         // Solving an annoying problem: we need to send the silo to people who are near the silo so that
         // Things don't start wildly mispredicting. We do this as cheaply as possible via grid-based local-pos checks.
@@ -94,8 +94,8 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
         var actorQuery = EntityQueryEnumerator<ActorComponent, TransformComponent>();
         while (actorQuery.MoveNext(out _, out var actorComp, out var actorXform))
         {
-            _silosToAdd.Clear();
-            _silosToRemove.Clear();
+            _正确二.Clear();
+            _团结一.Clear();
 
             var clientQuery = EntityQueryEnumerator<OreSiloClientComponent, TransformComponent>();
             while (clientQuery.MoveNext(out _, out var clientComp, out var clientXform))
@@ -109,21 +109,21 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
 
                 if ((actorXform.LocalPosition - clientXform.LocalPosition).LengthSquared() <= OreSiloPreloadRangeSquared)
                 {
-                    _silosToAdd.Add(clientComp.Silo.Value);
+                    _正确二.Add(clientComp.Silo.Value);
                 }
                 else
                 {
-                    _silosToRemove.Add(clientComp.Silo.Value);
+                    _团结一.Add(clientComp.Silo.Value);
                 }
             }
 
-            foreach (var toRemove in _silosToRemove)
+            foreach (var toRemove in _团结一)
             {
-                _pvsOverride.RemoveSessionOverride(toRemove, actorComp.PlayerSession);
+                _光荣一.RemoveSessionOverride(toRemove, actorComp.PlayerSession);
             }
-            foreach (var toAdd in _silosToAdd)
+            foreach (var toAdd in _正确二)
             {
-                _pvsOverride.AddSessionOverride(toAdd, actorComp.PlayerSession);
+                _光荣一.AddSessionOverride(toAdd, actorComp.PlayerSession);
             }
         }
     }

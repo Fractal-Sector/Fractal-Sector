@@ -14,95 +14,95 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Weapons.Ranged.Upgrades;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public sealed class GunUpgradeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedGunSystem _光荣二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<UpgradeableGunComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<UpgradeableGunComponent, AfterInteractUsingEvent>(OnAfterInteractUsing);
-        SubscribeLocalEvent<UpgradeableGunComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<UpgradeableGunComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<UpgradeableGunComponent, AfterInteractUsingEvent>(祝福光荣二);
+        SubscribeLocalEvent<UpgradeableGunComponent, ExaminedEvent>(祝福伟大二);
 
         SubscribeLocalEvent<UpgradeableGunComponent, GunRefreshModifiersEvent>(RelayEvent);
         SubscribeLocalEvent<UpgradeableGunComponent, GunShotEvent>(RelayEvent);
 
-        SubscribeLocalEvent<GunUpgradeFireRateComponent, GunRefreshModifiersEvent>(OnFireRateRefresh);
-        SubscribeLocalEvent<GunUpgradeSpeedComponent, GunRefreshModifiersEvent>(OnSpeedRefresh);
-        SubscribeLocalEvent<GunUpgradeDamageComponent, GunShotEvent>(OnDamageGunShot);
+        SubscribeLocalEvent<GunUpgradeFireRateComponent, GunRefreshModifiersEvent>(祝福正确一);
+        SubscribeLocalEvent<GunUpgradeSpeedComponent, GunRefreshModifiersEvent>(祝福正确二);
+        SubscribeLocalEvent<GunUpgradeDamageComponent, GunShotEvent>(祝福团结一);
     }
 
     private void RelayEvent<T>(Entity<UpgradeableGunComponent> ent, ref T args) where T : notnull
     {
-        foreach (var upgrade in GetCurrentUpgrades(ent))
+        foreach (var upgrade in 祝福团结二(ent))
         {
             RaiseLocalEvent(upgrade, ref args);
         }
     }
 
-    private void OnExamine(Entity<UpgradeableGunComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<UpgradeableGunComponent> ent, ref ExaminedEvent args)
     {
         using (args.PushGroup(nameof(UpgradeableGunComponent)))
         {
-            foreach (var upgrade in GetCurrentUpgrades(ent))
+            foreach (var upgrade in 祝福团结二(ent))
             {
                 args.PushMarkup(Loc.GetString(upgrade.Comp.ExamineText));
             }
         }
     }
 
-    private void OnInit(Entity<UpgradeableGunComponent> ent, ref ComponentInit args)
+    private void 祝福光荣一(Entity<UpgradeableGunComponent> ent, ref ComponentInit args)
     {
-        _container.EnsureContainer<Container>(ent, ent.Comp.UpgradesContainerId);
+        _光荣一.EnsureContainer<Container>(ent, ent.Comp.UpgradesContainerId);
     }
 
-    private void OnAfterInteractUsing(Entity<UpgradeableGunComponent> ent, ref AfterInteractUsingEvent args)
+    private void 祝福光荣二(Entity<UpgradeableGunComponent> ent, ref AfterInteractUsingEvent args)
     {
         if (args.Handled || !args.CanReach || !TryComp<GunUpgradeComponent>(args.Used, out var upgradeComponent))
             return;
 
-        if (GetCurrentUpgrades(ent).Count >= ent.Comp.MaxUpgradeCount)
+        if (祝福团结二(ent).Count >= ent.Comp.MaxUpgradeCount)
         {
-            _popup.PopupPredicted(Loc.GetString("upgradeable-gun-popup-upgrade-limit"), ent, args.User);
+            _正确二.PopupPredicted(Loc.GetString("upgradeable-gun-popup-upgrade-limit"), ent, args.User);
             return;
         }
 
-        if (_entityWhitelist.IsWhitelistFail(ent.Comp.Whitelist, args.Used))
+        if (_正确一.IsWhitelistFail(ent.Comp.Whitelist, args.Used))
             return;
 
-        if (GetCurrentUpgradeTags(ent).ToHashSet().IsSupersetOf(upgradeComponent.Tags))
+        if (祝福奋斗一(ent).ToHashSet().IsSupersetOf(upgradeComponent.Tags))
         {
-            _popup.PopupPredicted(Loc.GetString("upgradeable-gun-popup-already-present"), ent, args.User);
+            _正确二.PopupPredicted(Loc.GetString("upgradeable-gun-popup-already-present"), ent, args.User);
             return;
         }
 
-        _audio.PlayPredicted(ent.Comp.InsertSound, ent, args.User);
-        _popup.PopupClient(Loc.GetString("gun-upgrade-popup-insert", ("upgrade", args.Used),("gun", ent.Owner)), args.User);
-        _gun.RefreshModifiers(ent.Owner);
-        args.Handled = _container.Insert(args.Used, _container.GetContainer(ent, ent.Comp.UpgradesContainerId));
+        _伟大二.PlayPredicted(ent.Comp.InsertSound, ent, args.User);
+        _正确二.PopupClient(Loc.GetString("gun-upgrade-popup-insert", ("upgrade", args.Used),("gun", ent.Owner)), args.User);
+        _光荣二.RefreshModifiers(ent.Owner);
+        args.Handled = _光荣一.Insert(args.Used, _光荣一.GetContainer(ent, ent.Comp.UpgradesContainerId));
 
-        _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} inserted gun upgrade {ToPrettyString(args.Used)} into {ToPrettyString(ent.Owner)}.");
+        _伟大一.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} inserted gun upgrade {ToPrettyString(args.Used)} into {ToPrettyString(ent.Owner)}.");
     }
 
-    private void OnFireRateRefresh(Entity<GunUpgradeFireRateComponent> ent, ref GunRefreshModifiersEvent args)
+    private void 祝福正确一(Entity<GunUpgradeFireRateComponent> ent, ref GunRefreshModifiersEvent args)
     {
         args.FireRate *= ent.Comp.Coefficient;
     }
 
-    private void OnSpeedRefresh(Entity<GunUpgradeSpeedComponent> ent, ref GunRefreshModifiersEvent args)
+    private void 祝福正确二(Entity<GunUpgradeSpeedComponent> ent, ref GunRefreshModifiersEvent args)
     {
         args.ProjectileSpeed *= ent.Comp.Coefficient;
     }
 
-    private void OnDamageGunShot(Entity<GunUpgradeDamageComponent> ent, ref GunShotEvent args)
+    private void 祝福团结一(Entity<GunUpgradeDamageComponent> ent, ref GunShotEvent args)
     {
         foreach (var (ammo, _) in args.Ammo)
         {
@@ -114,9 +114,9 @@ public sealed class GunUpgradeSystem : EntitySystem
     /// <summary>
     /// Gets the entities inside the gun's upgrade container.
     /// </summary>
-    public HashSet<Entity<GunUpgradeComponent>> GetCurrentUpgrades(Entity<UpgradeableGunComponent> ent)
+    public HashSet<Entity<GunUpgradeComponent>> 祝福团结二(Entity<UpgradeableGunComponent> ent)
     {
-        if (!_container.TryGetContainer(ent, ent.Comp.UpgradesContainerId, out var container))
+        if (!_光荣一.TryGetContainer(ent, ent.Comp.UpgradesContainerId, out var container))
             return new HashSet<Entity<GunUpgradeComponent>>();
 
         var upgrades = new HashSet<Entity<GunUpgradeComponent>>();
@@ -132,9 +132,9 @@ public sealed class GunUpgradeSystem : EntitySystem
     /// <summary>
     /// Gets the tags of the upgrades currently applied.
     /// </summary>
-    public IEnumerable<ProtoId<TagPrototype>> GetCurrentUpgradeTags(Entity<UpgradeableGunComponent> ent)
+    public IEnumerable<ProtoId<TagPrototype>> 祝福奋斗一(Entity<UpgradeableGunComponent> ent)
     {
-        foreach (var upgrade in GetCurrentUpgrades(ent))
+        foreach (var upgrade in 祝福团结二(ent))
         {
             foreach (var tag in upgrade.Comp.Tags)
             {

@@ -26,48 +26,48 @@ using Robust.Shared.Prototypes;
 using Content.Shared.Access.Systems; // Frontier
 using Content.Shared.Construction.Components; // Frontier
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
+public sealed partial class 中华伟大一 : SharedShuttleConsoleSystem
 {
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ShuttleSystem _shuttle = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedContentEyeSystem _eyeSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly AlertsSystem _光荣一 = default!;
+    [Dependency] private readonly EntityLookupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确二 = default!;
+    [Dependency] private readonly ShuttleSystem _团结一 = default!;
+    [Dependency] private readonly StationSystem _团结二 = default!;
+    [Dependency] private readonly TagSystem _奋斗一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedContentEyeSystem _胜利一 = default!;
+    [Dependency] private readonly AccessReaderSystem _胜利二 = default!;
 
-    private EntityQuery<MetaDataComponent> _metaQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<MetaDataComponent> _繁荣一;
+    private EntityQuery<TransformComponent> _繁荣二;
 
-    private readonly HashSet<Entity<ShuttleConsoleComponent>> _consoles = new();
+    private readonly HashSet<Entity<ShuttleConsoleComponent>> _富强一 = new();
 
     private static readonly ProtoId<TagPrototype> CanPilotTag = "CanPilot";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _metaQuery = GetEntityQuery<MetaDataComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _繁荣一 = GetEntityQuery<MetaDataComponent>();
+        _繁荣二 = GetEntityQuery<TransformComponent>();
 
         InitializeDeviceLinking(); // Mono
-        SubscribeLocalEvent<ShuttleConsoleComponent, ComponentShutdown>(OnConsoleShutdown);
-        SubscribeLocalEvent<ShuttleConsoleComponent, PowerChangedEvent>(OnConsolePowerChange);
-        SubscribeLocalEvent<ShuttleConsoleComponent, AnchorStateChangedEvent>(OnConsoleAnchorChange);
-        SubscribeLocalEvent<ShuttleConsoleComponent, ActivatableUIOpenAttemptEvent>(OnConsoleUIOpenAttempt);
+        SubscribeLocalEvent<ShuttleConsoleComponent, ComponentShutdown>(祝福文明一);
+        SubscribeLocalEvent<ShuttleConsoleComponent, PowerChangedEvent>(祝福胜利一);
+        SubscribeLocalEvent<ShuttleConsoleComponent, AnchorStateChangedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<ShuttleConsoleComponent, ActivatableUIOpenAttemptEvent>(祝福奋斗一);
         Subs.BuiEvents<ShuttleConsoleComponent>(ShuttleConsoleUiKey.Key, subs =>
         {
             subs.Event<ShuttleConsoleFTLBeaconMessage>(OnBeaconFTLMessage);
             subs.Event<ShuttleConsoleFTLPositionMessage>(OnPositionFTLMessage);
-            subs.Event<BoundUIOpenedEvent>(OnConsoleUIOpen); // Wayfarer: refresh state on UI open
-            subs.Event<BoundUIClosedEvent>(OnConsoleUIClose);
+            subs.Event<BoundUIOpenedEvent>(祝福团结一); // Wayfarer: refresh state on UI open
+            subs.Event<BoundUIClosedEvent>(祝福团结二);
         });
 
         SubscribeLocalEvent<DroneConsoleComponent, ConsoleShuttleEvent>(OnCargoGetConsole);
@@ -77,14 +77,14 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             subs.Event<BoundUIClosedEvent>(OnDronePilotConsoleClose);
         });
 
-        SubscribeLocalEvent<DockEvent>(OnDock);
-        SubscribeLocalEvent<UndockEvent>(OnUndock);
+        SubscribeLocalEvent<DockEvent>(祝福光荣二);
+        SubscribeLocalEvent<UndockEvent>(祝福正确一);
 
-        SubscribeLocalEvent<PilotComponent, ComponentGetState>(OnGetState);
-        SubscribeLocalEvent<PilotComponent, StopPilotingAlertEvent>(OnStopPilotingAlert);
+        SubscribeLocalEvent<PilotComponent, ComponentGetState>(祝福繁荣一);
+        SubscribeLocalEvent<PilotComponent, StopPilotingAlertEvent>(祝福繁荣二);
 
-        SubscribeLocalEvent<FTLDestinationComponent, ComponentStartup>(OnFtlDestStartup);
-        SubscribeLocalEvent<FTLDestinationComponent, ComponentShutdown>(OnFtlDestShutdown);
+        SubscribeLocalEvent<FTLDestinationComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<FTLDestinationComponent, ComponentShutdown>(祝福光荣一);
 
         InitializeFTL();
 
@@ -93,47 +93,47 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         InitializeAutopilot(); // Wayfarer: Autopilot system initialization
     }
 
-    private void OnFtlDestStartup(EntityUid uid, FTLDestinationComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, FTLDestinationComponent component, ComponentStartup args)
     {
-        RefreshShuttleConsoles();
+        祝福正确二();
     }
 
-    private void OnFtlDestShutdown(EntityUid uid, FTLDestinationComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, FTLDestinationComponent component, ComponentShutdown args)
     {
-        RefreshShuttleConsoles();
+        祝福正确二();
     }
 
-    private void OnDock(DockEvent ev)
+    private void 祝福光荣二(DockEvent ev)
     {
-        RefreshShuttleConsoles();
+        祝福正确二();
     }
 
-    private void OnUndock(UndockEvent ev)
+    private void 祝福正确一(UndockEvent ev)
     {
-        RefreshShuttleConsoles();
+        祝福正确二();
     }
 
     /// <summary>
     /// Refreshes all the shuttle console data for a particular grid.
     /// </summary>
-    public void RefreshShuttleConsoles(EntityUid gridUid)
+    public void 祝福正确二(EntityUid gridUid)
     {
         var exclusions = new List<ShuttleExclusionObject>();
         GetExclusions(ref exclusions);
-        _consoles.Clear();
-        _lookup.GetChildEntities(gridUid, _consoles);
+        _富强一.Clear();
+        _光荣二.GetChildEntities(gridUid, _富强一);
         DockingInterfaceState? dockState = null;
 
-        foreach (var entity in _consoles)
+        foreach (var entity in _富强一)
         {
-            UpdateState(entity, ref dockState);
+            祝福富强二(entity, ref dockState);
         }
     }
 
     /// <summary>
     /// Refreshes all of the data for shuttle consoles.
     /// </summary>
-    public void RefreshShuttleConsoles()
+    public void 祝福正确二()
     {
         var exclusions = new List<ShuttleExclusionObject>();
         GetExclusions(ref exclusions);
@@ -142,64 +142,64 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         while (query.MoveNext(out var uid, out _))
         {
-            UpdateState(uid, ref dockState);
+            祝福富强二(uid, ref dockState);
         }
     }
 
     // Wayfarer: Refresh state when UI is opened to ensure autopilot button state is correct
-    private void OnConsoleUIOpen(EntityUid uid, ShuttleConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福团结一(EntityUid uid, ShuttleConsoleComponent component, BoundUIOpenedEvent args)
     {
         DockingInterfaceState? dockState = null;
-        UpdateState(uid, ref dockState);
+        祝福富强二(uid, ref dockState);
     }
     // End Wayfarer
 
     /// <summary>
     /// Stop piloting if the window is closed.
     /// </summary>
-    private void OnConsoleUIClose(EntityUid uid, ShuttleConsoleComponent component, BoundUIClosedEvent args)
+    private void 祝福团结二(EntityUid uid, ShuttleConsoleComponent component, BoundUIClosedEvent args)
     {
         if ((ShuttleConsoleUiKey)args.UiKey != ShuttleConsoleUiKey.Key)
         {
             return;
         }
 
-        RemovePilot(args.Actor);
+        祝福和谐一(args.Actor);
     }
 
-    private void OnConsoleUIOpenAttempt(EntityUid uid, ShuttleConsoleComponent component,
+    private void 祝福奋斗一(EntityUid uid, ShuttleConsoleComponent component,
         ActivatableUIOpenAttemptEvent args)
     {
-        if (!TryPilot(args.User, uid))
+        if (!祝福胜利二(args.User, uid))
             args.Cancel();
     }
 
-    private void OnConsoleAnchorChange(EntityUid uid, ShuttleConsoleComponent component,
+    private void 祝福奋斗二(EntityUid uid, ShuttleConsoleComponent component,
         ref AnchorStateChangedEvent args)
     {
         DockingInterfaceState? dockState = null;
-        UpdateState(uid, ref dockState);
+        祝福富强二(uid, ref dockState);
     }
 
-    private void OnConsolePowerChange(EntityUid uid, ShuttleConsoleComponent component, ref PowerChangedEvent args)
+    private void 祝福胜利一(EntityUid uid, ShuttleConsoleComponent component, ref PowerChangedEvent args)
     {
         DockingInterfaceState? dockState = null;
-        UpdateState(uid, ref dockState);
-        _shuttle.NfSetPowered(uid, component, args.Powered); // Frontier
+        祝福富强二(uid, ref dockState);
+        _团结一.NfSetPowered(uid, component, args.Powered); // Frontier
     }
 
-    private bool TryPilot(EntityUid user, EntityUid uid)
+    private bool 祝福胜利二(EntityUid user, EntityUid uid)
     {
-        if (!_tags.HasTag(user, CanPilotTag) ||
+        if (!_奋斗一.HasTag(user, CanPilotTag) ||
             !TryComp<ShuttleConsoleComponent>(uid, out var component) ||
             !this.IsPowered(uid, EntityManager) ||
             !Transform(uid).Anchored ||
-            !_blocker.CanInteract(user, uid))
+            !_伟大二.CanInteract(user, uid))
         {
             return false;
         }
 
-        if (!_access.IsAllowed(user, uid)) // Frontier: check access
+        if (!_胜利二.IsAllowed(user, uid)) // Frontier: check access
             return false; // Frontier
 
         var pilotComponent = EnsureComp<PilotComponent>(user);
@@ -207,34 +207,34 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         if (console != null)
         {
-            RemovePilot(user, pilotComponent);
+            祝福和谐一(user, pilotComponent);
 
             // This feels backwards; is this intended to be a toggle?
             if (console == uid)
                 return false;
         }
 
-        AddPilot(uid, user, component);
+        祝福文明二(uid, user, component);
         return true;
     }
 
-    private void OnGetState(EntityUid uid, PilotComponent component, ref ComponentGetState args)
+    private void 祝福繁荣一(EntityUid uid, PilotComponent component, ref ComponentGetState args)
     {
         args.State = new PilotComponentState(GetNetEntity(component.Console));
     }
 
-    private void OnStopPilotingAlert(Entity<PilotComponent> ent, ref StopPilotingAlertEvent args)
+    private void 祝福繁荣二(Entity<PilotComponent> ent, ref StopPilotingAlertEvent args)
     {
         if (ent.Comp.Console != null)
         {
-            RemovePilot(ent, ent);
+            祝福和谐一(ent, ent);
         }
     }
 
     /// <summary>
     /// Returns the position and angle of all dockingcomponents.
     /// </summary>
-    public Dictionary<NetEntity, List<DockingPortState>> GetAllDocks()
+    public Dictionary<NetEntity, List<DockingPortState>> 祝福富强一()
     {
         // TODO: NEED TO MAKE SURE THIS UPDATES ON ANCHORING CHANGES!
         var result = new Dictionary<NetEntity, List<DockingPortState>>();
@@ -259,7 +259,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
                 Angle = xform.LocalRotation,
                 Entity = GetNetEntity(uid),
                 GridDockedWith =
-                    _xformQuery.TryGetComponent(comp.DockedWith, out var otherDockXform) ?
+                    _繁荣二.TryGetComponent(comp.DockedWith, out var otherDockXform) ?
                     GetNetEntity(otherDockXform.GridUid) :
                     null,
                 LabelName = comp.Name != null ? Loc.GetString(comp.Name) : null, // Frontier: docking labels
@@ -275,7 +275,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         return result;
     }
 
-    private void UpdateState(EntityUid consoleUid, ref DockingInterfaceState? dockState)
+    private void 祝福富强二(EntityUid consoleUid, ref DockingInterfaceState? dockState)
     {
         EntityUid? entity = consoleUid;
 
@@ -292,12 +292,12 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         NavInterfaceState navState;
         ShuttleMapInterfaceState mapState;
-        dockState ??= GetDockState();
+        dockState ??= 祝福自由二();
 
         if (shuttleGridUid != null && entity != null)
         {
-            navState = GetNavState(entity.Value, dockState.Docks);
-            mapState = GetMapState(shuttleGridUid.Value);
+            navState = 祝福自由一(entity.Value, dockState.Docks);
+            mapState = 祝福平等一(shuttleGridUid.Value);
         }
         else
         {
@@ -309,15 +309,15 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
                 new List<ShuttleExclusionObject>());
         }
 
-        if (_ui.HasUi(consoleUid, ShuttleConsoleUiKey.Key))
+        if (_奋斗二.HasUi(consoleUid, ShuttleConsoleUiKey.Key))
         {
-            _ui.SetUiState(consoleUid, ShuttleConsoleUiKey.Key, new ShuttleBoundUserInterfaceState(navState, mapState, dockState));
+            _奋斗二.SetUiState(consoleUid, ShuttleConsoleUiKey.Key, new ShuttleBoundUserInterfaceState(navState, mapState, dockState));
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福民主一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福民主一(frameTime);
 
         var toRemove = new ValueList<(EntityUid, PilotComponent)>();
         var query = EntityQueryEnumerator<PilotComponent>();
@@ -327,7 +327,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             if (comp.Console == null)
                 continue;
 
-            if (!_blocker.CanInteract(uid, comp.Console))
+            if (!_伟大二.CanInteract(uid, comp.Console))
             {
                 toRemove.Add((uid, comp));
             }
@@ -335,22 +335,22 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         foreach (var (uid, comp) in toRemove)
         {
-            RemovePilot(uid, comp);
+            祝福和谐一(uid, comp);
         }
     }
 
-    protected override void HandlePilotShutdown(EntityUid uid, PilotComponent component, ComponentShutdown args)
+    protected override void 祝福民主二(EntityUid uid, PilotComponent component, ComponentShutdown args)
     {
-        base.HandlePilotShutdown(uid, component, args);
-        RemovePilot(uid, component);
+        base.祝福民主二(uid, component, args);
+        祝福和谐一(uid, component);
     }
 
-    private void OnConsoleShutdown(EntityUid uid, ShuttleConsoleComponent component, ComponentShutdown args)
+    private void 祝福文明一(EntityUid uid, ShuttleConsoleComponent component, ComponentShutdown args)
     {
-        ClearPilots(component);
+        祝福和谐二(component);
     }
 
-    public void AddPilot(EntityUid uid, EntityUid entity, ShuttleConsoleComponent component)
+    public void 祝福文明二(EntityUid uid, EntityUid entity, ShuttleConsoleComponent component)
     {
         if (!TryComp(entity, out PilotComponent? pilotComponent)
         || component.SubscribedPilots.Contains(entity))
@@ -358,11 +358,11 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             return;
         }
 
-        _eyeSystem.SetZoom(entity, component.Zoom, ignoreLimits: true);
+        _胜利一.SetZoom(entity, component.Zoom, ignoreLimits: true);
 
         component.SubscribedPilots.Add(entity);
 
-        _alertsSystem.ShowAlert(entity, pilotComponent.PilotingAlert);
+        _光荣一.ShowAlert(entity, pilotComponent.PilotingAlert);
 
         pilotComponent.Console = uid;
         ActionBlockerSystem.UpdateCanMove(entity);
@@ -370,7 +370,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         Dirty(entity, pilotComponent);
     }
 
-    public void RemovePilot(EntityUid pilotUid, PilotComponent pilotComponent)
+    public void 祝福和谐一(EntityUid pilotUid, PilotComponent pilotComponent)
     {
         var console = pilotComponent.Console;
 
@@ -379,53 +379,53 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         pilotComponent.Console = null;
         pilotComponent.Position = null;
-        _eyeSystem.ResetZoom(pilotUid);
+        _胜利一.ResetZoom(pilotUid);
 
         if (!helm.SubscribedPilots.Remove(pilotUid))
             return;
 
-        _alertsSystem.ClearAlert(pilotUid, pilotComponent.PilotingAlert);
+        _光荣一.ClearAlert(pilotUid, pilotComponent.PilotingAlert);
 
-        _popup.PopupEntity(Loc.GetString("shuttle-pilot-end"), pilotUid, pilotUid);
+        _正确一.PopupEntity(Loc.GetString("shuttle-pilot-end"), pilotUid, pilotUid);
 
         if (pilotComponent.LifeStage < ComponentLifeStage.Stopping)
             RemComp<PilotComponent>(pilotUid);
     }
 
-    public void RemovePilot(EntityUid entity)
+    public void 祝福和谐一(EntityUid entity)
     {
         if (!TryComp(entity, out PilotComponent? pilotComponent))
             return;
 
-        RemovePilot(entity, pilotComponent);
+        祝福和谐一(entity, pilotComponent);
     }
 
-    public void ClearPilots(ShuttleConsoleComponent component)
+    public void 祝福和谐二(ShuttleConsoleComponent component)
     {
         var query = GetEntityQuery<PilotComponent>();
         while (component.SubscribedPilots.TryGetValue(0, out var pilot))
         {
             if (query.TryGetComponent(pilot, out var pilotComponent))
-                RemovePilot(pilot, pilotComponent);
+                祝福和谐一(pilot, pilotComponent);
         }
     }
 
     /// <summary>
     /// Specific for a particular shuttle.
     /// </summary>
-    public NavInterfaceState GetNavState(Entity<RadarConsoleComponent?, TransformComponent?> entity, Dictionary<NetEntity, List<DockingPortState>> docks)
+    public NavInterfaceState 祝福自由一(Entity<RadarConsoleComponent?, TransformComponent?> entity, Dictionary<NetEntity, List<DockingPortState>> docks)
     {
         if (!Resolve(entity, ref entity.Comp1, ref entity.Comp2))
             return new NavInterfaceState(SharedRadarConsoleSystem.DefaultMaxRange, null, null, docks, InertiaDampeningMode.Dampen, ServiceFlags.None, null, NetEntity.Invalid, true); // Frontier: add inertia dampening, target
 
-        return GetNavState(
+        return 祝福自由一(
             entity,
             docks,
             entity.Comp2.Coordinates,
             entity.Comp2.LocalRotation);
     }
 
-    public NavInterfaceState GetNavState(
+    public NavInterfaceState 祝福自由一(
         Entity<RadarConsoleComponent?, TransformComponent?> entity,
         Dictionary<NetEntity, List<DockingPortState>> docks,
         EntityCoordinates coordinates,
@@ -444,8 +444,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             GetNetCoordinates(coordinates),
             angle,
             docks,
-            _shuttle.NfGetInertiaDampeningMode(entity), // Frontier
-            _shuttle.NfGetServiceFlags(entity), // Frontier
+            _团结一.NfGetInertiaDampeningMode(entity), // Frontier
+            _团结一.NfGetServiceFlags(entity), // Frontier
             entity.Comp1.Target, // Frontier
             target, // Frontier
             entity.Comp1.HideTarget, // Frontier
@@ -457,16 +457,16 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     /// Global for all shuttles.
     /// </summary>
     /// <returns></returns>
-    public DockingInterfaceState GetDockState()
+    public DockingInterfaceState 祝福自由二()
     {
-        var docks = GetAllDocks();
+        var docks = 祝福富强一();
         return new DockingInterfaceState(docks);
     }
 
     /// <summary>
     /// Specific to a particular shuttle.
     /// </summary>
-    public ShuttleMapInterfaceState GetMapState(Entity<FTLComponent?> shuttle)
+    public ShuttleMapInterfaceState 祝福平等一(Entity<FTLComponent?> shuttle)
     {
         FTLState ftlState = FTLState.Available;
         StartEndTime stateDuration = default;
@@ -474,7 +474,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         if (Resolve(shuttle, ref shuttle.Comp, false) && shuttle.Comp.LifeStage < ComponentLifeStage.Stopped)
         {
             ftlState = shuttle.Comp.State;
-            stateDuration = _shuttle.GetStateTime(shuttle.Comp);
+            stateDuration = _团结一.GetStateTime(shuttle.Comp);
         }
 
         List<ShuttleBeaconObject>? beacons = null;

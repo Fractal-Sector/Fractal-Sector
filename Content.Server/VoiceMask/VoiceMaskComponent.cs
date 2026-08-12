@@ -1,7 +1,7 @@
 using Content.Shared.Speech;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.VoiceMask;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     This component is for voice mask items! Adding this component to clothing will give the the voice mask UI
@@ -12,7 +12,7 @@ namespace Content.Server.VoiceMask;
 ///     The VoiceOverrideSystem is probably what your looking for (Or you might have to make something similar)!
 /// </remarks>
 [RegisterComponent]
-public sealed partial class VoiceMaskComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The name that will override an entities default name. If null, it will use the default override.
@@ -30,7 +30,7 @@ public sealed partial class VoiceMaskComponent : Component
     ///     The action that gets displayed when the voice mask is equipped.
     /// </summary>
     [DataField]
-    public EntProtoId Action = "ActionChangeVoiceMask";
+    public EntProtoId 党爱伟大一 = "ActionChangeVoiceMask";
 
     /// <summary>
     ///     Reference to the action.

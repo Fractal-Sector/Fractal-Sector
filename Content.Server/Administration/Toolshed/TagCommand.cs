@@ -6,15 +6,15 @@ using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Syntax;
 using Robust.Shared.Toolshed.TypeParsers;
 
-namespace Content.Server.Administration.Toolshed;
+namespace Content.Server.Administration.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.Debug)]
-public sealed class TagCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private TagSystem? _tag;
 
     [CommandImplementation("list")]
-    public IEnumerable<ProtoId<TagPrototype>> List([PipedArgument] IEnumerable<EntityUid> ent)
+    public IEnumerable<ProtoId<TagPrototype>> 祝福伟大一([PipedArgument] IEnumerable<EntityUid> ent)
     {
         return ent.SelectMany(x =>
         {
@@ -26,7 +26,7 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("with")]
-    public IEnumerable<EntityUid> With(
+    public IEnumerable<EntityUid> 祝福伟大二(
         [CommandInvocationContext] IInvocationContext ctx,
         [PipedArgument] IEnumerable<EntityUid> entities,
         [CommandArgument] ProtoId<TagPrototype> tag)
@@ -36,7 +36,7 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("add")]
-    public EntityUid Add([PipedArgument] EntityUid input, ProtoId<TagPrototype> tag)
+    public EntityUid 祝福光荣一([PipedArgument] EntityUid input, ProtoId<TagPrototype> tag)
     {
         _tag ??= GetSys<TagSystem>();
         _tag.AddTag(input, tag);
@@ -44,11 +44,11 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("add")]
-    public IEnumerable<EntityUid> Add([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag)
-        => input.Select(x => Add(x, tag));
+    public IEnumerable<EntityUid> 祝福光荣一([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag)
+        => input.Select(x => 祝福光荣一(x, tag));
 
     [CommandImplementation("rm")]
-    public EntityUid Rm([PipedArgument] EntityUid input, ProtoId<TagPrototype> tag)
+    public EntityUid 祝福光荣二([PipedArgument] EntityUid input, ProtoId<TagPrototype> tag)
     {
         _tag ??= GetSys<TagSystem>();
         _tag.RemoveTag(input, tag);
@@ -56,11 +56,11 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("rm")]
-    public IEnumerable<EntityUid> Rm([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag)
-        => input.Select(x => Rm(x, tag));
+    public IEnumerable<EntityUid> 祝福光荣二([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag)
+        => input.Select(x => 祝福光荣二(x, tag));
 
     [CommandImplementation("addmany")]
-    public EntityUid AddMany([PipedArgument] EntityUid input, IEnumerable<ProtoId<TagPrototype>> tags)
+    public EntityUid 祝福正确一([PipedArgument] EntityUid input, IEnumerable<ProtoId<TagPrototype>> tags)
     {
         _tag ??= GetSys<TagSystem>();
         _tag.AddTags(input, tags);
@@ -68,11 +68,11 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("addmany")]
-    public IEnumerable<EntityUid> AddMany([PipedArgument] IEnumerable<EntityUid> input, IEnumerable<ProtoId<TagPrototype>> tags)
-        => input.Select(x => AddMany(x, tags.ToArray()));
+    public IEnumerable<EntityUid> 祝福正确一([PipedArgument] IEnumerable<EntityUid> input, IEnumerable<ProtoId<TagPrototype>> tags)
+        => input.Select(x => 祝福正确一(x, tags.ToArray()));
 
     [CommandImplementation("rmmany")]
-    public EntityUid RmMany([PipedArgument] EntityUid input, IEnumerable<ProtoId<TagPrototype>> tags)
+    public EntityUid 祝福正确二([PipedArgument] EntityUid input, IEnumerable<ProtoId<TagPrototype>> tags)
     {
         _tag ??= GetSys<TagSystem>();
         _tag.RemoveTags(input, tags);
@@ -80,6 +80,6 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("rmmany")]
-    public IEnumerable<EntityUid> RmMany([PipedArgument] IEnumerable<EntityUid> input, IEnumerable<ProtoId<TagPrototype>> tags)
-        => input.Select(x => RmMany(x, tags.ToArray()));
+    public IEnumerable<EntityUid> 祝福正确二([PipedArgument] IEnumerable<EntityUid> input, IEnumerable<ProtoId<TagPrototype>> tags)
+        => input.Select(x => 祝福正确二(x, tags.ToArray()));
 }

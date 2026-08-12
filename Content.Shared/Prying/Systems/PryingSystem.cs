@@ -11,37 +11,37 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Serialization;
 using PryUnpoweredComponent = Content.Shared.Prying.Components.PryUnpoweredComponent;
 
-namespace Content.Shared.Prying.Systems;
+namespace Content.Shared.Prying.党心;
 
 /// <summary>
 /// Handles prying of entities (e.g. doors)
 /// </summary>
-public sealed class PryingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Mob prying doors
-        SubscribeLocalEvent<DoorComponent, GetVerbsEvent<AlternativeVerb>>(OnDoorAltVerb);
-        SubscribeLocalEvent<DoorComponent, DoorPryDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<DoorComponent, InteractUsingEvent>(TryPryDoor);
+        SubscribeLocalEvent<DoorComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<DoorComponent, 中华伟大二>(祝福团结一);
+        SubscribeLocalEvent<DoorComponent, InteractUsingEvent>(祝福伟大二);
     }
 
-    private void TryPryDoor(EntityUid uid, DoorComponent comp, InteractUsingEvent args)
+    private void 祝福伟大二(EntityUid uid, DoorComponent comp, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
-        args.Handled = TryPry(uid, args.User, out _, args.Used);
+        args.Handled = 祝福光荣二(uid, args.User, out _, args.Used);
     }
 
-    private void OnDoorAltVerb(EntityUid uid, DoorComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(EntityUid uid, DoorComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -53,14 +53,14 @@ public sealed class PryingSystem : EntitySystem
         {
             Text = Loc.GetString("door-pry"),
             Impact = LogImpact.Low,
-            Act = () => TryPry(uid, args.User, out _, args.User),
+            Act = () => 祝福光荣二(uid, args.User, out _, args.User),
         });
     }
 
     /// <summary>
     /// Attempt to pry an entity.
     /// </summary>
-    public bool TryPry(EntityUid target, EntityUid user, out DoAfterId? id, EntityUid tool)
+    public bool 祝福光荣二(EntityUid target, EntityUid user, out DoAfterId? id, EntityUid tool)
     {
         id = null;
 
@@ -71,16 +71,16 @@ public sealed class PryingSystem : EntitySystem
         if (!comp.Enabled)
             return false;
 
-        if (!CanPry(target, user, out var message, comp))
+        if (!祝福正确一(target, user, out var message, comp))
         {
             if (!string.IsNullOrWhiteSpace(message))
-                _popup.PopupClient(Loc.GetString(message), target, user);
+                _光荣二.PopupClient(Loc.GetString(message), target, user);
             // If we have reached this point we want the event that caused this
             // to be marked as handled.
             return true;
         }
 
-        StartPry(target, user, tool, comp.SpeedModifier, out id);
+        祝福正确二(target, user, tool, comp.SpeedModifier, out id);
 
         return true;
     }
@@ -88,22 +88,22 @@ public sealed class PryingSystem : EntitySystem
     /// <summary>
     /// Try to pry an entity.
     /// </summary>
-    public bool TryPry(EntityUid target, EntityUid user, out DoAfterId? id)
+    public bool 祝福光荣二(EntityUid target, EntityUid user, out DoAfterId? id)
     {
         id = null;
 
         // We don't care about displaying a message if no tool was used.
-        if (!TryComp<PryUnpoweredComponent>(target, out var unpoweredComp) || !CanPry(target, user, out _, unpoweredComp: unpoweredComp))
+        if (!TryComp<PryUnpoweredComponent>(target, out var unpoweredComp) || !祝福正确一(target, user, out _, unpoweredComp: unpoweredComp))
             // If we have reached this point we want the event that caused this
             // to be marked as handled.
             return true;
 
         // hand-prying is much slower
         var modifier = CompOrNull<PryingComponent>(user)?.SpeedModifier ?? unpoweredComp.PryModifier;
-        return StartPry(target, user, null, modifier, out id);
+        return 祝福正确二(target, user, null, modifier, out id);
     }
 
-    private bool CanPry(EntityUid target, EntityUid user, out string? message, PryingComponent? comp = null, PryUnpoweredComponent? unpoweredComp = null)
+    private bool 祝福正确一(EntityUid target, EntityUid user, out string? message, PryingComponent? comp = null, PryUnpoweredComponent? unpoweredComp = null)
     {
         BeforePryEvent canev;
 
@@ -129,12 +129,12 @@ public sealed class PryingSystem : EntitySystem
         return !canev.Cancelled;
     }
 
-    private bool StartPry(EntityUid target, EntityUid user, EntityUid? tool, float toolModifier, [NotNullWhen(true)] out DoAfterId? id)
+    private bool 祝福正确二(EntityUid target, EntityUid user, EntityUid? tool, float toolModifier, [NotNullWhen(true)] out DoAfterId? id)
     {
         var modEv = new GetPryTimeModifierEvent(user);
 
         RaiseLocalEvent(target, ref modEv);
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, TimeSpan.FromSeconds(modEv.BaseTime * modEv.PryTimeModifier / toolModifier), new DoorPryDoAfterEvent(), target, target, tool)
+        var doAfterArgs = new DoAfterArgs(EntityManager, user, TimeSpan.FromSeconds(modEv.BaseTime * modEv.PryTimeModifier / toolModifier), new 中华伟大二(), target, target, tool)
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -143,16 +143,16 @@ public sealed class PryingSystem : EntitySystem
 
         if (tool != user && tool != null)
         {
-            _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user)} is using {ToPrettyString(tool.Value)} to pry {ToPrettyString(target)}");
+            _伟大一.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user)} is using {ToPrettyString(tool.Value)} to pry {ToPrettyString(target)}");
         }
         else
         {
-            _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user)} is prying {ToPrettyString(target)}");
+            _伟大一.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user)} is prying {ToPrettyString(target)}");
         }
-        return _doAfterSystem.TryStartDoAfter(doAfterArgs, out id);
+        return _伟大二.TryStartDoAfter(doAfterArgs, out id);
     }
 
-    private void OnDoAfter(EntityUid uid, DoorComponent door, DoorPryDoAfterEvent args)
+    private void 祝福团结一(EntityUid uid, DoorComponent door, 中华伟大二 args)
     {
         if (args.Cancelled)
             return;
@@ -161,16 +161,16 @@ public sealed class PryingSystem : EntitySystem
 
         TryComp<PryingComponent>(args.Used, out var comp);
 
-        if (!CanPry(uid, args.User, out var message, comp))
+        if (!祝福正确一(uid, args.User, out var message, comp))
         {
             if (!string.IsNullOrWhiteSpace(message))
-                _popup.PopupClient(Loc.GetString(message), uid, args.User);
+                _光荣二.PopupClient(Loc.GetString(message), uid, args.User);
             return;
         }
 
         if (args.Used != null && comp != null)
         {
-            _audioSystem.PlayPredicted(comp.UseSound, args.Used.Value, args.User);
+            _光荣一.PlayPredicted(comp.UseSound, args.Used.Value, args.User);
         }
 
         var ev = new PriedEvent(args.User);
@@ -179,4 +179,4 @@ public sealed class PryingSystem : EntitySystem
 }
 
 [Serializable, NetSerializable]
-public sealed partial class DoorPryDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华伟大二 : SimpleDoAfterEvent;

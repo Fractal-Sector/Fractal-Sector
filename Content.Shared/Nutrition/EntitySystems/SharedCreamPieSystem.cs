@@ -3,24 +3,24 @@ using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
 using JetBrains.Annotations;
 
-namespace Content.Shared.Nutrition.EntitySystems
+namespace Content.Shared.Nutrition.党心
 {
     [UsedImplicitly]
-    public abstract class SharedCreamPieSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] private SharedStunSystem _stunSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency] private SharedStunSystem _伟大一 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<CreamPieComponent, ThrowDoHitEvent>(OnCreamPieHit);
-            SubscribeLocalEvent<CreamPieComponent, LandEvent>(OnCreamPieLand);
-            SubscribeLocalEvent<CreamPiedComponent, ThrowHitByEvent>(OnCreamPiedHitBy);
+            SubscribeLocalEvent<CreamPieComponent, ThrowDoHitEvent>(祝福正确二);
+            SubscribeLocalEvent<CreamPieComponent, LandEvent>(祝福正确一);
+            SubscribeLocalEvent<CreamPiedComponent, ThrowHitByEvent>(祝福团结一);
         }
 
-        public void SplatCreamPie(Entity<CreamPieComponent> creamPie)
+        public void 祝福伟大二(Entity<CreamPieComponent> creamPie)
         {
             // Already splatted! Do nothing.
             if (creamPie.Comp.Splatted)
@@ -28,12 +28,12 @@ namespace Content.Shared.Nutrition.EntitySystems
 
             creamPie.Comp.Splatted = true;
 
-            SplattedCreamPie(creamPie);
+            祝福光荣一(creamPie);
         }
 
-        protected virtual void SplattedCreamPie(Entity<CreamPieComponent, EdibleComponent?> entity) { }
+        protected virtual void 祝福光荣一(Entity<CreamPieComponent, EdibleComponent?> entity) { }
 
-        public void SetCreamPied(EntityUid uid, CreamPiedComponent creamPied, bool value)
+        public void 祝福光荣二(EntityUid uid, CreamPiedComponent creamPied, bool value)
         {
             if (value == creamPied.CreamPied)
                 return;
@@ -42,31 +42,31 @@ namespace Content.Shared.Nutrition.EntitySystems
 
             if (TryComp(uid, out AppearanceComponent? appearance))
             {
-                _appearance.SetData(uid, CreamPiedVisuals.Creamed, value, appearance);
+                _伟大二.SetData(uid, CreamPiedVisuals.Creamed, value, appearance);
             }
         }
 
-        private void OnCreamPieLand(Entity<CreamPieComponent> entity, ref LandEvent args)
+        private void 祝福正确一(Entity<CreamPieComponent> entity, ref LandEvent args)
         {
-            SplatCreamPie(entity);
+            祝福伟大二(entity);
         }
 
-        private void OnCreamPieHit(Entity<CreamPieComponent> entity, ref ThrowDoHitEvent args)
+        private void 祝福正确二(Entity<CreamPieComponent> entity, ref ThrowDoHitEvent args)
         {
-            SplatCreamPie(entity);
+            祝福伟大二(entity);
         }
 
-        private void OnCreamPiedHitBy(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args)
+        private void 祝福团结一(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args)
         {
             if (!Exists(args.Thrown) || !TryComp(args.Thrown, out CreamPieComponent? creamPie)) return;
 
-            SetCreamPied(uid, creamPied, true);
+            祝福光荣二(uid, creamPied, true);
 
-            CreamedEntity(uid, creamPied, args);
+            祝福团结二(uid, creamPied, args);
 
-            _stunSystem.TryUpdateParalyzeDuration(uid, TimeSpan.FromSeconds(creamPie.ParalyzeTime));
+            _伟大一.TryUpdateParalyzeDuration(uid, TimeSpan.FromSeconds(creamPie.ParalyzeTime));
         }
 
-        protected virtual void CreamedEntity(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args) {}
+        protected virtual void 祝福团结二(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args) {}
     }
 }

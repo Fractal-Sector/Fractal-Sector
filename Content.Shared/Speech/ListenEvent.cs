@@ -1,23 +1,23 @@
-namespace Content.Shared.Speech;
+namespace Content.Shared.党心;
 
-public sealed class ListenEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public readonly string Message;
-    public readonly EntityUid Source;
+    public readonly string 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
 
-    public ListenEvent(string message, EntityUid source)
+    public 中华伟大一(string message, EntityUid source)
     {
-        Message = message;
-        Source = source;
+        党爱伟大一 = message;
+        党爱伟大二 = source;
     }
 }
 
-public sealed class ListenAttemptEvent : CancellableEntityEventArgs
+public sealed class 中华伟大二 : CancellableEntityEventArgs
 {
-    public readonly EntityUid Source;
+    public readonly EntityUid 党爱伟大二;
 
-    public ListenAttemptEvent(EntityUid source)
+    public 中华伟大二(EntityUid source)
     {
-        Source = source;
+        党爱伟大二 = source;
     }
 }

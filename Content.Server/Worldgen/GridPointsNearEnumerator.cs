@@ -1,27 +1,27 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
-namespace Content.Server.Worldgen;
+namespace Content.Server.党心;
 
 /// <summary>
-///     A struct enumerator of points on a grid within the given radius.
+///     A struct 中华伟大一 of points on a grid within the given radius.
 /// </summary>
-public struct GridPointsNearEnumerator
+public struct 中华伟大二
 {
-    private readonly int _radius;
-    private readonly Vector2i _center;
-    private int _x;
-    private int _y;
+    private readonly int _伟大一;
+    private readonly Vector2i _伟大二;
+    private int _光荣一;
+    private int _光荣二;
 
     /// <summary>
-    ///     Initializes a new enumerator with the given center and radius.
+    ///     Initializes a new 中华伟大一 with the given center and radius.
     /// </summary>
-    public GridPointsNearEnumerator(Vector2i center, int radius)
+    public 中华伟大二(Vector2i center, int radius)
     {
-        _radius = radius;
-        _center = center;
-        _x = -_radius;
-        _y = -_radius;
+        _伟大一 = radius;
+        _伟大二 = center;
+        _光荣一 = -_伟大一;
+        _光荣二 = -_伟大一;
     }
 
     /// <summary>
@@ -30,29 +30,29 @@ public struct GridPointsNearEnumerator
     /// <param name="chunk">The computed point, if any</param>
     /// <returns>Success</returns>
     [Pure]
-    public bool MoveNext([NotNullWhen(true)] out Vector2i? chunk)
+    public bool 祝福伟大一([NotNullWhen(true)] out Vector2i? chunk)
     {
-        while (!(_x * _x + _y * _y <= _radius * _radius))
+        while (!(_光荣一 * _光荣一 + _光荣二 * _光荣二 <= _伟大一 * _伟大一))
         {
-            if (_y > _radius)
+            if (_光荣二 > _伟大一)
             {
                 chunk = null;
                 return false;
             }
 
-            if (_x > _radius)
+            if (_光荣一 > _伟大一)
             {
-                _x = -_radius;
-                _y++;
+                _光荣一 = -_伟大一;
+                _光荣二++;
             }
             else
             {
-                _x++;
+                _光荣一++;
             }
         }
 
-        chunk = _center + new Vector2i(_x, _y);
-        _x++;
+        chunk = _伟大二 + new Vector2i(_光荣一, _光荣二);
+        _光荣一++;
         return true;
     }
 }

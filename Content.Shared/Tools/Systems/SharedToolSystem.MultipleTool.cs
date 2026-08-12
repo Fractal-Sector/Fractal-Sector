@@ -3,38 +3,38 @@ using Content.Shared.Interaction;
 using Content.Shared.Prying.Components;
 using Content.Shared.Tools.Components;
 
-namespace Content.Shared.Tools.Systems;
+namespace Content.Shared.Tools.党心;
 
-public abstract partial class SharedToolSystem
+public abstract partial class 中华伟大一
 {
-    public void InitializeMultipleTool()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<MultipleToolComponent, ComponentStartup>(OnMultipleToolStartup);
-        SubscribeLocalEvent<MultipleToolComponent, ActivateInWorldEvent>(OnMultipleToolActivated);
-        SubscribeLocalEvent<MultipleToolComponent, AfterAutoHandleStateEvent>(OnMultipleToolHandleState);
+        SubscribeLocalEvent<MultipleToolComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<MultipleToolComponent, ActivateInWorldEvent>(祝福光荣二);
+        SubscribeLocalEvent<MultipleToolComponent, AfterAutoHandleStateEvent>(祝福伟大二);
     }
 
-    private void OnMultipleToolHandleState(EntityUid uid, MultipleToolComponent component, ref AfterAutoHandleStateEvent args)
+    private void 祝福伟大二(EntityUid uid, MultipleToolComponent component, ref AfterAutoHandleStateEvent args)
     {
-        SetMultipleTool(uid, component);
+        祝福正确二(uid, component);
     }
 
-    private void OnMultipleToolStartup(EntityUid uid, MultipleToolComponent multiple, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, MultipleToolComponent multiple, ComponentStartup args)
     {
         // Only set the multiple tool if we have a tool component.
         if (TryComp(uid, out ToolComponent? tool))
-            SetMultipleTool(uid, multiple, tool);
+            祝福正确二(uid, multiple, tool);
     }
 
-    private void OnMultipleToolActivated(EntityUid uid, MultipleToolComponent multiple, ActivateInWorldEvent args)
+    private void 祝福光荣二(EntityUid uid, MultipleToolComponent multiple, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
 
-        args.Handled = CycleMultipleTool(uid, multiple, args.User);
+        args.Handled = 祝福正确一(uid, multiple, args.User);
     }
 
-    public bool CycleMultipleTool(EntityUid uid, MultipleToolComponent? multiple = null, EntityUid? user = null)
+    public bool 祝福正确一(EntityUid uid, MultipleToolComponent? multiple = null, EntityUid? user = null)
     {
         if (!Resolve(uid, ref multiple))
             return false;
@@ -43,12 +43,12 @@ public abstract partial class SharedToolSystem
             return false;
 
         multiple.CurrentEntry = (uint)((multiple.CurrentEntry + 1) % multiple.Entries.Length);
-        SetMultipleTool(uid, multiple, playSound: true, user: user);
+        祝福正确二(uid, multiple, playSound: true, user: user);
 
         return true;
     }
 
-    public virtual void SetMultipleTool(EntityUid uid,
+    public virtual void 祝福正确二(EntityUid uid,
         MultipleToolComponent? multiple = null,
         ToolComponent? tool = null,
         bool playSound = false,

@@ -16,89 +16,89 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using Content.Shared.Construction.Components; // Frontier
 
-namespace Content.Server.Nutrition.EntitySystems;
+namespace Content.Server.Nutrition.党心;
 
 /// <summary>
 /// This handles logic and interactions relating to <see cref="FatExtractorComponent"/>
 /// </summary>
-public sealed class FatExtractorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly EmagSystem _伟大二 = default!;
+    [Dependency] private readonly HungerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<FatExtractorComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<FatExtractorComponent, UpgradeExamineEvent>(OnUpgradeExamine);
-//        SubscribeLocalEvent<FatExtractorComponent, EntityUnpausedEvent>(OnUnpaused);
-        SubscribeLocalEvent<FatExtractorComponent, GotEmaggedEvent>(OnGotEmagged);
-        SubscribeLocalEvent<FatExtractorComponent, GotUnEmaggedEvent>(OnGotUnemagged); // Frontier
-        SubscribeLocalEvent<FatExtractorComponent, StorageAfterCloseEvent>(OnClosed);
-        SubscribeLocalEvent<FatExtractorComponent, StorageAfterOpenEvent>(OnOpen);
-        SubscribeLocalEvent<FatExtractorComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<FatExtractorComponent, RefreshPartsEvent>(祝福伟大二);
+        SubscribeLocalEvent<FatExtractorComponent, UpgradeExamineEvent>(祝福光荣一);
+//        SubscribeLocalEvent<FatExtractorComponent, EntityUnpausedEvent>(祝福光荣二);
+        SubscribeLocalEvent<FatExtractorComponent, GotEmaggedEvent>(祝福正确一);
+        SubscribeLocalEvent<FatExtractorComponent, GotUnEmaggedEvent>(祝福正确二); // Frontier
+        SubscribeLocalEvent<FatExtractorComponent, StorageAfterCloseEvent>(祝福团结一);
+        SubscribeLocalEvent<FatExtractorComponent, StorageAfterOpenEvent>(祝福团结二);
+        SubscribeLocalEvent<FatExtractorComponent, PowerChangedEvent>(祝福奋斗一);
     }
 
-    private void OnRefreshParts(EntityUid uid, FatExtractorComponent component, RefreshPartsEvent args)
+    private void 祝福伟大二(EntityUid uid, FatExtractorComponent component, RefreshPartsEvent args)
     {
         var rating = args.PartRatings[component.MachinePartNutritionRate] - 1;
         component.NutritionPerSecond = component.BaseNutritionPerSecond + (int) (component.PartRatingRateMultiplier * rating);
     }
 
-    private void OnUpgradeExamine(EntityUid uid, FatExtractorComponent component, UpgradeExamineEvent args)
+    private void 祝福光荣一(EntityUid uid, FatExtractorComponent component, UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("fat-extractor-component-rate", (float) component.NutritionPerSecond / component.BaseNutritionPerSecond);
     }
 
-    private void OnUnpaused(EntityUid uid, FatExtractorComponent component, ref EntityUnpausedEvent args)
+    private void 祝福光荣二(EntityUid uid, FatExtractorComponent component, ref EntityUnpausedEvent args)
     {
         component.NextUpdate += args.PausedTime;
     }
 
-    private void OnGotEmagged(EntityUid uid, FatExtractorComponent component, ref GotEmaggedEvent args)
+    private void 祝福正确一(EntityUid uid, FatExtractorComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_伟大二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_伟大二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         args.Handled = true;
     }
 
     // Frontier: demag
-    private void OnGotUnemagged(EntityUid uid, FatExtractorComponent component, ref GotUnEmaggedEvent args)
+    private void 祝福正确二(EntityUid uid, FatExtractorComponent component, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_伟大二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_伟大二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         args.Handled = true;
     }
     // End Frontier
 
-    private void OnClosed(EntityUid uid, FatExtractorComponent component, ref StorageAfterCloseEvent args)
+    private void 祝福团结一(EntityUid uid, FatExtractorComponent component, ref StorageAfterCloseEvent args)
     {
-        StartProcessing(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnOpen(EntityUid uid, FatExtractorComponent component, ref StorageAfterOpenEvent args)
+    private void 祝福团结二(EntityUid uid, FatExtractorComponent component, ref StorageAfterOpenEvent args)
     {
-        StopProcessing(uid, component);
+        祝福胜利一(uid, component);
     }
 
-    private void OnPowerChanged(EntityUid uid, FatExtractorComponent component, ref PowerChangedEvent args)
+    private void 祝福奋斗一(EntityUid uid, FatExtractorComponent component, ref PowerChangedEvent args)
     {
         if (!args.Powered)
-            StopProcessing(uid, component);
+            祝福胜利一(uid, component);
     }
 
-    public void StartProcessing(EntityUid uid, FatExtractorComponent? component = null, EntityStorageComponent? storage = null)
+    public void 祝福奋斗二(EntityUid uid, FatExtractorComponent? component = null, EntityStorageComponent? storage = null)
     {
         if (!Resolve(uid, ref component, ref storage))
             return;
@@ -109,16 +109,16 @@ public sealed class FatExtractorSystem : EntitySystem
         if (!this.IsPowered(uid, EntityManager))
             return;
 
-        if (!TryGetValidOccupant(uid, out _, component, storage))
+        if (!祝福胜利二(uid, out _, component, storage))
             return;
 
         component.Processing = true;
-        _appearance.SetData(uid, FatExtractorVisuals.Processing, true);
-        component.Stream = _audio.PlayPvs(component.ProcessSound, uid)?.Entity;
-        component.NextUpdate = _timing.CurTime + component.UpdateTime;
+        _光荣二.SetData(uid, FatExtractorVisuals.Processing, true);
+        component.Stream = _正确一.PlayPvs(component.ProcessSound, uid)?.Entity;
+        component.NextUpdate = _伟大一.CurTime + component.UpdateTime;
     }
 
-    public void StopProcessing(EntityUid uid, FatExtractorComponent? component = null)
+    public void 祝福胜利一(EntityUid uid, FatExtractorComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -127,11 +127,11 @@ public sealed class FatExtractorSystem : EntitySystem
             return;
 
         component.Processing = false;
-        _appearance.SetData(uid, FatExtractorVisuals.Processing, false);
-        component.Stream = _audio.Stop(component.Stream);
+        _光荣二.SetData(uid, FatExtractorVisuals.Processing, false);
+        component.Stream = _正确一.Stop(component.Stream);
     }
 
-    public bool TryGetValidOccupant(EntityUid uid, [NotNullWhen(true)] out EntityUid? occupant, FatExtractorComponent? component = null, EntityStorageComponent? storage = null)
+    public bool 祝福胜利二(EntityUid uid, [NotNullWhen(true)] out EntityUid? occupant, FatExtractorComponent? component = null, EntityStorageComponent? storage = null)
     {
         occupant = null;
         if (!Resolve(uid, ref component, ref storage))
@@ -142,41 +142,41 @@ public sealed class FatExtractorSystem : EntitySystem
         if (!TryComp<HungerComponent>(occupant, out var hunger))
             return false;
 
-        if (_hunger.GetHunger(hunger) < component.NutritionPerSecond)
+        if (_光荣一.GetHunger(hunger) < component.NutritionPerSecond)
             return false;
 
-        if (hunger.CurrentThreshold < component.MinHungerThreshold && !_emag.CheckFlag(uid, EmagType.Interaction))
+        if (hunger.CurrentThreshold < component.MinHungerThreshold && !_伟大二.CheckFlag(uid, EmagType.Interaction))
             return false;
 
         return true;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣一(frameTime);
 
         var query = EntityQueryEnumerator<FatExtractorComponent, EntityStorageComponent>();
         while (query.MoveNext(out var uid, out var fat, out var storage))
         {
-            if (TryGetValidOccupant(uid, out var occupant, fat, storage))
+            if (祝福胜利二(uid, out var occupant, fat, storage))
             {
                 if (!fat.Processing)
-                    StartProcessing(uid, fat, storage);
+                    祝福奋斗二(uid, fat, storage);
             }
             else
             {
-                StopProcessing(uid, fat);
+                祝福胜利一(uid, fat);
                 continue;
             }
 
             if (!fat.Processing)
                 continue;
 
-            if (_timing.CurTime < fat.NextUpdate)
+            if (_伟大一.CurTime < fat.NextUpdate)
                 continue;
             fat.NextUpdate += fat.UpdateTime;
 
-            _hunger.ModifyHunger(occupant.Value, -fat.NutritionPerSecond);
+            _光荣一.ModifyHunger(occupant.Value, -fat.NutritionPerSecond);
             fat.NutrientAccumulator += fat.NutritionPerSecond;
             if (fat.NutrientAccumulator >= fat.NutrientPerMeat)
             {

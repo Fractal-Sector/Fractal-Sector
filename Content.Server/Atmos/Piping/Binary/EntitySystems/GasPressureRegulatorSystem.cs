@@ -10,7 +10,7 @@ using Content.Shared.Audio;
 using JetBrains.Annotations;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Atmos.Piping.Binary.EntitySystems;
+namespace Content.Server.Atmos.Piping.Binary.党心;
 
 /// <summary>
 /// Handles serverside logic for pressure regulators. Gas will only flow through the regulator
@@ -18,26 +18,26 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems;
 /// See https://en.wikipedia.org/wiki/Pressure_regulator
 /// </summary>
 [UsedImplicitly]
-public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSystem
+public sealed class 中华伟大一 : SharedGasPressureRegulatorSystem
 {
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedAmbientSoundSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly AtmosphereSystem _光荣一 = default!;
+    [Dependency] private readonly NodeContainerSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GasPressureRegulatorComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<GasPressureRegulatorComponent, AtmosDeviceUpdateEvent>(OnPressureRegulatorUpdated);
-        SubscribeLocalEvent<GasPressureRegulatorComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<GasPressureRegulatorComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<GasPressureRegulatorComponent, AtmosDeviceUpdateEvent>(祝福正确一);
+        SubscribeLocalEvent<GasPressureRegulatorComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<GasPressureRegulatorComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<GasPressureRegulatorComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextUiUpdate = _timing.CurTime + ent.Comp.UpdateInterval;
+        ent.Comp.NextUiUpdate = _正确一.CurTime + ent.Comp.UpdateInterval;
     }
 
     /// <summary>
@@ -45,15 +45,15 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
     /// The UI automatically updates after an AutoHandleStateEvent.
     /// </summary>
     /// <param name="frameTime"></param>
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
         var query = EntityQueryEnumerator<GasPressureRegulatorComponent>();
 
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (comp.NextUiUpdate > _timing.CurTime)
+            if (comp.NextUiUpdate > _正确一.CurTime)
                 continue;
 
             comp.NextUiUpdate += comp.UpdateInterval;
@@ -67,9 +67,9 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
         }
     }
 
-    private void OnInit(Entity<GasPressureRegulatorComponent> ent, ref ComponentInit args)
+    private void 祝福光荣二(Entity<GasPressureRegulatorComponent> ent, ref ComponentInit args)
     {
-        UpdateAppearance(ent);
+        祝福正确二(ent);
     }
 
     /// <summary>
@@ -77,16 +77,16 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
     /// </summary>
     /// <param name="ent"> the <see cref="Entity{T}" /> of the pressure regulator</param>
     /// <param name="args"> Args provided to us via <see cref="AtmosDeviceUpdateEvent" /></param>
-    private void OnPressureRegulatorUpdated(Entity<GasPressureRegulatorComponent> ent,
+    private void 祝福正确一(Entity<GasPressureRegulatorComponent> ent,
         ref AtmosDeviceUpdateEvent args)
     {
-        if (!_nodeContainer.TryGetNodes(ent.Owner,
+        if (!_光荣二.TryGetNodes(ent.Owner,
                 ent.Comp.InletName,
                 ent.Comp.OutletName,
                 out PipeNode? inletPipeNode,
                 out PipeNode? outletPipeNode))
         {
-            ChangeStatus(false, ent, inletPipeNode, outletPipeNode, 0);
+            祝福团结一(false, ent, inletPipeNode, outletPipeNode, 0);
             return;
         }
 
@@ -109,7 +109,7 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
 
         if (p1 <= ent.Comp.Threshold || p2 >= p1)
         {
-            ChangeStatus(false, ent, inletPipeNode, outletPipeNode, 0);
+            祝福团结一(false, ent, inletPipeNode, outletPipeNode, 0);
             return;
         }
 
@@ -122,7 +122,7 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
         // Second, calculate the moles required to equalize the pressure.
         // We round here to avoid the valve staying enabled for 0.00001 pressure differences.
         var deltaMolesToEqualizePressure =
-            float.Round(_atmosphere.FractionToEqualizePressure(inletPipeNode.Air, outletPipeNode.Air) *
+            float.Round(_光荣一.FractionToEqualizePressure(inletPipeNode.Air, outletPipeNode.Air) *
                         inletPipeNode.Air.TotalMoles,
                 1,
                 MidpointRounding.ToPositiveInfinity);
@@ -137,16 +137,16 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
 
         // And finally, limit the transfer volume to the max flow rate of the valve.
         var actualVolumeToTransfer = Math.Min(desiredVolumeToTransfer,
-            ent.Comp.MaxTransferRate * _atmosphere.PumpSpeedup() * args.dt);
+            ent.Comp.MaxTransferRate * _光荣一.PumpSpeedup() * args.dt);
 
         // We remove the gas from the inlet and merge it into the outlet.
         var removed = inletPipeNode.Air.RemoveVolume(actualVolumeToTransfer);
-        _atmosphere.Merge(outletPipeNode.Air, removed);
+        _光荣一.Merge(outletPipeNode.Air, removed);
 
         // Calculate the flow rate in L/s for the UI.
         var sentFlowRate = MathF.Round(actualVolumeToTransfer / args.dt, 1);
 
-        ChangeStatus(true, ent, inletPipeNode, outletPipeNode, sentFlowRate);
+        祝福团结一(true, ent, inletPipeNode, outletPipeNode, sentFlowRate);
     }
 
     /// <summary>
@@ -154,9 +154,9 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
     /// </summary>
     /// <param name="ent">The <see cref="Entity{GasPressureRegulatorComponent, AppearanceComponent}"/>
     /// representing the pressure regulator with respective components.</param>
-    private void UpdateAppearance(Entity<GasPressureRegulatorComponent> ent)
+    private void 祝福正确二(Entity<GasPressureRegulatorComponent> ent)
     {
-        _appearance.SetData(ent,
+        _伟大二.SetData(ent,
             PressureRegulatorVisuals.State,
             ent.Comp.Enabled);
     }
@@ -171,7 +171,7 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
     /// <param name="inletNode">The inlet node of the pressure regulator</param>
     /// <param name="outletNode">The outlet node of the pressure regulator</param>
     /// <param name="flowRate">Current flow rate of the pressure regulator</param>
-    private void ChangeStatus(bool enabled,
+    private void 祝福团结一(bool enabled,
         Entity<GasPressureRegulatorComponent> ent,
         PipeNode? inletNode,
         PipeNode? outletNode,
@@ -188,8 +188,8 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
             return;
 
         ent.Comp.Enabled = enabled;
-        _ambientSound.SetAmbience(ent, enabled);
-        UpdateAppearance(ent);
+        _伟大一.SetAmbience(ent, enabled);
+        祝福正确二(ent);
 
         // The regulator has changed state, so we need to dirty all applicable fields *right now* so the UI updates
         // at the same time as everything else.

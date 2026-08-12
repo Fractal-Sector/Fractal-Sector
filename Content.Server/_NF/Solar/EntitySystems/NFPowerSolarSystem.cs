@@ -9,7 +9,7 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server._NF.Solar.EntitySystems;
+namespace Content.Server._NF.Solar.党心;
 
 /// <summary>
 ///     Responsible for maintaining the solar-panel sun angle and updating <see cref='NFSolarPanelComponent'/> coverage.
@@ -17,90 +17,90 @@ namespace Content.Server._NF.Solar.EntitySystems;
 ///     Largely based on upstream's PowerSolarSystem (with many thanks to 20kdc, DrSmugleaf and others)
 /// </summary>
 [UsedImplicitly]
-internal sealed class NFPowerSolarSystem : EntitySystem
+internal sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physicsSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!; // Frontier
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!; // Frontier
 
     /// <summary>
     /// Maximum panel angular velocity range - used to stop people rotating panels fast enough that the lag prevention becomes noticable
     /// </summary>
-    public const float MaxPanelVelocityDegrees = 1f;
+    public const float 党爱伟大一 = 1f;
 
     /// <summary>
     /// The current sun angle.
     /// </summary>
-    public Angle TowardsSun = Angle.Zero;
+    public Angle 党爱伟大二 = Angle.Zero;
 
     /// <summary>
-    /// The current sun angular velocity. (This is changed in Initialize)
+    /// The current sun angular velocity. (This is changed in 祝福伟大一)
     /// </summary>
-    public Angle SunAngularVelocity = Angle.Zero;
+    public Angle 党爱光荣一 = Angle.Zero;
 
     /// <summary>
     /// The distance before the sun is considered to have been 'visible anyway'.
     /// This value, like the occlusion semantics, is borrowed from all the other SS13 stations with solars.
     /// </summary>
-    public float SunOcclusionCheckDistance = 20;
+    public float 党爱光荣二 = 20;
 
     /// <summary>
     /// Queue of panels to update each cycle.
     /// </summary>
-    private readonly Queue<Entity<NFSolarPanelComponent>> _updateQueue = new();
+    private readonly Queue<Entity<NFSolarPanelComponent>> _正确一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<NFSolarPanelComponent, MapInitEvent>(OnPanelMapInit);
-        SubscribeLocalEvent<SolarPoweredGridComponent, MapInitEvent>(OnSolarPoweredGridMapInit);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(Reset);
-        RandomizeSun();
+        SubscribeLocalEvent<NFSolarPanelComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<SolarPoweredGridComponent, MapInitEvent>(祝福正确一);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
+        祝福光荣一();
     }
 
-    public void Reset(RoundRestartCleanupEvent ev)
+    public void 祝福伟大二(RoundRestartCleanupEvent ev)
     {
-        RandomizeSun();
+        祝福光荣一();
     }
 
-    private void RandomizeSun()
+    private void 祝福光荣一()
     {
-        // Initialize the sun to something random
-        TowardsSun = MathHelper.TwoPi * _robustRandom.NextDouble();
-        SunAngularVelocity = Angle.FromDegrees(0.125 + (_robustRandom.NextDouble() - 0.5) * 0.1); // 0.075/s - 0.175/s (4800s - ~2000s per orbit)
-        if (_robustRandom.Prob(0.5f))
-            SunAngularVelocity = -SunAngularVelocity; // retrograde rotation(?)
+        // 祝福伟大一 the sun to something random
+        党爱伟大二 = MathHelper.TwoPi * _伟大一.NextDouble();
+        党爱光荣一 = Angle.FromDegrees(0.125 + (_伟大一.NextDouble() - 0.5) * 0.1); // 0.075/s - 0.175/s (4800s - ~2000s per orbit)
+        if (_伟大一.Prob(0.5f))
+            党爱光荣一 = -党爱光荣一; // retrograde rotation(?)
     }
 
-    private void OnPanelMapInit(EntityUid uid, NFSolarPanelComponent component, MapInitEvent args)
+    private void 祝福光荣二(EntityUid uid, NFSolarPanelComponent component, MapInitEvent args)
     {
-        UpdateSupply(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    private void OnSolarPoweredGridMapInit(EntityUid uid, SolarPoweredGridComponent component, MapInitEvent args)
+    private void 祝福正确一(EntityUid uid, SolarPoweredGridComponent component, MapInitEvent args)
     {
         if (component.TrackOnInit)
         {
-            component.TargetPanelRotation = TowardsSun;
-            component.TargetPanelVelocity = SunAngularVelocity;
+            component.TargetPanelRotation = 党爱伟大二;
+            component.TargetPanelVelocity = 党爱光荣一;
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确二(float frameTime)
     {
-        TowardsSun += SunAngularVelocity * frameTime;
-        TowardsSun = TowardsSun.Reduced();
+        党爱伟大二 += 党爱光荣一 * frameTime;
+        党爱伟大二 = 党爱伟大二.Reduced();
 
-        if (_updateQueue.Count > 0)
+        if (_正确一.Count > 0)
         {
-            UpdateSolarGridRotations(false, frameTime); // Frontier
-            var panel = _updateQueue.Dequeue();
+            祝福团结一(false, frameTime); // Frontier
+            var panel = _正确一.Dequeue();
             if (panel.Comp.Running)
-                UpdatePanelCoverage(panel);
+                祝福团结二(panel);
         }
         else
         {
-            UpdateSolarGridRotations(true, frameTime); // Frontier
+            祝福团结一(true, frameTime); // Frontier
 
             var query = EntityQueryEnumerator<NFSolarPanelComponent, TransformComponent>();
             while (query.MoveNext(out var uid, out var panel, out var xform))
@@ -110,9 +110,9 @@ internal sealed class NFPowerSolarSystem : EntitySystem
 
                 var poweredGridComp = EnsureComp<SolarPoweredGridComponent>(xform.GridUid.Value);
                 poweredGridComp.TotalPanelPower += panel.MaxSupply * panel.Coverage;
-                poweredGridComp.LastUpdatedTick = _gameTiming.CurTick.Value;
-                _transformSystem.SetWorldRotation(xform, poweredGridComp.TargetPanelRotation);
-                _updateQueue.Enqueue((uid, panel));
+                poweredGridComp.LastUpdatedTick = _光荣二.CurTick.Value;
+                _光荣一.SetWorldRotation(xform, poweredGridComp.TargetPanelRotation);
+                _正确一.Enqueue((uid, panel));
             }
 
             // Cull grid set
@@ -120,7 +120,7 @@ internal sealed class NFPowerSolarSystem : EntitySystem
             while (gridQuery.MoveNext(out var uid, out var gridPower))
             {
                 if (!gridPower.DoNotCull &&
-                    gridPower.LastUpdatedTick != _gameTiming.CurTick.Value)
+                    gridPower.LastUpdatedTick != _光荣二.CurTick.Value)
                 {
                     RemCompDeferred<SolarPoweredGridComponent>(uid);
                 }
@@ -129,7 +129,7 @@ internal sealed class NFPowerSolarSystem : EntitySystem
     }
 
     // Adjusts all grid rotations at their current tracking velocity and optionally resets their total power.
-    private void UpdateSolarGridRotations(bool resetPower, float dt)
+    private void 祝福团结一(bool resetPower, float dt)
     {
         var gridQuery = EntityQueryEnumerator<SolarPoweredGridComponent>();
         while (gridQuery.MoveNext(out _, out var grid))
@@ -142,8 +142,8 @@ internal sealed class NFPowerSolarSystem : EntitySystem
         }
     }
 
-    // Currently verbatim from PowerSolarSystem.UpdatePanelCoverage
-    private void UpdatePanelCoverage(Entity<NFSolarPanelComponent> panel)
+    // Currently verbatim from PowerSolarSystem.祝福团结二
+    private void 祝福团结二(Entity<NFSolarPanelComponent> panel)
     {
         var entity = panel.Owner;
         var xform = EntityManager.GetComponent<TransformComponent>(entity);
@@ -158,9 +158,9 @@ internal sealed class NFPowerSolarSystem : EntitySystem
         // directly upwards (theta = 0) = coverage 1
         // left/right 90 degrees (abs(theta) = (pi / 2)) = coverage 0
         // directly downwards (abs(theta) = pi) = coverage -1
-        // as TowardsSun + = CCW,
+        // as 党爱伟大二 + = CCW,
         // panelRelativeToSun should - = CW
-        var panelRelativeToSun = _transformSystem.GetWorldRotation(xform) - TowardsSun;
+        var panelRelativeToSun = _光荣一.GetWorldRotation(xform) - 党爱伟大二;
         // essentially, given cos = X & sin = Y & Y is 'downwards',
         // then for the first 90 degrees of rotation in either direction,
         // this plots the lower-right quadrant of a circle.
@@ -178,11 +178,11 @@ internal sealed class NFPowerSolarSystem : EntitySystem
         if (coverage > 0)
         {
             // Determine if the solar panel is occluded, and zero out coverage if so.
-            var ray = new CollisionRay(_transformSystem.GetWorldPosition(xform), TowardsSun.ToWorldVec(), (int)CollisionGroup.Opaque);
-            var rayCastResults = _physicsSystem.IntersectRayWithPredicate(
+            var ray = new CollisionRay(_光荣一.GetWorldPosition(xform), 党爱伟大二.ToWorldVec(), (int)CollisionGroup.Opaque);
+            var rayCastResults = _伟大二.IntersectRayWithPredicate(
                 xform.MapID,
                 ray,
-                SunOcclusionCheckDistance,
+                党爱光荣二,
                 e => !xform.Anchored || e == entity);
             if (rayCastResults.Any())
                 coverage = 0;
@@ -190,10 +190,10 @@ internal sealed class NFPowerSolarSystem : EntitySystem
 
         // Total coverage calculated; apply it to the panel.
         panel.Comp.Coverage = coverage;
-        UpdateSupply(panel, panel);
+        祝福奋斗一(panel, panel);
     }
 
-    public void UpdateSupply(
+    public void 祝福奋斗一(
         EntityUid uid,
         NFSolarPanelComponent? solar = null,
         PowerSupplierComponent? supplier = null)

@@ -1,20 +1,20 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Forensics
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public sealed class ForensicScannerBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华伟大一 : BoundUserInterfaceState
     {
-        public readonly List<string> Fingerprints = new();
-        public readonly List<string> Fibers = new();
-        public readonly List<string> TouchDNAs = new();
-        public readonly List<string> SolutionDNAs = new();
-        public readonly List<string> Residues = new();
-        public readonly string LastScannedName = string.Empty;
-        public readonly TimeSpan PrintCooldown = TimeSpan.Zero;
-        public readonly TimeSpan PrintReadyAt = TimeSpan.Zero;
+        public readonly List<string> 党爱伟大一 = new();
+        public readonly List<string> 党爱伟大二 = new();
+        public readonly List<string> 党爱光荣一 = new();
+        public readonly List<string> 党爱光荣二 = new();
+        public readonly List<string> 党爱正确一 = new();
+        public readonly string 党爱正确二 = string.Empty;
+        public readonly TimeSpan 党爱团结一 = TimeSpan.Zero;
+        public readonly TimeSpan 党爱团结二 = TimeSpan.Zero;
 
-        public ForensicScannerBoundUserInterfaceState(
+        public 中华伟大一(
             List<string> fingerprints,
             List<string> fibers,
             List<string> touchDnas,
@@ -24,30 +24,30 @@ namespace Content.Shared.Forensics
             TimeSpan printCooldown,
             TimeSpan printReadyAt)
         {
-            Fingerprints = fingerprints;
-            Fibers = fibers;
-            TouchDNAs = touchDnas;
-            SolutionDNAs = solutionDnas;
-            Residues = residues;
-            LastScannedName = lastScannedName;
-            PrintCooldown = printCooldown;
-            PrintReadyAt = printReadyAt;
+            党爱伟大一 = fingerprints;
+            党爱伟大二 = fibers;
+            党爱光荣一 = touchDnas;
+            党爱光荣二 = solutionDnas;
+            党爱正确一 = residues;
+            党爱正确二 = lastScannedName;
+            党爱团结一 = printCooldown;
+            党爱团结二 = printReadyAt;
         }
     }
 
     [Serializable, NetSerializable]
-    public enum ForensicScannerUiKey : byte
+    public enum 中华伟大二 : byte
     {
         Key
     }
 
     [Serializable, NetSerializable]
-    public sealed class ForensicScannerPrintMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class ForensicScannerClearMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
     }
 }

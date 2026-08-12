@@ -45,40 +45,40 @@ using TemperatureCondition = Content.Shared.EntityEffects.EffectConditions.Tempe
 using PolymorphEffect = Content.Shared.EntityEffects.Effects.Polymorph;
 using Content.Shared.Humanoid; //Delta-V - Banning humanoids from becoming ghost roles.
 
-namespace Content.Server.EntityEffects;
+namespace Content.Server.党心;
 
-public sealed class EntityEffectSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     private static readonly ProtoId<WeightedRandomFillSolutionPrototype> RandomPickBotanyReagent = "RandomPickBotanyReagent";
 
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly EmpSystem _emp = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly FlammableSystem _flammable = default!;
-    [Dependency] private readonly SharedFlashSystem _flash = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly MutationSystem _mutation = default!;
-    [Dependency] private readonly NarcolepsySystem _narcolepsy = default!;
-    [Dependency] private readonly PlantHolderSystem _plantHolder = default!;
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
-    [Dependency] private readonly RespiratorSystem _respirator = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPointLightSystem _pointLight = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SmokeSystem _smoke = default!;
-    [Dependency] private readonly SpreaderSystem _spreader = default!;
-    [Dependency] private readonly TemperatureSystem _temperature = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly VomitSystem _vomit = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly BloodstreamSystem _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
+    [Dependency] private readonly EmpSystem _光荣二 = default!;
+    [Dependency] private readonly ExplosionSystem _正确一 = default!;
+    [Dependency] private readonly FlammableSystem _正确二 = default!;
+    [Dependency] private readonly SharedFlashSystem _团结一 = default!;
+    [Dependency] private readonly IMapManager _团结二 = default!;
+    [Dependency] private readonly IPrototypeManager _奋斗一 = default!;
+    [Dependency] private readonly IRobustRandom _奋斗二 = default!;
+    [Dependency] private readonly SharedMapSystem _胜利一 = default!;
+    [Dependency] private readonly MutationSystem _胜利二 = default!;
+    [Dependency] private readonly NarcolepsySystem _繁荣一 = default!;
+    [Dependency] private readonly PlantHolderSystem _繁荣二 = default!;
+    [Dependency] private readonly PolymorphSystem _富强一 = default!;
+    [Dependency] private readonly RespiratorSystem _富强二 = default!;
+    [Dependency] private readonly SharedAudioSystem _民主一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _民主二 = default!;
+    [Dependency] private readonly SharedPopupSystem _文明一 = default!;
+    [Dependency] private readonly SmokeSystem _文明二 = default!;
+    [Dependency] private readonly SpreaderSystem _和谐一 = default!;
+    [Dependency] private readonly TemperatureSystem _和谐二 = default!;
+    [Dependency] private readonly SharedTransformSystem _自由一 = default!;
+    [Dependency] private readonly VomitSystem _自由二 = default!;
+    [Dependency] private readonly TurfSystem _平等一 = default!;
 
     // Frontier: List of gasses
-    private Gas[] _plantGasList =
+    private Gas[] _平等二 =
     {
         Gas.Oxygen,
         Gas.Nitrogen,
@@ -90,59 +90,59 @@ public sealed class EntityEffectSystem : EntitySystem
     };
     // End Frontier: List of gasses
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CheckEntityEffectConditionEvent<TemperatureCondition>>(OnCheckTemperature);
-        SubscribeLocalEvent<CheckEntityEffectConditionEvent<Breathing>>(OnCheckBreathing);
-        SubscribeLocalEvent<CheckEntityEffectConditionEvent<OrganType>>(OnCheckOrganType);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustHealth>>(OnExecutePlantAdjustHealth);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustMutationLevel>>(OnExecutePlantAdjustMutationLevel);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustMutationMod>>(OnExecutePlantAdjustMutationMod);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustNutrition>>(OnExecutePlantAdjustNutrition);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustPests>>(OnExecutePlantAdjustPests);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustPotency>>(OnExecutePlantAdjustPotency);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustToxins>>(OnExecutePlantAdjustToxins);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustWater>>(OnExecutePlantAdjustWater);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustWeeds>>(OnExecutePlantAdjustWeeds);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAffectGrowth>>(OnExecutePlantAffectGrowth);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantChangeStat>>(OnExecutePlantChangeStat);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantCryoxadone>>(OnExecutePlantCryoxadone);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantDestroySeeds>>(OnExecutePlantDestroySeeds);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantDiethylamine>>(OnExecutePlantDiethylamine);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantPhalanximine>>(OnExecutePlantPhalanximine);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantRestoreSeeds>>(OnExecutePlantRestoreSeeds);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<RobustHarvest>>(OnExecuteRobustHarvest);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<AdjustTemperature>>(OnExecuteAdjustTemperature);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<AreaReactionEffect>>(OnExecuteAreaReactionEffect);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<CauseZombieInfection>>(OnExecuteCauseZombieInfection);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<ChemCleanBloodstream>>(OnExecuteChemCleanBloodstream);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<ChemVomit>>(OnExecuteChemVomit);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<CreateEntityReactionEffect>>(OnExecuteCreateEntityReactionEffect);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<CreateGas>>(OnExecuteCreateGas);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<CureZombieInfection>>(OnExecuteCureZombieInfection);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<Emote>>(OnExecuteEmote);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<EmpReactionEffect>>(OnExecuteEmpReactionEffect);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<ExplosionReactionEffect>>(OnExecuteExplosionReactionEffect);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<FlammableReaction>>(OnExecuteFlammableReaction);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<FlashReactionEffect>>(OnExecuteFlashReactionEffect);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<Ignite>>(OnExecuteIgnite);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<MakeSentient>>(OnExecuteMakeSentient);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<ModifyBleedAmount>>(OnExecuteModifyBleedAmount);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<ModifyBloodLevel>>(OnExecuteModifyBloodLevel);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<ModifyLungGas>>(OnExecuteModifyLungGas);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<Oxygenate>>(OnExecuteOxygenate);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateChemicals>>(OnExecutePlantMutateChemicals);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateConsumeGasses>>(OnExecutePlantMutateConsumeGasses);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateExudeGasses>>(OnExecutePlantMutateExudeGasses);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateHarvest>>(OnExecutePlantMutateHarvest);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantSpeciesChange>>(OnExecutePlantSpeciesChange);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<PolymorphEffect>>(OnExecutePolymorph);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<ResetNarcolepsy>>(OnExecuteResetNarcolepsy);
+        SubscribeLocalEvent<CheckEntityEffectConditionEvent<TemperatureCondition>>(祝福伟大二);
+        SubscribeLocalEvent<CheckEntityEffectConditionEvent<Breathing>>(祝福光荣一);
+        SubscribeLocalEvent<CheckEntityEffectConditionEvent<OrganType>>(祝福光荣二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustHealth>>(祝福团结一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustMutationLevel>>(祝福团结二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustMutationMod>>(祝福奋斗一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustNutrition>>(祝福奋斗二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustPests>>(祝福胜利一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustPotency>>(祝福胜利二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustToxins>>(祝福繁荣一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustWater>>(祝福繁荣二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAdjustWeeds>>(祝福富强一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantAffectGrowth>>(祝福富强二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantChangeStat>>(祝福文明一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantCryoxadone>>(祝福文明二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantDestroySeeds>>(祝福和谐一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantDiethylamine>>(祝福和谐二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantPhalanximine>>(祝福自由一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantRestoreSeeds>>(祝福自由二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<RobustHarvest>>(祝福平等一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<AdjustTemperature>>(祝福平等二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<AreaReactionEffect>>(祝福公正一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<CauseZombieInfection>>(祝福公正二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<ChemCleanBloodstream>>(祝福法治一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<ChemVomit>>(祝福法治二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<CreateEntityReactionEffect>>(祝福爱国一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<CreateGas>>(祝福爱国二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<CureZombieInfection>>(祝福敬业一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<Emote>>(祝福敬业二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<EmpReactionEffect>>(祝福诚信一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<ExplosionReactionEffect>>(祝福诚信二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<FlammableReaction>>(祝福友善一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<FlashReactionEffect>>(祝福友善二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<Ignite>>(祝福初心一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<MakeSentient>>(祝福初心二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<ModifyBleedAmount>>(祝福使命一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<ModifyBloodLevel>>(祝福使命二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<ModifyLungGas>>(祝福梦想一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<Oxygenate>>(祝福梦想二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateChemicals>>(祝福前程一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateConsumeGasses>>(祝福前程二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateExudeGasses>>(祝福辉煌一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantMutateHarvest>>(祝福辉煌二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PlantSpeciesChange>>(祝福灿烂一);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<PolymorphEffect>>(祝福灿烂二);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<ResetNarcolepsy>>(祝福光明一);
     }
 
-    private void OnCheckTemperature(ref CheckEntityEffectConditionEvent<TemperatureCondition> args)
+    private void 祝福伟大二(ref CheckEntityEffectConditionEvent<TemperatureCondition> args)
     {
         args.Result = false;
         if (TryComp(args.Args.TargetEntity, out TemperatureComponent? temp))
@@ -152,7 +152,7 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnCheckBreathing(ref CheckEntityEffectConditionEvent<Breathing> args)
+    private void 祝福光荣一(ref CheckEntityEffectConditionEvent<Breathing> args)
     {
         if (!TryComp(args.Args.TargetEntity, out RespiratorComponent? respiratorComp))
         {
@@ -160,11 +160,11 @@ public sealed class EntityEffectSystem : EntitySystem
             return;
         }
 
-        var breathingState = _respirator.IsBreathing((args.Args.TargetEntity, respiratorComp));
+        var breathingState = _富强二.IsBreathing((args.Args.TargetEntity, respiratorComp));
         args.Result = args.Condition.IsBreathing == breathingState;
     }
 
-    private void OnCheckOrganType(ref CheckEntityEffectConditionEvent<OrganType> args)
+    private void 祝福光荣二(ref CheckEntityEffectConditionEvent<OrganType> args)
     {
         if (args.Args is EntityEffectReagentArgs reagentArgs)
         {
@@ -174,7 +174,7 @@ public sealed class EntityEffectSystem : EntitySystem
                 return;
             }
 
-            args.Result = OrganCondition(args.Condition, reagentArgs.OrganEntity.Value);
+            args.Result = 祝福正确一(args.Condition, reagentArgs.OrganEntity.Value);
             return;
         }
 
@@ -182,7 +182,7 @@ public sealed class EntityEffectSystem : EntitySystem
         throw new NotImplementedException();
     }
 
-    public bool OrganCondition(OrganType condition, Entity<MetabolizerComponent?> metabolizer)
+    public bool 祝福正确一(OrganType condition, Entity<MetabolizerComponent?> metabolizer)
     {
         metabolizer.Comp ??= EntityManager.GetComponentOrNull<MetabolizerComponent>(metabolizer.Owner);
         if (metabolizer.Comp != null
@@ -200,7 +200,7 @@ public sealed class EntityEffectSystem : EntitySystem
     /// <param name="entityManager">The entity manager</param>
     /// <param name="mustHaveAlivePlant">Whether to check if it has an alive plant or not</param>
     /// <returns></returns>
-    private bool CanMetabolizePlant(EntityUid plantHolder, [NotNullWhen(true)] out PlantHolderComponent? plantHolderComponent,
+    private bool 祝福正确二(EntityUid plantHolder, [NotNullWhen(true)] out PlantHolderComponent? plantHolderComponent,
         bool mustHaveAlivePlant = true, bool mustHaveMutableSeed = false)
     {
         plantHolderComponent = null;
@@ -217,95 +217,95 @@ public sealed class EntityEffectSystem : EntitySystem
         return true;
     }
 
-    private void OnExecutePlantAdjustHealth(ref ExecuteEntityEffectEvent<PlantAdjustHealth> args)
+    private void 祝福团结一(ref ExecuteEntityEffectEvent<PlantAdjustHealth> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         plantHolderComp.Health += args.Effect.Amount;
-        _plantHolder.CheckHealth(args.Args.TargetEntity, plantHolderComp);
+        _繁荣二.CheckHealth(args.Args.TargetEntity, plantHolderComp);
     }
 
-    private void OnExecutePlantAdjustMutationLevel(ref ExecuteEntityEffectEvent<PlantAdjustMutationLevel> args)
+    private void 祝福团结二(ref ExecuteEntityEffectEvent<PlantAdjustMutationLevel> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         plantHolderComp.MutationLevel += args.Effect.Amount * plantHolderComp.MutationMod;
     }
 
-    private void OnExecutePlantAdjustMutationMod(ref ExecuteEntityEffectEvent<PlantAdjustMutationMod> args)
+    private void 祝福奋斗一(ref ExecuteEntityEffectEvent<PlantAdjustMutationMod> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         plantHolderComp.MutationMod += args.Effect.Amount;
     }
 
-    private void OnExecutePlantAdjustNutrition(ref ExecuteEntityEffectEvent<PlantAdjustNutrition> args)
+    private void 祝福奋斗二(ref ExecuteEntityEffectEvent<PlantAdjustNutrition> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp, mustHaveAlivePlant: false))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp, mustHaveAlivePlant: false))
             return;
 
-        _plantHolder.AdjustNutrient(args.Args.TargetEntity, args.Effect.Amount, plantHolderComp);
+        _繁荣二.AdjustNutrient(args.Args.TargetEntity, args.Effect.Amount, plantHolderComp);
     }
 
-    private void OnExecutePlantAdjustPests(ref ExecuteEntityEffectEvent<PlantAdjustPests> args)
+    private void 祝福胜利一(ref ExecuteEntityEffectEvent<PlantAdjustPests> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         plantHolderComp.PestLevel += args.Effect.Amount;
     }
 
-    private void OnExecutePlantAdjustPotency(ref ExecuteEntityEffectEvent<PlantAdjustPotency> args)
+    private void 祝福胜利二(ref ExecuteEntityEffectEvent<PlantAdjustPotency> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         if (plantHolderComp.Seed == null)
             return;
 
-        _plantHolder.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
+        _繁荣二.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
         plantHolderComp.Seed.Potency = Math.Max(plantHolderComp.Seed.Potency + args.Effect.Amount, 1);
     }
 
-    private void OnExecutePlantAdjustToxins(ref ExecuteEntityEffectEvent<PlantAdjustToxins> args)
+    private void 祝福繁荣一(ref ExecuteEntityEffectEvent<PlantAdjustToxins> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         plantHolderComp.Toxins += args.Effect.Amount;
     }
 
-    private void OnExecutePlantAdjustWater(ref ExecuteEntityEffectEvent<PlantAdjustWater> args)
+    private void 祝福繁荣二(ref ExecuteEntityEffectEvent<PlantAdjustWater> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp, mustHaveAlivePlant: false))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp, mustHaveAlivePlant: false))
             return;
 
-        _plantHolder.AdjustWater(args.Args.TargetEntity, args.Effect.Amount, plantHolderComp);
+        _繁荣二.AdjustWater(args.Args.TargetEntity, args.Effect.Amount, plantHolderComp);
     }
 
-    private void OnExecutePlantAdjustWeeds(ref ExecuteEntityEffectEvent<PlantAdjustWeeds> args)
+    private void 祝福富强一(ref ExecuteEntityEffectEvent<PlantAdjustWeeds> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         plantHolderComp.WeedLevel += args.Effect.Amount;
     }
 
-    private void OnExecutePlantAffectGrowth(ref ExecuteEntityEffectEvent<PlantAffectGrowth> args)
+    private void 祝福富强二(ref ExecuteEntityEffectEvent<PlantAffectGrowth> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
-        _plantHolder.AffectGrowth(args.Args.TargetEntity, (int) args.Effect.Amount, plantHolderComp);
+        _繁荣二.AffectGrowth(args.Args.TargetEntity, (int) args.Effect.Amount, plantHolderComp);
     }
 
     // Mutate reference 'val' between 'min' and 'max' by pretending the value
     // is representable by a thermometer code with 'bits' number of bits and
     // randomly flipping some of them.
-    private void MutateFloat(ref float val, float min, float max, int bits)
+    private void 祝福民主一(ref float val, float min, float max, int bits)
     {
         if (min == max)
         {
@@ -324,7 +324,7 @@ public sealed class EntityEffectSystem : EntitySystem
         // In other words, it tends to go to the middle.
         float probIncrease = 1 - (float)valInt / bits;
         int valIntMutated;
-        if (_random.Prob(probIncrease))
+        if (_奋斗二.Prob(probIncrease))
         {
             valIntMutated = valInt + 1;
         }
@@ -338,7 +338,7 @@ public sealed class EntityEffectSystem : EntitySystem
         val = valMutated;
     }
 
-    private void MutateInt(ref int val, int min, int max, int bits)
+    private void 祝福民主二(ref int val, int min, int max, int bits)
     {
         if (min == max)
         {
@@ -357,7 +357,7 @@ public sealed class EntityEffectSystem : EntitySystem
         // In other words, it tends to go to the middle.
         float probIncrease = 1 - (float)valInt / bits;
         int valMutated;
-        if (_random.Prob(probIncrease))
+        if (_奋斗二.Prob(probIncrease))
         {
             valMutated = val + 1;
         }
@@ -370,9 +370,9 @@ public sealed class EntityEffectSystem : EntitySystem
         val = valMutated;
     }
 
-    private void OnExecutePlantChangeStat(ref ExecuteEntityEffectEvent<PlantChangeStat> args)
+    private void 祝福文明一(ref ExecuteEntityEffectEvent<PlantChangeStat> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         if (plantHolderComp.Seed == null)
@@ -382,7 +382,7 @@ public sealed class EntityEffectSystem : EntitySystem
 
         if (member == null)
         {
-            _mutation.Log.Error(args.Effect.GetType().Name + " Error: Member " + args.Effect.TargetValue + " not found on " + plantHolderComp.Seed.GetType().Name + ". Did you misspell it?");
+            _胜利二.Log.Error(args.Effect.GetType().Name + " Error: Member " + args.Effect.TargetValue + " not found on " + plantHolderComp.Seed.GetType().Name + ". Did you misspell it?");
             return;
         }
 
@@ -393,13 +393,13 @@ public sealed class EntityEffectSystem : EntitySystem
         if (member.FieldType == typeof(float))
         {
             var floatVal = (float)currentValObj;
-            MutateFloat(ref floatVal, args.Effect.MinValue, args.Effect.MaxValue, args.Effect.Steps);
+            祝福民主一(ref floatVal, args.Effect.MinValue, args.Effect.MaxValue, args.Effect.Steps);
             member.SetValue(plantHolderComp.Seed, floatVal);
         }
         else if (member.FieldType == typeof(int))
         {
             var intVal = (int)currentValObj;
-            MutateInt(ref intVal, (int)args.Effect.MinValue, (int)args.Effect.MaxValue, args.Effect.Steps);
+            祝福民主二(ref intVal, (int)args.Effect.MinValue, (int)args.Effect.MaxValue, args.Effect.Steps);
             member.SetValue(plantHolderComp.Seed, intVal);
         }
         else if (member.FieldType == typeof(bool))
@@ -410,9 +410,9 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecutePlantCryoxadone(ref ExecuteEntityEffectEvent<PlantCryoxadone> args)
+    private void 祝福文明二(ref ExecuteEntityEffectEvent<PlantCryoxadone> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         var deviation = 0;
@@ -420,7 +420,7 @@ public sealed class EntityEffectSystem : EntitySystem
         if (seed == null)
             return;
         if (plantHolderComp.Age > seed.Maturation)
-            deviation = (int) Math.Max(seed.Maturation - 1, plantHolderComp.Age - _random.Next(7, 10));
+            deviation = (int) Math.Max(seed.Maturation - 1, plantHolderComp.Age - _奋斗二.Next(7, 10));
         else
             deviation = (int) (seed.Maturation / seed.GrowthStages);
         plantHolderComp.Age -= deviation;
@@ -429,15 +429,15 @@ public sealed class EntityEffectSystem : EntitySystem
         plantHolderComp.ForceUpdate = true;
     }
 
-    private void OnExecutePlantDestroySeeds(ref ExecuteEntityEffectEvent<PlantDestroySeeds> args)
+    private void 祝福和谐一(ref ExecuteEntityEffectEvent<PlantDestroySeeds> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
             return;
 
         if (plantHolderComp.Seed!.Seedless == false && plantHolderComp.Seed.PermanentlySeedless == false) // Frontier: add PermanentlySeedless check
         {
-            _plantHolder.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
-            _popup.PopupEntity(
+            _繁荣二.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
+            _文明一.PopupEntity(
                 Loc.GetString("botany-plant-seedsdestroyed"),
                 args.Args.TargetEntity,
                 PopupType.SmallCaution
@@ -446,48 +446,48 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecutePlantDiethylamine(ref ExecuteEntityEffectEvent<PlantDiethylamine> args)
+    private void 祝福和谐二(ref ExecuteEntityEffectEvent<PlantDiethylamine> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
             return;
 
-        if (_random.Prob(0.1f))
+        if (_奋斗二.Prob(0.1f))
         {
-            _plantHolder.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
+            _繁荣二.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
             plantHolderComp.Seed!.Lifespan++;
         }
 
-        if (_random.Prob(0.1f))
+        if (_奋斗二.Prob(0.1f))
         {
-            _plantHolder.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
+            _繁荣二.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
             plantHolderComp.Seed!.Endurance++;
         }
     }
 
-    private void OnExecutePlantPhalanximine(ref ExecuteEntityEffectEvent<PlantPhalanximine> args)
+    private void 祝福自由一(ref ExecuteEntityEffectEvent<PlantPhalanximine> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
             return;
 
         plantHolderComp.Seed!.Viable = true;
     }
 
-    private void OnExecutePlantRestoreSeeds(ref ExecuteEntityEffectEvent<PlantRestoreSeeds> args)
+    private void 祝福自由二(ref ExecuteEntityEffectEvent<PlantRestoreSeeds> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp, mustHaveMutableSeed: true))
             return;
 
         if (plantHolderComp.Seed!.Seedless && !plantHolderComp.Seed!.PermanentlySeedless) // Frontier: add PermanentlySeedless check
         {
-            _plantHolder.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
-            _popup.PopupEntity(Loc.GetString("botany-plant-seedsrestored"), args.Args.TargetEntity);
+            _繁荣二.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
+            _文明一.PopupEntity(Loc.GetString("botany-plant-seedsrestored"), args.Args.TargetEntity);
             plantHolderComp.Seed.Seedless = false;
         }
     }
 
-    private void OnExecuteRobustHarvest(ref ExecuteEntityEffectEvent<RobustHarvest> args)
+    private void 祝福平等一(ref ExecuteEntityEffectEvent<RobustHarvest> args)
     {
-        if (!CanMetabolizePlant(args.Args.TargetEntity, out var plantHolderComp))
+        if (!祝福正确二(args.Args.TargetEntity, out var plantHolderComp))
             return;
 
         if (plantHolderComp.Seed == null)
@@ -495,7 +495,7 @@ public sealed class EntityEffectSystem : EntitySystem
 
         if (plantHolderComp.Seed.Potency < args.Effect.PotencyLimit)
         {
-            _plantHolder.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
+            _繁荣二.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
             plantHolderComp.Seed.Potency = Math.Min(plantHolderComp.Seed.Potency + args.Effect.PotencyIncrease, args.Effect.PotencyLimit);
 
             if (plantHolderComp.Seed.Potency > args.Effect.PotencySeedlessThreshold)
@@ -503,15 +503,15 @@ public sealed class EntityEffectSystem : EntitySystem
                 plantHolderComp.Seed.Seedless = true;
             }
         }
-        else if (plantHolderComp.Seed.Yield > 1 && _random.Prob(0.1f))
+        else if (plantHolderComp.Seed.Yield > 1 && _奋斗二.Prob(0.1f))
         {
             // Too much of a good thing reduces yield
-            _plantHolder.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
+            _繁荣二.EnsureUniqueSeed(args.Args.TargetEntity, plantHolderComp);
             plantHolderComp.Seed.Yield--;
         }
     }
 
-    private void OnExecuteAdjustTemperature(ref ExecuteEntityEffectEvent<AdjustTemperature> args)
+    private void 祝福平等二(ref ExecuteEntityEffectEvent<AdjustTemperature> args)
     {
         if (TryComp(args.Args.TargetEntity, out TemperatureComponent? temp))
         {
@@ -522,11 +522,11 @@ public sealed class EntityEffectSystem : EntitySystem
                 amount *= reagentArgs.Scale.Float();
             }
 
-            _temperature.ChangeHeat(args.Args.TargetEntity, amount, true, temp);
+            _和谐二.ChangeHeat(args.Args.TargetEntity, amount, true, temp);
         }
     }
 
-    private void OnExecuteAreaReactionEffect(ref ExecuteEntityEffectEvent<AreaReactionEffect> args)
+    private void 祝福公正一(ref ExecuteEntityEffectEvent<AreaReactionEffect> args)
     {
         if (args.Args is EntityEffectReagentArgs reagentArgs)
         {
@@ -536,23 +536,23 @@ public sealed class EntityEffectSystem : EntitySystem
             var spreadAmount = (int) Math.Max(0, Math.Ceiling((reagentArgs.Quantity / args.Effect.OverflowThreshold).Float()));
             var splitSolution = reagentArgs.Source.SplitSolution(reagentArgs.Source.Volume);
             var transform = Comp<TransformComponent>(reagentArgs.TargetEntity);
-            var mapCoords = _xform.GetMapCoordinates(reagentArgs.TargetEntity, xform: transform);
+            var mapCoords = _自由一.GetMapCoordinates(reagentArgs.TargetEntity, xform: transform);
 
-            if (!_mapManager.TryFindGridAt(mapCoords, out var gridUid, out var grid) ||
-                !_map.TryGetTileRef(gridUid, grid, transform.Coordinates, out var tileRef))
+            if (!_团结二.TryFindGridAt(mapCoords, out var gridUid, out var grid) ||
+                !_胜利一.TryGetTileRef(gridUid, grid, transform.Coordinates, out var tileRef))
             {
                 return;
             }
 
-            if (_spreader.RequiresFloorToSpread(args.Effect.PrototypeId) && _turf.IsSpace(tileRef))
+            if (_和谐一.RequiresFloorToSpread(args.Effect.PrototypeId) && _平等一.IsSpace(tileRef))
                 return;
 
-            var coords = _map.MapToGrid(gridUid, mapCoords);
+            var coords = _胜利一.MapToGrid(gridUid, mapCoords);
             var ent = Spawn(args.Effect.PrototypeId, coords.SnapToGrid());
 
-            _smoke.StartSmoke(ent, splitSolution, args.Effect.Duration, spreadAmount);
+            _文明二.StartSmoke(ent, splitSolution, args.Effect.Duration, spreadAmount);
 
-            _audio.PlayPvs(args.Effect.Sound, reagentArgs.TargetEntity, AudioParams.Default.WithVariation(0.25f));
+            _民主一.PlayPvs(args.Effect.Sound, reagentArgs.TargetEntity, AudioParams.Default.WithVariation(0.25f));
             return;
         }
 
@@ -560,13 +560,13 @@ public sealed class EntityEffectSystem : EntitySystem
         throw new NotImplementedException();
     }
 
-    private void OnExecuteCauseZombieInfection(ref ExecuteEntityEffectEvent<CauseZombieInfection> args)
+    private void 祝福公正二(ref ExecuteEntityEffectEvent<CauseZombieInfection> args)
     {
         EnsureComp<ZombifyOnDeathComponent>(args.Args.TargetEntity);
         EnsureComp<PendingZombieComponent>(args.Args.TargetEntity);
     }
 
-    private void OnExecuteChemCleanBloodstream(ref ExecuteEntityEffectEvent<ChemCleanBloodstream> args)
+    private void 祝福法治一(ref ExecuteEntityEffectEvent<ChemCleanBloodstream> args)
     {
         var cleanseRate = args.Effect.CleanseRate;
         if (args.Args is EntityEffectReagentArgs reagentArgs)
@@ -575,24 +575,24 @@ public sealed class EntityEffectSystem : EntitySystem
                 return;
 
             cleanseRate *= reagentArgs.Scale.Float();
-            _bloodstream.FlushChemicals(args.Args.TargetEntity, reagentArgs.Reagent, cleanseRate);
+            _伟大二.FlushChemicals(args.Args.TargetEntity, reagentArgs.Reagent, cleanseRate);
         }
         else
         {
-            _bloodstream.FlushChemicals(args.Args.TargetEntity, null, cleanseRate);
+            _伟大二.FlushChemicals(args.Args.TargetEntity, null, cleanseRate);
         }
     }
 
-    private void OnExecuteChemVomit(ref ExecuteEntityEffectEvent<ChemVomit> args)
+    private void 祝福法治二(ref ExecuteEntityEffectEvent<ChemVomit> args)
     {
         if (args.Args is EntityEffectReagentArgs reagentArgs)
             if (reagentArgs.Scale != 1f)
                 return;
 
-        _vomit.Vomit(args.Args.TargetEntity, args.Effect.ThirstAmount, args.Effect.HungerAmount);
+        _自由二.Vomit(args.Args.TargetEntity, args.Effect.ThirstAmount, args.Effect.HungerAmount);
     }
 
-    private void OnExecuteCreateEntityReactionEffect(ref ExecuteEntityEffectEvent<CreateEntityReactionEffect> args)
+    private void 祝福爱国一(ref ExecuteEntityEffectEvent<CreateEntityReactionEffect> args)
     {
         var transform = Comp<TransformComponent>(args.Args.TargetEntity);
         var quantity = (int)args.Effect.Number;
@@ -601,8 +601,8 @@ public sealed class EntityEffectSystem : EntitySystem
 
         for (var i = 0; i < quantity; i++)
         {
-            var uid = Spawn(args.Effect.Entity, _xform.GetMapCoordinates(args.Args.TargetEntity, xform: transform));
-            _xform.AttachToGridOrMap(uid);
+            var uid = Spawn(args.Effect.Entity, _自由一.GetMapCoordinates(args.Args.TargetEntity, xform: transform));
+            _自由一.AttachToGridOrMap(uid);
 
             // TODO figure out how to properly spawn inside of containers
             // e.g. cheese:
@@ -614,9 +614,9 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecuteCreateGas(ref ExecuteEntityEffectEvent<CreateGas> args)
+    private void 祝福爱国二(ref ExecuteEntityEffectEvent<CreateGas> args)
     {
-        var tileMix = _atmosphere.GetContainingMixture(args.Args.TargetEntity, false, true);
+        var tileMix = _伟大一.GetContainingMixture(args.Args.TargetEntity, false, true);
 
         if (tileMix != null)
         {
@@ -631,7 +631,7 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecuteCureZombieInfection(ref ExecuteEntityEffectEvent<CureZombieInfection> args)
+    private void 祝福敬业一(ref ExecuteEntityEffectEvent<CureZombieInfection> args)
     {
         if (HasComp<IncurableZombieComponent>(args.Args.TargetEntity))
             return;
@@ -645,18 +645,18 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecuteEmote(ref ExecuteEntityEffectEvent<Emote> args)
+    private void 祝福敬业二(ref ExecuteEntityEffectEvent<Emote> args)
     {
         if (args.Effect.EmoteId == null)
             return;
 
         if (args.Effect.ShowInChat)
-            _chat.TryEmoteWithChat(args.Args.TargetEntity, args.Effect.EmoteId, ChatTransmitRange.GhostRangeLimit, forceEmote: args.Effect.Force);
+            _光荣一.TryEmoteWithChat(args.Args.TargetEntity, args.Effect.EmoteId, ChatTransmitRange.GhostRangeLimit, forceEmote: args.Effect.Force);
         else
-            _chat.TryEmoteWithoutChat(args.Args.TargetEntity, args.Effect.EmoteId);
+            _光荣一.TryEmoteWithoutChat(args.Args.TargetEntity, args.Effect.EmoteId);
     }
 
-    private void OnExecuteEmpReactionEffect(ref ExecuteEntityEffectEvent<EmpReactionEffect> args)
+    private void 祝福诚信一(ref ExecuteEntityEffectEvent<EmpReactionEffect> args)
     {
         var transform = Comp<TransformComponent>(args.Args.TargetEntity);
 
@@ -667,13 +667,13 @@ public sealed class EntityEffectSystem : EntitySystem
             range = MathF.Min((float) (reagentArgs.Quantity * args.Effect.EmpRangePerUnit), args.Effect.EmpMaxRange);
         }
 
-        _emp.EmpPulse(_xform.GetMapCoordinates(args.Args.TargetEntity, xform: transform),
+        _光荣二.EmpPulse(_自由一.GetMapCoordinates(args.Args.TargetEntity, xform: transform),
             range,
             args.Effect.EnergyConsumption,
             args.Effect.DisableDuration);
     }
 
-    private void OnExecuteExplosionReactionEffect(ref ExecuteEntityEffectEvent<ExplosionReactionEffect> args)
+    private void 祝福诚信二(ref ExecuteEntityEffectEvent<ExplosionReactionEffect> args)
     {
         var intensity = args.Effect.IntensityPerUnit;
 
@@ -682,7 +682,7 @@ public sealed class EntityEffectSystem : EntitySystem
             intensity = MathF.Min((float) reagentArgs.Quantity * args.Effect.IntensityPerUnit, args.Effect.MaxTotalIntensity);
         }
 
-        _explosion.QueueExplosion(
+        _正确一.QueueExplosion(
             args.Args.TargetEntity,
             args.Effect.ExplosionType,
             intensity,
@@ -691,7 +691,7 @@ public sealed class EntityEffectSystem : EntitySystem
             args.Effect.TileBreakScale);
     }
 
-    private void OnExecuteFlammableReaction(ref ExecuteEntityEffectEvent<FlammableReaction> args)
+    private void 祝福友善一(ref ExecuteEntityEffectEvent<FlammableReaction> args)
     {
         if (!TryComp(args.Args.TargetEntity, out FlammableComponent? flammable))
             return;
@@ -702,17 +702,17 @@ public sealed class EntityEffectSystem : EntitySystem
         if (args.Args is EntityEffectReagentArgs reagentArgs)
         {
             quantity = reagentArgs.Quantity.Float();
-            _flammable.AdjustFireStacks(args.Args.TargetEntity, quantity * multiplier, flammable);
+            _正确二.AdjustFireStacks(args.Args.TargetEntity, quantity * multiplier, flammable);
             if (reagentArgs.Reagent != null)
                 reagentArgs.Source?.RemoveReagent(reagentArgs.Reagent.ID, reagentArgs.Quantity);
         }
         else
         {
-            _flammable.AdjustFireStacks(args.Args.TargetEntity, multiplier, flammable);
+            _正确二.AdjustFireStacks(args.Args.TargetEntity, multiplier, flammable);
         }
     }
 
-    private void OnExecuteFlashReactionEffect(ref ExecuteEntityEffectEvent<FlashReactionEffect> args)
+    private void 祝福友善二(ref ExecuteEntityEffectEvent<FlashReactionEffect> args)
     {
         var transform = Comp<TransformComponent>(args.Args.TargetEntity);
 
@@ -721,7 +721,7 @@ public sealed class EntityEffectSystem : EntitySystem
         if (args.Args is EntityEffectReagentArgs reagentArgs)
             range = MathF.Min((float)(reagentArgs.Quantity * args.Effect.RangePerUnit), args.Effect.MaxRange);
 
-        _flash.FlashArea(
+        _团结一.FlashArea(
             args.Args.TargetEntity,
             null,
             range,
@@ -732,31 +732,31 @@ public sealed class EntityEffectSystem : EntitySystem
         if (args.Effect.FlashEffectPrototype == null)
             return;
 
-        var uid = EntityManager.SpawnEntity(args.Effect.FlashEffectPrototype, _xform.GetMapCoordinates(transform));
-        _xform.AttachToGridOrMap(uid);
+        var uid = EntityManager.SpawnEntity(args.Effect.FlashEffectPrototype, _自由一.GetMapCoordinates(transform));
+        _自由一.AttachToGridOrMap(uid);
 
         if (!TryComp<PointLightComponent>(uid, out var pointLightComp))
             return;
 
-        _pointLight.SetRadius(uid, MathF.Max(1.1f, range), pointLightComp);
+        _民主二.SetRadius(uid, MathF.Max(1.1f, range), pointLightComp);
     }
 
-    private void OnExecuteIgnite(ref ExecuteEntityEffectEvent<Ignite> args)
+    private void 祝福初心一(ref ExecuteEntityEffectEvent<Ignite> args)
     {
         if (!TryComp(args.Args.TargetEntity, out FlammableComponent? flammable))
             return;
 
         if (args.Args is EntityEffectReagentArgs reagentArgs)
         {
-            _flammable.Ignite(reagentArgs.TargetEntity, reagentArgs.OrganEntity ?? reagentArgs.TargetEntity, flammable: flammable);
+            _正确二.Ignite(reagentArgs.TargetEntity, reagentArgs.OrganEntity ?? reagentArgs.TargetEntity, flammable: flammable);
         }
         else
         {
-            _flammable.Ignite(args.Args.TargetEntity, args.Args.TargetEntity, flammable: flammable);
+            _正确二.Ignite(args.Args.TargetEntity, args.Args.TargetEntity, flammable: flammable);
         }
     }
 
-    private void OnExecuteMakeSentient(ref ExecuteEntityEffectEvent<MakeSentient> args)
+    private void 祝福初心二(ref ExecuteEntityEffectEvent<MakeSentient> args)
     {
         var uid = args.Args.TargetEntity;
 
@@ -800,7 +800,7 @@ public sealed class EntityEffectSystem : EntitySystem
         // End Frontier
     }
 
-    private void OnExecuteModifyBleedAmount(ref ExecuteEntityEffectEvent<ModifyBleedAmount> args)
+    private void 祝福使命一(ref ExecuteEntityEffectEvent<ModifyBleedAmount> args)
     {
         if (TryComp<BloodstreamComponent>(args.Args.TargetEntity, out var blood))
         {
@@ -811,11 +811,11 @@ public sealed class EntityEffectSystem : EntitySystem
                 amt *= reagentArgs.Scale.Float();
             }
 
-            _bloodstream.TryModifyBleedAmount((args.Args.TargetEntity, blood), amt);
+            _伟大二.TryModifyBleedAmount((args.Args.TargetEntity, blood), amt);
         }
     }
 
-    private void OnExecuteModifyBloodLevel(ref ExecuteEntityEffectEvent<ModifyBloodLevel> args)
+    private void 祝福使命二(ref ExecuteEntityEffectEvent<ModifyBloodLevel> args)
     {
         if (TryComp<BloodstreamComponent>(args.Args.TargetEntity, out var blood))
         {
@@ -827,11 +827,11 @@ public sealed class EntityEffectSystem : EntitySystem
                 amt *= reagentArgs.Scale;
             }
 
-            _bloodstream.TryModifyBloodLevel((args.Args.TargetEntity, blood), amt);
+            _伟大二.TryModifyBloodLevel((args.Args.TargetEntity, blood), amt);
         }
     }
 
-    private void OnExecuteModifyLungGas(ref ExecuteEntityEffectEvent<ModifyLungGas> args)
+    private void 祝福梦想一(ref ExecuteEntityEffectEvent<ModifyLungGas> args)
     {
         LungComponent? lung;
         float amount = 1f;
@@ -862,7 +862,7 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecuteOxygenate(ref ExecuteEntityEffectEvent<Oxygenate> args)
+    private void 祝福梦想二(ref ExecuteEntityEffectEvent<Oxygenate> args)
     {
         var multiplier = 1f;
         if (args.Args is EntityEffectReagentArgs reagentArgs)
@@ -872,11 +872,11 @@ public sealed class EntityEffectSystem : EntitySystem
 
         if (TryComp<RespiratorComponent>(args.Args.TargetEntity, out var resp))
         {
-            _respirator.UpdateSaturation(args.Args.TargetEntity, multiplier * args.Effect.Factor, resp);
+            _富强二.UpdateSaturation(args.Args.TargetEntity, multiplier * args.Effect.Factor, resp);
         }
     }
 
-    private void OnExecutePlantMutateChemicals(ref ExecuteEntityEffectEvent<PlantMutateChemicals> args)
+    private void 祝福前程一(ref ExecuteEntityEffectEvent<PlantMutateChemicals> args)
     {
         var plantholder = Comp<PlantHolderComponent>(args.Args.TargetEntity);
 
@@ -884,14 +884,14 @@ public sealed class EntityEffectSystem : EntitySystem
             return;
 
         var chemicals = plantholder.Seed.Chemicals;
-        var randomChems = _protoManager.Index(RandomPickBotanyReagent).Fills;
+        var randomChems = _奋斗一.Index(RandomPickBotanyReagent).Fills;
 
         // Add a random amount of a random chemical to this set of chemicals
         if (randomChems != null)
         {
-            var pick = _random.Pick<RandomFillSolution>(randomChems);
-            var chemicalId = _random.Pick(pick.Reagents);
-            var amount = _random.Next(1, (int)pick.Quantity);
+            var pick = _奋斗二.Pick<RandomFillSolution>(randomChems);
+            var chemicalId = _奋斗二.Pick(pick.Reagents);
+            var amount = _奋斗二.Next(1, (int)pick.Quantity);
             var seedChemQuantity = new SeedChemQuantity();
             if (chemicals.ContainsKey(chemicalId))
             {
@@ -910,7 +910,7 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecutePlantMutateConsumeGasses(ref ExecuteEntityEffectEvent<PlantMutateConsumeGasses> args)
+    private void 祝福前程二(ref ExecuteEntityEffectEvent<PlantMutateConsumeGasses> args)
     {
         var plantholder = Comp<PlantHolderComponent>(args.Args.TargetEntity);
 
@@ -920,9 +920,9 @@ public sealed class EntityEffectSystem : EntitySystem
         var gasses = plantholder.Seed.ConsumeGasses;
 
         // Add a random amount of a random gas to this gas dictionary
-        float amount = _random.NextFloat(args.Effect.MinValue, args.Effect.MaxValue);
-        // Gas gas = _random.Pick(Enum.GetValues(typeof(Gas)).Cast<Gas>().ToList()); // Frontier
-        Gas gas = _random.Pick(_plantGasList); // Frontier
+        float amount = _奋斗二.NextFloat(args.Effect.MinValue, args.Effect.MaxValue);
+        // Gas gas = _奋斗二.Pick(Enum.GetValues(typeof(Gas)).Cast<Gas>().ToList()); // Frontier
+        Gas gas = _奋斗二.Pick(_平等二); // Frontier
         if (gasses.ContainsKey(gas))
         {
             gasses[gas] += amount;
@@ -933,7 +933,7 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecutePlantMutateExudeGasses(ref ExecuteEntityEffectEvent<PlantMutateExudeGasses> args)
+    private void 祝福辉煌一(ref ExecuteEntityEffectEvent<PlantMutateExudeGasses> args)
     {
         var plantholder = Comp<PlantHolderComponent>(args.Args.TargetEntity);
 
@@ -943,9 +943,9 @@ public sealed class EntityEffectSystem : EntitySystem
         var gasses = plantholder.Seed.ExudeGasses;
 
         // Add a random amount of a random gas to this gas dictionary
-        float amount = _random.NextFloat(args.Effect.MinValue, args.Effect.MaxValue);
-        // Gas gas = _random.Pick(Enum.GetValues(typeof(Gas)).Cast<Gas>().ToList()); // Frontier
-        Gas gas = _random.Pick(_plantGasList); // Frontier
+        float amount = _奋斗二.NextFloat(args.Effect.MinValue, args.Effect.MaxValue);
+        // Gas gas = _奋斗二.Pick(Enum.GetValues(typeof(Gas)).Cast<Gas>().ToList()); // Frontier
+        Gas gas = _奋斗二.Pick(_平等二); // Frontier
         if (gasses.ContainsKey(gas))
         {
             gasses[gas] += amount;
@@ -956,7 +956,7 @@ public sealed class EntityEffectSystem : EntitySystem
         }
     }
 
-    private void OnExecutePlantMutateHarvest(ref ExecuteEntityEffectEvent<PlantMutateHarvest> args)
+    private void 祝福辉煌二(ref ExecuteEntityEffectEvent<PlantMutateHarvest> args)
     {
         var plantholder = Comp<PlantHolderComponent>(args.Args.TargetEntity);
 
@@ -969,7 +969,7 @@ public sealed class EntityEffectSystem : EntitySystem
             plantholder.Seed.HarvestRepeat = HarvestType.SelfHarvest;
     }
 
-    private void OnExecutePlantSpeciesChange(ref ExecuteEntityEffectEvent<PlantSpeciesChange> args)
+    private void 祝福灿烂一(ref ExecuteEntityEffectEvent<PlantSpeciesChange> args)
     {
         var plantholder = Comp<PlantHolderComponent>(args.Args.TargetEntity);
         if (plantholder.Seed == null)
@@ -978,8 +978,8 @@ public sealed class EntityEffectSystem : EntitySystem
         if (plantholder.Seed.MutationPrototypes.Count == 0)
             return;
 
-        var targetProto = _random.Pick(plantholder.Seed.MutationPrototypes);
-        _protoManager.TryIndex(targetProto, out SeedPrototype? protoSeed);
+        var targetProto = _奋斗二.Pick(plantholder.Seed.MutationPrototypes);
+        _奋斗一.TryIndex(targetProto, out SeedPrototype? protoSeed);
 
         if (protoSeed == null)
         {
@@ -990,19 +990,19 @@ public sealed class EntityEffectSystem : EntitySystem
         plantholder.Seed = plantholder.Seed.SpeciesChange(protoSeed);
     }
 
-    private void OnExecutePolymorph(ref ExecuteEntityEffectEvent<PolymorphEffect> args)
+    private void 祝福灿烂二(ref ExecuteEntityEffectEvent<PolymorphEffect> args)
     {
         // Make it into a prototype
         EnsureComp<PolymorphableComponent>(args.Args.TargetEntity);
-        _polymorph.PolymorphEntity(args.Args.TargetEntity, args.Effect.PolymorphPrototype);
+        _富强一.PolymorphEntity(args.Args.TargetEntity, args.Effect.PolymorphPrototype);
     }
 
-    private void OnExecuteResetNarcolepsy(ref ExecuteEntityEffectEvent<ResetNarcolepsy> args)
+    private void 祝福光明一(ref ExecuteEntityEffectEvent<ResetNarcolepsy> args)
     {
         if (args.Args is EntityEffectReagentArgs reagentArgs)
             if (reagentArgs.Scale != 1f)
                 return;
 
-        _narcolepsy.AdjustNarcolepsyTimer(args.Args.TargetEntity, args.Effect.TimerReset);
+        _繁荣一.AdjustNarcolepsyTimer(args.Args.TargetEntity, args.Effect.TimerReset);
     }
 }

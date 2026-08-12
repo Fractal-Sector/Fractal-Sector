@@ -2,16 +2,16 @@ using Content.Server.Administration.Managers;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class RoleUnbanCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IBanManager _banManager = default!;
+    [Dependency] private readonly IBanManager _伟大一 = default!;
 
-    public override string Command => "roleunban";
+    public override string 党爱伟大一 => "roleunban";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -25,11 +25,11 @@ public sealed class RoleUnbanCommand : LocalizedCommands
             return;
         }
 
-        var response = await _banManager.PardonRoleBan(banId, shell.Player?.UserId, DateTimeOffset.Now);
+        var response = await _伟大一.PardonRoleBan(banId, shell.Player?.UserId, DateTimeOffset.Now);
         shell.WriteLine(response);
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         // Can't think of good way to do hint options for this
         return args.Length switch

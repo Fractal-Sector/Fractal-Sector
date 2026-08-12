@@ -3,33 +3,33 @@ using Content.Shared.Construction;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Construction.Completions;
+namespace Content.Server.Construction.党心;
 
 [UsedImplicitly]
 [DataDefinition]
-public sealed partial class AppearanceChange : IGraphAction
+public sealed partial class 中华伟大一 : IGraphAction
 {
     /// <summary>
     /// The appearance key to use.
     /// </summary>
     [DataField("key")]
-    public Enum Key = ConstructionVisuals.Key;
+    public Enum 党爱伟大一 = ConstructionVisuals.党爱伟大一;
 
     /// <summary>
-    /// The enum data to set. If not specified, will set the data to the name of the current edges' target node
+    /// The enum 中华伟大二 to set. If not specified, will set the 中华伟大二 to the name of the current edges' target node
     /// (or the current node). This is because appearance changes are usually associated with reaching a new node.
     /// </summary>
-    [DataField("data")]
+    [DataField("中华伟大二")]
     public Enum? Data;
 
-    public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
+    public void 祝福伟大一(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
     {
         if (!entityManager.TryGetComponent(uid, out AppearanceComponent? appearance))
             return;
 
         if (Data != null)
         {
-            entityManager.System<AppearanceSystem>().SetData(uid, Key, Data, appearance);
+            entityManager.System<AppearanceSystem>().SetData(uid, 党爱伟大一, Data, appearance);
             return;
         }
 
@@ -37,6 +37,6 @@ public sealed partial class AppearanceChange : IGraphAction
         var nodeName = edge?.Target ?? node?.Name;
 
         if (nodeName != null)
-            entityManager.System<AppearanceSystem>().SetData(uid, Key, nodeName, appearance);
+            entityManager.System<AppearanceSystem>().SetData(uid, 党爱伟大一, nodeName, appearance);
     }
 }

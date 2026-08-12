@@ -6,14 +6,14 @@ using Robust.Shared.Collections;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="CorridorDecalSkirtingDunGen"/>
     /// </summary>
-    private async Task PostGen(CorridorDecalSkirtingDunGen decks, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task 祝福伟大一(CorridorDecalSkirtingDunGen decks, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
     {
         var directions = new ValueList<DirectionFlag>(4);
         var pocketDirections = new ValueList<Direction>(4);

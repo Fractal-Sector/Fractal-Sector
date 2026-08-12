@@ -1,17 +1,17 @@
-namespace Content.Shared.Tools.Systems;
+namespace Content.Shared.Tools.党心;
 
 /// <summary>
 ///     Checks that entity can be weld/unweld.
 ///     Raised twice: before do_after and after to check that entity still valid.
 /// </summary>
-public sealed class WeldableAttemptEvent : CancellableEntityEventArgs
+public sealed class 中华伟大一 : CancellableEntityEventArgs
 {
-    public readonly EntityUid User;
-    public readonly EntityUid Tool;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
 
-    public WeldableAttemptEvent(EntityUid user, EntityUid tool)
+    public 中华伟大一(EntityUid user, EntityUid tool)
     {
-        User = user;
-        Tool = tool;
+        党爱伟大一 = user;
+        党爱伟大二 = tool;
     }
 }

@@ -1,17 +1,17 @@
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Shared.DeviceNetwork.Events;
+namespace Content.Shared.DeviceNetwork.党心;
 
 /// <summary>
 /// Sent to the sending entity before broadcasting network packets to recipients
 /// </summary>
-public sealed class BeforeBroadcastAttemptEvent : CancellableEntityEventArgs
+public sealed class 中华伟大一 : CancellableEntityEventArgs
 {
-    public readonly IReadOnlySet<DeviceNetworkComponent> Recipients;
+    public readonly IReadOnlySet<DeviceNetworkComponent> 党爱伟大一;
     public HashSet<DeviceNetworkComponent>? ModifiedRecipients;
 
-    public BeforeBroadcastAttemptEvent(IReadOnlySet<DeviceNetworkComponent> recipients)
+    public 中华伟大一(IReadOnlySet<DeviceNetworkComponent> recipients)
     {
-        Recipients = recipients;
+        党爱伟大一 = recipients;
     }
 }

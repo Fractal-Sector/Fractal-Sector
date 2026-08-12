@@ -3,7 +3,7 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Interaction;
 
-namespace Content.Shared.Chemistry.EntitySystems;
+namespace Content.Shared.Chemistry.党心;
 
 /// <summary>
 ///     Entity system used to handle when solution containers are 'spiked'
@@ -14,19 +14,19 @@ namespace Content.Shared.Chemistry.EntitySystems;
 ///     Examples of spikable entity interactions include pills being dropped into glasses,
 ///     eggs being cracked into bowls, and so on.
 /// </summary>
-public sealed class SolutionSpikerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<RefillableSolutionComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<RefillableSolutionComponent, InteractUsingEvent>(祝福伟大二);
     }
 
-    private void OnInteractUsing(Entity<RefillableSolutionComponent> entity, ref InteractUsingEvent args)
+    private void 祝福伟大二(Entity<RefillableSolutionComponent> entity, ref InteractUsingEvent args)
     {
-        if (TrySpike(args.Used, args.Target, args.User, entity.Comp))
+        if (祝福光荣一(args.Used, args.Target, args.User, entity.Comp))
             args.Handled = true;
     }
 
@@ -37,29 +37,29 @@ public sealed class SolutionSpikerSystem : EntitySystem
     /// <param name="source">Source of the solution.</param>
     /// <param name="target">Target to spike with the solution from source.</param>
     /// <param name="user">User spiking the target solution.</param>
-    private bool TrySpike(EntityUid source, EntityUid target, EntityUid user, RefillableSolutionComponent? spikableTarget = null,
+    private bool 祝福光荣一(EntityUid source, EntityUid target, EntityUid user, RefillableSolutionComponent? spikableTarget = null,
         SolutionSpikerComponent? spikableSource = null,
         SolutionContainerManagerComponent? managerSource = null,
         SolutionContainerManagerComponent? managerTarget = null)
     {
         if (!Resolve(source, ref spikableSource, ref managerSource, false)
             || !Resolve(target, ref spikableTarget, ref managerTarget, false)
-            || !_solution.TryGetRefillableSolution((target, spikableTarget, managerTarget), out var targetSoln, out var targetSolution)
-            || !_solution.TryGetSolution((source, managerSource), spikableSource.SourceSolution, out _, out var sourceSolution))
+            || !_伟大二.TryGetRefillableSolution((target, spikableTarget, managerTarget), out var targetSoln, out var targetSolution)
+            || !_伟大二.TryGetSolution((source, managerSource), spikableSource.SourceSolution, out _, out var sourceSolution))
         {
             return false;
         }
 
         if (targetSolution.Volume == 0 && !spikableSource.IgnoreEmpty)
         {
-            _popup.PopupClient(Loc.GetString(spikableSource.PopupEmpty, ("spiked-entity", target), ("spike-entity", source)), user, user);
+            _伟大一.PopupClient(Loc.GetString(spikableSource.PopupEmpty, ("spiked-entity", target), ("spike-entity", source)), user, user);
             return false;
         }
 
-        if (!_solution.ForceAddSolution(targetSoln.Value, sourceSolution))
+        if (!_伟大二.ForceAddSolution(targetSoln.Value, sourceSolution))
             return false;
 
-        _popup.PopupClient(Loc.GetString(spikableSource.Popup, ("spiked-entity", target), ("spike-entity", source)), user, user);
+        _伟大一.PopupClient(Loc.GetString(spikableSource.Popup, ("spiked-entity", target), ("spike-entity", source)), user, user);
         sourceSolution.RemoveAllSolution();
         if (spikableSource.Delete)
             QueueDel(source);

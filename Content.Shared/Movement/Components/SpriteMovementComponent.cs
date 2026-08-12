@@ -1,12 +1,12 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Movement.Components;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// Updates a sprite layer based on whether an entity is moving via input or not.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class SpriteMovementComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Layer and sprite state to use when moving.
@@ -21,5 +21,5 @@ public sealed partial class SpriteMovementComponent : Component
     public Dictionary<string, PrototypeLayerData> NoMovementLayers = new();
 
     [DataField, AutoNetworkedField]
-    public bool IsMoving;
+    public bool 党爱伟大一;
 }

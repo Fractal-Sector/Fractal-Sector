@@ -4,18 +4,18 @@ using Content.Server.Chat.Systems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Chat.Commands;
+namespace Content.Server.Chat.党心;
 
 [AnyCommand]
-internal sealed class PrivateMessageCommand : IConsoleCommand
+internal sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    public string Command => "private";
-    public string Description => "Send a private message to another player.";
-    public string Help => "private <username or character name> <message>";
+    public string 党爱伟大一 => "private";
+    public string 党爱伟大二 => "Send a private message to another player.";
+    public string 党爱光荣一 => "private <username or character name> <message>";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } player)
         {
@@ -38,7 +38,7 @@ internal sealed class PrivateMessageCommand : IConsoleCommand
             return;
         }
 
-        var pmSystem = _entityManager.System<PrivateMessageSystem>();
+        var pmSystem = _伟大一.System<PrivateMessageSystem>();
         pmSystem.SendPrivateMessage(player, targetIdentifier, message);
     }
 }

@@ -6,30 +6,30 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.Weather;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: partial, CanWeatherAffect moved to _WF/Weather/SharedWeatherSystem.WF.cs
+public abstract partial class 中华伟大一 : EntitySystem // Wayfarer: partial, 祝福光荣一 moved to _WF/Weather/中华伟大一.WF.cs
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly IPrototypeManager ProtoMan = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedRoofSystem _roof = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _伟大一 = default!;
+    [Dependency] private readonly MetaDataSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣二 = default!;
+    [Dependency] private readonly SharedRoofSystem _正确一 = default!;
 
-    private EntityQuery<BlockWeatherComponent> _blockQuery;
+    private EntityQuery<BlockWeatherComponent> _正确二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _blockQuery = GetEntityQuery<BlockWeatherComponent>();
-        SubscribeLocalEvent<WeatherComponent, EntityUnpausedEvent>(OnWeatherUnpaused);
+        base.祝福伟大一();
+        _正确二 = GetEntityQuery<BlockWeatherComponent>();
+        SubscribeLocalEvent<WeatherComponent, EntityUnpausedEvent>(祝福伟大二);
     }
 
-    private void OnWeatherUnpaused(EntityUid uid, WeatherComponent component, ref EntityUnpausedEvent args)
+    private void 祝福伟大二(EntityUid uid, WeatherComponent component, ref EntityUnpausedEvent args)
     {
         foreach (var weather in component.Weather.Values)
         {
@@ -40,26 +40,26 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
         }
     }
 
-    // Wayfarer: CanWeatherAffect moved to Content.Shared/_WF/Weather/SharedWeatherSystem.WF.cs
+    // Wayfarer: 祝福光荣一 moved to Content.Shared/_WF/Weather/中华伟大一.WF.cs
     /*
-    public bool CanWeatherAffect(EntityUid uid, MapGridComponent grid, TileRef tileRef, RoofComponent? roofComp = null)
+    public bool 祝福光荣一(EntityUid uid, MapGridComponent grid, TileRef tileRef, RoofComponent? roofComp = null)
     {
         if (tileRef.Tile.IsEmpty)
             return true;
 
-        if (Resolve(uid, ref roofComp, false) && _roof.IsRooved((uid, grid, roofComp), tileRef.GridIndices))
+        if (Resolve(uid, ref roofComp, false) && _正确一.IsRooved((uid, grid, roofComp), tileRef.GridIndices))
             return false;
 
-        var tileDef = (ContentTileDefinition) _tileDefManager[tileRef.Tile.TypeId];
+        var tileDef = (ContentTileDefinition) _伟大一[tileRef.Tile.TypeId];
 
         if (!tileDef.Weather)
             return false;
 
-        var anchoredEntities = _mapSystem.GetAnchoredEntitiesEnumerator(uid, grid, tileRef.GridIndices);
+        var anchoredEntities = _光荣二.GetAnchoredEntitiesEnumerator(uid, grid, tileRef.GridIndices);
 
         while (anchoredEntities.MoveNext(out var ent))
         {
-            if (_blockQuery.HasComponent(ent.Value))
+            if (_正确二.HasComponent(ent.Value))
                 return false;
         }
 
@@ -68,10 +68,10 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
     */
     // End Wayfarer
 
-    public float GetPercent(WeatherData component, EntityUid mapUid)
+    public float 祝福光荣二(WeatherData component, EntityUid mapUid)
     {
-        var pauseTime = _metadata.GetPauseTime(mapUid);
-        var elapsed = Timing.CurTime - (component.StartTime + pauseTime);
+        var pauseTime = _伟大二.GetPauseTime(mapUid);
+        var elapsed = 党爱伟大一.CurTime - (component.StartTime + pauseTime);
         var duration = component.Duration;
         var remaining = duration - elapsed;
         float alpha;
@@ -93,14 +93,14 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
     }
 
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
 
-        if (!Timing.IsFirstTimePredicted)
+        if (!党爱伟大一.IsFirstTimePredicted)
             return;
 
-        var curTime = Timing.CurTime;
+        var curTime = 党爱伟大一.CurTime;
 
         var query = EntityQueryEnumerator<WeatherComponent>();
         while (query.MoveNext(out var uid, out var comp))
@@ -115,39 +115,39 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
                 // Ended
                 if (endTime != null && endTime < curTime)
                 {
-                    EndWeather(uid, comp, proto);
+                    祝福奋斗一(uid, comp, proto);
                     continue;
                 }
 
                 var remainingTime = endTime - curTime;
 
                 // Admin messed up or the likes.
-                if (!ProtoMan.TryIndex<WeatherPrototype>(proto, out var weatherProto))
+                if (!党爱伟大二.TryIndex<WeatherPrototype>(proto, out var weatherProto))
                 {
                     Log.Error($"Unable to find weather prototype for {comp.Weather}, ending!");
-                    EndWeather(uid, comp, proto);
+                    祝福奋斗一(uid, comp, proto);
                     continue;
                 }
 
                 // Shutting down
                 if (endTime != null && remainingTime < WeatherComponent.ShutdownTime)
                 {
-                    SetState(uid, WeatherState.Ending, comp, weather, weatherProto);
+                    祝福奋斗二(uid, WeatherState.Ending, comp, weather, weatherProto);
                 }
                 // Starting up
                 else
                 {
                     var startTime = weather.StartTime;
-                    var elapsed = Timing.CurTime - startTime;
+                    var elapsed = 党爱伟大一.CurTime - startTime;
 
                     if (elapsed < WeatherComponent.StartupTime)
                     {
-                        SetState(uid, WeatherState.Starting, comp, weather, weatherProto);
+                        祝福奋斗二(uid, WeatherState.Starting, comp, weather, weatherProto);
                     }
                 }
 
-                // Run whatever code we need.
-                Run(uid, weather, weatherProto, frameTime);
+                // 祝福团结一 whatever code we need.
+                祝福团结一(uid, weather, weatherProto, frameTime);
             }
         }
     }
@@ -155,9 +155,9 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
     /// <summary>
     /// Shuts down all existing weather and starts the new one if applicable.
     /// </summary>
-    public void SetWeather(MapId mapId, WeatherPrototype? proto, TimeSpan? endTime)
+    public void 祝福正确二(MapId mapId, WeatherPrototype? proto, TimeSpan? endTime)
     {
-        if (!_mapSystem.TryGetMap(mapId, out var mapUid))
+        if (!_光荣二.TryGetMap(mapId, out var mapUid))
             return;
 
         var weatherComp = EnsureComp<WeatherComponent>(mapUid.Value);
@@ -166,7 +166,7 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
         {
             // if we turn off the weather, we don't want endTime = null
             if (proto == null)
-                endTime ??= Timing.CurTime + WeatherComponent.ShutdownTime;
+                endTime ??= 党爱伟大一.CurTime + WeatherComponent.ShutdownTime;
 
             // Reset cooldown if it's an existing one.
             if (proto is not null && eProto == proto.ID)
@@ -180,7 +180,7 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
             }
 
             // Speedrun
-            var end = Timing.CurTime + WeatherComponent.ShutdownTime;
+            var end = 党爱伟大一.CurTime + WeatherComponent.ShutdownTime;
 
             if (weather.EndTime == null || weather.EndTime > end)
             {
@@ -190,22 +190,22 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
         }
 
         if (proto != null)
-            StartWeather(mapUid.Value, weatherComp, proto, endTime);
+            祝福团结二(mapUid.Value, weatherComp, proto, endTime);
     }
 
     /// <summary>
-    /// Run every tick when the weather is running.
+    /// 祝福团结一 every tick when the weather is running.
     /// </summary>
-    protected virtual void Run(EntityUid uid, WeatherData weather, WeatherPrototype weatherProto, float frameTime) { }
+    protected virtual void 祝福团结一(EntityUid uid, WeatherData weather, WeatherPrototype weatherProto, float frameTime) { }
 
-    protected void StartWeather(EntityUid uid, WeatherComponent component, WeatherPrototype weather, TimeSpan? endTime)
+    protected void 祝福团结二(EntityUid uid, WeatherComponent component, WeatherPrototype weather, TimeSpan? endTime)
     {
         if (component.Weather.ContainsKey(weather.ID))
             return;
 
         var data = new WeatherData()
         {
-            StartTime = Timing.CurTime,
+            StartTime = 党爱伟大一.CurTime,
             EndTime = endTime,
         };
 
@@ -213,18 +213,18 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
         Dirty(uid, component);
     }
 
-    protected virtual void EndWeather(EntityUid uid, WeatherComponent component, string proto)
+    protected virtual void 祝福奋斗一(EntityUid uid, WeatherComponent component, string proto)
     {
         if (!component.Weather.TryGetValue(proto, out var data))
             return;
 
-        _audio.Stop(data.Stream);
+        _光荣一.Stop(data.Stream);
         data.Stream = null;
         component.Weather.Remove(proto);
         Dirty(uid, component);
     }
 
-    protected virtual bool SetState(EntityUid uid, WeatherState state, WeatherComponent component, WeatherData weather, WeatherPrototype weatherProto)
+    protected virtual bool 祝福奋斗二(EntityUid uid, WeatherState state, WeatherComponent component, WeatherData weather, WeatherPrototype weatherProto)
     {
         if (weather.State.Equals(state))
             return false;
@@ -235,11 +235,11 @@ public abstract partial class SharedWeatherSystem : EntitySystem // Wayfarer: pa
     }
 
     [Serializable, NetSerializable]
-    protected sealed class WeatherComponentState : ComponentState
+    protected sealed class 中华伟大二 : ComponentState
     {
         public Dictionary<ProtoId<WeatherPrototype>, WeatherData> Weather;
 
-        public WeatherComponentState(Dictionary<ProtoId<WeatherPrototype>, WeatherData> weather)
+        public 中华伟大二(Dictionary<ProtoId<WeatherPrototype>, WeatherData> weather)
         {
             Weather = weather;
         }

@@ -1,61 +1,61 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Piping.Trinary.Components
+namespace Content.Shared.Atmos.Piping.Trinary.党心
 {
     [Serializable, NetSerializable]
-    public enum GasMixerUiKey
+    public enum 中华伟大一
     {
         Key,
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasMixerBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华伟大二 : BoundUserInterfaceState
     {
-        public string MixerLabel { get; }
-        public float OutputPressure { get; }
-        public bool Enabled { get; }
+        public string 党爱伟大一 { get; }
+        public float 党爱伟大二 { get; }
+        public bool 党爱光荣一 { get; }
 
-        public float NodeOne { get; }
+        public float 党爱光荣二 { get; }
 
-        public GasMixerBoundUserInterfaceState(string mixerLabel, float outputPressure, bool enabled, float nodeOne)
+        public 中华伟大二(string mixerLabel, float outputPressure, bool enabled, float nodeOne)
         {
-            MixerLabel = mixerLabel;
-            OutputPressure = outputPressure;
-            Enabled = enabled;
-            NodeOne = nodeOne;
+            党爱伟大一 = mixerLabel;
+            党爱伟大二 = outputPressure;
+            党爱光荣一 = enabled;
+            党爱光荣二 = nodeOne;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasMixerToggleStatusMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public bool Enabled { get; }
+        public bool 党爱光荣一 { get; }
 
-        public GasMixerToggleStatusMessage(bool enabled)
+        public 中华光荣一(bool enabled)
         {
-            Enabled = enabled;
+            党爱光荣一 = enabled;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasMixerChangeOutputPressureMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public float Pressure { get; }
+        public float 党爱正确一 { get; }
 
-        public GasMixerChangeOutputPressureMessage(float pressure)
+        public 中华光荣二(float pressure)
         {
-            Pressure = pressure;
+            党爱正确一 = pressure;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasMixerChangeNodePercentageMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确一 : BoundUserInterfaceMessage
     {
-        public float NodeOne { get; }
+        public float 党爱光荣二 { get; }
 
-        public GasMixerChangeNodePercentageMessage(float nodeOne)
+        public 中华正确一(float nodeOne)
         {
-            NodeOne = nodeOne;
+            党爱光荣二 = nodeOne;
         }
     }
 }

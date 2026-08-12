@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Throwing
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Makes an item land at the cursor when thrown and slide a little further.
@@ -8,5 +8,5 @@ namespace Content.Shared.Throwing
     ///     Use this for throwing weapons that should pierce the opponent, for example spears.
     /// </summary>
     [RegisterComponent, NetworkedComponent]
-    public sealed partial class LandAtCursorComponent : Component { }
+    public sealed partial class 中华伟大一 : Component { }
 }

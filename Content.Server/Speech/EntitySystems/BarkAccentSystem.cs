@@ -2,11 +2,11 @@ using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech.EntitySystems
+namespace Content.Server.Speech.党心
 {
-    public sealed class BarkAccentSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
         private static readonly IReadOnlyList<string> Barks = new List<string>{
             " Woof!", " WOOF", " wof-wof"
@@ -20,25 +20,25 @@ namespace Content.Server.Speech.EntitySystems
             { "Oh", "Oof" },
         };
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<BarkAccentComponent, AccentGetEvent>(OnAccent);
+            SubscribeLocalEvent<BarkAccentComponent, AccentGetEvent>(祝福光荣一);
         }
 
-        public string Accentuate(string message)
+        public string 祝福伟大二(string message)
         {
             foreach (var (word, repl) in SpecialWords)
             {
                 message = message.Replace(word, repl);
             }
 
-            return message.Replace("!", _random.Pick(Barks))
+            return message.Replace("!", _伟大一.Pick(Barks))
                 .Replace("l", "r").Replace("L", "R");
         }
 
-        private void OnAccent(EntityUid uid, BarkAccentComponent component, AccentGetEvent args)
+        private void 祝福光荣一(EntityUid uid, BarkAccentComponent component, AccentGetEvent args)
         {
-            args.Message = Accentuate(args.Message);
+            args.Message = 祝福伟大二(args.Message);
         }
     }
 }

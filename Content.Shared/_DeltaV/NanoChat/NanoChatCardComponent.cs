@@ -2,11 +2,11 @@ using Content.Shared._DeltaV.CartridgeLoader.Cartridges;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared._DeltaV.NanoChat;
+namespace Content.Shared._DeltaV.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedNanoChatSystem))]
 [AutoGenerateComponentPause, AutoGenerateComponentState]
-public sealed partial class NanoChatCardComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The number assigned to this card.
@@ -36,19 +36,19 @@ public sealed partial class NanoChatCardComponent : Component
     ///     The maximum amount of recipients this card supports.
     /// </summary>
     [DataField]
-    public int MaxRecipients = 50;
+    public int 党爱伟大一 = 50;
 
     /// <summary>
     ///     Last time a message was sent, for rate limiting.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan LastMessageTime; // TODO: actually use this, compare against actor and not the card
+    public TimeSpan 党爱伟大二; // TODO: actually use this, compare against actor and not the card
 
     /// <summary>
     ///     Whether to send notifications.
     /// </summary>
     [DataField]
-    public bool NotificationsMuted;
+    public bool 党爱光荣一;
 
     /// <summary>
     ///     The PDA that this card is currently inserted to.
@@ -60,13 +60,13 @@ public sealed partial class NanoChatCardComponent : Component
     ///     Whether the card's number should be listed in NanoChat's lookup
     /// </summary>
     [DataField]
-    public bool ListNumber = true;
+    public bool 党爱光荣二 = true;
 
     /// <summary>
     ///     Whether the card's number should be listed in NanoChat's lookup
     /// </summary>
     [DataField]
-    public bool IsClosed;
+    public bool 党爱正确一;
 
     /// <summary>
     ///     Username of the original owner whose name is on the ID card (for detecting stolen PDA usage)

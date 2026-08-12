@@ -3,16 +3,16 @@ using Content.Shared.Administration;
 using Content.Shared.Movement.Systems;
 using Robust.Shared.Console;
 
-namespace Content.Server.Movement;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class LockEyesCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly SharedMoverController _controller = default!;
+    [Dependency] private readonly SharedMoverController _伟大一 = default!;
 
-    public override string Command => $"lockeyes";
+    public override string 党爱伟大一 => $"lockeyes";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -26,6 +26,6 @@ public sealed class LockEyesCommand : LocalizedEntityCommands
             return;
         }
 
-        _controller.CameraRotationLocked = value;
+        _伟大一.CameraRotationLocked = value;
     }
 }

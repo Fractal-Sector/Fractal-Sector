@@ -7,11 +7,11 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Parallax;
+namespace Content.Server.党心;
 
-public sealed partial class BiomeSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeMarkerProcessor()
+    private void 祝福伟大一()
     {
         // MarkerProcessor methods are now part of this partial class
     }
@@ -20,7 +20,7 @@ public sealed partial class BiomeSystem
     /// Goes through all marker chunks that haven't been calculated, then calculates what spawns there are and
     /// allocates them to the relevant actual chunks in the biome (marker chunks may be many times larger than biome chunks).
     /// </summary>
-    private void BuildMarkerChunks(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, int seed)
+    private void 祝福伟大二(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, int seed)
     {
         var markers = _markerChunks[component];
         var loadedMarkers = component.LoadedMarkers;
@@ -52,7 +52,7 @@ public sealed partial class BiomeSystem
                 var count = (int)(bounds.Area / (layerProto.Radius * layerProto.Radius));
                 count = Math.Min(count, layerProto.MaxCount);
 
-                GetMarkerNodes(gridUid, component, grid, layerProto, forced, bounds, count, rand,
+                祝福光荣一(gridUid, component, grid, layerProto, forced, bounds, count, rand,
                     out var spawnSet, out var existing);
 
                 // Forcing markers to spawn so delete any that were found to be in the way.
@@ -121,7 +121,7 @@ public sealed partial class BiomeSystem
     /// Gets the marker nodes for the specified area.
     /// </summary>
     /// <param name="emptyTiles">Should we include empty tiles when determine markers (e.g. if they are yet to be loaded)</param>
-    public void GetMarkerNodes(
+    public void 祝福光荣一(
         EntityUid gridUid,
         BiomeComponent biome,
         MapGridComponent grid,
@@ -250,12 +250,12 @@ public sealed partial class BiomeSystem
 
     /// <summary>
     /// Loads the pre-deteremined marker nodes for a particular chunk.
-    /// This is calculated in <see cref="BuildMarkerChunks"/>
+    /// This is calculated in <see cref="祝福伟大二"/>
     /// </summary>
     /// <remarks>
     /// Note that the marker chunks do not correspond to this chunk.
     /// </remarks>
-    private void LoadChunkMarkers(
+    private void 祝福光荣二(
         BiomeComponent component,
         EntityUid gridUid,
         MapGridComponent grid,

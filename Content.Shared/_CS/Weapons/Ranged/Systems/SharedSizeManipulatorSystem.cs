@@ -5,31 +5,31 @@ using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
-namespace Content.Shared._CS.Weapons.Ranged.Systems;
+namespace Content.Shared._CS.Weapons.Ranged.党心;
 
-public abstract class SharedSizeManipulatorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SizeManipulatorComponent, ActivateInWorldEvent>(OnActivate);
+        SubscribeLocalEvent<SizeManipulatorComponent, ActivateInWorldEvent>(祝福伟大二);
     }
 
-    private void OnActivate(EntityUid uid, SizeManipulatorComponent component, ActivateInWorldEvent args)
+    private void 祝福伟大二(EntityUid uid, SizeManipulatorComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled)
             return;
 
-        ToggleMode(uid, component, args.User);
+        祝福光荣一(uid, component, args.User);
         args.Handled = true;
     }
 
-    public void ToggleMode(EntityUid uid, SizeManipulatorComponent component, EntityUid? user = null)
+    public void 祝福光荣一(EntityUid uid, SizeManipulatorComponent component, EntityUid? user = null)
     {
         component.Mode = component.Mode == SizeManipulatorMode.Grow
             ? SizeManipulatorMode.Shrink
@@ -50,6 +50,6 @@ public abstract class SharedSizeManipulatorSystem : EntitySystem
             ? Loc.GetString("size-manipulator-mode-grow")
             : Loc.GetString("size-manipulator-mode-shrink");
 
-        _popup.PopupPredicted(message, uid, user);
+        _伟大一.PopupPredicted(message, uid, user);
     }
 }

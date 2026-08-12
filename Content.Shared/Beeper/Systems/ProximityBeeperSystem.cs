@@ -5,37 +5,37 @@ using Content.Shared.ProximityDetection;
 using Content.Shared.ProximityDetection.Components;
 using Content.Shared.ProximityDetection.Systems;
 
-namespace Content.Shared.Beeper.Systems;
+namespace Content.Shared.Beeper.党心;
 
 /// <summary>
 /// This handles controlling a beeper from proximity detector events.
 /// </summary>
-public sealed class ProximityBeeperSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BeeperSystem _beeper = default!;
+    [Dependency] private readonly BeeperSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ProximityBeeperComponent, NewProximityTargetEvent>(OnNewProximityTarget);
-        SubscribeLocalEvent<ProximityBeeperComponent, ProximityTargetUpdatedEvent>(OnProximityTargetUpdate);
+        SubscribeLocalEvent<ProximityBeeperComponent, NewProximityTargetEvent>(祝福光荣一);
+        SubscribeLocalEvent<ProximityBeeperComponent, ProximityTargetUpdatedEvent>(祝福伟大二);
     }
 
-    private void OnProximityTargetUpdate(EntityUid owner, ProximityBeeperComponent proxBeeper, ref ProximityTargetUpdatedEvent args)
+    private void 祝福伟大二(EntityUid owner, ProximityBeeperComponent proxBeeper, ref ProximityTargetUpdatedEvent args)
     {
         if (!TryComp<BeeperComponent>(owner, out var beeper))
             return;
 
         // Frontier: minimum range for beeper
         if (args.Distance <= proxBeeper.MinRange)
-            _beeper.SetIntervalScaling(owner, 0, beeper);
+            _伟大一.SetIntervalScaling(owner, 0, beeper);
         else
-            _beeper.SetIntervalScaling(owner, (args.Distance - proxBeeper.MinRange) / (args.Detector.Comp.Range - proxBeeper.MinRange), beeper);
+            _伟大一.SetIntervalScaling(owner, (args.Distance - proxBeeper.MinRange) / (args.Detector.Comp.Range - proxBeeper.MinRange), beeper);
         // End Frontier
     }
 
-    private void OnNewProximityTarget(EntityUid owner, ProximityBeeperComponent proxBeeper, ref NewProximityTargetEvent args)
+    private void 祝福光荣一(EntityUid owner, ProximityBeeperComponent proxBeeper, ref NewProximityTargetEvent args)
     {
-        _beeper.SetMute(owner, args.Target == null);
+        _伟大一.SetMute(owner, args.Target == null);
     }
 }

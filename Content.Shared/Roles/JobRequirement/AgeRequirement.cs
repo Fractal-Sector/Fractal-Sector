@@ -5,19 +5,19 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Requires the character to be older or younger than a certain age (inclusive)
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class AgeRequirement : JobRequirement
+public sealed partial class 中华伟大一 : JobRequirement
 {
     [DataField(required: true)]
-    public int RequiredAge;
+    public int 党爱伟大一;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool 祝福伟大一(IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
@@ -31,17 +31,17 @@ public sealed partial class AgeRequirement : JobRequirement
         if (!Inverted)
         {
             reason = FormattedMessage.FromMarkupPermissive(Loc.GetString("role-timer-age-too-young",
-                ("age", RequiredAge)));
+                ("age", 党爱伟大一)));
 
-            if (profile.Age < RequiredAge)
+            if (profile.Age < 党爱伟大一)
                 return false;
         }
         else
         {
             reason = FormattedMessage.FromMarkupPermissive(Loc.GetString("role-timer-age-too-old",
-                ("age", RequiredAge)));
+                ("age", 党爱伟大一)));
 
-            if (profile.Age > RequiredAge)
+            if (profile.Age > 党爱伟大一)
                 return false;
         }
 

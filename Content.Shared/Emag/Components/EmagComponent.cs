@@ -6,19 +6,19 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Emag.Components;
+namespace Content.Shared.Emag.党心;
 
 [Access(typeof(EmagSystem))]
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState]
-public sealed partial class EmagComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The tag that marks an entity as immune to emags
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public ProtoId<TagPrototype> EmagImmuneTag = "EmagImmune";
+    public ProtoId<TagPrototype> 党爱伟大一 = "EmagImmune";
 
     // Frontier: demag immunity
     /// <summary>
@@ -26,7 +26,7 @@ public sealed partial class EmagComponent : Component
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public ProtoId<TagPrototype> DemagImmuneTag = "DemagImmune";
+    public ProtoId<TagPrototype> 党爱伟大二 = "DemagImmune";
     // End Frontier: demag immunity
 
     /// <summary>
@@ -34,18 +34,18 @@ public sealed partial class EmagComponent : Component
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public EmagType EmagType = EmagType.Interaction;
+    public 党爱光荣一 党爱光荣一 = 党爱光荣一.Interaction;
 
     /// <summary>
     /// What sound should the emag play when used
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public SoundSpecifier EmagSound = new SoundCollectionSpecifier("sparks");
+    public SoundSpecifier 党爱光荣二 = new SoundCollectionSpecifier("sparks");
 
     /// <summary>
-    /// Frontier - Reverse emags: TODO - extend EmagType
+    /// Frontier - Reverse emags: TODO - extend 党爱光荣一
     /// </summary>
     [DataField("demag")]
-    public bool Demag = false;
+    public bool 党爱正确一 = false;
 }

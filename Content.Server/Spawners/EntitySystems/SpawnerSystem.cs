@@ -2,53 +2,53 @@ using Content.Server.Spawners.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Spawners.EntitySystems;
+namespace Content.Server.Spawners.党心;
 
-public sealed class SpawnerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TimedSpawnerComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<TimedSpawnerComponent, MapInitEvent>(祝福光荣一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         var query = EntityQueryEnumerator<TimedSpawnerComponent>();
         while (query.MoveNext(out var uid, out var timedSpawner))
         {
             if (timedSpawner.NextFire > curTime)
                 continue;
 
-            OnTimerFired(uid, timedSpawner);
+            祝福光荣二(uid, timedSpawner);
 
             timedSpawner.NextFire += timedSpawner.IntervalSeconds;
         }
     }
 
-    private void OnMapInit(Entity<TimedSpawnerComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<TimedSpawnerComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextFire = _timing.CurTime + ent.Comp.IntervalSeconds;
+        ent.Comp.NextFire = _伟大一.CurTime + ent.Comp.IntervalSeconds;
     }
 
-    private void OnTimerFired(EntityUid uid, TimedSpawnerComponent component)
+    private void 祝福光荣二(EntityUid uid, TimedSpawnerComponent component)
     {
-        if (!_random.Prob(component.Chance))
+        if (!_伟大二.Prob(component.Chance))
             return;
 
-        var number = _random.Next(component.MinimumEntitiesSpawned, component.MaximumEntitiesSpawned);
+        var number = _伟大二.Next(component.MinimumEntitiesSpawned, component.MaximumEntitiesSpawned);
         var coordinates = Transform(uid).Coordinates;
 
         for (var i = 0; i < number; i++)
         {
-            var entity = _random.Pick(component.Prototypes);
+            var entity = _伟大二.Pick(component.Prototypes);
             SpawnAtPosition(entity, coordinates);
         }
     }

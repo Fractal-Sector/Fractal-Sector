@@ -25,69 +25,69 @@ using Content.Shared.Mobs.Components; // Frontier
 using Content.Shared.NPC.Components;
 using Content.Shared._NF.Mech.Equipment.Events; // Frontier
 
-namespace Content.Shared.Mech.EntitySystems;
+namespace Content.Shared.Mech.党心;
 
 /// <summary>
 /// Handles all of the interactions, UI handling, and items shennanigans for <see cref="MechComponent"/>
 /// </summary>
-public abstract partial class SharedMechSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedActionsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确一 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确二 = default!;
+    [Dependency] private readonly SharedInteractionSystem _团结一 = default!;
+    [Dependency] private readonly SharedMoverController _团结二 = default!;
+    [Dependency] private readonly SharedPopupSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _奋斗二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _胜利一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MechComponent, MechToggleEquipmentEvent>(OnToggleEquipmentAction);
-        SubscribeLocalEvent<MechComponent, MechEjectPilotEvent>(OnEjectPilotEvent);
-        SubscribeLocalEvent<MechComponent, UserActivateInWorldEvent>(RelayInteractionEvent);
-        SubscribeLocalEvent<MechComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<MechComponent, DestructionEventArgs>(OnDestruction);
-        SubscribeLocalEvent<MechComponent, EntityStorageIntoContainerAttemptEvent>(OnEntityStorageDump);
-        SubscribeLocalEvent<MechComponent, GetAdditionalAccessEvent>(OnGetAdditionalAccess);
-        SubscribeLocalEvent<MechComponent, DragDropTargetEvent>(OnDragDrop);
-        SubscribeLocalEvent<MechComponent, CanDropTargetEvent>(OnCanDragDrop);
+        SubscribeLocalEvent<MechComponent, MechToggleEquipmentEvent>(祝福伟大二);
+        SubscribeLocalEvent<MechComponent, MechEjectPilotEvent>(祝福光荣一);
+        SubscribeLocalEvent<MechComponent, UserActivateInWorldEvent>(祝福光荣二);
+        SubscribeLocalEvent<MechComponent, ComponentStartup>(祝福正确一);
+        SubscribeLocalEvent<MechComponent, DestructionEventArgs>(祝福正确二);
+        SubscribeLocalEvent<MechComponent, EntityStorageIntoContainerAttemptEvent>(祝福团结一);
+        SubscribeLocalEvent<MechComponent, GetAdditionalAccessEvent>(祝福团结二);
+        SubscribeLocalEvent<MechComponent, DragDropTargetEvent>(祝福平等二);
+        SubscribeLocalEvent<MechComponent, CanDropTargetEvent>(祝福公正一);
 
-        SubscribeLocalEvent<MechPilotComponent, GetMeleeWeaponEvent>(OnGetMeleeWeapon);
-        SubscribeLocalEvent<MechPilotComponent, CanAttackFromContainerEvent>(OnCanAttackFromContainer);
-        SubscribeLocalEvent<MechPilotComponent, AttackAttemptEvent>(OnAttackAttempt);
+        SubscribeLocalEvent<MechPilotComponent, GetMeleeWeaponEvent>(祝福和谐二);
+        SubscribeLocalEvent<MechPilotComponent, CanAttackFromContainerEvent>(祝福自由一);
+        SubscribeLocalEvent<MechPilotComponent, AttackAttemptEvent>(祝福自由二);
 
         InitializeRelay();
     }
 
-    private void OnToggleEquipmentAction(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
+    private void 祝福伟大二(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
     {
         if (args.Handled)
             return;
         args.Handled = true;
-        CycleEquipment(uid);
+        祝福胜利二(uid);
     }
 
-    private void OnEjectPilotEvent(EntityUid uid, MechComponent component, MechEjectPilotEvent args)
+    private void 祝福光荣一(EntityUid uid, MechComponent component, MechEjectPilotEvent args)
     {
         if (args.Handled)
             return;
         args.Handled = true;
-        TryEject(uid, component);
+        祝福和谐一(uid, component);
     }
 
-    private void RelayInteractionEvent(EntityUid uid, MechComponent component, UserActivateInWorldEvent args)
+    private void 祝福光荣二(EntityUid uid, MechComponent component, UserActivateInWorldEvent args)
     {
         var pilot = component.PilotSlot.ContainedEntity;
         if (pilot == null)
             return;
 
         // TODO why is this being blocked?
-        if (!_timing.IsFirstTimePredicted)
+        if (!_伟大一.IsFirstTimePredicted)
             return;
 
         if (component.CurrentSelectedEquipment != null)
@@ -96,26 +96,26 @@ public abstract partial class SharedMechSystem : EntitySystem
         }
     }
 
-    private void OnStartup(EntityUid uid, MechComponent component, ComponentStartup args)
+    private void 祝福正确一(EntityUid uid, MechComponent component, ComponentStartup args)
     {
-        component.PilotSlot = _container.EnsureContainer<ContainerSlot>(uid, component.PilotSlotId);
-        component.EquipmentContainer = _container.EnsureContainer<Container>(uid, component.EquipmentContainerId);
-        component.BatterySlot = _container.EnsureContainer<ContainerSlot>(uid, component.BatterySlotId);
-        UpdateAppearance(uid, component);
+        component.PilotSlot = _正确二.EnsureContainer<ContainerSlot>(uid, component.PilotSlotId);
+        component.EquipmentContainer = _正确二.EnsureContainer<Container>(uid, component.EquipmentContainerId);
+        component.BatterySlot = _正确二.EnsureContainer<ContainerSlot>(uid, component.BatterySlotId);
+        祝福平等一(uid, component);
     }
 
-    private void OnDestruction(EntityUid uid, MechComponent component, DestructionEventArgs args)
+    private void 祝福正确二(EntityUid uid, MechComponent component, DestructionEventArgs args)
     {
-        BreakMech(uid, component);
+        祝福胜利一(uid, component);
     }
 
-    private void OnEntityStorageDump(Entity<MechComponent> entity, ref EntityStorageIntoContainerAttemptEvent args)
+    private void 祝福团结一(Entity<MechComponent> entity, ref EntityStorageIntoContainerAttemptEvent args)
     {
         // There's no reason we should dump into /any/ of the mech's containers.
         args.Cancelled = true;
     }
 
-    private void OnGetAdditionalAccess(EntityUid uid, MechComponent component, ref GetAdditionalAccessEvent args)
+    private void 祝福团结二(EntityUid uid, MechComponent component, ref GetAdditionalAccessEvent args)
     {
         var pilot = component.PilotSlot.ContainedEntity;
         if (pilot == null)
@@ -124,7 +124,7 @@ public abstract partial class SharedMechSystem : EntitySystem
         args.Entities.Add(pilot.Value);
     }
 
-    private void SetupUser(EntityUid mech, EntityUid pilot, MechComponent? component = null)
+    private void 祝福奋斗一(EntityUid mech, EntityUid pilot, MechComponent? component = null)
     {
         if (!Resolve(mech, ref component))
             return;
@@ -134,33 +134,33 @@ public abstract partial class SharedMechSystem : EntitySystem
         // Warning: this bypasses most normal interaction blocking components on the user, like drone laws and the like.
         var irelay = EnsureComp<InteractionRelayComponent>(pilot);
 
-        _mover.SetRelay(pilot, mech);
-        _interaction.SetRelay(pilot, mech, irelay);
+        _团结二.SetRelay(pilot, mech);
+        _团结一.SetRelay(pilot, mech, irelay);
         rider.Mech = mech;
         Dirty(pilot, rider);
 
-        if (_net.IsClient)
+        if (_伟大二.IsClient)
             return;
 
-        _actions.AddAction(pilot, ref component.MechCycleActionEntity, component.MechCycleAction, mech);
-        _actions.AddAction(pilot, ref component.MechUiActionEntity, component.MechUiAction, mech);
-        _actions.AddAction(pilot, ref component.MechEjectActionEntity, component.MechEjectAction, mech);
+        _光荣二.AddAction(pilot, ref component.MechCycleActionEntity, component.MechCycleAction, mech);
+        _光荣二.AddAction(pilot, ref component.MechUiActionEntity, component.MechUiAction, mech);
+        _光荣二.AddAction(pilot, ref component.MechEjectActionEntity, component.MechEjectAction, mech);
 
-        RaiseEquipmentEquippedEvent((mech, component), pilot); // Frontier (note: must send pilot separately, not yet in their seat)
+        祝福公正二((mech, component), pilot); // Frontier (note: must send pilot separately, not yet in their seat)
     }
 
-    private void RemoveUser(EntityUid mech, EntityUid pilot)
+    private void 祝福奋斗二(EntityUid mech, EntityUid pilot)
     {
         if (!RemComp<MechPilotComponent>(pilot))
             return;
         RemComp<RelayInputMoverComponent>(pilot);
         RemComp<InteractionRelayComponent>(pilot);
 
-        _actions.RemoveProvidedActions(pilot, mech);
+        _光荣二.RemoveProvidedActions(pilot, mech);
 
         // Frontier
         if (TryComp<MechComponent>(mech, out var mechComp) && mechComp.CurrentSelectedEquipment != null)
-            _actions.RemoveProvidedActions(pilot, mechComp.CurrentSelectedEquipment.Value);
+            _光荣二.RemoveProvidedActions(pilot, mechComp.CurrentSelectedEquipment.Value);
         // End Frontier
     }
 
@@ -169,25 +169,25 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    public virtual void BreakMech(EntityUid uid, MechComponent? component = null)
+    public virtual void 祝福胜利一(EntityUid uid, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        TryEject(uid, component);
+        祝福和谐一(uid, component);
         var equipment = new List<EntityUid>(component.EquipmentContainer.ContainedEntities);
         // Frontier: optionally removable equipment
         if (component.CanRemoveEquipment)
         {
             foreach (var ent in equipment)
             {
-                RemoveEquipment(uid, ent, component, forced: true);
+                祝福繁荣二(uid, ent, component, forced: true);
             }
         }
         // End Frontier
 
         component.Broken = true;
-        UpdateAppearance(uid, component);
+        祝福平等一(uid, component);
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    public void CycleEquipment(EntityUid uid, MechComponent? component = null)
+    public void 祝福胜利二(EntityUid uid, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -211,7 +211,7 @@ public abstract partial class SharedMechSystem : EntitySystem
 
         // Frontier
         if (component.PilotSlot.ContainedEntity != null && component.CurrentSelectedEquipment != null)
-            _actions.RemoveProvidedActions(component.PilotSlot.ContainedEntity.Value, component.CurrentSelectedEquipment.Value);
+            _光荣二.RemoveProvidedActions(component.PilotSlot.ContainedEntity.Value, component.CurrentSelectedEquipment.Value);
         // End Frontier
 
         equipmentIndex++;
@@ -223,10 +223,10 @@ public abstract partial class SharedMechSystem : EntitySystem
             ? Loc.GetString("mech-equipment-select-popup", ("item", component.CurrentSelectedEquipment))
             : Loc.GetString("mech-equipment-select-none-popup");
 
-        if (_net.IsServer)
-            _popup.PopupEntity(popupString, uid);
+        if (_伟大二.IsServer)
+            _奋斗一.PopupEntity(popupString, uid);
 
-        RaiseEquipmentEquippedEvent((uid, component)); // Frontier
+        祝福公正二((uid, component)); // Frontier
 
         Dirty(uid, component);
     }
@@ -238,7 +238,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="toInsert"></param>
     /// <param name="component"></param>
     /// <param name="equipmentComponent"></param>
-    public void InsertEquipment(EntityUid uid, EntityUid toInsert, MechComponent? component = null,
+    public void 祝福繁荣一(EntityUid uid, EntityUid toInsert, MechComponent? component = null,
         MechEquipmentComponent? equipmentComponent = null)
     {
         if (!Resolve(uid, ref component))
@@ -250,14 +250,14 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (component.EquipmentContainer.ContainedEntities.Count >= component.MaxEquipmentAmount)
             return;
 
-        if (_whitelistSystem.IsWhitelistFail(component.EquipmentWhitelist, toInsert))
+        if (_胜利一.IsWhitelistFail(component.EquipmentWhitelist, toInsert))
             return;
 
         equipmentComponent.EquipmentOwner = uid;
-        _container.Insert(toInsert, component.EquipmentContainer);
+        _正确二.Insert(toInsert, component.EquipmentContainer);
         var ev = new MechEquipmentInsertedEvent(uid);
         RaiseLocalEvent(toInsert, ref ev);
-        UpdateUserInterface(uid, component);
+        祝福文明一(uid, component);
     }
 
     /// <summary>
@@ -270,14 +270,14 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="forced">
     ///     Whether or not the removal can be cancelled, and if non-mech equipment should be ejected.
     /// </param>
-    public void RemoveEquipment(EntityUid uid, EntityUid toRemove, MechComponent? component = null,
+    public void 祝福繁荣二(EntityUid uid, EntityUid toRemove, MechComponent? component = null,
         MechEquipmentComponent? equipmentComponent = null, bool forced = false)
     {
         if (!Resolve(uid, ref component))
             return;
 
         // When forced, we also want to handle the possibility that the "equipment" isn't actually equipment.
-        // This /shouldn't/ be possible thanks to OnEntityStorageDump, but there's been quite a few regressions
+        // This /shouldn't/ be possible thanks to 祝福团结一, but there's been quite a few regressions
         // with entities being hardlock stuck inside mechs.
         if (!Resolve(toRemove, ref equipmentComponent) && !forced)
             return;
@@ -294,13 +294,13 @@ public abstract partial class SharedMechSystem : EntitySystem
         RaiseLocalEvent(toRemove, ref ev);
 
         if (component.CurrentSelectedEquipment == toRemove)
-            CycleEquipment(uid, component);
+            祝福胜利二(uid, component);
 
         if (forced && equipmentComponent != null)
             equipmentComponent.EquipmentOwner = null;
 
-        _container.Remove(toRemove, component.EquipmentContainer);
-        UpdateUserInterface(uid, component);
+        _正确二.Remove(toRemove, component.EquipmentContainer);
+        祝福文明一(uid, component);
     }
 
     /// <summary>
@@ -310,7 +310,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="delta">The change in energy</param>
     /// <param name="component"></param>
     /// <returns>If the energy was successfully changed.</returns>
-    public virtual bool TryChangeEnergy(EntityUid uid, FixedPoint2 delta, MechComponent? component = null)
+    public virtual bool 祝福富强一(EntityUid uid, FixedPoint2 delta, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -320,7 +320,7 @@ public abstract partial class SharedMechSystem : EntitySystem
 
         component.Energy = FixedPoint2.Clamp(component.Energy + delta, 0, component.MaxEnergy);
         Dirty(uid, component);
-        UpdateUserInterface(uid, component);
+        祝福文明一(uid, component);
         return true;
     }
 
@@ -330,7 +330,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="uid">The mech itself</param>
     /// <param name="value">The value the integrity will be set at</param>
     /// <param name="component"></param>
-    public void SetIntegrity(EntityUid uid, FixedPoint2 value, MechComponent? component = null)
+    public void 祝福富强二(EntityUid uid, FixedPoint2 value, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -339,16 +339,16 @@ public abstract partial class SharedMechSystem : EntitySystem
 
         if (component.Integrity <= 0)
         {
-            BreakMech(uid, component);
+            祝福胜利一(uid, component);
         }
         else if (component.Broken)
         {
             component.Broken = false;
-            UpdateAppearance(uid, component);
+            祝福平等一(uid, component);
         }
 
         Dirty(uid, component);
-        UpdateUserInterface(uid, component);
+        祝福文明一(uid, component);
     }
 
     /// <summary>
@@ -356,7 +356,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// </summary>
     /// <param name="component"></param>
     /// <returns>Whether or not the pilot is present</returns>
-    public bool IsEmpty(MechComponent component)
+    public bool 祝福民主一(MechComponent component)
     {
         return component.PilotSlot.ContainedEntity == null;
     }
@@ -368,12 +368,12 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="toInsert"></param>
     /// <param name="component"></param>
     /// <returns></returns>
-    public bool CanInsert(EntityUid uid, EntityUid toInsert, MechComponent? component = null)
+    public bool 祝福民主二(EntityUid uid, EntityUid toInsert, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
 
-        return IsEmpty(component) && _actionBlocker.CanMove(toInsert);
+        return 祝福民主一(component) && _光荣一.CanMove(toInsert);
     }
 
     /// <summary>
@@ -382,7 +382,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <remarks>
     /// This is defined here so that UI updates can be accessed from shared.
     /// </remarks>
-    public virtual void UpdateUserInterface(EntityUid uid, MechComponent? component = null)
+    public virtual void 祝福文明一(EntityUid uid, MechComponent? component = null)
     {
     }
 
@@ -393,7 +393,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="toInsert"></param>
     /// <param name="component"></param>
     /// <returns>Whether or not the entity was inserted</returns>
-    public bool TryInsert(EntityUid uid, EntityUid? toInsert, MechComponent? component = null)
+    public bool 祝福文明二(EntityUid uid, EntityUid? toInsert, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -401,12 +401,12 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (toInsert == null || component.PilotSlot.ContainedEntity == toInsert)
             return false;
 
-        if (!CanInsert(uid, toInsert.Value, component))
+        if (!祝福民主二(uid, toInsert.Value, component))
             return false;
 
-        SetupUser(uid, toInsert.Value);
-        _container.Insert(toInsert.Value, component.PilotSlot);
-        UpdateAppearance(uid, component);
+        祝福奋斗一(uid, toInsert.Value);
+        _正确二.Insert(toInsert.Value, component.PilotSlot);
+        祝福平等一(uid, component);
         return true;
     }
 
@@ -416,7 +416,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="component"></param>
     /// <returns>Whether or not the pilot was ejected.</returns>
-    public bool TryEject(EntityUid uid, MechComponent? component = null)
+    public bool 祝福和谐一(EntityUid uid, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -426,9 +426,9 @@ public abstract partial class SharedMechSystem : EntitySystem
 
         var pilot = component.PilotSlot.ContainedEntity.Value;
 
-        RemoveUser(uid, pilot);
-        _container.RemoveEntity(uid, pilot);
-        UpdateAppearance(uid, component);
+        祝福奋斗二(uid, pilot);
+        _正确二.RemoveEntity(uid, pilot);
+        祝福平等一(uid, component);
 
         // Frontier - Make NPC AI attack Mechs
         if (TryComp<MobStateComponent>(uid, out var _))
@@ -440,7 +440,7 @@ public abstract partial class SharedMechSystem : EntitySystem
         return true;
     }
 
-    private void OnGetMeleeWeapon(EntityUid uid, MechPilotComponent component, GetMeleeWeaponEvent args)
+    private void 祝福和谐二(EntityUid uid, MechPilotComponent component, GetMeleeWeaponEvent args)
     {
         if (args.Handled)
             return;
@@ -453,53 +453,53 @@ public abstract partial class SharedMechSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnCanAttackFromContainer(EntityUid uid, MechPilotComponent component, CanAttackFromContainerEvent args)
+    private void 祝福自由一(EntityUid uid, MechPilotComponent component, CanAttackFromContainerEvent args)
     {
         args.CanAttack = true;
     }
 
-    private void OnAttackAttempt(EntityUid uid, MechPilotComponent component, AttackAttemptEvent args)
+    private void 祝福自由二(EntityUid uid, MechPilotComponent component, AttackAttemptEvent args)
     {
         if (args.Target == component.Mech)
             args.Cancel();
     }
 
-    private void UpdateAppearance(EntityUid uid, MechComponent? component = null,
+    private void 祝福平等一(EntityUid uid, MechComponent? component = null,
         AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref component, ref appearance, false))
             return;
 
-        _appearance.SetData(uid, MechVisuals.Open, IsEmpty(component), appearance);
-        _appearance.SetData(uid, MechVisuals.Broken, component.Broken, appearance);
+        _正确一.SetData(uid, MechVisuals.Open, 祝福民主一(component), appearance);
+        _正确一.SetData(uid, MechVisuals.Broken, component.Broken, appearance);
     }
 
-    private void OnDragDrop(EntityUid uid, MechComponent component, ref DragDropTargetEvent args)
+    private void 祝福平等二(EntityUid uid, MechComponent component, ref DragDropTargetEvent args)
     {
         if (args.Handled)
             return;
 
         args.Handled = true;
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, args.Dragged, component.EntryDelay, new MechEntryEvent(), uid, target: uid)
+        var doAfterEventArgs = new DoAfterArgs(EntityManager, args.Dragged, component.EntryDelay, new 中华光荣二(), uid, target: uid)
         {
             BreakOnMove = true,
         };
 
-        _doAfter.TryStartDoAfter(doAfterEventArgs);
+        _奋斗二.TryStartDoAfter(doAfterEventArgs);
     }
 
-    private void OnCanDragDrop(EntityUid uid, MechComponent component, ref CanDropTargetEvent args)
+    private void 祝福公正一(EntityUid uid, MechComponent component, ref CanDropTargetEvent args)
     {
         args.Handled = true;
 
-        args.CanDrop |= !component.Broken && CanInsert(uid, args.Dragged, component);
+        args.CanDrop |= !component.Broken && 祝福民主二(uid, args.Dragged, component);
     }
 
     // Frontier
-    private void RaiseEquipmentEquippedEvent(Entity<MechComponent> ent, EntityUid? pilot = null)
+    private void 祝福公正二(Entity<MechComponent> ent, EntityUid? pilot = null)
     {
-        if (_net.IsServer && ent.Comp.CurrentSelectedEquipment != null)
+        if (_伟大二.IsServer && ent.Comp.CurrentSelectedEquipment != null)
         {
             var ev = new MechEquipmentEquippedAction
             {
@@ -517,7 +517,7 @@ public abstract partial class SharedMechSystem : EntitySystem
 ///     on both success and failure
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class RemoveBatteryEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大二 : SimpleDoAfterEvent
 {
 }
 
@@ -526,7 +526,7 @@ public sealed partial class RemoveBatteryEvent : SimpleDoAfterEvent
 ///     on both success and failure
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class MechExitEvent : SimpleDoAfterEvent
+public sealed partial class 中华光荣一 : SimpleDoAfterEvent
 {
 }
 
@@ -534,6 +534,6 @@ public sealed partial class MechExitEvent : SimpleDoAfterEvent
 ///     Event raised when a person enters a mech, on both success and failure
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class MechEntryEvent : SimpleDoAfterEvent
+public sealed partial class 中华光荣二 : SimpleDoAfterEvent
 {
 }

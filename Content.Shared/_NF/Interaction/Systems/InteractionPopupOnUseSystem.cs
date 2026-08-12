@@ -15,59 +15,59 @@ using Robust.Shared.Timing;
 using Content.Shared.DoAfter;
 using Content.Shared._NF.Interaction.Events;
 
-namespace Content.Shared._NF.Interaction.Systems;
+namespace Content.Shared._NF.Interaction.党心;
 
 /// <summary>
 /// A system for RP fluff items - display a popup after some amount of time and optionally trigger other things.
 /// </summary>
-public sealed class InteractionPopupOnUseSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SharedInteractionSystem _伟大一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
+    [Dependency] private readonly INetManager _正确二 = default!;
+    [Dependency] private readonly IRobustRandom _团结一 = default!;
+    [Dependency] private readonly IGameTiming _团结二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _奋斗一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InteractionPopupOnUseComponent, UseInHandEvent>(OnUseOnSelf);
-        SubscribeLocalEvent<InteractionPopupOnUseComponent, AfterInteractEvent>(OnUseOnOthers);
-        SubscribeLocalEvent<InteractionPopupOnUseComponent, GetVerbsEvent<UtilityVerb>>(AddVerb);
-        SubscribeLocalEvent<InteractionPopupOnUseComponent, InteractionPopupOnUseDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<InteractionPopupOnUseComponent, UseInHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<InteractionPopupOnUseComponent, AfterInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<InteractionPopupOnUseComponent, GetVerbsEvent<UtilityVerb>>(祝福奋斗一);
+        SubscribeLocalEvent<InteractionPopupOnUseComponent, InteractionPopupOnUseDoAfterEvent>(祝福正确一);
     }
 
     /// <summary>
     /// Perform an interaction on yourself.
     /// </summary>
-    private void OnUseOnSelf(Entity<InteractionPopupOnUseComponent> entity, ref UseInHandEvent args)
+    private void 祝福伟大二(Entity<InteractionPopupOnUseComponent> entity, ref UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
-        args.Handled = Interact(args.User, args.User, entity, entity.Comp);
+        args.Handled = 祝福光荣二(args.User, args.User, entity, entity.Comp);
     }
 
     /// <summary>
     /// Perform an interaction on somebody else.
     /// </summary>
-    private void OnUseOnOthers(Entity<InteractionPopupOnUseComponent> entity, ref AfterInteractEvent args)
+    private void 祝福光荣一(Entity<InteractionPopupOnUseComponent> entity, ref AfterInteractEvent args)
     {
         if (args.Handled || args.Target == null || !args.CanReach)
             return;
 
-        args.Handled = Interact(args.User, args.Target.Value, entity, entity.Comp);
+        args.Handled = 祝福光荣二(args.User, args.Target.Value, entity, entity.Comp);
     }
 
     /// <summary>
     /// Interaction logic - checks target validity, prints out messages ad hoc, starts a doafter for delayed interactions.
     /// </summary>
-    public bool Interact(EntityUid user, EntityUid target, EntityUid item, InteractionPopupOnUseComponent comp)
+    public bool 祝福光荣二(EntityUid user, EntityUid target, EntityUid item, InteractionPopupOnUseComponent comp)
     {
         bool self = target == user;
         InteractionData data;
@@ -86,35 +86,35 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
             data = comp.Others.Value;
         }
 
-        if (_whitelist.IsWhitelistFail(comp.Whitelist, target))
+        if (_伟大二.IsWhitelistFail(comp.Whitelist, target))
         {
-            if (data.WhitelistFailed != null && _net.IsClient && _gameTiming.IsFirstTimePredicted)
+            if (data.WhitelistFailed != null && _正确二.IsClient && _团结二.IsFirstTimePredicted)
             {
                 var msg = Loc.GetString(data.WhitelistFailed, ("target", Identity.Entity(target, EntityManager)));
-                _popup.PopupEntity(msg, user, Filter.Local(), true);
+                _光荣一.PopupEntity(msg, user, Filter.Local(), true);
             }
             return false;
         }
 
         if (data.Delay.TotalSeconds <= 0)
         {
-            DoPopup(user, target, item, comp);
+            祝福正确二(user, target, item, comp);
         }
         else
         {
             if (data.Observers.Start != null)
-                ShowPopupForObservers(user, target, data.Observers.Start);
+                祝福团结一(user, target, data.Observers.Start);
 
-            if (_net.IsClient && !self && data.Actor.Start != null) // Filter by client before we process this string.
+            if (_正确二.IsClient && !self && data.Actor.Start != null) // Filter by client before we process this string.
             {
                 var msg = Loc.GetString(data.Actor.Start, ("target", Identity.Entity(target, EntityManager)));
-                _popup.PopupClient(msg, target, user);
+                _光荣一.PopupClient(msg, target, user);
             }
 
-            if (_net.IsServer && data.Target.Start != null)
-                ShowPopupForTarget(user, target, data.Target.Start);
+            if (_正确二.IsServer && data.Target.Start != null)
+                祝福团结二(user, target, data.Target.Start);
 
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, data.Delay, new InteractionPopupOnUseDoAfterEvent(), item, target: target, used: item)
+            _奋斗一.TryStartDoAfter(new DoAfterArgs(EntityManager, user, data.Delay, new InteractionPopupOnUseDoAfterEvent(), item, target: target, used: item)
             {
                 NeedHand = true,
                 BreakOnMove = true,
@@ -124,15 +124,15 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
         return true;
     }
 
-    private void OnDoAfter(Entity<InteractionPopupOnUseComponent> entity, ref InteractionPopupOnUseDoAfterEvent args)
+    private void 祝福正确一(Entity<InteractionPopupOnUseComponent> entity, ref InteractionPopupOnUseDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || entity.Comp.Deleted || args.Target == null)
             return;
 
-        if (!_interaction.InRangeUnobstructed(args.User, args.Target.Value))
+        if (!_伟大一.InRangeUnobstructed(args.User, args.Target.Value))
             return;
 
-        DoPopup(args.User, args.Target.Value, entity, entity.Comp);
+        祝福正确二(args.User, args.Target.Value, entity, entity.Comp);
 
         args.Handled = true;
     }
@@ -143,13 +143,13 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
     /// <remarks>
     /// Based largely on InteractionPopupSystem.SharedInteract.
     /// </remarks>
-    private void DoPopup(EntityUid user, EntityUid target, EntityUid item, InteractionPopupOnUseComponent comp)
+    private void 祝福正确二(EntityUid user, EntityUid target, EntityUid item, InteractionPopupOnUseComponent comp)
     {
         var predict = (comp.SuccessChance <= 0f || comp.SuccessChance >= 1f)
                       && comp.InteractSuccessSpawn == null
                       && comp.InteractFailureSpawn == null;
 
-        if (_net.IsClient && !predict)
+        if (_正确二.IsClient && !predict)
             return;
 
         var self = user == target;
@@ -170,22 +170,22 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
         string? actorMsg = null; // Stores the text to be shown to the actor in the popup message.
         SoundSpecifier? sfx = null; // Stores the filepath of the sound to be played
 
-        if (_random.Prob(comp.SuccessChance))
+        if (_团结一.Prob(comp.SuccessChance))
         {
             if (data.Observers.Success != null)
-                ShowPopupForObservers(user, target, data.Observers.Success);
+                祝福团结一(user, target, data.Observers.Success);
 
             if (data.Actor.Success != null)
                 actorMsg = Loc.GetString(data.Actor.Success, ("target", Identity.Entity(target, EntityManager)));
 
-            if (_net.IsServer && !self && data.Target.Success != null)
-                ShowPopupForTarget(user, target, data.Target.Success);
+            if (_正确二.IsServer && !self && data.Target.Success != null)
+                祝福团结二(user, target, data.Target.Success);
 
             if (comp.InteractSuccessSound != null)
                 sfx = comp.InteractSuccessSound;
 
             if (comp.InteractSuccessSpawn != null)
-                Spawn(comp.InteractSuccessSpawn, _transform.GetMapCoordinates(target));
+                Spawn(comp.InteractSuccessSpawn, _正确一.GetMapCoordinates(target));
 
             var ev = new InteractionPopupOnUseSuccessEvent(item, user, target);
             RaiseLocalEvent(item, ref ev);
@@ -193,19 +193,19 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
         else
         {
             if (data.Observers.Failure != null)
-                ShowPopupForObservers(user, target, data.Observers.Failure);
+                祝福团结一(user, target, data.Observers.Failure);
 
             if (data.Actor.Failure != null)
                 actorMsg = Loc.GetString(data.Actor.Failure, ("target", Identity.Entity(target, EntityManager)));
 
-            if (_net.IsServer && !self && data.Target.Failure != null)
-                ShowPopupForTarget(user, target, data.Target.Failure);
+            if (_正确二.IsServer && !self && data.Target.Failure != null)
+                祝福团结二(user, target, data.Target.Failure);
 
             if (comp.InteractFailureSound != null)
                 sfx = comp.InteractFailureSound;
 
             if (comp.InteractFailureSpawn != null)
-                Spawn(comp.InteractFailureSpawn, _transform.GetMapCoordinates(target));
+                Spawn(comp.InteractFailureSpawn, _正确一.GetMapCoordinates(target));
 
             var ev = new InteractionPopupOnUseFailureEvent(item, user, target);
             RaiseLocalEvent(item, ref ev);
@@ -214,49 +214,49 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
         if (!predict)
         {
             if (actorMsg != null)
-                _popup.PopupEntity(actorMsg, target, user);
+                _光荣一.PopupEntity(actorMsg, target, user);
 
             if (comp.SoundPerceivedByOthers)
-                _audio.PlayPvs(sfx, target);
+                _光荣二.PlayPvs(sfx, target);
             else
-                _audio.PlayEntity(sfx, Filter.Entities(user, target), target, false);
+                _光荣二.PlayEntity(sfx, Filter.Entities(user, target), target, false);
             return;
         }
 
         if (actorMsg != null)
-            _popup.PopupClient(actorMsg, target, user);
+            _光荣一.PopupClient(actorMsg, target, user);
 
         if (sfx == null)
             return;
 
-        if (comp.SoundPerceivedByOthers || _net.IsClient)
-            _audio.PlayPredicted(sfx, target, user);
+        if (comp.SoundPerceivedByOthers || _正确二.IsClient)
+            _光荣二.PlayPredicted(sfx, target, user);
         else
-            _audio.PlayEntity(sfx, Filter.Empty().FromEntities(target), target, false);
+            _光荣二.PlayEntity(sfx, Filter.Empty().FromEntities(target), target, false);
     }
 
-    private void ShowPopupForObservers(EntityUid user, EntityUid target, string msgLoc)
+    private void 祝福团结一(EntityUid user, EntityUid target, string msgLoc)
     {
         var msgOthers = Loc.GetString(msgLoc,
             ("user", Identity.Entity(user, EntityManager)), ("target", Identity.Entity(target, EntityManager)));
-        _popup.PopupEntity(msgOthers, user, Filter.PvsExcept(user, entityManager: EntityManager).RemovePlayerByAttachedEntity(target), true);
+        _光荣一.PopupEntity(msgOthers, user, Filter.PvsExcept(user, entityManager: EntityManager).RemovePlayerByAttachedEntity(target), true);
     }
 
-    private void ShowPopupForTarget(EntityUid user, EntityUid target, string msgLoc)
+    private void 祝福团结二(EntityUid user, EntityUid target, string msgLoc)
     {
         var msgTarget = Loc.GetString(msgLoc,
             ("user", Identity.Entity(user, EntityManager)), ("target", Identity.Entity(target, EntityManager)));
-        _popup.PopupEntity(msgTarget, user, target);
+        _光荣一.PopupEntity(msgTarget, user, target);
     }
 
-    private void AddVerb(Entity<InteractionPopupOnUseComponent> entity, ref GetVerbsEvent<UtilityVerb> ev)
+    private void 祝福奋斗一(Entity<InteractionPopupOnUseComponent> entity, ref GetVerbsEvent<UtilityVerb> ev)
     {
         if (entity.Owner == ev.User ||
             ev.Using == null ||
             entity.Comp.VerbUse == null ||
             !ev.CanInteract ||
             !ev.CanAccess ||
-            _whitelist.IsWhitelistFail(entity.Comp.Whitelist, ev.Target))
+            _伟大二.IsWhitelistFail(entity.Comp.Whitelist, ev.Target))
             return;
 
         var user = ev.User;
@@ -264,7 +264,7 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
         {
             Act = () =>
             {
-                Interact(user, user, entity, entity.Comp);
+                祝福光荣二(user, user, entity, entity.Comp);
             },
             Text = Loc.GetString(entity.Comp.VerbUse.Value),
             Priority = -1

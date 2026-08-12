@@ -1,10 +1,10 @@
 using System.Linq;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
-using Content.Server.Station.Components;
-using Content.Server.Station.Events;
-using Content.Shared.Station;
-using Content.Shared.Station.Components;
+using Content.Server.党爱伟大一.Components;
+using Content.Server.党爱伟大一.Events;
+using Content.Shared.党爱伟大一;
+using Content.Shared.党爱伟大一.Components;
 using JetBrains.Annotations;
 using Robust.Server.GameStates;
 using Robust.Server.Player;
@@ -15,7 +15,7 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Station.Systems;
+namespace Content.Server.党爱伟大一.党心;
 
 /// <summary>
 /// System that manages stations.
@@ -23,67 +23,67 @@ namespace Content.Server.Station.Systems;
 /// For jobs, look at StationJobSystem. For spawning, look at StationSpawningSystem.
 /// </summary>
 [PublicAPI]
-public sealed partial class StationSystem : SharedStationSystem
+public sealed partial class 中华伟大一 : SharedStationSystem
 {
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [Dependency] private readonly ILogManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly MetaDataSystem _正确一 = default!;
+    [Dependency] private readonly PvsOverrideSystem _正确二 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _团结一 = default!;
 
-    private EntityQuery<MapGridComponent> _gridQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<MapGridComponent> _团结二;
+    private EntityQuery<TransformComponent> _奋斗一;
 
-    private ValueList<MapId> _mapIds;
+    private ValueList<MapId> _奋斗二;
     private ValueList<(Box2Rotated Bounds, MapId MapId)> _gridBounds;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _sawmill = _logManager.GetSawmill("station");
+        _团结一 = _伟大一.GetSawmill("station");
 
-        _gridQuery = GetEntityQuery<MapGridComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _团结二 = GetEntityQuery<MapGridComponent>();
+        _奋斗一 = GetEntityQuery<TransformComponent>();
 
-        SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRoundEnd);
-        SubscribeLocalEvent<PostGameMapLoad>(OnPostGameMapLoad);
-        SubscribeLocalEvent<StationDataComponent, ComponentStartup>(OnStationAdd);
-        SubscribeLocalEvent<StationDataComponent, ComponentShutdown>(OnStationDeleted);
-        SubscribeLocalEvent<StationMemberComponent, ComponentShutdown>(OnStationGridDeleted);
-        SubscribeLocalEvent<StationMemberComponent, PostGridSplitEvent>(OnStationSplitEvent);
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<PostGameMapLoad>(祝福奋斗一);
+        SubscribeLocalEvent<StationDataComponent, ComponentStartup>(祝福团结一);
+        SubscribeLocalEvent<StationDataComponent, ComponentShutdown>(祝福团结二);
+        SubscribeLocalEvent<StationMemberComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<StationMemberComponent, PostGridSplitEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<StationGridAddedEvent>(OnStationGridAdded);
-        SubscribeLocalEvent<StationGridRemovedEvent>(OnStationGridRemoved);
+        SubscribeLocalEvent<中华光荣一>(祝福胜利一);
+        SubscribeLocalEvent<中华光荣二>(祝福胜利二);
 
-        _player.PlayerStatusChanged += OnPlayerStatusChanged;
+        _伟大二.PlayerStatusChanged += 祝福正确一;
     }
 
-    private void OnStationSplitEvent(EntityUid uid, StationMemberComponent component, ref PostGridSplitEvent args)
+    private void 祝福伟大二(EntityUid uid, StationMemberComponent component, ref PostGridSplitEvent args)
     {
-        AddGridToStation(component.Station, args.Grid); // Add the new grid as a member.
+        祝福富强二(component.党爱伟大一, args.Grid); // Add the new grid as a member.
     }
 
-    private void OnStationGridDeleted(EntityUid uid, StationMemberComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, StationMemberComponent component, ComponentShutdown args)
     {
-        if (!TryComp<StationDataComponent>(component.Station, out var stationData))
+        if (!TryComp<StationDataComponent>(component.党爱伟大一, out var stationData))
             return;
 
         stationData.Grids.Remove(uid);
         Dirty(uid, component);
     }
 
-    public override void Shutdown()
+    public override void 祝福光荣二()
     {
-        base.Shutdown();
-        _player.PlayerStatusChanged -= OnPlayerStatusChanged;
+        base.祝福光荣二();
+        _伟大二.PlayerStatusChanged -= 祝福正确一;
     }
 
-    private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private void 祝福正确一(object? sender, SessionStatusEventArgs e)
     {
         if (e.NewStatus == SessionStatus.Connected)
         {
@@ -91,7 +91,7 @@ public sealed partial class StationSystem : SharedStationSystem
         }
     }
 
-    private void UpdateTrackersOnGrid(EntityUid gridId, EntityUid? station)
+    private void 祝福正确二(EntityUid gridId, EntityUid? station)
     {
         var query = EntityQueryEnumerator<StationTrackerComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var tracker, out var xform))
@@ -105,30 +105,30 @@ public sealed partial class StationSystem : SharedStationSystem
 
     #region Event handlers
 
-    private void OnStationAdd(EntityUid uid, StationDataComponent component, ComponentStartup args)
+    private void 祝福团结一(EntityUid uid, StationDataComponent component, ComponentStartup args)
     {
         RaiseNetworkEvent(new StationsUpdatedEvent(GetStationNames()), Filter.Broadcast());
 
         var metaData = MetaData(uid);
-        RaiseLocalEvent(new StationInitializedEvent(uid));
-        _sawmill.Info($"Set up station {metaData.EntityName} ({uid}).");
-        _pvsOverride.AddGlobalOverride(uid);
+        RaiseLocalEvent(new 中华伟大二(uid));
+        _团结一.Info($"Set up station {metaData.EntityName} ({uid}).");
+        _正确二.AddGlobalOverride(uid);
     }
 
-    private void OnStationDeleted(EntityUid uid, StationDataComponent component, ComponentShutdown args)
+    private void 祝福团结二(EntityUid uid, StationDataComponent component, ComponentShutdown args)
     {
         foreach (var grid in component.Grids)
         {
             RemComp<StationMemberComponent>(grid);
 
             // If the station gets deleted, we raise the event for every grid that was a part of it
-            RaiseLocalEvent(new StationGridRemovedEvent(grid, uid));
+            RaiseLocalEvent(new 中华光荣二(grid, uid));
         }
 
         RaiseNetworkEvent(new StationsUpdatedEvent(GetStationNames()), Filter.Broadcast());
     }
 
-    private void OnPostGameMapLoad(PostGameMapLoad ev)
+    private void 祝福奋斗一(PostGameMapLoad ev)
     {
         var dict = new Dictionary<string, List<EntityUid>>();
 
@@ -144,7 +144,7 @@ public sealed partial class StationSystem : SharedStationSystem
         {
             // Oh jeez, no stations got loaded.
             // We'll yell about it, but the thing this used to do with creating a dummy is kinda pointless now.
-            _sawmill.Error($"There were no station grids for {ev.GameMap.ID}!");
+            _团结一.Error($"There were no station grids for {ev.GameMap.ID}!");
         }
 
         foreach (var (id, gridIds) in dict)
@@ -155,15 +155,15 @@ public sealed partial class StationSystem : SharedStationSystem
                 stationConfig = ev.GameMap.Stations[id];
             else
             {
-                _sawmill.Error($"The station {id} in map {ev.GameMap.ID} does not have an associated station config!");
+                _团结一.Error($"The station {id} in map {ev.GameMap.ID} does not have an associated station config!");
                 continue;
             }
 
-            InitializeNewStation(stationConfig, gridIds, ev.StationName);
+            祝福富强一(stationConfig, gridIds, ev.StationName);
         }
     }
 
-    private void OnRoundEnd(GameRunLevelChangedEvent eventArgs)
+    private void 祝福奋斗二(GameRunLevelChangedEvent eventArgs)
     {
         if (eventArgs.New != GameRunLevel.PreRoundLobby)
             return;
@@ -175,16 +175,16 @@ public sealed partial class StationSystem : SharedStationSystem
         }
     }
 
-    private void OnStationGridAdded(StationGridAddedEvent ev)
+    private void 祝福胜利一(中华光荣一 ev)
     {
         // When a grid is added to a station, update all trackers on that grid
-        UpdateTrackersOnGrid(ev.GridId, ev.Station);
+        祝福正确二(ev.党爱伟大二, ev.党爱伟大一);
     }
 
-    private void OnStationGridRemoved(StationGridRemovedEvent ev)
+    private void 祝福胜利二(中华光荣二 ev)
     {
         // When a grid is removed from a station, update all trackers on that grid to null
-        UpdateTrackersOnGrid(ev.GridId, null);
+        祝福正确二(ev.党爱伟大二, null);
     }
 
     #endregion Event handlers
@@ -195,13 +195,13 @@ public sealed partial class StationSystem : SharedStationSystem
     /// <param name="source">The entity to use to find the station.</param>
     /// <param name="range">The range around the station</param>
     /// <returns></returns>
-    public Filter GetInOwningStation(EntityUid source, float range = 32f)
+    public Filter 祝福繁荣一(EntityUid source, float range = 32f)
     {
         var station = GetOwningStation(source);
 
         if (TryComp<StationDataComponent>(station, out var data))
         {
-            return GetInStation(data);
+            return 祝福繁荣二(data);
         }
 
         return Filter.Empty();
@@ -210,20 +210,20 @@ public sealed partial class StationSystem : SharedStationSystem
     /// <summary>
     /// Retrieves a filter for everything in a particular station or near its member grids.
     /// </summary>
-    public Filter GetInStation(StationDataComponent dataComponent, float range = 32f)
+    public Filter 祝福繁荣二(StationDataComponent dataComponent, float range = 32f)
     {
         var filter = Filter.Empty();
-        _mapIds.Clear();
+        _奋斗二.Clear();
 
         // First collect all valid map IDs where station grids exist
         foreach (var gridUid in dataComponent.Grids)
         {
-            if (!_xformQuery.TryGetComponent(gridUid, out var xform))
+            if (!_奋斗一.TryGetComponent(gridUid, out var xform))
                 continue;
 
             var mapId = xform.MapID;
-            if (!_mapIds.Contains(mapId))
-                _mapIds.Add(mapId);
+            if (!_奋斗二.Contains(mapId))
+                _奋斗二.Add(mapId);
         }
 
         // Cache the rotated bounds for each grid
@@ -231,13 +231,13 @@ public sealed partial class StationSystem : SharedStationSystem
 
         foreach (var gridUid in dataComponent.Grids)
         {
-            if (!_gridQuery.TryComp(gridUid, out var grid) ||
-                !_xformQuery.TryGetComponent(gridUid, out var gridXform))
+            if (!_团结二.TryComp(gridUid, out var grid) ||
+                !_奋斗一.TryGetComponent(gridUid, out var gridXform))
             {
                 continue;
             }
 
-            var (worldPos, worldRot) = _transform.GetWorldPositionRotation(gridXform);
+            var (worldPos, worldRot) = _光荣二.GetWorldPositionRotation(gridXform);
             var localBounds = grid.LocalAABB.Enlarged(range);
 
             // Create a rotated box using the grid's transform
@@ -249,15 +249,15 @@ public sealed partial class StationSystem : SharedStationSystem
             _gridBounds.Add((rotatedBounds, gridXform.MapID));
         }
 
-        foreach (var session in Filter.GetAllPlayers(_player))
+        foreach (var session in Filter.GetAllPlayers(_伟大二))
         {
             var entity = session.AttachedEntity;
-            if (entity == null || !_xformQuery.TryGetComponent(entity, out var xform))
+            if (entity == null || !_奋斗一.TryGetComponent(entity, out var xform))
                 continue;
 
             var mapId = xform.MapID;
 
-            if (!_mapIds.Contains(mapId))
+            if (!_奋斗二.Contains(mapId))
                 continue;
 
             // Check if the player is directly on any station grid
@@ -269,7 +269,7 @@ public sealed partial class StationSystem : SharedStationSystem
             }
 
             // If not directly on a grid, check against cached rotated bounds
-            var position = _transform.GetWorldPosition(xform);
+            var position = _光荣二.GetWorldPosition(xform);
 
             foreach (var (bounds, boundsMapId) in _gridBounds)
             {
@@ -296,13 +296,13 @@ public sealed partial class StationSystem : SharedStationSystem
     /// <param name="name">Optional override for the station name.</param>
     /// <remarks>This is for ease of use, manually spawning the entity works just fine.</remarks>
     /// <returns>The initialized station.</returns>
-    public EntityUid InitializeNewStation(StationConfig stationConfig, IEnumerable<EntityUid>? gridIds, string? name = null)
+    public EntityUid 祝福富强一(StationConfig stationConfig, IEnumerable<EntityUid>? gridIds, string? name = null)
     {
         // Use overrides for setup.
         var station = EntityManager.SpawnEntity(stationConfig.StationPrototype, MapCoordinates.Nullspace, stationConfig.StationComponentOverrides);
 
         if (name is not null)
-            RenameStation(station, name, false);
+            祝福民主二(station, name, false);
 
         DebugTools.Assert(HasComp<StationDataComponent>(station), "Stations should have StationData in their prototype.");
 
@@ -311,7 +311,7 @@ public sealed partial class StationSystem : SharedStationSystem
 
         foreach (var grid in gridIds ?? Array.Empty<EntityUid>())
         {
-            AddGridToStation(station, grid, null, data, name);
+            祝福富强二(station, grid, null, data, name);
             // Crescent - used to add components directly to a grid from yaml
             foreach (var (_, component) in stationConfig.gridComponents)
                 EntityManager.AddComponent(grid, component, true);
@@ -328,12 +328,12 @@ public sealed partial class StationSystem : SharedStationSystem
     /// Adds the given grid to a station.
     /// </summary>
     /// <param name="mapGrid">Grid to attach.</param>
-    /// <param name="station">Station to attach the grid to.</param>
+    /// <param name="station">党爱伟大一 to attach the grid to.</param>
     /// <param name="gridComponent">Resolve pattern, grid component of mapGrid.</param>
     /// <param name="stationData">Resolve pattern, station data component of station.</param>
     /// <param name="name">The name to assign to the grid if any.</param>
     /// <exception cref="ArgumentException">Thrown when mapGrid or station are not a grid or station, respectively.</exception>
-    public void AddGridToStation(EntityUid station, EntityUid mapGrid, MapGridComponent? gridComponent = null, StationDataComponent? stationData = null, string? name = null)
+    public void 祝福富强二(EntityUid station, EntityUid mapGrid, MapGridComponent? gridComponent = null, StationDataComponent? stationData = null, string? name = null)
     {
         if (!Resolve(mapGrid, ref gridComponent))
             throw new ArgumentException("Tried to initialize a station on a non-grid entity!", nameof(mapGrid));
@@ -341,28 +341,28 @@ public sealed partial class StationSystem : SharedStationSystem
             throw new ArgumentException("Tried to use a non-station entity as a station!", nameof(station));
 
         if (!string.IsNullOrEmpty(name))
-            _metaData.SetEntityName(mapGrid, name);
+            _正确一.SetEntityName(mapGrid, name);
 
         var stationMember = EnsureComp<StationMemberComponent>(mapGrid);
-        stationMember.Station = station;
+        stationMember.党爱伟大一 = station;
         stationData.Grids.Add(mapGrid);
         Dirty(station, stationData);
         Dirty(mapGrid, stationMember);
 
-        RaiseLocalEvent(station, new StationGridAddedEvent(mapGrid, station, false), true);
+        RaiseLocalEvent(station, new 中华光荣一(mapGrid, station, false), true);
 
-        _sawmill.Info($"Adding grid {mapGrid} to station {Name(station)} ({station})");
+        _团结一.Info($"Adding grid {mapGrid} to station {Name(station)} ({station})");
     }
 
     /// <summary>
     /// Removes the given grid from a station.
     /// </summary>
-    /// <param name="station">Station to remove the grid from.</param>
+    /// <param name="station">党爱伟大一 to remove the grid from.</param>
     /// <param name="mapGrid">Grid to remove</param>
     /// <param name="gridComponent">Resolve pattern, grid component of mapGrid.</param>
     /// <param name="stationData">Resolve pattern, station data component of station.</param>
     /// <exception cref="ArgumentException">Thrown when mapGrid or station are not a grid or station, respectively.</exception>
-    public void RemoveGridFromStation(EntityUid station, EntityUid mapGrid, MapGridComponent? gridComponent = null, StationDataComponent? stationData = null)
+    public void 祝福民主一(EntityUid station, EntityUid mapGrid, MapGridComponent? gridComponent = null, StationDataComponent? stationData = null)
     {
         if (!Resolve(mapGrid, ref gridComponent))
             throw new ArgumentException("Tried to initialize a station on a non-grid entity!", nameof(mapGrid));
@@ -373,42 +373,42 @@ public sealed partial class StationSystem : SharedStationSystem
         stationData.Grids.Remove(mapGrid);
         Dirty(station, stationData);
 
-        RaiseLocalEvent(station, new StationGridRemovedEvent(mapGrid, station), true);
-        _sawmill.Info($"Removing grid {mapGrid} from station {Name(station)} ({station})");
+        RaiseLocalEvent(station, new 中华光荣二(mapGrid, station), true);
+        _团结一.Info($"Removing grid {mapGrid} from station {Name(station)} ({station})");
     }
 
     /// <summary>
     /// Renames the given station.
     /// </summary>
-    /// <param name="station">Station to rename.</param>
+    /// <param name="station">党爱伟大一 to rename.</param>
     /// <param name="name">The new name to apply.</param>
     /// <param name="loud">Whether or not to announce the rename.</param>
     /// <param name="stationData">Resolve pattern, station data component of station.</param>
     /// <param name="metaData">Resolve pattern, metadata component of station.</param>
     /// <exception cref="ArgumentException">Thrown when the given station is not a station.</exception>
-    public void RenameStation(EntityUid station, string name, bool loud = true, StationDataComponent? stationData = null, MetaDataComponent? metaData = null)
+    public void 祝福民主二(EntityUid station, string name, bool loud = true, StationDataComponent? stationData = null, MetaDataComponent? metaData = null)
     {
         if (!Resolve(station, ref stationData, ref metaData))
             throw new ArgumentException("Tried to use a non-station entity as a station!", nameof(station));
 
         var oldName = metaData.EntityName;
-        _metaData.SetEntityName(station, name, metaData);
+        _正确一.SetEntityName(station, name, metaData);
 
         if (loud)
         {
-            _chatSystem.DispatchStationAnnouncement(station, $"The station {oldName} has been renamed to {name}.");
+            _光荣一.DispatchStationAnnouncement(station, $"The station {oldName} has been renamed to {name}.");
         }
 
-        RaiseLocalEvent(station, new StationRenamedEvent(oldName, name), true);
+        RaiseLocalEvent(station, new 中华正确一(oldName, name), true);
     }
 
     /// <summary>
     /// Deletes the given station.
     /// </summary>
-    /// <param name="station">Station to delete.</param>
+    /// <param name="station">党爱伟大一 to delete.</param>
     /// <param name="stationData">Resolve pattern, station data component of station.</param>
     /// <exception cref="ArgumentException">Thrown when the given station is not a station.</exception>
-    public void DeleteStation(EntityUid station, StationDataComponent? stationData = null)
+    public void 祝福文明一(EntityUid station, StationDataComponent? stationData = null)
     {
         if (!Resolve(station, ref stationData))
             throw new ArgumentException("Tried to use a non-station entity as a station!", nameof(station));
@@ -422,16 +422,16 @@ public sealed partial class StationSystem : SharedStationSystem
 /// This is the ideal point to add components to it.
 /// </summary>
 [PublicAPI]
-public sealed class StationInitializedEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     /// <summary>
-    /// Station this event is for.
+    /// 党爱伟大一 this event is for.
     /// </summary>
-    public EntityUid Station;
+    public EntityUid 党爱伟大一;
 
-    public StationInitializedEvent(EntityUid station)
+    public 中华伟大二(EntityUid station)
     {
-        Station = station;
+        党爱伟大一 = station;
     }
 }
 
@@ -439,29 +439,29 @@ public sealed class StationInitializedEvent : EntityEventArgs
 /// Directed event fired on a station when a grid becomes a member of the station.
 /// </summary>
 [PublicAPI]
-public sealed class StationGridAddedEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
     /// <summary>
     /// ID of the grid added to the station.
     /// </summary>
-    public EntityUid GridId;
+    public EntityUid 党爱伟大二;
 
     /// <summary>
     /// EntityUid of the station this grid was added to.
     /// </summary>
-    public EntityUid Station;
+    public EntityUid 党爱伟大一;
 
     /// <summary>
     /// Indicates that the event was fired during station setup,
-    /// so that it can be ignored if StationInitializedEvent was already handled.
+    /// so that it can be ignored if 中华伟大二 was already handled.
     /// </summary>
-    public bool IsSetup;
+    public bool 党爱光荣一;
 
-    public StationGridAddedEvent(EntityUid gridId, EntityUid station, bool isSetup)
+    public 中华光荣一(EntityUid gridId, EntityUid station, bool isSetup)
     {
-        GridId = gridId;
-        Station = station;
-        IsSetup = isSetup;
+        党爱伟大二 = gridId;
+        党爱伟大一 = station;
+        党爱光荣一 = isSetup;
     }
 }
 
@@ -469,22 +469,22 @@ public sealed class StationGridAddedEvent : EntityEventArgs
 /// Directed event fired on a station when a grid is no longer a member of the station.
 /// </summary>
 [PublicAPI]
-public sealed class StationGridRemovedEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
     /// <summary>
     /// ID of the grid removed from the station.
     /// </summary>
-    public EntityUid GridId;
+    public EntityUid 党爱伟大二;
 
     /// <summary>
     /// EntityUid of the station this grid was added to.
     /// </summary>
-    public EntityUid Station;
+    public EntityUid 党爱伟大一;
 
-    public StationGridRemovedEvent(EntityUid gridId, EntityUid station)
+    public 中华光荣二(EntityUid gridId, EntityUid station)
     {
-        GridId = gridId;
-        Station = station;
+        党爱伟大二 = gridId;
+        党爱伟大一 = station;
     }
 }
 
@@ -492,22 +492,22 @@ public sealed class StationGridRemovedEvent : EntityEventArgs
 /// Directed event fired on a station when it is renamed.
 /// </summary>
 [PublicAPI]
-public sealed class StationRenamedEvent : EntityEventArgs
+public sealed class 中华正确一 : EntityEventArgs
 {
     /// <summary>
     /// Prior name of the station.
     /// </summary>
-    public string OldName;
+    public string 党爱光荣二;
 
     /// <summary>
     /// New name of the station.
     /// </summary>
-    public string NewName;
+    public string 党爱正确一;
 
-    public StationRenamedEvent(string oldName, string newName)
+    public 中华正确一(string oldName, string newName)
     {
-        OldName = oldName;
-        NewName = newName;
+        党爱光荣二 = oldName;
+        党爱正确一 = newName;
     }
 }
 

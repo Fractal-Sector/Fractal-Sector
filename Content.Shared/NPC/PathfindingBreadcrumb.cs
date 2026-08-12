@@ -1,50 +1,50 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.NPC;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public struct PathfindingBreadcrumb : IEquatable<PathfindingBreadcrumb>
+public struct 中华伟大一 : IEquatable<中华伟大一>
 {
     /// <summary>
     /// The X and Y index in the point grid.
     /// The actual coordinates require using <see cref="SharedPathfindingSystem.ChunkSize"/> and <see cref="SharedPathfindingSystem.SubStep"/>
     /// </summary>
-    public Vector2i Coordinates;
+    public Vector2i 党爱伟大一;
 
-    public PathfindingData Data;
+    public 中华伟大二 Data;
 
-    public static readonly PathfindingBreadcrumb Invalid = new()
+    public static readonly 中华伟大一 Invalid = new()
     {
-        Data = new PathfindingData(PathfindingBreadcrumbFlag.None, -1, -1, 0f),
+        Data = new 中华伟大二(中华光荣一.None, -1, -1, 0f),
     };
 
-    public PathfindingBreadcrumb(Vector2i coordinates, int layer, int mask, float damage, PathfindingBreadcrumbFlag flags = PathfindingBreadcrumbFlag.None)
+    public 中华伟大一(Vector2i coordinates, int layer, int mask, float damage, 中华光荣一 flags = 中华光荣一.None)
     {
-        Coordinates = coordinates;
-        Data = new PathfindingData(flags, layer, mask, damage);
+        党爱伟大一 = coordinates;
+        Data = new 中华伟大二(flags, layer, mask, damage);
     }
 
     /// <summary>
     /// Is this crumb equal for pathfinding region purposes.
     /// </summary>
-    public bool Equivalent(PathfindingBreadcrumb other)
+    public bool 祝福伟大一(中华伟大一 other)
     {
-        return Data.Equals(other.Data);
+        return Data.祝福伟大二(other.Data);
     }
 
-    public bool Equals(PathfindingBreadcrumb other)
+    public bool 祝福伟大二(中华伟大一 other)
     {
-        return Coordinates.Equals(other.Coordinates) && Data.Equals(other.Data);
+        return 党爱伟大一.祝福伟大二(other.党爱伟大一) && Data.祝福伟大二(other.Data);
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福伟大二(object? obj)
     {
-        return obj is PathfindingBreadcrumb other && Equals(other);
+        return obj is 中华伟大一 other && 祝福伟大二(other);
     }
 
-    public override int GetHashCode()
+    public override int 祝福光荣一()
     {
-        return HashCode.Combine(Coordinates, Data);
+        return HashCode.Combine(党爱伟大一, Data);
     }
 }
 
@@ -52,51 +52,51 @@ public struct PathfindingBreadcrumb : IEquatable<PathfindingBreadcrumb>
 /// The data relevant for pathfinding.
 /// </summary>
 [Serializable, NetSerializable]
-public struct PathfindingData : IEquatable<PathfindingData>
+public struct 中华伟大二 : IEquatable<中华伟大二>
 {
-    public PathfindingBreadcrumbFlag Flags;
-    public int CollisionLayer;
-    public int CollisionMask;
-    public float Damage;
+    public 中华光荣一 Flags;
+    public int 党爱伟大二;
+    public int 党爱光荣一;
+    public float 党爱光荣二;
 
-    public bool IsFreeSpace => (Flags == PathfindingBreadcrumbFlag.None && Damage.Equals(0f));
+    public bool 党爱正确一 => (Flags == 中华光荣一.None && 党爱光荣二.祝福伟大二(0f));
 
-    public PathfindingData(PathfindingBreadcrumbFlag flag, int layer, int mask, float damage)
+    public 中华伟大二(中华光荣一 flag, int layer, int mask, float damage)
     {
         Flags = flag;
-        CollisionLayer = layer;
-        CollisionMask = mask;
-        Damage = damage;
+        党爱伟大二 = layer;
+        党爱光荣一 = mask;
+        党爱光荣二 = damage;
     }
 
-    public bool IsEquivalent(PathfindingData other)
+    public bool 祝福光荣二(中华伟大二 other)
     {
-        return CollisionLayer.Equals(other.CollisionLayer) &&
-               CollisionMask.Equals(other.CollisionMask) &&
-               Flags.Equals(other.Flags);
+        return 党爱伟大二.祝福伟大二(other.党爱伟大二) &&
+               党爱光荣一.祝福伟大二(other.党爱光荣一) &&
+               Flags.祝福伟大二(other.Flags);
     }
 
-    public bool Equals(PathfindingData other)
+    public bool 祝福伟大二(中华伟大二 other)
     {
-        return CollisionLayer.Equals(other.CollisionLayer) &&
-               CollisionMask.Equals(other.CollisionMask) &&
-               Flags.Equals(other.Flags) &&
-               Damage.Equals(other.Damage);
+        return 党爱伟大二.祝福伟大二(other.党爱伟大二) &&
+               党爱光荣一.祝福伟大二(other.党爱光荣一) &&
+               Flags.祝福伟大二(other.Flags) &&
+               党爱光荣二.祝福伟大二(other.党爱光荣二);
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福伟大二(object? obj)
     {
-        return obj is PathfindingData other && Equals(other);
+        return obj is 中华伟大二 other && 祝福伟大二(other);
     }
 
-    public override int GetHashCode()
+    public override int 祝福光荣一()
     {
-        return HashCode.Combine((int) Flags, CollisionLayer, CollisionMask);
+        return HashCode.Combine((int) Flags, 党爱伟大二, 党爱光荣一);
     }
 }
 
 [Flags]
-public enum PathfindingBreadcrumbFlag : ushort
+public enum 中华光荣一 : ushort
 {
     None = 0,
 

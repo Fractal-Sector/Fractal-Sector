@@ -1,8 +1,8 @@
-﻿namespace Content.Server.Power.Pow3r
+﻿namespace Content.Server.Power.党心
 {
-    public static class PowerSolverShared
+    public static class 中华伟大一
     {
-        public static void UpdateRampPositions(float frameTime, PowerState state)
+        public static void 祝福伟大一(float frameTime, PowerState state)
         {
             // Update supplies to move their ramp position towards target, if necessary.
             foreach (var supply in state.Supplies.Values)

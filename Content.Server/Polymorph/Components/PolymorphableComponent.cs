@@ -2,11 +2,11 @@ using Content.Server.Polymorph.Systems;
 using Content.Shared.Polymorph;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Polymorph.Components;
+namespace Content.Server.Polymorph.党心;
 
 [RegisterComponent]
 [Access(typeof(PolymorphSystem))]
-public sealed partial class PolymorphableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A list of all the polymorphs that the entity has.

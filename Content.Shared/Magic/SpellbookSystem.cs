@@ -8,29 +8,29 @@ using Content.Shared.Magic.Components;
 using Content.Shared.Mind;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Magic;
+namespace Content.Shared.党心;
 
-public sealed class SpellbookSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
+    [Dependency] private readonly SharedChargesSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMindSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly SharedActionsSystem _光荣二 = default!;
+    [Dependency] private readonly ActionContainerSystem _正确一 = default!;
+    [Dependency] private readonly INetManager _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SpellbookComponent, MapInitEvent>(OnInit, before: [typeof(SharedMagicSystem)]);
-        SubscribeLocalEvent<SpellbookComponent, UseInHandEvent>(OnUse);
+        SubscribeLocalEvent<SpellbookComponent, MapInitEvent>(祝福伟大二, before: [typeof(SharedMagicSystem)]);
+        SubscribeLocalEvent<SpellbookComponent, UseInHandEvent>(祝福光荣一);
         SubscribeLocalEvent<SpellbookComponent, SpellbookDoAfterEvent>(OnDoAfter);
     }
 
-    private void OnInit(Entity<SpellbookComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<SpellbookComponent> ent, ref MapInitEvent args)
     {
         foreach (var (id, charges) in ent.Comp.SpellActions)
         {
-            var action = _actionContainer.AddAction(ent, id);
+            var action = _正确一.AddAction(ent, id);
             if (action is not { } spell)
                 continue;
 
@@ -38,20 +38,20 @@ public sealed class SpellbookSystem : EntitySystem
             if (charges is { } count)
             {
                 EnsureComp<LimitedChargesComponent>(spell, out var chargeComp);
-                _sharedCharges.SetMaxCharges((spell, chargeComp), count);
-                _sharedCharges.SetCharges((spell, chargeComp), count);
+                _伟大一.SetMaxCharges((spell, chargeComp), count);
+                _伟大一.SetCharges((spell, chargeComp), count);
             }
 
             ent.Comp.Spells.Add(spell);
         }
     }
 
-    private void OnUse(Entity<SpellbookComponent> ent, ref UseInHandEvent args)
+    private void 祝福光荣一(Entity<SpellbookComponent> ent, ref UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
-        AttemptLearn(ent, args);
+        祝福光荣二(ent, args);
 
         args.Handled = true;
     }
@@ -65,36 +65,36 @@ public sealed class SpellbookSystem : EntitySystem
 
         if (!ent.Comp.LearnPermanently)
         {
-            _actions.GrantActions(args.Args.User, ent.Comp.Spells, ent.Owner);
+            _光荣二.GrantActions(args.Args.User, ent.Comp.Spells, ent.Owner);
             return;
         }
 
-        if (_mind.TryGetMind(args.Args.User, out var mindId, out _))
+        if (_伟大二.TryGetMind(args.Args.User, out var mindId, out _))
         {
             var mindActionContainerComp = EnsureComp<ActionsContainerComponent>(mindId);
 
-            if (_netManager.IsServer)
-                _actionContainer.TransferAllActionsWithNewAttached(ent, mindId, args.Args.User, newContainer: mindActionContainerComp);
+            if (_正确二.IsServer)
+                _正确一.TransferAllActionsWithNewAttached(ent, mindId, args.Args.User, newContainer: mindActionContainerComp);
         }
         else
         {
             foreach (var (id, charges) in ent.Comp.SpellActions)
             {
                 EntityUid? actionId = null;
-                if (!_actions.AddAction(args.Args.User, ref actionId, id)
+                if (!_光荣二.AddAction(args.Args.User, ref actionId, id)
                     || charges is not { } count // Null means infinite charges
                     || !TryComp<LimitedChargesComponent>(actionId, out var chargeComp))
                     continue;
 
-                _sharedCharges.SetMaxCharges((actionId.Value, chargeComp), count);
-                _sharedCharges.SetCharges((actionId.Value, chargeComp), count);
+                _伟大一.SetMaxCharges((actionId.Value, chargeComp), count);
+                _伟大一.SetCharges((actionId.Value, chargeComp), count);
             }
         }
 
         ent.Comp.SpellActions.Clear();
     }
 
-    private void AttemptLearn(Entity<SpellbookComponent> ent, UseInHandEvent args)
+    private void 祝福光荣二(Entity<SpellbookComponent> ent, UseInHandEvent args)
     {
         var doAfterEventArgs = new DoAfterArgs(EntityManager, args.User, ent.Comp.LearnTime, new SpellbookDoAfterEvent(), ent, target: ent)
         {
@@ -103,6 +103,6 @@ public sealed class SpellbookSystem : EntitySystem
             NeedHand = true, //What, are you going to read with your eyes only??
         };
 
-        _doAfter.TryStartDoAfter(doAfterEventArgs);
+        _光荣一.TryStartDoAfter(doAfterEventArgs);
     }
 }

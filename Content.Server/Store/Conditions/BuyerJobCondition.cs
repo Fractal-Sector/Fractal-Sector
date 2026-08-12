@@ -4,13 +4,13 @@ using Content.Shared.Roles.Jobs;
 using Content.Shared.Store;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 
-namespace Content.Server.Store.Conditions;
+namespace Content.Server.Store.党心;
 
 /// <summary>
 /// Allows a store entry to be filtered out based on the user's job.
 /// Supports both blacklists and whitelists
 /// </summary>
-public sealed partial class BuyerJobCondition : ListingCondition
+public sealed partial class 中华伟大一 : ListingCondition
 {
     /// <summary>
     /// A whitelist of jobs prototypes that can purchase this listing. Only one needs to be found.
@@ -24,7 +24,7 @@ public sealed partial class BuyerJobCondition : ListingCondition
     [DataField("blacklist", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<JobPrototype>))]
     public HashSet<string>? Blacklist;
 
-    public override bool Condition(ListingConditionArgs args)
+    public override bool 祝福伟大一(ListingConditionArgs args)
     {
         var ent = args.EntityManager;
 

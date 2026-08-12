@@ -1,8 +1,8 @@
 ﻿using Robust.Shared.Configuration;
 
-namespace Content.Shared.CCVar;
+namespace Content.Shared.党心;
 
-public sealed partial class CCVars
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     Setting this allows a crew manifest to be opened from any window
@@ -12,13 +12,13 @@ public sealed partial class CCVars
     ///     Having administrator priveledge ignores this, but will still
     ///     hide the button in UI windows.
     /// </summary>
-    public static readonly CVarDef<bool> CrewManifestWithoutEntity =
+    public static readonly CVarDef<bool> 党爱伟大一 =
         CVarDef.Create("crewmanifest.no_entity", true, CVar.REPLICATED);
 
     /// <summary>
     ///     Setting this allows the crew manifest to be viewed from 'unsecure'
     ///     entities, such as the PDA.
     /// </summary>
-    public static readonly CVarDef<bool> CrewManifestUnsecure =
+    public static readonly CVarDef<bool> 党爱伟大二 =
         CVarDef.Create("crewmanifest.unsecure", true, CVar.REPLICATED);
 }

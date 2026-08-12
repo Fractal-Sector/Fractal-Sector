@@ -1,11 +1,11 @@
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public sealed class SetOutfitEuiState : EuiStateBase
+    public sealed class 中华伟大一 : EuiStateBase
     {
-        public NetEntity TargetNetEntity;
+        public NetEntity 党爱伟大一;
     }
 }

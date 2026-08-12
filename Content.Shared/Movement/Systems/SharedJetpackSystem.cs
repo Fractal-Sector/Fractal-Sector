@@ -12,36 +12,36 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public abstract partial class SharedJetpackSystem : EntitySystem // Frontier: added partial
+public abstract partial class 中华伟大一 : EntitySystem // Frontier: added partial
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!; // EE
+    [Dependency] private readonly MovementSpeedModifierSystem _伟大一 = default!;
+    [Dependency] protected readonly SharedAppearanceSystem 党爱伟大一 = default!;
+    [Dependency] protected readonly SharedContainerSystem 党爱伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣一 = default!;
+    [Dependency] private readonly ActionContainerSystem _光荣二 = default!;
+    [Dependency] private readonly IConfigurationManager _正确一 = default!; // EE
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<JetpackComponent, GetItemActionsEvent>(OnJetpackGetAction);
-        SubscribeLocalEvent<JetpackComponent, DroppedEvent>(OnJetpackDropped);
-        SubscribeLocalEvent<JetpackComponent, ToggleJetpackEvent>(OnJetpackToggle);
+        base.祝福伟大一();
+        SubscribeLocalEvent<JetpackComponent, GetItemActionsEvent>(祝福繁荣一);
+        SubscribeLocalEvent<JetpackComponent, DroppedEvent>(祝福正确一);
+        SubscribeLocalEvent<JetpackComponent, ToggleJetpackEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<JetpackUserComponent, RefreshWeightlessModifiersEvent>(OnJetpackUserWeightlessMovement);
-        SubscribeLocalEvent<JetpackUserComponent, CanWeightlessMoveEvent>(OnJetpackUserCanWeightless);
-        SubscribeLocalEvent<JetpackUserComponent, EntParentChangedMessage>(OnJetpackUserEntParentChanged);
-        SubscribeLocalEvent<JetpackComponent, EntGotInsertedIntoContainerMessage>(OnJetpackMoved);
+        SubscribeLocalEvent<JetpackUserComponent, RefreshWeightlessModifiersEvent>(祝福伟大二);
+        SubscribeLocalEvent<JetpackUserComponent, CanWeightlessMoveEvent>(祝福团结一);
+        SubscribeLocalEvent<JetpackUserComponent, EntParentChangedMessage>(祝福团结二);
+        SubscribeLocalEvent<JetpackComponent, EntGotInsertedIntoContainerMessage>(祝福正确二);
 
-        SubscribeLocalEvent<GravityChangedEvent>(OnJetpackUserGravityChanged);
-        SubscribeLocalEvent<JetpackComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<GravityChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<JetpackComponent, MapInitEvent>(祝福光荣一);
         NfInitialize(); // Frontier
     }
 
-    private void OnJetpackUserWeightlessMovement(Entity<JetpackUserComponent> ent, ref RefreshWeightlessModifiersEvent args)
+    private void 祝福伟大二(Entity<JetpackUserComponent> ent, ref RefreshWeightlessModifiersEvent args)
     {
         // Yes this bulldozes the values but primarily for backwards compat atm.
         args.WeightlessAcceleration = ent.Comp.WeightlessAcceleration;
@@ -50,15 +50,15 @@ public abstract partial class SharedJetpackSystem : EntitySystem // Frontier: ad
         args.WeightlessFrictionNoInput = ent.Comp.WeightlessFrictionNoInput;
     }
 
-    private void OnMapInit(EntityUid uid, JetpackComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, JetpackComponent component, MapInitEvent args)
     {
-        _actionContainer.EnsureAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
+        _光荣二.EnsureAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
         Dirty(uid, component);
     }
 
-    private void OnJetpackUserGravityChanged(ref GravityChangedEvent ev)
+    private void 祝福光荣二(ref GravityChangedEvent ev)
     {
-        if (_config.GetCVar(EECCVars.JetpackEnableAnywhere)) // EE
+        if (_正确一.GetCVar(EECCVars.JetpackEnableAnywhere)) // EE
             return; // EE
 
         var gridUid = ev.ChangedGridIndex;
@@ -70,51 +70,51 @@ public abstract partial class SharedJetpackSystem : EntitySystem // Frontier: ad
             if (transform.GridUid == gridUid && ev.HasGravity &&
                 jetpackQuery.TryGetComponent(user.Jetpack, out var jetpack))
             {
-                _popup.PopupClient(Loc.GetString("jetpack-to-grid"), uid, uid);
+                _伟大二.PopupClient(Loc.GetString("jetpack-to-grid"), uid, uid);
 
-                SetEnabled(user.Jetpack, jetpack, false, uid);
+                祝福富强一(user.Jetpack, jetpack, false, uid);
             }
         }
     }
 
-    private void OnJetpackDropped(EntityUid uid, JetpackComponent component, DroppedEvent args)
+    private void 祝福正确一(EntityUid uid, JetpackComponent component, DroppedEvent args)
     {
-        SetEnabled(uid, component, false, args.User);
+        祝福富强一(uid, component, false, args.User);
     }
 
-    private void OnJetpackMoved(Entity<JetpackComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void 祝福正确二(Entity<JetpackComponent> ent, ref EntGotInsertedIntoContainerMessage args)
     {
-        if (args.Container.Owner != ent.Comp.JetpackUser)
-            SetEnabled(ent, ent.Comp, false, ent.Comp.JetpackUser);
+        if (args.党爱伟大二.Owner != ent.Comp.JetpackUser)
+            祝福富强一(ent, ent.Comp, false, ent.Comp.JetpackUser);
     }
 
-    private void OnJetpackUserCanWeightless(EntityUid uid, JetpackUserComponent component, ref CanWeightlessMoveEvent args)
+    private void 祝福团结一(EntityUid uid, JetpackUserComponent component, ref CanWeightlessMoveEvent args)
     {
         args.CanMove = true;
     }
 
-    private void OnJetpackUserEntParentChanged(EntityUid uid, JetpackUserComponent component, ref EntParentChangedMessage args)
+    private void 祝福团结二(EntityUid uid, JetpackUserComponent component, ref EntParentChangedMessage args)
     {
         // Frontier: note - comment from upstream, dead men tell no tales
         // No and no again! Do not attempt to activate the jetpack on a grid with gravity disabled. You will not be the first or the last to try this.
         // https://discord.com/channels/310555209753690112/310555209753690112/1270067921682694234
         if (TryComp<JetpackComponent>(component.Jetpack, out var jetpack)
-            && (!CanEnableOnGrid(args.Transform.GridUid)
-            || !UserNotParented(uid, jetpack))) // EE
+            && (!祝福胜利二(args.Transform.GridUid)
+            || !祝福民主二(uid, jetpack))) // EE
         {
-            SetEnabled(component.Jetpack, jetpack, false, uid);
+            祝福富强一(component.Jetpack, jetpack, false, uid);
 
-            _popup.PopupClient(Loc.GetString("jetpack-to-grid"), uid, uid);
+            _伟大二.PopupClient(Loc.GetString("jetpack-to-grid"), uid, uid);
         }
     }
 
-    private void SetupUser(EntityUid user, EntityUid jetpackUid, JetpackComponent component)
+    private void 祝福奋斗一(EntityUid user, EntityUid jetpackUid, JetpackComponent component)
     {
         EnsureComp<JetpackUserComponent>(user, out var userComp);
         component.JetpackUser = user;
 
         if (TryComp<PhysicsComponent>(user, out var physics))
-            _physics.SetBodyStatus(user, physics, BodyStatus.InAir);
+            _光荣一.SetBodyStatus(user, physics, BodyStatus.InAir);
 
         // Frontier: fix magboots vs. jetpack quibbles
         component.AddedCanMoveInAir = !HasComp<CanMoveInAirComponent>(user);
@@ -126,10 +126,10 @@ public abstract partial class SharedJetpackSystem : EntitySystem // Frontier: ad
         userComp.WeightlessModifier = component.WeightlessModifier;
         userComp.WeightlessFriction = component.Friction;
         userComp.WeightlessFrictionNoInput = component.Friction;
-        _movementSpeedModifier.RefreshWeightlessModifiers(user);
+        _伟大一.RefreshWeightlessModifiers(user);
     }
 
-    private void RemoveUser(EntityUid uid, JetpackComponent component)
+    private void 祝福奋斗二(EntityUid uid, JetpackComponent component)
     {
         if (!RemComp<JetpackUserComponent>(uid))
             return;
@@ -142,69 +142,69 @@ public abstract partial class SharedJetpackSystem : EntitySystem // Frontier: ad
         // End Frontier
 
         if (TryComp<PhysicsComponent>(uid, out var physics))
-            _physics.SetBodyStatus(uid, physics, BodyStatus.OnGround);
+            _光荣一.SetBodyStatus(uid, physics, BodyStatus.OnGround);
 
-        _movementSpeedModifier.RefreshWeightlessModifiers(uid);
+        _伟大一.RefreshWeightlessModifiers(uid);
     }
 
-    private void OnJetpackToggle(EntityUid uid, JetpackComponent component, ToggleJetpackEvent args)
+    private void 祝福胜利一(EntityUid uid, JetpackComponent component, ToggleJetpackEvent args)
     {
         if (args.Handled)
             return;
 
-        if (TryComp(uid, out TransformComponent? xform) && !CanEnableOnGrid(xform.GridUid))
+        if (TryComp(uid, out TransformComponent? xform) && !祝福胜利二(xform.GridUid))
         {
-            _popup.PopupClient(Loc.GetString("jetpack-no-station"), uid, args.Performer);
+            _伟大二.PopupClient(Loc.GetString("jetpack-no-station"), uid, args.Performer);
 
             return;
         }
 
-        SetEnabled(uid, component, !IsEnabled(uid));
+        祝福富强一(uid, component, !祝福繁荣二(uid));
     }
 
-    private bool CanEnableOnGrid(EntityUid? gridUid)
+    private bool 祝福胜利二(EntityUid? gridUid)
     {
         // No and no again! Do not attempt to activate the jetpack on a grid with gravity disabled. You will not be the first or the last to try this.
         // https://discord.com/channels/310555209753690112/310555209753690112/1270067921682694234
         return gridUid == null // EE
         //||(!HasComp<GravityComponent>(gridUid)); // EE
-            || _config.GetCVar(EECCVars.JetpackEnableAnywhere) // EE
-            || _config.GetCVar(EECCVars.JetpackEnableInNoGravity) // EE
+            || _正确一.GetCVar(EECCVars.JetpackEnableAnywhere) // EE
+            || _正确一.GetCVar(EECCVars.JetpackEnableInNoGravity) // EE
             && TryComp<GravityComponent>(gridUid, out var comp) // EE
             && !comp.Enabled; // EE
     }
 
-    private void OnJetpackGetAction(EntityUid uid, JetpackComponent component, GetItemActionsEvent args)
+    private void 祝福繁荣一(EntityUid uid, JetpackComponent component, GetItemActionsEvent args)
     {
         args.AddAction(ref component.ToggleActionEntity, component.ToggleAction);
     }
 
-    private bool IsEnabled(EntityUid uid)
+    private bool 祝福繁荣二(EntityUid uid)
     {
         return HasComp<ActiveJetpackComponent>(uid);
     }
 
-    public void SetEnabled(EntityUid uid, JetpackComponent component, bool enabled, EntityUid? user = null)
+    public void 祝福富强一(EntityUid uid, JetpackComponent component, bool enabled, EntityUid? user = null)
     {
-        if (IsEnabled(uid) == enabled ||
-            enabled && !CanEnable(uid, component))
+        if (祝福繁荣二(uid) == enabled ||
+            enabled && !祝福民主一(uid, component))
             return;
 
         if (user == null)
         {
-            if (!Container.TryGetContainingContainer((uid, null, null), out var container))
+            if (!党爱伟大二.TryGetContainingContainer((uid, null, null), out var container))
                 return;
             user = container.Owner;
         }
 
         // EE: check if user has a parent (e.g. vehicle, duffelbag, bed)
-        if (enabled && !UserNotParented(user, component))
+        if (enabled && !祝福民主二(user, component))
             return;
         // End EE
 
         if (enabled)
         {
-            SetupUser(user.Value, uid, component);
+            祝福奋斗一(user.Value, uid, component);
             EnsureComp<ActiveJetpackComponent>(uid);
             // Frontier
             if (component.RadarBlip) // add radar blip when jetpack is activated
@@ -213,27 +213,27 @@ public abstract partial class SharedJetpackSystem : EntitySystem // Frontier: ad
         }
         else
         {
-            RemoveUser(user.Value, component);
+            祝福奋斗二(user.Value, component);
             RemComp<ActiveJetpackComponent>(uid);
             RemComp<RadarBlipComponent>(uid); // Frontier: remove radar blip when jetpack is deactivated
         }
 
-        Appearance.SetData(uid, JetpackVisuals.Enabled, enabled);
+        党爱伟大一.SetData(uid, 中华伟大二.Enabled, enabled);
         Dirty(uid, component);
     }
 
-    public bool IsUserFlying(EntityUid uid)
+    public bool 祝福富强二(EntityUid uid)
     {
         return HasComp<JetpackUserComponent>(uid);
     }
 
-    protected virtual bool CanEnable(EntityUid uid, JetpackComponent component)
+    protected virtual bool 祝福民主一(EntityUid uid, JetpackComponent component)
     {
         return true;
     }
 
     // EE: check parent
-    protected virtual bool UserNotParented(EntityUid? user, JetpackComponent component)
+    protected virtual bool 祝福民主二(EntityUid? user, JetpackComponent component)
     {
         return !TryComp(user, out TransformComponent? xform)
             || xform.ParentUid == xform.GridUid
@@ -243,7 +243,7 @@ public abstract partial class SharedJetpackSystem : EntitySystem // Frontier: ad
 }
 
 [Serializable, NetSerializable]
-public enum JetpackVisuals : byte
+public enum 中华伟大二 : byte
 {
     Enabled,
     Layer

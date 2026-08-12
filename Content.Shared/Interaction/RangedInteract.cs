@@ -1,40 +1,40 @@
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Interaction
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Raised when an entity is interacted with that is out of the user entity's range of direct use.
     /// </summary>
     [PublicAPI]
-    public sealed class RangedInteractEvent : HandledEntityEventArgs
+    public sealed class 中华伟大一 : HandledEntityEventArgs
     {
         /// <summary>
         ///     Entity that triggered the interaction.
         /// </summary>
-        public EntityUid UserUid { get; }
+        public EntityUid 党爱伟大一 { get; }
 
         /// <summary>
         ///     Entity that the user used to interact.
         /// </summary>
-        public EntityUid UsedUid { get; }
+        public EntityUid 党爱伟大二 { get; }
 
         /// <summary>
         ///     Entity that was interacted on.
         /// </summary>
-        public EntityUid TargetUid { get; }
+        public EntityUid 党爱光荣一 { get; }
 
         /// <summary>
         ///     Location that the user clicked outside of their interaction range.
         /// </summary>
-        public EntityCoordinates ClickLocation { get; }
+        public EntityCoordinates 党爱光荣二 { get; }
 
-        public RangedInteractEvent(EntityUid user, EntityUid used, EntityUid target, EntityCoordinates clickLocation)
+        public 中华伟大一(EntityUid user, EntityUid used, EntityUid target, EntityCoordinates clickLocation)
         {
-            UserUid = user;
-            UsedUid = used;
-            TargetUid = target;
-            ClickLocation = clickLocation;
+            党爱伟大一 = user;
+            党爱伟大二 = used;
+            党爱光荣一 = target;
+            党爱光荣二 = clickLocation;
         }
     }
 }

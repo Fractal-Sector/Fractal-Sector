@@ -8,76 +8,76 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Players.GhostRole;
+namespace Content.Server._NF.Players.党心;
 
-public sealed class GhostRoleWhitelistSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly JobWhitelistManager _manager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly JobWhitelistManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
 
-    private ImmutableArray<ProtoId<GhostRolePrototype>> _whitelistedGhostRoles = [];
+    private ImmutableArray<ProtoId<GhostRolePrototype>> _正确一 = [];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
-        SubscribeLocalEvent<GhostRolesGetCandidatesEvent>(OnStationGhostRolesGetCandidates);
-        SubscribeLocalEvent<IsGhostRoleAllowedEvent>(OnIsGhostRoleAllowed);
-        SubscribeLocalEvent<GetDisallowedGhostRolesEvent>(OnGetDisallowedGhostRoles);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福伟大二);
+        SubscribeLocalEvent<GhostRolesGetCandidatesEvent>(祝福光荣一);
+        SubscribeLocalEvent<IsGhostRoleAllowedEvent>(祝福光荣二);
+        SubscribeLocalEvent<GetDisallowedGhostRolesEvent>(祝福正确一);
 
-        CacheJobs();
+        祝福正确二();
     }
 
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs ev)
+    private void 祝福伟大二(PrototypesReloadedEventArgs ev)
     {
         if (ev.WasModified<GhostRolePrototype>())
-            CacheJobs();
+            祝福正确二();
     }
 
-    private void OnStationGhostRolesGetCandidates(ref GhostRolesGetCandidatesEvent ev)
+    private void 祝福光荣一(ref GhostRolesGetCandidatesEvent ev)
     {
-        if (!_config.GetCVar(CCVars.GameRoleWhitelist))
+        if (!_伟大一.GetCVar(CCVars.GameRoleWhitelist))
             return;
 
         for (var i = ev.GhostRoles.Count - 1; i >= 0; i--)
         {
             var ghostRoleId = ev.GhostRoles[i];
-            if (_player.TryGetSessionById(ev.Player, out var player) &&
-                !_manager.IsAllowed(player, ghostRoleId))
+            if (_光荣一.TryGetSessionById(ev.Player, out var player) &&
+                !_伟大二.IsAllowed(player, ghostRoleId))
             {
                 ev.GhostRoles.RemoveSwap(i);
             }
         }
     }
 
-    private void OnIsGhostRoleAllowed(ref IsGhostRoleAllowedEvent ev)
+    private void 祝福光荣二(ref IsGhostRoleAllowedEvent ev)
     {
-        if (!_manager.IsAllowed(ev.Player, ev.GhostRoleId))
+        if (!_伟大二.IsAllowed(ev.Player, ev.GhostRoleId))
             ev.Cancelled = true;
     }
 
-    private void OnGetDisallowedGhostRoles(ref GetDisallowedGhostRolesEvent ev)
+    private void 祝福正确一(ref GetDisallowedGhostRolesEvent ev)
     {
-        if (!_config.GetCVar(CCVars.GameRoleWhitelist))
+        if (!_伟大一.GetCVar(CCVars.GameRoleWhitelist))
             return;
 
-        foreach (var ghostRole in _whitelistedGhostRoles)
+        foreach (var ghostRole in _正确一)
         {
-            if (!_manager.IsAllowed(ev.Player, ghostRole))
+            if (!_伟大二.IsAllowed(ev.Player, ghostRole))
                 ev.GhostRoles.Add(ghostRole);
         }
     }
 
-    private void CacheJobs()
+    private void 祝福正确二()
     {
         var builder = ImmutableArray.CreateBuilder<ProtoId<GhostRolePrototype>>();
-        foreach (var ghostRole in _prototypes.EnumeratePrototypes<GhostRolePrototype>())
+        foreach (var ghostRole in _光荣二.EnumeratePrototypes<GhostRolePrototype>())
         {
             if (ghostRole.Whitelisted)
                 builder.Add(ghostRole.ID);
         }
 
-        _whitelistedGhostRoles = builder.ToImmutable();
+        _正确一 = builder.ToImmutable();
     }
 }

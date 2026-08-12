@@ -1,6 +1,6 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.Silicons.Borgs.Components;
+namespace Content.Shared.Silicons.Borgs.党心;
 
 /// <summary>
 /// This is used for modules that can be inserted into borgs
@@ -8,7 +8,7 @@ namespace Content.Shared.Silicons.Borgs.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedBorgSystem))]
 [AutoGenerateComponentState]
-public sealed partial class BorgModuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The entity this module is installed into
@@ -16,14 +16,14 @@ public sealed partial class BorgModuleComponent : Component
     [DataField("installedEntity")]
     public EntityUid? InstalledEntity;
 
-    public bool Installed => InstalledEntity != null;
+    public bool 党爱伟大一 => InstalledEntity != null;
 
     /// <summary>
     /// If true, this is a "default" module that cannot be removed from a borg.
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public bool DefaultModule;
+    public bool 党爱伟大二;
 }
 
 /// <summary>
@@ -31,11 +31,11 @@ public sealed partial class BorgModuleComponent : Component
 /// </summary>
 /// <param name="ChassisEnt"></param>
 [ByRefEvent]
-public readonly record struct BorgModuleInstalledEvent(EntityUid ChassisEnt);
+public readonly record 中华伟大二 BorgModuleInstalledEvent(EntityUid ChassisEnt);
 
 /// <summary>
 /// Raised on a module when it's uninstalled in order to
 /// </summary>
 /// <param name="ChassisEnt"></param>
 [ByRefEvent]
-public readonly record struct BorgModuleUninstalledEvent(EntityUid ChassisEnt);
+public readonly record 中华伟大二 BorgModuleUninstalledEvent(EntityUid ChassisEnt);

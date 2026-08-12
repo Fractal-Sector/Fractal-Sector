@@ -37,24 +37,24 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Administration.Systems;
+namespace Content.Server.Administration.党心;
 
-public sealed partial class AdminVerbSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly DoorSystem _door = default!;
-    [Dependency] private readonly AirlockSystem _airlockSystem = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedAccessSystem _accessSystem = default!;
-    [Dependency] private readonly HandsSystem _handsSystem = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
-    [Dependency] private readonly AdminTestArenaSystem _adminTestArenaSystem = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobsSystem = default!;
-    [Dependency] private readonly JointSystem _jointSystem = default!;
-    [Dependency] private readonly BatterySystem _batterySystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaSystem = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
+    [Dependency] private readonly DoorSystem _伟大一 = default!;
+    [Dependency] private readonly AirlockSystem _伟大二 = default!;
+    [Dependency] private readonly StackSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAccessSystem _光荣二 = default!;
+    [Dependency] private readonly HandsSystem _正确一 = default!;
+    [Dependency] private readonly QuickDialogSystem _正确二 = default!;
+    [Dependency] private readonly AdminTestArenaSystem _团结一 = default!;
+    [Dependency] private readonly StationJobsSystem _团结二 = default!;
+    [Dependency] private readonly JointSystem _奋斗一 = default!;
+    [Dependency] private readonly BatterySystem _奋斗二 = default!;
+    [Dependency] private readonly MetaDataSystem _胜利一 = default!;
+    [Dependency] private readonly GunSystem _胜利二 = default!;
 
-    private void AddTricksVerbs(GetVerbsEvent<Verb> args)
+    private void 祝福伟大一(GetVerbsEvent<Verb> args)
     {
         if (!TryComp(args.User, out ActorComponent? actor))
             return;
@@ -75,13 +75,13 @@ public sealed partial class AdminVerbSystem
                     : new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/bolt.png")),
                 Act = () =>
                 {
-                    _door.SetBoltsDown((args.Target, bolts), !bolts.BoltsDown);
+                    _伟大一.SetBoltsDown((args.Target, bolts), !bolts.BoltsDown);
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString(bolts.BoltsDown
                     ? "admin-trick-unbolt-description"
                     : "admin-trick-bolt-description"),
-                Priority = (int)(bolts.BoltsDown ? TricksVerbPriorities.Unbolt : TricksVerbPriorities.Bolt),
+                Priority = (int)(bolts.BoltsDown ? 中华伟大二.Unbolt : 中华伟大二.Bolt),
             };
             args.Verbs.Add(bolt);
         }
@@ -95,13 +95,13 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/emergency_access.png")),
                 Act = () =>
                 {
-                    _airlockSystem.SetEmergencyAccess((args.Target, airlockComp), !airlockComp.EmergencyAccess);
+                    _伟大二.SetEmergencyAccess((args.Target, airlockComp), !airlockComp.EmergencyAccess);
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString(airlockComp.EmergencyAccess
                     ? "admin-trick-emergency-access-off-description"
                     : "admin-trick-emergency-access-on-description"),
-                Priority = (int)(airlockComp.EmergencyAccess ? TricksVerbPriorities.EmergencyAccessOff : TricksVerbPriorities.EmergencyAccessOn),
+                Priority = (int)(airlockComp.EmergencyAccess ? 中华伟大二.EmergencyAccessOff : 中华伟大二.EmergencyAccessOn),
             };
             args.Verbs.Add(emergencyAccess);
         }
@@ -119,7 +119,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-rejuvenate-description"),
-                Priority = (int)TricksVerbPriorities.Rejuvenate,
+                Priority = (int)中华伟大二.Rejuvenate,
             };
             args.Verbs.Add(rejuvenate);
         }
@@ -137,7 +137,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-make-indestructible-description"),
-                Priority = (int)TricksVerbPriorities.MakeIndestructible,
+                Priority = (int)中华伟大二.MakeIndestructible,
             };
             args.Verbs.Add(makeIndestructible);
         }
@@ -154,7 +154,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-make-vulnerable-description"),
-                Priority = (int)TricksVerbPriorities.MakeVulnerable,
+                Priority = (int)中华伟大二.MakeVulnerable,
             };
             args.Verbs.Add(makeVulnerable);
         }
@@ -168,11 +168,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/fill_battery.png")),
                 Act = () =>
                 {
-                    _batterySystem.SetCharge(args.Target, battery.MaxCharge, battery);
+                    _奋斗二.SetCharge(args.Target, battery.MaxCharge, battery);
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-refill-battery-description"),
-                Priority = (int)TricksVerbPriorities.RefillBattery,
+                Priority = (int)中华伟大二.RefillBattery,
             };
             args.Verbs.Add(refillBattery);
 
@@ -183,11 +183,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/drain_battery.png")),
                 Act = () =>
                 {
-                    _batterySystem.SetCharge(args.Target, 0, battery);
+                    _奋斗二.SetCharge(args.Target, 0, battery);
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-drain-battery-description"),
-                Priority = (int)TricksVerbPriorities.DrainBattery,
+                Priority = (int)中华伟大二.DrainBattery,
             };
             args.Verbs.Add(drainBattery);
 
@@ -205,7 +205,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-infinite-battery-object-description"),
-                Priority = (int)TricksVerbPriorities.InfiniteBattery,
+                Priority = (int)中华伟大二.InfiniteBattery,
             };
             args.Verbs.Add(infiniteBattery);
         }
@@ -223,7 +223,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-block-unanchoring-description"),
-                Priority = (int)TricksVerbPriorities.BlockUnanchoring,
+                Priority = (int)中华伟大二.BlockUnanchoring,
             };
             args.Verbs.Add(blockUnanchor);
         }
@@ -237,11 +237,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Tanks/oxygen.rsi"), "icon"),
                 Act = () =>
                 {
-                    RefillGasTank(args.Target, Gas.Oxygen, tank);
+                    祝福光荣一(args.Target, Gas.Oxygen, tank);
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-internals-refill-oxygen-description"),
-                Priority = (int)TricksVerbPriorities.RefillOxygen,
+                Priority = (int)中华伟大二.RefillOxygen,
             };
             args.Verbs.Add(refillInternalsO2);
 
@@ -252,11 +252,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Tanks/red.rsi"), "icon"),
                 Act = () =>
                 {
-                    RefillGasTank(args.Target, Gas.Nitrogen, tank);
+                    祝福光荣一(args.Target, Gas.Nitrogen, tank);
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-internals-refill-nitrogen-description"),
-                Priority = (int)TricksVerbPriorities.RefillNitrogen,
+                Priority = (int)中华伟大二.RefillNitrogen,
             };
             args.Verbs.Add(refillInternalsN2);
 
@@ -267,11 +267,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Tanks/plasma.rsi"), "icon"),
                 Act = () =>
                 {
-                    RefillGasTank(args.Target, Gas.Plasma, tank);
+                    祝福光荣一(args.Target, Gas.Plasma, tank);
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-internals-refill-plasma-description"),
-                Priority = (int)TricksVerbPriorities.RefillPlasma,
+                Priority = (int)中华伟大二.RefillPlasma,
             };
             args.Verbs.Add(refillInternalsPlasma);
         }
@@ -283,10 +283,10 @@ public sealed partial class AdminVerbSystem
                 Text = "Refill Internals Oxygen",
                 Category = VerbCategory.Tricks,
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Tanks/oxygen.rsi"), "icon"),
-                Act = () => RefillEquippedTanks(args.User, Gas.Oxygen),
+                Act = () => 祝福伟大二(args.User, Gas.Oxygen),
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-internals-refill-oxygen-description"),
-                Priority = (int)TricksVerbPriorities.RefillOxygen,
+                Priority = (int)中华伟大二.RefillOxygen,
             };
             args.Verbs.Add(refillInternalsO2);
 
@@ -295,10 +295,10 @@ public sealed partial class AdminVerbSystem
                 Text = "Refill Internals Nitrogen",
                 Category = VerbCategory.Tricks,
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Tanks/red.rsi"), "icon"),
-                Act = () => RefillEquippedTanks(args.User, Gas.Nitrogen),
+                Act = () => 祝福伟大二(args.User, Gas.Nitrogen),
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-internals-refill-nitrogen-description"),
-                Priority = (int)TricksVerbPriorities.RefillNitrogen,
+                Priority = (int)中华伟大二.RefillNitrogen,
             };
             args.Verbs.Add(refillInternalsN2);
 
@@ -307,10 +307,10 @@ public sealed partial class AdminVerbSystem
                 Text = "Refill Internals Plasma",
                 Category = VerbCategory.Tricks,
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Tanks/plasma.rsi"), "icon"),
-                Act = () => RefillEquippedTanks(args.User, Gas.Plasma),
+                Act = () => 祝福伟大二(args.User, Gas.Plasma),
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-internals-refill-plasma-description"),
-                Priority = (int)TricksVerbPriorities.RefillPlasma,
+                Priority = (int)中华伟大二.RefillPlasma,
             };
             args.Verbs.Add(refillInternalsPlasma);
         }
@@ -323,12 +323,12 @@ public sealed partial class AdminVerbSystem
 
             Act = () =>
             {
-                var (mapUid, gridUid) = _adminTestArenaSystem.AssertArenaLoaded(player);
+                var (mapUid, gridUid) = _团结一.AssertArenaLoaded(player);
                 _transformSystem.SetCoordinates(args.Target, new EntityCoordinates(gridUid ?? mapUid, Vector2.One));
             },
             Impact = LogImpact.Medium,
             Message = Loc.GetString("admin-trick-send-to-test-arena-description"),
-            Priority = (int)TricksVerbPriorities.SendToTestArena,
+            Priority = (int)中华伟大二.SendToTestArena,
         };
         args.Verbs.Add(sendToTestArena);
 
@@ -343,11 +343,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Misc/id_cards.rsi"), "centcom"),
                 Act = () =>
                 {
-                    GiveAllAccess(activeId.Value);
+                    祝福正确二(activeId.Value);
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-grant-all-access-description"),
-                Priority = (int)TricksVerbPriorities.GrantAllAccess,
+                Priority = (int)中华伟大二.GrantAllAccess,
             };
             args.Verbs.Add(grantAllAccess);
 
@@ -358,11 +358,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Misc/id_cards.rsi"), "default"),
                 Act = () =>
                 {
-                    RevokeAllAccess(activeId.Value);
+                    祝福团结一(activeId.Value);
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-revoke-all-access-description"),
-                Priority = (int)TricksVerbPriorities.RevokeAllAccess,
+                Priority = (int)中华伟大二.祝福团结一,
             };
             args.Verbs.Add(revokeAllAccess);
         }
@@ -376,11 +376,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Misc/id_cards.rsi"), "centcom"),
                 Act = () =>
                 {
-                    GiveAllAccess(args.Target);
+                    祝福正确二(args.Target);
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-grant-all-access-description"),
-                Priority = (int)TricksVerbPriorities.GrantAllAccess,
+                Priority = (int)中华伟大二.GrantAllAccess,
             };
             args.Verbs.Add(grantAllAccess);
 
@@ -391,11 +391,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Misc/id_cards.rsi"), "default"),
                 Act = () =>
                 {
-                    RevokeAllAccess(args.Target);
+                    祝福团结一(args.Target);
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-revoke-all-access-description"),
-                Priority = (int)TricksVerbPriorities.RevokeAllAccess,
+                Priority = (int)中华伟大二.祝福团结一,
             };
             args.Verbs.Add(revokeAllAccess);
         }
@@ -410,14 +410,14 @@ public sealed partial class AdminVerbSystem
                 Act = () =>
                 {
                     // Unbounded intentionally.
-                    _quickDialog.OpenDialog(player, "Adjust stack", $"Amount (max {_stackSystem.GetMaxCount(stack)})", (int newAmount) =>
+                    _正确二.OpenDialog(player, "Adjust stack", $"Amount (max {_光荣一.GetMaxCount(stack)})", (int newAmount) =>
                     {
-                        _stackSystem.SetCount(args.Target, newAmount, stack);
+                        _光荣一.SetCount(args.Target, newAmount, stack);
                     });
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-adjust-stack-description"),
-                Priority = (int) TricksVerbPriorities.AdjustStack,
+                Priority = (int) 中华伟大二.AdjustStack,
             };
             args.Verbs.Add(adjustStack);
 
@@ -428,11 +428,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/fill-stack.png")),
                 Act = () =>
                 {
-                    _stackSystem.SetCount(args.Target, _stackSystem.GetMaxCount(stack), stack);
+                    _光荣一.SetCount(args.Target, _光荣一.GetMaxCount(stack), stack);
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-fill-stack-description"),
-                Priority = (int) TricksVerbPriorities.FillStack,
+                Priority = (int) 中华伟大二.FillStack,
             };
             args.Verbs.Add(fillStack);
         }
@@ -444,14 +444,14 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/rename.png")),
             Act = () =>
             {
-                _quickDialog.OpenDialog(player, "Rename", "Name", (string newName) =>
+                _正确二.OpenDialog(player, "Rename", "Name", (string newName) =>
                 {
-                    _metaSystem.SetEntityName(args.Target, newName);
+                    _胜利一.SetEntityName(args.Target, newName);
                 });
             },
             Impact = LogImpact.Medium,
             Message = Loc.GetString("admin-trick-rename-description"),
-            Priority = (int) TricksVerbPriorities.Rename,
+            Priority = (int) 中华伟大二.Rename,
         };
         args.Verbs.Add(rename);
 
@@ -462,14 +462,14 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/redescribe.png")),
             Act = () =>
             {
-                _quickDialog.OpenDialog(player, "Redescribe", "Description", (LongString newDescription) =>
+                _正确二.OpenDialog(player, "Redescribe", "Description", (LongString newDescription) =>
                 {
-                    _metaSystem.SetEntityDescription(args.Target, newDescription.String);
+                    _胜利一.SetEntityDescription(args.Target, newDescription.String);
                 });
             },
             Impact = LogImpact.Medium,
             Message = Loc.GetString("admin-trick-redescribe-description"),
-            Priority = (int) TricksVerbPriorities.Redescribe,
+            Priority = (int) 中华伟大二.Redescribe,
         };
         args.Verbs.Add(redescribe);
 
@@ -480,17 +480,17 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/rename_and_redescribe.png")),
             Act = () =>
             {
-                _quickDialog.OpenDialog(player, "Rename & Redescribe", "Name", "Description",
+                _正确二.OpenDialog(player, "Rename & Redescribe", "Name", "Description",
                     (string newName, LongString newDescription) =>
                     {
                         var meta = MetaData(args.Target);
-                        _metaSystem.SetEntityName(args.Target, newName, meta);
-                        _metaSystem.SetEntityDescription(args.Target, newDescription.String, meta);
+                        _胜利一.SetEntityName(args.Target, newName, meta);
+                        _胜利一.SetEntityDescription(args.Target, newDescription.String, meta);
                     });
             },
             Impact = LogImpact.Medium,
             Message = Loc.GetString("admin-trick-rename-and-redescribe-description"),
-            Priority = (int) TricksVerbPriorities.RenameAndRedescribe,
+            Priority = (int) 中华伟大二.RenameAndRedescribe,
         };
         args.Verbs.Add(renameAndRedescribe);
 
@@ -505,14 +505,14 @@ public sealed partial class AdminVerbSystem
                     Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/bar_jobslots.png")),
                     Act = () =>
                     {
-                        foreach (var (job, _) in _stationJobsSystem.GetJobs(args.Target))
+                        foreach (var (job, _) in _团结二.GetJobs(args.Target))
                         {
-                            _stationJobsSystem.TrySetJobSlot(args.Target, job, 0, true);
+                            _团结二.TrySetJobSlot(args.Target, job, 0, true);
                         }
                     },
                     Impact = LogImpact.Extreme,
                     Message = Loc.GetString("admin-trick-bar-job-slots-description"),
-                    Priority = (int) TricksVerbPriorities.BarJobSlots,
+                    Priority = (int) 中华伟大二.BarJobSlots,
                 };
                 args.Verbs.Add(barJobSlots);
             }
@@ -533,12 +533,12 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Low,
                 Message = Loc.GetString("admin-trick-locate-cargo-shuttle-description"),
-                Priority = (int) TricksVerbPriorities.LocateCargoShuttle,
+                Priority = (int) 中华伟大二.LocateCargoShuttle,
             };
             args.Verbs.Add(locateCargoShuttle);
         }
 
-        if (TryGetGridChildren(args.Target, out var childEnum))
+        if (祝福光荣二(args.Target, out var childEnum))
         {
             Verb refillBattery = new()
             {
@@ -552,12 +552,12 @@ public sealed partial class AdminVerbSystem
                         if (!HasComp<StationInfiniteBatteryTargetComponent>(ent))
                             continue;
                         var battery = EnsureComp<BatteryComponent>(ent);
-                        _batterySystem.SetCharge(ent, battery.MaxCharge, battery);
+                        _奋斗二.SetCharge(ent, battery.MaxCharge, battery);
                     }
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-refill-battery-description"),
-                Priority = (int) TricksVerbPriorities.RefillBattery,
+                Priority = (int) 中华伟大二.RefillBattery,
             };
             args.Verbs.Add(refillBattery);
 
@@ -573,12 +573,12 @@ public sealed partial class AdminVerbSystem
                         if (!HasComp<StationInfiniteBatteryTargetComponent>(ent))
                             continue;
                         var battery = EnsureComp<BatteryComponent>(ent);
-                        _batterySystem.SetCharge(ent, 0, battery);
+                        _奋斗二.SetCharge(ent, 0, battery);
                     }
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-drain-battery-description"),
-                Priority = (int) TricksVerbPriorities.DrainBattery,
+                Priority = (int) 中华伟大二.DrainBattery,
             };
             args.Verbs.Add(drainBattery);
 
@@ -605,7 +605,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-infinite-battery-description"),
-                Priority = (int) TricksVerbPriorities.InfiniteBattery,
+                Priority = (int) 中华伟大二.InfiniteBattery,
             };
             args.Verbs.Add(infiniteBattery);
         }
@@ -624,7 +624,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-halt-movement-description"),
-                Priority = (int) TricksVerbPriorities.HaltMovement,
+                Priority = (int) 中华伟大二.HaltMovement,
             };
             args.Verbs.Add(haltMovement);
         }
@@ -646,7 +646,7 @@ public sealed partial class AdminVerbSystem
                         },
                         Impact = LogImpact.Extreme,
                         Message = Loc.GetString("admin-trick-unpause-map-description"),
-                        Priority = (int) TricksVerbPriorities.Unpause,
+                        Priority = (int) 中华伟大二.Unpause,
                     };
                     args.Verbs.Add(unpauseMap);
                 }
@@ -663,7 +663,7 @@ public sealed partial class AdminVerbSystem
                         },
                         Impact = LogImpact.Extreme,
                         Message = Loc.GetString("admin-trick-pause-map-description"),
-                        Priority = (int) TricksVerbPriorities.Pause,
+                        Priority = (int) 中华伟大二.Pause,
                     };
                     args.Verbs.Add(pauseMap);
                 }
@@ -679,11 +679,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/snap_joints.png")),
                 Act = () =>
                 {
-                    _jointSystem.ClearJoints(args.Target, joints);
+                    _奋斗一.ClearJoints(args.Target, joints);
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-snap-joints-description"),
-                Priority = (int) TricksVerbPriorities.SnapJoints,
+                Priority = (int) 中华伟大二.SnapJoints,
             };
             args.Verbs.Add(snapJoints);
         }
@@ -698,11 +698,11 @@ public sealed partial class AdminVerbSystem
                 Act = () =>
                 {
                     EnsureComp<AdminMinigunComponent>(args.Target);
-                    _gun.RefreshModifiers((args.Target, gun));
+                    _胜利二.RefreshModifiers((args.Target, gun));
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-minigun-fire-description"),
-                Priority = (int) TricksVerbPriorities.MakeMinigun,
+                Priority = (int) 中华伟大二.MakeMinigun,
             };
             args.Verbs.Add(minigunFire);
         }
@@ -716,32 +716,32 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Fun/caps.rsi"), "mag-6"),
                 Act = () =>
                 {
-                    _quickDialog.OpenDialog(player, "Set Bullet Amount", $"Amount (standard {ballisticAmmo.Capacity}):", (string amount) =>
+                    _正确二.OpenDialog(player, "Set Bullet Amount", $"Amount (standard {ballisticAmmo.Capacity}):", (string amount) =>
                     {
                         if (!int.TryParse(amount, out var result))
                             return;
 
-                        _gun.SetBallisticUnspawned((args.Target, ballisticAmmo), result);
-                        _gun.UpdateBallisticAppearance(args.Target, ballisticAmmo);
+                        _胜利二.SetBallisticUnspawned((args.Target, ballisticAmmo), result);
+                        _胜利二.UpdateBallisticAppearance(args.Target, ballisticAmmo);
                     });
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-set-bullet-amount-description"),
-                Priority = (int) TricksVerbPriorities.SetBulletAmount,
+                Priority = (int) 中华伟大二.SetBulletAmount,
             };
             args.Verbs.Add(setCapacity);
         }
     }
 
-    private void RefillEquippedTanks(EntityUid target, Gas gasType)
+    private void 祝福伟大二(EntityUid target, Gas gasType)
     {
         foreach (var held in _inventorySystem.GetHandOrInventoryEntities(target))
         {
-            RefillGasTank(held, gasType);
+            祝福光荣一(held, gasType);
         }
     }
 
-    private void RefillGasTank(EntityUid tank, Gas gasType, GasTankComponent? tankComponent = null)
+    private void 祝福光荣一(EntityUid tank, Gas gasType, GasTankComponent? tankComponent = null)
     {
         if (!Resolve(tank, ref tankComponent, false))
             return;
@@ -753,7 +753,7 @@ public sealed partial class AdminVerbSystem
         tankComponent.Air = newMix;
     }
 
-    private bool TryGetGridChildren(EntityUid target, [NotNullWhen(true)] out IEnumerable<EntityUid>? enumerator)
+    private bool 祝福光荣二(EntityUid target, [NotNullWhen(true)] out IEnumerable<EntityUid>? enumerator)
     {
         if (!HasComp<MapComponent>(target) && !HasComp<MapGridComponent>(target) &&
             !HasComp<StationDataComponent>(target))
@@ -762,12 +762,12 @@ public sealed partial class AdminVerbSystem
             return false;
         }
 
-        enumerator = GetGridChildrenInner(target);
+        enumerator = 祝福正确一(target);
         return true;
     }
 
     // ew. This finds everything supposedly on a grid.
-    private IEnumerable<EntityUid> GetGridChildrenInner(EntityUid target)
+    private IEnumerable<EntityUid> 祝福正确一(EntityUid target)
     {
         if (TryComp<StationDataComponent>(target, out var station))
         {
@@ -818,7 +818,7 @@ public sealed partial class AdminVerbSystem
         }
         else if (TryComp<HandsComponent>(target, out var hands))
         {
-            foreach (var held in _handsSystem.EnumerateHeld((target, hands)))
+            foreach (var held in _正确一.EnumerateHeld((target, hands)))
             {
                 if (HasComp<AccessComponent>(held))
                 {
@@ -830,21 +830,21 @@ public sealed partial class AdminVerbSystem
         return null;
     }
 
-    private void GiveAllAccess(EntityUid entity)
+    private void 祝福正确二(EntityUid entity)
     {
         var allAccess = _prototypeManager
             .EnumeratePrototypes<AccessLevelPrototype>()
             .Select(p => new ProtoId<AccessLevelPrototype>(p.ID)).ToArray();
 
-        _accessSystem.TrySetTags(entity, allAccess);
+        _光荣二.TrySetTags(entity, allAccess);
     }
 
-    private void RevokeAllAccess(EntityUid entity)
+    private void 祝福团结一(EntityUid entity)
     {
-        _accessSystem.TrySetTags(entity, new List<ProtoId<AccessLevelPrototype>>());
+        _光荣二.TrySetTags(entity, new List<ProtoId<AccessLevelPrototype>>());
     }
 
-    public enum TricksVerbPriorities
+    public enum 中华伟大二
     {
         Bolt = 0,
         Unbolt = -1,
@@ -860,7 +860,7 @@ public sealed partial class AdminVerbSystem
         RefillPlasma = -11,
         SendToTestArena = -12,
         GrantAllAccess = -13,
-        RevokeAllAccess = -14,
+        祝福团结一 = -14,
         Rejuvenate = -15,
         AdjustStack = -16,
         FillStack = -17,

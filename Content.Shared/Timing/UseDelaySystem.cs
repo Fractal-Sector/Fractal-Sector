@@ -2,26 +2,26 @@ using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.GameStates;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Timing;
+namespace Content.Shared.党心;
 
-public sealed class UseDelaySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly MetaDataSystem _伟大二 = default!;
 
-    public const string DefaultId = "default";
+    public const string 党爱伟大一 = "default";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<UseDelayComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<UseDelayComponent, EntityUnpausedEvent>(OnUnpaused);
-        SubscribeLocalEvent<UseDelayComponent, ComponentGetState>(OnDelayGetState);
-        SubscribeLocalEvent<UseDelayComponent, ComponentHandleState>(OnDelayHandleState);
+        SubscribeLocalEvent<UseDelayComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<UseDelayComponent, EntityUnpausedEvent>(祝福正确一);
+        SubscribeLocalEvent<UseDelayComponent, ComponentGetState>(祝福光荣一);
+        SubscribeLocalEvent<UseDelayComponent, ComponentHandleState>(祝福伟大二);
     }
 
-    private void OnDelayHandleState(Entity<UseDelayComponent> ent, ref ComponentHandleState args)
+    private void 祝福伟大二(Entity<UseDelayComponent> ent, ref ComponentHandleState args)
     {
         if (args.Current is not UseDelayComponentState state)
             return;
@@ -35,7 +35,7 @@ public sealed class UseDelaySystem : EntitySystem
         }
     }
 
-    private void OnDelayGetState(Entity<UseDelayComponent> ent, ref ComponentGetState args)
+    private void 祝福光荣一(Entity<UseDelayComponent> ent, ref ComponentGetState args)
     {
         args.State = new UseDelayComponentState()
         {
@@ -43,14 +43,14 @@ public sealed class UseDelaySystem : EntitySystem
         };
     }
 
-    private void OnMapInit(Entity<UseDelayComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<UseDelayComponent> ent, ref MapInitEvent args)
     {
         // Set default delay length from the prototype
         // This makes it easier for simple use cases that only need a single delay
-        SetLength((ent, ent.Comp), ent.Comp.Delay, DefaultId);
+        祝福正确二((ent, ent.Comp), ent.Comp.Delay, 党爱伟大一);
     }
 
-    private void OnUnpaused(Entity<UseDelayComponent> ent, ref EntityUnpausedEvent args)
+    private void 祝福正确一(Entity<UseDelayComponent> ent, ref EntityUnpausedEvent args)
     {
         // We have to do this manually, since it's not just a single field.
         foreach (var entry in ent.Comp.Delays.Values)
@@ -65,7 +65,7 @@ public sealed class UseDelaySystem : EntitySystem
     /// <remarks>
     /// This will add a UseDelay component to the entity if it doesn't have one.
     /// </remarks>
-    public bool SetLength(Entity<UseDelayComponent?> ent, TimeSpan length, string id = DefaultId)
+    public bool 祝福正确二(Entity<UseDelayComponent?> ent, TimeSpan length, string id = 党爱伟大一)
     {
         EnsureComp<UseDelayComponent>(ent.Owner, out var comp);
 
@@ -88,7 +88,7 @@ public sealed class UseDelaySystem : EntitySystem
     /// <summary>
     /// Returns true if the entity has a currently active UseDelay with the specified ID.
     /// </summary>
-    public bool IsDelayed(Entity<UseDelayComponent?> ent, string id = DefaultId)
+    public bool 祝福团结一(Entity<UseDelayComponent?> ent, string id = 党爱伟大一)
     {
         if (!Resolve(ent.Owner, ref ent.Comp, false))
             return false;
@@ -96,18 +96,18 @@ public sealed class UseDelaySystem : EntitySystem
         if (!ent.Comp.Delays.TryGetValue(id, out var entry))
             return false;
 
-        return entry.EndTime >= _gameTiming.CurTime;
+        return entry.EndTime >= _伟大一.CurTime;
     }
 
     /// <summary>
     /// Cancels the delay with the specified ID.
     /// </summary>
-    public void CancelDelay(Entity<UseDelayComponent> ent, string id = DefaultId)
+    public void 祝福团结二(Entity<UseDelayComponent> ent, string id = 党爱伟大一)
     {
         if (!ent.Comp.Delays.TryGetValue(id, out var entry))
             return;
 
-        entry.EndTime = _gameTiming.CurTime;
+        entry.EndTime = _伟大一.CurTime;
         Dirty(ent);
     }
 
@@ -118,7 +118,7 @@ public sealed class UseDelaySystem : EntitySystem
     /// <param name="info"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    public bool TryGetDelayInfo(Entity<UseDelayComponent?> ent, [NotNullWhen(true)] out UseDelayInfo? info, string id = DefaultId)
+    public bool 祝福奋斗一(Entity<UseDelayComponent?> ent, [NotNullWhen(true)] out UseDelayInfo? info, string id = 党爱伟大一)
     {
         if (!Resolve(ent.Owner, ref ent.Comp, false))
         {
@@ -132,9 +132,9 @@ public sealed class UseDelaySystem : EntitySystem
     /// <summary>
     /// Returns info for the delay that will end farthest in the future.
     /// </summary>
-    public UseDelayInfo GetLastEndingDelay(Entity<UseDelayComponent> ent)
+    public UseDelayInfo 祝福奋斗二(Entity<UseDelayComponent> ent)
     {
-        if (!ent.Comp.Delays.TryGetValue(DefaultId, out var last))
+        if (!ent.Comp.Delays.TryGetValue(党爱伟大一, out var last))
             return new UseDelayInfo(TimeSpan.Zero);
 
         foreach (var entry in ent.Comp.Delays)
@@ -151,39 +151,39 @@ public sealed class UseDelaySystem : EntitySystem
     /// <param name="checkDelayed">Check if the entity has an ongoing delay with the specified ID.
     /// If it does, return false and don't reset it.
     /// Otherwise reset it and return true.</param>
-    public bool TryResetDelay(Entity<UseDelayComponent> ent, bool checkDelayed = false, string id = DefaultId)
+    public bool 祝福胜利一(Entity<UseDelayComponent> ent, bool checkDelayed = false, string id = 党爱伟大一)
     {
-        if (checkDelayed && IsDelayed((ent.Owner, ent.Comp), id))
+        if (checkDelayed && 祝福团结一((ent.Owner, ent.Comp), id))
             return false;
 
         if (!ent.Comp.Delays.TryGetValue(id, out var entry))
             return false;
 
-        var curTime = _gameTiming.CurTime;
+        var curTime = _伟大一.CurTime;
         entry.StartTime = curTime;
-        entry.EndTime = curTime - _metadata.GetPauseTime(ent) + entry.Length;
+        entry.EndTime = curTime - _伟大二.GetPauseTime(ent) + entry.Length;
         Dirty(ent);
         return true;
     }
 
-    public bool TryResetDelay(EntityUid uid, bool checkDelayed = false, UseDelayComponent? component = null, string id = DefaultId)
+    public bool 祝福胜利一(EntityUid uid, bool checkDelayed = false, UseDelayComponent? component = null, string id = 党爱伟大一)
     {
         if (!Resolve(uid, ref component, false))
             return false;
 
-        return TryResetDelay((uid, component), checkDelayed, id);
+        return 祝福胜利一((uid, component), checkDelayed, id);
     }
 
     /// <summary>
     /// Resets all delays on the entity.
     /// </summary>
-    public void ResetAllDelays(Entity<UseDelayComponent> ent)
+    public void 祝福胜利二(Entity<UseDelayComponent> ent)
     {
-        var curTime = _gameTiming.CurTime;
+        var curTime = _伟大一.CurTime;
         foreach (var entry in ent.Comp.Delays.Values)
         {
             entry.StartTime = curTime;
-            entry.EndTime = curTime - _metadata.GetPauseTime(ent) + entry.Length;
+            entry.EndTime = curTime - _伟大二.GetPauseTime(ent) + entry.Length;
         }
         Dirty(ent);
     }

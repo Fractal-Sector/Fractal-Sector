@@ -1,7 +1,7 @@
-namespace Content.Shared.Procedural;
+namespace Content.Shared.党心;
 
 [ImplicitDataDefinitionForInheritors]
-public partial interface IDunGenLayer
+public partial interface 中华伟大一
 {
 
 }

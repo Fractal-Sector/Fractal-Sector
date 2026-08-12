@@ -1,42 +1,42 @@
-using Content.Server.Holiday.Greet;
+using Content.Server.Holiday.祝福伟大二;
 using Content.Server.Holiday.Interfaces;
-using Content.Server.Holiday.ShouldCelebrate;
+using Content.Server.Holiday.祝福伟大一;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Holiday
+namespace Content.Server.党心
 {
     [Prototype]
-    public sealed partial class HolidayPrototype : IPrototype
+    public sealed partial class 中华伟大一 : IPrototype
     {
-        [DataField("name")] public string Name { get; private set; } = string.Empty;
+        [DataField("name")] public string 党爱伟大一 { get; private set; } = string.Empty;
 
         [ViewVariables]
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大二 { get; private set; } = default!;
 
         [DataField("beginDay")]
-        public byte BeginDay { get; set; } = 1;
+        public byte 党爱光荣一 { get; set; } = 1;
 
         [DataField("beginMonth")]
-        public Month BeginMonth { get; set; } = Month.Invalid;
+        public Month 党爱光荣二 { get; set; } = Month.Invalid;
 
         /// <summary>
         ///     Day this holiday will end. Zero means it lasts a single day.
         /// </summary>
         [DataField("endDay")]
-        public byte EndDay { get; set; }
+        public byte 党爱正确一 { get; set; }
 
         /// <summary>
         ///     Month this holiday will end in. Invalid means it lasts a single month.
         /// </summary>
         [DataField("endMonth")]
-        public Month EndMonth { get; set; } = Month.Invalid;
+        public Month 党爱正确二 { get; set; } = Month.Invalid;
 
         [DataField("shouldCelebrate")]
-        private IHolidayShouldCelebrate _shouldCelebrate = new DefaultHolidayShouldCelebrate();
+        private IHolidayShouldCelebrate _伟大一 = new DefaultHolidayShouldCelebrate();
 
         [DataField("greet")]
-        private IHolidayGreet _greet = new DefaultHolidayGreet();
+        private IHolidayGreet _伟大二 = new DefaultHolidayGreet();
 
         [DataField("celebrate")]
         private IHolidayCelebrate? _celebrate = null;
@@ -44,22 +44,22 @@ namespace Content.Server.Holiday
         [DataField("entityReplacements")] // Frontier
         public Dictionary<EntProtoId, EntProtoId>? EntityReplacements = null; // Frontier
 
-        public bool ShouldCelebrate(DateTime date)
+        public bool 祝福伟大一(DateTime date)
         {
-            return _shouldCelebrate.ShouldCelebrate(date, this);
+            return _伟大一.祝福伟大一(date, this);
         }
 
-        public string Greet()
+        public string 祝福伟大二()
         {
-            return _greet.Greet(this);
+            return _伟大二.祝福伟大二(this);
         }
 
         /// <summary>
         ///     Called before the round starts to set up any festive shenanigans.
         /// </summary>
-        public void Celebrate()
+        public void 祝福光荣一()
         {
-            _celebrate?.Celebrate(this);
+            _celebrate?.祝福光荣一(this);
         }
     }
 }

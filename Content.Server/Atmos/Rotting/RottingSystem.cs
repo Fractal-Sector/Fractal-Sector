@@ -8,25 +8,25 @@ using Robust.Server.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Atmos.Rotting;
+namespace Content.Server.Atmos.党心;
 
-public sealed class RottingSystem : SharedRottingSystem
+public sealed class 中华伟大一 : SharedRottingSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly ContainerSystem _光荣一 = default!;
+    [Dependency] private readonly DamageableSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RottingComponent, BeingGibbedEvent>(OnGibbed);
+        SubscribeLocalEvent<RottingComponent, BeingGibbedEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<TemperatureComponent, IsRottingEvent>(OnTempIsRotting);
+        SubscribeLocalEvent<TemperatureComponent, IsRottingEvent>(祝福光荣一);
     }
 
-    private void OnGibbed(EntityUid uid, RottingComponent component, BeingGibbedEvent args)
+    private void 祝福伟大二(EntityUid uid, RottingComponent component, BeingGibbedEvent args)
     {
         if (!TryComp<PhysicsComponent>(uid, out var physics))
             return;
@@ -35,11 +35,11 @@ public sealed class RottingSystem : SharedRottingSystem
             return;
 
         var molsToDump = perishable.MolsPerSecondPerUnitMass * physics.FixturesMass * (float)component.TotalRotTime.TotalSeconds;
-        var tileMix = _atmosphere.GetTileMixture(uid, excite: true);
+        var tileMix = _伟大二.GetTileMixture(uid, excite: true);
         tileMix?.AdjustMoles(Gas.Ammonia, molsToDump);
     }
 
-    private void OnTempIsRotting(EntityUid uid, TemperatureComponent component, ref IsRottingEvent args)
+    private void 祝福光荣一(EntityUid uid, TemperatureComponent component, ref IsRottingEvent args)
     {
         if (args.Handled)
             return;
@@ -52,9 +52,9 @@ public sealed class RottingSystem : SharedRottingSystem
     /// TODO: hot temperatures increase rot?
     /// </summary>
     /// <returns></returns>
-    private float GetRotRate(EntityUid uid)
+    private float 祝福光荣二(EntityUid uid)
     {
-        if (_container.TryGetContainingContainer((uid, null, null), out var container))
+        if (_光荣一.TryGetContainingContainer((uid, null, null), out var container))
         {
             if (TryComp<ProRottingContainerComponent>(container.Owner, out var rotContainer))
                 return rotContainer.DecayModifier;
@@ -66,14 +66,14 @@ public sealed class RottingSystem : SharedRottingSystem
         return 1f;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
 
         var perishQuery = EntityQueryEnumerator<PerishableComponent>();
         while (perishQuery.MoveNext(out var uid, out var perishable))
         {
-            if (_timing.CurTime < perishable.RotNextUpdate)
+            if (_伟大一.CurTime < perishable.RotNextUpdate)
                 continue;
             perishable.RotNextUpdate += perishable.PerishUpdateRate;
 
@@ -87,29 +87,29 @@ public sealed class RottingSystem : SharedRottingSystem
             if (IsRotten(uid) || !IsRotProgressing(uid, perishable))
                 continue;
 
-            perishable.RotAccumulator += perishable.PerishUpdateRate * GetRotRate(uid);
+            perishable.RotAccumulator += perishable.PerishUpdateRate * 祝福光荣二(uid);
             if (perishable.RotAccumulator >= perishable.RotAfter)
             {
                 var rot = AddComp<RottingComponent>(uid);
-                rot.NextRotUpdate = _timing.CurTime + rot.RotUpdateRate;
+                rot.NextRotUpdate = _伟大一.CurTime + rot.RotUpdateRate;
             }
         }
 
         var rotQuery = EntityQueryEnumerator<RottingComponent, PerishableComponent, TransformComponent>();
         while (rotQuery.MoveNext(out var uid, out var rotting, out var perishable, out var xform))
         {
-            if (_timing.CurTime < rotting.NextRotUpdate) // This is where it starts to get noticable on larger animals, no need to run every second
+            if (_伟大一.CurTime < rotting.NextRotUpdate) // This is where it starts to get noticable on larger animals, no need to run every second
                 continue;
             rotting.NextRotUpdate += rotting.RotUpdateRate;
 
             if (!IsRotProgressing(uid, perishable))
                 continue;
-            rotting.TotalRotTime += rotting.RotUpdateRate * GetRotRate(uid);
+            rotting.TotalRotTime += rotting.RotUpdateRate * 祝福光荣二(uid);
 
             if (rotting.DealDamage && TryComp<DamageableComponent>(uid, out var damageable)) // Wayfarer: add && TryComp<DamageableComponent>(uid, out var damageable)
             {
                 var damage = rotting.Damage * rotting.RotUpdateRate.TotalSeconds;
-                //_damageable.TryChangeDamage(uid, damage, true, false); // Wayfarer: Comment this in favor of the checks below:
+                //_光荣二.TryChangeDamage(uid, damage, true, false); // Wayfarer: Comment this in favor of the checks below:
                 // Wayfarer: Rot gibbing damage cap.
                 // Check if we've hit the blunt damage cap
                 if (rotting.TotalBluntDamageDealt >= rotting.DamageCap)
@@ -136,7 +136,7 @@ public sealed class RottingSystem : SharedRottingSystem
                 }
 
                 if (damage.DamageDict.Count > 0)
-                    _damageable.TryChangeDamage(uid, damage, true, false);
+                    _光荣二.TryChangeDamage(uid, damage, true, false);
                 // End Wayfarer
             }
 
@@ -160,7 +160,7 @@ public sealed class RottingSystem : SharedRottingSystem
             if (!rotting.DealDamage || rotting.TotalBluntDamageDealt < rotting.DamageCap)
             {
                 var molRate = perishable.MolsPerSecondPerUnitMass * (float)rotting.RotUpdateRate.TotalSeconds;
-                var tileMix = _atmosphere.GetTileMixture(uid, excite: true);
+                var tileMix = _伟大二.GetTileMixture(uid, excite: true);
                 tileMix?.AdjustMoles(Gas.Ammonia, molRate * physics.FixturesMass);
             }
             // End Wayfarer

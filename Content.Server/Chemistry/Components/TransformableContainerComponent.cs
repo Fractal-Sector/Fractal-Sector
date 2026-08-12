@@ -2,7 +2,7 @@ using Content.Server.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Chemistry.Components;
+namespace Content.Server.Chemistry.党心;
 
 /// <summary>
 /// A container that transforms its appearance depending on the reagent it contains.
@@ -12,7 +12,7 @@ namespace Content.Server.Chemistry.Components;
 /// Should probably be joined with SolutionContainerVisualsComponent when solutions are networked.
 /// </summary>
 [RegisterComponent, Access(typeof(TransformableContainerSystem))]
-public sealed partial class TransformableContainerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// This is the initial metadata description for the container.
@@ -33,5 +33,5 @@ public sealed partial class TransformableContainerComponent : Component
     /// This returns whether this container in a transformed or initial state.
     /// </summary>
     [DataField]
-    public bool Transformed;
+    public bool 党爱伟大一;
 }

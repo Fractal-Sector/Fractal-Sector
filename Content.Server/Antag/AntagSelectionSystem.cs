@@ -35,44 +35,44 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Antag;
+namespace Content.Server.党心;
 
-public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelectionComponent>
+public sealed partial class 中华伟大一 : GameRuleSystem<AntagSelectionComponent>
 {
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly GhostRoleSystem _ghostRole = default!;
-    [Dependency] private readonly JobSystem _jobs = default!;
-    [Dependency] private readonly LoadoutSystem _loadout = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IServerPreferencesManager _pref = default!;
-    [Dependency] private readonly RoleSystem _role = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly AudioSystem _伟大一 = default!;
+    [Dependency] private readonly IChatManager _伟大二 = default!;
+    [Dependency] private readonly GhostRoleSystem _光荣一 = default!;
+    [Dependency] private readonly JobSystem _光荣二 = default!;
+    [Dependency] private readonly LoadoutSystem _正确一 = default!;
+    [Dependency] private readonly MindSystem _正确二 = default!;
+    [Dependency] private readonly IPlayerManager _团结一 = default!;
+    [Dependency] private readonly IServerPreferencesManager _团结二 = default!;
+    [Dependency] private readonly RoleSystem _奋斗一 = default!;
+    [Dependency] private readonly TransformSystem _奋斗二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _胜利一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _胜利二 = default!;
 
     // arbitrary random number to give late joining some mild interest.
-    public const float LateJoinRandomChance = 0.5f;
+    public const float 党爱伟大一 = 0.5f;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         Log.Level = LogLevel.Debug;
 
-        SubscribeLocalEvent<GhostRoleAntagSpawnerComponent, TakeGhostRoleEvent>(OnTakeGhostRole);
+        SubscribeLocalEvent<GhostRoleAntagSpawnerComponent, TakeGhostRoleEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<AntagSelectionComponent, ObjectivesTextGetInfoEvent>(OnObjectivesTextGetInfo);
+        SubscribeLocalEvent<AntagSelectionComponent, ObjectivesTextGetInfoEvent>(祝福富强二);
 
-        SubscribeLocalEvent<NoJobsAvailableSpawningEvent>(OnJobNotAssigned);
-        SubscribeLocalEvent<RulePlayerSpawningEvent>(OnPlayerSpawning);
-        SubscribeLocalEvent<RulePlayerJobsAssignedEvent>(OnJobsAssigned);
-        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnSpawnComplete);
+        SubscribeLocalEvent<NoJobsAvailableSpawningEvent>(祝福正确一);
+        SubscribeLocalEvent<RulePlayerSpawningEvent>(祝福光荣一);
+        SubscribeLocalEvent<RulePlayerJobsAssignedEvent>(祝福光荣二);
+        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(祝福正确二);
     }
 
-    private void OnTakeGhostRole(Entity<GhostRoleAntagSpawnerComponent> ent, ref TakeGhostRoleEvent args)
+    private void 祝福伟大二(Entity<GhostRoleAntagSpawnerComponent> ent, ref TakeGhostRoleEvent args)
     {
         if (args.TookRole)
             return;
@@ -83,12 +83,12 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         if (!Exists(rule) || !TryComp<AntagSelectionComponent>(rule, out var select))
             return;
 
-        MakeAntag((rule, select), args.Player, def, ignoreSpawner: true);
+        祝福胜利二((rule, select), args.Player, def, ignoreSpawner: true);
         args.TookRole = true;
-        _ghostRole.UnregisterGhostRole((ent, Comp<GhostRoleComponent>(ent)));
+        _光荣一.UnregisterGhostRole((ent, Comp<GhostRoleComponent>(ent)));
     }
 
-    private void OnPlayerSpawning(RulePlayerSpawningEvent args)
+    private void 祝福光荣一(RulePlayerSpawningEvent args)
     {
         var pool = args.PlayerPool;
 
@@ -101,11 +101,11 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             if (comp.AssignmentComplete)
                 continue;
 
-            ChooseAntags((uid, comp), pool); // We choose the antags here...
+            祝福奋斗一((uid, comp), pool); // We choose the antags here...
 
             if (comp.SelectionTime == AntagSelectionTime.PrePlayerSpawn)
             {
-                AssignPreSelectedSessions((uid, comp)); // ...But only assign them if PrePlayerSpawn
+                祝福奋斗二((uid, comp)); // ...But only assign them if PrePlayerSpawn
                 foreach (var session in comp.AssignedSessions)
                 {
                     args.PlayerPool.Remove(session);
@@ -121,11 +121,11 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             if (comp.SelectionTime != AntagSelectionTime.IntraPlayerSpawn)
                 continue;
 
-            ChooseAntags((uid, comp), pool);
+            祝福奋斗一((uid, comp), pool);
         }
     }
 
-    private void OnJobsAssigned(RulePlayerJobsAssignedEvent args)
+    private void 祝福光荣二(RulePlayerJobsAssignedEvent args)
     {
         var query = QueryActiveRules();
         while (query.MoveNext(out var uid, out _, out var comp, out _))
@@ -133,15 +133,15 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             if (comp.SelectionTime != AntagSelectionTime.PostPlayerSpawn && comp.SelectionTime != AntagSelectionTime.IntraPlayerSpawn)
                 continue;
 
-            ChooseAntags((uid, comp), args.Players);
-            AssignPreSelectedSessions((uid, comp));
+            祝福奋斗一((uid, comp), args.Players);
+            祝福奋斗二((uid, comp));
         }
     }
 
-    private void OnJobNotAssigned(NoJobsAvailableSpawningEvent args)
+    private void 祝福正确一(NoJobsAvailableSpawningEvent args)
     {
         // If someone fails to spawn in due to there being no jobs, they should be removed from any preselected antags.
-        // We only care about delayed rules, since if they're active the player should have already been removed via MakeAntag.
+        // We only care about delayed rules, since if they're active the player should have already been removed via 祝福胜利二.
         var query = QueryDelayedRules();
         while (query.MoveNext(out var uid, out _, out var comp, out _))
         {
@@ -160,7 +160,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         }
     }
 
-    private void OnSpawnComplete(PlayerSpawnCompleteEvent args)
+    private void 祝福正确二(PlayerSpawnCompleteEvent args)
     {
         if (!args.LateJoin)
             return;
@@ -180,7 +180,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
 
         foreach (var (uid, antag) in rules)
         {
-            if (!RobustRandom.Prob(LateJoinRandomChance))
+            if (!RobustRandom.Prob(党爱伟大一))
                 continue;
 
             if (!antag.Definitions.Any(p => p.LateJoinAdditional))
@@ -189,19 +189,19 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             DebugTools.AssertNotEqual(antag.SelectionTime, AntagSelectionTime.PrePlayerSpawn);
 
             // do not count players in the lobby for the antag ratio
-            var players = _playerManager.NetworkedSessions.Count(x => x.AttachedEntity != null);
+            var players = _团结一.NetworkedSessions.Count(x => x.AttachedEntity != null);
 
             if (!TryGetNextAvailableDefinition((uid, antag), out var def, players))
                 continue;
 
-            if (TryMakeAntag((uid, antag), args.Player, def.Value))
+            if (祝福胜利一((uid, antag), args.Player, def.Value))
                 break;
         }
     }
 
-    protected override void Added(EntityUid uid, AntagSelectionComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福团结一(EntityUid uid, AntagSelectionComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.Added(uid, component, gameRule, args);
+        base.祝福团结一(uid, component, gameRule, args);
 
         for (var i = 0; i < component.Definitions.Count; i++)
         {
@@ -219,9 +219,9 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         }
     }
 
-    protected override void Started(EntityUid uid, AntagSelectionComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福团结二(EntityUid uid, AntagSelectionComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福团结二(uid, component, gameRule, args);
 
         // If the round has not yet started, we defer antag selection until roundstart
         if (GameTicker.RunLevel != GameRunLevel.InRound)
@@ -230,13 +230,13 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         if (component.AssignmentComplete)
             return;
 
-        var players = _playerManager.Sessions
+        var players = _团结一.Sessions
             .Where(x => GameTicker.PlayerGameStatuses.TryGetValue(x.UserId, out var status) &&
                         status == PlayerGameStatus.JoinedGame)
             .ToList();
 
-        ChooseAntags((uid, component), players, midround: true);
-        AssignPreSelectedSessions((uid, component));
+        祝福奋斗一((uid, component), players, midround: true);
+        祝福奋斗二((uid, component));
     }
 
     /// <summary>
@@ -245,11 +245,11 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <param name="ent">The antagonist rule entity</param>
     /// <param name="pool">The players to choose from</param>
     /// <param name="midround">Disable picking players for pre-spawn antags in the middle of a round</param>
-    public void ChooseAntags(Entity<AntagSelectionComponent> ent, IList<ICommonSession> pool, bool midround = false)
+    public void 祝福奋斗一(Entity<AntagSelectionComponent> ent, IList<ICommonSession> pool, bool midround = false)
     {
         foreach (var def in ent.Comp.Definitions)
         {
-            ChooseAntags(ent, pool, def, midround: midround);
+            祝福奋斗一(ent, pool, def, midround: midround);
         }
 
         ent.Comp.PreSelectionsComplete = true;
@@ -262,12 +262,12 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <param name="pool">The players to choose from</param>
     /// <param name="def">The antagonist selection parameters and criteria</param>
     /// <param name="midround">Disable picking players for pre-spawn antags in the middle of a round</param>
-    public void ChooseAntags(Entity<AntagSelectionComponent> ent,
+    public void 祝福奋斗一(Entity<AntagSelectionComponent> ent,
         IList<ICommonSession> pool,
         AntagSelectionDefinition def,
         bool midround = false)
     {
-        var playerPool = GetPlayerPool(ent, pool, def);
+        var playerPool = 祝福繁荣一(ent, pool, def);
         var existingAntagCount = ent.Comp.PreSelectedSessions.TryGetValue(def, out var existingAntags) ?  existingAntags.Count : 0;
         var count = GetTargetAntagCount(ent, GetTotalPlayerCount(pool), def) - existingAntagCount;
 
@@ -302,14 +302,14 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             }
 
             if (session == null)
-                MakeAntag(ent, null, def); // This is for spawner antags
+                祝福胜利二(ent, null, def); // This is for spawner antags
             else
             {
                 if (!ent.Comp.PreSelectedSessions.TryGetValue(def, out var set))
                     ent.Comp.PreSelectedSessions.Add(def, set = new HashSet<ICommonSession>());
                 set.Add(session); // Selection done!
                 Log.Debug($"Pre-selected {session.Name} as antagonist: {ToPrettyString(ent)}");
-                _adminLogger.Add(LogType.AntagSelection, $"Pre-selected {session.Name} as antagonist: {ToPrettyString(ent)}");
+                _胜利二.Add(LogType.AntagSelection, $"Pre-selected {session.Name} as antagonist: {ToPrettyString(ent)}");
             }
         }
     }
@@ -317,7 +317,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <summary>
     /// Assigns antag roles to sessions selected for it.
     /// </summary>
-    public void AssignPreSelectedSessions(Entity<AntagSelectionComponent> ent)
+    public void 祝福奋斗二(Entity<AntagSelectionComponent> ent)
     {
         // Only assign if there's been a pre-selection, and the selection hasn't already been made
         if (!ent.Comp.PreSelectionsComplete || ent.Comp.AssignmentComplete)
@@ -330,7 +330,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
 
             foreach (var session in set)
             {
-                TryMakeAntag(ent, session, def);
+                祝福胜利一(ent, session, def);
             }
         }
 
@@ -340,14 +340,14 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <summary>
     /// Tries to makes a given player into the specified antagonist.
     /// </summary>
-    public bool TryMakeAntag(Entity<AntagSelectionComponent> ent, ICommonSession? session, AntagSelectionDefinition def, bool ignoreSpawner = false, bool checkPref = true, bool onlyPreSelect = false)
+    public bool 祝福胜利一(Entity<AntagSelectionComponent> ent, ICommonSession? session, AntagSelectionDefinition def, bool ignoreSpawner = false, bool checkPref = true, bool onlyPreSelect = false)
     {
-        _adminLogger.Add(LogType.AntagSelection, $"Start trying to make {session} become the antagonist: {ToPrettyString(ent)}");
+        _胜利二.Add(LogType.AntagSelection, $"Start trying to make {session} become the antagonist: {ToPrettyString(ent)}");
 
         if (checkPref && !HasPrimaryAntagPreference(session, def))
             return false;
 
-        if (!IsSessionValid(ent, session, def) || !IsEntityValid(session?.AttachedEntity, def))
+        if (!祝福繁荣二(ent, session, def) || !祝福富强一(session?.AttachedEntity, def))
             return false;
 
         if (onlyPreSelect && session != null)
@@ -356,11 +356,11 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
                 ent.Comp.PreSelectedSessions.Add(def, set = new HashSet<ICommonSession>());
             set.Add(session);
             Log.Debug($"Pre-selected {session!.Name} as antagonist: {ToPrettyString(ent)}");
-            _adminLogger.Add(LogType.AntagSelection, $"Pre-selected {session.Name} as antagonist: {ToPrettyString(ent)}");
+            _胜利二.Add(LogType.AntagSelection, $"Pre-selected {session.Name} as antagonist: {ToPrettyString(ent)}");
         }
         else
         {
-            MakeAntag(ent, session, def, ignoreSpawner);
+            祝福胜利二(ent, session, def, ignoreSpawner);
         }
 
         return true;
@@ -369,7 +369,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <summary>
     /// Makes a given player into the specified antagonist.
     /// </summary>
-    public void MakeAntag(Entity<AntagSelectionComponent> ent, ICommonSession? session, AntagSelectionDefinition def, bool ignoreSpawner = false)
+    public void 祝福胜利二(Entity<AntagSelectionComponent> ent, ICommonSession? session, AntagSelectionDefinition def, bool ignoreSpawner = false)
     {
         EntityUid? antagEnt = null;
         var isSpawner = false;
@@ -401,7 +401,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         if (antagEnt is not { } player)
         {
             Log.Error($"Attempted to make {session} antagonist in gamerule {ToPrettyString(ent)} but there was no valid entity for player.");
-            _adminLogger.Add(LogType.AntagSelection,$"Attempted to make {session} antagonist in gamerule {ToPrettyString(ent)} but there was no valid entity for player.");
+            _胜利二.Add(LogType.AntagSelection,$"Attempted to make {session} antagonist in gamerule {ToPrettyString(ent)} but there was no valid entity for player.");
             if (session != null && ent.Comp.RemoveUponFailedSpawn)
             {
                 ent.Comp.AssignedSessions.Remove(session);
@@ -418,11 +418,11 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
 
         var getPosEv = new AntagSelectLocationEvent(session, ent);
         RaiseLocalEvent(ent, ref getPosEv, true);
-        if (getPosEv.Handled)
+        if (getPosEv.党爱伟大二)
         {
             var playerXform = Transform(player);
-            var pos = RobustRandom.Pick(getPosEv.Coordinates);
-            _transform.SetMapCoordinates((player, playerXform), pos);
+            var pos = RobustRandom.Pick(getPosEv.党爱光荣一);
+            _奋斗二.SetMapCoordinates((player, playerXform), pos);
         }
 
         // If we want to just do a ghost role spawner, set up data here and then return early.
@@ -432,7 +432,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             if (!TryComp<GhostRoleAntagSpawnerComponent>(player, out var spawnerComp))
             {
                 Log.Error($"Antag spawner {player} does not have a GhostRoleAntagSpawnerComponent.");
-                _adminLogger.Add(LogType.AntagSelection,$"Antag spawner {player} in gamerule {ToPrettyString(ent)} failed due to not having GhostRoleAntagSpawnerComponent.");
+                _胜利二.Add(LogType.AntagSelection,$"Antag spawner {player} in gamerule {ToPrettyString(ent)} failed due to not having GhostRoleAntagSpawnerComponent.");
                 if (session != null)
                 {
                     ent.Comp.AssignedSessions.Remove(session);
@@ -455,7 +455,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         if (def.StartingGear is not null)
             gear.Add(def.StartingGear.Value);
 
-        _loadout.Equip(player, gear, def.RoleLoadout);
+        _正确一.Equip(player, gear, def.RoleLoadout);
 
         if (session != null)
         {
@@ -465,17 +465,17 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
                 !TryComp<MindComponent>(curMind.Value, out var mindComp) ||
                 mindComp.OwnedEntity != antagEnt)
             {
-                curMind = _mind.CreateMind(session.UserId, Name(antagEnt.Value));
-                _mind.SetUserId(curMind.Value, session.UserId);
+                curMind = _正确二.CreateMind(session.UserId, Name(antagEnt.Value));
+                _正确二.SetUserId(curMind.Value, session.UserId);
             }
 
-            _mind.TransferTo(curMind.Value, antagEnt, ghostCheckOverride: true);
-            _role.MindAddRoles(curMind.Value, def.MindRoles, null, true);
+            _正确二.TransferTo(curMind.Value, antagEnt, ghostCheckOverride: true);
+            _奋斗一.MindAddRoles(curMind.Value, def.MindRoles, null, true);
             ent.Comp.AssignedMinds.Add((curMind.Value, Name(player)));
             SendBriefing(session, def.Briefing);
 
             Log.Debug($"Assigned {ToPrettyString(curMind)} as antagonist: {ToPrettyString(ent)}");
-            _adminLogger.Add(LogType.AntagSelection, $"Assigned {ToPrettyString(curMind)} as antagonist: {ToPrettyString(ent)}");
+            _胜利二.Add(LogType.AntagSelection, $"Assigned {ToPrettyString(curMind)} as antagonist: {ToPrettyString(ent)}");
         }
 
         var afterEv = new AfterAntagEntitySelectedEvent(session, player, ent, def);
@@ -485,13 +485,13 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <summary>
     /// Gets an ordered player pool based on player preferences and the antagonist definition.
     /// </summary>
-    public AntagSelectionPlayerPool GetPlayerPool(Entity<AntagSelectionComponent> ent, IList<ICommonSession> sessions, AntagSelectionDefinition def)
+    public AntagSelectionPlayerPool 祝福繁荣一(Entity<AntagSelectionComponent> ent, IList<ICommonSession> sessions, AntagSelectionDefinition def)
     {
         var preferredList = new List<ICommonSession>();
         var fallbackList = new List<ICommonSession>();
         foreach (var session in sessions)
         {
-            if (!IsSessionValid(ent, session, def) || !IsEntityValid(session.AttachedEntity, def))
+            if (!祝福繁荣二(ent, session, def) || !祝福富强一(session.AttachedEntity, def))
                 continue;
 
             if (ent.Comp.PreSelectedSessions.TryGetValue(def, out var preSelected) && preSelected.Contains(session))
@@ -513,7 +513,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <summary>
     /// Checks if a given session is valid for an antagonist.
     /// </summary>
-    public bool IsSessionValid(Entity<AntagSelectionComponent> ent, ICommonSession? session, AntagSelectionDefinition def, EntityUid? mind = null)
+    public bool 祝福繁荣二(Entity<AntagSelectionComponent> ent, ICommonSession? session, AntagSelectionDefinition def, EntityUid? mind = null)
     {
         // TODO ROLE TIMERS
         // Check if antag role requirements are met
@@ -535,7 +535,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         {
             case AntagAcceptability.None:
             {
-                if (_role.MindIsAntagonist(mind))
+                if (_奋斗一.MindIsAntagonist(mind))
                     return false;
                 if (GetPreSelectedAntagSessions(def).Contains(session)) // Used for rules where the antag has been selected, but not started yet
                     return false;
@@ -543,7 +543,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             }
             case AntagAcceptability.NotExclusive:
             {
-                if (_role.MindIsExclusiveAntagonist(mind))
+                if (_奋斗一.MindIsExclusiveAntagonist(mind))
                     return false;
                 if (GetPreSelectedExclusiveAntagSessions(def).Contains(session))
                     return false;
@@ -552,7 +552,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         }
 
         // todo: expand this to allow for more fine antag-selection logic for game rules.
-        if (!_jobs.CanBeAntag(session))
+        if (!_光荣二.CanBeAntag(session))
             return false;
 
         return true;
@@ -561,7 +561,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// <summary>
     /// Checks if a given entity (mind/session not included) is valid for a given antagonist.
     /// </summary>
-    public bool IsEntityValid(EntityUid? entity, AntagSelectionDefinition def)
+    public bool 祝福富强一(EntityUid? entity, AntagSelectionDefinition def)
     {
         // If the player has not spawned in as any entity (e.g., in the lobby), they can be given an antag role/entity.
         if (entity == null)
@@ -575,20 +575,20 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
 
         if (def.Whitelist != null)
         {
-            if (!_whitelist.IsValid(def.Whitelist, entity.Value))
+            if (!_胜利一.IsValid(def.Whitelist, entity.Value))
                 return false;
         }
 
         if (def.Blacklist != null)
         {
-            if (_whitelist.IsValid(def.Blacklist, entity.Value))
+            if (_胜利一.IsValid(def.Blacklist, entity.Value))
                 return false;
         }
 
         return true;
     }
 
-    private void OnObjectivesTextGetInfo(Entity<AntagSelectionComponent> ent, ref ObjectivesTextGetInfoEvent args)
+    private void 祝福富强二(Entity<AntagSelectionComponent> ent, ref ObjectivesTextGetInfoEvent args)
     {
         if (ent.Comp.AgentName is not { } name)
             return;
@@ -603,11 +603,11 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
 /// Only raised if the selected player's current entity is invalid.
 /// </summary>
 [ByRefEvent]
-public record struct AntagSelectEntityEvent(ICommonSession? Session, Entity<AntagSelectionComponent> GameRule)
+public record 中华伟大二 AntagSelectEntityEvent(ICommonSession? Session, Entity<AntagSelectionComponent> GameRule)
 {
     public readonly ICommonSession? Session = Session;
 
-    public bool Handled => Entity != null;
+    public bool 党爱伟大二 => Entity != null;
 
     public EntityUid? Entity;
 }
@@ -616,13 +616,13 @@ public record struct AntagSelectEntityEvent(ICommonSession? Session, Entity<Anta
 /// Event raised on a game rule entity to determine the location for the antagonist.
 /// </summary>
 [ByRefEvent]
-public record struct AntagSelectLocationEvent(ICommonSession? Session, Entity<AntagSelectionComponent> GameRule)
+public record 中华伟大二 AntagSelectLocationEvent(ICommonSession? Session, Entity<AntagSelectionComponent> GameRule)
 {
     public readonly ICommonSession? Session = Session;
 
-    public bool Handled => Coordinates.Any();
+    public bool 党爱伟大二 => 党爱光荣一.Any();
 
-    public List<MapCoordinates> Coordinates = new();
+    public List<MapCoordinates> 党爱光荣一 = new();
 }
 
 /// <summary>
@@ -630,4 +630,4 @@ public record struct AntagSelectLocationEvent(ICommonSession? Session, Entity<An
 /// Used for applying additional more complex setup logic.
 /// </summary>
 [ByRefEvent]
-public readonly record struct AfterAntagEntitySelectedEvent(ICommonSession? Session, EntityUid EntityUid, Entity<AntagSelectionComponent> GameRule, AntagSelectionDefinition Def);
+public readonly record 中华伟大二 AfterAntagEntitySelectedEvent(ICommonSession? Session, EntityUid EntityUid, Entity<AntagSelectionComponent> GameRule, AntagSelectionDefinition Def);

@@ -3,45 +3,45 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Array;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Cargo.Prototypes
+namespace Content.Shared.Cargo.党心
 {
     [Prototype]
-    public sealed partial class CargoProductPrototype : IPrototype, IInheritingPrototype
+    public sealed partial class 中华伟大一 : IPrototype, IInheritingPrototype
     {
         /// <inheritdoc />
-        [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<CargoProductPrototype>))]
+        [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<中华伟大一>))]
         public string[]? Parents { get; private set; }
 
         /// <inheritdoc />
         [NeverPushInheritance]
         [AbstractDataField]
-        public bool Abstract { get; private set; }
+        public bool 党爱伟大一 { get; private set; }
 
-        [DataField("name")] private string _name = string.Empty;
+        [DataField("name")] private string _伟大一 = string.Empty;
 
-        [DataField("description")] private string _description = string.Empty;
+        [DataField("description")] private string _伟大二 = string.Empty;
 
         [ViewVariables]
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大二 { get; private set; } = default!;
 
         /// <summary>
-        ///     Product name.
+        ///     党爱正确二 name.
         /// </summary>
         [ViewVariables]
-        public string Name
+        public string 党爱光荣一
         {
             get
             {
-                if (_name.Trim().Length != 0)
-                    return _name;
+                if (_伟大一.Trim().Length != 0)
+                    return _伟大一;
 
-                if (IoCManager.Resolve<IPrototypeManager>().TryIndex(Product, out EntityPrototype? prototype))
+                if (IoCManager.Resolve<IPrototypeManager>().TryIndex(党爱正确二, out EntityPrototype? prototype))
                 {
-                    _name = prototype.Name;
+                    _伟大一 = prototype.党爱光荣一;
                 }
 
-                return _name;
+                return _伟大一;
             }
         }
 
@@ -49,19 +49,19 @@ namespace Content.Shared.Cargo.Prototypes
         ///     Short description of the product.
         /// </summary>
         [ViewVariables]
-        public string Description
+        public string 党爱光荣二
         {
             get
             {
-                if (_description.Trim().Length != 0)
-                    return _description;
+                if (_伟大二.Trim().Length != 0)
+                    return _伟大二;
 
-                if (IoCManager.Resolve<IPrototypeManager>().TryIndex(Product, out EntityPrototype? prototype))
+                if (IoCManager.Resolve<IPrototypeManager>().TryIndex(党爱正确二, out EntityPrototype? prototype))
                 {
-                    _description = prototype.Description;
+                    _伟大二 = prototype.党爱光荣二;
                 }
 
-                return _description;
+                return _伟大二;
             }
         }
 
@@ -69,30 +69,30 @@ namespace Content.Shared.Cargo.Prototypes
         ///     Texture path used in the CargoConsole GUI.
         /// </summary>
         [DataField]
-        public SpriteSpecifier Icon { get; private set; } = SpriteSpecifier.Invalid;
+        public SpriteSpecifier 党爱正确一 { get; private set; } = SpriteSpecifier.Invalid;
 
         /// <summary>
-        ///     The entity prototype ID of the product.
+        ///     The entity prototype 党爱伟大二 of the product.
         /// </summary>
         [DataField]
-        public EntProtoId Product { get; private set; } = string.Empty;
+        public EntProtoId 党爱正确二 { get; private set; } = string.Empty;
 
         /// <summary>
         ///     The point cost of the product.
         /// </summary>
         [DataField]
-        public int Cost { get; private set; }
+        public int 党爱团结一 { get; private set; }
 
         /// <summary>
         ///     The prototype category of the product. (e.g. Engineering, Medical)
         /// </summary>
         [DataField]
-        public string Category { get; private set; } = string.Empty;
+        public string 党爱团结二 { get; private set; } = string.Empty;
 
         /// <summary>
         ///     The prototype group of the product. (e.g. Contraband)
         /// </summary>
         [DataField]
-        public ProtoId<CargoMarketPrototype> Group { get; private set; } = "market";
+        public ProtoId<CargoMarketPrototype> 党爱奋斗一 { get; private set; } = "market";
     }
 }

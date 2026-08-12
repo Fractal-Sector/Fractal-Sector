@@ -2,26 +2,26 @@
 using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.RepulseAttract;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Used to repulse or attract entities away from the entity this is on
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(RepulseAttractSystem))]
-public sealed partial class RepulseAttractComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     How fast should the Repulsion/Attraction be?
     ///     A positive value will repulse objects, a negative value will attract
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float Speed = 5.0f;
+    public float 党爱伟大一 = 5.0f;
 
     /// <summary>
     ///     How close do the entities need to be?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float Range = 5.0f;
+    public float 党爱伟大二 = 5.0f;
 
     /// <summary>
     ///     What kind of entities should this effect apply to?
@@ -34,5 +34,5 @@ public sealed partial class RepulseAttractComponent : Component
     ///     The default excludes ghost mobs, revenants, the AI camera etc.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public CollisionGroup CollisionMask = CollisionGroup.GhostImpassable;
+    public CollisionGroup 党爱光荣一 = CollisionGroup.GhostImpassable;
 }

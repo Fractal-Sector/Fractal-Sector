@@ -8,23 +8,23 @@ using Content.Shared.Verbs;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server._CD.Engraving;
+namespace Content.Server._CD.党心;
 
-public sealed class EngraveableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly QuickDialogSystem _dialog = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly QuickDialogSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EngraveableComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<EngraveableComponent, GetVerbsEvent<ActivationVerb>>(AddEngraveVerb);
+        SubscribeLocalEvent<EngraveableComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<EngraveableComponent, GetVerbsEvent<ActivationVerb>>(祝福光荣一);
     }
 
-    private void OnExamined(Entity<EngraveableComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<EngraveableComponent> ent, ref ExaminedEvent args)
     {
         var msg = new FormattedMessage();
         // Frontier: don't localize the message, use args in fluent entries
@@ -37,7 +37,7 @@ public sealed class EngraveableSystem : EntitySystem
         args.PushMessage(msg, 1);
     }
 
-    private void AddEngraveVerb(Entity<EngraveableComponent> ent, ref GetVerbsEvent<ActivationVerb> args)
+    private void 祝福光荣一(Entity<EngraveableComponent> ent, ref GetVerbsEvent<ActivationVerb> args)
     {
         // First check if it's already been engraved. If it has, don't let them do it again.
         if (ent.Comp.EngravedMessage != string.Empty)
@@ -56,7 +56,7 @@ public sealed class EngraveableSystem : EntitySystem
             Text = Loc.GetString("engraving-verb-engrave"),
             Act = () =>
             {
-                _dialog.OpenDialog(actor.PlayerSession,
+                _光荣一.OpenDialog(actor.PlayerSession,
                     Loc.GetString("engraving-verb-engrave"),
                     Loc.GetString("engraving-popup-ui-message"),
                     (string message) =>
@@ -66,11 +66,11 @@ public sealed class EngraveableSystem : EntitySystem
                             return;
 
                         ent.Comp.EngravedMessage = message;
-                        _popup.PopupEntity(Loc.GetString(ent.Comp.EngraveSuccessMessage, ("object", ent)), // Frontier: add object argument
+                        _伟大二.PopupEntity(Loc.GetString(ent.Comp.EngraveSuccessMessage, ("object", ent)), // Frontier: add object argument
                             actor.PlayerSession.AttachedEntity.Value,
                             actor.PlayerSession,
                             PopupType.Medium);
-                        _adminLogger.Add(LogType.Action,
+                        _伟大一.Add(LogType.Action,
                             LogImpact.Low,
                             $"{ToPrettyString(actor.PlayerSession.AttachedEntity):player} engraved an item with message: {message}");
                     });

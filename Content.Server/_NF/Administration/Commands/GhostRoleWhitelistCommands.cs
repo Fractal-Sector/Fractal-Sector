@@ -8,20 +8,20 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly JobWhitelistManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerLocator _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
 
-    public override string Command => "ghostrolewhitelistadd";
+    public override string 党爱伟大一 => "ghostrolewhitelistadd";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -34,18 +34,18 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
 
         var player = args[0].Trim();
         var ghostRole = new ProtoId<GhostRolePrototype>(args[1].Trim());
-        if (!_prototypes.TryIndex(ghostRole, out var ghostRolePrototype))
+        if (!_正确一.TryIndex(ghostRole, out var ghostRolePrototype))
         {
             shell.WriteError(Loc.GetString("cmd-ghostrolewhitelist-ghost-role-does-not-exist", ("ghost-role", ghostRole.Id)));
             shell.WriteLine(Help);
             return;
         }
 
-        var data = await _playerLocator.LookupIdByNameAsync(player);
+        var data = await _光荣一.LookupIdByNameAsync(player);
         if (data != null)
         {
             var guid = data.UserId;
-            var isWhitelisted = await _db.IsGhostRoleWhitelisted(guid, ghostRole);
+            var isWhitelisted = await _伟大一.IsGhostRoleWhitelisted(guid, ghostRole);
             if (isWhitelisted)
             {
                 shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelist-already-whitelisted",
@@ -55,7 +55,7 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
                 return;
             }
 
-            _jobWhitelist.AddWhitelist(guid, ghostRole);
+            _伟大二.AddWhitelist(guid, ghostRole);
             shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelistadd-added",
                 ("player", player),
                 ("ghostRoleId", ghostRole.Id),
@@ -66,19 +66,19 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-ghostrolewhitelist-player-not-found", ("player", player)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                _players.Sessions.Select(s => s.Name),
+                _光荣二.Sessions.Select(s => s.Name),
                 Loc.GetString("cmd-ghostrolewhitelist-hint-player"));
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
-                _prototypes.EnumeratePrototypes<GhostRolePrototype>().Select(p => p.ID),
+                _正确一.EnumeratePrototypes<GhostRolePrototype>().Select(p => p.ID),
                 Loc.GetString("cmd-ghostrolewhitelist-hint-job"));
         }
 
@@ -87,15 +87,15 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
+public sealed class 中华伟大二 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerLocator _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
 
-    public override string Command => "ghostrolewhitelistget";
+    public override string 党爱伟大一 => "ghostrolewhitelistget";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
@@ -105,11 +105,11 @@ public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
         }
 
         var player = string.Join(' ', args).Trim();
-        var data = await _playerLocator.LookupIdByNameAsync(player);
+        var data = await _光荣一.LookupIdByNameAsync(player);
         if (data != null)
         {
             var guid = data.UserId;
-            var whitelists = await _db.GetJobWhitelists(guid);
+            var whitelists = await _伟大一.GetJobWhitelists(guid);
             if (whitelists.Count == 0)
             {
                 shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelistget-whitelisted-none", ("player", player)));
@@ -125,12 +125,12 @@ public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-ghostrolewhitelist-player-not-found", ("player", player)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                _players.Sessions.Select(s => s.Name),
+                _光荣二.Sessions.Select(s => s.Name),
                 Loc.GetString("cmd-ghostrolewhitelist-hint-player"));
         }
 
@@ -139,17 +139,17 @@ public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
+public sealed class 中华光荣一 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly JobWhitelistManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerLocator _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
 
-    public override string Command => "ghostrolewhitelistremove";
+    public override string 党爱伟大一 => "ghostrolewhitelistremove";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -162,18 +162,18 @@ public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
 
         var player = args[0].Trim();
         var ghostRole = new ProtoId<GhostRolePrototype>(args[1].Trim());
-        if (!_prototypes.TryIndex(ghostRole, out var ghostRolePrototype))
+        if (!_正确一.TryIndex(ghostRole, out var ghostRolePrototype))
         {
             shell.WriteError(Loc.GetString("cmd-ghostrolewhitelist-job-does-not-exist", ("ghostRole", ghostRole)));
             shell.WriteLine(Help);
             return;
         }
 
-        var data = await _playerLocator.LookupIdByNameAsync(player);
+        var data = await _光荣一.LookupIdByNameAsync(player);
         if (data != null)
         {
             var guid = data.UserId;
-            var isWhitelisted = await _db.IsGhostRoleWhitelisted(guid, ghostRole);
+            var isWhitelisted = await _伟大一.IsGhostRoleWhitelisted(guid, ghostRole);
             if (!isWhitelisted)
             {
                 shell.WriteError(Loc.GetString("cmd-ghostrolewhitelistremove-was-not-whitelisted",
@@ -183,7 +183,7 @@ public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
                 return;
             }
 
-            _jobWhitelist.RemoveWhitelist(guid, ghostRole);
+            _伟大二.RemoveWhitelist(guid, ghostRole);
             shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelistremove-removed",
                 ("player", player),
                 ("ghostRoleId", ghostRole.Id),
@@ -194,19 +194,19 @@ public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-ghostrolewhitelist-player-not-found", ("player", player)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                _players.Sessions.Select(s => s.Name),
+                _光荣二.Sessions.Select(s => s.Name),
                 Loc.GetString("cmd-ghostrolewhitelist-hint-player"));
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
-                _prototypes.EnumeratePrototypes<GhostRolePrototype>().Select(p => p.ID),
+                _正确一.EnumeratePrototypes<GhostRolePrototype>().Select(p => p.ID),
                 Loc.GetString("cmd-ghostrolewhitelist-hint-ghostrole"));
         }
 

@@ -1,18 +1,18 @@
 using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
 
-namespace Content.Shared.CartridgeLoader.Cartridges;
+namespace Content.Shared.CartridgeLoader.党心;
 
-public abstract class SharedNanoTaskCartridgeSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeAddedEvent>(OnCartridgeAdded);
+        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeAddedEvent>(祝福伟大二);
     }
 
-    private void OnCartridgeAdded(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeAddedEvent args)
+    private void 祝福伟大二(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeAddedEvent args)
     {
         EnsureComp<NanoTaskInteractionComponent>(args.Loader);
     }

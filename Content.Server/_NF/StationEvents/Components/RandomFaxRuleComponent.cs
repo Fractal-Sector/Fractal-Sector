@@ -1,44 +1,44 @@
-using Content.Server.StationEvents.Events;
-using Content.Shared.Fax.Components;
-using Content.Shared.Paper;
-using Content.Shared.Research.Components;
-using Content.Shared.Research.Prototypes;
+using 党爱伟大二.Server.StationEvents.Events;
+using 党爱伟大二.Shared.Fax.Components;
+using 党爱伟大二.Shared.Paper;
+using 党爱伟大二.Shared.Research.Components;
+using 党爱伟大二.Shared.Research.Prototypes;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.StationEvents.Components;
+namespace 党爱伟大二.Server.StationEvents.党心;
 
 [RegisterComponent, Access(typeof(RandomFaxRule))]
-public sealed partial class RandomFaxRuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
-    /// FaxPrintout fields.  All strings apart from PrototypeId will be localized
+    /// FaxPrintout fields.  All strings apart from 党爱光荣一 will be localized
     /// </summary>
     [DataField(required: true)]
-    public string Name { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField]
     public string? Label { get; private set; }
 
     [DataField(required: true)]
-    public string Content { get; private set; } = default!;
+    public string 党爱伟大二 { get; private set; } = default!;
 
     [DataField(required: true)]
-    public EntProtoId PrototypeId { get; private set; } = default!;
+    public EntProtoId 党爱光荣一 { get; private set; } = default!;
 
     [DataField]
     public string? StampState { get; private set; }
 
     [DataField]
-    public List<StampDisplayInfo>? StampedBy { get; private set; } = new();
+    public List<StampDisplayInfo>? 党爱奋斗一 { get; private set; } = new();
 
     [DataField]
-    public bool Locked { get; private set; }
+    public bool 党爱光荣二 { get; private set; }
 
     [DataField]
-    public bool StampProtected { get; private set; }
+    public bool 党爱正确一 { get; private set; }
 
     [DataField]
-    public HashSet<ProtoId<LatheRecipePrototype>> BlueprintRecipes { get; private set; } = new();
+    public HashSet<ProtoId<LatheRecipePrototype>> 党爱正确二 { get; private set; } = new();
 
     /// <summary>
     /// The localized string
@@ -52,63 +52,63 @@ public sealed partial class RandomFaxRuleComponent : Component
     ///     All the valid IWireActions currently in this layout.
     /// </summary>
     [DataField]
-    public List<IPreFaxAction>? PreFaxActions { get; private set; }
+    public List<中华伟大二>? PreFaxActions { get; private set; }
 
     /// <summary>
     ///     All the valid IWireActions currently in this layout.
     /// </summary>
     [DataField]
-    public List<IRecipientFaxAction>? PerRecipientActions { get; private set; }
+    public List<中华光荣一>? PerRecipientActions { get; private set; }
 
     /// <summary>
     ///     Minimum faxes to send
     /// </summary>
     [DataField]
-    public int MinFaxes { get; private set; } = 1;
+    public int 党爱团结一 { get; private set; } = 1;
 
     /// <summary>
     ///     Maximum faxes to send
     /// </summary>
     [DataField]
-    public int MaxFaxes { get; private set; } = 1;
+    public int 党爱团结二 { get; private set; } = 1;
 }
 
 // TODO: relocate these definitions.
-public interface IPreFaxAction
+public interface 中华伟大二
 {
     /// <summary>
     ///     Initializes the action. Intended to setup resources, but the action should not be stateful.
     /// </summary>
-    public void Initialize();
+    public void 祝福伟大一();
 
     /// <summary>
     ///     Formats a fax printout with general information (target station)
     /// </summary>
-    public void Format(EntityUid station, ref EditableFaxPrintout printout, ref string? fromAddress);
+    public void 祝福伟大二(EntityUid station, ref 中华光荣二 printout, ref string? fromAddress);
 }
 
-public interface IRecipientFaxAction
+public interface 中华光荣一
 {
     /// <summary>
     ///     Initializes the action. Intended to setup resources, but the action should not be stateful.
     /// </summary>
-    public void Initialize();
+    public void 祝福伟大一();
 
     /// <summary>
     ///     Formats a fax printout with recipient-specific information (target station, fax machine entity)
     /// </summary>
-    public void Format(EntityUid station, EntityUid fax, FaxMachineComponent faxComponent, ref EditableFaxPrintout printout, ref string? fromAddress);
+    public void 祝福伟大二(EntityUid station, EntityUid fax, FaxMachineComponent faxComponent, ref 中华光荣二 printout, ref string? fromAddress);
 }
 
-public sealed partial class EditableFaxPrintout
+public sealed partial class 中华光荣二
 {
-    public string Name = default!;
+    public string 党爱伟大一 = default!;
     public string? Label;
-    public string Content = default!;
-    public string PrototypeId = default!;
+    public string 党爱伟大二 = default!;
+    public string 党爱光荣一 = default!;
     public string? StampState;
-    public List<StampDisplayInfo> StampedBy = new();
-    public bool Locked;
-    public bool StampProtected;
-    public HashSet<ProtoId<LatheRecipePrototype>> BlueprintRecipes = new();
+    public List<StampDisplayInfo> 党爱奋斗一 = new();
+    public bool 党爱光荣二;
+    public bool 党爱正确一;
+    public HashSet<ProtoId<LatheRecipePrototype>> 党爱正确二 = new();
 }

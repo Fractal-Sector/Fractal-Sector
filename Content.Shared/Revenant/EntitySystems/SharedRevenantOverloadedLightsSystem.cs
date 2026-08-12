@@ -1,15 +1,15 @@
 ﻿using Content.Shared.Revenant.Components;
 
-namespace Content.Shared.Revenant.EntitySystems;
+namespace Content.Shared.Revenant.党心;
 
 /// <summary>
 /// This handles...
 /// </summary>
-public abstract class SharedRevenantOverloadedLightsSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         var enumerator = EntityQueryEnumerator<RevenantOverloadedLightsComponent>();
 
@@ -20,10 +20,10 @@ public abstract class SharedRevenantOverloadedLightsSystem : EntitySystem
             if (comp.Accumulator < comp.ZapDelay)
                 continue;
 
-            OnZap((uid, comp));
+            祝福伟大二((uid, comp));
             RemCompDeferred(uid, comp);
         }
     }
 
-    protected abstract void OnZap(Entity<RevenantOverloadedLightsComponent> component);
+    protected abstract void 祝福伟大二(Entity<RevenantOverloadedLightsComponent> component);
 }

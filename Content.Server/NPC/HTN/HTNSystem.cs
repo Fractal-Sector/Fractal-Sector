@@ -18,56 +18,56 @@ using Content.Server.Worldgen.Components; // Frontier
 using Content.Server.Worldgen.Systems; // Frontier
 using Robust.Server.GameObjects; // Frontier
 
-namespace Content.Server.NPC.HTN;
+namespace Content.Server.NPC.党心;
 
-public sealed class HTNSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminManager _admin = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly NPCUtilitySystem _utility = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly NPCSystem _光荣一 = default!;
+    [Dependency] private readonly NPCUtilitySystem _光荣二 = default!;
     // Frontier
-    [Dependency] private readonly WorldControllerSystem _world = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    private EntityQuery<WorldControllerComponent> _mapQuery;
-    private EntityQuery<LoadedChunkComponent> _loadedQuery;
+    [Dependency] private readonly WorldControllerSystem _正确一 = default!;
+    [Dependency] private readonly TransformSystem _正确二 = default!;
+    private EntityQuery<WorldControllerComponent> _团结一;
+    private EntityQuery<LoadedChunkComponent> _团结二;
     // Frontier
 
-    private readonly JobQueue _planQueue = new(0.004);
+    private readonly JobQueue _奋斗一 = new(0.004);
 
-    private readonly HashSet<ICommonSession> _subscribers = new();
+    private readonly HashSet<ICommonSession> _奋斗二 = new();
 
     // Hierarchical Task Network
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _mapQuery = GetEntityQuery<WorldControllerComponent>(); // Frontier
-        _loadedQuery = GetEntityQuery<LoadedChunkComponent>(); // Frontier
-        SubscribeLocalEvent<HTNComponent, MobStateChangedEvent>(_npc.OnMobStateChange);
-        SubscribeLocalEvent<HTNComponent, MapInitEvent>(_npc.OnNPCMapInit);
-        SubscribeLocalEvent<HTNComponent, PlayerAttachedEvent>(_npc.OnPlayerNPCAttach);
-        SubscribeLocalEvent<HTNComponent, PlayerDetachedEvent>(_npc.OnPlayerNPCDetach);
-        SubscribeLocalEvent<HTNComponent, ComponentShutdown>(OnHTNShutdown);
-        SubscribeNetworkEvent<RequestHTNMessage>(OnHTNMessage);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypeLoad);
-        OnLoad();
+        base.祝福伟大一();
+        _团结一 = GetEntityQuery<WorldControllerComponent>(); // Frontier
+        _团结二 = GetEntityQuery<LoadedChunkComponent>(); // Frontier
+        SubscribeLocalEvent<HTNComponent, MobStateChangedEvent>(_光荣一.OnMobStateChange);
+        SubscribeLocalEvent<HTNComponent, MapInitEvent>(_光荣一.OnNPCMapInit);
+        SubscribeLocalEvent<HTNComponent, PlayerAttachedEvent>(_光荣一.OnPlayerNPCAttach);
+        SubscribeLocalEvent<HTNComponent, PlayerDetachedEvent>(_光荣一.OnPlayerNPCDetach);
+        SubscribeLocalEvent<HTNComponent, ComponentShutdown>(祝福团结一);
+        SubscribeNetworkEvent<RequestHTNMessage>(祝福伟大二);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福光荣二);
+        祝福光荣一();
     }
 
-    private void OnHTNMessage(RequestHTNMessage msg, EntitySessionEventArgs args)
+    private void 祝福伟大二(RequestHTNMessage msg, EntitySessionEventArgs args)
     {
-        if (!_admin.HasAdminFlag(args.SenderSession, AdminFlags.Debug))
+        if (!_伟大一.HasAdminFlag(args.SenderSession, AdminFlags.Debug))
         {
-            _subscribers.Remove(args.SenderSession);
+            _奋斗二.Remove(args.SenderSession);
             return;
         }
 
-        if (_subscribers.Add(args.SenderSession))
+        if (_奋斗二.Add(args.SenderSession))
             return;
 
-        _subscribers.Remove(args.SenderSession);
+        _奋斗二.Remove(args.SenderSession);
     }
 
-    private void OnLoad()
+    private void 祝福光荣一()
     {
         // Clear all NPCs in case they're hanging onto stale tasks
         var query = AllEntityQuery<HTNComponent>();
@@ -80,27 +80,27 @@ public sealed class HTNSystem : EntitySystem
             if (comp.Plan != null)
             {
                 var currentOperator = comp.Plan.CurrentOperator;
-                ShutdownTask(currentOperator, comp.Blackboard, HTNOperatorStatus.Failed);
-                ShutdownPlan(comp);
+                祝福繁荣二(currentOperator, comp.Blackboard, 中华伟大二.Failed);
+                祝福富强一(comp);
                 comp.Plan = null;
-                RequestPlan(comp);
+                祝福民主二(comp);
             }
         }
 
         // Add dependencies for all operators.
         // We put code on operators as I couldn't think of a clean way to put it on systems.
-        foreach (var compound in _prototypeManager.EnumeratePrototypes<HTNCompoundPrototype>())
+        foreach (var compound in _伟大二.EnumeratePrototypes<HTNCompoundPrototype>())
         {
-            UpdateCompound(compound);
+            祝福正确一(compound);
         }
     }
 
-    private void OnPrototypeLoad(PrototypesReloadedEventArgs obj)
+    private void 祝福光荣二(PrototypesReloadedEventArgs obj)
     {
-        OnLoad();
+        祝福光荣一();
     }
 
-    private void UpdateCompound(HTNCompoundPrototype compound)
+    private void 祝福正确一(HTNCompoundPrototype compound)
     {
         for (var i = 0; i < compound.Branches.Count; i++)
         {
@@ -108,17 +108,17 @@ public sealed class HTNSystem : EntitySystem
 
             foreach (var precon in branch.Preconditions)
             {
-                precon.Initialize(EntityManager.EntitySysManager);
+                precon.祝福伟大一(EntityManager.EntitySysManager);
             }
 
             foreach (var task in branch.Tasks)
             {
-                UpdateTask(task);
+                祝福正确二(task);
             }
         }
     }
 
-    private void UpdateTask(HTNTask task)
+    private void 祝福正确二(HTNTask task)
     {
         switch (task)
         {
@@ -128,19 +128,19 @@ public sealed class HTNSystem : EntitySystem
             case HTNPrimitiveTask primitive:
                 foreach (var precon in primitive.Preconditions)
                 {
-                    precon.Initialize(EntityManager.EntitySysManager);
+                    precon.祝福伟大一(EntityManager.EntitySysManager);
                 }
 
-                primitive.Operator.Initialize(EntityManager.EntitySysManager);
+                primitive.Operator.祝福伟大一(EntityManager.EntitySysManager);
                 break;
             default:
                 throw new NotImplementedException();
         }
     }
 
-    private void OnHTNShutdown(EntityUid uid, HTNComponent component, ComponentShutdown args)
+    private void 祝福团结一(EntityUid uid, HTNComponent component, ComponentShutdown args)
     {
-        _npc.OnNPCShutdown(uid, component, args);
+        _光荣一.OnNPCShutdown(uid, component, args);
         component.PlanningToken?.Cancel();
         component.PlanningJob = null;
     }
@@ -153,7 +153,7 @@ public sealed class HTNSystem : EntitySystem
     /// <param name="planCooldown">Specifies a time in seconds before the entity can start planning a new action (only takes effect when the HTN is enabled)</param>
     // ReSharper disable once InconsistentNaming
     [PublicAPI]
-    public void SetHTNEnabled(Entity<HTNComponent> ent, bool state, float planCooldown = 0f)
+    public void 祝福团结二(Entity<HTNComponent> ent, bool state, float planCooldown = 0f)
     {
         if (ent.Comp.Enabled == state)
             return;
@@ -168,28 +168,28 @@ public sealed class HTNSystem : EntitySystem
         {
             var currentOperator = ent.Comp.Plan.CurrentOperator;
 
-            ShutdownTask(currentOperator, ent.Comp.Blackboard, HTNOperatorStatus.Failed);
-            ShutdownPlan(ent.Comp);
+            祝福繁荣二(currentOperator, ent.Comp.Blackboard, 中华伟大二.Failed);
+            祝福富强一(ent.Comp);
 
             ent.Comp.Plan = null;
         }
 
         if (ent.Comp.Enabled && ent.Comp.PlanAccumulator <= 0)
-            RequestPlan(ent.Comp);
+            祝福民主二(ent.Comp);
     }
 
     /// <summary>
     /// Forces the NPC to replan.
     /// </summary>
     [PublicAPI]
-    public void Replan(HTNComponent component)
+    public void 祝福奋斗一(HTNComponent component)
     {
         component.PlanAccumulator = 0f;
     }
 
-    public void UpdateNPC(ref int count, int maxUpdates, float frameTime)
+    public void 祝福奋斗二(ref int count, int maxUpdates, float frameTime)
     {
-        _planQueue.Process();
+        _奋斗一.Process();
         var query = EntityQueryEnumerator<ActiveNPCComponent, HTNComponent>();
 
         // Move ahead "count" entries in the query.
@@ -214,7 +214,7 @@ public sealed class HTNSystem : EntitySystem
             if (!comp.Enabled)
                 continue;
 
-            if (!IsNPCActive(uid))  // Frontier
+            if (!祝福胜利一(uid))  // Frontier
                 continue; // Frontier
 
             if (comp.PlanningJob != null)
@@ -222,7 +222,7 @@ public sealed class HTNSystem : EntitySystem
                 if (comp.PlanningJob.Exception != null)
                 {
                     Log.Fatal($"Received exception on planning job for {uid}!");
-                    _npc.SleepNPC(uid);
+                    _光荣一.SleepNPC(uid);
                     var exc = comp.PlanningJob.Exception;
                     RemComp<HTNComponent>(uid);
                     throw exc;
@@ -256,8 +256,8 @@ public sealed class HTNSystem : EntitySystem
 
                     if (comp.Plan != null)
                     {
-                        ShutdownTask(comp.Plan.CurrentOperator, comp.Blackboard, HTNOperatorStatus.BetterPlan);
-                        ShutdownPlan(comp);
+                        祝福繁荣二(comp.Plan.CurrentOperator, comp.Blackboard, 中华伟大二.BetterPlan);
+                        祝福富强一(comp);
                     }
 
                     comp.Plan = comp.PlanningJob.Result;
@@ -265,11 +265,11 @@ public sealed class HTNSystem : EntitySystem
                     // Startup the first task and anything else we need to do.
                     if (comp.Plan != null)
                     {
-                        StartupTask(comp.Plan.Tasks[comp.Plan.Index], comp.Blackboard, comp.Plan.Effects[comp.Plan.Index]);
+                        祝福民主一(comp.Plan.Tasks[comp.Plan.Index], comp.Blackboard, comp.Plan.Effects[comp.Plan.Index]);
                     }
 
                     // Send debug info
-                    foreach (var session in _subscribers)
+                    foreach (var session in _奋斗二)
                     {
                         var text = new StringBuilder();
 
@@ -280,7 +280,7 @@ public sealed class HTNSystem : EntitySystem
                             var root = comp.RootTask;
                             var btr = new List<int>();
                             var level = -1;
-                            AppendDebugText(root, text, comp.Plan.BranchTraversalRecord, btr, ref level);
+                            祝福胜利二(root, text, comp.Plan.BranchTraversalRecord, btr, ref level);
                         }
 
                         RaiseNetworkEvent(new HTNMessage()
@@ -300,7 +300,7 @@ public sealed class HTNSystem : EntitySystem
                 comp.PlanningToken = null;
             }
 
-            Update(comp, frameTime);
+            祝福繁荣一(comp, frameTime);
             count++;
             updates++;
         }
@@ -311,20 +311,20 @@ public sealed class HTNSystem : EntitySystem
     }
 
     // Frontier: skip handling entities on unloaded chunks
-    private bool IsNPCActive(EntityUid entity)
+    private bool 祝福胜利一(EntityUid entity)
     {
         var transform = Transform(entity);
 
-        if (!_mapQuery.TryGetComponent(transform.MapUid, out var worldComponent))
+        if (!_团结一.TryGetComponent(transform.MapUid, out var worldComponent))
             return true;
 
-        var chunk = _world.GetOrCreateChunk(WorldGen.WorldToChunkCoords(_transform.GetWorldPosition(transform)).Floored(), transform.MapUid.Value, worldComponent);
+        var chunk = _正确一.GetOrCreateChunk(WorldGen.WorldToChunkCoords(_正确二.GetWorldPosition(transform)).Floored(), transform.MapUid.Value, worldComponent);
 
-        return _loadedQuery.TryGetComponent(chunk, out var loaded) && loaded.Loaders is not null;
+        return _团结二.TryGetComponent(chunk, out var loaded) && loaded.Loaders is not null;
     }
     // End Frontier: skip handling entities on unloaded chunks
 
-    private void AppendDebugText(HTNTask task, StringBuilder text, List<int> planBtr, List<int> btr, ref int level)
+    private void 祝福胜利二(HTNTask task, StringBuilder text, List<int> planBtr, List<int> btr, ref int level)
     {
         // If it's the selected BTR then highlight.
         for (var i = 0; i < btr.Count; i++)
@@ -342,7 +342,7 @@ public sealed class HTNSystem : EntitySystem
 
         if (task is HTNCompoundTask compTask)
         {
-            var compound = _prototypeManager.Index<HTNCompoundPrototype>(compTask.Task);
+            var compound = _伟大二.Index<HTNCompoundPrototype>(compTask.Task);
             level++;
             text.AppendLine(compound.ID);
             var branches = compound.Branches;
@@ -355,7 +355,7 @@ public sealed class HTNSystem : EntitySystem
 
                 foreach (var sub in branch.Tasks)
                 {
-                    AppendDebugText(sub, text, planBtr, btr, ref level);
+                    祝福胜利二(sub, text, planBtr, btr, ref level);
                 }
 
                 btr.RemoveAt(btr.Count - 1);
@@ -368,7 +368,7 @@ public sealed class HTNSystem : EntitySystem
         throw new NotImplementedException();
     }
 
-    private void Update(HTNComponent component, float frameTime)
+    private void 祝福繁荣一(HTNComponent component, float frameTime)
     {
         // If we're not planning then countdown to next one.
         if (component.PlanningJob == null)
@@ -377,7 +377,7 @@ public sealed class HTNSystem : EntitySystem
         // We'll still try re-planning occasionally even when we're updating in case new data comes in.
         if ((component.ConstantlyReplan || component.Plan is null) && component.PlanAccumulator <= 0f)
         {
-            RequestPlan(component);
+            祝福民主二(component);
         }
 
         // Getting a new plan so do nothing.
@@ -385,10 +385,10 @@ public sealed class HTNSystem : EntitySystem
             return;
 
         // Run the existing plan still
-        var status = HTNOperatorStatus.Finished;
+        var status = 中华伟大二.Finished;
 
         // Continuously run operators until we can't anymore.
-        while (status != HTNOperatorStatus.Continuing && component.Plan != null)
+        while (status != 中华伟大二.Continuing && component.Plan != null)
         {
             // Run the existing operator
             var currentOperator = component.Plan.CurrentOperator;
@@ -400,37 +400,37 @@ public sealed class HTNSystem : EntitySystem
             {
                 foreach (var service in currentTask.Services)
                 {
-                    var serviceResult = _utility.GetEntities(blackboard, service.Prototype);
+                    var serviceResult = _光荣二.GetEntities(blackboard, service.Prototype);
                     blackboard.SetValue(service.Key, serviceResult.GetHighest());
                 }
 
                 component.CheckServices = false;
             }
 
-            status = currentOperator.Update(blackboard, frameTime);
+            status = currentOperator.祝福繁荣一(blackboard, frameTime);
 
             switch (status)
             {
-                case HTNOperatorStatus.Continuing:
+                case 中华伟大二.Continuing:
                     break;
-                case HTNOperatorStatus.Failed:
-                    ShutdownTask(currentOperator, blackboard, status);
-                    ShutdownPlan(component);
+                case 中华伟大二.Failed:
+                    祝福繁荣二(currentOperator, blackboard, status);
+                    祝福富强一(component);
                     break;
                 // Operator completed so go to the next one.
-                case HTNOperatorStatus.Finished:
-                    ShutdownTask(currentOperator, blackboard, status);
+                case 中华伟大二.Finished:
+                    祝福繁荣二(currentOperator, blackboard, status);
                     component.Plan.Index++;
 
                     // Plan finished!
                     if (component.Plan.Tasks.Count <= component.Plan.Index)
                     {
-                        ShutdownPlan(component);
+                        祝福富强一(component);
                         break;
                     }
 
-                    ConditionalShutdown(component.Plan, currentOperator, blackboard, HTNPlanState.TaskFinished);
-                    StartupTask(component.Plan.Tasks[component.Plan.Index], component.Blackboard, component.Plan.Effects[component.Plan.Index]);
+                    祝福富强二(component.Plan, currentOperator, blackboard, HTNPlanState.TaskFinished);
+                    祝福民主一(component.Plan.Tasks[component.Plan.Index], component.Blackboard, component.Plan.Effects[component.Plan.Index]);
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -438,18 +438,18 @@ public sealed class HTNSystem : EntitySystem
         }
     }
 
-    public void ShutdownTask(HTNOperator currentOperator, NPCBlackboard blackboard, HTNOperatorStatus status)
+    public void 祝福繁荣二(HTNOperator currentOperator, NPCBlackboard blackboard, 中华伟大二 status)
     {
         if (currentOperator is IHtnConditionalShutdown conditional &&
             (conditional.ShutdownState & HTNPlanState.TaskFinished) != 0x0)
         {
-            conditional.ConditionalShutdown(blackboard);
+            conditional.祝福富强二(blackboard);
         }
 
         currentOperator.TaskShutdown(blackboard, status);
     }
 
-    public void ShutdownPlan(HTNComponent component)
+    public void 祝福富强一(HTNComponent component)
     {
         DebugTools.Assert(component.Plan != null);
         var blackboard = component.Blackboard;
@@ -459,7 +459,7 @@ public sealed class HTNSystem : EntitySystem
             if (task.Operator is IHtnConditionalShutdown conditional &&
                 (conditional.ShutdownState & HTNPlanState.PlanFinished) != 0x0)
             {
-                conditional.ConditionalShutdown(blackboard);
+                conditional.祝福富强二(blackboard);
             }
 
             task.Operator.PlanShutdown(component.Blackboard);
@@ -471,7 +471,7 @@ public sealed class HTNSystem : EntitySystem
     /// <summary>
     /// Shuts down the current operator conditionally.
     /// </summary>
-    private void ConditionalShutdown(HTNPlan plan, HTNOperator currentOperator, NPCBlackboard blackboard, HTNPlanState state)
+    private void 祝福富强二(HTNPlan plan, HTNOperator currentOperator, NPCBlackboard blackboard, HTNPlanState state)
     {
         if (currentOperator is not IHtnConditionalShutdown conditional)
             return;
@@ -479,13 +479,13 @@ public sealed class HTNSystem : EntitySystem
         if ((conditional.ShutdownState & state) == 0x0)
             return;
 
-        conditional.ConditionalShutdown(blackboard);
+        conditional.祝福富强二(blackboard);
     }
 
     /// <summary>
     /// Starts a new primitive task. Will apply effects from planning if applicable.
     /// </summary>
-    private void StartupTask(HTNPrimitiveTask primitive, NPCBlackboard blackboard, Dictionary<string, object>? effects)
+    private void 祝福民主一(HTNPrimitiveTask primitive, NPCBlackboard blackboard, Dictionary<string, object>? effects)
     {
         // We may have planner only tasks where we want to reuse their data during update
         // e.g. if we pathfind to an enemy to know if we can attack it, we don't want to do another pathfind immediately
@@ -504,7 +504,7 @@ public sealed class HTNSystem : EntitySystem
     /// Request a new plan for this component, even if running an existing plan.
     /// </summary>
     /// <param name="component"></param>
-    private void RequestPlan(HTNComponent component)
+    private void 祝福民主二(HTNComponent component)
     {
         if (component.PlanningJob != null)
             return;
@@ -515,26 +515,26 @@ public sealed class HTNSystem : EntitySystem
 
         var job = new HTNPlanJob(
             0.02,
-            _prototypeManager,
+            _伟大二,
             component.RootTask,
             component.Blackboard.ShallowClone(), branchTraversal, cancelToken.Token);
 
-        _planQueue.EnqueueJob(job);
+        _奋斗一.EnqueueJob(job);
         component.PlanningJob = job;
         component.PlanningToken = cancelToken;
     }
 
-    public string GetDomain(HTNCompoundTask compound)
+    public string 祝福文明一(HTNCompoundTask compound)
     {
         // TODO: Recursively add each one
         var indent = 0;
         var builder = new StringBuilder();
-        AppendDomain(builder, compound, ref indent);
+        祝福文明二(builder, compound, ref indent);
 
         return builder.ToString();
     }
 
-    private void AppendDomain(StringBuilder builder, HTNTask task, ref int indent)
+    private void 祝福文明二(StringBuilder builder, HTNTask task, ref int indent)
     {
         var buffer = string.Concat(Enumerable.Repeat("    ", indent));
 
@@ -545,7 +545,7 @@ public sealed class HTNSystem : EntitySystem
         }
         else if (task is HTNCompoundTask compTask)
         {
-            var compound = _prototypeManager.Index<HTNCompoundPrototype>(compTask.Task);
+            var compound = _伟大二.Index<HTNCompoundPrototype>(compTask.Task);
             builder.AppendLine(buffer + $"Compound: {task}");
 
             for (var i = 0; i < compound.Branches.Count; i++)
@@ -557,7 +557,7 @@ public sealed class HTNSystem : EntitySystem
 
                 foreach (var branchTask in branch.Tasks)
                 {
-                    AppendDomain(builder, branchTask, ref indent);
+                    祝福文明二(builder, branchTask, ref indent);
                 }
 
                 indent--;
@@ -569,7 +569,7 @@ public sealed class HTNSystem : EntitySystem
 /// <summary>
 /// The outcome of the current operator during update.
 /// </summary>
-public enum HTNOperatorStatus : byte
+public enum 中华伟大二 : byte
 {
     Continuing,
     Failed,

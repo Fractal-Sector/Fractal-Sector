@@ -12,38 +12,38 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.PowerCell.Components;
 
-namespace Content.Server._White.Blocking;
+namespace Content.Server._White.党心;
 
-public sealed class RechargeableBlockingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
+    [Dependency] private readonly BatterySystem _伟大一 = default!;
+    [Dependency] private readonly ItemToggleSystem _伟大二 = default!;
+    [Dependency] private readonly PowerCellSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<RechargeableBlockingComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<RechargeableBlockingComponent, DamageChangedEvent>(OnDamageChanged);
-        SubscribeLocalEvent<RechargeableBlockingComponent, ItemToggleActivateAttemptEvent>(AttemptToggle);
-        SubscribeLocalEvent<RechargeableBlockingComponent, ChargeChangedEvent>(OnChargeChanged);
-        SubscribeLocalEvent<RechargeableBlockingComponent, PowerCellChangedEvent>(OnPowerCellChanged);
+        SubscribeLocalEvent<RechargeableBlockingComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<RechargeableBlockingComponent, DamageChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<RechargeableBlockingComponent, ItemToggleActivateAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<RechargeableBlockingComponent, ChargeChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<RechargeableBlockingComponent, PowerCellChangedEvent>(祝福团结一);
     }
 
-    private void OnExamined(EntityUid uid, RechargeableBlockingComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, RechargeableBlockingComponent component, ExaminedEvent args)
     {
         if (!component.Discharged)
         {
-            _powerCell.OnBatteryExamined(uid, null, args);
+            _光荣一.OnBatteryExamined(uid, null, args);
             return;
         }
 
         args.PushMarkup(Loc.GetString("rechargeable-blocking-discharged"));
-        args.PushMarkup(Loc.GetString("rechargeable-blocking-remaining-time", ("remainingTime", GetRemainingTime(uid))));
+        args.PushMarkup(Loc.GetString("rechargeable-blocking-remaining-time", ("remainingTime", 祝福光荣一(uid))));
     }
 
-    private int GetRemainingTime(EntityUid uid)
+    private int 祝福光荣一(EntityUid uid)
     {
-        if (!_battery.TryGetBatteryComponent(uid, out var batteryComponent, out var batteryUid)
+        if (!_伟大一.TryGetBatteryComponent(uid, out var batteryComponent, out var batteryUid)
             || !TryComp<BatterySelfRechargerComponent>(batteryUid, out var recharger)
             || recharger is not { AutoRechargeRate: > 0, AutoRecharge: true })
             return 0;
@@ -52,34 +52,34 @@ public sealed class RechargeableBlockingSystem : EntitySystem
                                  recharger.AutoRechargeRate);
     }
 
-    private void OnDamageChanged(EntityUid uid, RechargeableBlockingComponent component, DamageChangedEvent args)
+    private void 祝福光荣二(EntityUid uid, RechargeableBlockingComponent component, DamageChangedEvent args)
     {
-        if (!_battery.TryGetBatteryComponent(uid, out var batteryComponent, out var batteryUid)
-            || !_itemToggle.IsActivated(uid)
+        if (!_伟大一.TryGetBatteryComponent(uid, out var batteryComponent, out var batteryUid)
+            || !_伟大二.IsActivated(uid)
             || args.DamageDelta == null)
             return;
 
         var batteryUse = Math.Min(args.DamageDelta.GetTotal().Float(), batteryComponent.CurrentCharge);
-        _battery.TryUseCharge(batteryUid.Value, batteryUse, batteryComponent);
+        _伟大一.TryUseCharge(batteryUid.Value, batteryUse, batteryComponent);
     }
 
-    private void AttemptToggle(EntityUid uid, RechargeableBlockingComponent component, ref ItemToggleActivateAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, RechargeableBlockingComponent component, ref ItemToggleActivateAttemptEvent args)
     {
         if (!component.Discharged)
             return;
 
         args.Popup = Loc.GetString("rechargeable-blocking-remaining-time-popup",
-            ("remainingTime", GetRemainingTime(uid)));
+            ("remainingTime", 祝福光荣一(uid)));
         args.Cancelled = true;
     }
 
-    private void OnChargeChanged(EntityUid uid, RechargeableBlockingComponent component, ChargeChangedEvent args) => CheckCharge(uid, component);
+    private void 祝福正确二(EntityUid uid, RechargeableBlockingComponent component, ChargeChangedEvent args) => 祝福团结二(uid, component);
 
-    private void OnPowerCellChanged(EntityUid uid, RechargeableBlockingComponent component, PowerCellChangedEvent args) => CheckCharge(uid, component);
+    private void 祝福团结一(EntityUid uid, RechargeableBlockingComponent component, PowerCellChangedEvent args) => 祝福团结二(uid, component);
 
-    private void CheckCharge(EntityUid uid, RechargeableBlockingComponent component)
+    private void 祝福团结二(EntityUid uid, RechargeableBlockingComponent component)
     {
-        if (!_battery.TryGetBatteryComponent(uid, out var battery, out _))
+        if (!_伟大一.TryGetBatteryComponent(uid, out var battery, out _))
             return;
 
         BatterySelfRechargerComponent? recharger;
@@ -89,7 +89,7 @@ public sealed class RechargeableBlockingSystem : EntitySystem
                 recharger.AutoRechargeRate = component.DischargedRechargeRate;
 
             component.Discharged = true;
-            _itemToggle.TryDeactivate(uid, predicted: false);
+            _伟大二.TryDeactivate(uid, predicted: false);
             return;
         }
 

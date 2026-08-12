@@ -35,32 +35,32 @@ using Content.Shared.Radio.Components; // Frontier
 using Content.Shared.Implants; // Frontier
 using Content.Shared.Implants.Components; // Frontier
 
-namespace Content.Server.Station.Systems;
+namespace Content.Server.Station.党心;
 
 /// <summary>
 /// Manages spawning into the game, tracking available spawn points.
 /// Also provides helpers for spawning in the player's mob.
 /// </summary>
 [PublicAPI]
-public sealed class StationSpawningSystem : SharedStationSpawningSystem
+public sealed class 中华伟大一 : SharedStationSpawningSystem
 {
-    [Dependency] private readonly SharedAccessSystem _accessSystem = default!;
-    [Dependency] private readonly ActorSystem _actors = default!;
-    [Dependency] private readonly IdCardSystem _cardSystem = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
-    [Dependency] private readonly MetaDataSystem _metaSystem = default!;
-    [Dependency] private readonly PdaSystem _pdaSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly IDependencyCollection _dependencyCollection = default!; // Frontier
-    [Dependency] private readonly IServerPreferencesManager _preferences = default!; // Frontier
-    [Dependency] private readonly BankSystem _bank = default!; // Frontier
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!; // Frontier
-    [Dependency] private readonly TransformSystem _xformSystem = default!; // Frontier
-    [Dependency] private readonly SharedContainerSystem _container = default!; // Frontier
-    [Dependency] private readonly SharedImplanterSystem _implanter = default!; // Frontier
+    [Dependency] private readonly SharedAccessSystem _伟大一 = default!;
+    [Dependency] private readonly ActorSystem _伟大二 = default!;
+    [Dependency] private readonly IdCardSystem _光荣一 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣二 = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _正确一 = default!;
+    [Dependency] private readonly IdentitySystem _正确二 = default!;
+    [Dependency] private readonly MetaDataSystem _团结一 = default!;
+    [Dependency] private readonly PdaSystem _团结二 = default!;
+    [Dependency] private readonly IPrototypeManager _奋斗一 = default!;
+    [Dependency] private readonly MindSystem _奋斗二 = default!;
+    [Dependency] private readonly IDependencyCollection _胜利一 = default!; // Frontier
+    [Dependency] private readonly IServerPreferencesManager _胜利二 = default!; // Frontier
+    [Dependency] private readonly BankSystem _繁荣一 = default!; // Frontier
+    [Dependency] private readonly CartridgeLoaderSystem _繁荣二 = default!; // Frontier
+    [Dependency] private readonly TransformSystem _富强一 = default!; // Frontier
+    [Dependency] private readonly SharedContainerSystem _富强二 = default!; // Frontier
+    [Dependency] private readonly SharedImplanterSystem _民主一 = default!; // Frontier
 
     /// <summary>
     /// Attempts to spawn a player character onto the given station.
@@ -83,7 +83,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
 
         // Delta-V: Set desired spawn point type.
         // Frontier: add session
-        var ev = new PlayerSpawningEvent(job, profile, station, spawnPointType, session);
+        var ev = new 中华伟大二(job, profile, station, spawnPointType, session);
 
         RaiseLocalEvent(ev);
         DebugTools.Assert(ev.SpawnResult is { Valid: true } or null);
@@ -105,7 +105,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// <param name="entity">The entity to use, if one already exists.</param>
     /// <param name="session">Frontier: The session associated with the entity, if one exists.</param>
     /// <returns>The spawned entity</returns>
-    public EntityUid SpawnPlayerMob(
+    public EntityUid 祝福伟大一(
         EntityCoordinates coordinates,
         ProtoId<JobPrototype>? job,
         HumanoidCharacterProfile? profile,
@@ -113,13 +113,13 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
         EntityUid? entity = null,
         ICommonSession? session = null) // Frontier
     {
-        _prototypeManager.TryIndex(job ?? string.Empty, out var prototype);
+        _奋斗一.TryIndex(job ?? string.Empty, out var prototype);
         RoleLoadout? loadout = null;
 
         // Need to get the loadout up-front to handle names if we use an entity spawn override.
         var jobLoadout = LoadoutSystem.GetJobPrototype(prototype?.ID);
 
-        if (_prototypeManager.TryIndex(jobLoadout, out RoleLoadoutPrototype? roleProto))
+        if (_奋斗一.TryIndex(jobLoadout, out RoleLoadoutPrototype? roleProto))
         {
             profile?.Loadouts.TryGetValue(jobLoadout, out loadout);
 
@@ -127,8 +127,8 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             if (loadout == null)
             {
                 loadout = new RoleLoadout(jobLoadout);
-                loadout.SetDefault(profile, _actors.GetSession(entity), _prototypeManager);
-                loadout.EnsureValid(profile!, session, _dependencyCollection); // Frontier - profile must not be null, but if it was, TryGetValue above should fail
+                loadout.SetDefault(profile, _伟大二.GetSession(entity), _奋斗一);
+                loadout.EnsureValid(profile!, session, _胜利一); // Frontier - profile must not be null, but if it was, TryGetValue above should fail
             }
         }
 
@@ -137,7 +137,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
         {
             DebugTools.Assert(entity is null);
             var jobEntity = Spawn(prototype.JobEntity, coordinates);
-            _mindSystem.MakeSentient(jobEntity);
+            _奋斗二.MakeSentient(jobEntity);
 
             // Make sure custom names get handled, what is gameticker control flow whoopy.
             if (loadout != null)
@@ -150,24 +150,24 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
                 EquipStartingGear(jobEntity, prototype.StartingGear, raiseEvent: false);
             // End Frontier: equip loadouts on custom job entities
 
-            DoJobSpecials(job, jobEntity);
-            _identity.QueueIdentityUpdate(jobEntity);
+            祝福伟大二(job, jobEntity);
+            _正确二.QueueIdentityUpdate(jobEntity);
             return jobEntity;
         }
 
         string speciesId = profile != null ? profile.Species : SharedHumanoidAppearanceSystem.DefaultSpecies;
 
-        if (!_prototypeManager.TryIndex<SpeciesPrototype>(speciesId, out var species))
+        if (!_奋斗一.TryIndex<SpeciesPrototype>(speciesId, out var species))
             throw new ArgumentException($"Invalid species prototype was used: {speciesId}");
 
         entity ??= Spawn(species.Prototype, coordinates);
 
         if (profile != null)
         {
-            _humanoidSystem.LoadProfile(entity.Value, profile);
-            _metaSystem.SetEntityName(entity.Value, profile.Name);
+            _正确一.LoadProfile(entity.Value, profile);
+            _团结一.SetEntityName(entity.Value, profile.Name);
 
-            if (profile.FlavorText != "" && _configurationManager.GetCVar(CCVars.FlavorText))
+            if (profile.FlavorText != "" && _光荣二.GetCVar(CCVars.FlavorText))
             {
                 AddComp<DetailExaminableComponent>(entity.Value).Content = profile.FlavorText;
             }
@@ -185,7 +185,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             //       reference for randomly generated characters.
             PlayerPreferences? prefs = null;
             if (session != null &&
-                _preferences.TryGetCachedPreferences(session.UserId, out prefs) &&
+                _胜利二.TryGetCachedPreferences(session.UserId, out prefs) &&
                 prefs.IndexOfCharacter(profile) != -1)
             {
                 hasBalance = true;
@@ -202,7 +202,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
                 List<ProtoId<LoadoutPrototype>> equippedItems = new(); //Frontier - track purchased items (list: few items)
                 foreach (var items in group.Value)
                 {
-                    if (!_prototypeManager.TryIndex(items.Prototype, out var loadoutProto))
+                    if (!_奋斗一.TryIndex(items.Prototype, out var loadoutProto))
                     {
                         Log.Error($"Unable to find loadout prototype for {items.Prototype}");
                         continue;
@@ -217,13 +217,13 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
                     {
                         bankBalance -= int.Max(0, loadoutProto.Price); // Treat negatives as zero.
                         EquipStartingGear(entity.Value, loadoutProto, raiseEvent: false);
-                        CollectLoadout(loadoutProto, ref loadoutLast);
+                        祝福团结二(loadoutProto, ref loadoutLast);
                         equippedItems.Add(loadoutProto.ID);
                     }
                 }
 
                 // If a character cannot afford their current job loadout, ensure they have fallback items for mandatory categories.
-                if (_prototypeManager.TryIndex(group.Key, out var groupPrototype) &&
+                if (_奋斗一.TryIndex(group.Key, out var groupPrototype) &&
                     equippedItems.Count < groupPrototype.MinLimit)
                 {
                     foreach (var fallback in groupPrototype.Fallbacks)
@@ -234,20 +234,20 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
                             continue;
                         }
 
-                        if (!_prototypeManager.TryIndex(fallback, out var loadoutProto))
+                        if (!_奋斗一.TryIndex(fallback, out var loadoutProto))
                         {
                             Log.Error($"Unable to find loadout prototype for fallback {fallback}");
                             continue;
                         }
 
                         // Validate effects against the current character.
-                        if (!loadout.IsValid(profile!, _actors.GetSession(entity!), fallback, _dependencyCollection, out var _))
+                        if (!loadout.IsValid(profile!, _伟大二.GetSession(entity!), fallback, _胜利一, out var _))
                         {
                             continue;
                         }
 
                         EquipStartingGear(entity.Value, loadoutProto, raiseEvent: false);
-                        CollectLoadout(loadoutProto, ref loadoutLast);
+                        祝福团结二(loadoutProto, ref loadoutLast);
                         equippedItems.Add(fallback);
                         // Minimum number of items equipped, no need to load more prototypes.
                         if (equippedItems.Count >= groupPrototype.MinLimit)
@@ -258,14 +258,14 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
 
             // Frontier: do not re-equip roleLoadout, make sure we equip job startingGear,
             // and deduct loadout costs from a bank account if we have one.
-            if (_prototypeManager.TryIndex(prototype?.StartingGear, out var startingGear))
+            if (_奋斗一.TryIndex(prototype?.StartingGear, out var startingGear))
             {
                 EquipStartingGear(entity.Value, startingGear, raiseEvent: false);
-                CollectLoadout(startingGear, ref loadoutLast);
+                祝福团结二(startingGear, ref loadoutLast);
             }
 
             // Frontier: Attempt auto-equip for implants, encryption keys, and PDA cartridges
-            TryAutoEquipMisc(entity.Value, loadoutLast);
+            祝福团结一(entity.Value, loadoutLast);
 
             var bankComp = EnsureComp<BankAccountComponent>(entity.Value);
 
@@ -274,7 +274,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
                 // Store the prefs slot so bank operations always target this character's
                 // account even if SelectedCharacterIndex changes (e.g. after cryosleep swap).
                 bankComp.CharacterSlot = prefs!.IndexOfCharacter(profile!);
-                _bank.TryBankWithdraw(session!, prefs!, profile!, initialBankBalance - bankBalance, out var newBalance);
+                _繁荣一.TryBankWithdraw(session!, prefs!, profile!, initialBankBalance - bankBalance, out var newBalance);
             }
 
             EquipRoleName(entity.Value, loadout, roleProto!);
@@ -286,17 +286,17 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
 
         if (prototype != null && TryComp(entity.Value, out MetaDataComponent? metaData))
         {
-            SetPdaAndIdCardData(entity.Value, metaData.EntityName, prototype, station);
+            祝福光荣一(entity.Value, metaData.EntityName, prototype, station);
         }
 
-        DoJobSpecials(job, entity.Value);
-        _identity.QueueIdentityUpdate(entity.Value);
+        祝福伟大二(job, entity.Value);
+        _正确二.QueueIdentityUpdate(entity.Value);
         return entity.Value;
     }
 
-    private void DoJobSpecials(ProtoId<JobPrototype>? job, EntityUid entity)
+    private void 祝福伟大二(ProtoId<JobPrototype>? job, EntityUid entity)
     {
-        if (!_prototypeManager.TryIndex(job ?? string.Empty, out JobPrototype? prototype))
+        if (!_奋斗一.TryIndex(job ?? string.Empty, out JobPrototype? prototype))
             return;
 
         foreach (var jobSpecial in prototype.Special)
@@ -312,7 +312,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// <param name="characterName">Character name to use for the ID.</param>
     /// <param name="jobPrototype">Job prototype to use for the PDA and ID.</param>
     /// <param name="station">The station this player is being spawned on.</param>
-    public void SetPdaAndIdCardData(EntityUid entity, string characterName, JobPrototype jobPrototype, EntityUid? station)
+    public void 祝福光荣一(EntityUid entity, string characterName, JobPrototype jobPrototype, EntityUid? station)
     {
         if (!InventorySystem.TryGetSlotEntity(entity, "id", out var idUid))
             return;
@@ -324,11 +324,11 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
         if (!TryComp<IdCardComponent>(cardId, out var card))
             return;
 
-        _cardSystem.TryChangeFullName(cardId, characterName, card);
-        _cardSystem.TryChangeJobTitle(cardId, jobPrototype.LocalizedName, card);
+        _光荣一.TryChangeFullName(cardId, characterName, card);
+        _光荣一.TryChangeJobTitle(cardId, jobPrototype.LocalizedName, card);
 
-        if (_prototypeManager.TryIndex(jobPrototype.Icon, out var jobIcon))
-            _cardSystem.TryChangeJobIcon(cardId, jobIcon, card);
+        if (_奋斗一.TryIndex(jobPrototype.Icon, out var jobIcon))
+            _光荣一.TryChangeJobIcon(cardId, jobIcon, card);
 
         var extendedAccess = false;
         if (station != null)
@@ -337,10 +337,10 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             extendedAccess = data.ExtendedAccess;
         }
 
-        _accessSystem.SetAccessToJob(cardId, jobPrototype, extendedAccess);
+        _伟大一.SetAccessToJob(cardId, jobPrototype, extendedAccess);
 
         if (pdaComponent != null)
-            _pdaSystem.SetOwner(idUid.Value, pdaComponent, entity, characterName);
+            _团结二.SetOwner(idUid.Value, pdaComponent, entity, characterName);
     }
 
 
@@ -352,24 +352,24 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// </summary>
     /// <param name="entity">The entity to receive equipment.</param>
     /// <param name="encryptionKeys">The encryption key prototype IDs to equip.</param>
-    private void EquipEncryptionKeysIfPossible(EntityUid entity, List<EntProtoId> encryptionKeys)
+    private void 祝福光荣二(EntityUid entity, List<EntProtoId> encryptionKeys)
     {
         if (!InventorySystem.TryGetSlotEntity(entity, "ears", out var slotEnt))
         {
             DebugTools.Assert(false, $"Entity {entity} has a non-empty encryption key loadout, but doesn't have a headset!");
             return;
         }
-        if (!_container.TryGetContainer(slotEnt.Value, EncryptionKeyHolderComponent.KeyContainerName, out var keyContainer))
+        if (!_富强二.TryGetContainer(slotEnt.Value, EncryptionKeyHolderComponent.KeyContainerName, out var keyContainer))
         {
             DebugTools.Assert(false, $"Entity {entity} has a non-empty encryption key loadout, but their headset doesn't have an encryption key container!");
             return;
         }
-        var coords = _xformSystem.GetMapCoordinates(entity);
+        var coords = _富强一.GetMapCoordinates(entity);
         foreach (var entProto in encryptionKeys)
         {
             Log.Debug($"Entity {entity} auto-inserting loadout encryption key {entProto} into headset {keyContainer}.");
             var spawnedEntity = Spawn(entProto, coords);
-            if (!_container.Insert(spawnedEntity, keyContainer))
+            if (!_富强二.Insert(spawnedEntity, keyContainer))
             {
                 QueueDel(spawnedEntity);
                 DebugTools.Assert(false, $"Entity {entity} could not insert their loadout encryption key {entProto} into their headset!");
@@ -383,7 +383,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// </summary>
     /// <param name="entity">The entity to receive equipment.</param>
     /// <param name="pdaCartridges">The PDA cartridge prototype IDs to equip.</param>
-    private void EquipPdaCartridgesIfPossible(EntityUid entity, List<EntProtoId> pdaCartridges)
+    private void 祝福正确一(EntityUid entity, List<EntProtoId> pdaCartridges)
     {
         if (!InventorySystem.TryGetSlotEntity(entity, "id", out var slotEnt))
         {
@@ -395,12 +395,12 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             DebugTools.Assert(false, $"Entity {entity} has a non-empty cartridge loadout, but the item in their ID slot isn't a cartridge loader!");
             return;
         }
-        var coords = _xformSystem.GetMapCoordinates(entity);
+        var coords = _富强一.GetMapCoordinates(entity);
         foreach (var entProto in pdaCartridges)
         {
             Log.Debug($"Entity {entity} auto-installing cartridge {entProto} into PDA {slotEnt.Value}.");
             var spawnedEntity = Spawn(entProto, coords);
-            if (!_cartridgeLoader.InstallCartridge(slotEnt.Value, spawnedEntity, cartridgeLoader))
+            if (!_繁荣二.InstallCartridge(slotEnt.Value, spawnedEntity, cartridgeLoader))
                 DebugTools.Assert(false, $"Entity {entity} could not install cartridge {entProto} into their PDA {slotEnt.Value}!");
 
             QueueDel(spawnedEntity);
@@ -413,30 +413,30 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// </summary>
     /// <param name="entity">The entity to receive equipment.</param>
     /// <param name="implants">The implant prototype IDs to equip.</param>
-    private void EquipImplantsIfPossible(EntityUid entity, List<EntProtoId> implants)
+    private void 祝福正确二(EntityUid entity, List<EntProtoId> implants)
     {
-        var coords = _xformSystem.GetMapCoordinates(entity);
+        var coords = _富强一.GetMapCoordinates(entity);
         foreach (var entProto in implants)
         {
             var spawnedEntity = Spawn(entProto, coords);
             if (TryComp<ImplanterComponent>(spawnedEntity, out var implanter))
-                _implanter.Implant(entity, entity, spawnedEntity, implanter);
+                _民主一.Implant(entity, entity, spawnedEntity, implanter);
             else
                 DebugTools.Assert(false, $"Entity has an implant for {entProto}, which doesn't have an implanter component!");
             QueueDel(spawnedEntity);
         }
     }
 
-    public void TryAutoEquipMisc(EntityUid entity, LoadoutPrototype loadout)
+    public void 祝福团结一(EntityUid entity, LoadoutPrototype loadout)
     {
         if (loadout.Implants.Count > 0)
-            EquipImplantsIfPossible(entity, loadout.Implants);
+            祝福正确二(entity, loadout.Implants);
 
         if (loadout.EncryptionKeys.Count > 0)
-            EquipEncryptionKeysIfPossible(entity, loadout.EncryptionKeys);
+            祝福光荣二(entity, loadout.EncryptionKeys);
 
         if (loadout.Cartridges.Count > 0)
-            EquipPdaCartridgesIfPossible(entity, loadout.Cartridges);
+            祝福正确一(entity, loadout.Cartridges);
     }
 
     /// <summary>
@@ -445,7 +445,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// </summary>
     /// <param name="loadoutProto">The loadout prototype to collect from.</param>
     /// <param name="collectorLoadout">Reference to the loadout to collect to.</param>
-    private void CollectLoadout(IEquipmentLoadout loadoutProto, ref LoadoutPrototype collectorLoadout)
+    private void 祝福团结二(IEquipmentLoadout loadoutProto, ref LoadoutPrototype collectorLoadout)
     {
         collectorLoadout.EncryptionKeys.AddRange(loadoutProto.EncryptionKeys);
         collectorLoadout.Cartridges.AddRange(loadoutProto.Cartridges);
@@ -461,7 +461,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
 /// This event is designed to use ordered handling. You probably want SpawnPointSystem to be the last handler.
 /// </summary>
 [PublicAPI]
-public sealed class PlayerSpawningEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     /// <summary>
     /// The entity spawned, if any. You should set this if you succeed at spawning the character, and leave it alone if it's not null.
@@ -482,18 +482,18 @@ public sealed class PlayerSpawningEvent : EntityEventArgs
     /// <summary>
     /// Delta-V: Desired SpawnPointType, if any.
     /// </summary>
-    public readonly SpawnPointType DesiredSpawnPointType;
+    public readonly SpawnPointType 党爱伟大一;
     /// <summary>
     /// Frontier: The session associated with the entity, if any.
     /// </summary>
     public readonly ICommonSession? Session;
 
-    public PlayerSpawningEvent(ProtoId<JobPrototype>? job, HumanoidCharacterProfile? humanoidCharacterProfile, EntityUid? station, SpawnPointType spawnPointType = SpawnPointType.Unset, ICommonSession? session = null) // Frontier: added session
+    public 中华伟大二(ProtoId<JobPrototype>? job, HumanoidCharacterProfile? humanoidCharacterProfile, EntityUid? station, SpawnPointType spawnPointType = SpawnPointType.Unset, ICommonSession? session = null) // Frontier: added session
     {
         Job = job;
         HumanoidCharacterProfile = humanoidCharacterProfile;
         Station = station;
-        DesiredSpawnPointType = spawnPointType;
+        党爱伟大一 = spawnPointType;
         Session = session; // Frontier
     }
 }

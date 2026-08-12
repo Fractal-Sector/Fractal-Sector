@@ -1,57 +1,57 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NC.Radio;
+namespace Content.Shared._NC.党心;
 
 [Serializable, NetSerializable]
-public enum HandheldRadioUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class HandheldRadioBoundUIState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public bool MicEnabled;
-    public bool SpeakerEnabled;
-    public int Frequency;
+    public bool 党爱伟大一;
+    public bool 党爱伟大二;
+    public int 党爱光荣一;
 
-    public HandheldRadioBoundUIState(bool micEnabled, bool speakerEnabled, int frequency)
+    public 中华伟大二(bool micEnabled, bool speakerEnabled, int frequency)
     {
-        MicEnabled = micEnabled;
-        SpeakerEnabled = speakerEnabled;
-        Frequency = frequency;
+        党爱伟大一 = micEnabled;
+        党爱伟大二 = speakerEnabled;
+        党爱光荣一 = frequency;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ToggleHandheldRadioMicMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public bool Enabled;
+    public bool 党爱光荣二;
 
-    public ToggleHandheldRadioMicMessage(bool enabled)
+    public 中华光荣一(bool enabled)
     {
-        Enabled = enabled;
+        党爱光荣二 = enabled;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ToggleHandheldRadioSpeakerMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public bool Enabled;
+    public bool 党爱光荣二;
 
-    public ToggleHandheldRadioSpeakerMessage(bool enabled)
+    public 中华光荣二(bool enabled)
     {
-        Enabled = enabled;
+        党爱光荣二 = enabled;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class SelectHandheldRadioFrequencyMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public int Frequency;
+    public int 党爱光荣一;
 
-    public SelectHandheldRadioFrequencyMessage(int frequency)
+    public 中华正确一(int frequency)
     {
-        Frequency = frequency;
+        党爱光荣一 = frequency;
     }
 }

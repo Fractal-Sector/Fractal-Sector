@@ -4,13 +4,13 @@ using Content.Shared.Administration;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.Administration.Systems;
+namespace Content.Server.Administration.党心;
 
-public sealed class BufferingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
         var query = EntityQueryEnumerator<BufferingComponent>();
         while (query.MoveNext(out var uid, out var buffering))
@@ -23,7 +23,7 @@ public sealed class BufferingSystem : EntitySystem
 
                 Del(buffering.BufferingIcon.Value);
                 RemComp<AdminFrozenComponent>(uid);
-                buffering.TimeTilNextBuffer = _random.NextFloat(buffering.MinimumTimeTilNextBuffer, buffering.MaximumTimeTilNextBuffer);
+                buffering.TimeTilNextBuffer = _伟大一.NextFloat(buffering.MinimumTimeTilNextBuffer, buffering.MaximumTimeTilNextBuffer);
                 buffering.BufferingIcon = null;
             }
             else
@@ -32,7 +32,7 @@ public sealed class BufferingSystem : EntitySystem
                 if (!(buffering.TimeTilNextBuffer <= 0.0f))
                     continue;
 
-                buffering.BufferingTimer = _random.NextFloat(buffering.MinimumBufferTime, buffering.MaximumBufferTime);
+                buffering.BufferingTimer = _伟大一.NextFloat(buffering.MinimumBufferTime, buffering.MaximumBufferTime);
                 buffering.BufferingIcon = Spawn("BufferingIcon", new EntityCoordinates(uid, Vector2.Zero));
                 EnsureComp<AdminFrozenComponent>(uid);
             }

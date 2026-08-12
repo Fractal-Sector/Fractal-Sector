@@ -1,8 +1,8 @@
 using Content.Shared.Actions;
 
-namespace Content.Shared.Magic.Events;
+namespace Content.Shared.Magic.党心;
 
-public sealed partial class KnockSpellEvent : InstantActionEvent
+public sealed partial class 中华伟大一 : InstantActionEvent
 {
     /// <summary>
     /// The range this spell opens doors in
@@ -10,5 +10,5 @@ public sealed partial class KnockSpellEvent : InstantActionEvent
     /// Should be able to open all doors/lockers in visible sight
     /// </summary>
     [DataField]
-    public float Range = 10f;
+    public float 党爱伟大一 = 10f;
 }

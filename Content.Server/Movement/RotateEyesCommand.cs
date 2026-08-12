@@ -3,14 +3,14 @@ using Content.Shared.Administration;
 using Content.Shared.Movement.Components;
 using Robust.Shared.Console;
 
-namespace Content.Server.Movement;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class RotateEyesCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    public override string Command => "rotateeyes";
+    public override string 党爱伟大一 => "rotateeyes";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         var rotation = Angle.Zero;
 

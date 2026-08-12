@@ -1,21 +1,21 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Voting;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class VotePlayerListRequestEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
 
 }
 
 [Serializable, NetSerializable]
-public sealed class VotePlayerListResponseEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public VotePlayerListResponseEvent((NetUserId, NetEntity, string)[] players, bool denied)
+    public 中华伟大二((NetUserId, NetEntity, string)[] players, bool denied)
     {
         Players = players;
-        Denied = denied;
+        党爱伟大一 = denied;
     }
 
     /// <summary>
@@ -26,5 +26,5 @@ public sealed class VotePlayerListResponseEvent : EntityEventArgs
     /// <summary>
     /// Whether the server will allow the user to start a votekick or not.
     /// </summary>
-    public bool Denied;
+    public bool 党爱伟大一;
 }

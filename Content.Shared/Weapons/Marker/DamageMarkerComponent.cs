@@ -1,17 +1,17 @@
-using Content.Shared.Damage;
+using Content.Shared.党爱伟大一;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Weapons.Marker;
+namespace Content.Shared.Weapons.党心;
 
 /// <summary>
 /// Marks an entity to take additional damage
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(SharedDamageMarkerSystem))]
 [AutoGenerateComponentPause]
-public sealed partial class DamageMarkerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Sprite to apply to the entity while damagemarker is applied.
@@ -26,15 +26,15 @@ public sealed partial class DamageMarkerComponent : Component
     public SoundSpecifier? Sound = new SoundPathSpecifier("/Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg");
 
     [ViewVariables(VVAccess.ReadWrite), DataField("damage")]
-    public DamageSpecifier Damage = new();
+    public DamageSpecifier 党爱伟大一 = new();
 
     /// <summary>
     /// Entity that marked this entity for a damage surplus.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("marker"), AutoNetworkedField]
-    public EntityUid Marker;
+    public EntityUid 党爱伟大二;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("endTime", customTypeSerializer:typeof(TimeOffsetSerializer)), AutoNetworkedField]
     [AutoPausedField]
-    public TimeSpan EndTime;
+    public TimeSpan 党爱光荣一;
 }

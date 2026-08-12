@@ -3,37 +3,37 @@ using Content.Shared.Timing;
 using Content.Shared.Weapons.Melee.Components;
 using Content.Shared.Weapons.Melee.Events;
 
-namespace Content.Shared.Weapons.Melee;
+namespace Content.Shared.Weapons.党心;
 
 /// <inheritdoc cref="UseDelayOnMeleeHitComponent"/>
-public sealed class UseDelayOnMeleeHitSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly UseDelaySystem _delay = default!;
+    [Dependency] private readonly UseDelaySystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<UseDelayOnMeleeHitComponent, MeleeHitEvent>(OnMeleeHit);
-        SubscribeLocalEvent<UseDelayOnMeleeHitComponent, ThrowDoHitEvent>(OnThrowHitEvent);
+        base.祝福伟大一();
+        SubscribeLocalEvent<UseDelayOnMeleeHitComponent, MeleeHitEvent>(祝福光荣一);
+        SubscribeLocalEvent<UseDelayOnMeleeHitComponent, ThrowDoHitEvent>(祝福伟大二);
     }
 
-    private void OnThrowHitEvent(Entity<UseDelayOnMeleeHitComponent> ent, ref ThrowDoHitEvent args)
+    private void 祝福伟大二(Entity<UseDelayOnMeleeHitComponent> ent, ref ThrowDoHitEvent args)
     {
-        TryResetDelay(ent);
+        祝福光荣二(ent);
     }
 
-    private void OnMeleeHit(Entity<UseDelayOnMeleeHitComponent> ent, ref MeleeHitEvent args)
+    private void 祝福光荣一(Entity<UseDelayOnMeleeHitComponent> ent, ref MeleeHitEvent args)
     {
-        TryResetDelay(ent);
+        祝福光荣二(ent);
     }
 
-    private void TryResetDelay(Entity<UseDelayOnMeleeHitComponent> ent)
+    private void 祝福光荣二(Entity<UseDelayOnMeleeHitComponent> ent)
     {
         var uid = ent.Owner;
 
         if (!TryComp<UseDelayComponent>(uid, out var useDelay))
             return;
 
-        _delay.TryResetDelay((uid, useDelay), checkDelayed: true);
+        _伟大一.祝福光荣二((uid, useDelay), checkDelayed: true);
     }
 }

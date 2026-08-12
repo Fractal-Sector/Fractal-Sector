@@ -13,31 +13,31 @@ using System.Linq;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Payload.EntitySystems;
+namespace Content.Server.Payload.党心;
 
-public sealed class PayloadSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ISerializationManager _serializationManager = default!;
+    [Dependency] private readonly TagSystem _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+    [Dependency] private readonly TransformSystem _光荣一 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly ISerializationManager _正确一 = default!;
 
     private static readonly ProtoId<TagPrototype> PayloadTag = "Payload";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PayloadCaseComponent, TriggerEvent>(OnCaseTriggered);
-        SubscribeLocalEvent<PayloadTriggerComponent, TriggerEvent>(OnTriggerTriggered);
-        SubscribeLocalEvent<PayloadCaseComponent, EntInsertedIntoContainerMessage>(OnEntityInserted);
-        SubscribeLocalEvent<PayloadCaseComponent, EntRemovedFromContainerMessage>(OnEntityRemoved);
-        SubscribeLocalEvent<PayloadCaseComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<ChemicalPayloadComponent, TriggerEvent>(HandleChemicalPayloadTrigger);
+        SubscribeLocalEvent<PayloadCaseComponent, TriggerEvent>(祝福光荣一);
+        SubscribeLocalEvent<PayloadTriggerComponent, TriggerEvent>(祝福光荣二);
+        SubscribeLocalEvent<PayloadCaseComponent, EntInsertedIntoContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<PayloadCaseComponent, EntRemovedFromContainerMessage>(祝福正确二);
+        SubscribeLocalEvent<PayloadCaseComponent, ExaminedEvent>(祝福团结一);
+        SubscribeLocalEvent<ChemicalPayloadComponent, TriggerEvent>(祝福团结二);
     }
 
-    public IEnumerable<EntityUid> GetAllPayloads(EntityUid uid, ContainerManagerComponent? contMan = null)
+    public IEnumerable<EntityUid> 祝福伟大二(EntityUid uid, ContainerManagerComponent? contMan = null)
     {
         if (!Resolve(uid, ref contMan, false))
             yield break;
@@ -46,13 +46,13 @@ public sealed class PayloadSystem : EntitySystem
         {
             foreach (var entity in container.ContainedEntities)
             {
-                if (_tagSystem.HasTag(entity, PayloadTag))
+                if (_伟大一.HasTag(entity, PayloadTag))
                     yield return entity;
             }
         }
     }
 
-    private void OnCaseTriggered(EntityUid uid, PayloadCaseComponent component, TriggerEvent args)
+    private void 祝福光荣一(EntityUid uid, PayloadCaseComponent component, TriggerEvent args)
     {
         // TODO: Adjust to the new trigger system
 
@@ -60,13 +60,13 @@ public sealed class PayloadSystem : EntitySystem
             return;
 
         // Pass trigger event onto all contained payloads. Payload capacity configurable by construction graphs.
-        foreach (var ent in GetAllPayloads(uid, contMan))
+        foreach (var ent in 祝福伟大二(uid, contMan))
         {
             RaiseLocalEvent(ent, ref args, false);
         }
     }
 
-    private void OnTriggerTriggered(EntityUid uid, PayloadTriggerComponent component, TriggerEvent args)
+    private void 祝福光荣二(EntityUid uid, PayloadTriggerComponent component, TriggerEvent args)
     {
         // TODO: Adjust to the new trigger system
 
@@ -77,12 +77,12 @@ public sealed class PayloadSystem : EntitySystem
             return;
 
         // Ensure we don't enter a trigger-loop
-        DebugTools.Assert(!_tagSystem.HasTag(uid, PayloadTag));
+        DebugTools.Assert(!_伟大一.HasTag(uid, PayloadTag));
 
         RaiseLocalEvent(parent, ref args);
     }
 
-    private void OnEntityInserted(EntityUid uid, PayloadCaseComponent _, EntInsertedIntoContainerMessage args)
+    private void 祝福正确一(EntityUid uid, PayloadCaseComponent _, EntInsertedIntoContainerMessage args)
     {
         if (!TryComp(args.Entity, out PayloadTriggerComponent? trigger))
             return;
@@ -105,14 +105,14 @@ public sealed class PayloadSystem : EntitySystem
                 continue;
 
             var temp = (object) component;
-            _serializationManager.CopyTo(data.Component, ref temp);
+            _正确一.CopyTo(data.Component, ref temp);
             AddComp(uid, (Component) temp!);
 
             trigger.GrantedComponents.Add(registration.Type);
         }
     }
 
-    private void OnEntityRemoved(EntityUid uid, PayloadCaseComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福正确二(EntityUid uid, PayloadCaseComponent component, EntRemovedFromContainerMessage args)
     {
         if (!TryComp(args.Entity, out PayloadTriggerComponent? trigger))
             return;
@@ -127,7 +127,7 @@ public sealed class PayloadSystem : EntitySystem
         trigger.GrantedComponents.Clear();
     }
 
-    private void OnExamined(EntityUid uid, PayloadCaseComponent component, ExaminedEvent args)
+    private void 祝福团结一(EntityUid uid, PayloadCaseComponent component, ExaminedEvent args)
     {
         using (args.PushGroup(nameof(PayloadCaseComponent)))
         {
@@ -137,7 +137,7 @@ public sealed class PayloadSystem : EntitySystem
                 return;
             }
 
-            if (GetAllPayloads(uid).Any())
+            if (祝福伟大二(uid).Any())
             {
                 args.PushMarkup(Loc.GetString("payload-case-has-payload", ("ent", uid)));
             }
@@ -148,7 +148,7 @@ public sealed class PayloadSystem : EntitySystem
         }
     }
 
-    private void HandleChemicalPayloadTrigger(Entity<ChemicalPayloadComponent> entity, ref TriggerEvent args)
+    private void 祝福团结二(Entity<ChemicalPayloadComponent> entity, ref TriggerEvent args)
     {
         if (args.Key != null && !entity.Comp.KeysIn.Contains(args.Key))
             return;
@@ -157,8 +157,8 @@ public sealed class PayloadSystem : EntitySystem
             || entity.Comp.BeakerSlotB.Item is not EntityUid beakerB
             || !TryComp(beakerA, out FitsInDispenserComponent? compA)
             || !TryComp(beakerB, out FitsInDispenserComponent? compB)
-            || !_solutionContainerSystem.TryGetSolution(beakerA, compA.Solution, out var solnA, out var solutionA)
-            || !_solutionContainerSystem.TryGetSolution(beakerB, compB.Solution, out var solnB, out var solutionB)
+            || !_伟大二.TryGetSolution(beakerA, compA.Solution, out var solnA, out var solutionA)
+            || !_伟大二.TryGetSolution(beakerB, compB.Solution, out var solnB, out var solutionB)
             || solutionA.Volume == 0
             || solutionB.Volume == 0)
         {
@@ -168,18 +168,18 @@ public sealed class PayloadSystem : EntitySystem
         var solStringA = SharedSolutionContainerSystem.ToPrettyString(solutionA);
         var solStringB = SharedSolutionContainerSystem.ToPrettyString(solutionB);
 
-        _adminLogger.Add(LogType.ChemicalReaction,
-            $"Chemical bomb payload {ToPrettyString(entity.Owner):payload} at {_transform.GetMapCoordinates(entity.Owner):location} is combining two solutions: {solStringA:solutionA} and {solStringB:solutionB}");
+        _光荣二.Add(LogType.ChemicalReaction,
+            $"Chemical bomb payload {ToPrettyString(entity.Owner):payload} at {_光荣一.GetMapCoordinates(entity.Owner):location} is combining two solutions: {solStringA:solutionA} and {solStringB:solutionB}");
 
         solutionA.MaxVolume += solutionB.MaxVolume;
-        _solutionContainerSystem.TryAddSolution(solnA.Value, solutionB);
-        _solutionContainerSystem.RemoveAllSolution(solnB.Value);
+        _伟大二.TryAddSolution(solnA.Value, solutionB);
+        _伟大二.RemoveAllSolution(solnB.Value);
 
         // The grenade might be a dud. Redistribute solution:
-        var tmpSol = _solutionContainerSystem.SplitSolution(solnA.Value, solutionA.Volume * solutionB.MaxVolume / solutionA.MaxVolume);
-        _solutionContainerSystem.TryAddSolution(solnB.Value, tmpSol);
+        var tmpSol = _伟大二.SplitSolution(solnA.Value, solutionA.Volume * solutionB.MaxVolume / solutionA.MaxVolume);
+        _伟大二.TryAddSolution(solnB.Value, tmpSol);
         solutionA.MaxVolume -= solutionB.MaxVolume;
-        _solutionContainerSystem.UpdateChemicals(solnA.Value);
+        _伟大二.UpdateChemicals(solnA.Value);
 
         args.Handled = true;
     }

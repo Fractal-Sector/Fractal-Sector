@@ -1,10 +1,10 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Weapons.Misc;
+namespace Content.Shared.Weapons.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class TetherGunComponent : BaseForceGunComponent
+public sealed partial class 中华伟大一 : BaseForceGunComponent
 {
     [DataField, AutoNetworkedField]
-    public float MaxDistance = 10f;
+    public float 党爱伟大一 = 10f;
 }

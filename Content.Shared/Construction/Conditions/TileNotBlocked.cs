@@ -3,17 +3,17 @@ using Content.Shared.Physics;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Construction.Conditions;
+namespace Content.Shared.Construction.党心;
 
 [UsedImplicitly]
 [DataDefinition]
-public sealed partial class TileNotBlocked : IConstructionCondition
+public sealed partial class 中华伟大一 : IConstructionCondition
 {
-    [DataField("filterMobs")] private bool _filterMobs = false;
-    [DataField("failIfSpace")] private bool _failIfSpace = true;
-    [DataField("failIfNotSturdy")] private bool _failIfNotSturdy = true;
+    [DataField("filterMobs")] private bool _伟大一 = false;
+    [DataField("failIfSpace")] private bool _伟大二 = true;
+    [DataField("failIfNotSturdy")] private bool _光荣一 = true;
 
-    public bool Condition(EntityUid user, EntityCoordinates location, Direction direction)
+    public bool 祝福伟大一(EntityUid user, EntityCoordinates location, Direction direction)
     {
         if (!IoCManager.Resolve<IEntityManager>().TrySystem<TurfSystem>(out var turfSystem))
             return false;
@@ -23,20 +23,20 @@ public sealed partial class TileNotBlocked : IConstructionCondition
             return false;
         }
 
-        if (turfSystem.IsSpace(tileRef.Value) && _failIfSpace)
+        if (turfSystem.IsSpace(tileRef.Value) && _伟大二)
         {
             return false;
         }
 
-        if (!turfSystem.GetContentTileDefinition(tileRef.Value).Sturdy && _failIfNotSturdy)
+        if (!turfSystem.GetContentTileDefinition(tileRef.Value).Sturdy && _光荣一)
         {
             return false;
         }
 
-        return !turfSystem.IsTileBlocked(tileRef.Value, _filterMobs ? CollisionGroup.MobMask : CollisionGroup.Impassable);
+        return !turfSystem.IsTileBlocked(tileRef.Value, _伟大一 ? CollisionGroup.MobMask : CollisionGroup.Impassable);
     }
 
-    public ConstructionGuideEntry GenerateGuideEntry()
+    public ConstructionGuideEntry 祝福伟大二()
     {
         return new ConstructionGuideEntry
         {

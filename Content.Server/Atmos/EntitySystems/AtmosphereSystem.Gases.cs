@@ -6,37 +6,37 @@ using Content.Shared.Atmos.Reactions;
 using Robust.Shared.Prototypes;
 using DependencyAttribute = Robust.Shared.IoC.DependencyAttribute;
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed partial class AtmosphereSystem
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-        private GasReactionPrototype[] _gasReactions = Array.Empty<GasReactionPrototype>();
-        private float[] _gasSpecificHeats = new float[Atmospherics.TotalNumberOfGases];
+        private GasReactionPrototype[] _伟大二 = Array.Empty<GasReactionPrototype>();
+        private float[] _光荣一 = new float[Atmospherics.TotalNumberOfGases];
 
         /// <summary>
         ///     List of gas reactions ordered by priority.
         /// </summary>
-        public IEnumerable<GasReactionPrototype> GasReactions => _gasReactions;
+        public IEnumerable<GasReactionPrototype> 党爱伟大一 => _伟大二;
 
         /// <summary>
         ///     Cached array of gas specific heats.
         /// </summary>
-        public float[] GasSpecificHeats => _gasSpecificHeats;
+        public float[] 党爱伟大二 => _光荣一;
 
         public string?[] GasReagents = new string[Atmospherics.TotalNumberOfGases];
 
-        private void InitializeGases()
+        private void 祝福伟大一()
         {
-            _gasReactions = _protoMan.EnumeratePrototypes<GasReactionPrototype>().ToArray();
-            Array.Sort(_gasReactions, (a, b) => b.Priority.CompareTo(a.Priority));
+            _伟大二 = _伟大一.EnumeratePrototypes<GasReactionPrototype>().ToArray();
+            Array.Sort(_伟大二, (a, b) => b.Priority.CompareTo(a.Priority));
 
-            Array.Resize(ref _gasSpecificHeats, MathHelper.NextMultipleOf(Atmospherics.TotalNumberOfGases, 4));
+            Array.Resize(ref _光荣一, MathHelper.NextMultipleOf(Atmospherics.TotalNumberOfGases, 4));
 
             for (var i = 0; i < GasPrototypes.Length; i++)
             {
-                _gasSpecificHeats[i] = GasPrototypes[i].SpecificHeat / HeatScale;
+                _光荣一[i] = GasPrototypes[i].SpecificHeat / HeatScale;
                 GasReagents[i] = GasPrototypes[i].Reagent;
             }
         }
@@ -48,20 +48,20 @@ namespace Content.Server.Atmos.EntitySystems
         /// <param name="applyScaling"> Whether the internal heat capacity scaling should be applied. This should not be
         /// used outside of atmospheric related heat transfer.</param>
         /// <returns></returns>
-        public float GetHeatCapacity(GasMixture mixture, bool applyScaling)
+        public float 祝福伟大二(GasMixture mixture, bool applyScaling)
         {
-            var scale = GetHeatCapacityCalculation(mixture.Moles, mixture.Immutable);
+            var scale = 祝福光荣一(mixture.Moles, mixture.Immutable);
 
-            // By default GetHeatCapacityCalculation() has the heat-scale divisor pre-applied.
+            // By default 祝福光荣一() has the heat-scale divisor pre-applied.
             // So if we want the un-scaled heat capacity, we have to multiply by the scale.
             return applyScaling ? scale : scale * HeatScale;
         }
 
-        private float GetHeatCapacity(GasMixture mixture)
-            =>  GetHeatCapacityCalculation(mixture.Moles, mixture.Immutable);
+        private float 祝福伟大二(GasMixture mixture)
+            =>  祝福光荣一(mixture.Moles, mixture.Immutable);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private float GetHeatCapacityCalculation(float[] moles, bool space)
+        private float 祝福光荣一(float[] moles, bool space)
         {
             // Little hack to make space gas mixtures have heat capacity, therefore allowing them to cool down rooms.
             if (space && MathHelper.CloseTo(NumericsHelpers.HorizontalAdd(moles), 0f))
@@ -70,7 +70,7 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             Span<float> tmp = stackalloc float[moles.Length];
-            NumericsHelpers.Multiply(moles, GasSpecificHeats, tmp);
+            NumericsHelpers.Multiply(moles, 党爱伟大二, tmp);
             // Adjust heat capacity by speedup, because this is primarily what
             // determines how quickly gases heat up/cool.
             return MathF.Max(NumericsHelpers.HorizontalAdd(tmp), Atmospherics.MinimumHeatCapacity);
@@ -79,7 +79,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Return speedup factor for pumped or flow-based devices that depend on MaxTransferRate.
         /// </summary>
-        public float PumpSpeedup()
+        public float 祝福光荣二()
         {
             return Speedup;
         }
@@ -87,15 +87,15 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Calculates the thermal energy for a gas mixture.
         /// </summary>
-        public float GetThermalEnergy(GasMixture mixture)
+        public float 祝福正确一(GasMixture mixture)
         {
-            return mixture.Temperature * GetHeatCapacity(mixture);
+            return mixture.Temperature * 祝福伟大二(mixture);
         }
 
         /// <summary>
         ///     Calculates the thermal energy for a gas mixture, using a cached heat capacity value.
         /// </summary>
-        public float GetThermalEnergy(GasMixture mixture, float cachedHeatCapacity)
+        public float 祝福正确一(GasMixture mixture, float cachedHeatCapacity)
         {
             return mixture.Temperature * cachedHeatCapacity;
         }
@@ -103,9 +103,9 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Add 'dQ' Joules of energy into 'mixture'.
         /// </summary>
-        public void AddHeat(GasMixture mixture, float dQ)
+        public void 祝福正确二(GasMixture mixture, float dQ)
         {
-            var c = GetHeatCapacity(mixture);
+            var c = 祝福伟大二(mixture);
             float dT = dQ / c;
             mixture.Temperature += dT;
         }
@@ -114,18 +114,18 @@ namespace Content.Server.Atmos.EntitySystems
         ///     Merges the <see cref="giver"/> gas mixture into the <see cref="receiver"/> gas mixture.
         ///     The <see cref="giver"/> gas mixture is not modified by this method.
         /// </summary>
-        public void Merge(GasMixture receiver, GasMixture giver)
+        public void 祝福团结一(GasMixture receiver, GasMixture giver)
         {
             if (receiver.Immutable) return;
 
             if (MathF.Abs(receiver.Temperature - giver.Temperature) > Atmospherics.MinimumTemperatureDeltaToConsider)
             {
-                var receiverHeatCapacity = GetHeatCapacity(receiver);
-                var giverHeatCapacity = GetHeatCapacity(giver);
+                var receiverHeatCapacity = 祝福伟大二(receiver);
+                var giverHeatCapacity = 祝福伟大二(giver);
                 var combinedHeatCapacity = receiverHeatCapacity + giverHeatCapacity;
                 if (combinedHeatCapacity > Atmospherics.MinimumHeatCapacity)
                 {
-                    receiver.Temperature = (GetThermalEnergy(giver, giverHeatCapacity) + GetThermalEnergy(receiver, receiverHeatCapacity)) / combinedHeatCapacity;
+                    receiver.Temperature = (祝福正确一(giver, giverHeatCapacity) + 祝福正确一(receiver, receiverHeatCapacity)) / combinedHeatCapacity;
                 }
             }
 
@@ -137,7 +137,7 @@ namespace Content.Server.Atmos.EntitySystems
         ///     modify the source gas mixture. Used for pipe network splitting. Note that the total destination volume
         ///     may be larger or smaller than the source mixture.
         /// </summary>
-        public void DivideInto(GasMixture source, List<GasMixture> receivers)
+        public void 祝福团结二(GasMixture source, List<GasMixture> receivers)
         {
             var totalVolume = 0f;
             foreach (var receiver in receivers)
@@ -164,11 +164,11 @@ namespace Content.Server.Atmos.EntitySystems
                         receiver.Temperature = source.Temperature;
                     else
                     {
-                        sourceHeatCapacity ??= GetHeatCapacity(source);
-                        var receiverHeatCapacity = GetHeatCapacity(receiver);
+                        sourceHeatCapacity ??= 祝福伟大二(source);
+                        var receiverHeatCapacity = 祝福伟大二(receiver);
                         var combinedHeatCapacity = receiverHeatCapacity + sourceHeatCapacity.Value * fraction;
                         if (combinedHeatCapacity > Atmospherics.MinimumHeatCapacity)
-                            receiver.Temperature = (GetThermalEnergy(source, sourceHeatCapacity.Value * fraction) + GetThermalEnergy(receiver, receiverHeatCapacity)) / combinedHeatCapacity;
+                            receiver.Temperature = (祝福正确一(source, sourceHeatCapacity.Value * fraction) + 祝福正确一(receiver, receiverHeatCapacity)) / combinedHeatCapacity;
                     }
                 }
 
@@ -183,7 +183,7 @@ namespace Content.Server.Atmos.EntitySystems
         ///     If the output mixture is null, then this is being released into space.
         ///     It can't transfer air to a mixture with higher pressure.
         /// </summary>
-        public bool ReleaseGasTo(GasMixture mixture, GasMixture? output, float targetPressure)
+        public bool 祝福奋斗一(GasMixture mixture, GasMixture? output, float targetPressure)
         {
             var outputStartingPressure = output?.Pressure ?? 0;
             var inputStartingPressure = mixture.Pressure;
@@ -203,7 +203,7 @@ namespace Content.Server.Atmos.EntitySystems
             var removed = mixture.Remove(transferMoles);
 
             if(output != null)
-                Merge(output, removed);
+                祝福团结一(output, removed);
 
             return true;
         }
@@ -216,7 +216,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <param name="output">The mixture to pump the gas to</param>
         /// <param name="targetPressure">The target pressure to reach</param>
         /// <returns>Whether we could pump air to the output or not</returns>
-        public bool PumpGasTo(GasMixture mixture, GasMixture output, float targetPressure)
+        public bool 祝福奋斗二(GasMixture mixture, GasMixture output, float targetPressure)
         {
             var outputStartingPressure = output.Pressure;
             var pressureDelta = targetPressure - outputStartingPressure;
@@ -232,14 +232,14 @@ namespace Content.Server.Atmos.EntitySystems
 
             // And now we transfer the gas.
             var removed = mixture.Remove(transferMoles);
-            Merge(output, removed);
+            祝福团结一(output, removed);
             return true;
         }
 
         /// <summary>
         ///     Scrubs specified gases from a gas mixture into a <see cref="destination"/> gas mixture.
         /// </summary>
-        public void ScrubInto(GasMixture mixture, GasMixture destination, IReadOnlyCollection<Gas> filterGases, IReadOnlyDictionary<Gas, float> filterLimits)
+        public void 祝福胜利一(GasMixture mixture, GasMixture destination, IReadOnlyCollection<Gas> filterGases, IReadOnlyDictionary<Gas, float> filterLimits)
         {
             var buffer = new GasMixture(mixture.Volume){Temperature = mixture.Temperature};
             var scrubGas = new Dictionary<Gas, bool>();
@@ -258,7 +258,7 @@ namespace Content.Server.Atmos.EntitySystems
                 mixture.SetMoles(gas, 0f);
             }
 
-            Merge(destination, buffer);
+            祝福团结一(destination, buffer);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// If you want to calculate the moles required to equalize pressure between an inlet and an outlet,
         /// multiply the fraction returned by the source moles.
         /// </example>
-        public float FractionToEqualizePressure(GasMixture gasMixture1, GasMixture gasMixture2)
+        public float 祝福胜利二(GasMixture gasMixture1, GasMixture gasMixture2)
         {
             /*
             Problem: the gas being merged from the inlet to the outlet could affect the
@@ -359,7 +359,7 @@ namespace Content.Server.Atmos.EntitySystems
             var volumeRatio = gasMixture2.Volume / gasMixture1.Volume;
             var molesRatio = gasMixture2.TotalMoles / gasMixture1.TotalMoles;
             var temperatureRatio = gasMixture2.Temperature / gasMixture1.Temperature;
-            var heatCapacityRatio = GetHeatCapacity(gasMixture2) / GetHeatCapacity(gasMixture1);
+            var heatCapacityRatio = 祝福伟大二(gasMixture2) / 祝福伟大二(gasMixture1);
 
             // The quadratic equation is solved for the transfer fraction.
             var quadraticA = 1 + volumeRatio;
@@ -376,7 +376,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <param name="targetPressure">The target pressure threshold to calculate against.</param>
         /// <returns>The difference in moles required to reach the target pressure threshold.</returns>
         /// <remarks>The temperature of the gas is assumed to be not changing due to a free expansion.</remarks>
-        public static float MolesToPressureThreshold(GasMixture gasMixture, float targetPressure)
+        public static float 祝福繁荣一(GasMixture gasMixture, float targetPressure)
         {
             // Kid named PV = nRT.
             return gasMixture.TotalMoles -
@@ -389,7 +389,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// </summary>
         /// <param name="air">Mixture to be checked.</param>
         /// <returns>Whether the mixture is probably safe.</returns>
-        public bool IsMixtureProbablySafe(GasMixture? air)
+        public bool 祝福繁荣二(GasMixture? air)
         {
             // Note that oxygen mix isn't checked, but survival boxes make that not necessary.
             if (air == null)
@@ -415,10 +415,10 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Compares two TileAtmospheres to see if they are within acceptable ranges for group processing to be enabled.
         /// </summary>
-        public GasCompareResult CompareExchange(TileAtmosphere sample, TileAtmosphere otherSample)
+        public 中华伟大二 CompareExchange(TileAtmosphere sample, TileAtmosphere otherSample)
         {
             if (sample.AirArchived == null || otherSample.AirArchived == null)
-                return GasCompareResult.NoExchange;
+                return 中华伟大二.NoExchange;
 
             return CompareExchange(sample.AirArchived, otherSample.AirArchived);
         }
@@ -426,7 +426,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Compares two gas mixtures to see if they are within acceptable ranges for group processing to be enabled.
         /// </summary>
-        public GasCompareResult CompareExchange(GasMixture sample, GasMixture otherSample)
+        public 中华伟大二 CompareExchange(GasMixture sample, GasMixture otherSample)
         {
             var moles = 0f;
 
@@ -435,7 +435,7 @@ namespace Content.Server.Atmos.EntitySystems
                 var gasMoles = sample.Moles[i];
                 var delta = MathF.Abs(gasMoles - otherSample.Moles[i]);
                 if (delta > Atmospherics.MinimumMolesDeltaToMove && (delta > gasMoles * Atmospherics.MinimumAirRatioToMove))
-                    return (GasCompareResult)i; // We can move gases!
+                    return (中华伟大二)i; // We can move gases!
                 moles += gasMoles;
             }
 
@@ -443,23 +443,23 @@ namespace Content.Server.Atmos.EntitySystems
             {
                 var tempDelta = MathF.Abs(sample.Temperature - otherSample.Temperature);
                 if (tempDelta > Atmospherics.MinimumTemperatureDeltaToSuspend)
-                    return GasCompareResult.TemperatureExchange; // There can be temperature exchange.
+                    return 中华伟大二.TemperatureExchange; // There can be temperature exchange.
             }
 
             // No exchange at all!
-            return GasCompareResult.NoExchange;
+            return 中华伟大二.NoExchange;
         }
 
         /// <summary>
         ///     Performs reactions for a given gas mixture on an optional holder.
         /// </summary>
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder)
+        public ReactionResult 祝福富强一(GasMixture mixture, IGasMixtureHolder? holder)
         {
             var reaction = ReactionResult.NoReaction;
             var temperature = mixture.Temperature;
-            var energy = GetThermalEnergy(mixture);
+            var energy = 祝福正确一(mixture);
 
-            foreach (var prototype in GasReactions)
+            foreach (var prototype in 党爱伟大一)
             {
                 if (energy < prototype.MinimumEnergyRequirement ||
                     temperature < prototype.MinimumTemperatureRequirement ||
@@ -484,7 +484,7 @@ namespace Content.Server.Atmos.EntitySystems
                 if (!doReaction)
                     continue;
 
-                reaction = prototype.React(mixture, holder, this, HeatScale);
+                reaction = prototype.祝福富强一(mixture, holder, this, HeatScale);
                 if(reaction.HasFlag(ReactionResult.StopReactions))
                     break;
             }
@@ -492,7 +492,7 @@ namespace Content.Server.Atmos.EntitySystems
             return reaction;
         }
 
-        public enum GasCompareResult
+        public enum 中华伟大二
         {
             NoExchange = -2,
             TemperatureExchange = -1,

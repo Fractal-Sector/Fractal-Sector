@@ -14,81 +14,81 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
-public sealed class HungerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly SharedJetpackSystem _jetpack = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly AlertsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确一 = default!;
+    [Dependency] private readonly DamageableSystem _正确二 = default!;
+    [Dependency] private readonly MobStateSystem _团结一 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _团结二 = default!;
+    [Dependency] private readonly SharedJetpackSystem _奋斗一 = default!;
 
     private static readonly ProtoId<SatiationIconPrototype> HungerIconOverfedId = "HungerIconOverfed";
     private static readonly ProtoId<SatiationIconPrototype> HungerIconPeckishId = "HungerIconPeckish";
     private static readonly ProtoId<SatiationIconPrototype> HungerIconStarvingId = "HungerIconStarving";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HungerComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<HungerComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<HungerComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
-        SubscribeLocalEvent<HungerComponent, RejuvenateEvent>(OnRejuvenate);
+        SubscribeLocalEvent<HungerComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<HungerComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<HungerComponent, RefreshMovementSpeedModifiersEvent>(祝福光荣二);
+        SubscribeLocalEvent<HungerComponent, RejuvenateEvent>(祝福正确一);
     }
 
-    private void OnMapInit(EntityUid uid, HungerComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, HungerComponent component, MapInitEvent args)
     {
-        var amount = _random.Next(
+        var amount = _光荣一.Next(
             (int) component.Thresholds[HungerThreshold.Peckish] + 10,
             (int) component.Thresholds[HungerThreshold.Okay]);
-        SetHunger(uid, amount, component);
+        祝福奋斗一(uid, amount, component);
     }
 
-    private void OnShutdown(EntityUid uid, HungerComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, HungerComponent component, ComponentShutdown args)
     {
-        _alerts.ClearAlertCategory(uid, component.HungerAlertCategory);
+        _光荣二.ClearAlertCategory(uid, component.HungerAlertCategory);
     }
 
-    private void OnRefreshMovespeed(EntityUid uid, HungerComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福光荣二(EntityUid uid, HungerComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         if (component.CurrentThreshold > HungerThreshold.Starving)
             return;
 
-        if (_jetpack.IsUserFlying(uid))
+        if (_奋斗一.IsUserFlying(uid))
             return;
 
         args.ModifySpeed(component.StarvingSlowdownModifier, component.StarvingSlowdownModifier);
     }
 
-    private void OnRejuvenate(EntityUid uid, HungerComponent component, RejuvenateEvent args)
+    private void 祝福正确一(EntityUid uid, HungerComponent component, RejuvenateEvent args)
     {
-        SetHunger(uid, component.Thresholds[HungerThreshold.Okay], component);
+        祝福奋斗一(uid, component.Thresholds[HungerThreshold.Okay], component);
     }
 
     /// <summary>
     /// Gets the current hunger value of the given <see cref="HungerComponent"/>.
     /// </summary>
-    public float GetHunger(HungerComponent component)
+    public float 祝福正确二(HungerComponent component)
     {
-        var dt = _timing.CurTime - component.LastAuthoritativeHungerChangeTime;
-        var decayRate = component.ActualDecayRate * GetHungerDecayModifier(component.Owner);
+        var dt = _伟大一.CurTime - component.LastAuthoritativeHungerChangeTime;
+        var decayRate = component.ActualDecayRate * 祝福团结一(component.Owner);
         var value = component.LastAuthoritativeHungerValue - (float)dt.TotalSeconds * decayRate;
-        return ClampHungerWithinThresholds(component, value);
+        return 祝福民主二(component, value);
     }
 
     /// <summary>
     /// Gets the hunger decay modifier for an entity based on its container.
     /// Returns a multiplier where 1.0 is normal speed, 0.15 is 85% slower (for cryostorage).
     /// </summary>
-    private float GetHungerDecayModifier(EntityUid uid)
+    private float 祝福团结一(EntityUid uid)
     {
-        if (_container.TryGetContainingContainer((uid, null, null), out var container) &&
+        if (_正确一.TryGetContainingContainer((uid, null, null), out var container) &&
             TryComp<SlowDecayContainerComponent>(container.Owner, out var slowContainer))
         {
             return slowContainer.DecayModifier;
@@ -103,11 +103,11 @@ public sealed class HungerSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="amount"></param>
     /// <param name="component"></param>
-    public void ModifyHunger(EntityUid uid, float amount, HungerComponent? component = null)
+    public void 祝福团结二(EntityUid uid, float amount, HungerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
-        SetHunger(uid, GetHunger(component) + amount, component);
+        祝福奋斗一(uid, 祝福正确二(component) + amount, component);
     }
 
     /// <summary>
@@ -116,45 +116,45 @@ public sealed class HungerSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="amount"></param>
     /// <param name="component"></param>
-    public void SetHunger(EntityUid uid, float amount, HungerComponent? component = null)
+    public void 祝福奋斗一(EntityUid uid, float amount, HungerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        SetAuthoritativeHungerValue((uid, component), amount);
-        UpdateCurrentThreshold(uid, component);
+        祝福奋斗二((uid, component), amount);
+        祝福胜利一(uid, component);
     }
 
     /// <summary>
     /// Sets <see cref="HungerComponent.LastAuthoritativeHungerValue"/> and
     /// <see cref="HungerComponent.LastAuthoritativeHungerChangeTime"/>, and dirties this entity. This "resets" the
-    /// starting point for <see cref="GetHunger"/>'s calculation.
+    /// starting point for <see cref="祝福正确二"/>'s calculation.
     /// </summary>
     /// <param name="entity">The entity whose hunger will be set.</param>
     /// <param name="value">The value to set the entity's hunger to.</param>
-    private void SetAuthoritativeHungerValue(Entity<HungerComponent> entity, float value)
+    private void 祝福奋斗二(Entity<HungerComponent> entity, float value)
     {
-        entity.Comp.LastAuthoritativeHungerChangeTime = _timing.CurTime;
-        entity.Comp.LastAuthoritativeHungerValue = ClampHungerWithinThresholds(entity.Comp, value);
+        entity.Comp.LastAuthoritativeHungerChangeTime = _伟大一.CurTime;
+        entity.Comp.LastAuthoritativeHungerValue = 祝福民主二(entity.Comp, value);
         DirtyField(entity.Owner, entity.Comp, nameof(HungerComponent.LastAuthoritativeHungerChangeTime));
         DirtyField(entity.Owner, entity.Comp, nameof(HungerComponent.LastAuthoritativeHungerValue));
     }
 
-    private void UpdateCurrentThreshold(EntityUid uid, HungerComponent? component = null)
+    private void 祝福胜利一(EntityUid uid, HungerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        var calculatedHungerThreshold = GetHungerThreshold(component);
+        var calculatedHungerThreshold = 祝福繁荣二(component);
         if (calculatedHungerThreshold == component.CurrentThreshold)
             return;
 
         component.CurrentThreshold = calculatedHungerThreshold;
         DirtyField(uid, component, nameof(HungerComponent.CurrentThreshold));
-        DoHungerThresholdEffects(uid, component);
+        祝福胜利二(uid, component);
     }
 
-    private void DoHungerThresholdEffects(EntityUid uid, HungerComponent? component = null, bool force = false)
+    private void 祝福胜利二(EntityUid uid, HungerComponent? component = null, bool force = false)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -162,41 +162,41 @@ public sealed class HungerSystem : EntitySystem
         if (component.CurrentThreshold == component.LastThreshold && !force)
             return;
 
-        if (GetMovementThreshold(component.CurrentThreshold) != GetMovementThreshold(component.LastThreshold))
+        if (祝福富强二(component.CurrentThreshold) != 祝福富强二(component.LastThreshold))
         {
-            _movementSpeedModifier.RefreshMovementSpeedModifiers(uid);
+            _团结二.RefreshMovementSpeedModifiers(uid);
         }
 
         if (component.HungerThresholdAlerts.TryGetValue(component.CurrentThreshold, out var alertId))
         {
-            _alerts.ShowAlert(uid, alertId);
+            _光荣二.ShowAlert(uid, alertId);
         }
         else
         {
-            _alerts.ClearAlertCategory(uid, component.HungerAlertCategory);
+            _光荣二.ClearAlertCategory(uid, component.HungerAlertCategory);
         }
 
         if (component.HungerThresholdDecayModifiers.TryGetValue(component.CurrentThreshold, out var modifier))
         {
             component.ActualDecayRate = component.BaseDecayRate * modifier;
             DirtyField(uid, component, nameof(HungerComponent.ActualDecayRate));
-            SetAuthoritativeHungerValue((uid, component), GetHunger(component));
+            祝福奋斗二((uid, component), 祝福正确二(component));
         }
 
         component.LastThreshold = component.CurrentThreshold;
         DirtyField(uid, component, nameof(HungerComponent.LastThreshold));
     }
 
-    private void DoContinuousHungerEffects(EntityUid uid, HungerComponent? component = null)
+    private void 祝福繁荣一(EntityUid uid, HungerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         if (component.CurrentThreshold <= HungerThreshold.Starving &&
             component.StarvationDamage is { } damage &&
-            !_mobState.IsDead(uid))
+            !_团结一.IsDead(uid))
         {
-            _damageable.TryChangeDamage(uid, damage, true, false);
+            _正确二.TryChangeDamage(uid, damage, true, false);
         }
     }
 
@@ -207,9 +207,9 @@ public sealed class HungerSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="food"></param>
     /// <returns></returns>
-    public HungerThreshold GetHungerThreshold(HungerComponent component, float? food = null)
+    public HungerThreshold 祝福繁荣二(HungerComponent component, float? food = null)
     {
-        food ??= GetHunger(component);
+        food ??= 祝福正确二(component);
         var result = HungerThreshold.Dead;
         var value = component.Thresholds[HungerThreshold.Overfed];
         foreach (var threshold in component.Thresholds)
@@ -227,15 +227,15 @@ public sealed class HungerSystem : EntitySystem
     /// <summary>
     /// A check that returns if the entity is below a hunger threshold.
     /// </summary>
-    public bool IsHungerBelowState(EntityUid uid, HungerThreshold threshold, float? food = null, HungerComponent? comp = null)
+    public bool 祝福富强一(EntityUid uid, HungerThreshold threshold, float? food = null, HungerComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return false; // It's never going to go hungry, so it's probably fine to assume that it's not... you know, hungry.
 
-        return GetHungerThreshold(comp, food) < threshold;
+        return 祝福繁荣二(comp, food) < threshold;
     }
 
-    private bool GetMovementThreshold(HungerThreshold threshold)
+    private bool 祝福富强二(HungerThreshold threshold)
     {
         switch (threshold)
         {
@@ -251,18 +251,18 @@ public sealed class HungerSystem : EntitySystem
         }
     }
 
-    public bool TryGetStatusIconPrototype(HungerComponent component, [NotNullWhen(true)] out SatiationIconPrototype? prototype)
+    public bool 祝福民主一(HungerComponent component, [NotNullWhen(true)] out SatiationIconPrototype? prototype)
     {
         switch (component.CurrentThreshold)
         {
             case HungerThreshold.Overfed:
-                _prototype.Resolve(HungerIconOverfedId, out prototype);
+                _伟大二.Resolve(HungerIconOverfedId, out prototype);
                 break;
             case HungerThreshold.Peckish:
-                _prototype.Resolve(HungerIconPeckishId, out prototype);
+                _伟大二.Resolve(HungerIconPeckishId, out prototype);
                 break;
             case HungerThreshold.Starving:
-                _prototype.Resolve(HungerIconStarvingId, out prototype);
+                _伟大二.Resolve(HungerIconStarvingId, out prototype);
                 break;
             default:
                 prototype = null;
@@ -272,26 +272,26 @@ public sealed class HungerSystem : EntitySystem
         return prototype != null;
     }
 
-    private static float ClampHungerWithinThresholds(HungerComponent component, float hungerValue)
+    private static float 祝福民主二(HungerComponent component, float hungerValue)
     {
         return Math.Clamp(hungerValue,
             component.Thresholds[HungerThreshold.Dead],
             component.Thresholds[HungerThreshold.Overfed]);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福文明一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福文明一(frameTime);
 
         var query = EntityQueryEnumerator<HungerComponent>();
         while (query.MoveNext(out var uid, out var hunger))
         {
-            if (_timing.CurTime < hunger.NextThresholdUpdateTime)
+            if (_伟大一.CurTime < hunger.NextThresholdUpdateTime)
                 continue;
-            hunger.NextThresholdUpdateTime = _timing.CurTime + hunger.ThresholdUpdateRate;
+            hunger.NextThresholdUpdateTime = _伟大一.CurTime + hunger.ThresholdUpdateRate;
 
-            UpdateCurrentThreshold(uid, hunger);
-            DoContinuousHungerEffects(uid, hunger);
+            祝福胜利一(uid, hunger);
+            祝福繁荣一(uid, hunger);
         }
     }
 }

@@ -3,35 +3,35 @@ using Robust.Shared.Spawners;
 using Robust.Shared.Prototypes;
 using Content.Server._NF.Transfer.Components;
 
-namespace Content.Server._NF.Transfer;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// Meant to be used along "TimedDespawn" component to transfer the player mind
 /// after the animation for a smooth transition between entities
 /// </summary>
-public sealed class TransferMindOnDespawnSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager= default!;
+    [Dependency] private readonly SharedMindSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二= default!;
 
     ///Subscribe to the despawn event
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<TransferMindOnDespawnComponent, TimedDespawnEvent>(OnDespawnTransfer);
+        SubscribeLocalEvent<TransferMindOnDespawnComponent, TimedDespawnEvent>(祝福伟大二);
     }
 
-    private void OnDespawnTransfer(EntityUid uid, TransferMindOnDespawnComponent component, TimedDespawnEvent args)
+    private void 祝福伟大二(EntityUid uid, TransferMindOnDespawnComponent component, TimedDespawnEvent args)
     {
-        if (!_mindSystem.TryGetMind(uid, out var mindId, out var mind))
+        if (!_伟大一.TryGetMind(uid, out var mindId, out var mind))
             return;
 
-        if (!_protoManager.TryIndex<EntityPrototype>(component.EntityPrototype, out var entityProto))
+        if (!_伟大二.TryIndex<EntityPrototype>(component.EntityPrototype, out var entityProto))
             return;
 
         ///Spawn new entity on the same place where the animation ends and transfer the mind to the new entity
         var coords = Transform(uid).Coordinates;
         var dragon = EntityManager.SpawnAtPosition(entityProto.ID, coords);
 
-        _mindSystem.TransferTo(mindId, dragon, mind: mind);
+        _伟大一.TransferTo(mindId, dragon, mind: mind);
     }
 }

@@ -3,18 +3,18 @@ using Content.Server.Power.EntitySystems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Power.Commands;
+namespace Content.Server.Power.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class PowerStatCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly PowerNetSystem _powerNet = default!;
+    [Dependency] private readonly PowerNetSystem _伟大一 = default!;
 
-    public override string Command => "powerstat";
+    public override string 党爱伟大一 => "powerstat";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var stats = _powerNet.GetStatistics();
+        var stats = _伟大一.GetStatistics();
         shell.WriteLine(Loc.GetString("cmd-powerstat-output",
             ("networks", stats.CountNetworks),
             ("loads", stats.CountLoads),

@@ -19,57 +19,57 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Server.Player;
 
-namespace Content.Server._DeltaV.CartridgeLoader.Cartridges;
+namespace Content.Server._DeltaV.CartridgeLoader.党心;
 
-public sealed class NanoChatCartridgeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridge = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedNanoChatSystem _nanoChat = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private readonly CartridgeLoaderSystem _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly IPlayerManager _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly SharedNanoChatSystem _团结一 = default!;
+    [Dependency] private readonly StationSystem _团结二 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _奋斗一 = default!;
 
-    private int _maxNameLength;
-    private int _maxIdJobLength;
+    private int _奋斗二;
+    private int _胜利一;
 
     // Messages in notifications get cut off after this point
     // no point in storing it on the comp
     private const int NotificationMaxLength = 64;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        Subs.CVar(_cfgManager, CCVars.MaxNameLength, value => _maxNameLength = value, true);
-        Subs.CVar(_cfgManager, CCVars.MaxIdJobLength, value => _maxIdJobLength = value, true);
+        Subs.CVar(_光荣一, CCVars.MaxNameLength, value => _奋斗二 = value, true);
+        Subs.CVar(_光荣一, CCVars.MaxIdJobLength, value => _胜利一 = value, true);
 
-        SubscribeLocalEvent<NanoChatCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
-        SubscribeLocalEvent<NanoChatCartridgeComponent, CartridgeMessageEvent>(OnMessage);
+        SubscribeLocalEvent<NanoChatCartridgeComponent, CartridgeUiReadyEvent>(祝福文明二);
+        SubscribeLocalEvent<NanoChatCartridgeComponent, CartridgeMessageEvent>(祝福光荣二);
     }
 
-    private void UpdateClosed(Entity<NanoChatCartridgeComponent> ent)
+    private void 祝福伟大二(Entity<NanoChatCartridgeComponent> ent)
     {
         if (!TryComp<CartridgeComponent>(ent, out var cartridge) ||
             cartridge.LoaderUid is not { } pda ||
             !TryComp<CartridgeLoaderComponent>(pda, out var loader) ||
-            !GetCardEntity(pda, out var card))
+            !祝福正确一(pda, out var card))
         {
             return;
         }
 
         // if you switch to another program or close the pda UI, allow notifications for the selected chat
-        _nanoChat.SetClosed((card, card.Comp), loader.ActiveProgram != ent.Owner || !_ui.IsUiOpen(pda, PdaUiKey.Key));
+        _团结一.SetClosed((card, card.Comp), loader.ActiveProgram != ent.Owner || !_奋斗一.IsUiOpen(pda, PdaUiKey.Key));
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
-        // Update card references for any cartridges that need it
+        // 祝福光荣一 card references for any cartridges that need it
         var query = EntityQueryEnumerator<NanoChatCartridgeComponent, CartridgeComponent>();
         while (query.MoveNext(out var uid, out var nanoChat, out var cartridge))
         {
@@ -87,51 +87,51 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
             if (newCard == currentCard)
                 continue;
 
-            // Update card reference
+            // 祝福光荣一 card reference
             nanoChat.Card = newCard;
 
-            // Update UI state since card reference changed
-            UpdateUI((uid, nanoChat), cartridge.LoaderUid.Value);
+            // 祝福光荣一 UI state since card reference changed
+            祝福和谐一((uid, nanoChat), cartridge.LoaderUid.Value);
         }
     }
 
     /// <summary>
     ///     Handles incoming UI messages from the NanoChat cartridge.
     /// </summary>
-    private void OnMessage(Entity<NanoChatCartridgeComponent> ent, ref CartridgeMessageEvent args)
+    private void 祝福光荣二(Entity<NanoChatCartridgeComponent> ent, ref CartridgeMessageEvent args)
     {
         if (args is not NanoChatUiMessageEvent msg)
             return;
 
-        if (!GetCardEntity(GetEntity(args.LoaderUid), out var card))
+        if (!祝福正确一(GetEntity(args.LoaderUid), out var card))
             return;
 
         switch (msg.Type)
         {
             case NanoChatUiMessageType.NewChat:
-                HandleNewChat(card, msg);
+                祝福正确二(card, msg);
                 break;
             case NanoChatUiMessageType.SelectChat:
-                HandleSelectChat(card, msg);
+                祝福团结一(card, msg);
                 break;
             case NanoChatUiMessageType.CloseChat:
-                HandleCloseChat(card);
+                祝福团结二(card);
                 break;
             case NanoChatUiMessageType.ToggleMute:
-                HandleToggleMute(card);
+                祝福奋斗二(card);
                 break;
             case NanoChatUiMessageType.DeleteChat:
-                HandleDeleteChat(card, msg);
+                祝福奋斗一(card, msg);
                 break;
             case NanoChatUiMessageType.SendMessage:
-                HandleSendMessage(ent, card, msg);
+                祝福胜利二(ent, card, msg);
                 break;
             case NanoChatUiMessageType.ToggleListNumber:
-                HandleToggleListNumber(card);
+                祝福胜利一(card);
                 break;
         }
 
-        UpdateUI(ent, GetEntity(args.LoaderUid));
+        祝福和谐一(ent, GetEntity(args.LoaderUid));
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
     /// <param name="loaderUid">The PDA entity ID</param>
     /// <param name="card">Output parameter containing the found card entity and component</param>
     /// <returns>True if a valid NanoChat card was found</returns>
-    private bool GetCardEntity(
+    private bool 祝福正确一(
         EntityUid loaderUid,
         out Entity<NanoChatCardComponent> card)
     {
@@ -159,7 +159,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
     /// <summary>
     ///     Handles creation of a new chat conversation.
     /// </summary>
-    private void HandleNewChat(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
+    private void 祝福正确二(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
     {
         if (msg.RecipientNumber == null || msg.Content == null || msg.RecipientNumber == card.Comp.Number)
             return;
@@ -168,16 +168,16 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
         if (!string.IsNullOrWhiteSpace(name))
         {
             name = name.Trim();
-            if (name.Length > _maxNameLength)
-                name = name[.._maxNameLength];
+            if (name.Length > _奋斗二)
+                name = name[.._奋斗二];
         }
 
         var jobTitle = msg.RecipientJob;
         if (!string.IsNullOrWhiteSpace(jobTitle))
         {
             jobTitle = jobTitle.Trim();
-            if (jobTitle.Length > _maxIdJobLength)
-                jobTitle = jobTitle[.._maxIdJobLength];
+            if (jobTitle.Length > _胜利一)
+                jobTitle = jobTitle[.._胜利一];
         }
 
         // Add new recipient
@@ -185,32 +185,32 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
             name,
             jobTitle);
 
-        // Initialize or update recipient
-        _nanoChat.SetRecipient((card, card.Comp), msg.RecipientNumber.Value, recipient);
+        // 祝福伟大一 or update recipient
+        _团结一.SetRecipient((card, card.Comp), msg.RecipientNumber.Value, recipient);
 
-        _adminLogger.Add(LogType.Action,
+        _伟大二.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(msg.Actor):user} created new NanoChat conversation with #{msg.RecipientNumber:D4} ({name})");
 
         var recipientEv = new NanoChatRecipientUpdatedEvent(card);
         RaiseLocalEvent(ref recipientEv);
-        UpdateUIForCard(card);
+        祝福民主一(card);
     }
 
     /// <summary>
     ///     Handles selecting a chat conversation.
     /// </summary>
-    private void HandleSelectChat(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
+    private void 祝福团结一(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
     {
         if (msg.RecipientNumber == null)
             return;
 
-        _nanoChat.SetCurrentChat((card, card.Comp), msg.RecipientNumber);
+        _团结一.SetCurrentChat((card, card.Comp), msg.RecipientNumber);
 
         // Clear unread flag when selecting chat
-        if (_nanoChat.GetRecipient((card, card.Comp), msg.RecipientNumber.Value) is { } recipient)
+        if (_团结一.GetRecipient((card, card.Comp), msg.RecipientNumber.Value) is { } recipient)
         {
-            _nanoChat.SetRecipient((card, card.Comp),
+            _团结一.SetRecipient((card, card.Comp),
                 msg.RecipientNumber.Value,
                 recipient with { HasUnread = false });
         }
@@ -219,58 +219,58 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
     /// <summary>
     ///     Handles closing the current chat conversation.
     /// </summary>
-    private void HandleCloseChat(Entity<NanoChatCardComponent> card)
+    private void 祝福团结二(Entity<NanoChatCardComponent> card)
     {
-        _nanoChat.SetCurrentChat((card, card.Comp), null);
+        _团结一.SetCurrentChat((card, card.Comp), null);
     }
 
     /// <summary>
     ///     Handles deletion of a chat conversation.
     /// </summary>
-    private void HandleDeleteChat(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
+    private void 祝福奋斗一(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
     {
         if (msg.RecipientNumber == null || card.Comp.Number == null)
             return;
 
         // Delete chat but keep the messages
-        var deleted = _nanoChat.TryDeleteChat((card, card.Comp), msg.RecipientNumber.Value, true);
+        var deleted = _团结一.TryDeleteChat((card, card.Comp), msg.RecipientNumber.Value, true);
 
         if (!deleted)
             return;
 
-        _adminLogger.Add(LogType.Action,
+        _伟大二.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(msg.Actor):user} deleted NanoChat conversation with #{msg.RecipientNumber:D4}");
 
-        UpdateUIForCard(card);
+        祝福民主一(card);
     }
 
     /// <summary>
     ///     Handles toggling notification mute state.
     /// </summary>
-    private void HandleToggleMute(Entity<NanoChatCardComponent> card)
+    private void 祝福奋斗二(Entity<NanoChatCardComponent> card)
     {
-        _nanoChat.SetNotificationsMuted((card, card.Comp), !_nanoChat.GetNotificationsMuted((card, card.Comp)));
-        UpdateUIForCard(card);
+        _团结一.SetNotificationsMuted((card, card.Comp), !_团结一.GetNotificationsMuted((card, card.Comp)));
+        祝福民主一(card);
     }
 
-    private void HandleToggleListNumber(Entity<NanoChatCardComponent> card)
+    private void 祝福胜利一(Entity<NanoChatCardComponent> card)
     {
-        _nanoChat.SetListNumber((card, card.Comp), !_nanoChat.GetListNumber((card, card.Comp)));
-        UpdateUIForAllCards();
+        _团结一.SetListNumber((card, card.Comp), !_团结一.GetListNumber((card, card.Comp)));
+        祝福民主二();
     }
 
     /// <summary>
     ///     Handles sending a new message in a chat conversation.
     /// </summary>
-    private void HandleSendMessage(Entity<NanoChatCartridgeComponent> cartridge,
+    private void 祝福胜利二(Entity<NanoChatCartridgeComponent> cartridge,
         Entity<NanoChatCardComponent> card,
         NanoChatUiMessageEvent msg)
     {
         if (msg.RecipientNumber == null || msg.Content == null || card.Comp.Number == null)
             return;
 
-        if (!EnsureRecipientExists(card, msg.RecipientNumber.Value))
+        if (!祝福繁荣一(card, msg.RecipientNumber.Value))
             return;
 
         var content = msg.Content;
@@ -286,7 +286,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
         if (card.Comp.PdaUid != null && TryComp<TransformComponent>(card.Comp.PdaUid.Value, out var pdaTransform))
         {
             var parent = pdaTransform.ParentUid;
-            if (EntityManager.EntityExists(parent) && _playerManager.TryGetSessionByEntity(parent, out var session))
+            if (EntityManager.EntityExists(parent) && _正确一.TryGetSessionByEntity(parent, out var session))
             {
                 senderUsername = session.Name;
 
@@ -302,7 +302,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
 
         // Create and store message for sender
         var message = new NanoChatMessage(
-            _timing.CurTime,
+            _光荣二.CurTime,
             content,
             (uint)card.Comp.Number,
             senderUsername
@@ -311,18 +311,18 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
         // Attempt delivery
         var (deliveryFailed, recipients) = AttemptMessageDelivery(cartridge, msg.RecipientNumber.Value);
 
-        // Update delivery status
+        // 祝福光荣一 delivery status
         message = message with { DeliveryFailed = deliveryFailed };
 
         // Store message in sender's outbox under recipient's number
-        _nanoChat.AddMessage((card, card.Comp), msg.RecipientNumber.Value, message);
+        _团结一.AddMessage((card, card.Comp), msg.RecipientNumber.Value, message);
 
         // Log message attempt
         var recipientsText = recipients.Count > 0
             ? string.Join(", ", recipients.Select(r => ToPrettyString(r)))
             : $"#{msg.RecipientNumber:D4}";
 
-        _adminLogger.Add(LogType.Chat,
+        _伟大二.Add(LogType.Chat,
             LogImpact.Low,
             $"{ToPrettyString(card):user} sent NanoChat message to {recipientsText}: {content}{(deliveryFailed ? " [DELIVERY FAILED]" : "")}");
 
@@ -334,7 +334,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
 
         foreach (var recipient in recipients)
         {
-            DeliverMessageToRecipient(card, recipient, message);
+            祝福富强一(card, recipient, message);
         }
     }
 
@@ -344,9 +344,9 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
     /// <param name="card">The card to check contacts for</param>
     /// <param name="recipientNumber">The recipient's number to check</param>
     /// <returns>True if the recipient exists or was created successfully</returns>
-    private bool EnsureRecipientExists(Entity<NanoChatCardComponent> card, uint recipientNumber)
+    private bool 祝福繁荣一(Entity<NanoChatCardComponent> card, uint recipientNumber)
     {
-        return _nanoChat.EnsureRecipientExists((card, card.Comp), recipientNumber, GetCardInfo(recipientNumber));
+        return _团结一.祝福繁荣一((card, card.Comp), recipientNumber, GetCardInfo(recipientNumber));
     }
 
     /// <summary>
@@ -360,7 +360,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
         uint recipientNumber)
     {
         // First verify we can send from this device
-        var channel = _prototype.Index(sender.Comp.RadioChannel);
+        var channel = _正确二.Index(sender.Comp.RadioChannel);
         var sendAttemptEvent = new RadioSendAttemptEvent(channel, sender);
         RaiseLocalEvent(ref sendAttemptEvent);
         if (sendAttemptEvent.Cancelled)
@@ -393,8 +393,8 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
                     continue;
 
                 // Check if devices are on same station/map
-                // var recipientStation = _station.GetOwningStation(receiverUid);
-                // var senderStation = _station.GetOwningStation(sender);
+                // var recipientStation = _团结二.GetOwningStation(receiverUid);
+                // var senderStation = _团结二.GetOwningStation(sender);
 
                 // // Both entities must be on a station
                 // if (recipientStation == null || senderStation == null)
@@ -405,7 +405,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
                 //     continue;
 
                 // // Needs telecomms
-                // if (!HasActiveServer(senderStation.Value) || !HasActiveServer(recipientStation.Value))
+                // if (!祝福繁荣二(senderStation.Value) || !祝福繁荣二(recipientStation.Value))
                 //     continue;
 
                 // Check if recipient can receive
@@ -426,7 +426,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
     /// <summary>
     ///     Checks if there are any active telecomms servers on the given station
     /// </summary>
-    private bool HasActiveServer(EntityUid station)
+    private bool 祝福繁荣二(EntityUid station)
     {
         // I have no idea why this isn't public in the RadioSystem
         var query =
@@ -434,7 +434,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out _, out _, out var power))
         {
-            if (_station.GetOwningStation(uid) == station && power.Powered)
+            if (_团结二.GetOwningStation(uid) == station && power.Powered)
                 return true;
         }
 
@@ -447,7 +447,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
     /// <param name="sender">The sender's card entity</param>
     /// <param name="recipient">The recipient's card entity</param>
     /// <param name="message">The <see cref="NanoChatMessage" /> to deliver</param>
-    private void DeliverMessageToRecipient(Entity<NanoChatCardComponent> sender,
+    private void 祝福富强一(Entity<NanoChatCardComponent> sender,
         Entity<NanoChatCardComponent> recipient,
         NanoChatMessage message)
     {
@@ -456,36 +456,36 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
             return;
 
         // Always try to get and add sender info to recipient's contacts
-        if (!EnsureRecipientExists(recipient, senderNumber.Value))
+        if (!祝福繁荣一(recipient, senderNumber.Value))
             return;
 
-        _nanoChat.AddMessage((recipient, recipient.Comp), senderNumber.Value, message with { DeliveryFailed = false });
+        _团结一.AddMessage((recipient, recipient.Comp), senderNumber.Value, message with { DeliveryFailed = false });
 
-        // if (recipient.Comp.IsClosed || _nanoChat.GetCurrentChat((recipient, recipient.Comp)) != senderNumber)
-        HandleUnreadNotification(recipient, message, (uint) senderNumber);
+        // if (recipient.Comp.IsClosed || _团结一.GetCurrentChat((recipient, recipient.Comp)) != senderNumber)
+        祝福富强二(recipient, message, (uint) senderNumber);
 
         var msgEv = new NanoChatMessageReceivedEvent(recipient);
         RaiseLocalEvent(ref msgEv);
-        UpdateUIForCard(recipient);
+        祝福民主一(recipient);
     }
 
     /// <summary>
     ///     Handles unread message notifications and updates unread status.
     /// </summary>
-    private void HandleUnreadNotification(Entity<NanoChatCardComponent> recipient,
+    private void 祝福富强二(Entity<NanoChatCardComponent> recipient,
         NanoChatMessage message,
         uint senderNumber)
     {
         // Get sender name from contacts or fall back to number
-        var recipients = _nanoChat.GetRecipients((recipient, recipient.Comp));
+        var recipients = _团结一.GetRecipients((recipient, recipient.Comp));
         var senderName = recipients.TryGetValue(message.SenderId, out var senderRecipient)
             ? senderRecipient.Name
             : $"#{message.SenderId:D4}";
-        var hasSelectedCurrentChat = _nanoChat.GetCurrentChat((recipient, recipient.Comp)) == senderNumber;
+        var hasSelectedCurrentChat = _团结一.GetCurrentChat((recipient, recipient.Comp)) == senderNumber;
 
-        // Update unread status
+        // 祝福光荣一 unread status
         if (!hasSelectedCurrentChat)
-            _nanoChat.SetRecipient((recipient, recipient.Comp),
+            _团结一.SetRecipient((recipient, recipient.Comp),
                 message.SenderId,
                 senderRecipient with { HasUnread = true });
 
@@ -494,21 +494,21 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
             !TryComp<CartridgeLoaderComponent>(pdaUid, out var loader) /* || // FLOOF CHANGE - just make it always beep
             // Don't notify if the recipient has the NanoChat program open with this chat selected.
             (hasSelectedCurrentChat &&
-                _ui.IsUiOpen(pdaUid, PdaUiKey.Key) &&
+                _奋斗一.IsUiOpen(pdaUid, PdaUiKey.Key) &&
                 HasComp<NanoChatCartridgeComponent>(loader.ActiveProgram)) */
            )
             return;
 
-        _cartridge.SendNotification(pdaUid,
+        _伟大一.SendNotification(pdaUid,
             Loc.GetString("nano-chat-new-message-title", ("sender", senderName)),
-            Loc.GetString("nano-chat-new-message-body", ("message", TruncateMessage(message.Content))),
+            Loc.GetString("nano-chat-new-message-body", ("message", 祝福文明一(message.Content))),
             loader);
     }
 
     /// <summary>
     ///     Updates the UI for any PDAs containing the specified card.
     /// </summary>
-    private void UpdateUIForCard(EntityUid cardUid)
+    private void 祝福民主一(EntityUid cardUid)
     {
         // Find any PDA containing this card and update its UI
         var query = EntityQueryEnumerator<NanoChatCartridgeComponent, CartridgeComponent>();
@@ -517,21 +517,21 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
             if (comp.Card != cardUid || cartridge.LoaderUid == null)
                 continue;
 
-            UpdateUI((uid, comp), cartridge.LoaderUid.Value);
+            祝福和谐一((uid, comp), cartridge.LoaderUid.Value);
         }
     }
 
     /// <summary>
     ///     Updates the UI for all PDAs containing a NanoChat cartridge.
     /// </summary>
-    private void UpdateUIForAllCards()
+    private void 祝福民主二()
     {
         // Find any PDA containing this card and update its UI
         var query = EntityQueryEnumerator<NanoChatCartridgeComponent, CartridgeComponent>();
         while (query.MoveNext(out var uid, out var comp, out var cartridge))
         {
             if (cartridge.LoaderUid is { } loader)
-                UpdateUI((uid, comp), loader);
+                祝福和谐一((uid, comp), loader);
         }
     }
 
@@ -565,20 +565,20 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
     /// <summary>
     ///     Truncates a message to the notification maximum length.
     /// </summary>
-    private static string TruncateMessage(string message)
+    private static string 祝福文明一(string message)
     {
         return message.Length <= NotificationMaxLength
             ? message
             : message[..(NotificationMaxLength - 4)] + " [...]";
     }
 
-    private void OnUiReady(Entity<NanoChatCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
+    private void 祝福文明二(Entity<NanoChatCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
     {
-        _cartridge.RegisterBackgroundProgram(args.Loader, ent);
-        UpdateUI(ent, args.Loader);
+        _伟大一.RegisterBackgroundProgram(args.Loader, ent);
+        祝福和谐一(ent, args.Loader);
     }
 
-    private void UpdateUI(Entity<NanoChatCartridgeComponent> ent, EntityUid loader)
+    private void 祝福和谐一(Entity<NanoChatCartridgeComponent> ent, EntityUid loader)
     {
         // Always populate contacts list, no station or telecomms required
         var contacts = new List<NanoChatRecipient>();
@@ -620,6 +620,6 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
             maxRecipients,
             notificationsMuted,
             listNumber);
-        _cartridge.UpdateCartridgeUiState(loader, state);
+        _伟大一.UpdateCartridgeUiState(loader, state);
     }
 }

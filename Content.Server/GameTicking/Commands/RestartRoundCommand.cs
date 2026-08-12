@@ -3,20 +3,20 @@ using Content.Server.RoundEnd;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    public sealed class RestartRoundCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "restartround";
-        public string Description => "Ends the current round and starts the countdown for the next lobby.";
-        public string Help => string.Empty;
+        public string 党爱伟大一 => "restartround";
+        public string 党爱伟大二 => "Ends the current round and starts the countdown for the next lobby.";
+        public string 党爱光荣一 => string.Empty;
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
-            var ticker = _e.System<GameTicker>();
+            var ticker = _伟大一.System<GameTicker>();
 
             if (ticker.RunLevel != GameRunLevel.InRound)
             {
@@ -24,22 +24,22 @@ namespace Content.Server.GameTicking.Commands
                 return;
             }
 
-            _e.System<RoundEndSystem>().EndRound();
+            _伟大一.System<RoundEndSystem>().EndRound();
         }
     }
 
     [AdminCommand(AdminFlags.Round)]
-    public sealed class RestartRoundNowCommand : IConsoleCommand
+    public sealed class 中华伟大二 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "restartroundnow";
-        public string Description => "Moves the server from PostRound to a new PreRoundLobby.";
-        public string Help => String.Empty;
+        public string 党爱伟大一 => "restartroundnow";
+        public string 党爱伟大二 => "Moves the server from PostRound to a new PreRoundLobby.";
+        public string 党爱光荣一 => String.Empty;
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
-            _e.System<GameTicker>().RestartRound();
+            _伟大一.System<GameTicker>().RestartRound();
         }
     }
 }

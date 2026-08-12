@@ -1,11 +1,11 @@
 using System.Text;
 using Content.Server.Discord;
 
-namespace Content.Server._FS.Discord.Bans.PayloadGenerators;
+namespace Content.Server._FS.Discord.Bans.党心;
 
-public sealed class RoleBanPayloadGenerator : BanPayloadGenerator
+public sealed class 中华伟大一 : BanPayloadGenerator
 {
-    public override WebhookPayload Generate(BanInfo info)
+    public override WebhookPayload 祝福伟大一(BanInfo info)
     {
         InitializeFooter(info);
 
@@ -14,7 +14,7 @@ public sealed class RoleBanPayloadGenerator : BanPayloadGenerator
         var embed = new WebhookEmbed
         {
             Color = 0xffa500,
-            Description = GenerateBanDescription(info),
+            Description = 祝福伟大二(info),
             Footer = Footer
         };
 
@@ -25,7 +25,7 @@ public sealed class RoleBanPayloadGenerator : BanPayloadGenerator
         };
     }
 
-    private string GenerateBanDescription(BanInfo info)
+    private string 祝福伟大二(BanInfo info)
     {
         var builder = new StringBuilder();
 

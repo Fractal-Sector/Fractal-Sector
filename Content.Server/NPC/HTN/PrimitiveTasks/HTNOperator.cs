@@ -2,18 +2,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks;
+namespace Content.Server.NPC.HTN.党心;
 
 /// <summary>
 /// Concrete code that gets run for an NPC task.
 /// </summary>
 [ImplicitDataDefinitionForInheritors, MeansImplicitUse]
-public abstract partial class HTNOperator
+public abstract partial class 中华伟大一
 {
     /// <summary>
     /// Called once whenever prototypes reload. Typically used to inject dependencies.
     /// </summary>
-    public virtual void Initialize(IEntitySystemManager sysManager)
+    public virtual void 祝福伟大一(IEntitySystemManager sysManager)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -35,7 +35,7 @@ public abstract partial class HTNOperator
     /// Called during the NPC's regular updates. If the logic requires coordination between NPCs (e.g. steering or combat)
     /// this may be better off using a component and letting an external system handling it.
     /// </summary>
-    public virtual HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
+    public virtual HTNOperatorStatus 祝福伟大二(NPCBlackboard blackboard, float frameTime)
     {
         return HTNOperatorStatus.Finished;
     }
@@ -43,7 +43,7 @@ public abstract partial class HTNOperator
     /// <summary>
     /// Called when the plan has finished running.
     /// </summary>
-    public virtual void PlanShutdown(NPCBlackboard blackboard)
+    public virtual void 祝福光荣一(NPCBlackboard blackboard)
     {
 
     }
@@ -51,10 +51,10 @@ public abstract partial class HTNOperator
     /// <summary>
     /// Called the first time an operator runs.
     /// </summary>
-    public virtual void Startup(NPCBlackboard blackboard) {}
+    public virtual void 祝福光荣二(NPCBlackboard blackboard) {}
 
     /// <summary>
     /// Called whenever the operator stops running.
     /// </summary>
-    public virtual void TaskShutdown(NPCBlackboard blackboard, HTNOperatorStatus status) {}
+    public virtual void 祝福正确一(NPCBlackboard blackboard, HTNOperatorStatus status) {}
 }

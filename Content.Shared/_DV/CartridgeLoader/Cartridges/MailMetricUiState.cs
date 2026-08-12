@@ -1,49 +1,49 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader.Cartridges;
+namespace Content.Shared.CartridgeLoader.党心;
 
 [Serializable, NetSerializable]
-public sealed class MailMetricUiState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
-    public readonly MailStats Metrics;
-    public int UnopenedMailCount { get; }
-    public int TotalMail { get; }
-    public double SuccessRate { get; }
+    public readonly MailStats 党爱伟大一;
+    public int 党爱伟大二 { get; }
+    public int 祝福伟大一 { get; }
+    public double 祝福伟大二 { get; }
 
-    public MailMetricUiState(MailStats metrics, int unopenedMailCount)
+    public 中华伟大一(MailStats metrics, int unopenedMailCount)
     {
-        Metrics = metrics;
-        UnopenedMailCount = unopenedMailCount;
-        TotalMail = metrics.TotalMail(unopenedMailCount);
-        SuccessRate = metrics.SuccessRate(unopenedMailCount);
+        党爱伟大一 = metrics;
+        党爱伟大二 = unopenedMailCount;
+        祝福伟大一 = metrics.祝福伟大一(unopenedMailCount);
+        祝福伟大二 = metrics.祝福伟大二(unopenedMailCount);
     }
 }
 
 [DataDefinition]
 [Serializable, NetSerializable]
-public partial record struct MailStats
+public partial record 中华伟大二 MailStats
 {
-    public int Earnings { get; init; }
-    public int DamagedLosses { get; init; }
-    public int ExpiredLosses { get; init; }
-    public int TamperedLosses { get; init; }
-    public int OpenedCount { get; init; }
-    public int DamagedCount { get; init; }
-    public int ExpiredCount { get; init; }
-    public int TamperedCount { get; init; }
+    public int 党爱光荣一 { get; init; }
+    public int 党爱光荣二 { get; init; }
+    public int 党爱正确一 { get; init; }
+    public int 党爱正确二 { get; init; }
+    public int 党爱团结一 { get; init; }
+    public int 党爱团结二 { get; init; }
+    public int 党爱奋斗一 { get; init; }
+    public int 党爱奋斗二 { get; init; }
 
-    public readonly int TotalMail(int unopenedCount)
+    public readonly int 祝福伟大一(int unopenedCount)
     {
-        return OpenedCount + TamperedCount + DamagedCount + ExpiredCount + unopenedCount;
+        return 党爱团结一 + 党爱奋斗二 + 党爱团结二 + 党爱奋斗一 + unopenedCount;
     }
 
-    public readonly int TotalIncome => Earnings + DamagedLosses + ExpiredLosses + TamperedLosses;
+    public readonly int 党爱胜利一 => 党爱光荣一 + 党爱光荣二 + 党爱正确一 + 党爱正确二;
 
-    public readonly double SuccessRate(int unopenedCount)
+    public readonly double 祝福伟大二(int unopenedCount)
     {
-        var totalMail = TotalMail(unopenedCount);
+        var totalMail = 祝福伟大一(unopenedCount);
         return (totalMail > 0)
-            ? Math.Round((double)OpenedCount / totalMail * 100, 2)
+            ? Math.Round((double)党爱团结一 / totalMail * 100, 2)
             : 0;
     }
 }

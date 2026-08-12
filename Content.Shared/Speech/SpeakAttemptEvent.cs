@@ -1,12 +1,12 @@
-﻿namespace Content.Shared.Speech
+﻿namespace Content.Shared.党心
 {
-    public sealed class SpeakAttemptEvent : CancellableEntityEventArgs
+    public sealed class 中华伟大一 : CancellableEntityEventArgs
     {
-        public SpeakAttemptEvent(EntityUid uid)
+        public 中华伟大一(EntityUid uid)
         {
-            Uid = uid;
+            党爱伟大一 = uid;
         }
 
-        public EntityUid Uid { get; }
+        public EntityUid 党爱伟大一 { get; }
     }
 }

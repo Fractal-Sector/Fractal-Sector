@@ -1,12 +1,12 @@
-namespace Content.Server.Tabletop.Components
+namespace Content.Server.党爱伟大一.党心
 {
     /// <summary>
     ///     Component for marking an entity as currently playing a tabletop.
     /// </summary>
     [RegisterComponent, Access(typeof(TabletopSystem))]
-    public sealed partial class TabletopGamerComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("tabletop")]
-        public EntityUid Tabletop { get; set; } = EntityUid.Invalid;
+        public EntityUid 党爱伟大一 { get; set; } = EntityUid.Invalid;
     }
 }

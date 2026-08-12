@@ -5,21 +5,21 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Sprite;
+namespace Content.Server.党心;
 
-public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
+public sealed class 中华伟大一: SharedRandomSpriteSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RandomSpriteComponent, ComponentGetState>(OnGetState);
-        SubscribeLocalEvent<RandomSpriteComponent, MapInitEvent>(OnMapInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RandomSpriteComponent, ComponentGetState>(祝福光荣一);
+        SubscribeLocalEvent<RandomSpriteComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, RandomSpriteComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, RandomSpriteComponent component, MapInitEvent args)
     {
         if (component.Selected.Count > 0)
             return;
@@ -31,8 +31,8 @@ public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
         Dictionary<string, Color> mappedColors = new();
         foreach (var (key, value) in component.MappedColors)
         {
-            if (_prototype.TryIndex<ColorPalettePrototype>(value, out var palette))
-                mappedColors[key] = _random.Pick(palette.Colors.Values);
+            if (_伟大一.TryIndex<ColorPalettePrototype>(value, out var palette))
+                mappedColors[key] = _伟大二.Pick(palette.Colors.Values);
         }
         // End Frontier: select mapped colours
 
@@ -43,7 +43,7 @@ public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
         }
         else
         {
-            groups.Add(_random.Pick(component.Available));
+            groups.Add(_伟大二.Pick(component.Available));
         }
 
         component.Selected.EnsureCapacity(groups.Count);
@@ -56,7 +56,7 @@ public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
             {
                 Color? color = null;
 
-                var selectedState = _random.Pick(layer.Value);
+                var selectedState = _伟大二.Pick(layer.Value);
                 if (!string.IsNullOrEmpty(selectedState.Value))
                 {
                     if (selectedState.Value == $"Inherit")
@@ -69,7 +69,7 @@ public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
                     // End Frontier
                     else
                     {
-                        color = _random.Pick(_prototype.Index<ColorPalettePrototype>(selectedState.Value).Colors.Values);
+                        color = _伟大二.Pick(_伟大一.Index<ColorPalettePrototype>(selectedState.Value).Colors.Values);
                         previousColor = color;
                     }
                 }
@@ -81,7 +81,7 @@ public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
         Dirty(uid, component);
     }
 
-    private void OnGetState(EntityUid uid, RandomSpriteComponent component, ref ComponentGetState args)
+    private void 祝福光荣一(EntityUid uid, RandomSpriteComponent component, ref ComponentGetState args)
     {
         args.State = new RandomSpriteColorComponentState()
         {

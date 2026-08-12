@@ -1,22 +1,22 @@
 using Content.Shared._NF.Construction.Components;
 using Content.Shared.Examine;
 
-namespace Content.Server.Construction; //Uses base namespace to extend ConstructionSystem behaviour
+namespace Content.Server.党心; //Uses base namespace to extend 中华伟大一 behaviour
 
-public sealed partial class ConstructionSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeComputerBoards()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ComputerTabletopBoardComponent, ExaminedEvent>(OnTabletopExamined);
-        SubscribeLocalEvent<ComputerWallmountBoardComponent, ExaminedEvent>(OnWallmountExamined);
+        SubscribeLocalEvent<ComputerTabletopBoardComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<ComputerWallmountBoardComponent, ExaminedEvent>(祝福光荣一);
     }
 
-    private void OnTabletopExamined(Entity<ComputerTabletopBoardComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<ComputerTabletopBoardComponent> ent, ref ExaminedEvent args)
     {
         args.PushMarkup(Loc.GetString("computer-tabletop-board-examine"));
     }
 
-    private void OnWallmountExamined(Entity<ComputerWallmountBoardComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<ComputerWallmountBoardComponent> ent, ref ExaminedEvent args)
     {
         args.PushMarkup(Loc.GetString("computer-wallmount-board-examine"));
     }

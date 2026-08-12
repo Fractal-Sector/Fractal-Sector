@@ -9,22 +9,22 @@ using Content.Shared.Hands.Components;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Body.Commands
+namespace Content.Server.Body.党心
 {
     [AdminCommand(AdminFlags.Fun)]
-    sealed class AddHandCommand : IConsoleCommand
+    sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
         private static readonly EntProtoId DefaultHandPrototype = "LeftHandHuman";
-        private static int _handIdAccumulator;
+        private static int _光荣一;
 
-        public string Command => "addhand";
-        public string Description => "Adds a hand to your entity.";
-        public string Help => $"Usage: {Command} <entityUid> <handPrototypeId> / {Command} <entityUid> / {Command} <handPrototypeId> / {Command}";
+        public string 党爱伟大一 => "addhand";
+        public string 党爱伟大二 => "Adds a hand to your entity.";
+        public string 党爱光荣一 => $"Usage: {党爱伟大一} <entityUid> <handPrototypeId> / {党爱伟大一} <entityUid> / {党爱伟大一} <handPrototypeId> / {党爱伟大一}";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
 
@@ -47,20 +47,20 @@ namespace Content.Server.Body.Commands
                     }
 
                     entity = player.AttachedEntity.Value;
-                    hand = _entManager.SpawnEntity(DefaultHandPrototype, _entManager.GetComponent<TransformComponent>(entity).Coordinates);
+                    hand = _伟大一.SpawnEntity(DefaultHandPrototype, _伟大一.GetComponent<TransformComponent>(entity).Coordinates);
                     break;
                 case 1:
                     {
-                        if (NetEntity.TryParse(args[0], out var uidNet) && _entManager.TryGetEntity(uidNet, out var uid))
+                        if (NetEntity.TryParse(args[0], out var uidNet) && _伟大一.TryGetEntity(uidNet, out var uid))
                         {
-                            if (!_entManager.EntityExists(uid))
+                            if (!_伟大一.EntityExists(uid))
                             {
                                 shell.WriteLine($"No entity found with uid {uid}");
                                 return;
                             }
 
                             entity = uid.Value;
-                            hand = _entManager.SpawnEntity(DefaultHandPrototype, _entManager.GetComponent<TransformComponent>(entity).Coordinates);
+                            hand = _伟大一.SpawnEntity(DefaultHandPrototype, _伟大一.GetComponent<TransformComponent>(entity).Coordinates);
                         }
                         else
                         {
@@ -77,20 +77,20 @@ namespace Content.Server.Body.Commands
                             }
 
                             entity = player.AttachedEntity.Value;
-                            hand = _entManager.SpawnEntity(args[0], _entManager.GetComponent<TransformComponent>(entity).Coordinates);
+                            hand = _伟大一.SpawnEntity(args[0], _伟大一.GetComponent<TransformComponent>(entity).Coordinates);
                         }
 
                         break;
                     }
                 case 2:
                     {
-                        if (!NetEntity.TryParse(args[0], out var netEnt) || !_entManager.TryGetEntity(netEnt, out var uid))
+                        if (!NetEntity.TryParse(args[0], out var netEnt) || !_伟大一.TryGetEntity(netEnt, out var uid))
                         {
                             shell.WriteLine($"{args[0]} is not a valid entity uid.");
                             return;
                         }
 
-                        if (!_entManager.EntityExists(uid))
+                        if (!_伟大一.EntityExists(uid))
                         {
                             shell.WriteLine($"No entity exists with uid {uid}.");
                             return;
@@ -98,44 +98,44 @@ namespace Content.Server.Body.Commands
 
                         entity = uid.Value;
 
-                        if (!_protoManager.HasIndex<EntityPrototype>(args[1]))
+                        if (!_伟大二.HasIndex<EntityPrototype>(args[1]))
                         {
                             shell.WriteLine($"No hand entity exists with id {args[1]}.");
                             return;
                         }
 
-                        hand = _entManager.SpawnEntity(args[1], _entManager.GetComponent<TransformComponent>(entity).Coordinates);
+                        hand = _伟大一.SpawnEntity(args[1], _伟大一.GetComponent<TransformComponent>(entity).Coordinates);
 
                         break;
                     }
                 default:
-                    shell.WriteLine(Help);
+                    shell.WriteLine(党爱光荣一);
                     return;
             }
 
-            if (!_entManager.TryGetComponent(entity, out BodyComponent? body) || body.RootContainer.ContainedEntity == null)
+            if (!_伟大一.TryGetComponent(entity, out BodyComponent? body) || body.RootContainer.ContainedEntity == null)
             {
-                var location = _entManager.GetComponentOrNull<BodyPartComponent>(hand)?.Symmetry switch
+                var location = _伟大一.GetComponentOrNull<BodyPartComponent>(hand)?.Symmetry switch
                 {
                     BodyPartSymmetry.None => HandLocation.Middle,
                     BodyPartSymmetry.Left => HandLocation.Left,
                     BodyPartSymmetry.Right => HandLocation.Right,
                     _ => HandLocation.Right
                 };
-                _entManager.DeleteEntity(hand);
+                _伟大一.DeleteEntity(hand);
 
                 // You have no body and you must scream.
-                _entManager.System<HandsSystem>().AddHand(entity, $"{hand}-cmd-{_handIdAccumulator++}", location);
+                _伟大一.System<HandsSystem>().AddHand(entity, $"{hand}-cmd-{_光荣一++}", location);
                 return;
             }
 
-            if (!_entManager.TryGetComponent(hand, out BodyPartComponent? part))
+            if (!_伟大一.TryGetComponent(hand, out BodyPartComponent? part))
             {
                 shell.WriteLine($"Hand entity {hand} does not have a {nameof(BodyPartComponent)} component.");
                 return;
             }
 
-            var bodySystem = _entManager.System<BodySystem>();
+            var bodySystem = _伟大一.System<BodySystem>();
 
             var attachAt = bodySystem.GetBodyChildrenOfType(entity, BodyPartType.Arm, body).FirstOrDefault();
             if (attachAt == default)
@@ -145,11 +145,11 @@ namespace Content.Server.Body.Commands
 
             if (!bodySystem.TryCreatePartSlotAndAttach(attachAt.Id, slotId, hand, BodyPartType.Hand, attachAt.Component, part))
             {
-                shell.WriteError($"Couldn't create a slot with id {slotId} on entity {_entManager.ToPrettyString(entity)}");
+                shell.WriteError($"Couldn't create a slot with id {slotId} on entity {_伟大一.ToPrettyString(entity)}");
                 return;
             }
 
-            shell.WriteLine($"Added hand to entity {_entManager.GetComponent<MetaDataComponent>(entity).EntityName}");
+            shell.WriteLine($"Added hand to entity {_伟大一.GetComponent<MetaDataComponent>(entity).EntityName}");
         }
     }
 }

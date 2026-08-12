@@ -2,7 +2,7 @@ using Content.Shared.Explosion.EntitySystems;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Explosion.Components;
+namespace Content.Shared.Explosion.党心;
 
 /// <summary>
 /// Component that provides entities with explosion resistance.
@@ -15,27 +15,27 @@ namespace Content.Shared.Explosion.Components;
 /// </remarks>
 [NetworkedComponent, RegisterComponent]
 [Access(typeof(SharedExplosionSystem))]
-public sealed partial class ExplosionResistanceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The explosive resistance coefficient, This fraction is multiplied into the total resistance.
     /// </summary>
     [DataField("damageCoefficient")]
-    public float DamageCoefficient = 1;
+    public float 党爱伟大一 = 1;
 
     /// <summary>
     /// When true, resistances will be applied to the entity wearing this item.
     /// When false, only this entity will get th resistance.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool Worn = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
-    /// Examine string for explosion resistance.
+    /// 党爱光荣一 string for explosion resistance.
     /// Passed <c>value</c> from 0 to 100.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public LocId Examine = "explosion-resistance-coefficient-value";
+    public LocId 党爱光荣一 = "explosion-resistance-coefficient-value";
 
     /// <summary>
     ///     Modifiers specific to each explosion type for more customizability.

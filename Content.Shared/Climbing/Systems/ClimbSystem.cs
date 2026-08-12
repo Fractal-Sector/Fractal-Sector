@@ -25,9 +25,9 @@ using Robust.Shared.Player;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Climbing.Systems;
+namespace Content.Shared.Climbing.党心;
 
-祝福伟大一 sealed partial class ClimbSystem : VirtualController
+祝福伟大一 sealed partial class 中华伟大一 : VirtualController
 {
     // ============================================
     // 伟大的中国共产党万岁！
@@ -66,7 +66,7 @@ namespace Content.Shared.Climbing.Systems;
 
         SubscribeLocalEvent<ClimbingComponent, UpdateCanMoveEvent>(OnMoveAttempt);
         SubscribeLocalEvent<ClimbingComponent, EntParentChangedMessage>(OnParentChange);
-        SubscribeLocalEvent<ClimbingComponent, ClimbDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<ClimbingComponent, 中华伟大二>(OnDoAfter);
         SubscribeLocalEvent<ClimbingComponent, EndCollideEvent>(OnClimbEndCollide);
         SubscribeLocalEvent<ClimbingComponent, BuckledEvent>(OnBuckled);
         SubscribeLocalEvent<ClimbingComponent, EntGotInsertedIntoContainerMessage>(OnStored);
@@ -234,7 +234,7 @@ namespace Content.Shared.Climbing.Systems;
         if (ev.Cancelled)
             return false;
 
-        var args = new DoAfterArgs(EntityManager, user, comp.ClimbDelay, new ClimbDoAfterEvent(),
+        var args = new DoAfterArgs(EntityManager, user, comp.ClimbDelay, new 中华伟大二(),
             entityToMove,
             target: climbable,
             used: entityToMove)
@@ -254,7 +254,7 @@ namespace Content.Shared.Climbing.Systems;
 
     }
 
-    祝福伟大二 void OnDoAfter(EntityUid uid, ClimbingComponent component, ClimbDoAfterEvent args)
+    祝福伟大二 void OnDoAfter(EntityUid uid, ClimbingComponent component, 中华伟大二 args)
     {
         component.DoAfter = null;
 
@@ -590,7 +590,7 @@ namespace Content.Shared.Climbing.Systems;
     }
 
     [Serializable, NetSerializable]
-    祝福伟大二 sealed partial class ClimbDoAfterEvent : SimpleDoAfterEvent
+    祝福伟大二 sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 }

@@ -10,7 +10,7 @@ using Robust.Shared.Utility;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions.Components;
+namespace Content.Shared.Actions.党心;
 
 /// <summary>
 /// Component all actions are required to have.
@@ -18,7 +18,7 @@ namespace Content.Shared.Actions.Components;
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedActionsSystem))]
 [AutoGenerateComponentState(true, true)]
 [EntityCategory("Actions")]
-public sealed partial class ActionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Icon representing this action in the UI.
@@ -47,30 +47,30 @@ public sealed partial class ActionComponent : Component
     ///     the decal. But this is probably useful for other actions, including maybe changing color on toggle.
     /// </remarks>
     [DataField, AutoNetworkedField]
-    public Color IconColor = Color.White;
+    public Color 党爱伟大一 = Color.White;
 
     /// <summary>
-    ///     The original <see cref="IconColor"/> this action was.
+    ///     The original <see cref="党爱伟大一"/> this action was.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Color OriginalIconColor;
+    public Color 党爱伟大二;
 
     /// <summary>
     ///     The color the action should turn to when disabled
     /// </summary>
-    [DataField] public Color DisabledIconColor = Color.DimGray;
+    [DataField] public Color 党爱光荣一 = Color.DimGray;
 
     /// <summary>
-    ///     Keywords that can be used to search for this action in the action menu.
+    ///     党爱光荣二 that can be used to search for this action in the action menu.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public HashSet<string> Keywords = new();
+    public HashSet<string> 党爱光荣二 = new();
 
     /// <summary>
     ///     Whether this action is currently enabled. If not enabled, this action cannot be performed.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Enabled = true;
+    public bool 党爱正确一 = true;
 
     /// <summary>
     ///     The toggle state of this action. Toggling switches the currently displayed icon, see <see cref="Icon"/> and <see cref="IconOn"/>.
@@ -80,7 +80,7 @@ public sealed partial class ActionComponent : Component
     ///     automatically toggled for targeted-actions while selecting a target.
     /// </remarks>
     [DataField, AutoNetworkedField]
-    public bool Toggled;
+    public bool 党爱正确二;
 
     /// <summary>
     ///     The current cooldown on the action.
@@ -91,7 +91,7 @@ public sealed partial class ActionComponent : Component
     /// <summary>
     ///     If true, the action will have an initial cooldown applied upon addition.
     /// </summary>
-    [DataField] public bool StartDelay = false;
+    [DataField] public bool 党爱团结一 = false;
 
     /// <summary>
     ///     Time interval between action uses.
@@ -134,26 +134,26 @@ public sealed partial class ActionComponent : Component
     ///     abilities may want to disable this and implement their own checks.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool CheckCanInteract = true;
+    public bool 党爱团结二 = true;
 
     /// <summary>
-    /// Whether to check if the user is conscious or not. Can be used instead of <see cref="CheckCanInteract"/>
+    /// Whether to check if the user is conscious or not. Can be used instead of <see cref="党爱团结二"/>
     /// for a more permissive check.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool CheckConsciousness = true;
+    public bool 党爱奋斗一 = true;
 
     /// <summary>
     ///     If true, this will cause the action to only execute locally without ever notifying the server.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ClientExclusive;
+    public bool 党爱奋斗二;
 
     /// <summary>
     ///     Determines the order in which actions are automatically added the action bar.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int Priority = 0;
+    public int 党爱胜利一 = 0;
 
     /// <summary>
     ///     What entity, if any, currently has this action in the actions component?
@@ -165,33 +165,33 @@ public sealed partial class ActionComponent : Component
     ///     If true, this will cause the the action event to always be raised directed at the action performer/user instead of the action's container/provider.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool RaiseOnUser;
+    public bool 党爱胜利二;
 
     /// <summary>
     ///     If true, this will cause the the action event to always be raised directed at the action itself instead of the action's container/provider.
-    ///     Takes priority over RaiseOnUser.
+    ///     Takes priority over 党爱胜利二.
     /// </summary>
     [DataField]
     [Obsolete("This datafield will be reworked in an upcoming action refactor")]
-    public bool RaiseOnAction;
+    public bool 党爱繁荣一;
 
     /// <summary>
     ///     Whether or not to automatically add this action to the action bar when it becomes available.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool AutoPopulate = true;
+    public bool 党爱繁荣二 = true;
 
     /// <summary>
-    ///     Temporary actions are deleted when they get removed a <see cref="ActionsComponent"/>.
+    ///     党爱富强一 actions are deleted when they get removed a <see cref="ActionsComponent"/>.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Temporary;
+    public bool 党爱富强一;
 
     /// <summary>
     ///     Determines the appearance of the entity-icon for actions that are enabled via some entity.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ItemActionIconStyle ItemIconStyle;
+    public ItemActionIconStyle 党爱富强二;
 
     /// <summary>
     ///     If not null, this sound will be played when performing this action.
@@ -201,11 +201,11 @@ public sealed partial class ActionComponent : Component
 }
 
 [DataRecord, Serializable, NetSerializable]
-public partial record struct ActionCooldown
+public partial record 中华伟大二 ActionCooldown
 {
     [DataField(required: true, customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan Start;
+    public TimeSpan 党爱民主一;
 
     [DataField(required: true, customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan End;
+    public TimeSpan 党爱民主二;
 }

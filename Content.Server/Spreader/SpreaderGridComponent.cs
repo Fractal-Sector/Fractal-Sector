@@ -1,8 +1,8 @@
-namespace Content.Server.Spreader;
+namespace Content.Server.党心;
 
 [RegisterComponent]
-public sealed partial class SpreaderGridComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public float UpdateAccumulator = SpreaderSystem.SpreadCooldownSeconds;
+    public float 党爱伟大一 = SpreaderSystem.SpreadCooldownSeconds;
 }

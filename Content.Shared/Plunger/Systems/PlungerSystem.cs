@@ -10,26 +10,26 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Shared.Random;
 
-namespace Content.Shared.Plunger.Systems;
+namespace Content.Shared.Plunger.党心;
 
 /// <summary>
 /// Plungers can be used to unblock entities with PlungerUseComponent.
 /// </summary>
-public sealed class PlungerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PlungerComponent, AfterInteractEvent>(OnInteract);
-        SubscribeLocalEvent<PlungerComponent, PlungerDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<PlungerComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<PlungerComponent, PlungerDoAfterEvent>(祝福光荣一);
     }
 
-    private void OnInteract(EntityUid uid, PlungerComponent component, AfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, PlungerComponent component, AfterInteractEvent args)
     {
         if (args.Handled)
             return;
@@ -43,7 +43,7 @@ public sealed class PlungerSystem : EntitySystem
         if (!plunger.NeedsPlunger) // Frontier: inverted condition
             return;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.PlungeDuration, new PlungerDoAfterEvent(), uid, target, uid)
+        _光荣二.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.PlungeDuration, new PlungerDoAfterEvent(), uid, target, uid)
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -52,7 +52,7 @@ public sealed class PlungerSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnDoAfter(EntityUid uid, PlungerComponent component, DoAfterEvent args)
+    private void 祝福光荣一(EntityUid uid, PlungerComponent component, DoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Args.Target == null)
             return;
@@ -63,19 +63,19 @@ public sealed class PlungerSystem : EntitySystem
         if (!TryComp(target, out PlungerUseComponent? plunge))
             return;
 
-        _popup.PopupClient(Loc.GetString("plunger-unblock", ("target", target)), args.User, args.User, PopupType.Medium);
+        _正确一.PopupClient(Loc.GetString("plunger-unblock", ("target", target)), args.User, args.User, PopupType.Medium);
 
         // Frontier: spawn stuff only on the first plunge
         if (!plunge.Plunged)
         {
             plunge.Plunged = true;
 
-            var spawn = _proto.Index<WeightedRandomEntityPrototype>(plunge.PlungerLoot).Pick(_random);
+            var spawn = _伟大一.Index<WeightedRandomEntityPrototype>(plunge.PlungerLoot).Pick(_伟大二);
             Spawn(spawn, Transform(target).Coordinates);
         }
         // End Frontier
 
-        _audio.PlayPredicted(plunge.Sound, uid, uid);
+        _光荣一.PlayPredicted(plunge.Sound, uid, uid);
         //Spawn(spawn, Transform(target).Coordinates);
         RemComp<PlungerUseComponent>(target);
         Dirty(target, plunge);

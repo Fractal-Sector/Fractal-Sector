@@ -7,20 +7,20 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Player;
 using Content.Shared.Antag;
 
-namespace Content.Shared.Revolutionary;
+namespace Content.Shared.党心;
 
-public abstract class SharedRevolutionarySystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedStunSystem _sharedStun = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedStunSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MindShieldComponent, MapInitEvent>(MindShieldImplanted);
-        SubscribeLocalEvent<RevolutionaryComponent, ComponentGetStateAttemptEvent>(OnRevCompGetStateAttempt);
-        SubscribeLocalEvent<HeadRevolutionaryComponent, ComponentGetStateAttemptEvent>(OnRevCompGetStateAttempt);
+        SubscribeLocalEvent<MindShieldComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<RevolutionaryComponent, ComponentGetStateAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<HeadRevolutionaryComponent, ComponentGetStateAttemptEvent>(祝福光荣一);
         SubscribeLocalEvent<RevolutionaryComponent, ComponentStartup>(DirtyRevComps);
         SubscribeLocalEvent<HeadRevolutionaryComponent, ComponentStartup>(DirtyRevComps);
         SubscribeLocalEvent<ShowAntagIconsComponent, ComponentStartup>(DirtyRevComps);
@@ -29,7 +29,7 @@ public abstract class SharedRevolutionarySystem : EntitySystem
     /// <summary>
     /// When the mindshield is implanted in the rev it will popup saying they were deconverted. In Head Revs it will remove the mindshield component.
     /// </summary>
-    private void MindShieldImplanted(EntityUid uid, MindShieldComponent comp, MapInitEvent init)
+    private void 祝福伟大二(EntityUid uid, MindShieldComponent comp, MapInitEvent init)
     {
         if (HasComp<HeadRevolutionaryComponent>(uid))
         {
@@ -42,25 +42,25 @@ public abstract class SharedRevolutionarySystem : EntitySystem
             var stunTime = TimeSpan.FromSeconds(4);
             var name = Identity.Entity(uid, EntityManager);
             RemComp<RevolutionaryComponent>(uid);
-            _sharedStun.TryUpdateParalyzeDuration(uid, stunTime);
-            _popupSystem.PopupEntity(Loc.GetString("rev-break-control", ("name", name)), uid);
+            _伟大二.TryUpdateParalyzeDuration(uid, stunTime);
+            _伟大一.PopupEntity(Loc.GetString("rev-break-control", ("name", name)), uid);
         }
     }
 
     /// <summary>
     /// Determines if a HeadRev component should be sent to the client.
     /// </summary>
-    private void OnRevCompGetStateAttempt(EntityUid uid, HeadRevolutionaryComponent comp, ref ComponentGetStateAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, HeadRevolutionaryComponent comp, ref ComponentGetStateAttemptEvent args)
     {
-        args.Cancelled = !CanGetState(args.Player);
+        args.Cancelled = !祝福光荣二(args.Player);
     }
 
     /// <summary>
     /// Determines if a Rev component should be sent to the client.
     /// </summary>
-    private void OnRevCompGetStateAttempt(EntityUid uid, RevolutionaryComponent comp, ref ComponentGetStateAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, RevolutionaryComponent comp, ref ComponentGetStateAttemptEvent args)
     {
-        args.Cancelled = !CanGetState(args.Player);
+        args.Cancelled = !祝福光荣二(args.Player);
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public abstract class SharedRevolutionarySystem : EntitySystem
     /// </summary>
     /// <param name="player"> The Player the component will be sent to.</param>
     /// <returns></returns>
-    private bool CanGetState(ICommonSession? player)
+    private bool 祝福光荣二(ICommonSession? player)
     {
         //Apparently this can be null in replays so I am just returning true.
         if (player?.AttachedEntity is not {} uid)

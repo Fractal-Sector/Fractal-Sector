@@ -7,62 +7,62 @@ using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Server.Popups;
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
-public sealed partial class ReactionMixerSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainers = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private readonly PopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ReactionMixerComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<ReactionMixerComponent, ShakeEvent>(OnShake);
-        SubscribeLocalEvent<ReactionMixerComponent, ReactionMixDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<ReactionMixerComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<ReactionMixerComponent, ShakeEvent>(祝福光荣二);
+        SubscribeLocalEvent<ReactionMixerComponent, ReactionMixDoAfterEvent>(祝福光荣一);
     }
 
-    private void OnAfterInteract(Entity<ReactionMixerComponent> entity, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<ReactionMixerComponent> entity, ref AfterInteractEvent args)
     {
         if (!args.Target.HasValue || !args.CanReach || !entity.Comp.MixOnInteract)
             return;
 
-        if (!MixAttempt(entity, args.Target.Value, out var solution))
+        if (!祝福正确一(entity, args.Target.Value, out var solution))
             return;
 
         var doAfterArgs = new DoAfterArgs(EntityManager, args.User, entity.Comp.TimeToMix, new ReactionMixDoAfterEvent(), entity, args.Target.Value, entity);
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs);
+        _光荣一.TryStartDoAfter(doAfterArgs);
     }
 
-    private void OnDoAfter(Entity<ReactionMixerComponent> entity, ref ReactionMixDoAfterEvent args)
+    private void 祝福光荣一(Entity<ReactionMixerComponent> entity, ref ReactionMixDoAfterEvent args)
     {
         //Do again to get the solution again
-        if (!MixAttempt(entity, args.Target!.Value, out var solution))
+        if (!祝福正确一(entity, args.Target!.Value, out var solution))
             return;
 
-        _popup.PopupEntity(Loc.GetString(entity.Comp.MixMessage, ("mixed", Identity.Entity(args.Target!.Value, EntityManager)), ("mixer", Identity.Entity(entity.Owner, EntityManager))), args.User, args.User);
+        _伟大一.PopupEntity(Loc.GetString(entity.Comp.MixMessage, ("mixed", Identity.Entity(args.Target!.Value, EntityManager)), ("mixer", Identity.Entity(entity.Owner, EntityManager))), args.User, args.User);
 
-        _solutionContainers.UpdateChemicals(solution!.Value, true, entity.Comp);
+        _伟大二.UpdateChemicals(solution!.Value, true, entity.Comp);
 
         var afterMixingEvent = new AfterMixingEvent(entity, args.Target!.Value);
         RaiseLocalEvent(entity, afterMixingEvent);
     }
 
-    private void OnShake(Entity<ReactionMixerComponent> entity, ref ShakeEvent args)
+    private void 祝福光荣二(Entity<ReactionMixerComponent> entity, ref ShakeEvent args)
     {
-        if (!MixAttempt(entity, entity, out var solution))
+        if (!祝福正确一(entity, entity, out var solution))
             return;
 
-        _solutionContainers.UpdateChemicals(solution!.Value, true, entity.Comp);
+        _伟大二.UpdateChemicals(solution!.Value, true, entity.Comp);
 
         var afterMixingEvent = new AfterMixingEvent(entity, entity);
         RaiseLocalEvent(entity, afterMixingEvent);
     }
 
-    private bool MixAttempt(EntityUid ent, EntityUid target, out Entity<SolutionComponent>? solution)
+    private bool 祝福正确一(EntityUid ent, EntityUid target, out Entity<SolutionComponent>? solution)
     {
         solution = null;
         var mixAttemptEvent = new MixingAttemptEvent(ent);
@@ -72,7 +72,7 @@ public sealed partial class ReactionMixerSystem : EntitySystem
             return false;
         }
 
-        if (!_solutionContainers.TryGetMixableSolution(target, out solution, out _))
+        if (!_伟大二.TryGetMixableSolution(target, out solution, out _))
             return false;
 
         return true;

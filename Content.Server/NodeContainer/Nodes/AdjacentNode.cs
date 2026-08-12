@@ -2,15 +2,15 @@ using Content.Shared.NodeContainer;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.NodeContainer.Nodes
+namespace Content.Server.NodeContainer.党心
 {
     /// <summary>
-    ///     A <see cref="Node"/> that can reach other <see cref="AdjacentNode"/>s that are directly adjacent to it.
+    ///     A <see cref="Node"/> that can reach other <see cref="中华伟大一"/>s that are directly adjacent to it.
     /// </summary>
     [DataDefinition]
-    public sealed partial class AdjacentNode : Node
+    public sealed partial class 中华伟大一 : Node
     {
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> 祝福伟大一(TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,

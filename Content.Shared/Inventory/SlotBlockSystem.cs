@@ -1,21 +1,21 @@
 using Content.Shared.Inventory.Events;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Handles prevention of items being unequipped and equipped from slots that are blocked by <see cref="SlotBlockComponent"/>.
 /// </summary>
-public sealed partial class SlotBlockSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SlotBlockComponent, InventoryRelayedEvent<IsEquippingTargetAttemptEvent>>(OnEquipAttempt);
-        SubscribeLocalEvent<SlotBlockComponent, InventoryRelayedEvent<IsUnequippingTargetAttemptEvent>>(OnUnequipAttempt);
+        SubscribeLocalEvent<SlotBlockComponent, InventoryRelayedEvent<IsEquippingTargetAttemptEvent>>(祝福伟大二);
+        SubscribeLocalEvent<SlotBlockComponent, InventoryRelayedEvent<IsUnequippingTargetAttemptEvent>>(祝福光荣一);
     }
 
-    private void OnEquipAttempt(Entity<SlotBlockComponent> ent, ref InventoryRelayedEvent<IsEquippingTargetAttemptEvent> args)
+    private void 祝福伟大二(Entity<SlotBlockComponent> ent, ref InventoryRelayedEvent<IsEquippingTargetAttemptEvent> args)
     {
         if (args.Args.Cancelled || (args.Args.SlotFlags & ent.Comp.Slots) == 0)
             return;
@@ -24,7 +24,7 @@ public sealed partial class SlotBlockSystem : EntitySystem
         args.Args.Cancel();
     }
 
-    private void OnUnequipAttempt(Entity<SlotBlockComponent> ent, ref InventoryRelayedEvent<IsUnequippingTargetAttemptEvent> args)
+    private void 祝福光荣一(Entity<SlotBlockComponent> ent, ref InventoryRelayedEvent<IsUnequippingTargetAttemptEvent> args)
     {
         if (args.Args.Cancelled || (args.Args.SlotFlags & ent.Comp.Slots) == 0)
             return;

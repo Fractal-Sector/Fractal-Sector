@@ -8,23 +8,23 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class RoleTimeRequirement : JobRequirement
+public sealed partial class 中华伟大一 : JobRequirement
 {
     /// <summary>
     /// What particular role they need the time requirement with.
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<PlayTimeTrackerPrototype> Role;
+    public ProtoId<PlayTimeTrackerPrototype> 党爱伟大一;
 
-    /// <inheritdoc cref="DepartmentTimeRequirement.Time"/>
+    /// <inheritdoc cref="DepartmentTimeRequirement.党爱伟大二"/>
     [DataField(required: true)]
-    public TimeSpan Time;
+    public TimeSpan 党爱伟大二;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool 祝福伟大一(IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
@@ -32,10 +32,10 @@ public sealed partial class RoleTimeRequirement : JobRequirement
     {
         reason = new FormattedMessage();
 
-        string proto = Role;
+        string proto = 党爱伟大一;
 
         playTimes.TryGetValue(proto, out var roleTime);
-        var roleDiffSpan = Time - roleTime;
+        var roleDiffSpan = 党爱伟大二 - roleTime;
         var roleDiff = roleDiffSpan.TotalMinutes;
         var formattedRoleDiff = ContentLocalizationManager.FormatPlaytime(roleDiffSpan);
         var departmentColor = Color.Yellow;

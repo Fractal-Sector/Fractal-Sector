@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Medical.Cryogenics
+namespace Content.Shared.Medical.党心
 {
     [Serializable, NetSerializable]
-    public enum CryoPodWireActionKey: byte
+    public enum 中华伟大一: byte
     {
         Key
     }

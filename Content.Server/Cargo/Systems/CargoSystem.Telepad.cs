@@ -12,21 +12,21 @@ using Robust.Shared.Audio;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Cargo.Systems;
+namespace Content.Server.Cargo.党心;
 
-public sealed partial class CargoSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeTelepad()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<CargoTelepadComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<CargoTelepadComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<CargoTelepadComponent, PowerChangedEvent>(OnTelepadPowerChange);
+        SubscribeLocalEvent<CargoTelepadComponent, ComponentInit>(祝福正确一);
+        SubscribeLocalEvent<CargoTelepadComponent, ComponentShutdown>(祝福正确二);
+        SubscribeLocalEvent<CargoTelepadComponent, PowerChangedEvent>(祝福团结二);
         // Shouldn't need re-anchored event
-        SubscribeLocalEvent<CargoTelepadComponent, AnchorStateChangedEvent>(OnTelepadAnchorChange);
-        SubscribeLocalEvent<FulfillCargoOrderEvent>(OnTelepadFulfillCargoOrder);
+        SubscribeLocalEvent<CargoTelepadComponent, AnchorStateChangedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<FulfillCargoOrderEvent>(祝福伟大二);
     }
 
-    private void OnTelepadFulfillCargoOrder(ref FulfillCargoOrderEvent args)
+    private void 祝福伟大二(ref FulfillCargoOrderEvent args)
     {
         var query = EntityQueryEnumerator<CargoTelepadComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var tele, out var xform))
@@ -41,7 +41,7 @@ public sealed partial class CargoSystem
                 continue;
 
             // todo cannot be fucking asked to figure out device linking rn but this shouldn't just default to the first port.
-            if (!TryGetLinkedConsole((uid, tele), out var console) ||
+            if (!祝福光荣一((uid, tele), out var console) ||
                 console.Value.Owner != args.OrderConsole.Owner)
                 continue;
 
@@ -56,7 +56,7 @@ public sealed partial class CargoSystem
         }
     }
 
-    private bool TryGetLinkedConsole(Entity<CargoTelepadComponent> ent,
+    private bool 祝福光荣一(Entity<CargoTelepadComponent> ent,
         [NotNullWhen(true)] out Entity<CargoOrderConsoleComponent>? console)
     {
         console = null;
@@ -72,7 +72,7 @@ public sealed partial class CargoSystem
     }
 
 
-    private void UpdateTelepad(float frameTime)
+    private void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<CargoTelepadComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
@@ -98,7 +98,7 @@ public sealed partial class CargoSystem
                 continue;
             }
 
-            if (comp.CurrentOrders.Count == 0 || !TryGetLinkedConsole((uid, comp), out var console))
+            if (comp.CurrentOrders.Count == 0 || !祝福光荣一((uid, comp), out var console))
             {
                 comp.Accumulator += comp.Delay;
                 continue;
@@ -121,12 +121,12 @@ public sealed partial class CargoSystem
         }
     }
 
-    private void OnInit(EntityUid uid, CargoTelepadComponent telepad, ComponentInit args)
+    private void 祝福正确一(EntityUid uid, CargoTelepadComponent telepad, ComponentInit args)
     {
         _linker.EnsureSinkPorts(uid, telepad.ReceiverPort);
     }
 
-    private void OnShutdown(Entity<CargoTelepadComponent> ent, ref ComponentShutdown args)
+    private void 祝福正确二(Entity<CargoTelepadComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Comp.CurrentOrders.Count == 0)
             return;
@@ -143,7 +143,7 @@ public sealed partial class CargoSystem
             !TryComp<StationDataComponent>(station, out var data))
             return;
 
-        if (!TryGetLinkedConsole(ent, out var console))
+        if (!祝福光荣一(ent, out var console))
             return;
 
         foreach (var order in ent.Comp.CurrentOrders)
@@ -152,7 +152,7 @@ public sealed partial class CargoSystem
         }
     }
 
-    private void SetEnabled(EntityUid uid, CargoTelepadComponent component, ApcPowerReceiverComponent? receiver = null,
+    private void 祝福团结一(EntityUid uid, CargoTelepadComponent component, ApcPowerReceiverComponent? receiver = null,
         TransformComponent? xform = null)
     {
         // False due to AllCompsOneEntity test where they may not have the powerreceiver.
@@ -170,13 +170,13 @@ public sealed partial class CargoSystem
         _appearance.SetData(uid, CargoTelepadVisuals.State, CargoTelepadState.Unpowered, appearance);
     }
 
-    private void OnTelepadPowerChange(EntityUid uid, CargoTelepadComponent component, ref PowerChangedEvent args)
+    private void 祝福团结二(EntityUid uid, CargoTelepadComponent component, ref PowerChangedEvent args)
     {
-        SetEnabled(uid, component);
+        祝福团结一(uid, component);
     }
 
-    private void OnTelepadAnchorChange(EntityUid uid, CargoTelepadComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福奋斗一(EntityUid uid, CargoTelepadComponent component, ref AnchorStateChangedEvent args)
     {
-        SetEnabled(uid, component);
+        祝福团结一(uid, component);
     }
 }

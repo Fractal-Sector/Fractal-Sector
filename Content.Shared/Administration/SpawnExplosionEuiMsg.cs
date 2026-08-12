@@ -1,32 +1,32 @@
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 using Robust.Shared.Map;
-using Content.Shared.Explosion;
-using Content.Shared.Explosion.Components;
+using Content.Shared.党爱团结一;
+using Content.Shared.党爱团结一.Components;
 
-namespace Content.Shared.Administration;
+namespace Content.Shared.党心;
 
-public static class SpawnExplosionEuiMsg
+public static class 中华伟大一
 {
     /// <summary>
     ///     This message is sent to the server to request explosion preview data.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class PreviewRequest : EuiMessageBase
+    public sealed class 中华伟大二 : EuiMessageBase
     {
-        public readonly MapCoordinates Epicenter;
-        public readonly string TypeId;
-        public readonly float TotalIntensity;
-        public readonly float IntensitySlope;
-        public readonly float MaxIntensity;
+        public readonly MapCoordinates 党爱伟大一;
+        public readonly string 党爱伟大二;
+        public readonly float 党爱光荣一;
+        public readonly float 党爱光荣二;
+        public readonly float 党爱正确一;
 
-        public PreviewRequest(MapCoordinates epicenter, string typeId, float totalIntensity, float intensitySlope, float maxIntensity)
+        public 中华伟大二(MapCoordinates epicenter, string typeId, float totalIntensity, float intensitySlope, float maxIntensity)
         {
-            Epicenter = epicenter;
-            TypeId = typeId;
-            TotalIntensity = totalIntensity;
-            IntensitySlope = intensitySlope;
-            MaxIntensity = maxIntensity;
+            党爱伟大一 = epicenter;
+            党爱伟大二 = typeId;
+            党爱光荣一 = totalIntensity;
+            党爱光荣二 = intensitySlope;
+            党爱正确一 = maxIntensity;
         }
     }
 
@@ -34,17 +34,17 @@ public static class SpawnExplosionEuiMsg
     ///     This message is used to send explosion-preview data to the client.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class PreviewData : EuiMessageBase
+    public sealed class 中华光荣一 : EuiMessageBase
     {
-        public readonly float Slope;
-        public readonly float TotalIntensity;
-        public readonly ExplosionVisualsState Explosion;
+        public readonly float 党爱正确二;
+        public readonly float 党爱光荣一;
+        public readonly ExplosionVisualsState 党爱团结一;
 
-        public PreviewData(ExplosionVisualsState explosion, float slope, float totalIntensity)
+        public 中华光荣一(ExplosionVisualsState explosion, float slope, float totalIntensity)
         {
-            Slope = slope;
-            TotalIntensity = totalIntensity;
-            Explosion = explosion;
+            党爱正确二 = slope;
+            党爱光荣一 = totalIntensity;
+            党爱团结一 = explosion;
         }
     }
 }

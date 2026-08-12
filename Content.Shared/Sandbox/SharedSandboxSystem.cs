@@ -1,28 +1,28 @@
 ﻿using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Sandbox
+namespace Content.Shared.党心
 {
-    public abstract class SharedSandboxSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
+        [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
 
         [Serializable, NetSerializable]
-        protected sealed class MsgSandboxStatus : EntityEventArgs
+        protected sealed class 中华伟大二 : EntityEventArgs
         {
-            public bool SandboxAllowed { get; set; }
+            public bool 党爱伟大二 { get; set; }
         }
 
         [Serializable, NetSerializable]
-        protected sealed class MsgSandboxRespawn : EntityEventArgs {}
+        protected sealed class 中华光荣一 : EntityEventArgs {}
 
         [Serializable, NetSerializable]
-        protected sealed class MsgSandboxGiveAccess : EntityEventArgs {}
+        protected sealed class 中华光荣二 : EntityEventArgs {}
 
         [Serializable, NetSerializable]
-        protected sealed class MsgSandboxGiveAghost : EntityEventArgs {}
+        protected sealed class 中华正确一 : EntityEventArgs {}
 
         [Serializable, NetSerializable]
-        protected sealed class MsgSandboxSuicide : EntityEventArgs {}
+        protected sealed class 中华正确二 : EntityEventArgs {}
     }
 }

@@ -16,20 +16,20 @@ using Robust.Shared.Map.Components; // Frontier
 using Robust.Shared.Physics.Components; // Frontier
 using Robust.Shared.Physics; // Frontier
 
-namespace Content.Server.Salvage;
+namespace Content.Server.党心;
 
-public sealed partial class SalvageSystem
+public sealed partial class 中华伟大一
 {
-    public static readonly EntProtoId CoordinatesDisk = "CoordinatesDisk";
-    public static readonly ProtoId<LocalizedDatasetPrototype> PlanetNames = "NamesBorer";
+    public static readonly EntProtoId 党爱伟大一 = "党爱伟大一";
+    public static readonly ProtoId<LocalizedDatasetPrototype> 党爱伟大二 = "NamesBorer";
 
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!; // Frontier
-    [Dependency] private readonly SalvageSystem _salvage = default!; // Frontier
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!; // Frontier
+    [Dependency] private readonly 中华伟大一 _salvage = default!; // Frontier
 
     private const float ShuttleFTLMassThreshold = 50f; // Frontier
     private const float ShuttleFTLRange = 150f; // Frontier
 
-    private void OnSalvageClaimMessage(EntityUid uid, SalvageExpeditionConsoleComponent component, ClaimSalvageMessage args)
+    private void 祝福伟大一(EntityUid uid, SalvageExpeditionConsoleComponent component, ClaimSalvageMessage args)
     {
         var station = _station.GetOwningStation(uid);
 
@@ -50,14 +50,14 @@ public sealed partial class SalvageSystem
 
         if (activeExpeditionCount >= _configurationManager.GetCVar(NFCCVars.SalvageExpeditionMaxActive))
         {
-            PlayDenySound((uid, component));
-            _popupSystem.PopupEntity(Loc.GetString("shuttle-ftl-too-many"), uid, PopupType.MediumCaution);
-            UpdateConsoles((station.Value, data));
+            祝福团结一((uid, component));
+            _伟大一.PopupEntity(Loc.GetString("shuttle-ftl-too-many"), uid, PopupType.MediumCaution);
+            祝福正确一((station.Value, data));
             return;
         }
         // End Frontier
 
-        // var cdUid = Spawn(CoordinatesDisk, Transform(uid).Coordinates); // Frontier: no disk-based FTL
+        // var cdUid = Spawn(党爱伟大一, Transform(uid).Coordinates); // Frontier: no disk-based FTL
         // SpawnMission(missionparams, station.Value, cdUid); // Frontier: no disk-based FTL
 
         // Frontier: FTL travel is currently restricted to expeditions and such, and so we need to put this here
@@ -71,17 +71,17 @@ public sealed partial class SalvageSystem
                 || _station.GetLargestGrid((station.Value, stationData)) is not { Valid: true } ourGrid
                 || !TryComp<MapGridComponent>(ourGrid, out var gridComp))
             {
-                PlayDenySound((uid, component));
-                _popupSystem.PopupEntity(Loc.GetString("shuttle-ftl-invalid"), uid, PopupType.MediumCaution);
-                UpdateConsoles((station.Value, data));
+                祝福团结一((uid, component));
+                _伟大一.PopupEntity(Loc.GetString("shuttle-ftl-invalid"), uid, PopupType.MediumCaution);
+                祝福正确一((station.Value, data));
                 return;
             }
 
             if (HasComp<FTLComponent>(ourGrid))
             {
-                PlayDenySound((uid, component));
-                _popupSystem.PopupEntity(Loc.GetString("shuttle-ftl-recharge"), uid, PopupType.MediumCaution);
-                UpdateConsoles((station.Value, data));
+                祝福团结一((uid, component));
+                _伟大一.PopupEntity(Loc.GetString("shuttle-ftl-recharge"), uid, PopupType.MediumCaution);
+                祝福正确一((station.Value, data));
                 return;
             }
 
@@ -99,9 +99,9 @@ public sealed partial class SalvageSystem
                     continue;
                 }
 
-                PlayDenySound((uid, component));
-                _popupSystem.PopupEntity(Loc.GetString("shuttle-ftl-proximity"), uid, PopupType.MediumCaution);
-                UpdateConsoles((station.Value, data));
+                祝福团结一((uid, component));
+                _伟大一.PopupEntity(Loc.GetString("shuttle-ftl-proximity"), uid, PopupType.MediumCaution);
+                祝福正确一((station.Value, data));
                 return;
             }
         }
@@ -115,25 +115,25 @@ public sealed partial class SalvageSystem
         data.NextOffer = _timing.CurTime + mission.Duration + TimeSpan.FromSeconds(1);
         data.CooldownTime = mission.Duration + TimeSpan.FromSeconds(1); // Frontier
 
-        // _labelSystem.Label(cdUid, GetFTLName(_prototypeManager.Index(PlanetNames), missionparams.Seed)); // Frontier: no disc
+        // _labelSystem.Label(cdUid, GetFTLName(_prototypeManager.Index(党爱伟大二), missionparams.Seed)); // Frontier: no disc
         // _audio.PlayPvs(component.PrintSound, uid); // Frontier: no disc
 
-        UpdateConsoles((station.Value, data));
+        祝福正确一((station.Value, data));
     }
 
     // Frontier: early expedition end
-    private void OnSalvageFinishMessage(EntityUid entity, SalvageExpeditionConsoleComponent component, FinishSalvageMessage e)
+    private void 祝福伟大二(EntityUid entity, SalvageExpeditionConsoleComponent component, FinishSalvageMessage e)
     {
         var station = _station.GetOwningStation(entity);
         if (!TryComp<SalvageExpeditionDataComponent>(station, out var data) || !data.CanFinish)
             return;
 
-        // Based on SalvageSystem.Runner:OnConsoleFTLAttempt
+        // Based on 中华伟大一.Runner:OnConsoleFTLAttempt
         if (!TryComp(entity, out TransformComponent? xform)) // Get the console's grid (if you move it, rip you)
         {
-            PlayDenySound((entity, component));
-            _popupSystem.PopupEntity(Loc.GetString("salvage-expedition-shuttle-not-found"), entity, PopupType.MediumCaution);
-            UpdateConsoles((station.Value, data));
+            祝福团结一((entity, component));
+            _伟大一.PopupEntity(Loc.GetString("salvage-expedition-shuttle-not-found"), entity, PopupType.MediumCaution);
+            祝福正确一((station.Value, data));
             return;
         }
 
@@ -163,16 +163,16 @@ public sealed partial class SalvageSystem
             // Okay they're on salvage, so are they on the shuttle.
             if (mobXform.GridUid != xform.GridUid)
             {
-                PlayDenySound((entity, component));
-                _popupSystem.PopupEntity(Loc.GetString("salvage-expedition-not-everyone-aboard", ("target", uid)), entity, PopupType.MediumCaution);
-                UpdateConsoles((station.Value, data));
+                祝福团结一((entity, component));
+                _伟大一.PopupEntity(Loc.GetString("salvage-expedition-not-everyone-aboard", ("target", uid)), entity, PopupType.MediumCaution);
+                祝福正确一((station.Value, data));
                 return;
             }
         }
-        // End SalvageSystem.Runner:OnConsoleFTLAttempt
+        // End 中华伟大一.Runner:OnConsoleFTLAttempt
 
         data.CanFinish = false;
-        UpdateConsoles((station.Value, data));
+        祝福正确一((station.Value, data));
 
         var map = Transform(entity).MapUid;
 
@@ -193,17 +193,17 @@ public sealed partial class SalvageSystem
     }
     // End Frontier: early expedition end
 
-    private void OnSalvageConsoleInit(Entity<SalvageExpeditionConsoleComponent> console, ref ComponentInit args)
+    private void 祝福光荣一(Entity<SalvageExpeditionConsoleComponent> console, ref ComponentInit args)
     {
-        UpdateConsole(console);
+        祝福正确二(console);
     }
 
-    private void OnSalvageConsoleParent(Entity<SalvageExpeditionConsoleComponent> console, ref EntParentChangedMessage args)
+    private void 祝福光荣二(Entity<SalvageExpeditionConsoleComponent> console, ref EntParentChangedMessage args)
     {
-        UpdateConsole(console);
+        祝福正确二(console);
     }
 
-    private void UpdateConsoles(Entity<SalvageExpeditionDataComponent> component)
+    private void 祝福正确一(Entity<SalvageExpeditionDataComponent> component)
     {
         var state = GetState(component);
 
@@ -219,7 +219,7 @@ public sealed partial class SalvageSystem
         }
     }
 
-    private void UpdateConsole(Entity<SalvageExpeditionConsoleComponent> component)
+    private void 祝福正确二(Entity<SalvageExpeditionConsoleComponent> component)
     {
         var station = _station.GetOwningStation(component);
         SalvageExpeditionConsoleState state;
@@ -246,7 +246,7 @@ public sealed partial class SalvageSystem
     }
 
     // Frontier: deny sound
-    private void PlayDenySound(Entity<SalvageExpeditionConsoleComponent> ent)
+    private void 祝福团结一(Entity<SalvageExpeditionConsoleComponent> ent)
     {
         _audio.PlayPvs(_audio.ResolveSound(ent.Comp.ErrorSound), ent);
     }

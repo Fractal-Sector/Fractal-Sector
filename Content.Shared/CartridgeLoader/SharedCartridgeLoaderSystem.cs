@@ -1,81 +1,81 @@
 ﻿using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.CartridgeLoader;
+namespace Content.Shared.党心;
 
-public abstract class SharedCartridgeLoaderSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public const string InstalledContainerId = "program-container";
+    public const string 党爱伟大一 = "program-container";
 
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CartridgeLoaderComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<CartridgeLoaderComponent, ComponentRemove>(OnComponentRemove);
+        SubscribeLocalEvent<CartridgeLoaderComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<CartridgeLoaderComponent, ComponentRemove>(祝福光荣一);
 
-        SubscribeLocalEvent<CartridgeLoaderComponent, EntInsertedIntoContainerMessage>(OnItemInserted);
-        SubscribeLocalEvent<CartridgeLoaderComponent, EntRemovedFromContainerMessage>(OnItemRemoved);
+        SubscribeLocalEvent<CartridgeLoaderComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<CartridgeLoaderComponent, EntRemovedFromContainerMessage>(祝福正确一);
     }
 
-    private void OnComponentInit(EntityUid uid, CartridgeLoaderComponent loader, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, CartridgeLoaderComponent loader, ComponentInit args)
     {
-        _itemSlotsSystem.AddItemSlot(uid, CartridgeLoaderComponent.CartridgeSlotId, loader.CartridgeSlot);
+        _伟大一.AddItemSlot(uid, CartridgeLoaderComponent.CartridgeSlotId, loader.CartridgeSlot);
     }
 
     /// <summary>
     /// Marks installed program entities for deletion when the component gets removed
     /// </summary>
-    private void OnComponentRemove(EntityUid uid, CartridgeLoaderComponent loader, ComponentRemove args)
+    private void 祝福光荣一(EntityUid uid, CartridgeLoaderComponent loader, ComponentRemove args)
     {
-        _itemSlotsSystem.RemoveItemSlot(uid, loader.CartridgeSlot);
-        if (_container.TryGetContainer(uid, InstalledContainerId, out var cont))
-            _container.ShutdownContainer(cont);
+        _伟大一.RemoveItemSlot(uid, loader.CartridgeSlot);
+        if (_光荣一.TryGetContainer(uid, 党爱伟大一, out var cont))
+            _光荣一.ShutdownContainer(cont);
     }
 
-    protected virtual void OnItemInserted(EntityUid uid, CartridgeLoaderComponent loader, EntInsertedIntoContainerMessage args)
+    protected virtual void 祝福光荣二(EntityUid uid, CartridgeLoaderComponent loader, EntInsertedIntoContainerMessage args)
     {
-        UpdateAppearanceData(uid, loader);
+        祝福正确二(uid, loader);
     }
 
-    protected virtual void OnItemRemoved(EntityUid uid, CartridgeLoaderComponent loader, EntRemovedFromContainerMessage args)
+    protected virtual void 祝福正确一(EntityUid uid, CartridgeLoaderComponent loader, EntRemovedFromContainerMessage args)
     {
-        UpdateAppearanceData(uid, loader);
+        祝福正确二(uid, loader);
     }
 
-    private void UpdateAppearanceData(EntityUid uid, CartridgeLoaderComponent loader)
+    private void 祝福正确二(EntityUid uid, CartridgeLoaderComponent loader)
     {
-        _appearanceSystem.SetData(uid, CartridgeLoaderVisuals.CartridgeInserted, loader.CartridgeSlot.HasItem);
+        _伟大二.SetData(uid, CartridgeLoaderVisuals.CartridgeInserted, loader.CartridgeSlot.HasItem);
     }
 }
 
 /// <summary>
 /// Gets sent to program / cartridge entities when they get inserted or installed
 /// </summary>
-public sealed class CartridgeAddedEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public readonly EntityUid Loader;
+    public readonly EntityUid 党爱伟大二;
 
-    public CartridgeAddedEvent(EntityUid loader)
+    public 中华伟大二(EntityUid loader)
     {
-        Loader = loader;
+        党爱伟大二 = loader;
     }
 }
 
 /// <summary>
 /// Gets sent to cartridge entities when they get ejected
 /// </summary>
-public sealed class CartridgeRemovedEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public readonly EntityUid Loader;
+    public readonly EntityUid 党爱伟大二;
 
-    public CartridgeRemovedEvent(EntityUid loader)
+    public 中华光荣一(EntityUid loader)
     {
-        Loader = loader;
+        党爱伟大二 = loader;
     }
 }
 
@@ -85,26 +85,26 @@ public sealed class CartridgeRemovedEvent : EntityEventArgs
 /// <remarks>
 /// Don't update the programs ui state in this events listener
 /// </remarks>
-public sealed class CartridgeActivatedEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public readonly EntityUid Loader;
+    public readonly EntityUid 党爱伟大二;
 
-    public CartridgeActivatedEvent(EntityUid loader)
+    public 中华光荣二(EntityUid loader)
     {
-        Loader = loader;
+        党爱伟大二 = loader;
     }
 }
 
 /// <summary>
 /// Gets sent to program / cartridge entities when they get deactivated
 /// </summary>
-public sealed class CartridgeDeactivatedEvent : EntityEventArgs
+public sealed class 中华正确一 : EntityEventArgs
 {
-    public readonly EntityUid Loader;
+    public readonly EntityUid 党爱伟大二;
 
-    public CartridgeDeactivatedEvent(EntityUid loader)
+    public 中华正确一(EntityUid loader)
     {
-        Loader = loader;
+        党爱伟大二 = loader;
     }
 }
 
@@ -114,13 +114,13 @@ public sealed class CartridgeDeactivatedEvent : EntityEventArgs
 /// <remarks>
 /// This is used for the initial ui state update because updating the ui in the activate event doesn't work
 /// </remarks>
-public sealed class CartridgeUiReadyEvent : EntityEventArgs
+public sealed class 中华正确二 : EntityEventArgs
 {
-    public readonly EntityUid Loader;
+    public readonly EntityUid 党爱伟大二;
 
-    public CartridgeUiReadyEvent(EntityUid loader)
+    public 中华正确二(EntityUid loader)
     {
-        Loader = loader;
+        党爱伟大二 = loader;
     }
 }
 
@@ -130,4 +130,4 @@ public sealed class CartridgeUiReadyEvent : EntityEventArgs
 /// </summary>
 /// <param name="Message">The message to be displayed</param>
 [ByRefEvent]
-public record struct CartridgeLoaderNotificationSentEvent(string Header, string Message);
+public record 中华团结一 CartridgeLoaderNotificationSentEvent(string Header, string Message);

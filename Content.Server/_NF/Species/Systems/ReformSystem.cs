@@ -1,20 +1,20 @@
 ﻿using Content.Server.Cargo.Components;
 using Content.Shared.Mind;
 using Content.Shared.Species.Components;
-using static Content.Shared.Species.ReformSystem;
+using static Content.Shared.Species.中华伟大一;
 
-namespace Content.Server._NF.Species.Systems;
+namespace Content.Server._NF.Species.党心;
 
 // Frontier - This adds cargo sell blacklist component to the newly reformed diona.
-public sealed partial class ReformSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SetDionaCargoBlacklistEvent>(OnDionaReformed);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SetDionaCargoBlacklistEvent>(祝福伟大二);
     }
 
-    private void OnDionaReformed(SetDionaCargoBlacklistEvent ev)
+    private void 祝福伟大二(SetDionaCargoBlacklistEvent ev)
     {
         EnsureComp<CargoSellBlacklistComponent>(ev.ReformedDiona);
     }

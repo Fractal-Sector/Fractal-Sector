@@ -2,22 +2,22 @@ using Content.Server.Antag.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Server.GameTicking.Rules;
 
-namespace Content.Server.Antag;
+namespace Content.Server.党心;
 
-public sealed class AntagRandomSpawnSystem : GameRuleSystem<AntagRandomSpawnComponent>
+public sealed class 中华伟大一 : GameRuleSystem<AntagRandomSpawnComponent>
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AntagRandomSpawnComponent, AntagSelectLocationEvent>(OnSelectLocation);
+        SubscribeLocalEvent<AntagRandomSpawnComponent, AntagSelectLocationEvent>(祝福光荣一);
     }
 
-    protected override void Added(EntityUid uid, AntagRandomSpawnComponent comp, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, AntagRandomSpawnComponent comp, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.Added(uid, comp, gameRule, args);
+        base.祝福伟大二(uid, comp, gameRule, args);
 
         // we have to select this here because AntagSelectLocationEvent is raised twice because MakeAntag is called twice
         // once when a ghost role spawner is created and once when someone takes the ghost role
@@ -26,9 +26,9 @@ public sealed class AntagRandomSpawnSystem : GameRuleSystem<AntagRandomSpawnComp
             comp.Coords = coords;
     }
 
-    private void OnSelectLocation(Entity<AntagRandomSpawnComponent> ent, ref AntagSelectLocationEvent args)
+    private void 祝福光荣一(Entity<AntagRandomSpawnComponent> ent, ref AntagSelectLocationEvent args)
     {
         if (ent.Comp.Coords != null)
-            args.Coordinates.Add(_transform.ToMapCoordinates(ent.Comp.Coords.Value));
+            args.Coordinates.Add(_伟大一.ToMapCoordinates(ent.Comp.Coords.Value));
     }
 }

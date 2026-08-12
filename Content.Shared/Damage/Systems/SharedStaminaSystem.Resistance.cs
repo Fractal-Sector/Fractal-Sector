@@ -3,29 +3,29 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Events;
 using Content.Shared.Inventory;
 
-namespace Content.Shared.Damage.Systems;
+namespace Content.Shared.Damage.党心;
 
-public partial class SharedStaminaSystem
+public partial class 中华伟大一
 {
-    private void InitializeResistance()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StaminaResistanceComponent, BeforeStaminaDamageEvent>(OnGetResistance);
-        SubscribeLocalEvent<StaminaResistanceComponent, InventoryRelayedEvent<BeforeStaminaDamageEvent>>(RelayedResistance);
-        SubscribeLocalEvent<StaminaResistanceComponent, ArmorExamineEvent>(OnArmorExamine);
+        SubscribeLocalEvent<StaminaResistanceComponent, BeforeStaminaDamageEvent>(祝福伟大二);
+        SubscribeLocalEvent<StaminaResistanceComponent, InventoryRelayedEvent<BeforeStaminaDamageEvent>>(祝福光荣一);
+        SubscribeLocalEvent<StaminaResistanceComponent, ArmorExamineEvent>(祝福光荣二);
     }
 
-    private void OnGetResistance(Entity<StaminaResistanceComponent> ent, ref BeforeStaminaDamageEvent args)
+    private void 祝福伟大二(Entity<StaminaResistanceComponent> ent, ref BeforeStaminaDamageEvent args)
     {
         args.Value *= ent.Comp.DamageCoefficient;
     }
 
-    private void RelayedResistance(Entity<StaminaResistanceComponent> ent, ref InventoryRelayedEvent<BeforeStaminaDamageEvent> args)
+    private void 祝福光荣一(Entity<StaminaResistanceComponent> ent, ref InventoryRelayedEvent<BeforeStaminaDamageEvent> args)
     {
         if (ent.Comp.Worn)
-            OnGetResistance(ent, ref args.Args);
+            祝福伟大二(ent, ref args.Args);
     }
 
-    private void OnArmorExamine(Entity<StaminaResistanceComponent> ent, ref ArmorExamineEvent args)
+    private void 祝福光荣二(Entity<StaminaResistanceComponent> ent, ref ArmorExamineEvent args)
     {
         var value = MathF.Round((1f - ent.Comp.DamageCoefficient) * 100, 1);
 

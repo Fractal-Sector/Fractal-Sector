@@ -6,37 +6,37 @@ using Content.Shared.Roles.Components;
 using Content.Shared.Warps;
 using Robust.Shared.Random;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Handles the objective conditions that hard depend on ninja.
 /// Survive is handled by <see cref="SurviveConditionSystem"/> since it works without being a ninja.
 /// </summary>
-public sealed class NinjaConditionsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly NumberObjectiveSystem _number = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency] private readonly MetaDataSystem _伟大一 = default!;
+    [Dependency] private readonly NumberObjectiveSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly SharedRoleSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<DoorjackConditionComponent, ObjectiveGetProgressEvent>(OnDoorjackGetProgress);
+        SubscribeLocalEvent<DoorjackConditionComponent, ObjectiveGetProgressEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<SpiderChargeConditionComponent, RequirementCheckEvent>(OnSpiderChargeRequirementCheck);
-        SubscribeLocalEvent<SpiderChargeConditionComponent, ObjectiveAfterAssignEvent>(OnSpiderChargeAfterAssign);
+        SubscribeLocalEvent<SpiderChargeConditionComponent, RequirementCheckEvent>(祝福光荣二);
+        SubscribeLocalEvent<SpiderChargeConditionComponent, ObjectiveAfterAssignEvent>(祝福正确一);
 
-        SubscribeLocalEvent<StealResearchConditionComponent, ObjectiveGetProgressEvent>(OnStealResearchGetProgress);
+        SubscribeLocalEvent<StealResearchConditionComponent, ObjectiveGetProgressEvent>(祝福正确二);
     }
 
     // doorjack
 
-    private void OnDoorjackGetProgress(EntityUid uid, DoorjackConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void 祝福伟大二(EntityUid uid, DoorjackConditionComponent comp, ref ObjectiveGetProgressEvent args)
     {
-        args.Progress = DoorjackProgress(comp, _number.GetTarget(uid));
+        args.Progress = 祝福光荣一(comp, _伟大二.GetTarget(uid));
     }
 
-    private float DoorjackProgress(DoorjackConditionComponent comp, int target)
+    private float 祝福光荣一(DoorjackConditionComponent comp, int target)
     {
         // prevent divide-by-zero
         if (target == 0)
@@ -46,9 +46,9 @@ public sealed class NinjaConditionsSystem : EntitySystem
     }
 
     // spider charge
-    private void OnSpiderChargeRequirementCheck(EntityUid uid, SpiderChargeConditionComponent comp, ref RequirementCheckEvent args)
+    private void 祝福光荣二(EntityUid uid, SpiderChargeConditionComponent comp, ref RequirementCheckEvent args)
     {
-        if (args.Cancelled || !_roles.MindHasRole<NinjaRoleComponent>(args.MindId))
+        if (args.Cancelled || !_光荣二.MindHasRole<NinjaRoleComponent>(args.MindId))
             return;
 
         // choose spider charge detonation point
@@ -67,10 +67,10 @@ public sealed class NinjaConditionsSystem : EntitySystem
             args.Cancelled = true;
             return;
         }
-        comp.Target = _random.Pick(warps);
+        comp.Target = _光荣一.Pick(warps);
     }
 
-    private void OnSpiderChargeAfterAssign(EntityUid uid, SpiderChargeConditionComponent comp, ref ObjectiveAfterAssignEvent args)
+    private void 祝福正确一(EntityUid uid, SpiderChargeConditionComponent comp, ref ObjectiveAfterAssignEvent args)
     {
         string title;
         if (comp.Target == null || !TryComp<WarpPointComponent>(comp.Target, out var warp) || warp.Location == null)
@@ -82,17 +82,17 @@ public sealed class NinjaConditionsSystem : EntitySystem
         {
             title = Loc.GetString("objective-condition-spider-charge-title", ("location", warp.Location));
         }
-        _metaData.SetEntityName(uid, title, args.Meta);
+        _伟大一.SetEntityName(uid, title, args.Meta);
     }
 
     // steal research
 
-    private void OnStealResearchGetProgress(EntityUid uid, StealResearchConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void 祝福正确二(EntityUid uid, StealResearchConditionComponent comp, ref ObjectiveGetProgressEvent args)
     {
-        args.Progress = StealResearchProgress(comp, _number.GetTarget(uid));
+        args.Progress = 祝福团结一(comp, _伟大二.GetTarget(uid));
     }
 
-    private float StealResearchProgress(StealResearchConditionComponent comp, int target)
+    private float 祝福团结一(StealResearchConditionComponent comp, int target)
     {
         // prevent divide-by-zero
         if (target == 0)

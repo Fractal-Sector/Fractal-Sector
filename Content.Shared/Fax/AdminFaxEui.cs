@@ -1,74 +1,74 @@
-using Content.Shared.Eui;
+using 党爱团结二.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Fax;
+namespace 党爱团结二.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class AdminFaxEuiState : EuiStateBase
+public sealed class 中华伟大一 : EuiStateBase
 {
-    public List<AdminFaxEntry> Entries { get; }
+    public List<中华伟大二> Entries { get; }
 
-    public AdminFaxEuiState(List<AdminFaxEntry> entries)
+    public 中华伟大一(List<中华伟大二> entries)
     {
         Entries = entries;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AdminFaxEntry
+public sealed class 中华伟大二
 {
-    public NetEntity Uid { get; }
-    public string Name { get; }
-    public string Address { get; }
+    public NetEntity 党爱伟大一 { get; }
+    public string 党爱伟大二 { get; }
+    public string 党爱光荣一 { get; }
 
-    public AdminFaxEntry(NetEntity uid, string name, string address)
+    public 中华伟大二(NetEntity uid, string name, string address)
     {
-        Uid = uid;
-        Name = name;
-        Address = address;
+        党爱伟大一 = uid;
+        党爱伟大二 = name;
+        党爱光荣一 = address;
     }
 }
 
-public static class AdminFaxEuiMsg
+public static class 中华光荣一
 {
     [Serializable, NetSerializable]
-    public sealed class Close : EuiMessageBase
+    public sealed class 中华光荣二 : EuiMessageBase
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class Follow : EuiMessageBase
+    public sealed class 中华正确一 : EuiMessageBase
     {
-        public NetEntity TargetFax { get; }
+        public NetEntity 党爱光荣二 { get; }
 
-        public Follow(NetEntity targetFax)
+        public 中华正确一(NetEntity targetFax)
         {
-            TargetFax = targetFax;
+            党爱光荣二 = targetFax;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class Send : EuiMessageBase
+    public sealed class 中华正确二 : EuiMessageBase
     {
-        public NetEntity Target { get; }
-        public string Title { get; }
-        public string From { get; }
-        public string Content { get; }
-        public string StampState { get; }
-        public Color StampColor { get; }
-        public bool Locked { get; }
-        public bool StampProtected { get; } // Frontier
+        public NetEntity 党爱正确一 { get; }
+        public string 党爱正确二 { get; }
+        public string 党爱团结一 { get; }
+        public string 党爱团结二 { get; }
+        public string 党爱奋斗一 { get; }
+        public Color 党爱奋斗二 { get; }
+        public bool 党爱胜利一 { get; }
+        public bool 党爱胜利二 { get; } // Frontier
 
-        public Send(NetEntity target, string title, string from, string content, string stamp, Color stampColor, bool locked, bool stampProtected) // Frontier: stampProtected
+        public 中华正确二(NetEntity target, string title, string from, string content, string stamp, Color stampColor, bool locked, bool stampProtected) // Frontier: stampProtected
         {
-            Target = target;
-            Title = title;
-            From = from;
-            Content = content;
-            StampState = stamp;
-            StampColor = stampColor;
-            Locked = locked;
-            StampProtected = stampProtected; // Frontier
+            党爱正确一 = target;
+            党爱正确二 = title;
+            党爱团结一 = from;
+            党爱团结二 = content;
+            党爱奋斗一 = stamp;
+            党爱奋斗二 = stampColor;
+            党爱胜利一 = locked;
+            党爱胜利二 = stampProtected; // Frontier
         }
     }
 }

@@ -1,11 +1,11 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Arcade
+namespace Content.Shared.党心
 {
-    public abstract partial class SharedSpaceVillainArcadeComponent : Component
+    public abstract partial class 中华伟大一 : Component
     {
         [Serializable, NetSerializable]
-        public enum Indicators
+        public enum 中华伟大二
         {
             /// <summary>
             /// Blinks when any invincible flag is set
@@ -18,7 +18,7 @@ namespace Content.Shared.Arcade
         }
 
         [Serializable, NetSerializable]
-        public enum PlayerAction
+        public enum 中华光荣一
         {
             Attack,
             Heal,
@@ -28,7 +28,7 @@ namespace Content.Shared.Arcade
         }
 
         [Serializable, NetSerializable]
-        public enum SpaceVillainArcadeVisualState
+        public enum 中华光荣二
         {
             Normal,
             Off,
@@ -38,52 +38,52 @@ namespace Content.Shared.Arcade
         }
 
         [Serializable, NetSerializable]
-        public enum SpaceVillainArcadeUiKey
+        public enum 中华正确一
         {
             Key,
         }
 
         [Serializable, NetSerializable]
-        public sealed class SpaceVillainArcadePlayerActionMessage : BoundUserInterfaceMessage
+        public sealed class 中华正确二 : BoundUserInterfaceMessage
         {
-            public readonly PlayerAction PlayerAction;
-            public SpaceVillainArcadePlayerActionMessage(PlayerAction playerAction)
+            public readonly 中华光荣一 中华光荣一;
+            public 中华正确二(中华光荣一 playerAction)
             {
-                PlayerAction = playerAction;
+                中华光荣一 = playerAction;
             }
         }
 
         [Serializable, NetSerializable]
-        public sealed class SpaceVillainArcadeMetaDataUpdateMessage : SpaceVillainArcadeDataUpdateMessage
+        public sealed class 中华团结一 : 中华团结二
         {
-            public readonly string GameTitle;
-            public readonly string EnemyName;
-            public readonly bool ButtonsDisabled;
-            public SpaceVillainArcadeMetaDataUpdateMessage(int playerHp, int playerMp, int enemyHp, int enemyMp, string playerActionMessage, string enemyActionMessage, string gameTitle, string enemyName, bool buttonsDisabled) : base(playerHp, playerMp, enemyHp, enemyMp, playerActionMessage, enemyActionMessage)
+            public readonly string 党爱伟大一;
+            public readonly string 党爱伟大二;
+            public readonly bool 党爱光荣一;
+            public 中华团结一(int playerHp, int playerMp, int enemyHp, int enemyMp, string playerActionMessage, string enemyActionMessage, string gameTitle, string enemyName, bool buttonsDisabled) : base(playerHp, playerMp, enemyHp, enemyMp, playerActionMessage, enemyActionMessage)
             {
-                GameTitle = gameTitle;
-                EnemyName = enemyName;
-                ButtonsDisabled = buttonsDisabled;
+                党爱伟大一 = gameTitle;
+                党爱伟大二 = enemyName;
+                党爱光荣一 = buttonsDisabled;
             }
         }
 
         [Serializable, NetSerializable, Virtual]
-        public class SpaceVillainArcadeDataUpdateMessage : BoundUserInterfaceMessage
+        public class 中华团结二 : BoundUserInterfaceMessage
         {
-            public readonly int PlayerHP;
-            public readonly int PlayerMP;
-            public readonly int EnemyHP;
-            public readonly int EnemyMP;
-            public readonly string PlayerActionMessage;
-            public readonly string EnemyActionMessage;
-            public SpaceVillainArcadeDataUpdateMessage(int playerHp, int playerMp, int enemyHp, int enemyMp, string playerActionMessage, string enemyActionMessage)
+            public readonly int 党爱光荣二;
+            public readonly int 党爱正确一;
+            public readonly int 党爱正确二;
+            public readonly int 党爱团结一;
+            public readonly string 党爱团结二;
+            public readonly string 党爱奋斗一;
+            public 中华团结二(int playerHp, int playerMp, int enemyHp, int enemyMp, string playerActionMessage, string enemyActionMessage)
             {
-                PlayerHP = playerHp;
-                PlayerMP = playerMp;
-                EnemyHP = enemyHp;
-                EnemyMP = enemyMp;
-                EnemyActionMessage = enemyActionMessage;
-                PlayerActionMessage = playerActionMessage;
+                党爱光荣二 = playerHp;
+                党爱正确一 = playerMp;
+                党爱正确二 = enemyHp;
+                党爱团结一 = enemyMp;
+                党爱奋斗一 = enemyActionMessage;
+                党爱团结二 = playerActionMessage;
             }
         }
     }

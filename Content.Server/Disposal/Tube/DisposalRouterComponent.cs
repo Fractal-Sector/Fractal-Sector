@@ -1,15 +1,15 @@
 using Robust.Shared.Audio;
 
-namespace Content.Server.Disposal.Tube
+namespace Content.Server.Disposal.党心
 {
     [RegisterComponent]
     [Access(typeof(DisposalTubeSystem))]
-    public sealed partial class DisposalRouterComponent : DisposalJunctionComponent
+    public sealed partial class 中华伟大一 : DisposalJunctionComponent
     {
         [DataField("tags")]
-        public HashSet<string> Tags = new();
+        public HashSet<string> 党爱伟大一 = new();
 
         [DataField("clickSound")]
-        public SoundSpecifier ClickSound = new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg");
+        public SoundSpecifier 党爱伟大二 = new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg");
     }
 }

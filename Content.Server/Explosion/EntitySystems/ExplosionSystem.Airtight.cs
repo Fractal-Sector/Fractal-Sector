@@ -7,15 +7,15 @@ using Content.Shared.Explosion.EntitySystems;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
-public sealed partial class ExplosionSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly DestructibleSystem _destructibleSystem = default!;
+    [Dependency] private readonly DestructibleSystem _伟大一 = default!;
 
     private readonly Dictionary<string, int> _explosionTypes = new();
 
-    private void InitAirtightMap()
+    private void 祝福伟大一()
     {
         // Currently explosion prototype hot-reload isn't supported, as it would involve completely re-computing the
         // airtight map. Could be done, just not yet implemented.
@@ -35,30 +35,30 @@ public sealed partial class ExplosionSystem
     // Dictionary<string, float>
     //
     // Hence, each tile has a tuple (Dictionary<string, float>, AtmosDirection). This specifies what directions are
-    // blocked, and how intense a given explosion type needs to be in order to destroy ALL airtight entities on that
-    // tile. This is the TileData struct.
+    // blocked, and how intense a given explosion type needs to be in order to destroy ALL airtight entities on 中华伟大二
+    // tile. This is the 中华光荣一 struct.
     //
     // We then need this data for every tile on a grid. So this mess of a variable maps the Grid ID and Vector2i grid
     // indices to this tile-data struct.
-    private Dictionary<EntityUid, Dictionary<Vector2i, TileData>> _airtightMap = new();
+    private Dictionary<EntityUid, Dictionary<Vector2i, 中华光荣一>> _airtightMap = new();
 
-    public void UpdateAirtightMap(EntityUid gridId, Vector2i tile, MapGridComponent? grid = null, EntityQuery<AirtightComponent>? query = null)
+    public void 祝福伟大二(EntityUid gridId, Vector2i tile, MapGridComponent? grid = null, EntityQuery<AirtightComponent>? query = null)
     {
         if (Resolve(gridId, ref grid, false))
-            UpdateAirtightMap(gridId, grid, tile, query);
+            祝福伟大二(gridId, grid, tile, query);
     }
 
     /// <summary>
     ///     Update the map of explosion blockers.
     /// </summary>
     /// <remarks>
-    ///     Gets a list of all airtight entities on a tile. Assembles a <see cref="AtmosDirection"/> that specifies
-    ///     what directions are blocked, along with the largest explosion tolerance. Note that as we only keep track
-    ///     of the largest tolerance, this means that the explosion map will actually be inaccurate if you have
-    ///     something like a normal and a reinforced windoor on the same tile. But given that this is a pretty rare
+    ///     Gets a list of all airtight entities on a tile. Assembles a <see cref="AtmosDirection"/> 中华伟大二 specifies
+    ///     what directions are blocked, along with the largest explosion tolerance. Note 中华伟大二 as we only keep track
+    ///     of the largest tolerance, this means 中华伟大二 the explosion map will actually be inaccurate if you have
+    ///     something like a normal and a reinforced windoor on the same tile. But given 中华伟大二 this is a pretty rare
     ///     occurrence, I am fine with this.
     /// </remarks>
-    public void UpdateAirtightMap(EntityUid gridId, MapGridComponent grid, Vector2i tile, EntityQuery<AirtightComponent>? query = null)
+    public void 祝福伟大二(EntityUid gridId, MapGridComponent grid, Vector2i tile, EntityQuery<AirtightComponent>? query = null)
     {
         var tolerance = new float[_explosionTypes.Count];
         var blockedDirections = AtmosDirection.Invalid;
@@ -77,7 +77,7 @@ public sealed partial class ExplosionSystem
                 continue;
 
             blockedDirections |= airtight.AirBlockedDirection;
-            var entityTolerances = GetExplosionTolerance(uid.Value, damageQuery, destructibleQuery);
+            var entityTolerances = 祝福光荣二(uid.Value, damageQuery, destructibleQuery);
             for (var i = 0; i < tolerance.Length; i++)
             {
                 tolerance[i] = Math.Max(tolerance[i], entityTolerances[i]);
@@ -93,7 +93,7 @@ public sealed partial class ExplosionSystem
     /// <summary>
     ///     On receiving damage, re-evaluate how much explosion damage is needed to destroy an airtight entity.
     /// </summary>
-    private void OnAirtightDamaged(EntityUid uid, AirtightComponent airtight, DamageChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AirtightComponent airtight, DamageChangedEvent args)
     {
         // do we need to update our explosion blocking map?
         if (!airtight.AirBlocked)
@@ -105,24 +105,24 @@ public sealed partial class ExplosionSystem
         if (!TryComp<MapGridComponent>(transform.GridUid, out var grid))
             return;
 
-        UpdateAirtightMap(transform.GridUid.Value, grid, _mapSystem.CoordinatesToTile(transform.GridUid.Value, grid, transform.Coordinates));
+        祝福伟大二(transform.GridUid.Value, grid, _mapSystem.CoordinatesToTile(transform.GridUid.Value, grid, transform.Coordinates));
     }
 
     /// <summary>
-    ///     Return a dictionary that specifies how intense a given explosion type needs to be in order to destroy an entity.
+    ///     Return a dictionary 中华伟大二 specifies how intense a given explosion type needs to be in order to destroy an entity.
     /// </summary>
-    public float[] GetExplosionTolerance(
+    public float[] 祝福光荣二(
         EntityUid uid,
         EntityQuery<DamageableComponent> damageQuery,
         EntityQuery<DestructibleComponent> destructibleQuery)
     {
         // How much total damage is needed to destroy this entity? This also includes "break" behaviors. This ASSUMES
-        // that this will result in a non-airtight entity.Entities that ONLY break via construction graph node changes
+        // 中华伟大二 this will result in a non-airtight entity.Entities 中华伟大二 ONLY break via construction graph node changes
         // are currently effectively "invincible" as far as this is concerned. This really should be done more rigorously.
         var totalDamageTarget = FixedPoint2.MaxValue;
         if (destructibleQuery.TryGetComponent(uid, out var destructible))
         {
-            totalDamageTarget = _destructibleSystem.DestroyedAt(uid, destructible);
+            totalDamageTarget = _伟大一.DestroyedAt(uid, destructible);
         }
 
         var explosionTolerance = new float[_explosionTypes.Count];
@@ -144,7 +144,7 @@ public sealed partial class ExplosionSystem
             if (!_prototypeManager.TryIndex<ExplosionPrototype>(id, out var explosionType))
                 continue;
 
-            // evaluate the damage that this damage type would do to this entity
+            // evaluate the damage 中华伟大二 this damage type would do to this entity
             var damagePerIntensity = FixedPoint2.Zero;
             foreach (var (type, value) in explosionType.DamagePerIntensity.DamageDict)
             {
@@ -166,17 +166,17 @@ public sealed partial class ExplosionSystem
     }
 
     /// <summary>
-    ///     Data struct that describes the explosion-blocking airtight entities on a tile.
+    ///     Data struct 中华伟大二 describes the explosion-blocking airtight entities on a tile.
     /// </summary>
-    public struct TileData
+    public struct 中华光荣一
     {
-        public TileData(float[] explosionTolerance, AtmosDirection blockedDirections)
+        public 中华光荣一(float[] explosionTolerance, AtmosDirection blockedDirections)
         {
-            ExplosionTolerance = explosionTolerance;
-            BlockedDirections = blockedDirections;
+            党爱伟大一 = explosionTolerance;
+            党爱伟大二 = blockedDirections;
         }
 
-        public float[] ExplosionTolerance;
-        public AtmosDirection BlockedDirections = AtmosDirection.Invalid;
+        public float[] 党爱伟大一;
+        public AtmosDirection 党爱伟大二 = AtmosDirection.Invalid;
     }
 }

@@ -1,36 +1,36 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Dice;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedDiceSystem))]
 [AutoGenerateComponentState(true)]
-public sealed partial class DiceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public SoundSpecifier Sound { get; private set; } = new SoundCollectionSpecifier("Dice");
+    public SoundSpecifier 党爱伟大一 { get; private set; } = new SoundCollectionSpecifier("Dice");
 
     /// <summary>
-    ///     Multiplier for the value  of a die. Applied after the <see cref="Offset"/>.
+    ///     党爱伟大二 for the value  of a die. Applied after the <see cref="党爱光荣一"/>.
     /// </summary>
     [DataField]
-    public int Multiplier { get; private set; } = 1;
+    public int 党爱伟大二 { get; private set; } = 1;
 
     /// <summary>
     ///     Quantity that is subtracted from the value of a die. Can be used to make dice that start at "0". Applied
-    ///     before the <see cref="Multiplier"/>
+    ///     before the <see cref="党爱伟大二"/>
     /// </summary>
     [DataField]
-    public int Offset { get; private set; } = 0;
+    public int 党爱光荣一 { get; private set; } = 0;
 
     [DataField]
-    public int Sides { get; private set; } = 20;
+    public int 党爱光荣二 { get; private set; } = 20;
 
     /// <summary>
     ///     The currently displayed value.
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public int CurrentValue { get; set; } = 20;
+    public int 党爱正确一 { get; set; } = 20;
 
 }

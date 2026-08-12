@@ -10,19 +10,19 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Random; //Frontier
 using Robust.Shared.Physics; // Mono
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class NPCCombatSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
-    [Dependency] private readonly RotateToFaceSystem _rotate = default!;
+    [Dependency] private readonly SharedCombatModeSystem _伟大一 = default!;
+    [Dependency] private readonly RotateToFaceSystem _伟大二 = default!;
 
-    private EntityQuery<CombatModeComponent> _combatQuery;
-    private EntityQuery<NPCSteeringComponent> _steeringQuery;
-    private EntityQuery<RechargeBasicEntityAmmoComponent> _rechargeQuery;
-    private EntityQuery<PhysicsComponent> _physicsQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
-    private EntityQuery<RequireProjectileTargetComponent> _requireTargetQuery; // Mono
+    private EntityQuery<CombatModeComponent> _光荣一;
+    private EntityQuery<NPCSteeringComponent> _光荣二;
+    private EntityQuery<RechargeBasicEntityAmmoComponent> _正确一;
+    private EntityQuery<PhysicsComponent> _正确二;
+    private EntityQuery<TransformComponent> _团结一;
+    private EntityQuery<RequireProjectileTargetComponent> _团结二; // Mono
 
     // TODO: Don't predict for hitscan
     private const float ShootSpeed = 20f;
@@ -30,26 +30,26 @@ public sealed partial class NPCCombatSystem
     /// <summary>
     /// Cooldown on raycasting to check LOS.
     /// </summary>
-    public const float UnoccludedCooldown = 0.2f;
+    public const float 党爱伟大一 = 0.2f;
 
-    private void InitializeRanged()
+    private void 祝福伟大一()
     {
-        _combatQuery = GetEntityQuery<CombatModeComponent>();
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        _rechargeQuery = GetEntityQuery<RechargeBasicEntityAmmoComponent>();
-        _steeringQuery = GetEntityQuery<NPCSteeringComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
-        _requireTargetQuery = GetEntityQuery<RequireProjectileTargetComponent>(); // Mono
+        _光荣一 = GetEntityQuery<CombatModeComponent>();
+        _正确二 = GetEntityQuery<PhysicsComponent>();
+        _正确一 = GetEntityQuery<RechargeBasicEntityAmmoComponent>();
+        _光荣二 = GetEntityQuery<NPCSteeringComponent>();
+        _团结一 = GetEntityQuery<TransformComponent>();
+        _团结二 = GetEntityQuery<RequireProjectileTargetComponent>(); // Mono
 
-        SubscribeLocalEvent<NPCRangedCombatComponent, ComponentStartup>(OnRangedStartup);
-        SubscribeLocalEvent<NPCRangedCombatComponent, ComponentShutdown>(OnRangedShutdown);
+        SubscribeLocalEvent<NPCRangedCombatComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<NPCRangedCombatComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnRangedStartup(EntityUid uid, NPCRangedCombatComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, NPCRangedCombatComponent component, ComponentStartup args)
     {
         if (TryComp<CombatModeComponent>(uid, out var combat))
         {
-            _combat.SetInCombatMode(uid, true, combat);
+            _伟大一.SetInCombatMode(uid, true, combat);
         }
         else
         {
@@ -57,15 +57,15 @@ public sealed partial class NPCCombatSystem
         }
     }
 
-    private void OnRangedShutdown(EntityUid uid, NPCRangedCombatComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, NPCRangedCombatComponent component, ComponentShutdown args)
     {
         if (TryComp<CombatModeComponent>(uid, out var combat))
         {
-            _combat.SetInCombatMode(uid, false, combat);
+            _伟大一.SetInCombatMode(uid, false, combat);
         }
     }
 
-    private void UpdateRanged(float frameTime)
+    private void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<NPCRangedCombatComponent, TransformComponent>();
 
@@ -74,15 +74,15 @@ public sealed partial class NPCCombatSystem
             if (comp.Status == CombatStatus.Unspecified)
                 continue;
 
-            if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
+            if (_光荣二.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
             {
                 // Steering is blocked but we may still have line of sight — request a new path
                 // and let the LOS check below decide whether to shoot.
                 steering.ForceMove = true;
             }
 
-            if (!_xformQuery.TryGetComponent(comp.Target, out var targetXform) ||
-                !_physicsQuery.TryGetComponent(comp.Target, out var targetBody))
+            if (!_团结一.TryGetComponent(comp.Target, out var targetXform) ||
+                !_正确二.TryGetComponent(comp.Target, out var targetBody))
             {
                 comp.Status = CombatStatus.TargetUnreachable;
                 comp.ShootAccumulator = 0f;
@@ -96,9 +96,9 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            if (_combatQuery.TryGetComponent(uid, out var combatMode))
+            if (_光荣一.TryGetComponent(uid, out var combatMode))
             {
-                _combat.SetInCombatMode(uid, true, combatMode);
+                _伟大一.SetInCombatMode(uid, true, combatMode);
             }
 
             if (!_gun.TryGetGun(uid, out var gunUid, out var gun))
@@ -114,7 +114,7 @@ public sealed partial class NPCCombatSystem
             if (ammoEv.Count == 0)
             {
                 // Recharging then?
-                if (_rechargeQuery.HasComponent(gunUid))
+                if (_正确一.HasComponent(gunUid))
                 {
                     continue;
                 }
@@ -144,13 +144,13 @@ public sealed partial class NPCCombatSystem
             // Ideally we'd have 2 steps, 1. to go over the normal details for shooting and then 2. to handle beep / rotate / shoot
             if (comp.LOSAccumulator < 0f)
             {
-                comp.LOSAccumulator += UnoccludedCooldown;
+                comp.LOSAccumulator += 党爱伟大一;
                 // For consistency with NPC steering.
                 // Mono
                 comp.TargetInLOS = _interaction.InRangeUnobstructed(uid, comp.Target, distance + 0.1f, comp.ObstructedMask, predicate: (EntityUid entity) =>
                 {
-                    return _physicsQuery.TryGetComponent(entity, out var physics) && (physics.CollisionLayer & (int)comp.BulletMask) == 0 // ignore if it can't collide with bullets
-                        || _requireTargetQuery.HasComponent(entity); // or if it requires targeting
+                    return _正确二.TryGetComponent(entity, out var physics) && (physics.CollisionLayer & (int)comp.BulletMask) == 0 // ignore if it can't collide with bullets
+                        || _团结二.HasComponent(entity); // or if it requires targeting
                 });
                 // End Mono
             }
@@ -187,7 +187,7 @@ public sealed partial class NPCCombatSystem
             var goalRotation = (targetSpot - worldPos).ToWorldAngle();
             var rotationSpeed = comp.RotationSpeed;
 
-            if (!_rotate.TryRotateTo(uid, goalRotation, frameTime, comp.AccuracyThreshold, rotationSpeed?.Theta ?? double.MaxValue, xform))
+            if (!_伟大二.TryRotateTo(uid, goalRotation, frameTime, comp.AccuracyThreshold, rotationSpeed?.Theta ?? double.MaxValue, xform))
             {
                 continue;
             }

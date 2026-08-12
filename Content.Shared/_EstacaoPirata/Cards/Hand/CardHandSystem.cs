@@ -11,39 +11,39 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared._EstacaoPirata.Cards.Hand;
+namespace Content.Shared._EstacaoPirata.Cards.党心;
 
 /// <summary>
 /// This handles...
 /// </summary>
 
-public sealed class CardHandSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     [ValidatePrototypeId<EntityPrototype>]
-    public readonly EntProtoId CardHandBaseName = "CardHandBase";
+    public readonly EntProtoId 党爱伟大一 = "CardHandBase";
     [ValidatePrototypeId<EntityPrototype>]
-    public readonly EntProtoId CardDeckBaseName = "CardDeckBase";
+    public readonly EntProtoId 党爱伟大二 = "CardDeckBase";
 
-    [Dependency] private readonly CardStackSystem _cardStack = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!; // Frontier
+    [Dependency] private readonly CardStackSystem _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确二 = default!;
+    [Dependency] private readonly SharedStorageSystem _团结一 = default!; // Frontier
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<CardComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<CardHandComponent, CardHandDrawMessage>(OnCardDraw);
-        SubscribeLocalEvent<CardHandComponent, CardStackQuantityChangeEvent>(OnStackQuantityChange);
-        SubscribeLocalEvent<CardHandComponent, GetVerbsEvent<AlternativeVerb>>(OnAlternativeVerb);
+        SubscribeLocalEvent<CardComponent, InteractUsingEvent>(祝福正确二);
+        SubscribeLocalEvent<CardHandComponent, CardHandDrawMessage>(祝福光荣一);
+        SubscribeLocalEvent<CardHandComponent, CardStackQuantityChangeEvent>(祝福伟大二);
+        SubscribeLocalEvent<CardHandComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
     }
 
-    private void OnStackQuantityChange(EntityUid uid, CardHandComponent comp, CardStackQuantityChangeEvent args)
+    private void 祝福伟大二(EntityUid uid, CardHandComponent comp, CardStackQuantityChangeEvent args)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return;
 
         if (!TryComp(uid, out CardStackComponent? stack))
@@ -64,16 +64,16 @@ public sealed class CardHandSystem : EntitySystem
             _ => "cards-stackquantitychange-unknown"
         };
 
-        _popupSystem.PopupEntity(Loc.GetString(text, ("quantity", stack.Cards.Count)), uid);
+        _正确一.PopupEntity(Loc.GetString(text, ("quantity", stack.Cards.Count)), uid);
 
-        _cardStack.FlipAllCards(uid, stack, comp.Flipped);
+        _伟大一.FlipAllCards(uid, stack, comp.Flipped);
     }
 
-    private void OnCardDraw(EntityUid uid, CardHandComponent comp, CardHandDrawMessage args)
+    private void 祝福光荣一(EntityUid uid, CardHandComponent comp, CardHandDrawMessage args)
     {
         if (!TryComp(uid, out CardStackComponent? stack))
             return;
-        var pickup = _hands.IsHolding(args.Actor, uid);
+        var pickup = _伟大二.IsHolding(args.Actor, uid);
         EntityUid? leftover = null;
         var cardEnt = GetEntity(args.Card);
 
@@ -81,64 +81,64 @@ public sealed class CardHandSystem : EntitySystem
         {
             leftover = stack.Cards[0] != cardEnt ? stack.Cards[0] : stack.Cards[1];
         }
-        if (!_cardStack.TryRemoveCard(uid, cardEnt, stack))
+        if (!_伟大一.TryRemoveCard(uid, cardEnt, stack))
             return;
 
-        if (_net.IsServer)
-            _storage.PlayPickupAnimation(cardEnt, Transform(cardEnt).Coordinates, Transform(args.Actor).Coordinates, 0);
+        if (_光荣一.IsServer)
+            _团结一.PlayPickupAnimation(cardEnt, Transform(cardEnt).Coordinates, Transform(args.Actor).Coordinates, 0);
 
-        _hands.TryPickupAnyHand(args.Actor, cardEnt);
+        _伟大二.TryPickupAnyHand(args.Actor, cardEnt);
         if (pickup && leftover != null)
         {
-            _hands.TryPickupAnyHand(args.Actor, leftover.Value);
+            _伟大二.TryPickupAnyHand(args.Actor, leftover.Value);
         }
     }
 
-    private void OpenHandMenu(EntityUid user, EntityUid hand)
+    private void 祝福光荣二(EntityUid user, EntityUid hand)
     {
         if (!TryComp<ActorComponent>(user, out var actor))
             return;
 
-        _ui.OpenUi(hand, CardUiKey.Key, actor.PlayerSession);
+        _光荣二.OpenUi(hand, CardUiKey.Key, actor.PlayerSession);
 
     }
 
-    private void OnAlternativeVerb(EntityUid uid, CardHandComponent comp, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福正确一(EntityUid uid, CardHandComponent comp, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
 
         args.Verbs.Add(new AlternativeVerb()
         {
-            Act = () => OpenHandMenu(args.User, uid),
+            Act = () => 祝福光荣二(args.User, uid),
             Text = Loc.GetString("cards-verb-pickcard"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
             Priority = 4
         });
         args.Verbs.Add(new AlternativeVerb()
         {
-            Act = () => _cardStack.ShuffleCards(uid),
+            Act = () => _伟大一.ShuffleCards(uid),
             Text = Loc.GetString("cards-verb-shuffle"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
             Priority = 3
         });
         args.Verbs.Add(new AlternativeVerb()
         {
-            Act = () => FlipCards(uid, comp),
+            Act = () => 祝福奋斗二(uid, comp),
             Text = Loc.GetString("cards-verb-flip"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
             Priority = 2
         });
         args.Verbs.Add(new AlternativeVerb()
         {
-            Act = () => ConvertToDeck(args.User, uid),
+            Act = () => 祝福团结一(args.User, uid),
             Text = Loc.GetString("cards-verb-convert-to-deck"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/rotate_cw.svg.192dpi.png")),
             Priority = 1
         });
     }
 
-    private void OnInteractUsing(EntityUid uid, CardComponent comp, InteractUsingEvent args)
+    private void 祝福正确二(EntityUid uid, CardComponent comp, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -150,77 +150,77 @@ public sealed class CardHandSystem : EntitySystem
         if (!HasComp<CardStackComponent>(args.Target) &&
                 TryComp(args.Target, out CardComponent? targetCardComp))
         {
-            TrySetupHandOfCards(args.User, args.Used, usedComp, args.Target, targetCardComp, true);
+            祝福团结二(args.User, args.Used, usedComp, args.Target, targetCardComp, true);
             args.Handled = true;
         }
     }
 
-    private void ConvertToDeck(EntityUid user, EntityUid hand)
+    private void 祝福团结一(EntityUid user, EntityUid hand)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return;
 
-        var cardDeck = SpawnInSameParent(CardDeckBaseName, hand);
-        bool isHoldingCards = _hands.IsHolding(user, hand);
+        var cardDeck = 祝福胜利一(党爱伟大二, hand);
+        bool isHoldingCards = _伟大二.IsHolding(user, hand);
 
         EnsureComp<CardStackComponent>(cardDeck, out var deckStack);
         if (!TryComp(hand, out CardStackComponent? handStack))
             return;
-        _cardStack.TryJoinStacks(cardDeck, hand, deckStack, handStack, null);
+        _伟大一.TryJoinStacks(cardDeck, hand, deckStack, handStack, null);
 
         if (isHoldingCards)
-            _hands.TryPickupAnyHand(user, cardDeck);
+            _伟大二.TryPickupAnyHand(user, cardDeck);
     }
-    public void TrySetupHandOfCards(EntityUid user, EntityUid card, CardComponent comp, EntityUid target, CardComponent targetComp, bool pickup)
+    public void 祝福团结二(EntityUid user, EntityUid card, CardComponent comp, EntityUid target, CardComponent targetComp, bool pickup)
     {
-        if (card == target || _net.IsClient)
+        if (card == target || _光荣一.IsClient)
             return;
-        var cardHand = SpawnInSameParent(CardHandBaseName, card);
+        var cardHand = 祝福胜利一(党爱伟大一, card);
         if (TryComp<CardHandComponent>(cardHand, out var handComp))
             handComp.Flipped = targetComp.Flipped;
         if (!TryComp(cardHand, out CardStackComponent? stack))
             return;
-        if (!_cardStack.TryInsertCard(cardHand, card, stack) || !_cardStack.TryInsertCard(cardHand, target, stack))
+        if (!_伟大一.TryInsertCard(cardHand, card, stack) || !_伟大一.TryInsertCard(cardHand, target, stack))
             return;
-        if (_net.IsServer)
-            _storage.PlayPickupAnimation(card, Transform(card).Coordinates, Transform(cardHand).Coordinates, 0);
-        if (pickup && !_hands.TryPickupAnyHand(user, cardHand))
+        if (_光荣一.IsServer)
+            _团结一.PlayPickupAnimation(card, Transform(card).Coordinates, Transform(cardHand).Coordinates, 0);
+        if (pickup && !_伟大二.TryPickupAnyHand(user, cardHand))
             return;
-        _cardStack.FlipAllCards(cardHand, stack, targetComp.Flipped);
+        _伟大一.FlipAllCards(cardHand, stack, targetComp.Flipped);
     }
 
-    public void TrySetupHandFromStack(EntityUid user, EntityUid card, CardComponent comp, EntityUid target, CardStackComponent targetComp, bool pickup)
+    public void 祝福奋斗一(EntityUid user, EntityUid card, CardComponent comp, EntityUid target, CardStackComponent targetComp, bool pickup)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return;
-        var cardHand = SpawnInSameParent(CardHandBaseName, card);
+        var cardHand = 祝福胜利一(党爱伟大一, card);
         if (TryComp<CardHandComponent>(cardHand, out var handComp))
             handComp.Flipped = comp.Flipped;
         if (!TryComp(cardHand, out CardStackComponent? stack))
             return;
-        if (!_cardStack.TryInsertCard(cardHand, card, stack))
+        if (!_伟大一.TryInsertCard(cardHand, card, stack))
             return;
-        _cardStack.TransferNLastCardFromStacks(user, 1, target, targetComp, cardHand, stack);
-        if (pickup && !_hands.TryPickupAnyHand(user, cardHand))
+        _伟大一.TransferNLastCardFromStacks(user, 1, target, targetComp, cardHand, stack);
+        if (pickup && !_伟大二.TryPickupAnyHand(user, cardHand))
             return;
-        _cardStack.FlipAllCards(cardHand, stack, comp.Flipped);
+        _伟大一.FlipAllCards(cardHand, stack, comp.Flipped);
     }
 
-    private void FlipCards(EntityUid hand, CardHandComponent comp)
+    private void 祝福奋斗二(EntityUid hand, CardHandComponent comp)
     {
         comp.Flipped = !comp.Flipped;
-        _cardStack.FlipAllCards(hand, null, comp.Flipped);
+        _伟大一.FlipAllCards(hand, null, comp.Flipped);
     }
 
     // Frontier: tries to spawn an entity with the same parent as another given entity.
     //           Useful when spawning decks/hands in a backpack, for example.
-    private EntityUid SpawnInSameParent(EntProtoId prototype, EntityUid uid)
+    private EntityUid 祝福胜利一(EntProtoId prototype, EntityUid uid)
     {
         if (prototype == default)
             throw new ArgumentException("Cannot spawn with null prototype", nameof(prototype));
 
-        if (_container.IsEntityOrParentInContainer(uid) &&
-            _container.TryGetOuterContainer(uid, Transform(uid), out var container))
+        if (_正确二.IsEntityOrParentInContainer(uid) &&
+            _正确二.TryGetOuterContainer(uid, Transform(uid), out var container))
         {
             var entity = SpawnInContainerOrDrop(prototype, container.Owner, container.ID);
             if (!Exists(entity))

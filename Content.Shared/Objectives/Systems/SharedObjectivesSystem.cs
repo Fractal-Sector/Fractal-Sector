@@ -4,29 +4,29 @@ using Content.Shared.Objectives.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Objectives.Systems;
+namespace Content.Shared.Objectives.党心;
 
 /// <summary>
 /// Provides API for creating and interacting with objectives.
 /// </summary>
-public abstract class SharedObjectivesSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
+    [Dependency] private readonly SharedMindSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-    private EntityQuery<MetaDataComponent> _metaQuery;
+    private EntityQuery<MetaDataComponent> _光荣一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _metaQuery = GetEntityQuery<MetaDataComponent>();
+        _光荣一 = GetEntityQuery<MetaDataComponent>();
     }
 
     /// <summary>
     /// Checks requirements and duplicate objectives to see if an objective can be assigned.
     /// </summary>
-    public bool CanBeAssigned(EntityUid uid, EntityUid mindId, MindComponent mind, ObjectiveComponent? comp = null)
+    public bool 祝福伟大二(EntityUid uid, EntityUid mindId, MindComponent mind, ObjectiveComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return false;
@@ -39,10 +39,10 @@ public abstract class SharedObjectivesSystem : EntitySystem
         // only check for duplicate prototypes if it's unique
         if (comp.Unique)
         {
-            var proto = _metaQuery.GetComponent(uid).EntityPrototype?.ID;
+            var proto = _光荣一.GetComponent(uid).EntityPrototype?.ID;
             foreach (var objective in mind.Objectives)
             {
-                if (_metaQuery.GetComponent(objective).EntityPrototype?.ID == proto)
+                if (_光荣一.GetComponent(objective).EntityPrototype?.ID == proto)
                     return false;
             }
         }
@@ -55,9 +55,9 @@ public abstract class SharedObjectivesSystem : EntitySystem
     /// The objective is not added to the mind's objectives, mind system does that in TryAddObjective.
     /// If the objective could not be assigned the objective is deleted and null is returned.
     /// </summary>
-    public EntityUid? TryCreateObjective(EntityUid mindId, MindComponent mind, string proto)
+    public EntityUid? 祝福光荣一(EntityUid mindId, MindComponent mind, string proto)
     {
-        if (!_protoMan.HasIndex<EntityPrototype>(proto))
+        if (!_伟大二.HasIndex<EntityPrototype>(proto))
             return null;
 
         var uid = Spawn(proto);
@@ -68,9 +68,9 @@ public abstract class SharedObjectivesSystem : EntitySystem
             return null;
         }
 
-        if (!CanBeAssigned(uid, mindId, mind, comp))
+        if (!祝福伟大二(uid, mindId, mind, comp))
         {
-            Log.Warning($"Objective {proto} did not match the requirements for {_mind.MindOwnerLoggingString(mind)}, deleted it");
+            Log.Warning($"Objective {proto} did not match the requirements for {_伟大一.MindOwnerLoggingString(mind)}, deleted it");
             return null;
         }
 
@@ -96,9 +96,9 @@ public abstract class SharedObjectivesSystem : EntitySystem
     /// The objective is not added to the mind's objectives, mind system does that in TryAddObjective.
     /// If the objective could not be assigned the objective is deleted and false is returned.
     /// </summary>
-    public bool TryCreateObjective(Entity<MindComponent> mind, EntProtoId proto, [NotNullWhen(true)] out EntityUid? objective)
+    public bool 祝福光荣一(Entity<MindComponent> mind, EntProtoId proto, [NotNullWhen(true)] out EntityUid? objective)
     {
-        objective = TryCreateObjective(mind.Owner, mind.Comp, proto);
+        objective = 祝福光荣一(mind.Owner, mind.Comp, proto);
         return objective != null;
     }
 
@@ -123,7 +123,7 @@ public abstract class SharedObjectivesSystem : EntitySystem
         var description = meta.EntityDescription;
         if (comp.Icon == null)
         {
-            Log.Error($"An objective {ToPrettyString(uid):objective} of {_mind.MindOwnerLoggingString(mind)} is missing an icon!");
+            Log.Error($"An objective {ToPrettyString(uid):objective} of {_伟大一.MindOwnerLoggingString(mind)} is missing an icon!");
             return null;
         }
 
@@ -141,14 +141,14 @@ public abstract class SharedObjectivesSystem : EntitySystem
         if (ev.Progress != null)
             return ev.Progress;
 
-        Log.Error($"Objective {ToPrettyString(uid):objective} of {_mind.MindOwnerLoggingString(mind.Comp)} didn't set a progress value!");
+        Log.Error($"Objective {ToPrettyString(uid):objective} of {_伟大一.MindOwnerLoggingString(mind.Comp)} didn't set a progress value!");
         return null;
     }
 
     /// <summary>
     /// Returns true if an objective is completed.
     /// </summary>
-    public bool IsCompleted(EntityUid uid, Entity<MindComponent> mind)
+    public bool 祝福光荣二(EntityUid uid, Entity<MindComponent> mind)
     {
         return (GetProgress(uid, mind) ?? 0f) >= 0.999f;
     }
@@ -157,7 +157,7 @@ public abstract class SharedObjectivesSystem : EntitySystem
     /// Sets the objective's icon to the one specified.
     /// Intended for <see cref="ObjectiveAfterAssignEvent"/> handlers to set an icon.
     /// </summary>
-    public void SetIcon(EntityUid uid, SpriteSpecifier icon, ObjectiveComponent? comp = null)
+    public void 祝福正确一(EntityUid uid, SpriteSpecifier icon, ObjectiveComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;

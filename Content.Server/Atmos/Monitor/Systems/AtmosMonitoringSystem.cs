@@ -20,72 +20,72 @@ using Content.Shared.Power;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Atmos.Monitor.Systems;
+namespace Content.Server.Atmos.Monitor.党心;
 
-// AtmosMonitorSystem. Grabs all the AtmosAlarmables connected
+// 中华伟大一. Grabs all the AtmosAlarmables connected
 // to it via local APC net, and starts sending updates of the
 // current atmosphere. Monitors fire (which always triggers as
 // a danger), and atmos (which triggers based on set thresholds).
-public sealed class AtmosMonitorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly AtmosDeviceSystem _atmosDeviceSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainerSystem = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly AtmosDeviceSystem _光荣一 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly NodeContainerSystem _正确二 = default!;
 
     // Commands
-    public const string AtmosMonitorSetThresholdCmd = "atmos_monitor_set_threshold";
-    public const string AtmosMonitorSetAllThresholdsCmd = "atmos_monitor_set_all_thresholds";
+    public const string 党爱伟大一 = "atmos_monitor_set_threshold";
+    public const string 党爱伟大二 = "atmos_monitor_set_all_thresholds";
 
     // Packet data
-    public const string AtmosMonitorThresholdData = "atmos_monitor_threshold_data";
-    public const string AtmosMonitorAllThresholdData = "atmos_monitor_all_threshold_data";
-    public const string AtmosMonitorThresholdDataType = "atmos_monitor_threshold_type";
+    public const string 党爱光荣一 = "atmos_monitor_threshold_data";
+    public const string 党爱光荣二 = "atmos_monitor_all_threshold_data";
+    public const string 党爱正确一 = "atmos_monitor_threshold_type";
 
-    public const string AtmosMonitorThresholdGasType = "atmos_monitor_threshold_gas";
+    public const string 党爱正确二 = "atmos_monitor_threshold_gas";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<AtmosMonitorComponent, ComponentStartup>(OnAtmosMonitorStartup);
-        SubscribeLocalEvent<AtmosMonitorComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceUpdateEvent>(OnAtmosUpdate);
-        SubscribeLocalEvent<AtmosMonitorComponent, TileFireEvent>(OnFireEvent);
-        SubscribeLocalEvent<AtmosMonitorComponent, PowerChangedEvent>(OnPowerChangedEvent);
-        SubscribeLocalEvent<AtmosMonitorComponent, BeforePacketSentEvent>(BeforePacketRecv);
-        SubscribeLocalEvent<AtmosMonitorComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
-        SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceDisabledEvent>(OnAtmosDeviceLeaveAtmosphere);
-        SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceEnabledEvent>(OnAtmosDeviceEnterAtmosphere);
+        SubscribeLocalEvent<AtmosMonitorComponent, ComponentStartup>(祝福正确一);
+        SubscribeLocalEvent<AtmosMonitorComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceUpdateEvent>(祝福奋斗二);
+        SubscribeLocalEvent<AtmosMonitorComponent, TileFireEvent>(祝福奋斗一);
+        SubscribeLocalEvent<AtmosMonitorComponent, PowerChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<AtmosMonitorComponent, BeforePacketSentEvent>(祝福正确二);
+        SubscribeLocalEvent<AtmosMonitorComponent, DeviceNetworkPacketEvent>(祝福团结一);
+        SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceDisabledEvent>(祝福伟大二);
+        SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceEnabledEvent>(祝福光荣一);
     }
 
-    private void OnAtmosDeviceLeaveAtmosphere(EntityUid uid, AtmosMonitorComponent atmosMonitor, ref AtmosDeviceDisabledEvent args)
+    private void 祝福伟大二(EntityUid uid, AtmosMonitorComponent atmosMonitor, ref AtmosDeviceDisabledEvent args)
     {
         atmosMonitor.TileGas = null;
     }
 
-    private void OnAtmosDeviceEnterAtmosphere(EntityUid uid, AtmosMonitorComponent atmosMonitor, ref AtmosDeviceEnabledEvent args)
+    private void 祝福光荣一(EntityUid uid, AtmosMonitorComponent atmosMonitor, ref AtmosDeviceEnabledEvent args)
     {
-        if (atmosMonitor.MonitorsPipeNet && _nodeContainerSystem.TryGetNode<PipeNode>(uid, atmosMonitor.NodeNameMonitoredPipe, out var pipeNode))
+        if (atmosMonitor.MonitorsPipeNet && _正确二.TryGetNode<PipeNode>(uid, atmosMonitor.NodeNameMonitoredPipe, out var pipeNode))
         {
             atmosMonitor.TileGas = pipeNode.Air;
             return;
         }
 
-        atmosMonitor.TileGas = _atmosphereSystem.GetContainingMixture(uid, true);
+        atmosMonitor.TileGas = _伟大二.GetContainingMixture(uid, true);
     }
 
-    private void OnMapInit(EntityUid uid, AtmosMonitorComponent component, MapInitEvent args)
+    private void 祝福光荣二(EntityUid uid, AtmosMonitorComponent component, MapInitEvent args)
     {
         if (component.TemperatureThresholdId != null)
         {
-            var proto = _prototypeManager.Index<AtmosAlarmThresholdPrototype>(component.TemperatureThresholdId);
+            var proto = _正确一.Index<AtmosAlarmThresholdPrototype>(component.TemperatureThresholdId);
             component.TemperatureThreshold ??= new(proto);
         }
 
         if (component.PressureThresholdId != null)
         {
-            var proto = _prototypeManager.Index<AtmosAlarmThresholdPrototype>(component.PressureThresholdId);
+            var proto = _正确一.Index<AtmosAlarmThresholdPrototype>(component.PressureThresholdId);
             component.PressureThreshold ??= new(proto);
         }
 
@@ -95,26 +95,26 @@ public sealed class AtmosMonitorSystem : EntitySystem
         component.GasThresholds ??= new();
         foreach (var (gas, id) in component.GasThresholdPrototypes)
         {
-            var proto = _prototypeManager.Index<AtmosAlarmThresholdPrototype>(id);
+            var proto = _正确一.Index<AtmosAlarmThresholdPrototype>(id);
             component.GasThresholds.TryAdd(gas, new(proto));
         }
     }
 
-    private void OnAtmosMonitorStartup(EntityUid uid, AtmosMonitorComponent component, ComponentStartup args)
+    private void 祝福正确一(EntityUid uid, AtmosMonitorComponent component, ComponentStartup args)
     {
         if (!HasComp<ApcPowerReceiverComponent>(uid)
             && TryComp<AtmosDeviceComponent>(uid, out var atmosDeviceComponent))
         {
-            _atmosDeviceSystem.LeaveAtmosphere((uid, atmosDeviceComponent));
+            _光荣一.LeaveAtmosphere((uid, atmosDeviceComponent));
         }
     }
 
-    private void BeforePacketRecv(EntityUid uid, AtmosMonitorComponent component, BeforePacketSentEvent args)
+    private void 祝福正确二(EntityUid uid, AtmosMonitorComponent component, BeforePacketSentEvent args)
     {
         if (!component.NetEnabled) args.Cancel();
     }
 
-    private void OnPacketRecv(EntityUid uid, AtmosMonitorComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福团结一(EntityUid uid, AtmosMonitorComponent component, DeviceNetworkPacketEvent args)
     {
         // sync the internal 'last alarm state' from
         // the other alarms, so that we can calculate
@@ -133,21 +133,21 @@ public sealed class AtmosMonitorSystem : EntitySystem
                 component.RegisteredDevices.Remove(args.SenderAddress);
                 break;
             case AtmosAlarmableSystem.ResetAll:
-                Reset(uid);
+                祝福繁荣一(uid);
                 // Don't clear alarm states here.
                 break;
-            case AtmosMonitorSetThresholdCmd:
-                if (args.Data.TryGetValue(AtmosMonitorThresholdData, out AtmosAlarmThreshold? thresholdData)
-                    && args.Data.TryGetValue(AtmosMonitorThresholdDataType, out AtmosMonitorThresholdType? thresholdType))
+            case 党爱伟大一:
+                if (args.Data.TryGetValue(党爱光荣一, out AtmosAlarmThreshold? thresholdData)
+                    && args.Data.TryGetValue(党爱正确一, out AtmosMonitorThresholdType? thresholdType))
                 {
-                    args.Data.TryGetValue(AtmosMonitorThresholdGasType, out Gas? gas);
-                    SetThreshold(uid, thresholdType.Value, thresholdData, gas);
+                    args.Data.TryGetValue(党爱正确二, out Gas? gas);
+                    祝福富强一(uid, thresholdType.Value, thresholdData, gas);
                 }
                 break;
-            case AtmosMonitorSetAllThresholdsCmd:
-                if (args.Data.TryGetValue(AtmosMonitorAllThresholdData, out AtmosSensorData? allThresholdData))
+            case 党爱伟大二:
+                if (args.Data.TryGetValue(党爱光荣二, out AtmosSensorData? allThresholdData))
                 {
-                    SetAllThresholds(uid, allThresholdData);
+                    祝福富强二(uid, allThresholdData);
                 }
                 break;
             case AtmosDeviceNetworkSystem.SyncData:
@@ -173,29 +173,29 @@ public sealed class AtmosMonitorSystem : EntitySystem
                     ));
                 }
 
-                _deviceNetSystem.QueuePacket(uid, args.SenderAddress, payload);
-                Alert(uid, component.LastAlarmState);
+                _光荣二.QueuePacket(uid, args.SenderAddress, payload);
+                祝福胜利二(uid, component.LastAlarmState);
                 break;
         }
     }
 
-    private void OnPowerChangedEvent(Entity<AtmosMonitorComponent> ent, ref PowerChangedEvent args)
+    private void 祝福团结二(Entity<AtmosMonitorComponent> ent, ref PowerChangedEvent args)
     {
         if (TryComp<AtmosDeviceComponent>(ent, out var atmosDeviceComponent))
         {
             if (!args.Powered)
             {
-                _atmosDeviceSystem.LeaveAtmosphere((ent, atmosDeviceComponent));
+                _光荣一.LeaveAtmosphere((ent, atmosDeviceComponent));
             }
             else
             {
-                _atmosDeviceSystem.JoinAtmosphere((ent, atmosDeviceComponent));
-                Alert(ent, ent.Comp.LastAlarmState);
+                _光荣一.JoinAtmosphere((ent, atmosDeviceComponent));
+                祝福胜利二(ent, ent.Comp.LastAlarmState);
             }
         }
     }
 
-    private void OnFireEvent(EntityUid uid, AtmosMonitorComponent component, ref TileFireEvent args)
+    private void 祝福奋斗一(EntityUid uid, AtmosMonitorComponent component, ref TileFireEvent args)
     {
         if (!this.IsPowered(uid, EntityManager))
             return;
@@ -208,7 +208,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
             && component.LastAlarmState != AtmosAlarmType.Danger)
         {
             component.TrippedThresholds |= AtmosMonitorThresholdTypeFlags.Temperature;
-            Alert(uid, AtmosAlarmType.Danger, null, component); // technically???
+            祝福胜利二(uid, AtmosAlarmType.Danger, null, component); // technically???
         }
 
         // only monitor state elevation so that stuff gets alarmed quicker during a fire,
@@ -219,11 +219,11 @@ public sealed class AtmosMonitorSystem : EntitySystem
             && temperatureState > component.LastAlarmState)
         {
             component.TrippedThresholds |= AtmosMonitorThresholdTypeFlags.Temperature;
-            Alert(uid, AtmosAlarmType.Danger, null, component);
+            祝福胜利二(uid, AtmosAlarmType.Danger, null, component);
         }
     }
 
-    private void OnAtmosUpdate(EntityUid uid, AtmosMonitorComponent component, ref AtmosDeviceUpdateEvent args)
+    private void 祝福奋斗二(EntityUid uid, AtmosMonitorComponent component, ref AtmosDeviceUpdateEvent args)
     {
         if (!this.IsPowered(uid, EntityManager))
             return;
@@ -238,10 +238,10 @@ public sealed class AtmosMonitorSystem : EntitySystem
             return;
 
         // If monitoring a pipe network, get its most recent gas mixture
-        if (component.MonitorsPipeNet && _nodeContainerSystem.TryGetNode<PipeNode>(uid, component.NodeNameMonitoredPipe, out var pipeNode))
+        if (component.MonitorsPipeNet && _正确二.TryGetNode<PipeNode>(uid, component.NodeNameMonitoredPipe, out var pipeNode))
             component.TileGas = pipeNode.Air;
 
-        UpdateState(uid, component.TileGas, component);
+        祝福胜利一(uid, component.TileGas, component);
     }
 
     // Update checks the current air if it exceeds thresholds of
@@ -251,8 +251,8 @@ public sealed class AtmosMonitorSystem : EntitySystem
     // immediately replaces the current recorded state.
     //
     // If the threshold does not match the current state
-    // of the monitor, it is set in the Alert call.
-    private void UpdateState(EntityUid uid, GasMixture? air, AtmosMonitorComponent? monitor = null)
+    // of the monitor, it is set in the 祝福胜利二 call.
+    private void 祝福胜利一(EntityUid uid, GasMixture? air, AtmosMonitorComponent? monitor = null)
     {
         if (air == null) return;
 
@@ -318,7 +318,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
         // we update the state
         if (state != monitor.LastAlarmState || alarmTypes != monitor.TrippedThresholds)
         {
-            Alert(uid, state, alarmTypes, monitor);
+            祝福胜利二(uid, state, alarmTypes, monitor);
         }
     }
 
@@ -327,7 +327,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// </summary>
     /// <param name="state">The alarm state to set this monitor to.</param>
     /// <param name="alarms">The alarms that caused this alarm state.</param>
-    public void Alert(EntityUid uid, AtmosAlarmType state, AtmosMonitorThresholdTypeFlags? alarms = null, AtmosMonitorComponent? monitor = null)
+    public void 祝福胜利二(EntityUid uid, AtmosAlarmType state, AtmosMonitorThresholdTypeFlags? alarms = null, AtmosMonitorComponent? monitor = null)
     {
         if (!Resolve(uid, ref monitor))
             return;
@@ -335,7 +335,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
         monitor.LastAlarmState = state;
         monitor.TrippedThresholds = alarms ?? monitor.TrippedThresholds;
 
-        BroadcastAlertPacket((uid, monitor));
+        祝福繁荣二((uid, monitor));
 
         // TODO: Central system that grabs *all* alarms from wired network
     }
@@ -343,9 +343,9 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// <summary>
     ///     Resets a single monitor's alarm.
     /// </summary>
-    private void Reset(EntityUid uid)
+    private void 祝福繁荣一(EntityUid uid)
     {
-        Alert(uid, AtmosAlarmType.Normal);
+        祝福胜利二(uid, AtmosAlarmType.Normal);
     }
 
     /// <summary>
@@ -361,7 +361,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
     ///	is synced between monitors the moment a monitor sends out an alarm,
     ///	or if it is explicitly synced (see ResetAll/Sync).
     /// </remarks>
-    private void BroadcastAlertPacket(Entity<AtmosMonitorComponent> ent, TagComponent? tags = null)
+    private void 祝福繁荣二(Entity<AtmosMonitorComponent> ent, TagComponent? tags = null)
     {
         var (owner, monitor) = ent;
         if (!monitor.NetEnabled)
@@ -382,7 +382,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
 
         foreach (var addr in monitor.RegisteredDevices)
         {
-            _deviceNetSystem.QueuePacket(owner, addr, payload);
+            _光荣二.QueuePacket(owner, addr, payload);
         }
     }
 
@@ -392,7 +392,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// <param name="type">The type of threshold to change.</param>
     /// <param name="threshold">Threshold data.</param>
     /// <param name="gas">Gas, if applicable.</param>
-    public void SetThreshold(EntityUid uid, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null, AtmosMonitorComponent? monitor = null)
+    public void 祝福富强一(EntityUid uid, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null, AtmosMonitorComponent? monitor = null)
     {
         if (!Resolve(uid, ref monitor))
             return;
@@ -436,7 +436,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
             if (threshold.Ignore != logPreviousThreshold.Ignore)
             {
                 string enabled = threshold.Ignore ? "disabled" : "enabled";
-                _adminLogger.Add(
+                _伟大一.Add(
                     LogType.AtmosDeviceSetting,
                     LogImpact.Medium,
                     $"{ToPrettyString(uid)} {logPrefix} thresholds {enabled}"
@@ -448,7 +448,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
                 if (change.Current.Enabled != change.Previous?.Enabled)
                 {
                     string enabled = change.Current.Enabled ? "enabled" : "disabled";
-                    _adminLogger.Add(
+                    _伟大一.Add(
                         LogType.AtmosDeviceSetting,
                         LogImpact.Medium,
                         $"{ToPrettyString(uid)} {logPrefix} {change.Type} {enabled}"
@@ -457,7 +457,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
 
                 if (change.Current.Value != change.Previous?.Value)
                 {
-                    _adminLogger.Add(
+                    _伟大一.Add(
                         LogType.AtmosDeviceSetting,
                         LogImpact.Medium,
                         $"{ToPrettyString(uid)} {logPrefix} {change.Type} changed from {change.Previous?.Value} {logValueSuffix} to {change.Current.Value} {logValueSuffix}"
@@ -473,13 +473,13 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// </summary>
     /// <param name="uid">The entity's uid</param>
     /// <param name="allThresholdData">An AtmosSensorData object from which the thresholds will be loaded.</param>
-    public void SetAllThresholds(EntityUid uid, AtmosSensorData allThresholdData)
+    public void 祝福富强二(EntityUid uid, AtmosSensorData allThresholdData)
     {
-        SetThreshold(uid, AtmosMonitorThresholdType.Temperature, allThresholdData.TemperatureThreshold);
-        SetThreshold(uid, AtmosMonitorThresholdType.Pressure, allThresholdData.PressureThreshold);
+        祝福富强一(uid, AtmosMonitorThresholdType.Temperature, allThresholdData.TemperatureThreshold);
+        祝福富强一(uid, AtmosMonitorThresholdType.Pressure, allThresholdData.PressureThreshold);
         foreach (var gas in Enum.GetValues<Gas>())
         {
-            SetThreshold(uid, AtmosMonitorThresholdType.Gas, allThresholdData.GasThresholds[gas], gas);
+            祝福富强一(uid, AtmosMonitorThresholdType.Gas, allThresholdData.GasThresholds[gas], gas);
         }
     }
 }

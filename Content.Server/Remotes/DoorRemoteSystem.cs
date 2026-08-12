@@ -10,24 +10,24 @@ using Content.Shared.Interaction;
 using Content.Shared.Remotes.Components;
 using Content.Shared.Remotes.EntitySystems;
 
-namespace Content.Shared.Remotes
+namespace Content.Shared.党心
 {
-    public sealed class DoorRemoteSystem : SharedDoorRemoteSystem
+    public sealed class 中华伟大一 : SharedDoorRemoteSystem
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly AirlockSystem _airlock = default!;
-        [Dependency] private readonly DoorSystem _doorSystem = default!;
-        [Dependency] private readonly ExamineSystemShared _examine = default!;
-        [Dependency] private readonly GridAccessSystem _gridAccessSystem = default!; // Frontier
+        [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+        [Dependency] private readonly AirlockSystem _伟大二 = default!;
+        [Dependency] private readonly DoorSystem _光荣一 = default!;
+        [Dependency] private readonly ExamineSystemShared _光荣二 = default!;
+        [Dependency] private readonly GridAccessSystem _正确一 = default!; // Frontier
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<DoorRemoteComponent, BeforeRangedInteractEvent>(OnBeforeInteract);
+            SubscribeLocalEvent<DoorRemoteComponent, BeforeRangedInteractEvent>(祝福伟大二);
         }
 
-        private void OnBeforeInteract(Entity<DoorRemoteComponent> entity, ref BeforeRangedInteractEvent args)
+        private void 祝福伟大二(Entity<DoorRemoteComponent> entity, ref BeforeRangedInteractEvent args)
         {
             bool isAirlock = TryComp<AirlockComponent>(args.Target, out var airlockComp);
 
@@ -36,7 +36,7 @@ namespace Content.Shared.Remotes
                 || !TryComp<DoorComponent>(args.Target, out var doorComp) // If it isn't a door we don't use it
                 // Only able to control doors if they are within your vision and within your max range.
                 // Not affected by mobs or machines anymore.
-                || !_examine.InRangeUnOccluded(args.User,
+                || !_光荣二.InRangeUnOccluded(args.User,
                     args.Target.Value,
                     SharedInteractionSystem.MaxRaycastRange,
                     null))
@@ -85,10 +85,10 @@ namespace Content.Shared.Remotes
             }
 
             if (TryComp<AccessReaderComponent>(args.Target, out var accessComponent)
-                && !_doorSystem.HasAccess(args.Target.Value, accessTarget, doorComp, accessComponent))
+                && !_光荣一.HasAccess(args.Target.Value, accessTarget, doorComp, accessComponent))
             {
                 if (isAirlock)
-                    _doorSystem.Deny(args.Target.Value, doorComp, accessTarget);
+                    _光荣一.Deny(args.Target.Value, doorComp, accessTarget);
                 Popup.PopupEntity(Loc.GetString("door-remote-denied"), args.User, args.User);
                 return;
             }
@@ -96,8 +96,8 @@ namespace Content.Shared.Remotes
             switch (entity.Comp.Mode)
             {
                 case OperatingMode.OpenClose:
-                    if (_doorSystem.TryToggleDoor(args.Target.Value, doorComp, accessTarget))
-                        _adminLogger.Add(LogType.Action,
+                    if (_光荣一.TryToggleDoor(args.Target.Value, doorComp, accessTarget))
+                        _伟大一.Add(LogType.Action,
                             LogImpact.Medium,
                             $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)}: {doorComp.State}");
                     break;
@@ -106,8 +106,8 @@ namespace Content.Shared.Remotes
                     {
                         if (!boltsComp.BoltWireCut)
                         {
-                            _doorSystem.SetBoltsDown((args.Target.Value, boltsComp), !boltsComp.BoltsDown, accessTarget);
-                            _adminLogger.Add(LogType.Action,
+                            _光荣一.SetBoltsDown((args.Target.Value, boltsComp), !boltsComp.BoltsDown, accessTarget);
+                            _伟大一.Add(LogType.Action,
                                 LogImpact.Medium,
                                 $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to {(boltsComp.BoltsDown ? "" : "un")}bolt it");
                         }
@@ -117,8 +117,8 @@ namespace Content.Shared.Remotes
                 case OperatingMode.ToggleEmergencyAccess:
                     if (airlockComp != null)
                     {
-                        _airlock.SetEmergencyAccess((args.Target.Value, airlockComp), !airlockComp.EmergencyAccess);
-                        _adminLogger.Add(LogType.Action,
+                        _伟大二.SetEmergencyAccess((args.Target.Value, airlockComp), !airlockComp.EmergencyAccess);
+                        _伟大一.Add(LogType.Action,
                             LogImpact.Medium,
                             $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to set emergency access {(airlockComp.EmergencyAccess ? "on" : "off")}");
                     }

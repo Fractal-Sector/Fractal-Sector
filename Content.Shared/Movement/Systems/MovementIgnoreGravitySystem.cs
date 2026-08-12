@@ -2,24 +2,24 @@
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public sealed class MovementIgnoreGravitySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     [Dependency] SharedGravitySystem _gravity = default!;
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MovementAlwaysTouchingComponent, CanWeightlessMoveEvent>(OnWeightless);
-        SubscribeLocalEvent<MovementIgnoreGravityComponent, IsWeightlessEvent>(OnIsWeightless);
-        SubscribeLocalEvent<MovementIgnoreGravityComponent, ComponentStartup>(OnComponentStartup);
+        SubscribeLocalEvent<MovementAlwaysTouchingComponent, CanWeightlessMoveEvent>(祝福伟大二);
+        SubscribeLocalEvent<MovementIgnoreGravityComponent, IsWeightlessEvent>(祝福光荣一);
+        SubscribeLocalEvent<MovementIgnoreGravityComponent, ComponentStartup>(祝福光荣二);
     }
 
-    private void OnWeightless(Entity<MovementAlwaysTouchingComponent> entity, ref CanWeightlessMoveEvent args)
+    private void 祝福伟大二(Entity<MovementAlwaysTouchingComponent> entity, ref CanWeightlessMoveEvent args)
     {
         args.CanMove = true;
     }
 
-    private void OnIsWeightless(Entity<MovementIgnoreGravityComponent> entity, ref IsWeightlessEvent args)
+    private void 祝福光荣一(Entity<MovementIgnoreGravityComponent> entity, ref IsWeightlessEvent args)
     {
         // We don't check if the event has been handled as this component takes precedent over other things.
 
@@ -27,7 +27,7 @@ public sealed class MovementIgnoreGravitySystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnComponentStartup(Entity<MovementIgnoreGravityComponent> entity, ref ComponentStartup args)
+    private void 祝福光荣二(Entity<MovementIgnoreGravityComponent> entity, ref ComponentStartup args)
     {
         EnsureComp<GravityAffectedComponent>(entity);
         _gravity.RefreshWeightless(entity.Owner, entity.Comp.Weightless);

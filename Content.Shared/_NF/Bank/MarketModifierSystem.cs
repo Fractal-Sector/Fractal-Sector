@@ -2,19 +2,19 @@ using Content.Shared.Examine;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared.VendingMachines;
 
-namespace Content.Shared._NF.Bank;
+namespace Content.Shared._NF.党心;
 
-public sealed partial class MarketModifierSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MarketModifierComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<MarketModifierComponent, ExaminedEvent>(祝福伟大二);
     }
 
     // This code is licensed under AGPLv3. See AGPLv3.txt
-    private void OnExamined(Entity<MarketModifierComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<MarketModifierComponent> ent, ref ExaminedEvent args)
     {
         // If the machine is a vendor, don't print out rates
         if (HasComp<VendingMachineComponent>(ent))

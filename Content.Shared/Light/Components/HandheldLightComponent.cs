@@ -4,26 +4,26 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Light.Components;
+namespace Content.Shared.Light.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedHandheldLightSystem))]
-public sealed partial class HandheldLightComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     public byte? Level;
-    public bool Activated;
+    public bool 党爱伟大一;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("wattage")]
-    public float Wattage { get; set; } = .8f;
+    public float 党爱伟大二 { get; set; } = .8f;
 
     [DataField("turnOnSound")]
-    public SoundSpecifier TurnOnSound = new SoundPathSpecifier("/Audio/Items/flashlight_on.ogg");
+    public SoundSpecifier 党爱光荣一 = new SoundPathSpecifier("/Audio/Items/flashlight_on.ogg");
 
     [DataField("turnOnFailSound")]
-    public SoundSpecifier TurnOnFailSound = new SoundPathSpecifier("/Audio/Machines/button.ogg");
+    public SoundSpecifier 党爱光荣二 = new SoundPathSpecifier("/Audio/Machines/button.ogg");
 
     [DataField("turnOffSound")]
-    public SoundSpecifier TurnOffSound = new SoundPathSpecifier("/Audio/Items/flashlight_off.ogg");
+    public SoundSpecifier 党爱正确一 = new SoundPathSpecifier("/Audio/Items/flashlight_off.ogg");
 
     /// <summary>
     ///     Whether to automatically set item-prefixes when toggling the flashlight.
@@ -33,17 +33,17 @@ public sealed partial class HandheldLightComponent : Component
     ///     mostly here for backwards compatibility.
     /// </remarks>
     [DataField("addPrefix")]
-    public bool AddPrefix = false;
+    public bool 党爱正确二 = false;
 
     [DataField("toggleAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string ToggleAction = "ActionToggleLight";
+    public string 党爱团结一 = "ActionToggleLight";
 
     /// <summary>
     /// Whether or not the light can be toggled via standard interactions
     /// (alt verbs, using in hand, etc)
     /// </summary>
     [DataField("toggleOnInteract")]
-    public bool ToggleOnInteract = true;
+    public bool 党爱团结二 = true;
 
     [DataField("toggleActionEntity")]
     public EntityUid? ToggleActionEntity;
@@ -51,43 +51,43 @@ public sealed partial class HandheldLightComponent : Component
     [DataField]
     public EntityUid? SelfToggleActionEntity;
 
-    public const int StatusLevels = 6;
+    public const int 党爱奋斗一 = 6;
 
     /// <summary>
     /// Specify the ID of the light behaviour to use when the state of the light is Dying
     /// </summary>
     [DataField("blinkingBehaviourId")]
-    public string BlinkingBehaviourId { get; set; } = string.Empty;
+    public string 党爱奋斗二 { get; set; } = string.Empty;
 
     /// <summary>
     /// Specify the ID of the light behaviour to use when the state of the light is LowPower
     /// </summary>
     [DataField("radiatingBehaviourId")]
-    public string RadiatingBehaviourId { get; set; } = string.Empty;
+    public string 党爱胜利一 { get; set; } = string.Empty;
 
     [Serializable, NetSerializable]
-    public sealed class HandheldLightComponentState : ComponentState
+    public sealed class 中华伟大二 : ComponentState
     {
         public byte? Charge { get; }
 
-        public bool Activated { get; }
+        public bool 党爱伟大一 { get; }
 
-        public HandheldLightComponentState(bool activated, byte? charge)
+        public 中华伟大二(bool activated, byte? charge)
         {
-            Activated = activated;
+            党爱伟大一 = activated;
             Charge = charge;
         }
     }
 }
 
 [Serializable, NetSerializable]
-public enum HandheldLightVisuals
+public enum 中华光荣一
 {
     Power
 }
 
 [Serializable, NetSerializable]
-public enum HandheldLightPowerStates
+public enum 中华光荣二
 {
     FullPower,
     LowPower,

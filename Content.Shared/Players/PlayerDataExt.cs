@@ -1,8 +1,8 @@
 using Robust.Shared.Player;
 
-namespace Content.Shared.Players;
+namespace Content.Shared.党心;
 
-public static class PlayerDataExt
+public static class 中华伟大一
 {
     /// <summary>
     ///     Gets the correctly cast instance of content player data from an engine player data storage.

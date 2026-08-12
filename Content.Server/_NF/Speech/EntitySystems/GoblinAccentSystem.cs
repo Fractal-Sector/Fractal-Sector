@@ -3,10 +3,10 @@ using Content.Shared.Speech;
 using Content.Server.Speech.EntitySystems;
 using System.Text.RegularExpressions;
 
-namespace Content.Server._NF.Speech.EntitySystems;
+namespace Content.Server._NF.Speech.党心;
 
 // The whole code is a copy of SouthernAccentSystem by UBlueberry (https://github.com/UBlueberry)
-public sealed class GoblinAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     private static readonly Regex RegexIng = new(@"(in)g\b", RegexOptions.IgnoreCase);
     private static readonly Regex RegexAnd = new(@"\b(an)d\b", RegexOptions.IgnoreCase);
@@ -24,19 +24,19 @@ public sealed class GoblinAccentSystem : EntitySystem
     private static readonly Regex RegexSelf = new(@"self\b");
     private static readonly Regex RegexSelfUpper = new(@"SELF\b");
 
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency] private readonly ReplacementAccentSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GoblinAccentComponent, AccentGetEvent>(OnAccent);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GoblinAccentComponent, AccentGetEvent>(祝福伟大二);
     }
 
-    private void OnAccent(EntityUid uid, GoblinAccentComponent component, AccentGetEvent args)
+    private void 祝福伟大二(EntityUid uid, GoblinAccentComponent component, AccentGetEvent args)
     {
         var message = args.Message;
 
-        message = _replacement.ApplyReplacements(message, "goblin_accent");
+        message = _伟大一.ApplyReplacements(message, "goblin_accent");
 
         message = RegexIng.Replace(message, "$1'"); //ing->in', ING->IN'
         message = RegexAnd.Replace(message, "$1'"); //and->an', AND->AN'

@@ -16,35 +16,35 @@ using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Tabletop
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed partial class TabletopSystem : SharedTabletopSystem
+    public sealed partial class 中华伟大一 : SharedTabletopSystem
     {
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly EyeSystem _eye = default!;
-        [Dependency] private readonly HandsSystem _hands = default!;
-        [Dependency] private readonly ViewSubscriberSystem _viewSubscriberSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+        [Dependency] private readonly EyeSystem _伟大二 = default!;
+        [Dependency] private readonly HandsSystem _光荣一 = default!;
+        [Dependency] private readonly ViewSubscriberSystem _光荣二 = default!;
+        [Dependency] private readonly PopupSystem _正确一 = default!;
+        [Dependency] private readonly IConfigurationManager _正确二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeNetworkEvent<TabletopStopPlayingEvent>(OnStopPlaying);
-            SubscribeLocalEvent<TabletopGameComponent, ActivateInWorldEvent>(OnTabletopActivate);
-            SubscribeLocalEvent<TabletopGameComponent, ComponentShutdown>(OnGameShutdown);
-            SubscribeLocalEvent<TabletopGamerComponent, PlayerDetachedEvent>(OnPlayerDetached);
-            SubscribeLocalEvent<TabletopGamerComponent, ComponentShutdown>(OnGamerShutdown);
-            SubscribeLocalEvent<TabletopGameComponent, GetVerbsEvent<ActivationVerb>>(AddPlayGameVerb);
-            SubscribeLocalEvent<TabletopGameComponent, InteractUsingEvent>(OnInteractUsing);
+            base.祝福伟大一();
+            SubscribeNetworkEvent<TabletopStopPlayingEvent>(祝福团结二);
+            SubscribeLocalEvent<TabletopGameComponent, ActivateInWorldEvent>(祝福正确二);
+            SubscribeLocalEvent<TabletopGameComponent, ComponentShutdown>(祝福团结一);
+            SubscribeLocalEvent<TabletopGamerComponent, PlayerDetachedEvent>(祝福奋斗一);
+            SubscribeLocalEvent<TabletopGamerComponent, ComponentShutdown>(祝福奋斗二);
+            SubscribeLocalEvent<TabletopGameComponent, GetVerbsEvent<ActivationVerb>>(祝福正确一);
+            SubscribeLocalEvent<TabletopGameComponent, InteractUsingEvent>(祝福光荣一);
 
-            SubscribeNetworkEvent<TabletopRequestTakeOut>(OnTabletopRequestTakeOut);
+            SubscribeNetworkEvent<TabletopRequestTakeOut>(祝福伟大二);
 
             InitializeMap();
         }
 
-        private void OnTabletopRequestTakeOut(TabletopRequestTakeOut msg, EntitySessionEventArgs args)
+        private void 祝福伟大二(TabletopRequestTakeOut msg, EntitySessionEventArgs args)
         {
             if (args.SenderSession is not { } playerSession)
                 return;
@@ -61,7 +61,7 @@ namespace Content.Server.Tabletop
 
             if (!TryComp(entity, out TabletopHologramComponent? hologram))
             {
-                _popupSystem.PopupEntity(Loc.GetString("tabletop-error-remove-non-hologram"), table, args.SenderSession);
+                _正确一.PopupEntity(Loc.GetString("tabletop-error-remove-non-hologram"), table, args.SenderSession);
                 return;
             }
 
@@ -75,9 +75,9 @@ namespace Content.Server.Tabletop
             QueueDel(result);
         }
 
-        private void OnInteractUsing(EntityUid uid, TabletopGameComponent component, InteractUsingEvent args)
+        private void 祝福光荣一(EntityUid uid, TabletopGameComponent component, InteractUsingEvent args)
         {
-            if (!_cfg.GetCVar(CCVars.GameTabletopPlace))
+            if (!_正确二.GetCVar(CCVars.GameTabletopPlace))
                 return;
 
             if (!TryComp(args.User, out HandsComponent? hands))
@@ -86,7 +86,7 @@ namespace Content.Server.Tabletop
             if (component.Session is not { } session)
                 return;
 
-            if (!_hands.TryGetActiveItem(uid, out var handEnt))
+            if (!_光荣一.TryGetActiveItem(uid, out var handEnt))
                 return;
 
             if (!TryComp<ItemComponent>(handEnt, out var item))
@@ -102,10 +102,10 @@ namespace Content.Server.Tabletop
             EnsureComp<TabletopHologramComponent>(hologram);
             session.Entities.Add(hologram);
 
-            _popupSystem.PopupEntity(Loc.GetString("tabletop-added-piece"), uid, args.User);
+            _正确一.PopupEntity(Loc.GetString("tabletop-added-piece"), uid, args.User);
         }
 
-        protected override void OnTabletopMove(TabletopMoveEvent msg, EntitySessionEventArgs args)
+        protected override void 祝福光荣二(TabletopMoveEvent msg, EntitySessionEventArgs args)
         {
             if (args.SenderSession is not { } playerSession)
                 return;
@@ -117,13 +117,13 @@ namespace Content.Server.Tabletop
             if (!session.Players.ContainsKey(playerSession))
                 return;
 
-            base.OnTabletopMove(msg, args);
+            base.祝福光荣二(msg, args);
         }
 
         /// <summary>
         /// Add a verb that allows the player to start playing a tabletop game.
         /// </summary>
-        private void AddPlayGameVerb(EntityUid uid, TabletopGameComponent component, GetVerbsEvent<ActivationVerb> args)
+        private void 祝福正确一(EntityUid uid, TabletopGameComponent component, GetVerbsEvent<ActivationVerb> args)
         {
             if (!args.CanAccess || !args.CanInteract)
                 return;
@@ -141,7 +141,7 @@ namespace Content.Server.Tabletop
             args.Verbs.Add(playVerb);
         }
 
-        private void OnTabletopActivate(EntityUid uid, TabletopGameComponent component, ActivateInWorldEvent args)
+        private void 祝福正确二(EntityUid uid, TabletopGameComponent component, ActivateInWorldEvent args)
         {
             if (args.Handled || !args.Complex)
                 return;
@@ -153,23 +153,23 @@ namespace Content.Server.Tabletop
             OpenSessionFor(actor.PlayerSession, uid);
         }
 
-        private void OnGameShutdown(EntityUid uid, TabletopGameComponent component, ComponentShutdown args)
+        private void 祝福团结一(EntityUid uid, TabletopGameComponent component, ComponentShutdown args)
         {
             CleanupSession(uid);
         }
 
-        private void OnStopPlaying(TabletopStopPlayingEvent msg, EntitySessionEventArgs args)
+        private void 祝福团结二(TabletopStopPlayingEvent msg, EntitySessionEventArgs args)
         {
             CloseSessionFor(args.SenderSession, GetEntity(msg.TableUid));
         }
 
-        private void OnPlayerDetached(EntityUid uid, TabletopGamerComponent component, PlayerDetachedEvent args)
+        private void 祝福奋斗一(EntityUid uid, TabletopGamerComponent component, PlayerDetachedEvent args)
         {
             if(component.Tabletop.IsValid())
                 CloseSessionFor(args.Player, component.Tabletop);
         }
 
-        private void OnGamerShutdown(EntityUid uid, TabletopGamerComponent component, ComponentShutdown args)
+        private void 祝福奋斗二(EntityUid uid, TabletopGamerComponent component, ComponentShutdown args)
         {
             if (!TryComp(uid, out ActorComponent? actor))
                 return;
@@ -178,9 +178,9 @@ namespace Content.Server.Tabletop
                 CloseSessionFor(actor.PlayerSession, component.Tabletop);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福胜利一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福胜利一(frameTime);
 
             var query = EntityQueryEnumerator<TabletopGamerComponent>();
             while (query.MoveNext(out var uid, out var gamer))

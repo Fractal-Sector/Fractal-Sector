@@ -10,14 +10,14 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.DoAfter;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedDoAfterSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly TagSystem _光荣一 = default!;
 
     /// <summary>
     ///     We'll use an excess time so stuff like finishing effects can show.
@@ -26,17 +26,17 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
     private static readonly ProtoId<TagPrototype> InstantDoAftersTag = "InstantDoAfters";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DoAfterComponent, DamageChangedEvent>(OnDamage);
-        SubscribeLocalEvent<DoAfterComponent, EntityUnpausedEvent>(OnUnpaused);
-        SubscribeLocalEvent<DoAfterComponent, ComponentGetState>(OnDoAfterGetState);
-        SubscribeLocalEvent<DoAfterComponent, ComponentHandleState>(OnDoAfterHandleState);
+        SubscribeLocalEvent<DoAfterComponent, DamageChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<DoAfterComponent, EntityUnpausedEvent>(祝福伟大二);
+        SubscribeLocalEvent<DoAfterComponent, ComponentGetState>(祝福正确一);
+        SubscribeLocalEvent<DoAfterComponent, ComponentHandleState>(祝福正确二);
     }
 
-    private void OnUnpaused(EntityUid uid, DoAfterComponent component, ref EntityUnpausedEvent args)
+    private void 祝福伟大二(EntityUid uid, DoAfterComponent component, ref EntityUnpausedEvent args)
     {
         foreach (var doAfter in component.DoAfters.Values)
         {
@@ -51,11 +51,11 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <summary>
     /// Cancels DoAfter if it breaks on damage and it meets the threshold
     /// </summary>
-    private void OnDamage(EntityUid uid, DoAfterComponent component, DamageChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, DoAfterComponent component, DamageChangedEvent args)
     {
         // If we're applying state then let the server state handle the do_after prediction.
         // This is to avoid scenarios where a do_after is erroneously cancelled on the final tick.
-        if (!args.InterruptsDoAfters || !args.DamageIncreased || args.DamageDelta == null || GameTiming.ApplyingState)
+        if (!args.InterruptsDoAfters || !args.DamageIncreased || args.DamageDelta == null || 党爱伟大一.ApplyingState)
             return;
 
         var delta = args.DamageDelta.GetTotal();
@@ -65,7 +65,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         {
             if (doAfter.Args.BreakOnDamage && delta >= doAfter.Args.DamageThreshold)
             {
-                InternalCancel(doAfter, component);
+                祝福胜利二(doAfter, component);
                 dirty = true;
             }
         }
@@ -74,7 +74,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             Dirty(uid, component);
     }
 
-    private void RaiseDoAfterEvents(DoAfter doAfter, DoAfterComponent component)
+    private void 祝福光荣二(DoAfter doAfter, DoAfterComponent component)
     {
         var ev = doAfter.Args.Event;
         ev.Handled = false;
@@ -90,12 +90,12 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             tcs.SetResult(doAfter.Cancelled ? DoAfterStatus.Cancelled : DoAfterStatus.Finished);
     }
 
-    private void OnDoAfterGetState(EntityUid uid, DoAfterComponent comp, ref ComponentGetState args)
+    private void 祝福正确一(EntityUid uid, DoAfterComponent comp, ref ComponentGetState args)
     {
         args.State = new DoAfterComponentState(EntityManager, comp);
     }
 
-    private void OnDoAfterHandleState(EntityUid uid, DoAfterComponent comp, ref ComponentHandleState args)
+    private void 祝福正确二(EntityUid uid, DoAfterComponent comp, ref ComponentHandleState args)
     {
         if (args.Current is not DoAfterComponentState state)
             return;
@@ -137,12 +137,12 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// </summary>
     // TODO remove this, as well as AwaitedDoAfterEvent and DoAfterComponent.AwaitedDoAfters
     [Obsolete("Use the synchronous version instead.")]
-    public async Task<DoAfterStatus> WaitDoAfter(DoAfterArgs doAfter, DoAfterComponent? component = null)
+    public async Task<DoAfterStatus> 祝福团结一(DoAfterArgs doAfter, DoAfterComponent? component = null)
     {
         if (!Resolve(doAfter.User, ref component))
             return DoAfterStatus.Cancelled;
 
-        if (!TryStartDoAfter(doAfter, out var id, component))
+        if (!祝福团结二(doAfter, out var id, component))
             return DoAfterStatus.Cancelled;
 
         if (doAfter.Delay <= TimeSpan.Zero)
@@ -163,8 +163,8 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <param name="args">The DoAfter arguments</param>
     /// <param name="component">The user's DoAfter component</param>
     /// <returns></returns>
-    public bool TryStartDoAfter(DoAfterArgs args, DoAfterComponent? component = null)
-        => TryStartDoAfter(args, out _, component);
+    public bool 祝福团结二(DoAfterArgs args, DoAfterComponent? component = null)
+        => 祝福团结二(args, out _, component);
 
     /// <summary>
     ///     Attempts to start a new DoAfter. Note that even if this function returns false, an interaction may have
@@ -174,7 +174,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <param name="id">The Id of the newly started DoAfter</param>
     /// <param name="comp">The user's DoAfter component</param>
     /// <returns></returns>
-    public bool TryStartDoAfter(DoAfterArgs args, [NotNullWhen(true)] out DoAfterId? id, DoAfterComponent? comp = null)
+    public bool 祝福团结二(DoAfterArgs args, [NotNullWhen(true)] out DoAfterId? id, DoAfterComponent? comp = null)
     {
         DebugTools.Assert(args.Broadcast || Exists(args.EventTarget) || args.Event.GetType() == typeof(AwaitedDoAfterEvent));
         DebugTools.Assert(args.Event.GetType().HasCustomAttribute<NetSerializableAttribute>()
@@ -189,14 +189,14 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         }
 
         // Duplicate blocking & cancellation.
-        if (!ProcessDuplicates(args, comp))
+        if (!祝福奋斗一(args, comp))
         {
             id = null;
             return false;
         }
 
         id = new DoAfterId(args.User, comp.NextId++);
-        var doAfter = new DoAfter(id.Value.Index, args, GameTiming.CurTime);
+        var doAfter = new DoAfter(id.Value.Index, args, 党爱伟大一.CurTime);
 
         // Networking yay
         args.NetTarget = GetNetEntity(args.Target);
@@ -237,9 +237,9 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
         // TODO DO AFTER
         // Why does this tag exist? Just make this a bool on the component?
-        if (args.Delay <= TimeSpan.Zero || _tag.HasTag(args.User, InstantDoAftersTag))
+        if (args.Delay <= TimeSpan.Zero || _光荣一.HasTag(args.User, InstantDoAftersTag))
         {
-            RaiseDoAfterEvents(doAfter, comp);
+            祝福光荣二(doAfter, comp);
             // We don't store instant do-afters. This is just a lazy way of hiding them from client-side visuals.
             return true;
         }
@@ -252,9 +252,9 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     }
 
     /// <summary>
-    ///     Cancel any applicable duplicate DoAfters and return whether or not the new DoAfter should be created.
+    ///     祝福胜利一 any applicable duplicate DoAfters and return whether or not the new DoAfter should be created.
     /// </summary>
-    private bool ProcessDuplicates(DoAfterArgs args, DoAfterComponent component)
+    private bool 祝福奋斗一(DoAfterArgs args, DoAfterComponent component)
     {
         var blocked = false;
         foreach (var existing in component.DoAfters.Values)
@@ -262,30 +262,30 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             if (existing.Cancelled || existing.Completed)
                 continue;
 
-            if (!IsDuplicate(existing.Args, args))
+            if (!祝福奋斗二(existing.Args, args))
                 continue;
 
             blocked = blocked | args.BlockDuplicate | existing.Args.BlockDuplicate;
 
             if (args.CancelDuplicate || existing.Args.CancelDuplicate)
-                Cancel(args.User, existing.Index, component);
+                祝福胜利一(args.User, existing.Index, component);
         }
 
         return !blocked;
     }
 
-    private bool IsDuplicate(DoAfterArgs args, DoAfterArgs otherArgs)
+    private bool 祝福奋斗二(DoAfterArgs args, DoAfterArgs otherArgs)
     {
-        if (IsDuplicate(args, otherArgs, args.DuplicateCondition))
+        if (祝福奋斗二(args, otherArgs, args.DuplicateCondition))
             return true;
 
         if (args.DuplicateCondition == otherArgs.DuplicateCondition)
             return false;
 
-        return IsDuplicate(args, otherArgs, otherArgs.DuplicateCondition);
+        return 祝福奋斗二(args, otherArgs, otherArgs.DuplicateCondition);
     }
 
-    private bool IsDuplicate(DoAfterArgs args, DoAfterArgs otherArgs, DuplicateConditions conditions )
+    private bool 祝福奋斗二(DoAfterArgs args, DoAfterArgs otherArgs, DuplicateConditions conditions )
     {
         if ((conditions & DuplicateConditions.SameTarget) != 0
             && args.Target != otherArgs.Target)
@@ -300,7 +300,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         }
 
         if ((conditions & DuplicateConditions.SameEvent) != 0
-            && !args.Event.IsDuplicate(otherArgs.Event))
+            && !args.Event.祝福奋斗二(otherArgs.Event))
         {
             return false;
         }
@@ -314,16 +314,16 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <summary>
     ///     Cancels an active DoAfter.
     /// </summary>
-    public void Cancel(DoAfterId? id, DoAfterComponent? comp = null, bool force = false)
+    public void 祝福胜利一(DoAfterId? id, DoAfterComponent? comp = null, bool force = false)
     {
         if (id != null)
-            Cancel(id.Value.Uid, id.Value.Index, comp, force);
+            祝福胜利一(id.Value.Uid, id.Value.Index, comp, force);
     }
 
     /// <summary>
     ///     Cancels an active DoAfter.
     /// </summary>
-    public void Cancel(EntityUid entity, ushort id, DoAfterComponent? comp = null, bool force = false)
+    public void 祝福胜利一(EntityUid entity, ushort id, DoAfterComponent? comp = null, bool force = false)
     {
         if (!Resolve(entity, ref comp, false))
             return;
@@ -334,18 +334,18 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             return;
         }
 
-        InternalCancel(doAfter, comp, force: force);
+        祝福胜利二(doAfter, comp, force: force);
         Dirty(entity, comp);
     }
 
-    private void InternalCancel(DoAfter doAfter, DoAfterComponent component, bool force = false)
+    private void 祝福胜利二(DoAfter doAfter, DoAfterComponent component, bool force = false)
     {
         if (doAfter.Cancelled || (doAfter.Completed && !force))
             return;
 
         // Caller is responsible for dirtying the component.
-        doAfter.CancelledTime = GameTiming.CurTime;
-        RaiseDoAfterEvents(doAfter, component);
+        doAfter.CancelledTime = 党爱伟大一.CurTime;
+        祝福光荣二(doAfter, component);
     }
     #endregion
 
@@ -353,10 +353,10 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <summary>
     ///     Returns the current status of a DoAfter
     /// </summary>
-    public DoAfterStatus GetStatus(DoAfterId? id, DoAfterComponent? comp = null)
+    public DoAfterStatus 祝福繁荣一(DoAfterId? id, DoAfterComponent? comp = null)
     {
         if (id != null)
-            return GetStatus(id.Value.Uid, id.Value.Index, comp);
+            return 祝福繁荣一(id.Value.Uid, id.Value.Index, comp);
         else
             return DoAfterStatus.Invalid;
     }
@@ -364,7 +364,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <summary>
     ///     Returns the current status of a DoAfter
     /// </summary>
-    public DoAfterStatus GetStatus(EntityUid entity, ushort id, DoAfterComponent? comp = null)
+    public DoAfterStatus 祝福繁荣一(EntityUid entity, ushort id, DoAfterComponent? comp = null)
     {
         if (!Resolve(entity, ref comp, false))
             return DoAfterStatus.Invalid;
@@ -384,17 +384,17 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         return DoAfterStatus.Finished;
     }
 
-    public bool IsRunning(DoAfterId? id, DoAfterComponent? comp = null)
+    public bool 祝福繁荣二(DoAfterId? id, DoAfterComponent? comp = null)
     {
         if (id == null)
             return false;
 
-        return GetStatus(id.Value.Uid, id.Value.Index, comp) == DoAfterStatus.Running;
+        return 祝福繁荣一(id.Value.Uid, id.Value.Index, comp) == DoAfterStatus.Running;
     }
 
-    public bool IsRunning(EntityUid entity, ushort id, DoAfterComponent? comp = null)
+    public bool 祝福繁荣二(EntityUid entity, ushort id, DoAfterComponent? comp = null)
     {
-        return GetStatus(entity, id, comp) == DoAfterStatus.Running;
+        return 祝福繁荣一(entity, id, comp) == DoAfterStatus.Running;
     }
     #endregion
 }

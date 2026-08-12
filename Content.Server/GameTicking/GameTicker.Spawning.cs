@@ -27,31 +27,31 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.Server._Corvax.Respawn; // Frontier
+using Content.Server._Corvax.祝福光荣二; // Frontier
 using Content.Shared._NF.Roles.Components; // Frontier
 
-namespace Content.Server.GameTicking
+namespace Content.Server.党心
 {
-    public sealed partial class GameTicker
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly SharedJobSystem _jobs = default!;
-        [Dependency] private readonly AdminSystem _admin = default!;
-        [Dependency] private readonly RespawnSystem _respawn = default!; // Frontier
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
+        [Dependency] private readonly SharedJobSystem _伟大二 = default!;
+        [Dependency] private readonly AdminSystem _光荣一 = default!;
+        [Dependency] private readonly RespawnSystem _光荣二 = default!; // Frontier
 
-        public static readonly EntProtoId ObserverPrototypeName = "MobObserver";
-        public static readonly EntProtoId AdminObserverPrototypeName = "AdminObserver";
+        public static readonly EntProtoId 党爱伟大一 = "MobObserver";
+        public static readonly EntProtoId 党爱伟大二 = "AdminObserver";
 
         /// <summary>
         /// How many players have joined the round through normal methods.
         /// Useful for game rules to look at. Doesn't count observers, people in lobby, etc.
         /// </summary>
-        public int PlayersJoinedRoundNormally;
+        public int 党爱光荣一;
 
         // Mainly to avoid allocations.
-        private readonly List<EntityCoordinates> _possiblePositions = new();
+        private readonly List<EntityCoordinates> _正确一 = new();
 
-        private List<EntityUid> GetSpawnableStations()
+        private List<EntityUid> 祝福伟大一()
         {
             var spawnableStations = new List<EntityUid>();
             var query = EntityQueryEnumerator<StationJobsComponent, StationSpawningComponent>();
@@ -63,7 +63,7 @@ namespace Content.Server.GameTicking
             return spawnableStations;
         }
 
-        private void SpawnPlayers(List<ICommonSession> readyPlayers,
+        private void 祝福伟大二(List<ICommonSession> readyPlayers,
             Dictionary<NetUserId, HumanoidCharacterProfile> profiles,
             bool force)
         {
@@ -92,7 +92,7 @@ namespace Content.Server.GameTicking
                 }
             }
 
-            var spawnableStations = GetSpawnableStations();
+            var spawnableStations = 祝福伟大一();
             var assignedJobs = _stationJobs.AssignJobs(profiles, spawnableStations);
 
             _stationJobs.AssignOverflowJobs(ref assignedJobs, playerNetIds, profiles, spawnableStations);
@@ -123,7 +123,7 @@ namespace Content.Server.GameTicking
                 if (job == null)
                     continue;
 
-                SpawnPlayer(_playerManager.GetSessionById(player), profiles[player], station, job, false);
+                祝福光荣一(_playerManager.GetSessionById(player), profiles[player], station, job, false);
             }
 
             RefreshLateJoinAllowed();
@@ -135,7 +135,7 @@ namespace Content.Server.GameTicking
                 force));
         }
 
-        private void SpawnPlayer(ICommonSession player,
+        private void 祝福光荣一(ICommonSession player,
             EntityUid station,
             string? jobId = null,
             bool lateJoin = true,
@@ -155,10 +155,10 @@ namespace Content.Server.GameTicking
                     return;
             }
 
-            SpawnPlayer(player, character, station, jobId, lateJoin, silent);
+            祝福光荣一(player, character, station, jobId, lateJoin, silent);
         }
 
-        private void SpawnPlayer(ICommonSession player,
+        private void 祝福光荣一(ICommonSession player,
             HumanoidCharacterProfile character,
             EntityUid station,
             string? jobId = null,
@@ -171,7 +171,7 @@ namespace Content.Server.GameTicking
 
             if (station == EntityUid.Invalid)
             {
-                var stations = GetSpawnableStations();
+                var stations = 祝福伟大一();
                 _robustRandom.Shuffle(stations);
                 if (stations.Count == 0)
                     station = EntityUid.Invalid;
@@ -181,7 +181,7 @@ namespace Content.Server.GameTicking
 
             if (lateJoin && DisallowLateJoin)
             {
-                JoinAsObserver(player);
+                祝福正确二(player);
                 return;
             }
 
@@ -245,7 +245,7 @@ namespace Content.Server.GameTicking
             {
                 if (!LobbyEnabled)
                 {
-                    JoinAsObserver(player);
+                    祝福正确二(player);
                 }
 
                 var evNoJobs = new NoJobsAvailableSpawningEvent(player); // Used by gamerules to wipe their antag slot, if they got one
@@ -292,8 +292,8 @@ namespace Content.Server.GameTicking
             // End Frontier
 
             _roles.MindAddJobRole(newMind, silent: silent, jobPrototype: jobId);
-            var jobName = _jobs.MindTryGetJobName(newMind);
-            _admin.UpdatePlayerList(player);
+            var jobName = _伟大二.MindTryGetJobName(newMind);
+            _光荣一.UpdatePlayerList(player);
 
             if (lateJoin && !silent)
             {
@@ -364,29 +364,29 @@ namespace Content.Server.GameTicking
             }
 
             // We raise this event directed to the mob, but also broadcast it so game rules can do something now.
-            PlayersJoinedRoundNormally++;
+            党爱光荣一++;
             var aev = new PlayerSpawnCompleteEvent(mob,
                 player,
                 jobId,
                 lateJoin,
                 silent,
-                PlayersJoinedRoundNormally,
+                党爱光荣一,
                 station,
                 character);
             RaiseLocalEvent(mob, aev, true);
         }
 
-        public void Respawn(ICommonSession player)
+        public void 祝福光荣二(ICommonSession player)
         {
             _mind.WipeMind(player);
-            _adminLogger.Add(LogType.Respawn, LogImpact.Medium, $"Player {player} was respawned.");
+            _adminLogger.Add(LogType.祝福光荣二, LogImpact.Medium, $"Player {player} was respawned.");
 
-            _respawn.Respawn(player); // Frontier: reset respawn
+            _光荣二.祝福光荣二(player); // Frontier: reset respawn
 
             if (LobbyEnabled)
                 PlayerJoinLobby(player);
             else
-                SpawnPlayer(player, EntityUid.Invalid);
+                祝福光荣一(player, EntityUid.Invalid);
         }
 
         /// <summary>
@@ -396,7 +396,7 @@ namespace Content.Server.GameTicking
         /// <param name="station">The station they're spawning on</param>
         /// <param name="jobId">An optional job for them to spawn as</param>
         /// <param name="silent">Whether or not the player should be greeted upon joining</param>
-        public void MakeJoinGame(ICommonSession player, EntityUid station, string? jobId = null, bool silent = false)
+        public void 祝福正确一(ICommonSession player, EntityUid station, string? jobId = null, bool silent = false)
         {
             if (!_playerGameStatuses.ContainsKey(player.UserId))
                 return;
@@ -404,27 +404,27 @@ namespace Content.Server.GameTicking
             if (!_userDb.IsLoadComplete(player))
                 return;
 
-            SpawnPlayer(player, station, jobId, silent: silent);
+            祝福光荣一(player, station, jobId, silent: silent);
         }
 
         /// <summary>
-        /// Causes the given player to join the current game as observer ghost. See also <see cref="SpawnObserver"/>
+        /// Causes the given player to join the current game as observer ghost. See also <see cref="祝福团结一"/>
         /// </summary>
-        public void JoinAsObserver(ICommonSession player)
+        public void 祝福正确二(ICommonSession player)
         {
             // Can't spawn players with a dummy ticker!
             if (DummyTicker)
                 return;
 
             PlayerJoinGame(player);
-            SpawnObserver(player);
+            祝福团结一(player);
         }
 
         /// <summary>
         /// Spawns an observer ghost and attaches the given player to it. If the player does not yet have a mind, the
         /// player is given a new mind with the observer role. Otherwise, the current mind is transferred to the ghost.
         /// </summary>
-        public void SpawnObserver(ICommonSession player)
+        public void 祝福团结一(ICommonSession player)
         {
             if (DummyTicker)
                 return;
@@ -451,9 +451,9 @@ namespace Content.Server.GameTicking
 
         #region Spawn Points
 
-        public EntityCoordinates GetObserverSpawnPoint()
+        public EntityCoordinates 祝福团结二()
         {
-            _possiblePositions.Clear();
+            _正确一.Clear();
             var spawnPointQuery = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
             while (spawnPointQuery.MoveNext(out var uid, out var point, out var transform))
             {
@@ -465,13 +465,13 @@ namespace Content.Server.GameTicking
                     continue;
                 }
 
-                _possiblePositions.Add(transform.Coordinates);
+                _正确一.Add(transform.Coordinates);
             }
 
             var metaQuery = GetEntityQuery<MetaDataComponent>();
 
             // Fallback to a random grid.
-            if (_possiblePositions.Count == 0)
+            if (_正确一.Count == 0)
             {
                 var query = AllEntityQuery<MapGridComponent>();
                 while (query.MoveNext(out var uid, out var grid))
@@ -481,16 +481,16 @@ namespace Content.Server.GameTicking
                         continue;
                     }
 
-                    _possiblePositions.Add(new EntityCoordinates(uid, Vector2.Zero));
+                    _正确一.Add(new EntityCoordinates(uid, Vector2.Zero));
                 }
             }
 
-            if (_possiblePositions.Count != 0)
+            if (_正确一.Count != 0)
             {
                 // TODO: This is just here for the eye lerping.
                 // Ideally engine would just spawn them on grid directly I guess? Right now grid traversal is handling it during
                 // update which means we need to add a hack somewhere around it.
-                var spawn = _robustRandom.Pick(_possiblePositions);
+                var spawn = _robustRandom.Pick(_正确一);
                 var toMap = _transform.ToMapCoordinates(spawn);
 
                 if (_mapManager.TryFindGridAt(toMap, out var gridUid, out _))

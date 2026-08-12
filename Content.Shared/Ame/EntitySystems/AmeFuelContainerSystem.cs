@@ -1,21 +1,21 @@
 using Content.Shared.Ame.Components;
 using Content.Shared.Examine;
 
-namespace Content.Shared.Ame.EntitySystems;
+namespace Content.Shared.Ame.党心;
 
 /// <summary>
 /// Adds details about fuel level when examining antimatter engine fuel containers.
 /// </summary>
-public sealed class AmeFuelContainerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AmeFuelContainerComponent, ExaminedEvent>(OnFuelExamined);
+        SubscribeLocalEvent<AmeFuelContainerComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnFuelExamined(EntityUid uid, AmeFuelContainerComponent comp, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, AmeFuelContainerComponent comp, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;

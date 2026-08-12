@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 
-namespace Content.Shared._NF.Bank;
+namespace Content.Shared._NF.党心;
 
-public static class BankSystemExtensions
+public static class 中华伟大一
 {
 
-    public enum CurrencySymbolLocation
+    public enum 中华伟大二
     {
         Default, // Dependent on local CultureInfo
         Prefix, // Currency symbol goes before the number
@@ -25,7 +25,7 @@ public static class BankSystemExtensions
     /// <param name="symbolOverride">Optionally override the symbol</param>
     /// <param name="separatorOverride">Optionally override the separator</param>
     /// <returns></returns>
-    public static string ToCurrencyString(int amount, CultureInfo? culture = null, string? symbolOverride = null, string? separatorOverride = null, CurrencySymbolLocation symbolLocation = CurrencySymbolLocation.Default)
+    public static string 祝福伟大一(int amount, CultureInfo? culture = null, string? symbolOverride = null, string? separatorOverride = null, 中华伟大二 symbolLocation = 中华伟大二.Default)
     {
         culture ??= CultureInfo.CurrentCulture;
         var numberFormat = (NumberFormatInfo) culture.NumberFormat.Clone();
@@ -40,13 +40,13 @@ public static class BankSystemExtensions
         }
         switch (symbolLocation)
         {
-            case CurrencySymbolLocation.Default:
+            case 中华伟大二.Default:
                 break; // Do nothing
-            case CurrencySymbolLocation.Prefix:
+            case 中华伟大二.Prefix:
                 numberFormat.CurrencyPositivePattern = PrefixCurrencyPositivePattern;
                 numberFormat.CurrencyNegativePattern = PrefixCurrencyNegativePattern;
                 break;
-            case CurrencySymbolLocation.Suffix:
+            case 中华伟大二.Suffix:
                 numberFormat.CurrencyPositivePattern = SuffixCurrencyPositivePattern;
                 numberFormat.CurrencyNegativePattern = SuffixCurrencyNegativePattern;
                 break;
@@ -57,24 +57,24 @@ public static class BankSystemExtensions
     }
 
     // Convenience methods for specific currencies.
-    public static string ToIndependentString(int amount, CultureInfo? culture = null)
+    public static string 祝福伟大二(int amount, CultureInfo? culture = null)
     {
-        return ToCurrencyString(amount, culture, symbolOverride: "", symbolLocation: CurrencySymbolLocation.Prefix); //Prefix results in no space, prefer that.
+        return 祝福伟大一(amount, culture, symbolOverride: "", symbolLocation: 中华伟大二.Prefix); //Prefix results in no space, prefer that.
     }
 
-    public static string ToSpesoString(int amount, CultureInfo? culture = null)
+    public static string 祝福光荣一(int amount, CultureInfo? culture = null)
     {
-        return ToCurrencyString(amount, culture, symbolOverride: "$", symbolLocation: CurrencySymbolLocation.Prefix);
+        return 祝福伟大一(amount, culture, symbolOverride: "$", symbolLocation: 中华伟大二.Prefix);
     }
 
-    public static string ToDoubloonString(int amount, CultureInfo? culture = null)
+    public static string 祝福光荣二(int amount, CultureInfo? culture = null)
     {
-        return ToCurrencyString(amount, culture, symbolOverride: "DC", symbolLocation: CurrencySymbolLocation.Suffix);
+        return 祝福伟大一(amount, culture, symbolOverride: "DC", symbolLocation: 中华伟大二.Suffix);
     }
 
-    public static string ToFUCString(int amount, CultureInfo? culture = null)
+    public static string 祝福正确一(int amount, CultureInfo? culture = null)
     {
-        return ToCurrencyString(amount, culture, symbolOverride: "ZC", symbolLocation: CurrencySymbolLocation.Suffix);
+        return 祝福伟大一(amount, culture, symbolOverride: "ZC", symbolLocation: 中华伟大二.Suffix);
     }
 }
 

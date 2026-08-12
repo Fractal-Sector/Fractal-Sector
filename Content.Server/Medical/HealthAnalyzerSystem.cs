@@ -21,36 +21,36 @@ using Robust.Shared.Timing;
 using Content.Server._NF.Medical; // Frontier
 using Content.Server._NF.Traits.Assorted; // Frontier
 
-namespace Content.Server.Medical;
+namespace Content.Server.党心;
 
-public sealed class HealthAnalyzerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PowerCellSystem _cell = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly PowerCellSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
+    [Dependency] private readonly ItemToggleSystem _正确一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _正确二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _团结一 = default!;
+    [Dependency] private readonly TransformSystem _团结二 = default!;
+    [Dependency] private readonly SharedPopupSystem _奋斗一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<HealthAnalyzerComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<HealthAnalyzerComponent, HealthAnalyzerDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<HealthAnalyzerComponent, EntGotInsertedIntoContainerMessage>(OnInsertedIntoContainer);
-        SubscribeLocalEvent<HealthAnalyzerComponent, ItemToggledEvent>(OnToggled);
-        SubscribeLocalEvent<HealthAnalyzerComponent, DroppedEvent>(OnDropped);
+        SubscribeLocalEvent<HealthAnalyzerComponent, AfterInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<HealthAnalyzerComponent, HealthAnalyzerDoAfterEvent>(祝福光荣二);
+        SubscribeLocalEvent<HealthAnalyzerComponent, EntGotInsertedIntoContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<HealthAnalyzerComponent, ItemToggledEvent>(祝福正确二);
+        SubscribeLocalEvent<HealthAnalyzerComponent, DroppedEvent>(祝福团结一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var analyzerQuery = EntityQueryEnumerator<HealthAnalyzerComponent, TransformComponent>();
         while (analyzerQuery.MoveNext(out var uid, out var component, out var transform))
         {
-            //Update rate limited to 1 second
-            if (component.NextUpdate > _timing.CurTime)
+            //祝福伟大二 rate limited to 1 second
+            if (component.NextUpdate > _伟大一.CurTime)
                 continue;
 
             if (component.ScannedEntity is not {} patient)
@@ -58,23 +58,23 @@ public sealed class HealthAnalyzerSystem : EntitySystem
 
             if (Deleted(patient))
             {
-                StopAnalyzingEntity((uid, component), patient);
+                祝福奋斗二((uid, component), patient);
                 continue;
             }
 
-            component.NextUpdate = _timing.CurTime + component.UpdateInterval;
+            component.NextUpdate = _伟大一.CurTime + component.UpdateInterval;
 
             //Get distance between health analyzer and the scanned entity
             //null is infinite range
             var patientCoordinates = Transform(patient).Coordinates;
-            if (component.MaxScanRange != null && !_transformSystem.InRange(patientCoordinates, transform.Coordinates, component.MaxScanRange.Value))
+            if (component.MaxScanRange != null && !_团结二.InRange(patientCoordinates, transform.Coordinates, component.MaxScanRange.Value))
             {
                 //Range too far, disable updates
-                PauseAnalyzingEntity((uid, component), patient); // DeltaV - Analyzer Reactivation
+                祝福胜利一((uid, component), patient); // DeltaV - Analyzer Reactivation
                 continue;
             }
 
-            UpdateScannedUser(uid, patient, true);
+            祝福胜利二(uid, patient, true);
             component.IsAnalyzerActive = true; // DeltaV - Analyzer Reactivation
         }
     }
@@ -82,14 +82,14 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// <summary>
     /// Trigger the doafter for scanning
     /// </summary>
-    private void OnAfterInteract(Entity<HealthAnalyzerComponent> uid, ref AfterInteractEvent args)
+    private void 祝福光荣一(Entity<HealthAnalyzerComponent> uid, ref AfterInteractEvent args)
     {
-        if (args.Target == null || !args.CanReach || !HasComp<MobStateComponent>(args.Target) || !_cell.HasDrawCharge(uid, user: args.User))
+        if (args.Target == null || !args.CanReach || !HasComp<MobStateComponent>(args.Target) || !_伟大二.HasDrawCharge(uid, user: args.User))
             return;
 
-        _audio.PlayPvs(uid.Comp.ScanningBeginSound, uid);
+        _光荣一.PlayPvs(uid.Comp.ScanningBeginSound, uid);
 
-        var doAfterCancelled = !_doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, uid.Comp.ScanDelay, new HealthAnalyzerDoAfterEvent(), uid, target: args.Target, used: uid)
+        var doAfterCancelled = !_光荣二.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, uid.Comp.ScanDelay, new HealthAnalyzerDoAfterEvent(), uid, target: args.Target, used: uid)
         {
             NeedHand = true,
             BreakOnMove = true,
@@ -99,55 +99,55 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             return;
 
         var msg = Loc.GetString("health-analyzer-popup-scan-target", ("user", Identity.Entity(args.User, EntityManager)));
-        _popupSystem.PopupEntity(msg, args.Target.Value, args.Target.Value, PopupType.Medium);
+        _奋斗一.PopupEntity(msg, args.Target.Value, args.Target.Value, PopupType.Medium);
     }
 
-    private void OnDoAfter(Entity<HealthAnalyzerComponent> uid, ref HealthAnalyzerDoAfterEvent args)
+    private void 祝福光荣二(Entity<HealthAnalyzerComponent> uid, ref HealthAnalyzerDoAfterEvent args)
     {
-        if (args.Handled || args.Cancelled || args.Target == null || !_cell.HasDrawCharge(uid, user: args.User))
+        if (args.Handled || args.Cancelled || args.Target == null || !_伟大二.HasDrawCharge(uid, user: args.User))
             return;
 
         if (!uid.Comp.Silent)
-            _audio.PlayPvs(uid.Comp.ScanningEndSound, uid);
+            _光荣一.PlayPvs(uid.Comp.ScanningEndSound, uid);
 
-        OpenUserInterface(args.User, uid);
-        BeginAnalyzingEntity(uid, args.Target.Value);
+        祝福团结二(args.User, uid);
+        祝福奋斗一(uid, args.Target.Value);
         args.Handled = true;
     }
 
     /// <summary>
     /// Turn off when placed into a storage item or moved between slots/hands
     /// </summary>
-    private void OnInsertedIntoContainer(Entity<HealthAnalyzerComponent> uid, ref EntGotInsertedIntoContainerMessage args)
+    private void 祝福正确一(Entity<HealthAnalyzerComponent> uid, ref EntGotInsertedIntoContainerMessage args)
     {
         if (uid.Comp.ScannedEntity is { } patient)
-            _toggle.TryDeactivate(uid.Owner);
+            _正确一.TryDeactivate(uid.Owner);
     }
 
     /// <summary>
     /// Disable continuous updates once turned off
     /// </summary>
-    private void OnToggled(Entity<HealthAnalyzerComponent> ent, ref ItemToggledEvent args)
+    private void 祝福正确二(Entity<HealthAnalyzerComponent> ent, ref ItemToggledEvent args)
     {
         if (!args.Activated && ent.Comp.ScannedEntity is { } patient)
-            StopAnalyzingEntity(ent, patient);
+            祝福奋斗二(ent, patient);
     }
 
     /// <summary>
     /// Turn off the analyser when dropped
     /// </summary>
-    private void OnDropped(Entity<HealthAnalyzerComponent> uid, ref DroppedEvent args)
+    private void 祝福团结一(Entity<HealthAnalyzerComponent> uid, ref DroppedEvent args)
     {
         if (uid.Comp.ScannedEntity is { } patient)
-            _toggle.TryDeactivate(uid.Owner);
+            _正确一.TryDeactivate(uid.Owner);
     }
 
-    private void OpenUserInterface(EntityUid user, EntityUid analyzer)
+    private void 祝福团结二(EntityUid user, EntityUid analyzer)
     {
-        if (!_uiSystem.HasUi(analyzer, HealthAnalyzerUiKey.Key))
+        if (!_团结一.HasUi(analyzer, HealthAnalyzerUiKey.Key))
             return;
 
-        _uiSystem.OpenUi(analyzer, HealthAnalyzerUiKey.Key, user);
+        _团结一.OpenUi(analyzer, HealthAnalyzerUiKey.Key, user);
     }
 
     /// <summary>
@@ -155,14 +155,14 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     /// <param name="healthAnalyzer">The health analyzer that should receive the updates</param>
     /// <param name="target">The entity to start analyzing</param>
-    private void BeginAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
+    private void 祝福奋斗一(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
     {
         //Link the health analyzer to the scanned entity
         healthAnalyzer.Comp.ScannedEntity = target;
 
-        _toggle.TryActivate(healthAnalyzer.Owner);
+        _正确一.TryActivate(healthAnalyzer.Owner);
 
-        UpdateScannedUser(healthAnalyzer, target, true);
+        祝福胜利二(healthAnalyzer, target, true);
     }
 
     /// <summary>
@@ -170,26 +170,26 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     /// <param name="healthAnalyzer">The health analyzer that's receiving the updates</param>
     /// <param name="target">The entity to analyze</param>
-    private void StopAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
+    private void 祝福奋斗二(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
     {
         //Unlink the analyzer
         healthAnalyzer.Comp.ScannedEntity = null;
 
-        _toggle.TryDeactivate(healthAnalyzer.Owner);
+        _正确一.TryDeactivate(healthAnalyzer.Owner);
 
-        UpdateScannedUser(healthAnalyzer, target, false);
+        祝福胜利二(healthAnalyzer, target, false);
     }
     /// <summary>
     /// DeltaV - If the scanner is active, sends one last update and sets it to inactive.
     /// </summary>
     /// <param name="healthAnalyzer">The health analyzer that's receiving the updates</param>
     /// <param name="target">The entity to analyze</param>
-    private void PauseAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
+    private void 祝福胜利一(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
     {
         if (!healthAnalyzer.Comp.IsAnalyzerActive)
             return;
 
-        UpdateScannedUser(healthAnalyzer, target, false);
+        祝福胜利二(healthAnalyzer, target, false);
         healthAnalyzer.Comp.IsAnalyzerActive = false;
     }
     /// <summary>
@@ -198,9 +198,9 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// <param name="healthAnalyzer">The health analyzer</param>
     /// <param name="target">The entity being scanned</param>
     /// <param name="scanMode">True makes the UI show ACTIVE, False makes the UI show INACTIVE</param>
-    public void UpdateScannedUser(EntityUid healthAnalyzer, EntityUid target, bool scanMode)
+    public void 祝福胜利二(EntityUid healthAnalyzer, EntityUid target, bool scanMode)
     {
-        if (!_uiSystem.HasUi(healthAnalyzer, HealthAnalyzerUiKey.Key))
+        if (!_团结一.HasUi(healthAnalyzer, HealthAnalyzerUiKey.Key))
             return;
 
         if (!HasComp<DamageableComponent>(target))
@@ -217,7 +217,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         var unclonable = false; // Frontier
 
         if (TryComp<BloodstreamComponent>(target, out var bloodstream) &&
-            _solutionContainerSystem.ResolveSolution(target, bloodstream.BloodSolutionName,
+            _正确二.ResolveSolution(target, bloodstream.BloodSolutionName,
                 ref bloodstream.BloodSolution, out var bloodSolution))
         {
             bloodAmount = bloodSolution.FillFraction;
@@ -234,7 +234,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
 
         var printable = HasComp<HealthAnalyzerPrinterComponent>(healthAnalyzer); // Frontier
 
-        _uiSystem.ServerSendUiMessage(healthAnalyzer, HealthAnalyzerUiKey.Key, new HealthAnalyzerScannedUserMessage(
+        _团结一.ServerSendUiMessage(healthAnalyzer, HealthAnalyzerUiKey.Key, new HealthAnalyzerScannedUserMessage(
             GetNetEntity(target),
             bodyTemperature,
             bloodAmount,

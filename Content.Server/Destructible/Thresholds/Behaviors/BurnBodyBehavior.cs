@@ -5,14 +5,14 @@ using Content.Shared.Popups;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Destructible.Thresholds.Behaviors;
+namespace Content.Server.Destructible.Thresholds.党心;
 
 [UsedImplicitly]
 [DataDefinition]
-public sealed partial class BurnBodyBehavior : IThresholdBehavior
+public sealed partial class 中华伟大一 : IThresholdBehavior
 {
 
-    public void Execute(EntityUid bodyId, DestructibleSystem system, EntityUid? cause = null)
+    public void 祝福伟大一(EntityUid bodyId, DestructibleSystem system, EntityUid? cause = null)
     {
         var transformSystem = system.EntityManager.System<TransformSystem>();
         var inventorySystem = system.EntityManager.System<InventorySystem>();

@@ -6,14 +6,14 @@ using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="OreDunGen"/>
     /// </summary>
-    private async Task PostGen(
+    private async Task 祝福伟大一(
         OreDunGen gen,
         List<Dungeon> dungeons,
         HashSet<Vector2i> reservedTiles,

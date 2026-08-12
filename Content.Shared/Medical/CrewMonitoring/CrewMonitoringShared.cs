@@ -1,21 +1,21 @@
 using Content.Shared.Medical.SuitSensor;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Medical.CrewMonitoring;
+namespace Content.Shared.Medical.党心;
 
 [Serializable, NetSerializable]
-public enum CrewMonitoringUIKey
+public enum 中华伟大一
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class CrewMonitoringState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public List<SuitSensorStatus> Sensors;
+    public List<SuitSensorStatus> 党爱伟大一;
 
-    public CrewMonitoringState(List<SuitSensorStatus> sensors)
+    public 中华伟大二(List<SuitSensorStatus> sensors)
     {
-        Sensors = sensors;
+        党爱伟大一 = sensors;
     }
 }

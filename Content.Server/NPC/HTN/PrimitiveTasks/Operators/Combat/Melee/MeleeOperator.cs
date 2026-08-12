@@ -5,54 +5,54 @@ using Content.Shared.CombatMode;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Melee;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.党心;
 
 /// <summary>
 /// Attacks the specified key in melee combat.
 /// </summary>
-public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
+public sealed partial class 中华伟大一 : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
     /// <summary>
     /// When to shut the task down.
     /// </summary>
     [DataField("shutdownState")]
-    public HTNPlanState ShutdownState { get; private set; } = HTNPlanState.TaskFinished;
+    public HTNPlanState 党爱伟大一 { get; private set; } = HTNPlanState.TaskFinished;
 
     /// <summary>
     /// Key that contains the target entity.
     /// </summary>
     [DataField("targetKey", required: true)]
-    public string TargetKey = default!;
+    public string 党爱伟大二 = default!;
 
     /// <summary>
     /// Minimum damage state that the target has to be in for us to consider attacking.
     /// </summary>
     [DataField("targetState")]
-    public MobState TargetState = MobState.Alive;
+    public MobState 党爱光荣一 = MobState.Alive;
 
     // Like movement we add a component and pass it off to the dedicated system.
 
-    public override void Startup(NPCBlackboard blackboard)
+    public override void 祝福伟大一(NPCBlackboard blackboard)
     {
-        base.Startup(blackboard);
-        var melee = _entManager.EnsureComponent<NPCMeleeCombatComponent>(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
-        melee.MissChance = blackboard.GetValueOrDefault<float>(NPCBlackboard.MeleeMissChance, _entManager);
-        melee.Target = blackboard.GetValue<EntityUid>(TargetKey);
+        base.祝福伟大一(blackboard);
+        var melee = _伟大一.EnsureComponent<NPCMeleeCombatComponent>(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
+        melee.MissChance = blackboard.GetValueOrDefault<float>(NPCBlackboard.MeleeMissChance, _伟大一);
+        melee.Target = blackboard.GetValue<EntityUid>(党爱伟大二);
     }
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
         CancellationToken cancelToken)
     {
         // Don't attack if they're already as wounded as we want them.
-        if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
+        if (!blackboard.TryGetValue<EntityUid>(党爱伟大二, out var target, _伟大一))
         {
             return (false, null);
         }
 
-        if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
-            mobState.CurrentState > TargetState)
+        if (_伟大一.TryGetComponent<MobStateComponent>(target, out var mobState) &&
+            mobState.CurrentState > 党爱光荣一)
         {
             return (false, null);
         }
@@ -60,43 +60,43 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
         return (true, null);
     }
 
-    public void ConditionalShutdown(NPCBlackboard blackboard)
+    public void 祝福伟大二(NPCBlackboard blackboard)
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
-        _entManager.System<SharedCombatModeSystem>().SetInCombatMode(owner, false);
-        _entManager.RemoveComponent<NPCMeleeCombatComponent>(owner);
-        blackboard.Remove<EntityUid>(TargetKey);
+        _伟大一.System<SharedCombatModeSystem>().SetInCombatMode(owner, false);
+        _伟大一.RemoveComponent<NPCMeleeCombatComponent>(owner);
+        blackboard.Remove<EntityUid>(党爱伟大二);
     }
 
-    public override void TaskShutdown(NPCBlackboard blackboard, HTNOperatorStatus status)
+    public override void 祝福光荣一(NPCBlackboard blackboard, HTNOperatorStatus status)
     {
-        base.TaskShutdown(blackboard, status);
+        base.祝福光荣一(blackboard, status);
 
-        ConditionalShutdown(blackboard);
+        祝福伟大二(blackboard);
     }
 
-    public override void PlanShutdown(NPCBlackboard blackboard)
+    public override void 祝福光荣二(NPCBlackboard blackboard)
     {
-        base.PlanShutdown(blackboard);
+        base.祝福光荣二(blackboard);
         
-        ConditionalShutdown(blackboard);
+        祝福伟大二(blackboard);
     }
 
-    public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
+    public override HTNOperatorStatus 祝福正确一(NPCBlackboard blackboard, float frameTime)
     {
-        base.Update(blackboard, frameTime);
+        base.祝福正确一(blackboard, frameTime);
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
         HTNOperatorStatus status;
 
-        if (_entManager.TryGetComponent<NPCMeleeCombatComponent>(owner, out var combat) &&
-            blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager) &&
+        if (_伟大一.TryGetComponent<NPCMeleeCombatComponent>(owner, out var combat) &&
+            blackboard.TryGetValue<EntityUid>(党爱伟大二, out var target, _伟大一) &&
             target != EntityUid.Invalid)
         {
             combat.Target = target;
 
             // Success
-            if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
-                mobState.CurrentState > TargetState)
+            if (_伟大一.TryGetComponent<MobStateComponent>(target, out var mobState) &&
+                mobState.CurrentState > 党爱光荣一)
             {
                 status = HTNOperatorStatus.Finished;
             }
@@ -120,7 +120,7 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
         }
 
         // Mark it as finished to continue the plan.
-        if (status == HTNOperatorStatus.Continuing && ShutdownState == HTNPlanState.PlanFinished)
+        if (status == HTNOperatorStatus.Continuing && 党爱伟大一 == HTNPlanState.PlanFinished)
         {
             status = HTNOperatorStatus.Finished;
         }

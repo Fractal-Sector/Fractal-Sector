@@ -1,10 +1,10 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.DetailExaminable;
+namespace 党爱伟大一.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class DetailExaminableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true), AutoNetworkedField]
-    public string Content = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 }

@@ -1,19 +1,19 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Labels;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Key representing which <see cref="PlayerBoundUserInterface"/> is currently open.
 /// Useful when there are multiple UI for an object. Here it's future-proofing only.
 /// </summary>
 [Serializable, NetSerializable]
-public enum HandLabelerUiKey
+public enum 中华伟大一
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public enum PaperLabelVisuals : byte
+public enum 中华伟大二 : byte
 {
     Layer,
     HasLabel,
@@ -21,7 +21,7 @@ public enum PaperLabelVisuals : byte
 }
 
 [Serializable, NetSerializable]
-public sealed class HandLabelerLabelChangedMessage(string label) : BoundUserInterfaceMessage
+public sealed class 中华光荣一(string label) : BoundUserInterfaceMessage
 {
-    public string Label { get; } = label;
+    public string 党爱伟大一 { get; } = label;
 }

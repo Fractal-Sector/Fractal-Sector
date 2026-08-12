@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Power
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum CellChargerStatus
+    public enum 中华伟大一
     {
         Off,
         Empty,
@@ -12,7 +12,7 @@ namespace Content.Shared.Power
     }
 
     [Serializable, NetSerializable]
-    public enum CellVisual
+    public enum 中华伟大二
     {
         Occupied, // If there's an item in it
         Light,

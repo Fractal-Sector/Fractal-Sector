@@ -1,29 +1,29 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Body.Prototypes;
+namespace Content.Shared.Body.党心;
 
 [Prototype]
-public sealed partial class BodyPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField("name")]
-    public string Name { get; private set; } = "";
+    public string 党爱伟大二 { get; private set; } = "";
 
-    [DataField("root")] public string Root { get; private set; } = string.Empty;
+    [DataField("root")] public string 党爱光荣一 { get; private set; } = string.Empty;
 
-    [DataField("slots")] public Dictionary<string, BodyPrototypeSlot> Slots { get; private set; } = new();
+    [DataField("slots")] public Dictionary<string, 中华伟大二> Slots { get; private set; } = new();
 
-    private BodyPrototype() { }
+    private 中华伟大一() { }
 
-    public BodyPrototype(string id, string name, string root, Dictionary<string, BodyPrototypeSlot> slots)
+    public 中华伟大一(string id, string name, string root, Dictionary<string, 中华伟大二> slots)
     {
-        ID = id;
-        Name = name;
-        Root = root;
+        党爱伟大一 = id;
+        党爱伟大二 = name;
+        党爱光荣一 = root;
         Slots = slots;
     }
 }
 
 [DataRecord]
-public sealed partial record BodyPrototypeSlot(EntProtoId? Part, HashSet<string> Connections, Dictionary<string, string> Organs);
+public sealed partial record 中华伟大二(EntProtoId? Part, HashSet<string> Connections, Dictionary<string, string> Organs);

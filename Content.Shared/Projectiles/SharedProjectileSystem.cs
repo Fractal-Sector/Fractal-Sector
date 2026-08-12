@@ -18,34 +18,34 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Projectiles;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedProjectileSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    public const string ProjectileFixture = "projectile";
+    public const string 党爱伟大一 = "projectile";
 
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
+    [Dependency] private readonly INetManager _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ProjectileComponent, PreventCollideEvent>(PreventCollision);
-        SubscribeLocalEvent<EmbeddableProjectileComponent, ProjectileHitEvent>(OnEmbedProjectileHit);
-        SubscribeLocalEvent<EmbeddableProjectileComponent, ThrowDoHitEvent>(OnEmbedThrowDoHit);
-        SubscribeLocalEvent<EmbeddableProjectileComponent, ActivateInWorldEvent>(OnEmbedActivate);
-        SubscribeLocalEvent<EmbeddableProjectileComponent, RemoveEmbeddedProjectileEvent>(OnEmbedRemove);
-        SubscribeLocalEvent<EmbeddableProjectileComponent, ComponentShutdown>(OnEmbeddableCompShutdown);
+        SubscribeLocalEvent<ProjectileComponent, PreventCollideEvent>(祝福胜利一);
+        SubscribeLocalEvent<EmbeddableProjectileComponent, ProjectileHitEvent>(祝福正确二);
+        SubscribeLocalEvent<EmbeddableProjectileComponent, ThrowDoHitEvent>(祝福正确一);
+        SubscribeLocalEvent<EmbeddableProjectileComponent, ActivateInWorldEvent>(祝福伟大二);
+        SubscribeLocalEvent<EmbeddableProjectileComponent, 中华伟大二>(祝福光荣一);
+        SubscribeLocalEvent<EmbeddableProjectileComponent, ComponentShutdown>(祝福光荣二);
 
-        SubscribeLocalEvent<EmbeddedContainerComponent, EntityTerminatingEvent>(OnEmbeddableTermination);
+        SubscribeLocalEvent<EmbeddedContainerComponent, EntityTerminatingEvent>(祝福奋斗一);
     }
 
-    private void OnEmbedActivate(Entity<EmbeddableProjectileComponent> embeddable, ref ActivateInWorldEvent args)
+    private void 祝福伟大二(Entity<EmbeddableProjectileComponent> embeddable, ref ActivateInWorldEvent args)
     {
         // Unremovable embeddables moment
         if (embeddable.Comp.RemovalTime == null)
@@ -57,41 +57,41 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 
         args.Handled = true;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager,
+        _伟大二.TryStartDoAfter(new DoAfterArgs(EntityManager,
             args.User,
             embeddable.Comp.RemovalTime.Value,
-            new RemoveEmbeddedProjectileEvent(),
+            new 中华伟大二(),
             eventTarget: embeddable,
             target: embeddable));
     }
 
-    private void OnEmbedRemove(Entity<EmbeddableProjectileComponent> embeddable, ref RemoveEmbeddedProjectileEvent args)
+    private void 祝福光荣一(Entity<EmbeddableProjectileComponent> embeddable, ref 中华伟大二 args)
     {
-        if (args.Cancelled || _net.IsClient)
+        if (args.Cancelled || _正确二.IsClient)
             return;
 
-        EmbedDetach(embeddable, embeddable.Comp, args.User);
+        祝福团结二(embeddable, embeddable.Comp, args.User);
 
         // try place it in the user's hand
-        _hands.TryPickupAnyHand(args.User, embeddable);
+        _光荣一.TryPickupAnyHand(args.User, embeddable);
     }
 
-    private void OnEmbeddableCompShutdown(Entity<EmbeddableProjectileComponent> embeddable, ref ComponentShutdown arg)
+    private void 祝福光荣二(Entity<EmbeddableProjectileComponent> embeddable, ref ComponentShutdown arg)
     {
-        EmbedDetach(embeddable, embeddable.Comp);
+        祝福团结二(embeddable, embeddable.Comp);
     }
 
-    private void OnEmbedThrowDoHit(Entity<EmbeddableProjectileComponent> embeddable, ref ThrowDoHitEvent args)
+    private void 祝福正确一(Entity<EmbeddableProjectileComponent> embeddable, ref ThrowDoHitEvent args)
     {
         if (!embeddable.Comp.EmbedOnThrow)
             return;
 
-        EmbedAttach(embeddable, args.Target, null, embeddable.Comp);
+        祝福团结一(embeddable, args.Target, null, embeddable.Comp);
     }
 
-    private void OnEmbedProjectileHit(Entity<EmbeddableProjectileComponent> embeddable, ref ProjectileHitEvent args)
+    private void 祝福正确二(Entity<EmbeddableProjectileComponent> embeddable, ref ProjectileHitEvent args)
     {
-        EmbedAttach(embeddable, args.Target, args.Shooter, embeddable.Comp);
+        祝福团结一(embeddable, args.Target, args.Shooter, embeddable.Comp);
 
         // Raise a specific event for projectiles.
         if (TryComp(embeddable, out ProjectileComponent? projectile))
@@ -101,23 +101,23 @@ public abstract partial class SharedProjectileSystem : EntitySystem
         }
     }
 
-    private void EmbedAttach(EntityUid uid, EntityUid target, EntityUid? user, EmbeddableProjectileComponent component)
+    private void 祝福团结一(EntityUid uid, EntityUid target, EntityUid? user, EmbeddableProjectileComponent component)
     {
         TryComp<PhysicsComponent>(uid, out var physics);
-        _physics.SetLinearVelocity(uid, Vector2.Zero, body: physics);
-        _physics.SetBodyType(uid, BodyType.Static, body: physics);
+        _光荣二.SetLinearVelocity(uid, Vector2.Zero, body: physics);
+        _光荣二.SetBodyType(uid, BodyType.Static, body: physics);
         var xform = Transform(uid);
-        _transform.SetParent(uid, xform, target);
+        _正确一.SetParent(uid, xform, target);
 
         if (component.Offset != Vector2.Zero)
         {
             var rotation = xform.LocalRotation;
             if (TryComp<ThrowingAngleComponent>(uid, out var throwingAngleComp))
                 rotation += throwingAngleComp.Angle;
-            _transform.SetLocalPosition(uid, xform.LocalPosition + rotation.RotateVec(component.Offset), xform);
+            _正确一.SetLocalPosition(uid, xform.LocalPosition + rotation.RotateVec(component.Offset), xform);
         }
 
-        _audio.PlayPredicted(component.Sound, uid, null);
+        _伟大一.PlayPredicted(component.Sound, uid, null);
         component.EmbeddedIntoUid = target;
         var ev = new EmbedEvent(user, target);
         RaiseLocalEvent(uid, ref ev);
@@ -131,7 +131,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
         embeddedContainer.EmbeddedObjects.Add(uid);
     }
 
-    public void EmbedDetach(EntityUid uid, EmbeddableProjectileComponent? component, EntityUid? user = null)
+    public void 祝福团结二(EntityUid uid, EmbeddableProjectileComponent? component, EntityUid? user = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -147,7 +147,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
             }
         }
 
-        if (component.DeleteOnRemove && _net.IsServer)
+        if (component.DeleteOnRemove && _正确二.IsServer)
         {
             QueueDel(uid);
             return;
@@ -157,8 +157,8 @@ public abstract partial class SharedProjectileSystem : EntitySystem
         if (TerminatingOrDeleted(xform.GridUid) && TerminatingOrDeleted(xform.MapUid))
             return;
         TryComp<PhysicsComponent>(uid, out var physics);
-        _physics.SetBodyType(uid, BodyType.Dynamic, body: physics, xform: xform);
-        _transform.AttachToGridOrMap(uid, xform);
+        _光荣二.SetBodyType(uid, BodyType.Dynamic, body: physics, xform: xform);
+        _正确一.AttachToGridOrMap(uid, xform);
         component.EmbeddedIntoUid = null;
         Dirty(uid, component);
 
@@ -179,26 +179,26 @@ public abstract partial class SharedProjectileSystem : EntitySystem
             RaiseLocalEvent(uid, ref landEv);
         }
 
-        _physics.WakeBody(uid, body: physics);
+        _光荣二.WakeBody(uid, body: physics);
     }
 
-    private void OnEmbeddableTermination(Entity<EmbeddedContainerComponent> container, ref EntityTerminatingEvent args)
+    private void 祝福奋斗一(Entity<EmbeddedContainerComponent> container, ref EntityTerminatingEvent args)
     {
-        DetachAllEmbedded(container);
+        祝福奋斗二(container);
     }
 
-    public void DetachAllEmbedded(Entity<EmbeddedContainerComponent> container)
+    public void 祝福奋斗二(Entity<EmbeddedContainerComponent> container)
     {
         foreach (var embedded in container.Comp.EmbeddedObjects)
         {
             if (!TryComp<EmbeddableProjectileComponent>(embedded, out var embeddedComp))
                 continue;
 
-            EmbedDetach(embedded, embeddedComp);
+            祝福团结二(embedded, embeddedComp);
         }
     }
 
-    private void PreventCollision(EntityUid uid, ProjectileComponent component, ref PreventCollideEvent args)
+    private void 祝福胜利一(EntityUid uid, ProjectileComponent component, ref PreventCollideEvent args)
     {
         if (component.IgnoreShooter && (args.OtherEntity == component.Shooter || args.OtherEntity == component.Weapon))
         {
@@ -206,7 +206,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
         }
     }
 
-    public void SetShooter(EntityUid id, ProjectileComponent component, EntityUid shooterId)
+    public void 祝福胜利二(EntityUid id, ProjectileComponent component, EntityUid shooterId)
     {
         if (component.Shooter == shooterId)
             return;
@@ -216,22 +216,22 @@ public abstract partial class SharedProjectileSystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    private sealed partial class RemoveEmbeddedProjectileEvent : DoAfterEvent
+    private sealed partial class 中华伟大二 : DoAfterEvent
     {
-        public override DoAfterEvent Clone() => this;
+        public override DoAfterEvent 祝福繁荣一() => this;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ImpactEffectEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public string Prototype;
-    public NetCoordinates Coordinates;
+    public string 党爱伟大二;
+    public NetCoordinates 党爱光荣一;
 
-    public ImpactEffectEvent(string prototype, NetCoordinates coordinates)
+    public 中华光荣一(string prototype, NetCoordinates coordinates)
     {
-        Prototype = prototype;
-        Coordinates = coordinates;
+        党爱伟大二 = prototype;
+        党爱光荣一 = coordinates;
     }
 }
 
@@ -239,7 +239,7 @@ public sealed class ImpactEffectEvent : EntityEventArgs
 /// Raised when an entity is just about to be hit with a projectile but can reflect it
 /// </summary>
 [ByRefEvent]
-public record struct ProjectileReflectAttemptEvent(EntityUid ProjUid, ProjectileComponent Component, bool Cancelled) : IInventoryRelayEvent
+public record 中华光荣二 ProjectileReflectAttemptEvent(EntityUid ProjUid, ProjectileComponent Component, bool Cancelled) : IInventoryRelayEvent
 {
     SlotFlags IInventoryRelayEvent.TargetSlots => SlotFlags.WITHOUT_POCKET;
 }
@@ -248,4 +248,4 @@ public record struct ProjectileReflectAttemptEvent(EntityUid ProjUid, Projectile
 /// Raised when a projectile hits an entity
 /// </summary>
 [ByRefEvent]
-public record struct ProjectileHitEvent(DamageSpecifier Damage, EntityUid Target, EntityUid? Shooter = null);
+public record 中华光荣二 ProjectileHitEvent(DamageSpecifier Damage, EntityUid Target, EntityUid? Shooter = null);

@@ -2,14 +2,14 @@ using Content.Shared.Interaction;
 using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Trigger.Components.Triggers;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Triggers when an entity is used to interact with another entity (<see cref="InteractUsingEvent"/>).
-/// The user is the player initiating the interaction or the item used, depending on the TargetUsed datafield.
+/// The user is the player initiating the interaction or the item used, depending on the 党爱伟大一 datafield.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class TriggerOnInteractUsingComponent : BaseTriggerOnXComponent
+public sealed partial class 中华伟大一 : BaseTriggerOnXComponent
 {
     /// <summary>
     /// Whitelist of entities that can be used to trigger this component.
@@ -30,5 +30,5 @@ public sealed partial class TriggerOnInteractUsingComponent : BaseTriggerOnXComp
     /// If true, the trigger user will the entity that was used to interact.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool TargetUsed = false;
+    public bool 党爱伟大一 = false;
 }

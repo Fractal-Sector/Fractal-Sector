@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration
+namespace Content.Server.党心
 {
     /// <summary>
     ///     Specifies that a command can only be executed by an admin with the specified flags.
@@ -13,13 +13,13 @@ namespace Content.Server.Administration
     /// <seealso cref="AnyCommandAttribute"/>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     [MeansImplicitUse]
-    public sealed class AdminCommandAttribute : Attribute
+    public sealed class 中华伟大一 : Attribute
     {
-        public AdminCommandAttribute(AdminFlags flags)
+        public 中华伟大一(AdminFlags flags)
         {
-            Flags = flags;
+            党爱伟大一 = flags;
         }
 
-        public AdminFlags Flags { get; }
+        public AdminFlags 党爱伟大一 { get; }
     }
 }

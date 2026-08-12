@@ -1,7 +1,7 @@
-namespace Content.Server.Fluids.Components;
+namespace Content.Server.Fluids.党心;
 
 [RegisterComponent]
-public sealed partial class FootstepTrackComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

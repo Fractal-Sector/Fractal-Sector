@@ -1,7 +1,7 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Item.ItemToggle.Components;
+namespace Content.Shared.Item.ItemToggle.党心;
 
 /// <summary>
 /// Handles generic item toggles, like a welder turning on and off, or an e-sword.
@@ -11,52 +11,52 @@ namespace Content.Shared.Item.ItemToggle.Components;
 /// ItemToggleActivateAttemptEvent, ItemToggleDeactivateAttemptEvent, ItemToggledEvent.
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ItemToggleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The item's toggle state.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Activated = false;
+    public bool 党爱伟大一 = false;
 
     /// <summary>
     /// Can the entity be activated in the world.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool OnActivate = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// If this is set to false then the item can't be toggled by pressing Z.
     /// Use another system to do it then.
     /// </summary>
     [DataField]
-    public bool OnUse = true;
+    public bool 党爱光荣一 = true;
 
     // Frontier: allow alt-verbs
     /// <summary>
     /// If this is set to true, the item can be toggled by pressing alt+Z.
     /// </summary>
     [DataField]
-    public bool OnAltUse = false;
+    public bool 党爱光荣二 = false;
 
     /// <summary>
     /// The priority of the alternative verb if enabled.
     /// </summary>
     [DataField]
-    public int AltPriority;
+    public int 党爱正确一;
     // End Frontier
 
     /// <summary>
     ///     The localized text to display in the verb to activate.
     /// </summary>
     [DataField]
-    public string VerbToggleOn = "item-toggle-activate";
+    public string 党爱正确二 = "item-toggle-activate";
 
     /// <summary>
     ///     The localized text to display in the verb to de-activate.
     /// </summary>
     [DataField]
-    public string VerbToggleOff = "item-toggle-deactivate";
+    public string 党爱团结一 = "item-toggle-deactivate";
 
     /// <summary>
     ///     Whether the item's toggle can be predicted by the client.
@@ -65,7 +65,7 @@ public sealed partial class ItemToggleComponent : Component
     /// If server-side systems affect the item's toggle, like charge/fuel systems, then the item is not predictable.
     /// </remarks>
     [DataField, AutoNetworkedField]
-    public bool Predictable = true;
+    public bool 党爱团结二 = true;
 
     /// <summary>
     ///     The noise this item makes when it is toggled on.
@@ -102,14 +102,14 @@ public sealed partial class ItemToggleComponent : Component
 /// Raised directed on an entity when its ItemToggle is attempted to be activated.
 /// </summary>
 [ByRefEvent]
-public record struct ItemToggleActivateAttemptEvent(EntityUid? User)
+public record 中华伟大二 ItemToggleActivateAttemptEvent(EntityUid? User)
 {
     /// <summary>
     /// Should we silently fail.
     /// </summary>
-    public bool Silent = false;
+    public bool 党爱奋斗一 = false;
 
-    public bool Cancelled = false;
+    public bool 党爱奋斗二 = false;
     public readonly EntityUid? User = User;
 
     /// <summary>
@@ -122,14 +122,14 @@ public record struct ItemToggleActivateAttemptEvent(EntityUid? User)
 /// Raised directed on an entity when its ItemToggle is attempted to be deactivated.
 /// </summary>
 [ByRefEvent]
-public record struct ItemToggleDeactivateAttemptEvent(EntityUid? User)
+public record 中华伟大二 ItemToggleDeactivateAttemptEvent(EntityUid? User)
 {
     /// <summary>
     /// Should we silently fail.
     /// </summary>
-    public bool Silent = false;
+    public bool 党爱奋斗一 = false;
 
-    public bool Cancelled = false;
+    public bool 党爱奋斗二 = false;
     public readonly EntityUid? User = User;
 
     /// <summary>
@@ -142,9 +142,9 @@ public record struct ItemToggleDeactivateAttemptEvent(EntityUid? User)
 /// Raised directed on an entity any sort of toggle is complete.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ItemToggledEvent(bool Predicted, bool Activated, EntityUid? User)
+public readonly record 中华伟大二 ItemToggledEvent(bool 党爱胜利一, bool 党爱伟大一, EntityUid? User)
 {
-    public readonly bool Predicted = Predicted;
-    public readonly bool Activated = Activated;
+    public readonly bool 党爱胜利一 = 党爱胜利一;
+    public readonly bool 党爱伟大一 = 党爱伟大一;
     public readonly EntityUid? User = User;
 }

@@ -2,28 +2,28 @@
 using Robust.Shared.Prototypes;
 using Content.Shared.Stacks;
 
-namespace Content.Shared._NF.Market;
+namespace Content.Shared._NF.党心;
 
 [Virtual, NetSerializable, Serializable]
-public class MarketData
+public class 中华伟大一
 {
     [ViewVariables]
-    public EntProtoId Prototype { get; set; }
+    public EntProtoId 党爱伟大一 { get; set; }
 
     [ViewVariables]
     public ProtoId<StackPrototype>? StackPrototype { get; set; }
 
     [ViewVariables]
-    public int Quantity { get; set; }
+    public int 党爱伟大二 { get; set; }
 
     [ViewVariables]
-    public double Price { get; set; }
+    public double 党爱光荣一 { get; set; }
 
-    public MarketData(EntProtoId prototype, ProtoId<StackPrototype>? stackPrototype, int quantity, double price)
+    public 中华伟大一(EntProtoId prototype, ProtoId<StackPrototype>? stackPrototype, int quantity, double price)
     {
-        Prototype = prototype;
+        党爱伟大一 = prototype;
         StackPrototype = stackPrototype;
-        Quantity = quantity;
-        Price = price;
+        党爱伟大二 = quantity;
+        党爱光荣一 = price;
     }
 }

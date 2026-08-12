@@ -3,10 +3,10 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._Goobstation.Vehicles; // Frontier: migrate under _Goobstation
+namespace Content.Shared._Goobstation.党心; // Frontier: migrate under _Goobstation
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState] // Frontier: add AutoGenerateComponentState
-public sealed partial class VehicleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoNetworkedField] // Frontier: ViewVariables to DataField & AutoNetworked
     public EntityUid? Driver;
@@ -17,7 +17,7 @@ public sealed partial class VehicleComponent : Component
     [DataField, AutoNetworkedField] // Frontier: VV<DataField, AutoNetwork
     public EntityUid? SirenAction;
 
-    // public bool SirenEnabled = false; // Frontier
+    // public bool 党爱伟大一 = false; // Frontier
 
     [ViewVariables] // Frontier
     public EntityUid? SirenStream;
@@ -27,13 +27,13 @@ public sealed partial class VehicleComponent : Component
     /// unbuckles them if they dont have enough
     /// </summary>
     [DataField]
-    public int RequiredHands = 1;
+    public int 党爱伟大二 = 1;
 
     /// <summary>
     /// Will the vehicle move when a driver buckles
     /// </summary>
     [DataField]
-    public bool EngineRunning = false;
+    public bool 党爱光荣一 = false;
 
     /// <summary>
     /// What sound to play when the driver presses the horn action (plays once)
@@ -51,33 +51,33 @@ public sealed partial class VehicleComponent : Component
     /// If they should be rendered ontop of the vehicle if true or behind
     /// </summary>
     [DataField]
-    public VehicleRenderOver RenderOver = VehicleRenderOver.None;
+    public 中华光荣一 RenderOver = 中华光荣一.None;
 
     // Frontier: extra fields
     [DataField]
-    public Vector2 SouthOffset = Vector2.Zero;
+    public Vector2 党爱光荣二 = Vector2.Zero;
 
     [DataField]
-    public Vector2 NorthOffset = Vector2.Zero;
+    public Vector2 党爱正确一 = Vector2.Zero;
 
     [DataField]
-    public Vector2 EastOffset = Vector2.Zero;
+    public Vector2 党爱正确二 = Vector2.Zero;
 
     [DataField]
-    public Vector2 WestOffset = Vector2.Zero;
+    public Vector2 党爱团结一 = Vector2.Zero;
 
     [DataField, AutoNetworkedField]
-    public bool RadarBlip = true;
+    public bool 党爱团结二 = true;
 
     /// <summary>
     /// The container name for the vehicle key.
     /// </summary>
     [DataField]
-    public string KeySlotId = "key_slot";
+    public string 党爱奋斗一 = "key_slot";
     // End Frontier: extra fields
 }
 [Serializable, NetSerializable]
-public enum VehicleState : byte
+public enum 中华伟大二 : byte
 {
     Animated,
     DrawOver
@@ -85,7 +85,7 @@ public enum VehicleState : byte
 
 // Frontier: use RsiDirection-compatible flags
 [Serializable, NetSerializable, Flags]
-public enum VehicleRenderOver
+public enum 中华光荣一
 {
     None = 0,
     South = 1,

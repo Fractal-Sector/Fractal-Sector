@@ -1,32 +1,32 @@
 using Content.Shared.Physics;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Components;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱伟大一;
+using Robust.Shared.党爱伟大一.Components;
+using Robust.Shared.党爱伟大一.Systems;
 
-namespace Content.Shared.Audio;
+namespace Content.Shared.党心;
 
-public abstract class SharedContentAudioSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱伟大一 = default!;
 
     /// <summary>
     /// Standard variation to use for sounds.
     /// </summary>
-    public const float DefaultVariation = 0.05f;
+    public const float 党爱伟大二 = 0.05f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        Audio.OcclusionCollisionMask = (int) CollisionGroup.Impassable;
+        base.祝福伟大一();
+        党爱伟大一.OcclusionCollisionMask = (int) CollisionGroup.Impassable;
     }
 
-    protected void SilenceAudio()
+    protected void 祝福伟大二()
     {
         var query = AllEntityQuery<AudioComponent>();
 
         while (query.MoveNext(out var uid, out var comp))
         {
-            Audio.SetGain(uid, 0f, comp);
+            党爱伟大一.SetGain(uid, 0f, comp);
         }
     }
 }

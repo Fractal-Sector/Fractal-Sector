@@ -2,7 +2,7 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Store;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Server.Store.Components;
+namespace Content.Server.Store.党心;
 
 /// <summary>
 /// Identifies a component that can be inserted into a store
@@ -14,7 +14,7 @@ namespace Content.Server.Store.Components;
 /// prototype value because otherwise stack merging/splitting may modify the total value.
 /// </remarks>
 [RegisterComponent]
-public sealed partial class CurrencyComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The value of the currency.

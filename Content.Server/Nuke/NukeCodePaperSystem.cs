@@ -8,37 +8,37 @@ using Content.Shared.Station.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Nuke
+namespace Content.Server.党心
 {
-    public sealed class NukeCodePaperSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly PaperSystem _paper = default!;
-        [Dependency] private readonly FaxSystem _faxSystem = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly ChatSystem _伟大二 = default!;
+        [Dependency] private readonly StationSystem _光荣一 = default!;
+        [Dependency] private readonly PaperSystem _光荣二 = default!;
+        [Dependency] private readonly FaxSystem _正确一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<NukeCodePaperComponent, MapInitEvent>(OnMapInit,
+            base.祝福伟大一();
+            SubscribeLocalEvent<NukeCodePaperComponent, MapInitEvent>(祝福伟大二,
                 after: new []{ typeof(NukeLabelSystem) });
         }
 
-        private void OnMapInit(EntityUid uid, NukeCodePaperComponent component, MapInitEvent args)
+        private void 祝福伟大二(EntityUid uid, NukeCodePaperComponent component, MapInitEvent args)
         {
-            SetupPaper(uid, component);
+            祝福光荣一(uid, component);
         }
 
-        private void SetupPaper(EntityUid uid, NukeCodePaperComponent? component = null, EntityUid? station = null)
+        private void 祝福光荣一(EntityUid uid, NukeCodePaperComponent? component = null, EntityUid? station = null)
         {
             if (!Resolve(uid, ref component))
                 return;
 
-            if (TryGetRelativeNukeCode(uid, out var paperContent, station, onlyCurrentStation: component.AllNukesAvailable))
+            if (祝福正确一(uid, out var paperContent, station, onlyCurrentStation: component.AllNukesAvailable))
             {
                 if (TryComp<PaperComponent>(uid, out var paperComp))
-                    _paper.SetContent((uid, paperComp), paperContent);
+                    _光荣二.SetContent((uid, paperComp), paperContent);
             }
         }
 
@@ -46,7 +46,7 @@ namespace Content.Server.Nuke
         ///     Send a nuclear code to all faxes on that station which are authorized to receive nuke codes.
         /// </summary>
         /// <returns>True if at least one fax received codes</returns>
-        public bool SendNukeCodes(EntityUid station)
+        public bool 祝福光荣二(EntityUid station)
         {
             if (!HasComp<StationDataComponent>(station))
             {
@@ -57,7 +57,7 @@ namespace Content.Server.Nuke
             var wasSent = false;
             while (faxes.MoveNext(out var faxEnt, out var fax))
             {
-                if (!fax.ReceiveNukeCodes || !TryGetRelativeNukeCode(faxEnt, out var paperContent, station))
+                if (!fax.ReceiveNukeCodes || !祝福正确一(faxEnt, out var paperContent, station))
                 {
                     continue;
                 }
@@ -74,7 +74,7 @@ namespace Content.Server.Nuke
                     },
                     stampProtected: true // Frontier: centcom signed, should be protected
                 );
-                _faxSystem.Receive(faxEnt, printout, null, fax);
+                _正确一.Receive(faxEnt, printout, null, fax);
 
                 wasSent = true;
             }
@@ -82,13 +82,13 @@ namespace Content.Server.Nuke
             if (wasSent)
             {
                 var msg = Loc.GetString("nuke-component-announcement-send-codes");
-                _chatSystem.DispatchStationAnnouncement(station, msg, colorOverride: Color.Red);
+                _伟大二.DispatchStationAnnouncement(station, msg, colorOverride: Color.Red);
             }
 
             return wasSent;
         }
 
-        private bool TryGetRelativeNukeCode(
+        private bool 祝福正确一(
             EntityUid uid,
             [NotNullWhen(true)] out string? nukeCode,
             EntityUid? station = null,
@@ -101,7 +101,7 @@ namespace Content.Server.Nuke
                 return false;
             }
 
-            var owningStation = station ?? _station.GetOwningStation(uid);
+            var owningStation = station ?? _光荣一.GetOwningStation(uid);
 
             var codesMessage = new FormattedMessage();
             // Find the first nuke that matches the passed location.
@@ -112,7 +112,7 @@ namespace Content.Server.Nuke
                 nukes.Add((nukeUid, nuke));
             }
 
-            _random.Shuffle(nukes);
+            _伟大一.Shuffle(nukes);
 
             foreach (var (nukeUid, nuke) in nukes)
             {

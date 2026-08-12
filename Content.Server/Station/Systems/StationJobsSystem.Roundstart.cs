@@ -13,26 +13,26 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Station.Systems;
+namespace Content.Server.Station.党心;
 
 // Contains code for round-start spawning.
-public sealed partial class StationJobsSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IBanManager _banManager = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly PlayTimeTrackingSystem _playTime = default!; // Frontier
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IBanManager _伟大二 = default!;
+    [Dependency] private readonly AntagSelectionSystem _光荣一 = default!;
+    [Dependency] private readonly PlayTimeTrackingSystem _光荣二 = default!; // Frontier
 
     private Dictionary<int, HashSet<string>> _jobsByWeight = default!;
-    private List<int> _orderedWeights = default!;
+    private List<int> _正确一 = default!;
 
     /// <summary>
     /// Sets up some tables used by AssignJobs, including jobs sorted by their weights, and a list of weights in order from highest to lowest.
     /// </summary>
-    private void InitializeRoundStart()
+    private void 祝福伟大一()
     {
         _jobsByWeight = new Dictionary<int, HashSet<string>>();
-        foreach (var job in _prototypeManager.EnumeratePrototypes<JobPrototype>())
+        foreach (var job in _伟大一.EnumeratePrototypes<JobPrototype>())
         {
             if (!_jobsByWeight.ContainsKey(job.Weight))
                 _jobsByWeight.Add(job.Weight, new HashSet<string>());
@@ -40,7 +40,7 @@ public sealed partial class StationJobsSystem
             _jobsByWeight[job.Weight].Add(job.ID);
         }
 
-        _orderedWeights = _jobsByWeight.Keys.OrderByDescending(i => i).ToList();
+        _正确一 = _jobsByWeight.Keys.OrderByDescending(i => i).ToList();
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public sealed partial class StationJobsSystem
     {
         DebugTools.Assert(stations.Count > 0);
 
-        InitializeRoundStart();
+        祝福伟大一();
 
         if (profiles.Count == 0)
             return new();
@@ -104,14 +104,14 @@ public sealed partial class StationJobsSystem
         // Ok so the general algorithm:
         // We start with the highest weight jobs and work our way down. We filter jobs by weight when selecting as well.
         // Weight > Priority > Station.
-        foreach (var weight in _orderedWeights)
+        foreach (var weight in _正确一)
         {
             for (var selectedPriority = JobPriority.High; selectedPriority > JobPriority.Never; selectedPriority--)
             {
                 if (profiles.Count == 0)
                     goto endFunc;
 
-                var candidates = GetPlayersJobCandidates(weight, selectedPriority, profiles);
+                var candidates = 祝福光荣二(weight, selectedPriority, profiles);
 
                 var optionsRemaining = 0;
 
@@ -277,7 +277,7 @@ public sealed partial class StationJobsSystem
     /// <param name="allPlayersToAssign">All players that might need an overflow assigned.</param>
     /// <param name="profiles">Player character profiles.</param>
     /// <param name="stations">The stations to consider for spawn location.</param>
-    public void AssignOverflowJobs(
+    public void 祝福伟大二(
         ref Dictionary<NetUserId, (ProtoId<JobPrototype>?, EntityUid)> assignedJobs,
         IEnumerable<NetUserId> allPlayersToAssign,
         IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> profiles,
@@ -317,7 +317,7 @@ public sealed partial class StationJobsSystem
                 bool nfJobAssigned = false;
                 foreach (var overflowJob in overflows)
                 {
-                    if (nfSession != null && _playTime.IsAllowed(nfSession, overflowJob))
+                    if (nfSession != null && _光荣二.IsAllowed(nfSession, overflowJob))
                     {
                         assignedJobs.Add(player, (overflowJob, station));
                         nfJobAssigned = true;
@@ -344,7 +344,7 @@ public sealed partial class StationJobsSystem
         }
     }
 
-    public void CalcExtendedAccess(Dictionary<EntityUid, int> jobsCount)
+    public void 祝福光荣一(Dictionary<EntityUid, int> jobsCount)
     {
         // Calculate whether stations need to be on extended access or not.
         foreach (var (station, count) in jobsCount)
@@ -367,14 +367,14 @@ public sealed partial class StationJobsSystem
     /// <param name="selectedPriority">Priority to find, if any.</param>
     /// <param name="profiles">Profiles to look in.</param>
     /// <returns>Players and a list of their matching jobs.</returns>
-    private Dictionary<NetUserId, List<string>> GetPlayersJobCandidates(int? weight, JobPriority? selectedPriority, Dictionary<NetUserId, HumanoidCharacterProfile> profiles)
+    private Dictionary<NetUserId, List<string>> 祝福光荣二(int? weight, JobPriority? selectedPriority, Dictionary<NetUserId, HumanoidCharacterProfile> profiles)
     {
         var outputDict = new Dictionary<NetUserId, List<string>>(profiles.Count);
 
         foreach (var (player, profile) in profiles)
         {
-            var roleBans = _banManager.GetJobBans(player);
-            var antagBlocked = _antag.GetPreSelectedAntagSessions();
+            var roleBans = _伟大二.GetJobBans(player);
+            var antagBlocked = _光荣一.GetPreSelectedAntagSessions();
             var profileJobs = profile.JobPriorities.Keys.Select(k => new ProtoId<JobPrototype>(k)).ToList();
             var ev = new StationJobsGetCandidatesEvent(player, profileJobs);
             RaiseLocalEvent(ref ev);
@@ -388,7 +388,7 @@ public sealed partial class StationJobsSystem
                 if (!(priority == selectedPriority || selectedPriority is null))
                     continue;
 
-                if (!_prototypeManager.TryIndex(jobId, out var job))
+                if (!_伟大一.TryIndex(jobId, out var job))
                     continue;
 
                 if (!job.CanBeAntag && (!_player.TryGetSessionById(player, out var session) || antagBlocked.Contains(session)))

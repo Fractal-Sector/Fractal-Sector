@@ -2,14 +2,14 @@ using Content.Shared.Polymorph.Systems;
 using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Polymorph.Components;
+namespace Content.Shared.Polymorph.党心;
 
 /// <summary>
 /// A chameleon projector polymorphs you into a clicked entity, then polymorphs back when clicked on or destroyed.
 /// This creates a new dummy polymorph entity and copies the appearance over.
 /// </summary>
 [RegisterComponent, Access(typeof(SharedChameleonProjectorSystem))]
-public sealed partial class ChameleonProjectorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// If non-null, whitelist for valid entities to disguise as.
@@ -27,13 +27,13 @@ public sealed partial class ChameleonProjectorComponent : Component
     /// Disguise entity to spawn and use.
     /// </summary>
     [DataField(required: true)]
-    public EntProtoId DisguiseProto = string.Empty;
+    public EntProtoId 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// Action for disabling your disguise's rotation.
     /// </summary>
     [DataField]
-    public EntProtoId NoRotAction = "ActionDisguiseNoRot";
+    public EntProtoId 党爱伟大二 = "ActionDisguiseNoRot";
     [DataField]
     public EntityUid? NoRotActionEntity;
 
@@ -41,7 +41,7 @@ public sealed partial class ChameleonProjectorComponent : Component
     /// Action for anchoring your disguise in place.
     /// </summary>
     [DataField]
-    public EntProtoId AnchorAction = "ActionDisguiseAnchor";
+    public EntProtoId 党爱光荣一 = "ActionDisguiseAnchor";
     [DataField]
     public EntityUid? AnchorActionEntity;
 
@@ -49,13 +49,13 @@ public sealed partial class ChameleonProjectorComponent : Component
     /// Minimum health to give the disguise.
     /// </summary>
     [DataField]
-    public float MinHealth = 1f;
+    public float 党爱光荣二 = 1f;
 
     /// <summary>
     /// Maximum health to give the disguise, health scales with mass.
     /// </summary>
     [DataField]
-    public float MaxHealth = 100f;
+    public float 党爱正确一 = 100f;
 
     /// <summary>
     /// User currently disguised by this projector, if any

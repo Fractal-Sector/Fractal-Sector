@@ -3,20 +3,20 @@ using Content.Shared.Trigger.Components.Effects;
 using Content.Server.GhostKick;
 using Robust.Shared.Player;
 
-namespace Content.Server.Trigger.Systems;
+namespace Content.Server.Trigger.党心;
 
-public sealed class GhostKickUserOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly GhostKickManager _ghostKickManager = default!;
+    [Dependency] private readonly GhostKickManager _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GhostKickOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<GhostKickOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<GhostKickOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<GhostKickOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -29,7 +29,7 @@ public sealed class GhostKickUserOnTriggerSystem : EntitySystem
         if (!TryComp(target, out ActorComponent? actor))
             return;
 
-        _ghostKickManager.DoDisconnect(
+        _伟大一.DoDisconnect(
             actor.PlayerSession.Channel,
             Loc.GetString(ent.Comp.Reason));
 

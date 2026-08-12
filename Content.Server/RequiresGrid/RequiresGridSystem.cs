@@ -1,19 +1,19 @@
 ﻿using Content.Server.Destructible;
 
-namespace Content.Server.RequiresGrid;
+namespace Content.Server.党心;
 
-public sealed class RequiresGridSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
+    [Dependency] private readonly DestructibleSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RequiresGridComponent, EntParentChangedMessage>(OnEntParentChanged);
+        SubscribeLocalEvent<RequiresGridComponent, EntParentChangedMessage>(祝福伟大二);
     }
 
-    private void OnEntParentChanged(EntityUid owner, RequiresGridComponent component, EntParentChangedMessage args)
+    private void 祝福伟大二(EntityUid owner, RequiresGridComponent component, EntParentChangedMessage args)
     {
         if (args.OldParent == null)
             return;
@@ -24,6 +24,6 @@ public sealed class RequiresGridSystem : EntitySystem
         if (TerminatingOrDeleted(owner))
             return;
 
-        _destructible.DestroyEntity(owner);
+        _伟大一.DestroyEntity(owner);
     }
 }

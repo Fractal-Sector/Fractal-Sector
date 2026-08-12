@@ -3,13 +3,13 @@ using Content.Shared.Eui;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.CryoSleep;
+namespace Content.Shared._WF.党心;
 
 /// <summary>
 /// Request from client to get the list of stored characters in cryo
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class GetStoredCharactersRequestMessage : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
 }
 
@@ -17,15 +17,15 @@ public sealed class GetStoredCharactersRequestMessage : EntityEventArgs
 /// Response from server with list of stored characters
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class GetStoredCharactersResponseMessage : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public List<StoredCharacterInfo> Characters { get; set; } = new();
+    public List<中华光荣一> Characters { get; set; } = new();
     
-    public GetStoredCharactersResponseMessage()
+    public 中华伟大二()
     {
     }
     
-    public GetStoredCharactersResponseMessage(List<StoredCharacterInfo> characters)
+    public 中华伟大二(List<中华光荣一> characters)
     {
         Characters = characters;
     }
@@ -35,30 +35,30 @@ public sealed class GetStoredCharactersResponseMessage : EntityEventArgs
 /// Information about a stored character
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class StoredCharacterInfo
+public sealed class 中华光荣一
 {
-    public NetEntity Body { get; set; }
-    public NetEntity Cryopod { get; set; }
-    public string CharacterName { get; set; } = string.Empty;
-    public string JobName { get; set; } = string.Empty;
-    public string StationName { get; set; } = string.Empty;
+    public NetEntity 党爱伟大一 { get; set; }
+    public NetEntity 党爱伟大二 { get; set; }
+    public string 党爱光荣一 { get; set; } = string.Empty;
+    public string 党爱光荣二 { get; set; } = string.Empty;
+    public string 党爱正确一 { get; set; } = string.Empty;
     /// <summary>
     /// The character preferences slot index. -1 if unknown.
     /// </summary>
-    public int CharacterSlot { get; set; } = -1;
+    public int 党爱正确二 { get; set; } = -1;
     
-    public StoredCharacterInfo()
+    public 中华光荣一()
     {
     }
     
-    public StoredCharacterInfo(NetEntity body, NetEntity cryopod, string characterName, string jobName, string stationName, int characterSlot = -1)
+    public 中华光荣一(NetEntity body, NetEntity cryopod, string characterName, string jobName, string stationName, int characterSlot = -1)
     {
-        Body = body;
-        Cryopod = cryopod;
-        CharacterName = characterName;
-        JobName = jobName;
-        StationName = stationName;
-        CharacterSlot = characterSlot;
+        党爱伟大一 = body;
+        党爱伟大二 = cryopod;
+        党爱光荣一 = characterName;
+        党爱光荣二 = jobName;
+        党爱正确一 = stationName;
+        党爱正确二 = characterSlot;
     }
 }
 
@@ -66,17 +66,17 @@ public sealed class StoredCharacterInfo
 /// Request from client to resume control of a character
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ResumeCharacterRequestMessage : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public NetEntity Body { get; set; }
+    public NetEntity 党爱伟大一 { get; set; }
     
-    public ResumeCharacterRequestMessage()
+    public 中华光荣二()
     {
     }
     
-    public ResumeCharacterRequestMessage(NetEntity body)
+    public 中华光荣二(NetEntity body)
     {
-        Body = body;
+        党爱伟大一 = body;
     }
 }
 
@@ -84,16 +84,16 @@ public sealed class ResumeCharacterRequestMessage : EntityEventArgs
 /// Request from client to permanently remove a stored cryo character (abandon it).
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class RemoveStoredCharacterRequestMessage : EntityEventArgs
+public sealed class 中华正确一 : EntityEventArgs
 {
-    public NetEntity Body { get; set; }
+    public NetEntity 党爱伟大一 { get; set; }
 
-    public RemoveStoredCharacterRequestMessage()
+    public 中华正确一()
     {
     }
 
-    public RemoveStoredCharacterRequestMessage(NetEntity body)
+    public 中华正确一(NetEntity body)
     {
-        Body = body;
+        党爱伟大一 = body;
     }
 }

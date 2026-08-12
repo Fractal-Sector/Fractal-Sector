@@ -3,27 +3,27 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Trigger.Components.Effects;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Contains a GasMixture that will release its contents to the atmosphere when triggered.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class ReleaseGasOnTriggerComponent : BaseXOnTriggerComponent
+public sealed partial class 中华伟大一 : BaseXOnTriggerComponent
 {
     /// <summary>
     /// Whether this grenade is active and releasing gas.
     /// Set to true when triggered, which starts gas release.
     /// </summary>
     [DataField]
-    public bool Active;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// The gas mixture that will be released to the current tile atmosphere when triggered.
     /// </summary>
     [DataField]
-    public GasMixture Air;
+    public GasMixture 党爱伟大二;
 
     /// <summary>
     /// Time at which the next release will occur.
@@ -31,7 +31,7 @@ public sealed partial class ReleaseGasOnTriggerComponent : BaseXOnTriggerCompone
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan NextReleaseTime = TimeSpan.Zero;
+    public TimeSpan 党爱光荣一 = TimeSpan.Zero;
 
     /// <summary>
     /// The cap at which this grenade can fill the exposed atmosphere to.
@@ -41,13 +41,13 @@ public sealed partial class ReleaseGasOnTriggerComponent : BaseXOnTriggerCompone
     /// atmosphere up to 101.325 kPa.</example>
     /// <remarks>If zero, this limit won't be respected.</remarks>
     [DataField]
-    public float PressureLimit;
+    public float 党爱光荣二;
 
     /// <summary>
     /// How often the grenade will release gas.
     /// </summary>
     [DataField]
-    public TimeSpan ReleaseInterval = TimeSpan.FromSeconds(1);
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(1);
 
     /// <summary>
     /// A float from 0 to 1, representing a partial portion of the moles
@@ -56,7 +56,7 @@ public sealed partial class ReleaseGasOnTriggerComponent : BaseXOnTriggerCompone
     /// </summary>
     /// <remarks>If undefined on the prototype, the entire molar amount will be transferred.</remarks>
     [DataField]
-    public float RemoveFraction = 1;
+    public float 党爱正确二 = 1;
 
     /// <summary>
     /// Stores the total moles initially in the grenade upon activation.
@@ -64,7 +64,7 @@ public sealed partial class ReleaseGasOnTriggerComponent : BaseXOnTriggerCompone
     /// </summary>
     /// <remarks>Set when the grenade is activated.</remarks>
     [DataField(readOnly: true)]
-    public float StartingTotalMoles;
+    public float 党爱团结一;
 }
 
 /// <summary>
@@ -72,7 +72,7 @@ public sealed partial class ReleaseGasOnTriggerComponent : BaseXOnTriggerCompone
 /// on state changes.
 /// </summary>
 [Serializable, NetSerializable]
-public enum ReleaseGasOnTriggerVisuals : byte
+public enum 中华伟大二 : byte
 {
     Key,
 }

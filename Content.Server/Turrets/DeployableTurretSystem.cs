@@ -20,61 +20,61 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Turrets;
+namespace Content.Server.党心;
 
-public sealed partial class DeployableTurretSystem : SharedDeployableTurretSystem
+public sealed partial class 中华伟大一 : SharedDeployableTurretSystem
 {
-    [Dependency] private readonly HTNSystem _htn = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly BatteryWeaponFireModesSystem _fireModes = default!;
-    [Dependency] private readonly TurretTargetSettingsSystem _turretTargetingSettings = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly HTNSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _光荣二 = default!;
+    [Dependency] private readonly BatteryWeaponFireModesSystem _正确一 = default!;
+    [Dependency] private readonly TurretTargetSettingsSystem _正确二 = default!;
+    [Dependency] private readonly IGameTiming _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DeployableTurretComponent, AmmoShotEvent>(OnAmmoShot);
-        SubscribeLocalEvent<DeployableTurretComponent, ChargeChangedEvent>(OnChargeChanged);
-        SubscribeLocalEvent<DeployableTurretComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<DeployableTurretComponent, BreakageEventArgs>(OnBroken);
-        SubscribeLocalEvent<DeployableTurretComponent, RepairedEvent>(OnRepaired);
-        SubscribeLocalEvent<DeployableTurretComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
-        SubscribeLocalEvent<DeployableTurretComponent, BeforeBroadcastAttemptEvent>(OnBeforeBroadcast);
+        SubscribeLocalEvent<DeployableTurretComponent, AmmoShotEvent>(祝福伟大二);
+        SubscribeLocalEvent<DeployableTurretComponent, ChargeChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<DeployableTurretComponent, PowerChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<DeployableTurretComponent, BreakageEventArgs>(祝福正确一);
+        SubscribeLocalEvent<DeployableTurretComponent, RepairedEvent>(祝福正确二);
+        SubscribeLocalEvent<DeployableTurretComponent, DeviceNetworkPacketEvent>(祝福团结一);
+        SubscribeLocalEvent<DeployableTurretComponent, BeforeBroadcastAttemptEvent>(祝福团结二);
     }
 
-    private void OnAmmoShot(Entity<DeployableTurretComponent> ent, ref AmmoShotEvent args)
+    private void 祝福伟大二(Entity<DeployableTurretComponent> ent, ref AmmoShotEvent args)
     {
-        UpdateAmmoStatus(ent);
+        祝福胜利一(ent);
     }
 
-    private void OnChargeChanged(Entity<DeployableTurretComponent> ent, ref ChargeChangedEvent args)
+    private void 祝福光荣一(Entity<DeployableTurretComponent> ent, ref ChargeChangedEvent args)
     {
-        UpdateAmmoStatus(ent);
+        祝福胜利一(ent);
     }
 
-    private void OnPowerChanged(Entity<DeployableTurretComponent> ent, ref PowerChangedEvent args)
+    private void 祝福光荣二(Entity<DeployableTurretComponent> ent, ref PowerChangedEvent args)
     {
-        UpdateAmmoStatus(ent);
+        祝福胜利一(ent);
     }
 
-    private void OnBroken(Entity<DeployableTurretComponent> ent, ref BreakageEventArgs args)
-    {
-        if (TryComp<AppearanceComponent>(ent, out var appearance))
-            _appearance.SetData(ent, DeployableTurretVisuals.Broken, true, appearance);
-
-        SetState(ent, false);
-    }
-
-    private void OnRepaired(Entity<DeployableTurretComponent> ent, ref RepairedEvent args)
+    private void 祝福正确一(Entity<DeployableTurretComponent> ent, ref BreakageEventArgs args)
     {
         if (TryComp<AppearanceComponent>(ent, out var appearance))
-            _appearance.SetData(ent, DeployableTurretVisuals.Broken, false, appearance);
+            _伟大二.SetData(ent, DeployableTurretVisuals.Broken, true, appearance);
+
+        祝福奋斗二(ent, false);
     }
 
-    private void OnPacketReceived(Entity<DeployableTurretComponent> ent, ref DeviceNetworkPacketEvent args)
+    private void 祝福正确二(Entity<DeployableTurretComponent> ent, ref RepairedEvent args)
+    {
+        if (TryComp<AppearanceComponent>(ent, out var appearance))
+            _伟大二.SetData(ent, DeployableTurretVisuals.Broken, false, appearance);
+    }
+
+    private void 祝福团结一(Entity<DeployableTurretComponent> ent, ref DeviceNetworkPacketEvent args)
     {
         if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command))
             return;
@@ -84,7 +84,7 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
             args.Data.TryGetValue(command, out int? armamentState))
         {
             if (TryComp<BatteryWeaponFireModesComponent>(ent, out var batteryWeaponFireModes))
-                _fireModes.TrySetFireMode(ent, batteryWeaponFireModes, armamentState.Value);
+                _正确一.TrySetFireMode(ent, batteryWeaponFireModes, armamentState.Value);
 
             TrySetState(ent, armamentState.Value >= 0);
             return;
@@ -95,19 +95,19 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
             args.Data.TryGetValue(command, out HashSet<ProtoId<AccessLevelPrototype>>? accessExemptions) &&
             TryComp<TurretTargetSettingsComponent>(ent, out var turretTargetSettings))
         {
-            _turretTargetingSettings.SyncAccessLevelExemptions((ent, turretTargetSettings), accessExemptions);
+            _正确二.SyncAccessLevelExemptions((ent, turretTargetSettings), accessExemptions);
             return;
         }
 
         // Received a command to update the device network
         if (command == DeviceNetworkConstants.CmdUpdatedState)
         {
-            SendStateUpdateToDeviceNetwork(ent);
+            祝福奋斗一(ent);
             return;
         }
     }
 
-    private void OnBeforeBroadcast(Entity<DeployableTurretComponent> ent, ref BeforeBroadcastAttemptEvent args)
+    private void 祝福团结二(Entity<DeployableTurretComponent> ent, ref BeforeBroadcastAttemptEvent args)
     {
         if (!TryComp<DeviceNetworkComponent>(ent, out var deviceNetwork))
             return;
@@ -127,7 +127,7 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
             args.ModifiedRecipients = recipientDeviceNetworks;
     }
 
-    private void SendStateUpdateToDeviceNetwork(Entity<DeployableTurretComponent> ent)
+    private void 祝福奋斗一(Entity<DeployableTurretComponent> ent)
     {
         if (!TryComp<DeviceNetworkComponent>(ent, out var device))
             return;
@@ -135,22 +135,22 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
         var payload = new NetworkPayload
         {
             [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdUpdatedState,
-            [DeviceNetworkConstants.CmdUpdatedState] = GetTurretState(ent)
+            [DeviceNetworkConstants.CmdUpdatedState] = 祝福胜利二(ent)
         };
 
-        _deviceNetwork.QueuePacket(ent, null, payload, device: device);
+        _光荣二.QueuePacket(ent, null, payload, device: device);
     }
 
-    protected override void SetState(Entity<DeployableTurretComponent> ent, bool enabled, EntityUid? user = null)
+    protected override void 祝福奋斗二(Entity<DeployableTurretComponent> ent, bool enabled, EntityUid? user = null)
     {
         if (ent.Comp.Enabled == enabled)
             return;
 
-        base.SetState(ent, enabled, user);
+        base.祝福奋斗二(ent, enabled, user);
         DirtyField(ent, ent.Comp, nameof(DeployableTurretComponent.Enabled));
 
         // Determine how much time is remaining in the current animation and the one next in queue
-        var animTimeRemaining = MathF.Max((float)(ent.Comp.AnimationCompletionTime - _timing.CurTime).TotalSeconds, 0f);
+        var animTimeRemaining = MathF.Max((float)(ent.Comp.AnimationCompletionTime - _团结一.CurTime).TotalSeconds, 0f);
         var animTimeNext = ent.Comp.Enabled ? ent.Comp.DeploymentLength : ent.Comp.RetractionLength;
 
         // End/restart any tasks the NPC was doing
@@ -158,19 +158,19 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
         var planCooldown = animTimeRemaining + animTimeNext + 0.5f;
 
         if (TryComp<HTNComponent>(ent, out var htn))
-            _htn.SetHTNEnabled((ent, htn), ent.Comp.Enabled, planCooldown);
+            _伟大一.SetHTNEnabled((ent, htn), ent.Comp.Enabled, planCooldown);
 
         // Play audio
-        _audio.PlayPvs(ent.Comp.Enabled ? ent.Comp.DeploymentSound : ent.Comp.RetractionSound, ent, new AudioParams { Volume = -10f });
+        _光荣一.PlayPvs(ent.Comp.Enabled ? ent.Comp.DeploymentSound : ent.Comp.RetractionSound, ent, new AudioParams { Volume = -10f });
     }
 
-    private void UpdateAmmoStatus(Entity<DeployableTurretComponent> ent)
+    private void 祝福胜利一(Entity<DeployableTurretComponent> ent)
     {
         if (!HasAmmo(ent))
-            SetState(ent, false);
+            祝福奋斗二(ent, false);
     }
 
-    private DeployableTurretState GetTurretState(Entity<DeployableTurretComponent> ent, DestructibleComponent? destructable = null, HTNComponent? htn = null)
+    private DeployableTurretState 祝福胜利二(Entity<DeployableTurretComponent> ent, DestructibleComponent? destructable = null, HTNComponent? htn = null)
     {
         Resolve(ent, ref destructable, ref htn);
 
@@ -183,15 +183,15 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
         if (htn.Plan?.CurrentTask.Operator is GunOperator)
             return DeployableTurretState.Firing;
 
-        if (ent.Comp.AnimationCompletionTime > _timing.CurTime)
+        if (ent.Comp.AnimationCompletionTime > _团结一.CurTime)
             return ent.Comp.Enabled ? DeployableTurretState.Deploying : DeployableTurretState.Retracting;
 
         return ent.Comp.Enabled ? DeployableTurretState.Deployed : DeployableTurretState.Retracted;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣一(frameTime);
 
         var query = EntityQueryEnumerator<DeployableTurretComponent, DestructibleComponent, HTNComponent>();
         while (query.MoveNext(out var uid, out var deployableTurret, out var destructible, out var htn))
@@ -199,17 +199,17 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
             // Check if the turret state has changed since the last update,
             // and if it has, inform the device network
             var ent = new Entity<DeployableTurretComponent>(uid, deployableTurret);
-            var newState = GetTurretState(ent, destructible, htn);
+            var newState = 祝福胜利二(ent, destructible, htn);
 
             if (newState != deployableTurret.CurrentState)
             {
                 deployableTurret.CurrentState = newState;
                 DirtyField(uid, deployableTurret, nameof(DeployableTurretComponent.CurrentState));
 
-                SendStateUpdateToDeviceNetwork(ent);
+                祝福奋斗一(ent);
 
                 if (TryComp<AppearanceComponent>(ent, out var appearance))
-                    _appearance.SetData(ent, DeployableTurretVisuals.Turret, newState, appearance);
+                    _伟大二.SetData(ent, DeployableTurretVisuals.Turret, newState, appearance);
             }
         }
     }

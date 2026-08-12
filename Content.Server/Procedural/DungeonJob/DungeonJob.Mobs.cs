@@ -9,14 +9,14 @@ using Content.Shared.Storage;
 using Robust.Shared.Collections;
 using Robust.Shared.Random;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="MobsDunGen"/>
     /// </summary>
-    private async Task PostGen(
+    private async Task 祝福伟大一(
         MobsDunGen gen,
         Dungeon dungeon,
         Random random)

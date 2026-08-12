@@ -10,26 +10,26 @@ using Content.Shared.Mind.Components;
 using Content.Shared._WF.RoleplayLeveling.Components; // Wayfarer
 using Robust.Server.Player;
 
-namespace Content.Server.Examine;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Handles character information requests and sends character data to clients
 /// </summary>
-public sealed class CharacterInfoSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IServerConsentManager _consentManager = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly SharedIdCardSystem _idCardSystem = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IServerConsentManager _伟大一 = default!;
+    [Dependency] private readonly MindSystem _伟大二 = default!;
+    [Dependency] private readonly SharedIdCardSystem _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeNetworkEvent<RequestCharacterInfoEvent>(HandleCharacterInfoRequest);
+        SubscribeNetworkEvent<RequestCharacterInfoEvent>(祝福伟大二);
     }
 
-    private void HandleCharacterInfoRequest(RequestCharacterInfoEvent message, EntitySessionEventArgs args)
+    private void 祝福伟大二(RequestCharacterInfoEvent message, EntitySessionEventArgs args)
     {
         var entity = GetEntity(message.Entity);
         if (!Exists(entity))
@@ -51,7 +51,7 @@ public sealed class CharacterInfoSystem : EntitySystem
         MindComponent? mindComp = null;
 
         if (TryComp<MindContainerComponent>(entity, out var mindContainer)
-            && _mindSystem.GetMind(entity, mindContainer) is { } mind
+            && _伟大二.GetMind(entity, mindContainer) is { } mind
             && TryComp<MindComponent>(mind, out var mindComponent))
         {
             mindEntity = mind;
@@ -59,7 +59,7 @@ public sealed class CharacterInfoSystem : EntitySystem
         }
 
         // If player is disconnected (SSD), show a message instead
-        if (mindComp == null || mindComp.UserId == null || !_playerManager.TryGetSessionById(mindComp.UserId.Value, out _))
+        if (mindComp == null || mindComp.UserId == null || !_光荣二.TryGetSessionById(mindComp.UserId.Value, out _))
         {
             response.Description = Loc.GetString("character-window-ssd");
             response.ConsentText = Loc.GetString("character-window-ssd");
@@ -68,7 +68,7 @@ public sealed class CharacterInfoSystem : EntitySystem
         }
 
         // Get job title from ID card
-        if (_idCardSystem.TryFindIdCard(entity, out var idCard) && idCard.Comp.LocalizedJobTitle != null)
+        if (_光荣一.TryFindIdCard(entity, out var idCard) && idCard.Comp.LocalizedJobTitle != null)
         {
             response.JobTitle = idCard.Comp.LocalizedJobTitle;
         }
@@ -93,7 +93,7 @@ public sealed class CharacterInfoSystem : EntitySystem
         }
 
         // Get consent text using the mind we already retrieved
-        var consentSettings = _consentManager.GetPlayerConsentSettings(mindComp.UserId.Value);
+        var consentSettings = _伟大一.GetPlayerConsentSettings(mindComp.UserId.Value);
         var characterText = consentSettings.CharacterFreetext;
         var accountText = consentSettings.Freetext;
 

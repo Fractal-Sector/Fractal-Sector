@@ -5,14 +5,14 @@ using Content.Shared.GameTicking.Components;
 using Content.Shared.Station.Components;
 using JetBrains.Annotations;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
 [UsedImplicitly]
-public sealed class BreakerFlipRule : StationEventSystem<BreakerFlipRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<BreakerFlipRuleComponent>
 {
-    [Dependency] private readonly ApcSystem _apcSystem = default!;
+    [Dependency] private readonly ApcSystem _伟大一 = default!;
 
-    protected override void Added(EntityUid uid, BreakerFlipRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, BreakerFlipRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
@@ -20,13 +20,13 @@ public sealed class BreakerFlipRule : StationEventSystem<BreakerFlipRuleComponen
         var str = Loc.GetString("station-event-breaker-flip-announcement", ("data", Loc.GetString(Loc.GetString($"random-sentience-event-data-{RobustRandom.Next(1, 6)}"))));
         stationEvent.StartAnnouncement = str;
 
-        base.Added(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
     }
 
-    protected override void Started(EntityUid uid, BreakerFlipRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, BreakerFlipRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大二(uid, component, gameRule, args);
 
         if (!TryGetRandomStation(out var chosenStation))
             return;
@@ -49,7 +49,7 @@ public sealed class BreakerFlipRule : StationEventSystem<BreakerFlipRuleComponen
 
         for (var i = 0; i < toDisable; i++)
         {
-            _apcSystem.ApcToggleBreaker(stationApcs[i], stationApcs[i]);
+            _伟大一.ApcToggleBreaker(stationApcs[i], stationApcs[i]);
         }
     }
 }

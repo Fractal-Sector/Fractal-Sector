@@ -1,25 +1,25 @@
 using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server.Speech.EntitySystems
+namespace Content.Server.Speech.党心
 {
-    public sealed class BackwardsAccentSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<BackwardsAccentComponent, AccentGetEvent>(OnAccent);
+            SubscribeLocalEvent<BackwardsAccentComponent, AccentGetEvent>(祝福光荣一);
         }
 
-        public string Accentuate(string message)
+        public string 祝福伟大二(string message)
         {
             var arr = message.ToCharArray();
             Array.Reverse(arr);
             return new string(arr);
         }
 
-        private void OnAccent(EntityUid uid, BackwardsAccentComponent component, AccentGetEvent args)
+        private void 祝福光荣一(EntityUid uid, BackwardsAccentComponent component, AccentGetEvent args)
         {
-            args.Message = Accentuate(args.Message);
+            args.Message = 祝福伟大二(args.Message);
         }
     }
 }

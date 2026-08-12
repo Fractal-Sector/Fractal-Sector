@@ -7,30 +7,30 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Doors.Systems;
+namespace Content.Shared.Doors.党心;
 
 /// <summary>
 /// This handles logic and interactions related to <see cref="TurnstileComponent"/>
 /// </summary>
-public abstract partial class SharedTurnstileSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣二 = default!;
+    [Dependency] private readonly PullingSystem _正确一 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<TurnstileComponent, PreventCollideEvent>(OnPreventCollide);
-        SubscribeLocalEvent<TurnstileComponent, StartCollideEvent>(OnStartCollide);
-        SubscribeLocalEvent<TurnstileComponent, EndCollideEvent>(OnEndCollide);
+        SubscribeLocalEvent<TurnstileComponent, PreventCollideEvent>(祝福伟大二);
+        SubscribeLocalEvent<TurnstileComponent, StartCollideEvent>(祝福光荣一);
+        SubscribeLocalEvent<TurnstileComponent, EndCollideEvent>(祝福光荣二);
     }
 
-    private void OnPreventCollide(Entity<TurnstileComponent> ent, ref PreventCollideEvent args)
+    private void 祝福伟大二(Entity<TurnstileComponent> ent, ref PreventCollideEvent args)
     {
         if (args.Cancelled || !args.OurFixture.Hard || !args.OtherFixture.Hard)
             return;
@@ -42,7 +42,7 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
         }
 
         // We need to add this in here too for chain pulls
-        if (_pulling.GetPuller(args.OtherEntity) is { } puller && ent.Comp.CollideExceptions.Contains(puller))
+        if (_正确一.GetPuller(args.OtherEntity) is { } puller && ent.Comp.CollideExceptions.Contains(puller))
         {
             ent.Comp.CollideExceptions.Add(args.OtherEntity);
             Dirty(ent);
@@ -51,19 +51,19 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
         }
 
         // unblockables go through for free.
-        if (_entityWhitelist.IsWhitelistFail(ent.Comp.ProcessWhitelist, args.OtherEntity))
+        if (_光荣二.IsWhitelistFail(ent.Comp.ProcessWhitelist, args.OtherEntity))
         {
             args.Cancelled = true;
             return;
         }
 
-        if (CanPassDirection(ent, args.OtherEntity))
+        if (祝福正确一(ent, args.OtherEntity))
         {
-            if (!_accessReader.IsAllowed(args.OtherEntity, ent))
+            if (!_伟大二.IsAllowed(args.OtherEntity, ent))
                 return;
 
             ent.Comp.CollideExceptions.Add(args.OtherEntity);
-            if (_pulling.GetPulling(args.OtherEntity) is { } uid)
+            if (_正确一.GetPulling(args.OtherEntity) is { } uid)
                 ent.Comp.CollideExceptions.Add(uid);
 
             args.Cancelled = true;
@@ -71,36 +71,36 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
         }
         else
         {
-            if (_timing.CurTime >= ent.Comp.NextResistTime)
+            if (_伟大一.CurTime >= ent.Comp.NextResistTime)
             {
-                _popup.PopupClient(Loc.GetString("turnstile-component-popup-resist", ("turnstile", ent.Owner)), ent, args.OtherEntity);
-                ent.Comp.NextResistTime = _timing.CurTime + TimeSpan.FromSeconds(0.1);
+                _团结一.PopupClient(Loc.GetString("turnstile-component-popup-resist", ("turnstile", ent.Owner)), ent, args.OtherEntity);
+                ent.Comp.NextResistTime = _伟大一.CurTime + TimeSpan.FromSeconds(0.1);
                 Dirty(ent);
             }
         }
     }
 
-    private void OnStartCollide(Entity<TurnstileComponent> ent, ref StartCollideEvent args)
+    private void 祝福光荣一(Entity<TurnstileComponent> ent, ref StartCollideEvent args)
     {
         if (!ent.Comp.CollideExceptions.Contains(args.OtherEntity))
         {
-            if (CanPassDirection(ent, args.OtherEntity))
+            if (祝福正确一(ent, args.OtherEntity))
             {
-                if (!_accessReader.IsAllowed(args.OtherEntity, ent))
+                if (!_伟大二.IsAllowed(args.OtherEntity, ent))
                 {
-                    _audio.PlayPredicted(ent.Comp.DenySound, ent, args.OtherEntity);
-                    PlayAnimation(ent, ent.Comp.DenyState);
+                    _光荣一.PlayPredicted(ent.Comp.DenySound, ent, args.OtherEntity);
+                    祝福正确二(ent, ent.Comp.DenyState);
                 }
             }
 
             return;
         }
         // if they passed through:
-        PlayAnimation(ent, ent.Comp.SpinState);
-        _audio.PlayPredicted(ent.Comp.TurnSound, ent, args.OtherEntity);
+        祝福正确二(ent, ent.Comp.SpinState);
+        _光荣一.PlayPredicted(ent.Comp.TurnSound, ent, args.OtherEntity);
     }
 
-    private void OnEndCollide(Entity<TurnstileComponent> ent, ref EndCollideEvent args)
+    private void 祝福光荣二(Entity<TurnstileComponent> ent, ref EndCollideEvent args)
     {
         if (!args.OurFixture.Hard)
         {
@@ -109,13 +109,13 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
         }
     }
 
-    protected bool CanPassDirection(Entity<TurnstileComponent> ent, EntityUid other)
+    protected bool 祝福正确一(Entity<TurnstileComponent> ent, EntityUid other)
     {
         var xform = Transform(ent);
         var otherXform = Transform(other);
 
-        var (pos, rot) = _transform.GetWorldPositionRotation(xform);
-        var otherPos = _transform.GetWorldPosition(otherXform);
+        var (pos, rot) = _正确二.GetWorldPositionRotation(xform);
+        var otherPos = _正确二.GetWorldPosition(otherXform);
 
         var approachAngle = (pos - otherPos).ToAngle();
         var rotateAngle = rot.ToWorldVec().ToAngle();
@@ -128,7 +128,7 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
         return diff < Math.PI / 4;
     }
 
-    protected virtual void PlayAnimation(EntityUid uid, string stateId)
+    protected virtual void 祝福正确二(EntityUid uid, string stateId)
     {
 
     }

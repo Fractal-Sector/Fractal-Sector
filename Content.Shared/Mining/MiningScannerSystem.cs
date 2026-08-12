@@ -7,47 +7,47 @@ using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Mining;
+namespace Content.Shared.党心;
 
-public sealed partial class MiningScannerSystem : EntitySystem // Frontier: partial
+public sealed partial class 中华伟大一 : EntitySystem // Frontier: partial
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣二 = default!;
+    [Dependency] private readonly InventorySystem _正确一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MiningScannerComponent, EntGotInsertedIntoContainerMessage>(OnInserted);
-        SubscribeLocalEvent<MiningScannerComponent, EntGotRemovedFromContainerMessage>(OnRemoved);
-        SubscribeLocalEvent<MiningScannerComponent, ItemToggledEvent>(OnToggled);
+        SubscribeLocalEvent<MiningScannerComponent, EntGotInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<MiningScannerComponent, EntGotRemovedFromContainerMessage>(祝福光荣一);
+        SubscribeLocalEvent<MiningScannerComponent, ItemToggledEvent>(祝福光荣二);
 
         NFInitialize(); // Frontier
     }
 
-    private void OnInserted(Entity<MiningScannerComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void 祝福伟大二(Entity<MiningScannerComponent> ent, ref EntGotInsertedIntoContainerMessage args)
     {
-        UpdateViewerComponent(args.Container.Owner);
+        祝福正确一(args.Container.Owner);
     }
 
-    private void OnRemoved(Entity<MiningScannerComponent> ent, ref EntGotRemovedFromContainerMessage args)
+    private void 祝福光荣一(Entity<MiningScannerComponent> ent, ref EntGotRemovedFromContainerMessage args)
     {
-        UpdateViewerComponent(args.Container.Owner);
+        祝福正确一(args.Container.Owner);
     }
 
-    private void OnToggled(Entity<MiningScannerComponent> ent, ref ItemToggledEvent args)
+    private void 祝福光荣二(Entity<MiningScannerComponent> ent, ref ItemToggledEvent args)
     {
-        if (_container.TryGetContainingContainer((ent.Owner, null, null), out var container))
-            UpdateViewerComponent(container.Owner);
+        if (_光荣二.TryGetContainingContainer((ent.Owner, null, null), out var container))
+            祝福正确一(container.Owner);
     }
 
-    public void UpdateViewerComponent(EntityUid uid)
+    public void 祝福正确一(EntityUid uid)
     {
         Entity<MiningScannerComponent>? scannerEnt = null;
 
-        var ents = _inventory.GetHandOrInventoryEntities(uid);
+        var ents = _正确一.GetHandOrInventoryEntities(uid);
         foreach (var ent in ents)
         {
             if (!TryComp<MiningScannerComponent>(ent, out var scannerComponent) ||
@@ -61,7 +61,7 @@ public sealed partial class MiningScannerSystem : EntitySystem // Frontier: part
                 scannerEnt = (ent, scannerComponent);
         }
 
-        if (_net.IsServer)
+        if (_伟大二.IsServer)
         {
             if (scannerEnt == null)
             {
@@ -73,15 +73,15 @@ public sealed partial class MiningScannerSystem : EntitySystem // Frontier: part
                 var viewer = EnsureComp<MiningScannerViewerComponent>(uid);
                 viewer.ViewRange = scannerEnt.Value.Comp.Range;
                 viewer.QueueRemoval = false;
-                viewer.NextPingTime = _timing.CurTime + viewer.PingDelay;
+                viewer.NextPingTime = _伟大一.CurTime + viewer.PingDelay;
                 Dirty(uid, viewer);
             }
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确二(frameTime);
 
         var query = EntityQueryEnumerator<MiningScannerViewerComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var viewer, out var xform))
@@ -101,13 +101,13 @@ public sealed partial class MiningScannerSystem : EntitySystem // Frontier: part
                 } // Frontier
             }
 
-            if (_timing.CurTime < viewer.NextPingTime)
+            if (_伟大一.CurTime < viewer.NextPingTime)
                 continue;
 
-            viewer.NextPingTime = _timing.CurTime + viewer.PingDelay;
+            viewer.NextPingTime = _伟大一.CurTime + viewer.PingDelay;
             viewer.LastPingLocation = xform.Coordinates;
-            if (_net.IsClient && _timing.IsFirstTimePredicted)
-                _audio.PlayEntity(viewer.PingSound, uid, uid);
+            if (_伟大二.IsClient && _伟大一.IsFirstTimePredicted)
+                _光荣一.PlayEntity(viewer.PingSound, uid, uid);
         }
     }
 }

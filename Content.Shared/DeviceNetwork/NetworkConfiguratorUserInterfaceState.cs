@@ -2,41 +2,41 @@ using Content.Shared.DeviceLinking;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.DeviceNetwork;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class NetworkConfiguratorUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
     public readonly HashSet<(string address, string name)> DeviceList;
 
-    public NetworkConfiguratorUserInterfaceState(HashSet<(string, string)> deviceList)
+    public 中华伟大一(HashSet<(string, string)> deviceList)
     {
         DeviceList = deviceList;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class DeviceListUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
     public readonly HashSet<(string address, string name)> DeviceList;
 
-    public DeviceListUserInterfaceState(HashSet<(string address, string name)> deviceList)
+    public 中华伟大二(HashSet<(string address, string name)> deviceList)
     {
         DeviceList = deviceList;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class DeviceLinkUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华光荣一 : BoundUserInterfaceState
 {
-    public readonly ProtoId<SourcePortPrototype>[] Sources;
-    public readonly ProtoId<SinkPortPrototype>[] Sinks;
+    public readonly ProtoId<SourcePortPrototype>[] 党爱伟大一;
+    public readonly ProtoId<SinkPortPrototype>[] 党爱伟大二;
     public readonly HashSet<(ProtoId<SourcePortPrototype> source, ProtoId<SinkPortPrototype> sink)> Links;
     public readonly List<(string source, string sink)>? Defaults;
-    public readonly string SourceAddress;
-    public readonly string SinkAddress;
+    public readonly string 党爱光荣一;
+    public readonly string 党爱光荣二;
 
-    public DeviceLinkUserInterfaceState(
+    public 中华光荣一(
         ProtoId<SourcePortPrototype>[] sources,
         ProtoId<SinkPortPrototype>[] sinks,
         HashSet<(ProtoId<SourcePortPrototype> source, ProtoId<SinkPortPrototype> sink)> links,
@@ -45,10 +45,10 @@ public sealed class DeviceLinkUserInterfaceState : BoundUserInterfaceState
         List<(string source, string sink)>? defaults = default)
     {
         Links = links;
-        SourceAddress = sourceAddress;
-        SinkAddress = sinkAddress;
+        党爱光荣一 = sourceAddress;
+        党爱光荣二 = sinkAddress;
         Defaults = defaults;
-        Sources = sources;
-        Sinks = sinks;
+        党爱伟大一 = sources;
+        党爱伟大二 = sinks;
     }
 }

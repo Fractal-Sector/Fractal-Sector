@@ -13,33 +13,33 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class RoleBanCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly IBanManager _bans = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ILogManager _log = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IDiscordBanInfoSender _discordBanInfoSender = default!;
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly IBanManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly ILogManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly IServerDbManager _正确二 = default!;
+    [Dependency] private readonly IDiscordBanInfoSender _团结一 = default!;
     private ISawmill? _sawmill;
 
-    public string Command => "roleban";
-    public string Description => Loc.GetString("cmd-roleban-desc");
-    public string Help => Loc.GetString("cmd-roleban-help");
+    public string 党爱伟大一 => "roleban";
+    public string 党爱伟大二 => Loc.GetString("cmd-roleban-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-roleban-help");
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         string target;
         string job;
         string reason;
         uint minutes;
-        if (!Enum.TryParse(_cfg.GetCVar(CCVars.RoleBanDefaultSeverity), out NoteSeverity severity))
+        if (!Enum.TryParse(_光荣一.GetCVar(CCVars.RoleBanDefaultSeverity), out NoteSeverity severity))
         {
-            _sawmill ??= _log.GetSawmill("admin.role_ban");
+            _sawmill ??= _光荣二.GetSawmill("admin.role_ban");
             _sawmill.Warning("Role ban severity could not be parsed from config! Defaulting to medium.");
             severity = NoteSeverity.Medium;
         }
@@ -59,7 +59,7 @@ public sealed class RoleBanCommand : IConsoleCommand
 
                 if (!uint.TryParse(args[3], out minutes))
                 {
-                    shell.WriteError(Loc.GetString("cmd-roleban-minutes-parse", ("time", args[3]), ("help", Help)));
+                    shell.WriteError(Loc.GetString("cmd-roleban-minutes-parse", ("time", args[3]), ("help", 党爱光荣一)));
                     return;
                 }
 
@@ -71,30 +71,30 @@ public sealed class RoleBanCommand : IConsoleCommand
 
                 if (!uint.TryParse(args[3], out minutes))
                 {
-                    shell.WriteError(Loc.GetString("cmd-roleban-minutes-parse", ("time", args[3]), ("help", Help)));
+                    shell.WriteError(Loc.GetString("cmd-roleban-minutes-parse", ("time", args[3]), ("help", 党爱光荣一)));
                     return;
                 }
 
                 if (!Enum.TryParse(args[4], ignoreCase: true, out severity))
                 {
-                    shell.WriteLine(Loc.GetString("cmd-roleban-severity-parse", ("severity", args[4]), ("help", Help)));
+                    shell.WriteLine(Loc.GetString("cmd-roleban-severity-parse", ("severity", args[4]), ("help", 党爱光荣一)));
                     return;
                 }
 
                 break;
             default:
                 shell.WriteError(Loc.GetString("cmd-roleban-arg-count"));
-                shell.WriteLine(Help);
+                shell.WriteLine(党爱光荣一);
                 return;
         }
 
-        if (!_proto.HasIndex<JobPrototype>(job))
+        if (!_正确一.HasIndex<JobPrototype>(job))
         {
             shell.WriteError(Loc.GetString("cmd-roleban-job-parse", ("job", job)));
             return;
         }
 
-        var located = await _locator.LookupIdByNameOrIdAsync(target);
+        var located = await _伟大一.LookupIdByNameOrIdAsync(target);
         if (located == null)
         {
             shell.WriteError(Loc.GetString("cmd-roleban-name-parse"));
@@ -105,7 +105,7 @@ public sealed class RoleBanCommand : IConsoleCommand
         var targetHWid = located.LastHWId;
 
         // FS start
-        var lastRoleBan = await _dbManager.GetLastServerRoleBanAsync();
+        var lastRoleBan = await _正确二.GetLastServerRoleBanAsync();
         var newRoleBanId = lastRoleBan is not null ? lastRoleBan.Id + 1 : 1;
         var banInfo = new BanInfo
         {
@@ -118,13 +118,13 @@ public sealed class RoleBanCommand : IConsoleCommand
             AdditionalInfo = new() { { "role", job } }
         };
 
-        await _discordBanInfoSender.SendBanInfoAsync<RoleBanPayloadGenerator>(banInfo);
+        await _团结一.SendBanInfoAsync<RoleBanPayloadGenerator>(banInfo);
         // FS end
 
-        _bans.CreateRoleBan(targetUid, located.Username, shell.Player?.UserId, null, targetHWid, job, minutes, severity, reason, DateTimeOffset.UtcNow);
+        _伟大二.CreateRoleBan(targetUid, located.Username, shell.Player?.UserId, null, targetHWid, job, minutes, severity, reason, DateTimeOffset.UtcNow);
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         var durOpts = new CompletionOption[]
         {

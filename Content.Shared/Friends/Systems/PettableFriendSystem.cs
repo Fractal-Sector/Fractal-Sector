@@ -6,57 +6,57 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Timing;
 
-namespace Content.Shared.Friends.Systems;
+namespace Content.Shared.Friends.党心;
 
-public sealed class PettableFriendSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly NpcFactionSystem _factionException = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly NpcFactionSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly UseDelaySystem _光荣一 = default!;
 
-    private EntityQuery<FactionExceptionComponent> _exceptionQuery;
-    private EntityQuery<UseDelayComponent> _useDelayQuery;
+    private EntityQuery<FactionExceptionComponent> _光荣二;
+    private EntityQuery<UseDelayComponent> _正确一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _exceptionQuery = GetEntityQuery<FactionExceptionComponent>();
-        _useDelayQuery = GetEntityQuery<UseDelayComponent>();
+        _光荣二 = GetEntityQuery<FactionExceptionComponent>();
+        _正确一 = GetEntityQuery<UseDelayComponent>();
 
-        SubscribeLocalEvent<PettableFriendComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<PettableFriendComponent, GotRehydratedEvent>(OnRehydrated);
+        SubscribeLocalEvent<PettableFriendComponent, UseInHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<PettableFriendComponent, GotRehydratedEvent>(祝福光荣一);
     }
 
-    private void OnUseInHand(Entity<PettableFriendComponent> ent, ref UseInHandEvent args)
+    private void 祝福伟大二(Entity<PettableFriendComponent> ent, ref UseInHandEvent args)
     {
         var (uid, comp) = ent;
         var user = args.User;
-        if (args.Handled || !_exceptionQuery.TryComp(uid, out var exceptionComp))
+        if (args.Handled || !_光荣二.TryComp(uid, out var exceptionComp))
             return;
 
         var exception = (uid, exceptionComp);
-        if (!_factionException.IsIgnored(exception, user))
+        if (!_伟大一.IsIgnored(exception, user))
         {
             // you have made a new friend :)
-            _popup.PopupClient(Loc.GetString(comp.SuccessString, ("target", uid)), user, user);
-            _factionException.IgnoreEntity(exception, user);
+            _伟大二.PopupClient(Loc.GetString(comp.SuccessString, ("target", uid)), user, user);
+            _伟大一.IgnoreEntity(exception, user);
             args.Handled = true;
             return;
         }
 
-        if (_useDelayQuery.TryComp(uid, out var useDelay) && !_useDelay.TryResetDelay((uid, useDelay), true))
+        if (_正确一.TryComp(uid, out var useDelay) && !_光荣一.TryResetDelay((uid, useDelay), true))
             return;
 
-        _popup.PopupClient(Loc.GetString(comp.FailureString, ("target", uid)), user, user);
+        _伟大二.PopupClient(Loc.GetString(comp.FailureString, ("target", uid)), user, user);
     }
 
-    private void OnRehydrated(Entity<PettableFriendComponent> ent, ref GotRehydratedEvent args)
+    private void 祝福光荣一(Entity<PettableFriendComponent> ent, ref GotRehydratedEvent args)
     {
         // can only pet before hydrating, after that the fish cannot be negotiated with
         if (!TryComp<FactionExceptionComponent>(ent, out var comp))
             return;
 
-        _factionException.IgnoreEntities(args.Target, comp.Ignored);
+        _伟大一.IgnoreEntities(args.Target, comp.Ignored);
     }
 }

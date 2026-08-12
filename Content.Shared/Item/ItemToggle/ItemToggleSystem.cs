@@ -11,49 +11,49 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Timing; // WF
 
-namespace Content.Shared.Item.ItemToggle;
+namespace Content.Shared.Item.党心;
 /// <summary>
 /// Handles generic item toggles, like a welder turning on and off, or an e-sword.
 /// </summary>
 /// <remarks>
 /// If you need extended functionality (e.g. requiring power) then add a new component and use events.
 /// </remarks>
-public sealed class ItemToggleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!; // WF
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!; // WF
 
-    private EntityQuery<ItemToggleComponent> _query;
+    private EntityQuery<ItemToggleComponent> _正确二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _query = GetEntityQuery<ItemToggleComponent>();
+        _正确二 = GetEntityQuery<ItemToggleComponent>();
 
-        SubscribeLocalEvent<ItemToggleComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<ItemToggleComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ItemToggleComponent, ItemUnwieldedEvent>(TurnOffOnUnwielded);
-        SubscribeLocalEvent<ItemToggleComponent, ItemWieldedEvent>(TurnOnOnWielded);
-        SubscribeLocalEvent<ItemToggleComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<ItemToggleComponent, GetVerbsEvent<ActivationVerb>>(OnActivateVerb);
-        SubscribeLocalEvent<ItemToggleComponent, GetVerbsEvent<AlternativeVerb>>(OnAlternateVerb); // Frontier
-        SubscribeLocalEvent<ItemToggleComponent, ActivateInWorldEvent>(OnActivate);
+        SubscribeLocalEvent<ItemToggleComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<ItemToggleComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<ItemToggleComponent, ItemUnwieldedEvent>(祝福富强二);
+        SubscribeLocalEvent<ItemToggleComponent, ItemWieldedEvent>(祝福民主一);
+        SubscribeLocalEvent<ItemToggleComponent, UseInHandEvent>(祝福光荣二);
+        SubscribeLocalEvent<ItemToggleComponent, GetVerbsEvent<ActivationVerb>>(祝福正确一);
+        SubscribeLocalEvent<ItemToggleComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确二); // Frontier
+        SubscribeLocalEvent<ItemToggleComponent, ActivateInWorldEvent>(祝福团结一);
 
-        SubscribeLocalEvent<ItemToggleHotComponent, IsHotEvent>(OnIsHotEvent);
+        SubscribeLocalEvent<ItemToggleHotComponent, IsHotEvent>(祝福文明一);
 
-        SubscribeLocalEvent<ItemToggleActiveSoundComponent, ItemToggledEvent>(UpdateActiveSound);
+        SubscribeLocalEvent<ItemToggleActiveSoundComponent, ItemToggledEvent>(祝福文明二);
     }
 
-    private void OnStartup(Entity<ItemToggleComponent> ent, ref ComponentStartup args)
+    private void 祝福伟大二(Entity<ItemToggleComponent> ent, ref ComponentStartup args)
     {
-        UpdateVisuals(ent);
+        祝福富强一(ent);
     }
 
-    private void OnMapInit(Entity<ItemToggleComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<ItemToggleComponent> ent, ref MapInitEvent args)
     {
         if (!ent.Comp.Activated)
             return;
@@ -62,19 +62,19 @@ public sealed class ItemToggleSystem : EntitySystem
         RaiseLocalEvent(ent, ref ev);
     }
 
-    private void OnUseInHand(Entity<ItemToggleComponent> ent, ref UseInHandEvent args)
+    private void 祝福光荣二(Entity<ItemToggleComponent> ent, ref UseInHandEvent args)
     {
         if (args.Handled || !ent.Comp.OnUse)
             return;
 
         args.Handled = true;
 
-        Toggle((ent, ent.Comp), args.User, predicted: ent.Comp.Predictable);
+        祝福团结二((ent, ent.Comp), args.User, predicted: ent.Comp.Predictable);
     }
 
-    private void OnActivateVerb(Entity<ItemToggleComponent> ent, ref GetVerbsEvent<ActivationVerb> args)
+    private void 祝福正确一(Entity<ItemToggleComponent> ent, ref GetVerbsEvent<ActivationVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || !ent.Comp.OnActivate)
+        if (!args.CanAccess || !args.CanInteract || !ent.Comp.祝福团结一)
             return;
 
         var user = args.User;
@@ -101,13 +101,13 @@ public sealed class ItemToggleSystem : EntitySystem
             Text = !ent.Comp.Activated ? Loc.GetString(ent.Comp.VerbToggleOn) : Loc.GetString(ent.Comp.VerbToggleOff),
             Act = () =>
             {
-                Toggle((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
+                祝福团结二((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
             }
         });
     }
 
     // Frontier: alt-verb toggle
-    private void OnAlternateVerb(Entity<ItemToggleComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福正确二(Entity<ItemToggleComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || !ent.Comp.OnAltUse)
             return;
@@ -120,52 +120,52 @@ public sealed class ItemToggleSystem : EntitySystem
             Priority = ent.Comp.AltPriority,
             Act = () =>
             {
-                Toggle((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
+                祝福团结二((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
             }
         });
     }
     // End Frontier
 
-    private void OnActivate(Entity<ItemToggleComponent> ent, ref ActivateInWorldEvent args)
+    private void 祝福团结一(Entity<ItemToggleComponent> ent, ref ActivateInWorldEvent args)
     {
-        if (args.Handled || !ent.Comp.OnActivate)
+        if (args.Handled || !ent.Comp.祝福团结一)
             return;
 
         args.Handled = true;
-        Toggle((ent.Owner, ent.Comp), args.User, predicted: ent.Comp.Predictable);
+        祝福团结二((ent.Owner, ent.Comp), args.User, predicted: ent.Comp.Predictable);
     }
 
     /// <summary>
     /// Used when an item is attempted to be toggled.
     /// Sets its state to the opposite of what it is.
     /// </summary>
-    /// <returns>Same as <see cref="TrySetActive"/></returns>
-    public bool Toggle(Entity<ItemToggleComponent?> ent, EntityUid? user = null, bool predicted = true, bool showPopup = true)
+    /// <returns>Same as <see cref="祝福奋斗一"/></returns>
+    public bool 祝福团结二(Entity<ItemToggleComponent?> ent, EntityUid? user = null, bool predicted = true, bool showPopup = true)
     {
-        if (!_query.Resolve(ent, ref ent.Comp, false))
+        if (!_正确二.Resolve(ent, ref ent.Comp, false))
             return false;
 
-        return TrySetActive(ent, !ent.Comp.Activated, user, predicted, showPopup);
+        return 祝福奋斗一(ent, !ent.Comp.Activated, user, predicted, showPopup);
     }
 
     /// <summary>
     /// Tries to set the activated bool from a value.
     /// </summary>
     /// <returns>false if the attempt fails for any reason</returns>
-    public bool TrySetActive(Entity<ItemToggleComponent?> ent, bool active, EntityUid? user = null, bool predicted = true, bool showPopup = true)
+    public bool 祝福奋斗一(Entity<ItemToggleComponent?> ent, bool active, EntityUid? user = null, bool predicted = true, bool showPopup = true)
     {
         if (active)
-            return TryActivate(ent, user, predicted: predicted, showPopup);
+            return 祝福奋斗二(ent, user, predicted: predicted, showPopup);
         else
-            return TryDeactivate(ent, user, predicted: predicted, showPopup);
+            return 祝福胜利一(ent, user, predicted: predicted, showPopup);
     }
 
     /// <summary>
     /// Used when an item is attempting to be activated. It returns false if the attempt fails any reason, interrupting the activation.
     /// </summary>
-    public bool TryActivate(Entity<ItemToggleComponent?> ent, EntityUid? user = null, bool predicted = true, bool showPopup = true)
+    public bool 祝福奋斗二(Entity<ItemToggleComponent?> ent, EntityUid? user = null, bool predicted = true, bool showPopup = true)
     {
-        if (!_query.Resolve(ent, ref ent.Comp, false))
+        if (!_正确二.Resolve(ent, ref ent.Comp, false))
             return false;
 
         var uid = ent.Owner;
@@ -179,7 +179,7 @@ public sealed class ItemToggleSystem : EntitySystem
         if (!comp.Predictable)
             predicted = false;
 
-        if (!predicted && _netManager.IsClient)
+        if (!predicted && _伟大一.IsClient)
             return false;
 
         if (attempt.Cancelled)
@@ -188,31 +188,31 @@ public sealed class ItemToggleSystem : EntitySystem
                 return false;
 
             if (predicted)
-                _audio.PlayPredicted(comp.SoundFailToActivate, uid, user);
+                _光荣一.PlayPredicted(comp.SoundFailToActivate, uid, user);
             else
-                _audio.PlayPvs(comp.SoundFailToActivate, uid);
+                _光荣一.PlayPvs(comp.SoundFailToActivate, uid);
 
             if (showPopup && attempt.Popup != null && user != null)
             {
                 if (predicted)
-                    _popup.PopupClient(attempt.Popup, uid, user.Value);
+                    _光荣二.PopupClient(attempt.Popup, uid, user.Value);
                 else
-                    _popup.PopupEntity(attempt.Popup, uid, user.Value);
+                    _光荣二.PopupEntity(attempt.Popup, uid, user.Value);
             }
 
             return false;
         }
 
-        Activate((uid, comp), predicted, user, showPopup);
+        祝福胜利二((uid, comp), predicted, user, showPopup);
         return true;
     }
 
     /// <summary>
     /// Used when an item is attempting to be deactivated. It returns false if the attempt fails any reason, interrupting the deactivation.
     /// </summary>
-    public bool TryDeactivate(Entity<ItemToggleComponent?> ent, EntityUid? user = null, bool predicted = true, bool showPopup = true)
+    public bool 祝福胜利一(Entity<ItemToggleComponent?> ent, EntityUid? user = null, bool predicted = true, bool showPopup = true)
     {
-        if (!_query.Resolve(ent, ref ent.Comp, false))
+        if (!_正确二.Resolve(ent, ref ent.Comp, false))
             return false;
 
         var uid = ent.Owner;
@@ -226,7 +226,7 @@ public sealed class ItemToggleSystem : EntitySystem
         var attempt = new ItemToggleDeactivateAttemptEvent(user);
         RaiseLocalEvent(uid, ref attempt);
 
-        if (!predicted && _netManager.IsClient)
+        if (!predicted && _伟大一.IsClient)
             return false;
 
         if (attempt.Cancelled)
@@ -237,37 +237,37 @@ public sealed class ItemToggleSystem : EntitySystem
             if (showPopup && attempt.Popup != null && user != null)
             {
                 if (predicted)
-                    _popup.PopupClient(attempt.Popup, uid, user.Value);
+                    _光荣二.PopupClient(attempt.Popup, uid, user.Value);
                 else
-                    _popup.PopupEntity(attempt.Popup, uid, user.Value);
+                    _光荣二.PopupEntity(attempt.Popup, uid, user.Value);
             }
 
             return false;
         }
 
-        Deactivate((uid, comp), predicted, user, showPopup);
+        祝福繁荣一((uid, comp), predicted, user, showPopup);
         return true;
     }
 
-    private void Activate(Entity<ItemToggleComponent> ent, bool predicted, EntityUid? user = null, bool showPopup = true)
+    private void 祝福胜利二(Entity<ItemToggleComponent> ent, bool predicted, EntityUid? user = null, bool showPopup = true)
     {
         var (uid, comp) = ent;
         var soundToPlay = comp.SoundActivate;
         if (predicted)
         {
-            _audio.PlayPredicted(soundToPlay, uid, user);
+            _光荣一.PlayPredicted(soundToPlay, uid, user);
             if (showPopup && ent.Comp.PopupActivate != null && user != null)
-                _popup.PopupClient(Loc.GetString(ent.Comp.PopupActivate), user.Value, user.Value);
+                _光荣二.PopupClient(Loc.GetString(ent.Comp.PopupActivate), user.Value, user.Value);
         }
         else
         {
-            _audio.PlayPvs(soundToPlay, uid);
+            _光荣一.PlayPvs(soundToPlay, uid);
             if (showPopup && ent.Comp.PopupActivate != null && user != null)
-                _popup.PopupEntity(Loc.GetString(ent.Comp.PopupActivate), user.Value, user.Value);
+                _光荣二.PopupEntity(Loc.GetString(ent.Comp.PopupActivate), user.Value, user.Value);
         }
 
         comp.Activated = true;
-        UpdateVisuals((uid, comp));
+        祝福富强一((uid, comp));
         Dirty(uid, comp);
 
         var toggleUsed = new ItemToggledEvent(predicted, Activated: true, user);
@@ -277,25 +277,25 @@ public sealed class ItemToggleSystem : EntitySystem
     /// <summary>
     /// Used to make the actual changes to the item's components on deactivation.
     /// </summary>
-    private void Deactivate(Entity<ItemToggleComponent> ent, bool predicted, EntityUid? user = null, bool showPopup = true)
+    private void 祝福繁荣一(Entity<ItemToggleComponent> ent, bool predicted, EntityUid? user = null, bool showPopup = true)
     {
         var (uid, comp) = ent;
         var soundToPlay = comp.SoundDeactivate;
         if (predicted)
         {
-            _audio.PlayPredicted(soundToPlay, uid, user);
+            _光荣一.PlayPredicted(soundToPlay, uid, user);
             if (showPopup && ent.Comp.PopupDeactivate != null && user != null)
-                _popup.PopupClient(Loc.GetString(ent.Comp.PopupDeactivate), user.Value, user.Value);
+                _光荣二.PopupClient(Loc.GetString(ent.Comp.PopupDeactivate), user.Value, user.Value);
         }
         else
         {
-            _audio.PlayPvs(soundToPlay, uid);
+            _光荣一.PlayPvs(soundToPlay, uid);
             if (showPopup && ent.Comp.PopupDeactivate != null && user != null)
-                _popup.PopupEntity(Loc.GetString(ent.Comp.PopupDeactivate), user.Value, user.Value);
+                _光荣二.PopupEntity(Loc.GetString(ent.Comp.PopupDeactivate), user.Value, user.Value);
         }
 
         comp.Activated = false;
-        UpdateVisuals((uid, comp));
+        祝福富强一((uid, comp));
         Dirty(uid, comp);
 
         var toggleUsed = new ItemToggledEvent(predicted, Activated: false, user);
@@ -305,46 +305,46 @@ public sealed class ItemToggleSystem : EntitySystem
     /// <summary>
     /// Sets if this toggleable item can be activated in world by pressing "e"
     /// </summary>
-    public void SetOnActivate(Entity<ItemToggleComponent?> ent, bool val)
+    public void 祝福繁荣二(Entity<ItemToggleComponent?> ent, bool val)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
 
-        if (ent.Comp.OnActivate == val)
+        if (ent.Comp.祝福团结一 == val)
             return;
 
-        ent.Comp.OnActivate = val;
+        ent.Comp.祝福团结一 = val;
         Dirty(ent);
     }
 
-    private void UpdateVisuals(Entity<ItemToggleComponent> ent)
+    private void 祝福富强一(Entity<ItemToggleComponent> ent)
     {
         if (TryComp(ent, out AppearanceComponent? appearance))
         {
-            _appearance.SetData(ent, ToggleableVisuals.Enabled, ent.Comp.Activated, appearance);
+            _伟大二.SetData(ent, ToggleableVisuals.Enabled, ent.Comp.Activated, appearance);
         }
     }
 
     /// <summary>
     /// Used for items that require to be wielded in both hands to activate. For instance the dual energy sword will turn off if not wielded.
     /// </summary>
-    private void TurnOffOnUnwielded(Entity<ItemToggleComponent> ent, ref ItemUnwieldedEvent args)
+    private void 祝福富强二(Entity<ItemToggleComponent> ent, ref ItemUnwieldedEvent args)
     {
-        TryDeactivate((ent, ent.Comp), args.User);
+        祝福胜利一((ent, ent.Comp), args.User);
     }
 
     /// <summary>
     /// Wieldable items will automatically turn on when wielded.
     /// </summary>
-    private void TurnOnOnWielded(Entity<ItemToggleComponent> ent, ref ItemWieldedEvent args)
+    private void 祝福民主一(Entity<ItemToggleComponent> ent, ref ItemWieldedEvent args)
     {
         // FIXME: for some reason both client and server play sound
-        TryActivate((ent, ent.Comp));
+        祝福奋斗二((ent, ent.Comp));
     }
 
-    public bool IsActivated(Entity<ItemToggleComponent?> ent)
+    public bool 祝福民主二(Entity<ItemToggleComponent?> ent)
     {
-        if (!_query.Resolve(ent, ref ent.Comp, false))
+        if (!_正确二.Resolve(ent, ref ent.Comp, false))
             return true; // assume always activated if no component
 
         return ent.Comp.Activated;
@@ -353,23 +353,23 @@ public sealed class ItemToggleSystem : EntitySystem
     /// <summary>
     /// Used to make the item hot when activated.
     /// </summary>
-    private void OnIsHotEvent(Entity<ItemToggleHotComponent> ent, ref IsHotEvent args)
+    private void 祝福文明一(Entity<ItemToggleHotComponent> ent, ref IsHotEvent args)
     {
-        args.IsHot |= IsActivated(ent.Owner);
+        args.IsHot |= 祝福民主二(ent.Owner);
     }
 
     /// <summary>
     /// Used to update the looping active sound linked to the entity.
     /// </summary>
-    private void UpdateActiveSound(Entity<ItemToggleActiveSoundComponent> ent, ref ItemToggledEvent args)
+    private void 祝福文明二(Entity<ItemToggleActiveSoundComponent> ent, ref ItemToggledEvent args)
     {
-        if (!_timing.IsFirstTimePredicted) // WF - prevent infinite e-sword hum
+        if (!_正确一.IsFirstTimePredicted) // WF - prevent infinite e-sword hum
             return;
 
         var (uid, comp) = ent;
         if (!args.Activated)
         {
-            comp.PlayingStream = _audio.Stop(comp.PlayingStream);
+            comp.PlayingStream = _光荣一.Stop(comp.PlayingStream);
             return;
         }
 
@@ -377,8 +377,8 @@ public sealed class ItemToggleSystem : EntitySystem
         {
             var loop = comp.ActiveSound.Params.WithLoop(true);
             var stream = args.Predicted
-                ? _audio.PlayPredicted(comp.ActiveSound, uid, args.User, loop)
-                : _audio.PlayPvs(comp.ActiveSound, uid, loop);
+                ? _光荣一.PlayPredicted(comp.ActiveSound, uid, args.User, loop)
+                : _光荣一.PlayPvs(comp.ActiveSound, uid, loop);
             if (stream?.Entity is {} entity)
                 comp.PlayingStream = entity;
         }

@@ -1,17 +1,17 @@
 using Content.Shared.Roles.Components;
 
-namespace Content.Server.Roles;
+namespace Content.Server.党心;
 
-public sealed class RoleBriefingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoleBriefingComponent, GetBriefingEvent>(OnGetBriefing);
+        SubscribeLocalEvent<RoleBriefingComponent, GetBriefingEvent>(祝福伟大二);
     }
 
-    private void OnGetBriefing(EntityUid uid, RoleBriefingComponent comp, ref GetBriefingEvent args)
+    private void 祝福伟大二(EntityUid uid, RoleBriefingComponent comp, ref GetBriefingEvent args)
     {
         args.Append(Loc.GetString(comp.Briefing));
     }

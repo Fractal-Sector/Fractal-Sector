@@ -4,24 +4,24 @@ using Content.Shared.Eye.Blinding.Systems;
 using Content.Shared.IdentityManagement;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Traits.Assorted;
+namespace Content.Shared.Traits.党心;
 
 /// <summary>
 /// This handles permanent blindness, both the examine and the actual effect.
 /// </summary>
-public sealed class PermanentBlindnessSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BlindableSystem _blinding = default!;
+    [Dependency] private readonly BlindableSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PermanentBlindnessComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<PermanentBlindnessComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<PermanentBlindnessComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<PermanentBlindnessComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<PermanentBlindnessComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<PermanentBlindnessComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(Entity<PermanentBlindnessComponent> blindness, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<PermanentBlindnessComponent> blindness, ref ExaminedEvent args)
     {
         if (args.IsInDetailsRange && blindness.Comp.Blindness == 0)
         {
@@ -29,28 +29,28 @@ public sealed class PermanentBlindnessSystem : EntitySystem
         }
     }
 
-    private void OnShutdown(Entity<PermanentBlindnessComponent> blindness, ref ComponentShutdown args)
+    private void 祝福光荣一(Entity<PermanentBlindnessComponent> blindness, ref ComponentShutdown args)
     {
         if (!TryComp<BlindableComponent>(blindness.Owner, out var blindable))
             return;
 
         if (blindable.MinDamage != 0)
         {
-            _blinding.SetMinDamage((blindness.Owner, blindable), 0);
+            _伟大一.SetMinDamage((blindness.Owner, blindable), 0);
         }
     }
 
-    private void OnMapInit(Entity<PermanentBlindnessComponent> blindness, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<PermanentBlindnessComponent> blindness, ref MapInitEvent args)
     {
         if(!TryComp<BlindableComponent>(blindness.Owner, out var blindable))
             return;
 
         if (blindness.Comp.Blindness != 0)
-            _blinding.SetMinDamage((blindness.Owner, blindable), blindness.Comp.Blindness);
+            _伟大一.SetMinDamage((blindness.Owner, blindable), blindness.Comp.Blindness);
         else
         {
             var maxMagnitudeInt = (int) BlurryVisionComponent.MaxMagnitude;
-            _blinding.SetMinDamage((blindness.Owner, blindable), maxMagnitudeInt);
+            _伟大一.SetMinDamage((blindness.Owner, blindable), maxMagnitudeInt);
         }
     }
 }

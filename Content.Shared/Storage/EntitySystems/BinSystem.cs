@@ -11,53 +11,53 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
 /// <summary>
 /// This handles <see cref="BinComponent"/>
 /// </summary>
-public sealed class BinSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly ISharedAdminLogManager _admin = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<BinComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<BinComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<BinComponent, EntInsertedIntoContainerMessage>(OnEntInserted);
-        SubscribeLocalEvent<BinComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-        SubscribeLocalEvent<BinComponent, InteractHandEvent>(OnInteractHand, before: new[] { typeof(SharedItemSystem) });
-        SubscribeLocalEvent<BinComponent, AfterInteractUsingEvent>(OnAfterInteractUsing);
-        SubscribeLocalEvent<BinComponent, GetVerbsEvent<AlternativeVerb>>(OnAltInteractHand);
-        SubscribeLocalEvent<BinComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<BinComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<BinComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<BinComponent, EntInsertedIntoContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<BinComponent, EntRemovedFromContainerMessage>(祝福正确二);
+        SubscribeLocalEvent<BinComponent, InteractHandEvent>(祝福团结一, before: new[] { typeof(SharedItemSystem) });
+        SubscribeLocalEvent<BinComponent, AfterInteractUsingEvent>(祝福奋斗一);
+        SubscribeLocalEvent<BinComponent, GetVerbsEvent<AlternativeVerb>>(祝福团结二);
+        SubscribeLocalEvent<BinComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(EntityUid uid, BinComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, BinComponent component, ExaminedEvent args)
     {
         args.PushText(Loc.GetString("bin-component-on-examine-text", ("count", component.Items.Count)));
     }
 
-    private void OnStartup(EntityUid uid, BinComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, BinComponent component, ComponentStartup args)
     {
-        component.ItemContainer = _container.EnsureContainer<Container>(uid, component.ContainerId);
+        component.ItemContainer = _光荣一.EnsureContainer<Container>(uid, component.ContainerId);
     }
 
-    private void OnMapInit(EntityUid uid, BinComponent component, MapInitEvent args)
+    private void 祝福光荣二(EntityUid uid, BinComponent component, MapInitEvent args)
     {
         // don't spawn on the client.
-        if (_net.IsClient)
+        if (_伟大一.IsClient)
             return;
 
         var xform = Transform(uid);
         foreach (var id in component.InitialContents)
         {
             var ent = Spawn(id, xform.Coordinates);
-            if (!TryInsertIntoBin(uid, ent, component))
+            if (!祝福胜利一(uid, ent, component))
             {
                 Log.Error($"Entity {ToPrettyString(ent)} was unable to be initialized into bin {ToPrettyString(uid)}");
                 return;
@@ -65,7 +65,7 @@ public sealed class BinSystem : EntitySystem
         }
     }
 
-    private void OnEntInserted(Entity<BinComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福正确一(Entity<BinComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         if (args.Container.ID != ent.Comp.ContainerId)
             return;
@@ -73,7 +73,7 @@ public sealed class BinSystem : EntitySystem
         ent.Comp.Items.Add(args.Entity);
     }
 
-    private void OnEntRemoved(Entity<BinComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福正确二(Entity<BinComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         if (args.Container.ID != ent.Comp.ContainerId)
             return;
@@ -81,17 +81,17 @@ public sealed class BinSystem : EntitySystem
         ent.Comp.Items.Remove(args.Entity);
     }
 
-    private void OnInteractHand(EntityUid uid, BinComponent component, InteractHandEvent args)
+    private void 祝福团结一(EntityUid uid, BinComponent component, InteractHandEvent args)
     {
         if (args.Handled)
             return;
 
         EntityUid? toGrab = component.Items.LastOrDefault();
-        if (!TryRemoveFromBin(uid, toGrab, component))
+        if (!祝福胜利二(uid, toGrab, component))
             return;
 
-        _hands.TryPickupAnyHand(args.User, toGrab.Value);
-        _admin.Add(LogType.Pickup, LogImpact.Low,
+        _光荣二.TryPickupAnyHand(args.User, toGrab.Value);
+        _伟大二.Add(LogType.Pickup, LogImpact.Low,
             $"{ToPrettyString(uid):player} removed {ToPrettyString(toGrab.Value)} from bin {ToPrettyString(uid)}.");
         args.Handled = true;
     }
@@ -101,30 +101,30 @@ public sealed class BinSystem : EntitySystem
     /// has priority. E.g. a water cup on a water cooler fills itself on a normal click,
     /// but you can use alternative interactions to restock the cup bin
     /// </summary>
-    private void OnAltInteractHand(EntityUid uid, BinComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福团结二(EntityUid uid, BinComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (args.Using != null)
         {
             var canReach = args.CanAccess && args.CanInteract;
-            InsertIntoBin(args.User, args.Target, (EntityUid)args.Using, component, false, canReach);
+            祝福奋斗二(args.User, args.Target, (EntityUid)args.Using, component, false, canReach);
         }
     }
 
-    private void OnAfterInteractUsing(EntityUid uid, BinComponent component, AfterInteractUsingEvent args)
+    private void 祝福奋斗一(EntityUid uid, BinComponent component, AfterInteractUsingEvent args)
     {
-        InsertIntoBin(args.User, uid, args.Used, component, args.Handled, args.CanReach);
+        祝福奋斗二(args.User, uid, args.Used, component, args.Handled, args.CanReach);
         args.Handled = true;
     }
 
-    private void InsertIntoBin(EntityUid user, EntityUid target, EntityUid itemInHand, BinComponent component, bool handled, bool canReach)
+    private void 祝福奋斗二(EntityUid user, EntityUid target, EntityUid itemInHand, BinComponent component, bool handled, bool canReach)
     {
         if (handled || !canReach)
             return;
 
-        if (!TryInsertIntoBin(target, itemInHand, component))
+        if (!祝福胜利一(target, itemInHand, component))
             return;
 
-        _admin.Add(LogType.Pickup, LogImpact.Low, $"{ToPrettyString(target):player} inserted {ToPrettyString(user)} into bin {ToPrettyString(target)}.");
+        _伟大二.Add(LogType.Pickup, LogImpact.Low, $"{ToPrettyString(target):player} inserted {ToPrettyString(user)} into bin {ToPrettyString(target)}.");
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public sealed class BinSystem : EntitySystem
     /// <param name="toInsert"></param>
     /// <param name="component"></param>
     /// <returns></returns>
-    public bool TryInsertIntoBin(EntityUid uid, EntityUid toInsert, BinComponent? component = null)
+    public bool 祝福胜利一(EntityUid uid, EntityUid toInsert, BinComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -142,10 +142,10 @@ public sealed class BinSystem : EntitySystem
         if (component.Items.Count >= component.MaxItems)
             return false;
 
-        if (_whitelistSystem.IsWhitelistFail(component.Whitelist, toInsert))
+        if (_正确一.IsWhitelistFail(component.Whitelist, toInsert))
             return false;
 
-        _container.Insert(toInsert, component.ItemContainer);
+        _光荣一.Insert(toInsert, component.ItemContainer);
         Dirty(uid, component);
         return true;
     }
@@ -157,7 +157,7 @@ public sealed class BinSystem : EntitySystem
     /// <param name="toRemove"></param>
     /// <param name="component"></param>
     /// <returns></returns>
-    public bool TryRemoveFromBin(EntityUid uid, EntityUid? toRemove, BinComponent? component = null)
+    public bool 祝福胜利二(EntityUid uid, EntityUid? toRemove, BinComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -168,7 +168,7 @@ public sealed class BinSystem : EntitySystem
         if (toRemove == null || toRemove != component.Items.LastOrDefault())
             return false;
 
-        if (!_container.Remove(toRemove.Value, component.ItemContainer))
+        if (!_光荣一.Remove(toRemove.Value, component.ItemContainer))
             return false;
 
         component.Items.Remove(toRemove.Value);

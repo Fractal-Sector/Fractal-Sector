@@ -1,10 +1,10 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.RatKing;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedRatKingSystem))]
 [AutoGenerateComponentState]
-public sealed partial class RatKingServantComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The king this rat belongs to.

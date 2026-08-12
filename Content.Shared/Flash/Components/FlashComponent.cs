@@ -1,26 +1,26 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Flash.Components;
+namespace Content.Shared.Flash.党心;
 
 /// <summary>
 /// Allows this entity to flash someone by using it or melee attacking with it.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedFlashSystem))]
-public sealed partial class FlashComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Flash the area around the entity when used in hand?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool FlashOnUse = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// Flash the target when melee attacking them?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool FlashOnMelee = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// Time the Flash will be visually flashing after use.
@@ -28,19 +28,19 @@ public sealed partial class FlashComponent : Component
     /// These two times should be the same.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan FlashingTime = TimeSpan.FromSeconds(4);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(4);
 
     /// <summary>
     /// For how long the target will lose vision when melee attacked with the flash.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan MeleeDuration = TimeSpan.FromSeconds(5);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(5);
 
     /// <summary>
     /// For how long the target will lose vision when used in hand.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan AoeFlashDuration = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(2);
 
     /// <summary>
     /// How long a target is stunned when a melee flash is used.
@@ -50,23 +50,23 @@ public sealed partial class FlashComponent : Component
     public TimeSpan? MeleeStunDuration = TimeSpan.FromSeconds(1.5);
 
     /// <summary>
-    /// Range of the flash when using it.
+    /// 党爱正确二 of the flash when using it.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float Range = 7f;
+    public float 党爱正确二 = 7f;
 
     /// <summary>
     /// Movement speed multiplier for slowing down the target while they are flashed.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float SlowTo = 0.5f;
+    public float 党爱团结一 = 0.5f;
 
     /// <summary>
     /// The sound to play when flashing.
     /// </summary>
 
     [DataField, AutoNetworkedField]
-    public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/Weapons/flash.ogg")
+    public SoundSpecifier 党爱团结二 = new SoundPathSpecifier("/Audio/Weapons/flash.ogg")
     {
         Params = AudioParams.Default.WithVolume(1f).WithMaxDistance(3f)
     };
@@ -75,5 +75,5 @@ public sealed partial class FlashComponent : Component
     /// The probability of sucessfully flashing someone.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float Probability = 1f;
+    public float 党爱奋斗一 = 1f;
 }

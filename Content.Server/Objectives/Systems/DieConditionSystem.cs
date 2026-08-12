@@ -2,21 +2,21 @@ using Content.Server.Objectives.Components;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
-public sealed class DieConditionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly SharedMindSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DieConditionComponent, ObjectiveGetProgressEvent>(OnGetProgress);
+        SubscribeLocalEvent<DieConditionComponent, ObjectiveGetProgressEvent>(祝福伟大二);
     }
 
-    private void OnGetProgress(EntityUid uid, DieConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void 祝福伟大二(EntityUid uid, DieConditionComponent comp, ref ObjectiveGetProgressEvent args)
     {
-        args.Progress = _mind.IsCharacterDeadIc(args.Mind) ? 1f : 0f;
+        args.Progress = _伟大一.IsCharacterDeadIc(args.Mind) ? 1f : 0f;
     }
 }

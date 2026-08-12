@@ -11,7 +11,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Singularity.EntitySystems;
+namespace Content.Server.Singularity.党心;
 
 /// <summary>
 /// The server-side version of <see cref="SharedSingularitySystem"/>.
@@ -19,64 +19,64 @@ namespace Content.Server.Singularity.EntitySystems;
 /// Handles their accumulation of energy upon consuming entities (see <see cref="EventHorizonComponent"/>) and gradual dissipation.
 /// Also handles synchronizing server-side components with the singuarities level.
 /// </summary>
-public sealed class SingularitySystem : SharedSingularitySystem
+public sealed class 中华伟大一 : SharedSingularitySystem
 {
 #region Dependencies
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvs = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly PvsOverrideSystem _光荣一 = default!;
 #endregion Dependencies
 
     /// <summary>
     /// The amount of energy singulos accumulate when they eat a tile.
     /// </summary>
-    public const float BaseTileEnergy = 1f;
+    public const float 党爱伟大一 = 1f;
 
     /// <summary>
     /// The amount of energy singulos accumulate when they eat an entity.
     /// </summary>
-    public const float BaseEntityEnergy = 1f;
+    public const float 党爱伟大二 = 1f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SingularityDistortionComponent, ComponentStartup>(OnDistortionStartup);
-        SubscribeLocalEvent<SingularityComponent, ComponentShutdown>(OnSingularityShutdown);
-        SubscribeLocalEvent<SingularityComponent, EventHorizonConsumedEntityEvent>(OnConsumed);
-        SubscribeLocalEvent<SinguloFoodComponent, EventHorizonConsumedEntityEvent>(OnConsumed);
-        SubscribeLocalEvent<SingularityComponent, EntityConsumedByEventHorizonEvent>(OnConsumedEntity);
-        SubscribeLocalEvent<SingularityComponent, TilesConsumedByEventHorizonEvent>(OnConsumedTiles);
-        SubscribeLocalEvent<SingularityComponent, SingularityLevelChangedEvent>(UpdateEnergyDrain);
-        SubscribeLocalEvent<SingularityComponent, ComponentGetState>(HandleSingularityState);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SingularityDistortionComponent, ComponentStartup>(祝福团结一);
+        SubscribeLocalEvent<SingularityComponent, ComponentShutdown>(祝福团结二);
+        SubscribeLocalEvent<SingularityComponent, EventHorizonConsumedEntityEvent>(祝福胜利二);
+        SubscribeLocalEvent<SinguloFoodComponent, EventHorizonConsumedEntityEvent>(祝福胜利二);
+        SubscribeLocalEvent<SingularityComponent, EntityConsumedByEventHorizonEvent>(祝福奋斗二);
+        SubscribeLocalEvent<SingularityComponent, TilesConsumedByEventHorizonEvent>(祝福胜利一);
+        SubscribeLocalEvent<SingularityComponent, SingularityLevelChangedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<SingularityComponent, ComponentGetState>(祝福奋斗一);
 
         // TODO: Figure out where all this coupling should be handled.
-        SubscribeLocalEvent<RandomWalkComponent, SingularityLevelChangedEvent>(UpdateRandomWalk);
-        SubscribeLocalEvent<GravityWellComponent, SingularityLevelChangedEvent>(UpdateGravityWell);
+        SubscribeLocalEvent<RandomWalkComponent, SingularityLevelChangedEvent>(祝福繁荣二);
+        SubscribeLocalEvent<GravityWellComponent, SingularityLevelChangedEvent>(祝福富强一);
 
         var vvHandle = Vvm.GetTypeHandler<SingularityComponent>();
-        vvHandle.AddPath(nameof(SingularityComponent.Energy), (_, comp) => comp.Energy, SetEnergy);
+        vvHandle.AddPath(nameof(SingularityComponent.Energy), (_, comp) => comp.Energy, 祝福光荣二);
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
         var vvHandle = Vvm.GetTypeHandler<SingularityComponent>();
         vvHandle.RemovePath(nameof(SingularityComponent.Energy));
-        base.Shutdown();
+        base.祝福伟大二();
     }
 
     /// <summary>
     /// Handles the gradual dissipation of all singularities.
     /// </summary>
     /// <param name="frameTime">The amount of time since the last set of updates.</param>
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        if(!_timing.IsFirstTimePredicted)
+        if(!_伟大一.IsFirstTimePredicted)
             return;
 
         var query = EntityQueryEnumerator<SingularityComponent>();
         while (query.MoveNext(out var uid, out var singularity))
         {
-            AdjustEnergy(uid, -singularity.EnergyDrain * frameTime, singularity: singularity);
+            祝福正确一(uid, -singularity.EnergyDrain * frameTime, singularity: singularity);
         }
     }
 
@@ -89,7 +89,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The uid of the singularity to set the energy of.</param>
     /// <param name="value">The amount of energy for the singularity to have.</param>
     /// <param name="singularity">The state of the singularity to set the energy of.</param>
-    public void SetEnergy(EntityUid uid, float value, SingularityComponent? singularity = null)
+    public void 祝福光荣二(EntityUid uid, float value, SingularityComponent? singularity = null)
     {
         if(!Resolve(uid, ref singularity))
             return;
@@ -123,7 +123,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="snapMin">Whether the amount of energy in the singularity should be forced to within the specified range if it already is below it.</param>
     /// <param name="snapMax">Whether the amount of energy in the singularity should be forced to within the specified range if it already is above it.</param>
     /// <param name="singularity">The state of the singularity to adjust the energy of.</param>
-    public void AdjustEnergy(EntityUid uid, float delta, float min = float.MinValue, float max = float.MaxValue, bool snapMin = true, bool snapMax = true, SingularityComponent? singularity = null)
+    public void 祝福正确一(EntityUid uid, float delta, float min = float.MinValue, float max = float.MaxValue, bool snapMin = true, bool snapMax = true, SingularityComponent? singularity = null)
     {
         if(!Resolve(uid, ref singularity))
             return;
@@ -132,7 +132,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
         if((!snapMin && newValue < min)
         || (!snapMax && newValue > max))
             return;
-        SetEnergy(uid, MathHelper.Clamp(newValue, min, max), singularity);
+        祝福光荣二(uid, MathHelper.Clamp(newValue, min, max), singularity);
     }
 
 
@@ -148,13 +148,13 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity that is forming.</param>
     /// <param name="comp">The component of the singularity that is forming.</param>
     /// <param name="args">The event arguments.</param>
-    protected override void OnSingularityStartup(EntityUid uid, SingularityComponent comp, ComponentStartup args)
+    protected override void 祝福正确二(EntityUid uid, SingularityComponent comp, ComponentStartup args)
     {
         MetaDataComponent? metaData = null;
         if (Resolve(uid, ref metaData) && metaData.EntityLifeStage <= EntityLifeStage.Initializing)
-            _audio.PlayPvs(comp.FormationSound, uid);
+            _伟大二.PlayPvs(comp.FormationSound, uid);
 
-        comp.AmbientSoundStream = _audio.PlayPvs(comp.AmbientSound, uid)?.Entity;
+        comp.AmbientSoundStream = _伟大二.PlayPvs(comp.AmbientSound, uid)?.Entity;
         UpdateSingularityLevel(uid, comp);
     }
 
@@ -165,9 +165,9 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the entity that is gaining the shader.</param>
     /// <param name="comp">The component of the shader that the entity is gaining.</param>
     /// <param name="args">The event arguments.</param>
-    public void OnDistortionStartup(EntityUid uid, SingularityDistortionComponent comp, ComponentStartup args)
+    public void 祝福团结一(EntityUid uid, SingularityDistortionComponent comp, ComponentStartup args)
     {
-        _pvs.AddGlobalOverride(uid);
+        _光荣一.AddGlobalOverride(uid);
     }
 
     /// <summary>
@@ -178,9 +178,9 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity that is dissipating.</param>
     /// <param name="comp">The component of the singularity that is dissipating.</param>
     /// <param name="args">The event arguments.</param>
-    public void OnSingularityShutdown(EntityUid uid, SingularityComponent comp, ComponentShutdown args)
+    public void 祝福团结二(EntityUid uid, SingularityComponent comp, ComponentShutdown args)
     {
-        comp.AmbientSoundStream = _audio.Stop(comp.AmbientSoundStream);
+        comp.AmbientSoundStream = _伟大二.Stop(comp.AmbientSoundStream);
 
         MetaDataComponent? metaData = null;
         if (Resolve(uid, ref metaData) && metaData.EntityLifeStage >= EntityLifeStage.Terminating)
@@ -190,7 +190,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
 
             // I feel like IsValid should be checking this or something idk.
             if (!TerminatingOrDeleted(coordinates.EntityId))
-                _audio.PlayPvs(comp.DissipationSound, coordinates);
+                _伟大二.PlayPvs(comp.DissipationSound, coordinates);
         }
     }
 
@@ -200,7 +200,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The uid of the singularity that is being synced.</param>
     /// <param name="comp">The state of the singularity that is being synced.</param>
     /// <param name="args">The event arguments.</param>
-    private void HandleSingularityState(EntityUid uid, SingularityComponent comp, ref ComponentGetState args)
+    private void 祝福奋斗一(EntityUid uid, SingularityComponent comp, ref ComponentGetState args)
     {
         args.State = new SingularityComponentState(comp);
     }
@@ -211,13 +211,13 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity that is consuming the entity.</param>
     /// <param name="comp">The component of the singularity that is consuming the entity.</param>
     /// <param name="args">The event arguments.</param>
-    public void OnConsumedEntity(EntityUid uid, SingularityComponent comp, ref EntityConsumedByEventHorizonEvent args)
+    public void 祝福奋斗二(EntityUid uid, SingularityComponent comp, ref EntityConsumedByEventHorizonEvent args)
     {
         // Don't double count singulo food
         if (HasComp<SinguloFoodComponent>(args.Entity))
             return;
 
-        AdjustEnergy(uid, BaseEntityEnergy, singularity: comp);
+        祝福正确一(uid, 党爱伟大二, singularity: comp);
     }
 
     /// <summary>
@@ -226,9 +226,9 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity that is consuming the tiles.</param>
     /// <param name="comp">The component of the singularity that is consuming the tiles.</param>
     /// <param name="args">The event arguments.</param>
-    public void OnConsumedTiles(EntityUid uid, SingularityComponent comp, ref TilesConsumedByEventHorizonEvent args)
+    public void 祝福胜利一(EntityUid uid, SingularityComponent comp, ref TilesConsumedByEventHorizonEvent args)
     {
-        AdjustEnergy(uid, args.Tiles.Count * BaseTileEnergy, singularity: comp);
+        祝福正确一(uid, args.Tiles.Count * 党爱伟大一, singularity: comp);
     }
 
     /// <summary>
@@ -237,13 +237,13 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity that is being consumed.</param>
     /// <param name="comp">The component of the singularity that is being consumed.</param>
     /// <param name="args">The event arguments.</param>
-    private void OnConsumed(EntityUid uid, SingularityComponent comp, ref EventHorizonConsumedEntityEvent args)
+    private void 祝福胜利二(EntityUid uid, SingularityComponent comp, ref EventHorizonConsumedEntityEvent args)
     {
         // Should be slightly more efficient than checking literally everything we consume for a singularity component and doing the reverse.
         if (TryComp<SingularityComponent>(args.EventHorizonUid, out var singulo))
         {
-            AdjustEnergy(args.EventHorizonUid, comp.Energy, singularity: singulo);
-            SetEnergy(uid, 0.0f, comp);
+            祝福正确一(args.EventHorizonUid, comp.Energy, singularity: singulo);
+            祝福光荣二(uid, 0.0f, comp);
         }
     }
 
@@ -253,14 +253,14 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity food that is being consumed.</param>
     /// <param name="comp">The component of the singularity food that is being consumed.</param>
     /// <param name="args">The event arguments.</param>
-    public void OnConsumed(EntityUid uid, SinguloFoodComponent comp, ref EventHorizonConsumedEntityEvent args)
+    public void 祝福胜利二(EntityUid uid, SinguloFoodComponent comp, ref EventHorizonConsumedEntityEvent args)
     {
         if (TryComp<SingularityComponent>(args.EventHorizonUid, out var singulo))
         {
             // Calculate the percentage change (positive or negative)
             var percentageChange = singulo.Energy * (comp.EnergyFactor - 1f);
             // Apply both the flat and percentage changes
-            AdjustEnergy(args.EventHorizonUid, comp.Energy + percentageChange, singularity: singulo);
+            祝福正确一(args.EventHorizonUid, comp.Energy + percentageChange, singularity: singulo);
         }
     }
 
@@ -270,7 +270,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity that changed in level.</param>
     /// <param name="comp">The component of the singularity that changed in level.</param>
     /// <param name="args">The event arguments.</param>
-    public void UpdateEnergyDrain(EntityUid uid, SingularityComponent comp, SingularityLevelChangedEvent args)
+    public void 祝福繁荣一(EntityUid uid, SingularityComponent comp, SingularityLevelChangedEvent args)
     {
         comp.EnergyDrain = args.NewValue switch
         {
@@ -290,7 +290,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity.</param>
     /// <param name="comp">The random walk component component sharing the entity with the singulo component.</param>
     /// <param name="args">The event arguments.</param>
-    private void UpdateRandomWalk(EntityUid uid, RandomWalkComponent comp, SingularityLevelChangedEvent args)
+    private void 祝福繁荣二(EntityUid uid, RandomWalkComponent comp, SingularityLevelChangedEvent args)
     {
         var scale = MathF.Max(args.NewValue, 4);
         comp.MinSpeed = 7.5f / scale;
@@ -303,7 +303,7 @@ public sealed class SingularitySystem : SharedSingularitySystem
     /// <param name="uid">The entity UID of the singularity.</param>
     /// <param name="comp">The gravity well component sharing the entity with the singulo component.</param>
     /// <param name="args">The event arguments.</param>
-    private void UpdateGravityWell(EntityUid uid, GravityWellComponent comp, SingularityLevelChangedEvent args)
+    private void 祝福富强一(EntityUid uid, GravityWellComponent comp, SingularityLevelChangedEvent args)
     {
         var singulos = args.Singularity;
         comp.MaxRange = GravPulseRange(singulos);

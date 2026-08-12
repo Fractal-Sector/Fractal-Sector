@@ -5,27 +5,27 @@ using Content.Shared.Storage;
 using Content.Shared.Storage.Components;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Placeable;
+namespace Content.Shared.党心;
 
-public sealed class PlaceableSurfaceSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PlaceableSurfaceComponent, AfterInteractUsingEvent>(OnAfterInteractUsing);
-        SubscribeLocalEvent<PlaceableSurfaceComponent, StorageInteractUsingAttemptEvent>(OnStorageInteractUsingAttempt);
-        SubscribeLocalEvent<PlaceableSurfaceComponent, StorageAfterOpenEvent>(OnStorageAfterOpen);
-        SubscribeLocalEvent<PlaceableSurfaceComponent, StorageAfterCloseEvent>(OnStorageAfterClose);
-        SubscribeLocalEvent<PlaceableSurfaceComponent, GetDumpableVerbEvent>(OnGetDumpableVerb);
-        SubscribeLocalEvent<PlaceableSurfaceComponent, DumpEvent>(OnDump);
+        SubscribeLocalEvent<PlaceableSurfaceComponent, AfterInteractUsingEvent>(祝福正确一);
+        SubscribeLocalEvent<PlaceableSurfaceComponent, StorageInteractUsingAttemptEvent>(祝福正确二);
+        SubscribeLocalEvent<PlaceableSurfaceComponent, StorageAfterOpenEvent>(祝福团结一);
+        SubscribeLocalEvent<PlaceableSurfaceComponent, StorageAfterCloseEvent>(祝福团结二);
+        SubscribeLocalEvent<PlaceableSurfaceComponent, GetDumpableVerbEvent>(祝福奋斗一);
+        SubscribeLocalEvent<PlaceableSurfaceComponent, DumpEvent>(祝福奋斗二);
     }
 
-    public void SetPlaceable(EntityUid uid, bool isPlaceable, PlaceableSurfaceComponent? surface = null)
+    public void 祝福伟大二(EntityUid uid, bool isPlaceable, PlaceableSurfaceComponent? surface = null)
     {
         if (!Resolve(uid, ref surface, false))
             return;
@@ -37,7 +37,7 @@ public sealed class PlaceableSurfaceSystem : EntitySystem
         Dirty(uid, surface);
     }
 
-    public void SetPlaceCentered(EntityUid uid, bool placeCentered, PlaceableSurfaceComponent? surface = null)
+    public void 祝福光荣一(EntityUid uid, bool placeCentered, PlaceableSurfaceComponent? surface = null)
     {
         if (!Resolve(uid, ref surface))
             return;
@@ -46,7 +46,7 @@ public sealed class PlaceableSurfaceSystem : EntitySystem
         Dirty(uid, surface);
     }
 
-    public void SetPositionOffset(EntityUid uid, Vector2 offset, PlaceableSurfaceComponent? surface = null)
+    public void 祝福光荣二(EntityUid uid, Vector2 offset, PlaceableSurfaceComponent? surface = null)
     {
         if (!Resolve(uid, ref surface))
             return;
@@ -55,7 +55,7 @@ public sealed class PlaceableSurfaceSystem : EntitySystem
         Dirty(uid, surface);
     }
 
-    private void OnAfterInteractUsing(EntityUid uid, PlaceableSurfaceComponent surface, AfterInteractUsingEvent args)
+    private void 祝福正确一(EntityUid uid, PlaceableSurfaceComponent surface, AfterInteractUsingEvent args)
     {
         if (args.Handled || !args.CanReach)
             return;
@@ -68,36 +68,36 @@ public sealed class PlaceableSurfaceSystem : EntitySystem
         if (HasComp<DumpableComponent>(args.Used))
             return;
 
-        if (!_handsSystem.TryDrop(args.User, args.Used))
+        if (!_伟大二.TryDrop(args.User, args.Used))
             return;
 
-        _transformSystem.SetCoordinates(args.Used,
+        _光荣一.SetCoordinates(args.Used,
             surface.PlaceCentered ? Transform(uid).Coordinates.Offset(surface.PositionOffset) : args.ClickLocation);
 
         args.Handled = true;
     }
 
-    private void OnStorageInteractUsingAttempt(Entity<PlaceableSurfaceComponent> ent, ref StorageInteractUsingAttemptEvent args)
+    private void 祝福正确二(Entity<PlaceableSurfaceComponent> ent, ref StorageInteractUsingAttemptEvent args)
     {
         args.Cancelled = true;
     }
 
-    private void OnStorageAfterOpen(Entity<PlaceableSurfaceComponent> ent, ref StorageAfterOpenEvent args)
+    private void 祝福团结一(Entity<PlaceableSurfaceComponent> ent, ref StorageAfterOpenEvent args)
     {
-        SetPlaceable(ent.Owner, true, ent.Comp);
+        祝福伟大二(ent.Owner, true, ent.Comp);
     }
 
-    private void OnStorageAfterClose(Entity<PlaceableSurfaceComponent> ent, ref StorageAfterCloseEvent args)
+    private void 祝福团结二(Entity<PlaceableSurfaceComponent> ent, ref StorageAfterCloseEvent args)
     {
-        SetPlaceable(ent.Owner, false, ent.Comp);
+        祝福伟大二(ent.Owner, false, ent.Comp);
     }
 
-    private void OnGetDumpableVerb(Entity<PlaceableSurfaceComponent> ent, ref GetDumpableVerbEvent args)
+    private void 祝福奋斗一(Entity<PlaceableSurfaceComponent> ent, ref GetDumpableVerbEvent args)
     {
         args.Verb = Loc.GetString("dump-placeable-verb-name", ("surface", ent));
     }
 
-    private void OnDump(Entity<PlaceableSurfaceComponent> ent, ref DumpEvent args)
+    private void 祝福奋斗二(Entity<PlaceableSurfaceComponent> ent, ref DumpEvent args)
     {
         if (args.Handled)
             return;
@@ -105,11 +105,11 @@ public sealed class PlaceableSurfaceSystem : EntitySystem
         args.Handled = true;
         args.PlaySound = true;
 
-        var (targetPos, targetRot) = _transformSystem.GetWorldPositionRotation(ent);
+        var (targetPos, targetRot) = _光荣一.GetWorldPositionRotation(ent);
 
         foreach (var entity in args.DumpQueue)
         {
-            _transformSystem.SetWorldPositionRotation(entity, targetPos + _random.NextVector2Box() / 4, targetRot);
+            _光荣一.SetWorldPositionRotation(entity, targetPos + _伟大一.NextVector2Box() / 4, targetRot);
         }
     }
 }

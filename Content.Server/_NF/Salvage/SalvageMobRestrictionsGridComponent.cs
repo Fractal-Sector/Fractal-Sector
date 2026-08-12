@@ -1,4 +1,4 @@
-namespace Content.Server._NF.Salvage;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 ///     This component is attached to grids when a salvage mob is
@@ -8,9 +8,9 @@ namespace Content.Server._NF.Salvage;
 ///     *This applies even if the mobs are off-grid at the time.*
 /// </summary>
 [RegisterComponent]
-public sealed partial class SalvageMobRestrictionsGridComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables(VVAccess.ReadOnly)]
     [DataField("mobsToKill")]
-    public List<EntityUid> MobsToKill = new();
+    public List<EntityUid> 党爱伟大一 = new();
 }

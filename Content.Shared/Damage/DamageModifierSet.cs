@@ -2,13 +2,13 @@ using Content.Shared.Damage.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Shared.Damage
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     A set of coefficients or flat modifiers to damage types. Can be applied to <see cref="DamageSpecifier"/> using <see
-    ///     cref="DamageSpecifier.ApplyModifierSet(DamageSpecifier, DamageModifierSet)"/>. This can be done several times as the
+    ///     cref="DamageSpecifier.ApplyModifierSet(DamageSpecifier, 中华伟大一)"/>. This can be done several times as the
     ///     <see cref="DamageSpecifier"/> is passed to it's final target. By default the receiving <see cref="DamageableComponent"/>, will
-    ///     also apply it's own <see cref="DamageModifierSet"/>.
+    ///     also apply it's own <see cref="中华伟大一"/>.
     /// </summary>
     /// <remarks>
     /// The modifier will only ever be applied to damage that is being dealt. Healing is unmodified.
@@ -16,7 +16,7 @@ namespace Content.Shared.Damage
     [DataDefinition]
     [Serializable, NetSerializable]
     [Virtual]
-    public partial class DamageModifierSet
+    public partial class 中华伟大一
     {
         [DataField("coefficients", customTypeSerializer: typeof(PrototypeIdDictionarySerializer<float, DamageTypePrototype>))]
         public Dictionary<string, float> Coefficients = new();

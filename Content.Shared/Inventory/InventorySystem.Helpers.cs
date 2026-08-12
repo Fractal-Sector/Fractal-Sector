@@ -3,16 +3,16 @@ using Content.Shared.Hands.Components;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
-public partial class InventorySystem
+public partial class 中华伟大一
 {
-    [Dependency] private readonly SharedStorageSystem _storageSystem = default!;
+    [Dependency] private readonly SharedStorageSystem _伟大一 = default!;
 
     /// <summary>
     /// Yields all entities in hands or inventory slots with the specific flags.
     /// </summary>
-    public IEnumerable<EntityUid> GetHandOrInventoryEntities(Entity<HandsComponent?, InventoryComponent?> user, SlotFlags flags = SlotFlags.All)
+    public IEnumerable<EntityUid> 祝福伟大一(Entity<HandsComponent?, InventoryComponent?> user, SlotFlags flags = SlotFlags.All)
     {
         if (Resolve(user.Owner, ref user.Comp1, false))
         {
@@ -35,7 +35,7 @@ public partial class InventorySystem
     /// <summary>
     ///     Returns the definition of the inventory slot that the given entity is currently in..
     /// </summary>
-    public bool TryGetContainingSlot(Entity<TransformComponent?, MetaDataComponent?> entity, [NotNullWhen(true)] out SlotDefinition? slot)
+    public bool 祝福伟大二(Entity<TransformComponent?, MetaDataComponent?> entity, [NotNullWhen(true)] out SlotDefinition? slot)
     {
         if (!_containerSystem.TryGetContainingContainer(entity, out var container))
         {
@@ -49,13 +49,13 @@ public partial class InventorySystem
     /// <summary>
     ///     Returns true if the given entity is equipped to an inventory slot with the given inventory slot flags.
     /// </summary>
-    public bool InSlotWithFlags(Entity<TransformComponent?, MetaDataComponent?> entity, SlotFlags flags)
+    public bool 祝福光荣一(Entity<TransformComponent?, MetaDataComponent?> entity, SlotFlags flags)
     {
-        return TryGetContainingSlot(entity, out var slot)
+        return 祝福伟大二(entity, out var slot)
                && (slot.SlotFlags & flags) == flags;
     }
 
-    public bool SpawnItemInSlot(EntityUid uid, string slot, string prototype, bool silent = false, bool force = false, InventoryComponent? inventory = null)
+    public bool 祝福光荣二(EntityUid uid, string slot, string prototype, bool silent = false, bool force = false, InventoryComponent? inventory = null)
     {
         if (!Resolve(uid, ref inventory, false))
             return false;
@@ -91,11 +91,11 @@ public partial class InventorySystem
     /// </summary>
     /// <param name="entity">The entity that you want to spawn an item on</param>
     /// <param name="items">A list of prototype IDs that you want to spawn in the bag.</param>
-    public void SpawnItemsOnEntity(EntityUid entity, List<string> items)
+    public void 祝福正确一(EntityUid entity, List<string> items)
     {
         foreach (var item in items)
         {
-            SpawnItemOnEntity(entity, item);
+            祝福正确二(entity, item);
         }
     }
 
@@ -104,7 +104,7 @@ public partial class InventorySystem
     /// </summary>
     /// <param name="entity">The entity that you want to spawn an item on</param>
     /// <param name="item">The prototype ID that you want to spawn in the bag.</param>
-    public void SpawnItemOnEntity(EntityUid entity, EntProtoId item)
+    public void 祝福正确二(EntityUid entity, EntProtoId item)
     {
         //Transform() throws error if TransformComponent doesnt exist
         if (!HasComp<TransformComponent>(entity))
@@ -118,7 +118,7 @@ public partial class InventorySystem
         //Try insert into the backpack
         if (TryGetSlotContainer(entity, "back", out var backSlot, out _)
             && backSlot.ContainedEntity.HasValue
-            && _storageSystem.Insert(backSlot.ContainedEntity.Value, itemToSpawn, out _)
+            && _伟大一.Insert(backSlot.ContainedEntity.Value, itemToSpawn, out _)
             )
             return;
 
@@ -138,7 +138,7 @@ public partial class InventorySystem
     }
 
     // Goobstation start
-    public bool TryGetContainingEntity(Entity<TransformComponent?, MetaDataComponent?> entity, [NotNullWhen(true)] out EntityUid? containingEntity)
+    public bool 祝福团结一(Entity<TransformComponent?, MetaDataComponent?> entity, [NotNullWhen(true)] out EntityUid? containingEntity)
     {
         if (!_containerSystem.TryGetContainingContainer(entity, out var container) || !HasComp<InventoryComponent>(container.Owner))
         {

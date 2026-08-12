@@ -19,70 +19,70 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._WF.StationRecords.Systems;
+namespace Content.Server._WF.StationRecords.党心;
 
-public sealed class RegisterCrewConsoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     private static readonly SoundSpecifier ErrorSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
     private static readonly SoundSpecifier ConfirmSound = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly GeneralStationRecordConsoleSystem _generalConsole = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大一 = default!;
+    [Dependency] private readonly StationSystem _伟大二 = default!;
+    [Dependency] private readonly StationRecordsSystem _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly IAdminLogManager _团结一 = default!;
+    [Dependency] private readonly GeneralStationRecordConsoleSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<RegisterCrewConsoleComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<RegisterCrewConsoleComponent, EntInsertedIntoContainerMessage>(OnSlotChanged);
-        SubscribeLocalEvent<RegisterCrewConsoleComponent, EntRemovedFromContainerMessage>(OnSlotChanged);
+        SubscribeLocalEvent<RegisterCrewConsoleComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<RegisterCrewConsoleComponent, EntInsertedIntoContainerMessage>(祝福光荣一);
+        SubscribeLocalEvent<RegisterCrewConsoleComponent, EntRemovedFromContainerMessage>(祝福光荣一);
 
         Subs.BuiEvents<RegisterCrewConsoleComponent>(GeneralStationRecordConsoleKey.Key, subs =>
         {
-            subs.Event<RegisterCrewMessage>(OnRegisterCrew);
-            subs.Event<RemoveCrewMessage>(OnRemoveCrew);
+            subs.Event<RegisterCrewMessage>(祝福光荣二);
+            subs.Event<RemoveCrewMessage>(祝福正确一);
         });
     }
 
-    private void OnComponentInit(EntityUid uid, RegisterCrewConsoleComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, RegisterCrewConsoleComponent component, ComponentInit args)
     {
-        _itemSlots.AddItemSlot(uid, RegisterCrewConsoleComponent.TargetIdSlotId, component.TargetIdSlot);
-        _itemSlots.AddItemSlot(uid, RegisterCrewConsoleComponent.PrivilegedIdSlotId, component.PrivilegedIdSlot);
+        _伟大一.AddItemSlot(uid, RegisterCrewConsoleComponent.TargetIdSlotId, component.TargetIdSlot);
+        _伟大一.AddItemSlot(uid, RegisterCrewConsoleComponent.PrivilegedIdSlotId, component.PrivilegedIdSlot);
     }
 
-    private void OnSlotChanged(EntityUid uid, RegisterCrewConsoleComponent component, ContainerModifiedMessage args)
+    private void 祝福光荣一(EntityUid uid, RegisterCrewConsoleComponent component, ContainerModifiedMessage args)
     {
         if (args.Container.ID == RegisterCrewConsoleComponent.TargetIdSlotId
             || args.Container.ID == RegisterCrewConsoleComponent.PrivilegedIdSlotId)
-            _generalConsole.RefreshExternal(uid);
+            _团结二.RefreshExternal(uid);
     }
 
-    private void OnRegisterCrew(EntityUid uid, RegisterCrewConsoleComponent component, RegisterCrewMessage args)
+    private void 祝福光荣二(EntityUid uid, RegisterCrewConsoleComponent component, RegisterCrewMessage args)
     {
         if (component.PrivilegedIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } privilegedId
             || component.TargetIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } targetId)
         {
-            _popup.PopupEntity(Loc.GetString("register-crew-no-idcard"), args.Actor);
-            _audio.PlayPredicted(ErrorSound, uid, null);
+            _光荣二.PopupEntity(Loc.GetString("register-crew-no-idcard"), args.Actor);
+            _正确一.PlayPredicted(ErrorSound, uid, null);
             return;
         }
 
-        if (_station.GetOwningStation(uid) is not { } stationUid)
+        if (_伟大二.GetOwningStation(uid) is not { } stationUid)
             return;
 
-        if (!IsAuthorized(privilegedId, stationUid))
+        if (!祝福团结一(privilegedId, stationUid))
         {
-            _popup.PopupEntity(Loc.GetString("register-crew-not-authorized"), args.Actor);
-            _audio.PlayPredicted(ErrorSound, uid, null);
+            _光荣二.PopupEntity(Loc.GetString("register-crew-not-authorized"), args.Actor);
+            _正确一.PlayPredicted(ErrorSound, uid, null);
             return;
         }
 
         var idCard = Comp<IdCardComponent>(targetId);
-        var job = _prototype.EnumeratePrototypes<JobPrototype>()
+        var job = _正确二.EnumeratePrototypes<JobPrototype>()
             .FirstOrDefault(j => j.LocalizedName == idCard.LocalizedJobTitle);
         if (job is null)
             return;
@@ -93,68 +93,68 @@ public sealed class RegisterCrewConsoleSystem : EntitySystem
         var name = !string.IsNullOrWhiteSpace(idCard.FullName) ? idCard.FullName : Name(targetId);
         var profile = HumanoidCharacterProfile.DefaultWithSpecies().WithName(name);
 
-        _records.CreateGeneralRecord(stationUid, targetId, name, profile.Age, profile.Species, profile.Gender, job.ID, null, null, profile, stationRecords);
+        _光荣一.CreateGeneralRecord(stationUid, targetId, name, profile.Age, profile.Species, profile.Gender, job.ID, null, null, profile, stationRecords);
 
         // If a custom job title was typed, override the manifest text only.
         if (!string.IsNullOrWhiteSpace(args.CustomJobTitle)
-            && _records.GetRecordByName(stationUid, name) is { } recordId)
+            && _光荣一.GetRecordByName(stationUid, name) is { } recordId)
         {
             var key = new StationRecordKey(recordId, stationUid);
-            if (_records.TryGetRecord<GeneralStationRecord>(key, out var record))
+            if (_光荣一.TryGetRecord<GeneralStationRecord>(key, out var record))
             {
                 record.JobTitle = args.CustomJobTitle;
-                _records.Synchronize(key);
+                _光荣一.Synchronize(key);
             }
         }
 
-        _adminLogger.Add(LogType.Action, LogImpact.Medium,
+        _团结一.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(args.Actor):actor} registered {ToPrettyString(targetId):target} as crew ({job.ID}) on {ToPrettyString(stationUid):station}.");
 
-        _audio.PlayPredicted(ConfirmSound, uid, null);
+        _正确一.PlayPredicted(ConfirmSound, uid, null);
 
-        _generalConsole.RefreshExternal(uid);
+        _团结二.RefreshExternal(uid);
     }
 
-    private void OnRemoveCrew(EntityUid uid, RegisterCrewConsoleComponent component, RemoveCrewMessage args)
+    private void 祝福正确一(EntityUid uid, RegisterCrewConsoleComponent component, RemoveCrewMessage args)
     {
         if (component.PrivilegedIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } privilegedId)
         {
-            _popup.PopupEntity(Loc.GetString("register-crew-no-privileged-id"), args.Actor);
-            _audio.PlayPredicted(ErrorSound, uid, null);
+            _光荣二.PopupEntity(Loc.GetString("register-crew-no-privileged-id"), args.Actor);
+            _正确一.PlayPredicted(ErrorSound, uid, null);
             return;
         }
 
-        if (_station.GetOwningStation(uid) is not { } stationUid)
+        if (_伟大二.GetOwningStation(uid) is not { } stationUid)
             return;
 
-        if (!IsAuthorized(privilegedId, stationUid))
+        if (!祝福团结一(privilegedId, stationUid))
         {
-            _popup.PopupEntity(Loc.GetString("register-crew-not-authorized"), args.Actor);
-            _audio.PlayPredicted(ErrorSound, uid, null);
+            _光荣二.PopupEntity(Loc.GetString("register-crew-not-authorized"), args.Actor);
+            _正确一.PlayPredicted(ErrorSound, uid, null);
             return;
         }
 
         var key = new StationRecordKey(args.RecordId, stationUid);
-        if (!_records.TryGetRecord<GeneralStationRecord>(key, out var record))
+        if (!_光荣一.TryGetRecord<GeneralStationRecord>(key, out var record))
             return;
 
-        if (IsStationOwnerRecord(args.RecordId, stationUid))
+        if (祝福正确二(args.RecordId, stationUid))
         {
-            _popup.PopupEntity(Loc.GetString("register-crew-cannot-remove-owner"), args.Actor);
-            _audio.PlayPredicted(ErrorSound, uid, null);
+            _光荣二.PopupEntity(Loc.GetString("register-crew-cannot-remove-owner"), args.Actor);
+            _正确一.PlayPredicted(ErrorSound, uid, null);
             return;
         }
 
-        _records.RemoveRecord(key);
+        _光荣一.RemoveRecord(key);
 
-        _adminLogger.Add(LogType.Action, LogImpact.Medium,
+        _团结一.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(args.Actor):actor} removed {record.Name} ({record.JobTitle}) from the crew of {ToPrettyString(stationUid):station}.");
 
-        _audio.PlayPredicted(ConfirmSound, uid, null);
-        _generalConsole.RefreshExternal(uid);
+        _正确一.PlayPredicted(ConfirmSound, uid, null);
+        _团结二.RefreshExternal(uid);
     }
 
-    private bool IsStationOwnerRecord(uint recordId, EntityUid stationUid)
+    private bool 祝福正确二(uint recordId, EntityUid stationUid)
     {
         var query = EntityQueryEnumerator<ShuttleDeedComponent, StationRecordKeyStorageComponent>();
         while (query.MoveNext(out _, out var deed, out var keyStorage))
@@ -170,7 +170,7 @@ public sealed class RegisterCrewConsoleSystem : EntitySystem
         return false;
     }
 
-    private bool IsAuthorized(EntityUid privilegedId, EntityUid stationUid)
+    private bool 祝福团结一(EntityUid privilegedId, EntityUid stationUid)
     {
         if (TryComp<ShuttleDeedComponent>(privilegedId, out var deed)
             && deed.ShuttleUid is { } deedGrid
@@ -188,7 +188,7 @@ public sealed class RegisterCrewConsoleSystem : EntitySystem
 
         foreach (var group in jobs.Groups)
         {
-            if (_prototype.TryIndex(group, out var accessGroup)
+            if (_正确二.TryIndex(group, out var accessGroup)
                 && accessGroup.Tags.Any(idAccess.Tags.Contains))
                 return true;
         }

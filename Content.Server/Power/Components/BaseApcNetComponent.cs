@@ -1,8 +1,8 @@
 using Content.Server.Power.NodeGroups;
 
-namespace Content.Server.Power.Components
+namespace Content.Server.Power.党心
 {
-    public abstract partial class BaseApcNetComponent : BaseNetConnectorComponent<IApcNet>
+    public abstract partial class 中华伟大一 : BaseNetConnectorComponent<IApcNet>
     {
     }
 }

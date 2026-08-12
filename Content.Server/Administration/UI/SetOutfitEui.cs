@@ -4,47 +4,47 @@ using Content.Shared.Administration;
 using Content.Shared.Eui;
 using JetBrains.Annotations;
 
-namespace Content.Server.Administration.UI
+namespace Content.Server.Administration.党心
 {
     [UsedImplicitly]
-    public sealed class SetOutfitEui : BaseEui
+    public sealed class 中华伟大一 : BaseEui
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        private readonly NetEntity _target;
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
+        private readonly NetEntity _伟大二;
 
-        public SetOutfitEui(NetEntity entity)
+        public 中华伟大一(NetEntity entity)
         {
-            _target = entity;
+            _伟大二 = entity;
             IoCManager.InjectDependencies(this);
         }
 
-        public override void Opened()
+        public override void 祝福伟大一()
         {
-            base.Opened();
+            base.祝福伟大一();
 
             StateDirty();
-            _adminManager.OnPermsChanged += AdminManagerOnPermsChanged;
+            _伟大一.OnPermsChanged += 祝福光荣一;
         }
 
-        public override EuiStateBase GetNewState()
+        public override EuiStateBase 祝福伟大二()
         {
             return new SetOutfitEuiState
             {
-                TargetNetEntity = _target,
+                TargetNetEntity = _伟大二,
             };
         }
 
-        private void AdminManagerOnPermsChanged(AdminPermsChangedEventArgs obj)
+        private void 祝福光荣一(AdminPermsChangedEventArgs obj)
         {
             // Close UI if user loses +FUN.
-            if (obj.Player == Player && !UserAdminFlagCheck(AdminFlags.Fun))
+            if (obj.Player == Player && !祝福光荣二(AdminFlags.Fun))
             {
                 Close();
             }
         }
-        private bool UserAdminFlagCheck(AdminFlags flags)
+        private bool 祝福光荣二(AdminFlags flags)
         {
-            return _adminManager.HasAdminFlag(Player, flags);
+            return _伟大一.HasAdminFlag(Player, flags);
         }
 
     }

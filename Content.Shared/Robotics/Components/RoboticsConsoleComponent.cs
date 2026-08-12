@@ -5,14 +5,14 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Robotics.Components;
+namespace Content.Shared.Robotics.党心;
 
 /// <summary>
 /// Robotics console for managing borgs.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedRoboticsConsoleSystem))]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class RoboticsConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Address and data of each cyborg.
@@ -24,36 +24,36 @@ public sealed partial class RoboticsConsoleComponent : Component
     /// After not responding for this length of time borgs are removed from the console.
     /// </summary>
     [DataField]
-    public TimeSpan Timeout = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// Radio channel to send messages on.
     /// </summary>
     [DataField]
-    public ProtoId<RadioChannelPrototype> RadioChannel = "Science";
+    public ProtoId<RadioChannelPrototype> 党爱伟大二 = "Science";
 
     /// <summary>
     /// Radio message sent when destroying a borg.
     /// </summary>
     [DataField]
-    public LocId DestroyMessage = "robotics-console-cyborg-destroying";
+    public LocId 党爱光荣一 = "robotics-console-cyborg-destroying";
 
     /// <summary>
     /// Cooldown on destroying borgs to prevent complete abuse.
     /// </summary>
     [DataField]
-    public TimeSpan DestroyCooldown = TimeSpan.FromSeconds(30);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(30);
 
     /// <summary>
     /// When a borg can next be destroyed.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoNetworkedField, AutoPausedField]
-    public TimeSpan NextDestroy = TimeSpan.Zero;
+    public TimeSpan 党爱正确一 = TimeSpan.Zero;
 
     /// <summary>
     /// Controls if the console can disable or destroy any borg.
     /// </summary>
     [DataField]
-    public bool AllowBorgControl = true;
+    public bool 党爱正确二 = true;
 }

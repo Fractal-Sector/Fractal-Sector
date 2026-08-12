@@ -8,13 +8,13 @@ using Content.Shared.Examine;
 using Content.Shared.Nutrition;
 using Content.Shared.Radiation.Components;
 
-namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Server._FarHorizons.Power.Generation.党心;
 
-public sealed partial class ReactorPartSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
+    [Dependency] private readonly MetaDataSystem _伟大一 = default!;
 
-    private void OnAtmosExposed(EntityUid uid, ReactorPartComponent component, ref AtmosExposedUpdateEvent args)
+    private void 祝福伟大一(EntityUid uid, ReactorPartComponent component, ref AtmosExposedUpdateEvent args)
     {
         // Stops it from cooking the room while in the reactor
         if(!TryComp(uid, out MetaDataComponent? metaData) || (metaData.Flags & MetaDataFlags.InContainer) == MetaDataFlags.InContainer)

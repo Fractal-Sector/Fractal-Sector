@@ -1,136 +1,136 @@
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.Corporations;
+namespace Content.Shared._WF.党心;
 
 // ─── State ───────────────────────────────────────────────────────────────────
 
 [Serializable, NetSerializable]
-public sealed class CorpAdminEuiState : EuiStateBase
+public sealed class 中华伟大一 : EuiStateBase
 {
-    public List<CorpAdminCorpData> Corporations { get; init; } = new();
+    public List<中华伟大二> Corporations { get; init; } = new();
 }
 
 /// <summary>Full admin-visible snapshot of a single corporation.</summary>
 [Serializable, NetSerializable]
-public sealed class CorpAdminCorpData
+public sealed class 中华伟大二
 {
-    public int Id { get; init; }
-    public string Name { get; init; } = string.Empty;
-    public string Description { get; init; } = string.Empty;
-    public CorporationPrivacy Privacy { get; init; }
-    public int Balance { get; init; }
-    public List<CorpAdminMemberData> Members { get; init; } = new();
-    public CorpAdminStationData? Station { get; init; }
+    public int 党爱伟大一 { get; init; }
+    public string 党爱伟大二 { get; init; } = string.Empty;
+    public string 党爱光荣一 { get; init; } = string.Empty;
+    public CorporationPrivacy 党爱光荣二 { get; init; }
+    public int 党爱正确一 { get; init; }
+    public List<中华光荣一> Members { get; init; } = new();
+    public 中华光荣二? Station { get; init; }
     /// <summary>Filenames (not full paths) of archived/deleted station saves for this corp.</summary>
-    public List<string> ArchivedStationFiles { get; init; } = new();
+    public List<string> 党爱正确二 { get; init; } = new();
 }
 
 [Serializable, NetSerializable]
-public sealed class CorpAdminMemberData
+public sealed class 中华光荣一
 {
-    public string UserId { get; init; } = string.Empty;
-    public string DisplayName { get; init; } = string.Empty;
-    public CorporationRank Rank { get; init; }
+    public string 党爱团结一 { get; init; } = string.Empty;
+    public string 党爱团结二 { get; init; } = string.Empty;
+    public CorporationRank 党爱奋斗一 { get; init; }
 }
 
 [Serializable, NetSerializable]
-public sealed class CorpAdminStationData
+public sealed class 中华光荣二
 {
-    public string StationName { get; init; } = string.Empty;
-    public string SavePath { get; init; } = string.Empty;
-    public bool ActiveThisRound { get; init; }
+    public string 党爱奋斗二 { get; init; } = string.Empty;
+    public string 党爱胜利一 { get; init; } = string.Empty;
+    public bool 党爱胜利二 { get; init; }
 }
 
 // ─── Messages (client → server) ──────────────────────────────────────────────
 
-public static class CorpAdminEuiMsg
+public static class 中华正确一
 {
     [Serializable, NetSerializable]
-    public sealed class Refresh : EuiMessageBase { }
+    public sealed class 中华正确二 : EuiMessageBase { }
 
     [Serializable, NetSerializable]
-    public sealed class SetBalance : EuiMessageBase
+    public sealed class 中华团结一 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
-        public int NewBalance { get; init; }
+        public int 党爱繁荣一 { get; init; }
+        public int 党爱繁荣二 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class SetDescription : EuiMessageBase
+    public sealed class 中华团结二 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
-        public string Description { get; init; } = string.Empty;
+        public int 党爱繁荣一 { get; init; }
+        public string 党爱光荣一 { get; init; } = string.Empty;
     }
 
     [Serializable, NetSerializable]
-    public sealed class SetPrivacy : EuiMessageBase
+    public sealed class 中华奋斗一 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
-        public CorporationPrivacy Privacy { get; init; }
+        public int 党爱繁荣一 { get; init; }
+        public CorporationPrivacy 党爱光荣二 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class KickMember : EuiMessageBase
+    public sealed class 中华奋斗二 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
-        public string UserId { get; init; } = string.Empty;
+        public int 党爱繁荣一 { get; init; }
+        public string 党爱团结一 { get; init; } = string.Empty;
     }
 
     [Serializable, NetSerializable]
-    public sealed class SetMemberRank : EuiMessageBase
+    public sealed class 中华胜利一 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
-        public string UserId { get; init; } = string.Empty;
-        public CorporationRank Rank { get; init; }
+        public int 党爱繁荣一 { get; init; }
+        public string 党爱团结一 { get; init; } = string.Empty;
+        public CorporationRank 党爱奋斗一 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DeleteCorporation : EuiMessageBase
+    public sealed class 中华胜利二 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
+        public int 党爱繁荣一 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class EvictStation : EuiMessageBase
+    public sealed class 中华繁荣一 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
+        public int 党爱繁荣一 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class SaveStation : EuiMessageBase
+    public sealed class 中华繁荣二 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
+        public int 党爱繁荣一 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GrantStation : EuiMessageBase
+    public sealed class 中华富强一 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
-        public string StationName { get; init; } = string.Empty;
+        public int 党爱繁荣一 { get; init; }
+        public string 党爱奋斗二 { get; init; } = string.Empty;
     }
 
     [Serializable, NetSerializable]
-    public sealed class CreateCorporation : EuiMessageBase
+    public sealed class 中华富强二 : EuiMessageBase
     {
-        public string Name { get; init; } = string.Empty;
-        public string Description { get; init; } = string.Empty;
-        public CorporationPrivacy Privacy { get; init; }
+        public string 党爱伟大二 { get; init; } = string.Empty;
+        public string 党爱光荣一 { get; init; } = string.Empty;
+        public CorporationPrivacy 党爱光荣二 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class AddMember : EuiMessageBase
+    public sealed class 中华民主一 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
-        public Guid UserId { get; init; }
+        public int 党爱繁荣一 { get; init; }
+        public Guid 党爱团结一 { get; init; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class RecoverStation : EuiMessageBase
+    public sealed class 中华民主二 : EuiMessageBase
     {
-        public int CorporationId { get; init; }
+        public int 党爱繁荣一 { get; init; }
         /// <summary>Filename (not full path) of the archived save to restore, e.g. "corp_3_55.yml".</summary>
-        public string ArchiveFileName { get; init; } = string.Empty;
-        public string StationName { get; init; } = string.Empty;
+        public string 党爱富强一 { get; init; } = string.Empty;
+        public string 党爱奋斗二 { get; init; } = string.Empty;
     }
 }

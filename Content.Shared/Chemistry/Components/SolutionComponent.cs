@@ -2,7 +2,7 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Materials;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Chemistry.Components;
+namespace Content.Shared.Chemistry.党心;
 
 /// <summary>
 /// <para>Holds the composition of an entity made from reagents and its reagent temperature.</para>
@@ -12,11 +12,11 @@ namespace Content.Shared.Chemistry.Components;
 /// <para>Once reagents and materials have been merged this component should be depricated in favor of using a combination of <see cref="PhysicalCompositionComponent"/> and <see cref="Content.Server.Temperature.Components.TemperatureComponent"/>. May require minor reworks to both.</para>
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class SolutionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// <para>The reagents the entity is composed of and their temperature.</para>
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Solution Solution = new();
+    public 党爱伟大一 党爱伟大一 = new();
 }

@@ -1,4 +1,4 @@
-// Starlight Start: Move to Shared ``Content.Shared\_Starlight\Atmos\EntitySystems\PipeRestrictOverlapSystem.cs``
+// Starlight Start: Move to Shared ``Content.Shared\_Starlight\Atmos\EntitySystems\中华伟大一.cs``
 /*
 using System.Linq;
 using Content.Server.Atmos.Components;
@@ -13,92 +13,92 @@ using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
 /// <summary>
 /// This handles restricting pipe-based entities from overlapping outlets/inlets with other entities.
 /// </summary>
-public sealed class PipeRestrictOverlapSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly TransformSystem _xform = default!;
+    [Dependency] private readonly MapSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly TransformSystem _光荣一 = default!;
 
-    private readonly List<EntityUid> _anchoredEntities = new();
-    private EntityQuery<NodeContainerComponent> _nodeContainerQuery;
+    private readonly List<EntityUid> _光荣二 = new();
+    private EntityQuery<NodeContainerComponent> _正确一;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PipeRestrictOverlapComponent, AnchorStateChangedEvent>(OnAnchorStateChanged);
-        SubscribeLocalEvent<PipeRestrictOverlapComponent, AnchorAttemptEvent>(OnAnchorAttempt);
+        SubscribeLocalEvent<PipeRestrictOverlapComponent, AnchorStateChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<PipeRestrictOverlapComponent, AnchorAttemptEvent>(祝福光荣一);
 
-        _nodeContainerQuery = GetEntityQuery<NodeContainerComponent>();
+        _正确一 = GetEntityQuery<NodeContainerComponent>();
     }
 
-    private void OnAnchorStateChanged(Entity<PipeRestrictOverlapComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福伟大二(Entity<PipeRestrictOverlapComponent> ent, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
             return;
 
-        if (HasComp<AnchorableComponent>(ent) && CheckOverlap(ent))
+        if (HasComp<AnchorableComponent>(ent) && 祝福光荣二(ent))
         {
-            _popup.PopupEntity(Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent.Owner)), ent);
-            _xform.Unanchor(ent, Transform(ent));
+            _伟大二.PopupEntity(Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent.Owner)), ent);
+            _光荣一.Unanchor(ent, Transform(ent));
         }
     }
 
-    private void OnAnchorAttempt(Entity<PipeRestrictOverlapComponent> ent, ref AnchorAttemptEvent args)
+    private void 祝福光荣一(Entity<PipeRestrictOverlapComponent> ent, ref AnchorAttemptEvent args)
     {
         if (args.Cancelled)
             return;
 
-        if (!_nodeContainerQuery.TryComp(ent, out var node))
+        if (!_正确一.TryComp(ent, out var node))
             return;
 
         var xform = Transform(ent);
-        if (CheckOverlap((ent, node, xform)))
+        if (祝福光荣二((ent, node, xform)))
         {
-            _popup.PopupEntity(Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent.Owner)), ent, args.User);
+            _伟大二.PopupEntity(Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent.Owner)), ent, args.User);
             args.Cancel();
         }
     }
 
     [PublicAPI]
-    public bool CheckOverlap(EntityUid uid)
+    public bool 祝福光荣二(EntityUid uid)
     {
-        if (!_nodeContainerQuery.TryComp(uid, out var node))
+        if (!_正确一.TryComp(uid, out var node))
             return false;
 
-        return CheckOverlap((uid, node, Transform(uid)));
+        return 祝福光荣二((uid, node, Transform(uid)));
     }
 
-    public bool CheckOverlap(Entity<NodeContainerComponent, TransformComponent> ent)
+    public bool 祝福光荣二(Entity<NodeContainerComponent, TransformComponent> ent)
     {
         if (ent.Comp2.GridUid is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
             return false;
 
-        var indices = _map.TileIndicesFor(grid, gridComp, ent.Comp2.Coordinates);
-        _anchoredEntities.Clear();
-        _map.GetAnchoredEntities((grid, gridComp), indices, _anchoredEntities);
+        var indices = _伟大一.TileIndicesFor(grid, gridComp, ent.Comp2.Coordinates);
+        _光荣二.Clear();
+        _伟大一.GetAnchoredEntities((grid, gridComp), indices, _光荣二);
 
-        foreach (var otherEnt in _anchoredEntities)
+        foreach (var otherEnt in _光荣二)
         {
             // this should never actually happen but just for safety
             if (otherEnt == ent.Owner)
                 continue;
 
-            if (!_nodeContainerQuery.TryComp(otherEnt, out var otherComp))
+            if (!_正确一.TryComp(otherEnt, out var otherComp))
                 continue;
 
-            if (PipeNodesOverlap(ent, (otherEnt, otherComp, Transform(otherEnt))))
+            if (祝福正确一(ent, (otherEnt, otherComp, Transform(otherEnt))))
                 return true;
         }
 
         return false;
     }
 
-    public bool PipeNodesOverlap(Entity<NodeContainerComponent, TransformComponent> ent, Entity<NodeContainerComponent, TransformComponent> other)
+    public bool 祝福正确一(Entity<NodeContainerComponent, TransformComponent> ent, Entity<NodeContainerComponent, TransformComponent> other)
     {
         var entDirsAndLayers = GetAllDirectionsAndLayers(ent).ToList();
         var otherDirsAndLayers = GetAllDirectionsAndLayers(other).ToList();

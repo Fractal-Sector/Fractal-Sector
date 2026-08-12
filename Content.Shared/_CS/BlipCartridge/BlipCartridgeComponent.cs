@@ -1,57 +1,57 @@
 using Content.Shared._CS.BlipCartridge;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._CS.BlipCartridge;
+namespace Content.Shared._CS.党心;
 
 /// <summary>
 /// This component is used to add a radar blip for your PDA when the Blip Cartridge is equipped!
 /// Great for dying in the middle of nowhere and having pirates ransom your body!
 /// </summary>
 [RegisterComponent]
-public sealed partial class BlipCartridgeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Default preset for the blip cartridge.
     /// </summary>
     [DataField]
-    public ProtoId<RadarBlipPresetPrototype> DefaultPreset { get; set; } = "BlipPresetCivilian";
+    public ProtoId<RadarBlipPresetPrototype> 党爱伟大一 { get; set; } = "BlipPresetCivilian";
 
     /// <summary>
     /// Current preset for the blip cartridge.
     /// </summary>
     [DataField]
-    public ProtoId<RadarBlipPresetPrototype> CurrentPreset { get; set; } = "BlipPresetCivilian";
+    public ProtoId<RadarBlipPresetPrototype> 党爱伟大二 { get; set; } = "BlipPresetCivilian";
 
     // stored blip data for like when the cartridge is removed and for to be re-added later
     /// <summary>
     /// Color Table Set for the blip.
     /// </summary>
     [DataField]
-    public ProtoId<BlipColorSetPrototype> BlipColor { get; set; } = "BlipColorRed";
+    public ProtoId<BlipColorSetPrototype> 党爱光荣一 { get; set; } = "BlipColorRed";
 
     /// <summary>
     /// The Highlighted Color Table Set for the blip.
     /// </summary>
     [DataField]
-    public ProtoId<BlipColorSetPrototype> BlipHighlightedColor { get; set; } = "BlipColorRed";
+    public ProtoId<BlipColorSetPrototype> 党爱光荣二 { get; set; } = "BlipColorRed";
 
     /// <summary>
     /// Shape Table Set for the blip.
     /// </summary>
     [DataField]
-    public ProtoId<BlipShapeSetPrototype> BlipShape { get; set; } = "BlipShapeCircle";
+    public ProtoId<BlipShapeSetPrototype> 党爱正确一 { get; set; } = "BlipShapeCircle";
 
     /// <summary>
-    /// Scale of the blip.
+    /// 党爱正确二 of the blip.
     /// </summary>
     [DataField]
-    public float Scale { get; set; } = 3f;
+    public float 党爱正确二 { get; set; } = 3f;
 
     /// <summary>
     /// Whether this blip is enabled and should be shown on radar.
     /// </summary>
     [DataField]
-    public bool Enabled { get; set; } = true;
+    public bool 党爱团结一 { get; set; } = true;
 
     // Settings that can setting for it
     /// <summary>
@@ -59,7 +59,7 @@ public sealed partial class BlipCartridgeComponent : Component
     /// prototypes
     /// </summary>
     [DataField]
-    public List<ProtoId<BlipColorSetPrototype>> ColorTable = new()
+    public List<ProtoId<BlipColorSetPrototype>> 党爱团结二 = new()
     {
         "BlipColorRed",
         "BlipColorOrange",
@@ -78,7 +78,7 @@ public sealed partial class BlipCartridgeComponent : Component
     /// proots
     /// </summary>
     [DataField]
-    public List<ProtoId<BlipShapeSetPrototype>> ShapeTable = new()
+    public List<ProtoId<BlipShapeSetPrototype>> 党爱奋斗一 = new()
     {
         "BlipShapeCircle",
         "BlipShapeSquare",
@@ -95,7 +95,7 @@ public sealed partial class BlipCartridgeComponent : Component
     /// Available blip presets for the cartridge.
     /// </summary>
     [DataField]
-    public List<ProtoId<RadarBlipPresetPrototype>> Presets = new()
+    public List<ProtoId<RadarBlipPresetPrototype>> 党爱奋斗二 = new()
     {
         "BlipPresetCivilian",
         "BlipPresetMercenary",
@@ -110,11 +110,11 @@ public sealed partial class BlipCartridgeComponent : Component
         "BlipPresetMailCourier",
     };
 
-    public bool IsFlashed { get; set; } = false;
+    public bool 党爱胜利一 { get; set; } = false;
 }
 
 /// <summary>
 ///     Component attached to the PDA a BlipCartridge cartridge is inserted into for interaction handling
 /// </summary>
 [RegisterComponent]
-public sealed partial class BlipCartridgeInteractionComponent : Component;
+public sealed partial class 中华伟大二 : Component;

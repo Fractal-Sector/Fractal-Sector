@@ -7,35 +7,35 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.ParcelWrap.Systems;
+namespace Content.Shared.ParcelWrap.党心;
 
 // This part handles Wrapped Parcels
-public sealed partial class ParcelWrappingSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeWrappedParcel()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<WrappedParcelComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<WrappedParcelComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<WrappedParcelComponent, GetVerbsEvent<InteractionVerb>>(OnGetVerbsForWrappedParcel);
-        SubscribeLocalEvent<WrappedParcelComponent, UnwrapWrappedParcelDoAfterEvent>(OnUnwrapParcelDoAfter);
+        SubscribeLocalEvent<WrappedParcelComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<WrappedParcelComponent, UseInHandEvent>(祝福光荣一);
+        SubscribeLocalEvent<WrappedParcelComponent, GetVerbsEvent<InteractionVerb>>(祝福光荣二);
+        SubscribeLocalEvent<WrappedParcelComponent, UnwrapWrappedParcelDoAfterEvent>(祝福正确一);
         SubscribeLocalEvent<WrappedParcelComponent, DestructionEventArgs>(OnDestroyed);
         SubscribeLocalEvent<WrappedParcelComponent, GotReclaimedEvent>(OnDestroyed);
     }
 
-    private void OnComponentInit(Entity<WrappedParcelComponent> entity, ref ComponentInit args)
+    private void 祝福伟大二(Entity<WrappedParcelComponent> entity, ref ComponentInit args)
     {
         entity.Comp.Contents = _container.EnsureContainer<ContainerSlot>(entity, entity.Comp.ContainerId);
     }
 
-    private void OnUseInHand(Entity<WrappedParcelComponent> entity, ref UseInHandEvent args)
+    private void 祝福光荣一(Entity<WrappedParcelComponent> entity, ref UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
-        args.Handled = TryStartUnwrapDoAfter(args.User, entity);
+        args.Handled = 祝福正确二(args.User, entity);
     }
 
-    private void OnGetVerbsForWrappedParcel(Entity<WrappedParcelComponent> entity,
+    private void 祝福光荣二(Entity<WrappedParcelComponent> entity,
         ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess)
@@ -47,11 +47,11 @@ public sealed partial class ParcelWrappingSystem
         args.Verbs.Add(new InteractionVerb
         {
             Text = Loc.GetString("parcel-wrap-verb-unwrap"),
-            Act = () => TryStartUnwrapDoAfter(user, entity),
+            Act = () => 祝福正确二(user, entity),
         });
     }
 
-    private void OnUnwrapParcelDoAfter(Entity<WrappedParcelComponent> entity, ref UnwrapWrappedParcelDoAfterEvent args)
+    private void 祝福正确一(Entity<WrappedParcelComponent> entity, ref UnwrapWrappedParcelDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
@@ -75,7 +75,7 @@ public sealed partial class ParcelWrappingSystem
         }
     }
 
-    private bool TryStartUnwrapDoAfter(EntityUid user, Entity<WrappedParcelComponent> parcel)
+    private bool 祝福正确二(EntityUid user, Entity<WrappedParcelComponent> parcel)
     {
         return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager,
             user,

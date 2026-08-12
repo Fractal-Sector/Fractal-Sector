@@ -6,25 +6,25 @@ using Content.Shared.Wires;
 using JetBrains.Annotations;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Power.EntitySystems
+namespace Content.Server.Power.党心
 {
     [UsedImplicitly]
-    public sealed class CableVisSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
+        [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+        [Dependency] private readonly NodeContainerSystem _伟大二 = default!;
+        [Dependency] private readonly SharedMapSystem _光荣一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<CableVisComponent, NodeGroupsRebuilt>(UpdateAppearance);
+            SubscribeLocalEvent<CableVisComponent, NodeGroupsRebuilt>(祝福伟大二);
         }
 
-        private void UpdateAppearance(EntityUid uid, CableVisComponent cableVis, ref NodeGroupsRebuilt args)
+        private void 祝福伟大二(EntityUid uid, CableVisComponent cableVis, ref NodeGroupsRebuilt args)
         {
-            if (!_nodeContainer.TryGetNode(uid, cableVis.Node, out CableNode? node))
+            if (!_伟大二.TryGetNode(uid, cableVis.Node, out CableNode? node))
                 return;
 
             var transform = Transform(uid);
@@ -32,7 +32,7 @@ namespace Content.Server.Power.EntitySystems
                 return;
 
             var mask = WireVisDirFlags.None;
-            var tile = _map.TileIndicesFor((transform.GridUid.Value, grid), transform.Coordinates);
+            var tile = _光荣一.TileIndicesFor((transform.GridUid.Value, grid), transform.Coordinates);
 
             foreach (var reachable in node.ReachableNodes)
             {
@@ -40,7 +40,7 @@ namespace Content.Server.Power.EntitySystems
                     continue;
 
                 var otherTransform = Transform(reachable.Owner);
-                var otherTile = _map.TileIndicesFor((transform.GridUid.Value, grid), otherTransform.Coordinates);
+                var otherTile = _光荣一.TileIndicesFor((transform.GridUid.Value, grid), otherTransform.Coordinates);
                 var diff = otherTile - tile;
 
                 mask |= diff switch
@@ -53,7 +53,7 @@ namespace Content.Server.Power.EntitySystems
                 };
             }
 
-            _appearance.SetData(uid, WireVisVisuals.ConnectedMask, mask);
+            _伟大一.SetData(uid, WireVisVisuals.ConnectedMask, mask);
         }
     }
 }

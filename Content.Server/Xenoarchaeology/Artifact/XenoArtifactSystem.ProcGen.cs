@@ -5,22 +5,22 @@ using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Content.Shared.Xenoarchaeology.Artifact.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Xenoarchaeology.Artifact;
+namespace Content.Server.Xenoarchaeology.党心;
 
-public sealed partial class XenoArtifactSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
 
-    private void GenerateArtifactStructure(Entity<XenoArtifactComponent> ent)
+    private void 祝福伟大一(Entity<XenoArtifactComponent> ent)
     {
         var nodeCount = ent.Comp.NodeCount.Next(RobustRandom);
-        var triggerPool = CreateTriggerPool(ent, nodeCount);
+        var triggerPool = 祝福伟大二(ent, nodeCount);
         // trigger pool could be smaller, then requested node count
         nodeCount = triggerPool.Count;
         ResizeNodeGraph(ent, nodeCount);
         while (nodeCount > 0)
         {
-            GenerateArtifactSegment(ent, triggerPool, ref nodeCount);
+            祝福光荣一(ent, triggerPool, ref nodeCount);
         }
 
         RebuildXenoArtifactMetaData((ent, ent));
@@ -35,7 +35,7 @@ public sealed partial class XenoArtifactSystem
     /// <param name="size">
     /// Max size of pool. Resulting pool is not guaranteed to be exactly as large, but it will 100% won't be bigger.
     /// </param>
-    private List<XenoArchTriggerPrototype> CreateTriggerPool(Entity<XenoArtifactComponent> ent, int size)
+    private List<XenoArchTriggerPrototype> 祝福伟大二(Entity<XenoArtifactComponent> ent, int size)
     {
         var triggerPool = new List<XenoArchTriggerPrototype>(size);
         var weightsProto = PrototypeManager.Index(ent.Comp.TriggerWeights);
@@ -53,7 +53,7 @@ public sealed partial class XenoArtifactSystem
             var triggerId = RobustRandom.Pick(weightsByTriggersLeft);
             weightsByTriggersLeft.Remove(triggerId);
             var trigger = PrototypeManager.Index<XenoArchTriggerPrototype>(triggerId);
-            if (_entityWhitelist.IsWhitelistFail(trigger.Whitelist, ent))
+            if (_伟大一.IsWhitelistFail(trigger.Whitelist, ent))
                 continue;
 
             triggerPool.Add(trigger);
@@ -66,15 +66,15 @@ public sealed partial class XenoArtifactSystem
     /// Generates segment of artifact - isolated graph, nodes inside which are interconnected.
     /// As size of segment is randomized - it is subtracted from node count.
     /// </summary>
-    private void GenerateArtifactSegment(
+    private void 祝福光荣一(
         Entity<XenoArtifactComponent> ent,
         List<XenoArchTriggerPrototype> triggerPool,
         ref int nodeCount
     )
     {
-        var segmentSize = GetArtifactSegmentSize(ent, nodeCount);
+        var segmentSize = 祝福正确一(ent, nodeCount);
         nodeCount -= segmentSize;
-        var populatedNodes = PopulateArtifactSegmentRecursive(ent, triggerPool, ref segmentSize);
+        var populatedNodes = 祝福光荣二(ent, triggerPool, ref segmentSize);
 
         var segments = GetSegmentsFromNodes(ent, populatedNodes).ToList();
 
@@ -137,7 +137,7 @@ public sealed partial class XenoArtifactSystem
     /// Each next iteration is going to have more chances to have more nodes (so it goes 'from top to bottom' of
     /// the tree, creating its peak nodes first, and then making layers with more and more branches).
     /// </summary>
-    private List<Entity<XenoArtifactNodeComponent>> PopulateArtifactSegmentRecursive(
+    private List<Entity<XenoArtifactNodeComponent>> 祝福光荣二(
         Entity<XenoArtifactComponent> ent,
         List<XenoArchTriggerPrototype> triggerPool,
         ref int segmentSize,
@@ -166,7 +166,7 @@ public sealed partial class XenoArtifactSystem
             nodes.Add(CreateNode(ent, trigger, iteration));
         }
 
-        var successors = PopulateArtifactSegmentRecursive(
+        var successors = 祝福光荣二(
             ent,
             triggerPool,
             ref segmentSize,
@@ -197,7 +197,7 @@ public sealed partial class XenoArtifactSystem
     /// <summary>
     /// Rolls segment size, based on amount of nodes left and XenoArtifactComponent settings.
     /// </summary>
-    private int GetArtifactSegmentSize(Entity<XenoArtifactComponent> ent, int nodeCount)
+    private int 祝福正确一(Entity<XenoArtifactComponent> ent, int nodeCount)
     {
         // Make sure we can't generate a single segment artifact.
         // We always want to have at least 2 segments. For variety.

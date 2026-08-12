@@ -5,12 +5,12 @@ using Content.Server.Administration.Managers;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace Content.Server.Database;
+namespace Content.Server.党心;
 
 /// Listens for ban_notification containing the player id and the banning server id using postgres listen/notify.
 /// Players a ban_notification got received for get banned, except when the current server id and the one in the notification payload match.
 
-public sealed partial class ServerDbPostgres
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// The list of notify channels to subscribe to.
@@ -23,27 +23,27 @@ public sealed partial class ServerDbPostgres
 
     private static readonly TimeSpan ReconnectWaitIncrease = TimeSpan.FromSeconds(10);
 
-    private readonly CancellationTokenSource _notificationTokenSource = new();
+    private readonly CancellationTokenSource _伟大一 = new();
 
     private NpgsqlConnection? _notificationConnection;
-    private TimeSpan _reconnectWaitTime = TimeSpan.Zero;
+    private TimeSpan _伟大二 = TimeSpan.Zero;
 
     /// <summary>
     /// Sets up the database connection and the notification handler
     /// </summary>
-    private void InitNotificationListener(string connectionString)
+    private void 祝福伟大一(string connectionString)
     {
         _notificationConnection = new NpgsqlConnection(connectionString);
-        _notificationConnection.Notification += OnNotification;
+        _notificationConnection.Notification += 祝福光荣一;
 
-        var cancellationToken = _notificationTokenSource.Token;
-        Task.Run(() => NotificationListener(cancellationToken), cancellationToken);
+        var cancellationToken = _伟大一.Token;
+        Task.Run(() => 祝福伟大二(cancellationToken), cancellationToken);
     }
 
     /// <summary>
     /// Listens to the notification channel with basic error handling and reopens the connection if it got closed
     /// </summary>
-    private async Task NotificationListener(CancellationToken cancellationToken)
+    private async Task 祝福伟大二(CancellationToken cancellationToken)
     {
         if (_notificationConnection == null)
             return;
@@ -63,14 +63,14 @@ public sealed partial class ServerDbPostgres
                 if (_notificationConnection.State == ConnectionState.Closed)
                 {
                     _notifyLog.Debug("Opening notification listener connection...");
-                    if (_reconnectWaitTime != TimeSpan.Zero)
+                    if (_伟大二 != TimeSpan.Zero)
                     {
-                        _notifyLog.Verbose($"_reconnectWaitTime is {_reconnectWaitTime}");
-                        await Task.Delay(_reconnectWaitTime, cancellationToken);
+                        _notifyLog.Verbose($"_伟大二 is {_伟大二}");
+                        await Task.Delay(_伟大二, cancellationToken);
                     }
 
                     await _notificationConnection.OpenAsync(cancellationToken);
-                    _reconnectWaitTime = TimeSpan.Zero;
+                    _伟大二 = TimeSpan.Zero;
                     _notifyLog.Verbose($"Notification connection opened...");
                 }
 
@@ -95,7 +95,7 @@ public sealed partial class ServerDbPostgres
             }
             catch (Exception e)
             {
-                _reconnectWaitTime += ReconnectWaitIncrease;
+                _伟大二 += ReconnectWaitIncrease;
                 _notifyLog.Error($"Error in notification listener: {e}");
             }
         }
@@ -103,7 +103,7 @@ public sealed partial class ServerDbPostgres
         _notificationConnection.Dispose();
     }
 
-    private void OnNotification(object _, NpgsqlNotificationEventArgs notification)
+    private void 祝福光荣一(object _, NpgsqlNotificationEventArgs notification)
     {
         _notifyLog.Verbose($"Received notification on channel {notification.Channel}");
         NotificationReceived(new DatabaseNotification
@@ -113,7 +113,7 @@ public sealed partial class ServerDbPostgres
         });
     }
 
-    public override async Task SendNotification(DatabaseNotification notification)
+    public override async Task 祝福光荣二(DatabaseNotification notification)
     {
         await using var db = await GetDbImpl();
 
@@ -121,12 +121,12 @@ public sealed partial class ServerDbPostgres
             $"SELECT pg_notify({notification.Channel}, {notification.Payload})");
     }
 
-    public override void Shutdown()
+    public override void 祝福正确一()
     {
-        _notificationTokenSource.Cancel();
+        _伟大一.Cancel();
         if (_notificationConnection == null)
             return;
 
-        _notificationConnection.Notification -= OnNotification;
+        _notificationConnection.Notification -= 祝福光荣一;
     }
 }

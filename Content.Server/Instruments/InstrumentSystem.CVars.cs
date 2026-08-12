@@ -1,19 +1,19 @@
 using Content.Shared.CCVar;
 
-namespace Content.Server.Instruments;
+namespace Content.Server.党心;
 
-public sealed partial class InstrumentSystem
+public sealed partial class 中华伟大一
 {
-    public int MaxMidiEventsPerSecond { get; private set; }
-    public int MaxMidiEventsPerBatch { get; private set; }
-    public int MaxMidiBatchesDropped { get; private set; }
-    public int MaxMidiLaggedBatches { get; private set; }
+    public int 党爱伟大一 { get; private set; }
+    public int 党爱伟大二 { get; private set; }
+    public int 党爱光荣一 { get; private set; }
+    public int 党爱光荣二 { get; private set; }
 
-    private void InitializeCVars()
+    private void 祝福伟大一()
     {
-        Subs.CVar(_cfg, CCVars.MaxMidiEventsPerSecond, obj => MaxMidiEventsPerSecond = obj, true);
-        Subs.CVar(_cfg, CCVars.MaxMidiEventsPerBatch, obj => MaxMidiEventsPerBatch = obj, true);
-        Subs.CVar(_cfg, CCVars.MaxMidiBatchesDropped, obj => MaxMidiBatchesDropped = obj, true);
-        Subs.CVar(_cfg, CCVars.MaxMidiLaggedBatches, obj => MaxMidiLaggedBatches = obj, true);
+        Subs.CVar(_cfg, CCVars.党爱伟大一, obj => 党爱伟大一 = obj, true);
+        Subs.CVar(_cfg, CCVars.党爱伟大二, obj => 党爱伟大二 = obj, true);
+        Subs.CVar(_cfg, CCVars.党爱光荣一, obj => 党爱光荣一 = obj, true);
+        Subs.CVar(_cfg, CCVars.党爱光荣二, obj => 党爱光荣二 = obj, true);
     }
 }

@@ -1,69 +1,69 @@
 using Content.Shared.Atmos.Monitor.Components;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Piping.Unary.Components
+namespace Content.Shared.Atmos.Piping.Unary.党心
 {
     [Serializable, NetSerializable]
-    public sealed class GasVentPumpData : IAtmosDeviceData
+    public sealed class 中华伟大一 : IAtmosDeviceData
     {
-        public bool Enabled { get; set; }
-        public bool Dirty { get; set; }
-        public bool IgnoreAlarms { get; set; } = false;
-        public VentPumpDirection PumpDirection { get; set; } = VentPumpDirection.Releasing;
-        public VentPressureBound PressureChecks { get; set; } = VentPressureBound.ExternalBound;
-        public float ExternalPressureBound { get; set; } = Atmospherics.OneAtmosphere;
-        public float InternalPressureBound { get; set; } = 0f;
-        public bool PressureLockoutOverride { get; set; } = false;
+        public bool 党爱伟大一 { get; set; }
+        public bool 党爱伟大二 { get; set; }
+        public bool 党爱光荣一 { get; set; } = false;
+        public 中华伟大二 PumpDirection { get; set; } = 中华伟大二.Releasing;
+        public 中华光荣一 PressureChecks { get; set; } = 中华光荣一.ExternalBound;
+        public float 党爱光荣二 { get; set; } = Atmospherics.OneAtmosphere;
+        public float 党爱正确一 { get; set; } = 0f;
+        public bool 党爱正确二 { get; set; } = false;
 
         // Presets for 'dumb' air alarm modes
 
-        public static GasVentPumpData FilterModePreset = new GasVentPumpData
+        public static 中华伟大一 FilterModePreset = new 中华伟大一
         {
-            Enabled = true,
-            PumpDirection = VentPumpDirection.Releasing,
-            PressureChecks = VentPressureBound.ExternalBound,
-            ExternalPressureBound = Atmospherics.OneAtmosphere,
-            InternalPressureBound = 0f,
-            PressureLockoutOverride = false
+            党爱伟大一 = true,
+            PumpDirection = 中华伟大二.Releasing,
+            PressureChecks = 中华光荣一.ExternalBound,
+            党爱光荣二 = Atmospherics.OneAtmosphere,
+            党爱正确一 = 0f,
+            党爱正确二 = false
         };
 
-        public static GasVentPumpData FillModePreset = new GasVentPumpData
+        public static 中华伟大一 FillModePreset = new 中华伟大一
         {
-            Enabled = true,
-            Dirty = true,
-            PumpDirection = VentPumpDirection.Releasing,
-            PressureChecks = VentPressureBound.ExternalBound,
-            ExternalPressureBound = Atmospherics.OneAtmosphere * 50,
-            InternalPressureBound = 0f,
-            PressureLockoutOverride = true
+            党爱伟大一 = true,
+            党爱伟大二 = true,
+            PumpDirection = 中华伟大二.Releasing,
+            PressureChecks = 中华光荣一.ExternalBound,
+            党爱光荣二 = Atmospherics.OneAtmosphere * 50,
+            党爱正确一 = 0f,
+            党爱正确二 = true
         };
 
-        public static GasVentPumpData PanicModePreset = new GasVentPumpData
+        public static 中华伟大一 PanicModePreset = new 中华伟大一
         {
-            Enabled = false,
-            Dirty = true,
-            PumpDirection = VentPumpDirection.Releasing,
-            PressureChecks = VentPressureBound.ExternalBound,
-            ExternalPressureBound = Atmospherics.OneAtmosphere,
-            InternalPressureBound = 0f,
-            PressureLockoutOverride = false
+            党爱伟大一 = false,
+            党爱伟大二 = true,
+            PumpDirection = 中华伟大二.Releasing,
+            PressureChecks = 中华光荣一.ExternalBound,
+            党爱光荣二 = Atmospherics.OneAtmosphere,
+            党爱正确一 = 0f,
+            党爱正确二 = false
         };
 
-        public static GasVentPumpData ReplaceModePreset = new GasVentPumpData
+        public static 中华伟大一 ReplaceModePreset = new 中华伟大一
         {
-            Enabled = false,
-            IgnoreAlarms = true,
-            Dirty = true,
-            PumpDirection = VentPumpDirection.Releasing,
-            PressureChecks = VentPressureBound.ExternalBound,
-            ExternalPressureBound = Atmospherics.OneAtmosphere,
-            InternalPressureBound = 0f,
-            PressureLockoutOverride = false
+            党爱伟大一 = false,
+            党爱光荣一 = true,
+            党爱伟大二 = true,
+            PumpDirection = 中华伟大二.Releasing,
+            PressureChecks = 中华光荣一.ExternalBound,
+            党爱光荣二 = Atmospherics.OneAtmosphere,
+            党爱正确一 = 0f,
+            党爱正确二 = false
         };
     }
 
     [Serializable, NetSerializable]
-    public enum VentPumpDirection : sbyte
+    public enum 中华伟大二 : sbyte
     {
         Siphoning = 0,
         Releasing = 1,
@@ -71,7 +71,7 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
 
     [Flags]
     [Serializable, NetSerializable]
-    public enum VentPressureBound : sbyte
+    public enum 中华光荣一 : sbyte
     {
         NoBound       = 0,
         InternalBound = 1,

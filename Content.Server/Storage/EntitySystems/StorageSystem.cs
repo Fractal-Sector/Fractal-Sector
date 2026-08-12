@@ -14,27 +14,27 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Storage.EntitySystems;
+namespace Content.Server.Storage.党心;
 
-public sealed partial class StorageSystem : SharedStorageSystem
+public sealed partial class 中华伟大一 : SharedStorageSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StorageComponent, BeforeExplodeEvent>(OnExploded);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StorageComponent, BeforeExplodeEvent>(祝福伟大二);
 
         SubscribeLocalEvent<StorageFillComponent, MapInitEvent>(OnStorageFillMapInit);
     }
 
-    private void OnExploded(Entity<StorageComponent> ent, ref BeforeExplodeEvent args)
+    private void 祝福伟大二(Entity<StorageComponent> ent, ref BeforeExplodeEvent args)
     {
         args.Contents.AddRange(ent.Comp.Container.ContainedEntities);
     }
 
     /// <inheritdoc />
-    public override void PlayPickupAnimation(EntityUid uid, EntityCoordinates initialCoordinates, EntityCoordinates finalCoordinates,
+    public override void 祝福光荣一(EntityUid uid, EntityCoordinates initialCoordinates, EntityCoordinates finalCoordinates,
         Angle initialRotation, EntityUid? user = null)
     {
         var filter = Filter.Pvs(uid).RemoveWhereAttachedEntity(e => e == user);

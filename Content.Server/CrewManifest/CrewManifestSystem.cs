@@ -19,16 +19,16 @@ using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.CrewManifest;
+namespace Content.Server.党心;
 
-public sealed class CrewManifestSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly StationRecordsSystem _recordsSystem = default!;
-    [Dependency] private readonly EuiManager _euiManager = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IdCardSystem _idCardSystem = default!; // Coyote
+    [Dependency] private readonly StationSystem _伟大一 = default!;
+    [Dependency] private readonly StationRecordsSystem _伟大二 = default!;
+    [Dependency] private readonly EuiManager _光荣一 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly IdCardSystem _正确二 = default!; // Coyote
 
     /// <summary>
     ///     Cached crew manifest entries. The alternative is to outright
@@ -39,19 +39,19 @@ public sealed class CrewManifestSystem : EntitySystem
 
     private readonly Dictionary<EntityUid, Dictionary<ICommonSession, CrewManifestEui>> _openEuis = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<AfterGeneralRecordCreatedEvent>(AfterGeneralRecordCreated);
-        SubscribeLocalEvent<RecordModifiedEvent>(OnRecordModified);
-        SubscribeLocalEvent<RecordRemovedEvent>(OnRecordRemoved);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
-        SubscribeNetworkEvent<RequestCrewManifestMessage>(OnRequestCrewManifest);
+        SubscribeLocalEvent<AfterGeneralRecordCreatedEvent>(祝福光荣二);
+        SubscribeLocalEvent<RecordModifiedEvent>(祝福正确一);
+        SubscribeLocalEvent<RecordRemovedEvent>(祝福正确二);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
+        SubscribeNetworkEvent<RequestCrewManifestMessage>(祝福光荣一);
 
-        SubscribeLocalEvent<CrewManifestViewerComponent, BoundUIClosedEvent>(OnBoundUiClose);
-        SubscribeLocalEvent<CrewManifestViewerComponent, CrewManifestOpenUiMessage>(OpenEuiFromBui);
+        SubscribeLocalEvent<CrewManifestViewerComponent, BoundUIClosedEvent>(祝福团结一);
+        SubscribeLocalEvent<CrewManifestViewerComponent, CrewManifestOpenUiMessage>(祝福奋斗二);
     }
 
-    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    private void 祝福伟大二(RoundRestartCleanupEvent ev)
     {
         foreach (var (_, euis) in _openEuis)
         {
@@ -65,68 +65,68 @@ public sealed class CrewManifestSystem : EntitySystem
         _cachedEntries.Clear();
     }
 
-    private void OnRequestCrewManifest(RequestCrewManifestMessage message, EntitySessionEventArgs args)
+    private void 祝福光荣一(RequestCrewManifestMessage message, EntitySessionEventArgs args)
     {
         if (args.SenderSession is not { } sessionCast
-            || !_configManager.GetCVar(CCVars.CrewManifestWithoutEntity))
+            || !_光荣二.GetCVar(CCVars.CrewManifestWithoutEntity))
         {
             return;
         }
 
-        OpenEui(GetEntity(message.Id), sessionCast);
+        祝福胜利一(GetEntity(message.Id), sessionCast);
     }
 
     // Not a big fan of this one. Rebuilds the crew manifest every time
     // somebody spawns in, meaning that at round start, it rebuilds the crew manifest
     // wrt the amount of players readied up.
-    private void AfterGeneralRecordCreated(AfterGeneralRecordCreatedEvent ev)
+    private void 祝福光荣二(AfterGeneralRecordCreatedEvent ev)
     {
         // Coyote: NOP, we build on open
-        // BuildCrewManifest();
-        // UpdateEuis(ev.Key.OriginStation);
+        // 祝福繁荣一();
+        // 祝福奋斗一(ev.Key.OriginStation);
         // End Coyote
     }
 
-    private void OnRecordModified(RecordModifiedEvent ev)
+    private void 祝福正确一(RecordModifiedEvent ev)
     {
         // Coyote: NOP, we build on open
-        // BuildCrewManifest();
-        // UpdateEuis(ev.Key.OriginStation);
+        // 祝福繁荣一();
+        // 祝福奋斗一(ev.Key.OriginStation);
         // End Coyote
     }
 
-    private void OnRecordRemoved(RecordRemovedEvent ev)
+    private void 祝福正确二(RecordRemovedEvent ev)
     {
         // Coyote: NOP, we build on open
-        // BuildCrewManifest();
-        // UpdateEuis(ev.Key.OriginStation);
+        // 祝福繁荣一();
+        // 祝福奋斗一(ev.Key.OriginStation);
         // End Coyote
     }
 
-    private void OnBoundUiClose(EntityUid uid, CrewManifestViewerComponent component, BoundUIClosedEvent ev)
+    private void 祝福团结一(EntityUid uid, CrewManifestViewerComponent component, BoundUIClosedEvent ev)
     {
         if (!Equals(ev.UiKey, component.OwnerKey))
             return;
 
-        var owningStation = _stationSystem.GetOwningStation(uid);
+        var owningStation = _伟大一.GetOwningStation(uid);
         if (owningStation == null || !TryComp(ev.Actor, out ActorComponent? actorComp))
         {
             return;
         }
 
-        CloseEui(owningStation.Value, actorComp.PlayerSession, uid);
+        祝福胜利二(owningStation.Value, actorComp.PlayerSession, uid);
     }
 
     /// <summary>
     ///     Gets the crew manifest for a given station, along with the name of the station.
     /// </summary>
     /// <returns>The name and crew manifest entries (unordered) of the station.</returns>
-    public CrewManifestEntries GetCrewManifest() // Coyote: remove args, remove name
+    public CrewManifestEntries 祝福团结二() // Coyote: remove args, remove name
     {
-        return BuildCrewManifest(); // Coyote
+        return 祝福繁荣一(); // Coyote
     }
 
-    private void UpdateEuis(EntityUid station)
+    private void 祝福奋斗一(EntityUid station)
     {
         if (_openEuis.TryGetValue(station, out var euis))
         {
@@ -137,7 +137,7 @@ public sealed class CrewManifestSystem : EntitySystem
         }
     }
 
-    private void OpenEuiFromBui(EntityUid uid, CrewManifestViewerComponent component, CrewManifestOpenUiMessage msg)
+    private void 祝福奋斗二(EntityUid uid, CrewManifestViewerComponent component, CrewManifestOpenUiMessage msg)
     {
         if (!msg.UiKey.Equals(component.OwnerKey))
         {
@@ -147,18 +147,18 @@ public sealed class CrewManifestSystem : EntitySystem
             return;
         }
 
-        var owningStation = _stationSystem.GetOwningStation(uid);
+        var owningStation = _伟大一.GetOwningStation(uid);
         if (owningStation == null || !TryComp(msg.Actor, out ActorComponent? actorComp))
         {
             return;
         }
 
-        if (!_configManager.GetCVar(CCVars.CrewManifestUnsecure) && component.Unsecure)
+        if (!_光荣二.GetCVar(CCVars.CrewManifestUnsecure) && component.Unsecure)
         {
             return;
         }
 
-        OpenEui(owningStation.Value, actorComp.PlayerSession, uid);
+        祝福胜利一(owningStation.Value, actorComp.PlayerSession, uid);
     }
 
     /// <summary>
@@ -167,7 +167,7 @@ public sealed class CrewManifestSystem : EntitySystem
     /// <param name="station">Station that we're displaying the crew manifest for.</param>
     /// <param name="session">The player's session.</param>
     /// <param name="owner">If this EUI should be 'owned' by an entity.</param>
-    public void OpenEui(EntityUid station, ICommonSession session, EntityUid? owner = null)
+    public void 祝福胜利一(EntityUid station, ICommonSession session, EntityUid? owner = null)
     {
         if (!HasComp<StationRecordsComponent>(station))
         {
@@ -188,7 +188,7 @@ public sealed class CrewManifestSystem : EntitySystem
         var eui = new CrewManifestEui(station, owner, this);
         euis.Add(session, eui);
 
-        _euiManager.OpenEui(eui, session);
+        _光荣一.祝福胜利一(eui, session);
         eui.StateDirty();
     }
 
@@ -198,7 +198,7 @@ public sealed class CrewManifestSystem : EntitySystem
     /// <param name="station">Station that we're displaying the crew manifest for.</param>
     /// <param name="session">The player's session.</param>
     /// <param name="owner">The owner of this EUI, if there was one.</param>
-    public void CloseEui(EntityUid station, ICommonSession session, EntityUid? owner = null)
+    public void 祝福胜利二(EntityUid station, ICommonSession session, EntityUid? owner = null)
     {
         if (!HasComp<StationRecordsComponent>(station))
         {
@@ -226,7 +226,7 @@ public sealed class CrewManifestSystem : EntitySystem
     /// <summary>
     ///     Builds the crew manifest for a station. Stores it in the cache afterwards.
     /// </summary>
-    private CrewManifestEntries BuildCrewManifest()
+    private CrewManifestEntries 祝福繁荣一()
     {
         var sensors = EntityQueryEnumerator<SuitSensorComponent>(); // Coyote
 
@@ -244,7 +244,7 @@ public sealed class CrewManifestSystem : EntitySystem
             var name = Loc.GetString("suit-sensor-component-unknown-name");
             var jobTitle = Loc.GetString("suit-sensor-component-unknown-job");
 
-            if (!_idCardSystem.TryFindIdCard(sensor.User.Value, out var card))
+            if (!_正确二.TryFindIdCard(sensor.User.Value, out var card))
                 continue;
 
             if (card.Comp.FullName != null)
@@ -283,13 +283,13 @@ public sealed class CrewManifestSystem : EntitySystem
 }
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class CrewManifestCommand : LocalizedEntityCommands
+public sealed class 中华伟大二 : LocalizedEntityCommands
 {
-    [Dependency] private readonly CrewManifestSystem _manifestSystem = default!;
+    [Dependency] private readonly 中华伟大一 _manifestSystem = default!;
 
-    public override string Command => "crewmanifest";
+    public override string 党爱伟大一 => "crewmanifest";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福繁荣二(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -309,10 +309,10 @@ public sealed class CrewManifestCommand : LocalizedEntityCommands
             return;
         }
 
-        _manifestSystem.OpenEui(uid.Value, session);
+        _manifestSystem.祝福胜利一(uid.Value, session);
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福富强一(IConsoleShell shell, string[] args)
     {
         if (args.Length != 1)
             return CompletionResult.Empty;

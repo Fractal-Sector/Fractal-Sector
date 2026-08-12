@@ -9,11 +9,11 @@ using Content.Shared.EntityEffects;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GuideGenerator;
+namespace Content.Server.党心;
 
-public sealed class ChemistryJsonGenerator
+public sealed class 中华伟大一
 {
-    public static void PublishJson(StreamWriter file)
+    public static void 祝福伟大一(StreamWriter file)
     {
         var prototype = IoCManager.Resolve<IPrototypeManager>();
         var prototypes =
@@ -45,21 +45,21 @@ public sealed class ChemistryJsonGenerator
                 new UniversalJsonConverter<EntityEffectCondition>(),
                 new UniversalJsonConverter<ReagentEffectsEntry>(),
                 new UniversalJsonConverter<DamageSpecifier>(),
-                new FixedPointJsonConverter()
+                new 中华伟大二()
             }
         };
 
-        file.Write(JsonSerializer.Serialize(prototypes, serializeOptions));
+        file.祝福伟大二(JsonSerializer.Serialize(prototypes, serializeOptions));
     }
 
-    public sealed class FixedPointJsonConverter : JsonConverter<FixedPoint2>
+    public sealed class 中华伟大二 : JsonConverter<FixedPoint2>
     {
-        public override void Write(Utf8JsonWriter writer, FixedPoint2 value, JsonSerializerOptions options)
+        public override void 祝福伟大二(Utf8JsonWriter writer, FixedPoint2 value, JsonSerializerOptions options)
         {
             writer.WriteNumberValue(value.Float());
         }
 
-        public override FixedPoint2 Read(ref Utf8JsonReader reader, Type objectType, JsonSerializerOptions options)
+        public override FixedPoint2 祝福光荣一(ref Utf8JsonReader reader, Type objectType, JsonSerializerOptions options)
         {
             // Throwing a NotSupportedException here allows the error
             // message to provide path information.

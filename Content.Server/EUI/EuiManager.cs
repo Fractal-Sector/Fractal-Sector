@@ -5,42 +5,42 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.EUI
+namespace Content.Server.党心
 {
-    public sealed class EuiManager : IPostInjectInit
+    public sealed class 中华伟大一 : IPostInjectInit
     {
-        [Dependency] private readonly ILogManager _log = default!;
-        [Dependency] private readonly IPlayerManager _players = default!;
-        [Dependency] private readonly IServerNetManager _net = default!;
+        [Dependency] private readonly ILogManager _伟大一 = default!;
+        [Dependency] private readonly IPlayerManager _伟大二 = default!;
+        [Dependency] private readonly IServerNetManager _光荣一 = default!;
 
         private ISawmill? _sawmill;
 
-        private readonly Dictionary<ICommonSession, PlayerEuiData> _playerData =
+        private readonly Dictionary<ICommonSession, 中华伟大二> _playerData =
             new();
 
         private readonly Queue<(ICommonSession player, uint id)> _stateUpdateQueue =
             new Queue<(ICommonSession, uint id)>();
 
-        private sealed class PlayerEuiData
+        private sealed class 中华伟大二
         {
-            public uint NextId = 1;
+            public uint 党爱伟大一 = 1;
             public readonly Dictionary<uint, BaseEui> OpenUIs = new();
         }
 
         void IPostInjectInit.PostInject()
         {
-            _players.PlayerStatusChanged += PlayerStatusChanged;
+            _伟大二.祝福正确二 += 祝福正确二;
         }
 
-        public void Initialize()
+        public void 祝福伟大一()
         {
-            _net.RegisterNetMessage<MsgEuiCtl>();
-            _net.RegisterNetMessage<MsgEuiState>();
-            _net.RegisterNetMessage<MsgEuiMessage>(RxMsgMessage);
-            _sawmill = _log.GetSawmill("eui");
+            _光荣一.RegisterNetMessage<MsgEuiCtl>();
+            _光荣一.RegisterNetMessage<MsgEuiState>();
+            _光荣一.RegisterNetMessage<MsgEuiMessage>(祝福正确一);
+            _sawmill = _伟大一.GetSawmill("eui");
         }
 
-        public void SendUpdates()
+        public void 祝福伟大二()
         {
             while (_stateUpdateQueue.TryDequeue(out var tuple))
             {
@@ -57,7 +57,7 @@ namespace Content.Server.EUI
             }
         }
 
-        public void OpenEui(BaseEui eui, ICommonSession player)
+        public void 祝福光荣一(BaseEui eui, ICommonSession player)
         {
             if (eui.Id != 0)
             {
@@ -65,8 +65,8 @@ namespace Content.Server.EUI
             }
 
             var data = _playerData[player];
-            var newId = data.NextId++;
-            eui.Initialize(this, player, newId);
+            var newId = data.党爱伟大一++;
+            eui.祝福伟大一(this, player, newId);
 
             data.OpenUIs.Add(newId, eui);
 
@@ -75,10 +75,10 @@ namespace Content.Server.EUI
             msg.Type = MsgEuiCtl.CtlType.Open;
             msg.OpenType = eui.GetType().Name;
 
-            _net.ServerSendMessage(msg, player.Channel);
+            _光荣一.ServerSendMessage(msg, player.Channel);
         }
 
-        public void CloseEui(BaseEui eui)
+        public void 祝福光荣二(BaseEui eui)
         {
             eui.Shutdown();
             _playerData[eui.Player].OpenUIs.Remove(eui.Id);
@@ -86,12 +86,12 @@ namespace Content.Server.EUI
             var msg = new MsgEuiCtl();
             msg.Id = eui.Id;
             msg.Type = MsgEuiCtl.CtlType.Close;
-            _net.ServerSendMessage(msg, eui.Player.Channel);
+            _光荣一.ServerSendMessage(msg, eui.Player.Channel);
         }
 
-        private void RxMsgMessage(MsgEuiMessage message)
+        private void 祝福正确一(MsgEuiMessage message)
         {
-            if (!_players.TryGetSessionByChannel(message.MsgChannel, out var ply))
+            if (!_伟大二.TryGetSessionByChannel(message.MsgChannel, out var ply))
             {
                 return;
             }
@@ -110,11 +110,11 @@ namespace Content.Server.EUI
             eui.HandleMessage(message.Message);
         }
 
-        private void PlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福正确二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus == SessionStatus.Connected)
             {
-                _playerData.Add(e.Session, new PlayerEuiData());
+                _playerData.Add(e.Session, new 中华伟大二());
             }
             else if (e.NewStatus == SessionStatus.Disconnected)
             {
@@ -131,7 +131,7 @@ namespace Content.Server.EUI
             }
         }
 
-        public void QueueStateUpdate(BaseEui eui)
+        public void 祝福团结一(BaseEui eui)
         {
             DebugTools.Assert(eui.Id != 0, "EUI has not been opened yet.");
             DebugTools.Assert(!eui.IsShutDown, "EUI has been closed.");

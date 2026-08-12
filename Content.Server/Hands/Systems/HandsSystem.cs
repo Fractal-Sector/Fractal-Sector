@@ -25,19 +25,19 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Hands.Systems
+namespace Content.Server.Hands.党心
 {
-    public sealed class HandsSystem : SharedHandsSystem
+    public sealed class 中华伟大一 : SharedHandsSystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly StackSystem _stackSystem = default!;
-        [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-        [Dependency] private readonly PullingSystem _pullingSystem = default!;
-        [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly IRobustRandom _伟大二 = default!;
+        [Dependency] private readonly StackSystem _光荣一 = default!;
+        [Dependency] private readonly ActionBlockerSystem _光荣二 = default!;
+        [Dependency] private readonly SharedTransformSystem _正确一 = default!;
+        [Dependency] private readonly PullingSystem _正确二 = default!;
+        [Dependency] private readonly ThrowingSystem _团结一 = default!;
 
-        private EntityQuery<PhysicsComponent> _physicsQuery;
+        private EntityQuery<PhysicsComponent> _团结二;
 
         /// <summary>
         /// Items dropped when the holder falls down will be launched in
@@ -46,42 +46,42 @@ namespace Content.Server.Hands.Systems
         /// </summary>
         private const float DropHeldItemsSpread = 45;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<HandsComponent, DisarmedEvent>(OnDisarmed, before: new[] {typeof(StunSystem), typeof(SharedStaminaSystem)});
+            SubscribeLocalEvent<HandsComponent, DisarmedEvent>(祝福正确一, before: new[] {typeof(StunSystem), typeof(SharedStaminaSystem)});
 
-            SubscribeLocalEvent<HandsComponent, BodyPartAddedEvent>(HandleBodyPartAdded);
-            SubscribeLocalEvent<HandsComponent, BodyPartRemovedEvent>(HandleBodyPartRemoved);
+            SubscribeLocalEvent<HandsComponent, BodyPartAddedEvent>(祝福正确二);
+            SubscribeLocalEvent<HandsComponent, BodyPartRemovedEvent>(祝福团结一);
 
-            SubscribeLocalEvent<HandsComponent, ComponentGetState>(GetComponentState);
+            SubscribeLocalEvent<HandsComponent, ComponentGetState>(祝福光荣一);
 
-            SubscribeLocalEvent<HandsComponent, BeforeExplodeEvent>(OnExploded);
+            SubscribeLocalEvent<HandsComponent, BeforeExplodeEvent>(祝福光荣二);
 
-            SubscribeLocalEvent<HandsComponent, DropHandItemsEvent>(OnDropHandItems);
+            SubscribeLocalEvent<HandsComponent, DropHandItemsEvent>(祝福奋斗二);
 
             CommandBinds.Builder
-                .Bind(ContentKeyFunctions.ThrowItemInHand, new PointerInputCmdHandler(HandleThrowItem))
-                .Register<HandsSystem>();
+                .Bind(ContentKeyFunctions.ThrowItemInHand, new PointerInputCmdHandler(祝福团结二))
+                .Register<中华伟大一>();
 
-            _physicsQuery = GetEntityQuery<PhysicsComponent>();
+            _团结二 = GetEntityQuery<PhysicsComponent>();
         }
 
-        public override void Shutdown()
+        public override void 祝福伟大二()
         {
-            base.Shutdown();
+            base.祝福伟大二();
 
-            CommandBinds.Unregister<HandsSystem>();
+            CommandBinds.Unregister<中华伟大一>();
         }
 
-        private void GetComponentState(EntityUid uid, HandsComponent hands, ref ComponentGetState args)
+        private void 祝福光荣一(EntityUid uid, HandsComponent hands, ref ComponentGetState args)
         {
             args.State = new HandsComponentState(hands);
         }
 
 
-        private void OnExploded(Entity<HandsComponent> ent, ref BeforeExplodeEvent args)
+        private void 祝福光荣二(Entity<HandsComponent> ent, ref BeforeExplodeEvent args)
         {
             if (ent.Comp.DisableExplosionRecursion)
                 return;
@@ -92,17 +92,17 @@ namespace Content.Server.Hands.Systems
             }
         }
 
-        private void OnDisarmed(EntityUid uid, HandsComponent component, ref DisarmedEvent args)
+        private void 祝福正确一(EntityUid uid, HandsComponent component, ref DisarmedEvent args)
         {
             if (args.Handled)
                 return;
 
             // Break any pulls
             if (TryComp(uid, out PullerComponent? puller) && TryComp(puller.Pulling, out PullableComponent? pullable))
-                _pullingSystem.TryStopPull(puller.Pulling.Value, pullable);
+                _正确二.TryStopPull(puller.Pulling.Value, pullable);
 
-            var offsetRandomCoordinates = _transformSystem.GetMoverCoordinates(args.Target).Offset(_random.NextVector2(1f, 1.5f));
-            if (!ThrowHeldItem(args.Target, offsetRandomCoordinates))
+            var offsetRandomCoordinates = _正确一.GetMoverCoordinates(args.Target).Offset(_伟大二.NextVector2(1f, 1.5f));
+            if (!祝福奋斗一(args.Target, offsetRandomCoordinates))
                 return;
 
             args.PopupPrefix = "disarm-action-";
@@ -110,7 +110,7 @@ namespace Content.Server.Hands.Systems
             args.Handled = true; // no shove/stun.
         }
 
-        private void HandleBodyPartAdded(Entity<HandsComponent> ent, ref BodyPartAddedEvent args)
+        private void 祝福正确二(Entity<HandsComponent> ent, ref BodyPartAddedEvent args)
         {
             if (args.Part.Comp.PartType != BodyPartType.Hand)
                 return;
@@ -128,7 +128,7 @@ namespace Content.Server.Hands.Systems
             AddHand(ent.AsNullable(), args.Slot, location);
         }
 
-        private void HandleBodyPartRemoved(EntityUid uid, HandsComponent component, ref BodyPartRemovedEvent args)
+        private void 祝福团结一(EntityUid uid, HandsComponent component, ref BodyPartRemovedEvent args)
         {
             if (args.Part.Comp.PartType != BodyPartType.Hand)
                 return;
@@ -138,32 +138,32 @@ namespace Content.Server.Hands.Systems
 
         #region interactions
 
-        private bool HandleThrowItem(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
+        private bool 祝福团结二(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
         {
             if (playerSession?.AttachedEntity is not {Valid: true} player || !Exists(player) || !coordinates.IsValid(EntityManager))
                 return false;
 
-            return ThrowHeldItem(player, coordinates);
+            return 祝福奋斗一(player, coordinates);
         }
 
         /// <summary>
         /// Throw the player's currently held item.
         /// </summary>
-        public bool ThrowHeldItem(EntityUid player, EntityCoordinates coordinates, float minDistance = 0.1f)
+        public bool 祝福奋斗一(EntityUid player, EntityCoordinates coordinates, float minDistance = 0.1f)
         {
             if (ContainerSystem.IsEntityInContainer(player) ||
                 !TryComp(player, out HandsComponent? hands) ||
                 !TryGetActiveItem((player, hands), out var throwEnt) ||
-                !_actionBlockerSystem.CanThrow(player, throwEnt.Value))
+                !_光荣二.CanThrow(player, throwEnt.Value))
                 return false;
 
-            if (_timing.CurTime < hands.NextThrowTime)
+            if (_伟大一.CurTime < hands.NextThrowTime)
                 return false;
-            hands.NextThrowTime = _timing.CurTime + hands.ThrowCooldown;
+            hands.NextThrowTime = _伟大一.CurTime + hands.ThrowCooldown;
 
             if (TryComp(throwEnt, out StackComponent? stack) && stack.Count > 1 && stack.ThrowIndividually)
             {
-                var splitStack = _stackSystem.Split(throwEnt.Value, 1, Comp<TransformComponent>(player).Coordinates, stack);
+                var splitStack = _光荣一.Split(throwEnt.Value, 1, Comp<TransformComponent>(player).Coordinates, stack);
 
                 if (splitStack is not {Valid: true})
                     return false;
@@ -171,7 +171,7 @@ namespace Content.Server.Hands.Systems
                 throwEnt = splitStack.Value;
             }
 
-            var direction = _transformSystem.ToMapCoordinates(coordinates).Position - _transformSystem.GetWorldPosition(player);
+            var direction = _正确一.ToMapCoordinates(coordinates).Position - _正确一.GetWorldPosition(player);
             if (direction == Vector2.Zero)
                 return true;
 
@@ -193,15 +193,15 @@ namespace Content.Server.Hands.Systems
             if (IsHolding((player, hands), throwEnt, out _) && !TryDrop(player, throwEnt.Value))
                 return false;
 
-            _throwingSystem.TryThrow(ev.ItemUid, ev.Direction, ev.ThrowSpeed, ev.PlayerUid, compensateFriction: !HasComp<LandAtCursorComponent>(ev.ItemUid));
+            _团结一.TryThrow(ev.ItemUid, ev.Direction, ev.ThrowSpeed, ev.PlayerUid, compensateFriction: !HasComp<LandAtCursorComponent>(ev.ItemUid));
 
             return true;
         }
 
-        private void OnDropHandItems(Entity<HandsComponent> entity, ref DropHandItemsEvent args)
+        private void 祝福奋斗二(Entity<HandsComponent> entity, ref DropHandItemsEvent args)
         {
             // If the holder doesn't have a physics component, they ain't moving
-            var holderVelocity = _physicsQuery.TryComp(entity, out var physics) ? physics.LinearVelocity : Vector2.Zero;
+            var holderVelocity = _团结二.TryComp(entity, out var physics) ? physics.LinearVelocity : Vector2.Zero;
             var spreadMaxAngle = Angle.FromDegrees(DropHeldItemsSpread);
 
             foreach (var hand in entity.Comp.Hands.Keys)
@@ -219,19 +219,19 @@ namespace Content.Server.Hands.Systems
                     continue;
 
                 // Rotate the item's throw vector a bit for each item
-                var angleOffset = _random.NextAngle(-spreadMaxAngle, spreadMaxAngle);
+                var angleOffset = _伟大二.NextAngle(-spreadMaxAngle, spreadMaxAngle);
                 // Rotate the holder's velocity vector by the angle offset to get the item's velocity vector
                 var itemVelocity = angleOffset.RotateVec(holderVelocity);
                 // Decrease the distance of the throw by a random amount
-                itemVelocity *= _random.NextFloat(1f);
+                itemVelocity *= _伟大二.NextFloat(1f);
                 // Heavier objects don't get thrown as far
                 // If the item doesn't have a physics component, it isn't going to get thrown anyway, but we'll assume infinite mass
-                itemVelocity *= _physicsQuery.TryComp(heldEntity, out var heldPhysics) ? heldPhysics.InvMass : 0;
+                itemVelocity *= _团结二.TryComp(heldEntity, out var heldPhysics) ? heldPhysics.InvMass : 0;
                 // Throw at half the holder's intentional throw speed and
                 // vary the speed a little to make it look more interesting
-                var throwSpeed = entity.Comp.BaseThrowspeed * _random.NextFloat(0.45f, 0.55f);
+                var throwSpeed = entity.Comp.BaseThrowspeed * _伟大二.NextFloat(0.45f, 0.55f);
 
-                _throwingSystem.TryThrow(heldEntity.Value,
+                _团结一.TryThrow(heldEntity.Value,
                     itemVelocity,
                     throwSpeed,
                     entity,

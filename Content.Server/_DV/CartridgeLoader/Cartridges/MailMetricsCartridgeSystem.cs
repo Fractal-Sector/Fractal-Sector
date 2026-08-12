@@ -6,66 +6,66 @@ using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Server._DV.Mail.Components;
 using Content.Server._NF.SectorServices; // Frontier
 
-namespace Content.Server._DV.CartridgeLoader.Cartridges;
+namespace Content.Server._DV.CartridgeLoader.党心;
 
-public sealed class MailMetricsCartridgeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier
+    [Dependency] private readonly CartridgeLoaderSystem _伟大一 = default!;
+    [Dependency] private readonly SectorServiceSystem _伟大二 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MailMetricsCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
-        SubscribeLocalEvent<LogisticStatsUpdatedEvent>(OnLogisticsStatsUpdated);
-        SubscribeLocalEvent<MailComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<MailMetricsCartridgeComponent, CartridgeUiReadyEvent>(祝福伟大二);
+        SubscribeLocalEvent<LogisticStatsUpdatedEvent>(祝福光荣一);
+        SubscribeLocalEvent<MailComponent, MapInitEvent>(祝福光荣二);
     }
 
-    private void OnUiReady(Entity<MailMetricsCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
+    private void 祝福伟大二(Entity<MailMetricsCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
     {
-        UpdateUI(args.Loader); // Frontier: remove station as first arg
+        祝福正确二(args.Loader); // Frontier: remove station as first arg
     }
 
-    private void OnLogisticsStatsUpdated(LogisticStatsUpdatedEvent args)
+    private void 祝福光荣一(LogisticStatsUpdatedEvent args)
     {
-        UpdateAllCartridges(); // Frontier: remove station
+        祝福正确一(); // Frontier: remove station
     }
 
-    private void OnMapInit(EntityUid uid, MailComponent mail, MapInitEvent args)
+    private void 祝福光荣二(EntityUid uid, MailComponent mail, MapInitEvent args)
     {
-        UpdateAllCartridges(); // Frontier: remove station, no owner check
+        祝福正确一(); // Frontier: remove station, no owner check
     }
 
-    private void UpdateAllCartridges() // Frontier: remove station
+    private void 祝福正确一() // Frontier: remove station
     {
         var query = EntityQueryEnumerator<MailMetricsCartridgeComponent, CartridgeComponent>();
         while (query.MoveNext(out var uid, out var comp, out var cartridge))
         {
             if (cartridge.LoaderUid is not { } loader)
                 continue;
-            UpdateUI(loader);
+            祝福正确二(loader);
         }
     }
 
-    private void UpdateUI(EntityUid loader)
+    private void 祝福正确二(EntityUid loader)
     {
         //if (_station.GetOwningStation(loader) is { } station) // Frontier
         //    ent.Comp.Station = station; // Frontier
 
-        if (!TryComp<SectorLogisticStatsComponent>(_sectorService.GetServiceEntity(), out var logiStats)) // Frontier
+        if (!TryComp<SectorLogisticStatsComponent>(_伟大二.GetServiceEntity(), out var logiStats)) // Frontier
             return; // Frontier
 
         // Get station's logistic stats
-        var unopenedMailCount = GetUnopenedMailCount(); // Frontier: no station arg
+        var unopenedMailCount = 祝福团结一(); // Frontier: no station arg
 
         // Send logistic stats to cartridge client
         var state = new MailMetricUiState(logiStats.Metrics, unopenedMailCount);
-        _cartridgeLoader.UpdateCartridgeUiState(loader, state);
+        _伟大一.UpdateCartridgeUiState(loader, state);
     }
 
 
-    private int GetUnopenedMailCount() // Frontier: remove EntityUid param
+    private int 祝福团结一() // Frontier: remove EntityUid param
     {
         var unopenedMail = 0;
 

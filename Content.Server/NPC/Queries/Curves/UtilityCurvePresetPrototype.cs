@@ -1,11 +1,11 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.NPC.Queries.Curves;
+namespace Content.Server.NPC.Queries.党心;
 
 [Prototype]
-public sealed partial class UtilityCurvePresetPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = string.Empty;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = string.Empty;
 
-    [DataField("curve", required: true)] public IUtilityCurve Curve = default!;
+    [DataField("curve", required: true)] public IUtilityCurve 党爱伟大二 = default!;
 }

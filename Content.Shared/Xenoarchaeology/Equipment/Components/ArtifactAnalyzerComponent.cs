@@ -1,20 +1,20 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Xenoarchaeology.Equipment.Components;
+namespace Content.Shared.Xenoarchaeology.Equipment.党心;
 
 /// <summary>
 /// A machine that is combined and linked to the <see cref="AnalysisConsoleComponent"/>
 /// in order to analyze artifacts and extract points.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class ArtifactAnalyzerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How long it takes to analyze an artifact
     /// </summary>
     [DataField]
-    public TimeSpan AnalysisDuration = TimeSpan.FromSeconds(30);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(30);
 
     /// <summary>
     /// The current artifact placed on this analyzer.
@@ -34,5 +34,5 @@ public sealed partial class ArtifactAnalyzerComponent : Component
     /// Marker, if artifact graph data is ready for printing.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public bool ReadyToPrint = false;
+    public bool 党爱伟大二 = false;
 }

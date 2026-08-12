@@ -9,32 +9,32 @@ using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server._EstacaoPirata.OpenTriggeredStorageFill;
+namespace Content.Server._EstacaoPirata.党心;
 
 /// <summary>
 /// This handles...
 /// </summary>
-public sealed class OpenTriggeredStorageFillSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
 
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly SharedStorageSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<OpenTriggeredStorageFillComponent, ActivateInWorldEvent>(OnOpenEvent);
-        SubscribeLocalEvent<OpenTriggeredStorageFillComponent, ExaminedEvent>(OnExamineEvent);
+        SubscribeLocalEvent<OpenTriggeredStorageFillComponent, ActivateInWorldEvent>(祝福光荣一);
+        SubscribeLocalEvent<OpenTriggeredStorageFillComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamineEvent(EntityUid uid, OpenTriggeredStorageFillComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, OpenTriggeredStorageFillComponent component, ExaminedEvent args)
     {
         args.PushText(Loc.GetString("container-sealed"));
     }
 
     //Yes, that's a copy of StorageSystem StorageFill method
-    private void OnOpenEvent(EntityUid uid, OpenTriggeredStorageFillComponent comp, ActivateInWorldEvent args)
+    private void 祝福光荣一(EntityUid uid, OpenTriggeredStorageFillComponent comp, ActivateInWorldEvent args)
     {
         Log.Debug($"Processing storage fill trigger for entity {ToPrettyString(uid)}");
 
@@ -43,7 +43,7 @@ public sealed class OpenTriggeredStorageFillSystem : EntitySystem
         var spawnItems = EntitySpawnCollection.GetSpawns(comp.Contents);
         foreach (var item in spawnItems)
         {
-            DebugTools.Assert(!_prototype.Index<EntityPrototype>(item)
+            DebugTools.Assert(!_光荣一.Index<EntityPrototype>(item)
                 .HasComponent(typeof(RandomSpawnerComponent)));
             var ent = Spawn(item, coordinates);
 
@@ -53,14 +53,14 @@ public sealed class OpenTriggeredStorageFillSystem : EntitySystem
                 Del(ent);
                 continue;
             }
-            if (!_storage.Insert(uid, ent, out var remainingEnt, out var reason, playSound: false))
+            if (!_伟大一.Insert(uid, ent, out var remainingEnt, out var reason, playSound: false))
             {
                 Log.Error($"Failed to fill {ToPrettyString(uid)} with {ToPrettyString(ent)}. Reason: {reason}");
                 // Clean up the spawned entity if insertion fails
                 Del(ent);
             }
         }
-        _popup.PopupEntity(Loc.GetString("container-unsealed"), args.Target);
+        _伟大二.PopupEntity(Loc.GetString("container-unsealed"), args.Target);
         RemComp(uid, comp);
     }
 }

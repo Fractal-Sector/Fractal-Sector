@@ -10,13 +10,13 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using System.Linq;
 
-namespace Content.Server.Administration.Managers;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 ///     This manager sends a webhook notification whenever a player with an active
 ///     watchlist joins the server.
 /// </summary>
-public interface IWatchlistWebhookManager
+public interface 中华伟大一
 {
     void Initialize();
     void Update();

@@ -2,17 +2,17 @@ using Content.Shared.Containers;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public partial class SharedGunSystem
+public partial class 中华伟大一
 {
-    private void InitializeClothing()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ClothingSlotAmmoProviderComponent, TakeAmmoEvent>(OnClothingTakeAmmo);
-        SubscribeLocalEvent<ClothingSlotAmmoProviderComponent, GetAmmoCountEvent>(OnClothingAmmoCount);
+        SubscribeLocalEvent<ClothingSlotAmmoProviderComponent, TakeAmmoEvent>(祝福伟大二);
+        SubscribeLocalEvent<ClothingSlotAmmoProviderComponent, GetAmmoCountEvent>(祝福光荣一);
     }
 
-    private void OnClothingTakeAmmo(EntityUid uid, ClothingSlotAmmoProviderComponent component, TakeAmmoEvent args)
+    private void 祝福伟大二(EntityUid uid, ClothingSlotAmmoProviderComponent component, TakeAmmoEvent args)
     {
         var getConnectedContainerEvent = new GetConnectedContainerEvent();
         RaiseLocalEvent(uid, ref getConnectedContainerEvent);
@@ -22,7 +22,7 @@ public partial class SharedGunSystem
         RaiseLocalEvent(getConnectedContainerEvent.ContainerEntity.Value, args);
     }
 
-    private void OnClothingAmmoCount(EntityUid uid, ClothingSlotAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void 祝福光荣一(EntityUid uid, ClothingSlotAmmoProviderComponent component, ref GetAmmoCountEvent args)
     {
         var getConnectedContainerEvent = new GetConnectedContainerEvent();
         RaiseLocalEvent(uid, ref getConnectedContainerEvent);

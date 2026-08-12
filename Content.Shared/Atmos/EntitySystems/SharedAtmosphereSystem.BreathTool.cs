@@ -2,22 +2,22 @@ using Content.Shared.Atmos.Components;
 using Content.Shared.Body.Components;
 using Content.Shared.Clothing;
 
-namespace Content.Shared.Atmos.EntitySystems;
+namespace Content.Shared.Atmos.党心;
 
-public abstract partial class SharedAtmosphereSystem
+public abstract partial class 中华伟大一
 {
-    private void InitializeBreathTool()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<BreathToolComponent, ComponentShutdown>(OnBreathToolShutdown);
-        SubscribeLocalEvent<BreathToolComponent, ItemMaskToggledEvent>(OnMaskToggled);
+        SubscribeLocalEvent<BreathToolComponent, ComponentShutdown>(祝福伟大二);
+        SubscribeLocalEvent<BreathToolComponent, ItemMaskToggledEvent>(祝福光荣二);
     }
 
-    private void OnBreathToolShutdown(Entity<BreathToolComponent> entity, ref ComponentShutdown args)
+    private void 祝福伟大二(Entity<BreathToolComponent> entity, ref ComponentShutdown args)
     {
-        DisconnectInternals(entity);
+        祝福光荣一(entity);
     }
 
-    public void DisconnectInternals(Entity<BreathToolComponent> entity, bool forced = false)
+    public void 祝福光荣一(Entity<BreathToolComponent> entity, bool forced = false)
     {
         var old = entity.Comp.ConnectedInternalsEntity;
 
@@ -34,11 +34,11 @@ public abstract partial class SharedAtmosphereSystem
         Dirty(entity);
     }
 
-    private void OnMaskToggled(Entity<BreathToolComponent> ent, ref ItemMaskToggledEvent args)
+    private void 祝福光荣二(Entity<BreathToolComponent> ent, ref ItemMaskToggledEvent args)
     {
         if (args.Mask.Comp.IsToggled)
         {
-            DisconnectInternals(ent, forced: true);
+            祝福光荣一(ent, forced: true);
         }
         else
         {

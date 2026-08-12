@@ -2,12 +2,12 @@
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Players.RateLimiting;
+namespace Content.Shared.Players.党心;
 
 /// <summary>
 /// Contains all data necessary to register a rate limit with <see cref="SharedPlayerRateLimitManager.Register"/>.
 /// </summary>
-public sealed class RateLimitRegistration(
+public sealed class 中华伟大一(
     CVarDef<float> cVarLimitPeriodLength,
     CVarDef<int> cVarLimitCount,
     Action<ICommonSession>? playerLimitedAction,
@@ -18,12 +18,12 @@ public sealed class RateLimitRegistration(
     /// <summary>
     /// CVar that controls the period over which the rate limit is counted, measured in seconds.
     /// </summary>
-    public readonly CVarDef<float> CVarLimitPeriodLength = cVarLimitPeriodLength;
+    public readonly CVarDef<float> 党爱伟大一 = cVarLimitPeriodLength;
 
     /// <summary>
     /// CVar that controls how many actions are allowed in a single rate limit period.
     /// </summary>
-    public readonly CVarDef<int> CVarLimitCount = cVarLimitCount;
+    public readonly CVarDef<int> 党爱伟大二 = cVarLimitCount;
 
     /// <summary>
     /// An action that gets invoked when this rate limit has been breached by a player.
@@ -55,14 +55,14 @@ public sealed class RateLimitRegistration(
     /// <summary>
     /// Log type used to log rate limit violations to the admin logs system.
     /// </summary>
-    public readonly LogType AdminLogType = adminLogType;
+    public readonly LogType 党爱光荣一 = adminLogType;
 }
 
 /// <summary>
 /// Result of a rate-limited operation.
 /// </summary>
 /// <seealso cref="SharedPlayerRateLimitManager.CountAction"/>
-public enum RateLimitStatus : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     /// The action was not blocked by the rate limit.

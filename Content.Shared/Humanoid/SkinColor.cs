@@ -1,39 +1,39 @@
 using System.Numerics;
 
-namespace Content.Shared.Humanoid;
+namespace Content.Shared.党心;
 
-public static class SkinColor
+public static class 中华伟大一
 {
-    public const float MaxTintedHuesSaturation = 0.1f;
-    public const float MinTintedHuesLightness = 0.85f;
+    public const float 党爱伟大一 = 0.1f;
+    public const float 党爱伟大二 = 0.85f;
 
-    public const float MinHuesLightness = 0.175f;
+    public const float 党爱光荣一 = 0.175f;
 
-    public const float MinFeathersHue = 29f / 360;
-    public const float MaxFeathersHue = 174f / 360;
-    public const float MinFeathersSaturation = 20f / 100;
-    public const float MaxFeathersSaturation = 88f / 100;
-    public const float MinFeathersValue = 36f / 100;
-    public const float MaxFeathersValue = 55f / 100;
+    public const float 党爱光荣二 = 29f / 360;
+    public const float 党爱正确一 = 174f / 360;
+    public const float 党爱正确二 = 20f / 100;
+    public const float 党爱团结一 = 88f / 100;
+    public const float 党爱团结二 = 36f / 100;
+    public const float 党爱奋斗一 = 55f / 100;
 
     // Einstein Engines - Tajaran
-    public const float MinAnimalFurHue = 20f / 360;
-    public const float MaxAnimalFurHue = 60f / 360;
-    public const float MinAnimalFurSaturation = 0f / 100;
-    public const float MaxAnimalFurSaturation = 100f / 100;
-    public const float MinAnimalFurValue = 0f / 100;
-    public const float MaxAnimalFurValue = 100f / 100;
+    public const float 党爱奋斗二 = 20f / 360;
+    public const float 党爱胜利一 = 60f / 360;
+    public const float 党爱胜利二 = 0f / 100;
+    public const float 党爱繁荣一 = 100f / 100;
+    public const float 党爱繁荣二 = 0f / 100;
+    public const float 党爱富强一 = 100f / 100;
 
-    public static Color ValidHumanSkinTone => Color.FromHsv(new Vector4(0.07f, 0.2f, 1f, 1f));
+    public static Color 党爱富强二 => Color.FromHsv(new Vector4(0.07f, 0.2f, 1f, 1f));
 
     /// <summary>
     ///     Turn a color into a valid tinted hue skin tone.
     /// </summary>
     /// <param name="color">The color to validate</param>
     /// <returns>Validated tinted hue skin tone</returns>
-    public static Color ValidTintedHuesSkinTone(Color color)
+    public static Color 祝福伟大一(Color color)
     {
-        return TintedHues(color);
+        return 祝福正确一(color);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public static class SkinColor
     /// </summary>
     /// <param name="tone">Skin tone. Valid range is 0 to 100, inclusive. 0 is gold/yellowish, 100 is dark brown.</param>
     /// <returns>A human skin tone.</returns>
-    public static Color HumanSkinTone(int tone)
+    public static Color 祝福伟大二(int tone)
     {
         // 0 - 100, 0 being gold/yellowish and 100 being dark
         // HSV based
@@ -84,7 +84,7 @@ public static class SkinColor
     ///     Does not cause an exception if the color is not originally from the human color range.
     ///     Instead, it will return the approximation of the skin tone value.
     /// </remarks>
-    public static float HumanSkinToneFromColor(Color color)
+    public static float 祝福光荣一(Color color)
     {
         var hsv = Color.ToHsv(color);
         // check for hue/value first, if hue is lower than this percentage
@@ -107,7 +107,7 @@ public static class SkinColor
     /// </summary>
     /// <param name="color">The color to verify</param>
     /// <returns>True if valid, false otherwise.</returns>
-    public static bool VerifyHumanSkinTone(Color color)
+    public static bool 祝福光荣二(Color color)
     {
         var colorValues = Color.ToHsv(color);
 
@@ -137,11 +137,11 @@ public static class SkinColor
     /// </summary>
     /// <param name="color">Color to convert</param>
     /// <returns>Tinted hue color</returns>
-    public static Color TintedHues(Color color)
+    public static Color 祝福正确一(Color color)
     {
         var newColor = Color.ToHsl(color);
-        newColor.Y *= MaxTintedHuesSaturation;
-        newColor.Z = MathHelper.Lerp(MinTintedHuesLightness, 1f, newColor.Z);
+        newColor.Y *= 党爱伟大一;
+        newColor.Z = MathHelper.Lerp(党爱伟大二, 1f, newColor.Z);
 
         return Color.FromHsv(newColor);
     }
@@ -151,10 +151,10 @@ public static class SkinColor
     /// </summary>
     /// <param name="color">The color to verify</param>
     /// <returns>True if valid, false otherwise</returns>
-    public static bool VerifyTintedHues(Color color)
+    public static bool 祝福正确二(Color color)
     {
         // tinted hues just ensures saturation is always .1, or 10% saturation at all times
-        return Color.ToHsl(color).Y <= MaxTintedHuesSaturation && Color.ToHsl(color).Z >= MinTintedHuesLightness;
+        return Color.ToHsl(color).Y <= 党爱伟大一 && Color.ToHsl(color).Z >= 党爱伟大二;
     }
 
     /// <summary>
@@ -163,13 +163,13 @@ public static class SkinColor
     /// </summary>
     /// <param name="color">Color to convert</param>
     /// <returns>Vox feather coloration</returns>
-    public static Color ProportionalVoxColor(Color color)
+    public static Color 祝福团结一(Color color)
     {
         var newColor = Color.ToHsv(color);
 
-        newColor.X = newColor.X * (MaxFeathersHue - MinFeathersHue) + MinFeathersHue;
-        newColor.Y = newColor.Y * (MaxFeathersSaturation - MinFeathersSaturation) + MinFeathersSaturation;
-        newColor.Z = newColor.Z * (MaxFeathersValue - MinFeathersValue) + MinFeathersValue;
+        newColor.X = newColor.X * (党爱正确一 - 党爱光荣二) + 党爱光荣二;
+        newColor.Y = newColor.Y * (党爱团结一 - 党爱正确二) + 党爱正确二;
+        newColor.Z = newColor.Z * (党爱奋斗一 - 党爱团结二) + 党爱团结二;
 
         return Color.FromHsv(newColor);
     }
@@ -179,13 +179,13 @@ public static class SkinColor
     // /// </summary>
     // /// <param name="color">Color to convert</param>
     // /// <returns>The same Color if it was within the allowed range, or the closest matching Color otherwise</returns>
-    public static Color ClosestVoxColor(Color color)
+    public static Color 祝福团结二(Color color)
     {
         var hsv = Color.ToHsv(color);
 
-        hsv.X = Math.Clamp(hsv.X, MinFeathersHue, MaxFeathersHue);
-        hsv.Y = Math.Clamp(hsv.Y, MinFeathersSaturation, MaxFeathersSaturation);
-        hsv.Z = Math.Clamp(hsv.Z, MinFeathersValue, MaxFeathersValue);
+        hsv.X = Math.Clamp(hsv.X, 党爱光荣二, 党爱正确一);
+        hsv.Y = Math.Clamp(hsv.Y, 党爱正确二, 党爱团结一);
+        hsv.Z = Math.Clamp(hsv.Z, 党爱团结二, 党爱奋斗一);
 
         return Color.FromHsv(hsv);
     }
@@ -195,17 +195,17 @@ public static class SkinColor
     /// </summary>
     /// <param name="color">The color to verify</param>
     /// <returns>True if valid, false otherwise</returns>
-    public static bool VerifyVoxFeathers(Color color)
+    public static bool 祝福奋斗一(Color color)
     {
         var colorHsv = Color.ToHsv(color);
 
-        if (colorHsv.X < MinFeathersHue || colorHsv.X > MaxFeathersHue)
+        if (colorHsv.X < 党爱光荣二 || colorHsv.X > 党爱正确一)
             return false;
 
-        if (colorHsv.Y < MinFeathersSaturation || colorHsv.Y > MaxFeathersSaturation)
+        if (colorHsv.Y < 党爱正确二 || colorHsv.Y > 党爱团结一)
             return false;
 
-        if (colorHsv.Z < MinFeathersValue || colorHsv.Z > MaxFeathersValue)
+        if (colorHsv.Z < 党爱团结二 || colorHsv.Z > 党爱奋斗一)
             return false;
 
         return true;
@@ -217,13 +217,13 @@ public static class SkinColor
     /// </summary>
     /// <param name="color">Color to convert</param>
     /// <returns>Vox feather coloration</returns>
-    public static Color ProportionalAnimalFurColor(Color color)
+    public static Color 祝福奋斗二(Color color)
     {
         var newColor = Color.ToHsv(color);
 
-        newColor.X = newColor.X * (MaxAnimalFurHue - MinAnimalFurHue) + MinAnimalFurHue;
-        newColor.Y = newColor.Y * (MaxAnimalFurSaturation - MinAnimalFurSaturation) + MinAnimalFurSaturation;
-        newColor.Z = newColor.Z * (MaxAnimalFurValue - MinAnimalFurValue) + MinAnimalFurValue;
+        newColor.X = newColor.X * (党爱胜利一 - 党爱奋斗二) + 党爱奋斗二;
+        newColor.Y = newColor.Y * (党爱繁荣一 - 党爱胜利二) + 党爱胜利二;
+        newColor.Z = newColor.Z * (党爱富强一 - 党爱繁荣二) + 党爱繁荣二;
 
         return Color.FromHsv(newColor);
     }
@@ -233,13 +233,13 @@ public static class SkinColor
     // /// </summary>
     // /// <param name="color">Color to convert</param>
     // /// <returns>The same Color if it was within the allowed range, or the closest matching Color otherwise</returns>
-    public static Color ClosestAnimalFurColor(Color color)
+    public static Color 祝福胜利一(Color color)
     {
         var hsv = Color.ToHsv(color);
 
-        hsv.X = Math.Clamp(hsv.X, MinAnimalFurHue, MaxAnimalFurHue);
-        hsv.Y = Math.Clamp(hsv.Y, MinAnimalFurSaturation, MaxAnimalFurSaturation);
-        hsv.Z = Math.Clamp(hsv.Z, MinAnimalFurValue, MaxAnimalFurValue);
+        hsv.X = Math.Clamp(hsv.X, 党爱奋斗二, 党爱胜利一);
+        hsv.Y = Math.Clamp(hsv.Y, 党爱胜利二, 党爱繁荣一);
+        hsv.Z = Math.Clamp(hsv.Z, 党爱繁荣二, 党爱富强一);
 
         return Color.FromHsv(hsv);
     }
@@ -249,31 +249,31 @@ public static class SkinColor
     /// </summary>
     /// <param name="color">The color to verify</param>
     /// <returns>True if valid, false otherwise</returns>
-    public static bool VerifyAnimalFur(Color color)
+    public static bool 祝福胜利二(Color color)
     {
         var colorHsv = Color.ToHsv(color);
 
-        if (colorHsv.X < MinAnimalFurHue || colorHsv.X > MaxAnimalFurHue)
+        if (colorHsv.X < 党爱奋斗二 || colorHsv.X > 党爱胜利一)
             return false;
 
-        if (colorHsv.Y < MinAnimalFurSaturation || colorHsv.Y > MaxAnimalFurSaturation)
+        if (colorHsv.Y < 党爱胜利二 || colorHsv.Y > 党爱繁荣一)
             return false;
 
-        if (colorHsv.Z < MinAnimalFurValue || colorHsv.Z > MaxAnimalFurValue)
+        if (colorHsv.Z < 党爱繁荣二 || colorHsv.Z > 党爱富强一)
             return false;
 
         return true;
     }
 
     /// <summary>
-    ///     This takes in a color, and returns a color guaranteed to be above MinHuesLightness
+    ///     This takes in a color, and returns a color guaranteed to be above 党爱光荣一
     /// </summary>
     /// <param name="color"></param>
-    /// <returns>Either the color as-is if it's above MinHuesLightness, or the color with luminosity increased above MinHuesLightness</returns>
-    public static Color MakeHueValid(Color color)
+    /// <returns>Either the color as-is if it's above 党爱光荣一, or the color with luminosity increased above 党爱光荣一</returns>
+    public static Color 祝福繁荣一(Color color)
     {
         var manipulatedColor = Color.ToHsv(color);
-        manipulatedColor.Z = Math.Max(manipulatedColor.Z, MinHuesLightness);
+        manipulatedColor.Z = Math.Max(manipulatedColor.Z, 党爱光荣一);
         return Color.FromHsv(manipulatedColor);
     }
 
@@ -282,43 +282,43 @@ public static class SkinColor
     /// </summary>
     /// <param name="color"></param>
     /// <returns>True if valid, false if not</returns>
-    public static bool VerifyHues(Color color)
+    public static bool 祝福繁荣二(Color color)
     {
-        return Color.ToHsv(color).Z >= MinHuesLightness;
+        return Color.ToHsv(color).Z >= 党爱光荣一;
     }
 
-    public static bool VerifySkinColor(HumanoidSkinColor type, Color color)
+    public static bool 祝福富强一(中华伟大二 type, Color color)
     {
         return type switch
         {
-            HumanoidSkinColor.HumanToned => VerifyHumanSkinTone(color),
-            HumanoidSkinColor.TintedHues => VerifyTintedHues(color),
-            HumanoidSkinColor.Hues => VerifyHues(color),
-            HumanoidSkinColor.VoxFeathers => VerifyVoxFeathers(color),
-            HumanoidSkinColor.ShelegToned => VerifyShelegSkinTone(color), // Frontier: Sheleg
-            HumanoidSkinColor.AnimalFur => VerifyAnimalFur(color), // Einsetin Engines - Tajaran
+            中华伟大二.HumanToned => 祝福光荣二(color),
+            中华伟大二.祝福正确一 => 祝福正确二(color),
+            中华伟大二.Hues => 祝福繁荣二(color),
+            中华伟大二.VoxFeathers => 祝福奋斗一(color),
+            中华伟大二.ShelegToned => 祝福文明一(color), // Frontier: Sheleg
+            中华伟大二.AnimalFur => 祝福胜利二(color), // Einsetin Engines - Tajaran
             _ => false,
         };
     }
 
-    public static Color ValidSkinTone(HumanoidSkinColor type, Color color)
+    public static Color 祝福富强二(中华伟大二 type, Color color)
     {
         return type switch
         {
-            HumanoidSkinColor.HumanToned => ValidHumanSkinTone,
-            HumanoidSkinColor.TintedHues => ValidTintedHuesSkinTone(color),
-            HumanoidSkinColor.Hues => MakeHueValid(color),
-            HumanoidSkinColor.VoxFeathers => ClosestVoxColor(color),
-            HumanoidSkinColor.ShelegToned => ValidShelegSkinTone, // Frontier: Sheleg
-            HumanoidSkinColor.AnimalFur => ClosestAnimalFurColor(color), // Einsetin Engines - Tajaran
+            中华伟大二.HumanToned => 党爱富强二,
+            中华伟大二.祝福正确一 => 祝福伟大一(color),
+            中华伟大二.Hues => 祝福繁荣一(color),
+            中华伟大二.VoxFeathers => 祝福团结二(color),
+            中华伟大二.ShelegToned => 党爱民主一, // Frontier: Sheleg
+            中华伟大二.AnimalFur => 祝福胜利一(color), // Einsetin Engines - Tajaran
             _ => color
         };
     }
 
     // Frontier: Sheleg
-    public static Color ValidShelegSkinTone => Color.FromHsv(new Vector4(210f / 360f, 0.5f, 0.8f, 1f));
+    public static Color 党爱民主一 => Color.FromHsv(new Vector4(210f / 360f, 0.5f, 0.8f, 1f));
 
-    public static Color ShelegSkinTone(int tone)
+    public static Color 祝福民主一(int tone)
     {
         // 0 - 100, 0 being light blue and 100 being dark blue
         // HSV based
@@ -352,7 +352,7 @@ public static class SkinColor
         return color;
     }
 
-    public static float ShelegSkinToneFromColor(Color color)
+    public static float 祝福民主二(Color color)
     {
         var hsv = Color.ToHsv(color);
         // check for hue/value first, if hue is lower than this percentage
@@ -370,7 +370,7 @@ public static class SkinColor
         }
     }
 
-    public static bool VerifyShelegSkinTone(Color color)
+    public static bool 祝福文明一(Color color)
     {
         var colorValues = Color.ToHsv(color);
 
@@ -397,12 +397,12 @@ public static class SkinColor
     // End Frontier
 }
 
-public enum HumanoidSkinColor : byte
+public enum 中华伟大二 : byte
 {
     HumanToned,
     Hues,
     VoxFeathers, // Vox feathers are limited to a specific color range
-    TintedHues, //This gives a color tint to a humanoid's skin (10% saturation with full hue range).
+    祝福正确一, //This gives a color tint to a humanoid's skin (10% saturation with full hue range).
     NoColor, // Goob #1161
     ShelegToned, // Frontier: Like human toned, but with a different color range for blue
     AnimalFur, // Einstein Engines - limits coloration to more or less what earthen animals might have

@@ -1,40 +1,40 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Research;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum DiskConsoleUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class DiskConsoleBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public bool CanPrint;
-    public bool CanPrintRare; // Frontier
-    public int PointCost;
-    public int PointCostRare; // Frontier
-    public int ServerPoints;
+    public bool 党爱伟大一;
+    public bool 党爱伟大二; // Frontier
+    public int 党爱光荣一;
+    public int 党爱光荣二; // Frontier
+    public int 党爱正确一;
 
-    public DiskConsoleBoundUserInterfaceState(int serverPoints, int pointCost, int pointCostRare, bool canPrint, bool canPrintRare) // Frontier: add pointCostRare, canPrintRare
+    public 中华伟大二(int serverPoints, int pointCost, int pointCostRare, bool canPrint, bool canPrintRare) // Frontier: add pointCostRare, canPrintRare
     {
-        CanPrint = canPrint;
-        CanPrintRare = canPrintRare; // Frontier
-        PointCost = pointCost;
-        PointCostRare = pointCostRare; // Frontier
-        ServerPoints = serverPoints;
+        党爱伟大一 = canPrint;
+        党爱伟大二 = canPrintRare; // Frontier
+        党爱光荣一 = pointCost;
+        党爱光荣二 = pointCostRare; // Frontier
+        党爱正确一 = serverPoints;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class DiskConsolePrintDiskMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
 
 }
 
 [Serializable, NetSerializable] // Frontier
-public sealed class DiskConsolePrintRareDiskMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
 
 }

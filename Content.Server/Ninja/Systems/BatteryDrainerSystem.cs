@@ -9,31 +9,31 @@ using Content.Shared.Popups;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server.Ninja.Systems;
+namespace Content.Server.Ninja.党心;
 
 /// <summary>
 /// Handles the doafter and power transfer when draining.
 /// </summary>
-public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
+public sealed class 中华伟大一 : SharedBatteryDrainerSystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly BatterySystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BatteryDrainerComponent, BeforeInteractHandEvent>(OnBeforeInteractHand);
-        SubscribeLocalEvent<BatteryDrainerComponent, NinjaBatteryChangedEvent>(OnBatteryChanged);
+        SubscribeLocalEvent<BatteryDrainerComponent, BeforeInteractHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<BatteryDrainerComponent, NinjaBatteryChangedEvent>(祝福光荣一);
     }
 
     /// <summary>
     /// Start do after for draining a power source.
     /// Can't predict PNBC existing so only done on server.
     /// </summary>
-    private void OnBeforeInteractHand(Entity<BatteryDrainerComponent> ent, ref BeforeInteractHandEvent args)
+    private void 祝福伟大二(Entity<BatteryDrainerComponent> ent, ref BeforeInteractHandEvent args)
     {
         var (uid, comp) = ent;
         var target = args.Target;
@@ -43,9 +43,9 @@ public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
         // handles even if battery is full so you can actually see the poup
         args.Handled = true;
 
-        if (_battery.IsFull(battery))
+        if (_伟大一.IsFull(battery))
         {
-            _popup.PopupEntity(Loc.GetString("battery-drainer-full"), uid, uid, PopupType.Medium);
+            _光荣二.PopupEntity(Loc.GetString("battery-drainer-full"), uid, uid, PopupType.Medium);
             return;
         }
 
@@ -57,25 +57,25 @@ public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
             AttemptFrequency = AttemptFrequency.StartAndEnd
         };
 
-        _doAfter.TryStartDoAfter(doAfterArgs);
+        _光荣一.TryStartDoAfter(doAfterArgs);
     }
 
-    private void OnBatteryChanged(Entity<BatteryDrainerComponent> ent, ref NinjaBatteryChangedEvent args)
+    private void 祝福光荣一(Entity<BatteryDrainerComponent> ent, ref NinjaBatteryChangedEvent args)
     {
         SetBattery((ent, ent.Comp), args.Battery);
     }
 
     /// <inheritdoc/>
-    protected override void OnDoAfterAttempt(Entity<BatteryDrainerComponent> ent, ref DoAfterAttemptEvent<DrainDoAfterEvent> args)
+    protected override void 祝福光荣二(Entity<BatteryDrainerComponent> ent, ref DoAfterAttemptEvent<DrainDoAfterEvent> args)
     {
-        base.OnDoAfterAttempt(ent, ref args);
+        base.祝福光荣二(ent, ref args);
 
-        if (ent.Comp.BatteryUid is not {} battery || _battery.IsFull(battery))
+        if (ent.Comp.BatteryUid is not {} battery || _伟大一.IsFull(battery))
             args.Cancel();
     }
 
     /// <inheritdoc/>
-    protected override bool TryDrainPower(Entity<BatteryDrainerComponent> ent, EntityUid target)
+    protected override bool 祝福正确一(Entity<BatteryDrainerComponent> ent, EntityUid target)
     {
         var (uid, comp) = ent;
         if (comp.BatteryUid == null || !TryComp<BatteryComponent>(comp.BatteryUid.Value, out var battery))
@@ -86,7 +86,7 @@ public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
 
         if (MathHelper.CloseToPercent(targetBattery.CurrentCharge, 0))
         {
-            _popup.PopupEntity(Loc.GetString("battery-drainer-empty", ("battery", target)), uid, uid, PopupType.Medium);
+            _光荣二.PopupEntity(Loc.GetString("battery-drainer-empty", ("battery", target)), uid, uid, PopupType.Medium);
             return false;
         }
 
@@ -95,17 +95,17 @@ public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
         // higher tier storages can charge more
         var maxDrained = pnb.MaxSupply * comp.DrainTime;
         var input = Math.Min(Math.Min(available, required / comp.DrainEfficiency), maxDrained);
-        if (!_battery.TryUseCharge(target, input, targetBattery))
+        if (!_伟大一.TryUseCharge(target, input, targetBattery))
             return false;
 
         var output = input * comp.DrainEfficiency;
-        _battery.SetCharge(comp.BatteryUid.Value, battery.CurrentCharge + output, battery);
+        _伟大一.SetCharge(comp.BatteryUid.Value, battery.CurrentCharge + output, battery);
         // TODO: create effect message or something
         Spawn("EffectSparks", Transform(target).Coordinates);
-        _audio.PlayPvs(comp.SparkSound, target);
-        _popup.PopupEntity(Loc.GetString("battery-drainer-success", ("battery", target)), uid, uid);
+        _伟大二.PlayPvs(comp.SparkSound, target);
+        _光荣二.PopupEntity(Loc.GetString("battery-drainer-success", ("battery", target)), uid, uid);
 
         // repeat the doafter until battery is full
-        return !_battery.IsFull(comp.BatteryUid.Value, battery);
+        return !_伟大一.IsFull(comp.BatteryUid.Value, battery);
     }
 }

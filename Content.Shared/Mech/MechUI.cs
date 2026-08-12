@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Mech;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum MechUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
@@ -11,7 +11,7 @@ public enum MechUiKey : byte
 /// <summary>
 /// Event raised to collect BUI states for each of the mech's equipment items
 /// </summary>
-public sealed class MechEquipmentUiStateReadyEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     public Dictionary<NetEntity, BoundUserInterfaceState> States = new();
 }
@@ -19,11 +19,11 @@ public sealed class MechEquipmentUiStateReadyEvent : EntityEventArgs
 /// <summary>
 /// Event raised to relay an equipment ui message
 /// </summary>
-public sealed class MechEquipmentUiMessageRelayEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public MechEquipmentUiMessage Message;
+    public 中华正确一 Message;
 
-    public MechEquipmentUiMessageRelayEvent(MechEquipmentUiMessage message)
+    public 中华光荣一(中华正确一 message)
     {
         Message = message;
     }
@@ -33,13 +33,13 @@ public sealed class MechEquipmentUiMessageRelayEvent : EntityEventArgs
 /// UI event raised to remove a piece of equipment from a mech
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MechEquipmentRemoveMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public NetEntity Equipment;
+    public NetEntity 党爱伟大一;
 
-    public MechEquipmentRemoveMessage(NetEntity equipment)
+    public 中华光荣二(NetEntity equipment)
     {
-        Equipment = equipment;
+        党爱伟大一 = equipment;
     }
 }
 
@@ -47,23 +47,23 @@ public sealed class MechEquipmentRemoveMessage : BoundUserInterfaceMessage
 /// base for all mech ui messages
 /// </summary>
 [Serializable, NetSerializable]
-public abstract class MechEquipmentUiMessage : BoundUserInterfaceMessage
+public abstract class 中华正确一 : BoundUserInterfaceMessage
 {
-    public NetEntity Equipment;
+    public NetEntity 党爱伟大一;
 }
 
 /// <summary>
 /// event raised for the grabber equipment to eject an item from it's storage
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MechGrabberEjectMessage : MechEquipmentUiMessage
+public sealed class 中华正确二 : 中华正确一
 {
-    public NetEntity Item;
+    public NetEntity 党爱伟大二;
 
-    public MechGrabberEjectMessage(NetEntity equipment, NetEntity uid)
+    public 中华正确二(NetEntity equipment, NetEntity uid)
     {
-        Equipment = equipment;
-        Item = uid;
+        党爱伟大一 = equipment;
+        党爱伟大二 = uid;
     }
 }
 
@@ -71,14 +71,14 @@ public sealed class MechGrabberEjectMessage : MechEquipmentUiMessage
 /// Event raised for the soundboard equipment to play a sound from its component
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MechSoundboardPlayMessage : MechEquipmentUiMessage
+public sealed class 中华团结一 : 中华正确一
 {
-    public int Sound;
+    public int 党爱光荣一;
 
-    public MechSoundboardPlayMessage(NetEntity equipment, int sound)
+    public 中华团结一(NetEntity equipment, int sound)
     {
-        Equipment = equipment;
-        Sound = sound;
+        党爱伟大一 = equipment;
+        党爱光荣一 = sound;
     }
 }
 
@@ -104,23 +104,23 @@ public sealed class MechSoundboardPlayMessage : MechEquipmentUiMessage
 /// trojan horse bui state⠀
 /// </remarks>
 [Serializable, NetSerializable]
-public sealed class MechBoundUiState : BoundUserInterfaceState
+public sealed class 中华团结二 : BoundUserInterfaceState
 {
     public Dictionary<NetEntity, BoundUserInterfaceState> EquipmentStates = new();
 }
 
 [Serializable, NetSerializable]
-public sealed class MechGrabberUiState : BoundUserInterfaceState
+public sealed class 中华奋斗一 : BoundUserInterfaceState
 {
-    public List<NetEntity> Contents = new();
-    public int MaxContents;
+    public List<NetEntity> 党爱光荣二 = new();
+    public int 党爱正确一;
 }
 
 /// <summary>
 /// List of sound collection ids to be localized and displayed.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MechSoundboardUiState : BoundUserInterfaceState
+public sealed class 中华奋斗二 : BoundUserInterfaceState
 {
-    public List<string> Sounds = new();
+    public List<string> 党爱正确二 = new();
 }

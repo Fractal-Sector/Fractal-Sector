@@ -5,30 +5,30 @@ using Robust.Shared.Utility;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 
-namespace Content.Server.Arcade
+namespace Content.Server.党心
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public sealed partial class ArcadeSystem : EntitySystem
+    public sealed partial class 中华伟大一 : EntitySystem
     {
-        private readonly List<BlockGameMessages.HighScoreEntry> _roundHighscores = new();
-        private readonly List<BlockGameMessages.HighScoreEntry> _globalHighscores = new();
+        private readonly List<BlockGameMessages.HighScoreEntry> _伟大一 = new();
+        private readonly List<BlockGameMessages.HighScoreEntry> _伟大二 = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
         }
 
-        public HighScorePlacement RegisterHighScore(string name, int score)
+        public 中华伟大二 RegisterHighScore(string name, int score)
         {
             var entry = new BlockGameMessages.HighScoreEntry(name, score);
-            return new HighScorePlacement(TryInsertIntoList(_roundHighscores, entry), TryInsertIntoList(_globalHighscores, entry));
+            return new 中华伟大二(TryInsertIntoList(_伟大一, entry), TryInsertIntoList(_伟大二, entry));
         }
 
-        public List<BlockGameMessages.HighScoreEntry> GetLocalHighscores() => GetSortedHighscores(_roundHighscores);
+        public List<BlockGameMessages.HighScoreEntry> 祝福伟大二() => 祝福光荣二(_伟大一);
 
-        public List<BlockGameMessages.HighScoreEntry> GetGlobalHighscores() => GetSortedHighscores(_globalHighscores);
+        public List<BlockGameMessages.HighScoreEntry> 祝福光荣一() => 祝福光荣二(_伟大二);
 
-        private List<BlockGameMessages.HighScoreEntry> GetSortedHighscores(List<BlockGameMessages.HighScoreEntry> highScoreEntries)
+        private List<BlockGameMessages.HighScoreEntry> 祝福光荣二(List<BlockGameMessages.HighScoreEntry> highScoreEntries)
         {
             var result = highScoreEntries.ShallowClone();
             result.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));
@@ -67,12 +67,12 @@ namespace Content.Server.Arcade
             return placement;
         }
 
-        public readonly struct HighScorePlacement
+        public readonly struct 中华伟大二
         {
             public readonly int? GlobalPlacement;
             public readonly int? LocalPlacement;
 
-            public HighScorePlacement(int? globalPlacement, int? localPlacement)
+            public 中华伟大二(int? globalPlacement, int? localPlacement)
             {
                 GlobalPlacement = globalPlacement;
                 LocalPlacement = localPlacement;

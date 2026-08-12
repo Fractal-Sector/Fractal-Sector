@@ -10,7 +10,7 @@ using Content.Shared.Tag;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Emag.Systems;
+namespace Content.Shared.Emag.党心;
 
 /// How to add an emag interaction:
 /// 1. Go to the system for the component you want the interaction with
@@ -18,62 +18,62 @@ namespace Content.Shared.Emag.Systems;
 /// 3. Have some check for if this actually needs to be emagged or is already emagged (to stop charge waste)
 /// 4. Past the check, add all the effects you desire and HANDLE THE EVENT ARGUMENT so a charge is spent
 /// 5. Optionally, set Repeatable on the event to true if you don't want the emagged component to be added
-public sealed class EmagSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedChargesSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly TagSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EmagComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<EmaggedComponent, OnAccessOverriderAccessUpdatedEvent>(OnAccessOverriderAccessUpdated);
+        SubscribeLocalEvent<EmagComponent, AfterInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<EmaggedComponent, OnAccessOverriderAccessUpdatedEvent>(祝福伟大二);
     }
 
-    private void OnAccessOverriderAccessUpdated(Entity<EmaggedComponent> entity, ref OnAccessOverriderAccessUpdatedEvent args)
+    private void 祝福伟大二(Entity<EmaggedComponent> entity, ref OnAccessOverriderAccessUpdatedEvent args)
     {
-        if (!CompareFlag(entity.Comp.EmagType, EmagType.Access))
+        if (!祝福团结一(entity.Comp.中华伟大二, 中华伟大二.Access))
             return;
 
-        entity.Comp.EmagType &= ~EmagType.Access;
+        entity.Comp.中华伟大二 &= ~中华伟大二.Access;
         Dirty(entity);
     }
-    private void OnAfterInteract(EntityUid uid, EmagComponent comp, AfterInteractEvent args)
+    private void 祝福光荣一(EntityUid uid, EmagComponent comp, AfterInteractEvent args)
     {
         if (!args.CanReach || args.Target is not { } target)
             return;
 
         // Frontier: unemag
         if (comp.Demag)
-            args.Handled = TryUnemagEffect((uid, comp), args.User, target);
+            args.Handled = 祝福正确一((uid, comp), args.User, target);
         else
-            args.Handled = TryEmagEffect((uid, comp), args.User, target);
+            args.Handled = 祝福光荣二((uid, comp), args.User, target);
         // End Frontier
     }
 
     /// <summary>
-    /// Does the emag effect on a specified entity with a specified EmagType. The optional field customEmagType can be used to override the emag type defined in the component.
+    /// Does the emag effect on a specified entity with a specified 中华伟大二. The optional field customEmagType can be used to override the emag type defined in the component.
     /// </summary>
-    public bool TryEmagEffect(Entity<EmagComponent?> ent, EntityUid user, EntityUid target, EmagType? customEmagType = null)
+    public bool 祝福光荣二(Entity<EmagComponent?> ent, EntityUid user, EntityUid target, 中华伟大二? customEmagType = null)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
-        if (_tag.HasTag(target, ent.Comp.EmagImmuneTag))
+        if (_光荣二.HasTag(target, ent.Comp.EmagImmuneTag))
             return false;
 
         Entity<LimitedChargesComponent?> chargesEnt = ent.Owner;
-        if (_sharedCharges.IsEmpty(chargesEnt))
+        if (_伟大二.IsEmpty(chargesEnt))
         {
-            _popup.PopupClient(Loc.GetString("emag-no-charges"), user, user);
+            _光荣一.PopupClient(Loc.GetString("emag-no-charges"), user, user);
             return false;
         }
 
-        var typeToUse = customEmagType ?? ent.Comp.EmagType;
+        var typeToUse = customEmagType ?? ent.Comp.中华伟大二;
 
         var emaggedEvent = new GotEmaggedEvent(user, typeToUse);
         RaiseLocalEvent(target, ref emaggedEvent);
@@ -81,20 +81,20 @@ public sealed class EmagSystem : EntitySystem
         if (!emaggedEvent.Handled)
             return false;
 
-        _popup.PopupPredicted(Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))), user, user, PopupType.Medium);
+        _光荣一.PopupPredicted(Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))), user, user, PopupType.Medium);
 
-        _audio.PlayPredicted(ent.Comp.EmagSound, ent, ent);
+        _正确一.PlayPredicted(ent.Comp.EmagSound, ent, ent);
 
-        _adminLogger.Add(LogType.Emag, LogImpact.High, $"{ToPrettyString(user):player} emagged {ToPrettyString(target):target} with flag(s): {typeToUse}");
+        _伟大一.Add(LogType.Emag, LogImpact.High, $"{ToPrettyString(user):player} emagged {ToPrettyString(target):target} with flag(s): {typeToUse}");
 
         if (emaggedEvent.Handled)
-            _sharedCharges.TryUseCharge(chargesEnt);
+            _伟大二.TryUseCharge(chargesEnt);
 
         if (!emaggedEvent.Repeatable)
         {
             EnsureComp<EmaggedComponent>(target, out var emaggedComp);
 
-            emaggedComp.EmagType |= typeToUse;
+            emaggedComp.中华伟大二 |= typeToUse;
             Dirty(target, emaggedComp);
         }
 
@@ -105,42 +105,42 @@ public sealed class EmagSystem : EntitySystem
     /// <summary>
     /// Does an unemag effect on a specified entity
     /// </summary>
-    public bool TryUnemagEffect(Entity<EmagComponent?> ent, EntityUid user, EntityUid target)
+    public bool 祝福正确一(Entity<EmagComponent?> ent, EntityUid user, EntityUid target)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
-        if (_tag.HasTag(target, ent.Comp.DemagImmuneTag))
+        if (_光荣二.HasTag(target, ent.Comp.DemagImmuneTag))
             return false;
 
-        if (_sharedCharges.IsEmpty(ent.Owner))
+        if (_伟大二.IsEmpty(ent.Owner))
         {
-            _popup.PopupClient(Loc.GetString("emag-no-charges"), user, user);
+            _光荣一.PopupClient(Loc.GetString("emag-no-charges"), user, user);
             return false;
         }
 
-        var emaggedEvent = new GotUnEmaggedEvent(user, ent.Comp.EmagType);
+        var emaggedEvent = new GotUnEmaggedEvent(user, ent.Comp.中华伟大二);
         RaiseLocalEvent(target, ref emaggedEvent);
 
         if (!emaggedEvent.Handled)
             return false;
 
-        _popup.PopupPredicted(Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))), user, user, PopupType.Medium);
+        _光荣一.PopupPredicted(Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))), user, user, PopupType.Medium);
 
-        _audio.PlayPredicted(ent.Comp.EmagSound, ent, ent);
+        _正确一.PlayPredicted(ent.Comp.EmagSound, ent, ent);
 
-        _adminLogger.Add(LogType.Emag, LogImpact.Medium, $"{ToPrettyString(user):player} demagged {ToPrettyString(target):target} with flag(s): {ent.Comp.EmagType}");
+        _伟大一.Add(LogType.Emag, LogImpact.Medium, $"{ToPrettyString(user):player} demagged {ToPrettyString(target):target} with flag(s): {ent.Comp.中华伟大二}");
 
         if (emaggedEvent.Handled)
-            _sharedCharges.TryUseCharge(ent.Owner);
+            _伟大二.TryUseCharge(ent.Owner);
 
         if (!emaggedEvent.Repeatable)
         {
             // Query the emag component after the event is handled in case anything changes during the event.
             if (TryComp<EmaggedComponent>(target, out var emaggedComp))
             {
-                emaggedComp.EmagType &= ~ent.Comp.EmagType;
-                if (emaggedComp.EmagType == EmagType.None)
+                emaggedComp.中华伟大二 &= ~ent.Comp.中华伟大二;
+                if (emaggedComp.中华伟大二 == 中华伟大二.None)
                     RemComp<EmaggedComponent>(target);
                 else
                     Dirty(target, emaggedComp);
@@ -154,14 +154,14 @@ public sealed class EmagSystem : EntitySystem
     /// Checks whether an entity has the EmaggedComponent with a set flag.
     /// </summary>
     /// <param name="target">The target entity to check for the flag.</param>
-    /// <param name="flag">The EmagType flag to check for.</param>
+    /// <param name="flag">The 中华伟大二 flag to check for.</param>
     /// <returns>True if entity has EmaggedComponent and the provided flag. False if the entity lacks EmaggedComponent or provided flag.</returns>
-    public bool CheckFlag(EntityUid target, EmagType flag)
+    public bool 祝福正确二(EntityUid target, 中华伟大二 flag)
     {
         if (!TryComp<EmaggedComponent>(target, out var comp))
             return false;
 
-        if ((comp.EmagType & flag) == flag)
+        if ((comp.中华伟大二 & flag) == flag)
             return true;
 
         return false;
@@ -173,7 +173,7 @@ public sealed class EmagSystem : EntitySystem
     /// <param name="target">The target flag to check.</param>
     /// <param name="flag">The flag to check for within the target.</param>
     /// <returns>True if target contains flag. Otherwise false.</returns>
-    public bool CompareFlag(EmagType target, EmagType flag)
+    public bool 祝福团结一(中华伟大二 target, 中华伟大二 flag)
     {
         if ((target & flag) == flag)
             return true;
@@ -185,7 +185,7 @@ public sealed class EmagSystem : EntitySystem
 
 [Flags]
 [Serializable, NetSerializable]
-public enum EmagType
+public enum 中华伟大二
 {
     None = 0,
     All = ~None,
@@ -202,9 +202,9 @@ public enum EmagType
 /// <param name="Repeatable">Can the entity be emagged more than once? Prevents adding of <see cref="EmaggedComponent"/></param>
 /// <remarks>Needs to be handled in shared/client, not just the server, to actually show the emagging popup</remarks>
 [ByRefEvent]
-public record struct GotEmaggedEvent(EntityUid UserUid, EmagType Type, bool Handled = false, bool Repeatable = false);
+public record 中华光荣一 GotEmaggedEvent(EntityUid UserUid, 中华伟大二 Type, bool Handled = false, bool Repeatable = false);
 
 // Frontier: demag
 [ByRefEvent]
-public record struct GotUnEmaggedEvent(EntityUid UserUid, EmagType Type, bool Handled = false, bool Repeatable = false);
+public record 中华光荣一 GotUnEmaggedEvent(EntityUid UserUid, 中华伟大二 Type, bool Handled = false, bool Repeatable = false);
 // End Frontier

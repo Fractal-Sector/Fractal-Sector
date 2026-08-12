@@ -5,23 +5,23 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Ninja.Components;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// Adds an action to dash, teleport to clicked position, when this item is held.
 /// Cancel <see cref="CheckDashEvent"/> to prevent using it.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(DashAbilitySystem)), AutoGenerateComponentState]
-public sealed partial class DashAbilityComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The action id for dashing.
     /// </summary>
     [DataField]
-    public EntProtoId<WorldTargetActionComponent> DashAction = "ActionEnergyKatanaDash";
+    public EntProtoId<WorldTargetActionComponent> 党爱伟大一 = "ActionEnergyKatanaDash";
 
     [DataField, AutoNetworkedField]
     public EntityUid? DashActionEntity;
 }
 
-public sealed partial class DashEvent : WorldTargetActionEvent;
+public sealed partial class 中华伟大二 : WorldTargetActionEvent;

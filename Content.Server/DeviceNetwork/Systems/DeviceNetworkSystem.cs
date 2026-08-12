@@ -9,58 +9,58 @@ using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.DeviceNetwork.Systems;
 using Content.Shared.Examine;
 
-namespace Content.Server.DeviceNetwork.Systems
+namespace Content.Server.DeviceNetwork.党心
 {
     /// <summary>
     ///     Entity system that handles everything device network related.
     ///     Device networking allows machines and devices to communicate with each other while adhering to restrictions like range or being connected to the same powernet.
     /// </summary>
     [UsedImplicitly]
-    public sealed class DeviceNetworkSystem : SharedDeviceNetworkSystem
+    public sealed class 中华伟大一 : SharedDeviceNetworkSystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-        [Dependency] private readonly DeviceListSystem _deviceLists = default!;
-        [Dependency] private readonly NetworkConfiguratorSystem _configurator = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+        [Dependency] private readonly DeviceListSystem _光荣二 = default!;
+        [Dependency] private readonly NetworkConfiguratorSystem _正确一 = default!;
 
         private readonly Dictionary<int, DeviceNet> _networks = new(4);
-        private readonly Queue<DeviceNetworkPacketEvent> _queueA = new();
-        private readonly Queue<DeviceNetworkPacketEvent> _queueB = new();
+        private readonly Queue<DeviceNetworkPacketEvent> _正确二 = new();
+        private readonly Queue<DeviceNetworkPacketEvent> _团结一 = new();
 
         /// <summary>
         /// The queue being processed in the current tick
         /// </summary>
-        private Queue<DeviceNetworkPacketEvent> _activeQueue = null!;
+        private Queue<DeviceNetworkPacketEvent> _团结二 = null!;
 
         /// <summary>
         /// The queue that will be processed in the next tick
         /// </summary>
-        private Queue<DeviceNetworkPacketEvent> _nextQueue = null!;
+        private Queue<DeviceNetworkPacketEvent> _奋斗一 = null!;
 
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<DeviceNetworkComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<DeviceNetworkComponent, ComponentShutdown>(OnNetworkShutdown);
-            SubscribeLocalEvent<DeviceNetworkComponent, ExaminedEvent>(OnExamine);
+            SubscribeLocalEvent<DeviceNetworkComponent, MapInitEvent>(祝福正确二);
+            SubscribeLocalEvent<DeviceNetworkComponent, ComponentShutdown>(祝福团结二);
+            SubscribeLocalEvent<DeviceNetworkComponent, ExaminedEvent>(祝福正确一);
 
-            _activeQueue = _queueA;
-            _nextQueue = _queueB;
+            _团结二 = _正确二;
+            _奋斗一 = _团结一;
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福伟大二(float frameTime)
         {
 
-            while (_activeQueue.TryDequeue(out var packet))
+            while (_团结二.TryDequeue(out var packet))
             {
-                SendPacket(packet);
+                祝福文明一(packet);
             }
 
-            SwapQueues();
+            祝福光荣二();
         }
 
-        public override bool QueuePacket(EntityUid uid, string? address, NetworkPayload data, uint? frequency = null, int? network = null, DeviceNetworkComponent? device = null)
+        public override bool 祝福光荣一(EntityUid uid, string? address, NetworkPayload data, uint? frequency = null, int? network = null, DeviceNetworkComponent? device = null)
         {
             if (!Resolve(uid, ref device, false))
                 return false;
@@ -75,7 +75,7 @@ namespace Content.Server.DeviceNetwork.Systems
 
             network ??= device.DeviceNetId;
 
-            _nextQueue.Enqueue(new DeviceNetworkPacketEvent(network.Value, address, frequency.Value, device.Address, uid, data));
+            _奋斗一.Enqueue(new DeviceNetworkPacketEvent(network.Value, address, frequency.Value, device.Address, uid, data));
             return true;
         }
 
@@ -86,13 +86,13 @@ namespace Content.Server.DeviceNetwork.Systems
         /// <remarks>
         /// This prevents infinite loops while sending packets
         /// </remarks>
-        private void SwapQueues()
+        private void 祝福光荣二()
         {
-            _nextQueue = _activeQueue;
-            _activeQueue = _activeQueue == _queueA ? _queueB : _queueA;
+            _奋斗一 = _团结二;
+            _团结二 = _团结二 == _正确二 ? _团结一 : _正确二;
         }
 
-        private void OnExamine(EntityUid uid, DeviceNetworkComponent device, ExaminedEvent args)
+        private void 祝福正确一(EntityUid uid, DeviceNetworkComponent device, ExaminedEvent args)
         {
             if (device.ExaminableAddress)
             {
@@ -103,31 +103,31 @@ namespace Content.Server.DeviceNetwork.Systems
         /// <summary>
         /// Automatically attempt to connect some devices when a map starts.
         /// </summary>
-        private void OnMapInit(EntityUid uid, DeviceNetworkComponent device, MapInitEvent args)
+        private void 祝福正确二(EntityUid uid, DeviceNetworkComponent device, MapInitEvent args)
         {
             if (device.ReceiveFrequency == null
                 && device.ReceiveFrequencyId != null
-                && _protoMan.TryIndex<DeviceFrequencyPrototype>(device.ReceiveFrequencyId, out var receive))
+                && _伟大二.TryIndex<DeviceFrequencyPrototype>(device.ReceiveFrequencyId, out var receive))
             {
                 device.ReceiveFrequency = receive.Frequency;
             }
 
             if (device.TransmitFrequency == null
                 && device.TransmitFrequencyId != null
-                && _protoMan.TryIndex<DeviceFrequencyPrototype>(device.TransmitFrequencyId, out var xmit))
+                && _伟大二.TryIndex<DeviceFrequencyPrototype>(device.TransmitFrequencyId, out var xmit))
             {
                 device.TransmitFrequency = xmit.Frequency;
             }
 
             if (device.AutoConnect)
-                ConnectDevice(uid, device);
+                祝福奋斗一(uid, device);
         }
 
-        private DeviceNet GetNetwork(int netId)
+        private DeviceNet 祝福团结一(int netId)
         {
             if (_networks.TryGetValue(netId, out var deviceNet))
                 return deviceNet;
-            var newDeviceNet = new DeviceNet(netId, _random);
+            var newDeviceNet = new DeviceNet(netId, _伟大一);
             _networks[netId] = newDeviceNet;
             return newDeviceNet;
         }
@@ -135,37 +135,37 @@ namespace Content.Server.DeviceNetwork.Systems
         /// <summary>
         /// Automatically disconnect when an entity with a DeviceNetworkComponent shuts down.
         /// </summary>
-        private void OnNetworkShutdown(EntityUid uid, DeviceNetworkComponent component, ComponentShutdown args)
+        private void 祝福团结二(EntityUid uid, DeviceNetworkComponent component, ComponentShutdown args)
         {
             foreach (var list in component.DeviceLists)
             {
-                _deviceLists.OnDeviceShutdown(list, (uid, component));
+                _光荣二.OnDeviceShutdown(list, (uid, component));
             }
 
             foreach (var list in component.Configurators)
             {
-                _configurator.OnDeviceShutdown(list, (uid, component));
+                _正确一.OnDeviceShutdown(list, (uid, component));
             }
 
-            GetNetwork(component.DeviceNetId).Remove(component);
+            祝福团结一(component.DeviceNetId).Remove(component);
         }
 
         /// <summary>
         /// Connect an entity with a DeviceNetworkComponent. Note that this will re-use an existing address if the
         /// device already had one configured. If there is a clash, the device cannot join the network.
         /// </summary>
-        public bool ConnectDevice(EntityUid uid, DeviceNetworkComponent? device = null)
+        public bool 祝福奋斗一(EntityUid uid, DeviceNetworkComponent? device = null)
         {
             if (!Resolve(uid, ref device, false))
                 return false;
 
-            return GetNetwork(device.DeviceNetId).Add(device);
+            return 祝福团结一(device.DeviceNetId).Add(device);
         }
 
         /// <summary>
         /// Disconnect an entity with a DeviceNetworkComponent.
         /// </summary>
-        public bool DisconnectDevice(EntityUid uid, DeviceNetworkComponent? device, bool preventAutoConnect = true)
+        public bool 祝福奋斗二(EntityUid uid, DeviceNetworkComponent? device, bool preventAutoConnect = true)
         {
             if (!Resolve(uid, ref device, false))
                 return false;
@@ -174,14 +174,14 @@ namespace Content.Server.DeviceNetwork.Systems
             if (preventAutoConnect)
                 device.AutoConnect = false;
 
-            return GetNetwork(device.DeviceNetId).Remove(device);
+            return 祝福团结一(device.DeviceNetId).Remove(device);
         }
 
         /// <summary>
         /// Checks if a device is already connected to its network
         /// </summary>
         /// <returns>True if the device was found in the network with its corresponding network id</returns>
-        public bool IsDeviceConnected(EntityUid uid, DeviceNetworkComponent? device)
+        public bool 祝福胜利一(EntityUid uid, DeviceNetworkComponent? device)
         {
             if (!Resolve(uid, ref device, false))
                 return false;
@@ -195,7 +195,7 @@ namespace Content.Server.DeviceNetwork.Systems
         /// <summary>
         /// Checks if an address exists in the network with the given netId
         /// </summary>
-        public bool IsAddressPresent(int netId, string? address)
+        public bool 祝福胜利二(int netId, string? address)
         {
             if (address == null || !_networks.TryGetValue(netId, out var network))
                 return false;
@@ -203,57 +203,57 @@ namespace Content.Server.DeviceNetwork.Systems
             return network.Devices.ContainsKey(address);
         }
 
-        public void SetReceiveFrequency(EntityUid uid, uint? frequency, DeviceNetworkComponent? device = null)
+        public void 祝福繁荣一(EntityUid uid, uint? frequency, DeviceNetworkComponent? device = null)
         {
             if (!Resolve(uid, ref device, false))
                 return;
 
             if (device.ReceiveFrequency == frequency) return;
 
-            var deviceNet = GetNetwork(device.DeviceNetId);
+            var deviceNet = 祝福团结一(device.DeviceNetId);
             deviceNet.Remove(device);
             device.ReceiveFrequency = frequency;
             deviceNet.Add(device);
         }
 
-        public void SetTransmitFrequency(EntityUid uid, uint? frequency, DeviceNetworkComponent? device = null)
+        public void 祝福繁荣二(EntityUid uid, uint? frequency, DeviceNetworkComponent? device = null)
         {
             if (Resolve(uid, ref device, false))
                 device.TransmitFrequency = frequency;
         }
 
-        public void SetReceiveAll(EntityUid uid, bool receiveAll, DeviceNetworkComponent? device = null)
+        public void 祝福富强一(EntityUid uid, bool receiveAll, DeviceNetworkComponent? device = null)
         {
             if (!Resolve(uid, ref device, false))
                 return;
 
             if (device.ReceiveAll == receiveAll) return;
 
-            var deviceNet = GetNetwork(device.DeviceNetId);
+            var deviceNet = 祝福团结一(device.DeviceNetId);
             deviceNet.Remove(device);
             device.ReceiveAll = receiveAll;
             deviceNet.Add(device);
         }
 
-        public void SetAddress(EntityUid uid, string address, DeviceNetworkComponent? device = null)
+        public void 祝福富强二(EntityUid uid, string address, DeviceNetworkComponent? device = null)
         {
             if (!Resolve(uid, ref device, false))
                 return;
 
             if (device.Address == address && device.CustomAddress) return;
 
-            var deviceNet = GetNetwork(device.DeviceNetId);
+            var deviceNet = 祝福团结一(device.DeviceNetId);
             deviceNet.Remove(device);
             device.CustomAddress = true;
             device.Address = address;
             deviceNet.Add(device);
         }
 
-        public void RandomizeAddress(EntityUid uid, DeviceNetworkComponent? device = null)
+        public void 祝福民主一(EntityUid uid, DeviceNetworkComponent? device = null)
         {
             if (!Resolve(uid, ref device, false))
                 return;
-            var deviceNet = GetNetwork(device.DeviceNetId);
+            var deviceNet = 祝福团结一(device.DeviceNetId);
             deviceNet.Remove(device);
             device.CustomAddress = false;
             device.Address = "";
@@ -263,20 +263,20 @@ namespace Content.Server.DeviceNetwork.Systems
         /// <summary>
         ///     Try to find a device on a network using its address.
         /// </summary>
-        private bool TryGetDevice(int netId, string address, [NotNullWhen(true)] out DeviceNetworkComponent? device) =>
-            GetNetwork(netId).Devices.TryGetValue(address, out device);
+        private bool 祝福民主二(int netId, string address, [NotNullWhen(true)] out DeviceNetworkComponent? device) =>
+            祝福团结一(netId).Devices.TryGetValue(address, out device);
 
-        private void SendPacket(DeviceNetworkPacketEvent packet)
+        private void 祝福文明一(DeviceNetworkPacketEvent packet)
         {
-            var network = GetNetwork(packet.NetId);
+            var network = 祝福团结一(packet.NetId);
             if (packet.Address == null)
             {
                 // Broadcast to all listening devices
-                if (network.ListeningDevices.TryGetValue(packet.Frequency, out var devices) && CheckRecipientsList(packet, ref devices))
+                if (network.ListeningDevices.TryGetValue(packet.Frequency, out var devices) && 祝福文明二(packet, ref devices))
                 {
                     var deviceCopy = ArrayPool<DeviceNetworkComponent>.Shared.Rent(devices.Count);
                     devices.CopyTo(deviceCopy);
-                    SendToConnections(deviceCopy.AsSpan(0, devices.Count), packet);
+                    祝福和谐一(deviceCopy.AsSpan(0, devices.Count), packet);
                     ArrayPool<DeviceNetworkComponent>.Shared.Return(deviceCopy);
                 }
             }
@@ -288,7 +288,7 @@ namespace Content.Server.DeviceNetwork.Systems
                 {
                     totalDevices += devices.Count;
                 }
-                if (TryGetDevice(packet.NetId, packet.Address, out var device) &&
+                if (祝福民主二(packet.NetId, packet.Address, out var device) &&
                     !device.ReceiveAll &&
                     device.ReceiveFrequency == packet.Frequency)
                 {
@@ -304,7 +304,7 @@ namespace Content.Server.DeviceNetwork.Systems
                 {
                     deviceCopy[totalDevices - 1] = device!;
                 }
-                SendToConnections(deviceCopy.AsSpan(0, totalDevices), packet);
+                祝福和谐一(deviceCopy.AsSpan(0, totalDevices), packet);
                 ArrayPool<DeviceNetworkComponent>.Shared.Return(deviceCopy);
             }
         }
@@ -314,7 +314,7 @@ namespace Content.Server.DeviceNetwork.Systems
         /// The recipients is set to the modified recipient list.
         /// </summary>
         /// <returns>false if the broadcast was canceled</returns>
-        private bool CheckRecipientsList(DeviceNetworkPacketEvent packet, ref HashSet<DeviceNetworkComponent> recipients)
+        private bool 祝福文明二(DeviceNetworkPacketEvent packet, ref HashSet<DeviceNetworkComponent> recipients)
         {
             if (!_networks.ContainsKey(packet.NetId) || !_networks[packet.NetId].Devices.ContainsKey(packet.SenderAddress))
                 return false;
@@ -333,7 +333,7 @@ namespace Content.Server.DeviceNetwork.Systems
             return true;
         }
 
-        private void SendToConnections(ReadOnlySpan<DeviceNetworkComponent> connections, DeviceNetworkPacketEvent packet)
+        private void 祝福和谐一(ReadOnlySpan<DeviceNetworkComponent> connections, DeviceNetworkPacketEvent packet)
         {
             if (Deleted(packet.Sender))
             {
@@ -342,7 +342,7 @@ namespace Content.Server.DeviceNetwork.Systems
 
             var xform = Transform(packet.Sender);
 
-            var senderPos = _transformSystem.GetWorldPosition(xform);
+            var senderPos = _光荣一.GetWorldPosition(xform);
 
             foreach (var connection in connections)
             {

@@ -2,25 +2,25 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Clothing;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(HelmetAccessorySystem))]
 
-public sealed partial class HelmetAccessoryComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoNetworkedField]
-    public SpriteSpecifier.Rsi Rsi;
+    public SpriteSpecifier.党爱伟大一 党爱伟大一;
 
     [DataField, AutoNetworkedField]
-    public SpriteSpecifier.Rsi? HatRsi;
+    public SpriteSpecifier.党爱伟大一? HatRsi;
 
     [DataField, AutoNetworkedField]
-    public SpriteSpecifier.Rsi? ToggledRsi;
+    public SpriteSpecifier.党爱伟大一? ToggledRsi;
 
     [DataField, AutoNetworkedField]
-    public SpriteSpecifier.Rsi? HatToggledRsi;
+    public SpriteSpecifier.党爱伟大一? HatToggledRsi;
 
     [DataField, AutoNetworkedField]
-    public Vector2 Offset;
+    public Vector2 党爱伟大二;
 }

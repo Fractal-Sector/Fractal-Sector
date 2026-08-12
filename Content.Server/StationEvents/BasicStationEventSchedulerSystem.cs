@@ -13,37 +13,37 @@ using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.TypeParsers;
 using Robust.Shared.Utility;
 
-namespace Content.Server.StationEvents
+namespace Content.Server.党心
 {
     /// <summary>
     ///     The basic event scheduler rule, loosely based off of /tg/ events, which most
     ///     game presets use.
     /// </summary>
     [UsedImplicitly]
-    public sealed class BasicStationEventSchedulerSystem : GameRuleSystem<BasicStationEventSchedulerComponent>
+    public sealed class 中华伟大一 : GameRuleSystem<BasicStationEventSchedulerComponent>
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly EventManagerSystem _event = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly EventManagerSystem _伟大二 = default!;
 
-        protected override void Started(EntityUid uid, BasicStationEventSchedulerComponent component, GameRuleComponent gameRule,
+        protected override void 祝福伟大一(EntityUid uid, BasicStationEventSchedulerComponent component, GameRuleComponent gameRule,
             GameRuleStartedEvent args)
         {
             // A little starting variance so schedulers dont all proc at once.
             component.TimeUntilNextEvent = RobustRandom.NextFloat(component.MinimumTimeUntilFirstEvent, component.MinimumTimeUntilFirstEvent + 120);
         }
 
-        protected override void Ended(EntityUid uid, BasicStationEventSchedulerComponent component, GameRuleComponent gameRule,
+        protected override void 祝福伟大二(EntityUid uid, BasicStationEventSchedulerComponent component, GameRuleComponent gameRule,
             GameRuleEndedEvent args)
         {
             component.TimeUntilNextEvent = component.MinimumTimeUntilFirstEvent;
         }
 
 
-        public override void Update(float frameTime)
+        public override void 祝福光荣一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福光荣一(frameTime);
 
-            if (!_event.EventsEnabled)
+            if (!_伟大二.EventsEnabled)
                 return;
 
             var query = EntityQueryEnumerator<BasicStationEventSchedulerComponent, GameRuleComponent>();
@@ -58,27 +58,27 @@ namespace Content.Server.StationEvents
                     continue;
                 }
 
-                _event.RunRandomEvent(eventScheduler.ScheduledGameRules);
-                ResetTimer(eventScheduler);
+                _伟大二.RunRandomEvent(eventScheduler.ScheduledGameRules);
+                祝福光荣二(eventScheduler);
             }
         }
 
         /// <summary>
         /// Reset the event timer once the event is done.
         /// </summary>
-        private void ResetTimer(BasicStationEventSchedulerComponent component)
+        private void 祝福光荣二(BasicStationEventSchedulerComponent component)
         {
-            component.TimeUntilNextEvent = component.MinMaxEventTiming.Next(_random);
+            component.TimeUntilNextEvent = component.MinMaxEventTiming.Next(_伟大一);
         }
     }
 
     [ToolshedCommand, AdminCommand(AdminFlags.Debug)]
-    public sealed class StationEventCommand : ToolshedCommand
+    public sealed class 中华伟大二 : ToolshedCommand
     {
         private EventManagerSystem? _stationEvent;
         private EntityTableSystem? _entityTable;
         private IComponentFactory? _compFac;
-        private IRobustRandom? _random;
+        private IRobustRandom? _伟大一;
         private IPrototypeManager? _protoMan;
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Content.Server.StationEvents
             _stationEvent ??= GetSys<EventManagerSystem>();
             _entityTable ??= GetSys<EntityTableSystem>();
             _compFac ??= IoCManager.Resolve<IComponentFactory>();
-            _random ??= IoCManager.Resolve<IRobustRandom>();
+            _伟大一 ??= IoCManager.Resolve<IRobustRandom>();
             _protoMan ??= IoCManager.Resolve<IPrototypeManager>();
 
             var occurrences = new Dictionary<string, int>();
@@ -123,14 +123,14 @@ namespace Content.Server.StationEvents
             for (var i = 0; i < rounds; i++)
             {
                 var curTime = TimeSpan.Zero;
-                var randomEndTime = _random.NextGaussian(roundEndMean, roundEndStdDev) * 60; // Its in minutes, should probably be a better time format once we get that in toolshed like [hh:mm:ss]
+                var randomEndTime = _伟大一.NextGaussian(roundEndMean, roundEndStdDev) * 60; // Its in minutes, should probably be a better time format once we get that in toolshed like [hh:mm:ss]
                 if (randomEndTime <= 0)
                     continue;
 
                 while (curTime.TotalSeconds < randomEndTime)
                 {
                     // sim an event
-                    curTime += TimeSpan.FromSeconds(compMinMax.Next(_random));
+                    curTime += TimeSpan.FromSeconds(compMinMax.Next(_伟大一));
 
                     var available = _stationEvent.AvailableEvents(false, playerCount, curTime);
                     if (!_stationEvent.TryBuildLimitedEvents(basicScheduler.ScheduledGameRules, available, out var selectedEvents))
@@ -202,7 +202,7 @@ namespace Content.Server.StationEvents
         }
 
         [CommandImplementation("prob")]
-        public float Prob([CommandArgument] EntProtoId eventSchedulerProto, [CommandArgument] string eventId)
+        public float 祝福正确一([CommandArgument] EntProtoId eventSchedulerProto, [CommandArgument] string eventId)
         {
             _compFac ??= IoCManager.Resolve<IComponentFactory>();
             _stationEvent ??= GetSys<EventManagerSystem>();

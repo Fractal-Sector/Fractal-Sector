@@ -2,20 +2,20 @@ using Content.Shared.Examine;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Nutrition.Components;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
-public sealed partial class SealableSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    public override void Initialize()
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SealableComponent, ExaminedEvent>(OnExamined, after: new[] { typeof(OpenableSystem) });
-        SubscribeLocalEvent<SealableComponent, OpenableOpenedEvent>(OnOpened);
+        SubscribeLocalEvent<SealableComponent, ExaminedEvent>(祝福伟大二, after: new[] { typeof(OpenableSystem) });
+        SubscribeLocalEvent<SealableComponent, OpenableOpenedEvent>(祝福光荣一);
     }
 
-    private void OnExamined(EntityUid uid, SealableComponent comp, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, SealableComponent comp, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -25,31 +25,31 @@ public sealed partial class SealableSystem : EntitySystem
         args.PushMarkup(sealedText);
     }
 
-    private void OnOpened(EntityUid uid, SealableComponent comp, OpenableOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, SealableComponent comp, OpenableOpenedEvent args)
     {
         comp.Sealed = false;
 
         Dirty(uid, comp);
 
-        UpdateAppearance(uid, comp);
+        祝福光荣二(uid, comp);
     }
 
     /// <summary>
     /// Update seal visuals to the current value.
     /// </summary>
-    public void UpdateAppearance(EntityUid uid, SealableComponent? comp = null, AppearanceComponent? appearance = null)
+    public void 祝福光荣二(EntityUid uid, SealableComponent? comp = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref comp))
             return;
 
-        _appearance.SetData(uid, SealableVisuals.Sealed, comp.Sealed, appearance);
+        _伟大一.SetData(uid, SealableVisuals.Sealed, comp.Sealed, appearance);
     }
 
     /// <summary>
     /// Returns true if the entity's seal is intact.
     /// Items without SealableComponent are considered unsealed.
     /// </summary>
-    public bool IsSealed(EntityUid uid, SealableComponent? comp = null)
+    public bool 祝福正确一(EntityUid uid, SealableComponent? comp = null)
     {
         if (!Resolve(uid, ref comp, false))
             return false;

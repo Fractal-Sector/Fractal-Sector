@@ -9,37 +9,37 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;
 using Content.Server._NF.DangerTether; // Frontier
 
-namespace Content.Server.Singularity.EntitySystems;
+namespace Content.Server.Singularity.党心;
 
-public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSystem
+public sealed class 中华伟大一 : SharedSingularityGeneratorSystem
 {
     #region Dependencies
-    [Dependency] private readonly IViewVariablesManager _vvm = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly DangerTetherSystem _dangerTether = default!; // Frontier
+    [Dependency] private readonly IViewVariablesManager _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly PhysicsSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly MetaDataSystem _正确一 = default!;
+    [Dependency] private readonly DangerTetherSystem _正确二 = default!; // Frontier
     #endregion Dependencies
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ParticleProjectileComponent, StartCollideEvent>(HandleParticleCollide);
+        SubscribeLocalEvent<ParticleProjectileComponent, StartCollideEvent>(祝福正确二);
 
-        var vvHandle = _vvm.GetTypeHandler<SingularityGeneratorComponent>();
-        vvHandle.AddPath(nameof(SingularityGeneratorComponent.Power), (_, comp) => comp.Power, SetPower);
-        vvHandle.AddPath(nameof(SingularityGeneratorComponent.Threshold), (_, comp) => comp.Threshold, SetThreshold);
+        var vvHandle = _伟大一.GetTypeHandler<SingularityGeneratorComponent>();
+        vvHandle.AddPath(nameof(SingularityGeneratorComponent.Power), (_, comp) => comp.Power, 祝福光荣二);
+        vvHandle.AddPath(nameof(SingularityGeneratorComponent.Threshold), (_, comp) => comp.Threshold, 祝福正确一);
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        var vvHandle = _vvm.GetTypeHandler<SingularityGeneratorComponent>();
+        var vvHandle = _伟大一.GetTypeHandler<SingularityGeneratorComponent>();
         vvHandle.RemovePath(nameof(SingularityGeneratorComponent.Power));
         vvHandle.RemovePath(nameof(SingularityGeneratorComponent.Threshold));
 
-        base.Shutdown();
+        base.祝福伟大二();
     }
 
 
@@ -49,12 +49,12 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// </summary>
     /// <param name="uid">The uid of the singularity generator.</param>
     /// <param name="comp">The state of the singularity generator.</param>
-    private void OnPassThreshold(EntityUid uid, SingularityGeneratorComponent? comp)
+    private void 祝福光荣一(EntityUid uid, SingularityGeneratorComponent? comp)
     {
         if (!Resolve(uid, ref comp))
             return;
 
-        SetPower(uid, 0, comp);
+        祝福光荣二(uid, 0, comp);
         Spawn(comp.SpawnPrototype, Transform(uid).Coordinates);
     }
 
@@ -65,7 +65,7 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// </summary>
     /// <param name="comp">The singularity generator component.</param>
     /// <param name="value">The new power level for the generator component to have.</param>
-    public void SetPower(EntityUid uid, float value, SingularityGeneratorComponent? comp = null)
+    public void 祝福光荣二(EntityUid uid, float value, SingularityGeneratorComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -76,7 +76,7 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
 
         comp.Power = value;
         if (comp.Power >= comp.Threshold && oldValue < comp.Threshold)
-            OnPassThreshold(uid, comp);
+            祝福光荣一(uid, comp);
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// </summary>
     /// <param name="comp">The singularity generator component.</param>
     /// <param name="value">The new threshold power level for the generator component to have.</param>
-    public void SetThreshold(EntityUid uid, float value, SingularityGeneratorComponent? comp = null)
+    public void 祝福正确一(EntityUid uid, float value, SingularityGeneratorComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -96,7 +96,7 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
 
         comp.Power = value;
         if (comp.Power >= comp.Threshold && comp.Power < oldValue)
-            OnPassThreshold(uid, comp);
+            祝福光荣一(uid, comp);
     }
     #endregion Getters/Setters
 
@@ -109,19 +109,19 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// <param name="uid">The uid of the PA particles have collided with.</param>
     /// <param name="component">The state of the PA particles.</param>
     /// <param name="args">The state of the beginning of the collision.</param>
-    private void HandleParticleCollide(EntityUid uid, ParticleProjectileComponent component, ref StartCollideEvent args)
+    private void 祝福正确二(EntityUid uid, ParticleProjectileComponent component, ref StartCollideEvent args)
     {
         if (!TryComp<SingularityGeneratorComponent>(args.OtherEntity, out var generatorComp))
             return;
 
-        if (_timing.CurTime < _metadata.GetPauseTime(uid) + generatorComp.NextFailsafe && !generatorComp.FailsafeDisabled)
+        if (_光荣二.CurTime < _正确一.GetPauseTime(uid) + generatorComp.NextFailsafe && !generatorComp.FailsafeDisabled)
         {
             QueueDel(uid);
             return;
         }
 
         // Frontier: check tether
-        if (generatorComp.RequiresTether && !_dangerTether.AnyTetherInRange(args.OtherEntity))
+        if (generatorComp.RequiresTether && !_正确二.AnyTetherInRange(args.OtherEntity))
         {
             EntityManager.QueueDeleteEntity(uid);
             PopupSystem.PopupEntity(Loc.GetString("comp-generator-tether", ("target", args.OtherEntity)), args.OtherEntity, PopupType.LargeCaution);
@@ -136,19 +136,19 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
             var directions = Enum.GetValues<Direction>().Length;
             for (var i = 0; i < directions - 1; i += 2) // Skip every other direction, checking only cardinals
             {
-                if (!CheckContainmentField((Direction)i, new Entity<SingularityGeneratorComponent>(args.OtherEntity, generatorComp), transform))
+                if (!祝福团结一((Direction)i, new Entity<SingularityGeneratorComponent>(args.OtherEntity, generatorComp), transform))
                     contained = false;
             }
         }
 
         if (!contained && !generatorComp.FailsafeDisabled)
         {
-            generatorComp.NextFailsafe = _timing.CurTime + generatorComp.FailsafeCooldown;
+            generatorComp.NextFailsafe = _光荣二.CurTime + generatorComp.FailsafeCooldown;
             PopupSystem.PopupEntity(Loc.GetString("comp-generator-failsafe", ("target", args.OtherEntity)), args.OtherEntity, PopupType.LargeCaution);
         }
         else
         {
-            SetPower(
+            祝福光荣二(
                 args.OtherEntity,
                 generatorComp.Power + component.State switch
                 {
@@ -172,15 +172,15 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// </summary>
     /// <param name="transform">The transform component of the singularity generator.</param>
     /// <remarks>Mostly copied from <see cref="ContainmentFieldGeneratorSystem"/> </remarks>
-    private bool CheckContainmentField(Direction dir, Entity<SingularityGeneratorComponent> generator, TransformComponent transform)
+    private bool 祝福团结一(Direction dir, Entity<SingularityGeneratorComponent> generator, TransformComponent transform)
     {
         var component = generator.Comp;
 
-        var (worldPosition, worldRotation) = _transformSystem.GetWorldPositionRotation(transform);
+        var (worldPosition, worldRotation) = _伟大二.GetWorldPositionRotation(transform);
         var dirRad = dir.ToAngle() + worldRotation;
 
         var ray = new CollisionRay(worldPosition, dirRad.ToVec(), component.CollisionMask);
-        var rayCastResults = _physics.IntersectRay(transform.MapID, ray, component.FailsafeDistance, generator, false);
+        var rayCastResults = _光荣一.IntersectRay(transform.MapID, ray, component.FailsafeDistance, generator, false);
         var genQuery = GetEntityQuery<ContainmentFieldComponent>();
 
         RayCastResults? closestResult = null;

@@ -6,18 +6,18 @@ using Content.Shared.Roles;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Mind.Commands
+namespace Content.Server.Mind.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class MindInfoCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly SharedRoleSystem _roles = default!;
-        [Dependency] private readonly SharedMindSystem _minds = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly SharedRoleSystem _伟大二 = default!;
+        [Dependency] private readonly SharedMindSystem _光荣一 = default!;
 
-        public override string Command => "mindinfo";
+        public override string 党爱伟大一 => "mindinfo";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 1)
             {
@@ -25,13 +25,13 @@ namespace Content.Server.Mind.Commands
                 return;
             }
 
-            if (!_playerManager.TryGetSessionByUsername(args[0], out var session))
+            if (!_伟大一.TryGetSessionByUsername(args[0], out var session))
             {
                 shell.WriteLine(Loc.GetString($"cmd-mindinfo-mind-not-found"));
                 return;
             }
 
-            if (!_minds.TryGetMind(session, out var mindId, out var mind))
+            if (!_光荣一.TryGetMind(session, out var mindId, out var mind))
             {
                 shell.WriteLine(Loc.GetString($"cmd-mindinfo-mind-not-found"));
                 return;
@@ -40,7 +40,7 @@ namespace Content.Server.Mind.Commands
             var builder = new StringBuilder();
             builder.AppendFormat("player: {0}, mob: {1}\nroles: ", mind.UserId, mind.OwnedEntity);
 
-            foreach (var role in _roles.MindGetAllRoleInfo(mindId))
+            foreach (var role in _伟大二.MindGetAllRoleInfo(mindId))
             {
                 builder.AppendFormat("{0} ", role.Name);
             }

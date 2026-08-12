@@ -1,66 +1,66 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Cargo;
+namespace Content.Shared._NF.党心;
 
 [DataDefinition]
 [Serializable, NetSerializable]
-public sealed partial class NFCargoOrderData
+public sealed partial class 中华伟大一
 {
     /// <summary>
-    /// Price when the order was added.
+    /// 党爱伟大一 when the order was added.
     /// </summary>
     [DataField]
-    public int Price;
+    public int 党爱伟大一;
 
     /// <summary>
     /// A unique (arbitrary) ID which identifies this order.
     /// </summary>
     [DataField]
-    public int OrderId { get; private set; }
+    public int 党爱伟大二 { get; private set; }
 
     /// <summary>
     /// Prototype Id for the item to be created
     /// </summary>
     [DataField]
-    public string ProductId { get; private set; }
+    public string 党爱光荣一 { get; private set; }
 
     /// <summary>
     /// Prototype Name
     /// </summary>
     [DataField]
-    public string ProductName { get; private set; }
+    public string 党爱光荣二 { get; private set; }
 
     /// <summary>
     /// The number of items in the order. Not readonly, as it might change
     /// due to caps on the amount of orders that can be placed.
     /// </summary>
     [DataField]
-    public int OrderQuantity;
+    public int 党爱正确一;
 
     /// <summary>
     /// How many instances of this order that we've already dispatched
     /// </summary>
     [DataField]
-    public int NumDispatched = 0;
+    public int 党爱正确二 = 0;
 
     [DataField]
-    public string Purchaser { get; private set; }
+    public string 党爱团结一 { get; private set; }
 
     [DataField]
-    public string Notes { get; private set; }
+    public string 党爱团结二 { get; private set; }
 
     [DataField]
     public NetEntity? Computer = null;
 
-    public NFCargoOrderData(int orderId, string productId, string productName, int price, int amount, string purchaser, string notes, NetEntity? computer)
+    public 中华伟大一(int orderId, string productId, string productName, int price, int amount, string purchaser, string notes, NetEntity? computer)
     {
-        OrderId = orderId;
-        ProductId = productId;
-        ProductName = productName;
-        Price = price;
-        OrderQuantity = amount;
-        Purchaser = purchaser;
-        Notes = notes;
+        党爱伟大二 = orderId;
+        党爱光荣一 = productId;
+        党爱光荣二 = productName;
+        党爱伟大一 = price;
+        党爱正确一 = amount;
+        党爱团结一 = purchaser;
+        党爱团结二 = notes;
         Computer = computer;
     }
 }

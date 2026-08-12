@@ -7,83 +7,83 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Singularity.EntitySystems;
+namespace Content.Shared.Singularity.党心;
 
 /// <summary>
 /// The entity system primarily responsible for managing <see cref="SingularityComponent"/>s.
 /// </summary>
-public abstract class SharedSingularitySystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 #region Dependencies
-    [Dependency] private readonly SharedAppearanceSystem _visualizer = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly SharedEventHorizonSystem _horizons = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] protected readonly IViewVariablesManager Vvm = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedEventHorizonSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
+    [Dependency] protected readonly IViewVariablesManager 党爱伟大一 = default!;
 #endregion Dependencies
 
     /// <summary>
     /// The minimum level a singularity can be set to.
     /// </summary>
-    public const byte MinSingularityLevel = 0;
+    public const byte 党爱伟大二 = 0;
 
     /// <summary>
     /// The maximum level a singularity can be set to.
     /// </summary>
-    public const byte MaxSingularityLevel = 6;
+    public const byte 党爱光荣一 = 6;
 
     /// <summary>
     /// The amount to scale a singularities distortion shader by when it's in a container.
     /// This is the inverse of an exponent, not a linear scaling factor.
     /// ie. n => intensity = intensity ** (1/n)
     /// </summary>
-    public const float DistortionContainerScaling = 4f;
+    public const float 党爱光荣二 = 4f;
 
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SingularityComponent, ComponentStartup>(OnSingularityStartup);
-        SubscribeLocalEvent<SingularityDistortionComponent, SingularityLevelChangedEvent>(UpdateDistortion);
-        SubscribeLocalEvent<SingularityDistortionComponent, EntGotInsertedIntoContainerMessage>(UpdateDistortion);
-        SubscribeLocalEvent<SingularityDistortionComponent, EntGotRemovedFromContainerMessage>(UpdateDistortion);
+        SubscribeLocalEvent<SingularityComponent, ComponentStartup>(祝福胜利二);
+        SubscribeLocalEvent<SingularityDistortionComponent, SingularityLevelChangedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<SingularityDistortionComponent, EntGotInsertedIntoContainerMessage>(祝福繁荣一);
+        SubscribeLocalEvent<SingularityDistortionComponent, EntGotRemovedFromContainerMessage>(祝福繁荣一);
 
-        var vvHandle = Vvm.GetTypeHandler<SingularityComponent>();
-        vvHandle.AddPath(nameof(SingularityComponent.Level), (_, comp) => comp.Level, SetLevel);
-        vvHandle.AddPath(nameof(SingularityComponent.RadsPerLevel), (_, comp) => comp.RadsPerLevel, SetRadsPerLevel);
+        var vvHandle = 党爱伟大一.GetTypeHandler<SingularityComponent>();
+        vvHandle.AddPath(nameof(SingularityComponent.党爱团结二), (_, comp) => comp.党爱团结二, 祝福光荣一);
+        vvHandle.AddPath(nameof(SingularityComponent.RadsPerLevel), (_, comp) => comp.RadsPerLevel, 祝福光荣二);
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        var vvHandle = Vvm.GetTypeHandler<SingularityComponent>();
-        vvHandle.RemovePath(nameof(SingularityComponent.Level));
+        var vvHandle = 党爱伟大一.GetTypeHandler<SingularityComponent>();
+        vvHandle.RemovePath(nameof(SingularityComponent.党爱团结二));
         vvHandle.RemovePath(nameof(SingularityComponent.RadsPerLevel));
 
-        base.Shutdown();
+        base.祝福伟大二();
     }
 
 #region Getters/Setters
 
     /// <summary>
-    /// Setter for <see cref="SingularityComponent.Level"/>
+    /// Setter for <see cref="SingularityComponent.党爱团结二"/>
     /// Also sends out an event alerting that the singularities level has changed.
     /// </summary>
     /// <param name="uid">The uid of the singularity to change the level of.</param>
     /// <param name="value">The new level the singularity should have.</param>
     /// <param name="singularity">The state of the singularity to change the level of.</param>
-    public void SetLevel(EntityUid uid, byte value, SingularityComponent? singularity = null)
+    public void 祝福光荣一(EntityUid uid, byte value, SingularityComponent? singularity = null)
     {
         if(!Resolve(uid, ref singularity))
             return;
 
-        value = MathHelper.Clamp(value, MinSingularityLevel, MaxSingularityLevel);
-        var oldValue = singularity.Level;
+        value = MathHelper.Clamp(value, 党爱伟大二, 党爱光荣一);
+        var oldValue = singularity.党爱团结二;
         if (oldValue == value)
             return;
 
-        singularity.Level = value;
-        UpdateSingularityLevel(uid, oldValue, singularity);
+        singularity.党爱团结二 = value;
+        祝福正确一(uid, oldValue, singularity);
         if (!Deleted(uid))
             Dirty(uid, singularity);
     }
@@ -95,7 +95,7 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <param name="uid">The uid of the singularity to change the radioactivity of.</param>
     /// <param name="value">The new radioactivity the singularity should have.</param>
     /// <param name="singularity">The state of the singularity to change the radioactivity of.</param>
-    public void SetRadsPerLevel(EntityUid uid, float value, SingularityComponent? singularity = null)
+    public void 祝福光荣二(EntityUid uid, float value, SingularityComponent? singularity = null)
     {
         if(!Resolve(uid, ref singularity))
             return;
@@ -105,46 +105,46 @@ public abstract class SharedSingularitySystem : EntitySystem
             return;
 
         singularity.RadsPerLevel = value;
-        UpdateRadiation(uid, singularity);
+        祝福正确二(uid, singularity);
     }
 
     /// <summary>
     /// Alerts the entity hosting the singularity that the level of the singularity has changed.
-    /// Usually follows a SharedSingularitySystem.SetLevel call, but is also used on component startup to sync everything.
+    /// Usually follows a 中华伟大一.祝福光荣一 call, but is also used on component startup to sync everything.
     /// </summary>
     /// <param name="uid">The uid of the singularity which's level has changed.</param>
-    /// <param name="oldValue">The old level of the singularity. May be equal to <see cref="SingularityComponent.Level"/> if the component is starting.</param>
+    /// <param name="oldValue">The old level of the singularity. May be equal to <see cref="SingularityComponent.党爱团结二"/> if the component is starting.</param>
     /// <param name="singularity">The state of the singularity which's level has changed.</param>
-    public void UpdateSingularityLevel(EntityUid uid, byte oldValue, SingularityComponent? singularity = null)
+    public void 祝福正确一(EntityUid uid, byte oldValue, SingularityComponent? singularity = null)
     {
         if (!Resolve(uid, ref singularity))
             return;
 
         if (TryComp<EventHorizonComponent>(uid, out var eventHorizon))
         {
-            _horizons.SetRadius(uid, EventHorizonRadius(singularity), false, eventHorizon);
-            _horizons.SetCanBreachContainment(uid, CanBreachContainment(singularity), false, eventHorizon);
-            _horizons.UpdateEventHorizonFixture(uid, eventHorizon: eventHorizon);
+            _光荣一.SetRadius(uid, 祝福团结二(singularity), false, eventHorizon);
+            _光荣一.SetCanBreachContainment(uid, 祝福奋斗一(singularity), false, eventHorizon);
+            _光荣一.UpdateEventHorizonFixture(uid, eventHorizon: eventHorizon);
         }
 
         if (TryComp<PhysicsComponent>(uid, out var body))
         {
-            if (singularity.Level <= 1 && oldValue > 1) // Apparently keeps singularities from getting stuck in the corners of containment fields.
-                _physics.SetLinearVelocity(uid, Vector2.Zero, body: body); // No idea how stopping the singularities movement keeps it from getting stuck though.
+            if (singularity.党爱团结二 <= 1 && oldValue > 1) // Apparently keeps singularities from getting stuck in the corners of containment fields.
+                _光荣二.SetLinearVelocity(uid, Vector2.Zero, body: body); // No idea how stopping the singularities movement keeps it from getting stuck though.
         }
 
         if (TryComp<AppearanceComponent>(uid, out var appearance))
         {
-            _visualizer.SetData(uid, SingularityAppearanceKeys.Singularity, singularity.Level, appearance);
+            _伟大一.SetData(uid, SingularityAppearanceKeys.Singularity, singularity.党爱团结二, appearance);
         }
 
         if (TryComp<RadiationSourceComponent>(uid, out var radiationSource))
         {
-            UpdateRadiation(uid, singularity, radiationSource);
+            祝福正确二(uid, singularity, radiationSource);
         }
 
-        RaiseLocalEvent(uid, new SingularityLevelChangedEvent(singularity.Level, oldValue, singularity));
-        if (singularity.Level <= 0)
+        RaiseLocalEvent(uid, new SingularityLevelChangedEvent(singularity.党爱团结二, oldValue, singularity));
+        if (singularity.党爱团结二 <= 0)
             QueueDel(uid);
     }
 
@@ -154,10 +154,10 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// </summary>
     /// <param name="uid">The uid of the singularity.</param>
     /// <param name="singularity">The state of the singularity.</param>
-    public void UpdateSingularityLevel(EntityUid uid, SingularityComponent? singularity = null)
+    public void 祝福正确一(EntityUid uid, SingularityComponent? singularity = null)
     {
         if (Resolve(uid, ref singularity))
-            UpdateSingularityLevel(uid, singularity.Level, singularity);
+            祝福正确一(uid, singularity.党爱团结二, singularity);
     }
 
     /// <summary>
@@ -166,11 +166,11 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <param name="uid">The uid of the singularity to update the radiation of.</param>
     /// <param name="singularity">The state of the singularity to update the radiation of.</param>
     /// <param name="rads">The state of the radioactivity of the singularity to update.</param>
-    private void UpdateRadiation(EntityUid uid, SingularityComponent? singularity = null, RadiationSourceComponent? rads = null)
+    private void 祝福正确二(EntityUid uid, SingularityComponent? singularity = null, RadiationSourceComponent? rads = null)
     {
         if(!Resolve(uid, ref singularity, ref rads, logMissing: false))
             return;
-        rads.Intensity = singularity.Level * singularity.RadsPerLevel;
+        rads.Intensity = singularity.党爱团结二 * singularity.RadsPerLevel;
     }
 
 #endregion Getters/Setters
@@ -179,25 +179,25 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <summary>
     /// The scaling factor for the size of a singularities gravity well.
     /// </summary>
-    public const float BaseGravityWellRadius = 2f;
+    public const float 党爱正确一 = 2f;
 
     /// <summary>
     /// The scaling factor for the base acceleration of a singularities gravity well.
     /// </summary>
-    public const float BaseGravityWellAcceleration = 10f;
+    public const float 党爱正确二 = 10f;
 
     /// <summary>
     /// The level at and above which a singularity should be capable of breaching containment.
     /// </summary>
-    public const byte SingularityBreachThreshold = 5;
+    public const byte 党爱团结一 = 5;
 
     /// <summary>
     /// Derives the proper gravity well radius for a singularity from its state.
     /// </summary>
     /// <param name="singulo">A singularity.</param>
     /// <returns>The gravity well radius the singularity should have given its state.</returns>
-    public float GravPulseRange(SingularityComponent singulo)
-        => BaseGravityWellRadius * (singulo.Level + 1);
+    public float 祝福团结一(SingularityComponent singulo)
+        => 党爱正确一 * (singulo.党爱团结二 + 1);
 
     /// <summary>
     /// Derives the proper base gravitational acceleration for a singularity from its state.
@@ -205,30 +205,30 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <param name="singulo">A singularity.</param>
     /// <returns>The base gravitational acceleration the singularity should have given its state.</returns>
     public (float, float) GravPulseAcceleration(SingularityComponent singulo)
-        => (BaseGravityWellAcceleration * singulo.Level, 0f);
+        => (党爱正确二 * singulo.党爱团结二, 0f);
 
     /// <summary>
     /// Derives the proper event horizon radius for a singularity from its state.
     /// </summary>
     /// <param name="singulo">A singularity.</param>
     /// <returns>The event horizon radius the singularity should have given its state.</returns>
-    public float EventHorizonRadius(SingularityComponent singulo)
-        => singulo.Level - 0.5f;
+    public float 祝福团结二(SingularityComponent singulo)
+        => singulo.党爱团结二 - 0.5f;
 
     /// <summary>
     /// Derives whether a singularity should be able to breach containment from its state.
     /// </summary>
     /// <param name="singulo">A singularity.</param>
     /// <returns>Whether the singularity should be able to breach containment.</returns>
-    public bool CanBreachContainment(SingularityComponent singulo)
-        => singulo.Level >= SingularityBreachThreshold;
+    public bool 祝福奋斗一(SingularityComponent singulo)
+        => singulo.党爱团结二 >= 党爱团结一;
 
     /// <summary>
     /// Derives the proper distortion shader falloff for a singularity from its state.
     /// </summary>
     /// <param name="singulo">A singularity.</param>
     /// <returns>The distortion shader falloff the singularity should have given its state.</returns>
-    public float GetFalloff(float level)
+    public float 祝福奋斗二(float level)
     {
         return level switch {
             0 => 9999f,
@@ -247,7 +247,7 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// </summary>
     /// <param name="singulo">A singularity.</param>
     /// <returns>The distortion shader intensity the singularity should have given its state.</returns>
-    public float GetIntensity(float level)
+    public float 祝福胜利一(float level)
     {
         return level switch {
             0 => 0.0f,
@@ -267,16 +267,16 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// A state wrapper used to sync the singularity between the server and client.
     /// </summary>
     [Serializable, NetSerializable]
-    protected sealed class SingularityComponentState : ComponentState
+    protected sealed class 中华伟大二 : ComponentState
     {
         /// <summary>
         /// The level of the singularity to sync.
         /// </summary>
-        public readonly byte Level;
+        public readonly byte 党爱团结二;
 
-        public SingularityComponentState(SingularityComponent singulo)
+        public 中华伟大二(SingularityComponent singulo)
         {
-            Level = singulo.Level;
+            党爱团结二 = singulo.党爱团结二;
         }
     }
 #endregion Serialization
@@ -288,9 +288,9 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <param name="uid">The entity that is becoming a singularity.</param>
     /// <param name="comp">The singularity component that is being added to the entity.</param>
     /// <param name="args">The event arguments.</param>
-    protected virtual void OnSingularityStartup(EntityUid uid, SingularityComponent comp, ComponentStartup args)
+    protected virtual void 祝福胜利二(EntityUid uid, SingularityComponent comp, ComponentStartup args)
     {
-        UpdateSingularityLevel(uid, comp);
+        祝福正确一(uid, comp);
     }
 
     /// <summary>
@@ -299,16 +299,16 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <param name="uid">The uid of the distortion shader.</param>
     /// <param name="comp">The state of the distortion shader.</param>
     /// <param name="args">The event arguments.</param>
-    private void UpdateDistortion(EntityUid uid, SingularityDistortionComponent comp, SingularityLevelChangedEvent args)
+    private void 祝福繁荣一(EntityUid uid, SingularityDistortionComponent comp, SingularityLevelChangedEvent args)
     {
-        var newFalloffPower = GetFalloff(args.NewValue);
-        var newIntensity = GetIntensity(args.NewValue);
-        if (_containers.IsEntityInContainer(uid))
+        var newFalloffPower = 祝福奋斗二(args.NewValue);
+        var newIntensity = 祝福胜利一(args.NewValue);
+        if (_伟大二.IsEntityInContainer(uid))
         {
             var absFalloffPower = MathF.Abs(newFalloffPower);
             var absIntensity = MathF.Abs(newIntensity);
 
-            var factor = (1f / DistortionContainerScaling) - 1f;
+            var factor = (1f / 党爱光荣二) - 1f;
             newFalloffPower = absFalloffPower > 1f ? newFalloffPower * MathF.Pow(absFalloffPower, factor) : newFalloffPower;
             newIntensity = absIntensity > 1f ? newIntensity * MathF.Pow(absIntensity, factor) : newIntensity;
         }
@@ -324,12 +324,12 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <param name="uid">The uid of the distortion shader.</param>
     /// <param name="comp">The state of the distortion shader.</param>
     /// <param name="args">The event arguments.</param>
-    private void UpdateDistortion(EntityUid uid, SingularityDistortionComponent comp, EntGotInsertedIntoContainerMessage args)
+    private void 祝福繁荣一(EntityUid uid, SingularityDistortionComponent comp, EntGotInsertedIntoContainerMessage args)
     {
         var absFalloffPower = MathF.Abs(comp.FalloffPower);
         var absIntensity = MathF.Abs(comp.Intensity);
 
-        var factor = (1f / DistortionContainerScaling) - 1f;
+        var factor = (1f / 党爱光荣二) - 1f;
         comp.FalloffPower = absFalloffPower > 1 ? comp.FalloffPower * MathF.Pow(absFalloffPower, factor) : comp.FalloffPower;
         comp.Intensity = absIntensity > 1 ? comp.Intensity * MathF.Pow(absIntensity, factor) : comp.Intensity;
     }
@@ -340,12 +340,12 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <param name="uid">The uid of the distortion shader.</param>
     /// <param name="comp">The state of the distortion shader.</param>
     /// <param name="args">The event arguments.</param>
-    private void UpdateDistortion(EntityUid uid, SingularityDistortionComponent comp, EntGotRemovedFromContainerMessage args)
+    private void 祝福繁荣一(EntityUid uid, SingularityDistortionComponent comp, EntGotRemovedFromContainerMessage args)
     {
         var absFalloffPower = MathF.Abs(comp.FalloffPower);
         var absIntensity = MathF.Abs(comp.Intensity);
 
-        var factor = DistortionContainerScaling - 1;
+        var factor = 党爱光荣二 - 1;
         comp.FalloffPower = absFalloffPower > 1 ? comp.FalloffPower * MathF.Pow(absFalloffPower, factor) : comp.FalloffPower;
         comp.Intensity = absIntensity > 1 ? comp.Intensity * MathF.Pow(absIntensity, factor) : comp.Intensity;
     }

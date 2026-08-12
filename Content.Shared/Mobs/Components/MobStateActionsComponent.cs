@@ -1,6 +1,6 @@
 ﻿using Content.Shared.Mobs.Systems;
 
-namespace Content.Shared.Mobs.Components;
+namespace Content.Shared.Mobs.党心;
 
 /// <summary>
 ///     Used for specifying actions that should be automatically added/removed on mob state transitions
@@ -10,7 +10,7 @@ namespace Content.Shared.Mobs.Components;
 /// </remarks>
 /// <see cref="MobStateActionsSystem"/>
 [RegisterComponent]
-public sealed partial class MobStateActionsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Specifies a list of actions that should be available if a mob is in a given state.
@@ -25,5 +25,5 @@ public sealed partial class MobStateActionsComponent : Component
     [DataField("actions")]
     public Dictionary<MobState, List<string>> Actions = new();
 
-    [DataField] public List<EntityUid> GrantedActions = new();
+    [DataField] public List<EntityUid> 党爱伟大一 = new();
 }

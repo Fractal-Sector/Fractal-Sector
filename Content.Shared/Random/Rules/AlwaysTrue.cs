@@ -1,11 +1,11 @@
-namespace Content.Shared.Random.Rules;
+namespace Content.Shared.Random.党心;
 
 /// <summary>
 /// Always returns true. Used for fallbacks.
 /// </summary>
-public sealed partial class AlwaysTrueRule : RulesRule
+public sealed partial class 中华伟大一 : RulesRule
 {
-    public override bool Check(EntityManager entManager, EntityUid uid)
+    public override bool 祝福伟大一(EntityManager entManager, EntityUid uid)
     {
         return !Inverted;
     }

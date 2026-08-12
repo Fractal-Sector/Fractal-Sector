@@ -5,24 +5,24 @@ using Content.Shared.Access.Components;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.StationRecords;
 
-namespace Content.Shared._NF.GridAccess;
+namespace Content.Shared._NF.党心;
 
-public sealed class GridAccessSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
 
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
 
-    [Dependency] private readonly SharedTransformSystem _sharedTransformSystem = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StationRecordKeyStorageComponent, AfterInteractEvent>(OnDeedSwipeHappened);
+        SubscribeLocalEvent<StationRecordKeyStorageComponent, AfterInteractEvent>(祝福伟大二);
     }
 
-    private void OnDeedSwipeHappened(EntityUid uid, StationRecordKeyStorageComponent _, ref AfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, StationRecordKeyStorageComponent _, ref AfterInteractEvent args)
     {
         if (args.Handled)
             return;
@@ -42,25 +42,25 @@ public sealed class GridAccessSystem : EntitySystem
         // If the id card has no registered ship we cant continue.
         if (!TryComp<ShuttleDeedComponent>(uid, out var shuttleDeedComponent))
         {
-            _popup.PopupClient(Loc.GetString("grid-access-missing-id-deed"),
+            _伟大一.PopupClient(Loc.GetString("grid-access-missing-id-deed"),
                 uid, args.User, PopupType.Medium);
-            _audio.PlayLocal(gridAccessComponent.ErrorSound, rcdEntityUid, args.User);
+            _伟大二.PlayLocal(gridAccessComponent.ErrorSound, rcdEntityUid, args.User);
             return;
         }
 
         // Swiping it again removes the authorization on it.
         if (gridAccessComponent.LinkedShuttleUid == shuttleDeedComponent.ShuttleUid)
         {
-            _popup.PopupClient(Loc.GetString("grid-access-id-card-removed"),
+            _伟大一.PopupClient(Loc.GetString("grid-access-id-card-removed"),
                 uid, args.User, PopupType.Medium);
-            _audio.PlayLocal(gridAccessComponent.SwipeSound, rcdEntityUid, args.User);
+            _伟大二.PlayLocal(gridAccessComponent.SwipeSound, rcdEntityUid, args.User);
             gridAccessComponent.LinkedShuttleUid = null;
         }
         else // Transfering or setting a new ID card
         {
-            _popup.PopupClient(Loc.GetString("grid-access-id-card-accepted"),
+            _伟大一.PopupClient(Loc.GetString("grid-access-id-card-accepted"),
                 uid, args.User, PopupType.Medium);
-            _audio.PlayLocal(gridAccessComponent.InsertSound, rcdEntityUid, args.User);
+            _伟大二.PlayLocal(gridAccessComponent.InsertSound, rcdEntityUid, args.User);
             gridAccessComponent.LinkedShuttleUid = shuttleDeedComponent.ShuttleUid;
         }
 
@@ -71,7 +71,7 @@ public sealed class GridAccessSystem : EntitySystem
     /// Gets a tool's authorization for a given GridUid.
     /// Returns an incomplete, non-localized string for popups.
     /// </summary>
-    public static bool IsAuthorized(EntityUid? gridUid, GridAccessComponent comp, out string? popupMessage)
+    public static bool 祝福光荣一(EntityUid? gridUid, GridAccessComponent comp, out string? popupMessage)
     {
         popupMessage = null;
 

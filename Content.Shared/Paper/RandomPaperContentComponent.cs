@@ -1,7 +1,7 @@
-using Content.Shared.Dataset;
+using Content.Shared.党爱伟大一;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Paper;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// If added to an entity that has a <see cref="PaperComponent"/>, the name,
@@ -10,8 +10,8 @@ namespace Content.Shared.Paper;
 /// Requires <see cref="PaperComponent"/>.
 /// </summary>
 [RegisterComponent]
-public sealed partial class RandomPaperContentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true)]
-    public ProtoId<LocalizedDatasetPrototype> Dataset;
+    public ProtoId<LocalizedDatasetPrototype> 党爱伟大一;
 }

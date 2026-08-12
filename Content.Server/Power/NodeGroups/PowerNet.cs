@@ -8,45 +8,45 @@ using System.Linq;
 using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 
-namespace Content.Server.Power.NodeGroups
+namespace Content.Server.Power.党心
 {
-    public interface IPowerNet : IBasePowerNet
+    public interface 中华伟大一 : IBasePowerNet
     {
-        void AddDischarger(BatteryDischargerComponent discharger);
+        void 祝福光荣二(BatteryDischargerComponent discharger);
 
-        void RemoveDischarger(BatteryDischargerComponent discharger);
+        void 祝福正确一(BatteryDischargerComponent discharger);
 
-        void AddCharger(BatteryChargerComponent charger);
+        void 祝福正确二(BatteryChargerComponent charger);
 
-        void RemoveCharger(BatteryChargerComponent charger);
+        void 祝福团结一(BatteryChargerComponent charger);
     }
 
     [NodeGroup(NodeGroupID.HVPower, NodeGroupID.MVPower)]
     [UsedImplicitly]
-    public sealed partial class PowerNet : BasePowerNet<IPowerNet>, IPowerNet
+    public sealed partial class 中华伟大二 : BasePowerNet<中华伟大一>, 中华伟大一
     {
-        [ViewVariables] public readonly List<BatteryChargerComponent> Chargers = new();
-        [ViewVariables] public readonly List<BatteryDischargerComponent> Dischargers = new();
+        [ViewVariables] public readonly List<BatteryChargerComponent> 党爱伟大一 = new();
+        [ViewVariables] public readonly List<BatteryDischargerComponent> 党爱伟大二 = new();
 
-        public override void Initialize(Node sourceNode, IEntityManager entMan)
+        public override void 祝福伟大一(Node sourceNode, IEntityManager entMan)
         {
-            base.Initialize(sourceNode, entMan);
+            base.祝福伟大一(sourceNode, entMan);
             PowerNetSystem.InitPowerNet(this);
         }
 
-        public override void AfterRemake(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups)
+        public override void 祝福伟大二(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups)
         {
-            base.AfterRemake(newGroups);
+            base.祝福伟大二(newGroups);
 
             PowerNetSystem?.DestroyPowerNet(this);
         }
 
-        protected override void SetNetConnectorNet(IBaseNetConnectorComponent<IPowerNet> netConnectorComponent)
+        protected override void 祝福光荣一(IBaseNetConnectorComponent<中华伟大一> netConnectorComponent)
         {
             netConnectorComponent.Net = this;
         }
 
-        public void AddDischarger(BatteryDischargerComponent discharger)
+        public void 祝福光荣二(BatteryDischargerComponent discharger)
         {
             if (EntMan == null)
                 return;
@@ -54,11 +54,11 @@ namespace Content.Server.Power.NodeGroups
             var battery = EntMan.GetComponent<PowerNetworkBatteryComponent>(discharger.Owner);
             DebugTools.Assert(battery.NetworkBattery.LinkedNetworkDischarging == default);
             battery.NetworkBattery.LinkedNetworkDischarging = default;
-            Dischargers.Add(discharger);
-            QueueNetworkReconnect();
+            党爱伟大二.Add(discharger);
+            祝福团结二();
         }
 
-        public void RemoveDischarger(BatteryDischargerComponent discharger)
+        public void 祝福正确一(BatteryDischargerComponent discharger)
         {
             if (EntMan == null)
                 return;
@@ -71,11 +71,11 @@ namespace Content.Server.Power.NodeGroups
                 battery.NetworkBattery.LinkedNetworkDischarging = default;
             }
 
-            Dischargers.Remove(discharger);
-            QueueNetworkReconnect();
+            党爱伟大二.Remove(discharger);
+            祝福团结二();
         }
 
-        public void AddCharger(BatteryChargerComponent charger)
+        public void 祝福正确二(BatteryChargerComponent charger)
         {
             if (EntMan == null)
                 return;
@@ -83,11 +83,11 @@ namespace Content.Server.Power.NodeGroups
             var battery = EntMan.GetComponent<PowerNetworkBatteryComponent>(charger.Owner);
             DebugTools.Assert(battery.NetworkBattery.LinkedNetworkCharging == default);
             battery.NetworkBattery.LinkedNetworkCharging = default;
-            Chargers.Add(charger);
-            QueueNetworkReconnect();
+            党爱伟大一.Add(charger);
+            祝福团结二();
         }
 
-        public void RemoveCharger(BatteryChargerComponent charger)
+        public void 祝福团结一(BatteryChargerComponent charger)
         {
             if (EntMan == null)
                 return;
@@ -100,11 +100,11 @@ namespace Content.Server.Power.NodeGroups
                 battery.NetworkBattery.LinkedNetworkCharging = default;
             }
 
-            Chargers.Remove(charger);
-            QueueNetworkReconnect();
+            党爱伟大一.Remove(charger);
+            祝福团结二();
         }
 
-        public override void QueueNetworkReconnect()
+        public override void 祝福团结二()
         {
             PowerNetSystem?.QueueReconnectPowerNet(this);
         }

@@ -8,7 +8,7 @@ using Robust.Shared.Serialization;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Access.Components;
+namespace Content.Shared.Access.党心;
 
 /// <summary>
 /// Stores access levels necessary to "use" an entity
@@ -16,41 +16,41 @@ namespace Content.Shared.Access.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(AccessReaderSystem))]
-public sealed partial class AccessReaderComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whether or not the access reader is enabled.
     /// If not, it will always let people through.
     /// </summary>
     [DataField]
-    public bool Enabled = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// The set of tags that will automatically deny an allowed check, if any of them are present.
     /// </summary>
     [DataField]
-    public HashSet<ProtoId<AccessLevelPrototype>> DenyTags = new();
+    public HashSet<ProtoId<AccessLevelPrototype>> 党爱伟大二 = new();
 
     /// <summary>
     /// List of access groups that grant access to this reader. Only a single matching group is required to gain access.
     /// A group matches if it is a subset of the set being checked against.
     /// </summary>
     [DataField("access")]
-    public List<HashSet<ProtoId<AccessLevelPrototype>>> AccessLists = new();
+    public List<HashSet<ProtoId<AccessLevelPrototype>>> 党爱光荣一 = new();
 
     /// <summary>
     /// A list of <see cref="StationRecordKey"/>s that grant access. Only a single matching key is required to gain access.
     /// </summary>
     [DataField]
-    public HashSet<StationRecordKey> AccessKeys = new();
+    public HashSet<StationRecordKey> 党爱光荣二 = new();
 
     /// <summary>
     /// If specified, then this access reader will instead pull access requirements from entities contained in the
     /// given container.
     /// </summary>
     /// <remarks>
-    /// This effectively causes <see cref="DenyTags"/>, <see cref="AccessLists"/>, and <see cref="AccessKeys"/> to be
-    /// ignored, though <see cref="Enabled"/> is still respected. Access is denied if there are no valid entities or
+    /// This effectively causes <see cref="党爱伟大二"/>, <see cref="党爱光荣一"/>, and <see cref="党爱光荣二"/> to be
+    /// ignored, though <see cref="党爱伟大一"/> is still respected. Access is denied if there are no valid entities or
     /// they all deny access.
     /// </remarks>
     [DataField]
@@ -60,30 +60,30 @@ public sealed partial class AccessReaderComponent : Component
     /// A list of past authentications.
     /// </summary>
     [DataField]
-    public Queue<AccessRecord> AccessLog = new();
+    public Queue<AccessRecord> 党爱正确一 = new();
 
     /// <summary>
-    /// A limit on the max size of <see cref="AccessLog"/>
+    /// A limit on the max size of <see cref="党爱正确一"/>
     /// </summary>
     [DataField]
-    public int AccessLogLimit = 20;
+    public int 党爱正确二 = 20;
 
     /// <summary>
     /// If true logging on successful access uses will be disabled.
     /// Can be set by LOG wire.
     /// </summary>
     [DataField]
-    public bool LoggingDisabled;
+    public bool 党爱团结一;
 
     /// <summary>
     /// Whether or not emag interactions have an effect on this.
     /// </summary>
     [DataField]
-    public bool BreakOnAccessBreaker = true;
+    public bool 党爱团结二 = true;
 }
 
 [DataDefinition, Serializable, NetSerializable]
-public readonly partial record struct AccessRecord(
+public readonly partial record 中华伟大二 AccessRecord(
     [property: DataField, ViewVariables(VVAccess.ReadWrite)]
     TimeSpan AccessTime,
     [property: DataField, ViewVariables(VVAccess.ReadWrite)]
@@ -95,24 +95,24 @@ public readonly partial record struct AccessRecord(
 }
 
 [Serializable, NetSerializable]
-public sealed class AccessReaderComponentState : ComponentState
+public sealed class 中华光荣一 : ComponentState
 {
-    public bool Enabled;
-    public HashSet<ProtoId<AccessLevelPrototype>> DenyTags;
-    public List<HashSet<ProtoId<AccessLevelPrototype>>> AccessLists;
-    public List<(NetEntity, uint)> AccessKeys;
-    public Queue<AccessRecord> AccessLog;
-    public int AccessLogLimit;
+    public bool 党爱伟大一;
+    public HashSet<ProtoId<AccessLevelPrototype>> 党爱伟大二;
+    public List<HashSet<ProtoId<AccessLevelPrototype>>> 党爱光荣一;
+    public List<(NetEntity, uint)> 党爱光荣二;
+    public Queue<AccessRecord> 党爱正确一;
+    public int 党爱正确二;
 
-    public AccessReaderComponentState(bool enabled, HashSet<ProtoId<AccessLevelPrototype>> denyTags, List<HashSet<ProtoId<AccessLevelPrototype>>> accessLists, List<(NetEntity, uint)> accessKeys, Queue<AccessRecord> accessLog, int accessLogLimit)
+    public 中华光荣一(bool enabled, HashSet<ProtoId<AccessLevelPrototype>> denyTags, List<HashSet<ProtoId<AccessLevelPrototype>>> accessLists, List<(NetEntity, uint)> accessKeys, Queue<AccessRecord> accessLog, int accessLogLimit)
     {
-        Enabled = enabled;
-        DenyTags = denyTags;
-        AccessLists = accessLists;
-        AccessKeys = accessKeys;
-        AccessLog = accessLog;
-        AccessLogLimit = accessLogLimit;
+        党爱伟大一 = enabled;
+        党爱伟大二 = denyTags;
+        党爱光荣一 = accessLists;
+        党爱光荣二 = accessKeys;
+        党爱正确一 = accessLog;
+        党爱正确二 = accessLogLimit;
     }
 }
 
-public sealed class AccessReaderConfigurationChangedEvent : EntityEventArgs;
+public sealed class 中华光荣二 : EntityEventArgs;

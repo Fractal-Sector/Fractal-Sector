@@ -41,7 +41,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Content.Shared.NPC.Prototypes;
 
-namespace Content.Server.Zombies;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     Handles zombie propagation and inherent zombie traits
@@ -49,22 +49,22 @@ namespace Content.Server.Zombies;
 /// <remarks>
 ///     Don't Shitcode Open Inside
 /// </remarks>
-public sealed partial class ZombieSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IChatManager _chatMan = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly IChatManager _伟大二 = default!;
+    [Dependency] private readonly SharedCombatModeSystem _光荣一 = default!;
+    [Dependency] private readonly NpcFactionSystem _光荣二 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确一 = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _正确二 = default!;
+    [Dependency] private readonly IdentitySystem _团结一 = default!;
+    [Dependency] private readonly ServerInventorySystem _团结二 = default!;
+    [Dependency] private readonly MindSystem _奋斗一 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _奋斗二 = default!;
+    [Dependency] private readonly NPCSystem _胜利一 = default!;
+    [Dependency] private readonly TagSystem _胜利二 = default!;
+    [Dependency] private readonly NameModifierSystem _繁荣一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _繁荣二 = default!;
 
     private static readonly ProtoId<TagPrototype> InvalidForGlobalSpawnSpellTag = "InvalidForGlobalSpawnSpell";
     private static readonly ProtoId<TagPrototype> CannotSuicideTag = "CannotSuicide";
@@ -73,11 +73,11 @@ public sealed partial class ZombieSystem
     /// <summary>
     /// Handles an entity turning into a zombie when they die or go into crit
     /// </summary>
-    private void OnDamageChanged(EntityUid uid, ZombifyOnDeathComponent component, MobStateChangedEvent args)
+    private void 祝福伟大一(EntityUid uid, ZombifyOnDeathComponent component, MobStateChangedEvent args)
     {
         if (args.NewMobState == MobState.Dead)
         {
-            ZombifyEntity(uid, args.Component);
+            祝福伟大二(uid, args.Component);
         }
     }
 
@@ -94,7 +94,7 @@ public sealed partial class ZombieSystem
     ///     rewrite this, but this is how it shall lie eternal. Turn back now.
     ///     -emo
     /// </remarks>
-    public void ZombifyEntity(EntityUid target, MobStateComponent? mobState = null)
+    public void 祝福伟大二(EntityUid target, MobStateComponent? mobState = null)
     {
         //Don't zombfiy zombies
         if (HasComp<ZombieComponent>(target) || HasComp<ZombieImmuneComponent>(target))
@@ -129,8 +129,8 @@ public sealed partial class ZombieSystem
         //in an attempt to make an entity not attack. This is the easiest way to do it.
         var combat = EnsureComp<CombatModeComponent>(target);
         RemComp<PacifiedComponent>(target);
-        _combat.SetCanDisarm(target, false, combat);
-        _combat.SetInCombatMode(target, true, combat);
+        _光荣一.SetCanDisarm(target, false, combat);
+        _光荣一.SetInCombatMode(target, true, combat);
 
         //This is the actual damage of the zombie. We assign the visual appearance
         //and range here because of stuff we'll find out later
@@ -173,16 +173,16 @@ public sealed partial class ZombieSystem
             if (TryComp<BloodstreamComponent>(target, out var stream))
                 zombiecomp.BeforeZombifiedBloodReagent = stream.BloodReagent;
 
-            _humanoidAppearance.SetSkinColor(target, zombiecomp.SkinColor, verify: false, humanoid: huApComp);
+            _正确二.SetSkinColor(target, zombiecomp.SkinColor, verify: false, humanoid: huApComp);
 
             // Messing with the eye layer made it vanish upon cloning, and also it didn't even appear right
             huApComp.EyeColor = zombiecomp.EyeColor;
 
             // this might not resync on clone?
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.Tail, zombiecomp.BaseLayerExternal, humanoid: huApComp);
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.HeadSide, zombiecomp.BaseLayerExternal, humanoid: huApComp);
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.HeadTop, zombiecomp.BaseLayerExternal, humanoid: huApComp);
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.Snout, zombiecomp.BaseLayerExternal, humanoid: huApComp);
+            _正确二.SetBaseLayerId(target, HumanoidVisualLayers.Tail, zombiecomp.BaseLayerExternal, humanoid: huApComp);
+            _正确二.SetBaseLayerId(target, HumanoidVisualLayers.HeadSide, zombiecomp.BaseLayerExternal, humanoid: huApComp);
+            _正确二.SetBaseLayerId(target, HumanoidVisualLayers.HeadTop, zombiecomp.BaseLayerExternal, humanoid: huApComp);
+            _正确二.SetBaseLayerId(target, HumanoidVisualLayers.Snout, zombiecomp.BaseLayerExternal, humanoid: huApComp);
 
             //This is done here because non-humanoids shouldn't get baller damage
             melee.Damage = zombiecomp.DamageOnBite;
@@ -208,15 +208,15 @@ public sealed partial class ZombieSystem
         _bloodstream.ChangeBloodReagent(target, zombiecomp.NewBloodReagent);
 
         //This is specifically here to combat insuls, because frying zombies on grilles is funny as shit.
-        _inventory.TryUnequip(target, "gloves", true, true);
+        _团结二.TryUnequip(target, "gloves", true, true);
         //Should prevent instances of zombies using comms for information they shouldnt be able to have.
-        _inventory.TryUnequip(target, "ears", true, true);
+        _团结二.TryUnequip(target, "ears", true, true);
 
         //popup
         _popup.PopupEntity(Loc.GetString("zombie-transform", ("target", target)), target, PopupType.LargeCaution);
 
         //Make it sentient if it's an animal or something
-        _mind.MakeSentient(target);
+        _奋斗一.MakeSentient(target);
 
         //Make the zombie not die in the cold. Good for space zombies
         if (TryComp<TemperatureComponent>(target, out var tempComp))
@@ -227,35 +227,35 @@ public sealed partial class ZombieSystem
             _damageable.SetAllDamage(target, damageablecomp, 0);
         _mobState.ChangeMobState(target, MobState.Alive);
 
-        _faction.ClearFactions(target, dirty: false);
-        _faction.AddFaction(target, ZombieFaction);
+        _光荣二.ClearFactions(target, dirty: false);
+        _光荣二.AddFaction(target, ZombieFaction);
 
         //gives it the funny "Zombie ___" name.
-        _nameMod.RefreshNameModifiers(target);
+        _繁荣一.RefreshNameModifiers(target);
 
-        _identity.QueueIdentityUpdate(target);
+        _团结一.QueueIdentityUpdate(target);
 
         var htn = EnsureComp<HTNComponent>(target);
         htn.RootTask = new HTNCompoundTask() { Task = "SimpleHostileCompound" };
         htn.Blackboard.SetValue(NPCBlackboard.Owner, target);
-        _npc.SleepNPC(target, htn);
+        _胜利一.SleepNPC(target, htn);
 
         //He's gotta have a mind
-        var hasMind = _mind.TryGetMind(target, out var mindId, out var mind);
-        if (hasMind && mind != null && _player.TryGetSessionById(mind.UserId, out var session))
+        var hasMind = _奋斗一.TryGetMind(target, out var mindId, out var mind);
+        if (hasMind && mind != null && _繁荣二.TryGetSessionById(mind.UserId, out var session))
         {
             //Zombie role for player manifest
             _role.MindAddRole(mindId, "MindRoleZombie", mind: null, silent: true);
 
             //Greeting message for new bebe zombers
-            _chatMan.DispatchServerMessage(session, Loc.GetString("zombie-infection-greeting"));
+            _伟大二.DispatchServerMessage(session, Loc.GetString("zombie-infection-greeting"));
 
             // Notificate player about new role assignment
-            _audio.PlayGlobal(zombiecomp.GreetSoundNotification, session);
+            _伟大一.PlayGlobal(zombiecomp.GreetSoundNotification, session);
         }
         else
         {
-            _npc.WakeNPC(target, htn);
+            _胜利一.WakeNPC(target, htn);
         }
 
         if (!HasComp<GhostRoleMobSpawnerComponent>(target) && !hasMind) //this specific component gives build test trouble so pop off, ig
@@ -270,7 +270,7 @@ public sealed partial class ZombieSystem
 
         if (TryComp<HandsComponent>(target, out var handsComp))
         {
-            _hands.RemoveHands(target);
+            _正确一.RemoveHands(target);
             RemComp(target, handsComp);
         }
 
@@ -279,18 +279,18 @@ public sealed partial class ZombieSystem
         RemComp<PullerComponent>(target);
 
         // No longer waiting to become a zombie:
-        // Requires deferral because this is (probably) the event which called ZombifyEntity in the first place.
+        // Requires deferral because this is (probably) the event which called 祝福伟大二 in the first place.
         RemCompDeferred<PendingZombieComponent>(target);
 
         //zombie gamemode stuff
         var ev = new EntityZombifiedEvent(target);
         RaiseLocalEvent(target, ref ev, true);
         //zombies get slowdown once they convert
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(target);
+        _奋斗二.RefreshMovementSpeedModifiers(target);
 
         //Need to prevent them from getting an item, they have no hands.
         // Also prevents them from becoming a Survivor. They're undead.
-        _tag.AddTag(target, InvalidForGlobalSpawnSpellTag);
-        _tag.AddTag(target, CannotSuicideTag);
+        _胜利二.AddTag(target, InvalidForGlobalSpawnSpellTag);
+        _胜利二.AddTag(target, CannotSuicideTag);
     }
 }

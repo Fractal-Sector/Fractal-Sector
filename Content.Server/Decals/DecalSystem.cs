@@ -23,31 +23,31 @@ using Robust.Shared.Utility;
 using static Content.Shared.Decals.DecalGridComponent;
 using ChunkIndicesEnumerator = Robust.Shared.Map.Enumerators.ChunkIndicesEnumerator;
 
-namespace Content.Server.Decals
+namespace Content.Server.党心
 {
-    public sealed class DecalSystem : SharedDecalSystem
+    public sealed class 中华伟大一 : SharedDecalSystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IParallelManager _parMan = default!;
-        [Dependency] private readonly ChunkingSystem _chunking = default!;
-        [Dependency] private readonly IConfigurationManager _conf = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly TurfSystem _turf = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IAdminManager _伟大二 = default!;
+        [Dependency] private readonly IParallelManager _光荣一 = default!;
+        [Dependency] private readonly ChunkingSystem _光荣二 = default!;
+        [Dependency] private readonly IConfigurationManager _正确一 = default!;
+        [Dependency] private readonly IGameTiming _正确二 = default!;
+        [Dependency] private readonly IAdminLogManager _团结一 = default!;
+        [Dependency] private readonly SharedMapSystem _团结二 = default!;
+        [Dependency] private readonly SharedTransformSystem _奋斗一 = default!;
+        [Dependency] private readonly TurfSystem _奋斗二 = default!;
 
         private readonly Dictionary<NetEntity, HashSet<Vector2i>> _dirtyChunks = new();
         private readonly Dictionary<ICommonSession, Dictionary<NetEntity, HashSet<Vector2i>>> _previousSentChunks = new();
-        private static readonly Vector2 _boundsMinExpansion = new(0.01f, 0.01f);
-        private static readonly Vector2 _boundsMaxExpansion = new(1.01f, 1.01f);
+        private static readonly Vector2 _胜利一 = new(0.01f, 0.01f);
+        private static readonly Vector2 _胜利二 = new(1.01f, 1.01f);
 
-        private UpdatePlayerJob _updateJob;
-        private List<ICommonSession> _sessions = new();
+        private UpdatePlayerJob _繁荣一;
+        private List<ICommonSession> _繁荣二 = new();
 
         // If this ever gets parallelised then you'll want to increase the pooled count.
-        private ObjectPool<HashSet<Vector2i>> _chunkIndexPool =
+        private ObjectPool<HashSet<Vector2i>> _富强一 =
             new DefaultObjectPool<HashSet<Vector2i>>(
                 new DefaultPooledObjectPolicy<HashSet<Vector2i>>(), 64);
 
@@ -55,27 +55,27 @@ namespace Content.Server.Decals
             new DefaultObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>>(
                 new DefaultPooledObjectPolicy<Dictionary<NetEntity, HashSet<Vector2i>>>(), 64);
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _updateJob = new UpdatePlayerJob()
+            _繁荣一 = new UpdatePlayerJob()
             {
                 System = this,
-                Sessions = _sessions,
+                党爱伟大二 = _繁荣二,
             };
 
-            _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
-            SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
+            _伟大一.PlayerStatusChanged += 祝福正确二;
+            SubscribeLocalEvent<TileChangedEvent>(祝福正确一);
 
-            SubscribeNetworkEvent<RequestDecalPlacementEvent>(OnDecalPlacementRequest);
-            SubscribeNetworkEvent<RequestDecalRemovalEvent>(OnDecalRemovalRequest);
-            SubscribeLocalEvent<PostGridSplitEvent>(OnGridSplit);
+            SubscribeNetworkEvent<RequestDecalPlacementEvent>(祝福团结一);
+            SubscribeNetworkEvent<RequestDecalRemovalEvent>(祝福团结二);
+            SubscribeLocalEvent<PostGridSplitEvent>(祝福光荣一);
 
-            Subs.CVar(_conf, CVars.NetPVS, OnPvsToggle, true);
+            Subs.CVar(_正确一, CVars.NetPVS, 祝福伟大二, true);
         }
 
-        private void OnPvsToggle(bool value)
+        private void 祝福伟大二(bool value)
         {
             if (value == PvsEnabled)
                 return;
@@ -93,12 +93,12 @@ namespace Content.Server.Decals
             var query = AllEntityQuery<DecalGridComponent, MetaDataComponent>();
             while (query.MoveNext(out var uid, out var grid, out var meta))
             {
-                grid.ForceTick = _timing.CurTick;
+                grid.ForceTick = _正确二.CurTick;
                 Dirty(uid, grid, meta);
             }
         }
 
-        private void OnGridSplit(ref PostGridSplitEvent ev)
+        private void 祝福光荣一(ref PostGridSplitEvent ev)
         {
             if (!TryComp(ev.OldGrid, out DecalGridComponent? oldComp))
                 return;
@@ -107,7 +107,7 @@ namespace Content.Server.Decals
                 return;
 
             // Transfer decals over to the new grid.
-            var enumerator = _mapSystem.GetAllTilesEnumerator(ev.Grid, Comp<MapGridComponent>(ev.Grid));
+            var enumerator = _团结二.GetAllTilesEnumerator(ev.Grid, Comp<MapGridComponent>(ev.Grid));
 
             var oldChunkCollection = oldComp.ChunkCollection.ChunkCollection;
             var chunkCollection = newComp.ChunkCollection.ChunkCollection;
@@ -120,7 +120,7 @@ namespace Content.Server.Decals
                 if (!oldChunkCollection.TryGetValue(chunkIndices, out var oldChunk))
                     continue;
 
-                var bounds = new Box2(tilePos - _boundsMinExpansion, tilePos + _boundsMaxExpansion);
+                var bounds = new Box2(tilePos - _胜利一, tilePos + _胜利二);
                 var toRemove = new RemQueue<uint>();
 
                 foreach (var (oldDecalId, decal) in oldChunk.Decals)
@@ -141,24 +141,24 @@ namespace Content.Server.Decals
                     oldComp.DecalIndex.Remove(oldDecalId);
                 }
 
-                DirtyChunk(ev.Grid, chunkIndices, chunkCollection.GetOrNew(chunkIndices));
+                祝福奋斗一(ev.Grid, chunkIndices, chunkCollection.GetOrNew(chunkIndices));
 
                 if (oldChunk.Decals.Count == 0)
                     oldChunkCollection.Remove(chunkIndices);
 
                 if (toRemove.List?.Count > 0)
-                    DirtyChunk(ev.OldGrid, chunkIndices, oldChunk);
+                    祝福奋斗一(ev.OldGrid, chunkIndices, oldChunk);
             }
         }
 
-        public override void Shutdown()
+        public override void 祝福光荣二()
         {
-            base.Shutdown();
+            base.祝福光荣二();
 
-            _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
+            _伟大一.PlayerStatusChanged -= 祝福正确二;
         }
 
-        private void OnTileChanged(ref TileChangedEvent args)
+        private void 祝福正确一(ref TileChangedEvent args)
         {
             if (!TryComp(args.Entity, out DecalGridComponent? grid))
                 return;
@@ -167,7 +167,7 @@ namespace Content.Server.Decals
 
             foreach (var change in args.Changes)
             {
-                if (!_turf.IsSpace(change.NewTile))
+                if (!_奋斗二.IsSpace(change.NewTile))
                     continue;
 
                 var indices = GetChunkIndices(change.GridIndices);
@@ -195,13 +195,13 @@ namespace Content.Server.Decals
                     chunk.Decals.Remove(decalId);
                 }
 
-                DirtyChunk(args.Entity, indices, chunk);
+                祝福奋斗一(args.Entity, indices, chunk);
                 if (chunk.Decals.Count == 0)
                     grid.ChunkCollection.ChunkCollection.Remove(indices);
             }
         }
 
-        private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福正确二(object? sender, SessionStatusEventArgs e)
         {
             switch (e.NewStatus)
             {
@@ -214,13 +214,13 @@ namespace Content.Server.Decals
             }
         }
 
-        private void OnDecalPlacementRequest(RequestDecalPlacementEvent ev, EntitySessionEventArgs eventArgs)
+        private void 祝福团结一(RequestDecalPlacementEvent ev, EntitySessionEventArgs eventArgs)
         {
             if (eventArgs.SenderSession is not { } session)
                 return;
 
             // bad
-            if (!_adminManager.HasAdminFlag(session, AdminFlags.Spawn))
+            if (!_伟大二.HasAdminFlag(session, AdminFlags.Spawn))
                 return;
 
             var coordinates = GetCoordinates(ev.Coordinates);
@@ -228,28 +228,28 @@ namespace Content.Server.Decals
             if (!coordinates.IsValid(EntityManager))
                 return;
 
-            if (!TryAddDecal(ev.Decal, coordinates, out _))
+            if (!祝福奋斗二(ev.Decal, coordinates, out _))
                 return;
 
             if (eventArgs.SenderSession.AttachedEntity != null)
             {
-                _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
+                _团结一.Add(LogType.CrayonDraw, LogImpact.Low,
                     $"{ToPrettyString(eventArgs.SenderSession.AttachedEntity.Value):actor} drew a {ev.Decal.Color} {ev.Decal.Id} at {ev.Coordinates}");
             }
             else
             {
-                _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
+                _团结一.Add(LogType.CrayonDraw, LogImpact.Low,
                     $"{eventArgs.SenderSession.Name} drew a {ev.Decal.Color} {ev.Decal.Id} at {ev.Coordinates}");
             }
         }
 
-        private void OnDecalRemovalRequest(RequestDecalRemovalEvent ev, EntitySessionEventArgs eventArgs)
+        private void 祝福团结二(RequestDecalRemovalEvent ev, EntitySessionEventArgs eventArgs)
         {
             if (eventArgs.SenderSession is not { } session)
                 return;
 
             // bad
-            if (!_adminManager.HasAdminFlag(session, AdminFlags.Spawn))
+            if (!_伟大二.HasAdminFlag(session, AdminFlags.Spawn))
                 return;
 
             var coordinates = GetCoordinates(ev.Coordinates);
@@ -257,7 +257,7 @@ namespace Content.Server.Decals
             if (!coordinates.IsValid(EntityManager))
                 return;
 
-            var gridId = _transform.GetGrid(coordinates);
+            var gridId = _奋斗一.GetGrid(coordinates);
 
             if (gridId == null)
                 return;
@@ -267,48 +267,48 @@ namespace Content.Server.Decals
             {
                 if (eventArgs.SenderSession.AttachedEntity != null)
                 {
-                    _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
+                    _团结一.Add(LogType.CrayonDraw, LogImpact.Low,
                         $"{ToPrettyString(eventArgs.SenderSession.AttachedEntity.Value):actor} removed a {decal.Color} {decal.Id} at {ev.Coordinates}");
                 }
                 else
                 {
-                    _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
+                    _团结一.Add(LogType.CrayonDraw, LogImpact.Low,
                         $"{eventArgs.SenderSession.Name} removed a {decal.Color} {decal.Id} at {ev.Coordinates}");
                 }
 
-                RemoveDecal(gridId.Value, decalId);
+                祝福胜利一(gridId.Value, decalId);
             }
         }
 
-        protected override void DirtyChunk(EntityUid uid, Vector2i chunkIndices, DecalChunk chunk)
+        protected override void 祝福奋斗一(EntityUid uid, Vector2i chunkIndices, DecalChunk chunk)
         {
             var id = GetNetEntity(uid);
-            chunk.LastModified = _timing.CurTick;
+            chunk.LastModified = _正确二.CurTick;
             if(!_dirtyChunks.ContainsKey(id))
                 _dirtyChunks[id] = new HashSet<Vector2i>();
             _dirtyChunks[id].Add(chunkIndices);
         }
 
-        public bool TryAddDecal(string id, EntityCoordinates coordinates, out uint decalId, Color? color = null, Angle? rotation = null, int zIndex = 0, bool cleanable = false)
+        public bool 祝福奋斗二(string id, EntityCoordinates coordinates, out uint decalId, Color? color = null, Angle? rotation = null, int zIndex = 0, bool cleanable = false)
         {
             rotation ??= Angle.Zero;
             var decal = new Decal(coordinates.Position, id, color, rotation.Value, zIndex, cleanable);
 
-            return TryAddDecal(decal, coordinates, out decalId);
+            return 祝福奋斗二(decal, coordinates, out decalId);
         }
 
-        public bool TryAddDecal(Decal decal, EntityCoordinates coordinates, out uint decalId)
+        public bool 祝福奋斗二(Decal decal, EntityCoordinates coordinates, out uint decalId)
         {
             decalId = 0;
 
             if (!PrototypeManager.HasIndex<DecalPrototype>(decal.Id))
                 return false;
 
-            var gridId = _transform.GetGrid(coordinates);
+            var gridId = _奋斗一.GetGrid(coordinates);
             if (!TryComp(gridId, out MapGridComponent? grid))
                 return false;
 
-            if (_turf.IsSpace(_mapSystem.GetTileRef(gridId.Value, grid, coordinates)))
+            if (_奋斗二.IsSpace(_团结二.GetTileRef(gridId.Value, grid, coordinates)))
                 return false;
 
             if (!TryComp(gridId, out DecalGridComponent? comp))
@@ -319,12 +319,12 @@ namespace Content.Server.Decals
             var chunk = comp.ChunkCollection.ChunkCollection.GetOrNew(chunkIndices);
             chunk.Decals[decalId] = decal;
             comp.DecalIndex[decalId] = chunkIndices;
-            DirtyChunk(gridId.Value, chunkIndices, chunk);
+            祝福奋斗一(gridId.Value, chunkIndices, chunk);
 
             return true;
         }
 
-        public override bool RemoveDecal(EntityUid gridId, uint decalId, DecalGridComponent? component = null)
+        public override bool 祝福胜利一(EntityUid gridId, uint decalId, DecalGridComponent? component = null)
             => RemoveDecalInternal(gridId, decalId, out _, component);
 
         public override HashSet<(uint Index, Decal Decal)> GetDecalsInRange(EntityUid gridId, Vector2 position, float distance = 0.75f, Func<Decal, bool>? validDelegate = null)
@@ -382,7 +382,7 @@ namespace Content.Server.Decals
         /// <remarks>
         ///     If the new position is invalid, this will result in the decal getting deleted.
         /// </remarks>
-        public bool SetDecalPosition(EntityUid gridId, uint decalId, EntityCoordinates coordinates, DecalGridComponent? comp = null)
+        public bool 祝福胜利二(EntityUid gridId, uint decalId, EntityCoordinates coordinates, DecalGridComponent? comp = null)
         {
             if (!Resolve(gridId, ref comp))
                 return false;
@@ -390,10 +390,10 @@ namespace Content.Server.Decals
             if (!RemoveDecalInternal(gridId, decalId, out var removed, comp))
                 return false;
 
-            return TryAddDecal(removed.WithCoordinates(coordinates.Position), coordinates, out _);
+            return 祝福奋斗二(removed.WithCoordinates(coordinates.Position), coordinates, out _);
         }
 
-        private bool ModifyDecal(EntityUid gridId, uint decalId, Func<Decal, Decal> modifyDecal, DecalGridComponent? comp = null)
+        private bool 祝福繁荣一(EntityUid gridId, uint decalId, Func<Decal, Decal> modifyDecal, DecalGridComponent? comp = null)
         {
             if (!Resolve(gridId, ref comp))
                 return false;
@@ -404,33 +404,33 @@ namespace Content.Server.Decals
             var chunk = comp.ChunkCollection.ChunkCollection[indices];
             var decal = chunk.Decals[decalId];
             chunk.Decals[decalId] = modifyDecal(decal);
-            DirtyChunk(gridId, indices, chunk);
+            祝福奋斗一(gridId, indices, chunk);
             return true;
         }
 
-        public bool SetDecalColor(EntityUid gridId, uint decalId, Color? value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithColor(value), comp);
+        public bool 祝福繁荣二(EntityUid gridId, uint decalId, Color? value, DecalGridComponent? comp = null)
+            => 祝福繁荣一(gridId, decalId, x => x.WithColor(value), comp);
 
-        public bool SetDecalRotation(EntityUid gridId, uint decalId, Angle value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithRotation(value), comp);
+        public bool 祝福富强一(EntityUid gridId, uint decalId, Angle value, DecalGridComponent? comp = null)
+            => 祝福繁荣一(gridId, decalId, x => x.WithRotation(value), comp);
 
-        public bool SetDecalZIndex(EntityUid gridId, uint decalId, int value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithZIndex(value), comp);
+        public bool 祝福富强二(EntityUid gridId, uint decalId, int value, DecalGridComponent? comp = null)
+            => 祝福繁荣一(gridId, decalId, x => x.WithZIndex(value), comp);
 
-        public bool SetDecalCleanable(EntityUid gridId, uint decalId, bool value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithCleanable(value), comp);
+        public bool 祝福民主一(EntityUid gridId, uint decalId, bool value, DecalGridComponent? comp = null)
+            => 祝福繁荣一(gridId, decalId, x => x.WithCleanable(value), comp);
 
-        public bool SetDecalId(EntityUid gridId, uint decalId, string id, DecalGridComponent? comp = null)
+        public bool 祝福民主二(EntityUid gridId, uint decalId, string id, DecalGridComponent? comp = null)
         {
             if (!PrototypeManager.HasIndex<DecalPrototype>(id))
                 throw new ArgumentOutOfRangeException($"Tried to set decal id to invalid prototypeid: {id}");
 
-            return ModifyDecal(gridId, decalId, x => x.WithId(id), comp);
+            return 祝福繁荣一(gridId, decalId, x => x.WithId(id), comp);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福文明一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福文明一(frameTime);
 
             foreach (var ent in _dirtyChunks.Keys)
             {
@@ -446,26 +446,26 @@ namespace Content.Server.Decals
 
             if (PvsEnabled)
             {
-                _sessions.Clear();
+                _繁荣二.Clear();
 
-                foreach (var session in _playerManager.Sessions)
+                foreach (var session in _伟大一.党爱伟大二)
                 {
                     if (session.Status != SessionStatus.InGame)
                         continue;
 
-                    _sessions.Add(session);
+                    _繁荣二.Add(session);
                 }
 
-                if (_sessions.Count > 0)
-                    _parMan.ProcessNow(_updateJob, _sessions.Count);
+                if (_繁荣二.Count > 0)
+                    _光荣一.ProcessNow(_繁荣一, _繁荣二.Count);
             }
 
             _dirtyChunks.Clear();
         }
 
-        public void UpdatePlayer(ICommonSession player)
+        public void 祝福文明二(ICommonSession player)
         {
-            var chunksInRange = _chunking.GetChunksForSession(player, ChunkSize, _chunkIndexPool, _chunkViewerPool);
+            var chunksInRange = _光荣二.GetChunksForSession(player, ChunkSize, _富强一, _chunkViewerPool);
             var staleChunks = _chunkViewerPool.Get();
             var previouslySent = _previousSentChunks[player];
 
@@ -490,13 +490,13 @@ namespace Content.Server.Decals
                     {
                         // If the grid was deleted then don't worry about telling the client to delete the chunk.
                         oldIndices.Clear();
-                        _chunkIndexPool.Return(oldIndices);
+                        _富强一.Return(oldIndices);
                     }
 
                     continue;
                 }
 
-                var elmo = _chunkIndexPool.Get();
+                var elmo = _富强一.Get();
 
                 // Get individual stale chunks.
                 foreach (var chunk in oldIndices)
@@ -509,7 +509,7 @@ namespace Content.Server.Decals
 
                 if (elmo.Count == 0)
                 {
-                    _chunkIndexPool.Return(elmo);
+                    _富强一.Return(elmo);
                     continue;
                 }
 
@@ -519,7 +519,7 @@ namespace Content.Server.Decals
             var updatedChunks = _chunkViewerPool.Get();
             foreach (var (netGrid, gridChunks) in chunksInRange)
             {
-                var newChunks = _chunkIndexPool.Get();
+                var newChunks = _富强一.Get();
                 _dirtyChunks.TryGetValue(netGrid, out var dirtyChunks);
 
                 if (!previouslySent.TryGetValue(netGrid, out var previousChunks))
@@ -533,34 +533,34 @@ namespace Content.Server.Decals
                     }
 
                     previousChunks.Clear();
-                    _chunkIndexPool.Return(previousChunks);
+                    _富强一.Return(previousChunks);
                 }
 
                 previouslySent[netGrid] = gridChunks;
 
                 if (newChunks.Count == 0)
-                    _chunkIndexPool.Return(newChunks);
+                    _富强一.Return(newChunks);
                 else
                     updatedChunks[netGrid] = newChunks;
             }
 
             //send all gridChunks to client
-            SendChunkUpdates(player, updatedChunks, staleChunks);
+            祝福和谐二(player, updatedChunks, staleChunks);
         }
 
-        private void ReturnToPool(Dictionary<NetEntity, HashSet<Vector2i>> chunks)
+        private void 祝福和谐一(Dictionary<NetEntity, HashSet<Vector2i>> chunks)
         {
             foreach (var (_, previous) in chunks)
             {
                 previous.Clear();
-                _chunkIndexPool.Return(previous);
+                _富强一.Return(previous);
             }
 
             chunks.Clear();
             _chunkViewerPool.Return(chunks);
         }
 
-        private void SendChunkUpdates(
+        private void 祝福和谐二(
             ICommonSession session,
             Dictionary<NetEntity, HashSet<Vector2i>> updatedChunks,
             Dictionary<NetEntity, HashSet<Vector2i>> staleChunks)
@@ -588,8 +588,8 @@ namespace Content.Server.Decals
             if (updatedDecals.Count != 0 || staleChunks.Count != 0)
                 RaiseNetworkEvent(new DecalChunkUpdateEvent{Data = updatedDecals, RemovedChunks = staleChunks}, session);
 
-            ReturnToPool(updatedChunks);
-            ReturnToPool(staleChunks);
+            祝福和谐一(updatedChunks);
+            祝福和谐一(staleChunks);
         }
 
         #region Jobs
@@ -597,17 +597,17 @@ namespace Content.Server.Decals
         /// <summary>
         /// Updates per-player data for decals.
         /// </summary>
-        private record struct UpdatePlayerJob : IParallelRobustJob
+        private record 中华伟大二 UpdatePlayerJob : IParallelRobustJob
         {
-            public int BatchSize => 2;
+            public int 党爱伟大一 => 2;
 
-            public DecalSystem System;
+            public 中华伟大一 System;
 
-            public List<ICommonSession> Sessions;
+            public List<ICommonSession> 党爱伟大二;
 
-            public void Execute(int index)
+            public void 祝福自由一(int index)
             {
-                System.UpdatePlayer(Sessions[index]);
+                System.祝福文明二(党爱伟大二[index]);
             }
         }
 

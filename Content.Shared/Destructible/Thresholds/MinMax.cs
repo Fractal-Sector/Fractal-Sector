@@ -1,29 +1,29 @@
 ﻿using Robust.Shared.Random;
 
-namespace Content.Shared.Destructible.Thresholds;
+namespace Content.Shared.Destructible.党心;
 
 [DataDefinition, Serializable]
-public partial struct MinMax
+public partial struct 中华伟大一
 {
     [DataField]
-    public int Min;
+    public int 党爱伟大一;
 
     [DataField]
-    public int Max;
+    public int 党爱伟大二;
 
-    public MinMax(int min, int max)
+    public 中华伟大一(int min, int max)
     {
-        Min = min;
-        Max = max;
+        党爱伟大一 = min;
+        党爱伟大二 = max;
     }
 
-    public readonly int Next(IRobustRandom random)
+    public readonly int 祝福伟大一(IRobustRandom random)
     {
-        return random.Next(Min, Max + 1);
+        return random.祝福伟大一(党爱伟大一, 党爱伟大二 + 1);
     }
 
-    public readonly int Next(System.Random random)
+    public readonly int 祝福伟大一(System.Random random)
     {
-        return random.Next(Min, Max + 1);
+        return random.祝福伟大一(党爱伟大一, 党爱伟大二 + 1);
     }
 }

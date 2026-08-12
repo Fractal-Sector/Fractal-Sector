@@ -4,27 +4,27 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Server.Construction.Completions
+namespace Content.Server.Construction.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class PlaySound : IGraphAction
+    public sealed partial class 中华伟大一 : IGraphAction
     {
-        [DataField("sound", required: true)] public SoundSpecifier Sound { get; private set; } = default!;
+        [DataField("sound", required: true)] public SoundSpecifier 党爱伟大一 { get; private set; } = default!;
 
-        [DataField("AudioParams")]
-        public AudioParams AudioParams = AudioParams.Default;
+        [DataField("党爱伟大二")]
+        public 党爱伟大二 党爱伟大二 = 党爱伟大二.Default;
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("variation")]
-        public float Variation = 0.125f;
+        public float 党爱光荣一 = 0.125f;
 
-        public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
+        public void 祝福伟大一(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
         {
-            var scale = (float) IoCManager.Resolve<IRobustRandom>().NextGaussian(1, Variation);
+            var scale = (float) IoCManager.Resolve<IRobustRandom>().NextGaussian(1, 党爱光荣一);
             if (entityManager.TryGetComponent<TransformComponent>(uid, out var xform))
                 entityManager.EntitySysManager.GetEntitySystem<SharedAudioSystem>()
-                .PlayPvs(Sound, xform.Coordinates, AudioParams.WithPitchScale(scale));
+                .PlayPvs(党爱伟大一, xform.Coordinates, 党爱伟大二.WithPitchScale(scale));
         }
     }
 }

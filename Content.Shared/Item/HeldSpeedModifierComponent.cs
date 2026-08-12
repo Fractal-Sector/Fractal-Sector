@@ -1,7 +1,7 @@
 using Content.Shared.Clothing;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Item;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This is used for items that change your speed when they are held.
@@ -12,23 +12,23 @@ namespace Content.Shared.Item;
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(HeldSpeedModifierSystem))]
-public sealed partial class HeldSpeedModifierComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A multiplier applied to the walk speed.
     /// </summary>
     [DataField] [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public float WalkModifier = 1.0f;
+    public float 党爱伟大一 = 1.0f;
 
     /// <summary>
     /// A multiplier applied to the sprint speed.
     /// </summary>
     [DataField] [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public float SprintModifier = 1.0f;
+    public float 党爱伟大二 = 1.0f;
 
     /// <summary>
     /// If true, values from <see cref="ClothingSpeedModifierComponent"/> will attempted to be used before the ones in this component.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public bool MirrorClothingModifier = true;
+    public bool 党爱光荣一 = true;
 }

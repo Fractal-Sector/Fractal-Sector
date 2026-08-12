@@ -1,6 +1,6 @@
-namespace Content.Shared.Chat;
+namespace Content.Shared.党心;
 
-public interface ISharedChatManager
+public interface 中华伟大一
 {
     void Initialize();
     void SendAdminAlert(string message);

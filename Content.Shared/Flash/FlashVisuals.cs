@@ -1,16 +1,16 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Flash;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum FlashVisuals : byte
+public enum 中华伟大一 : byte
 {
     Burnt,
     Flashing,
 }
 
 [Serializable, NetSerializable]
-public enum FlashVisualLayers : byte
+public enum 中华伟大二 : byte
 {
     BaseLayer,
     LightLayer,

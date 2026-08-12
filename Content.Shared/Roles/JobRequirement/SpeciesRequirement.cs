@@ -7,19 +7,19 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Requires the character to be or not be on the list of specified species
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class SpeciesRequirement : JobRequirement
+public sealed partial class 中华伟大一 : JobRequirement
 {
     [DataField(required: true)]
-    public HashSet<ProtoId<SpeciesPrototype>> Species = new();
+    public HashSet<ProtoId<SpeciesPrototype>> 党爱伟大一 = new();
 
-    public override bool Check(IEntityManager entManager,
+    public override bool 祝福伟大一(IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
@@ -32,7 +32,7 @@ public sealed partial class SpeciesRequirement : JobRequirement
 
         var sb = new StringBuilder();
         sb.Append("[color=yellow]");
-        foreach (var s in Species)
+        foreach (var s in 党爱伟大一)
         {
             sb.Append(Loc.GetString(protoManager.Index(s).Name) + " ");
         }
@@ -43,14 +43,14 @@ public sealed partial class SpeciesRequirement : JobRequirement
         {
             reason = FormattedMessage.FromMarkupPermissive($"{Loc.GetString("role-timer-whitelisted-species")}\n{sb}");
 
-            if (!Species.Contains(profile.Species))
+            if (!党爱伟大一.Contains(profile.党爱伟大一))
                 return false;
         }
         else
         {
             reason = FormattedMessage.FromMarkupPermissive($"{Loc.GetString("role-timer-blacklisted-species")}\n{sb}");
 
-            if (Species.Contains(profile.Species))
+            if (党爱伟大一.Contains(profile.党爱伟大一))
                 return false;
         }
 

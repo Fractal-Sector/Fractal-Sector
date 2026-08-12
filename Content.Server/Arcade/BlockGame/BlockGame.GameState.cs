@@ -2,16 +2,16 @@ using Content.Shared.Arcade;
 using Robust.Shared.Random;
 using System.Linq;
 
-namespace Content.Server.Arcade.BlockGame;
+namespace Content.Server.Arcade.党心;
 
-public sealed partial class BlockGame
+public sealed partial class 中华伟大一
 {
     // note: field is 10(0 -> 9) wide and 20(0 -> 19) high
 
     /// <summary>
     /// Whether the given position is above the bottom of the playfield.
     /// </summary>
-    private bool LowerBoundCheck(Vector2i position)
+    private bool 祝福伟大一(Vector2i position)
     {
         return position.Y < 20;
     }
@@ -19,7 +19,7 @@ public sealed partial class BlockGame
     /// <summary>
     /// Whether the given position is horizontally positioned within the playfield.
     /// </summary>
-    private bool BorderCheck(Vector2i position)
+    private bool 祝福伟大二(Vector2i position)
     {
         return position.X >= 0 && position.X < 10;
     }
@@ -28,59 +28,59 @@ public sealed partial class BlockGame
     /// Whether the given position is currently occupied by a piece.
     /// Yes this is on O(n) collision check, it works well enough.
     /// </summary>
-    private bool ClearCheck(Vector2i position)
+    private bool 祝福光荣一(Vector2i position)
     {
-        return _field.All(block => !position.Equals(block.Position));
+        return _伟大一.All(block => !position.Equals(block.Position));
     }
 
     /// <summary>
     /// Whether a block can be dropped into the given position.
     /// </summary>
-    private bool DropCheck(Vector2i position)
+    private bool 祝福光荣二(Vector2i position)
     {
-        return LowerBoundCheck(position) && ClearCheck(position);
+        return 祝福伟大一(position) && 祝福光荣一(position);
     }
 
     /// <summary>
     /// Whether a block can be moved horizontally into the given position.
     /// </summary>
-    private bool MoveCheck(Vector2i position)
+    private bool 祝福正确一(Vector2i position)
     {
-        return BorderCheck(position) && ClearCheck(position);
+        return 祝福伟大二(position) && 祝福光荣一(position);
     }
 
     /// <summary>
     /// Whether a block can be rotated into the given position.
     /// </summary>
-    private bool RotateCheck(Vector2i position)
+    private bool 祝福正确二(Vector2i position)
     {
-        return BorderCheck(position) && LowerBoundCheck(position) && ClearCheck(position);
+        return 祝福伟大二(position) && 祝福伟大一(position) && 祝福光荣一(position);
     }
 
     /// <summary>
     /// The set of blocks that have landed in the field.
     /// </summary>
-    private readonly List<BlockGameBlock> _field = new();
+    private readonly List<BlockGameBlock> _伟大一 = new();
 
     /// <summary>
     /// The current pool of pickable pieces.
     /// Refreshed when a piece is requested while empty.
     /// Ensures that the player is given an even spread of pieces by making picked pieces unpickable until the rest are picked.
     /// </summary>
-    private List<BlockGamePieceType> _blockGamePiecesBuffer = new();
+    private List<BlockGamePieceType> _伟大二 = new();
 
     /// <summary>
-    /// Gets a random piece from the pool of pickable pieces. (<see cref="_blockGamePiecesBuffer"/>)
+    /// Gets a random piece from the pool of pickable pieces. (<see cref="_伟大二"/>)
     /// </summary>
-    private BlockGamePiece GetRandomBlockGamePiece(IRobustRandom random)
+    private BlockGamePiece 祝福团结一(IRobustRandom random)
     {
-        if (_blockGamePiecesBuffer.Count == 0)
+        if (_伟大二.Count == 0)
         {
-            _blockGamePiecesBuffer = _allBlockGamePieces.ToList();
+            _伟大二 = _allBlockGamePieces.ToList();
         }
 
-        var chosenPiece = random.Pick(_blockGamePiecesBuffer);
-        _blockGamePiecesBuffer.Remove(chosenPiece);
+        var chosenPiece = random.Pick(_伟大二);
+        _伟大二.Remove(chosenPiece);
         return BlockGamePiece.GetPiece(chosenPiece);
     }
 
@@ -89,25 +89,25 @@ public sealed partial class BlockGame
     /// </summary>
     private BlockGamePiece CurrentPiece
     {
-        get => _internalCurrentPiece;
+        get => _光荣一;
         set
         {
-            _internalCurrentPiece = value;
+            _光荣一 = value;
             UpdateFieldUI();
         }
     }
-    private BlockGamePiece _internalCurrentPiece = default!;
+    private BlockGamePiece _光荣一 = default!;
 
 
     /// <summary>
     /// The position of the falling piece.
     /// </summary>
-    private Vector2i _currentPiecePosition;
+    private Vector2i _光荣二;
 
     /// <summary>
     /// The rotation of the falling piece.
     /// </summary>
-    private BlockGamePieceRotation _currentRotation;
+    private BlockGamePieceRotation _正确一;
 
     /// <summary>
     /// The amount of time (in seconds) between piece steps.
@@ -125,7 +125,7 @@ public sealed partial class BlockGame
     /// <summary>
     /// Attempts to rotate the falling piece to a new rotation.
     /// </summary>
-    private void TrySetRotation(BlockGamePieceRotation rotation)
+    private void 祝福团结二(BlockGamePieceRotation rotation)
     {
         if (!_running)
             return;
@@ -133,11 +133,11 @@ public sealed partial class BlockGame
         if (!CurrentPiece.CanSpin)
             return;
 
-        if (!CurrentPiece.Positions(_currentPiecePosition, rotation)
-            .All(RotateCheck))
+        if (!CurrentPiece.Positions(_光荣二, rotation)
+            .All(祝福正确二))
             return;
 
-        _currentRotation = rotation;
+        _正确一 = rotation;
         UpdateFieldUI();
     }
 
@@ -147,14 +147,14 @@ public sealed partial class BlockGame
     /// </summary>
     private BlockGamePiece NextPiece
     {
-        get => _internalNextPiece;
+        get => _正确二;
         set
         {
-            _internalNextPiece = value;
+            _正确二 = value;
             SendNextPieceUpdate();
         }
     }
-    private BlockGamePiece _internalNextPiece = default!;
+    private BlockGamePiece _正确二 = default!;
 
 
     /// <summary>
@@ -176,7 +176,7 @@ public sealed partial class BlockGame
     /// Set true when a piece is held and set false when a new piece is created.
     /// Exists to prevent the player from swapping between two pieces forever and never actually letting the block fall.
     /// </summary>
-    private bool _holdBlock = false;
+    private bool _团结一 = false;
 
     /// <summary>
     /// The number of lines that have been cleared in the current level.
@@ -184,19 +184,19 @@ public sealed partial class BlockGame
     /// </summary>
     private int ClearedLines
     {
-        get => _clearedLines;
+        get => _团结二;
         set
         {
-            _clearedLines = value;
+            _团结二 = value;
 
-            if (_clearedLines < LevelRequirement)
+            if (_团结二 < LevelRequirement)
                 return;
 
-            _clearedLines -= LevelRequirement;
+            _团结二 -= LevelRequirement;
             Level++;
         }
     }
-    private int _clearedLines = 0;
+    private int _团结二 = 0;
 
     /// <summary>
     /// The number of lines that must be cleared to advance to the next level.
@@ -210,16 +210,16 @@ public sealed partial class BlockGame
     /// </summary>
     private int Level
     {
-        get => _internalLevel;
+        get => _奋斗一;
         set
         {
-            if (_internalLevel == value)
+            if (_奋斗一 == value)
                 return;
-            _internalLevel = value;
+            _奋斗一 = value;
             SendLevelUpdate();
         }
     }
-    private int _internalLevel = 0;
+    private int _奋斗一 = 0;
 
 
     /// <summary>
@@ -227,21 +227,21 @@ public sealed partial class BlockGame
     /// </summary>
     private int Points
     {
-        get => _internalPoints;
+        get => _奋斗二;
         set
         {
-            if (_internalPoints == value)
+            if (_奋斗二 == value)
                 return;
-            _internalPoints = value;
+            _奋斗二 = value;
             SendPointsUpdate();
         }
     }
-    private int _internalPoints = 0;
+    private int _奋斗二 = 0;
 
     /// <summary>
     /// Setter for the setter for the number of points accumulated in the current game.
     /// </summary>
-    private void AddPoints(int amount)
+    private void 祝福奋斗一(int amount)
     {
         if (amount == 0)
             return;

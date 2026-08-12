@@ -7,15 +7,15 @@ using Content.Shared.GameTicking.Components;
 using Content.Shared.Station.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<CargoGiftsRuleComponent>
 {
-    [Dependency] private readonly CargoSystem _cargoSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
+    [Dependency] private readonly CargoSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly GameTicker _光荣一 = default!;
 
-    protected override void Added(EntityUid uid, CargoGiftsRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, CargoGiftsRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
@@ -24,13 +24,13 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
             ("sender", Loc.GetString(component.Sender)), ("description", Loc.GetString(component.Description)), ("dest", Loc.GetString(component.Dest)));
         stationEvent.StartAnnouncement = str;
 
-        base.Added(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
     }
 
     /// <summary>
     /// Called on an active gamerule entity in the Update function
     /// </summary>
-    protected override void ActiveTick(EntityUid uid, CargoGiftsRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void 祝福伟大二(EntityUid uid, CargoGiftsRuleComponent component, GameRuleComponent gameRule, float frameTime)
     {
         if (component.Gifts.Count == 0)
             return;
@@ -53,16 +53,16 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
         }
 
         // Add some presents
-        var outstanding = _cargoSystem.GetOutstandingOrderCount((station.Value, cargoDb), component.Account);
+        var outstanding = _伟大一.GetOutstandingOrderCount((station.Value, cargoDb), component.Account);
         while (outstanding < cargoDb.Capacity - component.OrderSpaceToLeave && component.Gifts.Count > 0)
         {
             // I wish there was a nice way to pop this
             var (productId, qty) = component.Gifts.First();
             component.Gifts.Remove(productId);
 
-            var product = _prototypeManager.Index(productId);
+            var product = _伟大二.Index(productId);
 
-            if (!_cargoSystem.AddAndApproveOrder(
+            if (!_伟大一.AddAndApproveOrder(
                     station!.Value,
                     product.Product,
                     product.Name,
@@ -83,7 +83,7 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
         if (component.Gifts.Count == 0)
         {
             // We're done here!
-            _ticker.EndGameRule(uid, gameRule);
+            _光荣一.EndGameRule(uid, gameRule);
         }
     }
 

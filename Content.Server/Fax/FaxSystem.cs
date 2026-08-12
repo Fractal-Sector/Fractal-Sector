@@ -35,65 +35,65 @@ using Content.Shared.Research.Prototypes; // Frontier
 using Content.Shared.Tag; // Frontier
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Fax;
+namespace Content.Server.党心;
 
-public sealed class FaxSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly PaperSystem _paperSystem = default!;
-    [Dependency] private readonly LabelSystem _labelSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ToolSystem _toolSystem = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly FaxecuteSystem _faxecute = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly TagSystem _tag = default!; // Frontier
-    [Dependency] private readonly BlueprintLatheSystem _blueprint = default!; // Frontier
+    [Dependency] private readonly IChatManager _伟大一 = default!;
+    [Dependency] private readonly IAdminManager _伟大二 = default!;
+    [Dependency] private readonly ItemSlotsSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly PopupSystem _正确一 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _正确二 = default!;
+    [Dependency] private readonly PaperSystem _团结一 = default!;
+    [Dependency] private readonly LabelSystem _团结二 = default!;
+    [Dependency] private readonly SharedAudioSystem _奋斗一 = default!;
+    [Dependency] private readonly ToolSystem _奋斗二 = default!;
+    [Dependency] private readonly QuickDialogSystem _胜利一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _胜利二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _繁荣一 = default!;
+    [Dependency] private readonly MetaDataSystem _繁荣二 = default!;
+    [Dependency] private readonly FaxecuteSystem _富强一 = default!;
+    [Dependency] private readonly EmagSystem _富强二 = default!;
+    [Dependency] private readonly TagSystem _民主一 = default!; // Frontier
+    [Dependency] private readonly BlueprintLatheSystem _民主二 = default!; // Frontier
 
     private static readonly ProtoId<ToolQualityPrototype> ScrewingQuality = "Screwing";
 
     private const string PaperSlotId = "Paper";
     private static readonly ProtoId<TagPrototype> NFPaperStampProtectedTag = "NFPaperStampProtected";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Hooks
-        SubscribeLocalEvent<FaxMachineComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<FaxMachineComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<FaxMachineComponent, ComponentRemove>(OnComponentRemove);
+        SubscribeLocalEvent<FaxMachineComponent, ComponentInit>(祝福正确二);
+        SubscribeLocalEvent<FaxMachineComponent, MapInitEvent>(祝福团结二);
+        SubscribeLocalEvent<FaxMachineComponent, ComponentRemove>(祝福团结一);
 
-        SubscribeLocalEvent<FaxMachineComponent, EntInsertedIntoContainerMessage>(OnItemSlotChanged);
-        SubscribeLocalEvent<FaxMachineComponent, EntRemovedFromContainerMessage>(OnItemSlotChanged);
-        SubscribeLocalEvent<FaxMachineComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<FaxMachineComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
+        SubscribeLocalEvent<FaxMachineComponent, EntInsertedIntoContainerMessage>(祝福奋斗一);
+        SubscribeLocalEvent<FaxMachineComponent, EntRemovedFromContainerMessage>(祝福奋斗一);
+        SubscribeLocalEvent<FaxMachineComponent, PowerChangedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<FaxMachineComponent, DeviceNetworkPacketEvent>(祝福繁荣二);
 
         // Interaction
-        SubscribeLocalEvent<FaxMachineComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<FaxMachineComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<FaxMachineComponent, GotUnEmaggedEvent>(OnUnemagged); // Frontier
+        SubscribeLocalEvent<FaxMachineComponent, InteractUsingEvent>(祝福胜利一);
+        SubscribeLocalEvent<FaxMachineComponent, GotEmaggedEvent>(祝福胜利二);
+        SubscribeLocalEvent<FaxMachineComponent, GotUnEmaggedEvent>(祝福繁荣一); // Frontier
 
         // UI
-        SubscribeLocalEvent<FaxMachineComponent, AfterActivatableUIOpenEvent>(OnToggleInterface);
-        SubscribeLocalEvent<FaxMachineComponent, FaxFileMessage>(OnFileButtonPressed);
-        SubscribeLocalEvent<FaxMachineComponent, FaxCopyMessage>(OnCopyButtonPressed);
-        SubscribeLocalEvent<FaxMachineComponent, FaxSendMessage>(OnSendButtonPressed);
-        SubscribeLocalEvent<FaxMachineComponent, FaxRefreshMessage>(OnRefreshButtonPressed);
-        SubscribeLocalEvent<FaxMachineComponent, FaxDestinationMessage>(OnDestinationSelected);
+        SubscribeLocalEvent<FaxMachineComponent, AfterActivatableUIOpenEvent>(祝福富强一);
+        SubscribeLocalEvent<FaxMachineComponent, FaxFileMessage>(祝福富强二);
+        SubscribeLocalEvent<FaxMachineComponent, FaxCopyMessage>(祝福民主一);
+        SubscribeLocalEvent<FaxMachineComponent, FaxSendMessage>(祝福民主二);
+        SubscribeLocalEvent<FaxMachineComponent, FaxRefreshMessage>(祝福文明一);
+        SubscribeLocalEvent<FaxMachineComponent, FaxDestinationMessage>(祝福文明二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<FaxMachineComponent, ApcPowerReceiverComponent>();
         while (query.MoveNext(out var uid, out var fax, out var receiver))
@@ -101,24 +101,24 @@ public sealed class FaxSystem : EntitySystem
             if (!receiver.Powered)
                 continue;
 
-            ProcessPrintingAnimation(uid, frameTime, fax);
-            ProcessInsertingAnimation(uid, frameTime, fax);
-            ProcessSendingTimeout(uid, frameTime, fax);
+            祝福光荣一(uid, frameTime, fax);
+            祝福光荣二(uid, frameTime, fax);
+            祝福正确一(uid, frameTime, fax);
         }
     }
 
-    private void ProcessPrintingAnimation(EntityUid uid, float frameTime, FaxMachineComponent comp)
+    private void 祝福光荣一(EntityUid uid, float frameTime, FaxMachineComponent comp)
     {
         if (comp.PrintingTimeRemaining > 0)
         {
             comp.PrintingTimeRemaining -= frameTime;
-            UpdateAppearance(uid, comp);
+            祝福和谐一(uid, comp);
 
             var isAnimationEnd = comp.PrintingTimeRemaining <= 0;
             if (isAnimationEnd)
             {
-                SpawnPaperFromQueue(uid, comp);
-                UpdateUserInterface(uid, comp);
+                祝福法治一(uid, comp);
+                祝福和谐二(uid, comp);
             }
 
             return;
@@ -127,55 +127,55 @@ public sealed class FaxSystem : EntitySystem
         if (comp.PrintingQueue.Count > 0)
         {
             comp.PrintingTimeRemaining = comp.PrintingTime;
-            _audioSystem.PlayPvs(comp.PrintSound, uid);
+            _奋斗一.PlayPvs(comp.PrintSound, uid);
         }
     }
 
-    private void ProcessInsertingAnimation(EntityUid uid, float frameTime, FaxMachineComponent comp)
+    private void 祝福光荣二(EntityUid uid, float frameTime, FaxMachineComponent comp)
     {
         if (comp.InsertingTimeRemaining <= 0)
             return;
 
         comp.InsertingTimeRemaining -= frameTime;
-        UpdateAppearance(uid, comp);
+        祝福和谐一(uid, comp);
 
         var isAnimationEnd = comp.InsertingTimeRemaining <= 0;
         if (isAnimationEnd)
         {
-            _itemSlotsSystem.SetLock(uid, comp.PaperSlot, false);
-            UpdateUserInterface(uid, comp);
+            _光荣一.SetLock(uid, comp.PaperSlot, false);
+            祝福和谐二(uid, comp);
         }
     }
 
-    private void ProcessSendingTimeout(EntityUid uid, float frameTime, FaxMachineComponent comp)
+    private void 祝福正确一(EntityUid uid, float frameTime, FaxMachineComponent comp)
     {
         if (comp.SendTimeoutRemaining > 0)
         {
             comp.SendTimeoutRemaining -= frameTime;
 
             if (comp.SendTimeoutRemaining <= 0)
-                UpdateUserInterface(uid, comp);
+                祝福和谐二(uid, comp);
         }
     }
 
-    private void OnComponentInit(EntityUid uid, FaxMachineComponent component, ComponentInit args)
+    private void 祝福正确二(EntityUid uid, FaxMachineComponent component, ComponentInit args)
     {
-        _itemSlotsSystem.AddItemSlot(uid, PaperSlotId, component.PaperSlot);
-        UpdateAppearance(uid, component);
+        _光荣一.AddItemSlot(uid, PaperSlotId, component.PaperSlot);
+        祝福和谐一(uid, component);
     }
 
-    private void OnComponentRemove(EntityUid uid, FaxMachineComponent component, ComponentRemove args)
+    private void 祝福团结一(EntityUid uid, FaxMachineComponent component, ComponentRemove args)
     {
-        _itemSlotsSystem.RemoveItemSlot(uid, component.PaperSlot);
+        _光荣一.RemoveItemSlot(uid, component.PaperSlot);
     }
 
-    private void OnMapInit(EntityUid uid, FaxMachineComponent component, MapInitEvent args)
+    private void 祝福团结二(EntityUid uid, FaxMachineComponent component, MapInitEvent args)
     {
         // Load all faxes on map in cache each other to prevent taking same name by user created fax
-        Refresh(uid, component);
+        祝福自由二(uid, component);
     }
 
-    private void OnItemSlotChanged(EntityUid uid, FaxMachineComponent component, ContainerModifiedMessage args)
+    private void 祝福奋斗一(EntityUid uid, FaxMachineComponent component, ContainerModifiedMessage args)
     {
         if (!component.Initialized)
             return;
@@ -187,13 +187,13 @@ public sealed class FaxSystem : EntitySystem
         if (isPaperInserted)
         {
             component.InsertingTimeRemaining = component.InsertionTime;
-            _itemSlotsSystem.SetLock(uid, component.PaperSlot, true);
+            _光荣一.SetLock(uid, component.PaperSlot, true);
         }
 
-        UpdateUserInterface(uid, component);
+        祝福和谐二(uid, component);
     }
 
-    private void OnPowerChanged(EntityUid uid, FaxMachineComponent component, ref PowerChangedEvent args)
+    private void 祝福奋斗二(EntityUid uid, FaxMachineComponent component, ref PowerChangedEvent args)
     {
         var isInsertInterrupted = !args.Powered && component.InsertingTimeRemaining > 0;
         if (isInsertInterrupted)
@@ -201,8 +201,8 @@ public sealed class FaxSystem : EntitySystem
             component.InsertingTimeRemaining = 0f; // Reset animation
 
             // Drop from slot because animation did not play completely
-            _itemSlotsSystem.SetLock(uid, component.PaperSlot, false);
-            _itemSlotsSystem.TryEject(uid, component.PaperSlot, null, out var _, true);
+            _光荣一.SetLock(uid, component.PaperSlot, false);
+            _光荣一.TryEject(uid, component.PaperSlot, null, out var _, true);
         }
 
         var isPrintInterrupted = !args.Powered && component.PrintingTimeRemaining > 0;
@@ -212,19 +212,19 @@ public sealed class FaxSystem : EntitySystem
         }
 
         if (isInsertInterrupted || isPrintInterrupted)
-            UpdateAppearance(uid, component);
+            祝福和谐一(uid, component);
 
-        _itemSlotsSystem.SetLock(uid, component.PaperSlot, !args.Powered); // Lock slot when power is off
+        _光荣一.SetLock(uid, component.PaperSlot, !args.Powered); // Lock slot when power is off
     }
 
-    private void OnInteractUsing(EntityUid uid, FaxMachineComponent component, InteractUsingEvent args)
+    private void 祝福胜利一(EntityUid uid, FaxMachineComponent component, InteractUsingEvent args)
     {
         if (args.Handled ||
             !TryComp<ActorComponent>(args.User, out var actor) ||
-            !_toolSystem.HasQuality(args.Used, ScrewingQuality)) // Screwing because Pulsing already used by device linking
+            !_奋斗二.HasQuality(args.Used, ScrewingQuality)) // Screwing because Pulsing already used by device linking
             return;
 
-        _quickDialog.OpenDialog(actor.PlayerSession,
+        _胜利一.OpenDialog(actor.PlayerSession,
             Loc.GetString("fax-machine-dialog-rename"),
             Loc.GetString("fax-machine-dialog-field-name"),
             (string newName) =>
@@ -234,22 +234,22 @@ public sealed class FaxSystem : EntitySystem
 
             if (newName.Length > 20)
             {
-                _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-long"), uid);
+                _正确一.PopupEntity(Loc.GetString("fax-machine-popup-name-long"), uid);
                 return;
             }
 
-            if (component.KnownFaxes.ContainsValue(newName) && !_emag.CheckFlag(uid, EmagType.Interaction)) // Allow existing names if emagged for fun
+            if (component.KnownFaxes.ContainsValue(newName) && !_富强二.CheckFlag(uid, EmagType.Interaction)) // Allow existing names if emagged for fun
             {
-                _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-exist"), uid);
+                _正确一.PopupEntity(Loc.GetString("fax-machine-popup-name-exist"), uid);
                 return;
             }
 
-            _adminLogger.Add(LogType.Action,
+            _繁荣一.Add(LogType.Action,
                 LogImpact.Low,
                 $"{ToPrettyString(args.User):user} renamed {ToPrettyString(uid):tool} from \"{component.FaxName}\" to \"{newName}\"");
             component.FaxName = newName;
-            _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-set"), uid);
-            UpdateUserInterface(uid, component);
+            _正确一.PopupEntity(Loc.GetString("fax-machine-popup-name-set"), uid);
+            祝福和谐二(uid, component);
 
             // if we changed our fax name manually
             // it will loose sync with station name
@@ -259,31 +259,31 @@ public sealed class FaxSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnEmagged(EntityUid uid, FaxMachineComponent component, ref GotEmaggedEvent args)
+    private void 祝福胜利二(EntityUid uid, FaxMachineComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_富强二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_富强二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         args.Handled = true;
     }
 
     // Frontier: demag
-    private void OnUnemagged(EntityUid uid, FaxMachineComponent component, ref GotUnEmaggedEvent args)
+    private void 祝福繁荣一(EntityUid uid, FaxMachineComponent component, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_富强二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_富强二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         args.Handled = true;
     }
     // End Frontier: demag
 
-    private void OnPacketReceived(EntityUid uid, FaxMachineComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福繁荣二(EntityUid uid, FaxMachineComponent component, DeviceNetworkPacketEvent args)
     {
         if (!HasComp<DeviceNetworkComponent>(uid) || string.IsNullOrEmpty(args.SenderAddress))
             return;
@@ -293,7 +293,7 @@ public sealed class FaxSystem : EntitySystem
             switch (command)
             {
                 case FaxConstants.FaxPingCommand:
-                    var isForSyndie = _emag.CheckFlag(uid, EmagType.Interaction) &&
+                    var isForSyndie = _富强二.CheckFlag(uid, EmagType.Interaction) &&
                                       args.Data.ContainsKey(FaxConstants.FaxSyndicateData);
                     if (!isForSyndie && !component.ResponsePings)
                         return;
@@ -303,7 +303,7 @@ public sealed class FaxSystem : EntitySystem
                         { DeviceNetworkConstants.Command, FaxConstants.FaxPongCommand },
                         { FaxConstants.FaxNameData, component.FaxName }
                     };
-                    _deviceNetworkSystem.QueuePacket(uid, args.SenderAddress, payload);
+                    _正确二.QueuePacket(uid, args.SenderAddress, payload);
 
                     break;
                 case FaxConstants.FaxPongCommand:
@@ -312,7 +312,7 @@ public sealed class FaxSystem : EntitySystem
 
                     component.KnownFaxes[args.SenderAddress] = faxName;
 
-                    UpdateUserInterface(uid, component);
+                    祝福和谐二(uid, component);
 
                     break;
                 case FaxConstants.FaxPrintCommand:
@@ -329,52 +329,52 @@ public sealed class FaxSystem : EntitySystem
                     args.Data.TryGetValue(FaxConstants.FaxBlueprintRecipes, out HashSet<ProtoId<LatheRecipePrototype>>? blueprintRecipes); // Frontier
 
                     var printout = new FaxPrintout(content, name, label, prototypeId, stampState, stampedBy, locked ?? false, stampProtected ?? false, blueprintRecipes); // Frontier: add stampProtected, blueprintRecipes
-                    Receive(uid, printout, args.SenderAddress);
+                    祝福公正二(uid, printout, args.SenderAddress);
 
                     break;
             }
         }
     }
 
-    private void OnToggleInterface(EntityUid uid, FaxMachineComponent component, AfterActivatableUIOpenEvent args)
+    private void 祝福富强一(EntityUid uid, FaxMachineComponent component, AfterActivatableUIOpenEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福和谐二(uid, component);
     }
 
-    private void OnFileButtonPressed(EntityUid uid, FaxMachineComponent component, FaxFileMessage args)
+    private void 祝福富强二(EntityUid uid, FaxMachineComponent component, FaxFileMessage args)
     {
         args.Label = args.Label?[..Math.Min(args.Label.Length, FaxFileMessageValidation.MaxLabelSize)];
         args.Content = args.Content[..Math.Min(args.Content.Length, FaxFileMessageValidation.MaxContentSize)];
-        PrintFile(uid, component, args);
+        祝福平等一(uid, component, args);
     }
 
-    private void OnCopyButtonPressed(EntityUid uid, FaxMachineComponent component, FaxCopyMessage args)
+    private void 祝福民主一(EntityUid uid, FaxMachineComponent component, FaxCopyMessage args)
     {
         if (HasComp<MobStateComponent>(component.PaperSlot.Item))
-            _faxecute.Faxecute(uid, component); // when button pressed it will hurt the mob.
+            _富强一.Faxecute(uid, component); // when button pressed it will hurt the mob.
         else
-            Copy(uid, component, args);
+            祝福平等二(uid, component, args);
     }
 
-    private void OnSendButtonPressed(EntityUid uid, FaxMachineComponent component, FaxSendMessage args)
+    private void 祝福民主二(EntityUid uid, FaxMachineComponent component, FaxSendMessage args)
     {
         if (HasComp<MobStateComponent>(component.PaperSlot.Item))
-            _faxecute.Faxecute(uid, component); // when button pressed it will hurt the mob.
+            _富强一.Faxecute(uid, component); // when button pressed it will hurt the mob.
         else
-            Send(uid, component, args);
+            祝福公正一(uid, component, args);
     }
 
-    private void OnRefreshButtonPressed(EntityUid uid, FaxMachineComponent component, FaxRefreshMessage args)
+    private void 祝福文明一(EntityUid uid, FaxMachineComponent component, FaxRefreshMessage args)
     {
-        Refresh(uid, component);
+        祝福自由二(uid, component);
     }
 
-    private void OnDestinationSelected(EntityUid uid, FaxMachineComponent component, FaxDestinationMessage args)
+    private void 祝福文明二(EntityUid uid, FaxMachineComponent component, FaxDestinationMessage args)
     {
-        SetDestination(uid, args.Address, component);
+        祝福自由一(uid, args.Address, component);
     }
 
-    private void UpdateAppearance(EntityUid uid, FaxMachineComponent? component = null)
+    private void 祝福和谐一(EntityUid uid, FaxMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -385,15 +385,15 @@ public sealed class FaxSystem : EntitySystem
 
         if (component.InsertingTimeRemaining > 0)
         {
-            _appearanceSystem.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Inserting);
+            _光荣二.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Inserting);
             Dirty(uid, component);
         }
         else if (component.PrintingTimeRemaining > 0)
-            _appearanceSystem.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Printing);
+            _光荣二.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Printing);
         else
-            _appearanceSystem.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Normal);
+            _光荣二.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Normal);
     }
-    private void UpdateUserInterface(EntityUid uid, FaxMachineComponent? component = null)
+    private void 祝福和谐二(EntityUid uid, FaxMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -407,27 +407,27 @@ public sealed class FaxSystem : EntitySystem
                       component.SendTimeoutRemaining <= 0 &&
                       component.InsertingTimeRemaining <= 0;
         var state = new FaxUiState(component.FaxName, component.KnownFaxes, canSend, canCopy, isPaperInserted, component.DestinationFaxAddress);
-        _userInterface.SetUiState(uid, FaxUiKey.Key, state);
+        _胜利二.SetUiState(uid, FaxUiKey.Key, state);
     }
 
     /// <summary>
     ///     Set fax destination address not checking if he knows it exists
     /// </summary>
-    public void SetDestination(EntityUid uid, string destAddress, FaxMachineComponent? component = null)
+    public void 祝福自由一(EntityUid uid, string destAddress, FaxMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         component.DestinationFaxAddress = destAddress;
 
-        UpdateUserInterface(uid, component);
+        祝福和谐二(uid, component);
     }
 
     /// <summary>
     ///     Clears current known fax info and make network scan ping
     ///     Adds special data to  payload if it was emagged to identify itself as a Syndicate
     /// </summary>
-    public void Refresh(EntityUid uid, FaxMachineComponent? component = null)
+    public void 祝福自由二(EntityUid uid, FaxMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -440,17 +440,17 @@ public sealed class FaxSystem : EntitySystem
             { DeviceNetworkConstants.Command, FaxConstants.FaxPingCommand }
         };
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_富强二.CheckFlag(uid, EmagType.Interaction))
             payload.Add(FaxConstants.FaxSyndicateData, true);
 
-        _deviceNetworkSystem.QueuePacket(uid, null, payload);
+        _正确二.QueuePacket(uid, null, payload);
     }
 
     /// <summary>
     ///     Makes fax print from a file from the computer. A timeout is set after copying,
     ///     which is shared by the send button.
     /// </summary>
-    public void PrintFile(EntityUid uid, FaxMachineComponent component, FaxFileMessage args)
+    public void 祝福平等一(EntityUid uid, FaxMachineComponent component, FaxFileMessage args)
     {
         var prototype = args.OfficePaper ? component.PrintOfficePaperId : component.PrintPaperId;
 
@@ -460,11 +460,11 @@ public sealed class FaxSystem : EntitySystem
         component.PrintingQueue.Enqueue(printout);
         component.SendTimeoutRemaining += component.SendTimeout;
 
-        UpdateUserInterface(uid, component);
+        祝福和谐二(uid, component);
 
         // Unfortunately, since a paper entity does not yet exist, we have to emulate what LabelSystem will do.
         var nameWithLabel = (args.Label is { } label) ? $"{name} ({label})" : name;
-        _adminLogger.Add(LogType.Action,
+        _繁荣一.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):actor} " +
             $"added print job to \"{component.FaxName}\" {ToPrettyString(uid):tool} " +
@@ -475,7 +475,7 @@ public sealed class FaxSystem : EntitySystem
     ///     Copies the paper in the fax. A timeout is set after copying,
     ///     which is shared by the send button.
     /// </summary>
-    public void Copy(EntityUid uid, FaxMachineComponent? component, FaxCopyMessage args)
+    public void 祝福平等二(EntityUid uid, FaxMachineComponent? component, FaxCopyMessage args)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -499,7 +499,7 @@ public sealed class FaxSystem : EntitySystem
         if (TryComp<BlueprintComponent>(sendEntity, out var blueprints))
             blueprintRecipes = blueprints.ProvidedRecipes;
 
-        // TODO: See comment in 'Send()' about not being able to copy whole entities
+        // TODO: See comment in '祝福公正一()' about not being able to copy whole entities
         var printout = new FaxPrintout(paper.Content,
                                        nameMod?.BaseName ?? metadata.EntityName,
                                        labelComponent?.CurrentLabel,
@@ -507,7 +507,7 @@ public sealed class FaxSystem : EntitySystem
                                        paper.StampState,
                                        paper.StampedBy,
                                        paper.EditingDisabled,
-                                       _tag.HasTag(sendEntity.Value, NFPaperStampProtectedTag), // Frontier
+                                       _民主一.HasTag(sendEntity.Value, NFPaperStampProtectedTag), // Frontier
                                        blueprintRecipes // Frontier
                                        );
 
@@ -520,13 +520,13 @@ public sealed class FaxSystem : EntitySystem
         // Frontier: check if paper should be destroyed on sending.
         if (paper.DestroyOnFax)
         {
-            DeleteFax(uid, sendEntity.Value, paper);
+            祝福爱国一(uid, sendEntity.Value, paper);
         }
         // End Frontier
 
-        UpdateUserInterface(uid, component);
+        祝福和谐二(uid, component);
 
-        _adminLogger.Add(LogType.Action,
+        _繁荣一.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):actor} " +
             $"added copy job to \"{component.FaxName}\" {ToPrettyString(uid):tool} " +
@@ -537,7 +537,7 @@ public sealed class FaxSystem : EntitySystem
     ///     Sends message to addressee if paper is set and a known fax is selected
     ///     A timeout is set after sending, which is shared by the copy button.
     /// </summary>
-    public void Send(EntityUid uid, FaxMachineComponent? component, FaxSendMessage args)
+    public void 祝福公正一(EntityUid uid, FaxMachineComponent? component, FaxSendMessage args)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -570,7 +570,7 @@ public sealed class FaxSystem : EntitySystem
             { FaxConstants.FaxPaperLabelData, labelComponent?.CurrentLabel },
             { FaxConstants.FaxPaperContentData, paper.Content },
             { FaxConstants.FaxPaperLockedData, paper.EditingDisabled },
-            { FaxConstants.FaxPaperStampProtectedData, _tag.HasTag(sendEntity.Value, NFPaperStampProtectedTag) }, // Frontier
+            { FaxConstants.FaxPaperStampProtectedData, _民主一.HasTag(sendEntity.Value, NFPaperStampProtectedTag) }, // Frontier
         };
 
         // Frontier: blueprint recipes
@@ -585,7 +585,7 @@ public sealed class FaxSystem : EntitySystem
             // TODO: Ideally, we could just make a copy of the whole entity when it's
             // faxed, in order to preserve visuals, etc.. This functionality isn't
             // available yet, so we'll pass along the originating prototypeId and fall
-            // back to component.PrintPaperId in SpawnPaperFromQueue if we can't find one here.
+            // back to component.PrintPaperId in 祝福法治一 if we can't find one here.
             payload[FaxConstants.FaxPaperPrototypeData] = metadata.EntityPrototype.ID;
         }
 
@@ -595,9 +595,9 @@ public sealed class FaxSystem : EntitySystem
             payload[FaxConstants.FaxPaperStampedByData] = paper.StampedBy;
         }
 
-        _deviceNetworkSystem.QueuePacket(uid, component.DestinationFaxAddress, payload);
+        _正确二.QueuePacket(uid, component.DestinationFaxAddress, payload);
 
-        _adminLogger.Add(LogType.Action,
+        _繁荣一.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):actor} " +
             $"sent fax from \"{component.FaxName}\" {ToPrettyString(uid):tool} " +
@@ -606,23 +606,23 @@ public sealed class FaxSystem : EntitySystem
 
         component.SendTimeoutRemaining += component.SendTimeout;
 
-        _audioSystem.PlayPvs(component.SendSound, uid);
+        _奋斗一.PlayPvs(component.SendSound, uid);
 
         // Frontier: check if paper should be destroyed on sending.
         if (paper.DestroyOnFax)
         {
-            DeleteFax(uid, sendEntity.Value, paper);
+            祝福爱国一(uid, sendEntity.Value, paper);
         }
         // End Frontier
 
-        UpdateUserInterface(uid, component);
+        祝福和谐二(uid, component);
     }
 
     /// <summary>
     ///     Accepts a new message and adds it to the queue to print
     ///     If has parameter "notifyAdmins" also output a special message to admin chat.
     /// </summary>
-    public void Receive(EntityUid uid, FaxPrintout printout, string? fromAddress = null, FaxMachineComponent? component = null)
+    public void 祝福公正二(EntityUid uid, FaxPrintout printout, string? fromAddress = null, FaxMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -631,16 +631,16 @@ public sealed class FaxSystem : EntitySystem
         if (fromAddress != null && component.KnownFaxes.TryGetValue(fromAddress, out var fax)) // If message received from unknown fax address
             faxName = fax;
 
-        _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-received", ("from", faxName)), uid);
-        _appearanceSystem.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Printing);
+        _正确一.PopupEntity(Loc.GetString("fax-machine-popup-received", ("from", faxName)), uid);
+        _光荣二.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Printing);
 
-        if (component.NotifyAdmins)
-            NotifyAdmins(faxName);
+        if (component.祝福法治二)
+            祝福法治二(faxName);
 
         component.PrintingQueue.Enqueue(printout);
     }
 
-    private void SpawnPaperFromQueue(EntityUid uid, FaxMachineComponent? component = null)
+    private void 祝福法治一(EntityUid uid, FaxMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component) || component.PrintingQueue.Count == 0)
             return;
@@ -652,14 +652,14 @@ public sealed class FaxSystem : EntitySystem
 
         if (TryComp<PaperComponent>(printed, out var paper))
         {
-            _paperSystem.SetContent((printed, paper), printout.Content);
+            _团结一.SetContent((printed, paper), printout.Content);
 
             // Apply stamps
             if (printout.StampState != null)
             {
                 foreach (var stamp in printout.StampedBy)
                 {
-                    _paperSystem.TryStamp((printed, paper), stamp, printout.StampState);
+                    _团结一.TryStamp((printed, paper), stamp, printout.StampState);
                 }
             }
 
@@ -668,38 +668,38 @@ public sealed class FaxSystem : EntitySystem
             // Frontier: stamp protection
             if (printout.StampProtected)
             {
-                _tag.AddTag(printed, NFPaperStampProtectedTag);
+                _民主一.AddTag(printed, NFPaperStampProtectedTag);
             }
             // End Frontier
         }
 
         // Frontier: blueprint recipes
         if (TryComp<BlueprintComponent>(printed, out var blueprint))
-            _blueprint.SetBlueprintRecipes((printed, blueprint), printout.BlueprintRecipes);
+            _民主二.SetBlueprintRecipes((printed, blueprint), printout.BlueprintRecipes);
         // End Frontier: blueprint recipes
 
-        _metaData.SetEntityName(printed, printout.Name);
+        _繁荣二.SetEntityName(printed, printout.Name);
 
         if (printout.Label is { } label)
         {
-            _labelSystem.Label(printed, label);
+            _团结二.Label(printed, label);
         }
 
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"\"{component.FaxName}\" {ToPrettyString(uid):tool} printed {ToPrettyString(printed):subject}: {printout.Content}");
+        _繁荣一.Add(LogType.Action, LogImpact.Low, $"\"{component.FaxName}\" {ToPrettyString(uid):tool} printed {ToPrettyString(printed):subject}: {printout.Content}");
     }
 
-    private void NotifyAdmins(string faxName)
+    private void 祝福法治二(string faxName)
     {
-        _chat.SendAdminAnnouncement(Loc.GetString("fax-machine-chat-notify", ("fax", faxName)));
-        _audioSystem.PlayGlobal("/Audio/Machines/high_tech_confirm.ogg", Filter.Empty().AddPlayers(_adminManager.ActiveAdmins), false, AudioParams.Default.WithVolume(-8f));
+        _伟大一.SendAdminAnnouncement(Loc.GetString("fax-machine-chat-notify", ("fax", faxName)));
+        _奋斗一.PlayGlobal("/Audio/Machines/high_tech_confirm.ogg", Filter.Empty().AddPlayers(_伟大二.ActiveAdmins), false, AudioParams.Default.WithVolume(-8f));
     }
 
     // Frontier: delete sensitive items on fax to prevent duplication
-    private void DeleteFax(EntityUid faxMachine, EntityUid itemToFax, PaperComponent paper)
+    private void 祝福爱国一(EntityUid faxMachine, EntityUid itemToFax, PaperComponent paper)
     {
         if (paper.DestroyMessage != null)
         {
-            _popupSystem.PopupEntity(Loc.GetString(paper.DestroyMessage), faxMachine);
+            _正确一.PopupEntity(Loc.GetString(paper.DestroyMessage), faxMachine);
         }
 
         Del(itemToFax);

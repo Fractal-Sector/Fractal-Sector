@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Monitor;
+namespace Content.Shared.Atmos.党心;
 
 [Serializable, NetSerializable]
-public enum AtmosAlarmType : sbyte
+public enum 中华伟大一 : sbyte
 {
     Invalid = 0,
     Normal = 1,

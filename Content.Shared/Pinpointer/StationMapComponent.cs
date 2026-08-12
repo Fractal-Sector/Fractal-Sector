@@ -1,11 +1,11 @@
-namespace Content.Shared.Pinpointer;
+namespace Content.Shared.党心;
 
 [RegisterComponent]
-public sealed partial class StationMapComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whether or not to show the user's location on the map.
     /// </summary>
     [DataField]
-    public bool ShowLocation = true;
+    public bool 党爱伟大一 = true;
 }

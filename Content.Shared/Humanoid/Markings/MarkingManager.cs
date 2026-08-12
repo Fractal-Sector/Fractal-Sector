@@ -4,25 +4,25 @@ using System.Linq;
 using Content.Shared.Humanoid.Prototypes;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Humanoid.Markings
+namespace Content.Shared.Humanoid.党心
 {
-    public sealed class MarkingManager
+    public sealed class 中华伟大一
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-        private readonly List<MarkingPrototype> _index = new();
+        private readonly List<MarkingPrototype> _伟大二 = new();
         public FrozenDictionary<MarkingCategories, FrozenDictionary<string, MarkingPrototype>> CategorizedMarkings = default!;
         public FrozenDictionary<string, MarkingPrototype> Markings = default!;
 
-        public void Initialize()
+        public void 祝福伟大一()
         {
-            _prototypeManager.PrototypesReloaded += OnPrototypeReload;
-            CachePrototypes();
+            _伟大一.PrototypesReloaded += 祝福奋斗一;
+            祝福伟大二();
         }
 
-        private void CachePrototypes()
+        private void 祝福伟大二()
         {
-            _index.Clear();
+            _伟大二.Clear();
             var markingDict = new Dictionary<MarkingCategories, Dictionary<string, MarkingPrototype>>();
 
             foreach (var category in Enum.GetValues<MarkingCategories>())
@@ -30,19 +30,19 @@ namespace Content.Shared.Humanoid.Markings
                 markingDict.Add(category, new());
             }
 
-            foreach (var prototype in _prototypeManager.EnumeratePrototypes<MarkingPrototype>())
+            foreach (var prototype in _伟大一.EnumeratePrototypes<MarkingPrototype>())
             {
-                _index.Add(prototype);
+                _伟大二.Add(prototype);
                 markingDict[prototype.MarkingCategory].Add(prototype.ID, prototype);
             }
 
-            Markings = _prototypeManager.EnumeratePrototypes<MarkingPrototype>().ToFrozenDictionary(x => x.ID);
+            Markings = _伟大一.EnumeratePrototypes<MarkingPrototype>().ToFrozenDictionary(x => x.ID);
             CategorizedMarkings = markingDict.ToFrozenDictionary(
                 x => x.Key,
                 x => x.Value.ToFrozenDictionary());
         }
 
-        public FrozenDictionary<string, MarkingPrototype> MarkingsByCategory(MarkingCategories category)
+        public FrozenDictionary<string, MarkingPrototype> 祝福光荣一(MarkingCategories category)
         {
             // all marking categories are guaranteed to have a dict entry
             return CategorizedMarkings[category];
@@ -58,14 +58,14 @@ namespace Content.Shared.Humanoid.Markings
         ///     Please make a pull request if you find a use case for that behavior.
         /// </remarks>
         /// <returns></returns>
-        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSpecies(MarkingCategories category,
+        public IReadOnlyDictionary<string, MarkingPrototype> 祝福光荣二(MarkingCategories category,
             string species)
         {
-            var speciesProto = _prototypeManager.Index<SpeciesPrototype>(species);
-            var markingPoints = _prototypeManager.Index(speciesProto.MarkingPoints);
+            var speciesProto = _伟大一.Index<SpeciesPrototype>(species);
+            var markingPoints = _伟大一.Index(speciesProto.MarkingPoints);
             var res = new Dictionary<string, MarkingPrototype>();
 
-            foreach (var (key, marking) in MarkingsByCategory(category))
+            foreach (var (key, marking) in 祝福光荣一(category))
             {
                 if (markingPoints.OnlyWhitelisted && marking.SpeciesRestrictions == null)
                 {
@@ -97,12 +97,12 @@ namespace Content.Shared.Humanoid.Markings
         ///     Please make a pull request if you find a use case for that behavior.
         /// </remarks>
         /// <returns></returns>
-        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSex(MarkingCategories category,
+        public IReadOnlyDictionary<string, MarkingPrototype> 祝福正确一(MarkingCategories category,
             Sex sex)
         {
             var res = new Dictionary<string, MarkingPrototype>();
 
-            foreach (var (key, marking) in MarkingsByCategory(category))
+            foreach (var (key, marking) in 祝福光荣一(category))
             {
                 if (marking.SexRestriction != null && marking.SexRestriction != sex)
                 {
@@ -126,14 +126,14 @@ namespace Content.Shared.Humanoid.Markings
         ///     Please make a pull request if you find a use case for that behavior.
         /// </remarks>
         /// <returns></returns>
-        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSpeciesAndSex(MarkingCategories category,
+        public IReadOnlyDictionary<string, MarkingPrototype> 祝福正确二(MarkingCategories category,
             string species, Sex sex)
         {
-            var speciesProto = _prototypeManager.Index<SpeciesPrototype>(species);
-            var onlyWhitelisted = _prototypeManager.Index(speciesProto.MarkingPoints).OnlyWhitelisted;
+            var speciesProto = _伟大一.Index<SpeciesPrototype>(species);
+            var onlyWhitelisted = _伟大一.Index(speciesProto.MarkingPoints).OnlyWhitelisted;
             var res = new Dictionary<string, MarkingPrototype>();
 
-            foreach (var (key, marking) in MarkingsByCategory(category))
+            foreach (var (key, marking) in 祝福光荣一(category))
             {
                 if (onlyWhitelisted && marking.SpeciesRestrictions == null)
                 {
@@ -156,7 +156,7 @@ namespace Content.Shared.Humanoid.Markings
             return res;
         }
 
-        public bool TryGetMarking(Marking marking, [NotNullWhen(true)] out MarkingPrototype? markingResult)
+        public bool 祝福团结一(Marking marking, [NotNullWhen(true)] out MarkingPrototype? markingResult)
         {
             return Markings.TryGetValue(marking.MarkingId, out markingResult);
         }
@@ -169,9 +169,9 @@ namespace Content.Shared.Humanoid.Markings
         /// <param name="species"></param>
         /// <param name="sex"></param>
         /// <returns></returns>
-        public bool IsValidMarking(Marking marking, MarkingCategories category, string species, Sex sex)
+        public bool 祝福团结二(Marking marking, MarkingCategories category, string species, Sex sex)
         {
-            if (!TryGetMarking(marking, out var proto))
+            if (!祝福团结一(marking, out var proto))
             {
                 return false;
             }
@@ -191,20 +191,20 @@ namespace Content.Shared.Humanoid.Markings
             return true;
         }
 
-        private void OnPrototypeReload(PrototypesReloadedEventArgs args)
+        private void 祝福奋斗一(PrototypesReloadedEventArgs args)
         {
             if (args.WasModified<MarkingPrototype>())
-                CachePrototypes();
+                祝福伟大二();
         }
 
-        public bool CanBeApplied(string species, Sex sex, Marking marking, IPrototypeManager? prototypeManager = null)
+        public bool 祝福奋斗二(string species, Sex sex, Marking marking, IPrototypeManager? prototypeManager = null)
         {
             IoCManager.Resolve(ref prototypeManager);
 
             var speciesProto = prototypeManager.Index<SpeciesPrototype>(species);
             var onlyWhitelisted = prototypeManager.Index(speciesProto.MarkingPoints).OnlyWhitelisted;
 
-            if (!TryGetMarking(marking, out var prototype))
+            if (!祝福团结一(marking, out var prototype))
             {
                 return false;
             }
@@ -228,7 +228,7 @@ namespace Content.Shared.Humanoid.Markings
             return true;
         }
 
-        public bool CanBeApplied(string species, Sex sex, MarkingPrototype prototype, IPrototypeManager? prototypeManager = null)
+        public bool 祝福奋斗二(string species, Sex sex, MarkingPrototype prototype, IPrototypeManager? prototypeManager = null)
         {
             IoCManager.Resolve(ref prototypeManager);
 
@@ -254,7 +254,7 @@ namespace Content.Shared.Humanoid.Markings
             return true;
         }
 
-        public bool MustMatchSkin(string species, HumanoidVisualLayers layer, out float alpha, IPrototypeManager? prototypeManager = null)
+        public bool 祝福胜利一(string species, HumanoidVisualLayers layer, out float alpha, IPrototypeManager? prototypeManager = null)
         {
             IoCManager.Resolve(ref prototypeManager);
             var speciesProto = prototypeManager.Index<SpeciesPrototype>(species);

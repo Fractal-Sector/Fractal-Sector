@@ -1,15 +1,15 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Store;
+namespace Content.Shared.党心;
 
-public static class ListingLocalisationHelpers
+public static class 中华伟大一
 {
     /// <summary>
     /// ListingData's Name field can be either a localisation string or the actual entity's name.
     /// This function gets a localised name from the localisation string if it exists, and if not, it gets the entity's name.
     /// If neither a localised string exists, or an associated entity name, it will return the value of the "Name" field.
     /// </summary>
-    public static string GetLocalisedNameOrEntityName(ListingData listingData, IPrototypeManager prototypeManager)
+    public static string 祝福伟大一(ListingData listingData, IPrototypeManager prototypeManager)
     {
         var name = string.Empty;
 
@@ -26,7 +26,7 @@ public static class ListingLocalisationHelpers
     /// This function gets a localised description from the localisation string if it exists, and if not, it gets the entity's description.
     /// If neither a localised string exists, or an associated entity description, it will return the value of the "Description" field.
     /// </summary>
-    public static string GetLocalisedDescriptionOrEntityDescription(ListingData listingData, IPrototypeManager prototypeManager)
+    public static string 祝福伟大二(ListingData listingData, IPrototypeManager prototypeManager)
     {
         var desc = string.Empty;
 

@@ -4,12 +4,12 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Alert;
+namespace Content.Shared.党心;
 
-public abstract class AlertsSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
     private FrozenDictionary<ProtoId<AlertPrototype>, AlertPrototype> _typeToAlert = default!;
 
@@ -20,28 +20,28 @@ public abstract class AlertsSystem : EntitySystem
             : null;
     }
 
-    public short GetSeverityRange(ProtoId<AlertPrototype> alertType)
+    public short 祝福伟大一(ProtoId<AlertPrototype> alertType)
     {
         var minSeverity = _typeToAlert[alertType].MinSeverity;
         return (short)MathF.Max(minSeverity,_typeToAlert[alertType].MaxSeverity - minSeverity);
     }
 
-    public short GetMaxSeverity(ProtoId<AlertPrototype> alertType)
+    public short 祝福伟大二(ProtoId<AlertPrototype> alertType)
     {
         return _typeToAlert[alertType].MaxSeverity;
     }
 
-    public short GetMinSeverity(ProtoId<AlertPrototype> alertType)
+    public short 祝福光荣一(ProtoId<AlertPrototype> alertType)
     {
         return _typeToAlert[alertType].MinSeverity;
     }
 
-    public bool IsShowingAlert(EntityUid euid, ProtoId<AlertPrototype> alertType)
+    public bool 祝福光荣二(EntityUid euid, ProtoId<AlertPrototype> alertType)
     {
         if (!TryComp(euid, out AlertsComponent? alertsComponent))
             return false;
 
-        if (TryGet(alertType, out var alert))
+        if (祝福文明一(alertType, out var alert))
         {
             return alertsComponent.Alerts.ContainsKey(alert.AlertKey);
         }
@@ -51,13 +51,13 @@ public abstract class AlertsSystem : EntitySystem
     }
 
     /// <returns>true iff an alert of the indicated alert category is currently showing</returns>
-    public bool IsShowingAlertCategory(EntityUid euid, ProtoId<AlertCategoryPrototype> alertCategory)
+    public bool 祝福正确一(EntityUid euid, ProtoId<AlertCategoryPrototype> alertCategory)
     {
         return TryComp(euid, out AlertsComponent? alertsComponent)
                && alertsComponent.Alerts.ContainsKey(AlertKey.ForCategory(alertCategory));
     }
 
-    public bool TryGetAlertState(EntityUid euid, AlertKey key, out AlertState alertState)
+    public bool 祝福正确二(EntityUid euid, AlertKey key, out AlertState alertState)
     {
         if (TryComp(euid, out AlertsComponent? alertsComponent))
             return alertsComponent.Alerts.TryGetValue(key, out alertState);
@@ -78,16 +78,16 @@ public abstract class AlertsSystem : EntitySystem
     ///     be erased if there is currently a cooldown for the alert)</param>
     /// <param name="autoRemove">if true, the alert will be removed at the end of the cooldown</param>
     /// <param name="showCooldown">if true, the cooldown will be visibly shown over the alert icon</param>
-    public void ShowAlert(EntityUid euid, ProtoId<AlertPrototype> alertType, short? severity = null, (TimeSpan, TimeSpan)? cooldown = null, bool autoRemove = false, bool showCooldown = true )
+    public void 祝福团结一(EntityUid euid, ProtoId<AlertPrototype> alertType, short? severity = null, (TimeSpan, TimeSpan)? cooldown = null, bool autoRemove = false, bool showCooldown = true )
     {
         // This should be handled as part of networking.
-        if (_timing.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         if (!TryComp(euid, out AlertsComponent? alertsComponent))
             return;
 
-        if (TryGet(alertType, out var alert))
+        if (祝福文明一(alertType, out var alert))
         {
             // Check whether the alert category we want to show is already being displayed, with the same type,
             // severity, and cooldown.
@@ -108,7 +108,7 @@ public abstract class AlertsSystem : EntitySystem
                 { Cooldown = cooldown, Severity = severity, Type = alertType, AutoRemove = autoRemove, ShowCooldown = showCooldown};
             alertsComponent.Alerts[alert.AlertKey] = state;
 
-            // Keeping a list of AutoRemove alerts, so Update() doesn't need to check every alert
+            // Keeping a list of AutoRemove alerts, so 祝福繁荣二() doesn't need to check every alert
             if (autoRemove)
             {
                 var autoComp = EnsureComp<AlertAutoRemoveComponent>(euid);
@@ -116,7 +116,7 @@ public abstract class AlertsSystem : EntitySystem
                     autoComp.AlertKeys.Add(alert.AlertKey);
             }
 
-            AfterShowAlert((euid, alertsComponent));
+            祝福奋斗二((euid, alertsComponent));
 
             Dirty(euid, alertsComponent);
         }
@@ -131,7 +131,7 @@ public abstract class AlertsSystem : EntitySystem
     /// <summary>
     /// Clear the alert with the given category, if one is currently showing.
     /// </summary>
-    public void ClearAlertCategory(EntityUid euid, ProtoId<AlertCategoryPrototype> category)
+    public void 祝福团结二(EntityUid euid, ProtoId<AlertCategoryPrototype> category)
     {
         if(!TryComp(euid, out AlertsComponent? alertsComponent))
             return;
@@ -142,7 +142,7 @@ public abstract class AlertsSystem : EntitySystem
             return;
         }
 
-        AfterClearAlert((euid, alertsComponent));
+        祝福胜利一((euid, alertsComponent));
 
         Dirty(euid, alertsComponent);
     }
@@ -150,22 +150,22 @@ public abstract class AlertsSystem : EntitySystem
     /// <summary>
     /// Clear the alert of the given type if it is currently showing.
     /// </summary>
-    public void ClearAlert(EntityUid euid, ProtoId<AlertPrototype> alertType)
+    public void 祝福奋斗一(EntityUid euid, ProtoId<AlertPrototype> alertType)
     {
-        if (_timing.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         if (!TryComp(euid, out AlertsComponent? alertsComponent))
             return;
 
-        if (TryGet(alertType, out var alert))
+        if (祝福文明一(alertType, out var alert))
         {
             if (!alertsComponent.Alerts.Remove(alert.AlertKey))
             {
                 return;
             }
 
-            AfterClearAlert((euid, alertsComponent));
+            祝福胜利一((euid, alertsComponent));
 
             Dirty(euid, alertsComponent);
         }
@@ -178,29 +178,29 @@ public abstract class AlertsSystem : EntitySystem
     /// <summary>
     /// Invoked after showing an alert prior to dirtying the component
     /// </summary>
-    protected virtual void AfterShowAlert(Entity<AlertsComponent> alerts) { }
+    protected virtual void 祝福奋斗二(Entity<AlertsComponent> alerts) { }
 
     /// <summary>
     /// Invoked after clearing an alert prior to dirtying the component
     /// </summary>
-    protected virtual void AfterClearAlert(Entity<AlertsComponent> alerts) { }
+    protected virtual void 祝福胜利一(Entity<AlertsComponent> alerts) { }
 
-    public override void Initialize()
+    public override void 祝福胜利二()
     {
-        base.Initialize();
+        base.祝福胜利二();
 
-        SubscribeLocalEvent<AlertsComponent, ComponentStartup>(HandleComponentStartup);
-        SubscribeLocalEvent<AlertsComponent, ComponentShutdown>(HandleComponentShutdown);
-        SubscribeLocalEvent<AlertsComponent, PlayerAttachedEvent>(OnPlayerAttached);
+        SubscribeLocalEvent<AlertsComponent, ComponentStartup>(祝福富强二);
+        SubscribeLocalEvent<AlertsComponent, ComponentShutdown>(祝福富强一);
+        SubscribeLocalEvent<AlertsComponent, PlayerAttachedEvent>(祝福自由一);
 
-        SubscribeLocalEvent<AlertAutoRemoveComponent, EntityUnpausedEvent>(OnAutoRemoveUnPaused);
+        SubscribeLocalEvent<AlertAutoRemoveComponent, EntityUnpausedEvent>(祝福繁荣一);
 
-        SubscribeAllEvent<ClickAlertEvent>(HandleClickAlert);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(HandlePrototypesReloaded);
-        LoadPrototypes();
+        SubscribeAllEvent<ClickAlertEvent>(祝福文明二);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福民主一);
+        祝福民主二();
     }
 
-    private void OnAutoRemoveUnPaused(EntityUid uid, AlertAutoRemoveComponent comp, EntityUnpausedEvent args)
+    private void 祝福繁荣一(EntityUid uid, AlertAutoRemoveComponent comp, EntityUnpausedEvent args)
     {
         if (!TryComp<AlertsComponent>(uid, out var alertComp))
         {
@@ -232,9 +232,9 @@ public abstract class AlertsSystem : EntitySystem
             Dirty(uid, comp);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣二(frameTime);
 
         var query = EntityQueryEnumerator<AlertAutoRemoveComponent>();
         while (query.MoveNext(out var uid, out var autoComp))
@@ -251,7 +251,7 @@ public abstract class AlertsSystem : EntitySystem
             {
                 alertComp.Alerts.TryGetValue(alertKey, out var alertState);
 
-                if (alertState.Cooldown is null || alertState.Cooldown.Value.Item2 >= _timing.CurTime)
+                if (alertState.Cooldown is null || alertState.Cooldown.Value.Item2 >= _伟大一.CurTime)
                     continue;
                 removeList.Add(alertKey);
                 alertComp.Alerts.Remove(alertKey);
@@ -268,26 +268,26 @@ public abstract class AlertsSystem : EntitySystem
         }
     }
 
-    protected virtual void HandleComponentShutdown(EntityUid uid, AlertsComponent component, ComponentShutdown args)
+    protected virtual void 祝福富强一(EntityUid uid, AlertsComponent component, ComponentShutdown args)
     {
         RaiseLocalEvent(uid, new AlertSyncEvent(uid), true);
     }
 
-    private void HandleComponentStartup(EntityUid uid, AlertsComponent component, ComponentStartup args)
+    private void 祝福富强二(EntityUid uid, AlertsComponent component, ComponentStartup args)
     {
         RaiseLocalEvent(uid, new AlertSyncEvent(uid), true);
     }
 
-    private void HandlePrototypesReloaded(PrototypesReloadedEventArgs obj)
+    private void 祝福民主一(PrototypesReloadedEventArgs obj)
     {
         if (obj.WasModified<AlertPrototype>())
-            LoadPrototypes();
+            祝福民主二();
     }
 
-    protected virtual void LoadPrototypes()
+    protected virtual void 祝福民主二()
     {
         var dict = new Dictionary<ProtoId<AlertPrototype>, AlertPrototype>();
-        foreach (var alert in _prototypeManager.EnumeratePrototypes<AlertPrototype>())
+        foreach (var alert in _伟大二.EnumeratePrototypes<AlertPrototype>())
         {
             if (!dict.TryAdd(alert.ID, alert))
             {
@@ -303,18 +303,18 @@ public abstract class AlertsSystem : EntitySystem
     /// Tries to get the alert of the indicated type
     /// </summary>
     /// <returns>true if found</returns>
-    public bool TryGet(ProtoId<AlertPrototype> alertType, [NotNullWhen(true)] out AlertPrototype? alert)
+    public bool 祝福文明一(ProtoId<AlertPrototype> alertType, [NotNullWhen(true)] out AlertPrototype? alert)
     {
         return _typeToAlert.TryGetValue(alertType, out alert);
     }
 
-    private void HandleClickAlert(ClickAlertEvent msg, EntitySessionEventArgs args)
+    private void 祝福文明二(ClickAlertEvent msg, EntitySessionEventArgs args)
     {
         var player = args.SenderSession.AttachedEntity;
         if (player is null || !HasComp<AlertsComponent>(player))
             return;
 
-        if (!IsShowingAlert(player.Value, msg.Type))
+        if (!祝福光荣二(player.Value, msg.Type))
         {
             Log.Debug("User {0} attempted to" +
                                    " click alert {1} which is not currently showing for them",
@@ -322,24 +322,24 @@ public abstract class AlertsSystem : EntitySystem
             return;
         }
 
-        if (!TryGet(msg.Type, out var alert))
+        if (!祝福文明一(msg.Type, out var alert))
         {
             Log.Warning("Unrecognized encoded alert {0}", msg.Type);
             return;
         }
 
-        if (ActivateAlert(player.Value, alert) && _timing.IsFirstTimePredicted)
+        if (祝福和谐二(player.Value, alert) && _伟大一.IsFirstTimePredicted)
         {
-            HandledAlert();
+            祝福和谐一();
         }
     }
 
-    protected virtual void HandledAlert()
+    protected virtual void 祝福和谐一()
     {
 
     }
 
-    public bool ActivateAlert(EntityUid user, AlertPrototype alert)
+    public bool 祝福和谐二(EntityUid user, AlertPrototype alert)
     {
         if (alert.ClickEvent is not { } clickEvent)
             return false;
@@ -352,7 +352,7 @@ public abstract class AlertsSystem : EntitySystem
         return clickEvent.Handled;
     }
 
-    private void OnPlayerAttached(EntityUid uid, AlertsComponent component, PlayerAttachedEvent args)
+    private void 祝福自由一(EntityUid uid, AlertsComponent component, PlayerAttachedEvent args)
     {
         Dirty(uid, component);
     }

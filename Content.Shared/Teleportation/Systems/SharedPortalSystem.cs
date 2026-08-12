@@ -16,20 +16,20 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Teleportation.Systems;
+namespace Content.Shared.Teleportation.党心;
 
 /// <summary>
 /// This handles teleporting entities through portals, and creating new linked portals.
 /// </summary>
-public abstract class SharedPortalSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly EntityLookupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
+    [Dependency] private readonly PullingSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
 
     private const string PortalFixture = "portalFixture";
     private const string ProjectileFixture = "projectile";
@@ -37,14 +37,14 @@ public abstract class SharedPortalSystem : EntitySystem
     private const int MaxRandomTeleportAttempts = 20;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PortalComponent, StartCollideEvent>(OnCollide);
-        SubscribeLocalEvent<PortalComponent, EndCollideEvent>(OnEndCollide);
-        SubscribeLocalEvent<PortalComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
+        SubscribeLocalEvent<PortalComponent, StartCollideEvent>(祝福光荣二);
+        SubscribeLocalEvent<PortalComponent, EndCollideEvent>(祝福正确一);
+        SubscribeLocalEvent<PortalComponent, GetVerbsEvent<AlternativeVerb>>(祝福伟大二);
     }
 
-    private void OnGetVerbs(EntityUid uid, PortalComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福伟大二(EntityUid uid, PortalComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         // Traversal altverb for ghosts to use that bypasses normal functionality
         if (!args.CanAccess || !HasComp<GhostComponent>(args.User))
@@ -63,7 +63,7 @@ public abstract class SharedPortalSystem : EntitySystem
                     return;
 
                 var ent = link.LinkedEntities.First();
-                TeleportEntity(uid, args.User, Transform(ent).Coordinates, ent, false);
+                祝福正确二(uid, args.User, Transform(ent).Coordinates, ent, false);
             },
             Disabled = disabled,
             Text = Loc.GetString("portal-component-ghost-traverse"),
@@ -74,16 +74,16 @@ public abstract class SharedPortalSystem : EntitySystem
         });
     }
 
-    private bool ShouldCollide(string ourId, string otherId, Fixture our, Fixture other)
+    private bool 祝福光荣一(string ourId, string otherId, Fixture our, Fixture other)
     {
         // most non-hard fixtures shouldn't pass through portals, but projectiles are non-hard as well
         // and they should still pass through
         return ourId == PortalFixture && (other.Hard || otherId == ProjectileFixture);
     }
 
-    private void OnCollide(EntityUid uid, PortalComponent component, ref StartCollideEvent args)
+    private void 祝福光荣二(EntityUid uid, PortalComponent component, ref StartCollideEvent args)
     {
-        if (!ShouldCollide(args.OurFixtureId, args.OtherFixtureId, args.OurFixture, args.OtherFixture))
+        if (!祝福光荣一(args.OurFixtureId, args.OtherFixtureId, args.OurFixture, args.OtherFixture))
             return;
 
         var subject = args.OtherEntity;
@@ -95,13 +95,13 @@ public abstract class SharedPortalSystem : EntitySystem
         // break pulls before portal enter so we dont break shit
         if (TryComp<PullableComponent>(subject, out var pullable) && pullable.BeingPulled)
         {
-            _pulling.TryStopPull(subject, pullable);
+            _正确二.TryStopPull(subject, pullable);
         }
 
         if (TryComp<PullerComponent>(subject, out var pullerComp)
             && TryComp<PullableComponent>(pullerComp.Pulling, out var subjectPulling))
         {
-            _pulling.TryStopPull(pullerComp.Pulling.Value, subjectPulling);
+            _正确二.TryStopPull(pullerComp.Pulling.Value, subjectPulling);
         }
 
         // if they came from another portal, just return and wait for them to exit the portal
@@ -117,7 +117,7 @@ public abstract class SharedPortalSystem : EntitySystem
 
             // client can't predict outside of simple portal-to-portal interactions due to randomness involved
             // --also can't predict if the target doesn't exist on the client / is outside of PVS
-            if (_netMan.IsClient)
+            if (_伟大二.IsClient)
             {
                 var first = link.LinkedEntities.First();
                 var exists = Exists(first);
@@ -126,7 +126,7 @@ public abstract class SharedPortalSystem : EntitySystem
             }
 
             // pick a target and teleport there
-            var target = _random.Pick(link.LinkedEntities);
+            var target = _伟大一.Pick(link.LinkedEntities);
 
             if (HasComp<PortalComponent>(target))
             {
@@ -136,21 +136,21 @@ public abstract class SharedPortalSystem : EntitySystem
                 Dirty(subject, timeout);
             }
 
-            TeleportEntity(uid, subject, Transform(target).Coordinates, target);
+            祝福正确二(uid, subject, Transform(target).Coordinates, target);
             return;
         }
 
-        if (_netMan.IsClient)
+        if (_伟大二.IsClient)
             return;
 
         // no linked entity--teleport randomly
         if (component.RandomTeleport)
-            TeleportRandomly(uid, subject, component);
+            祝福团结一(uid, subject, component);
     }
 
-    private void OnEndCollide(EntityUid uid, PortalComponent component, ref EndCollideEvent args)
+    private void 祝福正确一(EntityUid uid, PortalComponent component, ref EndCollideEvent args)
     {
-        if (!ShouldCollide(args.OurFixtureId, args.OtherFixtureId, args.OurFixture, args.OtherFixture))
+        if (!祝福光荣一(args.OurFixtureId, args.OtherFixtureId, args.OurFixture, args.OtherFixture))
             return;
 
         var subject = args.OtherEntity;
@@ -162,28 +162,28 @@ public abstract class SharedPortalSystem : EntitySystem
         }
     }
 
-    private void TeleportEntity(EntityUid portal, EntityUid subject, EntityCoordinates target, EntityUid? targetEntity = null, bool playSound = true,
+    private void 祝福正确二(EntityUid portal, EntityUid subject, EntityCoordinates target, EntityUid? targetEntity = null, bool playSound = true,
         PortalComponent? portalComponent = null)
     {
         if (!Resolve(portal, ref portalComponent))
             return;
 
         var ourCoords = Transform(portal).Coordinates;
-        var onSameMap = _transform.GetMapId(ourCoords) == _transform.GetMapId(target);
+        var onSameMap = _正确一.GetMapId(ourCoords) == _正确一.GetMapId(target);
         var distanceInvalid = portalComponent.MaxTeleportRadius != null
                               && ourCoords.TryDistance(EntityManager, target, out var distance)
                               && distance > portalComponent.MaxTeleportRadius;
 
         if (!onSameMap && !portalComponent.CanTeleportToOtherMaps || distanceInvalid)
         {
-            if (!_netMan.IsServer)
+            if (!_伟大二.IsServer)
                 return;
 
             // Early out if this is an invalid configuration
-            _popup.PopupCoordinates(Loc.GetString("portal-component-invalid-configuration-fizzle"),
+            _团结一.PopupCoordinates(Loc.GetString("portal-component-invalid-configuration-fizzle"),
                 ourCoords, Filter.Pvs(ourCoords, entityMan: EntityManager), true);
 
-            _popup.PopupCoordinates(Loc.GetString("portal-component-invalid-configuration-fizzle"),
+            _团结一.PopupCoordinates(Loc.GetString("portal-component-invalid-configuration-fizzle"),
                 target, Filter.Pvs(target, entityMan: EntityManager), true);
 
             QueueDel(portal);
@@ -205,39 +205,39 @@ public abstract class SharedPortalSystem : EntitySystem
             projectile.IgnoreShooter = false;
         }
 
-        LogTeleport(portal, subject, Transform(subject).Coordinates, target);
+        祝福团结二(portal, subject, Transform(subject).Coordinates, target);
 
-        _transform.SetCoordinates(subject, target);
+        _正确一.SetCoordinates(subject, target);
 
         if (!playSound)
             return;
 
-        _audio.PlayPredicted(departureSound, portal, subject);
-        _audio.PlayPredicted(arrivalSound, subject, subject);
+        _光荣二.PlayPredicted(departureSound, portal, subject);
+        _光荣二.PlayPredicted(arrivalSound, subject, subject);
     }
 
-    private void TeleportRandomly(EntityUid portal, EntityUid subject, PortalComponent? component = null)
+    private void 祝福团结一(EntityUid portal, EntityUid subject, PortalComponent? component = null)
     {
         if (!Resolve(portal, ref component))
             return;
 
         var xform = Transform(portal);
         var coords = xform.Coordinates;
-        var newCoords = coords.Offset(_random.NextVector2(component.MaxRandomRadius));
+        var newCoords = coords.Offset(_伟大一.NextVector2(component.MaxRandomRadius));
         for (var i = 0; i < MaxRandomTeleportAttempts; i++)
         {
-            var randVector = _random.NextVector2(component.MaxRandomRadius);
+            var randVector = _伟大一.NextVector2(component.MaxRandomRadius);
             newCoords = coords.Offset(randVector);
-            if (!_lookup.AnyEntitiesIntersecting(_transform.ToMapCoordinates(newCoords), LookupFlags.Static))
+            if (!_光荣一.AnyEntitiesIntersecting(_正确一.ToMapCoordinates(newCoords), LookupFlags.Static))
             {
                 break;
             }
         }
 
-        TeleportEntity(portal, subject, newCoords);
+        祝福正确二(portal, subject, newCoords);
     }
 
-    protected virtual void LogTeleport(EntityUid portal, EntityUid subject, EntityCoordinates source,
+    protected virtual void 祝福团结二(EntityUid portal, EntityUid subject, EntityCoordinates source,
         EntityCoordinates target)
     {
     }

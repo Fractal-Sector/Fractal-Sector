@@ -3,31 +3,31 @@ using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.EffectConditions;
+namespace Content.Shared.EntityEffects.党心;
 
-public sealed partial class TotalDamage : EntityEffectCondition
+public sealed partial class 中华伟大一 : EntityEffectCondition
 {
     [DataField]
-    public FixedPoint2 Max = FixedPoint2.MaxValue;
+    public FixedPoint2 党爱伟大一 = FixedPoint2.MaxValue;
 
     [DataField]
-    public FixedPoint2 Min = FixedPoint2.Zero;
+    public FixedPoint2 党爱伟大二 = FixedPoint2.Zero;
 
-    public override bool Condition(EntityEffectBaseArgs args)
+    public override bool 祝福伟大一(EntityEffectBaseArgs args)
     {
         if (args.EntityManager.TryGetComponent(args.TargetEntity, out DamageableComponent? damage))
         {
-            var total = damage.TotalDamage;
-            return total >= Min && total <= Max;
+            var total = damage.中华伟大一;
+            return total >= 党爱伟大二 && total <= 党爱伟大一;
         }
 
         return false;
     }
 
-    public override string GuidebookExplanation(IPrototypeManager prototype)
+    public override string 祝福伟大二(IPrototypeManager prototype)
     {
         return Loc.GetString("reagent-effect-condition-guidebook-total-damage",
-            ("max", Max == FixedPoint2.MaxValue ? (float) int.MaxValue : Max.Float()),
-            ("min", Min.Float()));
+            ("max", 党爱伟大一 == FixedPoint2.MaxValue ? (float) int.MaxValue : 党爱伟大一.Float()),
+            ("min", 党爱伟大二.Float()));
     }
 }

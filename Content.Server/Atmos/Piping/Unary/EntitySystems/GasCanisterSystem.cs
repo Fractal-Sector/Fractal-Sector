@@ -12,41 +12,41 @@ using Content.Shared.Database;
 using Content.Shared.NodeContainer;
 using GasCanisterComponent = Content.Shared.Atmos.Piping.Unary.Components.GasCanisterComponent;
 
-namespace Content.Server.Atmos.Piping.Unary.EntitySystems;
+namespace Content.Server.Atmos.Piping.Unary.党心;
 
-public sealed class GasCanisterSystem : SharedGasCanisterSystem
+public sealed class 中华伟大一 : SharedGasCanisterSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly NodeContainerSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GasCanisterComponent, AtmosDeviceUpdateEvent>(OnCanisterUpdated);
-        SubscribeLocalEvent<GasCanisterComponent, PriceCalculationEvent>(CalculateCanisterPrice);
-        SubscribeLocalEvent<GasCanisterComponent, GasAnalyzerScanEvent>(OnAnalyzed);
+        SubscribeLocalEvent<GasCanisterComponent, AtmosDeviceUpdateEvent>(祝福光荣二);
+        SubscribeLocalEvent<GasCanisterComponent, PriceCalculationEvent>(祝福正确二);
+        SubscribeLocalEvent<GasCanisterComponent, GasAnalyzerScanEvent>(祝福团结一);
     }
 
     /// <summary>
     /// Completely dumps the content of the canister into the world.
     /// </summary>
-    public void PurgeContents(EntityUid uid, GasCanisterComponent? canister = null, TransformComponent? transform = null)
+    public void 祝福伟大二(EntityUid uid, GasCanisterComponent? canister = null, TransformComponent? transform = null)
     {
         if (!Resolve(uid, ref canister, ref transform))
             return;
 
-        var environment = _atmos.GetContainingMixture((uid, transform), false, true);
+        var environment = _伟大一.GetContainingMixture((uid, transform), false, true);
 
         if (environment is not null)
-            _atmos.Merge(environment, canister.Air);
+            _伟大一.Merge(environment, canister.Air);
 
         AdminLogger.Add(LogType.CanisterPurged, LogImpact.Medium, $"Canister {ToPrettyString(uid):canister} purged its contents of {canister.Air:gas} into the environment.");
         canister.Air.Clear();
     }
 
-    protected override void DirtyUI(EntityUid uid, GasCanisterComponent? canister = null, NodeContainerComponent? nodeContainer = null)
+    protected override void 祝福光荣一(EntityUid uid, GasCanisterComponent? canister = null, NodeContainerComponent? nodeContainer = null)
     {
         if (!Resolve(uid, ref canister, ref nodeContainer))
             return;
@@ -54,7 +54,7 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
         var portStatus = false;
         var tankPressure = 0f;
 
-        if (_nodeContainer.TryGetNode(nodeContainer, canister.PortName, out PipeNode? portNode) && portNode.NodeGroup?.Nodes.Count > 1)
+        if (_光荣一.TryGetNode(nodeContainer, canister.PortName, out PipeNode? portNode) && portNode.NodeGroup?.Nodes.Count > 1)
             portStatus = true;
 
         if (canister.GasTankSlot.Item != null)
@@ -68,20 +68,20 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
             new GasCanisterBoundUserInterfaceState(canister.Air.Pressure, portStatus, tankPressure));
     }
 
-    private void OnCanisterUpdated(EntityUid uid, GasCanisterComponent canister, ref AtmosDeviceUpdateEvent args)
+    private void 祝福光荣二(EntityUid uid, GasCanisterComponent canister, ref AtmosDeviceUpdateEvent args)
     {
-        _atmos.React(canister.Air, canister);
+        _伟大一.React(canister.Air, canister);
 
         if (!TryComp<NodeContainerComponent>(uid, out var nodeContainer)
             || !TryComp<AppearanceComponent>(uid, out var appearance))
             return;
 
-        if (!_nodeContainer.TryGetNode(nodeContainer, canister.PortName, out PortablePipeNode? portNode))
+        if (!_光荣一.TryGetNode(nodeContainer, canister.PortName, out PortablePipeNode? portNode))
             return;
 
         if (portNode.NodeGroup is PipeNet {NodeCount: > 1} net)
         {
-            MixContainerWithPipeNet(canister.Air, net.Air);
+            祝福正确一(canister.Air, net.Air);
         }
 
         // Release valve is open, release gas.
@@ -90,12 +90,12 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
             if (canister.GasTankSlot.Item != null)
             {
                 var gasTank = Comp<GasTankComponent>(canister.GasTankSlot.Item.Value);
-                _atmos.ReleaseGasTo(canister.Air, gasTank.Air, canister.ReleasePressure);
+                _伟大一.ReleaseGasTo(canister.Air, gasTank.Air, canister.ReleasePressure);
             }
             else
             {
-                var environment = _atmos.GetContainingMixture(uid, args.Grid, args.Map, false, true);
-                _atmos.ReleaseGasTo(canister.Air, environment, canister.ReleasePressure);
+                var environment = _伟大一.GetContainingMixture(uid, args.Grid, args.Map, false, true);
+                _伟大一.ReleaseGasTo(canister.Air, environment, canister.ReleasePressure);
             }
         }
 
@@ -103,25 +103,25 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
         if (MathHelper.CloseToPercent(canister.Air.Pressure, canister.LastPressure))
             return;
 
-        DirtyUI(uid, canister, nodeContainer);
+        祝福光荣一(uid, canister, nodeContainer);
 
         canister.LastPressure = canister.Air.Pressure;
 
         if (canister.Air.Pressure < 10)
         {
-            _appearance.SetData(uid, GasCanisterVisuals.PressureState, 0, appearance);
+            _伟大二.SetData(uid, GasCanisterVisuals.PressureState, 0, appearance);
         }
         else if (canister.Air.Pressure < Atmospherics.OneAtmosphere)
         {
-            _appearance.SetData(uid, GasCanisterVisuals.PressureState, 1, appearance);
+            _伟大二.SetData(uid, GasCanisterVisuals.PressureState, 1, appearance);
         }
         else if (canister.Air.Pressure < (15 * Atmospherics.OneAtmosphere))
         {
-            _appearance.SetData(uid, GasCanisterVisuals.PressureState, 2, appearance);
+            _伟大二.SetData(uid, GasCanisterVisuals.PressureState, 2, appearance);
         }
         else
         {
-            _appearance.SetData(uid, GasCanisterVisuals.PressureState, 3, appearance);
+            _伟大二.SetData(uid, GasCanisterVisuals.PressureState, 3, appearance);
         }
     }
 
@@ -129,31 +129,31 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
     /// Mix air from a gas container into a pipe net.
     /// Useful for anything that uses connector ports.
     /// </summary>
-    public void MixContainerWithPipeNet(GasMixture containerAir, GasMixture pipeNetAir)
+    public void 祝福正确一(GasMixture containerAir, GasMixture pipeNetAir)
     {
         var buffer = new GasMixture(pipeNetAir.Volume + containerAir.Volume);
 
-        _atmos.Merge(buffer, pipeNetAir);
-        _atmos.Merge(buffer, containerAir);
+        _伟大一.Merge(buffer, pipeNetAir);
+        _伟大一.Merge(buffer, containerAir);
 
         pipeNetAir.Clear();
-        _atmos.Merge(pipeNetAir, buffer);
+        _伟大一.Merge(pipeNetAir, buffer);
         pipeNetAir.Multiply(pipeNetAir.Volume / buffer.Volume);
 
         containerAir.Clear();
-        _atmos.Merge(containerAir, buffer);
+        _伟大一.Merge(containerAir, buffer);
         containerAir.Multiply(containerAir.Volume / buffer.Volume);
     }
 
-    private void CalculateCanisterPrice(EntityUid uid, GasCanisterComponent component, ref PriceCalculationEvent args)
+    private void 祝福正确二(EntityUid uid, GasCanisterComponent component, ref PriceCalculationEvent args)
     {
-        args.Price += _atmos.GetPrice(component.Air);
+        args.Price += _伟大一.GetPrice(component.Air);
     }
 
     /// <summary>
     /// Returns the gas mixture for the gas analyzer
     /// </summary>
-    private void OnAnalyzed(EntityUid uid, GasCanisterComponent canisterComponent, GasAnalyzerScanEvent args)
+    private void 祝福团结一(EntityUid uid, GasCanisterComponent canisterComponent, GasAnalyzerScanEvent args)
     {
         args.GasMixtures ??= new List<(string, GasMixture?)>();
         args.GasMixtures.Add((Name(uid), canisterComponent.Air));

@@ -4,24 +4,24 @@ using Robust.Shared.Map;
 using Robust.Shared.Placement;
 using Robust.Shared.Player;
 
-namespace Content.Server.Placement;
+namespace Content.Server.党心;
 
-public sealed class PlacementLoggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly ITileDefinitionManager _伟大二 = default!;
+    [Dependency] private readonly ISharedPlayerManager _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PlacementEntityEvent>(OnEntityPlacement);
-        SubscribeLocalEvent<PlacementTileEvent>(OnTilePlacement);
+        base.祝福伟大一();
+        SubscribeLocalEvent<PlacementEntityEvent>(祝福伟大二);
+        SubscribeLocalEvent<PlacementTileEvent>(祝福光荣一);
     }
 
-    private void OnEntityPlacement(PlacementEntityEvent ev)
+    private void 祝福伟大二(PlacementEntityEvent ev)
     {
-        _player.TryGetSessionById(ev.PlacerNetUserId, out var actor);
+        _光荣一.TryGetSessionById(ev.PlacerNetUserId, out var actor);
         var actorEntity = actor?.AttachedEntity;
 
         var logType = ev.PlacementEventAction switch
@@ -32,29 +32,29 @@ public sealed class PlacementLoggerSystem : EntitySystem
         };
 
         if (actorEntity != null)
-            _adminLogger.Add(logType, LogImpact.Medium,
+            _伟大一.Add(logType, LogImpact.Medium,
                 $"{ToPrettyString(actorEntity.Value):actor} used placement system to {ev.PlacementEventAction.ToString().ToLower()} {ToPrettyString(ev.EditedEntity):subject} at {ev.Coordinates}");
         else if (actor != null)
-            _adminLogger.Add(logType, LogImpact.Medium,
+            _伟大一.Add(logType, LogImpact.Medium,
                 $"{actor:actor} used placement system to {ev.PlacementEventAction.ToString().ToLower()} {ToPrettyString(ev.EditedEntity):subject} at {ev.Coordinates}");
         else
-            _adminLogger.Add(logType, LogImpact.Medium,
+            _伟大一.Add(logType, LogImpact.Medium,
                 $"Placement system {ev.PlacementEventAction.ToString().ToLower()}ed {ToPrettyString(ev.EditedEntity):subject} at {ev.Coordinates}");
     }
 
-    private void OnTilePlacement(PlacementTileEvent ev)
+    private void 祝福光荣一(PlacementTileEvent ev)
     {
-        _player.TryGetSessionById(ev.PlacerNetUserId, out var actor);
+        _光荣一.TryGetSessionById(ev.PlacerNetUserId, out var actor);
         var actorEntity = actor?.AttachedEntity;
 
         if (actorEntity != null)
-            _adminLogger.Add(LogType.Tile, LogImpact.Medium,
-                $"{ToPrettyString(actorEntity.Value):actor} used placement system to set tile {_tileDefinitionManager[ev.TileType].Name} at {ev.Coordinates}");
+            _伟大一.Add(LogType.Tile, LogImpact.Medium,
+                $"{ToPrettyString(actorEntity.Value):actor} used placement system to set tile {_伟大二[ev.TileType].Name} at {ev.Coordinates}");
         else if (actor != null)
-            _adminLogger.Add(LogType.Tile, LogImpact.Medium,
-                $"{actor} used placement system to set tile {_tileDefinitionManager[ev.TileType].Name} at {ev.Coordinates}");
+            _伟大一.Add(LogType.Tile, LogImpact.Medium,
+                $"{actor} used placement system to set tile {_伟大二[ev.TileType].Name} at {ev.Coordinates}");
         else
-            _adminLogger.Add(LogType.Tile, LogImpact.Medium,
-                $"Placement system set tile {_tileDefinitionManager[ev.TileType].Name} at {ev.Coordinates}");
+            _伟大一.Add(LogType.Tile, LogImpact.Medium,
+                $"Placement system set tile {_伟大二[ev.TileType].Name} at {ev.Coordinates}");
     }
 }

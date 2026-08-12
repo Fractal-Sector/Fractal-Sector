@@ -4,25 +4,25 @@ using Content.Shared.Chemistry.Reagent;
 using Content.Shared.NameModifier.EntitySystems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
-public sealed class TransformableContainerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionsSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metadataSystem = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣一 = default!;
+    [Dependency] private readonly NameModifierSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TransformableContainerComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<TransformableContainerComponent, SolutionContainerChangedEvent>(OnSolutionChange);
-        SubscribeLocalEvent<TransformableContainerComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers);
+        SubscribeLocalEvent<TransformableContainerComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<TransformableContainerComponent, SolutionContainerChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<TransformableContainerComponent, RefreshNameModifiersEvent>(祝福光荣二);
     }
 
-    private void OnMapInit(Entity<TransformableContainerComponent> entity, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<TransformableContainerComponent> entity, ref MapInitEvent args)
     {
         var meta = MetaData(entity.Owner);
         if (string.IsNullOrEmpty(entity.Comp.InitialDescription))
@@ -31,15 +31,15 @@ public sealed class TransformableContainerSystem : EntitySystem
         }
     }
 
-    private void OnSolutionChange(Entity<TransformableContainerComponent> entity, ref SolutionContainerChangedEvent args)
+    private void 祝福光荣一(Entity<TransformableContainerComponent> entity, ref SolutionContainerChangedEvent args)
     {
-        if (!_solutionsSystem.TryGetFitsInDispenser(entity.Owner, out _, out var solution))
+        if (!_伟大二.TryGetFitsInDispenser(entity.Owner, out _, out var solution))
             return;
 
         //Transform container into initial state when emptied
         if (entity.Comp.CurrentReagent != null && solution.Contents.Count == 0)
         {
-            CancelTransformation(entity);
+            祝福正确一(entity);
         }
 
         //the biggest reagent in the solution decides the appearance
@@ -53,37 +53,37 @@ public sealed class TransformableContainerSystem : EntitySystem
 
         //Only reagents with spritePath property can change appearance of transformable containers!
         if (!string.IsNullOrWhiteSpace(reagentId?.Prototype)
-            && _prototypeManager.TryIndex(reagentId.Value.Prototype, out ReagentPrototype? proto))
+            && _伟大一.TryIndex(reagentId.Value.Prototype, out ReagentPrototype? proto))
         {
             var metadata = MetaData(entity.Owner);
-            _metadataSystem.SetEntityDescription(entity.Owner, proto.LocalizedDescription, metadata);
+            _光荣一.SetEntityDescription(entity.Owner, proto.LocalizedDescription, metadata);
             entity.Comp.CurrentReagent = proto;
             entity.Comp.Transformed = true;
         }
 
-        _nameMod.RefreshNameModifiers(entity.Owner);
+        _光荣二.RefreshNameModifiers(entity.Owner);
     }
 
-    private void OnRefreshNameModifiers(Entity<TransformableContainerComponent> entity, ref RefreshNameModifiersEvent args)
+    private void 祝福光荣二(Entity<TransformableContainerComponent> entity, ref RefreshNameModifiersEvent args)
     {
-        if (_prototypeManager.TryIndex(entity.Comp.CurrentReagent, out var currentReagent))
+        if (_伟大一.TryIndex(entity.Comp.CurrentReagent, out var currentReagent))
         {
             args.AddModifier("transformable-container-component-glass", priority: -1, ("reagent", currentReagent.LocalizedName));
         }
     }
 
-    private void CancelTransformation(Entity<TransformableContainerComponent> entity)
+    private void 祝福正确一(Entity<TransformableContainerComponent> entity)
     {
         entity.Comp.CurrentReagent = null;
         entity.Comp.Transformed = false;
 
         var metadata = MetaData(entity);
 
-        _nameMod.RefreshNameModifiers(entity.Owner);
+        _光荣二.RefreshNameModifiers(entity.Owner);
 
         if (!string.IsNullOrEmpty(entity.Comp.InitialDescription))
         {
-            _metadataSystem.SetEntityDescription(entity.Owner, entity.Comp.InitialDescription, metadata);
+            _光荣一.SetEntityDescription(entity.Owner, entity.Comp.InitialDescription, metadata);
         }
     }
 }

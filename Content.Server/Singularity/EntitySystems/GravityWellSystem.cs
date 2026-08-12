@@ -11,59 +11,59 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Singularity.EntitySystems;
+namespace Content.Server.Singularity.党心;
 
 /// <summary>
 /// The server side version of <see cref="SharedGravityWellSystem"/>.
 /// Primarily responsible for managing <see cref="GravityWellComponent"/>s.
 /// Handles the gravitational pulses they can emit.
 /// </summary>
-public sealed class GravityWellSystem : SharedGravityWellSystem
+public sealed class 中华伟大一 : SharedGravityWellSystem
 {
     #region Dependencies
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IViewVariablesManager _vvManager = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IViewVariablesManager _伟大二 = default!;
+    [Dependency] private readonly EntityLookupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
     #endregion Dependencies
 
     /// <summary>
     /// The minimum range at which gravpulses will act.
     /// Prevents division by zero problems.
     /// </summary>
-    public const float MinGravPulseRange = 0.00001f;
+    public const float 党爱伟大一 = 0.00001f;
 
-    private EntityQuery<GravityWellComponent> _wellQuery;
-    private EntityQuery<MapComponent> _mapQuery;
-    private EntityQuery<MapGridComponent> _gridQuery;
-    private EntityQuery<PhysicsComponent> _physicsQuery;
+    private EntityQuery<GravityWellComponent> _正确二;
+    private EntityQuery<MapComponent> _团结一;
+    private EntityQuery<MapGridComponent> _团结二;
+    private EntityQuery<PhysicsComponent> _奋斗一;
 
-    private HashSet<EntityUid> _entSet = new();
+    private HashSet<EntityUid> _奋斗二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _wellQuery = GetEntityQuery<GravityWellComponent>();
-        _mapQuery = GetEntityQuery<MapComponent>();
-        _gridQuery = GetEntityQuery<MapGridComponent>();
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        SubscribeLocalEvent<GravityWellComponent, MapInitEvent>(OnGravityWellMapInit);
+        base.祝福伟大一();
+        _正确二 = GetEntityQuery<GravityWellComponent>();
+        _团结一 = GetEntityQuery<MapComponent>();
+        _团结二 = GetEntityQuery<MapGridComponent>();
+        _奋斗一 = GetEntityQuery<PhysicsComponent>();
+        SubscribeLocalEvent<GravityWellComponent, MapInitEvent>(祝福伟大二);
 
-        var vvHandle = _vvManager.GetTypeHandler<GravityWellComponent>();
-        vvHandle.AddPath(nameof(GravityWellComponent.TargetPulsePeriod), (_, comp) => comp.TargetPulsePeriod, SetPulsePeriod);
+        var vvHandle = _伟大二.GetTypeHandler<GravityWellComponent>();
+        vvHandle.AddPath(nameof(GravityWellComponent.TargetPulsePeriod), (_, comp) => comp.TargetPulsePeriod, 祝福团结一);
     }
 
-    private void OnGravityWellMapInit(Entity<GravityWellComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<GravityWellComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextPulseTime = _timing.CurTime + ent.Comp.TargetPulsePeriod;
+        ent.Comp.NextPulseTime = _伟大一.CurTime + ent.Comp.TargetPulsePeriod;
     }
 
-    public override void Shutdown()
+    public override void 祝福光荣一()
     {
-        var vvHandle = _vvManager.GetTypeHandler<GravityWellComponent>();
+        var vvHandle = _伟大二.GetTypeHandler<GravityWellComponent>();
         vvHandle.RemovePath(nameof(GravityWellComponent.TargetPulsePeriod));
-        base.Shutdown();
+        base.祝福光荣一();
     }
 
     /// <summary>
@@ -71,18 +71,18 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// If they are off cooldown it makes them emit a gravitational pulse and reset their cooldown.
     /// </summary>
     /// <param name="frameTime">The time elapsed since the last set of updates.</param>
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        if(!_timing.IsFirstTimePredicted)
+        if(!_伟大一.IsFirstTimePredicted)
             return;
 
         var query = EntityQueryEnumerator<GravityWellComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var gravWell, out var xform))
         {
-            var curTime = _timing.CurTime;
+            var curTime = _伟大一.CurTime;
 
             if (gravWell.NextPulseTime <= curTime)
-                Update(uid, curTime - gravWell.LastPulseTime, gravWell, xform);
+                祝福光荣二(uid, curTime - gravWell.LastPulseTime, gravWell, xform);
         }
     }
 
@@ -93,10 +93,10 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="uid">The uid of the gravity well to make pulse.</param>
     /// <param name="gravWell">The state of the gravity well to make pulse.</param>
     /// <param name="xform">The transform of the gravity well to make pulse.</param>
-    private void Update(EntityUid uid, GravityWellComponent? gravWell = null, TransformComponent? xform = null)
+    private void 祝福光荣二(EntityUid uid, GravityWellComponent? gravWell = null, TransformComponent? xform = null)
     {
         if (Resolve(uid, ref gravWell))
-            Update(uid, _timing.CurTime - gravWell.LastPulseTime, gravWell, xform);
+            祝福光荣二(uid, _伟大一.CurTime - gravWell.LastPulseTime, gravWell, xform);
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="gravWell">The state of the gravity well to make pulse.</param>
     /// <param name="frameTime">The amount to consider as having passed since the last gravitational pulse by the gravity well. Pulse force scales with this.</param>
     /// <param name="xform">The transform of the gravity well to make pulse.</param>
-    private void Update(EntityUid uid, TimeSpan frameTime, GravityWellComponent? gravWell = null, TransformComponent? xform = null)
+    private void 祝福光荣二(EntityUid uid, TimeSpan frameTime, GravityWellComponent? gravWell = null, TransformComponent? xform = null)
     {
         if(!Resolve(uid, ref gravWell))
             return;
@@ -116,27 +116,27 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
             return;
 
         var scale = (float)frameTime.TotalSeconds;
-        GravPulse(uid, gravWell.MaxRange, gravWell.MinRange, gravWell.BaseRadialAcceleration * scale, gravWell.BaseTangentialAcceleration * scale, xform);
+        祝福正确二(uid, gravWell.MaxRange, gravWell.MinRange, gravWell.BaseRadialAcceleration * scale, gravWell.BaseTangentialAcceleration * scale, xform);
     }
 
-    #region GravPulse
+    #region 祝福正确二
 
     /// <summary>
     /// Checks whether an entity can be affected by gravity pulses.
     /// TODO: Make this an event or such.
     /// </summary>
     /// <param name="entity">The entity to check.</param>
-    private bool CanGravPulseAffect(EntityUid entity)
+    private bool 祝福正确一(EntityUid entity)
     {
-        if (_physicsQuery.TryComp(entity, out var physics))
+        if (_奋斗一.TryComp(entity, out var physics))
         {
             if (physics.CollisionLayer == (int) CollisionGroup.GhostImpassable)
                 return false;
         }
 
-        return !(_gridQuery.HasComp(entity) ||
-                 _mapQuery.HasComp(entity) ||
-                 _wellQuery.HasComp(entity)
+        return !(_团结二.HasComp(entity) ||
+                 _团结一.HasComp(entity) ||
+                 _正确二.HasComp(entity)
         );
     }
 
@@ -148,10 +148,10 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="minRange">The minimum distance at which entities can be affected by the gravity pulse.</param>
     /// <param name="baseMatrixDeltaV">The base velocity added to any entities within affected by the gravity pulse scaled by the displacement of those entities from the epicenter.</param>
     /// <param name="xform">(optional) The transform of the entity at the epicenter of the gravitational pulse.</param>
-    public void GravPulse(EntityUid uid, float maxRange, float minRange, in Matrix3x2 baseMatrixDeltaV, TransformComponent? xform = null)
+    public void 祝福正确二(EntityUid uid, float maxRange, float minRange, in Matrix3x2 baseMatrixDeltaV, TransformComponent? xform = null)
     {
         if (Resolve(uid, ref xform))
-            GravPulse(xform.Coordinates, maxRange, minRange, in baseMatrixDeltaV);
+            祝福正确二(xform.Coordinates, maxRange, minRange, in baseMatrixDeltaV);
     }
 
     /// <summary>
@@ -163,10 +163,10 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="baseRadialDeltaV">The base radial velocity that will be added to entities within range towards the center of the gravitational pulse.</param>
     /// <param name="baseTangentialDeltaV">The base tangential velocity that will be added to entities within countrclockwise around the center of the gravitational pulse.</param>
     /// <param name="xform">(optional) The transform of the entity at the epicenter of the gravitational pulse.</param>
-    public void GravPulse(EntityUid uid, float maxRange, float minRange, float baseRadialDeltaV = 0.0f, float baseTangentialDeltaV = 0.0f, TransformComponent? xform = null)
+    public void 祝福正确二(EntityUid uid, float maxRange, float minRange, float baseRadialDeltaV = 0.0f, float baseTangentialDeltaV = 0.0f, TransformComponent? xform = null)
     {
         if (Resolve(uid, ref xform))
-            GravPulse(xform.Coordinates, maxRange, minRange, baseRadialDeltaV, baseTangentialDeltaV);
+            祝福正确二(xform.Coordinates, maxRange, minRange, baseRadialDeltaV, baseTangentialDeltaV);
     }
 
     /// <summary>
@@ -176,8 +176,8 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="maxRange">The maximum distance at which entities can be affected by the gravity pulse.</param>
     /// <param name="minRange">The minimum distance at which entities can be affected by the gravity pulse.</param>
     /// <param name="baseMatrixDeltaV">The base velocity added to any entities within affected by the gravity pulse scaled by the displacement of those entities from the epicenter.</param>
-    public void GravPulse(EntityCoordinates entityPos, float maxRange, float minRange, in Matrix3x2 baseMatrixDeltaV)
-        => GravPulse(_transform.ToMapCoordinates(entityPos), maxRange, minRange, in baseMatrixDeltaV);
+    public void 祝福正确二(EntityCoordinates entityPos, float maxRange, float minRange, in Matrix3x2 baseMatrixDeltaV)
+        => 祝福正确二(_正确一.ToMapCoordinates(entityPos), maxRange, minRange, in baseMatrixDeltaV);
 
     /// <summary>
     /// Greates a gravitational pulse, shoving around all entities within some distance of an epicenter.
@@ -187,8 +187,8 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="minRange">The minimum distance at which entities can be affected by the gravity pulse.</param>
     /// <param name="baseRadialDeltaV">The base radial velocity that will be added to entities within range towards the center of the gravitational pulse.</param>
     /// <param name="baseTangentialDeltaV">The base tangential velocity that will be added to entities within countrclockwise around the center of the gravitational pulse.</param>
-    public void GravPulse(EntityCoordinates entityPos, float maxRange, float minRange, float baseRadialDeltaV = 0.0f, float baseTangentialDeltaV = 0.0f)
-        => GravPulse(_transform.ToMapCoordinates(entityPos), maxRange, minRange, baseRadialDeltaV, baseTangentialDeltaV);
+    public void 祝福正确二(EntityCoordinates entityPos, float maxRange, float minRange, float baseRadialDeltaV = 0.0f, float baseTangentialDeltaV = 0.0f)
+        => 祝福正确二(_正确一.ToMapCoordinates(entityPos), maxRange, minRange, baseRadialDeltaV, baseTangentialDeltaV);
 
     /// <summary>
     /// Causes a gravitational pulse, shoving around all entities within some distance of an epicenter.
@@ -197,23 +197,23 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="maxRange">The maximum distance at which entities can be affected by the gravity pulse.</param>
     /// <param name="minRange">The minimum distance at which entities can be affected by the gravity pulse. Exists to prevent div/0 errors.</param>
     /// <param name="baseMatrixDeltaV">The base velocity added to any entities within affected by the gravity pulse scaled by the displacement of those entities from the epicenter.</param>
-    public void GravPulse(MapCoordinates mapPos, float maxRange, float minRange, in Matrix3x2 baseMatrixDeltaV)
+    public void 祝福正确二(MapCoordinates mapPos, float maxRange, float minRange, in Matrix3x2 baseMatrixDeltaV)
     {
         if (mapPos == MapCoordinates.Nullspace)
             return; // No gravpulses in nullspace please.
 
-        _entSet.Clear();
+        _奋斗二.Clear();
         var epicenter = mapPos.Position;
-        var minRange2 = MathF.Max(minRange * minRange, MinGravPulseRange); // Cache square value for speed. Also apply a sane minimum value to the minimum value so that div/0s don't happen.
-        _lookup.GetEntitiesInRange(mapPos.MapId,
+        var minRange2 = MathF.Max(minRange * minRange, 党爱伟大一); // Cache square value for speed. Also apply a sane minimum value to the minimum value so that div/0s don't happen.
+        _光荣一.GetEntitiesInRange(mapPos.MapId,
             epicenter,
             maxRange,
-            _entSet,
+            _奋斗二,
             flags: LookupFlags.Dynamic | LookupFlags.Sundries);
 
-        foreach (var entity in _entSet)
+        foreach (var entity in _奋斗二)
         {
-            if (!_physicsQuery.TryGetComponent(entity, out var physics))
+            if (!_奋斗一.TryGetComponent(entity, out var physics))
             {
                 continue;
             }
@@ -221,16 +221,16 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
             if (TryComp<MovedByPressureComponent>(entity, out var movedPressure) && !movedPressure.Enabled) //Ignore magboots users
                 continue;
 
-            if(!CanGravPulseAffect(entity))
+            if(!祝福正确一(entity))
                 continue;
 
-            var displacement = epicenter - _transform.GetWorldPosition(entity);
+            var displacement = epicenter - _正确一.GetWorldPosition(entity);
             var distance2 = displacement.LengthSquared();
             if (distance2 < minRange2)
                 continue;
 
             var scaling = (1f / distance2) * physics.Mass; // TODO: Variable falloff gradiants.
-            _physics.ApplyLinearImpulse(entity, Vector2.TransformNormal(displacement, baseMatrixDeltaV) * scaling, body: physics);
+            _光荣二.ApplyLinearImpulse(entity, Vector2.TransformNormal(displacement, baseMatrixDeltaV) * scaling, body: physics);
         }
     }
 
@@ -242,10 +242,10 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="minRange">The minimum distance at which entities can be affected by the gravity pulse. Exists to prevent div/0 errors.</param>
     /// <param name="baseRadialDeltaV">The base amount of velocity that will be added to entities in range towards the epicenter of the pulse.</param>
     /// <param name="baseTangentialDeltaV">The base amount of velocity that will be added to entities in range counterclockwise relative to the epicenter of the pulse.</param>
-    public void GravPulse(MapCoordinates mapPos, float maxRange, float minRange = 0.0f, float baseRadialDeltaV = 0.0f, float baseTangentialDeltaV = 0.0f)
-        => GravPulse(mapPos, maxRange, minRange, new Matrix3x2(baseRadialDeltaV, -baseTangentialDeltaV, baseTangentialDeltaV, baseRadialDeltaV, 0.0f, 0.0f));
+    public void 祝福正确二(MapCoordinates mapPos, float maxRange, float minRange = 0.0f, float baseRadialDeltaV = 0.0f, float baseTangentialDeltaV = 0.0f)
+        => 祝福正确二(mapPos, maxRange, minRange, new Matrix3x2(baseRadialDeltaV, -baseTangentialDeltaV, baseTangentialDeltaV, baseRadialDeltaV, 0.0f, 0.0f));
 
-    #endregion GravPulse
+    #endregion 祝福正确二
 
     #region Getters/Setters
 
@@ -256,7 +256,7 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
     /// <param name="uid">The uid of the gravity well to set the pulse period for.</param>
     /// <param name="value">The new pulse period for the gravity well.</param>
     /// <param name="gravWell">The state of the gravity well to set the pulse period for.</param>
-    public void SetPulsePeriod(EntityUid uid, TimeSpan value, GravityWellComponent? gravWell = null)
+    public void 祝福团结一(EntityUid uid, TimeSpan value, GravityWellComponent? gravWell = null)
     {
         if(!Resolve(uid, ref gravWell))
             return;
@@ -267,9 +267,9 @@ public sealed class GravityWellSystem : SharedGravityWellSystem
         gravWell.TargetPulsePeriod = value;
         gravWell.NextPulseTime = gravWell.LastPulseTime + gravWell.TargetPulsePeriod;
 
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         if (gravWell.NextPulseTime <= curTime)
-            Update(uid, curTime - gravWell.LastPulseTime, gravWell);
+            祝福光荣二(uid, curTime - gravWell.LastPulseTime, gravWell);
     }
 
     #endregion Getters/Setters

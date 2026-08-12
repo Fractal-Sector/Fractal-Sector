@@ -4,20 +4,20 @@ using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Mapping)]
-public sealed class VariantizeCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    public string Command => "variantize";
+    public string 党爱伟大一 => "variantize";
 
-    public string Description => Loc.GetString("variantize-command-description");
+    public string 党爱伟大二 => Loc.GetString("variantize-command-description");
 
-    public string Help => Loc.GetString("variantize-command-help-text");
+    public string 党爱光荣一 => Loc.GetString("variantize-command-help-text");
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -25,21 +25,21 @@ public sealed class VariantizeCommand : IConsoleCommand
             return;
         }
 
-        if (!NetEntity.TryParse(args[0], out var euidNet) || !_entManager.TryGetEntity(euidNet, out var euid))
+        if (!NetEntity.TryParse(args[0], out var euidNet) || !_伟大一.TryGetEntity(euidNet, out var euid))
         {
             shell.WriteError($"Failed to parse euid '{args[0]}'.");
             return;
         }
 
-        if (!_entManager.TryGetComponent(euid, out MapGridComponent? gridComp))
+        if (!_伟大一.TryGetComponent(euid, out MapGridComponent? gridComp))
         {
             shell.WriteError($"Euid '{euid}' does not exist or is not a grid.");
             return;
         }
 
-        var mapsSystem = _entManager.System<SharedMapSystem>();
-        var tileSystem = _entManager.System<TileSystem>();
-        var turfSystem = _entManager.System<TurfSystem>();
+        var mapsSystem = _伟大一.System<SharedMapSystem>();
+        var tileSystem = _伟大一.System<TileSystem>();
+        var turfSystem = _伟大一.System<TurfSystem>();
 
         foreach (var tile in mapsSystem.GetAllTiles(euid.Value, gridComp))
         {

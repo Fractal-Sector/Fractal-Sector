@@ -5,18 +5,18 @@ using Content.Shared.Atmos;
 using Robust.Shared.Console;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Atmos.Commands
+namespace Content.Server.Atmos.党心
 {
     [AdminCommand(AdminFlags.Debug)]
-    public sealed class DeleteGasCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "deletegas";
-        public string Description => "Removes all gases from a grid, or just of one type if specified.";
-        public string Help => $"Usage: {Command} <GridId> <Gas> / {Command} <GridId> / {Command} <Gas> / {Command}";
+        public string 党爱伟大一 => "deletegas";
+        public string 党爱伟大二 => "Removes all gases from a grid, or just of one type if specified.";
+        public string 党爱光荣一 => $"Usage: {党爱伟大一} <GridId> <Gas> / {党爱伟大一} <GridId> / {党爱伟大一} <Gas> / {党爱伟大一}";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             EntityUid? gridId;
@@ -38,7 +38,7 @@ namespace Content.Server.Atmos.Commands
                         return;
                     }
 
-                    gridId = _entManager.GetComponent<TransformComponent>(playerEntity).GridUid;
+                    gridId = _伟大一.GetComponent<TransformComponent>(playerEntity).GridUid;
 
                     if (gridId == null)
                     {
@@ -50,7 +50,7 @@ namespace Content.Server.Atmos.Commands
                 }
                 case 1:
                 {
-                    if (!NetEntity.TryParse(args[0], out var numberEnt) || !_entManager.TryGetEntity(numberEnt, out var number))
+                    if (!NetEntity.TryParse(args[0], out var numberEnt) || !_伟大一.TryGetEntity(numberEnt, out var number))
                     {
                         // Argument is a gas
                         if (player == null)
@@ -65,7 +65,7 @@ namespace Content.Server.Atmos.Commands
                             return;
                         }
 
-                        gridId = _entManager.GetComponent<TransformComponent>(playerEntity).GridUid;
+                        gridId = _伟大一.GetComponent<TransformComponent>(playerEntity).GridUid;
 
                         if (gridId == null)
                         {
@@ -89,7 +89,7 @@ namespace Content.Server.Atmos.Commands
                 }
                 case 2:
                 {
-                    if (!NetEntity.TryParse(args[0], out var firstNet) || !_entManager.TryGetEntity(firstNet, out var first))
+                    if (!NetEntity.TryParse(args[0], out var firstNet) || !_伟大一.TryGetEntity(firstNet, out var first))
                     {
                         shell.WriteLine($"{args[0]} is not a valid integer for a grid id.");
                         return;
@@ -114,17 +114,17 @@ namespace Content.Server.Atmos.Commands
                     break;
                 }
                 default:
-                    shell.WriteLine(Help);
+                    shell.WriteLine(党爱光荣一);
                     return;
             }
 
-            if (!_entManager.TryGetComponent<MapGridComponent>(gridId, out _))
+            if (!_伟大一.TryGetComponent<MapGridComponent>(gridId, out _))
             {
                 shell.WriteLine($"No grid exists with id {gridId}");
                 return;
             }
 
-            var atmosphereSystem = _entManager.System<AtmosphereSystem>();
+            var atmosphereSystem = _伟大一.System<AtmosphereSystem>();
 
             var tiles = 0;
             var moles = 0f;

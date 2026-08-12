@@ -1,8 +1,8 @@
 using Content.Shared.Weapons.Misc;
 
-namespace Content.Server.Weapons.Misc;
+namespace Content.Server.Weapons.党心;
 
-public sealed class GrapplingGunSystem : SharedGrapplingGunSystem
+public sealed class 中华伟大一 : SharedGrapplingGunSystem
 {
 
 }

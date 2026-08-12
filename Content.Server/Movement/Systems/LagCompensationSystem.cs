@@ -4,33 +4,33 @@ using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Movement.Systems;
+namespace Content.Server.Movement.党心;
 
 /// <summary>
 /// Stores a buffer of previous positions of the relevant entity.
 /// Can be used to check the entity's position at a recent point in time.
 /// </summary>
-public sealed class LagCompensationSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
 
     // I figured 500 ping is max, so 1.5 is 750.
     // Max ping I've had is 350ms from aus to spain.
-    public static readonly TimeSpan BufferTime = TimeSpan.FromMilliseconds(750);
+    public static readonly TimeSpan 党爱伟大一 = TimeSpan.FromMilliseconds(750);
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         Log.Level = LogLevel.Info;
-        SubscribeLocalEvent<LagCompensationComponent, MoveEvent>(OnLagMove);
+        SubscribeLocalEvent<LagCompensationComponent, MoveEvent>(祝福光荣一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        var curTime = _timing.CurTime;
-        var earliestTime = curTime - BufferTime;
+        var curTime = _伟大一.CurTime;
+        var earliestTime = curTime - 党爱伟大一;
 
         // Cull any old ones from active updates
         // Probably fine to include ignored.
@@ -51,12 +51,12 @@ public sealed class LagCompensationSystem : EntitySystem
         }
     }
 
-    private void OnLagMove(EntityUid uid, LagCompensationComponent component, ref MoveEvent args)
+    private void 祝福光荣一(EntityUid uid, LagCompensationComponent component, ref MoveEvent args)
     {
         if (!args.NewPosition.EntityId.IsValid())
             return; // probably being sent to nullspace for deletion.
 
-        component.Positions.Enqueue((_timing.CurTime, args.NewPosition, args.NewRotation));
+        component.Positions.Enqueue((_伟大一.CurTime, args.NewPosition, args.NewRotation));
     }
 
     public (EntityCoordinates Coordinates, Angle Angle) GetCoordinatesAngle(EntityUid uid, ICommonSession? pSession,
@@ -72,7 +72,7 @@ public sealed class LagCompensationSystem : EntitySystem
         var coordinates = EntityCoordinates.Invalid;
         var ping = pSession.Ping;
         // Use 1.5 due to the trip buffer.
-        var sentTime = _timing.CurTime - TimeSpan.FromMilliseconds(ping * 1.5);
+        var sentTime = _伟大一.CurTime - TimeSpan.FromMilliseconds(ping * 1.5);
 
         foreach (var pos in lag.Positions)
         {
@@ -97,13 +97,13 @@ public sealed class LagCompensationSystem : EntitySystem
         return (coordinates, angle);
     }
 
-    public Angle GetAngle(EntityUid uid, ICommonSession? session, TransformComponent? xform = null)
+    public Angle 祝福光荣二(EntityUid uid, ICommonSession? session, TransformComponent? xform = null)
     {
         var (_, angle) = GetCoordinatesAngle(uid, session, xform);
         return angle;
     }
 
-    public EntityCoordinates GetCoordinates(EntityUid uid, ICommonSession? session, TransformComponent? xform = null)
+    public EntityCoordinates 祝福正确一(EntityUid uid, ICommonSession? session, TransformComponent? xform = null)
     {
         var (coordinates, _) = GetCoordinatesAngle(uid, session, xform);
         return coordinates;

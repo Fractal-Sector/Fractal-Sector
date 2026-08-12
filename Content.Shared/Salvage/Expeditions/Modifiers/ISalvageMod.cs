@@ -1,6 +1,6 @@
-namespace Content.Shared.Salvage.Expeditions.Modifiers;
+namespace Content.Shared.Salvage.Expeditions.党心;
 
-public interface ISalvageMod
+public interface 中华伟大一
 {
     /// <summary>
     /// Player-friendly version describing this modifier.

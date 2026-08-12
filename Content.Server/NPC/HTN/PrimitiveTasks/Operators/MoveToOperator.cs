@@ -17,59 +17,59 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.党心;
 
 /// <summary>
 /// Moves an NPC to the specified target key. Hands the actual steering off to NPCSystem.Steering
 /// </summary>
-public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdown
+public sealed partial class 中华伟大一 : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    private NPCSteeringSystem _steering = default!;
-    private PathfindingSystem _pathfind = default!;
-    private SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    private NPCSteeringSystem _伟大二 = default!;
+    private PathfindingSystem _光荣一 = default!;
+    private SharedTransformSystem _光荣二 = default!;
 
     /// <summary>
     /// When to shut the task down.
     /// </summary>
     [DataField("shutdownState")]
-    public HTNPlanState ShutdownState { get; private set; } = HTNPlanState.TaskFinished;
+    public HTNPlanState 党爱伟大一 { get; private set; } = HTNPlanState.TaskFinished;
 
     /// <summary>
     /// Should we assume the MovementTarget is reachable during planning or should we pathfind to it?
     /// </summary>
     [DataField("pathfindInPlanning")]
-    public bool PathfindInPlanning = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// When we're finished moving to the target should we remove its key?
     /// </summary>
     [DataField("removeKeyOnFinish")]
-    public bool RemoveKeyOnFinish = true;
+    public bool 党爱光荣一 = true;
 
     /// <summary>
     /// Target Coordinates to move to. This gets removed after execution.
     /// </summary>
     [DataField("targetKey")]
-    public string TargetKey = "TargetCoordinates";
+    public string 党爱光荣二 = "TargetCoordinates";
 
     /// <summary>
     /// Where the pathfinding result will be stored (if applicable). This gets removed after execution.
     /// </summary>
     [DataField("pathfindKey")]
-    public string PathfindKey = NPCBlackboard.PathfindKey;
+    public string 党爱正确一 = NPCBlackboard.党爱正确一;
 
     /// <summary>
     /// How close we need to get before considering movement finished.
     /// </summary>
     [DataField("rangeKey")]
-    public string RangeKey = "MovementRange";
+    public string 党爱正确二 = "MovementRange";
 
     /// <summary>
     /// Do we only need to move into line of sight.
     /// </summary>
     [DataField("stopOnLineOfSight")]
-    public bool StopOnLineOfSight;
+    public bool 党爱团结一;
 
     // <Monolith> - early port of wizden#38846
     /// <summary>
@@ -83,51 +83,51 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
     /// If either we or the target are offgrid, gets assigned to make us just move directly to target without pathfinding.
     /// </summary>
     [DataField]
-    public string DirectMoveTargetKey = "DirectMoveTarget";
+    public string 党爱团结二 = "DirectMoveTarget";
     // </Monolith>
 
     private const string MovementCancelToken = "MovementCancelToken";
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
-        _pathfind = sysManager.GetEntitySystem<PathfindingSystem>();
-        _steering = sysManager.GetEntitySystem<NPCSteeringSystem>();
-        _transform = sysManager.GetEntitySystem<SharedTransformSystem>();
+        base.祝福伟大一(sysManager);
+        _光荣一 = sysManager.GetEntitySystem<PathfindingSystem>();
+        _伟大二 = sysManager.GetEntitySystem<NPCSteeringSystem>();
+        _光荣二 = sysManager.GetEntitySystem<SharedTransformSystem>();
     }
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
         CancellationToken cancelToken)
     {
-        if (!blackboard.TryGetValue<EntityCoordinates>(TargetKey, out var targetCoordinates, _entManager))
+        if (!blackboard.TryGetValue<EntityCoordinates>(党爱光荣二, out var targetCoordinates, _伟大一))
         {
             return (false, null);
         }
 
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!_entManager.TryGetComponent<TransformComponent>(owner, out var xform) ||
-            !_entManager.TryGetComponent<PhysicsComponent>(owner, out var body))
+        if (!_伟大一.TryGetComponent<TransformComponent>(owner, out var xform) ||
+            !_伟大一.TryGetComponent<PhysicsComponent>(owner, out var body))
             return (false, null);
 
         // Monolith - early port of wizden#38846
         // check if we or target are offgrid or on different grids
-        var doDirectMove = !_entManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var ownerGrid) ||
-                      !_entManager.TryGetComponent<MapGridComponent>(_transform.GetGrid(targetCoordinates), out var targetGrid) ||
+        var doDirectMove = !_伟大一.TryGetComponent<MapGridComponent>(xform.GridUid, out var ownerGrid) ||
+                      !_伟大一.TryGetComponent<MapGridComponent>(_光荣二.GetGrid(targetCoordinates), out var targetGrid) ||
                       ownerGrid != targetGrid;
 
-        var range = blackboard.GetValueOrDefault<float>(RangeKey, _entManager);
+        var range = blackboard.GetValueOrDefault<float>(党爱正确二, _伟大一);
 
-        if (xform.Coordinates.TryDistance(_entManager, targetCoordinates, out var distance) && distance <= range)
+        if (xform.Coordinates.TryDistance(_伟大一, targetCoordinates, out var distance) && distance <= range)
         {
             // In range
             return (true, new Dictionary<string, object>()
             {
-                {NPCBlackboard.OwnerCoordinates, blackboard.GetValueOrDefault<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, _entManager)}
+                {NPCBlackboard.OwnerCoordinates, blackboard.GetValueOrDefault<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, _伟大一)}
             });
         }
 
-        if (!PathfindInPlanning)
+        if (!党爱伟大二)
         {
             return (true, new Dictionary<string, object>()
             {
@@ -138,13 +138,13 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
         // Monolith - early port of wizden#38846
         if (!doDirectMove)
         {
-            var path = await _pathfind.GetPath(
+            var path = await _光荣一.GetPath(
                 blackboard.GetValue<EntityUid>(NPCBlackboard.Owner),
                 xform.Coordinates,
                     targetCoordinates,
                 range,
                 cancelToken,
-                _pathfind.GetFlags(blackboard));
+                _光荣一.GetFlags(blackboard));
 
             if (path.Result != PathResult.Path)
             {
@@ -154,7 +154,7 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
             return (true, new Dictionary<string, object>()
             {
                 {NPCBlackboard.OwnerCoordinates, targetCoordinates},
-                {PathfindKey, path}
+                {党爱正确一, path}
             });
         }
         // else try move directly to target without pathing
@@ -163,47 +163,47 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
             return (true, new Dictionary<string, object>()
             {
                 {NPCBlackboard.OwnerCoordinates, targetCoordinates},
-                {DirectMoveTargetKey, true}
+                {党爱团结二, true}
             });
         }
     }
 
     // Given steering is complicated we'll hand it off to a dedicated system rather than this singleton operator.
 
-    public override void Startup(NPCBlackboard blackboard)
+    public override void 祝福伟大二(NPCBlackboard blackboard)
     {
-        base.Startup(blackboard);
+        base.祝福伟大二(blackboard);
 
         // Need to remove the planning value for execution.
         blackboard.Remove<EntityCoordinates>(NPCBlackboard.OwnerCoordinates);
-        var targetCoordinates = blackboard.GetValue<EntityCoordinates>(TargetKey);
+        var targetCoordinates = blackboard.GetValue<EntityCoordinates>(党爱光荣二);
         var uid = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
         // Re-use the path we may have if applicable.
-        var comp = _steering.Register(uid, targetCoordinates);
-        comp.ArriveOnLineOfSight = StopOnLineOfSight;
+        var comp = _伟大二.Register(uid, targetCoordinates);
+        comp.ArriveOnLineOfSight = 党爱团结一;
 
-        if (blackboard.TryGetValue<float>(RangeKey, out var range, _entManager))
+        if (blackboard.TryGetValue<float>(党爱正确二, out var range, _伟大一))
         {
             comp.Range = range;
         }
 
         // Monolith - early port of wizden#38846
         // see if we want to just move directly first
-        if (blackboard.TryGetValue<bool>(DirectMoveTargetKey, out var doDirectMove, _entManager) && doDirectMove)
+        if (blackboard.TryGetValue<bool>(党爱团结二, out var doDirectMove, _伟大一) && doDirectMove)
         {
             comp.Coordinates = targetCoordinates;
             comp.DirectMove = true;
         }
-        else if (blackboard.TryGetValue<PathResultEvent>(PathfindKey, out var result, _entManager))
+        else if (blackboard.TryGetValue<PathResultEvent>(党爱正确一, out var result, _伟大一))
         {
             comp.DirectMove = false; // i'm not sure whether this being needed is a good sign - if you know a better solution, tell
 
-            if (blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _entManager)
-                && _entManager.EntityExists(targetCoordinates.EntityId))
+            if (blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _伟大一)
+                && _伟大一.EntityExists(targetCoordinates.EntityId))
             {
-                var mapCoords = _transform.ToMapCoordinates(coordinates);
-                _steering.PrunePath(uid, mapCoords, _transform.ToMapCoordinates(targetCoordinates).Position - mapCoords.Position, result.Path);
+                var mapCoords = _光荣二.ToMapCoordinates(coordinates);
+                _伟大二.PrunePath(uid, mapCoords, _光荣二.ToMapCoordinates(targetCoordinates).Position - mapCoords.Position, result.Path);
             }
 
             comp.CurrentPath = new Queue<PathPoly>(result.Path);
@@ -211,15 +211,15 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
         comp.InRangeMaxSpeed = BrakeMaxVelocity; // Monolith
     }
 
-    public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
+    public override HTNOperatorStatus 祝福光荣一(NPCBlackboard blackboard, float frameTime)
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!_entManager.TryGetComponent<NPCSteeringComponent>(owner, out var steering))
+        if (!_伟大一.TryGetComponent<NPCSteeringComponent>(owner, out var steering))
             return HTNOperatorStatus.Failed;
 
         // Just keep moving in the background and let the other tasks handle it.
-        if (ShutdownState == HTNPlanState.PlanFinished && steering.Status == SteeringStatus.Moving)
+        if (党爱伟大一 == HTNPlanState.PlanFinished && steering.Status == SteeringStatus.Moving)
         {
             return HTNOperatorStatus.Finished;
         }
@@ -233,26 +233,26 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
         };
     }
 
-    public void ConditionalShutdown(NPCBlackboard blackboard)
+    public void 祝福光荣二(NPCBlackboard blackboard)
     {
         // Cleanup the blackboard and remove steering.
-        if (blackboard.TryGetValue<CancellationTokenSource>(MovementCancelToken, out var cancelToken, _entManager))
+        if (blackboard.TryGetValue<CancellationTokenSource>(MovementCancelToken, out var cancelToken, _伟大一))
         {
             cancelToken.Cancel();
             blackboard.Remove<CancellationTokenSource>(MovementCancelToken);
         }
 
         // OwnerCoordinates is only used in planning so dump it.
-        blackboard.Remove<PathResultEvent>(PathfindKey);
+        blackboard.Remove<PathResultEvent>(党爱正确一);
         // Monolith - early port of wizden#38846
         // also clear DirectMove
-        blackboard.Remove<bool>(DirectMoveTargetKey);
+        blackboard.Remove<bool>(党爱团结二);
 
-        if (RemoveKeyOnFinish)
+        if (党爱光荣一)
         {
-            blackboard.Remove<EntityCoordinates>(TargetKey);
+            blackboard.Remove<EntityCoordinates>(党爱光荣二);
         }
 
-        _steering.Unregister(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
+        _伟大二.Unregister(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
     }
 }

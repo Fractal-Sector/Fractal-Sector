@@ -2,13 +2,13 @@
 using Content.Shared.Construction;
 using JetBrains.Annotations;
 
-namespace Content.Server.Construction.Completions
+namespace Content.Server.Construction.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class MachineFrameRegenerateProgress : IGraphAction
+    public sealed partial class 中华伟大一 : IGraphAction
     {
-        public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
+        public void 祝福伟大一(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
         {
             if (entityManager.TryGetComponent<MachineFrameComponent>(uid, out var machineFrame))
             {

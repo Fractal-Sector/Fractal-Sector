@@ -5,23 +5,23 @@ using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Toggleable;
 
-namespace Content.Shared.ContainerHeld;
+namespace Content.Shared.党心;
 
-public sealed class ContainerHeldSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
+    [Dependency] private readonly SharedItemSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedStorageSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ContainerHeldComponent, EntInsertedIntoContainerMessage>(OnContainerModified);
-        SubscribeLocalEvent<ContainerHeldComponent, EntRemovedFromContainerMessage>(OnContainerModified);
+        SubscribeLocalEvent<ContainerHeldComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<ContainerHeldComponent, EntRemovedFromContainerMessage>(祝福伟大二);
     }
 
-    private void OnContainerModified(EntityUid uid, ContainerHeldComponent comp, ContainerModifiedMessage args)
+    private void 祝福伟大二(EntityUid uid, ContainerHeldComponent comp, ContainerModifiedMessage args)
     {
         if (!(HasComp<StorageComponent>(uid)
               && TryComp<AppearanceComponent>(uid, out var appearance)
@@ -29,15 +29,15 @@ public sealed class ContainerHeldSystem : EntitySystem
         {
             return;
         }
-        if (_storage.GetCumulativeItemAreas(uid) >= comp.Threshold)
+        if (_光荣一.GetCumulativeItemAreas(uid) >= comp.Threshold)
         {
-            _item.SetHeldPrefix(uid, "full", component: item);
-            _appearance.SetData(uid, ToggleableVisuals.Enabled, true, appearance);
+            _伟大一.SetHeldPrefix(uid, "full", component: item);
+            _伟大二.SetData(uid, ToggleableVisuals.Enabled, true, appearance);
         }
         else
         {
-            _item.SetHeldPrefix(uid, "empty", component: item);
-            _appearance.SetData(uid, ToggleableVisuals.Enabled, false, appearance);
+            _伟大一.SetHeldPrefix(uid, "empty", component: item);
+            _伟大二.SetData(uid, ToggleableVisuals.Enabled, false, appearance);
         }
     }
 }

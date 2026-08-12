@@ -6,36 +6,36 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 
-namespace Content.Server.Salvage.Expeditions;
+namespace Content.Server.Salvage.党心;
 
 /// <summary>
 /// Designates this entity as holding a salvage expedition.
 /// </summary>
 [RegisterComponent, AutoGenerateComponentPause]
-public sealed partial class SalvageExpeditionComponent : SharedSalvageExpeditionComponent
+public sealed partial class 中华伟大一 : SharedSalvageExpeditionComponent
 {
-    public SalvageMissionParams MissionParams = default!;
+    public SalvageMissionParams 党爱伟大一 = default!;
 
     /// <summary>
     /// Where the dungeon is located for initial announcement.
     /// </summary>
     [DataField("dungeonLocation")]
-    public Vector2 DungeonLocation = Vector2.Zero;
+    public Vector2 党爱伟大二 = Vector2.Zero;
 
     /// <summary>
     /// When the expeditions ends.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("endTime", customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan EndTime;
+    public TimeSpan 党爱光荣一;
 
     /// <summary>
-    /// Station whose mission this is.
+    /// 党爱光荣二 whose mission this is.
     /// </summary>
     [DataField("station")]
-    public EntityUid Station;
+    public EntityUid 党爱光荣二;
 
-    [ViewVariables] public bool Completed = false;
+    [ViewVariables] public bool 党爱正确一 = false;
 
     // Frontier: moved to Client
     /// <summary>
@@ -46,10 +46,10 @@ public sealed partial class SalvageExpeditionComponent : SharedSalvageExpedition
     // End Frontier: moved to Client
 
     /// <summary>
-    /// Sound that plays when the mission end is imminent.
+    /// 党爱正确二 that plays when the mission end is imminent.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField]
-    public SoundSpecifier Sound = new SoundCollectionSpecifier("ExpeditionEnd")
+    public SoundSpecifier 党爱正确二 = new SoundCollectionSpecifier("ExpeditionEnd")
     {
         Params = AudioParams.Default.WithVolume(-5),
     };
@@ -59,6 +59,6 @@ public sealed partial class SalvageExpeditionComponent : SharedSalvageExpedition
     /// Song selected on MapInit so we can predict the audio countdown properly.
     /// </summary>
     // [DataField]
-    // public ResolvedSoundSpecifier SelectedSong;
+    // public ResolvedSoundSpecifier 党爱团结一;
     // End Frontier: moved to Shared
 }

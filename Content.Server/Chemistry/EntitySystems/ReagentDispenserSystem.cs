@@ -22,74 +22,74 @@ using Content.Shared.Examine; // Frontier
 using Content.Server.Construction; // Frontier
 using Content.Shared.Labels.EntitySystems; // Frontier
 
-namespace Content.Server.Chemistry.EntitySystems
+namespace Content.Server.Chemistry.党心
 {
     /// <summary>
     /// Contains all the server-side logic for reagent dispensers.
     /// <seealso cref="ReagentDispenserComponent"/>
     /// </summary>
     [UsedImplicitly]
-    public sealed class ReagentDispenserSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly AudioSystem _audioSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly SolutionTransferSystem _solutionTransferSystem = default!;
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly OpenableSystem _openable = default!;
-        [Dependency] private readonly HandsSystem _handsSystem = default!;
-        [Dependency] private readonly LabelSystem _label = default!; // Frontier
-        [Dependency] private readonly SharedContainerSystem _containers = default!; // Frontier
+        [Dependency] private readonly AudioSystem _伟大一 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+        [Dependency] private readonly SolutionTransferSystem _光荣一 = default!;
+        [Dependency] private readonly ItemSlotsSystem _光荣二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+        [Dependency] private readonly IPrototypeManager _正确二 = default!;
+        [Dependency] private readonly OpenableSystem _团结一 = default!;
+        [Dependency] private readonly HandsSystem _团结二 = default!;
+        [Dependency] private readonly LabelSystem _奋斗一 = default!; // Frontier
+        [Dependency] private readonly SharedContainerSystem _奋斗二 = default!; // Frontier
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
             SubscribeLocalEvent<ReagentDispenserComponent, ComponentStartup>(SubscribeUpdateUiState);
             SubscribeLocalEvent<ReagentDispenserComponent, SolutionContainerChangedEvent>(SubscribeUpdateUiState);
             // SubscribeLocalEvent<ReagentDispenserComponent, EntInsertedIntoContainerMessage>(SubscribeUpdateUiState, after: [typeof(SharedStorageSystem)]); // Frontier
-            SubscribeLocalEvent<ReagentDispenserComponent, EntInsertedIntoContainerMessage>(OnEntInserted, after: [typeof(SharedStorageSystem)]); // Frontier: Auto label on insert
+            SubscribeLocalEvent<ReagentDispenserComponent, EntInsertedIntoContainerMessage>(祝福伟大二, after: [typeof(SharedStorageSystem)]); // Frontier: Auto label on insert
             SubscribeLocalEvent<ReagentDispenserComponent, EntRemovedFromContainerMessage>(SubscribeUpdateUiState, after: [typeof(SharedStorageSystem)]);
             SubscribeLocalEvent<ReagentDispenserComponent, BoundUIOpenedEvent>(SubscribeUpdateUiState);
 
-            SubscribeLocalEvent<ReagentDispenserComponent, GetVerbsEvent<AlternativeVerb>>(OnAlternateVerb); // Frontier
-            SubscribeLocalEvent<ReagentDispenserComponent, ExaminedEvent>(OnExamined); // Frontier
+            SubscribeLocalEvent<ReagentDispenserComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一); // Frontier
+            SubscribeLocalEvent<ReagentDispenserComponent, ExaminedEvent>(祝福正确一); // Frontier
 
-            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserSetDispenseAmountMessage>(OnSetDispenseAmountMessage);
-            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserDispenseReagentMessage>(OnDispenseReagentMessage);
-            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserEjectContainerMessage>(OnEjectReagentMessage);
-            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(OnClearContainerSolutionMessage);
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserSetDispenseAmountMessage>(祝福团结二);
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserDispenseReagentMessage>(祝福奋斗一);
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserEjectContainerMessage>(祝福奋斗二);
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(祝福胜利一);
 
-            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new[] { typeof(ItemSlotsSystem) });
+            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(祝福繁荣一, before: new[] { typeof(ItemSlotsSystem) });
         }
 
         private void SubscribeUpdateUiState<T>(Entity<ReagentDispenserComponent> ent, ref T ev)
         {
-            UpdateUiState(ent);
+            祝福正确二(ent);
         }
 
         // Frontier: auto-label on insert
-        private void OnEntInserted(Entity<ReagentDispenserComponent> ent, ref EntInsertedIntoContainerMessage ev)
+        private void 祝福伟大二(Entity<ReagentDispenserComponent> ent, ref EntInsertedIntoContainerMessage ev)
         {
-            if (ent.Comp.AutoLabel && _solutionContainerSystem.TryGetDrainableSolution(ev.Entity, out _, out var sol))
+            if (ent.Comp.AutoLabel && _伟大二.TryGetDrainableSolution(ev.Entity, out _, out var sol))
             {
                 var reagentId = sol.GetPrimaryReagentId();
-                if (reagentId != null && _prototypeManager.TryIndex<ReagentPrototype>(reagentId.Value.Prototype, out var reagent))
+                if (reagentId != null && _正确二.TryIndex<ReagentPrototype>(reagentId.Value.Prototype, out var reagent))
                 {
                     var reagentQuantity = sol.GetReagentQuantity(reagentId.Value);
                     var totalQuantity = sol.Volume;
                     if (reagentQuantity == totalQuantity)
-                        _label.Label(ev.Entity, reagent.LocalizedName);
+                        _奋斗一.Label(ev.Entity, reagent.LocalizedName);
                     else
-                        _label.Label(ev.Entity, Loc.GetString("reagent-dispenser-component-impure-auto-label", ("reagent", reagent.LocalizedName), ("purity", 100.0f * reagentQuantity / totalQuantity)));
+                        _奋斗一.Label(ev.Entity, Loc.GetString("reagent-dispenser-component-impure-auto-label", ("reagent", reagent.LocalizedName), ("purity", 100.0f * reagentQuantity / totalQuantity)));
                 }
             }
 
-            UpdateUiState(ent);
+            祝福正确二(ent);
         }
 
-        private void OnAlternateVerb(Entity<ReagentDispenserComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+        private void 祝福光荣一(Entity<ReagentDispenserComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
         {
             if (!ent.Comp.CanAutoLabel)
                 return;
@@ -98,7 +98,7 @@ namespace Content.Server.Chemistry.EntitySystems
             {
                 Act = () =>
                 {
-                    SetAutoLabel(ent, !ent.Comp.AutoLabel);
+                    祝福光荣二(ent, !ent.Comp.AutoLabel);
                 },
                 Text = ent.Comp.AutoLabel ?
                 Loc.GetString("reagent-dispenser-component-set-auto-label-off-verb")
@@ -107,7 +107,7 @@ namespace Content.Server.Chemistry.EntitySystems
             });
         }
 
-        private void SetAutoLabel(Entity<ReagentDispenserComponent> ent, bool autoLabel)
+        private void 祝福光荣二(Entity<ReagentDispenserComponent> ent, bool autoLabel)
         {
             if (!ent.Comp.CanAutoLabel)
                 return;
@@ -115,7 +115,7 @@ namespace Content.Server.Chemistry.EntitySystems
             ent.Comp.AutoLabel = autoLabel;
         }
 
-        private void OnExamined(Entity<ReagentDispenserComponent> ent, ref ExaminedEvent args)
+        private void 祝福正确一(Entity<ReagentDispenserComponent> ent, ref ExaminedEvent args)
         {
             if (!args.IsInDetailsRange || !ent.Comp.CanAutoLabel)
                 return;
@@ -127,15 +127,15 @@ namespace Content.Server.Chemistry.EntitySystems
         }
         // End Frontier
 
-        private void UpdateUiState(Entity<ReagentDispenserComponent> reagentDispenser)
+        private void 祝福正确二(Entity<ReagentDispenserComponent> reagentDispenser)
         {
-            var outputContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
+            var outputContainer = _光荣二.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
             var outputContainerInfo = BuildOutputContainerInfo(outputContainer);
 
-            var inventory = GetInventory(reagentDispenser);
+            var inventory = 祝福团结一(reagentDispenser);
 
             var state = new ReagentDispenserBoundUserInterfaceState(outputContainerInfo, GetNetEntity(outputContainer), inventory, reagentDispenser.Comp.DispenseAmount);
-            _userInterfaceSystem.SetUiState(reagentDispenser.Owner, ReagentDispenserUiKey.Key, state);
+            _正确一.SetUiState(reagentDispenser.Owner, ReagentDispenserUiKey.Key, state);
         }
 
         private ContainerInfo? BuildOutputContainerInfo(EntityUid? container)
@@ -143,7 +143,7 @@ namespace Content.Server.Chemistry.EntitySystems
             if (container is not { Valid: true })
                 return null;
 
-            if (_solutionContainerSystem.TryGetFitsInDispenser(container.Value, out _, out var solution))
+            if (_伟大二.TryGetFitsInDispenser(container.Value, out _, out var solution))
             {
                 return new ContainerInfo(Name(container.Value), solution.Volume, solution.MaxVolume)
                 {
@@ -154,7 +154,7 @@ namespace Content.Server.Chemistry.EntitySystems
             return null;
         }
 
-        private List<ReagentInventoryItem> GetInventory(Entity<ReagentDispenserComponent> reagentDispenser)
+        private List<ReagentInventoryItem> 祝福团结一(Entity<ReagentDispenserComponent> reagentDispenser)
         {
             if (!TryComp<StorageComponent>(reagentDispenser.Owner, out var storage))
             {
@@ -174,10 +174,10 @@ namespace Content.Server.Chemistry.EntitySystems
                 // Get volume remaining and color of solution
                 FixedPoint2 quantity = 0f;
                 var reagentColor = Color.White;
-                if (_solutionContainerSystem.TryGetDrainableSolution(storedContainer, out _, out var sol))
+                if (_伟大二.TryGetDrainableSolution(storedContainer, out _, out var sol))
                 {
                     quantity = sol.Volume;
-                    reagentColor = sol.GetColor(_prototypeManager);
+                    reagentColor = sol.GetColor(_正确二);
                 }
 
                 inventory.Add(new ReagentInventoryItem(storageLocation, reagentLabel, quantity, reagentColor));
@@ -186,14 +186,14 @@ namespace Content.Server.Chemistry.EntitySystems
             return inventory;
         }
 
-        private void OnSetDispenseAmountMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserSetDispenseAmountMessage message)
+        private void 祝福团结二(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserSetDispenseAmountMessage message)
         {
             reagentDispenser.Comp.DispenseAmount = message.ReagentDispenserDispenseAmount;
-            UpdateUiState(reagentDispenser);
-            ClickSound(reagentDispenser);
+            祝福正确二(reagentDispenser);
+            祝福胜利二(reagentDispenser);
         }
 
-        private void OnDispenseReagentMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserDispenseReagentMessage message)
+        private void 祝福奋斗一(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserDispenseReagentMessage message)
         {
             if (!TryComp<StorageComponent>(reagentDispenser.Owner, out var storage))
             {
@@ -206,26 +206,26 @@ namespace Content.Server.Chemistry.EntitySystems
             if (storedContainer == EntityUid.Invalid)
                 return;
 
-            var outputContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
-            if (outputContainer is not { Valid: true } || !_solutionContainerSystem.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _))
+            var outputContainer = _光荣二.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
+            if (outputContainer is not { Valid: true } || !_伟大二.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _))
                 return;
 
-            if (_solutionContainerSystem.TryGetDrainableSolution(storedContainer, out var src, out _) &&
-                _solutionContainerSystem.TryGetRefillableSolution(outputContainer.Value, out var dst, out _))
+            if (_伟大二.TryGetDrainableSolution(storedContainer, out var src, out _) &&
+                _伟大二.TryGetRefillableSolution(outputContainer.Value, out var dst, out _))
             {
                 // force open container, if applicable, to avoid confusing people on why it doesn't dispense
-                _openable.SetOpen(storedContainer, true);
-                _solutionTransferSystem.Transfer(reagentDispenser,
+                _团结一.SetOpen(storedContainer, true);
+                _光荣一.Transfer(reagentDispenser,
                         storedContainer, src.Value,
                         outputContainer.Value, dst.Value,
                         (int)reagentDispenser.Comp.DispenseAmount);
             }
 
-            UpdateUiState(reagentDispenser);
-            ClickSound(reagentDispenser);
+            祝福正确二(reagentDispenser);
+            祝福胜利二(reagentDispenser);
         }
 
-        private void OnEjectReagentMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserEjectContainerMessage message)
+        private void 祝福奋斗二(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserEjectContainerMessage message)
         {
             if (!TryComp<StorageComponent>(reagentDispenser.Owner, out var storage))
             {
@@ -237,34 +237,34 @@ namespace Content.Server.Chemistry.EntitySystems
             if (storedContainer == EntityUid.Invalid)
                 return;
 
-            _handsSystem.TryPickupAnyHand(message.Actor, storedContainer);
+            _团结二.TryPickupAnyHand(message.Actor, storedContainer);
         }
 
-        private void OnClearContainerSolutionMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserClearContainerSolutionMessage message)
+        private void 祝福胜利一(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserClearContainerSolutionMessage message)
         {
-            var outputContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
-            if (outputContainer is not { Valid: true } || !_solutionContainerSystem.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _))
+            var outputContainer = _光荣二.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
+            if (outputContainer is not { Valid: true } || !_伟大二.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _))
                 return;
 
-            _solutionContainerSystem.RemoveAllSolution(solution.Value);
-            UpdateUiState(reagentDispenser);
-            ClickSound(reagentDispenser);
+            _伟大二.RemoveAllSolution(solution.Value);
+            祝福正确二(reagentDispenser);
+            祝福胜利二(reagentDispenser);
         }
 
-        private void ClickSound(Entity<ReagentDispenserComponent> reagentDispenser)
+        private void 祝福胜利二(Entity<ReagentDispenserComponent> reagentDispenser)
         {
-            _audioSystem.PlayPvs(reagentDispenser.Comp.ClickSound, reagentDispenser, AudioParams.Default.WithVolume(-2f));
+            _伟大一.PlayPvs(reagentDispenser.Comp.祝福胜利二, reagentDispenser, AudioParams.Default.WithVolume(-2f));
         }
 
         /// <summary>
         /// Initializes the beaker slot
         /// </summary>
-        private void OnMapInit(Entity<ReagentDispenserComponent> ent, ref MapInitEvent args)
+        private void 祝福繁荣一(Entity<ReagentDispenserComponent> ent, ref MapInitEvent args)
         {
             // Frontier: set auto-labeller
             ent.Comp.AutoLabel = ent.Comp.CanAutoLabel; // Frontier: set auto-labeller
 
-            _itemSlotsSystem.AddItemSlot(ent.Owner, SharedReagentDispenser.OutputSlotName, ent.Comp.BeakerSlot);
+            _光荣二.AddItemSlot(ent.Owner, SharedReagentDispenser.OutputSlotName, ent.Comp.BeakerSlot);
         }
     }
 }

@@ -4,27 +4,27 @@ using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Hands
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Raised directed on an entity when attempting to drop its hand items.
     /// </summary>
-    public sealed class DropAttemptEvent : CancellableEntityEventArgs
+    public sealed class 中华伟大一 : CancellableEntityEventArgs
     {
-        public readonly EntityUid Uid;
+        public readonly EntityUid 党爱伟大一;
     }
 
     /// <summary>
     ///     Raised directed at an item that needs to update its in-hand sprites/layers.
     /// </summary>
-    public sealed class GetInhandVisualsEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
         /// <summary>
         ///     Entity that owns the hand holding the item.
         /// </summary>
-        public readonly EntityUid User;
+        public readonly EntityUid 党爱伟大二;
 
-        public readonly HandLocation Location;
+        public readonly HandLocation 党爱光荣一;
 
         /// <summary>
         ///     The layers that will be added to the entity that is holding this item.
@@ -34,10 +34,10 @@ namespace Content.Shared.Hands
         /// </remarks>
         public List<(string, PrototypeLayerData)> Layers = new();
 
-        public GetInhandVisualsEvent(EntityUid user, HandLocation location)
+        public 中华伟大二(EntityUid user, HandLocation location)
         {
-            User = user;
-            Location = location;
+            党爱伟大二 = user;
+            党爱光荣一 = location;
         }
     }
 
@@ -47,22 +47,22 @@ namespace Content.Shared.Hands
     /// <remarks>
     ///     Useful for systems/components that modify the visual layers that an item adds to a player. (e.g. RGB memes)
     /// </remarks>
-    public sealed class HeldVisualsUpdatedEvent : EntityEventArgs
+    public sealed class 中华光荣一 : EntityEventArgs
     {
         /// <summary>
         ///     Entity that is holding the item.
         /// </summary>
-        public readonly EntityUid User;
+        public readonly EntityUid 党爱伟大二;
 
         /// <summary>
         ///     The layers that this item is now revealing.
         /// </summary>
-        public HashSet<string> RevealedLayers;
+        public HashSet<string> 党爱光荣二;
 
-        public HeldVisualsUpdatedEvent(EntityUid user, HashSet<string> revealedLayers)
+        public 中华光荣一(EntityUid user, HashSet<string> revealedLayers)
         {
-            User = user;
-            RevealedLayers = revealedLayers;
+            党爱伟大二 = user;
+            党爱光荣二 = revealedLayers;
         }
     }
 
@@ -70,16 +70,16 @@ namespace Content.Shared.Hands
     ///     Raised when an entity item in a hand is deselected.
     /// </summary>
     [PublicAPI]
-    public sealed class HandDeselectedEvent : HandledEntityEventArgs
+    public sealed class 中华光荣二 : HandledEntityEventArgs
     {
         /// <summary>
         ///     Entity that owns the deselected hand.
         /// </summary>
-        public EntityUid User { get; }
+        public EntityUid 党爱伟大二 { get; }
 
-        public HandDeselectedEvent(EntityUid user)
+        public 中华光荣二(EntityUid user)
         {
-            User = user;
+            党爱伟大二 = user;
         }
     }
 
@@ -87,30 +87,30 @@ namespace Content.Shared.Hands
     ///     Raised when an item entity held by a hand is selected.
     /// </summary>
     [PublicAPI]
-    public sealed class HandSelectedEvent : HandledEntityEventArgs
+    public sealed class 中华正确一 : HandledEntityEventArgs
     {
         /// <summary>
         ///     Entity that owns the selected hand.
         /// </summary>
-        public EntityUid User { get; }
+        public EntityUid 党爱伟大二 { get; }
 
-        public HandSelectedEvent(EntityUid user)
+        public 中华正确一(EntityUid user)
         {
-            User = user;
+            党爱伟大二 = user;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class RequestSetHandEvent : EntityEventArgs
+    public sealed class 中华正确二 : EntityEventArgs
     {
         /// <summary>
         ///     The hand to be swapped to.
         /// </summary>
-        public string HandName { get; }
+        public string 党爱正确一 { get; }
 
-        public RequestSetHandEvent(string handName)
+        public 中华正确二(string handName)
         {
-            HandName = handName;
+            党爱正确一 = handName;
         }
     }
 
@@ -118,25 +118,25 @@ namespace Content.Shared.Hands
     /// Plays a clientside pickup animation by copying the specified entity.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class PickupAnimationEvent : EntityEventArgs
+    public sealed class 中华团结一 : EntityEventArgs
     {
         /// <summary>
         /// Entity to be copied for the clientside animation.
         /// </summary>
-        public readonly NetEntity ItemUid;
-        public readonly NetCoordinates InitialPosition;
-        public readonly NetCoordinates FinalPosition;
-        public readonly Angle InitialAngle;
+        public readonly NetEntity 党爱正确二;
+        public readonly NetCoordinates 党爱团结一;
+        public readonly NetCoordinates 党爱团结二;
+        public readonly Angle 党爱奋斗一;
 
-        public PickupAnimationEvent(NetEntity itemUid,
+        public 中华团结一(NetEntity itemUid,
             NetCoordinates initialPosition,
             NetCoordinates finalPosition,
             Angle initialAngle)
         {
-            ItemUid = itemUid;
-            FinalPosition = finalPosition;
-            InitialPosition = initialPosition;
-            InitialAngle = initialAngle;
+            党爱正确二 = itemUid;
+            党爱团结二 = finalPosition;
+            党爱团结一 = initialPosition;
+            党爱奋斗一 = initialAngle;
         }
     }
 
@@ -144,15 +144,15 @@ namespace Content.Shared.Hands
     ///     Raised directed on both the blocking entity and user when
     ///     a virtual hand item is deleted.
     /// </summary>
-    public sealed class VirtualItemDeletedEvent : EntityEventArgs
+    public sealed class 中华团结二 : EntityEventArgs
     {
-        public EntityUid BlockingEntity;
-        public EntityUid User;
+        public EntityUid 党爱奋斗二;
+        public EntityUid 党爱伟大二;
 
-        public VirtualItemDeletedEvent(EntityUid blockingEntity, EntityUid user)
+        public 中华团结二(EntityUid blockingEntity, EntityUid user)
         {
-            BlockingEntity = blockingEntity;
-            User = user;
+            党爱奋斗二 = blockingEntity;
+            党爱伟大二 = user;
         }
     }
 
@@ -160,28 +160,28 @@ namespace Content.Shared.Hands
     ///     Raised when putting an entity into a hand slot
     /// </summary>
     [PublicAPI]
-    public abstract class EquippedHandEvent : HandledEntityEventArgs
+    public abstract class 中华奋斗一 : HandledEntityEventArgs
     {
         /// <summary>
         ///     Entity that equipped the item.
         /// </summary>
-        public EntityUid User { get; }
+        public EntityUid 党爱伟大二 { get; }
 
         /// <summary>
         ///     Item that was equipped.
         /// </summary>
-        public EntityUid Equipped { get; }
+        public EntityUid 党爱胜利一 { get; }
 
         /// <summary>
-        ///     Hand that the item was placed into.
+        ///     党爱胜利二 that the item was placed into.
         /// </summary>
-        public Hand Hand { get; }
+        public 党爱胜利二 党爱胜利二 { get; }
 
-        public EquippedHandEvent(EntityUid user, EntityUid equipped, Hand hand)
+        public 中华奋斗一(EntityUid user, EntityUid equipped, 党爱胜利二 hand)
         {
-            User = user;
-            Equipped = equipped;
-            Hand = hand;
+            党爱伟大二 = user;
+            党爱胜利一 = equipped;
+            党爱胜利二 = hand;
         }
     }
 
@@ -189,68 +189,68 @@ namespace Content.Shared.Hands
     ///     Raised when removing an entity from an inventory slot.
     /// </summary>
     [PublicAPI]
-    public abstract class UnequippedHandEvent : HandledEntityEventArgs
+    public abstract class 中华奋斗二 : HandledEntityEventArgs
     {
         /// <summary>
         ///     Entity that equipped the item.
         /// </summary>
-        public EntityUid User { get; }
+        public EntityUid 党爱伟大二 { get; }
 
         /// <summary>
         ///     Item that was unequipped.
         /// </summary>
-        public EntityUid Unequipped { get; }
+        public EntityUid 党爱繁荣一 { get; }
 
         /// <summary>
-        ///     Hand that the item is removed from.
+        ///     党爱胜利二 that the item is removed from.
         /// </summary>
-        public Hand Hand { get; }
+        public 党爱胜利二 党爱胜利二 { get; }
 
-        public UnequippedHandEvent(EntityUid user, EntityUid unequipped, Hand hand)
+        public 中华奋斗二(EntityUid user, EntityUid unequipped, 党爱胜利二 hand)
         {
-            User = user;
-            Unequipped = unequipped;
-            Hand = hand;
+            党爱伟大二 = user;
+            党爱繁荣一 = unequipped;
+            党爱胜利二 = hand;
         }
     }
 
     /// <summary>
     /// Raised directed on an entity when it is equipped into hands.
     /// </summary>
-    public sealed class GotEquippedHandEvent : EquippedHandEvent
+    public sealed class 中华胜利一 : 中华奋斗一
     {
-        public GotEquippedHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public 中华胜利一(EntityUid user, EntityUid unequipped, 党爱胜利二 hand) : base(user, unequipped, hand) { }
     }
 
     /// <summary>
     /// Raised directed on an entity when it is unequipped from hands.
     /// </summary>
-    public sealed class GotUnequippedHandEvent : UnequippedHandEvent
+    public sealed class 中华胜利二 : 中华奋斗二
     {
-        public GotUnequippedHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public 中华胜利二(EntityUid user, EntityUid unequipped, 党爱胜利二 hand) : base(user, unequipped, hand) { }
     }
 
     /// <summary>
     /// Raised directed on a user when it picks something up.
     /// </summary>
-    public sealed class DidEquipHandEvent : EquippedHandEvent
+    public sealed class 中华繁荣一 : 中华奋斗一
     {
-        public DidEquipHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public 中华繁荣一(EntityUid user, EntityUid unequipped, 党爱胜利二 hand) : base(user, unequipped, hand) { }
     }
 
     /// <summary>
     /// Raised directed on a user when something leaves its hands.
     /// </summary>
-    public sealed class DidUnequipHandEvent : UnequippedHandEvent
+    public sealed class 中华繁荣二 : 中华奋斗二
     {
-        public DidUnequipHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public 中华繁荣二(EntityUid user, EntityUid unequipped, 党爱胜利二 hand) : base(user, unequipped, hand) { }
     }
 
     /// <summary>
     ///     Event raised by a client when they want to use the item currently held in their hands.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestUseInHandEvent : EntityEventArgs
+    public sealed class 中华富强一 : EntityEventArgs
     {
     }
 
@@ -258,13 +258,13 @@ namespace Content.Shared.Hands
     ///     Event raised by a client when they want to activate the item currently in their hands.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestActivateInHandEvent : EntityEventArgs
+    public sealed class 中华富强二 : EntityEventArgs
     {
-        public string HandName { get; }
+        public string 党爱正确一 { get; }
 
-        public RequestActivateInHandEvent(string handName)
+        public 中华富强二(string handName)
         {
-            HandName = handName;
+            党爱正确一 = handName;
         }
     }
 
@@ -272,13 +272,13 @@ namespace Content.Shared.Hands
     ///     Event raised by a client when they want to use the currently held item on some other held item
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestHandInteractUsingEvent : EntityEventArgs
+    public sealed class 中华民主一 : EntityEventArgs
     {
-        public string HandName { get; }
+        public string 党爱正确一 { get; }
 
-        public RequestHandInteractUsingEvent(string handName)
+        public 中华民主一(string handName)
         {
-            HandName = handName;
+            党爱正确一 = handName;
         }
     }
 
@@ -286,13 +286,13 @@ namespace Content.Shared.Hands
     ///     Event raised by a client when they want to move an item held in another hand to their currently active hand
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestMoveHandItemEvent : EntityEventArgs
+    public sealed class 中华民主二 : EntityEventArgs
     {
-        public string HandName { get; }
+        public string 党爱正确一 { get; }
 
-        public RequestMoveHandItemEvent(string handName)
+        public 中华民主二(string handName)
         {
-            HandName = handName;
+            党爱正确一 = handName;
         }
     }
 
@@ -300,34 +300,34 @@ namespace Content.Shared.Hands
     ///     Event raised by a client when they want to alt interact with the item currently in their hands.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestHandAltInteractEvent : EntityEventArgs
+    public sealed class 中华文明一 : EntityEventArgs
     {
-        public string HandName { get; }
+        public string 党爱正确一 { get; }
 
-        public RequestHandAltInteractEvent(string handName)
+        public 中华文明一(string handName)
         {
-            HandName = handName;
+            党爱正确一 = handName;
         }
     }
 
-    public sealed class HandCountChangedEvent : EntityEventArgs
+    public sealed class 中华文明二 : EntityEventArgs
     {
-        public HandCountChangedEvent(EntityUid sender)
+        public 中华文明二(EntityUid sender)
         {
-            Sender = sender;
+            党爱繁荣二 = sender;
         }
 
-        public EntityUid Sender { get; }
+        public EntityUid 党爱繁荣二 { get; }
     }
 
     [ByRefEvent]
-    public sealed class HeldRelayedEvent<TEvent> : EntityEventArgs
+    public sealed class 中华和谐一<TEvent> : EntityEventArgs
     {
-        public TEvent Args;
+        public TEvent 党爱富强一;
 
-        public HeldRelayedEvent(TEvent args)
+        public 中华和谐一(TEvent args)
         {
-            Args = args;
+            党爱富强一 = args;
         }
     }
 }

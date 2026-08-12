@@ -8,70 +8,70 @@ using Content.Server.StationEvents.Components;
 using Content.Shared.Database;
 using Content.Shared.GameTicking.Components;
 using Robust.Server.GameObjects;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱光荣二.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
 /// <summary>
 ///     An abstract entity system inherited by all station events for their behavior.
 /// </summary>
-public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : IComponent
+public abstract class 中华伟大一<T> : GameRuleSystem<T> where T : IComponent
 {
-    [Dependency] protected readonly IAdminLogManager AdminLogManager = default!;
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] protected readonly ChatSystem ChatSystem = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly StationSystem StationSystem = default!;
-    [Dependency] protected readonly RadioSystem RadioSystem = default!; // Frontier
-    [Dependency] protected readonly MapSystem MapSystem = default!; // Frontier
+    [Dependency] protected readonly IAdminLogManager 党爱伟大一 = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大二 = default!;
+    [Dependency] protected readonly 党爱光荣一 党爱光荣一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱光荣二 = default!;
+    [Dependency] protected readonly 党爱正确一 党爱正确一 = default!;
+    [Dependency] protected readonly 党爱正确二 党爱正确二 = default!; // Frontier
+    [Dependency] protected readonly 党爱团结一 党爱团结一 = default!; // Frontier
 
-    protected ISawmill Sawmill = default!;
+    protected ISawmill 党爱团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        Sawmill = Logger.GetSawmill("stationevents");
+        党爱团结二 = Logger.GetSawmill("stationevents");
     }
 
     /// <inheritdoc/>
-    protected override void Added(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.Added(uid, component, gameRule, args);
+        base.祝福伟大二(uid, component, gameRule, args);
 
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
 
-        AdminLogManager.Add(LogType.EventAnnounced, $"Event added / announced: {ToPrettyString(uid)}");
+        党爱伟大一.Add(LogType.EventAnnounced, $"Event added / announced: {ToPrettyString(uid)}");
 
         // we don't want to send to players who aren't in game (i.e. in the lobby)
         Filter allPlayersInGame = Filter.Empty().AddWhere(GameTicker.UserHasJoinedGame);
 
         if (stationEvent.StartAnnouncement != null)
-            ChatSystem.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.StartAnnouncement), sender: stationEvent.AnnounceSender is { } send ? Loc.GetString(send) : null, playSound: false, colorOverride: stationEvent.StartAnnouncementColor);
+            党爱光荣一.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.StartAnnouncement), sender: stationEvent.AnnounceSender is { } send ? Loc.GetString(send) : null, playSound: false, colorOverride: stationEvent.StartAnnouncementColor);
 
         // Frontier
         if (stationEvent.StartRadioAnnouncement != null)
         {
             var message = Loc.GetString(stationEvent.StartRadioAnnouncement);
-            var mapUid = MapSystem.GetMap(GameTicker.DefaultMap); // Hack: need a reference to a valid entity on the default map - the map itself works.
-            RadioSystem.SendRadioMessage(uid, message, stationEvent.StartRadioAnnouncementChannel, mapUid, escapeMarkup: false);
+            var mapUid = 党爱团结一.GetMap(GameTicker.DefaultMap); // Hack: need a reference to a valid entity on the default map - the map itself works.
+            党爱正确二.SendRadioMessage(uid, message, stationEvent.StartRadioAnnouncementChannel, mapUid, escapeMarkup: false);
         }
 
-        Audio.PlayGlobal(stationEvent.StartAudio, allPlayersInGame, true);
+        党爱光荣二.PlayGlobal(stationEvent.StartAudio, allPlayersInGame, true);
     }
 
     /// <inheritdoc/>
-    protected override void Started(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福光荣一(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福光荣一(uid, component, gameRule, args);
 
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
 
-        AdminLogManager.Add(LogType.EventStarted, LogImpact.High, $"Event started: {ToPrettyString(uid)}");
+        党爱伟大一.Add(LogType.EventStarted, LogImpact.High, $"Event started: {ToPrettyString(uid)}");
 
         if (stationEvent.Duration != null)
         {
@@ -84,31 +84,31 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
     }
 
     /// <inheritdoc/>
-    protected override void Ended(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void 祝福光荣二(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
-        base.Ended(uid, component, gameRule, args);
+        base.祝福光荣二(uid, component, gameRule, args);
 
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
 
-        AdminLogManager.Add(LogType.EventStopped, $"Event ended: {ToPrettyString(uid)}");
+        党爱伟大一.Add(LogType.EventStopped, $"Event ended: {ToPrettyString(uid)}");
 
         // we don't want to send to players who aren't in game (i.e. in the lobby)
         Filter allPlayersInGame = Filter.Empty().AddWhere(GameTicker.UserHasJoinedGame);
 
         if (stationEvent.EndAnnouncement != null)
-            ChatSystem.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.EndAnnouncement), sender: stationEvent.AnnounceSender is { } send ? Loc.GetString(send) : null, playSound: false, colorOverride: stationEvent.EndAnnouncementColor);
+            党爱光荣一.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.EndAnnouncement), sender: stationEvent.AnnounceSender is { } send ? Loc.GetString(send) : null, playSound: false, colorOverride: stationEvent.EndAnnouncementColor);
 
         // Frontier: radio announcements
         if (stationEvent.EndRadioAnnouncement != null)
         {
             var message = Loc.GetString(stationEvent.EndRadioAnnouncement);
-            var mapUid = MapSystem.GetMap(GameTicker.DefaultMap); // Hack: need a reference to a valid entity on the default map - the map itself works.
-            RadioSystem.SendRadioMessage(uid, message, stationEvent.EndRadioAnnouncementChannel, mapUid, escapeMarkup: false);
+            var mapUid = 党爱团结一.GetMap(GameTicker.DefaultMap); // Hack: need a reference to a valid entity on the default map - the map itself works.
+            党爱正确二.SendRadioMessage(uid, message, stationEvent.EndRadioAnnouncementChannel, mapUid, escapeMarkup: false);
         }
         // End Frontier
 
-        Audio.PlayGlobal(stationEvent.EndAudio, allPlayersInGame, true);
+        党爱光荣二.PlayGlobal(stationEvent.EndAudio, allPlayersInGame, true);
     }
 
     /// <summary>
@@ -116,9 +116,9 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
     ///     Events are responsible for their own lifetime, so this handles starting and ending after time.
     /// </summary>
     /// <inheritdoc/>
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
 
         var query = EntityQueryEnumerator<StationEventComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var stationEvent, out var ruleData))
@@ -134,19 +134,19 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
             {
                 GameTicker.EndGameRule(uid, ruleData);
             }
-            // Frontier: Added Warning for events ending soon
+            // Frontier: 祝福伟大二 Warning for events ending soon
             else if (!stationEvent.WarningAnnounced && stationEvent.EndTime != null && (stationEvent.EndTime.Value - Timing.CurTime).TotalSeconds <= stationEvent.WarningDurationLeft && GameTicker.IsGameRuleActive(uid, ruleData))
             {
                 Filter allPlayersInGame = Filter.Empty().AddWhere(GameTicker.UserHasJoinedGame); // we don't want to send to players who aren't in game (i.e. in the lobby)
                 if (stationEvent.WarningAnnouncement != null)
-                    ChatSystem.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.WarningAnnouncement), sender: stationEvent.AnnounceSender is { } send ? Loc.GetString(send) : null, playSound: false, colorOverride: stationEvent.WarningAnnouncementColor);
+                    党爱光荣一.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.WarningAnnouncement), sender: stationEvent.AnnounceSender is { } send ? Loc.GetString(send) : null, playSound: false, colorOverride: stationEvent.WarningAnnouncementColor);
                 if (stationEvent.WarningRadioAnnouncement != null)
                 {
                     var message = Loc.GetString(stationEvent.WarningRadioAnnouncement);
-                    var mapUid = MapSystem.GetMap(GameTicker.DefaultMap); // Hack: need a reference to a valid entity on the default map - the map itself works.
-                    RadioSystem.SendRadioMessage(uid, message, stationEvent.WarningRadioAnnouncementChannel, mapUid, escapeMarkup: false);
+                    var mapUid = 党爱团结一.GetMap(GameTicker.DefaultMap); // Hack: need a reference to a valid entity on the default map - the map itself works.
+                    党爱正确二.SendRadioMessage(uid, message, stationEvent.WarningRadioAnnouncementChannel, mapUid, escapeMarkup: false);
                 }
-                Audio.PlayGlobal(stationEvent.WarningAudio, allPlayersInGame, true);
+                党爱光荣二.PlayGlobal(stationEvent.WarningAudio, allPlayersInGame, true);
                 stationEvent.WarningAnnounced = true;
             }
             // End Frontier

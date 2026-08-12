@@ -1,10 +1,10 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Trigger.Components.Triggers;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Triggers when the entity exits a floating or thrown state and lands on a surface.
 /// The user is the thrower.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class TriggerOnLandComponent : BaseTriggerOnXComponent;
+public sealed partial class 中华伟大一 : BaseTriggerOnXComponent;

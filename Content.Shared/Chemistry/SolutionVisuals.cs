@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chemistry
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum SolutionContainerVisuals : byte
+    public enum 中华伟大一 : byte
     {
         Color,
         FillFraction,
@@ -11,7 +11,7 @@ namespace Content.Shared.Chemistry
         SolutionName
     }
 
-    public enum SolutionContainerLayers : byte
+    public enum 中华伟大二 : byte
     {
         Fill,
         Base,

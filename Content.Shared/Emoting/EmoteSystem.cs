@@ -1,15 +1,15 @@
-﻿namespace Content.Shared.Emoting;
+﻿namespace Content.Shared.党心;
 
-public sealed class EmoteSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EmoteAttemptEvent>(OnEmoteAttempt);
+        SubscribeLocalEvent<EmoteAttemptEvent>(祝福光荣一);
     }
 
-    public void SetEmoting(EntityUid uid, bool value, EmotingComponent? component = null)
+    public void 祝福伟大二(EntityUid uid, bool value, EmotingComponent? component = null)
     {
         if (value && !Resolve(uid, ref component))
             return;
@@ -22,7 +22,7 @@ public sealed class EmoteSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    private void OnEmoteAttempt(EmoteAttemptEvent args)
+    private void 祝福光荣一(EmoteAttemptEvent args)
     {
         if (!TryComp(args.Uid, out EmotingComponent? emote) || !emote.Enabled)
             args.Cancel();

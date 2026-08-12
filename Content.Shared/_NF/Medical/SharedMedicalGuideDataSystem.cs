@@ -4,78 +4,78 @@ using Content.Shared.Kitchen;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Client.Chemistry.EntitySystems;
+namespace Content.Client.Chemistry.党心;
 
 // A clone of the FoodGuideDataSystem. Thank you to Mnemotechnician for the original implementation.
 // Redundancy.
-public abstract class SharedMedicalGuideDataSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public List<MedicalGuideEntry> Registry = new();
+    public List<中华光荣一> Registry = new();
 }
 
 [Serializable, NetSerializable]
-public sealed class MedicalGuideRegistryChangedEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     [DataField]
-    public List<MedicalGuideEntry> Changeset;
+    public List<中华光荣一> Changeset;
 
-    public MedicalGuideRegistryChangedEvent(List<MedicalGuideEntry> changeset)
+    public 中华伟大二(List<中华光荣一> changeset)
     {
         Changeset = changeset;
     }
 }
 
 [DataDefinition, Serializable, NetSerializable]
-public partial struct MedicalGuideEntry
+public partial struct 中华光荣一
 {
     [DataField]
-    public EntProtoId Result;
+    public EntProtoId 党爱伟大一;
 
     [DataField]
-    public string Identifier; // Used for sorting
+    public string 党爱伟大二; // Used for sorting
 
     [DataField]
-    public MedicalRecipeData[] Recipes;
+    public 中华光荣二[] Recipes;
 
     [DataField]
-    public ReagentQuantity[] Composition;
+    public ReagentQuantity[] 党爱光荣一;
 
     [DataField]
     public DamageSpecifier? Healing;
 
-    public MedicalGuideEntry(EntProtoId result, string identifier, MedicalRecipeData[] recipes, ReagentQuantity[] composition, DamageSpecifier? healing)
+    public 中华光荣一(EntProtoId result, string identifier, 中华光荣二[] recipes, ReagentQuantity[] composition, DamageSpecifier? healing)
     {
-        Result = result;
-        Identifier = identifier;
+        党爱伟大一 = result;
+        党爱伟大二 = identifier;
         Recipes = recipes;
-        Composition = composition;
+        党爱光荣一 = composition;
         Healing = healing;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed partial class MedicalRecipeData
+public sealed partial class 中华光荣二
 {
     [DataField]
-    public ProtoId<FoodRecipePrototype> Recipe;
+    public ProtoId<FoodRecipePrototype> 党爱光荣二;
 
     [DataField]
-    public EntProtoId Result;
+    public EntProtoId 党爱伟大一;
 
     [DataField]
-    private int _outputCount;
-    public int OutputCount => _outputCount;
+    private int _伟大一;
+    public int 党爱正确一 => _伟大一;
 
     /// <summary>
     ///     A string used to distinguish different sources. Typically the name of the related entity.
     /// </summary>
-    public string Identitier;
+    public string 党爱正确二;
 
-    public MedicalRecipeData(FoodRecipePrototype proto)
+    public 中华光荣二(FoodRecipePrototype proto)
     {
-        Identitier = proto.Name;
-        Recipe = proto.ID;
-        Result = proto.Result;
-        _outputCount = proto.ResultCount;
+        党爱正确二 = proto.Name;
+        党爱光荣二 = proto.ID;
+        党爱伟大一 = proto.党爱伟大一;
+        _伟大一 = proto.ResultCount;
     }
 }

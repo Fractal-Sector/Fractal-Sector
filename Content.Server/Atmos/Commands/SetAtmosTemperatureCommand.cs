@@ -5,23 +5,23 @@ using Content.Shared.Atmos;
 using Robust.Shared.Console;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Atmos.Commands
+namespace Content.Server.Atmos.党心
 {
     [AdminCommand(AdminFlags.Debug)]
-    public sealed class SetAtmosTemperatureCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "setatmostemp";
-        public string Description => "Sets a grid's temperature (in kelvin).";
-        public string Help => "Usage: setatmostemp <GridId> <Temperature>";
+        public string 党爱伟大一 => "setatmostemp";
+        public string 党爱伟大二 => "Sets a grid's temperature (in kelvin).";
+        public string 党爱光荣一 => "Usage: setatmostemp <GridId> <Temperature>";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 2)
                 return;
 
-            if (!_entManager.TryParseNetEntity(args[0], out var gridId)
+            if (!_伟大一.TryParseNetEntity(args[0], out var gridId)
                 || !float.TryParse(args[1], out var temperature))
             {
                 return;
@@ -33,13 +33,13 @@ namespace Content.Server.Atmos.Commands
                 return;
             }
 
-            if (!gridId.Value.IsValid() || !_entManager.HasComponent<MapGridComponent>(gridId))
+            if (!gridId.Value.IsValid() || !_伟大一.HasComponent<MapGridComponent>(gridId))
             {
                 shell.WriteLine("Invalid grid ID.");
                 return;
             }
 
-            var atmosphereSystem = _entManager.System<AtmosphereSystem>();
+            var atmosphereSystem = _伟大一.System<AtmosphereSystem>();
 
             var tiles = 0;
             foreach (var tile in atmosphereSystem.GetAllMixtures(gridId.Value, true))

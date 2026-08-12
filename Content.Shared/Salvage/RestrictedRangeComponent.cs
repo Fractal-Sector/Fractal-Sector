@@ -1,20 +1,20 @@
 using System.Numerics;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Salvage;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Restricts entities to the specified range on the attached map entity.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class RestrictedRangeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true), AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public float Range = 78f;
+    public float 党爱伟大一 = 78f;
 
     [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public Vector2 Origin;
+    public Vector2 党爱伟大二;
 
     [DataField]
-    public EntityUid BoundaryEntity;
+    public EntityUid 党爱光荣一;
 }

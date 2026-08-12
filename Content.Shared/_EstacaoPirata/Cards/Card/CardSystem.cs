@@ -12,29 +12,29 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared._EstacaoPirata.Cards.Card;
+namespace Content.Shared._EstacaoPirata.Cards.党心;
 
 /// <summary>
 /// This handles...
 /// </summary>
-public sealed class CardSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly CardStackSystem _cardStack = default!;
-    [Dependency] private readonly CardDeckSystem _cardDeck = default!;
-    [Dependency] private readonly CardHandSystem _cardHand = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly CardStackSystem _伟大二 = default!;
+    [Dependency] private readonly CardDeckSystem _光荣一 = default!;
+    [Dependency] private readonly CardHandSystem _光荣二 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确一 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确二 = default!;
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<CardComponent, GetVerbsEvent<AlternativeVerb>>(AddTurnOnVerb);
-        SubscribeLocalEvent<CardComponent, GetVerbsEvent<ActivationVerb>>(OnActivationVerb);
-        SubscribeLocalEvent<CardComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<CardComponent, UseInHandEvent>(OnUse);
-        SubscribeLocalEvent<CardComponent, ActivateInWorldEvent>(OnActivate);
+        SubscribeLocalEvent<CardComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<CardComponent, GetVerbsEvent<ActivationVerb>>(祝福团结二);
+        SubscribeLocalEvent<CardComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<CardComponent, UseInHandEvent>(祝福光荣二);
+        SubscribeLocalEvent<CardComponent, ActivateInWorldEvent>(祝福奋斗一);
     }
-    private void OnExamined(EntityUid uid, CardComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, CardComponent component, ExaminedEvent args)
     {
         if (args.IsInDetailsRange && !component.Flipped)
         {
@@ -42,14 +42,14 @@ public sealed class CardSystem : EntitySystem
         }
     }
 
-    private void AddTurnOnVerb(EntityUid uid, CardComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(EntityUid uid, CardComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
 
         args.Verbs.Add(new AlternativeVerb()
         {
-            Act = () => FlipCard(uid, component),
+            Act = () => 祝福正确一(uid, component),
             Text = Loc.GetString("cards-verb-flip"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
             Priority = 1
@@ -62,7 +62,7 @@ public sealed class CardSystem : EntitySystem
         {
             args.Verbs.Add(new AlternativeVerb()
             {
-                Act = () => JoinCards(args.User, args.Target, component, (EntityUid)args.Using, usingStack),
+                Act = () => 祝福正确二(args.User, args.Target, component, (EntityUid)args.Using, usingStack),
                 Text = Loc.GetString("card-verb-join"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
                 Priority = 2
@@ -70,10 +70,10 @@ public sealed class CardSystem : EntitySystem
         }
         else if (TryComp<CardComponent>(args.Using, out var usingCard))
         {
-            var pickup = _hands.IsHolding(args.User, args.Target);
+            var pickup = _正确二.IsHolding(args.User, args.Target);
             args.Verbs.Add(new AlternativeVerb()
             {
-                Act = () => _cardHand.TrySetupHandOfCards(args.User, args.Target, component, args.Using.Value, usingCard, pickup),
+                Act = () => _光荣二.TrySetupHandOfCards(args.User, args.Target, component, args.Using.Value, usingCard, pickup),
                 Text = Loc.GetString("card-verb-join"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
                 Priority = 2
@@ -81,12 +81,12 @@ public sealed class CardSystem : EntitySystem
         }
     }
 
-    private void OnUse(EntityUid uid, CardComponent comp, UseInHandEvent args)
+    private void 祝福光荣二(EntityUid uid, CardComponent comp, UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
-        FlipCard(uid, comp);
+        祝福正确一(uid, comp);
         args.Handled = true;
     }
 
@@ -95,29 +95,29 @@ public sealed class CardSystem : EntitySystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    private void FlipCard(EntityUid uid, CardComponent component)
+    private void 祝福正确一(EntityUid uid, CardComponent component)
     {
-        if (_net.IsClient)
+        if (_伟大一.IsClient)
             return;
         component.Flipped = !component.Flipped;
         Dirty(uid, component);
         RaiseNetworkEvent(new CardFlipUpdatedEvent(GetNetEntity(uid)));
     }
 
-    private void JoinCards(EntityUid user, EntityUid first, CardComponent firstComp, EntityUid second, CardStackComponent secondStack)
+    private void 祝福正确二(EntityUid user, EntityUid first, CardComponent firstComp, EntityUid second, CardStackComponent secondStack)
     {
-        if (_net.IsClient)
+        if (_伟大一.IsClient)
             return;
-        bool pickup = _hands.IsHolding(user, first);
+        bool pickup = _正确二.IsHolding(user, first);
         EntityUid cardStack;
         bool? flip = null;
         if (HasComp<CardDeckComponent>(second))
         {
-            cardStack = SpawnInSameParent(_cardDeck.CardDeckBaseName, first);
+            cardStack = 祝福团结一(_光荣一.CardDeckBaseName, first);
         }
         else if (HasComp<CardHandComponent>(second))
         {
-            cardStack = SpawnInSameParent(_cardHand.CardHandBaseName, first);
+            cardStack = 祝福团结一(_光荣二.CardHandBaseName, first);
             if(TryComp<CardHandComponent>(cardStack, out var stackHand))
                 stackHand.Flipped = firstComp.Flipped;
             flip = firstComp.Flipped;
@@ -127,21 +127,21 @@ public sealed class CardSystem : EntitySystem
 
         if (!TryComp(cardStack, out CardStackComponent? stack))
             return;
-        if (!_cardStack.TryInsertCard(cardStack, first, stack))
+        if (!_伟大二.TryInsertCard(cardStack, first, stack))
             return;
-        _cardStack.TransferNLastCardFromStacks(user, secondStack.Cards.Count, second, secondStack, cardStack, stack);
+        _伟大二.TransferNLastCardFromStacks(user, secondStack.Cards.Count, second, secondStack, cardStack, stack);
         if (flip != null)
-            _cardStack.FlipAllCards(cardStack, stack, flip); //???
+            _伟大二.FlipAllCards(cardStack, stack, flip); //???
         if(pickup)
-            _hands.TryPickupAnyHand(user, cardStack);
+            _正确二.TryPickupAnyHand(user, cardStack);
     }
 
     // Frontier: tries to spawn an entity with the same parent as another given entity.
     //           Useful when spawning decks/hands in a backpack, for example.
-    private EntityUid SpawnInSameParent(EntProtoId prototype, EntityUid uid)
+    private EntityUid 祝福团结一(EntProtoId prototype, EntityUid uid)
     {
-        if (_container.IsEntityOrParentInContainer(uid) &&
-            _container.TryGetOuterContainer(uid, Transform(uid), out var container))
+        if (_正确一.IsEntityOrParentInContainer(uid) &&
+            _正确一.TryGetOuterContainer(uid, Transform(uid), out var container))
         {
             return SpawnInContainerOrDrop(prototype, container.Owner, container.ID);
         }
@@ -149,7 +149,7 @@ public sealed class CardSystem : EntitySystem
     }
 
     // Frontier: hacky misuse of the activation verb, but allows us a separate way to draw cards without needing additional buttons and event fiddling
-    private void OnActivationVerb(EntityUid uid, CardComponent component, GetVerbsEvent<ActivationVerb> args)
+    private void 祝福团结二(EntityUid uid, CardComponent component, GetVerbsEvent<ActivationVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
@@ -164,7 +164,7 @@ public sealed class CardSystem : EntitySystem
         {
             args.Verbs.Add(new ActivationVerb()
             {
-                Act = () => _hands.TryPickupAnyHand(args.User, args.Target),
+                Act = () => _正确二.TryPickupAnyHand(args.User, args.Target),
                 Text = Loc.GetString("cards-verb-draw"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
                 Priority = 16
@@ -174,7 +174,7 @@ public sealed class CardSystem : EntitySystem
         {
             args.Verbs.Add(new ActivationVerb()
             {
-                Act = () => _cardStack.InsertCardOnStack(args.User, args.Using.Value, cardStack, args.Target),
+                Act = () => _伟大二.InsertCardOnStack(args.User, args.Using.Value, cardStack, args.Target),
                 Text = Loc.GetString("cards-verb-draw"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
                 Priority = 16
@@ -184,7 +184,7 @@ public sealed class CardSystem : EntitySystem
         {
             args.Verbs.Add(new ActivationVerb()
             {
-                Act = () => _cardHand.TrySetupHandOfCards(args.User, args.Using.Value, card, args.Target, component, true),
+                Act = () => _光荣二.TrySetupHandOfCards(args.User, args.Using.Value, card, args.Target, component, true),
                 Text = Loc.GetString("cards-verb-draw"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
                 Priority = 16
@@ -193,7 +193,7 @@ public sealed class CardSystem : EntitySystem
     }
     // End Frontier
 
-    private void OnActivate(EntityUid uid, CardComponent component, ActivateInWorldEvent args)
+    private void 祝福奋斗一(EntityUid uid, CardComponent component, ActivateInWorldEvent args)
     {
         if (!args.Complex || args.Handled)
             return;
@@ -205,19 +205,19 @@ public sealed class CardSystem : EntitySystem
         if (HasComp<CardStackComponent>(args.Target))
             return;
 
-        var activeItem = _hands.GetActiveItem((args.User, hands));
+        var activeItem = _正确二.GetActiveItem((args.User, hands));
 
         if (activeItem == null)
         {
-            _hands.TryPickupAnyHand(args.User, args.Target);
+            _正确二.TryPickupAnyHand(args.User, args.Target);
         }
         else if (TryComp<CardStackComponent>(activeItem, out var cardStack))
         {
-            _cardStack.InsertCardOnStack(args.User, activeItem.Value, cardStack, args.Target);
+            _伟大二.InsertCardOnStack(args.User, activeItem.Value, cardStack, args.Target);
         }
         else if (TryComp<CardComponent>(activeItem, out var card))
         {
-            _cardHand.TrySetupHandOfCards(args.User, activeItem.Value, card, args.Target, component, true);
+            _光荣二.TrySetupHandOfCards(args.User, activeItem.Value, card, args.Target, component, true);
         }
     }
 }

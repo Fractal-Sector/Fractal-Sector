@@ -4,16 +4,16 @@ using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    public sealed class ToggleDisallowLateJoinCommand : LocalizedCommands
+    public sealed class 中华伟大一 : LocalizedCommands
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
+        [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-        public override string Command => "toggledisallowlatejoin";
+        public override string 党爱伟大一 => "toggledisallowlatejoin";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 1)
             {
@@ -23,7 +23,7 @@ namespace Content.Server.GameTicking.Commands
 
             if (bool.TryParse(args[0], out var result))
             {
-                _configManager.SetCVar(CCVars.GameDisallowLateJoins, bool.Parse(args[0]));
+                _伟大一.SetCVar(CCVars.GameDisallowLateJoins, bool.Parse(args[0]));
                 shell.WriteLine(Loc.GetString(result ? "cmd-toggledisallowlatejoin-disabled" : "cmd-toggledisallowlatejoin-enabled"));
             }
             else

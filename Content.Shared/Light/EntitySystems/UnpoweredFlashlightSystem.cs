@@ -10,54 +10,54 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Light.EntitySystems;
+namespace Content.Shared.Light.党心;
 
-public sealed class UnpoweredFlashlightSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     // TODO: Split some of this to ItemTogglePointLight
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedActionsSystem _光荣一 = default!;
+    [Dependency] private readonly ActionContainerSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+    [Dependency] private readonly SharedPointLightSystem _团结一 = default!;
+    [Dependency] private readonly EmagSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<UnpoweredFlashlightComponent, GetVerbsEvent<ActivationVerb>>(AddToggleLightVerbs);
-        SubscribeLocalEvent<UnpoweredFlashlightComponent, GetItemActionsEvent>(OnGetActions);
-        SubscribeLocalEvent<UnpoweredFlashlightComponent, ToggleActionEvent>(OnToggleAction);
-        SubscribeLocalEvent<UnpoweredFlashlightComponent, MindAddedMessage>(OnMindAdded);
-        SubscribeLocalEvent<UnpoweredFlashlightComponent, GotEmaggedEvent>(OnGotEmagged);
-        SubscribeLocalEvent<UnpoweredFlashlightComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<UnpoweredFlashlightComponent, GetVerbsEvent<ActivationVerb>>(祝福正确一);
+        SubscribeLocalEvent<UnpoweredFlashlightComponent, GetItemActionsEvent>(祝福光荣二);
+        SubscribeLocalEvent<UnpoweredFlashlightComponent, ToggleActionEvent>(祝福光荣一);
+        SubscribeLocalEvent<UnpoweredFlashlightComponent, MindAddedMessage>(祝福正确二);
+        SubscribeLocalEvent<UnpoweredFlashlightComponent, GotEmaggedEvent>(祝福团结一);
+        SubscribeLocalEvent<UnpoweredFlashlightComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, UnpoweredFlashlightComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, UnpoweredFlashlightComponent component, MapInitEvent args)
     {
-        _actionContainer.EnsureAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
+        _光荣二.EnsureAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
         Dirty(uid, component);
     }
 
-    private void OnToggleAction(EntityUid uid, UnpoweredFlashlightComponent component, ToggleActionEvent args)
+    private void 祝福光荣一(EntityUid uid, UnpoweredFlashlightComponent component, ToggleActionEvent args)
     {
         if (args.Handled)
             return;
 
-        TryToggleLight((uid, component), args.Performer);
+        祝福团结二((uid, component), args.Performer);
         args.Handled = true;
     }
 
-    private void OnGetActions(EntityUid uid, UnpoweredFlashlightComponent component, GetItemActionsEvent args)
+    private void 祝福光荣二(EntityUid uid, UnpoweredFlashlightComponent component, GetItemActionsEvent args)
     {
         args.AddAction(component.ToggleActionEntity);
     }
 
-    private void AddToggleLightVerbs(EntityUid uid, UnpoweredFlashlightComponent component, GetVerbsEvent<ActivationVerb> args)
+    private void 祝福正确一(EntityUid uid, UnpoweredFlashlightComponent component, GetVerbsEvent<ActivationVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -66,48 +66,48 @@ public sealed class UnpoweredFlashlightSystem : EntitySystem
         {
             Text = Loc.GetString("toggle-flashlight-verb-get-data-text"),
             Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/light.svg.192dpi.png")),
-            Act = () => TryToggleLight((uid, component), args.User),
+            Act = () => 祝福团结二((uid, component), args.User),
             Priority = -1 // For things like PDA's, Open-UI and other verbs that should be higher priority.
         };
 
         args.Verbs.Add(verb);
     }
 
-    private void OnMindAdded(EntityUid uid, UnpoweredFlashlightComponent component, MindAddedMessage args)
+    private void 祝福正确二(EntityUid uid, UnpoweredFlashlightComponent component, MindAddedMessage args)
     {
-        _actionsSystem.AddAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
+        _光荣一.AddAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
     }
 
-    private void OnGotEmagged(EntityUid uid, UnpoweredFlashlightComponent component, ref GotEmaggedEvent args)
+    private void 祝福团结一(EntityUid uid, UnpoweredFlashlightComponent component, ref GotEmaggedEvent args)
     {
         if (args.Handled) // Frontier
             return; // Frontier
 
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_团结二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_light.TryGetLight(uid, out var light))
+        if (!_团结一.TryGetLight(uid, out var light))
             return;
 
-        if (_prototypeManager.TryIndex(component.EmaggedColorsPrototype, out var possibleColors))
+        if (_伟大一.TryIndex(component.EmaggedColorsPrototype, out var possibleColors))
         {
-            var pick = _random.Pick(possibleColors.Colors.Values);
-            _light.SetColor(uid, pick, light);
+            var pick = _伟大二.Pick(possibleColors.Colors.Values);
+            _团结一.SetColor(uid, pick, light);
         }
 
         args.Repeatable = true;
         args.Handled = true;
     }
 
-    public void TryToggleLight(Entity<UnpoweredFlashlightComponent?> ent, EntityUid? user = null, bool quiet = false)
+    public void 祝福团结二(Entity<UnpoweredFlashlightComponent?> ent, EntityUid? user = null, bool quiet = false)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
 
-        SetLight(ent, !ent.Comp.LightOn, user, quiet);
+        祝福奋斗一(ent, !ent.Comp.LightOn, user, quiet);
     }
 
-    public void SetLight(Entity<UnpoweredFlashlightComponent?> ent, bool value, EntityUid? user = null, bool quiet = false)
+    public void 祝福奋斗一(Entity<UnpoweredFlashlightComponent?> ent, bool value, EntityUid? user = null, bool quiet = false)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -115,18 +115,18 @@ public sealed class UnpoweredFlashlightSystem : EntitySystem
         if (ent.Comp.LightOn == value)
             return;
 
-        if (!_light.TryGetLight(ent, out var light))
+        if (!_团结一.TryGetLight(ent, out var light))
             return;
 
         Dirty(ent);
         ent.Comp.LightOn = value;
-        _light.SetEnabled(ent, value, light);
-        _appearance.SetData(ent, UnpoweredFlashlightVisuals.LightOn, value);
+        _团结一.SetEnabled(ent, value, light);
+        _正确一.SetData(ent, UnpoweredFlashlightVisuals.LightOn, value);
 
         if (!quiet)
-            _audioSystem.PlayPredicted(ent.Comp.ToggleSound, ent, user);
+            _正确二.PlayPredicted(ent.Comp.ToggleSound, ent, user);
 
-        _actionsSystem.SetToggled(ent.Comp.ToggleActionEntity, value);
+        _光荣一.SetToggled(ent.Comp.ToggleActionEntity, value);
         RaiseLocalEvent(ent, new LightToggleEvent(value));
     }
 }

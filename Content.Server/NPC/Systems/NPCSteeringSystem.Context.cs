@@ -25,11 +25,11 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using ClimbingComponent = Content.Shared.Climbing.Components.ClimbingComponent;
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class NPCSteeringSystem
+public sealed partial class 中华伟大一
 {
-    private void ApplySeek(Span<float> interest, Vector2 direction, float weight)
+    private void 祝福伟大一(Span<float> interest, Vector2 direction, float weight)
     {
         if (weight == 0f || direction == Vector2.Zero)
             return;
@@ -50,12 +50,12 @@ public sealed partial class NPCSteeringSystem
     /// <summary>
     /// Takes into account agent-specific context that may allow it to bypass a node which is not FreeSpace.
     /// </summary>
-    private bool IsFreeSpace(
+    private bool 祝福伟大二(
         EntityUid uid,
         NPCSteeringComponent steering,
         PathPoly node)
     {
-        if (node.Data.IsFreeSpace)
+        if (node.Data.祝福伟大二)
         {
             return true;
         }
@@ -97,7 +97,7 @@ public sealed partial class NPCSteeringSystem
     /// <summary>
     /// Attempts to head to the target destination, either via the next pathfinding node or the final target.
     /// </summary>
-    private bool TrySeek(
+    private bool 祝福光荣一(
         EntityUid uid,
         InputMoverComponent mover,
         NPCSteeringComponent steering,
@@ -133,7 +133,7 @@ public sealed partial class NPCSteeringSystem
                 if (steering.LineOfSightTimer >= steering.LineOfSightTimeRequired)
                 {
                     steering.Status = SteeringStatus.InRange;
-                    ResetStuck(steering, ourCoordinates);
+                    祝福光荣二(steering, ourCoordinates);
                     return true;
                 }
             }
@@ -163,12 +163,12 @@ public sealed partial class NPCSteeringSystem
         // </Monolith>
         {
             steering.Status = SteeringStatus.InRange;
-            ResetStuck(steering, ourCoordinates);
+            祝福光荣二(steering, ourCoordinates);
             return true;
         }
 
         // Grab the target position, either the next path node or our end goal..
-        var targetCoordinates = steering.DirectMove ? steering.Coordinates : GetTargetCoordinates(steering);
+        var targetCoordinates = steering.DirectMove ? steering.Coordinates : 祝福团结一(steering);
 
         if (!targetCoordinates.IsValid(EntityManager))
         {
@@ -186,9 +186,9 @@ public sealed partial class NPCSteeringSystem
             {
                 steering.CurrentPath.Dequeue();
                 // Try to get the next node temporarily.
-                targetCoordinates = GetTargetCoordinates(steering);
+                targetCoordinates = 祝福团结一(steering);
                 needsPath = true;
-                ResetStuck(steering, ourCoordinates);
+                祝福光荣二(steering, ourCoordinates);
             }
         }
 
@@ -223,7 +223,7 @@ public sealed partial class NPCSteeringSystem
         // #Misfits Fix — Use distance-based check (half the node's smallest dimension) instead
         // of strict box containment.  Box containment fails when the NPC's physics body keeps
         // it from fully entering the box, causing it to orbit the node edge forever.
-        else if (steering.CurrentPath.TryPeek(out var node) && IsFreeSpace(uid, steering, node))
+        else if (steering.CurrentPath.TryPeek(out var node) && 祝福伟大二(uid, steering, node))
         {
             var nodeHalfMin = MathF.Min(node.Box.Width, node.Box.Height) * 0.5f;
             arrived = direction.Length() <= nodeHalfMin;
@@ -239,10 +239,10 @@ public sealed partial class NPCSteeringSystem
         if (arrived)
         {
             // Node needs some kind of special handling like access or smashing.
-            if (steering.CurrentPath.TryPeek(out var node) && !IsFreeSpace(uid, steering, node))
+            if (steering.CurrentPath.TryPeek(out var node) && !祝福伟大二(uid, steering, node))
             {
                 // Ignore stuck while handling obstacles.
-                ResetStuck(steering, ourCoordinates);
+                祝福光荣二(steering, ourCoordinates);
                 SteeringObstacleStatus status;
 
                 // Breaking behaviours and the likes.
@@ -269,7 +269,7 @@ public sealed partial class NPCSteeringSystem
                         steering.Status = SteeringStatus.NoPath;
                         return false;
                     case SteeringObstacleStatus.Continuing:
-                        CheckPath(uid, steering, xform, needsPath, targetDistance);
+                        祝福正确一(uid, steering, xform, needsPath, targetDistance);
                         SetDirection(uid, mover, steering, Vector2.Zero);
                         return true;
                     default:
@@ -286,7 +286,7 @@ public sealed partial class NPCSteeringSystem
 
                 // Alright just adjust slightly and grab the next node so we don't stop moving for a tick.
                 // TODO: If it's the last node just grab the target instead.
-                targetCoordinates = GetTargetCoordinates(steering);
+                targetCoordinates = 祝福团结一(steering);
 
                 if (!targetCoordinates.IsValid(EntityManager))
                 {
@@ -315,7 +315,7 @@ public sealed partial class NPCSteeringSystem
                 if (ourCoordinates.TryDistance(EntityManager, steering.LastStuckCoordinates, out var movedDist)
                     && movedDist >= NPCSteeringComponent.StuckDistance * 0.5f)
                 {
-                    ResetStuck(steering, ourCoordinates);
+                    祝福光荣二(steering, ourCoordinates);
                 }
             }
             else
@@ -359,7 +359,7 @@ public sealed partial class NPCSteeringSystem
         }
         else
         {
-            ResetStuck(steering, ourCoordinates);
+            祝福光荣二(steering, ourCoordinates);
         }
 
         // If not in LOS and no path then get a new one fam.
@@ -372,7 +372,7 @@ public sealed partial class NPCSteeringSystem
 
         // TODO: Probably need partial planning support i.e. patch from the last node to where the target moved to.
         if (!directMove)
-            CheckPath(uid, steering, xform, needsPath, targetDistance);
+            祝福正确一(uid, steering, xform, needsPath, targetDistance);
 
         // <Monolith> - early port of wizden#38846
         // whether we should want to brake right now
@@ -389,7 +389,7 @@ public sealed partial class NPCSteeringSystem
             return false;
         }
 
-        var moveType = MovementType.MovingToTarget;
+        var moveType = 中华伟大二.MovingToTarget;
 
         var realAccel = acceleration * moveSpeed;
         var frameAccel = realAccel * frameTime;
@@ -405,7 +405,7 @@ public sealed partial class NPCSteeringSystem
             var brakePath = (velLen - steering.InRangeMaxSpeed ?? 0f) / friction;
             var hardBrake = brakePath > MathF.Min(0.5f, steering.Range); // hard brake if it takes more than half a tile
 
-            moveType = hardBrake ? MovementType.Braking : MovementType.Coasting;
+            moveType = hardBrake ? 中华伟大二.Braking : 中华伟大二.Coasting;
         }
         else
         {
@@ -416,16 +416,16 @@ public sealed partial class NPCSteeringSystem
             // tangentially brake if we'll be spiraling outwards at our current tangential velocity
             var tangentialBrake = !arrived && realAccel * circlingTolerance < tgVel.LengthSquared() / dirLen;
 
-            moveType = tangentialBrake ? MovementType.BrakingTangential : MovementType.MovingToTarget;
+            moveType = tangentialBrake ? 中华伟大二.BrakingTangential : 中华伟大二.MovingToTarget;
         }
 
         switch (moveType)
         {
-            case MovementType.MovingToTarget:
+            case 中华伟大二.MovingToTarget:
                 moveMultiplier = 1f;
-                ApplySeek(interest, offsetRot.RotateVec(direction.Normalized()), 1f);
+                祝福伟大一(interest, offsetRot.RotateVec(direction.Normalized()), 1f);
                 break;
-            case MovementType.Braking:
+            case 中华伟大二.Braking:
                 if (velLen > 0f)
                 {
                     // copy our velocity and apply friction to the copy
@@ -434,20 +434,20 @@ public sealed partial class NPCSteeringSystem
                     // clamp our braking to what our post-friction velocity would be
                     // otherwise we can overbrake in this frame and reverse movement direction
                     // TODO: a way to tell calling code that we don't want to reverse movement direction to not have to do this
-                    moveMultiplier = MapValue(cvel.Length(), 0f, frameAccel);
+                    moveMultiplier = 祝福团结二(cvel.Length(), 0f, frameAccel);
                                         // brake                                 // normalise
-                    ApplySeek(interest, -offsetRot.RotateVec(body.LinearVelocity / velLen), 1f);
+                    祝福伟大一(interest, -offsetRot.RotateVec(body.LinearVelocity / velLen), 1f);
                 }
                 break;
-            case MovementType.BrakingTangential:
+            case 中华伟大二.BrakingTangential:
                 if (velLen > 0f)
                 {
-                    moveMultiplier = MapValue(tgVel.Length(), 0f, frameAccel);
+                    moveMultiplier = 祝福团结二(tgVel.Length(), 0f, frameAccel);
                                         // brake
-                    ApplySeek(interest, -offsetRot.RotateVec(tgVel.Normalized()), tgVel.Length() / velLen);
+                    祝福伟大一(interest, -offsetRot.RotateVec(tgVel.Normalized()), tgVel.Length() / velLen);
                 }
                 break;
-            case MovementType.Coasting:
+            case 中华伟大二.Coasting:
                 moveMultiplier = 0f;
                 break;
         }
@@ -456,8 +456,8 @@ public sealed partial class NPCSteeringSystem
         return true;
     }
 
-    // Monolith - used in TrySeek()
-    private enum MovementType
+    // Monolith - used in 祝福光荣一()
+    private enum 中华伟大二
     {
         MovingToTarget,
         Braking,
@@ -465,13 +465,13 @@ public sealed partial class NPCSteeringSystem
         Coasting
     }
 
-    private void ResetStuck(NPCSteeringComponent component, EntityCoordinates ourCoordinates)
+    private void 祝福光荣二(NPCSteeringComponent component, EntityCoordinates ourCoordinates)
     {
         component.LastStuckCoordinates = ourCoordinates;
         component.LastStuckTime = _timing.CurTime;
     }
 
-    private void CheckPath(EntityUid uid, NPCSteeringComponent steering, TransformComponent xform, bool needsPath, float targetDistance)
+    private void 祝福正确一(EntityUid uid, NPCSteeringComponent steering, TransformComponent xform, bool needsPath, float targetDistance)
     {
         if (!_pathfinding)
         {
@@ -507,7 +507,7 @@ public sealed partial class NPCSteeringSystem
     /// <summary>
     /// We may be pathfinding and moving at the same time in which case early nodes may be out of date.
     /// </summary>
-    public void PrunePath(EntityUid uid, MapCoordinates mapCoordinates, Vector2 direction, List<PathPoly> nodes)
+    public void 祝福正确二(EntityUid uid, MapCoordinates mapCoordinates, Vector2 direction, List<PathPoly> nodes)
     {
         if (nodes.Count <= 1)
             return;
@@ -551,7 +551,7 @@ public sealed partial class NPCSteeringSystem
         {
             var node = nodes[i];
 
-            if (!node.Data.IsFreeSpace)
+            if (!node.Data.祝福伟大二)
                 break;
 
             var nodeMap = _transform.ToMapCoordinates(node.Coordinates);
@@ -574,7 +574,7 @@ public sealed partial class NPCSteeringSystem
     /// <summary>
     /// Get the coordinates we should be heading towards.
     /// </summary>
-    private EntityCoordinates GetTargetCoordinates(NPCSteeringComponent steering)
+    private EntityCoordinates 祝福团结一(NPCSteeringComponent steering)
     {
         // Depending on what's going on we may return the target or a pathfind node.
 
@@ -591,7 +591,7 @@ public sealed partial class NPCSteeringSystem
     /// Gets the fraction this value is between min and max
     /// </summary>
     /// <returns></returns>
-    private float MapValue(float value, float minValue, float maxValue)
+    private float 祝福团结二(float value, float minValue, float maxValue)
     {
         if (maxValue > minValue)
         {
@@ -609,7 +609,7 @@ public sealed partial class NPCSteeringSystem
     /// <summary>
     /// Tries to avoid static blockers such as walls.
     /// </summary>
-    private void CollisionAvoidance(
+    private void 祝福奋斗一(
         EntityUid uid,
         Angle offsetRot,
         Vector2 worldPos,
@@ -685,7 +685,7 @@ public sealed partial class NPCSteeringSystem
     /// <summary>
     /// Tries to avoid mobs of the same faction.
     /// </summary>
-    private void Separation(
+    private void 祝福奋斗二(
         EntityUid uid,
         Angle offsetRot,
         Vector2 worldPos,
@@ -767,7 +767,7 @@ public sealed partial class NPCSteeringSystem
     // TODO: Alignment
 
     // TODO: Cohesion
-    private void Blend(NPCSteeringComponent steering, float frameTime, Span<float> interest, Span<float> danger)
+    private void 祝福胜利一(NPCSteeringComponent steering, float frameTime, Span<float> interest, Span<float> danger)
     {
         /*
          * Future sloth notes:

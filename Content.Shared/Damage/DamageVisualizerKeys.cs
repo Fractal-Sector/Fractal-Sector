@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Damage
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum DamageVisualizerKeys
+    public enum 中华伟大一
     {
         Disabled,
         DamageSpecifierDelta,
@@ -12,18 +12,18 @@ namespace Content.Shared.Damage
     }
 
     [Serializable, NetSerializable]
-    public sealed class DamageVisualizerGroupData : ICloneable
+    public sealed class 中华伟大二 : ICloneable
     {
-        public List<string> GroupList;
+        public List<string> 党爱伟大一;
 
-        public DamageVisualizerGroupData(List<string> groupList)
+        public 中华伟大二(List<string> groupList)
         {
-            GroupList = groupList;
+            党爱伟大一 = groupList;
         }
 
-        public object Clone()
+        public object 祝福伟大一()
         {
-            return new DamageVisualizerGroupData(new List<string>(GroupList));
+            return new 中华伟大二(new List<string>(党爱伟大一));
         }
     }
 }

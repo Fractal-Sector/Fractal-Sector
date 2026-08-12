@@ -3,25 +3,25 @@ using Content.Shared.Inventory;
 using Content.Shared.Strip.Components;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Strip;
+namespace Content.Shared.党心;
 
-public sealed partial class ThievingSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ThievingComponent, BeforeStripEvent>(OnBeforeStrip);
+        SubscribeLocalEvent<ThievingComponent, BeforeStripEvent>(祝福伟大二);
         SubscribeLocalEvent<ThievingComponent, InventoryRelayedEvent<BeforeStripEvent>>((e, c, ev) =>
-            OnBeforeStrip(e, c, ev.Args));
-        SubscribeLocalEvent<ThievingComponent, ToggleThievingEvent>(OnToggleStealthy);
-        SubscribeLocalEvent<ThievingComponent, ComponentInit>(OnCompInit);
-        SubscribeLocalEvent<ThievingComponent, ComponentRemove>(OnCompRemoved);
+            祝福伟大二(e, c, ev.Args));
+        SubscribeLocalEvent<ThievingComponent, ToggleThievingEvent>(祝福正确一);
+        SubscribeLocalEvent<ThievingComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<ThievingComponent, ComponentRemove>(祝福光荣二);
     }
 
-    private void OnBeforeStrip(EntityUid uid, ThievingComponent component, BeforeStripEvent args)
+    private void 祝福伟大二(EntityUid uid, ThievingComponent component, BeforeStripEvent args)
     {
         args.Stealth |= component.Stealthy;
         if (args.Stealth)
@@ -30,23 +30,23 @@ public sealed partial class ThievingSystem : EntitySystem
         }
     }
 
-    private void OnCompInit(Entity<ThievingComponent> entity, ref ComponentInit args)
+    private void 祝福光荣一(Entity<ThievingComponent> entity, ref ComponentInit args)
     {
-        _alertsSystem.ShowAlert(entity, entity.Comp.StealthyAlertProtoId, 1);
+        _伟大一.ShowAlert(entity, entity.Comp.StealthyAlertProtoId, 1);
     }
 
-    private void OnCompRemoved(Entity<ThievingComponent> entity, ref ComponentRemove args)
+    private void 祝福光荣二(Entity<ThievingComponent> entity, ref ComponentRemove args)
     {
-        _alertsSystem.ClearAlert(entity, entity.Comp.StealthyAlertProtoId);
+        _伟大一.ClearAlert(entity, entity.Comp.StealthyAlertProtoId);
     }
 
-    private void OnToggleStealthy(Entity<ThievingComponent> ent, ref ToggleThievingEvent args)
+    private void 祝福正确一(Entity<ThievingComponent> ent, ref ToggleThievingEvent args)
     {
         if (args.Handled)
             return;
 
         ent.Comp.Stealthy = !ent.Comp.Stealthy;
-        _alertsSystem.ShowAlert(ent.Owner, ent.Comp.StealthyAlertProtoId, (short)(ent.Comp.Stealthy ? 1 : 0));
+        _伟大一.ShowAlert(ent.Owner, ent.Comp.StealthyAlertProtoId, (short)(ent.Comp.Stealthy ? 1 : 0));
         DirtyField(ent.AsNullable(), nameof(ent.Comp.Stealthy), null);
 
         args.Handled = true;

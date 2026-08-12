@@ -5,22 +5,22 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Robust.Shared.Player;
 
-namespace Content.Server.KillTracking;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles <see cref="KillTrackerComponent"/> and recording who is damaging and killing entities.
 /// </summary>
-public sealed class KillTrackingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         // Add damage to LifetimeDamage before MobStateChangedEvent gets raised
-        SubscribeLocalEvent<KillTrackerComponent, DamageChangedEvent>(OnDamageChanged, before: [ typeof(MobThresholdSystem) ]);
-        SubscribeLocalEvent<KillTrackerComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<KillTrackerComponent, DamageChangedEvent>(祝福伟大二, before: [ typeof(MobThresholdSystem) ]);
+        SubscribeLocalEvent<KillTrackerComponent, MobStateChangedEvent>(祝福光荣一);
     }
 
-    private void OnDamageChanged(EntityUid uid, KillTrackerComponent component, DamageChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, KillTrackerComponent component, DamageChangedEvent args)
     {
         if (args.DamageDelta == null)
             return;
@@ -35,18 +35,18 @@ public sealed class KillTrackingSystem : EntitySystem
             return;
         }
 
-        var source = GetKillSource(args.Origin);
+        var source = 祝福光荣二(args.Origin);
         var damage = component.LifetimeDamage.GetValueOrDefault(source);
         component.LifetimeDamage[source] = damage + args.DamageDelta.GetTotal();
     }
 
-    private void OnMobStateChanged(EntityUid uid, KillTrackerComponent component, MobStateChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, KillTrackerComponent component, MobStateChangedEvent args)
     {
         if (args.NewMobState != component.KillState || args.OldMobState >= args.NewMobState)
             return;
 
         // impulse is the entity that did the finishing blow.
-        var killImpulse = GetKillSource(args.Origin);
+        var killImpulse = 祝福光荣二(args.Origin);
 
         // source is the kill tracker source with the most damage dealt.
         var largestSource = GetLargestSource(component.LifetimeDamage);
@@ -95,7 +95,7 @@ public sealed class KillTrackingSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev, true);
     }
 
-    private KillSource GetKillSource(EntityUid? sourceEntity)
+    private KillSource 祝福光荣二(EntityUid? sourceEntity)
     {
         if (TryComp<ActorComponent>(sourceEntity, out var actor))
             return new KillPlayerSource(actor.PlayerSession.UserId);
@@ -128,4 +128,4 @@ public sealed class KillTrackingSystem : EntitySystem
 /// <param name="Assist">A secondary source of the kill. Can be null.</param>
 /// <param name="Suicide">True if the entity that was killed caused their own death.</param>
 [ByRefEvent]
-public readonly record struct KillReportedEvent(EntityUid Entity, KillSource Primary, KillSource? Assist, bool Suicide);
+public readonly record 中华伟大二 KillReportedEvent(EntityUid Entity, KillSource Primary, KillSource? Assist, bool Suicide);

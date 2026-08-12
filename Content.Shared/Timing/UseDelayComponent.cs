@@ -1,7 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Timing;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Timer that creates a cooldown each time an object is activated/used.
@@ -10,10 +10,10 @@ namespace Content.Shared.Timing;
 [RegisterComponent]
 [NetworkedComponent]
 [Access(typeof(UseDelaySystem))]
-public sealed partial class UseDelayComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public Dictionary<string, UseDelayInfo> Delays = [];
+    public Dictionary<string, 中华光荣一> Delays = [];
 
     /// <summary>
     /// Default delay time.
@@ -24,30 +24,30 @@ public sealed partial class UseDelayComponent : Component
     /// Use <see cref="UseDelaySystem.TryGetDelayInfo"/> instead.
     /// </remarks>
     [DataField]
-    public TimeSpan Delay = TimeSpan.FromSeconds(1);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(1);
 }
 
 [Serializable, NetSerializable]
-public sealed class UseDelayComponentState : IComponentState
+public sealed class 中华伟大二 : IComponentState
 {
-    public Dictionary<string, UseDelayInfo> Delays = new();
+    public Dictionary<string, 中华光荣一> Delays = new();
 }
 
 [Serializable, NetSerializable]
 [DataDefinition]
-public sealed partial class UseDelayInfo
+public sealed partial class 中华光荣一
 {
     [DataField]
-    public TimeSpan Length { get; set; }
+    public TimeSpan 党爱伟大二 { get; set; }
     [DataField]
-    public TimeSpan StartTime { get; set; }
+    public TimeSpan 党爱光荣一 { get; set; }
     [DataField]
-    public TimeSpan EndTime { get; set; }
+    public TimeSpan 党爱光荣二 { get; set; }
 
-    public UseDelayInfo(TimeSpan length, TimeSpan startTime = default, TimeSpan endTime = default)
+    public 中华光荣一(TimeSpan length, TimeSpan startTime = default, TimeSpan endTime = default)
     {
-        Length = length;
-        StartTime = startTime;
-        EndTime = endTime;
+        党爱伟大二 = length;
+        党爱光荣一 = startTime;
+        党爱光荣二 = endTime;
     }
 }

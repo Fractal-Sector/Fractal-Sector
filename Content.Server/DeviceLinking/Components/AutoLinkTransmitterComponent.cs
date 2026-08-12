@@ -1,12 +1,12 @@
-namespace Content.Server.DeviceLinking.Components;
+namespace Content.Server.DeviceLinking.党心;
 
 /// <summary>
 /// This is used for automatic linkage with various receivers, like shutters.
 /// </summary>
 [RegisterComponent]
-public sealed partial class AutoLinkTransmitterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("channel", required: true)]
-    public string AutoLinkChannel = default!;
+    public string 党爱伟大一 = default!;
 }
 

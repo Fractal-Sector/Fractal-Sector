@@ -1,29 +1,29 @@
 using Content.Shared.Lock;
 
-namespace Content.Shared.Containers.ItemSlots;
+namespace Content.Shared.Containers.党心;
 
-public sealed partial class ItemSlotsSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeLock()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ItemSlotsLockComponent, MapInitEvent>(OnLockMapInit);
-        SubscribeLocalEvent<ItemSlotsLockComponent, LockToggledEvent>(OnLockToggled);
+        SubscribeLocalEvent<ItemSlotsLockComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ItemSlotsLockComponent, LockToggledEvent>(祝福光荣一);
     }
 
-    private void OnLockMapInit(Entity<ItemSlotsLockComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ItemSlotsLockComponent> ent, ref MapInitEvent args)
     {
         if (!TryComp(ent.Owner, out LockComponent? lockComp))
             return;
 
-        UpdateLocks(ent, lockComp.Locked);
+        祝福光荣二(ent, lockComp.Locked);
     }
 
-    private void OnLockToggled(Entity<ItemSlotsLockComponent> ent, ref LockToggledEvent args)
+    private void 祝福光荣一(Entity<ItemSlotsLockComponent> ent, ref LockToggledEvent args)
     {
-        UpdateLocks(ent, args.Locked);
+        祝福光荣二(ent, args.Locked);
     }
 
-    private void UpdateLocks(Entity<ItemSlotsLockComponent> ent, bool value)
+    private void 祝福光荣二(Entity<ItemSlotsLockComponent> ent, bool value)
     {
         foreach (var slot in ent.Comp.Slots)
         {

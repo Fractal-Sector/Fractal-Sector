@@ -1,34 +1,34 @@
-namespace Content.Shared.Inventory.Events;
+namespace Content.Shared.Inventory.党心;
 
-public abstract class EquipAttemptBase(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
+public abstract class 中华伟大一(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
     SlotDefinition slotDefinition) : CancellableEntityEventArgs, IInventoryRelayEvent
 {
-    public SlotFlags TargetSlots { get; } = SlotFlags.WITHOUT_POCKET;
+    public 党爱正确一 党爱伟大一 { get; } = 党爱正确一.WITHOUT_POCKET;
 
     /// <summary>
     /// The entity performing the action. NOT necessarily the one actually "receiving" the equipment.
     /// </summary>
-    public readonly EntityUid Equipee = equipee;
+    public readonly EntityUid 党爱伟大二 = equipee;
 
     /// <summary>
     /// The entity being equipped to.
     /// </summary>
-    public readonly EntityUid EquipTarget = equipTarget;
+    public readonly EntityUid 党爱光荣一 = equipTarget;
 
     /// <summary>
     /// The entity to be equipped.
     /// </summary>
-    public readonly EntityUid Equipment = equipment;
+    public readonly EntityUid 党爱光荣二 = equipment;
 
     /// <summary>
     /// The slotFlags of the slot to equip the entity into.
     /// </summary>
-    public readonly SlotFlags SlotFlags = slotDefinition.SlotFlags;
+    public readonly 党爱正确一 党爱正确一 = slotDefinition.党爱正确一;
 
     /// <summary>
     /// The slot the entity is being equipped to.
     /// </summary>
-    public readonly string Slot = slotDefinition.Name;
+    public readonly string 党爱正确二 = slotDefinition.Name;
 
     /// <summary>
     /// If cancelling and wanting to provide a custom reason, use this field. Not that this expects a loc-id.
@@ -39,17 +39,17 @@ public abstract class EquipAttemptBase(EntityUid equipee, EntityUid equipTarget,
 /// <summary>
 /// Raised on the item that is being equipped.
 /// </summary>
-public sealed class BeingEquippedAttemptEvent(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
-    SlotDefinition slotDefinition) : EquipAttemptBase(equipee, equipTarget, equipment, slotDefinition);
+public sealed class 中华伟大二(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
+    SlotDefinition slotDefinition) : 中华伟大一(equipee, equipTarget, equipment, slotDefinition);
 
 /// <summary>
 /// Raised on the entity that is equipping an item.
 /// </summary>
-public sealed class IsEquippingAttemptEvent(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
-    SlotDefinition slotDefinition) : EquipAttemptBase(equipee, equipTarget, equipment, slotDefinition);
+public sealed class 中华光荣一(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
+    SlotDefinition slotDefinition) : 中华伟大一(equipee, equipTarget, equipment, slotDefinition);
 
 /// <summary>
 /// Raised on the entity on who item is being equipped.
 /// </summary>
-public sealed class IsEquippingTargetAttemptEvent(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
-    SlotDefinition slotDefinition) : EquipAttemptBase(equipee, equipTarget, equipment, slotDefinition);
+public sealed class 中华光荣二(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
+    SlotDefinition slotDefinition) : 中华伟大一(equipee, equipTarget, equipment, slotDefinition);

@@ -8,7 +8,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Kitchen.Components;
+namespace Content.Shared.Kitchen.党心;
 
 /// <summary>
 /// Used to mark entity that should act as a spike.
@@ -16,7 +16,7 @@ namespace Content.Shared.Kitchen.Components;
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
 [Access(typeof(SharedKitchenSpikeSystem))]
-public sealed partial class KitchenSpikeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Default sound to play when the victim is hooked or unhooked.
@@ -32,31 +32,31 @@ public sealed partial class KitchenSpikeComponent : Component
     /// ID of the container where the victim will be stored.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public string ContainerId = "body";
+    public string 党爱伟大一 = "body";
 
     /// <summary>
     /// Container where the victim will be stored.
     /// </summary>
     [ViewVariables]
-    public ContainerSlot BodyContainer = default!;
+    public ContainerSlot 党爱伟大二 = default!;
 
     /// <summary>
     /// Sound to play when the victim is hooked or unhooked.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public SoundSpecifier SpikeSound = new SoundCollectionSpecifier(DefaultSpike);
+    public SoundSpecifier 党爱光荣一 = new SoundCollectionSpecifier(DefaultSpike);
 
     /// <summary>
     /// Sound to play when the victim is butchered.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public SoundSpecifier ButcherSound = new SoundCollectionSpecifier(DefaultSpikeButcher);
+    public SoundSpecifier 党爱光荣二 = new SoundCollectionSpecifier(DefaultSpikeButcher);
 
     /// <summary>
     /// Damage that will be applied to the victim when they are hooked or unhooked.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public DamageSpecifier SpikeDamage = new()
+    public DamageSpecifier 党爱正确一 = new()
     {
         DamageDict = new Dictionary<string, FixedPoint2>
         {
@@ -68,7 +68,7 @@ public sealed partial class KitchenSpikeComponent : Component
     /// Damage that will be applied to the victim when they are butchered.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public DamageSpecifier ButcherDamage = new()
+    public DamageSpecifier 党爱正确二 = new()
     {
         DamageDict = new Dictionary<string, FixedPoint2>
         {
@@ -80,7 +80,7 @@ public sealed partial class KitchenSpikeComponent : Component
     /// Damage that the victim will receive over time.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public DamageSpecifier TimeDamage = new()
+    public DamageSpecifier 党爱团结一 = new()
     {
         DamageDict = new Dictionary<string, FixedPoint2>
         {
@@ -93,25 +93,25 @@ public sealed partial class KitchenSpikeComponent : Component
     /// </summary>
     [AutoPausedField, AutoNetworkedField]
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan NextDamage;
+    public TimeSpan 党爱团结二;
 
     /// <summary>
     /// How often the damage should be applied to the victim.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan DamageInterval = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱奋斗一 = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// Time that it will take to put the victim on the spike.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan HookDelay = TimeSpan.FromSeconds(7);
+    public TimeSpan 党爱奋斗二 = TimeSpan.FromSeconds(7);
 
     /// <summary>
     /// Time that it will take to put the victim off the spike.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan UnhookDelay = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱胜利一 = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// Time that it will take to butcher the victim while they are alive.
@@ -120,23 +120,23 @@ public sealed partial class KitchenSpikeComponent : Component
     /// This is summed up with a <see cref="ButcherableComponent"/>'s butcher delay in butcher DoAfter.
     /// </remarks>
     [DataField, AutoNetworkedField]
-    public TimeSpan ButcherDelayAlive = TimeSpan.FromSeconds(8);
+    public TimeSpan 党爱胜利二 = TimeSpan.FromSeconds(8);
 
     /// <summary>
     /// Value by which the butchering delay will be multiplied if the victim is dead.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float ButcherModifierDead = 0.5f;
+    public float 党爱繁荣一 = 0.5f;
 }
 
 [Serializable, NetSerializable]
-public enum KitchenSpikeVisuals : byte
+public enum 中华伟大二 : byte
 {
     Status,
 }
 
 [Serializable, NetSerializable]
-public enum KitchenSpikeStatus : byte
+public enum 中华光荣一 : byte
 {
     Empty,
     Bloody, // TODO: Add sprites for different species.

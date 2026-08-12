@@ -1,12 +1,12 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Random;
+namespace Content.Shared.党心;
 
 /// <summary>
-/// IWeightedRandomPrototype implements a dictionary of strings to float weights
-/// to be used with <see cref="Helpers.SharedRandomExtensions.Pick(IWeightedRandomPrototype, Robust.Shared.Random.IRobustRandom)" />.
+/// 中华伟大一 implements a dictionary of strings to float weights
+/// to be used with <see cref="Helpers.SharedRandomExtensions.Pick(中华伟大一, Robust.Shared.Random.IRobustRandom)" />.
 /// </summary>
-public interface IWeightedRandomPrototype : IPrototype
+public interface 中华伟大一 : IPrototype
 {
     [ViewVariables]
     public Dictionary<string, float> Weights { get; }

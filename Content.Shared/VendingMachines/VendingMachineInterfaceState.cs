@@ -1,21 +1,21 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.VendingMachines
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public sealed class VendingMachineEjectMessage : BoundUserInterfaceMessage
+    public sealed class 中华伟大一 : BoundUserInterfaceMessage
     {
-        public readonly InventoryType Type;
-        public readonly string ID;
-        public VendingMachineEjectMessage(InventoryType type, string id)
+        public readonly InventoryType 党爱伟大一;
+        public readonly string 党爱伟大二;
+        public 中华伟大一(InventoryType type, string id)
         {
-            Type = type;
-            ID = id;
+            党爱伟大一 = type;
+            党爱伟大二 = id;
         }
     }
 
     [Serializable, NetSerializable]
-    public enum VendingMachineUiKey
+    public enum 中华伟大二
     {
         Key,
     }

@@ -1,26 +1,26 @@
-﻿namespace Content.Server.Atmos
+﻿namespace Content.Server.党心
 {
-    public struct Hotspot
+    public struct 中华伟大一
     {
         [ViewVariables]
-        public bool Valid;
+        public bool 党爱伟大一;
 
         [ViewVariables]
-        public bool SkippedFirstProcess;
+        public bool 党爱伟大二;
 
         [ViewVariables]
-        public bool Bypassing;
+        public bool 党爱光荣一;
 
         [ViewVariables]
-        public float Temperature;
+        public float 党爱光荣二;
 
         [ViewVariables]
-        public float Volume;
+        public float 党爱正确一;
 
         /// <summary>
-        ///     State for the fire sprite.
+        ///     党爱正确二 for the fire sprite.
         /// </summary>
         [ViewVariables]
-        public byte State;
+        public byte 党爱正确二;
     }
 }

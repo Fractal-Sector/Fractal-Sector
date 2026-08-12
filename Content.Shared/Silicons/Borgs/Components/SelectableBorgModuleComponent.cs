@@ -3,13 +3,13 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Silicons.Borgs.Components;
+namespace Content.Shared.Silicons.Borgs.党心;
 
 /// <summary>
 /// This is used for <see cref="BorgModuleComponent"/>s that can be "swapped" to, as opposed to having passive effects.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedBorgSystem))]
-public sealed partial class SelectableBorgModuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("moduleSwapAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? ModuleSwapActionId = "ActionBorgSwapModule";
@@ -20,7 +20,7 @@ public sealed partial class SelectableBorgModuleComponent : Component
     [DataField("moduleSwapActionEntity")] public EntityUid? ModuleSwapActionEntity;
 }
 
-public sealed partial class BorgModuleActionSelectedEvent : InstantActionEvent
+public sealed partial class 中华伟大二 : InstantActionEvent
 {
 }
 
@@ -28,10 +28,10 @@ public sealed partial class BorgModuleActionSelectedEvent : InstantActionEvent
 /// Event raised by-ref on a module when it is selected
 /// </summary>
 [ByRefEvent]
-public readonly record struct BorgModuleSelectedEvent(EntityUid Chassis);
+public readonly record 中华光荣一 BorgModuleSelectedEvent(EntityUid Chassis);
 
 /// <summary>
 /// Event raised by-ref on a module when it is deselected.
 /// </summary>
 [ByRefEvent]
-public readonly record struct BorgModuleUnselectedEvent(EntityUid Chassis);
+public readonly record 中华光荣一 BorgModuleUnselectedEvent(EntityUid Chassis);

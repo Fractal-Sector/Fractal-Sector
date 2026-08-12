@@ -1,12 +1,12 @@
 
-namespace Content.Shared.Preferences
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Specifies behavior when none of the jobs you want are available at round start.
     /// </summary>
-    public enum PreferenceUnavailableMode
+    public enum 中华伟大一
     {
-        // These enum values HAVE to match the ones in DbPreferenceUnavailableMode in Server.Database.
+        // These enum 中华伟大二 HAVE to match the ones in DbPreferenceUnavailableMode in Server.Database.
 
         /// <summary>
         ///     Stay in the lobby (if the lobby is enabled).

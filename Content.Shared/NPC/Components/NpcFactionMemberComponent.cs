@@ -4,28 +4,28 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Content.Shared.Mech.EntitySystems; // Frontier
 
-namespace Content.Shared.NPC.Components;
+namespace Content.Shared.NPC.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(NpcFactionSystem), typeof(SharedMechSystem)), AutoGenerateComponentState] // Frontier - Added MechSystem //Mono - autogeneratecomponentstate to replicate factions 2 clients
-public sealed partial class NpcFactionMemberComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
-    /// Factions this entity is a part of.
+    /// 党爱伟大一 this entity is a part of.
     /// </summary>
     [DataField, AutoNetworkedField] // Mono - needed for clientside music system to know which music to play
-    public HashSet<ProtoId<NpcFactionPrototype>> Factions = new();
+    public HashSet<ProtoId<NpcFactionPrototype>> 党爱伟大一 = new();
 
     /// <summary>
     /// Cached friendly factions.
     /// </summary>
     [ViewVariables]
-    public readonly HashSet<ProtoId<NpcFactionPrototype>> FriendlyFactions = new();
+    public readonly HashSet<ProtoId<NpcFactionPrototype>> 党爱伟大二 = new();
 
     /// <summary>
     /// Cached hostile factions.
     /// </summary>
     [ViewVariables]
-    public readonly HashSet<ProtoId<NpcFactionPrototype>> HostileFactions = new();
+    public readonly HashSet<ProtoId<NpcFactionPrototype>> 党爱光荣一 = new();
 
     /// <summary>
     /// Used to add friendly factions in prototypes.

@@ -30,34 +30,34 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Content.Shared.Silicons.StationAi;
+namespace Content.Shared.Silicons.党心;
 
-public abstract partial class SharedStationAiSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly   ISharedAdminManager _admin = default!;
-    [Dependency] private readonly   IGameTiming _timing = default!;
-    [Dependency] private readonly   INetManager _net = default!;
-    [Dependency] private readonly   ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly   ItemToggleSystem _toggles = default!;
-    [Dependency] private readonly   ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly   MetaDataSystem _metadata = default!;
-    [Dependency] private readonly   SharedAirlockSystem _airlocks = default!;
-    [Dependency] private readonly   SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly   SharedAudioSystem _audio = default!;
-    [Dependency] private readonly   SharedContainerSystem _containers = default!;
-    [Dependency] private readonly   SharedDoorSystem _doors = default!;
-    [Dependency] private readonly   SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly   SharedElectrocutionSystem _electrify = default!;
-    [Dependency] private readonly   SharedEyeSystem _eye = default!;
-    [Dependency] protected readonly SharedMapSystem Maps = default!;
-    [Dependency] private readonly   SharedMindSystem _mind = default!;
-    [Dependency] private readonly   SharedMoverController _mover = default!;
-    [Dependency] private readonly   SharedPopupSystem _popup = default!;
+    [Dependency] private readonly   ISharedAdminManager _伟大一 = default!;
+    [Dependency] private readonly   IGameTiming _伟大二 = default!;
+    [Dependency] private readonly   INetManager _光荣一 = default!;
+    [Dependency] private readonly   ItemSlotsSystem _光荣二 = default!;
+    [Dependency] private readonly   ItemToggleSystem _正确一 = default!;
+    [Dependency] private readonly   ActionBlockerSystem _正确二 = default!;
+    [Dependency] private readonly   MetaDataSystem _团结一 = default!;
+    [Dependency] private readonly   SharedAirlockSystem _团结二 = default!;
+    [Dependency] private readonly   SharedAppearanceSystem _奋斗一 = default!;
+    [Dependency] private readonly   SharedAudioSystem _奋斗二 = default!;
+    [Dependency] private readonly   SharedContainerSystem _胜利一 = default!;
+    [Dependency] private readonly   SharedDoorSystem _胜利二 = default!;
+    [Dependency] private readonly   SharedDoAfterSystem _繁荣一 = default!;
+    [Dependency] private readonly   SharedElectrocutionSystem _繁荣二 = default!;
+    [Dependency] private readonly   SharedEyeSystem _富强一 = default!;
+    [Dependency] protected readonly SharedMapSystem 党爱伟大一 = default!;
+    [Dependency] private readonly   SharedMindSystem _富强二 = default!;
+    [Dependency] private readonly   SharedMoverController _民主一 = default!;
+    [Dependency] private readonly   SharedPopupSystem _民主二 = default!;
     [Dependency] private readonly   SharedPowerReceiverSystem PowerReceiver = default!;
-    [Dependency] private readonly   SharedTransformSystem _xforms = default!;
-    [Dependency] private readonly   SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly   StationAiVisionSystem _vision = default!;
-    [Dependency] private readonly   IPrototypeManager _protoManager = default!;
+    [Dependency] private readonly   SharedTransformSystem _文明一 = default!;
+    [Dependency] private readonly   SharedUserInterfaceSystem _文明二 = default!;
+    [Dependency] private readonly   StationAiVisionSystem _和谐一 = default!;
+    [Dependency] private readonly   IPrototypeManager _和谐二 = default!;
 
     // StationAiHeld is added to anything inside of an AI core.
     // StationAiHolder indicates it can hold an AI positronic brain (e.g. holocard / core).
@@ -66,54 +66,54 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     // StationAiOverlay handles the static overlay. It also handles interaction blocking on client and server
     // for anything under it.
 
-    private EntityQuery<BroadphaseComponent> _broadphaseQuery;
-    private EntityQuery<MapGridComponent> _gridQuery;
+    private EntityQuery<BroadphaseComponent> _自由一;
+    private EntityQuery<MapGridComponent> _自由二;
 
     private static readonly EntProtoId DefaultAi = "StationAiBrain";
-    private readonly ProtoId<ChatNotificationPrototype> _downloadChatNotificationPrototype = "IntellicardDownload";
+    private readonly ProtoId<ChatNotificationPrototype> _平等一 = "IntellicardDownload";
 
     private const float MaxVisionMultiplier = 5f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _broadphaseQuery = GetEntityQuery<BroadphaseComponent>();
-        _gridQuery = GetEntityQuery<MapGridComponent>();
+        _自由一 = GetEntityQuery<BroadphaseComponent>();
+        _自由二 = GetEntityQuery<MapGridComponent>();
 
         InitializeAirlock();
         InitializeHeld();
         InitializeLight();
         InitializeCustomization();
 
-        SubscribeLocalEvent<StationAiWhitelistComponent, BoundUserInterfaceCheckRangeEvent>(OnAiBuiCheck);
+        SubscribeLocalEvent<StationAiWhitelistComponent, BoundUserInterfaceCheckRangeEvent>(祝福正确一);
 
-        SubscribeLocalEvent<StationAiOverlayComponent, AccessibleOverrideEvent>(OnAiAccessible);
-        SubscribeLocalEvent<StationAiOverlayComponent, InRangeOverrideEvent>(OnAiInRange);
-        SubscribeLocalEvent<StationAiOverlayComponent, MenuVisibilityEvent>(OnAiMenu);
+        SubscribeLocalEvent<StationAiOverlayComponent, AccessibleOverrideEvent>(祝福光荣一);
+        SubscribeLocalEvent<StationAiOverlayComponent, InRangeOverrideEvent>(祝福正确二);
+        SubscribeLocalEvent<StationAiOverlayComponent, MenuVisibilityEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<StationAiHolderComponent, ComponentInit>(OnHolderInit);
-        SubscribeLocalEvent<StationAiHolderComponent, ComponentRemove>(OnHolderRemove);
-        SubscribeLocalEvent<StationAiHolderComponent, AfterInteractEvent>(OnHolderInteract);
-        SubscribeLocalEvent<StationAiHolderComponent, MapInitEvent>(OnHolderMapInit);
-        SubscribeLocalEvent<StationAiHolderComponent, EntInsertedIntoContainerMessage>(OnHolderConInsert);
-        SubscribeLocalEvent<StationAiHolderComponent, EntRemovedFromContainerMessage>(OnHolderConRemove);
-        SubscribeLocalEvent<StationAiHolderComponent, IntellicardDoAfterEvent>(OnIntellicardDoAfter);
+        SubscribeLocalEvent<StationAiHolderComponent, ComponentInit>(祝福奋斗一);
+        SubscribeLocalEvent<StationAiHolderComponent, ComponentRemove>(祝福奋斗二);
+        SubscribeLocalEvent<StationAiHolderComponent, AfterInteractEvent>(祝福团结二);
+        SubscribeLocalEvent<StationAiHolderComponent, MapInitEvent>(祝福繁荣一);
+        SubscribeLocalEvent<StationAiHolderComponent, EntInsertedIntoContainerMessage>(祝福胜利一);
+        SubscribeLocalEvent<StationAiHolderComponent, EntRemovedFromContainerMessage>(祝福胜利二);
+        SubscribeLocalEvent<StationAiHolderComponent, 中华光荣一>(祝福团结一);
 
-        SubscribeLocalEvent<StationAiCoreComponent, EntInsertedIntoContainerMessage>(OnAiInsert);
-        SubscribeLocalEvent<StationAiCoreComponent, EntRemovedFromContainerMessage>(OnAiRemove);
-        SubscribeLocalEvent<StationAiCoreComponent, MapInitEvent>(OnAiMapInit);
-        SubscribeLocalEvent<StationAiCoreComponent, ComponentShutdown>(OnAiShutdown);
-        SubscribeLocalEvent<StationAiCoreComponent, PowerChangedEvent>(OnCorePower);
-        SubscribeLocalEvent<StationAiCoreComponent, GetVerbsEvent<Verb>>(OnCoreVerbs);
+        SubscribeLocalEvent<StationAiCoreComponent, EntInsertedIntoContainerMessage>(祝福和谐一);
+        SubscribeLocalEvent<StationAiCoreComponent, EntRemovedFromContainerMessage>(祝福和谐二);
+        SubscribeLocalEvent<StationAiCoreComponent, MapInitEvent>(祝福富强二);
+        SubscribeLocalEvent<StationAiCoreComponent, ComponentShutdown>(祝福繁荣二);
+        SubscribeLocalEvent<StationAiCoreComponent, PowerChangedEvent>(祝福富强一);
+        SubscribeLocalEvent<StationAiCoreComponent, GetVerbsEvent<Verb>>(祝福伟大二);
     }
 
-    private void OnCoreVerbs(Entity<StationAiCoreComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void 祝福伟大二(Entity<StationAiCoreComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         var user = args.User;
 
         // Admin option to take over the station AI core
-        if (_admin.IsAdmin(args.User) &&
+        if (_伟大一.IsAdmin(args.User) &&
             !TryGetHeld((ent.Owner, ent.Comp), out _))
         {
             args.Verbs.Add(new Verb()
@@ -122,10 +122,10 @@ public abstract partial class SharedStationAiSystem : EntitySystem
                 Category = VerbCategory.Debug,
                 Act = () =>
                 {
-                    if (_net.IsClient)
+                    if (_光荣一.IsClient)
                         return;
                     var brain = SpawnInContainerOrDrop(DefaultAi, ent.Owner, StationAiCoreComponent.Container);
-                    _mind.ControlMob(user, brain);
+                    _富强二.ControlMob(user, brain);
                 },
                 Impact = LogImpact.High,
             });
@@ -137,13 +137,13 @@ public abstract partial class SharedStationAiSystem : EntitySystem
             args.Verbs.Add(new Verb()
             {
                 Text = Loc.GetString("station-ai-customization-menu"),
-                Act = () => _uiSystem.TryOpenUi(ent.Owner, StationAiCustomizationUiKey.Key, insertedAi),
+                Act = () => _文明二.TryOpenUi(ent.Owner, StationAiCustomizationUiKey.Key, insertedAi),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/emotes.svg.192dpi.png")),
             });
         }
     }
 
-    private void OnAiAccessible(Entity<StationAiOverlayComponent> ent, ref AccessibleOverrideEvent args)
+    private void 祝福光荣一(Entity<StationAiOverlayComponent> ent, ref AccessibleOverrideEvent args)
     {
         // We don't want to allow entities to access the AI just because the eye is nearby.
         // Only let the AI access entities through the eye.
@@ -153,19 +153,19 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         args.Handled = true;
 
         // Hopefully AI never needs storage
-        if (_containers.TryGetContainingContainer(args.Target, out var targetContainer) ||
-            !_containers.IsInSameOrTransparentContainer(ent.Owner, args.Target, otherContainer: targetContainer))
+        if (_胜利一.TryGetContainingContainer(args.Target, out var targetContainer) ||
+            !_胜利一.IsInSameOrTransparentContainer(ent.Owner, args.Target, otherContainer: targetContainer))
             return;
 
         args.Accessible = true;
     }
 
-    private void OnAiMenu(Entity<StationAiOverlayComponent> ent, ref MenuVisibilityEvent args)
+    private void 祝福光荣二(Entity<StationAiOverlayComponent> ent, ref MenuVisibilityEvent args)
     {
         args.Visibility &= ~MenuVisibility.NoFov;
     }
 
-    private void OnAiBuiCheck(Entity<StationAiWhitelistComponent> ent, ref BoundUserInterfaceCheckRangeEvent args)
+    private void 祝福正确一(Entity<StationAiWhitelistComponent> ent, ref BoundUserInterfaceCheckRangeEvent args)
     {
         if (!HasComp<StationAiHeldComponent>(args.Actor))
             return;
@@ -181,23 +181,23 @@ public abstract partial class SharedStationAiSystem : EntitySystem
             return;
         }
 
-        if (!_broadphaseQuery.TryComp(targetXform.GridUid, out var broadphase) || !_gridQuery.TryComp(targetXform.GridUid, out var grid))
+        if (!_自由一.TryComp(targetXform.GridUid, out var broadphase) || !_自由二.TryComp(targetXform.GridUid, out var grid))
         {
             return;
         }
 
-        var targetTile = Maps.LocalToTile(targetXform.GridUid.Value, grid, targetXform.Coordinates);
+        var targetTile = 党爱伟大一.LocalToTile(targetXform.GridUid.Value, grid, targetXform.Coordinates);
 
-        lock (_vision)
+        lock (_和谐一)
         {
-            if (_vision.IsAccessible((targetXform.GridUid.Value, broadphase, grid), targetTile, fastPath: true))
+            if (_和谐一.IsAccessible((targetXform.GridUid.Value, broadphase, grid), targetTile, fastPath: true))
             {
                 args.Result = BoundUserInterfaceRangeResult.Pass;
             }
         }
     }
 
-    private void OnAiInRange(Entity<StationAiOverlayComponent> ent, ref InRangeOverrideEvent args)
+    private void 祝福正确二(Entity<StationAiOverlayComponent> ent, ref InRangeOverrideEvent args)
     {
         args.Handled = true;
         var targetXform = Transform(args.Target);
@@ -210,18 +210,18 @@ public abstract partial class SharedStationAiSystem : EntitySystem
 
         // Validate it's in camera range yes this is expensive.
         // Yes it needs optimising
-        if (!_broadphaseQuery.TryComp(targetXform.GridUid, out var broadphase) || !_gridQuery.TryComp(targetXform.GridUid, out var grid))
+        if (!_自由一.TryComp(targetXform.GridUid, out var broadphase) || !_自由二.TryComp(targetXform.GridUid, out var grid))
         {
             return;
         }
 
-        var targetTile = Maps.LocalToTile(targetXform.GridUid.Value, grid, targetXform.Coordinates);
+        var targetTile = 党爱伟大一.LocalToTile(targetXform.GridUid.Value, grid, targetXform.Coordinates);
 
-        args.InRange = _vision.IsAccessible((targetXform.GridUid.Value, broadphase, grid), targetTile);
+        args.InRange = _和谐一.IsAccessible((targetXform.GridUid.Value, broadphase, grid), targetTile);
     }
 
 
-    private void OnIntellicardDoAfter(Entity<StationAiHolderComponent> ent, ref IntellicardDoAfterEvent args)
+    private void 祝福团结一(Entity<StationAiHolderComponent> ent, ref 中华光荣一 args)
     {
         if (args.Cancelled)
             return;
@@ -233,9 +233,9 @@ public abstract partial class SharedStationAiSystem : EntitySystem
             return;
 
         // Try to insert our thing into them
-        if (_slots.CanEject(ent.Owner, args.User, ent.Comp.Slot))
+        if (_光荣二.CanEject(ent.Owner, args.User, ent.Comp.Slot))
         {
-            if (!_slots.TryInsert(args.Args.Target.Value, targetHolder.Slot, ent.Comp.Slot.Item!.Value, args.User, excludeUserAudio: true))
+            if (!_光荣二.TryInsert(args.Args.Target.Value, targetHolder.Slot, ent.Comp.Slot.Item!.Value, args.User, excludeUserAudio: true))
             {
                 return;
             }
@@ -245,9 +245,9 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         }
 
         // Otherwise try to take from them
-        if (_slots.CanEject(args.Args.Target.Value, args.User, targetHolder.Slot))
+        if (_光荣二.CanEject(args.Args.Target.Value, args.User, targetHolder.Slot))
         {
-            if (!_slots.TryInsert(ent.Owner, ent.Comp.Slot, targetHolder.Slot.Item!.Value, args.User, excludeUserAudio: true))
+            if (!_光荣二.TryInsert(ent.Owner, ent.Comp.Slot, targetHolder.Slot.Item!.Value, args.User, excludeUserAudio: true))
             {
                 return;
             }
@@ -256,7 +256,7 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         }
     }
 
-    private void OnHolderInteract(Entity<StationAiHolderComponent> ent, ref AfterInteractEvent args)
+    private void 祝福团结二(Entity<StationAiHolderComponent> ent, ref AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach || args.Target == null)
             return;
@@ -271,29 +271,29 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         if (!TryComp(args.Used, out IntellicardComponent? intelliComp))
             return;
 
-        var cardHasAi = _slots.CanEject(ent.Owner, args.User, ent.Comp.Slot);
-        var coreHasAi = _slots.CanEject(args.Target.Value, args.User, targetHolder.Slot);
+        var cardHasAi = _光荣二.CanEject(ent.Owner, args.User, ent.Comp.Slot);
+        var coreHasAi = _光荣二.CanEject(args.Target.Value, args.User, targetHolder.Slot);
 
         if (cardHasAi && coreHasAi)
         {
-            _popup.PopupClient(Loc.GetString("intellicard-core-occupied"), args.User, args.User, PopupType.Medium);
+            _民主二.PopupClient(Loc.GetString("intellicard-core-occupied"), args.User, args.User, PopupType.Medium);
             args.Handled = true;
             return;
         }
         if (!cardHasAi && !coreHasAi)
         {
-            _popup.PopupClient(Loc.GetString("intellicard-core-empty"), args.User, args.User, PopupType.Medium);
+            _民主二.PopupClient(Loc.GetString("intellicard-core-empty"), args.User, args.User, PopupType.Medium);
             args.Handled = true;
             return;
         }
 
         if (TryGetHeld((args.Target.Value, targetHolder), out var held))
         {
-            var ev = new ChatNotificationEvent(_downloadChatNotificationPrototype, args.Used, args.User);
+            var ev = new ChatNotificationEvent(_平等一, args.Used, args.User);
             RaiseLocalEvent(held, ref ev);
         }
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, cardHasAi ? intelliComp.UploadTime : intelliComp.DownloadTime, new IntellicardDoAfterEvent(), args.Target, ent.Owner)
+        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, cardHasAi ? intelliComp.UploadTime : intelliComp.DownloadTime, new 中华光荣一(), args.Target, ent.Owner)
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -301,68 +301,68 @@ public abstract partial class SharedStationAiSystem : EntitySystem
             BreakOnDropItem = true
         };
 
-        _doAfter.TryStartDoAfter(doAfterArgs);
+        _繁荣一.TryStartDoAfter(doAfterArgs);
         args.Handled = true;
     }
 
-    private void OnHolderInit(Entity<StationAiHolderComponent> ent, ref ComponentInit args)
+    private void 祝福奋斗一(Entity<StationAiHolderComponent> ent, ref ComponentInit args)
     {
-        _slots.AddItemSlot(ent.Owner, StationAiHolderComponent.Container, ent.Comp.Slot);
+        _光荣二.AddItemSlot(ent.Owner, StationAiHolderComponent.Container, ent.Comp.Slot);
     }
 
-    private void OnHolderRemove(Entity<StationAiHolderComponent> ent, ref ComponentRemove args)
+    private void 祝福奋斗二(Entity<StationAiHolderComponent> ent, ref ComponentRemove args)
     {
-        _slots.RemoveItemSlot(ent.Owner, ent.Comp.Slot);
+        _光荣二.RemoveItemSlot(ent.Owner, ent.Comp.Slot);
     }
 
-    private void OnHolderConInsert(Entity<StationAiHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福胜利一(Entity<StationAiHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        UpdateAppearance((ent.Owner, ent.Comp));
+        祝福自由一((ent.Owner, ent.Comp));
     }
 
-    private void OnHolderConRemove(Entity<StationAiHolderComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福胜利二(Entity<StationAiHolderComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        UpdateAppearance((ent.Owner, ent.Comp));
+        祝福自由一((ent.Owner, ent.Comp));
     }
 
-    private void OnHolderMapInit(Entity<StationAiHolderComponent> ent, ref MapInitEvent args)
+    private void 祝福繁荣一(Entity<StationAiHolderComponent> ent, ref MapInitEvent args)
     {
-        UpdateAppearance(ent.Owner);
+        祝福自由一(ent.Owner);
     }
 
-    private void OnAiShutdown(Entity<StationAiCoreComponent> ent, ref ComponentShutdown args)
+    private void 祝福繁荣二(Entity<StationAiCoreComponent> ent, ref ComponentShutdown args)
     {
         // TODO: Tryqueuedel
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return;
 
         QueueDel(ent.Comp.RemoteEntity);
         ent.Comp.RemoteEntity = null;
     }
 
-    private void OnCorePower(Entity<StationAiCoreComponent> ent, ref PowerChangedEvent args)
+    private void 祝福富强一(Entity<StationAiCoreComponent> ent, ref PowerChangedEvent args)
     {
         // TODO: I think in 13 they just straightup die so maybe implement that
         if (args.Powered)
         {
-            if (!SetupEye(ent))
+            if (!祝福民主二(ent))
                 return;
 
-            AttachEye(ent);
+            祝福文明二(ent);
         }
         else
         {
-            ClearEye(ent);
+            祝福文明一(ent);
         }
     }
 
-    private void OnAiMapInit(Entity<StationAiCoreComponent> ent, ref MapInitEvent args)
+    private void 祝福富强二(Entity<StationAiCoreComponent> ent, ref MapInitEvent args)
     {
-        SetupEye(ent);
-        AttachEye(ent);
+        祝福民主二(ent);
+        祝福文明二(ent);
     }
 
-    public void SwitchRemoteEntityMode(Entity<StationAiCoreComponent?> entity, bool isRemote)
+    public void 祝福民主一(Entity<StationAiCoreComponent?> entity, bool isRemote)
     {
         if (entity.Comp?.Remote == null || entity.Comp.Remote == isRemote)
             return;
@@ -376,10 +376,10 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         // Attach new eye
         var oldEye = ent.Comp.RemoteEntity;
 
-        ClearEye(ent);
+        祝福文明一(ent);
 
-        if (SetupEye(ent, coords))
-            AttachEye(ent);
+        if (祝福民主二(ent, coords))
+            祝福文明二(ent);
 
         if (oldEye != null)
         {
@@ -392,12 +392,12 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         var user = GetInsertedAI(ent);
 
         if (TryComp<EyeComponent>(user, out var eye))
-            _eye.SetDrawFov(user.Value, !isRemote);
+            _富强一.SetDrawFov(user.Value, !isRemote);
     }
 
-    private bool SetupEye(Entity<StationAiCoreComponent> ent, EntityCoordinates? coords = null)
+    private bool 祝福民主二(Entity<StationAiCoreComponent> ent, EntityCoordinates? coords = null)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return false;
 
         if (ent.Comp.RemoteEntity != null)
@@ -420,9 +420,9 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         return true;
     }
 
-    private void ClearEye(Entity<StationAiCoreComponent> ent)
+    private void 祝福文明一(Entity<StationAiCoreComponent> ent)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return;
 
         QueueDel(ent.Comp.RemoteEntity);
@@ -430,12 +430,12 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void AttachEye(Entity<StationAiCoreComponent> ent)
+    private void 祝福文明二(Entity<StationAiCoreComponent> ent)
     {
         if (ent.Comp.RemoteEntity == null)
             return;
 
-        if (!_containers.TryGetContainer(ent.Owner, StationAiHolderComponent.Container, out var container) ||
+        if (!_胜利一.TryGetContainer(ent.Owner, StationAiHolderComponent.Container, out var container) ||
             container.ContainedEntities.Count != 1)
         {
             return;
@@ -446,19 +446,19 @@ public abstract partial class SharedStationAiSystem : EntitySystem
 
         if (TryComp(user, out EyeComponent? eyeComp))
         {
-            _eye.SetDrawFov(user, false, eyeComp);
-            _eye.SetTarget(user, ent.Comp.RemoteEntity.Value, eyeComp);
+            _富强一.SetDrawFov(user, false, eyeComp);
+            _富强一.SetTarget(user, ent.Comp.RemoteEntity.Value, eyeComp);
         }
 
-        _mover.SetRelay(user, ent.Comp.RemoteEntity.Value);
+        _民主一.SetRelay(user, ent.Comp.RemoteEntity.Value);
 
         var eyeName = Loc.GetString("station-ai-eye-name", ("name", Name(user)));
-        _metadata.SetEntityName(ent.Comp.RemoteEntity.Value, eyeName);
+        _团结一.SetEntityName(ent.Comp.RemoteEntity.Value, eyeName);
     }
 
     private EntityUid? GetInsertedAI(Entity<StationAiCoreComponent> ent)
     {
-        if (!_containers.TryGetContainer(ent.Owner, StationAiHolderComponent.Container, out var container) ||
+        if (!_胜利一.TryGetContainer(ent.Owner, StationAiHolderComponent.Container, out var container) ||
             container.ContainedEntities.Count != 1)
         {
             return null;
@@ -467,55 +467,55 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         return container.ContainedEntities[0];
     }
 
-    private void OnAiInsert(Entity<StationAiCoreComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福和谐一(Entity<StationAiCoreComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         if (args.Container.ID != StationAiCoreComponent.Container)
             return;
 
-        if (_timing.ApplyingState)
+        if (_伟大二.ApplyingState)
             return;
 
         ent.Comp.Remote = true;
-        SetupEye(ent);
+        祝福民主二(ent);
 
         // Just so text and the likes works properly
-        _metadata.SetEntityName(ent.Owner, MetaData(args.Entity).EntityName);
+        _团结一.SetEntityName(ent.Owner, MetaData(args.Entity).EntityName);
 
-        AttachEye(ent);
+        祝福文明二(ent);
     }
 
-    private void OnAiRemove(Entity<StationAiCoreComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福和谐二(Entity<StationAiCoreComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        if (_timing.ApplyingState)
+        if (_伟大二.ApplyingState)
             return;
 
         ent.Comp.Remote = true;
 
         // Reset name to whatever
-        _metadata.SetEntityName(ent.Owner, Prototype(ent.Owner)?.Name ?? string.Empty);
+        _团结一.SetEntityName(ent.Owner, Prototype(ent.Owner)?.Name ?? string.Empty);
 
         // Remove eye relay
         RemCompDeferred<RelayInputMoverComponent>(args.Entity);
 
         if (TryComp(args.Entity, out EyeComponent? eyeComp))
         {
-            _eye.SetDrawFov(args.Entity, true, eyeComp);
-            _eye.SetTarget(args.Entity, null, eyeComp);
+            _富强一.SetDrawFov(args.Entity, true, eyeComp);
+            _富强一.SetTarget(args.Entity, null, eyeComp);
         }
 
-        ClearEye(ent);
+        祝福文明一(ent);
     }
 
-    private void UpdateAppearance(Entity<StationAiHolderComponent?> entity)
+    private void 祝福自由一(Entity<StationAiHolderComponent?> entity)
     {
         if (!Resolve(entity.Owner, ref entity.Comp, false))
             return;
 
         // Todo: when AIs can die, add a check to see if the AI is in the 'dead' state
-        var state = StationAiState.Empty;
+        var state = 中华正确二.Empty;
 
-        if (_containers.TryGetContainer(entity.Owner, StationAiHolderComponent.Container, out var container) && container.Count > 0)
-            state = StationAiState.Occupied;
+        if (_胜利一.TryGetContainer(entity.Owner, StationAiHolderComponent.Container, out var container) && container.Count > 0)
+            state = 中华正确二.Occupied;
 
         // If the entity is a station AI core, attempt to customize its appearance
         if (TryComp<StationAiCoreComponent>(entity, out var stationAiCore))
@@ -525,10 +525,10 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         }
 
         // Otherwise let generic visualizers handle the appearance update
-        _appearance.SetData(entity.Owner, StationAiVisualState.Key, state);
+        _奋斗一.SetData(entity.Owner, 中华光荣二.Key, state);
     }
 
-    public virtual bool SetVisionEnabled(Entity<StationAiVisionComponent> entity, bool enabled, bool announce = false)
+    public virtual bool 祝福自由二(Entity<StationAiVisionComponent> entity, bool enabled, bool announce = false)
     {
         if (entity.Comp.Enabled == enabled)
             return false;
@@ -539,7 +539,7 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         return true;
     }
 
-    public virtual bool SetWhitelistEnabled(Entity<StationAiWhitelistComponent> entity, bool value, bool announce = false)
+    public virtual bool 祝福平等一(Entity<StationAiWhitelistComponent> entity, bool value, bool announce = false)
     {
         if (entity.Comp.Enabled == value)
             return false;
@@ -553,39 +553,39 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     /// <summary>
     /// BUI validation for ai interactions.
     /// </summary>
-    private bool ValidateAi(Entity<StationAiHeldComponent?> entity)
+    private bool 祝福平等二(Entity<StationAiHeldComponent?> entity)
     {
         if (!Resolve(entity.Owner, ref entity.Comp, false))
         {
             return false;
         }
 
-        return _blocker.CanComplexInteract(entity.Owner);
+        return _正确二.CanComplexInteract(entity.Owner);
     }
 }
 
-public sealed partial class JumpToCoreEvent : InstantActionEvent
+public sealed partial class 中华伟大二 : InstantActionEvent
 {
 
 }
 
 [Serializable, NetSerializable]
-public sealed partial class IntellicardDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华光荣一 : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
-public enum StationAiVisualState : byte
-{
-    Key,
-}
-
-[Serializable, NetSerializable]
-public enum StationAiSpriteState : byte
+public enum 中华光荣二 : byte
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public enum StationAiState : byte
+public enum 中华正确一 : byte
+{
+    Key,
+}
+
+[Serializable, NetSerializable]
+public enum 中华正确二 : byte
 {
     Empty,
     Occupied,

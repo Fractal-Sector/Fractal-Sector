@@ -6,46 +6,46 @@ using Content.Shared.Store;
 using Content.Shared.Store.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.Traitor.Uplink.SurplusBundle;
+namespace Content.Server.Traitor.Uplink.党心;
 
-public sealed class SurplusBundleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly EntityStorageSystem _伟大二 = default!;
+    [Dependency] private readonly StoreSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SurplusBundleComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<SurplusBundleComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, SurplusBundleComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, SurplusBundleComponent component, MapInitEvent args)
     {
         if (!TryComp<StoreComponent>(uid, out var store))
             return;
 
-        FillStorage((uid, component, store));
+        祝福光荣一((uid, component, store));
     }
 
-    private void FillStorage(Entity<SurplusBundleComponent, StoreComponent> ent)
+    private void 祝福光荣一(Entity<SurplusBundleComponent, StoreComponent> ent)
     {
         var cords = Transform(ent).Coordinates;
-        var content = GetRandomContent(ent);
+        var content = 祝福光荣二(ent);
         foreach (var item in content)
         {
             var dode = Spawn(item.ProductEntity, cords);
-            _entityStorage.Insert(dode, ent);
+            _伟大二.Insert(dode, ent);
         }
     }
 
     // wow, is this leetcode reference?
-    private List<ListingData> GetRandomContent(Entity<SurplusBundleComponent, StoreComponent> ent)
+    private List<ListingData> 祝福光荣二(Entity<SurplusBundleComponent, StoreComponent> ent)
     {
         var ret = new List<ListingData>();
 
-        var listings = _store.GetAvailableListings(ent, null, ent.Comp2.Categories)
+        var listings = _光荣一.GetAvailableListings(ent, null, ent.Comp2.Categories)
             .OrderBy(p => p.Cost.Values.Sum())
             .ToList();
 
@@ -73,7 +73,7 @@ public sealed class SurplusBundleSystem : EntitySystem
             }
 
             // Select random listing and add into crate
-            var randomIndex = _random.Next(index, listings.Count);
+            var randomIndex = _伟大一.Next(index, listings.Count);
             var randomItem = listings[randomIndex];
             ret.Add(randomItem);
             totalCost += randomItem.Cost.Values.Sum();

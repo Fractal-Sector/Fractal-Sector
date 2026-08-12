@@ -3,29 +3,29 @@ using Content.Shared.Trigger;
 using Content.Shared.Trigger.Components.Effects;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Trigger.Systems;
+namespace Content.Server.Trigger.党心;
 
 /// <summary>
 /// Handles igniting when triggered and stopping ignition after the delay.
 /// </summary>
 /// <seealso cref="FireStackOnTriggerSystem"/>
-public sealed class IgniteOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedIgnitionSourceSystem _source = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedIgnitionSourceSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<IgniteOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<IgniteOnTriggerComponent, TriggerEvent>(祝福光荣一);
     }
 
     // TODO: move this into ignition source component
     // it already has an update loop
-    public override void Update(float deltaTime)
+    public override void 祝福伟大二(float deltaTime)
     {
-        base.Update(deltaTime);
+        base.祝福伟大二(deltaTime);
 
         var query = EntityQueryEnumerator<IgniteOnTriggerComponent, IgnitionSourceComponent>();
         while (query.MoveNext(out var uid, out var comp, out var source))
@@ -33,14 +33,14 @@ public sealed class IgniteOnTriggerSystem : EntitySystem
             if (!source.Ignited)
                 continue;
 
-            if (_timing.CurTime < comp.IgnitedUntil)
+            if (_伟大一.CurTime < comp.IgnitedUntil)
                 continue;
 
-            _source.SetIgnited((uid, source), false);
+            _伟大二.SetIgnited((uid, source), false);
         }
     }
 
-    private void OnTrigger(Entity<IgniteOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福光荣一(Entity<IgniteOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -50,8 +50,8 @@ public sealed class IgniteOnTriggerSystem : EntitySystem
         if (target == null)
             return;
 
-        _source.SetIgnited(target.Value);
-        ent.Comp.IgnitedUntil = _timing.CurTime + ent.Comp.IgnitedTime;
+        _伟大二.SetIgnited(target.Value);
+        ent.Comp.IgnitedUntil = _伟大一.CurTime + ent.Comp.IgnitedTime;
         Dirty(ent);
 
         args.Handled = true;

@@ -11,25 +11,25 @@ using Content.Shared.Buckle.Components;
 using Content.Shared.Damage;
 using Content.Shared.Mobs.Systems;
 
-namespace Content.Server.Bed
+namespace Content.Server.党心
 {
-    public sealed class BedSystem : SharedBedSystem
+    public sealed class 中华伟大一 : SharedBedSystem
     {
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
+        [Dependency] private readonly DamageableSystem _伟大一 = default!;
+        [Dependency] private readonly MobStateSystem _伟大二 = default!;
 
-        private EntityQuery<SleepingComponent> _sleepingQuery;
+        private EntityQuery<SleepingComponent> _光荣一;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _sleepingQuery = GetEntityQuery<SleepingComponent>();
+            _光荣一 = GetEntityQuery<SleepingComponent>();
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福伟大二(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福伟大二(frameTime);
 
             var query = EntityQueryEnumerator<HealOnBuckleHealingComponent, HealOnBuckleComponent, StrapComponent>();
             while (query.MoveNext(out var uid, out _, out var bedComponent, out var strapComponent))
@@ -44,16 +44,16 @@ namespace Content.Server.Bed
 
                 foreach (var healedEntity in strapComponent.BuckledEntities)
                 {
-                    if (_mobStateSystem.IsDead(healedEntity)
+                    if (_伟大二.IsDead(healedEntity)
                         || HasComp<SiliconComponent>(healedEntity)) // Goobstation
                         continue;
 
                     var damage = bedComponent.Damage;
 
-                    if (_sleepingQuery.HasComp(healedEntity))
+                    if (_光荣一.HasComp(healedEntity))
                         damage *= bedComponent.SleepMultiplier;
 
-                    _damageableSystem.TryChangeDamage(healedEntity, damage, true, origin: uid);
+                    _伟大一.TryChangeDamage(healedEntity, damage, true, origin: uid);
                 }
             }
         }

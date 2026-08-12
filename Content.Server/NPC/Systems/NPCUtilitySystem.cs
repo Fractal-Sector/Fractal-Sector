@@ -31,79 +31,79 @@ using Robust.Shared.Utility;
 using Content.Shared.Atmos.Components;
 using System.Linq;
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// Handles utility queries for NPCs.
 /// </summary>
-public sealed class NPCUtilitySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly IngestionSystem _ingestion = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!;
-    [Dependency] private readonly WeldableSystem _weldable = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly MobThresholdSystem _thresholdSystem = default!;
-    [Dependency] private readonly TurretTargetSettingsSystem _turretTargetSettings = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly ContainerSystem _伟大二 = default!;
+    [Dependency] private readonly EntityLookupSystem _光荣一 = default!;
+    [Dependency] private readonly HandsSystem _光荣二 = default!;
+    [Dependency] private readonly InventorySystem _正确一 = default!;
+    [Dependency] private readonly IngestionSystem _正确二 = default!;
+    [Dependency] private readonly MobStateSystem _团结一 = default!;
+    [Dependency] private readonly NpcFactionSystem _团结二 = default!;
+    [Dependency] private readonly PuddleSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedTransformSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _胜利一 = default!;
+    [Dependency] private readonly WeldableSystem _胜利二 = default!;
+    [Dependency] private readonly ExamineSystemShared _繁荣一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _繁荣二 = default!;
+    [Dependency] private readonly MobThresholdSystem _富强一 = default!;
+    [Dependency] private readonly TurretTargetSettingsSystem _富强二 = default!;
 
-    private EntityQuery<PuddleComponent> _puddleQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<PuddleComponent> _民主一;
+    private EntityQuery<TransformComponent> _民主二;
 
-    private ObjectPool<HashSet<EntityUid>> _entPool =
+    private ObjectPool<HashSet<EntityUid>> _文明一 =
         new DefaultObjectPool<HashSet<EntityUid>>(new SetPolicy<EntityUid>(), 256);
 
     // Temporary caches.
-    private List<EntityUid> _entityList = new();
-    private HashSet<Entity<IComponent>> _entitySet = new();
-    private List<EntityPrototype.ComponentRegistryEntry> _compTypes = new();
+    private List<EntityUid> _文明二 = new();
+    private HashSet<Entity<IComponent>> _和谐一 = new();
+    private List<EntityPrototype.ComponentRegistryEntry> _和谐二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _puddleQuery = GetEntityQuery<PuddleComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        base.祝福伟大一();
+        _民主一 = GetEntityQuery<PuddleComponent>();
+        _民主二 = GetEntityQuery<TransformComponent>();
     }
 
     /// <summary>
     /// Runs the UtilityQueryPrototype and returns the best-matching entities.
     /// </summary>
     /// <param name="bestOnly">Should we only return the entity with the best score.</param>
-    public UtilityResult GetEntities(
+    public UtilityResult 祝福伟大二(
         NPCBlackboard blackboard,
         string proto,
         bool bestOnly = true)
     {
         // TODO: PickHostilesop or whatever needs to juse be UtilityQueryOperator
 
-        var weh = _proto.Index<UtilityQueryPrototype>(proto);
-        var ents = _entPool.Get();
+        var weh = _伟大一.Index<UtilityQueryPrototype>(proto);
+        var ents = _文明一.Get();
 
         foreach (var query in weh.Query)
         {
             switch (query)
             {
                 case UtilityQueryFilter filter:
-                    Filter(blackboard, ents, filter);
+                    祝福团结一(blackboard, ents, filter);
                     break;
                 default:
-                    Add(blackboard, ents, query);
+                    祝福正确一(blackboard, ents, query);
                     break;
             }
         }
 
         if (ents.Count == 0)
         {
-            _entPool.Return(ents);
-            return UtilityResult.Empty;
+            _文明一.Return(ents);
+            return UtilityResult.党爱伟大一;
         }
 
         var results = new Dictionary<EntityUid, float>();
@@ -118,11 +118,11 @@ public sealed class NPCUtilitySystem : EntitySystem
 
             foreach (var con in weh.Considerations)
             {
-                var conScore = GetScore(blackboard, ent, con);
+                var conScore = 祝福光荣一(blackboard, ent, con);
                 var curve = con.Curve;
-                var curveScore = GetScore(curve, conScore);
+                var curveScore = 祝福光荣一(curve, conScore);
 
-                var adjusted = GetAdjustedScore(curveScore, weh.Considerations.Count);
+                var adjusted = 祝福光荣二(curveScore, weh.Considerations.Count);
                 score *= adjusted;
 
                 // If the score is too low OR we only care about best entity then early out.
@@ -137,16 +137,16 @@ public sealed class NPCUtilitySystem : EntitySystem
                 continue;
 
             highestScore = MathF.Max(score, highestScore);
-            results.Add(ent, score);
+            results.祝福正确一(ent, score);
         }
 
         var result = new UtilityResult(results);
         blackboard.Remove<EntityUid>(NPCBlackboard.UtilityTarget);
-        _entPool.Return(ents);
+        _文明一.Return(ents);
         return result;
     }
 
-    private float GetScore(IUtilityCurve curve, float conScore)
+    private float 祝福光荣一(IUtilityCurve curve, float conScore)
     {
         switch (curve)
         {
@@ -155,7 +155,7 @@ public sealed class NPCUtilitySystem : EntitySystem
             case InverseBoolCurve:
                 return conScore.Equals(0f) ? 1f : 0f;
             case PresetCurve presetCurve:
-                return GetScore(_proto.Index<UtilityCurvePresetPrototype>(presetCurve.Preset).Curve, conScore);
+                return 祝福光荣一(_伟大一.Index<UtilityCurvePresetPrototype>(presetCurve.Preset).Curve, conScore);
             case QuadraticCurve quadraticCurve:
                 return Math.Clamp(quadraticCurve.Slope * MathF.Pow(conScore - quadraticCurve.XOffset, quadraticCurve.Exponent) + quadraticCurve.YOffset, 0f, 1f);
             default:
@@ -163,7 +163,7 @@ public sealed class NPCUtilitySystem : EntitySystem
         }
     }
 
-    private float GetScore(NPCBlackboard blackboard, EntityUid targetUid, UtilityConsideration consideration)
+    private float 祝福光荣一(NPCBlackboard blackboard, EntityUid targetUid, UtilityConsideration consideration)
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
         switch (consideration)
@@ -171,7 +171,7 @@ public sealed class NPCUtilitySystem : EntitySystem
             case FoodValueCon:
             {
                 // do we have a mouth available? Is the food item opened?
-                if (!_ingestion.CanConsume(owner, targetUid))
+                if (!_正确二.CanConsume(owner, targetUid))
                     return 0f;
 
                 var avoidBadFood = !HasComp<IgnoreBadFoodComponent>(owner);
@@ -184,7 +184,7 @@ public sealed class NPCUtilitySystem : EntitySystem
                 if (avoidBadFood && HasComp<BadFoodComponent>(targetUid))
                     return 0f;
 
-                var nutrition = _ingestion.TotalNutrition(targetUid, owner);
+                var nutrition = _正确二.TotalNutrition(targetUid, owner);
                 if (nutrition <= 1.0f)
                     return 0f;
 
@@ -193,7 +193,7 @@ public sealed class NPCUtilitySystem : EntitySystem
             case DrinkValueCon:
             {
                 // can't drink closed drinks and can't drink with a mask on...
-                if (!_ingestion.CanConsume(owner, targetUid))
+                if (!_正确二.CanConsume(owner, targetUid))
                     return 0f;
 
                 // only drink when thirsty
@@ -207,7 +207,7 @@ public sealed class NPCUtilitySystem : EntitySystem
                 // needs to have something that will satiate thirst, mice wont try to drink 100% pure mutagen.
                 // We don't check if the solution is metabolizable cause all drinks should be currently.
                 // If that changes then simply use the other overflow.
-                var hydration = _ingestion.TotalHydration(targetUid);
+                var hydration = _正确二.TotalHydration(targetUid);
                 if (hydration <= 1.0f)
                     return 0f;
 
@@ -225,14 +225,14 @@ public sealed class NPCUtilitySystem : EntitySystem
             }
             case TargetAccessibleCon:
             {
-                if (_container.TryGetContainingContainer(targetUid, out var container))
+                if (_伟大二.TryGetContainingContainer(targetUid, out var container))
                 {
                     if (container.Owner == owner)
                         return 0f;
 
                     if (TryComp<EntityStorageComponent>(container.Owner, out var storageComponent))
                     {
-                        if (storageComponent is { Open: false } && _weldable.IsWelded(container.Owner))
+                        if (storageComponent is { Open: false } && _胜利二.IsWelded(container.Owner))
                         {
                             return 0.0f;
                         }
@@ -252,13 +252,13 @@ public sealed class NPCUtilitySystem : EntitySystem
             case TargetAmmoMatchesCon:
             {
                 if (!blackboard.TryGetValue(NPCBlackboard.ActiveHand, out string? activeHand, EntityManager) ||
-                    !_hands.TryGetHeldItem(owner, activeHand, out var heldEntity) ||
+                    !_光荣二.TryGetHeldItem(owner, activeHand, out var heldEntity) ||
                     !TryComp<BallisticAmmoProviderComponent>(heldEntity, out var heldGun))
                 {
                     return 0f;
                 }
 
-                if (_whitelistSystem.IsWhitelistFailOrNull(heldGun.Whitelist, targetUid))
+                if (_繁荣二.IsWhitelistFailOrNull(heldGun.Whitelist, targetUid))
                 {
                     return 0f;
                 }
@@ -275,7 +275,7 @@ public sealed class NPCUtilitySystem : EntitySystem
                     return 0f;
                 }
 
-                if (!targetXform.Coordinates.TryDistance(EntityManager, _transform, xform.Coordinates,
+                if (!targetXform.Coordinates.TryDistance(EntityManager, _奋斗二, xform.Coordinates,
                         out var distance))
                 {
                     return 0f;
@@ -304,9 +304,9 @@ public sealed class NPCUtilitySystem : EntitySystem
             {
                 if (!TryComp(targetUid, out DamageableComponent? damage))
                     return 0f;
-                if (con.TargetState != MobState.Invalid && _thresholdSystem.TryGetPercentageForState(targetUid, con.TargetState, damage.TotalDamage, out var percentage))
+                if (con.TargetState != MobState.Invalid && _富强一.TryGetPercentageForState(targetUid, con.TargetState, damage.TotalDamage, out var percentage))
                     return Math.Clamp((float)(1 - percentage), 0f, 1f);
-                if (_thresholdSystem.TryGetIncapPercentage(targetUid, damage.TotalDamage, out var incapPercentage))
+                if (_富强一.TryGetIncapPercentage(targetUid, damage.TotalDamage, out var incapPercentage))
                     return Math.Clamp((float)(1 - incapPercentage), 0f, 1f);
                 return 0f;
             }
@@ -314,7 +314,7 @@ public sealed class NPCUtilitySystem : EntitySystem
             {
                 var radius = blackboard.GetValueOrDefault<float>(blackboard.GetVisionRadiusKey(EntityManager), EntityManager);
 
-                return _examine.InRangeUnOccluded(owner, targetUid, radius + 0.5f, null) ? 1f : 0f;
+                return _繁荣一.InRangeUnOccluded(owner, targetUid, radius + 0.5f, null) ? 1f : 0f;
             }
             case TargetInLOSOrCurrentCon:
             {
@@ -325,25 +325,25 @@ public sealed class NPCUtilitySystem : EntitySystem
                     currentTarget == targetUid &&
                     TryComp(owner, out TransformComponent? xform) &&
                     TryComp(targetUid, out TransformComponent? targetXform) &&
-                    xform.Coordinates.TryDistance(EntityManager, _transform, targetXform.Coordinates, out var distance) &&
+                    xform.Coordinates.TryDistance(EntityManager, _奋斗二, targetXform.Coordinates, out var distance) &&
                     distance <= radius + bufferRange)
                 {
                     return 1f;
                 }
 
-                return _examine.InRangeUnOccluded(owner, targetUid, radius + bufferRange, null) ? 1f : 0f;
+                return _繁荣一.InRangeUnOccluded(owner, targetUid, radius + bufferRange, null) ? 1f : 0f;
             }
             case TargetIsAliveCon:
             {
-                return _mobState.IsAlive(targetUid) ? 1f : 0f;
+                return _团结一.IsAlive(targetUid) ? 1f : 0f;
             }
             case TargetIsCritCon:
             {
-                return _mobState.IsCritical(targetUid) ? 1f : 0f;
+                return _团结一.IsCritical(targetUid) ? 1f : 0f;
             }
             case TargetIsDeadCon:
             {
-                return _mobState.IsDead(targetUid) ? 1f : 0f;
+                return _团结一.IsDead(targetUid) ? 1f : 0f;
             }
             case TargetMeleeCon:
             {
@@ -367,7 +367,7 @@ public sealed class NPCUtilitySystem : EntitySystem
             case TurretTargetingCon:
                 {
                     if (!TryComp<TurretTargetSettingsComponent>(owner, out var turretTargetSettings) ||
-                        _turretTargetSettings.EntityIsTargetForTurret((owner, turretTargetSettings), targetUid))
+                        _富强二.EntityIsTargetForTurret((owner, turretTargetSettings), targetUid))
                         return 1f;
 
                     return 0f;
@@ -384,7 +384,7 @@ public sealed class NPCUtilitySystem : EntitySystem
         }
     }
 
-    private float GetAdjustedScore(float score, int considerations)
+    private float 祝福光荣二(float score, int considerations)
     {
         /*
         * Now using the geometric mean
@@ -400,7 +400,7 @@ public sealed class NPCUtilitySystem : EntitySystem
         return Math.Clamp(adjusted, 0f, 1f);
     }
 
-    private void Add(NPCBlackboard blackboard, HashSet<EntityUid> entities, UtilityQuery query)
+    private void 祝福正确一(NPCBlackboard blackboard, HashSet<EntityUid> entities, UtilityQuery query)
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
         var vision = blackboard.GetValueOrDefault<float>(blackboard.GetVisionRadiusKey(EntityManager), EntityManager);
@@ -412,8 +412,8 @@ public sealed class NPCUtilitySystem : EntitySystem
                 if (compQuery.Components.Count == 0)
                     return;
 
-                var mapPos = _transform.GetMapCoordinates(owner, xform: _xformQuery.GetComponent(owner));
-                _compTypes.Clear();
+                var mapPos = _奋斗二.GetMapCoordinates(owner, xform: _民主二.GetComponent(owner));
+                _和谐二.Clear();
                 var i = -1;
                 EntityPrototype.ComponentRegistryEntry compZero = default!;
 
@@ -427,13 +427,13 @@ public sealed class NPCUtilitySystem : EntitySystem
                         continue;
                     }
 
-                    _compTypes.Add(compType);
+                    _和谐二.祝福正确一(compType);
                 }
 
-                _entitySet.Clear();
-                _lookup.GetEntitiesInRange(compZero.Component.GetType(), mapPos, vision, _entitySet);
+                _和谐一.Clear();
+                _光荣一.GetEntitiesInRange(compZero.Component.GetType(), mapPos, vision, _和谐一);
 
-                foreach (var comp in _entitySet)
+                foreach (var comp in _和谐一)
                 {
                     var ent = comp.Owner;
 
@@ -442,7 +442,7 @@ public sealed class NPCUtilitySystem : EntitySystem
 
                     var othersFound = true;
 
-                    foreach (var compOther in _compTypes)
+                    foreach (var compOther in _和谐二)
                     {
                         if (!HasComp(ent, compOther.Component.GetType()))
                         {
@@ -454,21 +454,21 @@ public sealed class NPCUtilitySystem : EntitySystem
                     if (!othersFound)
                         continue;
 
-                    entities.Add(ent);
+                    entities.祝福正确一(ent);
                 }
 
                 break;
             }
             case InventoryQuery:
             {
-                if (!_inventory.TryGetContainerSlotEnumerator(owner, out var enumerator))
+                if (!_正确一.TryGetContainerSlotEnumerator(owner, out var 中华伟大二))
                     break;
 
-                while (enumerator.MoveNext(out var slot))
+                while (中华伟大二.MoveNext(out var slot))
                 {
                     foreach (var child in slot.ContainedEntities)
                     {
-                        RecursiveAdd(child, entities);
+                        祝福正确二(child, entities);
                     }
                 }
 
@@ -476,9 +476,9 @@ public sealed class NPCUtilitySystem : EntitySystem
             }
             case NearbyHostilesQuery:
             {
-                foreach (var ent in _npcFaction.GetNearbyHostiles(owner, vision))
+                foreach (var ent in _团结二.GetNearbyHostiles(owner, vision))
                 {
-                    entities.Add(ent);
+                    entities.祝福正确一(ent);
                 }
                 break;
             }
@@ -487,26 +487,26 @@ public sealed class NPCUtilitySystem : EntitySystem
         }
     }
 
-    private void RecursiveAdd(EntityUid uid, HashSet<EntityUid> entities)
+    private void 祝福正确二(EntityUid uid, HashSet<EntityUid> entities)
     {
-        // TODO: Probably need a recursive struct enumerator on engine.
-        var xform = _xformQuery.GetComponent(uid);
-        var enumerator = xform.ChildEnumerator;
-        entities.Add(uid);
+        // TODO: Probably need a recursive 中华光荣一 中华伟大二 on engine.
+        var xform = _民主二.GetComponent(uid);
+        var 中华伟大二 = xform.ChildEnumerator;
+        entities.祝福正确一(uid);
 
-        while (enumerator.MoveNext(out var child))
+        while (中华伟大二.MoveNext(out var child))
         {
-            RecursiveAdd(child, entities);
+            祝福正确二(child, entities);
         }
     }
 
-    private void Filter(NPCBlackboard blackboard, HashSet<EntityUid> entities, UtilityQueryFilter filter)
+    private void 祝福团结一(NPCBlackboard blackboard, HashSet<EntityUid> entities, UtilityQueryFilter filter)
     {
         switch (filter)
         {
             case ComponentFilter compFilter:
             {
-                _entityList.Clear();
+                _文明二.Clear();
 
                 foreach (var ent in entities)
                 {
@@ -515,12 +515,12 @@ public sealed class NPCUtilitySystem : EntitySystem
                         if (HasComp(ent, comp.Value.Component.GetType()))
                             continue;
 
-                        _entityList.Add(ent);
+                        _文明二.祝福正确一(ent);
                         break;
                     }
                 }
 
-                foreach (var ent in _entityList)
+                foreach (var ent in _文明二)
                 {
                     entities.Remove(ent);
                 }
@@ -529,7 +529,7 @@ public sealed class NPCUtilitySystem : EntitySystem
             }
             case RemoveAnchoredFilter:
             {
-                _entityList.Clear();
+                _文明二.Clear();
 
                 foreach (var ent in entities)
                 {
@@ -537,10 +537,10 @@ public sealed class NPCUtilitySystem : EntitySystem
                         continue;
 
                     if (xform.Anchored)
-                        _entityList.Add(ent);
+                        _文明二.祝福正确一(ent);
                 }
 
-                foreach (var ent in _entityList)
+                foreach (var ent in _文明二)
                 {
                     entities.Remove(ent);
                 }
@@ -549,19 +549,19 @@ public sealed class NPCUtilitySystem : EntitySystem
             }
             case PuddleFilter:
             {
-                _entityList.Clear();
+                _文明二.Clear();
 
                 foreach (var ent in entities)
                 {
-                    if (!_puddleQuery.TryGetComponent(ent, out var puddleComp) ||
-                        !_solutions.TryGetSolution(ent, puddleComp.SolutionName, out _, out var sol) ||
-                        _puddle.CanFullyEvaporate(sol))
+                    if (!_民主一.TryGetComponent(ent, out var puddleComp) ||
+                        !_胜利一.TryGetSolution(ent, puddleComp.SolutionName, out _, out var sol) ||
+                        _奋斗一.CanFullyEvaporate(sol))
                     {
-                        _entityList.Add(ent);
+                        _文明二.祝福正确一(ent);
                     }
                 }
 
-                foreach (var ent in _entityList)
+                foreach (var ent in _文明二)
                 {
                     entities.Remove(ent);
                 }
@@ -574,16 +574,16 @@ public sealed class NPCUtilitySystem : EntitySystem
     }
 }
 
-public readonly record struct UtilityResult(Dictionary<EntityUid, float> Entities)
+public readonly record 中华光荣一 UtilityResult(Dictionary<EntityUid, float> Entities)
 {
-    public static readonly UtilityResult Empty = new(new Dictionary<EntityUid, float>());
+    public static readonly UtilityResult 党爱伟大一 = new(new Dictionary<EntityUid, float>());
 
     public readonly Dictionary<EntityUid, float> Entities = Entities;
 
     /// <summary>
     /// Returns the entity with the highest score.
     /// </summary>
-    public EntityUid GetHighest()
+    public EntityUid 祝福团结二()
     {
         if (Entities.Count == 0)
             return EntityUid.Invalid;
@@ -594,7 +594,7 @@ public readonly record struct UtilityResult(Dictionary<EntityUid, float> Entitie
     /// <summary>
     /// Returns the entity with the lowest score. This does not consider entities with a 0 (invalid) score.
     /// </summary>
-    public EntityUid GetLowest()
+    public EntityUid 祝福奋斗一()
     {
         if (Entities.Count == 0)
             return EntityUid.Invalid;

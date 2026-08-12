@@ -1,17 +1,17 @@
-namespace Content.Shared.Pulling.Events
+namespace Content.Shared.Pulling.党心
 {
     /// <summary>
     ///     Directed event raised on the pulled to see if it can be pulled.
     /// </summary>
-    public sealed class BeingPulledAttemptEvent : CancellableEntityEventArgs
+    public sealed class 中华伟大一 : CancellableEntityEventArgs
     {
-        public BeingPulledAttemptEvent(EntityUid puller, EntityUid pulled)
+        public 中华伟大一(EntityUid puller, EntityUid pulled)
         {
-            Puller = puller;
-            Pulled = pulled;
+            党爱伟大一 = puller;
+            党爱伟大二 = pulled;
         }
 
-        public EntityUid Puller { get; }
-        public EntityUid Pulled { get; }
+        public EntityUid 党爱伟大一 { get; }
+        public EntityUid 党爱伟大二 { get; }
     }
 }

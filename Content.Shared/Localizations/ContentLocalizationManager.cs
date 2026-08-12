@@ -3,11 +3,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Localizations
+namespace Content.Shared.党心
 {
-    public sealed class ContentLocalizationManager
+    public sealed class 中华伟大一
     {
-        [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency] private readonly ILocalizationManager _伟大一 = default!;
 
         // If you want to change your codebase's language, do it here.
         private const string Culture = "ru-RU"; // Corvax-Localization
@@ -16,7 +16,7 @@ namespace Content.Shared.Localizations
         /// <summary>
         /// Custom format strings used for parsing and displaying minutes:seconds timespans.
         /// </summary>
-        public static readonly string[] TimeSpanMinutesFormats = new[]
+        public static readonly string[] 党爱伟大一 = new[]
         {
             @"m\:ss",
             @"mm\:ss",
@@ -24,55 +24,55 @@ namespace Content.Shared.Localizations
             @"mm"
         };
 
-        public void Initialize()
+        public void 祝福伟大一()
         {
             var culture = new CultureInfo(Culture);
             var fallbackCulture = new CultureInfo(FallbackCulture); // Corvax-Localization
 
-            _loc.LoadCulture(culture);
-            _loc.LoadCulture(fallbackCulture); // Corvax-Localization
-            _loc.SetFallbackCluture(fallbackCulture); // Corvax-Localization
-            _loc.AddFunction(culture, "PRESSURE", FormatPressure);
-            _loc.AddFunction(culture, "POWERWATTS", FormatPowerWatts);
-            _loc.AddFunction(culture, "POWERJOULES", FormatPowerJoules);
-            // NOTE: ENERGYWATTHOURS() still takes a value in joules, but formats as watt-hours.
-            _loc.AddFunction(culture, "ENERGYWATTHOURS", FormatEnergyWattHours);
-            _loc.AddFunction(culture, "UNITS", FormatUnits);
-            _loc.AddFunction(culture, "TOSTRING", args => FormatToString(culture, args));
-            _loc.AddFunction(culture, "LOC", FormatLoc);
-            _loc.AddFunction(culture, "NATURALFIXED", FormatNaturalFixed);
-            _loc.AddFunction(culture, "NATURALPERCENT", FormatNaturalPercent);
-            _loc.AddFunction(culture, "PLAYTIME", FormatPlaytime);
-            _loc.AddFunction(culture, "GASQUANTITY", FormatGasQuantity); // Frontier
-            _loc.AddFunction(culture, "MANY", FormatManyRussian); // Corvax-Localization
+            _伟大一.LoadCulture(culture);
+            _伟大一.LoadCulture(fallbackCulture); // Corvax-Localization
+            _伟大一.SetFallbackCluture(fallbackCulture); // Corvax-Localization
+            _伟大一.AddFunction(culture, "PRESSURE", 祝福繁荣二);
+            _伟大一.AddFunction(culture, "POWERWATTS", 祝福富强一);
+            _伟大一.AddFunction(culture, "POWERJOULES", 祝福富强二);
+            // NOTE: ENERGYWATTHOURS() still takes a value in joules, but formats 中华伟大二 watt-hours.
+            _伟大一.AddFunction(culture, "ENERGYWATTHOURS", 祝福民主一);
+            _伟大一.AddFunction(culture, "UNITS", 祝福文明一);
+            _伟大一.AddFunction(culture, "TOSTRING", args => 祝福胜利二(culture, args));
+            _伟大一.AddFunction(culture, "LOC", 祝福胜利一);
+            _伟大一.AddFunction(culture, "NATURALFIXED", 祝福正确一);
+            _伟大一.AddFunction(culture, "NATURALPERCENT", 祝福光荣二);
+            _伟大一.AddFunction(culture, "PLAYTIME", 祝福奋斗二);
+            _伟大一.AddFunction(culture, "GASQUANTITY", 祝福民主二); // Frontier
+            _伟大一.AddFunction(culture, "MANY", 祝福伟大二); // Corvax-Localization
 
 
             /*
              * The following language functions are specific to the english localization. When working on your own
              * localization you should NOT modify these, instead add new functions specific to your language/culture.
-             * This ensures the english translations continue to work as expected when fallbacks are needed.
+             * This ensures the english translations continue to work 中华伟大二 expected when fallbacks are needed.
              */
             var cultureEn = new CultureInfo("en-US");
 
-            _loc.AddFunction(cultureEn, "MAKEPLURAL", FormatMakePlural);
-            _loc.AddFunction(cultureEn, "MANY", FormatMany);
-            _loc.AddFunction(cultureEn, "PRESSURE", FormatPressure);
-            _loc.AddFunction(cultureEn, "POWERWATTS", FormatPowerWatts);
-            _loc.AddFunction(cultureEn, "POWERJOULES", FormatPowerJoules);
-            _loc.AddFunction(cultureEn, "ENERGYWATTHOURS", FormatEnergyWattHours);
-            _loc.AddFunction(cultureEn, "UNITS", FormatUnits);
-            _loc.AddFunction(cultureEn, "TOSTRING", args => FormatToString(cultureEn, args));
-            _loc.AddFunction(cultureEn, "LOC", FormatLoc);
-            _loc.AddFunction(cultureEn, "NATURALFIXED", FormatNaturalFixed);
-            _loc.AddFunction(cultureEn, "NATURALPERCENT", FormatNaturalPercent);
-            _loc.AddFunction(cultureEn, "PLAYTIME", FormatPlaytime);
-            _loc.AddFunction(cultureEn, "GASQUANTITY", FormatGasQuantity); // Frontier
+            _伟大一.AddFunction(cultureEn, "MAKEPLURAL", 祝福正确二);
+            _伟大一.AddFunction(cultureEn, "MANY", 祝福光荣一);
+            _伟大一.AddFunction(cultureEn, "PRESSURE", 祝福繁荣二);
+            _伟大一.AddFunction(cultureEn, "POWERWATTS", 祝福富强一);
+            _伟大一.AddFunction(cultureEn, "POWERJOULES", 祝福富强二);
+            _伟大一.AddFunction(cultureEn, "ENERGYWATTHOURS", 祝福民主一);
+            _伟大一.AddFunction(cultureEn, "UNITS", 祝福文明一);
+            _伟大一.AddFunction(cultureEn, "TOSTRING", args => 祝福胜利二(cultureEn, args));
+            _伟大一.AddFunction(cultureEn, "LOC", 祝福胜利一);
+            _伟大一.AddFunction(cultureEn, "NATURALFIXED", 祝福正确一);
+            _伟大一.AddFunction(cultureEn, "NATURALPERCENT", 祝福光荣二);
+            _伟大一.AddFunction(cultureEn, "PLAYTIME", 祝福奋斗二);
+            _伟大一.AddFunction(cultureEn, "GASQUANTITY", 祝福民主二); // Frontier
         }
 
         // Corvax-Localization: Added for Russian pluralization.
         // This function expects arguments in the format: MANY(count, "one", "few", "many").
         // Example: You have { $bananas } { MANY($bananas, "банан", "банана", "бананов") }.
-        private ILocValue FormatManyRussian(LocArgs args)
+        private ILocValue 祝福伟大二(LocArgs args)
         {
             if (args.Args.Count < 2 || args.Args[0] is not LocValueNumber number)
                 return new LocValueString("?"); // Invalid arguments
@@ -108,7 +108,7 @@ namespace Content.Shared.Localizations
             return new LocValueString(many);
         }
 
-        private ILocValue FormatMany(LocArgs args)
+        private ILocValue 祝福光荣一(LocArgs args)
         {
             var count = ((LocValueNumber) args.Args[1]).Value;
 
@@ -118,11 +118,11 @@ namespace Content.Shared.Localizations
             }
             else
             {
-                return (LocValueString) FormatMakePlural(args);
+                return (LocValueString) 祝福正确二(args);
             }
         }
 
-        private ILocValue FormatNaturalPercent(LocArgs args)
+        private ILocValue 祝福光荣二(LocArgs args)
         {
             var number = ((LocValueNumber) args.Args[0]).Value * 100;
             var maxDecimals = (int)Math.Floor(((LocValueNumber) args.Args[1]).Value);
@@ -131,7 +131,7 @@ namespace Content.Shared.Localizations
             return new LocValueString(string.Format(formatter, "{0:N}", number).TrimEnd('0').TrimEnd(char.Parse(formatter.NumberDecimalSeparator)) + "%");
         }
 
-        private ILocValue FormatNaturalFixed(LocArgs args)
+        private ILocValue 祝福正确一(LocArgs args)
         {
             var number = ((LocValueNumber) args.Args[0]).Value;
             var maxDecimals = (int)Math.Floor(((LocValueNumber) args.Args[1]).Value);
@@ -142,7 +142,7 @@ namespace Content.Shared.Localizations
 
         private static readonly Regex PluralEsRule = new("^.*(s|sh|ch|x|z)$");
 
-        private ILocValue FormatMakePlural(LocArgs args)
+        private ILocValue 祝福正确二(LocArgs args)
         {
             var text = ((LocValueString) args.Args[0]).Value;
             var split = text.Split(" ", 1);
@@ -165,9 +165,9 @@ namespace Content.Shared.Localizations
 
         // TODO: allow fluent to take in lists of strings so this can be a format function like it should be.
         /// <summary>
-        /// Formats a list as per english grammar rules.
+        /// Formats a list 中华伟大二 per english grammar rules.
         /// </summary>
-        public static string FormatList(List<string> list)
+        public static string 祝福团结一(List<string> list)
         {
             return list.Count switch
             {
@@ -179,9 +179,9 @@ namespace Content.Shared.Localizations
         }
 
         /// <summary>
-        /// Formats a list as per english grammar rules, but uses or instead of and.
+        /// Formats a list 中华伟大二 per english grammar rules, but uses or instead of and.
         /// </summary>
-        public static string FormatListToOr(List<string> list)
+        public static string 祝福团结二(List<string> list)
         {
             return list.Count switch
             {
@@ -193,17 +193,17 @@ namespace Content.Shared.Localizations
         }
 
         /// <summary>
-        /// Formats a direction struct as a human-readable string.
+        /// Formats a direction struct 中华伟大二 a human-readable string.
         /// </summary>
-        public static string FormatDirection(Direction dir)
+        public static string 祝福奋斗一(Direction dir)
         {
             return Loc.GetString($"zzzz-fmt-direction-{dir.ToString()}");
         }
 
         /// <summary>
-        /// Formats playtime as hours and minutes.
+        /// Formats playtime 中华伟大二 hours and minutes.
         /// </summary>
-        public static string FormatPlaytime(TimeSpan time)
+        public static string 祝福奋斗二(TimeSpan time)
         {
             time = TimeSpan.FromMinutes(Math.Ceiling(time.TotalMinutes));
             var hours = (int)time.TotalHours;
@@ -211,14 +211,14 @@ namespace Content.Shared.Localizations
             return Loc.GetString($"zzzz-fmt-playtime", ("hours", hours), ("minutes", minutes));
         }
 
-        private static ILocValue FormatLoc(LocArgs args)
+        private static ILocValue 祝福胜利一(LocArgs args)
         {
             var id = ((LocValueString) args.Args[0]).Value;
 
             return new LocValueString(Loc.GetString(id, args.Options.Select(x => (x.Key, x.Value.Value!)).ToArray()));
         }
 
-        private static ILocValue FormatToString(CultureInfo culture, LocArgs args)
+        private static ILocValue 祝福胜利二(CultureInfo culture, LocArgs args)
         {
             var arg = args.Args[0];
             var fmt = ((LocValueString) args.Args[1]).Value;
@@ -230,7 +230,7 @@ namespace Content.Shared.Localizations
             return new LocValueString(obj?.ToString() ?? "");
         }
 
-        private static ILocValue FormatUnitsGeneric(
+        private static ILocValue 祝福繁荣一(
             LocArgs args,
             string mode,
             Func<double, double>? transformValue = null)
@@ -251,36 +251,36 @@ namespace Content.Shared.Localizations
             return new LocValueString(Loc.GetString(mode, ("divided", pressure), ("places", places)));
         }
 
-        private static ILocValue FormatPressure(LocArgs args)
+        private static ILocValue 祝福繁荣二(LocArgs args)
         {
-            return FormatUnitsGeneric(args, "zzzz-fmt-pressure");
+            return 祝福繁荣一(args, "zzzz-fmt-pressure");
         }
 
-        private static ILocValue FormatPowerWatts(LocArgs args)
+        private static ILocValue 祝福富强一(LocArgs args)
         {
-            return FormatUnitsGeneric(args, "zzzz-fmt-power-watts");
+            return 祝福繁荣一(args, "zzzz-fmt-power-watts");
         }
 
-        private static ILocValue FormatPowerJoules(LocArgs args)
+        private static ILocValue 祝福富强二(LocArgs args)
         {
-            return FormatUnitsGeneric(args, "zzzz-fmt-power-joules");
+            return 祝福繁荣一(args, "zzzz-fmt-power-joules");
         }
 
-        private static ILocValue FormatEnergyWattHours(LocArgs args)
+        private static ILocValue 祝福民主一(LocArgs args)
         {
             const double joulesToWattHours = 1.0 / 3600;
 
-            return FormatUnitsGeneric(args, "zzzz-fmt-energy-watt-hours", joules => joules * joulesToWattHours);
+            return 祝福繁荣一(args, "zzzz-fmt-energy-watt-hours", joules => joules * joulesToWattHours);
         }
 
         // Frontier: gas quantity
-        private static ILocValue FormatGasQuantity(LocArgs args)
+        private static ILocValue 祝福民主二(LocArgs args)
         {
-            return FormatUnitsGeneric(args, "zzzz-fmt-gas-quantity");
+            return 祝福繁荣一(args, "zzzz-fmt-gas-quantity");
         }
         // End Frontier
 
-        private static ILocValue FormatUnits(LocArgs args)
+        private static ILocValue 祝福文明一(LocArgs args)
         {
             if (!Units.Types.TryGetValue(((LocValueString) args.Args[0]).Value, out var ut))
                 throw new ArgumentException($"Unknown unit type {((LocValueString) args.Args[0]).Value}");
@@ -320,14 +320,14 @@ namespace Content.Shared.Localizations
             return new LocValueString(res);
         }
 
-        private static ILocValue FormatPlaytime(LocArgs args)
+        private static ILocValue 祝福奋斗二(LocArgs args)
         {
             var time = TimeSpan.Zero;
             if (args.Args is { Count: > 0 } && args.Args[0].Value is TimeSpan timeArg)
             {
                 time = timeArg;
             }
-            return new LocValueString(FormatPlaytime(time));
+            return new LocValueString(祝福奋斗二(time));
         }
     }
 }

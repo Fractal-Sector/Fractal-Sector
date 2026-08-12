@@ -1,4 +1,4 @@
-namespace Content.Server.DeviceNetwork.Components;
+namespace Content.Server.DeviceNetwork.党心;
 
 /// <summary>
 ///     Component that indicates that this device networked entity requires power
@@ -6,6 +6,6 @@ namespace Content.Server.DeviceNetwork.Components;
 ///     if the entity is not powered.
 /// </summary>
 [RegisterComponent]
-public sealed partial class DeviceNetworkRequiresPowerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

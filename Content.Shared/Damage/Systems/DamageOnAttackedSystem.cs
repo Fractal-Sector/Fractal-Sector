@@ -10,22 +10,22 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Damage.Systems;
+namespace Content.Shared.Damage.党心;
 
-public sealed class DamageOnAttackedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly DamageableSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly InventorySystem _正确一 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DamageOnAttackedComponent, AttackedEvent>(OnAttacked);
+        SubscribeLocalEvent<DamageOnAttackedComponent, AttackedEvent>(祝福伟大二);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public sealed class DamageOnAttackedSystem : EntitySystem
     /// </summary>
     /// <param name="entity">The entity being hit</param>
     /// <param name="args">Contains the user that hit the entity</param>
-    private void OnAttacked(Entity<DamageOnAttackedComponent> entity, ref AttackedEvent args)
+    private void 祝福伟大二(Entity<DamageOnAttackedComponent> entity, ref AttackedEvent args)
     {
         if (!entity.Comp.IsDamageActive)
             return;
@@ -44,13 +44,13 @@ public sealed class DamageOnAttackedSystem : EntitySystem
         if (!entity.Comp.IgnoreResistances)
         {
             // try to get the damage on attacked protection component from something the entity has in their inventory
-            _inventorySystem.TryGetInventoryEntity<DamageOnAttackedProtectionComponent>(args.User, out var protectiveEntity);
+            _正确一.TryGetInventoryEntity<DamageOnAttackedProtectionComponent>(args.User, out var protectiveEntity);
 
             // if comp is null that means the user didn't have anything equipped that protected them
             // let's check their hands to see if the thing they attacked with gives them protection, like the GORILLA gauntlet
             if (protectiveEntity.Comp == null && TryComp<HandsComponent>(args.User, out var handsComp))
             {
-                if (_handsSystem.TryGetActiveItem((args.User, handsComp), out var itemInHand) &&
+                if (_正确二.TryGetActiveItem((args.User, handsComp), out var itemInHand) &&
                     TryComp<DamageOnAttackedProtectionComponent>(itemInHand, out var itemProtectComp)
                     && itemProtectComp.Slots == SlotFlags.NONE)
                 {
@@ -73,20 +73,20 @@ public sealed class DamageOnAttackedSystem : EntitySystem
             }
         }
 
-        totalDamage = _damageableSystem.TryChangeDamage(args.User, totalDamage, entity.Comp.IgnoreResistances, origin: entity);
+        totalDamage = _伟大二.TryChangeDamage(args.User, totalDamage, entity.Comp.IgnoreResistances, origin: entity);
 
         if (totalDamage != null && totalDamage.AnyPositive())
         {
-            _adminLogger.Add(LogType.Damaged, $"{ToPrettyString(args.User):user} injured themselves by attacking {ToPrettyString(entity):target} and received {totalDamage.GetTotal():damage} damage");
-            _audioSystem.PlayPredicted(entity.Comp.InteractSound, entity, args.User);
+            _伟大一.Add(LogType.Damaged, $"{ToPrettyString(args.User):user} injured themselves by attacking {ToPrettyString(entity):target} and received {totalDamage.GetTotal():damage} damage");
+            _光荣一.PlayPredicted(entity.Comp.InteractSound, entity, args.User);
 
             if (entity.Comp.PopupText != null)
-                _popupSystem.PopupClient(Loc.GetString(entity.Comp.PopupText), args.User, args.User);
+                _光荣二.PopupClient(Loc.GetString(entity.Comp.PopupText), args.User, args.User);
 
         }
     }
 
-    public void SetIsDamageActiveTo(Entity<DamageOnAttackedComponent> entity, bool mode)
+    public void 祝福光荣一(Entity<DamageOnAttackedComponent> entity, bool mode)
     {
         if (entity.Comp.IsDamageActive == mode)
             return;

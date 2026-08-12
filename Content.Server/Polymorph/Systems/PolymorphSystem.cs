@@ -21,48 +21,48 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Polymorph.Systems;
+namespace Content.Server.Polymorph.党心;
 
-public sealed partial class PolymorphSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly ActionsSystem _光荣二 = default!;
+    [Dependency] private readonly AudioSystem _正确一 = default!;
+    [Dependency] private readonly SharedBuckleSystem _正确二 = default!;
+    [Dependency] private readonly ContainerSystem _团结一 = default!;
+    [Dependency] private readonly DamageableSystem _团结二 = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _奋斗一 = default!;
+    [Dependency] private readonly MobStateSystem _奋斗二 = default!;
+    [Dependency] private readonly MobThresholdSystem _胜利一 = default!;
+    [Dependency] private readonly ServerInventorySystem _胜利二 = default!;
+    [Dependency] private readonly SharedHandsSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _繁荣二 = default!;
+    [Dependency] private readonly TransformSystem _富强一 = default!;
+    [Dependency] private readonly SharedMindSystem _富强二 = default!;
+    [Dependency] private readonly MetaDataSystem _民主一 = default!;
 
     private const string RevertPolymorphId = "ActionRevertPolymorph";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PolymorphableComponent, ComponentStartup>(OnComponentStartup);
-        SubscribeLocalEvent<PolymorphedEntityComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<PolymorphableComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<PolymorphedEntityComponent, MapInitEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<PolymorphableComponent, PolymorphActionEvent>(OnPolymorphActionEvent);
-        SubscribeLocalEvent<PolymorphedEntityComponent, RevertPolymorphActionEvent>(OnRevertPolymorphActionEvent);
+        SubscribeLocalEvent<PolymorphableComponent, PolymorphActionEvent>(祝福正确一);
+        SubscribeLocalEvent<PolymorphedEntityComponent, RevertPolymorphActionEvent>(祝福正确二);
 
-        SubscribeLocalEvent<PolymorphedEntityComponent, BeforeFullySlicedEvent>(OnBeforeFullySliced);
-        SubscribeLocalEvent<PolymorphedEntityComponent, DestructionEventArgs>(OnDestruction);
-        SubscribeLocalEvent<PolymorphedEntityComponent, EntityTerminatingEvent>(OnPolymorphedTerminating);
+        SubscribeLocalEvent<PolymorphedEntityComponent, BeforeFullySlicedEvent>(祝福团结一);
+        SubscribeLocalEvent<PolymorphedEntityComponent, DestructionEventArgs>(祝福团结二);
+        SubscribeLocalEvent<PolymorphedEntityComponent, EntityTerminatingEvent>(祝福奋斗一);
 
         InitializeMap();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<PolymorphedEntityComponent>();
         while (query.MoveNext(out var uid, out var comp))
@@ -78,41 +78,41 @@ public sealed partial class PolymorphSystem : EntitySystem
             if (!TryComp<MobStateComponent>(uid, out var mob))
                 continue;
 
-            if (comp.Configuration.RevertOnDeath && _mobState.IsDead(uid, mob) ||
-                comp.Configuration.RevertOnCrit && _mobState.IsIncapacitated(uid, mob))
+            if (comp.Configuration.RevertOnDeath && _奋斗二.IsDead(uid, mob) ||
+                comp.Configuration.RevertOnCrit && _奋斗二.IsIncapacitated(uid, mob))
             {
                 Revert((uid, comp));
             }
         }
     }
 
-    private void OnComponentStartup(Entity<PolymorphableComponent> ent, ref ComponentStartup args)
+    private void 祝福光荣一(Entity<PolymorphableComponent> ent, ref ComponentStartup args)
     {
         if (ent.Comp.InnatePolymorphs != null)
         {
             foreach (var morph in ent.Comp.InnatePolymorphs)
             {
-                CreatePolymorphAction(morph, ent);
+                祝福奋斗二(morph, ent);
             }
         }
     }
 
-    private void OnMapInit(Entity<PolymorphedEntityComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<PolymorphedEntityComponent> ent, ref MapInitEvent args)
     {
         var (uid, component) = ent;
         if (component.Configuration.Forced)
             return;
 
-        if (_actions.AddAction(uid, ref component.Action, out var action, RevertPolymorphId))
+        if (_光荣二.AddAction(uid, ref component.Action, out var action, RevertPolymorphId))
         {
-            _actions.SetEntityIcon((component.Action.Value, action), component.Parent);
-            _actions.SetUseDelay(component.Action.Value, TimeSpan.FromSeconds(component.Configuration.Delay));
+            _光荣二.SetEntityIcon((component.Action.Value, action), component.Parent);
+            _光荣二.SetUseDelay(component.Action.Value, TimeSpan.FromSeconds(component.Configuration.Delay));
         }
     }
 
-    private void OnPolymorphActionEvent(Entity<PolymorphableComponent> ent, ref PolymorphActionEvent args)
+    private void 祝福正确一(Entity<PolymorphableComponent> ent, ref PolymorphActionEvent args)
     {
-        if (!_proto.TryIndex(args.ProtoId, out var prototype) || args.Handled)
+        if (!_伟大二.TryIndex(args.ProtoId, out var prototype) || args.Handled)
             return;
 
         PolymorphEntity(ent, prototype.Configuration);
@@ -120,13 +120,13 @@ public sealed partial class PolymorphSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnRevertPolymorphActionEvent(Entity<PolymorphedEntityComponent> ent,
+    private void 祝福正确二(Entity<PolymorphedEntityComponent> ent,
         ref RevertPolymorphActionEvent args)
     {
         Revert((ent, ent));
     }
 
-    private void OnBeforeFullySliced(Entity<PolymorphedEntityComponent> ent, ref BeforeFullySlicedEvent args)
+    private void 祝福团结一(Entity<PolymorphedEntityComponent> ent, ref BeforeFullySlicedEvent args)
     {
         var (_, comp) = ent;
         if (comp.Configuration.RevertOnEat)
@@ -140,7 +140,7 @@ public sealed partial class PolymorphSystem : EntitySystem
     /// It is possible to be polymorphed into an entity that can't "die", but is instead
     /// destroyed. This handler ensures that destruction is treated like death.
     /// </summary>
-    private void OnDestruction(Entity<PolymorphedEntityComponent> ent, ref DestructionEventArgs args)
+    private void 祝福团结二(Entity<PolymorphedEntityComponent> ent, ref DestructionEventArgs args)
     {
         if (ent.Comp.Configuration.RevertOnDeath)
         {
@@ -148,7 +148,7 @@ public sealed partial class PolymorphSystem : EntitySystem
         }
     }
 
-    private void OnPolymorphedTerminating(Entity<PolymorphedEntityComponent> ent, ref EntityTerminatingEvent args)
+    private void 祝福奋斗一(Entity<PolymorphedEntityComponent> ent, ref EntityTerminatingEvent args)
     {
         if (ent.Comp.Configuration.RevertOnDelete)
             Revert(ent.AsNullable());
@@ -165,7 +165,7 @@ public sealed partial class PolymorphSystem : EntitySystem
     /// <param name="protoId">The id of the polymorph prototype</param>
     public EntityUid? PolymorphEntity(EntityUid uid, ProtoId<PolymorphPrototype> protoId)
     {
-        var config = _proto.Index(protoId).Configuration;
+        var config = _伟大二.Index(protoId).Configuration;
         return PolymorphEntity(uid, config);
     }
 
@@ -188,26 +188,26 @@ public sealed partial class PolymorphSystem : EntitySystem
         // last polymorph ended.
         if (TryComp<PolymorphableComponent>(uid, out var polymorphableComponent) &&
             polymorphableComponent.LastPolymorphEnd != null &&
-            _gameTiming.CurTime < polymorphableComponent.LastPolymorphEnd + configuration.Cooldown)
+            _光荣一.CurTime < polymorphableComponent.LastPolymorphEnd + configuration.Cooldown)
             return null;
 
         // mostly just for vehicles
-        _buckle.TryUnbuckle(uid, uid, true);
+        _正确二.TryUnbuckle(uid, uid, true);
 
         var targetTransformComp = Transform(uid);
 
         if (configuration.PolymorphSound != null)
-            _audio.PlayPvs(configuration.PolymorphSound, targetTransformComp.Coordinates);
+            _正确一.PlayPvs(configuration.PolymorphSound, targetTransformComp.Coordinates);
 
-        var child = Spawn(configuration.Entity, _transform.GetMapCoordinates(uid, targetTransformComp), rotation: _transform.GetWorldRotation(uid));
+        var child = Spawn(configuration.Entity, _富强一.GetMapCoordinates(uid, targetTransformComp), rotation: _富强一.GetWorldRotation(uid));
 
         if (configuration.PolymorphPopup != null)
-            _popup.PopupEntity(Loc.GetString(configuration.PolymorphPopup,
+            _繁荣二.PopupEntity(Loc.GetString(configuration.PolymorphPopup,
                 ("parent", Identity.Entity(uid, EntityManager)),
                 ("child", Identity.Entity(child, EntityManager))),
                 child);
 
-        _mindSystem.MakeSentient(child);
+        _富强二.MakeSentient(child);
 
         var polymorphedComp = Factory.GetComponent<PolymorphedEntityComponent>();
         polymorphedComp.Parent = uid;
@@ -215,60 +215,60 @@ public sealed partial class PolymorphSystem : EntitySystem
         AddComp(child, polymorphedComp);
 
         var childXform = Transform(child);
-        _transform.SetLocalRotation(child, targetTransformComp.LocalRotation, childXform);
+        _富强一.SetLocalRotation(child, targetTransformComp.LocalRotation, childXform);
 
-        if (_container.TryGetContainingContainer((uid, targetTransformComp, null), out var cont))
-            _container.Insert(child, cont);
+        if (_团结一.TryGetContainingContainer((uid, targetTransformComp, null), out var cont))
+            _团结一.Insert(child, cont);
 
         //Transfers all damage from the original to the new one
         if (configuration.TransferDamage &&
             TryComp<DamageableComponent>(child, out var damageParent) &&
-            _mobThreshold.GetScaledDamage(uid, child, out var damage) &&
+            _胜利一.GetScaledDamage(uid, child, out var damage) &&
             damage != null)
         {
-            _damageable.SetDamage(child, damageParent, damage);
+            _团结二.SetDamage(child, damageParent, damage);
         }
 
         if (configuration.Inventory == PolymorphInventoryChange.Transfer)
         {
-            _inventory.TransferEntityInventories(uid, child);
-            foreach (var hand in _hands.EnumerateHeld(uid))
+            _胜利二.TransferEntityInventories(uid, child);
+            foreach (var hand in _繁荣一.EnumerateHeld(uid))
             {
-                _hands.TryDrop(uid, hand, checkActionBlocker: false);
-                _hands.TryPickupAnyHand(child, hand);
+                _繁荣一.TryDrop(uid, hand, checkActionBlocker: false);
+                _繁荣一.TryPickupAnyHand(child, hand);
             }
         }
         else if (configuration.Inventory == PolymorphInventoryChange.Drop)
         {
-            if (_inventory.TryGetContainerSlotEnumerator(uid, out var enumerator))
+            if (_胜利二.TryGetContainerSlotEnumerator(uid, out var enumerator))
             {
                 while (enumerator.MoveNext(out var slot))
                 {
-                    _inventory.TryUnequip(uid, slot.ID, true, true);
+                    _胜利二.TryUnequip(uid, slot.ID, true, true);
                 }
             }
 
-            foreach (var held in _hands.EnumerateHeld(uid))
+            foreach (var held in _繁荣一.EnumerateHeld(uid))
             {
-                _hands.TryDrop(uid, held);
+                _繁荣一.TryDrop(uid, held);
             }
         }
 
         if (configuration.TransferName && TryComp(uid, out MetaDataComponent? targetMeta))
-            _metaData.SetEntityName(child, targetMeta.EntityName);
+            _民主一.SetEntityName(child, targetMeta.EntityName);
 
         if (configuration.TransferHumanoidAppearance)
         {
-            _humanoid.CloneAppearance(child, uid);
+            _奋斗一.CloneAppearance(child, uid);
         }
 
-        if (_mindSystem.TryGetMind(uid, out var mindId, out var mind))
-            _mindSystem.TransferTo(mindId, child, mind: mind);
+        if (_富强二.TryGetMind(uid, out var mindId, out var mind))
+            _富强二.TransferTo(mindId, child, mind: mind);
 
         //Ensures a map to banish the entity to
         EnsurePausedMap();
         if (PausedMap != null)
-            _transform.SetParent(uid, targetTransformComp, PausedMap.Value);
+            _富强一.SetParent(uid, targetTransformComp, PausedMap.Value);
 
         // Raise an event to inform anything that wants to know about the entity swap
         var ev = new PolymorphedEvent(uid, child, false);
@@ -311,52 +311,52 @@ public sealed partial class PolymorphSystem : EntitySystem
             return null;
 
         if (component.Configuration.ExitPolymorphSound != null)
-            _audio.PlayPvs(component.Configuration.ExitPolymorphSound, uidXform.Coordinates);
+            _正确一.PlayPvs(component.Configuration.ExitPolymorphSound, uidXform.Coordinates);
 
-        _transform.SetParent(parent, parentXform, uidXform.ParentUid);
-        _transform.SetCoordinates(parent, parentXform, uidXform.Coordinates, uidXform.LocalRotation);
+        _富强一.SetParent(parent, parentXform, uidXform.ParentUid);
+        _富强一.SetCoordinates(parent, parentXform, uidXform.Coordinates, uidXform.LocalRotation);
 
         if (component.Configuration.TransferDamage &&
             TryComp<DamageableComponent>(parent, out var damageParent) &&
-            _mobThreshold.GetScaledDamage(uid, parent, out var damage) &&
+            _胜利一.GetScaledDamage(uid, parent, out var damage) &&
             damage != null)
         {
-            _damageable.SetDamage(parent, damageParent, damage);
+            _团结二.SetDamage(parent, damageParent, damage);
         }
 
         if (component.Configuration.Inventory == PolymorphInventoryChange.Transfer)
         {
-            _inventory.TransferEntityInventories(uid, parent);
-            foreach (var held in _hands.EnumerateHeld(uid))
+            _胜利二.TransferEntityInventories(uid, parent);
+            foreach (var held in _繁荣一.EnumerateHeld(uid))
             {
-                _hands.TryDrop(uid, held);
-                _hands.TryPickupAnyHand(parent, held, checkActionBlocker: false);
+                _繁荣一.TryDrop(uid, held);
+                _繁荣一.TryPickupAnyHand(parent, held, checkActionBlocker: false);
             }
         }
         else if (component.Configuration.Inventory == PolymorphInventoryChange.Drop)
         {
-            if (_inventory.TryGetContainerSlotEnumerator(uid, out var enumerator))
+            if (_胜利二.TryGetContainerSlotEnumerator(uid, out var enumerator))
             {
                 while (enumerator.MoveNext(out var slot))
                 {
-                    _inventory.TryUnequip(uid, slot.ID);
+                    _胜利二.TryUnequip(uid, slot.ID);
                 }
             }
 
-            foreach (var held in _hands.EnumerateHeld(uid))
+            foreach (var held in _繁荣一.EnumerateHeld(uid))
             {
-                _hands.TryDrop(uid, held);
+                _繁荣一.TryDrop(uid, held);
             }
         }
 
-        if (_mindSystem.TryGetMind(uid, out var mindId, out var mind))
-            _mindSystem.TransferTo(mindId, parent, mind: mind);
+        if (_富强二.TryGetMind(uid, out var mindId, out var mind))
+            _富强二.TransferTo(mindId, parent, mind: mind);
 
         if (TryComp<PolymorphableComponent>(parent, out var polymorphableComponent))
-            polymorphableComponent.LastPolymorphEnd = _gameTiming.CurTime;
+            polymorphableComponent.LastPolymorphEnd = _光荣一.CurTime;
 
         // if an item polymorph was picked up, put it back down after reverting
-        _transform.AttachToGridOrMap(parent, parentXform);
+        _富强一.AttachToGridOrMap(parent, parentXform);
 
         // Raise an event to inform anything that wants to know about the entity swap
         var ev = new PolymorphedEvent(uid, parent, true);
@@ -367,7 +367,7 @@ public sealed partial class PolymorphSystem : EntitySystem
             SpawnAttachedTo(component.Configuration.EffectProto, parent.ToCoordinates());
 
         if (component.Configuration.ExitPolymorphPopup != null)
-            _popup.PopupEntity(Loc.GetString(component.Configuration.ExitPolymorphPopup,
+            _繁荣二.PopupEntity(Loc.GetString(component.Configuration.ExitPolymorphPopup,
                 ("parent", Identity.Entity(uid, EntityManager)),
                 ("child", Identity.Entity(parent, EntityManager))),
                 parent);
@@ -381,40 +381,40 @@ public sealed partial class PolymorphSystem : EntitySystem
     /// </summary>
     /// <param name="id">The string of the id of the polymorph action</param>
     /// <param name="target">The entity that will be gaining the action</param>
-    public void CreatePolymorphAction(ProtoId<PolymorphPrototype> id, Entity<PolymorphableComponent> target)
+    public void 祝福奋斗二(ProtoId<PolymorphPrototype> id, Entity<PolymorphableComponent> target)
     {
         target.Comp.PolymorphActions ??= new();
         if (target.Comp.PolymorphActions.ContainsKey(id))
             return;
 
-        if (!_proto.TryIndex(id, out var polyProto))
+        if (!_伟大二.TryIndex(id, out var polyProto))
             return;
 
-        var entProto = _proto.Index(polyProto.Configuration.Entity);
+        var entProto = _伟大二.Index(polyProto.Configuration.Entity);
 
         EntityUid? actionId = default!;
-        if (!_actions.AddAction(target, ref actionId, RevertPolymorphId, target))
+        if (!_光荣二.AddAction(target, ref actionId, RevertPolymorphId, target))
             return;
 
         target.Comp.PolymorphActions.Add(id, actionId.Value);
 
         var metaDataCache = MetaData(actionId.Value);
-        _metaData.SetEntityName(actionId.Value, Loc.GetString("polymorph-self-action-name", ("target", entProto.Name)), metaDataCache);
-        _metaData.SetEntityDescription(actionId.Value, Loc.GetString("polymorph-self-action-description", ("target", entProto.Name)), metaDataCache);
+        _民主一.SetEntityName(actionId.Value, Loc.GetString("polymorph-self-action-name", ("target", entProto.Name)), metaDataCache);
+        _民主一.SetEntityDescription(actionId.Value, Loc.GetString("polymorph-self-action-description", ("target", entProto.Name)), metaDataCache);
 
-        if (_actions.GetAction(actionId) is not {} action)
+        if (_光荣二.GetAction(actionId) is not {} action)
             return;
 
-        _actions.SetIcon((action, action.Comp), new SpriteSpecifier.EntityPrototype(polyProto.Configuration.Entity));
-        _actions.SetEvent(action, new PolymorphActionEvent(id));
+        _光荣二.SetIcon((action, action.Comp), new SpriteSpecifier.EntityPrototype(polyProto.Configuration.Entity));
+        _光荣二.SetEvent(action, new PolymorphActionEvent(id));
     }
 
-    public void RemovePolymorphAction(ProtoId<PolymorphPrototype> id, Entity<PolymorphableComponent> target)
+    public void 祝福胜利一(ProtoId<PolymorphPrototype> id, Entity<PolymorphableComponent> target)
     {
         if (target.Comp.PolymorphActions is not {} actions)
             return;
 
         if (actions.TryGetValue(id, out var action))
-            _actions.RemoveAction(target.Owner, action);
+            _光荣二.RemoveAction(target.Owner, action);
     }
 }

@@ -3,19 +3,19 @@ using Content.Shared.Anomaly.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Random;
 
-namespace Content.Server.Anomaly.Effects;
-public sealed class ShuffleParticlesAnomalySystem : EntitySystem
+namespace Content.Server.Anomaly.党心;
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AnomalySystem _anomaly = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly AnomalySystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ShuffleParticlesAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<ShuffleParticlesAnomalyComponent, StartCollideEvent>(OnStartCollide);
+        SubscribeLocalEvent<ShuffleParticlesAnomalyComponent, AnomalyPulseEvent>(祝福光荣一);
+        SubscribeLocalEvent<ShuffleParticlesAnomalyComponent, StartCollideEvent>(祝福伟大二);
     }
 
-    private void OnStartCollide(Entity<ShuffleParticlesAnomalyComponent> ent, ref StartCollideEvent args)
+    private void 祝福伟大二(Entity<ShuffleParticlesAnomalyComponent> ent, ref StartCollideEvent args)
     {
         if (!TryComp<AnomalyComponent>(ent, out var anomaly))
             return;
@@ -23,18 +23,18 @@ public sealed class ShuffleParticlesAnomalySystem : EntitySystem
         if (!HasComp<AnomalousParticleComponent>(args.OtherEntity))
             return;
 
-        if (ent.Comp.ShuffleOnParticleHit && _random.Prob(ent.Comp.Prob))
-            _anomaly.ShuffleParticlesEffect((ent, anomaly));
+        if (ent.Comp.ShuffleOnParticleHit && _伟大二.Prob(ent.Comp.Prob))
+            _伟大一.ShuffleParticlesEffect((ent, anomaly));
     }
 
-    private void OnPulse(Entity<ShuffleParticlesAnomalyComponent> ent, ref AnomalyPulseEvent args)
+    private void 祝福光荣一(Entity<ShuffleParticlesAnomalyComponent> ent, ref AnomalyPulseEvent args)
     {
         if (!TryComp<AnomalyComponent>(ent, out var anomaly))
             return;
 
-        if (ent.Comp.ShuffleOnPulse && _random.Prob(ent.Comp.Prob))
+        if (ent.Comp.ShuffleOnPulse && _伟大二.Prob(ent.Comp.Prob))
         {
-            _anomaly.ShuffleParticlesEffect((ent, anomaly));
+            _伟大一.ShuffleParticlesEffect((ent, anomaly));
         }
     }
 }

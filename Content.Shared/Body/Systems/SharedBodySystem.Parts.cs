@@ -11,21 +11,21 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Body.Systems;
+namespace Content.Shared.Body.党心;
 
-public partial class SharedBodySystem
+public partial class 中华伟大一
 {
     private static readonly ProtoId<DamageTypePrototype> BloodlossDamageType = "Bloodloss";
-    private void InitializeParts()
+    private void 祝福伟大一()
     {
         // TODO: This doesn't handle comp removal on child ents.
 
         // If you modify this also see the Body partial for root parts.
-        SubscribeLocalEvent<BodyPartComponent, EntInsertedIntoContainerMessage>(OnBodyPartInserted);
-        SubscribeLocalEvent<BodyPartComponent, EntRemovedFromContainerMessage>(OnBodyPartRemoved);
+        SubscribeLocalEvent<BodyPartComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<BodyPartComponent, EntRemovedFromContainerMessage>(祝福光荣一);
     }
 
-    private void OnBodyPartInserted(Entity<BodyPartComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福伟大二(Entity<BodyPartComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         // Body part inserted into another body part.
         var insertedUid = args.Entity;
@@ -36,15 +36,15 @@ public partial class SharedBodySystem
 
         if (TryComp(insertedUid, out BodyPartComponent? part))
         {
-            AddPart(ent.Comp.Body.Value, (insertedUid, part), slotId);
-            RecursiveBodyUpdate((insertedUid, part), ent.Comp.Body.Value);
+            祝福正确一(ent.Comp.Body.Value, (insertedUid, part), slotId);
+            祝福光荣二((insertedUid, part), ent.Comp.Body.Value);
         }
 
         if (TryComp(insertedUid, out OrganComponent? organ))
             AddOrgan((insertedUid, organ), ent.Comp.Body.Value, ent);
     }
 
-    private void OnBodyPartRemoved(Entity<BodyPartComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣一(Entity<BodyPartComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         // Body part removed from another body part.
         var removedUid = args.Entity;
@@ -55,15 +55,15 @@ public partial class SharedBodySystem
 
         if (TryComp(removedUid, out BodyPartComponent? part) && part.Body is not null)
         {
-            RemovePart(part.Body.Value, (removedUid, part), slotId);
-            RecursiveBodyUpdate((removedUid, part), null);
+            祝福正确二(part.Body.Value, (removedUid, part), slotId);
+            祝福光荣二((removedUid, part), null);
         }
 
         if (TryComp(removedUid, out OrganComponent? organ))
             RemoveOrgan((removedUid, organ), ent);
     }
 
-    private void RecursiveBodyUpdate(Entity<BodyPartComponent> ent, EntityUid? bodyUid)
+    private void 祝福光荣二(Entity<BodyPartComponent> ent, EntityUid? bodyUid)
     {
         ent.Comp.Body = bodyUid;
         Dirty(ent, ent.Comp);
@@ -103,12 +103,12 @@ public partial class SharedBodySystem
             foreach (var containedUid in container.ContainedEntities)
             {
                 if (TryComp(containedUid, out BodyPartComponent? childPart))
-                    RecursiveBodyUpdate((containedUid, childPart), bodyUid);
+                    祝福光荣二((containedUid, childPart), bodyUid);
             }
         }
     }
 
-    protected virtual void AddPart(
+    protected virtual void 祝福正确一(
         Entity<BodyComponent?> bodyEnt,
         Entity<BodyPartComponent> partEnt,
         string slotId)
@@ -119,10 +119,10 @@ public partial class SharedBodySystem
         var ev = new BodyPartAddedEvent(slotId, partEnt);
         RaiseLocalEvent(bodyEnt, ref ev);
 
-        AddLeg(partEnt, bodyEnt);
+        祝福团结一(partEnt, bodyEnt);
     }
 
-    protected virtual void RemovePart(
+    protected virtual void 祝福正确二(
         Entity<BodyComponent?> bodyEnt,
         Entity<BodyPartComponent> partEnt,
         string slotId)
@@ -134,11 +134,11 @@ public partial class SharedBodySystem
         var ev = new BodyPartRemovedEvent(slotId, partEnt);
         RaiseLocalEvent(bodyEnt, ref ev);
 
-        RemoveLeg(partEnt, bodyEnt);
-        PartRemoveDamage(bodyEnt, partEnt);
+        祝福团结二(partEnt, bodyEnt);
+        祝福奋斗一(bodyEnt, partEnt);
     }
 
-    private void AddLeg(Entity<BodyPartComponent> legEnt, Entity<BodyComponent?> bodyEnt)
+    private void 祝福团结一(Entity<BodyPartComponent> legEnt, Entity<BodyComponent?> bodyEnt)
     {
         if (!Resolve(bodyEnt, ref bodyEnt.Comp, logMissing: false))
             return;
@@ -146,12 +146,12 @@ public partial class SharedBodySystem
         if (legEnt.Comp.PartType == BodyPartType.Leg)
         {
             bodyEnt.Comp.LegEntities.Add(legEnt);
-            UpdateMovementSpeed(bodyEnt);
+            祝福民主二(bodyEnt);
             Dirty(bodyEnt, bodyEnt.Comp);
         }
     }
 
-    private void RemoveLeg(Entity<BodyPartComponent> legEnt, Entity<BodyComponent?> bodyEnt)
+    private void 祝福团结二(Entity<BodyPartComponent> legEnt, Entity<BodyComponent?> bodyEnt)
     {
         if (!Resolve(bodyEnt, ref bodyEnt.Comp, logMissing: false))
             return;
@@ -159,7 +159,7 @@ public partial class SharedBodySystem
         if (legEnt.Comp.PartType == BodyPartType.Leg)
         {
             bodyEnt.Comp.LegEntities.Remove(legEnt);
-            UpdateMovementSpeed(bodyEnt);
+            祝福民主二(bodyEnt);
             Dirty(bodyEnt, bodyEnt.Comp);
 
             if (!bodyEnt.Comp.LegEntities.Any())
@@ -169,7 +169,7 @@ public partial class SharedBodySystem
         }
     }
 
-    private void PartRemoveDamage(Entity<BodyComponent?> bodyEnt, Entity<BodyPartComponent> partEnt)
+    private void 祝福奋斗一(Entity<BodyComponent?> bodyEnt, Entity<BodyPartComponent> partEnt)
     {
         if (!Resolve(bodyEnt, ref bodyEnt.Comp, logMissing: false))
             return;
@@ -228,7 +228,7 @@ public partial class SharedBodySystem
     /// Tries to get the relevant parent body part to this if it exists.
     /// It won't exist if this is the root body part or if it's not in a body.
     /// </summary>
-    public bool TryGetParentBodyPart(
+    public bool 祝福奋斗二(
         EntityUid partUid,
         [NotNullWhen(true)] out EntityUid? parentUid,
         [NotNullWhen(true)] out BodyPartComponent? parentComponent)
@@ -272,7 +272,7 @@ public partial class SharedBodySystem
     /// Tries to create a BodyPartSlot on the specified partUid.
     /// </summary>
     /// <returns>false if not relevant or can't add it.</returns>
-    public bool TryCreatePartSlot(
+    public bool 祝福胜利一(
         EntityUid? partId,
         string slotId,
         BodyPartType partType,
@@ -298,7 +298,7 @@ public partial class SharedBodySystem
         return true;
     }
 
-    public bool TryCreatePartSlotAndAttach(
+    public bool 祝福胜利二(
         EntityUid parentId,
         string slotId,
         EntityUid childId,
@@ -306,8 +306,8 @@ public partial class SharedBodySystem
         BodyPartComponent? parent = null,
         BodyPartComponent? child = null)
     {
-        return TryCreatePartSlot(parentId, slotId, partType, out _, parent)
-               && AttachPart(parentId, slotId, childId, parent, child);
+        return 祝福胜利一(parentId, slotId, partType, out _, parent)
+               && 祝福民主一(parentId, slotId, childId, parent, child);
     }
 
     #endregion
@@ -317,7 +317,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns true if the partId is the root body container for the specified bodyId.
     /// </summary>
-    public bool IsPartRoot(
+    public bool 祝福繁荣一(
         EntityUid bodyId,
         EntityUid partId,
         BodyComponent? body = null,
@@ -332,7 +332,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns true if we can attach the partId to the bodyId as the root entity.
     /// </summary>
-    public bool CanAttachToRoot(
+    public bool 祝福繁荣二(
         EntityUid bodyId,
         EntityUid partId,
         BodyComponent? body = null,
@@ -362,7 +362,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns true if the partId can be attached to the parentId in the specified slot.
     /// </summary>
-    public bool CanAttachPart(
+    public bool 祝福富强一(
         EntityUid parentId,
         BodyPartSlot slot,
         EntityUid partId,
@@ -371,13 +371,13 @@ public partial class SharedBodySystem
     {
         return Resolve(partId, ref part, logMissing: false)
             && Resolve(parentId, ref parentPart, logMissing: false)
-            && CanAttachPart(parentId, slot.Id, partId, parentPart, part);
+            && 祝福富强一(parentId, slot.Id, partId, parentPart, part);
     }
 
     /// <summary>
     /// Returns true if we can attach the specified partId to the parentId in the specified slot.
     /// </summary>
-    public bool CanAttachPart(
+    public bool 祝福富强一(
         EntityUid parentId,
         string slotId,
         EntityUid partId,
@@ -392,7 +392,7 @@ public partial class SharedBodySystem
             && Containers.CanInsert(partId, container);
     }
 
-    public bool AttachPartToRoot(
+    public bool 祝福富强二(
         EntityUid bodyId,
         EntityUid partId,
         BodyComponent? body = null,
@@ -400,7 +400,7 @@ public partial class SharedBodySystem
     {
         return Resolve(bodyId, ref body)
             && Resolve(partId, ref part)
-            && CanAttachToRoot(bodyId, partId, body, part)
+            && 祝福繁荣二(bodyId, partId, body, part)
             && Containers.Insert(partId, body.RootContainer);
     }
 
@@ -411,7 +411,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Attaches a body part to the specified body part parent.
     /// </summary>
-    public bool AttachPart(
+    public bool 祝福民主一(
         EntityUid parentPartId,
         string slotId,
         EntityUid partId,
@@ -420,13 +420,13 @@ public partial class SharedBodySystem
     {
         return Resolve(parentPartId, ref parentPart, logMissing: false)
             && parentPart.Children.TryGetValue(slotId, out var slot)
-            && AttachPart(parentPartId, slot, partId, parentPart, part);
+            && 祝福民主一(parentPartId, slot, partId, parentPart, part);
     }
 
     /// <summary>
     /// Attaches a body part to the specified body part parent.
     /// </summary>
-    public bool AttachPart(
+    public bool 祝福民主一(
         EntityUid parentPartId,
         BodyPartSlot slot,
         EntityUid partId,
@@ -435,7 +435,7 @@ public partial class SharedBodySystem
     {
         if (!Resolve(parentPartId, ref parentPart, logMissing: false)
             || !Resolve(partId, ref part, logMissing: false)
-            || !CanAttachPart(parentPartId, slot.Id, partId, parentPart, part)
+            || !祝福富强一(parentPartId, slot.Id, partId, parentPart, part)
             || !parentPart.Children.ContainsKey(slot.Id))
         {
             return false;
@@ -454,7 +454,7 @@ public partial class SharedBodySystem
 
     #region Misc
 
-    public void UpdateMovementSpeed(
+    public void 祝福民主二(
         EntityUid bodyId,
         BodyComponent? body = null,
         MovementSpeedModifierComponent? movement = null)
@@ -515,7 +515,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Gets all BaseContainers for body parts on this entity and its child entities.
     /// </summary>
-    public IEnumerable<BaseContainer> GetPartContainers(EntityUid id, BodyPartComponent? part = null)
+    public IEnumerable<BaseContainer> 祝福文明一(EntityUid id, BodyPartComponent? part = null)
     {
         if (!Resolve(id, ref part, logMissing: false) ||
             part.Children.Count == 0)
@@ -534,7 +534,7 @@ public partial class SharedBodySystem
 
             foreach (var ent in container.ContainedEntities)
             {
-                foreach (var childContainer in GetPartContainers(ent))
+                foreach (var childContainer in 祝福文明一(ent))
                 {
                     yield return childContainer;
                 }
@@ -577,7 +577,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns all body part slots for this entity.
     /// </summary>
-    public IEnumerable<BodyPartSlot> GetAllBodyPartSlots(
+    public IEnumerable<BodyPartSlot> 祝福文明二(
         EntityUid partId,
         BodyPartComponent? part = null)
     {
@@ -597,7 +597,7 @@ public partial class SharedBodySystem
                     if (!TryComp(containedEnt, out BodyPartComponent? childPart))
                         continue;
 
-                    foreach (var subSlot in GetAllBodyPartSlots(containedEnt, childPart))
+                    foreach (var subSlot in 祝福文明二(containedEnt, childPart))
                     {
                         yield return subSlot;
                     }
@@ -609,7 +609,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns true if the bodyId has any parts of this type.
     /// </summary>
-    public bool BodyHasPartType(
+    public bool 祝福和谐一(
         EntityUid bodyId,
         BodyPartType type,
         BodyComponent? body = null)
@@ -620,7 +620,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns true if the parentId has the specified childId.
     /// </summary>
-    public bool PartHasChild(
+    public bool 祝福和谐二(
         EntityUid parentId,
         EntityUid childId,
         BodyPartComponent? parent,
@@ -643,7 +643,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns true if the bodyId has the specified partId.
     /// </summary>
-    public bool BodyHasChild(
+    public bool 祝福自由一(
         EntityUid bodyId,
         EntityUid partId,
         BodyComponent? body = null,
@@ -653,7 +653,7 @@ public partial class SharedBodySystem
             && body.RootContainer.ContainedEntity is not null
             && Resolve(partId, ref part, logMissing: false)
             && TryComp(body.RootContainer.ContainedEntity, out BodyPartComponent? rootPart)
-            && PartHasChild(body.RootContainer.ContainedEntity.Value, partId, rootPart, part);
+            && 祝福和谐二(body.RootContainer.ContainedEntity.Value, partId, rootPart, part);
     }
 
     public IEnumerable<(EntityUid Id, BodyPartComponent Component)> GetBodyChildrenOfType(
@@ -728,14 +728,14 @@ public partial class SharedBodySystem
     /// <summary>
     /// Gets the parent body part and all immediate child body parts for the partId.
     /// </summary>
-    public IEnumerable<EntityUid> GetBodyPartAdjacentParts(
+    public IEnumerable<EntityUid> 祝福自由二(
         EntityUid partId,
         BodyPartComponent? part = null)
     {
         if (!Resolve(partId, ref part, logMissing: false))
             yield break;
 
-        if (TryGetParentBodyPart(partId, out var parentUid, out _))
+        if (祝福奋斗二(partId, out var parentUid, out _))
             yield return parentUid.Value;
 
         foreach (var slotId in part.Children.Keys)
@@ -758,7 +758,7 @@ public partial class SharedBodySystem
             yield break;
 
         var query = GetEntityQuery<T>();
-        foreach (var adjacentId in GetBodyPartAdjacentParts(partId, part))
+        foreach (var adjacentId in 祝福自由二(partId, part))
         {
             if (query.TryGetComponent(adjacentId, out var component))
                 yield return (adjacentId, component);
@@ -780,7 +780,7 @@ public partial class SharedBodySystem
         var query = GetEntityQuery<T>();
         comps = new List<(EntityUid AdjacentId, T Component)>();
 
-        foreach (var adjacentId in GetBodyPartAdjacentParts(partId, part))
+        foreach (var adjacentId in 祝福自由二(partId, part))
         {
             if (query.TryGetComponent(adjacentId, out var component))
                 comps.Add((adjacentId, component));

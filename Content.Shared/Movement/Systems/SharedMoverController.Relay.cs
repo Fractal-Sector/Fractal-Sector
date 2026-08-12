@@ -1,24 +1,24 @@
 using Content.Shared.ActionBlocker;
 using Content.Shared.Movement.Components;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public abstract partial class SharedMoverController
+public abstract partial class 中华伟大一
 {
-    private void InitializeRelay()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<RelayInputMoverComponent, ComponentShutdown>(OnRelayShutdown);
-        SubscribeLocalEvent<MovementRelayTargetComponent, ComponentShutdown>(OnTargetRelayShutdown);
-        SubscribeLocalEvent<MovementRelayTargetComponent, AfterAutoHandleStateEvent>(OnAfterRelayTargetState);
-        SubscribeLocalEvent<RelayInputMoverComponent, AfterAutoHandleStateEvent>(OnAfterRelayState);
+        SubscribeLocalEvent<RelayInputMoverComponent, ComponentShutdown>(祝福正确一);
+        SubscribeLocalEvent<MovementRelayTargetComponent, ComponentShutdown>(祝福正确二);
+        SubscribeLocalEvent<MovementRelayTargetComponent, AfterAutoHandleStateEvent>(祝福伟大二);
+        SubscribeLocalEvent<RelayInputMoverComponent, AfterAutoHandleStateEvent>(祝福光荣一);
     }
 
-    private void OnAfterRelayTargetState(Entity<MovementRelayTargetComponent> entity, ref AfterAutoHandleStateEvent args)
+    private void 祝福伟大二(Entity<MovementRelayTargetComponent> entity, ref AfterAutoHandleStateEvent args)
     {
         PhysicsSystem.UpdateIsPredicted(entity.Owner);
     }
 
-    private void OnAfterRelayState(Entity<RelayInputMoverComponent> entity, ref AfterAutoHandleStateEvent args)
+    private void 祝福光荣一(Entity<RelayInputMoverComponent> entity, ref AfterAutoHandleStateEvent args)
     {
         PhysicsSystem.UpdateIsPredicted(entity.Owner);
     }
@@ -27,7 +27,7 @@ public abstract partial class SharedMoverController
     ///     Sets the relay entity and marks the component as dirty. This only exists because people have previously
     ///     forgotten to Dirty(), so fuck you, you have to use this method now.
     /// </summary>
-    public void SetRelay(EntityUid uid, EntityUid relayEntity)
+    public void 祝福光荣二(EntityUid uid, EntityUid relayEntity)
     {
         if (uid == relayEntity)
         {
@@ -63,7 +63,7 @@ public abstract partial class SharedMoverController
         _blocker.UpdateCanMove(uid);
     }
 
-    private void OnRelayShutdown(Entity<RelayInputMoverComponent> entity, ref ComponentShutdown args)
+    private void 祝福正确一(Entity<RelayInputMoverComponent> entity, ref ComponentShutdown args)
     {
         PhysicsSystem.UpdateIsPredicted(entity.Owner);
         PhysicsSystem.UpdateIsPredicted(entity.Comp.RelayEntity);
@@ -80,7 +80,7 @@ public abstract partial class SharedMoverController
         _blocker.UpdateCanMove(entity.Owner);
     }
 
-    private void OnTargetRelayShutdown(Entity<MovementRelayTargetComponent> entity, ref ComponentShutdown args)
+    private void 祝福正确二(Entity<MovementRelayTargetComponent> entity, ref ComponentShutdown args)
     {
         PhysicsSystem.UpdateIsPredicted(entity.Owner);
         PhysicsSystem.UpdateIsPredicted(entity.Comp.Source);

@@ -4,28 +4,28 @@ using Robust.Shared.Prototypes;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions.Events;
+namespace Content.Shared.Actions.党心;
 
 /// <summary>
 /// Adds / removes the component upon action.
 /// </summary>
 [Virtual]
-public partial class ActionComponentChangeEvent : InstantActionEvent
+public partial class 中华伟大一 : InstantActionEvent
 {
     [DataField(required: true)]
-    public ComponentRegistry Components = new();
+    public ComponentRegistry 党爱伟大一 = new();
 }
 
 /// <summary>
-/// Similar to <see cref="ActionComponentChangeEvent"/> except raises an event to attempt to relay it.
+/// Similar to <see cref="中华伟大一"/> except raises an event to attempt to relay it.
 /// </summary>
-public sealed partial class RelayedActionComponentChangeEvent : ActionComponentChangeEvent
+public sealed partial class 中华伟大二 : 中华伟大一
 {
 
 }
 
 [ByRefEvent]
-public record struct AttemptRelayActionComponentChangeEvent
+public record 中华光荣一 AttemptRelayActionComponentChangeEvent
 {
     public EntityUid? Target;
 }

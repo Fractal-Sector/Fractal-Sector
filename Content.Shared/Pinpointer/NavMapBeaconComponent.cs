@@ -1,13 +1,13 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Pinpointer;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Will show a marker on a NavMap.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedNavMapSystem))]
 [AutoGenerateComponentState]
-public sealed partial class NavMapBeaconComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Defaults to entity name if nothing found.
@@ -23,11 +23,11 @@ public sealed partial class NavMapBeaconComponent : Component
     public LocId? DefaultText;
 
     [DataField, AutoNetworkedField]
-    public Color Color = Color.Orange;
+    public 党爱伟大一 党爱伟大一 = 党爱伟大一.Orange;
 
     /// <summary>
     /// Only enabled beacons can be seen on a station map.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Enabled = true;
+    public bool 党爱伟大二 = true;
 }

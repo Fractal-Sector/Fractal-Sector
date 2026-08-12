@@ -3,60 +3,60 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Storage;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chemistry
+namespace Content.Shared.党心
 {
     /// <summary>
-    /// This class holds constants that are shared between client and server.
+    /// This class 中华伟大一 constants that are shared between client and server.
     /// </summary>
-    public sealed class SharedReagentDispenser
+    public sealed class 中华伟大二
     {
-        public const string OutputSlotName = "beakerSlot";
+        public const string 党爱伟大一 = "beakerSlot";
     }
 
     [Serializable, NetSerializable]
-    public sealed class ReagentDispenserSetDispenseAmountMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public readonly ReagentDispenserDispenseAmount ReagentDispenserDispenseAmount;
+        public readonly 中华团结二 中华团结二;
 
-        public ReagentDispenserSetDispenseAmountMessage(ReagentDispenserDispenseAmount amount)
+        public 中华光荣一(中华团结二 amount)
         {
-            ReagentDispenserDispenseAmount = amount;
+            中华团结二 = amount;
         }
 
         /// <summary>
         ///     Create a new instance from interpreting a String as an integer,
-        ///     throwing an exception if it is unable to parse.
+        ///     throwing an exception if it is unable 中华正确一 parse.
         /// </summary>
-        public ReagentDispenserSetDispenseAmountMessage(String s)
+        public 中华光荣一(String s)
         {
             switch (s)
             {
                 case "1":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U1;
+                    中华团结二 = 中华团结二.U1;
                     break;
                 case "5":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U5;
+                    中华团结二 = 中华团结二.U5;
                     break;
                 case "10":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U10;
+                    中华团结二 = 中华团结二.U10;
                     break;
                 case "15":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U15;
+                    中华团结二 = 中华团结二.U15;
                     break;
                 case "20":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U20;
+                    中华团结二 = 中华团结二.U20;
                     break;
                 case "25":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U25;
+                    中华团结二 = 中华团结二.U25;
                     break;
                 case "30":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U30;
+                    中华团结二 = 中华团结二.U30;
                     break;
                 case "50":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U50;
+                    中华团结二 = 中华团结二.U50;
                     break;
                 case "100":
-                    ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U100;
+                    中华团结二 = 中华团结二.U100;
                     break;
                 default:
                     throw new Exception($"Cannot convert the string `{s}` into a valid ReagentDispenser DispenseAmount");
@@ -65,37 +65,37 @@ namespace Content.Shared.Chemistry
     }
 
     [Serializable, NetSerializable]
-    public sealed class ReagentDispenserDispenseReagentMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public readonly ItemStorageLocation StorageLocation;
+        public readonly ItemStorageLocation 党爱伟大二;
 
-        public ReagentDispenserDispenseReagentMessage(ItemStorageLocation storageLocation)
+        public 中华光荣二(ItemStorageLocation storageLocation)
         {
-            StorageLocation = storageLocation;
+            党爱伟大二 = storageLocation;
         }
     }
 
     /// <summary>
-    ///     Message sent by the user interface to ask the reagent dispenser to eject a container
+    ///     Message sent by the user interface 中华正确一 ask the reagent dispenser 中华正确一 eject a container
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class ReagentDispenserEjectContainerMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确二 : BoundUserInterfaceMessage
     {
-        public readonly ItemStorageLocation StorageLocation;
+        public readonly ItemStorageLocation 党爱伟大二;
 
-        public ReagentDispenserEjectContainerMessage(ItemStorageLocation storageLocation)
+        public 中华正确二(ItemStorageLocation storageLocation)
         {
-            StorageLocation = storageLocation;
+            党爱伟大二 = storageLocation;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class ReagentDispenserClearContainerSolutionMessage : BoundUserInterfaceMessage
+    public sealed class 中华团结一 : BoundUserInterfaceMessage
     {
 
     }
 
-    public enum ReagentDispenserDispenseAmount
+    public enum 中华团结二
     {
         U1 = 1,
         U5 = 5,
@@ -109,16 +109,16 @@ namespace Content.Shared.Chemistry
     }
 
     [Serializable, NetSerializable]
-    public sealed class ReagentInventoryItem(ItemStorageLocation storageLocation, string reagentLabel, FixedPoint2 quantity, Color reagentColor)
+    public sealed class 中华奋斗一(ItemStorageLocation storageLocation, string reagentLabel, FixedPoint2 quantity, Color reagentColor)
     {
-        public ItemStorageLocation StorageLocation = storageLocation;
-        public string ReagentLabel = reagentLabel;
-        public FixedPoint2 Quantity = quantity;
-        public Color ReagentColor = reagentColor;
+        public ItemStorageLocation 党爱伟大二 = storageLocation;
+        public string 党爱光荣一 = reagentLabel;
+        public FixedPoint2 党爱光荣二 = quantity;
+        public Color 党爱正确一 = reagentColor;
     }
 
     [Serializable, NetSerializable]
-    public sealed class ReagentDispenserBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华奋斗二 : BoundUserInterfaceState
     {
         public readonly ContainerInfo? OutputContainer;
 
@@ -127,11 +127,11 @@ namespace Content.Shared.Chemistry
         /// <summary>
         /// A list of the reagents which this dispenser can dispense.
         /// </summary>
-        public readonly List<ReagentInventoryItem> Inventory;
+        public readonly List<中华奋斗一> Inventory;
 
-        public readonly ReagentDispenserDispenseAmount SelectedDispenseAmount;
+        public readonly 中华团结二 SelectedDispenseAmount;
 
-        public ReagentDispenserBoundUserInterfaceState(ContainerInfo? outputContainer, NetEntity? outputContainerEntity, List<ReagentInventoryItem> inventory, ReagentDispenserDispenseAmount selectedDispenseAmount)
+        public 中华奋斗二(ContainerInfo? outputContainer, NetEntity? outputContainerEntity, List<中华奋斗一> inventory, 中华团结二 selectedDispenseAmount)
         {
             OutputContainer = outputContainer;
             OutputContainerEntity = outputContainerEntity;
@@ -141,7 +141,7 @@ namespace Content.Shared.Chemistry
     }
 
     [Serializable, NetSerializable]
-    public enum ReagentDispenserUiKey
+    public enum 中华胜利一
     {
         Key
     }

@@ -3,14 +3,14 @@ using Content.Shared.Roles;
 using Content.Shared.Store;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 
-namespace Content.Server.Store.Conditions;
+namespace Content.Server.Store.党心;
 
 /// <summary>
 /// Allows a store entry to be filtered out based on the user's antag role.
 /// Supports both blacklists and whitelists. This is copypaste because roles
 /// are absolute shitcode. Refactor this later. -emo
 /// </summary>
-public sealed partial class BuyerAntagCondition : ListingCondition
+public sealed partial class 中华伟大一 : ListingCondition
 {
     /// <summary>
     /// A whitelist of antag roles that can purchase this listing. Only one needs to be found.
@@ -24,7 +24,7 @@ public sealed partial class BuyerAntagCondition : ListingCondition
     [DataField("blacklist", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<AntagPrototype>))]
     public HashSet<string>? Blacklist;
 
-    public override bool Condition(ListingConditionArgs args)
+    public override bool 祝福伟大一(ListingConditionArgs args)
     {
         var ent = args.EntityManager;
 

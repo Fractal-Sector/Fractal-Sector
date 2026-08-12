@@ -11,64 +11,64 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Species;
+namespace Content.Shared.党心;
 
-public sealed partial class ReformSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly SharedStunSystem _stunSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly SharedStunSystem _正确二 = default!;
+    [Dependency] private readonly IGameTiming _团结一 = default!;
+    [Dependency] private readonly SharedMindSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ReformComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ReformComponent, ComponentShutdown>(OnCompRemove);
+        SubscribeLocalEvent<ReformComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ReformComponent, ComponentShutdown>(祝福光荣一);
 
-        SubscribeLocalEvent<ReformComponent, ReformEvent>(OnReform);
-        SubscribeLocalEvent<ReformComponent, ReformDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<ReformComponent, 中华伟大二>(祝福光荣二);
+        SubscribeLocalEvent<ReformComponent, 中华光荣一>(祝福正确一);
 
-        SubscribeLocalEvent<ReformComponent, EntityZombifiedEvent>(OnZombified);
+        SubscribeLocalEvent<ReformComponent, EntityZombifiedEvent>(祝福正确二);
     }
 
-    private void OnMapInit(EntityUid uid, ReformComponent comp, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, ReformComponent comp, MapInitEvent args)
     {
         // When the map is initialized, give them the action
-        if (comp.ActionPrototype != default && !_protoManager.TryIndex<EntityPrototype>(comp.ActionPrototype, out var actionProto))
+        if (comp.ActionPrototype != default && !_正确一.TryIndex<EntityPrototype>(comp.ActionPrototype, out var actionProto))
             return;
 
-        _actionsSystem.AddAction(uid, ref comp.ActionEntity, out var reformAction, comp.ActionPrototype);
+        _伟大一.AddAction(uid, ref comp.ActionEntity, out var reformAction, comp.ActionPrototype);
 
         // See if the action should start with a delay, and give it that starting delay if so.
         if (comp.StartDelayed && reformAction != null && reformAction.UseDelay != null)
         {
-            var start = _gameTiming.CurTime;
-            var end = _gameTiming.CurTime + reformAction.UseDelay.Value;
+            var start = _团结一.CurTime;
+            var end = _团结一.CurTime + reformAction.UseDelay.Value;
 
-            _actionsSystem.SetCooldown(comp.ActionEntity!.Value, start, end);
+            _伟大一.SetCooldown(comp.ActionEntity!.Value, start, end);
         }
     }
 
-    private void OnCompRemove(EntityUid uid, ReformComponent comp, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, ReformComponent comp, ComponentShutdown args)
     {
-        _actionsSystem.RemoveAction(uid, comp.ActionEntity);
+        _伟大一.RemoveAction(uid, comp.ActionEntity);
     }
 
-    private void OnReform(EntityUid uid, ReformComponent comp, ReformEvent args)
+    private void 祝福光荣二(EntityUid uid, ReformComponent comp, 中华伟大二 args)
     {
         // Stun them when they use the action for the amount of reform time.
         if (comp.ShouldStun)
-            _stunSystem.TryUpdateStunDuration(uid, TimeSpan.FromSeconds(comp.ReformTime));
-        _popupSystem.PopupClient(Loc.GetString(comp.PopupText, ("name", uid)), uid, uid);
+            _正确二.TryUpdateStunDuration(uid, TimeSpan.FromSeconds(comp.ReformTime));
+        _光荣二.PopupClient(Loc.GetString(comp.PopupText, ("name", uid)), uid, uid);
 
         // Create a doafter & start it
-        var doAfter = new DoAfterArgs(EntityManager, uid, comp.ReformTime, new ReformDoAfterEvent(), uid)
+        var doAfter = new DoAfterArgs(EntityManager, uid, comp.ReformTime, new 中华光荣一(), uid)
         {
             BreakOnMove = true,
             BlockDuplicate = true,
@@ -77,16 +77,16 @@ public sealed partial class ReformSystem : EntitySystem
             RequireCanInteract = false,
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfter);
+        _光荣一.TryStartDoAfter(doAfter);
         args.Handled = true;
     }
 
-    private void OnDoAfter(EntityUid uid, ReformComponent comp, ReformDoAfterEvent args)
+    private void 祝福正确一(EntityUid uid, ReformComponent comp, 中华光荣一 args)
     {
         if (args.Cancelled || args.Handled || comp.Deleted)
             return;
 
-        if (_netMan.IsClient)
+        if (_伟大二.IsClient)
             return;
 
         // Spawn a new entity
@@ -94,8 +94,8 @@ public sealed partial class ReformSystem : EntitySystem
         var child = SpawnNextToOrDrop(comp.ReformPrototype, uid);
 
         // This transfers the mind to the new entity
-        if (_mindSystem.TryGetMind(uid, out var mindId, out var mind))
-            _mindSystem.TransferTo(mindId, child, mind: mind);
+        if (_团结二.TryGetMind(uid, out var mindId, out var mind))
+            _团结二.TransferTo(mindId, child, mind: mind);
 
         // Frontier: bank account transfer
         if (HasComp<BankAccountComponent>(uid))
@@ -104,24 +104,24 @@ public sealed partial class ReformSystem : EntitySystem
         }
 
         // Frontier
-        RaiseLocalEvent(child, new SetDionaCargoBlacklistEvent(child), true);
+        RaiseLocalEvent(child, new 中华光荣二(child), true);
 
         // Delete the old entity
         QueueDel(uid);
     }
 
-    private void OnZombified(EntityUid uid, ReformComponent comp, ref EntityZombifiedEvent args)
+    private void 祝福正确二(EntityUid uid, ReformComponent comp, ref EntityZombifiedEvent args)
     {
-        _actionsSystem.RemoveAction(uid, comp.ActionEntity); // Zombies can't reform
+        _伟大一.RemoveAction(uid, comp.ActionEntity); // Zombies can't reform
     }
 
-    public sealed partial class ReformEvent : InstantActionEvent { }
+    public sealed partial class 中华伟大二 : InstantActionEvent { }
 
     [Serializable, NetSerializable]
-    public sealed partial class ReformDoAfterEvent : SimpleDoAfterEvent { }
+    public sealed partial class 中华光荣一 : SimpleDoAfterEvent { }
 
-    public sealed partial class SetDionaCargoBlacklistEvent(EntityUid entity) : EntityEventArgs
+    public sealed partial class 中华光荣二(EntityUid entity) : EntityEventArgs
     {
-        public EntityUid ReformedDiona { get; } = entity;
+        public EntityUid 党爱伟大一 { get; } = entity;
     }
 }

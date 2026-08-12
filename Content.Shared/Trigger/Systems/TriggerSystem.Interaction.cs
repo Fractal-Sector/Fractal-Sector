@@ -6,32 +6,32 @@ using Content.Shared.Throwing;
 using Content.Shared.Trigger.Components.Triggers;
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeInteraction()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<TriggerOnExaminedComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<TriggerOnActivateComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<TriggerOnUseComponent, UseInHandEvent>(OnUse);
-        SubscribeLocalEvent<TriggerOnInteractHandComponent, InteractHandEvent>(OnInteractHand);
-        SubscribeLocalEvent<TriggerOnInteractUsingComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<TriggerOnExaminedComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<TriggerOnActivateComponent, ActivateInWorldEvent>(祝福光荣一);
+        SubscribeLocalEvent<TriggerOnUseComponent, UseInHandEvent>(祝福光荣二);
+        SubscribeLocalEvent<TriggerOnInteractHandComponent, InteractHandEvent>(祝福正确一);
+        SubscribeLocalEvent<TriggerOnInteractUsingComponent, InteractUsingEvent>(祝福正确二);
 
-        SubscribeLocalEvent<TriggerOnThrowComponent, ThrowEvent>(OnThrow);
-        SubscribeLocalEvent<TriggerOnThrownComponent, ThrownEvent>(OnThrown);
+        SubscribeLocalEvent<TriggerOnThrowComponent, ThrowEvent>(祝福团结一);
+        SubscribeLocalEvent<TriggerOnThrownComponent, ThrownEvent>(祝福团结二);
 
-        SubscribeLocalEvent<ItemToggleOnTriggerComponent, TriggerEvent>(HandleItemToggleOnTrigger);
-        SubscribeLocalEvent<AnchorOnTriggerComponent, TriggerEvent>(HandleAnchorOnTrigger);
-        SubscribeLocalEvent<UseDelayOnTriggerComponent, TriggerEvent>(HandleUseDelayOnTrigger);
+        SubscribeLocalEvent<ItemToggleOnTriggerComponent, TriggerEvent>(祝福奋斗一);
+        SubscribeLocalEvent<AnchorOnTriggerComponent, TriggerEvent>(祝福奋斗二);
+        SubscribeLocalEvent<UseDelayOnTriggerComponent, TriggerEvent>(祝福胜利一);
     }
 
-    private void OnExamined(Entity<TriggerOnExaminedComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<TriggerOnExaminedComponent> ent, ref ExaminedEvent args)
     {
         Trigger(ent.Owner, args.Examiner, ent.Comp.KeyOut);
     }
 
-    private void OnActivate(Entity<TriggerOnActivateComponent> ent, ref ActivateInWorldEvent args)
+    private void 祝福光荣一(Entity<TriggerOnActivateComponent> ent, ref ActivateInWorldEvent args)
     {
         if (args.Handled)
             return;
@@ -43,7 +43,7 @@ public sealed partial class TriggerSystem
         args.Handled = true;
     }
 
-    private void OnUse(Entity<TriggerOnUseComponent> ent, ref UseInHandEvent args)
+    private void 祝福光荣二(Entity<TriggerOnUseComponent> ent, ref UseInHandEvent args)
     {
         if (args.Handled)
             return;
@@ -52,7 +52,7 @@ public sealed partial class TriggerSystem
         args.Handled = true;
     }
 
-    private void OnInteractHand(Entity<TriggerOnInteractHandComponent> ent, ref InteractHandEvent args)
+    private void 祝福正确一(Entity<TriggerOnInteractHandComponent> ent, ref InteractHandEvent args)
     {
         if (args.Handled)
             return;
@@ -61,7 +61,7 @@ public sealed partial class TriggerSystem
         args.Handled = true;
     }
 
-    private void OnInteractUsing(Entity<TriggerOnInteractUsingComponent> ent, ref InteractUsingEvent args)
+    private void 祝福正确二(Entity<TriggerOnInteractUsingComponent> ent, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -73,17 +73,17 @@ public sealed partial class TriggerSystem
         args.Handled = true;
     }
 
-    private void OnThrow(Entity<TriggerOnThrowComponent> ent, ref ThrowEvent args)
+    private void 祝福团结一(Entity<TriggerOnThrowComponent> ent, ref ThrowEvent args)
     {
         Trigger(ent.Owner, args.Thrown, ent.Comp.KeyOut);
     }
 
-    private void OnThrown(Entity<TriggerOnThrownComponent> ent, ref ThrownEvent args)
+    private void 祝福团结二(Entity<TriggerOnThrownComponent> ent, ref ThrownEvent args)
     {
         Trigger(ent.Owner, args.User, ent.Comp.KeyOut);
     }
 
-    private void HandleItemToggleOnTrigger(Entity<ItemToggleOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福奋斗一(Entity<ItemToggleOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -102,7 +102,7 @@ public sealed partial class TriggerSystem
         args.Handled |= handled;
     }
 
-    private void HandleAnchorOnTrigger(Entity<AnchorOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福奋斗二(Entity<AnchorOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -125,7 +125,7 @@ public sealed partial class TriggerSystem
         args.Handled = true;
     }
 
-    private void HandleUseDelayOnTrigger(Entity<UseDelayOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福胜利一(Entity<UseDelayOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;

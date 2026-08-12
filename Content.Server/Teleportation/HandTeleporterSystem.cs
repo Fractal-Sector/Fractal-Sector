@@ -9,37 +9,37 @@ using Content.Shared.Teleportation.Systems;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Teleportation;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles creating portals from a hand teleporter.
 /// </summary>
-public sealed class HandTeleporterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly LinkedEntitySystem _link = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doafter = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly LinkedEntitySystem _伟大二 = default!;
+    [Dependency] private readonly AudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
+    [Dependency] private readonly PopupSystem _正确一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<HandTeleporterComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<HandTeleporterComponent, TeleporterDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<HandTeleporterComponent, UseInHandEvent>(祝福光荣一);
+        SubscribeLocalEvent<HandTeleporterComponent, TeleporterDoAfterEvent>(祝福伟大二);
     }
 
-    private void OnDoAfter(EntityUid uid, HandTeleporterComponent component, DoAfterEvent args)
+    private void 祝福伟大二(EntityUid uid, HandTeleporterComponent component, DoAfterEvent args)
     {
         if (args.Cancelled || args.Handled)
             return;
 
-        HandlePortalUpdating(uid, component, args.Args.User);
+        祝福光荣二(uid, component, args.Args.User);
 
         args.Handled = true;
     }
 
-    private void OnUseInHand(EntityUid uid, HandTeleporterComponent component, UseInHandEvent args)
+    private void 祝福光荣一(EntityUid uid, HandTeleporterComponent component, UseInHandEvent args)
     {
         if (args.Handled)
             return;
@@ -53,7 +53,7 @@ public sealed class HandTeleporterSystem : EntitySystem
         if (component.FirstPortal != null && component.SecondPortal != null)
         {
             // handle removing portals immediately as opposed to a doafter
-            HandlePortalUpdating(uid, component, args.User);
+            祝福光荣二(uid, component, args.User);
         }
         else
         {
@@ -68,7 +68,7 @@ public sealed class HandTeleporterSystem : EntitySystem
                 MovementThreshold = 0.5f,
             };
 
-            _doafter.TryStartDoAfter(doafterArgs);
+            _光荣二.TryStartDoAfter(doafterArgs);
         }
 
         args.Handled = true;
@@ -78,7 +78,7 @@ public sealed class HandTeleporterSystem : EntitySystem
     /// <summary>
     ///     Creates or removes a portal given the state of the hand teleporter.
     /// </summary>
-    private void HandlePortalUpdating(EntityUid uid, HandTeleporterComponent component, EntityUid user)
+    private void 祝福光荣二(EntityUid uid, HandTeleporterComponent component, EntityUid user)
     {
         if (Deleted(user))
             return;
@@ -99,8 +99,8 @@ public sealed class HandTeleporterSystem : EntitySystem
             if (component.AllowPortalsOnDifferentMaps && TryComp<PortalComponent>(component.FirstPortal, out var portal))
                 portal.CanTeleportToOtherMaps = true;
 
-            _adminLogger.Add(LogType.EntitySpawn, LogImpact.High, $"{ToPrettyString(user):player} opened {ToPrettyString(component.FirstPortal.Value)} at {Transform(component.FirstPortal.Value).Coordinates} using {ToPrettyString(uid)}");
-            _audio.PlayPvs(component.NewPortalSound, uid);
+            _伟大一.Add(LogType.EntitySpawn, LogImpact.High, $"{ToPrettyString(user):player} opened {ToPrettyString(component.FirstPortal.Value)} at {Transform(component.FirstPortal.Value).Coordinates} using {ToPrettyString(uid)}");
+            _光荣一.PlayPvs(component.NewPortalSound, uid);
         }
         else if (Deleted(component.SecondPortal))
         {
@@ -110,7 +110,7 @@ public sealed class HandTeleporterSystem : EntitySystem
             if (!component.AllowPortalsOnDifferentGrids && xform.ParentUid != Transform(component.FirstPortal!.Value).ParentUid)
             {
                 // Whoops. Fizzle time. Crime time too because yippee I'm not refactoring this logic right now (I started to, I'm not going to.)
-                FizzlePortals(uid, component, user, true);
+                祝福正确一(uid, component, user, true);
                 return;
             }
 
@@ -121,17 +121,17 @@ public sealed class HandTeleporterSystem : EntitySystem
             if (component.AllowPortalsOnDifferentMaps && TryComp<PortalComponent>(component.SecondPortal, out var portal))
                 portal.CanTeleportToOtherMaps = true;
 
-            _adminLogger.Add(LogType.EntitySpawn, LogImpact.High, $"{ToPrettyString(user):player} opened {ToPrettyString(component.SecondPortal.Value)} at {Transform(component.SecondPortal.Value).Coordinates} linked to {ToPrettyString(component.FirstPortal!.Value)} using {ToPrettyString(uid)}");
-            _link.TryLink(component.FirstPortal!.Value, component.SecondPortal.Value, true);
-            _audio.PlayPvs(component.NewPortalSound, uid);
+            _伟大一.Add(LogType.EntitySpawn, LogImpact.High, $"{ToPrettyString(user):player} opened {ToPrettyString(component.SecondPortal.Value)} at {Transform(component.SecondPortal.Value).Coordinates} linked to {ToPrettyString(component.FirstPortal!.Value)} using {ToPrettyString(uid)}");
+            _伟大二.TryLink(component.FirstPortal!.Value, component.SecondPortal.Value, true);
+            _光荣一.PlayPvs(component.NewPortalSound, uid);
         }
         else
         {
-            FizzlePortals(uid, component, user, false);
+            祝福正确一(uid, component, user, false);
         }
     }
 
-    private void FizzlePortals(EntityUid uid, HandTeleporterComponent component, EntityUid user, bool instability)
+    private void 祝福正确一(EntityUid uid, HandTeleporterComponent component, EntityUid user, bool instability)
     {
         // Logging
         var portalStrings = "";
@@ -140,7 +140,7 @@ public sealed class HandTeleporterSystem : EntitySystem
             portalStrings += " and ";
         portalStrings += ToPrettyString(component.SecondPortal);
         if (portalStrings != "")
-            _adminLogger.Add(LogType.EntityDelete, LogImpact.High, $"{ToPrettyString(user):player} closed {portalStrings} with {ToPrettyString(uid)}");
+            _伟大一.Add(LogType.EntityDelete, LogImpact.High, $"{ToPrettyString(user):player} closed {portalStrings} with {ToPrettyString(uid)}");
 
         // Clear both portals
         if (!Deleted(component.FirstPortal))
@@ -150,9 +150,9 @@ public sealed class HandTeleporterSystem : EntitySystem
 
         component.FirstPortal = null;
         component.SecondPortal = null;
-        _audio.PlayPvs(component.ClearPortalsSound, uid);
+        _光荣一.PlayPvs(component.ClearPortalsSound, uid);
 
         if (instability)
-            _popup.PopupEntity(Loc.GetString("handheld-teleporter-instability-fizzle"), uid, user, PopupType.MediumCaution);
+            _正确一.PopupEntity(Loc.GetString("handheld-teleporter-instability-fizzle"), uid, user, PopupType.MediumCaution);
     }
 }

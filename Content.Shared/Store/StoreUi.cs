@@ -2,57 +2,57 @@ using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Store;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum StoreUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class StoreUpdateState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public readonly HashSet<ListingDataWithCostModifiers> Listings;
+    public readonly HashSet<ListingDataWithCostModifiers> 党爱伟大一;
 
     public readonly Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> Balance;
 
-    public readonly bool ShowFooter;
+    public readonly bool 党爱伟大二;
 
-    public readonly bool AllowRefund;
+    public readonly bool 党爱光荣一;
 
-    public StoreUpdateState(HashSet<ListingDataWithCostModifiers> listings, Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> balance, bool showFooter, bool allowRefund)
+    public 中华伟大二(HashSet<ListingDataWithCostModifiers> listings, Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> balance, bool showFooter, bool allowRefund)
     {
-        Listings = listings;
+        党爱伟大一 = listings;
         Balance = balance;
-        ShowFooter = showFooter;
-        AllowRefund = allowRefund;
+        党爱伟大二 = showFooter;
+        党爱光荣一 = allowRefund;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class StoreRequestUpdateInterfaceMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
 
 }
 
 [Serializable, NetSerializable]
-public sealed class StoreBuyListingMessage(ProtoId<ListingPrototype> listing) : BoundUserInterfaceMessage
+public sealed class 中华光荣二(ProtoId<ListingPrototype> listing) : BoundUserInterfaceMessage
 {
-    public ProtoId<ListingPrototype> Listing = listing;
+    public ProtoId<ListingPrototype> 党爱光荣二 = listing;
 }
 
 [Serializable, NetSerializable]
-public sealed class StoreRequestWithdrawMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public string Currency;
+    public string 党爱正确一;
 
-    public int Amount;
+    public int 党爱正确二;
 
-    public StoreRequestWithdrawMessage(string currency, int amount)
+    public 中华正确一(string currency, int amount)
     {
-        Currency = currency;
-        Amount = amount;
+        党爱正确一 = currency;
+        党爱正确二 = amount;
     }
 }
 
@@ -60,7 +60,7 @@ public sealed class StoreRequestWithdrawMessage : BoundUserInterfaceMessage
 ///     Used when the refund button is pressed
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class StoreRequestRefundMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
 
 }

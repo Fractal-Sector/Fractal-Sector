@@ -5,38 +5,38 @@ using NetCord.Gateway;
 using Robust.Shared.Asynchronous;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Discord.DiscordLink;
+namespace Content.Server.Discord.党心;
 
-public sealed class DiscordChatLink : IPostInjectInit
+public sealed class 中华伟大一 : IPostInjectInit
 {
-    [Dependency] private readonly DiscordLink _discordLink = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly ITaskManager _taskManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly DiscordLink _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly IChatManager _光荣一 = default!;
+    [Dependency] private readonly ITaskManager _光荣二 = default!;
+    [Dependency] private readonly ILogManager _正确一 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _正确二 = default!;
 
     private ulong? _oocChannelId;
     private ulong? _adminChannelId;
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _discordLink.OnMessageReceived += OnMessageReceived;
+        _伟大一.祝福正确一 += 祝福正确一;
 
-        _configurationManager.OnValueChanged(CCVars.OocDiscordChannelId, OnOocChannelIdChanged, true);
-        _configurationManager.OnValueChanged(CCVars.AdminChatDiscordChannelId, OnAdminChannelIdChanged, true);
+        _伟大二.OnValueChanged(CCVars.OocDiscordChannelId, 祝福光荣一, true);
+        _伟大二.OnValueChanged(CCVars.AdminChatDiscordChannelId, 祝福光荣二, true);
     }
 
-    public void Shutdown()
+    public void 祝福伟大二()
     {
-        _discordLink.OnMessageReceived -= OnMessageReceived;
+        _伟大一.祝福正确一 -= 祝福正确一;
 
-        _configurationManager.UnsubValueChanged(CCVars.OocDiscordChannelId, OnOocChannelIdChanged);
-        _configurationManager.UnsubValueChanged(CCVars.AdminChatDiscordChannelId, OnAdminChannelIdChanged);
+        _伟大二.UnsubValueChanged(CCVars.OocDiscordChannelId, 祝福光荣一);
+        _伟大二.UnsubValueChanged(CCVars.AdminChatDiscordChannelId, 祝福光荣二);
     }
 
-    private void OnOocChannelIdChanged(string channelId)
+    private void 祝福光荣一(string channelId)
     {
         if (string.IsNullOrEmpty(channelId))
         {
@@ -47,7 +47,7 @@ public sealed class DiscordChatLink : IPostInjectInit
         _oocChannelId = ulong.Parse(channelId);
     }
 
-    private void OnAdminChannelIdChanged(string channelId)
+    private void 祝福光荣二(string channelId)
     {
         if (string.IsNullOrEmpty(channelId))
         {
@@ -58,7 +58,7 @@ public sealed class DiscordChatLink : IPostInjectInit
         _adminChannelId = ulong.Parse(channelId);
     }
 
-    private void OnMessageReceived(Message message)
+    private void 祝福正确一(Message message)
     {
         if (message.Author.IsBot)
             return;
@@ -67,15 +67,15 @@ public sealed class DiscordChatLink : IPostInjectInit
 
         if (message.ChannelId == _oocChannelId)
         {
-            _taskManager.RunOnMainThread(() => _chatManager.SendHookOOC(message.Author.Username, contents));
+            _光荣二.RunOnMainThread(() => _光荣一.SendHookOOC(message.Author.Username, contents));
         }
         else if (message.ChannelId == _adminChannelId)
         {
-            _taskManager.RunOnMainThread(() => _chatManager.SendHookAdmin(message.Author.Username, contents));
+            _光荣二.RunOnMainThread(() => _光荣一.SendHookAdmin(message.Author.Username, contents));
         }
     }
 
-    public async void SendMessage(string message, string author, ChatChannel channel)
+    public async void 祝福正确二(string message, string author, ChatChannel channel)
     {
         var channelId = channel switch
         {
@@ -95,16 +95,16 @@ public sealed class DiscordChatLink : IPostInjectInit
 
         try
         {
-            await _discordLink.SendMessageAsync(channelId.Value, $"**{channel.GetString()}**: `{author}`: {message}");
+            await _伟大一.SendMessageAsync(channelId.Value, $"**{channel.GetString()}**: `{author}`: {message}");
         }
         catch (Exception e)
         {
-            _sawmill.Error($"Error while sending Discord message: {e}");
+            _正确二.Error($"Error while sending Discord message: {e}");
         }
     }
 
     void IPostInjectInit.PostInject()
     {
-        _sawmill = _logManager.GetSawmill("discord.chat");
+        _正确二 = _正确一.GetSawmill("discord.chat");
     }
 }

@@ -7,20 +7,20 @@ using Content.Shared.Stacks;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Construction; //Uses base namespace to extend ConstructionSystem behaviour
+namespace Content.Server.党心; //Uses base namespace to extend 中华伟大一 behaviour
 
-// Adopted from Wizard's Den's abandoned ConstructionSystem machine part system.
+// Adopted from Wizard's Den's abandoned 中华伟大一 machine part system.
 
-public sealed partial class ConstructionSystem
+public sealed partial class 中华伟大一
 {
     [Dependency] ExamineSystemShared _examineSystem = default!;
 
-    private void InitializeMachineUpgrades()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<MachineComponent, GetVerbsEvent<ExamineVerb>>(OnMachineExaminableVerb);
+        SubscribeLocalEvent<MachineComponent, GetVerbsEvent<ExamineVerb>>(祝福伟大二);
     }
 
-    private void OnMachineExaminableVerb(EntityUid uid, MachineComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福伟大二(EntityUid uid, MachineComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -51,29 +51,29 @@ public sealed partial class ConstructionSystem
     }
 
     // Frontier: return type changed to include stack info
-    public List<MachinePartState> GetAllParts(EntityUid uid, MachineComponent? component = null)
+    public List<MachinePartState> 祝福光荣一(EntityUid uid, MachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return new List<MachinePartState>();
 
-        return GetAllParts(component);
+        return 祝福光荣一(component);
     }
 
     // Frontier: return type changed to include stack info
-    public List<MachinePartState> GetAllParts(MachineComponent component)
+    public List<MachinePartState> 祝福光荣一(MachineComponent component)
     {
         var parts = new List<MachinePartState>();
 
         foreach (var entity in component.PartContainer.ContainedEntities)
         {
-            if (GetMachinePartState(entity, out var partState))
+            if (祝福光荣二(entity, out var partState))
                 parts.Add(partState);
         }
 
         return parts;
     }
 
-    public bool GetMachinePartState(EntityUid uid, out MachinePartState state)
+    public bool 祝福光荣二(EntityUid uid, out MachinePartState state)
     {
         state = new MachinePartState();
         MachinePartComponent? part;
@@ -86,7 +86,7 @@ public sealed partial class ConstructionSystem
         return true;
     }
 
-    public Dictionary<string, float> GetPartsRatings(List<MachinePartState> partStates)
+    public Dictionary<string, float> 祝福正确一(List<MachinePartState> partStates)
     {
         var output = new Dictionary<string, float>();
         foreach (var type in _prototypeManager.EnumeratePrototypes<MachinePartPrototype>())
@@ -105,13 +105,13 @@ public sealed partial class ConstructionSystem
         return output;
     }
 
-    public void RefreshParts(EntityUid uid, MachineComponent component)
+    public void 祝福正确二(EntityUid uid, MachineComponent component)
     {
-        var parts = GetAllParts(component);
+        var parts = 祝福光荣一(component);
         EntityManager.EventBus.RaiseLocalEvent(uid, new RefreshPartsEvent
         {
             Parts = parts,
-            PartRatings = GetPartsRatings(parts),
+            PartRatings = 祝福正确一(parts),
         }, true);
     }
 }

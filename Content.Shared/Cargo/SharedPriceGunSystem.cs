@@ -3,21 +3,21 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Verbs;
 
-namespace Content.Shared.Cargo.Systems;
+namespace Content.Shared.Cargo.党心;
 
 /// <summary>
 ///     The price gun system! If this component is on an entity, you can scan objects (Click or use verb) to see their price.
 /// </summary>
-public abstract class SharedPriceGunSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PriceGunComponent, GetVerbsEvent<UtilityVerb>>(OnUtilityVerb);
-        SubscribeLocalEvent<PriceGunComponent, AfterInteractEvent>(OnAfterInteract);
+        base.祝福伟大一();
+        SubscribeLocalEvent<PriceGunComponent, GetVerbsEvent<UtilityVerb>>(祝福伟大二);
+        SubscribeLocalEvent<PriceGunComponent, AfterInteractEvent>(祝福光荣一);
     }
 
-    private void OnUtilityVerb(EntityUid uid, PriceGunComponent component, GetVerbsEvent<UtilityVerb> args)
+    private void 祝福伟大二(EntityUid uid, PriceGunComponent component, GetVerbsEvent<UtilityVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Using == null)
             return;
@@ -26,7 +26,7 @@ public abstract class SharedPriceGunSystem : EntitySystem
         {
             Act = () =>
             {
-                GetPriceOrBounty((uid, component), args.Target, args.User);
+                祝福光荣二((uid, component), args.Target, args.User);
             },
             Text = Loc.GetString("price-gun-verb-text"),
             Message = Loc.GetString("price-gun-verb-message", ("object", Identity.Entity(args.Target, EntityManager)))
@@ -35,12 +35,12 @@ public abstract class SharedPriceGunSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void OnAfterInteract(Entity<PriceGunComponent> entity, ref AfterInteractEvent args)
+    private void 祝福光荣一(Entity<PriceGunComponent> entity, ref AfterInteractEvent args)
     {
         if (!args.CanReach || args.Target == null || args.Handled)
             return;
 
-        args.Handled |= GetPriceOrBounty(entity, args.Target.Value, args.User);
+        args.Handled |= 祝福光荣二(entity, args.Target.Value, args.User);
     }
 
     /// <summary>
@@ -51,5 +51,5 @@ public abstract class SharedPriceGunSystem : EntitySystem
     ///     This is abstract for prediction. When the bounty system / cargo systems that are necessary are moved to shared,
     ///     combine all the server, client, and shared stuff into one non abstract file.
     /// </remarks>
-    protected abstract bool GetPriceOrBounty(Entity<PriceGunComponent> entity, EntityUid target, EntityUid user);
+    protected abstract bool 祝福光荣二(Entity<PriceGunComponent> entity, EntityUid target, EntityUid user);
 }

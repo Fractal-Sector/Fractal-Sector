@@ -7,54 +7,54 @@ using Content.Shared.Emag.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
-public sealed class TechAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly BeamSystem _beam = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly BeamSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TechAnomalyComponent, MapInitEvent>(OnTechMapInit);
-        SubscribeLocalEvent<TechAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<TechAnomalyComponent, AnomalySupercriticalEvent>(OnSupercritical);
-        SubscribeLocalEvent<TechAnomalyComponent, AnomalyStabilityChangedEvent>(OnStabilityChanged);
+        SubscribeLocalEvent<TechAnomalyComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<TechAnomalyComponent, AnomalyPulseEvent>(祝福团结二);
+        SubscribeLocalEvent<TechAnomalyComponent, AnomalySupercriticalEvent>(祝福团结一);
+        SubscribeLocalEvent<TechAnomalyComponent, AnomalyStabilityChangedEvent>(祝福光荣二);
     }
 
-    private void OnTechMapInit(Entity<TechAnomalyComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<TechAnomalyComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextTimer = _timing.CurTime;
+        ent.Comp.NextTimer = _正确一.CurTime;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
         var query = EntityQueryEnumerator<TechAnomalyComponent, AnomalyComponent>();
         while (query.MoveNext(out var uid, out var tech, out var anom))
         {
-            if (_timing.CurTime < tech.NextTimer)
+            if (_正确一.CurTime < tech.NextTimer)
                 continue;
 
             tech.NextTimer += TimeSpan.FromSeconds(tech.TimerFrequency);
 
-            _signal.InvokePort(uid, tech.TimerPort);
+            _伟大一.InvokePort(uid, tech.TimerPort);
         }
     }
 
-    private void OnStabilityChanged(Entity<TechAnomalyComponent> tech, ref AnomalyStabilityChangedEvent args)
+    private void 祝福光荣二(Entity<TechAnomalyComponent> tech, ref AnomalyStabilityChangedEvent args)
     {
         var links = MathHelper.Lerp(tech.Comp.LinkCountPerPulse.Min, tech.Comp.LinkCountPerPulse.Max, args.Severity);
-        CreateNewRandomLink(tech, (int)links);
+        祝福正确一(tech, (int)links);
     }
 
-    private void CreateNewRandomLink(Entity<TechAnomalyComponent> tech, int count)
+    private void 祝福正确一(Entity<TechAnomalyComponent> tech, int count)
     {
         if (!TryComp<AnomalyComponent>(tech, out var anomaly))
             return;
@@ -63,40 +63,40 @@ public sealed class TechAnomalySystem : EntitySystem
 
         var range = MathHelper.Lerp(tech.Comp.LinkRadius.Min, tech.Comp.LinkRadius.Max, anomaly.Severity);
 
-        var devices = _lookup.GetEntitiesInRange<DeviceLinkSinkComponent>(Transform(tech).Coordinates, range);
+        var devices = _伟大二.GetEntitiesInRange<DeviceLinkSinkComponent>(Transform(tech).Coordinates, range);
         if (devices.Count < 1)
             return;
 
         for (var i = 0; i < count; i++)
         {
-            var device = _random.Pick(devices);
-            CreateNewLink(tech, (tech, sourceComp), device);
+            var device = _光荣一.Pick(devices);
+            祝福正确二(tech, (tech, sourceComp), device);
         }
     }
 
-    private void CreateNewLink(Entity<TechAnomalyComponent> tech, Entity<DeviceLinkSourceComponent> source, Entity<DeviceLinkSinkComponent> target)
+    private void 祝福正确二(Entity<TechAnomalyComponent> tech, Entity<DeviceLinkSourceComponent> source, Entity<DeviceLinkSinkComponent> target)
     {
-        var sourcePort = _random.Pick(source.Comp.Ports);
-        var sinkPort = _random.Pick(target.Comp.Ports);
+        var sourcePort = _光荣一.Pick(source.Comp.Ports);
+        var sinkPort = _光荣一.Pick(target.Comp.Ports);
 
-        _signal.SaveLinks(null, source, target,new()
+        _伟大一.SaveLinks(null, source, target,new()
         {
             (sourcePort, sinkPort),
         });
-        _beam.TryCreateBeam(source, target, tech.Comp.LinkBeamProto);
+        _光荣二.TryCreateBeam(source, target, tech.Comp.LinkBeamProto);
     }
 
-    private void OnSupercritical(Entity<TechAnomalyComponent> tech, ref AnomalySupercriticalEvent args)
+    private void 祝福团结一(Entity<TechAnomalyComponent> tech, ref AnomalySupercriticalEvent args)
     {
         // We remove the component so that the anomaly does not bind itself to other devices before self destroy.
         RemComp<DeviceLinkSourceComponent>(tech);
 
         var sources =
-            _lookup.GetEntitiesInRange<DeviceLinkSourceComponent>(Transform(tech).Coordinates,
+            _伟大二.GetEntitiesInRange<DeviceLinkSourceComponent>(Transform(tech).Coordinates,
                 tech.Comp.LinkRadius.Max);
 
         var sinks =
-            _lookup.GetEntitiesInRange<DeviceLinkSinkComponent>(Transform(tech).Coordinates,
+            _伟大二.GetEntitiesInRange<DeviceLinkSinkComponent>(Transform(tech).Coordinates,
                 tech.Comp.LinkRadius.Max);
 
         for (var i = 0; i < tech.Comp.LinkCountSupercritical; i++)
@@ -107,13 +107,13 @@ public sealed class TechAnomalySystem : EntitySystem
             if (sinks.Count < 1)
                 return;
 
-            var source = _random.Pick(sources);
+            var source = _光荣一.Pick(sources);
             sources.Remove(source);
 
-            var sink = _random.Pick(sinks);
+            var sink = _光荣一.Pick(sinks);
             sinks.Remove(sink);
 
-            if (_random.Prob(tech.Comp.EmagSupercritProbability))
+            if (_光荣一.Prob(tech.Comp.EmagSupercritProbability))
             {
                 var sourceEv = new GotEmaggedEvent(tech, EmagType.Access | EmagType.Interaction);
                 RaiseLocalEvent(source, ref sourceEv);
@@ -122,12 +122,12 @@ public sealed class TechAnomalySystem : EntitySystem
                 RaiseLocalEvent(sink, ref sinkEv);
             }
 
-            CreateNewLink(tech, source, sink);
+            祝福正确二(tech, source, sink);
         }
     }
 
-    private void OnPulse(Entity<TechAnomalyComponent> tech, ref AnomalyPulseEvent args)
+    private void 祝福团结二(Entity<TechAnomalyComponent> tech, ref AnomalyPulseEvent args)
     {
-        _signal.InvokePort(tech, tech.Comp.PulsePort);
+        _伟大一.InvokePort(tech, tech.Comp.PulsePort);
     }
 }

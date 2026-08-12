@@ -1,17 +1,17 @@
 using JetBrains.Annotations;
 
-namespace Content.Server.Tabletop
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed partial class TabletopBackgammonSetup : TabletopSetup
+    public sealed partial class 中华伟大一 : TabletopSetup
     {
 
         [DataField("whitePiecePrototype")]
-        public string WhitePiecePrototype { get; private set; } = "WhiteTabletopPiece";
+        public string 党爱伟大一 { get; private set; } = "WhiteTabletopPiece";
 
         [DataField("blackPiecePrototype")]
-        public string BlackPiecePrototype { get; private set; } = "BlackTabletopPiece";
-        public override void SetupTabletop(TabletopSession session, IEntityManager entityManager)
+        public string 党爱伟大二 { get; private set; } = "BlackTabletopPiece";
+        public override void 祝福伟大一(TabletopSession session, IEntityManager entityManager)
         {
             var board = entityManager.SpawnEntity(BoardPrototype, session.Position);
 
@@ -42,7 +42,7 @@ namespace Content.Server.Tabletop
             {
                 for (int i = 0; i < numberOfPieces; i++)
                 {
-                    session.Entities.Add(entityManager.SpawnEntity(isBlackPiece ? BlackPiecePrototype : WhitePiecePrototype, session.Position.Offset(GetXPosition(distanceFromSide, isLeftSide), GetYPosition(i, isTop))));
+                    session.Entities.Add(entityManager.SpawnEntity(isBlackPiece ? 党爱伟大二 : 党爱伟大一, session.Position.Offset(GetXPosition(distanceFromSide, isLeftSide), GetYPosition(i, isTop))));
                 }
             }
 

@@ -1,11 +1,11 @@
-namespace Content.Shared.Weapons.Ranged.Events;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 /// <summary>
 /// Raised on an AmmoProvider to request deets.
 /// </summary>
 [ByRefEvent]
-public struct GetAmmoCountEvent
+public struct 中华伟大一
 {
-    public int Count;
-    public int Capacity;
+    public int 党爱伟大一;
+    public int 党爱伟大二;
 }

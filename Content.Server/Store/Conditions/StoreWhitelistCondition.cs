@@ -1,12 +1,12 @@
 using Content.Shared.Store;
 using Content.Shared.Whitelist;
 
-namespace Content.Server.Store.Conditions;
+namespace Content.Server.Store.党心;
 
 /// <summary>
 /// Filters out an entry based on the components or tags on the store itself.
 /// </summary>
-public sealed partial class StoreWhitelistCondition : ListingCondition
+public sealed partial class 中华伟大一 : ListingCondition
 {
     /// <summary>
     /// A whitelist of tags or components.
@@ -20,7 +20,7 @@ public sealed partial class StoreWhitelistCondition : ListingCondition
     [DataField("blacklist")]
     public EntityWhitelist? Blacklist;
 
-    public override bool Condition(ListingConditionArgs args)
+    public override bool 祝福伟大一(ListingConditionArgs args)
     {
         if (args.StoreEntity == null)
             return false;

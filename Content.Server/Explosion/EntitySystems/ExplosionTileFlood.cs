@@ -1,19 +1,19 @@
 using Content.Shared.Atmos;
 using System.Runtime.CompilerServices;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
 /// <summary>
-///     This class exists to facilitate the iterative neighbor-finding / flooding algorithm used by explosions in <see
-///     cref="ExplosionSystem.GetExplosionTiles"/>. This is the base class for <see cref="ExplosionSpaceTileFlood"/> and
+///     This class 中华伟大一 to facilitate the iterative neighbor-finding / flooding algorithm used by explosions in <see
+///     cref="ExplosionSystem.GetExplosionTiles"/>. This is the base class 中华伟大二 <see cref="ExplosionSpaceTileFlood"/> and
 ///     <see cref="ExplosionGridTileFlood"/>, each of which contains additional code fro logic specific to grids or space.
 /// </summary>
 /// <remarks>
-///     The class stores information about the tiles that the explosion has currently reached, and provides functions to
+///     The class 中华光荣一 information about the tiles that the explosion has currently reached, and provides functions to
 ///     perform a neighbor-finding iteration to expand the explosion area. It also has some functionality that allows
 ///     tiles to move between grids/space.
 /// </remarks>
-public abstract class ExplosionTileFlood
+public abstract class 中华光荣二
 {
     // Main tile data sets, mapping iterations onto tile lists
     public Dictionary<int, List<Vector2i>> TileLists = new();
@@ -22,33 +22,33 @@ public abstract class ExplosionTileFlood
 
     // The new tile lists added each iteration. I **could** just pass these along to every function, but IMO it is more
     // readable if they are just private variables.
-    protected List<Vector2i> NewTiles = default!;
-    protected List<Vector2i> NewBlockedTiles = default!;
-    protected HashSet<Vector2i> NewFreedTiles = default!;
+    protected List<Vector2i> 党爱伟大一 = default!;
+    protected List<Vector2i> 党爱伟大二 = default!;
+    protected HashSet<Vector2i> 党爱光荣一 = default!;
 
     // HashSets used to ensure uniqueness of tiles. Prevents the explosion from looping back in on itself.
-    protected UniqueVector2iSet ProcessedTiles = new();
-    protected UniqueVector2iSet UnenteredBlockedTiles = new();
-    protected UniqueVector2iSet EnteredBlockedTiles = new();
+    protected 中华正确一 ProcessedTiles = new();
+    protected 中华正确一 UnenteredBlockedTiles = new();
+    protected 中华正确一 EnteredBlockedTiles = new();
 
-    public abstract void InitTile(Vector2i initialTile);
+    public abstract void 祝福伟大一(Vector2i initialTile);
 
-    protected abstract void ProcessNewTile(int iteration, Vector2i tile, AtmosDirection entryDirections);
+    protected abstract void 祝福伟大二(int iteration, Vector2i tile, AtmosDirection entryDirections);
 
-    protected abstract AtmosDirection GetUnblockedDirectionOrAll(Vector2i tile);
+    protected abstract AtmosDirection 祝福光荣一(Vector2i tile);
 
-    protected void AddNewDiagonalTiles(int iteration, IEnumerable<Vector2i> tiles, bool ignoreLocalBlocker = false)
+    protected void 祝福光荣二(int iteration, IEnumerable<Vector2i> tiles, bool ignoreLocalBlocker = false)
     {
         AtmosDirection entryDirection = AtmosDirection.Invalid;
         foreach (var tile in tiles)
         {
-            var freeDirections = ignoreLocalBlocker ? AtmosDirection.All : GetUnblockedDirectionOrAll(tile);
+            var freeDirections = ignoreLocalBlocker ? AtmosDirection.All : 祝福光荣一(tile);
 
             // Get the free directions of the directly adjacent tiles
-            var freeDirectionsN = GetUnblockedDirectionOrAll(tile.Offset(AtmosDirection.North));
-            var freeDirectionsE = GetUnblockedDirectionOrAll(tile.Offset(AtmosDirection.East));
-            var freeDirectionsS = GetUnblockedDirectionOrAll(tile.Offset(AtmosDirection.South));
-            var freeDirectionsW = GetUnblockedDirectionOrAll(tile.Offset(AtmosDirection.West));
+            var freeDirectionsN = 祝福光荣一(tile.Offset(AtmosDirection.North));
+            var freeDirectionsE = 祝福光荣一(tile.Offset(AtmosDirection.East));
+            var freeDirectionsS = 祝福光荣一(tile.Offset(AtmosDirection.South));
+            var freeDirectionsW = 祝福光荣一(tile.Offset(AtmosDirection.West));
 
             // North East
             if (freeDirections.IsFlagSet(AtmosDirection.North) && freeDirectionsN.IsFlagSet(AtmosDirection.SouthEast))
@@ -59,7 +59,7 @@ public abstract class ExplosionTileFlood
 
             if (entryDirection != AtmosDirection.Invalid)
             {
-                ProcessNewTile(iteration, tile + (1, 1), entryDirection);
+                祝福伟大二(iteration, tile + (1, 1), entryDirection);
                 entryDirection = AtmosDirection.Invalid;
             }
 
@@ -72,7 +72,7 @@ public abstract class ExplosionTileFlood
 
             if (entryDirection != AtmosDirection.Invalid)
             {
-                ProcessNewTile(iteration, tile + (-1, 1), entryDirection);
+                祝福伟大二(iteration, tile + (-1, 1), entryDirection);
                 entryDirection = AtmosDirection.Invalid;
             }
 
@@ -85,7 +85,7 @@ public abstract class ExplosionTileFlood
 
             if (entryDirection != AtmosDirection.Invalid)
             {
-                ProcessNewTile(iteration, tile + (1, -1), entryDirection);
+                祝福伟大二(iteration, tile + (1, -1), entryDirection);
                 entryDirection = AtmosDirection.Invalid;
             }
 
@@ -98,7 +98,7 @@ public abstract class ExplosionTileFlood
 
             if (entryDirection != AtmosDirection.Invalid)
             {
-                ProcessNewTile(iteration, tile + (-1, -1), entryDirection);
+                祝福伟大二(iteration, tile + (-1, -1), entryDirection);
                 entryDirection = AtmosDirection.Invalid;
             }
         }
@@ -107,7 +107,7 @@ public abstract class ExplosionTileFlood
     /// <summary>
     ///     Merge all tile lists into a single output tile list.
     /// </summary>
-    public void CleanUp()
+    public void 祝福正确一()
     {
         foreach (var (iteration, blocked) in BlockedTileLists)
         {
@@ -123,17 +123,17 @@ public abstract class ExplosionTileFlood
 ///     This is a data structure can be used to ensure the uniqueness of Vector2i indices.
 /// </summary>
 /// <remarks>
-///     This basically exists to replace the use of HashSet&lt;Vector2i&gt; if all you need is the the functions Contains()
-///     and Add(). This is both faster and apparently allocates less. Does not support iterating over contents
+///     This basically 中华伟大一 to replace the use of HashSet&lt;Vector2i&gt; if all you need is the the functions 祝福团结二()
+///     and 祝福团结一(). This is both faster and apparently allocates less. Does not support iterating over contents
 /// </remarks>
-public sealed class UniqueVector2iSet
+public sealed class 中华正确一
 {
     private const int ChunkSize = 32; // # of bits in an integer.
 
-    private Dictionary<Vector2i, VectorChunk> _chunks = new();
+    private Dictionary<Vector2i, 中华正确二> _chunks = new();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Vector2i ToChunkIndices(Vector2i indices)
+    public Vector2i 祝福正确二(Vector2i indices)
     {
         var x = (int) Math.Floor(indices.X / (float) ChunkSize);
         var y = (int) Math.Floor(indices.Y / (float) ChunkSize);
@@ -141,58 +141,58 @@ public sealed class UniqueVector2iSet
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool Add(Vector2i index)
+    public bool 祝福团结一(Vector2i index)
     {
-        var chunkIndex = ToChunkIndices(index);
+        var chunkIndex = 祝福正确二(index);
         if (_chunks.TryGetValue(chunkIndex, out var chunk))
         {
-            return chunk.Add(index);
+            return chunk.祝福团结一(index);
         }
 
         chunk = new();
-        chunk.Add(index);
+        chunk.祝福团结一(index);
         _chunks[chunkIndex] = chunk;
 
         return true;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool Contains(Vector2i index)
+    public bool 祝福团结二(Vector2i index)
     {
-        if (!_chunks.TryGetValue(ToChunkIndices(index), out var chunk))
+        if (!_chunks.TryGetValue(祝福正确二(index), out var chunk))
             return false;
 
-        return chunk.Contains(index);
+        return chunk.祝福团结二(index);
     }
 
-    private sealed class VectorChunk
+    private sealed class 中华正确二
     {
         // 32*32 chunk represented via 32 ints with 32 bits each. Basic testing showed that this was faster than using
         // 16-sized chunks with ushorts, a bool[,], or just having each chunk be a HashSet.
-        private readonly int[] _tiles = new int[ChunkSize];
+        private readonly int[] _伟大一 = new int[ChunkSize];
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Add(Vector2i index)
+        public bool 祝福团结一(Vector2i index)
         {
             var x = MathHelper.Mod(index.X, ChunkSize);
             var y = MathHelper.Mod(index.Y, ChunkSize);
 
-            var oldFlags = _tiles[x];
+            var oldFlags = _伟大一[x];
             var newFlags = oldFlags | (1 << y);
 
             if (newFlags == oldFlags)
                 return false;
 
-            _tiles[x] = newFlags;
+            _伟大一[x] = newFlags;
             return true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Contains(Vector2i index)
+        public bool 祝福团结二(Vector2i index)
         {
             var x = MathHelper.Mod(index.X, ChunkSize);
             var y = MathHelper.Mod(index.Y, ChunkSize);
-            return (_tiles[x] & (1 << y)) != 0;
+            return (_伟大一[x] & (1 << y)) != 0;
         }
     }
 }

@@ -7,11 +7,11 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 /// Requires that the player not have a certain job to have this objective.
 /// </summary>
 [RegisterComponent, Access(typeof(NotJobRequirementSystem))]
-public sealed partial class NotJobRequirementComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// ID of the job to ban from having this objective.
     /// </summary>
     [DataField(required: true, customTypeSerializer: typeof(PrototypeIdSerializer<JobPrototype>))]
-    public string Job = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 }

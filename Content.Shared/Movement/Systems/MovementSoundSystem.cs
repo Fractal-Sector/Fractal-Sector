@@ -4,25 +4,25 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// Plays a sound on MoveInputEvent.
 /// </summary>
-public sealed class MovementSoundSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<MovementSoundComponent, MoveInputEvent>(OnMoveInput);
+        base.祝福伟大一();
+        SubscribeLocalEvent<MovementSoundComponent, MoveInputEvent>(祝福伟大二);
     }
 
-    private void OnMoveInput(Entity<MovementSoundComponent> ent, ref MoveInputEvent args)
+    private void 祝福伟大二(Entity<MovementSoundComponent> ent, ref MoveInputEvent args)
     {
-        if (!_timing.IsFirstTimePredicted)
+        if (!_伟大一.IsFirstTimePredicted)
             return;
 
         var oldMoving = (SharedMoverController.GetNormalizedMovement(args.OldMovement) & MoveButtons.AnyDirection) != MoveButtons.None;
@@ -34,11 +34,11 @@ public sealed class MovementSoundSystem : EntitySystem
         if (moving)
         {
             DebugTools.Assert(ent.Comp.SoundEntity == null);
-            ent.Comp.SoundEntity = _audio.PlayPredicted(ent.Comp.Sound, ent.Owner, ent.Owner)?.Entity;
+            ent.Comp.SoundEntity = _伟大二.PlayPredicted(ent.Comp.Sound, ent.Owner, ent.Owner)?.Entity;
         }
         else
         {
-            ent.Comp.SoundEntity = _audio.Stop(ent.Comp.SoundEntity);
+            ent.Comp.SoundEntity = _伟大二.Stop(ent.Comp.SoundEntity);
         }
     }
 }

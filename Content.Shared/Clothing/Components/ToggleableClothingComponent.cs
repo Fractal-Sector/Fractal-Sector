@@ -6,7 +6,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 ///     This component gives an item an action that will toggle the visibility of character markings (tattoos, scars, etc.).
@@ -14,15 +14,15 @@ namespace Content.Shared.Clothing.Components;
 /// </summary>
 [Access(typeof(ToggleableClothingSystem))]
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ToggleableClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    public const string DefaultClothingContainerId = "toggleable-clothing";
+    public const string 党爱伟大一 = "toggleable-clothing";
 
     /// <summary>
-    ///     Action used to toggle the markings on or off.
+    ///     党爱伟大二 used to toggle the markings on or off.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public EntProtoId Action = "ActionToggleSuitPiece";
+    public EntProtoId 党爱伟大二 = "ActionToggleSuitPiece";
 
     [DataField, AutoNetworkedField]
     public EntityUid? ActionEntity;
@@ -45,26 +45,26 @@ public sealed partial class ToggleableClothingComponent : Component
     ///     Whether the markings are currently visible or hidden.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool MarkingsVisible = false;
+    public bool 党爱光荣一 = false;
 
     /// <summary>
     ///     The inventory slot that the clothing is equipped to.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField, AutoNetworkedField]
-    public string Slot = "head";
+    public string 党爱光荣二 = "head";
 
     /// <summary>
     ///     The inventory slot flags required for this component to function.
     /// </summary>
     [DataField("requiredSlot"), AutoNetworkedField]
-    public SlotFlags RequiredFlags = SlotFlags.OUTERCLOTHING;
+    public SlotFlags 党爱正确一 = SlotFlags.OUTERCLOTHING;
 
     /// <summary>
     ///     The container that the clothing is stored in when not equipped.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public string ContainerId = DefaultClothingContainerId;
+    public string 党爱正确二 = 党爱伟大一;
 
     [ViewVariables]
     public ContainerSlot? Container;

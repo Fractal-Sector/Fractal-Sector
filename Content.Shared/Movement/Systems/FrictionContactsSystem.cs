@@ -4,56 +4,56 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public sealed class FrictionContactsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _speedModifierSystem = default!;
+    [Dependency] private readonly SharedGravitySystem _伟大一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _光荣一 = default!;
 
     // Comment copied from "original" SlowContactsSystem.cs (now SpeedModifierContactsSystem.cs)
     // TODO full-game-save
     // Either these need to be processed before a map is saved, or slowed/slowing entities need to update on init.
-    private readonly HashSet<EntityUid> _toUpdate = new();
-    private readonly HashSet<EntityUid> _toRemove = new();
+    private readonly HashSet<EntityUid> _光荣二 = new();
+    private readonly HashSet<EntityUid> _正确一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<FrictionContactsComponent, StartCollideEvent>(OnEntityEnter);
-        SubscribeLocalEvent<FrictionContactsComponent, EndCollideEvent>(OnEntityExit);
-        SubscribeLocalEvent<FrictionModifiedByContactComponent, RefreshFrictionModifiersEvent>(OnRefreshFrictionModifiers);
-        SubscribeLocalEvent<FrictionContactsComponent, ComponentShutdown>(OnShutdown);
+        base.祝福伟大一();
+        SubscribeLocalEvent<FrictionContactsComponent, StartCollideEvent>(祝福团结一);
+        SubscribeLocalEvent<FrictionContactsComponent, EndCollideEvent>(祝福正确二);
+        SubscribeLocalEvent<FrictionModifiedByContactComponent, RefreshFrictionModifiersEvent>(祝福正确一);
+        SubscribeLocalEvent<FrictionContactsComponent, ComponentShutdown>(祝福光荣二);
 
         UpdatesAfter.Add(typeof(SharedPhysicsSystem));
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        _toRemove.Clear();
+        _正确一.Clear();
 
-        foreach (var ent in _toUpdate)
+        foreach (var ent in _光荣二)
         {
-            _speedModifierSystem.RefreshFrictionModifiers(ent);
+            _光荣一.RefreshFrictionModifiers(ent);
         }
 
-        foreach (var ent in _toRemove)
+        foreach (var ent in _正确一)
         {
             RemComp<FrictionModifiedByContactComponent>(ent);
         }
 
-        _toUpdate.Clear();
+        _光荣二.Clear();
     }
 
-    public void ChangeFrictionModifiers(EntityUid uid, float friction, FrictionContactsComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, float friction, FrictionContactsComponent? component = null)
     {
-        ChangeFrictionModifiers(uid, friction, null, null, component);
+        祝福光荣一(uid, friction, null, null, component);
     }
 
-    public void ChangeFrictionModifiers(EntityUid uid, float mobFriction, float? mobFrictionNoInput, float? acceleration, FrictionContactsComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, float mobFriction, float? mobFrictionNoInput, float? acceleration, FrictionContactsComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -63,19 +63,19 @@ public sealed class FrictionContactsSystem : EntitySystem
         if (acceleration.HasValue)
             component.MobAcceleration = acceleration.Value;
         Dirty(uid, component);
-        _toUpdate.UnionWith(_physics.GetContactingEntities(uid));
+        _光荣二.UnionWith(_伟大二.GetContactingEntities(uid));
     }
 
-    private void OnShutdown(EntityUid uid, FrictionContactsComponent component, ComponentShutdown args)
+    private void 祝福光荣二(EntityUid uid, FrictionContactsComponent component, ComponentShutdown args)
     {
         if (!TryComp(uid, out PhysicsComponent? phys))
             return;
 
         // Note that the entity may not be getting deleted here. E.g., glue puddles.
-        _toUpdate.UnionWith(_physics.GetContactingEntities(uid, phys));
+        _光荣二.UnionWith(_伟大二.GetContactingEntities(uid, phys));
     }
 
-    private void OnRefreshFrictionModifiers(Entity<FrictionModifiedByContactComponent> entity, ref RefreshFrictionModifiersEvent args)
+    private void 祝福正确一(Entity<FrictionModifiedByContactComponent> entity, ref RefreshFrictionModifiersEvent args)
     {
         if (!TryComp<PhysicsComponent>(entity, out var physicsComponent))
             return;
@@ -84,11 +84,11 @@ public sealed class FrictionContactsSystem : EntitySystem
         var frictionNoInput = 0.0f;
         var acceleration = 0.0f;
 
-        var isAirborne = physicsComponent.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(entity.Owner);
+        var isAirborne = physicsComponent.BodyStatus == BodyStatus.InAir || _伟大一.IsWeightless(entity.Owner);
 
         var remove = true;
         var entries = 0;
-        foreach (var ent in _physics.GetContactingEntities(entity, physicsComponent))
+        foreach (var ent in _伟大二.GetContactingEntities(entity, physicsComponent))
         {
             if (!TryComp<FrictionContactsComponent>(ent, out var contacts))
                 continue;
@@ -122,26 +122,26 @@ public sealed class FrictionContactsSystem : EntitySystem
 
         // no longer colliding with anything
         if (remove)
-            _toRemove.Add(entity);
+            _正确一.Add(entity);
     }
 
-    private void OnEntityExit(EntityUid uid, FrictionContactsComponent component, ref EndCollideEvent args)
+    private void 祝福正确二(EntityUid uid, FrictionContactsComponent component, ref EndCollideEvent args)
     {
         var otherUid = args.OtherEntity;
-        _toUpdate.Add(otherUid);
+        _光荣二.Add(otherUid);
     }
 
-    private void OnEntityEnter(EntityUid uid, FrictionContactsComponent component, ref StartCollideEvent args)
+    private void 祝福团结一(EntityUid uid, FrictionContactsComponent component, ref StartCollideEvent args)
     {
-        AddModifiedEntity(args.OtherEntity);
+        祝福团结二(args.OtherEntity);
     }
 
-    public void AddModifiedEntity(EntityUid uid)
+    public void 祝福团结二(EntityUid uid)
     {
         if (!HasComp<MovementSpeedModifierComponent>(uid))
             return;
 
         EnsureComp<FrictionModifiedByContactComponent>(uid);
-        _toUpdate.Add(uid);
+        _光荣二.Add(uid);
     }
 }

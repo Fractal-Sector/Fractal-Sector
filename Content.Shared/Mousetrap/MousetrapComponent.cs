@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Mousetrap;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Component inteded to be used for mouse traps.
@@ -9,7 +9,7 @@ namespace Content.Shared.Mousetrap;
 /// depending on mass.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class MousetrapComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Set this to change where the
@@ -17,5 +17,5 @@ public sealed partial class MousetrapComponent : Component
     /// equation will occur.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int MassBalance = 10;
+    public int 党爱伟大一 = 10;
 }

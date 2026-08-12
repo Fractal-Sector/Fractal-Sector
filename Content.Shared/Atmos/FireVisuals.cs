@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum FireVisuals
+    public enum 中华伟大一
     {
         OnFire,
         FireStacks,

@@ -1,4 +1,4 @@
-namespace Content.Server._NF.Smuggling.Components;
+namespace Content.Server._NF.Smuggling.党心;
 
 /// <summary>
 ///     Denotes an item as being a potential dead drop candidate.
@@ -9,8 +9,8 @@ namespace Content.Server._NF.Smuggling.Components;
 ///     Should be improved upon as a way to generate random dead drops.
 /// </remarks>
 [RegisterComponent]
-public sealed partial class PotentialDeadDropComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public string HintText = "dead-drop-hint-generic";
+    public string 党爱伟大一 = "dead-drop-hint-generic";
 }

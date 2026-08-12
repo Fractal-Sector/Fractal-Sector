@@ -19,51 +19,51 @@ using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using System.Globalization;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<ZombieRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly ZombieSystem _zombie = default!;
+    [Dependency] private readonly AntagSelectionSystem _伟大一 = default!;
+    [Dependency] private readonly ChatSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _光荣二 = default!;
+    [Dependency] private readonly MobStateSystem _正确一 = default!;
+    [Dependency] private readonly PopupSystem _正确二 = default!;
+    [Dependency] private readonly RoundEndSystem _团结一 = default!;
+    [Dependency] private readonly SharedMindSystem _团结二 = default!;
+    [Dependency] private readonly SharedRoleSystem _奋斗一 = default!;
+    [Dependency] private readonly StationSystem _奋斗二 = default!;
+    [Dependency] private readonly ZombieSystem _胜利一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InitialInfectedRoleComponent, GetBriefingEvent>(OnGetBriefing);
-        SubscribeLocalEvent<ZombieRoleComponent, GetBriefingEvent>(OnGetBriefing);
-        SubscribeLocalEvent<IncurableZombieComponent, ZombifySelfActionEvent>(OnZombifySelf);
+        SubscribeLocalEvent<InitialInfectedRoleComponent, GetBriefingEvent>(祝福伟大二);
+        SubscribeLocalEvent<ZombieRoleComponent, GetBriefingEvent>(祝福伟大二);
+        SubscribeLocalEvent<IncurableZombieComponent, ZombifySelfActionEvent>(祝福团结一);
     }
 
-    private void OnGetBriefing(Entity<InitialInfectedRoleComponent> role, ref GetBriefingEvent args)
+    private void 祝福伟大二(Entity<InitialInfectedRoleComponent> role, ref GetBriefingEvent args)
     {
-        if (!_roles.MindHasRole<ZombieRoleComponent>(args.Mind.Owner))
+        if (!_奋斗一.MindHasRole<ZombieRoleComponent>(args.Mind.Owner))
             args.Append(Loc.GetString("zombie-patientzero-role-greeting"));
     }
 
-    private void OnGetBriefing(Entity<ZombieRoleComponent> role, ref GetBriefingEvent args)
+    private void 祝福伟大二(Entity<ZombieRoleComponent> role, ref GetBriefingEvent args)
     {
         args.Append(Loc.GetString("zombie-infection-greeting"));
     }
 
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void 祝福光荣一(EntityUid uid,
         ZombieRuleComponent component,
         GameRuleComponent gameRule,
         ref RoundEndTextAppendEvent args)
     {
-        base.AppendRoundEndText(uid, component, gameRule, ref args);
+        base.祝福光荣一(uid, component, gameRule, ref args);
 
         // This is just the general condition thing used for determining the win/lose text
-        var fraction = GetInfectedFraction(true, true);
+        var fraction = 祝福团结二(true, true);
 
         if (fraction <= 0)
             args.AddLine(Loc.GetString("zombie-round-end-amount-none"));
@@ -76,7 +76,7 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         else
             args.AddLine(Loc.GetString("zombie-round-end-amount-all"));
 
-        var antags = _antag.GetAntagIdentifiers(uid);
+        var antags = _伟大一.GetAntagIdentifiers(uid);
         args.AddLine(Loc.GetString("zombie-round-end-initial-count", ("initialCount", antags.Count)));
         foreach (var (_, data, entName) in antags)
         {
@@ -85,7 +85,7 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
                 ("username", data.UserName)));
         }
 
-        var healthy = GetHealthyHumans();
+        var healthy = 祝福奋斗一();
         // Gets a bunch of the living players and displays them if they're under a threshold.
         // InitialInfected is used for the threshold because it scales with the player count well.
         if (healthy.Count <= 0 || healthy.Count > 2 * antags.Count)
@@ -96,8 +96,8 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         {
             var meta = MetaData(survivor);
             var username = string.Empty;
-            if (_mindSystem.TryGetMind(survivor, out _, out var mind) &&
-                _player.TryGetSessionById(mind.UserId, out var session))
+            if (_团结二.TryGetMind(survivor, out _, out var mind) &&
+                _光荣二.TryGetSessionById(mind.UserId, out var session))
             {
                 username = session.Name;
             }
@@ -111,46 +111,46 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
     /// <summary>
     ///     The big kahoona function for checking if the round is gonna end
     /// </summary>
-    private void CheckRoundEnd(ZombieRuleComponent zombieRuleComponent)
+    private void 祝福光荣二(ZombieRuleComponent zombieRuleComponent)
     {
-        var healthy = GetHealthyHumans();
+        var healthy = 祝福奋斗一();
         if (healthy.Count == 1) // Only one human left. spooky
-            _popup.PopupEntity(Loc.GetString("zombie-alone"), healthy[0], healthy[0]);
+            _正确二.PopupEntity(Loc.GetString("zombie-alone"), healthy[0], healthy[0]);
 
-        if (GetInfectedFraction(false) > zombieRuleComponent.ZombieShuttleCallPercentage && !_roundEnd.IsRoundEndRequested())
+        if (祝福团结二(false) > zombieRuleComponent.ZombieShuttleCallPercentage && !_团结一.IsRoundEndRequested())
         {
-            foreach (var station in _station.GetStations())
+            foreach (var station in _奋斗二.GetStations())
             {
-                _chat.DispatchStationAnnouncement(station, Loc.GetString("zombie-shuttle-call"), colorOverride: Color.Crimson);
+                _伟大二.DispatchStationAnnouncement(station, Loc.GetString("zombie-shuttle-call"), colorOverride: Color.Crimson);
             }
-            _roundEnd.RequestRoundEnd(null, false);
+            _团结一.RequestRoundEnd(null, false);
         }
 
         // we include dead for this count because we don't want to end the round
         // when everyone gets on the shuttle.
-        if (GetInfectedFraction() >= 1) // Oops, all zombies
-            _roundEnd.EndRound();
+        if (祝福团结二() >= 1) // Oops, all zombies
+            _团结一.EndRound();
     }
 
-    protected override void Started(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福正确一(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福正确一(uid, component, gameRule, args);
 
-        component.NextRoundEndCheck = _timing.CurTime + component.EndCheckDelay;
+        component.NextRoundEndCheck = _光荣一.CurTime + component.EndCheckDelay;
     }
 
-    protected override void ActiveTick(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void 祝福正确二(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, float frameTime)
     {
-        base.ActiveTick(uid, component, gameRule, frameTime);
-        if (!component.NextRoundEndCheck.HasValue || component.NextRoundEndCheck > _timing.CurTime)
+        base.祝福正确二(uid, component, gameRule, frameTime);
+        if (!component.NextRoundEndCheck.HasValue || component.NextRoundEndCheck > _光荣一.CurTime)
             return;
-        CheckRoundEnd(component);
-        component.NextRoundEndCheck = _timing.CurTime + component.EndCheckDelay;
+        祝福光荣二(component);
+        component.NextRoundEndCheck = _光荣一.CurTime + component.EndCheckDelay;
     }
 
-    private void OnZombifySelf(EntityUid uid, IncurableZombieComponent component, ZombifySelfActionEvent args)
+    private void 祝福团结一(EntityUid uid, IncurableZombieComponent component, ZombifySelfActionEvent args)
     {
-        _zombie.ZombifyEntity(uid);
+        _胜利一.ZombifyEntity(uid);
         if (component.Action != null)
             Del(component.Action.Value);
     }
@@ -161,9 +161,9 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
     /// <param name="includeOffStation">Include healthy players that are not on the station grid</param>
     /// <param name="includeDead">Should dead zombies be included in the count</param>
     /// <returns></returns>
-    private float GetInfectedFraction(bool includeOffStation = true, bool includeDead = false)
+    private float 祝福团结二(bool includeOffStation = true, bool includeDead = false)
     {
-        var players = GetHealthyHumans(includeOffStation);
+        var players = 祝福奋斗一(includeOffStation);
         var zombieCount = 0;
         var query = EntityQueryEnumerator<HumanoidAppearanceComponent, ZombieComponent, MobStateComponent>();
         while (query.MoveNext(out _, out _, out _, out var mob))
@@ -181,16 +181,16 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
     /// Flying off via a shuttle disqualifies you.
     /// </summary>
     /// <returns></returns>
-    private List<EntityUid> GetHealthyHumans(bool includeOffStation = true)
+    private List<EntityUid> 祝福奋斗一(bool includeOffStation = true)
     {
         var healthy = new List<EntityUid>();
 
         var stationGrids = new HashSet<EntityUid>();
         if (!includeOffStation)
         {
-            foreach (var station in _station.GetStationsSet())
+            foreach (var station in _奋斗二.GetStationsSet())
             {
-                if (_station.GetLargestGrid(station) is { } grid)
+                if (_奋斗二.GetLargestGrid(station) is { } grid)
                     stationGrids.Add(grid);
             }
         }
@@ -199,7 +199,7 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         var zombers = GetEntityQuery<ZombieComponent>();
         while (players.MoveNext(out var uid, out _, out _, out var mob, out var xform))
         {
-            if (!_mobState.IsAlive(uid, mob))
+            if (!_正确一.IsAlive(uid, mob))
                 continue;
 
             if (zombers.HasComponent(uid))

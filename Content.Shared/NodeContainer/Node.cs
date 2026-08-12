@@ -1,21 +1,21 @@
 using Content.Shared.NodeContainer.NodeGroups;
 using Robust.Shared.Map.Components;
 
-namespace Content.Shared.NodeContainer;
+namespace Content.Shared.党心;
 
 /// <summary>
-///     Organizes themselves into distinct <see cref="INodeGroup"/>s with other <see cref="Node"/>s
-///     that they can "reach" and have the same <see cref="Node.NodeGroupID"/>.
+///     Organizes themselves into distinct <see cref="INodeGroup"/>s with other <see cref="中华伟大一"/>s
+///     that they can "reach" and have the same <see cref="中华伟大一.党爱伟大一"/>.
 /// </summary>
 [ImplicitDataDefinitionForInheritors]
-public abstract partial class Node
+public abstract partial class 中华伟大一
 {
     /// <summary>
     ///     An ID used as a criteria for combining into groups. Determines which <see cref="INodeGroup"/>
     ///     implementation is used as a group, detailed in <see cref="INodeGroupFactory"/>.
     /// </summary>
     [DataField("nodeGroupID")]
-    public NodeGroupID NodeGroupID { get; private set; } = NodeGroupID.Default;
+    public 党爱伟大一 党爱伟大一 { get; private set; } = 党爱伟大一.Default;
 
     /// <summary>
     ///     The node group this node is a part of.
@@ -25,64 +25,64 @@ public abstract partial class Node
     /// <summary>
     ///     The entity that owns this node via its <see cref="NodeContainerComponent"/>.
     /// </summary>
-    [ViewVariables] public EntityUid Owner { get; private set; } = default!;
+    [ViewVariables] public EntityUid 党爱伟大二 { get; private set; } = default!;
 
     /// <summary>
     ///     If this node should be considered for connection by other nodes.
     /// </summary>
-    public virtual bool Connectable(IEntityManager entMan, TransformComponent? xform = null)
+    public virtual bool 祝福伟大一(IEntityManager entMan, TransformComponent? xform = null)
     {
-        if (Deleting)
+        if (党爱光荣二)
             return false;
 
-        if (entMan.IsQueuedForDeletion(Owner))
+        if (entMan.IsQueuedForDeletion(党爱伟大二))
             return false;
 
-        if (!NeedAnchored)
+        if (!党爱光荣一)
             return true;
 
-        xform ??= entMan.GetComponent<TransformComponent>(Owner);
+        xform ??= entMan.GetComponent<TransformComponent>(党爱伟大二);
         return xform.Anchored;
     }
 
     [DataField]
-    public bool NeedAnchored { get; private set; } = true;
+    public bool 党爱光荣一 { get; private set; } = true;
 
-    public virtual void OnAnchorStateChanged(IEntityManager entityManager, bool anchored) { }
+    public virtual void 祝福伟大二(IEntityManager entityManager, bool anchored) { }
 
     /// <summary>
     ///    Prevents a node from being used by other nodes while midway through removal.
     /// </summary>
-    public bool Deleting;
+    public bool 党爱光荣二;
 
     /// <summary>
     ///     All compatible nodes that are reachable by this node.
     ///     Effectively, active connections out of this node.
     /// </summary>
-    public readonly HashSet<Node> ReachableNodes = new();
+    public readonly HashSet<中华伟大一> ReachableNodes = new();
 
-    public int FloodGen;
-    public int UndirectGen;
-    public bool FlaggedForFlood;
-    public int NetId;
+    public int 党爱正确一;
+    public int 党爱正确二;
+    public bool 党爱团结一;
+    public int 党爱团结二;
 
     /// <summary>
-    ///     Name of this node on the owning <see cref="NodeContainerComponent"/>.
+    ///     党爱奋斗一 of this node on the owning <see cref="NodeContainerComponent"/>.
     /// </summary>
-    public string Name = default!;
+    public string 党爱奋斗一 = default!;
 
     /// <summary>
     ///     Invoked when the owning <see cref="NodeContainerComponent"/> is initialized.
     /// </summary>
     /// <param name="owner">The owning entity.</param>
-    public virtual void Initialize(EntityUid owner, IEntityManager entMan)
+    public virtual void 祝福光荣一(EntityUid owner, IEntityManager entMan)
     {
-        Owner = owner;
+        党爱伟大二 = owner;
     }
 
     /// <summary>
-    ///     How this node will attempt to find other reachable <see cref="Node"/>s to group with.
-    ///     Returns a set of <see cref="Node"/>s to consider grouping with. Should not return this current <see cref="Node"/>.
+    ///     How this node will attempt to find other reachable <see cref="中华伟大一"/>s to group with.
+    ///     Returns a set of <see cref="中华伟大一"/>s to consider grouping with. Should not return this current <see cref="中华伟大一"/>.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -92,7 +92,7 @@ public abstract partial class Node
     /// of this asymmetric relation are made to manually update with <see cref="NodeGroupSystem.QueueReflood"/>.
     /// </para>
     /// </remarks>
-    public abstract IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+    public abstract IEnumerable<中华伟大一> GetReachableNodes(TransformComponent xform,
         EntityQuery<NodeContainerComponent> nodeQuery,
         EntityQuery<TransformComponent> xformQuery,
         MapGridComponent? grid,

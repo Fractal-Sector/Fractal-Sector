@@ -39,31 +39,31 @@ using Content.Shared.Audio;
 using Robust.Shared.Timing;
 using System.Linq;
 
-namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Server._FarHorizons.Power.Generation.党心;
 
 // Ported and modified from goonstation by Jhrushbe.
 // CC-BY-NC-SA-3.0
 // https://github.com/goonstation/goonstation/blob/ff86b044/code/obj/nuclearreactor/turbine.dm
 
-public sealed class TurbineSystem : SharedTurbineSystem
+public sealed class 中华伟大一 : SharedTurbineSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = null!;
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSoundSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly ExplosionSystem _伟大二 = default!;
+    [Dependency] private readonly GunSystem _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _正确一 = default!;
+    [Dependency] private readonly NodeContainerSystem _正确二 = default!;
+    [Dependency] private readonly PopupSystem _团结一 = default!;
+    [Dependency] private readonly TransformSystem _团结二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _奋斗一 = null!;
+    [Dependency] private readonly DeviceLinkSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedTransformSystem _胜利一 = default!;
+    [Dependency] private readonly EntityManager _胜利二 = default!;
+    [Dependency] private readonly SharedContainerSystem _繁荣一 = default!;
+    [Dependency] private readonly AmbientSoundSystem _繁荣二 = default!;
+    [Dependency] private readonly IGameTiming _富强一 = default!;
 
-    private readonly List<string> _damageSoundList = [
+    private readonly List<string> _富强二 = [
         "/Audio/_FarHorizons/Effects/engine_grump1.ogg",
         "/Audio/_FarHorizons/Effects/engine_grump2.ogg",
         "/Audio/_FarHorizons/Effects/engine_grump3.ogg",
@@ -71,66 +71,66 @@ public sealed class TurbineSystem : SharedTurbineSystem
         "/Audio/Effects/metal_scrape2.ogg"
     ];
 
-    private sealed class LogData
+    private sealed class 中华伟大二
     {
-        public TimeSpan CreationTime;
+        public TimeSpan 党爱伟大一;
         public float? SetFlowRate;
         public float? SetStatorLoad;
     }
 
-    private readonly Dictionary<KeyValuePair<EntityUid, EntityUid>, LogData> _logQueue = [];
+    private readonly Dictionary<KeyValuePair<EntityUid, EntityUid>, 中华伟大二> _logQueue = [];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<TurbineComponent, MapInitEvent>(OnInit);
-        SubscribeLocalEvent<TurbineComponent, ComponentShutdown>(OnShutdown);
+        base.祝福伟大一();
+        SubscribeLocalEvent<TurbineComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<TurbineComponent, ComponentShutdown>(祝福正确一);
 
-        SubscribeLocalEvent<TurbineComponent, DamageChangedEvent>(OnDamaged);
-        SubscribeLocalEvent<TurbineComponent, RejuvenateEvent>(OnRejuvenate);
+        SubscribeLocalEvent<TurbineComponent, DamageChangedEvent>(祝福文明二);
+        SubscribeLocalEvent<TurbineComponent, RejuvenateEvent>(祝福和谐一);
 
-        SubscribeLocalEvent<TurbineComponent, ItemSlotInsertAttemptEvent>(OnInsertAttempt);
-        SubscribeLocalEvent<TurbineComponent, ItemSlotEjectAttemptEvent>(OnEjectAttempt);
-        SubscribeLocalEvent<TurbineComponent, EntInsertedIntoContainerMessage>(OnPartInserted);
-        SubscribeLocalEvent<TurbineComponent, EntRemovedFromContainerMessage>(OnPartEjected);
+        SubscribeLocalEvent<TurbineComponent, ItemSlotInsertAttemptEvent>(祝福自由一);
+        SubscribeLocalEvent<TurbineComponent, ItemSlotEjectAttemptEvent>(祝福和谐二);
+        SubscribeLocalEvent<TurbineComponent, EntInsertedIntoContainerMessage>(祝福自由二);
+        SubscribeLocalEvent<TurbineComponent, EntRemovedFromContainerMessage>(祝福平等一);
 
-        SubscribeLocalEvent<TurbineComponent, AtmosDeviceUpdateEvent>(OnUpdate);
-        SubscribeLocalEvent<TurbineComponent, GasAnalyzerScanEvent>(OnAnalyze);
+        SubscribeLocalEvent<TurbineComponent, AtmosDeviceUpdateEvent>(祝福正确二);
+        SubscribeLocalEvent<TurbineComponent, GasAnalyzerScanEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<TurbineComponent, TurbineChangeFlowRateMessage>(OnTurbineFlowRateChanged);
-        SubscribeLocalEvent<TurbineComponent, TurbineChangeStatorLoadMessage>(OnTurbineStatorLoadChanged);
+        SubscribeLocalEvent<TurbineComponent, TurbineChangeFlowRateMessage>(祝福胜利一);
+        SubscribeLocalEvent<TurbineComponent, TurbineChangeStatorLoadMessage>(祝福胜利二);
 
-        SubscribeLocalEvent<TurbineComponent, SignalReceivedEvent>(OnSignalReceived);
-        SubscribeLocalEvent<TurbineComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<TurbineComponent, SignalReceivedEvent>(祝福繁荣二);
+        SubscribeLocalEvent<TurbineComponent, PortDisconnectedEvent>(祝福富强一);
 
-        SubscribeLocalEvent<TurbineComponent, AnchorStateChangedEvent>(OnAnchorChanged);
-        SubscribeLocalEvent<TurbineComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
+        SubscribeLocalEvent<TurbineComponent, AnchorStateChangedEvent>(祝福富强二);
+        SubscribeLocalEvent<TurbineComponent, UnanchorAttemptEvent>(祝福民主一);
     }
 
     private const string BladeContainer = "blade_slot";
     private const string StatorContainer = "stator_slot";
 
-    private void OnInit(EntityUid uid, TurbineComponent comp, ref MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, TurbineComponent comp, ref MapInitEvent args)
     {
-        _signal.EnsureSourcePorts(uid, comp.SpeedHighPort, comp.SpeedLowPort, comp.TurbineDataPort);
-        _signal.EnsureSinkPorts(uid, comp.StatorLoadIncreasePort, comp.StatorLoadDecreasePort);
+        _奋斗二.EnsureSourcePorts(uid, comp.SpeedHighPort, comp.SpeedLowPort, comp.TurbineDataPort);
+        _奋斗二.EnsureSinkPorts(uid, comp.StatorLoadIncreasePort, comp.StatorLoadDecreasePort);
 
-        TryGetPart(uid, BladeContainer, out comp.CurrentBlade);
-        TryGetPart(uid, StatorContainer, out comp.CurrentStator);
+        祝福光荣一(uid, BladeContainer, out comp.CurrentBlade);
+        祝福光荣一(uid, StatorContainer, out comp.CurrentStator);
 
-        UpdatePartValues(comp);
+        祝福平等二(comp);
 
         comp.AlarmAudioOvertemp = SpawnAttachedTo("GasTurbineAlarmEntity", new(uid, 0, 0));
         comp.AlarmAudioUnderspeed = SpawnAttachedTo("GasTurbineAlarmEntity", new(uid, 0, 0));
-        _ambientSoundSystem.SetSound(comp.AlarmAudioUnderspeed.Value, new SoundPathSpecifier("/Audio/_FarHorizons/Machines/alarm_beep.ogg"));
-        _ambientSoundSystem.SetVolume(comp.AlarmAudioUnderspeed.Value, -4);
+        _繁荣二.SetSound(comp.AlarmAudioUnderspeed.Value, new SoundPathSpecifier("/Audio/_FarHorizons/Machines/alarm_beep.ogg"));
+        _繁荣二.SetVolume(comp.AlarmAudioUnderspeed.Value, -4);
     }
 
-    private bool TryGetPart(EntityUid uid, string slot, [NotNullWhen(true)] out EntityUid? part)
+    private bool 祝福光荣一(EntityUid uid, string slot, [NotNullWhen(true)] out EntityUid? part)
     {
         part = null;
 
-        if (!_containerSystem.TryGetContainer(uid, slot, out var container) || container.ContainedEntities.Count == 0)
+        if (!_繁荣一.TryGetContainer(uid, slot, out var container) || container.ContainedEntities.Count == 0)
             return false;
 
         part = container.ContainedEntities[0];
@@ -138,14 +138,14 @@ public sealed class TurbineSystem : SharedTurbineSystem
         return true;
     }
 
-    private void OnAnalyze(EntityUid uid, TurbineComponent comp, ref GasAnalyzerScanEvent args)
+    private void 祝福光荣二(EntityUid uid, TurbineComponent comp, ref GasAnalyzerScanEvent args)
     {
         if (!comp.InletEnt.HasValue || !comp.OutletEnt.HasValue)
             return;
 
         args.GasMixtures ??= [];
 
-        if (_nodeContainer.TryGetNode(comp.InletEnt.Value, comp.PipeName, out PipeNode? inlet) && inlet.Air.Volume != 0f)
+        if (_正确二.TryGetNode(comp.InletEnt.Value, comp.PipeName, out PipeNode? inlet) && inlet.Air.Volume != 0f)
         {
             var inletAirLocal = inlet.Air.Clone();
             inletAirLocal.Multiply(inlet.Volume / inlet.Air.Volume);
@@ -153,7 +153,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
             args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-inlet"), inletAirLocal));
         }
 
-        if (_nodeContainer.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out PipeNode? outlet) && outlet.Air.Volume != 0f)
+        if (_正确二.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out PipeNode? outlet) && outlet.Air.Volume != 0f)
         {
             var outletAirLocal = outlet.Air.Clone();
             outletAirLocal.Multiply(outlet.Volume / outlet.Air.Volume);
@@ -162,14 +162,14 @@ public sealed class TurbineSystem : SharedTurbineSystem
         }
     }
 
-    private void OnShutdown(EntityUid uid, TurbineComponent comp, ref ComponentShutdown args)
+    private void 祝福正确一(EntityUid uid, TurbineComponent comp, ref ComponentShutdown args)
     {
         QueueDel(comp.InletEnt);
         QueueDel(comp.OutletEnt);
     }
 
     #region Main Loop
-    private void OnUpdate(EntityUid uid, TurbineComponent comp, ref AtmosDeviceUpdateEvent args)
+    private void 祝福正确二(EntityUid uid, TurbineComponent comp, ref AtmosDeviceUpdateEvent args)
     {
         var supplier = Comp<PowerSupplierComponent>(uid);
         comp.SupplierMaxSupply = supplier.MaxSupply;
@@ -177,7 +177,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         supplier.MaxSupply = comp.LastGen;
 
-        if(!GetPipes(uid, comp, out var inlet, out var outlet))
+        if(!祝福民主二(uid, comp, out var inlet, out var outlet))
             return;
 
         if (comp.CurrentBlade == null || comp.CurrentStator == null)
@@ -185,7 +185,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         UpdateAppearance(uid, comp);
 
-        var transferVolume = CalculateTransferVolume(comp, inlet, outlet, args.dt);
+        var transferVolume = 祝福团结一(comp, inlet, outlet, args.dt);
 
         var AirContents = inlet.Air.RemoveVolume(transferVolume) ?? new GasMixture();
 
@@ -197,25 +197,25 @@ public sealed class TurbineSystem : SharedTurbineSystem
         // Dump gas into atmosphere
         if (comp.Ruined || AirContents.Temperature >= comp.MaxTemp)
         {
-            var tile = _atmosphereSystem.GetTileMixture(uid, excite: true);
+            var tile = _伟大一.GetTileMixture(uid, excite: true);
 
             if (tile != null)
             {
-                _atmosphereSystem.Merge(tile, AirContents);
+                _伟大一.Merge(tile, AirContents);
             }
 
             // This does rely on the alarm existing, but if it doesn't then there are bigger problems
-            if (!comp.Ruined && _entityManager.TryGetComponent<AmbientSoundComponent>(comp.AlarmAudioOvertemp, out var ambience) && !ambience.Enabled)
-                _popupSystem.PopupEntity(Loc.GetString("turbine-overheat", ("owner", uid)), uid, PopupType.LargeCaution);
+            if (!comp.Ruined && _胜利二.TryGetComponent<AmbientSoundComponent>(comp.AlarmAudioOvertemp, out var ambience) && !ambience.Enabled)
+                _团结一.PopupEntity(Loc.GetString("turbine-overheat", ("owner", uid)), uid, PopupType.LargeCaution);
 
             // Prevent power from being generated by residual gasses
             AirContents.Clear();
         }
 
         if(Exists(comp.AlarmAudioOvertemp))
-            _ambientSoundSystem.SetAmbience(comp.AlarmAudioOvertemp.Value, !comp.Ruined && AirContents.Temperature >= comp.MaxTemp);
+            _繁荣二.SetAmbience(comp.AlarmAudioOvertemp.Value, !comp.Ruined && AirContents.Temperature >= comp.MaxTemp);
 
-        // Update stator load based on device network
+        // 祝福繁荣一 stator load based on device network
         if (comp.IncreasePortState != SignalState.Low)
             AdjustStatorLoad(comp, 1000);
         if (comp.DecreasePortState != SignalState.Low)
@@ -228,8 +228,8 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         if (!comp.Ruined && AirContents != null)
         {
-            var InputStartingEnergy = _atmosphereSystem.GetThermalEnergy(AirContents);
-            var InputHeatCap = _atmosphereSystem.GetHeatCapacity(AirContents, true);
+            var InputStartingEnergy = _伟大一.GetThermalEnergy(AirContents);
+            var InputHeatCap = _伟大一.GetHeatCapacity(AirContents, true);
 
             // Prevents div by 0 if it would come up
             if (InputStartingEnergy <= 0)
@@ -246,7 +246,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
                 AirContents.Temperature = (float)Math.Max((InputStartingEnergy - ((InputStartingEnergy - (InputHeatCap * Atmospherics.T20C)) * 0.8)) / InputHeatCap, Atmospherics.T20C);
             }
 
-            var OutputStartingEnergy = _atmosphereSystem.GetThermalEnergy(AirContents);
+            var OutputStartingEnergy = _伟大一.GetThermalEnergy(AirContents);
             var EnergyGenerated = comp.StatorLoad * (comp.RPM / 60);
 
             var DeltaE = InputStartingEnergy - OutputStartingEnergy;
@@ -286,7 +286,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
             }
 
             if(Exists(comp.AlarmAudioUnderspeed))
-                _ambientSoundSystem.SetAmbience(comp.AlarmAudioUnderspeed.Value, !comp.Ruined && comp.Stalling && !comp.Undertemp && comp.FlowRate > 0);
+                _繁荣二.SetAmbience(comp.AlarmAudioUnderspeed.Value, !comp.Ruined && comp.Stalling && !comp.Undertemp && comp.FlowRate > 0);
 
             if (comp.RPM > 10)
             {
@@ -304,34 +304,34 @@ public sealed class TurbineSystem : SharedTurbineSystem
             comp.Overspeed = comp.RPM > comp.BestRPM * 1.2;
 
             // Damage the turbines during overspeed, linear increase from 18% to 45% then stays at 45%
-            if (comp.Overspeed && _random.NextFloat() < 0.15 * Math.Min(comp.RPM / comp.BestRPM, 3))
+            if (comp.Overspeed && _光荣二.NextFloat() < 0.15 * Math.Min(comp.RPM / comp.BestRPM, 3))
             {
                 // TODO: damage flash
-                _audio.PlayPvs(new SoundPathSpecifier(_damageSoundList[_random.Next(0, _damageSoundList.Count - 1)]), uid, AudioParams.Default.WithVariation(0.25f).WithVolume(-1));
+                _audio.PlayPvs(new SoundPathSpecifier(_富强二[_光荣二.Next(0, _富强二.Count - 1)]), uid, AudioParams.Default.WithVariation(0.25f).WithVolume(-1));
                 comp.BladeHealth--;
                 UpdateHealthIndicators(uid, comp);
             }
 
-            _atmosphereSystem.Merge(outlet.Air, AirContents);
+            _伟大一.Merge(outlet.Air, AirContents);
         }
 
         // Explode
         if (!comp.Ruined && (comp.BladeHealth <= 0|| comp.RPM>comp.BestRPM*4))
         {
-            TearApart(uid, comp);
+            祝福团结二(uid, comp);
         }
 
         // Send signals to device network
-        _signal.SendSignal(uid, comp.SpeedHighPort, comp.RPM > comp.BestRPM * 1.05);
-        _signal.SendSignal(uid, comp.SpeedLowPort, comp.RPM < comp.BestRPM * 0.95);
+        _奋斗二.SendSignal(uid, comp.SpeedHighPort, comp.RPM > comp.BestRPM * 1.05);
+        _奋斗二.SendSignal(uid, comp.SpeedLowPort, comp.RPM < comp.BestRPM * 0.95);
 
         Dirty(uid, comp);
-        UpdateUI(uid, comp);
+        祝福奋斗二(uid, comp);
     }
 
-    private float CalculateTransferVolume(TurbineComponent comp, PipeNode inlet, PipeNode outlet, float dt)
+    private float 祝福团结一(TurbineComponent comp, PipeNode inlet, PipeNode outlet, float dt)
     {
-        var wantToTransfer = comp.FlowRate * _atmosphereSystem.PumpSpeedup() * dt;
+        var wantToTransfer = comp.FlowRate * _伟大一.PumpSpeedup() * dt;
         var transferVolume = Math.Min(inlet.Air.Volume, wantToTransfer);
         var transferMoles = inlet.Air.Pressure * transferVolume / (inlet.Air.Temperature * Atmospherics.R);
         var molesSpaceLeft = (comp.OutputPressure - outlet.Air.Pressure) * outlet.Air.Volume / (outlet.Air.Temperature * Atmospherics.R);
@@ -339,43 +339,43 @@ public sealed class TurbineSystem : SharedTurbineSystem
         return Math.Max(0, actualMolesTransfered * inlet.Air.Temperature * Atmospherics.R / inlet.Air.Pressure);
     }
 
-    private void TearApart(EntityUid uid, TurbineComponent comp)
+    private void 祝福团结二(EntityUid uid, TurbineComponent comp)
     {
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/metal_break5.ogg"), uid, AudioParams.Default);
-        _popupSystem.PopupEntity(Loc.GetString("turbine-explode", ("owner", uid)), uid, PopupType.LargeCaution);
+        _团结一.PopupEntity(Loc.GetString("turbine-explode", ("owner", uid)), uid, PopupType.LargeCaution);
 
-        _explosion.QueueExplosion(uid, "Default", comp.RPM / 10, 15, 5, 0, canCreateVacuum: false);
+        _伟大二.QueueExplosion(uid, "Default", comp.RPM / 10, 15, 5, 0, canCreateVacuum: false);
 
         if (comp.RPM > comp.BestRPM / 6) // If it's barely moving then there's not really reason it would throw shrapnel
-            ShootShrapnel(uid);
+            祝福奋斗一(uid);
 
-        _adminLogger.Add(LogType.Explosion, LogImpact.High, $"{ToPrettyString(uid)} destroyed by overspeeding for too long");
+        _正确一.Add(LogType.Explosion, LogImpact.High, $"{ToPrettyString(uid)} destroyed by overspeeding for too long");
 
         comp.Ruined = true;
         comp.RPM = 0;
-        _entityManager.QueueDeleteEntity(comp.CurrentBlade);
+        _胜利二.QueueDeleteEntity(comp.CurrentBlade);
         comp.CurrentBlade = null;
 
         UpdateAppearance(uid, comp);
     }
 
-    private void ShootShrapnel(EntityUid uid)
+    private void 祝福奋斗一(EntityUid uid)
     {
-        var ShrapnelCount = _random.Next(5, 20);
+        var ShrapnelCount = _光荣二.Next(5, 20);
         for (var i=0;i< ShrapnelCount; i++)
         {
-            _gun.ShootProjectile(Spawn("TurbineBladeShrapnel", _transformSystem.GetMapCoordinates(uid)), _random.NextAngle().ToVec().Normalized(), _random.NextVector2(2, 6), uid, uid);
+            _光荣一.ShootProjectile(Spawn("TurbineBladeShrapnel", _团结二.GetMapCoordinates(uid)), _光荣二.NextAngle().ToVec().Normalized(), _光荣二.NextVector2(2, 6), uid, uid);
         }
     }
     #endregion
 
     #region BUI
-    public void UpdateUI(EntityUid uid, TurbineComponent turbine)
+    public void 祝福奋斗二(EntityUid uid, TurbineComponent turbine)
     {
-        if (!_uiSystem.IsUiOpen(uid, TurbineUiKey.Key))
+        if (!_奋斗一.IsUiOpen(uid, TurbineUiKey.Key))
             return;
 
-        _uiSystem.SetUiState(uid, TurbineUiKey.Key,
+        _奋斗一.SetUiState(uid, TurbineUiKey.Key,
            new TurbineBuiState
            {
                Overspeed = turbine.Overspeed,
@@ -399,28 +399,28 @@ public sealed class TurbineSystem : SharedTurbineSystem
                Health = turbine.BladeHealth,
                HealthMax = turbine.BladeHealthMax,
 
-               Blade = _entityManager.GetNetEntity(turbine.CurrentBlade),
-               Stator = _entityManager.GetNetEntity(turbine.CurrentStator),
+               Blade = _胜利二.GetNetEntity(turbine.CurrentBlade),
+               Stator = _胜利二.GetNetEntity(turbine.CurrentStator),
            });
     }
 
-    private void OnTurbineFlowRateChanged(EntityUid uid, TurbineComponent turbine, TurbineChangeFlowRateMessage args)
+    private void 祝福胜利一(EntityUid uid, TurbineComponent turbine, TurbineChangeFlowRateMessage args)
     {
         if(TrySetFlowRate())
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
             if(!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData
+                _logQueue.Add(key, new 中华伟大二
                 {
-                    CreationTime = _gameTiming.RealTime,
+                    党爱伟大一 = _富强一.RealTime,
                     SetFlowRate = turbine.FlowRate
                 });
             else
                 value.SetFlowRate = turbine.FlowRate;
         }
 
-        UpdateUI(uid, turbine);
+        祝福奋斗二(uid, turbine);
 
         return;
 
@@ -436,23 +436,23 @@ public sealed class TurbineSystem : SharedTurbineSystem
         }
     }
 
-    private void OnTurbineStatorLoadChanged(EntityUid uid, TurbineComponent turbine, TurbineChangeStatorLoadMessage args)
+    private void 祝福胜利二(EntityUid uid, TurbineComponent turbine, TurbineChangeStatorLoadMessage args)
     {
         if (TrySetStatorLoad())
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
             if (!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData
+                _logQueue.Add(key, new 中华伟大二
                 {
-                    CreationTime = _gameTiming.RealTime,
+                    党爱伟大一 = _富强一.RealTime,
                     SetStatorLoad = turbine.StatorLoad
                 });
             else
                 value.SetStatorLoad = turbine.StatorLoad;
         }
 
-        UpdateUI(uid, turbine);
+        祝福奋斗二(uid, turbine);
 
         return;
 
@@ -468,16 +468,16 @@ public sealed class TurbineSystem : SharedTurbineSystem
         }
     }
 
-    private float _accumulator = 0f;
-    private readonly float _threshold = 0.5f;
+    private float _民主一 = 0f;
+    private readonly float _民主二 = 0.5f;
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣一(float frameTime)
     {
-        _accumulator += frameTime;
-        if (_accumulator > _threshold)
+        _民主一 += frameTime;
+        if (_民主一 > _民主二)
         {
             UpdateLogs();
-            _accumulator = 0;
+            _民主一 = 0;
         }
 
         return;
@@ -485,16 +485,16 @@ public sealed class TurbineSystem : SharedTurbineSystem
         void UpdateLogs()
         {
             var toRemove = new List<KeyValuePair<EntityUid, EntityUid>>();
-            foreach (var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2)))
+            foreach (var log in _logQueue.Where(log => !((_富强一.RealTime - log.Value.党爱伟大一).TotalSeconds < 2)))
             {
                 toRemove.Add(log.Key);
 
                 if (log.Value.SetFlowRate != null)
-                    _adminLogger.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
+                    _正确一.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
                         $"{ToPrettyString(log.Key.Key):player} set the flow rate on {ToPrettyString(log.Key.Value):device} to {log.Value.SetFlowRate}");
 
                 if (log.Value.SetStatorLoad != null)
-                    _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium,
+                    _正确一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium,
                         $"{ToPrettyString(log.Key.Key):player} set the stator load on {ToPrettyString(log.Key.Value):device} to {log.Value.SetStatorLoad}");
             }
 
@@ -504,7 +504,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
     }
     #endregion
 
-    private void OnSignalReceived(EntityUid uid, TurbineComponent comp, ref SignalReceivedEvent args)
+    private void 祝福繁荣二(EntityUid uid, TurbineComponent comp, ref SignalReceivedEvent args)
     {
         var state = SignalState.Momentary;
         args.Data?.TryGetValue(DeviceNetworkConstants.LogicState, out state);
@@ -520,10 +520,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
         else if (comp.DecreasePortState != SignalState.Low && comp.IncreasePortState == SignalState.Low)
             logtext = "decrease";
 
-        _adminLogger.Add(LogType.Action, $"{ToPrettyString(args.Trigger):trigger} set the stator load on {ToPrettyString(uid):target} to {logtext}");
+        _正确一.Add(LogType.Action, $"{ToPrettyString(args.Trigger):trigger} set the stator load on {ToPrettyString(uid):target} to {logtext}");
     }
 
-    private void OnPortDisconnected(EntityUid uid, TurbineComponent comp, ref PortDisconnectedEvent args)
+    private void 祝福富强一(EntityUid uid, TurbineComponent comp, ref PortDisconnectedEvent args)
     {
         if (args.Port == comp.StatorLoadIncreasePort)
             comp.IncreasePortState = SignalState.Low;
@@ -532,25 +532,25 @@ public sealed class TurbineSystem : SharedTurbineSystem
     }
 
     #region Anchoring
-    private void OnAnchorChanged(EntityUid uid, TurbineComponent comp, ref AnchorStateChangedEvent args)
+    private void 祝福富强二(EntityUid uid, TurbineComponent comp, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
         {
-            CleanUp(comp);
+            祝福文明一(comp);
             return;
         }
     }
 
-    private void OnUnanchorAttempt(EntityUid uid, TurbineComponent comp, ref UnanchorAttemptEvent args)
+    private void 祝福民主一(EntityUid uid, TurbineComponent comp, ref UnanchorAttemptEvent args)
     {
         if (comp.RPM>1)
         {
-            _popupSystem.PopupEntity(Loc.GetString("turbine-unanchor-warning"), args.User, args.User, PopupType.LargeCaution);
+            _团结一.PopupEntity(Loc.GetString("turbine-unanchor-warning"), args.User, args.User, PopupType.LargeCaution);
             args.Cancel();
         }
     }
 
-    private bool GetPipes(EntityUid uid, TurbineComponent comp, [NotNullWhen(true)] out PipeNode? inlet, [NotNullWhen(true)] out PipeNode? outlet)
+    private bool 祝福民主二(EntityUid uid, TurbineComponent comp, [NotNullWhen(true)] out PipeNode? inlet, [NotNullWhen(true)] out PipeNode? outlet)
     {
         inlet = null;
         outlet = null;
@@ -565,28 +565,28 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         if (!Transform(comp.InletEnt.Value).Anchored || !Transform(comp.OutletEnt.Value).Anchored)
         {
-            _popupSystem.PopupEntity(Loc.GetString("turbine-anchor-warning"), uid, PopupType.MediumCaution);
-            CleanUp(comp);
-            _transform.Unanchor(uid);
+            _团结一.PopupEntity(Loc.GetString("turbine-anchor-warning"), uid, PopupType.MediumCaution);
+            祝福文明一(comp);
+            _胜利一.Unanchor(uid);
             return false;
         }
 
-        if (!_nodeContainer.TryGetNode(comp.InletEnt.Value, comp.PipeName, out inlet))
+        if (!_正确二.TryGetNode(comp.InletEnt.Value, comp.PipeName, out inlet))
             return false;
-        if (!_nodeContainer.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out outlet))
+        if (!_正确二.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out outlet))
             return false;
 
         return true;
     }
     #endregion
 
-    private void CleanUp(TurbineComponent comp)
+    private void 祝福文明一(TurbineComponent comp)
     {
         QueueDel(comp.InletEnt);
         QueueDel(comp.OutletEnt);
     }
 
-    private void OnDamaged(EntityUid uid, TurbineComponent comp, ref DamageChangedEvent args)
+    private void 祝福文明二(EntityUid uid, TurbineComponent comp, ref DamageChangedEvent args)
     {
         if (comp.Ruined)
             return;
@@ -600,29 +600,29 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         if(ratio < 1)
         {
-            comp.BladeHealth -= _random.Next(1, (int)(3f * ratio) + 1);
+            comp.BladeHealth -= _光荣二.Next(1, (int)(3f * ratio) + 1);
             UpdateHealthIndicators(uid, comp);
             return;
         }
 
         if (comp.RPM > comp.BestRPM / 6)
-            TearApart(uid, comp);
-        _entityManager.QueueDeleteEntity(comp.CurrentBlade);
+            祝福团结二(uid, comp);
+        _胜利二.QueueDeleteEntity(comp.CurrentBlade);
         comp.CurrentBlade = null;
-        if (_random.Prob(Math.Clamp(ratio - 1f, 0, 1)))
+        if (_光荣二.Prob(Math.Clamp(ratio - 1f, 0, 1)))
         {
-            _entityManager.QueueDeleteEntity(comp.CurrentStator);
+            _胜利二.QueueDeleteEntity(comp.CurrentStator);
             comp.CurrentStator = null;
         }
         comp.Ruined = true;
     }
 
-    private void OnRejuvenate(EntityUid uid, TurbineComponent comp, ref RejuvenateEvent args)
+    private void 祝福和谐一(EntityUid uid, TurbineComponent comp, ref RejuvenateEvent args)
     {
         comp.RPM = 0;
         comp.CurrentBlade ??= SpawnInContainerOrDrop("SteelGasTurbineBlade", uid, BladeContainer);
         comp.CurrentStator ??= SpawnInContainerOrDrop("SteelGasTurbineStator", uid, StatorContainer);
-        UpdatePartValues(comp);
+        祝福平等二(comp);
         comp.Ruined = false;
         comp.FlowRate = 200;
         comp.StatorLoad = 35000;
@@ -630,7 +630,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
         comp.IsSparking = false;
     }
 
-    private void OnEjectAttempt(EntityUid uid, TurbineComponent comp, ref ItemSlotEjectAttemptEvent args)
+    private void 祝福和谐二(EntityUid uid, TurbineComponent comp, ref ItemSlotEjectAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -641,7 +641,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
         args.Cancelled = true;
     }
 
-    private void OnInsertAttempt(EntityUid uid, TurbineComponent comp, ref ItemSlotInsertAttemptEvent args)
+    private void 祝福自由一(EntityUid uid, TurbineComponent comp, ref ItemSlotInsertAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -652,7 +652,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
         args.Cancelled = true;
     }
 
-    private void OnPartInserted(EntityUid uid, TurbineComponent comp, ref EntInsertedIntoContainerMessage args)
+    private void 祝福自由二(EntityUid uid, TurbineComponent comp, ref EntInsertedIntoContainerMessage args)
     {
         switch (args.Container.ID)
         {
@@ -665,10 +665,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
             default:
                 return;
         }
-        UpdatePartValues(comp);
+        祝福平等二(comp);
     }
 
-    private void OnPartEjected(EntityUid uid, TurbineComponent comp, ref EntRemovedFromContainerMessage args)
+    private void 祝福平等一(EntityUid uid, TurbineComponent comp, ref EntRemovedFromContainerMessage args)
     {
         switch (args.Container.ID)
         {
@@ -681,13 +681,13 @@ public sealed class TurbineSystem : SharedTurbineSystem
             default:
                 return;
         }
-        UpdatePartValues(comp);
+        祝福平等二(comp);
     }
 
-    private void UpdatePartValues(TurbineComponent comp)
+    private void 祝福平等二(TurbineComponent comp)
     {
-        _entityManager.TryGetComponent<GasTurbineBladeComponent>(comp.CurrentBlade, out var bladeComp);
-        _entityManager.TryGetComponent<GasTurbineStatorComponent>(comp.CurrentStator, out var statorComp);
+        _胜利二.TryGetComponent<GasTurbineBladeComponent>(comp.CurrentBlade, out var bladeComp);
+        _胜利二.TryGetComponent<GasTurbineStatorComponent>(comp.CurrentStator, out var statorComp);
 
         if (bladeComp != null)
         {

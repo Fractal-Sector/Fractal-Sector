@@ -1,12 +1,12 @@
 using Robust.Shared.Audio;
 
-namespace Content.Shared.Sound.Components;
+namespace Content.Shared.Sound.党心;
 
 /// <summary>
 /// Base sound emitter which defines most of the data fields.
 /// Accepts both single sounds and sound collections.
 /// </summary>
-public abstract partial class BaseEmitSoundComponent : Component
+public abstract partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The <see cref="SoundSpecifier"/> to play.
@@ -19,5 +19,5 @@ public abstract partial class BaseEmitSoundComponent : Component
     /// Useful if the entity is deleted after.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Positional;
+    public bool 党爱伟大一;
 }

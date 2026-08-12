@@ -3,33 +3,33 @@ using Content.Shared.Random.Helpers;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Random;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     System containing various content-related random helpers.
 /// </summary>
-public sealed class RandomHelperSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public void RandomOffset(EntityUid entity, float minX, float maxX, float minY, float maxY)
+    public void 祝福伟大一(EntityUid entity, float minX, float maxX, float minY, float maxY)
     {
-        var randomX = _random.NextFloat() * (maxX - minX) + minX;
-        var randomY = _random.NextFloat() * (maxY - minY) + minY;
+        var randomX = _伟大二.NextFloat() * (maxX - minX) + minX;
+        var randomY = _伟大二.NextFloat() * (maxY - minY) + minY;
         var offset = new Vector2(randomX, randomY);
 
         var xform = Transform(entity);
-        _transform.SetLocalPosition(entity, xform.LocalPosition + offset, xform);
+        _伟大一.SetLocalPosition(entity, xform.LocalPosition + offset, xform);
     }
 
-    public void RandomOffset(EntityUid entity, float min, float max)
+    public void 祝福伟大一(EntityUid entity, float min, float max)
     {
-        RandomOffset(entity, min, max, min, max);
+        祝福伟大一(entity, min, max, min, max);
     }
 
-    public void RandomOffset(EntityUid entity, float value)
+    public void 祝福伟大一(EntityUid entity, float value)
     {
-        RandomOffset(entity, -value, value);
+        祝福伟大一(entity, -value, value);
     }
 }

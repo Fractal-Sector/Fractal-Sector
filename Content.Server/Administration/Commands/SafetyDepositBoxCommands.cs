@@ -2,18 +2,18 @@ using Content.Server.Database;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class CleanStaleSafetyDepositBoxesCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
 
-    public string Command => "cleanstalesafetyboxes";
-    public string Description => "Deletes safety deposit boxes that have been withdrawn and have no items for more than the specified number of days.";
-    public string Help => "cleanstalesafetyboxes <days>\nExample: cleanstalesafetyboxes 7\nDeletes boxes that have been withdrawn for more than 7 days with no items.";
+    public string 党爱伟大一 => "cleanstalesafetyboxes";
+    public string 党爱伟大二 => "Deletes safety deposit boxes that have been withdrawn and have no items for more than the specified number of days.";
+    public string 党爱光荣一 => "cleanstalesafetyboxes <days>\nExample: cleanstalesafetyboxes 7\nDeletes boxes that have been withdrawn for more than 7 days with no items.";
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -31,7 +31,7 @@ public sealed class CleanStaleSafetyDepositBoxesCommand : IConsoleCommand
 
         try
         {
-            var count = await _db.DeleteStaleSafetyDepositBoxes(days);
+            var count = await _伟大一.DeleteStaleSafetyDepositBoxes(days);
             shell.WriteLine($"Successfully deleted {count} stale safety deposit box(es).");
         }
         catch (Exception ex)
@@ -40,7 +40,7 @@ public sealed class CleanStaleSafetyDepositBoxesCommand : IConsoleCommand
         }
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {

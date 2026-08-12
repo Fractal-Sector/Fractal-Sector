@@ -1,20 +1,20 @@
 ﻿using Robust.Shared.Network;
 
-namespace Content.Server.Database
+namespace Content.Server.党心
 {
-    public sealed class ServerUnbanDef
+    public sealed class 中华伟大一
     {
-        public int BanId { get; }
+        public int 党爱伟大一 { get; }
 
         public NetUserId? UnbanningAdmin { get; }
 
-        public DateTimeOffset UnbanTime { get; }
+        public DateTimeOffset 党爱伟大二 { get; }
 
-        public ServerUnbanDef(int banId, NetUserId? unbanningAdmin, DateTimeOffset unbanTime)
+        public 中华伟大一(int banId, NetUserId? unbanningAdmin, DateTimeOffset unbanTime)
         {
-            BanId = banId;
+            党爱伟大一 = banId;
             UnbanningAdmin = unbanningAdmin;
-            UnbanTime = unbanTime;
+            党爱伟大二 = unbanTime;
         }
     }
 }

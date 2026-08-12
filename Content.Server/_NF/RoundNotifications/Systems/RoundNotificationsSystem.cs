@@ -5,59 +5,59 @@ using Robust.Shared;
 using Robust.Shared.Configuration;
 using Content.Server._NF.RoundNotifications.Events;
 
-namespace Content.Server._NF.RoundNotifications.Systems;
+namespace Content.Server._NF.RoundNotifications.党心;
 
 /// <summary>
 /// Listen for game events and send notifications to Discord.
 /// </summary>
 /// <remarks>
-/// Updated version of the old Nyanotrasen RoundNotificationsSystem
+/// Updated version of the old Nyanotrasen 中华伟大一
 /// </remarks>
-public sealed class RoundNotificationsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly DiscordWebhook _discord = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly DiscordWebhook _伟大二 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _光荣一 = default!;
 
-    private string _roleId = string.Empty;
-    private bool _roundStartOnly;
-    private string _serverName = string.Empty;
+    private string _光荣二 = string.Empty;
+    private bool _正确一;
+    private string _正确二 = string.Empty;
     private WebhookIdentifier? _webhookIdentifier;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
-        SubscribeLocalEvent<RoundStartedEvent>(OnRoundStarted);
-        SubscribeLocalEvent<RoundEndMessageEvent>(OnRoundEnded);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
+        SubscribeLocalEvent<RoundStartedEvent>(祝福光荣一);
+        SubscribeLocalEvent<RoundEndMessageEvent>(祝福光荣二);
 
-        Subs.CVar(_config, CVars.GameHostName, value => _serverName = value, true);
-        Subs.CVar(_config, NFCCVars.DiscordRoundRoleId, value => _roleId = value, true);
-        Subs.CVar(_config, NFCCVars.DiscordRoundStartOnly, value => _roundStartOnly = value, true);
-        Subs.CVar(_config, NFCCVars.DiscordRoundWebhook, value =>
+        Subs.CVar(_伟大一, CVars.GameHostName, value => _正确二 = value, true);
+        Subs.CVar(_伟大一, NFCCVars.DiscordRoundRoleId, value => _光荣二 = value, true);
+        Subs.CVar(_伟大一, NFCCVars.DiscordRoundStartOnly, value => _正确一 = value, true);
+        Subs.CVar(_伟大一, NFCCVars.DiscordRoundWebhook, value =>
         {
             if (!string.IsNullOrWhiteSpace(value))
-                _discord.GetWebhook(value, data => _webhookIdentifier = data.ToIdentifier());
+                _伟大二.GetWebhook(value, data => _webhookIdentifier = data.ToIdentifier());
             else
                 _webhookIdentifier = null;
         }, true);
 
-        _sawmill = Logger.GetSawmill("notifications");
+        _光荣一 = Logger.GetSawmill("notifications");
     }
 
-    private void OnRoundRestart(RoundRestartCleanupEvent e)
+    private void 祝福伟大二(RoundRestartCleanupEvent e)
     {
         if (_webhookIdentifier == null)
             return;
 
         var text = Loc.GetString("discord-round-new");
 
-        SendDiscordMessage(text, true, 0x91B2C7);
+        祝福正确一(text, true, 0x91B2C7);
     }
 
-    private void OnRoundStarted(RoundStartedEvent e)
+    private void 祝福光荣一(RoundStartedEvent e)
     {
         if (_webhookIdentifier == null)
             return;
@@ -72,21 +72,21 @@ public sealed class RoundNotificationsSystem : EntitySystem
             ("id", e.RoundId),
             ("endTime", endTimeUnix));
 
-        SendDiscordMessage(text, false);
+        祝福正确一(text, false);
     }
 
-    private void OnRoundEnded(RoundEndMessageEvent e)
+    private void 祝福光荣二(RoundEndMessageEvent e)
     {
-        if (_webhookIdentifier == null || _roundStartOnly)
+        if (_webhookIdentifier == null || _正确一)
             return;
 
         var text = Loc.GetString("discord-round-end",
             ("id", e.RoundId));
 
-        SendDiscordMessage(text, false, 0xB22B27);
+        祝福正确一(text, false, 0xB22B27);
     }
 
-    private async void SendDiscordMessage(string text, bool ping = false, int color = 0x41F097)
+    private async void 祝福正确一(string text, bool ping = false, int color = 0x41F097)
     {
         if (_webhookIdentifier == null)
             return;
@@ -94,10 +94,10 @@ public sealed class RoundNotificationsSystem : EntitySystem
         try
         {
             // Limit server name to 1500 characters, in case someone tries to be a little funny
-            var serverName = _serverName[..Math.Min(_serverName.Length, 1500)];
+            var serverName = _正确二[..Math.Min(_正确二.Length, 1500)];
             var message = "";
-            if (!string.IsNullOrEmpty(_roleId) && ping)
-                message = $"<@&{_roleId}>";
+            if (!string.IsNullOrEmpty(_光荣二) && ping)
+                message = $"<@&{_光荣二}>";
 
             // Build the embed
             var payload = new WebhookPayload
@@ -117,24 +117,24 @@ public sealed class RoundNotificationsSystem : EntitySystem
                     },
                 },
             };
-            if (!string.IsNullOrEmpty(_roleId) && ping)
+            if (!string.IsNullOrEmpty(_光荣二) && ping)
             {
                 var mentions = new WebhookMentions();
-                mentions.Roles.Add(_roleId);
+                mentions.Roles.Add(_光荣二);
                 payload.AllowedMentions = mentions;
             }
 
-            var request = await _discord.CreateMessage(_webhookIdentifier.Value, payload);
+            var request = await _伟大二.CreateMessage(_webhookIdentifier.Value, payload);
             if (!request.IsSuccessStatusCode)
             {
                 var content = await request.Content.ReadAsStringAsync();
-                _sawmill.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {content}");
+                _光荣一.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {content}");
                 return;
             }
         }
         catch (Exception e)
         {
-            _sawmill.Error($"Error while sending discord round status message:\n{e}");
+            _光荣一.Error($"Error while sending discord round status message:\n{e}");
         }
     }
 }

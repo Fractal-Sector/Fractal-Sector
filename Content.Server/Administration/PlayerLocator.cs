@@ -15,10 +15,10 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration
+namespace Content.Server.党心
 {
     /// <summary>
-    /// Contains data resolved via <see cref="IPlayerLocator"/>.
+    /// Contains data resolved via <see cref="中华光荣一"/>.
     /// </summary>
     /// <param name="UserId">The ID of the located user.</param>
     /// <param name="LastAddress">The last known IP address that the user connected with.</param>
@@ -34,7 +34,7 @@ namespace Content.Server.Administration
     /// <param name="LastModernHWIds">
     /// The set of last known modern HWIDs the user connected with.
     /// </param>
-    public sealed record LocatedPlayerData(
+    public sealed record 中华伟大一(
         NetUserId UserId,
         IPAddress? LastAddress,
         ImmutableTypedHwid? LastHWId,
@@ -46,114 +46,114 @@ namespace Content.Server.Administration
     ///     Utilities for finding user IDs that extend to more than the server database.
     /// </summary>
     /// <remarks>
-    ///     Methods in this class will check connected clients, server database
+    ///     Methods in this class 中华伟大二 check connected clients, server database
     ///     AND the authentication server for lookups, in that order.
     /// </remarks>
-    public interface IPlayerLocator
+    public interface 中华光荣一
     {
         /// <summary>
         ///     Look up a user ID by name globally.
         /// </summary>
         /// <returns>Null if the player does not exist.</returns>
-        Task<LocatedPlayerData?> LookupIdByNameAsync(string playerName, CancellationToken cancel = default);
+        Task<中华伟大一?> LookupIdByNameAsync(string playerName, CancellationToken cancel = default);
 
         /// <summary>
         ///     If passed a GUID, looks up the ID and tries to find HWId for it.
         ///     If passed a player name, returns <see cref="LookupIdByNameAsync"/>.
         /// </summary>
-        Task<LocatedPlayerData?> LookupIdByNameOrIdAsync(string playerName, CancellationToken cancel = default);
+        Task<中华伟大一?> LookupIdByNameOrIdAsync(string playerName, CancellationToken cancel = default);
 
         /// <summary>
         ///     Look up a user by <see cref="NetUserId"/> globally.
         /// </summary>
         /// <returns>Null if the player does not exist.</returns>
-        Task<LocatedPlayerData?> LookupIdAsync(NetUserId userId, CancellationToken cancel = default);
+        Task<中华伟大一?> LookupIdAsync(NetUserId userId, CancellationToken cancel = default);
     }
 
-    internal sealed class PlayerLocator : IPlayerLocator, IDisposable, IPostInjectInit
+    internal sealed class 中华光荣二 : 中华光荣一, IDisposable, IPostInjectInit
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+        [Dependency] private readonly IServerDbManager _光荣一 = default!;
+        [Dependency] private readonly ILogManager _光荣二 = default!;
 
-        private readonly HttpClient _httpClient = new();
-        private ISawmill _sawmill = default!;
+        private readonly HttpClient _正确一 = new();
+        private ISawmill _正确二 = default!;
 
-        public PlayerLocator()
+        public 中华光荣二()
         {
-            if (typeof(PlayerLocator).Assembly.GetName().Version is { } version)
+            if (typeof(中华光荣二).Assembly.GetName().Version is { } version)
             {
-                _httpClient.DefaultRequestHeaders.UserAgent.Add(
+                _正确一.DefaultRequestHeaders.UserAgent.Add(
                     new ProductInfoHeaderValue("SpaceStation14", version.ToString()));
             }
         }
 
-        public async Task<LocatedPlayerData?> LookupIdByNameAsync(string playerName, CancellationToken cancel = default)
+        public async Task<中华伟大一?> LookupIdByNameAsync(string playerName, CancellationToken cancel = default)
         {
             // Check people currently on the server, the easiest case.
-            if (_playerManager.TryGetSessionByUsername(playerName, out var session))
+            if (_伟大一.TryGetSessionByUsername(playerName, out var session))
                 return ReturnForSession(session);
 
             // Check database for past players.
-            var record = await _db.GetPlayerRecordByUserName(playerName, cancel);
+            var record = await _光荣一.GetPlayerRecordByUserName(playerName, cancel);
             if (record != null)
                 return ReturnForPlayerRecord(record);
 
             // If all else fails, ask the auth server.
-            var authServer = _configurationManager.GetCVar(CVars.AuthServer);
+            var authServer = _伟大二.GetCVar(CVars.AuthServer);
             var requestUri = $"{authServer}api/query/name?name={WebUtility.UrlEncode(playerName)}";
-            using var resp = await _httpClient.GetAsync(requestUri, cancel);
+            using var resp = await _正确一.GetAsync(requestUri, cancel);
 
             return await HandleAuthServerResponse(resp, cancel);
         }
 
-        public async Task<LocatedPlayerData?> LookupIdAsync(NetUserId userId, CancellationToken cancel = default)
+        public async Task<中华伟大一?> LookupIdAsync(NetUserId userId, CancellationToken cancel = default)
         {
             // Check people currently on the server, the easiest case.
-            if (_playerManager.TryGetSessionById(userId, out var session))
+            if (_伟大一.TryGetSessionById(userId, out var session))
                 return ReturnForSession(session);
 
             // Check database for past players.
-            var record = await _db.GetPlayerRecordByUserId(userId, cancel);
+            var record = await _光荣一.GetPlayerRecordByUserId(userId, cancel);
             if (record != null)
                 return ReturnForPlayerRecord(record);
 
             // If all else fails, ask the auth server.
-            var authServer = _configurationManager.GetCVar(CVars.AuthServer);
+            var authServer = _伟大二.GetCVar(CVars.AuthServer);
             var requestUri = $"{authServer}api/query/userid?userid={WebUtility.UrlEncode(userId.UserId.ToString())}";
-            using var resp = await _httpClient.GetAsync(requestUri, cancel);
+            using var resp = await _正确一.GetAsync(requestUri, cancel);
 
             return await HandleAuthServerResponse(resp, cancel);
         }
 
-        private async Task<LocatedPlayerData?> HandleAuthServerResponse(HttpResponseMessage resp, CancellationToken cancel)
+        private async Task<中华伟大一?> HandleAuthServerResponse(HttpResponseMessage resp, CancellationToken cancel)
         {
             if (resp.StatusCode == HttpStatusCode.NotFound)
                 return null;
 
             if (!resp.IsSuccessStatusCode)
             {
-                _sawmill.Error("Auth server returned bad response {StatusCode}!", resp.StatusCode);
+                _正确二.Error("Auth server returned bad response {StatusCode}!", resp.StatusCode);
                 return null;
             }
 
-            var responseData = await resp.Content.ReadFromJsonAsync<UserDataResponse>(cancellationToken: cancel);
+            var responseData = await resp.Content.ReadFromJsonAsync<中华正确一>(cancellationToken: cancel);
             if (responseData == null)
             {
-                _sawmill.Error("Auth server returned null response!");
+                _正确二.Error("Auth server returned null response!");
                 return null;
             }
 
-            return new LocatedPlayerData(new NetUserId(responseData.UserId), null, null, responseData.UserName, null, []);
+            return new 中华伟大一(new NetUserId(responseData.UserId), null, null, responseData.UserName, null, []);
         }
 
-        private static LocatedPlayerData ReturnForSession(ICommonSession session)
+        private static 中华伟大一 ReturnForSession(ICommonSession session)
         {
             var userId = session.UserId;
             var address = session.Channel.RemoteEndPoint.Address;
             var hwId = session.Channel.UserData.GetModernHwid();
-            return new LocatedPlayerData(
+            return new 中华伟大一(
                 userId,
                 address,
                 hwId,
@@ -162,11 +162,11 @@ namespace Content.Server.Administration
                 session.Channel.UserData.ModernHWIds);
         }
 
-        private static LocatedPlayerData ReturnForPlayerRecord(PlayerRecord record)
+        private static 中华伟大一 ReturnForPlayerRecord(PlayerRecord record)
         {
             var hwid = record.HWId;
 
-            return new LocatedPlayerData(
+            return new 中华伟大一(
                 record.UserId,
                 record.LastSeenAddress,
                 hwid,
@@ -175,7 +175,7 @@ namespace Content.Server.Administration
                 hwid is { Type: HwidType.Modern } ? [hwid.Hwid] : []);
         }
 
-        public async Task<LocatedPlayerData?> LookupIdByNameOrIdAsync(string playerName, CancellationToken cancel = default)
+        public async Task<中华伟大一?> LookupIdByNameOrIdAsync(string playerName, CancellationToken cancel = default)
         {
             if (Guid.TryParse(playerName, out var guid))
             {
@@ -188,18 +188,18 @@ namespace Content.Server.Administration
         }
 
         [UsedImplicitly]
-        private sealed record UserDataResponse(string UserName, Guid UserId)
+        private sealed record 中华正确一(string UserName, Guid UserId)
         {
         }
 
         void IDisposable.Dispose()
         {
-            _httpClient.Dispose();
+            _正确一.Dispose();
         }
 
         void IPostInjectInit.PostInject()
         {
-            _sawmill = _logManager.GetSawmill("PlayerLocate");
+            _正确二 = _光荣二.GetSawmill("PlayerLocate");
         }
     }
 }

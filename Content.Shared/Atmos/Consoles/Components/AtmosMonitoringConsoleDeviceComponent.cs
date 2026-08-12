@@ -2,14 +2,14 @@ using Content.Shared.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Atmos.Components;
+namespace Content.Shared.Atmos.党心;
 
 /// <summary>
 /// Entities with this component appear on the
 /// nav maps of atmos monitoring consoles
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class AtmosMonitoringConsoleDeviceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Prototype ID for the blip used to represent this
@@ -25,5 +25,5 @@ public sealed partial class AtmosMonitoringConsoleDeviceComponent : Component
     /// pipes are not connected to any pipes in a neighboring tile.
     /// </summary>
     [DataField]
-    public bool ShowAbsentConnections = true;
+    public bool 党爱伟大一 = true;
 }

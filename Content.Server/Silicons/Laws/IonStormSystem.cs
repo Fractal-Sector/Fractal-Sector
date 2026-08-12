@@ -12,14 +12,14 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using System.Linq;
 
-namespace Content.Server.Silicons.Laws;
+namespace Content.Server.Silicons.党心;
 
-public sealed class IonStormSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SiliconLawSystem _siliconLaw = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly SiliconLawSystem _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
 
     // funny
     private static readonly ProtoId<DatasetPrototype> Threats = "IonStormThreats";
@@ -44,29 +44,29 @@ public sealed class IonStormSystem : EntitySystem
     /// <summary>
     /// Randomly alters the laws of an individual silicon.
     /// </summary>
-    public void IonStormTarget(Entity<SiliconLawBoundComponent, IonStormTargetComponent> ent, bool adminlog = true)
+    public void 祝福伟大一(Entity<SiliconLawBoundComponent, IonStormTargetComponent> ent, bool adminlog = true)
     {
         var lawBound = ent.Comp1;
         var target = ent.Comp2;
-        if (!_robustRandom.Prob(target.Chance))
+        if (!_光荣二.Prob(target.Chance))
             return;
 
-        var laws = _siliconLaw.GetLaws(ent, lawBound);
+        var laws = _光荣一.GetLaws(ent, lawBound);
         if (laws.Laws.Count == 0)
             return;
 
         // try to swap it out with a random lawset
-        if (_robustRandom.Prob(target.RandomLawsetChance))
+        if (_光荣二.Prob(target.RandomLawsetChance))
         {
-            var lawsets = _proto.Index<WeightedRandomPrototype>(target.RandomLawsets);
-            var lawset = lawsets.Pick(_robustRandom);
-            laws = _siliconLaw.GetLawset(lawset);
+            var lawsets = _伟大一.Index<WeightedRandomPrototype>(target.RandomLawsets);
+            var lawset = lawsets.祝福光荣一(_光荣二);
+            laws = _光荣一.GetLawset(lawset);
         }
         // clone it so not modifying stations lawset
         laws = laws.Clone();
 
         // shuffle them all
-        if (_robustRandom.Prob(target.ShuffleChance))
+        if (_光荣二.Prob(target.ShuffleChance))
         {
             // hopefully work with existing glitched laws if there are multiple ion storms
             var baseOrder = FixedPoint2.New(1);
@@ -76,7 +76,7 @@ public sealed class IonStormSystem : EntitySystem
                     baseOrder = law.Order;
             }
 
-            _robustRandom.Shuffle(laws.Laws);
+            _光荣二.Shuffle(laws.Laws);
 
             // change order based on shuffled position
             for (int i = 0; i < laws.Laws.Count; i++)
@@ -86,19 +86,19 @@ public sealed class IonStormSystem : EntitySystem
         }
 
         // see if we can remove a random law
-        if (laws.Laws.Count > 0 && _robustRandom.Prob(target.RemoveChance))
+        if (laws.Laws.Count > 0 && _光荣二.Prob(target.RemoveChance))
         {
-            var i = _robustRandom.Next(laws.Laws.Count);
+            var i = _光荣二.Next(laws.Laws.Count);
             laws.Laws.RemoveAt(i);
         }
 
         // generate a new law...
-        var newLaw = GenerateLaw();
+        var newLaw = 祝福伟大二();
 
         // see if the law we add will replace a random existing law or be a new glitched order one
-        if (laws.Laws.Count > 0 && _robustRandom.Prob(target.ReplaceChance))
+        if (laws.Laws.Count > 0 && _光荣二.Prob(target.ReplaceChance))
         {
-            var i = _robustRandom.Next(laws.Laws.Count);
+            var i = _光荣二.Next(laws.Laws.Count);
             laws.Laws[i] = new SiliconLaw()
             {
                 LawString = newLaw,
@@ -111,7 +111,7 @@ public sealed class IonStormSystem : EntitySystem
             {
                 LawString = newLaw,
                 Order = -1,
-                LawIdentifierOverride = Loc.GetString("ion-storm-law-scrambled-number", ("length", _robustRandom.Next(5, 10))),
+                LawIdentifierOverride = Loc.GetString("ion-storm-law-scrambled-number", ("length", _光荣二.Next(5, 10))),
                 LawPrintOverride = Loc.GetString("silicon-law-error") // Frontier
             });
         }
@@ -136,7 +136,7 @@ public sealed class IonStormSystem : EntitySystem
 
         // adminlog is used to prevent adminlog spam.
         if (adminlog)
-            _adminLogger.Add(LogType.Mind, LogImpact.High, $"{ToPrettyString(ent):silicon} had its laws changed by an ion storm to {laws.LoggingString()}");
+            _伟大二.Add(LogType.Mind, LogImpact.High, $"{ToPrettyString(ent):silicon} had its laws changed by an ion storm to {laws.LoggingString()}");
 
         // laws unique to this silicon, dont use station laws anymore
         EnsureComp<SiliconLawProviderComponent>(ent);
@@ -145,43 +145,43 @@ public sealed class IonStormSystem : EntitySystem
     }
 
     // for your own sake direct your eyes elsewhere
-    private string GenerateLaw()
+    private string 祝福伟大二()
     {
         // pick all values ahead of time to make the logic cleaner
-        var threats = Pick(Threats);
-        var objects = Pick(Objects);
-        var crew1 = Pick(Crew);
-        var crew2 = Pick(Crew);
-        var adjective = Pick(Adjectives);
-        var verb = Pick(Verbs);
-        var number = Pick(NumberBase) + " " + Pick(NumberMod);
-        var area = Pick(Areas);
-        var feeling = Pick(Feelings);
-        var feelingPlural = Pick(FeelingsPlural);
-        var must = Pick(Musts);
-        var require = Pick(Requires);
-        var action = Pick(Actions);
-        var allergy = Pick(Allergies);
-        var allergySeverity = Pick(AllergySeverities);
-        var concept = Pick(Concepts);
-        var drink = Pick(Drinks);
-        var food = Pick(Foods);
+        var threats = 祝福光荣一(Threats);
+        var objects = 祝福光荣一(Objects);
+        var crew1 = 祝福光荣一(Crew);
+        var crew2 = 祝福光荣一(Crew);
+        var adjective = 祝福光荣一(Adjectives);
+        var verb = 祝福光荣一(Verbs);
+        var number = 祝福光荣一(NumberBase) + " " + 祝福光荣一(NumberMod);
+        var area = 祝福光荣一(Areas);
+        var feeling = 祝福光荣一(Feelings);
+        var feelingPlural = 祝福光荣一(FeelingsPlural);
+        var must = 祝福光荣一(Musts);
+        var require = 祝福光荣一(Requires);
+        var action = 祝福光荣一(Actions);
+        var allergy = 祝福光荣一(Allergies);
+        var allergySeverity = 祝福光荣一(AllergySeverities);
+        var concept = 祝福光荣一(Concepts);
+        var drink = 祝福光荣一(Drinks);
+        var food = 祝福光荣一(Foods);
 
         var joined = $"{number} {adjective}";
         // a lot of things have subjects of a threat/crew/object
-        var triple = _robustRandom.Next(0, 3) switch
+        var triple = _光荣二.Next(0, 3) switch
         {
             0 => threats,
             1 => crew1,
             2 => objects,
             _ => throw new IndexOutOfRangeException(),
         };
-        var crewAll = _robustRandom.Prob(0.5f) ? crew2 : Loc.GetString("ion-storm-crew");
-        var objectsThreats = _robustRandom.Prob(0.5f) ? objects : threats;
-        var objectsConcept = _robustRandom.Prob(0.5f) ? objects : concept;
+        var crewAll = _光荣二.Prob(0.5f) ? crew2 : Loc.GetString("ion-storm-crew");
+        var objectsThreats = _光荣二.Prob(0.5f) ? objects : threats;
+        var objectsConcept = _光荣二.Prob(0.5f) ? objects : concept;
         // s goes ahead of require, is/are
         // i dont think theres a way to do this in fluent
-        var (who, plural) = _robustRandom.Next(0, 5) switch
+        var (who, plural) = _光荣二.Next(0, 5) switch
         {
             0 => (Loc.GetString("ion-storm-you"), true),
             1 => (Loc.GetString("ion-storm-the-station"), false),
@@ -189,14 +189,14 @@ public sealed class IonStormSystem : EntitySystem
             3 => (Loc.GetString("ion-storm-the-job", ("job", crew2)), true),
             _ => (area, false) // THE SINGULARITY REQUIRES THE HAPPY CLOWNS
         };
-        var jobChange = _robustRandom.Next(0, 3) switch
+        var jobChange = _光荣二.Next(0, 3) switch
         {
             0 => crew1,
             1 => Loc.GetString("ion-storm-clowns"),
             _ => Loc.GetString("ion-storm-heads")
         };
-        var part = Loc.GetString("ion-storm-part", ("part", _robustRandom.Prob(0.5f)));
-        var harm = _robustRandom.Next(0, 6) switch
+        var part = Loc.GetString("ion-storm-part", ("part", _光荣二.Prob(0.5f)));
+        var harm = _光荣二.Next(0, 6) switch
         {
             0 => concept,
             1 => $"{adjective} {threats}",
@@ -208,31 +208,31 @@ public sealed class IonStormSystem : EntitySystem
 
         if (plural) feeling = feelingPlural;
 
-        var subjects = _robustRandom.Prob(0.5f) ? objectsThreats : Loc.GetString("ion-storm-people");
+        var subjects = _光荣二.Prob(0.5f) ? objectsThreats : Loc.GetString("ion-storm-people");
 
         // message logic!!!
-        return _robustRandom.Next(0, 35) switch
+        return _光荣二.Next(0, 35) switch
         {
             0  => Loc.GetString("ion-storm-law-on-station", ("joined", joined), ("subjects", triple)),
             1  => Loc.GetString("ion-storm-law-nf-needs-help", ("joined", joined), ("subjects", triple)), // Frontier: call-shuttle<nf-needs-help
             2  => Loc.GetString("ion-storm-law-crew-are", ("who", crewAll), ("joined", joined), ("subjects", objectsThreats)),
             3  => Loc.GetString("ion-storm-law-subjects-harmful", ("adjective", adjective), ("subjects", triple)),
             4  => Loc.GetString("ion-storm-law-must-harmful", ("must", must)),
-            5  => Loc.GetString("ion-storm-law-thing-harmful", ("thing", _robustRandom.Prob(0.5f) ? concept : action)),
+            5  => Loc.GetString("ion-storm-law-thing-harmful", ("thing", _光荣二.Prob(0.5f) ? concept : action)),
             6  => Loc.GetString("ion-storm-law-job-harmful", ("adjective", adjective), ("job", crew1)),
             7  => Loc.GetString("ion-storm-law-having-harmful", ("adjective", adjective), ("thing", objectsConcept)),
             8  => Loc.GetString("ion-storm-law-not-having-harmful", ("adjective", adjective), ("thing", objectsConcept)),
-            9  => Loc.GetString("ion-storm-law-requires", ("who", who), ("plural", plural), ("thing", _robustRandom.Prob(0.5f) ? concept : require)),
+            9  => Loc.GetString("ion-storm-law-requires", ("who", who), ("plural", plural), ("thing", _光荣二.Prob(0.5f) ? concept : require)),
             10 => Loc.GetString("ion-storm-law-requires-subjects", ("who", who), ("plural", plural), ("joined", joined), ("subjects", triple)),
-            11 => Loc.GetString("ion-storm-law-allergic", ("who", who), ("plural", plural), ("severity", allergySeverity), ("allergy", _robustRandom.Prob(0.5f) ? concept : allergy)),
-            12 => Loc.GetString("ion-storm-law-allergic-subjects", ("who", who), ("plural", plural), ("severity", allergySeverity), ("adjective", adjective), ("subjects", _robustRandom.Prob(0.5f) ? objects : crew1)),
+            11 => Loc.GetString("ion-storm-law-allergic", ("who", who), ("plural", plural), ("severity", allergySeverity), ("allergy", _光荣二.Prob(0.5f) ? concept : allergy)),
+            12 => Loc.GetString("ion-storm-law-allergic-subjects", ("who", who), ("plural", plural), ("severity", allergySeverity), ("adjective", adjective), ("subjects", _光荣二.Prob(0.5f) ? objects : crew1)),
             13 => Loc.GetString("ion-storm-law-feeling", ("who", who), ("feeling", feeling), ("concept", concept)),
             14 => Loc.GetString("ion-storm-law-feeling-subjects", ("who", who), ("feeling", feeling), ("joined", joined), ("subjects", triple)),
             15 => Loc.GetString("ion-storm-law-you-are", ("concept", concept)),
             16 => Loc.GetString("ion-storm-law-you-are-subjects", ("joined", joined), ("subjects", triple)),
             17 => Loc.GetString("ion-storm-law-you-must-always", ("must", must)),
             18 => Loc.GetString("ion-storm-law-you-must-never", ("must", must)),
-            19 => Loc.GetString("ion-storm-law-eat", ("who", crewAll), ("adjective", adjective), ("food", _robustRandom.Prob(0.5f) ? food : triple)),
+            19 => Loc.GetString("ion-storm-law-eat", ("who", crewAll), ("adjective", adjective), ("food", _光荣二.Prob(0.5f) ? food : triple)),
             20 => Loc.GetString("ion-storm-law-drink", ("who", crewAll), ("adjective", adjective), ("drink", drink)),
             21 => Loc.GetString("ion-storm-law-change-job", ("who", crewAll), ("adjective", adjective), ("change", jobChange)),
             22 => Loc.GetString("ion-storm-law-highest-rank", ("who", crew1)),
@@ -255,9 +255,9 @@ public sealed class IonStormSystem : EntitySystem
     /// Picks a random value from an ion storm dataset.
     /// All ion storm datasets start with IonStorm.
     /// </summary>
-    private string Pick(string name)
+    private string 祝福光荣一(string name)
     {
-        var dataset = _proto.Index<DatasetPrototype>(name);
-        return _robustRandom.Pick(dataset.Values);
+        var dataset = _伟大一.Index<DatasetPrototype>(name);
+        return _光荣二.祝福光荣一(dataset.Values);
     }
 }

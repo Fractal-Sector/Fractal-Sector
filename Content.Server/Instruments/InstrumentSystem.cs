@@ -23,54 +23,54 @@ using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Instruments;
+namespace Content.Server.党心;
 
 [UsedImplicitly]
-public sealed partial class InstrumentSystem : SharedInstrumentSystem
+public sealed partial class 中华伟大一 : SharedInstrumentSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConsoleHost _conHost = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly StunSystem _stuns = default!;
-    [Dependency] private readonly UserInterfaceSystem _bui = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-    [Dependency] private readonly IAdminLogManager _admingLogSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IConsoleHost _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly StunSystem _光荣二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+    [Dependency] private readonly PopupSystem _正确二 = default!;
+    [Dependency] private readonly TransformSystem _团结一 = default!;
+    [Dependency] private readonly ExamineSystemShared _团结二 = default!;
+    [Dependency] private readonly IAdminLogManager _奋斗一 = default!;
 
     private const float MaxInstrumentBandRange = 10f;
 
     // Band Requests are queued and delayed both to avoid metagaming and to prevent spamming it, since it's expensive.
     private const float BandRequestDelay = 1.0f;
-    private TimeSpan _bandRequestTimer = TimeSpan.Zero;
-    private readonly List<InstrumentBandRequestBuiMessage> _bandRequestQueue = new();
+    private TimeSpan _奋斗二 = TimeSpan.Zero;
+    private readonly List<InstrumentBandRequestBuiMessage> _胜利一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitializeCVars();
 
-        SubscribeNetworkEvent<InstrumentMidiEventEvent>(OnMidiEventRx);
-        SubscribeNetworkEvent<InstrumentStartMidiEvent>(OnMidiStart);
-        SubscribeNetworkEvent<InstrumentStopMidiEvent>(OnMidiStop);
-        SubscribeNetworkEvent<InstrumentSetMasterEvent>(OnMidiSetMaster);
-        SubscribeNetworkEvent<InstrumentSetFilteredChannelEvent>(OnMidiSetFilteredChannel);
-        SubscribeNetworkEvent<InstrumentSetChannelsEvent>(OnMidiSetChannels);
+        SubscribeNetworkEvent<InstrumentMidiEventEvent>(祝福繁荣一);
+        SubscribeNetworkEvent<InstrumentStartMidiEvent>(祝福光荣二);
+        SubscribeNetworkEvent<InstrumentStopMidiEvent>(祝福正确一);
+        SubscribeNetworkEvent<InstrumentSetMasterEvent>(祝福团结一);
+        SubscribeNetworkEvent<InstrumentSetFilteredChannelEvent>(祝福团结二);
+        SubscribeNetworkEvent<InstrumentSetChannelsEvent>(祝福正确二);
 
         Subs.BuiEvents<InstrumentComponent>(InstrumentUiKey.Key, subs =>
         {
-            subs.Event<BoundUIClosedEvent>(OnBoundUIClosed);
-            subs.Event<BoundUIOpenedEvent>(OnBoundUIOpened);
-            subs.Event<InstrumentBandRequestBuiMessage>(OnBoundUIRequestBands);
+            subs.Event<BoundUIClosedEvent>(祝福奋斗一);
+            subs.Event<BoundUIOpenedEvent>(祝福奋斗二);
+            subs.Event<InstrumentBandRequestBuiMessage>(祝福胜利一);
         });
 
-        SubscribeLocalEvent<InstrumentComponent, ComponentGetState>(OnStrumentGetState);
+        SubscribeLocalEvent<InstrumentComponent, ComponentGetState>(祝福伟大二);
 
-        _conHost.RegisterCommand("addtoband", AddToBandCommand);
+        _伟大二.RegisterCommand("addtoband", 祝福光荣一);
     }
 
-    private void OnStrumentGetState(EntityUid uid, InstrumentComponent component, ref ComponentGetState args)
+    private void 祝福伟大二(EntityUid uid, InstrumentComponent component, ref ComponentGetState args)
     {
         args.State = new InstrumentComponentState()
         {
@@ -86,7 +86,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void AddToBandCommand(IConsoleShell shell, string _, string[] args)
+    private void 祝福光荣一(IConsoleShell shell, string _, string[] args)
     {
         if (!NetEntity.TryParse(args[0], out var firstUidNet) || !TryGetEntity(firstUidNet, out var firstUid))
         {
@@ -112,7 +112,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         Dirty(secondUid.Value, otherInstrument);
     }
 
-    private void OnMidiStart(InstrumentStartMidiEvent msg, EntitySessionEventArgs args)
+    private void 祝福光荣二(InstrumentStartMidiEvent msg, EntitySessionEventArgs args)
     {
         var uid = GetEntity(msg.Uid);
 
@@ -126,7 +126,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         Dirty(uid, instrument);
     }
 
-    private void OnMidiStop(InstrumentStopMidiEvent msg, EntitySessionEventArgs args)
+    private void 祝福正确一(InstrumentStopMidiEvent msg, EntitySessionEventArgs args)
     {
         var uid = GetEntity(msg.Uid);
 
@@ -136,11 +136,11 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         if (args.SenderSession.AttachedEntity != instrument.InstrumentPlayer)
             return;
 
-        Clean(uid, instrument);
+        祝福胜利二(uid, instrument);
     }
 
 
-    private void OnMidiSetChannels(InstrumentSetChannelsEvent msg, EntitySessionEventArgs args)
+    private void 祝福正确二(InstrumentSetChannelsEvent msg, EntitySessionEventArgs args)
     {
         var uid = GetEntity(msg.Uid);
 
@@ -162,7 +162,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             // Remove any control characters that may be part of the midi file so they don't end up in the admin logs.
             t?.SanitizeFields();
             // Truncate any track names too long.
-            t?.TruncateFields(_cfg.GetCVar(CCVars.MidiMaxChannelNameLength));
+            t?.TruncateFields(_光荣一.GetCVar(CCVars.MidiMaxChannelNameLength));
         }
 
         var tracksString = string.Join("\n",
@@ -170,7 +170,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             .Where(t => t != null)
             .Select(t => t!.ToString()));
 
-        _admingLogSystem.Add(
+        _奋斗一.Add(
             LogType.Instrument,
             LogImpact.Low,
             $"{ToPrettyString(args.SenderSession.AttachedEntity)} set the midi channels for {ToPrettyString(uid)} to {tracksString}");
@@ -180,7 +180,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         Dirty(uid, activeInstrument);
     }
 
-    private void OnMidiSetMaster(InstrumentSetMasterEvent msg, EntitySessionEventArgs args)
+    private void 祝福团结一(InstrumentSetMasterEvent msg, EntitySessionEventArgs args)
     {
         var uid = GetEntity(msg.Uid);
         var master = GetEntity(msg.Master);
@@ -212,11 +212,11 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         // Cleanup when disabling master...
         if (master == null && instrument.Master != null)
         {
-            Clean(uid, instrument);
+            祝福胜利二(uid, instrument);
         }
     }
 
-    private void OnMidiSetFilteredChannel(InstrumentSetFilteredChannelEvent msg, EntitySessionEventArgs args)
+    private void 祝福团结二(InstrumentSetFilteredChannelEvent msg, EntitySessionEventArgs args)
     {
         var uid = GetEntity(msg.Uid);
 
@@ -240,33 +240,33 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         Dirty(uid, instrument);
     }
 
-    private void OnBoundUIClosed(EntityUid uid, InstrumentComponent component, BoundUIClosedEvent args)
+    private void 祝福奋斗一(EntityUid uid, InstrumentComponent component, BoundUIClosedEvent args)
     {
         if (HasComp<ActiveInstrumentComponent>(uid)
-            && !_bui.IsUiOpen(uid, args.UiKey))
+            && !_正确一.IsUiOpen(uid, args.UiKey))
         {
             RemComp<ActiveInstrumentComponent>(uid);
         }
 
-        Clean(uid, component);
+        祝福胜利二(uid, component);
     }
 
-    private void OnBoundUIOpened(EntityUid uid, InstrumentComponent component, BoundUIOpenedEvent args)
+    private void 祝福奋斗二(EntityUid uid, InstrumentComponent component, BoundUIOpenedEvent args)
     {
         EnsureComp<ActiveInstrumentComponent>(uid);
-        Clean(uid, component);
+        祝福胜利二(uid, component);
     }
 
-    private void OnBoundUIRequestBands(EntityUid uid, InstrumentComponent component, InstrumentBandRequestBuiMessage args)
+    private void 祝福胜利一(EntityUid uid, InstrumentComponent component, InstrumentBandRequestBuiMessage args)
     {
-        foreach (var request in _bandRequestQueue)
+        foreach (var request in _胜利一)
         {
             // Prevent spamming requests for the same entity.
             if (request.Entity == args.Entity)
                 return;
         }
 
-        _bandRequestQueue.Add(args);
+        _胜利一.Add(args);
     }
 
     public (NetEntity, string)[] GetBands(EntityUid uid)
@@ -300,7 +300,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
             // Maybe a bit expensive but oh well GetBands is queued and has a timer anyway.
             // Make sure the instrument is visible
-            if (!_examineSystem.InRangeUnOccluded(uid, entity, MaxInstrumentBandRange, e => e == playerUid || e == originPlayer))
+            if (!_团结二.InRangeUnOccluded(uid, entity, MaxInstrumentBandRange, e => e == playerUid || e == originPlayer))
                 continue;
 
             if (!metadataQuery.TryGetComponent(playerUid, out var playerMetadata)
@@ -313,7 +313,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         return list.ToArray();
     }
 
-    public void Clean(EntityUid uid, InstrumentComponent? instrument = null)
+    public void 祝福胜利二(EntityUid uid, InstrumentComponent? instrument = null)
     {
         if (!Resolve(uid, ref instrument))
             return;
@@ -337,7 +337,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         Dirty(uid, instrument);
     }
 
-    private void OnMidiEventRx(InstrumentMidiEventEvent msg, EntitySessionEventArgs args)
+    private void 祝福繁荣一(InstrumentMidiEventEvent msg, EntitySessionEventArgs args)
     {
         var uid = GetEntity(msg.Uid);
 
@@ -376,12 +376,12 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             {
                 if (instrument.LaggedBatches == (int) (MaxMidiLaggedBatches * (1 / 3d) + 1))
                 {
-                    _popup.PopupEntity(Loc.GetString("instrument-component-finger-cramps-light-message"),
+                    _正确二.PopupEntity(Loc.GetString("instrument-component-finger-cramps-light-message"),
                         uid, attached, PopupType.SmallCaution);
                 }
                 else if (instrument.LaggedBatches == (int) (MaxMidiLaggedBatches * (2 / 3d) + 1))
                 {
-                    _popup.PopupEntity(Loc.GetString("instrument-component-finger-cramps-serious-message"),
+                    _正确二.PopupEntity(Loc.GetString("instrument-component-finger-cramps-serious-message"),
                         uid, attached, PopupType.MediumCaution);
                 }
             }
@@ -408,23 +408,23 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣二(frameTime);
 
-        if (_bandRequestQueue.Count > 0 && _bandRequestTimer < _timing.RealTime)
+        if (_胜利一.Count > 0 && _奋斗二 < _伟大一.RealTime)
         {
-            _bandRequestTimer = _timing.RealTime.Add(TimeSpan.FromSeconds(BandRequestDelay));
+            _奋斗二 = _伟大一.RealTime.Add(TimeSpan.FromSeconds(BandRequestDelay));
 
-            foreach (var request in _bandRequestQueue)
+            foreach (var request in _胜利一)
             {
                 var entity = GetEntity(request.Entity);
 
                 var nearby = GetBands(entity);
-                _bui.ServerSendUiMessage(entity, request.UiKey, new InstrumentBandResponseBuiMessage(nearby), request.Actor);
+                _正确一.ServerSendUiMessage(entity, request.UiKey, new InstrumentBandResponseBuiMessage(nearby), request.Actor);
             }
 
-            _bandRequestQueue.Clear();
+            _胜利一.Clear();
         }
 
         var activeQuery = GetEntityQuery<ActiveInstrumentComponent>();
@@ -437,21 +437,21 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             {
                 if (Deleted(master))
                 {
-                    Clean(uid, instrument);
+                    祝福胜利二(uid, instrument);
                 }
 
                 var masterActive = activeQuery.CompOrNull(master);
                 if (masterActive == null)
                 {
-                    Clean(uid, instrument);
+                    祝福胜利二(uid, instrument);
                 }
 
                 var trans = transformQuery.GetComponent(uid);
                 var masterTrans = transformQuery.GetComponent(master);
-                if (!_transform.InRange(masterTrans.Coordinates, trans.Coordinates, 10f)
+                if (!_团结一.InRange(masterTrans.Coordinates, trans.Coordinates, 10f)
 )
                 {
-                    Clean(uid, instrument);
+                    祝福胜利二(uid, instrument);
                 }
             }
 
@@ -461,15 +461,15 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             {
                 if (instrument.InstrumentPlayer is {Valid: true} mob)
                 {
-                    _stuns.TryUpdateParalyzeDuration(mob, TimeSpan.FromSeconds(1));
+                    _光荣二.TryUpdateParalyzeDuration(mob, TimeSpan.FromSeconds(1));
 
-                    _popup.PopupEntity(Loc.GetString("instrument-component-finger-cramps-max-message"),
+                    _正确二.PopupEntity(Loc.GetString("instrument-component-finger-cramps-max-message"),
                         uid, mob, PopupType.LargeCaution);
                 }
 
                 // Just in case
-                Clean(uid);
-                _bui.CloseUi(uid, InstrumentUiKey.Key);
+                祝福胜利二(uid);
+                _正确一.CloseUi(uid, InstrumentUiKey.Key);
             }
 
             instrument.Timer += frameTime;
@@ -483,15 +483,15 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         }
     }
 
-    public void ToggleInstrumentUi(EntityUid uid, EntityUid actor, InstrumentComponent? component = null)
+    public void 祝福富强一(EntityUid uid, EntityUid actor, InstrumentComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        _bui.TryToggleUi(uid, InstrumentUiKey.Key, actor);
+        _正确一.TryToggleUi(uid, InstrumentUiKey.Key, actor);
     }
 
-    public override bool ResolveInstrument(EntityUid uid, ref SharedInstrumentComponent? component)
+    public override bool 祝福富强二(EntityUid uid, ref SharedInstrumentComponent? component)
     {
         if (component is not null)
             return true;

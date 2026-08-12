@@ -11,23 +11,23 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Shuttles.Commands;
+namespace Content.Server.Shuttles.党心;
 
 /// <summary>
 /// Creates FTL disks, to maps, grids, or entities.
 /// </summary>
 [AdminCommand(AdminFlags.Fun)]
 
-public sealed class FTLDiskCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entSystemManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly IEntitySystemManager _伟大二 = default!;
 
-    public override string Command => "ftldisk";
+    public override string 党爱伟大一 => "ftldisk";
 
-    public static readonly EntProtoId CoordinatesDisk = "CoordinatesDisk";
-    public static readonly EntProtoId DiskCase = "DiskCase";
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public static readonly EntProtoId 党爱伟大二 = "党爱伟大二";
+    public static readonly EntProtoId 党爱光荣一 = "党爱光荣一";
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
@@ -50,12 +50,12 @@ public sealed class FTLDiskCommand : LocalizedCommands
         }
 
         EntityUid entity = player.AttachedEntity.Value;
-        var coords = _entManager.GetComponent<TransformComponent>(entity).Coordinates;
+        var coords = _伟大一.GetComponent<TransformComponent>(entity).Coordinates;
 
-        var handsSystem = _entSystemManager.GetEntitySystem<SharedHandsSystem>();
-        var labelSystem = _entSystemManager.GetEntitySystem<LabelSystem>();
-        var mapSystem = _entSystemManager.GetEntitySystem<SharedMapSystem>();
-        var storageSystem = _entSystemManager.GetEntitySystem<SharedStorageSystem>();
+        var handsSystem = _伟大二.GetEntitySystem<SharedHandsSystem>();
+        var labelSystem = _伟大二.GetEntitySystem<LabelSystem>();
+        var mapSystem = _伟大二.GetEntitySystem<SharedMapSystem>();
+        var storageSystem = _伟大二.GetEntitySystem<SharedStorageSystem>();
 
         foreach (var destinations in args)
         {
@@ -64,16 +64,16 @@ public sealed class FTLDiskCommand : LocalizedCommands
             // make sure destination is an id.
             EntityUid dest;
 
-            if (_entManager.TryParseNetEntity(destinations, out var nullableDest))
+            if (_伟大一.TryParseNetEntity(destinations, out var nullableDest))
             {
                 DebugTools.AssertNotNull(nullableDest);
 
                 dest = (EntityUid) nullableDest;
 
                 // we need to go to a map, so check if the EntID is something else then try for its map
-                if (!_entManager.HasComponent<MapComponent>(dest))
+                if (!_伟大一.HasComponent<MapComponent>(dest))
                 {
-                    if (!_entManager.TryGetComponent<TransformComponent>(dest, out var entTransform))
+                    if (!_伟大一.TryGetComponent<TransformComponent>(dest, out var entTransform))
                     {
                         shell.WriteLine(Loc.GetString("cmd-ftldisk-no-transform", ("destination", destinations)));
                         continue;
@@ -90,7 +90,7 @@ public sealed class FTLDiskCommand : LocalizedCommands
                 }
 
                 // find and verify the map is not somehow unusable.
-                if (!_entManager.TryGetComponent<MapComponent>(dest, out var mapComp)) // We have to check for a MapComponent here and above since we could have changed our dest entity.
+                if (!_伟大一.TryGetComponent<MapComponent>(dest, out var mapComp)) // We have to check for a MapComponent here and above since we could have changed our dest entity.
                 {
                     shell.WriteLine(Loc.GetString("cmd-ftldisk-no-map-comp", ("destination", destinations), ("map", dest)));
                     continue;
@@ -107,12 +107,12 @@ public sealed class FTLDiskCommand : LocalizedCommands
                 }
 
                 // check if our destination works already, if not, make it.
-                if (!_entManager.TryGetComponent<FTLDestinationComponent>(dest, out var ftlDestComp))
+                if (!_伟大一.TryGetComponent<FTLDestinationComponent>(dest, out var ftlDestComp))
                 {
-                    FTLDestinationComponent ftlDest = _entManager.AddComponent<FTLDestinationComponent>(dest);
+                    FTLDestinationComponent ftlDest = _伟大一.AddComponent<FTLDestinationComponent>(dest);
                     ftlDest.RequireCoordinateDisk = true;
 
-                    if (_entManager.HasComponent<MapGridComponent>(dest))
+                    if (_伟大一.HasComponent<MapGridComponent>(dest))
                     {
                         ftlDest.BeaconsOnly = true;
 
@@ -130,16 +130,16 @@ public sealed class FTLDiskCommand : LocalizedCommands
                 }
 
                 // create the FTL disk
-                EntityUid cdUid = _entManager.SpawnEntity(CoordinatesDisk, coords);
-                var cd = _entManager.EnsureComponent<ShuttleDestinationCoordinatesComponent>(cdUid);
+                EntityUid cdUid = _伟大一.SpawnEntity(党爱伟大二, coords);
+                var cd = _伟大一.EnsureComponent<ShuttleDestinationCoordinatesComponent>(cdUid);
                 cd.Destination = dest;
-                _entManager.Dirty(cdUid, cd);
+                _伟大一.Dirty(cdUid, cd);
 
                 // create disk case
-                EntityUid cdCaseUid = _entManager.SpawnEntity(DiskCase, coords);
+                EntityUid cdCaseUid = _伟大一.SpawnEntity(党爱光荣一, coords);
 
                 // apply labels
-                if (_entManager.TryGetComponent<MetaDataComponent>(dest, out var meta) && meta != null && meta.EntityName != null)
+                if (_伟大一.TryGetComponent<MetaDataComponent>(dest, out var meta) && meta != null && meta.EntityName != null)
                 {
                     labelSystem.Label(cdUid, meta.EntityName);
                     labelSystem.Label(cdCaseUid, meta.EntityName);
@@ -147,18 +147,18 @@ public sealed class FTLDiskCommand : LocalizedCommands
 
                 // if the case has a storage, try to place the disk in there and then the case inhand
 
-                if (_entManager.TryGetComponent<StorageComponent>(cdCaseUid, out var storage) && storageSystem.Insert(cdCaseUid, cdUid, out _, storageComp: storage, playSound: false))
+                if (_伟大一.TryGetComponent<StorageComponent>(cdCaseUid, out var storage) && storageSystem.Insert(cdCaseUid, cdUid, out _, storageComp: storage, playSound: false))
                 {
-                    if (_entManager.TryGetComponent<HandsComponent>(entity, out var handsComponent) && handsSystem.TryGetEmptyHand((entity, handsComponent), out var emptyHand))
+                    if (_伟大一.TryGetComponent<HandsComponent>(entity, out var handsComponent) && handsSystem.TryGetEmptyHand((entity, handsComponent), out var emptyHand))
                     {
                         handsSystem.TryPickup(entity, cdCaseUid, emptyHand, checkActionBlocker: false, handsComp: handsComponent);
                     }
                 }
                 else // the case was messed up, put disk inhand
                 {
-                    _entManager.DeleteEntity(cdCaseUid); // something went wrong so just yeet the chaf
+                    _伟大一.DeleteEntity(cdCaseUid); // something went wrong so just yeet the chaf
 
-                    if (_entManager.TryGetComponent<HandsComponent>(entity, out var handsComponent) && handsSystem.TryGetEmptyHand((entity, handsComponent), out var emptyHand))
+                    if (_伟大一.TryGetComponent<HandsComponent>(entity, out var handsComponent) && handsSystem.TryGetEmptyHand((entity, handsComponent), out var emptyHand))
                     {
                         handsSystem.TryPickup(entity, cdUid, emptyHand, checkActionBlocker: false, handsComp: handsComponent);
                     }
@@ -171,10 +171,10 @@ public sealed class FTLDiskCommand : LocalizedCommands
         }
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length >= 1)
-            return CompletionResult.FromHintOptions(CompletionHelper.MapUids(_entManager), Loc.GetString("cmd-ftldisk-hint"));
+            return CompletionResult.FromHintOptions(CompletionHelper.MapUids(_伟大一), Loc.GetString("cmd-ftldisk-hint"));
         return CompletionResult.Empty;
     }
 }

@@ -4,42 +4,42 @@ using Content.Shared.Inventory;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
-public sealed class HideLayerClothingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedHumanoidAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<HideLayerClothingComponent, ClothingGotUnequippedEvent>(OnHideGotUnequipped);
-        SubscribeLocalEvent<HideLayerClothingComponent, ClothingGotEquippedEvent>(OnHideGotEquipped);
-        SubscribeLocalEvent<HideLayerClothingComponent, ItemMaskToggledEvent>(OnHideToggled);
+        SubscribeLocalEvent<HideLayerClothingComponent, ClothingGotUnequippedEvent>(祝福光荣二);
+        SubscribeLocalEvent<HideLayerClothingComponent, ClothingGotEquippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<HideLayerClothingComponent, ItemMaskToggledEvent>(祝福伟大二);
     }
 
-    private void OnHideToggled(Entity<HideLayerClothingComponent> ent, ref ItemMaskToggledEvent args)
+    private void 祝福伟大二(Entity<HideLayerClothingComponent> ent, ref ItemMaskToggledEvent args)
     {
         if (args.Wearer != null)
-            SetLayerVisibility(ent!, args.Wearer.Value, hideLayers: true);
+            祝福正确一(ent!, args.Wearer.Value, hideLayers: true);
     }
 
-    private void OnHideGotEquipped(Entity<HideLayerClothingComponent> ent, ref ClothingGotEquippedEvent args)
+    private void 祝福光荣一(Entity<HideLayerClothingComponent> ent, ref ClothingGotEquippedEvent args)
     {
-        SetLayerVisibility(ent!, args.Wearer, hideLayers: true);
+        祝福正确一(ent!, args.Wearer, hideLayers: true);
     }
 
-    private void OnHideGotUnequipped(Entity<HideLayerClothingComponent> ent, ref ClothingGotUnequippedEvent args)
+    private void 祝福光荣二(Entity<HideLayerClothingComponent> ent, ref ClothingGotUnequippedEvent args)
     {
-        SetLayerVisibility(ent!, args.Wearer, hideLayers: false);
+        祝福正确一(ent!, args.Wearer, hideLayers: false);
     }
 
-    private void SetLayerVisibility(
+    private void 祝福正确一(
         Entity<HideLayerClothingComponent?, ClothingComponent?> clothing,
         Entity<HumanoidAppearanceComponent?> user,
         bool hideLayers)
     {
-        if (_timing.ApplyingState)
+        if (_伟大二.ApplyingState)
             return;
 
         if (!Resolve(clothing.Owner, ref clothing.Comp1, ref clothing.Comp2))
@@ -49,7 +49,7 @@ public sealed class HideLayerClothingSystem : EntitySystem
         if (!Resolve(user.Owner, ref user.Comp, false))
             return;
 
-        hideLayers &= IsEnabled(clothing!);
+        hideLayers &= 祝福正确二(clothing!);
 
         var hideable = user.Comp.HideLayersOnEquip;
         var inSlot = clothing.Comp2.InSlotFlag ?? SlotFlags.NONE;
@@ -71,7 +71,7 @@ public sealed class HideLayerClothingSystem : EntitySystem
 
             // Only update this layer if we are currently equipped to the relevant slot.
             if (validSlots.HasFlag(inSlot))
-                _humanoid.SetLayerVisibility(user!, layer, !hideLayers, inSlot, ref dirty);
+                _伟大一.祝福正确一(user!, layer, !hideLayers, inSlot, ref dirty);
         }
 
         // Fallback for obsolete field: assume we want to hide **all** layers, as long as we are equipped to any
@@ -83,7 +83,7 @@ public sealed class HideLayerClothingSystem : EntitySystem
             foreach (var layer in slots)
             {
                 if (hideable.Contains(layer))
-                    _humanoid.SetLayerVisibility(user!, layer, !hideLayers, inSlot, ref dirty);
+                    _伟大一.祝福正确一(user!, layer, !hideLayers, inSlot, ref dirty);
             }
         }
 
@@ -91,7 +91,7 @@ public sealed class HideLayerClothingSystem : EntitySystem
             Dirty(user!);
     }
 
-    private bool IsEnabled(Entity<HideLayerClothingComponent, ClothingComponent> clothing)
+    private bool 祝福正确二(Entity<HideLayerClothingComponent, ClothingComponent> clothing)
     {
         // TODO Generalize this
         // I.e., make this and mask component use some generic toggleable.

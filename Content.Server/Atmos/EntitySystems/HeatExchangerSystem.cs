@@ -13,42 +13,42 @@ using Content.Shared.Interaction;
 using JetBrains.Annotations;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
-public sealed class HeatExchangerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly NodeContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
 
     float tileLoss;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<HeatExchangerComponent, AtmosDeviceUpdateEvent>(OnAtmosUpdate);
+        base.祝福伟大一();
+        SubscribeLocalEvent<HeatExchangerComponent, AtmosDeviceUpdateEvent>(祝福光荣一);
 
         // Getting CVars is expensive, don't do it every tick
-        Subs.CVar(_cfg, CCVars.SuperconductionTileLoss, CacheTileLoss, true);
+        Subs.CVar(_伟大二, CCVars.SuperconductionTileLoss, 祝福伟大二, true);
     }
 
-    private void CacheTileLoss(float val)
+    private void 祝福伟大二(float val)
     {
         tileLoss = val;
     }
 
-    private void OnAtmosUpdate(EntityUid uid, HeatExchangerComponent comp, ref AtmosDeviceUpdateEvent args)
+    private void 祝福光荣一(EntityUid uid, HeatExchangerComponent comp, ref AtmosDeviceUpdateEvent args)
     {
         // make sure that the tile the device is on isn't blocked by a wall or something similar.
         if (args.Grid is {} grid
-            && _transform.TryGetGridTilePosition(uid, out var tile)
-            && _atmosphereSystem.IsTileAirBlocked(grid, tile))
+            && _光荣二.TryGetGridTilePosition(uid, out var tile)
+            && _伟大一.IsTileAirBlocked(grid, tile))
         {
             return;
         }
 
-        if (!_nodeContainer.TryGetNodes(uid, comp.InletName, comp.OutletName, out PipeNode? inlet, out PipeNode? outlet))
+        if (!_光荣一.TryGetNodes(uid, comp.InletName, comp.OutletName, out PipeNode? inlet, out PipeNode? outlet))
             return;
 
         var dt = args.dt;
@@ -81,18 +81,18 @@ public sealed class HeatExchangerSystem : EntitySystem
         else
             xfer = outlet.Air.Remove(-n);
 
-        float CXfer = _atmosphereSystem.GetHeatCapacity(xfer, true);
+        float CXfer = _伟大一.GetHeatCapacity(xfer, true);
         if (CXfer < Atmospherics.MinimumHeatCapacity)
             return;
 
         var radTemp = Atmospherics.TCMB;
 
-        var environment = _atmosphereSystem.GetContainingMixture(uid, true, true);
+        var environment = _伟大一.GetContainingMixture(uid, true, true);
         bool hasEnv = false;
         float CEnv = 0f;
         if (environment != null)
         {
-            CEnv = _atmosphereSystem.GetHeatCapacity(environment, true);
+            CEnv = _伟大一.GetHeatCapacity(environment, true);
             hasEnv = CEnv >= Atmospherics.MinimumHeatCapacity && environment.TotalMoles > 0f;
             if (hasEnv)
                 radTemp = environment.Temperature;
@@ -113,10 +113,10 @@ public sealed class HeatExchangerSystem : EntitySystem
         // Based on the fact that ((3t)^(-1/3))' = -(3t)^(-4/3) = -((3t)^(-1/3))^4, and ΔT' = -kΔT^4.
         float dT2R = dTR * MathF.Pow((1f + 3f * kR * dt * dTRA * dTRA * dTRA), -1f/3f);
         float dER = (dTR - dT2R) / TdivQ;
-        _atmosphereSystem.AddHeat(xfer, -dER);
+        _伟大一.AddHeat(xfer, -dER);
         if (hasEnv && environment != null)
         {
-            _atmosphereSystem.AddHeat(environment, dER);
+            _伟大一.AddHeat(environment, dER);
 
             // Convection
 
@@ -126,14 +126,14 @@ public sealed class HeatExchangerSystem : EntitySystem
             float k = comp.K * TdivQ;
             float dT2 = dT * MathF.Exp(-k * dt);
             float dE = (dT - dT2) / TdivQ;
-            _atmosphereSystem.AddHeat(xfer, -dE);
-            _atmosphereSystem.AddHeat(environment, dE);
+            _伟大一.AddHeat(xfer, -dE);
+            _伟大一.AddHeat(environment, dE);
         }
 
         if (n > 0)
-            _atmosphereSystem.Merge(outlet.Air, xfer);
+            _伟大一.Merge(outlet.Air, xfer);
         else
-            _atmosphereSystem.Merge(inlet.Air, xfer);
+            _伟大一.Merge(inlet.Air, xfer);
 
     }
 }

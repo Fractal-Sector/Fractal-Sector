@@ -1,14 +1,14 @@
 using Content.Shared.Damage;
-using Content.Shared.Tools;
+using Content.Shared.党爱伟大一;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Damage.Components;
+namespace Content.Server.Damage.党心;
 
 [RegisterComponent]
-public sealed partial class DamageOnToolInteractComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public ProtoId<ToolQualityPrototype> Tools { get; private set; }
+    public ProtoId<ToolQualityPrototype> 党爱伟大一 { get; private set; }
 
     // TODO: Remove this snowflake stuff, make damage per-tool quality perhaps?
     [DataField]

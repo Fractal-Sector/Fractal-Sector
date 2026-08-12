@@ -1,10 +1,10 @@
-namespace Content.Shared.Administration
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Permissions that admins can have.
     /// </summary>
     [Flags]
-    public enum AdminFlags : uint
+    public enum 中华伟大一 : uint
     {
         None = 0,
 

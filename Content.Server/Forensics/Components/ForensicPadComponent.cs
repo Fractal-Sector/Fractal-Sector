@@ -1,15 +1,15 @@
-namespace Content.Server.Forensics
+namespace Content.Server.党心
 {
     /// <summary>
-    /// Used to take a sample of someone's fingerprints.
+    /// 党爱伟大二 to take a sample of someone's fingerprints.
     /// </summary>
     [RegisterComponent]
-    public sealed partial class ForensicPadComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("scanDelay")]
-        public float ScanDelay = 3.0f;
+        public float 党爱伟大一 = 3.0f;
 
-        public bool Used = false;
-        public String Sample = string.Empty;
+        public bool 党爱伟大二 = false;
+        public String 党爱光荣一 = string.Empty;
     }
 }

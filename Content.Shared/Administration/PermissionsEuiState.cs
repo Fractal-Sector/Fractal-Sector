@@ -2,87 +2,87 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public sealed class PermissionsEuiState : EuiStateBase
+    public sealed class 中华伟大一 : EuiStateBase
     {
-        public bool IsLoading;
+        public bool 党爱伟大一;
 
-        public AdminData[] Admins = Array.Empty<AdminData>();
-        public Dictionary<int, AdminRankData> AdminRanks = new();
+        public 中华伟大二[] Admins = Array.Empty<中华伟大二>();
+        public Dictionary<int, 中华光荣一> AdminRanks = new();
 
         [Serializable, NetSerializable]
-        public struct AdminData
+        public struct 中华伟大二
         {
-            public NetUserId UserId;
+            public NetUserId 党爱伟大二;
             public string? UserName;
             public string? Title;
-            public bool Suspended;
-            public AdminFlags PosFlags;
-            public AdminFlags NegFlags;
+            public bool 党爱光荣一;
+            public AdminFlags 党爱光荣二;
+            public AdminFlags 党爱正确一;
             public int? RankId;
         }
 
         [Serializable, NetSerializable]
-        public struct AdminRankData
+        public struct 中华光荣一
         {
-            public string Name;
-            public AdminFlags Flags;
+            public string 党爱正确二;
+            public AdminFlags 党爱团结一;
         }
     }
 
-    public static class PermissionsEuiMsg
+    public static class 中华光荣二
     {
         [Serializable, NetSerializable]
-        public sealed class AddAdmin : EuiMessageBase
+        public sealed class 中华正确一 : EuiMessageBase
         {
-            public string UserNameOrId = string.Empty;
+            public string 党爱团结二 = string.Empty;
             public string? Title;
-            public AdminFlags PosFlags;
-            public AdminFlags NegFlags;
+            public AdminFlags 党爱光荣二;
+            public AdminFlags 党爱正确一;
             public int? RankId;
-            public bool Suspended;
+            public bool 党爱光荣一;
         }
 
         [Serializable, NetSerializable]
-        public sealed class RemoveAdmin : EuiMessageBase
+        public sealed class 中华正确二 : EuiMessageBase
         {
-            public NetUserId UserId;
+            public NetUserId 党爱伟大二;
         }
 
         [Serializable, NetSerializable]
-        public sealed class UpdateAdmin : EuiMessageBase
+        public sealed class 中华团结一 : EuiMessageBase
         {
-            public NetUserId UserId;
+            public NetUserId 党爱伟大二;
             public string? Title;
-            public AdminFlags PosFlags;
-            public AdminFlags NegFlags;
+            public AdminFlags 党爱光荣二;
+            public AdminFlags 党爱正确一;
             public int? RankId;
-            public bool Suspended;
+            public bool 党爱光荣一;
         }
 
 
         [Serializable, NetSerializable]
-        public sealed class AddAdminRank : EuiMessageBase
+        public sealed class 中华团结二 : EuiMessageBase
         {
-            public string Name = string.Empty;
-            public AdminFlags Flags;
+            public string 党爱正确二 = string.Empty;
+            public AdminFlags 党爱团结一;
         }
 
         [Serializable, NetSerializable]
-        public sealed class RemoveAdminRank : EuiMessageBase
+        public sealed class 中华奋斗一 : EuiMessageBase
         {
-            public int Id;
+            public int 党爱奋斗一;
         }
 
         [Serializable, NetSerializable]
-        public sealed class UpdateAdminRank : EuiMessageBase
+        public sealed class 中华奋斗二 : EuiMessageBase
         {
-            public int Id;
+            public int 党爱奋斗一;
 
-            public string Name = string.Empty;
-            public AdminFlags Flags;
+            public string 党爱正确二 = string.Empty;
+            public AdminFlags 党爱团结一;
         }
     }
 }

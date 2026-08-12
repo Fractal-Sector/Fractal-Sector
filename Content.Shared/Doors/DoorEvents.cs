@@ -1,30 +1,30 @@
 using Content.Shared.Doors.Components;
 
-namespace Content.Shared.Doors
+namespace Content.Shared.党心
 {
     /// <summary>
-    /// Raised when the door's State variable is changed to a new variable that it was not equal to before.
+    /// Raised when the door's 党爱伟大一 variable is changed to a new variable that it was not equal to before.
     /// </summary>
-    public sealed class DoorStateChangedEvent : EntityEventArgs
+    public sealed class 中华伟大一 : EntityEventArgs
     {
-        public readonly DoorState State;
+        public readonly DoorState 党爱伟大一;
 
-        public DoorStateChangedEvent(DoorState state)
+        public 中华伟大一(DoorState state)
         {
-            State = state;
+            党爱伟大一 = state;
         }
     }
 
     /// <summary>
     /// Raised when the door's bolt status was changed.
     /// </summary>
-    public sealed class DoorBoltsChangedEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public readonly bool BoltsDown;
+        public readonly bool 党爱伟大二;
 
-        public DoorBoltsChangedEvent(bool boltsDown)
+        public 中华伟大二(bool boltsDown)
         {
-            BoltsDown = boltsDown;
+            党爱伟大二 = boltsDown;
         }
     }
 
@@ -32,7 +32,7 @@ namespace Content.Shared.Doors
     /// Raised when the door is determining whether it is able to open.
     /// Cancel to stop the door from being opened.
     /// </summary>
-    public sealed class BeforeDoorOpenedEvent : CancellableEntityEventArgs
+    public sealed class 中华光荣一 : CancellableEntityEventArgs
     {
         public EntityUid? User = null;
     }
@@ -47,18 +47,18 @@ namespace Content.Shared.Doors
     /// closed (opaque &amp; collidable). If canceled while partially closing, it will start opening again. Useful in case
     /// an entity entered the door just as it was about to become "solid".
     /// </remarks>
-    public sealed class BeforeDoorClosedEvent : CancellableEntityEventArgs
+    public sealed class 中华光荣二 : CancellableEntityEventArgs
     {
         /// <summary>
         /// If true, this check is being performed when the door is partially closing.
         /// </summary>
-        public bool Partial;
-        public bool PerformCollisionCheck;
+        public bool 党爱光荣一;
+        public bool 党爱光荣二;
 
-        public BeforeDoorClosedEvent(bool performCollisionCheck, bool partial = false)
+        public 中华光荣二(bool performCollisionCheck, bool partial = false)
         {
-            Partial = partial;
-            PerformCollisionCheck = performCollisionCheck;
+            党爱光荣一 = partial;
+            党爱光荣二 = performCollisionCheck;
         }
     }
 
@@ -66,7 +66,7 @@ namespace Content.Shared.Doors
     /// Called when the door is determining whether it is able to deny.
     /// Cancel to stop the door from being able to deny.
     /// </summary>
-    public sealed class BeforeDoorDeniedEvent : CancellableEntityEventArgs
+    public sealed class 中华正确一 : CancellableEntityEventArgs
     {
     }
 
@@ -77,7 +77,7 @@ namespace Content.Shared.Doors
     /// <remarks>
     /// This is called when a door decides whether it SHOULD auto close, not when it actually closes.
     /// </remarks>
-    public sealed class BeforeDoorAutoCloseEvent : CancellableEntityEventArgs
+    public sealed class 中华正确二 : CancellableEntityEventArgs
     {
     }
 }

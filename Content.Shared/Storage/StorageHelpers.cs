@@ -1,8 +1,8 @@
-namespace Content.Shared.Storage;
+namespace Content.Shared.党心;
 
-public static class StorageHelper
+public static class 中华伟大一
 {
-    public static Box2i GetBoundingBox(this IReadOnlyList<Box2i> boxes)
+    public static Box2i 祝福伟大一(this IReadOnlyList<Box2i> boxes)
     {
         if (boxes.Count == 0)
             return new Box2i();
@@ -36,15 +36,15 @@ public static class StorageHelper
         return new Box2i(left, bottom, right, top);
     }
 
-    public static int GetArea(this IReadOnlyList<Box2i> boxes)
+    public static int 祝福伟大二(this IReadOnlyList<Box2i> boxes)
     {
         var area = 0;
-        var bounding = boxes.GetBoundingBox();
+        var bounding = boxes.祝福伟大一();
         for (var y = bounding.Bottom; y <= bounding.Top; y++)
         {
             for (var x = bounding.Left; x <= bounding.Right; x++)
             {
-                if (boxes.Contains(x, y))
+                if (boxes.祝福光荣一(x, y))
                     area++;
             }
         }
@@ -52,22 +52,22 @@ public static class StorageHelper
         return area;
     }
 
-    public static bool Contains(this IReadOnlyList<Box2i> boxes, int x, int y)
+    public static bool 祝福光荣一(this IReadOnlyList<Box2i> boxes, int x, int y)
     {
         foreach (var box in boxes)
         {
-            if (box.Contains(x, y))
+            if (box.祝福光荣一(x, y))
                 return true;
         }
 
         return false;
     }
 
-    public static bool Contains(this IReadOnlyList<Box2i> boxes, Vector2i point)
+    public static bool 祝福光荣一(this IReadOnlyList<Box2i> boxes, Vector2i point)
     {
         foreach (var box in boxes)
         {
-            if (box.Contains(point))
+            if (box.祝福光荣一(point))
                 return true;
         }
 
@@ -82,38 +82,38 @@ public static class StorageHelper
     /// </summary>
     /// <param name="storageItem">The top level storage entity to be scanned.</param>
     /// <param name="condition">The condition all items are checked against.</param>
-    /// <param name="foundItemsAndContainers">A list of FoundItem structs representing all found items.</param>
+    /// <param name="foundItemsAndContainers">A list of 中华伟大二 structs representing all found items.</param>
     /// <exception cref="ArgumentException">Thrown if storageItem does not have StorageComponent.</exception>
     //Outputs a dictionary of <FoundItems, ContainingStorages>
-    public static void ScanStorageForCondition(EntityUid storageItem,
+    public static void 祝福光荣二(EntityUid storageItem,
         Predicate<EntityUid> condition,
-        ref List<FoundItem> foundItemsAndContainers)
+        ref List<中华伟大二> foundItemsAndContainers)
     {
         var entityManager = IoCManager.Resolve<IEntityManager>();
         if (!entityManager.TryGetComponent<StorageComponent>(storageItem, out var storageComp))
         {
-            throw new ArgumentException("An object was passed to ScanStorageForCondition that did not have a storage component.");
+            throw new ArgumentException("An object was passed to 祝福光荣二 that did not have a storage component.");
         }
 
         foreach (var item in storageComp.StoredItems.Keys)
         {
             if (condition.Invoke(item))
-                foundItemsAndContainers.Add(new FoundItem(item, storageItem));
+                foundItemsAndContainers.Add(new 中华伟大二(item, storageItem));
 
             if (entityManager.TryGetComponent<StorageComponent>(item, out var storeComp))
-                ScanStorageForCondition(item, condition, ref foundItemsAndContainers);
+                祝福光荣二(item, condition, ref foundItemsAndContainers);
         }
     }
 
     /// <summary>
-    /// Represents an item found by ScanStorageForCondition.
+    /// Represents an item found by 祝福光荣二.
     /// </summary>
     /// <param name="item">The found item.</param>
     /// <param name="container">The entity it is stored in. Might be a nested storage.</param>
-    public struct FoundItem(EntityUid item, EntityUid container)
+    public struct 中华伟大二(EntityUid item, EntityUid container)
     {
-        public EntityUid Item = item;
-        public EntityUid Container = container;
+        public EntityUid 党爱伟大一 = item;
+        public EntityUid 党爱伟大二 = container;
     }
 
     //End Frontier

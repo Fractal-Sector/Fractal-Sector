@@ -3,34 +3,34 @@ using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.RCD;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Contains the parameters for an RCD construction / operation
 /// </summary>
 [Prototype("rcd")]
-public sealed partial class RCDPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// The RCD mode associated with the operation
     /// </summary>
     [DataField(required: true), ViewVariables(VVAccess.ReadOnly)]
-    public RcdMode Mode { get; private set; } = RcdMode.Invalid;
+    public 中华伟大二 Mode { get; private set; } = 中华伟大二.Invalid;
 
     /// <summary>
     /// The name associated with the prototype
     /// </summary>
     [DataField("name"), ViewVariables(VVAccess.ReadOnly)]
-    public string SetName { get; private set; } = "Unknown";
+    public string 党爱伟大二 { get; private set; } = "Unknown";
 
     /// <summary>
     /// The name of the radial container that this prototype will be listed under on the RCD menu
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public string Category { get; private set; } = "Undefined";
+    public string 党爱光荣一 { get; private set; } = "Undefined";
 
     /// <summary>
     /// Texture path for this prototypes menu icon
@@ -56,13 +56,13 @@ public sealed partial class RCDPrototype : IPrototype
     /// Number of charges consumed when the operation is completed
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public int Cost { get; private set; } = 1;
+    public int 党爱光荣二 { get; private set; } = 1;
 
     /// <summary>
     /// The length of the operation
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public float Delay { get; private set; } = 1f;
+    public float 党爱正确一 { get; private set; } = 1f;
 
     /// <summary>
     /// The visual effect that plays during this operation
@@ -74,20 +74,20 @@ public sealed partial class RCDPrototype : IPrototype
     /// A list of rules that govern where the entity prototype can be constructed
     /// </summary>
     [DataField("rules"), ViewVariables(VVAccess.ReadOnly)]
-    public HashSet<RcdConstructionRule> ConstructionRules { get; private set; } = new();
+    public HashSet<中华光荣一> ConstructionRules { get; private set; } = new();
 
     /// <summary>
     /// The collision mask used for determining whether the entity prototype will fit into a target tile
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public CollisionGroup CollisionMask { get; private set; } = CollisionGroup.None;
+    public CollisionGroup 党爱正确二 { get; private set; } = CollisionGroup.None;
 
     /// <summary>
     /// Specifies a set of custom collision bounds for determining whether the entity prototype will fit into a target tile
     /// </summary>
     /// <remarks>
     /// Should be set assuming that the entity faces south.
-    /// Make sure that Rotation is set to RcdRotation.User if the entity is to be rotated by the user
+    /// Make sure that Rotation is set to 中华光荣二.User if the entity is to be rotated by the user
     /// </remarks>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
     public Box2? CollisionBounds
@@ -120,18 +120,18 @@ public sealed partial class RCDPrototype : IPrototype
     /// Governs how the local rotation of the constructed entity will be set
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public RcdRotation Rotation { get; private set; } = RcdRotation.User;
+    public 中华光荣二 Rotation { get; private set; } = 中华光荣二.User;
 
     // Starlight Start: RPD
     /// <summary>
     /// Determines whether this prototype uses layered placement (true for traditional placement, false for layered). Only applies to RPD.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public bool HasLayers { get; private set; } = false;
+    public bool 党爱团结一 { get; private set; } = false;
     // Starlight End: RPD
 }
 
-public enum RcdMode : byte
+public enum 中华伟大二 : byte
 {
     Invalid,
     Deconstruct,
@@ -140,7 +140,7 @@ public enum RcdMode : byte
 }
 
 // These are to be replaced with more flexible 'RulesRule' at a later time
-public enum RcdConstructionRule : byte
+public enum 中华光荣一 : byte
 {
     MustBuildOnEmptyTile,       // Can only be built on empty space (e.g. lattice)
     CanBuildOnEmptyTile,        // Can be built on empty space or replace an existing tile (e.g. hull plating)
@@ -149,7 +149,7 @@ public enum RcdConstructionRule : byte
     IsCatwalk,                  // The entity is a catwalk
 }
 
-public enum RcdRotation : byte
+public enum 中华光荣二 : byte
 {
     Fixed,      // The entity has a local rotation of zero
     Camera,     // The rotation of the entity matches the local player camera

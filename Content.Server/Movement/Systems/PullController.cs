@@ -21,9 +21,9 @@ using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Movement.Systems;
+namespace Content.Server.Movement.党心;
 
-public sealed class PullController : VirtualController
+public sealed class 中华伟大一 : VirtualController
 {
     /*
      * This code is awful. If you try to tweak this without refactoring it I'm gonna revert it.
@@ -55,11 +55,11 @@ public sealed class PullController : VirtualController
     // How much you must move for the puller movement check to actually hit.
     private const float MinimumMovementDistance = 0.005f;
 
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedGravitySystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
 
     /// <summary>
     ///     If distance between puller and pulled entity lower that this threshold,
@@ -76,41 +76,41 @@ public sealed class PullController : VirtualController
     /// </summary>
     private const float ThresholdRotAngle = 22.5f;
 
-    private EntityQuery<PhysicsComponent> _physicsQuery;
-    private EntityQuery<PullableComponent> _pullableQuery;
-    private EntityQuery<PullerComponent> _pullerQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<PhysicsComponent> _正确二;
+    private EntityQuery<PullableComponent> _团结一;
+    private EntityQuery<PullerComponent> _团结二;
+    private EntityQuery<TransformComponent> _奋斗一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.MovePulledObject, new PointerInputCmdHandler(OnRequestMovePulledObject))
-            .Register<PullController>();
+            .Bind(ContentKeyFunctions.MovePulledObject, new PointerInputCmdHandler(祝福光荣二))
+            .Register<中华伟大一>();
 
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        _pullableQuery = GetEntityQuery<PullableComponent>();
-        _pullerQuery = GetEntityQuery<PullerComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _正确二 = GetEntityQuery<PhysicsComponent>();
+        _团结一 = GetEntityQuery<PullableComponent>();
+        _团结二 = GetEntityQuery<PullerComponent>();
+        _奋斗一 = GetEntityQuery<TransformComponent>();
 
         UpdatesAfter.Add(typeof(MoverController));
-        SubscribeLocalEvent<PullMovingComponent, PullStoppedMessage>(OnPullStop);
-        SubscribeLocalEvent<ActivePullerComponent, MoveEvent>(OnPullerMove);
+        SubscribeLocalEvent<PullMovingComponent, PullStoppedMessage>(祝福光荣一);
+        SubscribeLocalEvent<ActivePullerComponent, MoveEvent>(祝福正确一);
 
-        base.Initialize();
+        base.祝福伟大一();
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
-        CommandBinds.Unregister<PullController>();
+        base.祝福伟大二();
+        CommandBinds.Unregister<中华伟大一>();
     }
 
-    private void OnPullStop(Entity<PullMovingComponent> ent, ref PullStoppedMessage args)
+    private void 祝福光荣一(Entity<PullMovingComponent> ent, ref PullStoppedMessage args)
     {
         RemCompDeferred<PullMovingComponent>(ent);
     }
 
-    private bool OnRequestMovePulledObject(ICommonSession? session, EntityCoordinates coords, EntityUid uid)
+    private bool 祝福光荣二(ICommonSession? session, EntityCoordinates coords, EntityUid uid)
     {
         if (session?.AttachedEntity is not { } player ||
             !player.IsValid())
@@ -118,7 +118,7 @@ public sealed class PullController : VirtualController
             return false;
         }
 
-        if (!_pullerQuery.TryComp(player, out var pullerComp))
+        if (!_团结二.TryComp(player, out var pullerComp))
             return false;
 
         var pulled = pullerComp.Pulling;
@@ -129,20 +129,20 @@ public sealed class PullController : VirtualController
         if (TryComp(pulled, out ConveyedComponent? conveyed) && conveyed.Conveying)
             return false;
 
-        if (!_pullableQuery.TryComp(pulled, out var pullable))
+        if (!_团结一.TryComp(pulled, out var pullable))
             return false;
 
-        if (_container.IsEntityInContainer(player))
+        if (_光荣一.IsEntityInContainer(player))
             return false;
 
-        pullerComp.NextThrow = _timing.CurTime + pullerComp.ThrowCooldown;
+        pullerComp.NextThrow = _伟大一.CurTime + pullerComp.ThrowCooldown;
 
         // Cap the distance
         var range = 2f;
-        var fromUserCoords = _transformSystem.WithEntityId(coords, player);
+        var fromUserCoords = _正确一.WithEntityId(coords, player);
         var userCoords = new EntityCoordinates(player, Vector2.Zero);
 
-        if (!_transformSystem.InRange(coords, userCoords, range))
+        if (!_正确一.InRange(coords, userCoords, range))
         {
             var direction = fromUserCoords.Position - userCoords.Position;
 
@@ -157,7 +157,7 @@ public sealed class PullController : VirtualController
             }
 
             fromUserCoords = new EntityCoordinates(player, direction.Normalized() * (range - 0.01f));
-            coords = _transformSystem.WithEntityId(fromUserCoords, coords.EntityId);
+            coords = _正确一.WithEntityId(fromUserCoords, coords.EntityId);
         }
 
         var moving = EnsureComp<PullMovingComponent>(pulled!.Value);
@@ -165,9 +165,9 @@ public sealed class PullController : VirtualController
         return false;
     }
 
-    private void OnPullerMove(EntityUid uid, ActivePullerComponent component, ref MoveEvent args)
+    private void 祝福正确一(EntityUid uid, ActivePullerComponent component, ref MoveEvent args)
     {
-        if (!_pullerQuery.TryComp(uid, out var puller))
+        if (!_团结二.TryComp(uid, out var puller))
             return;
 
         if (puller.Pulling is not { } pullable)
@@ -177,7 +177,7 @@ public sealed class PullController : VirtualController
             return;
         }
 
-        UpdatePulledRotation(uid, pullable);
+        祝福正确二(uid, pullable);
 
         // WHY
         if (args.NewPosition.EntityId == args.OldPosition.EntityId &&
@@ -187,13 +187,13 @@ public sealed class PullController : VirtualController
             return;
         }
 
-        if (_physicsQuery.TryComp(uid, out var physics))
+        if (_正确二.TryComp(uid, out var physics))
             PhysicsSystem.WakeBody(uid, body: physics);
 
         RemCompDeferred<PullMovingComponent>(pullable);
     }
 
-    private void UpdatePulledRotation(EntityUid puller, EntityUid pulled)
+    private void 祝福正确二(EntityUid puller, EntityUid pulled)
     {
         // TODO: update once ComponentReference works with directed event bus.
         if (!TryComp(pulled, out RotatableComponent? rotatable))
@@ -202,8 +202,8 @@ public sealed class PullController : VirtualController
         if (!rotatable.RotateWhilePulling)
             return;
 
-        var pulledXform = _xformQuery.GetComponent(pulled);
-        var pullerXform = _xformQuery.GetComponent(puller);
+        var pulledXform = _奋斗一.GetComponent(pulled);
+        var pullerXform = _奋斗一.GetComponent(puller);
 
         var pullerData = TransformSystem.GetWorldPositionRotation(pullerXform);
         var pulledData = TransformSystem.GetWorldPositionRotation(pulledXform);
@@ -229,9 +229,9 @@ public sealed class PullController : VirtualController
         }
     }
 
-    public override void UpdateBeforeSolve(bool prediction, float frameTime)
+    public override void 祝福团结一(bool prediction, float frameTime)
     {
-        base.UpdateBeforeSolve(prediction, frameTime);
+        base.祝福团结一(prediction, frameTime);
         var movingQuery = EntityQueryEnumerator<PullMovingComponent, PullableComponent, TransformComponent>();
 
         while (movingQuery.MoveNext(out var pullableEnt, out var mover, out var pullable, out var pullableXform))
@@ -245,7 +245,7 @@ public sealed class PullController : VirtualController
             if (pullable.Puller is not {Valid: true} puller)
                 continue;
 
-            var pullerXform = _xformQuery.Get(puller);
+            var pullerXform = _奋斗一.Get(puller);
             var pullerPosition = TransformSystem.GetMapCoordinates(pullerXform);
 
             var movingTo = TransformSystem.ToMapCoordinates(mover.MovingTo);
@@ -292,7 +292,7 @@ public sealed class PullController : VirtualController
             // Now for the part where velocity gets shutdown...
             if (diffLength < SettleShutdownDistance && physics.LinearVelocity.Length() >= SettleMinimumShutdownVelocity)
             {
-                // Shutdown velocity increases as we get closer to centre
+                // 祝福伟大二 velocity increases as we get closer to centre
                 var scaling = (SettleShutdownDistance - diffLength) / SettleShutdownDistance;
                 accel -= physics.LinearVelocity * SettleShutdownMultiplier * scaling;
             }
@@ -305,7 +305,7 @@ public sealed class PullController : VirtualController
             // if the puller is weightless or can't move, then we apply the inverse impulse (Newton's third law).
             // doing it under gravity produces an unsatisfying wiggling when pulling.
             // If player can't move, assume they are on a chair and we need to prevent pull-moving.
-            if (_gravity.IsWeightless(puller) && pullerXform.Comp.GridUid == null || !_actionBlockerSystem.CanMove(puller))
+            if (_光荣二.IsWeightless(puller) && pullerXform.Comp.GridUid == null || !_伟大二.CanMove(puller))
             {
                 PhysicsSystem.WakeBody(puller);
                 PhysicsSystem.ApplyLinearImpulse(puller, -impulse);

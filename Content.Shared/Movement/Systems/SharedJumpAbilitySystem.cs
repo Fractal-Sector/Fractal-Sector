@@ -10,69 +10,69 @@ using Content.Shared.Throwing;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Events;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public sealed partial class SharedJumpAbilitySystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly ThrowingSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedGravitySystem _光荣一 = default!;
+    [Dependency] private readonly SharedActionsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedStunSystem _正确一 = default!;
+    [Dependency] private readonly StandingStateSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<JumpAbilityComponent, MapInitEvent>(OnInit);
-        SubscribeLocalEvent<JumpAbilityComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<JumpAbilityComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<JumpAbilityComponent, ComponentShutdown>(祝福光荣一);
 
-        SubscribeLocalEvent<JumpAbilityComponent, GravityJumpEvent>(OnGravityJump);
+        SubscribeLocalEvent<JumpAbilityComponent, GravityJumpEvent>(祝福团结一);
 
-        SubscribeLocalEvent<ActiveLeaperComponent, StartCollideEvent>(OnLeaperCollide);
-        SubscribeLocalEvent<ActiveLeaperComponent, LandEvent>(OnLeaperLand);
-        SubscribeLocalEvent<ActiveLeaperComponent, StopThrowEvent>(OnLeaperStopThrow);
+        SubscribeLocalEvent<ActiveLeaperComponent, StartCollideEvent>(祝福光荣二);
+        SubscribeLocalEvent<ActiveLeaperComponent, LandEvent>(祝福正确一);
+        SubscribeLocalEvent<ActiveLeaperComponent, StopThrowEvent>(祝福正确二);
 
-        SubscribeLocalEvent<JumpAbilityComponent, CloningEvent>(OnClone);
+        SubscribeLocalEvent<JumpAbilityComponent, CloningEvent>(祝福团结二);
     }
 
-    private void OnInit(Entity<JumpAbilityComponent> entity, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<JumpAbilityComponent> entity, ref MapInitEvent args)
     {
         if (!TryComp(entity, out ActionsComponent? comp))
             return;
 
-        _actions.AddAction(entity, ref entity.Comp.ActionEntity, entity.Comp.Action, component: comp);
+        _光荣二.AddAction(entity, ref entity.Comp.ActionEntity, entity.Comp.Action, component: comp);
     }
 
-    private void OnShutdown(Entity<JumpAbilityComponent> entity, ref ComponentShutdown args)
+    private void 祝福光荣一(Entity<JumpAbilityComponent> entity, ref ComponentShutdown args)
     {
-        _actions.RemoveAction(entity.Owner, entity.Comp.ActionEntity);
+        _光荣二.RemoveAction(entity.Owner, entity.Comp.ActionEntity);
     }
 
-    private void OnLeaperCollide(Entity<ActiveLeaperComponent> entity, ref StartCollideEvent args)
+    private void 祝福光荣二(Entity<ActiveLeaperComponent> entity, ref StartCollideEvent args)
     {
-        _stun.TryKnockdown(entity.Owner, entity.Comp.KnockdownDuration, force: true);
+        _正确一.TryKnockdown(entity.Owner, entity.Comp.KnockdownDuration, force: true);
         RemCompDeferred<ActiveLeaperComponent>(entity);
     }
 
-    private void OnLeaperLand(Entity<ActiveLeaperComponent> entity, ref LandEvent args)
-    {
-        RemCompDeferred<ActiveLeaperComponent>(entity);
-    }
-
-    private void OnLeaperStopThrow(Entity<ActiveLeaperComponent> entity, ref StopThrowEvent args)
+    private void 祝福正确一(Entity<ActiveLeaperComponent> entity, ref LandEvent args)
     {
         RemCompDeferred<ActiveLeaperComponent>(entity);
     }
 
-    private void OnGravityJump(Entity<JumpAbilityComponent> entity, ref GravityJumpEvent args)
+    private void 祝福正确二(Entity<ActiveLeaperComponent> entity, ref StopThrowEvent args)
     {
-        if (_gravity.IsWeightless(args.Performer) || _standing.IsDown(args.Performer))
+        RemCompDeferred<ActiveLeaperComponent>(entity);
+    }
+
+    private void 祝福团结一(Entity<JumpAbilityComponent> entity, ref GravityJumpEvent args)
+    {
+        if (_光荣一.IsWeightless(args.Performer) || _正确二.IsDown(args.Performer))
         {
             if (entity.Comp.JumpFailedPopup != null)
-                _popup.PopupClient(Loc.GetString(entity.Comp.JumpFailedPopup.Value), args.Performer, args.Performer);
+                _团结一.PopupClient(Loc.GetString(entity.Comp.JumpFailedPopup.Value), args.Performer, args.Performer);
             return;
         }
 
@@ -80,9 +80,9 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
         var throwing = xform.LocalRotation.ToWorldVec() * entity.Comp.JumpDistance;
         var direction = xform.Coordinates.Offset(throwing); // to make the character jump in the direction he's looking
 
-        _throwing.TryThrow(args.Performer, direction, entity.Comp.JumpThrowSpeed);
+        _伟大一.TryThrow(args.Performer, direction, entity.Comp.JumpThrowSpeed);
 
-        _audio.PlayPredicted(entity.Comp.JumpSound, args.Performer, args.Performer);
+        _伟大二.PlayPredicted(entity.Comp.JumpSound, args.Performer, args.Performer);
 
         if (entity.Comp.CanCollide)
         {
@@ -94,7 +94,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnClone(Entity<JumpAbilityComponent> ent, ref CloningEvent args)
+    private void 祝福团结二(Entity<JumpAbilityComponent> ent, ref CloningEvent args)
     {
         if (!args.Settings.EventComponents.Contains(Factory.GetRegistration(ent.Comp.GetType()).Name))
             return;

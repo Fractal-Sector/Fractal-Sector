@@ -4,39 +4,39 @@ using Content.Server.Roles;
 using Content.Shared.Humanoid;
 using Content.Shared.Roles.Components;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class ThiefRuleSystem : GameRuleSystem<ThiefRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<ThiefRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
+    [Dependency] private readonly AntagSelectionSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ThiefRuleComponent, AfterAntagEntitySelectedEvent>(AfterAntagSelected);
+        SubscribeLocalEvent<ThiefRuleComponent, AfterAntagEntitySelectedEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<ThiefRoleComponent, GetBriefingEvent>(OnGetBriefing);
+        SubscribeLocalEvent<ThiefRoleComponent, GetBriefingEvent>(祝福光荣一);
     }
 
     // Greeting upon thief activation
-    private void AfterAntagSelected(Entity<ThiefRuleComponent> mindId, ref AfterAntagEntitySelectedEvent args)
+    private void 祝福伟大二(Entity<ThiefRuleComponent> mindId, ref AfterAntagEntitySelectedEvent args)
     {
         var ent = args.EntityUid;
-        _antag.SendBriefing(ent, MakeBriefing(ent), null, null);
+        _伟大一.SendBriefing(ent, 祝福光荣二(ent), null, null);
     }
 
     // Character screen briefing
-    private void OnGetBriefing(Entity<ThiefRoleComponent> role, ref GetBriefingEvent args)
+    private void 祝福光荣一(Entity<ThiefRoleComponent> role, ref GetBriefingEvent args)
     {
         var ent = args.Mind.Comp.OwnedEntity;
 
         if (ent is null)
             return;
-        args.Append(MakeBriefing(ent.Value));
+        args.Append(祝福光荣二(ent.Value));
     }
 
-    private string MakeBriefing(EntityUid ent)
+    private string 祝福光荣二(EntityUid ent)
     {
         var isHuman = HasComp<HumanoidAppearanceComponent>(ent);
         var briefing = isHuman

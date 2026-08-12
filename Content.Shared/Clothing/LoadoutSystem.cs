@@ -10,29 +10,29 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Clothing;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Assigns a loadout to an entity based on the RoleLoadout prototype
 /// </summary>
-public sealed class LoadoutSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     // Shared so we can predict it for placement manager.
 
-    [Dependency] private readonly ActorSystem _actors = default!;
-    [Dependency] private readonly SharedStationSpawningSystem _station = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly ActorSystem _伟大一 = default!;
+    [Dependency] private readonly SharedStationSpawningSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Wait until the character has all their organs before we give them their loadout
-        SubscribeLocalEvent<LoadoutComponent, MapInitEvent>(OnMapInit, after: [typeof(SharedBodySystem)]);
+        SubscribeLocalEvent<LoadoutComponent, MapInitEvent>(祝福光荣二, after: [typeof(SharedBodySystem)]);
     }
 
-    public static string GetJobPrototype(string? loadout)
+    public static string 祝福伟大二(string? loadout)
     {
         if (string.IsNullOrEmpty(loadout))
             return string.Empty;
@@ -44,7 +44,7 @@ public sealed class LoadoutSystem : EntitySystem
     {
         EntProtoId? proto = null;
 
-        if (_protoMan.TryIndex(loadout.StartingGear, out var gear))
+        if (_光荣一.TryIndex(loadout.StartingGear, out var gear))
         {
             proto = GetFirstOrNull(gear);
         }
@@ -66,12 +66,12 @@ public sealed class LoadoutSystem : EntitySystem
 
         if (count == 1)
         {
-            if (gear.Equipment.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto))
+            if (gear.Equipment.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto))
             {
                 return proto.ID;
             }
 
-            if (gear.Inhand.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Inhand[0], out proto))
+            if (gear.Inhand.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Inhand[0], out proto))
             {
                 return proto.ID;
             }
@@ -86,17 +86,17 @@ public sealed class LoadoutSystem : EntitySystem
             }
 
             // Frontier: extra fields
-            if (gear.EncryptionKeys.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.EncryptionKeys[0], out proto))
+            if (gear.EncryptionKeys.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.EncryptionKeys[0], out proto))
             {
                 return proto.ID;
             }
 
-            if (gear.Implants.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Implants[0], out proto))
+            if (gear.Implants.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Implants[0], out proto))
             {
                 return proto.ID;
             }
 
-            if (gear.Cartridges.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Cartridges[0], out proto))
+            if (gear.Cartridges.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Cartridges[0], out proto))
             {
                 return proto.ID;
             }
@@ -106,23 +106,23 @@ public sealed class LoadoutSystem : EntitySystem
         return null;
     }
 
-    public string GetName(LoadoutPrototype loadout)
+    public string 祝福光荣一(LoadoutPrototype loadout)
     {
-        if (loadout.DummyEntity is not null && _protoMan.TryIndex<EntityPrototype>(loadout.DummyEntity, out var proto))
+        if (loadout.DummyEntity is not null && _光荣一.TryIndex<EntityPrototype>(loadout.DummyEntity, out var proto))
             return proto.Name;
 
-        if (_protoMan.TryIndex(loadout.StartingGear, out var gear))
+        if (_光荣一.TryIndex(loadout.StartingGear, out var gear))
         {
-            return GetName(gear);
+            return 祝福光荣一(gear);
         }
 
-        return GetName((IEquipmentLoadout) loadout);
+        return 祝福光荣一((IEquipmentLoadout) loadout);
     }
 
     /// <summary>
     /// Tries to get the name of a loadout.
     /// </summary>
-    public string GetName(IEquipmentLoadout? gear)
+    public string 祝福光荣一(IEquipmentLoadout? gear)
     {
         if (gear == null)
             return string.Empty;
@@ -132,12 +132,12 @@ public sealed class LoadoutSystem : EntitySystem
 
         if (count == 1)
         {
-            if (gear.Equipment.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto))
+            if (gear.Equipment.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto))
             {
                 return proto.Name;
             }
 
-            if (gear.Inhand.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Inhand[0], out proto))
+            if (gear.Inhand.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Inhand[0], out proto))
             {
                 return proto.Name;
             }
@@ -147,7 +147,7 @@ public sealed class LoadoutSystem : EntitySystem
                 if (values.Count != 1)
                     continue;
 
-                if (_protoMan.TryIndex<EntityPrototype>(values[0], out proto))
+                if (_光荣一.TryIndex<EntityPrototype>(values[0], out proto))
                 {
                     return proto.Name;
                 }
@@ -156,17 +156,17 @@ public sealed class LoadoutSystem : EntitySystem
             }
 
             // Frontier: extra fields
-            if (gear.EncryptionKeys.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.EncryptionKeys[0], out proto))
+            if (gear.EncryptionKeys.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.EncryptionKeys[0], out proto))
             {
                 return proto.Name;
             }
 
-            if (gear.Implants.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Implants[0], out proto))
+            if (gear.Implants.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Implants[0], out proto))
             {
                 return proto.Name;
             }
 
-            if (gear.Cartridges.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Cartridges[0], out proto))
+            if (gear.Cartridges.Count == 1 && _光荣一.TryIndex<EntityPrototype>(gear.Cartridges[0], out proto))
             {
                 return proto.Name;
             }
@@ -176,42 +176,42 @@ public sealed class LoadoutSystem : EntitySystem
         return Loc.GetString($"unknown");
     }
 
-    private void OnMapInit(EntityUid uid, LoadoutComponent component, MapInitEvent args)
+    private void 祝福光荣二(EntityUid uid, LoadoutComponent component, MapInitEvent args)
     {
-        Equip(uid, component.StartingGear, component.RoleLoadout);
+        祝福正确一(uid, component.StartingGear, component.RoleLoadout);
     }
 
-    public void Equip(EntityUid uid, List<ProtoId<StartingGearPrototype>>? startingGear,
+    public void 祝福正确一(EntityUid uid, List<ProtoId<StartingGearPrototype>>? startingGear,
         List<ProtoId<RoleLoadoutPrototype>>? loadoutGroups)
     {
         // First, randomly pick a startingGear profile from those specified, and equip it.
         if (startingGear != null && startingGear.Count > 0)
-            _station.EquipStartingGear(uid, _random.Pick(startingGear), false);
+            _伟大二.EquipStartingGear(uid, _光荣二.Pick(startingGear), false);
 
         if (loadoutGroups == null)
         {
-            GearEquipped(uid);
+            祝福正确二(uid);
             return;
         }
 
         // Then, randomly pick a RoleLoadout profile from those specified, and process/equip all LoadoutGroups from it.
         // For non-roundstart mobs there is no SelectedLoadout data, so minValue must be set in each LoadoutGroup to force selection.
-        var id = _random.Pick(loadoutGroups);
-        var proto = _protoMan.Index(id);
+        var id = _光荣二.Pick(loadoutGroups);
+        var proto = _光荣一.Index(id);
         var loadout = new RoleLoadout(id);
-        loadout.SetDefault(GetProfile(uid), _actors.GetSession(uid), _protoMan, true);
-        _station.EquipRoleLoadout(uid, loadout, proto);
+        loadout.SetDefault(祝福团结一(uid), _伟大一.GetSession(uid), _光荣一, true);
+        _伟大二.EquipRoleLoadout(uid, loadout, proto);
 
-        GearEquipped(uid);
+        祝福正确二(uid);
     }
 
-    public void GearEquipped(EntityUid uid)
+    public void 祝福正确二(EntityUid uid)
     {
         var ev = new StartingGearEquippedEvent(uid);
         RaiseLocalEvent(uid, ref ev);
     }
 
-    public HumanoidCharacterProfile GetProfile(EntityUid? uid)
+    public HumanoidCharacterProfile 祝福团结一(EntityUid? uid)
     {
         if (TryComp(uid, out HumanoidAppearanceComponent? appearance))
         {

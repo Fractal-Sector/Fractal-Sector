@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Singularity
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum SingularityAppearanceKeys
+    public enum 中华伟大一
     {
         Singularity
     }

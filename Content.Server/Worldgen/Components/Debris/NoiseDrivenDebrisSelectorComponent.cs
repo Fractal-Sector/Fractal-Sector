@@ -4,7 +4,7 @@ using Content.Server.Worldgen.Tools;
 using Content.Shared.Storage;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Worldgen.Components.Debris;
+namespace Content.Server.Worldgen.Components.党心;
 
 /// <summary>
 ///     This is used for selecting debris with a probability determined by a noise channel.
@@ -12,7 +12,7 @@ namespace Content.Server.Worldgen.Components.Debris;
 /// </summary>
 [RegisterComponent]
 [Access(typeof(NoiseDrivenDebrisSelectorSystem))]
-public sealed partial class NoiseDrivenDebrisSelectorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     private EntitySpawnCollectionCache? _cache;
 
@@ -20,16 +20,16 @@ public sealed partial class NoiseDrivenDebrisSelectorComponent : Component
     ///     The prototype-facing debris table entries.
     /// </summary>
     [DataField("debrisTable", required: true)]
-    private List<EntitySpawnEntry> _entries = default!;
+    private List<EntitySpawnEntry> _伟大一 = default!;
 
     /// <summary>
     ///     The debris entity spawn collection.
     /// </summary>
-    public EntitySpawnCollectionCache CachedDebrisTable
+    public EntitySpawnCollectionCache 党爱伟大一
     {
         get
         {
-            _cache ??= new EntitySpawnCollectionCache(_entries);
+            _cache ??= new EntitySpawnCollectionCache(_伟大一);
             return _cache;
         }
     }
@@ -39,6 +39,6 @@ public sealed partial class NoiseDrivenDebrisSelectorComponent : Component
     /// </summary>
     /// <remarks>This noise channel should be mapped to exactly the range [0, 1] unless you want a lot of warnings in the log.</remarks>
     [DataField("noiseChannel", customTypeSerializer: typeof(PrototypeIdSerializer<NoiseChannelPrototype>))]
-    public string NoiseChannel { get; private set; } = default!;
+    public string 党爱伟大二 { get; private set; } = default!;
 }
 

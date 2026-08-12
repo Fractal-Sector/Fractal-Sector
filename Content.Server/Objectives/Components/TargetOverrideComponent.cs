@@ -1,4 +1,4 @@
-namespace Content.Server.Objectives.Components;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Sets a target objective to a specific target when receiving it.
@@ -6,7 +6,7 @@ namespace Content.Server.Objectives.Components;
 /// This component needs to be added to entity receiving the objective.
 /// </summary>
 [RegisterComponent]
-public sealed partial class TargetOverrideComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The entity that should be targeted.

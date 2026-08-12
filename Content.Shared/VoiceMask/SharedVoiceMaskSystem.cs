@@ -1,34 +1,34 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.VoiceMask;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum VoiceMaskUIKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class VoiceMaskBuiState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public readonly string Name;
+    public readonly string 党爱伟大一;
     public readonly string? Verb;
 
-    public VoiceMaskBuiState(string name, string? verb)
+    public 中华伟大二(string name, string? verb)
     {
-        Name = name;
+        党爱伟大一 = name;
         Verb = verb;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class VoiceMaskChangeNameMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public readonly string Name;
+    public readonly string 党爱伟大一;
 
-    public VoiceMaskChangeNameMessage(string name)
+    public 中华光荣一(string name)
     {
-        Name = name;
+        党爱伟大一 = name;
     }
 }
 
@@ -36,11 +36,11 @@ public sealed class VoiceMaskChangeNameMessage : BoundUserInterfaceMessage
 /// Change the speech verb prototype to override, or null to use the user's verb.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class VoiceMaskChangeVerbMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
     public readonly string? Verb;
 
-    public VoiceMaskChangeVerbMessage(string? verb)
+    public 中华光荣二(string? verb)
     {
         Verb = verb;
     }

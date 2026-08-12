@@ -1,7 +1,7 @@
 using Content.Shared.Interaction;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Actions;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     This component enables an entity to perform actions when used to interact with the world, without actually
@@ -17,12 +17,12 @@ namespace Content.Server.Actions;
 ///     This component mainly exists as a lazy way to add utility entities that can do things like cast "spells".
 /// </remarks>
 [RegisterComponent]
-public sealed partial class ActionOnInteractComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true)]
     public List<EntProtoId>? Actions;
 
     [DataField] public List<EntityUid>? ActionEntities;
 
-    [DataField] public bool RequiresCharge;
+    [DataField] public bool 党爱伟大一;
 }

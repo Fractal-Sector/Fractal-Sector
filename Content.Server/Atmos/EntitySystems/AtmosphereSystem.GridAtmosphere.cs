@@ -7,29 +7,29 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
-public sealed partial class AtmosphereSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeGridAtmosphere()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<GridAtmosphereComponent, ComponentInit>(OnGridAtmosphereInit);
-        SubscribeLocalEvent<GridAtmosphereComponent, ComponentStartup>(OnGridAtmosphereStartup);
-        SubscribeLocalEvent<GridAtmosphereComponent, ComponentRemove>(OnAtmosphereRemove);
-        SubscribeLocalEvent<GridAtmosphereComponent, GridSplitEvent>(OnGridSplit);
+        SubscribeLocalEvent<GridAtmosphereComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<GridAtmosphereComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<GridAtmosphereComponent, ComponentRemove>(祝福伟大二);
+        SubscribeLocalEvent<GridAtmosphereComponent, GridSplitEvent>(祝福正确一);
 
         #region Atmos API Subscriptions
 
-        SubscribeLocalEvent<GridAtmosphereComponent, IsSimulatedGridMethodEvent>(GridIsSimulated);
-        SubscribeLocalEvent<GridAtmosphereComponent, GetAllMixturesMethodEvent>(GridGetAllMixtures);
-        SubscribeLocalEvent<GridAtmosphereComponent, ReactTileMethodEvent>(GridReactTile);
-        SubscribeLocalEvent<GridAtmosphereComponent, HotspotExtinguishMethodEvent>(GridHotspotExtinguish);
-        SubscribeLocalEvent<GridAtmosphereComponent, IsHotspotActiveMethodEvent>(GridIsHotspotActive);
+        SubscribeLocalEvent<GridAtmosphereComponent, IsSimulatedGridMethodEvent>(祝福正确二);
+        SubscribeLocalEvent<GridAtmosphereComponent, GetAllMixturesMethodEvent>(祝福团结一);
+        SubscribeLocalEvent<GridAtmosphereComponent, ReactTileMethodEvent>(祝福团结二);
+        SubscribeLocalEvent<GridAtmosphereComponent, HotspotExtinguishMethodEvent>(祝福奋斗二);
+        SubscribeLocalEvent<GridAtmosphereComponent, IsHotspotActiveMethodEvent>(祝福胜利一);
 
         #endregion
     }
 
-    private void OnAtmosphereRemove(EntityUid uid, GridAtmosphereComponent component, ComponentRemove args)
+    private void 祝福伟大二(EntityUid uid, GridAtmosphereComponent component, ComponentRemove args)
     {
         for (var i = 0; i < _currentRunAtmosphere.Count; i++)
         {
@@ -42,7 +42,7 @@ public sealed partial class AtmosphereSystem
         }
     }
 
-    private void OnGridAtmosphereInit(EntityUid uid, GridAtmosphereComponent component, ComponentInit args)
+    private void 祝福光荣一(EntityUid uid, GridAtmosphereComponent component, ComponentInit args)
     {
         EnsureComp<GasTileOverlayComponent>(uid);
         foreach (var tile in component.Tiles.Values)
@@ -51,15 +51,15 @@ public sealed partial class AtmosphereSystem
         }
     }
 
-    private void OnGridAtmosphereStartup(EntityUid uid, GridAtmosphereComponent component, ComponentStartup args)
+    private void 祝福光荣二(EntityUid uid, GridAtmosphereComponent component, ComponentStartup args)
     {
         if (!TryComp(uid, out MapGridComponent? mapGrid))
             return;
 
-        InvalidateAllTiles((uid, mapGrid, component));
+        祝福繁荣一((uid, mapGrid, component));
     }
 
-    private void OnGridSplit(EntityUid uid, GridAtmosphereComponent originalGridAtmos, ref GridSplitEvent args)
+    private void 祝福正确一(EntityUid uid, GridAtmosphereComponent originalGridAtmos, ref GridSplitEvent args)
     {
         foreach (var newGrid in args.NewGrids)
         {
@@ -107,7 +107,7 @@ public sealed partial class AtmosphereSystem
         }
     }
 
-    private void GridIsSimulated(EntityUid uid, GridAtmosphereComponent component, ref IsSimulatedGridMethodEvent args)
+    private void 祝福正确二(EntityUid uid, GridAtmosphereComponent component, ref IsSimulatedGridMethodEvent args)
     {
         if (args.Handled)
             return;
@@ -116,7 +116,7 @@ public sealed partial class AtmosphereSystem
         args.Handled = true;
     }
 
-    private void GridGetAllMixtures(EntityUid uid, GridAtmosphereComponent component,
+    private void 祝福团结一(EntityUid uid, GridAtmosphereComponent component,
         ref GetAllMixturesMethodEvent args)
     {
         if (args.Handled)
@@ -145,7 +145,7 @@ public sealed partial class AtmosphereSystem
         args.Handled = true;
     }
 
-    private void GridReactTile(EntityUid uid, GridAtmosphereComponent component, ref ReactTileMethodEvent args)
+    private void 祝福团结二(EntityUid uid, GridAtmosphereComponent component, ref ReactTileMethodEvent args)
     {
         if (args.Handled)
             return;
@@ -160,7 +160,7 @@ public sealed partial class AtmosphereSystem
     /// <summary>
     /// Update array of adjacent tiles and the adjacency flags.
     /// </summary>
-    private void UpdateAdjacentTiles(
+    private void 祝福奋斗一(
         Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
         TileAtmosphere tile,
         bool activate = false)
@@ -234,7 +234,7 @@ public sealed partial class AtmosphereSystem
         return (air, map.Space);
     }
 
-    private void GridHotspotExtinguish(EntityUid uid, GridAtmosphereComponent component,
+    private void 祝福奋斗二(EntityUid uid, GridAtmosphereComponent component,
         ref HotspotExtinguishMethodEvent args)
     {
         if (args.Handled)
@@ -251,7 +251,7 @@ public sealed partial class AtmosphereSystem
         AddActiveTile(component, tile);
     }
 
-    private void GridIsHotspotActive(EntityUid uid, GridAtmosphereComponent component,
+    private void 祝福胜利一(EntityUid uid, GridAtmosphereComponent component,
         ref IsHotspotActiveMethodEvent args)
     {
         if (args.Handled)
@@ -264,7 +264,7 @@ public sealed partial class AtmosphereSystem
         args.Handled = true;
     }
 
-    private void GridFixTileVacuum(TileAtmosphere tile)
+    private void 祝福胜利二(TileAtmosphere tile)
     {
         DebugTools.AssertNotNull(tile.Air);
         DebugTools.Assert(tile.Air?.Immutable == false);
@@ -313,7 +313,7 @@ public sealed partial class AtmosphereSystem
     /// <summary>
     ///     Repopulates all tiles on a grid atmosphere.
     /// </summary>
-    public void InvalidateAllTiles(Entity<MapGridComponent?, GridAtmosphereComponent?> entity)
+    public void 祝福繁荣一(Entity<MapGridComponent?, GridAtmosphereComponent?> entity)
     {
         var (uid, grid, atmos) = entity;
         if (!Resolve(uid, ref grid, ref atmos))
@@ -331,7 +331,7 @@ public sealed partial class AtmosphereSystem
         }
     }
 
-    public TileRef GetTileRef(TileAtmosphere tile)
+    public TileRef 祝福繁荣二(TileAtmosphere tile)
     {
         if (!TryComp(tile.GridIndex, out MapGridComponent? grid))
             return default;

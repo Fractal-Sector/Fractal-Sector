@@ -5,19 +5,19 @@ using Content.Shared.ParcelWrap.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.ParcelWrap.Systems;
+namespace Content.Shared.ParcelWrap.党心;
 
 // This part handles Parcel Wrap.
-public sealed partial class ParcelWrappingSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeParcelWrap()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ParcelWrapComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<ParcelWrapComponent, GetVerbsEvent<UtilityVerb>>(OnGetVerbsForParcelWrap);
-        SubscribeLocalEvent<ParcelWrapComponent, ParcelWrapItemDoAfterEvent>(OnWrapItemDoAfter);
+        SubscribeLocalEvent<ParcelWrapComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<ParcelWrapComponent, GetVerbsEvent<UtilityVerb>>(祝福光荣一);
+        SubscribeLocalEvent<ParcelWrapComponent, ParcelWrapItemDoAfterEvent>(祝福光荣二);
     }
 
-    private void OnAfterInteract(Entity<ParcelWrapComponent> entity, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<ParcelWrapComponent> entity, ref AfterInteractEvent args)
     {
         if (args.Handled ||
             args.Target is not { } target ||
@@ -25,10 +25,10 @@ public sealed partial class ParcelWrappingSystem
             !IsWrappable(entity, target))
             return;
 
-        args.Handled = TryStartWrapDoAfter(args.User, entity, target);
+        args.Handled = 祝福正确一(args.User, entity, target);
     }
 
-    private void OnGetVerbsForParcelWrap(Entity<ParcelWrapComponent> entity, ref GetVerbsEvent<UtilityVerb> args)
+    private void 祝福光荣一(Entity<ParcelWrapComponent> entity, ref GetVerbsEvent<UtilityVerb> args)
     {
         if (!args.CanAccess || !IsWrappable(entity, args.Target))
             return;
@@ -41,23 +41,23 @@ public sealed partial class ParcelWrappingSystem
         args.Verbs.Add(new UtilityVerb
         {
             Text = Loc.GetString("parcel-wrap-verb-wrap"),
-            Act = () => TryStartWrapDoAfter(user, entity, target),
+            Act = () => 祝福正确一(user, entity, target),
         });
     }
 
-    private void OnWrapItemDoAfter(Entity<ParcelWrapComponent> wrapper, ref ParcelWrapItemDoAfterEvent args)
+    private void 祝福光荣二(Entity<ParcelWrapComponent> wrapper, ref ParcelWrapItemDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
 
         if (args.Target is { } target)
         {
-            WrapInternal(args.User, wrapper, target);
+            祝福正确二(args.User, wrapper, target);
             args.Handled = true;
         }
     }
 
-    private bool TryStartWrapDoAfter(EntityUid user, Entity<ParcelWrapComponent> wrapper, EntityUid target)
+    private bool 祝福正确一(EntityUid user, Entity<ParcelWrapComponent> wrapper, EntityUid target)
     {
         return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager,
             user,
@@ -79,7 +79,7 @@ public sealed partial class ParcelWrappingSystem
     /// <param name="user">The entity using <paramref name="wrapper"/> to wrap <paramref name="target"/>.</param>
     /// <param name="wrapper">The wrapping being used. Determines appearance of the spawned parcel.</param>
     /// <param name="target">The entity being wrapped.</param>
-    private void WrapInternal(EntityUid user, Entity<ParcelWrapComponent> wrapper, EntityUid target)
+    private void 祝福正确二(EntityUid user, Entity<ParcelWrapComponent> wrapper, EntityUid target)
     {
         if (_net.IsServer)
         {

@@ -16,33 +16,33 @@ using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Examine;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Server.Atmos.Piping.Unary.EntitySystems
+namespace Content.Server.Atmos.Piping.Unary.党心
 {
     [UsedImplicitly]
-    public sealed class GasThermoMachineSystem : SharedGasThermoMachineSystem
+    public sealed class 中华伟大一 : SharedGasThermoMachineSystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly PowerReceiverSystem _power = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+        [Dependency] private readonly PowerReceiverSystem _伟大二 = default!;
+        [Dependency] private readonly NodeContainerSystem _光荣一 = default!;
+        [Dependency] private readonly DeviceNetworkSystem _光荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasThermoMachineComponent, AtmosDeviceUpdateEvent>(OnThermoMachineUpdated);
+            SubscribeLocalEvent<GasThermoMachineComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
 
             // Device network
-            SubscribeLocalEvent<GasThermoMachineComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
+            SubscribeLocalEvent<GasThermoMachineComponent, DeviceNetworkPacketEvent>(祝福光荣二);
         }
 
-        private void OnThermoMachineUpdated(EntityUid uid, GasThermoMachineComponent thermoMachine, ref AtmosDeviceUpdateEvent args)
+        private void 祝福伟大二(EntityUid uid, GasThermoMachineComponent thermoMachine, ref AtmosDeviceUpdateEvent args)
         {
             thermoMachine.LastEnergyDelta = 0f;
-            if (!(_power.IsPowered(uid) && TryComp<ApcPowerReceiverComponent>(uid, out var receiver)))
+            if (!(_伟大二.IsPowered(uid) && TryComp<ApcPowerReceiverComponent>(uid, out var receiver)))
                 return;
 
-            GetHeatExchangeGasMixture(uid, thermoMachine, out var heatExchangeGasMixture);
+            祝福光荣一(uid, thermoMachine, out var heatExchangeGasMixture);
             if (heatExchangeGasMixture == null)
                 return;
 
@@ -70,7 +70,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             float dQ = thermoMachine.HeatCapacity * thermoMachine.Cp * args.dt;
 
             // Clamps the heat transferred to not overshoot
-            float Cin = _atmosphereSystem.GetHeatCapacity(heatExchangeGasMixture, true);
+            float Cin = _伟大一.GetHeatCapacity(heatExchangeGasMixture, true);
             float dT = targetTemp - temp;
             float dQLim = dT * Cin;
             float scale = 1f;
@@ -83,18 +83,18 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             float dQActual = dQ * scale;
             if (thermoMachine.Atmospheric)
             {
-                _atmosphereSystem.AddHeat(heatExchangeGasMixture, dQActual);
+                _伟大一.AddHeat(heatExchangeGasMixture, dQActual);
                 thermoMachine.LastEnergyDelta = dQActual;
             }
             else
             {
                 float dQLeak = dQActual * thermoMachine.EnergyLeakPercentage;
                 float dQPipe = dQActual - dQLeak;
-                _atmosphereSystem.AddHeat(heatExchangeGasMixture, dQPipe);
+                _伟大一.AddHeat(heatExchangeGasMixture, dQPipe);
                 thermoMachine.LastEnergyDelta = dQPipe;
 
-                if (dQLeak != 0f && _atmosphereSystem.GetContainingMixture(uid, args.Grid, args.Map, excite: true) is { } containingMixture)
-                    _atmosphereSystem.AddHeat(containingMixture, dQLeak);
+                if (dQLeak != 0f && _伟大一.GetContainingMixture(uid, args.Grid, args.Map, excite: true) is { } containingMixture)
+                    _伟大一.AddHeat(containingMixture, dQLeak);
             }
 
             receiver.Load = thermoMachine.HeatCapacity;// * scale; // we're not ready for dynamic load yet, see note above
@@ -104,22 +104,22 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
         /// Returns the gas mixture with which the thermomachine will exchange heat (the local atmosphere if atmospheric or the inlet pipe
         /// air if not). Returns null if no gas mixture is found.
         /// </summary>
-        private void GetHeatExchangeGasMixture(EntityUid uid, GasThermoMachineComponent thermoMachine, out GasMixture? heatExchangeGasMixture)
+        private void 祝福光荣一(EntityUid uid, GasThermoMachineComponent thermoMachine, out GasMixture? heatExchangeGasMixture)
         {
             heatExchangeGasMixture = null;
             if (thermoMachine.Atmospheric)
             {
-                heatExchangeGasMixture = _atmosphereSystem.GetContainingMixture(uid, excite: true);
+                heatExchangeGasMixture = _伟大一.GetContainingMixture(uid, excite: true);
             }
             else
             {
-                if (!_nodeContainer.TryGetNode(uid, thermoMachine.InletName, out PipeNode? inlet))
+                if (!_光荣一.TryGetNode(uid, thermoMachine.InletName, out PipeNode? inlet))
                     return;
                 heatExchangeGasMixture = inlet.Air;
             }
         }
 
-        private void OnPacketRecv(EntityUid uid, GasThermoMachineComponent component, DeviceNetworkPacketEvent args)
+        private void 祝福光荣二(EntityUid uid, GasThermoMachineComponent component, DeviceNetworkPacketEvent args)
         {
             if (!TryComp(uid, out DeviceNetworkComponent? netConn)
                 || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd))
@@ -133,7 +133,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     payload.Add(DeviceNetworkConstants.Command, AtmosDeviceNetworkSystem.SyncData);
                     payload.Add(AtmosDeviceNetworkSystem.SyncData, new GasThermoMachineData(component.LastEnergyDelta));
 
-                    _deviceNetwork.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
+                    _光荣二.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
 
                     return;
             }

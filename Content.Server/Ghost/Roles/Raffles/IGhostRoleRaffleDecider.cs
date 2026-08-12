@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.Player;
 
-namespace Content.Server.Ghost.Roles.Raffles;
+namespace Content.Server.Ghost.Roles.党心;
 
 /// <summary>
 /// Chooses a winner of a ghost role raffle.
 /// </summary>
 [ImplicitDataDefinitionForInheritors]
-public partial interface IGhostRoleRaffleDecider
+public partial interface 中华伟大一
 {
     /// <summary>
     /// Chooses a winner of a ghost role raffle draw from the given pool of candidates.

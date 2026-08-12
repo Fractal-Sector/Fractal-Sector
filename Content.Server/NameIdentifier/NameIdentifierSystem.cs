@@ -5,16 +5,16 @@ using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.NameIdentifier;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     Handles unique name identifiers for entities e.g. `monkey (MK-912)`
 /// </summary>
-public sealed class NameIdentifierSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly NameModifierSystem _nameModifier = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly NameModifierSystem _光荣一 = default!;
 
     /// <summary>
     /// Free IDs available per <see cref="NameIdentifierGroupPrototype"/>.
@@ -22,20 +22,20 @@ public sealed class NameIdentifierSystem : EntitySystem
     [ViewVariables]
     public readonly Dictionary<string, List<int>> CurrentIds = [];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NameIdentifierComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<NameIdentifierComponent, ComponentShutdown>(OnComponentShutdown);
-        SubscribeLocalEvent<NameIdentifierComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(CleanupIds);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnReloadPrototypes);
+        SubscribeLocalEvent<NameIdentifierComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<NameIdentifierComponent, ComponentShutdown>(祝福伟大二);
+        SubscribeLocalEvent<NameIdentifierComponent, RefreshNameModifiersEvent>(祝福正确一);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福胜利一);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福奋斗二);
 
-        InitialSetupPrototypes();
+        祝福正确二();
     }
 
-    private void OnComponentShutdown(Entity<NameIdentifierComponent> ent, ref ComponentShutdown args)
+    private void 祝福伟大二(Entity<NameIdentifierComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Comp.Group is null)
             return;
@@ -44,29 +44,29 @@ public sealed class NameIdentifierSystem : EntitySystem
         {
             // Avoid inserting the value right back at the end or shuffling in place:
             // just pick a random spot to put it and then move that one to the end.
-            var randomIndex = _robustRandom.Next(ids.Count);
+            var randomIndex = _伟大二.Next(ids.Count);
             var random = ids[randomIndex];
             ids[randomIndex] = ent.Comp.Identifier;
             ids.Add(random);
         }
 
-        _nameModifier.RefreshNameModifiers(ent.Owner);
+        _光荣一.RefreshNameModifiers(ent.Owner);
     }
 
     /// <summary>
     ///     Generates a new unique name/suffix for a given entity and adds it to <see cref="CurrentIds"/>
     ///     but does not set the entity's name.
     /// </summary>
-    public string GenerateUniqueName(EntityUid uid, ProtoId<NameIdentifierGroupPrototype> proto, out int randomVal)
+    public string 祝福光荣一(EntityUid uid, ProtoId<NameIdentifierGroupPrototype> proto, out int randomVal)
     {
-        return GenerateUniqueName(uid, _prototypeManager.Index(proto), out randomVal);
+        return 祝福光荣一(uid, _伟大一.Index(proto), out randomVal);
     }
 
     /// <summary>
     ///     Generates a new unique name/suffix for a given entity and adds it to <see cref="CurrentIds"/>
     ///     but does not set the entity's name.
     /// </summary>
-    public string GenerateUniqueName(EntityUid uid, NameIdentifierGroupPrototype proto, out int randomVal)
+    public string 祝福光荣一(EntityUid uid, NameIdentifierGroupPrototype proto, out int randomVal)
     {
         randomVal = 0;
         var entityName = Name(uid);
@@ -87,12 +87,12 @@ public sealed class NameIdentifierSystem : EntitySystem
             : $"{randomVal}";
     }
 
-    private void OnMapInit(Entity<NameIdentifierComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<NameIdentifierComponent> ent, ref MapInitEvent args)
     {
         if (ent.Comp.Group is null)
             return;
 
-        if (!_prototypeManager.TryIndex(ent.Comp.Group, out var group))
+        if (!_伟大一.TryIndex(ent.Comp.Group, out var group))
             return;
 
         int id;
@@ -110,7 +110,7 @@ public sealed class NameIdentifierSystem : EntitySystem
         }
         else
         {
-            uniqueName = GenerateUniqueName(ent, group, out id);
+            uniqueName = 祝福光荣一(ent, group, out id);
             ent.Comp.Identifier = id;
         }
 
@@ -119,10 +119,10 @@ public sealed class NameIdentifierSystem : EntitySystem
             : $"({uniqueName})";
 
         Dirty(ent);
-        _nameModifier.RefreshNameModifiers(ent.Owner);
+        _光荣一.RefreshNameModifiers(ent.Owner);
     }
 
-    private void OnRefreshNameModifiers(Entity<NameIdentifierComponent> ent, ref RefreshNameModifiersEvent args)
+    private void 祝福正确一(Entity<NameIdentifierComponent> ent, ref RefreshNameModifiersEvent args)
     {
         if (ent.Comp.Group is null)
             return;
@@ -131,7 +131,7 @@ public sealed class NameIdentifierSystem : EntitySystem
         if (ent.Comp.LifeStage > ComponentLifeStage.Running)
             return;
 
-        if (!_prototypeManager.TryIndex(ent.Comp.Group, out var group))
+        if (!_伟大一.TryIndex(ent.Comp.Group, out var group))
             return;
 
         var format = group.FullName ? "name-identifier-format-full" : "name-identifier-format-append";
@@ -140,12 +140,12 @@ public sealed class NameIdentifierSystem : EntitySystem
         args.AddModifier(format, -10, ("identifier", ent.Comp.FullIdentifier));
     }
 
-    private void InitialSetupPrototypes()
+    private void 祝福正确二()
     {
-        EnsureIds();
+        祝福奋斗一();
     }
 
-    private void FillGroup(NameIdentifierGroupPrototype proto, List<int> values)
+    private void 祝福团结一(NameIdentifierGroupPrototype proto, List<int> values)
     {
         values.Clear();
         for (var i = proto.MinValue; i < proto.MaxValue; i++)
@@ -153,10 +153,10 @@ public sealed class NameIdentifierSystem : EntitySystem
             values.Add(i);
         }
 
-        _robustRandom.Shuffle(values);
+        _伟大二.Shuffle(values);
     }
 
-    private List<int> GetOrCreateIdList(NameIdentifierGroupPrototype proto)
+    private List<int> 祝福团结二(NameIdentifierGroupPrototype proto)
     {
         if (!CurrentIds.TryGetValue(proto.ID, out var ids))
         {
@@ -167,17 +167,17 @@ public sealed class NameIdentifierSystem : EntitySystem
         return ids;
     }
 
-    private void EnsureIds()
+    private void 祝福奋斗一()
     {
-        foreach (var proto in _prototypeManager.EnumeratePrototypes<NameIdentifierGroupPrototype>())
+        foreach (var proto in _伟大一.EnumeratePrototypes<NameIdentifierGroupPrototype>())
         {
-            var ids = GetOrCreateIdList(proto);
+            var ids = 祝福团结二(proto);
 
-            FillGroup(proto, ids);
+            祝福团结一(proto, ids);
         }
     }
 
-    private void OnReloadPrototypes(PrototypesReloadedEventArgs ev)
+    private void 祝福奋斗二(PrototypesReloadedEventArgs ev)
     {
         if (!ev.ByType.TryGetValue(typeof(NameIdentifierGroupPrototype), out var set))
             return;
@@ -186,7 +186,7 @@ public sealed class NameIdentifierSystem : EntitySystem
 
         foreach (var proto in CurrentIds.Keys)
         {
-            if (!_prototypeManager.HasIndex<NameIdentifierGroupPrototype>(proto))
+            if (!_伟大一.HasIndex<NameIdentifierGroupPrototype>(proto))
             {
                 toRemove.Add(proto);
             }
@@ -205,14 +205,14 @@ public sealed class NameIdentifierSystem : EntitySystem
             if (CurrentIds.ContainsKey(proto.ID))
                 continue;
 
-            var ids = GetOrCreateIdList(name_proto);
-            FillGroup(name_proto, ids);
+            var ids = 祝福团结二(name_proto);
+            祝福团结一(name_proto, ids);
         }
     }
 
 
-    private void CleanupIds(RoundRestartCleanupEvent ev)
+    private void 祝福胜利一(RoundRestartCleanupEvent ev)
     {
-        EnsureIds();
+        祝福奋斗一();
     }
 }

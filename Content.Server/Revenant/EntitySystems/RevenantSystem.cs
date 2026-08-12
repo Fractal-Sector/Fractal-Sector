@@ -24,94 +24,94 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Revenant.EntitySystems;
+namespace Content.Server.Revenant.党心;
 
-public sealed partial class RevenantSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ActionsSystem _action = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly DamageableSystem _damage = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly SharedInteractionSystem _interact = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly VisibilitySystem _visibility = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly ActionsSystem _伟大二 = default!;
+    [Dependency] private readonly AlertsSystem _光荣一 = default!;
+    [Dependency] private readonly DamageableSystem _光荣二 = default!;
+    [Dependency] private readonly EntityLookupSystem _正确一 = default!;
+    [Dependency] private readonly GameTicker _正确二 = default!;
+    [Dependency] private readonly MobStateSystem _团结一 = default!;
+    [Dependency] private readonly PhysicsSystem _团结二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedEyeSystem _奋斗二 = default!;
+    [Dependency] private readonly StatusEffectsSystem _胜利一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _胜利二 = default!;
+    [Dependency] private readonly SharedPopupSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedStunSystem _繁荣二 = default!;
+    [Dependency] private readonly StoreSystem _富强一 = default!;
+    [Dependency] private readonly TagSystem _富强二 = default!;
+    [Dependency] private readonly VisibilitySystem _民主一 = default!;
+    [Dependency] private readonly TurfSystem _民主二 = default!;
 
     private static readonly EntProtoId RevenantShopId = "ActionRevenantShop";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RevenantComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<RevenantComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<RevenantComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<RevenantComponent, MapInitEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<RevenantComponent, RevenantShopActionEvent>(OnShop);
-        SubscribeLocalEvent<RevenantComponent, DamageChangedEvent>(OnDamage);
-        SubscribeLocalEvent<RevenantComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<RevenantComponent, StatusEffectAddedEvent>(OnStatusAdded);
-        SubscribeLocalEvent<RevenantComponent, StatusEffectEndedEvent>(OnStatusEnded);
-        SubscribeLocalEvent<RoundEndTextAppendEvent>(_ => MakeVisible(true));
+        SubscribeLocalEvent<RevenantComponent, RevenantShopActionEvent>(祝福胜利一);
+        SubscribeLocalEvent<RevenantComponent, DamageChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<RevenantComponent, ExaminedEvent>(祝福团结一);
+        SubscribeLocalEvent<RevenantComponent, StatusEffectAddedEvent>(祝福正确一);
+        SubscribeLocalEvent<RevenantComponent, StatusEffectEndedEvent>(祝福正确二);
+        SubscribeLocalEvent<RoundEndTextAppendEvent>(_ => 祝福胜利二(true));
 
-        SubscribeLocalEvent<RevenantComponent, GetVisMaskEvent>(OnRevenantGetVis);
+        SubscribeLocalEvent<RevenantComponent, GetVisMaskEvent>(祝福伟大二);
 
         InitializeAbilities();
     }
 
-    private void OnRevenantGetVis(Entity<RevenantComponent> ent, ref GetVisMaskEvent args)
+    private void 祝福伟大二(Entity<RevenantComponent> ent, ref GetVisMaskEvent args)
     {
         args.VisibilityMask |= (int)VisibilityFlags.Ghost;
     }
 
-    private void OnStartup(EntityUid uid, RevenantComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, RevenantComponent component, ComponentStartup args)
     {
         //update the icon
-        ChangeEssenceAmount(uid, 0, component);
+        祝福奋斗一(uid, 0, component);
 
         //default the visuals
         _appearance.SetData(uid, RevenantVisuals.Corporeal, false);
         _appearance.SetData(uid, RevenantVisuals.Harvesting, false);
         _appearance.SetData(uid, RevenantVisuals.Stunned, false);
 
-        if (_ticker.RunLevel == GameRunLevel.PostRound && TryComp<VisibilityComponent>(uid, out var visibility))
+        if (_正确二.RunLevel == GameRunLevel.PostRound && TryComp<VisibilityComponent>(uid, out var visibility))
         {
-            _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
-            _visibility.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
-            _visibility.RefreshVisibility(uid, visibility);
+            _民主一.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
+            _民主一.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+            _民主一.RefreshVisibility(uid, visibility);
         }
 
         //ghost vision
-        _eye.RefreshVisibilityMask(uid);
+        _奋斗二.RefreshVisibilityMask(uid);
     }
 
-    private void OnMapInit(EntityUid uid, RevenantComponent component, MapInitEvent args)
+    private void 祝福光荣二(EntityUid uid, RevenantComponent component, MapInitEvent args)
     {
-        _action.AddAction(uid, ref component.Action, RevenantShopId);
+        _伟大二.AddAction(uid, ref component.Action, RevenantShopId);
     }
 
-    private void OnStatusAdded(EntityUid uid, RevenantComponent component, StatusEffectAddedEvent args)
+    private void 祝福正确一(EntityUid uid, RevenantComponent component, StatusEffectAddedEvent args)
     {
         if (args.Key == "Stun")
             _appearance.SetData(uid, RevenantVisuals.Stunned, true);
     }
 
-    private void OnStatusEnded(EntityUid uid, RevenantComponent component, StatusEffectEndedEvent args)
+    private void 祝福正确二(EntityUid uid, RevenantComponent component, StatusEffectEndedEvent args)
     {
         if (args.Key == "Stun")
             _appearance.SetData(uid, RevenantVisuals.Stunned, false);
     }
 
-    private void OnExamine(EntityUid uid, RevenantComponent component, ExaminedEvent args)
+    private void 祝福团结一(EntityUid uid, RevenantComponent component, ExaminedEvent args)
     {
         if (args.Examiner == args.Examined)
         {
@@ -120,16 +120,16 @@ public sealed partial class RevenantSystem : EntitySystem
         }
     }
 
-    private void OnDamage(EntityUid uid, RevenantComponent component, DamageChangedEvent args)
+    private void 祝福团结二(EntityUid uid, RevenantComponent component, DamageChangedEvent args)
     {
         if (!HasComp<CorporealComponent>(uid) || args.DamageDelta == null)
             return;
 
         var essenceDamage = args.DamageDelta.GetTotal().Float() * component.DamageToEssenceCoefficient * -1;
-        ChangeEssenceAmount(uid, essenceDamage, component);
+        祝福奋斗一(uid, essenceDamage, component);
     }
 
-    public bool ChangeEssenceAmount(EntityUid uid, FixedPoint2 amount, RevenantComponent? component = null, bool allowDeath = true, bool regenCap = false)
+    public bool 祝福奋斗一(EntityUid uid, FixedPoint2 amount, RevenantComponent? component = null, bool allowDeath = true, bool regenCap = false)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -144,9 +144,9 @@ public sealed partial class RevenantSystem : EntitySystem
             FixedPoint2.Min(component.Essence, component.EssenceRegenCap);
 
         if (TryComp<StoreComponent>(uid, out var store))
-            _store.UpdateUserInterface(uid, uid, store);
+            _富强一.UpdateUserInterface(uid, uid, store);
 
-        _alerts.ShowAlert(uid, component.EssenceAlert);
+        _光荣一.ShowAlert(uid, component.EssenceAlert);
 
         if (component.Essence <= 0)
         {
@@ -156,61 +156,61 @@ public sealed partial class RevenantSystem : EntitySystem
         return true;
     }
 
-    private bool TryUseAbility(EntityUid uid, RevenantComponent component, FixedPoint2 abilityCost, Vector2 debuffs)
+    private bool 祝福奋斗二(EntityUid uid, RevenantComponent component, FixedPoint2 abilityCost, Vector2 debuffs)
     {
         if (component.Essence <= abilityCost)
         {
-            _popup.PopupEntity(Loc.GetString("revenant-not-enough-essence"), uid, uid);
+            _繁荣一.PopupEntity(Loc.GetString("revenant-not-enough-essence"), uid, uid);
             return false;
         }
 
-        var tileref = _turf.GetTileRef(Transform(uid).Coordinates);
+        var tileref = _民主二.GetTileRef(Transform(uid).Coordinates);
         if (tileref != null)
         {
-            if(_physics.GetEntitiesIntersectingBody(uid, (int) CollisionGroup.Impassable).Count > 0)
+            if(_团结二.GetEntitiesIntersectingBody(uid, (int) CollisionGroup.Impassable).Count > 0)
             {
-                _popup.PopupEntity(Loc.GetString("revenant-in-solid"), uid, uid);
+                _繁荣一.PopupEntity(Loc.GetString("revenant-in-solid"), uid, uid);
                 return false;
             }
         }
 
-        ChangeEssenceAmount(uid, -abilityCost, component, false);
+        祝福奋斗一(uid, -abilityCost, component, false);
 
-        _statusEffects.TryAddStatusEffect<CorporealComponent>(uid, "Corporeal", TimeSpan.FromSeconds(debuffs.Y), false);
-        _stun.TryAddStunDuration(uid, TimeSpan.FromSeconds(debuffs.X));
+        _胜利一.TryAddStatusEffect<CorporealComponent>(uid, "Corporeal", TimeSpan.FromSeconds(debuffs.Y), false);
+        _繁荣二.TryAddStunDuration(uid, TimeSpan.FromSeconds(debuffs.X));
 
         return true;
     }
 
-    private void OnShop(EntityUid uid, RevenantComponent component, RevenantShopActionEvent args)
+    private void 祝福胜利一(EntityUid uid, RevenantComponent component, RevenantShopActionEvent args)
     {
         if (!TryComp<StoreComponent>(uid, out var store))
             return;
-        _store.ToggleUi(uid, uid, store);
+        _富强一.ToggleUi(uid, uid, store);
     }
 
-    public void MakeVisible(bool visible)
+    public void 祝福胜利二(bool visible)
     {
         var query = EntityQueryEnumerator<RevenantComponent, VisibilityComponent>();
         while (query.MoveNext(out var uid, out _, out var vis))
         {
             if (visible)
             {
-                _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Normal, false);
-                _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
+                _民主一.AddLayer((uid, vis), (int) VisibilityFlags.Normal, false);
+                _民主一.RemoveLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
             }
             else
             {
-                _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
-                _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Normal, false);
+                _民主一.AddLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
+                _民主一.RemoveLayer((uid, vis), (int) VisibilityFlags.Normal, false);
             }
-            _visibility.RefreshVisibility(uid, vis);
+            _民主一.RefreshVisibility(uid, vis);
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣一(frameTime);
 
         var query = EntityQueryEnumerator<RevenantComponent>();
         while (query.MoveNext(out var uid, out var rev))
@@ -223,7 +223,7 @@ public sealed partial class RevenantSystem : EntitySystem
 
             if (rev.Essence < rev.EssenceRegenCap)
             {
-                ChangeEssenceAmount(uid, rev.EssencePerSecond, rev, regenCap: true);
+                祝福奋斗一(uid, rev.EssencePerSecond, rev, regenCap: true);
             }
         }
     }

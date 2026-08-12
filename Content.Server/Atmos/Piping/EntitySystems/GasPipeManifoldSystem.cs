@@ -6,33 +6,33 @@ using Content.Shared.Atmos;
 using Content.Shared.NodeContainer;
 using System.Linq;
 
-namespace Content.Server.Atmos.Piping.EntitySystems;
+namespace Content.Server.Atmos.Piping.党心;
 
-public sealed partial class GasPipeManifoldSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+    [Dependency] private readonly NodeContainerSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GasPipeManifoldComponent, ComponentInit>(OnCompInit);
-        SubscribeLocalEvent<GasPipeManifoldComponent, GasAnalyzerScanEvent>(OnAnalyzed);
+        SubscribeLocalEvent<GasPipeManifoldComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<GasPipeManifoldComponent, GasAnalyzerScanEvent>(祝福光荣一);
     }
 
-    private void OnCompInit(Entity<GasPipeManifoldComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<GasPipeManifoldComponent> ent, ref ComponentInit args)
     {
         if (!TryComp<NodeContainerComponent>(ent, out var nodeContainer))
             return;
 
         foreach (var inletName in ent.Comp.InletNames)
         {
-            if (!_nodeContainer.TryGetNode(nodeContainer, inletName, out PipeNode? inlet))
+            if (!_伟大一.TryGetNode(nodeContainer, inletName, out PipeNode? inlet))
                 continue;
 
             foreach (var outletName in ent.Comp.OutletNames)
             {
-                if (!_nodeContainer.TryGetNode(nodeContainer, outletName, out PipeNode? outlet))
+                if (!_伟大一.TryGetNode(nodeContainer, outletName, out PipeNode? outlet))
                     continue;
 
                 inlet.AddAlwaysReachable(outlet);
@@ -41,7 +41,7 @@ public sealed partial class GasPipeManifoldSystem : EntitySystem
         }
     }
 
-    private void OnAnalyzed(Entity<GasPipeManifoldComponent> ent, ref GasAnalyzerScanEvent args)
+    private void 祝福光荣一(Entity<GasPipeManifoldComponent> ent, ref GasAnalyzerScanEvent args)
     {
         // All inlets and outlets have the same gas mixture
 
@@ -55,7 +55,7 @@ public sealed partial class GasPipeManifoldSystem : EntitySystem
 
         foreach (var pipeName in pipeNames)
         {
-            if (!_nodeContainer.TryGetNode(nodeContainer, pipeName, out PipeNode? pipe))
+            if (!_伟大一.TryGetNode(nodeContainer, pipeName, out PipeNode? pipe))
                 continue;
 
             var pipeLocal = pipe.Air.Clone();

@@ -1,3 +1,3 @@
-﻿namespace Content.Server.Discord;
+﻿namespace Content.Server.党心;
 
-public record struct WebhookIdentifier(string Id, string Token);
+public record 中华伟大一 WebhookIdentifier(string Id, string Token);

@@ -1,13 +1,13 @@
 ﻿using Content.Shared.Players.PlayTimeTracking;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Event raised on a mind entity to get all roles that a player has.
 /// </summary>
 /// <param name="Roles">The list of roles on the player.</param>
 [ByRefEvent]
-public readonly record struct MindGetAllRoleInfoEvent(List<RoleInfo> Roles);
+public readonly record 中华伟大一 MindGetAllRoleInfoEvent(List<RoleInfo> Roles);
 
 /// <summary>
 ///     Returned by <see cref="MindGetAllRolesEvent"/> to give some information about a player's role.
@@ -17,4 +17,4 @@ public readonly record struct MindGetAllRoleInfoEvent(List<RoleInfo> Roles);
 /// <param name="Antagonist">Whether or not this role makes this player an antagonist.</param>
 /// <param name="PlayTimeTrackerId">The <see cref="PlayTimeTrackerPrototype"/> id associated with the role.</param>
 /// <param name="Prototype">The prototype ID of the role</param>
-public readonly record struct RoleInfo(string Name, bool Antagonist, string? PlayTimeTrackerId, string Prototype);
+public readonly record 中华伟大一 RoleInfo(string Name, bool Antagonist, string? PlayTimeTrackerId, string Prototype);

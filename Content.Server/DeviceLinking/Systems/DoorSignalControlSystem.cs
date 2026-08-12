@@ -8,30 +8,30 @@ using Content.Shared.Doors.Components;
 using Content.Shared.Doors;
 using JetBrains.Annotations;
 
-namespace Content.Server.DeviceLinking.Systems
+namespace Content.Server.DeviceLinking.党心
 {
     [UsedImplicitly]
-    public sealed class DoorSignalControlSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly DoorSystem _doorSystem = default!;
-        [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
+        [Dependency] private readonly DoorSystem _伟大一 = default!;
+        [Dependency] private readonly DeviceLinkSystem _伟大二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<DoorSignalControlComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<DoorSignalControlComponent, SignalReceivedEvent>(OnSignalReceived);
-            SubscribeLocalEvent<DoorSignalControlComponent, DoorStateChangedEvent>(OnStateChanged);
+            base.祝福伟大一();
+            SubscribeLocalEvent<DoorSignalControlComponent, ComponentInit>(祝福伟大二);
+            SubscribeLocalEvent<DoorSignalControlComponent, SignalReceivedEvent>(祝福光荣一);
+            SubscribeLocalEvent<DoorSignalControlComponent, DoorStateChangedEvent>(祝福光荣二);
         }
 
-        private void OnInit(EntityUid uid, DoorSignalControlComponent component, ComponentInit args)
+        private void 祝福伟大二(EntityUid uid, DoorSignalControlComponent component, ComponentInit args)
         {
 
-            _signalSystem.EnsureSinkPorts(uid, component.OpenPort, component.ClosePort, component.TogglePort);
-            _signalSystem.EnsureSourcePorts(uid, component.OutOpen);
+            _伟大二.EnsureSinkPorts(uid, component.OpenPort, component.ClosePort, component.TogglePort);
+            _伟大二.EnsureSourcePorts(uid, component.OutOpen);
         }
 
-        private void OnSignalReceived(EntityUid uid, DoorSignalControlComponent component, ref SignalReceivedEvent args)
+        private void 祝福光荣一(EntityUid uid, DoorSignalControlComponent component, ref SignalReceivedEvent args)
         {
             if (!TryComp(uid, out DoorComponent? door))
                 return;
@@ -45,7 +45,7 @@ namespace Content.Server.DeviceLinking.Systems
                 if (state == SignalState.High || state == SignalState.Momentary)
                 {
                     if (door.State == DoorState.Closed)
-                        _doorSystem.TryOpen(uid, door);
+                        _伟大一.TryOpen(uid, door);
                 }
             }
             else if (args.Port == component.ClosePort)
@@ -53,14 +53,14 @@ namespace Content.Server.DeviceLinking.Systems
                 if (state == SignalState.High || state == SignalState.Momentary)
                 {
                     if (door.State == DoorState.Open)
-                        _doorSystem.TryClose(uid, door);
+                        _伟大一.TryClose(uid, door);
                 }
             }
             else if (args.Port == component.TogglePort)
             {
                 if (state == SignalState.High || state == SignalState.Momentary)
                 {
-                    _doorSystem.TryToggleDoor(uid, door);
+                    _伟大一.TryToggleDoor(uid, door);
                 }
             }
             else if (args.Port == component.InBolt)
@@ -79,16 +79,16 @@ namespace Content.Server.DeviceLinking.Systems
                     bolt = state == SignalState.High;
                 }
 
-                _doorSystem.SetBoltsDown((uid, bolts), bolt);
+                _伟大一.SetBoltsDown((uid, bolts), bolt);
             }
         }
 
-        private void OnStateChanged(EntityUid uid, DoorSignalControlComponent door, DoorStateChangedEvent args)
+        private void 祝福光荣二(EntityUid uid, DoorSignalControlComponent door, DoorStateChangedEvent args)
         {
             if (args.State == DoorState.Closed)
             {
                 // only ever say the door is closed when it is completely airtight
-                _signalSystem.SendSignal(uid, door.OutOpen, false);
+                _伟大二.SendSignal(uid, door.OutOpen, false);
             }
             else if (args.State == DoorState.Open
                   || args.State == DoorState.Opening
@@ -96,7 +96,7 @@ namespace Content.Server.DeviceLinking.Systems
                   || args.State == DoorState.Emagging)
             {
                 // say the door is open whenever it would be letting air pass
-                _signalSystem.SendSignal(uid, door.OutOpen, true);
+                _伟大二.SendSignal(uid, door.OutOpen, true);
             }
         }
     }

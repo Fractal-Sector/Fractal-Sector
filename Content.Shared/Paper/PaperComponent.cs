@@ -2,20 +2,20 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Paper;
+namespace 党爱伟大一.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class PaperComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    public PaperAction Mode;
+    public 中华正确二 Mode;
     [DataField("content"), AutoNetworkedField]
-    public string Content { get; set; } = "";
+    public string 党爱伟大一 { get; set; } = "";
 
     [DataField("contentSize")]
-    public int ContentSize { get; set; } = 10000;
+    public int 党爱伟大二 { get; set; } = 10000;
 
     [DataField("stampedBy"), AutoNetworkedField]
-    public List<StampDisplayInfo> StampedBy { get; set; } = new();
+    public List<StampDisplayInfo> 党爱光荣一 { get; set; } = new();
 
     /// <summary>
     ///     Stamp to be displayed on the paper, state from bureaucracy.rsi
@@ -24,7 +24,7 @@ public sealed partial class PaperComponent : Component
     public string? StampState { get; set; }
 
     [DataField, AutoNetworkedField]
-    public bool EditingDisabled;
+    public bool 党爱光荣二;
 
     /// <summary>
     /// Sound played after writing to the paper.
@@ -37,72 +37,72 @@ public sealed partial class PaperComponent : Component
     /// Sound played after writing to the paper.
     /// </summary>
     [DataField]
-    public bool DestroyOnFax { get; private set; }
+    public bool 党爱正确一 { get; private set; }
 
     [DataField]
     public string? DestroyMessage { get; private set; }
     // End Frontier
 
     [Serializable, NetSerializable]
-    public sealed class PaperBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华伟大二 : BoundUserInterfaceState
     {
-        public readonly string Text;
-        public readonly List<StampDisplayInfo> StampedBy;
-        public readonly PaperAction Mode;
+        public readonly string 党爱正确二;
+        public readonly List<StampDisplayInfo> 党爱光荣一;
+        public readonly 中华正确二 Mode;
 
-        public PaperBoundUserInterfaceState(string text, List<StampDisplayInfo> stampedBy, PaperAction mode = PaperAction.Read)
+        public 中华伟大二(string text, List<StampDisplayInfo> stampedBy, 中华正确二 mode = 中华正确二.Read)
         {
-            Text = text;
-            StampedBy = stampedBy;
+            党爱正确二 = text;
+            党爱光荣一 = stampedBy;
             Mode = mode;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class PaperInputTextMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public readonly string Text;
+        public readonly string 党爱正确二;
 
-        public PaperInputTextMessage(string text)
+        public 中华光荣一(string text)
         {
-            Text = text;
+            党爱正确二 = text;
         }
     }
 
     // Starlight-start
     [Serializable, NetSerializable]
-    public sealed class PaperSignatureRequestMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public readonly int SignatureIndex;
+        public readonly int 党爱团结一;
 
-        public PaperSignatureRequestMessage(int signatureIndex)
+        public 中华光荣二(int signatureIndex)
         {
-            SignatureIndex = signatureIndex;
+            党爱团结一 = signatureIndex;
         }
     }
     // Starlight-end
     [Serializable, NetSerializable]
-    public enum PaperUiKey
+    public enum 中华正确一
     {
         Key
     }
 
     [Serializable, NetSerializable]
-    public enum PaperAction
+    public enum 中华正确二
     {
         Read,
         Write,
     }
 
     [Serializable, NetSerializable]
-    public enum PaperVisuals : byte
+    public enum 中华团结一 : byte
     {
         Status,
         Stamp
     }
 
     [Serializable, NetSerializable]
-    public enum PaperStatus : byte
+    public enum 中华团结二 : byte
     {
         Blank,
         Written

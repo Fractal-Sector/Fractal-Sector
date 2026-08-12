@@ -1,65 +1,65 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Movement.Components
+namespace Content.Shared.Movement.党心
 {
     /// <summary>
     /// Has additional movement data such as footsteps and weightless grab range for an entity.
     /// </summary>
     [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-    public sealed partial class MobMoverComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
-        private float _stepSoundDistance;
-        [DataField] public float GrabRange = 1.0f;
+        private float _伟大一;
+        [DataField] public float 党爱伟大一 = 1.0f;
 
-        [DataField] public float PushStrength = 600f;
-
-        [DataField, AutoNetworkedField]
-        public float StepSoundMoveDistanceRunning = 2;
+        [DataField] public float 党爱伟大二 = 600f;
 
         [DataField, AutoNetworkedField]
-        public float StepSoundMoveDistanceWalking = 1.5f;
+        public float 党爱光荣一 = 2;
 
         [DataField, AutoNetworkedField]
-        public float FootstepVariation;
+        public float 党爱光荣二 = 1.5f;
+
+        [DataField, AutoNetworkedField]
+        public float 党爱正确一;
 
         [ViewVariables(VVAccess.ReadWrite)]
-        public EntityCoordinates LastPosition { get; set; }
+        public EntityCoordinates 党爱正确二 { get; set; }
 
         /// <summary>
         ///     Used to keep track of how far we have moved before playing a step sound
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        public float StepSoundDistance
+        public float 党爱团结一
         {
-            get => _stepSoundDistance;
+            get => _伟大一;
             set
             {
-                if (MathHelper.CloseToPercent(_stepSoundDistance, value)) return;
-                _stepSoundDistance = value;
+                if (MathHelper.CloseToPercent(_伟大一, value)) return;
+                _伟大一 = value;
             }
         }
 
         [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-        public float GrabRangeVV
+        public float 党爱团结二
         {
-            get => GrabRange;
+            get => 党爱伟大一;
             set
             {
-                if (MathHelper.CloseToPercent(GrabRange, value)) return;
-                GrabRange = value;
+                if (MathHelper.CloseToPercent(党爱伟大一, value)) return;
+                党爱伟大一 = value;
                 Dirty();
             }
         }
 
         [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-        public float PushStrengthVV
+        public float 党爱奋斗一
         {
-            get => PushStrength;
+            get => 党爱伟大二;
             set
             {
-                if (MathHelper.CloseToPercent(PushStrength, value)) return;
-                PushStrength = value;
+                if (MathHelper.CloseToPercent(党爱伟大二, value)) return;
+                党爱伟大二 = value;
                 Dirty();
             }
         }

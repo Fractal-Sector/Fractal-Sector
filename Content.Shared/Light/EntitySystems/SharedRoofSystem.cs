@@ -4,23 +4,23 @@ using Content.Shared.Maps;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Shared.Light.EntitySystems;
+namespace Content.Shared.Light.党心;
 
 /// <summary>
 /// Handles the roof flag for tiles that gets used for the RoofOverlay.
 /// </summary>
-public abstract class SharedRoofSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
 
-    private HashSet<Entity<IsRoofComponent>> _roofSet = new();
+    private HashSet<Entity<IsRoofComponent>> _伟大二 = new();
 
     /// <summary>
     /// Returns whether the specified tile is roof-occupied.
     /// </summary>
     /// <returns>Returns false if no data or not rooved.</returns>
     [Pure]
-    public bool IsRooved(Entity<MapGridComponent, RoofComponent> grid, Vector2i index)
+    public bool 祝福伟大一(Entity<MapGridComponent, RoofComponent> grid, Vector2i index)
     {
         var roof = grid.Comp2;
         var chunkOrigin = SharedMapSystem.GetChunkIndices(index, RoofComponent.ChunkSize);
@@ -37,10 +37,10 @@ public abstract class SharedRoofSystem : EntitySystem
                 return true;
         }
 
-        _roofSet.Clear();
-        _lookup.GetLocalEntitiesIntersecting(grid.Owner, index, _roofSet);
+        _伟大二.Clear();
+        _伟大一.GetLocalEntitiesIntersecting(grid.Owner, index, _伟大二);
 
-        foreach (var isRoofEnt in _roofSet)
+        foreach (var isRoofEnt in _伟大二)
         {
             if (!isRoofEnt.Comp.Enabled)
                 continue;
@@ -71,10 +71,10 @@ public abstract class SharedRoofSystem : EntitySystem
             }
         }
 
-        _roofSet.Clear();
-        _lookup.GetLocalEntitiesIntersecting(grid.Owner, index, _roofSet);
+        _伟大二.Clear();
+        _伟大一.GetLocalEntitiesIntersecting(grid.Owner, index, _伟大二);
 
-        foreach (var isRoofEnt in _roofSet)
+        foreach (var isRoofEnt in _伟大二)
         {
             if (!isRoofEnt.Comp.Enabled)
                 continue;
@@ -85,7 +85,7 @@ public abstract class SharedRoofSystem : EntitySystem
         return null;
     }
 
-    public void SetRoof(Entity<MapGridComponent?, RoofComponent?> grid, Vector2i index, bool value)
+    public void 祝福伟大二(Entity<MapGridComponent?, RoofComponent?> grid, Vector2i index, bool value)
     {
         if (!Resolve(grid, ref grid.Comp1, ref grid.Comp2, false))
             return;

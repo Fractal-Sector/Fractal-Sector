@@ -10,70 +10,70 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
 [UsedImplicitly]
-public sealed class ThirstSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
-    [Dependency] private readonly SharedJetpackSystem _jetpack = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly AlertsSystem _光荣二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _正确一 = default!;
+    [Dependency] private readonly SharedJetpackSystem _正确二 = default!;
 
     private static readonly ProtoId<SatiationIconPrototype> ThirstIconOverhydratedId = "ThirstIconOverhydrated";
     private static readonly ProtoId<SatiationIconPrototype> ThirstIconThirstyId = "ThirstIconThirsty";
     private static readonly ProtoId<SatiationIconPrototype> ThirstIconParchedId = "ThirstIconParched";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ThirstComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
-        SubscribeLocalEvent<ThirstComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ThirstComponent, RejuvenateEvent>(OnRejuvenate);
+        SubscribeLocalEvent<ThirstComponent, RefreshMovementSpeedModifiersEvent>(祝福光荣一);
+        SubscribeLocalEvent<ThirstComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ThirstComponent, RejuvenateEvent>(祝福光荣二);
     }
 
-    private void OnMapInit(EntityUid uid, ThirstComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, ThirstComponent component, MapInitEvent args)
     {
         // Do not change behavior unless starting value is explicitly defined
         if (component.CurrentThirst < 0)
         {
-            component.CurrentThirst = _random.Next(
+            component.CurrentThirst = _光荣一.Next(
                 (int) component.ThirstThresholds[ThirstThreshold.Thirsty] + 10,
                 (int) component.ThirstThresholds[ThirstThreshold.Okay] - 1);
 
             DirtyField(uid, component, nameof(ThirstComponent.CurrentThirst));
         }
-        component.NextUpdateTime = _timing.CurTime;
-        component.CurrentThirstThreshold = GetThirstThreshold(component, component.CurrentThirst);
+        component.NextUpdateTime = _伟大一.CurTime;
+        component.CurrentThirstThreshold = 祝福正确一(component, component.CurrentThirst);
         component.LastThirstThreshold = ThirstThreshold.Okay; // TODO: Potentially change this -> Used Okay because no effects.
         // TODO: Check all thresholds make sense and throw if they don't.
-        UpdateEffects(uid, component);
+        祝福奋斗一(uid, component);
 
         DirtyFields(uid, component, null, nameof(ThirstComponent.NextUpdateTime), nameof(ThirstComponent.CurrentThirstThreshold), nameof(ThirstComponent.LastThirstThreshold));
 
         TryComp(uid, out MovementSpeedModifierComponent? moveMod);
-            _movement.RefreshMovementSpeedModifiers(uid, moveMod);
+            _正确一.RefreshMovementSpeedModifiers(uid, moveMod);
     }
 
-    private void OnRefreshMovespeed(EntityUid uid, ThirstComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福光荣一(EntityUid uid, ThirstComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         // TODO: This should really be taken care of somewhere else
-        if (_jetpack.IsUserFlying(uid))
+        if (_正确二.IsUserFlying(uid))
             return;
 
         var mod = component.CurrentThirstThreshold <= ThirstThreshold.Parched ? 0.75f : 1.0f;
         args.ModifySpeed(mod, mod);
     }
 
-    private void OnRejuvenate(EntityUid uid, ThirstComponent component, RejuvenateEvent args)
+    private void 祝福光荣二(EntityUid uid, ThirstComponent component, RejuvenateEvent args)
     {
-        SetThirst(uid, component, component.ThirstThresholds[ThirstThreshold.Okay]);
+        祝福团结一(uid, component, component.ThirstThresholds[ThirstThreshold.Okay]);
     }
 
-    private ThirstThreshold GetThirstThreshold(ThirstComponent component, float amount)
+    private ThirstThreshold 祝福正确一(ThirstComponent component, float amount)
     {
         ThirstThreshold result = ThirstThreshold.Dead;
         var value = component.ThirstThresholds[ThirstThreshold.OverHydrated];
@@ -89,12 +89,12 @@ public sealed class ThirstSystem : EntitySystem
         return result;
     }
 
-    public void ModifyThirst(EntityUid uid, ThirstComponent component, float amount)
+    public void 祝福正确二(EntityUid uid, ThirstComponent component, float amount)
     {
-        SetThirst(uid, component, component.CurrentThirst + amount);
+        祝福团结一(uid, component, component.CurrentThirst + amount);
     }
 
-    public void SetThirst(EntityUid uid, ThirstComponent component, float amount)
+    public void 祝福团结一(EntityUid uid, ThirstComponent component, float amount)
     {
         component.CurrentThirst = Math.Clamp(amount,
             component.ThirstThresholds[ThirstThreshold.Dead],
@@ -104,20 +104,20 @@ public sealed class ThirstSystem : EntitySystem
         DirtyField(uid, component, nameof(ThirstComponent.CurrentThirst));
     }
 
-    public bool TryGetStatusIconPrototype(ThirstComponent component, [NotNullWhen(true)] out SatiationIconPrototype? prototype)
+    public bool 祝福团结二(ThirstComponent component, [NotNullWhen(true)] out SatiationIconPrototype? prototype)
     {
         switch (component.CurrentThirstThreshold)
         {
             case ThirstThreshold.OverHydrated:
-                _prototype.Resolve(ThirstIconOverhydratedId, out prototype);
+                _伟大二.Resolve(ThirstIconOverhydratedId, out prototype);
                 break;
 
             case ThirstThreshold.Thirsty:
-                _prototype.Resolve(ThirstIconThirstyId, out prototype);
+                _伟大二.Resolve(ThirstIconThirstyId, out prototype);
                 break;
 
             case ThirstThreshold.Parched:
-                _prototype.Resolve(ThirstIconParchedId, out prototype);
+                _伟大二.Resolve(ThirstIconParchedId, out prototype);
                 break;
 
             default:
@@ -128,21 +128,21 @@ public sealed class ThirstSystem : EntitySystem
         return prototype != null;
     }
 
-    private void UpdateEffects(EntityUid uid, ThirstComponent component)
+    private void 祝福奋斗一(EntityUid uid, ThirstComponent component)
     {
         if (TryComp(uid, out MovementSpeedModifierComponent? movementSlowdownComponent))
         {
-            _movement.RefreshMovementSpeedModifiers(uid, movementSlowdownComponent);
+            _正确一.RefreshMovementSpeedModifiers(uid, movementSlowdownComponent);
         }
 
-        // Update UI
+        // 祝福奋斗二 UI
         if (ThirstComponent.ThirstThresholdAlertTypes.TryGetValue(component.CurrentThirstThreshold, out var alertId))
         {
-            _alerts.ShowAlert(uid, alertId);
+            _光荣二.ShowAlert(uid, alertId);
         }
         else
         {
-            _alerts.ClearAlertCategory(uid, component.ThirstyCategory);
+            _光荣二.ClearAlertCategory(uid, component.ThirstyCategory);
         }
 
         DirtyField(uid, component, nameof(ThirstComponent.LastThirstThreshold));
@@ -166,7 +166,7 @@ public sealed class ThirstSystem : EntitySystem
                 component.ActualDecayRate = component.BaseDecayRate * 0.8f;
                 return;
             case ThirstThreshold.Parched:
-                _movement.RefreshMovementSpeedModifiers(uid);
+                _正确一.RefreshMovementSpeedModifiers(uid);
                 component.LastThirstThreshold = component.CurrentThirstThreshold;
                 component.ActualDecayRate = component.BaseDecayRate * 0.6f;
                 return;
@@ -180,26 +180,26 @@ public sealed class ThirstSystem : EntitySystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗二(frameTime);
 
         var query = EntityQueryEnumerator<ThirstComponent>();
         while (query.MoveNext(out var uid, out var thirst))
         {
-            if (_timing.CurTime < thirst.NextUpdateTime)
+            if (_伟大一.CurTime < thirst.NextUpdateTime)
                 continue;
 
             thirst.NextUpdateTime += thirst.UpdateRate;
 
-            ModifyThirst(uid, thirst, -thirst.ActualDecayRate);
-            var calculatedThirstThreshold = GetThirstThreshold(thirst, thirst.CurrentThirst);
+            祝福正确二(uid, thirst, -thirst.ActualDecayRate);
+            var calculatedThirstThreshold = 祝福正确一(thirst, thirst.CurrentThirst);
 
             if (calculatedThirstThreshold == thirst.CurrentThirstThreshold)
                 continue;
 
             thirst.CurrentThirstThreshold = calculatedThirstThreshold;
-            UpdateEffects(uid, thirst);
+            祝福奋斗一(uid, thirst);
         }
     }
 }

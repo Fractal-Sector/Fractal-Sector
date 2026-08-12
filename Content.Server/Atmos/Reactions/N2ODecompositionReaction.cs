@@ -3,15 +3,15 @@ using Content.Shared.Atmos;
 using Content.Shared.Atmos.Reactions;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Reactions;
+namespace Content.Server.Atmos.党心;
 
 /// <summary>
 ///     Decomposes Nitrous Oxide into Nitrogen and Oxygen.
 /// </summary>
 [UsedImplicitly]
-public sealed partial class N2ODecompositionReaction : IGasReactionEffect
+public sealed partial class 中华伟大一 : IGasReactionEffect
 {
-    public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+    public ReactionResult 祝福伟大一(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
     {
         var cacheN2O = mixture.GetMoles(Gas.NitrousOxide);
 

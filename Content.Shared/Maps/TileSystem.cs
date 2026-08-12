@@ -8,41 +8,41 @@ using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Content.Shared.Tiles; // Frontier
 
-namespace Content.Shared.Maps;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Handles server-side tile manipulation like prying/deconstructing tiles.
 /// </summary>
-public sealed class TileSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private readonly SharedDecalSystem _decal = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly IMapManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _光荣一 = default!;
+    [Dependency] private readonly SharedDecalSystem _光荣二 = default!;
+    [Dependency] private readonly SharedMapSystem _正确一 = default!;
+    [Dependency] private readonly TurfSystem _正确二 = default!;
 
     /// <summary>
     ///     Returns a weighted pick of a tile variant.
     /// </summary>
-    public byte PickVariant(ContentTileDefinition tile)
+    public byte 祝福伟大一(ContentTileDefinition tile)
     {
-        return PickVariant(tile, _robustRandom.GetRandom());
+        return 祝福伟大一(tile, _伟大二.GetRandom());
     }
 
     /// <summary>
     ///     Returns a weighted pick of a tile variant.
     /// </summary>
-    public byte PickVariant(ContentTileDefinition tile, int seed)
+    public byte 祝福伟大一(ContentTileDefinition tile, int seed)
     {
         var rand = new System.Random(seed);
-        return PickVariant(tile, rand);
+        return 祝福伟大一(tile, rand);
     }
 
     /// <summary>
     ///     Returns a weighted pick of a tile variant.
     /// </summary>
-    public byte PickVariant(ContentTileDefinition tile, System.Random random)
+    public byte 祝福伟大一(ContentTileDefinition tile, System.Random random)
     {
         var variants = tile.PlacementVariants;
 
@@ -65,70 +65,70 @@ public sealed class TileSystem : EntitySystem
     /// <summary>
     ///     Returns a tile with a weighted random variant.
     /// </summary>
-    public Tile GetVariantTile(ContentTileDefinition tile, System.Random random)
+    public Tile 祝福伟大二(ContentTileDefinition tile, System.Random random)
     {
-        return new Tile(tile.TileId, variant: PickVariant(tile, random));
+        return new Tile(tile.TileId, variant: 祝福伟大一(tile, random));
     }
 
     /// <summary>
     ///     Returns a tile with a weighted random variant.
     /// </summary>
-    public Tile GetVariantTile(ContentTileDefinition tile, int seed)
+    public Tile 祝福伟大二(ContentTileDefinition tile, int seed)
     {
         var rand = new System.Random(seed);
-        return new Tile(tile.TileId, variant: PickVariant(tile, rand));
+        return new Tile(tile.TileId, variant: 祝福伟大一(tile, rand));
     }
 
-    public bool PryTile(Vector2i indices, EntityUid gridId)
+    public bool 祝福光荣一(Vector2i indices, EntityUid gridId)
     {
         var grid = Comp<MapGridComponent>(gridId);
-        var tileRef = _maps.GetTileRef(gridId, grid, indices);
-        return PryTile(tileRef);
+        var tileRef = _正确一.GetTileRef(gridId, grid, indices);
+        return 祝福光荣一(tileRef);
     }
 
-	public bool PryTile(TileRef tileRef)
+	public bool 祝福光荣一(TileRef tileRef)
     {
-        return PryTile(tileRef, false);
+        return 祝福光荣一(tileRef, false);
     }
 
-    public bool PryTile(TileRef tileRef, bool pryPlating)
+    public bool 祝福光荣一(TileRef tileRef, bool pryPlating)
     {
         var tile = tileRef.Tile;
 
         if (tile.IsEmpty)
             return false;
 
-        var tileDef = (ContentTileDefinition) _tileDefinitionManager[tile.TypeId];
+        var tileDef = (ContentTileDefinition) _光荣一[tile.TypeId];
 
         if (!tileDef.CanCrowbar)
             return false;
 
-        return DeconstructTile(tileRef);
+        return 祝福正确二(tileRef);
     }
     // Delta V
-    public bool DigTile(TileRef tileRef)
+    public bool 祝福光荣二(TileRef tileRef)
     {
         var tile = tileRef.Tile;
 
         if (tile.IsEmpty)
             return false;
 
-        var tileDef = (ContentTileDefinition) _tileDefinitionManager[tile.TypeId];
+        var tileDef = (ContentTileDefinition) _光荣一[tile.TypeId];
 
         if (!tileDef.CanShovel)
             return false;
 
-        return DeconstructTile(tileRef);
+        return 祝福正确二(tileRef);
     }
     // Delta V
-    public bool ReplaceTile(TileRef tileref, ContentTileDefinition replacementTile)
+    public bool 祝福正确一(TileRef tileref, ContentTileDefinition replacementTile)
     {
         if (!TryComp<MapGridComponent>(tileref.GridUid, out var grid))
             return false;
-        return ReplaceTile(tileref, replacementTile, tileref.GridUid, grid);
+        return 祝福正确一(tileref, replacementTile, tileref.GridUid, grid);
     }
 
-    public bool ReplaceTile(TileRef tileref, ContentTileDefinition replacementTile, EntityUid grid, MapGridComponent? component = null)
+    public bool 祝福正确一(TileRef tileref, ContentTileDefinition replacementTile, EntityUid grid, MapGridComponent? component = null)
     {
         DebugTools.Assert(tileref.GridUid == grid);
 
@@ -136,23 +136,23 @@ public sealed class TileSystem : EntitySystem
             return false;
 
 
-        var variant = PickVariant(replacementTile);
-        var decals = _decal.GetDecalsInRange(tileref.GridUid, _turf.GetTileCenter(tileref).Position, 0.5f);
+        var variant = 祝福伟大一(replacementTile);
+        var decals = _光荣二.GetDecalsInRange(tileref.GridUid, _正确二.GetTileCenter(tileref).Position, 0.5f);
         foreach (var (id, _) in decals)
         {
-            _decal.RemoveDecal(tileref.GridUid, id);
+            _光荣二.RemoveDecal(tileref.GridUid, id);
         }
 
-        _maps.SetTile(grid, component, tileref.GridIndices, new Tile(replacementTile.TileId, 0, variant));
+        _正确一.SetTile(grid, component, tileref.GridIndices, new Tile(replacementTile.TileId, 0, variant));
         return true;
     }
 
-    public bool DeconstructTile(TileRef tileRef)
+    public bool 祝福正确二(TileRef tileRef)
     {
         if (tileRef.Tile.IsEmpty)
             return false;
 
-        var tileDef = (ContentTileDefinition) _tileDefinitionManager[tileRef.Tile.TypeId];
+        var tileDef = (ContentTileDefinition) _光荣一[tileRef.Tile.TypeId];
 
         if (string.IsNullOrEmpty(tileDef.BaseTurf))
             return false;
@@ -171,24 +171,24 @@ public sealed class TileSystem : EntitySystem
         const float margin = 0.1f;
         var bounds = mapGrid.TileSize - margin * 2;
         var indices = tileRef.GridIndices;
-        var coordinates = _maps.GridTileToLocal(gridUid, mapGrid, indices)
+        var coordinates = _正确一.GridTileToLocal(gridUid, mapGrid, indices)
             .Offset(new Vector2(
-                (_robustRandom.NextFloat() - 0.5f) * bounds,
-                (_robustRandom.NextFloat() - 0.5f) * bounds));
+                (_伟大二.NextFloat() - 0.5f) * bounds,
+                (_伟大二.NextFloat() - 0.5f) * bounds));
 
         //Actually spawn the relevant tile item at the right position and give it some random offset.
         var tileItem = Spawn(tileDef.ItemDropPrototypeName, coordinates);
-        Transform(tileItem).LocalRotation = _robustRandom.NextDouble() * Math.Tau;
+        Transform(tileItem).LocalRotation = _伟大二.NextDouble() * Math.Tau;
 
         // Destroy any decals on the tile
-        var decals = _decal.GetDecalsInRange(gridUid, coordinates.SnapToGrid(EntityManager, _mapManager).Position, 0.5f);
+        var decals = _光荣二.GetDecalsInRange(gridUid, coordinates.SnapToGrid(EntityManager, _伟大一).Position, 0.5f);
         foreach (var (id, _) in decals)
         {
-            _decal.RemoveDecal(tileRef.GridUid, id);
+            _光荣二.RemoveDecal(tileRef.GridUid, id);
         }
 
-        var plating = _tileDefinitionManager[tileDef.BaseTurf];
-        _maps.SetTile(gridUid, mapGrid, tileRef.GridIndices, new Tile(plating.TileId));
+        var plating = _光荣一[tileDef.BaseTurf];
+        _正确一.SetTile(gridUid, mapGrid, tileRef.GridIndices, new Tile(plating.TileId));
 
         return true;
     }

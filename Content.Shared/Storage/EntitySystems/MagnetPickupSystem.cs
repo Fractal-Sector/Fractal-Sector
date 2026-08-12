@@ -10,45 +10,45 @@ using Content.Shared.Verbs; // Frontier
 using Content.Shared.Examine; // Frontier
 using Content.Shared.Hands.Components; // Frontier
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
 /// <summary>
 /// <see cref="MagnetPickupComponent"/>
 /// </summary>
-public sealed class MagnetPickupSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    // [Dependency] private readonly InventorySystem _inventory = default!; // Frontier
-    [Dependency] private readonly ItemToggleSystem _toggle = default!; // DeltaV
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!; // Frontier
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    // [Dependency] private readonly InventorySystem _光荣一 = default!; // Frontier
+    [Dependency] private readonly ItemToggleSystem _光荣二 = default!; // DeltaV
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
+    [Dependency] private readonly SharedStorageSystem _正确二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结一 = default!;
+    [Dependency] private readonly SharedItemSystem _团结二 = default!; // Frontier
 
 
     private static readonly TimeSpan ScanDelay = TimeSpan.FromSeconds(1);
     private const int MaxEntitiesToInsert = 15; // Frontier
 
-    private EntityQuery<PhysicsComponent> _physicsQuery;
+    private EntityQuery<PhysicsComponent> _奋斗一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        SubscribeLocalEvent<MagnetPickupComponent, MapInitEvent>(OnMagnetMapInit);
-        SubscribeLocalEvent<MagnetPickupComponent, ExaminedEvent>(OnExamined); // Frontier
-        SubscribeLocalEvent<MagnetPickupComponent, GetVerbsEvent<AlternativeVerb>>(AddToggleMagnetVerb); // Frontier
+        base.祝福伟大一();
+        _奋斗一 = GetEntityQuery<PhysicsComponent>();
+        SubscribeLocalEvent<MagnetPickupComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<MagnetPickupComponent, ExaminedEvent>(祝福光荣二); // Frontier
+        SubscribeLocalEvent<MagnetPickupComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一); // Frontier
     }
 
-    private void OnMagnetMapInit(EntityUid uid, MagnetPickupComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, MagnetPickupComponent component, MapInitEvent args)
     {
-        component.NextScan = _timing.CurTime;
+        component.NextScan = _伟大一.CurTime;
     }
 
 
     // Frontier: togglable magnets
-    private void AddToggleMagnetVerb(EntityUid uid, MagnetPickupComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(EntityUid uid, MagnetPickupComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         // Magnet run by other means (e.g. toggles)
         if (!component.MagnetCanBeEnabled)
@@ -64,7 +64,7 @@ public sealed class MagnetPickupSystem : EntitySystem
         {
             Act = () =>
             {
-                ToggleMagnet(uid, component);
+                祝福正确一(uid, component);
             },
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")),
             Text = Loc.GetString("magnet-pickup-component-toggle-verb"),
@@ -75,7 +75,7 @@ public sealed class MagnetPickupSystem : EntitySystem
     }
 
     // Show the magnet state on examination
-    private void OnExamined(EntityUid uid, MagnetPickupComponent component, ExaminedEvent args)
+    private void 祝福光荣二(EntityUid uid, MagnetPickupComponent component, ExaminedEvent args)
     {
         // Magnet run by other means (e.g. toggles)
         if (!component.MagnetCanBeEnabled)
@@ -88,7 +88,7 @@ public sealed class MagnetPickupSystem : EntitySystem
     }
 
     //Toggles the magnet on the ore bag/box
-    public void ToggleMagnet(EntityUid uid, MagnetPickupComponent comp)
+    public void 祝福正确一(EntityUid uid, MagnetPickupComponent comp)
     {
         // Magnet run by other means (e.g. toggles)
         if (!comp.MagnetCanBeEnabled)
@@ -99,11 +99,11 @@ public sealed class MagnetPickupSystem : EntitySystem
     }
     // End Frontier: togglable magnets
 
-    public override void Update(float frameTime)
+    public override void 祝福正确二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确二(frameTime);
         var query = EntityQueryEnumerator<MagnetPickupComponent, StorageComponent, TransformComponent, MetaDataComponent>();
-        var currentTime = _timing.CurTime;
+        var currentTime = _伟大一.CurTime;
 
         while (query.MoveNext(out var uid, out var comp, out var storage, out var xform, out var meta))
         {
@@ -120,13 +120,13 @@ public sealed class MagnetPickupSystem : EntitySystem
             }
             else
             {
-                if (!_toggle.IsActivated(uid))
+                if (!_光荣二.IsActivated(uid))
                     continue;
             }
             // End Frontier
 
             // Begin DeltaV Removals: Allow ore bags to work inhand
-            //if (!_inventory.TryGetContainingSlot((uid, xform, meta), out var slotDef))
+            //if (!_光荣一.TryGetContainingSlot((uid, xform, meta), out var slotDef))
             //    continue;
 
             //if ((slotDef.SlotFlags & comp.SlotFlags) == 0x0)
@@ -134,7 +134,7 @@ public sealed class MagnetPickupSystem : EntitySystem
             // End DeltaV Removals
 
             // Frontier: run conservative space estimations, cut down on space checks
-            var slotCount = _storage.GetCumulativeItemAreas((uid, storage)); // Frontier
+            var slotCount = _正确二.GetCumulativeItemAreas((uid, storage)); // Frontier
             var totalSlots = storage.Grid.GetArea();
             if (slotCount >= totalSlots)
                 continue;
@@ -143,10 +143,10 @@ public sealed class MagnetPickupSystem : EntitySystem
             var parentUid = xform.ParentUid;
             var playedSound = false;
             var finalCoords = xform.Coordinates;
-            var moverCoords = _transform.GetMoverCoordinates(uid, xform);
+            var moverCoords = _正确一.GetMoverCoordinates(uid, xform);
             var count = 0; // Frontier
 
-            foreach (var near in _lookup.GetEntitiesInRange(uid, comp.Range, LookupFlags.Dynamic | LookupFlags.Sundries))
+            foreach (var near in _伟大二.GetEntitiesInRange(uid, comp.Range, LookupFlags.Dynamic | LookupFlags.Sundries))
             {
                 // Frontier: stop spamming bags
                 if (count >= MaxEntitiesToInsert)
@@ -155,16 +155,16 @@ public sealed class MagnetPickupSystem : EntitySystem
                 if (near == parentUid)
                     continue;
 
-                if (!_physicsQuery.TryGetComponent(near, out var physics) || physics.BodyStatus != BodyStatus.OnGround)
+                if (!_奋斗一.TryGetComponent(near, out var physics) || physics.BodyStatus != BodyStatus.OnGround)
                     continue;
 
-                if (_whitelistSystem.IsWhitelistFail(storage.Whitelist, near))
+                if (_团结一.IsWhitelistFail(storage.Whitelist, near))
                     continue;
 
                 if (!TryComp<ItemComponent>(near, out var item))
                     continue;
 
-                var itemSize = _item.GetItemShape((near, item)).GetArea();
+                var itemSize = _团结二.GetItemShape((near, item)).GetArea();
                 if (itemSize > totalSlots - slotCount)
                     break;
 
@@ -177,19 +177,19 @@ public sealed class MagnetPickupSystem : EntitySystem
                 // the problem is that stack pickups delete the original entity, which is fine, but due to
                 // game state handling we can't show a lerp animation for it.
                 var nearXform = Transform(near);
-                var nearMap = _transform.GetMapCoordinates(near, xform: nearXform);
-                var nearCoords = _transform.ToCoordinates(moverCoords.EntityId, nearMap);
+                var nearMap = _正确一.GetMapCoordinates(near, xform: nearXform);
+                var nearCoords = _正确一.ToCoordinates(moverCoords.EntityId, nearMap);
 
-                if (!_storage.Insert(uid, near, out var stacked, storageComp: storage, playSound: !playedSound))
+                if (!_正确二.Insert(uid, near, out var stacked, storageComp: storage, playSound: !playedSound))
                     break; // Frontier: continue<break
 
                 slotCount += itemSize; // Frontier: adjust size (assume it's in a new slot)
 
                 // Play pickup animation for either the stack entity or the original entity.
                 if (stacked != null)
-                    _storage.PlayPickupAnimation(stacked.Value, nearCoords, finalCoords, nearXform.LocalRotation);
+                    _正确二.PlayPickupAnimation(stacked.Value, nearCoords, finalCoords, nearXform.LocalRotation);
                 else
-                    _storage.PlayPickupAnimation(near, nearCoords, finalCoords, nearXform.LocalRotation);
+                    _正确二.PlayPickupAnimation(near, nearCoords, finalCoords, nearXform.LocalRotation);
 
                 playedSound = true;
             }

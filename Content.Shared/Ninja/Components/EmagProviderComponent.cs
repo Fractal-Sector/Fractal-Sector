@@ -6,20 +6,20 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Ninja.Components;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// Component for emagging things on click.
 /// No charges but checks against a whitelist.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(EmagProviderSystem))]
-public sealed partial class EmagProviderComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The tag that marks an entity as immune to emagging.
     /// </summary>
     [DataField]
-    public ProtoId<TagPrototype> AccessBreakerImmuneTag = "AccessBreakerImmune";
+    public ProtoId<TagPrototype> 党爱伟大一 = "AccessBreakerImmune";
 
     /// <summary>
     /// Whitelist that entities must be on to work.
@@ -31,11 +31,11 @@ public sealed partial class EmagProviderComponent : Component
     /// What type of emag this will provide.
     /// </summary>
     [DataField]
-    public EmagType EmagType = EmagType.Access;
+    public 党爱伟大二 党爱伟大二 = 党爱伟大二.Access;
 
     /// <summary>
     /// What sound should the emag play when used
     /// </summary>
     [DataField]
-    public SoundSpecifier EmagSound = new SoundCollectionSpecifier("sparks");
+    public SoundSpecifier 党爱光荣一 = new SoundCollectionSpecifier("sparks");
 }

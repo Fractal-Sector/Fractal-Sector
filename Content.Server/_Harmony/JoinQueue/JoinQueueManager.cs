@@ -12,12 +12,12 @@ using Robust.Shared.Timing;
 using Content.Shared._Harmony.CCVars;
 using Content.Server.Administration.Managers;
 
-namespace Content.Server._Harmony.JoinQueue;
+namespace Content.Server._Harmony.党心;
 
 /// <summary>
 ///     Manages new player connections when the server is full and queues them up, granting access when a slot becomes free
 /// </summary>
-public sealed class JoinQueueManager : IJoinQueueManager
+public sealed class 中华伟大一 : IJoinQueueManager
 {
     private static readonly Gauge QueueCount = Metrics.CreateGauge(
         "join_queue_total_count",
@@ -33,84 +33,84 @@ public sealed class JoinQueueManager : IJoinQueueManager
         });
 
 
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IServerNetManager _net = default!;
-    [Dependency] private readonly IConnectionManager _connection = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly IServerNetManager _光荣一 = default!;
+    [Dependency] private readonly IConnectionManager _光荣二 = default!;
+    [Dependency] private readonly IAdminManager _正确一 = default!;
 
     /// <summary>
     /// Queue of active player sessions
     /// </summary>
-    private readonly List<ICommonSession> _queue = new();
+    private readonly List<ICommonSession> _正确二 = new();
 
-    private bool _isEnabled;
+    private bool _团结一;
 
-    public int PlayerInQueueCount => _queue.Count;
-    public int ActualPlayersCount => _player.PlayerCount - PlayerInQueueCount - GetAdminAdjustment();
+    public int 党爱伟大一 => _正确二.Count;
+    public int 党爱伟大二 => _伟大一.PlayerCount - 党爱伟大一 - 祝福团结二();
 
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _net.RegisterNetMessage<QueueUpdateMessage>();
+        _光荣一.RegisterNetMessage<QueueUpdateMessage>();
 
-        _configuration.OnValueChanged(HCCVars.EnableQueue, OnQueueCVarChanged, true);
-        _player.PlayerStatusChanged += OnPlayerStatusChanged;
+        _伟大二.OnValueChanged(HCCVars.EnableQueue, 祝福伟大二, true);
+        _伟大一.PlayerStatusChanged += 祝福光荣一;
     }
 
 
-    private void OnQueueCVarChanged(bool value)
+    private void 祝福伟大二(bool value)
     {
-        _isEnabled = value;
+        _团结一 = value;
 
         if (!value)
         {
-            foreach (var session in _queue)
+            foreach (var session in _正确二)
                 session.Channel.Disconnect("Queue was disabled");
         }
     }
 
 
-    private async void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private async void 祝福光荣一(object? sender, SessionStatusEventArgs e)
     {
         if (e.NewStatus == SessionStatus.Disconnected)
         {
-            var wasInQueue = _queue.Remove(e.Session);
+            var wasInQueue = _正确二.Remove(e.Session);
             // Process the queue if user was in queue, or if they were in the game
             if (wasInQueue || e.OldStatus == SessionStatus.InGame)
-                ProcessQueue(true, e.Session.ConnectedTime);
+                祝福正确一(true, e.Session.ConnectedTime);
 
             if (wasInQueue)
                 QueueTimings.WithLabels("Unwaited").Observe((DateTime.UtcNow - e.Session.ConnectedTime).TotalSeconds);
         }
         else if (e.NewStatus == SessionStatus.Connected)
         {
-            OnPlayerConnected(e.Session);
+            祝福光荣二(e.Session);
         }
     }
 
 
-    private async void OnPlayerConnected(ICommonSession session)
+    private async void 祝福光荣二(ICommonSession session)
     {
-        if (!_isEnabled)
+        if (!_团结一)
         {
-            SendToGame(session);
+            祝福团结一(session);
             return;
         }
 
-        var isPrivileged = await _connection.HasPrivilegedJoin(session.UserId);
-        var currentOnline = _player.PlayerCount - GetAdminAdjustment() - 1;
-        var haveFreeSlot = currentOnline < _configuration.GetCVar(CCVars.SoftMaxPlayers);
+        var isPrivileged = await _光荣二.HasPrivilegedJoin(session.UserId);
+        var currentOnline = _伟大一.PlayerCount - 祝福团结二() - 1;
+        var haveFreeSlot = currentOnline < _伟大二.GetCVar(CCVars.SoftMaxPlayers);
         if (isPrivileged || haveFreeSlot)
         {
-            SendToGame(session);
+            祝福团结一(session);
         }
         else
         {
-            _queue.Add(session);
+            _正确二.Add(session);
         }
 
-        ProcessQueue(false, session.ConnectedTime);
+        祝福正确一(false, session.ConnectedTime);
     }
 
     /// <summary>
@@ -118,37 +118,37 @@ public sealed class JoinQueueManager : IJoinQueueManager
     /// </summary>
     /// <param name="isDisconnect">Is method called on disconnect event</param>
     /// <param name="connectedTime">Session connected time for histogram metrics</param>
-    private void ProcessQueue(bool isDisconnect, DateTime connectedTime)
+    private void 祝福正确一(bool isDisconnect, DateTime connectedTime)
     {
-        var players = ActualPlayersCount;
+        var players = 党爱伟大二;
         if (isDisconnect)
             players--; // Decrease currently disconnected session but that has not yet been deleted
 
-        var haveFreeSlot = players < _configuration.GetCVar(CCVars.SoftMaxPlayers);
-        var regularQueueContains = _queue.Count > 0;
+        var haveFreeSlot = players < _伟大二.GetCVar(CCVars.SoftMaxPlayers);
+        var regularQueueContains = _正确二.Count > 0;
 
         if (haveFreeSlot && regularQueueContains)
         {
-            var session = _queue.First();
-            SendToGame(session);
+            var session = _正确二.First();
+            祝福团结一(session);
             QueueTimings.WithLabels("Waited").Observe((DateTime.UtcNow - connectedTime).TotalSeconds);
         }
 
-        SendUpdateMessages();
-        QueueCount.Set(_queue.Count);
+        祝福正确二();
+        QueueCount.Set(_正确二.Count);
     }
 
     /// <summary>
     /// Sends messages to all players in the queue with the current state of the queue
     /// </summary>
-    private void SendUpdateMessages()
+    private void 祝福正确二()
     {
-        var totalInQueue = _queue.Count;
+        var totalInQueue = _正确二.Count;
         var currentPosition = 1;
 
-        for (var i = 0; i < _queue.Count; i++, currentPosition++)
+        for (var i = 0; i < _正确二.Count; i++, currentPosition++)
         {
-            _queue[i]
+            _正确二[i]
                 .Channel.SendMessage(new QueueUpdateMessage
                 {
                     Total = totalInQueue,
@@ -161,18 +161,18 @@ public sealed class JoinQueueManager : IJoinQueueManager
     /// Remove session from queue, update game state
     /// </summary>
     /// <param name="session">Player session that will be sent to game</param>
-    private void SendToGame(ICommonSession session)
+    private void 祝福团结一(ICommonSession session)
     {
-        _queue.Remove(session);
-        Timer.Spawn(0, () => _player.JoinGame(session));
+        _正确二.Remove(session);
+        Timer.Spawn(0, () => _伟大一.JoinGame(session));
     }
 
     /// <summary>
     /// Returns the number of admins that need to be removed from the active player count
     /// </summary>
     /// <returns></returns>
-    private int GetAdminAdjustment()
+    private int 祝福团结二()
     {
-        return _configuration.GetCVar(CCVars.AdminsCountForMaxPlayers) ? 0 : _adminManager.ActiveAdmins.Count();
+        return _伟大二.GetCVar(CCVars.AdminsCountForMaxPlayers) ? 0 : _正确一.ActiveAdmins.Count();
     }
 }

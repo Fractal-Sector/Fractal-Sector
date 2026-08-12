@@ -4,16 +4,16 @@ using Content.Server.Power.EntitySystems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Power
+namespace Content.Server.党心
 {
     [AdminCommand(AdminFlags.Debug)]
-    public sealed class SetBatteryPercentCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly BatterySystem _batterySystem = default!;
+        [Dependency] private readonly BatterySystem _伟大一 = default!;
 
-        public override string Command => "setbatterypercent";
+        public override string 党爱伟大一 => "setbatterypercent";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
             {
@@ -40,7 +40,7 @@ namespace Content.Server.Power
                 shell.WriteLine(Loc.GetString($"cmd-setbatterypercent-battery-not-found", ("id", id)));
                 return;
             }
-            _batterySystem.SetCharge(id.Value, battery.MaxCharge * percent / 100, battery);
+            _伟大一.SetCharge(id.Value, battery.MaxCharge * percent / 100, battery);
             // Don't acknowledge b/c people WILL forall this
         }
     }

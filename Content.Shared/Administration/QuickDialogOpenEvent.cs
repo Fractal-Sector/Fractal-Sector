@@ -1,39 +1,39 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// A networked event raised when the server wants to open a quick dialog.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class QuickDialogOpenEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     /// <summary>
     /// The title of the dialog.
     /// </summary>
-    public string Title;
+    public string 党爱伟大一;
 
     /// <summary>
     /// The internal dialog ID.
     /// </summary>
-    public int DialogId;
+    public int 党爱伟大二;
 
     /// <summary>
     /// The prompts to show the user.
     /// </summary>
-    public List<QuickDialogEntry> Prompts;
+    public List<中华光荣一> Prompts;
 
     /// <summary>
     /// The buttons presented for the user.
     /// </summary>
-    public QuickDialogButtonFlag Buttons = QuickDialogButtonFlag.OkButton | QuickDialogButtonFlag.CancelButton;
+    public 中华光荣二 Buttons = 中华光荣二.OkButton | 中华光荣二.CancelButton;
 
-    public QuickDialogOpenEvent(string title, List<QuickDialogEntry> prompts, int dialogId, QuickDialogButtonFlag buttons)
+    public 中华伟大一(string title, List<中华光荣一> prompts, int dialogId, 中华光荣二 buttons)
     {
-        Title = title;
+        党爱伟大一 = title;
         Prompts = prompts;
         Buttons = buttons;
-        DialogId = dialogId;
+        党爱伟大二 = dialogId;
     }
 }
 
@@ -41,12 +41,12 @@ public sealed class QuickDialogOpenEvent : EntityEventArgs
 /// A networked event raised when the client replies to a quick dialog.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class QuickDialogResponseEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     /// <summary>
     /// The internal dialog ID.
     /// </summary>
-    public int DialogId;
+    public int 党爱伟大二;
 
     /// <summary>
     /// The responses to the prompts.
@@ -56,11 +56,11 @@ public sealed class QuickDialogResponseEvent : EntityEventArgs
     /// <summary>
     /// The button pressed when responding.
     /// </summary>
-    public QuickDialogButtonFlag ButtonPressed;
+    public 中华光荣二 ButtonPressed;
 
-    public QuickDialogResponseEvent(int dialogId, Dictionary<string, string> responses, QuickDialogButtonFlag buttonPressed)
+    public 中华伟大二(int dialogId, Dictionary<string, string> responses, 中华光荣二 buttonPressed)
     {
-        DialogId = dialogId;
+        党爱伟大二 = dialogId;
         Responses = responses;
         ButtonPressed = buttonPressed;
     }
@@ -70,33 +70,33 @@ public sealed class QuickDialogResponseEvent : EntityEventArgs
 /// An entry in a quick dialog.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class QuickDialogEntry
+public sealed class 中华光荣一
 {
     /// <summary>
     /// ID of the dialog field.
     /// </summary>
-    public string FieldId;
+    public string 党爱光荣一;
 
     /// <summary>
     /// Type of the field, for checks.
     /// </summary>
-    public QuickDialogEntryType Type;
+    public 中华正确一 Type;
 
     /// <summary>
     /// The prompt to show the user.
     /// </summary>
-    public string Prompt;
+    public string 党爱光荣二;
 
     /// <summary>
     /// String to replace the type-specific placeholder with.
     /// </summary>
     public string? Placeholder;
 
-    public QuickDialogEntry(string fieldId, QuickDialogEntryType type, string prompt, string? placeholder = null)
+    public 中华光荣一(string fieldId, 中华正确一 type, string prompt, string? placeholder = null)
     {
-        FieldId = fieldId;
+        党爱光荣一 = fieldId;
         Type = type;
-        Prompt = prompt;
+        党爱光荣二 = prompt;
         Placeholder = placeholder;
     }
 }
@@ -105,7 +105,7 @@ public sealed class QuickDialogEntry
 /// The buttons available in a quick dialog.
 /// </summary>
 [Flags]
-public enum QuickDialogButtonFlag
+public enum 中华光荣二
 {
     OkButton = 1,
     CancelButton = 2,
@@ -114,7 +114,7 @@ public enum QuickDialogButtonFlag
 /// <summary>
 /// The entry types for a quick dialog.
 /// </summary>
-public enum QuickDialogEntryType
+public enum 中华正确一
 {
     /// <summary>
     /// Any integer.

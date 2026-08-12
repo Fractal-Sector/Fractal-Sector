@@ -10,39 +10,39 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _伟大二 = default!;
 
 
-    protected virtual void InitializeBallistic()
+    protected virtual void 祝福伟大一()
     {
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, ComponentInit>(OnBallisticInit);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, MapInitEvent>(OnBallisticMapInit);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, TakeAmmoEvent>(OnBallisticTakeAmmo);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, GetAmmoCountEvent>(OnBallisticAmmoCount);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, ComponentInit>(祝福奋斗二);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, MapInitEvent>(祝福胜利一);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, TakeAmmoEvent>(祝福繁荣一);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, GetAmmoCountEvent>(祝福繁荣二);
 
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, ExaminedEvent>(OnBallisticExamine);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, GetVerbsEvent<Verb>>(OnBallisticVerb);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, InteractUsingEvent>(OnBallisticInteractUsing);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, AfterInteractEvent>(OnBallisticAfterInteract);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, AmmoFillDoAfterEvent>(OnBallisticAmmoFillDoAfter);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, UseInHandEvent>(OnBallisticUse);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, ExaminedEvent>(祝福团结一);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, GetVerbsEvent<Verb>>(祝福正确二);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, InteractUsingEvent>(祝福光荣一);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, AfterInteractEvent>(祝福光荣二);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, 中华伟大二>(祝福正确一);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, UseInHandEvent>(祝福伟大二);
     }
 
-    private void OnBallisticUse(EntityUid uid, BallisticAmmoProviderComponent component, UseInHandEvent args)
+    private void 祝福伟大二(EntityUid uid, BallisticAmmoProviderComponent component, UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
-        ManualCycle(uid, component, TransformSystem.GetMapCoordinates(uid), args.User);
+        祝福团结二(uid, component, TransformSystem.GetMapCoordinates(uid), args.User);
         args.Handled = true;
     }
 
-    private void OnBallisticInteractUsing(EntityUid uid, BallisticAmmoProviderComponent component, InteractUsingEvent args)
+    private void 祝福光荣一(EntityUid uid, BallisticAmmoProviderComponent component, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -50,7 +50,7 @@ public abstract partial class SharedGunSystem
         if (_whitelistSystem.IsWhitelistFailOrNull(component.Whitelist, args.Used))
             return;
 
-        if (GetBallisticShots(component) >= component.Capacity)
+        if (祝福胜利二(component) >= component.Capacity)
             return;
 
         component.Entities.Add(args.Used);
@@ -58,11 +58,11 @@ public abstract partial class SharedGunSystem
         // Not predicted so
         Audio.PlayPredicted(component.SoundInsert, uid, args.User);
         args.Handled = true;
-        UpdateBallisticAppearance(uid, component);
+        祝福富强一(uid, component);
         DirtyField(uid, component, nameof(BallisticAmmoProviderComponent.Entities));
     }
 
-    private void OnBallisticAfterInteract(EntityUid uid, BallisticAmmoProviderComponent component, AfterInteractEvent args)
+    private void 祝福光荣二(EntityUid uid, BallisticAmmoProviderComponent component, AfterInteractEvent args)
     {
         if (args.Handled ||
             !component.MayTransfer ||
@@ -94,7 +94,7 @@ public abstract partial class SharedGunSystem
             args.Handled = true;
 
             // Continuous loading
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, fillDelay, new AmmoFillDoAfterEvent(), used: uid, target: args.Target, eventTarget: uid) // Frontier: component.FillDelay<fillDelay
+            _伟大一.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, fillDelay, new 中华伟大二(), used: uid, target: args.Target, eventTarget: uid) // Frontier: component.FillDelay<fillDelay
             {
                 BreakOnMove = false, // Wayfarer: reload while moving
                 BreakOnDamage = false,
@@ -103,7 +103,7 @@ public abstract partial class SharedGunSystem
         }
     }
 
-    private void OnBallisticAmmoFillDoAfter(EntityUid uid, BallisticAmmoProviderComponent component, AmmoFillDoAfterEvent args)
+    private void 祝福正确一(EntityUid uid, BallisticAmmoProviderComponent component, 中华伟大二 args)
     {
         if (Deleted(args.Target)) // Frontier: deferred component & whitelist check
             return;
@@ -123,7 +123,7 @@ public abstract partial class SharedGunSystem
         }
 
         //Check capacity
-        if (ballisticTarget is not null && GetBallisticShots(ballisticTarget) >= ballisticTarget.Capacity ||
+        if (ballisticTarget is not null && 祝福胜利二(ballisticTarget) >= ballisticTarget.Capacity ||
             revolverTarget is not null && GetRevolverCount(revolverTarget) >= revolverTarget.Capacity)
         {
             Popup(
@@ -148,7 +148,7 @@ public abstract partial class SharedGunSystem
         void SimulateInsertAmmo(EntityUid ammo, EntityUid ammoProvider, EntityCoordinates coordinates)
         {
             // We call SharedInteractionSystem to raise contact events. Checks are already done by this point.
-            _interaction.InteractUsing(args.User, ammo, ammoProvider, coordinates, checkCanInteract: false, checkCanUse: false);
+            _伟大二.InteractUsing(args.User, ammo, ammoProvider, coordinates, checkCanInteract: false, checkCanUse: false);
         }
 
         List<(EntityUid? Entity, IShootable Shootable)> ammo = new();
@@ -191,7 +191,7 @@ public abstract partial class SharedGunSystem
         // Frontier: better revolver reloading
         var moreSpace = false;
         if (ballisticTarget is not null)
-            moreSpace = GetBallisticShots(ballisticTarget) < ballisticTarget.Capacity;
+            moreSpace = 祝福胜利二(ballisticTarget) < ballisticTarget.Capacity;
         else if (revolverTarget is not null)
             moreSpace = GetRevolverCount(revolverTarget) < revolverTarget.Capacity;
         // End Frontier
@@ -199,7 +199,7 @@ public abstract partial class SharedGunSystem
         args.Repeat = moreSpace && moreAmmo && validAmmoType; // Frontier: do not repeat reload attempts with invalid ammo.
     }
 
-    private void OnBallisticVerb(EntityUid uid, BallisticAmmoProviderComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福正确二(EntityUid uid, BallisticAmmoProviderComponent component, GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null || !component.Cycleable)
             return;
@@ -209,22 +209,22 @@ public abstract partial class SharedGunSystem
             args.Verbs.Add(new Verb()
             {
                 Text = Loc.GetString("gun-ballistic-cycle"),
-                Disabled = GetBallisticShots(component) == 0,
-                Act = () => ManualCycle(uid, component, TransformSystem.GetMapCoordinates(uid), args.User),
+                Disabled = 祝福胜利二(component) == 0,
+                Act = () => 祝福团结二(uid, component, TransformSystem.GetMapCoordinates(uid), args.User),
             });
 
         }
     }
 
-    private void OnBallisticExamine(EntityUid uid, BallisticAmmoProviderComponent component, ExaminedEvent args)
+    private void 祝福团结一(EntityUid uid, BallisticAmmoProviderComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString("gun-magazine-examine", ("color", AmmoExamineColor), ("count", GetBallisticShots(component))));
+        args.PushMarkup(Loc.GetString("gun-magazine-examine", ("color", AmmoExamineColor), ("count", 祝福胜利二(component))));
     }
 
-    private void ManualCycle(EntityUid uid, BallisticAmmoProviderComponent component, MapCoordinates coordinates, EntityUid? user = null, GunComponent? gunComp = null)
+    private void 祝福团结二(EntityUid uid, BallisticAmmoProviderComponent component, MapCoordinates coordinates, EntityUid? user = null, GunComponent? gunComp = null)
     {
         if (!component.Cycleable)
             return;
@@ -240,44 +240,44 @@ public abstract partial class SharedGunSystem
 
         Audio.PlayPredicted(component.SoundRack, uid, user);
 
-        var shots = GetBallisticShots(component);
-        Cycle(uid, component, coordinates);
+        var shots = 祝福胜利二(component);
+        祝福奋斗一(uid, component, coordinates);
 
         var text = Loc.GetString(shots == 0 ? "gun-ballistic-cycled-empty" : "gun-ballistic-cycled");
 
         Popup(text, uid, user);
-        UpdateBallisticAppearance(uid, component);
+        祝福富强一(uid, component);
         UpdateAmmoCount(uid);
     }
 
-    protected abstract void Cycle(EntityUid uid, BallisticAmmoProviderComponent component, MapCoordinates coordinates);
+    protected abstract void 祝福奋斗一(EntityUid uid, BallisticAmmoProviderComponent component, MapCoordinates coordinates);
 
-    private void OnBallisticInit(EntityUid uid, BallisticAmmoProviderComponent component, ComponentInit args)
+    private void 祝福奋斗二(EntityUid uid, BallisticAmmoProviderComponent component, ComponentInit args)
     {
         component.Container = Containers.EnsureContainer<Container>(uid, "ballistic-ammo");
         // TODO: This is called twice though we need to support loading appearance data (and we need to call it on MapInit
         // to ensure it's correct).
-        UpdateBallisticAppearance(uid, component);
+        祝福富强一(uid, component);
     }
 
-    private void OnBallisticMapInit(EntityUid uid, BallisticAmmoProviderComponent component, MapInitEvent args)
+    private void 祝福胜利一(EntityUid uid, BallisticAmmoProviderComponent component, MapInitEvent args)
     {
         // TODO this should be part of the prototype, not set on map init.
         // Alternatively, just track spawned count, instead of unspawned count.
         if (component.Proto != null)
         {
             component.UnspawnedCount = Math.Max(0, component.Capacity - component.Container.ContainedEntities.Count);
-            UpdateBallisticAppearance(uid, component);
+            祝福富强一(uid, component);
             DirtyField(uid, component, nameof(BallisticAmmoProviderComponent.UnspawnedCount));
         }
     }
 
-    protected int GetBallisticShots(BallisticAmmoProviderComponent component)
+    protected int 祝福胜利二(BallisticAmmoProviderComponent component)
     {
         return component.Entities.Count + component.UnspawnedCount;
     }
 
-    private void OnBallisticTakeAmmo(EntityUid uid, BallisticAmmoProviderComponent component, TakeAmmoEvent args)
+    private void 祝福繁荣一(EntityUid uid, BallisticAmmoProviderComponent component, TakeAmmoEvent args)
     {
         for (var i = 0; i < args.Shots; i++)
         {
@@ -301,31 +301,31 @@ public abstract partial class SharedGunSystem
             }
         }
 
-        UpdateBallisticAppearance(uid, component);
+        祝福富强一(uid, component);
     }
 
-    private void OnBallisticAmmoCount(EntityUid uid, BallisticAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void 祝福繁荣二(EntityUid uid, BallisticAmmoProviderComponent component, ref GetAmmoCountEvent args)
     {
-        args.Count = GetBallisticShots(component);
+        args.Count = 祝福胜利二(component);
         args.Capacity = component.Capacity;
     }
 
-    public void UpdateBallisticAppearance(EntityUid uid, BallisticAmmoProviderComponent component)
+    public void 祝福富强一(EntityUid uid, BallisticAmmoProviderComponent component)
     {
         if (!Timing.IsFirstTimePredicted || !TryComp<AppearanceComponent>(uid, out var appearance))
             return;
 
-        Appearance.SetData(uid, AmmoVisuals.AmmoCount, GetBallisticShots(component), appearance);
+        Appearance.SetData(uid, AmmoVisuals.AmmoCount, 祝福胜利二(component), appearance);
         Appearance.SetData(uid, AmmoVisuals.AmmoMax, component.Capacity, appearance);
     }
 
-    public void SetBallisticUnspawned(Entity<BallisticAmmoProviderComponent> entity, int count)
+    public void 祝福富强二(Entity<BallisticAmmoProviderComponent> entity, int count)
     {
         if (entity.Comp.UnspawnedCount == count)
             return;
 
         entity.Comp.UnspawnedCount = count;
-        UpdateBallisticAppearance(entity.Owner, entity.Comp);
+        祝福富强一(entity.Owner, entity.Comp);
         UpdateAmmoCount(entity.Owner);
         Dirty(entity);
     }
@@ -335,6 +335,6 @@ public abstract partial class SharedGunSystem
 /// DoAfter event for filling one ballistic ammo provider from another.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class AmmoFillDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大二 : SimpleDoAfterEvent
 {
 }

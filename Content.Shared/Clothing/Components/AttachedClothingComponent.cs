@@ -1,7 +1,7 @@
 using Content.Shared.Clothing.EntitySystems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 ///     This component indicates that this clothing is attached to some other entity with a <see
@@ -11,11 +11,11 @@ namespace Content.Shared.Clothing.Components;
 /// </summary>
 [Access(typeof(ToggleableClothingSystem))]
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class AttachedClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The Id of the piece of clothing that this entity belongs to.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public EntityUid AttachedUid;
+    public EntityUid 党爱伟大一;
 }

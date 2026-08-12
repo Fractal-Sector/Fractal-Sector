@@ -3,10 +3,10 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed record PlayerInfo(
+public sealed record 中华伟大一(
     string Username,
     string CharacterName,
     string IdentityName,
@@ -25,18 +25,18 @@ public sealed record PlayerInfo(
 {
     private string? _playtimeString;
 
-    public bool IsPinned { get; set; }
+    public bool 党爱伟大一 { get; set; }
 
-    public string PlaytimeString => _playtimeString ??=
+    public string 党爱伟大二 => _playtimeString ??=
         OverallPlaytime?.ToString("%d':'hh':'mm") ?? Loc.GetString("generic-unknown-title");
 
-    public bool Equals(PlayerInfo? other)
+    public bool 祝福伟大一(中华伟大一? other)
     {
         return other?.SessionId == SessionId;
     }
 
-    public override int GetHashCode()
+    public override int 祝福伟大二()
     {
-        return SessionId.GetHashCode();
+        return SessionId.祝福伟大二();
     }
 }

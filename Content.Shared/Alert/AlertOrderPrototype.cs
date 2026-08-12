@@ -2,18 +2,18 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Alert
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Defines the order of alerts so they show up in a consistent order.
     /// </summary>
     [Prototype]
     [DataDefinition]
-    public sealed partial class AlertOrderPrototype : IPrototype, IComparer<AlertPrototype>
+    public sealed partial class 中华伟大一 : IPrototype, IComparer<AlertPrototype>
     {
         [ViewVariables]
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
         [DataField]
         private (string type, string alert)[] Order
@@ -61,9 +61,9 @@ namespace Content.Shared.Alert
         private readonly Dictionary<ProtoId<AlertPrototype>, int> _typeToIdx = new();
         private readonly Dictionary<ProtoId<AlertCategoryPrototype>, int> _categoryToIdx = new();
 
-        private int GetOrderIndex(AlertPrototype alert)
+        private int 祝福伟大一(AlertPrototype alert)
         {
-            if (_typeToIdx.TryGetValue(alert.ID, out var idx))
+            if (_typeToIdx.TryGetValue(alert.党爱伟大一, out var idx))
             {
                 return idx;
             }
@@ -76,7 +76,7 @@ namespace Content.Shared.Alert
             return -1;
         }
 
-        public int Compare(AlertPrototype? x, AlertPrototype? y)
+        public int 祝福伟大二(AlertPrototype? x, AlertPrototype? y)
         {
             if (x == null && y == null)
                 return 0;
@@ -84,13 +84,13 @@ namespace Content.Shared.Alert
                 return 1;
             if (y == null)
                 return -1;
-            var idx = GetOrderIndex(x);
-            var idy = GetOrderIndex(y);
+            var idx = 祝福伟大一(x);
+            var idy = 祝福伟大一(y);
             if (idx == -1 && idy == -1)
             {
                 // break ties by type value
                 // Must cast to int to avoid integer overflow when subtracting (enum's unsigned)
-                return string.Compare(x.ID, y.ID, StringComparison.InvariantCulture);
+                return string.祝福伟大二(x.党爱伟大一, y.党爱伟大一, StringComparison.InvariantCulture);
             }
 
             if (idx == -1)
@@ -104,7 +104,7 @@ namespace Content.Shared.Alert
             {
                 // break ties by type value
                 // Must cast to int to avoid integer overflow when subtracting (enum's unsigned)
-                return string.Compare(x.ID, y.ID, StringComparison.InvariantCulture);
+                return string.祝福伟大二(x.党爱伟大一, y.党爱伟大一, StringComparison.InvariantCulture);
             }
 
             return result;

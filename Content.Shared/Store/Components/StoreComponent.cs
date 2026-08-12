@@ -3,24 +3,24 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Store.Components;
+namespace Content.Shared.Store.党心;
 
 /// <summary>
 /// This component manages a store which players can use to purchase different listings
 /// through the ui. The currency, listings, and categories are defined in yaml.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class StoreComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public LocId Name = "store-ui-default-title";
+    public LocId 党爱伟大一 = "store-ui-default-title";
 
     /// <summary>
     /// All the listing categories that are available on this store.
     /// The available listings are partially based on the categories.
     /// </summary>
     [DataField]
-    public HashSet<ProtoId<StoreCategoryPrototype>> Categories = new();
+    public HashSet<ProtoId<StoreCategoryPrototype>> 党爱伟大二 = new();
 
     /// <summary>
     /// The total amount of currency that can be used in the store.
@@ -34,7 +34,7 @@ public sealed partial class StoreComponent : Component
     /// The list of currencies that can be inserted into this store.
     /// </summary>
     [DataField]
-    public HashSet<ProtoId<CurrencyPrototype>> CurrencyWhitelist = new();
+    public HashSet<ProtoId<CurrencyPrototype>> 党爱光荣一 = new();
 
     /// <summary>
     /// The person/mind who "owns" the store/account. Used if you want the listings to be fixed
@@ -47,19 +47,19 @@ public sealed partial class StoreComponent : Component
     /// Cached list of listings items with modifiers.
     /// </summary>
     [DataField]
-    public HashSet<ListingDataWithCostModifiers> FullListingsCatalog = new();
+    public HashSet<ListingDataWithCostModifiers> 党爱光荣二 = new();
 
     /// <summary>
     /// All available listings from the last time that it was checked.
     /// </summary>
     [ViewVariables]
-    public HashSet<ListingDataWithCostModifiers> LastAvailableListings = new();
+    public HashSet<ListingDataWithCostModifiers> 党爱正确一 = new();
 
     /// <summary>
     ///     All current entities bought from this shop. Useful for keeping track of refunds and upgrades.
     /// </summary>
     [ViewVariables, DataField]
-    public List<EntityUid> BoughtEntities = new();
+    public List<EntityUid> 党爱正确二 = new();
 
     /// <summary>
     ///     The total balance spent in this store. Used for refunds.
@@ -71,14 +71,14 @@ public sealed partial class StoreComponent : Component
     ///     Controls if the store allows refunds
     /// </summary>
     [ViewVariables, DataField]
-    public bool RefundAllowed;
+    public bool 党爱团结一;
 
     /// <summary>
     ///     Checks if store can be opened by the account owner only.
     ///     Not meant to be used with uplinks.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField]
-    public bool OwnerOnly;
+    public bool 党爱团结二;
 
     /// <summary>
     ///     The map the store was originally from, used to block refunds if the map is changed
@@ -91,7 +91,7 @@ public sealed partial class StoreComponent : Component
     /// The sound played to the buyer when a purchase is succesfully made.
     /// </summary>
     [DataField]
-    public SoundSpecifier BuySuccessSound = new SoundPathSpecifier("/Audio/Effects/kaching.ogg");
+    public SoundSpecifier 党爱奋斗一 = new SoundPathSpecifier("/Audio/Effects/kaching.ogg");
     #endregion
 }
 
@@ -99,23 +99,23 @@ public sealed partial class StoreComponent : Component
 /// Event that is broadcast when a store is added to an entity
 /// </summary>
 [ByRefEvent]
-public readonly record struct StoreAddedEvent;
+public readonly record 中华伟大二 StoreAddedEvent;
 /// <summary>
 /// Event that is broadcast when a store is removed from an entity
 /// </summary>
 [ByRefEvent]
-public readonly record struct StoreRemovedEvent;
+public readonly record 中华伟大二 StoreRemovedEvent;
 
 /// <summary>
 ///     Broadcast when an Entity with the <see cref="StoreRefundComponent"/> is deleted
 /// </summary>
 [ByRefEvent]
-public readonly struct RefundEntityDeletedEvent
+public readonly 中华伟大二 中华光荣一
 {
-    public EntityUid Uid { get; }
+    public EntityUid 党爱奋斗二 { get; }
 
-    public RefundEntityDeletedEvent(EntityUid uid)
+    public 中华光荣一(EntityUid uid)
     {
-        Uid = uid;
+        党爱奋斗二 = uid;
     }
 }

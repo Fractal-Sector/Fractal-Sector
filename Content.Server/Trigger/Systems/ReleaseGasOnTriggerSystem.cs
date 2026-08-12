@@ -3,20 +3,20 @@ using Content.Shared.Trigger.Components.Effects;
 using Content.Shared.Trigger.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Trigger.Systems;
+namespace Content.Server.Trigger.党心;
 
-public sealed class ReleaseGasOnTriggerSystem : SharedReleaseGasOnTriggerSystem
+public sealed class 中华伟大一 : SharedReleaseGasOnTriggerSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
 
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
-        var curTime = _timing.CurTime;
+        var curTime = _光荣一.CurTime;
         var query = EntityQueryEnumerator<ReleaseGasOnTriggerComponent>();
 
         while (query.MoveNext(out var uid, out var comp))
@@ -25,22 +25,22 @@ public sealed class ReleaseGasOnTriggerSystem : SharedReleaseGasOnTriggerSystem
                 continue;
 
             var giverGasMix = comp.Air.Remove(comp.StartingTotalMoles * comp.RemoveFraction);
-            var environment = _atmosphereSystem.GetContainingMixture(uid, false, true);
+            var environment = _伟大一.GetContainingMixture(uid, false, true);
 
             if (environment == null)
             {
-                _appearance.SetData(uid, ReleaseGasOnTriggerVisuals.Key, false);
+                _伟大二.SetData(uid, ReleaseGasOnTriggerVisuals.Key, false);
                 RemCompDeferred<ReleaseGasOnTriggerComponent>(uid);
                 continue;
             }
 
-            _atmosphereSystem.Merge(environment, giverGasMix);
+            _伟大一.Merge(environment, giverGasMix);
             comp.NextReleaseTime += comp.ReleaseInterval;
 
             if (comp.PressureLimit != 0 && environment.Pressure >= comp.PressureLimit ||
                 comp.Air.TotalMoles <= 0)
             {
-                _appearance.SetData(uid, ReleaseGasOnTriggerVisuals.Key, false);
+                _伟大二.SetData(uid, ReleaseGasOnTriggerVisuals.Key, false);
                 RemCompDeferred<ReleaseGasOnTriggerComponent>(uid);
             }
         }

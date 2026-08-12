@@ -2,20 +2,20 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Lock;
 using Content.Shared.Trigger.Components.Triggers;
 
-namespace Content.Shared.SecretLocks;
+namespace Content.Shared.党心;
 
-public sealed partial class SharedVoiceTriggerLockSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
+    [Dependency] private readonly ItemToggleSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<VoiceTriggerLockComponent, LockToggledEvent>(OnLockToggled);
+        SubscribeLocalEvent<VoiceTriggerLockComponent, LockToggledEvent>(祝福伟大二);
     }
 
-    private void OnLockToggled(Entity<VoiceTriggerLockComponent> ent, ref LockToggledEvent args)
+    private void 祝福伟大二(Entity<VoiceTriggerLockComponent> ent, ref LockToggledEvent args)
     {
         if (!TryComp<TriggerOnVoiceComponent>(ent.Owner, out var triggerComp))
             return;
@@ -23,7 +23,7 @@ public sealed partial class SharedVoiceTriggerLockSystem : EntitySystem
         triggerComp.ShowVerbs = !args.Locked;
         triggerComp.ShowExamine = !args.Locked;
 
-        _toggle.TryDeactivate(ent.Owner, null, true, false);
+        _伟大一.TryDeactivate(ent.Owner, null, true, false);
 
         Dirty(ent.Owner, triggerComp);
     }

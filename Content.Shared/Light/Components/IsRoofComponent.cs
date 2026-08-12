@@ -1,15 +1,15 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Light.Components;
+namespace Content.Shared.Light.党心;
 
 /// <summary>
 /// Counts the tile this entity on as being rooved.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class IsRoofComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoNetworkedField]
-    public bool Enabled = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// Color for this roof. If null then falls back to the grid's color.

@@ -3,16 +3,16 @@ using Content.Server.Power.EntitySystems;
 using Content.Shared.Machines.Components;
 using Content.Shared.ParticleAccelerator.Components;
 
-namespace Content.Server.ParticleAccelerator.EntitySystems;
+namespace Content.Server.ParticleAccelerator.党心;
 
-public sealed partial class ParticleAcceleratorSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializePowerBoxSystem()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ParticleAcceleratorPowerBoxComponent, PowerConsumerReceivedChanged>(PowerBoxReceivedChanged);
+        SubscribeLocalEvent<ParticleAcceleratorPowerBoxComponent, PowerConsumerReceivedChanged>(祝福伟大二);
     }
 
-    private void PowerBoxReceivedChanged(EntityUid uid, ParticleAcceleratorPowerBoxComponent component, ref PowerConsumerReceivedChanged args)
+    private void 祝福伟大二(EntityUid uid, ParticleAcceleratorPowerBoxComponent component, ref PowerConsumerReceivedChanged args)
     {
         if (!TryComp<MultipartMachinePartComponent>(uid, out var part))
             return;

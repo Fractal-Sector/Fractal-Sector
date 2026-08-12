@@ -31,103 +31,103 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Content.Server._NF.Atmos.Components; // Frontier
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed class FlammableSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly StunSystem _stunSystem = default!;
-        [Dependency] private readonly TemperatureSystem _temperatureSystem = default!;
-        [Dependency] private readonly SharedIgnitionSourceSystem _ignitionSourceSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-        [Dependency] private readonly FixtureSystem _fixture = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly InventorySystem _inventory = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly UseDelaySystem _useDelay = default!;
-        [Dependency] private readonly AudioSystem _audio = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+        [Dependency] private readonly StunSystem _光荣一 = default!;
+        [Dependency] private readonly TemperatureSystem _光荣二 = default!;
+        [Dependency] private readonly SharedIgnitionSourceSystem _正确一 = default!;
+        [Dependency] private readonly DamageableSystem _正确二 = default!;
+        [Dependency] private readonly AlertsSystem _团结一 = default!;
+        [Dependency] private readonly FixtureSystem _团结二 = default!;
+        [Dependency] private readonly IAdminLogManager _奋斗一 = default!;
+        [Dependency] private readonly InventorySystem _奋斗二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _胜利一 = default!;
+        [Dependency] private readonly SharedPopupSystem _胜利二 = default!;
+        [Dependency] private readonly UseDelaySystem _繁荣一 = default!;
+        [Dependency] private readonly AudioSystem _繁荣二 = default!;
+        [Dependency] private readonly IRobustRandom _富强一 = default!;
 
-        private EntityQuery<InventoryComponent> _inventoryQuery;
-        private EntityQuery<PhysicsComponent> _physicsQuery;
+        private EntityQuery<InventoryComponent> _富强二;
+        private EntityQuery<PhysicsComponent> _民主一;
 
         // This should probably be moved to the component, requires a rewrite, all fires tick at the same time
         private const float UpdateTime = 1f;
 
-        private float _timer;
+        private float _民主二;
 
         private readonly Dictionary<Entity<FlammableComponent>, float> _fireEvents = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
             UpdatesAfter.Add(typeof(AtmosphereSystem));
 
-            _inventoryQuery = GetEntityQuery<InventoryComponent>();
-            _physicsQuery = GetEntityQuery<PhysicsComponent>();
+            _富强二 = GetEntityQuery<InventoryComponent>();
+            _民主一 = GetEntityQuery<PhysicsComponent>();
 
-            SubscribeLocalEvent<FlammableComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<FlammableComponent, InteractUsingEvent>(OnInteractUsing);
-            SubscribeLocalEvent<FlammableComponent, StartCollideEvent>(OnCollide);
-            SubscribeLocalEvent<FlammableComponent, IsHotEvent>(OnIsHot);
-            SubscribeLocalEvent<FlammableComponent, TileFireEvent>(OnTileFire);
-            SubscribeLocalEvent<FlammableComponent, RejuvenateEvent>(OnRejuvenate);
-            SubscribeLocalEvent<FlammableComponent, ResistFireAlertEvent>(OnResistFireAlert);
-            Subs.SubscribeWithRelay<FlammableComponent, ExtinguishEvent>(OnExtinguishEvent);
+            SubscribeLocalEvent<FlammableComponent, MapInitEvent>(祝福团结一);
+            SubscribeLocalEvent<FlammableComponent, InteractUsingEvent>(祝福团结二);
+            SubscribeLocalEvent<FlammableComponent, StartCollideEvent>(祝福奋斗二);
+            SubscribeLocalEvent<FlammableComponent, IsHotEvent>(祝福胜利一);
+            SubscribeLocalEvent<FlammableComponent, TileFireEvent>(祝福胜利二);
+            SubscribeLocalEvent<FlammableComponent, RejuvenateEvent>(祝福繁荣一);
+            SubscribeLocalEvent<FlammableComponent, ResistFireAlertEvent>(祝福繁荣二);
+            Subs.SubscribeWithRelay<FlammableComponent, ExtinguishEvent>(祝福伟大二);
 
-            SubscribeLocalEvent<IgniteOnCollideComponent, StartCollideEvent>(IgniteOnCollide);
-            SubscribeLocalEvent<IgniteOnCollideComponent, LandEvent>(OnIgniteLand);
+            SubscribeLocalEvent<IgniteOnCollideComponent, StartCollideEvent>(祝福正确二);
+            SubscribeLocalEvent<IgniteOnCollideComponent, LandEvent>(祝福正确一);
 
-            SubscribeLocalEvent<IgniteOnMeleeHitComponent, MeleeHitEvent>(OnMeleeHit);
+            SubscribeLocalEvent<IgniteOnMeleeHitComponent, MeleeHitEvent>(祝福光荣一);
 
-            SubscribeLocalEvent<IgniteOnProjectileHitComponent, ProjectileHitEvent>(OnProjectileHit); // Frontier
+            SubscribeLocalEvent<IgniteOnProjectileHitComponent, ProjectileHitEvent>(祝福光荣二); // Frontier
 
-            SubscribeLocalEvent<ExtinguishOnInteractComponent, ActivateInWorldEvent>(OnExtinguishActivateInWorld);
+            SubscribeLocalEvent<ExtinguishOnInteractComponent, ActivateInWorldEvent>(祝福奋斗一);
 
-            SubscribeLocalEvent<IgniteOnHeatDamageComponent, DamageChangedEvent>(OnDamageChanged);
+            SubscribeLocalEvent<IgniteOnHeatDamageComponent, DamageChangedEvent>(祝福文明二);
         }
 
-        private void OnExtinguishEvent(Entity<FlammableComponent> ent, ref ExtinguishEvent args)
+        private void 祝福伟大二(Entity<FlammableComponent> ent, ref ExtinguishEvent args)
         {
-            // You know I'm really not sure if having AdjustFireStacks *after* Extinguish,
+            // You know I'm really not sure if having 祝福富强二 *after* 祝福民主二,
             // but I'm just moving this code, not questioning it.
-            Extinguish(ent, ent.Comp);
-            AdjustFireStacks(ent, args.FireStacksAdjustment, ent.Comp);
+            祝福民主二(ent, ent.Comp);
+            祝福富强二(ent, args.FireStacksAdjustment, ent.Comp);
         }
 
-        private void OnMeleeHit(EntityUid uid, IgniteOnMeleeHitComponent component, MeleeHitEvent args)
+        private void 祝福光荣一(EntityUid uid, IgniteOnMeleeHitComponent component, MeleeHitEvent args)
         {
             foreach (var entity in args.HitEntities)
             {
                 if (!TryComp<FlammableComponent>(entity, out var flammable))
                     continue;
 
-                AdjustFireStacks(entity, component.FireStacks, flammable);
+                祝福富强二(entity, component.FireStacks, flammable);
                 if (component.FireStacks >= 0)
-                    Ignite(entity, args.Weapon, flammable, args.User);
+                    祝福文明一(entity, args.Weapon, flammable, args.User);
             }
         }
 
         // Frontier: ignition on projectile hit event
-        private void OnProjectileHit(EntityUid uid, IgniteOnProjectileHitComponent component, ProjectileHitEvent args)
+        private void 祝福光荣二(EntityUid uid, IgniteOnProjectileHitComponent component, ProjectileHitEvent args)
         {
             if (!TryComp<FlammableComponent>(args.Target, out var flammable))
                 return;
 
-            AdjustFireStacks(args.Target, component.FireStacks, flammable);
+            祝福富强二(args.Target, component.FireStacks, flammable);
             if (component.FireStacks >= 0)
-                Ignite(args.Target, uid, flammable, args.Shooter);
+                祝福文明一(args.Target, uid, flammable, args.Shooter);
         }
         // End Frontier
 
-        private void OnIgniteLand(EntityUid uid, IgniteOnCollideComponent component, ref LandEvent args)
+        private void 祝福正确一(EntityUid uid, IgniteOnCollideComponent component, ref LandEvent args)
         {
             RemCompDeferred<IgniteOnCollideComponent>(uid);
         }
 
-        private void IgniteOnCollide(EntityUid uid, IgniteOnCollideComponent component, ref StartCollideEvent args)
+        private void 祝福正确二(EntityUid uid, IgniteOnCollideComponent component, ref StartCollideEvent args)
         {
             if (!args.OtherFixture.Hard || component.Count == 0)
                 return;
@@ -144,14 +144,14 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             flammable.FireStacks += component.FireStacks;
-            Ignite(otherEnt, uid, flammable);
+            祝福文明一(otherEnt, uid, flammable);
             component.Count--;
 
             if (component.Count == 0)
                 RemCompDeferred<IgniteOnCollideComponent>(uid);
         }
 
-        private void OnMapInit(EntityUid uid, FlammableComponent component, MapInitEvent args)
+        private void 祝福团结一(EntityUid uid, FlammableComponent component, MapInitEvent args)
         {
             // Sets up a fixture for flammable collisions.
             // TODO: Should this be generalized into a general non-hard 'effects' fixture or something? I can't think of other use cases for it.
@@ -160,11 +160,11 @@ namespace Content.Server.Atmos.EntitySystems
             if (!TryComp<PhysicsComponent>(uid, out var body))
                 return;
 
-            _fixture.TryCreateFixture(uid, component.FlammableCollisionShape, component.FlammableFixtureID, hard: false,
+            _团结二.TryCreateFixture(uid, component.FlammableCollisionShape, component.FlammableFixtureID, hard: false,
                 collisionMask: (int) CollisionGroup.FullTileLayer, body: body);
         }
 
-        private void OnInteractUsing(EntityUid uid, FlammableComponent flammable, InteractUsingEvent args)
+        private void 祝福团结二(EntityUid uid, FlammableComponent flammable, InteractUsingEvent args)
         {
             if (args.Handled)
                 return;
@@ -175,11 +175,11 @@ namespace Content.Server.Atmos.EntitySystems
             if (!isHotEvent.IsHot)
                 return;
 
-            Ignite(uid, args.Used, flammable, args.User);
+            祝福文明一(uid, args.Used, flammable, args.User);
             args.Handled = true;
         }
 
-        private void OnExtinguishActivateInWorld(EntityUid uid, ExtinguishOnInteractComponent component, ActivateInWorldEvent args)
+        private void 祝福奋斗一(EntityUid uid, ExtinguishOnInteractComponent component, ActivateInWorldEvent args)
         {
             if (args.Handled || !args.Complex)
                 return;
@@ -192,22 +192,22 @@ namespace Content.Server.Atmos.EntitySystems
 
             args.Handled = true;
 
-            if (!TryComp(uid, out UseDelayComponent? useDelay) || !_useDelay.TryResetDelay((uid, useDelay), true))
+            if (!TryComp(uid, out UseDelayComponent? useDelay) || !_繁荣一.TryResetDelay((uid, useDelay), true))
                 return;
 
-            _audio.PlayPvs(component.ExtinguishAttemptSound, uid);
+            _繁荣二.PlayPvs(component.ExtinguishAttemptSound, uid);
 
-            if (_random.Prob(component.Probability))
+            if (_富强一.Prob(component.Probability))
             {
-                AdjustFireStacks(uid, component.StackDelta, flammable);
+                祝福富强二(uid, component.StackDelta, flammable);
             }
             else
             {
-                _popup.PopupEntity(Loc.GetString(component.ExtinguishFailed), uid);
+                _胜利二.PopupEntity(Loc.GetString(component.ExtinguishFailed), uid);
             }
         }
 
-        private void OnCollide(EntityUid uid, FlammableComponent flammable, ref StartCollideEvent args)
+        private void 祝福奋斗二(EntityUid uid, FlammableComponent flammable, ref StartCollideEvent args)
         {
             var otherUid = args.OtherEntity;
 
@@ -234,7 +234,7 @@ namespace Content.Server.Atmos.EntitySystems
             // Weight each thing's firestacks by its mass
             var mass1 = 1f;
             var mass2 = 1f;
-            if (_physicsQuery.TryComp(uid, out var physics) && _physicsQuery.TryComp(otherUid, out var otherPhys))
+            if (_民主一.TryComp(uid, out var physics) && _民主一.TryComp(otherUid, out var otherPhys))
             {
                 mass1 = physics.Mass;
                 mass2 = otherPhys.Mass;
@@ -252,16 +252,16 @@ namespace Content.Server.Atmos.EntitySystems
                 ? (-1f, 1f)
                 : (1f, -1f);
             // bring each entity to the same firestack mass, firestacks being scaled by the other's mass
-            AdjustFireStacks(uid, src * avg * mass2, flammable, ignite: true);
-            AdjustFireStacks(otherUid, dest * avg * mass1, otherFlammable, ignite: true);
+            祝福富强二(uid, src * avg * mass2, flammable, ignite: true);
+            祝福富强二(otherUid, dest * avg * mass1, otherFlammable, ignite: true);
         }
 
-        private void OnIsHot(EntityUid uid, FlammableComponent flammable, IsHotEvent args)
+        private void 祝福胜利一(EntityUid uid, FlammableComponent flammable, IsHotEvent args)
         {
             args.IsHot = flammable.OnFire;
         }
 
-        private void OnTileFire(Entity<FlammableComponent> ent, ref TileFireEvent args)
+        private void 祝福胜利二(Entity<FlammableComponent> ent, ref TileFireEvent args)
         {
             var tempDelta = args.Temperature - ent.Comp.MinIgnitionTemperature;
 
@@ -271,44 +271,44 @@ namespace Content.Server.Atmos.EntitySystems
                 _fireEvents[ent] = tempDelta;
         }
 
-        private void OnRejuvenate(EntityUid uid, FlammableComponent component, RejuvenateEvent args)
+        private void 祝福繁荣一(EntityUid uid, FlammableComponent component, RejuvenateEvent args)
         {
-            Extinguish(uid, component);
+            祝福民主二(uid, component);
         }
 
-        private void OnResistFireAlert(Entity<FlammableComponent> ent, ref ResistFireAlertEvent args)
+        private void 祝福繁荣二(Entity<FlammableComponent> ent, ref ResistFireAlertEvent args)
         {
             if (args.Handled)
                 return;
 
-            Resist(ent, ent);
+            祝福和谐一(ent, ent);
             args.Handled = true;
         }
 
-        public void UpdateAppearance(EntityUid uid, FlammableComponent? flammable = null, AppearanceComponent? appearance = null)
+        public void 祝福富强一(EntityUid uid, FlammableComponent? flammable = null, AppearanceComponent? appearance = null)
         {
             if (!Resolve(uid, ref flammable, ref appearance))
                 return;
 
-            _appearance.SetData(uid, FireVisuals.OnFire, flammable.OnFire, appearance);
-            _appearance.SetData(uid, FireVisuals.FireStacks, flammable.FireStacks, appearance);
+            _胜利一.SetData(uid, FireVisuals.OnFire, flammable.OnFire, appearance);
+            _胜利一.SetData(uid, FireVisuals.FireStacks, flammable.FireStacks, appearance);
 
             // Also enable toggleable-light visuals
             // This is intended so that matches & candles can re-use code for un-shaded layers on in-hand sprites.
             // However, this could cause conflicts if something is ACTUALLY both a toggleable light and flammable.
             // if that ever happens, then fire visuals will need to implement their own in-hand sprite management.
-            _appearance.SetData(uid, ToggleableVisuals.Enabled, flammable.OnFire, appearance);
+            _胜利一.SetData(uid, ToggleableVisuals.Enabled, flammable.OnFire, appearance);
         }
 
-        public void AdjustFireStacks(EntityUid uid, float relativeFireStacks, FlammableComponent? flammable = null, bool ignite = false)
+        public void 祝福富强二(EntityUid uid, float relativeFireStacks, FlammableComponent? flammable = null, bool ignite = false)
         {
             if (!Resolve(uid, ref flammable))
                 return;
 
-            SetFireStacks(uid, flammable.FireStacks + relativeFireStacks, flammable, ignite);
+            祝福民主一(uid, flammable.FireStacks + relativeFireStacks, flammable, ignite);
         }
 
-        public void SetFireStacks(EntityUid uid, float stacks, FlammableComponent? flammable = null, bool ignite = false)
+        public void 祝福民主一(EntityUid uid, float stacks, FlammableComponent? flammable = null, bool ignite = false)
         {
             if (!Resolve(uid, ref flammable))
                 return;
@@ -317,16 +317,16 @@ namespace Content.Server.Atmos.EntitySystems
 
             if (flammable.FireStacks <= 0)
             {
-                Extinguish(uid, flammable);
+                祝福民主二(uid, flammable);
             }
             else
             {
                 flammable.OnFire |= ignite;
-                UpdateAppearance(uid, flammable);
+                祝福富强一(uid, flammable);
             }
         }
 
-        public void Extinguish(EntityUid uid, FlammableComponent? flammable = null)
+        public void 祝福民主二(EntityUid uid, FlammableComponent? flammable = null)
         {
             if (!Resolve(uid, ref flammable))
                 return;
@@ -334,19 +334,19 @@ namespace Content.Server.Atmos.EntitySystems
             if (!flammable.OnFire || !flammable.CanExtinguish)
                 return;
 
-            _adminLogger.Add(LogType.Flammable, $"{ToPrettyString(uid):entity} stopped being on fire damage");
+            _奋斗一.Add(LogType.Flammable, $"{ToPrettyString(uid):entity} stopped being on fire damage");
             flammable.OnFire = false;
             flammable.FireStacks = 0;
 
-            _ignitionSourceSystem.SetIgnited(uid, false);
+            _正确一.SetIgnited(uid, false);
 
             var extinguished = new ExtinguishedEvent();
             RaiseLocalEvent(uid, ref extinguished);
 
-            UpdateAppearance(uid, flammable);
+            祝福富强一(uid, flammable);
         }
 
-        public void Ignite(EntityUid uid, EntityUid ignitionSource, FlammableComponent? flammable = null,
+        public void 祝福文明一(EntityUid uid, EntityUid ignitionSource, FlammableComponent? flammable = null,
             EntityUid? ignitionSourceUser = null)
         {
             if (!Resolve(uid, ref flammable))
@@ -360,19 +360,19 @@ namespace Content.Server.Atmos.EntitySystems
             if (flammable.FireStacks > 0 && !flammable.OnFire)
             {
                 if (ignitionSourceUser != null)
-                    _adminLogger.Add(LogType.Flammable, $"{ToPrettyString(uid):target} set on fire by {ToPrettyString(ignitionSourceUser.Value):actor} with {ToPrettyString(ignitionSource):tool}");
+                    _奋斗一.Add(LogType.Flammable, $"{ToPrettyString(uid):target} set on fire by {ToPrettyString(ignitionSourceUser.Value):actor} with {ToPrettyString(ignitionSource):tool}");
                 else
-                    _adminLogger.Add(LogType.Flammable, $"{ToPrettyString(uid):target} set on fire by {ToPrettyString(ignitionSource):actor}");
+                    _奋斗一.Add(LogType.Flammable, $"{ToPrettyString(uid):target} set on fire by {ToPrettyString(ignitionSource):actor}");
                 flammable.OnFire = true;
 
                 var extinguished = new IgnitedEvent();
                 RaiseLocalEvent(uid, ref extinguished);
             }
 
-            UpdateAppearance(uid, flammable);
+            祝福富强一(uid, flammable);
         }
 
-        private void OnDamageChanged(EntityUid uid, IgniteOnHeatDamageComponent component, DamageChangedEvent args)
+        private void 祝福文明二(EntityUid uid, IgniteOnHeatDamageComponent component, DamageChangedEvent args)
         {
             // Make sure the entity is flammable
             if (!TryComp<FlammableComponent>(uid, out var flammable))
@@ -389,38 +389,38 @@ namespace Content.Server.Atmos.EntitySystems
                 if(value <= component.Threshold)
                     return;
 
-                // Ignite that sucker
+                // 祝福文明一 that sucker
                 flammable.FireStacks += component.FireStacks;
-                Ignite(uid, uid, flammable);
+                祝福文明一(uid, uid, flammable);
             }
 
 
         }
 
-        public void Resist(EntityUid uid,
+        public void 祝福和谐一(EntityUid uid,
             FlammableComponent? flammable = null)
         {
             if (!Resolve(uid, ref flammable))
                 return;
 
-            if (!flammable.OnFire || !_actionBlockerSystem.CanInteract(uid, null) || flammable.Resisting)
+            if (!flammable.OnFire || !_伟大一.CanInteract(uid, null) || flammable.Resisting)
                 return;
 
             flammable.Resisting = true;
 
-            _popup.PopupEntity(Loc.GetString("flammable-component-resist-message"), uid, uid);
-            _stunSystem.TryUpdateParalyzeDuration(uid, TimeSpan.FromSeconds(2f));
+            _胜利二.PopupEntity(Loc.GetString("flammable-component-resist-message"), uid, uid);
+            _光荣一.TryUpdateParalyzeDuration(uid, TimeSpan.FromSeconds(2f));
 
             // TODO FLAMMABLE: Make this not use TimerComponent...
             uid.SpawnTimer(2000, () =>
             {
                 flammable.Resisting = false;
                 flammable.FireStacks -= 1f;
-                UpdateAppearance(uid, flammable);
+                祝福富强一(uid, flammable);
             });
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福和谐二(float frameTime)
         {
             // process all fire events
             foreach (var (flammable, deltaTemp) in _fireEvents)
@@ -431,18 +431,18 @@ namespace Content.Server.Atmos.EntitySystems
                 var flammableEntity = flammable.Owner;
                 if (fireStackDelta > 0)
                 {
-                    AdjustFireStacks(flammableEntity, fireStackDelta, flammable);
+                    祝福富强二(flammableEntity, fireStackDelta, flammable);
                 }
-                Ignite(flammableEntity, flammableEntity, flammable);
+                祝福文明一(flammableEntity, flammableEntity, flammable);
             }
             _fireEvents.Clear();
 
-            _timer += frameTime;
+            _民主二 += frameTime;
 
-            if (_timer < UpdateTime)
+            if (_民主二 < UpdateTime)
                 return;
 
-            _timer -= UpdateTime;
+            _民主二 -= UpdateTime;
 
             // TODO: This needs cleanup to take off the crust from TemperatureComponent and shit.
             var query = EntityQueryEnumerator<FlammableComponent, TransformComponent>();
@@ -456,15 +456,15 @@ namespace Content.Server.Atmos.EntitySystems
 
                 if (!flammable.OnFire)
                 {
-                    _alertsSystem.ClearAlert(uid, flammable.FireAlert);
+                    _团结一.ClearAlert(uid, flammable.FireAlert);
                     continue;
                 }
 
-                _alertsSystem.ShowAlert(uid, flammable.FireAlert);
+                _团结一.ShowAlert(uid, flammable.FireAlert);
 
                 if (flammable.FireStacks > 0)
                 {
-                    var air = _atmosphereSystem.GetContainingMixture(uid);
+                    var air = _伟大二.GetContainingMixture(uid);
 
                     // If we're in an oxygenless environment, put the fire out.
                     // Unless the entity has AirlessFlammableComponent, which allows it to burn in space.
@@ -473,30 +473,30 @@ namespace Content.Server.Atmos.EntitySystems
                     // Wayfarer-14
                     if (!HasComp<AirlessFlammableComponent>(uid) && (air == null || air.GetMoles(Gas.Oxygen) < 1f))
                     {
-                        Extinguish(uid, flammable);
+                        祝福民主二(uid, flammable);
                         continue;
                     }
 
                     var source = EnsureComp<IgnitionSourceComponent>(uid);
-                    _ignitionSourceSystem.SetIgnited((uid, source));
+                    _正确一.SetIgnited((uid, source));
 
                     if (TryComp(uid, out TemperatureComponent? temp))
-                        _temperatureSystem.ChangeHeat(uid, 12500 * flammable.FireStacks, false, temp);
+                        _光荣二.ChangeHeat(uid, 12500 * flammable.FireStacks, false, temp);
 
                     var ev = new GetFireProtectionEvent();
                     // let the thing on fire handle it
                     RaiseLocalEvent(uid, ref ev);
                     // and whatever it's wearing
-                    if (_inventoryQuery.TryComp(uid, out var inv))
-                        _inventory.RelayEvent((uid, inv), ref ev);
+                    if (_富强二.TryComp(uid, out var inv))
+                        _奋斗二.RelayEvent((uid, inv), ref ev);
 
-                    _damageableSystem.TryChangeDamage(uid, flammable.Damage * flammable.FireStacks * ev.Multiplier, interruptsDoAfters: false);
+                    _正确二.TryChangeDamage(uid, flammable.Damage * flammable.FireStacks * ev.Multiplier, interruptsDoAfters: false);
 
-                    AdjustFireStacks(uid, flammable.FirestackFade * (flammable.Resisting ? 10f : 1f), flammable, flammable.OnFire);
+                    祝福富强二(uid, flammable.FirestackFade * (flammable.Resisting ? 10f : 1f), flammable, flammable.OnFire);
                 }
                 else
                 {
-                    Extinguish(uid, flammable);
+                    祝福民主二(uid, flammable);
                 }
             }
         }

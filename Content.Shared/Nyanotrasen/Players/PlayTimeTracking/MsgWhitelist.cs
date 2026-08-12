@@ -2,24 +2,24 @@ using Lidgren.Network;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Players.PlayTimeTracking;
+namespace Content.Shared.Players.党心;
 
 /// <summary>
 /// Sent server -> client to inform the client of their whitelist status.
 /// </summary>
-public sealed class MsgWhitelist : NetMessage
+public sealed class 中华伟大一 : NetMessage
 {
-    public override MsgGroups MsgGroup => MsgGroups.EntityEvent;
+    public override MsgGroups 党爱伟大一 => MsgGroups.EntityEvent;
 
-    public bool Whitelisted = false;
+    public bool 党爱伟大二 = false;
 
-    public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大一(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
-        Whitelisted = buffer.ReadBoolean();
+        党爱伟大二 = buffer.ReadBoolean();
     }
 
-    public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大二(NetOutgoingMessage buffer, IRobustSerializer serializer)
     {
-        buffer.Write(Whitelisted);
+        buffer.Write(党爱伟大二);
     }
 }

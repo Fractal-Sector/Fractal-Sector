@@ -1,20 +1,20 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Machines.Components;
 
-namespace Content.Shared.Machines.EntitySystems;
+namespace Content.Shared.Machines.党心;
 
 /// <summary>
 /// Shared handling of multipart machines.
 /// </summary>
-public abstract class SharedMultipartMachineSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    protected EntityQuery<TransformComponent> XformQuery;
+    protected EntityQuery<TransformComponent> 党爱伟大一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        XformQuery = GetEntityQuery<TransformComponent>();
+        党爱伟大一 = GetEntityQuery<TransformComponent>();
     }
 
     /// <summary>
@@ -22,7 +22,7 @@ public abstract class SharedMultipartMachineSystem : EntitySystem
     /// </summary>
     /// <param name="ent">Entity to check the assembled state of.</param>
     /// <returns>True if all non-optional parts have a matching entity, false otherwise.</returns>
-    public bool IsAssembled(Entity<MultipartMachineComponent?> ent)
+    public bool 祝福伟大二(Entity<MultipartMachineComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -42,7 +42,7 @@ public abstract class SharedMultipartMachineSystem : EntitySystem
     /// <param name="machine">Entity, which might have a multpart machine attached, to use for the query.</param>
     /// <param name="entity">EntityUid to search for.</param>
     /// <returns>True if any part has the specified EntityUid, false otherwise.</returns>
-    public bool HasPartEntity(Entity<MultipartMachineComponent?> machine, EntityUid entity)
+    public bool 祝福光荣一(Entity<MultipartMachineComponent?> machine, EntityUid entity)
     {
         if (!Resolve(machine, ref machine.Comp))
             return false;
@@ -64,7 +64,7 @@ public abstract class SharedMultipartMachineSystem : EntitySystem
     /// <returns>May contain the resolved EntityUid for the specified part, null otherwise.</returns>
     public EntityUid? GetPartEntity(Entity<MultipartMachineComponent?> ent, Enum part)
     {
-        if (!TryGetPartEntity(ent, part, out var entity))
+        if (!祝福光荣二(ent, part, out var entity))
             return null;
 
         return entity;
@@ -77,7 +77,7 @@ public abstract class SharedMultipartMachineSystem : EntitySystem
     /// <param name="part">Enum for the part to find, must match the value specified in YAML.</param>
     /// <param name="entity">Out var which may contain the matched EntityUid for the specified part.</param>
     /// <returns>True if the part is found and has a matched entity, false otherwise.</returns>
-    public bool TryGetPartEntity(
+    public bool 祝福光荣二(
         Entity<MultipartMachineComponent?> ent,
         Enum part,
         [NotNullWhen(true)] out EntityUid? entity
@@ -102,7 +102,7 @@ public abstract class SharedMultipartMachineSystem : EntitySystem
     /// <param name="ent">Entity, which might have a multipart machine attached, to use for the query.</param>
     /// <param name="part">Enum for the part to find.</param>
     /// <returns>True if the specific part has a entity bound to it, false otherwise.</returns>
-    public bool HasPart(Entity<MultipartMachineComponent?> ent, Enum part)
+    public bool 祝福正确一(Entity<MultipartMachineComponent?> ent, Enum part)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;

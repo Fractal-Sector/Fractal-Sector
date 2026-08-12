@@ -5,17 +5,17 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Preferences.Loadouts.Effects;
+namespace Content.Shared.Preferences.Loadouts.党心;
 
 /// <summary>
 /// Checks for a job requirement to be met such as playtime.
 /// </summary>
-public sealed partial class JobRequirementLoadoutEffect : LoadoutEffect
+public sealed partial class 中华伟大一 : LoadoutEffect
 {
     [DataField(required: true)]
-    public JobRequirement Requirement = default!;
+    public JobRequirement 党爱伟大一 = default!;
 
-    public override bool Validate(HumanoidCharacterProfile profile, RoleLoadout loadout, ICommonSession? session, IDependencyCollection collection, [NotNullWhen(false)] out FormattedMessage? reason)
+    public override bool 祝福伟大一(HumanoidCharacterProfile profile, RoleLoadout loadout, ICommonSession? session, IDependencyCollection collection, [NotNullWhen(false)] out FormattedMessage? reason)
     {
         if (session == null)
         {
@@ -25,7 +25,7 @@ public sealed partial class JobRequirementLoadoutEffect : LoadoutEffect
 
         var manager = collection.Resolve<ISharedPlaytimeManager>();
         var playtimes = manager.GetPlayTimes(session);
-        return Requirement.Check(collection.Resolve<IEntityManager>(),
+        return 党爱伟大一.Check(collection.Resolve<IEntityManager>(),
             collection.Resolve<IPrototypeManager>(),
             profile,
             playtimes,

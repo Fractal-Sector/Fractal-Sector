@@ -3,25 +3,25 @@ using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Content.Shared.DeviceLinking.Events;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
-public sealed class DeviceLinkOverloadSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AudioSystem _audioSystem = default!;
-    public override void Initialize()
+    [Dependency] private readonly AudioSystem _伟大一 = default!;
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SoundOnOverloadComponent, DeviceLinkOverloadedEvent>(OnOverloadSound);
-        SubscribeLocalEvent<SpawnOnOverloadComponent, DeviceLinkOverloadedEvent>(OnOverloadSpawn);
+        SubscribeLocalEvent<SoundOnOverloadComponent, DeviceLinkOverloadedEvent>(祝福伟大二);
+        SubscribeLocalEvent<SpawnOnOverloadComponent, DeviceLinkOverloadedEvent>(祝福光荣一);
     }
 
-    private void OnOverloadSound(EntityUid uid, SoundOnOverloadComponent component, ref DeviceLinkOverloadedEvent args)
+    private void 祝福伟大二(EntityUid uid, SoundOnOverloadComponent component, ref DeviceLinkOverloadedEvent args)
     {
 
-        _audioSystem.PlayPvs(component.OverloadSound, uid, AudioParams.Default.WithVolume(component.VolumeModifier));
+        _伟大一.PlayPvs(component.OverloadSound, uid, AudioParams.Default.WithVolume(component.VolumeModifier));
     }
 
 
-    private void OnOverloadSpawn(EntityUid uid, SpawnOnOverloadComponent component, ref DeviceLinkOverloadedEvent args)
+    private void 祝福光荣一(EntityUid uid, SpawnOnOverloadComponent component, ref DeviceLinkOverloadedEvent args)
     {
         Spawn(component.Prototype, Transform(uid).Coordinates);
     }

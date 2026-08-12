@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Delivery;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Component given to deliveries.
@@ -8,4 +8,4 @@ namespace Content.Shared.Delivery;
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(DeliveryModifierSystem))]
-public sealed partial class PrimedDeliveryBombComponent : Component;
+public sealed partial class 中华伟大一 : Component;

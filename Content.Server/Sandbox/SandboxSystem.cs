@@ -16,56 +16,56 @@ using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Sandbox
+namespace Content.Server.党心
 {
-    public sealed class SandboxSystem : SharedSandboxSystem
+    public sealed class 中华伟大一 : SharedSandboxSystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IPlacementManager _placementManager = default!;
-        [Dependency] private readonly IConGroupController _conGroupController = default!;
-        [Dependency] private readonly IServerConsoleHost _host = default!;
-        [Dependency] private readonly SharedAccessSystem _access = default!;
-        [Dependency] private readonly InventorySystem _inventory = default!;
-        [Dependency] private readonly ItemSlotsSystem _slots = default!;
-        [Dependency] private readonly GameTicker _ticker = default!;
-        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IPlacementManager _伟大二 = default!;
+        [Dependency] private readonly IConGroupController _光荣一 = default!;
+        [Dependency] private readonly IServerConsoleHost _光荣二 = default!;
+        [Dependency] private readonly SharedAccessSystem _正确一 = default!;
+        [Dependency] private readonly InventorySystem _正确二 = default!;
+        [Dependency] private readonly ItemSlotsSystem _团结一 = default!;
+        [Dependency] private readonly GameTicker _团结二 = default!;
+        [Dependency] private readonly SharedHandsSystem _奋斗一 = default!;
 
-        private bool _isSandboxEnabled;
+        private bool _奋斗二;
 
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool IsSandboxEnabled
+        public bool 党爱伟大一
         {
-            get => _isSandboxEnabled;
+            get => _奋斗二;
             set
             {
-                _isSandboxEnabled = value;
-                UpdateSandboxStatusForAll();
+                _奋斗二 = value;
+                祝福奋斗一();
             }
         }
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeNetworkEvent<MsgSandboxRespawn>(SandboxRespawnReceived);
-            SubscribeNetworkEvent<MsgSandboxGiveAccess>(SandboxGiveAccessReceived);
-            SubscribeNetworkEvent<MsgSandboxGiveAghost>(SandboxGiveAghostReceived);
-            SubscribeNetworkEvent<MsgSandboxSuicide>(SandboxSuicideReceived);
+            base.祝福伟大一();
+            SubscribeNetworkEvent<MsgSandboxRespawn>(祝福正确一);
+            SubscribeNetworkEvent<MsgSandboxGiveAccess>(祝福正确二);
+            SubscribeNetworkEvent<MsgSandboxGiveAghost>(祝福团结一);
+            SubscribeNetworkEvent<MsgSandboxSuicide>(祝福团结二);
 
-            SubscribeLocalEvent<GameRunLevelChangedEvent>(GameTickerOnOnRunLevelChanged);
+            SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福光荣一);
 
-            _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
+            _伟大一.PlayerStatusChanged += 祝福光荣二;
 
-            _placementManager.AllowPlacementFunc = placement =>
+            _伟大二.AllowPlacementFunc = placement =>
             {
-                if (IsSandboxEnabled)
+                if (党爱伟大一)
                 {
                     return true;
                 }
 
                 var channel = placement.MsgChannel;
-                var player = _playerManager.GetSessionByChannel(channel);
+                var player = _伟大一.GetSessionByChannel(channel);
 
-                if (_conGroupController.CanAdminPlace(player))
+                if (_光荣一.CanAdminPlace(player))
                 {
                     return true;
                 }
@@ -74,47 +74,47 @@ namespace Content.Server.Sandbox
             };
         }
 
-        public override void Shutdown()
+        public override void 祝福伟大二()
         {
-            base.Shutdown();
-            _placementManager.AllowPlacementFunc = null;
-            _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
+            base.祝福伟大二();
+            _伟大二.AllowPlacementFunc = null;
+            _伟大一.PlayerStatusChanged -= 祝福光荣二;
         }
 
-        private void GameTickerOnOnRunLevelChanged(GameRunLevelChangedEvent obj)
+        private void 祝福光荣一(GameRunLevelChangedEvent obj)
         {
             // Automatically clear sandbox state when round resets.
             if (obj.New == GameRunLevel.PreRoundLobby)
             {
-                IsSandboxEnabled = false;
+                党爱伟大一 = false;
             }
         }
 
-        private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福光荣二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus != SessionStatus.Connected || e.OldStatus != SessionStatus.Connecting)
                 return;
 
-            RaiseNetworkEvent(new MsgSandboxStatus { SandboxAllowed = IsSandboxEnabled }, e.Session.Channel);
+            RaiseNetworkEvent(new MsgSandboxStatus { SandboxAllowed = 党爱伟大一 }, e.Session.Channel);
         }
 
-        private void SandboxRespawnReceived(MsgSandboxRespawn message, EntitySessionEventArgs args)
+        private void 祝福正确一(MsgSandboxRespawn message, EntitySessionEventArgs args)
         {
-            if (!IsSandboxEnabled)
+            if (!党爱伟大一)
                 return;
 
-            var player = _playerManager.GetSessionByChannel(args.SenderSession.Channel);
+            var player = _伟大一.GetSessionByChannel(args.SenderSession.Channel);
             if (player.AttachedEntity == null) return;
 
-            _ticker.Respawn(player);
+            _团结二.Respawn(player);
         }
 
-        private void SandboxGiveAccessReceived(MsgSandboxGiveAccess message, EntitySessionEventArgs args)
+        private void 祝福正确二(MsgSandboxGiveAccess message, EntitySessionEventArgs args)
         {
-            if (!IsSandboxEnabled)
+            if (!党爱伟大一)
                 return;
 
-            var player = _playerManager.GetSessionByChannel(args.SenderSession.Channel);
+            var player = _伟大一.GetSessionByChannel(args.SenderSession.Channel);
             if (player.AttachedEntity is not { } attached)
             {
                 return;
@@ -124,7 +124,7 @@ namespace Content.Server.Sandbox
                 .EnumeratePrototypes<AccessLevelPrototype>()
                 .Select(p => new ProtoId<AccessLevelPrototype>(p.ID)).ToList();
 
-            if (_inventory.TryGetSlotEntity(attached, "id", out var slotEntity))
+            if (_正确二.TryGetSlotEntity(attached, "id", out var slotEntity))
             {
                 if (HasComp<AccessComponent>(slotEntity))
                 {
@@ -137,7 +137,7 @@ namespace Content.Server.Sandbox
                         var newID = CreateFreshId();
                         if (TryComp<ItemSlotsComponent>(slotEntity, out var itemSlots))
                         {
-                            _slots.TryInsert(slotEntity.Value, pda.IdSlot, newID, null);
+                            _团结一.TryInsert(slotEntity.Value, pda.IdSlot, newID, null);
                         }
                     }
                     else
@@ -149,15 +149,15 @@ namespace Content.Server.Sandbox
             else if (TryComp<HandsComponent>(attached, out var hands))
             {
                 var card = CreateFreshId();
-                if (!_inventory.TryEquip(attached, card, "id", true, true))
+                if (!_正确二.TryEquip(attached, card, "id", true, true))
                 {
-                    _handsSystem.PickupOrDrop(attached, card, handsComp: hands);
+                    _奋斗一.PickupOrDrop(attached, card, handsComp: hands);
                 }
             }
 
             void UpgradeId(EntityUid id)
             {
-                _access.TrySetTags(id, allAccess);
+                _正确一.TrySetTags(id, allAccess);
             }
 
             EntityUid CreateFreshId()
@@ -170,28 +170,28 @@ namespace Content.Server.Sandbox
             }
         }
 
-        private void SandboxGiveAghostReceived(MsgSandboxGiveAghost message, EntitySessionEventArgs args)
+        private void 祝福团结一(MsgSandboxGiveAghost message, EntitySessionEventArgs args)
         {
-            if (!IsSandboxEnabled)
+            if (!党爱伟大一)
                 return;
 
-            var player = _playerManager.GetSessionByChannel(args.SenderSession.Channel);
+            var player = _伟大一.GetSessionByChannel(args.SenderSession.Channel);
 
-            _host.ExecuteCommand(player, _conGroupController.CanCommand(player, "aghost") ? "aghost" : "ghost");
+            _光荣二.ExecuteCommand(player, _光荣一.CanCommand(player, "aghost") ? "aghost" : "ghost");
         }
 
-        private void SandboxSuicideReceived(MsgSandboxSuicide message, EntitySessionEventArgs args)
+        private void 祝福团结二(MsgSandboxSuicide message, EntitySessionEventArgs args)
         {
-            if (!IsSandboxEnabled)
+            if (!党爱伟大一)
                 return;
 
-            var player = _playerManager.GetSessionByChannel(args.SenderSession.Channel);
-            _host.ExecuteCommand(player, "suicide");
+            var player = _伟大一.GetSessionByChannel(args.SenderSession.Channel);
+            _光荣二.ExecuteCommand(player, "suicide");
         }
 
-        private void UpdateSandboxStatusForAll()
+        private void 祝福奋斗一()
         {
-            RaiseNetworkEvent(new MsgSandboxStatus { SandboxAllowed = IsSandboxEnabled });
+            RaiseNetworkEvent(new MsgSandboxStatus { SandboxAllowed = 党爱伟大一 });
         }
     }
 }

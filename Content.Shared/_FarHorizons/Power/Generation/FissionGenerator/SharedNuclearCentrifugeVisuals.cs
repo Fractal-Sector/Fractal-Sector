@@ -6,13 +6,13 @@
 
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Shared._FarHorizons.Power.Generation.党心;
 
 /// <summary>
 /// 
 /// </summary>
 [Serializable, NetSerializable]
-public enum NuclearCentrifugeVisuals
+public enum 中华伟大一
 {
     Processing
 }
@@ -21,7 +21,7 @@ public enum NuclearCentrifugeVisuals
 /// 
 /// </summary>
 [Serializable, NetSerializable]
-public enum NuclearCentrifugeVisualLayers
+public enum 中华伟大二
 {
     Processing
 }

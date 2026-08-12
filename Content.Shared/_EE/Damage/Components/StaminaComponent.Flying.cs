@@ -1,6 +1,6 @@
-namespace Content.Shared.Damage.Components;
+namespace Content.Shared.Damage.党心;
 
-public sealed partial class StaminaComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A dictionary of active stamina drains, with the key being the source of the drain,

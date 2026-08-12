@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.Stunnable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Knockdown as a status effect.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedStunSystem))]
-public sealed partial class KnockdownStatusEffectComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Should this knockdown only affect crawlers?
@@ -17,11 +17,11 @@ public sealed partial class KnockdownStatusEffectComponent : Component
     /// Then you need to set this to true.
     /// </remarks>
     [DataField]
-    public bool Crawl;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// Should we drop items when we fall?
     /// </summary>
     [DataField]
-    public bool Drop = true;
+    public bool 党爱伟大二 = true;
 }

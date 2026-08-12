@@ -1,22 +1,22 @@
 using Content.Shared.Lathe;
 using Content.Shared.Research.Prototypes;
 
-namespace Content.Server.Lathe
+namespace Content.Server.党心
 {
-    public sealed partial class LatheSystem
+    public sealed partial class 中华伟大一
     {
-        public delegate void GetMaterialAmountDelegate(EntityUid uid, LatheComponent component, string material, ref int amount);
-        public delegate void DeductMaterialDelegate(EntityUid uid, LatheComponent component, string material, ref int amount);
-        public delegate void GetBufferAmountDelegate(EntityUid uid, LatheComponent component, ref int? bufferAmount);
+        public delegate void 祝福伟大一(EntityUid uid, LatheComponent component, string material, ref int amount);
+        public delegate void 祝福伟大二(EntityUid uid, LatheComponent component, string material, ref int amount);
+        public delegate void 祝福光荣一(EntityUid uid, LatheComponent component, ref int? bufferAmount);
 
-        public event GetMaterialAmountDelegate? OnGetMaterialAmount;
-        public event DeductMaterialDelegate? OnDeductMaterial;
-        public event GetBufferAmountDelegate? OnGetBufferAmount;
+        public event 祝福伟大一? OnGetMaterialAmount;
+        public event 祝福伟大二? OnDeductMaterial;
+        public event 祝福光荣一? OnGetBufferAmount;
 
         /// <summary>
         /// Checks if all required materials are available, taking into account buffer contributions.
         /// </summary>
-        private bool CheckMaterialAvailability(EntityUid uid, LatheComponent component, LatheRecipePrototype recipe, int quantity)
+        private bool 祝福光荣二(EntityUid uid, LatheComponent component, LatheRecipePrototype recipe, int quantity)
         {
             foreach (var (mat, amount) in recipe.Materials)
             {
@@ -34,7 +34,7 @@ namespace Content.Server.Lathe
         /// <summary>
         /// Deducts materials, consuming from the buffer first, then from storage.
         /// </summary>
-        private bool DeductMaterials(EntityUid uid, LatheComponent component, LatheRecipePrototype recipe, int quantity)
+        private bool 祝福正确一(EntityUid uid, LatheComponent component, LatheRecipePrototype recipe, int quantity)
         {
             foreach (var (mat, amount) in recipe.Materials)
             {

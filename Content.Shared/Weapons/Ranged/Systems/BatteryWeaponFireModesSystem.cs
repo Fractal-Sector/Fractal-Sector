@@ -9,43 +9,43 @@ using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public sealed class BatteryWeaponFireModesSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly AccessReaderSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BatteryWeaponFireModesComponent, UseInHandEvent>(OnUseInHandEvent);
-        SubscribeLocalEvent<BatteryWeaponFireModesComponent, GetVerbsEvent<Verb>>(OnGetVerb);
-        SubscribeLocalEvent<BatteryWeaponFireModesComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<BatteryWeaponFireModesComponent, UseInHandEvent>(祝福正确一);
+        SubscribeLocalEvent<BatteryWeaponFireModesComponent, GetVerbsEvent<Verb>>(祝福光荣二);
+        SubscribeLocalEvent<BatteryWeaponFireModesComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(EntityUid uid, BatteryWeaponFireModesComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, BatteryWeaponFireModesComponent component, ExaminedEvent args)
     {
         if (component.FireModes.Count < 2)
             return;
 
-        var fireMode = GetMode(component);
+        var fireMode = 祝福光荣一(component);
 
-        if (!_prototypeManager.TryIndex<EntityPrototype>(fireMode.Prototype, out var proto))
+        if (!_伟大一.TryIndex<EntityPrototype>(fireMode.Prototype, out var proto))
             return;
 
         args.PushMarkup(Loc.GetString("gun-set-fire-mode", ("mode", proto.Name)));
     }
 
-    private BatteryWeaponFireMode GetMode(BatteryWeaponFireModesComponent component)
+    private BatteryWeaponFireMode 祝福光荣一(BatteryWeaponFireModesComponent component)
     {
         return component.FireModes[component.CurrentFireMode];
     }
 
-    private void OnGetVerb(EntityUid uid, BatteryWeaponFireModesComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福光荣二(EntityUid uid, BatteryWeaponFireModesComponent component, GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract || !args.CanComplexInteract)
             return;
@@ -53,13 +53,13 @@ public sealed class BatteryWeaponFireModesSystem : EntitySystem
         if (component.FireModes.Count < 2)
             return;
 
-        if (!_accessReaderSystem.IsAllowed(args.User, uid))
+        if (!_光荣一.IsAllowed(args.User, uid))
             return;
 
         for (var i = 0; i < component.FireModes.Count; i++)
         {
             var fireMode = component.FireModes[i];
-            var entProto = _prototypeManager.Index<EntityPrototype>(fireMode.Prototype);
+            var entProto = _伟大一.Index<EntityPrototype>(fireMode.Prototype);
             var index = i;
 
             var v = new Verb
@@ -72,7 +72,7 @@ public sealed class BatteryWeaponFireModesSystem : EntitySystem
                 DoContactInteraction = true,
                 Act = () =>
                 {
-                    TrySetFireMode(uid, component, index, args.User);
+                    祝福团结一(uid, component, index, args.User);
                 }
             };
 
@@ -80,50 +80,50 @@ public sealed class BatteryWeaponFireModesSystem : EntitySystem
         }
     }
 
-    private void OnUseInHandEvent(EntityUid uid, BatteryWeaponFireModesComponent component, UseInHandEvent args)
+    private void 祝福正确一(EntityUid uid, BatteryWeaponFireModesComponent component, UseInHandEvent args)
     {
         if(args.Handled)
             return;
 
         args.Handled = true;
-        TryCycleFireMode(uid, component, args.User);
+        祝福正确二(uid, component, args.User);
     }
 
-    public void TryCycleFireMode(EntityUid uid, BatteryWeaponFireModesComponent component, EntityUid? user = null)
+    public void 祝福正确二(EntityUid uid, BatteryWeaponFireModesComponent component, EntityUid? user = null)
     {
         if (component.FireModes.Count < 2)
             return;
 
         var index = (component.CurrentFireMode + 1) % component.FireModes.Count;
-        TrySetFireMode(uid, component, index, user);
+        祝福团结一(uid, component, index, user);
     }
 
-    public bool TrySetFireMode(EntityUid uid, BatteryWeaponFireModesComponent component, int index, EntityUid? user = null)
+    public bool 祝福团结一(EntityUid uid, BatteryWeaponFireModesComponent component, int index, EntityUid? user = null)
     {
         if (index < 0 || index >= component.FireModes.Count)
             return false;
 
-        if (user != null && !_accessReaderSystem.IsAllowed(user.Value, uid))
+        if (user != null && !_光荣一.IsAllowed(user.Value, uid))
             return false;
 
-        SetFireMode(uid, component, index, user);
+        祝福团结二(uid, component, index, user);
 
         return true;
     }
 
-    private void SetFireMode(EntityUid uid, BatteryWeaponFireModesComponent component, int index, EntityUid? user = null)
+    private void 祝福团结二(EntityUid uid, BatteryWeaponFireModesComponent component, int index, EntityUid? user = null)
     {
         var fireMode = component.FireModes[index];
         component.CurrentFireMode = index;
         Dirty(uid, component);
 
-        if (_prototypeManager.TryIndex<EntityPrototype>(fireMode.Prototype, out var prototype))
+        if (_伟大一.TryIndex<EntityPrototype>(fireMode.Prototype, out var prototype))
         {
             if (TryComp<AppearanceComponent>(uid, out var appearance))
-                _appearanceSystem.SetData(uid, BatteryWeaponFireModeVisuals.State, prototype.ID, appearance);
+                _光荣二.SetData(uid, BatteryWeaponFireModeVisuals.State, prototype.ID, appearance);
 
             if (user != null)
-                _popupSystem.PopupClient(Loc.GetString("gun-set-fire-mode", ("mode", prototype.Name)), uid, user.Value);
+                _伟大二.PopupClient(Loc.GetString("gun-set-fire-mode", ("mode", prototype.Name)), uid, user.Value);
         }
 
         if (TryComp(uid, out ProjectileBatteryAmmoProviderComponent? projectileBatteryAmmoProviderComponent))

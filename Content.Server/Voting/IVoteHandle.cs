@@ -1,7 +1,7 @@
 using Content.Server.Voting.Managers;
 using Robust.Shared.Player;
 
-namespace Content.Server.Voting
+namespace Content.Server.党心
 {
     /// <summary>
     /// A handle to vote, active or past.
@@ -13,7 +13,7 @@ namespace Content.Server.Voting
     /// used to create the vote.
     /// </para>
     /// </remarks>
-    public interface IVoteHandle
+    public interface 中华伟大一
     {
         /// <summary>
         /// The numeric ID of the vote. Can be used in <see cref="IVoteManager.TryGetVote"/>.

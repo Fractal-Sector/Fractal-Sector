@@ -3,7 +3,7 @@ using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._NF.Interaction.Components;
+namespace Content.Shared._NF.Interaction.党心;
 
 /// <summary>
 /// Lets this placeholder entity "pick up" items by clicking on them.
@@ -11,7 +11,7 @@ namespace Content.Shared._NF.Interaction.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(HandPlaceholderSystem))]
 [AutoGenerateComponentState(true)]
-public sealed partial class HandPlaceholderComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A whitelist to match entities that this should accept.
@@ -41,17 +41,17 @@ public sealed partial class HandPlaceholderComponent : Component
     /// The container on <see cref="Source"/> to insert this placeholder into.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public string ContainerId = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// Controls preventing removal from containers.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Enabled;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// Controls preventing removal from containers.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool AllowNonItems;
+    public bool 党爱光荣一;
 }

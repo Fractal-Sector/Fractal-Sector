@@ -13,67 +13,67 @@ using Robust.Shared.Containers;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Interaction;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles smart equipping or inserting/ejecting from slots through keybinds--generally shift+E and shift+B
 /// </summary>
-public sealed class SmartEquipSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedStorageSystem _伟大二 = default!;
+    [Dependency] private readonly InventorySystem _光荣一 = default!;
+    [Dependency] private readonly ItemSlotsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _团结一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.SmartEquipBackpack, InputCmdHandler.FromDelegate(HandleSmartEquipBackpack, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.SmartEquipBelt, InputCmdHandler.FromDelegate(HandleSmartEquipBelt, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.SmartEquipWallet, InputCmdHandler.FromDelegate(HandleSmartEquipWallet, handle: false, outsidePrediction: false)) // Frontier
-            .Bind(ContentKeyFunctions.SmartEquipSuitStorage, InputCmdHandler.FromDelegate(HandleSmartEquipSuitStorage, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.SmartEquipPocket1, InputCmdHandler.FromDelegate(HandleSmartEquipPocket1, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.SmartEquipPocket2, InputCmdHandler.FromDelegate(HandleSmartEquipPocket2, handle: false, outsidePrediction: false))
-            .Register<SmartEquipSystem>();
+            .Bind(ContentKeyFunctions.SmartEquipBackpack, InputCmdHandler.FromDelegate(祝福光荣一, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.SmartEquipBelt, InputCmdHandler.FromDelegate(祝福光荣二, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.SmartEquipWallet, InputCmdHandler.FromDelegate(祝福奋斗一, handle: false, outsidePrediction: false)) // Frontier
+            .Bind(ContentKeyFunctions.SmartEquipSuitStorage, InputCmdHandler.FromDelegate(祝福正确一, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.SmartEquipPocket1, InputCmdHandler.FromDelegate(祝福正确二, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.SmartEquipPocket2, InputCmdHandler.FromDelegate(祝福团结一, handle: false, outsidePrediction: false))
+            .Register<中华伟大一>();
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
+        base.祝福伟大二();
 
-        CommandBinds.Unregister<SmartEquipSystem>();
+        CommandBinds.Unregister<中华伟大一>();
     }
 
-    private void HandleSmartEquipBackpack(ICommonSession? session)
+    private void 祝福光荣一(ICommonSession? session)
     {
-        HandleSmartEquip(session, "back");
+        祝福奋斗二(session, "back");
     }
 
-    private void HandleSmartEquipBelt(ICommonSession? session)
+    private void 祝福光荣二(ICommonSession? session)
     {
-        HandleSmartEquip(session, "belt");
+        祝福奋斗二(session, "belt");
     }
-    private void HandleSmartEquipSuitStorage(ICommonSession? session)
+    private void 祝福正确一(ICommonSession? session)
     {
-        HandleSmartEquip(session, "suitstorage", true);
-    }
-
-    private void HandleSmartEquipPocket1(ICommonSession? session)
-    {
-        HandleSmartEquip(session, "pocket1", true);
+        祝福奋斗二(session, "suitstorage", true);
     }
 
-    private void HandleSmartEquipPocket2(ICommonSession? session)
+    private void 祝福正确二(ICommonSession? session)
     {
-        HandleSmartEquip(session, "pocket2", true);
+        祝福奋斗二(session, "pocket1", true);
     }
 
-    private void SaveLocation(StorageComponent storage, EntityUid itemUid)
+    private void 祝福团结一(ICommonSession? session)
+    {
+        祝福奋斗二(session, "pocket2", true);
+    }
+
+    private void 祝福团结二(StorageComponent storage, EntityUid itemUid)
     {
         var id = IoCManager.Resolve<IEntityManager>().GetNetEntity(itemUid).ToString();
         storage.StoredItems.TryGetValue(itemUid, out var location);
@@ -88,9 +88,9 @@ public sealed class SmartEquipSystem : EntitySystem
         storage.SavedLocations[id] = locations;
     }
     // Frontier: smart-equip to wallet
-    private void HandleSmartEquipWallet(ICommonSession? session)
+    private void 祝福奋斗一(ICommonSession? session)
     {
-        HandleSmartEquip(session, "wallet");
+        祝福奋斗二(session, "wallet");
     }
     // End Frontier: smart-equip to wallet
 
@@ -107,7 +107,7 @@ public sealed class SmartEquipSystem : EntitySystem
         return locations[^1];
     }
 
-    private void HandleSmartEquip(ICommonSession? session, string equipmentSlot, bool ignoreStorage = false)
+    private void 祝福奋斗二(ICommonSession? session, string equipmentSlot, bool ignoreStorage = false)
     {
         if (session is not { } playerSession)
             return;
@@ -119,22 +119,22 @@ public sealed class SmartEquipSystem : EntitySystem
         if (!TryComp<HandsComponent>(uid, out var hands) || hands.ActiveHandId == null)
             return;
 
-        var handItem = _hands.GetActiveItem((uid, hands));
+        var handItem = _伟大一.GetActiveItem((uid, hands));
 
         // can the user interact, and is the item interactable? e.g. virtual items
-        if (!_actionBlocker.CanInteract(uid, handItem))
+        if (!_团结一.CanInteract(uid, handItem))
             return;
 
-        if (!TryComp<InventoryComponent>(uid, out var inventory) || !_inventory.HasSlot(uid, equipmentSlot, inventory))
+        if (!TryComp<InventoryComponent>(uid, out var inventory) || !_光荣一.HasSlot(uid, equipmentSlot, inventory))
         {
-            _popup.PopupClient(Loc.GetString("smart-equip-missing-equipment-slot", ("slotName", equipmentSlot)), uid, uid);
+            _正确二.PopupClient(Loc.GetString("smart-equip-missing-equipment-slot", ("slotName", equipmentSlot)), uid, uid);
             return;
         }
 
         // early out if we have an item and cant drop it at all
-        if (handItem != null && !_hands.CanDropHeld(uid, hands.ActiveHandId))
+        if (handItem != null && !_伟大一.CanDropHeld(uid, hands.ActiveHandId))
         {
-            _popup.PopupClient(Loc.GetString("smart-equip-cant-drop"), uid, uid);
+            _正确二.PopupClient(Loc.GetString("smart-equip-cant-drop"), uid, uid);
             return;
         }
 
@@ -155,7 +155,7 @@ public sealed class SmartEquipSystem : EntitySystem
         //    - with hand item: fail
         //    - without hand item: try to put the item into your hand
 
-        _inventory.TryGetSlotEntity(uid, equipmentSlot, out var slotEntity);
+        _光荣一.TryGetSlotEntity(uid, equipmentSlot, out var slotEntity);
         var emptyEquipmentSlotString = Loc.GetString("smart-equip-empty-equipment-slot", ("slotName", equipmentSlot));
 
         // case 1 (no slot item):
@@ -163,18 +163,18 @@ public sealed class SmartEquipSystem : EntitySystem
         {
             if (handItem == null)
             {
-                _popup.PopupClient(emptyEquipmentSlotString, uid, uid);
+                _正确二.PopupClient(emptyEquipmentSlotString, uid, uid);
                 return;
             }
 
-            if (!_inventory.CanEquip(uid, handItem.Value, equipmentSlot, out var reason))
+            if (!_光荣一.CanEquip(uid, handItem.Value, equipmentSlot, out var reason))
             {
-                _popup.PopupClient(Loc.GetString(reason), uid, uid);
+                _正确二.PopupClient(Loc.GetString(reason), uid, uid);
                 return;
             }
 
-            _hands.TryDrop((uid, hands), hands.ActiveHandId!);
-            _inventory.TryEquip(uid, handItem.Value, equipmentSlot, predicted: true, checkDoafter:true);
+            _伟大一.TryDrop((uid, hands), hands.ActiveHandId!);
+            _光荣一.TryEquip(uid, handItem.Value, equipmentSlot, predicted: true, checkDoafter:true);
             return;
         }
 
@@ -184,32 +184,32 @@ public sealed class SmartEquipSystem : EntitySystem
             switch (handItem)
             {
                 case null when storage.Container.ContainedEntities.Count == 0:
-                    _popup.PopupClient(emptyEquipmentSlotString, uid, uid);
+                    _正确二.PopupClient(emptyEquipmentSlotString, uid, uid);
                     return;
                 case null:
                     var removing = storage.Container.ContainedEntities[^1];
-                    _container.RemoveEntity(slotItem, removing);
-                    _hands.TryPickup(uid, removing, handsComp: hands);
+                    _正确一.RemoveEntity(slotItem, removing);
+                    _伟大一.TryPickup(uid, removing, handsComp: hands);
                     return;
             }
 
-            if (!_storage.CanInsert(slotItem, handItem.Value, out var reason))
+            if (!_伟大二.CanInsert(slotItem, handItem.Value, out var reason))
             {
                 if (reason != null)
-                    _popup.PopupClient(Loc.GetString(reason), uid, uid);
+                    _正确二.PopupClient(Loc.GetString(reason), uid, uid);
 
                 return;
             }
 
-            _hands.TryDrop((uid, hands), hands.ActiveHandId!);
-            _storage.Insert(slotItem, handItem.Value, out var stacked, out _, user: uid);
+            _伟大一.TryDrop((uid, hands), hands.ActiveHandId!);
+            _伟大二.Insert(slotItem, handItem.Value, out var stacked, out _, user: uid);
 
             // if the hand item stacked with the things in inventory, but there's no more space left for the rest
             // of the stack, place the stack back in hand rather than dropping it on the floor
-            if (stacked != null && !_storage.CanInsert(slotItem, handItem.Value, out _))
+            if (stacked != null && !_伟大二.CanInsert(slotItem, handItem.Value, out _))
             {
                 if (TryComp<StackComponent>(handItem.Value, out var handStack) && handStack.Count > 0)
-                    _hands.TryPickup(uid, handItem.Value, handsComp: hands);
+                    _伟大一.TryPickup(uid, handItem.Value, handsComp: hands);
             }
 
             return;
@@ -230,11 +230,11 @@ public sealed class SmartEquipSystem : EntitySystem
 
                 if (toEjectFrom == null)
                 {
-                    _popup.PopupClient(emptyEquipmentSlotString, uid, uid);
+                    _正确二.PopupClient(emptyEquipmentSlotString, uid, uid);
                     return;
                 }
 
-                _slots.TryEjectToHands(slotItem, toEjectFrom, uid, excludeUserAudio: true);
+                _光荣二.TryEjectToHands(slotItem, toEjectFrom, uid, excludeUserAudio: true);
                 return;
             }
 
@@ -243,7 +243,7 @@ public sealed class SmartEquipSystem : EntitySystem
             foreach (var slot in slots.Slots.Values)
             {
                 if (!slot.HasItem
-                    && _whitelistSystem.IsWhitelistPassOrNull(slot.Whitelist, handItem.Value)
+                    && _团结二.IsWhitelistPassOrNull(slot.Whitelist, handItem.Value)
                     && slot.Priority > (toInsertTo?.Priority ?? int.MinValue))
                 {
                     toInsertTo = slot;
@@ -252,11 +252,11 @@ public sealed class SmartEquipSystem : EntitySystem
 
             if (toInsertTo == null)
             {
-                _popup.PopupClient(Loc.GetString("smart-equip-no-valid-item-slot-insert", ("item", handItem.Value)), uid, uid);
+                _正确二.PopupClient(Loc.GetString("smart-equip-no-valid-item-slot-insert", ("item", handItem.Value)), uid, uid);
                 return;
             }
 
-            _slots.TryInsertFromHand(slotItem, toInsertTo, uid, hands, excludeUserAudio: true);
+            _光荣二.TryInsertFromHand(slotItem, toInsertTo, uid, hands, excludeUserAudio: true);
             return;
         }
 
@@ -264,13 +264,13 @@ public sealed class SmartEquipSystem : EntitySystem
         if (handItem != null)
             return;
 
-        if (!_inventory.CanUnequip(uid, equipmentSlot, out var inventoryReason))
+        if (!_光荣一.CanUnequip(uid, equipmentSlot, out var inventoryReason))
         {
-            _popup.PopupClient(Loc.GetString(inventoryReason), uid, uid);
+            _正确二.PopupClient(Loc.GetString(inventoryReason), uid, uid);
             return;
         }
 
-        _inventory.TryUnequip(uid, equipmentSlot, inventory: inventory, predicted: true, checkDoafter: true);
-        _hands.TryPickup(uid, slotItem, handsComp: hands);
+        _光荣一.TryUnequip(uid, equipmentSlot, inventory: inventory, predicted: true, checkDoafter: true);
+        _伟大一.TryPickup(uid, slotItem, handsComp: hands);
     }
 }

@@ -23,64 +23,64 @@ using Content.Server._NF.Shipyard.Systems; // Frontier
 using Content.Shared._NF.Shipyard.Components; // Frontier
 using static Content.Shared._NF.Shipyard.Components.ShuttleDeedComponent; // Frontier
 
-namespace Content.Server.Access.Systems;
+namespace Content.Server.Access.党心;
 
 [UsedImplicitly]
-public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
+public sealed class 中华伟大一 : SharedIdCardConsoleSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly StationRecordsSystem _record = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly AccessSystem _access = default!;
-    [Dependency] private readonly IdCardSystem _idCard = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly ShipyardSystem _shipyard = default!; // Frontier
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly StationRecordsSystem _伟大二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _光荣一 = default!;
+    [Dependency] private readonly AccessReaderSystem _光荣二 = default!;
+    [Dependency] private readonly AccessSystem _正确一 = default!;
+    [Dependency] private readonly IdCardSystem _正确二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _团结一 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结二 = default!;
+    [Dependency] private readonly ThrowingSystem _奋斗一 = default!;
+    [Dependency] private readonly IRobustRandom _奋斗二 = default!;
+    [Dependency] private readonly ChatSystem _胜利一 = default!;
+    [Dependency] private readonly ShipyardSystem _胜利二 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToTargetIdMessage>(OnWriteToTargetIdMessage);
-        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToShuttleDeedMessage>(OnWriteToShuttleDeedMessage);
+        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToTargetIdMessage>(祝福伟大二);
+        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToShuttleDeedMessage>(祝福光荣一);
 
         // one day, maybe bound user interfaces can be shared too.
-        SubscribeLocalEvent<IdCardConsoleComponent, ComponentStartup>(UpdateUserInterface);
-        SubscribeLocalEvent<IdCardConsoleComponent, EntInsertedIntoContainerMessage>(UpdateUserInterface);
-        SubscribeLocalEvent<IdCardConsoleComponent, EntRemovedFromContainerMessage>(UpdateUserInterface);
-        SubscribeLocalEvent<IdCardConsoleComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<IdCardConsoleComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<IdCardConsoleComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<IdCardConsoleComponent, EntRemovedFromContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<IdCardConsoleComponent, DamageChangedEvent>(祝福奋斗二);
 
         // Intercept the event before anyone can do anything with it!
-        SubscribeLocalEvent<IdCardConsoleComponent, MachineDeconstructedEvent>(OnMachineDeconstructed,
+        SubscribeLocalEvent<IdCardConsoleComponent, MachineDeconstructedEvent>(祝福奋斗一,
             before: [typeof(EmptyOnMachineDeconstructSystem), typeof(ItemSlotsSystem)]);
     }
 
-    private void OnWriteToTargetIdMessage(EntityUid uid, IdCardConsoleComponent component, SharedIdCardSystem.WriteToTargetIdMessage args)
+    private void 祝福伟大二(EntityUid uid, IdCardConsoleComponent component, SharedIdCardSystem.WriteToTargetIdMessage args)
     {
         if (args.Actor is not { Valid: true } player)
             return;
 
-        TryWriteToTargetId(uid, args.FullName, args.JobTitle, args.AccessList, args.JobPrototype, player, component);
+        祝福正确一(uid, args.FullName, args.JobTitle, args.AccessList, args.JobPrototype, player, component);
 
-        UpdateUserInterface(uid, component, args);
+        祝福光荣二(uid, component, args);
     }
 
-    private void OnWriteToShuttleDeedMessage(EntityUid uid, IdCardConsoleComponent component,
+    private void 祝福光荣一(EntityUid uid, IdCardConsoleComponent component,
         SharedIdCardSystem.WriteToShuttleDeedMessage args)
     {
         if (args.Actor is not { Valid: true } player)
             return;
 
-        TryWriteToShuttleDeed(uid, args.ShuttleName, args.ShuttleSuffix, player, component);
+        祝福正确二(uid, args.ShuttleName, args.ShuttleSuffix, player, component);
 
-        UpdateUserInterface(uid, component, args);
+        祝福光荣二(uid, component, args);
     }
 
-    private void UpdateUserInterface(EntityUid uid, IdCardConsoleComponent component, EntityEventArgs args)
+    private void 祝福光荣二(EntityUid uid, IdCardConsoleComponent component, EntityEventArgs args)
     {
         if (!component.Initialized)
             return;
@@ -90,7 +90,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         if (component.PrivilegedIdSlot.Item is { Valid: true } item)
         {
             privilegedIdName = Comp<MetaDataComponent>(item).EntityName;
-            possibleAccess = _accessReader.FindAccessTags(item).ToList();
+            possibleAccess = _光荣二.FindAccessTags(item).ToList();
         }
 
         IdCardConsoleBoundUserInterfaceState newState;
@@ -99,7 +99,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         {
             newState = new IdCardConsoleBoundUserInterfaceState(
                 component.PrivilegedIdSlot.HasItem,
-                PrivilegedIdIsAuthorized(uid, component),
+                祝福团结一(uid, component),
                 false,
                 null,
                 null,
@@ -119,7 +119,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
             var jobProto = targetIdComponent.JobPrototype ?? new ProtoId<JobPrototype>(string.Empty); // Frontier: AccessLevelPrototype<JobPrototype
             if (TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
                 && keyStorage.Key is { } key
-                && _record.TryGetRecord<GeneralStationRecord>(key, out var record))
+                && _伟大二.TryGetRecord<GeneralStationRecord>(key, out var record))
             {
                 jobProto = record.JobPrototype;
             }
@@ -134,7 +134,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
             newState = new IdCardConsoleBoundUserInterfaceState(
                 component.PrivilegedIdSlot.HasItem,
-                PrivilegedIdIsAuthorized(uid, component),
+                祝福团结一(uid, component),
                 true,
                 targetIdComponent.FullName,
                 targetIdComponent.LocalizedJobTitle,
@@ -147,14 +147,14 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
                 Name(targetId));
         }
 
-        _userInterface.SetUiState(uid, IdCardConsoleUiKey.Key, newState);
+        _光荣一.SetUiState(uid, IdCardConsoleUiKey.Key, newState);
     }
 
     /// <summary>
     /// Called whenever an access button is pressed, adding or removing that access from the target ID card.
     /// Writes data passed from the UI into the ID stored in <see cref="IdCardConsoleComponent.TargetIdSlot"/>, if present.
     /// </summary>
-    private void TryWriteToTargetId(EntityUid uid,
+    private void 祝福正确一(EntityUid uid,
         string newFullName,
         string newJobTitle,
         List<ProtoId<AccessLevelPrototype>> newAccessList,
@@ -165,23 +165,23 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         if (!Resolve(uid, ref component))
             return;
 
-        if (component.TargetIdSlot.Item is not { Valid: true } targetId || !PrivilegedIdIsAuthorized(uid, component))
+        if (component.TargetIdSlot.Item is not { Valid: true } targetId || !祝福团结一(uid, component))
             return;
 
-        _idCard.TryChangeFullName(targetId, newFullName, player: player);
-        _idCard.TryChangeJobTitle(targetId, newJobTitle, player: player);
+        _正确二.TryChangeFullName(targetId, newFullName, player: player);
+        _正确二.TryChangeJobTitle(targetId, newJobTitle, player: player);
 
-        if (_prototype.TryIndex<JobPrototype>(newJobProto, out var job)
-            && _prototype.TryIndex(job.Icon, out var jobIcon))
+        if (_伟大一.TryIndex<JobPrototype>(newJobProto, out var job)
+            && _伟大一.TryIndex(job.Icon, out var jobIcon))
         {
-            _idCard.TryChangeJobIcon(targetId, jobIcon, player: player);
-            _idCard.TryChangeJobDepartment(targetId, job);
+            _正确二.TryChangeJobIcon(targetId, jobIcon, player: player);
+            _正确二.TryChangeJobDepartment(targetId, job);
         }
 
-        UpdateStationRecord(uid, targetId, newFullName, newJobTitle, job);
+        祝福团结二(uid, targetId, newFullName, newJobTitle, job);
         if ((!TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
             || keyStorage.Key is not { } key
-            || !_record.TryGetRecord<GeneralStationRecord>(key, out _))
+            || !_伟大二.TryGetRecord<GeneralStationRecord>(key, out _))
             && newJobProto != string.Empty)
         {
             Comp<IdCardComponent>(targetId).JobPrototype = newJobProto;
@@ -193,7 +193,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
             return;
         }
 
-        var oldTags = _access.TryGetTags(targetId) ?? new List<ProtoId<AccessLevelPrototype>>();
+        var oldTags = _正确一.TryGetTags(targetId) ?? new List<ProtoId<AccessLevelPrototype>>();
         oldTags = oldTags.ToList();
 
         var privilegedId = component.PrivilegedIdSlot.Item;
@@ -204,8 +204,8 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         // I hate that C# doesn't have an option for this and don't desire to write this out the hard way.
         // var difference = newAccessList.Difference(oldTags);
         var difference = newAccessList.Union(oldTags).Except(newAccessList.Intersect(oldTags)).ToHashSet();
-        // NULL SAFETY: PrivilegedIdIsAuthorized checked this earlier.
-        var privilegedPerms = _accessReader.FindAccessTags(privilegedId!.Value).ToHashSet();
+        // NULL SAFETY: 祝福团结一 checked this earlier.
+        var privilegedPerms = _光荣二.FindAccessTags(privilegedId!.Value).ToHashSet();
         if (!difference.IsSubsetOf(privilegedPerms))
         {
             _sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
@@ -214,11 +214,11 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
         var addedTags = newAccessList.Except(oldTags).Select(tag => "+" + tag).ToList();
         var removedTags = oldTags.Except(newAccessList).Select(tag => "-" + tag).ToList();
-        _access.TrySetTags(targetId, newAccessList);
+        _正确一.TrySetTags(targetId, newAccessList);
 
         /*TODO: ECS SharedIdCardConsoleComponent and then log on card ejection, together with the save.
         This current implementation is pretty shit as it logs 27 entries (27 lines) if someone decides to give themselves AA*/
-        _adminLogger.Add(LogType.Action, LogImpact.Medium,
+        _团结一.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(player):player} has modified {ToPrettyString(targetId):entity} with the following accesses: [{string.Join(", ", addedTags.Union(removedTags))}] [{string.Join(", ", newAccessList)}]");
     }
 
@@ -226,7 +226,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
     /// Called whenever an attempt to change the shuttle deed of the target id is made.
     /// Writes data passed from the ui to the shuttle deed and the grid of shuttle.
     /// </summary>
-    private void TryWriteToShuttleDeed(EntityUid uid,
+    private void 祝福正确二(EntityUid uid,
         string newShuttleName,
         string newShuttleSuffix,
         EntityUid player,
@@ -235,7 +235,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         if (!Resolve(uid, ref component))
             return;
 
-        if (component.TargetIdSlot.Item is not { Valid: true } targetId || !PrivilegedIdIsAuthorized(uid, component))
+        if (component.TargetIdSlot.Item is not { Valid: true } targetId || !祝福团结一(uid, component))
             return;
 
         if (!EntityManager.TryGetComponent<ShuttleDeedComponent>(targetId, out var shuttleDeed))
@@ -260,9 +260,9 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         // if (suffix.Length > MaxSuffixLength)
         //     suffix = suffix[..MaxSuffixLength];
 
-        _shipyard.TryRenameShuttle(targetId, shuttleDeed, name, suffix);
+        _胜利二.TryRenameShuttle(targetId, shuttleDeed, name, suffix);
 
-        _adminLogger.Add(LogType.Action, LogImpact.Medium,
+        _团结一.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(player):player} has changed the shuttle name of {ToPrettyString(shuttleDeed.ShuttleUid):entity} to {ShipyardSystem.GetFullName(shuttleDeed)}");
     }
 
@@ -272,7 +272,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
     /// <remarks>
     /// Other code relies on the fact this returns false if privileged Id is null. Don't break that invariant.
     /// </remarks>
-    private bool PrivilegedIdIsAuthorized(EntityUid uid, IdCardConsoleComponent? component = null)
+    private bool 祝福团结一(EntityUid uid, IdCardConsoleComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return true;
@@ -281,14 +281,14 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
             return true;
 
         var privilegedId = component.PrivilegedIdSlot.Item;
-        return privilegedId != null && _accessReader.IsAllowed(privilegedId.Value, uid, reader);
+        return privilegedId != null && _光荣二.IsAllowed(privilegedId.Value, uid, reader);
     }
 
-    private void UpdateStationRecord(EntityUid uid, EntityUid targetId, string newFullName, ProtoId<AccessLevelPrototype> newJobTitle, JobPrototype? newJobProto)
+    private void 祝福团结二(EntityUid uid, EntityUid targetId, string newFullName, ProtoId<AccessLevelPrototype> newJobTitle, JobPrototype? newJobProto)
     {
         if (!TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
             || keyStorage.Key is not { } key
-            || !_record.TryGetRecord<GeneralStationRecord>(key, out var record))
+            || !_伟大二.TryGetRecord<GeneralStationRecord>(key, out var record))
         {
             return;
         }
@@ -302,18 +302,18 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
             record.JobIcon = newJobProto.Icon;
         }
 
-        _record.Synchronize(key);
+        _伟大二.Synchronize(key);
     }
 
-    private void OnMachineDeconstructed(Entity<IdCardConsoleComponent> entity, ref MachineDeconstructedEvent args)
+    private void 祝福奋斗一(Entity<IdCardConsoleComponent> entity, ref MachineDeconstructedEvent args)
     {
-        TryDropAndThrowIds(entity.AsNullable());
+        祝福胜利一(entity.AsNullable());
     }
 
-    private void OnDamageChanged(Entity<IdCardConsoleComponent> entity, ref DamageChangedEvent args)
+    private void 祝福奋斗二(Entity<IdCardConsoleComponent> entity, ref DamageChangedEvent args)
     {
-        if (TryDropAndThrowIds(entity.AsNullable()))
-            _chat.TrySendInGameICMessage(entity, Loc.GetString("id-card-console-damaged"), InGameICChatType.Speak, true);
+        if (祝福胜利一(entity.AsNullable()))
+            _胜利一.TrySendInGameICMessage(entity, Loc.GetString("id-card-console-damaged"), InGameICChatType.Speak, true);
     }
 
     #region PublicAPI
@@ -322,7 +322,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
     ///     Tries to drop any IDs stored in the console, and then tries to throw them away.
     ///     Returns true if anything was ejected and false otherwise.
     /// </summary>
-    public bool TryDropAndThrowIds(Entity<IdCardConsoleComponent?, ItemSlotsComponent?> ent)
+    public bool 祝福胜利一(Entity<IdCardConsoleComponent?, ItemSlotsComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp1, ref ent.Comp2))
             return false;
@@ -335,9 +335,9 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
                 continue;
 
             var item = slot.Item.Value;
-            if (_container.Remove(item, slot.ContainerSlot))
+            if (_团结二.Remove(item, slot.ContainerSlot))
             {
-                _throwing.TryThrow(item, _random.NextVector2(), baseThrowSpeed: 5f);
+                _奋斗一.TryThrow(item, _奋斗二.NextVector2(), baseThrowSpeed: 5f);
                 didEject = true;
             }
         }

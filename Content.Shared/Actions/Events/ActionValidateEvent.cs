@@ -2,7 +2,7 @@
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions.Events;
+namespace Content.Shared.Actions.党心;
 
 /// <summary>
 /// Raised on an action entity before being used to:
@@ -11,26 +11,26 @@ namespace Content.Shared.Actions.Events;
 /// 3. Give the action system an event to raise on the performer, to actually do the action.
 /// </summary>
 [ByRefEvent]
-public struct ActionValidateEvent
+public struct 中华伟大一
 {
     /// <summary>
     /// Request event the client sent.
     /// </summary>
-    public RequestPerformActionEvent Input;
+    public RequestPerformActionEvent 党爱伟大一;
 
     /// <summary>
-    /// User trying to use the action.
+    /// 党爱伟大二 trying to use the action.
     /// </summary>
-    public EntityUid User;
+    public EntityUid 党爱伟大二;
 
     /// <summary>
     /// Entity providing this action to the user, used for logging.
     /// </summary>
-    public EntityUid Provider;
+    public EntityUid 党爱光荣一;
 
     /// <summary>
     /// If set to true, the client sent invalid event data and this should be logged as an error.
     /// For functioning input that happens to not be allowed this should not be set, for example a range check.
     /// </summary>
-    public bool Invalid;
+    public bool 党爱光荣二;
 }

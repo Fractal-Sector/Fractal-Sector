@@ -1,20 +1,20 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._DeltaV.CartridgeLoader.Cartridges;
+namespace Content.Shared._DeltaV.CartridgeLoader.党心;
 
 [Serializable, NetSerializable]
-public sealed class NanoChatUiState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
     public readonly Dictionary<uint, NanoChatRecipient> Recipients = new();
     public readonly Dictionary<uint, List<NanoChatMessage>> Messages = new();
     public readonly List<NanoChatRecipient>? Contacts;
     public readonly uint? CurrentChat;
-    public readonly uint OwnNumber;
-    public readonly int MaxRecipients;
-    public readonly bool NotificationsMuted;
-    public readonly bool ListNumber;
+    public readonly uint 党爱伟大一;
+    public readonly int 党爱伟大二;
+    public readonly bool 党爱光荣一;
+    public readonly bool 党爱光荣二;
 
-    public NanoChatUiState(
+    public 中华伟大一(
         Dictionary<uint, NanoChatRecipient> recipients,
         Dictionary<uint, List<NanoChatMessage>> messages,
         List<NanoChatRecipient>? contacts,
@@ -28,9 +28,9 @@ public sealed class NanoChatUiState : BoundUserInterfaceState
         Messages = messages;
         Contacts = contacts;
         CurrentChat = currentChat;
-        OwnNumber = ownNumber;
-        MaxRecipients = maxRecipients;
-        NotificationsMuted = notificationsMuted;
-        ListNumber = listNumber;
+        党爱伟大一 = ownNumber;
+        党爱伟大二 = maxRecipients;
+        党爱光荣一 = notificationsMuted;
+        党爱光荣二 = listNumber;
     }
 }

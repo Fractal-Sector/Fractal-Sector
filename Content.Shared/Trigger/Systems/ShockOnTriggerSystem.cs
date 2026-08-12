@@ -3,27 +3,27 @@ using Content.Shared.Trigger.Components.Effects;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class ShockOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedElectrocutionSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ShockOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<ShockOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<ShockOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<ShockOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
 
-        var now = _timing.CurTime;
+        var now = _光荣一.CurTime;
         if (now < ent.Comp.NextTrigger)
             return;
 
@@ -33,7 +33,7 @@ public sealed class ShockOnTriggerSystem : EntitySystem
         if (ent.Comp.TargetContainer)
         {
             // shock whoever is wearing this clothing item
-            if (!_container.TryGetContainingContainer(ent.Owner, out var container))
+            if (!_伟大一.TryGetContainingContainer(ent.Owner, out var container))
                 return;
             target = container.Owner;
         }
@@ -45,7 +45,7 @@ public sealed class ShockOnTriggerSystem : EntitySystem
         if (target == null)
             return;
 
-        _electrocution.TryDoElectrocution(target.Value, null, ent.Comp.Damage, ent.Comp.Duration, true, ignoreInsulation: true);
+        _伟大二.TryDoElectrocution(target.Value, null, ent.Comp.Damage, ent.Comp.Duration, true, ignoreInsulation: true);
         args.Handled = true;
     }
 

@@ -8,118 +8,118 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Server.Solar.EntitySystems
+namespace Content.Server.Solar.党心
 {
     /// <summary>
     ///     Responsible for maintaining the solar-panel sun angle and updating <see cref='SolarPanelComponent'/> coverage.
     /// </summary>
     [UsedImplicitly]
-    internal sealed class PowerSolarSystem : EntitySystem
+    internal sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physicsSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
+        [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
         /// <summary>
         /// Maximum panel angular velocity range - used to stop people rotating panels fast enough that the lag prevention becomes noticable
         /// </summary>
-        public const float MaxPanelVelocityDegrees = 1f;
+        public const float 党爱伟大一 = 1f;
 
         /// <summary>
         /// The current sun angle.
         /// </summary>
-        public Angle TowardsSun = Angle.Zero;
+        public Angle 党爱伟大二 = Angle.Zero;
 
         /// <summary>
-        /// The current sun angular velocity. (This is changed in Initialize)
+        /// The current sun angular velocity. (This is changed in 祝福伟大一)
         /// </summary>
-        public Angle SunAngularVelocity = Angle.Zero;
+        public Angle 党爱光荣一 = Angle.Zero;
 
         /// <summary>
         /// The distance before the sun is considered to have been 'visible anyway'.
         /// This value, like the occlusion semantics, is borrowed from all the other SS13 stations with solars.
         /// </summary>
-        public float SunOcclusionCheckDistance = 20;
+        public float 党爱光荣二 = 20;
 
         /// <summary>
         /// TODO: *Should be moved into the solar tracker when powernet allows for it.*
         /// The current target panel rotation.
         /// </summary>
-        public Angle TargetPanelRotation = Angle.Zero;
+        public Angle 党爱正确一 = Angle.Zero;
 
         /// <summary>
         /// TODO: *Should be moved into the solar tracker when powernet allows for it.*
         /// The current target panel velocity.
         /// </summary>
-        public Angle TargetPanelVelocity = Angle.Zero;
+        public Angle 党爱正确二 = Angle.Zero;
 
         /// <summary>
         /// TODO: *Should be moved into the solar tracker when powernet allows for it.*
         /// Last update of total panel power.
         /// </summary>
-        public float TotalPanelPower = 0;
+        public float 党爱团结一 = 0;
 
         /// <summary>
         /// Queue of panels to update each cycle.
         /// </summary>
-        private readonly Queue<Entity<SolarPanelComponent>> _updateQueue = new();
+        private readonly Queue<Entity<SolarPanelComponent>> _光荣二 = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<SolarPanelComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<RoundRestartCleanupEvent>(Reset);
-            RandomizeSun();
+            SubscribeLocalEvent<SolarPanelComponent, MapInitEvent>(祝福光荣二);
+            SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
+            祝福光荣一();
         }
 
-        public void Reset(RoundRestartCleanupEvent ev)
+        public void 祝福伟大二(RoundRestartCleanupEvent ev)
         {
-            RandomizeSun();
-            TargetPanelRotation = Angle.Zero;
-            TargetPanelVelocity = Angle.Zero;
-            TotalPanelPower = 0;
+            祝福光荣一();
+            党爱正确一 = Angle.Zero;
+            党爱正确二 = Angle.Zero;
+            党爱团结一 = 0;
         }
 
-        private void RandomizeSun()
+        private void 祝福光荣一()
         {
-            // Initialize the sun to something random
-            TowardsSun = MathHelper.TwoPi * _robustRandom.NextDouble();
-            SunAngularVelocity = Angle.FromDegrees(0.1 + ((_robustRandom.NextDouble() - 0.5) * 0.05));
+            // 祝福伟大一 the sun to something random
+            党爱伟大二 = MathHelper.TwoPi * _伟大一.NextDouble();
+            党爱光荣一 = Angle.FromDegrees(0.1 + ((_伟大一.NextDouble() - 0.5) * 0.05));
         }
 
-        private void OnMapInit(EntityUid uid, SolarPanelComponent component, MapInitEvent args)
+        private void 祝福光荣二(EntityUid uid, SolarPanelComponent component, MapInitEvent args)
         {
-            UpdateSupply(uid, component);
+            祝福团结一(uid, component);
         }
 
-        public void UpdateUnused(float frameTime) // Frontier: remove override, hide function
+        public void 祝福正确一(float frameTime) // Frontier: remove override, hide function
         {
-            TowardsSun += SunAngularVelocity * frameTime;
-            TowardsSun = TowardsSun.Reduced();
+            党爱伟大二 += 党爱光荣一 * frameTime;
+            党爱伟大二 = 党爱伟大二.Reduced();
 
-            TargetPanelRotation += TargetPanelVelocity * frameTime;
-            TargetPanelRotation = TargetPanelRotation.Reduced();
+            党爱正确一 += 党爱正确二 * frameTime;
+            党爱正确一 = 党爱正确一.Reduced();
 
-            if (_updateQueue.Count > 0)
+            if (_光荣二.Count > 0)
             {
-                var panel = _updateQueue.Dequeue();
+                var panel = _光荣二.Dequeue();
                 if (panel.Comp.Running)
-                    UpdatePanelCoverage(panel);
+                    祝福正确二(panel);
             }
             else
             {
-                TotalPanelPower = 0;
+                党爱团结一 = 0;
 
                 var query = EntityQueryEnumerator<SolarPanelComponent, TransformComponent>();
                 while (query.MoveNext(out var uid, out var panel, out var xform))
                 {
-                    TotalPanelPower += panel.MaxSupply * panel.Coverage;
-                    _transformSystem.SetWorldRotation(xform, TargetPanelRotation);
-                    _updateQueue.Enqueue((uid, panel));
+                    党爱团结一 += panel.MaxSupply * panel.Coverage;
+                    _光荣一.SetWorldRotation(xform, 党爱正确一);
+                    _光荣二.Enqueue((uid, panel));
                 }
             }
         }
 
-        private void UpdatePanelCoverage(Entity<SolarPanelComponent> panel)
+        private void 祝福正确二(Entity<SolarPanelComponent> panel)
         {
             var entity = panel.Owner;
             var xform = Comp<TransformComponent>(entity);
@@ -134,9 +134,9 @@ namespace Content.Server.Solar.EntitySystems
             // directly upwards (theta = 0) = coverage 1
             // left/right 90 degrees (abs(theta) = (pi / 2)) = coverage 0
             // directly downwards (abs(theta) = pi) = coverage -1
-            // as TowardsSun + = CCW,
+            // as 党爱伟大二 + = CCW,
             // panelRelativeToSun should - = CW
-            var panelRelativeToSun = _transformSystem.GetWorldRotation(xform) - TowardsSun;
+            var panelRelativeToSun = _光荣一.GetWorldRotation(xform) - 党爱伟大二;
             // essentially, given cos = X & sin = Y & Y is 'downwards',
             // then for the first 90 degrees of rotation in either direction,
             // this plots the lower-right quadrant of a circle.
@@ -154,11 +154,11 @@ namespace Content.Server.Solar.EntitySystems
             if (coverage > 0)
             {
                 // Determine if the solar panel is occluded, and zero out coverage if so.
-                var ray = new CollisionRay(_transformSystem.GetWorldPosition(xform), TowardsSun.ToWorldVec(), (int) CollisionGroup.Opaque);
-                var rayCastResults = _physicsSystem.IntersectRayWithPredicate(
+                var ray = new CollisionRay(_光荣一.GetWorldPosition(xform), 党爱伟大二.ToWorldVec(), (int) CollisionGroup.Opaque);
+                var rayCastResults = _伟大二.IntersectRayWithPredicate(
                     xform.MapID,
                     ray,
-                    SunOcclusionCheckDistance,
+                    党爱光荣二,
                     e => !xform.Anchored || e == entity);
                 if (rayCastResults.Any())
                     coverage = 0;
@@ -166,10 +166,10 @@ namespace Content.Server.Solar.EntitySystems
 
             // Total coverage calculated; apply it to the panel.
             panel.Comp.Coverage = coverage;
-            UpdateSupply(panel, panel);
+            祝福团结一(panel, panel);
         }
 
-        public void UpdateSupply(
+        public void 祝福团结一(
             EntityUid uid,
             SolarPanelComponent? solar = null,
             PowerSupplierComponent? supplier = null)

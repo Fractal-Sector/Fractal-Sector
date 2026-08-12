@@ -5,20 +5,20 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 ///     Allow players to change clothing sprite to any other clothing prototype.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true), AutoGenerateComponentPause]
 [Access(typeof(SharedChameleonClothingSystem))]
-public sealed partial class ChameleonClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Filter possible chameleon options by their slot flag.
     /// </summary>
     [DataField(required: true)]
-    public SlotFlags Slot;
+    public SlotFlags 党爱伟大一;
 
     /// <summary>
     ///     EntityPrototype id that chameleon item is trying to mimic.
@@ -42,59 +42,59 @@ public sealed partial class ChameleonClothingComponent : Component
     ///     Will component owner be affected by EMP pulses?
     /// </summary>
     [DataField]
-    public bool AffectedByEmp = false; // Wayfarer: Disabled EMPs affecting chameleon clothing by default.
+    public bool 党爱伟大二 = false; // Wayfarer: Disabled EMPs affecting chameleon clothing by default.
 
     /// <summary>
     ///     Intensity of clothes change on EMP.
     ///     Can be interpreted as "How many times clothes will change every second?".
-    ///     Useless without <see cref="AffectedByEmp"/> set to true.
+    ///     Useless without <see cref="党爱伟大二"/> set to true.
     /// </summary>
     [DataField]
-    public int EmpChangeIntensity = 7;
+    public int 党爱光荣一 = 7;
 
     /// <summary>
     ///     Should the EMP-change happen continuously, or only once?
     ///     (False = once, True = continuously)
-    ///     Useless without <see cref="AffectedByEmp"/>
+    ///     Useless without <see cref="党爱伟大二"/>
     /// </summary>
     [DataField]
-    public bool EmpContinuous = true;
+    public bool 党爱光荣二 = true;
 
     /// <summary>
     ///     When should next EMP-caused appearance change happen?
     /// </summary>
     [AutoPausedField, DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan NextEmpChange = TimeSpan.Zero;
+    public TimeSpan 党爱正确一 = TimeSpan.Zero;
 }
 
 [Serializable, NetSerializable]
-public sealed class ChameleonBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public readonly SlotFlags Slot;
-    public readonly string? SelectedId;
+    public readonly SlotFlags 党爱伟大一;
+    public readonly string? 党爱正确二;
     public readonly string? RequiredTag;
 
-    public ChameleonBoundUserInterfaceState(SlotFlags slot, string? selectedId, string? requiredTag)
+    public 中华伟大二(SlotFlags slot, string? selectedId, string? requiredTag)
     {
-        Slot = slot;
-        SelectedId = selectedId;
+        党爱伟大一 = slot;
+        党爱正确二 = selectedId;
         RequiredTag = requiredTag;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ChameleonPrototypeSelectedMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public readonly string SelectedId;
+    public readonly string 党爱正确二;
 
-    public ChameleonPrototypeSelectedMessage(string selectedId)
+    public 中华光荣一(string selectedId)
     {
-        SelectedId = selectedId;
+        党爱正确二 = selectedId;
     }
 }
 
 [Serializable, NetSerializable]
-public enum ChameleonUiKey : byte
+public enum 中华光荣二 : byte
 {
     Key
 }

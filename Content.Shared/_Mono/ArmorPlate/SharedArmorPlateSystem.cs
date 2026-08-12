@@ -13,39 +13,39 @@ using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared._Mono.ArmorPlate;
+namespace Content.Shared._Mono.党心;
 
 /// <summary>
 /// Handles all armor plate behavior
 /// </summary>
-public sealed class SharedArmorPlateSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!; // Coyote: Changed StaminaSystem to SharedStaminaSystem
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly ExamineSystemShared _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly SharedStaminaSystem _正确一 = default!; // Coyote: Changed StaminaSystem to SharedStaminaSystem
+    [Dependency] private readonly DamageableSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ArmorPlateHolderComponent, EntInsertedIntoContainerMessage>(OnPlateInserted);
-        SubscribeLocalEvent<ArmorPlateHolderComponent, EntRemovedFromContainerMessage>(OnPlateRemoved);
-        SubscribeLocalEvent<ArmorPlateHolderComponent, GotEquippedEvent>(OnEquippedArmor);
-        SubscribeLocalEvent<ArmorPlateHolderComponent, GotUnequippedEvent>(OnUnequippedArmor);
-        SubscribeLocalEvent<ArmorPlateHolderComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<ArmorPlateHolderComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnRefreshMoveSpeed);
-        SubscribeLocalEvent<ArmorPlateItemComponent, GetVerbsEvent<ExamineVerb>>(OnPlateVerbExamine);
-        SubscribeLocalEvent<ArmorPlateItemComponent, EntityTerminatingEvent>(OnPlateDestroyed);
-        SubscribeLocalEvent<ArmorPlateItemComponent, ExaminedEvent>(OnPlateExamined); //Coyote: Allows plates to be natively examined for durability
-        SubscribeLocalEvent<ArmorPlateProtectedComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
+        SubscribeLocalEvent<ArmorPlateHolderComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<ArmorPlateHolderComponent, EntRemovedFromContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<ArmorPlateHolderComponent, GotEquippedEvent>(祝福民主二);
+        SubscribeLocalEvent<ArmorPlateHolderComponent, GotUnequippedEvent>(祝福文明一);
+        SubscribeLocalEvent<ArmorPlateHolderComponent, ExaminedEvent>(祝福正确二);
+        SubscribeLocalEvent<ArmorPlateHolderComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(祝福团结一);
+        SubscribeLocalEvent<ArmorPlateItemComponent, GetVerbsEvent<ExamineVerb>>(祝福繁荣一);
+        SubscribeLocalEvent<ArmorPlateItemComponent, EntityTerminatingEvent>(祝福民主一);
+        SubscribeLocalEvent<ArmorPlateItemComponent, ExaminedEvent>(祝福和谐一); //Coyote: Allows plates to be natively examined for durability
+        SubscribeLocalEvent<ArmorPlateProtectedComponent, BeforeDamageChangedEvent>(祝福伟大二);
     }
 
-    public void OnBeforeDamageChanged(Entity<ArmorPlateProtectedComponent> ent, ref BeforeDamageChangedEvent args)
+    public void 祝福伟大二(Entity<ArmorPlateProtectedComponent> ent, ref BeforeDamageChangedEvent args)
     {
         if (args.Cancelled || !args.Damage.AnyPositive())
             return;
@@ -53,7 +53,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         if (!TryComp<InventoryComponent>(ent.Owner, out var inv))
             return;
 
-        if (!_inventory.TryGetSlots(ent, out var slots))
+        if (!_伟大二.TryGetSlots(ent, out var slots))
             return;
 
         if (args.Origin == null && args.OriginFlag != DamageableSystem.DamageOriginFlag.Explosion)
@@ -61,20 +61,20 @@ public sealed class SharedArmorPlateSystem : EntitySystem
 
         foreach (var slot in slots)
         {
-            if (!_inventory.TryGetSlotEntity(ent, slot.Name, out var equipped, inv))
+            if (!_伟大二.TryGetSlotEntity(ent, slot.Name, out var equipped, inv))
                 continue;
 
             if (!TryComp<ArmorPlateHolderComponent>(equipped, out var holder))
                 continue;
 
-            if (!TryGetActivePlate((equipped.Value, holder), out var plate))
+            if (!祝福胜利一((equipped.Value, holder), out var plate))
                 continue;
 
             // Calculate damages owed to plate and holder
-            CalcPlateDamages(args.Damage, plate.Comp, out var remainder, out var absorbed, out var plateDamage);
+            祝福胜利二(args.Damage, plate.Comp, out var remainder, out var absorbed, out var plateDamage);
 
             // Damage to plate, stamina damage to holder
-            AbsorbDamage(ent, equipped.Value, holder, plate, absorbed, plateDamage);
+            祝福光荣一(ent, equipped.Value, holder, plate, absorbed, plateDamage);
 
             // Full absorption, done
             if (remainder.Empty)
@@ -90,7 +90,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         }
     }
 
-    private void AbsorbDamage(
+    private void 祝福光荣一(
         EntityUid wearer,
         EntityUid armorUid,
         ArmorPlateHolderComponent holder,
@@ -102,13 +102,13 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         var damageSpec = new DamageSpecifier();
         damageSpec.DamageDict.Add("Blunt", plateDamage);
 
-        _damageable.TryChangeDamage(plate.Owner, damageSpec, ignoreResistances: true);
+        _正确二.TryChangeDamage(plate.Owner, damageSpec, ignoreResistances: true);
 
         var staminaDamage = absorbed.Float() * plate.Comp.StaminaDamageMultiplier;
-        _stamina.TakeStaminaDamage(wearer, staminaDamage);
+        _正确一.TakeStaminaDamage(wearer, staminaDamage);
     }
 
-    private void OnPlateInserted(Entity<ArmorPlateHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福光荣二(Entity<ArmorPlateHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         if (args.Container.ID != StorageComponent.ContainerId)
             return;
@@ -122,11 +122,11 @@ public sealed class SharedArmorPlateSystem : EntitySystem
 
         if (holder.ActivePlate == null)
         {
-            SetActivePlate(ent, insertedEntity, plateComp, holder);
+            祝福团结二(ent, insertedEntity, plateComp, holder);
         }
     }
 
-    private void OnPlateRemoved(Entity<ArmorPlateHolderComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福正确一(Entity<ArmorPlateHolderComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         if (args.Container.ID != StorageComponent.ContainerId)
             return;
@@ -137,7 +137,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         if (holder.ActivePlate != removedEntity)
             return;
 
-        ClearActivePlate(ent, holder);
+        祝福奋斗一(ent, holder);
 
         if (TryComp<StorageComponent>(ent, out var storage))
         {
@@ -145,14 +145,14 @@ public sealed class SharedArmorPlateSystem : EntitySystem
             {
                 if (TryComp<ArmorPlateItemComponent>(item, out var plateComp))
                 {
-                    SetActivePlate(ent, item, plateComp, holder);
+                    祝福团结二(ent, item, plateComp, holder);
                     break;
                 }
             }
         }
     }
 
-    private void OnExamined(Entity<ArmorPlateHolderComponent> ent, ref ExaminedEvent args)
+    private void 祝福正确二(Entity<ArmorPlateHolderComponent> ent, ref ExaminedEvent args)
     {
         var holder = ent.Comp;
 
@@ -202,7 +202,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         }
     }
 
-    private void OnRefreshMoveSpeed(EntityUid uid, ArmorPlateHolderComponent component, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
+    private void 祝福团结一(EntityUid uid, ArmorPlateHolderComponent component, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
     {
         args.Args.ModifySpeed(component.WalkSpeedModifier, component.SprintSpeedModifier);
     }
@@ -210,7 +210,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
     /// <summary>
     /// Sets the active plate and updates speed modifiers.
     /// </summary>
-    private void SetActivePlate(EntityUid holderUid, EntityUid plateUid, ArmorPlateItemComponent plateComp, ArmorPlateHolderComponent holder)
+    private void 祝福团结二(EntityUid holderUid, EntityUid plateUid, ArmorPlateItemComponent plateComp, ArmorPlateHolderComponent holder)
     {
         holder.ActivePlate = plateUid;
         holder.WalkSpeedModifier = plateComp.WalkSpeedModifier;
@@ -218,14 +218,14 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         holder.StaminaDamageMultiplier = plateComp.StaminaDamageMultiplier;
 
         Dirty(holderUid, holder);
-        RefreshMovementSpeed(holderUid);
-        RefreshPlateProtection(holderUid);
+        祝福奋斗二(holderUid);
+        祝福文明二(holderUid);
     }
 
     /// <summary>
     /// Clears the active plate and resets speed modifiers.
     /// </summary>
-    private void ClearActivePlate(EntityUid holderUid, ArmorPlateHolderComponent holder)
+    private void 祝福奋斗一(EntityUid holderUid, ArmorPlateHolderComponent holder)
     {
         holder.ActivePlate = null;
         holder.WalkSpeedModifier = 1.0f;
@@ -233,25 +233,25 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         holder.StaminaDamageMultiplier = 1.0f;
 
         Dirty(holderUid, holder);
-        RefreshMovementSpeed(holderUid);
-        RefreshPlateProtection(holderUid);
+        祝福奋斗二(holderUid);
+        祝福文明二(holderUid);
     }
 
     /// <summary>
     /// Refreshes movement speed for the entity wearing this armor.
     /// </summary>
-    private void RefreshMovementSpeed(EntityUid armorUid)
+    private void 祝福奋斗二(EntityUid armorUid)
     {
-        if (_inventory.TryGetContainingEntity(armorUid, out var wearer))
+        if (_伟大二.TryGetContainingEntity(armorUid, out var wearer))
         {
-            _movementSpeed.RefreshMovementSpeedModifiers(wearer.Value);
+            _伟大一.RefreshMovementSpeedModifiers(wearer.Value);
         }
     }
 
     /// <summary>
     /// Tries to get the active plate from an armor holder.
     /// </summary>
-    public bool TryGetActivePlate(Entity<ArmorPlateHolderComponent?> holder, out Entity<ArmorPlateItemComponent> plate)
+    public bool 祝福胜利一(Entity<ArmorPlateHolderComponent?> holder, out Entity<ArmorPlateItemComponent> plate)
     {
         plate = default;
 
@@ -271,7 +271,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
     /// <summary>
     /// Calculate numbers used for damaging plate and player
     /// </summary>
-    public void CalcPlateDamages(DamageSpecifier incoming, ArmorPlateItemComponent plate, out DamageSpecifier remainder, out FixedPoint2 absorbedTotal, out FixedPoint2 plateDamageTotal)
+    public void 祝福胜利二(DamageSpecifier incoming, ArmorPlateItemComponent plate, out DamageSpecifier remainder, out FixedPoint2 absorbedTotal, out FixedPoint2 plateDamageTotal)
     {
         remainder = new DamageSpecifier();
         absorbedTotal = FixedPoint2.Zero;
@@ -311,28 +311,28 @@ public sealed class SharedArmorPlateSystem : EntitySystem
     /// <summary>
     /// Examine tooltip handler
     /// </summary>
-    private void OnPlateVerbExamine(EntityUid uid, ArmorPlateItemComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福繁荣一(EntityUid uid, ArmorPlateItemComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
 
-        var examineMarkup = GetPlateExamine(component);
+        var examineMarkup = 祝福富强二(component);
 
         var ev = new ArmorExamineEvent(examineMarkup);
         RaiseLocalEvent(uid, ref ev);
 
-        _examine.AddDetailedExamineVerb(args, component, examineMarkup,
+        _光荣一.AddDetailedExamineVerb(args, component, examineMarkup,
             Loc.GetString("armor-plate-examinable-verb-text"),
             "/Textures/Interface/VerbIcons/dot.svg.192dpi.png",
             Loc.GetString("armor-plate-examinable-verb-message"));
     }
 
     // Used to tell the .ftl if it's a positive or negative value
-    private static int CalcDirection(float ratio) => ratio < 0 ? 1 : ratio > 0 ? -1 : 0;
+    private static int 祝福繁荣二(float ratio) => ratio < 0 ? 1 : ratio > 0 ? -1 : 0;
     //Speed tooltip generating method
-    private void AddSpeedDisplay(FormattedMessage msg, string gaitType, float speedCalc)
+    private void 祝福富强一(FormattedMessage msg, string gaitType, float speedCalc)
     {
-        var deltaSign = CalcDirection(speedCalc);
+        var deltaSign = 祝福繁荣二(speedCalc);
 
         msg.PushNewline();
         msg.AddMarkupOrThrow(Loc.GetString("armor-plate-speed-display",
@@ -342,7 +342,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         ));
     }
 
-    private FormattedMessage GetPlateExamine(ArmorPlateItemComponent plate)
+    private FormattedMessage 祝福富强二(ArmorPlateItemComponent plate)
     {
         var msg = new FormattedMessage();
         msg.AddMarkupOrThrow(Loc.GetString("armor-plate-attributes-examine"));
@@ -360,12 +360,12 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         {
             if (MathHelper.CloseTo(walkModifierCalc, sprintModifierCalc, 0.5f))
             {
-                AddSpeedDisplay(msg, Loc.GetString("armor-plate-gait-speed"), walkModifierCalc);
+                祝福富强一(msg, Loc.GetString("armor-plate-gait-speed"), walkModifierCalc);
             }
             else
             {
-                AddSpeedDisplay(msg, Loc.GetString("armor-plate-gait-sprint"), sprintModifierCalc);
-                AddSpeedDisplay(msg, Loc.GetString("armor-plate-gait-walk"), walkModifierCalc);
+                祝福富强一(msg, Loc.GetString("armor-plate-gait-sprint"), sprintModifierCalc);
+                祝福富强一(msg, Loc.GetString("armor-plate-gait-walk"), walkModifierCalc);
             }
         }
 
@@ -378,7 +378,7 @@ public sealed class SharedArmorPlateSystem : EntitySystem
 
             var multiplier = plate.DamageMultipliers.GetValueOrDefault(kv.Key, 1.0f);
             var multiplierStr = multiplier.ToString("0.##");
-            var deltaSign = CalcDirection(kv.Value);
+            var deltaSign = 祝福繁荣二(kv.Value);
 
             msg.AddMarkupOrThrow(Loc.GetString("armor-plate-ratios-display",
                 ("deltasign", deltaSign),
@@ -396,9 +396,9 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         return msg;
     }
 
-    private void OnPlateDestroyed(Entity<ArmorPlateItemComponent> ent, ref EntityTerminatingEvent args)
+    private void 祝福民主一(Entity<ArmorPlateItemComponent> ent, ref EntityTerminatingEvent args)
     {
-        if (!_container.TryGetContainingContainer(ent.Owner, out var container))
+        if (!_团结二.TryGetContainingContainer(ent.Owner, out var container))
             return;
 
         var holderUid = container.Owner;
@@ -410,10 +410,10 @@ public sealed class SharedArmorPlateSystem : EntitySystem
 
         if (holder.ShowBreakPopup)
         {
-            if (_inventory.TryGetContainingEntity(holderUid, out var wearer))
+            if (_伟大二.TryGetContainingEntity(holderUid, out var wearer))
             {
                 var plateName = MetaData(ent).EntityName;
-                _popup.PopupEntity(
+                _团结一.PopupEntity(
                     Loc.GetString("armor-plate-break", ("plateName", plateName)),
                     wearer.Value,
                     wearer.Value,
@@ -426,9 +426,9 @@ public sealed class SharedArmorPlateSystem : EntitySystem
     /// <summary>
     /// Starts listening to damage instances for plate evaluation on equip of a plate-bearing item.
     /// </summary>
-    private void OnEquippedArmor(Entity<ArmorPlateHolderComponent> armor, ref GotEquippedEvent args)
+    private void 祝福民主二(Entity<ArmorPlateHolderComponent> armor, ref GotEquippedEvent args)
     {
-        if (TryGetActivePlate((armor.Owner, armor.Comp), out _))
+        if (祝福胜利一((armor.Owner, armor.Comp), out _))
         {
             EnsureComp<ArmorPlateProtectedComponent>(args.Equipee);
         }
@@ -437,9 +437,9 @@ public sealed class SharedArmorPlateSystem : EntitySystem
     /// <summary>
     /// Stops listening to damage instances for plate evaluation on unequip.
     /// </summary>
-    private void OnUnequippedArmor(Entity<ArmorPlateHolderComponent> armor, ref GotUnequippedEvent args)
+    private void 祝福文明一(Entity<ArmorPlateHolderComponent> armor, ref GotUnequippedEvent args)
     {
-        if (TryGetActivePlate((armor.Owner, armor.Comp), out _))
+        if (祝福胜利一((armor.Owner, armor.Comp), out _))
         {
             RemComp<ArmorPlateProtectedComponent>(args.Equipee);
         }
@@ -448,9 +448,9 @@ public sealed class SharedArmorPlateSystem : EntitySystem
     /// <summary>
     /// Re-evaluates plate holder status.
     /// </summary>
-    private void RefreshPlateProtection(EntityUid armorUid)
+    private void 祝福文明二(EntityUid armorUid)
     {
-        if (!_inventory.TryGetContainingEntity(armorUid, out var wearer))
+        if (!_伟大二.TryGetContainingEntity(armorUid, out var wearer))
             return;
 
         var wearerUid = wearer.Value;
@@ -458,13 +458,13 @@ public sealed class SharedArmorPlateSystem : EntitySystem
         if (!TryComp<ArmorPlateHolderComponent>(armorUid, out var holder))
             return;
 
-        if (TryGetActivePlate((armorUid, holder), out _))
+        if (祝福胜利一((armorUid, holder), out _))
             EnsureComp<ArmorPlateProtectedComponent>(wearerUid);
         else
             RemComp<ArmorPlateProtectedComponent>(wearerUid);
     }
     //Coyote Start
-    private void OnPlateExamined(EntityUid uid, ArmorPlateItemComponent component, ExaminedEvent args)
+    private void 祝福和谐一(EntityUid uid, ArmorPlateItemComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;

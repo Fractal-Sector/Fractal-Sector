@@ -7,30 +7,30 @@ using Content.Server.Shuttles.Components;
 using Content.Shared._Mono.Shuttles.Events;
 using Content.Shared.Shuttles.Components;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleConsoleSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
 
     /// <summary>
     /// Initialize event handlers for device linking related functionality
     /// </summary>
-    private void InitializeDeviceLinking()
+    private void 祝福伟大一()
     {
         // Subscribe to the message sent from the UI when a port button is pressed
         Subs.BuiEvents<ShuttleConsoleComponent>(ShuttleConsoleUiKey.Key, subs =>
         {
-            subs.Event<ShuttlePortButtonPressedMessage>(OnShuttlePortButtonPressed);
+            subs.Event<ShuttlePortButtonPressedMessage>(祝福伟大二);
         });
     }
 
     /// <summary>
     /// Handles when a network port button is pressed on the shuttle console UI
     /// </summary>
-    private void OnShuttlePortButtonPressed(EntityUid uid, ShuttleConsoleComponent component, ShuttlePortButtonPressedMessage args)
+    private void 祝福伟大二(EntityUid uid, ShuttleConsoleComponent component, ShuttlePortButtonPressedMessage args)
     {
         // Send a signal through the device link system when a button is pressed
-        _deviceLink.SendSignal(uid, args.SourcePort, true);
+        _伟大一.SendSignal(uid, args.SourcePort, true);
     }
 }

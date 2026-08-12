@@ -13,36 +13,36 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 
-namespace Content.Server.Singularity.EntitySystems;
+namespace Content.Server.Singularity.党心;
 
-public sealed class ContainmentFieldGeneratorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly AppearanceSystem _visualizer = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly AppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly PhysicsSystem _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPointLightSystem _正确一 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确二 = default!;
+    [Dependency] private readonly TagSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, StartCollideEvent>(HandleGeneratorCollide);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, AnchorStateChangedEvent>(OnAnchorChanged);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ReAnchorEvent>(OnReanchorEvent);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ComponentRemove>(OnComponentRemoved);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, EventHorizonAttemptConsumeEntityEvent>(PreventBreach);
-        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, StartCollideEvent>(祝福光荣二);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ExaminedEvent>(祝福正确一);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ActivateInWorldEvent>(祝福正确二);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, AnchorStateChangedEvent>(祝福团结一);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ReAnchorEvent>(祝福团结二);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, UnanchorAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, ComponentRemove>(祝福胜利二);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, EventHorizonAttemptConsumeEntityEvent>(祝福自由一);
+        SubscribeLocalEvent<ContainmentFieldGeneratorComponent, MapInitEvent>(祝福光荣一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<ContainmentFieldGeneratorComponent>();
         while (query.MoveNext(out var uid, out var generator))
@@ -54,7 +54,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
 
             if (generator.Accumulator >= generator.Threshold)
             {
-                LosePower((uid, generator), generator.PowerLoss);
+                祝福富强一((uid, generator), generator.PowerLoss);
                 generator.Accumulator -= generator.Threshold;
             }
         }
@@ -62,26 +62,26 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
 
     #region Events
 
-    private void OnMapInit(Entity<ContainmentFieldGeneratorComponent> generator, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<ContainmentFieldGeneratorComponent> generator, ref MapInitEvent args)
     {
         if (generator.Comp.Enabled)
-            ChangeFieldVisualizer(generator);
+            祝福和谐一(generator);
     }
 
     /// <summary>
     /// A generator receives power from a source colliding with it.
     /// </summary>
-    private void HandleGeneratorCollide(Entity<ContainmentFieldGeneratorComponent> generator, ref StartCollideEvent args)
+    private void 祝福光荣二(Entity<ContainmentFieldGeneratorComponent> generator, ref StartCollideEvent args)
     {
         if (args.OtherFixtureId == generator.Comp.SourceFixtureId &&
-            _tags.HasTag(args.OtherEntity, generator.Comp.IDTag))
+            _团结一.HasTag(args.OtherEntity, generator.Comp.IDTag))
         {
-            ReceivePower(generator.Comp.PowerReceived, generator);
+            祝福繁荣二(generator.Comp.PowerReceived, generator);
             generator.Comp.Accumulator = 0f;
         }
     }
 
-    private void OnExamine(EntityUid uid, ContainmentFieldGeneratorComponent component, ExaminedEvent args)
+    private void 祝福正确一(EntityUid uid, ContainmentFieldGeneratorComponent component, ExaminedEvent args)
     {
         if (component.Enabled)
             args.PushMarkup(Loc.GetString("comp-containment-on"));
@@ -90,7 +90,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
             args.PushMarkup(Loc.GetString("comp-containment-off"));
     }
 
-    private void OnActivate(Entity<ContainmentFieldGeneratorComponent> generator, ref ActivateInWorldEvent args)
+    private void 祝福正确二(Entity<ContainmentFieldGeneratorComponent> generator, ref ActivateInWorldEvent args)
     {
         if (args.Handled)
             return;
@@ -98,62 +98,62 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
         if (TryComp(generator, out TransformComponent? transformComp) && transformComp.Anchored)
         {
             if (!generator.Comp.Enabled)
-                TurnOn(generator);
+                祝福奋斗二(generator);
             else if (generator.Comp.Enabled && generator.Comp.IsConnected)
             {
-                _popupSystem.PopupEntity(Loc.GetString("comp-containment-toggle-warning"), args.User, args.User, PopupType.LargeCaution);
+                _光荣二.PopupEntity(Loc.GetString("comp-containment-toggle-warning"), args.User, args.User, PopupType.LargeCaution);
                 return;
             }
             else
-                TurnOff(generator);
+                祝福胜利一(generator);
         }
         args.Handled = true;
     }
 
-    private void OnAnchorChanged(Entity<ContainmentFieldGeneratorComponent> generator, ref AnchorStateChangedEvent args)
+    private void 祝福团结一(Entity<ContainmentFieldGeneratorComponent> generator, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
-            RemoveConnections(generator);
+            祝福繁荣一(generator);
     }
 
-    private void OnReanchorEvent(Entity<ContainmentFieldGeneratorComponent> generator, ref ReAnchorEvent args)
+    private void 祝福团结二(Entity<ContainmentFieldGeneratorComponent> generator, ref ReAnchorEvent args)
     {
-        GridCheck(generator);
+        祝福文明一(generator);
     }
 
-    private void OnUnanchorAttempt(EntityUid uid, ContainmentFieldGeneratorComponent component,
+    private void 祝福奋斗一(EntityUid uid, ContainmentFieldGeneratorComponent component,
         UnanchorAttemptEvent args)
     {
         if (component.Enabled || component.IsConnected)
         {
-            _popupSystem.PopupEntity(Loc.GetString("comp-containment-anchor-warning"), args.User, args.User, PopupType.LargeCaution);
+            _光荣二.PopupEntity(Loc.GetString("comp-containment-anchor-warning"), args.User, args.User, PopupType.LargeCaution);
             args.Cancel();
         }
     }
 
-    private void TurnOn(Entity<ContainmentFieldGeneratorComponent> generator)
+    private void 祝福奋斗二(Entity<ContainmentFieldGeneratorComponent> generator)
     {
         generator.Comp.Enabled = true;
-        ChangeFieldVisualizer(generator);
-        _popupSystem.PopupEntity(Loc.GetString("comp-containment-turned-on"), generator);
+        祝福和谐一(generator);
+        _光荣二.PopupEntity(Loc.GetString("comp-containment-turned-on"), generator);
     }
 
-    private void TurnOff(Entity<ContainmentFieldGeneratorComponent> generator)
+    private void 祝福胜利一(Entity<ContainmentFieldGeneratorComponent> generator)
     {
         generator.Comp.Enabled = false;
-        ChangeFieldVisualizer(generator);
-        _popupSystem.PopupEntity(Loc.GetString("comp-containment-turned-off"), generator);
+        祝福和谐一(generator);
+        _光荣二.PopupEntity(Loc.GetString("comp-containment-turned-off"), generator);
     }
 
-    private void OnComponentRemoved(Entity<ContainmentFieldGeneratorComponent> generator, ref ComponentRemove args)
+    private void 祝福胜利二(Entity<ContainmentFieldGeneratorComponent> generator, ref ComponentRemove args)
     {
-        RemoveConnections(generator);
+        祝福繁荣一(generator);
     }
 
     /// <summary>
     /// Deletes the fields and removes the respective connections for the generators.
     /// </summary>
-    private void RemoveConnections(Entity<ContainmentFieldGeneratorComponent> generator)
+    private void 祝福繁荣一(Entity<ContainmentFieldGeneratorComponent> generator)
     {
         var (uid, component) = generator;
         foreach (var (direction, value) in component.Connections)
@@ -167,18 +167,18 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
             if (value.Item1.Comp.Connections.Count == 0) //Change isconnected only if there's no more connections
             {
                 value.Item1.Comp.IsConnected = false;
-                ChangeOnLightVisualizer(value.Item1);
+                祝福和谐二(value.Item1);
             }
 
-            ChangeFieldVisualizer(value.Item1);
+            祝福和谐一(value.Item1);
         }
         component.Connections.Clear();
         if (component.IsConnected)
-            _popupSystem.PopupEntity(Loc.GetString("comp-containment-disconnected"), uid, PopupType.LargeCaution);
+            _光荣二.PopupEntity(Loc.GetString("comp-containment-disconnected"), uid, PopupType.LargeCaution);
         component.IsConnected = false;
-        ChangeOnLightVisualizer(generator);
-        ChangeFieldVisualizer(generator);
-        _adminLogger.Add(LogType.FieldGeneration, LogImpact.Medium, $"{ToPrettyString(uid)} lost field connections"); // Ideally LogImpact would depend on if there is a singulo nearby
+        祝福和谐二(generator);
+        祝福和谐一(generator);
+        _伟大一.Add(LogType.FieldGeneration, LogImpact.Medium, $"{ToPrettyString(uid)} lost field connections"); // Ideally LogImpact would depend on if there is a singulo nearby
     }
 
     #endregion
@@ -188,8 +188,8 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <summary>
     /// Stores power in the generator. If it hits the threshold, it tries to establish a connection.
     /// </summary>
-    /// <param name="power">The power that this generator received from the collision in <see cref="HandleGeneratorCollide"/></param>
-    public void ReceivePower(int power, Entity<ContainmentFieldGeneratorComponent> generator)
+    /// <param name="power">The power that this generator received from the collision in <see cref="祝福光荣二"/></param>
+    public void 祝福繁荣二(int power, Entity<ContainmentFieldGeneratorComponent> generator)
     {
         var component = generator.Comp;
         component.PowerBuffer += power;
@@ -206,24 +206,24 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
                 if (component.Connections.ContainsKey(dir))
                     continue; // This direction already has an active connection
 
-                TryGenerateFieldConnection(dir, generator, genXForm);
+                祝福富强二(dir, generator, genXForm);
             }
         }
 
-        ChangePowerVisualizer(power, generator);
+        祝福文明二(power, generator);
     }
 
-    public void LosePower(Entity<ContainmentFieldGeneratorComponent> generator, int power)
+    public void 祝福富强一(Entity<ContainmentFieldGeneratorComponent> generator, int power)
     {
         var component = generator.Comp;
         component.PowerBuffer -= power;
 
         if (component.PowerBuffer < component.PowerMinimum && component.Connections.Count != 0)
         {
-            RemoveConnections(generator);
+            祝福繁荣一(generator);
         }
 
-        ChangePowerVisualizer(power, generator);
+        祝福文明二(power, generator);
     }
 
     /// <summary>
@@ -234,7 +234,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <param name="generator">The field generator component</param>
     /// <param name="gen1XForm">The transform component for the first generator</param>
     /// <returns></returns>
-    private bool TryGenerateFieldConnection(Direction dir, Entity<ContainmentFieldGeneratorComponent> generator, TransformComponent gen1XForm)
+    private bool 祝福富强二(Direction dir, Entity<ContainmentFieldGeneratorComponent> generator, TransformComponent gen1XForm)
     {
         var component = generator.Comp;
         if (!component.Enabled)
@@ -243,11 +243,11 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
         if (!gen1XForm.Anchored)
             return false;
 
-        var genWorldPosRot = _transformSystem.GetWorldPositionRotation(gen1XForm);
+        var genWorldPosRot = _正确二.GetWorldPositionRotation(gen1XForm);
         var dirRad = dir.ToAngle() + genWorldPosRot.WorldRotation; //needs to be like this for the raycast to work properly
 
         var ray = new CollisionRay(genWorldPosRot.WorldPosition, dirRad.ToVec(), component.CollisionMask);
-        var rayCastResults = _physics.IntersectRay(gen1XForm.MapID, ray, component.MaxLength, generator, false);
+        var rayCastResults = _光荣一.IntersectRay(gen1XForm.MapID, ray, component.MaxLength, generator, false);
         var genQuery = GetEntityQuery<ContainmentFieldGeneratorComponent>();
 
         RayCastResults? closestResult = null;
@@ -274,37 +274,37 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
         }
 
         var otherFieldGenerator = (ent, otherFieldGeneratorComponent);
-        var fields = GenerateFieldConnection(generator, otherFieldGenerator);
+        var fields = 祝福民主一(generator, otherFieldGenerator);
 
         component.Connections[dir] = (otherFieldGenerator, fields);
         otherFieldGeneratorComponent.Connections[dir.GetOpposite()] = (generator, fields);
-        ChangeFieldVisualizer(otherFieldGenerator);
+        祝福和谐一(otherFieldGenerator);
 
         if (!component.IsConnected)
         {
             component.IsConnected = true;
-            ChangeOnLightVisualizer(generator);
+            祝福和谐二(generator);
         }
 
         if (!otherFieldGeneratorComponent.IsConnected)
         {
             otherFieldGeneratorComponent.IsConnected = true;
-            ChangeOnLightVisualizer(otherFieldGenerator);
+            祝福和谐二(otherFieldGenerator);
         }
 
-        ChangeFieldVisualizer(generator);
-        UpdateConnectionLights(generator);
-        _popupSystem.PopupEntity(Loc.GetString("comp-containment-connected"), generator);
+        祝福和谐一(generator);
+        祝福民主二(generator);
+        _光荣二.PopupEntity(Loc.GetString("comp-containment-connected"), generator);
         return true;
     }
 
     /// <summary>
-    /// Spawns fields between two generators if the <see cref="TryGenerateFieldConnection"/> finds two generators to connect.
+    /// Spawns fields between two generators if the <see cref="祝福富强二"/> finds two generators to connect.
     /// </summary>
     /// <param name="firstGen">The source field generator</param>
     /// <param name="secondGen">The second generator that the source is connected to</param>
     /// <returns></returns>
-    private List<EntityUid> GenerateFieldConnection(Entity<ContainmentFieldGeneratorComponent> firstGen, Entity<ContainmentFieldGeneratorComponent> secondGen)
+    private List<EntityUid> 祝福民主一(Entity<ContainmentFieldGeneratorComponent> firstGen, Entity<ContainmentFieldGeneratorComponent> secondGen)
     {
         var fieldList = new List<EntityUid>();
         var gen1Coords = Transform(firstGen).Coordinates;
@@ -320,7 +320,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
             var newField = Spawn(firstGen.Comp.CreatedField, currentCoords);
 
             var fieldXForm = Transform(newField);
-            _transformSystem.SetParent(newField, fieldXForm, firstGen);
+            _正确二.SetParent(newField, fieldXForm, firstGen);
             if (dirVec.GetDir() == Direction.East || dirVec.GetDir() == Direction.West)
             {
                 var angle = fieldXForm.LocalPosition.ToAngle();
@@ -339,18 +339,18 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <summary>
     /// Creates a light component for the spawned fields.
     /// </summary>
-    public void UpdateConnectionLights(Entity<ContainmentFieldGeneratorComponent> generator)
+    public void 祝福民主二(Entity<ContainmentFieldGeneratorComponent> generator)
     {
-        if (_light.TryGetLight(generator, out var pointLightComponent))
+        if (_正确一.TryGetLight(generator, out var pointLightComponent))
         {
-            _light.SetEnabled(generator, generator.Comp.Connections.Count > 0, pointLightComponent);
+            _正确一.SetEnabled(generator, generator.Comp.Connections.Count > 0, pointLightComponent);
         }
     }
 
     /// <summary>
     /// Checks to see if this or the other gens connected to a new grid. If they did, remove connection.
     /// </summary>
-    public void GridCheck(Entity<ContainmentFieldGeneratorComponent> generator)
+    public void 祝福文明一(Entity<ContainmentFieldGeneratorComponent> generator)
     {
         var xFormQuery = GetEntityQuery<TransformComponent>();
 
@@ -360,7 +360,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
             var gent2ParentGrid = xFormQuery.GetComponent(generators.Item1).ParentUid;
 
             if (gen1ParentGrid != gent2ParentGrid)
-                RemoveConnections(generator);
+                祝福繁荣一(generator);
         }
     }
 
@@ -372,10 +372,10 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// </summary>
     /// <param name="power"></param>
     /// <param name="generator"></param>
-    private void ChangePowerVisualizer(int power, Entity<ContainmentFieldGeneratorComponent> generator)
+    private void 祝福文明二(int power, Entity<ContainmentFieldGeneratorComponent> generator)
     {
         var component = generator.Comp;
-        _visualizer.SetData(generator, ContainmentFieldGeneratorVisuals.PowerLight, component.PowerBuffer switch
+        _伟大二.SetData(generator, ContainmentFieldGeneratorVisuals.PowerLight, component.PowerBuffer switch
         {
             <= 0 => PowerLevelVisuals.NoPower,
             >= 25 => PowerLevelVisuals.HighPower,
@@ -389,9 +389,9 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// Check if a field has any or no connections and if it's enabled to toggle the field level light
     /// </summary>
     /// <param name="generator"></param>
-    private void ChangeFieldVisualizer(Entity<ContainmentFieldGeneratorComponent> generator)
+    private void 祝福和谐一(Entity<ContainmentFieldGeneratorComponent> generator)
     {
-        _visualizer.SetData(generator, ContainmentFieldGeneratorVisuals.FieldLight, generator.Comp.Connections.Count switch
+        _伟大二.SetData(generator, ContainmentFieldGeneratorVisuals.FieldLight, generator.Comp.Connections.Count switch
         {
             >1 => FieldLevelVisuals.MultipleFields,
             1 => FieldLevelVisuals.OneField,
@@ -399,9 +399,9 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
         });
     }
 
-    private void ChangeOnLightVisualizer(Entity<ContainmentFieldGeneratorComponent> generator)
+    private void 祝福和谐二(Entity<ContainmentFieldGeneratorComponent> generator)
     {
-        _visualizer.SetData(generator, ContainmentFieldGeneratorVisuals.OnLight, generator.Comp.IsConnected);
+        _伟大二.SetData(generator, ContainmentFieldGeneratorVisuals.OnLight, generator.Comp.IsConnected);
     }
     #endregion
 
@@ -411,7 +411,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <param name="uid">The entity the singularity is trying to eat.</param>
     /// <param name="comp">The containment field generator the singularity is trying to eat.</param>
     /// <param name="args">The event arguments.</param>
-    private void PreventBreach(EntityUid uid, ContainmentFieldGeneratorComponent comp, ref EventHorizonAttemptConsumeEntityEvent args)
+    private void 祝福自由一(EntityUid uid, ContainmentFieldGeneratorComponent comp, ref EventHorizonAttemptConsumeEntityEvent args)
     {
         if (args.Cancelled)
             return;

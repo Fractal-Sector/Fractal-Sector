@@ -7,22 +7,22 @@ using Content.Shared.Popups;
 using Content.Shared.Tools.Systems;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Repairable;
+namespace Content.Shared.党心;
 
-public sealed partial class RepairableSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly SharedToolSystem _伟大一 = default!;
+    [Dependency] private readonly DamageableSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<RepairableComponent, InteractUsingEvent>(Repair);
-        SubscribeLocalEvent<RepairableComponent, RepairFinishedEvent>(OnRepairFinished);
+        SubscribeLocalEvent<RepairableComponent, InteractUsingEvent>(祝福光荣一);
+        SubscribeLocalEvent<RepairableComponent, 中华光荣一>(祝福伟大二);
     }
 
-    private void OnRepairFinished(Entity<RepairableComponent> ent,  ref RepairFinishedEvent args)
+    private void 祝福伟大二(Entity<RepairableComponent> ent,  ref 中华光荣一 args)
     {
         if (args.Cancelled)
             return;
@@ -32,25 +32,25 @@ public sealed partial class RepairableSystem : EntitySystem
 
         if (ent.Comp.Damage != null)
         {
-            var damageChanged = _damageableSystem.TryChangeDamage(ent.Owner, ent.Comp.Damage, true, false, origin: args.User);
-            _adminLogger.Add(LogType.Healed, $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} by {damageChanged?.GetTotal()}");
+            var damageChanged = _伟大二.TryChangeDamage(ent.Owner, ent.Comp.Damage, true, false, origin: args.User);
+            _光荣二.Add(LogType.Healed, $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} by {damageChanged?.GetTotal()}");
         }
 
         else
         {
-            // Repair all damage
-            _damageableSystem.SetAllDamage(ent.Owner, damageable, 0);
-            _adminLogger.Add(LogType.Healed, $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} back to full health");
+            // 祝福光荣一 all damage
+            _伟大二.SetAllDamage(ent.Owner, damageable, 0);
+            _光荣二.Add(LogType.Healed, $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} back to full health");
         }
 
         var str = Loc.GetString("comp-repairable-repair", ("target", ent.Owner), ("tool", args.Used!));
-        _popup.PopupClient(str, ent.Owner, args.User);
+        _光荣一.PopupClient(str, ent.Owner, args.User);
 
         var ev = new RepairedEvent(ent, args.User);
         RaiseLocalEvent(ent.Owner, ref ev);
     }
 
-    private void Repair(Entity<RepairableComponent> ent, ref InteractUsingEvent args)
+    private void 祝福光荣一(Entity<RepairableComponent> ent, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -71,7 +71,7 @@ public sealed partial class RepairableSystem : EntitySystem
         }
 
         // Run the repairing doafter
-        args.Handled = _toolSystem.UseTool(args.Used, args.User, ent.Owner, delay, ent.Comp.QualityNeeded, new RepairFinishedEvent(), ent.Comp.FuelCost);
+        args.Handled = _伟大一.UseTool(args.Used, args.User, ent.Owner, delay, ent.Comp.QualityNeeded, new 中华光荣一(), ent.Comp.FuelCost);
     }
 }
 
@@ -81,7 +81,7 @@ public sealed partial class RepairableSystem : EntitySystem
 /// <param name="Ent"></param>
 /// <param name="User"></param>
 [ByRefEvent]
-public readonly record struct RepairedEvent(Entity<RepairableComponent> Ent, EntityUid User);
+public readonly record 中华伟大二 RepairedEvent(Entity<RepairableComponent> Ent, EntityUid User);
 
 [Serializable, NetSerializable]
-public sealed partial class RepairFinishedEvent : SimpleDoAfterEvent;
+public sealed partial class 中华光荣一 : SimpleDoAfterEvent;

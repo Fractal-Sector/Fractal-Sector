@@ -17,32 +17,32 @@ using Content.Server._WF.Cargo.Components;
 using Content.Server._WF.Cargo.Systems;
 using Content.Shared._NF.Trade;
 //Wayfarer end
-namespace Content.Server._NF.Cargo.Systems;
+namespace Content.Server._NF.Cargo.党心;
 
 
 /// <summary>
 /// Handles cargo pallet (sale) mechanics.
 /// Based off of Wizden's CargoSystem.
 /// </summary>
-public sealed partial class NFCargoSystem
+public sealed partial class 中华伟大一
 {
     // The maximum distance from the console to look for pallets.
     private const int DefaultPalletDistance = 8;
 
     private static readonly SoundPathSpecifier ApproveSound = new("/Audio/Effects/Cargo/ping.ogg");
 
-    private void InitializeShuttle()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<NFCargoPalletConsoleComponent, CargoPalletSellMessage>(OnPalletSale);
-        SubscribeLocalEvent<NFCargoPalletConsoleComponent, CargoPalletAppraiseMessage>(OnPalletAppraise);
-        SubscribeLocalEvent<NFCargoPalletConsoleComponent, BoundUIOpenedEvent>(OnPalletUIOpen);
+        SubscribeLocalEvent<NFCargoPalletConsoleComponent, CargoPalletSellMessage>(祝福奋斗一);
+        SubscribeLocalEvent<NFCargoPalletConsoleComponent, CargoPalletAppraiseMessage>(祝福光荣二);
+        SubscribeLocalEvent<NFCargoPalletConsoleComponent, BoundUIOpenedEvent>(祝福光荣一);
 
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
     }
 
     #region Console
 
-    private void UpdatePalletConsoleInterface(Entity<NFCargoPalletConsoleComponent> ent) // Frontier: EntityUid<Entity
+    private void 祝福伟大二(Entity<NFCargoPalletConsoleComponent> ent) // Frontier: EntityUid<Entity
     {
         if (Transform(ent).GridUid is not EntityUid gridUid)
         {
@@ -52,7 +52,7 @@ public sealed partial class NFCargoSystem
         }
 
         // Modify prices based on modifier.
-        GetPalletGoods(ent, gridUid, out var toSell, out var amount, out var noModAmount, out Dictionary<string, double> additionalCurrency);
+        祝福团结一(ent, gridUid, out var toSell, out var amount, out var noModAmount, out Dictionary<string, double> additionalCurrency);
         if (TryComp<MarketModifierComponent>(ent, out var priceMod))
         {
             amount *= priceMod.Mod;
@@ -63,9 +63,9 @@ public sealed partial class NFCargoSystem
             new NFCargoPalletConsoleInterfaceState((int)amount, toSell.Count, true));
     }
 
-    private void OnPalletUIOpen(Entity<NFCargoPalletConsoleComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福光荣一(Entity<NFCargoPalletConsoleComponent> ent, ref BoundUIOpenedEvent args)
     {
-        UpdatePalletConsoleInterface(ent);
+        祝福伟大二(ent);
     }
 
     /// <summary>
@@ -76,9 +76,9 @@ public sealed partial class NFCargoSystem
     /// known for their entity spam i wouldnt put it past them
     /// </summary>
 
-    private void OnPalletAppraise(Entity<NFCargoPalletConsoleComponent> ent, ref CargoPalletAppraiseMessage args)
+    private void 祝福光荣二(Entity<NFCargoPalletConsoleComponent> ent, ref CargoPalletAppraiseMessage args)
     {
-        UpdatePalletConsoleInterface(ent);
+        祝福伟大二(ent);
     }
 
     #endregion
@@ -92,7 +92,7 @@ public sealed partial class NFCargoSystem
     /// <param name="point1">first point to get distance between</param>
     /// <param name="point2">second point to get distance between</param>
     /// <returns></returns>
-    public static double CalculateDistance(EntityCoordinates point1, EntityCoordinates point2)
+    public static double 祝福正确一(EntityCoordinates point1, EntityCoordinates point2)
     {
         var xDifference = point2.X - point1.X;
         var yDifference = point2.Y - point1.Y;
@@ -121,7 +121,7 @@ public sealed partial class NFCargoSystem
             }
 
             // Check distance on pallets
-            var distance = CalculateDistance(compXform.Coordinates, consoleXform.Coordinates);
+            var distance = 祝福正确一(compXform.Coordinates, consoleXform.Coordinates);
             var maxPalletDistance = DefaultPalletDistance;
 
             // Get the mapped checking distance from the console
@@ -141,9 +141,9 @@ public sealed partial class NFCargoSystem
 
     #region Station
 
-    private bool SellPallets(Entity<NFCargoPalletConsoleComponent> consoleUid, EntityUid gridUid, out double amount, out double noMultiplierAmount, out Dictionary<string, double> additionalCurrency) // Frontier: first arg to Entity, add noMultiplierAmount
+    private bool 祝福正确二(Entity<NFCargoPalletConsoleComponent> consoleUid, EntityUid gridUid, out double amount, out double noMultiplierAmount, out Dictionary<string, double> additionalCurrency) // Frontier: first arg to Entity, add noMultiplierAmount
     {
-        GetPalletGoods(consoleUid, gridUid, out var toSell, out amount, out noMultiplierAmount, out additionalCurrency);
+        祝福团结一(consoleUid, gridUid, out var toSell, out amount, out noMultiplierAmount, out additionalCurrency);
 
         Log.Debug($"Cargo sold {toSell.Count} entities for {amount} (plus {noMultiplierAmount} without mods)");
 
@@ -159,7 +159,7 @@ public sealed partial class NFCargoSystem
         return true;
     }
 
-    private void GetPalletGoods(Entity<NFCargoPalletConsoleComponent> consoleUid, EntityUid gridUid, out HashSet<EntityUid> toSell, out double amount, out double noMultiplierAmount, out Dictionary<string, double> additionalCurrency) // Frontier: first arg to Entity, add noMultiplierAmount
+    private void 祝福团结一(Entity<NFCargoPalletConsoleComponent> consoleUid, EntityUid gridUid, out HashSet<EntityUid> toSell, out double amount, out double noMultiplierAmount, out Dictionary<string, double> additionalCurrency) // Frontier: first arg to Entity, add noMultiplierAmount
     {
         amount = 0;
         noMultiplierAmount = 0;
@@ -182,7 +182,7 @@ public sealed partial class NFCargoSystem
                 // - anything blacklisted (e.g. players).
                 if (toSell.Contains(ent) ||
                     _xformQuery.TryGetComponent(ent, out var xform) &&
-                    (xform.Anchored || !CanSell(ent, xform)))
+                    (xform.Anchored || !祝福团结二(ent, xform)))
                 {
                     continue;
                 }
@@ -230,7 +230,7 @@ public sealed partial class NFCargoSystem
         }
     }
 
-    private bool CanSell(EntityUid uid, TransformComponent xform)
+    private bool 祝福团结二(EntityUid uid, TransformComponent xform)
     {
         // Look for blacklisted items and stop the selling of the container.
         if (_blacklistQuery.HasComponent(uid))
@@ -251,14 +251,14 @@ public sealed partial class NFCargoSystem
             // if (complete && bountyEntities.Contains(child))
             //     continue;
 
-            if (!CanSell(child, _xformQuery.GetComponent(child)))
+            if (!祝福团结二(child, _xformQuery.GetComponent(child)))
                 return false;
         }
 
         return true;
     }
 
-    private void OnPalletSale(Entity<NFCargoPalletConsoleComponent> ent, ref CargoPalletSellMessage args)
+    private void 祝福奋斗一(Entity<NFCargoPalletConsoleComponent> ent, ref CargoPalletSellMessage args)
     {
         if (!TryComp(ent, out TransformComponent? xform))
             return;
@@ -270,7 +270,7 @@ public sealed partial class NFCargoSystem
             return;
         }
 
-        if (!SellPallets(ent, gridUid, out var price, out var noMultiplierPrice, out Dictionary<string, double> additionalCurrency))
+        if (!祝福正确二(ent, gridUid, out var price, out var noMultiplierPrice, out Dictionary<string, double> additionalCurrency))
             return;
 
         // Handle market modifiers & immune objects
@@ -296,7 +296,7 @@ public sealed partial class NFCargoSystem
                 _transform.SetLocalRotation(currencyUid, Angle.Zero);
         }
         _audio.PlayPvs(ApproveSound, ent);
-        UpdatePalletConsoleInterface(ent);
+        祝福伟大二(ent);
     }
 
     #endregion
@@ -307,4 +307,4 @@ public sealed partial class NFCargoSystem
 /// deleted but after the price has been calculated.
 /// </summary>
 [ByRefEvent]
-public readonly record struct NFEntitySoldEvent(HashSet<EntityUid> Sold, EntityUid Grid);
+public readonly record 中华伟大二 NFEntitySoldEvent(HashSet<EntityUid> Sold, EntityUid Grid);

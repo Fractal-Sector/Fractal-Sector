@@ -5,63 +5,63 @@ using Content.Shared.Eui;
 using Content.Shared.Silicons.Laws;
 using Content.Shared.Silicons.Laws.Components;
 
-namespace Content.Server.Silicons.Laws;
+namespace Content.Server.Silicons.党心;
 
-public sealed class SiliconLawEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    private readonly SiliconLawSystem _siliconLawSystem;
-    private readonly EntityManager _entityManager;
-    private readonly IAdminManager _adminManager;
+    private readonly SiliconLawSystem _伟大一;
+    private readonly EntityManager _伟大二;
+    private readonly IAdminManager _光荣一;
 
-    private List<SiliconLaw> _laws = new();
-    private ISawmill _sawmill = default!;
-    private EntityUid _target;
+    private List<SiliconLaw> _光荣二 = new();
+    private ISawmill _正确一 = default!;
+    private EntityUid _正确二;
 
-    public SiliconLawEui(SiliconLawSystem siliconLawSystem, EntityManager entityManager, IAdminManager manager)
+    public 中华伟大一(SiliconLawSystem siliconLawSystem, EntityManager entityManager, IAdminManager manager)
     {
-        _siliconLawSystem = siliconLawSystem;
-        _adminManager = manager;
-        _entityManager = entityManager;
-        _sawmill = Logger.GetSawmill("silicon-law-eui");
+        _伟大一 = siliconLawSystem;
+        _光荣一 = manager;
+        _伟大二 = entityManager;
+        _正确一 = Logger.GetSawmill("silicon-law-eui");
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福伟大一()
     {
-        return new SiliconLawsEuiState(_laws, _entityManager.GetNetEntity(_target));
+        return new SiliconLawsEuiState(_光荣二, _伟大二.GetNetEntity(_正确二));
     }
 
-    public void UpdateLaws(SiliconLawBoundComponent? lawBoundComponent, EntityUid player)
+    public void 祝福伟大二(SiliconLawBoundComponent? lawBoundComponent, EntityUid player)
     {
-        if (!IsAllowed())
+        if (!祝福光荣二())
             return;
 
-        var laws = _siliconLawSystem.GetLaws(player, lawBoundComponent);
-        _laws = laws.Laws;
-        _target = player;
+        var laws = _伟大一.GetLaws(player, lawBoundComponent);
+        _光荣二 = laws.Laws;
+        _正确二 = player;
         StateDirty();
     }
 
-    public override void HandleMessage(EuiMessageBase msg)
+    public override void 祝福光荣一(EuiMessageBase msg)
     {
         if (msg is not SiliconLawsSaveMessage message)
         {
             return;
         }
 
-        if (!IsAllowed())
+        if (!祝福光荣二())
             return;
 
-        var player = _entityManager.GetEntity(message.Target);
-        if (_entityManager.TryGetComponent<SiliconLawProviderComponent>(player, out var playerProviderComp))
-            _siliconLawSystem.SetLaws(message.Laws, player, playerProviderComp.LawUploadSound);
+        var player = _伟大二.GetEntity(message.Target);
+        if (_伟大二.TryGetComponent<SiliconLawProviderComponent>(player, out var playerProviderComp))
+            _伟大一.SetLaws(message.Laws, player, playerProviderComp.LawUploadSound);
     }
 
-    private bool IsAllowed()
+    private bool 祝福光荣二()
     {
-        var adminData = _adminManager.GetAdminData(Player);
+        var adminData = _光荣一.GetAdminData(Player);
         if (adminData == null || !adminData.HasFlag(AdminFlags.Moderator))
         {
-            _sawmill.Warning("Player {0} tried to open / use silicon law UI without permission.", Player.UserId);
+            _正确一.Warning("Player {0} tried to open / use silicon law UI without permission.", Player.UserId);
             return false;
         }
 

@@ -1,35 +1,35 @@
 using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Stunnable;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedStunSystem))]
-public sealed partial class StunOnContactComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The fixture the entity must collide with to be stunned
     /// </summary>
     [DataField]
-    public string FixtureId = "fix";
+    public string 党爱伟大一 = "fix";
 
     /// <summary>
     /// The duration of the stun.
     /// </summary>
     [DataField]
-    public TimeSpan Duration = TimeSpan.FromSeconds(5);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(5);
 
     /// <summary>
     /// Should the stun applied refresh?
     /// </summary>
     [DataField]
-    public bool Refresh = true;
+    public bool 党爱光荣一 = true;
 
     /// <summary>
     /// Should the stunned entity try to stand up when knockdown ends?
     /// </summary>
     [DataField]
-    public bool AutoStand = true;
+    public bool 党爱光荣二 = true;
 
     [DataField]
-    public EntityWhitelist Blacklist = new();
+    public EntityWhitelist 党爱正确一 = new();
 }

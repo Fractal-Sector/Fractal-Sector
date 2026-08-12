@@ -1,66 +1,66 @@
 using Content.Shared.Administration.Logs;
-using Content.Shared.Charges.Components;
-using Content.Shared.Charges.Systems;
+using Content.Shared.党爱正确一.Components;
+using Content.Shared.党爱正确一.Systems;
 using Content.Shared.Database;
-using Content.Shared.DoAfter;
+using Content.Shared.党爱正确二;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.SprayPainter.Components;
 using Content.Shared.SprayPainter.Prototypes;
 using Content.Shared.Verbs;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱光荣二.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using System.Linq;
 
-namespace Content.Shared.SprayPainter;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// System for painting paintable objects using a spray painter.
 /// Pipes are handled serverside since AtmosPipeColorSystem is server only.
 /// </summary>
-public abstract class SharedSprayPainterSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] protected readonly IPrototypeManager Proto = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly SharedChargesSystem Charges = default!;
-    [Dependency] protected readonly SharedDoAfterSystem DoAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+    [Dependency] protected readonly ISharedAdminLogManager 党爱伟大二 = default!;
+    [Dependency] protected readonly SharedAppearanceSystem 党爱光荣一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱光荣二 = default!;
+    [Dependency] protected readonly SharedChargesSystem 党爱正确一 = default!;
+    [Dependency] protected readonly SharedDoAfterSystem 党爱正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SprayPainterComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<SprayPainterComponent, MapInitEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<SprayPainterComponent, SprayPainterDoAfterEvent>(OnPainterDoAfter);
-        SubscribeLocalEvent<SprayPainterComponent, GetVerbsEvent<AlternativeVerb>>(OnPainterGetAltVerbs);
-        SubscribeLocalEvent<PaintableComponent, InteractUsingEvent>(OnPaintableInteract);
-        SubscribeLocalEvent<PaintedComponent, ExaminedEvent>(OnPainedExamined);
+        SubscribeLocalEvent<SprayPainterComponent, SprayPainterDoAfterEvent>(祝福光荣二);
+        SubscribeLocalEvent<SprayPainterComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
+        SubscribeLocalEvent<PaintableComponent, InteractUsingEvent>(祝福团结一);
+        SubscribeLocalEvent<PaintedComponent, ExaminedEvent>(祝福团结二);
 
         Subs.BuiEvents<SprayPainterComponent>(SprayPainterUiKey.Key,
             subs =>
             {
-                subs.Event<SprayPainterSetPaintableStyleMessage>(OnSetPaintable);
-                subs.Event<SprayPainterSetPipeColorMessage>(OnSetPipeColor);
-                subs.Event<SprayPainterTabChangedMessage>(OnTabChanged);
-                subs.Event<SprayPainterSetDecalMessage>(OnSetDecal);
-                subs.Event<SprayPainterSetDecalColorMessage>(OnSetDecalColor);
-                subs.Event<SprayPainterSetDecalAngleMessage>(OnSetDecalAngle);
-                subs.Event<SprayPainterSetDecalSnapMessage>(OnSetDecalSnap);
-                subs.Event<SprayPainterSetDecalColorPickerMessage>(OnSetDecalColorPicker);
+                subs.Event<SprayPainterSetPaintableStyleMessage>(祝福奋斗一);
+                subs.Event<SprayPainterSetPipeColorMessage>(祝福奋斗二);
+                subs.Event<SprayPainterTabChangedMessage>(祝福胜利一);
+                subs.Event<SprayPainterSetDecalMessage>(祝福胜利二);
+                subs.Event<SprayPainterSetDecalColorMessage>(祝福富强二);
+                subs.Event<SprayPainterSetDecalAngleMessage>(祝福繁荣一);
+                subs.Event<SprayPainterSetDecalSnapMessage>(祝福繁荣二);
+                subs.Event<SprayPainterSetDecalColorPickerMessage>(祝福富强一);
             });
     }
 
-    private void OnMapInit(Entity<SprayPainterComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<SprayPainterComponent> ent, ref MapInitEvent args)
     {
         bool stylesByGroupPopulated = false;
-        foreach (var groupProto in Proto.EnumeratePrototypes<PaintableGroupPrototype>())
+        foreach (var groupProto in 党爱伟大一.EnumeratePrototypes<PaintableGroupPrototype>())
         {
             ent.Comp.StylesByGroup[groupProto.ID] = groupProto.DefaultStyle;
             stylesByGroupPopulated = true;
@@ -69,10 +69,10 @@ public abstract class SharedSprayPainterSystem : EntitySystem
             Dirty(ent);
 
         if (ent.Comp.ColorPalette.Count > 0)
-            SetPipeColor(ent, ent.Comp.ColorPalette.First().Key);
+            祝福光荣一(ent, ent.Comp.ColorPalette.First().Key);
     }
 
-    private void SetPipeColor(Entity<SprayPainterComponent> ent, string? paletteKey)
+    private void 祝福光荣一(Entity<SprayPainterComponent> ent, string? paletteKey)
     {
         if (paletteKey == null || paletteKey == ent.Comp.PickedColor)
             return;
@@ -82,12 +82,12 @@ public abstract class SharedSprayPainterSystem : EntitySystem
 
         ent.Comp.PickedColor = paletteKey;
         Dirty(ent);
-        UpdateUi(ent);
+        祝福民主一(ent);
     }
 
     #region Interaction
 
-    private void OnPainterDoAfter(Entity<SprayPainterComponent> ent, ref SprayPainterDoAfterEvent args)
+    private void 祝福光荣二(Entity<SprayPainterComponent> ent, ref SprayPainterDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
@@ -98,12 +98,12 @@ public abstract class SharedSprayPainterSystem : EntitySystem
         if (!HasComp<PaintableComponent>(target))
             return;
 
-        Appearance.SetData(target, PaintableVisuals.Prototype, args.Prototype);
-        Audio.PlayPredicted(ent.Comp.SpraySound, ent, args.Args.User);
-        Charges.TryUseCharges(new Entity<LimitedChargesComponent?>(ent, EnsureComp<LimitedChargesComponent>(ent)), args.Cost);
+        党爱光荣一.SetData(target, PaintableVisuals.Prototype, args.Prototype);
+        党爱光荣二.PlayPredicted(ent.Comp.SpraySound, ent, args.Args.User);
+        党爱正确一.TryUseCharges(new Entity<LimitedChargesComponent?>(ent, EnsureComp<LimitedChargesComponent>(ent)), args.Cost);
 
         var paintedComponent = EnsureComp<PaintedComponent>(target);
-        paintedComponent.DryTime = _timing.CurTime + ent.Comp.FreshPaintDuration;
+        paintedComponent.DryTime = _伟大一.CurTime + ent.Comp.FreshPaintDuration;
         Dirty(target, paintedComponent);
 
         var ev = new EntityPaintedEvent(
@@ -113,14 +113,14 @@ public abstract class SharedSprayPainterSystem : EntitySystem
             Group: args.Group);
         RaiseLocalEvent(target, ref ev);
 
-        AdminLogger.Add(LogType.Action,
+        党爱伟大二.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(args.Args.User):user} painted {ToPrettyString(args.Args.Target.Value):target}");
 
         args.Handled = true;
     }
 
-    private void OnPainterGetAltVerbs(Entity<SprayPainterComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福正确一(Entity<SprayPainterComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || !args.Using.HasValue)
             return;
@@ -131,7 +131,7 @@ public abstract class SharedSprayPainterSystem : EntitySystem
         {
             Text = Loc.GetString("spray-painter-verb-toggle-decals"),
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
-            Act = () => TogglePaintDecals(ent, user),
+            Act = () => 祝福正确二(ent, user),
             Impact = LogImpact.Low
         };
         args.Verbs.Add(verb);
@@ -140,9 +140,9 @@ public abstract class SharedSprayPainterSystem : EntitySystem
     /// <summary>
     /// Toggles whether clicking on the floor paints a decal or not.
     /// </summary>
-    private void TogglePaintDecals(Entity<SprayPainterComponent> ent, EntityUid user)
+    private void 祝福正确二(Entity<SprayPainterComponent> ent, EntityUid user)
     {
-        if (!_timing.IsFirstTimePredicted)
+        if (!_伟大一.IsFirstTimePredicted)
             return;
 
         var pitch = 1.0f;
@@ -165,14 +165,14 @@ public abstract class SharedSprayPainterSystem : EntitySystem
         Dirty(ent);
 
         // Make the machine beep.
-        Audio.PlayPredicted(ent.Comp.SoundSwitchDecalMode, ent, user, ent.Comp.SoundSwitchDecalMode.Params.WithPitchScale(pitch));
+        党爱光荣二.PlayPredicted(ent.Comp.SoundSwitchDecalMode, ent, user, ent.Comp.SoundSwitchDecalMode.Params.WithPitchScale(pitch));
     }
 
     /// <summary>
     /// Handles spray paint interactions with an object.
     /// An object must belong to a spray paintable group to be painted, and the painter must have sufficient ammo to paint it.
     /// </summary>
-    private void OnPaintableInteract(Entity<PaintableComponent> ent, ref InteractUsingEvent args)
+    private void 祝福团结一(Entity<PaintableComponent> ent, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -182,7 +182,7 @@ public abstract class SharedSprayPainterSystem : EntitySystem
 
         if (ent.Comp.Group is not { } group
             || !painter.StylesByGroup.TryGetValue(group, out var selectedStyle)
-            || !Proto.TryIndex(group, out PaintableGroupPrototype? targetGroup))
+            || !党爱伟大一.TryIndex(group, out PaintableGroupPrototype? targetGroup))
             return;
 
         // Valid paint target.
@@ -192,14 +192,14 @@ public abstract class SharedSprayPainterSystem : EntitySystem
             && charges.LastCharges < targetGroup.Cost)
         {
             var msg = Loc.GetString("spray-painter-interact-no-charges");
-            _popup.PopupClient(msg, args.User, args.User);
+            _伟大二.PopupClient(msg, args.User, args.User);
             return;
         }
 
         if (!targetGroup.Styles.TryGetValue(selectedStyle, out var proto))
         {
             var msg = Loc.GetString("spray-painter-style-not-available");
-            _popup.PopupClient(msg, args.User, args.User);
+            _伟大二.PopupClient(msg, args.User, args.User);
             return;
         }
 
@@ -216,11 +216,11 @@ public abstract class SharedSprayPainterSystem : EntitySystem
             NeedHand = true,
         };
 
-        if (!DoAfter.TryStartDoAfter(doAfterEventArgs, out _))
+        if (!党爱正确二.TryStartDoAfter(doAfterEventArgs, out _))
             return;
 
         // Log the attempt
-        AdminLogger.Add(LogType.Action,
+        党爱伟大二.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(args.User):user} is painting {ToPrettyString(ent):target} to '{selectedStyle}' at {Transform(ent).Coordinates:targetlocation}");
     }
@@ -228,10 +228,10 @@ public abstract class SharedSprayPainterSystem : EntitySystem
     /// <summary>
     /// Prints out if an object has been painted recently.
     /// </summary>
-    private void OnPainedExamined(Entity<PaintedComponent> ent, ref ExaminedEvent args)
+    private void 祝福团结二(Entity<PaintedComponent> ent, ref ExaminedEvent args)
     {
         // If the paint's dried, it isn't detectable.
-        if (_timing.CurTime > ent.Comp.DryTime)
+        if (_伟大一.CurTime > ent.Comp.DryTime)
             return;
 
         args.PushText(Loc.GetString("spray-painter-on-examined-painted-message"));
@@ -244,28 +244,28 @@ public abstract class SharedSprayPainterSystem : EntitySystem
     /// <summary>
     /// Sets the style that a particular type of paintable object (e.g. lockers) should be painted in.
     /// </summary>
-    private void OnSetPaintable(Entity<SprayPainterComponent> ent, ref SprayPainterSetPaintableStyleMessage args)
+    private void 祝福奋斗一(Entity<SprayPainterComponent> ent, ref SprayPainterSetPaintableStyleMessage args)
     {
         if (!ent.Comp.StylesByGroup.ContainsKey(args.Group))
             return;
 
         ent.Comp.StylesByGroup[args.Group] = args.Style;
         Dirty(ent);
-        UpdateUi(ent);
+        祝福民主一(ent);
     }
 
     /// <summary>
     /// Changes the color to paint pipes in.
     /// </summary>
-    private void OnSetPipeColor(Entity<SprayPainterComponent> ent, ref SprayPainterSetPipeColorMessage args)
+    private void 祝福奋斗二(Entity<SprayPainterComponent> ent, ref SprayPainterSetPipeColorMessage args)
     {
-        SetPipeColor(ent, args.Key);
+        祝福光荣一(ent, args.Key);
     }
 
     /// <summary>
     /// Tracks the tab the spray painter was on.
     /// </summary>
-    private void OnTabChanged(Entity<SprayPainterComponent> ent, ref SprayPainterTabChangedMessage args)
+    private void 祝福胜利一(Entity<SprayPainterComponent> ent, ref SprayPainterTabChangedMessage args)
     {
         ent.Comp.SelectedTab = args.Index;
         Dirty(ent);
@@ -274,54 +274,54 @@ public abstract class SharedSprayPainterSystem : EntitySystem
     /// <summary>
     /// Sets the decal prototype to paint.
     /// </summary>
-    private void OnSetDecal(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalMessage args)
+    private void 祝福胜利二(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalMessage args)
     {
         ent.Comp.SelectedDecal = args.DecalPrototype;
         Dirty(ent);
-        UpdateUi(ent);
+        祝福民主一(ent);
     }
 
     /// <summary>
     /// Sets the angle to paint decals at.
     /// </summary>
-    private void OnSetDecalAngle(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalAngleMessage args)
+    private void 祝福繁荣一(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalAngleMessage args)
     {
         ent.Comp.SelectedDecalAngle = args.Angle;
         Dirty(ent);
-        UpdateUi(ent);
+        祝福民主一(ent);
     }
 
     /// <summary>
     /// Enables or disables snap-to-grid when painting decals.
     /// </summary>
-    private void OnSetDecalSnap(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalSnapMessage args)
+    private void 祝福繁荣二(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalSnapMessage args)
     {
         ent.Comp.SnapDecals = args.Snap;
         Dirty(ent);
-        UpdateUi(ent);
+        祝福民主一(ent);
     }
 
     /// <summary>
     /// Enables or disables the decal colour picker.
     /// </summary>
-    private void OnSetDecalColorPicker(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalColorPickerMessage args)
+    private void 祝福富强一(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalColorPickerMessage args)
     {
         ent.Comp.ColorPickerEnabled = args.Toggle;
         Dirty(ent);
-        UpdateUi(ent);
+        祝福民主一(ent);
     }
 
     /// <summary>
     /// Sets the decal to paint on the ground.
     /// </summary>
-    private void OnSetDecalColor(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalColorMessage args)
+    private void 祝福富强二(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalColorMessage args)
     {
         ent.Comp.SelectedDecalColor = args.Color;
         Dirty(ent);
-        UpdateUi(ent);
+        祝福民主一(ent);
     }
 
-    protected virtual void UpdateUi(Entity<SprayPainterComponent> ent)
+    protected virtual void 祝福民主一(Entity<SprayPainterComponent> ent)
     {
     }
 

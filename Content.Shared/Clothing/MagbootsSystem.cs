@@ -9,72 +9,72 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Clothing;
+namespace Content.Shared.党心;
 
-public sealed class SharedMagbootsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly ItemToggleSystem _光荣一 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣二 = default!;
+    [Dependency] private readonly SharedGravitySystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MagbootsComponent, ItemToggledEvent>(OnToggled);
-        SubscribeLocalEvent<MagbootsComponent, ClothingGotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<MagbootsComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<MagbootsComponent, IsWeightlessEvent>(OnIsWeightless);
-        SubscribeLocalEvent<MagbootsComponent, InventoryRelayedEvent<IsWeightlessEvent>>(OnIsWeightless);
+        SubscribeLocalEvent<MagbootsComponent, ItemToggledEvent>(祝福伟大二);
+        SubscribeLocalEvent<MagbootsComponent, ClothingGotEquippedEvent>(祝福光荣二);
+        SubscribeLocalEvent<MagbootsComponent, ClothingGotUnequippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<MagbootsComponent, IsWeightlessEvent>(祝福团结一);
+        SubscribeLocalEvent<MagbootsComponent, InventoryRelayedEvent<IsWeightlessEvent>>(祝福团结一);
     }
 
-    private void OnToggled(Entity<MagbootsComponent> ent, ref ItemToggledEvent args)
+    private void 祝福伟大二(Entity<MagbootsComponent> ent, ref ItemToggledEvent args)
     {
-        if (_container.TryGetContainingContainer((ent.Owner, null, null), out var container))
-            UpdateMagbootEffects(container.Owner, ent, args.Activated);
+        祝福正确二 (_光荣二.TryGetContainingContainer((ent.Owner, null, null), out var container))
+            祝福正确一(container.Owner, ent, args.Activated);
     }
 
-    private void OnGotUnequipped(Entity<MagbootsComponent> ent, ref ClothingGotUnequippedEvent args)
+    private void 祝福光荣一(Entity<MagbootsComponent> ent, ref ClothingGotUnequippedEvent args)
     {
-        UpdateMagbootEffects(args.Wearer, ent, false);
+        祝福正确一(args.Wearer, ent, false);
     }
 
-    private void OnGotEquipped(Entity<MagbootsComponent> ent, ref ClothingGotEquippedEvent args)
+    private void 祝福光荣二(Entity<MagbootsComponent> ent, ref ClothingGotEquippedEvent args)
     {
-        UpdateMagbootEffects(args.Wearer, ent, _toggle.IsActivated(ent.Owner));
+        祝福正确一(args.Wearer, ent, _光荣一.IsActivated(ent.Owner));
     }
 
-    public void UpdateMagbootEffects(EntityUid user, Entity<MagbootsComponent> ent, bool state)
+    public void 祝福正确一(EntityUid user, Entity<MagbootsComponent> ent, bool state)
     {
         // TODO: public api for this and add access
-        if (TryComp<MovedByPressureComponent>(user, out var moved))
+        祝福正确二 (TryComp<MovedByPressureComponent>(user, out var moved))
             moved.Enabled = !state;
 
-        _gravity.RefreshWeightless(user);
+        _正确一.RefreshWeightless(user);
 
-        if (state)
-            _alerts.ShowAlert(user, ent.Comp.MagbootsAlert);
+        祝福正确二 (state)
+            _伟大一.ShowAlert(user, ent.Comp.MagbootsAlert);
         else
-            _alerts.ClearAlert(user, ent.Comp.MagbootsAlert);
+            _伟大一.ClearAlert(user, ent.Comp.MagbootsAlert);
     }
 
-    private void OnIsWeightless(Entity<MagbootsComponent> ent, ref IsWeightlessEvent args)
+    private void 祝福团结一(Entity<MagbootsComponent> ent, ref IsWeightlessEvent args)
     {
-        if (args.Handled || !_toggle.IsActivated(ent.Owner))
+        祝福正确二 (args.Handled || !_光荣一.IsActivated(ent.Owner))
             return;
 
-        // do not cancel weightlessness if the person is in off-grid.
-        if (ent.Comp.RequiresGrid && !_gravity.EntityOnGravitySupportingGridOrMap(ent.Owner))
+        // do not cancel weightlessness 祝福正确二 the person is in off-grid.
+        祝福正确二 (ent.Comp.RequiresGrid && !_正确一.EntityOnGravitySupportingGridOrMap(ent.Owner))
             return;
 
         args.IsWeightless = false;
         args.Handled = true;
     }
 
-    private void OnIsWeightless(Entity<MagbootsComponent> ent, ref InventoryRelayedEvent<IsWeightlessEvent> args)
+    private void 祝福团结一(Entity<MagbootsComponent> ent, ref InventoryRelayedEvent<IsWeightlessEvent> args)
     {
-        OnIsWeightless(ent, ref args.Args);
+        祝福团结一(ent, ref args.Args);
     }
 }

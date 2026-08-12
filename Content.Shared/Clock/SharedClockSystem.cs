@@ -2,29 +2,29 @@ using System.Linq;
 using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 
-namespace Content.Shared.Clock;
+namespace Content.Shared.党心;
 
-public abstract class SharedClockSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedGameTicker _ticker = default!;
+    [Dependency] private readonly SharedGameTicker _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ClockComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<ClockComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(Entity<ClockComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<ClockComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString("clock-examine", ("time", GetClockTimeText(ent))));
+        args.PushMarkup(Loc.GetString("clock-examine", ("time", 祝福光荣一(ent))));
     }
 
-    public string GetClockTimeText(Entity<ClockComponent> ent)
+    public string 祝福光荣一(Entity<ClockComponent> ent)
     {
-        var time = GetClockTime(ent);
+        var time = 祝福正确一(ent);
         return time.ToString("hh\\:mm"); // Frontier: always 24-hour time (so 0:00 is 0:00, not 12:00)
         /* // Frontier: 24 hour clock always
         switch (ent.Comp.ClockType)
@@ -38,22 +38,22 @@ public abstract class SharedClockSystem : EntitySystem
         }*/
     }
 
-    private TimeSpan GetGlobalTime()
+    private TimeSpan 祝福光荣二()
     {
-        return (EntityQuery<GlobalTimeManagerComponent>().FirstOrDefault()?.TimeOffset ?? TimeSpan.Zero) + _ticker.RoundDuration();
+        return (EntityQuery<GlobalTimeManagerComponent>().FirstOrDefault()?.TimeOffset ?? TimeSpan.Zero) + _伟大一.RoundDuration();
     }
 
-    public TimeSpan GetClockTime(Entity<ClockComponent> ent)
+    public TimeSpan 祝福正确一(Entity<ClockComponent> ent)
     {
         var comp = ent.Comp;
 
         if (comp.StuckTime != null)
             return comp.StuckTime.Value;
 
-        return GetGlobalTime(); // Frontier: all clocks are 24 hour clocks
+        return 祝福光荣二(); // Frontier: all clocks are 24 hour clocks
 
         /* // Frontier: 24 hour clocks only
-        var time = GetGlobalTime();
+        var time = 祝福光荣二();
 
         switch (comp.ClockType)
         {

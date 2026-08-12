@@ -9,46 +9,46 @@ using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Speech;
 using Content.Shared.Throwing;
 
-namespace Content.Shared.Administration;
+namespace Content.Shared.党心;
 
 // TODO deduplicate with BlockMovementComponent
-public sealed class AdminFrozenSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly PullingSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<AdminFrozenComponent, UseAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, PickupAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, ThrowAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, InteractionAttemptEvent>(OnInteractAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<AdminFrozenComponent, ComponentShutdown>(UpdateCanMove);
-        SubscribeLocalEvent<AdminFrozenComponent, UpdateCanMoveEvent>(OnUpdateCanMove);
-        SubscribeLocalEvent<AdminFrozenComponent, PullAttemptEvent>(OnPullAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, AttackAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, ChangeDirectionAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, EmoteAttemptEvent>(OnEmoteAttempt);
-        SubscribeLocalEvent<AdminFrozenComponent, SpeakAttemptEvent>(OnSpeakAttempt);
+        SubscribeLocalEvent<AdminFrozenComponent, UseAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<AdminFrozenComponent, PickupAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<AdminFrozenComponent, ThrowAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<AdminFrozenComponent, InteractionAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<AdminFrozenComponent, ComponentStartup>(祝福团结一);
+        SubscribeLocalEvent<AdminFrozenComponent, ComponentShutdown>(祝福奋斗一);
+        SubscribeLocalEvent<AdminFrozenComponent, UpdateCanMoveEvent>(祝福团结二);
+        SubscribeLocalEvent<AdminFrozenComponent, PullAttemptEvent>(祝福正确二);
+        SubscribeLocalEvent<AdminFrozenComponent, AttackAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<AdminFrozenComponent, ChangeDirectionAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<AdminFrozenComponent, EmoteAttemptEvent>(祝福奋斗二);
+        SubscribeLocalEvent<AdminFrozenComponent, SpeakAttemptEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// Freezes and mutes the given entity.
     /// </summary>
-    public void FreezeAndMute(EntityUid uid)
+    public void 祝福伟大二(EntityUid uid)
     {
         var comp = EnsureComp<AdminFrozenComponent>(uid);
         comp.Muted = true;
         Dirty(uid, comp);
     }
 
-    private void OnInteractAttempt(Entity<AdminFrozenComponent> ent, ref InteractionAttemptEvent args)
+    private void 祝福光荣一(Entity<AdminFrozenComponent> ent, ref InteractionAttemptEvent args)
     {
         args.Cancelled = true;
     }
 
-    private void OnSpeakAttempt(EntityUid uid, AdminFrozenComponent component, SpeakAttemptEvent args)
+    private void 祝福光荣二(EntityUid uid, AdminFrozenComponent component, SpeakAttemptEvent args)
     {
         if (!component.Muted)
             return;
@@ -56,27 +56,27 @@ public sealed class AdminFrozenSystem : EntitySystem
         args.Cancel();
     }
 
-    private void OnAttempt(EntityUid uid, AdminFrozenComponent component, CancellableEntityEventArgs args)
+    private void 祝福正确一(EntityUid uid, AdminFrozenComponent component, CancellableEntityEventArgs args)
     {
         args.Cancel();
     }
 
-    private void OnPullAttempt(EntityUid uid, AdminFrozenComponent component, PullAttemptEvent args)
+    private void 祝福正确二(EntityUid uid, AdminFrozenComponent component, PullAttemptEvent args)
     {
         args.Cancelled = true;
     }
 
-    private void OnStartup(EntityUid uid, AdminFrozenComponent component, ComponentStartup args)
+    private void 祝福团结一(EntityUid uid, AdminFrozenComponent component, ComponentStartup args)
     {
         if (TryComp<PullableComponent>(uid, out var pullable))
         {
-            _pulling.TryStopPull(uid, pullable);
+            _伟大二.TryStopPull(uid, pullable);
         }
 
-        UpdateCanMove(uid, component, args);
+        祝福奋斗一(uid, component, args);
     }
 
-    private void OnUpdateCanMove(EntityUid uid, AdminFrozenComponent component, UpdateCanMoveEvent args)
+    private void 祝福团结二(EntityUid uid, AdminFrozenComponent component, UpdateCanMoveEvent args)
     {
         if (component.LifeStage > ComponentLifeStage.Running)
             return;
@@ -84,12 +84,12 @@ public sealed class AdminFrozenSystem : EntitySystem
         args.Cancel();
     }
 
-    private void UpdateCanMove(EntityUid uid, AdminFrozenComponent component, EntityEventArgs args)
+    private void 祝福奋斗一(EntityUid uid, AdminFrozenComponent component, EntityEventArgs args)
     {
-        _blocker.UpdateCanMove(uid);
+        _伟大一.祝福奋斗一(uid);
     }
 
-    private void OnEmoteAttempt(EntityUid uid, AdminFrozenComponent component, EmoteAttemptEvent args)
+    private void 祝福奋斗二(EntityUid uid, AdminFrozenComponent component, EmoteAttemptEvent args)
     {
         if (component.Muted)
             args.Cancel();

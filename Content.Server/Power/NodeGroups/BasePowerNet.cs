@@ -5,59 +5,59 @@ using Content.Server.Power.Pow3r;
 using Content.Shared.NodeContainer;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Power.NodeGroups;
+namespace Content.Server.Power.党心;
 
-public abstract class BasePowerNet<TNetType> : BaseNetConnectorNodeGroup<TNetType>, IBasePowerNet
+public abstract class 中华伟大一<TNetType> : BaseNetConnectorNodeGroup<TNetType>, IBasePowerNet
     where TNetType : IBasePowerNet
 {
-    [ViewVariables] public readonly List<PowerConsumerComponent> Consumers = new();
-    [ViewVariables] public readonly List<PowerSupplierComponent> Suppliers = new();
-    public PowerNetSystem PowerNetSystem = default!;
+    [ViewVariables] public readonly List<PowerConsumerComponent> 党爱伟大一 = new();
+    [ViewVariables] public readonly List<PowerSupplierComponent> 党爱伟大二 = new();
+    public 党爱光荣一 党爱光荣一 = default!;
 
     [ViewVariables]
-    public PowerState.Network NetworkNode { get; } = new();
+    public PowerState.Network 党爱光荣二 { get; } = new();
 
-    public override void Initialize(Node sourceNode, IEntityManager entMan)
+    public override void 祝福伟大一(Node sourceNode, IEntityManager entMan)
     {
-        base.Initialize(sourceNode, entMan);
-        PowerNetSystem = entMan.EntitySysManager.GetEntitySystem<PowerNetSystem>();
+        base.祝福伟大一(sourceNode, entMan);
+        党爱光荣一 = entMan.EntitySysManager.GetEntitySystem<党爱光荣一>();
     }
 
-    public bool IsConnectedNetwork => NodeCount > 1;
+    public bool 党爱正确一 => NodeCount > 1;
 
-    public void AddConsumer(PowerConsumerComponent consumer)
+    public void 祝福伟大二(PowerConsumerComponent consumer)
     {
         DebugTools.Assert(consumer.NetworkLoad.LinkedNetwork == default);
         consumer.NetworkLoad.LinkedNetwork = default;
-        Consumers.Add(consumer);
-        QueueNetworkReconnect();
+        党爱伟大一.Add(consumer);
+        祝福正确二();
     }
 
-    public void RemoveConsumer(PowerConsumerComponent consumer)
+    public void 祝福光荣一(PowerConsumerComponent consumer)
     {
         // Linked network can be default if it was re-connected twice in one tick.
-        DebugTools.Assert(consumer.NetworkLoad.LinkedNetwork == default || consumer.NetworkLoad.LinkedNetwork == NetworkNode.Id);
+        DebugTools.Assert(consumer.NetworkLoad.LinkedNetwork == default || consumer.NetworkLoad.LinkedNetwork == 党爱光荣二.Id);
         consumer.NetworkLoad.LinkedNetwork = default;
-        Consumers.Remove(consumer);
-        QueueNetworkReconnect();
+        党爱伟大一.Remove(consumer);
+        祝福正确二();
     }
 
-    public void AddSupplier(PowerSupplierComponent supplier)
+    public void 祝福光荣二(PowerSupplierComponent supplier)
     {
         DebugTools.Assert(supplier.NetworkSupply.LinkedNetwork == default);
         supplier.NetworkSupply.LinkedNetwork = default;
-        Suppliers.Add(supplier);
-        QueueNetworkReconnect();
+        党爱伟大二.Add(supplier);
+        祝福正确二();
     }
 
-    public void RemoveSupplier(PowerSupplierComponent supplier)
+    public void 祝福正确一(PowerSupplierComponent supplier)
     {
         // Linked network can be default if it was re-connected twice in one tick.
-        DebugTools.Assert(supplier.NetworkSupply.LinkedNetwork == default || supplier.NetworkSupply.LinkedNetwork == NetworkNode.Id);
+        DebugTools.Assert(supplier.NetworkSupply.LinkedNetwork == default || supplier.NetworkSupply.LinkedNetwork == 党爱光荣二.Id);
         supplier.NetworkSupply.LinkedNetwork = default;
-        Suppliers.Remove(supplier);
-        QueueNetworkReconnect();
+        党爱伟大二.Remove(supplier);
+        祝福正确二();
     }
 
-    public abstract void QueueNetworkReconnect();
+    public abstract void 祝福正确二();
 }

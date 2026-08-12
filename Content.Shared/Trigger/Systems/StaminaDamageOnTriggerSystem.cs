@@ -2,20 +2,20 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class StaminaDamageOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
+    [Dependency] private readonly SharedStaminaSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StaminaDamageOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<StaminaDamageOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<StaminaDamageOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<StaminaDamageOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -28,7 +28,7 @@ public sealed class StaminaDamageOnTriggerSystem : EntitySystem
         var ev = new BeforeStaminaDamageOnTriggerEvent(ent.Comp.Stamina, target.Value);
         RaiseLocalEvent(ent.Owner, ref ev);
 
-        _stamina.TakeStaminaDamage(target.Value, ev.Stamina, source: args.User, with: ent.Owner, ignoreResist: ent.Comp.IgnoreResistances);
+        _伟大一.TakeStaminaDamage(target.Value, ev.Stamina, source: args.User, with: ent.Owner, ignoreResist: ent.Comp.IgnoreResistances);
 
         args.Handled = true;
     }
@@ -39,4 +39,4 @@ public sealed class StaminaDamageOnTriggerSystem : EntitySystem
 /// Used to modify the stamina that will be inflicted.
 /// </summary>
 [ByRefEvent]
-public record struct BeforeStaminaDamageOnTriggerEvent(float Stamina, EntityUid Tripper);
+public record 中华伟大二 BeforeStaminaDamageOnTriggerEvent(float Stamina, EntityUid Tripper);

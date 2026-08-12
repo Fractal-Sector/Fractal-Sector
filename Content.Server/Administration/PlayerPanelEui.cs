@@ -12,185 +12,185 @@ using Content.Shared.Follower;
 using Robust.Server.Player;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration;
+namespace Content.Server.党心;
 
-public sealed class PlayerPanelEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IAdminNotesManager _notesMan = default!;
-    [Dependency] private readonly IEntityManager _entity = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly EuiManager _eui = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly IServerDbManager _伟大二 = default!;
+    [Dependency] private readonly IAdminNotesManager _光荣一 = default!;
+    [Dependency] private readonly IEntityManager _光荣二 = default!;
+    [Dependency] private readonly IPlayerManager _正确一 = default!;
+    [Dependency] private readonly EuiManager _正确二 = default!;
+    [Dependency] private readonly IAdminLogManager _团结一 = default!;
 
-    private readonly LocatedPlayerData _targetPlayer;
+    private readonly LocatedPlayerData _团结二;
     private int? _notes;
     private int? _bans;
     private int? _roleBans;
-    private int _sharedConnections;
+    private int _奋斗一;
     private bool? _whitelisted;
-    private TimeSpan _playtime;
-    private bool _frozen;
-    private bool _canFreeze;
-    private bool _canAhelp;
-    private FollowerSystem _follower;
+    private TimeSpan _奋斗二;
+    private bool _胜利一;
+    private bool _胜利二;
+    private bool _繁荣一;
+    private FollowerSystem _繁荣二;
 
-    public PlayerPanelEui(LocatedPlayerData player)
+    public 中华伟大一(LocatedPlayerData player)
     {
         IoCManager.InjectDependencies(this);
-        _targetPlayer = player;
-        _follower = _entity.System<FollowerSystem>();
+        _团结二 = player;
+        _繁荣二 = _光荣二.System<FollowerSystem>();
     }
 
-    public override void Opened()
+    public override void 祝福伟大一()
     {
-        base.Opened();
-        _admins.OnPermsChanged += OnPermsChanged;
+        base.祝福伟大一();
+        _伟大一.祝福光荣二 += 祝福光荣二;
     }
 
-    public override void Closed()
+    public override void 祝福伟大二()
     {
-        base.Closed();
-        _admins.OnPermsChanged -= OnPermsChanged;
+        base.祝福伟大二();
+        _伟大一.祝福光荣二 -= 祝福光荣二;
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福光荣一()
     {
-        return new PlayerPanelEuiState(_targetPlayer.UserId,
-            _targetPlayer.Username,
-            _playtime,
+        return new PlayerPanelEuiState(_团结二.UserId,
+            _团结二.Username,
+            _奋斗二,
             _notes,
             _bans,
             _roleBans,
-            _sharedConnections,
+            _奋斗一,
             _whitelisted,
-            _canFreeze,
-            _frozen,
-            _canAhelp);
+            _胜利二,
+            _胜利一,
+            _繁荣一);
     }
 
-    private void OnPermsChanged(AdminPermsChangedEventArgs args)
+    private void 祝福光荣二(AdminPermsChangedEventArgs args)
     {
         if (args.Player != Player)
             return;
 
-        SetPlayerState();
+        祝福正确二();
     }
 
-    public override void HandleMessage(EuiMessageBase msg)
+    public override void 祝福正确一(EuiMessageBase msg)
     {
-        base.HandleMessage(msg);
+        base.祝福正确一(msg);
 
         ICommonSession? session;
 
         switch (msg)
         {
             case PlayerPanelFreezeMessage freezeMsg:
-                if (!_admins.IsAdmin(Player) ||
-                    !_entity.TrySystem<AdminFrozenSystem>(out var frozenSystem) ||
-                    !_player.TryGetSessionById(_targetPlayer.UserId, out session) ||
+                if (!_伟大一.IsAdmin(Player) ||
+                    !_光荣二.TrySystem<AdminFrozenSystem>(out var frozenSystem) ||
+                    !_正确一.TryGetSessionById(_团结二.UserId, out session) ||
                     session.AttachedEntity == null)
                     return;
 
-                if (_entity.HasComponent<AdminFrozenComponent>(session.AttachedEntity))
+                if (_光荣二.HasComponent<AdminFrozenComponent>(session.AttachedEntity))
                 {
-                    _adminLog.Add(LogType.Action,$"{Player:actor} unfroze {_entity.ToPrettyString(session.AttachedEntity):subject}");
-                    _entity.RemoveComponent<AdminFrozenComponent>(session.AttachedEntity.Value);
-                    SetPlayerState();
+                    _团结一.Add(LogType.Action,$"{Player:actor} unfroze {_光荣二.ToPrettyString(session.AttachedEntity):subject}");
+                    _光荣二.RemoveComponent<AdminFrozenComponent>(session.AttachedEntity.Value);
+                    祝福正确二();
                     return;
                 }
 
                 if (freezeMsg.Mute)
                 {
-                    _adminLog.Add(LogType.Action,$"{Player:actor} froze and muted {_entity.ToPrettyString(session.AttachedEntity):subject}");
+                    _团结一.Add(LogType.Action,$"{Player:actor} froze and muted {_光荣二.ToPrettyString(session.AttachedEntity):subject}");
                     frozenSystem.FreezeAndMute(session.AttachedEntity.Value);
                 }
                 else
                 {
-                    _adminLog.Add(LogType.Action,$"{Player:actor} froze {_entity.ToPrettyString(session.AttachedEntity):subject}");
-                    _entity.EnsureComponent<AdminFrozenComponent>(session.AttachedEntity.Value);
+                    _团结一.Add(LogType.Action,$"{Player:actor} froze {_光荣二.ToPrettyString(session.AttachedEntity):subject}");
+                    _光荣二.EnsureComponent<AdminFrozenComponent>(session.AttachedEntity.Value);
                 }
-                SetPlayerState();
+                祝福正确二();
                 break;
 
             case PlayerPanelLogsMessage:
-                if (!_admins.HasAdminFlag(Player, AdminFlags.Logs))
+                if (!_伟大一.HasAdminFlag(Player, AdminFlags.Logs))
                     return;
 
-                _adminLog.Add(LogType.Action, $"{Player:actor} opened logs on {_targetPlayer.Username:subject}");
+                _团结一.Add(LogType.Action, $"{Player:actor} opened logs on {_团结二.Username:subject}");
                 var ui = new AdminLogsEui();
-                _eui.OpenEui(ui, Player);
-                ui.SetLogFilter(search: _targetPlayer.Username);
+                _正确二.OpenEui(ui, Player);
+                ui.SetLogFilter(search: _团结二.Username);
                 break;
             case PlayerPanelDeleteMessage:
             case PlayerPanelRejuvenationMessage:
-                if (!_admins.HasAdminFlag(Player, AdminFlags.Debug) ||
-                    !_player.TryGetSessionById(_targetPlayer.UserId, out session) ||
+                if (!_伟大一.HasAdminFlag(Player, AdminFlags.Debug) ||
+                    !_正确一.TryGetSessionById(_团结二.UserId, out session) ||
                     session.AttachedEntity == null)
                     return;
 
                 if (msg is PlayerPanelRejuvenationMessage)
                 {
-                    _adminLog.Add(LogType.Action,$"{Player:actor} rejuvenated {_entity.ToPrettyString(session.AttachedEntity):subject}");
-                    if (!_entity.TrySystem<RejuvenateSystem>(out var rejuvenate))
+                    _团结一.Add(LogType.Action,$"{Player:actor} rejuvenated {_光荣二.ToPrettyString(session.AttachedEntity):subject}");
+                    if (!_光荣二.TrySystem<RejuvenateSystem>(out var rejuvenate))
                         return;
 
                     rejuvenate.PerformRejuvenate(session.AttachedEntity.Value);
                 }
                 else
                 {
-                    _adminLog.Add(LogType.Action,$"{Player:actor} deleted {_entity.ToPrettyString(session.AttachedEntity):subject}");
-                    _entity.DeleteEntity(session.AttachedEntity);
+                    _团结一.Add(LogType.Action,$"{Player:actor} deleted {_光荣二.ToPrettyString(session.AttachedEntity):subject}");
+                    _光荣二.DeleteEntity(session.AttachedEntity);
                 }
                 break;
             case PlayerPanelFollowMessage:
-                if (!_admins.HasAdminFlag(Player, AdminFlags.Admin) ||
-                    !_player.TryGetSessionById(_targetPlayer.UserId, out session) ||
+                if (!_伟大一.HasAdminFlag(Player, AdminFlags.Admin) ||
+                    !_正确一.TryGetSessionById(_团结二.UserId, out session) ||
                     session.AttachedEntity == null ||
                     Player.AttachedEntity is null ||
                     session.AttachedEntity == Player.AttachedEntity)
                     return;
 
-                _follower.StartFollowingEntity(Player.AttachedEntity.Value, session.AttachedEntity.Value);
+                _繁荣二.StartFollowingEntity(Player.AttachedEntity.Value, session.AttachedEntity.Value);
                 break;
         }
     }
 
-    public async void SetPlayerState()
+    public async void 祝福正确二()
     {
-        if (!_admins.IsAdmin(Player))
+        if (!_伟大一.IsAdmin(Player))
         {
             Close();
             return;
         }
 
-        _playtime = (await _db.GetPlayTimes(_targetPlayer.UserId))
+        _奋斗二 = (await _伟大二.GetPlayTimes(_团结二.UserId))
             .Where(p => p.Tracker == "Overall")
             .Select(p => p.TimeSpent)
             .FirstOrDefault();
 
-        if (_notesMan.CanView(Player))
+        if (_光荣一.CanView(Player))
         {
-            _notes = (await _notesMan.GetAllAdminRemarks(_targetPlayer.UserId)).Count;
+            _notes = (await _光荣一.GetAllAdminRemarks(_团结二.UserId)).Count;
         }
         else
         {
             _notes = null;
         }
 
-        _sharedConnections = _player.Sessions.Count(s => s.Channel.RemoteEndPoint.Address.Equals(_targetPlayer.LastAddress) && s.UserId != _targetPlayer.UserId);
+        _奋斗一 = _正确一.Sessions.Count(s => s.Channel.RemoteEndPoint.Address.Equals(_团结二.LastAddress) && s.UserId != _团结二.UserId);
 
     // Apparently the Bans flag is also used for whitelists
-    if (_admins.HasAdminFlag(Player, AdminFlags.Ban))
+    if (_伟大一.HasAdminFlag(Player, AdminFlags.Ban))
         {
-            _whitelisted = await _db.GetWhitelistStatusAsync(_targetPlayer.UserId);
+            _whitelisted = await _伟大二.GetWhitelistStatusAsync(_团结二.UserId);
             // This won't get associated ip or hwid bans but they were not placed on this account anyways
-            _bans = (await _db.GetServerBansAsync(null, _targetPlayer.UserId, null, null)).Count;
+            _bans = (await _伟大二.GetServerBansAsync(null, _团结二.UserId, null, null)).Count;
             // Unfortunately role bans for departments and stuff are issued individually. This means that a single role ban can have many individual role bans internally
             // The only way to distinguish whether a role ban is the same is to compare the ban time.
             // This is horrible and I would love to just erase the database and start from scratch instead but that's what I can do for now.
-            _roleBans = (await _db.GetServerRoleBansAsync(null, _targetPlayer.UserId, null, null)).DistinctBy(rb => rb.BanTime).Count();
+            _roleBans = (await _伟大二.GetServerRoleBansAsync(null, _团结二.UserId, null, null)).DistinctBy(rb => rb.BanTime).Count();
         }
         else
         {
@@ -199,23 +199,23 @@ public sealed class PlayerPanelEui : BaseEui
             _roleBans = null;
         }
 
-        if (_player.TryGetSessionById(_targetPlayer.UserId, out var session))
+        if (_正确一.TryGetSessionById(_团结二.UserId, out var session))
         {
-            _canFreeze = session.AttachedEntity != null;
-            _frozen = _entity.HasComponent<AdminFrozenComponent>(session.AttachedEntity);
+            _胜利二 = session.AttachedEntity != null;
+            _胜利一 = _光荣二.HasComponent<AdminFrozenComponent>(session.AttachedEntity);
         }
         else
         {
-            _canFreeze = false;
+            _胜利二 = false;
         }
 
-        if (_admins.HasAdminFlag(Player, AdminFlags.Adminhelp))
+        if (_伟大一.HasAdminFlag(Player, AdminFlags.Adminhelp))
         {
-            _canAhelp = true;
+            _繁荣一 = true;
         }
         else
         {
-            _canAhelp = false;
+            _繁荣一 = false;
         }
 
         StateDirty();

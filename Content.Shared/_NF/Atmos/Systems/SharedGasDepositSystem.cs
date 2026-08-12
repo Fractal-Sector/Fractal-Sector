@@ -8,29 +8,29 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Shared._NF.Atmos.Systems;
+namespace Content.Shared._NF.Atmos.党心;
 
-public abstract class SharedGasDepositSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱伟大一 = default!;
 
     // The amount reported in a given extractor is a multiple of this.
     const float DrillExamineAmountRound = 1000.0f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GasDepositExtractorComponent, AnchorStateChangedEvent>(OnAnchorChanged);
-        SubscribeLocalEvent<GasDepositExtractorComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<GasDepositExtractorComponent, AnchorAttemptEvent>(OnAnchorAttempt);
-        SubscribeLocalEvent<GasDepositExtractorComponent, ActivateInWorldEvent>(OnPumpActivate);
+        SubscribeLocalEvent<GasDepositExtractorComponent, AnchorStateChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<GasDepositExtractorComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<GasDepositExtractorComponent, AnchorAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<GasDepositExtractorComponent, ActivateInWorldEvent>(祝福正确一);
     }
 
-    private void OnExamined(Entity<GasDepositExtractorComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<GasDepositExtractorComponent> ent, ref ExaminedEvent args)
     {
         if (!Transform(ent).Anchored || !args.IsInDetailsRange)
             return;
@@ -39,7 +39,7 @@ public abstract class SharedGasDepositSystem : EntitySystem
             ("statusColor", "lightblue"),
             ("pressure", ent.Comp.TargetPressure)));
 
-        if (_net.IsServer && TryComp(ent.Comp.DepositEntity, out GasDepositComponent? deposit))
+        if (_光荣一.IsServer && TryComp(ent.Comp.DepositEntity, out GasDepositComponent? deposit))
         {
             float estimatedAmount = MathF.Round(deposit.Deposit.TotalMoles / DrillExamineAmountRound) * DrillExamineAmountRound;
             args.PushMarkup(Loc.GetString("gas-deposit-drill-system-examined-amount",
@@ -48,7 +48,7 @@ public abstract class SharedGasDepositSystem : EntitySystem
         }
     }
 
-    public void OnAnchorAttempt(Entity<GasDepositExtractorComponent> ent, ref AnchorAttemptEvent args)
+    public void 祝福光荣一(Entity<GasDepositExtractorComponent> ent, ref AnchorAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -61,8 +61,8 @@ public abstract class SharedGasDepositSystem : EntitySystem
             return;
         }
 
-        var indices = _map.TileIndicesFor(grid, gridComp, xform.Coordinates);
-        var enumerator = _map.GetAnchoredEntitiesEnumerator(grid, gridComp, indices);
+        var indices = _伟大一.TileIndicesFor(grid, gridComp, xform.Coordinates);
+        var enumerator = _伟大一.GetAnchoredEntitiesEnumerator(grid, gridComp, indices);
 
         while (enumerator.MoveNext(out var otherEnt))
         {
@@ -75,13 +75,13 @@ public abstract class SharedGasDepositSystem : EntitySystem
         }
     }
 
-    public void OnAnchorChanged(Entity<GasDepositExtractorComponent> ent, ref AnchorStateChangedEvent args)
+    public void 祝福光荣二(Entity<GasDepositExtractorComponent> ent, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
             ent.Comp.DepositEntity = null;
     }
 
-    private void OnPumpActivate(Entity<GasDepositExtractorComponent> ent, ref ActivateInWorldEvent args)
+    private void 祝福正确一(Entity<GasDepositExtractorComponent> ent, ref ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -91,12 +91,12 @@ public abstract class SharedGasDepositSystem : EntitySystem
 
         if (Transform(ent).Anchored)
         {
-            UI.OpenUi(ent.Owner, GasPressurePumpUiKey.Key, actor.PlayerSession);
+            党爱伟大一.OpenUi(ent.Owner, GasPressurePumpUiKey.Key, actor.PlayerSession);
             Dirty(ent);
         }
         else
         {
-            _popup.PopupCursor(Loc.GetString("ui-needs-anchor"), args.User);
+            _伟大二.PopupCursor(Loc.GetString("ui-needs-anchor"), args.User);
         }
 
         args.Handled = true;

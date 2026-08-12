@@ -2,23 +2,23 @@ using Content.Shared.Ghost.Roles;
 using Content.Shared.Roles;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._DV.Whitelist;
+namespace Content.Shared._DV.党心;
 
 [Prototype("whitelistTier")]
-public sealed partial class WhitelistTierPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField]
-    public string Name = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     [DataField]
-    public Color Color = Color.White;
+    public 党爱光荣一 党爱光荣一 = 党爱光荣一.White;
 
     [DataField]
-    public List<ProtoId<JobPrototype>> Jobs = new();
+    public List<ProtoId<JobPrototype>> 党爱光荣二 = new();
 
     [DataField]
-    public List<ProtoId<GhostRolePrototype>> GhostRoles = new();
+    public List<ProtoId<GhostRolePrototype>> 党爱正确一 = new();
 }

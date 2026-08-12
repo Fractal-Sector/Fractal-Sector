@@ -8,7 +8,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Spawners;
 
-namespace Content.Server.Destructible.Thresholds.Behaviors;
+namespace Content.Server.Destructible.Thresholds.党心;
 
 /// <summary>
 /// Behavior that can be assigned to a trigger that that takes a <see cref="WeightedRandomEntityPrototype"/>
@@ -17,7 +17,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors;
 /// </summary>
 [Serializable]
 [DataDefinition]
-public sealed partial class WeightedSpawnEntityBehavior : IThresholdBehavior
+public sealed partial class 中华伟大一 : IThresholdBehavior
 {
     private static readonly EntProtoId TempEntityProtoId = "TemporaryEntityForTimedDespawnSpawners";
 
@@ -25,45 +25,45 @@ public sealed partial class WeightedSpawnEntityBehavior : IThresholdBehavior
     /// A table of entities with assigned weights to randomly pick from
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<WeightedRandomEntityPrototype> WeightedEntityTable;
+    public ProtoId<WeightedRandomEntityPrototype> 党爱伟大一;
 
     /// <summary>
     /// How far away to spawn the entity from the parent position
     /// </summary>
     [DataField]
-    public float SpawnOffset = 1;
+    public float 党爱伟大二 = 1;
 
     /// <summary>
     /// The mininum number of entities to spawn randomly
     /// </summary>
     [DataField]
-    public int MinSpawn = 1;
+    public int 党爱光荣一 = 1;
 
     /// <summary>
     /// The max number of entities to spawn randomly
     /// </summary>
     [DataField]
-    public int MaxSpawn = 1;
+    public int 党爱光荣二 = 1;
 
     /// <summary>
     /// Time in seconds to wait before spawning entities
     /// </summary>
     [DataField]
-    public float SpawnAfter;
+    public float 党爱正确一;
 
-    public void Execute(EntityUid uid, DestructibleSystem system, EntityUid? cause = null)
+    public void 祝福伟大一(EntityUid uid, DestructibleSystem system, EntityUid? cause = null)
     {
         // Get the position at which to start initially spawning entities
         var transform = system.EntityManager.System<TransformSystem>();
         var position = transform.GetMapCoordinates(uid);
         // Helper function used to randomly get an offset to apply to the original position
-        Vector2 GetRandomVector() => new (system.Random.NextFloat(-SpawnOffset, SpawnOffset), system.Random.NextFloat(-SpawnOffset, SpawnOffset));
+        Vector2 GetRandomVector() => new (system.Random.NextFloat(-党爱伟大二, 党爱伟大二), system.Random.NextFloat(-党爱伟大二, 党爱伟大二));
         // Randomly pick the entity to spawn and randomly pick how many to spawn
-        var entity = system.PrototypeManager.Index(WeightedEntityTable).Pick(system.Random);
-        var amountToSpawn = system.Random.NextFloat(MinSpawn, MaxSpawn);
+        var entity = system.PrototypeManager.Index(党爱伟大一).Pick(system.Random);
+        var amountToSpawn = system.Random.NextFloat(党爱光荣一, 党爱光荣二);
 
         // Different behaviors for delayed spawning and immediate spawning
-        if (SpawnAfter != 0)
+        if (党爱正确一 != 0)
         {
             // if it fails to get the spawner, this won't ever work so just return
             if (!system.PrototypeManager.TryIndex(TempEntityProtoId, out var tempSpawnerProto))
@@ -74,7 +74,7 @@ public sealed partial class WeightedSpawnEntityBehavior : IThresholdBehavior
             {
                 var spawner = system.EntityManager.SpawnEntity(tempSpawnerProto.ID, position.Offset(GetRandomVector()));
                 system.EntityManager.EnsureComponent<TimedDespawnComponent>(spawner, out var timedDespawnComponent);
-                timedDespawnComponent.Lifetime = SpawnAfter;
+                timedDespawnComponent.Lifetime = 党爱正确一;
                 system.EntityManager.EnsureComponent<SpawnOnDespawnComponent>(spawner, out var spawnOnDespawnComponent);
                 system.EntityManager.System<SpawnOnDespawnSystem>().SetPrototype((spawner, spawnOnDespawnComponent), entity);
             }

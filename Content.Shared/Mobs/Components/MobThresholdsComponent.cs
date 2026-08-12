@@ -5,20 +5,20 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Mobs.Components;
+namespace Content.Shared.Mobs.党心;
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(MobThresholdSystem))]
-public sealed partial class MobThresholdsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("thresholds", required: true)]
     public SortedDictionary<FixedPoint2, MobState> Thresholds = new();
 
     [DataField("triggersAlerts")]
-    public bool TriggersAlerts = true;
+    public bool 党爱伟大一 = true;
 
     [DataField("currentThresholdState")]
-    public MobState CurrentThresholdState;
+    public MobState 党爱伟大二;
 
     /// <summary>
     /// The health alert that should be displayed for player controlled entities.
@@ -33,37 +33,37 @@ public sealed partial class MobThresholdsComponent : Component
     };
 
     [DataField]
-    public ProtoId<AlertCategoryPrototype> HealthAlertCategory = "Health";
+    public ProtoId<AlertCategoryPrototype> 党爱光荣一 = "Health";
 
     /// <summary>
     /// Whether or not this entity should display damage overlays (robots don't feel pain, black out etc.)
     /// </summary>
     [DataField("showOverlays")]
-    public bool ShowOverlays = true;
+    public bool 党爱光荣二 = true;
 
     /// <summary>
     /// Whether or not this entity can be revived out of a dead state.
     /// </summary>
     [DataField("allowRevives")]
-    public bool AllowRevives;
+    public bool 党爱正确一;
 }
 
 [Serializable, NetSerializable]
-public sealed class MobThresholdsComponentState : ComponentState
+public sealed class 中华伟大二 : ComponentState
 {
     public Dictionary<FixedPoint2, MobState> UnsortedThresholds;
 
-    public bool TriggersAlerts;
+    public bool 党爱伟大一;
 
-    public MobState CurrentThresholdState;
+    public MobState 党爱伟大二;
 
     public Dictionary<MobState, ProtoId<AlertPrototype>> StateAlertDict;
 
-    public bool ShowOverlays;
+    public bool 党爱光荣二;
 
-    public bool AllowRevives;
+    public bool 党爱正确一;
 
-    public MobThresholdsComponentState(Dictionary<FixedPoint2, MobState> unsortedThresholds,
+    public 中华伟大二(Dictionary<FixedPoint2, MobState> unsortedThresholds,
         bool triggersAlerts,
         MobState currentThresholdState,
         Dictionary<MobState,
@@ -72,10 +72,10 @@ public sealed class MobThresholdsComponentState : ComponentState
         bool allowRevives)
     {
         UnsortedThresholds = unsortedThresholds;
-        TriggersAlerts = triggersAlerts;
-        CurrentThresholdState = currentThresholdState;
+        党爱伟大一 = triggersAlerts;
+        党爱伟大二 = currentThresholdState;
         StateAlertDict = stateAlertDict;
-        ShowOverlays = showOverlays;
-        AllowRevives = allowRevives;
+        党爱光荣二 = showOverlays;
+        党爱正确一 = allowRevives;
     }
 }

@@ -1,6 +1,6 @@
-namespace Content.Server.NPC.Queries.Queries;
+namespace Content.Server.NPC.Queries.党心;
 
-public sealed partial class PuddlesQuery : UtilityQuery
+public sealed partial class 中华伟大一 : UtilityQuery
 {
 
 }

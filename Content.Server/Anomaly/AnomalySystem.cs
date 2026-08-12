@@ -24,43 +24,43 @@ using Content.Shared._NF.Anomaly; // Frontier
 
 using Content.Shared._WF.CCVar; // Wayfarer
 
-namespace Content.Server.Anomaly;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles logic and interactions relating to <see cref="AnomalyComponent"/>
 /// </summary>
-public sealed partial class AnomalySystem : SharedAnomalySystem
+public sealed partial class 中华伟大一 : SharedAnomalySystem
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly MaterialStorageSystem _material = default!;
-    [Dependency] private readonly SharedPointLightSystem _pointLight = default!;
-    // [Dependency] private readonly StationSystem _station = default!; // Frontier
-    // [Dependency] private readonly RadioSystem _radio = default!; // Frontier
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly RadiationSystem _radiation = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly StackSystem _stack = default!; // Frontier
-    [Dependency] private readonly IGameTiming _timing = default!; // Frontier
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly AmbientSoundSystem _光荣一 = default!;
+    [Dependency] private readonly AtmosphereSystem _光荣二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _正确一 = default!;
+    [Dependency] private readonly ExplosionSystem _正确二 = default!;
+    [Dependency] private readonly MaterialStorageSystem _团结一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _团结二 = default!;
+    // [Dependency] private readonly StationSystem _奋斗一 = default!; // Frontier
+    // [Dependency] private readonly RadioSystem _奋斗二 = default!; // Frontier
+    [Dependency] private readonly IRobustRandom _胜利一 = default!;
+    [Dependency] private readonly RadiationSystem _胜利二 = default!;
+    [Dependency] private readonly SharedAudioSystem _繁荣一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _繁荣二 = default!;
+    [Dependency] private readonly StackSystem _富强一 = default!; // Frontier
+    [Dependency] private readonly IGameTiming _富强二 = default!; // Frontier
 
-    public const float MinParticleVariation = 0.8f;
-    public const float MaxParticleVariation = 1.2f;
+    public const float 党爱伟大一 = 0.8f;
+    public const float 党爱伟大二 = 1.2f;
 
     private static readonly ProtoId<WeightedRandomPrototype> WeightListProto = "AnomalyBehaviorList";
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AnomalyComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<AnomalyComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<AnomalyComponent, StartCollideEvent>(OnStartCollide);
-        SubscribeLocalEvent<AnomalyComponent, EntParentChangedMessage>(OnAnomalyParentChanged); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<AnomalyComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<AnomalyComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<AnomalyComponent, StartCollideEvent>(祝福正确一);
+        SubscribeLocalEvent<AnomalyComponent, EntParentChangedMessage>(祝福正确二); // Frontier
 
 
         InitializeGenerator();
@@ -69,18 +69,18 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
         InitializeCommands();
     }
 
-    private void OnMapInit(Entity<AnomalyComponent> anomaly, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<AnomalyComponent> anomaly, ref MapInitEvent args)
     {
         anomaly.Comp.NextPulseTime = Timing.CurTime + GetPulseLength(anomaly.Comp) * 3; // longer the first time
         ChangeAnomalyStability(anomaly, Random.NextFloat(anomaly.Comp.InitialStabilityRange.Item1, anomaly.Comp.InitialStabilityRange.Item2), anomaly.Comp);
         ChangeAnomalySeverity(anomaly, Random.NextFloat(anomaly.Comp.InitialSeverityRange.Item1, anomaly.Comp.InitialSeverityRange.Item2), anomaly.Comp);
 
-        ShuffleParticlesEffect(anomaly);
-        anomaly.Comp.Continuity = _random.NextFloat(anomaly.Comp.MinContituty, anomaly.Comp.MaxContituty);
-        SetBehavior(anomaly, GetRandomBehavior());
+        祝福光荣一(anomaly);
+        anomaly.Comp.Continuity = _胜利一.NextFloat(anomaly.Comp.MinContituty, anomaly.Comp.MaxContituty);
+        祝福胜利一(anomaly, 祝福奋斗二());
     }
 
-    public void ShuffleParticlesEffect(Entity<AnomalyComponent> anomaly)
+    public void 祝福光荣一(Entity<AnomalyComponent> anomaly)
     {
         var particles = new List<AnomalousParticleType>
             { AnomalousParticleType.Delta, AnomalousParticleType.Epsilon, AnomalousParticleType.Zeta, AnomalousParticleType.Sigma };
@@ -92,15 +92,15 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
         Dirty(anomaly);
     }
 
-    private void OnShutdown(Entity<AnomalyComponent> anomaly, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<AnomalyComponent> anomaly, ref ComponentShutdown args)
     {
         if (anomaly.Comp.CurrentBehavior is not null)
-            RemoveBehavior(anomaly, anomaly.Comp.CurrentBehavior.Value);
+            祝福胜利二(anomaly, anomaly.Comp.CurrentBehavior.Value);
 
         EndAnomaly(anomaly, spawnCore: false);
     }
 
-    private void OnStartCollide(Entity<AnomalyComponent> anomaly, ref StartCollideEvent args)
+    private void 祝福正确一(Entity<AnomalyComponent> anomaly, ref StartCollideEvent args)
     {
         if (!TryComp<AnomalousParticleComponent>(args.OtherEntity, out var particle))
             return;
@@ -111,11 +111,11 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
         var behaviorMod = 1f;
         if (anomaly.Comp.CurrentBehavior != null)
         {
-            var b = _prototype.Index(anomaly.Comp.CurrentBehavior.Value);
+            var b = _伟大二.Index(anomaly.Comp.CurrentBehavior.Value);
             behaviorMod = b.ParticleSensivity;
         }
         // small function to randomize because it's easier to read like this
-        float VaryValue(float v) => v * behaviorMod * Random.NextFloat(MinParticleVariation, MaxParticleVariation);
+        float VaryValue(float v) => v * behaviorMod * Random.NextFloat(党爱伟大一, 党爱伟大二);
 
         if (particle.ParticleType == anomaly.Comp.DestabilizingParticleType || particle.DestabilzingOverride)
         {
@@ -133,13 +133,13 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
         if (particle.ParticleType == anomaly.Comp.TransformationParticleType || particle.TransmutationOverride)
         {
             ChangeAnomalySeverity(anomaly, VaryValue(particle.SeverityPerSeverityHit), anomaly.Comp);
-            if (_random.Prob(anomaly.Comp.Continuity))
-                SetBehavior(anomaly, GetRandomBehavior());
+            if (_胜利一.Prob(anomaly.Comp.Continuity))
+                祝福胜利一(anomaly, 祝福奋斗二());
         }
     }
 
     // Frontier: disable anomaly if it goes off-grid
-    private void OnAnomalyParentChanged(Entity<AnomalyComponent> ent, ref EntParentChangedMessage args)
+    private void 祝福正确二(Entity<AnomalyComponent> ent, ref EntParentChangedMessage args)
     {
         // If this entity is being destroyed, no need to fiddle with components
         if (TerminatingOrDeleted(ent) || ent.Comp.ConnectedVessel is not { } vessel)
@@ -149,9 +149,9 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
             || !TryComp(vessel, out TransformComponent? vesselXform)
             || xform.GridUid != vesselXform.GridUid)
         {
-            //_radiation.SetSourceEnabled(ent.Owner, false); // Moved vessel radiation handling to the AnomalyLinkExpiry system
+            //_胜利二.SetSourceEnabled(ent.Owner, false); // Moved vessel radiation handling to the AnomalyLinkExpiry system
             var expiryComp = EnsureComp<AnomalyLinkExpiryComponent>(vessel);
-            expiryComp.EndTime = _timing.CurTime + expiryComp.CheckFrequency;
+            expiryComp.EndTime = _富强二.CurTime + expiryComp.CheckFrequency;
         }
     }
     // End Frontier: disable anomaly if it goes off-grid
@@ -162,7 +162,7 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
     /// <param name="anomaly"></param>
     /// <param name="component"></param>
     /// <returns>The amount of points</returns>
-    public int GetAnomalyPointValue(EntityUid anomaly, AnomalyComponent? component = null)
+    public int 祝福团结一(EntityUid anomaly, AnomalyComponent? component = null)
     {
         if (!Resolve(anomaly, ref component, false))
             return 0;
@@ -177,13 +177,13 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
         //Apply behavior modifier
         if (component.CurrentBehavior != null)
         {
-            var behavior = _prototype.Index(component.CurrentBehavior.Value);
+            var behavior = _伟大二.Index(component.CurrentBehavior.Value);
             multiplier *= behavior.EarnPointModifier;
         }
 
         var severityValue = 1 / (1 + MathF.Pow(MathF.E, -7 * (component.Severity - 0.5f)));
 
-        return (int)((((component.MaxPointsPerSecond - component.MinPointsPerSecond) * severityValue * multiplier) + component.MinPointsPerSecond) * _configuration.GetCVar(WFCVars.AnomalyPointMultiplier)); // Wayfarer: Add * _configuration.GetCVar(WFCVars.AnomalyPointMultiplier)
+        return (int)((((component.MaxPointsPerSecond - component.MinPointsPerSecond) * severityValue * multiplier) + component.MinPointsPerSecond) * _伟大一.GetCVar(WFCVars.AnomalyPointMultiplier)); // Wayfarer: Add * _伟大一.GetCVar(WFCVars.AnomalyPointMultiplier)
     }
 
     /// <summary>
@@ -191,7 +191,7 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    public string GetParticleLocale(AnomalousParticleType type)
+    public string 祝福团结二(AnomalousParticleType type)
     {
         return type switch
         {
@@ -203,9 +203,9 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
         };
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗一(frameTime);
 
         UpdateGenerator();
         UpdateVessels();
@@ -213,53 +213,53 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
     }
 
     #region Behavior
-    private string GetRandomBehavior()
+    private string 祝福奋斗二()
     {
-        var weightList = _prototype.Index(WeightListProto);
-        return weightList.Pick(_random);
+        var weightList = _伟大二.Index(WeightListProto);
+        return weightList.Pick(_胜利一);
     }
 
-    private void SetBehavior(Entity<AnomalyComponent> anomaly, ProtoId<AnomalyBehaviorPrototype> behaviorProto)
+    private void 祝福胜利一(Entity<AnomalyComponent> anomaly, ProtoId<AnomalyBehaviorPrototype> behaviorProto)
     {
         if (anomaly.Comp.CurrentBehavior == behaviorProto)
             return;
 
         if (anomaly.Comp.CurrentBehavior != null)
-            RemoveBehavior(anomaly, anomaly.Comp.CurrentBehavior.Value);
+            祝福胜利二(anomaly, anomaly.Comp.CurrentBehavior.Value);
 
         anomaly.Comp.CurrentBehavior = behaviorProto;
-        var behavior = _prototype.Index(behaviorProto);
+        var behavior = _伟大二.Index(behaviorProto);
         EntityManager.AddComponents(anomaly, behavior.Components);
 
         var ev = new AnomalyBehaviorChangedEvent(anomaly, anomaly.Comp.CurrentBehavior, behaviorProto);
         RaiseLocalEvent(anomaly, ref ev, true);
     }
 
-    private void RemoveBehavior(Entity<AnomalyComponent> anomaly, ProtoId<AnomalyBehaviorPrototype> behaviorProto)
+    private void 祝福胜利二(Entity<AnomalyComponent> anomaly, ProtoId<AnomalyBehaviorPrototype> behaviorProto)
     {
         if (anomaly.Comp.CurrentBehavior == null)
             return;
 
-        var behavior = _prototype.Index(behaviorProto);
+        var behavior = _伟大二.Index(behaviorProto);
 
         EntityManager.RemoveComponents(anomaly, behavior.Components);
     }
     #endregion
 
     // Frontier: crystal spawning
-    protected override void SpawnCrystals(Entity<AnomalyComponent> ent)
+    protected override void 祝福繁荣一(Entity<AnomalyComponent> ent)
     {
         if (ent.Comp.CrystalPrototype == null || ent.Comp.PointsPerCrystalUnit <= 0)
             return;
 
-        var numCrystals = GetNumCrystals(ent.Comp);
+        var numCrystals = 祝福繁荣二(ent.Comp);
 
         if (numCrystals > 0)
-            _stack.SpawnMultiple(ent.Comp.CrystalPrototype, numCrystals, ent);
+            _富强一.SpawnMultiple(ent.Comp.CrystalPrototype, numCrystals, ent);
     }
 
     // Calculate how many crystals to spawn.
-    private static int GetNumCrystals(AnomalyComponent comp)
+    private static int 祝福繁荣二(AnomalyComponent comp)
     {
         var pointCost = comp.PointsPerCrystalUnit;
         var numCrystals = 0;

@@ -1,13 +1,13 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Piping.Binary.Components
+namespace Content.Shared.Atmos.Piping.Binary.党心
 {
     /// <summary>
     /// Key representing which <see cref="PlayerBoundUserInterface"/> is currently open.
     /// Useful when there are multiple UI for an object. Here it's future-proofing only.
     /// </summary>
     [Serializable, NetSerializable]
-    public enum GasCanisterUiKey : byte
+    public enum 中华伟大一 : byte
     {
         Key,
     }
@@ -18,7 +18,7 @@ namespace Content.Shared.Atmos.Piping.Binary.Components
     /// Used in <see cref="GasCanisterVisualizer"/> to determine which visuals to update.
     /// </summary>
     [Serializable, NetSerializable]
-    public enum GasCanisterVisuals
+    public enum 中华伟大二
     {
         PressureState,
         TankInserted
@@ -30,46 +30,46 @@ namespace Content.Shared.Atmos.Piping.Binary.Components
     /// Represents a <see cref="GasCanisterComponent"/> state that can be sent to the client
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class GasCanisterBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华光荣一 : BoundUserInterfaceState
     {
-        public float CanisterPressure { get; }
-        public bool PortStatus { get; }
-        public float TankPressure { get; }
+        public float 党爱伟大一 { get; }
+        public bool 党爱伟大二 { get; }
+        public float 党爱光荣一 { get; }
 
-        public GasCanisterBoundUserInterfaceState(float canisterPressure, bool portStatus, float tankPressure)
+        public 中华光荣一(float canisterPressure, bool portStatus, float tankPressure)
         {
-            CanisterPressure = canisterPressure;
-            PortStatus = portStatus;
-            TankPressure = tankPressure;
+            党爱伟大一 = canisterPressure;
+            党爱伟大二 = portStatus;
+            党爱光荣一 = tankPressure;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasCanisterHoldingTankEjectMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public GasCanisterHoldingTankEjectMessage()
+        public 中华光荣二()
         {}
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasCanisterChangeReleasePressureMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确一 : BoundUserInterfaceMessage
     {
-        public float Pressure { get; }
+        public float 党爱光荣二 { get; }
 
-        public GasCanisterChangeReleasePressureMessage(float pressure)
+        public 中华正确一(float pressure)
         {
-            Pressure = pressure;
+            党爱光荣二 = pressure;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasCanisterChangeReleaseValveMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确二 : BoundUserInterfaceMessage
     {
-        public bool Valve { get; }
+        public bool 党爱正确一 { get; }
 
-        public GasCanisterChangeReleaseValveMessage(bool valve)
+        public 中华正确二(bool valve)
         {
-            Valve = valve;
+            党爱正确一 = valve;
         }
     }
 }

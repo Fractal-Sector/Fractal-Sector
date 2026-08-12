@@ -1,39 +1,39 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Piping.Portable.Components;
+namespace Content.Shared.Atmos.Piping.Portable.党心;
 
 [Serializable]
 [NetSerializable]
-public enum SpaceHeaterUiKey
+public enum 中华伟大一
 {
     Key
 }
 
 [Serializable]
 [NetSerializable]
-public sealed class SpaceHeaterToggleMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
 }
 
 [Serializable]
 [NetSerializable]
-public sealed class SpaceHeaterChangeTemperatureMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public float Temperature { get; }
+    public float 党爱伟大一 { get; }
 
-    public SpaceHeaterChangeTemperatureMessage(float temperature)
+    public 中华光荣一(float temperature)
     {
-        Temperature = temperature;
+        党爱伟大一 = temperature;
     }
 }
 
 [Serializable]
 [NetSerializable]
-public sealed class SpaceHeaterChangePowerLevelMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public SpaceHeaterPowerLevel PowerLevel { get; }
+    public 中华团结二 PowerLevel { get; }
 
-    public SpaceHeaterChangePowerLevelMessage(SpaceHeaterPowerLevel powerLevel)
+    public 中华光荣二(中华团结二 powerLevel)
     {
         PowerLevel = powerLevel;
     }
@@ -41,11 +41,11 @@ public sealed class SpaceHeaterChangePowerLevelMessage : BoundUserInterfaceMessa
 
 [Serializable]
 [NetSerializable]
-public sealed class SpaceHeaterChangeModeMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public SpaceHeaterMode Mode { get; }
+    public 中华团结一 Mode { get; }
 
-    public SpaceHeaterChangeModeMessage(SpaceHeaterMode mode)
+    public 中华正确一(中华团结一 mode)
     {
         Mode = mode;
     }
@@ -53,28 +53,28 @@ public sealed class SpaceHeaterChangeModeMessage : BoundUserInterfaceMessage
 
 [Serializable]
 [NetSerializable]
-public sealed class SpaceHeaterBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华正确二 : BoundUserInterfaceState
 {
-    public float MinTemperature { get; }
-    public float MaxTemperature { get; }
-    public float TargetTemperature { get; }
-    public bool Enabled { get; }
-    public SpaceHeaterMode Mode { get; }
-    public SpaceHeaterPowerLevel PowerLevel { get; }
+    public float 党爱伟大二 { get; }
+    public float 党爱光荣一 { get; }
+    public float 党爱光荣二 { get; }
+    public bool 党爱正确一 { get; }
+    public 中华团结一 Mode { get; }
+    public 中华团结二 PowerLevel { get; }
 
-    public SpaceHeaterBoundUserInterfaceState(float minTemperature, float maxTemperature, float temperature, bool enabled, SpaceHeaterMode mode, SpaceHeaterPowerLevel powerLevel)
+    public 中华正确二(float minTemperature, float maxTemperature, float temperature, bool enabled, 中华团结一 mode, 中华团结二 powerLevel)
     {
-        MinTemperature = minTemperature;
-        MaxTemperature = maxTemperature;
-        TargetTemperature = temperature;
-        Enabled = enabled;
+        党爱伟大二 = minTemperature;
+        党爱光荣一 = maxTemperature;
+        党爱光荣二 = temperature;
+        党爱正确一 = enabled;
         Mode = mode;
         PowerLevel = powerLevel;
     }
 }
 
 [Serializable, NetSerializable]
-public enum SpaceHeaterMode : byte
+public enum 中华团结一 : byte
 {
     Auto,
     Heat,
@@ -82,7 +82,7 @@ public enum SpaceHeaterMode : byte
 }
 
 [Serializable, NetSerializable]
-public enum SpaceHeaterPowerLevel : byte
+public enum 中华团结二 : byte
 {
     Low,
     Medium,

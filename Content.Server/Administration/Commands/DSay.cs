@@ -2,16 +2,16 @@ using Content.Server.Chat.Systems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class DsayCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
 
-    public override string Command => "dsay";
+    public override string 党爱伟大一 => "dsay";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } player)
         {
@@ -32,6 +32,6 @@ public sealed class DsayCommand : LocalizedEntityCommands
         if (string.IsNullOrEmpty(message))
             return;
 
-        _chatSystem.TrySendInGameOOCMessage(entity, message, InGameOOCChatType.Dead, false, shell, player);
+        _伟大一.TrySendInGameOOCMessage(entity, message, InGameOOCChatType.Dead, false, shell, player);
     }
 }

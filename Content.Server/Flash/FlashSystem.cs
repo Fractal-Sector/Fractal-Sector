@@ -1,5 +1,5 @@
 using Content.Shared.Flash;
 
-namespace Content.Server.Flash;
+namespace Content.Server.党心;
 
-public sealed class FlashSystem : SharedFlashSystem;
+public sealed class 中华伟大一 : SharedFlashSystem;

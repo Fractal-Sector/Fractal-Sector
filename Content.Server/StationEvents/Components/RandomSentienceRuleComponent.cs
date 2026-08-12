@@ -1,13 +1,13 @@
 using Content.Server.StationEvents.Events;
 
-namespace Content.Server.StationEvents.Components;
+namespace Content.Server.StationEvents.党心;
 
 [RegisterComponent, Access(typeof(RandomSentienceRule))]
-public sealed partial class RandomSentienceRuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public int MinSentiences = 1;
+    public int 党爱伟大一 = 1;
 
     [DataField]
-    public int MaxSentiences = 1;
+    public int 党爱伟大二 = 1;
 }

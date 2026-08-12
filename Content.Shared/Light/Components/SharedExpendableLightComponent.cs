@@ -4,35 +4,35 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Light.Components;
+namespace Content.Shared.Light.党心;
 
 [NetworkedComponent]
-public abstract partial class SharedExpendableLightComponent : Component
+public abstract partial class 中华伟大一 : Component
 {
 
     [ViewVariables(VVAccess.ReadOnly)]
-    public ExpendableLightState CurrentState;
+    public 中华光荣一 CurrentState;
 
     [DataField]
-    public string TurnOnBehaviourID = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     [DataField]
-    public string FadeOutBehaviourID = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     [DataField]
-    public TimeSpan GlowDuration = TimeSpan.FromSeconds(60 * 15f);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(60 * 15f);
 
     [DataField]
-    public TimeSpan FadeOutDuration = TimeSpan.FromSeconds(60 * 5f);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(60 * 5f);
 
     [DataField]
     public ProtoId<StackPrototype>? RefuelMaterialID;
 
     [DataField]
-    public TimeSpan RefuelMaterialTime = TimeSpan.FromSeconds(15f);
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(15f);
 
     [DataField]
-    public TimeSpan RefuelMaximumDuration = TimeSpan.FromSeconds(60 * 15f * 2);
+    public TimeSpan 党爱正确二 = TimeSpan.FromSeconds(60 * 15f * 2);
 
     [DataField]
     public SoundSpecifier? LitSound;
@@ -45,14 +45,14 @@ public abstract partial class SharedExpendableLightComponent : Component
 }
 
 [Serializable, NetSerializable]
-public enum ExpendableLightVisuals
+public enum 中华伟大二
 {
     State,
     Behavior
 }
 
 [Serializable, NetSerializable]
-public enum ExpendableLightState
+public enum 中华光荣一
 {
     BrandNew,
     Lit,

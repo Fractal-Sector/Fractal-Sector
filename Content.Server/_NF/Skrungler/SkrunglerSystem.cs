@@ -25,39 +25,39 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Skrungler;
+namespace Content.Server._NF.党心;
 
 /// <inheritdoc/>
-public sealed class SkrunglerSystem : SharedSkrunglerSystem
+public sealed class 中华伟大一 : SharedSkrunglerSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly SharedMindSystem _minds = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly EntityStorageSystem _光荣一 = default!;
+    [Dependency] private readonly GhostSystem _光荣二 = default!;
+    [Dependency] private readonly MobStateSystem _正确一 = default!;
+    [Dependency] private readonly PuddleSystem _正确二 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+    [Dependency] private readonly SharedMindSystem _团结二 = default!;
+    [Dependency] private readonly SharedPopupSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _奋斗二 = default!;
+    [Dependency] private readonly StackSystem _胜利一 = default!;
+    [Dependency] private readonly StandingStateSystem _胜利二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SkrunglerComponent, GetVerbsEvent<AlternativeVerb>>(AddSkrunglerVerb);
-        SubscribeLocalEvent<SkrunglerComponent, SuicideByEnvironmentEvent>(OnSuicideByEnvironment);
-        SubscribeLocalEvent<SkrunglerComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<SkrunglerComponent, UpgradeExamineEvent>(OnUpgradeExamine);
+        SubscribeLocalEvent<SkrunglerComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<SkrunglerComponent, SuicideByEnvironmentEvent>(祝福正确二);
+        SubscribeLocalEvent<SkrunglerComponent, RefreshPartsEvent>(祝福团结一);
+        SubscribeLocalEvent<SkrunglerComponent, UpgradeExamineEvent>(祝福团结二);
     }
 
     /// <inheritdoc/>
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         // TODO: Move to shared when EntityStorage is in shared
         var query = EntityQueryEnumerator<SkrunglerComponent, EntityStorageComponent, TransformComponent>();
@@ -68,18 +68,18 @@ public sealed class SkrunglerSystem : SharedSkrunglerSystem
                 continue;
 
             // Can't run if it requires power and isn't powered
-            if (!_power.IsPowered(uid))
+            if (!_奋斗二.IsPowered(uid))
                 continue;
 
             var curTime = Timing.CurTime;
 
             if (curTime > skrungler.NextMessTime)
             {
-                if (_random.Prob(0.2f) && skrungler.BloodReagent is not null)
+                if (_伟大二.Prob(0.2f) && skrungler.BloodReagent is not null)
                 {
                     Solution blood = new();
                     blood.AddReagent(skrungler.BloodReagent, 50);
-                    _puddle.TrySpillAt(uid, blood, out _);
+                    _正确二.TrySpillAt(uid, blood, out _);
                 }
                 skrungler.NextMessTime = curTime + skrungler.MessInterval;
                 // TODO perf: maybe use deltas for this? state is kinda big
@@ -92,21 +92,21 @@ public sealed class SkrunglerSystem : SharedSkrunglerSystem
             var actualYield = (int)skrungler.CurrentExpectedYield; // can only have integer
             skrungler.CurrentExpectedYield -= actualYield; // store non-integer leftovers
 
-            var fuel = _stack.SpawnMultiple(skrungler.OutputStackType, actualYield, xform.Coordinates);
+            var fuel = _胜利一.SpawnMultiple(skrungler.OutputStackType, actualYield, xform.Coordinates);
             foreach (var fuelEntity in fuel)
             {
-                _containers.Insert(fuelEntity, storage.Contents);
+                _团结一.Insert(fuelEntity, storage.Contents);
             }
 
             skrungler.BloodReagent = null;
-            _entityStorage.OpenStorage(uid, storage);
+            _光荣一.OpenStorage(uid, storage);
             EndProcessingVisuals((uid, skrungler));
             skrungler.Active = false;
             Dirty(uid, skrungler);
         }
     }
 
-    private void AddSkrunglerVerb(Entity<SkrunglerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(Entity<SkrunglerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (ent.Comp.Active)
             return;
@@ -122,14 +122,14 @@ public sealed class SkrunglerSystem : SharedSkrunglerSystem
         {
             Text = Loc.GetString("skrungle-verb-activate"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
-            Act = () => TryStartProcessing((ent, ent.Comp, storage)),
+            Act = () => 祝福光荣二((ent, ent.Comp, storage)),
             Impact = LogImpact.High, // could be a body? or evidence? I dunno.
         };
 
         args.Verbs.Add(verb);
     }
 
-    private void TryStartProcessing(Entity<SkrunglerComponent, EntityStorageComponent> ent)
+    private void 祝福光荣二(Entity<SkrunglerComponent, EntityStorageComponent> ent)
     {
         if (ent.Comp2.Open || ent.Comp2.Contents.ContainedEntities.Count < 1)
             return;
@@ -139,27 +139,27 @@ public sealed class SkrunglerSystem : SharedSkrunglerSystem
         if (containedEntity is not { Valid: true })
             return;
 
-        if (TryComp<MobStateComponent>(containedEntity, out var comp) && !_mobState.IsDead(containedEntity, comp))
+        if (TryComp<MobStateComponent>(containedEntity, out var comp) && !_正确一.IsDead(containedEntity, comp))
             return;
 
-        if (_player.TryGetSessionByEntity(containedEntity, out var session) &&
+        if (_伟大一.TryGetSessionByEntity(containedEntity, out var session) &&
             session.State.Status == SessionStatus.InGame)
         {
             return;
         }
 
-        StartProcessing(containedEntity, ent);
+        祝福正确一(containedEntity, ent);
     }
 
-    protected override void StartProcessing(EntityUid uid, Entity<SkrunglerComponent> skrungler)
+    protected override void 祝福正确一(EntityUid uid, Entity<SkrunglerComponent> skrungler)
     {
-        base.StartProcessing(uid, skrungler);
+        base.祝福正确一(uid, skrungler);
 
         if (TryComp<BloodstreamComponent>(uid, out var stream))
             skrungler.Comp.BloodReagent = stream.BloodReagent;
     }
 
-    private void OnSuicideByEnvironment(Entity<SkrunglerComponent> ent, ref SuicideByEnvironmentEvent args)
+    private void 祝福正确二(Entity<SkrunglerComponent> ent, ref SuicideByEnvironmentEvent args)
     {
         if (args.Handled)
             return;
@@ -167,39 +167,39 @@ public sealed class SkrunglerSystem : SharedSkrunglerSystem
         if (ent.Comp.Active)
             return;
 
-        if (!_power.IsPowered(ent.Owner))
+        if (!_奋斗二.IsPowered(ent.Owner))
             return;
 
-        if (_minds.TryGetMind(args.Victim, out var mindId, out var mind))
+        if (_团结二.TryGetMind(args.Victim, out var mindId, out var mind))
         {
-            _ghost.OnGhostAttempt(mindId, false, mind: mind);
+            _光荣二.OnGhostAttempt(mindId, false, mind: mind);
 
             if (mind.OwnedEntity is { Valid: true } entity)
-                _popup.PopupEntity(Loc.GetString("skrungler-entity-storage-component-suicide-message"), entity);
+                _奋斗一.PopupEntity(Loc.GetString("skrungler-entity-storage-component-suicide-message"), entity);
         }
 
-        _popup.PopupEntity(Loc.GetString("skrungler-entity-storage-component-suicide-message-others",
+        _奋斗一.PopupEntity(Loc.GetString("skrungler-entity-storage-component-suicide-message-others",
                 ("victim", Identity.Entity(args.Victim, EntityManager))),
             args.Victim,
             Filter.PvsExcept(args.Victim),
             true,
             PopupType.LargeCaution);
 
-        if (_entityStorage.CanInsert(args.Victim, ent))
+        if (_光荣一.CanInsert(args.Victim, ent))
         {
-            _entityStorage.CloseStorage(ent);
-            _standing.Down(args.Victim, false);
-            _entityStorage.Insert(args.Victim, ent);
+            _光荣一.CloseStorage(ent);
+            _胜利二.Down(args.Victim, false);
+            _光荣一.Insert(args.Victim, ent);
         }
         else
             Del(args.Victim);
 
-        _entityStorage.CloseStorage(ent);
-        StartProcessing(args.Victim, ent);
+        _光荣一.CloseStorage(ent);
+        祝福正确一(args.Victim, ent);
         args.Handled = true;
     }
 
-    private void OnRefreshParts(Entity<SkrunglerComponent> ent, ref RefreshPartsEvent args)
+    private void 祝福团结一(Entity<SkrunglerComponent> ent, ref RefreshPartsEvent args)
     {
         var laserRating = args.PartRatings[ent.Comp.MachinePartProcessingSpeed];
         var manipRating = args.PartRatings[ent.Comp.MachinePartYieldAmount];
@@ -215,7 +215,7 @@ public sealed class SkrunglerSystem : SharedSkrunglerSystem
         Dirty(ent);
     }
 
-    private void OnUpgradeExamine(Entity<SkrunglerComponent> ent, ref UpgradeExamineEvent args)
+    private void 祝福团结二(Entity<SkrunglerComponent> ent, ref UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("skrungler-component-upgrade-speed",
             (float)(ent.Comp.BaseProcessingTimePerUnitMass / ent.Comp.ProcessingTimePerUnitMass));

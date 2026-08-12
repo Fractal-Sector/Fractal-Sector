@@ -2,19 +2,19 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.RetractableItemAction;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Used for storing an unremovable item within an action and summoning it into your hand on use.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(RetractableItemActionSystem))]
-public sealed partial class RetractableItemActionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The item that will appear be spawned by the action.
     /// </summary>
     [DataField(required: true)]
-    public EntProtoId SpawnedPrototype;
+    public EntProtoId 党爱伟大一;
 
     /// <summary>
     /// Sound collection to play when the item is summoned.
@@ -37,5 +37,5 @@ public sealed partial class RetractableItemActionComponent : Component
     /// <summary>
     /// The container ID used to store the item.
     /// </summary>
-    public const string ContainerId = "item-action-item-container";
+    public const string 党爱伟大二 = "item-action-item-container";
 }

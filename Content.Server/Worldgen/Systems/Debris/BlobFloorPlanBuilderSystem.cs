@@ -5,31 +5,31 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.Worldgen.Systems.Debris;
+namespace Content.Server.Worldgen.Systems.党心;
 
 /// <summary>
 ///     This handles building the floor plans for "blobby" debris.
 /// </summary>
-public sealed class BlobFloorPlanBuilderSystem : BaseWorldSystem
+public sealed class 中华伟大一 : BaseWorldSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinition = default!;
-    [Dependency] private readonly TileSystem _tiles = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly ITileDefinitionManager _伟大二 = default!;
+    [Dependency] private readonly TileSystem _光荣一 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣二 = default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<BlobFloorPlanBuilderComponent, ComponentStartup>(OnBlobFloorPlanBuilderStartup);
+        SubscribeLocalEvent<BlobFloorPlanBuilderComponent, ComponentStartup>(祝福伟大二);
     }
 
-    private void OnBlobFloorPlanBuilderStartup(EntityUid uid, BlobFloorPlanBuilderComponent component,
+    private void 祝福伟大二(EntityUid uid, BlobFloorPlanBuilderComponent component,
         ComponentStartup args)
     {
-        PlaceFloorplanTiles(uid, component, Comp<MapGridComponent>(uid));
+        祝福光荣一(uid, component, Comp<MapGridComponent>(uid));
     }
 
-    private void PlaceFloorplanTiles(EntityUid gridUid, BlobFloorPlanBuilderComponent comp, MapGridComponent grid)
+    private void 祝福光荣一(EntityUid gridUid, BlobFloorPlanBuilderComponent comp, MapGridComponent grid)
     {
         // NO MORE THAN TWO ALLOCATIONS THANK YOU VERY MUCH.
         // TODO: Just put these on a field instead then?
@@ -59,31 +59,31 @@ public sealed class BlobFloorPlanBuilderSystem : BaseWorldSystem
             if (!taken.ContainsKey(west) && Math.Pow(west.X, 2) + Math.Pow(west.Y, 2) <= radsq)
                 spawnPoints.Add(west);
 
-            var tileDef = _tileDefinition[_random.Pick(comp.FloorTileset)];
-            taken.Add(point, new Tile(tileDef.TileId, 0, _tiles.PickVariant((ContentTileDefinition) tileDef)));
+            var tileDef = _伟大二[_伟大一.Pick(comp.FloorTileset)];
+            taken.Add(point, new Tile(tileDef.TileId, 0, _光荣一.PickVariant((ContentTileDefinition) tileDef)));
         }
 
         PlaceTile(Vector2i.Zero);
 
         for (var i = 0; i < comp.FloorPlacements; i++)
         {
-            var point = _random.Pick(spawnPoints);
+            var point = _伟大一.Pick(spawnPoints);
             PlaceTile(point);
 
             if (comp.BlobDrawProb > 0.0f)
             {
-                if (!taken.ContainsKey(point.Offset(Direction.North)) && _random.Prob(comp.BlobDrawProb))
+                if (!taken.ContainsKey(point.Offset(Direction.North)) && _伟大一.Prob(comp.BlobDrawProb))
                     PlaceTile(point.Offset(Direction.North));
-                if (!taken.ContainsKey(point.Offset(Direction.South)) && _random.Prob(comp.BlobDrawProb))
+                if (!taken.ContainsKey(point.Offset(Direction.South)) && _伟大一.Prob(comp.BlobDrawProb))
                     PlaceTile(point.Offset(Direction.South));
-                if (!taken.ContainsKey(point.Offset(Direction.East)) && _random.Prob(comp.BlobDrawProb))
+                if (!taken.ContainsKey(point.Offset(Direction.East)) && _伟大一.Prob(comp.BlobDrawProb))
                     PlaceTile(point.Offset(Direction.East));
-                if (!taken.ContainsKey(point.Offset(Direction.West)) && _random.Prob(comp.BlobDrawProb))
+                if (!taken.ContainsKey(point.Offset(Direction.West)) && _伟大一.Prob(comp.BlobDrawProb))
                     PlaceTile(point.Offset(Direction.West));
             }
         }
 
-        _map.SetTiles(gridUid, grid, taken.Select(x => (x.Key, x.Value)).ToList());
+        _光荣二.SetTiles(gridUid, grid, taken.Select(x => (x.Key, x.Value)).ToList());
     }
 }
 

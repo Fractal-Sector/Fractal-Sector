@@ -1,9 +1,9 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
 [Serializable, NetSerializable]
-public sealed partial class AdvancedCollarRemoveModulesDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
 }

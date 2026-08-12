@@ -6,17 +6,17 @@ using Robust.Server.GameObjects;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
 // This part of the system handled send visual / overlay data to clients.
-public sealed partial class ExplosionSystem
+public sealed partial class 中华伟大一
 {
-    public void InitVisuals()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<ExplosionVisualsComponent, ComponentGetState>(OnGetState);
+        SubscribeLocalEvent<ExplosionVisualsComponent, ComponentGetState>(祝福伟大二);
     }
 
-    private void OnGetState(EntityUid uid, ExplosionVisualsComponent component, ref ComponentGetState args)
+    private void 祝福伟大二(EntityUid uid, ExplosionVisualsComponent component, ref ComponentGetState args)
     {
         Dictionary<NetEntity, Dictionary<int, List<Vector2i>>> tileLists = new();
         foreach (var (grid, data) in component.Tiles)
@@ -37,7 +37,7 @@ public sealed partial class ExplosionSystem
     /// <summary>
     ///     Constructor for the shared <see cref="ExplosionEvent"/> using the server-exclusive explosion classes.
     /// </summary>
-    private EntityUid CreateExplosionVisualEntity(MapCoordinates epicenter, string prototype, Matrix3x2 spaceMatrix, ExplosionSpaceTileFlood? spaceData, IEnumerable<ExplosionGridTileFlood> gridData, List<float> iterationIntensity)
+    private EntityUid 祝福光荣一(MapCoordinates epicenter, string prototype, Matrix3x2 spaceMatrix, ExplosionSpaceTileFlood? spaceData, IEnumerable<ExplosionGridTileFlood> gridData, List<float> iterationIntensity)
     {
         var explosionEntity = Spawn(null, MapCoordinates.Nullspace);
         var comp = AddComp<ExplosionVisualsComponent>(explosionEntity);

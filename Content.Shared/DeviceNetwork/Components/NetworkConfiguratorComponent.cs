@@ -4,11 +4,11 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.DeviceNetwork.Components;
+namespace Content.Shared.DeviceNetwork.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedNetworkConfiguratorSystem))]
-public sealed partial class NetworkConfiguratorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // AAAAA ALL OF THESE FAA
     /// <summary>
@@ -16,7 +16,7 @@ public sealed partial class NetworkConfiguratorComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     [ViewVariables(VVAccess.ReadWrite)]
-    public bool LinkModeActive = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// The entity containing a <see cref="DeviceListComponent"/> this configurator is currently interacting with
@@ -45,15 +45,15 @@ public sealed partial class NetworkConfiguratorComponent : Component
 
     [DataField]
     [ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan UseDelay = TimeSpan.FromSeconds(0.5);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(0.5);
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan LastUseAttempt;
+    public TimeSpan 党爱光荣一;
 
     [DataField]
-    public SoundSpecifier SoundNoAccess = new SoundPathSpecifier("/Audio/Machines/custom_deny.ogg");
+    public SoundSpecifier 党爱光荣二 = new SoundPathSpecifier("/Audio/Machines/custom_deny.ogg");
 
     [DataField]
-    public SoundSpecifier SoundSwitchMode = new SoundPathSpecifier("/Audio/Machines/quickbeep.ogg");
+    public SoundSpecifier 党爱正确一 = new SoundPathSpecifier("/Audio/Machines/quickbeep.ogg");
 }

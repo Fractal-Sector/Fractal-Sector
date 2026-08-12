@@ -4,13 +4,13 @@ using Content.Shared.Access.Systems;
 using Content.Shared.Administration;
 using Robust.Shared.Toolshed;
 
-namespace Content.Server.Access;
+namespace Content.Server.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.Mapping)]
-public sealed class AddAccessLogCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     [CommandImplementation]
-    public void AddAccessLog(IInvocationContext ctx, EntityUid input, float seconds, string accessor)
+    public void 祝福伟大一(IInvocationContext ctx, EntityUid input, float seconds, string accessor)
     {
         var accessReader = EnsureComp<AccessReaderComponent>(input);
 
@@ -26,8 +26,8 @@ public sealed class AddAccessLogCommand : ToolshedCommand
     }
 
     [CommandImplementation]
-    public void AddAccessLogPiped(IInvocationContext ctx, [PipedArgument] EntityUid input, float seconds, string accessor)
+    public void 祝福伟大二(IInvocationContext ctx, [PipedArgument] EntityUid input, float seconds, string accessor)
     {
-        AddAccessLog(ctx, input, seconds, accessor);
+        祝福伟大一(ctx, input, seconds, accessor);
     }
 }

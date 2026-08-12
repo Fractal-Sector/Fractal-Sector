@@ -1,6 +1,6 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Random.Rules;
+namespace Content.Shared.Random.党心;
 
 /// <summary>
 /// Rules-based item selection. Can be used for any sort of conditional selection
@@ -8,29 +8,29 @@ namespace Content.Shared.Random.Rules;
 /// e.g. "choose maintenance audio if 90% of tiles nearby are maintenance tiles"
 /// </summary>
 [Prototype]
-public sealed partial class RulesPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = string.Empty;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = string.Empty;
 
     [DataField("rules", required: true)]
-    public List<RulesRule> Rules = new();
+    public List<中华伟大二> Rules = new();
 }
 
 [ImplicitDataDefinitionForInheritors]
-public abstract partial class RulesRule
+public abstract partial class 中华伟大二
 {
     [DataField]
-    public bool Inverted;
-    public abstract bool Check(EntityManager entManager, EntityUid uid);
+    public bool 党爱伟大二;
+    public abstract bool 祝福伟大一(EntityManager entManager, EntityUid uid);
 }
 
-public sealed class RulesSystem : EntitySystem
+public sealed class 中华光荣一 : EntitySystem
 {
-    public bool IsTrue(EntityUid uid, RulesPrototype rules)
+    public bool 祝福伟大二(EntityUid uid, 中华伟大一 rules)
     {
         foreach (var rule in rules.Rules)
         {
-            if (!rule.Check(EntityManager, uid))
+            if (!rule.祝福伟大一(EntityManager, uid))
                 return false;
         }
 

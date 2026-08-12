@@ -11,30 +11,30 @@ using System.Numerics;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared._CS.Weapons.Ranged.Systems;
 
-namespace Content.Server._CS.Weapons.Ranged.Systems;
+namespace Content.Server._CS.Weapons.Ranged.党心;
 
-public sealed class SizeManipulatorSystem : SharedSizeManipulatorSystem
+public sealed class 中华伟大一 : SharedSizeManipulatorSystem
 {
-    [Dependency] private readonly SizeManipulationSystem _sizeManipulation = default!;
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
-    [Dependency] private readonly GunSystem _gunSystem = default!;
+    [Dependency] private readonly SizeManipulationSystem _伟大一 = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大二 = default!;
+    [Dependency] private readonly GunSystem _光荣一 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _sawmill = Logger.GetSawmill("size_manipulator");
+        _光荣二 = Logger.GetSawmill("size_manipulator");
 
-        SubscribeLocalEvent<SizeManipulatorComponent, AmmoShotEvent>(OnAmmoShot);
-        SubscribeLocalEvent<BulletSizeManipulatorComponent, ProjectileHitEvent>(OnProjectileHit);
+        SubscribeLocalEvent<SizeManipulatorComponent, AmmoShotEvent>(祝福光荣二);
+        SubscribeLocalEvent<BulletSizeManipulatorComponent, ProjectileHitEvent>(祝福正确一);
 
-        SubscribeLocalEvent<FireOnSignalComponent, SignalReceivedEvent>(OnSignalReceived);
-        SubscribeLocalEvent<FireOnSignalComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<FireOnSignalComponent, SignalReceivedEvent>(祝福伟大二);
+        SubscribeLocalEvent<FireOnSignalComponent, ComponentInit>(祝福光荣一);
     }
 
-    private void OnSignalReceived(EntityUid uid, FireOnSignalComponent component, ref SignalReceivedEvent args)
+    private void 祝福伟大二(EntityUid uid, FireOnSignalComponent component, ref SignalReceivedEvent args)
     {
         if (!TryComp<GunComponent>(uid, out var gun) || !TryComp<SizeManipulatorComponent>(uid, out var sizeManip))
             return;
@@ -67,15 +67,15 @@ public sealed class SizeManipulatorSystem : SharedSizeManipulatorSystem
         // Guns shoot down by default, so rotating 90 degrees makes them shoot in the visual direction
         var dir = gun.DefaultDirection;
         dir = new Vector2(-dir.Y, dir.X); // 90 degrees counter-clockwise rotation
-        _gunSystem.AttemptShoot(uid, uid, gun, new EntityCoordinates(uid, dir));
+        _光荣一.AttemptShoot(uid, uid, gun, new EntityCoordinates(uid, dir));
     }
 
-    private void OnInit(EntityUid uid, FireOnSignalComponent component, ComponentInit args)
+    private void 祝福光荣一(EntityUid uid, FireOnSignalComponent component, ComponentInit args)
     {
-        _deviceLink.EnsureSinkPorts(uid, component.GrowPort, component.ShrinkPort);
+        _伟大二.EnsureSinkPorts(uid, component.GrowPort, component.ShrinkPort);
     }
 
-    private void OnAmmoShot(EntityUid uid, SizeManipulatorComponent component, AmmoShotEvent args)
+    private void 祝福光荣二(EntityUid uid, SizeManipulatorComponent component, AmmoShotEvent args)
     {
         // Update all fired projectiles with the safety state from the gun
         foreach (var projectile in args.FiredProjectiles)
@@ -88,19 +88,19 @@ public sealed class SizeManipulatorSystem : SharedSizeManipulatorSystem
         }
     }
 
-    private void OnProjectileHit(EntityUid uid, BulletSizeManipulatorComponent component, ref ProjectileHitEvent args)
+    private void 祝福正确一(EntityUid uid, BulletSizeManipulatorComponent component, ref ProjectileHitEvent args)
     {
         var hitEntity = args.Target;
 
         if (!Exists(hitEntity))
         {
-            _sawmill.Debug("SizeManipulator: Hit entity doesn't exist");
+            _光荣二.Debug("SizeManipulator: Hit entity doesn't exist");
             return;
         }
 
-        _sawmill.Debug($"SizeManipulator: Projectile {ToPrettyString(uid)} hit entity {ToPrettyString(hitEntity)}, applying size change mode: {component.Mode}, safety disabled: {component.SafetyDisabled}");
+        _光荣二.Debug($"SizeManipulator: Projectile {ToPrettyString(uid)} hit entity {ToPrettyString(hitEntity)}, applying size change mode: {component.Mode}, safety disabled: {component.SafetyDisabled}");
 
         // Apply size change to the hit entity, passing the safety state
-        _sizeManipulation.TryChangeSize(hitEntity, component.Mode, args.Shooter, component.SafetyDisabled);
+        _伟大一.TryChangeSize(hitEntity, component.Mode, args.Shooter, component.SafetyDisabled);
     }
 }

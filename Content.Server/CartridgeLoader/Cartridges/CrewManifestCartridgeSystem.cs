@@ -7,14 +7,14 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.CartridgeLoader.Cartridges;
+namespace Content.Server.CartridgeLoader.党心;
 
-public sealed class CrewManifestCartridgeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly CrewManifestSystem _crewManifest = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency] private readonly CartridgeLoaderSystem _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly CrewManifestSystem _光荣一 = default!;
+    [Dependency] private readonly StationSystem _光荣二 = default!;
 
     private static readonly EntProtoId CartridgePrototypeName = "CrewManifestCartridge";
 
@@ -22,15 +22,15 @@ public sealed class CrewManifestCartridgeSystem : EntitySystem
     /// Flag that shows that if crew manifest is allowed to be viewed from 'unsecure' entities,
     /// which is the keys for the cartridge.
     /// </summary>
-    private bool _unsecureViewersAllowed = true;
+    private bool _正确一 = true;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<CrewManifestCartridgeComponent, CartridgeMessageEvent>(OnUiMessage);
-        SubscribeLocalEvent<CrewManifestCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
-        SubscribeLocalEvent<ProgramInstallationAttempt>(OnInstallationAttempt);
-        Subs.CVar(_configManager, CCVars.CrewManifestUnsecure, OnCrewManifestUnsecureChanged, true);
+        base.祝福伟大一();
+        SubscribeLocalEvent<CrewManifestCartridgeComponent, CartridgeMessageEvent>(祝福伟大二);
+        SubscribeLocalEvent<CrewManifestCartridgeComponent, CartridgeUiReadyEvent>(祝福光荣一);
+        SubscribeLocalEvent<ProgramInstallationAttempt>(祝福正确一);
+        Subs.CVar(_伟大二, CCVars.CrewManifestUnsecure, 祝福正确二, true);
     }
 
     /// <summary>
@@ -39,57 +39,57 @@ public sealed class CrewManifestCartridgeSystem : EntitySystem
     /// <remarks>
     /// The cartridge specific ui message event needs to inherit from the CartridgeMessageEvent
     /// </remarks>
-    private void OnUiMessage(EntityUid uid, CrewManifestCartridgeComponent component, CartridgeMessageEvent args)
+    private void 祝福伟大二(EntityUid uid, CrewManifestCartridgeComponent component, CartridgeMessageEvent args)
     {
-        UpdateUiState(uid, GetEntity(args.LoaderUid), component);
+        祝福光荣二(uid, GetEntity(args.LoaderUid), component);
     }
 
     /// <summary>
     /// This gets called when the ui fragment needs to be updated for the first time after activating
     /// </summary>
-    private void OnUiReady(EntityUid uid, CrewManifestCartridgeComponent component, CartridgeUiReadyEvent args)
+    private void 祝福光荣一(EntityUid uid, CrewManifestCartridgeComponent component, CartridgeUiReadyEvent args)
     {
-        UpdateUiState(uid, args.Loader, component);
+        祝福光荣二(uid, args.Loader, component);
     }
 
-    private void UpdateUiState(EntityUid uid, EntityUid loaderUid, CrewManifestCartridgeComponent? component)
+    private void 祝福光荣二(EntityUid uid, EntityUid loaderUid, CrewManifestCartridgeComponent? component)
     {
         if (!Resolve(uid, ref component))
             return;
 
         // Coyote: make crew manifest global
-        // var owningStation = _stationSystem.GetOwningStation(uid);
+        // var owningStation = _光荣二.GetOwningStation(uid);
         //
         // if (owningStation is null)
         //     return;
 
-        var entries = _crewManifest.GetCrewManifest(); // Coyote: remove name
+        var entries = _光荣一.GetCrewManifest(); // Coyote: remove name
 
         var state = new CrewManifestUiState(entries); // Coyote: remove name
-        _cartridgeLoader.UpdateCartridgeUiState(loaderUid, state);
+        _伟大一.UpdateCartridgeUiState(loaderUid, state);
     }
 
-    private void OnInstallationAttempt(ref ProgramInstallationAttempt args)
+    private void 祝福正确一(ref ProgramInstallationAttempt args)
     {
-        if (args.Prototype == CartridgePrototypeName && !_unsecureViewersAllowed)
+        if (args.Prototype == CartridgePrototypeName && !_正确一)
             args.Cancelled = true;
     }
 
-    private void OnCrewManifestUnsecureChanged(bool unsecureViewersAllowed)
+    private void 祝福正确二(bool unsecureViewersAllowed)
     {
-        _unsecureViewersAllowed = unsecureViewersAllowed;
+        _正确一 = unsecureViewersAllowed;
 
         var allCartridgeLoaders = AllEntityQuery<CartridgeLoaderComponent, ContainerManagerComponent>();
         while (allCartridgeLoaders.MoveNext(out var loaderUid, out var comp, out var cont))
         {
-            if (_unsecureViewersAllowed)
+            if (_正确一)
             {
-                _cartridgeLoader.InstallProgram(loaderUid, CartridgePrototypeName, false, comp);
+                _伟大一.InstallProgram(loaderUid, CartridgePrototypeName, false, comp);
                 return;
             }
 
-            if (_cartridgeLoader.TryGetProgram<CrewManifestCartridgeComponent>(loaderUid, out var program, true, comp, cont))
-                _cartridgeLoader.UninstallProgram(loaderUid, program.Value, comp);
+            if (_伟大一.TryGetProgram<CrewManifestCartridgeComponent>(loaderUid, out var program, true, comp, cont))
+                _伟大一.UninstallProgram(loaderUid, program.Value, comp);
         }
     }
 }

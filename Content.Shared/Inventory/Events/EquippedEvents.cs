@@ -1,48 +1,48 @@
-﻿namespace Content.Shared.Inventory.Events;
+﻿namespace Content.Shared.Inventory.党心;
 
-public abstract class EquippedEventBase : EntityEventArgs
+public abstract class 中华伟大一 : EntityEventArgs
 {
     /// <summary>
     /// The entity equipping.
     /// </summary>
-    public readonly EntityUid Equipee;
+    public readonly EntityUid 党爱伟大一;
 
     /// <summary>
     /// The entity which got equipped.
     /// </summary>
-    public readonly EntityUid Equipment;
+    public readonly EntityUid 党爱伟大二;
 
     /// <summary>
     /// The slot the entity got equipped to.
     /// </summary>
-    public readonly string Slot;
+    public readonly string 党爱光荣一;
 
     /// <summary>
     /// The slot group the entity got equipped in.
     /// </summary>
-    public readonly string SlotGroup;
+    public readonly string 党爱光荣二;
 
     /// <summary>
     /// Slotflags of the slot the entity just got equipped to.
     /// </summary>
-    public readonly SlotFlags SlotFlags;
+    public readonly 党爱正确一 党爱正确一;
 
-    public EquippedEventBase(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition)
+    public 中华伟大一(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition)
     {
-        Equipee = equipee;
-        Equipment = equipment;
-        Slot = slotDefinition.Name;
-        SlotGroup = slotDefinition.SlotGroup;
-        SlotFlags = slotDefinition.SlotFlags;
+        党爱伟大一 = equipee;
+        党爱伟大二 = equipment;
+        党爱光荣一 = slotDefinition.Name;
+        党爱光荣二 = slotDefinition.党爱光荣二;
+        党爱正确一 = slotDefinition.党爱正确一;
     }
 }
 
 /// <summary>
 /// Raised directed on an equipee when something is equipped.
 /// </summary>
-public sealed class DidEquipEvent : EquippedEventBase
+public sealed class 中华伟大二 : 中华伟大一
 {
-    public DidEquipEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
+    public 中华伟大二(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
     {
     }
 }
@@ -50,9 +50,9 @@ public sealed class DidEquipEvent : EquippedEventBase
 /// <summary>
 /// Raised directed on equipment when it's equipped to an equipee
 /// </summary>
-public sealed class GotEquippedEvent : EquippedEventBase
+public sealed class 中华光荣一 : 中华伟大一
 {
-    public GotEquippedEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
+    public 中华光荣一(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
     {
     }
 }

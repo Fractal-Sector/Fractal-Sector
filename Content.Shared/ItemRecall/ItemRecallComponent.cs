@@ -1,13 +1,13 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.ItemRecall;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Component for the ItemRecall action.
 /// Used for marking a held item and recalling it back into your hand with second action use.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(SharedItemRecallSystem))]
-public sealed partial class ItemRecallComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The name the action should have while an entity is marked.

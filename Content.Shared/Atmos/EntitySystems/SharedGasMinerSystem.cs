@@ -2,26 +2,26 @@ using Content.Shared.Atmos.Components;
 using Content.Shared.Examine;
 using Content.Shared.Temperature;
 
-namespace Content.Shared.Atmos.EntitySystems;
+namespace Content.Shared.Atmos.党心;
 
-public abstract class SharedGasMinerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAtmosphereSystem _sharedAtmosphereSystem = default!;
+    [Dependency] private readonly SharedAtmosphereSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GasMinerComponent, ExaminedEvent>(OnExamine);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GasMinerComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamine(Entity<GasMinerComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<GasMinerComponent> ent, ref ExaminedEvent args)
     {
         var component = ent.Comp;
 
         using (args.PushGroup(nameof(GasMinerComponent)))
         {
             args.PushMarkup(Loc.GetString("gas-miner-mines-text",
-                ("gas", Loc.GetString(_sharedAtmosphereSystem.GetGas(component.SpawnGas).Name))));
+                ("gas", Loc.GetString(_伟大一.GetGas(component.SpawnGas).Name))));
 
             args.PushText(Loc.GetString("gas-miner-amount-text",
                 ("moles", $"{component.SpawnAmount:0.#}")));

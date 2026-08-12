@@ -1,18 +1,18 @@
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Ghost;
+namespace Content.Server.党心;
 
 [AnyCommand]
-internal sealed partial class GhostFollowEntityCommand : LocalizedEntityCommands
+internal sealed partial class 中华伟大一 : LocalizedEntityCommands
 {
-    public const string CommandName = "ghost_follow_entity";
+    public const string 党爱伟大一 = "ghost_follow_entity";
 
-    [Dependency] private GhostSystem _ghost = null!;
+    [Dependency] private GhostSystem _伟大一 = null!;
 
-    public override string Command => CommandName;
+    public override string 党爱伟大二 => 党爱伟大一;
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1 || shell.Player is not { } player)
             return;
@@ -21,6 +21,6 @@ internal sealed partial class GhostFollowEntityCommand : LocalizedEntityCommands
         if (!NetEntity.TryParse(target, out var targetEnt))
             return;
 
-        _ghost.GhostWarpRequest(player, targetEnt);
+        _伟大一.GhostWarpRequest(player, targetEnt);
     }
 }

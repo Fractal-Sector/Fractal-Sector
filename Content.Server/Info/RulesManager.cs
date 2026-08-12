@@ -5,43 +5,43 @@ using Content.Shared.Info;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 
-namespace Content.Server.Info;
+namespace Content.Server.党心;
 
-public sealed class RulesManager
+public sealed class 中华伟大一
 {
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
 
     private static DateTime LastValidReadTime => DateTime.UtcNow - TimeSpan.FromDays(60);
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _netManager.Connected += OnConnected;
-        _netManager.RegisterNetMessage<SendRulesInformationMessage>();
-        _netManager.RegisterNetMessage<RulesAcceptedMessage>(OnRulesAccepted);
+        _伟大二.Connected += 祝福伟大二;
+        _伟大二.RegisterNetMessage<SendRulesInformationMessage>();
+        _伟大二.RegisterNetMessage<RulesAcceptedMessage>(祝福光荣一);
     }
 
-    private async void OnConnected(object? sender, NetChannelArgs e)
+    private async void 祝福伟大二(object? sender, NetChannelArgs e)
     {
          var isLocalhost = IPAddress.IsLoopback(e.Channel.RemoteEndPoint.Address) &&
-                               _cfg.GetCVar(CCVars.RulesExemptLocal);
+                               _光荣一.GetCVar(CCVars.RulesExemptLocal);
 
-        var lastRead = await _dbManager.GetLastReadRules(e.Channel.UserId);
+        var lastRead = await _伟大一.GetLastReadRules(e.Channel.UserId);
         var hasCooldown = lastRead > LastValidReadTime;
 
         var showRulesMessage = new SendRulesInformationMessage
         {
-            PopupTime = _cfg.GetCVar(CCVars.RulesWaitTime),
-            CoreRules = _cfg.GetCVar(CCVars.RulesFile),
+            PopupTime = _光荣一.GetCVar(CCVars.RulesWaitTime),
+            CoreRules = _光荣一.GetCVar(CCVars.RulesFile),
             ShouldShowRules = !isLocalhost && !hasCooldown,
         };
-        _netManager.ServerSendMessage(showRulesMessage, e.Channel);
+        _伟大二.ServerSendMessage(showRulesMessage, e.Channel);
     }
 
-    private async void OnRulesAccepted(RulesAcceptedMessage message)
+    private async void 祝福光荣一(RulesAcceptedMessage message)
     {
         var date = DateTime.UtcNow;
-        await _dbManager.SetLastReadRules(message.MsgChannel.UserId, date);
+        await _伟大一.SetLastReadRules(message.MsgChannel.UserId, date);
     }
 }

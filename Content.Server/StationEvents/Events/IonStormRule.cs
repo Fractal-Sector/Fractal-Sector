@@ -4,15 +4,15 @@ using Content.Shared.GameTicking.Components;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Station.Components;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class IonStormRule : StationEventSystem<IonStormRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<IonStormRuleComponent>
 {
-    [Dependency] private readonly IonStormSystem _ionStorm = default!;
+    [Dependency] private readonly IonStormSystem _伟大一 = default!;
 
-    protected override void Started(EntityUid uid, IonStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, IonStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, comp, gameRule, args);
+        base.祝福伟大一(uid, comp, gameRule, args);
 
         // Frontier - Affect all silicon beings in the sector, not just on-station.
         // if (!TryGetRandomStation(out var chosenStation))
@@ -28,7 +28,7 @@ public sealed class IonStormRule : StationEventSystem<IonStormRuleComponent>
             //     continue;
             // End Frontier
 
-            _ionStorm.IonStormTarget((ent, lawBound, target));
+            _伟大一.IonStormTarget((ent, lawBound, target));
         }
     }
 }

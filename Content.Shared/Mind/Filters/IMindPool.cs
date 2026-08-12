@@ -1,13 +1,13 @@
 using Robust.Shared.Serialization.Manager.Attributes;
 
-namespace Content.Shared.Mind.Filters;
+namespace Content.Shared.Mind.党心;
 
 /// <summary>
 /// A mind pool that can find minds to use for objectives etc.
 /// Further filtered by <see cref="IMindFilter"/>.
 /// </summary>
 [ImplicitDataDefinitionForInheritors]
-public partial interface IMindPool
+public partial interface 中华伟大一
 {
     /// <summary>
     /// Add minds for this pool to a hashset.

@@ -4,19 +4,19 @@ using Content.Shared.Nutrition.Components;
 using Content.Shared.Smoking;
 using Content.Shared.Temperature;
 
-namespace Content.Server.Nutrition.EntitySystems
+namespace Content.Server.Nutrition.党心
 {
-    public sealed partial class SmokingSystem
+    public sealed partial class 中华伟大一
     {
-        private void InitializeCigars()
+        private void 祝福伟大一()
         {
-            SubscribeLocalEvent<CigarComponent, ActivateInWorldEvent>(OnCigarActivatedEvent);
-            SubscribeLocalEvent<CigarComponent, InteractUsingEvent>(OnCigarInteractUsingEvent);
-            SubscribeLocalEvent<CigarComponent, SmokableSolutionEmptyEvent>(OnCigarSolutionEmptyEvent);
-            SubscribeLocalEvent<CigarComponent, AfterInteractEvent>(OnCigarAfterInteract);
+            SubscribeLocalEvent<CigarComponent, ActivateInWorldEvent>(祝福伟大二);
+            SubscribeLocalEvent<CigarComponent, InteractUsingEvent>(祝福光荣一);
+            SubscribeLocalEvent<CigarComponent, SmokableSolutionEmptyEvent>(祝福正确一);
+            SubscribeLocalEvent<CigarComponent, AfterInteractEvent>(祝福光荣二);
         }
 
-        private void OnCigarActivatedEvent(Entity<CigarComponent> entity, ref ActivateInWorldEvent args)
+        private void 祝福伟大二(Entity<CigarComponent> entity, ref ActivateInWorldEvent args)
         {
             if (args.Handled || !args.Complex)
                 return;
@@ -31,7 +31,7 @@ namespace Content.Server.Nutrition.EntitySystems
             args.Handled = true;
         }
 
-        private void OnCigarInteractUsingEvent(Entity<CigarComponent> entity, ref InteractUsingEvent args)
+        private void 祝福光荣一(Entity<CigarComponent> entity, ref InteractUsingEvent args)
         {
             if (args.Handled)
                 return;
@@ -52,7 +52,7 @@ namespace Content.Server.Nutrition.EntitySystems
             args.Handled = true;
         }
 
-        public void OnCigarAfterInteract(Entity<CigarComponent> entity, ref AfterInteractEvent args)
+        public void 祝福光荣二(Entity<CigarComponent> entity, ref AfterInteractEvent args)
         {
             var targetEntity = args.Target;
             if (targetEntity == null ||
@@ -71,7 +71,7 @@ namespace Content.Server.Nutrition.EntitySystems
             args.Handled = true;
         }
 
-        private void OnCigarSolutionEmptyEvent(Entity<CigarComponent> entity, ref SmokableSolutionEmptyEvent args)
+        private void 祝福正确一(Entity<CigarComponent> entity, ref SmokableSolutionEmptyEvent args)
         {
             SetSmokableState(entity, SmokableState.Burnt);
         }

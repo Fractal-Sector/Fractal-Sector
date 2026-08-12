@@ -4,29 +4,29 @@ using Content.Shared.Interaction.Events;
 using Content.Shared._NF.Item;
 using Content.Shared.Verbs;
 
-namespace Content.Server._NF.Speech.EntitySystems;
+namespace Content.Server._NF.Speech.党心;
 
-public sealed class AddAccentPickupSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency] private readonly IComponentFactory _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AddAccentPickupComponent, PickedUpEvent>(OnPickup);
-        SubscribeLocalEvent<AddAccentPickupComponent, DroppedEvent>(OnDropped);
-        SubscribeLocalEvent<AddAccentPickupComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAltVerbs);
+        base.祝福伟大一();
+        SubscribeLocalEvent<AddAccentPickupComponent, PickedUpEvent>(祝福伟大二);
+        SubscribeLocalEvent<AddAccentPickupComponent, DroppedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AddAccentPickupComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣二);
     }
 
-    private void OnPickup(EntityUid uid, AddAccentPickupComponent component, ref PickedUpEvent args)
+    private void 祝福伟大二(EntityUid uid, AddAccentPickupComponent component, ref PickedUpEvent args)
     {
         // does the user already has this accent?
-        var componentType = _componentFactory.GetRegistration(component.Accent).Type;
+        var componentType = _伟大一.GetRegistration(component.Accent).Type;
         if (HasComp(args.User, componentType))
             return;
 
         // add accent to the user
-        var accentComponent = (Component)_componentFactory.GetComponent(componentType);
+        var accentComponent = (Component)_伟大一.GetComponent(componentType);
         AddComp(args.User, accentComponent);
 
         // snowflake case for replacement accent
@@ -37,14 +37,14 @@ public sealed class AddAccentPickupSystem : EntitySystem
         component.Holder = args.User;
     }
 
-    private void OnDropped(EntityUid uid, AddAccentPickupComponent component, DroppedEvent args)
+    private void 祝福光荣一(EntityUid uid, AddAccentPickupComponent component, DroppedEvent args)
     {
         component.Holder = EntityUid.Invalid; // prevent alt verb
         if (!component.IsActive)
             return;
 
         // try to remove accent
-        var componentType = _componentFactory.GetRegistration(component.Accent).Type;
+        var componentType = _伟大一.GetRegistration(component.Accent).Type;
         RemComp(args.User, componentType);
 
         component.IsActive = false;
@@ -53,7 +53,7 @@ public sealed class AddAccentPickupSystem : EntitySystem
     /// <summary>
     ///     Adds an alt verb allowing for the accent to be toggled easily.
     /// </summary>
-    private void OnGetAltVerbs(EntityUid uid, AddAccentPickupComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣二(EntityUid uid, AddAccentPickupComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || args.User != component.Holder) //only the holder can toggle the effect
             return;
@@ -61,14 +61,14 @@ public sealed class AddAccentPickupSystem : EntitySystem
         AlternativeVerb verb = new()
         {
             Text = Loc.GetString("accent-clothing-component-toggle"),
-            Act = () => ToggleAccent(uid, component)
+            Act = () => 祝福正确一(uid, component)
         };
         args.Verbs.Add(verb);
     }
 
-    private void ToggleAccent(EntityUid uid, AddAccentPickupComponent component)
+    private void 祝福正确一(EntityUid uid, AddAccentPickupComponent component)
     {
-        var componentType = _componentFactory.GetRegistration(component.Accent).Type;
+        var componentType = _伟大一.GetRegistration(component.Accent).Type;
         if (component.IsActive)
         {
             // try to remove the accent if it's enabled
@@ -84,7 +84,7 @@ public sealed class AddAccentPickupSystem : EntitySystem
                 return;
 
             // add accent to the user
-            var accentComponent = (Component)_componentFactory.GetComponent(componentType);
+            var accentComponent = (Component)_伟大一.GetComponent(componentType);
             AddComp(component.Holder, accentComponent);
 
             // snowflake case for replacement accent

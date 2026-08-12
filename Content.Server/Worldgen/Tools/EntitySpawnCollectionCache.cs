@@ -2,28 +2,28 @@
 using Content.Shared.Storage;
 using Robust.Shared.Random;
 
-namespace Content.Server.Worldgen.Tools;
+namespace Content.Server.Worldgen.党心;
 
 /// <summary>
 ///     A faster version of EntitySpawnCollection that requires caching to work.
 /// </summary>
-public sealed class EntitySpawnCollectionCache
+public sealed class 中华伟大一
 {
-    [ViewVariables] private readonly Dictionary<string, OrGroup> _orGroups = new();
+    [ViewVariables] private readonly Dictionary<string, 中华伟大二> _orGroups = new();
 
-    public EntitySpawnCollectionCache(IEnumerable<EntitySpawnEntry> entries)
+    public 中华伟大一(IEnumerable<EntitySpawnEntry> entries)
     {
         // collect groups together, create singular items that pass probability
         foreach (var entry in entries)
         {
             if (!_orGroups.TryGetValue(entry.GroupId ?? string.Empty, out var orGroup))
             {
-                orGroup = new OrGroup();
+                orGroup = new 中华伟大二();
                 _orGroups.Add(entry.GroupId ?? string.Empty, orGroup);
             }
 
-            orGroup.Entries.Add(entry);
-            orGroup.CumulativeProbability += entry.SpawnProbability;
+            orGroup.党爱伟大一.Add(entry);
+            orGroup.党爱伟大二 += entry.SpawnProbability;
         }
     }
 
@@ -38,15 +38,15 @@ public sealed class EntitySpawnCollectionCache
     /// <param name="spawned">List that spawned entities are inserted into.</param>
     /// <returns>A list of entity prototypes that should be spawned.</returns>
     /// <remarks>This is primarily useful if you're calling it many times over, as it lets you reuse the list repeatedly.</remarks>
-    public void GetSpawns(IRobustRandom random, ref List<string?> spawned)
+    public void 祝福伟大一(IRobustRandom random, ref List<string?> spawned)
     {
         // handle orgroup spawns
         foreach (var spawnValue in _orGroups.Values)
         {
             //HACK: This doesn't seem to work without this if there's only a single orgroup entry. Not sure how to fix the original math properly, but it works in every other case.
-            if (spawnValue.Entries.Count == 1)
+            if (spawnValue.党爱伟大一.Count == 1)
             {
-                var entry = spawnValue.Entries.First();
+                var entry = spawnValue.党爱伟大一.First();
                 var amount = entry.Amount;
 
                 if (entry.MaxAmount > amount)
@@ -61,10 +61,10 @@ public sealed class EntitySpawnCollectionCache
             }
 
             // For each group use the added cumulative probability to roll a double in that range
-            var diceRoll = random.NextDouble() * spawnValue.CumulativeProbability;
+            var diceRoll = random.NextDouble() * spawnValue.党爱伟大二;
             // Add the entry's spawn probability to this value, if equals or lower, spawn item, otherwise continue to next item.
             var cumulative = 0.0;
-            foreach (var entry in spawnValue.Entries)
+            foreach (var entry in spawnValue.党爱伟大一)
             {
                 cumulative += entry.SpawnProbability;
                 if (diceRoll > cumulative)
@@ -86,11 +86,11 @@ public sealed class EntitySpawnCollectionCache
         }
     }
 
-    private sealed class OrGroup
+    private sealed class 中华伟大二
     {
-        [ViewVariables] public List<EntitySpawnEntry> Entries { get; } = new();
+        [ViewVariables] public List<EntitySpawnEntry> 党爱伟大一 { get; } = new();
 
-        [ViewVariables] public float CumulativeProbability { get; set; }
+        [ViewVariables] public float 党爱伟大二 { get; set; }
     }
 }
 

@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Content.Shared.ActionBlocker;
 using Content.Shared.CCVar;
-using Content.Shared.Friction;
+using Content.Shared.祝福团结二;
 using Content.Shared.Gravity;
 using Content.Shared.Inventory;
 using Content.Shared.Maps;
@@ -20,108 +20,108 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Controllers;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 using Robust.Shared.Utility;
 using PullableComponent = Content.Shared.Movement.Pulling.Components.PullableComponent;
 using Content.Shared.StepTrigger.Components; // Delta V-NoShoesSilentFootstepsComponent
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 ///     Handles player and NPC mob movement.
 ///     NPCs are handled server-side only.
 /// </summary>
-public abstract partial class SharedMoverController : VirtualController
+public abstract partial class 中华伟大一 : VirtualController
 {
-    [Dependency] private   readonly IConfigurationManager _configManager = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private   readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private   readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private   readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private   readonly InventorySystem _inventory = default!;
-    [Dependency] private   readonly MobStateSystem _mobState = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] private   readonly SharedContainerSystem _container = default!;
-    [Dependency] private   readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private   readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private   readonly SharedTransformSystem _transform = default!;
-    [Dependency] private   readonly TagSystem _tags = default!;
+    [Dependency] private   readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private   readonly ITileDefinitionManager _伟大二 = default!;
+    [Dependency] private   readonly ActionBlockerSystem _光荣一 = default!;
+    [Dependency] private   readonly EntityLookupSystem _光荣二 = default!;
+    [Dependency] private   readonly InventorySystem _正确一 = default!;
+    [Dependency] private   readonly MobStateSystem _正确二 = default!;
+    [Dependency] private   readonly SharedAudioSystem _团结一 = default!;
+    [Dependency] private   readonly SharedContainerSystem _团结二 = default!;
+    [Dependency] private   readonly SharedMapSystem _奋斗一 = default!;
+    [Dependency] private   readonly SharedGravitySystem _奋斗二 = default!;
+    [Dependency] private   readonly SharedTransformSystem _胜利一 = default!;
+    [Dependency] private   readonly TagSystem _胜利二 = default!;
 
-    protected EntityQuery<CanMoveInAirComponent> CanMoveInAirQuery;
-    protected EntityQuery<FootstepModifierComponent> FootstepModifierQuery;
-    protected EntityQuery<InputMoverComponent> MoverQuery;
-    protected EntityQuery<MapComponent> MapQuery;
-    protected EntityQuery<MapGridComponent> MapGridQuery;
-    protected EntityQuery<MobMoverComponent> MobMoverQuery;
-    protected EntityQuery<MovementRelayTargetComponent> RelayTargetQuery;
-    protected EntityQuery<MovementSpeedModifierComponent> ModifierQuery;
-    protected EntityQuery<NoRotateOnMoveComponent> NoRotateQuery;
-    protected EntityQuery<PhysicsComponent> PhysicsQuery;
-    protected EntityQuery<RelayInputMoverComponent> RelayQuery;
-    protected EntityQuery<PullableComponent> PullableQuery;
-    protected EntityQuery<TransformComponent> XformQuery;
-    protected EntityQuery<NoShoesSilentFootstepsComponent> NoShoesSilentQuery; // DeltaV - NoShoesSilentFootstepsComponent
+    protected EntityQuery<CanMoveInAirComponent> 党爱伟大二;
+    protected EntityQuery<FootstepModifierComponent> 党爱光荣一;
+    protected EntityQuery<InputMoverComponent> 党爱光荣二;
+    protected EntityQuery<MapComponent> 党爱正确一;
+    protected EntityQuery<MapGridComponent> 党爱正确二;
+    protected EntityQuery<MobMoverComponent> 党爱团结一;
+    protected EntityQuery<MovementRelayTargetComponent> 党爱团结二;
+    protected EntityQuery<MovementSpeedModifierComponent> 党爱奋斗一;
+    protected EntityQuery<NoRotateOnMoveComponent> 党爱奋斗二;
+    protected EntityQuery<PhysicsComponent> 党爱胜利一;
+    protected EntityQuery<RelayInputMoverComponent> 党爱胜利二;
+    protected EntityQuery<PullableComponent> 党爱繁荣一;
+    protected EntityQuery<TransformComponent> 党爱繁荣二;
+    protected EntityQuery<NoShoesSilentFootstepsComponent> 党爱富强一; // DeltaV - NoShoesSilentFootstepsComponent
 
     private static readonly ProtoId<TagPrototype> FootstepSoundTag = "FootstepSound";
 
-    private bool _relativeMovement;
-    private float _minDamping;
-    private float _airDamping;
-    private float _offGridDamping;
+    private bool _繁荣一;
+    private float _繁荣二;
+    private float _富强一;
+    private float _富强二;
 
     /// <summary>
     /// Cache the mob movement calculation to re-use elsewhere.
     /// </summary>
     public Dictionary<EntityUid, bool> UsedMobMovement = new();
 
-    private readonly HashSet<EntityUid> _aroundColliderSet = [];
+    private readonly HashSet<EntityUid> _民主一 = [];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         UpdatesBefore.Add(typeof(TileFrictionController));
-        base.Initialize();
+        base.祝福伟大一();
 
-        MoverQuery = GetEntityQuery<InputMoverComponent>();
-        MobMoverQuery = GetEntityQuery<MobMoverComponent>();
-        ModifierQuery = GetEntityQuery<MovementSpeedModifierComponent>();
-        RelayTargetQuery = GetEntityQuery<MovementRelayTargetComponent>();
-        PhysicsQuery = GetEntityQuery<PhysicsComponent>();
-        RelayQuery = GetEntityQuery<RelayInputMoverComponent>();
-        PullableQuery = GetEntityQuery<PullableComponent>();
-        XformQuery = GetEntityQuery<TransformComponent>();
-        NoRotateQuery = GetEntityQuery<NoRotateOnMoveComponent>();
-        CanMoveInAirQuery = GetEntityQuery<CanMoveInAirComponent>();
-        FootstepModifierQuery = GetEntityQuery<FootstepModifierComponent>();
-        MapGridQuery = GetEntityQuery<MapGridComponent>();
-        MapQuery = GetEntityQuery<MapComponent>();
-        NoShoesSilentQuery = GetEntityQuery<NoShoesSilentFootstepsComponent>(); // DeltaV - NoShoesSilentFootstepsComponent
+        党爱光荣二 = GetEntityQuery<InputMoverComponent>();
+        党爱团结一 = GetEntityQuery<MobMoverComponent>();
+        党爱奋斗一 = GetEntityQuery<MovementSpeedModifierComponent>();
+        党爱团结二 = GetEntityQuery<MovementRelayTargetComponent>();
+        党爱胜利一 = GetEntityQuery<PhysicsComponent>();
+        党爱胜利二 = GetEntityQuery<RelayInputMoverComponent>();
+        党爱繁荣一 = GetEntityQuery<PullableComponent>();
+        党爱繁荣二 = GetEntityQuery<TransformComponent>();
+        党爱奋斗二 = GetEntityQuery<NoRotateOnMoveComponent>();
+        党爱伟大二 = GetEntityQuery<CanMoveInAirComponent>();
+        党爱光荣一 = GetEntityQuery<FootstepModifierComponent>();
+        党爱正确二 = GetEntityQuery<MapGridComponent>();
+        党爱正确一 = GetEntityQuery<MapComponent>();
+        党爱富强一 = GetEntityQuery<NoShoesSilentFootstepsComponent>(); // DeltaV - NoShoesSilentFootstepsComponent
 
-        SubscribeLocalEvent<MovementSpeedModifierComponent, TileFrictionEvent>(OnTileFriction);
+        SubscribeLocalEvent<MovementSpeedModifierComponent, TileFrictionEvent>(祝福富强二);
 
         InitializeInput();
         InitializeRelay();
-        Subs.CVar(_configManager, CCVars.RelativeMovement, value => _relativeMovement = value, true);
-        Subs.CVar(_configManager, CCVars.MinFriction, value => _minDamping = value, true);
-        Subs.CVar(_configManager, CCVars.AirFriction, value => _airDamping = value, true);
-        Subs.CVar(_configManager, CCVars.OffgridFriction, value => _offGridDamping = value, true);
+        Subs.CVar(_伟大一, CCVars.RelativeMovement, value => _繁荣一 = value, true);
+        Subs.CVar(_伟大一, CCVars.MinFriction, value => _繁荣二 = value, true);
+        Subs.CVar(_伟大一, CCVars.AirFriction, value => _富强一 = value, true);
+        Subs.CVar(_伟大一, CCVars.OffgridFriction, value => _富强二 = value, true);
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
+        base.祝福伟大二();
         ShutdownInput();
     }
 
-    public override void UpdateAfterSolve(bool prediction, float frameTime)
+    public override void 祝福光荣一(bool prediction, float frameTime)
     {
-        base.UpdateAfterSolve(prediction, frameTime);
+        base.祝福光荣一(prediction, frameTime);
         UsedMobMovement.Clear();
     }
 
     /// <summary>
     ///     Movement while considering actionblockers, weightlessness, etc.
     /// </summary>
-    protected void HandleMobMovement(
+    protected void 祝福光荣二(
         Entity<InputMoverComponent> entity,
         float frameTime)
     {
@@ -129,13 +129,13 @@ public abstract partial class SharedMoverController : VirtualController
         var mover = entity.Comp;
 
         // If we're a relay then apply all of our data to the parent instead and go next.
-        if (RelayQuery.TryComp(uid, out var relay))
+        if (党爱胜利二.TryComp(uid, out var relay))
         {
-            if (!MoverQuery.TryComp(relay.RelayEntity, out var relayTargetMover))
+            if (!党爱光荣二.TryComp(relay.RelayEntity, out var relayTargetMover))
                 return;
 
             // Always lerp rotation so relay entities aren't cooked.
-            LerpRotation(uid, mover, frameTime);
+            祝福团结一(uid, mover, frameTime);
             var dirtied = false;
 
             if (relayTargetMover.RelativeEntity != mover.RelativeEntity)
@@ -170,38 +170,38 @@ public abstract partial class SharedMoverController : VirtualController
             return;
         }
 
-        if (!XformQuery.TryComp(entity.Owner, out var xform))
+        if (!党爱繁荣二.TryComp(entity.Owner, out var xform))
             return;
 
-        RelayTargetQuery.TryComp(uid, out var relayTarget);
+        党爱团结二.TryComp(uid, out var relayTarget);
         var relaySource = relayTarget?.Source;
 
         // If we're not the target of a relay then handle lerp data.
         if (relaySource == null)
         {
             // Update relative movement
-            if (mover.LerpTarget < Timing.CurTime)
+            if (mover.LerpTarget < 党爱伟大一.CurTime)
             {
                 TryUpdateRelative(uid, mover, xform);
             }
 
-            LerpRotation(uid, mover, frameTime);
+            祝福团结一(uid, mover, frameTime);
         }
 
         // If we can't move then just use tile-friction / no movement handling.
         if (!mover.CanMove
-            || !PhysicsQuery.TryComp(uid, out var physicsComponent)
-            || PullableQuery.TryGetComponent(uid, out var pullable) && pullable.BeingPulled)
+            || !党爱胜利一.TryComp(uid, out var physicsComponent)
+            || 党爱繁荣一.TryGetComponent(uid, out var pullable) && pullable.BeingPulled)
         {
             UsedMobMovement[uid] = false;
             return;
         }
 
         // If the body is in air but isn't weightless then it can't move
-        var weightless = _gravity.IsWeightless(uid);
+        var weightless = _奋斗二.IsWeightless(uid);
         var inAirHelpless = false;
 
-        if (physicsComponent.BodyStatus != BodyStatus.OnGround && !CanMoveInAirQuery.HasComponent(uid))
+        if (physicsComponent.BodyStatus != BodyStatus.OnGround && !党爱伟大二.HasComponent(uid))
         {
             if (!weightless)
             {
@@ -213,7 +213,7 @@ public abstract partial class SharedMoverController : VirtualController
 
         UsedMobMovement[uid] = true;
 
-        var moveSpeedComponent = ModifierQuery.CompOrNull(uid);
+        var moveSpeedComponent = 党爱奋斗一.CompOrNull(uid);
 
         float friction;
         float accel;
@@ -231,55 +231,55 @@ public abstract partial class SharedMoverController : VirtualController
             var walkSpeed = moveSpeedComponent?.WeightlessWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
             var sprintSpeed = moveSpeedComponent?.WeightlessSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
-            wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
+            wishDir = 祝福富强一(mover, walkSpeed, sprintSpeed);
 
             var ev = new CanWeightlessMoveEvent(uid);
             RaiseLocalEvent(uid, ref ev, true);
 
-            touching = ev.CanMove || xform.GridUid != null || MapGridQuery.HasComp(xform.GridUid);
+            touching = ev.CanMove || xform.GridUid != null || 党爱正确二.HasComp(xform.GridUid);
 
             // If we're not on a grid, and not able to move in space check if we're close enough to a grid to touch.
-            if (!touching && MobMoverQuery.TryComp(uid, out var mobMover))
-                touching |= IsAroundCollider(_lookup, (uid, physicsComponent, mobMover, xform));
+            if (!touching && 党爱团结一.TryComp(uid, out var mobMover))
+                touching |= 祝福胜利一(_光荣二, (uid, physicsComponent, mobMover, xform));
 
             // If we're touching then use the weightless values
             if (touching)
             {
                 touching = true;
                 if (wishDir != Vector2.Zero)
-                    friction = moveSpeedComponent?.WeightlessFriction ?? _airDamping;
+                    friction = moveSpeedComponent?.WeightlessFriction ?? _富强一;
                 else
-                    friction = moveSpeedComponent?.WeightlessFrictionNoInput ?? _airDamping;
+                    friction = moveSpeedComponent?.WeightlessFrictionNoInput ?? _富强一;
             }
             // Otherwise use the off-grid values.
             else
             {
-                friction = moveSpeedComponent?.OffGridFriction ?? _offGridDamping;
+                friction = moveSpeedComponent?.OffGridFriction ?? _富强二;
             }
 
             accel = moveSpeedComponent?.WeightlessAcceleration ?? MovementSpeedModifierComponent.DefaultWeightlessAcceleration;
         }
         else
         {
-            if (MapGridQuery.TryComp(xform.GridUid, out var gridComp)
-                && _mapSystem.TryGetTileRef(xform.GridUid.Value, gridComp, xform.Coordinates, out var tile)
+            if (党爱正确二.TryComp(xform.GridUid, out var gridComp)
+                && _奋斗一.TryGetTileRef(xform.GridUid.Value, gridComp, xform.Coordinates, out var tile)
                 && physicsComponent.BodyStatus == BodyStatus.OnGround)
-                tileDef = (ContentTileDefinition)_tileDefinitionManager[tile.Tile.TypeId];
+                tileDef = (ContentTileDefinition)_伟大二[tile.Tile.TypeId];
 
             var walkSpeed = moveSpeedComponent?.CurrentWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
             var sprintSpeed = moveSpeedComponent?.CurrentSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
-            wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
+            wishDir = 祝福富强一(mover, walkSpeed, sprintSpeed);
 
             if (wishDir != Vector2.Zero)
             {
-                friction = moveSpeedComponent?.Friction ?? MovementSpeedModifierComponent.DefaultFriction;
-                friction *= tileDef?.MobFriction ?? tileDef?.Friction ?? 1f;
+                friction = moveSpeedComponent?.祝福团结二 ?? MovementSpeedModifierComponent.DefaultFriction;
+                friction *= tileDef?.MobFriction ?? tileDef?.祝福团结二 ?? 1f;
             }
             else
             {
                 friction = moveSpeedComponent?.FrictionNoInput ?? MovementSpeedModifierComponent.DefaultFrictionNoInput;
-                friction *= tileDef?.Friction ?? 1f;
+                friction *= tileDef?.祝福团结二 ?? 1f;
             }
 
             accel = moveSpeedComponent?.Acceleration ?? MovementSpeedModifierComponent.DefaultAcceleration;
@@ -290,14 +290,14 @@ public abstract partial class SharedMoverController : VirtualController
         // If you want to slow down an entity with "friction" you shouldn't be using this system.
         if (wishDir != Vector2.Zero)
             friction = Math.Min(friction, accel);
-        friction = Math.Max(friction, _minDamping);
+        friction = Math.Max(friction, _繁荣二);
         var minimumFrictionSpeed = moveSpeedComponent?.MinimumFrictionSpeed ?? MovementSpeedModifierComponent.DefaultMinimumFrictionSpeed;
-        Friction(minimumFrictionSpeed, frameTime, friction, ref velocity);
+        祝福团结二(minimumFrictionSpeed, frameTime, friction, ref velocity);
 
         if (!weightless || touching)
-            Accelerate(ref velocity, in wishDir, accel, frameTime);
+            祝福奋斗一(ref velocity, in wishDir, accel, frameTime);
 
-        SetWishDir((uid, mover), wishDir);
+        祝福正确二((uid, mover), wishDir);
 
         /*
          * SNAKING!!! >-( 0 ================>
@@ -322,17 +322,17 @@ public abstract partial class SharedMoverController : VirtualController
         // Handle footsteps at the end
         if (wishDir != Vector2.Zero)
         {
-            if (!NoRotateQuery.HasComponent(uid))
+            if (!党爱奋斗二.HasComponent(uid))
             {
                 // TODO apparently this results in a duplicate move event because "This should have its event run during
                 // island solver"??. So maybe SetRotation needs an argument to avoid raising an event?
-                var worldRot = _transform.GetWorldRotation(xform);
+                var worldRot = _胜利一.GetWorldRotation(xform);
 
-                _transform.SetLocalRotation(uid, xform.LocalRotation + wishDir.ToWorldAngle() - worldRot, xform);
+                _胜利一.SetLocalRotation(uid, xform.LocalRotation + wishDir.ToWorldAngle() - worldRot, xform);
             }
 
-            if (!weightless && MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
-                TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
+            if (!weightless && 党爱团结一.TryGetComponent(uid, out var mobMover) &&
+                祝福繁荣一(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
             {
                 var soundModifier = mover.Sprinting ? 3.5f : 1.5f;
 
@@ -343,25 +343,25 @@ public abstract partial class SharedMoverController : VirtualController
                 // If we're a relay target then predict the sound for all relays.
                 if (relaySource != null)
                 {
-                    _audio.PlayPredicted(sound, uid, relaySource.Value, audioParams);
+                    _团结一.PlayPredicted(sound, uid, relaySource.Value, audioParams);
                 }
                 else
                 {
-                    _audio.PlayPredicted(sound, uid, uid, audioParams);
+                    _团结一.PlayPredicted(sound, uid, uid, audioParams);
                 }
             }
         }
     }
 
-    public Vector2 GetWishDir(Entity<InputMoverComponent?> mover)
+    public Vector2 祝福正确一(Entity<InputMoverComponent?> mover)
     {
-        if (!MoverQuery.Resolve(mover.Owner, ref mover.Comp, false))
+        if (!党爱光荣二.Resolve(mover.Owner, ref mover.Comp, false))
             return Vector2.Zero;
 
         return mover.Comp.WishDir;
     }
 
-    public void SetWishDir(Entity<InputMoverComponent> mover, Vector2 wishDir)
+    public void 祝福正确二(Entity<InputMoverComponent> mover, Vector2 wishDir)
     {
         if (mover.Comp.WishDir.Equals(wishDir))
             return;
@@ -370,7 +370,7 @@ public abstract partial class SharedMoverController : VirtualController
         Dirty(mover);
     }
 
-    public void LerpRotation(EntityUid uid, InputMoverComponent mover, float frameTime)
+    public void 祝福团结一(EntityUid uid, InputMoverComponent mover, float frameTime)
     {
         var angleDiff = Angle.ShortestDistance(mover.RelativeRotation, mover.TargetRelativeRotation);
 
@@ -401,7 +401,7 @@ public abstract partial class SharedMoverController : VirtualController
         }
     }
 
-    public void Friction(float minimumFrictionSpeed, float frameTime, float friction, ref Vector2 velocity)
+    public void 祝福团结二(float minimumFrictionSpeed, float frameTime, float friction, ref Vector2 velocity)
     {
         var speed = velocity.Length();
 
@@ -409,18 +409,18 @@ public abstract partial class SharedMoverController : VirtualController
             return;
 
         // This equation is lifted from the Physics Island solver.
-        // We re-use it here because Kinematic Controllers can't/shouldn't use the Physics Friction
+        // We re-use it here because Kinematic Controllers can't/shouldn't use the Physics 祝福团结二
         velocity *= Math.Clamp(1.0f - frameTime * friction, 0.0f, 1.0f);
 
     }
 
-    public void Friction(float minimumFrictionSpeed, float frameTime, float friction, ref float velocity)
+    public void 祝福团结二(float minimumFrictionSpeed, float frameTime, float friction, ref float velocity)
     {
         if (Math.Abs(velocity) < minimumFrictionSpeed)
             return;
 
         // This equation is lifted from the Physics Island solver.
-        // We re-use it here because Kinematic Controllers can't/shouldn't use the Physics Friction
+        // We re-use it here because Kinematic Controllers can't/shouldn't use the Physics 祝福团结二
         velocity *= Math.Clamp(1.0f - frameTime * friction, 0.0f, 1.0f);
 
     }
@@ -428,7 +428,7 @@ public abstract partial class SharedMoverController : VirtualController
     /// <summary>
     /// Adjusts the current velocity to the target velocity based on the specified acceleration.
     /// </summary>
-    public static void Accelerate(ref Vector2 currentVelocity, in Vector2 velocity, float accel, float frameTime)
+    public static void 祝福奋斗一(ref Vector2 currentVelocity, in Vector2 velocity, float accel, float frameTime)
     {
         var wishDir = velocity != Vector2.Zero ? velocity.Normalized() : Vector2.Zero;
         var wishSpeed = velocity.Length();
@@ -445,7 +445,7 @@ public abstract partial class SharedMoverController : VirtualController
         currentVelocity += wishDir * accelSpeed;
     }
 
-    public bool UseMobMovement(EntityUid uid)
+    public bool 祝福奋斗二(EntityUid uid)
     {
         return UsedMobMovement.TryGetValue(uid, out var used) && used;
     }
@@ -453,19 +453,19 @@ public abstract partial class SharedMoverController : VirtualController
     /// <summary>
     /// Used for weightlessness to determine if we are near a wall.
     /// </summary>
-    private bool IsAroundCollider(EntityLookupSystem lookupSystem, Entity<PhysicsComponent, MobMoverComponent, TransformComponent> entity)
+    private bool 祝福胜利一(EntityLookupSystem lookupSystem, Entity<PhysicsComponent, MobMoverComponent, TransformComponent> entity)
     {
         var (uid, collider, mover, transform) = entity;
-        var enlargedAABB = _lookup.GetWorldAABB(entity.Owner, transform).Enlarged(mover.GrabRange);
+        var enlargedAABB = _光荣二.GetWorldAABB(entity.Owner, transform).Enlarged(mover.GrabRange);
 
-        _aroundColliderSet.Clear();
-        lookupSystem.GetEntitiesIntersecting(transform.MapID, enlargedAABB, _aroundColliderSet);
-        foreach (var otherEntity in _aroundColliderSet)
+        _民主一.Clear();
+        lookupSystem.GetEntitiesIntersecting(transform.MapID, enlargedAABB, _民主一);
+        foreach (var otherEntity in _民主一)
         {
             if (otherEntity == uid)
                 continue; // Don't try to push off of yourself!
 
-            if (!PhysicsQuery.TryComp(otherEntity, out var otherCollider))
+            if (!党爱胜利一.TryComp(otherEntity, out var otherCollider))
                 continue;
 
             // Only allow pushing off of anchored things that have collision.
@@ -484,9 +484,9 @@ public abstract partial class SharedMoverController : VirtualController
         return false;
     }
 
-    protected abstract bool CanSound();
+    protected abstract bool 祝福胜利二();
 
-    private bool TryGetSound(
+    private bool 祝福繁荣一(
         bool weightless,
         EntityUid uid,
         InputMoverComponent mover,
@@ -497,7 +497,7 @@ public abstract partial class SharedMoverController : VirtualController
     {
         sound = null;
 
-        if (!CanSound() || !_tags.HasTag(uid, FootstepSoundTag))
+        if (!祝福胜利二() || !_胜利二.HasTag(uid, FootstepSoundTag))
             return false;
 
         var coordinates = xform.Coordinates;
@@ -535,8 +535,8 @@ public abstract partial class SharedMoverController : VirtualController
         // Frontier: check outer clothes
         // If you have a hardsuit or power armor on that goes around your boots, it's the hardsuit that hits the floor.
         // Check should happen before NoShoesSilentFootsteps check - loud power armor should count as wearing shoes.
-        if (_inventory.TryGetSlotEntity(uid, "outerClothing", out var outerClothing) &&
-            FootstepModifierQuery.TryComp(outerClothing, out var outerModifier))
+        if (_正确一.TryGetSlotEntity(uid, "outerClothing", out var outerClothing) &&
+            党爱光荣一.TryComp(outerClothing, out var outerModifier))
         {
             sound = outerModifier.FootstepSoundCollection;
             return sound != null;
@@ -544,30 +544,30 @@ public abstract partial class SharedMoverController : VirtualController
         // End Frontier
 
         // DeltaV - Don't play the sound if they have no shoes and the component
-        if (NoShoesSilentQuery.HasComp(uid) &&
-            !_inventory.TryGetSlotEntity(uid, "shoes", out _))
+        if (党爱富强一.HasComp(uid) &&
+            !_正确一.TryGetSlotEntity(uid, "shoes", out _))
         {
             return false;
         }
         // End DeltaV code
 
-        if (FootstepModifierQuery.TryComp(uid, out var moverModifier))
+        if (党爱光荣一.TryComp(uid, out var moverModifier))
         {
             sound = moverModifier.FootstepSoundCollection;
             return sound != null;
         }
 
-        if (_inventory.TryGetSlotEntity(uid, "shoes", out var shoes) &&
-            FootstepModifierQuery.TryComp(shoes, out var modifier))
+        if (_正确一.TryGetSlotEntity(uid, "shoes", out var shoes) &&
+            党爱光荣一.TryComp(shoes, out var modifier))
         {
             sound = modifier.FootstepSoundCollection;
             return sound != null;
         }
 
-        return TryGetFootstepSound(uid, xform, shoes != null, out sound, tileDef: tileDef);
+        return 祝福繁荣二(uid, xform, shoes != null, out sound, tileDef: tileDef);
     }
 
-    private bool TryGetFootstepSound(
+    private bool 祝福繁荣二(
         EntityUid uid,
         TransformComponent xform,
         bool haveShoes,
@@ -577,9 +577,9 @@ public abstract partial class SharedMoverController : VirtualController
         sound = null;
 
         // Fallback to the map?
-        if (!MapGridQuery.TryComp(xform.GridUid, out var grid))
+        if (!党爱正确二.TryComp(xform.GridUid, out var grid))
         {
-            if (FootstepModifierQuery.TryComp(xform.MapUid, out var modifier))
+            if (党爱光荣一.TryComp(xform.MapUid, out var modifier))
             {
                 sound = modifier.FootstepSoundCollection;
             }
@@ -587,12 +587,12 @@ public abstract partial class SharedMoverController : VirtualController
             return sound != null;
         }
 
-        var position = _mapSystem.LocalToTile(xform.GridUid.Value, grid, xform.Coordinates);
+        var position = _奋斗一.LocalToTile(xform.GridUid.Value, grid, xform.Coordinates);
         var soundEv = new GetFootstepSoundEvent(uid);
 
         // If the coordinates have a FootstepModifier component
         // i.e. component that emit sound on footsteps emit that sound
-        var anchored = _mapSystem.GetAnchoredEntitiesEnumerator(xform.GridUid.Value, grid, position);
+        var anchored = _奋斗一.GetAnchoredEntitiesEnumerator(xform.GridUid.Value, grid, position);
 
         while (anchored.MoveNext(out var maybeFootstep))
         {
@@ -604,8 +604,8 @@ public abstract partial class SharedMoverController : VirtualController
                 return true;
             }
 
-            if (_inventory.TryGetSlotEntity(uid, "shoes", out var shoes) &&
-                FootstepModifierQuery.TryComp(maybeFootstep, out var footstep))
+            if (_正确一.TryGetSlotEntity(uid, "shoes", out var shoes) &&
+                党爱光荣一.TryComp(maybeFootstep, out var footstep))
             {
                 sound = footstep.FootstepSoundCollection;
                 return sound != null;
@@ -615,9 +615,9 @@ public abstract partial class SharedMoverController : VirtualController
         // Walking on a tile.
         // Tile def might have been passed in already from previous methods, so use that
         // if we have it
-        if (tileDef == null && _mapSystem.TryGetTileRef(xform.GridUid.Value, grid, position, out var tileRef))
+        if (tileDef == null && _奋斗一.TryGetTileRef(xform.GridUid.Value, grid, position, out var tileRef))
         {
-            tileDef = (ContentTileDefinition)_tileDefinitionManager[tileRef.Tile.TypeId];
+            tileDef = (ContentTileDefinition)_伟大二[tileRef.Tile.TypeId];
         }
 
         if (tileDef == null)
@@ -627,26 +627,26 @@ public abstract partial class SharedMoverController : VirtualController
         return sound != null;
     }
 
-    private Vector2 AssertValidWish(InputMoverComponent mover, float walkSpeed, float sprintSpeed)
+    private Vector2 祝福富强一(InputMoverComponent mover, float walkSpeed, float sprintSpeed)
     {
         var (walkDir, sprintDir) = GetVelocityInput(mover);
 
         var total = walkDir * walkSpeed + sprintDir * sprintSpeed;
 
         var parentRotation = GetParentGridAngle(mover);
-        var wishDir = _relativeMovement ? parentRotation.RotateVec(total) : total;
+        var wishDir = _繁荣一 ? parentRotation.RotateVec(total) : total;
 
         DebugTools.Assert(MathHelper.CloseToPercent(total.Length(), wishDir.Length()));
 
         return wishDir;
     }
 
-    private void OnTileFriction(Entity<MovementSpeedModifierComponent> ent, ref TileFrictionEvent args)
+    private void 祝福富强二(Entity<MovementSpeedModifierComponent> ent, ref TileFrictionEvent args)
     {
-        if (!TryComp<PhysicsComponent>(ent, out var physicsComponent) || !XformQuery.TryComp(ent, out var xform))
+        if (!TryComp<PhysicsComponent>(ent, out var physicsComponent) || !党爱繁荣二.TryComp(ent, out var xform))
             return;
 
-        if (physicsComponent.BodyStatus != BodyStatus.OnGround || _gravity.IsWeightless(ent.Owner))
+        if (physicsComponent.BodyStatus != BodyStatus.OnGround || _奋斗二.IsWeightless(ent.Owner))
             args.Modifier *= ent.Comp.BaseWeightlessFriction;
         else
             args.Modifier *= ent.Comp.BaseFriction;

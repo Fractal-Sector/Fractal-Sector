@@ -4,26 +4,26 @@ using Content.Shared.Light.Components;
 using Content.Shared.Light.EntitySystems;
 using Robust.Shared.Random; // Frontier
 
-namespace Content.Server.Light.EntitySystems;
+namespace Content.Server.Light.党心;
 
 /// <summary>
 ///     System for the PoweredLightComponents
 /// </summary>
-public sealed class PoweredLightSystem : SharedPoweredLightSystem
+public sealed class 中华伟大一 : SharedPoweredLightSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!; // Frontier
-    public override void Initialize()
+    [Dependency] private readonly IRobustRandom _伟大一 = default!; // Frontier
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PoweredLightComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<PoweredLightComponent, MapInitEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<PoweredLightComponent, GhostBooEvent>(OnGhostBoo);
+        SubscribeLocalEvent<PoweredLightComponent, GhostBooEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<PoweredLightComponent, EmpPulseEvent>(OnEmpPulse);
+        SubscribeLocalEvent<PoweredLightComponent, EmpPulseEvent>(祝福光荣二);
     }
 
-    private void OnGhostBoo(EntityUid uid, PoweredLightComponent light, GhostBooEvent args)
+    private void 祝福伟大二(EntityUid uid, PoweredLightComponent light, GhostBooEvent args)
     {
         if (light.IgnoreGhostsBoo)
             return;
@@ -47,7 +47,7 @@ public sealed class PoweredLightSystem : SharedPoweredLightSystem
         args.Handled = true;
     }
 
-    private void OnMapInit(EntityUid uid, PoweredLightComponent light, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, PoweredLightComponent light, MapInitEvent args)
     {
         // TODO: Use ContainerFill dog
         if (light.HasLampOnSpawn != null)
@@ -59,10 +59,10 @@ public sealed class PoweredLightSystem : SharedPoweredLightSystem
         UpdateLight(uid, light);
     }
 
-    private void OnEmpPulse(EntityUid uid, PoweredLightComponent component, ref EmpPulseEvent args)
+    private void 祝福光荣二(EntityUid uid, PoweredLightComponent component, ref EmpPulseEvent args)
     {
         // Frontier: break lights probabilistically
-        if (_random.Prob(component.LightBreakChance))
+        if (_伟大一.Prob(component.LightBreakChance))
         {
             if (TryDestroyBulb(uid, component))
                 args.Affected = true;

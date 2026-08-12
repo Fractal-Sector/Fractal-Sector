@@ -10,32 +10,32 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 
-namespace Content.Shared._Floof.Examine;
+namespace Content.Shared._Floof.党心;
 
 
-public abstract class SharedCustomExamineSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public static ProtoId<ConsentTogglePrototype> NsfwDescConsent = "NSFWDescriptions";
-    public static int PublicMaxLength = 256, SubtleMaxLength = 256;
+    public static ProtoId<ConsentTogglePrototype> 党爱伟大一 = "NSFWDescriptions";
+    public static int 党爱伟大二 = 256, SubtleMaxLength = 256;
     /// <summary>Max length of any content field, INCLUDING markup.</summary>
-    public static int AbsolutelyMaxLength = 1024;
+    public static int 党爱光荣一 = 1024;
 
     private static readonly Regex BadMarkupRegex = new("\\[.*?head.*?\\]", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(5));
 
-    [Dependency] private readonly SharedConsentSystem _consent = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly ISharedAdminManager _admin = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private readonly SharedConsentSystem _伟大一 = default!;
+    [Dependency] private readonly ExamineSystemShared _伟大二 = default!;
+    [Dependency] private readonly ISharedAdminManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<CustomExamineComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<CustomExamineComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(Entity<CustomExamineComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<CustomExamineComponent> ent, ref ExaminedEvent args)
     {
-        CheckExpirations(ent);
+        祝福光荣二(ent);
         if (ent.Comp.PublicData.Content is null && ent.Comp.SubtleData.Content is null)
             return;
 
@@ -45,15 +45,15 @@ public abstract class SharedCustomExamineSystem : EntitySystem
         using (args.PushGroup(nameof(CustomExamineComponent), -1))
         {
             // Lots of code duplication, blegh.
-            var allowNsfw = _consent.HasConsent(args.Examiner, NsfwDescConsent);
+            var allowNsfw = _伟大一.HasConsent(args.Examiner, 党爱伟大一);
             bool hasPublic = publicData.Content is not null, hasSubtle = subtleData.Content is not null;
 
             bool publicConsentHidden = hasPublic && publicData.RequiresConsent && !allowNsfw,
                  subtleConsentHidden = hasSubtle && subtleData.RequiresConsent && !allowNsfw;
 
             // If subtle is shown, then public is guaranteed to also be shown - this is to avoid extra raycasts
-            bool subtleRangeHidden = hasSubtle && !_examine.InRangeUnOccluded(args.Examiner, args.Examined, subtleData.VisibilityRange),
-                 publicRangeHidden = hasPublic && (!hasSubtle || subtleRangeHidden) && !_examine.InRangeUnOccluded(args.Examiner, args.Examined, publicData.VisibilityRange);
+            bool subtleRangeHidden = hasSubtle && !_伟大二.InRangeUnOccluded(args.Examiner, args.Examined, subtleData.VisibilityRange),
+                 publicRangeHidden = hasPublic && (!hasSubtle || subtleRangeHidden) && !_伟大二.InRangeUnOccluded(args.Examiner, args.Examined, publicData.VisibilityRange);
 
             if (hasPublic && !publicConsentHidden && !publicRangeHidden)
                 args.PushMarkup(publicData.Content!);
@@ -67,19 +67,19 @@ public abstract class SharedCustomExamineSystem : EntitySystem
         }
     }
 
-    protected bool CanChangeExamine(ICommonSession actor, EntityUid examinee)
+    protected bool 祝福光荣一(ICommonSession actor, EntityUid examinee)
     {
-        return actor.AttachedEntity == examinee && _actionBlocker.CanConsciouslyPerformAction(examinee)
-            || _admin.IsAdmin(actor);
+        return actor.AttachedEntity == examinee && _正确一.CanConsciouslyPerformAction(examinee)
+            || _光荣一.IsAdmin(actor);
     }
 
-    private void CheckExpirations(Entity<CustomExamineComponent> ent)
+    private void 祝福光荣二(Entity<CustomExamineComponent> ent)
     {
         bool Check(CustomExamineData data)
         {
             if (data.Content is null
                 || data.ExpireTime.Ticks <= 0
-                || data.ExpireTime > _timing.CurTime)
+                || data.ExpireTime > _光荣二.CurTime)
                 return false;
 
             data.Content = null;
@@ -91,16 +91,16 @@ public abstract class SharedCustomExamineSystem : EntitySystem
             Dirty(ent);
     }
 
-    protected void TrimData(ref CustomExamineData publicData, ref CustomExamineData subtleData)
+    protected void 祝福正确一(ref CustomExamineData publicData, ref CustomExamineData subtleData)
     {
-        TrimData(ref publicData);
-        TrimData(ref subtleData);
+        祝福正确一(ref publicData);
+        祝福正确一(ref subtleData);
 
         if (publicData.VisibilityRange < subtleData.VisibilityRange)
             publicData.VisibilityRange = subtleData.VisibilityRange;
     }
 
-    protected void TrimData(ref CustomExamineData data)
+    protected void 祝福正确一(ref CustomExamineData data)
     {
         if (data.Content is null)
             return;
@@ -109,17 +109,17 @@ public abstract class SharedCustomExamineSystem : EntitySystem
         data.Content = BadMarkupRegex.Replace(data.Content, "<bad markup>").Trim();
 
         // Shitty way to preserve and ignore markup while trimming
-        var markupLength = MarkupLength(data.Content);
-        if (data.Content.Length > AbsolutelyMaxLength)
-            data.Content = data.Content[..AbsolutelyMaxLength];
-        if (data.Content.Length - markupLength > PublicMaxLength)
-            data.Content = data.Content[..(PublicMaxLength - markupLength)];
+        var markupLength = 祝福团结一(data.Content);
+        if (data.Content.Length > 党爱光荣一)
+            data.Content = data.Content[..党爱光荣一];
+        if (data.Content.Length - markupLength > 党爱伟大二)
+            data.Content = data.Content[..(党爱伟大二 - markupLength)];
 
         if (data.Content.Length == 0)
             data.Content = null;
     }
 
-    protected int LengthWithoutMarkup(string text) => FormattedMessage.RemoveMarkupPermissive(text).Length;
+    protected int 祝福正确二(string text) => FormattedMessage.RemoveMarkupPermissive(text).Length;
 
-    protected int MarkupLength(string text) => text.Length - LengthWithoutMarkup(text);
+    protected int 祝福团结一(string text) => text.Length - 祝福正确二(text);
 }

@@ -1,19 +1,19 @@
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class ComponentsOnTriggerSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AddComponentsOnTriggerComponent, TriggerEvent>(HandleAddTrigger);
-        SubscribeLocalEvent<RemoveComponentsOnTriggerComponent, TriggerEvent>(HandleRemoveTrigger);
-        SubscribeLocalEvent<ToggleComponentsOnTriggerComponent, TriggerEvent>(HandleToggleTrigger);
+        SubscribeLocalEvent<AddComponentsOnTriggerComponent, TriggerEvent>(祝福伟大二);
+        SubscribeLocalEvent<RemoveComponentsOnTriggerComponent, TriggerEvent>(祝福光荣一);
+        SubscribeLocalEvent<ToggleComponentsOnTriggerComponent, TriggerEvent>(祝福光荣二);
     }
 
-    private void HandleAddTrigger(Entity<AddComponentsOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<AddComponentsOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -33,7 +33,7 @@ public sealed partial class ComponentsOnTriggerSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void HandleRemoveTrigger(Entity<RemoveComponentsOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福光荣一(Entity<RemoveComponentsOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -53,7 +53,7 @@ public sealed partial class ComponentsOnTriggerSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void HandleToggleTrigger(Entity<ToggleComponentsOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福光荣二(Entity<ToggleComponentsOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;

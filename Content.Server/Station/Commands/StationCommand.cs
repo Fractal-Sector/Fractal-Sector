@@ -10,16 +10,16 @@ using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Errors;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Station.Commands;
+namespace Content.Server.Station.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.Admin)]
-public sealed class StationsCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private StationSystem? _station;
     private CargoSystem? _cargo;
 
     [CommandImplementation("list")]
-    public IEnumerable<EntityUid> List()
+    public IEnumerable<EntityUid> 祝福伟大一()
     {
         _station ??= GetSys<StationSystem>();
 
@@ -27,7 +27,7 @@ public sealed class StationsCommand : ToolshedCommand
     }
 
     [CommandImplementation("get")]
-    public EntityUid Get(IInvocationContext ctx)
+    public EntityUid 祝福伟大二(IInvocationContext ctx)
     {
         _station ??= GetSys<StationSystem>();
 
@@ -63,12 +63,12 @@ public sealed class StationsCommand : ToolshedCommand
 
 
     [CommandImplementation("grids")]
-    public IEnumerable<EntityUid> Grids([PipedArgument] EntityUid input)
-        => Comp<StationDataComponent>(input).Grids;
+    public IEnumerable<EntityUid> 祝福光荣一([PipedArgument] EntityUid input)
+        => Comp<StationDataComponent>(input).祝福光荣一;
 
     [CommandImplementation("grids")]
-    public IEnumerable<EntityUid> Grids([PipedArgument] IEnumerable<EntityUid> input)
-        => input.SelectMany(Grids);
+    public IEnumerable<EntityUid> 祝福光荣一([PipedArgument] IEnumerable<EntityUid> input)
+        => input.SelectMany(祝福光荣一);
 
     [CommandImplementation("config")]
     public StationConfig? Config([PipedArgument] EntityUid input)
@@ -79,37 +79,37 @@ public sealed class StationsCommand : ToolshedCommand
         => input.Select(Config);
 
     [CommandImplementation("addgrid")]
-    public void AddGrid([PipedArgument] EntityUid input, EntityUid grid)
+    public void 祝福光荣二([PipedArgument] EntityUid input, EntityUid grid)
     {
         _station ??= GetSys<StationSystem>();
         _station.AddGridToStation(input, grid);
     }
 
     [CommandImplementation("rmgrid")]
-    public void RmGrid([PipedArgument] EntityUid input, EntityUid grid)
+    public void 祝福正确一([PipedArgument] EntityUid input, EntityUid grid)
     {
         _station ??= GetSys<StationSystem>();
         _station.RemoveGridFromStation(input, grid);
     }
 
     [CommandImplementation("rename")]
-    public void Rename([PipedArgument] EntityUid input, string name)
+    public void 祝福正确二([PipedArgument] EntityUid input, string name)
     {
         _station ??= GetSys<StationSystem>();
         _station.RenameStation(input, name);
     }
 
     [CommandImplementation("rerollBounties")]
-    public void RerollBounties([PipedArgument] EntityUid input)
+    public void 祝福团结一([PipedArgument] EntityUid input)
     {
         _cargo ??= GetSys<CargoSystem>();
         _cargo.RerollBountyDatabase(input);
     }
 }
 
-public record struct OnlyOneStationsError : IConError
+public record 中华伟大二 OnlyOneStationsError : IConError
 {
-    public FormattedMessage DescribeInner()
+    public FormattedMessage 祝福团结二()
     {
         return FormattedMessage.FromMarkupOrThrow("This command doesn't function if there is more than one or no stations, explicitly specify a station with the ent command or similar.");
     }

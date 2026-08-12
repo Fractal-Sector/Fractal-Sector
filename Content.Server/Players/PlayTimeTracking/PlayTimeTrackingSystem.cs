@@ -22,71 +22,71 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Players.PlayTimeTracking;
+namespace Content.Server.Players.党心;
 
 /// <summary>
 /// Connects <see cref="PlayTimeTrackingManager"/> to the simulation state. Reports trackers and such.
 /// </summary>
-public sealed class PlayTimeTrackingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly IAfkManager _afk = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IServerPreferencesManager _preferencesManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _tracking = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly IAfkManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly IServerPreferencesManager _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly SharedRoleSystem _团结一 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _tracking.CalcTrackers += CalcTrackers;
+        _团结二.祝福光荣一 += 祝福光荣一;
 
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundEnd);
-        SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
-        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
-        SubscribeLocalEvent<RoleAddedEvent>(OnRoleEvent);
-        SubscribeLocalEvent<RoleRemovedEvent>(OnRoleEvent);
-        SubscribeLocalEvent<AFKEvent>(OnAFK);
-        SubscribeLocalEvent<UnAFKEvent>(OnUnAFK);
-        SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
-        SubscribeLocalEvent<StationJobsGetCandidatesEvent>(OnStationJobsGetCandidates);
-        SubscribeLocalEvent<IsJobAllowedEvent>(OnIsJobAllowed);
-        SubscribeLocalEvent<GetDisallowedJobsEvent>(OnGetDisallowedJobs);
-        _adminManager.OnPermsChanged += AdminPermsChanged;
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福团结一);
+        SubscribeLocalEvent<PlayerAttachedEvent>(祝福胜利一);
+        SubscribeLocalEvent<PlayerDetachedEvent>(祝福胜利二);
+        SubscribeLocalEvent<RoleAddedEvent>(祝福正确二);
+        SubscribeLocalEvent<RoleRemovedEvent>(祝福正确二);
+        SubscribeLocalEvent<AFKEvent>(祝福奋斗一);
+        SubscribeLocalEvent<UnAFKEvent>(祝福团结二);
+        SubscribeLocalEvent<MobStateChangedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<PlayerJoinedLobbyEvent>(祝福繁荣二);
+        SubscribeLocalEvent<StationJobsGetCandidatesEvent>(祝福富强一);
+        SubscribeLocalEvent<IsJobAllowedEvent>(祝福富强二);
+        SubscribeLocalEvent<GetDisallowedJobsEvent>(祝福民主一);
+        _伟大一.OnPermsChanged += 祝福奋斗二;
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
+        base.祝福伟大二();
 
-        _tracking.CalcTrackers -= CalcTrackers;
-        _adminManager.OnPermsChanged -= AdminPermsChanged;
+        _团结二.祝福光荣一 -= 祝福光荣一;
+        _伟大一.OnPermsChanged -= 祝福奋斗二;
     }
 
-    private void CalcTrackers(ICommonSession player, HashSet<string> trackers)
+    private void 祝福光荣一(ICommonSession player, HashSet<string> trackers)
     {
-        if (_afk.IsAfk(player))
+        if (_伟大二.IsAfk(player))
             return;
 
-        if (_adminManager.IsAdmin(player))
+        if (_伟大一.IsAdmin(player))
         {
             trackers.Add(PlayTimeTrackingShared.TrackerAdmin);
             // trackers.Add(PlayTimeTrackingShared.TrackerOverall);
             // return; 
         }
 
-        if (!IsPlayerAlive(player))
+        if (!祝福光荣二(player))
             return;
 
         trackers.Add(PlayTimeTrackingShared.TrackerOverall);
-        trackers.UnionWith(GetTimedRoles(player));
+        trackers.UnionWith(祝福正确一(player));
     }
 
-    private bool IsPlayerAlive(ICommonSession session)
+    private bool 祝福光荣二(ICommonSession session)
     {
         var attached = session.AttachedEntity;
         if (attached == null)
@@ -98,138 +98,138 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
         return state.CurrentState is MobState.Alive or MobState.Critical;
     }
 
-    public IEnumerable<string> GetTimedRoles(EntityUid mindId)
+    public IEnumerable<string> 祝福正确一(EntityUid mindId)
     {
-        foreach (var role in _roles.MindGetAllRoleInfo(mindId))
+        foreach (var role in _团结一.MindGetAllRoleInfo(mindId))
         {
             if (string.IsNullOrWhiteSpace(role.PlayTimeTrackerId))
                 continue;
 
-            yield return _prototypes.Index<PlayTimeTrackerPrototype>(role.PlayTimeTrackerId).ID;
+            yield return _正确二.Index<PlayTimeTrackerPrototype>(role.PlayTimeTrackerId).ID;
         }
     }
 
-    private IEnumerable<string> GetTimedRoles(ICommonSession session)
+    private IEnumerable<string> 祝福正确一(ICommonSession session)
     {
-        var contentData = _playerManager.GetPlayerData(session.UserId).ContentData();
+        var contentData = _光荣二.GetPlayerData(session.UserId).ContentData();
 
         if (contentData?.Mind == null)
             return Enumerable.Empty<string>();
 
-        return GetTimedRoles(contentData.Mind.Value);
+        return 祝福正确一(contentData.Mind.Value);
     }
 
-    private void OnRoleEvent(RoleEvent ev)
+    private void 祝福正确二(RoleEvent ev)
     {
-        if (_playerManager.TryGetSessionById(ev.Mind.UserId, out var session))
-            _tracking.QueueRefreshTrackers(session);
+        if (_光荣二.TryGetSessionById(ev.Mind.UserId, out var session))
+            _团结二.QueueRefreshTrackers(session);
     }
 
-    private void OnRoundEnd(RoundRestartCleanupEvent ev)
+    private void 祝福团结一(RoundRestartCleanupEvent ev)
     {
-        _tracking.Save();
+        _团结二.Save();
     }
 
-    private void OnUnAFK(ref UnAFKEvent ev)
+    private void 祝福团结二(ref UnAFKEvent ev)
     {
-        _tracking.QueueRefreshTrackers(ev.Session);
+        _团结二.QueueRefreshTrackers(ev.Session);
     }
 
-    private void OnAFK(ref AFKEvent ev)
+    private void 祝福奋斗一(ref AFKEvent ev)
     {
-        _tracking.QueueRefreshTrackers(ev.Session);
+        _团结二.QueueRefreshTrackers(ev.Session);
     }
 
-    private void AdminPermsChanged(AdminPermsChangedEventArgs admin)
+    private void 祝福奋斗二(AdminPermsChangedEventArgs admin)
     {
-        _tracking.QueueRefreshTrackers(admin.Player);
+        _团结二.QueueRefreshTrackers(admin.Player);
     }
 
-    private void OnPlayerAttached(PlayerAttachedEvent ev)
+    private void 祝福胜利一(PlayerAttachedEvent ev)
     {
-        _tracking.QueueRefreshTrackers(ev.Player);
+        _团结二.QueueRefreshTrackers(ev.Player);
     }
 
-    private void OnPlayerDetached(PlayerDetachedEvent ev)
+    private void 祝福胜利二(PlayerDetachedEvent ev)
     {
         // This doesn't fire if the player doesn't leave their body. I guess it's fine?
-        _tracking.QueueRefreshTrackers(ev.Player);
+        _团结二.QueueRefreshTrackers(ev.Player);
     }
 
-    private void OnMobStateChanged(MobStateChangedEvent ev)
+    private void 祝福繁荣一(MobStateChangedEvent ev)
     {
         if (!TryComp(ev.Target, out ActorComponent? actor))
             return;
 
-        _tracking.QueueRefreshTrackers(actor.PlayerSession);
+        _团结二.QueueRefreshTrackers(actor.PlayerSession);
     }
 
-    private void OnPlayerJoinedLobby(PlayerJoinedLobbyEvent ev)
+    private void 祝福繁荣二(PlayerJoinedLobbyEvent ev)
     {
-        _tracking.QueueRefreshTrackers(ev.PlayerSession);
+        _团结二.QueueRefreshTrackers(ev.PlayerSession);
         // Send timers to client when they join lobby, so the UIs are up-to-date.
-        _tracking.QueueSendTimers(ev.PlayerSession);
+        _团结二.QueueSendTimers(ev.PlayerSession);
     }
 
-    private void OnStationJobsGetCandidates(ref StationJobsGetCandidatesEvent ev)
+    private void 祝福富强一(ref StationJobsGetCandidatesEvent ev)
     {
-        RemoveDisallowedJobs(ev.Player, ev.Jobs);
+        祝福文明二(ev.Player, ev.Jobs);
     }
 
-    private void OnIsJobAllowed(ref IsJobAllowedEvent ev)
+    private void 祝福富强二(ref IsJobAllowedEvent ev)
     {
-        if (!IsAllowed(ev.Player, ev.JobId))
+        if (!祝福民主二(ev.Player, ev.JobId))
             ev.Cancelled = true;
     }
 
-    private void OnGetDisallowedJobs(ref GetDisallowedJobsEvent ev)
+    private void 祝福民主一(ref GetDisallowedJobsEvent ev)
     {
-        ev.Jobs.UnionWith(GetDisallowedJobs(ev.Player));
+        ev.Jobs.UnionWith(祝福文明一(ev.Player));
     }
 
-    public bool IsAllowed(ICommonSession player, string role)
+    public bool 祝福民主二(ICommonSession player, string role)
     {
-        if (!_prototypes.TryIndex<JobPrototype>(role, out var job) ||
-            !_cfg.GetCVar(CCVars.GameRoleTimers))
+        if (!_正确二.TryIndex<JobPrototype>(role, out var job) ||
+            !_光荣一.GetCVar(CCVars.GameRoleTimers))
             return true;
 
-        if (!_tracking.TryGetTrackerTimes(player, out var playTimes))
+        if (!_团结二.TryGetTrackerTimes(player, out var playTimes))
         {
             Log.Error($"Unable to check playtimes {Environment.StackTrace}");
             playTimes = new Dictionary<string, TimeSpan>();
         }
 
-        return JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _prototypes, (HumanoidCharacterProfile?) _preferencesManager.GetPreferences(player.UserId).SelectedCharacter);
+        return JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _正确二, (HumanoidCharacterProfile?) _正确一.GetPreferences(player.UserId).SelectedCharacter);
     }
 
-    public HashSet<ProtoId<JobPrototype>> GetDisallowedJobs(ICommonSession player)
+    public HashSet<ProtoId<JobPrototype>> 祝福文明一(ICommonSession player)
     {
         var roles = new HashSet<ProtoId<JobPrototype>>();
-        if (!_cfg.GetCVar(CCVars.GameRoleTimers))
+        if (!_光荣一.GetCVar(CCVars.GameRoleTimers))
             return roles;
 
-        if (!_tracking.TryGetTrackerTimes(player, out var playTimes))
+        if (!_团结二.TryGetTrackerTimes(player, out var playTimes))
         {
             Log.Error($"Unable to check playtimes {Environment.StackTrace}");
             playTimes = new Dictionary<string, TimeSpan>();
         }
 
-        foreach (var job in _prototypes.EnumeratePrototypes<JobPrototype>())
+        foreach (var job in _正确二.EnumeratePrototypes<JobPrototype>())
         {
-            if (JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _prototypes, (HumanoidCharacterProfile?) _preferencesManager.GetPreferences(player.UserId).SelectedCharacter))
+            if (JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _正确二, (HumanoidCharacterProfile?) _正确一.GetPreferences(player.UserId).SelectedCharacter))
                 roles.Add(job.ID);
         }
 
         return roles;
     }
 
-    public void RemoveDisallowedJobs(NetUserId userId, List<ProtoId<JobPrototype>> jobs)
+    public void 祝福文明二(NetUserId userId, List<ProtoId<JobPrototype>> jobs)
     {
-        if (!_cfg.GetCVar(CCVars.GameRoleTimers))
+        if (!_光荣一.GetCVar(CCVars.GameRoleTimers))
             return;
 
-        var player = _playerManager.GetSessionById(userId);
-        if (!_tracking.TryGetTrackerTimes(player, out var playTimes))
+        var player = _光荣二.GetSessionById(userId);
+        if (!_团结二.TryGetTrackerTimes(player, out var playTimes))
         {
             // Sorry mate but your playtimes haven't loaded.
             Log.Error($"Playtimes weren't ready yet for {player} on roundstart!");
@@ -240,8 +240,8 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
 
         for (var i = 0; i < jobs.Count; i++)
         {
-            if (_prototypes.TryIndex(jobs[i], out var job)
-                && JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _prototypes, (HumanoidCharacterProfile?) _preferencesManager.GetPreferences(userId).SelectedCharacter))
+            if (_正确二.TryIndex(jobs[i], out var job)
+                && JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _正确二, (HumanoidCharacterProfile?) _正确一.GetPreferences(userId).SelectedCharacter))
             {
                 continue;
             }
@@ -251,8 +251,8 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
         }
     }
 
-    public void PlayerRolesChanged(ICommonSession player)
+    public void 祝福和谐一(ICommonSession player)
     {
-        _tracking.QueueRefreshTrackers(player);
+        _团结二.QueueRefreshTrackers(player);
     }
 }

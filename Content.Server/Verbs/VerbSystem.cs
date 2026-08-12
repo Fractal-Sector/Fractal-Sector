@@ -9,35 +9,35 @@ using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Verbs
+namespace Content.Server.党心
 {
-    public sealed class VerbSystem : SharedVerbSystem
+    public sealed class 中华伟大一 : SharedVerbSystem
     {
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly HandsSystem _hands = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly IAdminManager _adminMgr = default!;
+        [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+        [Dependency] private readonly HandsSystem _伟大二 = default!;
+        [Dependency] private readonly PopupSystem _光荣一 = default!;
+        [Dependency] private readonly IAdminManager _光荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeNetworkEvent<RequestServerVerbsEvent>(HandleVerbRequest);
+            SubscribeNetworkEvent<RequestServerVerbsEvent>(祝福伟大二);
         }
 
-        private void HandleVerbRequest(RequestServerVerbsEvent args, EntitySessionEventArgs eventArgs)
+        private void 祝福伟大二(RequestServerVerbsEvent args, EntitySessionEventArgs eventArgs)
         {
             var player = eventArgs.SenderSession;
 
             if (!Exists(GetEntity(args.EntityUid)))
             {
-                Log.Warning($"{nameof(HandleVerbRequest)} called on a non-existent entity with id {args.EntityUid} by player {player}.");
+                Log.Warning($"{nameof(祝福伟大二)} called on a non-existent entity with id {args.EntityUid} by player {player}.");
                 return;
             }
 
             if (player.AttachedEntity is not {} attached)
             {
-                Log.Warning($"{nameof(HandleVerbRequest)} called by player {player} with no attached entity.");
+                Log.Warning($"{nameof(祝福伟大二)} called by player {player} with no attached entity.");
                 return;
             }
 
@@ -46,7 +46,7 @@ namespace Content.Server.Verbs
             // the entity menu or not.
 
             var force = args.AdminRequest && eventArgs.SenderSession is { } playerSession &&
-                        _adminMgr.HasAdminFlag(playerSession, AdminFlags.Admin);
+                        _光荣二.HasAdminFlag(playerSession, AdminFlags.Admin);
 
             List<Type> verbTypes = new();
             foreach (var key in args.VerbTypes)
@@ -70,29 +70,29 @@ namespace Content.Server.Verbs
         /// <remarks>
         ///     This will try to call the action delegates and raise the local events for the given verb.
         /// </remarks>
-        public override void ExecuteVerb(Verb verb, EntityUid user, EntityUid target, bool forced = false)
+        public override void 祝福光荣一(Verb verb, EntityUid user, EntityUid target, bool forced = false)
         {
             // is this verb actually valid?
             if (verb.Disabled)
             {
                 // Send an informative pop-up message
                 if (!string.IsNullOrWhiteSpace(verb.Message))
-                    _popupSystem.PopupEntity(FormattedMessage.RemoveMarkupOrThrow(verb.Message), user, user);
+                    _光荣一.PopupEntity(FormattedMessage.RemoveMarkupOrThrow(verb.Message), user, user);
 
                 return;
             }
 
             // first, lets log the verb. Just in case it ends up crashing the server or something.
-            LogVerb(verb, user, target, forced);
+            祝福光荣二(verb, user, target, forced);
 
-            base.ExecuteVerb(verb, user, target, forced);
+            base.祝福光荣一(verb, user, target, forced);
         }
 
-        public void LogVerb(Verb verb, EntityUid user, EntityUid target, bool forced)
+        public void 祝福光荣二(Verb verb, EntityUid user, EntityUid target, bool forced)
         {
             // first get the held item. again.
             EntityUid? holding = null;
-            if (_hands.GetActiveItem(user) is { } heldEntity)
+            if (_伟大二.GetActiveItem(user) is { } heldEntity)
             {
                 holding = heldEntity;
             }
@@ -108,12 +108,12 @@ namespace Content.Server.Verbs
 
             if (holding == null)
             {
-                _adminLogger.Add(LogType.Verb, verb.Impact,
+                _伟大一.Add(LogType.Verb, verb.Impact,
                         $"{ToPrettyString(user):user} {executionText} the [{verbText:verb}] verb targeting {ToPrettyString(target):target}");
             }
             else
             {
-                _adminLogger.Add(LogType.Verb, verb.Impact,
+                _伟大一.Add(LogType.Verb, verb.Impact,
                        $"{ToPrettyString(user):user} {executionText} the [{verbText:verb}] verb targeting {ToPrettyString(target):target} while holding {ToPrettyString(holding.Value):held}");
             }
         }

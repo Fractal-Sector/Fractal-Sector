@@ -3,20 +3,20 @@ using JetBrains.Annotations;
 using Robust.Shared.Map;
 
 
-namespace Content.Shared.Interaction
+namespace Content.Shared.党心
 {
     [PublicAPI]
-    public abstract class InteractEvent : HandledEntityEventArgs
+    public abstract class 中华伟大一 : HandledEntityEventArgs
     {
         /// <summary>
         ///     Entity that triggered the interaction.
         /// </summary>
-        public EntityUid User { get; }
+        public EntityUid 党爱伟大一 { get; }
 
         /// <summary>
         ///     Entity that the user used to interact.
         /// </summary>
-        public EntityUid Used { get; }
+        public EntityUid 党爱伟大二 { get; }
 
         /// <summary>
         ///     Entity that was interacted on. This can be null if there was no target (e.g., clicking on tiles).
@@ -26,42 +26,42 @@ namespace Content.Shared.Interaction
         /// <summary>
         ///     Location that the user clicked outside of their interaction range.
         /// </summary>
-        public EntityCoordinates ClickLocation { get; }
+        public EntityCoordinates 党爱光荣一 { get; }
 
         /// <summary>
         /// Is the click location in range without obstructions?
         /// </summary>
-        public bool CanReach { get; }
+        public bool 党爱光荣二 { get; }
 
-        public InteractEvent(EntityUid user, EntityUid used, EntityUid? target,
+        public 中华伟大一(EntityUid user, EntityUid used, EntityUid? target,
             EntityCoordinates clickLocation, bool canReach)
         {
-            User = user;
-            Used = used;
+            党爱伟大一 = user;
+            党爱伟大二 = used;
             Target = target;
-            ClickLocation = clickLocation;
-            CanReach = canReach;
+            党爱光荣一 = clickLocation;
+            党爱光荣二 = canReach;
         }
     }
 
     /// <summary>
     ///     Raised directed on the used object when clicking on another object and no standard interaction occurred.
-    ///     Used for low-priority interactions facilitated by the used entity.
+    ///     党爱伟大二 for low-priority interactions facilitated by the used entity.
     /// </summary>
-    public sealed class AfterInteractEvent : InteractEvent
+    public sealed class 中华伟大二 : 中华伟大一
     {
-        public AfterInteractEvent(EntityUid user, EntityUid used, EntityUid? target,
+        public 中华伟大二(EntityUid user, EntityUid used, EntityUid? target,
             EntityCoordinates clickLocation, bool canReach) : base(user, used, target, clickLocation, canReach)
         { }
     }
 
     /// <summary>
-    ///     Raised directed on the target when clicking on another object and no standard interaction occurred. Used for
+    ///     Raised directed on the target when clicking on another object and no standard interaction occurred. 党爱伟大二 for
     ///     low-priority interactions facilitated by the target entity.
     /// </summary>
-    public sealed class AfterInteractUsingEvent : InteractEvent
+    public sealed class 中华光荣一 : 中华伟大一
     {
-        public AfterInteractUsingEvent(EntityUid user, EntityUid used, EntityUid? target,
+        public 中华光荣一(EntityUid user, EntityUid used, EntityUid? target,
             EntityCoordinates clickLocation, bool canReach) : base(user, used, target, clickLocation, canReach)
         { }
     }

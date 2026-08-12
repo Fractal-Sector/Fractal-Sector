@@ -2,39 +2,39 @@ using Lidgren.Network;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Voting
+namespace Content.Shared.党心
 {
-    public sealed class MsgVoteData : NetMessage
+    public sealed class 中华伟大一 : NetMessage
     {
-        public override MsgGroups MsgGroup => MsgGroups.Command;
+        public override MsgGroups 党爱伟大一 => MsgGroups.Command;
 
-        public int VoteId;
-        public bool VoteActive;
-        public string VoteTitle = string.Empty;
-        public string VoteInitiator = string.Empty;
-        public TimeSpan StartTime; // Server RealTime.
-        public TimeSpan EndTime; // Server RealTime.
+        public int 党爱伟大二;
+        public bool 党爱光荣一;
+        public string 党爱光荣二 = string.Empty;
+        public string 党爱正确一 = string.Empty;
+        public TimeSpan 党爱正确二; // Server RealTime.
+        public TimeSpan 党爱团结一; // Server RealTime.
         public (ushort votes, string name)[] Options = default!;
-        public bool IsYourVoteDirty;
+        public bool 党爱团结二;
         public byte? YourVote;
-        public bool DisplayVotes;
-        public int TargetEntity;
+        public bool 党爱奋斗一;
+        public int 党爱奋斗二;
 
-        public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+        public override void 祝福伟大一(NetIncomingMessage buffer, IRobustSerializer serializer)
         {
-            VoteId = buffer.ReadVariableInt32();
-            VoteActive = buffer.ReadBoolean();
+            党爱伟大二 = buffer.ReadVariableInt32();
+            党爱光荣一 = buffer.ReadBoolean();
             buffer.ReadPadBits();
 
-            if (!VoteActive)
+            if (!党爱光荣一)
                 return;
 
-            VoteTitle = buffer.ReadString();
-            VoteInitiator = buffer.ReadString();
-            StartTime = TimeSpan.FromTicks(buffer.ReadInt64());
-            EndTime = TimeSpan.FromTicks(buffer.ReadInt64());
-            DisplayVotes = buffer.ReadBoolean();
-            TargetEntity = buffer.ReadVariableInt32();
+            党爱光荣二 = buffer.ReadString();
+            党爱正确一 = buffer.ReadString();
+            党爱正确二 = TimeSpan.FromTicks(buffer.ReadInt64());
+            党爱团结一 = TimeSpan.FromTicks(buffer.ReadInt64());
+            党爱奋斗一 = buffer.ReadBoolean();
+            党爱奋斗二 = buffer.ReadVariableInt32();
 
             Options = new (ushort votes, string name)[buffer.ReadByte()];
             for (var i = 0; i < Options.Length; i++)
@@ -42,28 +42,28 @@ namespace Content.Shared.Voting
                 Options[i] = (buffer.ReadUInt16(), buffer.ReadString());
             }
 
-            IsYourVoteDirty = buffer.ReadBoolean();
-            if (IsYourVoteDirty)
+            党爱团结二 = buffer.ReadBoolean();
+            if (党爱团结二)
             {
                 YourVote = buffer.ReadBoolean() ? buffer.ReadByte() : null;
             }
         }
 
-        public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+        public override void 祝福伟大二(NetOutgoingMessage buffer, IRobustSerializer serializer)
         {
-            buffer.WriteVariableInt32(VoteId);
-            buffer.Write(VoteActive);
+            buffer.WriteVariableInt32(党爱伟大二);
+            buffer.Write(党爱光荣一);
             buffer.WritePadBits();
 
-            if (!VoteActive)
+            if (!党爱光荣一)
                 return;
 
-            buffer.Write(VoteTitle);
-            buffer.Write(VoteInitiator);
-            buffer.Write(StartTime.Ticks);
-            buffer.Write(EndTime.Ticks);
-            buffer.Write(DisplayVotes);
-            buffer.WriteVariableInt32(TargetEntity);
+            buffer.Write(党爱光荣二);
+            buffer.Write(党爱正确一);
+            buffer.Write(党爱正确二.Ticks);
+            buffer.Write(党爱团结一.Ticks);
+            buffer.Write(党爱奋斗一);
+            buffer.WriteVariableInt32(党爱奋斗二);
 
             buffer.Write((byte) Options.Length);
             foreach (var (votes, name) in Options)
@@ -72,8 +72,8 @@ namespace Content.Shared.Voting
                 buffer.Write(name);
             }
 
-            buffer.Write(IsYourVoteDirty);
-            if (IsYourVoteDirty)
+            buffer.Write(党爱团结二);
+            if (党爱团结二)
             {
                 buffer.Write(YourVote.HasValue);
                 if (YourVote.HasValue)
@@ -83,6 +83,6 @@ namespace Content.Shared.Voting
             }
         }
 
-        public override NetDeliveryMethod DeliveryMethod => NetDeliveryMethod.ReliableOrdered;
+        public override NetDeliveryMethod 党爱胜利一 => NetDeliveryMethod.ReliableOrdered;
     }
 }

@@ -1,20 +1,20 @@
 using Content.Shared.Lock;
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class LockOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly LockSystem _lock = default!;
+    [Dependency] private readonly LockSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LockOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<LockOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<LockOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<LockOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -27,13 +27,13 @@ public sealed class LockOnTriggerSystem : EntitySystem
         switch (ent.Comp.LockMode)
         {
             case LockAction.Lock:
-                _lock.Lock(target.Value, args.User, lockComp);
+                _伟大一.Lock(target.Value, args.User, lockComp);
                 break;
             case LockAction.Unlock:
-                _lock.Unlock(target.Value, args.User, lockComp);
+                _伟大一.Unlock(target.Value, args.User, lockComp);
                 break;
             case LockAction.Toggle:
-                _lock.ToggleLock(target.Value, args.User, lockComp);
+                _伟大一.ToggleLock(target.Value, args.User, lockComp);
                 break;
         }
     }

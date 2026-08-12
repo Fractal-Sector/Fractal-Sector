@@ -1,19 +1,19 @@
 using Content.Shared.Inventory;
 using Content.Shared.Climbing.Components;
 
-namespace Content.Shared.Climbing.Events;
+namespace Content.Shared.Climbing.党心;
 
-public abstract partial class BeforeClimbEvent : CancellableEntityEventArgs
+public abstract partial class 中华伟大一 : CancellableEntityEventArgs
 {
-    public readonly EntityUid GettingPutOnTable;
-    public readonly EntityUid PuttingOnTable;
-    public readonly Entity<ClimbableComponent> BeingClimbedOn;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
+    public readonly Entity<ClimbableComponent> 党爱光荣一;
 
-    public BeforeClimbEvent(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn)
+    public 中华伟大一(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn)
     {
-        GettingPutOnTable = gettingPutOntable;
-        PuttingOnTable = puttingOnTable;
-        BeingClimbedOn = beingClimbedOn;
+        党爱伟大一 = gettingPutOntable;
+        党爱伟大二 = puttingOnTable;
+        党爱光荣一 = beingClimbedOn;
     }
 }
 
@@ -21,16 +21,16 @@ public abstract partial class BeforeClimbEvent : CancellableEntityEventArgs
 ///     This event is raised on the the person either getting put on or going on the table.
 ///     The event is also called on their clothing as well.
 /// </summary>
-public sealed class SelfBeforeClimbEvent : BeforeClimbEvent, IInventoryRelayEvent
+public sealed class 中华伟大二 : 中华伟大一, IInventoryRelayEvent
 {
-    public SlotFlags TargetSlots { get; } = SlotFlags.WITHOUT_POCKET;
-    public SelfBeforeClimbEvent(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn) : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
+    public SlotFlags 党爱光荣二 { get; } = SlotFlags.WITHOUT_POCKET;
+    public 中华伟大二(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn) : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
 }
 
 /// <summary>
 ///     This event is raised on the thing being climbed on.
 /// </summary>
-public sealed class TargetBeforeClimbEvent : BeforeClimbEvent
+public sealed class 中华光荣一 : 中华伟大一
 {
-    public TargetBeforeClimbEvent(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn) : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
+    public 中华光荣一(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn) : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
 }

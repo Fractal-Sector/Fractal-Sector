@@ -5,26 +5,26 @@ using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Silicons.Borgs;
+namespace Content.Server.Silicons.党心;
 
 /// <inheritdoc/>
-public sealed partial class BorgSystem
+public sealed partial class 中华伟大一
 {
-    public void InitializeModules()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<BorgModuleComponent, EntGotInsertedIntoContainerMessage>(OnModuleGotInserted);
-        SubscribeLocalEvent<BorgModuleComponent, EntGotRemovedFromContainerMessage>(OnModuleGotRemoved);
+        SubscribeLocalEvent<BorgModuleComponent, EntGotInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<BorgModuleComponent, EntGotRemovedFromContainerMessage>(祝福光荣一);
 
-        SubscribeLocalEvent<SelectableBorgModuleComponent, BorgModuleInstalledEvent>(OnSelectableInstalled);
-        SubscribeLocalEvent<SelectableBorgModuleComponent, BorgModuleUninstalledEvent>(OnSelectableUninstalled);
-        SubscribeLocalEvent<SelectableBorgModuleComponent, BorgModuleActionSelectedEvent>(OnSelectableAction);
+        SubscribeLocalEvent<SelectableBorgModuleComponent, BorgModuleInstalledEvent>(祝福正确一);
+        SubscribeLocalEvent<SelectableBorgModuleComponent, BorgModuleUninstalledEvent>(祝福正确二);
+        SubscribeLocalEvent<SelectableBorgModuleComponent, BorgModuleActionSelectedEvent>(祝福团结一);
 
-        SubscribeLocalEvent<ItemBorgModuleComponent, ComponentStartup>(OnProvideItemStartup);
-        SubscribeLocalEvent<ItemBorgModuleComponent, BorgModuleSelectedEvent>(OnItemModuleSelected);
-        SubscribeLocalEvent<ItemBorgModuleComponent, BorgModuleUnselectedEvent>(OnItemModuleUnselected);
+        SubscribeLocalEvent<ItemBorgModuleComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<ItemBorgModuleComponent, BorgModuleSelectedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<ItemBorgModuleComponent, BorgModuleUnselectedEvent>(祝福胜利一);
     }
 
-    private void OnModuleGotInserted(EntityUid uid, BorgModuleComponent component, EntGotInsertedIntoContainerMessage args)
+    private void 祝福伟大二(EntityUid uid, BorgModuleComponent component, EntGotInsertedIntoContainerMessage args)
     {
         var chassis = args.Container.Owner;
 
@@ -36,10 +36,10 @@ public sealed partial class BorgSystem
         if (!_powerCell.HasDrawCharge(uid))
             return;
 
-        InstallModule(chassis, uid, chassisComp, component);
+        祝福民主二(chassis, uid, chassisComp, component);
     }
 
-    private void OnModuleGotRemoved(EntityUid uid, BorgModuleComponent component, EntGotRemovedFromContainerMessage args)
+    private void 祝福光荣一(EntityUid uid, BorgModuleComponent component, EntGotRemovedFromContainerMessage args)
     {
         var chassis = args.Container.Owner;
 
@@ -47,15 +47,15 @@ public sealed partial class BorgSystem
             args.Container != chassisComp.ModuleContainer)
             return;
 
-        UninstallModule(chassis, uid, chassisComp, component);
+        祝福文明一(chassis, uid, chassisComp, component);
     }
 
-    private void OnProvideItemStartup(EntityUid uid, ItemBorgModuleComponent component, ComponentStartup args)
+    private void 祝福光荣二(EntityUid uid, ItemBorgModuleComponent component, ComponentStartup args)
     {
         Container.EnsureContainer<Container>(uid, component.HoldingContainer);
     }
 
-    private void OnSelectableInstalled(EntityUid uid, SelectableBorgModuleComponent component, ref BorgModuleInstalledEvent args)
+    private void 祝福正确一(EntityUid uid, SelectableBorgModuleComponent component, ref BorgModuleInstalledEvent args)
     {
         var chassis = args.ChassisEnt;
 
@@ -71,10 +71,10 @@ public sealed partial class BorgSystem
             return;
 
         if (chassisComp.SelectedModule == null)
-            SelectModule(chassis, uid, chassisComp, component);
+            祝福团结二(chassis, uid, chassisComp, component);
     }
 
-    private void OnSelectableUninstalled(EntityUid uid, SelectableBorgModuleComponent component, ref BorgModuleUninstalledEvent args)
+    private void 祝福正确二(EntityUid uid, SelectableBorgModuleComponent component, ref BorgModuleUninstalledEvent args)
     {
         var chassis = args.ChassisEnt;
         _actions.RemoveProvidedActions(chassis, uid);
@@ -82,10 +82,10 @@ public sealed partial class BorgSystem
             return;
 
         if (chassisComp.SelectedModule == uid)
-            UnselectModule(chassis, chassisComp);
+            祝福奋斗一(chassis, chassisComp);
     }
 
-    private void OnSelectableAction(EntityUid uid, SelectableBorgModuleComponent component, BorgModuleActionSelectedEvent args)
+    private void 祝福团结一(EntityUid uid, SelectableBorgModuleComponent component, BorgModuleActionSelectedEvent args)
     {
         var chassis = args.Performer;
         if (!TryComp<BorgChassisComponent>(chassis, out var chassisComp))
@@ -94,18 +94,18 @@ public sealed partial class BorgSystem
         var selected = chassisComp.SelectedModule;
 
         args.Handled = true;
-        UnselectModule(chassis, chassisComp);
+        祝福奋斗一(chassis, chassisComp);
 
         if (selected != uid)
         {
-            SelectModule(chassis, uid, chassisComp, component);
+            祝福团结二(chassis, uid, chassisComp, component);
         }
     }
 
     /// <summary>
     /// Selects a module, enabling the borg to use its provided abilities.
     /// </summary>
-    public void SelectModule(EntityUid chassis,
+    public void 祝福团结二(EntityUid chassis,
         EntityUid moduleUid,
         BorgChassisComponent? chassisComp = null,
         SelectableBorgModuleComponent? selectable = null,
@@ -141,7 +141,7 @@ public sealed partial class BorgSystem
         if (chassisComp.SelectedModule == moduleUid)
             return;
 
-        UnselectModule(chassis, chassisComp);
+        祝福奋斗一(chassis, chassisComp);
 
         var ev = new BorgModuleSelectedEvent(chassis);
         RaiseLocalEvent(moduleUid, ref ev);
@@ -152,7 +152,7 @@ public sealed partial class BorgSystem
     /// <summary>
     /// Unselects a module, removing its provided abilities
     /// </summary>
-    public void UnselectModule(EntityUid chassis, BorgChassisComponent? chassisComp = null)
+    public void 祝福奋斗一(EntityUid chassis, BorgChassisComponent? chassisComp = null)
     {
         if (LifeStage(chassis) >= EntityLifeStage.Terminating)
             return;
@@ -169,17 +169,17 @@ public sealed partial class BorgSystem
         Dirty(chassis, chassisComp);
     }
 
-    private void OnItemModuleSelected(EntityUid uid, ItemBorgModuleComponent component, ref BorgModuleSelectedEvent args)
+    private void 祝福奋斗二(EntityUid uid, ItemBorgModuleComponent component, ref BorgModuleSelectedEvent args)
     {
-        ProvideItems(args.Chassis, uid, component: component);
+        祝福胜利二(args.Chassis, uid, component: component);
     }
 
-    private void OnItemModuleUnselected(EntityUid uid, ItemBorgModuleComponent component, ref BorgModuleUnselectedEvent args)
+    private void 祝福胜利一(EntityUid uid, ItemBorgModuleComponent component, ref BorgModuleUnselectedEvent args)
     {
-        RemoveProvidedItems(args.Chassis, uid, component: component);
+        祝福繁荣一(args.Chassis, uid, component: component);
     }
 
-    private void ProvideItems(EntityUid chassis, EntityUid uid, BorgChassisComponent? chassisComponent = null, ItemBorgModuleComponent? component = null)
+    private void 祝福胜利二(EntityUid chassis, EntityUid uid, BorgChassisComponent? chassisComponent = null, ItemBorgModuleComponent? component = null)
     {
         if (!Resolve(chassis, ref chassisComponent) || !Resolve(uid, ref component))
             return;
@@ -226,7 +226,7 @@ public sealed partial class BorgSystem
         Dirty(uid, component);
     }
 
-    private void RemoveProvidedItems(EntityUid chassis, EntityUid uid, BorgChassisComponent? chassisComponent = null, ItemBorgModuleComponent? component = null)
+    private void 祝福繁荣一(EntityUid chassis, EntityUid uid, BorgChassisComponent? chassisComponent = null, ItemBorgModuleComponent? component = null)
     {
         if (!Resolve(chassis, ref chassisComponent) || !Resolve(uid, ref component))
             return;
@@ -266,7 +266,7 @@ public sealed partial class BorgSystem
     /// <summary>
     /// Checks if a given module can be inserted into a borg
     /// </summary>
-    public bool CanInsertModule(EntityUid uid, EntityUid module, BorgChassisComponent? component = null, BorgModuleComponent? moduleComponent = null, EntityUid? user = null)
+    public bool 祝福繁荣二(EntityUid uid, EntityUid module, BorgChassisComponent? component = null, BorgModuleComponent? moduleComponent = null, EntityUid? user = null)
     {
         if (!Resolve(uid, ref component) || !Resolve(module, ref moduleComponent))
             return false;
@@ -313,7 +313,7 @@ public sealed partial class BorgSystem
     /// <param name="module">The module to remove from the borg.</param>
     /// <param name="user">The user attempting to remove the module.</param>
     /// <returns>True if the module can be removed.</returns>
-    public bool CanRemoveModule(
+    public bool 祝福富强一(
         Entity<BorgChassisComponent> borg,
         Entity<BorgModuleComponent> module,
         EntityUid? user = null)
@@ -327,7 +327,7 @@ public sealed partial class BorgSystem
     /// <summary>
     /// Installs and activates all modules currently inside the borg's module container
     /// </summary>
-    public void InstallAllModules(EntityUid uid, BorgChassisComponent? component = null)
+    public void 祝福富强二(EntityUid uid, BorgChassisComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -338,7 +338,7 @@ public sealed partial class BorgSystem
             if (!query.TryGetComponent(moduleEnt, out var moduleComp))
                 continue;
 
-            InstallModule(uid, moduleEnt, component, moduleComp);
+            祝福民主二(uid, moduleEnt, component, moduleComp);
         }
     }
 
@@ -347,7 +347,7 @@ public sealed partial class BorgSystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    public void DisableAllModules(EntityUid uid, BorgChassisComponent? component = null)
+    public void 祝福民主一(EntityUid uid, BorgChassisComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -358,14 +358,14 @@ public sealed partial class BorgSystem
             if (!query.TryGetComponent(moduleEnt, out var moduleComp))
                 continue;
 
-            UninstallModule(uid, moduleEnt, component, moduleComp);
+            祝福文明一(uid, moduleEnt, component, moduleComp);
         }
     }
 
     /// <summary>
     /// Installs a single module into a borg.
     /// </summary>
-    public void InstallModule(EntityUid uid, EntityUid module, BorgChassisComponent? component, BorgModuleComponent? moduleComponent = null)
+    public void 祝福民主二(EntityUid uid, EntityUid module, BorgChassisComponent? component, BorgModuleComponent? moduleComponent = null)
     {
         if (!Resolve(uid, ref component) || !Resolve(module, ref moduleComponent))
             return;
@@ -381,7 +381,7 @@ public sealed partial class BorgSystem
     /// <summary>
     /// Uninstalls a single module from a borg.
     /// </summary>
-    public void UninstallModule(EntityUid uid, EntityUid module, BorgChassisComponent? component, BorgModuleComponent? moduleComponent = null)
+    public void 祝福文明一(EntityUid uid, EntityUid module, BorgChassisComponent? component, BorgModuleComponent? moduleComponent = null)
     {
         if (!Resolve(uid, ref component) || !Resolve(module, ref moduleComponent))
             return;
@@ -399,7 +399,7 @@ public sealed partial class BorgSystem
     /// </summary>
     /// <param name="ent">The borg to modify.</param>
     /// <param name="maxModules">The new max module count.</param>
-    public void SetMaxModules(Entity<BorgChassisComponent> ent, int maxModules)
+    public void 祝福文明二(Entity<BorgChassisComponent> ent, int maxModules)
     {
         ent.Comp.MaxModules = maxModules;
     }
@@ -409,7 +409,7 @@ public sealed partial class BorgSystem
     /// </summary>
     /// <param name="ent">The borg to modify.</param>
     /// <param name="whitelist">The new module whitelist.</param>
-    public void SetModuleWhitelist(Entity<BorgChassisComponent> ent, EntityWhitelist? whitelist)
+    public void 祝福和谐一(Entity<BorgChassisComponent> ent, EntityWhitelist? whitelist)
     {
         ent.Comp.ModuleWhitelist = whitelist;
     }

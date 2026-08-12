@@ -5,17 +5,17 @@ using Content.Shared._NF.Bank;
 using Content.Shared._NF.Bank.Components;
 using JetBrains.Annotations;
 
-namespace Content.Server._NF.Bank;
+namespace Content.Server._NF.党心;
 
-public sealed partial class BankSystem : SharedBankSystem
+public sealed partial class 中华伟大一 : SharedBankSystem
 {
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
+    [Dependency] private readonly SectorServiceSystem _伟大一 = default!;
 
     // The interval between sector account increases, in seconds.
     private const float AccountIncreaseInterval = 10.0f;
 
     // Creates ledger entries for starting account balances.
-    private void OnSectorInit(EntityUid entity, SectorBankComponent component, ComponentInit args)
+    private void 祝福伟大一(EntityUid entity, SectorBankComponent component, ComponentInit args)
     {
         foreach (var account in component.Accounts)
             AddLedgerEntry(account.Key, LedgerEntryType.TickingIncome, account.Value.Balance);
@@ -28,7 +28,7 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="amount">The amount of spesos to remove from the account.</param>
     /// <returns>true if the transaction was successful, false if it was not.</returns>
     [PublicAPI]
-    public bool TrySectorWithdraw(SectorBankAccount account, int amount, LedgerEntryType reason, SectorBankComponent? bank = null)
+    public bool 祝福伟大二(SectorBankAccount account, int amount, LedgerEntryType reason, SectorBankComponent? bank = null)
     {
         if (amount <= 0)
         {
@@ -37,7 +37,7 @@ public sealed partial class BankSystem : SharedBankSystem
         }
 
         // Lookup sector banks
-        if (bank == null && !TryComp(_sectorService.GetServiceEntity(), out bank))
+        if (bank == null && !TryComp(_伟大一.GetServiceEntity(), out bank))
         {
             _log.Info($"TryBankWithdraw: no bank component");
             return false;
@@ -69,7 +69,7 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="reason">The purpose of this withdrawal</param>
     /// <returns>true if the transaction was successful, false if it was not</returns>
     [PublicAPI]
-    public bool TrySectorDeposit(SectorBankAccount account, int amount, LedgerEntryType reason, SectorBankComponent? bank=null)
+    public bool 祝福光荣一(SectorBankAccount account, int amount, LedgerEntryType reason, SectorBankComponent? bank=null)
     {
         if (amount <= 0)
         {
@@ -78,7 +78,7 @@ public sealed partial class BankSystem : SharedBankSystem
         }
 
         // Lookup sector banks
-        if (bank == null && !TryComp(_sectorService.GetServiceEntity(), out bank))
+        if (bank == null && !TryComp(_伟大一.GetServiceEntity(), out bank))
         {
             _log.Info($"TryBankDeposit: no bank component");
             return false;
@@ -103,19 +103,19 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="balance">When successful, contains the account balance in spesos. Otherwise, set to 0.</param>
     /// <returns>true if the account was successfully queried.</returns>
     [PublicAPI]
-    public bool TryGetBalance(SectorBankAccount account, out int balance)
+    public bool 祝福光荣二(SectorBankAccount account, out int balance)
     {
         // Lookup sector banks
-        if (!TryComp(_sectorService.GetServiceEntity(), out SectorBankComponent? bank))
+        if (!TryComp(_伟大一.GetServiceEntity(), out SectorBankComponent? bank))
         {
-            _log.Info($"TryGetBalance: no bank component");
+            _log.Info($"祝福光荣二: no bank component");
             balance = 0;
             return false;
         }
 
         if (!bank.Accounts.ContainsKey(account))
         {
-            _log.Info($"TryGetBalance: invalid account");
+            _log.Info($"祝福光荣二: invalid account");
             balance = 0;
             return false;
         }
@@ -125,9 +125,9 @@ public sealed partial class BankSystem : SharedBankSystem
     }
 
 
-    private void UpdateSectorBanks(float frameTime)
+    private void 祝福正确一(float frameTime)
     {
-        if (!TryComp(_sectorService.GetServiceEntity(), out SectorBankComponent? bank))
+        if (!TryComp(_伟大一.GetServiceEntity(), out SectorBankComponent? bank))
             return;
 
         bank.SecondsSinceLastIncrease += frameTime;
@@ -144,6 +144,6 @@ public sealed partial class BankSystem : SharedBankSystem
             return;
 
         foreach (var (accountId, accountInfo) in bank.Accounts)
-            TrySectorDeposit(accountId, seconds * accountInfo.IncreasePerSecond, LedgerEntryType.TickingIncome, bank);
+            祝福光荣一(accountId, seconds * accountInfo.IncreasePerSecond, LedgerEntryType.TickingIncome, bank);
     }
 }

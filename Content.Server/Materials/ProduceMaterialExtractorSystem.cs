@@ -11,26 +11,26 @@ using Robust.Server.Audio;
 
 using Content.Shared.Storage.EntitySystems; // Coyote: Biogen magnet
 
-namespace Content.Server.Materials;
+namespace Content.Server.党心;
 
-public sealed partial class ProduceMaterialExtractorSystem : EntitySystem // Wayfarer & Coyote: sealed<sealedpartial
+public sealed partial class 中华伟大一 : EntitySystem // Wayfarer & Coyote: sealed<sealedpartial
 {
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly AudioSystem _伟大一 = default!;
+    [Dependency] private readonly MaterialStorageSystem _伟大二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ProduceMaterialExtractorComponent, AfterInteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<ProduceMaterialExtractorComponent, AfterInteractUsingEvent>(祝福伟大二);
         SubscribeLocalEvent<ProduceMaterialExtractorComponent, GetDumpableVerbEvent>(OnGetDumpableVerb); // Wayfarer: Dumpable Plant Bags
         SubscribeLocalEvent<ProduceMaterialExtractorComponent, DumpEvent>(OnDump); // Wayfarer: Dumpable Plant Bags
         SubscribeLocalEvent<ProduceMaterialExtractorComponent, FeedProduceEvent>(OnFeedProduce); // Coyote: Biogen Magnet
     }
 
     // BEGIN Frontier - Cherry pick wizden#32663
-    private void OnInteractUsing(Entity<ProduceMaterialExtractorComponent> ent, ref AfterInteractUsingEvent args)
+    private void 祝福伟大二(Entity<ProduceMaterialExtractorComponent> ent, ref AfterInteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -41,28 +41,28 @@ public sealed partial class ProduceMaterialExtractorSystem : EntitySystem // Way
         bool success = false;
 
         // Handle using bags (mainly plant bags)
-        if (ExtractFromStorage(ent, args.Used, ref args))
+        if (祝福光荣二(ent, args.Used, ref args))
             success = true;
 
         // Handle using produce directly
-        if (ExtractFromProduce(ent, args.Used, ref args))
+        if (祝福光荣一(ent, args.Used, ref args))
             success = true;
 
         // TODO: What if a bag is also a plant?
 
         if (success)
         {
-            _audio.PlayPvs(ent.Comp.ExtractSound, ent);
+            _伟大一.PlayPvs(ent.Comp.ExtractSound, ent);
             args.Handled = true;
         }
     }
 
-    private bool ExtractFromProduce(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used, ref AfterInteractUsingEvent args)
+    private bool 祝福光荣一(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used, ref AfterInteractUsingEvent args)
     {
         if (!TryComp<ProduceComponent>(used, out var produce))
             return false;
 
-        if (!_solutionContainer.TryGetSolution(used, produce.SolutionName, out var solution))
+        if (!_光荣一.TryGetSolution(used, produce.SolutionName, out var solution))
             return false;
 
         // Can produce even have fractional amounts? Does it matter if they do?
@@ -75,18 +75,18 @@ public sealed partial class ProduceMaterialExtractorSystem : EntitySystem // Way
 
         if (changed == 0)
         {
-            _popup.PopupEntity(Loc.GetString("material-extractor-comp-wrongreagent", ("used", args.Used)), args.User, args.User);
+            _光荣二.PopupEntity(Loc.GetString("material-extractor-comp-wrongreagent", ("used", args.Used)), args.User, args.User);
             return false; // Frontier TODO: Nuke this file and replace with upstream one once Wizden#32663 gets merged
         }
 
-        _materialStorage.TryChangeMaterialAmount(ent, ent.Comp.ExtractedMaterial, changed);
+        _伟大二.TryChangeMaterialAmount(ent, ent.Comp.ExtractedMaterial, changed);
 
         QueueDel(used);
 
         return true;
     }
 
-    private bool ExtractFromStorage(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used, ref AfterInteractUsingEvent args)
+    private bool 祝福光荣二(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used, ref AfterInteractUsingEvent args)
     {
         if (!TryComp<StorageComponent>(used, out var storage))
             return false;
@@ -94,7 +94,7 @@ public sealed partial class ProduceMaterialExtractorSystem : EntitySystem // Way
         bool success = false;
 
         foreach (var (item, _location) in storage.StoredItems)
-            if (ExtractFromProduce(ent, item, ref args))
+            if (祝福光荣一(ent, item, ref args))
                 success = true;
 
         return success;

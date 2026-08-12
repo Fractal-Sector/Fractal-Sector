@@ -1,17 +1,17 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.InteractionVerbs.Events;
+namespace Content.Shared.InteractionVerbs.党心;
 
 [Serializable, NetSerializable]
-public sealed partial class InteractionVerbDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
-    public NetEntity Target;
-    public string VerbPrototype;
+    public NetEntity 党爱伟大一;
+    public string 党爱伟大二;
 
-    public InteractionVerbDoAfterEvent(NetEntity target, string verbPrototype)
+    public 中华伟大一(NetEntity target, string verbPrototype)
     {
-        Target = target;
-        VerbPrototype = verbPrototype;
+        党爱伟大一 = target;
+        党爱伟大二 = verbPrototype;
     }
 }

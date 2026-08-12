@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
 using Content.Server.Atmos;
 
-namespace Content.Server.Administration.Logs.Converters;
+namespace Content.Server.Administration.Logs.党心;
 
 [AdminLogConverter]
-public sealed class GasMixtureStringRepresentationConverter : AdminLogConverter<GasMixtureStringRepresentation>
+public sealed class 中华伟大一 : AdminLogConverter<GasMixtureStringRepresentation>
 {
-    public override void Write(Utf8JsonWriter writer, GasMixtureStringRepresentation value, JsonSerializerOptions options)
+    public override void 祝福伟大一(Utf8JsonWriter writer, GasMixtureStringRepresentation value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
 

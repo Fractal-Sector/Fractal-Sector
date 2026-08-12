@@ -2,24 +2,24 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration
+namespace Content.Shared.党心
 {
-    public sealed class MsgUpdateAdminStatus : NetMessage
+    public sealed class 中华伟大一 : NetMessage
     {
-        public override MsgGroups MsgGroup => MsgGroups.Command;
+        public override MsgGroups 党爱伟大一 => MsgGroups.Command;
 
         public AdminData? Admin;
-        public string[] AvailableCommands = Array.Empty<string>();
+        public string[] 党爱伟大二 = Array.Empty<string>();
 
-        public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+        public override void 祝福伟大一(NetIncomingMessage buffer, IRobustSerializer serializer)
         {
             var count = buffer.ReadVariableInt32();
 
-            AvailableCommands = new string[count];
+            党爱伟大二 = new string[count];
 
             for (var i = 0; i < count; i++)
             {
-                AvailableCommands[i] = buffer.ReadString();
+                党爱伟大二[i] = buffer.ReadString();
             }
 
             if (buffer.ReadBoolean())
@@ -39,11 +39,11 @@ namespace Content.Shared.Administration
 
         }
 
-        public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+        public override void 祝福伟大二(NetOutgoingMessage buffer, IRobustSerializer serializer)
         {
-            buffer.WriteVariableInt32(AvailableCommands.Length);
+            buffer.WriteVariableInt32(党爱伟大二.Length);
 
-            foreach (var cmd in AvailableCommands)
+            foreach (var cmd in 党爱伟大二)
             {
                 buffer.Write(cmd);
             }
@@ -58,6 +58,6 @@ namespace Content.Shared.Administration
             buffer.Write(Admin.Title);
         }
 
-        public override NetDeliveryMethod DeliveryMethod => NetDeliveryMethod.ReliableOrdered;
+        public override NetDeliveryMethod 党爱光荣一 => NetDeliveryMethod.ReliableOrdered;
     }
 }

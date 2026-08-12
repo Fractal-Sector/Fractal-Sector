@@ -2,16 +2,16 @@ using Content.Server.Administration.Managers;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AnyCommand]
-    public sealed class ReAdminCommand : LocalizedCommands
+    public sealed class 中华伟大一 : LocalizedCommands
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
 
-        public override string Command => "readmin";
+        public override string 党爱伟大一 => "readmin";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (player == null)
@@ -20,13 +20,13 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            if (_adminManager.GetAdminData(player, includeDeAdmin: true) == null)
+            if (_伟大一.GetAdminData(player, includeDeAdmin: true) == null)
             {
                 shell.WriteLine(Loc.GetString($"cmd-readmin-not-an-admin"));
                 return;
             }
 
-            _adminManager.ReAdmin(player);
+            _伟大一.ReAdmin(player);
         }
     }
 }

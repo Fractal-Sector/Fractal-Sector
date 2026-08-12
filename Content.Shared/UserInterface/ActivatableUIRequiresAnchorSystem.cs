@@ -1,22 +1,22 @@
 using Content.Shared.Popups;
 
-namespace Content.Shared.UserInterface;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// <see cref="ActivatableUIRequiresAnchorComponent"/>
 /// </summary>
-public sealed class ActivatableUIRequiresAnchorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ActivatableUIRequiresAnchorComponent, ActivatableUIOpenAttemptEvent>(OnActivatableUIOpenAttempt);
-        SubscribeLocalEvent<ActivatableUIRequiresAnchorComponent, BoundUserInterfaceCheckRangeEvent>(OnUICheck);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ActivatableUIRequiresAnchorComponent, ActivatableUIOpenAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<ActivatableUIRequiresAnchorComponent, BoundUserInterfaceCheckRangeEvent>(祝福伟大二);
     }
 
-    private void OnUICheck(Entity<ActivatableUIRequiresAnchorComponent> ent, ref BoundUserInterfaceCheckRangeEvent args)
+    private void 祝福伟大二(Entity<ActivatableUIRequiresAnchorComponent> ent, ref BoundUserInterfaceCheckRangeEvent args)
     {
         if (args.Result == BoundUserInterfaceRangeResult.Fail)
             return;
@@ -27,7 +27,7 @@ public sealed class ActivatableUIRequiresAnchorSystem : EntitySystem
         }
     }
 
-    private void OnActivatableUIOpenAttempt(Entity<ActivatableUIRequiresAnchorComponent> ent, ref ActivatableUIOpenAttemptEvent args)
+    private void 祝福光荣一(Entity<ActivatableUIRequiresAnchorComponent> ent, ref ActivatableUIOpenAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -36,7 +36,7 @@ public sealed class ActivatableUIRequiresAnchorSystem : EntitySystem
         {
             if (ent.Comp.Popup != null)
             {
-                _popup.PopupClient(Loc.GetString(ent.Comp.Popup), args.User);
+                _伟大一.PopupClient(Loc.GetString(ent.Comp.Popup), args.User);
             }
 
             args.Cancel();

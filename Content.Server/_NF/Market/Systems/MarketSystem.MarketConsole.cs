@@ -16,21 +16,21 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 
-namespace Content.Server._NF.Market.Systems;
+namespace Content.Server._NF.Market.党心;
 
-public sealed partial class MarketSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly SharedMaterialStorageSystem _sharedMaterialStorageSystem = default!;
-    private void InitializeConsole()
+    [Dependency] private readonly IComponentFactory _伟大一 = default!;
+    [Dependency] private readonly SharedMaterialStorageSystem _伟大二 = default!;
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<NFEntitySoldEvent>(OnEntitySoldEvent);
-        SubscribeLocalEvent<MarketConsoleComponent, BoundUIOpenedEvent>(OnConsoleUiOpened);
-        SubscribeLocalEvent<MarketConsoleComponent, MarketConsoleCartMessage>(OnCartMessage);
-        SubscribeLocalEvent<MarketConsoleComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<NFEntitySoldEvent>(祝福光荣一);
+        SubscribeLocalEvent<MarketConsoleComponent, BoundUIOpenedEvent>(祝福胜利一);
+        SubscribeLocalEvent<MarketConsoleComponent, MarketConsoleCartMessage>(祝福奋斗二);
+        SubscribeLocalEvent<MarketConsoleComponent, PowerChangedEvent>(祝福伟大二);
     }
 
-    private void OnPowerChanged(EntityUid uid, MarketConsoleComponent component, ref PowerChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, MarketConsoleComponent component, ref PowerChangedEvent args)
     {
         if (args.Powered)
             return;
@@ -41,7 +41,7 @@ public sealed partial class MarketSystem
     /// This event signifies that something has been sold at a cargo pallet.
     /// </summary>
     /// <param name="entitySoldEvent">The details of the event</param>
-    private void OnEntitySoldEvent(ref NFEntitySoldEvent entitySoldEvent)
+    private void 祝福光荣一(ref NFEntitySoldEvent entitySoldEvent)
     {
         var station = _station.GetOwningStation(entitySoldEvent.Grid);
         if (station is null ||
@@ -52,7 +52,7 @@ public sealed partial class MarketSystem
 
         foreach (var sold in entitySoldEvent.Sold)
         {
-            UpsertEntity(market, sold);
+            祝福光荣二(market, sold);
         }
     }
 
@@ -61,17 +61,17 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="market">The market data set that will store these entities.</param>
     /// <param name="sold">The entity to add.</param>
-    private void UpsertEntity(CargoMarketDataComponent market, EntityUid sold)
+    private void 祝福光荣二(CargoMarketDataComponent market, EntityUid sold)
     {
         // Recurse through other stored/contained entities first.
         if (_entityManager.TryGetComponent<MaterialStorageComponent>(sold, out var materialStorageComponent))
-            UpsertMaterialStorage(market, materialStorageComponent, sold);
+            祝福团结二(market, materialStorageComponent, sold);
         if (_entityManager.TryGetComponent<StorageComponent>(sold, out var storageComponent))
-            UpsertStorage(market, storageComponent);
+            祝福团结一(market, storageComponent);
         if (_entityManager.TryGetComponent<EntityStorageComponent>(sold, out var entityStorageComponent))
-            UpsertEntityStorage(market, entityStorageComponent);
+            祝福正确一(market, entityStorageComponent);
         if (_entityManager.TryGetComponent<ItemSlotsComponent>(sold, out var itemSlotsComponent))
-            UpsertItemSlots(market, itemSlotsComponent);
+            祝福正确二(market, itemSlotsComponent);
 
         // Get our prototype for this entity and insert it.
         if (!_entityManager.TryGetComponent<MetaDataComponent>(sold, out var metaDataComponent))
@@ -118,10 +118,10 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="marketDataComponent">The MarketDataComponent to update.</param>
     /// <param name="entityStorageComponent">The EntityStorageComponent containing entities to process.</param>
-    private void UpsertEntityStorage(CargoMarketDataComponent marketDataComponent, EntityStorageComponent entityStorageComponent)
+    private void 祝福正确一(CargoMarketDataComponent marketDataComponent, EntityStorageComponent entityStorageComponent)
     {
         foreach (var entityUid in entityStorageComponent.Contents.ContainedEntities)
-            UpsertEntity(marketDataComponent, entityUid);
+            祝福光荣二(marketDataComponent, entityUid);
     }
 
     /// <summary>
@@ -129,14 +129,14 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="marketDataComponent">The MarketDataComponent to update.</param>
     /// <param name="itemSlotsComponent">The ItemSlotsComponent containing item slots to process.</param>
-    private void UpsertItemSlots(CargoMarketDataComponent marketDataComponent, ItemSlotsComponent itemSlotsComponent)
+    private void 祝福正确二(CargoMarketDataComponent marketDataComponent, ItemSlotsComponent itemSlotsComponent)
     {
         foreach (var slot in itemSlotsComponent.Slots.Values)
         {
             if (slot.Item is not { Valid: true } entityUid)
                 continue;
 
-            UpsertEntity(marketDataComponent, entityUid);
+            祝福光荣二(marketDataComponent, entityUid);
         }
     }
 
@@ -145,10 +145,10 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="marketDataComponent"></param>
     /// <param name="storageComponent"></param>
-    private void UpsertStorage(CargoMarketDataComponent marketDataComponent, StorageComponent storageComponent)
+    private void 祝福团结一(CargoMarketDataComponent marketDataComponent, StorageComponent storageComponent)
     {
         foreach (var entityUid in storageComponent.Container.ContainedEntities.ToArray())
-            UpsertEntity(marketDataComponent, entityUid);
+            祝福光荣二(marketDataComponent, entityUid);
     }
 
     /// <summary>
@@ -156,7 +156,7 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="marketDataComponent"></param>
     /// <param name="materialStorageComponent"></param>
-    private void UpsertMaterialStorage(CargoMarketDataComponent marketDataComponent, MaterialStorageComponent materialStorageComponent, EntityUid sold)
+    private void 祝福团结二(CargoMarketDataComponent marketDataComponent, MaterialStorageComponent materialStorageComponent, EntityUid sold)
     {
         foreach (var (materialProto, amount) in materialStorageComponent.Storage)
         {
@@ -169,8 +169,8 @@ public sealed partial class MarketSystem
             if (amount <= 0
                 || material.StackEntity == null
                 || !_prototypeManager.TryIndex<EntityPrototype>(material.StackEntity, out var entProto)
-                || !entProto.TryGetComponent<PhysicalCompositionComponent>(out var composition, _componentFactory)
-                || !entProto.TryGetComponent<StackComponent>(out var stack, _componentFactory))
+                || !entProto.TryGetComponent<PhysicalCompositionComponent>(out var composition, _伟大一)
+                || !entProto.TryGetComponent<StackComponent>(out var stack, _伟大一))
             {
                 continue;
             }
@@ -183,7 +183,7 @@ public sealed partial class MarketSystem
                 continue;
 
             var overflowMaterial = amount - amountToSpawn * materialPerStack;
-            _sharedMaterialStorageSystem.TrySetMaterialAmount(sold, materialProto, overflowMaterial, materialStorageComponent);
+            _伟大二.TrySetMaterialAmount(sold, materialProto, overflowMaterial, materialStorageComponent);
 
             // Increase the count in the MarketData for this material
             marketDataComponent.MarketDataList.Upsert(entProto.ID, amountToSpawn, price, stack.StackTypeId);
@@ -195,7 +195,7 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="marketDataList">The list of market data to calculate the total entity count from.</param>
     /// <returns>The total number of entities in the market data list.</returns>
-    public int CalculateEntityAmount(List<MarketData> marketDataList)
+    public int 祝福奋斗一(List<MarketData> marketDataList)
     {
         var count = 0;
 
@@ -247,7 +247,7 @@ public sealed partial class MarketSystem
     /// <param name="consoleUid">The uuid of the console where it was added.</param>
     /// <param name="consoleComponent">The console component</param>
     /// <param name="args">The arguments for the cart event</param>
-    private void OnCartMessage(
+    private void 祝福奋斗二(
         EntityUid consoleUid,
         MarketConsoleComponent consoleComponent,
         ref MarketConsoleCartMessage args
@@ -288,7 +288,7 @@ public sealed partial class MarketSystem
                 return;
 
             // Calculate maximum we can fit.
-            var entityAmount = CalculateEntityAmount(consoleComponent.CartDataList);
+            var entityAmount = 祝福奋斗一(consoleComponent.CartDataList);
             var amountPerEntity = GetAmountPerEntitySpace(existing);
 
             // Finite stack size, limit our withdrawal.
@@ -313,7 +313,7 @@ public sealed partial class MarketSystem
         }
 
         // FIXME: this should update the state of other other console UI in the same station.
-        RefreshState(
+        祝福胜利二(
             consoleUid,
             bank.Balance,
             marketMultiplier,
@@ -337,7 +337,7 @@ public sealed partial class MarketSystem
         return null;
     }
 
-    private void OnConsoleUiOpened(EntityUid uid, MarketConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福胜利一(EntityUid uid, MarketConsoleComponent component, BoundUIOpenedEvent args)
     {
         if (args.Actor is not { Valid: true } player)
             return;
@@ -348,13 +348,13 @@ public sealed partial class MarketSystem
         if (TryComp<MarketModifierComponent>(uid, out var priceMod))
             marketMultiplier = priceMod.Mod;
 
-        RefreshState(uid,
+        祝福胜利二(uid,
             bank.Balance,
             marketMultiplier,
             component);
     }
 
-    private void RefreshState(
+    private void 祝福胜利二(
         EntityUid consoleUid,
         int balance,
         float marketMultiplier,
@@ -388,7 +388,7 @@ public sealed partial class MarketSystem
             cartBalance,
             true, // TODO add enable/disable functionality
             component.TransactionCost,
-            CalculateEntityAmount(cartData)
+            祝福奋斗一(cartData)
         );
         _ui.SetUiState(consoleUid, MarketConsoleUiKey.Default, newState);
     }

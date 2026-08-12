@@ -16,31 +16,31 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Dragon;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Handles events for rift entities and rift updating.
 /// </summary>
-public sealed class DragonRiftSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly DragonSystem _dragon = default!;
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
+    [Dependency] private readonly DragonSystem _伟大二 = default!;
+    [Dependency] private readonly ISerializationManager _光荣一 = default!;
+    [Dependency] private readonly NavMapSystem _光荣二 = default!;
+    [Dependency] private readonly NPCSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DragonRiftComponent, ComponentGetState>(OnGetState);
-        SubscribeLocalEvent<DragonRiftComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<DragonRiftComponent, AnchorStateChangedEvent>(OnAnchorChange);
-        SubscribeLocalEvent<DragonRiftComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<DragonRiftComponent, ComponentGetState>(祝福伟大二);
+        SubscribeLocalEvent<DragonRiftComponent, ExaminedEvent>(祝福光荣二);
+        SubscribeLocalEvent<DragonRiftComponent, AnchorStateChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<DragonRiftComponent, ComponentShutdown>(祝福正确二);
     }
 
-    private void OnGetState(Entity<DragonRiftComponent> ent, ref ComponentGetState args)
+    private void 祝福伟大二(Entity<DragonRiftComponent> ent, ref ComponentGetState args)
     {
         args.State = new DragonRiftComponentState
         {
@@ -48,9 +48,9 @@ public sealed class DragonRiftSystem : EntitySystem
         };
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
         var query = EntityQueryEnumerator<DragonRiftComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
@@ -61,7 +61,7 @@ public sealed class DragonRiftSystem : EntitySystem
                 // for now they just keep 3 rifts up.
 
                 if (comp.Dragon != null)
-                    _dragon.RiftCharged(comp.Dragon.Value);
+                    _伟大二.RiftCharged(comp.Dragon.Value);
 
                 comp.Accumulator = comp.MaxAccumulator;
                 RemComp<DamageableComponent>(uid);
@@ -81,10 +81,10 @@ public sealed class DragonRiftSystem : EntitySystem
                 Dirty(uid, comp);
 
                 var msg = Loc.GetString("carp-rift-warning",
-                    ("location", FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString((uid, xform)))));
-                _chat.DispatchGlobalAnnouncement(msg, playSound: false, colorOverride: Color.Red);
-                _audio.PlayGlobal("/Audio/Misc/notice1.ogg", Filter.Broadcast(), true);
-                _navMap.SetBeaconEnabled(uid, true);
+                    ("location", FormattedMessage.RemoveMarkupOrThrow(_光荣二.GetNearestBeaconString((uid, xform)))));
+                _伟大一.DispatchGlobalAnnouncement(msg, playSound: false, colorOverride: Color.Red);
+                _正确二.PlayGlobal("/Audio/Misc/notice1.ogg", Filter.Broadcast(), true);
+                _光荣二.SetBeaconEnabled(uid, true);
             }
 
             if (comp.SpawnAccumulator > comp.SpawnCooldown)
@@ -92,26 +92,26 @@ public sealed class DragonRiftSystem : EntitySystem
                 comp.SpawnAccumulator -= comp.SpawnCooldown;
                 var ent = Spawn(comp.SpawnPrototype, xform.Coordinates);
 
-                // Update their look to match the leader.
+                // 祝福光荣一 their look to match the leader.
                 if (TryComp<RandomSpriteComponent>(comp.Dragon, out var randomSprite))
                 {
                     var spawnedSprite = EnsureComp<RandomSpriteComponent>(ent);
-                    _serManager.CopyTo(randomSprite, ref spawnedSprite, notNullableOverride: true);
+                    _光荣一.CopyTo(randomSprite, ref spawnedSprite, notNullableOverride: true);
                     Dirty(ent, spawnedSprite);
                 }
 
                 if (comp.Dragon != null)
-                    _npc.SetBlackboard(ent, NPCBlackboard.FollowTarget, new EntityCoordinates(comp.Dragon.Value, Vector2.Zero));
+                    _正确一.SetBlackboard(ent, NPCBlackboard.FollowTarget, new EntityCoordinates(comp.Dragon.Value, Vector2.Zero));
             }
         }
     }
 
-    private void OnExamined(EntityUid uid, DragonRiftComponent component, ExaminedEvent args)
+    private void 祝福光荣二(EntityUid uid, DragonRiftComponent component, ExaminedEvent args)
     {
         args.PushMarkup(Loc.GetString("carp-rift-examine", ("percentage", MathF.Round(component.Accumulator / component.MaxAccumulator * 100))));
     }
 
-    private void OnAnchorChange(EntityUid uid, DragonRiftComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福正确一(EntityUid uid, DragonRiftComponent component, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored && component.State == DragonRiftState.Charging)
         {
@@ -119,11 +119,11 @@ public sealed class DragonRiftSystem : EntitySystem
         }
     }
 
-    private void OnShutdown(EntityUid uid, DragonRiftComponent comp, ComponentShutdown args)
+    private void 祝福正确二(EntityUid uid, DragonRiftComponent comp, ComponentShutdown args)
     {
         if (!TryComp<DragonComponent>(comp.Dragon, out var dragon) || dragon.Weakened)
             return;
 
-        _dragon.RiftDestroyed(comp.Dragon.Value, dragon);
+        _伟大二.RiftDestroyed(comp.Dragon.Value, dragon);
     }
 }

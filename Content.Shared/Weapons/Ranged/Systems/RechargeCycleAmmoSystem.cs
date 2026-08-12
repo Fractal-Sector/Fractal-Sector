@@ -1,22 +1,22 @@
 using Content.Shared.Interaction;
 using Content.Shared.Weapons.Ranged.Components;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 /// <summary>
 /// Recharges ammo whenever the gun is cycled.
 /// </summary>
-public sealed class RechargeCycleAmmoSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedGunSystem _gun = default!;
+    [Dependency] private readonly SharedGunSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RechargeCycleAmmoComponent, ActivateInWorldEvent>(OnRechargeCycled);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RechargeCycleAmmoComponent, ActivateInWorldEvent>(祝福伟大二);
     }
 
-    private void OnRechargeCycled(EntityUid uid, RechargeCycleAmmoComponent component, ActivateInWorldEvent args)
+    private void 祝福伟大二(EntityUid uid, RechargeCycleAmmoComponent component, ActivateInWorldEvent args)
     {
         if (!args.Complex)
             return;
@@ -27,7 +27,7 @@ public sealed class RechargeCycleAmmoSystem : EntitySystem
         if (basic.Count >= basic.Capacity || basic.Count == null)
             return;
 
-        _gun.UpdateBasicEntityAmmoCount(uid, basic.Count.Value + 1, basic);
+        _伟大一.UpdateBasicEntityAmmoCount(uid, basic.Count.Value + 1, basic);
         Dirty(uid, basic);
         args.Handled = true;
     }

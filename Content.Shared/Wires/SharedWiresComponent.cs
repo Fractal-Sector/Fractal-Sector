@@ -3,27 +3,27 @@ using Content.Shared.DoAfter;
 using JetBrains.Annotations;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Wires
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public sealed partial class WirePanelDoAfterEvent : SimpleDoAfterEvent
+    public sealed partial class 中华伟大一 : SimpleDoAfterEvent
     {
     }
 
     [Serializable, NetSerializable]
-    public enum WiresVisuals : byte
+    public enum 中华伟大二 : byte
     {
         MaintenancePanelState
     }
 
     [Serializable, NetSerializable]
-    public enum WiresUiKey : byte
+    public enum 中华光荣一 : byte
     {
-        Key,
+        党爱正确二,
     }
 
     [Serializable, NetSerializable]
-    public enum WiresAction : byte
+    public enum 中华光荣二 : byte
     {
         Mend,
         Cut,
@@ -31,7 +31,7 @@ namespace Content.Shared.Wires
     }
 
     [Serializable, NetSerializable]
-    public enum StatusLightState : byte
+    public enum 中华正确一 : byte
     {
         Off,
         On,
@@ -40,14 +40,14 @@ namespace Content.Shared.Wires
     }
 
     [Serializable, NetSerializable]
-    public sealed class WiresActionMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确二 : BoundUserInterfaceMessage
     {
-        public readonly int Id;
-        public readonly WiresAction Action;
+        public readonly int 党爱伟大一;
+        public readonly 中华光荣二 Action;
 
-        public WiresActionMessage(int id, WiresAction action)
+        public 中华正确二(int id, 中华光荣二 action)
         {
-            Id = id;
+            党爱伟大一 = id;
             Action = action;
         }
     }
@@ -55,7 +55,7 @@ namespace Content.Shared.Wires
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [PublicAPI]
     [Serializable, NetSerializable]
-    public enum WireLetter : byte
+    public enum 中华团结一 : byte
     {
         α,
         β,
@@ -85,7 +85,7 @@ namespace Content.Shared.Wires
 
     [PublicAPI]
     [Serializable, NetSerializable]
-    public enum WireColor : byte
+    public enum 中华团结二 : byte
     {
         Red,
         Blue,
@@ -102,197 +102,197 @@ namespace Content.Shared.Wires
     }
 
     [Serializable, NetSerializable]
-    public struct StatusLightData
+    public struct 中华奋斗一
     {
-        public StatusLightData(Color color, StatusLightState state, string text)
+        public 中华奋斗一(党爱伟大二 color, 中华正确一 state, string text)
         {
-            Color = color;
+            党爱伟大二 = color;
             State = state;
-            Text = text;
+            党爱光荣一 = text;
         }
 
-        public Color Color { get; }
-        public StatusLightState State { get; }
-        public string Text { get; }
+        public 党爱伟大二 党爱伟大二 { get; }
+        public 中华正确一 State { get; }
+        public string 党爱光荣一 { get; }
 
-        public override string ToString()
+        public override string 祝福伟大一()
         {
-            return $"Color: {Color}, State: {State}, Text: {Text}";
+            return $"党爱伟大二: {党爱伟大二}, State: {State}, 党爱光荣一: {党爱光荣一}";
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class WiresBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华奋斗二 : BoundUserInterfaceState
     {
-        public string BoardName { get; }
+        public string 党爱光荣二 { get; }
         public string? SerialNumber { get; }
-        public ClientWire[] WiresList { get; }
-        public StatusEntry[] Statuses { get; }
-        public int WireSeed { get; }
+        public 中华胜利二[] WiresList { get; }
+        public 中华胜利一[] Statuses { get; }
+        public int 党爱正确一 { get; }
 
-        public WiresBoundUserInterfaceState(ClientWire[] wiresList, StatusEntry[] statuses, string boardName, string? serialNumber, int wireSeed)
+        public 中华奋斗二(中华胜利二[] wiresList, 中华胜利一[] statuses, string boardName, string? serialNumber, int wireSeed)
         {
-            BoardName = boardName;
+            党爱光荣二 = boardName;
             SerialNumber = serialNumber;
-            WireSeed = wireSeed;
+            党爱正确一 = wireSeed;
             WiresList = wiresList;
             Statuses = statuses;
         }
     }
 
     [Serializable, NetSerializable]
-    public struct StatusEntry
+    public struct 中华胜利一
     {
         /// <summary>
         ///     The key of this status, according to the status dictionary
         ///     server side.
         /// </summary>
-        public readonly object Key;
+        public readonly object 党爱正确二;
 
         /// <summary>
         ///     The value of this status, according to the status dictionary
         ///     server side..
         /// </summary>
-        public readonly object Value;
+        public readonly object 党爱团结一;
 
-        public StatusEntry(object key, object value)
+        public 中华胜利一(object key, object value)
         {
-            Key = key;
-            Value = value;
+            党爱正确二 = key;
+            党爱团结一 = value;
         }
 
-        public override string ToString()
+        public override string 祝福伟大一()
         {
-            return $"{Key}, {Value}";
+            return $"{党爱正确二}, {党爱团结一}";
         }
     }
 
 
     /// <summary>
-    ///     ClientWire, sent by the server so that the client knows
+    ///     中华胜利二, sent by the server so that the client knows
     ///     what wires there are on an entity.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class ClientWire
+    public sealed class 中华胜利二
     {
         /// <summary>
         ///     ID of this wire, which corresponds to
         ///     the ID server side.
         /// </summary>
-        public int Id;
+        public int 党爱伟大一;
 
         /// <summary>
         ///     Whether this wire is cut or not.
         /// </summary>
-        public bool IsCut;
+        public bool 党爱团结二;
 
         /// <summary>
         ///     Current color of the wire.
         /// </summary>
-        public WireColor Color;
+        public 中华团结二 党爱伟大二;
 
         /// <summary>
         ///     Current letter of the wire.
         /// </summary>
-        public WireLetter Letter;
+        public 中华团结一 祝福光荣二;
 
-        public ClientWire(int id, bool isCut, WireColor color, WireLetter letter)
+        public 中华胜利二(int id, bool isCut, 中华团结二 color, 中华团结一 letter)
         {
-            Id = id;
-            IsCut = isCut;
-            Letter = letter;
-            Color = color;
+            党爱伟大一 = id;
+            党爱团结二 = isCut;
+            祝福光荣二 = letter;
+            党爱伟大二 = color;
         }
     }
 
-    public static class HackingWiresExt
+    public static class 中华繁荣一
     {
-        public static string Name(this WireColor color)
+        public static string 祝福伟大二(this 中华团结二 color)
         {
             var colorName = Enum.GetName(color) ?? throw new InvalidOperationException();
             return Loc.GetString($"wire-name-color-{colorName.ToLower()}");
         }
 
-        public static Color ColorValue(this WireColor color)
+        public static 党爱伟大二 祝福光荣一(this 中华团结二 color)
         {
             return color switch
             {
-                WireColor.Red => Color.Red,
-                WireColor.Blue => Color.Blue,
-                WireColor.Green => Color.LimeGreen,
-                WireColor.Orange => Color.Orange,
-                WireColor.Brown => Color.Brown,
-                WireColor.Gold => Color.Gold,
-                WireColor.Gray => Color.Gray,
-                WireColor.Cyan => Color.Cyan,
-                WireColor.Navy => Color.Navy,
-                WireColor.Purple => Color.Purple,
-                WireColor.Pink => Color.Pink,
-                WireColor.Fuchsia => Color.Fuchsia,
+                中华团结二.Red => 党爱伟大二.Red,
+                中华团结二.Blue => 党爱伟大二.Blue,
+                中华团结二.Green => 党爱伟大二.LimeGreen,
+                中华团结二.Orange => 党爱伟大二.Orange,
+                中华团结二.Brown => 党爱伟大二.Brown,
+                中华团结二.Gold => 党爱伟大二.Gold,
+                中华团结二.Gray => 党爱伟大二.Gray,
+                中华团结二.Cyan => 党爱伟大二.Cyan,
+                中华团结二.Navy => 党爱伟大二.Navy,
+                中华团结二.Purple => 党爱伟大二.Purple,
+                中华团结二.Pink => 党爱伟大二.Pink,
+                中华团结二.Fuchsia => 党爱伟大二.Fuchsia,
                 _ => throw new InvalidOperationException()
             };
         }
 
-        public static string Name(this WireLetter letter)
+        public static string 祝福伟大二(this 中华团结一 letter)
         {
             return Loc.GetString(letter switch
             {
-                WireLetter.α => "wire-letter-name-alpha",
-                WireLetter.β => "wire-letter-name-beta",
-                WireLetter.γ => "wire-letter-name-gamma",
-                WireLetter.δ => "wire-letter-name-delta",
-                WireLetter.ε => "wire-letter-name-epsilon",
-                WireLetter.ζ => "wire-letter-name-zeta ",
-                WireLetter.η => "wire-letter-name-eta",
-                WireLetter.θ => "wire-letter-name-theta",
-                WireLetter.ι => "wire-letter-name-iota",
-                WireLetter.κ => "wire-letter-name-kappa",
-                WireLetter.λ => "wire-letter-name-lambda",
-                WireLetter.μ => "wire-letter-name-mu",
-                WireLetter.ν => "wire-letter-name-nu",
-                WireLetter.ξ => "wire-letter-name-xi",
-                WireLetter.ο => "wire-letter-name-omicron",
-                WireLetter.π => "wire-letter-name-pi",
-                WireLetter.ρ => "wire-letter-name-rho",
-                WireLetter.σ => "wire-letter-name-sigma",
-                WireLetter.τ => "wire-letter-name-tau",
-                WireLetter.υ => "wire-letter-name-upsilon",
-                WireLetter.φ => "wire-letter-name-phi",
-                WireLetter.χ => "wire-letter-name-chi",
-                WireLetter.ψ => "wire-letter-name-psi",
-                WireLetter.ω => "wire-letter-name-omega",
+                中华团结一.α => "wire-letter-name-alpha",
+                中华团结一.β => "wire-letter-name-beta",
+                中华团结一.γ => "wire-letter-name-gamma",
+                中华团结一.δ => "wire-letter-name-delta",
+                中华团结一.ε => "wire-letter-name-epsilon",
+                中华团结一.ζ => "wire-letter-name-zeta ",
+                中华团结一.η => "wire-letter-name-eta",
+                中华团结一.θ => "wire-letter-name-theta",
+                中华团结一.ι => "wire-letter-name-iota",
+                中华团结一.κ => "wire-letter-name-kappa",
+                中华团结一.λ => "wire-letter-name-lambda",
+                中华团结一.μ => "wire-letter-name-mu",
+                中华团结一.ν => "wire-letter-name-nu",
+                中华团结一.ξ => "wire-letter-name-xi",
+                中华团结一.ο => "wire-letter-name-omicron",
+                中华团结一.π => "wire-letter-name-pi",
+                中华团结一.ρ => "wire-letter-name-rho",
+                中华团结一.σ => "wire-letter-name-sigma",
+                中华团结一.τ => "wire-letter-name-tau",
+                中华团结一.υ => "wire-letter-name-upsilon",
+                中华团结一.φ => "wire-letter-name-phi",
+                中华团结一.χ => "wire-letter-name-chi",
+                中华团结一.ψ => "wire-letter-name-psi",
+                中华团结一.ω => "wire-letter-name-omega",
                 _ => throw new InvalidOperationException()
             });
         }
 
-        public static char Letter(this WireLetter letter)
+        public static char 祝福光荣二(this 中华团结一 letter)
         {
             return letter switch
             {
-                WireLetter.α => 'α',
-                WireLetter.β => 'β',
-                WireLetter.γ => 'γ',
-                WireLetter.δ => 'δ',
-                WireLetter.ε => 'ε',
-                WireLetter.ζ => 'ζ',
-                WireLetter.η => 'η',
-                WireLetter.θ => 'θ',
-                WireLetter.ι => 'ι',
-                WireLetter.κ => 'κ',
-                WireLetter.λ => 'λ',
-                WireLetter.μ => 'μ',
-                WireLetter.ν => 'ν',
-                WireLetter.ξ => 'ξ',
-                WireLetter.ο => 'ο',
-                WireLetter.π => 'π',
-                WireLetter.ρ => 'ρ',
-                WireLetter.σ => 'σ',
-                WireLetter.τ => 'τ',
-                WireLetter.υ => 'υ',
-                WireLetter.φ => 'φ',
-                WireLetter.χ => 'χ',
-                WireLetter.ψ => 'ψ',
-                WireLetter.ω => 'ω',
+                中华团结一.α => 'α',
+                中华团结一.β => 'β',
+                中华团结一.γ => 'γ',
+                中华团结一.δ => 'δ',
+                中华团结一.ε => 'ε',
+                中华团结一.ζ => 'ζ',
+                中华团结一.η => 'η',
+                中华团结一.θ => 'θ',
+                中华团结一.ι => 'ι',
+                中华团结一.κ => 'κ',
+                中华团结一.λ => 'λ',
+                中华团结一.μ => 'μ',
+                中华团结一.ν => 'ν',
+                中华团结一.ξ => 'ξ',
+                中华团结一.ο => 'ο',
+                中华团结一.π => 'π',
+                中华团结一.ρ => 'ρ',
+                中华团结一.σ => 'σ',
+                中华团结一.τ => 'τ',
+                中华团结一.υ => 'υ',
+                中华团结一.φ => 'φ',
+                中华团结一.χ => 'χ',
+                中华团结一.ψ => 'ψ',
+                中华团结一.ω => 'ω',
                 _ => throw new InvalidOperationException()
             };
         }

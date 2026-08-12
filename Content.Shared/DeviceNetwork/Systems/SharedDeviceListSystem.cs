@@ -1,33 +1,33 @@
 using System.Linq;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Shared.DeviceNetwork.Systems;
+namespace Content.Shared.DeviceNetwork.党心;
 
-public abstract class SharedDeviceListSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public IEnumerable<EntityUid> GetAllDevices(EntityUid uid, DeviceListComponent? component = null)
+    public IEnumerable<EntityUid> 祝福伟大一(EntityUid uid, DeviceListComponent? component = null)
     {
         if (!Resolve(uid, ref component))
         {
             return new EntityUid[] { };
         }
-        return component.Devices;
+        return component.党爱伟大二;
     }
 }
 
-public sealed class DeviceListUpdateEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public DeviceListUpdateEvent(List<EntityUid> oldDevices, List<EntityUid> devices)
+    public 中华伟大二(List<EntityUid> oldDevices, List<EntityUid> devices)
     {
-        OldDevices = oldDevices;
-        Devices = devices;
+        党爱伟大一 = oldDevices;
+        党爱伟大二 = devices;
     }
 
-    public List<EntityUid> OldDevices { get; }
-    public List<EntityUid> Devices { get; }
+    public List<EntityUid> 党爱伟大一 { get; }
+    public List<EntityUid> 党爱伟大二 { get; }
 }
 
-public enum DeviceListUpdateResult : byte
+public enum 中华光荣一 : byte
 {
     NoComponent,
     TooManyDevices,

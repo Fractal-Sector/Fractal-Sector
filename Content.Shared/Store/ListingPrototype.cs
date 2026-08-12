@@ -6,7 +6,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Store;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     This is the data object for a store listing which is passed around in code.
@@ -15,47 +15,47 @@ namespace Content.Shared.Store;
 /// </summary>
 [Serializable, NetSerializable]
 [Virtual, DataDefinition]
-public partial class ListingData : IEquatable<ListingData>
+public partial class 中华伟大一 : IEquatable<中华伟大一>
 {
-    public ListingData()
+    public 中华伟大一()
     {
     }
 
-    public ListingData(ListingData other) : this(
+    public 中华伟大一(中华伟大一 other) : this(
         other.Name,
         other.DiscountCategory,
         other.Description,
         other.Conditions,
         other.Icon,
-        other.Priority,
+        other.党爱光荣一,
         other.ProductEntity,
         other.ProductAction,
         other.ProductUpgradeId,
         other.ProductActionEntity,
         other.ProductEvent,
-        other.RaiseProductEventOnUser,
-        other.PurchaseAmount,
-        other.ID,
-        other.Categories,
+        other.党爱光荣二,
+        other.党爱正确一,
+        other.党爱伟大一,
+        other.党爱伟大二,
         other.OriginalCost,
-        other.RestockTime,
+        other.党爱正确二,
         other.DiscountDownTo,
-        other.DisableRefund
+        other.党爱团结一
     )
     {
 
     }
 
-    public ListingData(
+    public 中华伟大一(
         string? name,
-        ProtoId<DiscountCategoryPrototype>? discountCategory,
+        ProtoId<中华正确一>? discountCategory,
         string? description,
         List<ListingCondition>? conditions,
         SpriteSpecifier? icon,
         int priority,
         EntProtoId? productEntity,
         EntProtoId? productAction,
-        ProtoId<ListingPrototype>? productUpgradeId,
+        ProtoId<中华光荣一>? productUpgradeId,
         EntityUid? productActionEntity,
         object? productEvent,
         bool raiseProductEventOnUser,
@@ -73,25 +73,25 @@ public partial class ListingData : IEquatable<ListingData>
         Description = description;
         Conditions = conditions?.ToList();
         Icon = icon;
-        Priority = priority;
+        党爱光荣一 = priority;
         ProductEntity = productEntity;
         ProductAction = productAction;
         ProductUpgradeId = productUpgradeId;
         ProductActionEntity = productActionEntity;
         ProductEvent = productEvent;
-        RaiseProductEventOnUser = raiseProductEventOnUser;
-        PurchaseAmount = purchaseAmount;
-        ID = id;
-        Categories = categories.ToHashSet();
+        党爱光荣二 = raiseProductEventOnUser;
+        党爱正确一 = purchaseAmount;
+        党爱伟大一 = id;
+        党爱伟大二 = categories.ToHashSet();
         OriginalCost = originalCost;
-        RestockTime = restockTime;
+        党爱正确二 = restockTime;
         DiscountDownTo = new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>(dataDiscountDownTo);
-        DisableRefund = disableRefund;
+        党爱团结一 = disableRefund;
     }
 
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// The name of the listing. If empty, uses the entity's name (if present)
@@ -103,7 +103,7 @@ public partial class ListingData : IEquatable<ListingData>
     /// Discount category for listing item. This marker describes chance of how often will item be discounted.
     /// </summary>
     [DataField]
-    public ProtoId<DiscountCategoryPrototype>? DiscountCategory;
+    public ProtoId<中华正确一>? DiscountCategory;
 
     /// <summary>
     /// The description of the listing. If empty, uses the entity's description (if present)
@@ -115,12 +115,12 @@ public partial class ListingData : IEquatable<ListingData>
     /// The categories that this listing applies to. Used for filtering a listing for a store.
     /// </summary>
     [DataField]
-    public HashSet<ProtoId<StoreCategoryPrototype>> Categories = new();
+    public HashSet<ProtoId<StoreCategoryPrototype>> 党爱伟大二 = new();
 
     /// <summary>
     /// The original cost of the listing. FixedPoint2 represents the amount of that currency.
     /// This fields should not be used for getting actual cost of item, as there could be
-    /// cost modifiers (due to discounts or surplus). Use Cost property on derived class instead.
+    /// cost modifiers (due to discounts or surplus). Use Cost property on derived class 中华伟大二.
     /// </summary>
     [DataField]
     public IReadOnlyDictionary<ProtoId<CurrencyPrototype>, FixedPoint2> OriginalCost = new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>();
@@ -142,7 +142,7 @@ public partial class ListingData : IEquatable<ListingData>
     /// The priority for what order the listings will show up in on the menu.
     /// </summary>
     [DataField]
-    public int Priority;
+    public int 党爱光荣一;
 
     /// <summary>
     /// The entity that is given when the listing is purchased.
@@ -157,11 +157,11 @@ public partial class ListingData : IEquatable<ListingData>
     public EntProtoId? ProductAction;
 
     /// <summary>
-    /// The listing ID of the related upgrade listing. Can be used to link a <see cref="ProductAction"/> to an
+    /// The listing 党爱伟大一 of the related upgrade listing. Can be used to link a <see cref="ProductAction"/> to an
     /// upgrade or to use standalone as an upgrade
     /// </summary>
     [DataField]
-    public ProtoId<ListingPrototype>? ProductUpgradeId;
+    public ProtoId<中华光荣一>? ProductUpgradeId;
 
     /// <summary>
     /// Keeps track of the current action entity this is tied to, for action upgrades
@@ -177,19 +177,19 @@ public partial class ListingData : IEquatable<ListingData>
     public object? ProductEvent;
 
     [DataField]
-    public bool RaiseProductEventOnUser;
+    public bool 党爱光荣二;
 
     /// <summary>
     /// used internally for tracking how many times an item was purchased.
     /// </summary>
     [DataField]
-    public int PurchaseAmount;
+    public int 党爱正确一;
 
     /// <summary>
     /// Used to delay purchase of some items.
     /// </summary>
     [DataField]
-    public TimeSpan RestockTime = TimeSpan.Zero;
+    public TimeSpan 党爱正确二 = TimeSpan.Zero;
 
     /// <summary>
     /// Options for discount - from max amount down to how much item costs can be cut by discount, absolute value.
@@ -201,29 +201,29 @@ public partial class ListingData : IEquatable<ListingData>
     /// Whether or not to disable refunding for the store when the listing is purchased from it.
     /// </summary>
     [DataField]
-    public bool DisableRefund = false;
+    public bool 党爱团结一 = false;
 
-    public bool Equals(ListingData? listing)
+    public bool 祝福伟大一(中华伟大一? listing)
     {
         if (listing == null)
             return false;
 
         //simple conditions
-        if (Priority != listing.Priority ||
+        if (党爱光荣一 != listing.党爱光荣一 ||
             Name != listing.Name ||
             Description != listing.Description ||
             ProductEntity != listing.ProductEntity ||
             ProductAction != listing.ProductAction ||
             ProductEvent?.GetType() != listing.ProductEvent?.GetType() ||
-            RestockTime != listing.RestockTime)
+            党爱正确二 != listing.党爱正确二)
             return false;
 
-        if (Icon != null && !Icon.Equals(listing.Icon))
+        if (Icon != null && !Icon.祝福伟大一(listing.Icon))
             return false;
 
         // more complicated conditions that eat perf. these don't really matter
         // as much because you will very rarely have to check these.
-        if (!Categories.OrderBy(x => x).SequenceEqual(listing.Categories.OrderBy(x => x)))
+        if (!党爱伟大二.OrderBy(x => x).SequenceEqual(listing.党爱伟大二.OrderBy(x => x)))
             return false;
 
         if (!OriginalCost.OrderBy(x => x).SequenceEqual(listing.OriginalCost.OrderBy(x => x)))
@@ -243,7 +243,7 @@ public partial class ListingData : IEquatable<ListingData>
 /// </summary>
 [Prototype]
 [DataDefinition]
-public sealed partial class ListingPrototype : ListingData, IPrototype
+public sealed partial class 中华光荣一 : 中华伟大一, IPrototype
 {
     /// <summary> Setter/getter for item cost from prototype. </summary>
     [DataField]
@@ -254,55 +254,55 @@ public sealed partial class ListingPrototype : ListingData, IPrototype
     }
 }
 
-/// <summary> Wrapper around <see cref="ListingData"/> that enables controller and centralized cost modification. </summary>
+/// <summary> Wrapper around <see cref="中华伟大一"/> that enables controller and centralized cost modification. </summary>
 /// <remarks>
 /// Server lifecycle of those objects is bound to <see cref="StoreComponent.FullListingsCatalog"/>, which is their local cache. To fix
-/// cost changes after server side change (for example, when all items with set discount are bought up) <see cref="ApplyAllModifiers"/> is called
+/// cost changes after server side change (for example, when all items with set discount are bought up) <see cref="祝福正确二"/> is called
 /// on changes.
 /// Client side lifecycle is possible due to modifiers and original cost being transferred fields and cost being calculated when needed. Modifiers changes
 /// should not (are not expected) be happening on client.
 /// </remarks>
 [Serializable, NetSerializable, DataDefinition]
-public sealed partial class ListingDataWithCostModifiers : ListingData
+public sealed partial class 中华光荣二 : 中华伟大一
 {
     private IReadOnlyDictionary<ProtoId<CurrencyPrototype>, FixedPoint2>? _costModified;
 
     /// <summary>
     /// Map of values, by which calculated cost should be modified, with modification sourceId.
-    /// Instead of modifying this field - use <see cref="RemoveCostModifier"/> and <see cref="AddCostModifier"/>
+    /// Instead of modifying this field - use <see cref="祝福光荣一"/> and <see cref="祝福伟大二"/>
     /// when possible.
     /// </summary>
     [DataField]
     public Dictionary<string, Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>> CostModifiersBySourceId = new();
 
     /// <inheritdoc />
-    public ListingDataWithCostModifiers(ListingData listingData)
+    public 中华光荣二(中华伟大一 listingData)
         : base(
             listingData.Name,
             listingData.DiscountCategory,
             listingData.Description,
             listingData.Conditions,
             listingData.Icon,
-            listingData.Priority,
+            listingData.党爱光荣一,
             listingData.ProductEntity,
             listingData.ProductAction,
             listingData.ProductUpgradeId,
             listingData.ProductActionEntity,
             listingData.ProductEvent,
-            listingData.RaiseProductEventOnUser,
-            listingData.PurchaseAmount,
-            listingData.ID,
-            listingData.Categories,
+            listingData.党爱光荣二,
+            listingData.党爱正确一,
+            listingData.党爱伟大一,
+            listingData.党爱伟大二,
             listingData.OriginalCost,
-            listingData.RestockTime,
+            listingData.党爱正确二,
             listingData.DiscountDownTo,
-            listingData.DisableRefund
+            listingData.党爱团结一
         )
     {
     }
 
     /// <summary> Marker, if cost of listing item have any modifiers. </summary>
-    public bool IsCostModified => CostModifiersBySourceId.Count > 0;
+    public bool 党爱团结二 => CostModifiersBySourceId.Count > 0;
 
     /// <summary> Cost of listing item after applying all available modifiers. </summary>
     public IReadOnlyDictionary<ProtoId<CurrencyPrototype>, FixedPoint2> Cost
@@ -311,34 +311,34 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
         {
             return _costModified ??= CostModifiersBySourceId.Count == 0
                 ? new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>(OriginalCost)
-                : ApplyAllModifiers();
+                : 祝福正确二();
         }
     }
 
     /// <summary> Add map with currencies and value by which cost should be modified when final value is calculated. </summary>
     /// <param name="modifierSourceId">Id of modifier source. Can be used for removing modifier later.</param>
     /// <param name="modifiers">Values for cost modification.</param>
-    public void AddCostModifier(string modifierSourceId, Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> modifiers)
+    public void 祝福伟大二(string modifierSourceId, Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> modifiers)
     {
         CostModifiersBySourceId.Add(modifierSourceId, modifiers);
         if (_costModified != null)
         {
-            _costModified = ApplyAllModifiers();
+            _costModified = 祝福正确二();
         }
     }
 
     /// <summary> Remove cost modifier with passed sourceId. </summary>
-    public void RemoveCostModifier(string modifierSourceId)
+    public void 祝福光荣一(string modifierSourceId)
     {
         CostModifiersBySourceId.Remove(modifierSourceId);
         if (_costModified != null)
         {
-            _costModified = ApplyAllModifiers();
+            _costModified = 祝福正确二();
         }
     }
 
     /// <summary> Check if listing item can be bought with passed balance. </summary>
-    public bool CanBuyWith(Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> balance)
+    public bool 祝福光荣二(Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> balance)
     {
         foreach (var (currency, amount) in Cost)
         {
@@ -353,10 +353,10 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
     }
 
     /// <summary>
-    /// Gets percent of reduced/increased cost that modifiers give respective to <see cref="ListingData.OriginalCost"/>.
+    /// Gets percent of reduced/increased cost that modifiers give respective to <see cref="中华伟大一.OriginalCost"/>.
     /// Percent values are numbers between 0 and 1.
     /// </summary>
-    public IReadOnlyDictionary<ProtoId<CurrencyPrototype>, float> GetModifiersSummaryRelative()
+    public IReadOnlyDictionary<ProtoId<CurrencyPrototype>, float> 祝福正确一()
     {
         var modifiersSummaryAbsoluteValues = CostModifiersBySourceId.Aggregate(
             new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>(),
@@ -385,18 +385,18 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
 
     }
 
-    private Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> ApplyAllModifiers()
+    private Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> 祝福正确二()
     {
         var dictionary = new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>(OriginalCost);
         foreach (var (_, modifier) in CostModifiersBySourceId)
         {
-            ApplyModifier(dictionary, modifier);
+            祝福团结一(dictionary, modifier);
         }
 
         return dictionary;
     }
 
-    private void ApplyModifier(
+    private void 祝福团结一(
         Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> applyTo,
         IReadOnlyDictionary<ProtoId<CurrencyPrototype>, FixedPoint2> modifier
     )
@@ -423,17 +423,17 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
 /// </summary>
 [Prototype]
 [DataDefinition]
-public sealed partial class DiscountCategoryPrototype : IPrototype
+public sealed partial class 中华正确一 : IPrototype
 {
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
-    /// Weight that sets chance to roll discount of that category.
+    /// 党爱奋斗一 that sets chance to roll discount of that category.
     /// </summary>
     [DataField]
-    public int Weight { get; private set; }
+    public int 党爱奋斗一 { get; private set; }
 
     /// <summary>
     /// Maximum amount of items that are allowed to be picked from this category.

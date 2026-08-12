@@ -4,15 +4,15 @@ using Content.Shared.EntityTable.EntitySelectors;
 using Content.Shared.GameTicking;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityTable.Conditions;
+namespace Content.Shared.EntityTable.党心;
 
-public sealed partial class ReoccurrenceDelayCondition : EntityTableCondition
+public sealed partial class 中华伟大一 : EntityTableCondition
 {
     /// <summary>
     /// The maximum amount of times this rule can have already be run.
     /// </summary>
     [DataField]
-    public TimeSpan Delay = TimeSpan.Zero;
+    public TimeSpan 党爱伟大一 = TimeSpan.Zero;
 
     /// <summary>
     /// The rule that is being checked for occurrences.
@@ -21,7 +21,7 @@ public sealed partial class ReoccurrenceDelayCondition : EntityTableCondition
     [DataField]
     public EntProtoId? RuleOverride;
 
-    protected override bool EvaluateImplementation(EntityTableSelector root,
+    protected override bool 祝福伟大一(EntityTableSelector root,
         IEntityManager entMan,
         IPrototypeManager proto,
         EntityTableContext ctx)
@@ -44,6 +44,6 @@ public sealed partial class ReoccurrenceDelayCondition : EntityTableCondition
         var gameTicker = entMan.System<SharedGameTicker>();
 
         return gameTicker.AllPreviousGameRules.Any(
-            p => p.Item2 == rule && p.Item1 + Delay <= gameTicker.RoundDuration());
+            p => p.Item2 == rule && p.Item1 + 党爱伟大一 <= gameTicker.RoundDuration());
     }
 }

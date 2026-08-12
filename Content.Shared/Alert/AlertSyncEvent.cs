@@ -1,14 +1,14 @@
-namespace Content.Shared.Alert;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Raised when the AlertSystem needs alert sources to recalculate their alert states and set them.
 /// </summary>
-public sealed class AlertSyncEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public EntityUid Euid { get; }
+    public EntityUid 党爱伟大一 { get; }
 
-    public AlertSyncEvent(EntityUid euid)
+    public 中华伟大一(EntityUid euid)
     {
-        Euid = euid;
+        党爱伟大一 = euid;
     }
 }

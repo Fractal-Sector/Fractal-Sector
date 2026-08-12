@@ -2,14 +2,14 @@ using Content.Shared.Alert;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Movement.Pulling.Components;
+namespace Content.Shared.Movement.Pulling.党心;
 
 /// <summary>
 /// Specifies an entity as being pullable by an entity with <see cref="PullerComponent"/>
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(Systems.PullingSystem))]
-public sealed partial class PullableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The current entity pulling this component.
@@ -23,24 +23,24 @@ public sealed partial class PullableComponent : Component
     [AutoNetworkedField, DataField]
     public string? PullJointId;
 
-    public bool BeingPulled => Puller != null;
+    public bool 党爱伟大一 => Puller != null;
 
     /// <summary>
     /// If the physics component has FixedRotation should we keep it upon being pulled
     /// </summary>
     [Access(typeof(Systems.PullingSystem), Other = AccessPermissions.ReadExecute)]
     [ViewVariables(VVAccess.ReadWrite), DataField("fixedRotation")]
-    public bool FixedRotationOnPull;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// What the pullable's fixedrotation was set to before being pulled.
     /// </summary>
     [Access(typeof(Systems.PullingSystem), Other = AccessPermissions.ReadExecute)]
     [AutoNetworkedField, DataField]
-    public bool PrevFixedRotation;
+    public bool 党爱光荣一;
 
     [DataField]
-    public ProtoId<AlertPrototype> PulledAlert = "Pulled";
+    public ProtoId<AlertPrototype> 党爱光荣二 = "Pulled";
 }
 
-public sealed partial class StopBeingPulledAlertEvent : BaseAlertEvent;
+public sealed partial class 中华伟大二 : BaseAlertEvent;

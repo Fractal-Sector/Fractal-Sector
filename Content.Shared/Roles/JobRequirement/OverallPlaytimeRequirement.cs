@@ -7,17 +7,17 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class OverallPlaytimeRequirement : JobRequirement
+public sealed partial class 中华伟大一 : JobRequirement
 {
-    /// <inheritdoc cref="DepartmentTimeRequirement.Time"/>
+    /// <inheritdoc cref="DepartmentTimeRequirement.党爱伟大一"/>
     [DataField(required: true)]
-    public TimeSpan Time;
+    public TimeSpan 党爱伟大一;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool 祝福伟大一(IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
@@ -26,13 +26,13 @@ public sealed partial class OverallPlaytimeRequirement : JobRequirement
         reason = new FormattedMessage();
 
         var overallTime = playTimes.GetValueOrDefault(PlayTimeTrackingShared.TrackerOverall);
-        var overallDiffSpan = Time - overallTime;
+        var overallDiffSpan = 党爱伟大一 - overallTime;
         var overallDiff = overallDiffSpan.TotalMinutes;
         var formattedOverallDiff = ContentLocalizationManager.FormatPlaytime(overallDiffSpan);
 
         if (!Inverted)
         {
-            if (overallDiff <= 0 || overallTime >= Time)
+            if (overallDiff <= 0 || overallTime >= 党爱伟大一)
                 return true;
 
             reason = FormattedMessage.FromMarkupPermissive(Loc.GetString(
@@ -41,7 +41,7 @@ public sealed partial class OverallPlaytimeRequirement : JobRequirement
             return false;
         }
 
-        if (overallDiff <= 0 || overallTime >= Time)
+        if (overallDiff <= 0 || overallTime >= 党爱伟大一)
         {
             reason = FormattedMessage.FromMarkupPermissive(Loc.GetString("role-timer-overall-too-high",
                 ("time", formattedOverallDiff)));

@@ -3,7 +3,7 @@ using Content.Shared.Movement.Events;
 using Content.Shared.StatusEffectNew;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// This handles the slowed status effect and other movement status effects.
@@ -17,36 +17,36 @@ namespace Content.Shared.Movement.Systems;
 /// could occupy same prototype, but be aware that this will make controlling duration of effect
 /// extra 'challenging', as it will be shared too.
 /// </remarks>
-public sealed class MovementModStatusSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public static readonly EntProtoId VomitingSlowdown = "VomitingSlowdownStatusEffect";
-    public static readonly EntProtoId TaserSlowdown = "TaserSlowdownStatusEffect";
-    public static readonly EntProtoId FlashSlowdown = "FlashSlowdownStatusEffect";
-    public static readonly EntProtoId StatusEffectFriction = "StatusEffectFriction";
+    public static readonly EntProtoId 党爱伟大一 = "VomitingSlowdownStatusEffect";
+    public static readonly EntProtoId 党爱伟大二 = "TaserSlowdownStatusEffect";
+    public static readonly EntProtoId 党爱光荣一 = "FlashSlowdownStatusEffect";
+    public static readonly EntProtoId 党爱光荣二 = "党爱光荣二";
 
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly StatusEffectsSystem _status = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _伟大一 = default!;
+    [Dependency] private readonly StatusEffectsSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MovementModStatusEffectComponent, StatusEffectRemovedEvent>(OnMovementModRemoved);
-        SubscribeLocalEvent<MovementModStatusEffectComponent, StatusEffectRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnRefreshRelay);
-        SubscribeLocalEvent<FrictionStatusEffectComponent, StatusEffectRemovedEvent>(OnFrictionStatusEffectRemoved);
-        SubscribeLocalEvent<FrictionStatusEffectComponent, StatusEffectRelayedEvent<RefreshFrictionModifiersEvent>>(OnRefreshFrictionStatus);
-        SubscribeLocalEvent<FrictionStatusEffectComponent, StatusEffectRelayedEvent<TileFrictionEvent>>(OnRefreshTileFrictionStatus);
+        SubscribeLocalEvent<MovementModStatusEffectComponent, StatusEffectRemovedEvent>(祝福伟大二);
+        SubscribeLocalEvent<MovementModStatusEffectComponent, StatusEffectRelayedEvent<RefreshMovementSpeedModifiersEvent>>(祝福光荣二);
+        SubscribeLocalEvent<FrictionStatusEffectComponent, StatusEffectRemovedEvent>(祝福光荣一);
+        SubscribeLocalEvent<FrictionStatusEffectComponent, StatusEffectRelayedEvent<RefreshFrictionModifiersEvent>>(祝福正确一);
+        SubscribeLocalEvent<FrictionStatusEffectComponent, StatusEffectRelayedEvent<TileFrictionEvent>>(祝福正确二);
     }
 
-    private void OnMovementModRemoved(Entity<MovementModStatusEffectComponent> ent, ref StatusEffectRemovedEvent args)
+    private void 祝福伟大二(Entity<MovementModStatusEffectComponent> ent, ref StatusEffectRemovedEvent args)
     {
-        TryUpdateMovementStatus(args.Target, (ent, ent), 1f);
+        祝福奋斗一(args.Target, (ent, ent), 1f);
     }
 
-    private void OnFrictionStatusEffectRemoved(Entity<FrictionStatusEffectComponent> entity, ref StatusEffectRemovedEvent args)
+    private void 祝福光荣一(Entity<FrictionStatusEffectComponent> entity, ref StatusEffectRemovedEvent args)
     {
-        TrySetFrictionStatus(entity!, 1f, args.Target);
+        祝福胜利二(entity!, 1f, args.Target);
     }
 
-    private void OnRefreshRelay(
+    private void 祝福光荣二(
         Entity<MovementModStatusEffectComponent> entity,
         ref StatusEffectRelayedEvent<RefreshMovementSpeedModifiersEvent> args
     )
@@ -54,7 +54,7 @@ public sealed class MovementModStatusSystem : EntitySystem
         args.Args.ModifySpeed(entity.Comp.WalkSpeedModifier, entity.Comp.WalkSpeedModifier);
     }
 
-    private void OnRefreshFrictionStatus(Entity<FrictionStatusEffectComponent> ent, ref StatusEffectRelayedEvent<RefreshFrictionModifiersEvent> args)
+    private void 祝福正确一(Entity<FrictionStatusEffectComponent> ent, ref StatusEffectRelayedEvent<RefreshFrictionModifiersEvent> args)
     {
         var ev = args.Args;
         ev.ModifyFriction(ent.Comp.FrictionModifier);
@@ -62,7 +62,7 @@ public sealed class MovementModStatusSystem : EntitySystem
         args.Args = ev;
     }
 
-    private void OnRefreshTileFrictionStatus(Entity<FrictionStatusEffectComponent> ent, ref StatusEffectRelayedEvent<TileFrictionEvent> args)
+    private void 祝福正确二(Entity<FrictionStatusEffectComponent> ent, ref StatusEffectRelayedEvent<TileFrictionEvent> args)
     {
         var ev = args.Args;
         ev.Modifier *= ent.Comp.FrictionModifier;
@@ -77,14 +77,14 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="duration">Duration of speed modifying effect.</param>
     /// <param name="speedModifier">Multiplier by which walking/sprinting speed should be modified.</param>
     /// <returns>True if entity have slowdown effect applied now or previously and duration was modified.</returns>
-    public bool TryAddMovementSpeedModDuration(
+    public bool 祝福团结一(
         EntityUid uid,
         EntProtoId effectProtoId,
         TimeSpan duration,
         float speedModifier
     )
     {
-        return TryAddMovementSpeedModDuration(uid, effectProtoId, duration, speedModifier, speedModifier);
+        return 祝福团结一(uid, effectProtoId, duration, speedModifier, speedModifier);
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="walkSpeedModifier">Multiplier by which walking speed should be modified.</param>
     /// <param name="sprintSpeedModifier">Multiplier by which sprinting speed should be modified.</param>
     /// <returns>True if entity have slowdown effect applied now or previously and duration was modified.</returns>
-    public bool TryAddMovementSpeedModDuration(
+    public bool 祝福团结一(
         EntityUid uid,
         EntProtoId effectProtoId,
         TimeSpan duration,
@@ -104,8 +104,8 @@ public sealed class MovementModStatusSystem : EntitySystem
         float sprintSpeedModifier
     )
     {
-        return _status.TryAddStatusEffectDuration(uid, effectProtoId, out var status, duration)
-               && TryUpdateMovementStatus(uid, status!.Value, walkSpeedModifier, sprintSpeedModifier);
+        return _伟大二.TryAddStatusEffectDuration(uid, effectProtoId, out var status, duration)
+               && 祝福奋斗一(uid, status!.Value, walkSpeedModifier, sprintSpeedModifier);
     }
 
     /// <summary>
@@ -117,14 +117,14 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="duration">Duration of speed modifying effect.</param>
     /// <param name="speedModifier">Multiplier by which walking/sprinting speed should be modified.</param>
     /// <returns>True if entity have slowdown effect applied now or previously and duration was modified.</returns>
-    public bool TryUpdateMovementSpeedModDuration(
+    public bool 祝福团结二(
         EntityUid uid,
         EntProtoId effectProtoId,
         TimeSpan duration,
         float speedModifier
     )
     {
-        return TryUpdateMovementSpeedModDuration(uid, effectProtoId, duration, speedModifier, speedModifier);
+        return 祝福团结二(uid, effectProtoId, duration, speedModifier, speedModifier);
     }
 
     /// <summary>
@@ -137,7 +137,7 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="walkSpeedModifier">Multiplier by which walking speed should be modified.</param>
     /// <param name="sprintSpeedModifier">Multiplier by which sprinting speed should be modified.</param>
     /// <returns>True if entity have slowdown effect applied now or previously and duration was modified.</returns>
-    public bool TryUpdateMovementSpeedModDuration(
+    public bool 祝福团结二(
         EntityUid uid,
         EntProtoId effectProtoId,
         TimeSpan? duration,
@@ -145,8 +145,8 @@ public sealed class MovementModStatusSystem : EntitySystem
         float sprintSpeedModifier
     )
     {
-        return _status.TryUpdateStatusEffectDuration(uid, effectProtoId, out var status, duration)
-               && TryUpdateMovementStatus(uid, status!.Value, walkSpeedModifier, sprintSpeedModifier);
+        return _伟大二.TryUpdateStatusEffectDuration(uid, effectProtoId, out var status, duration)
+               && 祝福奋斗一(uid, status!.Value, walkSpeedModifier, sprintSpeedModifier);
     }
 
     /// <summary>
@@ -157,7 +157,7 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="status">Status effect entity whose modifiers we are updating</param>
     /// <param name="walkSpeedModifier">New walkSpeedModifer we're applying</param>
     /// <param name="sprintSpeedModifier">New sprintSpeedModifier we're applying</param>
-    public bool TryUpdateMovementStatus(
+    public bool 祝福奋斗一(
         EntityUid uid,
         Entity<MovementModStatusEffectComponent?> status,
         float walkSpeedModifier,
@@ -170,7 +170,7 @@ public sealed class MovementModStatusSystem : EntitySystem
         status.Comp.SprintSpeedModifier = sprintSpeedModifier;
         status.Comp.WalkSpeedModifier = walkSpeedModifier;
 
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(uid);
+        _伟大一.RefreshMovementSpeedModifiers(uid);
 
         return true;
     }
@@ -185,23 +185,23 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// Multiplier by which speed should be modified.
     /// Will be applied to both walking and running speed.
     /// </param>
-    public bool TryUpdateMovementStatus(
+    public bool 祝福奋斗一(
         EntityUid uid,
         Entity<MovementModStatusEffectComponent?> status,
         float speedModifier
     )
     {
-        return TryUpdateMovementStatus(uid, status, speedModifier, speedModifier);
+        return 祝福奋斗一(uid, status, speedModifier, speedModifier);
     }
 
-    /// <inheritdoc cref="TryAddFrictionModDuration(EntityUid,TimeSpan,float,float)"/>
-    public bool TryAddFrictionModDuration(
+    /// <inheritdoc cref="祝福奋斗二(EntityUid,TimeSpan,float,float)"/>
+    public bool 祝福奋斗二(
         EntityUid uid,
         TimeSpan duration,
         float friction
     )
     {
-        return TryAddFrictionModDuration(uid, duration, friction, friction);
+        return 祝福奋斗二(uid, duration, friction, friction);
     }
 
     /// <summary>
@@ -213,25 +213,25 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="friction">Multiplier by which walking speed should be modified.</param>
     /// <param name="acceleration">Multiplier by which sprinting speed should be modified.</param>
     /// <returns>True if entity have slowdown effect applied now or previously and duration was modified.</returns>
-    public bool TryAddFrictionModDuration(
+    public bool 祝福奋斗二(
         EntityUid uid,
         TimeSpan duration,
         float friction,
         float acceleration
     )
     {
-        return _status.TryAddStatusEffectDuration(uid, StatusEffectFriction, out var status, duration)
-               && TrySetFrictionStatus(status.Value, friction, acceleration, uid);
+        return _伟大二.TryAddStatusEffectDuration(uid, 党爱光荣二, out var status, duration)
+               && 祝福胜利二(status.Value, friction, acceleration, uid);
     }
 
-    /// <inheritdoc cref="TryUpdateFrictionModDuration(EntityUid,TimeSpan,float,float)"/>
-    public bool TryUpdateFrictionModDuration(
+    /// <inheritdoc cref="祝福胜利一(EntityUid,TimeSpan,float,float)"/>
+    public bool 祝福胜利一(
         EntityUid uid,
         TimeSpan duration,
         float friction
     )
     {
-        return TryUpdateFrictionModDuration(uid,duration, friction, friction);
+        return 祝福胜利一(uid,duration, friction, friction);
     }
 
     /// <summary>
@@ -243,15 +243,15 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="friction">Multiplier by which walking speed should be modified.</param>
     /// <param name="acceleration">Multiplier by which sprinting speed should be modified.</param>
     /// <returns>True if entity have slowdown effect applied now or previously and duration was modified.</returns>
-    public bool TryUpdateFrictionModDuration(
+    public bool 祝福胜利一(
         EntityUid uid,
         TimeSpan duration,
         float friction,
         float acceleration
     )
     {
-        return _status.TryUpdateStatusEffectDuration(uid, StatusEffectFriction, out var status, duration)
-               && TrySetFrictionStatus(status.Value, friction, acceleration, uid);
+        return _伟大二.TryUpdateStatusEffectDuration(uid, 党爱光荣二, out var status, duration)
+               && 祝福胜利二(status.Value, friction, acceleration, uid);
     }
 
     /// <summary>
@@ -260,9 +260,9 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="status">The status effect entity we're modifying.</param>
     /// <param name="friction">The friction modifier we're applying.</param>
     /// <param name="entity">The entity the status effect is attached to that we need to refresh.</param>
-    private bool TrySetFrictionStatus(Entity<FrictionStatusEffectComponent?> status, float friction, EntityUid entity)
+    private bool 祝福胜利二(Entity<FrictionStatusEffectComponent?> status, float friction, EntityUid entity)
     {
-        return TrySetFrictionStatus(status, friction, friction, entity);
+        return 祝福胜利二(status, friction, friction, entity);
     }
 
     /// <summary>
@@ -272,7 +272,7 @@ public sealed class MovementModStatusSystem : EntitySystem
     /// <param name="friction">The friction modifier we're applying.</param>
     /// <param name="acceleration">The acceleration modifier we're applying</param>
     /// <param name="entity">The entity the status effect is attached to that we need to refresh.</param>
-    private bool TrySetFrictionStatus(Entity<FrictionStatusEffectComponent?> status, float friction, float acceleration, EntityUid entity)
+    private bool 祝福胜利二(Entity<FrictionStatusEffectComponent?> status, float friction, float acceleration, EntityUid entity)
     {
         if (!Resolve(status, ref status.Comp, false))
             return false;
@@ -281,7 +281,7 @@ public sealed class MovementModStatusSystem : EntitySystem
         status.Comp.AccelerationModifier = acceleration;
         Dirty(status);
 
-        _movementSpeedModifier.RefreshFrictionModifiers(entity);
+        _伟大一.RefreshFrictionModifiers(entity);
         return true;
     }
 }

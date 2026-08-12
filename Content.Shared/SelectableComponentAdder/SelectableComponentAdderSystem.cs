@@ -2,20 +2,20 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.SelectableComponentAdder;
+namespace Content.Shared.党心;
 
-public sealed partial class SelectableComponentAdderSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SelectableComponentAdderComponent, GetVerbsEvent<Verb>>(OnGetVerb);
+        SubscribeLocalEvent<SelectableComponentAdderComponent, GetVerbsEvent<Verb>>(祝福伟大二);
     }
 
-    private void OnGetVerb(Entity<SelectableComponentAdderComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void 祝福伟大二(Entity<SelectableComponentAdderComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract || ent.Comp.Selections <= 0)
             return;
@@ -30,16 +30,16 @@ public sealed partial class SelectableComponentAdderSystem : EntitySystem
             {
                 Priority = entry.Priority,
                 Category = verbCategory,
-                Disabled = CheckDisabled(target, entry.ComponentsToAdd, entry.ComponentExistsBehavior),
+                Disabled = 祝福光荣一(target, entry.ComponentsToAdd, entry.ComponentExistsBehavior),
                 Act = () =>
                 {
-                    AddComponents(target, entry.ComponentsToAdd, entry.ComponentExistsBehavior);
+                    祝福光荣二(target, entry.ComponentsToAdd, entry.ComponentExistsBehavior);
                     ent.Comp.Selections--;
                     Dirty(ent);
                     if (entry.Popup == null)
                         return;
                     var message = Loc.GetString(entry.Popup.Value, ("target", target));
-                    _popup.PopupClient(message, target, user);
+                    _伟大一.PopupClient(message, target, user);
                 },
                 Text = Loc.GetString(entry.VerbName),
             };
@@ -47,7 +47,7 @@ public sealed partial class SelectableComponentAdderSystem : EntitySystem
         }
     }
 
-    private bool CheckDisabled(EntityUid target, ComponentRegistry? registry, ComponentExistsSetting setting)
+    private bool 祝福光荣一(EntityUid target, ComponentRegistry? registry, ComponentExistsSetting setting)
     {
         if (registry == null)
             return false;
@@ -78,9 +78,9 @@ public sealed partial class SelectableComponentAdderSystem : EntitySystem
         }
     }
 
-    private void AddComponents(EntityUid target, ComponentRegistry? registry, ComponentExistsSetting setting)
+    private void 祝福光荣二(EntityUid target, ComponentRegistry? registry, ComponentExistsSetting setting)
     {
-        if (registry == null || CheckDisabled(target, registry, setting))
+        if (registry == null || 祝福光荣一(target, registry, setting))
             return;
 
         foreach (var component in registry)

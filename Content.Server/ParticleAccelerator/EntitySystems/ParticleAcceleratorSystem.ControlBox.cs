@@ -14,35 +14,35 @@ using Robust.Shared.Player;
 using Content.Shared.ParticleAccelerator;
 using Content.Shared.Machines.Events;
 
-namespace Content.Server.ParticleAccelerator.EntitySystems;
+namespace Content.Server.ParticleAccelerator.党心;
 
-public sealed partial class ParticleAcceleratorSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
 
-    private void InitializeControlBoxSystem()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, PowerChangedEvent>(OnControlBoxPowerChange);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetEnableMessage>(OnUISetEnableMessage);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetPowerStateMessage>(OnUISetPowerMessage);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorRescanPartsMessage>(OnUIRescanMessage);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, MultipartMachineAssemblyStateChanged>(OnMachineAssembledChanged);
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, PowerChangedEvent>(祝福富强二);
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetEnableMessage>(祝福民主一);
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetPowerStateMessage>(祝福民主二);
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorRescanPartsMessage>(祝福文明一);
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, MultipartMachineAssemblyStateChanged>(祝福富强一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var curTime = _gameTiming.CurTime;
         var query = EntityQueryEnumerator<ParticleAcceleratorControlBoxComponent>();
         while (query.MoveNext(out var uid, out var controller))
         {
             if (controller.Firing && curTime >= controller.NextFire)
-                Fire(uid, curTime, controller);
+                祝福光荣二(uid, curTime, controller);
         }
     }
 
     [Conditional("DEBUG")]
-    private void EverythingIsWellToFire(ParticleAcceleratorControlBoxComponent controller,
+    private void 祝福光荣一(ParticleAcceleratorControlBoxComponent controller,
         Entity<MultipartMachineComponent> machine)
     {
         DebugTools.Assert(controller.Powered);
@@ -50,7 +50,7 @@ public sealed partial class ParticleAcceleratorSystem
         DebugTools.Assert(machine.Comp.IsAssembled);
     }
 
-    public void Fire(EntityUid uid, TimeSpan curTime, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void 祝福光荣二(EntityUid uid, TimeSpan curTime, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -62,7 +62,7 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         var machine = (uid, machineComp);
-        EverythingIsWellToFire(comp, machine);
+        祝福光荣一(comp, machine);
 
         var strength = comp.SelectedStrength;
 
@@ -71,7 +71,7 @@ public sealed partial class ParticleAcceleratorSystem
         FireEmitter(_multipartMachine.GetPartEntity(machine, AcceleratorParts.StarboardEmitter)!.Value, strength);
     }
 
-    public void SwitchOn(EntityUid uid, EntityUid? user = null, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void 祝福正确一(EntityUid uid, EntityUid? user = null, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -85,18 +85,18 @@ public sealed partial class ParticleAcceleratorSystem
             _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):player} has turned {ToPrettyString(uid)} on");
 
         comp.Enabled = true;
-        UpdatePowerDraw(uid, comp);
+        祝福胜利一(uid, comp);
 
         if (!TryComp<PowerConsumerComponent>(_multipartMachine.GetPartEntity(uid, AcceleratorParts.PowerBox), out var powerConsumer)
             || powerConsumer.ReceivedPower >= powerConsumer.DrawRate * ParticleAcceleratorControlBoxComponent.RequiredPowerRatio)
         {
-            PowerOn(uid, comp);
+            祝福团结一(uid, comp);
         }
 
-        UpdateUI(uid, comp);
+        祝福胜利二(uid, comp);
     }
 
-    public void SwitchOff(EntityUid uid, EntityUid? user = null, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void 祝福正确二(EntityUid uid, EntityUid? user = null, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -107,13 +107,13 @@ public sealed partial class ParticleAcceleratorSystem
             _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):player} has turned {ToPrettyString(uid)} off");
 
         comp.Enabled = false;
-        SetStrength(uid, ParticleAcceleratorPowerState.Standby, user, comp);
-        UpdatePowerDraw(uid, comp);
-        PowerOff(uid, comp);
-        UpdateUI(uid, comp);
+        祝福奋斗一(uid, ParticleAcceleratorPowerState.Standby, user, comp);
+        祝福胜利一(uid, comp);
+        祝福团结二(uid, comp);
+        祝福胜利二(uid, comp);
     }
 
-    public void PowerOn(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void 祝福团结一(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -125,13 +125,13 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         comp.Powered = true;
-        UpdatePowerDraw(uid, comp);
-        UpdateFiring(uid, comp);
-        UpdatePartVisualStates(uid, comp);
-        UpdateUI(uid, comp);
+        祝福胜利一(uid, comp);
+        祝福奋斗二(uid, comp);
+        祝福繁荣二(uid, comp);
+        祝福胜利二(uid, comp);
     }
 
-    public void PowerOff(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void 祝福团结二(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -139,13 +139,13 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         comp.Powered = false;
-        UpdatePowerDraw(uid, comp);
-        UpdateFiring(uid, comp);
-        UpdatePartVisualStates(uid, comp);
-        UpdateUI(uid, comp);
+        祝福胜利一(uid, comp);
+        祝福奋斗二(uid, comp);
+        祝福繁荣二(uid, comp);
+        祝福胜利二(uid, comp);
     }
 
-    public void SetStrength(EntityUid uid, ParticleAcceleratorPowerState strength, EntityUid? user = null, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void 祝福奋斗一(EntityUid uid, ParticleAcceleratorPowerState strength, EntityUid? user = null, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -185,10 +185,10 @@ public sealed partial class ParticleAcceleratorSystem
                     _chat.SendAdminAlert(player,
                         Loc.GetString("particle-accelerator-admin-power-strength-warning",
                         ("machine", ToPrettyString(uid)),
-                        ("powerState", GetPANumericalLevel(strength)),
+                        ("powerState", 祝福文明二(strength)),
                         ("coordinates", pos.Coordinates)));
-                    _audio.PlayGlobal("/Audio/Misc/adminlarm.ogg",
-                        Filter.Empty().AddPlayers(_adminManager.ActiveAdmins),
+                    _伟大二.PlayGlobal("/Audio/Misc/adminlarm.ogg",
+                        Filter.Empty().AddPlayers(_伟大一.ActiveAdmins),
                         false,
                         AudioParams.Default.WithVolume(-8f));
                     comp.EffectCooldown = _gameTiming.CurTime + comp.CooldownDuration;
@@ -197,17 +197,17 @@ public sealed partial class ParticleAcceleratorSystem
         }
 
         comp.SelectedStrength = strength;
-        UpdateAppearance(uid, comp);
-        UpdatePartVisualStates(uid, comp);
+        祝福繁荣一(uid, comp);
+        祝福繁荣二(uid, comp);
 
         if (comp.Enabled)
         {
-            UpdatePowerDraw(uid, comp);
-            UpdateFiring(uid, comp);
+            祝福胜利一(uid, comp);
+            祝福奋斗二(uid, comp);
         }
     }
 
-    private void UpdateFiring(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
+    private void 祝福奋斗二(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -221,7 +221,7 @@ public sealed partial class ParticleAcceleratorSystem
         if (!TryComp<MultipartMachineComponent>(uid, out var machine))
             return;
 
-        EverythingIsWellToFire(comp, (uid, machine));
+        祝福光荣一(comp, (uid, machine));
 
         var curTime = _gameTiming.CurTime;
         comp.LastFire = curTime;
@@ -229,7 +229,7 @@ public sealed partial class ParticleAcceleratorSystem
         comp.Firing = true;
     }
 
-    private void UpdatePowerDraw(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
+    private void 祝福胜利一(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -244,7 +244,7 @@ public sealed partial class ParticleAcceleratorSystem
         powerConsumer.DrawRate = powerDraw;
     }
 
-    public void UpdateUI(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void 祝福胜利二(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -286,7 +286,7 @@ public sealed partial class ParticleAcceleratorSystem
         _uiSystem.SetUiState(uid, ParticleAcceleratorControlBoxUiKey.Key, uiState);
     }
 
-    private void UpdateAppearance(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null, AppearanceComponent? appearance = null)
+    private void 祝福繁荣一(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -301,7 +301,7 @@ public sealed partial class ParticleAcceleratorSystem
         );
     }
 
-    private void UpdatePartVisualStates(EntityUid uid, ParticleAcceleratorControlBoxComponent? controller = null)
+    private void 祝福繁荣二(EntityUid uid, ParticleAcceleratorControlBoxComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return;
@@ -332,23 +332,23 @@ public sealed partial class ParticleAcceleratorSystem
     /// </summary>
     /// <param name="ent">Multipart machine entity</param>
     /// <param name="args">Args for this event</param>
-    private void OnMachineAssembledChanged(Entity<ParticleAcceleratorControlBoxComponent> ent, ref MultipartMachineAssemblyStateChanged args)
+    private void 祝福富强一(Entity<ParticleAcceleratorControlBoxComponent> ent, ref MultipartMachineAssemblyStateChanged args)
     {
         if (args.IsAssembled)
         {
-            UpdatePowerDraw(ent, ent.Comp);
-            UpdateUI(ent, ent.Comp);
+            祝福胜利一(ent, ent.Comp);
+            祝福胜利二(ent, ent.Comp);
         }
         else
         {
             if (ent.Comp.Powered)
             {
-                SwitchOff(ent, args.User, ent.Comp);
+                祝福正确二(ent, args.User, ent.Comp);
             }
             else
             {
-                UpdateAppearance(ent, ent.Comp);
-                UpdateUI(ent, ent.Comp);
+                祝福繁荣一(ent, ent.Comp);
+                祝福胜利二(ent, ent.Comp);
             }
 
             // Because the parts are already removed from the multipart machine, updating the visual appearance won't find any valid entities.
@@ -365,15 +365,15 @@ public sealed partial class ParticleAcceleratorSystem
 
     // This is the power state for the PA control box itself.
     // Keep in mind that the PA itself can keep firing as long as the HV cable under the power box has... power.
-    private void OnControlBoxPowerChange(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ref PowerChangedEvent args)
+    private void 祝福富强二(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ref PowerChangedEvent args)
     {
-        UpdateAppearance(uid, comp);
+        祝福繁荣一(uid, comp);
 
         if (!args.Powered)
             _uiSystem.CloseUi(uid, ParticleAcceleratorControlBoxUiKey.Key);
     }
 
-    private void OnUISetEnableMessage(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorSetEnableMessage msg)
+    private void 祝福民主一(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorSetEnableMessage msg)
     {
         if (!ParticleAcceleratorControlBoxUiKey.Key.Equals(msg.UiKey))
             return;
@@ -385,15 +385,15 @@ public sealed partial class ParticleAcceleratorSystem
         if (msg.Enabled)
         {
             if (_multipartMachine.IsAssembled((uid, null)))
-                SwitchOn(uid, msg.Actor, comp);
+                祝福正确一(uid, msg.Actor, comp);
         }
         else
-            SwitchOff(uid, msg.Actor, comp);
+            祝福正确二(uid, msg.Actor, comp);
 
-        UpdateUI(uid, comp);
+        祝福胜利二(uid, comp);
     }
 
-    private void OnUISetPowerMessage(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorSetPowerStateMessage msg)
+    private void 祝福民主二(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorSetPowerStateMessage msg)
     {
         if (!ParticleAcceleratorControlBoxUiKey.Key.Equals(msg.UiKey))
             return;
@@ -402,12 +402,12 @@ public sealed partial class ParticleAcceleratorSystem
         if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && !apcPower.Powered)
             return;
 
-        SetStrength(uid, msg.State, msg.Actor, comp);
+        祝福奋斗一(uid, msg.State, msg.Actor, comp);
 
-        UpdateUI(uid, comp);
+        祝福胜利二(uid, comp);
     }
 
-    private void OnUIRescanMessage(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorRescanPartsMessage msg)
+    private void 祝福文明一(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorRescanPartsMessage msg)
     {
         if (!ParticleAcceleratorControlBoxUiKey.Key.Equals(msg.UiKey))
             return;
@@ -425,7 +425,7 @@ public sealed partial class ParticleAcceleratorSystem
         _multipartMachine.Rescan(machine, msg.Actor);
     }
 
-    public static int GetPANumericalLevel(ParticleAcceleratorPowerState state)
+    public static int 祝福文明二(ParticleAcceleratorPowerState state)
     {
         return state switch
         {

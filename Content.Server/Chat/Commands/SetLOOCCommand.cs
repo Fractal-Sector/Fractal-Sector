@@ -4,16 +4,16 @@ using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Chat.Commands;
+namespace Content.Server.Chat.党心;
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class SetLoocCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "setlooc";
+    public override string 党爱伟大一 => "setlooc";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length > 1)
         {
@@ -21,7 +21,7 @@ public sealed class SetLoocCommand : LocalizedCommands
             return;
         }
 
-        var looc = _configManager.GetCVar(CCVars.LoocEnabled);
+        var looc = _伟大一.GetCVar(CCVars.LoocEnabled);
 
         if (args.Length == 0)
         {
@@ -34,7 +34,7 @@ public sealed class SetLoocCommand : LocalizedCommands
             return;
         }
 
-        _configManager.SetCVar(CCVars.LoocEnabled, looc);
+        _伟大一.SetCVar(CCVars.LoocEnabled, looc);
 
         shell.WriteLine(Loc.GetString(looc ? "cmd-setlooc-looc-enabled" : "cmd-setlooc-looc-disabled"));
     }

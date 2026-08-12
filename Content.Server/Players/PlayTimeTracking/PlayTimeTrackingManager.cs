@@ -15,9 +15,9 @@ using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Players.PlayTimeTracking;
+namespace Content.Server.Players.党心;
 
-public delegate void CalcPlayTimeTrackersCallback(ICommonSession player, HashSet<string> trackers);
+public delegate void 祝福伟大一(ICommonSession player, HashSet<string> trackers);
 
 /// <summary>
 /// Tracks play time for players, across all roles.
@@ -30,12 +30,12 @@ public delegate void CalcPlayTimeTrackersCallback(ICommonSession player, HashSet
 /// <para>
 /// To actually figure out what trackers are active, <see cref="CalcTrackers"/> is invoked in a "refresh".
 /// The next time the trackers are refreshed, these trackers all get the time since the last refresh added.
-/// Refreshes are triggered by <see cref="QueueRefreshTrackers"/>, and should be raised through events such as players' roles changing.
+/// Refreshes are triggered by <see cref="祝福平等二"/>, and should be raised through events such as players' roles changing.
 /// </para>
 /// <para>
 /// Because the calculation system does not persistently keep ticking timers,
-/// APIs like <see cref="GetPlayTimeForTracker"/> will not see live-updating information.
-/// A light-weight form of refresh is a "flush" through <see cref="FlushTracker"/>.
+/// APIs like <see cref="祝福平等一"/> will not see live-updating information.
+/// A light-weight form of refresh is a "flush" through <see cref="祝福团结二"/>.
 /// This will not cause active trackers to be re-calculated like a refresh,
 /// but it will ensure stored play time info is up to date.
 /// </para>
@@ -55,203 +55,203 @@ public delegate void CalcPlayTimeTrackersCallback(ICommonSession player, HashSet
 /// Operations like refreshing and sending play time info to clients are deferred until the next frame (note: not tick).
 /// </para>
 /// </remarks>
-public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IPostInjectInit // Frontier: add partial
+public sealed partial class 中华伟大一 : ISharedPlaytimeManager, IPostInjectInit // Frontier: add partial
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IServerNetManager _net = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ITaskManager _task = default!;
-    [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
-    [Dependency] private readonly UserDbDataManager _userDb = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly IServerNetManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly ITaskManager _正确一 = default!;
+    [Dependency] private readonly IRuntimeLog _正确二 = default!;
+    [Dependency] private readonly UserDbDataManager _团结一 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _团结二 = default!;
 
     // List of players that need some kind of update (refresh timers or resend).
-    private ValueList<ICommonSession> _playersDirty;
+    private ValueList<ICommonSession> _奋斗一;
 
     // DB auto-saving logic.
-    private TimeSpan _saveInterval;
-    private TimeSpan _lastSave;
+    private TimeSpan _奋斗二;
+    private TimeSpan _胜利一;
 
     // List of pending DB save operations.
     // We must block server shutdown on these to avoid losing data.
-    private readonly List<Task> _pendingSaveTasks = new();
+    private readonly List<Task> _胜利二 = new();
 
-    private readonly Dictionary<ICommonSession, PlayTimeData> _playTimeData = new();
+    private readonly Dictionary<ICommonSession, 中华伟大二> _playTimeData = new();
 
-    public event CalcPlayTimeTrackersCallback? CalcTrackers;
+    public event 祝福伟大一? CalcTrackers;
 
     public event Action<ICommonSession>? SessionPlayTimeUpdated;
 
-    public void Initialize()
+    public void 祝福伟大二()
     {
-        _sawmill = Logger.GetSawmill("play_time");
+        _团结二 = Logger.GetSawmill("play_time");
 
-        _net.RegisterNetMessage<MsgPlayTime>();
+        _伟大二.RegisterNetMessage<MsgPlayTime>();
 
-        _cfg.OnValueChanged(CCVars.PlayTimeSaveInterval, f => _saveInterval = TimeSpan.FromSeconds(f), true);
+        _光荣一.OnValueChanged(CCVars.PlayTimeSaveInterval, f => _奋斗二 = TimeSpan.FromSeconds(f), true);
     }
 
-    public void Shutdown()
+    public void 祝福光荣一()
     {
-        Save();
+        祝福胜利二();
 
-        _task.BlockWaitOnTask(Task.WhenAll(_pendingSaveTasks));
+        _正确一.BlockWaitOnTask(Task.WhenAll(_胜利二));
     }
 
-    public void Update()
+    public void 祝福光荣二()
     {
         // NOTE: This is run **out** of simulation. This is intentional.
 
-        UpdateDirtyPlayers();
+        祝福正确一();
 
-        if (_timing.RealTime < _lastSave + _saveInterval)
+        if (_光荣二.RealTime < _胜利一 + _奋斗二)
             return;
 
-        Save();
+        祝福胜利二();
     }
 
-    private void UpdateDirtyPlayers()
+    private void 祝福正确一()
     {
-        if (_playersDirty.Count == 0)
+        if (_奋斗一.Count == 0)
             return;
 
-        var time = _timing.RealTime;
+        var time = _光荣二.RealTime;
 
-        foreach (var player in _playersDirty)
+        foreach (var player in _奋斗一)
         {
             if (!_playTimeData.TryGetValue(player, out var data))
                 continue;
 
-            DebugTools.Assert(data.IsDirty);
+            DebugTools.Assert(data.党爱伟大一);
 
-            if (data.NeedRefreshTackers)
+            if (data.党爱伟大二)
             {
-                RefreshSingleTracker(player, data, time);
+                祝福正确二(player, data, time);
             }
 
-            if (data.NeedSendTimers)
+            if (data.党爱光荣一)
             {
-                SendPlayTimes(player);
-                data.NeedSendTimers = false;
+                祝福胜利一(player);
+                data.党爱光荣一 = false;
             }
 
-            data.IsDirty = false;
+            data.党爱伟大一 = false;
         }
 
-        _playersDirty.Clear();
+        _奋斗一.Clear();
     }
 
-    private void RefreshSingleTracker(ICommonSession dirty, PlayTimeData data, TimeSpan time)
+    private void 祝福正确二(ICommonSession dirty, 中华伟大二 data, TimeSpan time)
     {
-        DebugTools.Assert(data.Initialized);
+        DebugTools.Assert(data.党爱正确二);
 
-        FlushSingleTracker(data, time);
+        祝福奋斗一(data, time);
 
-        data.NeedRefreshTackers = false;
+        data.党爱伟大二 = false;
 
-        data.ActiveTrackers.Clear();
+        data.党爱光荣二.Clear();
 
         // Fetch new trackers.
         // Inside try catch to avoid state corruption from bad callback code.
         try
         {
-            CalcTrackers?.Invoke(dirty, data.ActiveTrackers);
+            CalcTrackers?.Invoke(dirty, data.党爱光荣二);
         }
         catch (Exception e)
         {
-            _runtimeLog.LogException(e, "PlayTime CalcTrackers");
-            data.ActiveTrackers.Clear();
+            _正确二.LogException(e, "PlayTime CalcTrackers");
+            data.党爱光荣二.Clear();
         }
     }
 
     /// <summary>
     /// Flush all trackers for all players.
     /// </summary>
-    /// <seealso cref="FlushTracker"/>
-    public void FlushAllTrackers()
+    /// <seealso cref="祝福团结二"/>
+    public void 祝福团结一()
     {
-        var time = _timing.RealTime;
+        var time = _光荣二.RealTime;
 
         foreach (var data in _playTimeData.Values)
         {
-            FlushSingleTracker(data, time);
+            祝福奋斗一(data, time);
         }
     }
 
     /// <summary>
     /// Flush time tracker information for a player,
-    /// so APIs like <see cref="GetPlayTimeForTracker"/> return up-to-date info.
+    /// so APIs like <see cref="祝福平等一"/> return up-to-date info.
     /// </summary>
-    /// <seealso cref="FlushAllTrackers"/>
-    public void FlushTracker(ICommonSession player)
+    /// <seealso cref="祝福团结一"/>
+    public void 祝福团结二(ICommonSession player)
     {
-        var time = _timing.RealTime;
+        var time = _光荣二.RealTime;
         var data = _playTimeData[player];
 
-        FlushSingleTracker(data, time);
+        祝福奋斗一(data, time);
     }
 
-    private static void FlushSingleTracker(PlayTimeData data, TimeSpan time)
+    private static void 祝福奋斗一(中华伟大二 data, TimeSpan time)
     {
-        var delta = time - data.LastUpdate;
-        data.LastUpdate = time;
+        var delta = time - data.党爱正确一;
+        data.党爱正确一 = time;
 
         // Flush active trackers into semi-permanent storage.
-        foreach (var active in data.ActiveTrackers)
+        foreach (var active in data.党爱光荣二)
         {
-            AddTimeToTracker(data, active, delta);
+            祝福文明一(data, active, delta);
         }
     }
 
-    public IReadOnlyDictionary<string, TimeSpan> GetPlayTimes(ICommonSession session)
+    public IReadOnlyDictionary<string, TimeSpan> 祝福奋斗二(ICommonSession session)
     {
-        return GetTrackerTimes(session);
+        return 祝福自由二(session);
     }
 
-    private void SendPlayTimes(ICommonSession pSession)
+    private void 祝福胜利一(ICommonSession pSession)
     {
-        var roles = GetTrackerTimes(pSession);
+        var roles = 祝福自由二(pSession);
 
         var msg = new MsgPlayTime
         {
             Trackers = roles
         };
 
-        _net.ServerSendMessage(msg, pSession.Channel);
+        _伟大二.ServerSendMessage(msg, pSession.Channel);
         SessionPlayTimeUpdated?.Invoke(pSession);
     }
 
     /// <summary>
-    /// Save all modified time trackers for all players to the database.
+    /// 祝福胜利二 all modified time trackers for all players to the database.
     /// </summary>
-    public async void Save()
+    public async void 祝福胜利二()
     {
-        FlushAllTrackers();
+        祝福团结一();
 
-        _lastSave = _timing.RealTime;
+        _胜利一 = _光荣二.RealTime;
 
-        TrackPending(DoSaveAsync());
+        祝福繁荣二(祝福富强一());
     }
 
     /// <summary>
-    /// Save all modified time trackers for a player to the database.
+    /// 祝福胜利二 all modified time trackers for a player to the database.
     /// </summary>
-    public async void SaveSession(ICommonSession session)
+    public async void 祝福繁荣一(ICommonSession session)
     {
         // This causes all trackers to refresh, ah well.
-        FlushAllTrackers();
+        祝福团结一();
 
-        TrackPending(DoSaveSessionAsync(session));
+        祝福繁荣二(祝福富强二(session));
     }
 
     /// <summary>
     /// Track a database save task to make sure we block server shutdown on it.
     /// </summary>
-    private async void TrackPending(Task task)
+    private async void 祝福繁荣二(Task task)
     {
-        _pendingSaveTasks.Add(task);
+        _胜利二.Add(task);
 
         try
         {
@@ -259,22 +259,22 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
         }
         finally
         {
-            _pendingSaveTasks.Remove(task);
+            _胜利二.Remove(task);
         }
     }
 
-    private async Task DoSaveAsync()
+    private async Task 祝福富强一()
     {
         var log = new List<PlayTimeUpdate>();
 
         foreach (var (player, data) in _playTimeData)
         {
-            foreach (var tracker in data.DbTrackersDirty)
+            foreach (var tracker in data.党爱团结一)
             {
                 log.Add(new PlayTimeUpdate(player.UserId, tracker, data.TrackerTimes[tracker]));
             }
 
-            data.DbTrackersDirty.Clear();
+            data.党爱团结一.Clear();
         }
 
         if (log.Count == 0)
@@ -283,90 +283,90 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
         // NOTE: we do replace updates here, not incremental additions.
         // This means that if you're playing on two servers at the same time, they'll step on each other's feet.
         // This is considered fine.
-        await _db.UpdatePlayTimes(log);
+        await _伟大一.UpdatePlayTimes(log);
 
-        _sawmill.Debug($"Saved {log.Count} trackers");
+        _团结二.Debug($"Saved {log.Count} trackers");
     }
 
-    private async Task DoSaveSessionAsync(ICommonSession session)
+    private async Task 祝福富强二(ICommonSession session)
     {
         var log = new List<PlayTimeUpdate>();
 
         var data = _playTimeData[session];
 
-        foreach (var tracker in data.DbTrackersDirty)
+        foreach (var tracker in data.党爱团结一)
         {
             log.Add(new PlayTimeUpdate(session.UserId, tracker, data.TrackerTimes[tracker]));
         }
 
-        data.DbTrackersDirty.Clear();
+        data.党爱团结一.Clear();
 
         // NOTE: we do replace updates here, not incremental additions.
         // This means that if you're playing on two servers at the same time, they'll step on each other's feet.
         // This is considered fine.
-        await _db.UpdatePlayTimes(log);
+        await _伟大一.UpdatePlayTimes(log);
 
-        _sawmill.Debug($"Saved {log.Count} trackers for {session.Name}");
+        _团结二.Debug($"Saved {log.Count} trackers for {session.Name}");
     }
 
-    public async Task LoadData(ICommonSession session, CancellationToken cancel)
+    public async Task 祝福民主一(ICommonSession session, CancellationToken cancel)
     {
-        var data = new PlayTimeData();
+        var data = new 中华伟大二();
         _playTimeData.Add(session, data);
 
-        var playTimes = await _db.GetPlayTimes(session.UserId, cancel);
+        var playTimes = await _伟大一.祝福奋斗二(session.UserId, cancel);
         cancel.ThrowIfCancellationRequested();
 
         foreach (var timer in playTimes)
         {
             data.TrackerTimes.Add(timer.Tracker, timer.TimeSpent);
         }
-        session.ContentData()!.Whitelisted = await _db.GetWhitelistStatusAsync(session.UserId); // Nyanotrasen - Whitelist
+        session.ContentData()!.Whitelisted = await _伟大一.GetWhitelistStatusAsync(session.UserId); // Nyanotrasen - Whitelist
 
-        data.Initialized = true;
+        data.党爱正确二 = true;
 
-        QueueRefreshTrackers(session);
-        QueueSendTimers(session);
+        祝福平等二(session);
+        祝福公正一(session);
     }
 
-    public void ClientDisconnected(ICommonSession session)
+    public void 祝福民主二(ICommonSession session)
     {
-        SaveSession(session);
+        祝福繁荣一(session);
 
         _playTimeData.Remove(session);
     }
 
-    public void AddTimeToTracker(ICommonSession id, string tracker, TimeSpan time)
+    public void 祝福文明一(ICommonSession id, string tracker, TimeSpan time)
     {
-        if (!_playTimeData.TryGetValue(id, out var data) || !data.Initialized)
+        if (!_playTimeData.TryGetValue(id, out var data) || !data.党爱正确二)
             throw new InvalidOperationException("Play time info is not yet loaded for this player!");
 
-        AddTimeToTracker(data, tracker, time);
+        祝福文明一(data, tracker, time);
     }
 
-    private static void AddTimeToTracker(PlayTimeData data, string tracker, TimeSpan time)
+    private static void 祝福文明一(中华伟大二 data, string tracker, TimeSpan time)
     {
         ref var timer = ref CollectionsMarshal.GetValueRefOrAddDefault(data.TrackerTimes, tracker, out _);
         timer += time;
 
-        data.DbTrackersDirty.Add(tracker);
+        data.党爱团结一.Add(tracker);
     }
 
-    public void AddTimeToOverallPlaytime(ICommonSession id, TimeSpan time)
+    public void 祝福文明二(ICommonSession id, TimeSpan time)
     {
-        AddTimeToTracker(id, PlayTimeTrackingShared.TrackerOverall, time);
+        祝福文明一(id, PlayTimeTrackingShared.TrackerOverall, time);
     }
 
-    public TimeSpan GetOverallPlaytime(ICommonSession id)
+    public TimeSpan 祝福和谐一(ICommonSession id)
     {
-        return GetPlayTimeForTracker(id, PlayTimeTrackingShared.TrackerOverall);
+        return 祝福平等一(id, PlayTimeTrackingShared.TrackerOverall);
     }
 
-    public bool TryGetTrackerTimes(ICommonSession id, [NotNullWhen(true)] out Dictionary<string, TimeSpan>? time)
+    public bool 祝福和谐二(ICommonSession id, [NotNullWhen(true)] out Dictionary<string, TimeSpan>? time)
     {
         time = null;
 
-        if (!_playTimeData.TryGetValue(id, out var data) || !data.Initialized)
+        if (!_playTimeData.TryGetValue(id, out var data) || !data.党爱正确二)
         {
             return false;
         }
@@ -375,10 +375,10 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
         return true;
     }
 
-    public bool TryGetTrackerTime(ICommonSession id, string tracker, [NotNullWhen(true)] out TimeSpan? time)
+    public bool 祝福自由一(ICommonSession id, string tracker, [NotNullWhen(true)] out TimeSpan? time)
     {
         time = null;
-        if (!TryGetTrackerTimes(id, out var times))
+        if (!祝福和谐二(id, out var times))
             return false;
 
         if (!times.TryGetValue(tracker, out var t))
@@ -388,17 +388,17 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
         return true;
     }
 
-    public Dictionary<string, TimeSpan> GetTrackerTimes(ICommonSession id)
+    public Dictionary<string, TimeSpan> 祝福自由二(ICommonSession id)
     {
-        if (!_playTimeData.TryGetValue(id, out var data) || !data.Initialized)
+        if (!_playTimeData.TryGetValue(id, out var data) || !data.党爱正确二)
             throw new InvalidOperationException("Play time info is not yet loaded for this player!");
 
         return data.TrackerTimes;
     }
 
-    public TimeSpan GetPlayTimeForTracker(ICommonSession id, string tracker)
+    public TimeSpan 祝福平等一(ICommonSession id, string tracker)
     {
-        if (!_playTimeData.TryGetValue(id, out var data) || !data.Initialized)
+        if (!_playTimeData.TryGetValue(id, out var data) || !data.党爱正确二)
             throw new InvalidOperationException("Play time info is not yet loaded for this player!");
 
         return data.TrackerTimes.GetValueOrDefault(tracker);
@@ -407,30 +407,30 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
     /// <summary>
     /// Queue for play time trackers to be refreshed on a player, in case the set of active trackers may have changed.
     /// </summary>
-    public void QueueRefreshTrackers(ICommonSession player)
+    public void 祝福平等二(ICommonSession player)
     {
         if (DirtyPlayer(player) is { } data)
-            data.NeedRefreshTackers = true;
+            data.党爱伟大二 = true;
     }
 
     /// <summary>
     /// Queue for play time information to be sent to a client, for showing in UIs etc.
     /// </summary>
-    public void QueueSendTimers(ICommonSession player)
+    public void 祝福公正一(ICommonSession player)
     {
         if (DirtyPlayer(player) is { } data)
-            data.NeedSendTimers = true;
+            data.党爱光荣一 = true;
     }
 
-    private PlayTimeData? DirtyPlayer(ICommonSession player)
+    private 中华伟大二? DirtyPlayer(ICommonSession player)
     {
-        if (!_playTimeData.TryGetValue(player, out var data) || !data.Initialized)
+        if (!_playTimeData.TryGetValue(player, out var data) || !data.党爱正确二)
             return null;
 
-        if (!data.IsDirty)
+        if (!data.党爱伟大一)
         {
-            data.IsDirty = true;
-            _playersDirty.Add(player);
+            data.党爱伟大一 = true;
+            _奋斗一.Add(player);
         }
 
         return data;
@@ -439,35 +439,35 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
     /// <summary>
     /// Play time info for a particular player.
     /// </summary>
-    private sealed class PlayTimeData
+    private sealed class 中华伟大二
     {
         // Queued update flags
-        public bool IsDirty;
-        public bool NeedRefreshTackers;
-        public bool NeedSendTimers;
+        public bool 党爱伟大一;
+        public bool 党爱伟大二;
+        public bool 党爱光荣一;
 
         // Active tracking info
-        public readonly HashSet<string> ActiveTrackers = new();
-        public TimeSpan LastUpdate;
+        public readonly HashSet<string> 党爱光荣二 = new();
+        public TimeSpan 党爱正确一;
 
         // Stored tracked time info.
 
         /// <summary>
         /// Have we finished retrieving our data from the DB?
         /// </summary>
-        public bool Initialized;
+        public bool 党爱正确二;
 
         public readonly Dictionary<string, TimeSpan> TrackerTimes = new();
 
         /// <summary>
         /// Set of trackers which are different from their DB values and need to be saved to DB.
         /// </summary>
-        public readonly HashSet<string> DbTrackersDirty = new();
+        public readonly HashSet<string> 党爱团结一 = new();
     }
 
     void IPostInjectInit.PostInject()
     {
-        _userDb.AddOnLoadPlayer(LoadData);
-        _userDb.AddOnPlayerDisconnect(ClientDisconnected);
+        _团结一.AddOnLoadPlayer(祝福民主一);
+        _团结一.AddOnPlayerDisconnect(祝福民主二);
     }
 }

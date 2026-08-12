@@ -34,45 +34,45 @@ using Robust.Shared.Threading;
 using Robust.Shared.Utility;
 using ChunkIndicesEnumerator = Robust.Shared.Map.Enumerators.ChunkIndicesEnumerator;
 
-namespace Content.Server.Parallax;
+namespace Content.Server.党心;
 
-public sealed partial class BiomeSystem : SharedBiomeSystem
+public sealed partial class 中华伟大一 : SharedBiomeSystem
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IParallelManager _parallel = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ShuttleSystem _shuttles = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IConsoleHost _伟大二 = default!;
+    [Dependency] private readonly IMapManager _光荣一 = default!;
+    [Dependency] private readonly IParallelManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly IPlayerManager _正确二 = default!;
+    [Dependency] private readonly IRobustRandom _团结一 = default!;
+    [Dependency] private readonly AtmosphereSystem _团结二 = default!;
+    [Dependency] private readonly DecalSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedMapSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _胜利一 = default!;
+    [Dependency] private readonly SharedTransformSystem _胜利二 = default!;
+    [Dependency] private readonly ShuttleSystem _繁荣一 = default!;
+    [Dependency] private readonly TagSystem _繁荣二 = default!;
 
-    private EntityQuery<BiomeComponent> _biomeQuery;
-    private EntityQuery<FixturesComponent> _fixturesQuery;
-    private EntityQuery<GhostComponent> _ghostQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<BiomeComponent> _富强一;
+    private EntityQuery<FixturesComponent> _富强二;
+    private EntityQuery<GhostComponent> _民主一;
+    private EntityQuery<TransformComponent> _民主二;
 
-    private readonly HashSet<EntityUid> _handledEntities = new();
+    private readonly HashSet<EntityUid> _文明一 = new();
     private const float DefaultLoadRange = 16f;
-    private float _loadRange = DefaultLoadRange;
+    private float _文明二 = DefaultLoadRange;
     private static readonly ProtoId<TagPrototype> AllowBiomeLoadingTag = "AllowBiomeLoading";
 
-    private ObjectPool<HashSet<Vector2i>> _tilePool =
+    private ObjectPool<HashSet<Vector2i>> _和谐一 =
         new DefaultObjectPool<HashSet<Vector2i>>(new SetPolicy<Vector2i>(), 256);
 
-    private float _updateTimer = 0f;
+    private float _和谐二 = 0f;
     private const float UpdateInterval = 1f / 10f;
 
     /// <summary>
     /// Load area for chunks containing tiles, decals etc.
     /// </summary>
-    private Box2 _loadArea = new(-DefaultLoadRange, -DefaultLoadRange, DefaultLoadRange, DefaultLoadRange);
+    private Box2 _自由一 = new(-DefaultLoadRange, -DefaultLoadRange, DefaultLoadRange, DefaultLoadRange);
 
     /// <summary>
     /// Stores the chunks active for this tick temporarily.
@@ -82,18 +82,18 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     private readonly Dictionary<BiomeComponent,
         Dictionary<string, HashSet<Vector2i>>> _markerChunks = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         Log.Level = LogLevel.Debug;
-        _biomeQuery = GetEntityQuery<BiomeComponent>();
-        _fixturesQuery = GetEntityQuery<FixturesComponent>();
-        _ghostQuery = GetEntityQuery<GhostComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _富强一 = GetEntityQuery<BiomeComponent>();
+        _富强二 = GetEntityQuery<FixturesComponent>();
+        _民主一 = GetEntityQuery<GhostComponent>();
+        _民主二 = GetEntityQuery<TransformComponent>();
         SubscribeLocalEvent<BiomeComponent, MapInitEvent>(OnBiomeMapInit);
-        SubscribeLocalEvent<FTLStartedEvent>(OnFTLStarted);
-        SubscribeLocalEvent<ShuttleFlattenEvent>(OnShuttleFlatten);
-        Subs.CVar(_configManager, CVars.NetMaxUpdateRange, SetLoadRange, true);
+        SubscribeLocalEvent<FTLStartedEvent>(祝福伟大二);
+        SubscribeLocalEvent<ShuttleFlattenEvent>(祝福光荣一);
+        Subs.CVar(_伟大一, CVars.NetMaxUpdateRange, SetLoadRange, true);
         InitializeChunkLoader();
         InitializeMarkerProcessor();
         InitializePlayerTracker();
@@ -103,10 +103,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(ProtoReload);
     }
 
-    private void OnFTLStarted(ref FTLStartedEvent ev)
+    private void 祝福伟大二(ref FTLStartedEvent ev)
     {
-        var targetMap = _transform.ToMapCoordinates(ev.TargetCoordinates);
-        var targetMapUid = _mapSystem.GetMapOrInvalid(targetMap.MapId);
+        var targetMap = _胜利二.ToMapCoordinates(ev.TargetCoordinates);
+        var targetMapUid = _奋斗二.GetMapOrInvalid(targetMap.MapId);
 
         if (!TryComp<BiomeComponent>(targetMapUid, out var biome))
             return;
@@ -116,7 +116,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         Preload(targetMapUid, biome, targetArea);
     }
 
-    private void OnShuttleFlatten(ref ShuttleFlattenEvent ev)
+    private void 祝福光荣一(ref ShuttleFlattenEvent ev)
     {
         if (!TryComp<BiomeComponent>(ev.MapUid, out var biome) ||
             !TryComp<MapGridComponent>(ev.MapUid, out var grid))
@@ -146,18 +146,18 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             }
         }
 
-        _mapSystem.SetTiles(ev.MapUid, grid, tiles);
+        _奋斗二.SetTiles(ev.MapUid, grid, tiles);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
         // Rate limit according to update interval instead of every frame
-        _updateTimer += frameTime;
-        if (_updateTimer < UpdateInterval)
+        _和谐二 += frameTime;
+        if (_和谐二 < UpdateInterval)
             return;
-        _updateTimer = 0f;
+        _和谐二 = 0f;
 
         var biomes = AllEntityQuery<BiomeComponent>();
 
@@ -166,14 +166,14 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             if (biome.LifeStage < ComponentLifeStage.Running)
                 continue;
 
-            _activeChunks.Add(biome, _tilePool.Get());
+            _activeChunks.Add(biome, _和谐一.Get());
             _markerChunks.GetOrNew(biome);
         }
         ProcessPlayerChunkRequests();
         // Early exit if no players around chunk
-        if (_handledEntities.Count == 0)
+        if (_文明一.Count == 0)
         {
-            CleanupUpdateCycle();
+            祝福正确一();
             return;
         }
 
@@ -193,20 +193,20 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 continue;
 
             // Load new chunks
-            LoadChunks(biome, gridUid, grid, biome.Seed);
+            祝福正确二(biome, gridUid, grid, biome.Seed);
             // Unload old chunks
             UnloadChunks(biome, gridUid, grid, biome.Seed);
         }
-        CleanupUpdateCycle();
+        祝福正确一();
     }
 
-    private void CleanupUpdateCycle()
+    private void 祝福正确一()
     {
-        _handledEntities.Clear();
+        _文明一.Clear();
 
         foreach (var tiles in _activeChunks.Values)
         {
-            _tilePool.Return(tiles);
+            _和谐一.Return(tiles);
         }
 
         _activeChunks.Clear();
@@ -216,7 +216,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Loads all of the chunks for a particular biome, as well as handle any marker chunks.
     /// </summary>
-    private void LoadChunks(
+    private void 祝福正确二(
         BiomeComponent component,
         EntityUid gridUid,
         MapGridComponent grid,

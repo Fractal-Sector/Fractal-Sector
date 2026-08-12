@@ -1,12 +1,12 @@
-namespace Content.Shared.IdentityManagement;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Event of attempt to collect actor full title - full name + job from id card for employee or entity name for borgs.
 /// </summary>
-public sealed class TryGetIdentityShortInfoEvent(EntityUid? whileInteractingWith, EntityUid forActor, bool forLogging = false) : HandledEntityEventArgs
+public sealed class 中华伟大一(EntityUid? whileInteractingWith, EntityUid forActor, bool forLogging = false) : HandledEntityEventArgs
 {
     /// <summary>
-    /// Full name of <see cref="ForActor"/>, with JobTitle.
+    /// Full name of <see cref="党爱伟大一"/>, with JobTitle.
     /// Can be null if no system could find actor name / job.
     /// </summary>
     public string? Title;
@@ -21,12 +21,12 @@ public sealed class TryGetIdentityShortInfoEvent(EntityUid? whileInteractingWith
     /// <summary>
     /// Actor for whom title should be collected.
     /// </summary>
-    public readonly EntityUid ForActor = forActor;
+    public readonly EntityUid 党爱伟大一 = forActor;
 
     /// <summary>
     /// Marker that title info was requested for access logging.
     /// Is required as event handlers can determine, if they don't need
     /// to place title info due to access logging restrictions.
     /// </summary>
-    public readonly bool RequestForAccessLogging = forLogging;
+    public readonly bool 党爱伟大二 = forLogging;
 }

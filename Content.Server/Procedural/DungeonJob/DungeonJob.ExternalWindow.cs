@@ -8,9 +8,9 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     // (Comment refers to internal & external).
 
@@ -24,7 +24,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="ExternalWindowDunGen"/>
     /// </summary>
-    private async Task PostGen(ExternalWindowDunGen gen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task 祝福伟大一(ExternalWindowDunGen gen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
     {
         // Iterate every tile with N chance to spawn windows on that wall per cardinal dir.
         var chance = 0.25 / 3f;

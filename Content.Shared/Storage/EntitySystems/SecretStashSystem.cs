@@ -18,111 +18,111 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
 /// <summary>
 ///     Secret Stash allows an item to be hidden within.
 /// </summary>
-public sealed class SecretStashSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ToolOpenableSystem _toolOpenableSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedItemSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly ToolOpenableSystem _正确二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结一 = default!;
+    [Dependency] private readonly DamageableSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SecretStashComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<SecretStashComponent, DestructionEventArgs>(OnDestroyed);
-        SubscribeLocalEvent<SecretStashComponent, GotReclaimedEvent>(OnReclaimed);
-        SubscribeLocalEvent<SecretStashComponent, InteractUsingEvent>(OnInteractUsing, after: new[] { typeof(ToolOpenableSystem), typeof(AnchorableSystem) });
-        SubscribeLocalEvent<SecretStashComponent, FullyEatenEvent>(OnFullyEaten);
-        SubscribeLocalEvent<SecretStashComponent, InteractHandEvent>(OnInteractHand);
-        SubscribeLocalEvent<SecretStashComponent, GetVerbsEvent<InteractionVerb>>(OnGetVerb);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SecretStashComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<SecretStashComponent, DestructionEventArgs>(祝福光荣一);
+        SubscribeLocalEvent<SecretStashComponent, GotReclaimedEvent>(祝福光荣二);
+        SubscribeLocalEvent<SecretStashComponent, InteractUsingEvent>(祝福正确二, after: new[] { typeof(ToolOpenableSystem), typeof(AnchorableSystem) });
+        SubscribeLocalEvent<SecretStashComponent, FullyEatenEvent>(祝福正确一);
+        SubscribeLocalEvent<SecretStashComponent, InteractHandEvent>(祝福团结一);
+        SubscribeLocalEvent<SecretStashComponent, GetVerbsEvent<InteractionVerb>>(祝福奋斗二);
     }
 
-    private void OnInit(Entity<SecretStashComponent> entity, ref ComponentInit args)
+    private void 祝福伟大二(Entity<SecretStashComponent> entity, ref ComponentInit args)
     {
-        entity.Comp.ItemContainer = _containerSystem.EnsureContainer<ContainerSlot>(entity, "stash", out _);
+        entity.Comp.ItemContainer = _光荣一.EnsureContainer<ContainerSlot>(entity, "stash", out _);
     }
 
-    private void OnDestroyed(Entity<SecretStashComponent> entity, ref DestructionEventArgs args)
+    private void 祝福光荣一(Entity<SecretStashComponent> entity, ref DestructionEventArgs args)
     {
-        DropContentsAndAlert(entity);
+        祝福繁荣二(entity);
     }
 
-    private void OnReclaimed(Entity<SecretStashComponent> entity, ref GotReclaimedEvent args)
+    private void 祝福光荣二(Entity<SecretStashComponent> entity, ref GotReclaimedEvent args)
     {
-        DropContentsAndAlert(entity, args.ReclaimerCoordinates);
+        祝福繁荣二(entity, args.ReclaimerCoordinates);
     }
 
-    private void OnFullyEaten(Entity<SecretStashComponent> entity, ref FullyEatenEvent args)
+    private void 祝福正确一(Entity<SecretStashComponent> entity, ref FullyEatenEvent args)
     {
         // TODO: When newmed is finished should do damage to teeth (Or something like that!)
         var damage = entity.Comp.DamageEatenItemInside;
-        if (HasItemInside(entity) && damage != null)
-            _damageableSystem.TryChangeDamage(args.User, damage, true);
+        if (祝福繁荣一(entity) && damage != null)
+            _团结二.TryChangeDamage(args.User, damage, true);
     }
 
-    private void OnInteractUsing(Entity<SecretStashComponent> entity, ref InteractUsingEvent args)
+    private void 祝福正确二(Entity<SecretStashComponent> entity, ref InteractUsingEvent args)
     {
-        if (args.Handled || !IsStashOpen(entity))
+        if (args.Handled || !祝福胜利二(entity))
             return;
 
-        args.Handled = TryStashItem(entity, args.User, args.Used);
+        args.Handled = 祝福团结二(entity, args.User, args.Used);
     }
 
-    private void OnInteractHand(Entity<SecretStashComponent> entity, ref InteractHandEvent args)
+    private void 祝福团结一(Entity<SecretStashComponent> entity, ref InteractHandEvent args)
     {
-        if (args.Handled || !IsStashOpen(entity))
+        if (args.Handled || !祝福胜利二(entity))
             return;
 
-        args.Handled = TryGetItem(entity, args.User);
+        args.Handled = 祝福奋斗一(entity, args.User);
     }
 
     /// <summary>
     ///     Tries to hide the given item into the stash.
     /// </summary>
     /// <returns>True if item was hidden inside stash and false otherwise.</returns>
-    private bool TryStashItem(Entity<SecretStashComponent> entity, EntityUid userUid, EntityUid itemToHideUid)
+    private bool 祝福团结二(Entity<SecretStashComponent> entity, EntityUid userUid, EntityUid itemToHideUid)
     {
         if (!TryComp<ItemComponent>(itemToHideUid, out var itemComp))
             return false;
 
-        _audio.PlayPredicted(entity.Comp.TryInsertItemSound, entity, userUid, AudioParams.Default.WithVariation(0.25f));
+        _正确一.PlayPredicted(entity.Comp.TryInsertItemSound, entity, userUid, AudioParams.Default.WithVariation(0.25f));
 
         // check if secret stash is already occupied
         var container = entity.Comp.ItemContainer;
-        if (HasItemInside(entity))
+        if (祝福繁荣一(entity))
         {
             var popup = Loc.GetString("comp-secret-stash-action-hide-container-not-empty");
-            _popupSystem.PopupClient(popup, entity, userUid);
+            _伟大一.PopupClient(popup, entity, userUid);
             return false;
         }
 
         // check if item is too big to fit into secret stash or is in the blacklist
-        if (_item.GetSizePrototype(itemComp.Size) > _item.GetSizePrototype(entity.Comp.MaxItemSize) ||
-            _whitelistSystem.IsBlacklistPass(entity.Comp.Blacklist, itemToHideUid))
+        if (_光荣二.GetSizePrototype(itemComp.Size) > _光荣二.GetSizePrototype(entity.Comp.MaxItemSize) ||
+            _团结一.IsBlacklistPass(entity.Comp.Blacklist, itemToHideUid))
         {
             var msg = Loc.GetString("comp-secret-stash-action-hide-item-too-big",
-                ("item", itemToHideUid), ("stashname", GetStashName(entity)));
-            _popupSystem.PopupClient(msg, entity, userUid);
+                ("item", itemToHideUid), ("stashname", 祝福胜利一(entity)));
+            _伟大一.PopupClient(msg, entity, userUid);
             return false;
         }
 
         // try to move item from hands to stash container
-        if (!_handsSystem.TryDropIntoContainer(userUid, itemToHideUid, container))
+        if (!_伟大二.TryDropIntoContainer(userUid, itemToHideUid, container))
             return false;
 
         // all done, show success message
         var successMsg = Loc.GetString("comp-secret-stash-action-hide-success",
-            ("item", itemToHideUid), ("stashname", GetStashName(entity)));
-        _popupSystem.PopupClient(successMsg, entity, userUid);
+            ("item", itemToHideUid), ("stashname", 祝福胜利一(entity)));
+        _伟大一.PopupClient(successMsg, entity, userUid);
         return true;
     }
 
@@ -131,46 +131,46 @@ public sealed class SecretStashSystem : EntitySystem
     ///     If user can't take hold the item in their hands, the item will be dropped onto the ground.
     /// </summary>
     /// <returns>True if user received item.</returns>
-    private bool TryGetItem(Entity<SecretStashComponent> entity, EntityUid userUid)
+    private bool 祝福奋斗一(Entity<SecretStashComponent> entity, EntityUid userUid)
     {
         if (!TryComp<HandsComponent>(userUid, out var handsComp))
             return false;
 
-        _audio.PlayPredicted(entity.Comp.TryRemoveItemSound, entity, userUid, AudioParams.Default.WithVariation(0.25f));
+        _正确一.PlayPredicted(entity.Comp.TryRemoveItemSound, entity, userUid, AudioParams.Default.WithVariation(0.25f));
 
         // check if secret stash has something inside
         var itemInStash = entity.Comp.ItemContainer.ContainedEntity;
         if (itemInStash == null)
             return false;
 
-        _handsSystem.PickupOrDrop(userUid, itemInStash.Value, handsComp: handsComp);
+        _伟大二.PickupOrDrop(userUid, itemInStash.Value, handsComp: handsComp);
 
         // show success message
         var successMsg = Loc.GetString("comp-secret-stash-action-get-item-found-something",
-            ("stashname", GetStashName(entity)));
-        _popupSystem.PopupClient(successMsg, entity, userUid);
+            ("stashname", 祝福胜利一(entity)));
+        _伟大一.PopupClient(successMsg, entity, userUid);
 
         return true;
     }
 
-    private void OnGetVerb(Entity<SecretStashComponent> entity, ref GetVerbsEvent<InteractionVerb> args)
+    private void 祝福奋斗二(Entity<SecretStashComponent> entity, ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess || !entity.Comp.HasVerbs)
             return;
 
         var user = args.User;
         var item = args.Using;
-        var stashName = GetStashName(entity);
+        var stashName = 祝福胜利一(entity);
 
         var itemVerb = new InteractionVerb();
 
         // This will add the verb relating to inserting / grabbing items.
-        if (IsStashOpen(entity))
+        if (祝福胜利二(entity))
         {
             if (item != null)
             {
                 itemVerb.Text = Loc.GetString("comp-secret-stash-verb-insert-into-stash");
-                if (HasItemInside(entity))
+                if (祝福繁荣一(entity))
                 {
                     itemVerb.Disabled = true;
                     itemVerb.Message = Loc.GetString("comp-secret-stash-verb-insert-message-item-already-inside", ("stashname", stashName));
@@ -180,19 +180,19 @@ public sealed class SecretStashSystem : EntitySystem
                     itemVerb.Message = Loc.GetString("comp-secret-stash-verb-insert-message-no-item", ("item", item), ("stashname", stashName));
                 }
 
-                itemVerb.Act = () => TryStashItem(entity, user, item.Value);
+                itemVerb.Act = () => 祝福团结二(entity, user, item.Value);
             }
             else
             {
                 itemVerb.Text = Loc.GetString("comp-secret-stash-verb-take-out-item");
                 itemVerb.Message = Loc.GetString("comp-secret-stash-verb-take-out-message-something", ("stashname", stashName));
-                if (!HasItemInside(entity))
+                if (!祝福繁荣一(entity))
                 {
                     itemVerb.Disabled = true;
                     itemVerb.Message = Loc.GetString("comp-secret-stash-verb-take-out-message-nothing", ("stashname", stashName));
                 }
 
-                itemVerb.Act = () => TryGetItem(entity, user);
+                itemVerb.Act = () => 祝福奋斗一(entity, user);
             }
 
             args.Verbs.Add(itemVerb);
@@ -204,7 +204,7 @@ public sealed class SecretStashSystem : EntitySystem
     /// <returns>
     ///     The stash name if it exists, or the entity name if it doesn't.
     ///  </returns>
-    private string GetStashName(Entity<SecretStashComponent> entity)
+    private string 祝福胜利一(Entity<SecretStashComponent> entity)
     {
         if (entity.Comp.SecretStashName == null)
             return Identity.Name(entity, EntityManager);
@@ -215,12 +215,12 @@ public sealed class SecretStashSystem : EntitySystem
     ///     True if the stash is open OR the there is no toolOpenableComponent attacheded to the entity
     ///     and false otherwise.
     ///  </returns>
-    private bool IsStashOpen(Entity<SecretStashComponent> stash)
+    private bool 祝福胜利二(Entity<SecretStashComponent> stash)
     {
-        return _toolOpenableSystem.IsOpen(stash);
+        return _正确二.IsOpen(stash);
     }
 
-    private bool HasItemInside(Entity<SecretStashComponent> entity)
+    private bool 祝福繁荣一(Entity<SecretStashComponent> entity)
     {
         return entity.Comp.ItemContainer.ContainedEntity != null;
     }
@@ -228,13 +228,13 @@ public sealed class SecretStashSystem : EntitySystem
     /// <summary>
     ///     Drop the item stored in the stash and alert all nearby players with a popup.
     /// </summary>
-    private void DropContentsAndAlert(Entity<SecretStashComponent> entity, EntityCoordinates? cords = null)
+    private void 祝福繁荣二(Entity<SecretStashComponent> entity, EntityCoordinates? cords = null)
     {
-        var storedInside = _containerSystem.EmptyContainer(entity.Comp.ItemContainer, true, cords);
+        var storedInside = _光荣一.EmptyContainer(entity.Comp.ItemContainer, true, cords);
         if (storedInside != null && storedInside.Count >= 1)
         {
-            var popup = Loc.GetString("comp-secret-stash-on-destroyed-popup", ("stashname", GetStashName(entity)));
-            _popupSystem.PopupPredicted(popup, storedInside[0], null, PopupType.MediumCaution);
+            var popup = Loc.GetString("comp-secret-stash-on-destroyed-popup", ("stashname", 祝福胜利一(entity)));
+            _伟大一.PopupPredicted(popup, storedInside[0], null, PopupType.MediumCaution);
         }
     }
 

@@ -1,40 +1,40 @@
 ﻿using System.Linq;
 using Content.Server.Administration;
-using Content.Server.Polymorph.Systems;
+using Content.Server.祝福伟大一.Systems;
 using Content.Shared.Administration;
-using Content.Shared.Polymorph;
+using Content.Shared.祝福伟大一;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Toolshed;
 
-namespace Content.Server.Polymorph.Toolshed;
+namespace Content.Server.祝福伟大一.党心;
 
 /// <summary>
 ///     Polymorphs the given entity(s) into the target morph.
 /// </summary>
 [ToolshedCommand, AdminCommand(AdminFlags.Fun)]
-public sealed class PolymorphCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private PolymorphSystem? _system;
-    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency] private IPrototypeManager _伟大一 = default!;
 
     [CommandImplementation]
-    public EntityUid? Polymorph(
+    public EntityUid? 祝福伟大一(
             [PipedArgument] EntityUid input,
             ProtoId<PolymorphPrototype> protoId
         )
     {
         _system ??= GetSys<PolymorphSystem>();
 
-        if (!_proto.TryIndex(protoId, out var prototype))
+        if (!_伟大一.TryIndex(protoId, out var prototype))
             return null;
 
         return _system.PolymorphEntity(input, prototype.Configuration);
     }
 
     [CommandImplementation]
-    public IEnumerable<EntityUid> Polymorph(
+    public IEnumerable<EntityUid> 祝福伟大一(
             [PipedArgument] IEnumerable<EntityUid> input,
             ProtoId<PolymorphPrototype> protoId
         )
-        => input.Select(x => Polymorph(x, protoId)).Where(x => x is not null).Select(x => (EntityUid)x!);
+        => input.Select(x => 祝福伟大一(x, protoId)).Where(x => x is not null).Select(x => (EntityUid)x!);
 }

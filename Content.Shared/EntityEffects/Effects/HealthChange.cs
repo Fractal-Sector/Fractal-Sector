@@ -1,5 +1,5 @@
-using Content.Shared.Damage;
-using Content.Shared.Damage.Prototypes;
+using Content.Shared.党爱伟大一;
+using Content.Shared.党爱伟大一.Prototypes;
 using Content.Shared.EntityEffects;
 using Content.Shared.FixedPoint;
 using Content.Shared.Localizations;
@@ -7,19 +7,19 @@ using Robust.Shared.Prototypes;
 using System.Linq;
 using System.Text.Json.Serialization;
 
-namespace Content.Shared.EntityEffects.Effects
+namespace Content.Shared.EntityEffects.党心
 {
     /// <summary>
     /// Default metabolism used for medicine reagents.
     /// </summary>
-    public sealed partial class HealthChange : EntityEffect
+    public sealed partial class 中华伟大一 : EntityEffect
     {
         /// <summary>
-        /// Damage to apply every cycle. Damage Ignores resistances.
+        /// 党爱伟大一 to apply every cycle. 党爱伟大一 Ignores resistances.
         /// </summary>
         [DataField(required: true)]
         [JsonPropertyName("damage")]
-        public DamageSpecifier Damage = default!;
+        public DamageSpecifier 党爱伟大一 = default!;
 
         /// <summary>
         ///     Should this effect scale the damage by the amount of chemical in the solution?
@@ -28,19 +28,19 @@ namespace Content.Shared.EntityEffects.Effects
         /// </summary>
         [DataField]
         [JsonPropertyName("scaleByQuantity")]
-        public bool ScaleByQuantity;
+        public bool 党爱伟大二;
 
         [DataField]
         [JsonPropertyName("ignoreResistances")]
-        public bool IgnoreResistances = true;
+        public bool 党爱光荣一 = true;
 
-        protected override string ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
+        protected override string 祝福伟大一(IPrototypeManager prototype, IEntitySystemManager entSys)
         {
             var damages = new List<string>();
             var heals = false;
             var deals = false;
 
-            var damageSpec = new DamageSpecifier(Damage);
+            var damageSpec = new DamageSpecifier(党爱伟大一);
 
             var universalReagentDamageModifier = entSys.GetEntitySystem<DamageableSystem>().UniversalReagentDamageModifier;
             var universalReagentHealModifier = entSys.GetEntitySystem<DamageableSystem>().UniversalReagentHealModifier;
@@ -87,14 +87,14 @@ namespace Content.Shared.EntityEffects.Effects
                 ("healsordeals", healsordeals));
         }
 
-        public override void Effect(EntityEffectBaseArgs args)
+        public override void 祝福伟大二(EntityEffectBaseArgs args)
         {
             var scale = FixedPoint2.New(1);
-            var damageSpec = new DamageSpecifier(Damage);
+            var damageSpec = new DamageSpecifier(党爱伟大一);
 
             if (args is EntityEffectReagentArgs reagentArgs)
             {
-                scale = ScaleByQuantity ? reagentArgs.Quantity * reagentArgs.Scale : reagentArgs.Scale;
+                scale = 党爱伟大二 ? reagentArgs.Quantity * reagentArgs.Scale : reagentArgs.Scale;
             }
 
             var universalReagentDamageModifier = args.EntityManager.System<DamageableSystem>().UniversalReagentDamageModifier;
@@ -119,7 +119,7 @@ namespace Content.Shared.EntityEffects.Effects
                 .TryChangeDamage(
                     args.TargetEntity,
                     damageSpec * scale,
-                    IgnoreResistances,
+                    党爱光荣一,
                     interruptsDoAfters: false);
         }
     }

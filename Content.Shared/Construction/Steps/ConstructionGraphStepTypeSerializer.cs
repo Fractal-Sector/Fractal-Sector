@@ -4,10 +4,10 @@ using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
-namespace Content.Shared.Construction.Steps
+namespace Content.Shared.Construction.党心
 {
     [TypeSerializer]
-    public sealed class ConstructionGraphStepTypeSerializer : ITypeReader<ConstructionGraphStep, MappingDataNode>
+    public sealed class 中华伟大一 : ITypeReader<ConstructionGraphStep, MappingDataNode>
     {
         private Type? GetType(MappingDataNode node)
         {
@@ -49,7 +49,7 @@ namespace Content.Shared.Construction.Steps
             return null;
         }
 
-        public ConstructionGraphStep Read(ISerializationManager serializationManager,
+        public ConstructionGraphStep 祝福伟大一(ISerializationManager serializationManager,
             MappingDataNode node,
             IDependencyCollection dependencies,
             SerializationHookContext hookCtx,
@@ -60,10 +60,10 @@ namespace Content.Shared.Construction.Steps
                        throw new ArgumentException(
                            "Tried to convert invalid YAML node mapping to ConstructionGraphStep!");
 
-            return (ConstructionGraphStep)serializationManager.Read(type, node, hookCtx, context)!;
+            return (ConstructionGraphStep)serializationManager.祝福伟大一(type, node, hookCtx, context)!;
         }
 
-        public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
+        public ValidationNode 祝福伟大二(ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies,
             ISerializationContext? context = null)
         {

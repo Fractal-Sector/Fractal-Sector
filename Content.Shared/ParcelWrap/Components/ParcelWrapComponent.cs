@@ -4,7 +4,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.ParcelWrap.Components;
+namespace Content.Shared.ParcelWrap.党心;
 
 /// <summary>
 /// This component gives its owning entity the ability to wrap items into parcels.
@@ -12,40 +12,40 @@ namespace Content.Shared.ParcelWrap.Components;
 /// <seealso cref="Components.WrappedParcelComponent"/>
 [RegisterComponent, NetworkedComponent]
 [Access] // Readonly, except for VV editing
-public sealed partial class ParcelWrapComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The <see cref="EntityPrototype"/> of the parcel created by using this component.
     /// </summary>
     [DataField(required: true)]
-    public EntProtoId ParcelPrototype;
+    public EntProtoId 党爱伟大一;
 
     /// <summary>
     /// If true, parcels created by this will have the same <see cref="ItemSizePrototype">size</see> as the item they
-    /// contain. If false, parcels created by this will always have the size specified by <see cref="FallbackItemSize"/>.
+    /// contain. If false, parcels created by this will always have the size specified by <see cref="党爱光荣一"/>.
     /// </summary>
     [DataField]
-    public bool WrappedItemsMaintainSize = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// The <see cref="ItemSizePrototype">size</see> of parcels created by this component's entity. This is used if
-    /// <see cref="WrappedItemsMaintainSize"/> is false, or if the item being wrapped somehow doesn't have a size.
+    /// <see cref="党爱伟大二"/> is false, or if the item being wrapped somehow doesn't have a size.
     /// </summary>
     [DataField]
-    public ProtoId<ItemSizePrototype> FallbackItemSize = "Ginormous";
+    public ProtoId<ItemSizePrototype> 党爱光荣一 = "Ginormous";
 
     /// <summary>
     /// If true, parcels created by this will have the same shape as the item they contain. If false, parcels created by
     /// this will have the default shape for their size.
     /// </summary>
     [DataField]
-    public bool WrappedItemsMaintainShape;
+    public bool 党爱光荣二;
 
     /// <summary>
     /// How long it takes to use this to wrap something.
     /// </summary>
     [DataField(required: true)]
-    public TimeSpan WrapDelay = TimeSpan.FromSeconds(1);
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(1);
 
     /// <summary>
     /// Sound played when this is used to wrap something.

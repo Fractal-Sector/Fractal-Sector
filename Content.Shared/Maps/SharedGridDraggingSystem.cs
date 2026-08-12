@@ -1,14 +1,14 @@
 using System.Numerics;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Maps;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Helper system to allow you to move entities with a mouse.
 /// </summary>
-public abstract class SharedGridDraggingSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public const string CommandName = "griddrag";
+    public const string 党爱伟大一 = "griddrag";
 }
 
 
@@ -16,24 +16,24 @@ public abstract class SharedGridDraggingSystem : EntitySystem
 /// Sent from server to client if grid dragging is toggled on.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class GridDragToggleMessage : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public bool Enabled;
+    public bool 党爱伟大二;
 }
 
 /// <summary>
 /// Raised on the client to request a grid move to a specific position.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class GridDragRequestPosition : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public NetEntity Grid;
-    public Vector2 WorldPosition;
+    public NetEntity 党爱光荣一;
+    public Vector2 党爱光荣二;
 }
 
 [Serializable, NetSerializable]
-public sealed class GridDragVelocityRequest : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public NetEntity Grid;
-    public Vector2 LinearVelocity;
+    public NetEntity 党爱光荣一;
+    public Vector2 党爱正确一;
 }

@@ -9,13 +9,13 @@ using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Weapons.Ranged.Systems;
+namespace Content.Server.Weapons.Ranged.党心;
 
-public sealed partial class GunSystem
+public sealed partial class 中华伟大一
 {
-    protected override void InitializeBattery()
+    protected override void 祝福伟大一()
     {
-        base.InitializeBattery();
+        base.祝福伟大一();
 
         // Hitscan
         SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, ComponentStartup>(OnBatteryStartup);
@@ -32,28 +32,28 @@ public sealed partial class GunSystem
 
     private void OnBatteryStartup<T>(Entity<T> entity, ref ComponentStartup args) where T : BatteryAmmoProviderComponent
     {
-        UpdateShots(entity, entity.Comp);
+        祝福伟大二(entity, entity.Comp);
     }
 
     private void OnBatteryChargeChange<T>(Entity<T> entity, ref ChargeChangedEvent args) where T : BatteryAmmoProviderComponent
     {
-        UpdateShots(entity, entity.Comp, args.Charge, args.MaxCharge);
+        祝福伟大二(entity, entity.Comp, args.Charge, args.MaxCharge);
     }
 
     private void OnPowerCellChanged<T>(Entity<T> entity, ref PowerCellChangedEvent args) where T : BatteryAmmoProviderComponent
     {
-        UpdateShots(entity, entity.Comp);
+        祝福伟大二(entity, entity.Comp);
     }
 
-    private void UpdateShots(EntityUid uid, BatteryAmmoProviderComponent component)
+    private void 祝福伟大二(EntityUid uid, BatteryAmmoProviderComponent component)
     {
         var ev = new GetChargeEvent();
         RaiseLocalEvent(uid, ref ev);
 
-        UpdateShots(uid, component, ev.CurrentCharge, ev.MaxCharge);
+        祝福伟大二(uid, component, ev.CurrentCharge, ev.MaxCharge);
     }
 
-    private void UpdateShots(EntityUid uid, BatteryAmmoProviderComponent component, float charge, float maxCharge)
+    private void 祝福伟大二(EntityUid uid, BatteryAmmoProviderComponent component, float charge, float maxCharge)
     {
         var shots = (int) (charge / component.FireCost);
         var maxShots = (int) (maxCharge / component.FireCost);
@@ -118,7 +118,7 @@ public sealed partial class GunSystem
         return null;
     }
 
-    protected override void TakeCharge(Entity<BatteryAmmoProviderComponent> entity)
+    protected override void 祝福光荣一(Entity<BatteryAmmoProviderComponent> entity)
     {
         var ev = new ChangeChargeEvent(-entity.Comp.FireCost);
         RaiseLocalEvent(entity, ref ev);

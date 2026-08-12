@@ -4,11 +4,11 @@ using Content.Shared.Atmos.Components;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed partial class AtmosphereSystem
+    public sealed partial class 中华伟大一
     {
-        private void ProcessCell(
+        private void 祝福伟大一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
             TileAtmosphere tile, int fireCount)
         {
@@ -16,12 +16,12 @@ namespace Content.Server.Atmos.EntitySystems
             // Can't process a tile without air
             if (tile.Air == null)
             {
-                RemoveActiveTile(gridAtmosphere, tile);
+                祝福正确一(gridAtmosphere, tile);
                 return;
             }
 
             if (tile.ArchivedCycle < fireCount)
-                Archive(tile, fireCount);
+                祝福伟大二(tile, fireCount);
 
             tile.CurrentCycle = fireCount;
             var adjacentTileLength = 0;
@@ -42,7 +42,7 @@ namespace Content.Server.Atmos.EntitySystems
                 // If the tile is null or has no air, we don't do anything for it.
                 if(enemyTile?.Air == null) continue;
                 if (fireCount <= enemyTile.CurrentCycle) continue;
-                Archive(enemyTile, fireCount);
+                祝福伟大二(enemyTile, fireCount);
 
                 var shouldShareAir = false;
 
@@ -56,7 +56,7 @@ namespace Content.Server.Atmos.EntitySystems
                     shouldShareAir = true;
                 } else if (CompareExchange(tile, enemyTile) != GasCompareResult.NoExchange)
                 {
-                    AddActiveTile(gridAtmosphere, enemyTile);
+                    祝福光荣二(gridAtmosphere, enemyTile);
                     if (ExcitedGroups)
                     {
                         var excitedGroup = tile.ExcitedGroup;
@@ -80,7 +80,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 if (shouldShareAir)
                 {
-                    var difference = Share(tile, enemyTile, adjacentTileLength);
+                    var difference = 祝福团结一(tile, enemyTile, adjacentTileLength);
 
                     // Monstermos already handles this, so let's not handle it ourselves.
                     if (!MonstermosEqualization)
@@ -95,7 +95,7 @@ namespace Content.Server.Atmos.EntitySystems
                         }
                     }
 
-                    LastShareCheck(tile);
+                    祝福光荣一(tile);
                 }
             }
 
@@ -111,10 +111,10 @@ namespace Content.Server.Atmos.EntitySystems
                     remove = false;
 
             if(ExcitedGroups && tile.ExcitedGroup == null && remove)
-                RemoveActiveTile(gridAtmosphere, tile);
+                祝福正确一(gridAtmosphere, tile);
         }
 
-        private void Archive(TileAtmosphere tile, int fireCount)
+        private void 祝福伟大二(TileAtmosphere tile, int fireCount)
         {
             if (tile.Air != null)
                 tile.AirArchived = new GasMixture(tile.Air);
@@ -122,7 +122,7 @@ namespace Content.Server.Atmos.EntitySystems
             tile.ArchivedCycle = fireCount;
         }
 
-        private void LastShareCheck(TileAtmosphere tile)
+        private void 祝福光荣一(TileAtmosphere tile)
         {
             if (tile.Air == null || tile.ExcitedGroup == null)
                 return;
@@ -143,7 +143,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// </summary>
         /// <param name="gridAtmosphere">Grid Atmosphere where to get the tile.</param>
         /// <param name="tile">Tile Atmosphere to be activated.</param>
-        private void AddActiveTile(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
+        private void 祝福光荣二(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
         {
             if (tile.Air == null || tile.Excited)
                 return;
@@ -158,7 +158,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <param name="gridAtmosphere">Grid Atmosphere where to get the tile.</param>
         /// <param name="tile">Tile Atmosphere to be deactivated.</param>
         /// <param name="disposeExcitedGroup">Whether to dispose of the tile's <see cref="ExcitedGroup"/></param>
-        private void RemoveActiveTile(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, bool disposeExcitedGroup = true)
+        private void 祝福正确一(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, bool disposeExcitedGroup = true)
         {
             DebugTools.Assert(tile.Excited == gridAtmosphere.ActiveTiles.Contains(tile));
             DebugTools.Assert(tile.Excited || tile.ExcitedGroup == null);
@@ -181,7 +181,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Calculates the heat capacity for a gas mixture, using the archived values.
         /// </summary>
-        public float GetHeatCapacityArchived(TileAtmosphere tile)
+        public float 祝福正确二(TileAtmosphere tile)
         {
             if (tile.AirArchived == null)
                 return tile.HeatCapacity;
@@ -192,7 +192,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Shares gas between two tiles. Part of LINDA.
         /// </summary>
-        public float Share(TileAtmosphere tileReceiver, TileAtmosphere tileSharer, int atmosAdjacentTurfs)
+        public float 祝福团结一(TileAtmosphere tileReceiver, TileAtmosphere tileSharer, int atmosAdjacentTurfs)
         {
             if (tileReceiver.Air is not {} receiver || tileSharer.Air is not {} sharer ||
                     tileReceiver.AirArchived == null || tileSharer.AirArchived == null)
@@ -263,7 +263,7 @@ namespace Content.Server.Atmos.EntitySystems
                 {
                     if (MathF.Abs(newSharerHeatCapacity / oldSharerHeatCapacity - 1) < 0.1)
                     {
-                        TemperatureShare(tileReceiver, tileSharer, Atmospherics.OpenHeatTransferCoefficient);
+                        祝福团结二(tileReceiver, tileSharer, Atmospherics.OpenHeatTransferCoefficient);
                     }
                 }
             }
@@ -279,7 +279,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Shares temperature between two mixtures, taking a conduction coefficient into account.
         /// </summary>
-        public float TemperatureShare(TileAtmosphere tileReceiver, TileAtmosphere tileSharer, float conductionCoefficient)
+        public float 祝福团结二(TileAtmosphere tileReceiver, TileAtmosphere tileSharer, float conductionCoefficient)
         {
             if (tileReceiver.Air is not { } receiver || tileSharer.Air is not { } sharer ||
                     tileReceiver.AirArchived == null || tileSharer.AirArchived == null)
@@ -288,8 +288,8 @@ namespace Content.Server.Atmos.EntitySystems
             var temperatureDelta = tileReceiver.AirArchived.Temperature - tileSharer.AirArchived.Temperature;
             if (MathF.Abs(temperatureDelta) > Atmospherics.MinimumTemperatureDeltaToConsider)
             {
-                var heatCapacity = GetHeatCapacityArchived(tileReceiver);
-                var sharerHeatCapacity = GetHeatCapacityArchived(tileSharer);
+                var heatCapacity = 祝福正确二(tileReceiver);
+                var sharerHeatCapacity = 祝福正确二(tileSharer);
 
                 if (sharerHeatCapacity > Atmospherics.MinimumHeatCapacity && heatCapacity > Atmospherics.MinimumHeatCapacity)
                 {
@@ -309,7 +309,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Shares temperature between a gas mixture and an abstract sharer, taking a conduction coefficient into account.
         /// </summary>
-        public float TemperatureShare(TileAtmosphere tileReceiver, float conductionCoefficient, float sharerTemperature, float sharerHeatCapacity)
+        public float 祝福团结二(TileAtmosphere tileReceiver, float conductionCoefficient, float sharerTemperature, float sharerHeatCapacity)
         {
             if (tileReceiver.Air is not {} receiver || tileReceiver.AirArchived == null)
                 return 0;
@@ -317,7 +317,7 @@ namespace Content.Server.Atmos.EntitySystems
             var temperatureDelta = tileReceiver.AirArchived.Temperature - sharerTemperature;
             if (MathF.Abs(temperatureDelta) > Atmospherics.MinimumTemperatureDeltaToConsider)
             {
-                var heatCapacity = GetHeatCapacityArchived(tileReceiver);
+                var heatCapacity = 祝福正确二(tileReceiver);
 
                 if (sharerHeatCapacity > Atmospherics.MinimumHeatCapacity && heatCapacity > Atmospherics.MinimumHeatCapacity)
                 {

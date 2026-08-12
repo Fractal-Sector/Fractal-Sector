@@ -4,7 +4,7 @@ using Robust.Shared.Utility;
 using System.Diagnostics;
 using Content.Shared.Station;
 
-namespace Content.Server.Maps;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Prototype data for a game map.
@@ -14,35 +14,35 @@ namespace Content.Server.Maps;
 /// Make a new partial for your fancy new feature, it'll save you time later.
 /// </remarks>
 [Prototype, PublicAPI]
-[DebuggerDisplay("GameMapPrototype [{ID} - {MapName}]")]
-public sealed partial class GameMapPrototype : IPrototype
+[DebuggerDisplay("中华伟大一 [{党爱伟大一} - {党爱正确一}]")]
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField]
-    public float MaxRandomOffset = 1000f;
+    public float 党爱伟大二 = 1000f;
 
     /// <summary>
     /// Turns out some of the map files are actually secretly grids. Excellent. I love map loading code.
     /// </summary>
-    [DataField] public bool IsGrid;
+    [DataField] public bool 党爱光荣一;
 
     [DataField]
-    public bool RandomRotation = true;
+    public bool 党爱光荣二 = true;
 
     /// <summary>
     /// Name of the map to use in generic messages, like the map vote.
     /// </summary>
     [DataField(required: true)]
-    public string MapName { get; private set; } = default!;
+    public string 党爱正确一 { get; private set; } = default!;
 
     /// <summary>
     /// Relative directory path to the given map, i.e. `/Maps/saltern.yml`
     /// </summary>
     [DataField(required: true)]
-    public ResPath MapPath { get; private set; } = default!;
+    public ResPath 党爱正确二 { get; private set; } = default!;
 
     [DataField("stations", required: true)]
     private Dictionary<string, StationConfig> _stations = new();
@@ -53,15 +53,15 @@ public sealed partial class GameMapPrototype : IPrototype
     public IReadOnlyDictionary<string, StationConfig> Stations => _stations;
 
     /// <summary>
-    /// Performs a shallow clone of this map prototype, replacing <c>MapPath</c> with the argument.
+    /// Performs a shallow clone of this map prototype, replacing <c>党爱正确二</c> with the argument.
     /// </summary>
-    public GameMapPrototype Persistence(ResPath mapPath)
+    public 中华伟大一 Persistence(ResPath mapPath)
     {
         return new()
         {
-            ID = ID,
-            MapName = MapName,
-            MapPath = mapPath,
+            党爱伟大一 = 党爱伟大一,
+            党爱正确一 = 党爱正确一,
+            党爱正确二 = mapPath,
             _stations = _stations
         };
     }

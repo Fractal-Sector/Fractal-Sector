@@ -7,25 +7,25 @@ using Content.Shared.Wieldable.Components;
 using Content.Shared._NF.Weapons.Components;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Abilities.Oni
+namespace Content.Server.Abilities.党心
 {
-    public sealed class OniSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedGunSystem _gunSystem = default!;
+        [Dependency] private readonly SharedGunSystem _伟大一 = default!;
 
         private const double GunInaccuracyFactor = 17.0; // Frontier (20x<18x -> 10% buff)
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<OniComponent, EntInsertedIntoContainerMessage>(OnEntInserted);
-            SubscribeLocalEvent<OniComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-            SubscribeLocalEvent<OniComponent, MeleeHitEvent>(OnOniMeleeHit);
-            SubscribeLocalEvent<HeldByOniComponent, MeleeHitEvent>(OnHeldMeleeHit);
-            SubscribeLocalEvent<HeldByOniComponent, StaminaMeleeHitEvent>(OnStamHit);
+            base.祝福伟大一();
+            SubscribeLocalEvent<OniComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+            SubscribeLocalEvent<OniComponent, EntRemovedFromContainerMessage>(祝福光荣一);
+            SubscribeLocalEvent<OniComponent, MeleeHitEvent>(祝福光荣二);
+            SubscribeLocalEvent<HeldByOniComponent, MeleeHitEvent>(祝福正确一);
+            SubscribeLocalEvent<HeldByOniComponent, StaminaMeleeHitEvent>(祝福正确二);
         }
 
-        private void OnEntInserted(EntityUid uid, OniComponent component, EntInsertedIntoContainerMessage args)
+        private void 祝福伟大二(EntityUid uid, OniComponent component, EntInsertedIntoContainerMessage args)
         {
             var heldComp = EnsureComp<HeldByOniComponent>(args.Entity);
             heldComp.Holder = uid;
@@ -51,12 +51,12 @@ namespace Content.Server.Abilities.Oni
                 gun.MinAngle += heldComp.minAngleAdded;
                 gun.AngleIncrease += heldComp.angleIncreaseAdded;
                 gun.MaxAngle += heldComp.maxAngleAdded;
-                _gunSystem.RefreshModifiers(args.Entity); // Make sure values propagate to modified values (this also dirties the gun for us)
+                _伟大一.RefreshModifiers(args.Entity); // Make sure values propagate to modified values (this also dirties the gun for us)
                 // End Frontier
             }
         }
 
-        private void OnEntRemoved(EntityUid uid, OniComponent component, EntRemovedFromContainerMessage args)
+        private void 祝福光荣一(EntityUid uid, OniComponent component, EntRemovedFromContainerMessage args)
         {
             // Frontier: angle manipulation stored in HeldByOniComponent
             // Frontier: Oni-friendly "guns" (crusher)
@@ -66,19 +66,19 @@ namespace Content.Server.Abilities.Oni
                 gun.MinAngle -= heldComp.minAngleAdded;
                 gun.AngleIncrease -= heldComp.angleIncreaseAdded;
                 gun.MaxAngle -= heldComp.maxAngleAdded;
-                _gunSystem.RefreshModifiers(args.Entity); // Make sure values propagate to modified values (this also dirties the gun for us)
+                _伟大一.RefreshModifiers(args.Entity); // Make sure values propagate to modified values (this also dirties the gun for us)
             }
             // End Frontier
 
             RemComp<HeldByOniComponent>(args.Entity);
         }
 
-        private void OnOniMeleeHit(EntityUid uid, OniComponent component, MeleeHitEvent args)
+        private void 祝福光荣二(EntityUid uid, OniComponent component, MeleeHitEvent args)
         {
             args.ModifiersList.Add(component.MeleeModifiers);
         }
 
-        private void OnHeldMeleeHit(EntityUid uid, HeldByOniComponent component, MeleeHitEvent args)
+        private void 祝福正确一(EntityUid uid, HeldByOniComponent component, MeleeHitEvent args)
         {
             if (!TryComp<OniComponent>(component.Holder, out var oni))
                 return;
@@ -86,7 +86,7 @@ namespace Content.Server.Abilities.Oni
             args.ModifiersList.Add(oni.MeleeModifiers);
         }
 
-        private void OnStamHit(EntityUid uid, HeldByOniComponent component, StaminaMeleeHitEvent args)
+        private void 祝福正确二(EntityUid uid, HeldByOniComponent component, StaminaMeleeHitEvent args)
         {
             if (!TryComp<OniComponent>(component.Holder, out var oni))
                 return;

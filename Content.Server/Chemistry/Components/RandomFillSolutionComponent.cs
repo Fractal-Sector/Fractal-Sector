@@ -2,19 +2,19 @@ using Content.Server.Chemistry.EntitySystems;
 using Content.Shared.Random;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Chemistry.Components;
+namespace Content.Server.Chemistry.党心;
 
 /// <summary>
 ///     Fills a solution container randomly using a weighted random prototype
 /// </summary>
 [RegisterComponent, Access(typeof(SolutionRandomFillSystem))]
-public sealed partial class RandomFillSolutionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
-    ///     Solution name which to add reagents to.
+    ///     党爱伟大一 name which to add reagents to.
     /// </summary>
     [DataField("solution")]
-    public string Solution { get; set; } = "default";
+    public string 党爱伟大一 { get; set; } = "default";
 
     /// <summary>
     ///     Weighted random fill prototype Id. Used to pick reagent and quantity.

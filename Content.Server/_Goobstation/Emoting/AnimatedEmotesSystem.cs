@@ -4,23 +4,23 @@ using Content.Shared.Chat.Prototypes;
 using Content.Shared.Emoting;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Emoting;
+namespace Content.Server.党心;
 
-public sealed partial class AnimatedEmotesSystem : SharedAnimatedEmotesSystem
+public sealed partial class 中华伟大一 : SharedAnimatedEmotesSystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AnimatedEmotesComponent, EmoteEvent>(OnEmote);
+        SubscribeLocalEvent<AnimatedEmotesComponent, EmoteEvent>(祝福伟大二);
     }
 
-    private void OnEmote(EntityUid uid, AnimatedEmotesComponent component, ref EmoteEvent args)
+    private void 祝福伟大二(EntityUid uid, AnimatedEmotesComponent component, ref EmoteEvent args)
     {
-        PlayEmoteAnimation(uid, component, args.Emote.ID);
+        祝福光荣一(uid, component, args.Emote.ID);
     }
 
-    public void PlayEmoteAnimation(EntityUid uid, AnimatedEmotesComponent component, ProtoId<EmotePrototype> prot)
+    public void 祝福光荣一(EntityUid uid, AnimatedEmotesComponent component, ProtoId<EmotePrototype> prot)
     {
         component.Emote = prot;
         Dirty(uid, component);

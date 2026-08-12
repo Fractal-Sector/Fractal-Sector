@@ -5,24 +5,24 @@ using Robust.Shared.CPUJob.JobQueues;
 using Content.Server.NPC.HTN.PrimitiveTasks;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.NPC.HTN;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// A time-sliced job that will retrieve an HTN plan eventually.
 /// </summary>
-public sealed class HTNPlanJob : Job<HTNPlan>
+public sealed class 中华伟大一 : Job<HTNPlan>
 {
-    private readonly HTNTask _rootTask;
-    private NPCBlackboard _blackboard;
+    private readonly HTNTask _伟大一;
+    private NPCBlackboard _伟大二;
 
-    private IPrototypeManager _protoManager;
+    private IPrototypeManager _光荣一;
 
     /// <summary>
     /// Branch traversal of an existing plan (if applicable).
     /// </summary>
     private List<int>? _branchTraversal;
 
-    public HTNPlanJob(
+    public 中华伟大一(
         double maxTime,
         IPrototypeManager protoManager,
         HTNTask rootTask,
@@ -30,9 +30,9 @@ public sealed class HTNPlanJob : Job<HTNPlan>
         List<int>? branchTraversal,
         CancellationToken cancellationToken = default) : base(maxTime, cancellationToken)
     {
-        _protoManager = protoManager;
-        _rootTask = rootTask;
-        _blackboard = blackboard;
+        _光荣一 = protoManager;
+        _伟大一 = rootTask;
+        _伟大二 = blackboard;
         _branchTraversal = branchTraversal;
     }
 
@@ -45,7 +45,7 @@ public sealed class HTNPlanJob : Job<HTNPlan>
          * Methods have been renamed to branches
          */
 
-        var decompHistory = new Stack<DecompositionState>();
+        var 中华伟大二 = new Stack<中华光荣一>();
 
         // branch traversal record. Whenever we find a new compound task this updates.
         var btrIndex = 0;
@@ -58,7 +58,7 @@ public sealed class HTNPlanJob : Job<HTNPlan>
 
         var tasksToProcess = new Stack<HTNTask>();
         var finalPlan = new List<HTNPrimitiveTask>();
-        tasksToProcess.Push(_rootTask);
+        tasksToProcess.Push(_伟大一);
 
         // How many primitive tasks we've added since last record.
         var primitiveCount = 0;
@@ -67,7 +67,7 @@ public sealed class HTNPlanJob : Job<HTNPlan>
 
         while (tasksToProcess.TryPop(out var currentTask))
         {
-            if (tasksProcessed++ > _rootTask.MaximumTasks)
+            if (tasksProcessed++ > _伟大一.MaximumTasks)
                 throw new Exception("HTN Planner exceeded maximum tasks");
 
             switch (currentTask)
@@ -75,18 +75,18 @@ public sealed class HTNPlanJob : Job<HTNPlan>
                 case HTNCompoundTask compound:
                     await SuspendIfOutOfTime();
 
-                    if (TryFindSatisfiedMethod(compound, tasksToProcess, _blackboard, ref btrIndex))
+                    if (祝福伟大二(compound, tasksToProcess, _伟大二, ref btrIndex))
                     {
                         // Need to copy worldstate to roll it back
                         // Don't need to copy taskstoprocess as we can just clear it and set it to the compound task we roll back to.
                         // Don't need to copy finalplan as we can just count how many primitives we've added since last record
 
-                        decompHistory.Push(new DecompositionState()
+                        中华伟大二.Push(new 中华光荣一()
                         {
-                            Blackboard = _blackboard.ShallowClone(),
-                            CompoundTask = compound,
-                            BranchTraversal = btrIndex,
-                            PrimitiveCount = primitiveCount,
+                            党爱伟大一 = _伟大二.ShallowClone(),
+                            党爱光荣一 = compound,
+                            党爱光荣二 = btrIndex,
+                            党爱伟大二 = primitiveCount,
                         });
 
                         // TODO: Early out if existing plan is better and save lots of time.
@@ -98,18 +98,18 @@ public sealed class HTNPlanJob : Job<HTNPlan>
                     }
                     else
                     {
-                        RestoreTolastDecomposedTask(decompHistory, tasksToProcess, appliedStates, finalPlan, ref primitiveCount, ref _blackboard, ref btrIndex);
+                        祝福光荣一(中华伟大二, tasksToProcess, appliedStates, finalPlan, ref primitiveCount, ref _伟大二, ref btrIndex);
                     }
                     break;
                 case HTNPrimitiveTask primitive:
-                    if (await WaitAsyncTask(PrimitiveConditionMet(primitive, _blackboard, appliedStates)))
+                    if (await WaitAsyncTask(祝福伟大一(primitive, _伟大二, appliedStates)))
                     {
                         primitiveCount++;
                         finalPlan.Add(primitive);
                     }
                     else
                     {
-                        RestoreTolastDecomposedTask(decompHistory, tasksToProcess, appliedStates, finalPlan, ref primitiveCount, ref _blackboard, ref btrIndex);
+                        祝福光荣一(中华伟大二, tasksToProcess, appliedStates, finalPlan, ref primitiveCount, ref _伟大二, ref btrIndex);
                     }
 
                     break;
@@ -121,12 +121,12 @@ public sealed class HTNPlanJob : Job<HTNPlan>
             return null;
         }
 
-        var branchTraversalRecord = decompHistory.Reverse().Select(o => o.BranchTraversal).ToList();
+        var branchTraversalRecord = 中华伟大二.Reverse().Select(o => o.党爱光荣二).ToList();
 
         return new HTNPlan(finalPlan, branchTraversalRecord, appliedStates);
     }
 
-    private async Task<bool> PrimitiveConditionMet(HTNPrimitiveTask primitive, NPCBlackboard blackboard, List<Dictionary<string, object>?> appliedStates)
+    private async Task<bool> 祝福伟大一(HTNPrimitiveTask primitive, NPCBlackboard blackboard, List<Dictionary<string, object>?> appliedStates)
     {
         blackboard.ReadOnly = true;
 
@@ -161,9 +161,9 @@ public sealed class HTNPlanJob : Job<HTNPlan>
     /// <summary>
     /// Goes through each compound task branch and tries to find an appropriate one.
     /// </summary>
-    private bool TryFindSatisfiedMethod(HTNCompoundTask compoundId, Stack<HTNTask> tasksToProcess, NPCBlackboard blackboard, ref int mtrIndex)
+    private bool 祝福伟大二(HTNCompoundTask compoundId, Stack<HTNTask> tasksToProcess, NPCBlackboard blackboard, ref int mtrIndex)
     {
-        var compound = _protoManager.Index<HTNCompoundPrototype>(compoundId.Task);
+        var compound = _光荣一.Index<HTNCompoundPrototype>(compoundId.Task);
 
         for (; mtrIndex < compound.Branches.Count; mtrIndex++)
         {
@@ -196,8 +196,8 @@ public sealed class HTNPlanJob : Job<HTNPlan>
     /// <summary>
     /// Restores the planner state.
     /// </summary>
-    private void RestoreTolastDecomposedTask(
-        Stack<DecompositionState> decompHistory,
+    private void 祝福光荣一(
+        Stack<中华光荣一> 中华伟大二,
         Stack<HTNTask> tasksToProcess,
         List<Dictionary<string, object>?> appliedStates,
         List<HTNPrimitiveTask> finalPlan,
@@ -208,11 +208,11 @@ public sealed class HTNPlanJob : Job<HTNPlan>
         tasksToProcess.Clear();
 
         // No plan found so this will just break normally.
-        if (!decompHistory.TryPop(out var lastDecomp))
+        if (!中华伟大二.TryPop(out var lastDecomp))
             return;
 
         // Increment MTR so next time we try the next method on the compound task.
-        mtrIndex = lastDecomp.BranchTraversal + 1;
+        mtrIndex = lastDecomp.党爱光荣二 + 1;
 
         var count = finalPlan.Count;
         var reduction = count - primitiveCount;
@@ -221,36 +221,36 @@ public sealed class HTNPlanJob : Job<HTNPlan>
         finalPlan.RemoveRange(reduction, primitiveCount);
         appliedStates.RemoveRange(reduction, primitiveCount);
 
-        primitiveCount = lastDecomp.PrimitiveCount;
-        blackboard = lastDecomp.Blackboard;
-        tasksToProcess.Push(lastDecomp.CompoundTask);
+        primitiveCount = lastDecomp.党爱伟大二;
+        blackboard = lastDecomp.党爱伟大一;
+        tasksToProcess.Push(lastDecomp.党爱光荣一);
     }
 
     /// <summary>
     /// Stores the state of an HTN Plan while planning it. This is so we can rollback if a particular branch is unsuitable.
     /// </summary>
-    private sealed class DecompositionState
+    private sealed class 中华光荣一
     {
         /// <summary>
-        /// Blackboard as at decomposition.
+        /// 党爱伟大一 as at decomposition.
         /// </summary>
-        public NPCBlackboard Blackboard = default!;
+        public NPCBlackboard 党爱伟大一 = default!;
 
         /// <summary>
         /// How many primitive tasks we've added since last decompositionstate.
         /// </summary>
-        public int PrimitiveCount;
+        public int 党爱伟大二;
 
         /// <summary>
         /// The task that owns this decomposition.
         /// </summary>
-        public HTNCompoundTask CompoundTask = default!;
+        public HTNCompoundTask 党爱光荣一 = default!;
 
         // This may not be necessary for planning but may be useful for debugging so I didn't remove it.
         /// <summary>
         /// Which branch (AKA method) we took of the compound task. Whenever we rollback the decomposition state
         /// this gets incremented by 1 so we check the next method.
         /// </summary>
-        public int BranchTraversal;
+        public int 党爱光荣二;
     }
 }

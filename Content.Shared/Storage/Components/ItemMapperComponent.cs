@@ -1,10 +1,10 @@
 ﻿using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Storage.Components
+namespace Content.Shared.Storage.党心
 {
     /// <summary>
-    /// <para><c>ItemMapperComponent</c> is a <see cref="Component"/> that maps string labels to an <see cref="Content.Shared.Whitelist.EntityWhitelist"/> of elements. Useful primarily  for visualization.</para>
+    /// <para><c>中华伟大一</c> is a <see cref="Component"/> that maps string labels to an <see cref="Content.Shared.Whitelist.EntityWhitelist"/> of elements. Useful primarily  for visualization.</para>
     /// <para>
     /// To define a mapping, create a <c>mapLayers</c> map in configuration <c>ItemMapper</c> component and with <see cref="MapLayers"/> mapping.
     /// Each map layer maps layer name to an <see cref="Content.Shared.Whitelist.EntityWhitelist"/>, plus special modifiers for min and max item count.
@@ -54,7 +54,7 @@ namespace Content.Shared.Storage.Components
     /// </summary>
     [RegisterComponent]
     [Access(typeof(SharedItemMapperSystem))]
-    public sealed partial class ItemMapperComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("mapLayers")] public  Dictionary<string, SharedMapLayerData> MapLayers = new();
 
@@ -71,6 +71,6 @@ namespace Content.Shared.Storage.Components
         ///     Can be initialized if already existing on the sprite, or inferred automatically
         /// </summary>
         [DataField("spriteLayers")]
-        public List<string> SpriteLayers = new();
+        public List<string> 党爱伟大一 = new();
     }
 }

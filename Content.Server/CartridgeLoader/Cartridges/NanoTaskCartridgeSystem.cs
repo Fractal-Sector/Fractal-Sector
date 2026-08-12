@@ -8,42 +8,42 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.CartridgeLoader.Cartridges;
+namespace Content.Server.CartridgeLoader.党心;
 
 /// <summary>
-///     Server-side class implementing the core UI logic of NanoTask
+///     Server-side class 中华伟大一 the core UI logic of NanoTask
 /// </summary>
-public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
+public sealed class 中华伟大二 : SharedNanoTaskCartridgeSystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly CartridgeLoaderSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly PaperSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeMessageEvent>(OnUiMessage);
-        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
+        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeMessageEvent>(祝福正确二);
+        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeUiReadyEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeRemovedEvent>(OnCartridgeRemoved);
+        SubscribeLocalEvent<NanoTaskCartridgeComponent, CartridgeRemovedEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<NanoTaskInteractionComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<NanoTaskInteractionComponent, InteractUsingEvent>(祝福光荣一);
     }
 
-    private void OnCartridgeRemoved(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeRemovedEvent args)
+    private void 祝福伟大二(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeRemovedEvent args)
     {
-        if (!_cartridgeLoader.HasProgram<NanoTaskCartridgeComponent>(args.Loader))
+        if (!_伟大一.HasProgram<NanoTaskCartridgeComponent>(args.Loader))
         {
             RemComp<NanoTaskInteractionComponent>(args.Loader);
         }
     }
 
-    private void OnInteractUsing(Entity<NanoTaskInteractionComponent> ent, ref InteractUsingEvent args)
+    private void 祝福光荣一(Entity<NanoTaskInteractionComponent> ent, ref InteractUsingEvent args)
     {
-        if (!_cartridgeLoader.TryGetProgram<NanoTaskCartridgeComponent>(ent.Owner, out var uid, out var program))
+        if (!_伟大一.TryGetProgram<NanoTaskCartridgeComponent>(ent.Owner, out var uid, out var program))
         {
             return;
         }
@@ -56,19 +56,19 @@ public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
             program.Tasks.Add(new(program.Counter++, printed.Task));
             args.Handled = true;
             Del(args.Used);
-            UpdateUiState(new Entity<NanoTaskCartridgeComponent>(uid.Value, program), ent.Owner);
+            祝福团结一(new Entity<NanoTaskCartridgeComponent>(uid.Value, program), ent.Owner);
         }
     }
 
     /// <summary>
     /// This gets called when the ui fragment needs to be updated for the first time after activating
     /// </summary>
-    private void OnUiReady(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
+    private void 祝福光荣二(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
     {
-        UpdateUiState(ent, args.Loader);
+        祝福团结一(ent, args.Loader);
     }
 
-    private void SetupPrintedTask(EntityUid uid, NanoTaskItem item)
+    private void 祝福正确一(EntityUid uid, NanoTaskItem item)
     {
         PaperComponent? paper = null;
         NanoTaskPrintedComponent? printed = null;
@@ -88,7 +88,7 @@ public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
             _ => "",
         });
 
-        _paper.SetContent((uid, paper), msg.ToMarkup());
+        _光荣一.SetContent((uid, paper), msg.ToMarkup());
     }
 
     /// <summary>
@@ -97,7 +97,7 @@ public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
     /// <remarks>
     /// The cartridge specific ui message event needs to inherit from the CartridgeMessageEvent
     /// </remarks>
-    private void OnUiMessage(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeMessageEvent args)
+    private void 祝福正确二(Entity<NanoTaskCartridgeComponent> ent, ref CartridgeMessageEvent args)
     {
         if (args is not NanoTaskUiMessageEvent message)
             return;
@@ -127,25 +127,25 @@ public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
             {
                 if (!task.Item.Validate())
                     return;
-                if (_timing.CurTime < ent.Comp.NextPrintAllowedAfter)
+                if (_伟大二.CurTime < ent.Comp.NextPrintAllowedAfter)
                     return;
 
-                ent.Comp.NextPrintAllowedAfter = _timing.CurTime + ent.Comp.PrintDelay;
+                ent.Comp.NextPrintAllowedAfter = _伟大二.CurTime + ent.Comp.PrintDelay;
                 var printed = Spawn("PaperNanoTaskItem", Transform(message.Actor).Coordinates);
-                _hands.PickupOrDrop(message.Actor, printed);
-                _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/printer.ogg"), ent.Owner);
-                SetupPrintedTask(printed, task.Item);
+                _正确一.PickupOrDrop(message.Actor, printed);
+                _光荣二.PlayPvs(new SoundPathSpecifier("/Audio/Machines/printer.ogg"), ent.Owner);
+                祝福正确一(printed, task.Item);
                 break;
             }
         }
 
-        UpdateUiState(ent, GetEntity(args.LoaderUid));
+        祝福团结一(ent, GetEntity(args.LoaderUid));
     }
 
 
-    private void UpdateUiState(Entity<NanoTaskCartridgeComponent> ent, EntityUid loaderUid)
+    private void 祝福团结一(Entity<NanoTaskCartridgeComponent> ent, EntityUid loaderUid)
     {
         var state = new NanoTaskUiState(ent.Comp.Tasks);
-        _cartridgeLoader.UpdateCartridgeUiState(loaderUid, state);
+        _伟大一.UpdateCartridgeUiState(loaderUid, state);
     }
 }

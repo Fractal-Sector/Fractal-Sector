@@ -5,25 +5,25 @@ using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.SprayPainter.Components;
 
-namespace Content.Shared.SprayPainter;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// The system handles interactions with spray painter ammo.
 /// </summary>
-public sealed class SprayPainterAmmoSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedChargesSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SprayPainterAmmoComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<SprayPainterAmmoComponent, AfterInteractEvent>(OnAfterInteract);
+        SubscribeLocalEvent<SprayPainterAmmoComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<SprayPainterAmmoComponent, AfterInteractEvent>(祝福伟大二);
     }
 
-    private void OnAfterInteract(Entity<SprayPainterAmmoComponent> ent, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<SprayPainterAmmoComponent> ent, ref AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach)
             return;
@@ -38,12 +38,12 @@ public sealed class SprayPainterAmmoSystem : EntitySystem
         var count = Math.Min(charges.MaxCharges - charges.LastCharges, ent.Comp.Charges);
         if (count <= 0)
         {
-            _popup.PopupClient(Loc.GetString("spray-painter-ammo-after-interact-full"), target, user);
+            _伟大二.PopupClient(Loc.GetString("spray-painter-ammo-after-interact-full"), target, user);
             return;
         }
 
-        _popup.PopupClient(Loc.GetString("spray-painter-ammo-after-interact-refilled"), target, user);
-        _charges.AddCharges(target, count);
+        _伟大二.PopupClient(Loc.GetString("spray-painter-ammo-after-interact-refilled"), target, user);
+        _伟大一.AddCharges(target, count);
         ent.Comp.Charges -= count;
         Dirty(ent, ent.Comp);
 
@@ -51,7 +51,7 @@ public sealed class SprayPainterAmmoSystem : EntitySystem
             PredictedQueueDel(ent.Owner);
     }
 
-    private void OnExamine(Entity<SprayPainterAmmoComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<SprayPainterAmmoComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;

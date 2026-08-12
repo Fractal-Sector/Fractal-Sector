@@ -3,34 +3,34 @@ using System.Runtime.InteropServices;
 using Content.Server.Afk;
 using Robust.Server.DataMetrics;
 
-namespace Content.Server.Administration.Managers;
+namespace Content.Server.Administration.党心;
 
 // Handles metrics reporting for active admin count and such.
 
-public sealed partial class AdminManager
+public sealed partial class 中华伟大一
 {
     private Dictionary<int, (int active, int afk, int deadminned)>? _adminOnlineCounts;
 
     private const int SentinelRankId = -1;
 
-    [Dependency] private readonly IMetricsManager _metrics = default!;
-    [Dependency] private readonly IAfkManager _afkManager = default!;
-    [Dependency] private readonly IMeterFactory _meterFactory = default!;
+    [Dependency] private readonly IMetricsManager _伟大一 = default!;
+    [Dependency] private readonly IAfkManager _伟大二 = default!;
+    [Dependency] private readonly IMeterFactory _光荣一 = default!;
 
-    private void InitializeMetrics()
+    private void 祝福伟大一()
     {
-        _metrics.UpdateMetrics += MetricsOnUpdateMetrics;
+        _伟大一.UpdateMetrics += 祝福伟大二;
 
-        var meter = _meterFactory.Create("SS14.AdminManager");
+        var meter = _光荣一.Create("SS14.中华伟大一");
 
         meter.CreateObservableGauge(
             "admins_online_count",
-            MeasureAdminCount,
+            祝福光荣一,
             null,
             "The count of online admins");
     }
 
-    private void MetricsOnUpdateMetrics()
+    private void 祝福伟大二()
     {
         _sawmill.Verbose("Updating metrics");
 
@@ -44,7 +44,7 @@ public sealed partial class AdminManager
 
             if (reg.Data.Active)
             {
-                if (_afkManager.IsAfk(session))
+                if (_伟大二.IsAfk(session))
                     counts.afk += 1;
                 else
                     counts.active += 1;
@@ -72,7 +72,7 @@ public sealed partial class AdminManager
         _adminOnlineCounts = dict;
     }
 
-    private IEnumerable<Measurement<int>> MeasureAdminCount()
+    private IEnumerable<Measurement<int>> 祝福光荣一()
     {
         if (_adminOnlineCounts == null)
             yield break;

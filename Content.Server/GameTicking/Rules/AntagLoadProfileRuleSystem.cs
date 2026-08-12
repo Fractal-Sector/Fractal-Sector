@@ -7,43 +7,43 @@ using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class AntagLoadProfileRuleSystem : GameRuleSystem<AntagLoadProfileRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<AntagLoadProfileRuleComponent>
 {
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IServerPreferencesManager _prefs = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IServerPreferencesManager _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AntagLoadProfileRuleComponent, AntagSelectEntityEvent>(OnSelectEntity);
+        SubscribeLocalEvent<AntagLoadProfileRuleComponent, AntagSelectEntityEvent>(祝福伟大二);
     }
 
-    private void OnSelectEntity(Entity<AntagLoadProfileRuleComponent> ent, ref AntagSelectEntityEvent args)
+    private void 祝福伟大二(Entity<AntagLoadProfileRuleComponent> ent, ref AntagSelectEntityEvent args)
     {
         if (args.Handled)
             return;
 
         var profile = args.Session != null
-            ? _prefs.GetPreferences(args.Session.UserId).SelectedCharacter as HumanoidCharacterProfile
+            ? _光荣一.GetPreferences(args.Session.UserId).SelectedCharacter as HumanoidCharacterProfile
             : HumanoidCharacterProfile.RandomWithSpecies();
 
 
-        if (profile?.Species is not { } speciesId || !_proto.TryIndex(speciesId, out var species))
+        if (profile?.Species is not { } speciesId || !_伟大二.TryIndex(speciesId, out var species))
         {
-            species = _proto.Index<SpeciesPrototype>(SharedHumanoidAppearanceSystem.DefaultSpecies);
+            species = _伟大二.Index<SpeciesPrototype>(SharedHumanoidAppearanceSystem.DefaultSpecies);
         }
 
         if (ent.Comp.SpeciesOverride != null
             && (ent.Comp.SpeciesOverrideBlacklist?.Contains(new ProtoId<SpeciesPrototype>(species.ID)) ?? false))
         {
-            species = _proto.Index(ent.Comp.SpeciesOverride.Value);
+            species = _伟大二.Index(ent.Comp.SpeciesOverride.Value);
         }
 
         args.Entity = Spawn(species.Prototype);
-        _humanoid.LoadProfile(args.Entity.Value, profile?.WithSpecies(species.ID));
+        _伟大一.LoadProfile(args.Entity.Value, profile?.WithSpecies(species.ID));
     }
 }

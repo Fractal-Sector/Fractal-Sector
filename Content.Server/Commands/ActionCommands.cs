@@ -4,18 +4,18 @@ using Content.Shared.Actions.Components;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Commands;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Fun)]
-internal sealed class UpgradeActionCommand : IConsoleCommand
+internal sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    public string Command => "upgradeaction";
-    public string Description => Loc.GetString("upgradeaction-command-description");
-    public string Help => Loc.GetString("upgradeaction-command-help");
+    public string 党爱伟大一 => "upgradeaction";
+    public string 党爱伟大二 => Loc.GetString("upgradeaction-command-description");
+    public string 党爱光荣一 => Loc.GetString("upgradeaction-command-help");
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 1)
         {
@@ -29,7 +29,7 @@ internal sealed class UpgradeActionCommand : IConsoleCommand
             return;
         }
 
-        var actionUpgrade = _entMan.EntitySysManager.GetEntitySystem<ActionUpgradeSystem>();
+        var actionUpgrade = _伟大一.EntitySysManager.GetEntitySystem<ActionUpgradeSystem>();
         var id = args[0];
 
         if (!NetEntity.TryParse(id, out var nuid))
@@ -38,13 +38,13 @@ internal sealed class UpgradeActionCommand : IConsoleCommand
             return;
         }
 
-        if (!_entMan.TryGetEntity(nuid, out var uid))
+        if (!_伟大一.TryGetEntity(nuid, out var uid))
         {
             shell.WriteLine(Loc.GetString("upgradeaction-command-entity-does-not-exist"));
             return;
         }
 
-        if (!_entMan.TryGetComponent<ActionUpgradeComponent>(uid, out var actionUpgradeComponent))
+        if (!_伟大一.TryGetComponent<ActionUpgradeComponent>(uid, out var actionUpgradeComponent))
         {
             shell.WriteLine(Loc.GetString("upgradeaction-command-entity-is-not-action"));
             return;

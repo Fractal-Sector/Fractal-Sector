@@ -8,76 +8,76 @@ using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Containers;
+namespace Content.Shared.党心;
 
-public sealed partial class DragInsertContainerSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly ClimbSystem _climb = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly ClimbSystem _光荣一 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DragInsertContainerComponent, DragDropTargetEvent>(OnDragDropOn, before: new []{ typeof(ClimbSystem)});
-        SubscribeLocalEvent<DragInsertContainerComponent, DragInsertContainerDoAfterEvent>(OnDragFinished);
-        SubscribeLocalEvent<DragInsertContainerComponent, CanDropTargetEvent>(OnCanDragDropOn);
-        SubscribeLocalEvent<DragInsertContainerComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAlternativeVerb);
+        SubscribeLocalEvent<DragInsertContainerComponent, DragDropTargetEvent>(祝福伟大二, before: new []{ typeof(ClimbSystem)});
+        SubscribeLocalEvent<DragInsertContainerComponent, 中华伟大二>(祝福光荣一);
+        SubscribeLocalEvent<DragInsertContainerComponent, CanDropTargetEvent>(祝福光荣二);
+        SubscribeLocalEvent<DragInsertContainerComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
     }
 
-    private void OnDragDropOn(Entity<DragInsertContainerComponent> ent, ref DragDropTargetEvent args)
+    private void 祝福伟大二(Entity<DragInsertContainerComponent> ent, ref DragDropTargetEvent args)
     {
         if (args.Handled)
             return;
 
         var (_, comp) = ent;
-        if (!_container.TryGetContainer(ent, comp.ContainerId, out var container))
+        if (!_光荣二.TryGetContainer(ent, comp.ContainerId, out var container))
             return;
 
         if (comp.EntryDelay <= TimeSpan.Zero ||
             !comp.DelaySelfEntry && args.User == args.Dragged)
         {
             //instant insertion
-            args.Handled = Insert(args.Dragged, args.User, ent, container);
+            args.Handled = 祝福正确二(args.Dragged, args.User, ent, container);
             return;
         }
 
         //delayed insertion
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, comp.EntryDelay, new DragInsertContainerDoAfterEvent(), ent, args.Dragged, ent)
+        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, comp.EntryDelay, new 中华伟大二(), ent, args.Dragged, ent)
         {
             BreakOnDamage = true,
             BreakOnMove = true,
             NeedHand = false,
         };
-        _doAfter.TryStartDoAfter(doAfterArgs);
+        _正确一.TryStartDoAfter(doAfterArgs);
         args.Handled = true;
     }
 
-    private void OnDragFinished(Entity<DragInsertContainerComponent> ent, ref DragInsertContainerDoAfterEvent args)
+    private void 祝福光荣一(Entity<DragInsertContainerComponent> ent, ref 中华伟大二 args)
     {
         if (args.Handled || args.Cancelled || args.Args.Target == null)
             return;
 
-        if (!_container.TryGetContainer(ent, ent.Comp.ContainerId, out var container))
+        if (!_光荣二.TryGetContainer(ent, ent.Comp.ContainerId, out var container))
             return;
 
-        Insert(args.Args.Target.Value, args.User, ent, container);
+        祝福正确二(args.Args.Target.Value, args.User, ent, container);
     }
 
-    private void OnCanDragDropOn(Entity<DragInsertContainerComponent> ent, ref CanDropTargetEvent args)
+    private void 祝福光荣二(Entity<DragInsertContainerComponent> ent, ref CanDropTargetEvent args)
     {
         var (_, comp) = ent;
-        if (!_container.TryGetContainer(ent, comp.ContainerId, out var container))
+        if (!_光荣二.TryGetContainer(ent, comp.ContainerId, out var container))
             return;
 
         args.Handled = true;
-        args.CanDrop |= _container.CanInsert(args.Dragged, container);
+        args.CanDrop |= _光荣二.CanInsert(args.Dragged, container);
     }
 
-    private void OnGetAlternativeVerb(Entity<DragInsertContainerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福正确一(Entity<DragInsertContainerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         var (uid, comp) = ent;
         if (!comp.UseVerbs)
@@ -86,11 +86,11 @@ public sealed partial class DragInsertContainerSystem : EntitySystem
         if (!args.CanInteract || !args.CanAccess || args.Hands == null)
             return;
 
-        if (!_container.TryGetContainer(uid, comp.ContainerId, out var container))
+        if (!_光荣二.TryGetContainer(uid, comp.ContainerId, out var container))
             return;
 
         var user = args.User;
-        if (!_actionBlocker.CanInteract(user, ent))
+        if (!_伟大二.CanInteract(user, ent))
             return;
 
         // Eject verb
@@ -100,7 +100,7 @@ public sealed partial class DragInsertContainerSystem : EntitySystem
             var emptyableCount = 0;
             foreach (var contained in container.ContainedEntities)
             {
-                if (!_container.CanRemove(contained, container))
+                if (!_光荣二.CanRemove(contained, container))
                     continue;
                 emptyableCount++;
             }
@@ -111,11 +111,11 @@ public sealed partial class DragInsertContainerSystem : EntitySystem
                 {
                     Act = () =>
                     {
-                        _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user):player} emptied container {ToPrettyString(ent)}");
-                        var ents = _container.EmptyContainer(container);
+                        _伟大一.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user):player} emptied container {ToPrettyString(ent)}");
+                        var ents = _光荣二.EmptyContainer(container);
                         foreach (var contained in ents)
                         {
-                            _climb.ForciblySetClimbing(contained, ent);
+                            _光荣一.ForciblySetClimbing(contained, ent);
                         }
                     },
                     Category = VerbCategory.Eject,
@@ -127,12 +127,12 @@ public sealed partial class DragInsertContainerSystem : EntitySystem
         }
 
         // Self-insert verb
-        if (_container.CanInsert(user, container) &&
-            _actionBlocker.CanMove(user))
+        if (_光荣二.CanInsert(user, container) &&
+            _伟大二.CanMove(user))
         {
             AlternativeVerb verb = new()
             {
-                Act = () => Insert(user, user, ent, container),
+                Act = () => 祝福正确二(user, user, ent, container),
                 Text = Loc.GetString("container-verb-text-enter"),
                 Priority = 2
             };
@@ -140,17 +140,17 @@ public sealed partial class DragInsertContainerSystem : EntitySystem
         }
     }
 
-    public bool Insert(EntityUid target, EntityUid user, EntityUid containerEntity, BaseContainer container)
+    public bool 祝福正确二(EntityUid target, EntityUid user, EntityUid containerEntity, BaseContainer container)
     {
-        if (!_container.Insert(target, container))
+        if (!_光荣二.祝福正确二(target, container))
             return false;
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user):player} inserted {ToPrettyString(target):player} into container {ToPrettyString(containerEntity)}");
+        _伟大一.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user):player} inserted {ToPrettyString(target):player} into container {ToPrettyString(containerEntity)}");
         return true;
     }
 
     [Serializable, NetSerializable]
-    public sealed partial class DragInsertContainerDoAfterEvent : SimpleDoAfterEvent
+    public sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 }

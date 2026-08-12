@@ -1,16 +1,16 @@
 using Content.Shared.Damage;
 
-namespace Content.Shared._WF.Damage;
+namespace Content.Shared._WF.党心;
 
-public sealed class DamageCapSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DamageCapComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<DamageCapComponent, BeforeDamageChangedEvent>(祝福伟大二);
     }
 
-    private void OnBeforeDamageChanged(Entity<DamageCapComponent> ent, ref BeforeDamageChangedEvent args)
+    private void 祝福伟大二(Entity<DamageCapComponent> ent, ref BeforeDamageChangedEvent args)
     {
         var cap = ent.Comp.DamageCap;
         if (cap <= 0)

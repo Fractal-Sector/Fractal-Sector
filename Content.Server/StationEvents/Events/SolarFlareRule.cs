@@ -10,24 +10,24 @@ using Content.Shared.Doors.Systems;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Light.Components;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class SolarFlareRule : StationEventSystem<SolarFlareRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<SolarFlareRuleComponent>
 {
-    [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
+    [Dependency] private readonly PoweredLightSystem _伟大一 = default!;
+    [Dependency] private readonly SharedDoorSystem _伟大二 = default!;
 
-    private float _effectTimer = 0;
+    private float _光荣一 = 0;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RadioReceiveAttemptEvent>(OnRadioReceiveAttempt);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RadioReceiveAttemptEvent>(祝福光荣二);
     }
 
-    protected override void Started(EntityUid uid, SolarFlareRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, SolarFlareRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, comp, gameRule, args);
+        base.祝福伟大二(uid, comp, gameRule, args);
 
         for (var i = 0; i < comp.ExtraCount; i++)
         {
@@ -36,33 +36,33 @@ public sealed class SolarFlareRule : StationEventSystem<SolarFlareRuleComponent>
         }
     }
 
-    protected override void ActiveTick(EntityUid uid, SolarFlareRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void 祝福光荣一(EntityUid uid, SolarFlareRuleComponent component, GameRuleComponent gameRule, float frameTime)
     {
-        base.ActiveTick(uid, component, gameRule, frameTime);
+        base.祝福光荣一(uid, component, gameRule, frameTime);
 
-        _effectTimer -= frameTime;
-        if (_effectTimer < 0)
+        _光荣一 -= frameTime;
+        if (_光荣一 < 0)
         {
-            _effectTimer += 1;
+            _光荣一 += 1;
             var lightQuery = EntityQueryEnumerator<PoweredLightComponent>();
             while (lightQuery.MoveNext(out var lightEnt, out var light))
             {
                 // Frontier: shielded lights
                 var prob = component.LightBreakChancePerSecond * light.SolarFlareShieldingCoefficient;
                 if (RobustRandom.Prob(prob))
-                    _poweredLight.TryDestroyBulb(lightEnt, light);
+                    _伟大一.TryDestroyBulb(lightEnt, light);
                 // End Frontier: shielded lights
             }
             var airlockQuery = EntityQueryEnumerator<AirlockComponent, DoorComponent>();
             while (airlockQuery.MoveNext(out var airlockEnt, out var airlock, out var door))
             {
                 if (airlock.AutoClose && RobustRandom.Prob(component.DoorToggleChancePerSecond))
-                    _door.TryToggleDoor(airlockEnt, door);
+                    _伟大二.TryToggleDoor(airlockEnt, door);
             }
         }
     }
 
-    private void OnRadioReceiveAttempt(ref RadioReceiveAttemptEvent args)
+    private void 祝福光荣二(ref RadioReceiveAttemptEvent args)
     {
         var query = EntityQueryEnumerator<SolarFlareRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var flare, out var gameRule))

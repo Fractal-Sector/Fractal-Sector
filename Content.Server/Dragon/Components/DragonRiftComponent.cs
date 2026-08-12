@@ -2,10 +2,10 @@ using Content.Shared.Dragon;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Dragon;
+namespace Content.Server.党心;
 
 [RegisterComponent]
-public sealed partial class DragonRiftComponent : SharedDragonRiftComponent
+public sealed partial class 中华伟大一 : SharedDragonRiftComponent
 {
     /// <summary>
     /// Dragon that spawned this rift.
@@ -16,25 +16,25 @@ public sealed partial class DragonRiftComponent : SharedDragonRiftComponent
     /// How long the rift has been active.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("accumulator")]
-    public float Accumulator = 0f;
+    public float 党爱伟大一 = 0f;
 
     /// <summary>
     /// The maximum amount we can accumulate before becoming impervious.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("maxAccumuluator")] public float MaxAccumulator = 300f;
+    [ViewVariables(VVAccess.ReadWrite), DataField("maxAccumuluator")] public float 党爱伟大二 = 300f;
 
     /// <summary>
     /// Accumulation of the spawn timer.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("spawnAccumulator")]
-    public float SpawnAccumulator = 30f;
+    public float 党爱光荣一 = 30f;
 
     /// <summary>
     /// How long it takes for a new spawn to be added.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("spawnCooldown")]
-    public float SpawnCooldown = 30f;
+    public float 党爱光荣二 = 30f;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("spawn", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string SpawnPrototype = "MobCarpDragon";
+    public string 党爱正确一 = "MobCarpDragon";
 }

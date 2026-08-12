@@ -9,39 +9,39 @@ using Robust.Shared.Map;
 using CableCuttingFinishedEvent = Content.Shared.Tools.Systems.CableCuttingFinishedEvent;
 using SharedToolSystem = Content.Shared.Tools.Systems.SharedToolSystem;
 
-namespace Content.Server.Power.EntitySystems;
+namespace Content.Server.Power.党心;
 
-public sealed partial class CableSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ITileDefinitionManager _tileManager = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly ElectrocutionSystem _electrocutionSystem = default!;
+    [Dependency] private readonly ITileDefinitionManager _伟大一 = default!;
+    [Dependency] private readonly SharedToolSystem _伟大二 = default!;
+    [Dependency] private readonly StackSystem _光荣一 = default!;
+    [Dependency] private readonly ElectrocutionSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitializeCablePlacer();
 
-        SubscribeLocalEvent<CableComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<CableComponent, CableCuttingFinishedEvent>(OnCableCut);
+        SubscribeLocalEvent<CableComponent, InteractUsingEvent>(祝福伟大二);
+        SubscribeLocalEvent<CableComponent, CableCuttingFinishedEvent>(祝福光荣一);
         // Shouldn't need re-anchoring.
-        SubscribeLocalEvent<CableComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+        SubscribeLocalEvent<CableComponent, AnchorStateChangedEvent>(祝福光荣二);
     }
 
-    private void OnInteractUsing(EntityUid uid, CableComponent cable, InteractUsingEvent args)
+    private void 祝福伟大二(EntityUid uid, CableComponent cable, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
         if (cable.CuttingQuality != null)
         {
-            args.Handled = _toolSystem.UseTool(args.Used, args.User, uid, cable.CuttingDelay, cable.CuttingQuality, new CableCuttingFinishedEvent());
+            args.Handled = _伟大二.UseTool(args.Used, args.User, uid, cable.CuttingDelay, cable.CuttingQuality, new CableCuttingFinishedEvent());
         }
     }
 
-    private void OnCableCut(EntityUid uid, CableComponent cable, DoAfterEvent args)
+    private void 祝福光荣一(EntityUid uid, CableComponent cable, DoAfterEvent args)
     {
         if (args.Cancelled)
             return;
@@ -50,7 +50,7 @@ public sealed partial class CableSystem : EntitySystem
         var ev = new CableAnchorStateChangedEvent(xform);
         RaiseLocalEvent(uid, ref ev);
 
-        if (_electrocutionSystem.TryDoElectrifiedAct(uid, args.User))
+        if (_光荣二.TryDoElectrifiedAct(uid, args.User))
             return;
 
         _adminLogger.Add(LogType.CableCut, LogImpact.High, $"The {ToPrettyString(uid)} at {xform.Coordinates} was cut by {ToPrettyString(args.User)}.");
@@ -59,7 +59,7 @@ public sealed partial class CableSystem : EntitySystem
         QueueDel(uid);
     }
 
-    private void OnAnchorChanged(EntityUid uid, CableComponent cable, ref AnchorStateChangedEvent args)
+    private void 祝福光荣二(EntityUid uid, CableComponent cable, ref AnchorStateChangedEvent args)
     {
         var ev = new CableAnchorStateChangedEvent(args.Transform, args.Detaching);
         RaiseLocalEvent(uid, ref ev);

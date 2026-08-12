@@ -1,9 +1,9 @@
-namespace Content.Server.Maps;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Manages which station map will be used for the next round.
 /// </summary>
-public interface IGameMapManager
+public interface 中华伟大一
 {
     void Initialize();
 
@@ -64,7 +64,7 @@ public interface IGameMapManager
     /// <summary>
     /// Selects the map by following rules set in the config
     /// </summary>
-    public void SelectMapByConfigRules();
+    public void 祝福伟大一();
 
     /// <summary>
     /// Checks if the given map exists

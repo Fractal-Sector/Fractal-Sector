@@ -3,18 +3,18 @@ using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class MonkeyAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MonkeyAccentComponent, AccentGetEvent>(OnAccent);
+        SubscribeLocalEvent<MonkeyAccentComponent, AccentGetEvent>(祝福光荣一);
     }
 
-    public string Accentuate(string message)
+    public string 祝福伟大二(string message)
     {
         var words = message.Split();
         var accentedMessage = new StringBuilder(message.Length + 2);
@@ -23,7 +23,7 @@ public sealed class MonkeyAccentSystem : EntitySystem
         {
             var word = words[i];
 
-            if (_random.NextDouble() >= 0.5)
+            if (_伟大一.NextDouble() >= 0.5)
             {
                 if (word.Length > 1)
                 {
@@ -32,7 +32,7 @@ public sealed class MonkeyAccentSystem : EntitySystem
                         accentedMessage.Append('O');
                     }
 
-                    if (_random.NextDouble() >= 0.3)
+                    if (_伟大一.NextDouble() >= 0.3)
                         accentedMessage.Append('K');
                 }
                 else
@@ -42,7 +42,7 @@ public sealed class MonkeyAccentSystem : EntitySystem
             {
                 foreach (var _ in word)
                 {
-                    if (_random.NextDouble() >= 0.8)
+                    if (_伟大一.NextDouble() >= 0.8)
                         accentedMessage.Append('H');
                     else
                         accentedMessage.Append('A');
@@ -59,8 +59,8 @@ public sealed class MonkeyAccentSystem : EntitySystem
         return accentedMessage.ToString();
     }
 
-    private void OnAccent(EntityUid uid, MonkeyAccentComponent component, AccentGetEvent args)
+    private void 祝福光荣一(EntityUid uid, MonkeyAccentComponent component, AccentGetEvent args)
     {
-        args.Message = Accentuate(args.Message);
+        args.Message = 祝福伟大二(args.Message);
     }
 }

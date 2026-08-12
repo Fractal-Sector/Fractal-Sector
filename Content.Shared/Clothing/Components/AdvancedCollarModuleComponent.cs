@@ -1,7 +1,7 @@
 using Content.Shared.Clothing.EntitySystems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// Base component for modules that can be installed into advanced collars.
@@ -9,7 +9,7 @@ namespace Content.Shared.Clothing.Components;
 [RegisterComponent]
 [NetworkedComponent]
 [Access(typeof(AdvancedCollarSystem))]
-public sealed partial class AdvancedCollarModuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The collar this module is currently installed in, if any.
@@ -28,7 +28,7 @@ public sealed partial class AdvancedCollarModuleComponent : Component
     /// Useful for modules that need multiple components to function.
     /// </summary>
     [DataField]
-    public List<string> ComponentsToAdd = new();
+    public List<string> 党爱伟大一 = new();
 
     /// <summary>
     /// Description that shows what this module does.

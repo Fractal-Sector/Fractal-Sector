@@ -1,9 +1,9 @@
 ﻿using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
 [Serializable, NetSerializable]
-public sealed partial class BluespaceLockerDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
 }

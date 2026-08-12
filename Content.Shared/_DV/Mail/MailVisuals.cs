@@ -1,12 +1,12 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._DV.Mail
+namespace Content.Shared._DV.党心
 {
     /// <summary>
     /// Stores the visuals for mail.
     /// </summary>
     [Serializable, NetSerializable]
-    public enum MailVisuals : byte
+    public enum 中华伟大一 : byte
     {
         IsLocked,
         IsTrash,

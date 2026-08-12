@@ -5,18 +5,18 @@ using Robust.Shared.Serialization;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions.Events;
+namespace Content.Shared.Actions.党心;
 
 /// <summary>
 /// The event that triggers when an action doafter is completed or cancelled
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class ActionDoAfterEvent : DoAfterEvent
+public sealed partial class 中华伟大一 : DoAfterEvent
 {
     /// <summary>
     /// The action performer
     /// </summary>
-    public readonly NetEntity Performer;
+    public readonly NetEntity 党爱伟大一;
 
     /// <summary>
     /// The original action use delay, used for repeating actions
@@ -26,14 +26,14 @@ public sealed partial class ActionDoAfterEvent : DoAfterEvent
     /// <summary>
     /// The original request, for validating
     /// </summary>
-    public readonly RequestPerformActionEvent Input;
+    public readonly RequestPerformActionEvent 党爱伟大二;
 
-    public ActionDoAfterEvent(NetEntity performer, TimeSpan? originalUseDelay, RequestPerformActionEvent input)
+    public 中华伟大一(NetEntity performer, TimeSpan? originalUseDelay, RequestPerformActionEvent input)
     {
-        Performer = performer;
+        党爱伟大一 = performer;
         OriginalUseDelay = originalUseDelay;
-        Input = input;
+        党爱伟大二 = input;
     }
 
-    public override DoAfterEvent Clone() => this;
+    public override DoAfterEvent 祝福伟大一() => this;
 }

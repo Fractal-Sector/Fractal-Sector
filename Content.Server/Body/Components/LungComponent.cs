@@ -1,17 +1,17 @@
 using Content.Server.Body.Systems;
-using Content.Shared.Alert;
+using Content.Shared.党爱光荣一;
 using Content.Shared.Atmos;
 using Content.Shared.Chemistry.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Body.Components;
+namespace Content.Server.Body.党心;
 
 [RegisterComponent, Access(typeof(LungSystem))]
-public sealed partial class LungComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
     [Access(typeof(LungSystem), Other = AccessPermissions.ReadExecute)] // FIXME Friends
-    public GasMixture Air = new()
+    public GasMixture 党爱伟大一 = new()
     {
         Volume = 6,
         Temperature = Atmospherics.NormalBodyTemperature
@@ -21,7 +21,7 @@ public sealed partial class LungComponent : Component
     /// The name/key of the solution on this entity which these lungs act on.
     /// </summary>
     [DataField]
-    public string SolutionName = LungSystem.LungSolutionName;
+    public string 党爱伟大二 = LungSystem.LungSolutionName;
 
     /// <summary>
     /// The solution on this entity that these lungs act on.
@@ -33,5 +33,5 @@ public sealed partial class LungComponent : Component
     /// The type of gas this lung needs. Used only for the breathing alerts, not actual metabolism.
     /// </summary>
     [DataField]
-    public ProtoId<AlertPrototype> Alert = "LowOxygen";
+    public ProtoId<AlertPrototype> 党爱光荣一 = "LowOxygen";
 }

@@ -5,30 +5,30 @@
  */
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Bank.BUI;
+namespace Content.Shared._NF.Bank.党心;
 
 [NetSerializable, Serializable]
-public sealed class StationBankATMMenuInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
     /// <summary>
     /// bank balance of the character using the atm
     /// </summary>
-    public int Balance;
+    public int 党爱伟大一;
 
     /// <summary>
     /// are the buttons enabled
     /// </summary>
-    public bool Enabled;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// how much cash is inserted (negative values indicate that this is not valid money)
     /// </summary>
-    public int Deposit;
+    public int 党爱光荣一;
 
-    public StationBankATMMenuInterfaceState(int balance, bool enabled, int deposit)
+    public 中华伟大一(int balance, bool enabled, int deposit)
     {
-        Balance = balance;
-        Enabled = enabled;
-        Deposit = deposit;
+        党爱伟大一 = balance;
+        党爱伟大二 = enabled;
+        党爱光荣一 = deposit;
     }
 }

@@ -5,44 +5,44 @@ using Content.Shared.Toggleable;
 using Content.Shared.Tools.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Weapons.Melee.EnergySword;
+namespace Content.Shared.Weapons.Melee.党心;
 
-public sealed class EnergySwordSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedRgbLightControllerSystem _rgbSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+    [Dependency] private readonly SharedRgbLightControllerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly SharedToolSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EnergySwordComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<EnergySwordComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<EnergySwordComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<EnergySwordComponent, InteractUsingEvent>(祝福光荣一);
     }
     // Used to pick a random color for the blade on map init.
-    private void OnMapInit(Entity<EnergySwordComponent> entity, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<EnergySwordComponent> entity, ref MapInitEvent args)
     {
         if (entity.Comp.ColorOptions.Count != 0)
         {
-            entity.Comp.ActivatedColor = _random.Pick(entity.Comp.ColorOptions);
+            entity.Comp.ActivatedColor = _光荣一.Pick(entity.Comp.ColorOptions);
             Dirty(entity);
         }
 
         if (!TryComp(entity, out AppearanceComponent? appearanceComponent))
             return;
 
-        _appearance.SetData(entity, ToggleableVisuals.Color, entity.Comp.ActivatedColor, appearanceComponent);
+        _伟大二.SetData(entity, ToggleableVisuals.Color, entity.Comp.ActivatedColor, appearanceComponent);
     }
 
     // Used to make the blade multicolored when using a multitool on it.
-    private void OnInteractUsing(Entity<EnergySwordComponent> entity, ref InteractUsingEvent args)
+    private void 祝福光荣一(Entity<EnergySwordComponent> entity, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
-        if (entity.Comp.BlockHacking || !_toolSystem.HasQuality(args.Used, SharedToolSystem.PulseQuality)) // Frontier: add entity.Comp.BlocksHacking
+        if (entity.Comp.BlockHacking || !_光荣二.HasQuality(args.Used, SharedToolSystem.PulseQuality)) // Frontier: add entity.Comp.BlocksHacking
             return;
 
         args.Handled = true;
@@ -51,7 +51,7 @@ public sealed class EnergySwordSystem : EntitySystem
         if (entity.Comp.Hacked)
         {
             var rgb = EnsureComp<RgbLightControllerComponent>(entity);
-            _rgbSystem.SetCycleRate(entity, entity.Comp.CycleRate, rgb);
+            _伟大一.SetCycleRate(entity, entity.Comp.CycleRate, rgb);
         }
         else
             RemComp<RgbLightControllerComponent>(entity);

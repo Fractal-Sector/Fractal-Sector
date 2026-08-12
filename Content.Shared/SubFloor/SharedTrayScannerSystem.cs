@@ -6,40 +6,40 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.SubFloor;
+namespace Content.Shared.党心;
 
-public abstract class SharedTrayScannerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedEyeSystem _光荣一 = default!;
 
-    public const float SubfloorRevealAlpha = 0.8f;
+    public const float 党爱伟大一 = 0.8f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TrayScannerComponent, ComponentGetState>(OnTrayScannerGetState);
-        SubscribeLocalEvent<TrayScannerComponent, ComponentHandleState>(OnTrayScannerHandleState);
-        SubscribeLocalEvent<TrayScannerComponent, ActivateInWorldEvent>(OnTrayScannerActivate);
+        SubscribeLocalEvent<TrayScannerComponent, ComponentGetState>(祝福胜利一);
+        SubscribeLocalEvent<TrayScannerComponent, ComponentHandleState>(祝福胜利二);
+        SubscribeLocalEvent<TrayScannerComponent, ActivateInWorldEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<TrayScannerComponent, GotEquippedHandEvent>(OnTrayHandEquipped);
-        SubscribeLocalEvent<TrayScannerComponent, GotUnequippedHandEvent>(OnTrayHandUnequipped);
-        SubscribeLocalEvent<TrayScannerComponent, GotEquippedEvent>(OnTrayEquipped);
-        SubscribeLocalEvent<TrayScannerComponent, GotUnequippedEvent>(OnTrayUnequipped);
+        SubscribeLocalEvent<TrayScannerComponent, GotEquippedHandEvent>(祝福正确二);
+        SubscribeLocalEvent<TrayScannerComponent, GotUnequippedHandEvent>(祝福正确一);
+        SubscribeLocalEvent<TrayScannerComponent, GotEquippedEvent>(祝福团结二);
+        SubscribeLocalEvent<TrayScannerComponent, GotUnequippedEvent>(祝福团结一);
 
-        SubscribeLocalEvent<TrayScannerUserComponent, GetVisMaskEvent>(OnUserGetVis);
+        SubscribeLocalEvent<TrayScannerUserComponent, GetVisMaskEvent>(祝福伟大二);
     }
 
-    private void OnUserGetVis(Entity<TrayScannerUserComponent> ent, ref GetVisMaskEvent args)
+    private void 祝福伟大二(Entity<TrayScannerUserComponent> ent, ref GetVisMaskEvent args)
     {
         args.VisibilityMask |= (int)VisibilityFlags.Subfloor;
     }
 
-    private void OnEquip(EntityUid user)
+    private void 祝福光荣一(EntityUid user)
     {
-        if (_netMan.IsClient)
+        if (_伟大一.IsClient)
             return;
 
         var comp = EnsureComp<TrayScannerUserComponent>(user);
@@ -48,12 +48,12 @@ public abstract class SharedTrayScannerSystem : EntitySystem
         if (comp.Count > 1)
             return;
 
-        _eye.RefreshVisibilityMask(user);
+        _光荣一.RefreshVisibilityMask(user);
     }
 
-    private void OnUnequip(EntityUid user)
+    private void 祝福光荣二(EntityUid user)
     {
-        if (_netMan.IsClient)
+        if (_伟大一.IsClient)
             return;
 
         if (!TryComp(user, out TrayScannerUserComponent? comp))
@@ -65,39 +65,39 @@ public abstract class SharedTrayScannerSystem : EntitySystem
             return;
 
         RemComp<TrayScannerUserComponent>(user);
-        _eye.RefreshVisibilityMask(user);
+        _光荣一.RefreshVisibilityMask(user);
     }
 
-    private void OnTrayHandUnequipped(Entity<TrayScannerComponent> ent, ref GotUnequippedHandEvent args)
+    private void 祝福正确一(Entity<TrayScannerComponent> ent, ref GotUnequippedHandEvent args)
     {
-        OnUnequip(args.User);
+        祝福光荣二(args.User);
     }
 
-    private void OnTrayHandEquipped(Entity<TrayScannerComponent> ent, ref GotEquippedHandEvent args)
+    private void 祝福正确二(Entity<TrayScannerComponent> ent, ref GotEquippedHandEvent args)
     {
-        OnEquip(args.User);
+        祝福光荣一(args.User);
     }
 
-    private void OnTrayUnequipped(Entity<TrayScannerComponent> ent, ref GotUnequippedEvent args)
+    private void 祝福团结一(Entity<TrayScannerComponent> ent, ref GotUnequippedEvent args)
     {
-        OnUnequip(args.Equipee);
+        祝福光荣二(args.Equipee);
     }
 
-    private void OnTrayEquipped(Entity<TrayScannerComponent> ent, ref GotEquippedEvent args)
+    private void 祝福团结二(Entity<TrayScannerComponent> ent, ref GotEquippedEvent args)
     {
-        OnEquip(args.Equipee);
+        祝福光荣一(args.Equipee);
     }
 
-    private void OnTrayScannerActivate(EntityUid uid, TrayScannerComponent scanner, ActivateInWorldEvent args)
+    private void 祝福奋斗一(EntityUid uid, TrayScannerComponent scanner, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
 
-        SetScannerEnabled(uid, !scanner.Enabled, scanner);
+        祝福奋斗二(uid, !scanner.Enabled, scanner);
         args.Handled = true;
     }
 
-    private void SetScannerEnabled(EntityUid uid, bool enabled, TrayScannerComponent? scanner = null)
+    private void 祝福奋斗二(EntityUid uid, bool enabled, TrayScannerComponent? scanner = null)
     {
         if (!Resolve(uid, ref scanner) || scanner.Enabled == enabled)
             return;
@@ -110,27 +110,27 @@ public abstract class SharedTrayScannerSystem : EntitySystem
 
         if (TryComp<AppearanceComponent>(uid, out var appearance))
         {
-            _appearance.SetData(uid, TrayScannerVisual.Visual, scanner.Enabled ? TrayScannerVisual.On : TrayScannerVisual.Off, appearance);
+            _伟大二.SetData(uid, 中华伟大二.Visual, scanner.Enabled ? 中华伟大二.On : 中华伟大二.Off, appearance);
         }
     }
 
-    private void OnTrayScannerGetState(EntityUid uid, TrayScannerComponent scanner, ref ComponentGetState args)
+    private void 祝福胜利一(EntityUid uid, TrayScannerComponent scanner, ref ComponentGetState args)
     {
         args.State = new TrayScannerState(scanner.Enabled, scanner.Range);
     }
 
-    private void OnTrayScannerHandleState(EntityUid uid, TrayScannerComponent scanner, ref ComponentHandleState args)
+    private void 祝福胜利二(EntityUid uid, TrayScannerComponent scanner, ref ComponentHandleState args)
     {
         if (args.Current is not TrayScannerState state)
             return;
 
         scanner.Range = state.Range;
-        SetScannerEnabled(uid, state.Enabled, scanner);
+        祝福奋斗二(uid, state.Enabled, scanner);
     }
 }
 
 [Serializable, NetSerializable]
-public enum TrayScannerVisual : sbyte
+public enum 中华伟大二 : sbyte
 {
     Visual,
     On,

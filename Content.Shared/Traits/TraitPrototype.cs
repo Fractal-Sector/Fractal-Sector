@@ -1,23 +1,23 @@
 using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Traits;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Describes a trait.
 /// </summary>
 [Prototype]
-public sealed partial class TraitPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// The name of this trait.
     /// </summary>
     [DataField]
-    public LocId Name { get; private set; } = string.Empty;
+    public LocId 党爱伟大二 { get; private set; } = string.Empty;
 
     /// <summary>
     /// The description of this trait.
@@ -41,7 +41,7 @@ public sealed partial class TraitPrototype : IPrototype
     /// The components that get added to the player, when they pick this trait.
     /// </summary>
     [DataField]
-    public ComponentRegistry Components { get; private set; } = default!;
+    public ComponentRegistry 党爱光荣一 { get; private set; } = default!;
 
     /// <summary>
     /// Gear that is given to the player, when they pick this trait.
@@ -53,7 +53,7 @@ public sealed partial class TraitPrototype : IPrototype
     /// Trait Price. If negative number, points will be added.
     /// </summary>
     [DataField]
-    public int Cost = 0;
+    public int 党爱光荣二 = 0;
 
     /// <summary>
     /// Adds a trait to a category, allowing you to limit the selection of some traits to the settings of that category.

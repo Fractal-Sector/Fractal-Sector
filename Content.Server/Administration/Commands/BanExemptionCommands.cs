@@ -4,17 +4,17 @@ using Content.Server.Database;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class BanExemptionUpdateCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerLocator _伟大二 = default!;
 
-    public override string Command => "ban_exemption_update";
+    public override string 党爱伟大一 => "ban_exemption_update";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 2)
         {
@@ -36,21 +36,21 @@ public sealed class BanExemptionUpdateCommand : LocalizedCommands
         }
 
         var player = args[0];
-        var playerData = await _playerLocator.LookupIdByNameOrIdAsync(player);
+        var playerData = await _伟大二.LookupIdByNameOrIdAsync(player);
         if (playerData == null)
         {
             shell.WriteError(LocalizationManager.GetString("cmd-ban_exemption_update-locate", ("player", player)));
             return;
         }
 
-        await _dbManager.UpdateBanExemption(playerData.UserId, flags);
+        await _伟大一.UpdateBanExemption(playerData.UserId, flags);
         shell.WriteLine(LocalizationManager.GetString(
             "cmd-ban_exemption_update-success",
             ("player", player),
             ("uid", playerData.UserId)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
             return CompletionResult.FromHint(LocalizationManager.GetString("cmd-ban_exemption_get-arg-player"));
@@ -62,14 +62,14 @@ public sealed class BanExemptionUpdateCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class BanExemptionGetCommand : LocalizedCommands
+public sealed class 中华伟大二 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerLocator _伟大二 = default!;
 
-    public override string Command => "ban_exemption_get";
+    public override string 党爱伟大一 => "ban_exemption_get";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -78,14 +78,14 @@ public sealed class BanExemptionGetCommand : LocalizedCommands
         }
 
         var player = args[0];
-        var playerData = await _playerLocator.LookupIdByNameOrIdAsync(player);
+        var playerData = await _伟大二.LookupIdByNameOrIdAsync(player);
         if (playerData == null)
         {
             shell.WriteError(LocalizationManager.GetString("cmd-ban_exemption_update-locate", ("player", player)));
             return;
         }
 
-        var flags = await _dbManager.GetBanExemption(playerData.UserId);
+        var flags = await _伟大一.GetBanExemption(playerData.UserId);
         if (flags == ServerBanExemptFlags.None)
         {
             shell.WriteLine(LocalizationManager.GetString("cmd-ban_exemption_get-none"));
@@ -112,7 +112,7 @@ public sealed class BanExemptionGetCommand : LocalizedCommands
             ("flags", joined.ToString())));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
             return CompletionResult.FromHint(LocalizationManager.GetString("cmd-ban_exemption_get-arg-player"));

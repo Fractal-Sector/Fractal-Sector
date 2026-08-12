@@ -8,50 +8,50 @@ using Robust.Shared.Timing;
 using Content.Shared.Mobs.Systems;
 #endregion Starlight
 
-namespace Content.Server.Body.Systems;
+namespace Content.Server.Body.党心;
 
-public sealed class ThermalRegulatorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly TemperatureSystem _tempSys = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSys = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;  // Starlight edit
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly TemperatureSystem _伟大二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _光荣一 = default!;
+    [Dependency] private readonly MobStateSystem _光荣二 = default!;  // Starlight edit
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ThermalRegulatorComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ThermalRegulatorComponent, EntityUnpausedEvent>(OnUnpaused);
+        SubscribeLocalEvent<ThermalRegulatorComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ThermalRegulatorComponent, EntityUnpausedEvent>(祝福光荣一);
     }
 
-    private void OnMapInit(Entity<ThermalRegulatorComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ThermalRegulatorComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextUpdate = _gameTiming.CurTime + ent.Comp.UpdateInterval;
+        ent.Comp.NextUpdate = _伟大一.CurTime + ent.Comp.UpdateInterval;
     }
 
-    private void OnUnpaused(Entity<ThermalRegulatorComponent> ent, ref EntityUnpausedEvent args)
+    private void 祝福光荣一(Entity<ThermalRegulatorComponent> ent, ref EntityUnpausedEvent args)
     {
         ent.Comp.NextUpdate += args.PausedTime;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<ThermalRegulatorComponent>();
         while (query.MoveNext(out var uid, out var regulator))
         {
-            if (_gameTiming.CurTime < regulator.NextUpdate)
+            if (_伟大一.CurTime < regulator.NextUpdate)
                 continue;
 
             regulator.NextUpdate += regulator.UpdateInterval;
-            ProcessThermalRegulation((uid, regulator));
+            祝福正确一((uid, regulator));
         }
     }
 
     /// <summary>
     /// Processes thermal regulation for a mob
     /// </summary>
-    private void ProcessThermalRegulation(Entity<ThermalRegulatorComponent, TemperatureComponent?> ent)
+    private void 祝福正确一(Entity<ThermalRegulatorComponent, TemperatureComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp2, logMissing: false))
             return;
@@ -60,13 +60,13 @@ public sealed class ThermalRegulatorSystem : EntitySystem
         // Fixes Avali not rotting
         var totalMetabolismTempChange = 0.0f;
         // Verify whether the entity can radiate heat
-        if (_actionBlockerSys.CanRadiateHeat(ent))
+        if (_光荣一.CanRadiateHeat(ent))
         {
             totalMetabolismTempChange = -ent.Comp1.RadiatedHeat;
         }
 
-        var heatCapacity = _tempSys.GetHeatCapacity(ent, ent);
-        if (!_mobState.IsDead(ent))
+        var heatCapacity = _伟大二.GetHeatCapacity(ent, ent);
+        if (!_光荣二.IsDead(ent))
         {
             // TODO: Why do we have two datafields for this if they are only ever used once here?
             totalMetabolismTempChange += ent.Comp1.MetabolismHeat;
@@ -86,10 +86,10 @@ public sealed class ThermalRegulatorSystem : EntitySystem
         }
         // Starlight edit end
 
-        _tempSys.ChangeHeat(ent, totalMetabolismTempChange, ignoreHeatResistance: true, ent);
+        _伟大二.ChangeHeat(ent, totalMetabolismTempChange, ignoreHeatResistance: true, ent);
 
         // Starlight edit start - Stop here, the logic further should be only calculated then the entity is alive
-        if (_mobState.IsDead(ent))
+        if (_光荣二.IsDead(ent))
             return;
         // Starlight edit end
 
@@ -106,17 +106,17 @@ public sealed class ThermalRegulatorSystem : EntitySystem
 
         if (ent.Comp2.CurrentTemperature > ent.Comp1.NormalBodyTemperature)
         {
-            if (!_actionBlockerSys.CanSweat(ent))
+            if (!_光荣一.CanSweat(ent))
                 return;
 
-            _tempSys.ChangeHeat(ent, -Math.Min(targetHeat, ent.Comp1.SweatHeatRegulation), ignoreHeatResistance: true, ent);
+            _伟大二.ChangeHeat(ent, -Math.Min(targetHeat, ent.Comp1.SweatHeatRegulation), ignoreHeatResistance: true, ent);
         }
         else
         {
-            if (!_actionBlockerSys.CanShiver(ent))
+            if (!_光荣一.CanShiver(ent))
                 return;
 
-            _tempSys.ChangeHeat(ent, Math.Min(targetHeat, ent.Comp1.ShiveringHeatRegulation), ignoreHeatResistance: true, ent);
+            _伟大二.ChangeHeat(ent, Math.Min(targetHeat, ent.Comp1.ShiveringHeatRegulation), ignoreHeatResistance: true, ent);
         }
     }
 }

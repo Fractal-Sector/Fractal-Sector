@@ -1,6 +1,6 @@
 
-namespace Content.Shared.Anomaly.Effects;
+namespace Content.Shared.Anomaly.党心;
 
-public abstract class SharedTileAnomalySystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 }

@@ -2,20 +2,20 @@ using Content.Server.Administration;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server._WF.Corporations.Commands;
+namespace Content.Server._WF.Corporations.党心;
 
 [AdminCommand(AdminFlags.Host)]
-public sealed class SavePlayerStationsCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    public string Command => "savePlayerStations";
-    public string Description => "Force-saves all active corporation player stations to disk immediately.";
-    public string Help => "savePlayerStations";
+    public string 党爱伟大一 => "savePlayerStations";
+    public string 党爱伟大二 => "Force-saves all active corporation player stations to disk immediately.";
+    public string 党爱光荣一 => "savePlayerStations";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var system = _entManager.System<CorporationStationSystem>();
+        var system = _伟大一.System<CorporationStationSystem>();
         system.SaveAllStations();
         shell.WriteLine("Corporation player stations saved.");
     }

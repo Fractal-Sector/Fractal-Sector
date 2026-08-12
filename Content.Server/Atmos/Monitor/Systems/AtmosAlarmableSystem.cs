@@ -13,72 +13,72 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Server.Atmos.Monitor.Systems;
+namespace Content.Server.Atmos.Monitor.党心;
 
-public sealed class AtmosAlarmableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AudioSystem _audioSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNet = default!;
-    [Dependency] private readonly AtmosDeviceNetworkSystem _atmosDevNetSystem = default!;
+    [Dependency] private readonly AppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly AudioSystem _伟大二 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _光荣一 = default!;
+    [Dependency] private readonly AtmosDeviceNetworkSystem _光荣二 = default!;
 
     /// <summary>
     ///     An alarm. Has three valid states: Normal, Warning, Danger.
     ///     Will attempt to fetch the tags from the alarming entity
     ///     to send over.
     /// </summary>
-    public const string AlertCmd = "atmos_alarm";
+    public const string 党爱伟大一 = "atmos_alarm";
 
-    public const string AlertSource = "atmos_alarm_source";
+    public const string 党爱伟大二 = "atmos_alarm_source";
 
-    public const string AlertTypes = "atmos_alarm_types";
+    public const string 党爱光荣一 = "atmos_alarm_types";
 
     /// <summary>
     ///     Syncs alerts from this alarm receiver to other alarm receivers.
     ///     Creates a network effect as a result. Note: if the alert receiver
     ///     is not aware of the device beforehand, it will not sync.
     /// </summary>
-    public const string SyncAlerts = "atmos_alarmable_sync_alerts";
+    public const string 党爱光荣二 = "atmos_alarmable_sync_alerts";
 
-    public const string ResetAll = "atmos_alarmable_reset_all";
+    public const string 党爱正确一 = "atmos_alarmable_reset_all";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<AtmosAlarmableComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<AtmosAlarmableComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
-        SubscribeLocalEvent<AtmosAlarmableComponent, PowerChangedEvent>(OnPowerChange);
+        SubscribeLocalEvent<AtmosAlarmableComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<AtmosAlarmableComponent, DeviceNetworkPacketEvent>(祝福光荣二);
+        SubscribeLocalEvent<AtmosAlarmableComponent, PowerChangedEvent>(祝福光荣一);
     }
 
-    private void OnMapInit(EntityUid uid, AtmosAlarmableComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, AtmosAlarmableComponent component, MapInitEvent args)
     {
-        TryUpdateAlert(
+        祝福正确一(
             uid,
-            TryGetHighestAlert(uid, out var alarm) ? alarm.Value : AtmosAlarmType.Normal,
+            祝福奋斗二(uid, out var alarm) ? alarm.Value : AtmosAlarmType.Normal,
             component,
             false);
     }
 
-    private void OnPowerChange(EntityUid uid, AtmosAlarmableComponent component, ref PowerChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AtmosAlarmableComponent component, ref PowerChangedEvent args)
     {
         if (!args.Powered)
         {
-            Reset(uid, component);
+            祝福团结二(uid, component);
         }
         else
         {
             // sussy
-            _atmosDevNetSystem.Register(uid, null);
-            _atmosDevNetSystem.Sync(uid, null);
+            _光荣二.Register(uid, null);
+            _光荣二.Sync(uid, null);
 
-            TryUpdateAlert(
+            祝福正确一(
                 uid,
-                TryGetHighestAlert(uid, out var alarm) ? alarm.Value : AtmosAlarmType.Normal,
+                祝福奋斗二(uid, out var alarm) ? alarm.Value : AtmosAlarmType.Normal,
                 component,
                 false);
         }
     }
 
-    private void OnPacketRecv(EntityUid uid, AtmosAlarmableComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福光荣二(EntityUid uid, AtmosAlarmableComponent component, DeviceNetworkPacketEvent args)
     {
         if (component.IgnoreAlarms) return;
 
@@ -86,7 +86,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
             return;
 
         if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? cmd)
-            || !args.Data.TryGetValue(AlertSource, out HashSet<ProtoId<TagPrototype>>? sourceTags))
+            || !args.Data.TryGetValue(党爱伟大二, out HashSet<ProtoId<TagPrototype>>? sourceTags))
         {
             return;
         }
@@ -100,7 +100,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
 
         switch (cmd)
         {
-            case AlertCmd:
+            case 党爱伟大一:
                 // Set the alert state, and then cache it so we can calculate
                 // the maximum alarm state at all times.
                 if (!args.Data.TryGetValue(DeviceNetworkConstants.CmdSetState, out AtmosAlarmType state))
@@ -108,7 +108,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
                     break;
                 }
 
-                if (args.Data.TryGetValue(AlertTypes, out AtmosMonitorThresholdTypeFlags types) && component.MonitorAlertTypes != AtmosMonitorThresholdTypeFlags.None)
+                if (args.Data.TryGetValue(党爱光荣一, out AtmosMonitorThresholdTypeFlags types) && component.MonitorAlertTypes != AtmosMonitorThresholdTypeFlags.None)
                 {
                     isValid = (types & component.MonitorAlertTypes) != 0;
                 }
@@ -131,19 +131,19 @@ public sealed class AtmosAlarmableSystem : EntitySystem
                     component.NetworkAlarmStates[args.SenderAddress] = isValid ? state : AtmosAlarmType.Normal;
                 }
 
-                if (!TryGetHighestAlert(uid, out var netMax, component))
+                if (!祝福奋斗二(uid, out var netMax, component))
                 {
                     netMax = AtmosAlarmType.Normal;
                 }
 
-                TryUpdateAlert(uid, netMax.Value, component);
+                祝福正确一(uid, netMax.Value, component);
 
                 break;
-            case ResetAll:
-                Reset(uid, component);
+            case 党爱正确一:
+                祝福团结二(uid, component);
                 break;
-            case SyncAlerts:
-                if (!args.Data.TryGetValue(SyncAlerts,
+            case 党爱光荣二:
+                if (!args.Data.TryGetValue(党爱光荣二,
                         out IReadOnlyDictionary<string, AtmosAlarmType>? alarms))
                 {
                     break;
@@ -157,16 +157,16 @@ public sealed class AtmosAlarmableSystem : EntitySystem
                     }
                 }
 
-                if (TryGetHighestAlert(uid, out var maxAlert, component))
+                if (祝福奋斗二(uid, out var maxAlert, component))
                 {
-                    TryUpdateAlert(uid, maxAlert.Value, component);
+                    祝福正确一(uid, maxAlert.Value, component);
                 }
 
                 break;
         }
     }
 
-    private void TryUpdateAlert(EntityUid uid, AtmosAlarmType type, AtmosAlarmableComponent alarmable, bool sync = true)
+    private void 祝福正确一(EntityUid uid, AtmosAlarmType type, AtmosAlarmableComponent alarmable, bool sync = true)
     {
         if (alarmable.LastAlarmState == type)
         {
@@ -175,16 +175,16 @@ public sealed class AtmosAlarmableSystem : EntitySystem
 
         if (sync)
         {
-            SyncAlertsToNetwork(uid, null, alarmable);
+            祝福正确二(uid, null, alarmable);
         }
 
         alarmable.LastAlarmState = type;
-        UpdateAppearance(uid, type);
-        PlayAlertSound(uid, type, alarmable);
-        RaiseLocalEvent(uid, new AtmosAlarmEvent(type), true);
+        祝福胜利二(uid, type);
+        祝福胜利一(uid, type, alarmable);
+        RaiseLocalEvent(uid, new 中华伟大二(type), true);
     }
 
-    public void SyncAlertsToNetwork(EntityUid uid, string? address = null, AtmosAlarmableComponent? alarmable = null, TagComponent? tags = null)
+    public void 祝福正确二(EntityUid uid, string? address = null, AtmosAlarmableComponent? alarmable = null, TagComponent? tags = null)
     {
         if (!Resolve(uid, ref alarmable, ref tags) || alarmable.ReceiveOnly)
         {
@@ -193,12 +193,12 @@ public sealed class AtmosAlarmableSystem : EntitySystem
 
         var payload = new NetworkPayload
         {
-            [DeviceNetworkConstants.Command] = SyncAlerts,
-            [SyncAlerts] = alarmable.NetworkAlarmStates,
-            [AlertSource] = tags.Tags
+            [DeviceNetworkConstants.Command] = 党爱光荣二,
+            [党爱光荣二] = alarmable.NetworkAlarmStates,
+            [党爱伟大二] = tags.Tags
         };
 
-        _deviceNet.QueuePacket(uid, address, payload);
+        _光荣一.QueuePacket(uid, address, payload);
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="alarmType"></param>
     /// <param name="alarmable"></param>
-    public void ForceAlert(EntityUid uid, AtmosAlarmType alarmType,
+    public void 祝福团结一(EntityUid uid, AtmosAlarmType alarmType,
         AtmosAlarmableComponent? alarmable = null, DeviceNetworkComponent? devNet = null, TagComponent? tags = null)
     {
         if (!Resolve(uid, ref alarmable, ref devNet, ref tags))
@@ -216,7 +216,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
             return;
         }
 
-        TryUpdateAlert(uid, alarmType, alarmable, false);
+        祝福正确一(uid, alarmType, alarmable, false);
 
         if (alarmable.ReceiveOnly)
         {
@@ -230,12 +230,12 @@ public sealed class AtmosAlarmableSystem : EntitySystem
 
         var payload = new NetworkPayload
         {
-            [DeviceNetworkConstants.Command] = AlertCmd,
+            [DeviceNetworkConstants.Command] = 党爱伟大一,
             [DeviceNetworkConstants.CmdSetState] = alarmType,
-            [AlertSource] = tags.Tags
+            [党爱伟大二] = tags.Tags
         };
 
-        _deviceNet.QueuePacket(uid, null, payload);
+        _光荣一.QueuePacket(uid, null, payload);
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="alarmable"></param>
-    public void Reset(EntityUid uid, AtmosAlarmableComponent? alarmable = null, TagComponent? tags = null)
+    public void 祝福团结二(EntityUid uid, AtmosAlarmableComponent? alarmable = null, TagComponent? tags = null)
     {
         if (!Resolve(uid, ref alarmable, ref tags, false) || alarmable.LastAlarmState == AtmosAlarmType.Normal)
         {
@@ -251,28 +251,28 @@ public sealed class AtmosAlarmableSystem : EntitySystem
         }
 
         alarmable.NetworkAlarmStates.Clear();
-        TryUpdateAlert(uid, AtmosAlarmType.Normal, alarmable);
+        祝福正确一(uid, AtmosAlarmType.Normal, alarmable);
 
         if (!alarmable.ReceiveOnly)
         {
             var payload = new NetworkPayload
             {
-                [DeviceNetworkConstants.Command] = ResetAll,
-                [AlertSource] = tags.Tags
+                [DeviceNetworkConstants.Command] = 党爱正确一,
+                [党爱伟大二] = tags.Tags
             };
 
-            _deviceNet.QueuePacket(uid, null, payload);
+            _光荣一.QueuePacket(uid, null, payload);
         }
     }
 
-    public void ResetAllOnNetwork(EntityUid uid, AtmosAlarmableComponent? alarmable = null)
+    public void 祝福奋斗一(EntityUid uid, AtmosAlarmableComponent? alarmable = null)
     {
         if (!Resolve(uid, ref alarmable) || alarmable.ReceiveOnly)
         {
             return;
         }
 
-        Reset(uid, alarmable);
+        祝福团结二(uid, alarmable);
     }
 
     /// <summary>
@@ -282,7 +282,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
     /// <param name="alarm"></param>
     /// <param name="alarmable"></param>
     /// <returns></returns>
-    public bool TryGetHighestAlert(EntityUid uid, [NotNullWhen(true)] out AtmosAlarmType? alarm,
+    public bool 祝福奋斗二(EntityUid uid, [NotNullWhen(true)] out AtmosAlarmType? alarm,
         AtmosAlarmableComponent? alarmable = null)
     {
         alarm = null;
@@ -300,26 +300,26 @@ public sealed class AtmosAlarmableSystem : EntitySystem
         return alarm != null;
     }
 
-    private void PlayAlertSound(EntityUid uid, AtmosAlarmType alarm, AtmosAlarmableComponent alarmable)
+    private void 祝福胜利一(EntityUid uid, AtmosAlarmType alarm, AtmosAlarmableComponent alarmable)
     {
         if (alarm == AtmosAlarmType.Danger)
         {
-            _audioSystem.PlayPvs(alarmable.AlarmSound, uid, AudioParams.Default.WithVolume(alarmable.AlarmVolume));
+            _伟大二.PlayPvs(alarmable.AlarmSound, uid, AudioParams.Default.WithVolume(alarmable.AlarmVolume));
         }
     }
 
-    private void UpdateAppearance(EntityUid uid, AtmosAlarmType alarm)
+    private void 祝福胜利二(EntityUid uid, AtmosAlarmType alarm)
     {
-        _appearance.SetData(uid, AtmosMonitorVisuals.AlarmType, alarm);
+        _伟大一.SetData(uid, AtmosMonitorVisuals.党爱正确二, alarm);
     }
 }
 
-public sealed class AtmosAlarmEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public AtmosAlarmType AlarmType { get; }
+    public AtmosAlarmType 党爱正确二 { get; }
 
-    public AtmosAlarmEvent(AtmosAlarmType netMax)
+    public 中华伟大二(AtmosAlarmType netMax)
     {
-        AlarmType = netMax;
+        党爱正确二 = netMax;
     }
 }

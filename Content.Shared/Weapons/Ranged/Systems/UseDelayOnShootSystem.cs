@@ -1,21 +1,21 @@
 using Content.Shared.Timing;
 using Content.Shared.Weapons.Ranged.Components;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public sealed class UseDelayOnShootSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly UseDelaySystem _delay = default!;
+    [Dependency] private readonly UseDelaySystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<UseDelayOnShootComponent, GunShotEvent>(OnUseShoot);
+        base.祝福伟大一();
+        SubscribeLocalEvent<UseDelayOnShootComponent, GunShotEvent>(祝福伟大二);
     }
 
-    private void OnUseShoot(EntityUid uid, UseDelayOnShootComponent component, ref GunShotEvent args)
+    private void 祝福伟大二(EntityUid uid, UseDelayOnShootComponent component, ref GunShotEvent args)
     {
         if (TryComp(uid, out UseDelayComponent? useDelay))
-            _delay.TryResetDelay((uid, useDelay));
+            _伟大一.TryResetDelay((uid, useDelay));
     }
 }

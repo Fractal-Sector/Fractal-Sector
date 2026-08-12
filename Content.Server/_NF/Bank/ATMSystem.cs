@@ -19,44 +19,44 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.Bank;
+namespace Content.Server._NF.党心;
 
-public sealed partial class BankSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly PopupSystem _光荣一 = default!;
+    [Dependency] private readonly StackSystem _光荣二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确二 = default!;
+    [Dependency] private readonly IAdminLogManager _团结一 = default!;
+    [Dependency] private readonly HandsSystem _团结二 = default!;
+    [Dependency] private readonly TransformSystem _奋斗一 = default!;
 
-    private void InitializeATM()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<BankATMComponent, BankWithdrawMessage>(OnWithdraw);
-        SubscribeLocalEvent<BankATMComponent, BankDepositMessage>(OnDeposit);
-        SubscribeLocalEvent<BankATMComponent, BoundUIOpenedEvent>(OnATMUIOpen);
-        SubscribeLocalEvent<BankATMComponent, EntInsertedIntoContainerMessage>(OnCashSlotChanged);
-        SubscribeLocalEvent<BankATMComponent, EntRemovedFromContainerMessage>(OnCashSlotChanged);
+        SubscribeLocalEvent<BankATMComponent, BankWithdrawMessage>(祝福伟大二);
+        SubscribeLocalEvent<BankATMComponent, BankDepositMessage>(祝福光荣一);
+        SubscribeLocalEvent<BankATMComponent, BoundUIOpenedEvent>(祝福正确一);
+        SubscribeLocalEvent<BankATMComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<BankATMComponent, EntRemovedFromContainerMessage>(祝福光荣二);
     }
 
-    private void OnWithdraw(EntityUid uid, BankATMComponent component, BankWithdrawMessage args)
+    private void 祝福伟大二(EntityUid uid, BankATMComponent component, BankWithdrawMessage args)
     {
         if (args.Actor is not { Valid: true } player)
             return;
 
         // to keep the window stateful
-        GetInsertedCashAmount(component, out var deposit);
+        祝福正确二(component, out var deposit);
 
         // check for a bank account
         if (!TryComp<BankAccountComponent>(player, out var bank))
         {
             _log.Info($"{player} has no bank account");
-            ConsolePopup(player, Loc.GetString("bank-atm-menu-no-bank"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(player, Loc.GetString("bank-atm-menu-no-bank"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(0, false, deposit));
             return;
         }
@@ -64,9 +64,9 @@ public sealed partial class BankSystem
         // check for sufficient funds
         if (bank.Balance < args.Amount)
         {
-            ConsolePopup(args.Actor, Loc.GetString("bank-insufficient-funds"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(args.Actor, Loc.GetString("bank-insufficient-funds"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(bank.Balance, true, deposit));
             return;
         }
@@ -74,43 +74,43 @@ public sealed partial class BankSystem
         // try to actually withdraw from the bank. Validation happens on the banking system but we still indicate error.
         if (!TryBankWithdraw(player, args.Amount))
         {
-            ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-transaction-denied"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-transaction-denied"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(bank.Balance, true, deposit));
             return;
         }
 
-        ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-withdraw-successful"));
-        PlayConfirmSound(uid, component);
-        _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
+        祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-withdraw-successful"));
+        祝福团结二(uid, component);
+        _团结一.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
 
         //spawn the cash stack of whatever cash type the ATM is configured to.
-        var stackPrototype = _prototypeManager.Index<StackPrototype>(component.CashType);
-        var cashStack = _stackSystem.Spawn(args.Amount, stackPrototype, player.ToCoordinates());
-        if (!_hands.TryPickupAnyHand(player, cashStack))
-            _transform.SetLocalRotation(cashStack, Angle.Zero); // Orient these to grid north instead of map north
+        var stackPrototype = _伟大一.Index<StackPrototype>(component.CashType);
+        var cashStack = _光荣二.Spawn(args.Amount, stackPrototype, player.ToCoordinates());
+        if (!_团结二.TryPickupAnyHand(player, cashStack))
+            _奋斗一.SetLocalRotation(cashStack, Angle.Zero); // Orient these to grid north instead of map north
 
-        _uiSystem.SetUiState(uid, args.UiKey,
+        _正确一.SetUiState(uid, args.UiKey,
             new BankATMMenuInterfaceState(bank.Balance, true, deposit));
     }
 
-    private void OnDeposit(EntityUid uid, BankATMComponent component, BankDepositMessage args)
+    private void 祝福光荣一(EntityUid uid, BankATMComponent component, BankDepositMessage args)
     {
         if (args.Actor is not { Valid: true } player)
             return;
 
         // gets the money inside a cashslot of an ATM.
         // Dynamically knows what kind of cash to look for according to BankATMComponent
-        GetInsertedCashAmount(component, out var deposit);
+        祝福正确二(component, out var deposit);
 
         // make sure the user actually has a bank
         if (!TryComp<BankAccountComponent>(player, out var bank))
         {
             _log.Info($"{player} has no bank account");
-            ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-no-bank"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-no-bank"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(0, false, deposit));
             return;
         }
@@ -119,9 +119,9 @@ public sealed partial class BankSystem
         if (component.CashSlot.ContainerSlot is not BaseContainer cashSlot)
         {
             _log.Info($"ATM has no cash slot");
-            ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-no-bank"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-no-bank"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(0, false, deposit));
             return;
         }
@@ -131,20 +131,20 @@ public sealed partial class BankSystem
             stackComponent.StackTypeId == null)
         {
             _log.Info($"ATM cash slot contains bad stack prototype");
-            ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-wrong-cash"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-wrong-cash"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(0, false, deposit));
             return;
         }
 
         // and then check them against the ATM's CashType
-        if (_prototypeManager.Index<StackPrototype>(component.CashType) != _prototypeManager.Index<StackPrototype>(stackComponent.StackTypeId))
+        if (_伟大一.Index<StackPrototype>(component.CashType) != _伟大一.Index<StackPrototype>(stackComponent.StackTypeId))
         {
             _log.Info($"{stackComponent.StackTypeId} is not {component.CashType}");
-            ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-wrong-cash"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-wrong-cash"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(0, false, deposit));
             return;
         }
@@ -163,31 +163,31 @@ public sealed partial class BankSystem
         // try to deposit the inserted cash into a player's bank acount. Validation happens on the banking system but we still indicate error.
         if (!TryBankDeposit(player, deposit))
         {
-            ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-transaction-denied"));
-            PlayDenySound(uid, component);
-            _uiSystem.SetUiState(uid, args.UiKey,
+            祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-transaction-denied"));
+            祝福团结一(uid, component);
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(bank.Balance, true, deposit));
             return;
         }
 
-        ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-deposit-successful"));
-        PlayConfirmSound(uid, component);
-        _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
+        祝福奋斗一(args.Actor, Loc.GetString("bank-atm-menu-deposit-successful"));
+        祝福团结二(uid, component);
+        _团结一.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
 
         // yeet and delete the stack in the cash slot after success
-        _containerSystem.CleanContainer(cashSlot);
-        _uiSystem.SetUiState(uid, args.UiKey,
+        _正确二.CleanContainer(cashSlot);
+        _正确一.SetUiState(uid, args.UiKey,
             new BankATMMenuInterfaceState(bank.Balance, true, 0));
         return;
     }
 
-    private void OnCashSlotChanged(EntityUid uid, BankATMComponent component, ContainerModifiedMessage args)
+    private void 祝福光荣二(EntityUid uid, BankATMComponent component, ContainerModifiedMessage args)
     {
         if (!TryComp<ActivatableUIComponent>(uid, out var uiComp) || uiComp.Key is null)
             return;
 
-        var uiUsers = _uiSystem.GetActors(uid, uiComp.Key);
-        GetInsertedCashAmount(component, out var deposit);
+        var uiUsers = _正确一.GetActors(uid, uiComp.Key);
+        祝福正确二(component, out var deposit);
 
         foreach (var user in uiUsers)
         {
@@ -203,29 +203,29 @@ public sealed partial class BankSystem
             else
                 newState = new BankATMMenuInterfaceState(bank.Balance, true, deposit);
 
-            _uiSystem.SetUiState(uid, uiComp.Key, newState);
+            _正确一.SetUiState(uid, uiComp.Key, newState);
         }
     }
 
-    private void OnATMUIOpen(EntityUid uid, BankATMComponent component, BoundUIOpenedEvent args)
+    private void 祝福正确一(EntityUid uid, BankATMComponent component, BoundUIOpenedEvent args)
     {
         var player = args.Actor;
 
-        GetInsertedCashAmount(component, out var deposit);
+        祝福正确二(component, out var deposit);
 
         if (!TryComp<BankAccountComponent>(player, out var bank))
         {
             _log.Info($"{player} has no bank account");
-            _uiSystem.SetUiState(uid, args.UiKey,
+            _正确一.SetUiState(uid, args.UiKey,
                 new BankATMMenuInterfaceState(0, false, deposit));
             return;
         }
 
-        _uiSystem.SetUiState(uid, args.UiKey,
+        _正确一.SetUiState(uid, args.UiKey,
             new BankATMMenuInterfaceState(bank.Balance, true, deposit));
     }
 
-    private void GetInsertedCashAmount(BankATMComponent component, out int amount)
+    private void 祝福正确二(BankATMComponent component, out int amount)
     {
         amount = 0;
         var cashEntity = component.CashSlot.ContainerSlot?.ContainedEntity;
@@ -246,19 +246,19 @@ public sealed partial class BankSystem
         return;
     }
 
-    private void PlayDenySound(EntityUid uid, BankATMComponent component)
+    private void 祝福团结一(EntityUid uid, BankATMComponent component)
     {
-        _audio.PlayPvs(_audio.ResolveSound(component.ErrorSound), uid);
+        _伟大二.PlayPvs(_伟大二.ResolveSound(component.ErrorSound), uid);
     }
 
-    private void PlayConfirmSound(EntityUid uid, BankATMComponent component)
+    private void 祝福团结二(EntityUid uid, BankATMComponent component)
     {
-        _audio.PlayPvs(_audio.ResolveSound(component.ConfirmSound), uid);
+        _伟大二.PlayPvs(_伟大二.ResolveSound(component.ConfirmSound), uid);
     }
 
-    private void ConsolePopup(EntityUid actor, string text)
+    private void 祝福奋斗一(EntityUid actor, string text)
     {
         if (actor is { Valid: true } player)
-            _popup.PopupEntity(text, player);
+            _光荣一.PopupEntity(text, player);
     }
 }

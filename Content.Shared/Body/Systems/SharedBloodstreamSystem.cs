@@ -22,43 +22,43 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Body.Systems;
+namespace Content.Shared.Body.党心;
 
-public abstract class SharedBloodstreamSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public static readonly EntProtoId Bloodloss = "StatusEffectBloodloss";
+    public static readonly EntProtoId 党爱伟大一 = "StatusEffectBloodloss";
 
-    [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainer = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPuddleSystem _puddle = default!;
-    [Dependency] private readonly StatusEffectsSystem _status = default!;
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency] protected readonly SharedSolutionContainerSystem 党爱伟大二 = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPuddleSystem _正确一 = default!;
+    [Dependency] private readonly StatusEffectsSystem _正确二 = default!;
+    [Dependency] private readonly AlertsSystem _团结一 = default!;
+    [Dependency] private readonly MobStateSystem _团结二 = default!;
+    [Dependency] private readonly DamageableSystem _奋斗一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BloodstreamComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<BloodstreamComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-        SubscribeLocalEvent<BloodstreamComponent, ReactionAttemptEvent>(OnReactionAttempt);
-        SubscribeLocalEvent<BloodstreamComponent, SolutionRelayEvent<ReactionAttemptEvent>>(OnReactionAttempt);
-        SubscribeLocalEvent<BloodstreamComponent, DamageChangedEvent>(OnDamageChanged);
-        SubscribeLocalEvent<BloodstreamComponent, HealthBeingExaminedEvent>(OnHealthBeingExamined);
-        SubscribeLocalEvent<BloodstreamComponent, BeingGibbedEvent>(OnBeingGibbed);
-        SubscribeLocalEvent<BloodstreamComponent, ApplyMetabolicMultiplierEvent>(OnApplyMetabolicMultiplier);
-        SubscribeLocalEvent<BloodstreamComponent, RejuvenateEvent>(OnRejuvenate);
+        SubscribeLocalEvent<BloodstreamComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<BloodstreamComponent, EntRemovedFromContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<BloodstreamComponent, ReactionAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<BloodstreamComponent, SolutionRelayEvent<ReactionAttemptEvent>>(祝福正确一);
+        SubscribeLocalEvent<BloodstreamComponent, DamageChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<BloodstreamComponent, HealthBeingExaminedEvent>(祝福团结一);
+        SubscribeLocalEvent<BloodstreamComponent, BeingGibbedEvent>(祝福团结二);
+        SubscribeLocalEvent<BloodstreamComponent, ApplyMetabolicMultiplierEvent>(祝福奋斗一);
+        SubscribeLocalEvent<BloodstreamComponent, RejuvenateEvent>(祝福奋斗二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         var query = EntityQueryEnumerator<BloodstreamComponent>();
         while (query.MoveNext(out var uid, out var bloodstream))
         {
@@ -68,13 +68,13 @@ public abstract class SharedBloodstreamSystem : EntitySystem
             bloodstream.NextUpdate += bloodstream.AdjustedUpdateInterval;
             DirtyField(uid, bloodstream, nameof(BloodstreamComponent.NextUpdate)); // needs to be dirtied on the client so it can be rerolled during prediction
 
-            if (!SolutionContainer.ResolveSolution(uid, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution))
+            if (!党爱伟大二.ResolveSolution(uid, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution))
                 continue;
 
             // Adds blood to their blood level if it is below the maximum; Blood regeneration. Must be alive.
-            if (bloodSolution.Volume < bloodSolution.MaxVolume && !_mobStateSystem.IsDead(uid))
+            if (bloodSolution.Volume < bloodSolution.MaxVolume && !_团结二.IsDead(uid))
             {
-                TryModifyBloodLevel((uid, bloodstream), bloodstream.BloodRefreshAmount);
+                祝福富强一((uid, bloodstream), bloodstream.BloodRefreshAmount);
             }
 
             // Removes blood from the bloodstream based on bleed amount (bleed rate)
@@ -85,49 +85,49 @@ public abstract class SharedBloodstreamSystem : EntitySystem
                 RaiseLocalEvent(uid, ref ev);
 
                 // Blood is removed from the bloodstream at a 1-1 rate with the bleed amount
-                TryModifyBloodLevel((uid, bloodstream), -ev.BleedAmount);
+                祝福富强一((uid, bloodstream), -ev.BleedAmount);
 
                 // Bleed rate is reduced by the bleed reduction amount in the bloodstream component.
-                TryModifyBleedAmount((uid, bloodstream), -ev.BleedReductionAmount);
+                祝福富强二((uid, bloodstream), -ev.BleedReductionAmount);
             }
 
             // deal bloodloss damage if their blood level is below a threshold.
-            var bloodPercentage = GetBloodLevelPercentage((uid, bloodstream));
-            if (bloodPercentage < bloodstream.BloodlossThreshold && !_mobStateSystem.IsDead(uid))
+            var bloodPercentage = 祝福胜利一((uid, bloodstream));
+            if (bloodPercentage < bloodstream.BloodlossThreshold && !_团结二.IsDead(uid))
             {
                 // bloodloss damage is based on the base value, and modified by how low your blood level is.
                 var amt = bloodstream.BloodlossDamage / (0.1f + bloodPercentage);
 
-                _damageableSystem.TryChangeDamage(uid, amt,
+                _奋斗一.TryChangeDamage(uid, amt,
                     ignoreResistances: false, interruptsDoAfters: false);
 
                 // Apply dizziness as a symptom of bloodloss.
                 // The effect is applied in a way that it will never be cleared without being healthy.
                 // Multiplying by 2 is arbitrary but works for this case, it just prevents the time from running out
-                _status.TrySetStatusEffectDuration(uid, Bloodloss);
+                _正确二.TrySetStatusEffectDuration(uid, 党爱伟大一);
             }
-            else if (!_mobStateSystem.IsDead(uid))
+            else if (!_团结二.IsDead(uid))
             {
                 // If they're healthy, we'll try and heal some bloodloss instead.
-                _damageableSystem.TryChangeDamage(
+                _奋斗一.TryChangeDamage(
                     uid,
                     bloodstream.BloodlossHealDamage * bloodPercentage,
                     ignoreResistances: true, interruptsDoAfters: false);
 
-                _status.TryRemoveStatusEffect(uid, Bloodloss);
+                _正确二.TryRemoveStatusEffect(uid, 党爱伟大一);
             }
         }
     }
 
-    private void OnMapInit(Entity<BloodstreamComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<BloodstreamComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextUpdate = _timing.CurTime + ent.Comp.AdjustedUpdateInterval;
+        ent.Comp.NextUpdate = _伟大一.CurTime + ent.Comp.AdjustedUpdateInterval;
         DirtyField(ent, ent.Comp, nameof(BloodstreamComponent.NextUpdate));
     }
 
     // prevent the infamous UdderSystem debug assert, see https://github.com/space-wizards/space-station-14/pull/35314
     // TODO: find a better solution than copy pasting this into every shared system that caches solution entities
-    private void OnEntRemoved(Entity<BloodstreamComponent> entity, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣二(Entity<BloodstreamComponent> entity, ref EntRemovedFromContainerMessage args)
     {
         // Make sure the removed entity was our contained solution and set it to null
         if (args.Entity == entity.Comp.BloodSolution?.Owner)
@@ -140,7 +140,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
             entity.Comp.TemporarySolution = null;
     }
 
-    private void OnReactionAttempt(Entity<BloodstreamComponent> ent, ref ReactionAttemptEvent args)
+    private void 祝福正确一(Entity<BloodstreamComponent> ent, ref ReactionAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -165,7 +165,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
         // Having cheese-clots form in your veins can't be good for you.
     }
 
-    private void OnReactionAttempt(Entity<BloodstreamComponent> ent, ref SolutionRelayEvent<ReactionAttemptEvent> args)
+    private void 祝福正确一(Entity<BloodstreamComponent> ent, ref SolutionRelayEvent<ReactionAttemptEvent> args)
     {
         if (args.Name != ent.Comp.BloodSolutionName
             && args.Name != ent.Comp.ChemicalSolutionName
@@ -174,15 +174,15 @@ public abstract class SharedBloodstreamSystem : EntitySystem
             return;
         }
 
-        OnReactionAttempt(ent, ref args.Event);
+        祝福正确一(ent, ref args.Event);
     }
 
-    private void OnDamageChanged(Entity<BloodstreamComponent> ent, ref DamageChangedEvent args)
+    private void 祝福正确二(Entity<BloodstreamComponent> ent, ref DamageChangedEvent args)
     {
         // The incoming state from the server raises a DamageChangedEvent as well.
         // But the changes to the bloodstream have also been dirtied,
         // so we prevent applying them twice.
-        if (_timing.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         if (args.DamageDelta is null || !args.DamageIncreased)
@@ -191,7 +191,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
         }
 
         // TODO probably cache this or something. humans get hurt a lot
-        if (!_prototypeManager.TryIndex(ent.Comp.DamageBleedModifiers, out var modifiers))
+        if (!_伟大二.TryIndex(ent.Comp.DamageBleedModifiers, out var modifiers))
             return;
 
         // some reagents may deal and heal different damage types in the same tick, which means DamageIncreased will be true
@@ -206,7 +206,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
         var oldBleedAmount = ent.Comp.BleedAmount;
         var total = bloodloss.GetTotal();
         var totalFloat = total.Float();
-        TryModifyBleedAmount(ent.AsNullable(), totalFloat);
+        祝福富强二(ent.AsNullable(), totalFloat);
 
         /// Critical hit. Causes target to lose blood, using the bleed rate modifier of the weapon, currently divided by 5
         /// The crit chance is currently the bleed rate modifier divided by 25.
@@ -214,13 +214,13 @@ public abstract class SharedBloodstreamSystem : EntitySystem
 
         // TODO: Replace with RandomPredicted once the engine PR is merged
         // Use both the receiver and the damage causing entity for the seed so that we have different results for multiple attacks in the same tick
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(ent).Id, GetNetEntity(args.Origin)?.Id ?? 0 });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_伟大一.CurTick.Value, GetNetEntity(ent).Id, GetNetEntity(args.Origin)?.Id ?? 0 });
         var rand = new System.Random(seed);
         var prob = Math.Clamp(totalFloat / 25, 0, 1);
         if (totalFloat > 0 && rand.Prob(prob))
         {
-            TryModifyBloodLevel(ent.AsNullable(), -total / 5);
-            _audio.PlayPredicted(ent.Comp.InstantBloodSound, ent, args.Origin);
+            祝福富强一(ent.AsNullable(), -total / 5);
+            _光荣一.PlayPredicted(ent.Comp.InstantBloodSound, ent, args.Origin);
         }
 
         // Heat damage will cauterize, causing the bleed rate to be reduced.
@@ -230,16 +230,16 @@ public abstract class SharedBloodstreamSystem : EntitySystem
             // because it's burn damage that cauterized their wounds.
 
             // We'll play a special sound and popup for feedback.
-            _popup.PopupEntity(Loc.GetString("bloodstream-component-wounds-cauterized"), ent,
+            _光荣二.PopupEntity(Loc.GetString("bloodstream-component-wounds-cauterized"), ent,
                     ent, PopupType.Medium); // only the burned entity can see this
-            _audio.PlayPredicted(ent.Comp.BloodHealedSound, ent, args.Origin);
+            _光荣一.PlayPredicted(ent.Comp.BloodHealedSound, ent, args.Origin);
         }
     }
 
     /// <summary>
     /// Shows text on health examine, based on bleed rate and blood level.
     /// </summary>
-    private void OnHealthBeingExamined(Entity<BloodstreamComponent> ent, ref HealthBeingExaminedEvent args)
+    private void 祝福团结一(Entity<BloodstreamComponent> ent, ref HealthBeingExaminedEvent args)
     {
         // Shows massively bleeding at 0.75x the max bleed rate.
         if (ent.Comp.BleedAmount > ent.Comp.MaxBleedAmount * 0.75f)
@@ -267,42 +267,42 @@ public abstract class SharedBloodstreamSystem : EntitySystem
         }
 
         // If the mob's blood level is below the damage threshhold, the pale message is added.
-        if (GetBloodLevelPercentage(ent.AsNullable()) < ent.Comp.BloodlossThreshold)
+        if (祝福胜利一(ent.AsNullable()) < ent.Comp.BloodlossThreshold)
         {
             args.Message.PushNewline();
             args.Message.AddMarkupOrThrow(Loc.GetString("bloodstream-component-looks-pale", ("target", ent.Owner)));
         }
     }
 
-    private void OnBeingGibbed(Entity<BloodstreamComponent> ent, ref BeingGibbedEvent args)
+    private void 祝福团结二(Entity<BloodstreamComponent> ent, ref BeingGibbedEvent args)
     {
-        SpillAllSolutions(ent.AsNullable());
+        祝福民主一(ent.AsNullable());
     }
 
-    private void OnApplyMetabolicMultiplier(Entity<BloodstreamComponent> ent, ref ApplyMetabolicMultiplierEvent args)
+    private void 祝福奋斗一(Entity<BloodstreamComponent> ent, ref ApplyMetabolicMultiplierEvent args)
     {
         ent.Comp.UpdateIntervalMultiplier = args.Multiplier;
         DirtyField(ent, ent.Comp, nameof(BloodstreamComponent.UpdateIntervalMultiplier));
     }
 
-    private void OnRejuvenate(Entity<BloodstreamComponent> ent, ref RejuvenateEvent args)
+    private void 祝福奋斗二(Entity<BloodstreamComponent> ent, ref RejuvenateEvent args)
     {
-        TryModifyBleedAmount(ent.AsNullable(), -ent.Comp.BleedAmount);
+        祝福富强二(ent.AsNullable(), -ent.Comp.BleedAmount);
 
-        if (SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
-            TryModifyBloodLevel(ent.AsNullable(), bloodSolution.AvailableVolume);
+        if (党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
+            祝福富强一(ent.AsNullable(), bloodSolution.AvailableVolume);
 
-        if (SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution))
-            SolutionContainer.RemoveAllSolution(ent.Comp.ChemicalSolution.Value);
+        if (党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution))
+            党爱伟大二.RemoveAllSolution(ent.Comp.ChemicalSolution.Value);
     }
 
     /// <summary>
     /// Returns the current blood level as a percentage (between 0 and 1).
     /// </summary>
-    public float GetBloodLevelPercentage(Entity<BloodstreamComponent?> ent)
+    public float 祝福胜利一(Entity<BloodstreamComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp)
-            || !SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
+            || !党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
         {
             return 0.0f;
         }
@@ -313,7 +313,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
     /// <summary>
     /// Setter for the BloodlossThreshold datafield.
     /// </summary>
-    public void SetBloodLossThreshold(Entity<BloodstreamComponent?> ent, float threshold)
+    public void 祝福胜利二(Entity<BloodstreamComponent?> ent, float threshold)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -325,13 +325,13 @@ public abstract class SharedBloodstreamSystem : EntitySystem
     /// <summary>
     /// Attempt to transfer a provided solution to internal solution.
     /// </summary>
-    public bool TryAddToChemicals(Entity<BloodstreamComponent?> ent, Solution solution)
+    public bool 祝福繁荣一(Entity<BloodstreamComponent?> ent, Solution solution)
     {
         if (!Resolve(ent, ref ent.Comp, logMissing: false)
-            || !SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution))
+            || !党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution))
             return false;
 
-        if (SolutionContainer.TryAddSolution(ent.Comp.ChemicalSolution.Value, solution))
+        if (党爱伟大二.TryAddSolution(ent.Comp.ChemicalSolution.Value, solution))
             return true;
 
         return false;
@@ -340,10 +340,10 @@ public abstract class SharedBloodstreamSystem : EntitySystem
     /// <summary>
     /// Removes a certain amount of all reagents except of a single excluded one from the bloodstream.
     /// </summary>
-    public bool FlushChemicals(Entity<BloodstreamComponent?> ent, ProtoId<ReagentPrototype>? excludedReagentID, FixedPoint2 quantity)
+    public bool 祝福繁荣二(Entity<BloodstreamComponent?> ent, ProtoId<ReagentPrototype>? excludedReagentID, FixedPoint2 quantity)
     {
         if (!Resolve(ent, ref ent.Comp, logMissing: false)
-            || !SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution, out var chemSolution))
+            || !党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution, out var chemSolution))
             return false;
 
         for (var i = chemSolution.Contents.Count - 1; i >= 0; i--)
@@ -351,7 +351,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
             var (reagentId, _) = chemSolution.Contents[i];
             if (reagentId.Prototype != excludedReagentID)
             {
-                SolutionContainer.RemoveReagent(ent.Comp.ChemicalSolution.Value, reagentId, quantity);
+                党爱伟大二.RemoveReagent(ent.Comp.ChemicalSolution.Value, reagentId, quantity);
             }
         }
 
@@ -361,40 +361,40 @@ public abstract class SharedBloodstreamSystem : EntitySystem
     /// <summary>
     ///  Attempts to modify the blood level of this entity directly.
     /// </summary>
-    public bool TryModifyBloodLevel(Entity<BloodstreamComponent?> ent, FixedPoint2 amount)
+    public bool 祝福富强一(Entity<BloodstreamComponent?> ent, FixedPoint2 amount)
     {
         if (!Resolve(ent, ref ent.Comp, logMissing: false)
-            || !SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution))
+            || !党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution))
             return false;
 
         if (amount >= 0)
-            return SolutionContainer.TryAddReagent(ent.Comp.BloodSolution.Value, ent.Comp.BloodReagent, amount, null, GetEntityBloodData(ent));
+            return 党爱伟大二.TryAddReagent(ent.Comp.BloodSolution.Value, ent.Comp.BloodReagent, amount, null, 祝福文明一(ent));
 
         // Removal is more involved,
         // since we also wanna handle moving it to the temporary solution
         // and then spilling it if necessary.
-        var newSol = SolutionContainer.SplitSolution(ent.Comp.BloodSolution.Value, -amount);
+        var newSol = 党爱伟大二.SplitSolution(ent.Comp.BloodSolution.Value, -amount);
 
-        if (!SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodTemporarySolutionName, ref ent.Comp.TemporarySolution, out var tempSolution))
+        if (!党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.BloodTemporarySolutionName, ref ent.Comp.TemporarySolution, out var tempSolution))
             return true;
 
-        tempSolution.AddSolution(newSol, _prototypeManager);
+        tempSolution.AddSolution(newSol, _伟大二);
 
         if (tempSolution.Volume > ent.Comp.BleedPuddleThreshold)
         {
             // Pass some of the chemstream into the spilled blood.
-            if (SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution))
+            if (党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution))
             {
-                var temp = SolutionContainer.SplitSolution(ent.Comp.ChemicalSolution.Value, tempSolution.Volume / 10);
-                tempSolution.AddSolution(temp, _prototypeManager);
+                var temp = 党爱伟大二.SplitSolution(ent.Comp.ChemicalSolution.Value, tempSolution.Volume / 10);
+                tempSolution.AddSolution(temp, _伟大二);
             }
 
-            _puddle.TrySpillAt(ent.Owner, tempSolution, out _, sound: false);
+            _正确一.TrySpillAt(ent.Owner, tempSolution, out _, sound: false);
 
             tempSolution.RemoveAllSolution();
         }
 
-        SolutionContainer.UpdateChemicals(ent.Comp.TemporarySolution.Value);
+        党爱伟大二.UpdateChemicals(ent.Comp.TemporarySolution.Value);
 
         return true;
     }
@@ -402,7 +402,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
     /// <summary>
     /// Tries to make an entity bleed more or less.
     /// </summary>
-    public bool TryModifyBleedAmount(Entity<BloodstreamComponent?> ent, float amount)
+    public bool 祝福富强二(Entity<BloodstreamComponent?> ent, float amount)
     {
         if (!Resolve(ent, ref ent.Comp, logMissing: false))
             return false;
@@ -413,11 +413,11 @@ public abstract class SharedBloodstreamSystem : EntitySystem
         DirtyField(ent, ent.Comp, nameof(BloodstreamComponent.BleedAmount));
 
         if (ent.Comp.BleedAmount == 0)
-            _alertsSystem.ClearAlert(ent, ent.Comp.BleedingAlert);
+            _团结一.ClearAlert(ent, ent.Comp.BleedingAlert);
         else
         {
             var severity = (short)Math.Clamp(Math.Round(ent.Comp.BleedAmount, MidpointRounding.ToZero), 0, 10);
-            _alertsSystem.ShowAlert(ent, ent.Comp.BleedingAlert, severity);
+            _团结一.ShowAlert(ent, ent.Comp.BleedingAlert, severity);
         }
 
         return true;
@@ -427,41 +427,41 @@ public abstract class SharedBloodstreamSystem : EntitySystem
     /// Spill all bloodstream solutions into a puddle.
     /// BLOOD FOR THE BLOOD GOD
     /// </summary>
-    public void SpillAllSolutions(Entity<BloodstreamComponent?> ent)
+    public void 祝福民主一(Entity<BloodstreamComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
 
         var tempSol = new Solution();
 
-        if (SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
+        if (党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
         {
             tempSol.MaxVolume += bloodSolution.MaxVolume;
-            tempSol.AddSolution(bloodSolution, _prototypeManager);
-            SolutionContainer.RemoveAllSolution(ent.Comp.BloodSolution.Value);
+            tempSol.AddSolution(bloodSolution, _伟大二);
+            党爱伟大二.RemoveAllSolution(ent.Comp.BloodSolution.Value);
         }
 
-        if (SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution, out var chemSolution))
+        if (党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution, out var chemSolution))
         {
             tempSol.MaxVolume += chemSolution.MaxVolume;
-            tempSol.AddSolution(chemSolution, _prototypeManager);
-            SolutionContainer.RemoveAllSolution(ent.Comp.ChemicalSolution.Value);
+            tempSol.AddSolution(chemSolution, _伟大二);
+            党爱伟大二.RemoveAllSolution(ent.Comp.ChemicalSolution.Value);
         }
 
-        if (SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodTemporarySolutionName, ref ent.Comp.TemporarySolution, out var tempSolution))
+        if (党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.BloodTemporarySolutionName, ref ent.Comp.TemporarySolution, out var tempSolution))
         {
             tempSol.MaxVolume += tempSolution.MaxVolume;
-            tempSol.AddSolution(tempSolution, _prototypeManager);
-            SolutionContainer.RemoveAllSolution(ent.Comp.TemporarySolution.Value);
+            tempSol.AddSolution(tempSolution, _伟大二);
+            党爱伟大二.RemoveAllSolution(ent.Comp.TemporarySolution.Value);
         }
 
-        _puddle.TrySpillAt(ent, tempSol, out _);
+        _正确一.TrySpillAt(ent, tempSol, out _);
     }
 
     /// <summary>
     /// Change what someone's blood is made of, on the fly.
     /// </summary>
-    public void ChangeBloodReagent(Entity<BloodstreamComponent?> ent, ProtoId<ReagentPrototype> reagent)
+    public void 祝福民主二(Entity<BloodstreamComponent?> ent, ProtoId<ReagentPrototype> reagent)
     {
         if (!Resolve(ent, ref ent.Comp, logMissing: false)
             || reagent == ent.Comp.BloodReagent)
@@ -469,7 +469,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
             return;
         }
 
-        if (!SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
+        if (!党爱伟大二.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution))
         {
             ent.Comp.BloodReagent = reagent;
             return;
@@ -481,13 +481,13 @@ public abstract class SharedBloodstreamSystem : EntitySystem
         DirtyField(ent, ent.Comp, nameof(BloodstreamComponent.BloodReagent));
 
         if (currentVolume > 0)
-            SolutionContainer.TryAddReagent(ent.Comp.BloodSolution.Value, ent.Comp.BloodReagent, currentVolume, null, GetEntityBloodData(ent));
+            党爱伟大二.TryAddReagent(ent.Comp.BloodSolution.Value, ent.Comp.BloodReagent, currentVolume, null, 祝福文明一(ent));
     }
 
     /// <summary>
     /// Get the reagent data for blood that a specific entity should have.
     /// </summary>
-    public List<ReagentData> GetEntityBloodData(EntityUid uid)
+    public List<ReagentData> 祝福文明一(EntityUid uid)
     {
         var bloodData = new List<ReagentData>();
         var dnaData = new DnaData();

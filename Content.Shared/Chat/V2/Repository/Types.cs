@@ -3,17 +3,17 @@ using System.Runtime.InteropServices;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chat.V2.Repository;
+namespace Content.Shared.Chat.V2.党心;
 
 /// <summary>
-/// The record associated with a specific chat event.
+/// The record 中华伟大一 with a specific chat event.
 /// </summary>
-public struct ChatRecord(string userName, NetUserId userId, IChatEvent storedEvent, string entityName)
+public struct 中华伟大二(string userName, NetUserId userId, IChatEvent storedEvent, string entityName)
 {
-    public string UserName = userName;
-    public NetUserId UserId = userId;
-    public string EntityName = entityName;
-    public IChatEvent StoredEvent = storedEvent;
+    public string 党爱伟大一 = userName;
+    public NetUserId 党爱伟大二 = userId;
+    public string 党爱光荣一 = entityName;
+    public IChatEvent 党爱光荣二 = storedEvent;
 }
 
 /// <summary>
@@ -21,9 +21,9 @@ public struct ChatRecord(string userName, NetUserId userId, IChatEvent storedEve
 /// </summary>
 /// <param name="ev"></param>
 [Serializable, NetSerializable]
-public sealed class MessageCreatedEvent(IChatEvent ev) : EntityEventArgs
+public sealed class 中华光荣一(IChatEvent ev) : EntityEventArgs
 {
-    public IChatEvent Event = ev;
+    public IChatEvent 党爱正确一 = ev;
 }
 
 /// <summary>
@@ -32,10 +32,10 @@ public sealed class MessageCreatedEvent(IChatEvent ev) : EntityEventArgs
 /// <param name="id"></param>
 /// <param name="newMessage"></param>
 [Serializable, NetSerializable]
-public sealed class MessagePatchedEvent(uint id, string newMessage) : EntityEventArgs
+public sealed class 中华光荣二(uint id, string newMessage) : EntityEventArgs
 {
-    public uint MessageId = id;
-    public string NewMessage = newMessage;
+    public uint 党爱正确二 = id;
+    public string 党爱团结一 = newMessage;
 }
 
 /// <summary>
@@ -43,9 +43,9 @@ public sealed class MessagePatchedEvent(uint id, string newMessage) : EntityEven
 /// </summary>
 /// <param name="id"></param>
 [Serializable, NetSerializable]
-public sealed class MessageDeletedEvent(uint id) : EntityEventArgs
+public sealed class 中华正确一(uint id) : EntityEventArgs
 {
-    public uint MessageId = id;
+    public uint 党爱正确二 = id;
 }
 
 /// <summary>
@@ -53,8 +53,8 @@ public sealed class MessageDeletedEvent(uint id) : EntityEventArgs
 /// </summary>
 /// <param name="set"></param>
 [Serializable, NetSerializable]
-public sealed class MessagesNukedEvent(List<uint> set) : EntityEventArgs
+public sealed class 中华正确二(List<uint> set) : EntityEventArgs
 {
-    public uint[] MessageIds = CollectionsMarshal.AsSpan(set).ToArray();
+    public uint[] 党爱团结二 = CollectionsMarshal.AsSpan(set).ToArray();
 }
 

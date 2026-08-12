@@ -4,27 +4,27 @@ using Content.Shared.Access.Components;
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.PDA
+namespace Content.Shared.党心
 {
     [RegisterComponent, NetworkedComponent]
-    public sealed partial class PdaComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
-        public const string PdaIdSlotId = "PDA-id";
-        public const string PdaPenSlotId = "PDA-pen";
-        public const string PdaPaiSlotId = "PDA-pai";
-        public const string PdaBookSlotId = "PDA-book"; // Frontier
+        public const string 党爱伟大一 = "PDA-id";
+        public const string 党爱伟大二 = "PDA-pen";
+        public const string 党爱光荣一 = "PDA-pai";
+        public const string 党爱光荣二 = "PDA-book"; // Frontier
 
         [DataField("idSlot")]
-        public ItemSlot IdSlot = new();
+        public ItemSlot 党爱正确一 = new();
 
         [DataField("penSlot")]
-        public ItemSlot PenSlot = new();
+        public ItemSlot 党爱正确二 = new();
 
         [DataField("paiSlot")]
-        public ItemSlot PaiSlot = new();
+        public ItemSlot 党爱团结一 = new();
 
         [DataField] // Frontier
-        public ItemSlot BookSlot = new(); // Frontier
+        public ItemSlot 党爱团结二 = new(); // Frontier
 
         // Really this should just be using ItemSlot.StartingItem. However, seeing as we have so many different starting
         // PDA's and no nice way to inherit the other fields from the ItemSlot data definition, this makes the yaml much
@@ -33,7 +33,7 @@ namespace Content.Shared.PDA
         public string? IdCard;
 
         [ViewVariables] public EntityUid? ContainedId;
-        [ViewVariables] public bool FlashlightOn;
+        [ViewVariables] public bool 党爱奋斗一;
 
         [ViewVariables(VVAccess.ReadWrite)] public string? OwnerName;
         // The Entity that "owns" the PDA, usually a player's character.
@@ -42,8 +42,8 @@ namespace Content.Shared.PDA
         [ViewVariables(VVAccess.ReadWrite)] public EntityUid? PdaOwner;
         [ViewVariables] public string? StationName;
         [ViewVariables] public string? StationAlertLevel;
-        [ViewVariables] public Color StationAlertColor = Color.White;
-        [DataField] public DateTime CurrentDate; // DeltaV - PDA date
+        [ViewVariables] public Color 党爱奋斗二 = Color.White;
+        [DataField] public DateTime 党爱胜利一; // DeltaV - PDA date
         [DataField] public DateTime? DateOverride; // DeltaV - PDA date
     }
 }

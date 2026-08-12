@@ -7,16 +7,16 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Network;
 
-namespace Content.Server.Whitelist;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Whitelist)] // DeltaV - Custom permission for whitelist
-public sealed class AddWhitelistCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    public override string Command => "whitelistadd";
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly IServerDbManager _伟大二 = default!;
+    public override string 党爱伟大一 => "whitelistadd";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
@@ -26,19 +26,19 @@ public sealed class AddWhitelistCommand : LocalizedCommands
         }
 
         var name = string.Join(' ', args).Trim();
-        var data = await _locator.LookupIdByNameOrIdAsync(name);
+        var data = await _伟大一.LookupIdByNameOrIdAsync(name);
 
         if (data != null)
         {
             var guid = data.UserId;
-            var isWhitelisted = await _dbManager.GetWhitelistStatusAsync(guid);
+            var isWhitelisted = await _伟大二.GetWhitelistStatusAsync(guid);
             if (isWhitelisted)
             {
                 shell.WriteLine(Loc.GetString("cmd-whitelistadd-existing", ("username", data.Username)));
                 return;
             }
 
-            await _dbManager.AddToWhitelistAsync(guid);
+            await _伟大二.AddToWhitelistAsync(guid);
             shell.WriteLine(Loc.GetString("cmd-whitelistadd-added", ("username", data.Username)));
             return;
         }
@@ -46,7 +46,7 @@ public sealed class AddWhitelistCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-whitelistadd-not-found", ("username", args[0])));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -58,14 +58,14 @@ public sealed class AddWhitelistCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class RemoveWhitelistCommand : LocalizedCommands
+public sealed class 中华伟大二 : LocalizedCommands
 {
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly IServerDbManager _伟大二 = default!;
 
-    public override string Command => "whitelistremove";
+    public override string 党爱伟大一 => "whitelistremove";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
@@ -75,19 +75,19 @@ public sealed class RemoveWhitelistCommand : LocalizedCommands
         }
 
         var name = string.Join(' ', args).Trim();
-        var data = await _locator.LookupIdByNameOrIdAsync(name);
+        var data = await _伟大一.LookupIdByNameOrIdAsync(name);
 
         if (data != null)
         {
             var guid = data.UserId;
-            var isWhitelisted = await _dbManager.GetWhitelistStatusAsync(guid);
+            var isWhitelisted = await _伟大二.GetWhitelistStatusAsync(guid);
             if (!isWhitelisted)
             {
                 shell.WriteLine(Loc.GetString("cmd-whitelistremove-existing", ("username", data.Username)));
                 return;
             }
 
-            await _dbManager.RemoveFromWhitelistAsync(guid);
+            await _伟大二.RemoveFromWhitelistAsync(guid);
             shell.WriteLine(Loc.GetString("cmd-whitelistremove-removed", ("username", data.Username)));
             return;
         }
@@ -95,7 +95,7 @@ public sealed class RemoveWhitelistCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-whitelistremove-not-found", ("username", args[0])));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -107,16 +107,16 @@ public sealed class RemoveWhitelistCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class KickNonWhitelistedCommand : LocalizedCommands
+public sealed class 中华光荣一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IServerNetManager _netManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IServerNetManager _光荣二 = default!;
+    [Dependency] private readonly IPlayerManager _正确一 = default!;
+    [Dependency] private readonly IServerDbManager _伟大二 = default!;
 
-    public override string Command => "kicknonwhitelisted";
+    public override string 党爱伟大一 => "kicknonwhitelisted";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 0)
         {
@@ -125,16 +125,16 @@ public sealed class KickNonWhitelistedCommand : LocalizedCommands
             return;
         }
 
-        if (!_configManager.GetCVar(CCVars.WhitelistEnabled))
+        if (!_光荣一.GetCVar(CCVars.WhitelistEnabled))
             return;
 
-        foreach (var session in _playerManager.NetworkedSessions)
+        foreach (var session in _正确一.NetworkedSessions)
         {
-            if (await _dbManager.GetAdminDataForAsync(session.UserId) is not null)
+            if (await _伟大二.GetAdminDataForAsync(session.UserId) is not null)
                 continue;
 
-            if (!await _dbManager.GetWhitelistStatusAsync(session.UserId))
-                _netManager.DisconnectChannel(session.Channel, Loc.GetString("whitelist-not-whitelisted"));
+            if (!await _伟大二.GetWhitelistStatusAsync(session.UserId))
+                _光荣二.DisconnectChannel(session.Channel, Loc.GetString("whitelist-not-whitelisted"));
         }
     }
 }

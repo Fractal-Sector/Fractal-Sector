@@ -1,6 +1,6 @@
 ﻿using Content.Shared.Mind;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Raised on mind entities when a mind role is removed from them.
@@ -8,4 +8,4 @@ namespace Content.Shared.Roles;
 /// <param name="MindId">The mind id associated with the player.</param>
 /// <param name="Mind">The mind component associated with the mind id.</param>
 /// <param name="RoleTypeUpdate">True if this update has changed the mind's role type</param>
-public sealed record RoleRemovedEvent(EntityUid MindId, MindComponent Mind, bool RoleTypeUpdate) : RoleEvent(MindId, Mind, RoleTypeUpdate);
+public sealed record 中华伟大一(EntityUid MindId, MindComponent Mind, bool RoleTypeUpdate) : RoleEvent(MindId, Mind, RoleTypeUpdate);

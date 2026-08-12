@@ -13,93 +13,93 @@ using Content.Shared.Examine;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Ninja.Systems;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// Handles dashing logic including charge consumption and checking attempt events.
 /// </summary>
-public sealed class DashAbilitySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PullingSystem _pullingSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly ActionContainerSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly SharedChargesSystem _光荣一 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣二 = default!;
+    [Dependency] private readonly ExamineSystemShared _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly PullingSystem _团结一 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DashAbilityComponent, GetItemActionsEvent>(OnGetActions);
-        SubscribeLocalEvent<DashAbilityComponent, DashEvent>(OnDash);
-        SubscribeLocalEvent<DashAbilityComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<DashAbilityComponent, GetItemActionsEvent>(祝福光荣一);
+        SubscribeLocalEvent<DashAbilityComponent, DashEvent>(祝福光荣二);
+        SubscribeLocalEvent<DashAbilityComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<DashAbilityComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<DashAbilityComponent> ent, ref MapInitEvent args)
     {
         var (uid, comp) = ent;
-        _actionContainer.EnsureAction(uid, ref comp.DashActionEntity, comp.DashAction);
+        _伟大一.EnsureAction(uid, ref comp.DashActionEntity, comp.DashAction);
         Dirty(uid, comp);
     }
 
-    private void OnGetActions(Entity<DashAbilityComponent> ent, ref GetItemActionsEvent args)
+    private void 祝福光荣一(Entity<DashAbilityComponent> ent, ref GetItemActionsEvent args)
     {
-        if (CheckDash(ent, args.User))
+        if (祝福正确一(ent, args.User))
             args.AddAction(ent.Comp.DashActionEntity);
     }
 
     /// <summary>
     /// Handle charges and teleport to a visible location.
     /// </summary>
-    private void OnDash(Entity<DashAbilityComponent> ent, ref DashEvent args)
+    private void 祝福光荣二(Entity<DashAbilityComponent> ent, ref DashEvent args)
     {
-        if (!_timing.IsFirstTimePredicted)
+        if (!_伟大二.IsFirstTimePredicted)
             return;
 
         var (uid, comp) = ent;
         var user = args.Performer;
-        if (!CheckDash(uid, user))
+        if (!祝福正确一(uid, user))
             return;
 
-        if (!_hands.IsHolding(user, uid, out var _))
+        if (!_光荣二.IsHolding(user, uid, out var _))
         {
-            _popup.PopupClient(Loc.GetString("dash-ability-not-held", ("item", uid)), user, user);
+            _正确二.PopupClient(Loc.GetString("dash-ability-not-held", ("item", uid)), user, user);
             return;
         }
 
-        var origin = _transform.GetMapCoordinates(user);
-        var target = _transform.ToMapCoordinates(args.Target);
-        if (!_examine.InRangeUnOccluded(origin, target, SharedInteractionSystem.MaxRaycastRange, null))
+        var origin = _团结二.GetMapCoordinates(user);
+        var target = _团结二.ToMapCoordinates(args.Target);
+        if (!_正确一.InRangeUnOccluded(origin, target, SharedInteractionSystem.MaxRaycastRange, null))
         {
             // can only dash if the destination is visible on screen
-            _popup.PopupClient(Loc.GetString("dash-ability-cant-see", ("item", uid)), user, user);
+            _正确二.PopupClient(Loc.GetString("dash-ability-cant-see", ("item", uid)), user, user);
             return;
         }
 
-        if (!_sharedCharges.TryUseCharge(uid))
+        if (!_光荣一.TryUseCharge(uid))
         {
-            _popup.PopupClient(Loc.GetString("dash-ability-no-charges", ("item", uid)), user, user);
+            _正确二.PopupClient(Loc.GetString("dash-ability-no-charges", ("item", uid)), user, user);
             return;
         }
 
         // Check if the user is BEING pulled, and escape if so
-        if (TryComp<PullableComponent>(user, out var pull) && _pullingSystem.IsPulled(user, pull))
-            _pullingSystem.TryStopPull(user, pull);
+        if (TryComp<PullableComponent>(user, out var pull) && _团结一.IsPulled(user, pull))
+            _团结一.TryStopPull(user, pull);
 
         // Check if the user is pulling anything, and drop it if so
         if (TryComp<PullerComponent>(user, out var puller) && TryComp<PullableComponent>(puller.Pulling, out var pullable))
-            _pullingSystem.TryStopPull(puller.Pulling.Value, pullable);
+            _团结一.TryStopPull(puller.Pulling.Value, pullable);
 
         var xform = Transform(user);
-        _transform.SetCoordinates(user, xform, args.Target);
-        _transform.AttachToGridOrMap(user, xform);
+        _团结二.SetCoordinates(user, xform, args.Target);
+        _团结二.AttachToGridOrMap(user, xform);
         args.Handled = true;
     }
 
-    public bool CheckDash(EntityUid uid, EntityUid user)
+    public bool 祝福正确一(EntityUid uid, EntityUid user)
     {
         var ev = new CheckDashEvent(user);
         RaiseLocalEvent(uid, ref ev);
@@ -111,4 +111,4 @@ public sealed class DashAbilitySystem : EntitySystem
 /// Raised on the item before adding the dash action and when using the action.
 /// </summary>
 [ByRefEvent]
-public record struct CheckDashEvent(EntityUid User, bool Cancelled = false);
+public record 中华伟大二 CheckDashEvent(EntityUid User, bool Cancelled = false);

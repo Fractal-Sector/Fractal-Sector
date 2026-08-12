@@ -4,14 +4,14 @@ using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Console;
 
-namespace Content.Server.Nutrition;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class Thirsty : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    public override string Command => "thirsty";
+    public override string 党爱伟大一 => "thirsty";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
         if (player == null)

@@ -11,24 +11,24 @@ using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Commands;
+namespace Content.Server._NF.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class SpawnRefundCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entity = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly IEntitySystemManager _伟大二 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣一 = default!;
 
     private static readonly EntProtoId CashPrototypeId = "SpaceCash";
 
-    public string Command => "spawnrefund";
+    public string 党爱伟大一 => "spawnrefund";
 
-    public string Description => "Spawns an exact number of spesos to be given as a refund. You must be a ghost with a free hand.";
+    public string 党爱伟大二 => "Spawns an exact number of spesos to be given as a refund. You must be a ghost with a free hand.";
 
-    public string Help => $"${Command} <amount> [reason]";
+    public string 党爱光荣一 => $"${党爱伟大一} <amount> [reason]";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length is not (1 or 2))
         {
@@ -50,7 +50,7 @@ public sealed class SpawnRefundCommand : IConsoleCommand
 
         // By allowing only ghosts to spawn refunds, we reduce the risk of badmins
         // spawning themselves random money whenever they need it.
-        if (!_entityManager.HasComponent<GhostComponent>(uid))
+        if (!_伟大一.HasComponent<GhostComponent>(uid))
         {
             shell.WriteError("You must be an aghost to spawn a refund");
             return;
@@ -68,19 +68,19 @@ public sealed class SpawnRefundCommand : IConsoleCommand
         }
         args.TryGetValue(1, out var reason);
 
-        var refund = _entityManager.Spawn(CashPrototypeId);
-        _entity.GetEntitySystem<StackSystem>().SetCount(refund, amount);
+        var refund = _伟大一.Spawn(CashPrototypeId);
+        _伟大二.GetEntitySystem<StackSystem>().SetCount(refund, amount);
 
-        if (!_entity.GetEntitySystem<HandsSystem>().TryPickupAnyHand(uid, refund))
+        if (!_伟大二.GetEntitySystem<HandsSystem>().TryPickupAnyHand(uid, refund))
         {
             shell.WriteError("You must have an empty hand");
-            _entity.GetEntitySystem<PopupSystem>().PopupEntity("You must have an empty hand", uid, player, PopupType.MediumCaution);
-            _entityManager.DeleteEntity(refund);
+            _伟大二.GetEntitySystem<PopupSystem>().PopupEntity("You must have an empty hand", uid, player, PopupType.MediumCaution);
+            _伟大一.DeleteEntity(refund);
             return;
         }
 
-        _adminLog.Add(LogType.AdminRefund, LogImpact.Medium,
-            $"{_entityManager.ToPrettyString(uid)} spawned a refund of {amount} spesos, {_entityManager.ToPrettyString(refund)}. Reason: {reason}");
+        _光荣一.Add(LogType.AdminRefund, LogImpact.Medium,
+            $"{_伟大一.ToPrettyString(uid)} spawned a refund of {amount} spesos, {_伟大一.ToPrettyString(refund)}. Reason: {reason}");
         shell.WriteLine($"Spawned a refund of {amount} spesos");
     }
 }

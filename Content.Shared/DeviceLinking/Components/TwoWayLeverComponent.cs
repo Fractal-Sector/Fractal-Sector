@@ -1,26 +1,26 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.DeviceLinking.Components;
+namespace Content.Shared.DeviceLinking.党心;
 
 /// <summary>
 /// Simple ternary state for device linking.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class TwoWayLeverComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoNetworkedField]
-    public TwoWayLeverState State;
+    public TwoWayLeverState 党爱伟大一;
 
     [DataField, AutoNetworkedField]
-    public bool NextSignalLeft = true; // Frontier: = true
+    public bool 党爱伟大二 = true; // Frontier: = true
 
     [DataField]
-    public ProtoId<SourcePortPrototype> LeftPort = "Left";
+    public ProtoId<SourcePortPrototype> 党爱光荣一 = "Left";
 
     [DataField]
-    public ProtoId<SourcePortPrototype> RightPort = "Right";
+    public ProtoId<SourcePortPrototype> 党爱光荣二 = "Right";
 
     [DataField]
-    public ProtoId<SourcePortPrototype> MiddlePort = "Middle";
+    public ProtoId<SourcePortPrototype> 党爱正确一 = "Middle";
 }

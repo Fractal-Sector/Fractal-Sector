@@ -2,7 +2,7 @@
 using Content.Shared.Mobs.Systems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Damage.ForceSay;
+namespace Content.Shared.Damage.党心;
 
 /// <summary>
 ///     The reason for this component's existence is slightly unintuitive, so for context: this is put on an entity
@@ -15,7 +15,7 @@ namespace Content.Shared.Damage.ForceSay;
 ///     have any knowledge of what the client might actually have typed, so it gives them some leeway for ping.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class AllowNextCritSpeechComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Should be set when adding the component to specify the time that this should be valid for,

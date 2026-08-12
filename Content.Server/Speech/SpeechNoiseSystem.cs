@@ -8,20 +8,20 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech
+namespace Content.Server.党心
 {
-    public sealed class SpeechSoundSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly IRobustRandom _光荣一 = default!;
+        [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<SpeechComponent, EntitySpokeEvent>(OnEntitySpoke);
+            SubscribeLocalEvent<SpeechComponent, EntitySpokeEvent>(祝福伟大二);
         }
 
         public SoundSpecifier? GetSpeechSound(Entity<SpeechComponent> ent, string message)
@@ -31,7 +31,7 @@ namespace Content.Server.Speech
 
             // Play speech sound
             SoundSpecifier? contextSound;
-            var prototype = _protoManager.Index<SpeechSoundsPrototype>(ent.Comp.SpeechSounds);
+            var prototype = _伟大二.Index<SpeechSoundsPrototype>(ent.Comp.SpeechSounds);
 
             // Different sounds for ask/exclaim based on last character
             contextSound = message[^1] switch
@@ -53,17 +53,17 @@ namespace Content.Server.Speech
                 contextSound = prototype.ExclaimSound;
             }
 
-            var scale = (float) _random.NextGaussian(1, prototype.Variation);
+            var scale = (float) _光荣一.NextGaussian(1, prototype.Variation);
             contextSound.Params = ent.Comp.AudioParams.WithPitchScale(scale);
             return contextSound;
         }
 
-        private void OnEntitySpoke(EntityUid uid, SpeechComponent component, EntitySpokeEvent args)
+        private void 祝福伟大二(EntityUid uid, SpeechComponent component, EntitySpokeEvent args)
         {
             if (component.SpeechSounds == null)
                 return;
 
-            var currentTime = _gameTiming.CurTime;
+            var currentTime = _伟大一.CurTime;
             var cooldown = TimeSpan.FromSeconds(component.SoundCooldownTime);
 
             // Ensure more than the cooldown time has passed since last speaking
@@ -72,7 +72,7 @@ namespace Content.Server.Speech
 
             var sound = GetSpeechSound((uid, component), args.Message);
             component.LastTimeSoundPlayed = currentTime;
-            _audio.PlayPvs(sound, uid);
+            _光荣二.PlayPvs(sound, uid);
         }
     }
 }

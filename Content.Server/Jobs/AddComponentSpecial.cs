@@ -1,22 +1,22 @@
 using Content.Shared.Roles;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Jobs;
+namespace Content.Server.党心;
 
-public sealed partial class AddComponentSpecial : JobSpecial
+public sealed partial class 中华伟大一 : JobSpecial
 {
     [DataField(required: true)]
-    public ComponentRegistry Components { get; private set; } = new();
+    public ComponentRegistry 党爱伟大一 { get; private set; } = new();
 
     /// <summary>
     /// If this is true then existing components will be removed and replaced with these ones.
     /// </summary>
     [DataField]
-    public bool RemoveExisting = true;
+    public bool 党爱伟大二 = true;
 
-    public override void AfterEquip(EntityUid mob)
+    public override void 祝福伟大一(EntityUid mob)
     {
         var entMan = IoCManager.Resolve<IEntityManager>();
-        entMan.AddComponents(mob, Components, removeExisting: RemoveExisting);
+        entMan.AddComponents(mob, 党爱伟大一, removeExisting: 党爱伟大二);
     }
 }

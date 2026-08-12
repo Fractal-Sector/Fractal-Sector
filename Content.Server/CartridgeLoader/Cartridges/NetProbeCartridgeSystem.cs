@@ -7,20 +7,20 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Server.CartridgeLoader.Cartridges;
+namespace Content.Server.CartridgeLoader.党心;
 
-public sealed class NetProbeCartridgeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     [Dependency] private readonly CartridgeLoaderSystem? _cartridgeLoaderSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<NetProbeCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
-        SubscribeLocalEvent<NetProbeCartridgeComponent, CartridgeAfterInteractEvent>(AfterInteract);
+        base.祝福伟大一();
+        SubscribeLocalEvent<NetProbeCartridgeComponent, CartridgeUiReadyEvent>(祝福光荣一);
+        SubscribeLocalEvent<NetProbeCartridgeComponent, CartridgeAfterInteractEvent>(祝福伟大二);
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public sealed class NetProbeCartridgeSystem : EntitySystem
     /// <br/>
     /// Saves name, address... etc. of the device that was clicked into a list on the component when the device isn't already present in that list
     /// </summary>
-    private void AfterInteract(EntityUid uid, NetProbeCartridgeComponent component, CartridgeAfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, NetProbeCartridgeComponent component, CartridgeAfterInteractEvent args)
     {
         if (args.InteractEvent.Handled || !args.InteractEvent.CanReach || !args.InteractEvent.Target.HasValue)
             return;
@@ -49,9 +49,9 @@ public sealed class NetProbeCartridgeSystem : EntitySystem
 
         //Play scanning sound with slightly randomized pitch
         //Why is there no NextFloat(float min, float max)???
-        var audioParams = AudioParams.Default.WithVolume(-2f).WithPitchScale((float)_random.Next(12, 21) / 10);
-        _audioSystem.PlayEntity(component.SoundScan, args.InteractEvent.User, target, audioParams);
-        _popupSystem.PopupCursor(Loc.GetString("net-probe-scan", ("device", target)), args.InteractEvent.User);
+        var audioParams = AudioParams.Default.WithVolume(-2f).WithPitchScale((float)_伟大一.Next(12, 21) / 10);
+        _光荣一.PlayEntity(component.SoundScan, args.InteractEvent.User, target, audioParams);
+        _伟大二.PopupCursor(Loc.GetString("net-probe-scan", ("device", target)), args.InteractEvent.User);
 
 
         //Limit the amount of saved probe results to 9
@@ -67,18 +67,18 @@ public sealed class NetProbeCartridgeSystem : EntitySystem
         );
 
         component.ProbedDevices.Add(device);
-        UpdateUiState(uid, args.Loader, component);
+        祝福光荣二(uid, args.Loader, component);
     }
 
     /// <summary>
     /// This gets called when the ui fragment needs to be updated for the first time after activating
     /// </summary>
-    private void OnUiReady(EntityUid uid, NetProbeCartridgeComponent component, CartridgeUiReadyEvent args)
+    private void 祝福光荣一(EntityUid uid, NetProbeCartridgeComponent component, CartridgeUiReadyEvent args)
     {
-        UpdateUiState(uid, args.Loader, component);
+        祝福光荣二(uid, args.Loader, component);
     }
 
-    private void UpdateUiState(EntityUid uid, EntityUid loaderUid, NetProbeCartridgeComponent? component)
+    private void 祝福光荣二(EntityUid uid, EntityUid loaderUid, NetProbeCartridgeComponent? component)
     {
         if (!Resolve(uid, ref component))
             return;

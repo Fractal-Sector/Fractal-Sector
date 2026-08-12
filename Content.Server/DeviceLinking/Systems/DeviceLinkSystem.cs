@@ -8,22 +8,22 @@ using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
-public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
+public sealed class 中华伟大一 : SharedDeviceLinkSystem
 {
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+    [Dependency] private readonly DeviceNetworkSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DeviceLinkSinkComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
-        SubscribeLocalEvent<DeviceLinkSourceComponent, NewLinkEvent>(OnNewLink);
+        SubscribeLocalEvent<DeviceLinkSinkComponent, DeviceNetworkPacketEvent>(祝福正确二);
+        SubscribeLocalEvent<DeviceLinkSourceComponent, NewLinkEvent>(祝福团结一);
     }
 
     #region Sending & Receiving
-    public override void InvokePort(EntityUid uid, string port, NetworkPayload? data = null, DeviceLinkSourceComponent? sourceComponent = null)
+    public override void 祝福伟大二(EntityUid uid, string port, NetworkPayload? data = null, DeviceLinkSourceComponent? sourceComponent = null)
     {
         if (!Resolve(uid, ref sourceComponent) || !sourceComponent.Outputs.TryGetValue(port, out var sinks))
             return;
@@ -39,7 +39,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
             foreach (var (source, sink) in links)
             {
                 if (source == port)
-                    InvokeDirect((uid, sourceComponent), (sinkUid, sinkComponent), source, sink, data);
+                    祝福光荣一((uid, sourceComponent), (sinkUid, sinkComponent), source, sink, data);
             }
         }
     }
@@ -47,7 +47,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
     /// <summary>
     /// Raises an event on or sends a network packet directly to a sink from a source.
     /// </summary>
-    private void InvokeDirect(Entity<DeviceLinkSourceComponent> source, Entity<DeviceLinkSinkComponent?> sink, string sourcePort, string sinkPort, NetworkPayload? data)
+    private void 祝福光荣一(Entity<DeviceLinkSourceComponent> source, Entity<DeviceLinkSinkComponent?> sink, string sourcePort, string sinkPort, NetworkPayload? data)
     {
         if (!Resolve(sink, ref sink.Comp))
             return;
@@ -89,13 +89,13 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
 
         // force using wireless network so things like atmos devices are able to send signals
         var network = (int) DeviceNetworkComponent.DeviceNetIdDefaults.Wireless;
-        _deviceNetworkSystem.QueuePacket(source, sinkNetwork.Address, payload, sinkNetwork.ReceiveFrequency, network);
+        _伟大一.QueuePacket(source, sinkNetwork.Address, payload, sinkNetwork.ReceiveFrequency, network);
     }
 
     /// <summary>
     /// Helper function that invokes a port with a high/low binary logic signal.
     /// </summary>
-    public void SendSignal(EntityUid uid, string port, bool signal, DeviceLinkSourceComponent? comp = null)
+    public void 祝福光荣二(EntityUid uid, string port, bool signal, DeviceLinkSourceComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -104,7 +104,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
         {
             [DeviceNetworkConstants.LogicState] = signal ? SignalState.High : SignalState.Low
         };
-        InvokePort(uid, port, data, comp);
+        祝福伟大二(uid, port, data, comp);
 
         comp.LastSignals[port] = signal;
     }
@@ -114,7 +114,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
     /// This is not to be confused with sending a low signal, this is the complete absence of anything.
     /// Use if the device is in an invalid state and has no reasonable output signal.
     /// </summary>
-    public void ClearSignal(Entity<DeviceLinkSourceComponent?> ent, string port)
+    public void 祝福正确一(Entity<DeviceLinkSourceComponent?> ent, string port)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -126,7 +126,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
     /// Checks if the payload has a port defined and if the port is present on the sink.
     /// Raises a <see cref="SignalReceivedEvent"/> containing the payload when the check passes
     /// </summary>
-    private void OnPacketReceived(EntityUid uid, DeviceLinkSinkComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福正确二(EntityUid uid, DeviceLinkSinkComponent component, DeviceNetworkPacketEvent args)
     {
         if (!args.Data.TryGetValue(InvokedPort, out string? port) || !(component.Ports?.Contains(port) ?? false))
             return;
@@ -138,7 +138,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
     /// <summary>
     /// When linking from a port that currently has a signal being sent, invoke the new link with that signal.
     /// </summary>
-    private void OnNewLink(Entity<DeviceLinkSourceComponent> ent, ref NewLinkEvent args)
+    private void 祝福团结一(Entity<DeviceLinkSourceComponent> ent, ref NewLinkEvent args)
     {
         if (args.Source != ent.Owner)
             return;
@@ -156,7 +156,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
         {
             [DeviceNetworkConstants.LogicState] = signal ? SignalState.High : SignalState.Low
         };
-        InvokeDirect(ent, args.Sink, args.SourcePort, args.SinkPort, payload);
+        祝福光荣一(ent, args.Sink, args.SourcePort, args.SinkPort, payload);
     }
     #endregion
 }

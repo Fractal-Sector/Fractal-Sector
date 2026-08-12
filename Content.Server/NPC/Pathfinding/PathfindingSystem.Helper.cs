@@ -1,11 +1,11 @@
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Finds a generic path from start to end.
     /// </summary>
-    public List<Vector2i> GetPath(Vector2i start, Vector2i end, bool diagonal = false)
+    public List<Vector2i> 祝福伟大一(Vector2i start, Vector2i end, bool diagonal = false)
     {
         if (start == end)
         {

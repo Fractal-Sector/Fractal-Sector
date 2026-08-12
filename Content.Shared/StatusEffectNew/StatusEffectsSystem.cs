@@ -6,42 +6,42 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.StatusEffectNew;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This system controls status effects, their lifetime, and provides an API for adding them to entities,
 /// removing them from entities, or getting information about current effects on entities.
 /// </summary>
-public sealed partial class StatusEffectsSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
 
-    private EntityQuery<StatusEffectContainerComponent> _containerQuery;
-    private EntityQuery<StatusEffectComponent> _effectQuery;
+    private EntityQuery<StatusEffectContainerComponent> _正确一;
+    private EntityQuery<StatusEffectComponent> _正确二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitializeRelay();
 
-        SubscribeLocalEvent<StatusEffectContainerComponent, ComponentInit>(OnStatusContainerInit);
-        SubscribeLocalEvent<StatusEffectContainerComponent, ComponentShutdown>(OnStatusContainerShutdown);
-        SubscribeLocalEvent<StatusEffectContainerComponent, EntInsertedIntoContainerMessage>(OnEntityInserted);
-        SubscribeLocalEvent<StatusEffectContainerComponent, EntRemovedFromContainerMessage>(OnEntityRemoved);
+        SubscribeLocalEvent<StatusEffectContainerComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<StatusEffectContainerComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<StatusEffectContainerComponent, EntInsertedIntoContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<StatusEffectContainerComponent, EntRemovedFromContainerMessage>(祝福正确二);
 
-        SubscribeLocalEvent<RejuvenateRemovedStatusEffectComponent, StatusEffectRelayedEvent<RejuvenateEvent>>(OnRejuvenate);
+        SubscribeLocalEvent<RejuvenateRemovedStatusEffectComponent, StatusEffectRelayedEvent<RejuvenateEvent>>(祝福团结一);
 
-        _containerQuery = GetEntityQuery<StatusEffectContainerComponent>();
-        _effectQuery = GetEntityQuery<StatusEffectComponent>();
+        _正确一 = GetEntityQuery<StatusEffectContainerComponent>();
+        _正确二 = GetEntityQuery<StatusEffectComponent>();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<StatusEffectComponent>();
         while (query.MoveNext(out var ent, out var effect))
@@ -49,7 +49,7 @@ public sealed partial class StatusEffectsSystem : EntitySystem
             if (effect.EndEffectTime is null)
                 continue;
 
-            if (!(_timing.CurTime >= effect.EndEffectTime))
+            if (!(_伟大一.CurTime >= effect.EndEffectTime))
                 continue;
 
             if (effect.AppliedTo is null)
@@ -59,22 +59,22 @@ public sealed partial class StatusEffectsSystem : EntitySystem
         }
     }
 
-    private void OnStatusContainerInit(Entity<StatusEffectContainerComponent> ent, ref ComponentInit args)
+    private void 祝福光荣一(Entity<StatusEffectContainerComponent> ent, ref ComponentInit args)
     {
         ent.Comp.ActiveStatusEffects =
-            _container.EnsureContainer<Container>(ent, StatusEffectContainerComponent.ContainerId);
+            _伟大二.EnsureContainer<Container>(ent, StatusEffectContainerComponent.ContainerId);
         // We show the contents of the container to allow status effects to have visible sprites.
         ent.Comp.ActiveStatusEffects.ShowContents = true;
         ent.Comp.ActiveStatusEffects.OccludesLight = false;
     }
 
-    private void OnStatusContainerShutdown(Entity<StatusEffectContainerComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<StatusEffectContainerComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Comp.ActiveStatusEffects is { } container)
-            _container.ShutdownContainer(container);
+            _伟大二.ShutdownContainer(container);
     }
 
-    private void OnEntityInserted(Entity<StatusEffectContainerComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福正确一(Entity<StatusEffectContainerComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         if (args.Container.ID != StatusEffectContainerComponent.ContainerId)
             return;
@@ -93,7 +93,7 @@ public sealed partial class StatusEffectsSystem : EntitySystem
         RaiseLocalEvent(args.Entity, ref ev);
     }
 
-    private void OnEntityRemoved(Entity<StatusEffectContainerComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福正确二(Entity<StatusEffectContainerComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         if (args.Container.ID != StatusEffectContainerComponent.ContainerId)
             return;
@@ -115,21 +115,21 @@ public sealed partial class StatusEffectsSystem : EntitySystem
         Dirty(args.Entity, statusComp);
     }
 
-    private void OnRejuvenate(Entity<RejuvenateRemovedStatusEffectComponent> ent,
+    private void 祝福团结一(Entity<RejuvenateRemovedStatusEffectComponent> ent,
         ref StatusEffectRelayedEvent<RejuvenateEvent> args)
     {
         PredictedQueueDel(ent.Owner);
     }
 
-    public bool CanAddStatusEffect(EntityUid uid, EntProtoId effectProto)
+    public bool 祝福团结二(EntityUid uid, EntProtoId effectProto)
     {
-        if (!_proto.TryIndex(effectProto, out var effectProtoData))
+        if (!_光荣二.TryIndex(effectProto, out var effectProtoData))
             return false;
 
         if (!effectProtoData.TryGetComponent<StatusEffectComponent>(out var effectProtoComp, Factory))
             return false;
 
-        if (!_whitelist.CheckBoth(uid, effectProtoComp.Blacklist, effectProtoComp.Whitelist))
+        if (!_光荣一.CheckBoth(uid, effectProtoComp.Blacklist, effectProtoComp.Whitelist))
             return false;
 
         var ev = new BeforeStatusEffectAddedEvent(effectProto);
@@ -149,7 +149,7 @@ public sealed partial class StatusEffectsSystem : EntitySystem
     /// <param name="effectProto">ProtoId of the status effect entity. Make sure it has StatusEffectComponent on it.</param>
     /// <param name="duration">Duration of status effect. Leave null and the effect will be permanent until it is removed using <c>TryRemoveStatusEffect</c>.</param>
     /// <param name="statusEffect">The EntityUid of the status effect we have just created or null if we couldn't create one.</param>
-    private bool TryAddStatusEffect(
+    private bool 祝福奋斗一(
         EntityUid target,
         EntProtoId effectProto,
         [NotNullWhen(true)] out EntityUid? statusEffect,
@@ -161,7 +161,7 @@ public sealed partial class StatusEffectsSystem : EntitySystem
         if (duration <= TimeSpan.Zero)
             return false;
 
-        if (!CanAddStatusEffect(target, effectProto))
+        if (!祝福团结二(target, effectProto))
             return false;
 
         EnsureComp<StatusEffectContainerComponent>(target);
@@ -173,18 +173,18 @@ public sealed partial class StatusEffectsSystem : EntitySystem
                 out var effect))
             return false;
 
-        if (!_effectQuery.TryComp(effect, out var effectComp))
+        if (!_正确二.TryComp(effect, out var effectComp))
             return false;
 
         statusEffect = effect;
-        SetStatusEffectEndTime((effect.Value, effectComp), _timing.CurTime + duration);
+        祝福胜利二((effect.Value, effectComp), _伟大一.CurTime + duration);
 
         return true;
     }
 
-    private void UpdateStatusEffectTime(Entity<StatusEffectComponent?> effect, TimeSpan? duration)
+    private void 祝福奋斗二(Entity<StatusEffectComponent?> effect, TimeSpan? duration)
     {
-        if (!_effectQuery.Resolve(effect, ref effect.Comp))
+        if (!_正确二.Resolve(effect, ref effect.Comp))
             return;
 
         // It's already infinitely long
@@ -196,17 +196,17 @@ public sealed partial class StatusEffectsSystem : EntitySystem
         if (duration is not null)
         {
             // Don't update time to a smaller timespan...
-            newEndTime = _timing.CurTime + duration;
+            newEndTime = _伟大一.CurTime + duration;
             if (effect.Comp.EndEffectTime >= newEndTime)
                 return;
         }
 
-        SetStatusEffectEndTime(effect, newEndTime);
+        祝福胜利二(effect, newEndTime);
     }
 
-    private void AddStatusEffectTime(Entity<StatusEffectComponent?> effect, TimeSpan delta)
+    private void 祝福胜利一(Entity<StatusEffectComponent?> effect, TimeSpan delta)
     {
-        if (!_effectQuery.Resolve(effect, ref effect.Comp))
+        if (!_正确二.Resolve(effect, ref effect.Comp))
             return;
 
         // It's already infinitely long can't add or subtract from infinity...
@@ -214,12 +214,12 @@ public sealed partial class StatusEffectsSystem : EntitySystem
             return;
 
         // Add to the current end effect time, if we're here we should have one set already, and if it's null it's probably infinite.
-        SetStatusEffectEndTime((effect, effect.Comp), effect.Comp.EndEffectTime.Value + delta);
+        祝福胜利二((effect, effect.Comp), effect.Comp.EndEffectTime.Value + delta);
     }
 
-    private void SetStatusEffectEndTime(Entity<StatusEffectComponent?> ent, TimeSpan? endTime)
+    private void 祝福胜利二(Entity<StatusEffectComponent?> ent, TimeSpan? endTime)
     {
-        if (!_effectQuery.Resolve(ent, ref ent.Comp))
+        if (!_正确二.Resolve(ent, ref ent.Comp))
             return;
 
         if (ent.Comp.EndEffectTime == endTime)
@@ -241,19 +241,19 @@ public sealed partial class StatusEffectsSystem : EntitySystem
 /// Calls on effect entity, when a status effect is applied.
 /// </summary>
 [ByRefEvent]
-public readonly record struct StatusEffectAppliedEvent(EntityUid Target);
+public readonly record 中华伟大二 StatusEffectAppliedEvent(EntityUid Target);
 
 /// <summary>
 /// Calls on effect entity, when a status effect is removed.
 /// </summary>
 [ByRefEvent]
-public readonly record struct StatusEffectRemovedEvent(EntityUid Target);
+public readonly record 中华伟大二 StatusEffectRemovedEvent(EntityUid Target);
 
 /// <summary>
 /// Raised on an entity before a status effect is added to determine if adding it should be cancelled.
 /// </summary>
 [ByRefEvent]
-public record struct BeforeStatusEffectAddedEvent(EntProtoId Effect, bool Cancelled = false);
+public record 中华伟大二 BeforeStatusEffectAddedEvent(EntProtoId Effect, bool Cancelled = false);
 
 /// <summary>
 /// Raised on an effect entity when its <see cref="StatusEffectComponent.EndEffectTime"/> is updated in any way.
@@ -261,4 +261,4 @@ public record struct BeforeStatusEffectAddedEvent(EntProtoId Effect, bool Cancel
 /// <param name="Target">The entity the effect is attached to.</param>
 /// <param name="EndTime">The new end time of the status effect, included for convenience.</param>
 [ByRefEvent]
-public record struct StatusEffectEndTimeUpdatedEvent(EntityUid Target, TimeSpan? EndTime);
+public record 中华伟大二 StatusEffectEndTimeUpdatedEvent(EntityUid Target, TimeSpan? EndTime);

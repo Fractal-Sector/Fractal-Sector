@@ -1,24 +1,24 @@
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Inventory;
 
-namespace Content.Shared.Chemistry;
+namespace Content.Shared.党心;
 
-public sealed class SolutionScannerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SolutionScannerComponent, SolutionScanEvent>(OnSolutionScanAttempt);
-        SubscribeLocalEvent<SolutionScannerComponent, InventoryRelayedEvent<SolutionScanEvent>>((e, c, ev) => OnSolutionScanAttempt(e, c, ev.Args));
+        SubscribeLocalEvent<SolutionScannerComponent, 中华伟大二>(祝福伟大二);
+        SubscribeLocalEvent<SolutionScannerComponent, InventoryRelayedEvent<中华伟大二>>((e, c, ev) => 祝福伟大二(e, c, ev.Args));
     }
 
-    private void OnSolutionScanAttempt(EntityUid eid, SolutionScannerComponent component, SolutionScanEvent args)
+    private void 祝福伟大二(EntityUid eid, SolutionScannerComponent component, 中华伟大二 args)
     {
-        args.CanScan = true;
+        args.党爱伟大一 = true;
     }
 }
 
-public sealed class SolutionScanEvent : EntityEventArgs, IInventoryRelayEvent
+public sealed class 中华伟大二 : EntityEventArgs, IInventoryRelayEvent
 {
-    public bool CanScan;
-    public SlotFlags TargetSlots { get; } = SlotFlags.EYES;
+    public bool 党爱伟大一;
+    public SlotFlags 党爱伟大二 { get; } = SlotFlags.EYES;
 }

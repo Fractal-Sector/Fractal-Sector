@@ -2,17 +2,17 @@ using Content.Shared.Contraband;
 using Robust.Shared.Containers;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Contraband;
+namespace Content.Shared._NF.党心;
 
 [NetSerializable, Serializable]
-public enum ContrabandPalletConsoleUiKey : byte
+public enum 中华伟大一 : byte
 {
     Contraband
 }
 
-public abstract class SharedContrabandTurnInSystem : EntitySystem
+public abstract class 中华伟大二 : EntitySystem
 {
-    public void ClearContrabandValue(EntityUid item)
+    public void 祝福伟大一(EntityUid item)
     {
         // Clear contraband value for printed items
         if (TryComp<ContrabandComponent>(item, out var contraband))
@@ -30,7 +30,7 @@ public abstract class SharedContrabandTurnInSystem : EntitySystem
             {
                 foreach (var ent in container.ContainedEntities)
                 {
-                    ClearContrabandValue(ent);
+                    祝福伟大一(ent);
                 }
             }
         }

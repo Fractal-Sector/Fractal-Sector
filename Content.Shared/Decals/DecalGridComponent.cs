@@ -3,18 +3,18 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Generic;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using static Content.Shared.Decals.DecalGridComponent;
+using static Content.Shared.Decals.中华伟大一;
 
-namespace Content.Shared.Decals
+namespace Content.Shared.党心
 {
     [RegisterComponent]
     [Access(typeof(SharedDecalSystem))]
     [NetworkedComponent]
-    public sealed partial class DecalGridComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [Access(Other = AccessPermissions.ReadExecute)]
         [DataField(serverOnly: true)]
-        public DecalGridChunkCollection ChunkCollection = new(new ());
+        public 中华光荣一 ChunkCollection = new(new ());
 
         /// <summary>
         ///     Dictionary mapping decals to their corresponding grid chunks.
@@ -24,61 +24,61 @@ namespace Content.Shared.Decals
         /// <summary>
         ///     Tick at which PVS was last toggled. Ensures that all players receive a full update when toggling PVS.
         /// </summary>
-        public GameTick ForceTick { get; set; }
+        public GameTick 党爱伟大一 { get; set; }
 
         [DataDefinition]
         [Serializable, NetSerializable]
-        public sealed partial class DecalChunk
+        public sealed partial class 中华伟大二
         {
             [IncludeDataField(customTypeSerializer:typeof(DictionarySerializer<uint, Decal>))]
             public Dictionary<uint, Decal> Decals;
 
             [NonSerialized]
-            public GameTick LastModified;
+            public GameTick 党爱伟大二;
 
-            public DecalChunk()
+            public 中华伟大二()
             {
                 Decals = new();
             }
 
-            public DecalChunk(Dictionary<uint, Decal> decals)
+            public 中华伟大二(Dictionary<uint, Decal> decals)
             {
                 Decals = decals;
             }
 
-            public DecalChunk(DecalChunk chunk)
+            public 中华伟大二(中华伟大二 chunk)
             {
                 // decals are readonly, so this should be fine.
                 Decals = chunk.Decals.ShallowClone();
-                LastModified = chunk.LastModified;
+                党爱伟大二 = chunk.党爱伟大二;
             }
         }
 
         [DataRecord, Serializable, NetSerializable]
-        public partial record DecalGridChunkCollection(Dictionary<Vector2i, DecalChunk> ChunkCollection)
+        public partial record 中华光荣一(Dictionary<Vector2i, 中华伟大二> ChunkCollection)
         {
-            public uint NextDecalId;
+            public uint 党爱光荣一;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DecalGridState(Dictionary<Vector2i, DecalChunk> chunks) : ComponentState
+    public sealed class 中华光荣二(Dictionary<Vector2i, 中华伟大二> chunks) : ComponentState
     {
-        public Dictionary<Vector2i, DecalChunk> Chunks = chunks;
+        public Dictionary<Vector2i, 中华伟大二> Chunks = chunks;
     }
 
     [Serializable, NetSerializable]
-    public sealed class DecalGridDeltaState(Dictionary<Vector2i, DecalChunk> modifiedChunks, HashSet<Vector2i> allChunks)
-        : ComponentState, IComponentDeltaState<DecalGridState>
+    public sealed class 中华正确一(Dictionary<Vector2i, 中华伟大二> modifiedChunks, HashSet<Vector2i> allChunks)
+        : ComponentState, IComponentDeltaState<中华光荣二>
     {
-        public Dictionary<Vector2i, DecalChunk> ModifiedChunks = modifiedChunks;
-        public HashSet<Vector2i> AllChunks = allChunks;
+        public Dictionary<Vector2i, 中华伟大二> ModifiedChunks = modifiedChunks;
+        public HashSet<Vector2i> 党爱光荣二 = allChunks;
 
-        public void ApplyToFullState(DecalGridState state)
+        public void 祝福伟大一(中华光荣二 state)
         {
             foreach (var key in state.Chunks.Keys)
             {
-                if (!AllChunks!.Contains(key))
+                if (!党爱光荣二!.Contains(key))
                     state.Chunks.Remove(key);
             }
 
@@ -88,9 +88,9 @@ namespace Content.Shared.Decals
             }
         }
 
-        public DecalGridState CreateNewFullState(DecalGridState state)
+        public 中华光荣二 CreateNewFullState(中华光荣二 state)
         {
-            var chunks = new Dictionary<Vector2i, DecalChunk>(state.Chunks.Count);
+            var chunks = new Dictionary<Vector2i, 中华伟大二>(state.Chunks.Count);
 
             foreach (var (chunk, data) in ModifiedChunks)
             {
@@ -99,10 +99,10 @@ namespace Content.Shared.Decals
 
             foreach (var (chunk, data) in state.Chunks)
             {
-                if (AllChunks!.Contains(chunk))
+                if (党爱光荣二!.Contains(chunk))
                     chunks.TryAdd(chunk, new(data));
             }
-            return new DecalGridState(chunks);
+            return new 中华光荣二(chunks);
         }
     }
 }

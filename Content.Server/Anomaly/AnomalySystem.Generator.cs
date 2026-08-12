@@ -12,49 +12,49 @@ using Robust.Shared.Physics.Components;
 using Content.Shared.Power;
 using Content.Server.Chat.Systems; // Frontier
 
-namespace Content.Server.Anomaly;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles anomalous vessel as well as
 /// the calculations for how many points they
 /// should produce.
 /// </summary>
-public sealed partial class AnomalySystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ChatSystem _chat = default!; // Frontier
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!; // Frontier
 
-    private void InitializeGenerator()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<AnomalyGeneratorComponent, BoundUIOpenedEvent>(OnGeneratorBUIOpened);
-        SubscribeLocalEvent<AnomalyGeneratorComponent, MaterialAmountChangedEvent>(OnGeneratorMaterialAmountChanged);
-        SubscribeLocalEvent<AnomalyGeneratorComponent, AnomalyGeneratorGenerateButtonPressedEvent>(OnGenerateButtonPressed);
-        SubscribeLocalEvent<AnomalyGeneratorComponent, PowerChangedEvent>(OnGeneratorPowerChanged);
-        SubscribeLocalEvent<GeneratingAnomalyGeneratorComponent, ComponentStartup>(OnGeneratingStartup);
+        SubscribeLocalEvent<AnomalyGeneratorComponent, BoundUIOpenedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AnomalyGeneratorComponent, MaterialAmountChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<AnomalyGeneratorComponent, AnomalyGeneratorGenerateButtonPressedEvent>(祝福正确一);
+        SubscribeLocalEvent<AnomalyGeneratorComponent, PowerChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<GeneratingAnomalyGeneratorComponent, ComponentStartup>(祝福奋斗一);
     }
 
-    private void OnGeneratorPowerChanged(EntityUid uid, AnomalyGeneratorComponent component, ref PowerChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, AnomalyGeneratorComponent component, ref PowerChangedEvent args)
     {
         _ambient.SetAmbience(uid, args.Powered);
     }
 
-    private void OnGeneratorBUIOpened(EntityUid uid, AnomalyGeneratorComponent component, BoundUIOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, AnomalyGeneratorComponent component, BoundUIOpenedEvent args)
     {
-        UpdateGeneratorUi(uid, component);
+        祝福正确二(uid, component);
     }
 
-    private void OnGeneratorMaterialAmountChanged(EntityUid uid, AnomalyGeneratorComponent component, ref MaterialAmountChangedEvent args)
+    private void 祝福光荣二(EntityUid uid, AnomalyGeneratorComponent component, ref MaterialAmountChangedEvent args)
     {
-        UpdateGeneratorUi(uid, component);
+        祝福正确二(uid, component);
     }
 
-    private void OnGenerateButtonPressed(EntityUid uid, AnomalyGeneratorComponent component, AnomalyGeneratorGenerateButtonPressedEvent args)
+    private void 祝福正确一(EntityUid uid, AnomalyGeneratorComponent component, AnomalyGeneratorGenerateButtonPressedEvent args)
     {
-        TryGeneratorCreateAnomaly(uid, component);
+        祝福团结一(uid, component);
     }
 
-    public void UpdateGeneratorUi(EntityUid uid, AnomalyGeneratorComponent component)
+    public void 祝福正确二(EntityUid uid, AnomalyGeneratorComponent component)
     {
         var materialAmount = _material.GetMaterialAmount(uid, component.RequiredMaterial);
 
@@ -62,7 +62,7 @@ public sealed partial class AnomalySystem
         _ui.SetUiState(uid, AnomalyGeneratorUiKey.Key, state);
     }
 
-    public void TryGeneratorCreateAnomaly(EntityUid uid, AnomalyGeneratorComponent? component = null)
+    public void 祝福团结一(EntityUid uid, AnomalyGeneratorComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -80,10 +80,10 @@ public sealed partial class AnomalySystem
         generating.EndTime = Timing.CurTime + component.GenerationLength;
         generating.AudioStream = Audio.PlayPvs(component.GeneratingSound, uid, AudioParams.Default.WithLoop(true))?.Entity;
         component.CooldownEndTime = Timing.CurTime + component.CooldownLength;
-        UpdateGeneratorUi(uid, component);
+        祝福正确二(uid, component);
     }
 
-    public void SpawnOnRandomGridLocation(EntityUid grid, string toSpawn, Entity<AnomalyGeneratorComponent>? generator = null) // Frontier: add generator
+    public void 祝福团结二(EntityUid grid, string toSpawn, Entity<AnomalyGeneratorComponent>? generator = null) // Frontier: add generator
     {
         if (!TryComp<MapGridComponent>(grid, out var gridComp))
             return;
@@ -113,7 +113,7 @@ public sealed partial class AnomalySystem
             var valid = true;
 
             // TODO: This should be using static lookup.
-            foreach (var ent in _mapSystem.GetAnchoredEntities(grid, gridComp, tile))
+            foreach (var ent in _伟大一.GetAnchoredEntities(grid, gridComp, tile))
             {
                 if (!physQuery.TryGetComponent(ent, out var body))
                     continue;
@@ -128,8 +128,8 @@ public sealed partial class AnomalySystem
             if (!valid)
                 continue;
 
-            var pos = _mapSystem.GridTileToLocal(grid, gridComp, tile);
-            var mapPos = _transform.ToMapCoordinates(pos);
+            var pos = _伟大一.GridTileToLocal(grid, gridComp, tile);
+            var mapPos = _伟大二.ToMapCoordinates(pos);
             // don't spawn in AntiAnomalyZones
             var antiAnomalyZonesQueue = AllEntityQuery<AntiAnomalyZoneComponent, TransformComponent>();
             while (antiAnomalyZonesQueue.MoveNext(out _, out var zone, out var antiXform))
@@ -137,7 +137,7 @@ public sealed partial class AnomalySystem
                 if (antiXform.MapID != mapPos.MapId)
                     continue;
 
-                var antiCoordinates = _transform.GetWorldPosition(antiXform);
+                var antiCoordinates = _伟大二.GetWorldPosition(antiXform);
 
                 var delta = antiCoordinates - mapPos.Position;
                 if (delta.LengthSquared() < zone.ZoneRadius * zone.ZoneRadius)
@@ -157,14 +157,14 @@ public sealed partial class AnomalySystem
         // Frontier: one final test - if the spawn point is within an anti-anomaly zone, just don't generate it.
         if (!validTarget) // Frontier
         {
-            var mapPos = _transform.ToMapCoordinates(targetCoords);
+            var mapPos = _伟大二.ToMapCoordinates(targetCoords);
             var antiAnomalyZonesQueue = AllEntityQuery<AntiAnomalyZoneComponent, TransformComponent>();
             while (antiAnomalyZonesQueue.MoveNext(out _, out var zone, out var antiXform))
             {
                 if (antiXform.MapID != mapPos.MapId)
                     continue;
 
-                var antiCoordinates = _transform.GetWorldPosition(antiXform);
+                var antiCoordinates = _伟大二.GetWorldPosition(antiXform);
 
                 var delta = antiCoordinates - mapPos.Position;
                 if (delta.LengthSquared() < zone.ZoneRadius * zone.ZoneRadius)
@@ -174,8 +174,8 @@ public sealed partial class AnomalySystem
                     {
                         _stack.Spawn(genEnt.Comp.RefundAmount, genEnt.Comp.RefundStackType, generatorXform.Coordinates);
                         genEnt.Comp.CooldownEndTime = TimeSpan.Zero;
-                        UpdateGeneratorUi(genEnt, genEnt.Comp);
-                        _chat.TrySendInGameICMessage(genEnt, Loc.GetString("anomaly-generator-refund-message"), InGameICChatType.Speak, hideChat: true);
+                        祝福正确二(genEnt, genEnt.Comp);
+                        _光荣一.TrySendInGameICMessage(genEnt, Loc.GetString("anomaly-generator-refund-message"), InGameICChatType.Speak, hideChat: true);
                     }
                     return;
                 }
@@ -186,12 +186,12 @@ public sealed partial class AnomalySystem
         Spawn(toSpawn, targetCoords);
     }
 
-    private void OnGeneratingStartup(EntityUid uid, GeneratingAnomalyGeneratorComponent component, ComponentStartup args)
+    private void 祝福奋斗一(EntityUid uid, GeneratingAnomalyGeneratorComponent component, ComponentStartup args)
     {
         Appearance.SetData(uid, AnomalyGeneratorVisuals.Generating, true);
     }
 
-    private void OnGeneratingFinished(EntityUid uid, AnomalyGeneratorComponent component)
+    private void 祝福奋斗二(EntityUid uid, AnomalyGeneratorComponent component)
     {
         var xform = Transform(uid);
 
@@ -206,7 +206,7 @@ public sealed partial class AnomalySystem
         if (xform.GridUid == null) // Frontier
             return;
 
-        SpawnOnRandomGridLocation(xform.GridUid.Value, component.SpawnerPrototype, (uid, component)); // Frontier: add (uid, component)
+        祝福团结二(xform.GridUid.Value, component.SpawnerPrototype, (uid, component)); // Frontier: add (uid, component)
         RemComp<GeneratingAnomalyGeneratorComponent>(uid);
         Appearance.SetData(uid, AnomalyGeneratorVisuals.Generating, false);
         Audio.PlayPvs(component.GeneratingFinishedSound, uid);
@@ -215,7 +215,7 @@ public sealed partial class AnomalySystem
         // _radio.SendRadioMessage(uid, message, _prototype.Index<RadioChannelPrototype>(component.ScienceChannel), uid); // Frontier
     }
 
-    private void UpdateGenerator()
+    private void 祝福胜利一()
     {
         var query = EntityQueryEnumerator<GeneratingAnomalyGeneratorComponent, AnomalyGeneratorComponent>();
         while (query.MoveNext(out var ent, out var active, out var gen))
@@ -224,7 +224,7 @@ public sealed partial class AnomalySystem
                 continue;
 
             active.AudioStream = _audio.Stop(active.AudioStream);
-            OnGeneratingFinished(ent, gen);
+            祝福奋斗二(ent, gen);
         }
     }
 }

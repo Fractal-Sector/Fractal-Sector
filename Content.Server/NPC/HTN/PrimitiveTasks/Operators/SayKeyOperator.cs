@@ -1,32 +1,32 @@
 ﻿using Content.Server.Chat.Systems;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.党心;
 
-public sealed partial class SayKeyOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    private ChatSystem _chat = default!;
+    private ChatSystem _伟大二 = default!;
 
     [DataField(required: true)]
-    public string Key = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// Whether to hide message from chat window and logs.
     /// </summary>
     [DataField]
-    public bool Hidden;
+    public bool 党爱伟大二;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
+        base.祝福伟大一(sysManager);
 
-        _chat = sysManager.GetEntitySystem<ChatSystem>();
+        _伟大二 = sysManager.GetEntitySystem<ChatSystem>();
     }
 
-    public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
+    public override HTNOperatorStatus 祝福伟大二(NPCBlackboard blackboard, float frameTime)
     {
-        if (!blackboard.TryGetValue<object>(Key, out var value, _entManager))
+        if (!blackboard.TryGetValue<object>(党爱伟大一, out var value, _伟大一))
             return HTNOperatorStatus.Failed;
 
         var @string = value.ToString();
@@ -34,8 +34,8 @@ public sealed partial class SayKeyOperator : HTNOperator
             return HTNOperatorStatus.Failed;
 
         var speaker = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
-        _chat.TrySendInGameICMessage(speaker, @string, InGameICChatType.Speak, hideChat: Hidden, hideLog: Hidden);
+        _伟大二.TrySendInGameICMessage(speaker, @string, InGameICChatType.Speak, hideChat: 党爱伟大二, hideLog: 党爱伟大二);
 
-        return base.Update(blackboard, frameTime);
+        return base.祝福伟大二(blackboard, frameTime);
     }
 }

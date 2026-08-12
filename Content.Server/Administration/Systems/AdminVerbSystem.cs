@@ -36,68 +36,68 @@ using Robust.Shared.Utility;
 using System.Linq;
 using static Content.Shared.Configurable.ConfigurationComponent;
 
-namespace Content.Server.Administration.Systems
+namespace Content.Server.Administration.党心
 {
     /// <summary>
     ///     System to provide various global admin/debug verbs
     /// </summary>
-    public sealed partial class AdminVerbSystem : EntitySystem
+    public sealed partial class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IConGroupController _groupController = default!;
-        [Dependency] private readonly IConsoleHost _console = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly AdminSystem _adminSystem = default!;
-        [Dependency] private readonly DisposalTubeSystem _disposalTubes = default!;
-        [Dependency] private readonly EuiManager _euiManager = default!;
-        [Dependency] private readonly GhostRoleSystem _ghostRoleSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly PrayerSystem _prayerSystem = default!;
-        [Dependency] private readonly MindSystem _mindSystem = default!;
-        [Dependency] private readonly ToolshedManager _toolshed = default!;
-        [Dependency] private readonly RejuvenateSystem _rejuvenate = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly StationSystem _stations = default!;
-        [Dependency] private readonly StationSpawningSystem _spawning = default!;
-        [Dependency] private readonly ExamineSystemShared _examine = default!;
-        [Dependency] private readonly AdminFrozenSystem _freeze = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly SiliconLawSystem _siliconLawSystem = default!;
+        [Dependency] private readonly IConGroupController _伟大一 = default!;
+        [Dependency] private readonly IConsoleHost _伟大二 = default!;
+        [Dependency] private readonly IAdminManager _光荣一 = default!;
+        [Dependency] private readonly IGameTiming _光荣二 = default!;
+        [Dependency] private readonly SharedMapSystem _正确一 = default!;
+        [Dependency] private readonly IPrototypeManager _正确二 = default!;
+        [Dependency] private readonly AdminSystem _团结一 = default!;
+        [Dependency] private readonly DisposalTubeSystem _团结二 = default!;
+        [Dependency] private readonly EuiManager _奋斗一 = default!;
+        [Dependency] private readonly GhostRoleSystem _奋斗二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _胜利一 = default!;
+        [Dependency] private readonly PrayerSystem _胜利二 = default!;
+        [Dependency] private readonly MindSystem _繁荣一 = default!;
+        [Dependency] private readonly ToolshedManager _繁荣二 = default!;
+        [Dependency] private readonly RejuvenateSystem _富强一 = default!;
+        [Dependency] private readonly SharedPopupSystem _富强二 = default!;
+        [Dependency] private readonly StationSystem _民主一 = default!;
+        [Dependency] private readonly StationSpawningSystem _民主二 = default!;
+        [Dependency] private readonly ExamineSystemShared _文明一 = default!;
+        [Dependency] private readonly AdminFrozenSystem _文明二 = default!;
+        [Dependency] private readonly IPlayerManager _和谐一 = default!;
+        [Dependency] private readonly SiliconLawSystem _和谐二 = default!;
 
         private readonly Dictionary<ICommonSession, List<EditSolutionsEui>> _openSolutionUis = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<GetVerbsEvent<Verb>>(GetVerbs);
-            SubscribeLocalEvent<RoundRestartCleanupEvent>(Reset);
-            SubscribeLocalEvent<SolutionContainerManagerComponent, SolutionContainerChangedEvent>(OnSolutionChanged);
+            SubscribeLocalEvent<GetVerbsEvent<Verb>>(祝福伟大二);
+            SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福团结二);
+            SubscribeLocalEvent<SolutionContainerManagerComponent, SolutionContainerChangedEvent>(祝福正确一);
         }
 
-        private void GetVerbs(GetVerbsEvent<Verb> ev)
+        private void 祝福伟大二(GetVerbsEvent<Verb> ev)
         {
-            AddAdminVerbs(ev);
-            AddDebugVerbs(ev);
+            祝福光荣一(ev);
+            祝福光荣二(ev);
             AddSmiteVerbs(ev);
             AddTricksVerbs(ev);
             AddAntagVerbs(ev);
         }
 
-        private void AddAdminVerbs(GetVerbsEvent<Verb> args)
+        private void 祝福光荣一(GetVerbsEvent<Verb> args)
         {
             if (!TryComp(args.User, out ActorComponent? actor))
                 return;
 
             var player = actor.PlayerSession;
 
-            if (_adminManager.IsAdmin(player))
+            if (_光荣一.IsAdmin(player))
             {
                 Verb mark = new();
                 mark.Text = Loc.GetString("toolshed-verb-mark");
                 mark.Message = Loc.GetString("toolshed-verb-mark-description");
                 mark.Category = VerbCategory.Admin;
-                mark.Act = () => _toolshed.InvokeCommand(player, "=> $marked", new List<EntityUid> {args.Target}, out _);
+                mark.Act = () => _繁荣二.InvokeCommand(player, "=> $marked", new List<EntityUid> {args.Target}, out _);
                 mark.Impact = LogImpact.Low;
                 args.Verbs.Add(mark);
 
@@ -109,7 +109,7 @@ namespace Content.Server.Administration.Systems
                     verb.Category = VerbCategory.Admin;
                     verb.Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/gavel.svg.192dpi.png"));
                     verb.Act = () =>
-                        _console.RemoteExecuteCommand(player, $"openahelp \"{targetActor.PlayerSession.UserId}\"");
+                        _伟大二.RemoteExecuteCommand(player, $"openahelp \"{targetActor.PlayerSession.UserId}\"");
                     verb.Impact = LogImpact.Low;
                     args.Verbs.Add(verb);
 
@@ -122,7 +122,7 @@ namespace Content.Server.Administration.Systems
                     {
                         _quickDialog.OpenDialog(player, "Subtle Message", "Message", "Popup Message", (string message, string popupMessage) =>
                         {
-                            _prayerSystem.SendSubtleMessage(targetActor.PlayerSession, player, message, popupMessage == "" ? Loc.GetString("prayer-popup-subtle-default") : popupMessage);
+                            _胜利二.SendSubtleMessage(targetActor.PlayerSession, player, message, popupMessage == "" ? Loc.GetString("prayer-popup-subtle-default") : popupMessage);
                         });
                     };
                     prayerVerb.Impact = LogImpact.Low;
@@ -137,17 +137,17 @@ namespace Content.Server.Administration.Systems
                         {
                             if (!_transformSystem.TryGetMapOrGridCoordinates(args.Target, out var coords))
                             {
-                                _popup.PopupEntity(Loc.GetString("admin-player-spawn-failed"), args.User, args.User);
+                                _富强二.PopupEntity(Loc.GetString("admin-player-spawn-failed"), args.User, args.User);
                                 return;
                             }
 
-                            var stationUid = _stations.GetOwningStation(args.Target);
+                            var stationUid = _民主一.GetOwningStation(args.Target);
 
                             var profile = _gameTicker.GetPlayerProfile(targetActor.PlayerSession);
-                            var mobUid = _spawning.SpawnPlayerMob(coords.Value, null, profile, stationUid, session: targetActor.PlayerSession); // Frontier: added session
+                            var mobUid = _民主二.SpawnPlayerMob(coords.Value, null, profile, stationUid, session: targetActor.PlayerSession); // Frontier: added session
 
-                            if (_mindSystem.TryGetMind(args.Target, out var mindId, out var mindComp))
-                                _mindSystem.TransferTo(mindId, mobUid, true, mind: mindComp);
+                            if (_繁荣一.TryGetMind(args.Target, out var mindId, out var mindComp))
+                                _繁荣一.TransferTo(mindId, mobUid, true, mind: mindComp);
 
                         },
                         ConfirmationPopup = true,
@@ -163,14 +163,14 @@ namespace Content.Server.Administration.Systems
                         {
                             if (!_transformSystem.TryGetMapOrGridCoordinates(args.User, out var coords))
                             {
-                                _popup.PopupEntity(Loc.GetString("admin-player-spawn-failed"), args.User, args.User);
+                                _富强二.PopupEntity(Loc.GetString("admin-player-spawn-failed"), args.User, args.User);
                                 return;
                             }
 
-                            var stationUid = _stations.GetOwningStation(args.Target);
+                            var stationUid = _民主一.GetOwningStation(args.Target);
 
                             var profile = _gameTicker.GetPlayerProfile(targetActor.PlayerSession);
-                            _spawning.SpawnPlayerMob(coords.Value, null, profile, stationUid, session: targetActor.PlayerSession); // Frontier: added session
+                            _民主二.SpawnPlayerMob(coords.Value, null, profile, stationUid, session: targetActor.PlayerSession); // Frontier: added session
                         },
                         ConfirmationPopup = true,
                         Impact = LogImpact.High,
@@ -181,12 +181,12 @@ namespace Content.Server.Administration.Systems
                     {
                         Text = Loc.GetString("admin-player-actions-player-panel"),
                         Category = VerbCategory.Admin,
-                        Act = () => _console.ExecuteCommand(player, $"playerpanel \"{targetActor.PlayerSession.UserId}\""),
+                        Act = () => _伟大二.ExecuteCommand(player, $"playerpanel \"{targetActor.PlayerSession.UserId}\""),
                         Impact = LogImpact.Low
                     });
                 }
 
-                if (_mindSystem.TryGetMind(args.Target, out var mindId, out var mindComp) && mindComp.UserId != null)
+                if (_繁荣一.TryGetMind(args.Target, out var mindId, out var mindComp) && mindComp.UserId != null)
                 {
                     // Erase
                     args.Verbs.Add(new Verb
@@ -198,7 +198,7 @@ namespace Content.Server.Administration.Systems
                             new("/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png")),
                         Act = () =>
                         {
-                            _adminSystem.Erase(mindComp.UserId.Value);
+                            _团结一.Erase(mindComp.UserId.Value);
                         },
                         Impact = LogImpact.Extreme,
                         ConfirmationPopup = true
@@ -211,7 +211,7 @@ namespace Content.Server.Administration.Systems
                         Category = VerbCategory.Admin,
                         Act = () =>
                         {
-                            _console.ExecuteCommand(player, $"respawn \"{mindComp.UserId}\"");
+                            _伟大二.ExecuteCommand(player, $"respawn \"{mindComp.UserId}\"");
                         },
                         ConfirmationPopup = true,
                         // No logimpact as the command does it internally.
@@ -223,7 +223,7 @@ namespace Content.Server.Administration.Systems
                         Text = Loc.GetString("inspect-mind-verb-get-data-text"),
                         Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")),
                         Category = VerbCategory.Debug,
-                        Act = () => _console.RemoteExecuteCommand(player, $"vv {GetNetEntity(mindId)}"),
+                        Act = () => _伟大二.RemoteExecuteCommand(player, $"vv {GetNetEntity(mindId)}"),
                     });
                 }
 
@@ -258,7 +258,7 @@ namespace Content.Server.Administration.Systems
                         Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/snow.svg.192dpi.png")),
                         Act = () =>
                         {
-                            _freeze.FreezeAndMute(args.Target);
+                            _文明二.FreezeAndMute(args.Target);
                         },
                         Impact = LogImpact.Medium,
                     });
@@ -282,7 +282,7 @@ namespace Content.Server.Administration.Systems
 
 
                 // Admin Logs
-                if (_adminManager.HasAdminFlag(player, AdminFlags.Logs))
+                if (_光荣一.HasAdminFlag(player, AdminFlags.Logs))
                 {
                     Verb logsVerbEntity = new()
                     {
@@ -292,7 +292,7 @@ namespace Content.Server.Administration.Systems
                         Act = () =>
                         {
                             var ui = new AdminLogsEui();
-                            _euiManager.OpenEui(ui, player);
+                            _奋斗一.OpenEui(ui, player);
                             ui.SetLogFilter(search:args.Target.Id.ToString());
                         },
                         Impact = LogImpact.Low
@@ -308,7 +308,7 @@ namespace Content.Server.Administration.Systems
                     Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/open.svg.192dpi.png")),
                     Act = () =>
                     {
-                        _console.ExecuteCommand(player, $"tpto {GetNetEntity(args.Target)}");
+                        _伟大二.ExecuteCommand(player, $"tpto {GetNetEntity(args.Target)}");
                     },
                     Impact = LogImpact.Low
                 });
@@ -335,12 +335,12 @@ namespace Content.Server.Administration.Systems
                                     mapPos = mapPos.Offset(-offset);
                                 }
 
-                                _console.ExecuteCommand(player, $"tpgrid {GetNetEntity(args.Target)} {mapPos.X} {mapPos.Y} {mapPos.MapId}");
+                                _伟大二.ExecuteCommand(player, $"tpgrid {GetNetEntity(args.Target)} {mapPos.X} {mapPos.Y} {mapPos.MapId}");
                             }
                         }
                         else
                         {
-                            _console.ExecuteCommand(player, $"tpto {args.User} {args.Target}");
+                            _伟大二.ExecuteCommand(player, $"tpto {args.User} {args.Target}");
                         }
                     },
                     Impact = LogImpact.Low
@@ -369,7 +369,7 @@ namespace Content.Server.Administration.Systems
 
                 }
 
-                if (lawBoundComponent != null && target != null && _adminManager.HasAdminFlag(player, AdminFlags.Moderator))
+                if (lawBoundComponent != null && target != null && _光荣一.HasAdminFlag(player, AdminFlags.Moderator))
                 {
                     args.Verbs.Add(new Verb()
                     {
@@ -377,12 +377,12 @@ namespace Content.Server.Administration.Systems
                         Category = VerbCategory.Admin,
                         Act = () =>
                         {
-                            var ui = new SiliconLawEui(_siliconLawSystem, EntityManager, _adminManager);
-                            if (!_playerManager.TryGetSessionByEntity(args.User, out var session))
+                            var ui = new SiliconLawEui(_和谐二, EntityManager, _光荣一);
+                            if (!_和谐一.TryGetSessionByEntity(args.User, out var session))
                             {
                                 return;
                             }
-                            _euiManager.OpenEui(ui, session);
+                            _奋斗一.OpenEui(ui, session);
                             ui.UpdateLaws(lawBoundComponent, target.Value);
                         },
                         Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Actions/actions_borg.rsi"), "state-laws"),
@@ -400,14 +400,14 @@ namespace Content.Server.Administration.Systems
                     Act = () =>
                     {
                         var ui = new AdminCameraEui(args.Target);
-                        _euiManager.OpenEui(ui, player);
+                        _奋斗一.OpenEui(ui, player);
                     },
                     Impact = LogImpact.Low
                 });
             }
         }
 
-        private void AddDebugVerbs(GetVerbsEvent<Verb> args)
+        private void 祝福光荣二(GetVerbsEvent<Verb> args)
         {
             if (!TryComp(args.User, out ActorComponent? actor))
                 return;
@@ -415,7 +415,7 @@ namespace Content.Server.Administration.Systems
             var player = actor.PlayerSession;
 
             // Delete verb
-            if (_toolshed.ActivePermissionController?.CheckInvokable(new CommandSpec(_toolshed.DefaultEnvironment.GetCommand("delete"), null), player, out _) ?? false)
+            if (_繁荣二.ActivePermissionController?.CheckInvokable(new CommandSpec(_繁荣二.DefaultEnvironment.GetCommand("delete"), null), player, out _) ?? false)
             {
                 Verb verb = new()
                 {
@@ -430,21 +430,21 @@ namespace Content.Server.Administration.Systems
             }
 
             // Rejuvenate verb
-            if (_toolshed.ActivePermissionController?.CheckInvokable(new CommandSpec(_toolshed.DefaultEnvironment.GetCommand("rejuvenate"), null), player, out _) ?? false)
+            if (_繁荣二.ActivePermissionController?.CheckInvokable(new CommandSpec(_繁荣二.DefaultEnvironment.GetCommand("rejuvenate"), null), player, out _) ?? false)
             {
                 Verb verb = new()
                 {
                     Text = Loc.GetString("rejuvenate-verb-get-data-text"),
                     Category = VerbCategory.Debug,
                     Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/rejuvenate.svg.192dpi.png")),
-                    Act = () => _rejuvenate.PerformRejuvenate(args.Target),
+                    Act = () => _富强一.PerformRejuvenate(args.Target),
                     Impact = LogImpact.Medium
                 };
                 args.Verbs.Add(verb);
             }
 
             // Control mob verb
-            if (_toolshed.ActivePermissionController?.CheckInvokable(new CommandSpec(_toolshed.DefaultEnvironment.GetCommand("mind"), "control"), player, out _) ?? false &&
+            if (_繁荣二.ActivePermissionController?.CheckInvokable(new CommandSpec(_繁荣二.DefaultEnvironment.GetCommand("mind"), "control"), player, out _) ?? false &&
                 args.User != args.Target)
             {
                 Verb verb = new()
@@ -454,7 +454,7 @@ namespace Content.Server.Administration.Systems
                     // TODO VERB ICON control mob icon
                     Act = () =>
                     {
-                        _mindSystem.ControlMob(args.User, args.Target);
+                        _繁荣一.ControlMob(args.User, args.Target);
                     },
                     Impact = LogImpact.High,
                     ConfirmationPopup = true
@@ -463,7 +463,7 @@ namespace Content.Server.Administration.Systems
             }
 
             // Make Sentient verb
-            if (_groupController.CanCommand(player, "makesentient") &&
+            if (_伟大一.CanCommand(player, "makesentient") &&
                 args.User != args.Target &&
                 !HasComp<MindContainerComponent>(args.Target))
             {
@@ -472,7 +472,7 @@ namespace Content.Server.Administration.Systems
                     Text = Loc.GetString("make-sentient-verb-get-data-text"),
                     Category = VerbCategory.Debug,
                     Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")),
-                    Act = () => _mindSystem.MakeSentient(args.Target),
+                    Act = () => _繁荣一.MakeSentient(args.Target),
                     Impact = LogImpact.Medium
                 };
                 args.Verbs.Add(verb);
@@ -481,27 +481,27 @@ namespace Content.Server.Administration.Systems
             if (TryComp<InventoryComponent>(args.Target, out var inventoryComponent))
             {
                 // Strip all verb
-                if (_groupController.CanCommand(player, "stripall"))
+                if (_伟大一.CanCommand(player, "stripall"))
                 {
                     args.Verbs.Add(new Verb
                     {
                         Text = Loc.GetString("strip-all-verb-get-data-text"),
                         Category = VerbCategory.Debug,
                         Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/outfit.svg.192dpi.png")),
-                        Act = () => _console.RemoteExecuteCommand(player, $"stripall \"{args.Target}\""),
+                        Act = () => _伟大二.RemoteExecuteCommand(player, $"stripall \"{args.Target}\""),
                         Impact = LogImpact.Medium
                     });
                 }
 
                 // set outfit verb
-                if (_groupController.CanCommand(player, "setoutfit"))
+                if (_伟大一.CanCommand(player, "setoutfit"))
                 {
                     Verb verb = new()
                     {
                         Text = Loc.GetString("set-outfit-verb-get-data-text"),
                         Category = VerbCategory.Debug,
                         Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/outfit.svg.192dpi.png")),
-                        Act = () => _euiManager.OpenEui(new SetOutfitEui(GetNetEntity(args.Target)), player),
+                        Act = () => _奋斗一.OpenEui(new SetOutfitEui(GetNetEntity(args.Target)), player),
                         Impact = LogImpact.Medium
                     };
                     args.Verbs.Add(verb);
@@ -509,7 +509,7 @@ namespace Content.Server.Administration.Systems
             }
 
             // In range unoccluded verb
-            if (_groupController.CanCommand(player, "inrangeunoccluded"))
+            if (_伟大一.CanCommand(player, "inrangeunoccluded"))
             {
                 Verb verb = new()
                 {
@@ -519,18 +519,18 @@ namespace Content.Server.Administration.Systems
                     Act = () =>
                     {
 
-                        var message = _examine.InRangeUnOccluded(args.User, args.Target)
+                        var message = _文明一.InRangeUnOccluded(args.User, args.Target)
                             ? Loc.GetString("in-range-unoccluded-verb-on-activate-not-occluded")
                             : Loc.GetString("in-range-unoccluded-verb-on-activate-occluded");
 
-                        _popup.PopupEntity(message, args.Target, args.User);
+                        _富强二.PopupEntity(message, args.Target, args.User);
                     }
                 };
                 args.Verbs.Add(verb);
             }
 
             // Get Disposal tube direction verb
-            if (_groupController.CanCommand(player, "tubeconnections") &&
+            if (_伟大一.CanCommand(player, "tubeconnections") &&
                 TryComp(args.Target, out DisposalTubeComponent? tube))
             {
                 Verb verb = new()
@@ -538,13 +538,13 @@ namespace Content.Server.Administration.Systems
                     Text = Loc.GetString("tube-direction-verb-get-data-text"),
                     Category = VerbCategory.Debug,
                     Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/information.svg.192dpi.png")),
-                    Act = () => _disposalTubes.PopupDirections(args.Target, tube, args.User)
+                    Act = () => _团结二.PopupDirections(args.Target, tube, args.User)
                 };
                 args.Verbs.Add(verb);
             }
 
             // Make ghost role verb
-            if (_groupController.CanCommand(player, "makeghostrole") &&
+            if (_伟大一.CanCommand(player, "makeghostrole") &&
                 !(EntityManager.GetComponentOrNull<MindContainerComponent>(args.Target)?.HasMind ?? false))
             {
                 Verb verb = new();
@@ -552,12 +552,12 @@ namespace Content.Server.Administration.Systems
                 verb.Category = VerbCategory.Debug;
                 // TODO VERB ICON add ghost icon
                 // Where is the national park service icon for haunted forests?
-                verb.Act = () => _ghostRoleSystem.OpenMakeGhostRoleEui(player, args.Target);
+                verb.Act = () => _奋斗二.OpenMakeGhostRoleEui(player, args.Target);
                 verb.Impact = LogImpact.Medium;
                 args.Verbs.Add(verb);
             }
 
-            if (_groupController.CanAdminMenu(player) &&
+            if (_伟大一.CanAdminMenu(player) &&
                 TryComp(args.Target, out ConfigurationComponent? config))
             {
                 Verb verb = new()
@@ -565,13 +565,13 @@ namespace Content.Server.Administration.Systems
                     Text = Loc.GetString("configure-verb-get-data-text"),
                     Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
                     Category = VerbCategory.Debug,
-                    Act = () => _uiSystem.OpenUi(args.Target, ConfigurationUiKey.Key, actor.PlayerSession)
+                    Act = () => _胜利一.OpenUi(args.Target, ConfigurationUiKey.Key, actor.PlayerSession)
                 };
                 args.Verbs.Add(verb);
             }
 
             // Add verb to open Solution Editor
-            if (_groupController.CanCommand(player, "addreagent") &&
+            if (_伟大一.CanCommand(player, "addreagent") &&
                 HasComp<SolutionContainerManagerComponent>(args.Target))
             {
                 Verb verb = new()
@@ -579,7 +579,7 @@ namespace Content.Server.Administration.Systems
                     Text = Loc.GetString("edit-solutions-verb-get-data-text"),
                     Category = VerbCategory.Debug,
                     Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/spill.svg.192dpi.png")),
-                    Act = () => OpenEditSolutionsEui(player, args.Target),
+                    Act = () => 祝福正确二(player, args.Target),
                     Impact = LogImpact.Medium // maybe high depending on WHAT reagents they add...
                 };
                 args.Verbs.Add(verb);
@@ -587,7 +587,7 @@ namespace Content.Server.Administration.Systems
         }
 
         #region SolutionsEui
-        private void OnSolutionChanged(Entity<SolutionContainerManagerComponent> entity, ref SolutionContainerChangedEvent args)
+        private void 祝福正确一(Entity<SolutionContainerManagerComponent> entity, ref SolutionContainerChangedEvent args)
         {
             foreach (var list in _openSolutionUis.Values)
             {
@@ -599,13 +599,13 @@ namespace Content.Server.Administration.Systems
             }
         }
 
-        public void OpenEditSolutionsEui(ICommonSession session, EntityUid uid)
+        public void 祝福正确二(ICommonSession session, EntityUid uid)
         {
             if (session.AttachedEntity == null)
                 return;
 
             var eui = new EditSolutionsEui(uid);
-            _euiManager.OpenEui(eui, session);
+            _奋斗一.OpenEui(eui, session);
             eui.StateDirty();
 
             if (!_openSolutionUis.ContainsKey(session)) {
@@ -615,14 +615,14 @@ namespace Content.Server.Administration.Systems
             _openSolutionUis[session].Add(eui);
         }
 
-        public void OnEditSolutionsEuiClosed(ICommonSession session, EditSolutionsEui eui)
+        public void 祝福团结一(ICommonSession session, EditSolutionsEui eui)
         {
             _openSolutionUis[session].Remove(eui);
             if (_openSolutionUis[session].Count == 0)
               _openSolutionUis.Remove(session);
         }
 
-        private void Reset(RoundRestartCleanupEvent ev)
+        private void 祝福团结二(RoundRestartCleanupEvent ev)
         {
             foreach (var euis in _openSolutionUis.Values)
             {

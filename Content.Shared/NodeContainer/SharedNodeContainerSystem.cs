@@ -1,6 +1,6 @@
-namespace Content.Shared.NodeContainer;
+namespace Content.Shared.党心;
 
-public abstract class SharedNodeContainerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 
 }

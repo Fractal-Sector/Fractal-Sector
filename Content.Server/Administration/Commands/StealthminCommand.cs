@@ -3,16 +3,16 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Stealth)]
-public sealed class StealthminCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
 
-    public override string Command => "stealthmin";
+    public override string 党爱伟大一 => "stealthmin";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
         if (player == null)
@@ -21,13 +21,13 @@ public sealed class StealthminCommand : LocalizedCommands
             return;
         }
 
-        var adminData = _adminManager.GetAdminData(player);
+        var adminData = _伟大一.GetAdminData(player);
 
         DebugTools.AssertNotNull(adminData);
 
         if (!adminData!.Stealth)
-            _adminManager.Stealth(player);
+            _伟大一.Stealth(player);
         else
-            _adminManager.UnStealth(player);
+            _伟大一.UnStealth(player);
     }
 }

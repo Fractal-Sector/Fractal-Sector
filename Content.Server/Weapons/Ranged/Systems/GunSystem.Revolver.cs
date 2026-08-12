@@ -1,12 +1,12 @@
 using Content.Shared.Weapons.Ranged.Components;
 
-namespace Content.Server.Weapons.Ranged.Systems;
+namespace Content.Server.Weapons.Ranged.党心;
 
-public sealed partial class GunSystem
+public sealed partial class 中华伟大一
 {
-    protected override void SpinRevolver(EntityUid revolverUid, RevolverAmmoProviderComponent component, EntityUid? user = null)
+    protected override void 祝福伟大一(EntityUid revolverUid, RevolverAmmoProviderComponent component, EntityUid? user = null)
     {
-        base.SpinRevolver(revolverUid, component, user);
+        base.祝福伟大一(revolverUid, component, user);
         var index = Random.Next(component.Capacity);
 
         if (component.CurrentIndex == index)

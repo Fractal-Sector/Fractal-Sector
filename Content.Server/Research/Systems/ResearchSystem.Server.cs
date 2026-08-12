@@ -2,20 +2,20 @@ using System.Linq;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Research.Components;
 
-namespace Content.Server.Research.Systems;
+namespace Content.Server.Research.党心;
 
-public sealed partial class ResearchSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeServer()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ResearchServerComponent, ComponentStartup>(OnServerStartup);
-        SubscribeLocalEvent<ResearchServerComponent, ComponentShutdown>(OnServerShutdown);
-        SubscribeLocalEvent<ResearchServerComponent, TechnologyDatabaseModifiedEvent>(OnServerDatabaseModified);
-        SubscribeLocalEvent<ResearchServerComponent, AnchorStateChangedEvent>(OnServerAnchorChanged); // Frontier
-        SubscribeLocalEvent<ResearchServerComponent, EntParentChangedMessage>(OnServerParentChanged); // Frontier
+        SubscribeLocalEvent<ResearchServerComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<ResearchServerComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<ResearchServerComponent, TechnologyDatabaseModifiedEvent>(祝福光荣二);
+        SubscribeLocalEvent<ResearchServerComponent, AnchorStateChangedEvent>(祝福胜利一); // Frontier
+        SubscribeLocalEvent<ResearchServerComponent, EntParentChangedMessage>(祝福胜利二); // Frontier
     }
 
-    private void OnServerStartup(EntityUid uid, ResearchServerComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, ResearchServerComponent component, ComponentStartup args)
     {
         var unusedId = EntityQuery<ResearchServerComponent>(true)
             .Max(s => s.Id) + 1;
@@ -23,15 +23,15 @@ public sealed partial class ResearchSystem
         Dirty(uid, component);
     }
 
-    private void OnServerShutdown(EntityUid uid, ResearchServerComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, ResearchServerComponent component, ComponentShutdown args)
     {
         foreach (var client in new List<EntityUid>(component.Clients))
         {
-            UnregisterClient(client, uid, serverComponent: component, dirtyServer: false);
+            祝福团结二(client, uid, serverComponent: component, dirtyServer: false);
         }
     }
 
-    private void OnServerDatabaseModified(EntityUid uid, ResearchServerComponent component, ref TechnologyDatabaseModifiedEvent args)
+    private void 祝福光荣二(EntityUid uid, ResearchServerComponent component, ref TechnologyDatabaseModifiedEvent args)
     {
         foreach (var client in component.Clients)
         {
@@ -39,19 +39,19 @@ public sealed partial class ResearchSystem
         }
     }
 
-    private bool CanRun(EntityUid uid)
+    private bool 祝福正确一(EntityUid uid)
     {
         return this.IsPowered(uid, EntityManager);
     }
 
-    private void UpdateServer(EntityUid uid, int time, ResearchServerComponent? component = null)
+    private void 祝福正确二(EntityUid uid, int time, ResearchServerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        if (!CanRun(uid))
+        if (!祝福正确一(uid))
             return;
-        ModifyServerPoints(uid, GetPointsPerSecond(uid, component) * time, component);
+        祝福奋斗二(uid, 祝福奋斗一(uid, component) * time, component);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public sealed partial class ResearchSystem
     /// <param name="clientComponent"></param>
     /// <param name="serverComponent"></param>
     /// <param name="dirtyServer">Whether or not to dirty the server component after registration</param>
-    public void RegisterClient(EntityUid client, EntityUid server, ResearchClientComponent? clientComponent = null,
+    public void 祝福团结一(EntityUid client, EntityUid server, ResearchClientComponent? clientComponent = null,
         ResearchServerComponent? serverComponent = null, bool dirtyServer = true)
     {
         if (!Resolve(client, ref clientComponent, false) || !Resolve(server, ref serverComponent, false))
@@ -96,7 +96,7 @@ public sealed partial class ResearchSystem
     /// <param name="client"></param>
     /// <param name="clientComponent"></param>
     /// <param name="dirtyServer"></param>
-    public void UnregisterClient(EntityUid client, ResearchClientComponent? clientComponent = null, bool dirtyServer = true)
+    public void 祝福团结二(EntityUid client, ResearchClientComponent? clientComponent = null, bool dirtyServer = true)
     {
         if (!Resolve(client, ref clientComponent))
             return;
@@ -104,7 +104,7 @@ public sealed partial class ResearchSystem
         if (clientComponent.Server is not { } server)
             return;
 
-        UnregisterClient(client, server, clientComponent, dirtyServer: dirtyServer);
+        祝福团结二(client, server, clientComponent, dirtyServer: dirtyServer);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public sealed partial class ResearchSystem
     /// <param name="clientComponent"></param>
     /// <param name="serverComponent"></param>
     /// <param name="dirtyServer"></param>
-    public void UnregisterClient(EntityUid client, EntityUid server, ResearchClientComponent? clientComponent = null,
+    public void 祝福团结二(EntityUid client, EntityUid server, ResearchClientComponent? clientComponent = null,
         ResearchServerComponent? serverComponent = null, bool dirtyServer = true)
     {
         if (!Resolve(client, ref clientComponent, false) || !Resolve(server, ref serverComponent, false))
@@ -140,14 +140,14 @@ public sealed partial class ResearchSystem
     /// <param name="uid"></param>
     /// <param name="component"></param>
     /// <returns></returns>
-    public int GetPointsPerSecond(EntityUid uid, ResearchServerComponent? component = null)
+    public int 祝福奋斗一(EntityUid uid, ResearchServerComponent? component = null)
     {
         var points = 0;
 
         if (!Resolve(uid, ref component))
             return points;
 
-        if (!CanRun(uid))
+        if (!祝福正确一(uid))
             return points;
 
         var ev = new ResearchServerGetPointsPerSecondEvent(uid, points);
@@ -164,7 +164,7 @@ public sealed partial class ResearchSystem
     /// <param name="uid">The server</param>
     /// <param name="points">The amount of points being added</param>
     /// <param name="component"></param>
-    public void ModifyServerPoints(EntityUid uid, int points, ResearchServerComponent? component = null)
+    public void 祝福奋斗二(EntityUid uid, int points, ResearchServerComponent? component = null)
     {
         if (points == 0)
             return;
@@ -181,7 +181,7 @@ public sealed partial class ResearchSystem
     }
 
     // Frontier: unanchoring server
-    private void OnServerAnchorChanged(Entity<ResearchServerComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福胜利一(Entity<ResearchServerComponent> ent, ref AnchorStateChangedEvent args)
     {
         if (args.Anchored || ent.Comp.Clients.Count <= 0)
             return;
@@ -191,7 +191,7 @@ public sealed partial class ResearchSystem
         bool clientsRemoved = false;
         foreach (var client in clientList)
         {
-            UnregisterClient(client, ent, serverComponent: ent.Comp, dirtyServer: false);
+            祝福团结二(client, ent, serverComponent: ent.Comp, dirtyServer: false);
             clientsRemoved = true;
         }
 
@@ -199,7 +199,7 @@ public sealed partial class ResearchSystem
             Dirty(ent);
     }
 
-    private void OnServerParentChanged(Entity<ResearchServerComponent> ent, ref EntParentChangedMessage args)
+    private void 祝福胜利二(Entity<ResearchServerComponent> ent, ref EntParentChangedMessage args)
     {
         if (TerminatingOrDeleted(ent))
             return;
@@ -217,7 +217,7 @@ public sealed partial class ResearchSystem
                 || !TryComp(client, out TransformComponent? clientXform)
                 || clientXform.GridUid != serverGrid)
             {
-                UnregisterClient(client, ent, serverComponent: ent.Comp, dirtyServer: false);
+                祝福团结二(client, ent, serverComponent: ent.Comp, dirtyServer: false);
                 clientsRemoved = true;
             }
         }

@@ -5,11 +5,11 @@ using Content.Shared.Chemistry.Reaction;
 using Content.Shared.EntityEffects;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GuideGenerator;
+namespace Content.Server.党心;
 
-public sealed class ReactionJsonGenerator
+public sealed class 中华伟大一
 {
-    public static void PublishJson(StreamWriter file)
+    public static void 祝福伟大一(StreamWriter file)
     {
         var prototype = IoCManager.Resolve<IPrototypeManager>();
 

@@ -1,26 +1,26 @@
 using Content.Shared.Actions;
 
-namespace Content.Shared._DV.Harpy;
+namespace Content.Shared._DV.党心;
 
-public abstract class SharedHarpySingerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HarpySingerComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<HarpySingerComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<HarpySingerComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<HarpySingerComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnStartup(EntityUid uid, HarpySingerComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, HarpySingerComponent component, ComponentStartup args)
     {
-        _actionsSystem.AddAction(uid, ref component.MidiAction, component.MidiActionId);
+        _伟大一.AddAction(uid, ref component.MidiAction, component.MidiActionId);
     }
 
-    private void OnShutdown(EntityUid uid, HarpySingerComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, HarpySingerComponent component, ComponentShutdown args)
     {
-        _actionsSystem.RemoveAction(uid, component.MidiAction);
+        _伟大一.RemoveAction(uid, component.MidiAction);
     }
 }

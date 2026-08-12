@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.SafetyDepositBox.BUI;
+namespace Content.Shared._WF.SafetyDepositBox.党心;
 
 [Serializable, NetSerializable]
-public enum SafetyDepositConsoleUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }

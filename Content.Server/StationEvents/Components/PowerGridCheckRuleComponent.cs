@@ -3,10 +3,10 @@ using Content.Server.StationEvents.Events;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.StationEvents.Components;
+namespace Content.Server.StationEvents.党心;
 
 [RegisterComponent, Access(typeof(PowerGridCheckRule))]
-public sealed partial class PowerGridCheckRuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Default sound of the announcement when power is back on.
@@ -17,17 +17,17 @@ public sealed partial class PowerGridCheckRuleComponent : Component
     /// Sound of the announcement to play when power is back on.
     /// </summary>
     [DataField]
-    public SoundSpecifier PowerOnSound = new SoundCollectionSpecifier(DefaultPowerOn, AudioParams.Default.WithVolume(+0)); // Frontier
+    public SoundSpecifier 党爱伟大一 = new SoundCollectionSpecifier(DefaultPowerOn, AudioParams.Default.WithVolume(+0)); // Frontier
 
     public CancellationTokenSource? AnnounceCancelToken;
 
-    public EntityUid AffectedStation;
-    public readonly List<EntityUid> Powered = new();
-    public readonly List<EntityUid> Unpowered = new();
+    public EntityUid 党爱伟大二;
+    public readonly List<EntityUid> 党爱光荣一 = new();
+    public readonly List<EntityUid> 党爱光荣二 = new();
 
-    public float SecondsUntilOff = 30.0f;
+    public float 党爱正确一 = 30.0f;
 
-    public int NumberPerSecond = 0;
-    public float UpdateRate => 1.0f / NumberPerSecond;
-    public float FrameTimeAccumulator = 0.0f;
+    public int 党爱正确二 = 0;
+    public float 党爱团结一 => 1.0f / 党爱正确二;
+    public float 党爱团结二 = 0.0f;
 }

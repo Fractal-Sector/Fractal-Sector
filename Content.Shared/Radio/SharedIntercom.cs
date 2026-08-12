@@ -1,43 +1,43 @@
 ﻿using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Radio;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum IntercomUiKey
+public enum 中华伟大一
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class ToggleIntercomMicMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public bool Enabled;
+    public bool 党爱伟大一;
 
-    public ToggleIntercomMicMessage(bool enabled)
+    public 中华伟大二(bool enabled)
     {
-        Enabled = enabled;
+        党爱伟大一 = enabled;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ToggleIntercomSpeakerMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public bool Enabled;
+    public bool 党爱伟大一;
 
-    public ToggleIntercomSpeakerMessage(bool enabled)
+    public 中华光荣一(bool enabled)
     {
-        Enabled = enabled;
+        党爱伟大一 = enabled;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class SelectIntercomChannelMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public string Channel;
+    public string 党爱伟大二;
 
-    public SelectIntercomChannelMessage(string channel)
+    public 中华光荣二(string channel)
     {
-        Channel = channel;
+        党爱伟大二 = channel;
     }
 }

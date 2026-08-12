@@ -1,7 +1,7 @@
 using Content.Shared.Rotation;
 
-namespace Content.Server.Rotation;
+namespace Content.Server.党心;
 
-public sealed class RotationVisualsSystem : SharedRotationVisualsSystem
+public sealed class 中华伟大一 : SharedRotationVisualsSystem
 {
 }

@@ -3,16 +3,16 @@ using System.Text.RegularExpressions;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Chat.Managers;
+namespace Content.Server.Chat.党心;
 
 /// <summary>
 ///     Sanitizes messages!
 ///     It currently ony removes the shorthands for emotes (like "lol" or "^-^") from a chat message and returns the last
 ///     emote in their message
 /// </summary>
-public sealed class ChatSanitizationManager : IChatSanitizationManager
+public sealed class 中华伟大一 : IChatSanitizationManager
 {
-    private static readonly (Regex regex, string emoteKey)[] ShorthandToEmote =
+    private static 祝福伟大一 (Regex regex, string emoteKey)[] ShorthandToEmote =
     [
         Entry(":)", "chatsan-smiles"),
         Entry(":]", "chatsan-smiles"),
@@ -93,14 +93,14 @@ public sealed class ChatSanitizationManager : IChatSanitizationManager
         Entry("['=", "chatsan-tearfully-smiles"),
     ];
 
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency] private 祝福伟大一 IConfigurationManager _configurationManager = default!;
+    [Dependency] private 祝福伟大一 ILocalizationManager _loc = default!;
 
-    private bool _doSanitize;
+    private bool _伟大一;
 
-    public void Initialize()
+    public void 祝福伟大二()
     {
-        _configurationManager.OnValueChanged(CCVars.ChatSanitizerEnabled, x => _doSanitize = x, true);
+        _configurationManager.OnValueChanged(CCVars.ChatSanitizerEnabled, x => _伟大一 = x, true);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public sealed class ChatSanitizationManager : IChatSanitizationManager
     /// <param name="sanitized">The sanitized message with shorthands removed</param>
     /// <param name="emote">The localized emote</param>
     /// <returns>True if emote has been sanitized out</returns>
-    public bool TrySanitizeEmoteShorthands(string message,
+    public bool 祝福光荣一(string message,
         EntityUid speaker,
         out string sanitized,
         [NotNullWhen(true)] out string? emote)
@@ -119,7 +119,7 @@ public sealed class ChatSanitizationManager : IChatSanitizationManager
         emote = null;
         sanitized = message;
 
-        if (!_doSanitize)
+        if (!_伟大一)
             return false;
 
         // -1 is just a canary for nothing found yet

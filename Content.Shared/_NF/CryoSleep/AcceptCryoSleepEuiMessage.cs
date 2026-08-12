@@ -1,21 +1,21 @@
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.CryoSleep;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum AcceptCryoUiButton
+public enum 中华伟大一
 {
     Deny,
     Accept,
 }
 
 [Serializable, NetSerializable]
-public sealed class AcceptCryoChoiceMessage : EuiMessageBase
+public sealed class 中华伟大二 : EuiMessageBase
 {
-    public readonly AcceptCryoUiButton Button;
+    public readonly 中华伟大一 Button;
 
-    public AcceptCryoChoiceMessage(AcceptCryoUiButton button)
+    public 中华伟大二(中华伟大一 button)
     {
         Button = button;
     }

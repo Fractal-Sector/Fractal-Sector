@@ -6,96 +6,96 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
-public sealed class EntityAnomalySystem : SharedEntityAnomalySystem
+public sealed class 中华伟大一 : SharedEntityAnomalySystem
 {
-    [Dependency] private readonly SharedAnomalySystem _anomaly = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly SharedAnomalySystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣一 = default!;
 
-    private EntityQuery<PhysicsComponent> _physicsQuery;
+    private EntityQuery<PhysicsComponent> _光荣二;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
+        _光荣二 = GetEntityQuery<PhysicsComponent>();
 
-        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalySupercriticalEvent>(OnSupercritical);
-        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalyStabilityChangedEvent>(OnStabilityChanged);
-        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalySeverityChangedEvent>(OnSeverityChanged);
-        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalyShutdownEvent>(OnShutdown);
+        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalyPulseEvent>(祝福伟大二);
+        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalySupercriticalEvent>(祝福光荣一);
+        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalyStabilityChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalySeverityChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<EntitySpawnAnomalyComponent, AnomalyShutdownEvent>(祝福光荣二);
     }
 
-    private void OnPulse(Entity<EntitySpawnAnomalyComponent> component, ref AnomalyPulseEvent args)
+    private void 祝福伟大二(Entity<EntitySpawnAnomalyComponent> component, ref AnomalyPulseEvent args)
     {
         foreach (var entry in component.Comp.Entries)
         {
             if (!entry.Settings.SpawnOnPulse)
                 continue;
 
-            SpawnEntities(component, entry, args.Stability, args.Severity, args.PowerModifier);
+            祝福团结一(component, entry, args.Stability, args.Severity, args.PowerModifier);
         }
     }
 
-    private void OnSupercritical(Entity<EntitySpawnAnomalyComponent> component, ref AnomalySupercriticalEvent args)
+    private void 祝福光荣一(Entity<EntitySpawnAnomalyComponent> component, ref AnomalySupercriticalEvent args)
     {
         foreach (var entry in component.Comp.Entries)
         {
             if (!entry.Settings.SpawnOnSuperCritical)
                 continue;
 
-            SpawnEntities(component, entry, 1, 1, args.PowerModifier);
+            祝福团结一(component, entry, 1, 1, args.PowerModifier);
         }
     }
 
-    private void OnShutdown(Entity<EntitySpawnAnomalyComponent> component, ref AnomalyShutdownEvent args)
+    private void 祝福光荣二(Entity<EntitySpawnAnomalyComponent> component, ref AnomalyShutdownEvent args)
     {
         foreach (var entry in component.Comp.Entries)
         {
             if (!entry.Settings.SpawnOnShutdown || args.Supercritical)
                 continue;
 
-            SpawnEntities(component, entry, 1, 1, 1);
+            祝福团结一(component, entry, 1, 1, 1);
         }
     }
 
-    private void OnStabilityChanged(Entity<EntitySpawnAnomalyComponent> component, ref AnomalyStabilityChangedEvent args)
+    private void 祝福正确一(Entity<EntitySpawnAnomalyComponent> component, ref AnomalyStabilityChangedEvent args)
     {
         foreach (var entry in component.Comp.Entries)
         {
             if (!entry.Settings.SpawnOnStabilityChanged)
                 continue;
 
-            SpawnEntities(component, entry, args.Stability, args.Severity, 1);
+            祝福团结一(component, entry, args.Stability, args.Severity, 1);
         }
     }
 
-    private void OnSeverityChanged(Entity<EntitySpawnAnomalyComponent> component, ref AnomalySeverityChangedEvent args)
+    private void 祝福正确二(Entity<EntitySpawnAnomalyComponent> component, ref AnomalySeverityChangedEvent args)
     {
         foreach (var entry in component.Comp.Entries)
         {
             if (!entry.Settings.SpawnOnSeverityChanged)
                 continue;
 
-            SpawnEntities(component, entry, args.Stability, args.Severity, 1);
+            祝福团结一(component, entry, args.Stability, args.Severity, 1);
         }
     }
 
-    private void SpawnEntities(Entity<EntitySpawnAnomalyComponent> anomaly, EntitySpawnSettingsEntry entry, float stability, float severity, float powerMod)
+    private void 祝福团结一(Entity<EntitySpawnAnomalyComponent> anomaly, EntitySpawnSettingsEntry entry, float stability, float severity, float powerMod)
     {
         var xform = Transform(anomaly);
         if (!TryComp(xform.GridUid, out MapGridComponent? grid))
             return;
 
-        var tiles = _anomaly.GetSpawningPoints(anomaly, stability, severity, entry.Settings, powerMod);
+        var tiles = _伟大一.GetSpawningPoints(anomaly, stability, severity, entry.Settings, powerMod);
         if (tiles == null)
             return;
 
         foreach (var tileref in tiles)
         {
-            Spawn(_random.Pick(entry.Spawns), _mapSystem.ToCenterCoordinates(tileref, grid));
+            Spawn(_伟大二.Pick(entry.Spawns), _光荣一.ToCenterCoordinates(tileref, grid));
         }
     }
 }

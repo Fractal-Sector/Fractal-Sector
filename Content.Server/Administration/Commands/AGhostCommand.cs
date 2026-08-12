@@ -11,29 +11,29 @@ using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Content.Server._NF.CryoSleep; // Frontier
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class AGhostCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _伟大二 = default!;
 
-    public override string Command => "aghost";
-    public override string Help => "aghost";
+    public override string 党爱伟大一 => "aghost";
+    public override string 党爱伟大二 => "aghost";
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
-            var names = _playerManager.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
+            var names = _伟大二.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
             return CompletionResult.FromHintOptions(names, LocalizationManager.GetString("shell-argument-username-optional-hint"));
         }
 
         return CompletionResult.Empty;
     }
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大二(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length > 1)
         {
@@ -52,7 +52,7 @@ public sealed class AGhostCommand : LocalizedCommands
                 return;
             }
 
-            var didFind = _playerManager.TryGetSessionByUsername(args[0], out player);
+            var didFind = _伟大二.TryGetSessionByUsername(args[0], out player);
             if (!didFind)
             {
                 shell.WriteError(LocalizationManager.GetString("shell-target-player-does-not-exist"));
@@ -63,7 +63,7 @@ public sealed class AGhostCommand : LocalizedCommands
         // If you are a player and a username is provided, a lookup is done to find the target player.
         if (args.Length == 1)
         {
-            var didFind = _playerManager.TryGetSessionByUsername(args[0], out player);
+            var didFind = _伟大二.TryGetSessionByUsername(args[0], out player);
             if (!didFind)
             {
                 shell.WriteError(LocalizationManager.GetString("shell-target-player-does-not-exist"));
@@ -71,12 +71,12 @@ public sealed class AGhostCommand : LocalizedCommands
             }
         }
 
-        var mindSystem = _entities.System<SharedMindSystem>();
-        var metaDataSystem = _entities.System<MetaDataSystem>();
-        var ghostSystem = _entities.System<SharedGhostSystem>();
-        var transformSystem = _entities.System<TransformSystem>();
-        var gameTicker = _entities.System<GameTicker>();
-        var cryoSystem = _entities.System<CryoSleepSystem>(); // Frontier
+        var mindSystem = _伟大一.System<SharedMindSystem>();
+        var metaDataSystem = _伟大一.System<MetaDataSystem>();
+        var ghostSystem = _伟大一.System<SharedGhostSystem>();
+        var transformSystem = _伟大一.System<TransformSystem>();
+        var gameTicker = _伟大一.System<GameTicker>();
+        var cryoSystem = _伟大一.System<CryoSleepSystem>(); // Frontier
 
         if (!mindSystem.TryGetMind(player, out var mindId, out var mind))
         {
@@ -86,7 +86,7 @@ public sealed class AGhostCommand : LocalizedCommands
             return;
         }
 
-        if (mind.VisitingEntity != default && _entities.TryGetComponent<GhostComponent>(mind.VisitingEntity, out var oldGhostComponent))
+        if (mind.VisitingEntity != default && _伟大一.TryGetComponent<GhostComponent>(mind.VisitingEntity, out var oldGhostComponent))
         {
             mindSystem.UnVisit(mindId, mind);
             // If already an admin ghost, then return to body.
@@ -95,12 +95,12 @@ public sealed class AGhostCommand : LocalizedCommands
         }
 
         var canReturn = mind.CurrentEntity != null
-                        && !_entities.HasComponent<GhostComponent>(mind.CurrentEntity);
+                        && !_伟大一.HasComponent<GhostComponent>(mind.CurrentEntity);
         var coordinates = player!.AttachedEntity != null
-            ? _entities.GetComponent<TransformComponent>(player.AttachedEntity.Value).Coordinates
+            ? _伟大一.GetComponent<TransformComponent>(player.AttachedEntity.Value).Coordinates
             : gameTicker.GetObserverSpawnPoint();
-        var ghost = _entities.SpawnEntity(GameTicker.AdminObserverPrototypeName, coordinates);
-        transformSystem.AttachToGridOrMap(ghost, _entities.GetComponent<TransformComponent>(ghost));
+        var ghost = _伟大一.SpawnEntity(GameTicker.AdminObserverPrototypeName, coordinates);
+        transformSystem.AttachToGridOrMap(ghost, _伟大一.GetComponent<TransformComponent>(ghost));
 
         if (canReturn)
         {
@@ -118,7 +118,7 @@ public sealed class AGhostCommand : LocalizedCommands
             mindSystem.TransferTo(mindId, ghost, mind: mind);
         }
 
-        var comp = _entities.GetComponent<GhostComponent>(ghost);
+        var comp = _伟大一.GetComponent<GhostComponent>(ghost);
         ghostSystem.SetCanReturnToBody((ghost, comp), canReturn);
         ghostSystem.SetCanReturnFromCryo(comp, cryoSystem.HasCryosleepingBody(player.UserId)); // Frontier
     }

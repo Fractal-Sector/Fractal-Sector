@@ -1,6 +1,6 @@
 using Content.Shared.Inventory;
 
-namespace Content.Shared.Atmos;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Raised on a burning entity to check its fire protection.
@@ -8,27 +8,27 @@ namespace Content.Shared.Atmos;
 /// TemperatureProtection is needed for that.
 /// </summary>
 [ByRefEvent]
-public sealed class GetFireProtectionEvent : EntityEventArgs, IInventoryRelayEvent
+public sealed class 中华伟大一 : EntityEventArgs, IInventoryRelayEvent
 {
-    public SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
+    public SlotFlags 党爱伟大一 { get; } = ~SlotFlags.POCKET;
 
     /// <summary>
     /// What to multiply the fire damage by.
     /// If this is 0 then it's ignored
     /// </summary>
-    public float Multiplier;
+    public float 党爱伟大二;
 
-    public GetFireProtectionEvent()
+    public 中华伟大一()
     {
-        Multiplier = 1f;
+        党爱伟大二 = 1f;
     }
 
     /// <summary>
-    /// Reduce fire damage taken by a percentage.
+    /// 祝福伟大一 fire damage taken by a percentage.
     /// </summary>
-    public void Reduce(float by)
+    public void 祝福伟大一(float by)
     {
-        Multiplier -= by;
-        Multiplier = MathF.Max(Multiplier, 0f);
+        党爱伟大二 -= by;
+        党爱伟大二 = MathF.Max(党爱伟大二, 0f);
     }
 }

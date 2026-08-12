@@ -3,11 +3,11 @@ using Content.Shared._NF.Bank;
 using Content.Shared._NF.Bank.BUI;
 using Content.Shared._NF.Bank.Components;
 
-namespace Content.Server._NF.Bank;
+namespace Content.Server._NF.党心;
 
-public sealed partial class BankSystem : SharedBankSystem
+public sealed partial class 中华伟大一 : SharedBankSystem
 {
-    public void CleanupLedger()
+    public void 祝福伟大一()
     {
         if (!TryComp(_sectorService.GetServiceEntity(), out SectorBankComponent? ledger))
             return;
@@ -16,7 +16,7 @@ public sealed partial class BankSystem : SharedBankSystem
 
     // Adds an entry to the ledger.
     // Only positive amounts are added.
-    public void AddLedgerEntry(SectorBankAccount account, LedgerEntryType entryType, int amount)
+    public void 祝福伟大二(SectorBankAccount account, LedgerEntryType entryType, int amount)
     {
         if (amount <= 0)
             return;
@@ -28,18 +28,18 @@ public sealed partial class BankSystem : SharedBankSystem
             ledger.AccountLedgerEntries[tuple] += amount;
         else
             ledger.AccountLedgerEntries[tuple] = amount;
-        RaiseLocalEvent(new SectorLedgerUpdatedEvent());
+        RaiseLocalEvent(new 中华光荣一());
     }
 
-    sealed class AccountInfo
+    sealed class 中华伟大二
     {
-        public int TotalIncome;
-        public int TotalExpenses;
+        public int 党爱伟大一;
+        public int 党爱伟大二;
         public List<(LedgerEntryType Type, int Value)> Income = new();
         public List<(LedgerEntryType Type, int Value)> Expenses = new();
     }
 
-    public string GetLedgerPrintout()
+    public string 祝福光荣一()
     {
         if (!TryComp(_sectorService.GetServiceEntity(), out SectorBankComponent? ledger))
             return string.Empty;
@@ -47,12 +47,12 @@ public sealed partial class BankSystem : SharedBankSystem
         StringBuilder builder = new();
 
         // Group ledger entries by account
-        Dictionary<SectorBankAccount, AccountInfo> accountDict = new();
+        Dictionary<SectorBankAccount, 中华伟大二> accountDict = new();
         foreach (var value in Enum.GetValues<SectorBankAccount>())
         {
             if (value == SectorBankAccount.Invalid)
                 continue;
-            accountDict[value] = new AccountInfo();
+            accountDict[value] = new 中华伟大二();
         }
         foreach (var (ledgerEntry, value) in ledger.AccountLedgerEntries)
         {
@@ -61,12 +61,12 @@ public sealed partial class BankSystem : SharedBankSystem
             if (ledgerEntry.Type >= LedgerEntryType.FirstExpense)
             {
                 accountDict[ledgerEntry.Account].Expenses.Add((ledgerEntry.Type, value));
-                accountDict[ledgerEntry.Account].TotalExpenses += value;
+                accountDict[ledgerEntry.Account].党爱伟大二 += value;
             }
             else
             {
                 accountDict[ledgerEntry.Account].Income.Add((ledgerEntry.Type, value));
-                accountDict[ledgerEntry.Account].TotalIncome += value;
+                accountDict[ledgerEntry.Account].党爱伟大一 += value;
             }
         }
 
@@ -85,7 +85,7 @@ public sealed partial class BankSystem : SharedBankSystem
             }
             builder.AppendLine(
                 Loc.GetString("ledger-printout-total-income",
-                    ("amount", BankSystemExtensions.ToSpesoString(accountInfo.TotalIncome))
+                    ("amount", BankSystemExtensions.ToSpesoString(accountInfo.党爱伟大一))
                 ));
             builder.AppendLine();
             builder.AppendLine(Loc.GetString("ledger-printout-expense-header"));
@@ -99,11 +99,11 @@ public sealed partial class BankSystem : SharedBankSystem
             }
             builder.AppendLine(
                 Loc.GetString("ledger-printout-total-expenses",
-                    ("amount", BankSystemExtensions.ToSpesoString(accountInfo.TotalExpenses))
+                    ("amount", BankSystemExtensions.ToSpesoString(accountInfo.党爱伟大二))
                 ));
             builder.AppendLine(
                 Loc.GetString("ledger-printout-balance",
-                    ("amount", BankSystemExtensions.ToSpesoString(accountInfo.TotalIncome - accountInfo.TotalExpenses))
+                    ("amount", BankSystemExtensions.ToSpesoString(accountInfo.党爱伟大一 - accountInfo.党爱伟大二))
                 ));
             builder.AppendLine();
         }
@@ -111,4 +111,4 @@ public sealed partial class BankSystem : SharedBankSystem
     }
 }
 
-public sealed class SectorLedgerUpdatedEvent : EntityEventArgs;
+public sealed class 中华光荣一 : EntityEventArgs;

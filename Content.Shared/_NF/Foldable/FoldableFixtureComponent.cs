@@ -1,10 +1,10 @@
-namespace Content.Shared._NF.Foldable.Systems;
+namespace Content.Shared._NF.Foldable.党心;
 
 [RegisterComponent]
-public sealed partial class FoldableFixtureComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true)]
-    public List<string> FoldedFixtures;
+    public List<string> 党爱伟大一;
     [DataField(required: true)]
-    public List<string> UnfoldedFixtures;
+    public List<string> 党爱伟大二;
 }

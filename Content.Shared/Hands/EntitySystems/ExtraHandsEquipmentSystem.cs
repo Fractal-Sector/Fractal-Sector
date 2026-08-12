@@ -1,21 +1,21 @@
 using Content.Shared.Hands.Components;
 using Content.Shared.Inventory.Events;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
-public sealed class ExtraHandsEquipmentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ExtraHandsEquipmentComponent, GotEquippedEvent>(OnEquipped);
-        SubscribeLocalEvent<ExtraHandsEquipmentComponent, GotUnequippedEvent>(OnUnequipped);
+        SubscribeLocalEvent<ExtraHandsEquipmentComponent, GotEquippedEvent>(祝福伟大二);
+        SubscribeLocalEvent<ExtraHandsEquipmentComponent, GotUnequippedEvent>(祝福光荣一);
     }
 
-    private void OnEquipped(Entity<ExtraHandsEquipmentComponent> ent, ref GotEquippedEvent args)
+    private void 祝福伟大二(Entity<ExtraHandsEquipmentComponent> ent, ref GotEquippedEvent args)
     {
         if (!TryComp<HandsComponent>(args.Equipee, out var handsComp))
             return;
@@ -24,11 +24,11 @@ public sealed class ExtraHandsEquipmentSystem : EntitySystem
         {
             // add the NetEntity id to the container name to prevent multiple items with this component from conflicting
             var handId = $"{GetNetEntity(ent.Owner).Id}-{handName}";
-            _hands.AddHand((args.Equipee, handsComp), handId, hand.Location);
+            _伟大一.AddHand((args.Equipee, handsComp), handId, hand.Location);
         }
     }
 
-    private void OnUnequipped(Entity<ExtraHandsEquipmentComponent> ent, ref GotUnequippedEvent args)
+    private void 祝福光荣一(Entity<ExtraHandsEquipmentComponent> ent, ref GotUnequippedEvent args)
     {
         if (!TryComp<HandsComponent>(args.Equipee, out var handsComp))
             return;
@@ -37,7 +37,7 @@ public sealed class ExtraHandsEquipmentSystem : EntitySystem
         {
             // add the NetEntity id to the container name to prevent multiple items with this component from conflicting
             var handId = $"{GetNetEntity(ent.Owner).Id}-{handName}";
-            _hands.RemoveHand((args.Equipee, handsComp), handId);
+            _伟大一.RemoveHand((args.Equipee, handsComp), handId);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Content.Shared.Alert;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.StatusEffect
+namespace Content.Shared.党心
 {
     [Prototype]
-    public sealed partial class StatusEffectPrototype : IPrototype
+    public sealed partial class 中华伟大一 : IPrototype
     {
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
         [DataField("alert")]
         public ProtoId<AlertPrototype>? Alert { get; private set; }
@@ -17,6 +17,6 @@ namespace Content.Shared.StatusEffect
         ///     regardless of whether it is in ALlowedEffects or not.
         /// </summary>
         [DataField("alwaysAllowed")]
-        public bool AlwaysAllowed { get; private set; }
+        public bool 党爱伟大二 { get; private set; }
     }
 }

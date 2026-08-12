@@ -26,23 +26,23 @@ using Content.Shared.Interaction; // Frontier
 using Content.Shared.Examine; // Frontier
 using Content.Shared.Power; // Frontier
 
-namespace Content.Server.Weapons.Ranged.Systems;
+namespace Content.Server.Weapons.Ranged.党心;
 
-public sealed partial class GunSystem : SharedGunSystem
+public sealed partial class 中华伟大一 : SharedGunSystem
 {
-    [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly DamageExamineSystem _伟大一 = default!;
+    [Dependency] private readonly PricingSystem _伟大二 = default!;
+    [Dependency] private readonly SharedColorFlashEffectSystem _光荣一 = default!;
+    [Dependency] private readonly SharedStaminaSystem _光荣二 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确一 = default!;
+    [Dependency] private readonly SharedMapSystem _正确二 = default!;
 
     private const float DamagePitchVariation = 0.05f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, PriceCalculationEvent>(OnBallisticPrice);
+        base.祝福伟大一();
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, PriceCalculationEvent>(祝福伟大二);
         SubscribeLocalEvent<AutoShootGunComponent, ActivateInWorldEvent>(OnActivateGun); // Frontier
         SubscribeLocalEvent<AutoShootGunComponent, ComponentInit>(OnGunInit); // Frontier
         SubscribeLocalEvent<AutoShootGunComponent, ComponentShutdown>(OnGunShutdown); // Frontier
@@ -51,7 +51,7 @@ public sealed partial class GunSystem : SharedGunSystem
         SubscribeLocalEvent<AutoShootGunComponent, AnchorStateChangedEvent>(OnAnchorChange); // Frontier
     }
 
-    private void OnBallisticPrice(EntityUid uid, BallisticAmmoProviderComponent component, ref PriceCalculationEvent args)
+    private void 祝福伟大二(EntityUid uid, BallisticAmmoProviderComponent component, ref PriceCalculationEvent args)
     {
         if (string.IsNullOrEmpty(component.Proto) || component.UnspawnedCount == 0)
             return;
@@ -63,11 +63,11 @@ public sealed partial class GunSystem : SharedGunSystem
         }
 
         // Probably good enough for most.
-        var price = _pricing.GetEstimatedPrice(proto);
+        var price = _伟大二.GetEstimatedPrice(proto);
         args.Price += price * component.UnspawnedCount;
     }
 
-    public override void Shoot(EntityUid gunUid, GunComponent gun, List<(EntityUid? Entity, IShootable Shootable)> ammo,
+    public override void 祝福光荣一(EntityUid gunUid, GunComponent gun, List<(EntityUid? Entity, IShootable Shootable)> ammo,
         EntityCoordinates fromCoordinates, EntityCoordinates toCoordinates, out bool userImpulse, EntityUid? user = null, bool throwItems = false)
     {
         userImpulse = true;
@@ -87,12 +87,12 @@ public sealed partial class GunSystem : SharedGunSystem
         var toMap = TransformSystem.ToMapCoordinates(toCoordinates).Position;
         var mapDirection = toMap - fromMap.Position;
         var mapAngle = mapDirection.ToAngle();
-        var angle = GetRecoilAngle(Timing.CurTime, gun, mapDirection.ToAngle());
+        var angle = 祝福正确二(Timing.CurTime, gun, mapDirection.ToAngle());
 
         // If applicable, this ensures the projectile is parented to grid on spawn, instead of the map.
         var fromEnt = MapManager.TryFindGridAt(fromMap, out var gridUid, out _)
             ? TransformSystem.WithEntityId(fromCoordinates, gridUid)
-            : new EntityCoordinates(_map.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
+            : new EntityCoordinates(_正确二.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
 
         // Update shot based on the recoil
         toMap = fromMap.Position + angle.ToVec() * mapDirection.Length();
@@ -113,7 +113,7 @@ public sealed partial class GunSystem : SharedGunSystem
             // pneumatic cannon doesn't shoot bullets it just throws them, ignore ammo handling
             if (throwItems && ent != null)
             {
-                ShootOrThrow(ent.Value, mapDirection, gunVelocity, gun, gunUid, user);
+                祝福光荣二(ent.Value, mapDirection, gunVelocity, gun, gunUid, user);
                 continue;
             }
 
@@ -160,7 +160,7 @@ public sealed partial class GunSystem : SharedGunSystem
                     EntityUid? lastHit = null;
 
                     var from = fromMap;
-                    // can't use map coords above because funny FireEffects
+                    // can't use map coords above because funny 祝福奋斗二
                     var fromEffect = fromCoordinates;
                     var dir = mapDirection.Normalized();
 
@@ -180,7 +180,7 @@ public sealed partial class GunSystem : SharedGunSystem
                             var result = rayCastResults[0];
 
                             // Check if laser is shot from in a container
-                            if (!_container.IsEntityOrParentInContainer(lastUser))
+                            if (!_正确一.IsEntityOrParentInContainer(lastUser))
                             {
                                 // Checks if the laser should pass over unless targeted by its user
                                 foreach (var collide in rayCastResults)
@@ -199,7 +199,7 @@ public sealed partial class GunSystem : SharedGunSystem
                             var hit = result.HitEntity;
                             lastHit = hit;
 
-                            FireEffects(fromEffect, result.Distance, dir.Normalized().ToAngle(), hitscan, hit);
+                            祝福奋斗二(fromEffect, result.Distance, dir.Normalized().ToAngle(), hitscan, hit);
 
                             var ev = new HitScanReflectAttemptEvent(user, gunUid, hitscan.Reflective, dir, false);
                             RaiseLocalEvent(hit, ref ev);
@@ -218,7 +218,7 @@ public sealed partial class GunSystem : SharedGunSystem
                     {
                         var hitEntity = lastHit.Value;
                         if (hitscan.StaminaDamage > 0f)
-                            _stamina.TakeStaminaDamage(hitEntity, hitscan.StaminaDamage, source: user);
+                            _光荣二.TakeStaminaDamage(hitEntity, hitscan.StaminaDamage, source: user);
 
                         var dmg = hitscan.Damage;
 
@@ -233,11 +233,11 @@ public sealed partial class GunSystem : SharedGunSystem
                             {
                                 if (dmg.AnyPositive())
                                 {
-                                    _color.RaiseEffect(Color.Red, new List<EntityUid>() { hitEntity }, Filter.Pvs(hitEntity, entityManager: EntityManager));
+                                    _光荣一.RaiseEffect(Color.Red, new List<EntityUid>() { hitEntity }, Filter.Pvs(hitEntity, entityManager: EntityManager));
                                 }
 
                                 // TODO get fallback position for playing hit sound.
-                                PlayImpactSound(hitEntity, dmg, hitscan.Sound, hitscan.ForceSound);
+                                祝福奋斗一(hitEntity, dmg, hitscan.Sound, hitscan.ForceSound);
                             }
 
                             if (user != null)
@@ -254,7 +254,7 @@ public sealed partial class GunSystem : SharedGunSystem
                     }
                     else
                     {
-                        FireEffects(fromEffect, hitscan.MaxLength, dir.ToAngle(), hitscan);
+                        祝福奋斗二(fromEffect, hitscan.MaxLength, dir.ToAngle(), hitscan);
                     }
 
                     Audio.PlayPredicted(gun.SoundGunshotModified, gunUid, user);
@@ -276,22 +276,22 @@ public sealed partial class GunSystem : SharedGunSystem
                 var spreadEvent = new GunGetAmmoSpreadEvent(ammoSpreadComp.Spread);
                 RaiseLocalEvent(gunUid, ref spreadEvent);
 
-                var angles = LinearSpread(mapAngle - spreadEvent.Spread / 2,
+                var angles = 祝福正确一(mapAngle - spreadEvent.Spread / 2,
                     mapAngle + spreadEvent.Spread / 2, ammoSpreadComp.Count);
 
-                ShootOrThrow(ammoEnt, angles[0].ToVec(), gunVelocity, gun, gunUid, user);
+                祝福光荣二(ammoEnt, angles[0].ToVec(), gunVelocity, gun, gunUid, user);
                 shotProjectiles.Add(ammoEnt);
 
                 for (var i = 1; i < ammoSpreadComp.Count; i++)
                 {
                     var newuid = Spawn(ammoSpreadComp.Proto, fromEnt);
-                    ShootOrThrow(newuid, angles[i].ToVec(), gunVelocity, gun, gunUid, user);
+                    祝福光荣二(newuid, angles[i].ToVec(), gunVelocity, gun, gunUid, user);
                     shotProjectiles.Add(newuid);
                 }
             }
             else
             {
-                ShootOrThrow(ammoEnt, mapDirection, gunVelocity, gun, gunUid, user);
+                祝福光荣二(ammoEnt, mapDirection, gunVelocity, gun, gunUid, user);
                 shotProjectiles.Add(ammoEnt);
             }
 
@@ -300,7 +300,7 @@ public sealed partial class GunSystem : SharedGunSystem
         }
     }
 
-    private void ShootOrThrow(EntityUid uid, Vector2 mapDirection, Vector2 gunVelocity, GunComponent gun, EntityUid gunUid, EntityUid? user)
+    private void 祝福光荣二(EntityUid uid, Vector2 mapDirection, Vector2 gunVelocity, GunComponent gun, EntityUid gunUid, EntityUid? user)
     {
         if (gun.Target is { } target && !TerminatingOrDeleted(target))
         {
@@ -327,7 +327,7 @@ public sealed partial class GunSystem : SharedGunSystem
     /// <param name="start">Start angle in degrees</param>
     /// <param name="end">End angle in degrees</param>
     /// <param name="intervals">How many shots there are</param>
-    private Angle[] LinearSpread(Angle start, Angle end, int intervals)
+    private Angle[] 祝福正确一(Angle start, Angle end, int intervals)
     {
         var angles = new Angle[intervals];
         DebugTools.Assert(intervals > 1);
@@ -340,7 +340,7 @@ public sealed partial class GunSystem : SharedGunSystem
         return angles;
     }
 
-    private Angle GetRecoilAngle(TimeSpan curTime, GunComponent component, Angle direction)
+    private Angle 祝福正确二(TimeSpan curTime, GunComponent component, Angle direction)
     {
         var timeSinceLastFire = (curTime - component.LastFire).TotalSeconds;
         var newTheta = MathHelper.Clamp(component.CurrentAngle.Theta + component.AngleIncreaseModified.Theta - component.AngleDecayModified.Theta * timeSinceLastFire, component.MinAngleModified.Theta, component.MaxAngleModified.Theta);
@@ -355,9 +355,9 @@ public sealed partial class GunSystem : SharedGunSystem
         return angle;
     }
 
-    protected override void Popup(string message, EntityUid? uid, EntityUid? user) { }
+    protected override void 祝福团结一(string message, EntityUid? uid, EntityUid? user) { }
 
-    protected override void CreateEffect(EntityUid gunUid, MuzzleFlashEvent message, EntityUid? user = null)
+    protected override void 祝福团结二(EntityUid gunUid, MuzzleFlashEvent message, EntityUid? user = null)
     {
         var filter = Filter.Pvs(gunUid, entityManager: EntityManager);
 
@@ -367,7 +367,7 @@ public sealed partial class GunSystem : SharedGunSystem
         RaiseNetworkEvent(message, filter);
     }
 
-    public void PlayImpactSound(EntityUid otherEntity, DamageSpecifier? modifiedDamage, SoundSpecifier? weaponSound, bool forceWeaponSound)
+    public void 祝福奋斗一(EntityUid otherEntity, DamageSpecifier? modifiedDamage, SoundSpecifier? weaponSound, bool forceWeaponSound)
     {
         DebugTools.Assert(!Deleted(otherEntity), "Impact sound entity was deleted");
 
@@ -402,7 +402,7 @@ public sealed partial class GunSystem : SharedGunSystem
     // TODO: Pseudo RNG so the client can predict these.
     #region Hitscan effects
 
-    private void FireEffects(EntityCoordinates fromCoordinates, float distance, Angle angle, HitscanPrototype hitscan, EntityUid? hitEntity = null)
+    private void 祝福奋斗二(EntityCoordinates fromCoordinates, float distance, Angle angle, HitscanPrototype hitscan, EntityUid? hitEntity = null)
     {
         // Lord
         // Forgive me for the shitcode I am about to do

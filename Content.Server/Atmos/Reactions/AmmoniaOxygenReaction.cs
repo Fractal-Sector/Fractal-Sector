@@ -3,12 +3,12 @@ using Content.Shared.Atmos;
 using Content.Shared.Atmos.Reactions;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Reactions;
+namespace Content.Server.Atmos.党心;
 
 [UsedImplicitly]
-public sealed partial class AmmoniaOxygenReaction : IGasReactionEffect
+public sealed partial class 中华伟大一 : IGasReactionEffect
 {
-    public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+    public ReactionResult 祝福伟大一(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
     {
         var nAmmonia = mixture.GetMoles(Gas.Ammonia);
         var nOxygen = mixture.GetMoles(Gas.Oxygen);

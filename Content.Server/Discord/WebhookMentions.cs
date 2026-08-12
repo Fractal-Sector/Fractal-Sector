@@ -1,21 +1,21 @@
 using System.Text.Json.Serialization;
 
-namespace Content.Server.Discord;
+namespace Content.Server.党心;
 
-public struct WebhookMentions
+public struct 中华伟大一
 {
     [JsonPropertyName("parse")]
-    public HashSet<string> Parse { get; set; } = new();
+    public HashSet<string> 党爱伟大一 { get; set; } = new();
 
     [JsonPropertyName("roles")] // Frontier: allow specific roles
-    public HashSet<string> Roles { get; set; } = new(); // Frontier: allow specific roles
+    public HashSet<string> 党爱伟大二 { get; set; } = new(); // Frontier: allow specific roles
 
-    public WebhookMentions()
+    public 中华伟大一()
     {
     }
 
-    public void AllowRoleMentions()
+    public void 祝福伟大一()
     {
-        Parse.Add("roles");
+        党爱伟大一.Add("roles");
     }
 }

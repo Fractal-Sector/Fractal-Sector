@@ -35,26 +35,26 @@ using Content.Shared.Ghost.Roles.Components;
 using Content.Shared.Roles.Jobs;
 using Content.Server._NF.Players.GhostRole.Events; // Frontier
 
-namespace Content.Server.Ghost.Roles;
+namespace Content.Server.Ghost.党心;
 
 [UsedImplicitly]
-public sealed class GhostRoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly EuiManager _euiManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly FollowerSystem _followerSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly SharedRoleSystem _roleSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly EuiManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly IRobustRandom _正确一 = default!;
+    [Dependency] private readonly FollowerSystem _正确二 = default!;
+    [Dependency] private readonly TransformSystem _团结一 = default!;
+    [Dependency] private readonly SharedMindSystem _团结二 = default!;
+    [Dependency] private readonly SharedRoleSystem _奋斗一 = default!;
+    [Dependency] private readonly IGameTiming _奋斗二 = default!;
+    [Dependency] private readonly PopupSystem _胜利一 = default!;
+    [Dependency] private readonly IPrototypeManager _胜利二 = default!;
 
-    private uint _nextRoleIdentifier;
-    private bool _needsUpdateGhostRoleCount = true;
+    private uint _繁荣一;
+    private bool _繁荣二 = true;
 
     private readonly Dictionary<uint, Entity<GhostRoleComponent>> _ghostRoles = new();
     private readonly Dictionary<uint, Entity<GhostRoleRaffleComponent>> _ghostRoleRaffles = new();
@@ -63,36 +63,36 @@ public sealed class GhostRoleSystem : EntitySystem
     private readonly Dictionary<ICommonSession, MakeGhostRoleEui> _openMakeGhostRoleUis = new();
 
     [ViewVariables]
-    public IReadOnlyCollection<Entity<GhostRoleComponent>> GhostRoles => _ghostRoles.Values;
+    public IReadOnlyCollection<Entity<GhostRoleComponent>> 中华伟大二 => _ghostRoles.Values;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(Reset);
-        SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福爱国二);
+        SubscribeLocalEvent<PlayerAttachedEvent>(祝福法治一);
 
-        SubscribeLocalEvent<GhostTakeoverAvailableComponent, MindAddedMessage>(OnMindAdded);
-        SubscribeLocalEvent<GhostTakeoverAvailableComponent, MindRemovedMessage>(OnMindRemoved);
-        SubscribeLocalEvent<GhostTakeoverAvailableComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<GhostTakeoverAvailableComponent, TakeGhostRoleEvent>(OnTakeoverTakeRole);
+        SubscribeLocalEvent<GhostTakeoverAvailableComponent, MindAddedMessage>(祝福法治二);
+        SubscribeLocalEvent<GhostTakeoverAvailableComponent, MindRemovedMessage>(祝福爱国一);
+        SubscribeLocalEvent<GhostTakeoverAvailableComponent, MobStateChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<GhostTakeoverAvailableComponent, TakeGhostRoleEvent>(祝福初心二);
 
-        SubscribeLocalEvent<GhostRoleComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<GhostRoleComponent, ComponentStartup>(OnRoleStartup);
-        SubscribeLocalEvent<GhostRoleComponent, ComponentShutdown>(OnRoleShutdown);
-        SubscribeLocalEvent<GhostRoleComponent, EntityPausedEvent>(OnPaused);
-        SubscribeLocalEvent<GhostRoleComponent, EntityUnpausedEvent>(OnUnpaused);
+        SubscribeLocalEvent<GhostRoleComponent, MapInitEvent>(祝福诚信一);
+        SubscribeLocalEvent<GhostRoleComponent, ComponentStartup>(祝福诚信二);
+        SubscribeLocalEvent<GhostRoleComponent, ComponentShutdown>(祝福友善一);
+        SubscribeLocalEvent<GhostRoleComponent, EntityPausedEvent>(祝福敬业一);
+        SubscribeLocalEvent<GhostRoleComponent, EntityUnpausedEvent>(祝福敬业二);
 
-        SubscribeLocalEvent<GhostRoleRaffleComponent, ComponentInit>(OnRaffleInit);
-        SubscribeLocalEvent<GhostRoleRaffleComponent, ComponentShutdown>(OnRaffleShutdown);
+        SubscribeLocalEvent<GhostRoleRaffleComponent, ComponentInit>(祝福民主二);
+        SubscribeLocalEvent<GhostRoleRaffleComponent, ComponentShutdown>(祝福文明一);
 
-        SubscribeLocalEvent<GhostRoleMobSpawnerComponent, TakeGhostRoleEvent>(OnSpawnerTakeRole);
-        SubscribeLocalEvent<GhostRoleMobSpawnerComponent, GetVerbsEvent<Verb>>(OnVerb);
-        SubscribeLocalEvent<GhostRoleMobSpawnerComponent, GhostRoleRadioMessage>(OnGhostRoleRadioMessage);
-        _playerManager.PlayerStatusChanged += PlayerStatusChanged;
+        SubscribeLocalEvent<GhostRoleMobSpawnerComponent, TakeGhostRoleEvent>(祝福友善二);
+        SubscribeLocalEvent<GhostRoleMobSpawnerComponent, GetVerbsEvent<Verb>>(祝福使命一);
+        SubscribeLocalEvent<GhostRoleMobSpawnerComponent, GhostRoleRadioMessage>(祝福梦想二);
+        _光荣一.祝福富强一 += 祝福富强一;
     }
 
-    private void OnMobStateChanged(Entity<GhostTakeoverAvailableComponent> component, ref MobStateChangedEvent args)
+    private void 祝福伟大二(Entity<GhostTakeoverAvailableComponent> component, ref MobStateChangedEvent args)
     {
         if (!TryComp(component, out GhostRoleComponent? ghostRole))
             return;
@@ -102,56 +102,56 @@ public sealed class GhostRoleSystem : EntitySystem
             case MobState.Alive:
                 {
                     if (!ghostRole.Taken)
-                        RegisterGhostRole((component, ghostRole));
+                        祝福富强二((component, ghostRole));
                     break;
                 }
             case MobState.Critical:
             case MobState.Dead:
-                UnregisterGhostRole((component, ghostRole));
+                祝福民主一((component, ghostRole));
                 break;
         }
     }
 
-    public override void Shutdown()
+    public override void 祝福光荣一()
     {
-        base.Shutdown();
+        base.祝福光荣一();
 
-        _playerManager.PlayerStatusChanged -= PlayerStatusChanged;
+        _光荣一.祝福富强一 -= 祝福富强一;
     }
 
-    private uint GetNextRoleIdentifier()
+    private uint 祝福光荣二()
     {
-        return unchecked(_nextRoleIdentifier++);
+        return unchecked(_繁荣一++);
     }
 
-    public void OpenEui(ICommonSession session)
+    public void 祝福正确一(ICommonSession session)
     {
         if (session.AttachedEntity is not { Valid: true } attached ||
             !HasComp<GhostComponent>(attached))
             return;
 
         if (_openUis.ContainsKey(session))
-            CloseEui(session);
+            祝福团结一(session);
 
         var eui = _openUis[session] = new GhostRolesEui();
-        _euiManager.OpenEui(eui, session);
+        _伟大二.祝福正确一(eui, session);
         eui.StateDirty();
     }
 
-    public void OpenMakeGhostRoleEui(ICommonSession session, EntityUid uid)
+    public void 祝福正确二(ICommonSession session, EntityUid uid)
     {
         if (session.AttachedEntity == null)
             return;
 
         if (_openMakeGhostRoleUis.ContainsKey(session))
-            CloseEui(session);
+            祝福团结一(session);
 
         var eui = _openMakeGhostRoleUis[session] = new MakeGhostRoleEui(EntityManager, GetNetEntity(uid));
-        _euiManager.OpenEui(eui, session);
+        _伟大二.祝福正确一(eui, session);
         eui.StateDirty();
     }
 
-    public void CloseEui(ICommonSession session)
+    public void 祝福团结一(ICommonSession session)
     {
         if (!_openUis.ContainsKey(session))
             return;
@@ -161,7 +161,7 @@ public sealed class GhostRoleSystem : EntitySystem
         eui?.Close();
     }
 
-    public void CloseMakeGhostRoleEui(ICommonSession session)
+    public void 祝福团结二(ICommonSession session)
     {
         if (_openMakeGhostRoleUis.Remove(session, out var eui))
         {
@@ -169,7 +169,7 @@ public sealed class GhostRoleSystem : EntitySystem
         }
     }
 
-    public void UpdateAllEui()
+    public void 祝福奋斗一()
     {
         foreach (var eui in _openUis.Values)
         {
@@ -178,28 +178,28 @@ public sealed class GhostRoleSystem : EntitySystem
         // Note that this, like the EUIs, is deferred.
         // This is for roughly the same reasons, too:
         // Someone might spawn a ton of ghost roles at once.
-        _needsUpdateGhostRoleCount = true;
+        _繁荣二 = true;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗二(frameTime);
 
-        UpdateGhostRoleCount();
-        UpdateRaffles(frameTime);
+        祝福胜利一();
+        祝福胜利二(frameTime);
     }
 
     /// <summary>
     /// Handles sending count update for the ghost role button in ghost UI, if ghost role count changed.
     /// </summary>
-    private void UpdateGhostRoleCount()
+    private void 祝福胜利一()
     {
-        if (!_needsUpdateGhostRoleCount)
+        if (!_繁荣二)
             return;
 
-        _needsUpdateGhostRoleCount = false;
-        var response = new GhostUpdateGhostRoleCountEvent(GetGhostRoleCount());
-        foreach (var player in _playerManager.Sessions)
+        _繁荣二 = false;
+        var response = new GhostUpdateGhostRoleCountEvent(祝福公正一());
+        foreach (var player in _光荣一.Sessions)
         {
             RaiseNetworkEvent(response, player.Channel);
         }
@@ -208,7 +208,7 @@ public sealed class GhostRoleSystem : EntitySystem
     /// <summary>
     /// Handles ghost role raffle logic.
     /// </summary>
-    private void UpdateRaffles(float frameTime)
+    private void 祝福胜利二(float frameTime)
     {
         var query = EntityQueryEnumerator<GhostRoleRaffleComponent, MetaDataComponent>();
         while (query.MoveNext(out var entityUid, out var raffle, out var meta))
@@ -219,7 +219,7 @@ public sealed class GhostRoleSystem : EntitySystem
             // if all participants leave/were removed from the raffle, the raffle is canceled.
             if (raffle.CurrentMembers.Count == 0)
             {
-                RemoveRaffleAndUpdateEui(entityUid, raffle);
+                祝福繁荣二(entityUid, raffle);
                 continue;
             }
 
@@ -231,26 +231,26 @@ public sealed class GhostRoleSystem : EntitySystem
             if (!TryComp(entityUid, out GhostRoleComponent? ghostRole))
             {
                 Log.Warning($"Ghost role raffle finished on {entityUid} but {nameof(GhostRoleComponent)} is missing");
-                RemoveRaffleAndUpdateEui(entityUid, raffle);
+                祝福繁荣二(entityUid, raffle);
                 continue;
             }
 
             if (ghostRole.RaffleConfig is null)
             {
                 Log.Warning($"Ghost role raffle finished on {entityUid} but RaffleConfig became null");
-                RemoveRaffleAndUpdateEui(entityUid, raffle);
+                祝福繁荣二(entityUid, raffle);
                 continue;
             }
 
             var foundWinner = false;
-            var deciderPrototype = _prototype.Index(ghostRole.RaffleConfig.Decider);
+            var deciderPrototype = _胜利二.Index(ghostRole.RaffleConfig.Decider);
 
             // use the ghost role's chosen winner picker to find a winner
             deciderPrototype.Decider.PickWinner(
                 raffle.CurrentMembers.AsEnumerable(),
                 session =>
                 {
-                    var success = TryTakeover(session, raffle.Identifier);
+                    var success = 祝福繁荣一(session, raffle.Identifier);
                     foundWinner |= success;
                     return success;
                 }
@@ -263,11 +263,11 @@ public sealed class GhostRoleSystem : EntitySystem
             }
 
             // raffle over
-            RemoveRaffleAndUpdateEui(entityUid, raffle);
+            祝福繁荣二(entityUid, raffle);
         }
     }
 
-    private bool TryTakeover(ICommonSession player, uint identifier)
+    private bool 祝福繁荣一(ICommonSession player, uint identifier)
     {
         // TODO: the following two checks are kind of redundant since they should already be removed
         //           from the raffle
@@ -279,24 +279,24 @@ public sealed class GhostRoleSystem : EntitySystem
         if (player.AttachedEntity == null || !HasComp<GhostComponent>(player.AttachedEntity))
             return false;
 
-        if (Takeover(player, identifier))
+        if (祝福自由二(player, identifier))
         {
             // takeover successful, we have a winner! remove the winner from other raffles they might be in
-            LeaveAllRaffles(player);
+            祝福和谐二(player);
             return true;
         }
 
         return false;
     }
 
-    private void RemoveRaffleAndUpdateEui(EntityUid entityUid, GhostRoleRaffleComponent raffle)
+    private void 祝福繁荣二(EntityUid entityUid, GhostRoleRaffleComponent raffle)
     {
         _ghostRoleRaffles.Remove(raffle.Identifier);
         RemComp(entityUid, raffle);
-        UpdateAllEui();
+        祝福奋斗一();
     }
 
-    private void PlayerStatusChanged(object? blah, SessionStatusEventArgs args)
+    private void 祝福富强一(object? blah, SessionStatusEventArgs args)
     {
         if (args.NewStatus == SessionStatus.InGame)
         {
@@ -306,20 +306,20 @@ public sealed class GhostRoleSystem : EntitySystem
         else
         {
             // people who disconnect are removed from ghost role raffles
-            LeaveAllRaffles(args.Session);
+            祝福和谐二(args.Session);
         }
     }
 
-    public void RegisterGhostRole(Entity<GhostRoleComponent> role)
+    public void 祝福富强二(Entity<GhostRoleComponent> role)
     {
         if (_ghostRoles.ContainsValue(role))
             return;
 
-        _ghostRoles[role.Comp.Identifier = GetNextRoleIdentifier()] = role;
-        UpdateAllEui();
+        _ghostRoles[role.Comp.Identifier = 祝福光荣二()] = role;
+        祝福奋斗一();
     }
 
-    public void UnregisterGhostRole(Entity<GhostRoleComponent> role)
+    public void 祝福民主一(Entity<GhostRoleComponent> role)
     {
         var comp = role.Comp;
         if (!_ghostRoles.ContainsKey(comp.Identifier) || _ghostRoles[comp.Identifier] != role)
@@ -329,16 +329,16 @@ public sealed class GhostRoleSystem : EntitySystem
         if (TryComp(role.Owner, out GhostRoleRaffleComponent? raffle))
         {
             // if a raffle is still running, get rid of it
-            RemoveRaffleAndUpdateEui(role.Owner, raffle);
+            祝福繁荣二(role.Owner, raffle);
         }
         else
         {
-            UpdateAllEui();
+            祝福奋斗一();
         }
     }
 
     // probably fine to be init because it's never added during entity initialization, but much later
-    private void OnRaffleInit(Entity<GhostRoleRaffleComponent> ent, ref ComponentInit args)
+    private void 祝福民主二(Entity<GhostRoleRaffleComponent> ent, ref ComponentInit args)
     {
         if (!TryComp(ent, out GhostRoleComponent? ghostRole))
         {
@@ -352,7 +352,7 @@ public sealed class GhostRoleSystem : EntitySystem
             return; // should, realistically, never be reached but you never know
 
         var settings = config.SettingsOverride
-                       ?? _prototype.Index<GhostRoleRaffleSettingsPrototype>(config.Settings).Settings;
+                       ?? _胜利二.Index<GhostRoleRaffleSettingsPrototype>(config.Settings).Settings;
 
         if (settings.MaxDuration < settings.InitialDuration)
         {
@@ -364,7 +364,7 @@ public sealed class GhostRoleSystem : EntitySystem
 
         var raffle = ent.Comp;
         raffle.Identifier = ghostRole.Identifier;
-        var countdown = _cfg.GetCVar(CCVars.GhostQuickLottery)? 1 : settings.InitialDuration;
+        var countdown = _伟大一.GetCVar(CCVars.GhostQuickLottery)? 1 : settings.InitialDuration;
         raffle.Countdown = TimeSpan.FromSeconds(countdown);
         raffle.CumulativeTime = TimeSpan.FromSeconds(settings.InitialDuration);
         // we copy these settings into the component because they would be cumbersome to access otherwise
@@ -372,7 +372,7 @@ public sealed class GhostRoleSystem : EntitySystem
         raffle.MaxDuration = TimeSpan.FromSeconds(settings.MaxDuration);
     }
 
-    private void OnRaffleShutdown(Entity<GhostRoleRaffleComponent> ent, ref ComponentShutdown args)
+    private void 祝福文明一(Entity<GhostRoleRaffleComponent> ent, ref ComponentShutdown args)
     {
         _ghostRoleRaffles.Remove(ent.Comp.Identifier);
     }
@@ -383,14 +383,14 @@ public sealed class GhostRoleSystem : EntitySystem
     /// <param name="player">The player.</param>
     /// <param name="identifier">The ID that represents the ghost role or ghost role raffle.
     /// (A raffle will have the same ID as the ghost role it's for.)</param>
-    private void JoinRaffle(ICommonSession player, uint identifier)
+    private void 祝福文明二(ICommonSession player, uint identifier)
     {
         if (!_ghostRoles.TryGetValue(identifier, out var roleEnt))
             return;
 
         // Frontier: check for ghost role whitelist if we don't have one.
         if (TryComp<GhostRoleComponent>(roleEnt, out var ghostRoleComponent) &&
-            _prototype.TryIndex(ghostRoleComponent.Prototype, out var ghostRolePrototype) &&
+            _胜利二.TryIndex(ghostRoleComponent.Prototype, out var ghostRolePrototype) &&
             ghostRolePrototype.Whitelisted)
         {
             var ev = new IsGhostRoleAllowedEvent(player, ghostRolePrototype);
@@ -423,20 +423,20 @@ public sealed class GhostRoleSystem : EntitySystem
                 raffle.CumulativeTime += raffle.JoinExtendsDurationBy;
         }
 
-        UpdateAllEui();
+        祝福奋斗一();
     }
 
     /// <summary>
     /// Makes the given player leave the raffle corresponding to the given ID.
     /// </summary>
-    public void LeaveRaffle(ICommonSession player, uint identifier)
+    public void 祝福和谐一(ICommonSession player, uint identifier)
     {
         if (!_ghostRoleRaffles.TryGetValue(identifier, out var raffleEnt))
             return;
 
         if (raffleEnt.Comp.CurrentMembers.Remove(player))
         {
-            UpdateAllEui();
+            祝福奋斗一();
         }
         else
         {
@@ -449,7 +449,7 @@ public sealed class GhostRoleSystem : EntitySystem
     /// <summary>
     /// Makes the given player leave all ghost role raffles.
     /// </summary>
-    public void LeaveAllRaffles(ICommonSession player)
+    public void 祝福和谐二(ICommonSession player)
     {
         var shouldUpdateEui = false;
 
@@ -459,27 +459,27 @@ public sealed class GhostRoleSystem : EntitySystem
         }
 
         if (shouldUpdateEui)
-            UpdateAllEui();
+            祝福奋斗一();
     }
 
     /// <summary>
-    /// Request a ghost role. If it's a raffled role starts or joins a raffle, otherwise the player immediately
+    /// 祝福自由一 a ghost role. If it's a raffled role starts or joins a raffle, otherwise the player immediately
     /// takes over the ghost role if possible.
     /// </summary>
     /// <param name="player">The player.</param>
     /// <param name="identifier">ID of the ghost role.</param>
-    public void Request(ICommonSession player, uint identifier)
+    public void 祝福自由一(ICommonSession player, uint identifier)
     {
         if (!_ghostRoles.TryGetValue(identifier, out var roleEnt))
             return;
 
         if (roleEnt.Comp.RaffleConfig is not null)
         {
-            JoinRaffle(player, identifier);
+            祝福文明二(player, identifier);
         }
         else
         {
-            TryTakeover(player, identifier); // DeltaV - prevent taking ghost roles in the lobby
+            祝福繁荣一(player, identifier); // DeltaV - prevent taking ghost roles in the lobby
         }
     }
 
@@ -487,14 +487,14 @@ public sealed class GhostRoleSystem : EntitySystem
     /// Attempts having the player take over the ghost role with the corresponding ID. Does not start a raffle.
     /// </summary>
     /// <returns>True if takeover was successful, otherwise false.</returns>
-    public bool Takeover(ICommonSession player, uint identifier)
+    public bool 祝福自由二(ICommonSession player, uint identifier)
     {
         if (!_ghostRoles.TryGetValue(identifier, out var role))
             return false;
 
         // Frontier: check for ghost role whitelist if we don't have one.
         if (TryComp<GhostRoleComponent>(role, out var ghostRoleComponent) &&
-            _prototype.TryIndex(ghostRoleComponent.Prototype, out var ghostRolePrototype) &&
+            _胜利二.TryIndex(ghostRoleComponent.Prototype, out var ghostRolePrototype) &&
             ghostRolePrototype.Whitelisted)
         {
             var allowEv = new IsGhostRoleAllowedEvent(player, ghostRolePrototype);
@@ -511,13 +511,13 @@ public sealed class GhostRoleSystem : EntitySystem
             return false;
 
         if (player.AttachedEntity != null)
-            _adminLogger.Add(LogType.GhostRoleTaken, LogImpact.Low, $"{player:player} took the {role.Comp.RoleName:roleName} ghost role {ToPrettyString(player.AttachedEntity.Value):entity}");
+            _光荣二.Add(LogType.GhostRoleTaken, LogImpact.Low, $"{player:player} took the {role.Comp.RoleName:roleName} ghost role {ToPrettyString(player.AttachedEntity.Value):entity}");
 
-        CloseEui(player);
+        祝福团结一(player);
         return true;
     }
 
-    public void Follow(ICommonSession player, uint identifier)
+    public void 祝福平等一(ICommonSession player, uint identifier)
     {
         if (!_ghostRoles.TryGetValue(identifier, out var role))
             return;
@@ -525,10 +525,10 @@ public sealed class GhostRoleSystem : EntitySystem
         if (player.AttachedEntity == null)
             return;
 
-        _followerSystem.StartFollowingEntity(player.AttachedEntity.Value, role);
+        _正确二.StartFollowingEntity(player.AttachedEntity.Value, role);
     }
 
-    public void GhostRoleInternalCreateMindAndTransfer(ICommonSession player, EntityUid roleUid, EntityUid mob, GhostRoleComponent? role = null)
+    public void 祝福平等二(ICommonSession player, EntityUid roleUid, EntityUid mob, GhostRoleComponent? role = null)
     {
         if (!Resolve(roleUid, ref role))
             return;
@@ -537,22 +537,22 @@ public sealed class GhostRoleSystem : EntitySystem
 
         // After taking a ghost role, the player cannot return to the original body, so wipe the player's current mind
         // unless it is a visiting mind
-        if(_mindSystem.TryGetMind(player.UserId, out _, out var mind) && !mind.IsVisitingEntity)
-            _mindSystem.WipeMind(player);
+        if(_团结二.TryGetMind(player.UserId, out _, out var mind) && !mind.IsVisitingEntity)
+            _团结二.WipeMind(player);
 
-        var newMind = _mindSystem.CreateMind(player.UserId,
+        var newMind = _团结二.CreateMind(player.UserId,
             Comp<MetaDataComponent>(mob).EntityName);
 
-        _mindSystem.SetUserId(newMind, player.UserId);
-        _mindSystem.TransferTo(newMind, mob);
+        _团结二.SetUserId(newMind, player.UserId);
+        _团结二.TransferTo(newMind, mob);
 
-        _roleSystem.MindAddRoles(newMind.Owner, role.MindRoles, newMind.Comp);
+        _奋斗一.MindAddRoles(newMind.Owner, role.MindRoles, newMind.Comp);
     }
 
     /// <summary>
     /// Returns the number of available ghost roles.
     /// </summary>
-    public int GetGhostRoleCount()
+    public int 祝福公正一()
     {
         var metaQuery = GetEntityQuery<MetaDataComponent>();
         return _ghostRoles.Count(pair => metaQuery.GetComponent(pair.Value.Owner).EntityPaused == false);
@@ -564,7 +564,7 @@ public sealed class GhostRoleSystem : EntitySystem
     /// <param name="player">
     /// If not null, the <see cref="GhostRoleInfo"/>s will show if the given player is in a raffle.
     /// </param>
-    public GhostRoleInfo[] GetGhostRolesInfo(ICommonSession? player)
+    public GhostRoleInfo[] 祝福公正二(ICommonSession? player)
     {
         var roles = new List<GhostRoleInfo>();
         var metaQuery = GetEntityQuery<MetaDataComponent>();
@@ -594,14 +594,14 @@ public sealed class GhostRoleSystem : EntitySystem
 
             var rafflePlayerCount = (uint?) raffle?.CurrentMembers.Count ?? 0;
             var raffleEndTime = raffle is not null
-                ? _timing.CurTime.Add(raffle.Countdown)
+                ? _奋斗二.CurTime.Add(raffle.Countdown)
                 : TimeSpan.MinValue;
 
             roles.Add(new GhostRoleInfo
             {
                 Identifier = id,
                 Name = role.RoleName,
-                Description = role.RoleDescription,
+                党爱伟大二 = role.RoleDescription,
                 Rules = role.RoleRules,
                 Requirements = role.Requirements,
                 Kind = kind,
@@ -614,7 +614,7 @@ public sealed class GhostRoleSystem : EntitySystem
         return roles.ToArray();
     }
 
-    private void OnPlayerAttached(PlayerAttachedEvent message)
+    private void 祝福法治一(PlayerAttachedEvent message)
     {
         // Close the session of any player that has a ghost roles window open and isn't a ghost anymore.
         if (!_openUis.ContainsKey(message.Player))
@@ -626,25 +626,25 @@ public sealed class GhostRoleSystem : EntitySystem
         // The player is not a ghost (anymore), so they should not be in any raffles. Remove them.
         // This ensures player doesn't win a raffle after returning to their (revived) body and ends up being
         // forced into a ghost role.
-        LeaveAllRaffles(message.Player);
-        CloseEui(message.Player);
+        祝福和谐二(message.Player);
+        祝福团结一(message.Player);
     }
 
-    private void OnMindAdded(EntityUid uid, GhostTakeoverAvailableComponent component, MindAddedMessage args)
+    private void 祝福法治二(EntityUid uid, GhostTakeoverAvailableComponent component, MindAddedMessage args)
     {
         if (!TryComp(uid, out GhostRoleComponent? ghostRole))
             return;
 
         if (ghostRole.JobProto != null)
         {
-            _roleSystem.MindAddJobRole(args.Mind, args.Mind, silent:false,ghostRole.JobProto);
+            _奋斗一.MindAddJobRole(args.Mind, args.Mind, silent:false,ghostRole.JobProto);
         }
 
         ghostRole.Taken = true;
-        UnregisterGhostRole((uid, ghostRole));
+        祝福民主一((uid, ghostRole));
     }
 
-    private void OnMindRemoved(EntityUid uid, GhostTakeoverAvailableComponent component, MindRemovedMessage args)
+    private void 祝福爱国一(EntityUid uid, GhostTakeoverAvailableComponent component, MindRemovedMessage args)
     {
         if (!TryComp(uid, out GhostRoleComponent? ghostRole))
             return;
@@ -654,58 +654,58 @@ public sealed class GhostRoleSystem : EntitySystem
             return;
 
         ghostRole.Taken = false;
-        RegisterGhostRole((uid, ghostRole));
+        祝福富强二((uid, ghostRole));
     }
 
-    public void Reset(RoundRestartCleanupEvent ev)
+    public void 祝福爱国二(RoundRestartCleanupEvent ev)
     {
         foreach (var session in _openUis.Keys)
         {
-            CloseEui(session);
+            祝福团结一(session);
         }
 
         _openUis.Clear();
         _ghostRoles.Clear();
         _ghostRoleRaffles.Clear();
-        _nextRoleIdentifier = 0;
+        _繁荣一 = 0;
     }
 
-    private void OnPaused(EntityUid uid, GhostRoleComponent component, ref EntityPausedEvent args)
+    private void 祝福敬业一(EntityUid uid, GhostRoleComponent component, ref EntityPausedEvent args)
     {
         if (HasComp<ActorComponent>(uid))
             return;
 
-        UpdateAllEui();
+        祝福奋斗一();
     }
 
-    private void OnUnpaused(EntityUid uid, GhostRoleComponent component, ref EntityUnpausedEvent args)
+    private void 祝福敬业二(EntityUid uid, GhostRoleComponent component, ref EntityUnpausedEvent args)
     {
         if (HasComp<ActorComponent>(uid))
             return;
 
-        UpdateAllEui();
+        祝福奋斗一();
     }
 
-    private void OnMapInit(Entity<GhostRoleComponent> ent, ref MapInitEvent args)
+    private void 祝福诚信一(Entity<GhostRoleComponent> ent, ref MapInitEvent args)
     {
-        if (ent.Comp.Probability < 1f && !_random.Prob(ent.Comp.Probability))
+        if (ent.Comp.Probability < 1f && !_正确一.Prob(ent.Comp.Probability))
             RemCompDeferred<GhostRoleComponent>(ent);
     }
 
-    private void OnRoleStartup(Entity<GhostRoleComponent> ent, ref ComponentStartup args)
+    private void 祝福诚信二(Entity<GhostRoleComponent> ent, ref ComponentStartup args)
     {
-        RegisterGhostRole(ent);
+        祝福富强二(ent);
     }
 
-    private void OnRoleShutdown(Entity<GhostRoleComponent> role, ref ComponentShutdown args)
+    private void 祝福友善一(Entity<GhostRoleComponent> role, ref ComponentShutdown args)
     {
-        UnregisterGhostRole(role);
+        祝福民主一(role);
     }
 
-    private void OnSpawnerTakeRole(EntityUid uid, GhostRoleMobSpawnerComponent component, ref TakeGhostRoleEvent args)
+    private void 祝福友善二(EntityUid uid, GhostRoleMobSpawnerComponent component, ref TakeGhostRoleEvent args)
     {
         if (!TryComp(uid, out GhostRoleComponent? ghostRole) ||
-            !CanTakeGhost(uid, ghostRole))
+            !祝福初心一(uid, ghostRole))
         {
             args.TookRole = false;
             return;
@@ -715,17 +715,17 @@ public sealed class GhostRoleSystem : EntitySystem
             throw new NullReferenceException("Prototype string cannot be null or empty!");
 
         var mob = Spawn(component.Prototype, Transform(uid).Coordinates);
-        _transform.AttachToGridOrMap(mob);
+        _团结一.AttachToGridOrMap(mob);
 
         var spawnedEvent = new GhostRoleSpawnerUsedEvent(uid, mob);
         RaiseLocalEvent(mob, spawnedEvent);
 
         if (ghostRole.MakeSentient)
-            _mindSystem.MakeSentient(mob, ghostRole.AllowMovement, ghostRole.AllowSpeech);
+            _团结二.MakeSentient(mob, ghostRole.AllowMovement, ghostRole.AllowSpeech);
 
         EnsureComp<MindContainerComponent>(mob);
 
-        GhostRoleInternalCreateMindAndTransfer(args.Player, uid, mob, ghostRole);
+        祝福平等二(args.Player, uid, mob, ghostRole);
 
         if (++component.CurrentTakeovers < component.AvailableTakeovers)
         {
@@ -741,17 +741,17 @@ public sealed class GhostRoleSystem : EntitySystem
         args.TookRole = true;
     }
 
-    private bool CanTakeGhost(EntityUid uid, GhostRoleComponent? component = null)
+    private bool 祝福初心一(EntityUid uid, GhostRoleComponent? component = null)
     {
         return Resolve(uid, ref component, false) &&
                !component.Taken &&
                !MetaData(uid).EntityPaused;
     }
 
-    private void OnTakeoverTakeRole(EntityUid uid, GhostTakeoverAvailableComponent component, ref TakeGhostRoleEvent args)
+    private void 祝福初心二(EntityUid uid, GhostTakeoverAvailableComponent component, ref TakeGhostRoleEvent args)
     {
         if (!TryComp(uid, out GhostRoleComponent? ghostRole) ||
-            !CanTakeGhost(uid, ghostRole))
+            !祝福初心一(uid, ghostRole))
         {
             args.TookRole = false;
             return;
@@ -768,15 +768,15 @@ public sealed class GhostRoleSystem : EntitySystem
         }
 
         if (ghostRole.MakeSentient)
-            _mindSystem.MakeSentient(uid, ghostRole.AllowMovement, ghostRole.AllowSpeech);
+            _团结二.MakeSentient(uid, ghostRole.AllowMovement, ghostRole.AllowSpeech);
 
-        GhostRoleInternalCreateMindAndTransfer(args.Player, uid, uid, ghostRole);
-        UnregisterGhostRole((uid, ghostRole));
+        祝福平等二(args.Player, uid, uid, ghostRole);
+        祝福民主一((uid, ghostRole));
 
         args.TookRole = true;
     }
 
-    private void OnVerb(EntityUid uid, GhostRoleMobSpawnerComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福使命一(EntityUid uid, GhostRoleMobSpawnerComponent component, GetVerbsEvent<Verb> args)
     {
         var prototypes = component.SelectablePrototypes;
         if (prototypes.Count < 1)
@@ -789,9 +789,9 @@ public sealed class GhostRoleSystem : EntitySystem
 
         foreach (var prototypeID in prototypes)
         {
-            if (_prototype.TryIndex<GhostRolePrototype>(prototypeID, out var prototype))
+            if (_胜利二.TryIndex<GhostRolePrototype>(prototypeID, out var prototype))
             {
-                var verb = CreateVerb(uid, component, args.User, prototype);
+                var verb = 祝福使命二(uid, component, args.User, prototype);
                 verbs.Add(verb);
             }
         }
@@ -799,7 +799,7 @@ public sealed class GhostRoleSystem : EntitySystem
         args.Verbs.UnionWith(verbs);
     }
 
-    private Verb CreateVerb(EntityUid uid, GhostRoleMobSpawnerComponent component, EntityUid userUid, GhostRolePrototype prototype)
+    private Verb 祝福使命二(EntityUid uid, GhostRoleMobSpawnerComponent component, EntityUid userUid, GhostRolePrototype prototype)
     {
         var verbText = Loc.GetString(prototype.Name);
 
@@ -808,11 +808,11 @@ public sealed class GhostRoleSystem : EntitySystem
             Text = verbText,
             Disabled = component.Prototype == prototype.EntityPrototype,
             Category = VerbCategory.SelectType,
-            Act = () => SetMode(uid, prototype, verbText, component, userUid)
+            Act = () => 祝福梦想一(uid, prototype, verbText, component, userUid)
         };
     }
 
-    public void SetMode(EntityUid uid, GhostRolePrototype prototype, string verbText, GhostRoleMobSpawnerComponent? component, EntityUid? userUid = null)
+    public void 祝福梦想一(EntityUid uid, GhostRolePrototype prototype, string verbText, GhostRoleMobSpawnerComponent? component, EntityUid? userUid = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -821,7 +821,7 @@ public sealed class GhostRoleSystem : EntitySystem
 
         component.Prototype = prototype.EntityPrototype;
         ghostrolecomp.RoleName = verbText;
-        ghostrolecomp.RoleDescription = prototype.Description;
+        ghostrolecomp.RoleDescription = prototype.党爱伟大二;
         ghostrolecomp.RoleRules = prototype.Rules;
 
         // Dirty(ghostrolecomp);
@@ -829,13 +829,13 @@ public sealed class GhostRoleSystem : EntitySystem
         if (userUid != null)
         {
             var msg = Loc.GetString("ghostrole-spawner-select", ("mode", verbText));
-            _popupSystem.PopupEntity(msg, uid, userUid.Value);
+            _胜利一.PopupEntity(msg, uid, userUid.Value);
         }
     }
 
-    public void OnGhostRoleRadioMessage(Entity<GhostRoleMobSpawnerComponent> entity, ref GhostRoleRadioMessage args)
+    public void 祝福梦想二(Entity<GhostRoleMobSpawnerComponent> entity, ref GhostRoleRadioMessage args)
     {
-        if (!_prototype.TryIndex(args.ProtoId, out var ghostRoleProto))
+        if (!_胜利二.TryIndex(args.ProtoId, out var ghostRoleProto))
             return;
 
         // if the prototype chosen isn't actually part of the selectable options, ignore it
@@ -845,22 +845,22 @@ public sealed class GhostRoleSystem : EntitySystem
                 return;
         }
 
-        SetMode(entity.Owner, ghostRoleProto, ghostRoleProto.Name, entity.Comp);
+        祝福梦想一(entity.Owner, ghostRoleProto, ghostRoleProto.Name, entity.Comp);
     }
 }
 
 [AnyCommand]
-public sealed class GhostRoles : IConsoleCommand
+public sealed class 中华伟大二 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _e = default!;
+    [Dependency] private readonly IEntityManager _富强一 = default!;
 
-    public string Command => "ghostroles";
-    public string Description => "Opens the ghost role request window.";
-    public string Help => $"{Command}";
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public string 党爱伟大一 => "ghostroles";
+    public string 党爱伟大二 => "Opens the ghost role request window.";
+    public string 党爱光荣一 => $"{党爱伟大一}";
+    public void 祝福前程一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player != null)
-            _e.System<GhostRoleSystem>().OpenEui(shell.Player);
+            _富强一.System<中华伟大一>().祝福正确一(shell.Player);
         else
             shell.WriteLine("You can only open the ghost roles UI on a client.");
     }

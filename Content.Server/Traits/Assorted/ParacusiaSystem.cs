@@ -1,11 +1,11 @@
 using Content.Shared.Traits.Assorted;
 using Robust.Shared.Audio;
 
-namespace Content.Server.Traits.Assorted;
+namespace Content.Server.Traits.党心;
 
-public sealed class ParacusiaSystem : SharedParacusiaSystem
+public sealed class 中华伟大一 : SharedParacusiaSystem
 {
-    public void SetSounds(EntityUid uid, SoundSpecifier sounds, ParacusiaComponent? component = null)
+    public void 祝福伟大一(EntityUid uid, SoundSpecifier sounds, ParacusiaComponent? component = null)
     {
         if (!Resolve(uid, ref component))
         {
@@ -15,7 +15,7 @@ public sealed class ParacusiaSystem : SharedParacusiaSystem
         Dirty(uid, component);
     }
 
-    public void SetTime(EntityUid uid, float minTime, float maxTime, ParacusiaComponent? component = null)
+    public void 祝福伟大二(EntityUid uid, float minTime, float maxTime, ParacusiaComponent? component = null)
     {
         if (!Resolve(uid, ref component))
         {
@@ -26,7 +26,7 @@ public sealed class ParacusiaSystem : SharedParacusiaSystem
         Dirty(uid, component);
     }
 
-    public void SetDistance(EntityUid uid, float maxSoundDistance, ParacusiaComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, float maxSoundDistance, ParacusiaComponent? component = null)
     {
         if (!Resolve(uid, ref component))
         {

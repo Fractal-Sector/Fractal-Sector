@@ -5,7 +5,7 @@ using Content.Shared.Toggleable;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// Clothing that can be enabled and disabled with an action.
@@ -16,14 +16,14 @@ namespace Content.Shared.Clothing.Components;
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(ToggleClothingSystem))]
-public sealed partial class ToggleClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The action to add when equipped, even if not worn.
     /// This must raise <see cref="ToggleActionEvent"/> to then get handled.
     /// </summary>
     [DataField(required: true)]
-    public EntProtoId<InstantActionComponent> Action;
+    public EntProtoId<InstantActionComponent> 党爱伟大一;
 
     [DataField, AutoNetworkedField]
     public EntityUid? ActionEntity;
@@ -32,17 +32,17 @@ public sealed partial class ToggleClothingComponent : Component
     /// If true, automatically disable the clothing after unequipping it.
     /// </summary>
     [DataField]
-    public bool DisableOnUnequip;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// If true, the clothes must equip for adding action.
     /// </summary>
     [DataField]
-    public bool MustEquip = true;
+    public bool 党爱光荣一 = true;
 }
 
 /// <summary>
 /// Raised on the clothing when being equipped to see if it should add the action.
 /// </summary>
 [ByRefEvent]
-public record struct ToggleClothingCheckEvent(EntityUid User, bool Cancelled = false);
+public record 中华伟大二 ToggleClothingCheckEvent(EntityUid User, bool Cancelled = false);

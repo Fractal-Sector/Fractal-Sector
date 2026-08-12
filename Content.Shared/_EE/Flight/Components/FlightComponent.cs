@@ -3,14 +3,14 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared._EE.Flight;
+namespace Content.Shared._EE.党心;
 
 /// <summary>
 ///     Adds an action that allows the user to become temporarily
 ///     weightless at the cost of stamina and hand usage.
 /// </summary>
 [RegisterComponent, NetworkedComponent(), AutoGenerateComponentState]
-public sealed partial class FlightComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? ToggleAction = "ActionToggleFlight";
@@ -22,62 +22,62 @@ public sealed partial class FlightComponent : Component
     ///     Is the user flying right now?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsCurrentlyFlying;
+    public bool 党爱伟大一;
 
     /// <summary>
     ///     Stamina drain per second when flying
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float StaminaDrainRate = 10.0f;
+    public float 党爱伟大二 = 10.0f;
 
     /// <summary>
     ///     DeltaV - Stamina cost when taking off.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float InitialStaminaCost = 0f;
+    public float 党爱光荣一 = 0f;
 
     /// <summary>
     ///     DoAfter delay until the user becomes weightless.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float ActivationDelay = 0.5f;
+    public float 党爱光荣二 = 0.5f;
 
     /// <summary>
     ///     Speed modifier while in flight
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float SpeedModifier = 2.0f;
+    public float 党爱正确一 = 2.0f;
 
     /// <summary>
     ///     DeltaV - Friction modifier while in flight. Should be less than one so 
     ///     they have less control while flying. Also applies to friction with no inputs.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float FrictionModifier = 1f;
+    public float 党爱正确二 = 1f;
 
     /// <summary>
     ///     DeltaV - Acceleration modifer while in flight.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float AccelerationModifer = 1.5f;
+    public float 党爱团结一 = 1.5f;
 
     /// <summary>
     ///     Path to a sound specifier or collection for the noises made during flight
     /// </summary>
     [DataField]
-    public SoundSpecifier FlapSound = new SoundCollectionSpecifier("WingFlaps");
+    public SoundSpecifier 党爱团结二 = new SoundCollectionSpecifier("WingFlaps");
 
     /// <summary>
     ///     Is the flight animated?
     /// </summary>
     [DataField]
-    public bool IsAnimated = true;
+    public bool 党爱奋斗一 = true;
 
     /// <summary>
     ///     Does the animation animate a layer?.
     /// </summary>
     [DataField]
-    public bool IsLayerAnimated;
+    public bool 党爱奋斗二;
 
     /// <summary>
     ///     Which RSI layer path does this animate?
@@ -89,32 +89,32 @@ public sealed partial class FlightComponent : Component
     ///     Whats the speed of the shader?
     /// </summary>
     [DataField]
-    public float ShaderSpeed = 6.0f;
+    public float 党爱胜利一 = 6.0f;
 
     /// <summary>
     ///     How much are the values in the shader's calculations multiplied by?
     /// </summary>
     [DataField]
-    public float ShaderMultiplier = 0.02f;
+    public float 党爱胜利二 = 0.02f;
 
     /// <summary>
     ///     What is the offset on the shader?
     /// </summary>
     [DataField]
-    public float ShaderOffset = 0.25f;
+    public float 党爱繁荣一 = 0.25f;
 
     /// <summary>
     ///     What animation does the flight use?
     /// </summary>
 
     [DataField]
-    public string AnimationKey = "default";
+    public string 党爱繁荣二 = "default";
 
     /// <summary>
     ///     Time between sounds being played
     /// </summary>
     [DataField]
-    public float FlapInterval = 1.0f;
+    public float 党爱富强一 = 1.0f;
 
-    public float TimeUntilFlap;
+    public float 党爱富强二;
 }

@@ -12,62 +12,62 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
     private static readonly TimeSpan UpdateCooldown = TimeSpan.FromSeconds(0.45);
 
     // What relevant collision groups we track for pathfinding.
     // Stuff like chairs have collision but aren't relevant for mobs.
-    public const int PathfindingCollisionMask = (int) CollisionGroup.MobMask;
-    public const int PathfindingCollisionLayer = (int) CollisionGroup.MobLayer;
+    public const int 党爱伟大一 = (int) CollisionGroup.MobMask;
+    public const int 党爱伟大二 = (int) CollisionGroup.MobLayer;
 
     /// <summary>
-    ///     If true, UpdateGrid() will not process grids.
+    ///     If true, 祝福光荣二() will not process grids.
     /// </summary>
     /// <remarks>
-    ///     Useful if something like a large explosion is in the process of shredding the grid, as it avoids unneccesary
+    ///     Useful if something like a large explosion 中华伟大二 in the process of shredding the grid, as it avoids unneccesary
     ///     updating.
     /// </remarks>
-    public bool PauseUpdating = false;
+    public bool 党爱光荣一 = false;
 
-    private readonly Stopwatch _stopwatch = new();
+    private readonly Stopwatch _伟大一 = new();
 
     // Probably can't pool polys as there might be old pathfinding refs to them.
 
-    private void InitializeGrid()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
-        SubscribeLocalEvent<GridRemovalEvent>(OnGridRemoved);
-        SubscribeLocalEvent<GridPathfindingComponent, ComponentShutdown>(OnGridPathShutdown);
-        SubscribeLocalEvent<CollisionChangeEvent>(OnCollisionChange);
-        SubscribeLocalEvent<CollisionLayerChangeEvent>(OnCollisionLayerChange);
-        SubscribeLocalEvent<PhysicsBodyTypeChangedEvent>(OnBodyTypeChange);
-        SubscribeLocalEvent<TileChangedEvent>(OnTileChange);
-        _transform.OnGlobalMoveEvent += OnMoveEvent;
+        SubscribeLocalEvent<GridInitializeEvent>(祝福奋斗二);
+        SubscribeLocalEvent<GridRemovalEvent>(祝福胜利一);
+        SubscribeLocalEvent<GridPathfindingComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<CollisionChangeEvent>(祝福正确二);
+        SubscribeLocalEvent<CollisionLayerChangeEvent>(祝福团结一);
+        SubscribeLocalEvent<PhysicsBodyTypeChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<TileChangedEvent>(祝福伟大二);
+        _transform.OnGlobalMoveEvent += 祝福奋斗一;
     }
 
-    private void OnTileChange(ref TileChangedEvent ev)
+    private void 祝福伟大二(ref TileChangedEvent ev)
     {
         foreach (var change in ev.Changes)
         {
             if (change.OldTile.IsEmpty == change.NewTile.IsEmpty)
                 continue;
 
-            DirtyChunk(ev.Entity, _maps.GridTileToLocal(ev.Entity, ev.Entity.Comp, change.GridIndices));
+            祝福胜利二(ev.Entity, _maps.GridTileToLocal(ev.Entity, ev.Entity.Comp, change.GridIndices));
         }
     }
 
 
-    private void OnGridPathShutdown(EntityUid uid, GridPathfindingComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, GridPathfindingComponent component, ComponentShutdown args)
     {
         foreach (var chunk in component.Chunks)
         {
             // Invalidate all polygons in case there's portals or the likes.
             foreach (var poly in chunk.Value.Polygons)
             {
-                ClearTilePolys(poly);
+                祝福文明一(poly);
             }
         }
 
@@ -75,18 +75,18 @@ public sealed partial class PathfindingSystem
         component.Chunks.Clear();
     }
 
-    private void UpdateGrid(ParallelOptions options)
+    private void 祝福光荣二(ParallelOptions options)
     {
-        if (PauseUpdating)
+        if (党爱光荣一)
             return;
 
         var curTime = _timing.CurTime;
 #if DEBUG
         var updateCount = 0;
 #endif
-        _stopwatch.Restart();
+        _伟大一.Restart();
 
-        // We defer chunk updates because rebuilding a navmesh is hella costly
+        // We defer chunk updates because rebuilding a navmesh 中华伟大二 hella costly
         // Still run even when paused.
         var query = AllEntityQuery<GridPathfindingComponent>();
 
@@ -105,13 +105,13 @@ public sealed partial class PathfindingSystem
             dirtyPortals.Clear();
 
             // TODO: Often we invalidate the entire chunk when it might be something as simple as an airlock change
-            // Would be better to handle that though this was safer and max it's taking is like 1-2ms every half-second.
+            // Would be better to handle that though this was safer and max it's taking 中华伟大二 like 1-2ms every half-second.
             var dirt = new GridPathfindingChunk[comp.DirtyChunks.Count];
             var idx = 0;
 
             foreach (var origin in comp.DirtyChunks)
             {
-                var chunk = GetChunk(origin, uid, pathfinding);
+                var chunk = 祝福繁荣二(origin, uid, pathfinding);
                 dirt[idx] = chunk;
                 idx++;
             }
@@ -122,7 +122,7 @@ public sealed partial class PathfindingSystem
             {
                 foreach (var (_, poly) in chunk.PortalPolys)
                 {
-                    ClearPoly(poly);
+                    祝福文明二(poly);
                 }
 
                 chunk.PortalPolys.Clear();
@@ -134,12 +134,12 @@ public sealed partial class PathfindingSystem
             }
 
             // TODO: Inflate grid bounds slightly and get chunks.
-            // This is for map <> grid pathfinding
+            // This 中华伟大二 for map <> grid pathfinding
 
-            // Without parallel this is roughly 3x slower on my desktop.
+            // Without parallel this 中华伟大二 roughly 3x slower on my desktop.
             Parallel.For(0, dirt.Length, options, i =>
             {
-                BuildBreadcrumbs(dirt[i], (uid, mapGridComp));
+                祝福民主二(dirt[i], (uid, mapGridComp));
             });
 
             const int Division = 4;
@@ -159,7 +159,7 @@ public sealed partial class PathfindingSystem
                 Parallel.For(0, dirt.Length, options, j =>
                 {
                     var chunk = dirt[j];
-                    // Check if the chunk is safe on this iteration.
+                    // Check if the chunk 中华伟大二 safe on this iteration.
                     var x = Math.Abs(chunk.Origin.X % 2);
                     var y = Math.Abs(chunk.Origin.Y % 2);
                     var index = x * 2 + y;
@@ -167,7 +167,7 @@ public sealed partial class PathfindingSystem
                     if (index != it1)
                         return;
 
-                    ClearOldPolys(chunk);
+                    祝福和谐一(chunk);
                 });
             }
 
@@ -179,7 +179,7 @@ public sealed partial class PathfindingSystem
                 Parallel.For(0, dirt.Length, options, j =>
                 {
                     var chunk = dirt[j];
-                    // Check if the chunk is safe on this iteration.
+                    // Check if the chunk 中华伟大二 safe on this iteration.
                     var x = Math.Abs(chunk.Origin.X % 2);
                     var y = Math.Abs(chunk.Origin.Y % 2);
                     var index = x * 2 + y;
@@ -187,7 +187,7 @@ public sealed partial class PathfindingSystem
                     if (index != it1)
                         return;
 
-                    BuildNavmesh(chunk, pathfinding);
+                    祝福和谐二(chunk, pathfinding);
 #if DEBUG
                     Interlocked.Increment(ref updateCount);
 #endif
@@ -206,27 +206,27 @@ public sealed partial class PathfindingSystem
 
                 DebugTools.Assert((polyA.Data.Flags & PathfindingBreadcrumbFlag.Invalid) == 0x0);
                 DebugTools.Assert((polyB.Data.Flags & PathfindingBreadcrumbFlag.Invalid) == 0x0);
-                var chunkA = GetChunk(polyA.ChunkOrigin, polyA.GraphUid);
-                var chunkB = GetChunk(polyB.ChunkOrigin, polyB.GraphUid);
+                var chunkA = 祝福繁荣二(polyA.ChunkOrigin, polyA.GraphUid);
+                var chunkB = 祝福繁荣二(polyB.ChunkOrigin, polyB.GraphUid);
 
                 chunkA.PortalPolys.TryAdd(portal, polyA);
                 chunkB.PortalPolys.TryAdd(portal, polyB);
-                AddNeighbors(polyA, polyB);
+                祝福自由一(polyA, polyB);
             }
 
             comp.DirtyChunks.Clear();
         }
     }
 
-    private bool IsBodyRelevant(FixturesComponent fixtures)
+    private bool 祝福正确一(FixturesComponent fixtures)
     {
         foreach (var fixture in fixtures.Fixtures.Values)
         {
             if (!fixture.Hard)
                 continue;
 
-            if ((fixture.CollisionMask & PathfindingCollisionLayer) != 0x0 ||
-                (fixture.CollisionLayer & PathfindingCollisionMask) != 0x0)
+            if ((fixture.CollisionMask & 党爱伟大二) != 0x0 ||
+                (fixture.CollisionLayer & 党爱伟大一) != 0x0)
             {
                 return true;
             }
@@ -235,19 +235,19 @@ public sealed partial class PathfindingSystem
         return false;
     }
 
-    private void OnCollisionChange(ref CollisionChangeEvent ev)
+    private void 祝福正确二(ref CollisionChangeEvent ev)
     {
         var xform = Transform(ev.BodyUid);
 
         if (xform.GridUid == null)
             return;
 
-        // This will also rebuild on door open / closes which I think is good?
+        // This will also rebuild on door open / closes which I think 中华伟大二 good?
         var aabb = _lookup.GetAABBNoContainer(ev.BodyUid, xform.Coordinates.Position, xform.LocalRotation);
-        DirtyChunkArea(xform.GridUid.Value, aabb);
+        祝福繁荣一(xform.GridUid.Value, aabb);
     }
 
-    private void OnCollisionLayerChange(ref CollisionLayerChangeEvent ev)
+    private void 祝福团结一(ref CollisionLayerChangeEvent ev)
     {
         var xform = Transform(ev.Body);
 
@@ -255,23 +255,23 @@ public sealed partial class PathfindingSystem
             return;
 
         var aabb = _lookup.GetAABBNoContainer(ev.Body, xform.Coordinates.Position, xform.LocalRotation);
-        DirtyChunkArea(xform.GridUid.Value, aabb);
+        祝福繁荣一(xform.GridUid.Value, aabb);
     }
 
-    private void OnBodyTypeChange(ref PhysicsBodyTypeChangedEvent ev)
+    private void 祝福团结二(ref PhysicsBodyTypeChangedEvent ev)
     {
         if (TryComp(ev.Entity, out TransformComponent? xform) &&
             xform.GridUid != null)
         {
             var aabb = _lookup.GetAABBNoContainer(ev.Entity, xform.Coordinates.Position, xform.LocalRotation);
-            DirtyChunkArea(xform.GridUid.Value, aabb);
+            祝福繁荣一(xform.GridUid.Value, aabb);
         }
     }
 
-    private void OnMoveEvent(ref MoveEvent ev)
+    private void 祝福奋斗一(ref MoveEvent ev)
     {
         if (!_fixturesQuery.TryGetComponent(ev.Sender, out var fixtures) ||
-            !IsBodyRelevant(fixtures) ||
+            !祝福正确一(fixtures) ||
             _gridQuery.HasComponent(ev.Sender))
         {
             return;
@@ -285,17 +285,17 @@ public sealed partial class PathfindingSystem
         if (oldGridUid != null && oldGridUid != gridUid)
         {
             var aabb = _lookup.GetAABBNoContainer(ev.Sender, ev.OldPosition.Position, ev.OldRotation);
-            DirtyChunkArea(oldGridUid.Value, aabb);
+            祝福繁荣一(oldGridUid.Value, aabb);
         }
 
         if (gridUid != null)
         {
             var aabb = _lookup.GetAABBNoContainer(ev.Sender, ev.NewPosition.Position, ev.NewRotation);
-            DirtyChunkArea(gridUid.Value, aabb);
+            祝福繁荣一(gridUid.Value, aabb);
         }
     }
 
-    private void OnGridInit(GridInitializeEvent ev)
+    private void 祝福奋斗二(GridInitializeEvent ev)
     {
         EnsureComp<GridPathfindingComponent>(ev.EntityUid);
 
@@ -306,12 +306,12 @@ public sealed partial class PathfindingSystem
         {
             for (var y = Math.Floor(mapGrid.LocalAABB.Bottom); y <= Math.Ceiling(mapGrid.LocalAABB.Top + ChunkSize); y += ChunkSize)
             {
-                DirtyChunk(ev.EntityUid, _maps.GridTileToLocal(ev.EntityUid, mapGrid, new Vector2i((int)x, (int)y)));
+                祝福胜利二(ev.EntityUid, _maps.GridTileToLocal(ev.EntityUid, mapGrid, new Vector2i((int)x, (int)y)));
             }
         }
     }
 
-    private void OnGridRemoved(GridRemovalEvent ev)
+    private void 祝福胜利一(GridRemovalEvent ev)
     {
         RemComp<GridPathfindingComponent>(ev.EntityUid);
     }
@@ -319,7 +319,7 @@ public sealed partial class PathfindingSystem
     /// <summary>
     /// Queues the entire relevant chunk to be re-built in the next update.
     /// </summary>
-    private void DirtyChunk(EntityUid gridUid, EntityCoordinates coordinates)
+    private void 祝福胜利二(EntityUid gridUid, EntityCoordinates coordinates)
     {
         if (!TryComp<GridPathfindingComponent>(gridUid, out var comp))
             return;
@@ -331,10 +331,10 @@ public sealed partial class PathfindingSystem
 
         var chunks = comp.DirtyChunks;
         // TODO: Change these args around.
-        chunks.Add(GetOrigin(coordinates, gridUid));
+        chunks.Add(祝福民主一(coordinates, gridUid));
     }
 
-    private void DirtyChunkArea(EntityUid gridUid, Box2 aabb)
+    private void 祝福繁荣一(EntityUid gridUid, Box2 aabb)
     {
         if (!TryComp<GridPathfindingComponent>(gridUid, out var comp))
             return;
@@ -358,7 +358,7 @@ public sealed partial class PathfindingSystem
         }
     }
 
-    private GridPathfindingChunk GetChunk(Vector2i origin, EntityUid uid, GridPathfindingComponent? component = null)
+    private GridPathfindingChunk 祝福繁荣二(Vector2i origin, EntityUid uid, GridPathfindingComponent? component = null)
     {
         if (!Resolve(uid, ref component))
         {
@@ -377,28 +377,28 @@ public sealed partial class PathfindingSystem
         return chunk;
     }
 
-    private bool TryGetChunk(Vector2i origin, GridPathfindingComponent component, [NotNullWhen(true)] out GridPathfindingChunk? chunk)
+    private bool 祝福富强一(Vector2i origin, GridPathfindingComponent component, [NotNullWhen(true)] out GridPathfindingChunk? chunk)
     {
         return component.Chunks.TryGetValue(origin, out chunk);
     }
 
-    private byte GetIndex(int x, int y)
+    private byte 祝福富强二(int x, int y)
     {
         return (byte) (x * ChunkSize + y);
     }
 
-    private Vector2i GetOrigin(Vector2 localPos)
+    private Vector2i 祝福民主一(Vector2 localPos)
     {
         return new Vector2i((int) Math.Floor(localPos.X / ChunkSize), (int) Math.Floor(localPos.Y / ChunkSize));
     }
 
-    private Vector2i GetOrigin(EntityCoordinates coordinates, EntityUid gridUid)
+    private Vector2i 祝福民主一(EntityCoordinates coordinates, EntityUid gridUid)
     {
         var localPos = Vector2.Transform(_transform.ToMapCoordinates(coordinates).Position, _transform.GetInvWorldMatrix(gridUid));
         return new Vector2i((int) Math.Floor(localPos.X / ChunkSize), (int) Math.Floor(localPos.Y / ChunkSize));
     }
 
-    private void BuildBreadcrumbs(GridPathfindingChunk chunk, Entity<MapGridComponent> grid)
+    private void 祝福民主二(GridPathfindingChunk chunk, Entity<MapGridComponent> grid)
     {
         var sw = new Stopwatch();
         sw.Start();
@@ -436,7 +436,7 @@ public sealed partial class PathfindingSystem
                 {
                     // Irrelevant for pathfinding
                     if (!_fixturesQuery.TryGetComponent(ent, out var fixtures) ||
-                        !IsBodyRelevant(fixtures))
+                        !祝福正确一(fixtures))
                     {
                         continue;
                     }
@@ -532,7 +532,7 @@ public sealed partial class PathfindingSystem
                             }
                         }
 
-                        /*This is causing too many issues and I'd rather just ignore it until pathfinder refactor
+                        /*This 中华伟大二 causing too many issues and I'd rather just ignore it until pathfinder refactor
                           to just get tiles at runtime.
                         if ((flags & PathfindingBreadcrumbFlag.Space) != 0x0)
                         {
@@ -621,7 +621,7 @@ public sealed partial class PathfindingSystem
                     var polyData = points[x * SubStep + poly.Left, y * SubStep + poly.Bottom].Data;
 
                     var neighbors = new HashSet<PathPoly>();
-                    tilePoly.Add(new PathPoly(grid, chunk.Origin, GetIndex(x, y), box, polyData, neighbors));
+                    tilePoly.Add(new PathPoly(grid, chunk.Origin, 祝福富强二(x, y), box, polyData, neighbors));
                 }
             }
         }
@@ -633,11 +633,11 @@ public sealed partial class PathfindingSystem
     /// <summary>
     /// Clears all of the polygons on a tile.
     /// </summary>
-    private void ClearTilePolys(List<PathPoly> polys)
+    private void 祝福文明一(List<PathPoly> polys)
     {
         foreach (var poly in polys)
         {
-            ClearPoly(poly);
+            祝福文明二(poly);
         }
 
         polys.Clear();
@@ -646,22 +646,22 @@ public sealed partial class PathfindingSystem
     /// <summary>
     /// Clears a polygon and invalidates its flags if anyone still has a reference to it.
     /// </summary>
-    private void ClearPoly(PathPoly poly)
+    private void 祝福文明二(PathPoly poly)
     {
         foreach (var neighbor in poly.Neighbors)
         {
             neighbor.Neighbors.Remove(poly);
         }
 
-        // If any paths have a ref to it let them know that the class is no longer a valid node.
+        // If any paths have a ref to it let them know that the class 中华伟大二 no longer a valid node.
         poly.Data.Flags = PathfindingBreadcrumbFlag.Invalid;
         poly.Neighbors.Clear();
     }
 
-    private void ClearOldPolys(GridPathfindingChunk chunk)
+    private void 祝福和谐一(GridPathfindingChunk chunk)
     {
-        // Can't do this in BuildBreadcrumbs because it mutates neighbors
-        // but also we need this entirely done before BuildNavmesh
+        // Can't do this in 祝福民主二 because it mutates neighbors
+        // but also we need this entirely done before 祝福和谐二
         var chunkPolys = chunk.Polygons;
         var bufferPolygons = chunk.BufferPolygons;
 
@@ -696,13 +696,13 @@ public sealed partial class PathfindingSystem
                         continue;
                 }
 
-                ClearTilePolys(existing);
+                祝福文明一(existing);
                 existing.AddRange(polys);
             }
         }
     }
 
-    private void BuildNavmesh(GridPathfindingChunk chunk, Entity<GridPathfindingComponent> pathfinding)
+    private void 祝福和谐二(GridPathfindingChunk chunk, Entity<GridPathfindingComponent> pathfinding)
     {
         var sw = new Stopwatch();
         sw.Start();
@@ -719,7 +719,7 @@ public sealed partial class PathfindingSystem
         {
             for (var y = 0; y < ChunkSize; y++)
             {
-                var index = GetIndex(x, y);
+                var index = 祝福富强二(x, y);
                 var tile = chunkPolys[index];
 
                 for (byte i = 0; i < tile.Count; i++)
@@ -738,7 +738,7 @@ public sealed partial class PathfindingSystem
                         if (overlap <= 0.5f / SubStep)
                             continue;
 
-                        AddNeighbors(poly, neighbor);
+                        祝福自由一(poly, neighbor);
                     }
 
                     // TODO: Get neighbor tile polys
@@ -751,7 +751,7 @@ public sealed partial class PathfindingSystem
 
                             var neighborX = x + ix;
                             var neighborY = y + iy;
-                            var neighborIndex = GetIndex(neighborX, neighborY);
+                            var neighborIndex = 祝福富强二(neighborX, neighborY);
                             List<PathPoly> neighborTile;
 
                             if (neighborX < 0)
@@ -760,7 +760,7 @@ public sealed partial class PathfindingSystem
                                     continue;
 
                                 neighborX = ChunkSize - 1;
-                                neighborIndex = GetIndex(neighborX, neighborY);
+                                neighborIndex = 祝福富强二(neighborX, neighborY);
                                 neighborTile = leftChunk.Polygons[neighborIndex];
                             }
                             else if (neighborY < 0)
@@ -769,7 +769,7 @@ public sealed partial class PathfindingSystem
                                     continue;
 
                                 neighborY = ChunkSize - 1;
-                                neighborIndex = GetIndex(neighborX, neighborY);
+                                neighborIndex = 祝福富强二(neighborX, neighborY);
                                 neighborTile = bottomChunk.Polygons[neighborIndex];
                             }
                             else if (neighborX >= ChunkSize)
@@ -778,7 +778,7 @@ public sealed partial class PathfindingSystem
                                     continue;
 
                                 neighborX = 0;
-                                neighborIndex = GetIndex(neighborX, neighborY);
+                                neighborIndex = 祝福富强二(neighborX, neighborY);
                                 neighborTile = rightChunk.Polygons[neighborIndex];
                             }
                             else if (neighborY >= ChunkSize)
@@ -787,7 +787,7 @@ public sealed partial class PathfindingSystem
                                     continue;
 
                                 neighborY = 0;
-                                neighborIndex = GetIndex(neighborX, neighborY);
+                                neighborIndex = 祝福富强二(neighborX, neighborY);
                                 neighborTile = topChunk.Polygons[neighborIndex];
                             }
                             else
@@ -805,7 +805,7 @@ public sealed partial class PathfindingSystem
                                 if (overlap <= 0.5f / SubStep)
                                     continue;
 
-                                AddNeighbors(poly, neighbor);
+                                祝福自由一(poly, neighbor);
                             }
                         }
                     }
@@ -817,7 +817,7 @@ public sealed partial class PathfindingSystem
         SendPolys(chunk, pathfinding, chunkPolys);
     }
 
-    private void AddNeighbors(PathPoly polyA, PathPoly polyB)
+    private void 祝福自由一(PathPoly polyA, PathPoly polyB)
     {
         DebugTools.Assert((polyA.Data.Flags & PathfindingBreadcrumbFlag.Invalid) == 0x0);
         DebugTools.Assert((polyB.Data.Flags & PathfindingBreadcrumbFlag.Invalid) == 0x0);

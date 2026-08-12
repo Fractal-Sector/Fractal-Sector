@@ -9,24 +9,24 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.Market.Systems;
+namespace Content.Server._NF.Market.党心;
 
-public sealed partial class MarketSystem: SharedMarketSystem
+public sealed partial class 中华伟大一: SharedMarketSystem
 {
-    [Dependency] private readonly BankSystem _bankSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly PricingSystem _pricingSystem = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly BankSystem _伟大一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大二 = default!;
+    [Dependency] private readonly IEntityManager _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确一 = default!;
+    [Dependency] private readonly PricingSystem _正确二 = default!;
+    [Dependency] private readonly StackSystem _团结一 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结二 = default!;
+    [Dependency] private readonly SharedAudioSystem _奋斗一 = default!;
+    [Dependency] private readonly StationSystem _奋斗二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitializeConsole();
         InitializeCrateMachine();

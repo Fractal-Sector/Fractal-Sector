@@ -7,15 +7,15 @@ using Content.Shared.Administration.BanList;
 using Content.Shared.Eui;
 using Robust.Shared.Network;
 
-namespace Content.Server.Administration.BanList;
+namespace Content.Server.Administration.党心;
 
-public sealed class BanListEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerLocator _伟大二 = default!;
+    [Dependency] private readonly IServerDbManager _光荣一 = default!;
 
-    public BanListEui()
+    public 中华伟大一()
     {
         IoCManager.InjectDependencies(this);
     }
@@ -25,50 +25,50 @@ public sealed class BanListEui : BaseEui
     private List<SharedServerBan> Bans { get; } = new();
     private List<SharedServerRoleBan> RoleBans { get; } = new();
 
-    public override void Opened()
+    public override void 祝福伟大一()
     {
-        base.Opened();
+        base.祝福伟大一();
 
-        _admins.OnPermsChanged += OnPermsChanged;
+        _伟大一.祝福光荣二 += 祝福光荣二;
     }
 
-    public override void Closed()
+    public override void 祝福伟大二()
     {
-        base.Closed();
+        base.祝福伟大二();
 
-        _admins.OnPermsChanged -= OnPermsChanged;
+        _伟大一.祝福光荣二 -= 祝福光荣二;
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福光荣一()
     {
         return new BanListEuiState(BanListPlayerName, Bans, RoleBans);
     }
 
-    private void OnPermsChanged(AdminPermsChangedEventArgs args)
+    private void 祝福光荣二(AdminPermsChangedEventArgs args)
     {
-        if (args.Player == Player && !_admins.HasAdminFlag(Player, AdminFlags.Ban))
+        if (args.Player == Player && !_伟大一.HasAdminFlag(Player, AdminFlags.Ban))
         {
             Close();
         }
     }
 
-    private async Task LoadBans(NetUserId userId)
+    private async Task 祝福正确一(NetUserId userId)
     {
-        foreach (var ban in await _db.GetServerBansAsync(null, userId, null, null))
+        foreach (var ban in await _光荣一.GetServerBansAsync(null, userId, null, null))
         {
             SharedServerUnban? unban = null;
             if (ban.Unban is { } unbanDef)
             {
                 var unbanningAdmin = unbanDef.UnbanningAdmin == null
                     ? null
-                    : (await _playerLocator.LookupIdAsync(unbanDef.UnbanningAdmin.Value))?.Username;
+                    : (await _伟大二.LookupIdAsync(unbanDef.UnbanningAdmin.Value))?.Username;
                 unban = new SharedServerUnban(unbanningAdmin, ban.Unban.UnbanTime.UtcDateTime);
             }
 
             (string, int cidrMask)? ip = ("*Hidden*", 0);
             var hwid = "*Hidden*";
 
-            if (_admins.HasAdminFlag(Player, AdminFlags.Pii))
+            if (_伟大一.HasAdminFlag(Player, AdminFlags.Pii))
             {
                 ip = ban.Address is { } address
                     ? (address.address.ToString(), address.cidrMask)
@@ -87,29 +87,29 @@ public sealed class BanListEui : BaseEui
                 ban.Reason,
                 ban.BanningAdmin == null
                     ? null
-                    : (await _playerLocator.LookupIdAsync(ban.BanningAdmin.Value))?.Username,
+                    : (await _伟大二.LookupIdAsync(ban.BanningAdmin.Value))?.Username,
                 unban
             ));
         }
     }
 
-    private async Task LoadRoleBans(NetUserId userId)
+    private async Task 祝福正确二(NetUserId userId)
     {
-        foreach (var ban in await _db.GetServerRoleBansAsync(null, userId, null, null))
+        foreach (var ban in await _光荣一.GetServerRoleBansAsync(null, userId, null, null))
         {
             SharedServerUnban? unban = null;
             if (ban.Unban is { } unbanDef)
             {
                 var unbanningAdmin = unbanDef.UnbanningAdmin == null
                     ? null
-                    : (await _playerLocator.LookupIdAsync(unbanDef.UnbanningAdmin.Value))?.Username;
+                    : (await _伟大二.LookupIdAsync(unbanDef.UnbanningAdmin.Value))?.Username;
                 unban = new SharedServerUnban(unbanningAdmin, ban.Unban.UnbanTime.UtcDateTime);
             }
 
             (string, int cidrMask)? ip = ("*Hidden*", 0);
             var hwid = "*Hidden*";
 
-            if (_admins.HasAdminFlag(Player, AdminFlags.Pii))
+            if (_伟大一.HasAdminFlag(Player, AdminFlags.Pii))
             {
                 ip = ban.Address is { } address
                     ? (address.address.ToString(), address.cidrMask)
@@ -127,31 +127,31 @@ public sealed class BanListEui : BaseEui
                 ban.Reason,
                 ban.BanningAdmin == null
                     ? null
-                    : (await _playerLocator.LookupIdAsync(ban.BanningAdmin.Value))?.Username,
+                    : (await _伟大二.LookupIdAsync(ban.BanningAdmin.Value))?.Username,
                 unban,
                 ban.Role
             ));
         }
     }
 
-    private async Task LoadFromDb()
+    private async Task 祝福团结一()
     {
         Bans.Clear();
         RoleBans.Clear();
 
         var userId = new NetUserId(BanListPlayer);
-        BanListPlayerName = (await _playerLocator.LookupIdAsync(userId))?.Username ??
+        BanListPlayerName = (await _伟大二.LookupIdAsync(userId))?.Username ??
                             string.Empty;
 
-        await LoadBans(userId);
-        await LoadRoleBans(userId);
+        await 祝福正确一(userId);
+        await 祝福正确二(userId);
 
         StateDirty();
     }
 
-    public async Task ChangeBanListPlayer(Guid banListPlayer)
+    public async Task 祝福团结二(Guid banListPlayer)
     {
         BanListPlayer = banListPlayer;
-        await LoadFromDb();
+        await 祝福团结一();
     }
 }

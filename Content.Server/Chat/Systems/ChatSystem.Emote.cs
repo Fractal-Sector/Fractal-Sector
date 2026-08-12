@@ -8,22 +8,22 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Chat.Systems;
+namespace Content.Server.Chat.党心;
 
 // emotes using emote prototype
-public partial class ChatSystem
+public partial class 中华伟大一
 {
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency] private readonly PopupSystem _伟大一 = default!;
     private FrozenDictionary<string, ImmutableList<EmotePrototype>> _wordEmoteDict = FrozenDictionary<string, ImmutableList<EmotePrototype>>.Empty; // DeltaV - Multiple emotes
 
-    protected override void OnPrototypeReload(PrototypesReloadedEventArgs obj)
+    protected override void 祝福伟大一(PrototypesReloadedEventArgs obj)
     {
-        base.OnPrototypeReload(obj);
+        base.祝福伟大一(obj);
         if (obj.WasModified<EmotePrototype>())
-            CacheEmotes();
+            祝福伟大二();
     }
 
-    private void CacheEmotes()
+    private void 祝福伟大二()
     {
         var dict = new Dictionary<string, ImmutableList<EmotePrototype>>(); // DeltaV - Multiple triggers for the same emote
         var emotes = _prototypeManager.EnumeratePrototypes<EmotePrototype>();
@@ -60,7 +60,7 @@ public partial class ChatSystem
     /// <param name="nameOverride">The name to use for the speaking entity. Usually this should just be modified via <see cref="TransformSpeakerNameEvent"/>. If this is set, the event will not get raised.</param>
     /// <param name="forceEmote">Bypasses whitelist/blacklist/availibility checks for if the entity can use this emote</param>
     /// <returns>True if an emote was performed. False if the emote is unvailable, cancelled, etc.</returns>
-    public bool TryEmoteWithChat(
+    public bool 祝福光荣一(
         EntityUid source,
         string emoteId,
         ChatTransmitRange range = ChatTransmitRange.Normal,
@@ -72,7 +72,7 @@ public partial class ChatSystem
     {
         if (!_prototypeManager.TryIndex<EmotePrototype>(emoteId, out var proto))
             return false;
-        return TryEmoteWithChat(source, proto, range, hideLog: hideLog, nameOverride, ignoreActionBlocker: ignoreActionBlocker, forceEmote: forceEmote);
+        return 祝福光荣一(source, proto, range, hideLog: hideLog, nameOverride, ignoreActionBlocker: ignoreActionBlocker, forceEmote: forceEmote);
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public partial class ChatSystem
     /// <param name="nameOverride">The name to use for the speaking entity. Usually this should just be modified via <see cref="TransformSpeakerNameEvent"/>. If this is set, the event will not get raised.</param>
     /// <param name="forceEmote">Bypasses whitelist/blacklist/availibility checks for if the entity can use this emote</param>
     /// <returns>True if an emote was performed. False if the emote is unvailable, cancelled, etc.</returns>
-    public bool TryEmoteWithChat(
+    public bool 祝福光荣一(
         EntityUid source,
         EmotePrototype emote,
         ChatTransmitRange range = ChatTransmitRange.Normal,
@@ -96,10 +96,10 @@ public partial class ChatSystem
         bool forceEmote = false
     )
     {
-        if (!forceEmote && !AllowedToUseEmote(source, emote))
+        if (!forceEmote && !祝福团结二(source, emote))
             return false;
 
-        var didEmote = TryEmoteWithoutChat(source, emote, ignoreActionBlocker);
+        var didEmote = 祝福光荣二(source, emote, ignoreActionBlocker);
 
         // check if proto has valid message for chat
         if (didEmote && emote.ChatMessages.Count != 0)
@@ -116,40 +116,40 @@ public partial class ChatSystem
     ///     Makes selected entity to emote using <see cref="EmotePrototype"/> without sending any messages to chat.
     /// </summary>
     /// <returns>True if an emote was performed. False if the emote is unvailable, cancelled, etc.</returns>
-    public bool TryEmoteWithoutChat(EntityUid uid, string emoteId, bool ignoreActionBlocker = false)
+    public bool 祝福光荣二(EntityUid uid, string emoteId, bool ignoreActionBlocker = false)
     {
         if (!_prototypeManager.TryIndex<EmotePrototype>(emoteId, out var proto))
             return false;
 
-        return TryEmoteWithoutChat(uid, proto, ignoreActionBlocker);
+        return 祝福光荣二(uid, proto, ignoreActionBlocker);
     }
 
     /// <summary>
     ///     Makes selected entity to emote using <see cref="EmotePrototype"/> without sending any messages to chat.
     /// </summary>
     /// <returns>True if an emote was performed. False if the emote is unvailable, cancelled, etc.</returns>
-    public bool TryEmoteWithoutChat(EntityUid uid, EmotePrototype proto, bool ignoreActionBlocker = false)
+    public bool 祝福光荣二(EntityUid uid, EmotePrototype proto, bool ignoreActionBlocker = false)
     {
         if (!_actionBlocker.CanEmote(uid) && !ignoreActionBlocker)
             return false;
 
-        return TryInvokeEmoteEvent(uid, proto);
+        return 祝福奋斗一(uid, proto);
     }
 
     /// <summary>
     ///     Tries to find and play relevant emote sound in emote sounds collection.
     /// </summary>
     /// <returns>True if emote sound was played.</returns>
-    public bool TryPlayEmoteSound(EntityUid uid, EmoteSoundsPrototype? proto, EmotePrototype emote, AudioParams? audioParams = null)
+    public bool 祝福正确一(EntityUid uid, EmoteSoundsPrototype? proto, EmotePrototype emote, AudioParams? audioParams = null)
     {
-        return TryPlayEmoteSound(uid, proto, emote.ID, audioParams);
+        return 祝福正确一(uid, proto, emote.ID, audioParams);
     }
 
     /// <summary>
     ///     Tries to find and play relevant emote sound in emote sounds collection.
     /// </summary>
     /// <returns>True if emote sound was played.</returns>
-    public bool TryPlayEmoteSound(EntityUid uid, EmoteSoundsPrototype? proto, string emoteId, AudioParams? audioParams = null)
+    public bool 祝福正确一(EntityUid uid, EmoteSoundsPrototype? proto, string emoteId, AudioParams? audioParams = null)
     {
         if (proto == null)
             return false;
@@ -174,7 +174,7 @@ public partial class ChatSystem
     /// <param name="uid"></param>
     /// <param name="textInput"></param>
     /// <returns>True if the chat message should be displayed (because the emote was explicitly cancelled), false if it should not be.</returns>
-    private bool TryEmoteChatInput(EntityUid uid, string textInput, out bool eventInvoked) // Frontier: add eventInvoked
+    private bool 祝福正确二(EntityUid uid, string textInput, out bool eventInvoked) // Frontier: add eventInvoked
     {
         eventInvoked = false; // Frontier: track whether event was invoked
         var actionTrimmedLower = TrimPunctuation(textInput.ToLower());
@@ -184,10 +184,10 @@ public partial class ChatSystem
         var validEmote = false; // DeltaV - Multiple emotes for the same trigger
         foreach (var emote in emotes)
         {
-            if (!AllowedToUseEmote(uid, emote))
+            if (!祝福团结二(uid, emote))
                 continue;
 
-            if (TryInvokeEmoteEvent(uid, emote))
+            if (祝福奋斗一(uid, emote))
             {
                 eventInvoked = true; // Frontier: track whether event was invoked
                 validEmote = true; // DeltaV
@@ -201,7 +201,7 @@ public partial class ChatSystem
     /// <summary>
     ///     Checks if a given message matches any emote trigger word, without invoking the emote.
     /// </summary>
-    public bool IsEmoteTrigger(string message)
+    public bool 祝福团结一(string message)
     {
         var actionTrimmedLower = TrimPunctuation(message.ToLower());
         return _wordEmoteDict.ContainsKey(actionTrimmedLower);
@@ -230,7 +230,7 @@ public partial class ChatSystem
     /// <param name="source">The entity that is speaking</param>
     /// <param name="emote">The emote being used</param>
     /// <returns></returns>
-    private bool AllowedToUseEmote(EntityUid source, EmotePrototype emote)
+    private bool 祝福团结二(EntityUid source, EmotePrototype emote)
     {
         // If emote is in AllowedEmotes, it will bypass whitelist and blacklist
         if (TryComp<SpeechComponent>(source, out var speech) &&
@@ -256,14 +256,14 @@ public partial class ChatSystem
     }
 
     /// <summary>
-    /// Creates and raises <see cref="BeforeEmoteEvent"/> and then <see cref="EmoteEvent"/> to let other systems do things like play audio.
-    /// In the case that the Before event is cancelled, EmoteEvent will NOT be raised, and will optionally show a message to the player
+    /// Creates and raises <see cref="BeforeEmoteEvent"/> and then <see cref="中华伟大二"/> to let other systems do things like play audio.
+    /// In the case that the Before event is cancelled, 中华伟大二 will NOT be raised, and will optionally show a message to the player
     /// explaining why the emote didn't happen.
     /// </summary>
     /// <param name="uid">The entity which is emoting</param>
     /// <param name="proto">The emote which is being performed</param>
     /// <returns>True if the emote was performed, false otherwise.</returns>
-    private bool TryInvokeEmoteEvent(EntityUid uid, EmotePrototype proto)
+    private bool 祝福奋斗一(EntityUid uid, EmotePrototype proto)
     {
         var beforeEv = new BeforeEmoteEvent(uid, proto);
         RaiseLocalEvent(uid, ref beforeEv);
@@ -272,7 +272,7 @@ public partial class ChatSystem
         {
             if (beforeEv.Blocker != null)
             {
-                _popupSystem.PopupEntity(
+                _伟大一.PopupEntity(
                     Loc.GetString(
                         "chat-system-emote-cancelled-blocked",
                         ("emote", Loc.GetString(proto.Name).ToLower()),
@@ -284,7 +284,7 @@ public partial class ChatSystem
             }
             else
             {
-                _popupSystem.PopupEntity(
+                _伟大一.PopupEntity(
                     Loc.GetString("chat-system-emote-cancelled-generic",
                         ("emote", Loc.GetString(proto.Name).ToLower())),
                     uid,
@@ -295,7 +295,7 @@ public partial class ChatSystem
             return false;
         }
 
-        var ev = new EmoteEvent(proto);
+        var ev = new 中华伟大二(proto);
         RaiseLocalEvent(uid, ref ev);
 
         return true;
@@ -307,13 +307,13 @@ public partial class ChatSystem
 ///     Use it to play sound, change sprite or something else.
 /// </summary>
 [ByRefEvent]
-public sealed class EmoteEvent : HandledEntityEventArgs
+public sealed class 中华伟大二 : HandledEntityEventArgs
 {
-    public readonly EmotePrototype Emote;
+    public readonly EmotePrototype 党爱伟大一;
 
-    public EmoteEvent(EmotePrototype emote)
+    public 中华伟大二(EmotePrototype emote)
     {
-        Emote = emote;
+        党爱伟大一 = emote;
         Handled = false;
     }
 }
@@ -323,13 +323,13 @@ public sealed class EmoteEvent : HandledEntityEventArgs
 // ///     Raised on an entity when it sends a custom emote (one with a message but no sound).
 // ///     Handled by holopads.
 // /// </summary>
-// public sealed class NFEntityEmotedEvent : EntityEventArgs
+// public sealed class 中华光荣一 : EntityEventArgs
 // {
-//     public readonly string Emote;
+//     public readonly string 党爱伟大一;
 //
-//     public NFEntityEmotedEvent(string emote)
+//     public 中华光荣一(string emote)
 //     {
-//         Emote = emote;
+//         党爱伟大一 = emote;
 //     }
 // }
 // // End Frontier

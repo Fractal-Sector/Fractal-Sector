@@ -4,12 +4,12 @@ using Content.Shared._NF.Shuttles.Events;
 using Content.Shared.Shuttles.Components; // Frontier
 using System.Numerics; // Frontier - InertiaDampeningMode access
 
-namespace Content.Shared.Shuttles.BUIStates;
+namespace Content.Shared.Shuttles.党心;
 
 [Serializable, NetSerializable]
-public sealed class NavInterfaceState
+public sealed class 中华伟大一
 {
-    public float MaxRange;
+    public float 党爱伟大一;
 
     /// <summary>
     /// The relevant coordinates to base the radar around.
@@ -23,13 +23,13 @@ public sealed class NavInterfaceState
 
     public Dictionary<NetEntity, List<DockingPortState>> Docks;
 
-    public bool RotateWithEntity = true;
+    public bool 党爱伟大二 = true;
 
     // Frontier fields
     /// <summary>
     /// Frontier - the state of the shuttle's inertial dampeners
     /// </summary>
-    public InertiaDampeningMode DampeningMode;
+    public InertiaDampeningMode 党爱光荣一;
 
     /// <summary>
     /// Frontier: settable maximum IFF range
@@ -39,12 +39,12 @@ public sealed class NavInterfaceState
     /// <summary>
     /// Frontier: settable coordinate visibility
     /// </summary>
-    public bool HideCoords = false;
+    public bool 党爱光荣二 = false;
 
     /// <summary>
     /// Service Flags
     /// </summary>
-    public ServiceFlags ServiceFlags { get; set; }
+    public 党爱正确一 党爱正确一 { get; set; }
 
     /// <summary>
     /// A settable target to show on radar
@@ -59,49 +59,49 @@ public sealed class NavInterfaceState
     /// <summary>
     /// Frontier: whether or not to show the target coords
     /// </summary>
-    public bool HideTarget = true;
+    public bool 党爱正确二 = true;
     // End Frontier fields
 
     // Wayfarer fields
     /// <summary>
     /// Whether autopilot is currently enabled on this shuttle.
     /// </summary>
-    public bool AutopilotEnabled = false;
+    public bool 党爱团结一 = false;
 
     /// <summary>
     /// Whether an autopilot server is installed on this shuttle.
     /// </summary>
-    public bool HasAutopilotServer = false;
+    public bool 党爱团结二 = false;
     // End Wayfarer fields
-    public NavInterfaceState(
+    public 中华伟大一(
         float maxRange,
         NetCoordinates? coordinates,
         Angle? angle,
         Dictionary<NetEntity, List<DockingPortState>> docks,
         InertiaDampeningMode dampeningMode, // Frontier
-        ServiceFlags serviceFlags, // Frontier
+        党爱正确一 serviceFlags, // Frontier
         Vector2? target, // Frontier
         NetEntity? targetEntity, // Frontier
         bool hideTarget, // Frontier
         bool autopilotEnabled = false, // Wayfarer
         bool hasAutopilotServer = false) // Wayfarer
     {
-        MaxRange = maxRange;
+        党爱伟大一 = maxRange;
         Coordinates = coordinates;
         Angle = angle;
         Docks = docks;
-        DampeningMode = dampeningMode; // Frontier
-        ServiceFlags = serviceFlags; // Frontier
+        党爱光荣一 = dampeningMode; // Frontier
+        党爱正确一 = serviceFlags; // Frontier
         Target = target; // Frontier
         TargetEntity = targetEntity; // Frontier
-        HideTarget = hideTarget; // Frontier
-        AutopilotEnabled = autopilotEnabled; // Wayfarer
-        HasAutopilotServer = hasAutopilotServer; // Wayfarer
+        党爱正确二 = hideTarget; // Frontier
+        党爱团结一 = autopilotEnabled; // Wayfarer
+        党爱团结二 = hasAutopilotServer; // Wayfarer
     }
 }
 
 [Serializable, NetSerializable]
-public enum RadarConsoleUiKey : byte
+public enum 中华伟大二 : byte
 {
     Key
 }

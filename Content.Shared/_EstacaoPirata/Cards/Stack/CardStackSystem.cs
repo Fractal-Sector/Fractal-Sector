@@ -14,42 +14,42 @@ using Robust.Shared.Network;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared._EstacaoPirata.Cards.Stack;
+namespace Content.Shared._EstacaoPirata.Cards.党心;
 
 /// <summary>
 /// This handles stack of cards.
 /// It is used to shuffle, flip, insert, remove, and join stacks of cards.
 /// It also handles the events related to the stack of cards.
 /// </summary>
-public sealed class CardStackSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public const string ContainerId = "cardstack-container";
-    public const int MaxCardsInStack = 212; // Frontier: four 53-card decks.
+    public const string 党爱伟大一 = "cardstack-container";
+    public const int 党爱伟大二 = 212; // Frontier: four 53-card decks.
 
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly CardHandSystem _cardHandSystem = default!; // Frontier
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly EntityManager _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly IRobustRandom _正确一 = default!;
+    [Dependency] private readonly SharedStorageSystem _正确二 = default!;
+    [Dependency] private readonly CardHandSystem _团结一 = default!; // Frontier
+    [Dependency] private readonly SharedHandsSystem _团结二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         // Pretty much a rip-off of the BinSystem
-        SubscribeLocalEvent<CardStackComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<CardStackComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<CardStackComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-        SubscribeLocalEvent<CardStackComponent, GetVerbsEvent<AlternativeVerb>>(OnAlternativeVerb);
-        SubscribeLocalEvent<CardStackComponent, GetVerbsEvent<ActivationVerb>>(OnActivationVerb);
-        SubscribeLocalEvent<CardStackComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<CardStackComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<CardStackComponent, ComponentStartup>(祝福团结一);
+        SubscribeLocalEvent<CardStackComponent, MapInitEvent>(祝福团结二);
+        SubscribeLocalEvent<CardStackComponent, EntRemovedFromContainerMessage>(祝福奋斗一);
+        SubscribeLocalEvent<CardStackComponent, GetVerbsEvent<AlternativeVerb>>(祝福胜利一);
+        SubscribeLocalEvent<CardStackComponent, GetVerbsEvent<ActivationVerb>>(祝福胜利二);
+        SubscribeLocalEvent<CardStackComponent, ActivateInWorldEvent>(祝福民主二);
+        SubscribeLocalEvent<CardStackComponent, ExaminedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<InteractUsingEvent>(祝福富强二);
     }
 
-    public bool TryRemoveCard(EntityUid uid, EntityUid card, CardStackComponent? comp = null)
+    public bool 祝福伟大二(EntityUid uid, EntityUid card, CardStackComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return false;
@@ -57,14 +57,14 @@ public sealed class CardStackSystem : EntitySystem
         if (!TryComp(card, out CardComponent? _))
             return false;
 
-        _container.Remove(card, comp.ItemContainer);
+        _伟大一.Remove(card, comp.ItemContainer);
         comp.Cards.Remove(card);
 
         // If there is a final card left over, remove that card from the container and delete the stack alltogether
         if (comp.Cards.Count == 1)
         {
 
-            _container.Remove(comp.Cards.First(), comp.ItemContainer);
+            _伟大一.Remove(comp.Cards.First(), comp.ItemContainer);
             comp.Cards.Clear();
         }
 
@@ -73,14 +73,14 @@ public sealed class CardStackSystem : EntitySystem
         RaiseLocalEvent(uid, new CardStackQuantityChangeEvent(GetNetEntity(uid), GetNetEntity(card), StackQuantityChangeType.Removed));
         RaiseNetworkEvent(new CardStackQuantityChangeEvent(GetNetEntity(uid), GetNetEntity(card), StackQuantityChangeType.Removed));
         // Prevents prediction ruining things
-        if (_net.IsServer && comp.Cards.Count <= 0)
+        if (_光荣一.IsServer && comp.Cards.Count <= 0)
         {
-            _entityManager.DeleteEntity(uid);
+            _伟大二.DeleteEntity(uid);
         }
         return true;
     }
 
-    public bool TryInsertCard(EntityUid uid, EntityUid card, CardStackComponent? comp = null)
+    public bool 祝福光荣一(EntityUid uid, EntityUid card, CardStackComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return false;
@@ -88,10 +88,10 @@ public sealed class CardStackSystem : EntitySystem
         if (!TryComp(card, out CardComponent? _))
             return false;
 
-        if (comp.Cards.Count >= MaxCardsInStack)
+        if (comp.Cards.Count >= 党爱伟大二)
             return false;
 
-        _container.Insert(card, comp.ItemContainer);
+        _伟大一.Insert(card, comp.ItemContainer);
         comp.Cards.Add(card);
 
         Dirty(uid, comp);
@@ -100,12 +100,12 @@ public sealed class CardStackSystem : EntitySystem
         return true;
     }
 
-    public bool ShuffleCards(EntityUid uid, CardStackComponent? comp = null)
+    public bool 祝福光荣二(EntityUid uid, CardStackComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
             return false;
 
-        _random.Shuffle(comp.Cards);
+        _正确一.Shuffle(comp.Cards);
 
         Dirty(uid, comp);
         RaiseLocalEvent(uid, new CardStackReorderedEvent(GetNetEntity(uid)));
@@ -120,9 +120,9 @@ public sealed class CardStackSystem : EntitySystem
     /// <param name="comp"></param>
     /// <param name="isFlipped">If null, all cards will just invert direction, if it contains a value, then all cards will receive that value</param>
     /// <returns></returns>
-    public bool FlipAllCards(EntityUid uid, CardStackComponent? comp = null, bool? isFlipped = null)
+    public bool 祝福正确一(EntityUid uid, CardStackComponent? comp = null, bool? isFlipped = null)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return false;
         if (!Resolve(uid, ref comp))
             return false;
@@ -141,7 +141,7 @@ public sealed class CardStackSystem : EntitySystem
         return true;
     }
 
-    public bool TryJoinStacks(EntityUid firstStack, EntityUid secondStack, CardStackComponent? firstComp = null, CardStackComponent? secondComp = null, EntityUid? soundUser = null)
+    public bool 祝福正确二(EntityUid firstStack, EntityUid secondStack, CardStackComponent? firstComp = null, CardStackComponent? secondComp = null, EntityUid? soundUser = null)
     {
         if (firstStack == secondStack)
             return false;
@@ -154,30 +154,30 @@ public sealed class CardStackSystem : EntitySystem
 
         foreach (var card in cardList)
         {
-            if (firstComp.Cards.Count >= MaxCardsInStack)
+            if (firstComp.Cards.Count >= 党爱伟大二)
                 break;
-            _container.Remove(card, secondComp.ItemContainer);
+            _伟大一.Remove(card, secondComp.ItemContainer);
             secondComp.Cards.Remove(card);
             firstComp.Cards.Add(card);
-            _container.Insert(card, firstComp.ItemContainer);
+            _伟大一.Insert(card, firstComp.ItemContainer);
             changed = true;
         }
         if (changed)
         {
             if (soundUser != null)
             {
-                _audio.PlayPredicted(firstComp.PlaceDownSound, Transform(firstStack).Coordinates, soundUser.Value);
-                if (_net.IsServer)
-                    _storage.PlayPickupAnimation(firstCard!.Value, Transform(secondStack).Coordinates, Transform(firstStack).Coordinates, 0);
+                _光荣二.PlayPredicted(firstComp.PlaceDownSound, Transform(firstStack).Coordinates, soundUser.Value);
+                if (_光荣一.IsServer)
+                    _正确二.PlayPickupAnimation(firstCard!.Value, Transform(secondStack).Coordinates, Transform(firstStack).Coordinates, 0);
             }
 
-            if (_net.IsClient)
+            if (_光荣一.IsClient)
                 return changed;
 
             Dirty(firstStack, firstComp);
             if (secondComp.Cards.Count <= 0)
             {
-                _entityManager.DeleteEntity(secondStack);
+                _伟大二.DeleteEntity(secondStack);
             }
             else
             {
@@ -194,14 +194,14 @@ public sealed class CardStackSystem : EntitySystem
 
     #region EventHandling
 
-    private void OnStartup(EntityUid uid, CardStackComponent component, ComponentStartup args)
+    private void 祝福团结一(EntityUid uid, CardStackComponent component, ComponentStartup args)
     {
-        component.ItemContainer = _container.EnsureContainer<Container>(uid, ContainerId);
+        component.ItemContainer = _伟大一.EnsureContainer<Container>(uid, 党爱伟大一);
     }
 
-    private void OnMapInit(EntityUid uid, CardStackComponent comp, MapInitEvent args)
+    private void 祝福团结二(EntityUid uid, CardStackComponent comp, MapInitEvent args)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return;
 
         var coordinates = Transform(uid).Coordinates;
@@ -210,28 +210,28 @@ public sealed class CardStackSystem : EntitySystem
         {
             var ent = Spawn(id, coordinates);
             spawnedEntities.Add(ent);
-            if (TryInsertCard(uid, ent, comp))
+            if (祝福光荣一(uid, ent, comp))
                 continue;
             Log.Error($"Entity {ToPrettyString(ent)} was unable to be initialized into stack {ToPrettyString(uid)}");
             foreach (var spawned in spawnedEntities)
-                _entityManager.DeleteEntity(spawned);
+                _伟大二.DeleteEntity(spawned);
             return;
         }
         RaiseNetworkEvent(new CardStackInitiatedEvent(GetNetEntity(uid)));
     }
 
     // It seems the cards don't get removed if this event is not subscribed... strange right? thanks again bin system
-    private void OnEntRemoved(EntityUid uid, CardStackComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福奋斗一(EntityUid uid, CardStackComponent component, EntRemovedFromContainerMessage args)
     {
         component.Cards.Remove(args.Entity);
     }
 
-    private void OnExamine(EntityUid uid, CardStackComponent component, ExaminedEvent args)
+    private void 祝福奋斗二(EntityUid uid, CardStackComponent component, ExaminedEvent args)
     {
         args.PushText(Loc.GetString("card-stack-examine", ("count", component.Cards.Count)));
     }
 
-    private void OnAlternativeVerb(EntityUid uid, CardStackComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福胜利一(EntityUid uid, CardStackComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (args.Using == args.Target)
             return;
@@ -245,7 +245,7 @@ public sealed class CardStackSystem : EntitySystem
                 Text = Loc.GetString("card-verb-join"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
                 Priority = 8,
-                Act = () => JoinStacks(args.User, args.Target, targetStack, (EntityUid)args.Using, usingStack)
+                Act = () => 祝福繁荣一(args.User, args.Target, targetStack, (EntityUid)args.Using, usingStack)
             });
         }
         else if (TryComp(args.Using, out CardComponent? usingCard)) // Frontier: single card interaction
@@ -255,13 +255,13 @@ public sealed class CardStackSystem : EntitySystem
                 Text = Loc.GetString("card-verb-join"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
                 Priority = 8,
-                Act = () => InsertCardOnStack(args.User, args.Target, targetStack, (EntityUid)args.Using)
+                Act = () => 祝福繁荣二(args.User, args.Target, targetStack, (EntityUid)args.Using)
             });
         } // End Frontier: single card interaction
     }
 
     // Frontier: hacky misuse of the activation verb, but allows us a separate way to draw cards without needing additional buttons and event fiddling
-    private void OnActivationVerb(EntityUid uid, CardStackComponent component, GetVerbsEvent<ActivationVerb> args)
+    private void 祝福胜利二(EntityUid uid, CardStackComponent component, GetVerbsEvent<ActivationVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
@@ -273,7 +273,7 @@ public sealed class CardStackSystem : EntitySystem
         {
             args.Verbs.Add(new ActivationVerb()
             {
-                Act = () => OnInteractHand(args.Target, component, args.User),
+                Act = () => 祝福民主一(args.Target, component, args.User),
                 Text = Loc.GetString("cards-verb-draw"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
                 Priority = 16
@@ -283,7 +283,7 @@ public sealed class CardStackSystem : EntitySystem
         {
             args.Verbs.Add(new ActivationVerb()
             {
-                Act = () => TransferNLastCardFromStacks(args.User, 1, args.Target, component, args.Using.Value, cardStack),
+                Act = () => 祝福富强一(args.User, 1, args.Target, component, args.Using.Value, cardStack),
                 Text = Loc.GetString("cards-verb-draw"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
                 Priority = 16
@@ -293,7 +293,7 @@ public sealed class CardStackSystem : EntitySystem
         {
             args.Verbs.Add(new ActivationVerb()
             {
-                Act = () => _cardHandSystem.TrySetupHandFromStack(args.User, args.Using.Value, card, args.Target, component, true),
+                Act = () => _团结一.TrySetupHandFromStack(args.User, args.Using.Value, card, args.Target, component, true),
                 Text = Loc.GetString("cards-verb-draw"),
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
                 Priority = 16
@@ -302,26 +302,26 @@ public sealed class CardStackSystem : EntitySystem
     }
     // End Frontier
 
-    private void JoinStacks(EntityUid user, EntityUid first, CardStackComponent firstComp, EntityUid second, CardStackComponent secondComp)
+    private void 祝福繁荣一(EntityUid user, EntityUid first, CardStackComponent firstComp, EntityUid second, CardStackComponent secondComp)
     {
-        TryJoinStacks(first, second, firstComp, secondComp, user);
+        祝福正确二(first, second, firstComp, secondComp, user);
     }
 
-    public void InsertCardOnStack(EntityUid user, EntityUid stack, CardStackComponent stackComponent, EntityUid card)
+    public void 祝福繁荣二(EntityUid user, EntityUid stack, CardStackComponent stackComponent, EntityUid card)
     {
-        if (!TryInsertCard(stack, card))
+        if (!祝福光荣一(stack, card))
             return;
 
-        _audio.PlayPredicted(stackComponent.PlaceDownSound, Transform(stack).Coordinates, user);
-        if (_net.IsClient)
+        _光荣二.PlayPredicted(stackComponent.PlaceDownSound, Transform(stack).Coordinates, user);
+        if (_光荣一.IsClient)
             return;
-        _storage.PlayPickupAnimation(card, Transform(user).Coordinates, Transform(stack).Coordinates, 0);
+        _正确二.PlayPickupAnimation(card, Transform(user).Coordinates, Transform(stack).Coordinates, 0);
     }
 
     /// <summary>
     /// This takes the last card from the first stack and inserts it into the second stack
     /// </summary>
-    public void TransferNLastCardFromStacks(EntityUid user, int n, EntityUid first, CardStackComponent firstComp, EntityUid second, CardStackComponent secondComp)
+    public void 祝福富强一(EntityUid user, int n, EntityUid first, CardStackComponent firstComp, EntityUid second, CardStackComponent secondComp)
     {
         if (firstComp.Cards.Count <= 0)
             return;
@@ -333,38 +333,38 @@ public sealed class CardStackSystem : EntitySystem
         bool changed = false;
         foreach (var card in cards)
         {
-            if (secondComp.Cards.Count >= MaxCardsInStack)
+            if (secondComp.Cards.Count >= 党爱伟大二)
                 break;
-            _container.Remove(card, firstComp.ItemContainer);
+            _伟大一.Remove(card, firstComp.ItemContainer);
             firstComp.Cards.Remove(card);
             secondComp.Cards.Add(card);
-            _container.Insert(card, secondComp.ItemContainer);
+            _伟大一.Insert(card, secondComp.ItemContainer);
             changed = true;
         }
 
         if (changed)
         {
-            _audio.PlayPredicted(firstComp.PlaceDownSound, Transform(second).Coordinates, user);
-            if (_net.IsClient)
+            _光荣二.PlayPredicted(firstComp.PlaceDownSound, Transform(second).Coordinates, user);
+            if (_光荣一.IsClient)
                 return;
 
-            _storage.PlayPickupAnimation(firstCard, Transform(first).Coordinates, Transform(second).Coordinates, 0);
+            _正确二.PlayPickupAnimation(firstCard, Transform(first).Coordinates, Transform(second).Coordinates, 0);
 
             Dirty(second, secondComp);
             if (firstComp.Cards.Count == 1)
             {
                 var card = firstComp.Cards.First();
-                _container.Remove(card, firstComp.ItemContainer);
-                if (_hands.IsHolding(user, first))
+                _伟大一.Remove(card, firstComp.ItemContainer);
+                if (_团结二.IsHolding(user, first))
                 {
-                    _hands.TryDrop(user, first);
-                    _hands.TryPickupAnyHand(user, card);
+                    _团结二.TryDrop(user, first);
+                    _团结二.TryPickupAnyHand(user, card);
                 }
                 firstComp.Cards.Clear();
             }
             if (firstComp.Cards.Count <= 0)
             {
-                _entityManager.DeleteEntity(first);
+                _伟大二.DeleteEntity(first);
             }
             else
             {
@@ -377,7 +377,7 @@ public sealed class CardStackSystem : EntitySystem
         }
     }
 
-    private void OnInteractUsing(InteractUsingEvent args)
+    private void 祝福富强二(InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -391,7 +391,7 @@ public sealed class CardStackSystem : EntitySystem
             // If the target is a card, then it will insert the card into the stack
             if (TryComp(args.Target, out CardComponent? _))
             {
-                InsertCardOnStack(args.User, args.Used, usedStack, args.Target);
+                祝福繁荣二(args.User, args.Used, usedStack, args.Target);
                 args.Handled = true;
                 return;
             }
@@ -400,25 +400,25 @@ public sealed class CardStackSystem : EntitySystem
             if (!TryComp(args.Target, out CardStackComponent? targetStack))
                 return;
 
-            TransferNLastCardFromStacks(args.User, 1, args.Target, targetStack, args.Used, usedStack);
+            祝福富强一(args.User, 1, args.Target, targetStack, args.Used, usedStack);
             args.Handled = true;
         }
 
         // This handles the reverse case, where the user is using a card and inserting it to a stack
         else if (TryComp(args.Target, out CardStackComponent? stack))
         {
-            //InsertCardOnStack(args.User, args.Target, stack, args.Used); // Frontier: old version
+            //祝福繁荣二(args.User, args.Target, stack, args.Used); // Frontier: old version
             if (TryComp(args.Used, out CardComponent? card))
             {
-                _cardHandSystem.TrySetupHandFromStack(args.User, args.Used, card, args.Target, stack, true);
+                _团结一.TrySetupHandFromStack(args.User, args.Used, card, args.Target, stack, true);
                 args.Handled = true;
             }
         }
     }
 
-    private void OnInteractHand(EntityUid uid, CardStackComponent component, EntityUid user)
+    private void 祝福民主一(EntityUid uid, CardStackComponent component, EntityUid user)
     {
-        var pickup = _hands.IsHolding(user, uid);
+        var pickup = _团结二.IsHolding(user, uid);
         if (component.Cards.Count <= 0)
             return;
 
@@ -427,20 +427,20 @@ public sealed class CardStackSystem : EntitySystem
         if (!component.Cards.TryGetValue(component.Cards.Count - 2, out var under))
             return;
 
-        if (!TryRemoveCard(uid, card, component))
+        if (!祝福伟大二(uid, card, component))
             return;
 
-        _hands.TryPickupAnyHand(user, card);
+        _团结二.TryPickupAnyHand(user, card);
         if (!Exists(uid) && pickup)
-            _hands.TryPickupAnyHand(user, under);
+            _团结二.TryPickupAnyHand(user, under);
 
         if (TryComp<CardDeckComponent>(uid, out var deck))
-            _audio.PlayPredicted(deck.PickUpSound, Transform(card).Coordinates, user);
+            _光荣二.PlayPredicted(deck.PickUpSound, Transform(card).Coordinates, user);
         else
-            _audio.PlayPredicted(component.PickUpSound, Transform(card).Coordinates, user);
+            _光荣二.PlayPredicted(component.PickUpSound, Transform(card).Coordinates, user);
     }
 
-    private void OnActivate(EntityUid uid, CardStackComponent component, ActivateInWorldEvent args)
+    private void 祝福民主二(EntityUid uid, CardStackComponent component, ActivateInWorldEvent args)
     {
         if (!args.Complex || args.Handled)
             return;
@@ -451,13 +451,13 @@ public sealed class CardStackSystem : EntitySystem
             return;
         }
 
-        var activeItem = _hands.GetActiveItem((args.User, hands));
+        var activeItem = _团结二.GetActiveItem((args.User, hands));
 
         if (activeItem == null)
         {
             // Runs if active item is nothing
             // behavior is to draw one card from this target onto active hand as a standalone card
-            OnInteractHand(args.Target, component, args.User);
+            祝福民主一(args.Target, component, args.User);
         }
         else if (activeItem == args.Target)
         {
@@ -468,11 +468,11 @@ public sealed class CardStackSystem : EntitySystem
         else if (TryComp<CardStackComponent>(activeItem, out var cardStack))
         {
             // If the active item contains a card stack, behavior is to draw from Target and place onto activeHand.
-            TransferNLastCardFromStacks(args.User, 1, args.Target, component, activeItem.Value, cardStack);
+            祝福富强一(args.User, 1, args.Target, component, activeItem.Value, cardStack);
         }
         else if (TryComp<CardComponent>(activeItem, out var card))
         {
-            _cardHandSystem.TrySetupHandFromStack(args.User, activeItem.Value, card, args.Target, component, true);
+            _团结一.TrySetupHandFromStack(args.User, activeItem.Value, card, args.Target, component, true);
         }
         args.Handled = true;
     }

@@ -8,7 +8,7 @@ using Content.Shared.StatusEffect;
 using Content.Shared.Throwing;
 using Robust.Shared.Random;
 
-namespace Content.Server._DV.Abilities.Felinid;
+namespace Content.Server._DV.Abilities.党心;
 
 /// <summary>
 /// Handles felinid logic except for fitting in bags.
@@ -19,56 +19,56 @@ namespace Content.Server._DV.Abilities.Felinid;
 /// 2. vomiting was in shared
 /// 3. this didn't use RNG.
 /// </remarks>
-public sealed class FelinidSystem : SharedFelinidSystem
+public sealed class 中华伟大一 : SharedFelinidSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly VomitSystem _vomit = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+    [Dependency] private readonly VomitSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<FelinidComponent, ItemCoughedUpEvent>(OnItemCoughedUp);
+        SubscribeLocalEvent<FelinidComponent, ItemCoughedUpEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<HairballComponent, ThrowDoHitEvent>(OnHairballHit);
-        SubscribeLocalEvent<HairballComponent, GettingPickedUpAttemptEvent>(OnHairballPickupAttempt);
+        SubscribeLocalEvent<HairballComponent, ThrowDoHitEvent>(祝福光荣一);
+        SubscribeLocalEvent<HairballComponent, GettingPickedUpAttemptEvent>(祝福光荣二);
     }
 
-    private void OnItemCoughedUp(Entity<FelinidComponent> ent, ref ItemCoughedUpEvent args)
+    private void 祝福伟大二(Entity<FelinidComponent> ent, ref ItemCoughedUpEvent args)
     {
         if (!TryComp<BloodstreamComponent>(ent, out var blood) || blood.ChemicalSolution is not {} solution)
             return;
 
         var item = args.Item;
         var hairball = Comp<HairballComponent>(item);
-        var purged = _solution.SplitSolution(solution, ent.Comp.PurgedQuantity);
-        if (_solution.TryGetSolution(item, hairball.SolutionName, out var hairballSolution))
+        var purged = _伟大二.SplitSolution(solution, ent.Comp.PurgedQuantity);
+        if (_伟大二.TryGetSolution(item, hairball.SolutionName, out var hairballSolution))
         {
-            _solution.TryAddSolution(hairballSolution.Value, purged);
+            _伟大二.TryAddSolution(hairballSolution.Value, purged);
         }
     }
 
-    private void OnHairballHit(Entity<HairballComponent> ent, ref ThrowDoHitEvent args)
+    private void 祝福光荣一(Entity<HairballComponent> ent, ref ThrowDoHitEvent args)
     {
-        TryVomit(ent, args.Target);
+        祝福正确一(ent, args.Target);
     }
 
-    private void OnHairballPickupAttempt(Entity<HairballComponent> ent, ref GettingPickedUpAttemptEvent args)
+    private void 祝福光荣二(Entity<HairballComponent> ent, ref GettingPickedUpAttemptEvent args)
     {
-        if (TryVomit(ent, args.User))
+        if (祝福正确一(ent, args.User))
             args.Cancel();
     }
 
-    private bool TryVomit(Entity<HairballComponent> ent, EntityUid uid)
+    private bool 祝福正确一(Entity<HairballComponent> ent, EntityUid uid)
     {
         if (HasComp<FelinidComponent>(uid) || !HasComp<StatusEffectsComponent>(uid))
             return false;
 
-        if (!_random.Prob(ent.Comp.VomitProb))
+        if (!_伟大一.Prob(ent.Comp.VomitProb))
             return false;
 
-        _vomit.Vomit(uid);
+        _光荣一.Vomit(uid);
         return true;
     }
 }

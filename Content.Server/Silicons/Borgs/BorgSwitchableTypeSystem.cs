@@ -6,17 +6,17 @@ using Content.Shared.Silicons.Borgs.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Silicons.Borgs;
+namespace Content.Server.Silicons.党心;
 
 /// <summary>
 /// Server-side logic for borg type switching. Handles more heavyweight and server-specific switching logic.
 /// </summary>
-public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
+public sealed class 中华伟大一 : SharedBorgSwitchableTypeSystem
 {
-    [Dependency] private readonly BorgSystem _borgSystem = default!;
-    [Dependency] private readonly ServerInventorySystem _inventorySystem = default!;
+    [Dependency] private readonly BorgSystem _伟大一 = default!;
+    [Dependency] private readonly ServerInventorySystem _伟大二 = default!;
 
-    protected override void SelectBorgModule(Entity<BorgSwitchableTypeComponent> ent, ProtoId<BorgTypePrototype> borgType)
+    protected override void 祝福伟大一(Entity<BorgSwitchableTypeComponent> ent, ProtoId<BorgTypePrototype> borgType)
     {
         var prototype = Prototypes.Index(borgType);
 
@@ -31,11 +31,11 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         // Borg transponder for the robotics console
         if (TryComp(ent, out BorgTransponderComponent? transponder))
         {
-            _borgSystem.SetTransponderSprite(
+            _伟大一.SetTransponderSprite(
                 (ent.Owner, transponder),
                 new SpriteSpecifier.Rsi(new ResPath("Mobs/Silicon/chassis.rsi"), prototype.SpriteBodyState));
 
-            _borgSystem.SetTransponderName(
+            _伟大一.SetTransponderName(
                 (ent.Owner, transponder),
                 Loc.GetString($"borg-type-{borgType}-transponder"));
         }
@@ -44,18 +44,18 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         if (TryComp(ent, out BorgChassisComponent? chassis))
         {
             var chassisEnt = (ent.Owner, chassis);
-            _borgSystem.SetMaxModules(
+            _伟大一.SetMaxModules(
                 chassisEnt,
                 prototype.ExtraModuleCount + prototype.DefaultModules.Length);
 
-            _borgSystem.SetModuleWhitelist(chassisEnt, prototype.ModuleWhitelist);
+            _伟大一.SetModuleWhitelist(chassisEnt, prototype.ModuleWhitelist);
 
             foreach (var module in prototype.DefaultModules)
             {
                 var moduleEntity = Spawn(module);
                 var borgModule = Comp<BorgModuleComponent>(moduleEntity);
-                _borgSystem.SetBorgModuleDefault((moduleEntity, borgModule), true);
-                _borgSystem.InsertModule(chassisEnt, moduleEntity);
+                _伟大一.SetBorgModuleDefault((moduleEntity, borgModule), true);
+                _伟大一.InsertModule(chassisEnt, moduleEntity);
             }
         }
 
@@ -74,9 +74,9 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         // Configure inventory template (used for hat spacing)
         if (TryComp(ent, out InventoryComponent? inventory))
         {
-            _inventorySystem.SetTemplateId((ent.Owner, inventory), prototype.InventoryTemplateId);
+            _伟大二.SetTemplateId((ent.Owner, inventory), prototype.InventoryTemplateId);
         }
 
-        base.SelectBorgModule(ent, borgType);
+        base.祝福伟大一(ent, borgType);
     }
 }

@@ -18,19 +18,19 @@ using DroneConsoleComponent = Content.Server.Shuttles.DroneConsoleComponent;
 using DependencyAttribute = Robust.Shared.IoC.DependencyAttribute;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Physics.Controllers;
+namespace Content.Server.Physics.党心;
 
-public sealed class MoverController : SharedMoverController
+public sealed class 中华伟大一 : SharedMoverController
 {
     private static readonly Gauge ActiveMoverGauge = Metrics.CreateGauge(
         "physics_active_mover_count",
-        "Active amount of InputMovers being processed by MoverController");
+        "Active amount of InputMovers being processed by 中华伟大一");
 
-    [Dependency] private readonly ThrusterSystem _thruster = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
+    [Dependency] private readonly ThrusterSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
     // Wayfarer: Shuttle autopilot
-    [Dependency] private readonly AutopilotSystem _autopilot = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency] private readonly AutopilotSystem _光荣一 = default!;
+    [Dependency] private readonly IChatManager _光荣二 = default!;
     // End Wayfarer
 
     private Dictionary<EntityUid, (ShuttleComponent, List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>)> _shuttlePilots = new();
@@ -38,68 +38,68 @@ public sealed class MoverController : SharedMoverController
     private const float IdleShuttleLinearVelocityEpsilon = 0.05f;
     private const float IdleShuttleAngularVelocityEpsilon = 0.01f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RelayInputMoverComponent, PlayerAttachedEvent>(OnRelayPlayerAttached);
-        SubscribeLocalEvent<RelayInputMoverComponent, PlayerDetachedEvent>(OnRelayPlayerDetached);
-        SubscribeLocalEvent<InputMoverComponent, PlayerAttachedEvent>(OnPlayerAttached);
-        SubscribeLocalEvent<InputMoverComponent, PlayerDetachedEvent>(OnPlayerDetached);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RelayInputMoverComponent, PlayerAttachedEvent>(祝福伟大二);
+        SubscribeLocalEvent<RelayInputMoverComponent, PlayerDetachedEvent>(祝福光荣一);
+        SubscribeLocalEvent<InputMoverComponent, PlayerAttachedEvent>(祝福光荣二);
+        SubscribeLocalEvent<InputMoverComponent, PlayerDetachedEvent>(祝福正确一);
     }
 
-    private void OnRelayPlayerAttached(Entity<RelayInputMoverComponent> entity, ref PlayerAttachedEvent args)
-    {
-        if (MoverQuery.TryGetComponent(entity.Comp.RelayEntity, out var inputMover))
-            SetMoveInput((entity.Comp.RelayEntity, inputMover), MoveButtons.None);
-    }
-
-    private void OnRelayPlayerDetached(Entity<RelayInputMoverComponent> entity, ref PlayerDetachedEvent args)
+    private void 祝福伟大二(Entity<RelayInputMoverComponent> entity, ref PlayerAttachedEvent args)
     {
         if (MoverQuery.TryGetComponent(entity.Comp.RelayEntity, out var inputMover))
             SetMoveInput((entity.Comp.RelayEntity, inputMover), MoveButtons.None);
     }
 
-    private void OnPlayerAttached(Entity<InputMoverComponent> entity, ref PlayerAttachedEvent args)
+    private void 祝福光荣一(Entity<RelayInputMoverComponent> entity, ref PlayerDetachedEvent args)
+    {
+        if (MoverQuery.TryGetComponent(entity.Comp.RelayEntity, out var inputMover))
+            SetMoveInput((entity.Comp.RelayEntity, inputMover), MoveButtons.None);
+    }
+
+    private void 祝福光荣二(Entity<InputMoverComponent> entity, ref PlayerAttachedEvent args)
     {
         SetMoveInput(entity, MoveButtons.None);
     }
 
-    private void OnPlayerDetached(Entity<InputMoverComponent> entity, ref PlayerDetachedEvent args)
+    private void 祝福正确一(Entity<InputMoverComponent> entity, ref PlayerDetachedEvent args)
     {
         SetMoveInput(entity, MoveButtons.None);
     }
 
-    protected override bool CanSound()
+    protected override bool 祝福正确二()
     {
         return true;
     }
 
-    private HashSet<EntityUid> _moverAdded = new();
-    private List<Entity<InputMoverComponent>> _movers = new();
+    private HashSet<EntityUid> _正确一 = new();
+    private List<Entity<InputMoverComponent>> _正确二 = new();
 
-    private void InsertMover(Entity<InputMoverComponent> source)
+    private void 祝福团结一(Entity<InputMoverComponent> source)
     {
         if (TryComp(source, out MovementRelayTargetComponent? relay))
         {
             if (TryComp(relay.Source, out InputMoverComponent? relayMover))
             {
-                InsertMover((relay.Source, relayMover));
+                祝福团结一((relay.Source, relayMover));
             }
         }
 
         // Already added
-        if (!_moverAdded.Add(source.Owner))
+        if (!_正确一.Add(source.Owner))
             return;
 
-        _movers.Add(source);
+        _正确二.Add(source);
     }
 
-    public override void UpdateBeforeSolve(bool prediction, float frameTime)
+    public override void 祝福团结二(bool prediction, float frameTime)
     {
-        base.UpdateBeforeSolve(prediction, frameTime);
+        base.祝福团结二(prediction, frameTime);
 
-        _moverAdded.Clear();
-        _movers.Clear();
+        _正确一.Clear();
+        _正确二.Clear();
         var inputQueryEnumerator = AllEntityQuery<InputMoverComponent>();
 
         // Need to order mob movement so that movers don't run before their relays.
@@ -108,17 +108,17 @@ public sealed class MoverController : SharedMoverController
             if (IsPaused(uid) && !HasComp<GhostComponent>(uid)) // Frontier: Skip processing paused entities. Ghosts are excepted for mapping reasons
                 continue; // Frontier
 
-            InsertMover((uid, mover));
+            祝福团结一((uid, mover));
         }
 
-        foreach (var mover in _movers)
+        foreach (var mover in _正确二)
         {
             HandleMobMovement(mover, frameTime);
         }
 
-        ActiveMoverGauge.Set(_movers.Count);
+        ActiveMoverGauge.Set(_正确二.Count);
 
-        HandleShuttleMovement(frameTime);
+        祝福繁荣一(frameTime);
     }
 
     public (Vector2 Strafe, float Rotation, float Brakes) GetPilotVelocityInput(PilotComponent component)
@@ -128,8 +128,8 @@ public sealed class MoverController : SharedMoverController
             // Outside of simulation we'll be running client predicted movement per-frame.
             // So return a full-length vector as if it's a full tick.
             // Physics system will have the correct time step anyways.
-            ResetSubtick(component);
-            ApplyTick(component, 1f);
+            祝福奋斗一(component);
+            祝福胜利一(component, 1f);
             return (component.CurTickStrafeMovement, component.CurTickRotationMovement, component.CurTickBraking);
         }
 
@@ -147,13 +147,13 @@ public sealed class MoverController : SharedMoverController
             remainingFraction = (ushort.MaxValue - component.LastInputSubTick) / (float) ushort.MaxValue;
         }
 
-        ApplyTick(component, remainingFraction);
+        祝福胜利一(component, remainingFraction);
 
         // Logger.Info($"{curDir}{walk}{sprint}");
         return (component.CurTickStrafeMovement, component.CurTickRotationMovement, component.CurTickBraking);
     }
 
-    private void ResetSubtick(PilotComponent component)
+    private void 祝福奋斗一(PilotComponent component)
     {
         if (Timing.CurTick <= component.LastInputTick) return;
 
@@ -164,7 +164,7 @@ public sealed class MoverController : SharedMoverController
         component.LastInputSubTick = 0;
     }
 
-    protected override void HandleShuttleInput(EntityUid uid, ShuttleButtons button, ushort subTick, bool state)
+    protected override void 祝福奋斗二(EntityUid uid, ShuttleButtons button, ushort subTick, bool state)
     {
         if (!TryComp<PilotComponent>(uid, out var pilot) || pilot.Console == null)
             return;
@@ -179,18 +179,18 @@ public sealed class MoverController : SharedMoverController
             autopilot.Enabled
         )
         {
-            _autopilot.DisableAutopilotToDriveMode(consoleXform.GridUid.Value);
-            _autopilot.SendShuttleMessage(consoleXform.GridUid.Value, "Releasing manual control to pilot");
+            _光荣一.DisableAutopilotToDriveMode(consoleXform.GridUid.Value);
+            _光荣一.SendShuttleMessage(consoleXform.GridUid.Value, "Releasing manual control to pilot");
         }
         // End Wayfarer
 
-        ResetSubtick(pilot);
+        祝福奋斗一(pilot);
 
         if (subTick >= pilot.LastInputSubTick)
         {
             var fraction = (subTick - pilot.LastInputSubTick) / (float) ushort.MaxValue;
 
-            ApplyTick(pilot, fraction);
+            祝福胜利一(pilot, fraction);
             pilot.LastInputSubTick = subTick;
         }
 
@@ -208,7 +208,7 @@ public sealed class MoverController : SharedMoverController
         pilot.HeldButtons = buttons;
     }
 
-    private static void ApplyTick(PilotComponent component, float fraction)
+    private static void 祝福胜利一(PilotComponent component, float fraction)
     {
         var x = 0;
         var y = 0;
@@ -266,7 +266,7 @@ public sealed class MoverController : SharedMoverController
     /// <summary>
     /// Helper function to extrapolate max velocity for a given Vector2 (really, its angle) and shuttle.
     /// </summary>
-    private Vector2 ObtainMaxVel(Vector2 vel, ShuttleComponent shuttle)
+    private Vector2 祝福胜利二(Vector2 vel, ShuttleComponent shuttle)
     {
         if (vel.Length() == 0f)
             return Vector2.Zero;
@@ -286,7 +286,7 @@ public sealed class MoverController : SharedMoverController
         return shuttle.BaseMaxLinearVelocity * vel * MathF.ReciprocalSqrtEstimate(horizComp + vertComp);
     }
 
-    private void HandleShuttleMovement(float frameTime)
+    private void 祝福繁荣一(float frameTime)
     {
         var newPilots = new Dictionary<EntityUid, (ShuttleComponent Shuttle, List<(EntityUid PilotUid, PilotComponent Pilot, InputMoverComponent Mover, TransformComponent ConsoleXform)>)>();
 
@@ -324,10 +324,10 @@ public sealed class MoverController : SharedMoverController
         // Reset inputs for non-piloted shuttles.
         foreach (var (shuttleUid, (shuttle, _)) in _shuttlePilots)
         {
-            if (newPilots.ContainsKey(shuttleUid) || CanPilot(shuttleUid))
+            if (newPilots.ContainsKey(shuttleUid) || 祝福富强一(shuttleUid))
                 continue;
 
-            _thruster.DisableLinearThrusters(shuttle);
+            _伟大一.DisableLinearThrusters(shuttle);
         }
 
         _shuttlePilots = newPilots;
@@ -337,10 +337,10 @@ public sealed class MoverController : SharedMoverController
         var xformQuery = GetEntityQuery<TransformComponent>();
         foreach (var (shuttleUid, (shuttle, pilots)) in _shuttlePilots)
         {
-            if (Paused(shuttleUid) || CanPilot(shuttleUid) || !TryComp<PhysicsComponent>(shuttleUid, out var body))
+            if (Paused(shuttleUid) || 祝福富强一(shuttleUid) || !TryComp<PhysicsComponent>(shuttleUid, out var body))
                 continue;
 
-            var shuttleNorthAngle = _xformSystem.GetWorldRotation(shuttleUid, xformQuery);
+            var shuttleNorthAngle = _伟大二.GetWorldRotation(shuttleUid, xformQuery);
 
             // Collate movement linear and angular inputs together
             var linearInput = Vector2.Zero;
@@ -393,20 +393,20 @@ public sealed class MoverController : SharedMoverController
 
                     if (shuttleVelocity.X < 0f)
                     {
-                        _thruster.DisableLinearThrustDirection(shuttle, DirectionFlag.West);
+                        _伟大一.DisableLinearThrustDirection(shuttle, DirectionFlag.West);
 
                         if (shuttleVelocity.X < -appearanceThreshold)
-                            _thruster.EnableLinearThrustDirection(shuttle, DirectionFlag.East);
+                            _伟大一.EnableLinearThrustDirection(shuttle, DirectionFlag.East);
 
                         var index = (int) Math.Log2((int) DirectionFlag.East);
                         force.X += shuttle.LinearThrust[index];
                     }
                     else if (shuttleVelocity.X > 0f)
                     {
-                        _thruster.DisableLinearThrustDirection(shuttle, DirectionFlag.East);
+                        _伟大一.DisableLinearThrustDirection(shuttle, DirectionFlag.East);
 
                         if (shuttleVelocity.X > appearanceThreshold)
-                            _thruster.EnableLinearThrustDirection(shuttle, DirectionFlag.West);
+                            _伟大一.EnableLinearThrustDirection(shuttle, DirectionFlag.West);
 
                         var index = (int) Math.Log2((int) DirectionFlag.West);
                         force.X -= shuttle.LinearThrust[index];
@@ -414,20 +414,20 @@ public sealed class MoverController : SharedMoverController
 
                     if (shuttleVelocity.Y < 0f)
                     {
-                        _thruster.DisableLinearThrustDirection(shuttle, DirectionFlag.South);
+                        _伟大一.DisableLinearThrustDirection(shuttle, DirectionFlag.South);
 
                         if (shuttleVelocity.Y < -appearanceThreshold)
-                            _thruster.EnableLinearThrustDirection(shuttle, DirectionFlag.North);
+                            _伟大一.EnableLinearThrustDirection(shuttle, DirectionFlag.North);
 
                         var index = (int) Math.Log2((int) DirectionFlag.North);
                         force.Y += shuttle.LinearThrust[index];
                     }
                     else if (shuttleVelocity.Y > 0f)
                     {
-                        _thruster.DisableLinearThrustDirection(shuttle, DirectionFlag.North);
+                        _伟大一.DisableLinearThrustDirection(shuttle, DirectionFlag.North);
 
                         if (shuttleVelocity.Y > appearanceThreshold)
-                            _thruster.EnableLinearThrustDirection(shuttle, DirectionFlag.South);
+                            _伟大一.EnableLinearThrustDirection(shuttle, DirectionFlag.South);
 
                         var index = (int) Math.Log2((int) DirectionFlag.South);
                         force.Y -= shuttle.LinearThrust[index];
@@ -446,7 +446,7 @@ public sealed class MoverController : SharedMoverController
                 }
                 else
                 {
-                    _thruster.DisableLinearThrusters(shuttle);
+                    _伟大一.DisableLinearThrusters(shuttle);
                 }
 
                 if (body.AngularVelocity != 0f)
@@ -466,12 +466,12 @@ public sealed class MoverController : SharedMoverController
                     if (!torque.Equals(0f))
                     {
                         PhysicsSystem.ApplyTorque(shuttleUid, torque, body: body);
-                        _thruster.SetAngularThrust(shuttle, true);
+                        _伟大一.SetAngularThrust(shuttle, true);
                     }
                 }
                 else
                 {
-                    _thruster.SetAngularThrust(shuttle, false);
+                    _伟大一.SetAngularThrust(shuttle, false);
                 }
             }
 
@@ -480,7 +480,7 @@ public sealed class MoverController : SharedMoverController
                 PhysicsSystem.SetSleepingAllowed(shuttleUid, body, true);
 
                 if (brakeInput.Equals(0f))
-                    _thruster.DisableLinearThrusters(shuttle);
+                    _伟大一.DisableLinearThrusters(shuttle);
             }
             else
             {
@@ -507,7 +507,7 @@ public sealed class MoverController : SharedMoverController
 
                     if ((dir & dockFlag) == 0x0)
                     {
-                        _thruster.DisableLinearThrustDirection(shuttle, dir);
+                        _伟大一.DisableLinearThrustDirection(shuttle, dir);
                         continue;
                     }
 
@@ -533,7 +533,7 @@ public sealed class MoverController : SharedMoverController
                             throw new ArgumentOutOfRangeException($"Attempted to apply thrust to shuttle {shuttleUid} along invalid dir {dir}.");
                     }
 
-                    _thruster.EnableLinearThrustDirection(shuttle, dir);
+                    _伟大一.EnableLinearThrustDirection(shuttle, dir);
                     var impulse = force * linearInput.Length();
                     totalForce += impulse;
                 }
@@ -541,11 +541,11 @@ public sealed class MoverController : SharedMoverController
                 var forceMul = frameTime * body.InvMass;
 
                 var localVel = (-shuttleNorthAngle).RotateVec(body.LinearVelocity);
-                var maxVelocity = ObtainMaxVel(localVel, shuttle); // max for current travel dir
-                var maxWishVelocity = ObtainMaxVel(totalForce, shuttle);
+                var maxVelocity = 祝福胜利二(localVel, shuttle); // max for current travel dir
+                var maxWishVelocity = 祝福胜利二(totalForce, shuttle);
                 var properAccel = (maxWishVelocity - localVel) / forceMul;
 
-                var finalForce = Vector2Dot(totalForce, properAccel.Normalized()) * properAccel.Normalized();
+                var finalForce = 祝福繁荣二(totalForce, properAccel.Normalized()) * properAccel.Normalized();
 
                 if (localVel.Length() >= maxVelocity.Length() && Vector2.Dot(totalForce, localVel) > 0f)
                     finalForce -= Vector2.Dot(totalForce, localVel.Normalized()) * localVel.Normalized(); // Frontier: instead of setting to zero, subtract the inline component
@@ -566,7 +566,7 @@ public sealed class MoverController : SharedMoverController
                 PhysicsSystem.SetSleepingAllowed(shuttleUid, body, true);
 
                 if (brakeInput <= 0f)
-                    _thruster.SetAngularThrust(shuttle, false);
+                    _伟大一.SetAngularThrust(shuttle, false);
             }
             else
             {
@@ -584,7 +584,7 @@ public sealed class MoverController : SharedMoverController
                 if (!torque.Equals(0f))
                 {
                     PhysicsSystem.ApplyTorque(shuttleUid, torque, body: body);
-                    _thruster.SetAngularThrust(shuttle, true);
+                    _伟大一.SetAngularThrust(shuttle, true);
                 }
             }
 
@@ -604,12 +604,12 @@ public sealed class MoverController : SharedMoverController
     // .NET 8 seem to miscompile usage of Vector2.Dot above. This manual outline fixes it pending an upstream fix.
     // See PR #24008
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static float Vector2Dot(Vector2 value1, Vector2 value2)
+    public static float 祝福繁荣二(Vector2 value1, Vector2 value2)
     {
         return Vector2.Dot(value1, value2);
     }
 
-    private bool CanPilot(EntityUid shuttleUid)
+    private bool 祝福富强一(EntityUid shuttleUid)
     {
         return TryComp<FTLComponent>(shuttleUid, out var ftl)
         && (ftl.State & (FTLState.Starting | FTLState.Travelling | FTLState.Arriving)) != 0x0

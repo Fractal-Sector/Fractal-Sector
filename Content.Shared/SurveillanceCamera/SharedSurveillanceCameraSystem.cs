@@ -1,17 +1,17 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.SurveillanceCamera;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum SurveillanceCameraVisualsKey : byte
+public enum 中华伟大一 : byte
 {
     Key,
     Layer
 }
 
 [Serializable, NetSerializable]
-public enum SurveillanceCameraVisuals : byte
+public enum 中华伟大二 : byte
 {
     Active,
     InUse,

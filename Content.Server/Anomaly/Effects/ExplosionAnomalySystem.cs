@@ -2,24 +2,24 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Server.Anomaly.Components;
 using Content.Shared.Anomaly.Components;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
 /// <summary>
 /// This handles <see cref="ExplosionAnomalyComponent"/>
 /// </summary>
-public sealed class ExplosionAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ExplosionSystem _boom = default!;
+    [Dependency] private readonly ExplosionSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ExplosionAnomalyComponent, AnomalySupercriticalEvent>(OnSupercritical);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ExplosionAnomalyComponent, AnomalySupercriticalEvent>(祝福伟大二);
     }
 
-    private void OnSupercritical(EntityUid uid, ExplosionAnomalyComponent component, ref AnomalySupercriticalEvent args)
+    private void 祝福伟大二(EntityUid uid, ExplosionAnomalyComponent component, ref AnomalySupercriticalEvent args)
     {
-        _boom.QueueExplosion(
+        _伟大一.QueueExplosion(
             uid,
             component.ExplosionPrototype,
             component.TotalIntensity,

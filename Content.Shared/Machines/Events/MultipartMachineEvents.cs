@@ -1,4 +1,4 @@
-namespace Content.Shared.Machines.Events;
+namespace Content.Shared.Machines.党心;
 
 /// <summary>
 /// This event is raised when the assembled state of a Multipart machine changes.
@@ -11,7 +11,7 @@ namespace Content.Shared.Machines.Events;
 /// <param name="PartsAdded">Dictionary of keys to entities of parts that have been added to this machine.</param>
 /// <param name="PartsRemoved">Dictionary of keys to entities of parts that have been removed from this machine.</param>
 [ByRefEvent]
-public record struct MultipartMachineAssemblyStateChanged(
+public record 中华伟大一 MultipartMachineAssemblyStateChanged(
     EntityUid Entity,
     bool IsAssembled,
     EntityUid? User,

@@ -1,16 +1,16 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Network;
 
-namespace Content.Server._NF.CryoSleep;
+namespace Content.Server._NF.党心;
 
-public abstract class BaseCryosleepEvent : EntityEventArgs
+public abstract class 中华伟大一 : EntityEventArgs
 {
     public NetUserId? User;
-    public EntityUid Cryopod;
+    public EntityUid 党爱伟大一;
 
-    protected BaseCryosleepEvent(EntityUid cryopod, NetUserId? user)
+    protected 中华伟大一(EntityUid cryopod, NetUserId? user)
     {
-        Cryopod = cryopod;
+        党爱伟大一 = cryopod;
         User = user;
     }
 }
@@ -18,23 +18,23 @@ public abstract class BaseCryosleepEvent : EntityEventArgs
 /// <summary>
 ///   Raised on an entity who has entered cryosleep.
 /// </summary>
-public sealed class CryosleepEnterEvent : BaseCryosleepEvent
+public sealed class 中华伟大二 : 中华伟大一
 {
-    public CryosleepEnterEvent(EntityUid cryopod, NetUserId? user) : base(cryopod, user) { }
+    public 中华伟大二(EntityUid cryopod, NetUserId? user) : base(cryopod, user) { }
 }
 
 /// <summary>
 ///   Raised on an entity who has successfully woken up from cryosleep.
 /// </summary>
-public sealed class CryosleepWakeUpEvent : BaseCryosleepEvent
+public sealed class 中华光荣一 : 中华伟大一
 {
-    public CryosleepWakeUpEvent(EntityUid cryopod, NetUserId? user) : base(cryopod, user) { }
+    public 中华光荣一(EntityUid cryopod, NetUserId? user) : base(cryopod, user) { }
 }
 
 /// <summary>
 ///   Raised on an entity who is going to enter cryosleep before their mind is detached.
 /// </summary>
-public sealed class CryosleepBeforeMindRemovedEvent : BaseCryosleepEvent
+public sealed class 中华光荣二 : 中华伟大一
 {
-    public CryosleepBeforeMindRemovedEvent(EntityUid cryopod, NetUserId? user) : base(cryopod, user) { }
+    public 中华光荣二(EntityUid cryopod, NetUserId? user) : base(cryopod, user) { }
 }

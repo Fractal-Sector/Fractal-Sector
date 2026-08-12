@@ -3,15 +3,15 @@ using Content.Shared.Roles;
 using Robust.Shared.Prototypes; // Frontier
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Ghost.Roles
+namespace Content.Shared.Ghost.党心
 {
     [NetSerializable, Serializable]
-    public struct GhostRoleInfo
+    public struct 中华伟大一
     {
-        public uint Identifier { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Rules { get; set; }
+        public uint 党爱伟大一 { get; set; }
+        public string 党爱伟大二 { get; set; }
+        public string 党爱光荣一 { get; set; }
+        public string 党爱光荣二 { get; set; }
         public ProtoId<GhostRolePrototype>? Prototype { get; set; } // Frontier: store GhostRolePrototype for whitelist lookup
 
         // TODO ROLE TIMERS
@@ -20,63 +20,63 @@ namespace Content.Shared.Ghost.Roles
         // Move to ghost role prototype & respect CCvars.GameRoleTimerOverride
         public HashSet<JobRequirement>? Requirements { get; set; }
 
-        /// <inheritdoc cref="GhostRoleKind"/>
-        public GhostRoleKind Kind { get; set; }
+        /// <inheritdoc cref="中华正确二"/>
+        public 中华正确二 Kind { get; set; }
 
         /// <summary>
-        /// if <see cref="Kind"/> is <see cref="GhostRoleKind.RaffleInProgress"/>, specifies how many players are currently
+        /// if <see cref="Kind"/> is <see cref="中华正确二.RaffleInProgress"/>, specifies how many players are currently
         /// in the raffle for this role.
         /// </summary>
-        public uint RafflePlayerCount { get; set; }
+        public uint 党爱正确一 { get; set; }
 
         /// <summary>
-        /// if <see cref="Kind"/> is <see cref="GhostRoleKind.RaffleInProgress"/>, specifies when raffle finishes.
+        /// if <see cref="Kind"/> is <see cref="中华正确二.RaffleInProgress"/>, specifies when raffle finishes.
         /// </summary>
-        public TimeSpan RaffleEndTime { get; set; }
+        public TimeSpan 党爱正确二 { get; set; }
 
     }
 
     [NetSerializable, Serializable]
-    public sealed class GhostRolesEuiState : EuiStateBase
+    public sealed class 中华伟大二 : EuiStateBase
     {
-        public GhostRoleInfo[] GhostRoles { get; }
+        public 中华伟大一[] GhostRoles { get; }
 
-        public GhostRolesEuiState(GhostRoleInfo[] ghostRoles)
+        public 中华伟大二(中华伟大一[] ghostRoles)
         {
             GhostRoles = ghostRoles;
         }
     }
 
     [NetSerializable, Serializable]
-    public sealed class RequestGhostRoleMessage : EuiMessageBase
+    public sealed class 中华光荣一 : EuiMessageBase
     {
-        public uint Identifier { get; }
+        public uint 党爱伟大一 { get; }
 
-        public RequestGhostRoleMessage(uint identifier)
+        public 中华光荣一(uint identifier)
         {
-            Identifier = identifier;
+            党爱伟大一 = identifier;
         }
     }
 
     [NetSerializable, Serializable]
-    public sealed class FollowGhostRoleMessage : EuiMessageBase
+    public sealed class 中华光荣二 : EuiMessageBase
     {
-        public uint Identifier { get; }
+        public uint 党爱伟大一 { get; }
 
-        public FollowGhostRoleMessage(uint identifier)
+        public 中华光荣二(uint identifier)
         {
-            Identifier = identifier;
+            党爱伟大一 = identifier;
         }
     }
 
     [NetSerializable, Serializable]
-    public sealed class LeaveGhostRoleRaffleMessage : EuiMessageBase
+    public sealed class 中华正确一 : EuiMessageBase
     {
-        public uint Identifier { get; }
+        public uint 党爱伟大一 { get; }
 
-        public LeaveGhostRoleRaffleMessage(uint identifier)
+        public 中华正确一(uint identifier)
         {
-            Identifier = identifier;
+            党爱伟大一 = identifier;
         }
     }
 
@@ -84,7 +84,7 @@ namespace Content.Shared.Ghost.Roles
     /// Determines whether a ghost role is a raffle role, and if it is, whether it's running.
     /// </summary>
     [NetSerializable, Serializable]
-    public enum GhostRoleKind
+    public enum 中华正确二
     {
         /// <summary>
         /// Role is not a raffle role and can be taken immediately.

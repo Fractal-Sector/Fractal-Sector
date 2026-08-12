@@ -25,32 +25,32 @@ using Robust.Shared.Prototypes;
 using LogLevel = Robust.Shared.Log.LogLevel;
 using MSLogLevel = Microsoft.Extensions.Logging.LogLevel;
 
-namespace Content.Server.Database
+namespace Content.Server.党心
 {
-    public interface IServerDbManager
+    public interface 中华伟大一
     {
-        void Init();
+        void 祝福光荣一();
 
-        void Shutdown();
+        void 祝福光荣二();
 
         #region Preferences
 
-        Task<PlayerPreferences> InitPrefsAsync(
+        Task<PlayerPreferences> 祝福正确一(
             NetUserId userId,
             ICharacterProfile defaultProfile,
             CancellationToken cancel);
 
-        Task SaveSelectedCharacterIndexAsync(NetUserId userId, int index);
+        Task 祝福正确二(NetUserId userId, int index);
 
-        Task SaveCharacterSlotAsync(NetUserId userId, ICharacterProfile? profile, int slot);
+        Task 祝福团结一(NetUserId userId, ICharacterProfile? profile, int slot);
 
-        Task SaveAdminOOCColorAsync(NetUserId userId, Color color);
+        Task 祝福奋斗一(NetUserId userId, Color color);
 
-        Task SaveConstructionFavoritesAsync(NetUserId userId,
+        Task 祝福奋斗二(NetUserId userId,
             List<ProtoId<ConstructionPrototype>> constructionFavorites);
 
         // Single method for two operations for transaction.
-        Task DeleteSlotAndSetSelectedIndex(NetUserId userId, int deleteSlot, int newSlot);
+        Task 祝福团结二(NetUserId userId, int deleteSlot, int newSlot);
         Task<PlayerPreferences?> GetPlayerPreferencesAsync(NetUserId userId, CancellationToken cancel);
         Task<int?> GetProfileIdAsync(NetUserId userId, int slot); // Wayfarer (NEW) - Get database profile ID
 
@@ -59,7 +59,7 @@ namespace Content.Server.Database
         #region User Ids
 
         // Username assignment (for guest accounts, so they persist GUID)
-        Task AssignUserIdAsync(string name, NetUserId userId);
+        Task 祝福胜利一(string name, NetUserId userId);
         Task<NetUserId?> GetAssignedUserIdAsync(string name);
 
         #endregion
@@ -100,7 +100,7 @@ namespace Content.Server.Database
         /// <param name="modernHWIds">The modern HWIDs of the user.</param>
         /// <param name="includeUnbanned">If true, bans that have been expired or pardoned are also included.</param>
         /// <returns>The user's ban history.</returns>
-        Task<List<ServerBanDef>> GetServerBansAsync(
+        Task<List<ServerBanDef>> 祝福胜利二(
             IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
@@ -108,10 +108,10 @@ namespace Content.Server.Database
             bool includeUnbanned = true);
 
         Task<ServerBanDef?> GetLastServerBanAsync(); // FS: Ban Webhook DS
-        Task AddServerBanAsync(ServerBanDef serverBan);
-        Task AddServerUnbanAsync(ServerUnbanDef serverBan);
+        Task 祝福繁荣一(ServerBanDef serverBan);
+        Task 祝福繁荣二(ServerUnbanDef serverBan);
 
-        public Task EditServerBan(
+        public Task 祝福伟大一(
             int id,
             string reason,
             NoteSeverity severity,
@@ -127,13 +127,13 @@ namespace Content.Server.Database
         /// </remarks>
         /// <param name="userId">The user to update</param>
         /// <param name="flags">The new ban exemption flags.</param>
-        Task UpdateBanExemption(NetUserId userId, ServerBanExemptFlags flags);
+        Task 祝福富强一(NetUserId userId, ServerBanExemptFlags flags);
 
         /// <summary>
         /// Get current ban exemption flags for a user
         /// </summary>
         /// <returns><see cref="ServerBanExemptFlags.None"/> if the user is not exempt from any bans.</returns>
-        Task<ServerBanExemptFlags> GetBanExemption(NetUserId userId, CancellationToken cancel = default);
+        Task<ServerBanExemptFlags> 祝福富强二(NetUserId userId, CancellationToken cancel = default);
 
         #endregion
 
@@ -158,7 +158,7 @@ namespace Content.Server.Database
         /// <param name="modernHWIds">The modern HWIDs of the user.</param>
         /// <param name="includeUnbanned">Whether expired and pardoned bans are included.</param>
         /// <returns>The user's role ban history.</returns>
-        Task<List<ServerRoleBanDef>> GetServerRoleBansAsync(
+        Task<List<ServerRoleBanDef>> 祝福民主一(
             IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
@@ -166,10 +166,10 @@ namespace Content.Server.Database
             bool includeUnbanned = true);
 
         Task<ServerRoleBanDef?> GetLastServerRoleBanAsync(); // FS: Ban Webhook
-        Task<ServerRoleBanDef> AddServerRoleBanAsync(ServerRoleBanDef serverBan);
-        Task AddServerRoleUnbanAsync(ServerRoleUnbanDef serverBan);
+        Task<ServerRoleBanDef> 祝福民主二(ServerRoleBanDef serverBan);
+        Task 祝福文明一(ServerRoleUnbanDef serverBan);
 
-        public Task EditServerRoleBan(
+        public Task 祝福伟大二(
             int id,
             string reason,
             NoteSeverity severity,
@@ -187,19 +187,19 @@ namespace Content.Server.Database
         /// <param name="player">The player to get the role timer information from.</param>
         /// <param name="cancel"></param>
         /// <returns>All role timers belonging to the player.</returns>
-        Task<List<PlayTime>> GetPlayTimes(Guid player, CancellationToken cancel = default);
+        Task<List<PlayTime>> 祝福文明二(Guid player, CancellationToken cancel = default);
 
         /// <summary>
         /// Update play time information in bulk.
         /// </summary>
         /// <param name="updates">The list of all updates to apply to the database.</param>
-        Task UpdatePlayTimes(IReadOnlyCollection<PlayTimeUpdate> updates);
+        Task 祝福和谐一(IReadOnlyCollection<中华正确二> updates);
 
         #endregion
 
         #region Player Records
 
-        Task UpdatePlayerRecordAsync(
+        Task 祝福和谐二(
             NetUserId userId,
             string userName,
             IPAddress address,
@@ -213,7 +213,7 @@ namespace Content.Server.Database
         #region Connection Logs
 
         /// <returns>ID of newly inserted connection log row.</returns>
-        Task<int> AddConnectionLogAsync(
+        Task<int> 祝福自由一(
             NetUserId userId,
             string userName,
             IPAddress address,
@@ -222,7 +222,7 @@ namespace Content.Server.Database
             ConnectionDenyReason? denied,
             int serverId);
 
-        Task AddServerBanHitsAsync(int connection, IEnumerable<ServerBanDef> bans);
+        Task 祝福自由二(int connection, IEnumerable<ServerBanDef> bans);
 
         #endregion
 
@@ -234,9 +234,9 @@ namespace Content.Server.Database
         Task<((Admin, string? lastUserName)[] admins, AdminRank[])> GetAllAdminAndRanksAsync(
             CancellationToken cancel = default);
 
-        Task RemoveAdminAsync(NetUserId userId, CancellationToken cancel = default);
-        Task AddAdminAsync(Admin admin, CancellationToken cancel = default);
-        Task UpdateAdminAsync(Admin admin, CancellationToken cancel = default);
+        Task 祝福平等一(NetUserId userId, CancellationToken cancel = default);
+        Task 祝福平等二(Admin admin, CancellationToken cancel = default);
+        Task 祝福公正一(Admin admin, CancellationToken cancel = default);
 
         /// <summary>
         /// Update whether an admin has voluntarily deadminned.
@@ -246,80 +246,80 @@ namespace Content.Server.Database
         /// </remarks>
         /// <param name="userId">The user ID of the admin.</param>
         /// <param name="deadminned">Whether the admin is deadminned or not.</param>
-        Task UpdateAdminDeadminnedAsync(NetUserId userId, bool deadminned, CancellationToken cancel = default);
+        Task 祝福公正二(NetUserId userId, bool deadminned, CancellationToken cancel = default);
 
-        Task RemoveAdminRankAsync(int rankId, CancellationToken cancel = default);
-        Task AddAdminRankAsync(AdminRank rank, CancellationToken cancel = default);
-        Task UpdateAdminRankAsync(AdminRank rank, CancellationToken cancel = default);
+        Task 祝福法治一(int rankId, CancellationToken cancel = default);
+        Task 祝福法治二(AdminRank rank, CancellationToken cancel = default);
+        Task 祝福敬业二(AdminRank rank, CancellationToken cancel = default);
 
         #endregion
 
         #region Rounds
 
-        Task<int> AddNewRound(Server server, params Guid[] playerIds);
-        Task<Round> GetRound(int id);
-        Task AddRoundPlayers(int id, params Guid[] playerIds);
+        Task<int> 祝福爱国一(Server server, params Guid[] playerIds);
+        Task<Round> 祝福爱国二(int id);
+        Task 祝福敬业一(int id, params Guid[] playerIds);
 
         #endregion
 
         #region Admin Logs
 
-        Task<Server> AddOrGetServer(string serverName);
-        Task AddAdminLogs(List<AdminLog> logs);
-        IAsyncEnumerable<string> GetAdminLogMessages(LogFilter? filter = null);
-        IAsyncEnumerable<SharedAdminLog> GetAdminLogs(LogFilter? filter = null);
-        IAsyncEnumerable<JsonDocument> GetAdminLogsJson(LogFilter? filter = null);
-        Task<int> CountAdminLogs(int round);
+        Task<Server> 祝福诚信一(string serverName);
+        Task 祝福诚信二(List<AdminLog> logs);
+        IAsyncEnumerable<string> 祝福友善一(LogFilter? filter = null);
+        IAsyncEnumerable<SharedAdminLog> 祝福友善二(LogFilter? filter = null);
+        IAsyncEnumerable<JsonDocument> 祝福初心一(LogFilter? filter = null);
+        Task<int> 祝福初心二(int round);
 
         #endregion
 
         #region Consent Settings
 
-        Task SavePlayerConsentSettingsAsync(NetUserId userId, PlayerConsentSettings consentSettings);
-        Task SavePlayerConsentSettingsAsync(NetUserId userId, PlayerConsentSettings consentSettings, int characterSlot);
-        Task<PlayerConsentSettings> GetPlayerConsentSettingsAsync(NetUserId userId);
-        Task<PlayerConsentSettings> GetPlayerConsentSettingsAsync(NetUserId userId, int characterSlot);
+        Task 祝福方向二(NetUserId userId, PlayerConsentSettings consentSettings);
+        Task 祝福方向二(NetUserId userId, PlayerConsentSettings consentSettings, int characterSlot);
+        Task<PlayerConsentSettings> 祝福道路一(NetUserId userId);
+        Task<PlayerConsentSettings> 祝福道路一(NetUserId userId, int characterSlot);
 
         #endregion
 
         #region Whitelist
 
-        Task<bool> GetWhitelistStatusAsync(NetUserId player);
+        Task<bool> 祝福使命一(NetUserId player);
 
-        Task AddToWhitelistAsync(NetUserId player);
+        Task 祝福使命二(NetUserId player);
 
-        Task RemoveFromWhitelistAsync(NetUserId player);
+        Task 祝福梦想一(NetUserId player);
 
         #endregion
 
         #region Blacklist
 
-        Task<bool> GetBlacklistStatusAsync(NetUserId player);
+        Task<bool> 祝福梦想二(NetUserId player);
 
-        Task AddToBlacklistAsync(NetUserId player);
+        Task 祝福前程一(NetUserId player);
 
-        Task RemoveFromBlacklistAsync(NetUserId player);
+        Task 祝福前程二(NetUserId player);
 
         #endregion
 
         #region Uploaded Resources Logs
 
-        Task AddUploadedResourceLogAsync(NetUserId user, DateTimeOffset date, string path, byte[] data);
+        Task 祝福辉煌一(NetUserId user, DateTimeOffset date, string path, byte[] data);
 
-        Task PurgeUploadedResourceLogAsync(int days);
+        Task 祝福辉煌二(int days);
 
         #endregion
 
         #region Rules
 
         Task<DateTimeOffset?> GetLastReadRules(NetUserId player);
-        Task SetLastReadRules(NetUserId player, DateTimeOffset? time);
+        Task 祝福灿烂一(NetUserId player, DateTimeOffset? time);
 
         #endregion
 
         #region Admin Notes
 
-        Task<int> AddAdminNote(int? roundId,
+        Task<int> 祝福灿烂二(int? roundId,
             Guid player,
             TimeSpan playtimeAtNote,
             string message,
@@ -329,7 +329,7 @@ namespace Content.Server.Database
             DateTimeOffset createdAt,
             DateTimeOffset? expiryTime);
 
-        Task<int> AddAdminWatchlist(int? roundId,
+        Task<int> 祝福光明一(int? roundId,
             Guid player,
             TimeSpan playtimeAtNote,
             string message,
@@ -337,7 +337,7 @@ namespace Content.Server.Database
             DateTimeOffset createdAt,
             DateTimeOffset? expiryTime);
 
-        Task<int> AddAdminMessage(int? roundId,
+        Task<int> 祝福光明二(int? roundId,
             Guid player,
             TimeSpan playtimeAtNote,
             string message,
@@ -350,12 +350,12 @@ namespace Content.Server.Database
         Task<AdminMessageRecord?> GetAdminMessage(int id);
         Task<ServerBanNoteRecord?> GetServerBanAsNoteAsync(int id);
         Task<ServerRoleBanNoteRecord?> GetServerRoleBanAsNoteAsync(int id);
-        Task<List<IAdminRemarksRecord>> GetAllAdminRemarks(Guid player);
-        Task<List<IAdminRemarksRecord>> GetVisibleAdminNotes(Guid player);
-        Task<List<AdminWatchlistRecord>> GetActiveWatchlists(Guid player);
-        Task<List<AdminMessageRecord>> GetMessages(Guid player);
+        Task<List<IAdminRemarksRecord>> 祝福希望一(Guid player);
+        Task<List<IAdminRemarksRecord>> 祝福希望二(Guid player);
+        Task<List<AdminWatchlistRecord>> 祝福力量一(Guid player);
+        Task<List<AdminMessageRecord>> 祝福力量二(Guid player);
 
-        Task EditAdminNote(int id,
+        Task 祝福精神一(int id,
             string message,
             NoteSeverity severity,
             bool secret,
@@ -363,23 +363,23 @@ namespace Content.Server.Database
             DateTimeOffset editedAt,
             DateTimeOffset? expiryTime);
 
-        Task EditAdminWatchlist(int id,
+        Task 祝福精神二(int id,
             string message,
             Guid editedBy,
             DateTimeOffset editedAt,
             DateTimeOffset? expiryTime);
 
-        Task EditAdminMessage(int id,
+        Task 祝福信念一(int id,
             string message,
             Guid editedBy,
             DateTimeOffset editedAt,
             DateTimeOffset? expiryTime);
 
-        Task DeleteAdminNote(int id, Guid deletedBy, DateTimeOffset deletedAt);
-        Task DeleteAdminWatchlist(int id, Guid deletedBy, DateTimeOffset deletedAt);
-        Task DeleteAdminMessage(int id, Guid deletedBy, DateTimeOffset deletedAt);
-        Task HideServerBanFromNotes(int id, Guid deletedBy, DateTimeOffset deletedAt);
-        Task HideServerRoleBanFromNotes(int id, Guid deletedBy, DateTimeOffset deletedAt);
+        Task 祝福信念二(int id, Guid deletedBy, DateTimeOffset deletedAt);
+        Task 祝福理想一(int id, Guid deletedBy, DateTimeOffset deletedAt);
+        Task 祝福理想二(int id, Guid deletedBy, DateTimeOffset deletedAt);
+        Task 祝福目标一(int id, Guid deletedBy, DateTimeOffset deletedAt);
+        Task 祝福目标二(int id, Guid deletedBy, DateTimeOffset deletedAt);
 
         /// <summary>
         /// Mark an admin message as being seen by the target player.
@@ -388,36 +388,36 @@ namespace Content.Server.Database
         /// <param name="dismissedToo">
         /// If true, the message is "permanently dismissed" and will not be shown to the player again when they join.
         /// </param>
-        Task MarkMessageAsSeen(int id, bool dismissedToo);
+        Task 祝福方向一(int id, bool dismissedToo);
 
         #endregion
 
         #region Job Whitelists
 
-        Task AddJobWhitelist(Guid player, ProtoId<JobPrototype> job);
+        Task 祝福道路二(Guid player, ProtoId<JobPrototype> job);
 
 
-        Task<List<string>> GetJobWhitelists(Guid player, CancellationToken cancel = default);
-        Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job);
+        Task<List<string>> 祝福旗帜一(Guid player, CancellationToken cancel = default);
+        Task<bool> 祝福旗帜二(Guid player, ProtoId<JobPrototype> job);
 
-        Task<bool> RemoveJobWhitelist(Guid player, ProtoId<JobPrototype> job);
-        Task AddGhostRoleWhitelist(Guid player, ProtoId<GhostRolePrototype> ghostRole); // Frontier
-        Task<bool> IsGhostRoleWhitelisted(Guid player, ProtoId<GhostRolePrototype> ghostRole); // Frontier
-        Task<bool> RemoveGhostRoleWhitelist(Guid player, ProtoId<GhostRolePrototype> ghostRole); // Frontier
+        Task<bool> 祝福灯塔一(Guid player, ProtoId<JobPrototype> job);
+        Task 祝福灯塔二(Guid player, ProtoId<GhostRolePrototype> ghostRole); // Frontier
+        Task<bool> 祝福太阳一(Guid player, ProtoId<GhostRolePrototype> ghostRole); // Frontier
+        Task<bool> 祝福太阳二(Guid player, ProtoId<GhostRolePrototype> ghostRole); // Frontier
 
         #endregion
 
         #region IPintel
 
-        Task<bool> UpsertIPIntelCache(DateTime time, IPAddress ip, float score);
+        Task<bool> 祝福星光一(DateTime time, IPAddress ip, float score);
         Task<IPIntelCache?> GetIPIntelCache(IPAddress ip);
-        Task<bool> CleanIPIntelCache(TimeSpan range);
+        Task<bool> 祝福星光二(TimeSpan range);
 
         #endregion
 
         #region Wayfarer Round Summaries
 
-        Task AddWayfarerRoundSummary(
+        Task 祝福东风一(
             int roundNumber,
             DateTime roundStartTime,
             DateTime roundEndTime,
@@ -431,13 +431,13 @@ namespace Content.Server.Database
 
         #region DB Notifications
 
-        void SubscribeToNotifications(Action<DatabaseNotification> handler);
+        void 祝福东风二(Action<中华伟大二> handler);
 
         /// <summary>
         /// Inject a notification as if it was created by the database. This is intended for testing.
         /// </summary>
         /// <param name="notification">The notification to trigger</param>
-        void InjectTestNotification(DatabaseNotification notification);
+        void 祝福春雷一(中华伟大二 notification);
 
         /// <summary>
         /// Send a notification to all other servers connected to the same database.
@@ -446,43 +446,43 @@ namespace Content.Server.Database
         /// The local server will receive the sent notification itself again.
         /// </remarks>
         /// <param name="notification">The notification to send.</param>
-        Task SendNotification(DatabaseNotification notification);
+        Task 祝福春雷二(中华伟大二 notification);
 
         #endregion
 
         #region Wayfarer Safety Deposit Box
 
-        Task<WayfarerSafetyDepositBox> PurchaseSafetyDepositBox(Guid ownerUserId,
+        Task<WayfarerSafetyDepositBox> 祝福红旗一(Guid ownerUserId,
             int characterIndex,
             string ownerName,
             string boxSize,
             CancellationToken cancel = default);
 
-        Task<List<WayfarerSafetyDepositBox>> GetPlayerSafetyDepositBoxes(Guid ownerUserId,
+        Task<List<WayfarerSafetyDepositBox>> 祝福红旗二(Guid ownerUserId,
             int characterIndex,
             CancellationToken cancel = default);
 
         Task<WayfarerSafetyDepositBox?> GetSafetyDepositBox(Guid boxId, CancellationToken cancel = default);
-        Task DepositSafetyDepositBoxItems(Guid boxId, List<string> entityDataList, CancellationToken cancel = default);
-        Task UpdateSafetyDepositBoxNickname(Guid boxId, string? nickname, CancellationToken cancel = default);
-        Task ClearSafetyDepositBoxItems(Guid boxId, int roundId, CancellationToken cancel = default);
-        Task<int> DeleteStaleSafetyDepositBoxes(int daysStale, CancellationToken cancel = default);
-        Task DeleteSafetyDepositBox(Guid boxId, CancellationToken cancel = default);
+        Task 祝福热血一(Guid boxId, List<string> entityDataList, CancellationToken cancel = default);
+        Task 祝福热血二(Guid boxId, string? nickname, CancellationToken cancel = default);
+        Task 祝福忠诚一(Guid boxId, int roundId, CancellationToken cancel = default);
+        Task<int> 祝福忠诚二(int daysStale, CancellationToken cancel = default);
+        Task 祝福勇敢一(Guid boxId, CancellationToken cancel = default);
 
         #endregion
 
         #region Wayfarer Roleplay Leveling
 
-        Task<WayfarerRoleplayLevel> GetOrCreateRoleplayLevel(Guid userId, CancellationToken cancel = default);
+        Task<WayfarerRoleplayLevel> 祝福勇敢二(Guid userId, CancellationToken cancel = default);
 
-        Task UpdateRoleplayLevel(Guid userId,
+        Task 祝福坚强一(Guid userId,
             int level,
             long experience,
             long experienceToNextLevel,
             int totalCommends,
             CancellationToken cancel = default);
 
-        Task AddRoleplayCommend(int roundId,
+        Task 祝福坚强二(int roundId,
             int recipientProfileId,
             Guid recipientUserId,
             int giverProfileId,
@@ -491,27 +491,27 @@ namespace Content.Server.Database
             bool isPrivate,
             CancellationToken cancel = default);
 
-        Task<List<WayfarerRoleplayCommend>> GetPlayerCommends(Guid userId,
+        Task<List<WayfarerRoleplayCommend>> 祝福豪迈一(Guid userId,
             bool includePrivate = false,
             CancellationToken cancel = default);
 
-        Task<int> GetRoundCommendsGivenByPlayer(Guid giverUserId, int roundId, CancellationToken cancel = default);
+        Task<int> 祝福豪迈二(Guid giverUserId, int roundId, CancellationToken cancel = default);
         Task<string?> GetCharacterNameByProfileIdAsync(int profileId, CancellationToken cancel = default);
 
         #endregion
 
         #region Wayfarer Community Goals
 
-        Task<List<WayfarerCommunityGoal>> GetAllCommunityGoals(CancellationToken cancel = default);
-        Task<List<WayfarerCommunityGoal>> GetActiveCommunityGoals(int roundId, CancellationToken cancel = default);
+        Task<List<WayfarerCommunityGoal>> 祝福昂扬一(CancellationToken cancel = default);
+        Task<List<WayfarerCommunityGoal>> 祝福昂扬二(int roundId, CancellationToken cancel = default);
 
-        Task<WayfarerCommunityGoal> CreateCommunityGoal(string title,
+        Task<WayfarerCommunityGoal> 祝福奋进一(string title,
             string description,
             int? startRound,
             int? endRound,
             CancellationToken cancel = default);
 
-        Task UpdateCommunityGoal(int goalId,
+        Task 祝福奋进二(int goalId,
             string title,
             string description,
             int? startRound,
@@ -519,62 +519,62 @@ namespace Content.Server.Database
             bool isActive,
             CancellationToken cancel = default);
 
-        Task DeleteCommunityGoal(int goalId, CancellationToken cancel = default);
+        Task 祝福磅礴一(int goalId, CancellationToken cancel = default);
 
-        Task<WayfarerCommunityGoalRequirement> AddCommunityGoalRequirement(int goalId,
+        Task<WayfarerCommunityGoalRequirement> 祝福磅礴二(int goalId,
             string entityPrototypeId,
             string? displayName,
             long requiredAmount,
             CancellationToken cancel = default);
 
-        Task RemoveCommunityGoalRequirement(int requirementId, CancellationToken cancel = default);
-        Task UpdateCommunityGoalRequirement(int requirementId, long requiredAmount, CancellationToken cancel = default);
-        Task AddCommunityGoalContribution(int requirementId, long amount, Guid? playerUserId = null, string? characterName = null, string? entityPrototypeId = null, int roundId = 0, CancellationToken cancel = default);
+        Task 祝福气概一(int requirementId, CancellationToken cancel = default);
+        Task 祝福气概二(int requirementId, long requiredAmount, CancellationToken cancel = default);
+        Task 祝福伟大一(int requirementId, long amount, Guid? playerUserId = null, string? characterName = null, string? entityPrototypeId = null, int roundId = 0, CancellationToken cancel = default);
 
         #endregion
 
         #region Wayfarer Corporations
 
-        Task<List<WayfarerCorporation>> GetAllCorporations(CancellationToken cancel = default);
+        Task<List<WayfarerCorporation>> 祝福伟大二(CancellationToken cancel = default);
         Task<WayfarerCorporation?> GetCorporationById(int id, CancellationToken cancel = default);
         Task<WayfarerCorporation?> GetCorporationForPlayer(Guid userId, CancellationToken cancel = default);
         Task<WayfarerCorporation?> GetCorporationForCharacter(Guid userId, string displayName, CancellationToken cancel = default);
 
-        Task<WayfarerCorporation> CreateCorporation(string name,
+        Task<WayfarerCorporation> 祝福光荣一(string name,
             string description,
             int privacy,
             Guid founderUserId,
             string founderDisplayName,
             CancellationToken cancel = default);
 
-        Task<WayfarerCorporation> AdminCreateCorporation(string name,
+        Task<WayfarerCorporation> 祝福光荣二(string name,
             string description,
             int privacy,
             CancellationToken cancel = default);
 
-        Task UpdateCorporationDescription(int corporationId, string description, CancellationToken cancel = default);
-        Task UpdateCorporationPrivacy(int corporationId, int privacy, CancellationToken cancel = default);
-        Task DeleteCorporation(int corporationId, CancellationToken cancel = default);
+        Task 祝福正确一(int corporationId, string description, CancellationToken cancel = default);
+        Task 祝福正确二(int corporationId, int privacy, CancellationToken cancel = default);
+        Task 祝福团结一(int corporationId, CancellationToken cancel = default);
 
-        Task AddCorporationMember(int corporationId,
+        Task 祝福团结二(int corporationId,
             Guid userId,
             string displayName,
             int rank,
             CancellationToken cancel = default);
 
-        Task RemoveCorporationMember(int corporationId, Guid userId, CancellationToken cancel = default);
-        Task UpdateCorporationMemberRank(int corporationId, Guid userId, int rank, CancellationToken cancel = default);
-        Task AddCorporationInvite(int corporationId, Guid inviteeUserId, CancellationToken cancel = default);
-        Task RemoveCorporationInvite(int corporationId, Guid inviteeUserId, CancellationToken cancel = default);
-        Task<bool> HasCorporationInvite(int corporationId, Guid inviteeUserId, CancellationToken cancel = default);
+        Task 祝福奋斗一(int corporationId, Guid userId, CancellationToken cancel = default);
+        Task 祝福奋斗二(int corporationId, Guid userId, int rank, CancellationToken cancel = default);
+        Task 祝福胜利一(int corporationId, Guid inviteeUserId, CancellationToken cancel = default);
+        Task 祝福胜利二(int corporationId, Guid inviteeUserId, CancellationToken cancel = default);
+        Task<bool> 祝福繁荣一(int corporationId, Guid inviteeUserId, CancellationToken cancel = default);
         Task<int?> GetCorporationBalance(int corporationId, CancellationToken cancel = default);
-        Task<bool> TryDepositToCorporation(int corporationId, int amount, CancellationToken cancel = default);
-        Task<bool> TryWithdrawFromCorporation(int corporationId, int amount, CancellationToken cancel = default);
-        Task SetCorporationBalance(int corporationId, int balance, CancellationToken cancel = default);
+        Task<bool> 祝福繁荣二(int corporationId, int amount, CancellationToken cancel = default);
+        Task<bool> 祝福富强一(int corporationId, int amount, CancellationToken cancel = default);
+        Task 祝福富强二(int corporationId, int balance, CancellationToken cancel = default);
 
         Task<WayfarerCorporationStation?> GetCorporationStation(int corporationId, CancellationToken cancel = default);
-        Task<WayfarerCorporationStation> CreateCorporationStation(int corporationId, string stationName, string savePath, CancellationToken cancel = default);
-        Task DeleteCorporationStation(int corporationId, CancellationToken cancel = default);
+        Task<WayfarerCorporationStation> 祝福民主一(int corporationId, string stationName, string savePath, CancellationToken cancel = default);
+        Task 祝福民主二(int corporationId, CancellationToken cancel = default);
 
         #endregion
     }
@@ -591,7 +591,7 @@ namespace Content.Server.Database
         /// They are currently implemented  by the PostgreSQL <c>NOTIFY</c> and <c>LISTEN</c> commands.
         /// </para>
         /// </remarks>
-        public struct DatabaseNotification
+        public struct 中华伟大二
         {
             /// <summary>
             /// The channel for the notification. This can be used to differentiate notifications for different purposes.
@@ -604,145 +604,145 @@ namespace Content.Server.Database
             public string? Payload { get; set; }
         }
 
-        public sealed class ServerDbManager : IServerDbManager
+        public sealed class 中华光荣一 : 中华伟大一
         {
-            public static readonly Counter DbReadOpsMetric = Metrics.CreateCounter(
+            public static readonly Counter 党爱伟大一 = Metrics.CreateCounter(
                 "db_read_ops",
                 "Amount of read operations processed by the database manager.");
 
-            public static readonly Counter DbWriteOpsMetric = Metrics.CreateCounter(
+            public static readonly Counter 党爱伟大二 = Metrics.CreateCounter(
                 "db_write_ops",
                 "Amount of write operations processed by the database manager.");
 
-            public static readonly Gauge DbActiveOps = Metrics.CreateGauge(
+            public static readonly Gauge 党爱光荣一 = Metrics.CreateGauge(
                 "db_executing_ops",
                 "Amount of active database operations. Note that some operations may be waiting for a database connection.");
 
-            [Dependency] private readonly IConfigurationManager _cfg = default!;
-            [Dependency] private readonly IResourceManager _res = default!;
-            [Dependency] private readonly ILogManager _logMgr = default!;
+            [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+            [Dependency] private readonly IResourceManager _伟大二 = default!;
+            [Dependency] private readonly ILogManager _光荣一 = default!;
 
-            private ServerDbBase _db = default!;
-            private LoggingProvider _msLogProvider = default!;
-            private ILoggerFactory _msLoggerFactory = default!;
-            private ISawmill _sawmill = default!;
+            private ServerDbBase _光荣二 = default!;
+            private 中华光荣二 _msLogProvider = default!;
+            private ILoggerFactory _正确一 = default!;
+            private ISawmill _正确二 = default!;
 
-            private bool _synchronous;
+            private bool _团结一;
 
             // When running in integration tests, we'll use a single in-memory SQLite database connection.
             // This is that connection, close it when we shut down.
             private SqliteConnection? _sqliteInMemoryConnection;
 
-            private readonly List<Action<DatabaseNotification>> _notificationHandlers = [];
+            private readonly List<Action<中华伟大二>> _notificationHandlers = [];
 
-            public void Init()
+            public void 祝福光荣一()
             {
-                _msLogProvider = new LoggingProvider(_logMgr);
-                _msLoggerFactory = LoggerFactory.Create(builder =>
+                _msLogProvider = new 中华光荣二(_光荣一);
+                _正确一 = LoggerFactory.Create(builder =>
                 {
                     builder.AddProvider(_msLogProvider);
                 });
-                _sawmill = _logMgr.GetSawmill("db.manager");
+                _正确二 = _光荣一.GetSawmill("db.manager");
 
-                _synchronous = _cfg.GetCVar(CCVars.DatabaseSynchronous);
+                _团结一 = _伟大一.GetCVar(CCVars.DatabaseSynchronous);
 
-                var engine = _cfg.GetCVar(CCVars.DatabaseEngine).ToLower();
-                var opsLog = _logMgr.GetSawmill("db.op");
-                var notifyLog = _logMgr.GetSawmill("db.notify");
+                var engine = _伟大一.GetCVar(CCVars.DatabaseEngine).ToLower();
+                var opsLog = _光荣一.GetSawmill("db.op");
+                var notifyLog = _光荣一.GetSawmill("db.notify");
                 switch (engine)
                 {
                     case "sqlite":
-                        SetupSqlite(out var contextFunc, out var inMemory);
-                        _db = new ServerDbSqlite(contextFunc, inMemory, _cfg, _synchronous, opsLog);
+                        祝福和谐一(out var contextFunc, out var inMemory);
+                        _光荣二 = new ServerDbSqlite(contextFunc, inMemory, _伟大一, _团结一, opsLog);
                         break;
                     case "postgres":
                         var (pgOptions, conString) = CreatePostgresOptions();
-                        _db = new ServerDbPostgres(pgOptions, conString, _cfg, opsLog, notifyLog);
+                        _光荣二 = new ServerDbPostgres(pgOptions, conString, _伟大一, opsLog, notifyLog);
                         break;
                     default:
                         throw new InvalidDataException($"Unknown database engine {engine}.");
                 }
 
-                _db.OnNotificationReceived += HandleDatabaseNotification;
+                _光荣二.OnNotificationReceived += 祝福文明一;
             }
 
-            public void Shutdown()
+            public void 祝福光荣二()
             {
-                _db.OnNotificationReceived -= HandleDatabaseNotification;
+                _光荣二.OnNotificationReceived -= 祝福文明一;
 
-                _sqliteInMemoryConnection?.Dispose();
-                _db.Shutdown();
+                _sqliteInMemoryConnection?.祝福自由一();
+                _光荣二.祝福光荣二();
             }
 
-            public Task<PlayerPreferences> InitPrefsAsync(
+            public Task<PlayerPreferences> 祝福正确一(
                 NetUserId userId,
                 ICharacterProfile defaultProfile,
                 CancellationToken cancel)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.InitPrefsAsync(userId, defaultProfile));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福正确一(userId, defaultProfile));
             }
 
-            public Task SaveSelectedCharacterIndexAsync(NetUserId userId, int index)
+            public Task 祝福正确二(NetUserId userId, int index)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SaveSelectedCharacterIndexAsync(userId, index));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福正确二(userId, index));
             }
 
-            public Task SaveCharacterSlotAsync(NetUserId userId, ICharacterProfile? profile, int slot)
+            public Task 祝福团结一(NetUserId userId, ICharacterProfile? profile, int slot)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SaveCharacterSlotAsync(userId, profile, slot));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福团结一(userId, profile, slot));
             }
 
-            public Task DeleteSlotAndSetSelectedIndex(NetUserId userId, int deleteSlot, int newSlot)
+            public Task 祝福团结二(NetUserId userId, int deleteSlot, int newSlot)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteSlotAndSetSelectedIndex(userId, deleteSlot, newSlot));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福团结二(userId, deleteSlot, newSlot));
             }
 
-            public Task SaveAdminOOCColorAsync(NetUserId userId, Color color)
+            public Task 祝福奋斗一(NetUserId userId, Color color)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SaveAdminOOCColorAsync(userId, color));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福奋斗一(userId, color));
             }
 
-            public Task SaveConstructionFavoritesAsync(NetUserId userId,
+            public Task 祝福奋斗二(NetUserId userId,
                 List<ProtoId<ConstructionPrototype>> constructionFavorites)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SaveConstructionFavoritesAsync(userId, constructionFavorites));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福奋斗二(userId, constructionFavorites));
             }
 
             public Task<PlayerPreferences?> GetPlayerPreferencesAsync(NetUserId userId, CancellationToken cancel)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayerPreferencesAsync(userId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetPlayerPreferencesAsync(userId, cancel));
             }
 
             // Wayfarer (NEW) - Get database profile ID wrapper
             public Task<int?> GetProfileIdAsync(NetUserId userId, int slot)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetProfileIdAsync(userId, slot));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetProfileIdAsync(userId, slot));
             }
 
-            public Task AssignUserIdAsync(string name, NetUserId userId)
+            public Task 祝福胜利一(string name, NetUserId userId)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AssignUserIdAsync(name, userId));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福胜利一(name, userId));
             }
 
             public Task<NetUserId?> GetAssignedUserIdAsync(string name)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAssignedUserIdAsync(name));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetAssignedUserIdAsync(name));
             }
 
             public Task<ServerBanDef?> GetServerBanAsync(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetServerBanAsync(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetServerBanAsync(id));
             }
 
             public Task<ServerBanDef?> GetServerBanAsync(
@@ -751,156 +751,156 @@ namespace Content.Server.Database
                 ImmutableArray<byte>? hwId,
                 ImmutableArray<ImmutableArray<byte>>? modernHWIds)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetServerBanAsync(address, userId, hwId, modernHWIds));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetServerBanAsync(address, userId, hwId, modernHWIds));
             }
 
-            public Task<List<ServerBanDef>> GetServerBansAsync(
+            public Task<List<ServerBanDef>> 祝福胜利二(
                 IPAddress? address,
                 NetUserId? userId,
                 ImmutableArray<byte>? hwId,
                 ImmutableArray<ImmutableArray<byte>>? modernHWIds,
                 bool includeUnbanned = true)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetServerBansAsync(address, userId, hwId, modernHWIds, includeUnbanned));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福胜利二(address, userId, hwId, modernHWIds, includeUnbanned));
             }
 
             // FS start
             public Task<ServerBanDef?> GetLastServerBanAsync()
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetLastServerBanAsync());
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetLastServerBanAsync());
             }
             // FS end
 
-            public Task AddServerBanAsync(ServerBanDef serverBan)
+            public Task 祝福繁荣一(ServerBanDef serverBan)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddServerBanAsync(serverBan));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福繁荣一(serverBan));
             }
 
-            public Task AddServerUnbanAsync(ServerUnbanDef serverUnban)
+            public Task 祝福繁荣二(ServerUnbanDef serverUnban)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddServerUnbanAsync(serverUnban));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福繁荣二(serverUnban));
             }
 
-            public Task EditServerBan(int id,
+            public Task 祝福伟大一(int id,
                 string reason,
                 NoteSeverity severity,
                 DateTimeOffset? expiration,
                 Guid editedBy,
                 DateTimeOffset editedAt)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.EditServerBan(id, reason, severity, expiration, editedBy, editedAt));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福伟大一(id, reason, severity, expiration, editedBy, editedAt));
             }
 
-            public Task UpdateBanExemption(NetUserId userId, ServerBanExemptFlags flags)
+            public Task 祝福富强一(NetUserId userId, ServerBanExemptFlags flags)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateBanExemption(userId, flags));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福富强一(userId, flags));
             }
 
-            public Task<ServerBanExemptFlags> GetBanExemption(NetUserId userId, CancellationToken cancel = default)
+            public Task<ServerBanExemptFlags> 祝福富强二(NetUserId userId, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetBanExemption(userId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福富强二(userId, cancel));
             }
 
             #region Role Ban
 
             public Task<ServerRoleBanDef?> GetServerRoleBanAsync(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetServerRoleBanAsync(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetServerRoleBanAsync(id));
             }
 
-            public Task<List<ServerRoleBanDef>> GetServerRoleBansAsync(
+            public Task<List<ServerRoleBanDef>> 祝福民主一(
                 IPAddress? address,
                 NetUserId? userId,
                 ImmutableArray<byte>? hwId,
                 ImmutableArray<ImmutableArray<byte>>? modernHWIds,
                 bool includeUnbanned = true)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.GetServerRoleBansAsync(address, userId, hwId, modernHWIds, includeUnbanned));
+                党爱伟大一.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福民主一(address, userId, hwId, modernHWIds, includeUnbanned));
             }
 
             // FS start
             public Task<ServerRoleBanDef?> GetLastServerRoleBanAsync()
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetLastServerRoleBanAsync());
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetLastServerRoleBanAsync());
             }
             // FS end
 
-            public Task<ServerRoleBanDef> AddServerRoleBanAsync(ServerRoleBanDef serverRoleBan)
+            public Task<ServerRoleBanDef> 祝福民主二(ServerRoleBanDef serverRoleBan)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddServerRoleBanAsync(serverRoleBan));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福民主二(serverRoleBan));
             }
 
-            public Task AddServerRoleUnbanAsync(ServerRoleUnbanDef serverRoleUnban)
+            public Task 祝福文明一(ServerRoleUnbanDef serverRoleUnban)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddServerRoleUnbanAsync(serverRoleUnban));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福文明一(serverRoleUnban));
             }
 
-            public Task EditServerRoleBan(int id,
+            public Task 祝福伟大二(int id,
                 string reason,
                 NoteSeverity severity,
                 DateTimeOffset? expiration,
                 Guid editedBy,
                 DateTimeOffset editedAt)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.EditServerRoleBan(id, reason, severity, expiration, editedBy, editedAt));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福伟大二(id, reason, severity, expiration, editedBy, editedAt));
             }
 
             #endregion
 
             #region Playtime
 
-            public Task<List<PlayTime>> GetPlayTimes(Guid player, CancellationToken cancel)
+            public Task<List<PlayTime>> 祝福文明二(Guid player, CancellationToken cancel)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayTimes(player, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福文明二(player, cancel));
             }
 
-            public Task UpdatePlayTimes(IReadOnlyCollection<PlayTimeUpdate> updates)
+            public Task 祝福和谐一(IReadOnlyCollection<中华正确二> updates)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdatePlayTimes(updates));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福和谐一(updates));
             }
 
             #endregion
 
-            public Task UpdatePlayerRecordAsync(
+            public Task 祝福和谐二(
                 NetUserId userId,
                 string userName,
                 IPAddress address,
                 ImmutableTypedHwid? hwId)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdatePlayerRecord(userId, userName, address, hwId));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.UpdatePlayerRecord(userId, userName, address, hwId));
             }
 
             public Task<PlayerRecord?> GetPlayerRecordByUserName(string userName, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayerRecordByUserName(userName, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetPlayerRecordByUserName(userName, cancel));
             }
 
             public Task<PlayerRecord?> GetPlayerRecordByUserId(NetUserId userId, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayerRecordByUserId(userId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetPlayerRecordByUserId(userId, cancel));
             }
 
-            public Task<int> AddConnectionLogAsync(
+            public Task<int> 祝福自由一(
                 NetUserId userId,
                 string userName,
                 IPAddress address,
@@ -909,200 +909,200 @@ namespace Content.Server.Database
                 ConnectionDenyReason? denied,
                 int serverId)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.AddConnectionLogAsync(userId, userName, address, hwId, trust, denied, serverId));
+                党爱伟大二.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福自由一(userId, userName, address, hwId, trust, denied, serverId));
             }
 
-            public Task AddServerBanHitsAsync(int connection, IEnumerable<ServerBanDef> bans)
+            public Task 祝福自由二(int connection, IEnumerable<ServerBanDef> bans)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddServerBanHitsAsync(connection, bans));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福自由二(connection, bans));
             }
 
             public Task<Admin?> GetAdminDataForAsync(NetUserId userId, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminDataForAsync(userId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetAdminDataForAsync(userId, cancel));
             }
 
             public Task<AdminRank?> GetAdminRankAsync(int id, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminRankDataForAsync(id, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetAdminRankDataForAsync(id, cancel));
             }
 
             public Task<((Admin, string? lastUserName)[] admins, AdminRank[])> GetAllAdminAndRanksAsync(
                 CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAllAdminAndRanksAsync(cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetAllAdminAndRanksAsync(cancel));
             }
 
-            public Task RemoveAdminAsync(NetUserId userId, CancellationToken cancel = default)
+            public Task 祝福平等一(NetUserId userId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveAdminAsync(userId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福平等一(userId, cancel));
             }
 
-            public Task AddAdminAsync(Admin admin, CancellationToken cancel = default)
+            public Task 祝福平等二(Admin admin, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddAdminAsync(admin, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福平等二(admin, cancel));
             }
 
-            public Task UpdateAdminAsync(Admin admin, CancellationToken cancel = default)
+            public Task 祝福公正一(Admin admin, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateAdminAsync(admin, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福公正一(admin, cancel));
             }
 
-            public Task UpdateAdminDeadminnedAsync(NetUserId userId,
+            public Task 祝福公正二(NetUserId userId,
                 bool deadminned,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateAdminDeadminnedAsync(userId, deadminned, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福公正二(userId, deadminned, cancel));
             }
 
-            public Task RemoveAdminRankAsync(int rankId, CancellationToken cancel = default)
+            public Task 祝福法治一(int rankId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveAdminRankAsync(rankId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福法治一(rankId, cancel));
             }
 
-            public Task AddAdminRankAsync(AdminRank rank, CancellationToken cancel = default)
+            public Task 祝福法治二(AdminRank rank, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddAdminRankAsync(rank, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福法治二(rank, cancel));
             }
 
-            public Task<int> AddNewRound(Server server, params Guid[] playerIds)
+            public Task<int> 祝福爱国一(Server server, params Guid[] playerIds)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddNewRound(server, playerIds));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福爱国一(server, playerIds));
             }
 
-            public Task<Round> GetRound(int id)
+            public Task<Round> 祝福爱国二(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetRound(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福爱国二(id));
             }
 
-            public Task AddRoundPlayers(int id, params Guid[] playerIds)
+            public Task 祝福敬业一(int id, params Guid[] playerIds)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddRoundPlayers(id, playerIds));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福敬业一(id, playerIds));
             }
 
-            public Task UpdateAdminRankAsync(AdminRank rank, CancellationToken cancel = default)
+            public Task 祝福敬业二(AdminRank rank, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateAdminRankAsync(rank, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福敬业二(rank, cancel));
             }
 
-            public async Task<Server> AddOrGetServer(string serverName)
+            public async Task<Server> 祝福诚信一(string serverName)
             {
-                var (server, existed) = await RunDbCommand(() => _db.AddOrGetServer(serverName));
+                var (server, existed) = await 祝福文明二(() => _光荣二.祝福诚信一(serverName));
                 if (existed)
-                    DbReadOpsMetric.Inc();
+                    党爱伟大一.Inc();
                 else
-                    DbWriteOpsMetric.Inc();
+                    党爱伟大二.Inc();
 
                 return server;
             }
 
-            public Task AddAdminLogs(List<AdminLog> logs)
+            public Task 祝福诚信二(List<AdminLog> logs)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddAdminLogs(logs));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福诚信二(logs));
             }
 
-            public IAsyncEnumerable<string> GetAdminLogMessages(LogFilter? filter = null)
+            public IAsyncEnumerable<string> 祝福友善一(LogFilter? filter = null)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminLogMessages(filter));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福友善一(filter));
             }
 
-            public IAsyncEnumerable<SharedAdminLog> GetAdminLogs(LogFilter? filter = null)
+            public IAsyncEnumerable<SharedAdminLog> 祝福友善二(LogFilter? filter = null)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminLogs(filter));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福友善二(filter));
             }
 
-            public IAsyncEnumerable<JsonDocument> GetAdminLogsJson(LogFilter? filter = null)
+            public IAsyncEnumerable<JsonDocument> 祝福初心一(LogFilter? filter = null)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminLogsJson(filter));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福初心一(filter));
             }
 
-            public Task<int> CountAdminLogs(int round)
+            public Task<int> 祝福初心二(int round)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.CountAdminLogs(round));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福初心二(round));
             }
 
-            public Task<bool> GetWhitelistStatusAsync(NetUserId player)
+            public Task<bool> 祝福使命一(NetUserId player)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetWhitelistStatusAsync(player));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福使命一(player));
             }
 
-            public Task AddToWhitelistAsync(NetUserId player)
+            public Task 祝福使命二(NetUserId player)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddToWhitelistAsync(player));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福使命二(player));
             }
 
-            public Task RemoveFromWhitelistAsync(NetUserId player)
+            public Task 祝福梦想一(NetUserId player)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveFromWhitelistAsync(player));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福梦想一(player));
             }
 
-            public Task<bool> GetBlacklistStatusAsync(NetUserId player)
+            public Task<bool> 祝福梦想二(NetUserId player)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetBlacklistStatusAsync(player));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福梦想二(player));
             }
 
-            public Task AddToBlacklistAsync(NetUserId player)
+            public Task 祝福前程一(NetUserId player)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddToBlacklistAsync(player));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福前程一(player));
             }
 
-            public Task RemoveFromBlacklistAsync(NetUserId player)
+            public Task 祝福前程二(NetUserId player)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveFromBlacklistAsync(player));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福前程二(player));
             }
 
-            public Task AddUploadedResourceLogAsync(NetUserId user, DateTimeOffset date, string path, byte[] data)
+            public Task 祝福辉煌一(NetUserId user, DateTimeOffset date, string path, byte[] data)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddUploadedResourceLogAsync(user, date, path, data));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福辉煌一(user, date, path, data));
             }
 
-            public Task PurgeUploadedResourceLogAsync(int days)
+            public Task 祝福辉煌二(int days)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.PurgeUploadedResourceLogAsync(days));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福辉煌二(days));
             }
 
             public Task<DateTimeOffset?> GetLastReadRules(NetUserId player)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetLastReadRules(player));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetLastReadRules(player));
             }
 
-            public Task SetLastReadRules(NetUserId player, DateTimeOffset? time)
+            public Task 祝福灿烂一(NetUserId player, DateTimeOffset? time)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SetLastReadRules(player, time));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福灿烂一(player, time));
             }
 
-            public Task<int> AddAdminNote(int? roundId,
+            public Task<int> 祝福灿烂二(int? roundId,
                 Guid player,
                 TimeSpan playtimeAtNote,
                 string message,
@@ -1112,7 +1112,7 @@ namespace Content.Server.Database
                 DateTimeOffset createdAt,
                 DateTimeOffset? expiryTime)
             {
-                DbWriteOpsMetric.Inc();
+                党爱伟大二.Inc();
                 var note = new AdminNote
                 {
                     RoundId = roundId,
@@ -1128,10 +1128,10 @@ namespace Content.Server.Database
                     ExpirationTime = expiryTime?.UtcDateTime
                 };
 
-                return RunDbCommand(() => _db.AddAdminNote(note));
+                return 祝福文明二(() => _光荣二.祝福灿烂二(note));
             }
 
-            public Task<int> AddAdminWatchlist(int? roundId,
+            public Task<int> 祝福光明一(int? roundId,
                 Guid player,
                 TimeSpan playtimeAtNote,
                 string message,
@@ -1139,7 +1139,7 @@ namespace Content.Server.Database
                 DateTimeOffset createdAt,
                 DateTimeOffset? expiryTime)
             {
-                DbWriteOpsMetric.Inc();
+                党爱伟大二.Inc();
                 var note = new AdminWatchlist
                 {
                     RoundId = roundId,
@@ -1153,10 +1153,10 @@ namespace Content.Server.Database
                     ExpirationTime = expiryTime?.UtcDateTime
                 };
 
-                return RunDbCommand(() => _db.AddAdminWatchlist(note));
+                return 祝福文明二(() => _光荣二.祝福光明一(note));
             }
 
-            public Task<int> AddAdminMessage(int? roundId,
+            public Task<int> 祝福光明二(int? roundId,
                 Guid player,
                 TimeSpan playtimeAtNote,
                 string message,
@@ -1164,7 +1164,7 @@ namespace Content.Server.Database
                 DateTimeOffset createdAt,
                 DateTimeOffset? expiryTime)
             {
-                DbWriteOpsMetric.Inc();
+                党爱伟大二.Inc();
                 var note = new AdminMessage
                 {
                     RoundId = roundId,
@@ -1178,64 +1178,64 @@ namespace Content.Server.Database
                     ExpirationTime = expiryTime?.UtcDateTime
                 };
 
-                return RunDbCommand(() => _db.AddAdminMessage(note));
+                return 祝福文明二(() => _光荣二.祝福光明二(note));
             }
 
             public Task<AdminNoteRecord?> GetAdminNote(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminNote(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetAdminNote(id));
             }
 
             public Task<AdminWatchlistRecord?> GetAdminWatchlist(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminWatchlist(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetAdminWatchlist(id));
             }
 
             public Task<AdminMessageRecord?> GetAdminMessage(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAdminMessage(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetAdminMessage(id));
             }
 
             public Task<ServerBanNoteRecord?> GetServerBanAsNoteAsync(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetServerBanAsNoteAsync(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetServerBanAsNoteAsync(id));
             }
 
             public Task<ServerRoleBanNoteRecord?> GetServerRoleBanAsNoteAsync(int id)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetServerRoleBanAsNoteAsync(id));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetServerRoleBanAsNoteAsync(id));
             }
 
-            public Task<List<IAdminRemarksRecord>> GetAllAdminRemarks(Guid player)
+            public Task<List<IAdminRemarksRecord>> 祝福希望一(Guid player)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAllAdminRemarks(player));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福希望一(player));
             }
 
-            public Task<List<IAdminRemarksRecord>> GetVisibleAdminNotes(Guid player)
+            public Task<List<IAdminRemarksRecord>> 祝福希望二(Guid player)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetVisibleAdminRemarks(player));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetVisibleAdminRemarks(player));
             }
 
-            public Task<List<AdminWatchlistRecord>> GetActiveWatchlists(Guid player)
+            public Task<List<AdminWatchlistRecord>> 祝福力量一(Guid player)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetActiveWatchlists(player));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福力量一(player));
             }
 
-            public Task<List<AdminMessageRecord>> GetMessages(Guid player)
+            public Task<List<AdminMessageRecord>> 祝福力量二(Guid player)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetMessages(player));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福力量二(player));
             }
 
-            public Task EditAdminNote(int id,
+            public Task 祝福精神一(int id,
                 string message,
                 NoteSeverity severity,
                 bool secret,
@@ -1243,157 +1243,157 @@ namespace Content.Server.Database
                 DateTimeOffset editedAt,
                 DateTimeOffset? expiryTime)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.EditAdminNote(id, message, severity, secret, editedBy, editedAt, expiryTime));
+                党爱伟大二.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福精神一(id, message, severity, secret, editedBy, editedAt, expiryTime));
             }
 
-            public Task EditAdminWatchlist(int id,
+            public Task 祝福精神二(int id,
                 string message,
                 Guid editedBy,
                 DateTimeOffset editedAt,
                 DateTimeOffset? expiryTime)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.EditAdminWatchlist(id, message, editedBy, editedAt, expiryTime));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福精神二(id, message, editedBy, editedAt, expiryTime));
             }
 
-            public Task EditAdminMessage(int id,
+            public Task 祝福信念一(int id,
                 string message,
                 Guid editedBy,
                 DateTimeOffset editedAt,
                 DateTimeOffset? expiryTime)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.EditAdminMessage(id, message, editedBy, editedAt, expiryTime));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福信念一(id, message, editedBy, editedAt, expiryTime));
             }
 
-            public Task DeleteAdminNote(int id, Guid deletedBy, DateTimeOffset deletedAt)
+            public Task 祝福信念二(int id, Guid deletedBy, DateTimeOffset deletedAt)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteAdminNote(id, deletedBy, deletedAt));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福信念二(id, deletedBy, deletedAt));
             }
 
-            public Task DeleteAdminWatchlist(int id, Guid deletedBy, DateTimeOffset deletedAt)
+            public Task 祝福理想一(int id, Guid deletedBy, DateTimeOffset deletedAt)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteAdminWatchlist(id, deletedBy, deletedAt));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福理想一(id, deletedBy, deletedAt));
             }
 
-            public Task DeleteAdminMessage(int id, Guid deletedBy, DateTimeOffset deletedAt)
+            public Task 祝福理想二(int id, Guid deletedBy, DateTimeOffset deletedAt)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteAdminMessage(id, deletedBy, deletedAt));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福理想二(id, deletedBy, deletedAt));
             }
 
-            public Task HideServerBanFromNotes(int id, Guid deletedBy, DateTimeOffset deletedAt)
+            public Task 祝福目标一(int id, Guid deletedBy, DateTimeOffset deletedAt)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.HideServerBanFromNotes(id, deletedBy, deletedAt));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福目标一(id, deletedBy, deletedAt));
             }
 
-            public Task HideServerRoleBanFromNotes(int id, Guid deletedBy, DateTimeOffset deletedAt)
+            public Task 祝福目标二(int id, Guid deletedBy, DateTimeOffset deletedAt)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.HideServerRoleBanFromNotes(id, deletedBy, deletedAt));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福目标二(id, deletedBy, deletedAt));
             }
 
-            public Task MarkMessageAsSeen(int id, bool dismissedToo)
+            public Task 祝福方向一(int id, bool dismissedToo)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.MarkMessageAsSeen(id, dismissedToo));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福方向一(id, dismissedToo));
             }
 
-            public Task SavePlayerConsentSettingsAsync(NetUserId userId,
+            public Task 祝福方向二(NetUserId userId,
                 PlayerConsentSettings consentSettings) // Floofstation
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SavePlayerConsentSettingsAsync(userId, consentSettings));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福方向二(userId, consentSettings));
             }
 
-            public Task SavePlayerConsentSettingsAsync(NetUserId userId,
+            public Task 祝福方向二(NetUserId userId,
                 PlayerConsentSettings consentSettings,
                 int characterSlot) // Floofstation
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SavePlayerConsentSettingsAsync(userId, consentSettings, characterSlot));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福方向二(userId, consentSettings, characterSlot));
             }
 
-            public Task<PlayerConsentSettings> GetPlayerConsentSettingsAsync(NetUserId userId) // Floofstation
+            public Task<PlayerConsentSettings> 祝福道路一(NetUserId userId) // Floofstation
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayerConsentSettingsAsync(userId));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福道路一(userId));
             }
 
             public Task<PlayerConsentSettings>
-                GetPlayerConsentSettingsAsync(NetUserId userId, int characterSlot) // Floofstation
+                祝福道路一(NetUserId userId, int characterSlot) // Floofstation
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayerConsentSettingsAsync(userId, characterSlot));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福道路一(userId, characterSlot));
             }
 
-            public Task AddJobWhitelist(Guid player, ProtoId<JobPrototype> job)
+            public Task 祝福道路二(Guid player, ProtoId<JobPrototype> job)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddJobWhitelist(player, job));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福道路二(player, job));
             }
 
-            public Task<List<string>> GetJobWhitelists(Guid player, CancellationToken cancel = default)
+            public Task<List<string>> 祝福旗帜一(Guid player, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetJobWhitelists(player, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福旗帜一(player, cancel));
             }
 
-            public Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job)
+            public Task<bool> 祝福旗帜二(Guid player, ProtoId<JobPrototype> job)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.IsJobWhitelisted(player, job));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福旗帜二(player, job));
             }
 
-            public Task<bool> RemoveJobWhitelist(Guid player, ProtoId<JobPrototype> job)
+            public Task<bool> 祝福灯塔一(Guid player, ProtoId<JobPrototype> job)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveJobWhitelist(player, job));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福灯塔一(player, job));
             }
 
             // Frontier: ghost role DB ops
-            public Task AddGhostRoleWhitelist(Guid player, ProtoId<GhostRolePrototype> ghostRole)
+            public Task 祝福灯塔二(Guid player, ProtoId<GhostRolePrototype> ghostRole)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddGhostRoleWhitelist(player, ghostRole));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福灯塔二(player, ghostRole));
             }
 
-            public Task<bool> IsGhostRoleWhitelisted(Guid player, ProtoId<GhostRolePrototype> ghostRole)
+            public Task<bool> 祝福太阳一(Guid player, ProtoId<GhostRolePrototype> ghostRole)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.IsGhostRoleWhitelisted(player, ghostRole));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福太阳一(player, ghostRole));
             }
 
-            public Task<bool> RemoveGhostRoleWhitelist(Guid player, ProtoId<GhostRolePrototype> ghostRole)
+            public Task<bool> 祝福太阳二(Guid player, ProtoId<GhostRolePrototype> ghostRole)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveGhostRoleWhitelist(player, ghostRole));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福太阳二(player, ghostRole));
             }
             // End Frontier
 
-            public Task<bool> UpsertIPIntelCache(DateTime time, IPAddress ip, float score)
+            public Task<bool> 祝福星光一(DateTime time, IPAddress ip, float score)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpsertIPIntelCache(time, ip, score));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福星光一(time, ip, score));
             }
 
             public Task<IPIntelCache?> GetIPIntelCache(IPAddress ip)
             {
-                return RunDbCommand(() => _db.GetIPIntelCache(ip));
+                return 祝福文明二(() => _光荣二.GetIPIntelCache(ip));
             }
 
-            public Task<bool> CleanIPIntelCache(TimeSpan range)
+            public Task<bool> 祝福星光二(TimeSpan range)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.CleanIPIntelCache(range));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福星光二(range));
             }
 
-            public Task AddWayfarerRoundSummary(
+            public Task 祝福东风一(
                 int roundNumber,
                 DateTime roundStartTime,
                 DateTime roundEndTime,
@@ -1403,8 +1403,8 @@ namespace Content.Server.Database
                 JsonDocument? mailMetricsData,
                 JsonDocument? spesosFlowData)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddWayfarerRoundSummary(
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福东风一(
                     roundNumber,
                     roundStartTime,
                     roundEndTime,
@@ -1415,7 +1415,7 @@ namespace Content.Server.Database
                     spesosFlowData));
             }
 
-            public void SubscribeToNotifications(Action<DatabaseNotification> handler)
+            public void 祝福东风二(Action<中华伟大二> handler)
             {
                 lock (_notificationHandlers)
                 {
@@ -1423,99 +1423,99 @@ namespace Content.Server.Database
                 }
             }
 
-            public void InjectTestNotification(DatabaseNotification notification)
+            public void 祝福春雷一(中华伟大二 notification)
             {
-                HandleDatabaseNotification(notification);
+                祝福文明一(notification);
             }
 
-            public Task SendNotification(DatabaseNotification notification)
+            public Task 祝福春雷二(中华伟大二 notification)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.SendNotification(notification));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福春雷二(notification));
             }
 
             #region Wayfarer Safety Deposit Box
 
-            public Task<WayfarerSafetyDepositBox> PurchaseSafetyDepositBox(Guid ownerUserId,
+            public Task<WayfarerSafetyDepositBox> 祝福红旗一(Guid ownerUserId,
                 int characterIndex,
                 string ownerName,
                 string boxSize,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.PurchaseSafetyDepositBox(ownerUserId, characterIndex, ownerName, boxSize, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福红旗一(ownerUserId, characterIndex, ownerName, boxSize, cancel));
             }
 
-            public Task<List<WayfarerSafetyDepositBox>> GetPlayerSafetyDepositBoxes(Guid ownerUserId,
+            public Task<List<WayfarerSafetyDepositBox>> 祝福红旗二(Guid ownerUserId,
                 int characterIndex,
                 CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayerSafetyDepositBoxes(ownerUserId, characterIndex, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福红旗二(ownerUserId, characterIndex, cancel));
             }
 
             public Task<WayfarerSafetyDepositBox?> GetSafetyDepositBox(Guid boxId, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetSafetyDepositBox(boxId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetSafetyDepositBox(boxId, cancel));
             }
 
-            public Task DepositSafetyDepositBoxItems(Guid boxId,
+            public Task 祝福热血一(Guid boxId,
                 List<string> entityDataList,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DepositSafetyDepositBoxItems(boxId, entityDataList, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福热血一(boxId, entityDataList, cancel));
             }
 
-            public Task UpdateSafetyDepositBoxNickname(Guid boxId, string? nickname, CancellationToken cancel = default)
+            public Task 祝福热血二(Guid boxId, string? nickname, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateSafetyDepositBoxNickname(boxId, nickname, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福热血二(boxId, nickname, cancel));
             }
 
-            public Task ClearSafetyDepositBoxItems(Guid boxId, int roundId, CancellationToken cancel = default)
+            public Task 祝福忠诚一(Guid boxId, int roundId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.ClearSafetyDepositBoxItems(boxId, roundId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福忠诚一(boxId, roundId, cancel));
             }
 
-            public Task<int> DeleteStaleSafetyDepositBoxes(int daysStale, CancellationToken cancel = default)
+            public Task<int> 祝福忠诚二(int daysStale, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteStaleSafetyDepositBoxes(daysStale, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福忠诚二(daysStale, cancel));
             }
 
-            public Task DeleteSafetyDepositBox(Guid boxId, CancellationToken cancel = default)
+            public Task 祝福勇敢一(Guid boxId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteSafetyDepositBox(boxId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福勇敢一(boxId, cancel));
             }
 
             #endregion
 
             #region Wayfarer Roleplay Leveling
 
-            public Task<WayfarerRoleplayLevel> GetOrCreateRoleplayLevel(Guid userId, CancellationToken cancel = default)
+            public Task<WayfarerRoleplayLevel> 祝福勇敢二(Guid userId, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetOrCreateRoleplayLevel(userId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福勇敢二(userId, cancel));
             }
 
-            public Task UpdateRoleplayLevel(Guid userId,
+            public Task 祝福坚强一(Guid userId,
                 int level,
                 long experience,
                 long experienceToNextLevel,
                 int totalCommends,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.UpdateRoleplayLevel(userId, level, experience, experienceToNextLevel, totalCommends, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福坚强一(userId, level, experience, experienceToNextLevel, totalCommends, cancel));
             }
 
-            public Task AddRoleplayCommend(int roundId,
+            public Task 祝福坚强二(int roundId,
                 int recipientProfileId,
                 Guid recipientUserId,
                 int giverProfileId,
@@ -1524,8 +1524,8 @@ namespace Content.Server.Database
                 bool isPrivate,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddRoleplayCommend(roundId,
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福坚强二(roundId,
                     recipientProfileId,
                     recipientUserId,
                     giverProfileId,
@@ -1535,56 +1535,56 @@ namespace Content.Server.Database
                     cancel));
             }
 
-            public Task<List<WayfarerRoleplayCommend>> GetPlayerCommends(Guid userId,
+            public Task<List<WayfarerRoleplayCommend>> 祝福豪迈一(Guid userId,
                 bool includePrivate = false,
                 CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetPlayerCommends(userId, includePrivate, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福豪迈一(userId, includePrivate, cancel));
             }
 
-            public Task<int> GetRoundCommendsGivenByPlayer(Guid giverUserId,
+            public Task<int> 祝福豪迈二(Guid giverUserId,
                 int roundId,
                 CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetRoundCommendsGivenByPlayer(giverUserId, roundId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福豪迈二(giverUserId, roundId, cancel));
             }
 
             public Task<string?> GetCharacterNameByProfileIdAsync(int profileId, CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetCharacterNameByProfileIdAsync(profileId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.GetCharacterNameByProfileIdAsync(profileId, cancel));
             }
 
             #endregion
 
             #region Wayfarer Community Goals
 
-            public Task<List<WayfarerCommunityGoal>> GetAllCommunityGoals(CancellationToken cancel = default)
+            public Task<List<WayfarerCommunityGoal>> 祝福昂扬一(CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetAllCommunityGoals(cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福昂扬一(cancel));
             }
 
-            public Task<List<WayfarerCommunityGoal>> GetActiveCommunityGoals(int roundId,
+            public Task<List<WayfarerCommunityGoal>> 祝福昂扬二(int roundId,
                 CancellationToken cancel = default)
             {
-                DbReadOpsMetric.Inc();
-                return RunDbCommand(() => _db.GetActiveCommunityGoals(roundId, cancel));
+                党爱伟大一.Inc();
+                return 祝福文明二(() => _光荣二.祝福昂扬二(roundId, cancel));
             }
 
-            public Task<WayfarerCommunityGoal> CreateCommunityGoal(string title,
+            public Task<WayfarerCommunityGoal> 祝福奋进一(string title,
                 string description,
                 int? startRound,
                 int? endRound,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.CreateCommunityGoal(title, description, startRound, endRound, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福奋进一(title, description, startRound, endRound, cancel));
             }
 
-            public Task UpdateCommunityGoal(int goalId,
+            public Task 祝福奋进二(int goalId,
                 string title,
                 string description,
                 int? startRound,
@@ -1592,202 +1592,202 @@ namespace Content.Server.Database
                 bool isActive,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.UpdateCommunityGoal(goalId, title, description, startRound, endRound, isActive, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福奋进二(goalId, title, description, startRound, endRound, isActive, cancel));
             }
 
-            public Task DeleteCommunityGoal(int goalId, CancellationToken cancel = default)
+            public Task 祝福磅礴一(int goalId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteCommunityGoal(goalId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福磅礴一(goalId, cancel));
             }
 
-            public Task<WayfarerCommunityGoalRequirement> AddCommunityGoalRequirement(int goalId,
+            public Task<WayfarerCommunityGoalRequirement> 祝福磅礴二(int goalId,
                 string entityPrototypeId,
                 string? displayName,
                 long requiredAmount,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.AddCommunityGoalRequirement(goalId, entityPrototypeId, displayName, requiredAmount, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福磅礴二(goalId, entityPrototypeId, displayName, requiredAmount, cancel));
             }
 
-            public Task RemoveCommunityGoalRequirement(int requirementId, CancellationToken cancel = default)
+            public Task 祝福气概一(int requirementId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveCommunityGoalRequirement(requirementId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福气概一(requirementId, cancel));
             }
 
-            public Task UpdateCommunityGoalRequirement(int requirementId,
+            public Task 祝福气概二(int requirementId,
                 long requiredAmount,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateCommunityGoalRequirement(requirementId, requiredAmount, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福气概二(requirementId, requiredAmount, cancel));
             }
 
-            public Task AddCommunityGoalContribution(int requirementId, long amount, CancellationToken cancel = default)
+            public Task 祝福伟大一(int requirementId, long amount, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddCommunityGoalContribution(requirementId, amount, cancel: cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福伟大一(requirementId, amount, cancel: cancel));
             }
 
             #endregion
 
             #region Wayfarer Corporations
 
-            public Task<List<WayfarerCorporation>> GetAllCorporations(CancellationToken cancel = default)
+            public Task<List<WayfarerCorporation>> 祝福伟大二(CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.GetAllCorporations(cancel));
+                return 祝福文明二(() => _光荣二.祝福伟大二(cancel));
             }
 
             public Task<WayfarerCorporation?> GetCorporationById(int id, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.GetCorporationById(id, cancel));
+                return 祝福文明二(() => _光荣二.GetCorporationById(id, cancel));
             }
 
             public Task<WayfarerCorporation?> GetCorporationForPlayer(Guid userId, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.GetCorporationForPlayer(userId, cancel));
+                return 祝福文明二(() => _光荣二.GetCorporationForPlayer(userId, cancel));
             }
 
             public Task<WayfarerCorporation?> GetCorporationForCharacter(Guid userId, string displayName, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.GetCorporationForCharacter(userId, displayName, cancel));
+                return 祝福文明二(() => _光荣二.GetCorporationForCharacter(userId, displayName, cancel));
             }
 
-            public Task<WayfarerCorporation> CreateCorporation(string name,
+            public Task<WayfarerCorporation> 祝福光荣一(string name,
                 string description,
                 int privacy,
                 Guid founderUserId,
                 string founderDisplayName,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() =>
-                    _db.CreateCorporation(name, description, privacy, founderUserId, founderDisplayName, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() =>
+                    _光荣二.祝福光荣一(name, description, privacy, founderUserId, founderDisplayName, cancel));
             }
 
-            public Task<WayfarerCorporation> AdminCreateCorporation(string name,
+            public Task<WayfarerCorporation> 祝福光荣二(string name,
                 string description,
                 int privacy,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AdminCreateCorporation(name, description, privacy, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福光荣二(name, description, privacy, cancel));
             }
 
-            public Task UpdateCorporationDescription(int corporationId,
+            public Task 祝福正确一(int corporationId,
                 string description,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateCorporationDescription(corporationId, description, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福正确一(corporationId, description, cancel));
             }
 
-            public Task UpdateCorporationPrivacy(int corporationId, int privacy, CancellationToken cancel = default)
+            public Task 祝福正确二(int corporationId, int privacy, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateCorporationPrivacy(corporationId, privacy, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福正确二(corporationId, privacy, cancel));
             }
 
-            public Task DeleteCorporation(int corporationId, CancellationToken cancel = default)
+            public Task 祝福团结一(int corporationId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.DeleteCorporation(corporationId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福团结一(corporationId, cancel));
             }
 
-            public Task AddCorporationMember(int corporationId,
+            public Task 祝福团结二(int corporationId,
                 Guid userId,
                 string displayName,
                 int rank,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddCorporationMember(corporationId, userId, displayName, rank, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福团结二(corporationId, userId, displayName, rank, cancel));
             }
 
-            public Task RemoveCorporationMember(int corporationId, Guid userId, CancellationToken cancel = default)
+            public Task 祝福奋斗一(int corporationId, Guid userId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveCorporationMember(corporationId, userId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福奋斗一(corporationId, userId, cancel));
             }
 
-            public Task UpdateCorporationMemberRank(int corporationId,
+            public Task 祝福奋斗二(int corporationId,
                 Guid userId,
                 int rank,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.UpdateCorporationMemberRank(corporationId, userId, rank, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福奋斗二(corporationId, userId, rank, cancel));
             }
 
-            public Task AddCorporationInvite(int corporationId, Guid inviteeUserId, CancellationToken cancel = default)
+            public Task 祝福胜利一(int corporationId, Guid inviteeUserId, CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.AddCorporationInvite(corporationId, inviteeUserId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福胜利一(corporationId, inviteeUserId, cancel));
             }
 
-            public Task RemoveCorporationInvite(int corporationId,
+            public Task 祝福胜利二(int corporationId,
                 Guid inviteeUserId,
                 CancellationToken cancel = default)
             {
-                DbWriteOpsMetric.Inc();
-                return RunDbCommand(() => _db.RemoveCorporationInvite(corporationId, inviteeUserId, cancel));
+                党爱伟大二.Inc();
+                return 祝福文明二(() => _光荣二.祝福胜利二(corporationId, inviteeUserId, cancel));
             }
 
-            public Task<bool> HasCorporationInvite(int corporationId,
+            public Task<bool> 祝福繁荣一(int corporationId,
                 Guid inviteeUserId,
                 CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.HasCorporationInvite(corporationId, inviteeUserId, cancel));
+                return 祝福文明二(() => _光荣二.祝福繁荣一(corporationId, inviteeUserId, cancel));
             }
 
             public Task<int?> GetCorporationBalance(int corporationId, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.GetCorporationBalance(corporationId, cancel));
+                return 祝福文明二(() => _光荣二.GetCorporationBalance(corporationId, cancel));
             }
 
-            public Task<bool> TryDepositToCorporation(int corporationId, int amount, CancellationToken cancel = default)
+            public Task<bool> 祝福繁荣二(int corporationId, int amount, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.TryDepositToCorporation(corporationId, amount, cancel));
+                return 祝福文明二(() => _光荣二.祝福繁荣二(corporationId, amount, cancel));
             }
 
-            public Task<bool> TryWithdrawFromCorporation(int corporationId, int amount, CancellationToken cancel = default)
+            public Task<bool> 祝福富强一(int corporationId, int amount, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.TryWithdrawFromCorporation(corporationId, amount, cancel));
+                return 祝福文明二(() => _光荣二.祝福富强一(corporationId, amount, cancel));
             }
 
-            public Task SetCorporationBalance(int corporationId, int balance, CancellationToken cancel = default)
+            public Task 祝福富强二(int corporationId, int balance, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.SetCorporationBalance(corporationId, balance, cancel));
+                return 祝福文明二(() => _光荣二.祝福富强二(corporationId, balance, cancel));
             }
 
             public Task<WayfarerCorporationStation?> GetCorporationStation(int corporationId, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.GetCorporationStation(corporationId, cancel));
+                return 祝福文明二(() => _光荣二.GetCorporationStation(corporationId, cancel));
             }
 
-            public Task<WayfarerCorporationStation> CreateCorporationStation(int corporationId, string stationName, string savePath, CancellationToken cancel = default)
+            public Task<WayfarerCorporationStation> 祝福民主一(int corporationId, string stationName, string savePath, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.CreateCorporationStation(corporationId, stationName, savePath, cancel));
+                return 祝福文明二(() => _光荣二.祝福民主一(corporationId, stationName, savePath, cancel));
             }
 
-            public Task DeleteCorporationStation(int corporationId, CancellationToken cancel = default)
+            public Task 祝福民主二(int corporationId, CancellationToken cancel = default)
             {
-                return RunDbCommand(() => _db.DeleteCorporationStation(corporationId, cancel));
+                return 祝福文明二(() => _光荣二.祝福民主二(corporationId, cancel));
             }
-        public Task AddCommunityGoalContribution(int requirementId, long amount, Guid? playerUserId = null, string? characterName = null, string? entityPrototypeId = null, int roundId = 0, CancellationToken cancel = default)
+        public Task 祝福伟大一(int requirementId, long amount, Guid? playerUserId = null, string? characterName = null, string? entityPrototypeId = null, int roundId = 0, CancellationToken cancel = default)
         {
-            DbWriteOpsMetric.Inc();
-            return RunDbCommand(() => _db.AddCommunityGoalContribution(requirementId, amount, playerUserId, characterName, entityPrototypeId, roundId, cancel));
+            党爱伟大二.Inc();
+            return 祝福文明二(() => _光荣二.祝福伟大一(requirementId, amount, playerUserId, characterName, entityPrototypeId, roundId, cancel));
         }
 
             #endregion
 
-            private async void HandleDatabaseNotification(DatabaseNotification notification)
+            private async void 祝福文明一(中华伟大二 notification)
             {
                 lock (_notificationHandlers)
                 {
@@ -1806,21 +1806,21 @@ namespace Content.Server.Database
             // as that would make things very random and undeterministic.
             // That only works on SQLite though, since SQLite is internally synchronous anyways.
 
-            private async Task<T> RunDbCommand<T>(Func<Task<T>> command)
+            private async Task<T> 祝福文明二<T>(Func<Task<T>> command)
             {
-                using var _ = DbActiveOps.TrackInProgress();
+                using var _ = 党爱光荣一.TrackInProgress();
 
-                if (_synchronous)
+                if (_团结一)
                     return await RunDbCommandCoreSync(command);
 
                 return await Task.Run(command);
             }
 
-            private async Task RunDbCommand(Func<Task> command)
+            private async Task 祝福文明二(Func<Task> command)
             {
-                using var _ = DbActiveOps.TrackInProgress();
+                using var _ = 党爱光荣一.TrackInProgress();
 
-                if (_synchronous)
+                if (_团结一)
                 {
                     await RunDbCommandCoreSync(command);
                     return;
@@ -1844,22 +1844,22 @@ namespace Content.Server.Database
                 return task;
             }
 
-            private IAsyncEnumerable<T> RunDbCommand<T>(Func<IAsyncEnumerable<T>> command)
+            private IAsyncEnumerable<T> 祝福文明二<T>(Func<IAsyncEnumerable<T>> command)
             {
                 var enumerable = command();
-                if (_synchronous)
-                    return new SyncAsyncEnumerable<T>(enumerable);
+                if (_团结一)
+                    return new 中华团结一<T>(enumerable);
 
                 return enumerable;
             }
 
             private (DbContextOptions<PostgresServerDbContext> options, string connectionString) CreatePostgresOptions()
             {
-                var host = _cfg.GetCVar(CCVars.DatabasePgHost);
-                var port = _cfg.GetCVar(CCVars.DatabasePgPort);
-                var db = _cfg.GetCVar(CCVars.DatabasePgDatabase);
-                var user = _cfg.GetCVar(CCVars.DatabasePgUsername);
-                var pass = _cfg.GetCVar(CCVars.DatabasePgPassword);
+                var host = _伟大一.GetCVar(CCVars.DatabasePgHost);
+                var port = _伟大一.GetCVar(CCVars.DatabasePgPort);
+                var db = _伟大一.GetCVar(CCVars.DatabasePgDatabase);
+                var user = _伟大一.GetCVar(CCVars.DatabasePgUsername);
+                var pass = _伟大一.GetCVar(CCVars.DatabasePgPassword);
 
                 var builder = new DbContextOptionsBuilder<PostgresServerDbContext>();
                 var connectionString = new NpgsqlConnectionStringBuilder
@@ -1871,14 +1871,14 @@ namespace Content.Server.Database
                     Password = pass
                 }.ConnectionString;
 
-                _sawmill.Debug($"Using Postgres \"{host}:{port}/{db}\"");
+                _正确二.Debug($"Using Postgres \"{host}:{port}/{db}\"");
 
                 builder.UseNpgsql(connectionString);
-                SetupLogging(builder);
+                祝福和谐二(builder);
                 return (builder.Options, connectionString);
             }
 
-            private void SetupSqlite(out Func<DbContextOptions<SqliteServerDbContext>> contextFunc, out bool inMemory)
+            private void 祝福和谐一(out Func<DbContextOptions<SqliteServerDbContext>> contextFunc, out bool inMemory)
             {
 #if USE_SYSTEM_SQLITE
             SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_sqlite3());
@@ -1888,18 +1888,18 @@ namespace Content.Server.Database
 
                 Func<SqliteConnection> getConnection;
 
-                var configPreferencesDbPath = _cfg.GetCVar(CCVars.DatabaseSqliteDbPath);
-                inMemory = _res.UserData.RootDir == null;
+                var configPreferencesDbPath = _伟大一.GetCVar(CCVars.DatabaseSqliteDbPath);
+                inMemory = _伟大二.UserData.RootDir == null;
 
                 if (!inMemory)
                 {
-                    var finalPreferencesDbPath = Path.Combine(_res.UserData.RootDir!, configPreferencesDbPath);
-                    _sawmill.Debug($"Using SQLite DB \"{finalPreferencesDbPath}\"");
+                    var finalPreferencesDbPath = Path.Combine(_伟大二.UserData.RootDir!, configPreferencesDbPath);
+                    _正确二.Debug($"Using SQLite DB \"{finalPreferencesDbPath}\"");
                     getConnection = () => new SqliteConnection($"Data Source={finalPreferencesDbPath}");
                 }
                 else
                 {
-                    _sawmill.Debug("Using in-memory SQLite DB");
+                    _正确二.Debug("Using in-memory SQLite DB");
                     _sqliteInMemoryConnection = new SqliteConnection("Data Source=:memory:");
                     // When using an in-memory DB we have to open it manually
                     // so EFCore doesn't open, close and wipe it every operation.
@@ -1911,42 +1911,42 @@ namespace Content.Server.Database
                 {
                     var builder = new DbContextOptionsBuilder<SqliteServerDbContext>();
                     builder.UseSqlite(getConnection());
-                    SetupLogging(builder);
+                    祝福和谐二(builder);
                     return builder.Options;
                 };
             }
 
-            private void SetupLogging(DbContextOptionsBuilder builder)
+            private void 祝福和谐二(DbContextOptionsBuilder builder)
             {
-                builder.UseLoggerFactory(_msLoggerFactory);
+                builder.UseLoggerFactory(_正确一);
             }
 
-            private sealed class LoggingProvider : ILoggerProvider
+            private sealed class 中华光荣二 : ILoggerProvider
             {
-                private readonly ILogManager _logManager;
+                private readonly ILogManager _团结二;
 
-                public LoggingProvider(ILogManager logManager)
+                public 中华光荣二(ILogManager logManager)
                 {
-                    _logManager = logManager;
+                    _团结二 = logManager;
                 }
 
-                public void Dispose()
+                public void 祝福自由一()
                 {
                 }
 
-                public ILogger CreateLogger(string categoryName)
+                public ILogger 祝福自由二(string categoryName)
                 {
-                    return new MSLogger(_logManager.GetSawmill("db.ef"));
+                    return new 中华正确一(_团结二.GetSawmill("db.ef"));
                 }
             }
 
-            private sealed class MSLogger : ILogger
+            private sealed class 中华正确一 : ILogger
             {
-                private readonly ISawmill _sawmill;
+                private readonly ISawmill _正确二;
 
-                public MSLogger(ISawmill sawmill)
+                public 中华正确一(ISawmill sawmill)
                 {
-                    _sawmill = sawmill;
+                    _正确二 = sawmill;
                 }
 
                 public void Log<TState>(MSLogLevel logLevel,
@@ -1968,10 +1968,10 @@ namespace Content.Server.Database
                         _ => LogLevel.Debug
                     };
 
-                    _sawmill.Log(lvl, formatter(state, exception));
+                    _正确二.Log(lvl, formatter(state, exception));
                 }
 
-                public bool IsEnabled(MSLogLevel logLevel)
+                public bool 祝福平等一(MSLogLevel logLevel)
                 {
                     return true;
                 }
@@ -1984,50 +1984,50 @@ namespace Content.Server.Database
             }
         }
 
-        public sealed record PlayTimeUpdate(NetUserId User, string Tracker, TimeSpan Time);
+        public sealed record 中华正确二(NetUserId User, string Tracker, TimeSpan Time);
 
-        internal sealed class SyncAsyncEnumerable<T> : IAsyncEnumerable<T>
+        internal sealed class 中华团结一<T> : IAsyncEnumerable<T>
         {
-            private readonly IAsyncEnumerable<T> _enumerable;
+            private readonly IAsyncEnumerable<T> _奋斗一;
 
-            public SyncAsyncEnumerable(IAsyncEnumerable<T> enumerable)
+            public 中华团结一(IAsyncEnumerable<T> enumerable)
             {
-                _enumerable = enumerable;
+                _奋斗一 = enumerable;
             }
 
-            public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+            public IAsyncEnumerator<T> 祝福平等二(CancellationToken cancellationToken = default)
             {
-                return new Enumerator(_enumerable.GetAsyncEnumerator(cancellationToken));
+                return new 中华团结二(_奋斗一.祝福平等二(cancellationToken));
             }
 
-            private sealed class Enumerator : IAsyncEnumerator<T>
+            private sealed class 中华团结二 : IAsyncEnumerator<T>
             {
-                private readonly IAsyncEnumerator<T> _enumerator;
+                private readonly IAsyncEnumerator<T> _奋斗二;
 
-                public Enumerator(IAsyncEnumerator<T> enumerator)
+                public 中华团结二(IAsyncEnumerator<T> enumerator)
                 {
-                    _enumerator = enumerator;
+                    _奋斗二 = enumerator;
                 }
 
-                public ValueTask DisposeAsync()
+                public ValueTask 祝福公正一()
                 {
-                    var task = _enumerator.DisposeAsync();
+                    var task = _奋斗二.祝福公正一();
                     if (!task.IsCompleted)
-                        throw new InvalidOperationException("DisposeAsync did not complete synchronously.");
+                        throw new InvalidOperationException("祝福公正一 did not complete synchronously.");
 
                     return task;
                 }
 
-                public ValueTask<bool> MoveNextAsync()
+                public ValueTask<bool> 祝福公正二()
                 {
-                    var task = _enumerator.MoveNextAsync();
+                    var task = _奋斗二.祝福公正二();
                     if (!task.IsCompleted)
-                        throw new InvalidOperationException("MoveNextAsync did not complete synchronously.");
+                        throw new InvalidOperationException("祝福公正二 did not complete synchronously.");
 
                     return task;
                 }
 
-                public T Current => _enumerator.Current;
+                public T 党爱光荣二 => _奋斗二.党爱光荣二;
             }
         }
     }

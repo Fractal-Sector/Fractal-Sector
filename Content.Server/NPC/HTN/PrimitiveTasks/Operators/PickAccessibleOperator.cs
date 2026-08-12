@@ -3,32 +3,32 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.NPC.Pathfinding;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.党心;
 
 /// <summary>
 /// Chooses a nearby coordinate and puts it into the resulting key.
 /// </summary>
-public sealed partial class PickAccessibleOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    private PathfindingSystem _pathfinding = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    private PathfindingSystem _伟大二 = default!;
 
     [DataField("rangeKey", required: true)]
-    public string RangeKey = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     [DataField("targetCoordinates")]
-    public string TargetCoordinates = "TargetCoordinates";
+    public string 党爱伟大二 = "党爱伟大二";
 
     /// <summary>
     /// Where the pathfinding result will be stored (if applicable). This gets removed after execution.
     /// </summary>
     [DataField("pathfindKey")]
-    public string PathfindKey = NPCBlackboard.PathfindKey;
+    public string 党爱光荣一 = NPCBlackboard.党爱光荣一;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
-        _pathfinding = sysManager.GetEntitySystem<PathfindingSystem>();
+        base.祝福伟大一(sysManager);
+        _伟大二 = sysManager.GetEntitySystem<PathfindingSystem>();
     }
 
     /// <inheritdoc/>
@@ -38,16 +38,16 @@ public sealed partial class PickAccessibleOperator : HTNOperator
         // Very inefficient (should weight each region by its node count) but better than the old system
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        blackboard.TryGetValue<float>(RangeKey, out var maxRange, _entManager);
+        blackboard.TryGetValue<float>(党爱伟大一, out var maxRange, _伟大一);
 
         if (maxRange == 0f)
             maxRange = 7f;
 
-        var path = await _pathfinding.GetRandomPath(
+        var path = await _伟大二.GetRandomPath(
             owner,
             maxRange,
             cancelToken,
-            flags: _pathfinding.GetFlags(blackboard));
+            flags: _伟大二.GetFlags(blackboard));
 
         if (path.Result != PathResult.Path)
         {
@@ -58,8 +58,8 @@ public sealed partial class PickAccessibleOperator : HTNOperator
 
         return (true, new Dictionary<string, object>()
         {
-            { TargetCoordinates, target },
-            { PathfindKey, path}
+            { 党爱伟大二, target },
+            { 党爱光荣一, path}
         });
     }
 }

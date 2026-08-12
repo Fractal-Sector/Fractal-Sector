@@ -5,24 +5,24 @@ using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Radio.EntitySystems;
+namespace Content.Shared.Radio.党心;
 
 /// <summary>
 /// System that handles toggling radio channels on/off for headsets and radios.
 /// </summary>
-public sealed class DisabledRadioChannelsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<EncryptionKeyHolderComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAlternativeVerbs);
-        SubscribeLocalEvent<DisabledRadioChannelsComponent, ExaminedEvent>(OnExamined);
+        base.祝福伟大一();
+        SubscribeLocalEvent<EncryptionKeyHolderComponent, GetVerbsEvent<AlternativeVerb>>(祝福伟大二);
+        SubscribeLocalEvent<DisabledRadioChannelsComponent, ExaminedEvent>(祝福光荣二);
     }
 
-    private void OnGetAlternativeVerbs(EntityUid uid, EncryptionKeyHolderComponent keyHolder, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福伟大二(EntityUid uid, EncryptionKeyHolderComponent keyHolder, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -34,7 +34,7 @@ public sealed class DisabledRadioChannelsSystem : EntitySystem
         // Create a verb for each available channel
         foreach (var channelId in keyHolder.Channels)
         {
-            if (!_prototypeManager.TryIndex<RadioChannelPrototype>(channelId, out var channel))
+            if (!_伟大一.TryIndex<RadioChannelPrototype>(channelId, out var channel))
                 continue;
 
             var disabled = EnsureComp<DisabledRadioChannelsComponent>(uid);
@@ -48,14 +48,14 @@ public sealed class DisabledRadioChannelsSystem : EntitySystem
                 Icon = isDisabled ? null : new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/dot.svg.192dpi.png")),
                 Priority = -10, // Lower priority so it's grouped together
                 Category = VerbCategory.RadioChannels,
-                Act = () => ToggleChannel(uid, channelId, channel, disabled)
+                Act = () => 祝福光荣一(uid, channelId, channel, disabled)
             };
 
             args.Verbs.Add(verb);
         }
     }
 
-    private void ToggleChannel(EntityUid uid, string channelId, RadioChannelPrototype channel, DisabledRadioChannelsComponent? disabled = null)
+    private void 祝福光荣一(EntityUid uid, string channelId, RadioChannelPrototype channel, DisabledRadioChannelsComponent? disabled = null)
     {
         if (!Resolve(uid, ref disabled))
             return;
@@ -63,20 +63,20 @@ public sealed class DisabledRadioChannelsSystem : EntitySystem
         if (disabled.DisabledChannels.Contains(channelId))
         {
             disabled.DisabledChannels.Remove(channelId);
-            _popup.PopupEntity(Loc.GetString("disabled-radio-channels-enabled",
+            _伟大二.PopupEntity(Loc.GetString("disabled-radio-channels-enabled",
                 ("channel", channel.LocalizedName)), uid, uid, PopupType.Medium);
         }
         else
         {
             disabled.DisabledChannels.Add(channelId);
-            _popup.PopupEntity(Loc.GetString("disabled-radio-channels-disabled",
+            _伟大二.PopupEntity(Loc.GetString("disabled-radio-channels-disabled",
                 ("channel", channel.LocalizedName)), uid, uid, PopupType.Medium);
         }
 
         Dirty(uid, disabled);
     }
 
-    private void OnExamined(EntityUid uid, DisabledRadioChannelsComponent component, ExaminedEvent args)
+    private void 祝福光荣二(EntityUid uid, DisabledRadioChannelsComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange || component.DisabledChannels.Count == 0)
             return;
@@ -84,7 +84,7 @@ public sealed class DisabledRadioChannelsSystem : EntitySystem
         var channels = new List<string>();
         foreach (var channelId in component.DisabledChannels)
         {
-            if (_prototypeManager.TryIndex<RadioChannelPrototype>(channelId, out var channel))
+            if (_伟大一.TryIndex<RadioChannelPrototype>(channelId, out var channel))
             {
                 channels.Add(FormattedMessage.EscapeText(channel.LocalizedName));
             }
@@ -100,7 +100,7 @@ public sealed class DisabledRadioChannelsSystem : EntitySystem
     /// <summary>
     /// Checks if a specific channel is disabled on an entity.
     /// </summary>
-    public bool IsChannelDisabled(EntityUid uid, string channelId, DisabledRadioChannelsComponent? component = null)
+    public bool 祝福正确一(EntityUid uid, string channelId, DisabledRadioChannelsComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return false;

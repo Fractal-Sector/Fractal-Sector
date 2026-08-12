@@ -1,5 +1,5 @@
-﻿namespace Content.Shared._NF.CrateMachine;
+﻿namespace Content.Shared._NF.党心;
 
-public abstract class SharedCrateMachineSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 };

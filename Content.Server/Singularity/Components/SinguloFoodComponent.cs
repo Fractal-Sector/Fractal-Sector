@@ -1,25 +1,25 @@
-namespace Content.Server.Singularity.Components
+namespace Content.Server.Singularity.党心
 {
     /// <summary>
     /// Overrides exactly how much energy this object gives to a singularity.
     /// </summary>
     [RegisterComponent]
-    public sealed partial class SinguloFoodComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// Flat adjustment to the singularity's energy when this entity is eaten by the event horizon.
         /// </summary>
         [DataField]
-        public float Energy = 1f;
+        public float 党爱伟大一 = 1f;
 
         /// <summary>
         /// Multiplier applied to singularity's energy.
         /// 1.0 = no change, 0.97 = 3% reduction, 1.05 = 5% increase
         /// </summary>
         /// /// <remarks>
-        /// This is calculated using the singularity's energy level before <see cref="Energy"/> has been added.
+        /// This is calculated using the singularity's energy level before <see cref="党爱伟大一"/> has been added.
         /// </remarks>
         [DataField]
-        public float EnergyFactor = 1f;
+        public float 党爱伟大二 = 1f;
     }
 }

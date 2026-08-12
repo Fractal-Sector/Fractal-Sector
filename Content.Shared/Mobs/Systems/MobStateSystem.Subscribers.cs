@@ -19,38 +19,38 @@ using Content.Shared.Strip.Components;
 using Content.Shared.Throwing;
 using Robust.Shared.Physics.Components;
 
-namespace Content.Shared.Mobs.Systems;
+namespace Content.Shared.Mobs.党心;
 
-public partial class MobStateSystem
+public partial class 中华伟大一
 {
     //General purpose event subscriptions. If you can avoid it register these events inside their own systems
-    private void SubscribeEvents()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<MobStateComponent, BeforeGettingStrippedEvent>(OnGettingStripped);
-        SubscribeLocalEvent<MobStateComponent, ChangeDirectionAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, UseAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, AttackAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, ConsciousAttemptEvent>(CheckConcious);
-        SubscribeLocalEvent<MobStateComponent, ThrowAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, SpeakAttemptEvent>(OnSpeakAttempt);
-        SubscribeLocalEvent<MobStateComponent, IsEquippingAttemptEvent>(OnEquipAttempt);
-        SubscribeLocalEvent<MobStateComponent, EmoteAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, IsUnequippingAttemptEvent>(OnUnequipAttempt);
-        SubscribeLocalEvent<MobStateComponent, DropAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, PickupAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, StartPullAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, UpdateCanMoveEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, StandAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, PointAttemptEvent>(CheckAct);
-        SubscribeLocalEvent<MobStateComponent, TryingToSleepEvent>(OnSleepAttempt);
-        SubscribeLocalEvent<MobStateComponent, CombatModeShouldHandInteractEvent>(OnCombatModeShouldHandInteract);
-        SubscribeLocalEvent<MobStateComponent, AttemptPacifiedAttackEvent>(OnAttemptPacifiedAttack);
-        SubscribeLocalEvent<MobStateComponent, DamageModifyEvent>(OnDamageModify);
+        SubscribeLocalEvent<MobStateComponent, BeforeGettingStrippedEvent>(祝福团结一);
+        SubscribeLocalEvent<MobStateComponent, ChangeDirectionAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, UseAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, AttackAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, ConsciousAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<MobStateComponent, ThrowAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, SpeakAttemptEvent>(祝福团结二);
+        SubscribeLocalEvent<MobStateComponent, IsEquippingAttemptEvent>(祝福奋斗二);
+        SubscribeLocalEvent<MobStateComponent, EmoteAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, IsUnequippingAttemptEvent>(祝福胜利一);
+        SubscribeLocalEvent<MobStateComponent, DropAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, PickupAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, StartPullAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, UpdateCanMoveEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, StandAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, PointAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MobStateComponent, TryingToSleepEvent>(祝福正确二);
+        SubscribeLocalEvent<MobStateComponent, CombatModeShouldHandInteractEvent>(祝福胜利二);
+        SubscribeLocalEvent<MobStateComponent, AttemptPacifiedAttackEvent>(祝福繁荣一);
+        SubscribeLocalEvent<MobStateComponent, DamageModifyEvent>(祝福繁荣二);
 
-        SubscribeLocalEvent<MobStateComponent, UnbuckleAttemptEvent>(OnUnbuckleAttempt);
+        SubscribeLocalEvent<MobStateComponent, UnbuckleAttemptEvent>(祝福伟大二);
     }
 
-    private void OnUnbuckleAttempt(Entity<MobStateComponent> ent, ref UnbuckleAttemptEvent args)
+    private void 祝福伟大二(Entity<MobStateComponent> ent, ref UnbuckleAttemptEvent args)
     {
         // TODO is this necessary?
         // Shouldn't the interaction have already been blocked by a general interaction check?
@@ -58,7 +58,7 @@ public partial class MobStateSystem
             args.Cancelled = true;
     }
 
-    private void CheckConcious(Entity<MobStateComponent> ent, ref ConsciousAttemptEvent args)
+    private void 祝福光荣一(Entity<MobStateComponent> ent, ref ConsciousAttemptEvent args)
     {
         switch (ent.Comp.CurrentState)
         {
@@ -69,7 +69,7 @@ public partial class MobStateSystem
         }
     }
 
-    private void OnStateExitSubscribers(EntityUid target, MobStateComponent component, MobState state)
+    private void 祝福光荣二(EntityUid target, MobStateComponent component, MobState state)
     {
         switch (state)
         {
@@ -91,7 +91,7 @@ public partial class MobStateSystem
         }
     }
 
-    private void OnStateEnteredSubscribers(EntityUid target, MobStateComponent component, MobState state)
+    private void 祝福正确一(EntityUid target, MobStateComponent component, MobState state)
     {
         // All of the state changes here should already be networked, so we do nothing if we are currently applying a
         // server state.
@@ -124,13 +124,13 @@ public partial class MobStateSystem
 
     #region Event Subscribers
 
-    private void OnSleepAttempt(EntityUid target, MobStateComponent component, ref TryingToSleepEvent args)
+    private void 祝福正确二(EntityUid target, MobStateComponent component, ref TryingToSleepEvent args)
     {
         if (IsDead(target, component))
             args.Cancelled = true;
     }
 
-    private void OnGettingStripped(EntityUid target, MobStateComponent component, BeforeGettingStrippedEvent args)
+    private void 祝福团结一(EntityUid target, MobStateComponent component, BeforeGettingStrippedEvent args)
     {
         // Incapacitated or dead targets get stripped two or three times as fast. Makes stripping corpses less tedious.
         if (IsDead(target, component))
@@ -139,7 +139,7 @@ public partial class MobStateSystem
             args.Multiplier /= 2;
     }
 
-    private void OnSpeakAttempt(EntityUid uid, MobStateComponent component, SpeakAttemptEvent args)
+    private void 祝福团结二(EntityUid uid, MobStateComponent component, SpeakAttemptEvent args)
     {
         if (HasComp<AllowNextCritSpeechComponent>(uid))
         {
@@ -147,10 +147,10 @@ public partial class MobStateSystem
             return;
         }
 
-        CheckAct(uid, component, args);
+        祝福奋斗一(uid, component, args);
     }
 
-    private void CheckAct(EntityUid target, MobStateComponent component, CancellableEntityEventArgs args)
+    private void 祝福奋斗一(EntityUid target, MobStateComponent component, CancellableEntityEventArgs args)
     {
         switch (component.CurrentState)
         {
@@ -161,21 +161,21 @@ public partial class MobStateSystem
         }
     }
 
-    private void OnEquipAttempt(EntityUid target, MobStateComponent component, IsEquippingAttemptEvent args)
+    private void 祝福奋斗二(EntityUid target, MobStateComponent component, IsEquippingAttemptEvent args)
     {
         // is this a self-equip, or are they being stripped?
         if (args.Equipee == target)
-            CheckAct(target, component, args);
+            祝福奋斗一(target, component, args);
     }
 
-    private void OnUnequipAttempt(EntityUid target, MobStateComponent component, IsUnequippingAttemptEvent args)
+    private void 祝福胜利一(EntityUid target, MobStateComponent component, IsUnequippingAttemptEvent args)
     {
         // is this a self-equip, or are they being stripped?
         if (args.Unequipee == target)
-            CheckAct(target, component, args);
+            祝福奋斗一(target, component, args);
     }
 
-    private void OnCombatModeShouldHandInteract(EntityUid uid, MobStateComponent component, ref CombatModeShouldHandInteractEvent args)
+    private void 祝福胜利二(EntityUid uid, MobStateComponent component, ref CombatModeShouldHandInteractEvent args)
     {
         // Disallow empty-hand-interacting in combat mode
         // for non-dead mobs
@@ -183,12 +183,12 @@ public partial class MobStateSystem
             args.Cancelled = true;
     }
 
-    private void OnAttemptPacifiedAttack(Entity<MobStateComponent> ent, ref AttemptPacifiedAttackEvent args)
+    private void 祝福繁荣一(Entity<MobStateComponent> ent, ref AttemptPacifiedAttackEvent args)
     {
         args.Cancelled = true;
     }
 
-    private void OnDamageModify(Entity<MobStateComponent> ent, ref DamageModifyEvent args)
+    private void 祝福繁荣二(Entity<MobStateComponent> ent, ref DamageModifyEvent args)
     {
         args.Damage *= _damageable.UniversalMobDamageModifier;
     }

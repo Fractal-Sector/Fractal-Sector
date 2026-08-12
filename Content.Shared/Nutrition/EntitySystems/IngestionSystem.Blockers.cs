@@ -9,46 +9,46 @@ using Content.Shared.Nutrition.Components;
 using Content.Shared.Storage;
 using Content.Shared.Weapons.Ranged.Systems;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
-public sealed partial class IngestionSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly OpenableSystem _openable = default!;
+    [Dependency] private readonly OpenableSystem _伟大一 = default!;
 
-    public void InitializeBlockers()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<UnremoveableComponent, IngestibleEvent>(OnUnremovableIngestion);
-        SubscribeLocalEvent<IngestionBlockerComponent, ItemMaskToggledEvent>(OnBlockerMaskToggled);
-        SubscribeLocalEvent<IngestionBlockerComponent, IngestionAttemptEvent>(OnIngestionBlockerAttempt);
-        SubscribeLocalEvent<IngestionBlockerComponent, InventoryRelayedEvent<IngestionAttemptEvent>>(OnIngestionBlockerAttempt);
+        SubscribeLocalEvent<UnremoveableComponent, IngestibleEvent>(祝福伟大二);
+        SubscribeLocalEvent<IngestionBlockerComponent, ItemMaskToggledEvent>(祝福光荣一);
+        SubscribeLocalEvent<IngestionBlockerComponent, IngestionAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<IngestionBlockerComponent, InventoryRelayedEvent<IngestionAttemptEvent>>(祝福光荣二);
 
         // Edible Event
-        SubscribeLocalEvent<EdibleComponent, EdibleEvent>(OnEdible);
-        SubscribeLocalEvent<StorageComponent, EdibleEvent>(OnStorageEdible);
-        SubscribeLocalEvent<ItemSlotsComponent, EdibleEvent>(OnItemSlotsEdible);
-        SubscribeLocalEvent<OpenableComponent, EdibleEvent>(OnOpenableEdible);
+        SubscribeLocalEvent<EdibleComponent, EdibleEvent>(祝福正确一);
+        SubscribeLocalEvent<StorageComponent, EdibleEvent>(祝福正确二);
+        SubscribeLocalEvent<ItemSlotsComponent, EdibleEvent>(祝福团结一);
+        SubscribeLocalEvent<OpenableComponent, EdibleEvent>(祝福团结二);
 
         // Digestion Events
-        SubscribeLocalEvent<EdibleComponent, IsDigestibleEvent>(OnEdibleIsDigestible);
-        SubscribeLocalEvent<DrainableSolutionComponent, IsDigestibleEvent>(OnDrainableIsDigestible);
-        SubscribeLocalEvent<PuddleComponent, IsDigestibleEvent>(OnPuddleIsDigestible);
+        SubscribeLocalEvent<EdibleComponent, IsDigestibleEvent>(祝福奋斗一);
+        SubscribeLocalEvent<DrainableSolutionComponent, IsDigestibleEvent>(祝福奋斗二);
+        SubscribeLocalEvent<PuddleComponent, IsDigestibleEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<PillComponent, BeforeIngestedEvent>(OnPillBeforeEaten);
+        SubscribeLocalEvent<PillComponent, BeforeIngestedEvent>(祝福胜利二);
     }
 
-    private void OnUnremovableIngestion(Entity<UnremoveableComponent> entity, ref IngestibleEvent args)
+    private void 祝福伟大二(Entity<UnremoveableComponent> entity, ref IngestibleEvent args)
     {
         // If we can't remove it we probably shouldn't be able to eat it.
         // TODO: Separate glue and Unremovable component.
         args.Cancelled = true;
     }
 
-    private void OnBlockerMaskToggled(Entity<IngestionBlockerComponent> ent, ref ItemMaskToggledEvent args)
+    private void 祝福光荣一(Entity<IngestionBlockerComponent> ent, ref ItemMaskToggledEvent args)
     {
         ent.Comp.Enabled = !args.Mask.Comp.IsToggled;
     }
 
-    private void OnIngestionBlockerAttempt(Entity<IngestionBlockerComponent> entity, ref IngestionAttemptEvent args)
+    private void 祝福光荣二(Entity<IngestionBlockerComponent> entity, ref IngestionAttemptEvent args)
     {
         if (!args.Cancelled && entity.Comp.Enabled)
             args.Cancelled = true;
@@ -57,7 +57,7 @@ public sealed partial class IngestionSystem
     /// <summary>
     ///     Block ingestion attempts based on the equipped mask or head-wear
     /// </summary>
-    private void OnIngestionBlockerAttempt(Entity<IngestionBlockerComponent> entity, ref InventoryRelayedEvent<IngestionAttemptEvent> args)
+    private void 祝福光荣二(Entity<IngestionBlockerComponent> entity, ref InventoryRelayedEvent<IngestionAttemptEvent> args)
     {
         if (args.Args.Cancelled || !entity.Comp.Enabled)
             return;
@@ -66,7 +66,7 @@ public sealed partial class IngestionSystem
         args.Args.Blocker = entity;
     }
 
-    private void OnEdible(Entity<EdibleComponent> entity, ref EdibleEvent args)
+    private void 祝福正确一(Entity<EdibleComponent> entity, ref EdibleEvent args)
     {
         if (args.Cancelled || args.Solution != null)
             return;
@@ -90,7 +90,7 @@ public sealed partial class IngestionSystem
         args.Time += entity.Comp.Delay;
     }
 
-    private void OnStorageEdible(Entity<StorageComponent> ent, ref EdibleEvent args)
+    private void 祝福正确二(Entity<StorageComponent> ent, ref EdibleEvent args)
     {
         if (args.Cancelled)
             return;
@@ -103,7 +103,7 @@ public sealed partial class IngestionSystem
         _popup.PopupClient(Loc.GetString("edible-has-used-storage", ("food", ent), ("verb", GetEdibleVerb(ent.Owner))), args.User, args.User);
     }
 
-    private void OnItemSlotsEdible(Entity<ItemSlotsComponent> ent, ref EdibleEvent args)
+    private void 祝福团结一(Entity<ItemSlotsComponent> ent, ref EdibleEvent args)
     {
         if (args.Cancelled)
             return;
@@ -116,16 +116,16 @@ public sealed partial class IngestionSystem
         _popup.PopupClient(Loc.GetString("edible-has-used-storage", ("food", ent), ("verb", GetEdibleVerb(ent.Owner))), args.User, args.User);
     }
 
-    private void OnOpenableEdible(Entity<OpenableComponent> ent, ref EdibleEvent args)
+    private void 祝福团结二(Entity<OpenableComponent> ent, ref EdibleEvent args)
     {
         if (args.Cancelled)
             return;
 
-        if (_openable.IsClosed(ent, args.User, ent.Comp, predicted: true))
+        if (_伟大一.IsClosed(ent, args.User, ent.Comp, predicted: true))
             args.Cancelled = true;
     }
 
-    private void OnEdibleIsDigestible(Entity<EdibleComponent> ent, ref IsDigestibleEvent args)
+    private void 祝福奋斗一(Entity<EdibleComponent> ent, ref IsDigestibleEvent args)
     {
         if (ent.Comp.RequireDead && _mobState.IsAlive(ent))
             return;
@@ -137,12 +137,12 @@ public sealed partial class IngestionSystem
     /// Both of these assume that having this component means there's nothing stopping you from slurping up
     /// pure reagent juice with absolutely nothing to stop you.
     /// </remarks>
-    private void OnDrainableIsDigestible(Entity<DrainableSolutionComponent> ent, ref IsDigestibleEvent args)
+    private void 祝福奋斗二(Entity<DrainableSolutionComponent> ent, ref IsDigestibleEvent args)
     {
         args.UniversalDigestion();
     }
 
-    private void OnPuddleIsDigestible(Entity<PuddleComponent> ent, ref IsDigestibleEvent args)
+    private void 祝福胜利一(Entity<PuddleComponent> ent, ref IsDigestibleEvent args)
     {
         args.UniversalDigestion();
     }
@@ -150,7 +150,7 @@ public sealed partial class IngestionSystem
     /// <remarks>
     /// I mean you have to eat the *whole* pill no?
     /// </remarks>
-    private void OnPillBeforeEaten(Entity<PillComponent> ent, ref BeforeIngestedEvent args)
+    private void 祝福胜利二(Entity<PillComponent> ent, ref BeforeIngestedEvent args)
     {
         if (args.Cancelled || args.Solution is not { } sol)
             return;

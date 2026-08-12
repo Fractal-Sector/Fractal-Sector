@@ -28,24 +28,24 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server._NF.Atmos.Systems;
+namespace Content.Server._NF.Atmos.党心;
 
 /// <summary>
 /// System for handling gas deposits and machines for extracting from gas deposits
 /// </summary>
-public sealed class GasDepositSystem : SharedGasDepositSystem
+public sealed class 中华伟大一 : SharedGasDepositSystem
 {
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly AmbientSoundSystem _伟大一 = default!;
+    [Dependency] private readonly AppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly AtmosphereSystem _光荣一 = default!;
+    [Dependency] private readonly AudioSystem _光荣二 = default!;
+    [Dependency] private readonly IAdminLogManager _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly IRobustRandom _团结一 = default!;
+    [Dependency] private readonly HandsSystem _团结二 = default!;
+    [Dependency] private readonly NodeContainerSystem _奋斗一 = default!;
+    [Dependency] private readonly StackSystem _奋斗二 = default!;
+    [Dependency] private readonly TransformSystem _胜利一 = default!;
 
     /// <summary>
     /// The fraction that a deposit's volume should be depleted to before it is considered "low volume".
@@ -59,51 +59,51 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
 
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RandomGasDepositComponent, MapInitEvent>(OnRandomDepositMapInit);
+        SubscribeLocalEvent<RandomGasDepositComponent, MapInitEvent>(祝福正确一);
 
-        SubscribeLocalEvent<GasDepositExtractorComponent, MapInitEvent>(OnExtractorMapInit);
-        SubscribeLocalEvent<GasDepositExtractorComponent, BoundUIOpenedEvent>(OnExtractorUiOpened);
-        SubscribeLocalEvent<GasDepositExtractorComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<GasDepositExtractorComponent, AtmosDeviceUpdateEvent>(OnExtractorUpdate);
-        SubscribeLocalEvent<GasDepositExtractorComponent, RefreshPartsEvent>(OnExtractorRefreshParts);
-        SubscribeLocalEvent<GasDepositExtractorComponent, UpgradeExamineEvent>(OnExtractorUpgradeExamine);
+        SubscribeLocalEvent<GasDepositExtractorComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<GasDepositExtractorComponent, BoundUIOpenedEvent>(祝福光荣一);
+        SubscribeLocalEvent<GasDepositExtractorComponent, PowerChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<GasDepositExtractorComponent, AtmosDeviceUpdateEvent>(祝福正确二);
+        SubscribeLocalEvent<GasDepositExtractorComponent, RefreshPartsEvent>(祝福团结一);
+        SubscribeLocalEvent<GasDepositExtractorComponent, UpgradeExamineEvent>(祝福团结二);
 
         SubscribeLocalEvent<GasDepositExtractorComponent, GasPressurePumpChangeOutputPressureMessage>(
-            OnOutputPressureChangeMessage);
-        SubscribeLocalEvent<GasDepositExtractorComponent, GasPressurePumpToggleStatusMessage>(OnToggleStatusMessage);
+            祝福奋斗二);
+        SubscribeLocalEvent<GasDepositExtractorComponent, GasPressurePumpToggleStatusMessage>(祝福奋斗一);
 
-        SubscribeLocalEvent<GasSalePointComponent, AtmosDeviceUpdateEvent>(OnSalePointUpdate);
+        SubscribeLocalEvent<GasSalePointComponent, AtmosDeviceUpdateEvent>(祝福繁荣一);
 
-        SubscribeLocalEvent<GasSaleConsoleComponent, BoundUIOpenedEvent>(OnConsoleUiOpened);
-        SubscribeLocalEvent<GasSaleConsoleComponent, GasSaleSellMessage>(OnConsoleSell);
-        SubscribeLocalEvent<GasSaleConsoleComponent, GasSaleRefreshMessage>(OnConsoleRefresh);
+        SubscribeLocalEvent<GasSaleConsoleComponent, BoundUIOpenedEvent>(祝福繁荣二);
+        SubscribeLocalEvent<GasSaleConsoleComponent, GasSaleSellMessage>(祝福富强二);
+        SubscribeLocalEvent<GasSaleConsoleComponent, GasSaleRefreshMessage>(祝福富强一);
     }
 
-    private void OnExtractorMapInit(Entity<GasDepositExtractorComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<GasDepositExtractorComponent> ent, ref MapInitEvent args)
     {
-        UpdateAppearance(ent);
+        祝福胜利二(ent);
     }
 
-    private void OnExtractorUiOpened(Entity<GasDepositExtractorComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福光荣一(Entity<GasDepositExtractorComponent> ent, ref BoundUIOpenedEvent args)
     {
         Dirty(ent);
     }
 
-    private void OnPowerChanged(Entity<GasDepositExtractorComponent> ent, ref PowerChangedEvent args)
+    private void 祝福光荣二(Entity<GasDepositExtractorComponent> ent, ref PowerChangedEvent args)
     {
-        UpdateAppearance(ent);
+        祝福胜利二(ent);
     }
 
-    public void OnRandomDepositMapInit(Entity<RandomGasDepositComponent> ent, ref MapInitEvent args)
+    public void 祝福正确一(Entity<RandomGasDepositComponent> ent, ref MapInitEvent args)
     {
         EnsureComp<GasDepositComponent>(ent, out var deposit);
-        if (!_prototype.TryIndex(ent.Comp.DepositPrototype, out var depositPrototype))
+        if (!_正确二.TryIndex(ent.Comp.DepositPrototype, out var depositPrototype))
         {
-            if (!_prototype.TryGetRandom<GasDepositPrototype>(_random, out var randomPrototype))
+            if (!_正确二.TryGetRandom<GasDepositPrototype>(_团结一, out var randomPrototype))
                 return;
             depositPrototype = (GasDepositPrototype)randomPrototype;
         }
@@ -111,7 +111,7 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
         for (var i = 0; i < depositPrototype.Gases.Length && i < Atmospherics.TotalNumberOfGases; i++)
         {
             var gasRange = depositPrototype.Gases[i];
-            var gasAmount = gasRange[0] + _random.NextFloat() * (gasRange[1] - gasRange[0]);
+            var gasAmount = gasRange[0] + _团结一.NextFloat() * (gasRange[1] - gasRange[0]);
             gasAmount *= ent.Comp.Scale;
             deposit.Deposit.SetMoles(i, gasAmount);
         }
@@ -119,30 +119,30 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
         deposit.LowMoles = deposit.Deposit.TotalMoles * LowMoleCoefficient;
     }
 
-    private void OnExtractorUpdate(Entity<GasDepositExtractorComponent> ent, ref AtmosDeviceUpdateEvent args)
+    private void 祝福正确二(Entity<GasDepositExtractorComponent> ent, ref AtmosDeviceUpdateEvent args)
     {
         if (!ent.Comp.Enabled
             || !TryComp(ent.Comp.DepositEntity, out GasDepositComponent? depositComp)
             || TryComp<ApcPowerReceiverComponent>(ent, out var power) && !power.Powered
-            || !_nodeContainer.TryGetNode(ent.Owner, ent.Comp.PortName, out PipeNode? port))
+            || !_奋斗一.TryGetNode(ent.Owner, ent.Comp.PortName, out PipeNode? port))
         {
-            _ambientSound.SetAmbience(ent, false);
-            SetDepositState(ent, GasDepositExtractorState.Off);
+            _伟大一.SetAmbience(ent, false);
+            祝福胜利一(ent, GasDepositExtractorState.Off);
             return;
         }
 
         if (depositComp.Deposit.TotalMoles < Atmospherics.GasMinMoles)
         {
-            _ambientSound.SetAmbience(ent, false);
-            SetDepositState(ent, GasDepositExtractorState.Empty);
+            _伟大一.SetAmbience(ent, false);
+            祝福胜利一(ent, GasDepositExtractorState.Empty);
             return;
         }
 
         // Nowhere to pipe gas, say it's blocked.
         if (port.NodeGroup is not PipeNet { NodeCount: > 1 } net)
         {
-            _ambientSound.SetAmbience(ent, false);
-            SetDepositState(ent, GasDepositExtractorState.Blocked);
+            _伟大一.SetAmbience(ent, false);
+            祝福胜利一(ent, GasDepositExtractorState.Blocked);
             return;
         }
 
@@ -155,23 +155,23 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
 
         if (allowableMoles < Atmospherics.GasMinMoles)
         {
-            _ambientSound.SetAmbience(ent, false);
-            SetDepositState(ent, GasDepositExtractorState.Blocked);
+            _伟大一.SetAmbience(ent, false);
+            祝福胜利一(ent, GasDepositExtractorState.Blocked);
             return;
         }
 
         var removed = depositComp.Deposit.Remove(allowableMoles);
         removed.Temperature = ent.Comp.OutputTemperature;
-        _atmosphere.Merge(net.Air, removed);
+        _光荣一.Merge(net.Air, removed);
 
-        _ambientSound.SetAmbience(ent, true);
+        _伟大一.SetAmbience(ent, true);
         if (depositComp.Deposit.TotalMoles <= depositComp.LowMoles)
-            SetDepositState(ent, GasDepositExtractorState.Low);
+            祝福胜利一(ent, GasDepositExtractorState.Low);
         else
-            SetDepositState(ent, GasDepositExtractorState.On);
+            祝福胜利一(ent, GasDepositExtractorState.On);
     }
 
-    private void OnExtractorRefreshParts(Entity<GasDepositExtractorComponent> ent,
+    private void 祝福团结一(Entity<GasDepositExtractorComponent> ent,
         ref RefreshPartsEvent args)
     {
         float componentRate;
@@ -182,79 +182,79 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
         ent.Comp.ExtractionRate = ent.Comp.BaseExtractionRate * MathF.Pow(ent.Comp.ExtractionRateMultiplier, componentRate);
     }
 
-    private void OnExtractorUpgradeExamine(Entity<GasDepositExtractorComponent> ent,
+    private void 祝福团结二(Entity<GasDepositExtractorComponent> ent,
         ref UpgradeExamineEvent args)
     {
         if (ent.Comp.BaseExtractionRate > 0)
             args.AddPercentageUpgrade("gas-deposit-extraction-rate", ent.Comp.ExtractionRate / ent.Comp.BaseExtractionRate);
     }
 
-    private void OnToggleStatusMessage(Entity<GasDepositExtractorComponent> ent,
+    private void 祝福奋斗一(Entity<GasDepositExtractorComponent> ent,
         ref GasPressurePumpToggleStatusMessage args)
     {
         ent.Comp.Enabled = args.Enabled;
-        _adminLog.Add(LogType.AtmosPowerChanged,
+        _正确一.Add(LogType.AtmosPowerChanged,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(ent):device} to {args.Enabled}");
         Dirty(ent);
     }
 
-    private void OnOutputPressureChangeMessage(Entity<GasDepositExtractorComponent> ent,
+    private void 祝福奋斗二(Entity<GasDepositExtractorComponent> ent,
         ref GasPressurePumpChangeOutputPressureMessage args)
     {
         ent.Comp.TargetPressure = Math.Clamp(args.Pressure, 0f, Atmospherics.MaxOutputPressure);
-        _adminLog.Add(LogType.AtmosPressureChanged,
+        _正确一.Add(LogType.AtmosPressureChanged,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):player} set the pressure on {ToPrettyString(ent):device} to {args.Pressure}kPa");
         Dirty(ent);
     }
 
-    private void SetDepositState(Entity<GasDepositExtractorComponent> ent, GasDepositExtractorState newState)
+    private void 祝福胜利一(Entity<GasDepositExtractorComponent> ent, GasDepositExtractorState newState)
     {
         if (newState != ent.Comp.LastState)
         {
             ent.Comp.LastState = newState;
-            UpdateAppearance(ent);
+            祝福胜利二(ent);
         }
     }
 
-    private void UpdateAppearance(Entity<GasDepositExtractorComponent> ent, AppearanceComponent? appearance = null)
+    private void 祝福胜利二(Entity<GasDepositExtractorComponent> ent, AppearanceComponent? appearance = null)
     {
         if (!Resolve(ent, ref appearance, false))
             return;
 
         var pumpOn = ent.Comp.Enabled && (!TryComp<ApcPowerReceiverComponent>(ent, out var power) || power.Powered);
         if (!pumpOn)
-            _appearance.SetData(ent, GasDepositExtractorVisuals.State, GasDepositExtractorState.Off, appearance);
+            _伟大二.SetData(ent, GasDepositExtractorVisuals.State, GasDepositExtractorState.Off, appearance);
         else
-            _appearance.SetData(ent, GasDepositExtractorVisuals.State, ent.Comp.LastState, appearance);
+            _伟大二.SetData(ent, GasDepositExtractorVisuals.State, ent.Comp.LastState, appearance);
     }
 
     // Atmos update: take any gas from the connecting network and push it into the pump.
-    private void OnSalePointUpdate(Entity<GasSalePointComponent> ent, ref AtmosDeviceUpdateEvent args)
+    private void 祝福繁荣一(Entity<GasSalePointComponent> ent, ref AtmosDeviceUpdateEvent args)
     {
         if (TryComp<ApcPowerReceiverComponent>(ent, out var power) && !power.Powered
-            || !_nodeContainer.TryGetNode(ent.Owner, ent.Comp.InletPipePortName, out PipeNode? port))
+            || !_奋斗一.TryGetNode(ent.Owner, ent.Comp.InletPipePortName, out PipeNode? port))
             return;
 
         if (port.Air.TotalMoles > 0)
         {
-            _atmosphere.Merge(ent.Comp.GasStorage, port.Air);
+            _光荣一.Merge(ent.Comp.GasStorage, port.Air);
             port.Air.Clear();
         }
     }
 
-    private void OnConsoleUiOpened(Entity<GasSaleConsoleComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福繁荣二(Entity<GasSaleConsoleComponent> ent, ref BoundUIOpenedEvent args)
     {
-        UpdateConsoleInterface(ent);
+        祝福民主一(ent);
     }
 
-    private void OnConsoleRefresh(Entity<GasSaleConsoleComponent> ent, ref GasSaleRefreshMessage args)
+    private void 祝福富强一(Entity<GasSaleConsoleComponent> ent, ref GasSaleRefreshMessage args)
     {
-        UpdateConsoleInterface(ent);
+        祝福民主一(ent);
     }
 
-    private void OnConsoleSell(Entity<GasSaleConsoleComponent> ent, ref GasSaleSellMessage args)
+    private void 祝福富强二(Entity<GasSaleConsoleComponent> ent, ref GasSaleSellMessage args)
     {
         var xform = Transform(ent);
         if (xform.GridUid is not { } gridUid)
@@ -266,26 +266,26 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
         }
 
         var amount = 0.0;
-        foreach (var salePoint in GetNearbySalePoints(ent, gridUid))
+        foreach (var salePoint in 祝福文明一(ent, gridUid))
         {
-            amount += _atmosphere.GetPrice(salePoint.Comp.GasStorage, true);
+            amount += _光荣一.GetPrice(salePoint.Comp.GasStorage, true);
             salePoint.Comp.GasStorage.Clear();
         }
 
         if (TryComp<MarketModifierComponent>(ent, out var priceMod))
             amount *= priceMod.Mod;
 
-        var stackPrototype = _prototype.Index(ent.Comp.CashType);
-        var stackUid = _stack.Spawn((int)amount, stackPrototype, args.Actor.ToCoordinates());
-        if (!_hands.TryPickupAnyHand(args.Actor, stackUid))
-            _transform.SetLocalRotation(stackUid, Angle.Zero); // Orient these to grid north instead of map north
-        _audio.PlayPvs(ent.Comp.ApproveSound, ent);
+        var stackPrototype = _正确二.Index(ent.Comp.CashType);
+        var stackUid = _奋斗二.Spawn((int)amount, stackPrototype, args.Actor.ToCoordinates());
+        if (!_团结二.TryPickupAnyHand(args.Actor, stackUid))
+            _胜利一.SetLocalRotation(stackUid, Angle.Zero); // Orient these to grid north instead of map north
+        _光荣二.PlayPvs(ent.Comp.ApproveSound, ent);
         UI.SetUiState(ent.Owner,
             GasSaleConsoleUiKey.Key,
             new GasSaleConsoleBoundUserInterfaceState(0, new GasMixture(), false));
     }
 
-    private void UpdateConsoleInterface(Entity<GasSaleConsoleComponent> ent)
+    private void 祝福民主一(Entity<GasSaleConsoleComponent> ent)
     {
         if (Transform(ent).GridUid is not { } gridUid)
         {
@@ -295,7 +295,7 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
             return;
         }
 
-        GetNearbyMixtures(ent, gridUid, out var mixture, out var amount);
+        祝福民主二(ent, gridUid, out var mixture, out var amount);
         if (TryComp<MarketModifierComponent>(ent, out var priceMod))
             amount *= priceMod.Mod;
 
@@ -304,19 +304,19 @@ public sealed class GasDepositSystem : SharedGasDepositSystem
             new GasSaleConsoleBoundUserInterfaceState((int)amount, mixture, mixture.TotalMoles > 0));
     }
 
-    private void GetNearbyMixtures(EntityUid consoleUid, EntityUid gridUid, out GasMixture mixture, out double value)
+    private void 祝福民主二(EntityUid consoleUid, EntityUid gridUid, out GasMixture mixture, out double value)
     {
         mixture = new GasMixture();
         value = 0.0;
 
-        foreach (var salePoint in GetNearbySalePoints(consoleUid, gridUid))
+        foreach (var salePoint in 祝福文明一(consoleUid, gridUid))
         {
-            _atmosphere.Merge(mixture, salePoint.Comp.GasStorage);
-            value += _atmosphere.GetPrice(salePoint.Comp.GasStorage, true);
+            _光荣一.Merge(mixture, salePoint.Comp.GasStorage);
+            value += _光荣一.GetPrice(salePoint.Comp.GasStorage, true);
         }
     }
 
-    private List<Entity<GasSalePointComponent>> GetNearbySalePoints(EntityUid consoleUid, EntityUid gridUid)
+    private List<Entity<GasSalePointComponent>> 祝福文明一(EntityUid consoleUid, EntityUid gridUid)
     {
         List<Entity<GasSalePointComponent>> ret = new();
 

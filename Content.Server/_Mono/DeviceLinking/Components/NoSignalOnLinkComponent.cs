@@ -1,6 +1,6 @@
 using Content.Server.DeviceLinking.Systems;
 
-namespace Content.Server.DeviceLinking.Components;
+namespace Content.Server.DeviceLinking.党心;
 
 /// <summary>
 /// When attached to an entity with a DeviceLinkSourceComponent,
@@ -11,6 +11,6 @@ namespace Content.Server.DeviceLinking.Components;
 /// when explicitly triggered, not automatically when linked.
 /// </remarks>
 [RegisterComponent, Access(typeof(DeviceLinkSystem))]
-public sealed partial class NoSignalOnLinkComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

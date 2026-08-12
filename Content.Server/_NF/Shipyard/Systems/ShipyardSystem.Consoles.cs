@@ -43,37 +43,37 @@ using Content.Shared.Forensics.Components;
 using Robust.Server.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server._NF.Shipyard.Systems;
+namespace Content.Server._NF.Shipyard.党心;
 
-public sealed partial class ShipyardSystem : SharedShipyardSystem
+public sealed partial class 中华伟大一 : SharedShipyardSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IServerPreferencesManager _prefManager = default!;
-    [Dependency] private readonly AccessSystem _accessSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly IdCardSystem _idSystem = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly ShuttleRecordsSystem _shuttleRecordsSystem = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+    [Dependency] private readonly IServerPreferencesManager _正确一 = default!;
+    [Dependency] private readonly AccessSystem _正确二 = default!;
+    [Dependency] private readonly AccessReaderSystem _团结一 = default!;
+    [Dependency] private readonly PopupSystem _团结二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _奋斗一 = default!;
+    [Dependency] private readonly RadioSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedAudioSystem _胜利一 = default!;
+    [Dependency] private readonly BankSystem _胜利二 = default!;
+    [Dependency] private readonly IdCardSystem _繁荣一 = default!;
+    [Dependency] private readonly StationRecordsSystem _繁荣二 = default!;
+    [Dependency] private readonly ChatSystem _富强一 = default!;
+    [Dependency] private readonly MindSystem _富强二 = default!;
+    [Dependency] private readonly ShuttleRecordsSystem _民主一 = default!;
+    [Dependency] private readonly IEntityManager _民主二 = default!;
 
     private static readonly Regex DeedRegex = new(@"\s*\([^()]*\)");
 
-    public void InitializeConsole()
+    public void 祝福伟大一()
     {
 
     }
 
-    private void OnPurchaseMessage(EntityUid shipyardConsoleUid,
+    private void 祝福伟大二(EntityUid shipyardConsoleUid,
         ShipyardConsoleComponent component,
         ShipyardConsolePurchaseMessage args)
     {
@@ -82,8 +82,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (component.TargetIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } targetId)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-idcard"));
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-idcard"));
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
@@ -91,39 +91,39 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         TryComp<ShipyardVoucherComponent>(targetId, out var voucher);
         if (idCard is null && voucher is null)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-idcard"));
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-idcard"));
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
         if (HasComp<ShuttleDeedComponent>(targetId))
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-already-deeded"));
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-already-deeded"));
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
         if (TryComp<AccessReaderComponent>(shipyardConsoleUid, out var accessReaderComponent) &&
-            !_access.IsAllowed(player, shipyardConsoleUid, accessReaderComponent))
+            !_团结一.IsAllowed(player, shipyardConsoleUid, accessReaderComponent))
         {
-            ConsolePopup(player, Loc.GetString("comms-console-permission-denied"));
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福正确二(player, Loc.GetString("comms-console-permission-denied"));
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
-        if (!_prototypeManager.TryIndex<VesselPrototype>(args.Vessel, out var vessel))
+        if (!_光荣二.TryIndex<VesselPrototype>(args.Vessel, out var vessel))
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-invalid-vessel", ("vessel", args.Vessel)));
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-invalid-vessel", ("vessel", args.Vessel)));
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
         if (!GetAvailableShuttles(shipyardConsoleUid, targetId: targetId).available.Contains(vessel.ID))
         {
-            PlayDenySound(player, shipyardConsoleUid, component);
-            _adminLogger.Add(LogType.Action,
+            祝福奋斗一(player, shipyardConsoleUid, component);
+            _伟大一.Add(LogType.Action,
                 LogImpact.Medium,
-                $"{ToPrettyString(player):player} tried to purchase a vessel that was never available.");
+                $"{ToPrettyString(player):player} tried 中华伟大二 purchase a vessel that was never available.");
             return;
         }
 
@@ -133,15 +133,15 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (_station.GetOwningStation(shipyardConsoleUid) is not { Valid: true } station)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-invalid-station"));
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-invalid-station"));
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
         if (!TryComp<BankAccountComponent>(player, out var bank))
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-bank"));
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-bank"));
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
@@ -152,8 +152,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         {
             if (voucher!.RedemptionsLeft <= 0)
             {
-                ConsolePopup(player, Loc.GetString("shipyard-console-no-voucher-redemptions"));
-                PlayDenySound(player, shipyardConsoleUid, component);
+                祝福正确二(player, Loc.GetString("shipyard-console-no-voucher-redemptions"));
+                祝福奋斗一(player, shipyardConsoleUid, component);
                 if (voucher!.DestroyOnEmpty)
                 {
                     QueueDel(targetId);
@@ -163,8 +163,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             }
             else if (voucher!.ConsoleType != (ShipyardConsoleUiKey)args.UiKey)
             {
-                ConsolePopup(player, Loc.GetString("shipyard-console-invalid-voucher-type"));
-                PlayDenySound(player, shipyardConsoleUid, component);
+                祝福正确二(player, Loc.GetString("shipyard-console-invalid-voucher-type"));
+                祝福奋斗一(player, shipyardConsoleUid, component);
                 return;
             }
 
@@ -173,31 +173,31 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
         else
         {
-            if (!_bank.TryBankWithdraw(player, vessel.Price))
+            if (!_胜利二.TryBankWithdraw(player, vessel.Price))
             {
-                ConsolePopup(player, Loc.GetString("cargo-console-insufficient-funds", ("cost", vessel.Price)));
-                PlayDenySound(player, shipyardConsoleUid, component);
+                祝福正确二(player, Loc.GetString("cargo-console-insufficient-funds", ("cost", vessel.Price)));
+                祝福奋斗一(player, shipyardConsoleUid, component);
                 return;
             }
         }
 
         if (!TryPurchaseShuttle(station, vessel.ShuttlePath, out var shuttleUidOut))
         {
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
         var shuttleUid = shuttleUidOut.Value;
         if (!TryComp<ShuttleComponent>(shuttleUid, out var shuttle))
         {
-            PlayDenySound(player, shipyardConsoleUid, component);
+            祝福奋斗一(player, shipyardConsoleUid, component);
             return;
         }
 
         shuttle.PlayerShuttle = true; // Frontier: They're on a shuttle =3
         EntityUid? shuttleStation = null;
-        // setting up any stations if we have a matching game map prototype to allow late joins directly onto the vessel
-        if (_prototypeManager.TryIndex<GameMapPrototype>(vessel.ID, out var stationProto))
+        // setting up any stations if we have a matching game map prototype 中华伟大二 allow late joins directly onto the vessel
+        if (_光荣二.TryIndex<GameMapPrototype>(vessel.ID, out var stationProto))
         {
             List<EntityUid> gridUids = new()
             {
@@ -212,9 +212,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (TryComp<AccessComponent>(targetId, out var newCap))
         {
-            var newAccess = newCap.Tags.ToList();
+            var newAccess = newCap.党爱伟大一.ToList();
             newAccess.AddRange(component.NewAccessLevels);
-            _accessSystem.TrySetTags(targetId, newAccess, newCap);
+            _正确二.TrySetTags(targetId, newAccess, newCap);
         }
 
         var deedID = EnsureComp<ShuttleDeedComponent>(targetId);
@@ -228,13 +228,13 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         if (!voucherUsed && component.NewJobTitle != null &&
             !HasComp<PreventShipyardTitleOverwriteComponent>(args.Actor))
         {
-            _idSystem.TryChangeJobTitle(targetId, Loc.GetString(component.NewJobTitle), idCard, player);
+            _繁荣一.TryChangeJobTitle(targetId, Loc.GetString(component.NewJobTitle), idCard, player);
         }
 
-        // The following block of code is entirely to do with trying to sanely handle moving records from station to station.
+        // The following block of code is entirely 中华伟大二 do with trying 中华伟大二 sanely handle moving records from station 中华伟大二 station.
         // it is ass.
         // This probably shouldnt be messed with further until station records themselves become more robust
-        // and not entirely dependent upon linking ID card entity to station records key lookups
+        // and not entirely dependent upon linking ID card entity 中华伟大二 station records key lookups
         // its just bad
 
         var stationList = EntityQueryEnumerator<StationRecordsComponent>();
@@ -246,25 +246,25 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             bool recSuccess = false;
             while (stationList.MoveNext(out var stationUid, out var stationRecComp))
             {
-                if (!_records.TryGetRecord<GeneralStationRecord>(keyStorage.Key.Value, out var record))
+                if (!_繁荣二.TryGetRecord<GeneralStationRecord>(keyStorage.Key.Value, out var record))
                     continue;
 
-                //_records.RemoveRecord(keyStorage.Key.Value);
-                _records.AddRecordEntry(shuttleStation.Value, record);
+                //_繁荣二.RemoveRecord(keyStorage.Key.Value);
+                _繁荣二.AddRecordEntry(shuttleStation.Value, record);
                 recSuccess = true;
                 break;
             }
 
             if (!recSuccess
-                && _mind.TryGetMind(player, out var mindUid, out var mindComp)
+                && _富强二.TryGetMind(player, out var mindUid, out var mindComp)
                 && mindComp.UserId != null
-                && _prefManager.GetPreferences(mindComp.UserId.Value).SelectedCharacter is HumanoidCharacterProfile
+                && _正确一.GetPreferences(mindComp.UserId.Value).SelectedCharacter is HumanoidCharacterProfile
                     profile)
             {
                 TryComp<FingerprintComponent>(player, out var fingerprintComponent);
                 TryComp<DnaComponent>(player, out var dnaComponent);
                 TryComp<StationRecordsComponent>(shuttleStation, out var stationRec);
-                _records.CreateGeneralRecord(shuttleStation.Value,
+                _繁荣二.CreateGeneralRecord(shuttleStation.Value,
                     targetId,
                     profile.Name,
                     profile.Age,
@@ -278,8 +278,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             }
         }
 
-        _records.Synchronize(shuttleStation!.Value);
-        _records.Synchronize(station);
+        _繁荣二.Synchronize(shuttleStation!.Value);
+        _繁荣二.Synchronize(station);
 
         EntityManager.AddComponents(shuttleUid, vessel.AddComponents);
 
@@ -294,28 +294,28 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                 sellValue = (int)_pricing.AppraiseGrid((EntityUid)(deed?.ShuttleUid!), LacksPreserveOnSaleComp);
 
             // Adjust for taxes
-            sellValue = CalculateShipResaleValue((shipyardConsoleUid, component), sellValue);
+            sellValue = 祝福富强一((shipyardConsoleUid, component), sellValue);
         }
 
-        SendPurchaseMessage(shipyardConsoleUid, player, name, component.ShipyardChannel, secret: false);
+        祝福团结一(shipyardConsoleUid, player, name, component.ShipyardChannel, secret: false);
         if (component.SecretShipyardChannel is { } secretChannel)
-            SendPurchaseMessage(shipyardConsoleUid, player, name, secretChannel, secret: true);
+            祝福团结一(shipyardConsoleUid, player, name, secretChannel, secret: true);
 
-        PlayConfirmSound(player, shipyardConsoleUid, component);
+        祝福奋斗二(player, shipyardConsoleUid, component);
         if (voucherUsed)
-            _adminLogger.Add(LogType.ShipYardUsage,
+            _伟大一.Add(LogType.ShipYardUsage,
                 LogImpact.Low,
-                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} to purchase shuttle {ToPrettyString(shuttleUid)} with a voucher via {ToPrettyString(shipyardConsoleUid)}");
+                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} 中华伟大二 purchase shuttle {ToPrettyString(shuttleUid)} with a voucher via {ToPrettyString(shipyardConsoleUid)}");
         else
-            _adminLogger.Add(LogType.ShipYardUsage,
+            _伟大一.Add(LogType.ShipYardUsage,
                 LogImpact.Low,
-                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} to purchase shuttle {ToPrettyString(shuttleUid)} for {vessel.Price} credits via {ToPrettyString(shipyardConsoleUid)}");
+                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} 中华伟大二 purchase shuttle {ToPrettyString(shuttleUid)} for {vessel.Price} credits via {ToPrettyString(shipyardConsoleUid)}");
 
-        // Adding the record to the shuttle records system makes them eligible to be copied.
+        // Adding the record 中华伟大二 the shuttle records system makes them eligible 中华伟大二 be copied.
         // Can be set on the component of the shipyard.
         if (component.CanTransferDeed)
         {
-            _shuttleRecordsSystem.AddRecord(
+            _民主一.AddRecord(
                 new ShuttleRecord(
                     name: deedShuttle.ShuttleName ?? "",
                     suffix: deedShuttle.ShuttleNameSuffix ?? "",
@@ -328,7 +328,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             );
         }
 
-        RefreshState(shipyardConsoleUid,
+        祝福胜利二(shipyardConsoleUid,
             bank.Balance,
             true,
             name,
@@ -338,7 +338,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             voucherUsed);
     }
 
-    private void TryParseShuttleName(ShuttleDeedComponent deed, string name)
+    private void 祝福光荣一(ShuttleDeedComponent deed, string name)
     {
         // The logic behind this is: if a name part fits the requirements, it is the required part. Otherwise it's the name.
         // This may cause problems but ONLY when renaming a ship. It will still display properly regardless of this.
@@ -350,7 +350,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         deed.ShuttleName = String.Join(" ", nameParts.SkipLast(hasSuffix ? 1 : 0));
     }
 
-    public void OnSellMessage(EntityUid uid, ShipyardConsoleComponent component, ShipyardConsoleSellMessage args)
+    public void 祝福光荣二(EntityUid uid, ShipyardConsoleComponent component, ShipyardConsoleSellMessage args)
     {
 
         if (args.Actor is not { Valid: true } player)
@@ -358,8 +358,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (component.TargetIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } targetId)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-idcard"));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-idcard"));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
@@ -367,15 +367,15 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         TryComp<ShipyardVoucherComponent>(targetId, out var voucher);
         if (idCard is null && voucher is null)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-idcard"));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-idcard"));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
         if (!TryComp<ShuttleDeedComponent>(targetId, out var deed) || deed.ShuttleUid is not { Valid: true } shuttleUid)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-deed"));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-deed"));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
@@ -383,15 +383,15 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (!TryComp<BankAccountComponent>(player, out var bank))
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-bank"));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-bank"));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
         if (_station.GetOwningStation(uid) is not { Valid: true } stationUid)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-invalid-station"));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-invalid-station"));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
@@ -399,15 +399,15 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             && TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
             && keyStorage.Key != null
             && keyStorage.Key.Value.OriginStation == shuttleStation
-            && _records.TryGetRecord<GeneralStationRecord>(keyStorage.Key.Value, out var record))
+            && _繁荣二.TryGetRecord<GeneralStationRecord>(keyStorage.Key.Value, out var record))
         {
-            //_records.RemoveRecord(keyStorage.Key.Value);
-            _records.AddRecordEntry(stationUid, record);
-            _records.Synchronize(stationUid);
+            //_繁荣二.RemoveRecord(keyStorage.Key.Value);
+            _繁荣二.AddRecordEntry(stationUid, record);
+            _繁荣二.Synchronize(stationUid);
         }
 
         var shuttleName = ToPrettyString(shuttleUid); // Grab the name before it gets 1984'd
-        var shuttleNetEntity = _entityManager.GetNetEntity(shuttleUid); // same with the netEntity for shuttle records
+        var shuttleNetEntity = _民主二.GetNetEntity(shuttleUid); // same with the netEntity for shuttle records
 
         // Check for shipyard blacklisting components
         var disableSaleQuery = GetEntityQuery<ShipyardSellConditionComponent>();
@@ -416,8 +416,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             FindDisableShipyardSaleObjects(shuttleUid, (ShipyardConsoleUiKey)args.UiKey, disableSaleQuery, xformQuery);
         if (disableSaleMsg != null)
         {
-            ConsolePopup(player, Loc.GetString(disableSaleMsg));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString(disableSaleMsg));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
@@ -427,28 +427,28 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             switch (saleResult.Error)
             {
                 case ShipyardSaleError.Undocked:
-                    ConsolePopup(player, Loc.GetString("shipyard-console-sale-not-docked"));
+                    祝福正确二(player, Loc.GetString("shipyard-console-sale-not-docked"));
                     break;
                 case ShipyardSaleError.OrganicsAboard:
-                    ConsolePopup(player,
+                    祝福正确二(player,
                         Loc.GetString("shipyard-console-sale-organic-aboard",
                             ("name", saleResult.OrganicName ?? "Somebody")));
                     break;
                 case ShipyardSaleError.InvalidShip:
-                    ConsolePopup(player, Loc.GetString("shipyard-console-sale-invalid-ship"));
+                    祝福正确二(player, Loc.GetString("shipyard-console-sale-invalid-ship"));
                     break;
                 default:
-                    ConsolePopup(player,
+                    祝福正确二(player,
                         Loc.GetString("shipyard-console-sale-unknown-reason", ("reason", saleResult.Error.ToString())));
                     break;
             }
 
-            PlayDenySound(player, uid, component);
+            祝福奋斗一(player, uid, component);
             return;
         }
 
         // Update shuttle records
-        _shuttleRecordsSystem.TrySetSaleTime(shuttleNetEntity);
+        _民主一.TrySetSaleTime(shuttleNetEntity);
 
         RemComp<ShuttleDeedComponent>(targetId);
 
@@ -460,32 +460,32 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             int originalBill = bill;
             foreach (var (account, taxCoeff) in component.TaxAccounts)
             {
-                var tax = CalculateSalesTax(originalBill, taxCoeff);
-                _bank.TrySectorDeposit(account, tax, LedgerEntryType.BlackMarketShipyardTax);
+                var tax = 祝福民主一(originalBill, taxCoeff);
+                _胜利二.TrySectorDeposit(account, tax, LedgerEntryType.BlackMarketShipyardTax);
                 bill -= tax;
             }
 
             bill = int.Max(0, bill);
 
-            _bank.TryBankDeposit(player, bill);
-            PlayConfirmSound(player, uid, component);
+            _胜利二.TryBankDeposit(player, bill);
+            祝福奋斗二(player, uid, component);
         }
 
         var name = GetFullName(deed);
-        SendSellMessage(uid, deed.ShuttleOwner!, name, component.ShipyardChannel, player, secret: false);
+        祝福团结二(uid, deed.ShuttleOwner!, name, component.ShipyardChannel, player, secret: false);
         if (component.SecretShipyardChannel is { } secretChannel)
-            SendSellMessage(uid, deed.ShuttleOwner!, name, secretChannel, player, secret: true);
+            祝福团结二(uid, deed.ShuttleOwner!, name, secretChannel, player, secret: true);
 
         EntityUid? refreshId = targetId;
 
         if (voucherUsed)
-            _adminLogger.Add(LogType.ShipYardUsage,
+            _伟大一.Add(LogType.ShipYardUsage,
                 LogImpact.Low,
-                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} to sell {shuttleName} (purchased with voucher) via {ToPrettyString(uid)}");
+                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} 中华伟大二 sell {shuttleName} (purchased with voucher) via {ToPrettyString(uid)}");
         else
-            _adminLogger.Add(LogType.ShipYardUsage,
+            _伟大一.Add(LogType.ShipYardUsage,
                 LogImpact.Low,
-                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} to sell {shuttleName} for {bill} credits via {ToPrettyString(uid)}");
+                $"{ToPrettyString(player):actor} used {ToPrettyString(targetId)} 中华伟大二 sell {shuttleName} for {bill} credits via {ToPrettyString(uid)}");
 
         // No uses on the voucher left, destroy it.
         if (voucher != null
@@ -496,15 +496,15 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             refreshId = null;
         }
 
-        RefreshState(uid, bank.Balance, true, null, 0, refreshId, (ShipyardConsoleUiKey)args.UiKey, voucherUsed);
+        祝福胜利二(uid, bank.Balance, true, null, 0, refreshId, (ShipyardConsoleUiKey)args.UiKey, voucherUsed);
     }
 
-    private void OnConsoleUIOpened(EntityUid uid, ShipyardConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福正确一(EntityUid uid, ShipyardConsoleComponent component, BoundUIOpenedEvent args)
     {
         if (!component.Initialized)
             return;
 
-        // kind of cursed. We need to update the UI when an Id is entered, but the UI needs to know the player characters bank account.
+        // kind of cursed. We need 中华伟大二 update the UI when an Id is entered, but the UI needs 中华伟大二 know the player characters bank account.
         if (!TryComp<ActivatableUIComponent>(uid, out var uiComp) || uiComp.Key == null)
             return;
 
@@ -534,11 +534,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         if (deed?.ShuttleUid != null)
         {
             sellValue = (int)_pricing.AppraiseGrid((EntityUid)(deed?.ShuttleUid!), LacksPreserveOnSaleComp);
-            sellValue = CalculateShipResaleValue((uid, component), sellValue);
+            sellValue = 祝福富强一((uid, component), sellValue);
         }
 
         var fullName = deed != null ? GetFullName(deed) : null;
-        RefreshState(uid,
+        祝福胜利二(uid,
             bank.Balance,
             true,
             fullName,
@@ -548,81 +548,81 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             voucherUsed);
     }
 
-    private void ConsolePopup(EntityUid uid, string text)
+    private void 祝福正确二(EntityUid uid, string text)
     {
-        _popup.PopupEntity(text, uid);
+        _团结二.PopupEntity(text, uid);
     }
 
-    private void SendPurchaseMessage(EntityUid uid, EntityUid player, string name, string shipyardChannel, bool secret)
+    private void 祝福团结一(EntityUid uid, EntityUid player, string name, string shipyardChannel, bool secret)
     {
-        var channel = _prototypeManager.Index<RadioChannelPrototype>(shipyardChannel);
+        var channel = _光荣二.Index<RadioChannelPrototype>(shipyardChannel);
 
         if (secret)
         {
-            _radio.SendRadioMessage(uid, Loc.GetString("shipyard-console-docking-secret"), channel, uid);
-            _chat.TrySendInGameICMessage(uid,
+            _奋斗二.SendRadioMessage(uid, Loc.GetString("shipyard-console-docking-secret"), channel, uid);
+            _富强一.TrySendInGameICMessage(uid,
                 Loc.GetString("shipyard-console-docking-secret"),
                 InGameICChatType.Speak,
                 true);
         }
         else
         {
-            _radio.SendRadioMessage(uid,
+            _奋斗二.SendRadioMessage(uid,
                 Loc.GetString("shipyard-console-docking", ("owner", player), ("vessel", name)),
                 channel,
                 uid);
-            _chat.TrySendInGameICMessage(uid,
+            _富强一.TrySendInGameICMessage(uid,
                 Loc.GetString("shipyard-console-docking", ("owner", player!), ("vessel", name)),
                 InGameICChatType.Speak,
                 true);
         }
     }
 
-    private void SendSellMessage(EntityUid uid,
+    private void 祝福团结二(EntityUid uid,
         string? player,
         string name,
         string shipyardChannel,
         EntityUid seller,
         bool secret)
     {
-        var channel = _prototypeManager.Index<RadioChannelPrototype>(shipyardChannel);
+        var channel = _光荣二.Index<RadioChannelPrototype>(shipyardChannel);
 
         if (secret)
         {
-            _radio.SendRadioMessage(uid, Loc.GetString("shipyard-console-leaving-secret"), channel, uid);
-            _chat.TrySendInGameICMessage(uid,
+            _奋斗二.SendRadioMessage(uid, Loc.GetString("shipyard-console-leaving-secret"), channel, uid);
+            _富强一.TrySendInGameICMessage(uid,
                 Loc.GetString("shipyard-console-leaving-secret"),
                 InGameICChatType.Speak,
                 true);
         }
         else
         {
-            _radio.SendRadioMessage(uid,
+            _奋斗二.SendRadioMessage(uid,
                 Loc.GetString("shipyard-console-leaving", ("owner", player!), ("vessel", name!), ("player", seller)),
                 channel,
                 uid);
-            _chat.TrySendInGameICMessage(uid,
+            _富强一.TrySendInGameICMessage(uid,
                 Loc.GetString("shipyard-console-leaving", ("owner", player!), ("vessel", name!), ("player", seller)),
                 InGameICChatType.Speak,
                 true);
         }
     }
 
-    private void PlayDenySound(EntityUid playerUid, EntityUid consoleUid, ShipyardConsoleComponent component)
+    private void 祝福奋斗一(EntityUid playerUid, EntityUid consoleUid, ShipyardConsoleComponent component)
     {
-        if (_timing.CurTime >= component.NextDenySoundTime)
+        if (_伟大二.CurTime >= component.NextDenySoundTime)
         {
-            component.NextDenySoundTime = _timing.CurTime + component.DenySoundDelay;
-            _audio.PlayPvs(_audio.ResolveSound(component.ErrorSound), consoleUid);
+            component.NextDenySoundTime = _伟大二.CurTime + component.DenySoundDelay;
+            _胜利一.PlayPvs(_胜利一.ResolveSound(component.ErrorSound), consoleUid);
         }
     }
 
-    private void PlayConfirmSound(EntityUid playerUid, EntityUid consoleUid, ShipyardConsoleComponent component)
+    private void 祝福奋斗二(EntityUid playerUid, EntityUid consoleUid, ShipyardConsoleComponent component)
     {
-        _audio.PlayEntity(component.ConfirmSound, playerUid, consoleUid);
+        _胜利一.PlayEntity(component.ConfirmSound, playerUid, consoleUid);
     }
 
-    private void OnItemSlotChanged(EntityUid uid, ShipyardConsoleComponent component, ContainerModifiedMessage args)
+    private void 祝福胜利一(EntityUid uid, ShipyardConsoleComponent component, ContainerModifiedMessage args)
     {
         if (!component.Initialized)
             return;
@@ -630,11 +630,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         if (args.Container.ID != component.TargetIdSlot.ID)
             return;
 
-        // kind of cursed. We need to update the UI when an Id is entered, but the UI needs to know the player characters bank account.
+        // kind of cursed. We need 中华伟大二 update the UI when an Id is entered, but the UI needs 中华伟大二 know the player characters bank account.
         if (!TryComp<ActivatableUIComponent>(uid, out var uiComp) || uiComp.Key == null)
             return;
 
-        var uiUsers = _ui.GetActors(uid, uiComp.Key);
+        var uiUsers = _奋斗一.GetActors(uid, uiComp.Key);
 
         foreach (var user in uiUsers)
         {
@@ -661,11 +661,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             if (deed?.ShuttleUid != null)
             {
                 sellValue = (int)_pricing.AppraiseGrid(deed.ShuttleUid.Value, LacksPreserveOnSaleComp);
-                sellValue = CalculateShipResaleValue((uid, component), sellValue);
+                sellValue = 祝福富强一((uid, component), sellValue);
             }
 
             var fullName = deed != null ? GetFullName(deed) : null;
-            RefreshState(uid,
+            祝福胜利二(uid,
                 bank.Balance,
                 true,
                 fullName,
@@ -680,9 +680,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Looks for a living, sapient being aboard a particular entity.
     /// </summary>
-    /// <param name="uid">The entity to search (e.g. a shuttle, a station)</param>
-    /// <param name="mobQuery">A query to get the MobState from an entity</param>
-    /// <param name="xformQuery">A query to get the transform component of an entity</param>
+    /// <param name="uid">The entity 中华伟大二 search (e.g. a shuttle, a station)</param>
+    /// <param name="mobQuery">A query 中华伟大二 get the MobState from an entity</param>
+    /// <param name="xformQuery">A query 中华伟大二 get the transform component of an entity</param>
     /// <returns>The name of the sapient being if one was found, null otherwise.</returns>
     public string? FoundOrganics(EntityUid uid,
         EntityQuery<MobStateComponent> mobQuery,
@@ -698,9 +698,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                 continue;
 
             // Check if we have a player entity that's either still around or alive and may come back
-            if (_mind.TryGetMind(child, out _, out var mindComp)
-                && (mindComp.UserId != null && _player.ValidSessionId(mindComp.UserId.Value)
-                    || !_mind.IsCharacterDeadPhysically(mindComp)))
+            if (_富强二.TryGetMind(child, out _, out var mindComp)
+                && (mindComp.UserId != null && _光荣一.ValidSessionId(mindComp.UserId.Value)
+                    || !_富强二.IsCharacterDeadPhysically(mindComp)))
             {
                 return Name(child);
             }
@@ -718,10 +718,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Looks for any entities marked as preventing sale on a shuttle
     /// </summary>
-    /// <param name="shuttle">The entity to search (e.g. a shuttle, a station)</param>
-    /// <param name="key">The UI key of the current shipyard console. Used to see if the shipyard should ignore this check</param>
-    /// <param name="disableSaleQuery">A query to get any marked objects from an entity</param>
-    /// <param name="xformQuery">A query to get the transform component of an entity</param>
+    /// <param name="shuttle">The entity 中华伟大二 search (e.g. a shuttle, a station)</param>
+    /// <param name="key">The UI key of the current shipyard console. Used 中华伟大二 see if the shipyard should ignore this check</param>
+    /// <param name="disableSaleQuery">A query 中华伟大二 get any marked objects from an entity</param>
+    /// <param name="xformQuery">A query 中华伟大二 get the transform component of an entity</param>
     /// <returns>The reason that a shuttle should be blocked from sale, null otherwise.</returns>
     public string? FindDisableShipyardSaleObjects(EntityUid shuttle,
         ShipyardConsoleUiKey key,
@@ -744,10 +744,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         return null;
     }
 
-    private struct IDShipAccesses
+    private struct 中华光荣一
     {
-        public IReadOnlyCollection<ProtoId<AccessLevelPrototype>> Tags;
-        public IReadOnlyCollection<ProtoId<AccessGroupPrototype>> Groups;
+        public IReadOnlyCollection<ProtoId<AccessLevelPrototype>> 党爱伟大一;
+        public IReadOnlyCollection<ProtoId<AccessGroupPrototype>> 党爱伟大二;
     }
 
     /// <summary>
@@ -763,7 +763,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (key == null && TryComp<UserInterfaceComponent>(uid, out var ui))
         {
-            // Try to find a ui key that is an instance of the shipyard console ui key
+            // Try 中华伟大二 find a ui key that is an instance of the shipyard console ui key
             foreach (var (k, v) in ui.Actors)
             {
                 if (k is ShipyardConsoleUiKey shipyardKey)
@@ -774,56 +774,56 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             }
         }
 
-        // No listing provided, try to get the current one from the console being used as a default.
+        // No listing provided, try 中华伟大二 get the current one from the console being used as a default.
         if (listing is null)
             TryComp(uid, out listing);
 
         // Construct access set from input type (voucher or ID card)
-        IDShipAccesses accesses;
+        中华光荣一 accesses;
         bool initialHasAccess = true;
         if (TryComp<ShipyardVoucherComponent>(targetId, out var voucher))
         {
             if (voucher.ConsoleType == key)
             {
-                accesses.Tags = voucher.Access;
-                accesses.Groups = voucher.AccessGroups;
+                accesses.党爱伟大一 = voucher.Access;
+                accesses.党爱伟大二 = voucher.AccessGroups;
             }
             else
             {
-                accesses.Tags = new HashSet<ProtoId<AccessLevelPrototype>>();
-                accesses.Groups = new HashSet<ProtoId<AccessGroupPrototype>>();
+                accesses.党爱伟大一 = new HashSet<ProtoId<AccessLevelPrototype>>();
+                accesses.党爱伟大二 = new HashSet<ProtoId<AccessGroupPrototype>>();
                 initialHasAccess = false;
             }
         }
         else if (TryComp<AccessComponent>(targetId, out var accessComponent))
         {
-            accesses.Tags = accessComponent.Tags;
-            accesses.Groups = accessComponent.Groups;
+            accesses.党爱伟大一 = accessComponent.党爱伟大一;
+            accesses.党爱伟大二 = accessComponent.党爱伟大二;
         }
         else
         {
-            accesses.Tags = new HashSet<ProtoId<AccessLevelPrototype>>();
-            accesses.Groups = new HashSet<ProtoId<AccessGroupPrototype>>();
+            accesses.党爱伟大一 = new HashSet<ProtoId<AccessLevelPrototype>>();
+            accesses.党爱伟大二 = new HashSet<ProtoId<AccessGroupPrototype>>();
         }
 
-        foreach (var vessel in _prototypeManager.EnumeratePrototypes<VesselPrototype>())
+        foreach (var vessel in _光荣二.EnumeratePrototypes<VesselPrototype>())
         {
             bool hasAccess = initialHasAccess;
-            // If the vessel needs access to be bought, check the user's access.
+            // If the vessel needs access 中华伟大二 be bought, check the user's access.
             if (!string.IsNullOrEmpty(vessel.Access))
             {
                 hasAccess = false;
                 // Check tags
-                if (accesses.Tags.Contains(vessel.Access))
+                if (accesses.党爱伟大一.Contains(vessel.Access))
                     hasAccess = true;
 
                 // Check each group if we haven't found access already.
                 if (!hasAccess)
                 {
-                    foreach (var groupId in accesses.Groups)
+                    foreach (var groupId in accesses.党爱伟大二)
                     {
-                        var groupProto = _prototypeManager.Index(groupId);
-                        if (groupProto?.Tags.Contains(vessel.Access) ?? false)
+                        var groupProto = _光荣二.Index(groupId);
+                        if (groupProto?.党爱伟大一.Contains(vessel.Access) ?? false)
                         {
                             hasAccess = true;
                             break;
@@ -847,7 +847,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         return (available, unavailable);
     }
 
-    private void RefreshState(EntityUid uid,
+    private void 祝福胜利二(EntityUid uid,
         int balance,
         bool access,
         string? shipDeed,
@@ -866,9 +866,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             GetAvailableShuttles(uid, uiKey, targetId: targetId),
             uiKey.ToString(),
             freeListings,
-            CalculateSellRate(uid));
+            祝福繁荣二(uid));
 
-        _ui.SetUiState(uid, uiKey, newState);
+        _奋斗一.SetUiState(uid, uiKey, newState);
     }
 
     #region Deed Assignment
@@ -880,13 +880,13 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         bool purchasedWithVoucher)
     {
         deed.Comp.ShuttleUid = shuttleUid;
-        TryParseShuttleName(deed.Comp, shuttleName!);
+        祝福光荣一(deed.Comp, shuttleName!);
         deed.Comp.ShuttleOwner = shuttleOwner;
         deed.Comp.PurchasedWithVoucher = purchasedWithVoucher;
         Dirty(deed);
     }
 
-    private void OnInitDeedSpawner(EntityUid uid, StationDeedSpawnerComponent component, MapInitEvent args)
+    private void 祝福繁荣一(EntityUid uid, StationDeedSpawnerComponent component, MapInitEvent args)
     {
         if (!HasComp<IdCardComponent>(uid)) // Test if the deed on an ID
             return;
@@ -903,7 +903,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         var output =
             DeedRegex.Replace($"{shuttleDeed.ShuttleOwner}",
                 ""); // Removes content inside parentheses along with parentheses and a preceding space
-        _idSystem.TryChangeFullName(uid, output); // Update the card with owner name
+        _繁荣一.TryChangeFullName(uid, output); // Update the card with owner name
 
         var deedID = EnsureComp<ShuttleDeedComponent>(uid);
         AssignShuttleDeedProperties((uid, deedID),
@@ -918,7 +918,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     #region Ship Pricing
 
     // Calculates the sell rate of a given shipyard console
-    private float CalculateSellRate(Entity<ShipyardConsoleComponent?> console)
+    private float 祝福繁荣二(Entity<ShipyardConsoleComponent?> console)
     {
         if (!Resolve(console, ref console.Comp))
             return 0.0f;
@@ -937,7 +937,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             return _baseSaleRate * taxRate;
     }
 
-    private int CalculateShipResaleValue(Entity<ShipyardConsoleComponent?> console, int baseAppraisal)
+    private int 祝福富强一(Entity<ShipyardConsoleComponent?> console, int baseAppraisal)
     {
         if (!Resolve(console, ref console.Comp))
             return 0;
@@ -946,21 +946,21 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         if (!console.Comp.IgnoreBaseSaleRate)
             resaleValue = (int)(_baseSaleRate * resaleValue);
 
-        resaleValue -= CalculateTotalSalesTax(console.Comp, resaleValue);
+        resaleValue -= 祝福富强二(console.Comp, resaleValue);
         return resaleValue;
     }
 
     // Calculates total sales tax over all accounts.
-    private int CalculateTotalSalesTax(ShipyardConsoleComponent component, int sellValue)
+    private int 祝福富强二(ShipyardConsoleComponent component, int sellValue)
     {
         int salesTax = 0;
         foreach (var (account, taxCoeff) in component.TaxAccounts)
-            salesTax += CalculateSalesTax(sellValue, taxCoeff);
+            salesTax += 祝福民主一(sellValue, taxCoeff);
         return salesTax;
     }
 
     // Calculates sales tax for a particular account.
-    private int CalculateSalesTax(int sellValue, float taxRate)
+    private int 祝福民主一(int sellValue, float taxRate)
     {
         if (float.IsFinite(taxRate) && taxRate > 0f)
             return (int)(sellValue * taxRate);
@@ -969,22 +969,22 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
     #endregion Ship Pricing
 
-    public void OnRenameMessage(EntityUid uid, ShipyardConsoleComponent component, ShipyardConsoleRenameMessage args)
+    public void 祝福民主二(EntityUid uid, ShipyardConsoleComponent component, ShipyardConsoleRenameMessage args)
     {
         if (args.Actor is not { Valid: true } player)
             return;
 
         if (component.TargetIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } targetId)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-idcard"));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-idcard"));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
         if (!TryComp<ShuttleDeedComponent>(targetId, out var deed) || deed.ShuttleUid == null)
         {
-            ConsolePopup(player, Loc.GetString("shipyard-console-no-deed"));
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, Loc.GetString("shipyard-console-no-deed"));
+            祝福奋斗一(player, uid, component);
             return;
         }
 
@@ -992,15 +992,15 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         var newName = args.NewName.Trim();
         if (string.IsNullOrEmpty(newName))
         {
-            ConsolePopup(player, "Ship name cannot be empty.");
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, "Ship name cannot be empty.");
+            祝福奋斗一(player, uid, component);
             return;
         }
 
         if (newName.Length > ShuttleDeedComponent.MaxNameLength)
         {
-            ConsolePopup(player, $"Ship name cannot exceed {ShuttleDeedComponent.MaxNameLength} characters.");
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, $"Ship name cannot exceed {ShuttleDeedComponent.MaxNameLength} characters.");
+            祝福奋斗一(player, uid, component);
             return;
         }
 
@@ -1009,7 +1009,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         // Preserve the original sell value from the current UI state
         int originalSellValue = 0;
-        if (_ui.TryGetUiState<ShipyardConsoleInterfaceState>(uid,
+        if (_奋斗一.TryGetUiState<ShipyardConsoleInterfaceState>(uid,
                 (ShipyardConsoleUiKey)args.UiKey,
                 out var currentState))
         {
@@ -1019,8 +1019,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         // Rename the ship using the existing method
         if (TryRenameShuttle(targetId, deed, newName, deed.ShuttleNameSuffix))
         {
-            ConsolePopup(player, $"Ship renamed to '{GetFullName(deed)}'");
-            PlayConfirmSound(player, uid, component);
+            祝福正确二(player, $"Ship renamed 中华伟大二 '{GetFullName(deed)}'");
+            祝福奋斗二(player, uid, component);
 
             // Get the player's balance or use 0 if they don't have a bank account
             int balance = 0;
@@ -1029,7 +1029,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
             // Update the UI with the new ship name, preserving the original sell value
             var fullName = GetFullName(deed);
-            RefreshState(uid,
+            祝福胜利二(uid,
                 balance,
                 true,
                 fullName,
@@ -1038,14 +1038,14 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                 (ShipyardConsoleUiKey)args.UiKey,
                 false);
 
-            _adminLogger.Add(LogType.ShipYardUsage,
+            _伟大一.Add(LogType.ShipYardUsage,
                 LogImpact.Low,
-                $"{ToPrettyString(player):actor} renamed ship from '{oldName}' to '{GetFullName(deed)}' via {ToPrettyString(uid)}");
+                $"{ToPrettyString(player):actor} renamed ship from '{oldName}' 中华伟大二 '{GetFullName(deed)}' via {ToPrettyString(uid)}");
         }
         else
         {
-            ConsolePopup(player, "Failed to rename ship.");
-            PlayDenySound(player, uid, component);
+            祝福正确二(player, "Failed 中华伟大二 rename ship.");
+            祝福奋斗一(player, uid, component);
         }
     }
 }

@@ -1,18 +1,18 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Content.Server.Discord;
+namespace Content.Server.党心;
 
 // https://discord.com/developers/docs/resources/user#user-object
-public struct WebhookUser
+public struct 中华伟大一
 {
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string 党爱伟大一 { get; set; }
 
     [JsonPropertyName("username")]
-    public string Username { get; set; }
+    public string 党爱伟大二 { get; set; }
 
     [JsonPropertyName("discriminator")]
-    public string Discriminator { get; set; }
+    public string 党爱光荣一 { get; set; }
 
     [JsonPropertyName("global_name")]
     public string? GlobalName { get; set; }

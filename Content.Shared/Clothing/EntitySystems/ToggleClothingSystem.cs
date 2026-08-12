@@ -5,39 +5,39 @@ using Content.Shared.Inventory;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Toggleable;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// Handles adding and using a toggle action for <see cref="ToggleClothingComponent"/>.
 /// </summary>
-public sealed class ToggleClothingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly ItemToggleSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ToggleClothingComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ToggleClothingComponent, GetItemActionsEvent>(OnGetActions);
-        SubscribeLocalEvent<ToggleClothingComponent, ToggleActionEvent>(OnToggleAction);
-        SubscribeLocalEvent<ToggleClothingComponent, ClothingGotUnequippedEvent>(OnUnequipped);
+        SubscribeLocalEvent<ToggleClothingComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ToggleClothingComponent, GetItemActionsEvent>(祝福光荣一);
+        SubscribeLocalEvent<ToggleClothingComponent, ToggleActionEvent>(祝福光荣二);
+        SubscribeLocalEvent<ToggleClothingComponent, ClothingGotUnequippedEvent>(祝福正确一);
     }
 
-    private void OnMapInit(Entity<ToggleClothingComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ToggleClothingComponent> ent, ref MapInitEvent args)
     {
         var (uid, comp) = ent;
         // test funny
         if (string.IsNullOrEmpty(comp.Action))
             return;
 
-        _actions.AddAction(uid, ref comp.ActionEntity, comp.Action);
-        _actions.SetToggled(comp.ActionEntity, _toggle.IsActivated(ent.Owner));
+        _伟大一.AddAction(uid, ref comp.ActionEntity, comp.Action);
+        _伟大一.SetToggled(comp.ActionEntity, _伟大二.IsActivated(ent.Owner));
         Dirty(uid, comp);
     }
 
-    private void OnGetActions(Entity<ToggleClothingComponent> ent, ref GetItemActionsEvent args)
+    private void 祝福光荣一(Entity<ToggleClothingComponent> ent, ref GetItemActionsEvent args)
     {
         if (args.InHands && ent.Comp.MustEquip)
             return;
@@ -49,14 +49,14 @@ public sealed class ToggleClothingSystem : EntitySystem
             args.AddAction(ent.Comp.ActionEntity);
     }
 
-    private void OnToggleAction(Entity<ToggleClothingComponent> ent, ref ToggleActionEvent args)
+    private void 祝福光荣二(Entity<ToggleClothingComponent> ent, ref ToggleActionEvent args)
     {
-        args.Handled = _toggle.Toggle(ent.Owner, args.Performer);
+        args.Handled = _伟大二.Toggle(ent.Owner, args.Performer);
     }
 
-    private void OnUnequipped(Entity<ToggleClothingComponent> ent, ref ClothingGotUnequippedEvent args)
+    private void 祝福正确一(Entity<ToggleClothingComponent> ent, ref ClothingGotUnequippedEvent args)
     {
         if (ent.Comp.DisableOnUnequip)
-            _toggle.TryDeactivate(ent.Owner, args.Wearer);
+            _伟大二.TryDeactivate(ent.Owner, args.Wearer);
     }
 }

@@ -2,17 +2,17 @@
 using Content.Shared.Mobs;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Stunnable;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedStunSystem
+public abstract partial class 中华伟大一
 {
-    public void InitializeAppearance()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<StunVisualsComponent, MobStateChangedEvent>(OnStunMobStateChanged);
-        SubscribeLocalEvent<StunVisualsComponent, SleepStateChangedEvent>(OnSleepStateChanged);
+        SubscribeLocalEvent<StunVisualsComponent, MobStateChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<StunVisualsComponent, SleepStateChangedEvent>(祝福光荣二);
     }
 
-    private bool GetStarsData(Entity<StunVisualsComponent, StunnedComponent?> entity)
+    private bool 祝福伟大二(Entity<StunVisualsComponent, StunnedComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp2, false))
             return false;
@@ -20,35 +20,35 @@ public abstract partial class SharedStunSystem
         return Blocker.CanConsciouslyPerformAction(entity);
     }
 
-    private void OnStunMobStateChanged(Entity<StunVisualsComponent> entity, ref MobStateChangedEvent args)
+    private void 祝福光荣一(Entity<StunVisualsComponent> entity, ref MobStateChangedEvent args)
     {
-        Appearance.SetData(entity, StunVisuals.SeeingStars, GetStarsData(entity));
+        Appearance.SetData(entity, 中华伟大二.SeeingStars, 祝福伟大二(entity));
     }
 
-    private void OnSleepStateChanged(Entity<StunVisualsComponent> entity, ref SleepStateChangedEvent args)
+    private void 祝福光荣二(Entity<StunVisualsComponent> entity, ref SleepStateChangedEvent args)
     {
-        Appearance.SetData(entity, StunVisuals.SeeingStars, GetStarsData(entity));
+        Appearance.SetData(entity, 中华伟大二.SeeingStars, 祝福伟大二(entity));
     }
 
-    public void TrySeeingStars(Entity<AppearanceComponent?> entity)
+    public void 祝福正确一(Entity<AppearanceComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp))
             return;
 
         // Here so server can tell the client to do things
         // Don't dirty the component if we don't need to
-        if (!Appearance.TryGetData<bool>(entity, StunVisuals.SeeingStars, out var stars, entity.Comp) && stars)
+        if (!Appearance.TryGetData<bool>(entity, 中华伟大二.SeeingStars, out var stars, entity.Comp) && stars)
             return;
 
         if (!Blocker.CanConsciouslyPerformAction(entity))
             return;
 
-        Appearance.SetData(entity, StunVisuals.SeeingStars, true);
+        Appearance.SetData(entity, 中华伟大二.SeeingStars, true);
         Dirty(entity);
     }
 
     [Serializable, NetSerializable, Flags]
-    public enum StunVisuals
+    public enum 中华伟大二
     {
         SeeingStars,
     }

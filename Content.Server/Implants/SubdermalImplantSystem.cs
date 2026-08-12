@@ -5,21 +5,21 @@ using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Store.Components;
 
-namespace Content.Server.Implants;
+namespace Content.Server.党心;
 
-public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
+public sealed class 中华伟大一 : SharedSubdermalImplantSystem
 {
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    public override void Initialize()
+    [Dependency] private readonly StoreSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StoreComponent, ImplantRelayEvent<AfterInteractUsingEvent>>(OnStoreRelay);
+        SubscribeLocalEvent<StoreComponent, ImplantRelayEvent<AfterInteractUsingEvent>>(祝福伟大二);
     }
 
-    // TODO: This shouldn't be in the SubdermalImplantSystem
-    private void OnStoreRelay(EntityUid uid, StoreComponent store, ImplantRelayEvent<AfterInteractUsingEvent> implantRelay)
+    // TODO: This shouldn't be in the 中华伟大一
+    private void 祝福伟大二(EntityUid uid, StoreComponent store, ImplantRelayEvent<AfterInteractUsingEvent> implantRelay)
     {
         var args = implantRelay.Event;
 
@@ -34,11 +34,11 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
             return;
 
         // same as store code, but message is only shown to yourself
-        if (!_store.TryAddCurrency((args.Used, currency), (uid, store)))
+        if (!_伟大一.TryAddCurrency((args.Used, currency), (uid, store)))
             return;
 
         args.Handled = true;
         var msg = Loc.GetString("store-currency-inserted-implant", ("used", args.Used));
-        _popup.PopupEntity(msg, args.User, args.User);
+        _伟大二.PopupEntity(msg, args.User, args.User);
     }
 }

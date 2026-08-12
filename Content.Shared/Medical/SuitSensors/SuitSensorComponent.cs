@@ -2,7 +2,7 @@ using Content.Shared.Medical.SuitSensor;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Medical.SuitSensors;
+namespace Content.Shared.Medical.党心;
 
 /// <summary>
 ///     Tracking device, embedded in almost all uniforms and jumpsuits.
@@ -11,37 +11,37 @@ namespace Content.Shared.Medical.SuitSensors;
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedSuitSensorSystem))]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class SuitSensorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Choose a random sensor mode when item is spawned.
     /// </summary>
     [DataField]
-    public bool RandomMode = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     ///     If true user can't change suit sensor mode
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ControlsLocked = false;
+    public bool 党爱伟大二 = false;
 
     /// <summary>
     ///  How much time it takes to change another player's sensors
     /// </summary>
     [DataField]
-    public float SensorsTime = 1.75f;
+    public float 党爱光荣一 = 1.75f;
 
     /// <summary>
     ///     Current sensor mode. Can be switched by user verbs.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public SuitSensorMode Mode = SuitSensorMode.SensorOff;
+    public SuitSensorMode 党爱光荣二 = SuitSensorMode.SensorOff;
 
     /// <summary>
     ///     Activate sensor if user wear it in this slot.
     /// </summary>
     [DataField]
-    public string ActivationSlot = "jumpsuit";
+    public string 党爱正确一 = "jumpsuit";
 
     /// <summary>
     /// Activate sensor if user has this in a sensor-compatible container.
@@ -53,7 +53,7 @@ public sealed partial class SuitSensorComponent : Component
     ///     How often does sensor update its owners status (in seconds). Limited by the system update rate.
     /// </summary>
     [DataField]
-    public TimeSpan UpdateRate = TimeSpan.FromSeconds(2f);
+    public TimeSpan 党爱正确二 = TimeSpan.FromSeconds(2f);
 
     /// <summary>
     ///     Current user that wears suit sensor. Null if nobody wearing it.
@@ -66,7 +66,7 @@ public sealed partial class SuitSensorComponent : Component
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan NextUpdate = TimeSpan.Zero;
+    public TimeSpan 党爱团结一 = TimeSpan.Zero;
 
     /// <summary>
     ///     The station this suit sensor belongs to. If it's null the suit didn't spawn on a station and the sensor doesn't work.
@@ -86,18 +86,18 @@ public sealed partial class SuitSensorComponent : Component
     /// The previous mode of the suit. This is used to restore the state when an EMP effect ends.
     /// </summary>
     [DataField, ViewVariables]
-    public SuitSensorMode PreviousMode = SuitSensorMode.SensorOff;
+    public SuitSensorMode 党爱团结二 = SuitSensorMode.SensorOff;
 
     /// <summary>
     ///  The previous locked status of the controls.  This is used to restore the state when an EMP effect ends.
     ///  This keeps prisoner jumpsuits/internal implants from becoming unlocked after an EMP.
     /// </summary>
     [DataField, ViewVariables]
-    public bool PreviousControlsLocked = false;
+    public bool 党爱奋斗一 = false;
 
     /// <summary>
     ///     Frontier: whether or not the suit sensor is "jammed" - jammed sensors should not show up on crew monitoring consoles.
     /// </summary>
     [DataField]
-    public bool Jammed;
+    public bool 党爱奋斗二;
 }

@@ -2,28 +2,28 @@ using Content.Shared.GPS.Components;
 using Content.Shared.Examine;
 using Robust.Shared.Map;
 
-namespace Content.Shared.GPS.Systems;
+namespace Content.Shared.GPS.党心;
 
-public sealed class HandheldGpsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HandheldGPSComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<HandheldGPSComponent, ExaminedEvent>(祝福伟大二);
     }
 
     /// <summary>
     /// Handles showing the coordinates when a GPS is examined.
     /// </summary>
-    private void OnExamine(Entity<HandheldGPSComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<HandheldGPSComponent> ent, ref ExaminedEvent args)
     {
         var posText = "Error";
 
-        var pos = _transform.GetMapCoordinates(ent);
+        var pos = _伟大一.GetMapCoordinates(ent);
 
         if (pos.MapId != MapId.Nullspace)
         {

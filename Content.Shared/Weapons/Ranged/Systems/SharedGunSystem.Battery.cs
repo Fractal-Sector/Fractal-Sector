@@ -5,57 +5,57 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem
+public abstract partial class 中华伟大一
 {
-    protected virtual void InitializeBattery()
+    protected virtual void 祝福伟大一()
     {
         // Trying to dump comp references hence the below
         // Hitscan
-        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, ComponentGetState>(OnBatteryGetState);
-        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, ComponentHandleState>(OnBatteryHandleState);
-        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, TakeAmmoEvent>(OnBatteryTakeAmmo);
-        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, GetAmmoCountEvent>(OnBatteryAmmoCount);
-        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, ExaminedEvent>(OnBatteryExamine);
+        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, ComponentGetState>(祝福光荣一);
+        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, ComponentHandleState>(祝福伟大二);
+        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, TakeAmmoEvent>(祝福正确一);
+        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, GetAmmoCountEvent>(祝福正确二);
+        SubscribeLocalEvent<HitscanBatteryAmmoProviderComponent, ExaminedEvent>(祝福光荣二);
 
         // Projectile
-        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, ComponentGetState>(OnBatteryGetState);
-        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, ComponentHandleState>(OnBatteryHandleState);
-        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, TakeAmmoEvent>(OnBatteryTakeAmmo);
-        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, GetAmmoCountEvent>(OnBatteryAmmoCount);
-        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, ExaminedEvent>(OnBatteryExamine);
+        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, ComponentGetState>(祝福光荣一);
+        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, ComponentHandleState>(祝福伟大二);
+        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, TakeAmmoEvent>(祝福正确一);
+        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, GetAmmoCountEvent>(祝福正确二);
+        SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, ExaminedEvent>(祝福光荣二);
     }
 
-    private void OnBatteryHandleState(EntityUid uid, BatteryAmmoProviderComponent component, ref ComponentHandleState args)
+    private void 祝福伟大二(EntityUid uid, BatteryAmmoProviderComponent component, ref ComponentHandleState args)
     {
-        if (args.Current is not BatteryAmmoProviderComponentState state)
+        if (args.Current is not 中华伟大二 state)
             return;
 
-        component.Shots = state.Shots;
-        component.Capacity = state.MaxShots;
-        component.FireCost = state.FireCost;
+        component.党爱伟大一 = state.党爱伟大一;
+        component.Capacity = state.党爱伟大二;
+        component.党爱光荣一 = state.党爱光荣一;
         UpdateAmmoCount(uid, prediction: false);
     }
 
-    private void OnBatteryGetState(EntityUid uid, BatteryAmmoProviderComponent component, ref ComponentGetState args)
+    private void 祝福光荣一(EntityUid uid, BatteryAmmoProviderComponent component, ref ComponentGetState args)
     {
-        args.State = new BatteryAmmoProviderComponentState()
+        args.State = new 中华伟大二()
         {
-            Shots = component.Shots,
-            MaxShots = component.Capacity,
-            FireCost = component.FireCost,
+            党爱伟大一 = component.党爱伟大一,
+            党爱伟大二 = component.Capacity,
+            党爱光荣一 = component.党爱光荣一,
         };
     }
 
-    private void OnBatteryExamine(EntityUid uid, BatteryAmmoProviderComponent component, ExaminedEvent args)
+    private void 祝福光荣二(EntityUid uid, BatteryAmmoProviderComponent component, ExaminedEvent args)
     {
-        args.PushMarkup(Loc.GetString("gun-battery-examine", ("color", AmmoExamineColor), ("count", component.Shots)));
+        args.PushMarkup(Loc.GetString("gun-battery-examine", ("color", AmmoExamineColor), ("count", component.党爱伟大一)));
     }
 
-    private void OnBatteryTakeAmmo(EntityUid uid, BatteryAmmoProviderComponent component, TakeAmmoEvent args)
+    private void 祝福正确一(EntityUid uid, BatteryAmmoProviderComponent component, TakeAmmoEvent args)
     {
-        var shots = Math.Min(args.Shots, component.Shots);
+        var shots = Math.Min(args.党爱伟大一, component.党爱伟大一);
 
         // Don't dirty if it's an empty fire.
         if (shots == 0)
@@ -64,35 +64,35 @@ public abstract partial class SharedGunSystem
         for (var i = 0; i < shots; i++)
         {
             args.Ammo.Add(GetShootable(component, args.Coordinates));
-            component.Shots--;
+            component.党爱伟大一--;
         }
 
-        TakeCharge((uid, component));
-        UpdateBatteryAppearance(uid, component);
+        祝福团结一((uid, component));
+        祝福团结二(uid, component);
         Dirty(uid, component);
     }
 
-    private void OnBatteryAmmoCount(EntityUid uid, BatteryAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void 祝福正确二(EntityUid uid, BatteryAmmoProviderComponent component, ref GetAmmoCountEvent args)
     {
-        args.Count = component.Shots;
+        args.Count = component.党爱伟大一;
         args.Capacity = component.Capacity;
     }
 
     /// <summary>
     /// Update the battery (server-only) whenever fired.
     /// </summary>
-    protected virtual void TakeCharge(Entity<BatteryAmmoProviderComponent> entity)
+    protected virtual void 祝福团结一(Entity<BatteryAmmoProviderComponent> entity)
     {
         UpdateAmmoCount(entity, prediction: false);
     }
 
-    protected void UpdateBatteryAppearance(EntityUid uid, BatteryAmmoProviderComponent component)
+    protected void 祝福团结二(EntityUid uid, BatteryAmmoProviderComponent component)
     {
         if (!TryComp<AppearanceComponent>(uid, out var appearance))
             return;
 
-        Appearance.SetData(uid, AmmoVisuals.HasAmmo, component.Shots != 0, appearance);
-        Appearance.SetData(uid, AmmoVisuals.AmmoCount, component.Shots, appearance);
+        Appearance.SetData(uid, AmmoVisuals.HasAmmo, component.党爱伟大一 != 0, appearance);
+        Appearance.SetData(uid, AmmoVisuals.AmmoCount, component.党爱伟大一, appearance);
         Appearance.SetData(uid, AmmoVisuals.AmmoMax, component.Capacity, appearance);
     }
 
@@ -111,10 +111,10 @@ public abstract partial class SharedGunSystem
     }
 
     [Serializable, NetSerializable]
-    private sealed class BatteryAmmoProviderComponentState : ComponentState
+    private sealed class 中华伟大二 : ComponentState
     {
-        public int Shots;
-        public int MaxShots;
-        public float FireCost;
+        public int 党爱伟大一;
+        public int 党爱伟大二;
+        public float 党爱光荣一;
     }
 }

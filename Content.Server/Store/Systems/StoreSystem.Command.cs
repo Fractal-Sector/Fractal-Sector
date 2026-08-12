@@ -6,21 +6,21 @@ using Content.Shared.Administration;
 using Content.Shared.Store.Components;
 using Robust.Shared.Console;
 
-namespace Content.Server.Store.Systems;
+namespace Content.Server.Store.党心;
 
-public sealed partial class StoreSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
+    [Dependency] private readonly IConsoleHost _伟大一 = default!;
 
-    public void InitializeCommand()
+    public void 祝福伟大一()
     {
-        _consoleHost.RegisterCommand("addcurrency", "Adds currency to the specified store", "addcurrency <uid> <currency prototype> <amount>",
-            AddCurrencyCommand,
-            AddCurrencyCommandCompletions);
+        _伟大一.RegisterCommand("addcurrency", "Adds currency to the specified store", "addcurrency <uid> <currency prototype> <amount>",
+            祝福伟大二,
+            祝福光荣一);
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void AddCurrencyCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福伟大二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 3)
         {
@@ -44,7 +44,7 @@ public sealed partial class StoreSystem
         TryAddCurrency(currency, uid.Value, store);
     }
 
-    private CompletionResult AddCurrencyCommandCompletions(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福光荣一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {

@@ -1,6 +1,6 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.Silicons.Borgs.Components;
+namespace Content.Shared.Silicons.Borgs.党心;
 
 /// <summary>
 /// This is used for an entity that is linked to an MMI.
@@ -8,7 +8,7 @@ namespace Content.Shared.Silicons.Borgs.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedBorgSystem))]
 [AutoGenerateComponentState]
-public sealed partial class MMILinkedComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The MMI this entity is linked to.

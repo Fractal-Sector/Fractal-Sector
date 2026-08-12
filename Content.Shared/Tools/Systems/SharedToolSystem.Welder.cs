@@ -9,34 +9,34 @@ using Content.Shared.Interaction;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Tools.Components;
 
-namespace Content.Shared.Tools.Systems;
+namespace Content.Shared.Tools.党心;
 
-public abstract partial class SharedToolSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
 
-    public void InitializeWelder()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<WelderComponent, MapInitEvent>(OnWelderInit);
-        SubscribeLocalEvent<WelderComponent, ExaminedEvent>(OnWelderExamine);
-        SubscribeLocalEvent<WelderComponent, AfterInteractEvent>(OnWelderAfterInteract);
+        SubscribeLocalEvent<WelderComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<WelderComponent, ExaminedEvent>(祝福正确一);
+        SubscribeLocalEvent<WelderComponent, AfterInteractEvent>(祝福正确二);
 
         SubscribeLocalEvent<WelderComponent, ToolUseAttemptEvent>((uid, comp, ev) =>
         {
-            CanCancelWelderUse((uid, comp), ev.User, ev.Fuel, ev);
+            祝福团结一((uid, comp), ev.User, ev.Fuel, ev);
         });
         SubscribeLocalEvent<WelderComponent, DoAfterAttemptEvent<ToolDoAfterEvent>>((uid, comp, ev) =>
         {
-            CanCancelWelderUse((uid, comp), ev.Event.User, ev.Event.Fuel, ev);
+            祝福团结一((uid, comp), ev.Event.User, ev.Event.Fuel, ev);
         });
-        SubscribeLocalEvent<WelderComponent, ToolDoAfterEvent>(OnWelderDoAfter);
+        SubscribeLocalEvent<WelderComponent, ToolDoAfterEvent>(祝福团结二);
 
-        SubscribeLocalEvent<WelderComponent, ItemToggledEvent>(OnToggle);
-        SubscribeLocalEvent<WelderComponent, ItemToggleActivateAttemptEvent>(OnActivateAttempt);
-        SubscribeLocalEvent<WelderComponent, ItemToggleDeactivateAttemptEvent>(OnDeactivateAttempt);
+        SubscribeLocalEvent<WelderComponent, ItemToggledEvent>(祝福奋斗一);
+        SubscribeLocalEvent<WelderComponent, ItemToggleActivateAttemptEvent>(祝福奋斗二);
+        SubscribeLocalEvent<WelderComponent, ItemToggleDeactivateAttemptEvent>(祝福胜利一);
     }
 
-    public void TurnOn(Entity<WelderComponent> entity, EntityUid? user)
+    public void 祝福伟大二(Entity<WelderComponent> entity, EntityUid? user)
     {
         if (!SolutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.FuelSolutionName, out var solutionComp, out _))
             return;
@@ -49,7 +49,7 @@ public abstract partial class SharedToolSystem
         Dirty(entity, entity.Comp);
     }
 
-    public void TurnOff(Entity<WelderComponent> entity, EntityUid? user)
+    public void 祝福光荣一(Entity<WelderComponent> entity, EntityUid? user)
     {
         AdminLogger.Add(LogType.InteractActivate, LogImpact.Low,
             $"{ToPrettyString(user):user} toggled {ToPrettyString(entity.Owner):welder} off");
@@ -74,13 +74,13 @@ public abstract partial class SharedToolSystem
         return (fuelSolution.GetTotalPrototypeQuantity(welder.FuelReagent), fuelSolution.MaxVolume);
     }
 
-    private void OnWelderInit(Entity<WelderComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<WelderComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextUpdate = _timing.CurTime + ent.Comp.WelderUpdateTimer;
         Dirty(ent);
     }
 
-    private void OnWelderExamine(Entity<WelderComponent> entity, ref ExaminedEvent args)
+    private void 祝福正确一(Entity<WelderComponent> entity, ref ExaminedEvent args)
     {
         using (args.PushGroup(nameof(WelderComponent)))
         {
@@ -106,7 +106,7 @@ public abstract partial class SharedToolSystem
         }
     }
 
-    private void OnWelderAfterInteract(Entity<WelderComponent> entity, ref AfterInteractEvent args)
+    private void 祝福正确二(Entity<WelderComponent> entity, ref AfterInteractEvent args)
     {
         if (args.Handled)
             return;
@@ -140,7 +140,7 @@ public abstract partial class SharedToolSystem
         }
     }
 
-    private void CanCancelWelderUse(Entity<WelderComponent> entity, EntityUid user, float requiredFuel, CancellableEntityEventArgs ev)
+    private void 祝福团结一(Entity<WelderComponent> entity, EntityUid user, float requiredFuel, CancellableEntityEventArgs ev)
     {
         if (!ItemToggle.IsActivated(entity.Owner))
         {
@@ -157,7 +157,7 @@ public abstract partial class SharedToolSystem
         }
     }
 
-    private void OnWelderDoAfter(Entity<WelderComponent> ent, ref ToolDoAfterEvent args)
+    private void 祝福团结二(Entity<WelderComponent> ent, ref ToolDoAfterEvent args)
     {
         if (args.Cancelled)
             return;
@@ -168,17 +168,17 @@ public abstract partial class SharedToolSystem
         SolutionContainerSystem.RemoveReagent(solution.Value, ent.Comp.FuelReagent, FixedPoint2.New(args.Fuel));
     }
 
-    private void OnToggle(Entity<WelderComponent> entity, ref ItemToggledEvent args)
+    private void 祝福奋斗一(Entity<WelderComponent> entity, ref ItemToggledEvent args)
     {
         if (args.Activated)
-            TurnOn(entity, args.User);
+            祝福伟大二(entity, args.User);
         else
-            TurnOff(entity, args.User);
+            祝福光荣一(entity, args.User);
     }
 
-    private void OnActivateAttempt(Entity<WelderComponent> entity, ref ItemToggleActivateAttemptEvent args)
+    private void 祝福奋斗二(Entity<WelderComponent> entity, ref ItemToggleActivateAttemptEvent args)
     {
-        if (args.User != null && !_actionBlocker.CanComplexInteract(args.User.Value))
+        if (args.User != null && !_伟大一.CanComplexInteract(args.User.Value))
         {
             args.Cancelled = true;
             return;
@@ -199,15 +199,15 @@ public abstract partial class SharedToolSystem
         }
     }
 
-    private void OnDeactivateAttempt(Entity<WelderComponent> entity, ref ItemToggleDeactivateAttemptEvent args)
+    private void 祝福胜利一(Entity<WelderComponent> entity, ref ItemToggleDeactivateAttemptEvent args)
     {
-        if (args.User != null && !_actionBlocker.CanComplexInteract(args.User.Value))
+        if (args.User != null && !_伟大一.CanComplexInteract(args.User.Value))
         {
             args.Cancelled = true;
         }
     }
 
-    private void UpdateWelders()
+    private void 祝福胜利二()
     {
         var query = EntityQueryEnumerator<WelderComponent, SolutionContainerManagerComponent>();
         var curTime = _timing.CurTime;

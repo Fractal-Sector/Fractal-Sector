@@ -7,19 +7,19 @@ using Content.Shared.Maps;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 
-namespace Content.Server._NF.CrateMachine;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// The crate machine system can be used to make a crate machine open and spawn crates.
 /// When calling <see cref="OpenFor"/>, the machine will open the door and give a callback to the given
 /// </summary>
-public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
+public sealed partial class 中华伟大一 : SharedCrateMachineSystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly EntityStorageSystem _storage = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly IMapManager _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly EntityStorageSystem _光荣一 = default!;
+    [Dependency] private readonly TransformSystem _光荣二 = default!;
+    [Dependency] private readonly TurfSystem _正确一 = default!;
 
     /// <summary>
     /// Checks if there is a crate on the crate machine.
@@ -28,11 +28,11 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// <param name="component">The crate machine component</param>
     /// <param name="ignoreAnimation">Ignores animation checks</param>
     /// <returns>False if not occupied, true if it is.</returns>
-    public bool IsOccupied(EntityUid crateMachineUid, CrateMachineComponent component, bool ignoreAnimation = false)
+    public bool 祝福伟大一(EntityUid crateMachineUid, CrateMachineComponent component, bool ignoreAnimation = false)
     {
         if (!TryComp(crateMachineUid, out TransformComponent? crateMachineTransform))
             return true;
-        var tileRef = _turf.GetTileRef(crateMachineTransform.Coordinates);
+        var tileRef = _正确一.GetTileRef(crateMachineTransform.Coordinates);
         if (tileRef == null)
             return true;
 
@@ -40,7 +40,7 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
             return true;
 
         // Finally check if there is a crate intersecting the crate machine.
-        return _lookup.GetLocalEntitiesIntersecting(tileRef.Value, flags: LookupFlags.All | LookupFlags.Approximate)
+        return _伟大二.GetLocalEntitiesIntersecting(tileRef.Value, flags: LookupFlags.All | LookupFlags.Approximate)
             .Any(entity => MetaData(entity).EntityPrototype?.ID ==
                            component.CratePrototype);
     }
@@ -52,7 +52,7 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// <param name="maxDistance">The maximum distance to search for a crate machine</param>
     /// <param name="machineUid">The Uid of the nearest unoccupied crate machine, or null if none found</param>
     /// <returns>True if a crate machine was found, false if not</returns>
-    public bool FindNearestUnoccupied(EntityUid from, int maxDistance, [NotNullWhen(true)] out EntityUid? machineUid)
+    public bool 祝福伟大二(EntityUid from, int maxDistance, [NotNullWhen(true)] out EntityUid? machineUid)
     {
         machineUid = null;
 
@@ -73,8 +73,8 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
             if (compXform.GridUid != fromXform.GridUid)
                 continue;
 
-            var isTooFarAway = !_transform.InRange(compXform.Coordinates, fromXform.Coordinates, maxDistance);
-            var isBusy = IsOccupied(crateMachineUid, comp);
+            var isTooFarAway = !_光荣二.InRange(compXform.Coordinates, fromXform.Coordinates, maxDistance);
+            var isBusy = 祝福伟大一(crateMachineUid, comp);
 
             if (!compXform.Anchored || isTooFarAway || isBusy)
             {
@@ -94,7 +94,7 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// <param name="uid">The Uid of the crate machine</param>
     /// <param name="component">The crate machine component</param>
     /// <returns>The Uid of the spawned crate</returns>
-    public EntityUid SpawnCrate(EntityUid uid, CrateMachineComponent component)
+    public EntityUid 祝福光荣一(EntityUid uid, CrateMachineComponent component)
     {
         return Spawn(component.CratePrototype, Transform(uid).Coordinates);
     }
@@ -105,8 +105,8 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// </summary>
     /// <param name="uid">The Uid of the crate machine</param>
     /// <param name="container">The Uid of the container</param>
-    public void InsertIntoCrate(EntityUid uid, EntityUid container)
+    public void 祝福光荣二(EntityUid uid, EntityUid container)
     {
-        _storage.Insert(uid, container);
+        _光荣一.Insert(uid, container);
     }
 }

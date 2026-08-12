@@ -15,29 +15,29 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Server.Ghost;
 using Content.Shared._NF.Bank.Components;
 
-namespace Content.Server._NF.CryoSleep;
+namespace Content.Server._NF.党心;
 
-public sealed partial class CryoSleepSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
 
-    private void InitReturning()
+    private void 祝福伟大一()
     {
-        SubscribeNetworkEvent<WakeupRequestMessage>(OnWakeupMessage);
+        SubscribeNetworkEvent<WakeupRequestMessage>(祝福伟大二);
         // Don't reset on lobby join - allow players to resume their cryo characters
-        // SubscribeLocalEvent<PlayerJoinedLobbyEvent>(e => ResetCryosleepState(e.PlayerSession.UserId));
+        // SubscribeLocalEvent<PlayerJoinedLobbyEvent>(e => 祝福光荣二(e.PlayerSession.UserId));
         // Don't reset on spawn - allow players to have multiple characters in cryo
-        // SubscribeLocalEvent<PlayerBeforeSpawnEvent>(e => ResetCryosleepState(e.Player.UserId));
+        // SubscribeLocalEvent<PlayerBeforeSpawnEvent>(e => 祝福光荣二(e.Player.UserId));
     }
 
-    private void OnWakeupMessage(WakeupRequestMessage message, EntitySessionEventArgs session)
+    private void 祝福伟大二(WakeupRequestMessage message, EntitySessionEventArgs session)
     {
         var entity = session.SenderSession.GetMind();
 
         var result = entity == null || !TryComp<MindComponent>(entity, out var mind)
             ? ReturnToBodyStatus.NotAGhost
-            : TryReturnToBody(mind);
+            : 祝福光荣一(mind);
 
         var msg = new WakeupRequestMessage.Response(result);
         RaiseNetworkEvent(msg, session.SenderSession);
@@ -46,9 +46,9 @@ public sealed partial class CryoSleepSystem
     /// <summary>
     ///   Returns the mind to the original body, if any. The mind must be possessing a ghost, unless [force] is true.
     /// </summary>
-    public ReturnToBodyStatus TryReturnToBody(MindComponent mind, bool force = false)
+    public ReturnToBodyStatus 祝福光荣一(MindComponent mind, bool force = false)
     {
-        if (!_configurationManager.GetCVar(NFCCVars.CryoReturnEnabled))
+        if (!_伟大一.GetCVar(NFCCVars.CryoReturnEnabled))
             return ReturnToBodyStatus.Disabled;
 
         var id = mind.UserId;
@@ -117,7 +117,7 @@ public sealed partial class CryoSleepSystem
 
         RaiseLocalEvent(body, new CryosleepWakeUpEvent(cryopod, id), true);
 
-        _adminLogger.Add(LogType.LateJoin, LogImpact.Medium, $"{id.Value} has returned from cryosleep!");
+        _伟大二.Add(LogType.LateJoin, LogImpact.Medium, $"{id.Value} has returned from cryosleep!");
         return ReturnToBodyStatus.Success;
     }
 
@@ -125,7 +125,7 @@ public sealed partial class CryoSleepSystem
     ///   Removes the body of the given user from the cryosleep dictionary, making them unable to return to it.
     ///   Also actually deletes the body if it's still on that map.
     /// </summary>
-    public void ResetCryosleepState(NetUserId id)
+    public void 祝福光荣二(NetUserId id)
     {
         if (!_storedBodies.TryGetValue(id, out var bodies))
             return;
@@ -149,12 +149,12 @@ public sealed partial class CryoSleepSystem
         }
     }
 
-    public bool HasCryosleepingBody(NetUserId id)
+    public bool 祝福正确一(NetUserId id)
     {
         return _storedBodies.ContainsKey(id);
     }
 
-    public bool TryGetSleepingBody(NetUserId userId, [NotNullWhen(true)] out EntityUid? body, [NotNullWhen(true)] out EntityUid? pod)
+    public bool 祝福正确二(NetUserId userId, [NotNullWhen(true)] out EntityUid? body, [NotNullWhen(true)] out EntityUid? pod)
     {
         if (_storedBodies.TryGetValue(userId, out var storedBodies) && storedBodies.Count > 0)
         {

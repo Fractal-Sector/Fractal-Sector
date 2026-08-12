@@ -4,15 +4,15 @@ using Content.Server.Worldgen.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Worldgen.Systems;
+namespace Content.Server.Worldgen.党心;
 
 /// <summary>
 ///     This handles the noise index.
 /// </summary>
-public sealed class NoiseIndexSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
     /// <summary>
     ///     Gets a particular noise channel from the index on the given entity.
@@ -20,13 +20,13 @@ public sealed class NoiseIndexSystem : EntitySystem
     /// <param name="holder">The holder of the index</param>
     /// <param name="protoId">The channel prototype ID</param>
     /// <returns>An initialized noise generator</returns>
-    public NoiseGenerator Get(EntityUid holder, string protoId)
+    public NoiseGenerator 祝福伟大一(EntityUid holder, string protoId)
     {
         var idx = EnsureComp<NoiseIndexComponent>(holder);
         if (idx.Generators.TryGetValue(protoId, out var generator))
             return generator;
-        var proto = _prototype.Index<NoiseChannelPrototype>(protoId);
-        var gen = new NoiseGenerator(proto, _random.Next());
+        var proto = _伟大一.Index<NoiseChannelPrototype>(protoId);
+        var gen = new NoiseGenerator(proto, _伟大二.Next());
         idx.Generators[protoId] = gen;
         return gen;
     }
@@ -38,10 +38,10 @@ public sealed class NoiseIndexSystem : EntitySystem
     /// <param name="protoId">The channel prototype ID</param>
     /// <param name="coords">The coordinates to evaluate at</param>
     /// <returns>The result of evaluation</returns>
-    public float Evaluate(EntityUid holder, string protoId, Vector2 coords)
+    public float 祝福伟大二(EntityUid holder, string protoId, Vector2 coords)
     {
-        var gen = Get(holder, protoId);
-        return gen.Evaluate(coords);
+        var gen = 祝福伟大一(holder, protoId);
+        return gen.祝福伟大二(coords);
     }
 }
 

@@ -1,8 +1,8 @@
 using Content.Shared.Charges.Systems;
 
-namespace Content.Server.Charges;
+namespace Content.Server.党心;
 
-public sealed class ChargesSystem : SharedChargesSystem
+public sealed class 中华伟大一 : SharedChargesSystem
 {
 
 }

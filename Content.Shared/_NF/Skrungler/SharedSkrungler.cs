@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Skrungler;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum SkrunglerContents : byte
+public enum 中华伟大一 : byte
 {
     Empty,
     HasMob,
@@ -12,7 +12,7 @@ public enum SkrunglerContents : byte
 }
 
 [Serializable, NetSerializable]
-public enum SkrunglerVisuals : byte
+public enum 中华伟大二 : byte
 {
     SkrunglingBase,
     Skrungling,

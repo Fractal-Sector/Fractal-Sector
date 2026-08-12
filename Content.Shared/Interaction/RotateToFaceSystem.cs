@@ -4,7 +4,7 @@ using Content.Shared.Buckle.Components;
 using Content.Shared.Rotatable;
 using JetBrains.Annotations;
 
-namespace Content.Shared.Interaction
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Contains common code used to rotate a player to face a given target or direction.
@@ -13,15 +13,15 @@ namespace Content.Shared.Interaction
     /// Doesn't really fit with SharedInteractionSystem so it's not there.
     /// </summary>
     [UsedImplicitly]
-    public sealed class RotateToFaceSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+        [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
         /// <summary>
         /// Tries to rotate the entity towards the target rotation. Returns false if it needs to keep rotating.
         /// </summary>
-        public bool TryRotateTo(EntityUid uid,
+        public bool 祝福伟大一(EntityUid uid,
             Angle goalRotation,
             float frameTime,
             Angle tolerance,
@@ -35,7 +35,7 @@ namespace Content.Shared.Interaction
             // We'll rotate even if we can't shoot, looks better.
             if (rotationSpeed < float.MaxValue)
             {
-                var worldRot = _transform.GetWorldRotation(xform);
+                var worldRot = _伟大二.GetWorldRotation(xform);
 
                 var rotationDiff = Angle.ShortestDistance(worldRot, goalRotation).Theta;
                 var maxRotate = rotationSpeed * frameTime;
@@ -43,7 +43,7 @@ namespace Content.Shared.Interaction
                 if (Math.Abs(rotationDiff) > maxRotate)
                 {
                     var goalTheta = worldRot + Math.Sign(rotationDiff) * maxRotate;
-                    TryFaceAngle(uid, goalTheta, xform);
+                    祝福光荣一(uid, goalTheta, xform);
                     rotationDiff = (goalRotation - goalTheta);
 
                     if (Math.Abs(rotationDiff) > tolerance)
@@ -54,32 +54,32 @@ namespace Content.Shared.Interaction
                     return true;
                 }
 
-                TryFaceAngle(uid, goalRotation, xform);
+                祝福光荣一(uid, goalRotation, xform);
             }
             else
             {
-                TryFaceAngle(uid, goalRotation, xform);
+                祝福光荣一(uid, goalRotation, xform);
             }
 
             return true;
         }
 
-        public bool TryFaceCoordinates(EntityUid user, Vector2 coordinates, TransformComponent? xform = null)
+        public bool 祝福伟大二(EntityUid user, Vector2 coordinates, TransformComponent? xform = null)
         {
             if (!Resolve(user, ref xform))
                 return false;
 
-            var diff = coordinates - _transform.GetMapCoordinates(user, xform: xform).Position;
+            var diff = coordinates - _伟大二.GetMapCoordinates(user, xform: xform).Position;
             if (diff.LengthSquared() <= 0.01f)
                 return true;
 
             var diffAngle = Angle.FromWorldVec(diff);
-            return TryFaceAngle(user, diffAngle);
+            return 祝福光荣一(user, diffAngle);
         }
 
-        public bool TryFaceAngle(EntityUid user, Angle diffAngle, TransformComponent? xform = null)
+        public bool 祝福光荣一(EntityUid user, Angle diffAngle, TransformComponent? xform = null)
         {
-            if (!_actionBlockerSystem.CanChangeDirection(user))
+            if (!_伟大一.CanChangeDirection(user))
                 return false;
 
             if (TryComp(user, out BuckleComponent? buckle) && buckle.BuckledTo is {} strap)
@@ -95,7 +95,7 @@ namespace Content.Shared.Interaction
                 // (Since the user being buckled to it holds it down with their weight.)
                 // This is logically equivalent to RotateWhileAnchored.
                 // Barstools and office chairs have independent wheels, while regular chairs don't.
-                _transform.SetWorldRotation(Transform(strap), diffAngle);
+                _伟大二.SetWorldRotation(Transform(strap), diffAngle);
                 return true;
             }
 
@@ -103,7 +103,7 @@ namespace Content.Shared.Interaction
             if (!Resolve(user, ref xform))
                 return false;
 
-            _transform.SetWorldRotation(xform, diffAngle);
+            _伟大二.SetWorldRotation(xform, diffAngle);
             return true;
         }
     }

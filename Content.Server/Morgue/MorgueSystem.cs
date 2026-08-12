@@ -4,34 +4,34 @@ using Content.Shared.Storage.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Morgue;
+namespace Content.Server.党心;
 
-public sealed class MorgueSystem : SharedMorgueSystem
+public sealed class 中华伟大一 : SharedMorgueSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MorgueComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<MorgueComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<MorgueComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<MorgueComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextBeep = _timing.CurTime + ent.Comp.NextBeep;
+        ent.Comp.NextBeep = _伟大一.CurTime + ent.Comp.NextBeep;
     }
 
     /// <summary>
     /// Handles the periodic beeping that morgues do when a live body is inside.
     /// </summary>
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         var query = EntityQueryEnumerator<MorgueComponent, EntityStorageComponent, AppearanceComponent>();
         while (query.MoveNext(out var uid, out var comp, out var storage, out var appearance))
         {
@@ -42,9 +42,9 @@ public sealed class MorgueSystem : SharedMorgueSystem
 
             CheckContents(uid, comp, storage);
 
-            if (comp.DoSoulBeep && _appearance.TryGetData<MorgueContents>(uid, MorgueVisuals.Contents, out var contents, appearance) && contents == MorgueContents.HasSoul)
+            if (comp.DoSoulBeep && _伟大二.TryGetData<MorgueContents>(uid, MorgueVisuals.Contents, out var contents, appearance) && contents == MorgueContents.HasSoul)
             {
-                _audio.PlayPvs(comp.OccupantHasSoulAlarmSound, uid);
+                _光荣一.PlayPvs(comp.OccupantHasSoulAlarmSound, uid);
             }
         }
     }

@@ -3,12 +3,12 @@ using Content.Shared.Administration.Managers;
 using Robust.Shared.Player;
 using Robust.Shared.Toolshed;
 
-namespace Content.Server.Administration.Managers
+namespace Content.Server.Administration.党心
 {
     /// <summary>
     ///     Manages server administrators and their permission flags.
     /// </summary>
-    public interface IAdminManager : ISharedAdminManager
+    public interface 中华伟大一 : ISharedAdminManager
     {
         /// <summary>
         ///     Fired when the permissions of an admin on the server changed.

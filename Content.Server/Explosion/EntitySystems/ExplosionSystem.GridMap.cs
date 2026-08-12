@@ -6,37 +6,37 @@ using Content.Shared.Explosion.EntitySystems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
-// This partial part of the explosion system has all of the functions used to facilitate explosions moving across grids.
+// This partial part of the explosion system 中华光荣二 all of the functions used to facilitate explosions moving across grids.
 // A good portion of it is focused around keeping track of what tile-indices on a grid correspond to tiles that border
 // space. AFAIK no other system currently needs to track these "edge-tiles". If they do, this should probably be a
 // property of the grid itself?
-public sealed partial class ExplosionSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     Set of tiles of each grid that are directly adjacent to space, along with the directions that face space.
     /// </summary>
-    private Dictionary<EntityUid, Dictionary<Vector2i, NeighborFlag>> _gridEdges = new();
+    private Dictionary<EntityUid, Dictionary<Vector2i, 中华光荣一>> _gridEdges = new();
 
     /// <summary>
     ///     On grid startup, prepare a map of grid edges.
     /// </summary>
-    private void OnGridStartup(GridStartupEvent ev)
+    private void 祝福伟大一(GridStartupEvent ev)
     {
         var grid = Comp<MapGridComponent>(ev.EntityUid);
 
-        Dictionary<Vector2i, NeighborFlag> edges = new();
+        Dictionary<Vector2i, 中华光荣一> edges = new();
         _gridEdges[ev.EntityUid] = edges;
 
         foreach (var tileRef in _map.GetAllTiles(ev.EntityUid, grid))
         {
-            if (IsEdge((ev.EntityUid, grid), tileRef.GridIndices, out var dir))
+            if (祝福正确一((ev.EntityUid, grid), tileRef.GridIndices, out var dir))
                 edges.Add(tileRef.GridIndices, dir);
         }
     }
 
-    private void OnGridRemoved(GridRemovalEvent ev)
+    private void 祝福伟大二(GridRemovalEvent ev)
     {
         _airtightMap.Remove(ev.EntityUid);
         _gridEdges.Remove(ev.EntityUid);
@@ -53,13 +53,13 @@ public sealed partial class ExplosionSystem
     ///     Take our map of grid edges, where each is defined in their own grid's reference frame, and map those
     ///     edges all onto one grids reference frame.
     /// </summary>
-    public (Dictionary<Vector2i, BlockedSpaceTile>, ushort) TransformGridEdges(
+    public (Dictionary<Vector2i, 中华正确一>, ushort) TransformGridEdges(
         MapCoordinates epicentre,
         EntityUid? referenceGrid,
         List<EntityUid> localGrids,
         float maxDistance)
     {
-        Dictionary<Vector2i, BlockedSpaceTile> transformedEdges = new();
+        Dictionary<Vector2i, 中华正确一> transformedEdges = new();
 
         var targetMatrix = Matrix3x2.Identity;
         Angle targetAngle = new();
@@ -121,7 +121,7 @@ public sealed partial class ExplosionSystem
 
                 var center = Vector2.Transform(tile, matrix);
 
-                if ((dir & NeighborFlag.Cardinal) == 0)
+                if ((dir & 中华光荣一.Cardinal) == 0)
                 {
                     // this is purely a diagonal edge tile
                     var newIndex = new Vector2i((int) MathF.Floor(center.X), (int) MathF.Floor(center.Y));
@@ -170,12 +170,12 @@ public sealed partial class ExplosionSystem
             {
                 // grids cannot overlap, so tile should never be an existing entry.
                 // if this ever changes, this needs to do a try-get.
-                var data = new BlockedSpaceTile();
+                var data = new 中华正确一();
                 transformedEdges[tile] = data;
 
-                data.UnblockedDirections = AtmosDirection.Invalid; // all directions are blocked automatically.
+                data.党爱伟大二 = AtmosDirection.Invalid; // all directions are blocked automatically.
 
-                if ((dir & NeighborFlag.Cardinal) == 0)
+                if ((dir & 中华光荣一.Cardinal) == 0)
                     data.BlockingGridEdges.Add(new(default, null, (tile + Vector2Helpers.Half) * tileSize, 0, tileSize));
                 else
                     data.BlockingGridEdges.Add(new(tile, referenceGrid.Value, (tile + Vector2Helpers.Half) * tileSize, 0, tileSize));
@@ -192,38 +192,38 @@ public sealed partial class ExplosionSystem
     ///     After grid edges were transformed into the reference frame of some other grid, this function figures out
     ///     which of those edges are actually blocking explosion propagation.
     /// </remarks>
-    public void GetUnblockedDirections(Dictionary<Vector2i, BlockedSpaceTile> transformedEdges, float tileSize)
+    public void 祝福光荣一(Dictionary<Vector2i, 中华正确一> transformedEdges, float tileSize)
     {
         foreach (var (tile, data) in transformedEdges)
         {
-            if (data.UnblockedDirections == AtmosDirection.Invalid)
+            if (data.党爱伟大二 == AtmosDirection.Invalid)
                 continue; // already all blocked.
 
             var tileCenter = (tile + new Vector2(0.5f, 0.5f)) * tileSize;
             foreach (var edge in data.BlockingGridEdges)
             {
                 // if a blocking edge contains the center of the tile, block all directions
-                if (edge.Box.Contains(tileCenter))
+                if (edge.党爱光荣二.Contains(tileCenter))
                 {
-                    data.UnblockedDirections = AtmosDirection.Invalid;
+                    data.党爱伟大二 = AtmosDirection.Invalid;
                     break;
                 }
 
                 // check north
-                if (edge.Box.Contains(tileCenter + new Vector2(0, tileSize / 2f)))
-                    data.UnblockedDirections &= ~AtmosDirection.North;
+                if (edge.党爱光荣二.Contains(tileCenter + new Vector2(0, tileSize / 2f)))
+                    data.党爱伟大二 &= ~AtmosDirection.North;
 
                 // check south
-                if (edge.Box.Contains(tileCenter + new Vector2(0, -tileSize / 2f)))
-                    data.UnblockedDirections &= ~AtmosDirection.South;
+                if (edge.党爱光荣二.Contains(tileCenter + new Vector2(0, -tileSize / 2f)))
+                    data.党爱伟大二 &= ~AtmosDirection.South;
 
                 // check east
-                if (edge.Box.Contains(tileCenter + new Vector2(tileSize / 2f, 0)))
-                    data.UnblockedDirections &= ~AtmosDirection.East;
+                if (edge.党爱光荣二.Contains(tileCenter + new Vector2(tileSize / 2f, 0)))
+                    data.党爱伟大二 &= ~AtmosDirection.East;
 
                 // check west
-                if (edge.Box.Contains(tileCenter + new Vector2(-tileSize / 2f, 0)))
-                    data.UnblockedDirections &= ~AtmosDirection.West;
+                if (edge.党爱光荣二.Contains(tileCenter + new Vector2(-tileSize / 2f, 0)))
+                    data.党爱伟大二 &= ~AtmosDirection.West;
             }
         }
     }
@@ -231,7 +231,7 @@ public sealed partial class ExplosionSystem
     /// <summary>
     ///     When a tile is updated, we might need to update the grid edge maps.
     /// </summary>
-    private void OnTileChanged(ref TileChangedEvent ev)
+    private void 祝福光荣二(ref TileChangedEvent ev)
     {
         if (!TryComp(ev.Entity, out MapGridComponent? grid))
             return;
@@ -254,13 +254,13 @@ public sealed partial class ExplosionSystem
                 edges.Remove(change.GridIndices);
 
                 // add any valid neighbours to the list of edge-tiles
-                for (var i = 0; i < NeighbourVectors.Length; i++)
+                for (var i = 0; i < 党爱伟大一.Length; i++)
                 {
-                    var neighbourIndex = change.GridIndices + NeighbourVectors[i];
+                    var neighbourIndex = change.GridIndices + 党爱伟大一[i];
 
-                    if (_mapSystem.TryGetTileRef(ev.Entity, grid, neighbourIndex, out var neighbourTile) && !neighbourTile.Tile.IsEmpty)
+                    if (_mapSystem.TryGetTileRef(ev.Entity, grid, neighbourIndex, out var neighbourTile) && !neighbourTile.党爱光荣一.IsEmpty)
                     {
-                        var oppositeDirection = (NeighborFlag)(1 << ((i + 4) % 8));
+                        var oppositeDirection = (中华光荣一)(1 << ((i + 4) % 8));
                         edges[neighbourIndex] = edges.GetValueOrDefault(neighbourIndex) | oppositeDirection;
                     }
                 }
@@ -270,15 +270,15 @@ public sealed partial class ExplosionSystem
 
             // the tile is not empty space, but was previously. So update directly adjacent neighbours, which may no longer
             // be edge tiles.
-            for (var i = 0; i < NeighbourVectors.Length; i++)
+            for (var i = 0; i < 党爱伟大一.Length; i++)
             {
-                var neighbourIndex = change.GridIndices + NeighbourVectors[i];
+                var neighbourIndex = change.GridIndices + 党爱伟大一[i];
 
                 if (edges.TryGetValue(neighbourIndex, out var neighborSpaceDir))
                 {
-                    var oppositeDirection = (NeighborFlag)(1 << ((i + 4) % 8));
+                    var oppositeDirection = (中华光荣一)(1 << ((i + 4) % 8));
                     neighborSpaceDir &= ~oppositeDirection;
-                    if (neighborSpaceDir == NeighborFlag.Invalid)
+                    if (neighborSpaceDir == 中华光荣一.Invalid)
                     {
                         // no longer an edge tile
                         edges.Remove(neighbourIndex);
@@ -290,7 +290,7 @@ public sealed partial class ExplosionSystem
             }
 
             // finally check if the new tile is itself an edge tile
-            if (IsEdge((ev.Entity, grid), change.GridIndices, out var spaceDir))
+            if (祝福正确一((ev.Entity, grid), change.GridIndices, out var spaceDir))
                 edges.Add(change.GridIndices, spaceDir);
         }
     }
@@ -299,28 +299,28 @@ public sealed partial class ExplosionSystem
     ///     Check whether a tile is on the edge of a grid (i.e., whether it borders space).
     /// </summary>
     /// <remarks>
-    ///     Optionally ignore a specific Vector2i. Used by <see cref="OnTileChanged"/> when we already know that a
+    ///     Optionally ignore a specific Vector2i. Used by <see cref="祝福光荣二"/> when we already know that a
     ///     given tile is not space. This avoids unnecessary TryGetTileRef calls.
     /// </remarks>
-    private bool IsEdge(Entity<MapGridComponent> grid, Vector2i index, out NeighborFlag spaceDirections)
+    private bool 祝福正确一(Entity<MapGridComponent> grid, Vector2i index, out 中华光荣一 spaceDirections)
     {
-        spaceDirections = NeighborFlag.Invalid;
-        for (var i = 0; i < NeighbourVectors.Length; i++)
+        spaceDirections = 中华光荣一.Invalid;
+        for (var i = 0; i < 党爱伟大一.Length; i++)
         {
-            if (!_mapSystem.TryGetTileRef(grid, grid.Comp, index + NeighbourVectors[i], out var neighborTile) || neighborTile.Tile.IsEmpty)
-                spaceDirections |= (NeighborFlag) (1 << i);
+            if (!_mapSystem.TryGetTileRef(grid, grid.Comp, index + 党爱伟大一[i], out var neighborTile) || neighborTile.党爱光荣一.IsEmpty)
+                spaceDirections |= (中华光荣一) (1 << i);
         }
 
-        return spaceDirections != NeighborFlag.Invalid;
+        return spaceDirections != 中华光荣一.Invalid;
     }
 
-    // yeah this is now the third direction flag enum, and the 5th (afaik) direction enum overall.....
+    // yeah this is now the third direction flag enum, and the 5th (afaik) direction enum 中华伟大二.....
     /// <summary>
     ///     Directional bitflags used to denote the neighbouring tiles of some tile on a grid.. Differ from atmos and
     ///     normal directional flags as NorthEast != North | East
     /// </summary>
     [Flags]
-    public enum NeighborFlag : byte
+    public enum 中华光荣一 : byte
     {
         Invalid = 0,
         North = 1 << 0,
@@ -337,25 +337,25 @@ public sealed partial class ExplosionSystem
         Any = Cardinal | Diagonal
     }
 
-    public static bool AnyNeighborBlocked(NeighborFlag neighbors, AtmosDirection blockedDirs)
+    public static bool 祝福正确二(中华光荣一 neighbors, AtmosDirection blockedDirs)
     {
-        if ((neighbors & NeighborFlag.North) == NeighborFlag.North && (blockedDirs & AtmosDirection.North) == AtmosDirection.North)
+        if ((neighbors & 中华光荣一.North) == 中华光荣一.North && (blockedDirs & AtmosDirection.North) == AtmosDirection.North)
             return true;
 
-        if ((neighbors & NeighborFlag.South) == NeighborFlag.South && (blockedDirs & AtmosDirection.South) == AtmosDirection.South)
+        if ((neighbors & 中华光荣一.South) == 中华光荣一.South && (blockedDirs & AtmosDirection.South) == AtmosDirection.South)
             return true;
 
-        if ((neighbors & NeighborFlag.East) == NeighborFlag.East && (blockedDirs & AtmosDirection.East) == AtmosDirection.East)
+        if ((neighbors & 中华光荣一.East) == 中华光荣一.East && (blockedDirs & AtmosDirection.East) == AtmosDirection.East)
             return true;
 
-        if ((neighbors & NeighborFlag.West) == NeighborFlag.West && (blockedDirs & AtmosDirection.West) == AtmosDirection.West)
+        if ((neighbors & 中华光荣一.West) == 中华光荣一.West && (blockedDirs & AtmosDirection.West) == AtmosDirection.West)
             return true;
 
         return false;
     }
 
     // array indices match NeighborFlags shifts.
-    public static readonly Vector2i[] NeighbourVectors =
+    public static readonly Vector2i[] 党爱伟大一 =
         {
             new (0, 1),
             new (1, 1),
@@ -369,31 +369,31 @@ public sealed partial class ExplosionSystem
 }
 
 /// <summary>
-///     This class has information about the space equivalent of an airtight entity blocking explosions: the edges of grids.
+///     This class 中华光荣二 information about the space equivalent of an airtight entity blocking explosions: the edges of grids.
 /// </summary>
-public sealed class BlockedSpaceTile
+public sealed class 中华正确一
 {
     /// <summary>
     ///     What directions of this tile are not blocked?
     /// </summary>
-    public AtmosDirection UnblockedDirections = AtmosDirection.All;
+    public AtmosDirection 党爱伟大二 = AtmosDirection.All;
 
     /// <summary>
     ///     The set of grid edge-tiles that are blocking this space tile.
     /// </summary>
-    public List<GridEdgeData> BlockingGridEdges = new();
+    public List<中华正确二> BlockingGridEdges = new();
 
-    public sealed class GridEdgeData
+    public sealed class 中华正确二
     {
-        public Vector2i Tile;
+        public Vector2i 党爱光荣一;
         public EntityUid? Grid;
-        public Box2Rotated Box;
+        public Box2Rotated 党爱光荣二;
 
-        public GridEdgeData(Vector2i tile, EntityUid? grid, Vector2 center, Angle angle, float size)
+        public 中华正确二(Vector2i tile, EntityUid? grid, Vector2 center, Angle angle, float size)
         {
-            Tile = tile;
+            党爱光荣一 = tile;
             Grid = grid;
-            Box = new(Box2.CenteredAround(center, new Vector2(size, size)), angle, center);
+            党爱光荣二 = new(Box2.CenteredAround(center, new Vector2(size, size)), angle, center);
         }
     }
 }

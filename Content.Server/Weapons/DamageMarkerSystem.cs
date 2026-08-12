@@ -1,8 +1,8 @@
 using Content.Shared.Weapons.Marker;
 
-namespace Content.Server.Weapons;
+namespace Content.Server.党心;
 
-public sealed class DamageMarkerSystem : SharedDamageMarkerSystem
+public sealed class 中华伟大一 : SharedDamageMarkerSystem
 {
 
 }

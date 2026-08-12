@@ -6,25 +6,25 @@ using Content.Shared.Silicons.Borgs;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Armor;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     This handles logic relating to <see cref="ArmorComponent" />
 /// </summary>
-public abstract class SharedArmorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly ExamineSystemShared _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ArmorComponent, InventoryRelayedEvent<CoefficientQueryEvent>>(OnCoefficientQuery);
-        SubscribeLocalEvent<ArmorComponent, InventoryRelayedEvent<DamageModifyEvent>>(OnDamageModify);
-        SubscribeLocalEvent<ArmorComponent, BorgModuleRelayedEvent<DamageModifyEvent>>(OnBorgDamageModify);
-        SubscribeLocalEvent<ArmorComponent, GetVerbsEvent<ExamineVerb>>(OnArmorVerbExamine);
+        SubscribeLocalEvent<ArmorComponent, InventoryRelayedEvent<CoefficientQueryEvent>>(祝福伟大二);
+        SubscribeLocalEvent<ArmorComponent, InventoryRelayedEvent<DamageModifyEvent>>(祝福光荣一);
+        SubscribeLocalEvent<ArmorComponent, BorgModuleRelayedEvent<DamageModifyEvent>>(祝福光荣二);
+        SubscribeLocalEvent<ArmorComponent, GetVerbsEvent<ExamineVerb>>(祝福正确一);
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public abstract class SharedArmorSystem : EntitySystem
     /// </summary>
     /// <param name="ent">The item that's being relayed to</param>
     /// <param name="args">The event, contains the running count of armor percentage as a coefficient</param>
-    private void OnCoefficientQuery(Entity<ArmorComponent> ent, ref InventoryRelayedEvent<CoefficientQueryEvent> args)
+    private void 祝福伟大二(Entity<ArmorComponent> ent, ref InventoryRelayedEvent<CoefficientQueryEvent> args)
     {
         foreach (var armorCoefficient in ent.Comp.Modifiers.Coefficients)
         {
@@ -40,18 +40,18 @@ public abstract class SharedArmorSystem : EntitySystem
         }
     }
 
-    private void OnDamageModify(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<DamageModifyEvent> args)
+    private void 祝福光荣一(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<DamageModifyEvent> args)
     {
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
     }
 
-    private void OnBorgDamageModify(EntityUid uid, ArmorComponent component,
+    private void 祝福光荣二(EntityUid uid, ArmorComponent component,
         ref BorgModuleRelayedEvent<DamageModifyEvent> args)
     {
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
     }
 
-    private void OnArmorVerbExamine(EntityUid uid, ArmorComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福正确一(EntityUid uid, ArmorComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess || !component.ShowArmorOnExamine)
             return;
@@ -63,12 +63,12 @@ public abstract class SharedArmorSystem : EntitySystem
             equippedModifiers = GetEquippedArmorModifiers(args.User, uid, clothingComp.Slots);
         }
 
-        var examineMarkup = GetArmorExamine(component.Modifiers, equippedModifiers);
+        var examineMarkup = 祝福正确二(component.Modifiers, equippedModifiers);
 
         var ev = new ArmorExamineEvent(examineMarkup);
         RaiseLocalEvent(uid, ref ev);
 
-        _examine.AddDetailedExamineVerb(args, component, examineMarkup,
+        _伟大一.AddDetailedExamineVerb(args, component, examineMarkup,
             Loc.GetString("armor-examinable-verb-text"), "/Textures/Interface/VerbIcons/dot.svg.192dpi.png",
             Loc.GetString("armor-examinable-verb-message"));
     }
@@ -80,7 +80,7 @@ public abstract class SharedArmorSystem : EntitySystem
     /// </summary>
     private DamageModifierSet? GetEquippedArmorModifiers(EntityUid user, EntityUid examinedItem, SlotFlags itemSlotFlags)
     {
-        if (itemSlotFlags == SlotFlags.NONE || !_inventory.TryGetSlots(user, out var slots))
+        if (itemSlotFlags == SlotFlags.NONE || !_伟大二.TryGetSlots(user, out var slots))
             return null;
 
         foreach (var slot in slots)
@@ -88,7 +88,7 @@ public abstract class SharedArmorSystem : EntitySystem
             if ((slot.SlotFlags & itemSlotFlags) == 0)
                 continue;
 
-            if (!_inventory.TryGetSlotEntity(user, slot.Name, out var equipped))
+            if (!_伟大二.TryGetSlotEntity(user, slot.Name, out var equipped))
                 continue;
 
             // Don't compare the item against itself if it's already being worn.
@@ -102,7 +102,7 @@ public abstract class SharedArmorSystem : EntitySystem
         return null;
     }
 
-    private FormattedMessage GetArmorExamine(DamageModifierSet armorModifiers, DamageModifierSet? equippedModifiers = null)
+    private FormattedMessage 祝福正确二(DamageModifierSet armorModifiers, DamageModifierSet? equippedModifiers = null)
     {
         var msg = new FormattedMessage();
         msg.AddMarkupOrThrow(Loc.GetString(equippedModifiers != null ? "armor-examine-compare" : "armor-examine"));

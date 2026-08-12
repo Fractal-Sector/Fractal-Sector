@@ -5,11 +5,11 @@ using Content.Shared.Projectiles;
 using Content.Shared.Singularity.Components;
 using Robust.Shared.Physics.Components;
 
-namespace Content.Server.ParticleAccelerator.EntitySystems;
+namespace Content.Server.ParticleAccelerator.党心;
 
-public sealed partial class ParticleAcceleratorSystem
+public sealed partial class 中华伟大一
 {
-    private void FireEmitter(EntityUid uid, ParticleAcceleratorPowerState strength, ParticleAcceleratorEmitterComponent? emitter = null)
+    private void 祝福伟大一(EntityUid uid, ParticleAcceleratorPowerState strength, ParticleAcceleratorEmitterComponent? emitter = null)
     {
         if (!Resolve(uid, ref emitter))
             return;

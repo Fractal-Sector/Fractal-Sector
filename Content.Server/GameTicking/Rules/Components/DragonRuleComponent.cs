@@ -1,4 +1,4 @@
-namespace Content.Server.GameTicking.Rules.Components;
+namespace Content.Server.GameTicking.Rules.党心;
 
 [RegisterComponent]
-public sealed partial class DragonRuleComponent : Component;
+public sealed partial class 中华伟大一 : Component;

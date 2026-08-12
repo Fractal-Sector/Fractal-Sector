@@ -8,68 +8,68 @@ using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking; // Intentionally colliding namespaces to extend the class
+namespace Content.Server.党心; // Intentionally colliding namespaces to extend the class
 
-public sealed partial class GameTicker
+中华伟大一 sealed partial class 中华伟大二
 {
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeManager = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    private bool _newPlayerGreetingEnabled = true;
-    private TimeSpan _newPlayerGreetingMaxTime = TimeSpan.FromMinutes(180);
-    private ProtoId<RadioChannelPrototype> _newPlayerRadioChannel = "Service";
-    private EntProtoId _greetingRadioSource = "GreetingRadioSource";
-    private EntityUid _greetingEntity = EntityUid.Invalid;
+    [Dependency] private readonly PlayTimeTrackingManager _伟大一 = default!;
+    [Dependency] private readonly RadioSystem _伟大二 = default!;
+    private bool _光荣一 = true;
+    private TimeSpan _光荣二 = TimeSpan.FromMinutes(180);
+    private ProtoId<RadioChannelPrototype> _正确一 = "Service";
+    private EntProtoId _正确二 = "GreetingRadioSource";
+    private EntityUid _团结一 = EntityUid.Invalid;
     private LoadoutPrototype? _newPlayerLoadoutPrototype = null;
 
-    public void NFInitialize()
+    中华伟大一 void NFInitialize()
     {
-        Subs.CVar(_cfg, NFCCVars.NewPlayerRadioGreetingEnabled, e => _newPlayerGreetingEnabled = e, true);
-        Subs.CVar(_cfg, NFCCVars.NewPlayerRadioGreetingMaxPlaytime, e => _newPlayerGreetingMaxTime = TimeSpan.FromMinutes(e), true);
-        Subs.CVar(_cfg, NFCCVars.NewPlayerRadioGreetingChannel, SetChannel, true);
-        Subs.CVar(_cfg, NFCCVars.NewPlayerStarterLoadout, SetLoadout, true);
+        Subs.CVar(_cfg, NFCCVars.NewPlayerRadioGreetingEnabled, e => _光荣一 = e, true);
+        Subs.CVar(_cfg, NFCCVars.NewPlayerRadioGreetingMaxPlaytime, e => _光荣二 = TimeSpan.FromMinutes(e), true);
+        Subs.CVar(_cfg, NFCCVars.NewPlayerRadioGreetingChannel, 祝福伟大一, true);
+        Subs.CVar(_cfg, NFCCVars.NewPlayerStarterLoadout, 祝福伟大二, true);
     }
 
-    private void SetChannel(string channel)
+    private void 祝福伟大一(string channel)
     {
         if (_prototypeManager.HasIndex<RadioChannelPrototype>(channel))
-            _newPlayerRadioChannel = channel;
+            _正确一 = channel;
     }
 
-    private void SetLoadout(string loadout)
+    private void 祝福伟大二(string loadout)
     {
         _prototypeManager.TryIndex<LoadoutPrototype>(loadout, out _newPlayerLoadoutPrototype);
     }
 
-    private void NFRoundStarted()
+    private void 祝福光荣一()
     {
-        _greetingEntity = Spawn(_greetingRadioSource, new MapCoordinates(Vector2.Zero, DefaultMap));
+        _团结一 = Spawn(_正确二, new MapCoordinates(Vector2.Zero, DefaultMap));
     }
 
-    private void NFRoundRestartCleanup()
+    private void 祝福光荣二()
     {
-        if (_greetingEntity != EntityUid.Invalid)
+        if (_团结一 != EntityUid.Invalid)
         {
-            QueueDel(_greetingEntity);
-            _greetingEntity = EntityUid.Invalid;
+            QueueDel(_团结一);
+            _团结一 = EntityUid.Invalid;
         }
     }
 
-    private void HandleGreetingMessage(ICommonSession session, EntityUid mob, EntityUid station)
+    private void 祝福正确一(ICommonSession session, EntityUid mob, EntityUid station)
     {
-        if (!_newPlayerGreetingEnabled)
+        if (!_光荣一)
             return;
 
         TimeSpan playtime;
         try
         {
-            playtime = _playTimeManager.GetOverallPlaytime(session);
+            playtime = _伟大一.GetOverallPlaytime(session);
         }
         catch (InvalidOperationException)
         {
             return;
         }
 
-        if (playtime < _newPlayerGreetingMaxTime)
+        if (playtime < _光荣二)
         {
             // Equip new player loadout if one is specified
             // Ordered before the radio message so the new player can see it, thus communicating that it exists
@@ -79,11 +79,11 @@ public sealed partial class GameTicker
                 _stationSpawning.TryAutoEquipMisc(mob, _newPlayerLoadoutPrototype);
             }
 
-            _radio.SendRadioMessage(_greetingEntity, Loc.GetString("latejoin-arrival-new-player-announcement",
+            _伟大二.SendRadioMessage(_团结一, Loc.GetString("latejoin-arrival-new-player-announcement",
                     ("character", MetaData(mob).EntityName),
                     ("station", station)),
-                    _newPlayerRadioChannel,
-                    _greetingEntity);
+                    _正确一,
+                    _团结一);
         }
     }
 }

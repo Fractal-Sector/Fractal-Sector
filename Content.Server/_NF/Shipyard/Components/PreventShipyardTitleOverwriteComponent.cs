@@ -1,6 +1,6 @@
-namespace Content.Server._NF.Shipyard.Components;
+namespace Content.Server._NF.Shipyard.党心;
 
 [RegisterComponent]
-public sealed partial class PreventShipyardTitleOverwriteComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

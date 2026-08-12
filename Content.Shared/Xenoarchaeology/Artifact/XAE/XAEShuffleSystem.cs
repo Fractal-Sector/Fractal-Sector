@@ -3,43 +3,43 @@ using Content.Shared.Xenoarchaeology.Artifact.XAE.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Xenoarchaeology.Artifact.XAE;
+namespace Content.Shared.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// System that handles mob entities spacial shuffling effect.
 /// </summary>
-public sealed class XAEShuffleSystem : BaseXAESystem<XAEShuffleComponent>
+public sealed class 中华伟大一 : BaseXAESystem<XAEShuffleComponent>
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
 
-    private EntityQuery<MobStateComponent> _mobState;
+    private EntityQuery<MobStateComponent> _正确一;
 
     /// <summary> Pre-allocated and re-used collection.</summary>
-    private readonly HashSet<EntityUid> _entities= new();
+    private readonly HashSet<EntityUid> _正确二= new();
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _mobState = GetEntityQuery<MobStateComponent>();
+        _正确一 = GetEntityQuery<MobStateComponent>();
     }
 
     /// <inheritdoc />
-    protected override void OnActivated(Entity<XAEShuffleComponent> ent, ref XenoArtifactNodeActivatedEvent args)
+    protected override void 祝福伟大二(Entity<XAEShuffleComponent> ent, ref XenoArtifactNodeActivatedEvent args)
     {
-        if(!_timing.IsFirstTimePredicted)
+        if(!_光荣二.IsFirstTimePredicted)
             return;
 
         List<Entity<TransformComponent>> toShuffle = new();
-        _entities.Clear();
-        _lookup.GetEntitiesInRange(ent.Owner, ent.Comp.Radius, _entities, LookupFlags.Dynamic | LookupFlags.Sundries);
-        foreach (var entity in _entities)
+        _正确二.Clear();
+        _伟大一.GetEntitiesInRange(ent.Owner, ent.Comp.Radius, _正确二, LookupFlags.Dynamic | LookupFlags.Sundries);
+        foreach (var entity in _正确二)
         {
-            if (!_mobState.HasComponent(entity))
+            if (!_正确一.HasComponent(entity))
                 continue;
 
             var xform = Transform(entity);
@@ -47,13 +47,13 @@ public sealed class XAEShuffleSystem : BaseXAESystem<XAEShuffleComponent>
             toShuffle.Add((entity, xform));
         }
 
-        _random.Shuffle(toShuffle);
+        _伟大二.Shuffle(toShuffle);
 
         while (toShuffle.Count > 1)
         {
-            var ent1 = _random.PickAndTake(toShuffle);
-            var ent2 = _random.PickAndTake(toShuffle);
-            _xform.SwapPositions((ent1, ent1), (ent2, ent2));
+            var ent1 = _伟大二.PickAndTake(toShuffle);
+            var ent2 = _伟大二.PickAndTake(toShuffle);
+            _光荣一.SwapPositions((ent1, ent1), (ent2, ent2));
         }
     }
 }

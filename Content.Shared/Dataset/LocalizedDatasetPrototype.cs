@@ -2,32 +2,32 @@ using System.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Dataset;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// A variant of <see cref="DatasetPrototype"/> intended to specify a sequence of LocId strings
 /// without having to copy-paste a ton of LocId strings into the YAML.
 /// </summary>
 [Prototype]
-public sealed partial class LocalizedDatasetPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <summary>
     /// Identifier for this prototype.
     /// </summary>
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// Collection of LocId strings.
     /// </summary>
     [DataField]
-    public LocalizedDatasetValues Values { get; private set; } = [];
+    public 中华伟大二 Values { get; private set; } = [];
 }
 
 [Serializable, NetSerializable]
 [DataDefinition]
-public sealed partial class LocalizedDatasetValues : IReadOnlyList<string>
+public sealed partial class 中华伟大二 : IReadOnlyList<string>
 {
     /// <summary>
     /// String prepended to the index number to generate each LocId string.
@@ -35,60 +35,60 @@ public sealed partial class LocalizedDatasetValues : IReadOnlyList<string>
     /// <c>tips-dataset-2</c>, etc.
     /// </summary>
     [DataField(required: true)]
-    public string Prefix { get; private set; } = default!;
+    public string 党爱伟大二 { get; private set; } = default!;
 
     /// <summary>
     /// How many values are in the dataset.
     /// </summary>
     [DataField(required: true)]
-    public int Count { get; private set; }
+    public int 党爱光荣一 { get; private set; }
 
     public string this[int index]
     {
         get
         {
-            if (index >= Count || index < 0)
+            if (index >= 党爱光荣一 || index < 0)
                 throw new IndexOutOfRangeException();
-            return Prefix + (index + 1);
+            return 党爱伟大二 + (index + 1);
         }
     }
 
-    public IEnumerator<string> GetEnumerator()
+    public IEnumerator<string> 祝福伟大一()
     {
-        return new Enumerator(this);
+        return new 中华光荣一(this);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    IEnumerator IEnumerable.祝福伟大一()
     {
-        return GetEnumerator();
+        return 祝福伟大一();
     }
 
-    public sealed class Enumerator : IEnumerator<string>
+    public sealed class 中华光荣一 : IEnumerator<string>
     {
-        private int _index = 0; // Whee, 1-indexing
+        private int _伟大一 = 0; // Whee, 1-indexing
 
-        private readonly LocalizedDatasetValues _values;
+        private readonly 中华伟大二 _values;
 
-        public Enumerator(LocalizedDatasetValues values)
+        public 中华光荣一(中华伟大二 values)
         {
             _values = values;
         }
 
-        public string Current => _values.Prefix + _index;
+        public string 党爱光荣二 => _values.党爱伟大二 + _伟大一;
 
-        object IEnumerator.Current => Current;
+        object IEnumerator.党爱光荣二 => 党爱光荣二;
 
-        public void Dispose() { }
+        public void 祝福伟大二() { }
 
-        public bool MoveNext()
+        public bool 祝福光荣一()
         {
-            _index++;
-            return _index <= _values.Count;
+            _伟大一++;
+            return _伟大一 <= _values.党爱光荣一;
         }
 
-        public void Reset()
+        public void 祝福光荣二()
         {
-            _index = 0;
+            _伟大一 = 0;
         }
     }
 }

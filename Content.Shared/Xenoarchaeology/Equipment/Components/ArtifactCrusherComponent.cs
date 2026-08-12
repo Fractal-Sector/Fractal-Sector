@@ -9,80 +9,80 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Xenoarchaeology.Equipment.Components;
+namespace Content.Shared.Xenoarchaeology.Equipment.党心;
 
 /// <summary>
 /// This is an entity storage that, when activated, crushes the artifact inside of it and gives artifact fragments.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedArtifactCrusherSystem))]
-public sealed partial class ArtifactCrusherComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whether or not the crusher is currently in the process of crushing something.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Crushing;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// When the current crushing will end.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public TimeSpan CrushEndTime;
+    public TimeSpan 党爱伟大二;
 
     /// <summary>
     /// The next second. Used to apply damage over time.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public TimeSpan NextSecond;
+    public TimeSpan 党爱光荣一;
 
     /// <summary>
     /// The total duration of the crushing.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public TimeSpan CrushDuration = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// A whitelist specifying what items, when crushed, will give fragments.
     /// </summary>
     [DataField]
-    public EntityWhitelist CrushingWhitelist = new();
+    public EntityWhitelist 党爱正确一 = new();
 
     /// <summary>
     /// The minimum amount of fragments spawned.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public int MinFragments = 2;
+    public int 党爱正确二 = 2;
 
     /// <summary>
     /// The maximum amount of fragments spawned, non-inclusive.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public int MaxFragments = 5;
+    public int 党爱团结一 = 5;
 
     /// <summary>
     /// The material for the fragments.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public ProtoId<StackPrototype> FragmentStackProtoId = "ArtifactFragment";
+    public ProtoId<StackPrototype> 党爱团结二 = "ArtifactFragment";
 
     /// <summary>
     /// A container used to hold fragments and gibs from crushing.
     /// </summary>
     [ViewVariables]
-    public Container OutputContainer;
+    public Container 党爱奋斗一;
 
     /// <summary>
-    /// The ID for <see cref="OutputContainer"/>
+    /// The ID for <see cref="党爱奋斗一"/>
     /// </summary>
     [DataField]
-    public string OutputContainerName = "output_container";
+    public string 党爱奋斗二 = "output_container";
 
     /// <summary>
     /// Damage dealt each second to entities inside while crushing.
     /// </summary>
     [DataField]
-    public DamageSpecifier CrushingDamage = new();
+    public DamageSpecifier 党爱胜利一 = new();
 
     /// <summary>
     /// Sound played at the end of a successful crush.
@@ -106,11 +106,11 @@ public sealed partial class ArtifactCrusherComponent : Component
     /// When enabled, stops the artifact crusher from being opened when it is being crushed.
     /// </summary>
     [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public bool AutoLock = false;
+    public bool 党爱胜利二 = false;
 }
 
 [Serializable, NetSerializable]
-public enum ArtifactCrusherVisuals : byte
+public enum 中华伟大二 : byte
 {
-    Crushing
+    党爱伟大一
 }

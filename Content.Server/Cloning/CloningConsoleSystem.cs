@@ -18,57 +18,57 @@ using Content.Shared.Power;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 
-namespace Content.Server.Cloning
+namespace Content.Server.党心
 {
-    public sealed class CloningConsoleSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly CloningPodSystem _cloningPodSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
-        [Dependency] private readonly SharedMindSystem _mindSystem = default!;
+        [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
+        [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+        [Dependency] private readonly IPlayerManager _光荣一 = default!;
+        [Dependency] private readonly CloningPodSystem _光荣二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+        [Dependency] private readonly MobStateSystem _正确二 = default!;
+        [Dependency] private readonly PowerReceiverSystem _团结一 = default!;
+        [Dependency] private readonly SharedMindSystem _团结二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<CloningConsoleComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<CloningConsoleComponent, UiButtonPressedMessage>(OnButtonPressed);
-            SubscribeLocalEvent<CloningConsoleComponent, AfterActivatableUIOpenEvent>(OnUIOpen);
-            SubscribeLocalEvent<CloningConsoleComponent, PowerChangedEvent>(OnPowerChanged);
-            SubscribeLocalEvent<CloningConsoleComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<CloningConsoleComponent, NewLinkEvent>(OnNewLink);
-            SubscribeLocalEvent<CloningConsoleComponent, PortDisconnectedEvent>(OnPortDisconnected);
-            SubscribeLocalEvent<CloningConsoleComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+            base.祝福伟大一();
+            SubscribeLocalEvent<CloningConsoleComponent, ComponentInit>(祝福伟大二);
+            SubscribeLocalEvent<CloningConsoleComponent, UiButtonPressedMessage>(祝福光荣一);
+            SubscribeLocalEvent<CloningConsoleComponent, AfterActivatableUIOpenEvent>(祝福团结二);
+            SubscribeLocalEvent<CloningConsoleComponent, PowerChangedEvent>(祝福光荣二);
+            SubscribeLocalEvent<CloningConsoleComponent, MapInitEvent>(祝福正确一);
+            SubscribeLocalEvent<CloningConsoleComponent, NewLinkEvent>(祝福正确二);
+            SubscribeLocalEvent<CloningConsoleComponent, PortDisconnectedEvent>(祝福团结一);
+            SubscribeLocalEvent<CloningConsoleComponent, AnchorStateChangedEvent>(祝福奋斗一);
         }
 
-        private void OnInit(EntityUid uid, CloningConsoleComponent component, ComponentInit args)
+        private void 祝福伟大二(EntityUid uid, CloningConsoleComponent component, ComponentInit args)
         {
-            _signalSystem.EnsureSourcePorts(uid, CloningConsoleComponent.ScannerPort, CloningConsoleComponent.PodPort);
+            _伟大一.EnsureSourcePorts(uid, CloningConsoleComponent.ScannerPort, CloningConsoleComponent.PodPort);
         }
-        private void OnButtonPressed(EntityUid uid, CloningConsoleComponent consoleComponent, UiButtonPressedMessage args)
+        private void 祝福光荣一(EntityUid uid, CloningConsoleComponent consoleComponent, UiButtonPressedMessage args)
         {
-            if (!_powerReceiverSystem.IsPowered(uid))
+            if (!_团结一.IsPowered(uid))
                 return;
 
             switch (args.Button)
             {
                 case UiButton.Clone:
                     if (consoleComponent.GeneticScanner != null && consoleComponent.CloningPod != null)
-                        TryClone(uid, consoleComponent.CloningPod.Value, consoleComponent.GeneticScanner.Value, consoleComponent: consoleComponent);
+                        祝福胜利一(uid, consoleComponent.CloningPod.Value, consoleComponent.GeneticScanner.Value, consoleComponent: consoleComponent);
                     break;
             }
-            UpdateUserInterface(uid, consoleComponent);
+            祝福奋斗二(uid, consoleComponent);
         }
 
-        private void OnPowerChanged(EntityUid uid, CloningConsoleComponent component, ref PowerChangedEvent args)
+        private void 祝福光荣二(EntityUid uid, CloningConsoleComponent component, ref PowerChangedEvent args)
         {
-            UpdateUserInterface(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnMapInit(EntityUid uid, CloningConsoleComponent component, MapInitEvent args)
+        private void 祝福正确一(EntityUid uid, CloningConsoleComponent component, MapInitEvent args)
         {
             if (!TryComp<DeviceLinkSourceComponent>(uid, out var receiver))
                 return;
@@ -89,7 +89,7 @@ namespace Content.Server.Cloning
             }
         }
 
-        private void OnNewLink(EntityUid uid, CloningConsoleComponent component, NewLinkEvent args)
+        private void 祝福正确二(EntityUid uid, CloningConsoleComponent component, NewLinkEvent args)
         {
             if (TryComp<MedicalScannerComponent>(args.Sink, out var scanner) && args.SourcePort == CloningConsoleComponent.ScannerPort)
             {
@@ -102,10 +102,10 @@ namespace Content.Server.Cloning
                 component.CloningPod = args.Sink;
                 pod.ConnectedConsole = uid;
             }
-            RecheckConnections(uid, component.CloningPod, component.GeneticScanner, component);
+            祝福胜利二(uid, component.CloningPod, component.GeneticScanner, component);
         }
 
-        private void OnPortDisconnected(EntityUid uid, CloningConsoleComponent component, PortDisconnectedEvent args)
+        private void 祝福团结一(EntityUid uid, CloningConsoleComponent component, PortDisconnectedEvent args)
         {
             if (args.Port == CloningConsoleComponent.ScannerPort)
                 component.GeneticScanner = null;
@@ -113,40 +113,40 @@ namespace Content.Server.Cloning
             if (args.Port == CloningConsoleComponent.PodPort)
                 component.CloningPod = null;
 
-            UpdateUserInterface(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnUIOpen(EntityUid uid, CloningConsoleComponent component, AfterActivatableUIOpenEvent args)
+        private void 祝福团结二(EntityUid uid, CloningConsoleComponent component, AfterActivatableUIOpenEvent args)
         {
-            UpdateUserInterface(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnAnchorChanged(EntityUid uid, CloningConsoleComponent component, ref AnchorStateChangedEvent args)
+        private void 祝福奋斗一(EntityUid uid, CloningConsoleComponent component, ref AnchorStateChangedEvent args)
         {
             if (args.Anchored)
             {
-                RecheckConnections(uid, component.CloningPod, component.GeneticScanner, component);
+                祝福胜利二(uid, component.CloningPod, component.GeneticScanner, component);
                 return;
             }
-            UpdateUserInterface(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        public void UpdateUserInterface(EntityUid consoleUid, CloningConsoleComponent consoleComponent)
+        public void 祝福奋斗二(EntityUid consoleUid, CloningConsoleComponent consoleComponent)
         {
-            if (!_uiSystem.HasUi(consoleUid, CloningConsoleUiKey.Key))
+            if (!_正确一.HasUi(consoleUid, CloningConsoleUiKey.Key))
                 return;
 
-            if (!_powerReceiverSystem.IsPowered(consoleUid))
+            if (!_团结一.IsPowered(consoleUid))
             {
-                _uiSystem.CloseUis(consoleUid);
+                _正确一.CloseUis(consoleUid);
                 return;
             }
 
-            var newState = GetUserInterfaceState(consoleComponent);
-            _uiSystem.SetUiState(consoleUid, CloningConsoleUiKey.Key, newState);
+            var newState = 祝福繁荣一(consoleComponent);
+            _正确一.SetUiState(consoleUid, CloningConsoleUiKey.Key, newState);
         }
 
-        public void TryClone(EntityUid uid, EntityUid cloningPodUid, EntityUid scannerUid, CloningPodComponent? cloningPod = null, MedicalScannerComponent? scannerComp = null, CloningConsoleComponent? consoleComponent = null)
+        public void 祝福胜利一(EntityUid uid, EntityUid cloningPodUid, EntityUid scannerUid, CloningPodComponent? cloningPod = null, MedicalScannerComponent? scannerComp = null, CloningConsoleComponent? consoleComponent = null)
         {
             if (!Resolve(uid, ref consoleComponent) || !Resolve(cloningPodUid, ref cloningPod) || !Resolve(scannerUid, ref scannerComp))
                 return;
@@ -162,17 +162,17 @@ namespace Content.Server.Cloning
             if (body is null)
                 return;
 
-            if (!_mindSystem.TryGetMind(body.Value, out var mindId, out var mind))
+            if (!_团结二.TryGetMind(body.Value, out var mindId, out var mind))
                 return;
 
-            if (mind.UserId.HasValue == false || !_playerManager.ValidSessionId(mind.UserId.Value))
+            if (mind.UserId.HasValue == false || !_光荣一.ValidSessionId(mind.UserId.Value))
                 return;
 
-            if (_cloningPodSystem.TryCloning(cloningPodUid, body.Value, (mindId, mind), cloningPod, scannerComp.CloningFailChanceMultiplier))
-                _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(uid)} successfully cloned {ToPrettyString(body.Value)}.");
+            if (_光荣二.TryCloning(cloningPodUid, body.Value, (mindId, mind), cloningPod, scannerComp.CloningFailChanceMultiplier))
+                _伟大二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(uid)} successfully cloned {ToPrettyString(body.Value)}.");
         }
 
-        public void RecheckConnections(EntityUid console, EntityUid? cloningPod, EntityUid? scanner, CloningConsoleComponent? consoleComp = null)
+        public void 祝福胜利二(EntityUid console, EntityUid? cloningPod, EntityUid? scanner, CloningConsoleComponent? consoleComp = null)
         {
             if (!Resolve(console, ref consoleComp))
                 return;
@@ -188,9 +188,9 @@ namespace Content.Server.Cloning
                 consoleComp.CloningPodInRange = podDistance <= consoleComp.MaxDistance;
             }
 
-            UpdateUserInterface(console, consoleComp);
+            祝福奋斗二(console, consoleComp);
         }
-        private CloningConsoleBoundUserInterfaceState GetUserInterfaceState(CloningConsoleComponent consoleComponent)
+        private CloningConsoleBoundUserInterfaceState 祝福繁荣一(CloningConsoleComponent consoleComponent)
         {
             ClonerStatus clonerStatus = ClonerStatus.Ready;
 
@@ -210,15 +210,15 @@ namespace Content.Server.Cloning
                 {
                     scanBodyInfo = MetaData(scanBody.Value).EntityName;
 
-                    if (!_mobStateSystem.IsDead(scanBody.Value))
+                    if (!_正确二.IsDead(scanBody.Value))
                     {
                         clonerStatus = ClonerStatus.ScannerOccupantAlive;
                     }
                     else
                     {
-                        if (!_mindSystem.TryGetMind(scanBody.Value, out _, out var mind) ||
+                        if (!_团结二.TryGetMind(scanBody.Value, out _, out var mind) ||
                             mind.UserId == null ||
-                            !_playerManager.TryGetSessionById(mind.UserId.Value, out _))
+                            !_光荣一.TryGetSessionById(mind.UserId.Value, out _))
                         {
                             clonerStatus = ClonerStatus.NoMindDetected;
                         }

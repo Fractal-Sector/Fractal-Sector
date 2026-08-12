@@ -7,48 +7,48 @@ using Content.Shared.Computer;
 using Content.Shared.Power;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Construction;
+namespace Content.Server.党心;
 
-public sealed partial class ConstructionSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly StationSystem _station = default!; // Frontier
-    [Dependency] private readonly BindToStationSystem _bindToStation = default!; // Frontier
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly StationSystem _伟大二 = default!; // Frontier
+    [Dependency] private readonly BindToStationSystem _光荣一 = default!; // Frontier
 
-    private void InitializeComputer()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ComputerComponent, ComponentInit>(OnCompInit);
-        SubscribeLocalEvent<ComputerComponent, MapInitEvent>(OnCompMapInit);
-        SubscribeLocalEvent<ComputerComponent, PowerChangedEvent>(OnCompPowerChange);
+        SubscribeLocalEvent<ComputerComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<ComputerComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<ComputerComponent, PowerChangedEvent>(祝福光荣二);
     }
 
-    private void OnCompInit(EntityUid uid, ComputerComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, ComputerComponent component, ComponentInit args)
     {
         // Let's ensure the container manager and container are here.
         _container.EnsureContainer<Container>(uid, "board");
 
         if (TryComp<ApcPowerReceiverComponent>(uid, out var powerReceiver))
         {
-            _appearance.SetData(uid, ComputerVisuals.Powered, powerReceiver.Powered);
+            _伟大一.SetData(uid, ComputerVisuals.Powered, powerReceiver.Powered);
         }
     }
 
-    private void OnCompMapInit(Entity<ComputerComponent> component, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<ComputerComponent> component, ref MapInitEvent args)
     {
-        CreateComputerBoard(component);
+        祝福正确一(component);
         // Frontier - we mirror the bind to grid component from any existing machine board onto the resultant machine to prevent high-grading
         var boardContainer = _container.EnsureContainer<Container>(component.Owner, "board");
         foreach (var board in boardContainer.ContainedEntities)
         {
             if (TryComp<StationBoundObjectComponent>(board, out var binding))
-                _bindToStation.BindToStation(component.Owner, binding.BoundStation, binding.Enabled);
+                _光荣一.BindToStation(component.Owner, binding.BoundStation, binding.Enabled);
         }
         // End Frontier
     }
 
-    private void OnCompPowerChange(EntityUid uid, ComputerComponent component, ref PowerChangedEvent args)
+    private void 祝福光荣二(EntityUid uid, ComputerComponent component, ref PowerChangedEvent args)
     {
-        _appearance.SetData(uid, ComputerVisuals.Powered, args.Powered);
+        _伟大一.SetData(uid, ComputerVisuals.Powered, args.Powered);
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ public sealed partial class ConstructionSystem
     ///     This exists so when you deconstruct computers that were serialized with the map,
     ///     you can retrieve the computer board.
     /// </summary>
-    private void CreateComputerBoard(Entity<ComputerComponent> ent)
+    private void 祝福正确一(Entity<ComputerComponent> ent)
     {
         var component = ent.Comp;
         // Ensure that the construction component is aware of the board container.
@@ -78,10 +78,10 @@ public sealed partial class ConstructionSystem
         // Frontier: Only bind the board if the computer itself has the StationBoundObjectComponent and the board doesn't already have StationBoundObjectComponent
         if (HasComp<StationBoundObjectComponent>(ent))
         {
-            var computerStation = _station.GetOwningStation(ent);
+            var computerStation = _伟大二.GetOwningStation(ent);
             if (computerStation != null)
             {
-                _bindToStation.BindToStation(board, computerStation);
+                _光荣一.BindToStation(board, computerStation);
             }
         }
         // End Frontier

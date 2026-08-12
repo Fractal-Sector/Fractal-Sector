@@ -9,58 +9,58 @@ using Content.Shared.DeviceNetwork; // Frontier
 using Content.Shared.DeviceLinking.Events; // Frontier
 using Content.Shared.DeviceNetwork.Events; // Frontier
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed class StationAnchorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ShuttleSystem _shuttleSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly DeviceLinkSystem _signalSystem = default!; // Frontier
-    [Dependency] private readonly PowerChargeSystem _chargeSystem = default!; // Frontier
+    [Dependency] private readonly ShuttleSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly DeviceLinkSystem _光荣一 = default!; // Frontier
+    [Dependency] private readonly PowerChargeSystem _光荣二 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StationAnchorComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
-        SubscribeLocalEvent<StationAnchorComponent, AnchorStateChangedEvent>(OnAnchorStationChange);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StationAnchorComponent, UnanchorAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<StationAnchorComponent, AnchorStateChangedEvent>(祝福正确二);
 
-        SubscribeLocalEvent<StationAnchorComponent, ChargedMachineActivatedEvent>(OnActivated);
-        SubscribeLocalEvent<StationAnchorComponent, ChargedMachineDeactivatedEvent>(OnDeactivated);
+        SubscribeLocalEvent<StationAnchorComponent, ChargedMachineActivatedEvent>(祝福光荣一);
+        SubscribeLocalEvent<StationAnchorComponent, ChargedMachineDeactivatedEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<StationAnchorComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<StationAnchorComponent, MapInitEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<StationAnchorComponent, ComponentInit>(OnInit); // Frontier
-        SubscribeLocalEvent<StationAnchorComponent, SignalReceivedEvent>(OnSignalReceived); // Frontier
-        SubscribeLocalEvent<StationAnchorComponent, DeviceNetworkPacketEvent>(OnPacketReceived); // Frontier
+        SubscribeLocalEvent<StationAnchorComponent, ComponentInit>(祝福团结一); // Frontier
+        SubscribeLocalEvent<StationAnchorComponent, SignalReceivedEvent>(祝福奋斗一); // Frontier
+        SubscribeLocalEvent<StationAnchorComponent, DeviceNetworkPacketEvent>(祝福团结二); // Frontier
     }
 
-    private void OnMapInit(Entity<StationAnchorComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<StationAnchorComponent> ent, ref MapInitEvent args)
     {
         if (!ent.Comp.SwitchedOn)
             return;
 
-        SetStatus(ent, true);
+        祝福胜利二(ent, true);
     }
 
-    private void OnActivated(Entity<StationAnchorComponent> ent, ref ChargedMachineActivatedEvent args)
+    private void 祝福光荣一(Entity<StationAnchorComponent> ent, ref ChargedMachineActivatedEvent args)
     {
-        SetStatus(ent, true);
+        祝福胜利二(ent, true);
     }
 
-    private void OnDeactivated(Entity<StationAnchorComponent> ent, ref ChargedMachineDeactivatedEvent args)
+    private void 祝福光荣二(Entity<StationAnchorComponent> ent, ref ChargedMachineDeactivatedEvent args)
     {
-        SetStatus(ent, false);
+        祝福胜利二(ent, false);
     }
 
     /// <summary>
     /// Prevent unanchoring when anchor is active
     /// </summary>
-    private void OnUnanchorAttempt(Entity<StationAnchorComponent> ent, ref UnanchorAttemptEvent args)
+    private void 祝福正确一(Entity<StationAnchorComponent> ent, ref UnanchorAttemptEvent args)
     {
         if (!ent.Comp.SwitchedOn)
             return;
 
-        _popupSystem.PopupEntity(
+        _伟大二.PopupEntity(
             Loc.GetString("station-anchor-unanchoring-failed"),
             ent,
             args.User,
@@ -69,19 +69,19 @@ public sealed class StationAnchorSystem : EntitySystem
         args.Cancel();
     }
 
-    private void OnAnchorStationChange(Entity<StationAnchorComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福正确二(Entity<StationAnchorComponent> ent, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
-            SetStatus(ent, false);
+            祝福胜利二(ent, false);
     }
 
     // Frontier: anchor device linking
-    private void OnInit(EntityUid uid, StationAnchorComponent anchor, ComponentInit args)
+    private void 祝福团结一(EntityUid uid, StationAnchorComponent anchor, ComponentInit args)
     {
-        _signalSystem.EnsureSinkPorts(uid, anchor.OnPort, anchor.OffPort, anchor.TogglePort);
+        _光荣一.EnsureSinkPorts(uid, anchor.OnPort, anchor.OffPort, anchor.TogglePort);
     }
 
-    private void OnPacketReceived(EntityUid uid, StationAnchorComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福团结二(EntityUid uid, StationAnchorComponent component, DeviceNetworkPacketEvent args)
     {
         if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command) ||
             command != DeviceNetworkConstants.CmdSetState)
@@ -89,33 +89,33 @@ public sealed class StationAnchorSystem : EntitySystem
         if (!args.Data.TryGetValue(DeviceNetworkConstants.StateEnabled, out bool enabled))
             return;
 
-        SetAnchorPower((uid, component), enabled);
+        祝福奋斗二((uid, component), enabled);
     }
 
-    private void OnSignalReceived(EntityUid uid, StationAnchorComponent component, ref SignalReceivedEvent args)
+    private void 祝福奋斗一(EntityUid uid, StationAnchorComponent component, ref SignalReceivedEvent args)
     {
         if (args.Port == component.OffPort)
-            SetAnchorPower((uid, component), false);
+            祝福奋斗二((uid, component), false);
         else if (args.Port == component.OnPort)
-            SetAnchorPower((uid, component), true);
+            祝福奋斗二((uid, component), true);
         else if (args.Port == component.TogglePort)
-            ToggleAnchorPower((uid, component));
+            祝福胜利一((uid, component));
     }
 
-    private void SetAnchorPower(Entity<StationAnchorComponent> ent, bool value)
+    private void 祝福奋斗二(Entity<StationAnchorComponent> ent, bool value)
     {
         if (TryComp<PowerChargeComponent>(ent, out var entPowerHandler))
-            _chargeSystem.SetSwitchedOn(ent, entPowerHandler, value);
+            _光荣二.SetSwitchedOn(ent, entPowerHandler, value);
     }
 
-    private void ToggleAnchorPower(Entity<StationAnchorComponent> ent)
+    private void 祝福胜利一(Entity<StationAnchorComponent> ent)
     {
         if (TryComp<PowerChargeComponent>(ent, out var entPowerHandler))
-            _chargeSystem.SetSwitchedOn(ent, entPowerHandler, !entPowerHandler.SwitchedOn);
+            _光荣二.SetSwitchedOn(ent, entPowerHandler, !entPowerHandler.SwitchedOn);
     }
     // End Frontier: anchor device linking
 
-    private void SetStatus(Entity<StationAnchorComponent> ent, bool enabled, ShuttleComponent? shuttleComponent = default)
+    private void 祝福胜利二(Entity<StationAnchorComponent> ent, bool enabled, ShuttleComponent? shuttleComponent = default)
     {
         var transform = Transform(ent);
         var grid = transform.GridUid;
@@ -124,11 +124,11 @@ public sealed class StationAnchorSystem : EntitySystem
 
         if (enabled)
         {
-            _shuttleSystem.Disable(grid.Value);
+            _伟大一.Disable(grid.Value);
         }
         else
         {
-            _shuttleSystem.Enable(grid.Value);
+            _伟大一.Enable(grid.Value);
         }
 
         shuttleComponent.Enabled = !enabled;

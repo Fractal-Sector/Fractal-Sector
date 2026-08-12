@@ -10,16 +10,16 @@ using System.Linq;
 using System.Numerics;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class OpenExplosionEui : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly EuiManager _euiManager = default!;
+    [Dependency] private readonly EuiManager _伟大一 = default!;
 
-    public override string Command => "explosionui";
+    public override string 党爱伟大一 => "explosionui";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
         if (player == null)
@@ -29,22 +29,22 @@ public sealed class OpenExplosionEui : LocalizedEntityCommands
         }
 
         var ui = new SpawnExplosionEui();
-        _euiManager.OpenEui(ui, player);
+        _伟大一.OpenEui(ui, player);
     }
 }
 
 [AdminCommand(AdminFlags.Fun)] // for the admin. Not so much for anyone else.
-public sealed class ExplosionCommand : LocalizedEntityCommands
+public sealed class 中华伟大二 : LocalizedEntityCommands
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly ExplosionSystem _光荣一 = default!;
+    [Dependency] private readonly TransformSystem _光荣二 = default!;
 
-    public override string Command => "explosion";
+    public override string 党爱伟大一 => "explosion";
 
     // Note that if you change the arguments, you should also update the client-side SpawnExplosionWindow, as that just
     // uses this command.
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0 || args.Length == 4 || args.Length > 7)
         {
@@ -106,22 +106,22 @@ public sealed class ExplosionCommand : LocalizedEntityCommands
             if (args.Length > 4)
                 coords = new MapCoordinates(new Vector2(x, y), xform.MapID);
             else
-                coords = _transform.GetMapCoordinates(shell.Player.AttachedEntity.Value, xform: xform);
+                coords = _光荣二.GetMapCoordinates(shell.Player.AttachedEntity.Value, xform: xform);
         }
 
         ExplosionPrototype? type;
         if (args.Length > 6)
         {
-            if (!_prototypeManager.TryIndex(args[6], out type))
+            if (!_伟大二.TryIndex(args[6], out type))
             {
                 shell.WriteError(Loc.GetString($"cmd-explosion-unknown-prototype", ("value", args[6])));
                 return;
             }
         }
-        else if (!_prototypeManager.TryIndex(ExplosionSystem.DefaultExplosionPrototypeId, out type))
+        else if (!_伟大二.TryIndex(ExplosionSystem.DefaultExplosionPrototypeId, out type))
         {
             // no prototype was specified, so lets default to whichever one was defined first
-            type = _prototypeManager.EnumeratePrototypes<ExplosionPrototype>().FirstOrDefault();
+            type = _伟大二.EnumeratePrototypes<ExplosionPrototype>().FirstOrDefault();
 
             if (type == null)
             {
@@ -130,6 +130,6 @@ public sealed class ExplosionCommand : LocalizedEntityCommands
             }
         }
 
-        _explosion.QueueExplosion(coords, type.ID, intensity, slope, maxIntensity, null);
+        _光荣一.QueueExplosion(coords, type.ID, intensity, slope, maxIntensity, null);
     }
 }

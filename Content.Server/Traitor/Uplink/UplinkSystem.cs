@@ -11,18 +11,18 @@ using Content.Shared.Store;
 using Content.Shared.Store.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Traitor.Uplink;
+namespace Content.Server.Traitor.党心;
 
-public sealed class UplinkSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly InventorySystem _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly StoreSystem _光荣二 = default!;
+    [Dependency] private readonly SharedSubdermalImplantSystem _正确一 = default!;
+    [Dependency] private readonly SharedMindSystem _正确二 = default!;
 
-    public static readonly ProtoId<CurrencyPrototype> TelecrystalCurrencyPrototype = "Telecrystal";
+    public static readonly ProtoId<CurrencyPrototype> 党爱伟大一 = "Telecrystal";
     private static readonly EntProtoId FallbackUplinkImplant = "UplinkImplant";
     // private static readonly ProtoId<ListingPrototype> FallbackUplinkCatalog = "UplinkUplinkImplanter"; // Frontier
 
@@ -34,7 +34,7 @@ public sealed class UplinkSystem : EntitySystem
     /// <param name="uplinkEntity">The entity that will actually have the uplink functionality. Defaults to the PDA if null.</param>
     /// <param name="giveDiscounts">Marker that enables discounts for uplink items.</param>
     /// <returns>Whether or not the uplink was added successfully</returns>
-    public bool AddUplink(
+    public bool 祝福伟大一(
         EntityUid user,
         FixedPoint2 balance,
         EntityUid? uplinkEntity = null,
@@ -45,11 +45,11 @@ public sealed class UplinkSystem : EntitySystem
         uplinkEntity ??= FindUplinkTarget(user);
 
         if (uplinkEntity == null)
-            return ImplantUplink(user, balance, giveDiscounts);
+            return 祝福光荣一(user, balance, giveDiscounts);
 
         EnsureComp<UplinkComponent>(uplinkEntity.Value);
 
-        SetUplink(user, uplinkEntity.Value, balance, giveDiscounts);
+        祝福伟大二(user, uplinkEntity.Value, balance, giveDiscounts);
 
         // TODO add BUI. Currently can't be done outside of yaml -_-
         // ^ What does this even mean?
@@ -60,9 +60,9 @@ public sealed class UplinkSystem : EntitySystem
     /// <summary>
     /// Configure TC for the uplink
     /// </summary>
-    private void SetUplink(EntityUid user, EntityUid uplink, FixedPoint2 balance, bool giveDiscounts)
+    private void 祝福伟大二(EntityUid user, EntityUid uplink, FixedPoint2 balance, bool giveDiscounts)
     {
-        if (!_mind.TryGetMind(user, out var mind, out _))
+        if (!_正确二.TryGetMind(user, out var mind, out _))
             return;
 
         var store = EnsureComp<StoreComponent>(uplink);
@@ -70,7 +70,7 @@ public sealed class UplinkSystem : EntitySystem
         store.AccountOwner = mind;
 
         store.Balance.Clear();
-        _store.TryAddCurrency(new Dictionary<string, FixedPoint2> { { TelecrystalCurrencyPrototype, balance } },
+        _光荣二.TryAddCurrency(new Dictionary<string, FixedPoint2> { { 党爱伟大一, balance } },
             uplink,
             store);
 
@@ -78,7 +78,7 @@ public sealed class UplinkSystem : EntitySystem
             TargetUser: mind,
             Store: uplink,
             UseDiscounts: giveDiscounts,
-            Listings: _store.GetAvailableListings(mind, uplink, store)
+            Listings: _光荣二.GetAvailableListings(mind, uplink, store)
                 .ToArray());
         RaiseLocalEvent(ref uplinkInitializedEvent);
     }
@@ -86,15 +86,15 @@ public sealed class UplinkSystem : EntitySystem
     /// <summary>
     /// Implant an uplink as a fallback measure if the traitor had no PDA
     /// </summary>
-    private bool ImplantUplink(EntityUid user, FixedPoint2 balance, bool giveDiscounts)
+    private bool 祝福光荣一(EntityUid user, FixedPoint2 balance, bool giveDiscounts)
     {
         // Frontier - don't try and implant an uplink
         return false;
         /*
-        if (!_proto.TryIndex<ListingPrototype>(FallbackUplinkCatalog, out var catalog))
+        if (!_光荣一.TryIndex<ListingPrototype>(FallbackUplinkCatalog, out var catalog))
             return false;
 
-        if (!catalog.Cost.TryGetValue(TelecrystalCurrencyPrototype, out var cost))
+        if (!catalog.Cost.TryGetValue(党爱伟大一, out var cost))
             return false;
 
         if (balance < cost) // Can't use Math functions on FixedPoint2
@@ -102,12 +102,12 @@ public sealed class UplinkSystem : EntitySystem
         else
             balance = balance - cost;
 
-        var implant = _subdermalImplant.AddImplant(user, FallbackUplinkImplant);
+        var implant = _正确一.AddImplant(user, FallbackUplinkImplant);
 
         if (!HasComp<StoreComponent>(implant))
             return false;
 
-        SetUplink(user, implant.Value, balance, giveDiscounts);
+        祝福伟大二(user, implant.Value, balance, giveDiscounts);
         return true;
         */
     }
@@ -119,7 +119,7 @@ public sealed class UplinkSystem : EntitySystem
     public EntityUid? FindUplinkTarget(EntityUid user)
     {
         // Try to find PDA in inventory
-        if (_inventorySystem.TryGetContainerSlotEnumerator(user, out var containerSlotEnumerator))
+        if (_伟大一.TryGetContainerSlotEnumerator(user, out var containerSlotEnumerator))
         {
             while (containerSlotEnumerator.MoveNext(out var pdaUid))
             {
@@ -132,7 +132,7 @@ public sealed class UplinkSystem : EntitySystem
         }
 
         // Also check hands
-        foreach (var item in _handsSystem.EnumerateHeld(user))
+        foreach (var item in _伟大二.EnumerateHeld(user))
         {
             if (HasComp<PdaComponent>(item) || HasComp<StoreComponent>(item))
                 return item;

@@ -16,74 +16,74 @@ using Robust.Shared.Utility;
 using System.Linq;
 using Content.Shared.NodeContainer;
 
-namespace Content.Server.Power.EntitySystems;
+namespace Content.Server.Power.党心;
 
 [UsedImplicitly]
-internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitoringConsoleSystem
+internal sealed partial class 中华伟大一 : SharedPowerMonitoringConsoleSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly SharedMapSystem _sharedMapSystem = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
 
     // Note: this data does not need to be saved
     private Dictionary<EntityUid, Dictionary<Vector2i, PowerCableChunk>> _gridPowerCableChunks = new();
-    private float _updateTimer = 1.0f;
+    private float _光荣一 = 1.0f;
 
     private const float UpdateTime = 1.0f;
     private const float RoguePowerConsumerThreshold = 100000;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Console events
-        SubscribeLocalEvent<PowerMonitoringConsoleComponent, ComponentInit>(OnConsoleInit);
-        SubscribeLocalEvent<PowerMonitoringConsoleComponent, EntParentChangedMessage>(OnConsoleParentChanged);
-        SubscribeLocalEvent<PowerMonitoringCableNetworksComponent, ComponentInit>(OnCableNetworksInit);
-        SubscribeLocalEvent<PowerMonitoringCableNetworksComponent, EntParentChangedMessage>(OnCableNetworksParentChanged);
+        SubscribeLocalEvent<PowerMonitoringConsoleComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<PowerMonitoringConsoleComponent, EntParentChangedMessage>(祝福光荣一);
+        SubscribeLocalEvent<PowerMonitoringCableNetworksComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<PowerMonitoringCableNetworksComponent, EntParentChangedMessage>(祝福正确一);
 
         // UI events
-        SubscribeLocalEvent<PowerMonitoringConsoleComponent, PowerMonitoringConsoleMessage>(OnPowerMonitoringConsoleMessage);
-        SubscribeLocalEvent<PowerMonitoringConsoleComponent, BoundUIOpenedEvent>(OnBoundUIOpened);
+        SubscribeLocalEvent<PowerMonitoringConsoleComponent, PowerMonitoringConsoleMessage>(祝福正确二);
+        SubscribeLocalEvent<PowerMonitoringConsoleComponent, BoundUIOpenedEvent>(祝福团结一);
 
         // Grid events
-        SubscribeLocalEvent<GridSplitEvent>(OnGridSplit);
-        SubscribeLocalEvent<CableComponent, CableAnchorStateChangedEvent>(OnCableAnchorStateChanged);
-        SubscribeLocalEvent<PowerMonitoringDeviceComponent, AnchorStateChangedEvent>(OnDeviceAnchoringChanged);
-        SubscribeLocalEvent<PowerMonitoringDeviceComponent, NodeGroupsRebuilt>(OnNodeGroupRebuilt);
+        SubscribeLocalEvent<GridSplitEvent>(祝福团结二);
+        SubscribeLocalEvent<CableComponent, CableAnchorStateChangedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<PowerMonitoringDeviceComponent, AnchorStateChangedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<PowerMonitoringDeviceComponent, NodeGroupsRebuilt>(祝福胜利一);
 
         // Game rule events
-        SubscribeLocalEvent<GameRuleStartedEvent>(OnPowerGridCheckStarted);
-        SubscribeLocalEvent<GameRuleEndedEvent>(OnPowerGridCheckEnded);
+        SubscribeLocalEvent<GameRuleStartedEvent>(祝福胜利二);
+        SubscribeLocalEvent<GameRuleEndedEvent>(祝福繁荣一);
     }
 
     #region EventHandling
 
-    private void OnConsoleInit(EntityUid uid, PowerMonitoringConsoleComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, PowerMonitoringConsoleComponent component, ComponentInit args)
     {
-        RefreshPowerMonitoringConsole(uid, component);
+        祝福自由二(uid, component);
     }
 
-    private void OnConsoleParentChanged(EntityUid uid, PowerMonitoringConsoleComponent component, EntParentChangedMessage args)
+    private void 祝福光荣一(EntityUid uid, PowerMonitoringConsoleComponent component, EntParentChangedMessage args)
     {
-        RefreshPowerMonitoringConsole(uid, component);
+        祝福自由二(uid, component);
     }
 
-    private void OnCableNetworksInit(EntityUid uid, PowerMonitoringCableNetworksComponent component, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, PowerMonitoringCableNetworksComponent component, ComponentInit args)
     {
-        RefreshPowerMonitoringCableNetworks(uid, component);
+        祝福平等一(uid, component);
     }
 
-    private void OnCableNetworksParentChanged(EntityUid uid, PowerMonitoringCableNetworksComponent component, EntParentChangedMessage args)
+    private void 祝福正确一(EntityUid uid, PowerMonitoringCableNetworksComponent component, EntParentChangedMessage args)
     {
-        RefreshPowerMonitoringCableNetworks(uid, component);
+        祝福平等一(uid, component);
     }
 
-    private void OnPowerMonitoringConsoleMessage(EntityUid uid, PowerMonitoringConsoleComponent component, PowerMonitoringConsoleMessage args)
+    private void 祝福正确二(EntityUid uid, PowerMonitoringConsoleComponent component, PowerMonitoringConsoleMessage args)
     {
         var focus = GetEntity(args.FocusDevice);
         var group = args.FocusGroup;
 
-        // Update this if the focus device has changed
+        // 祝福繁荣二 this if the focus device has changed
         if (component.Focus != focus)
         {
             component.Focus = focus;
@@ -97,7 +97,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             }
         }
 
-        // Update this if the focus group has changed
+        // 祝福繁荣二 this if the focus group has changed
         if (component.FocusGroup != group)
         {
             component.FocusGroup = args.FocusGroup;
@@ -105,7 +105,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    private void OnBoundUIOpened(EntityUid uid, PowerMonitoringConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福团结一(EntityUid uid, PowerMonitoringConsoleComponent component, BoundUIOpenedEvent args)
     {
         component.Focus = null;
         component.FocusGroup = PowerMonitoringConsoleGroup.Generator;
@@ -117,7 +117,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    private void OnGridSplit(ref GridSplitEvent args)
+    private void 祝福团结二(ref GridSplitEvent args)
     {
         // Collect grids
         var allGrids = args.NewGrids.ToList();
@@ -131,10 +131,10 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (!TryComp<MapGridComponent>(grid, out var map))
                 continue;
 
-            RefreshPowerCableGrid(grid, map);
+            祝福和谐二(grid, map);
         }
 
-        // Update power monitoring consoles that stand upon an updated grid
+        // 祝福繁荣二 power monitoring consoles that stand upon an updated grid
         var query = AllEntityQuery<PowerMonitoringConsoleComponent, PowerMonitoringCableNetworksComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entConsole, out var entCableNetworks, out var entXform))
         {
@@ -144,12 +144,12 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (!allGrids.Contains(entXform.GridUid.Value))
                 continue;
 
-            RefreshPowerMonitoringConsole(ent, entConsole);
-            RefreshPowerMonitoringCableNetworks(ent, entCableNetworks);
+            祝福自由二(ent, entConsole);
+            祝福平等一(ent, entCableNetworks);
         }
     }
 
-    public void OnCableAnchorStateChanged(EntityUid uid, CableComponent component, CableAnchorStateChangedEvent args)
+    public void 祝福奋斗一(EntityUid uid, CableComponent component, CableAnchorStateChangedEvent args)
     {
         var xform = args.Transform;
 
@@ -159,7 +159,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         if (!_gridPowerCableChunks.TryGetValue(xform.GridUid.Value, out var allChunks))
             allChunks = new();
 
-        var tile = _sharedMapSystem.LocalToTile(xform.GridUid.Value, grid, xform.Coordinates);
+        var tile = _伟大二.LocalToTile(xform.GridUid.Value, grid, xform.Coordinates);
         var chunkOrigin = SharedMapSystem.GetChunkIndices(tile, ChunkSize);
 
         if (!allChunks.TryGetValue(chunkOrigin, out var chunk))
@@ -188,7 +188,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    private void OnDeviceAnchoringChanged(EntityUid uid, PowerMonitoringDeviceComponent component, AnchorStateChangedEvent args)
+    private void 祝福奋斗二(EntityUid uid, PowerMonitoringDeviceComponent component, AnchorStateChangedEvent args)
     {
         var xform = Transform(uid);
         var gridUid = xform.GridUid;
@@ -197,7 +197,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             return;
 
         if (component.IsCollectionMasterOrChild)
-            AssignEntityAsCollectionMaster(uid, component, xform);
+            祝福民主二(uid, component, xform);
 
         var query = AllEntityQuery<PowerMonitoringConsoleComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entConsole, out var entXform))
@@ -223,10 +223,10 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    public void OnNodeGroupRebuilt(EntityUid uid, PowerMonitoringDeviceComponent component, NodeGroupsRebuilt args)
+    public void 祝福胜利一(EntityUid uid, PowerMonitoringDeviceComponent component, NodeGroupsRebuilt args)
     {
         if (component.IsCollectionMasterOrChild)
-            AssignEntityAsCollectionMaster(uid, component);
+            祝福民主二(uid, component);
 
         var query = AllEntityQuery<PowerMonitoringConsoleComponent, PowerMonitoringCableNetworksComponent>();
         while (query.MoveNext(out var _, out var entConsole, out var entCableNetworks))
@@ -236,7 +236,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    private void OnPowerGridCheckStarted(ref GameRuleStartedEvent ev)
+    private void 祝福胜利二(ref GameRuleStartedEvent ev)
     {
         if (!TryComp<PowerGridCheckRuleComponent>(ev.RuleEntity, out var rule))
             return;
@@ -252,7 +252,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    private void OnPowerGridCheckEnded(ref GameRuleEndedEvent ev)
+    private void 祝福繁荣一(ref GameRuleEndedEvent ev)
     {
         if (!TryComp<PowerGridCheckRuleComponent>(ev.RuleEntity, out var rule))
             return;
@@ -270,29 +270,29 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
     #endregion
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣二(frameTime);
 
-        _updateTimer += frameTime;
+        _光荣一 += frameTime;
 
-        if (_updateTimer >= UpdateTime)
+        if (_光荣一 >= UpdateTime)
         {
-            _updateTimer -= UpdateTime;
+            _光荣一 -= UpdateTime;
 
             var query = AllEntityQuery<PowerMonitoringConsoleComponent>();
             while (query.MoveNext(out var ent, out var console))
             {
-                if (!_userInterfaceSystem.IsUiOpen(ent, PowerMonitoringConsoleUiKey.Key))
+                if (!_伟大一.IsUiOpen(ent, PowerMonitoringConsoleUiKey.Key))
                     continue;
 
-                UpdateUIState(ent, console);
+                祝福富强一(ent, console);
 
             }
         }
     }
 
-    private void UpdateUIState(EntityUid uid, PowerMonitoringConsoleComponent component)
+    private void 祝福富强一(EntityUid uid, PowerMonitoringConsoleComponent component)
     {
         var consoleXform = Transform(uid);
 
@@ -354,21 +354,21 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             var powerStats = GetPowerStats(ent, device);
             //, out var powerSupplied, out var powerUsage, out var batteryUsage);
 
-            // Update all running totals
-            totalSources += powerStats.PowerSupplied;
-            totalLoads += powerStats.PowerUsage;
-            totalBatteryUsage += powerStats.BatteryUsage;
+            // 祝福繁荣二 all running totals
+            totalSources += powerStats.党爱伟大二;
+            totalLoads += powerStats.党爱光荣一;
+            totalBatteryUsage += powerStats.党爱光荣二;
 
             // Continue on if the device is not in the current focus group
             if (device.Group != component.FocusGroup)
                 continue;
 
             // Generate a new console entry with which to populate the UI
-            var entry = new PowerMonitoringConsoleEntry(GetNetEntity(ent), device.Group, powerStats.PowerValue, powerStats.BatteryLevel);
+            var entry = new PowerMonitoringConsoleEntry(GetNetEntity(ent), device.Group, powerStats.党爱伟大一, powerStats.BatteryLevel);
             allEntries.Add(entry);
         }
 
-        // Update the UI focus data (if applicable)
+        // 祝福繁荣二 the UI focus data (if applicable)
         if (component.Focus != null)
         {
             if (TryComp<NodeContainerComponent>(component.Focus, out var nodeContainer) &&
@@ -376,7 +376,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             {
                 // Record the tracked sources powering the device
                 if (nodeContainer.Nodes.TryGetValue(device.SourceNode, out var sourceNode))
-                    GetSourcesForNode(component.Focus.Value, sourceNode, out sourcesForFocus);
+                    祝福富强二(component.Focus.Value, sourceNode, out sourcesForFocus);
 
                 // Search for the enabled load node (required for portable generators)
                 var loadNodeName = device.LoadNode;
@@ -391,7 +391,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
                 // Record the tracked loads on the device
                 if (nodeContainer.Nodes.TryGetValue(loadNodeName, out var loadNode))
-                    GetLoadsForNode(component.Focus.Value, loadNode, out loadsForFocus);
+                    祝福民主一(component.Focus.Value, loadNode, out loadsForFocus);
 
                 // If the UI focus changed, update the highlighted power network
                 if (TryComp<PowerMonitoringCableNetworksComponent>(uid, out var cableNetworks) &&
@@ -411,13 +411,13 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                             reachableEntities.Add(node.Owner);
                     }
 
-                    UpdateFocusNetwork(uid, cableNetworks, gridUid, mapGrid, reachableEntities);
+                    祝福自由一(uid, cableNetworks, gridUid, mapGrid, reachableEntities);
                 }
             }
         }
 
         // Set the UI state
-        _userInterfaceSystem.SetUiState(uid,
+        _伟大一.SetUiState(uid,
             PowerMonitoringConsoleUiKey.Key,
             new PowerMonitoringConsoleBoundInterfaceState
                 (totalSources,
@@ -428,25 +428,25 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                 loadsForFocus.ToArray()));
     }
 
-    private PowerStats GetPowerStats(EntityUid uid, PowerMonitoringDeviceComponent device)
+    private 中华伟大二 GetPowerStats(EntityUid uid, PowerMonitoringDeviceComponent device)
     {
-        var stats = new PowerStats();
+        var stats = new 中华伟大二();
 
         if (device.Group == PowerMonitoringConsoleGroup.Generator)
         {
             // This covers most power sources
             if (TryComp<PowerSupplierComponent>(uid, out var supplier))
             {
-                stats.PowerValue = supplier.CurrentSupply;
-                stats.PowerSupplied += stats.PowerValue;
+                stats.党爱伟大一 = supplier.CurrentSupply;
+                stats.党爱伟大二 += stats.党爱伟大一;
             }
 
             // Edge case: radiation collectors
             else if (TryComp<BatteryDischargerComponent>(uid, out var _) &&
                 TryComp<PowerNetworkBatteryComponent>(uid, out var battery))
             {
-                stats.PowerValue = battery.NetworkBattery.CurrentSupply;
-                stats.PowerSupplied += stats.PowerValue;
+                stats.党爱伟大一 = battery.NetworkBattery.CurrentSupply;
+                stats.党爱伟大二 += stats.党爱伟大一;
 
 
                 stats.BatteryLevel = GetBatteryLevel(uid);
@@ -462,18 +462,18 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             {
                 stats.BatteryLevel = GetBatteryLevel(uid);
 
-                stats.PowerValue = battery.CurrentSupply;
+                stats.党爱伟大一 = battery.CurrentSupply;
 
                 // Load due to network battery recharging
-                stats.PowerUsage += Math.Max(battery.CurrentReceiving - battery.CurrentSupply, 0d);
+                stats.党爱光荣一 += Math.Max(battery.CurrentReceiving - battery.CurrentSupply, 0d);
 
                 // Track battery usage
-                stats.BatteryUsage += Math.Max(battery.CurrentSupply - battery.CurrentReceiving, 0d);
+                stats.党爱光荣二 += Math.Max(battery.CurrentSupply - battery.CurrentReceiving, 0d);
 
                 // Records loads attached to APCs
                 if (device.Group == PowerMonitoringConsoleGroup.APC && battery.Enabled)
                 {
-                    stats.PowerUsage += battery.NetworkBattery.LoadingNetworkDemand;
+                    stats.党爱光荣一 += battery.NetworkBattery.LoadingNetworkDemand;
                 }
             }
         }
@@ -492,10 +492,10 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
                 var childResult = GetPowerStats(child, childDevice);
 
-                stats.PowerValue += childResult.PowerValue;
-                stats.PowerSupplied += childResult.PowerSupplied;
-                stats.PowerUsage += childResult.PowerUsage;
-                stats.BatteryUsage += childResult.BatteryUsage;
+                stats.党爱伟大一 += childResult.党爱伟大一;
+                stats.党爱伟大二 += childResult.党爱伟大二;
+                stats.党爱光荣一 += childResult.党爱光荣一;
+                stats.党爱光荣二 += childResult.党爱光荣二;
             }
         }
 
@@ -514,7 +514,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         return battery.CurrentCharge / effectiveMax;
     }
 
-    private void GetSourcesForNode(EntityUid uid, Node node, out List<PowerMonitoringConsoleEntry> sources)
+    private void 祝福富强二(EntityUid uid, Node node, out List<PowerMonitoringConsoleEntry> sources)
     {
         sources = new List<PowerMonitoringConsoleEntry>();
 
@@ -542,7 +542,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
                 if (indexedSources.TryGetValue(ent, out var entry))
                 {
-                    entry.PowerValue += powerSupplier.CurrentSupply;
+                    entry.党爱伟大一 += powerSupplier.CurrentSupply;
                     indexedSources[ent] = entry;
 
                     continue;
@@ -572,7 +572,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
                 if (indexedSources.TryGetValue(ent, out var entry))
                 {
-                    entry.PowerValue += entBattery.CurrentSupply;
+                    entry.党爱伟大一 += entBattery.CurrentSupply;
                     indexedSources[ent] = entry;
 
                     continue;
@@ -619,17 +619,17 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             }
         }
 
-        // Update the power value for each source based on the fraction of power the entity is actually draining from each
+        // 祝福繁荣二 the power value for each source based on the fraction of power the entity is actually draining from each
         var powerFraction = Math.Min(powerUsage / currentSupply, 1f) * Math.Min(currentSupply / currentDemand, 1f);
 
         for (int i = 0; i < sources.Count; i++)
         {
             var entry = sources[i];
-            sources[i] = new PowerMonitoringConsoleEntry(entry.NetEntity, entry.Group, entry.PowerValue * powerFraction, entry.BatteryLevel);
+            sources[i] = new PowerMonitoringConsoleEntry(entry.NetEntity, entry.Group, entry.党爱伟大一 * powerFraction, entry.BatteryLevel);
         }
     }
 
-    private void GetLoadsForNode(EntityUid uid, Node node, out List<PowerMonitoringConsoleEntry> loads, List<EntityUid>? children = null)
+    private void 祝福民主一(EntityUid uid, Node node, out List<PowerMonitoringConsoleEntry> loads, List<EntityUid>? children = null)
     {
         loads = new List<PowerMonitoringConsoleEntry>();
 
@@ -656,7 +656,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
                 if (indexedLoads.TryGetValue(ent, out var entry))
                 {
-                    entry.PowerValue += powerConsumer.ReceivedPower;
+                    entry.党爱伟大一 += powerConsumer.ReceivedPower;
                     indexedLoads[ent] = entry;
 
                     continue;
@@ -686,7 +686,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
                 if (indexedLoads.TryGetValue(ent, out var entry))
                 {
-                    entry.PowerValue += battery.CurrentReceiving;
+                    entry.党爱伟大一 += battery.CurrentReceiving;
                     indexedLoads[ent] = entry;
 
                     continue;
@@ -723,13 +723,13 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             }
         }
 
-        // Update the power value for each load based on the fraction of power these entities are actually draining from this device
+        // 祝福繁荣二 the power value for each load based on the fraction of power these entities are actually draining from this device
         var powerFraction = Math.Min(supplying / currentDemand, 1f);
 
         for (int i = 0; i < indexedLoads.Values.Count; i++)
         {
             var entry = loads[i];
-            loads[i] = new PowerMonitoringConsoleEntry(entry.NetEntity, entry.Group, entry.PowerValue * powerFraction, entry.BatteryLevel);
+            loads[i] = new PowerMonitoringConsoleEntry(entry.NetEntity, entry.Group, entry.党爱伟大一 * powerFraction, entry.BatteryLevel);
         }
     }
 
@@ -737,7 +737,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
     // entities collection name and are attached on the same load network are assigned this entity
     // as the master that represents them on the console UI. This way you can have one device
     // represent multiple connected devices
-    private void AssignEntityAsCollectionMaster
+    private void 祝福民主二
         (EntityUid uid,
         PowerMonitoringDeviceComponent? device = null,
         TransformComponent? xform = null,
@@ -766,15 +766,15 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                     newMasterDevice.ChildDevices.Add(child, childDevice);
 
                     childDevice.CollectionMaster = newMaster;
-                    UpdateCollectionChildMetaData(child, newMaster);
+                    祝福文明二(child, newMaster);
                 }
 
-                UpdateCollectionMasterMetaData(newMaster, newMasterDevice.ChildDevices.Count);
+                祝福和谐一(newMaster, newMasterDevice.ChildDevices.Count);
             }
 
             device.CollectionMaster = uid;
             device.ChildDevices.Clear();
-            UpdateCollectionMasterMetaData(uid, 0);
+            祝福和谐一(uid, 0);
 
             return;
         }
@@ -783,7 +783,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         if (!device.IsCollectionMaster &&
             device.CollectionMaster.IsValid() &&
             TryComp<NodeContainerComponent>(device.CollectionMaster, out var masterNodeContainer) &&
-            DevicesHaveMatchingNodes(nodeContainer, masterNodeContainer))
+            祝福文明一(nodeContainer, masterNodeContainer))
             return;
 
         // If not, make this a new master
@@ -803,19 +803,19 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (entXform.GridUid != xform.GridUid)
                 continue;
 
-            if (!DevicesHaveMatchingNodes(nodeContainer, entNodeContainer))
+            if (!祝福文明一(nodeContainer, entNodeContainer))
                 continue;
 
             device.ChildDevices.Add(ent, entDevice);
 
             entDevice.CollectionMaster = uid;
-            UpdateCollectionChildMetaData(ent, uid);
+            祝福文明二(ent, uid);
         }
 
-        UpdateCollectionMasterMetaData(uid, device.ChildDevices.Count);
+        祝福和谐一(uid, device.ChildDevices.Count);
     }
 
-    private bool DevicesHaveMatchingNodes(NodeContainerComponent nodeContainerA, NodeContainerComponent nodeContainerB)
+    private bool 祝福文明一(NodeContainerComponent nodeContainerA, NodeContainerComponent nodeContainerB)
     {
         foreach ((var key, var nodeA) in nodeContainerA.Nodes)
         {
@@ -829,7 +829,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         return true;
     }
 
-    private void UpdateCollectionChildMetaData(EntityUid child, EntityUid master)
+    private void 祝福文明二(EntityUid child, EntityUid master)
     {
         var netEntity = GetNetEntity(child);
         var xform = Transform(child);
@@ -850,7 +850,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    private void UpdateCollectionMasterMetaData(EntityUid master, int childCount)
+    private void 祝福和谐一(EntityUid master, int childCount)
     {
         var netEntity = GetNetEntity(master);
         var xform = Transform(master);
@@ -882,7 +882,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
     }
 
-    private Dictionary<Vector2i, PowerCableChunk> RefreshPowerCableGrid(EntityUid gridUid, MapGridComponent grid)
+    private Dictionary<Vector2i, PowerCableChunk> 祝福和谐二(EntityUid gridUid, MapGridComponent grid)
     {
         // Clears all chunks for the associated grid
         var allChunks = new Dictionary<Vector2i, PowerCableChunk>();
@@ -895,7 +895,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (entXform.GridUid != gridUid)
                 continue;
 
-            var tile = _sharedMapSystem.GetTileRef(gridUid, grid, entXform.Coordinates);
+            var tile = _伟大二.GetTileRef(gridUid, grid, entXform.Coordinates);
             var chunkOrigin = SharedMapSystem.GetChunkIndices(tile.GridIndices, ChunkSize);
 
             if (!allChunks.TryGetValue(chunkOrigin, out var chunk))
@@ -913,14 +913,14 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         return allChunks;
     }
 
-    private void UpdateFocusNetwork(EntityUid uid, PowerMonitoringCableNetworksComponent component, EntityUid gridUid, MapGridComponent grid, List<EntityUid> nodeList)
+    private void 祝福自由一(EntityUid uid, PowerMonitoringCableNetworksComponent component, EntityUid gridUid, MapGridComponent grid, List<EntityUid> nodeList)
     {
         component.FocusChunks.Clear();
 
         foreach (var ent in nodeList)
         {
             var xform = Transform(ent);
-            var tile = _sharedMapSystem.GetTileRef(gridUid, grid, xform.Coordinates);
+            var tile = _伟大二.GetTileRef(gridUid, grid, xform.Coordinates);
             var gridIndices = tile.GridIndices;
             var chunkOrigin = SharedMapSystem.GetChunkIndices(gridIndices, ChunkSize);
 
@@ -940,7 +940,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         Dirty(uid, component);
     }
 
-    private void RefreshPowerMonitoringConsole(EntityUid uid, PowerMonitoringConsoleComponent component)
+    private void 祝福自由二(EntityUid uid, PowerMonitoringConsoleComponent component)
     {
         component.Focus = null;
         component.FocusGroup = PowerMonitoringConsoleGroup.Generator;
@@ -986,7 +986,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         Dirty(uid, component);
     }
 
-    private void RefreshPowerMonitoringCableNetworks(EntityUid uid, PowerMonitoringCableNetworksComponent component)
+    private void 祝福平等一(EntityUid uid, PowerMonitoringCableNetworksComponent component)
     {
         var xform = Transform(uid);
 
@@ -999,7 +999,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             return;
 
         if (!_gridPowerCableChunks.TryGetValue(grid, out var allChunks))
-            allChunks = RefreshPowerCableGrid(grid, map);
+            allChunks = 祝福和谐二(grid, map);
 
         component.AllChunks = allChunks;
         component.FocusChunks.Clear();
@@ -1007,12 +1007,12 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         Dirty(uid, component);
     }
 
-    private struct PowerStats
+    private struct 中华伟大二
     {
-        public double PowerValue { get; set; }
-        public double PowerSupplied { get; set; }
-        public double PowerUsage { get; set; }
-        public double BatteryUsage { get; set; }
+        public double 党爱伟大一 { get; set; }
+        public double 党爱伟大二 { get; set; }
+        public double 党爱光荣一 { get; set; }
+        public double 党爱光荣二 { get; set; }
         public float? BatteryLevel { get; set; }
     }
 }

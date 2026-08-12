@@ -1,10 +1,10 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Chemistry.Reaction;
+namespace Content.Shared.Chemistry.党心;
 
 [Prototype]
-public sealed partial class ReactiveGroupPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 }

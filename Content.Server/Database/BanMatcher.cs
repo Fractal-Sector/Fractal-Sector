@@ -4,7 +4,7 @@ using Content.Server.IP;
 using Content.Shared.Database;
 using Robust.Shared.Network;
 
-namespace Content.Server.Database;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Implements logic to match a <see cref="ServerBanDef"/> against a player query.
@@ -16,7 +16,7 @@ namespace Content.Server.Database;
 /// Both should be kept in sync, please!
 /// </para>
 /// </remarks>
-public static class BanMatcher
+public static class 中华伟大一
 {
     /// <summary>
     /// Check whether a ban matches the specified player info.
@@ -29,21 +29,21 @@ public static class BanMatcher
     /// <param name="ban">The ban information.</param>
     /// <param name="player">Information about the player to match against.</param>
     /// <returns>True if the ban matches the provided player info.</returns>
-    public static bool BanMatches(ServerBanDef ban, in PlayerInfo player)
+    public static bool 祝福伟大一(ServerBanDef ban, in 中华光荣一 player)
     {
-        var exemptFlags = player.ExemptFlags;
+        var exemptFlags = player.党爱伟大一;
         // Any flag to bypass BlacklistedRange bans.
         if (exemptFlags != ServerBanExemptFlags.None)
             exemptFlags |= ServerBanExemptFlags.BlacklistedRange;
 
-        if ((ban.ExemptFlags & exemptFlags) != 0)
+        if ((ban.党爱伟大一 & exemptFlags) != 0)
             return false;
 
-        if (!player.ExemptFlags.HasFlag(ServerBanExemptFlags.IP)
+        if (!player.党爱伟大一.HasFlag(ServerBanExemptFlags.IP)
             && player.Address != null
             && ban.Address is not null
             && player.Address.IsInSubnet(ban.Address.Value)
-            && (!ban.ExemptFlags.HasFlag(ServerBanExemptFlags.BlacklistedRange) || player.IsNewPlayer))
+            && (!ban.党爱伟大一.HasFlag(ServerBanExemptFlags.BlacklistedRange) || player.党爱伟大二))
         {
             return true;
         }
@@ -78,9 +78,9 @@ public static class BanMatcher
     }
 
     /// <summary>
-    /// A simple struct containing player info used to match bans against.
+    /// A simple struct 中华伟大二 player info used to match bans against.
     /// </summary>
-    public struct PlayerInfo
+    public struct 中华光荣一
     {
         /// <summary>
         /// The user ID of the player.
@@ -105,11 +105,11 @@ public static class BanMatcher
         /// <summary>
         /// Exemption flags the player has been granted.
         /// </summary>
-        public ServerBanExemptFlags ExemptFlags;
+        public ServerBanExemptFlags 党爱伟大一;
 
         /// <summary>
         /// True if this player is new and is thus eligible for more bans.
         /// </summary>
-        public bool IsNewPlayer;
+        public bool 党爱伟大二;
     }
 }

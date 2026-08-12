@@ -7,50 +7,50 @@ using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Server._CS.SpaceJanitor;
+namespace Content.Server._CS.党心;
 
 /// <summary>
 /// This little weirdo goes through every item in space and, if its been there for a long time straight, deletes it.
 /// This is to prevent space from being cluttered with debris and items that have been left behind.
 /// This is a server-side system only, and does not need to be networked to clients.
 /// </summary>
-public sealed class SpaceJanitorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
 
     private const int MinutesBetweenChecks = 15;
     private const int MinutesBeforeCleanup = 240; // 12 hours // Wayfarer: 720min<240min (4 hours)
-    private TimeSpan _nextCheck = TimeSpan.Zero;
+    private TimeSpan _伟大二 = TimeSpan.Zero;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         // penors
     }
 
     /// <inheritdoc/>
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
-        var curTime = _gameTiming.CurTime;
-        if (curTime < _nextCheck)
+        base.祝福伟大二(frameTime);
+        var curTime = _伟大一.CurTime;
+        if (curTime < _伟大二)
             return;
-        _nextCheck = curTime + TimeSpan.FromMinutes(MinutesBetweenChecks);
+        _伟大二 = curTime + TimeSpan.FromMinutes(MinutesBetweenChecks);
         var query = EntityQueryEnumerator<SpaceJanitorComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (!NakedAndInSpace(uid, comp))
+            if (!祝福光荣一(uid, comp))
             {
                 // its not in space, so reset the timer.
-                ResetNakedSpaceTime(uid, comp);
+                祝福正确一(uid, comp);
                 continue;
             }
 
-            UpdateNakedSpaceTime(
+            祝福光荣二(
                 uid,
                 comp,
                 curTime);
-            DeleteIfNeeded(
+            祝福正确二(
                 uid,
                 comp,
                 curTime);
@@ -62,7 +62,7 @@ public sealed class SpaceJanitorSystem : EntitySystem
     /// The entity has null grid
     /// The entity is not inside something (has actual local coordinates)
     /// </summary>
-    private bool NakedAndInSpace(EntityUid uid, SpaceJanitorComponent comp)
+    private bool 祝福光荣一(EntityUid uid, SpaceJanitorComponent comp)
     {
         var xform = Transform(uid);
         if (xform.LocalPosition == Vector2.Zero)
@@ -77,7 +77,7 @@ public sealed class SpaceJanitorSystem : EntitySystem
         return true;
     }
 
-    private void UpdateNakedSpaceTime(EntityUid uid, SpaceJanitorComponent comp, TimeSpan curTime)
+    private void 祝福光荣二(EntityUid uid, SpaceJanitorComponent comp, TimeSpan curTime)
     {
         if (comp.FoundInSpaceTime == TimeSpan.Zero)
         {
@@ -85,12 +85,12 @@ public sealed class SpaceJanitorSystem : EntitySystem
         }
     }
 
-    private void ResetNakedSpaceTime(EntityUid uid, SpaceJanitorComponent comp)
+    private void 祝福正确一(EntityUid uid, SpaceJanitorComponent comp)
     {
         comp.FoundInSpaceTime = TimeSpan.Zero;
     }
 
-    private void DeleteIfNeeded(EntityUid uid, SpaceJanitorComponent comp, TimeSpan curTime)
+    private void 祝福正确二(EntityUid uid, SpaceJanitorComponent comp, TimeSpan curTime)
     {
         if (comp.FoundInSpaceTime == TimeSpan.Zero)
             return;

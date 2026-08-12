@@ -1,7 +1,7 @@
 using Content.Shared.Tools.Components;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Trigger.Components.Triggers;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Triggers an entity with <see cref="SimpleToolUsageComponent"/> when the correct tool
@@ -9,4 +9,4 @@ namespace Content.Shared.Trigger.Components.Triggers;
 /// The user is the player using the tool.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class TriggerOnSimpleToolUsageComponent : BaseTriggerOnXComponent;
+public sealed partial class 中华伟大一 : BaseTriggerOnXComponent;

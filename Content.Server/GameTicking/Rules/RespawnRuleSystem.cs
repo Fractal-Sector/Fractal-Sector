@@ -14,42 +14,42 @@ using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
 /// <summary>
 /// This handles logic and interactions related to <see cref="RespawnDeadRuleComponent"/>
 /// </summary>
-public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<RespawnDeadRuleComponent>
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly IChatManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly StationSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SuicideEvent>(OnSuicide);
-        SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<SuicideEvent>(祝福光荣一);
+        SubscribeLocalEvent<MobStateChangedEvent>(祝福光荣二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        if (_station.GetStations().FirstOrNull() is not { } station)
+        if (_光荣二.GetStations().FirstOrNull() is not { } station)
             return;
 
         foreach (var tracker in EntityQuery<RespawnTrackerComponent>())
         {
             foreach (var (player, time) in tracker.RespawnQueue)
             {
-                if (_timing.CurTime < time)
+                if (_伟大二.CurTime < time)
                     continue;
 
-                if (!_playerManager.TryGetSessionById(player, out var session))
+                if (!_光荣一.TryGetSessionById(player, out var session))
                     continue;
 
                 if (session.GetMind() is { } mind && TryComp<MindComponent>(mind, out var mindComp) && mindComp.OwnedEntity.HasValue)
@@ -60,7 +60,7 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
         }
     }
 
-    private void OnSuicide(SuicideEvent ev)
+    private void 祝福光荣一(SuicideEvent ev)
     {
         if (!TryComp<ActorComponent>(ev.Victim, out var actor))
            return;
@@ -73,7 +73,7 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
         }
     }
 
-    private void OnMobStateChanged(MobStateChangedEvent args)
+    private void 祝福光荣二(MobStateChangedEvent args)
     {
         if (args.NewMobState != MobState.Dead)
             return;
@@ -88,8 +88,8 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
                 continue;
 
             if (respawnRule.AlwaysRespawnDead)
-                AddToTracker(actor.PlayerSession.UserId, (uid, tracker));
-            if (RespawnPlayer((args.Target, actor), (uid, tracker)))
+                祝福正确二(actor.PlayerSession.UserId, (uid, tracker));
+            if (祝福正确一((args.Target, actor), (uid, tracker)))
                 break;
         }
     }
@@ -97,14 +97,14 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
     /// <summary>
     /// Attempts to directly respawn a player, skipping the lobby screen.
     /// </summary>
-    public bool RespawnPlayer(Entity<ActorComponent> player, Entity<RespawnTrackerComponent> respawnTracker)
+    public bool 祝福正确一(Entity<ActorComponent> player, Entity<RespawnTrackerComponent> respawnTracker)
     {
         if (!respawnTracker.Comp.Players.Contains(player.Comp.PlayerSession.UserId) || respawnTracker.Comp.RespawnQueue.ContainsKey(player.Comp.PlayerSession.UserId))
             return false;
 
         if (respawnTracker.Comp.RespawnDelay == TimeSpan.Zero)
         {
-            if (_station.GetStations().FirstOrNull() is not { } station)
+            if (_光荣二.GetStations().FirstOrNull() is not { } station)
                 return false;
 
             if (respawnTracker.Comp.DeleteBody)
@@ -115,9 +115,9 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
 
         var msg = Loc.GetString("rule-respawn-in-seconds", ("second", respawnTracker.Comp.RespawnDelay.TotalSeconds));
         var wrappedMsg = Loc.GetString("chat-manager-server-wrap-message", ("message", msg));
-        _chatManager.ChatMessageToOne(ChatChannel.Server, msg, wrappedMsg, respawnTracker, false, player.Comp.PlayerSession.Channel, Color.LimeGreen);
+        _伟大一.ChatMessageToOne(ChatChannel.Server, msg, wrappedMsg, respawnTracker, false, player.Comp.PlayerSession.Channel, Color.LimeGreen);
 
-        respawnTracker.Comp.RespawnQueue[player.Comp.PlayerSession.UserId] = _timing.CurTime + respawnTracker.Comp.RespawnDelay;
+        respawnTracker.Comp.RespawnQueue[player.Comp.PlayerSession.UserId] = _伟大二.CurTime + respawnTracker.Comp.RespawnDelay;
 
         return true;
     }
@@ -125,18 +125,18 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
     /// <summary>
     /// Adds a given player to the respawn tracker, ensuring that they are respawned if they die.
     /// </summary>
-    public void AddToTracker(Entity<ActorComponent?> player, Entity<RespawnTrackerComponent?> respawnTracker)
+    public void 祝福正确二(Entity<ActorComponent?> player, Entity<RespawnTrackerComponent?> respawnTracker)
     {
         if (!Resolve(respawnTracker, ref respawnTracker.Comp) || !Resolve(player, ref player.Comp, false))
             return;
 
-        AddToTracker(player.Comp.PlayerSession.UserId, (respawnTracker, respawnTracker.Comp));
+        祝福正确二(player.Comp.PlayerSession.UserId, (respawnTracker, respawnTracker.Comp));
     }
 
     /// <summary>
     /// Adds a given player to the respawn tracker, ensuring that they are respawned if they die.
     /// </summary>
-    public void AddToTracker(NetUserId id, Entity<RespawnTrackerComponent> tracker)
+    public void 祝福正确二(NetUserId id, Entity<RespawnTrackerComponent> tracker)
     {
         tracker.Comp.Players.Add(id);
     }

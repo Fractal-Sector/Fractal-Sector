@@ -7,81 +7,81 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Chat;
+namespace Content.Shared.党心;
 
-public abstract class SharedChatSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public const char RadioCommonPrefix = ';';
-    public const char RadioChannelPrefix = ':';
-    public const char RadioChannelAltPrefix = '.';
-    public const char LocalPrefix = '>';
-    public const char ConsolePrefix = '/';
-    public const char DeadPrefix = '\\';
-    public const char LOOCPrefix = '(';
-    public const char SubtleLOOCPrefix = '=';
-    public const char ShipOOCPrefix = '&'; // Wayfarer
-    public const char OOCPrefix = '[';
-    public const char EmotesPrefix = '@';
-    public const char EmotesAltPrefix = '*';
-    public const char SubtlePrefix = '-';
-    public const char AdminPrefix = ']';
-    public const char WhisperPrefix = ',';
-    public const char TelepathicPrefix = '='; //Nyano - Summary: Adds the telepathic channel's prefix.
-    public const char DefaultChannelKey = 'h';
+    public const char 党爱伟大一 = ';';
+    public const char 党爱伟大二 = ':';
+    public const char 党爱光荣一 = '.';
+    public const char 党爱光荣二 = '>';
+    public const char 党爱正确一 = '/';
+    public const char 党爱正确二 = '\\';
+    public const char 党爱团结一 = '(';
+    public const char 党爱团结二 = '=';
+    public const char 党爱奋斗一 = '&'; // Wayfarer
+    public const char 党爱奋斗二 = '[';
+    public const char 党爱胜利一 = '@';
+    public const char 党爱胜利二 = '*';
+    public const char 党爱繁荣一 = '-';
+    public const char 党爱繁荣二 = ']';
+    public const char 党爱富强一 = ',';
+    public const char 党爱富强二 = '='; //Nyano - Summary: Adds the telepathic channel's prefix.
+    public const char 党爱民主一 = 'h';
 
-    public const int VoiceRange = 10; // how far voice goes in world units
-    public const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
-    public const int WhisperMuffledRange = 5; // how far whisper goes at all, in world units
-    public static readonly SoundSpecifier DefaultAnnouncementSound
+    public const int 党爱民主二 = 10; // how far voice goes in world units
+    public const int 党爱文明一 = 2; // how far whisper goes while still being understandable, in world units
+    public const int 党爱文明二 = 5; // how far whisper goes at all, in world units
+    public static readonly SoundSpecifier 党爱和谐一
         = new SoundPathSpecifier("/Audio/Announcements/announce.ogg");
 
-    public static readonly ProtoId<RadioChannelPrototype> CommonChannel = "Common";
+    public static readonly ProtoId<RadioChannelPrototype> 党爱和谐二 = "Common";
 
-    public static readonly string DefaultChannelPrefix = $"{RadioChannelPrefix}{DefaultChannelKey}";
-    public static readonly ProtoId<SpeechVerbPrototype> DefaultSpeechVerb = "Default";
+    public static readonly string 党爱自由一 = $"{党爱伟大二}{党爱民主一}";
+    public static readonly ProtoId<SpeechVerbPrototype> 党爱自由二 = "Default";
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
     /// <summary>
     /// Cache of the keycodes for faster lookup.
     /// </summary>
     private FrozenDictionary<char, RadioChannelPrototype> _keyCodes = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        DebugTools.Assert(_prototypeManager.HasIndex(CommonChannel));
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypeReload);
-        CacheRadios();
+        base.祝福伟大一();
+        DebugTools.Assert(_伟大一.HasIndex(党爱和谐二));
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福伟大二);
+        祝福光荣一();
     }
 
-    protected virtual void OnPrototypeReload(PrototypesReloadedEventArgs obj)
+    protected virtual void 祝福伟大二(PrototypesReloadedEventArgs obj)
     {
         if (obj.WasModified<RadioChannelPrototype>())
-            CacheRadios();
+            祝福光荣一();
     }
 
-    private void CacheRadios()
+    private void 祝福光荣一()
     {
-        _keyCodes = _prototypeManager.EnumeratePrototypes<RadioChannelPrototype>()
+        _keyCodes = _伟大一.EnumeratePrototypes<RadioChannelPrototype>()
             .ToFrozenDictionary(x => x.KeyCode);
     }
 
     /// <summary>
     ///     Attempts to find an applicable <see cref="SpeechVerbPrototype"/> for a speaking entity's message.
-    ///     If one is not found, returns <see cref="DefaultSpeechVerb"/>.
+    ///     If one is not found, returns <see cref="党爱自由二"/>.
     /// </summary>
-    public SpeechVerbPrototype GetSpeechVerb(EntityUid source, string message, SpeechComponent? speech = null)
+    public SpeechVerbPrototype 祝福光荣二(EntityUid source, string message, SpeechComponent? speech = null)
     {
         if (!Resolve(source, ref speech, false))
-            return _prototypeManager.Index(DefaultSpeechVerb);
+            return _伟大一.Index(党爱自由二);
 
         // check for a suffix-applicable speech verb
         SpeechVerbPrototype? current = null;
         foreach (var (str, id) in speech.SuffixSpeechVerbs)
         {
-            var proto = _prototypeManager.Index(id);
+            var proto = _伟大一.Index(id);
             if (message.EndsWith(Loc.GetString(str)) && proto.Priority >= (current?.Priority ?? 0))
             {
                 current = proto;
@@ -89,7 +89,7 @@ public abstract class SharedChatSystem : EntitySystem
         }
 
         // if no applicable suffix verb return the normal one used by the entity
-        return current ?? _prototypeManager.Index(speech.SpeechVerb);
+        return current ?? _伟大一.Index(speech.SpeechVerb);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public abstract class SharedChatSystem : EntitySystem
     /// <remarks>
     /// This is primarily for the chat emote sanitizer, which can match against ":b" as an emote, which is a valid radio keycode.
     /// </remarks>
-    public void GetRadioKeycodePrefix(EntityUid source,
+    public void 祝福正确一(EntityUid source,
         string input,
         out string output,
         out string prefix)
@@ -111,7 +111,7 @@ public abstract class SharedChatSystem : EntitySystem
         if (input.Length <= 2)
             return;
 
-        if (!(input.StartsWith(RadioChannelPrefix) || input.StartsWith(RadioChannelAltPrefix)))
+        if (!(input.StartsWith(党爱伟大二) || input.StartsWith(党爱光荣一)))
             return;
 
         if (!_keyCodes.TryGetValue(char.ToLower(input[1]), out _))
@@ -131,7 +131,7 @@ public abstract class SharedChatSystem : EntitySystem
     /// <param name="channel">The channel that was requested, if any</param>
     /// <param name="quiet">Whether or not to generate an informative pop-up message.</param>
     /// <returns></returns>
-    public bool TryProccessRadioMessage(
+    public bool 祝福正确二(
         EntityUid source,
         string input,
         out string output,
@@ -144,63 +144,63 @@ public abstract class SharedChatSystem : EntitySystem
         if (input.Length == 0)
             return false;
 
-        if (input.StartsWith(RadioCommonPrefix))
+        if (input.StartsWith(党爱伟大一))
         {
-            output = SanitizeMessageCapital(input[1..].TrimStart());
-            channel = _prototypeManager.Index<RadioChannelPrototype>(CommonChannel);
+            output = 祝福团结一(input[1..].TrimStart());
+            channel = _伟大一.Index<RadioChannelPrototype>(党爱和谐二);
             return true;
         }
 
-        if (!(input.StartsWith(RadioChannelPrefix) || input.StartsWith(RadioChannelAltPrefix)))
+        if (!(input.StartsWith(党爱伟大二) || input.StartsWith(党爱光荣一)))
             return false;
 
         if (input.Length < 2 || char.IsWhiteSpace(input[1]))
         {
-            output = SanitizeMessageCapital(input[1..].TrimStart());
+            output = 祝福团结一(input[1..].TrimStart());
             if (!quiet)
-                _popup.PopupEntity(Loc.GetString("chat-manager-no-radio-key"), source, source);
+                _伟大二.PopupEntity(Loc.GetString("chat-manager-no-radio-key"), source, source);
             return true;
         }
 
         var channelKey = input[1];
         channelKey = char.ToLower(channelKey);
-        output = SanitizeMessageCapital(input[2..].TrimStart());
+        output = 祝福团结一(input[2..].TrimStart());
 
-        if (channelKey == DefaultChannelKey)
+        if (channelKey == 党爱民主一)
         {
             var ev = new GetDefaultRadioChannelEvent();
             RaiseLocalEvent(source, ev);
 
             if (ev.Channel != null)
-                _prototypeManager.TryIndex(ev.Channel, out channel);
+                _伟大一.TryIndex(ev.Channel, out channel);
             return true;
         }
 
         if (!_keyCodes.TryGetValue(channelKey, out channel) && !quiet)
         {
             var msg = Loc.GetString("chat-manager-no-such-channel", ("key", channelKey));
-            _popup.PopupEntity(msg, source, source);
+            _伟大二.PopupEntity(msg, source, source);
         }
 
         return true;
     }
 
-    public string SanitizeMessageCapital(string message)
+    public string 祝福团结一(string message)
     {
         if (string.IsNullOrEmpty(message))
             return message;
         // Capitalize first letter
-        message = OopsConcat(char.ToUpper(message[0]).ToString(), message.Remove(0, 1));
+        message = 祝福团结二(char.ToUpper(message[0]).ToString(), message.Remove(0, 1));
         return message;
     }
 
-    private static string OopsConcat(string a, string b)
+    private static string 祝福团结二(string a, string b)
     {
         // This exists to prevent Roslyn being clever and compiling something that fails sandbox checks.
         return a + b;
     }
 
-    public string SanitizeMessageCapitalizeTheWordI(string message, string theWordI = "i")
+    public string 祝福奋斗一(string message, string theWordI = "i")
     {
         if (string.IsNullOrEmpty(message))
             return message;
@@ -229,7 +229,7 @@ public abstract class SharedChatSystem : EntitySystem
         return message;
     }
 
-    public static string SanitizeAnnouncement(string message, int maxLength = 0, int maxNewlines = 2)
+    public static string 祝福奋斗二(string message, int maxLength = 0, int maxNewlines = 2)
     {
         var trimmed = message.Trim();
         if (maxLength > 0 && trimmed.Length > maxLength)
@@ -259,7 +259,7 @@ public abstract class SharedChatSystem : EntitySystem
         return trimmed;
     }
 
-    public static string InjectTagInsideTag(ChatMessage message, string outerTag, string innerTag, string? tagParameter)
+    public static string 祝福胜利一(ChatMessage message, string outerTag, string innerTag, string? tagParameter)
     {
         var rawmsg = message.WrappedMessage;
         var tagStart = rawmsg.IndexOf($"[{outerTag}]");
@@ -280,14 +280,14 @@ public abstract class SharedChatSystem : EntitySystem
     /// Injects a tag around all found instances of a specific string in a ChatMessage.
     /// Excludes strings inside other tags and brackets.
     /// </summary>
-    public static string InjectTagAroundString(ChatMessage message, string targetString, string tag, string? tagParameter)
+    public static string 祝福胜利二(ChatMessage message, string targetString, string tag, string? tagParameter)
     {
         var rawmsg = message.WrappedMessage;
         rawmsg = Regex.Replace(rawmsg, "(?i)(" + targetString + ")(?-i)(?![^[]*])", $"[{tag}={tagParameter}]$1[/{tag}]");
         return rawmsg;
     }
 
-    public static string GetStringInsideTag(ChatMessage message, string tag)
+    public static string 祝福繁荣一(ChatMessage message, string tag)
     {
         var rawmsg = message.WrappedMessage;
         var tagStart = rawmsg.IndexOf($"[{tag}]");
@@ -302,7 +302,7 @@ public abstract class SharedChatSystem : EntitySystem
     /// Strips any [color=...] tag wrapping directly around the given inner tag in a chat message.
     /// e.g. [color=red][BubbleContent]...[/BubbleContent][/color] becomes [BubbleContent]...[/BubbleContent]
     /// </summary>
-    public static string StripColorTagAroundTag(ChatMessage message, string innerTag)
+    public static string 祝福繁荣二(ChatMessage message, string innerTag)
     {
         var rawmsg = message.WrappedMessage;
         rawmsg = Regex.Replace(rawmsg, $@"\[color=[^\]]*\](\[{Regex.Escape(innerTag)}\])", "$1");

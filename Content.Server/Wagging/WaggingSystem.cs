@@ -8,29 +8,29 @@ using Content.Shared.Toggleable;
 using Content.Shared.Wagging;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Wagging;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Adds an action to toggle wagging animation for tails markings that supporting this
 /// </summary>
-public sealed class WaggingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly ActionsSystem _伟大一 = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<WaggingComponent, MapInitEvent>(OnWaggingMapInit);
-        SubscribeLocalEvent<WaggingComponent, ComponentShutdown>(OnWaggingShutdown);
-        SubscribeLocalEvent<WaggingComponent, ToggleActionEvent>(OnWaggingToggle);
-        SubscribeLocalEvent<WaggingComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<WaggingComponent, CloningEvent>(OnCloning);
+        SubscribeLocalEvent<WaggingComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<WaggingComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<WaggingComponent, ToggleActionEvent>(祝福正确一);
+        SubscribeLocalEvent<WaggingComponent, MobStateChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<WaggingComponent, CloningEvent>(祝福伟大二);
     }
 
-    private void OnCloning(Entity<WaggingComponent> ent, ref CloningEvent args)
+    private void 祝福伟大二(Entity<WaggingComponent> ent, ref CloningEvent args)
     {
         if (!args.Settings.EventComponents.Contains(Factory.GetRegistration(ent.Comp.GetType()).Name))
             return;
@@ -38,31 +38,31 @@ public sealed class WaggingSystem : EntitySystem
         EnsureComp<WaggingComponent>(args.CloneUid);
     }
 
-    private void OnWaggingMapInit(EntityUid uid, WaggingComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, WaggingComponent component, MapInitEvent args)
     {
-        _actions.AddAction(uid, ref component.ActionEntity, component.Action, uid);
+        _伟大一.AddAction(uid, ref component.ActionEntity, component.Action, uid);
     }
 
-    private void OnWaggingShutdown(EntityUid uid, WaggingComponent component, ComponentShutdown args)
+    private void 祝福光荣二(EntityUid uid, WaggingComponent component, ComponentShutdown args)
     {
-        _actions.RemoveAction(uid, component.ActionEntity);
+        _伟大一.RemoveAction(uid, component.ActionEntity);
     }
 
-    private void OnWaggingToggle(EntityUid uid, WaggingComponent component, ref ToggleActionEvent args)
+    private void 祝福正确一(EntityUid uid, WaggingComponent component, ref ToggleActionEvent args)
     {
         if (args.Handled)
             return;
 
-        TryToggleWagging(uid, wagging: component);
+        祝福团结一(uid, wagging: component);
     }
 
-    private void OnMobStateChanged(EntityUid uid, WaggingComponent component, MobStateChangedEvent args)
+    private void 祝福正确二(EntityUid uid, WaggingComponent component, MobStateChangedEvent args)
     {
         if (component.Wagging)
-            TryToggleWagging(uid, wagging: component);
+            祝福团结一(uid, wagging: component);
     }
 
-    public bool TryToggleWagging(EntityUid uid, WaggingComponent? wagging = null, HumanoidAppearanceComponent? humanoid = null)
+    public bool 祝福团结一(EntityUid uid, WaggingComponent? wagging = null, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref wagging, ref humanoid))
             return false;
@@ -97,13 +97,13 @@ public sealed class WaggingSystem : EntitySystem
                 }
             }
 
-            if (!_prototype.HasIndex<MarkingPrototype>(newMarkingId))
+            if (!_光荣一.HasIndex<MarkingPrototype>(newMarkingId))
             {
                 Log.Warning($"{ToPrettyString(uid)} tried toggling wagging but {newMarkingId} marking doesn't exist");
                 continue;
             }
 
-            _humanoidAppearance.SetMarkingId(uid, MarkingCategories.Tail, idx, newMarkingId,
+            _伟大二.SetMarkingId(uid, MarkingCategories.Tail, idx, newMarkingId,
                 humanoid: humanoid);
         }
 

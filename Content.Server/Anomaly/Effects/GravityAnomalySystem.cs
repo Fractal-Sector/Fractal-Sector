@@ -5,22 +5,22 @@ using Content.Shared.Anomaly.Effects;
 using Content.Shared.Anomaly.Effects.Components;
 using Content.Shared.Radiation.Components;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
 /// <summary>
 /// This handles logic and events relating to <see cref="GravityAnomalyComponent"/> and <seealso cref="AnomalySystem"/>
 /// </summary>
-public sealed class GravityAnomalySystem : SharedGravityAnomalySystem
+public sealed class 中华伟大一 : SharedGravityAnomalySystem
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GravityAnomalyComponent, AnomalySeverityChangedEvent>(OnSeverityChanged);
-        SubscribeLocalEvent<GravityAnomalyComponent, AnomalyStabilityChangedEvent>(OnStabilityChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GravityAnomalyComponent, AnomalySeverityChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<GravityAnomalyComponent, AnomalyStabilityChangedEvent>(祝福光荣一);
     }
 
-    private void OnSeverityChanged(Entity<GravityAnomalyComponent> anomaly, ref AnomalySeverityChangedEvent args)
+    private void 祝福伟大二(Entity<GravityAnomalyComponent> anomaly, ref AnomalySeverityChangedEvent args)
     {
         if (TryComp<RadiationSourceComponent>(anomaly, out var radSource))
             radSource.Intensity = anomaly.Comp.MaxRadiationIntensity * args.Severity;
@@ -42,7 +42,7 @@ public sealed class GravityAnomalySystem : SharedGravityAnomalySystem
         }
     }
 
-    private void OnStabilityChanged(Entity<GravityAnomalyComponent> anomaly, ref AnomalyStabilityChangedEvent args)
+    private void 祝福光荣一(Entity<GravityAnomalyComponent> anomaly, ref AnomalyStabilityChangedEvent args)
     {
         if (TryComp<GravityWellComponent>(anomaly, out var gravityWell))
             gravityWell.MaxRange = anomaly.Comp.MaxGravityWellRange * args.Stability;

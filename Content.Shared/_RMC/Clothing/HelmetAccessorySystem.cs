@@ -6,43 +6,43 @@ using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Storage;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Clothing;
+namespace Content.Shared.党心;
 
 
-   public sealed class HelmetAccessorySystem : EntitySystem
+   public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
+    [Dependency] private readonly InventorySystem _伟大一 = default!;
+    [Dependency] private readonly SharedItemSystem _伟大二 = default!;
+    [Dependency] private readonly ItemToggleSystem _光荣一 = default!;
 
-    private EntityQuery<StorageComponent> _storageQuery;
-    private EntityQuery<HelmetAccessoryComponent> _accessoryQuery;
+    private EntityQuery<StorageComponent> _光荣二;
+    private EntityQuery<HelmetAccessoryComponent> _正确一;
 
-    public override void Initialize() //Wayfarer: this all is almost 100% untouched as ported over from RMC
+    public override void 祝福伟大一() //Wayfarer: this all is almost 100% untouched as ported over from RMC
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _storageQuery = GetEntityQuery<StorageComponent>();
-        _accessoryQuery = GetEntityQuery<HelmetAccessoryComponent>();
+        _光荣二 = GetEntityQuery<StorageComponent>();
+        _正确一 = GetEntityQuery<HelmetAccessoryComponent>();
 
-        SubscribeLocalEvent<HelmetAccessoryHolderComponent, EntInsertedIntoContainerMessage>(OnEntInserted);
-        SubscribeLocalEvent<HelmetAccessoryHolderComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-        SubscribeLocalEvent<HelmetAccessoryHolderComponent, GetEquipmentVisualsEvent>(OnGetEquipmentVisuals, after: [typeof(ClothingSystem)]);
+        SubscribeLocalEvent<HelmetAccessoryHolderComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<HelmetAccessoryHolderComponent, EntRemovedFromContainerMessage>(祝福光荣一);
+        SubscribeLocalEvent<HelmetAccessoryHolderComponent, GetEquipmentVisualsEvent>(祝福正确一, after: [typeof(ClothingSystem)]);
 
-        SubscribeLocalEvent<HelmetAccessoryComponent, ItemToggledEvent>(OnToggled);
+        SubscribeLocalEvent<HelmetAccessoryComponent, ItemToggledEvent>(祝福光荣二);
     }
 
-    private void OnEntInserted(Entity<HelmetAccessoryHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福伟大二(Entity<HelmetAccessoryHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        _item.VisualsChanged(ent);
+        _伟大二.VisualsChanged(ent);
     }
 
-    private void OnEntRemoved(Entity<HelmetAccessoryHolderComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣一(Entity<HelmetAccessoryHolderComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        _item.VisualsChanged(ent);
+        _伟大二.VisualsChanged(ent);
     }
 
-    private void OnToggled(Entity<HelmetAccessoryComponent> ent, ref ItemToggledEvent args)
+    private void 祝福光荣二(Entity<HelmetAccessoryComponent> ent, ref ItemToggledEvent args)
     {
         if (!TryComp(ent, out TransformComponent? xform) ||
             TerminatingOrDeleted(xform.ParentUid))
@@ -50,18 +50,18 @@ namespace Content.Shared.Clothing;
             return;
         }
 
-        _item.VisualsChanged(xform.ParentUid);
+        _伟大二.VisualsChanged(xform.ParentUid);
     }
 
-    private void OnGetEquipmentVisuals(Entity<HelmetAccessoryHolderComponent> ent, ref GetEquipmentVisualsEvent args)
+    private void 祝福正确一(Entity<HelmetAccessoryHolderComponent> ent, ref GetEquipmentVisualsEvent args)
     {
-        if (_inventory.TryGetSlot(args.Equipee, args.Slot, out var slot) &&
+        if (_伟大一.TryGetSlot(args.Equipee, args.Slot, out var slot) &&
             (slot.SlotFlags & ent.Comp.Slot) == 0)
         {
             return;
         }
 
-        if (!_storageQuery.TryComp(ent.Owner, out var storage))
+        if (!_光荣二.TryComp(ent.Owner, out var storage))
             return;
 
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
@@ -73,10 +73,10 @@ namespace Content.Shared.Clothing;
         {
             var layer = $"enum.{nameof(HelmetAccessoryLayers)}.{HelmetAccessoryLayers.Helmet}{index}_{Name(ent.Owner)}";
 
-            if (!_accessoryQuery.TryComp(item, out var accessoryComp))
+            if (!_正确一.TryComp(item, out var accessoryComp))
                 continue;
 
-            var rsi = _itemToggle.IsActivated(item) && accessoryComp.ToggledRsi != null
+            var rsi = _光荣一.IsActivated(item) && accessoryComp.ToggledRsi != null
                 ? (ent.Comp.IsHat && accessoryComp.HatToggledRsi != null ? accessoryComp.HatToggledRsi : accessoryComp.ToggledRsi)
                 : (ent.Comp.IsHat && accessoryComp.HatRsi != null ? accessoryComp.HatRsi : accessoryComp.Rsi);
 

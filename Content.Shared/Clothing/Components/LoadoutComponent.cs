@@ -3,10 +3,10 @@ using Content.Shared.Roles;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class LoadoutComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A list of starting gears, of which one will be given, before RoleLoadouts are equipped.

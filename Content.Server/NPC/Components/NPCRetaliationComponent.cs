@@ -1,13 +1,13 @@
 ﻿using Content.Server.NPC.Systems;
 
-namespace Content.Server.NPC.Components;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// Entities with this component will retaliate against those who physically attack them.
 /// It has an optional "memory" specification wherein it will only attack those entities for a specified length of time.
 /// </summary>
 [RegisterComponent, Access(typeof(NPCRetaliationSystem))]
-public sealed partial class NPCRetaliationComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How long after being attacked will an NPC continue to be aggressive to the attacker for.
@@ -26,5 +26,5 @@ public sealed partial class NPCRetaliationComponent : Component
     ///     Whether this NPC will retaliate against a "Friendly" NPC.
     /// </summary>
     [DataField]
-    public bool RetaliateFriendlies;
+    public bool 党爱伟大一;
 }

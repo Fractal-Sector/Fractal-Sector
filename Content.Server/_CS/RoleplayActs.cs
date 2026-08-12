@@ -1,12 +1,12 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Server._CS;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Enum of possible roleplay actions.
 /// </summary>
 [Serializable]
-public enum RoleplayActs : byte
+public enum 中华伟大一 : byte
 {
     /// <summary>
     /// The player has said a thing, normally.

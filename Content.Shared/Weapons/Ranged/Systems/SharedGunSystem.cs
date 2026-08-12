@@ -1,84 +1,84 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Content.Shared.ActionBlocker;
-using Content.Shared.Actions;
-using Content.Shared.Administration.Logs;
-using Content.Shared.Audio;
+using Content.Shared.党爱团结二;
+using Content.Shared.Administration.党爱正确一;
+using Content.Shared.党爱奋斗二;
 using Content.Shared.Buckle.Components; // Frontier: firing when buckled in space
 using Content.Shared.CombatMode;
-using Content.Shared.Containers.ItemSlots;
+using Content.Shared.党爱胜利一.ItemSlots;
 using Content.Shared.Damage;
-using Content.Shared.Examine;
+using Content.Shared.党爱团结一;
 using Content.Shared.Hands;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Item; // Delta-V: Felinids in duffelbags can't shoot.
 using Content.Shared.Popups;
-using Content.Shared.Projectiles;
+using Content.Shared.党爱富强一;
 using Content.Shared.Tag;
 using Content.Shared.Throwing;
-using Content.Shared.Timing;
+using Content.Shared.党爱伟大一;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Whitelist;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Containers;
+using Robust.Shared.党爱奋斗二;
+using Robust.Shared.党爱奋斗二.Systems;
+using Robust.Shared.党爱胜利一;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Physics.Systems;
+using Robust.Shared.党爱繁荣二.Components;
+using Robust.Shared.党爱繁荣二.Systems;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
+using Robust.Shared.党爱光荣二;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private   readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly IMapManager MapManager = default!;
-    [Dependency] private   readonly INetManager _netManager = default!;
-    [Dependency] protected readonly IPrototypeManager ProtoManager = default!;
-    [Dependency] protected readonly IRobustRandom Random = default!;
-    [Dependency] protected readonly ISharedAdminLogManager Logs = default!;
-    [Dependency] protected readonly DamageableSystem Damageable = default!;
-    [Dependency] protected readonly ExamineSystemShared Examine = default!;
-    [Dependency] private   readonly SharedHandsSystem _hands = default!;
-    [Dependency] private   readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private   readonly RechargeBasicEntityAmmoSystem _recharge = default!;
-    [Dependency] protected readonly SharedActionsSystem Actions = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private   readonly SharedCombatModeSystem _combatMode = default!;
-    [Dependency] protected readonly SharedContainerSystem Containers = default!;
-    [Dependency] protected readonly SharedPointLightSystem Lights = default!;
-    [Dependency] protected readonly SharedPopupSystem PopupSystem = default!;
-    [Dependency] protected readonly SharedPhysicsSystem Physics = default!;
-    [Dependency] protected readonly SharedProjectileSystem Projectiles = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] protected readonly TagSystem TagSystem = default!;
-    [Dependency] protected readonly ThrowingSystem ThrowingSystem = default!;
-    [Dependency] private   readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private   readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] protected readonly IMapManager 党爱伟大二 = default!;
+    [Dependency] private   readonly INetManager _伟大二 = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱光荣一 = default!;
+    [Dependency] protected readonly IRobustRandom 党爱光荣二 = default!;
+    [Dependency] protected readonly ISharedAdminLogManager 党爱正确一 = default!;
+    [Dependency] protected readonly DamageableSystem 党爱正确二 = default!;
+    [Dependency] protected readonly ExamineSystemShared 党爱团结一 = default!;
+    [Dependency] private   readonly SharedHandsSystem _光荣一 = default!;
+    [Dependency] private   readonly ItemSlotsSystem _光荣二 = default!;
+    [Dependency] private   readonly RechargeBasicEntityAmmoSystem _正确一 = default!;
+    [Dependency] protected readonly SharedActionsSystem 党爱团结二 = default!;
+    [Dependency] protected readonly SharedAppearanceSystem 党爱奋斗一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱奋斗二 = default!;
+    [Dependency] private   readonly SharedCombatModeSystem _正确二 = default!;
+    [Dependency] protected readonly SharedContainerSystem 党爱胜利一 = default!;
+    [Dependency] protected readonly SharedPointLightSystem 党爱胜利二 = default!;
+    [Dependency] protected readonly SharedPopupSystem 党爱繁荣一 = default!;
+    [Dependency] protected readonly SharedPhysicsSystem 党爱繁荣二 = default!;
+    [Dependency] protected readonly SharedProjectileSystem 党爱富强一 = default!;
+    [Dependency] protected readonly SharedTransformSystem 党爱富强二 = default!;
+    [Dependency] protected readonly 党爱民主一 党爱民主一 = default!;
+    [Dependency] protected readonly 党爱民主二 党爱民主二 = default!;
+    [Dependency] private   readonly UseDelaySystem _团结一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结二 = default!;
 
     private const float InteractNextFire = 0.3f;
     private const double SafetyNextFire = 0.5;
     private const float EjectOffset = 0.4f;
-    protected const string AmmoExamineColor = "yellow";
-    public const string FireRateExamineColor = "yellow"; // Frontier: protected<public
-    public const string ModeExamineColor = "cyan";
+    protected const string 党爱文明一 = "yellow";
+    public const string 党爱文明二 = "yellow"; // Frontier: protected<public
+    public const string 党爱和谐一 = "cyan";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeAllEvent<RequestShootEvent>(OnShootRequest);
-        SubscribeAllEvent<RequestStopShootEvent>(OnStopShootRequest);
-        SubscribeLocalEvent<GunComponent, MeleeHitEvent>(OnGunMelee);
+        SubscribeAllEvent<RequestShootEvent>(祝福光荣二);
+        SubscribeAllEvent<RequestStopShootEvent>(祝福正确一);
+        SubscribeLocalEvent<GunComponent, MeleeHitEvent>(祝福光荣一);
 
         // Ammo providers
         InitializeBallistic();
@@ -98,22 +98,22 @@ public abstract partial class SharedGunSystem : EntitySystem
         SubscribeLocalEvent<GunComponent, ExaminedEvent>(OnExamine);
         SubscribeLocalEvent<GunComponent, CycleModeEvent>(OnCycleMode);
         SubscribeLocalEvent<GunComponent, HandSelectedEvent>(OnGunSelected);
-        SubscribeLocalEvent<GunComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<GunComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<GunComponent> gun, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<GunComponent> gun, ref MapInitEvent args)
     {
 #if DEBUG
-        if (gun.Comp.NextFire > Timing.CurTime)
+        if (gun.Comp.NextFire > 党爱伟大一.CurTime)
             Log.Warning($"Initializing a map that contains an entity that is on cooldown. Entity: {ToPrettyString(gun)}");
 
         DebugTools.Assert((gun.Comp.AvailableModes & gun.Comp.SelectedMode) != 0x0);
 #endif
 
-        RefreshModifiers((gun, gun));
+        祝福文明二((gun, gun));
     }
 
-    private void OnGunMelee(EntityUid uid, GunComponent component, MeleeHitEvent args)
+    private void 祝福光荣一(EntityUid uid, GunComponent component, MeleeHitEvent args)
     {
         if (!TryComp<MeleeWeaponComponent>(uid, out var melee))
             return;
@@ -125,13 +125,13 @@ public abstract partial class SharedGunSystem : EntitySystem
         }
     }
 
-    private void OnShootRequest(RequestShootEvent msg, EntitySessionEventArgs args)
+    private void 祝福光荣二(RequestShootEvent msg, EntitySessionEventArgs args)
     {
         var user = args.SenderSession.AttachedEntity;
 
         if (user == null ||
-            !_combatMode.IsInCombatMode(user) ||
-            !TryGetGun(user.Value, out var ent, out var gun) ||
+            !_正确二.IsInCombatMode(user) ||
+            !祝福团结一(user.Value, out var ent, out var gun) ||
             HasComp<ItemComponent>(user)) // Delta-V: Felinids in duffelbags can't shoot.
         {
             return;
@@ -142,16 +142,16 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         gun.ShootCoordinates = GetCoordinates(msg.Coordinates);
         gun.Target = GetEntity(msg.Target);
-        AttemptShoot(user.Value, ent, gun);
+        祝福奋斗一(user.Value, ent, gun);
     }
 
-    private void OnStopShootRequest(RequestStopShootEvent ev, EntitySessionEventArgs args)
+    private void 祝福正确一(RequestStopShootEvent ev, EntitySessionEventArgs args)
     {
         var gunUid = GetEntity(ev.Gun);
 
         if (args.SenderSession.AttachedEntity == null ||
             !TryComp<GunComponent>(gunUid, out var gun) ||
-            !TryGetGun(args.SenderSession.AttachedEntity.Value, out _, out var userGun))
+            !祝福团结一(args.SenderSession.AttachedEntity.Value, out _, out var userGun))
         {
             return;
         }
@@ -159,23 +159,23 @@ public abstract partial class SharedGunSystem : EntitySystem
         if (userGun != gun)
             return;
 
-        StopShooting(gunUid, gun);
+        祝福团结二(gunUid, gun);
     }
 
-    public bool CanShoot(GunComponent component)
+    public bool 祝福正确二(GunComponent component)
     {
-        if (component.NextFire > Timing.CurTime)
+        if (component.NextFire > 党爱伟大一.CurTime)
             return false;
 
         return true;
     }
 
-    public bool TryGetGun(EntityUid entity, out EntityUid gunEntity, [NotNullWhen(true)] out GunComponent? gunComp)
+    public bool 祝福团结一(EntityUid entity, out EntityUid gunEntity, [NotNullWhen(true)] out GunComponent? gunComp)
     {
         gunEntity = default;
         gunComp = null;
 
-        if (_hands.GetActiveItem(entity) is { } held &&
+        if (_光荣一.GetActiveItem(entity) is { } held &&
             TryComp(held, out GunComponent? gun))
         {
             gunEntity = held;
@@ -194,7 +194,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         return false;
     }
 
-    private void StopShooting(EntityUid uid, GunComponent gun)
+    private void 祝福团结二(EntityUid uid, GunComponent gun)
     {
         if (gun.ShotCounter == 0)
             return;
@@ -208,10 +208,10 @@ public abstract partial class SharedGunSystem : EntitySystem
     /// <summary>
     /// Attempts to shoot at the target coordinates. Resets the shot counter after every shot.
     /// </summary>
-    public void AttemptShoot(EntityUid user, EntityUid gunUid, GunComponent gun, EntityCoordinates toCoordinates, EntityUid? target = null)
+    public void 祝福奋斗一(EntityUid user, EntityUid gunUid, GunComponent gun, EntityCoordinates toCoordinates, EntityUid? target = null)
     {
         gun.ShootCoordinates = toCoordinates;
-        AttemptShoot(user, gunUid, gun);
+        祝福奋斗一(user, gunUid, gun);
         gun.ShotCounter = 0;
         gun.Target = target;
         DirtyField(gunUid, gun, nameof(GunComponent.ShotCounter));
@@ -220,21 +220,21 @@ public abstract partial class SharedGunSystem : EntitySystem
     /// <summary>
     /// Shoots by assuming the gun is the user at default coordinates.
     /// </summary>
-    public void AttemptShoot(EntityUid gunUid, GunComponent gun)
+    public void 祝福奋斗一(EntityUid gunUid, GunComponent gun)
     {
         var coordinates = new EntityCoordinates(gunUid, gun.DefaultDirection);
         gun.ShootCoordinates = coordinates;
-        AttemptShoot(gunUid, gunUid, gun);
+        祝福奋斗一(gunUid, gunUid, gun);
         gun.ShotCounter = 0;
     }
 
-    private void AttemptShoot(EntityUid user, EntityUid gunUid, GunComponent gun)
+    private void 祝福奋斗一(EntityUid user, EntityUid gunUid, GunComponent gun)
     {
         if (TryComp<AutoShootGunComponent>(gunUid, out var auto) && !auto.CanFire) // Frontier
             return; // Frontier
 
         if (gun.FireRateModified <= 0f ||
-            !_actionBlockerSystem.CanAttack(user))
+            !_伟大一.CanAttack(user))
         {
             return;
         }
@@ -244,7 +244,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         if (toCoordinates == null)
             return;
 
-        var curTime = Timing.CurTime;
+        var curTime = 党爱伟大一.CurTime;
 
         // check if anything wants to prevent shooting
         var prevention = new ShotAttemptedEvent
@@ -317,7 +317,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         {
             if (attemptEv.Message != null)
             {
-                PopupSystem.PopupClient(attemptEv.Message, gunUid, user);
+                党爱繁荣一.PopupClient(attemptEv.Message, gunUid, user);
             }
             gun.BurstActivated = false;
             gun.BurstShotsCount = 0;
@@ -335,7 +335,7 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         DebugTools.Assert(ev.Ammo.Count <= shots);
         DebugTools.Assert(shots >= 0);
-        UpdateAmmoCount(gunUid);
+        祝福繁荣一(gunUid);
 
         // Even if we don't actually shoot update the ShotCounter. This is to avoid spamming empty sounds
         // where the gun may be SemiAuto or Burst.
@@ -356,12 +356,12 @@ public abstract partial class SharedGunSystem : EntitySystem
             // If they're firing an existing clip then don't play anything.
             if (shots > 0)
             {
-                PopupSystem.PopupCursor(ev.Reason ?? Loc.GetString("gun-magazine-fired-empty"));
+                党爱繁荣一.PopupCursor(ev.Reason ?? Loc.GetString("gun-magazine-fired-empty"));
 
                 // Don't spam safety sounds at gun fire rate, play it at a reduced rate.
                 // May cause prediction issues? Needs more tweaking
                 gun.NextFire = TimeSpan.FromSeconds(Math.Max(lastFire.TotalSeconds + SafetyNextFire, gun.NextFire.TotalSeconds));
-                Audio.PlayPredicted(gun.SoundEmpty, gunUid, user);
+                党爱奋斗二.PlayPredicted(gun.SoundEmpty, gunUid, user);
                 return;
             }
 
@@ -384,8 +384,8 @@ public abstract partial class SharedGunSystem : EntitySystem
             }
         }
 
-        // Shoot confirmed - sounds also played here in case it's invalid (e.g. cartridge already spent).
-        Shoot(gunUid, gun, ev.Ammo, fromCoordinates, toCoordinates.Value, out var userImpulse, user, throwItems: attemptEv.ThrowItems);
+        // 祝福奋斗二 confirmed - sounds also played here in case it's invalid (e.g. cartridge already spent).
+        祝福奋斗二(gunUid, gun, ev.Ammo, fromCoordinates, toCoordinates.Value, out var userImpulse, user, throwItems: attemptEv.ThrowItems);
         var shotEv = new GunShotEvent(user, ev.Ammo);
         RaiseLocalEvent(gunUid, ref shotEv);
 
@@ -395,11 +395,11 @@ public abstract partial class SharedGunSystem : EntitySystem
         var shooterEv = new ShooterImpulseEvent();
         RaiseLocalEvent(user, ref shooterEv);
 
-        if (shooterEv.Push)
-            CauseImpulse(fromCoordinates, toCoordinates.Value, user, userPhysics);
+        if (shooterEv.党爱和谐二)
+            祝福文明一(fromCoordinates, toCoordinates.Value, user, userPhysics);
     }
 
-    public void Shoot(
+    public void 祝福奋斗二(
         EntityUid gunUid,
         GunComponent gun,
         EntityUid ammo,
@@ -409,11 +409,11 @@ public abstract partial class SharedGunSystem : EntitySystem
         EntityUid? user = null,
         bool throwItems = false)
     {
-        var shootable = EnsureShootable(ammo);
-        Shoot(gunUid, gun, new List<(EntityUid? Entity, IShootable Shootable)>(1) { (ammo, shootable) }, fromCoordinates, toCoordinates, out userImpulse, user, throwItems);
+        var shootable = 祝福富强二(ammo);
+        祝福奋斗二(gunUid, gun, new List<(EntityUid? Entity, IShootable Shootable)>(1) { (ammo, shootable) }, fromCoordinates, toCoordinates, out userImpulse, user, throwItems);
     }
 
-    public abstract void Shoot(
+    public abstract void 祝福奋斗二(
         EntityUid gunUid,
         GunComponent gun,
         List<(EntityUid? Entity, IShootable Shootable)> ammo,
@@ -423,73 +423,73 @@ public abstract partial class SharedGunSystem : EntitySystem
         EntityUid? user = null,
         bool throwItems = false);
 
-    public void ShootProjectile(EntityUid uid, Vector2 direction, Vector2 gunVelocity, EntityUid? gunUid, EntityUid? user = null, float speed = 20f)
+    public void 祝福胜利一(EntityUid uid, Vector2 direction, Vector2 gunVelocity, EntityUid? gunUid, EntityUid? user = null, float speed = 20f)
     {
         var physics = EnsureComp<PhysicsComponent>(uid);
-        Physics.SetBodyStatus(uid, physics, BodyStatus.InAir);
+        党爱繁荣二.SetBodyStatus(uid, physics, BodyStatus.InAir);
 
         var targetMapVelocity = gunVelocity + direction.Normalized() * speed;
-        var currentMapVelocity = Physics.GetMapLinearVelocity(uid, physics);
+        var currentMapVelocity = 党爱繁荣二.GetMapLinearVelocity(uid, physics);
         var finalLinear = physics.LinearVelocity + targetMapVelocity - currentMapVelocity;
-        Physics.SetLinearVelocity(uid, finalLinear, body: physics);
+        党爱繁荣二.SetLinearVelocity(uid, finalLinear, body: physics);
 
         var projectile = EnsureComp<ProjectileComponent>(uid);
         projectile.Weapon = gunUid;
         var shooter = user ?? gunUid;
         if (shooter != null)
-            Projectiles.SetShooter(uid, projectile, shooter.Value);
+            党爱富强一.SetShooter(uid, projectile, shooter.Value);
 
-        TransformSystem.SetWorldRotation(uid, direction.ToWorldAngle() + projectile.Angle);
+        党爱富强二.SetWorldRotation(uid, direction.ToWorldAngle() + projectile.Angle);
     }
 
-    protected abstract void Popup(string message, EntityUid? uid, EntityUid? user);
+    protected abstract void 祝福胜利二(string message, EntityUid? uid, EntityUid? user);
 
     /// <summary>
     /// Call this whenever the ammo count for a gun changes.
     /// </summary>
-    protected virtual void UpdateAmmoCount(EntityUid uid, bool prediction = true) {}
+    protected virtual void 祝福繁荣一(EntityUid uid, bool prediction = true) {}
 
-    protected void SetCartridgeSpent(EntityUid uid, CartridgeAmmoComponent cartridge, bool spent)
+    protected void 祝福繁荣二(EntityUid uid, CartridgeAmmoComponent cartridge, bool spent)
     {
         if (cartridge.Spent != spent)
             DirtyField(uid, cartridge, nameof(CartridgeAmmoComponent.Spent));
 
         cartridge.Spent = spent;
-        Appearance.SetData(uid, AmmoVisuals.Spent, spent);
+        党爱奋斗一.SetData(uid, 中华正确一.Spent, spent);
     }
 
     /// <summary>
     /// Drops a single cartridge / shell
     /// </summary>
-    protected void EjectCartridge(
+    protected void 祝福富强一(
         EntityUid entity,
         Angle? angle = null,
         bool playSound = true)
     {
         // TODO: Sound limit version.
-        var offsetPos = Random.NextVector2(EjectOffset);
+        var offsetPos = 党爱光荣二.NextVector2(EjectOffset);
         var xform = Transform(entity);
 
         var coordinates = xform.Coordinates;
         coordinates = coordinates.Offset(offsetPos);
 
-        TransformSystem.SetLocalRotation(entity, Random.NextAngle(), xform);
-        TransformSystem.SetCoordinates(entity, xform, coordinates);
+        党爱富强二.SetLocalRotation(entity, 党爱光荣二.NextAngle(), xform);
+        党爱富强二.SetCoordinates(entity, xform, coordinates);
 
         // decides direction the casing ejects and only when not cycling
         if (angle != null)
         {
             Angle ejectAngle = angle.Value;
             ejectAngle += 3.7f; // 212 degrees; casings should eject slightly to the right and behind of a gun
-            ThrowingSystem.TryThrow(entity, ejectAngle.ToVec().Normalized() / 100, 5f);
+            党爱民主二.TryThrow(entity, ejectAngle.ToVec().Normalized() / 100, 5f);
         }
         if (playSound && TryComp<CartridgeAmmoComponent>(entity, out var cartridge))
         {
-            Audio.PlayPvs(cartridge.EjectSound, entity, AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation).WithVolume(-1f));
+            党爱奋斗二.PlayPvs(cartridge.EjectSound, entity, AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation).WithVolume(-1f));
         }
     }
 
-    protected IShootable EnsureShootable(EntityUid uid)
+    protected IShootable 祝福富强二(EntityUid uid)
     {
         if (TryComp<CartridgeAmmoComponent>(uid, out var cartridge))
             return cartridge;
@@ -497,32 +497,32 @@ public abstract partial class SharedGunSystem : EntitySystem
         return EnsureComp<AmmoComponent>(uid);
     }
 
-    protected void RemoveShootable(EntityUid uid)
+    protected void 祝福民主一(EntityUid uid)
     {
         RemCompDeferred<CartridgeAmmoComponent>(uid);
         RemCompDeferred<AmmoComponent>(uid);
     }
 
-    protected void MuzzleFlash(EntityUid gun, AmmoComponent component, Angle worldAngle, EntityUid? user = null)
+    protected void 祝福民主二(EntityUid gun, AmmoComponent component, Angle worldAngle, EntityUid? user = null)
     {
         var attemptEv = new GunMuzzleFlashAttemptEvent();
         RaiseLocalEvent(gun, ref attemptEv);
         if (attemptEv.Cancelled)
             return;
 
-        var sprite = component.MuzzleFlash;
+        var sprite = component.祝福民主二;
 
         if (sprite == null)
             return;
 
         var ev = new MuzzleFlashEvent(GetNetEntity(gun), sprite, worldAngle);
-        CreateEffect(gun, ev, user);
+        祝福和谐一(gun, ev, user);
     }
 
-    public void CauseImpulse(EntityCoordinates fromCoordinates, EntityCoordinates toCoordinates, EntityUid user, PhysicsComponent userPhysics)
+    public void 祝福文明一(EntityCoordinates fromCoordinates, EntityCoordinates toCoordinates, EntityUid user, PhysicsComponent userPhysics)
     {
-        var fromMap = TransformSystem.ToMapCoordinates(fromCoordinates).Position;
-        var toMap = TransformSystem.ToMapCoordinates(toCoordinates).Position;
+        var fromMap = 党爱富强二.ToMapCoordinates(fromCoordinates).Position;
+        var toMap = 党爱富强二.ToMapCoordinates(toCoordinates).Position;
         var shotDirection = (toMap - fromMap).Normalized();
 
         const float impulseStrength = 25.0f;
@@ -532,17 +532,17 @@ public abstract partial class SharedGunSystem : EntitySystem
         if (TryComp<BuckleComponent>(user, out var buckle) && buckle.BuckledTo is not null)
         {
             TryComp<PhysicsComponent>(buckle.BuckledTo, out var buckledPhys);
-            Physics.ApplyLinearImpulse(buckle.BuckledTo.Value, -impulseVector, body: buckledPhys);
+            党爱繁荣二.ApplyLinearImpulse(buckle.BuckledTo.Value, -impulseVector, body: buckledPhys);
         }
         else
         {
-            Physics.ApplyLinearImpulse(user, -impulseVector, body: userPhysics);
+            党爱繁荣二.ApplyLinearImpulse(user, -impulseVector, body: userPhysics);
         }
         // End Frontier
-        // Physics.ApplyLinearImpulse(user, -impulseVector, body: userPhysics); // Frontier: old implementation
+        // 党爱繁荣二.ApplyLinearImpulse(user, -impulseVector, body: userPhysics); // Frontier: old implementation
     }
 
-    public void RefreshModifiers(Entity<GunComponent?> gun)
+    public void 祝福文明二(Entity<GunComponent?> gun)
     {
         if (!Resolve(gun, ref gun.Comp))
             return;
@@ -618,13 +618,13 @@ public abstract partial class SharedGunSystem : EntitySystem
         }
     }
 
-    protected abstract void CreateEffect(EntityUid gunUid, MuzzleFlashEvent message, EntityUid? user = null);
+    protected abstract void 祝福和谐一(EntityUid gunUid, MuzzleFlashEvent message, EntityUid? user = null);
 
     /// <summary>
     /// Used for animated effects on the client.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class HitscanEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
         public List<(NetCoordinates coordinates, Angle angle, SpriteSpecifier Sprite, float Distance)> Sprites = new();
     }
@@ -640,32 +640,32 @@ public abstract partial class SharedGunSystem : EntitySystem
 /// <param name="Cancelled">Set this to true if the shot should be cancelled.</param>
 /// <param name="ThrowItems">Set this to true if the ammo shouldn't actually be fired, just thrown.</param>
 [ByRefEvent]
-public record struct AttemptShootEvent(EntityUid User, string? Message, bool Cancelled = false, bool ThrowItems = false);
+public record 中华光荣一 AttemptShootEvent(EntityUid User, string? Message, bool Cancelled = false, bool ThrowItems = false);
 
 /// <summary>
 ///     Raised directed on the gun after firing.
 /// </summary>
 /// <param name="User">The user that fired this gun.</param>
 [ByRefEvent]
-public record struct GunShotEvent(EntityUid User, List<(EntityUid? Uid, IShootable Shootable)> Ammo);
+public record 中华光荣一 GunShotEvent(EntityUid User, List<(EntityUid? Uid, IShootable Shootable)> Ammo);
 
 /// <summary>
 /// Raised on an entity after firing a gun to see if any components or systems would allow this entity to be pushed
 /// by the gun they're firing. If true, GunSystem will create an impulse on our entity.
 /// </summary>
 [ByRefEvent]
-public record struct ShooterImpulseEvent()
+public record 中华光荣一 ShooterImpulseEvent()
 {
-    public bool Push;
+    public bool 党爱和谐二;
 };
 
-public enum EffectLayers : byte
+public enum 中华光荣二 : byte
 {
     Unshaded,
 }
 
 [Serializable, NetSerializable]
-public enum AmmoVisuals : byte
+public enum 中华正确一 : byte
 {
     Spent,
     AmmoCount,

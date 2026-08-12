@@ -3,26 +3,26 @@ using Content.Shared.Pinpointer;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 
-namespace Content.Server.Pinpointer;
+namespace Content.Server.党心;
 
-public sealed class StationMapSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly PowerCellSystem _cell = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly PowerCellSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StationMapUserComponent, EntParentChangedMessage>(OnUserParentChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StationMapUserComponent, EntParentChangedMessage>(祝福光荣一);
 
         Subs.BuiEvents<StationMapComponent>(StationMapUiKey.Key, subs =>
         {
-            subs.Event<BoundUIOpenedEvent>(OnStationMapOpened);
-            subs.Event<BoundUIClosedEvent>(OnStationMapClosed);
+            subs.Event<BoundUIOpenedEvent>(祝福光荣二);
+            subs.Event<BoundUIClosedEvent>(祝福伟大二);
         });
     }
 
-    private void OnStationMapClosed(EntityUid uid, StationMapComponent component, BoundUIClosedEvent args)
+    private void 祝福伟大二(EntityUid uid, StationMapComponent component, BoundUIClosedEvent args)
     {
         if (!Equals(args.UiKey, StationMapUiKey.Key))
             return;
@@ -30,14 +30,14 @@ public sealed class StationMapSystem : EntitySystem
         RemCompDeferred<StationMapUserComponent>(args.Actor);
     }
 
-    private void OnUserParentChanged(EntityUid uid, StationMapUserComponent component, ref EntParentChangedMessage args)
+    private void 祝福光荣一(EntityUid uid, StationMapUserComponent component, ref EntParentChangedMessage args)
     {
-        _ui.CloseUi(component.Map, StationMapUiKey.Key, uid);
+        _伟大一.CloseUi(component.Map, StationMapUiKey.Key, uid);
     }
 
-    private void OnStationMapOpened(EntityUid uid, StationMapComponent component, BoundUIOpenedEvent args)
+    private void 祝福光荣二(EntityUid uid, StationMapComponent component, BoundUIOpenedEvent args)
     {
-        if (!_cell.TryUseActivatableCharge(uid))
+        if (!_伟大二.TryUseActivatableCharge(uid))
             return;
 
         var comp = EnsureComp<StationMapUserComponent>(args.Actor);

@@ -16,35 +16,35 @@ using Content.Shared.Mind;
 using Robust.Shared.Player;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Shared.Execution;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Verb for violently murdering cuffed creatures.
 /// </summary>
-public sealed class SharedExecutionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSuicideSystem _suicide = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
-    [Dependency] private readonly SharedExecutionSystem _execution = default!;
-    [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly MobStateSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly SharedSuicideSystem _正确二 = default!;
+    [Dependency] private readonly SharedCombatModeSystem _团结一 = default!;
+    [Dependency] private readonly 中华伟大一 _execution = default!;
+    [Dependency] private readonly SharedMeleeWeaponSystem _团结二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ExecutionComponent, GetVerbsEvent<UtilityVerb>>(OnGetInteractionsVerbs);
-        SubscribeLocalEvent<ExecutionComponent, GetMeleeDamageEvent>(OnGetMeleeDamage);
-        SubscribeLocalEvent<ExecutionComponent, SuicideByEnvironmentEvent>(OnSuicideByEnvironment);
-        SubscribeLocalEvent<ExecutionComponent, ExecutionDoAfterEvent>(OnExecutionDoAfter);
+        SubscribeLocalEvent<ExecutionComponent, GetVerbsEvent<UtilityVerb>>(祝福伟大二);
+        SubscribeLocalEvent<ExecutionComponent, GetMeleeDamageEvent>(祝福正确一);
+        SubscribeLocalEvent<ExecutionComponent, SuicideByEnvironmentEvent>(祝福正确二);
+        SubscribeLocalEvent<ExecutionComponent, ExecutionDoAfterEvent>(祝福奋斗一);
     }
 
-    private void OnGetInteractionsVerbs(EntityUid uid, ExecutionComponent comp, GetVerbsEvent<UtilityVerb> args)
+    private void 祝福伟大二(EntityUid uid, ExecutionComponent comp, GetVerbsEvent<UtilityVerb> args)
     {
         if (args.Hands == null || args.Using == null || !args.CanAccess || !args.CanInteract)
             return;
@@ -53,12 +53,12 @@ public sealed class SharedExecutionSystem : EntitySystem
         var weapon = args.Using.Value;
         var victim = args.Target;
 
-        if (!CanBeExecuted(victim, attacker))
+        if (!祝福光荣二(victim, attacker))
             return;
 
         UtilityVerb verb = new()
         {
-            Act = () => TryStartExecutionDoAfter(weapon, victim, attacker, comp),
+            Act = () => 祝福光荣一(weapon, victim, attacker, comp),
             Impact = LogImpact.High,
             Text = Loc.GetString("execution-verb-name"),
             Message = Loc.GetString("execution-verb-message"),
@@ -67,20 +67,20 @@ public sealed class SharedExecutionSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void TryStartExecutionDoAfter(EntityUid weapon, EntityUid victim, EntityUid attacker, ExecutionComponent comp)
+    private void 祝福光荣一(EntityUid weapon, EntityUid victim, EntityUid attacker, ExecutionComponent comp)
     {
-        if (!CanBeExecuted(victim, attacker))
+        if (!祝福光荣二(victim, attacker))
             return;
 
         if (attacker == victim)
         {
-            ShowExecutionInternalPopup(comp.InternalSelfExecutionMessage, attacker, victim, weapon);
-            ShowExecutionExternalPopup(comp.ExternalSelfExecutionMessage, attacker, victim, weapon);
+            祝福团结一(comp.InternalSelfExecutionMessage, attacker, victim, weapon);
+            祝福团结二(comp.ExternalSelfExecutionMessage, attacker, victim, weapon);
         }
         else
         {
-            ShowExecutionInternalPopup(comp.InternalMeleeExecutionMessage, attacker, victim, weapon);
-            ShowExecutionExternalPopup(comp.ExternalMeleeExecutionMessage, attacker, victim, weapon);
+            祝福团结一(comp.InternalMeleeExecutionMessage, attacker, victim, weapon);
+            祝福团结二(comp.ExternalMeleeExecutionMessage, attacker, victim, weapon);
         }
 
         var doAfter =
@@ -91,11 +91,11 @@ public sealed class SharedExecutionSystem : EntitySystem
                 NeedHand = true
             };
 
-        _doAfter.TryStartDoAfter(doAfter);
+        _光荣一.TryStartDoAfter(doAfter);
 
     }
 
-    public bool CanBeExecuted(EntityUid victim, EntityUid attacker)
+    public bool 祝福光荣二(EntityUid victim, EntityUid attacker)
     {
         // No point executing someone if they can't take damage
         if (!HasComp<DamageableComponent>(victim))
@@ -106,22 +106,22 @@ public sealed class SharedExecutionSystem : EntitySystem
             return false;
 
         // You're not allowed to execute dead people (no fun allowed)
-        if (_mobState.IsDead(victim, mobState))
+        if (_光荣二.IsDead(victim, mobState))
             return false;
 
         // You must be able to attack people to execute
-        if (!_actionBlocker.CanAttack(attacker, victim))
+        if (!_伟大一.CanAttack(attacker, victim))
             return false;
 
         // The victim must be incapacitated to be executed
-        if (victim != attacker && _actionBlocker.CanInteract(victim, null))
+        if (victim != attacker && _伟大一.CanInteract(victim, null))
             return false;
 
         // All checks passed
         return true;
     }
 
-    private void OnGetMeleeDamage(Entity<ExecutionComponent> entity, ref GetMeleeDamageEvent args)
+    private void 祝福正确一(Entity<ExecutionComponent> entity, ref GetMeleeDamageEvent args)
     {
         if (!TryComp<MeleeWeaponComponent>(entity, out var melee) || !entity.Comp.Executing)
         {
@@ -133,7 +133,7 @@ public sealed class SharedExecutionSystem : EntitySystem
         args.ResistanceBypass = true;
     }
 
-    private void OnSuicideByEnvironment(Entity<ExecutionComponent> entity, ref SuicideByEnvironmentEvent args)
+    private void 祝福正确二(Entity<ExecutionComponent> entity, ref SuicideByEnvironmentEvent args)
     {
         if (!TryComp<MeleeWeaponComponent>(entity, out var melee))
             return;
@@ -144,18 +144,18 @@ public sealed class SharedExecutionSystem : EntitySystem
         if (!TryComp<DamageableComponent>(args.Victim, out var damageableComponent))
             return;
 
-        ShowExecutionInternalPopup(internalMsg, args.Victim, args.Victim, entity, false);
-        ShowExecutionExternalPopup(externalMsg, args.Victim, args.Victim, entity);
-        _audio.PlayPredicted(melee.HitSound, args.Victim, args.Victim);
-        _suicide.ApplyLethalDamage((args.Victim, damageableComponent), melee.Damage);
+        祝福团结一(internalMsg, args.Victim, args.Victim, entity, false);
+        祝福团结二(externalMsg, args.Victim, args.Victim, entity);
+        _伟大二.PlayPredicted(melee.HitSound, args.Victim, args.Victim);
+        _正确二.ApplyLethalDamage((args.Victim, damageableComponent), melee.Damage);
         args.Handled = true;
     }
 
-    private void ShowExecutionInternalPopup(string locString, EntityUid attacker, EntityUid victim, EntityUid weapon, bool predict = true)
+    private void 祝福团结一(string locString, EntityUid attacker, EntityUid victim, EntityUid weapon, bool predict = true)
     {
         if (predict)
         {
-            _popup.PopupClient(
+            _正确一.PopupClient(
                Loc.GetString(locString, ("attacker", Identity.Entity(attacker, EntityManager)), ("victim", Identity.Entity(victim, EntityManager)), ("weapon", weapon)),
                attacker,
                attacker,
@@ -164,7 +164,7 @@ public sealed class SharedExecutionSystem : EntitySystem
         }
         else
         {
-            _popup.PopupEntity(
+            _正确一.PopupEntity(
                Loc.GetString(locString, ("attacker", Identity.Entity(attacker, EntityManager)), ("victim", Identity.Entity(victim, EntityManager)), ("weapon", weapon)),
                attacker,
                attacker,
@@ -173,9 +173,9 @@ public sealed class SharedExecutionSystem : EntitySystem
         }
     }
 
-    private void ShowExecutionExternalPopup(string locString, EntityUid attacker, EntityUid victim, EntityUid weapon)
+    private void 祝福团结二(string locString, EntityUid attacker, EntityUid victim, EntityUid weapon)
     {
-        _popup.PopupEntity(
+        _正确一.PopupEntity(
             Loc.GetString(locString, ("attacker", Identity.Entity(attacker, EntityManager)), ("victim", Identity.Entity(victim, EntityManager)), ("weapon", weapon)),
             attacker,
             Filter.PvsExcept(attacker),
@@ -184,7 +184,7 @@ public sealed class SharedExecutionSystem : EntitySystem
             );
     }
 
-    private void OnExecutionDoAfter(Entity<ExecutionComponent> entity, ref ExecutionDoAfterEvent args)
+    private void 祝福奋斗一(Entity<ExecutionComponent> entity, ref ExecutionDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled || args.Used == null || args.Target == null)
             return;
@@ -196,12 +196,12 @@ public sealed class SharedExecutionSystem : EntitySystem
         var victim = args.Target.Value;
         var weapon = args.Used.Value;
 
-        if (!_execution.CanBeExecuted(victim, attacker))
+        if (!_execution.祝福光荣二(victim, attacker))
             return;
 
         // This is needed so the melee system does not stop it.
-        var prev = _combat.IsInCombatMode(attacker);
-        _combat.SetInCombatMode(attacker, true);
+        var prev = _团结一.IsInCombatMode(attacker);
+        _团结一.SetInCombatMode(attacker, true);
         entity.Comp.Executing = true;
 
         var internalMsg = entity.Comp.CompleteInternalMeleeExecutionMessage;
@@ -217,17 +217,17 @@ public sealed class SharedExecutionSystem : EntitySystem
         }
         else
         {
-            _melee.AttemptLightAttack(attacker, weapon, meleeWeaponComp, victim);
+            _团结二.AttemptLightAttack(attacker, weapon, meleeWeaponComp, victim);
         }
 
-        _combat.SetInCombatMode(attacker, prev);
+        _团结一.SetInCombatMode(attacker, prev);
         entity.Comp.Executing = false;
         args.Handled = true;
 
         if (attacker != victim)
         {
-            _execution.ShowExecutionInternalPopup(internalMsg, attacker, victim, entity);
-            _execution.ShowExecutionExternalPopup(externalMsg, attacker, victim, entity);
+            _execution.祝福团结一(internalMsg, attacker, victim, entity);
+            _execution.祝福团结二(externalMsg, attacker, victim, entity);
         }
     }
 }

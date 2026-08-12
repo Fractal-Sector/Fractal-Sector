@@ -14,28 +14,28 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._CS.Body.Systems;
+namespace Content.Server._CS.Body.党心;
 
-public sealed class SizeManipulationSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ConsentSystem _consent = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly ConsentSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣一 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _光荣二 = default!;
 
     private static readonly ProtoId<ConsentTogglePrototype> SizeManipulationConsent = "SizeManipulation";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _sawmill = Logger.GetSawmill("size_manipulator");
+        _光荣二 = Logger.GetSawmill("size_manipulator");
 
-        SubscribeLocalEvent<SizeAffectedComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<SizeAffectedComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(EntityUid uid, SizeAffectedComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, SizeAffectedComponent component, ExaminedEvent args)
     {
         // Only show if entity has been resized (scale is not 1.0)
         if (Math.Abs(component.ScaleMultiplier - 1.0f) < 0.001f)
@@ -60,7 +60,7 @@ public sealed class SizeManipulationSystem : EntitySystem
     /// Applies a size change to the target entity, bypassing the consent check.
     /// Intended for trait-driven mechanics like Clay Body where consent does not apply.
     /// </summary>
-    public bool TryChangeSizeForced(EntityUid target, SizeManipulatorMode mode, EntityUid? user = null)
+    public bool 祝福光荣一(EntityUid target, SizeManipulatorMode mode, EntityUid? user = null)
     {
         if (!HasComp<MobStateComponent>(target))
             return false;
@@ -83,12 +83,12 @@ public sealed class SizeManipulationSystem : EntitySystem
 
         sizeComp.ScaleMultiplier = newScale;
         Dirty(target, sizeComp);
-        ApplyPhysicsScale(target, newScale, sizeComp.BaseScale);
+        祝福正确一(target, newScale, sizeComp.BaseScale);
 
         var message = mode == SizeManipulatorMode.Grow
             ? Loc.GetString("size-manipulator-target-grow")
             : Loc.GetString("size-manipulator-target-shrink");
-        _popup.PopupEntity(message, target, PopupType.Medium);
+        _伟大一.PopupEntity(message, target, PopupType.Medium);
 
         return true;
     }
@@ -96,28 +96,28 @@ public sealed class SizeManipulationSystem : EntitySystem
     /// <summary>
     /// Applies a size change to the target entity
     /// </summary>
-    public bool TryChangeSize(EntityUid target, SizeManipulatorMode mode, EntityUid? user = null, bool safetyDisabled = false)
+    public bool 祝福光荣二(EntityUid target, SizeManipulatorMode mode, EntityUid? user = null, bool safetyDisabled = false)
     {
         // Only allow size manipulation on mobs (living entities)
         if (!HasComp<MobStateComponent>(target))
         {
-            _sawmill.Debug($"SizeManipulation: Target {ToPrettyString(target)} is not a mob, ignoring");
+            _光荣二.Debug($"SizeManipulation: Target {ToPrettyString(target)} is not a mob, ignoring");
             return false;
         }
 
         // Check consent
-        if (!_consent.HasConsent(target, SizeManipulationConsent))
+        if (!_伟大二.HasConsent(target, SizeManipulationConsent))
         {
             if (user != null)
-                _popup.PopupEntity(Loc.GetString("size-manipulator-consent-denied"), target, user.Value);
+                _伟大一.PopupEntity(Loc.GetString("size-manipulator-consent-denied"), target, user.Value);
 
-            _sawmill.Debug($"SizeManipulation: Consent denied for {ToPrettyString(target)}");
+            _光荣二.Debug($"SizeManipulation: Consent denied for {ToPrettyString(target)}");
             return false;
         }
 
         var sizeComp = EnsureComp<SizeAffectedComponent>(target);
 
-        _sawmill.Debug($"SizeManipulation: TryChangeSize called on {ToPrettyString(target)}, mode: {mode}, current scale: {sizeComp.ScaleMultiplier}, safety disabled: {safetyDisabled}");
+        _光荣二.Debug($"SizeManipulation: 祝福光荣二 called on {ToPrettyString(target)}, mode: {mode}, current scale: {sizeComp.ScaleMultiplier}, safety disabled: {safetyDisabled}");
 
         // If safety is disabled, double the max limit
         var maxScale = safetyDisabled ? sizeComp.MaxScale * 2.0f : sizeComp.MaxScale;
@@ -129,7 +129,7 @@ public sealed class SizeManipulationSystem : EntitySystem
             if (newScale > maxScale)
             {
                 if (user != null)
-                    _popup.PopupEntity(Loc.GetString("size-manipulator-max-size"), target, user.Value);
+                    _伟大一.PopupEntity(Loc.GetString("size-manipulator-max-size"), target, user.Value);
                 return false;
             }
         }
@@ -139,7 +139,7 @@ public sealed class SizeManipulationSystem : EntitySystem
             if (newScale < sizeComp.MinScale)
             {
                 if (user != null)
-                    _popup.PopupEntity(Loc.GetString("size-manipulator-min-size"), target, user.Value);
+                    _伟大一.PopupEntity(Loc.GetString("size-manipulator-min-size"), target, user.Value);
                 return false;
             }
         }
@@ -148,9 +148,9 @@ public sealed class SizeManipulationSystem : EntitySystem
         Dirty(target, sizeComp);
 
         // Apply physics scaling
-        ApplyPhysicsScale(target, newScale, sizeComp.BaseScale);
+        祝福正确一(target, newScale, sizeComp.BaseScale);
 
-        _sawmill.Debug($"SizeManipulation: Set scale multiplier to {newScale} for {ToPrettyString(target)}");
+        _光荣二.Debug($"SizeManipulation: Set scale multiplier to {newScale} for {ToPrettyString(target)}");
 
         // Visual scaling should be handled by a shared/client system that reads SizeAffectedComponent
         // Server should not directly manipulate sprite components
@@ -159,7 +159,7 @@ public sealed class SizeManipulationSystem : EntitySystem
             ? Loc.GetString("size-manipulator-target-grow")
             : Loc.GetString("size-manipulator-target-shrink");
 
-        _popup.PopupEntity(message, target, PopupType.Medium);
+        _伟大一.PopupEntity(message, target, PopupType.Medium);
 
         return true;
     }
@@ -167,7 +167,7 @@ public sealed class SizeManipulationSystem : EntitySystem
     /// <summary>
     /// Applies physics scaling to the target's fixtures
     /// </summary>
-    private void ApplyPhysicsScale(EntityUid target, float scaleMultiplier, float baseScale)
+    private void 祝福正确一(EntityUid target, float scaleMultiplier, float baseScale)
     {
         if (!TryComp<FixturesComponent>(target, out var fixtures))
             return;
@@ -187,7 +187,7 @@ public sealed class SizeManipulationSystem : EntitySystem
             if (!sizeComp.OriginalFixtureDensities.ContainsKey(id))
             {
                 sizeComp.OriginalFixtureDensities[id] = fixture.Density;
-                _sawmill.Debug($"SizeManipulation: Stored original density {fixture.Density} for fixture {id}");
+                _光荣二.Debug($"SizeManipulation: Stored original density {fixture.Density} for fixture {id}");
             }
 
             switch (fixture.Shape)
@@ -197,14 +197,14 @@ public sealed class SizeManipulationSystem : EntitySystem
                     if (!sizeComp.OriginalFixtureRadii.ContainsKey(id))
                     {
                         sizeComp.OriginalFixtureRadii[id] = circle.Radius;
-                        _sawmill.Debug($"SizeManipulation: Stored original radius {circle.Radius} for fixture {id}");
+                        _光荣二.Debug($"SizeManipulation: Stored original radius {circle.Radius} for fixture {id}");
                     }
 
                     var originalRadius = sizeComp.OriginalFixtureRadii[id];
                     var newRadius = originalRadius * totalScale;
 
-                    _physics.SetPositionRadius(target, id, fixture, circle, circle.Position * totalScale, newRadius, fixtures);
-                    _sawmill.Debug($"SizeManipulation: Scaled circle fixture {id} radius from {circle.Radius} to {newRadius} (original: {originalRadius}, scale: {totalScale})");
+                    _光荣一.SetPositionRadius(target, id, fixture, circle, circle.Position * totalScale, newRadius, fixtures);
+                    _光荣二.Debug($"SizeManipulation: Scaled circle fixture {id} radius from {circle.Radius} to {newRadius} (original: {originalRadius}, scale: {totalScale})");
                     break;
 
                 case PolygonShape poly:
@@ -218,7 +218,7 @@ public sealed class SizeManipulationSystem : EntitySystem
                             storedVerts[i] = verts[i];
                         }
                         sizeComp.OriginalFixtureVertices[id] = storedVerts;
-                        _sawmill.Debug($"SizeManipulation: Stored original polygon vertices for fixture {id}");
+                        _光荣二.Debug($"SizeManipulation: Stored original polygon vertices for fixture {id}");
                     }
 
                     // Scale all vertices by the total scale from the original vertices
@@ -230,17 +230,17 @@ public sealed class SizeManipulationSystem : EntitySystem
                         scaledVerts[i] = originalVerts[i] * totalScale;
                     }
 
-                    _physics.SetVertices(target, id, fixture, poly, scaledVerts, fixtures);
-                    _sawmill.Debug($"SizeManipulation: Scaled polygon fixture {id} with {originalVerts.Length} vertices (scale: {totalScale})");
+                    _光荣一.SetVertices(target, id, fixture, poly, scaledVerts, fixtures);
+                    _光荣二.Debug($"SizeManipulation: Scaled polygon fixture {id} with {originalVerts.Length} vertices (scale: {totalScale})");
                     break;
 
                 case PhysShapeAabb:
                     // AABBs are converted to PolygonShape, so this case should be rare
-                    _sawmill.Debug($"SizeManipulation: Skipping AABB fixture {id} - convert to polygon first");
+                    _光荣二.Debug($"SizeManipulation: Skipping AABB fixture {id} - convert to polygon first");
                     break;
 
                 default:
-                    _sawmill.Debug($"SizeManipulation: Skipping unsupported fixture {id} of type {fixture.Shape.GetType().Name}");
+                    _光荣二.Debug($"SizeManipulation: Skipping unsupported fixture {id} of type {fixture.Shape.GetType().Name}");
                     break;
             }
 
@@ -254,17 +254,17 @@ public sealed class SizeManipulationSystem : EntitySystem
             if (Math.Abs(fixture.Density - newDensity) > 0.001f)
             {
                 // Pass update: false to avoid recalculating mass multiple times
-                _physics.SetDensity(target, id, fixture, newDensity, update: false, manager: fixtures);
-                _sawmill.Debug($"SizeManipulation: Scaled density for fixture {id} from {originalDensity} to {newDensity} (scale: {totalScale})");
+                _光荣一.SetDensity(target, id, fixture, newDensity, update: false, manager: fixtures);
+                _光荣二.Debug($"SizeManipulation: Scaled density for fixture {id} from {originalDensity} to {newDensity} (scale: {totalScale})");
             }
         }
 
         // Recalculate mass data once after all fixtures have been scaled
-        _physics.ResetMassData(target, fixtures);
+        _光荣一.ResetMassData(target, fixtures);
 
         if (TryComp<PhysicsComponent>(target, out var physicsComp))
         {
-            _sawmill.Debug($"SizeManipulation: New mass for {ToPrettyString(target)} is {physicsComp.Mass} kg (scale: {totalScale})");
+            _光荣二.Debug($"SizeManipulation: New mass for {ToPrettyString(target)} is {physicsComp.Mass} kg (scale: {totalScale})");
         }
     }
 }

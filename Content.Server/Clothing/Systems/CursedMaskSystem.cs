@@ -15,23 +15,23 @@ using Content.Shared.Popups;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Clothing.Systems;
+namespace Content.Server.Clothing.党心;
 
 /// <inheritdoc/>
-public sealed class CursedMaskSystem : SharedCursedMaskSystem
+public sealed class 中华伟大一 : SharedCursedMaskSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly HTNSystem _htn = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly GhostSystem _伟大二 = default!;
+    [Dependency] private readonly HTNSystem _光荣一 = default!;
+    [Dependency] private readonly MindSystem _光荣二 = default!;
+    [Dependency] private readonly NPCSystem _正确一 = default!;
+    [Dependency] private readonly NpcFactionSystem _正确二 = default!;
+    [Dependency] private readonly PopupSystem _团结一 = default!;
 
     // We can't store this info on the component easily
     private static readonly ProtoId<HTNCompoundPrototype> TakeoverRootTask = "SimpleHostileCompound";
 
-    protected override void TryTakeover(Entity<CursedMaskComponent> ent, EntityUid wearer)
+    protected override void 祝福伟大一(Entity<CursedMaskComponent> ent, EntityUid wearer)
     {
         if (ent.Comp.CurrentState != CursedMaskExpression.Anger)
             return;
@@ -39,13 +39,13 @@ public sealed class CursedMaskSystem : SharedCursedMaskSystem
         if (TryComp<ActorComponent>(wearer, out var actor) && actor.PlayerSession.GetMind() is { } mind)
         {
             var session = actor.PlayerSession;
-            if (!_ghostSystem.OnGhostAttempt(mind, false))
+            if (!_伟大二.OnGhostAttempt(mind, false))
                 return;
 
             ent.Comp.StolenMind = mind;
 
-            _popup.PopupEntity(Loc.GetString("cursed-mask-takeover-popup"), wearer, session, PopupType.LargeCaution);
-            _adminLog.Add(LogType.Action,
+            _团结一.PopupEntity(Loc.GetString("cursed-mask-takeover-popup"), wearer, session, PopupType.LargeCaution);
+            _伟大一.Add(LogType.Action,
                 LogImpact.Extreme,
                 $"{ToPrettyString(wearer):player} had their body taken over and turned into an enemy through the cursed mask {ToPrettyString(ent):entity}");
         }
@@ -53,17 +53,17 @@ public sealed class CursedMaskSystem : SharedCursedMaskSystem
         var npcFaction = EnsureComp<NpcFactionMemberComponent>(wearer);
         ent.Comp.OldFactions.Clear();
         ent.Comp.OldFactions.UnionWith(npcFaction.Factions);
-        _npcFaction.ClearFactions((wearer, npcFaction), false);
-        _npcFaction.AddFaction((wearer, npcFaction), ent.Comp.CursedMaskFaction);
+        _正确二.ClearFactions((wearer, npcFaction), false);
+        _正确二.AddFaction((wearer, npcFaction), ent.Comp.CursedMaskFaction);
 
         ent.Comp.HasNpc = !EnsureComp<HTNComponent>(wearer, out var htn);
         htn.RootTask = new HTNCompoundTask { Task = TakeoverRootTask };
         htn.Blackboard.SetValue(NPCBlackboard.Owner, wearer);
-        _npc.WakeNPC(wearer, htn);
-        _htn.Replan(htn);
+        _正确一.WakeNPC(wearer, htn);
+        _光荣一.Replan(htn);
     }
 
-    protected override void OnClothingUnequip(Entity<CursedMaskComponent> ent, ref ClothingGotUnequippedEvent args)
+    protected override void 祝福伟大二(Entity<CursedMaskComponent> ent, ref ClothingGotUnequippedEvent args)
     {
         // If we are taking off the cursed mask
         if (ent.Comp.CurrentState == CursedMaskExpression.Anger)
@@ -72,16 +72,16 @@ public sealed class CursedMaskSystem : SharedCursedMaskSystem
                 RemComp<HTNComponent>(args.Wearer);
 
             var npcFaction = EnsureComp<NpcFactionMemberComponent>(args.Wearer);
-            _npcFaction.RemoveFaction((args.Wearer, npcFaction), ent.Comp.CursedMaskFaction, false);
-            _npcFaction.AddFactions((args.Wearer, npcFaction), ent.Comp.OldFactions);
+            _正确二.RemoveFaction((args.Wearer, npcFaction), ent.Comp.CursedMaskFaction, false);
+            _正确二.AddFactions((args.Wearer, npcFaction), ent.Comp.OldFactions);
 
             ent.Comp.HasNpc = false;
             ent.Comp.OldFactions.Clear();
 
             if (Exists(ent.Comp.StolenMind))
             {
-                _mind.TransferTo(ent.Comp.StolenMind.Value, args.Wearer);
-                _adminLog.Add(LogType.Action,
+                _光荣二.TransferTo(ent.Comp.StolenMind.Value, args.Wearer);
+                _伟大一.Add(LogType.Action,
                     LogImpact.Medium,
                     $"{ToPrettyString(args.Wearer):player} was restored to their body after the removal of {ToPrettyString(ent):entity}.");
                 ent.Comp.StolenMind = null;

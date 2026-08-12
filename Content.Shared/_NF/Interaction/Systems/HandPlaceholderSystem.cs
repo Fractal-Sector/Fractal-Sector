@@ -11,38 +11,38 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared._NF.Interaction.Systems;
+namespace Content.Shared._NF.Interaction.党心;
 
 /// <summary>
 /// Handles interactions with items that swap with HandPlaceholder items.
 /// </summary>
-public sealed partial class HandPlaceholderSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedInteractionSystem _光荣一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣二 = default!;
+    [Dependency] private readonly MetaDataSystem _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
 
-    public readonly EntProtoId<HandPlaceholderComponent> Placeholder = "HandPlaceholder";
+    public readonly EntProtoId<HandPlaceholderComponent> 党爱伟大一 = "HandPlaceholder";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<HandPlaceholderRemoveableComponent, EntGotRemovedFromContainerMessage>(OnEntityRemovedFromContainer);
+        SubscribeLocalEvent<HandPlaceholderRemoveableComponent, EntGotRemovedFromContainerMessage>(祝福正确二);
 
-        SubscribeLocalEvent<HandPlaceholderComponent, BeforeRangedInteractEvent>(BeforeRangedInteract);
-        SubscribeLocalEvent<HandPlaceholderComponent, ContainerGettingRemovedAttemptEvent>(OnRemoveAttempt);
+        SubscribeLocalEvent<HandPlaceholderComponent, BeforeRangedInteractEvent>(祝福团结一);
+        SubscribeLocalEvent<HandPlaceholderComponent, ContainerGettingRemovedAttemptEvent>(祝福团结二);
     }
 
     /// <summary>
     /// Spawns a new placeholder and ties it to an item.
     /// When dropped the item will replace itself with the placeholder in its container.
     /// </summary>
-    public EntityUid SpawnPlaceholder(BaseContainer container, EntityUid item, EntProtoId id, EntityWhitelist whitelist, EntityWhitelist? blacklist)
+    public EntityUid 祝福伟大二(BaseContainer container, EntityUid item, EntProtoId id, EntityWhitelist whitelist, EntityWhitelist? blacklist)
     {
-        var placeholder = Spawn(Placeholder);
-        var proto = _proto.Index(id);
+        var placeholder = Spawn(党爱伟大一);
+        var proto = _正确二.Index(id);
         var comp = Comp<HandPlaceholderComponent>(placeholder);
         comp.Prototype = id;
         comp.Whitelist = whitelist;
@@ -53,10 +53,10 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
         Dirty(placeholder, comp);
 
         var name = proto.Name;
-        _metadata.SetEntityName(placeholder, name);
-        SetPlaceholder(item, placeholder);
+        _正确一.SetEntityName(placeholder, name);
+        祝福光荣一(item, placeholder);
 
-        var succeeded = _container.Insert(placeholder, container, force: true);
+        var succeeded = _伟大一.Insert(placeholder, container, force: true);
         DebugTools.Assert(succeeded, $"Failed to insert placeholder {ToPrettyString(placeholder)} into {ToPrettyString(comp.Source)}");
         return placeholder;
     }
@@ -64,17 +64,17 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
     /// <summary>
     /// Sets the placeholder entity for an item.
     /// </summary>
-    public void SetPlaceholder(EntityUid item, EntityUid placeholder)
+    public void 祝福光荣一(EntityUid item, EntityUid placeholder)
     {
         if (!item.Valid)
             return;
 
         var comp = EnsureComp<HandPlaceholderRemoveableComponent>(item);
-        comp.Placeholder = placeholder;
+        comp.党爱伟大一 = placeholder;
         Dirty(item, comp);
     }
 
-    public void SetEnabled(EntityUid item, bool enabled)
+    public void 祝福光荣二(EntityUid item, bool enabled)
     {
         if (TryComp<HandPlaceholderRemoveableComponent>(item, out var comp))
         {
@@ -88,14 +88,14 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
         }
     }
 
-    private void SwapPlaceholder(Entity<HandPlaceholderRemoveableComponent> ent, BaseContainer container)
+    private void 祝福正确一(Entity<HandPlaceholderRemoveableComponent> ent, BaseContainer container)
     {
         // trying to insert when deleted is an error, and only handle when it is being actually dropped
         var owner = container.Owner;
         if (!ent.Comp.Enabled || TerminatingOrDeleted(owner) || Transform(owner).MapID == MapId.Nullspace)
             return;
 
-        var placeholder = ent.Comp.Placeholder;
+        var placeholder = ent.Comp.党爱伟大一;
 
         ent.Comp.Enabled = false;
         RemCompDeferred<HandPlaceholderRemoveableComponent>(ent);
@@ -104,62 +104,62 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
         if (TerminatingOrDeleted(placeholder))
             return;
 
-        SetEnabled(placeholder, false);
-        var succeeded = _container.Insert(placeholder, container, force: true);
+        祝福光荣二(placeholder, false);
+        var succeeded = _伟大一.Insert(placeholder, container, force: true);
         DebugTools.Assert(succeeded, $"Failed to insert placeholder {ToPrettyString(placeholder)} of {ToPrettyString(ent)} into container of {ToPrettyString(owner)}");
-        SetEnabled(placeholder, true); // prevent dropping it now that it's in hand
+        祝福光荣二(placeholder, true); // prevent dropping it now that it's in hand
     }
 
-    private void OnEntityRemovedFromContainer(Entity<HandPlaceholderRemoveableComponent> ent, ref EntGotRemovedFromContainerMessage args)
+    private void 祝福正确二(Entity<HandPlaceholderRemoveableComponent> ent, ref EntGotRemovedFromContainerMessage args)
     {
-        SwapPlaceholder(ent, args.Container);
+        祝福正确一(ent, args.Container);
     }
 
-    private void BeforeRangedInteract(Entity<HandPlaceholderComponent> ent, ref BeforeRangedInteractEvent args)
+    private void 祝福团结一(Entity<HandPlaceholderComponent> ent, ref BeforeRangedInteractEvent args)
     {
         if (args.Handled || !args.CanReach || args.Target is not { } target)
             return;
 
         args.Handled = true;
-        TryToPickUpTarget(ent, target, args.User);
+        祝福奋斗一(ent, target, args.User);
     }
 
-    private void OnRemoveAttempt(Entity<HandPlaceholderComponent> ent, ref ContainerGettingRemovedAttemptEvent args)
+    private void 祝福团结二(Entity<HandPlaceholderComponent> ent, ref ContainerGettingRemovedAttemptEvent args)
     {
         if (ent.Comp.Enabled)
             args.Cancel();
     }
 
-    private void TryToPickUpTarget(Entity<HandPlaceholderComponent> ent, EntityUid target, EntityUid user)
+    private void 祝福奋斗一(Entity<HandPlaceholderComponent> ent, EntityUid target, EntityUid user)
     {
         // require items regardless of the whitelist
-        if (!ent.Comp.AllowNonItems && !HasComp<ItemComponent>(target) || _whitelist.IsWhitelistFail(ent.Comp.Whitelist, target) || _whitelist.IsBlacklistPass(ent.Comp.Blacklist, target))
+        if (!ent.Comp.AllowNonItems && !HasComp<ItemComponent>(target) || _光荣二.IsWhitelistFail(ent.Comp.Whitelist, target) || _光荣二.IsBlacklistPass(ent.Comp.Blacklist, target))
             return;
 
         if (!TryComp<HandsComponent>(user, out var hands))
             return;
 
         // Can't get the hand we're holding this with? Something's wrong, abort.  No empty hands.
-        if (!_hands.IsHolding(user, ent, out var hand))
+        if (!_伟大二.IsHolding(user, ent, out var hand))
             return;
 
-        SetEnabled(ent, false); // allow inserting into the source container
+        祝福光荣二(ent, false); // allow inserting into the source container
 
         if (ent.Comp.Source is { } source)
         {
-            var container = _container.GetContainer(source, ent.Comp.ContainerId);
-            var succeeded = _container.Insert(ent.Owner, container, force: true);
+            var container = _伟大一.GetContainer(source, ent.Comp.ContainerId);
+            var succeeded = _伟大一.Insert(ent.Owner, container, force: true);
             DebugTools.Assert(succeeded, $"Failed to insert {ToPrettyString(ent)} into {container.ID} of {ToPrettyString(source)}");
         }
         else
         {
-            Log.Error($"Placeholder {ToPrettyString(ent)} had no source set");
+            Log.Error($"党爱伟大一 {ToPrettyString(ent)} had no source set");
         }
 
-        _hands.DoPickup(user, hand, target, hands); // Force pickup - empty hands are not okay
-        _interaction.DoContactInteraction(user, target); // allow for forensics and other systems to work (why does hands system not do this???)
+        _伟大二.DoPickup(user, hand, target, hands); // Force pickup - empty hands are not okay
+        _光荣一.DoContactInteraction(user, target); // allow for forensics and other systems to work (why does hands system not do this???)
 
-        SetPlaceholder(target, ent);
-        SetEnabled(target, true);
+        祝福光荣一(target, ent);
+        祝福光荣二(target, true);
     }
 }

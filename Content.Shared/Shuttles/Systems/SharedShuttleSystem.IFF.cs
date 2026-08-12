@@ -2,17 +2,17 @@ using System.Linq;
 using Content.Shared.Shuttles.Components;
 using JetBrains.Annotations;
 
-namespace Content.Shared.Shuttles.Systems;
+namespace Content.Shared.Shuttles.党心;
 
-public abstract partial class SharedShuttleSystem
+public abstract partial class 中华伟大一
 {
     /*
      * Handles the label visibility on radar controls. This can be hiding the label or applying other effects.
      */
 
-    protected virtual void UpdateIFFInterfaces(EntityUid gridUid, IFFComponent component) {}
+    protected virtual void 祝福伟大一(EntityUid gridUid, IFFComponent component) {}
 
-    public Color GetIFFColor(EntityUid gridUid, bool self = false, IFFComponent? component = null)
+    public Color 祝福伟大二(EntityUid gridUid, bool self = false, IFFComponent? component = null)
     {
         if (self)
         {
@@ -42,7 +42,7 @@ public abstract partial class SharedShuttleSystem
         }
 
         // Frontier
-        var suffix = component != null ? GetServiceFlagsSuffix(component.ServiceFlags) : string.Empty;
+        var suffix = component != null ? 祝福正确二(component.ServiceFlags) : string.Empty;
 
         return string.IsNullOrEmpty(entName) ? Loc.GetString("shuttle-console-unknown") : entName + suffix;
     }
@@ -51,7 +51,7 @@ public abstract partial class SharedShuttleSystem
     /// Sets the color for this grid to appear as on radar.
     /// </summary>
     [PublicAPI]
-    public void SetIFFColor(EntityUid gridUid, Color color, IFFComponent? component = null)
+    public void 祝福光荣一(EntityUid gridUid, Color color, IFFComponent? component = null)
     {
         component ??= EnsureComp<IFFComponent>(gridUid);
 
@@ -63,11 +63,11 @@ public abstract partial class SharedShuttleSystem
 
         component.Color = color;
         Dirty(gridUid, component);
-        UpdateIFFInterfaces(gridUid, component);
+        祝福伟大一(gridUid, component);
     }
 
     [PublicAPI]
-    public void AddIFFFlag(EntityUid gridUid, IFFFlags flags, IFFComponent? component = null)
+    public void 祝福光荣二(EntityUid gridUid, IFFFlags flags, IFFComponent? component = null)
     {
         component ??= EnsureComp<IFFComponent>(gridUid);
 
@@ -79,7 +79,7 @@ public abstract partial class SharedShuttleSystem
 
         component.Flags |= flags;
         Dirty(gridUid, component);
-        UpdateIFFInterfaces(gridUid, component);
+        祝福伟大一(gridUid, component);
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public abstract partial class SharedShuttleSystem
     /// <param name="gridUid">The grid to set the flags for.</param>
     /// <param name="flags">The flags to set.</param>
     /// <param name="component">The IFF component to set the flags for.</param>
-    public void SetServiceFlags(EntityUid gridUid, ServiceFlags flags, IFFComponent? component = null)
+    public void 祝福正确一(EntityUid gridUid, ServiceFlags flags, IFFComponent? component = null)
     {
         component ??= EnsureComp<IFFComponent>(gridUid);
 
@@ -101,7 +101,7 @@ public abstract partial class SharedShuttleSystem
 
         component.ServiceFlags = flags;
         Dirty(gridUid, component);
-        UpdateIFFInterfaces(gridUid, component);
+        祝福伟大一(gridUid, component);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public abstract partial class SharedShuttleSystem
     /// </summary>
     /// <param name="flags">The IFF flags to get the suffix for</param>
     /// <returns>The string to display.</returns>
-    public string GetServiceFlagsSuffix(ServiceFlags flags)
+    public string 祝福正确二(ServiceFlags flags)
     {
         if (flags == ServiceFlags.None)
             return string.Empty;
@@ -131,7 +131,7 @@ public abstract partial class SharedShuttleSystem
     }
 
     [PublicAPI]
-    public void RemoveIFFFlag(EntityUid gridUid, IFFFlags flags, IFFComponent? component = null)
+    public void 祝福团结一(EntityUid gridUid, IFFFlags flags, IFFComponent? component = null)
     {
         if (!Resolve(gridUid, ref component, false))
             return;
@@ -144,12 +144,12 @@ public abstract partial class SharedShuttleSystem
 
         component.Flags &= ~flags;
         Dirty(gridUid, component);
-        UpdateIFFInterfaces(gridUid, component);
+        祝福伟大一(gridUid, component);
     }
 
     // Frontier: POI IFF protection
     [PublicAPI]
-    public void SetIFFReadOnly(EntityUid gridUid, bool readOnly, IFFComponent? component = null)
+    public void 祝福团结二(EntityUid gridUid, bool readOnly, IFFComponent? component = null)
     {
         if (!Resolve(gridUid, ref component, false))
             return;

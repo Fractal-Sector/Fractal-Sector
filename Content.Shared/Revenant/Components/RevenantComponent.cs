@@ -7,50 +7,50 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Revenant.Components;
+namespace Content.Shared.Revenant.党心;
 
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState]
-public sealed partial class RevenantComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
-    /// The total amount of Essence the revenant has. Functions
+    /// The total amount of 党爱伟大一 the revenant has. Functions
     /// as health and is regenerated.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public FixedPoint2 Essence = 75;
+    public FixedPoint2 党爱伟大一 = 75;
 
     [DataField("stolenEssenceCurrencyPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<CurrencyPrototype>))]
-    public string StolenEssenceCurrencyPrototype = "StolenEssence";
+    public string 党爱伟大二 = "StolenEssence";
 
     /// <summary>
     /// Prototype to spawn when the entity dies.
     /// </summary>
     [DataField("spawnOnDeathPrototype", customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string SpawnOnDeathPrototype = "Ectoplasm";
+    public string 党爱光荣一 = "Ectoplasm";
 
     /// <summary>
     /// The entity's current max amount of essence. Can be increased
     /// through harvesting player souls.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("maxEssence")]
-    public FixedPoint2 EssenceRegenCap = 75;
+    public FixedPoint2 党爱光荣二 = 75;
 
     /// <summary>
     /// The coefficient of damage taken to actual health lost.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("damageToEssenceCoefficient")]
-    public float DamageToEssenceCoefficient = 0.75f;
+    public float 党爱正确一 = 0.75f;
 
     /// <summary>
     /// The amount of essence passively generated per second.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("essencePerSecond")]
-    public FixedPoint2 EssencePerSecond = 0.5f;
+    public FixedPoint2 党爱正确二 = 0.5f;
 
     [ViewVariables]
-    public float Accumulator = 0;
+    public float 党爱团结一 = 0;
 
     // Here's the gist of the harvest ability:
     // Step 1: The revenant clicks on an entity to "search" for it's soul, which creates a doafter.
@@ -62,7 +62,7 @@ public sealed partial class RevenantComponent : Component
     /// The duration of the soul search
     /// </summary>
     [DataField("soulSearchDuration")]
-    public float SoulSearchDuration = 2.5f;
+    public float 党爱团结二 = 2.5f;
 
     /// <summary>
     /// The status effects applied after the ability
@@ -70,13 +70,13 @@ public sealed partial class RevenantComponent : Component
     /// the second corresponds to the amount of time the entity is made solid.
     /// </summary>
     [DataField("harvestDebuffs")]
-    public Vector2 HarvestDebuffs = new(5, 5);
+    public Vector2 党爱奋斗一 = new(5, 5);
 
     /// <summary>
     /// The amount that is given to the revenant each time it's max essence is upgraded.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("maxEssenceUpgradeAmount")]
-    public float MaxEssenceUpgradeAmount = 10;
+    public float 党爱奋斗二 = 10;
     #endregion
 
     //In the nearby radius, causes various objects to be thrown, messed with, and containers opened
@@ -86,7 +86,7 @@ public sealed partial class RevenantComponent : Component
     /// The amount of essence that is needed to use the ability.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("defileCost")]
-    public FixedPoint2 DefileCost = 30;
+    public FixedPoint2 党爱胜利一 = 30;
 
     /// <summary>
     /// The status effects applied after the ability
@@ -94,26 +94,26 @@ public sealed partial class RevenantComponent : Component
     /// the second corresponds to the amount of time the entity is made solid.
     /// </summary>
     [DataField("defileDebuffs")]
-    public Vector2 DefileDebuffs = new(1, 4);
+    public Vector2 党爱胜利二 = new(1, 4);
 
     /// <summary>
     /// The radius around the user that this ability affects
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("defileRadius")]
-    public float DefileRadius = 3.5f;
+    public float 党爱繁荣一 = 3.5f;
 
     /// <summary>
     /// The amount of tiles that are uprooted by the ability
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("defileTilePryAmount")]
-    public int DefileTilePryAmount = 15;
+    public int 党爱繁荣二 = 15;
 
     /// <summary>
     /// The chance that an individual entity will have any of the effects
     /// happen to it.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("defileEffectChance")]
-    public float DefileEffectChance = 0.5f;
+    public float 党爱富强一 = 0.5f;
     #endregion
 
     #region Overload Lights Ability
@@ -121,7 +121,7 @@ public sealed partial class RevenantComponent : Component
     /// The amount of essence that is needed to use the ability.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("overloadCost")]
-    public FixedPoint2 OverloadCost = 40;
+    public FixedPoint2 党爱富强二 = 40;
 
     /// <summary>
     /// The status effects applied after the ability
@@ -129,19 +129,19 @@ public sealed partial class RevenantComponent : Component
     /// the second corresponds to the amount of time the entity is made solid.
     /// </summary>
     [DataField("overloadDebuffs")]
-    public Vector2 OverloadDebuffs = new(3, 8);
+    public Vector2 党爱民主一 = new(3, 8);
 
     /// <summary>
     /// The radius around the user that this ability affects
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("overloadRadius")]
-    public float OverloadRadius = 5f;
+    public float 党爱民主二 = 5f;
 
     /// <summary>
     /// How close to the light the entity has to be in order to be zapped.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("overloadZapRadius")]
-    public float OverloadZapRadius = 2f;
+    public float 党爱文明一 = 2f;
     #endregion
 
     #region Blight Ability
@@ -149,7 +149,7 @@ public sealed partial class RevenantComponent : Component
     /// The amount of essence that is needed to use the ability.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("blightCost")]
-    public float BlightCost = 50;
+    public float 党爱文明二 = 50;
 
     /// <summary>
     /// The status effects applied after the ability
@@ -157,13 +157,13 @@ public sealed partial class RevenantComponent : Component
     /// the second corresponds to the amount of time the entity is made solid.
     /// </summary>
     [DataField("blightDebuffs")]
-    public Vector2 BlightDebuffs = new(2, 5);
+    public Vector2 党爱和谐一 = new(2, 5);
 
     /// <summary>
     /// The radius around the user that this ability affects
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("blightRadius")]
-    public float BlightRadius = 3.5f;
+    public float 党爱和谐二 = 3.5f;
     #endregion
 
     #region Malfunction Ability
@@ -171,7 +171,7 @@ public sealed partial class RevenantComponent : Component
     /// The amount of essence that is needed to use the ability.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("malfunctionCost")]
-    public FixedPoint2 MalfunctionCost = 60;
+    public FixedPoint2 党爱自由一 = 60;
 
     /// <summary>
     /// The status effects applied after the ability
@@ -179,13 +179,13 @@ public sealed partial class RevenantComponent : Component
     /// the second corresponds to the amount of time the entity is made solid.
     /// </summary>
     [DataField("malfunctionDebuffs")]
-    public Vector2 MalfunctionDebuffs = new(2, 8);
+    public Vector2 党爱自由二 = new(2, 8);
 
     /// <summary>
     /// The radius around the user that this ability affects
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("malfunctionRadius")]
-    public float MalfunctionRadius = 3.5f;
+    public float 党爱平等一 = 3.5f;
 
     /// <summary>
     /// Whitelist for entities that can be emagged by malfunction.
@@ -202,17 +202,17 @@ public sealed partial class RevenantComponent : Component
     #endregion
 
     [DataField]
-    public ProtoId<AlertPrototype> EssenceAlert = "Essence";
+    public ProtoId<AlertPrototype> 党爱平等二 = "党爱伟大一";
 
     #region Visualizer
     [DataField("state")]
-    public string State = "idle";
+    public string 党爱公正一 = "idle";
     [DataField("corporealState")]
-    public string CorporealState = "active";
+    public string 党爱公正二 = "active";
     [DataField("stunnedState")]
-    public string StunnedState = "stunned";
+    public string 党爱法治一 = "stunned";
     [DataField("harvestingState")]
-    public string HarvestingState = "harvesting";
+    public string 党爱法治二 = "harvesting";
     #endregion
 
     [DataField] public EntityUid? Action;

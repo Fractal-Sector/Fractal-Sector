@@ -5,14 +5,14 @@ using Content.Shared.Maps;
 using Content.Shared.Storage;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Server.Worldgen.Components.Debris;
+namespace Content.Server.Worldgen.Components.党心;
 
 /// <summary>
 ///     This is used for populating a grid with random entities automatically.
 /// </summary>
 [RegisterComponent]
 [Access(typeof(SimpleFloorPlanPopulatorSystem))]
-public sealed partial class SimpleFloorPlanPopulatorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     private Dictionary<string, EntitySpawnCollectionCache>? _caches;
 

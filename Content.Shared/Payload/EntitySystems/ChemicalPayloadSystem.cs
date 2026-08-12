@@ -2,29 +2,29 @@ using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Payload.Components;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Payload.EntitySystems;
+namespace Content.Shared.Payload.党心;
 
-public sealed class ChemicalPayloadSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ChemicalPayloadComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<ChemicalPayloadComponent, ComponentRemove>(OnComponentRemove);
-        SubscribeLocalEvent<ChemicalPayloadComponent, EntInsertedIntoContainerMessage>(OnContainerModified);
-        SubscribeLocalEvent<ChemicalPayloadComponent, EntRemovedFromContainerMessage>(OnContainerModified);
+        SubscribeLocalEvent<ChemicalPayloadComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<ChemicalPayloadComponent, ComponentRemove>(祝福正确一);
+        SubscribeLocalEvent<ChemicalPayloadComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<ChemicalPayloadComponent, EntRemovedFromContainerMessage>(祝福伟大二);
     }
 
-    private void OnContainerModified(EntityUid uid, ChemicalPayloadComponent component, ContainerModifiedMessage args)
+    private void 祝福伟大二(EntityUid uid, ChemicalPayloadComponent component, ContainerModifiedMessage args)
     {
-        UpdateAppearance(uid, component);
+        祝福光荣一(uid, component);
     }
 
-    private void UpdateAppearance(EntityUid uid, ChemicalPayloadComponent? component = null, AppearanceComponent? appearance = null)
+    private void 祝福光荣一(EntityUid uid, ChemicalPayloadComponent? component = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref component, ref appearance, false))
             return;
@@ -37,18 +37,18 @@ public sealed class ChemicalPayloadSystem : EntitySystem
         if (component.BeakerSlotB.HasItem)
             filled |= ChemicalPayloadFilledSlots.Right;
 
-        _appearance.SetData(uid, ChemicalPayloadVisuals.Slots, filled, appearance);
+        _伟大二.SetData(uid, ChemicalPayloadVisuals.Slots, filled, appearance);
     }
 
-    private void OnComponentInit(EntityUid uid, ChemicalPayloadComponent payload, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, ChemicalPayloadComponent payload, ComponentInit args)
     {
-        _itemSlotsSystem.AddItemSlot(uid, "BeakerSlotA", payload.BeakerSlotA);
-        _itemSlotsSystem.AddItemSlot(uid, "BeakerSlotB", payload.BeakerSlotB);
+        _伟大一.AddItemSlot(uid, "BeakerSlotA", payload.BeakerSlotA);
+        _伟大一.AddItemSlot(uid, "BeakerSlotB", payload.BeakerSlotB);
     }
 
-    private void OnComponentRemove(EntityUid uid, ChemicalPayloadComponent payload, ComponentRemove args)
+    private void 祝福正确一(EntityUid uid, ChemicalPayloadComponent payload, ComponentRemove args)
     {
-        _itemSlotsSystem.RemoveItemSlot(uid, payload.BeakerSlotA);
-        _itemSlotsSystem.RemoveItemSlot(uid, payload.BeakerSlotB);
+        _伟大一.RemoveItemSlot(uid, payload.BeakerSlotA);
+        _伟大一.RemoveItemSlot(uid, payload.BeakerSlotB);
     }
 }

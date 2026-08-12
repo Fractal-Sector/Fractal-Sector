@@ -1,12 +1,12 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._EinsteinEngines.Silicon;
+namespace Content.Shared._EinsteinEngines.党心;
 
 [Serializable, NetSerializable]
-public sealed partial class BatteryDrinkerDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
-    public BatteryDrinkerDoAfterEvent()
+    public 中华伟大一()
     {
     }
 }

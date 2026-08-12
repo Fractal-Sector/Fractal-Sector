@@ -4,14 +4,14 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using static Content.Shared.Interaction.SharedInteractionSystem;
 
-namespace Content.Shared.Construction
+namespace Content.Shared.党心
 {
-    public abstract class SharedConstructionSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-        [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
+        [Dependency] private readonly IMapManager _伟大一 = default!;
+        [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+        [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+        [Dependency] protected readonly SharedTransformSystem 党爱伟大二 = default!;
 
         /// <summary>
         ///     Get predicate for construction obstruction checks.
@@ -21,19 +21,19 @@ namespace Content.Shared.Construction
             if (!canBuildInImpassable)
                 return null;
 
-            if (!_mapManager.TryFindGridAt(coords, out var gridUid, out var grid))
+            if (!_伟大一.TryFindGridAt(coords, out var gridUid, out var grid))
                 return null;
 
-            var ignored = _map.GetAnchoredEntities((gridUid, grid), coords).ToHashSet();
+            var ignored = _伟大二.GetAnchoredEntities((gridUid, grid), coords).ToHashSet();
             return e => ignored.Contains(e);
         }
 
-        public string GetExamineName(GenericPartInfo info)
+        public string 祝福伟大一(GenericPartInfo info)
         {
             if (info.ExamineName is not null)
                 return Loc.GetString(info.ExamineName.Value);
 
-            return PrototypeManager.Index(info.DefaultPrototype).Name;
+            return 党爱伟大一.Index(info.DefaultPrototype).Name;
         }
     }
 }

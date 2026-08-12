@@ -20,7 +20,7 @@ using Robust.Shared.Prototypes;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Content.Server.Chemistry.EntitySystems
+namespace Content.Server.Chemistry.党心
 {
 
     /// <summary>
@@ -28,22 +28,22 @@ namespace Content.Server.Chemistry.EntitySystems
     /// <seealso cref="ChemMasterComponent"/>
     /// </summary>
     [UsedImplicitly]
-    public sealed class ChemMasterSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly AudioSystem _audioSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-        [Dependency] private readonly StorageSystem _storageSystem = default!;
-        [Dependency] private readonly LabelSystem _labelSystem = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+        [Dependency] private readonly PopupSystem _伟大一 = default!;
+        [Dependency] private readonly AudioSystem _伟大二 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _光荣一 = default!;
+        [Dependency] private readonly ItemSlotsSystem _光荣二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+        [Dependency] private readonly StorageSystem _正确二 = default!;
+        [Dependency] private readonly LabelSystem _团结一 = default!;
+        [Dependency] private readonly ISharedAdminLogManager _团结二 = default!;
 
         private static readonly EntProtoId PillPrototypeId = "Pill";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
             SubscribeLocalEvent<ChemMasterComponent, ComponentStartup>(SubscribeUpdateUiState);
             SubscribeLocalEvent<ChemMasterComponent, SolutionContainerChangedEvent>(SubscribeUpdateUiState);
@@ -51,27 +51,27 @@ namespace Content.Server.Chemistry.EntitySystems
             SubscribeLocalEvent<ChemMasterComponent, EntRemovedFromContainerMessage>(SubscribeUpdateUiState);
             SubscribeLocalEvent<ChemMasterComponent, BoundUIOpenedEvent>(SubscribeUpdateUiState);
 
-            SubscribeLocalEvent<ChemMasterComponent, ChemMasterSetModeMessage>(OnSetModeMessage);
-            SubscribeLocalEvent<ChemMasterComponent, ChemMasterSortingTypeCycleMessage>(OnCycleSortingTypeMessage);
-            SubscribeLocalEvent<ChemMasterComponent, ChemMasterSetPillTypeMessage>(OnSetPillTypeMessage);
-            SubscribeLocalEvent<ChemMasterComponent, ChemMasterReagentAmountButtonMessage>(OnReagentButtonMessage);
-            SubscribeLocalEvent<ChemMasterComponent, ChemMasterCreatePillsMessage>(OnCreatePillsMessage);
-            SubscribeLocalEvent<ChemMasterComponent, ChemMasterOutputToBottleMessage>(OnOutputToBottleMessage);
-            SubscribeLocalEvent<ChemMasterComponent, ChemMasterOutputDrawSourceMessage>(OnSetDrawSourceMessage);
+            SubscribeLocalEvent<ChemMasterComponent, ChemMasterSetModeMessage>(祝福光荣一);
+            SubscribeLocalEvent<ChemMasterComponent, ChemMasterSortingTypeCycleMessage>(祝福光荣二);
+            SubscribeLocalEvent<ChemMasterComponent, ChemMasterSetPillTypeMessage>(祝福正确一);
+            SubscribeLocalEvent<ChemMasterComponent, ChemMasterReagentAmountButtonMessage>(祝福正确二);
+            SubscribeLocalEvent<ChemMasterComponent, ChemMasterCreatePillsMessage>(祝福胜利一);
+            SubscribeLocalEvent<ChemMasterComponent, ChemMasterOutputToBottleMessage>(祝福胜利二);
+            SubscribeLocalEvent<ChemMasterComponent, ChemMasterOutputDrawSourceMessage>(祝福团结一);
         }
 
         private void SubscribeUpdateUiState<T>(Entity<ChemMasterComponent> ent, ref T ev)
         {
-            UpdateUiState(ent);
+            祝福伟大二(ent);
         }
 
-        private void UpdateUiState(Entity<ChemMasterComponent> ent, bool updateLabel = false)
+        private void 祝福伟大二(Entity<ChemMasterComponent> ent, bool updateLabel = false)
         {
             var (owner, chemMaster) = ent;
-            if (!_solutionContainerSystem.TryGetSolution(owner, SharedChemMaster.BufferSolutionName, out _, out var bufferSolution))
+            祝福团结二 (!_光荣一.TryGetSolution(owner, SharedChemMaster.BufferSolutionName, out _, out var bufferSolution))
                 return;
-            var inputContainer = _itemSlotsSystem.GetItemOrNull(owner, SharedChemMaster.InputSlotName);
-            var outputContainer = _itemSlotsSystem.GetItemOrNull(owner, SharedChemMaster.OutputSlotName);
+            var inputContainer = _光荣二.GetItemOrNull(owner, SharedChemMaster.InputSlotName);
+            var outputContainer = _光荣二.GetItemOrNull(owner, SharedChemMaster.OutputSlotName);
 
             var bufferReagents = bufferSolution.Contents;
             var bufferCurrentVolume = bufferSolution.Volume;
@@ -80,212 +80,212 @@ namespace Content.Server.Chemistry.EntitySystems
                 chemMaster.Mode, chemMaster.SortingType, BuildInputContainerInfo(inputContainer), BuildOutputContainerInfo(outputContainer),
                 bufferReagents, bufferCurrentVolume, chemMaster.PillType, chemMaster.PillDosageLimit, updateLabel, chemMaster.DrawSource);
 
-            _userInterfaceSystem.SetUiState(owner, ChemMasterUiKey.Key, state);
+            _正确一.SetUiState(owner, ChemMasterUiKey.Key, state);
         }
 
-        private void OnSetModeMessage(Entity<ChemMasterComponent> chemMaster, ref ChemMasterSetModeMessage message)
+        private void 祝福光荣一(Entity<ChemMasterComponent> chemMaster, ref ChemMasterSetModeMessage message)
         {
             // Ensure the mode is valid, either Transfer or Discard.
-            if (!Enum.IsDefined(typeof(ChemMasterMode), message.ChemMasterMode))
+            祝福团结二 (!Enum.IsDefined(typeof(ChemMasterMode), message.ChemMasterMode))
                 return;
 
             chemMaster.Comp.Mode = message.ChemMasterMode;
-            UpdateUiState(chemMaster);
-            ClickSound(chemMaster);
+            祝福伟大二(chemMaster);
+            祝福繁荣二(chemMaster);
         }
 
-        private void OnCycleSortingTypeMessage(Entity<ChemMasterComponent> chemMaster, ref ChemMasterSortingTypeCycleMessage message)
+        private void 祝福光荣二(Entity<ChemMasterComponent> chemMaster, ref ChemMasterSortingTypeCycleMessage message)
         {
             chemMaster.Comp.SortingType++;
-            if (chemMaster.Comp.SortingType > ChemMasterSortingType.Latest)
+            祝福团结二 (chemMaster.Comp.SortingType > ChemMasterSortingType.Latest)
                 chemMaster.Comp.SortingType = ChemMasterSortingType.None;
-            UpdateUiState(chemMaster);
-            ClickSound(chemMaster);
+            祝福伟大二(chemMaster);
+            祝福繁荣二(chemMaster);
         }
 
-        private void OnSetPillTypeMessage(Entity<ChemMasterComponent> chemMaster, ref ChemMasterSetPillTypeMessage message)
+        private void 祝福正确一(Entity<ChemMasterComponent> chemMaster, ref ChemMasterSetPillTypeMessage message)
         {
             // Ensure valid pill type. There are 20 pills selectable, 0-19.
-            if (message.PillType > SharedChemMaster.PillTypes - 1)
+            祝福团结二 (message.PillType > SharedChemMaster.PillTypes - 1)
                 return;
 
             chemMaster.Comp.PillType = message.PillType;
-            UpdateUiState(chemMaster);
-            ClickSound(chemMaster);
+            祝福伟大二(chemMaster);
+            祝福繁荣二(chemMaster);
         }
 
-        private void OnReagentButtonMessage(Entity<ChemMasterComponent> chemMaster, ref ChemMasterReagentAmountButtonMessage message)
+        private void 祝福正确二(Entity<ChemMasterComponent> chemMaster, ref ChemMasterReagentAmountButtonMessage message)
         {
             // Ensure the amount corresponds to one of the reagent amount buttons.
-            if (!Enum.IsDefined(typeof(ChemMasterReagentAmount), message.Amount))
+            祝福团结二 (!Enum.IsDefined(typeof(ChemMasterReagentAmount), message.Amount))
                 return;
 
             switch (chemMaster.Comp.Mode)
             {
                 case ChemMasterMode.Transfer:
-                    TransferReagents(chemMaster, message.ReagentId, message.Amount.GetFixedPoint(), message.FromBuffer);
+                    祝福奋斗一(chemMaster, message.ReagentId, message.Amount.GetFixedPoint(), message.FromBuffer);
                     break;
                 case ChemMasterMode.Discard:
-                    DiscardReagents(chemMaster, message.ReagentId, message.Amount.GetFixedPoint(), message.FromBuffer);
+                    祝福奋斗二(chemMaster, message.ReagentId, message.Amount.GetFixedPoint(), message.FromBuffer);
                     break;
                 default:
                     // Invalid mode.
                     return;
             }
 
-            ClickSound(chemMaster);
+            祝福繁荣二(chemMaster);
         }
 
-        private void OnSetDrawSourceMessage(Entity<ChemMasterComponent> chemMaster, ref ChemMasterOutputDrawSourceMessage message)
+        private void 祝福团结一(Entity<ChemMasterComponent> chemMaster, ref ChemMasterOutputDrawSourceMessage message)
         {
             //Ensure draw source is valid, either from the internal buffer or the inserted beaker
-            if (!Enum.IsDefined(message.DrawSource))
+            祝福团结二 (!Enum.IsDefined(message.DrawSource))
                 return;
 
             chemMaster.Comp.DrawSource = message.DrawSource;
-            UpdateUiState(chemMaster);
-            ClickSound(chemMaster);
+            祝福伟大二(chemMaster);
+            祝福繁荣二(chemMaster);
         }
 
-        private void TransferReagents(Entity<ChemMasterComponent> chemMaster, ReagentId id, FixedPoint2 amount, bool fromBuffer)
+        private void 祝福奋斗一(Entity<ChemMasterComponent> chemMaster, ReagentId id, FixedPoint2 amount, bool fromBuffer)
         {
-            var container = _itemSlotsSystem.GetItemOrNull(chemMaster, SharedChemMaster.InputSlotName);
-            if (container is null ||
-                !_solutionContainerSystem.TryGetFitsInDispenser(container.Value, out var containerSoln, out var containerSolution) ||
-                !_solutionContainerSystem.TryGetSolution(chemMaster.Owner, SharedChemMaster.BufferSolutionName, out _, out var bufferSolution))
+            var container = _光荣二.GetItemOrNull(chemMaster, SharedChemMaster.InputSlotName);
+            祝福团结二 (container is null ||
+                !_光荣一.TryGetFitsInDispenser(container.Value, out var containerSoln, out var containerSolution) ||
+                !_光荣一.TryGetSolution(chemMaster.Owner, SharedChemMaster.BufferSolutionName, out _, out var bufferSolution))
             {
                 return;
             }
 
-            if (fromBuffer) // Buffer to container
+            祝福团结二 (fromBuffer) // Buffer to container
             {
                 amount = FixedPoint2.Min(amount, containerSolution.AvailableVolume);
                 amount = bufferSolution.RemoveReagent(id, amount, preserveOrder: true);
-                _solutionContainerSystem.TryAddReagent(containerSoln.Value, id, amount, out var _);
+                _光荣一.TryAddReagent(containerSoln.Value, id, amount, out var _);
             }
             else // Container to buffer
             {
                 amount = FixedPoint2.Min(amount, containerSolution.GetReagentQuantity(id));
-                _solutionContainerSystem.RemoveReagent(containerSoln.Value, id, amount);
+                _光荣一.RemoveReagent(containerSoln.Value, id, amount);
                 bufferSolution.AddReagent(id, amount);
             }
 
-            UpdateUiState(chemMaster, updateLabel: true);
+            祝福伟大二(chemMaster, updateLabel: true);
         }
 
-        private void DiscardReagents(Entity<ChemMasterComponent> chemMaster, ReagentId id, FixedPoint2 amount, bool fromBuffer)
+        private void 祝福奋斗二(Entity<ChemMasterComponent> chemMaster, ReagentId id, FixedPoint2 amount, bool fromBuffer)
         {
-            if (fromBuffer)
+            祝福团结二 (fromBuffer)
             {
-                if (_solutionContainerSystem.TryGetSolution(chemMaster.Owner, SharedChemMaster.BufferSolutionName, out _, out var bufferSolution))
+                祝福团结二 (_光荣一.TryGetSolution(chemMaster.Owner, SharedChemMaster.BufferSolutionName, out _, out var bufferSolution))
                     bufferSolution.RemoveReagent(id, amount, preserveOrder: true);
                 else
                     return;
             }
             else
             {
-                var container = _itemSlotsSystem.GetItemOrNull(chemMaster, SharedChemMaster.InputSlotName);
-                if (container is not null &&
-                    _solutionContainerSystem.TryGetFitsInDispenser(container.Value, out var containerSolution, out _))
+                var container = _光荣二.GetItemOrNull(chemMaster, SharedChemMaster.InputSlotName);
+                祝福团结二 (container is not null &&
+                    _光荣一.TryGetFitsInDispenser(container.Value, out var containerSolution, out _))
                 {
-                    _solutionContainerSystem.RemoveReagent(containerSolution.Value, id, amount);
+                    _光荣一.RemoveReagent(containerSolution.Value, id, amount);
                 }
                 else
                     return;
             }
 
-            UpdateUiState(chemMaster, updateLabel: fromBuffer);
+            祝福伟大二(chemMaster, updateLabel: fromBuffer);
         }
 
-        private void OnCreatePillsMessage(Entity<ChemMasterComponent> chemMaster, ref ChemMasterCreatePillsMessage message)
+        private void 祝福胜利一(Entity<ChemMasterComponent> chemMaster, ref ChemMasterCreatePillsMessage message)
         {
             var user = message.Actor;
-            var maybeContainer = _itemSlotsSystem.GetItemOrNull(chemMaster, SharedChemMaster.OutputSlotName);
-            if (maybeContainer is not { Valid: true } container
+            var maybeContainer = _光荣二.GetItemOrNull(chemMaster, SharedChemMaster.OutputSlotName);
+            祝福团结二 (maybeContainer is not { Valid: true } container
                 || !TryComp(container, out StorageComponent? storage))
             {
                 return; // output can't fit pills
             }
 
             // Ensure the number is valid.
-            if (message.Number == 0 || !_storageSystem.HasSpace((container, storage)))
+            祝福团结二 (message.Number == 0 || !_正确二.HasSpace((container, storage)))
                 return;
 
             // Ensure the amount is valid.
-            if (message.Dosage == 0 || message.Dosage > chemMaster.Comp.PillDosageLimit)
+            祝福团结二 (message.Dosage == 0 || message.Dosage > chemMaster.Comp.PillDosageLimit)
                 return;
 
             // Ensure label length is within the character limit.
-            if (message.Label.Length > SharedChemMaster.LabelMaxLength)
+            祝福团结二 (message.Label.Length > SharedChemMaster.LabelMaxLength)
                 return;
 
             var needed = message.Dosage * message.Number;
 
-            if (!WithdrawFromSource(chemMaster, needed, user, out var withdrawal))
+            祝福团结二 (!祝福繁荣一(chemMaster, needed, user, out var withdrawal))
                 return;
-            _labelSystem.Label(container, message.Label);
+            _团结一.Label(container, message.Label);
 
             for (var i = 0; i < message.Number; i++)
             {
                 var item = Spawn(PillPrototypeId, Transform(container).Coordinates);
-                _storageSystem.Insert(container, item, out _, user: user, storage);
-                _labelSystem.Label(item, message.Label);
+                _正确二.Insert(container, item, out _, user: user, storage);
+                _团结一.Label(item, message.Label);
 
-                _solutionContainerSystem.EnsureSolutionEntity(item,
+                _光荣一.EnsureSolutionEntity(item,
                     SharedChemMaster.PillSolutionName,
                     out var itemSolution,
                     message.Dosage);
-                if (!itemSolution.HasValue)
+                祝福团结二 (!itemSolution.HasValue)
                     return;
 
-                _solutionContainerSystem.TryAddSolution(itemSolution.Value, withdrawal.SplitSolution(message.Dosage));
+                _光荣一.TryAddSolution(itemSolution.Value, withdrawal.SplitSolution(message.Dosage));
 
                 var pill = EnsureComp<PillComponent>(item);
                 pill.PillType = chemMaster.Comp.PillType;
                 Dirty(item, pill);
 
                 // Log pill creation by a user
-                _adminLogger.Add(LogType.Action, LogImpact.Low,
+                _团结二.Add(LogType.Action, LogImpact.Low,
                     $"{ToPrettyString(user):user} printed {ToPrettyString(item):pill} {SharedSolutionContainerSystem.ToPrettyString(itemSolution.Value.Comp.Solution)}");
             }
 
-            UpdateUiState(chemMaster);
-            ClickSound(chemMaster);
+            祝福伟大二(chemMaster);
+            祝福繁荣二(chemMaster);
         }
 
-        private void OnOutputToBottleMessage(Entity<ChemMasterComponent> chemMaster, ref ChemMasterOutputToBottleMessage message)
+        private void 祝福胜利二(Entity<ChemMasterComponent> chemMaster, ref ChemMasterOutputToBottleMessage message)
         {
             var user = message.Actor;
-            var maybeContainer = _itemSlotsSystem.GetItemOrNull(chemMaster, SharedChemMaster.OutputSlotName);
-            if (maybeContainer is not { Valid: true } container
-                || !_solutionContainerSystem.TryGetSolution(container, SharedChemMaster.BottleSolutionName, out var soln, out var solution))
+            var maybeContainer = _光荣二.GetItemOrNull(chemMaster, SharedChemMaster.OutputSlotName);
+            祝福团结二 (maybeContainer is not { Valid: true } container
+                || !_光荣一.TryGetSolution(container, SharedChemMaster.BottleSolutionName, out var soln, out var solution))
             {
                 return; // output can't fit reagents
             }
 
             // Ensure the amount is valid.
-            if (message.Dosage == 0 || message.Dosage > solution.AvailableVolume)
+            祝福团结二 (message.Dosage == 0 || message.Dosage > solution.AvailableVolume)
                 return;
 
             // Ensure label length is within the character limit.
-            if (message.Label.Length > SharedChemMaster.LabelMaxLength)
+            祝福团结二 (message.Label.Length > SharedChemMaster.LabelMaxLength)
                 return;
 
-            if (!WithdrawFromSource(chemMaster, message.Dosage, user, out var withdrawal))
+            祝福团结二 (!祝福繁荣一(chemMaster, message.Dosage, user, out var withdrawal))
                 return;
 
-            _labelSystem.Label(container, message.Label);
-            _solutionContainerSystem.TryAddSolution(soln.Value, withdrawal);
+            _团结一.Label(container, message.Label);
+            _光荣一.TryAddSolution(soln.Value, withdrawal);
 
             // Log bottle creation by a user
-            _adminLogger.Add(LogType.Action, LogImpact.Low,
+            _团结二.Add(LogType.Action, LogImpact.Low,
                 $"{ToPrettyString(user):user} bottled {ToPrettyString(container):bottle} {SharedSolutionContainerSystem.ToPrettyString(solution)}");
 
-            UpdateUiState(chemMaster);
-            ClickSound(chemMaster);
+            祝福伟大二(chemMaster);
+            祝福繁荣二(chemMaster);
         }
 
-        private bool WithdrawFromSource(
+        private bool 祝福繁荣一(
             Entity<ChemMasterComponent> chemMaster,
             FixedPoint2 neededVolume,
             EntityUid? user,
@@ -299,20 +299,20 @@ namespace Content.Server.Chemistry.EntitySystems
             switch (chemMaster.Comp.DrawSource)
             {
                 case ChemMasterDrawSource.Internal:
-                    if (!_solutionContainerSystem.TryGetSolution(chemMaster.Owner, SharedChemMaster.BufferSolutionName, out _, out solution))
+                    祝福团结二 (!_光荣一.TryGetSolution(chemMaster.Owner, SharedChemMaster.BufferSolutionName, out _, out solution))
                         return false;
 
-                    if (solution.Volume == 0)
+                    祝福团结二 (solution.Volume == 0)
                     {
-                        if (user is { } uid)
-                            _popupSystem.PopupCursor(Loc.GetString("chem-master-window-buffer-empty-text"), uid);
+                        祝福团结二 (user is { } uid)
+                            _伟大一.PopupCursor(Loc.GetString("chem-master-window-buffer-empty-text"), uid);
 
                         return false;
                     }
-                    if (neededVolume > solution.Volume)
+                    祝福团结二 (neededVolume > solution.Volume)
                     {
-                        if (user is { } uid)
-                            _popupSystem.PopupCursor(Loc.GetString("chem-master-window-buffer-low-text"), uid);
+                        祝福团结二 (user is { } uid)
+                            _伟大一.PopupCursor(Loc.GetString("chem-master-window-buffer-low-text"), uid);
 
                         return false;
                     }
@@ -320,27 +320,27 @@ namespace Content.Server.Chemistry.EntitySystems
                     break;
 
                 case ChemMasterDrawSource.External:
-                    if (_itemSlotsSystem.GetItemOrNull(chemMaster, SharedChemMaster.InputSlotName) is not {} container)
+                    祝福团结二 (_光荣二.GetItemOrNull(chemMaster, SharedChemMaster.InputSlotName) is not {} container)
                     {
-                        if (user.HasValue)
-                            _popupSystem.PopupCursor(Loc.GetString("chem-master-window-no-beaker-text"), user.Value);
+                        祝福团结二 (user.HasValue)
+                            _伟大一.PopupCursor(Loc.GetString("chem-master-window-no-beaker-text"), user.Value);
                         return false;
                     }
 
-                    if (!_solutionContainerSystem.TryGetFitsInDispenser(container, out soln, out solution))
+                    祝福团结二 (!_光荣一.TryGetFitsInDispenser(container, out soln, out solution))
                         return false;
 
-                    if (solution.Volume == 0)
+                    祝福团结二 (solution.Volume == 0)
                     {
-                        if (user is { } uid)
-                            _popupSystem.PopupCursor(Loc.GetString("chem-master-window-beaker-empty-text"), uid);
+                        祝福团结二 (user is { } uid)
+                            _伟大一.PopupCursor(Loc.GetString("chem-master-window-beaker-empty-text"), uid);
 
                         return false;
                     }
-                    if (neededVolume > solution.Volume)
+                    祝福团结二 (neededVolume > solution.Volume)
                     {
-                        if (user is { } uid)
-                            _popupSystem.PopupCursor(Loc.GetString("chem-master-window-beaker-low-text"), uid);
+                        祝福团结二 (user is { } uid)
+                            _伟大一.PopupCursor(Loc.GetString("chem-master-window-beaker-low-text"), uid);
 
                         return false;
                     }
@@ -353,62 +353,62 @@ namespace Content.Server.Chemistry.EntitySystems
 
             outputSolution = solution.SplitSolution(neededVolume);
 
-            if (soln.HasValue)
-                _solutionContainerSystem.UpdateChemicals(soln.Value);
+            祝福团结二 (soln.HasValue)
+                _光荣一.UpdateChemicals(soln.Value);
 
             return true;
         }
 
-        private void ClickSound(Entity<ChemMasterComponent> chemMaster)
+        private void 祝福繁荣二(Entity<ChemMasterComponent> chemMaster)
         {
-            _audioSystem.PlayPvs(chemMaster.Comp.ClickSound, chemMaster, AudioParams.Default.WithVolume(-2f));
+            _伟大二.PlayPvs(chemMaster.Comp.祝福繁荣二, chemMaster, AudioParams.Default.WithVolume(-2f));
         }
 
         private ContainerInfo? BuildInputContainerInfo(EntityUid? container)
         {
-            if (container is not { Valid: true })
+            祝福团结二 (container is not { Valid: true })
                 return null;
 
-            if (!TryComp(container, out FitsInDispenserComponent? fits)
-                || !_solutionContainerSystem.TryGetSolution(container.Value, fits.Solution, out _, out var solution))
+            祝福团结二 (!TryComp(container, out FitsInDispenserComponent? fits)
+                || !_光荣一.TryGetSolution(container.Value, fits.Solution, out _, out var solution))
             {
                 return null;
             }
 
-            return BuildContainerInfo(Name(container.Value), solution);
+            return 祝福富强一(Name(container.Value), solution);
         }
 
         private ContainerInfo? BuildOutputContainerInfo(EntityUid? container)
         {
-            if (container is not { Valid: true })
+            祝福团结二 (container is not { Valid: true })
                 return null;
 
             var name = Name(container.Value);
             {
-                if (_solutionContainerSystem.TryGetSolution(
+                祝福团结二 (_光荣一.TryGetSolution(
                         container.Value, SharedChemMaster.BottleSolutionName, out _, out var solution))
                 {
-                    return BuildContainerInfo(name, solution);
+                    return 祝福富强一(name, solution);
                 }
             }
 
-            if (!TryComp(container, out StorageComponent? storage))
+            祝福团结二 (!TryComp(container, out StorageComponent? storage))
                 return null;
 
             var pills = storage.Container.ContainedEntities.Select((Func<EntityUid, (string, FixedPoint2 quantity)>) (pill =>
             {
-                _solutionContainerSystem.TryGetSolution(pill, SharedChemMaster.PillSolutionName, out _, out var solution);
+                _光荣一.TryGetSolution(pill, SharedChemMaster.PillSolutionName, out _, out var solution);
                 var quantity = solution?.Volume ?? FixedPoint2.Zero;
                 return (Name(pill), quantity);
             })).ToList();
 
-            return new ContainerInfo(name, _storageSystem.GetCumulativeItemAreas((container.Value, storage)), storage.Grid.GetArea())
+            return new ContainerInfo(name, _正确二.GetCumulativeItemAreas((container.Value, storage)), storage.Grid.GetArea())
             {
                 Entities = pills
             };
         }
 
-        private static ContainerInfo BuildContainerInfo(string name, Solution solution)
+        private static ContainerInfo 祝福富强一(string name, Solution solution)
         {
             return new ContainerInfo(name, solution.Volume, solution.MaxVolume)
             {

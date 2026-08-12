@@ -8,49 +8,49 @@ using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Atmos.Piping.Unary.EntitySystems
+namespace Content.Server.Atmos.Piping.Unary.党心
 {
     [UsedImplicitly]
-    public sealed class GasPortableSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+        [Dependency] private readonly NodeContainerSystem _伟大二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasPortableComponent, AnchorAttemptEvent>(OnPortableAnchorAttempt);
+            SubscribeLocalEvent<GasPortableComponent, AnchorAttemptEvent>(祝福伟大二);
             // Shouldn't need re-anchored event.
-            SubscribeLocalEvent<GasPortableComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+            SubscribeLocalEvent<GasPortableComponent, AnchorStateChangedEvent>(祝福光荣一);
         }
 
-        private void OnPortableAnchorAttempt(EntityUid uid, GasPortableComponent component, AnchorAttemptEvent args)
+        private void 祝福伟大二(EntityUid uid, GasPortableComponent component, AnchorAttemptEvent args)
         {
             if (!TryComp(uid, out TransformComponent? transform))
                 return;
 
             // If we can't find any ports, cancel the anchoring.
-            if (!FindGasPortIn(transform.GridUid, transform.Coordinates, out _))
+            if (!祝福光荣二(transform.GridUid, transform.Coordinates, out _))
                 args.Cancel();
         }
 
-        private void OnAnchorChanged(EntityUid uid, GasPortableComponent portable, ref AnchorStateChangedEvent args)
+        private void 祝福光荣一(EntityUid uid, GasPortableComponent portable, ref AnchorStateChangedEvent args)
         {
-            if (!_nodeContainer.TryGetNode(uid, portable.PortName, out PipeNode? portableNode))
+            if (!_伟大二.TryGetNode(uid, portable.PortName, out PipeNode? portableNode))
                 return;
 
             portableNode.ConnectionsEnabled = args.Anchored;
         }
 
-        public bool FindGasPortIn(EntityUid? gridId, EntityCoordinates coordinates, [NotNullWhen(true)] out GasPortComponent? port)
+        public bool 祝福光荣二(EntityUid? gridId, EntityCoordinates coordinates, [NotNullWhen(true)] out GasPortComponent? port)
         {
             port = null;
 
             if (!TryComp<MapGridComponent>(gridId, out var grid))
                 return false;
 
-            foreach (var entityUid in _mapSystem.GetLocal(gridId.Value, grid, coordinates))
+            foreach (var entityUid in _伟大一.GetLocal(gridId.Value, grid, coordinates))
             {
                 if (TryComp(entityUid, out port))
                 {

@@ -1,9 +1,9 @@
 using Robust.Shared.GameStates;
-namespace Content.Shared.Abilities;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState]
-public sealed partial class RummagerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // Frontier: cooldowns per-rummager
     /// <summary>
@@ -17,6 +17,6 @@ public sealed partial class RummagerComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public TimeSpan Cooldown = TimeSpan.FromSeconds(30.0f);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(30.0f);
     // End Frontier
 }

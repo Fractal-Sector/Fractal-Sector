@@ -17,40 +17,40 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Fluids.EntitySystems;
+namespace Content.Server.Fluids.党心;
 
-public sealed class DrainSystem : SharedDrainSystem
+public sealed class 中华伟大一 : SharedDrainSystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly PuddleSystem _puddleSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAmbientSoundSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly PopupSystem _正确一 = default!;
+    [Dependency] private readonly TagSystem _正确二 = default!;
+    [Dependency] private readonly DoAfterSystem _团结一 = default!;
+    [Dependency] private readonly PuddleSystem _团结二 = default!;
+    [Dependency] private readonly IRobustRandom _奋斗一 = default!;
+    [Dependency] private readonly IPrototypeManager _奋斗二 = default!;
 
-    private readonly HashSet<Entity<PuddleComponent>> _puddles = new();
+    private readonly HashSet<Entity<PuddleComponent>> _胜利一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DrainComponent, MapInitEvent>(OnDrainMapInit);
-        SubscribeLocalEvent<DrainComponent, GetVerbsEvent<Verb>>(AddEmptyVerb);
-        SubscribeLocalEvent<DrainComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<DrainComponent, AfterInteractUsingEvent>(OnInteract);
-        SubscribeLocalEvent<DrainComponent, DrainDoAfterEvent>(OnDoAfter);
+        base.祝福伟大一();
+        SubscribeLocalEvent<DrainComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<DrainComponent, GetVerbsEvent<Verb>>(祝福光荣一);
+        SubscribeLocalEvent<DrainComponent, ExaminedEvent>(祝福正确二);
+        SubscribeLocalEvent<DrainComponent, AfterInteractUsingEvent>(祝福团结一);
+        SubscribeLocalEvent<DrainComponent, DrainDoAfterEvent>(祝福团结二);
     }
 
-    private void OnDrainMapInit(Entity<DrainComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<DrainComponent> ent, ref MapInitEvent args)
     {
         // Randomise puddle drains so roundstart ones don't all dump at the same time.
-        ent.Comp.Accumulator = _random.NextFloat(ent.Comp.DrainFrequency);
+        ent.Comp.Accumulator = _奋斗一.NextFloat(ent.Comp.DrainFrequency);
     }
 
-    private void AddEmptyVerb(Entity<DrainComponent> entity, ref GetVerbsEvent<Verb> args)
+    private void 祝福光荣一(Entity<DrainComponent> entity, ref GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Using == null)
             return;
@@ -66,7 +66,7 @@ public sealed class DrainSystem : SharedDrainSystem
             Text = Loc.GetString("drain-component-empty-verb-inhand", ("object", Name(used))),
             Act = () =>
             {
-                Empty(used, spillable, target, drain);
+                祝福光荣二(used, spillable, target, drain);
             },
             Impact = LogImpact.Low,
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/eject.svg.192dpi.png"))
@@ -75,19 +75,19 @@ public sealed class DrainSystem : SharedDrainSystem
         args.Verbs.Add(verb);
     }
 
-    private void Empty(EntityUid container, SpillableComponent spillable, EntityUid target, DrainComponent drain)
+    private void 祝福光荣二(EntityUid container, SpillableComponent spillable, EntityUid target, DrainComponent drain)
     {
         // Find the solution in the container that is emptied
-        if (!_solutionContainerSystem.TryGetDrainableSolution(container, out var containerSoln, out var containerSolution) || containerSolution.Volume == FixedPoint2.Zero)
+        if (!_伟大二.TryGetDrainableSolution(container, out var containerSoln, out var containerSolution) || containerSolution.Volume == FixedPoint2.Zero)
         {
-            _popupSystem.PopupEntity(
+            _正确一.PopupEntity(
                 Loc.GetString("drain-component-empty-verb-using-is-empty-message", ("object", container)),
                 container);
             return;
         }
 
         // try to find the drain's solution
-        if (!_solutionContainerSystem.ResolveSolution(target, DrainComponent.SolutionName, ref drain.Solution, out var drainSolution))
+        if (!_伟大二.ResolveSolution(target, DrainComponent.SolutionName, ref drain.Solution, out var drainSolution))
         {
             return;
         }
@@ -99,11 +99,11 @@ public sealed class DrainSystem : SharedDrainSystem
 
         if (amountToPutInDrain > 0)
         {
-            var solutionToPutInDrain = _solutionContainerSystem.SplitSolution(containerSoln.Value, amountToPutInDrain);
-            _solutionContainerSystem.TryAddSolution(drain.Solution.Value, solutionToPutInDrain);
+            var solutionToPutInDrain = _伟大二.SplitSolution(containerSoln.Value, amountToPutInDrain);
+            _伟大二.TryAddSolution(drain.Solution.Value, solutionToPutInDrain);
 
-            _audioSystem.PlayPvs(drain.ManualDrainSound, target);
-            _ambientSoundSystem.SetAmbience(target, true);
+            _光荣二.PlayPvs(drain.ManualDrainSound, target);
+            _光荣一.SetAmbience(target, true);
         }
 
 
@@ -111,17 +111,17 @@ public sealed class DrainSystem : SharedDrainSystem
 
         if (amountToSpillOnGround > 0)
         {
-            var solutionToSpill = _solutionContainerSystem.SplitSolution(containerSoln.Value, amountToSpillOnGround);
-            _puddleSystem.TrySpillAt(Transform(target).Coordinates, solutionToSpill, out _);
-            _popupSystem.PopupEntity(
+            var solutionToSpill = _伟大二.SplitSolution(containerSoln.Value, amountToSpillOnGround);
+            _团结二.TrySpillAt(Transform(target).Coordinates, solutionToSpill, out _);
+            _正确一.PopupEntity(
                 Loc.GetString("drain-component-empty-verb-target-is-full-message", ("object", target)),
                 container);
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
         var managerQuery = GetEntityQuery<SolutionContainerManagerComponent>();
 
         var query = EntityQueryEnumerator<DrainComponent>();
@@ -138,41 +138,41 @@ public sealed class DrainSystem : SharedDrainSystem
                 continue;
 
             // Best to do this one every second rather than once every tick...
-            if (!_solutionContainerSystem.ResolveSolution((uid, manager), DrainComponent.SolutionName, ref drain.Solution, out var drainSolution))
+            if (!_伟大二.ResolveSolution((uid, manager), DrainComponent.SolutionName, ref drain.Solution, out var drainSolution))
                 continue;
 
             if (drainSolution.Volume <= 0 && !drain.AutoDrain)
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
+                _光荣一.SetAmbience(uid, false);
                 continue;
             }
 
             // Remove a bit from the buffer
-            _solutionContainerSystem.SplitSolution(drain.Solution.Value, (drain.UnitsDestroyedPerSecond * drain.DrainFrequency));
+            _伟大二.SplitSolution(drain.Solution.Value, (drain.UnitsDestroyedPerSecond * drain.DrainFrequency));
 
             // This will ensure that UnitsPerSecond is per second...
             var amount = drain.UnitsPerSecond * drain.DrainFrequency;
 
             if (drain.AutoDrain)
             {
-                _puddles.Clear();
-                _lookup.GetEntitiesInRange(Transform(uid).Coordinates, drain.Range, _puddles);
+                _胜利一.Clear();
+                _伟大一.GetEntitiesInRange(Transform(uid).Coordinates, drain.Range, _胜利一);
 
-                if (_puddles.Count == 0 && drainSolution.Volume <= 0)
+                if (_胜利一.Count == 0 && drainSolution.Volume <= 0)
                 {
-                    _ambientSoundSystem.SetAmbience(uid, false);
+                    _光荣一.SetAmbience(uid, false);
                     continue;
                 }
 
-                _ambientSoundSystem.SetAmbience(uid, true);
+                _光荣一.SetAmbience(uid, true);
 
-                amount /= _puddles.Count;
+                amount /= _胜利一.Count;
 
-                foreach (var puddle in _puddles)
+                foreach (var puddle in _胜利一)
                 {
                     // Queue the solution deletion if it's empty. EvaporationSystem might also do this
                     // but queuedelete should be pretty safe.
-                    if (!_solutionContainerSystem.ResolveSolution(puddle.Owner, puddle.Comp.SolutionName, ref puddle.Comp.Solution, out var puddleSolution))
+                    if (!_伟大二.ResolveSolution(puddle.Owner, puddle.Comp.SolutionName, ref puddle.Comp.Solution, out var puddleSolution))
                     {
                         QueueDel(puddle);
                         continue;
@@ -182,10 +182,10 @@ public sealed class DrainSystem : SharedDrainSystem
                     // the drain component's units per second adjusted for # of puddles
                     // the puddle's remaining volume (making it cleanly zero)
                     // the drain's remaining volume in its buffer.
-                    var transferSolution = _solutionContainerSystem.SplitSolution(puddle.Comp.Solution.Value,
+                    var transferSolution = _伟大二.SplitSolution(puddle.Comp.Solution.Value,
                         FixedPoint2.Min(FixedPoint2.New(amount), puddleSolution.Volume, drainSolution.AvailableVolume));
 
-                    drainSolution.AddSolution(transferSolution, _prototypeManager);
+                    drainSolution.AddSolution(transferSolution, _奋斗二);
 
                     if (puddleSolution.Volume <= 0)
                     {
@@ -194,15 +194,15 @@ public sealed class DrainSystem : SharedDrainSystem
                 }
             }
 
-            _solutionContainerSystem.UpdateChemicals(drain.Solution.Value);
+            _伟大二.UpdateChemicals(drain.Solution.Value);
         }
     }
 
-    private void OnExamined(Entity<DrainComponent> entity, ref ExaminedEvent args)
+    private void 祝福正确二(Entity<DrainComponent> entity, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange ||
             !HasComp<SolutionContainerManagerComponent>(entity) ||
-            !_solutionContainerSystem.ResolveSolution(entity.Owner, DrainComponent.SolutionName, ref entity.Comp.Solution, out var drainSolution))
+            !_伟大二.ResolveSolution(entity.Owner, DrainComponent.SolutionName, ref entity.Comp.Solution, out var drainSolution))
         {
             return;
         }
@@ -213,22 +213,22 @@ public sealed class DrainSystem : SharedDrainSystem
         args.PushMarkup(text);
     }
 
-    private void OnInteract(Entity<DrainComponent> entity, ref AfterInteractUsingEvent args)
+    private void 祝福团结一(Entity<DrainComponent> entity, ref AfterInteractUsingEvent args)
     {
         if (!args.CanReach || args.Target == null ||
-            !_tagSystem.HasTag(args.Used, DrainComponent.PlungerTag) ||
-            !_solutionContainerSystem.ResolveSolution(args.Target.Value, DrainComponent.SolutionName, ref entity.Comp.Solution, out var drainSolution))
+            !_正确二.HasTag(args.Used, DrainComponent.PlungerTag) ||
+            !_伟大二.ResolveSolution(args.Target.Value, DrainComponent.SolutionName, ref entity.Comp.Solution, out var drainSolution))
         {
             return;
         }
 
         if (drainSolution.AvailableVolume > 0)
         {
-            _popupSystem.PopupEntity(Loc.GetString("drain-component-unclog-notapplicable", ("object", args.Target.Value)), args.Target.Value);
+            _正确一.PopupEntity(Loc.GetString("drain-component-unclog-notapplicable", ("object", args.Target.Value)), args.Target.Value);
             return;
         }
 
-        _audioSystem.PlayPvs(entity.Comp.PlungerSound, entity);
+        _光荣二.PlayPvs(entity.Comp.PlungerSound, entity);
 
 
         var doAfterArgs = new DoAfterArgs(EntityManager, args.User, entity.Comp.UnclogDuration, new DrainDoAfterEvent(), entity, args.Target, args.Used)
@@ -238,29 +238,29 @@ public sealed class DrainSystem : SharedDrainSystem
             BreakOnHandChange = true
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs);
+        _团结一.TryStartDoAfter(doAfterArgs);
     }
 
-    private void OnDoAfter(Entity<DrainComponent> entity, ref DrainDoAfterEvent args)
+    private void 祝福团结二(Entity<DrainComponent> entity, ref DrainDoAfterEvent args)
     {
         if (args.Target == null)
             return;
 
-        if (!_random.Prob(entity.Comp.UnclogProbability))
+        if (!_奋斗一.Prob(entity.Comp.UnclogProbability))
         {
-            _popupSystem.PopupEntity(Loc.GetString("drain-component-unclog-fail", ("object", args.Target.Value)), args.Target.Value);
+            _正确一.PopupEntity(Loc.GetString("drain-component-unclog-fail", ("object", args.Target.Value)), args.Target.Value);
             return;
         }
 
 
-        if (!_solutionContainerSystem.ResolveSolution(args.Target.Value, DrainComponent.SolutionName, ref entity.Comp.Solution))
+        if (!_伟大二.ResolveSolution(args.Target.Value, DrainComponent.SolutionName, ref entity.Comp.Solution))
         {
             return;
         }
 
 
-        _solutionContainerSystem.RemoveAllSolution(entity.Comp.Solution.Value);
-        _audioSystem.PlayPvs(entity.Comp.UnclogSound, args.Target.Value);
-        _popupSystem.PopupEntity(Loc.GetString("drain-component-unclog-success", ("object", args.Target.Value)), args.Target.Value);
+        _伟大二.RemoveAllSolution(entity.Comp.Solution.Value);
+        _光荣二.PlayPvs(entity.Comp.UnclogSound, args.Target.Value);
+        _正确一.PopupEntity(Loc.GetString("drain-component-unclog-success", ("object", args.Target.Value)), args.Target.Value);
     }
 }

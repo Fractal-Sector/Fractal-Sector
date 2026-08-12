@@ -8,34 +8,34 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleConsoleSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeFTL()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<FTLBeaconComponent, ComponentStartup>(OnBeaconStartup);
-        SubscribeLocalEvent<FTLBeaconComponent, AnchorStateChangedEvent>(OnBeaconAnchorChanged);
+        SubscribeLocalEvent<FTLBeaconComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<FTLBeaconComponent, AnchorStateChangedEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<FTLExclusionComponent, ComponentStartup>(OnExclusionStartup);
+        SubscribeLocalEvent<FTLExclusionComponent, ComponentStartup>(祝福伟大二);
     }
 
-    private void OnExclusionStartup(Entity<FTLExclusionComponent> ent, ref ComponentStartup args)
-    {
-        RefreshShuttleConsoles();
-    }
-
-    private void OnBeaconStartup(Entity<FTLBeaconComponent> ent, ref ComponentStartup args)
+    private void 祝福伟大二(Entity<FTLExclusionComponent> ent, ref ComponentStartup args)
     {
         RefreshShuttleConsoles();
     }
 
-    private void OnBeaconAnchorChanged(Entity<FTLBeaconComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福光荣一(Entity<FTLBeaconComponent> ent, ref ComponentStartup args)
     {
         RefreshShuttleConsoles();
     }
 
-    private void OnBeaconFTLMessage(Entity<ShuttleConsoleComponent> ent, ref ShuttleConsoleFTLBeaconMessage args)
+    private void 祝福光荣二(Entity<FTLBeaconComponent> ent, ref AnchorStateChangedEvent args)
+    {
+        RefreshShuttleConsoles();
+    }
+
+    private void 祝福正确一(Entity<ShuttleConsoleComponent> ent, ref ShuttleConsoleFTLBeaconMessage args)
     {
         var beaconEnt = GetEntity(args.Beacon);
         if (!_xformQuery.TryGetComponent(beaconEnt, out var targetXform))
@@ -58,10 +58,10 @@ public sealed partial class ShuttleConsoleSystem
         var angle = args.Angle.Reduced();
         var targetCoordinates = new EntityCoordinates(targetXform.MapUid!.Value, _transform.GetWorldPosition(targetXform));
 
-        ConsoleFTL(ent, targetCoordinates, angle, targetXform.MapID);
+        祝福奋斗一(ent, targetCoordinates, angle, targetXform.MapID);
     }
 
-    private void OnPositionFTLMessage(Entity<ShuttleConsoleComponent> entity, ref ShuttleConsoleFTLPositionMessage args)
+    private void 祝福正确二(Entity<ShuttleConsoleComponent> entity, ref ShuttleConsoleFTLPositionMessage args)
     {
         var mapUid = _mapSystem.GetMap(args.Coordinates.MapId);
 
@@ -73,10 +73,10 @@ public sealed partial class ShuttleConsoleSystem
 
         var targetCoordinates = new EntityCoordinates(mapUid, args.Coordinates.Position);
         var angle = args.Angle.Reduced();
-        ConsoleFTL(entity, targetCoordinates, angle, args.Coordinates.MapId);
+        祝福奋斗一(entity, targetCoordinates, angle, args.Coordinates.MapId);
     }
 
-    private void GetBeacons(ref List<ShuttleBeaconObject>? beacons)
+    private void 祝福团结一(ref List<ShuttleBeaconObject>? beacons)
     {
         var beaconQuery = AllEntityQuery<FTLBeaconComponent>();
 
@@ -95,7 +95,7 @@ public sealed partial class ShuttleConsoleSystem
         }
     }
 
-    private void GetExclusions(ref List<ShuttleExclusionObject>? exclusions)
+    private void 祝福团结二(ref List<ShuttleExclusionObject>? exclusions)
     {
         var query = AllEntityQuery<FTLExclusionComponent, TransformComponent>();
 
@@ -112,7 +112,7 @@ public sealed partial class ShuttleConsoleSystem
     /// <summary>
     /// Handles shuttle console FTLs.
     /// </summary>
-    private void ConsoleFTL(Entity<ShuttleConsoleComponent> ent, EntityCoordinates targetCoordinates, Angle targetAngle, MapId targetMap)
+    private void 祝福奋斗一(Entity<ShuttleConsoleComponent> ent, EntityCoordinates targetCoordinates, Angle targetAngle, MapId targetMap)
     {
         var consoleUid = GetDroneConsole(ent.Owner);
 
@@ -141,7 +141,7 @@ public sealed partial class ShuttleConsoleSystem
         }
 
         List<ShuttleExclusionObject>? exclusions = null;
-        GetExclusions(ref exclusions);
+        祝福团结二(ref exclusions);
 
         if (!_shuttle.FTLFree(shuttleUid.Value, targetCoordinates, targetAngle, exclusions))
         {

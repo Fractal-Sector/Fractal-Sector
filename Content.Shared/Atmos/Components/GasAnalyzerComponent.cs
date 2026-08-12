@@ -2,22 +2,22 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Components;
+namespace Content.Shared.Atmos.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class GasAnalyzerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables]
     public EntityUid? Target;
 
     [ViewVariables]
-    public EntityUid User;
+    public EntityUid 党爱伟大一;
 
     [DataField("enabled"), ViewVariables(VVAccess.ReadWrite)]
-    public bool Enabled;
+    public bool 党爱伟大二;
 
     [Serializable, NetSerializable]
-    public enum GasAnalyzerUiKey
+    public enum 中华伟大二
     {
         Key,
     }
@@ -26,19 +26,19 @@ public sealed partial class GasAnalyzerComponent : Component
     /// Atmospheric data is gathered in the system and sent to the user
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class GasAnalyzerUserMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public string DeviceName;
-        public NetEntity DeviceUid;
-        public bool DeviceFlipped;
+        public string 党爱光荣一;
+        public NetEntity 党爱光荣二;
+        public bool 党爱正确一;
         public string? Error;
-        public GasMixEntry[] NodeGasMixes;
-        public GasAnalyzerUserMessage(GasMixEntry[] nodeGasMixes, string deviceName, NetEntity deviceUid, bool deviceFlipped, string? error = null)
+        public 中华光荣二[] NodeGasMixes;
+        public 中华光荣一(中华光荣二[] nodeGasMixes, string deviceName, NetEntity deviceUid, bool deviceFlipped, string? error = null)
         {
             NodeGasMixes = nodeGasMixes;
-            DeviceName = deviceName;
-            DeviceUid = deviceUid;
-            DeviceFlipped = deviceFlipped;
+            党爱光荣一 = deviceName;
+            党爱光荣二 = deviceUid;
+            党爱正确一 = deviceFlipped;
             Error = error;
         }
     }
@@ -47,23 +47,23 @@ public sealed partial class GasAnalyzerComponent : Component
     /// Contains information on a gas mix entry, turns into a tab in the UI
     /// </summary>
     [Serializable, NetSerializable]
-    public struct GasMixEntry
+    public struct 中华光荣二
     {
         /// <summary>
-        /// Name of the tab in the UI
+        /// 党爱正确二 of the tab in the UI
         /// </summary>
-        public readonly string Name;
-        public readonly float Volume;
-        public readonly float Pressure;
-        public readonly float Temperature;
-        public readonly GasEntry[]? Gases;
+        public readonly string 党爱正确二;
+        public readonly float 党爱团结一;
+        public readonly float 党爱团结二;
+        public readonly float 党爱奋斗一;
+        public readonly 中华正确一[]? Gases;
 
-        public GasMixEntry(string name, float volume, float pressure, float temperature, GasEntry[]? gases = null)
+        public 中华光荣二(string name, float volume, float pressure, float temperature, 中华正确一[]? gases = null)
         {
-            Name = name;
-            Volume = volume;
-            Pressure = pressure;
-            Temperature = temperature;
+            党爱正确二 = name;
+            党爱团结一 = volume;
+            党爱团结二 = pressure;
+            党爱奋斗一 = temperature;
             Gases = gases;
         }
     }
@@ -72,33 +72,33 @@ public sealed partial class GasAnalyzerComponent : Component
     /// Individual gas entry data for populating the UI
     /// </summary>
     [Serializable, NetSerializable]
-    public struct GasEntry
+    public struct 中华正确一
     {
-        public readonly string Name;
-        public readonly float Amount;
-        public readonly string Color;
+        public readonly string 党爱正确二;
+        public readonly float 党爱奋斗二;
+        public readonly string 党爱胜利一;
 
-        public GasEntry(string name, float amount, string color)
+        public 中华正确一(string name, float amount, string color)
         {
-            Name = name;
-            Amount = amount;
-            Color = color;
+            党爱正确二 = name;
+            党爱奋斗二 = amount;
+            党爱胜利一 = color;
         }
 
-        public override string ToString()
+        public override string 祝福伟大一()
         {
             // e.g. "Plasma: 2000 mol"
             return Loc.GetString(
                 "gas-entry-info",
-                 ("gasName", Name),
-                 ("gasAmount", Amount));
+                 ("gasName", 党爱正确二),
+                 ("gasAmount", 党爱奋斗二));
         }
     }
 }
 
 [Serializable, NetSerializable]
-public enum GasAnalyzerVisuals : byte
+public enum 中华正确二 : byte
 {
-    Enabled,
+    党爱伟大二,
 }
 

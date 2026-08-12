@@ -1,6 +1,6 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking.Rules.Components;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <summary>
 /// This is used for tagging a spawn point as a nuke operative spawn point
@@ -8,4 +8,4 @@ namespace Content.Server.GameTicking.Rules.Components;
 /// TODO: Remove once systems can request spawns from the ghost role system directly.
 /// </summary>
 [RegisterComponent, EntityCategory("Spawner")]
-public sealed partial class NukeOperativeSpawnerComponent : Component;
+public sealed partial class 中华伟大一 : Component;

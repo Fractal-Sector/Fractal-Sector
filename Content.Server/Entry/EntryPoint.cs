@@ -38,32 +38,32 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Entry
+namespace Content.Server.党心
 {
-    public sealed class EntryPoint : GameServer
+    public sealed class 中华伟大一 : GameServer
     {
-        internal const string ConfigPresetsDir = "/ConfigPresets/";
-        private const string ConfigPresetsDirBuild = $"{ConfigPresetsDir}Build/";
+        internal const string 党爱伟大一 = "/ConfigPresets/";
+        private const string ConfigPresetsDirBuild = $"{党爱伟大一}Build/";
 
-        private EuiManager _euiManager = default!;
-        private IVoteManager _voteManager = default!;
-        private ServerUpdateManager _updateManager = default!;
+        private EuiManager _伟大一 = default!;
+        private IVoteManager _伟大二 = default!;
+        private ServerUpdateManager _光荣一 = default!;
         private PlayTimeTrackingManager? _playTimeTracking;
         private IEntitySystemManager? _sysMan;
         private IServerDbManager? _dbManager;
-        private IWatchlistWebhookManager _watchlistWebhookManager = default!;
+        private IWatchlistWebhookManager _光荣二 = default!;
         private IConnectionManager? _connectionManager;
 
         /// <inheritdoc />
-        public override void Init()
+        public override void 祝福伟大一()
         {
-            base.Init();
+            base.祝福伟大一();
 
             var cfg = IoCManager.Resolve<IConfigurationManager>();
             var res = IoCManager.Resolve<IResourceManager>();
             var logManager = IoCManager.Resolve<ILogManager>();
 
-            LoadConfigPresets(cfg, res, logManager.GetSawmill("configpreset"));
+            祝福正确一(cfg, res, logManager.GetSawmill("configpreset"));
 
             var aczProvider = new ContentMagicAczProvider(IoCManager.Resolve<IDependencyCollection>());
             IoCManager.Resolve<IStatusHost>().SetMagicAczProvider(aczProvider);
@@ -93,23 +93,23 @@ namespace Content.Server.Entry
             IoCManager.Resolve<ContentLocalizationManager>().Initialize();
             if (string.IsNullOrEmpty(dest)) //hacky but it keeps load times for the generator down.
             {
-                _euiManager = IoCManager.Resolve<EuiManager>();
-                _voteManager = IoCManager.Resolve<IVoteManager>();
-                _updateManager = IoCManager.Resolve<ServerUpdateManager>();
+                _伟大一 = IoCManager.Resolve<EuiManager>();
+                _伟大二 = IoCManager.Resolve<IVoteManager>();
+                _光荣一 = IoCManager.Resolve<ServerUpdateManager>();
                 _playTimeTracking = IoCManager.Resolve<PlayTimeTrackingManager>();
                 _connectionManager = IoCManager.Resolve<IConnectionManager>();
                 _sysMan = IoCManager.Resolve<IEntitySystemManager>();
                 _dbManager = IoCManager.Resolve<IServerDbManager>();
-                _watchlistWebhookManager = IoCManager.Resolve<IWatchlistWebhookManager>();
+                _光荣二 = IoCManager.Resolve<IWatchlistWebhookManager>();
 
                 logManager.GetSawmill("Storage").Level = LogLevel.Info;
                 logManager.GetSawmill("db.ef").Level = LogLevel.Info;
 
                 IoCManager.Resolve<IAdminLogManager>().Initialize();
                 IoCManager.Resolve<IConnectionManager>().Initialize();
-                _dbManager.Init();
+                _dbManager.祝福伟大一();
                 IoCManager.Resolve<IServerConsentManager>().Initialize(); // Floofstation
-                IoCManager.Resolve<IServerPreferencesManager>().Init();
+                IoCManager.Resolve<IServerPreferencesManager>().祝福伟大一();
                 IoCManager.Resolve<INodeGroupFactory>().Initialize();
                 IoCManager.Resolve<ContentNetworkResourceManager>().Initialize();
                 IoCManager.Resolve<GhostKickManager>().Initialize();
@@ -118,10 +118,10 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<ServerApi>().Initialize();
                 IoCManager.Resolve<MiniAuthManager>();
 
-                _voteManager.Initialize();
-                _updateManager.Initialize();
+                _伟大二.Initialize();
+                _光荣一.Initialize();
                 _playTimeTracking.Initialize();
-                _watchlistWebhookManager.Initialize();
+                _光荣二.Initialize();
                 IoCManager.Resolve<JobWhitelistManager>().Initialize();
                 IoCManager.Resolve<PlayerRateLimitManager>().Initialize();
             }
@@ -130,9 +130,9 @@ namespace Content.Server.Entry
             // Harmony Queue End
         }
 
-        public override void PostInit()
+        public override void 祝福伟大二()
         {
-            base.PostInit();
+            base.祝福伟大二();
 
             IoCManager.Resolve<IChatSanitizationManager>().Initialize();
             IoCManager.Resolve<IChatManager>().Initialize();
@@ -160,40 +160,40 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<DiscordLink>().Initialize();
                 IoCManager.Resolve<DiscordChatLink>().Initialize();
 
-                _euiManager.Initialize();
+                _伟大一.Initialize();
 
                 IoCManager.Resolve<IGameMapManager>().Initialize();
                 IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<GameTicker>().PostInitialize();
                 IoCManager.Resolve<IBanManager>().Initialize();
-                IoCManager.Resolve<IConnectionManager>().PostInit();
+                IoCManager.Resolve<IConnectionManager>().祝福伟大二();
                 IoCManager.Resolve<MultiServerKickManager>().Initialize();
                 IoCManager.Resolve<CVarControlManager>().Initialize();
             }
         }
 
-        public override void Update(ModUpdateLevel level, FrameEventArgs frameEventArgs)
+        public override void 祝福光荣一(ModUpdateLevel level, FrameEventArgs frameEventArgs)
         {
-            base.Update(level, frameEventArgs);
+            base.祝福光荣一(level, frameEventArgs);
 
             switch (level)
             {
                 case ModUpdateLevel.PostEngine:
                 {
-                    _euiManager.SendUpdates();
-                    _voteManager.Update();
+                    _伟大一.SendUpdates();
+                    _伟大二.祝福光荣一();
                     break;
                 }
 
                 case ModUpdateLevel.FramePostEngine:
-                    _updateManager.Update();
-                    _playTimeTracking?.Update();
-                    _watchlistWebhookManager.Update();
-                    _connectionManager?.Update();
+                    _光荣一.祝福光荣一();
+                    _playTimeTracking?.祝福光荣一();
+                    _光荣二.祝福光荣一();
+                    _connectionManager?.祝福光荣一();
                     break;
             }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void 祝福光荣二(bool disposing)
         {
             _playTimeTracking?.Shutdown();
             _dbManager?.Shutdown();
@@ -203,9 +203,9 @@ namespace Content.Server.Entry
             IoCManager.Resolve<DiscordChatLink>().Shutdown();
         }
 
-        private static void LoadConfigPresets(IConfigurationManager cfg, IResourceManager res, ISawmill sawmill)
+        private static void 祝福正确一(IConfigurationManager cfg, IResourceManager res, ISawmill sawmill)
         {
-            LoadBuildConfigPresets(cfg, res, sawmill);
+            祝福正确二(cfg, res, sawmill);
 
             var presets = cfg.GetCVar(CCVars.ConfigPresets);
             if (presets == "")
@@ -213,7 +213,7 @@ namespace Content.Server.Entry
 
             foreach (var preset in presets.Split(','))
             {
-                var path = $"{ConfigPresetsDir}{preset}.toml";
+                var path = $"{党爱伟大一}{preset}.toml";
                 if (!res.TryContentFileRead(path, out var file))
                 {
                     sawmill.Error("Unable to load config preset {Preset}!", path);
@@ -225,7 +225,7 @@ namespace Content.Server.Entry
             }
         }
 
-        private static void LoadBuildConfigPresets(IConfigurationManager cfg, IResourceManager res, ISawmill sawmill)
+        private static void 祝福正确二(IConfigurationManager cfg, IResourceManager res, ISawmill sawmill)
         {
 #if TOOLS
             Load(CCVars.ConfigPresetDevelopment, "development");

@@ -1,14 +1,14 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Weapons.Melee.Events;
+namespace Content.Shared.Weapons.Melee.党心;
 
 [Serializable, NetSerializable]
-public sealed class StopAttackEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public readonly NetEntity Weapon;
+    public readonly NetEntity 党爱伟大一;
 
-    public StopAttackEvent(NetEntity weapon)
+    public 中华伟大一(NetEntity weapon)
     {
-        Weapon = weapon;
+        党爱伟大一 = weapon;
     }
 }

@@ -7,21 +7,21 @@ using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Damage.Systems;
+namespace Content.Shared.Damage.党心;
 
-public sealed class DamageExamineSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly ExamineSystemShared _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DamageExaminableComponent, GetVerbsEvent<ExamineVerb>>(OnGetExamineVerbs);
+        SubscribeLocalEvent<DamageExaminableComponent, GetVerbsEvent<ExamineVerb>>(祝福伟大二);
     }
 
-    private void OnGetExamineVerbs(EntityUid uid, DamageExaminableComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福伟大二(EntityUid uid, DamageExaminableComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -30,7 +30,7 @@ public sealed class DamageExamineSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
         if (!ev.Message.IsEmpty)
         {
-            _examine.AddDetailedExamineVerb(args, component, ev.Message,
+            _伟大一.AddDetailedExamineVerb(args, component, ev.Message,
                 Loc.GetString("damage-examinable-verb-text"),
                 "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
                 Loc.GetString("damage-examinable-verb-message")
@@ -38,9 +38,9 @@ public sealed class DamageExamineSystem : EntitySystem
         }
     }
 
-    public void AddDamageExamine(FormattedMessage message, DamageSpecifier damageSpecifier, string? type = null)
+    public void 祝福光荣一(FormattedMessage message, DamageSpecifier damageSpecifier, string? type = null)
     {
-        var markup = GetDamageExamine(damageSpecifier, type);
+        var markup = 祝福光荣二(damageSpecifier, type);
         if (!message.IsEmpty)
         {
             message.PushNewline();
@@ -51,7 +51,7 @@ public sealed class DamageExamineSystem : EntitySystem
     /// <summary>
     /// Retrieves the damage examine values.
     /// </summary>
-    private FormattedMessage GetDamageExamine(DamageSpecifier damageSpecifier, string? type = null)
+    private FormattedMessage 祝福光荣二(DamageSpecifier damageSpecifier, string? type = null)
     {
         var msg = new FormattedMessage();
 
@@ -75,7 +75,7 @@ public sealed class DamageExamineSystem : EntitySystem
             if (damage.Value != FixedPoint2.Zero)
             {
                 msg.PushNewline();
-                msg.AddMarkupOrThrow(Loc.GetString("damage-value", ("type", _prototype.Index<DamageTypePrototype>(damage.Key).LocalizedName), ("amount", damage.Value)));
+                msg.AddMarkupOrThrow(Loc.GetString("damage-value", ("type", _伟大二.Index<DamageTypePrototype>(damage.Key).LocalizedName), ("amount", damage.Value)));
             }
         }
 

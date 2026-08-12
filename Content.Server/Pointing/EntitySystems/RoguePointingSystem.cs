@@ -4,15 +4,15 @@ using Content.Shared.Pointing.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Random;
 
-namespace Content.Server.Pointing.EntitySystems
+namespace Content.Server.Pointing.党心
 {
     [UsedImplicitly]
-    internal sealed class RoguePointingSystem : EntitySystem
+    internal sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ExplosionSystem _explosion = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly ExplosionSystem _伟大二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+        [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
 
         private EntityUid? RandomNearbyPlayer(EntityUid uid, RoguePointingArrowComponent? component = null, TransformComponent? transform = null)
         {
@@ -29,7 +29,7 @@ namespace Content.Server.Pointing.EntitySystems
             if (targets.Count == 0)
                 return null;
 
-            var angering = _random.Pick(targets);
+            var angering = _伟大一.Pick(targets);
             angering.Comp.RemainingAnger -= 1;
             if (angering.Comp.RemainingAnger <= 0)
                 RemComp<PointingArrowAngeringComponent>(angering);
@@ -37,15 +37,15 @@ namespace Content.Server.Pointing.EntitySystems
             return angering.Owner;
         }
 
-        private void UpdateAppearance(EntityUid uid, RoguePointingArrowComponent? component = null, TransformComponent? transform = null, AppearanceComponent? appearance = null)
+        private void 祝福伟大一(EntityUid uid, RoguePointingArrowComponent? component = null, TransformComponent? transform = null, AppearanceComponent? appearance = null)
         {
             if (!Resolve(uid, ref component, ref transform, ref appearance) || component.Chasing == null)
                 return;
 
-            _appearance.SetData(uid, RoguePointingArrowVisuals.Rotation, transform.LocalRotation.Degrees, appearance);
+            _光荣一.SetData(uid, RoguePointingArrowVisuals.Rotation, transform.LocalRotation.Degrees, appearance);
         }
 
-        public void SetTarget(EntityUid arrow, EntityUid target, RoguePointingArrowComponent? component = null)
+        public void 祝福伟大二(EntityUid arrow, EntityUid target, RoguePointingArrowComponent? component = null)
         {
             if (!Resolve(arrow, ref component))
                 throw new ArgumentException("Input was not a rogue pointing arrow!", nameof(arrow));
@@ -53,7 +53,7 @@ namespace Content.Server.Pointing.EntitySystems
             component.Chasing = target;
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福光荣一(float frameTime)
         {
             var query = EntityQueryEnumerator<RoguePointingArrowComponent, TransformComponent>();
             while (query.MoveNext(out var uid, out var component, out var transform))
@@ -67,28 +67,28 @@ namespace Content.Server.Pointing.EntitySystems
                 }
 
                 component.TurningDelay -= frameTime;
-                var (transformPos, transformRot) = _transformSystem.GetWorldPositionRotation(transform);
+                var (transformPos, transformRot) = _光荣二.GetWorldPositionRotation(transform);
 
                 if (component.TurningDelay > 0)
                 {
-                    var difference = _transformSystem.GetWorldPosition(chasing) - transformPos;
+                    var difference = _光荣二.GetWorldPosition(chasing) - transformPos;
                     var angle = difference.ToAngle();
                     var adjusted = angle.Degrees + 90;
                     var newAngle = Angle.FromDegrees(adjusted);
 
-                    _transformSystem.SetWorldRotation(transform, newAngle);
+                    _光荣二.SetWorldRotation(transform, newAngle);
 
-                    UpdateAppearance(uid, component, transform);
+                    祝福伟大一(uid, component, transform);
                     continue;
                 }
 
-                _transformSystem.SetWorldRotation(transform, transformRot + Angle.FromDegrees(20));
+                _光荣二.SetWorldRotation(transform, transformRot + Angle.FromDegrees(20));
 
-                UpdateAppearance(uid, component, transform);
+                祝福伟大一(uid, component, transform);
 
-                var toChased = _transformSystem.GetWorldPosition(chasing) - transformPos;
+                var toChased = _光荣二.GetWorldPosition(chasing) - transformPos;
 
-                _transformSystem.SetWorldPosition((uid, transform), transformPos + (toChased * frameTime * component.ChasingSpeed));
+                _光荣二.SetWorldPosition((uid, transform), transformPos + (toChased * frameTime * component.ChasingSpeed));
 
                 component.ChasingTime -= frameTime;
 
@@ -98,7 +98,7 @@ namespace Content.Server.Pointing.EntitySystems
                 }
 
 
-                _explosion.QueueExplosion(uid, ExplosionSystem.DefaultExplosionPrototypeId, 50, 3, 10);
+                _伟大二.QueueExplosion(uid, ExplosionSystem.DefaultExplosionPrototypeId, 50, 3, 10);
                 QueueDel(uid);
             }
         }

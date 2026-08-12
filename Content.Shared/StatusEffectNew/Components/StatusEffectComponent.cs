@@ -3,7 +3,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.StatusEffectNew.Components;
+namespace Content.Shared.StatusEffectNew.党心;
 
 /// <summary>
 /// Marker component for all status effects - every status effect entity should have it.
@@ -12,7 +12,7 @@ namespace Content.Shared.StatusEffectNew.Components;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
 [Access(typeof(StatusEffectsSystem))]
 [EntityCategory("StatusEffects")]
-public sealed partial class StatusEffectComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The entity that this status effect is applied to.

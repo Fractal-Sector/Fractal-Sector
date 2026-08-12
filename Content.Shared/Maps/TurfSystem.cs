@@ -7,18 +7,18 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Toolshed.Commands.Values;
 
-namespace Content.Shared.Maps;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     This system provides various useful helper methods for turfs & tiles. Replacement for <see cref="TurfHelpers"/>
 /// </summary>
-public sealed class TurfSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitions = default!;
+    [Dependency] private readonly IMapManager _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _正确一 = default!;
 
 
     /// <summary>
@@ -31,11 +31,11 @@ public sealed class TurfSystem : EntitySystem
         if (!coordinates.IsValid(EntityManager))
             return null;
 
-        var pos = _transform.ToMapCoordinates(coordinates);
-        if (!_mapManager.TryFindGridAt(pos, out var gridUid, out var gridComp))
+        var pos = _光荣一.ToMapCoordinates(coordinates);
+        if (!_伟大一.TryFindGridAt(pos, out var gridUid, out var gridComp))
             return null;
 
-        if (!_mapSystem.TryGetTileRef(gridUid, gridComp, coordinates, out var tile))
+        if (!_光荣二.祝福伟大一(gridUid, gridComp, coordinates, out var tile))
             return null;
 
         return tile;
@@ -47,7 +47,7 @@ public sealed class TurfSystem : EntitySystem
     /// <param name="coordinates">The coordinates to search for a turf.</param>
     /// <param name="tile">Returns the turf found at the given coordinates if any.</param>
     /// <returns>True if a turf was found at the given coordinates, false otherwise.</returns>
-    public bool TryGetTileRef(EntityCoordinates coordinates, [NotNullWhen(true)] out TileRef? tile)
+    public bool 祝福伟大一(EntityCoordinates coordinates, [NotNullWhen(true)] out TileRef? tile)
     {
         return (tile = GetTileRef(coordinates)) is not null;
     }
@@ -55,8 +55,8 @@ public sealed class TurfSystem : EntitySystem
     /// <summary>
     ///     Returns true if a given tile is blocked by physics-enabled entities.
     /// </summary>
-    public bool IsTileBlocked(TileRef turf, CollisionGroup mask, float minIntersectionArea = 0.1f)
-        => IsTileBlocked(turf.GridUid, turf.GridIndices, mask, minIntersectionArea: minIntersectionArea);
+    public bool 祝福伟大二(TileRef turf, CollisionGroup mask, float minIntersectionArea = 0.1f)
+        => 祝福伟大二(turf.GridUid, turf.GridIndices, mask, minIntersectionArea: minIntersectionArea);
 
     /// <summary>
     ///     Returns true if a given tile is blocked by physics-enabled entities.
@@ -67,7 +67,7 @@ public sealed class TurfSystem : EntitySystem
     /// <param name="grid">Grid component</param>
     /// <param name="gridXform">Grid's transform</param>
     /// <param name="minIntersectionArea">Minimum area that must be covered for a tile to be considered blocked</param>
-    public bool IsTileBlocked(EntityUid gridUid,
+    public bool 祝福伟大二(EntityUid gridUid,
         Vector2i indices,
         CollisionGroup mask,
         MapGridComponent? grid = null,
@@ -78,7 +78,7 @@ public sealed class TurfSystem : EntitySystem
             return false;
 
         var xformQuery = GetEntityQuery<TransformComponent>();
-        var (gridPos, gridRot, matrix) = _transform.GetWorldPositionRotationMatrix(gridXform, xformQuery);
+        var (gridPos, gridRot, matrix) = _光荣一.GetWorldPositionRotationMatrix(gridXform, xformQuery);
 
         var size = grid.TileSize;
         var localPos = new Vector2(indices.X * size + (size / 2f), indices.Y * size + (size / 2f));
@@ -91,13 +91,13 @@ public sealed class TurfSystem : EntitySystem
 
         var intersectionArea = 0f;
         var fixtureQuery = GetEntityQuery<FixturesComponent>();
-        foreach (var ent in _entityLookup.GetEntitiesIntersecting(gridUid, worldBox, LookupFlags.Dynamic | LookupFlags.Static))
+        foreach (var ent in _伟大二.GetEntitiesIntersecting(gridUid, worldBox, LookupFlags.Dynamic | LookupFlags.Static))
         {
             if (!fixtureQuery.TryGetComponent(ent, out var fixtures))
                 continue;
 
             // get grid local coordinates
-            var (pos, rot) = _transform.GetWorldPositionRotation(xformQuery.GetComponent(ent), xformQuery);
+            var (pos, rot) = _光荣一.GetWorldPositionRotation(xformQuery.GetComponent(ent), xformQuery);
             rot -= gridRot;
             pos = (-gridRot).RotateVec(pos - gridPos);
 
@@ -129,9 +129,9 @@ public sealed class TurfSystem : EntitySystem
     /// </summary>
     /// <param name="tile">The tile in question.</param>
     /// <returns>True if the tile is considered to be space, false otherwise.</returns>
-    public bool IsSpace(Tile tile)
+    public bool 祝福光荣一(Tile tile)
     {
-        return GetContentTileDefinition(tile).MapAtmosphere;
+        return 祝福正确一(tile).MapAtmosphere;
     }
 
     /// <summary>
@@ -139,15 +139,15 @@ public sealed class TurfSystem : EntitySystem
     /// </summary>
     /// <param name="tile">The tile in question.</param>
     /// <returns>True if the tile is considered to be space, false otherwise.</returns>
-    public bool IsSpace(TileRef tile)
+    public bool 祝福光荣一(TileRef tile)
     {
-        return IsSpace(tile.Tile);
+        return 祝福光荣一(tile.Tile);
     }
 
     /// <summary>
     /// Returns the location of the centre of the tile in grid coordinates.
     /// </summary>
-    public EntityCoordinates GetTileCenter(TileRef turf)
+    public EntityCoordinates 祝福光荣二(TileRef turf)
     {
         var grid = Comp<MapGridComponent>(turf.GridUid);
         var center = (turf.GridIndices + new Vector2(0.5f, 0.5f)) * grid.TileSize;
@@ -157,17 +157,17 @@ public sealed class TurfSystem : EntitySystem
     /// <summary>
     ///     Returns the content tile definition for a tile.
     /// </summary>
-    public ContentTileDefinition GetContentTileDefinition(Tile tile)
+    public ContentTileDefinition 祝福正确一(Tile tile)
     {
-        return (ContentTileDefinition)_tileDefinitions[tile.TypeId];
+        return (ContentTileDefinition)_正确一[tile.TypeId];
     }
 
     /// <summary>
     ///     Returns the content tile definition for a tile ref.
     /// </summary>
-    public ContentTileDefinition GetContentTileDefinition(TileRef tile)
+    public ContentTileDefinition 祝福正确一(TileRef tile)
     {
-        return GetContentTileDefinition(tile.Tile);
+        return 祝福正确一(tile.Tile);
     }
 
     /// <summary>
@@ -176,32 +176,32 @@ public sealed class TurfSystem : EntitySystem
     /// <param name="coords">The position of the turf to search for entities.</param>
     /// <param name="intersecting">The hashset used to collect the relevant entities.</param>
     /// <param name="flags">A set of lookup categories to search for relevant entities.</param>
-    public void GetEntitiesInTile(EntityCoordinates coords, HashSet<EntityUid> intersecting, LookupFlags flags = LookupFlags.Static)
+    public void 祝福正确二(EntityCoordinates coords, HashSet<EntityUid> intersecting, LookupFlags flags = LookupFlags.Static)
     {
-        if (!TryGetTileRef(coords, out var tileRef))
+        if (!祝福伟大一(coords, out var tileRef))
             return;
 
-        _entityLookup.GetEntitiesInTile(tileRef.Value, intersecting, flags);
+        _伟大二.祝福正确二(tileRef.Value, intersecting, flags);
     }
 
     /// <summary>
     ///     Returns a collection containing all of the entities overlapping with the turf at a given position.
     /// </summary>
-    /// <inheritdoc cref="GetEntitiesInTile(EntityCoordinates, HashSet{EntityUid}, LookupFlags)"/>
+    /// <inheritdoc cref="祝福正确二(EntityCoordinates, HashSet{EntityUid}, LookupFlags)"/>
     /// <returns>A hashset containing all of the entities overlapping with the turf in question.</returns>
-    public HashSet<EntityUid> GetEntitiesInTile(EntityCoordinates coords, LookupFlags flags = LookupFlags.Static)
+    public HashSet<EntityUid> 祝福正确二(EntityCoordinates coords, LookupFlags flags = LookupFlags.Static)
     {
-        if (!TryGetTileRef(coords, out var tileRef))
+        if (!祝福伟大一(coords, out var tileRef))
             return [];
 
-        return _entityLookup.GetEntitiesInTile(tileRef.Value, flags);
+        return _伟大二.祝福正确二(tileRef.Value, flags);
     }
 }
 
 /// <summary>
 ///     Extension methods for looking up entities with respect to given turfs.
 /// </summary>
-public static partial class TurfLookupExtensions
+public static partial class 中华伟大二
 {
     /// <summary>
     ///     Collects all of the entities overlapping with a given turf into a provided <see cref="HashSet{EntityUid}"/>.
@@ -209,7 +209,7 @@ public static partial class TurfLookupExtensions
     /// <param name="turf">The turf in question.</param>
     /// <param name="intersecting">The hashset used to collect the relevant entities.</param>
     /// <param name="flags">A set of lookup categories to search for relevant entities.</param>
-    public static void GetEntitiesInTile(this EntityLookupSystem lookupSystem, TileRef turf, HashSet<EntityUid> intersecting, LookupFlags flags = LookupFlags.Static)
+    public static void 祝福正确二(this EntityLookupSystem lookupSystem, TileRef turf, HashSet<EntityUid> intersecting, LookupFlags flags = LookupFlags.Static)
     {
         var bounds = lookupSystem.GetWorldBounds(turf);
         bounds.Box = bounds.Box.Scale(0.9f); // Otherwise the box can clip into neighboring tiles.
@@ -219,12 +219,12 @@ public static partial class TurfLookupExtensions
     /// <summary>
     ///     Returns a collection containing all of the entities overlapping with a given turf.
     /// </summary>
-    /// <inheritdoc cref="GetEntitiesInTile(EntityLookupSystem, TileRef, HashSet{EntityUid}, LookupFlags)"/>
+    /// <inheritdoc cref="祝福正确二(EntityLookupSystem, TileRef, HashSet{EntityUid}, LookupFlags)"/>
     /// <returns>A hashset containing all of the entities overlapping with the turf in question.</returns>
-    public static HashSet<EntityUid> GetEntitiesInTile(this EntityLookupSystem lookupSystem, TileRef turf, LookupFlags flags = LookupFlags.Static)
+    public static HashSet<EntityUid> 祝福正确二(this EntityLookupSystem lookupSystem, TileRef turf, LookupFlags flags = LookupFlags.Static)
     {
         var intersecting = new HashSet<EntityUid>();
-        lookupSystem.GetEntitiesInTile(turf, intersecting, flags);
+        lookupSystem.祝福正确二(turf, intersecting, flags);
         return intersecting;
     }
 }

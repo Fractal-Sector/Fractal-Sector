@@ -40,56 +40,56 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Server.Access.Systems; // Frontier
 
-namespace Content.Server.Silicons.Borgs;
+namespace Content.Server.Silicons.党心;
 
 /// <inheritdoc/>
-public sealed partial class BorgSystem : SharedBorgSystem
+public sealed partial class 中华伟大一 : SharedBorgSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IBanManager _banManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly TriggerSystem _trigger = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly AccessSystem _access = default!; // Frontier
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IBanManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly IRobustRandom _正确一 = default!;
+    [Dependency] private readonly ActionsSystem _正确二 = default!;
+    [Dependency] private readonly AlertsSystem _团结一 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _团结二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _奋斗一 = default!;
+    [Dependency] private readonly TriggerSystem _奋斗二 = default!;
+    [Dependency] private readonly HandsSystem _胜利一 = default!;
+    [Dependency] private readonly MetaDataSystem _胜利二 = default!;
+    [Dependency] private readonly SharedMindSystem _繁荣一 = default!;
+    [Dependency] private readonly MobStateSystem _繁荣二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _富强一 = default!;
+    [Dependency] private readonly PowerCellSystem _富强二 = default!;
+    [Dependency] private readonly ThrowingSystem _民主一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _民主二 = default!;
+    [Dependency] private readonly SharedContainerSystem _文明一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _文明二 = default!;
+    [Dependency] private readonly ISharedPlayerManager _和谐一 = default!;
+    [Dependency] private readonly AccessSystem _和谐二 = default!; // Frontier
 
 
-    public static readonly ProtoId<JobPrototype> BorgJobId = "Borg";
+    public static readonly ProtoId<JobPrototype> 党爱伟大一 = "Borg";
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BorgChassisComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<BorgChassisComponent, AfterInteractUsingEvent>(OnChassisInteractUsing);
-        SubscribeLocalEvent<BorgChassisComponent, MindAddedMessage>(OnMindAdded);
-        SubscribeLocalEvent<BorgChassisComponent, MindRemovedMessage>(OnMindRemoved);
-        SubscribeLocalEvent<BorgChassisComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<BorgChassisComponent, BeingGibbedEvent>(OnBeingGibbed);
-        SubscribeLocalEvent<BorgChassisComponent, PowerCellChangedEvent>(OnPowerCellChanged);
-        SubscribeLocalEvent<BorgChassisComponent, PowerCellSlotEmptyEvent>(OnPowerCellSlotEmpty);
-        SubscribeLocalEvent<BorgChassisComponent, GetCharactedDeadIcEvent>(OnGetDeadIC);
-        SubscribeLocalEvent<BorgChassisComponent, GetCharacterUnrevivableIcEvent>(OnGetUnrevivableIC);
-        SubscribeLocalEvent<BorgChassisComponent, ItemToggledEvent>(OnToggled);
+        SubscribeLocalEvent<BorgChassisComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<BorgChassisComponent, AfterInteractUsingEvent>(祝福光荣一);
+        SubscribeLocalEvent<BorgChassisComponent, MindAddedMessage>(祝福团结一);
+        SubscribeLocalEvent<BorgChassisComponent, MindRemovedMessage>(祝福团结二);
+        SubscribeLocalEvent<BorgChassisComponent, MobStateChangedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<BorgChassisComponent, BeingGibbedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<BorgChassisComponent, PowerCellChangedEvent>(祝福胜利一);
+        SubscribeLocalEvent<BorgChassisComponent, PowerCellSlotEmptyEvent>(祝福胜利二);
+        SubscribeLocalEvent<BorgChassisComponent, GetCharactedDeadIcEvent>(祝福繁荣一);
+        SubscribeLocalEvent<BorgChassisComponent, GetCharacterUnrevivableIcEvent>(祝福繁荣二);
+        SubscribeLocalEvent<BorgChassisComponent, ItemToggledEvent>(祝福富强一);
 
-        SubscribeLocalEvent<BorgBrainComponent, MindAddedMessage>(OnBrainMindAdded);
-        SubscribeLocalEvent<BorgBrainComponent, PointAttemptEvent>(OnBrainPointAttempt);
+        SubscribeLocalEvent<BorgBrainComponent, MindAddedMessage>(祝福富强二);
+        SubscribeLocalEvent<BorgBrainComponent, PointAttemptEvent>(祝福民主一);
 
         InitializeModules();
         InitializeMMI();
@@ -97,13 +97,13 @@ public sealed partial class BorgSystem : SharedBorgSystem
         InitializeTransponder();
     }
 
-    private void OnMapInit(EntityUid uid, BorgChassisComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, BorgChassisComponent component, MapInitEvent args)
     {
-        UpdateBatteryAlert((uid, component));
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(uid);
+        祝福民主二((uid, component));
+        _富强一.RefreshMovementSpeedModifiers(uid);
     }
 
-    private void OnChassisInteractUsing(EntityUid uid, BorgChassisComponent component, AfterInteractUsingEvent args)
+    private void 祝福光荣一(EntityUid uid, BorgChassisComponent component, AfterInteractUsingEvent args)
     {
         if (!args.CanReach || args.Handled || uid == args.User)
             return;
@@ -122,20 +122,20 @@ public sealed partial class BorgSystem : SharedBorgSystem
         }
 
         if (component.BrainEntity == null && brain != null &&
-            _whitelistSystem.IsWhitelistPassOrNull(component.BrainWhitelist, used))
+            _文明二.IsWhitelistPassOrNull(component.BrainWhitelist, used))
         {
-            if (_mind.TryGetMind(used, out _, out var mind) &&
-                _player.TryGetSessionById(mind.UserId, out var session))
+            if (_繁荣一.TryGetMind(used, out _, out var mind) &&
+                _和谐一.TryGetSessionById(mind.UserId, out var session))
             {
-                if (!CanPlayerBeBorged(session))
+                if (!祝福和谐二(session))
                 {
                     Popup.PopupEntity(Loc.GetString("borg-player-not-allowed"), used, args.User);
                     return;
                 }
             }
 
-            _container.Insert(used, component.BrainContainer);
-            _adminLog.Add(LogType.Action, LogImpact.Medium,
+            _文明一.Insert(used, component.BrainContainer);
+            _伟大一.Add(LogType.Action, LogImpact.Medium,
                 $"{ToPrettyString(args.User):player} installed brain {ToPrettyString(used)} into borg {ToPrettyString(uid)}");
             args.Handled = true;
             UpdateUI(uid, component);
@@ -143,8 +143,8 @@ public sealed partial class BorgSystem : SharedBorgSystem
 
         if (module != null && CanInsertModule(uid, used, component, module, args.User))
         {
-            InsertModule((uid, component), used);
-            _adminLog.Add(LogType.Action, LogImpact.Low,
+            祝福光荣二((uid, component), used);
+            _伟大一.Add(LogType.Action, LogImpact.Low,
                 $"{ToPrettyString(args.User):player} installed module {ToPrettyString(used)} into borg {ToPrettyString(uid)}");
             args.Handled = true;
             UpdateUI(uid, component);
@@ -159,69 +159,69 @@ public sealed partial class BorgSystem : SharedBorgSystem
     /// </para>
     /// <param name="ent">The borg to insert into.</param>
     /// <param name="module">The module to insert.</param>
-    public void InsertModule(Entity<BorgChassisComponent> ent, EntityUid module)
+    public void 祝福光荣二(Entity<BorgChassisComponent> ent, EntityUid module)
     {
-        _container.Insert(module, ent.Comp.ModuleContainer);
+        _文明一.Insert(module, ent.Comp.ModuleContainer);
     }
 
     // todo: consider transferring over the ghost role? managing that might suck.
-    protected override void OnInserted(EntityUid uid, BorgChassisComponent component, EntInsertedIntoContainerMessage args)
+    protected override void 祝福正确一(EntityUid uid, BorgChassisComponent component, EntInsertedIntoContainerMessage args)
     {
-        base.OnInserted(uid, component, args);
+        base.祝福正确一(uid, component, args);
 
-        if (HasComp<BorgBrainComponent>(args.Entity) && _mind.TryGetMind(args.Entity, out var mindId, out var mind) && args.Container == component.BrainContainer)
+        if (HasComp<BorgBrainComponent>(args.Entity) && _繁荣一.TryGetMind(args.Entity, out var mindId, out var mind) && args.Container == component.BrainContainer)
         {
-            _mind.TransferTo(mindId, uid, mind: mind);
+            _繁荣一.TransferTo(mindId, uid, mind: mind);
         }
     }
 
-    protected override void OnRemoved(EntityUid uid, BorgChassisComponent component, EntRemovedFromContainerMessage args)
+    protected override void 祝福正确二(EntityUid uid, BorgChassisComponent component, EntRemovedFromContainerMessage args)
     {
-        base.OnRemoved(uid, component, args);
+        base.祝福正确二(uid, component, args);
 
-        if (HasComp<BorgBrainComponent>(args.Entity) && _mind.TryGetMind(uid, out var mindId, out var mind) && args.Container == component.BrainContainer)
+        if (HasComp<BorgBrainComponent>(args.Entity) && _繁荣一.TryGetMind(uid, out var mindId, out var mind) && args.Container == component.BrainContainer)
         {
-            _mind.TransferTo(mindId, args.Entity, mind: mind);
+            _繁荣一.TransferTo(mindId, args.Entity, mind: mind);
         }
     }
 
-    private void OnMindAdded(EntityUid uid, BorgChassisComponent component, MindAddedMessage args)
+    private void 祝福团结一(EntityUid uid, BorgChassisComponent component, MindAddedMessage args)
     {
-        BorgActivate(uid, component);
+        祝福文明二(uid, component);
     }
 
-    private void OnMindRemoved(EntityUid uid, BorgChassisComponent component, MindRemovedMessage args)
+    private void 祝福团结二(EntityUid uid, BorgChassisComponent component, MindRemovedMessage args)
     {
-        BorgDeactivate(uid, component);
+        祝福和谐一(uid, component);
     }
 
-    private void OnMobStateChanged(EntityUid uid, BorgChassisComponent component, MobStateChangedEvent args)
+    private void 祝福奋斗一(EntityUid uid, BorgChassisComponent component, MobStateChangedEvent args)
     {
         if (args.NewMobState == MobState.Alive)
         {
-            if (_mind.TryGetMind(uid, out _, out _))
-                _powerCell.SetDrawEnabled(uid, true);
+            if (_繁荣一.TryGetMind(uid, out _, out _))
+                _富强二.SetDrawEnabled(uid, true);
         }
         else
         {
-            _powerCell.SetDrawEnabled(uid, false);
+            _富强二.SetDrawEnabled(uid, false);
         }
     }
 
-    private void OnBeingGibbed(EntityUid uid, BorgChassisComponent component, ref BeingGibbedEvent args)
+    private void 祝福奋斗二(EntityUid uid, BorgChassisComponent component, ref BeingGibbedEvent args)
     {
-        TryEjectPowerCell(uid, component, out var _);
+        祝福文明一(uid, component, out var _);
 
-        _container.EmptyContainer(component.BrainContainer);
-        _container.EmptyContainer(component.ModuleContainer);
+        _文明一.EmptyContainer(component.BrainContainer);
+        _文明一.EmptyContainer(component.ModuleContainer);
     }
 
-    private void OnPowerCellChanged(EntityUid uid, BorgChassisComponent component, PowerCellChangedEvent args)
+    private void 祝福胜利一(EntityUid uid, BorgChassisComponent component, PowerCellChangedEvent args)
     {
-        UpdateBatteryAlert((uid, component));
+        祝福民主二((uid, component));
 
         // if we aren't drawing and suddenly get enough power to draw again, reeanble.
-        if (_powerCell.HasDrawCharge(uid))
+        if (_富强二.HasDrawCharge(uid))
         {
             Toggle.TryActivate(uid);
         }
@@ -229,23 +229,23 @@ public sealed partial class BorgSystem : SharedBorgSystem
         UpdateUI(uid, component);
     }
 
-    private void OnPowerCellSlotEmpty(EntityUid uid, BorgChassisComponent component, ref PowerCellSlotEmptyEvent args)
+    private void 祝福胜利二(EntityUid uid, BorgChassisComponent component, ref PowerCellSlotEmptyEvent args)
     {
         Toggle.TryDeactivate(uid);
         UpdateUI(uid, component);
     }
 
-    private void OnGetDeadIC(EntityUid uid, BorgChassisComponent component, ref GetCharactedDeadIcEvent args)
+    private void 祝福繁荣一(EntityUid uid, BorgChassisComponent component, ref GetCharactedDeadIcEvent args)
     {
         args.Dead = true;
     }
 
-    private void OnGetUnrevivableIC(EntityUid uid, BorgChassisComponent component, ref GetCharacterUnrevivableIcEvent args)
+    private void 祝福繁荣二(EntityUid uid, BorgChassisComponent component, ref GetCharacterUnrevivableIcEvent args)
     {
         args.Unrevivable = true;
     }
 
-    private void OnToggled(Entity<BorgChassisComponent> ent, ref ItemToggledEvent args)
+    private void 祝福富强一(Entity<BorgChassisComponent> ent, ref ItemToggledEvent args)
     {
         var (uid, comp) = ent;
         if (args.Activated)
@@ -254,15 +254,15 @@ public sealed partial class BorgSystem : SharedBorgSystem
             DisableAllModules(uid, comp);
 
         // only enable the powerdraw if there is a player in the chassis
-        var drawing = _mind.TryGetMind(uid, out _, out _) && _mobState.IsAlive(ent);
-        _powerCell.SetDrawEnabled(uid, drawing);
+        var drawing = _繁荣一.TryGetMind(uid, out _, out _) && _繁荣二.IsAlive(ent);
+        _富强二.SetDrawEnabled(uid, drawing);
 
         UpdateUI(uid, comp);
 
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(uid);
+        _富强一.RefreshMovementSpeedModifiers(uid);
     }
 
-    private void OnBrainMindAdded(EntityUid uid, BorgBrainComponent component, MindAddedMessage args)
+    private void 祝福富强二(EntityUid uid, BorgBrainComponent component, MindAddedMessage args)
     {
         if (!Container.TryGetOuterContainer(uid, Transform(uid), out var container))
             return;
@@ -273,32 +273,32 @@ public sealed partial class BorgSystem : SharedBorgSystem
             container.ID != chassisComponent.BrainContainerId)
             return;
 
-        if (!_mind.TryGetMind(uid, out var mindId, out var mind) ||
-            !_player.TryGetSessionById(mind.UserId, out var session))
+        if (!_繁荣一.TryGetMind(uid, out var mindId, out var mind) ||
+            !_和谐一.TryGetSessionById(mind.UserId, out var session))
             return;
 
-        if (!CanPlayerBeBorged(session))
+        if (!祝福和谐二(session))
         {
             Popup.PopupEntity(Loc.GetString("borg-player-not-allowed-eject"), uid);
             Container.RemoveEntity(containerEnt, uid);
-            _throwing.TryThrow(uid, _random.NextVector2() * 5, 5f);
+            _民主一.TryThrow(uid, _正确一.NextVector2() * 5, 5f);
             return;
         }
 
-        _mind.TransferTo(mindId, containerEnt, mind: mind);
+        _繁荣一.TransferTo(mindId, containerEnt, mind: mind);
     }
 
-    private void OnBrainPointAttempt(EntityUid uid, BorgBrainComponent component, PointAttemptEvent args)
+    private void 祝福民主一(EntityUid uid, BorgBrainComponent component, PointAttemptEvent args)
     {
         args.Cancel();
     }
 
-    private void UpdateBatteryAlert(Entity<BorgChassisComponent> ent, PowerCellSlotComponent? slotComponent = null)
+    private void 祝福民主二(Entity<BorgChassisComponent> ent, PowerCellSlotComponent? slotComponent = null)
     {
-        if (!_powerCell.TryGetBatteryFromSlot(ent, out var battery, slotComponent))
+        if (!_富强二.TryGetBatteryFromSlot(ent, out var battery, slotComponent))
         {
-            _alerts.ClearAlert(ent, ent.Comp.BatteryAlert);
-            _alerts.ShowAlert(ent, ent.Comp.NoBatteryAlert);
+            _团结一.ClearAlert(ent, ent.Comp.BatteryAlert);
+            _团结一.ShowAlert(ent, ent.Comp.NoBatteryAlert);
             return;
         }
 
@@ -306,16 +306,16 @@ public sealed partial class BorgSystem : SharedBorgSystem
 
         // we make sure 0 only shows if they have absolutely no battery.
         // also account for floating point imprecision
-        if (chargePercent == 0 && _powerCell.HasDrawCharge(ent, cell: slotComponent))
+        if (chargePercent == 0 && _富强二.HasDrawCharge(ent, cell: slotComponent))
         {
             chargePercent = 1;
         }
 
-        _alerts.ClearAlert(ent, ent.Comp.NoBatteryAlert);
-        _alerts.ShowAlert(ent, ent.Comp.BatteryAlert, chargePercent);
+        _团结一.ClearAlert(ent, ent.Comp.NoBatteryAlert);
+        _团结一.ShowAlert(ent, ent.Comp.BatteryAlert, chargePercent);
     }
 
-    public bool TryEjectPowerCell(EntityUid uid, BorgChassisComponent component, [NotNullWhen(true)] out List<EntityUid>? ents)
+    public bool 祝福文明一(EntityUid uid, BorgChassisComponent component, [NotNullWhen(true)] out List<EntityUid>? ents)
     {
         ents = null;
 
@@ -332,7 +332,7 @@ public sealed partial class BorgSystem : SharedBorgSystem
     /// <summary>
     /// Activates a borg when a player occupies it
     /// </summary>
-    public void BorgActivate(EntityUid uid, BorgChassisComponent component)
+    public void 祝福文明二(EntityUid uid, BorgChassisComponent component)
     {
         Popup.PopupEntity(Loc.GetString("borg-mind-added", ("name", Identity.Name(uid, EntityManager))), uid);
 
@@ -351,37 +351,37 @@ public sealed partial class BorgSystem : SharedBorgSystem
             access.Add($"Pilot");
             access.Add($"Mercenary");
 
-            _access.TrySetTags(uid, access);
+            _和谐二.TrySetTags(uid, access);
         }
-        _access.SetAccessEnabled(uid, true);
+        _和谐二.SetAccessEnabled(uid, true);
         // End Frontier
 
-        if (_powerCell.HasDrawCharge(uid))
+        if (_富强二.HasDrawCharge(uid))
         {
             Toggle.TryActivate(uid);
-            _powerCell.SetDrawEnabled(uid, _mobState.IsAlive(uid));
+            _富强二.SetDrawEnabled(uid, _繁荣二.IsAlive(uid));
         }
-        _appearance.SetData(uid, BorgVisuals.HasPlayer, true);
+        _奋斗一.SetData(uid, BorgVisuals.HasPlayer, true);
     }
 
     /// <summary>
     /// Deactivates a borg when a player leaves it.
     /// </summary>
-    public void BorgDeactivate(EntityUid uid, BorgChassisComponent component)
+    public void 祝福和谐一(EntityUid uid, BorgChassisComponent component)
     {
         Popup.PopupEntity(Loc.GetString("borg-mind-removed", ("name", Identity.Name(uid, EntityManager))), uid);
         Toggle.TryDeactivate(uid);
-        _powerCell.SetDrawEnabled(uid, false);
-        _appearance.SetData(uid, BorgVisuals.HasPlayer, false);
+        _富强二.SetDrawEnabled(uid, false);
+        _奋斗一.SetData(uid, BorgVisuals.HasPlayer, false);
     }
 
     /// <summary>
     /// Checks that a player has fulfilled the requirements for the borg job.
     /// If they don't have enough hours, they cannot be placed into a chassis.
     /// </summary>
-    public bool CanPlayerBeBorged(ICommonSession session)
+    public bool 祝福和谐二(ICommonSession session)
     {
-        if (_banManager.GetJobBans(session.UserId)?.Contains(BorgJobId) == true)
+        if (_伟大二.GetJobBans(session.UserId)?.Contains(党爱伟大一) == true)
             return false;
 
         return true;

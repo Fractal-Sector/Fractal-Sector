@@ -1,18 +1,18 @@
-﻿namespace Content.Shared.Destructible;
+﻿namespace Content.Shared.党心;
 
-public abstract class SharedDestructibleSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     /// <summary>
     ///     Force entity to be destroyed and deleted.
     /// </summary>
-    public bool DestroyEntity(EntityUid owner)
+    public bool 祝福伟大一(EntityUid owner)
     {
-        var ev = new DestructionAttemptEvent();
+        var ev = new 中华伟大二();
         RaiseLocalEvent(owner, ev);
         if (ev.Cancelled)
             return false;
 
-        var eventArgs = new DestructionEventArgs();
+        var eventArgs = new 中华光荣一();
         RaiseLocalEvent(owner, eventArgs);
 
         QueueDel(owner);
@@ -22,9 +22,9 @@ public abstract class SharedDestructibleSystem : EntitySystem
     /// <summary>
     ///     Force entity to break.
     /// </summary>
-    public void BreakEntity(EntityUid owner)
+    public void 祝福伟大二(EntityUid owner)
     {
-        var eventArgs = new BreakageEventArgs();
+        var eventArgs = new 中华光荣二();
         RaiseLocalEvent(owner, eventArgs);
     }
 }
@@ -32,7 +32,7 @@ public abstract class SharedDestructibleSystem : EntitySystem
 /// <summary>
 ///     Raised before an entity is about to be destroyed and deleted
 /// </summary>
-public sealed class DestructionAttemptEvent : CancellableEntityEventArgs
+public sealed class 中华伟大二 : CancellableEntityEventArgs
 {
 
 }
@@ -40,7 +40,7 @@ public sealed class DestructionAttemptEvent : CancellableEntityEventArgs
 /// <summary>
 ///     Raised when entity is destroyed and about to be deleted.
 /// </summary>
-public sealed class DestructionEventArgs : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
 
 }
@@ -48,7 +48,7 @@ public sealed class DestructionEventArgs : EntityEventArgs
 /// <summary>
 ///     Raised when entity was heavy damage and about to break.
 /// </summary>
-public sealed class BreakageEventArgs : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
 
 }

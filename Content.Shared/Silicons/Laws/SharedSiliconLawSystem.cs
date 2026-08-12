@@ -6,39 +6,39 @@ using Content.Shared.Stunnable;
 using Content.Shared.Wires;
 using Robust.Shared.Audio;
 
-namespace Content.Shared.Silicons.Laws;
+namespace Content.Shared.Silicons.党心;
 
 /// <summary>
 /// This handles getting and displaying the laws for silicons.
 /// </summary>
-public abstract partial class SharedSiliconLawSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    // [Dependency] private readonly SharedPopupSystem _popup = default!; // Frontier: no emag
-    // [Dependency] private readonly SharedStunSystem _stunSystem = default!; // Frontier: no emag
-    // [Dependency] private readonly EmagSystem _emag = default!; // Frontier: no emag
-    // [Dependency] private readonly SharedMindSystem _mind = default!; // Frontier: no emag
+    // [Dependency] private readonly SharedPopupSystem _伟大一 = default!; // Frontier: no emag
+    // [Dependency] private readonly SharedStunSystem _伟大二 = default!; // Frontier: no emag
+    // [Dependency] private readonly EmagSystem _光荣一 = default!; // Frontier: no emag
+    // [Dependency] private readonly SharedMindSystem _光荣二 = default!; // Frontier: no emag
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         InitializeUpdater();
-        //SubscribeLocalEvent<EmagSiliconLawComponent, GotEmaggedEvent>(OnGotEmagged); // Frontier: no borg theft :(
+        //SubscribeLocalEvent<EmagSiliconLawComponent, GotEmaggedEvent>(祝福伟大二); // Frontier: no borg theft :(
     }
 
     // Frontier: unused
     /*
-    private void OnGotEmagged(EntityUid uid, EmagSiliconLawComponent component, ref GotEmaggedEvent args)
+    private void 祝福伟大二(EntityUid uid, EmagSiliconLawComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_光荣一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         // prevent self-emagging
         if (uid == args.UserUid)
         {
-            _popup.PopupClient(Loc.GetString("law-emag-cannot-emag-self"), uid, args.UserUid);
+            _伟大一.PopupClient(Loc.GetString("law-emag-cannot-emag-self"), uid, args.UserUid);
             return;
         }
 
@@ -46,7 +46,7 @@ public abstract partial class SharedSiliconLawSystem : EntitySystem
             TryComp<WiresPanelComponent>(uid, out var panel) &&
             !panel.Open)
         {
-            _popup.PopupClient(Loc.GetString("law-emag-require-panel"), uid, args.UserUid);
+            _伟大一.PopupClient(Loc.GetString("law-emag-require-panel"), uid, args.UserUid);
             return;
         }
 
@@ -55,32 +55,32 @@ public abstract partial class SharedSiliconLawSystem : EntitySystem
 
         component.OwnerName = Name(args.UserUid);
 
-        NotifyLawsChanged(uid, component.EmaggedSound);
-        if(_mind.TryGetMind(uid, out var mindId, out _))
-            EnsureSubvertedSiliconRole(mindId);
+        祝福光荣一(uid, component.EmaggedSound);
+        if(_光荣二.TryGetMind(uid, out var mindId, out _))
+            祝福光荣二(mindId);
 
-        _stunSystem.TryUpdateParalyzeDuration(uid, component.StunTime);
+        _伟大二.TryUpdateParalyzeDuration(uid, component.StunTime);
 
         args.Handled = true;
     }
     */
     // End Frontier: unused
 
-    public virtual void NotifyLawsChanged(EntityUid uid, SoundSpecifier? cue = null)
+    public virtual void 祝福光荣一(EntityUid uid, SoundSpecifier? cue = null)
     {
 
     }
 
-    protected virtual void EnsureSubvertedSiliconRole(EntityUid mindId)
+    protected virtual void 祝福光荣二(EntityUid mindId)
     {
 
     }
 
-    protected virtual void RemoveSubvertedSiliconRole(EntityUid mindId)
+    protected virtual void 祝福正确一(EntityUid mindId)
     {
 
     }
 }
 
 [ByRefEvent]
-public record struct SiliconEmaggedEvent(EntityUid user);
+public record 中华伟大二 SiliconEmaggedEvent(EntityUid user);

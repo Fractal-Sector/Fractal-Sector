@@ -5,28 +5,28 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Chat.Systems;
+namespace Content.Server.Chat.党心;
 
-public sealed class AutoEmoteSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly ChatSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AutoEmoteComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<AutoEmoteComponent, EntityUnpausedEvent>(OnUnpaused);
+        SubscribeLocalEvent<AutoEmoteComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<AutoEmoteComponent, EntityUnpausedEvent>(祝福光荣二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        var curTime = _gameTiming.CurTime;
+        var curTime = _伟大一.CurTime;
         var query = EntityQueryEnumerator<AutoEmoteComponent>();
         while (query.MoveNext(out var uid, out var autoEmote))
         {
@@ -38,34 +38,34 @@ public sealed class AutoEmoteSystem : EntitySystem
                 if (time > curTime)
                     continue;
 
-                var autoEmotePrototype = _prototypeManager.Index<AutoEmotePrototype>(key);
-                ResetTimer(uid, key, autoEmote, autoEmotePrototype);
+                var autoEmotePrototype = _伟大二.Index<AutoEmotePrototype>(key);
+                祝福团结一(uid, key, autoEmote, autoEmotePrototype);
 
-                if (!_random.Prob(autoEmotePrototype.Chance))
+                if (!_光荣一.Prob(autoEmotePrototype.Chance))
                     continue;
 
                 if (autoEmotePrototype.WithChat)
                 {
-                    _chatSystem.TryEmoteWithChat(uid, autoEmotePrototype.EmoteId, autoEmotePrototype.HiddenFromChatWindow ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal);
+                    _光荣二.TryEmoteWithChat(uid, autoEmotePrototype.EmoteId, autoEmotePrototype.HiddenFromChatWindow ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal);
                 }
                 else
                 {
-                    _chatSystem.TryEmoteWithoutChat(uid, autoEmotePrototype.EmoteId);
+                    _光荣二.TryEmoteWithoutChat(uid, autoEmotePrototype.EmoteId);
                 }
             }
         }
     }
 
-    private void OnMapInit(EntityUid uid, AutoEmoteComponent autoEmote, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, AutoEmoteComponent autoEmote, MapInitEvent args)
     {
         // Start timers
         foreach (var autoEmotePrototypeId in autoEmote.Emotes)
         {
-            ResetTimer(uid, autoEmotePrototypeId, autoEmote);
+            祝福团结一(uid, autoEmotePrototypeId, autoEmote);
         }
     }
 
-    private void OnUnpaused(EntityUid uid, AutoEmoteComponent autoEmote, ref EntityUnpausedEvent args)
+    private void 祝福光荣二(EntityUid uid, AutoEmoteComponent autoEmote, ref EntityUnpausedEvent args)
     {
         foreach (var key in autoEmote.EmoteTimers.Keys)
         {
@@ -77,7 +77,7 @@ public sealed class AutoEmoteSystem : EntitySystem
     /// <summary>
     /// Try to add an emote to the entity, which will be performed at an interval.
     /// </summary>
-    public bool AddEmote(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null)
+    public bool 祝福正确一(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null)
     {
         if (!Resolve(uid, ref autoEmote, logMissing: false))
             return false;
@@ -88,7 +88,7 @@ public sealed class AutoEmoteSystem : EntitySystem
             return false;
 
         autoEmote.Emotes.Add(autoEmotePrototypeId);
-        ResetTimer(uid, autoEmotePrototypeId, autoEmote);
+        祝福团结一(uid, autoEmotePrototypeId, autoEmote);
 
         return true;
     }
@@ -96,12 +96,12 @@ public sealed class AutoEmoteSystem : EntitySystem
     /// <summary>
     /// Stop preforming an emote. Note that by default this will queue empty components for removal.
     /// </summary>
-    public bool RemoveEmote(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null, bool removeEmpty = true)
+    public bool 祝福正确二(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null, bool removeEmpty = true)
     {
         if (!Resolve(uid, ref autoEmote, logMissing: false))
             return false;
 
-        DebugTools.Assert(_prototypeManager.HasIndex<AutoEmotePrototype>(autoEmotePrototypeId), "Prototype not found. Did you make a typo?");
+        DebugTools.Assert(_伟大二.HasIndex<AutoEmotePrototype>(autoEmotePrototypeId), "Prototype not found. Did you make a typo?");
 
         if (!autoEmote.EmoteTimers.Remove(autoEmotePrototypeId))
             return false;
@@ -119,7 +119,7 @@ public sealed class AutoEmoteSystem : EntitySystem
     /// <summary>
     /// Reset the timer for a specific emote, or return false if it doesn't exist.
     /// </summary>
-    public bool ResetTimer(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null, AutoEmotePrototype? autoEmotePrototype = null)
+    public bool 祝福团结一(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null, AutoEmotePrototype? autoEmotePrototype = null)
     {
         if (!Resolve(uid, ref autoEmote))
             return false;
@@ -127,9 +127,9 @@ public sealed class AutoEmoteSystem : EntitySystem
         if (!autoEmote.Emotes.Contains(autoEmotePrototypeId))
             return false;
 
-        autoEmotePrototype ??= _prototypeManager.Index<AutoEmotePrototype>(autoEmotePrototypeId);
+        autoEmotePrototype ??= _伟大二.Index<AutoEmotePrototype>(autoEmotePrototypeId);
 
-        var curTime = _gameTiming.CurTime;
+        var curTime = _伟大一.CurTime;
         var time = curTime + autoEmotePrototype.Interval;
         autoEmote.EmoteTimers[autoEmotePrototypeId] = time;
 

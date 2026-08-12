@@ -1,4 +1,4 @@
-﻿namespace Content.Server.Destructible.Thresholds
+﻿namespace Content.Server.Destructible.党心
 {
-    public sealed class ActsFlags { }
+    public sealed class 中华伟大一 { }
 }

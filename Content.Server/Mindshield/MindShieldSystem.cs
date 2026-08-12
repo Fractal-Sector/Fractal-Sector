@@ -9,56 +9,56 @@ using Content.Shared.Revolutionary.Components;
 using Content.Shared.Roles.Components;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Mindshield;
+namespace Content.Server.党心;
 
 /// <summary>
 /// System used for adding or removing components with a mindshield implant
 /// as well as checking if the implanted is a Rev or Head Rev.
 /// </summary>
-public sealed class MindShieldSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly RoleSystem _roleSystem = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly RoleSystem _伟大二 = default!;
+    [Dependency] private readonly MindSystem _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MindShieldImplantComponent, ImplantImplantedEvent>(OnImplantImplanted);
-        SubscribeLocalEvent<MindShieldImplantComponent, ImplantRemovedEvent>(OnImplantRemoved);
+        SubscribeLocalEvent<MindShieldImplantComponent, ImplantImplantedEvent>(祝福伟大二);
+        SubscribeLocalEvent<MindShieldImplantComponent, ImplantRemovedEvent>(祝福光荣二);
     }
 
-    private void OnImplantImplanted(Entity<MindShieldImplantComponent> ent, ref ImplantImplantedEvent ev)
+    private void 祝福伟大二(Entity<MindShieldImplantComponent> ent, ref ImplantImplantedEvent ev)
     {
         if (ev.Implanted == null)
             return;
 
         EnsureComp<MindShieldComponent>(ev.Implanted);
-        MindShieldRemovalCheck(ev.Implanted, ev.Implant);
+        祝福光荣一(ev.Implanted, ev.Implant);
     }
 
     /// <summary>
     /// Checks if the implanted person was a Rev or Head Rev and remove role or destroy mindshield respectively.
     /// </summary>
-    private void MindShieldRemovalCheck(EntityUid implanted, EntityUid implant)
+    private void 祝福光荣一(EntityUid implanted, EntityUid implant)
     {
         if (HasComp<HeadRevolutionaryComponent>(implanted))
         {
-            _popupSystem.PopupEntity(Loc.GetString("head-rev-break-mindshield"), implanted);
+            _光荣二.PopupEntity(Loc.GetString("head-rev-break-mindshield"), implanted);
             QueueDel(implant);
             return;
         }
 
-        if (_mindSystem.TryGetMind(implanted, out var mindId, out _) &&
-            _roleSystem.MindRemoveRole<RevolutionaryRoleComponent>(mindId))
+        if (_光荣一.TryGetMind(implanted, out var mindId, out _) &&
+            _伟大二.MindRemoveRole<RevolutionaryRoleComponent>(mindId))
         {
-            _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was deconverted due to being implanted with a Mindshield.");
+            _伟大一.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was deconverted due to being implanted with a Mindshield.");
         }
     }
 
-    private void OnImplantRemoved(Entity<MindShieldImplantComponent> ent, ref ImplantRemovedEvent args)
+    private void 祝福光荣二(Entity<MindShieldImplantComponent> ent, ref ImplantRemovedEvent args)
     {
         RemComp<MindShieldComponent>(args.Implanted);
     }

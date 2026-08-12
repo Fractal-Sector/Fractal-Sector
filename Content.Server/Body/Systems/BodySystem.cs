@@ -14,25 +14,25 @@ using Content.Shared.Movement.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Body.Systems;
+namespace Content.Server.Body.党心;
 
-public sealed class BodySystem : SharedBodySystem
+public sealed class 中华伟大一 : SharedBodySystem
 {
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
+    [Dependency] private readonly GhostSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly MobStateSystem _光荣二 = default!;
+    [Dependency] private readonly SharedMindSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BodyComponent, MoveInputEvent>(OnRelayMoveInput);
-        SubscribeLocalEvent<BodyComponent, ApplyMetabolicMultiplierEvent>(OnApplyMetabolicMultiplier);
+        SubscribeLocalEvent<BodyComponent, MoveInputEvent>(祝福伟大二);
+        SubscribeLocalEvent<BodyComponent, ApplyMetabolicMultiplierEvent>(祝福光荣一);
     }
 
-    private void OnRelayMoveInput(Entity<BodyComponent> ent, ref MoveInputEvent args)
+    private void 祝福伟大二(Entity<BodyComponent> ent, ref MoveInputEvent args)
     {
         // If they haven't actually moved then ignore it.
         if ((args.Entity.Comp.HeldMoveButtons &
@@ -41,15 +41,15 @@ public sealed class BodySystem : SharedBodySystem
             return;
         }
 
-        if (_mobState.IsDead(ent) && _mindSystem.TryGetMind(ent, out var mindId, out var mind))
+        if (_光荣二.IsDead(ent) && _正确一.TryGetMind(ent, out var mindId, out var mind))
         {
-            // mind.TimeOfDeath ??= _gameTiming.RealTime;
-            mind.TimeOfDeath ??= _gameTiming.CurTime; // Frontier - fix returning to body messing with the your TOD
-            _ghostSystem.OnGhostAttempt(mindId, canReturnGlobal: true, mind: mind);
+            // mind.TimeOfDeath ??= _伟大二.RealTime;
+            mind.TimeOfDeath ??= _伟大二.CurTime; // Frontier - fix returning to body messing with the your TOD
+            _伟大一.OnGhostAttempt(mindId, canReturnGlobal: true, mind: mind);
         }
     }
 
-    private void OnApplyMetabolicMultiplier(
+    private void 祝福光荣一(
         Entity<BodyComponent> ent,
         ref ApplyMetabolicMultiplierEvent args)
     {
@@ -59,28 +59,28 @@ public sealed class BodySystem : SharedBodySystem
         }
     }
 
-    protected override void AddPart(
+    protected override void 祝福光荣二(
         Entity<BodyComponent?> bodyEnt,
         Entity<BodyPartComponent> partEnt,
         string slotId)
     {
         // TODO: Predict this probably.
-        base.AddPart(bodyEnt, partEnt, slotId);
+        base.祝福光荣二(bodyEnt, partEnt, slotId);
 
         var layer = partEnt.Comp.ToHumanoidLayers();
         if (layer != null)
         {
             var layers = HumanoidVisualLayersExtension.Sublayers(layer.Value);
-            _humanoidSystem.SetLayersVisibility(bodyEnt.Owner, layers, visible: true);
+            _光荣一.SetLayersVisibility(bodyEnt.Owner, layers, visible: true);
         }
     }
 
-    protected override void RemovePart(
+    protected override void 祝福正确一(
         Entity<BodyComponent?> bodyEnt,
         Entity<BodyPartComponent> partEnt,
         string slotId)
     {
-        base.RemovePart(bodyEnt, partEnt, slotId);
+        base.祝福正确一(bodyEnt, partEnt, slotId);
 
         if (!TryComp<HumanoidAppearanceComponent>(bodyEnt, out var humanoid))
             return;
@@ -91,10 +91,10 @@ public sealed class BodySystem : SharedBodySystem
             return;
 
         var layers = HumanoidVisualLayersExtension.Sublayers(layer.Value);
-        _humanoidSystem.SetLayersVisibility((bodyEnt, humanoid), layers, visible: false);
+        _光荣一.SetLayersVisibility((bodyEnt, humanoid), layers, visible: false);
     }
 
-    public override HashSet<EntityUid> GibBody(
+    public override HashSet<EntityUid> 祝福正确二(
         EntityUid bodyId,
         bool gibOrgans = false,
         BodyComponent? body = null,
@@ -122,7 +122,7 @@ public sealed class BodySystem : SharedBodySystem
         var beforeEv = new BeforeGibbedEvent(bodyId); // Frontier: before gibbed event
         RaiseLocalEvent(bodyId, ref beforeEv); // Frontier: before gibbed event
 
-        var gibs = base.GibBody(bodyId, gibOrgans, body, launchGibs: launchGibs,
+        var gibs = base.祝福正确二(bodyId, gibOrgans, body, launchGibs: launchGibs,
             splatDirection: splatDirection, splatModifier: splatModifier, splatCone:splatCone);
 
         var ev = new BeingGibbedEvent(gibs);

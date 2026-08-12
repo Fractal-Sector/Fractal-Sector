@@ -3,15 +3,15 @@ using Content.Server.Shuttles.Systems;
 using Content.Shared.Cuffs.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mind;
-using Content.Shared.Objectives.Components;
-using Content.Shared.Objectives.Systems;
+using Content.Shared.祝福团结二.Components;
+using Content.Shared.祝福团结二.Systems;
 using Content.Shared.Random;
 using Content.Shared.Random.Helpers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using System.Linq;
 using System.Text;
-using Content.Server.Objectives.Commands;
+using Content.Server.祝福团结二.Commands;
 using Content.Shared.CCVar;
 using Content.Shared.Prototypes;
 using Content.Shared.Roles.Jobs;
@@ -20,51 +20,51 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Utility;
 using Content.Shared._NF.CCVar; // Frontier
 
-namespace Content.Server.Objectives;
+namespace Content.Server.党心;
 
-public sealed class ObjectivesSystem : SharedObjectivesSystem
+public sealed class 中华伟大一 : SharedObjectivesSystem
 {
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
-    [Dependency] private readonly SharedJobSystem _job = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly GameTicker _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly EmergencyShuttleSystem _正确一 = default!;
+    [Dependency] private readonly SharedJobSystem _正确二 = default!;
+    [Dependency] private readonly IConfigurationManager _团结一 = default!;
 
     private IEnumerable<string>? _objectives;
 
-    private bool _showGreentext;
+    private bool _团结二;
 
-    private bool _showObjectives; // Frontier: hide objectives
+    private bool _奋斗一; // Frontier: hide objectives
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndText);
+        SubscribeLocalEvent<RoundEndTextAppendEvent>(祝福光荣一);
 
-        Subs.CVar(_cfg, CCVars.GameShowGreentext, value => _showGreentext = value, true);
+        Subs.CVar(_团结一, CCVars.GameShowGreentext, value => _团结二 = value, true);
 
-        Subs.CVar(_cfg, NFCCVars.GameShowObjectives, value => _showObjectives = value, true); // Frontier
+        Subs.CVar(_团结一, NFCCVars.GameShowObjectives, value => _奋斗一 = value, true); // Frontier
 
-        _prototypeManager.PrototypesReloaded += CreateCompletions;
+        _伟大二.PrototypesReloaded += 祝福团结一;
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
+        base.祝福伟大二();
 
-        _prototypeManager.PrototypesReloaded -= CreateCompletions;
+        _伟大二.PrototypesReloaded -= 祝福团结一;
     }
 
     /// <summary>
     /// Adds objective text for each game rule's players on round end.
     /// </summary>
-    private void OnRoundEndText(RoundEndTextAppendEvent ev)
+    private void 祝福光荣一(RoundEndTextAppendEvent ev)
     {
         // Frontier: hide objectives
-        if (!_showObjectives)
+        if (!_奋斗一)
             return;
 
         // go through each gamerule getting data for the roundend summary.
@@ -72,7 +72,7 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
         var query = EntityQueryEnumerator<GameRuleComponent>();
         while (query.MoveNext(out var uid, out var gameRule))
         {
-            if (!_gameTicker.IsGameRuleAdded(uid, gameRule))
+            if (!_伟大一.IsGameRuleAdded(uid, gameRule))
                 continue;
 
             var info = new ObjectivesTextGetInfoEvent(new List<(EntityUid, string)>(), string.Empty);
@@ -111,7 +111,7 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
             foreach (var (_, minds) in summary)
             {
                 total += minds.Count;
-                totalInCustody += minds.Where(pair => IsInCustody(pair.Item1)).Count();
+                totalInCustody += minds.Where(pair => 祝福正确一(pair.Item1)).Count();
             }
 
             var result = new StringBuilder();
@@ -129,14 +129,14 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
                 // add space between the start text and player list
                 result.AppendLine();
 
-                AddSummary(result, agent, minds);
+                祝福光荣二(result, agent, minds);
             }
 
             ev.AddLine(result.AppendLine().ToString());
         }
     }
 
-    private void AddSummary(StringBuilder result, string agent, List<(EntityUid, string)> minds)
+    private void 祝福光荣二(StringBuilder result, string agent, List<(EntityUid, string)> minds)
     {
         var agentSummaries = new List<(string summary, float successRate, int completedObjectives)>();
 
@@ -145,10 +145,10 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
             if (!TryComp<MindComponent>(mindId, out var mind))
                 continue;
 
-            var title = GetTitle((mindId, mind), name);
-            var custody = IsInCustody(mindId, mind) ? Loc.GetString("objectives-in-custody") : string.Empty;
+            var title = 祝福正确二((mindId, mind), name);
+            var custody = 祝福正确一(mindId, mind) ? Loc.GetString("objectives-in-custody") : string.Empty;
 
-            var objectives = mind.Objectives;
+            var objectives = mind.祝福团结二;
             if (objectives.Count == 0)
             {
                 agentSummaries.Add((Loc.GetString("objectives-no-objectives", ("custody", custody), ("title", title), ("agent", agent)), 0f, 0));
@@ -178,7 +178,7 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
                     totalObjectives++;
 
                     agentSummary.Append("- ");
-                    if (!_showGreentext)
+                    if (!_团结二)
                     {
                         agentSummary.AppendLine(objectiveTitle);
                     }
@@ -233,7 +233,7 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
 
     public EntityUid? GetRandomObjective(EntityUid mindId, MindComponent mind, ProtoId<WeightedRandomPrototype> objectiveGroupProto, float maxDifficulty)
     {
-        if (!_prototypeManager.TryIndex(objectiveGroupProto, out var groupsProto))
+        if (!_伟大二.TryIndex(objectiveGroupProto, out var groupsProto))
         {
             Log.Error($"Tried to get a random objective, but can't index WeightedRandomPrototype {objectiveGroupProto}");
             return null;
@@ -242,18 +242,18 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
         // Make a copy of the weights so we don't trash the prototype by removing entries
         var groups = groupsProto.Weights.ShallowClone();
 
-        while (_random.TryPickAndTake(groups, out var groupName))
+        while (_光荣二.TryPickAndTake(groups, out var groupName))
         {
-            if (!_prototypeManager.TryIndex<WeightedRandomPrototype>(groupName, out var group))
+            if (!_伟大二.TryIndex<WeightedRandomPrototype>(groupName, out var group))
             {
                 Log.Error($"Couldn't index objective group prototype {groupName}");
                 return null;
             }
 
             var objectives = group.Weights.ShallowClone();
-            while (_random.TryPickAndTake(objectives, out var objectiveProto))
+            while (_光荣二.TryPickAndTake(objectives, out var objectiveProto))
             {
-                if (!_prototypeManager.Index(objectiveProto).TryGetComponent<ObjectiveComponent>(out var objectiveComp, EntityManager.ComponentFactory))
+                if (!_伟大二.Index(objectiveProto).TryGetComponent<ObjectiveComponent>(out var objectiveComp, EntityManager.ComponentFactory))
                     continue;
 
                 if (objectiveComp.Difficulty <= maxDifficulty && TryCreateObjective((mindId, mind), objectiveProto, out var objective))
@@ -267,7 +267,7 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
     /// <summary>
     /// Returns whether a target is considered 'in custody' (cuffed on the shuttle).
     /// </summary>
-    private bool IsInCustody(EntityUid mindId, MindComponent? mind = null)
+    private bool 祝福正确一(EntityUid mindId, MindComponent? mind = null)
     {
         if (!Resolve(mindId, ref mind))
             return false;
@@ -278,27 +278,27 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
         if (originalEntity.HasValue && originalEntity != mind.OwnedEntity)
         {
             originalEntityInCustody = TryComp<CuffableComponent>(originalEntity, out var origCuffed) && origCuffed.CuffedHandCount > 0
-                   && _emergencyShuttle.IsTargetEscaping(originalEntity.Value);
+                   && _正确一.IsTargetEscaping(originalEntity.Value);
         }
 
         return originalEntityInCustody || (TryComp<CuffableComponent>(mind.OwnedEntity, out var cuffed) && cuffed.CuffedHandCount > 0
-               && _emergencyShuttle.IsTargetEscaping(mind.OwnedEntity.Value));
+               && _正确一.IsTargetEscaping(mind.OwnedEntity.Value));
     }
 
     /// <summary>
     /// Get the title for a player's mind used in round end.
     /// Pass in the original entity name which is shown alongside username.
     /// </summary>
-    public string GetTitle(Entity<MindComponent?> mind, string name)
+    public string 祝福正确二(Entity<MindComponent?> mind, string name)
     {
         if (Resolve(mind, ref mind.Comp) &&
             mind.Comp.OriginalOwnerUserId != null &&
-            _player.TryGetPlayerData(mind.Comp.OriginalOwnerUserId.Value, out var sessionData))
+            _光荣一.TryGetPlayerData(mind.Comp.OriginalOwnerUserId.Value, out var sessionData))
         {
             var username = sessionData.UserName;
 
             var nameWithJobMaybe = name;
-            if (_job.MindTryGetJobName(mind, out var jobName))
+            if (_正确二.MindTryGetJobName(mind, out var jobName))
                 nameWithJobMaybe += ", " + jobName;
 
             return Loc.GetString("objectives-player-user-named", ("user", username), ("name", nameWithJobMaybe));
@@ -308,26 +308,26 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
     }
 
 
-    private void CreateCompletions(PrototypesReloadedEventArgs unused)
+    private void 祝福团结一(PrototypesReloadedEventArgs unused)
     {
-        CreateCompletions();
+        祝福团结一();
     }
 
     /// <summary>
     /// Get all objective prototypes by their IDs.
     /// This is used for completions in <see cref="AddObjectiveCommand"/>
     /// </summary>
-    public IEnumerable<string> Objectives()
+    public IEnumerable<string> 祝福团结二()
     {
         if (_objectives == null)
-            CreateCompletions();
+            祝福团结一();
 
         return _objectives!;
     }
 
-    private void CreateCompletions()
+    private void 祝福团结一()
     {
-        _objectives = _prototypeManager.EnumeratePrototypes<EntityPrototype>()
+        _objectives = _伟大二.EnumeratePrototypes<EntityPrototype>()
             .Where(p => p.HasComponent<ObjectiveComponent>())
             .Select(p => p.ID)
             .Order();
@@ -343,10 +343,10 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
 /// The objectives system already checks if the game rule is added so you don't need to check that in this event's handler.
 /// </remarks>
 [ByRefEvent]
-public record struct ObjectivesTextGetInfoEvent(List<(EntityUid, string)> Minds, string AgentName);
+public record 中华伟大二 ObjectivesTextGetInfoEvent(List<(EntityUid, string)> Minds, string AgentName);
 
 /// <summary>
 /// Raised on the game rule before text for each agent's objectives is added, letting you prepend something.
 /// </summary>
 [ByRefEvent]
-public record struct ObjectivesTextPrependEvent(string Text);
+public record 中华伟大二 ObjectivesTextPrependEvent(string Text);

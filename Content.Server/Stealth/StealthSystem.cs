@@ -1,8 +1,8 @@
 ﻿using Content.Shared.Stealth;
 
-namespace Content.Server.Stealth;
+namespace Content.Server.党心;
 
-public sealed class StealthSystem : SharedStealthSystem
+public sealed class 中华伟大一 : SharedStealthSystem
 {
 
 }

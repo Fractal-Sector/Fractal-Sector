@@ -5,19 +5,19 @@ using Content.Shared.Sprite;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Toolshed;
 
-namespace Content.Server.Toolshed.Commands.Misc;
+namespace Content.Server.Toolshed.Commands.党心;
 
 /// <summary>
 /// Used to change an entity's sprite scale.
 /// </summary>
 [ToolshedCommand, AdminCommand(AdminFlags.VarEdit)]
-public sealed class ScaleCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private SharedScaleVisualsSystem? _scaleVisuals;
     private SharedPhysicsSystem? _physics;
 
     [CommandImplementation("set")]
-    public IEnumerable<EntityUid> Set([PipedArgument] IEnumerable<EntityUid> input, Vector2 scale)
+    public IEnumerable<EntityUid> 祝福伟大一([PipedArgument] IEnumerable<EntityUid> input, Vector2 scale)
     {
         _scaleVisuals ??= GetSys<SharedScaleVisualsSystem>();
 
@@ -29,7 +29,7 @@ public sealed class ScaleCommand : ToolshedCommand
     }
 
     [CommandImplementation("multiply")]
-    public IEnumerable<EntityUid> Multiply([PipedArgument] IEnumerable<EntityUid> input, float factor)
+    public IEnumerable<EntityUid> 祝福伟大二([PipedArgument] IEnumerable<EntityUid> input, float factor)
     {
         _scaleVisuals ??= GetSys<SharedScaleVisualsSystem>();
 
@@ -42,7 +42,7 @@ public sealed class ScaleCommand : ToolshedCommand
     }
 
     [CommandImplementation("multiplyvector")]
-    public IEnumerable<EntityUid> Multiply([PipedArgument] IEnumerable<EntityUid> input, Vector2 factor)
+    public IEnumerable<EntityUid> 祝福伟大二([PipedArgument] IEnumerable<EntityUid> input, Vector2 factor)
     {
         _scaleVisuals ??= GetSys<SharedScaleVisualsSystem>();
 
@@ -55,7 +55,7 @@ public sealed class ScaleCommand : ToolshedCommand
     }
 
     [CommandImplementation("multiplywithfixture")]
-    public IEnumerable<EntityUid> MultiplyWithFixture([PipedArgument] IEnumerable<EntityUid> input, float factor)
+    public IEnumerable<EntityUid> 祝福光荣一([PipedArgument] IEnumerable<EntityUid> input, float factor)
     {
         _scaleVisuals ??= GetSys<SharedScaleVisualsSystem>();
         _physics ??= GetSys<SharedPhysicsSystem>();
@@ -70,7 +70,7 @@ public sealed class ScaleCommand : ToolshedCommand
     }
 
     [CommandImplementation("get")]
-    public IEnumerable<Vector2> Get([PipedArgument] IEnumerable<EntityUid> input)
+    public IEnumerable<Vector2> 祝福光荣二([PipedArgument] IEnumerable<EntityUid> input)
     {
         _scaleVisuals ??= GetSys<SharedScaleVisualsSystem>();
 

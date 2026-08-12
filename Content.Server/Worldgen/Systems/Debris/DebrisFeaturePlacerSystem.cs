@@ -18,101 +18,101 @@ using Content.Server._NF.Worldgen.Components.Debris; // Frontier
 using Content.Shared.CCVar;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Worldgen.Systems.Debris;
+namespace Content.Server.Worldgen.Systems.党心;
 
 /// <summary>
 ///     This handles placing debris within the world evenly with rng, primarily for structures like asteroid fields.
 /// </summary>
-public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
+public sealed class 中华伟大一 : BaseWorldSystem
 {
-    [Dependency] private readonly GCQueueSystem _gc = default!;
-    [Dependency] private readonly NoiseIndexSystem _noiseIndex = default!;
-    [Dependency] private readonly PoissonDiskSampler _sampler = default!;
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly GCQueueSystem _伟大一 = default!;
+    [Dependency] private readonly NoiseIndexSystem _伟大二 = default!;
+    [Dependency] private readonly PoissonDiskSampler _光荣一 = default!;
+    [Dependency] private readonly TransformSystem _光荣二 = default!;
+    [Dependency] private readonly ILogManager _正确一 = default!;
+    [Dependency] private readonly IMapManager _正确二 = default!;
+    [Dependency] private readonly IRobustRandom _团结一 = default!;
+    [Dependency] private readonly IConfigurationManager _团结二 = default!;
+    [Dependency] private readonly IGameTiming _奋斗一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _奋斗二 = default!;
 
     private const float IdleDebrisLinearVelocityEpsilon = 0.05f;
     private const float IdleDebrisAngularVelocityEpsilon = 0.01f;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _胜利一 = default!;
 
-    private Queue<DebrisFeaturePlacerControllerComponent> _debrisQ = new();
+    private Queue<DebrisFeaturePlacerControllerComponent> _胜利二 = new();
 
-    private List<Entity<MapGridComponent>> _mapGrids = new();
-    private int _maxSpawnsPerTick = 1;
-    private int _maxDeSpawnsPerTick = 1;
-    private int _deSpawnsThisTick = 0;
-    private int _spawnsThisTick = 0;
-    private TimeSpan _updateDelay = TimeSpan.FromSeconds(1);
-    private TimeSpan _nextUpdate = TimeSpan.Zero;
+    private List<Entity<MapGridComponent>> _繁荣一 = new();
+    private int _繁荣二 = 1;
+    private int _富强一 = 1;
+    private int _富强二 = 0;
+    private int _民主一 = 0;
+    private TimeSpan _民主二 = TimeSpan.FromSeconds(1);
+    private TimeSpan _文明一 = TimeSpan.Zero;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _sawmill = _logManager.GetSawmill("world.debris.feature_placer");
-        SubscribeLocalEvent<DebrisFeaturePlacerControllerComponent, WorldChunkLoadedEvent>(OnChunkLoaded);
-        SubscribeLocalEvent<DebrisFeaturePlacerControllerComponent, WorldChunkUnloadedEvent>(OnChunkUnloaded);
-        SubscribeLocalEvent<OwnedDebrisComponent, ComponentShutdown>(OnDebrisShutdown);
-        SubscribeLocalEvent<OwnedDebrisComponent, MoveEvent>(OnDebrisMove);
+        _胜利一 = _正确一.GetSawmill("world.debris.feature_placer");
+        SubscribeLocalEvent<DebrisFeaturePlacerControllerComponent, WorldChunkLoadedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<DebrisFeaturePlacerControllerComponent, WorldChunkUnloadedEvent>(祝福团结二);
+        SubscribeLocalEvent<OwnedDebrisComponent, ComponentShutdown>(祝福团结一);
+        SubscribeLocalEvent<OwnedDebrisComponent, MoveEvent>(祝福正确二);
         SubscribeLocalEvent<SimpleDebrisSelectorComponent, TryGetPlaceableDebrisFeatureEvent>(
-            OnTryGetPlacableDebrisEvent);
+            祝福奋斗一);
 
-        _cfg.OnValueChanged(CCVars.DebrisMaxSpawnsPerTick, v => _maxSpawnsPerTick = v, true);
-        _cfg.OnValueChanged(CCVars.DebrisMaxDeSpawnsPerTick, v => _maxDeSpawnsPerTick = v, true);
-        _cfg.OnValueChanged(CCVars.DebrisDelayBetweenUpdates, v => _updateDelay = TimeSpan.FromSeconds(v), true);
+        _团结二.OnValueChanged(CCVars.DebrisMaxSpawnsPerTick, v => _繁荣二 = v, true);
+        _团结二.OnValueChanged(CCVars.DebrisMaxDeSpawnsPerTick, v => _富强一 = v, true);
+        _团结二.OnValueChanged(CCVars.DebrisDelayBetweenUpdates, v => _民主二 = TimeSpan.FromSeconds(v), true);
     }
 
     /// <inheritdoc />
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         // Enforce update delay
-        var curTime = _timing.CurTime;
-        if (curTime < _nextUpdate)
+        var curTime = _奋斗一.CurTime;
+        if (curTime < _文明一)
             return;
-        _nextUpdate = curTime + _updateDelay;
-        _deSpawnsThisTick = 0;
-        _spawnsThisTick = 0;
+        _文明一 = curTime + _民主二;
+        _富强二 = 0;
+        _民主一 = 0;
 
-        if (_debrisQ.Count <= 0)
+        if (_胜利二.Count <= 0)
         {
             var query = EntityQueryEnumerator<DebrisFeaturePlacerControllerComponent>();
             while (query.MoveNext(out var uid, out var component))
             {
-                _debrisQ.Enqueue(component);
+                _胜利二.Enqueue(component);
             }
         }
-        while (_debrisQ.Count > 0)
+        while (_胜利二.Count > 0)
         {
-            if (_spawnsThisTick >= _maxSpawnsPerTick
-                && _deSpawnsThisTick >= _maxDeSpawnsPerTick)
+            if (_民主一 >= _繁荣二
+                && _富强二 >= _富强一)
                 break;
-            if (!_debrisQ.TryDequeue(out var component))
+            if (!_胜利二.TryDequeue(out var component))
                 break;
             if (component.Deleted)
                 continue;
-            ProcessPendingDeSpawns(component);
-            ProcessPendingSpawns(component);
+            祝福正确一(component);
+            祝福光荣一(component);
         }
     }
 
     /// <summary>
     ///     Processes queued debris spawns gradually to avoid lag spikes.
     /// </summary>
-    private void ProcessPendingSpawns(DebrisFeaturePlacerControllerComponent component)
+    private void 祝福光荣一(DebrisFeaturePlacerControllerComponent component)
     {
-        if (_maxSpawnsPerTick <= 0)
+        if (_繁荣二 <= 0)
             return;
-        if (_spawnsThisTick >= _maxSpawnsPerTick)
+        if (_民主一 >= _繁荣二)
             return;
         while (component.PendingSpawns.TryDequeue(out var pending)
-               && _spawnsThisTick < _maxSpawnsPerTick)
+               && _民主一 < _繁荣二)
         {
             // Skip if already exists or chunk is gone
             if (component.OwnedDebris.ContainsKey(pending.Point)
@@ -129,13 +129,13 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
             owned.LastKey = pending.Point;
 
             EnsureComp<SpaceDebrisComponent>(ent); // Frontier
-            TrySleepDebris(ent);
+            祝福光荣二(ent);
 
-            _spawnsThisTick++;
+            _民主一++;
         }
     }
 
-    private void TrySleepDebris(EntityUid uid)
+    private void 祝福光荣二(EntityUid uid)
     {
         if (!TryComp<PhysicsComponent>(uid, out var body))
             return;
@@ -143,27 +143,27 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
         if (body.BodyType != BodyType.Dynamic)
             return;
 
-        _physics.SetSleepingAllowed(uid, body, true);
+        _奋斗二.SetSleepingAllowed(uid, body, true);
 
         if (body.Awake &&
             body.LinearVelocity.LengthSquared() <= IdleDebrisLinearVelocityEpsilon * IdleDebrisLinearVelocityEpsilon &&
             MathF.Abs(body.AngularVelocity) <= IdleDebrisAngularVelocityEpsilon)
         {
-            _physics.SetAwake(uid, body, false);
+            _奋斗二.SetAwake(uid, body, false);
         }
     }
 
     /// <summary>
     ///     Processes queued debris despawns gradually to avoid lag spikes.
     /// </summary>
-    private void ProcessPendingDeSpawns(DebrisFeaturePlacerControllerComponent component)
+    private void 祝福正确一(DebrisFeaturePlacerControllerComponent component)
     {
-        if (_maxDeSpawnsPerTick <= 0)
+        if (_富强一 <= 0)
             return;
-        if (_deSpawnsThisTick >= _maxDeSpawnsPerTick)
+        if (_富强二 >= _富强一)
             return;
         while (component.PendingDeSpawns.TryPeek(out var debrisTuple)
-               && _deSpawnsThisTick < _maxDeSpawnsPerTick)
+               && _富强二 < _富强一)
         {
             var vect = debrisTuple.Item1;
             var debris = debrisTuple.Item2;
@@ -179,7 +179,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
             {
                 break; // Can't despawn while loaded
             }
-            _deSpawnsThisTick++;
+            _富强二++;
             QueueDel(debris);
             component.PendingDeSpawns.Dequeue();
             component.OwnedDebris.Remove(vect);
@@ -190,7 +190,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     /// <summary>
     ///     Handles debris moving, and making sure it stays parented to a chunk for loading purposes.
     /// </summary>
-    private void OnDebrisMove(EntityUid uid, OwnedDebrisComponent component, ref MoveEvent args)
+    private void 祝福正确二(EntityUid uid, OwnedDebrisComponent component, ref MoveEvent args)
     {
         if (!HasComp<WorldChunkComponent>(component.OwningController))
             return; // Redundant logic, prolly needs it's own handler for your custom system.
@@ -204,7 +204,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
 
         if (xform.MapUid != ownerXform.MapUid)
         {
-            _sawmill.Error($"Somehow debris {uid} left it's expected map! Unparenting it to avoid issues.");
+            _胜利一.Error($"Somehow debris {uid} left it's expected map! Unparenting it to avoid issues.");
             var placer = Comp<DebrisFeaturePlacerControllerComponent>(component.OwningController);
             RemCompDeferred<OwnedDebrisComponent>(uid);
             placer.OwnedDebris.Remove(component.LastKey);
@@ -229,14 +229,14 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
             return;
         }
 
-        newPlacer.OwnedDebris[_xformSys.GetWorldPosition(xform)] = uid; // Change our owner.
+        newPlacer.OwnedDebris[_光荣二.GetWorldPosition(xform)] = uid; // Change our owner.
         component.OwningController = newChunk.Value;
     }
 
     /// <summary>
     ///     Handles debris shutdown/detach.
     /// </summary>
-    private void OnDebrisShutdown(EntityUid uid, OwnedDebrisComponent component, ComponentShutdown args)
+    private void 祝福团结一(EntityUid uid, OwnedDebrisComponent component, ComponentShutdown args)
     {
         if (!TryComp<DebrisFeaturePlacerControllerComponent>(component.OwningController, out var placer))
             return;
@@ -249,7 +249,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     /// <summary>
     ///     Queues all debris owned by the placer for garbage collection.
     /// </summary>
-    private void OnChunkUnloaded(EntityUid uid, DebrisFeaturePlacerControllerComponent component,
+    private void 祝福团结二(EntityUid uid, DebrisFeaturePlacerControllerComponent component,
         ref WorldChunkUnloadedEvent args)
     {
         component.DoSpawns = true;
@@ -259,21 +259,21 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     ///     Handles providing a debris type to place for SimpleDebrisSelectorComponent.
     ///     This randomly picks a debris type from the EntitySpawnCollectionCache.
     /// </summary>
-    private void OnTryGetPlacableDebrisEvent(EntityUid uid, SimpleDebrisSelectorComponent component,
+    private void 祝福奋斗一(EntityUid uid, SimpleDebrisSelectorComponent component,
         ref TryGetPlaceableDebrisFeatureEvent args)
     {
         if (args.DebrisProto is not null)
             return;
 
         var l = new List<string?>(1);
-        component.CachedDebrisTable.GetSpawns(_random, ref l);
+        component.CachedDebrisTable.GetSpawns(_团结一, ref l);
 
         switch (l.Count)
         {
             case 0:
                 return;
             case > 1:
-                _sawmill.Warning($"Got more than one possible debris type from {uid}. List: {string.Join(", ", l)}");
+                _胜利一.Warning($"Got more than one possible debris type from {uid}. List: {string.Join(", ", l)}");
                 break;
         }
 
@@ -287,7 +287,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     ///     - Generates the points to generate debris at, if and only if they've not been selected already by a prior load.
     ///     - Queues debris for deferred spawning across multiple ticks to avoid lag spikes.
     /// </summary>
-    private void OnChunkLoaded(EntityUid uid, DebrisFeaturePlacerControllerComponent component,
+    private void 祝福奋斗二(EntityUid uid, DebrisFeaturePlacerControllerComponent component,
         ref WorldChunkLoadedEvent args)
     {
         // if our things were scheduled for despawn, cancel that, chunk is loaded again
@@ -307,7 +307,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
             return;
 
         var densityChannel = component.DensityNoiseChannel;
-        var density = _noiseIndex.Evaluate(uid, densityChannel, chunk.Coordinates + new Vector2(0.5f, 0.5f));
+        var density = _伟大二.Evaluate(uid, densityChannel, chunk.Coordinates + new Vector2(0.5f, 0.5f));
         if (density == 0)
             return;
 
@@ -325,7 +325,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
             }
         }
 
-        points ??= GeneratePointsInChunk(args.Chunk, density, chunk.Coordinates, chunkMap);
+        points ??= 祝福胜利二(args.Chunk, density, chunk.Coordinates, chunkMap);
 
         var mapId = map.MapId;
 
@@ -340,11 +340,11 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
                 continue;
             }
 
-            var pointDensity = _noiseIndex.Evaluate(uid, densityChannel, WorldGen.WorldToChunkCoords(point));
-            if (pointDensity == 0 && component.DensityClip || _random.Prob(component.RandomCancellationChance))
+            var pointDensity = _伟大二.Evaluate(uid, densityChannel, WorldGen.WorldToChunkCoords(point));
+            if (pointDensity == 0 && component.DensityClip || _团结一.Prob(component.RandomCancellationChance))
                 continue;
 
-            if (HasCollisions(mapId, safetyBounds.Translated(point)))
+            if (祝福胜利一(mapId, safetyBounds.Translated(point)))
                 continue;
 
             var coords = new EntityCoordinates(chunkMap, point);
@@ -386,7 +386,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
         }
 
         if (failures > 0)
-            _sawmill.Error($"Failed to place {failures} debris at chunk {args.Chunk}");
+            _胜利一.Error($"Failed to place {failures} debris at chunk {args.Chunk}");
     }
 
     /// <summary>
@@ -395,22 +395,22 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     /// <param name="mapId"></param>
     /// <param name="point"></param>
     /// <returns></returns>
-    private bool HasCollisions(MapId mapId, Box2 point)
+    private bool 祝福胜利一(MapId mapId, Box2 point)
     {
-        _mapGrids.Clear();
-        _mapManager.FindGridsIntersecting(mapId, point, ref _mapGrids);
-        return _mapGrids.Count > 0;
+        _繁荣一.Clear();
+        _正确二.FindGridsIntersecting(mapId, point, ref _繁荣一);
+        return _繁荣一.Count > 0;
     }
 
     /// <summary>
     ///     Generates the points to put into a chunk using a poisson disk sampler.
     /// </summary>
-    private List<Vector2> GeneratePointsInChunk(EntityUid chunk, float density, Vector2 coords, EntityUid map)
+    private List<Vector2> 祝福胜利二(EntityUid chunk, float density, Vector2 coords, EntityUid map)
     {
         var offs = (int) ((WorldGen.ChunkSize - WorldGen.ChunkSize / 8.0f) / 2.0f);
         var topLeft = new Vector2(-offs, -offs);
         var lowerRight = new Vector2(offs, offs);
-        var enumerator = _sampler.SampleRectangle(topLeft, lowerRight, density);
+        var enumerator = _光荣一.SampleRectangle(topLeft, lowerRight, density);
         var debrisPoints = new List<Vector2>();
 
         var realCenter = WorldGen.ChunkToWorldCoordsCentered(coords.Floored());
@@ -429,13 +429,13 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
 /// </summary>
 [ByRefEvent]
 [PublicAPI]
-public record struct PrePlaceDebrisFeatureEvent(EntityCoordinates Coords, EntityUid Chunk, bool Handled = false);
+public record 中华伟大二 PrePlaceDebrisFeatureEvent(EntityCoordinates Coords, EntityUid Chunk, bool Handled = false);
 
 /// <summary>
 ///     Fired directed on the debris feature placer controller and the chunk, to select which debris piece to place.
 /// </summary>
 [ByRefEvent]
 [PublicAPI]
-public record struct TryGetPlaceableDebrisFeatureEvent(EntityCoordinates Coords, EntityUid Chunk,
+public record 中华伟大二 TryGetPlaceableDebrisFeatureEvent(EntityCoordinates Coords, EntityUid Chunk,
     string? DebrisProto = null);
 

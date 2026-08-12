@@ -2,43 +2,43 @@ using Content.Shared.Containers.ItemSlots;
 using Content.Shared.PowerCell.Components;
 using Content.Shared.Rejuvenate;
 using Robust.Shared.Containers;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.PowerCell;
+namespace Content.Shared.党心;
 
-public abstract class SharedPowerCellSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PowerCellDrawComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<PowerCellDrawComponent, MapInitEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<PowerCellSlotComponent, RejuvenateEvent>(OnRejuvenate);
-        SubscribeLocalEvent<PowerCellSlotComponent, EntInsertedIntoContainerMessage>(OnCellInserted);
-        SubscribeLocalEvent<PowerCellSlotComponent, EntRemovedFromContainerMessage>(OnCellRemoved);
-        SubscribeLocalEvent<PowerCellSlotComponent, ContainerIsInsertingAttemptEvent>(OnCellInsertAttempt);
+        SubscribeLocalEvent<PowerCellSlotComponent, RejuvenateEvent>(祝福光荣一);
+        SubscribeLocalEvent<PowerCellSlotComponent, EntInsertedIntoContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<PowerCellSlotComponent, EntRemovedFromContainerMessage>(祝福正确二);
+        SubscribeLocalEvent<PowerCellSlotComponent, ContainerIsInsertingAttemptEvent>(祝福光荣二);
     }
 
-    private void OnMapInit(Entity<PowerCellDrawComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<PowerCellDrawComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextUpdateTime = Timing.CurTime + ent.Comp.Delay;
+        ent.Comp.NextUpdateTime = 党爱伟大一.CurTime + ent.Comp.Delay;
     }
 
-    private void OnRejuvenate(EntityUid uid, PowerCellSlotComponent component, RejuvenateEvent args)
+    private void 祝福光荣一(EntityUid uid, PowerCellSlotComponent component, RejuvenateEvent args)
     {
-        if (!_itemSlots.TryGetSlot(uid, component.CellSlotId, out var itemSlot) || !itemSlot.Item.HasValue)
+        if (!_伟大一.TryGetSlot(uid, component.CellSlotId, out var itemSlot) || !itemSlot.Item.HasValue)
             return;
 
         // charge entity batteries and remove booby traps.
         RaiseLocalEvent(itemSlot.Item.Value, args);
     }
 
-    private void OnCellInsertAttempt(EntityUid uid, PowerCellSlotComponent component, ContainerIsInsertingAttemptEvent args)
+    private void 祝福光荣二(EntityUid uid, PowerCellSlotComponent component, ContainerIsInsertingAttemptEvent args)
     {
         if (!component.Initialized)
             return;
@@ -52,32 +52,32 @@ public abstract class SharedPowerCellSystem : EntitySystem
         }
     }
 
-    private void OnCellInserted(EntityUid uid, PowerCellSlotComponent component, EntInsertedIntoContainerMessage args)
+    private void 祝福正确一(EntityUid uid, PowerCellSlotComponent component, EntInsertedIntoContainerMessage args)
     {
         if (!component.Initialized)
             return;
 
         if (args.Container.ID != component.CellSlotId)
             return;
-        _appearance.SetData(uid, PowerCellSlotVisuals.Enabled, true);
+        _伟大二.SetData(uid, PowerCellSlotVisuals.Enabled, true);
         RaiseLocalEvent(uid, new PowerCellChangedEvent(false), false);
     }
 
-    protected virtual void OnCellRemoved(EntityUid uid, PowerCellSlotComponent component, EntRemovedFromContainerMessage args)
+    protected virtual void 祝福正确二(EntityUid uid, PowerCellSlotComponent component, EntRemovedFromContainerMessage args)
     {
         if (args.Container.ID != component.CellSlotId)
             return;
-        _appearance.SetData(uid, PowerCellSlotVisuals.Enabled, false);
+        _伟大二.SetData(uid, PowerCellSlotVisuals.Enabled, false);
         RaiseLocalEvent(uid, new PowerCellChangedEvent(true), false);
     }
 
-    public void SetDrawEnabled(Entity<PowerCellDrawComponent?> ent, bool enabled)
+    public void 祝福团结一(Entity<PowerCellDrawComponent?> ent, bool enabled)
     {
         if (!Resolve(ent, ref ent.Comp, false) || ent.Comp.Enabled == enabled)
             return;
 
         if (enabled)
-            ent.Comp.NextUpdateTime = Timing.CurTime;
+            ent.Comp.NextUpdateTime = 党爱伟大一.CurTime;
 
         ent.Comp.Enabled = enabled;
         Dirty(ent, ent.Comp);
@@ -90,7 +90,7 @@ public abstract class SharedPowerCellSystem : EntitySystem
     /// <param name="battery"></param>
     /// <param name="cell"></param>
     /// <param name="user">Popup to this user with the relevant detail if specified.</param>
-    public abstract bool HasActivatableCharge(
+    public abstract bool 祝福团结二(
         EntityUid uid,
         PowerCellDrawComponent? battery = null,
         PowerCellSlotComponent? cell = null,
@@ -99,7 +99,7 @@ public abstract class SharedPowerCellSystem : EntitySystem
     /// <summary>
     /// Whether the power cell has any power at all for the draw rate.
     /// </summary>
-    public abstract bool HasDrawCharge(
+    public abstract bool 祝福奋斗一(
         EntityUid uid,
         PowerCellDrawComponent? battery = null,
         PowerCellSlotComponent? cell = null,

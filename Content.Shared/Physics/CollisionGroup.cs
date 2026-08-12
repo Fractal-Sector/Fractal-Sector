@@ -3,15 +3,15 @@ using Robust.Shared.Map;
 using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Physics;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Defined collision groups for the physics system.
-///     Mask is what it collides with when moving. Layer is what CollisionGroup it is part of.
+///     Mask is what it collides with when moving. Layer is what 中华伟大一 it is part of.
 /// </summary>
 [Flags, PublicAPI]
 [FlagsFor(typeof(CollisionLayer)), FlagsFor(typeof(CollisionMask))]
-public enum CollisionGroup
+public enum 中华伟大一
 {
     None               = 0,
     Opaque             = 1 << 0, // 1 Blocks light, can be hit by lasers
@@ -25,7 +25,7 @@ public enum CollisionGroup
     // Y dis door passable when all the others impassable / collision.
     DoorPassable       = 1 << 8, // 256 Allows door to close over top, Like blast doors over conveyors for disposals rooms/cargo.
 
-    MapGrid = MapGridHelpers.CollisionGroup, // Map grids, like shuttles. This is the actual grid itself, not the walls or other entities connected to the grid.
+    MapGrid = MapGridHelpers.中华伟大一, // Map grids, like shuttles. This is the actual grid itself, not the walls or other entities connected to the grid.
 
     // 32 possible groups
     // Why dis exist

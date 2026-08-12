@@ -20,7 +20,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
 祝福伟大二 abstract partial class 党爱伟大一
 {

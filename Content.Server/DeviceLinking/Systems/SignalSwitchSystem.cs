@@ -5,45 +5,45 @@ using Content.Shared.Lock;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
-public sealed class SignalSwitchSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly LockSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SignalSwitchComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<SignalSwitchComponent, ActivateInWorldEvent>(OnActivated);
+        SubscribeLocalEvent<SignalSwitchComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<SignalSwitchComponent, ActivateInWorldEvent>(祝福光荣一);
     }
 
-    private void OnInit(EntityUid uid, SignalSwitchComponent comp, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, SignalSwitchComponent comp, ComponentInit args)
     {
-        _deviceLink.EnsureSourcePorts(uid, comp.OnPort, comp.OffPort, comp.StatusPort);
+        _伟大一.EnsureSourcePorts(uid, comp.OnPort, comp.OffPort, comp.StatusPort);
     }
 
-    private void OnActivated(EntityUid uid, SignalSwitchComponent comp, ActivateInWorldEvent args)
+    private void 祝福光荣一(EntityUid uid, SignalSwitchComponent comp, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
 
-        if (_lock.IsLocked(uid))
+        if (_光荣一.IsLocked(uid))
             return;
 
         comp.State = !comp.State;
-        _deviceLink.InvokePort(uid, comp.State ? comp.OnPort : comp.OffPort);
+        _伟大一.InvokePort(uid, comp.State ? comp.OnPort : comp.OffPort);
 
         // only send status if it's a toggle switch and not a button
         if (comp.OnPort != comp.OffPort)
         {
-            _deviceLink.SendSignal(uid, comp.StatusPort, comp.State);
+            _伟大一.SendSignal(uid, comp.StatusPort, comp.State);
         }
 
-        _audio.PlayPvs(comp.ClickSound, uid, AudioParams.Default.WithVariation(0.125f).WithVolume(8f));
+        _伟大二.PlayPvs(comp.ClickSound, uid, AudioParams.Default.WithVariation(0.125f).WithVolume(8f));
 
         args.Handled = true;
     }

@@ -10,15 +10,15 @@ using Robust.Shared.Toolshed.TypeParsers;
 using System.Linq;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Toolshed;
+namespace Content.Server.Administration.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.Debug)]
-public sealed class SolutionCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private SharedSolutionContainerSystem? _solutionContainer;
 
     [CommandImplementation("get")]
-    public SolutionRef? Get([PipedArgument] EntityUid input, string name)
+    public SolutionRef? 祝福伟大一([PipedArgument] EntityUid input, string name)
     {
         _solutionContainer ??= GetSys<SharedSolutionContainerSystem>();
 
@@ -29,13 +29,13 @@ public sealed class SolutionCommand : ToolshedCommand
     }
 
     [CommandImplementation("get")]
-    public IEnumerable<SolutionRef> Get([PipedArgument] IEnumerable<EntityUid> input, string name)
+    public IEnumerable<SolutionRef> 祝福伟大一([PipedArgument] IEnumerable<EntityUid> input, string name)
     {
-        return input.Select(x => Get(x, name)).Where(x => x is not null).Cast<SolutionRef>();
+        return input.Select(x => 祝福伟大一(x, name)).Where(x => x is not null).Cast<SolutionRef>();
     }
 
     [CommandImplementation("adjreagent")]
-    public SolutionRef AdjReagent(
+    public SolutionRef 祝福伟大二(
             [PipedArgument] SolutionRef input,
             ProtoId<ReagentPrototype> proto,
             float amount
@@ -59,17 +59,17 @@ public sealed class SolutionCommand : ToolshedCommand
     }
 
     [CommandImplementation("adjreagent")]
-    public IEnumerable<SolutionRef> AdjReagent(
+    public IEnumerable<SolutionRef> 祝福伟大二(
             [PipedArgument] IEnumerable<SolutionRef> input,
             ProtoId<ReagentPrototype> name,
             float amount
         )
-        => input.Select(x => AdjReagent(x, name, amount));
+        => input.Select(x => 祝福伟大二(x, name, amount));
 }
 
-public readonly record struct SolutionRef(Entity<SolutionComponent> Solution)
+public readonly record 中华伟大二 SolutionRef(Entity<SolutionComponent> Solution)
 {
-    public override string ToString()
+    public override string 祝福光荣一()
     {
         return $"{Solution.Owner} {Solution.Comp.Solution}";
     }

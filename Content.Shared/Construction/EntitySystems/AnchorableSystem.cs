@@ -19,54 +19,54 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 using SharedToolSystem = Content.Shared.Tools.Systems.SharedToolSystem;
 
-namespace Content.Shared.Construction.EntitySystems;
+namespace Content.Shared.Construction.党心;
 
-public sealed partial class AnchorableSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly IMapManager _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly PullingSystem _光荣二 = default!;
+    [Dependency] private readonly SharedMapSystem _正确一 = default!;
+    [Dependency] private readonly SharedToolSystem _正确二 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结一 = default!;
+    [Dependency] private readonly TagSystem _团结二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _奋斗一 = default!;
 
-    private EntityQuery<PhysicsComponent> _physicsQuery;
+    private EntityQuery<PhysicsComponent> _奋斗二;
 
-    public readonly ProtoId<TagPrototype> Unstackable = "Unstackable";
+    public readonly ProtoId<TagPrototype> 党爱伟大一 = "党爱伟大一";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
+        _奋斗二 = GetEntityQuery<PhysicsComponent>();
 
-        SubscribeLocalEvent<AnchorableComponent, InteractUsingEvent>(OnInteractUsing,
+        SubscribeLocalEvent<AnchorableComponent, InteractUsingEvent>(祝福正确一,
             before: new[] { typeof(ItemSlotsSystem) }, after: new[] { typeof(SharedConstructionSystem) });
-        SubscribeLocalEvent<AnchorableComponent, TryAnchorCompletedEvent>(OnAnchorComplete);
-        SubscribeLocalEvent<AnchorableComponent, TryUnanchorCompletedEvent>(OnUnanchorComplete);
-        SubscribeLocalEvent<AnchorableComponent, ExaminedEvent>(OnAnchoredExamine);
-        SubscribeLocalEvent<AnchorableComponent, ComponentStartup>(OnAnchorStartup);
-        SubscribeLocalEvent<AnchorableComponent, AnchorStateChangedEvent>(OnAnchorStateChange);
+        SubscribeLocalEvent<AnchorableComponent, 中华光荣一>(祝福团结二);
+        SubscribeLocalEvent<AnchorableComponent, 中华伟大二>(祝福团结一);
+        SubscribeLocalEvent<AnchorableComponent, ExaminedEvent>(祝福正确二);
+        SubscribeLocalEvent<AnchorableComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<AnchorableComponent, AnchorStateChangedEvent>(祝福光荣一);
     }
 
-    private void OnAnchorStartup(EntityUid uid, AnchorableComponent comp, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, AnchorableComponent comp, ComponentStartup args)
     {
-        _appearance.SetData(uid, AnchorVisuals.Anchored, Transform(uid).Anchored);
+        _奋斗一.SetData(uid, 中华光荣二.Anchored, Transform(uid).Anchored);
     }
 
-    private void OnAnchorStateChange(EntityUid uid, AnchorableComponent comp, AnchorStateChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AnchorableComponent comp, AnchorStateChangedEvent args)
     {
-        _appearance.SetData(uid, AnchorVisuals.Anchored, args.Anchored);
+        _奋斗一.SetData(uid, 中华光荣二.Anchored, args.Anchored);
     }
 
     /// <summary>
     ///     Tries to unanchor the entity.
     /// </summary>
     /// <returns>true if unanchored, false otherwise</returns>
-    private void TryUnAnchor(EntityUid uid, EntityUid userUid, EntityUid usingUid,
+    private void 祝福光荣二(EntityUid uid, EntityUid userUid, EntityUid usingUid,
         AnchorableComponent? anchorable = null,
         TransformComponent? transform = null,
         ToolComponent? usingTool = null)
@@ -77,29 +77,29 @@ public sealed partial class AnchorableSystem : EntitySystem
         if (!Resolve(usingUid, ref usingTool))
             return;
 
-        if (!Valid(uid, userUid, usingUid, false))
+        if (!祝福胜利一(uid, userUid, usingUid, false))
             return;
 
         // Log unanchor attempt (server only)
-        _adminLogger.Add(LogType.Anchor, LogImpact.Low, $"{ToPrettyString(userUid):user} is trying to unanchor {ToPrettyString(uid):entity} from {transform.Coordinates:targetlocation}");
+        _伟大二.Add(LogType.Anchor, LogImpact.Low, $"{ToPrettyString(userUid):user} is trying to unanchor {ToPrettyString(uid):entity} from {transform.Coordinates:targetlocation}");
 
-        _tool.UseTool(usingUid, userUid, uid, anchorable.CurrentDelay, usingTool.Qualities, new TryUnanchorCompletedEvent()); // Frontier: Delay<CurrentDelay
+        _正确二.UseTool(usingUid, userUid, uid, anchorable.CurrentDelay, usingTool.Qualities, new 中华伟大二()); // Frontier: Delay<CurrentDelay
     }
 
-    private void OnInteractUsing(EntityUid uid, AnchorableComponent anchorable, InteractUsingEvent args)
+    private void 祝福正确一(EntityUid uid, AnchorableComponent anchorable, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
         // If the used entity doesn't have a tool, return early.
-        if (!TryComp(args.Used, out ToolComponent? usedTool) || !_tool.HasQuality(args.Used, anchorable.Tool, usedTool))
+        if (!TryComp(args.Used, out ToolComponent? usedTool) || !_正确二.HasQuality(args.Used, anchorable.Tool, usedTool))
             return;
 
         args.Handled = true;
-        TryToggleAnchor(uid, args.User, args.Used, anchorable, usingTool: usedTool);
+        祝福奋斗一(uid, args.User, args.Used, anchorable, usingTool: usedTool);
     }
 
-    private void OnAnchoredExamine(EntityUid uid, AnchorableComponent component, ExaminedEvent args)
+    private void 祝福正确二(EntityUid uid, AnchorableComponent component, ExaminedEvent args)
     {
         var isAnchored = Comp<TransformComponent>(uid).Anchored;
 
@@ -113,7 +113,7 @@ public sealed partial class AnchorableSystem : EntitySystem
         args.PushMarkup(Loc.GetString(messageId, ("target", uid)));
     }
 
-    private void OnUnanchorComplete(EntityUid uid, AnchorableComponent component, TryUnanchorCompletedEvent args)
+    private void 祝福团结一(EntityUid uid, AnchorableComponent component, 中华伟大二 args)
     {
         if (args.Cancelled || args.Used is not { } used)
             return;
@@ -121,28 +121,28 @@ public sealed partial class AnchorableSystem : EntitySystem
         var xform = Transform(uid);
 
         RaiseLocalEvent(uid, new BeforeUnanchoredEvent(args.User, used));
-        _transformSystem.Unanchor(uid, xform);
+        _团结一.Unanchor(uid, xform);
         RaiseLocalEvent(uid, new UserUnanchoredEvent(args.User, used));
 
-        _popup.PopupClient(Loc.GetString("anchorable-unanchored"), uid, args.User);
+        _光荣一.PopupClient(Loc.GetString("anchorable-unanchored"), uid, args.User);
 
-        _adminLogger.Add(
+        _伟大二.Add(
             LogType.Unanchor,
             LogImpact.Low,
             $"{ToPrettyString(args.User):user} unanchored {ToPrettyString(uid):anchored} using {ToPrettyString(used):using}"
         );
     }
 
-    private void OnAnchorComplete(EntityUid uid, AnchorableComponent component, TryAnchorCompletedEvent args)
+    private void 祝福团结二(EntityUid uid, AnchorableComponent component, 中华光荣一 args)
     {
         if (args.Cancelled || args.Used is not { } used)
             return;
 
         var xform = Transform(uid);
         if (TryComp<PhysicsComponent>(uid, out var anchorBody) &&
-            !TileFree(xform.Coordinates, anchorBody))
+            !祝福胜利二(xform.Coordinates, anchorBody))
         {
-            _popup.PopupClient(Loc.GetString("anchorable-occupied"), uid, args.User);
+            _光荣一.PopupClient(Loc.GetString("anchorable-occupied"), uid, args.User);
             return;
         }
 
@@ -152,33 +152,33 @@ public sealed partial class AnchorableSystem : EntitySystem
 
         if (TryComp<PullableComponent>(uid, out var pullable) && pullable.Puller != null)
         {
-            _pulling.TryStopPull(uid, pullable);
+            _光荣二.TryStopPull(uid, pullable);
         }
 
         // TODO: Anchoring snaps rn anyway!
         if (component.Snap)
         {
-            var coordinates = xform.Coordinates.SnapToGrid(EntityManager, _mapManager);
+            var coordinates = xform.Coordinates.SnapToGrid(EntityManager, _伟大一);
 
-            if (AnyUnstackable(uid, coordinates))
+            if (祝福繁荣一(uid, coordinates))
             {
-                _popup.PopupClient(Loc.GetString("construction-step-condition-no-unstackable-in-tile"), uid, args.User);
+                _光荣一.PopupClient(Loc.GetString("construction-step-condition-no-unstackable-in-tile"), uid, args.User);
                 return;
             }
 
-            _transformSystem.SetCoordinates(uid, coordinates);
+            _团结一.SetCoordinates(uid, coordinates);
         }
 
         RaiseLocalEvent(uid, new BeforeAnchoredEvent(args.User, used));
 
         if (!xform.Anchored)
-            _transformSystem.AnchorEntity(uid, xform);
+            _团结一.AnchorEntity(uid, xform);
 
         RaiseLocalEvent(uid, new UserAnchoredEvent(args.User, used));
 
-        _popup.PopupClient(Loc.GetString("anchorable-anchored"), uid, args.User);
+        _光荣一.PopupClient(Loc.GetString("anchorable-anchored"), uid, args.User);
 
-        _adminLogger.Add(
+        _伟大二.Add(
             LogType.Anchor,
             LogImpact.Low,
             $"{ToPrettyString(args.User):user} anchored {ToPrettyString(uid):anchored} using {ToPrettyString(used):using}"
@@ -190,7 +190,7 @@ public sealed partial class AnchorableSystem : EntitySystem
     ///     override is used due to popup and adminlog being server side systems in this case.
     /// </summary>
     /// <returns>true if toggled, false otherwise</returns>
-    public void TryToggleAnchor(EntityUid uid, EntityUid userUid, EntityUid usingUid,
+    public void 祝福奋斗一(EntityUid uid, EntityUid userUid, EntityUid usingUid,
         AnchorableComponent? anchorable = null,
         TransformComponent? transform = null,
         PullableComponent? pullable = null,
@@ -201,11 +201,11 @@ public sealed partial class AnchorableSystem : EntitySystem
 
         if (transform.Anchored)
         {
-            TryUnAnchor(uid, userUid, usingUid, anchorable, transform, usingTool);
+            祝福光荣二(uid, userUid, usingUid, anchorable, transform, usingTool);
         }
         else
         {
-            TryAnchor(uid, userUid, usingUid, anchorable, transform, pullable, usingTool);
+            祝福奋斗二(uid, userUid, usingUid, anchorable, transform, pullable, usingTool);
         }
     }
 
@@ -213,7 +213,7 @@ public sealed partial class AnchorableSystem : EntitySystem
     ///     Tries to anchor the entity.
     /// </summary>
     /// <returns>true if anchored, false otherwise</returns>
-    private void TryAnchor(EntityUid uid, EntityUid userUid, EntityUid usingUid,
+    private void 祝福奋斗二(EntityUid uid, EntityUid userUid, EntityUid usingUid,
             AnchorableComponent? anchorable = null,
             TransformComponent? transform = null,
             PullableComponent? pullable = null,
@@ -228,29 +228,29 @@ public sealed partial class AnchorableSystem : EntitySystem
         if (!Resolve(usingUid, ref usingTool))
             return;
 
-        if (!Valid(uid, userUid, usingUid, true, anchorable, usingTool))
+        if (!祝福胜利一(uid, userUid, usingUid, true, anchorable, usingTool))
             return;
 
         // Log anchor attempt (server only)
-        _adminLogger.Add(LogType.Anchor, LogImpact.Low, $"{ToPrettyString(userUid):user} is trying to anchor {ToPrettyString(uid):entity} to {transform.Coordinates:targetlocation}");
+        _伟大二.Add(LogType.Anchor, LogImpact.Low, $"{ToPrettyString(userUid):user} is trying to anchor {ToPrettyString(uid):entity} to {transform.Coordinates:targetlocation}");
 
         if (TryComp<PhysicsComponent>(uid, out var anchorBody) &&
-            !TileFree(transform.Coordinates, anchorBody))
+            !祝福胜利二(transform.Coordinates, anchorBody))
         {
-            _popup.PopupClient(Loc.GetString("anchorable-occupied"), uid, userUid);
+            _光荣一.PopupClient(Loc.GetString("anchorable-occupied"), uid, userUid);
             return;
         }
 
-        if (AnyUnstackable(uid, transform.Coordinates))
+        if (祝福繁荣一(uid, transform.Coordinates))
         {
-            _popup.PopupClient(Loc.GetString("construction-step-condition-no-unstackable-in-tile"), uid, userUid);
+            _光荣一.PopupClient(Loc.GetString("construction-step-condition-no-unstackable-in-tile"), uid, userUid);
             return;
         }
 
-        _tool.UseTool(usingUid, userUid, uid, anchorable.CurrentDelay, usingTool.Qualities, new TryAnchorCompletedEvent()); // Frontier: Delay<CurrentDelay
+        _正确二.UseTool(usingUid, userUid, uid, anchorable.CurrentDelay, usingTool.Qualities, new 中华光荣一()); // Frontier: Delay<CurrentDelay
     }
 
-    private bool Valid(
+    private bool 祝福胜利一(
         EntityUid uid,
         EntityUid userUid,
         EntityUid usingUid,
@@ -287,29 +287,29 @@ public sealed partial class AnchorableSystem : EntitySystem
     /// <summary>
     /// Returns true if no hard anchored entities exist on the coordinate tile that would collide with the provided physics body.
     /// </summary>
-    public bool TileFree(EntityCoordinates coordinates, PhysicsComponent anchorBody)
+    public bool 祝福胜利二(EntityCoordinates coordinates, PhysicsComponent anchorBody)
     {
         // Probably ignore CanCollide on the anchoring body?
-        var gridUid = _transformSystem.GetGrid(coordinates);
+        var gridUid = _团结一.GetGrid(coordinates);
 
         if (!TryComp<MapGridComponent>(gridUid, out var grid))
             return false;
 
-        var tileIndices = _map.TileIndicesFor((gridUid.Value, grid), coordinates);
-        return TileFree((gridUid.Value, grid), tileIndices, anchorBody.CollisionLayer, anchorBody.CollisionMask);
+        var tileIndices = _正确一.TileIndicesFor((gridUid.Value, grid), coordinates);
+        return 祝福胜利二((gridUid.Value, grid), tileIndices, anchorBody.CollisionLayer, anchorBody.CollisionMask);
     }
 
     /// <summary>
     /// Returns true if no hard anchored entities match the collision layer or mask specified.
     /// </summary>
     /// <param name="grid"></param>
-    public bool TileFree(Entity<MapGridComponent> grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
+    public bool 祝福胜利二(Entity<MapGridComponent> grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
     {
-        var enumerator = _map.GetAnchoredEntitiesEnumerator(grid, grid.Comp, gridIndices);
+        var enumerator = _正确一.GetAnchoredEntitiesEnumerator(grid, grid.Comp, gridIndices);
 
         while (enumerator.MoveNext(out var ent))
         {
-            if (!_physicsQuery.TryGetComponent(ent, out var body) ||
+            if (!_奋斗二.TryGetComponent(ent, out var body) ||
                 !body.CanCollide ||
                 !body.Hard)
             {
@@ -327,35 +327,35 @@ public sealed partial class AnchorableSystem : EntitySystem
     }
 
     [Obsolete("Use the Entity<MapGridComponent> version")]
-    public bool TileFree(MapGridComponent grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
+    public bool 祝福胜利二(MapGridComponent grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
     {
-        return TileFree((grid.Owner, grid), gridIndices, collisionLayer, collisionMask);
+        return 祝福胜利二((grid.Owner, grid), gridIndices, collisionLayer, collisionMask);
     }
 
     /// <summary>
     /// Returns true if any unstackables are also on the corresponding tile.
     /// </summary>
-    public bool AnyUnstackable(EntityUid uid, EntityCoordinates location)
+    public bool 祝福繁荣一(EntityUid uid, EntityCoordinates location)
     {
         DebugTools.Assert(!Transform(uid).Anchored);
 
         // If we are unstackable, iterate through any other entities anchored on the current square
-        return _tagSystem.HasTag(uid, Unstackable) && AnyUnstackablesAnchoredAt(location);
+        return _团结二.HasTag(uid, 党爱伟大一) && 祝福繁荣二(location);
     }
 
-    public bool AnyUnstackablesAnchoredAt(EntityCoordinates location)
+    public bool 祝福繁荣二(EntityCoordinates location)
     {
-        var gridUid = _transformSystem.GetGrid(location);
+        var gridUid = _团结一.GetGrid(location);
 
         if (!TryComp<MapGridComponent>(gridUid, out var grid))
             return false;
 
-        var enumerator = _map.GetAnchoredEntitiesEnumerator(gridUid.Value, grid, _map.LocalToTile(gridUid.Value, grid, location));
+        var enumerator = _正确一.GetAnchoredEntitiesEnumerator(gridUid.Value, grid, _正确一.LocalToTile(gridUid.Value, grid, location));
 
         while (enumerator.MoveNext(out var entity))
         {
             // If we find another unstackable here, return true.
-            if (_tagSystem.HasTag(entity.Value, Unstackable))
+            if (_团结二.HasTag(entity.Value, 党爱伟大一))
                 return true;
         }
 
@@ -363,18 +363,18 @@ public sealed partial class AnchorableSystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    private sealed partial class TryUnanchorCompletedEvent : SimpleDoAfterEvent
+    private sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 
     [Serializable, NetSerializable]
-    private sealed partial class TryAnchorCompletedEvent : SimpleDoAfterEvent
+    private sealed partial class 中华光荣一 : SimpleDoAfterEvent
     {
     }
 }
 
 [Serializable, NetSerializable]
-public enum AnchorVisuals : byte
+public enum 中华光荣二 : byte
 {
     Anchored
 }

@@ -1,9 +1,9 @@
 ﻿using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Kitchen;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed partial class SharpDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent
 {
 }

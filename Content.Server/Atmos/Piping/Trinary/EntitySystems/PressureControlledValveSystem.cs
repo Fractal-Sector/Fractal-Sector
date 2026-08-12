@@ -9,34 +9,34 @@ using Content.Shared.Atmos.Piping.Components;
 using Content.Shared.Audio;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
+namespace Content.Server.Atmos.Piping.Trinary.党心
 {
     [UsedImplicitly]
-    public sealed class PressureControlledValveSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _伟大二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+        [Dependency] private readonly NodeContainerSystem _光荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<PressureControlledValveComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<PressureControlledValveComponent, AtmosDeviceUpdateEvent>(OnUpdate);
-            SubscribeLocalEvent<PressureControlledValveComponent, AtmosDeviceDisabledEvent>(OnFilterLeaveAtmosphere);
+            base.祝福伟大一();
+            SubscribeLocalEvent<PressureControlledValveComponent, ComponentInit>(祝福伟大二);
+            SubscribeLocalEvent<PressureControlledValveComponent, AtmosDeviceUpdateEvent>(祝福光荣一);
+            SubscribeLocalEvent<PressureControlledValveComponent, AtmosDeviceDisabledEvent>(祝福光荣二);
         }
 
-        private void OnInit(EntityUid uid, PressureControlledValveComponent comp, ComponentInit args)
+        private void 祝福伟大二(EntityUid uid, PressureControlledValveComponent comp, ComponentInit args)
         {
-            UpdateAppearance(uid, comp);
+            祝福正确一(uid, comp);
         }
 
-        private void OnUpdate(EntityUid uid, PressureControlledValveComponent comp, ref AtmosDeviceUpdateEvent args)
+        private void 祝福光荣一(EntityUid uid, PressureControlledValveComponent comp, ref AtmosDeviceUpdateEvent args)
         {
-            if (!_nodeContainer.TryGetNodes(uid, comp.InletName, comp.ControlName, comp.OutletName, out PipeNode? inletNode, out PipeNode? controlNode, out PipeNode? outletNode))
+            if (!_光荣二.TryGetNodes(uid, comp.InletName, comp.ControlName, comp.OutletName, out PipeNode? inletNode, out PipeNode? controlNode, out PipeNode? outletNode))
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
+                _伟大二.SetAmbience(uid, false);
                 comp.Enabled = false;
                 return;
             }
@@ -59,36 +59,36 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             else
             {
                 comp.Enabled = true;
-                transferRate = Math.Min(control * comp.Gain, comp.MaxTransferRate * _atmosphereSystem.PumpSpeedup());
+                transferRate = Math.Min(control * comp.Gain, comp.MaxTransferRate * _伟大一.PumpSpeedup());
             }
-            UpdateAppearance(uid, comp);
+            祝福正确一(uid, comp);
 
             // We multiply the transfer rate in L/s by the seconds passed since the last process to get the liters.
             var transferVolume = transferRate * args.dt;
             if (transferVolume <= 0)
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
+                _伟大二.SetAmbience(uid, false);
                 return;
             }
 
-            _ambientSoundSystem.SetAmbience(uid, true);
+            _伟大二.SetAmbience(uid, true);
             var removed = inletNode.Air.RemoveVolume(transferVolume);
-            _atmosphereSystem.Merge(outletNode.Air, removed);
+            _伟大一.Merge(outletNode.Air, removed);
         }
 
-        private void OnFilterLeaveAtmosphere(EntityUid uid, PressureControlledValveComponent comp, ref AtmosDeviceDisabledEvent args)
+        private void 祝福光荣二(EntityUid uid, PressureControlledValveComponent comp, ref AtmosDeviceDisabledEvent args)
         {
             comp.Enabled = false;
-            UpdateAppearance(uid, comp);
-            _ambientSoundSystem.SetAmbience(uid, false);
+            祝福正确一(uid, comp);
+            _伟大二.SetAmbience(uid, false);
         }
 
-        private void UpdateAppearance(EntityUid uid, PressureControlledValveComponent? comp = null, AppearanceComponent? appearance = null)
+        private void 祝福正确一(EntityUid uid, PressureControlledValveComponent? comp = null, AppearanceComponent? appearance = null)
         {
             if (!Resolve(uid, ref comp, ref appearance, false))
                 return;
 
-            _appearance.SetData(uid, FilterVisuals.Enabled, comp.Enabled, appearance);
+            _光荣一.SetData(uid, FilterVisuals.Enabled, comp.Enabled, appearance);
         }
     }
 }

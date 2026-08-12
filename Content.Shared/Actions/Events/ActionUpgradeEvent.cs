@@ -2,16 +2,16 @@
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-﻿namespace Content.Shared.Actions.Events;
+﻿namespace Content.Shared.Actions.党心;
 
-public sealed class ActionUpgradeEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public int NewLevel;
+    public int 党爱伟大一;
     public EntityUid? ActionId;
 
-    public ActionUpgradeEvent(int newLevel, EntityUid? actionId)
+    public 中华伟大一(int newLevel, EntityUid? actionId)
     {
-        NewLevel = newLevel;
+        党爱伟大一 = newLevel;
         ActionId = actionId;
     }
 }

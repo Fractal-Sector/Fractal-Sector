@@ -14,50 +14,50 @@ using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 
-namespace Content.Shared._NF.Manufacturing.EntitySystems;
+namespace Content.Shared._NF.Manufacturing.党心;
 
 /// <summary>
 /// Consumes large quantities of power, scales excessive overage down to reasonable values.
 /// Spawns gas regularly depending on the amount of power received.
 /// </summary>
-public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly NodeContainerSystem _node = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly AppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly AtmosphereSystem _光荣一 = default!;
+    [Dependency] private readonly NodeContainerSystem _光荣二 = default!;
+    [Dependency] private readonly NodeGroupSystem _正确一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确二 = default!;
 
-    private GasMixture _mixture = new();
+    private GasMixture _团结一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         UpdatesAfter.Add(typeof(PowerNetSystem));
 
-        SubscribeLocalEvent<GasSpawnPowerConsumerComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<GasSpawnPowerConsumerComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<GasSpawnPowerConsumerComponent, AfterActivatableUIOpenEvent>(OnUIOpen);
+        SubscribeLocalEvent<GasSpawnPowerConsumerComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<GasSpawnPowerConsumerComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<GasSpawnPowerConsumerComponent, AfterActivatableUIOpenEvent>(祝福团结一);
 
         Subs.BuiEvents<GasSpawnPowerConsumerComponent>(
             AdjustablePowerDrawUiKey.Key,
             subs =>
             {
-                subs.Event<AdjustablePowerDrawSetEnabledMessage>(HandleSetEnabled);
-                subs.Event<AdjustablePowerDrawSetLoadMessage>(HandleSetLoad);
+                subs.Event<AdjustablePowerDrawSetEnabledMessage>(祝福团结二);
+                subs.Event<AdjustablePowerDrawSetLoadMessage>(祝福奋斗一);
             });
     }
 
-    private void OnMapInit(Entity<GasSpawnPowerConsumerComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<GasSpawnPowerConsumerComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextSpawnCheck = _timing.CurTime + ent.Comp.SpawnCheckPeriod;
+        ent.Comp.NextSpawnCheck = _伟大一.CurTime + ent.Comp.SpawnCheckPeriod;
         if (TryComp(ent, out PowerConsumerComponent? power))
             power.DrawRate = Math.Clamp(power.DrawRate, ent.Comp.MinimumRequestablePower, ent.Comp.MaximumRequestablePower);
     }
 
-    private void OnExamined(Entity<GasSpawnPowerConsumerComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<GasSpawnPowerConsumerComponent> ent, ref ExaminedEvent args)
     {
         if (TryComp(ent, out PowerConsumerComponent? power))
         {
@@ -74,7 +74,7 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<GasSpawnPowerConsumerComponent, PowerConsumerComponent>();
         while (query.MoveNext(out var uid, out var spawn, out var power))
@@ -82,7 +82,7 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
             if (power.NetworkLoad.Enabled)
                 spawn.AccumulatedSpawnCheckEnergy += power.NetworkLoad.ReceivingPower * frameTime;
 
-            if (_timing.CurTime >= spawn.NextSpawnCheck)
+            if (_伟大一.CurTime >= spawn.NextSpawnCheck)
             {
                 spawn.NextSpawnCheck += spawn.SpawnCheckPeriod;
 
@@ -106,7 +106,7 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
                 if (float.IsFinite(spawn.AccumulatedSpawnCheckEnergy) && float.IsPositive(spawn.AccumulatedSpawnCheckEnergy))
                 {
                     var totalPeriodSeconds = (float)spawn.SpawnCheckPeriod.TotalSeconds;
-                    var effectivePower = GetEffectivePower((uid, spawn), spawn.AccumulatedSpawnCheckEnergy / totalPeriodSeconds);
+                    var effectivePower = 祝福正确一((uid, spawn), spawn.AccumulatedSpawnCheckEnergy / totalPeriodSeconds);
                     spawn.AccumulatedEnergy += effectivePower * totalPeriodSeconds;
                 }
                 spawn.AccumulatedSpawnCheckEnergy = 0;
@@ -114,7 +114,7 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
                 // Require at least enough energy for one mole of gas before actually producing anything.
                 if (spawn.AccumulatedEnergy >= spawn.EnergyPerMole)
                 {
-                    _mixture.CopyFrom(spawn.SpawnMixture);
+                    _团结一.CopyFrom(spawn.SpawnMixture);
 
                     // Figure out how many moles we can spawn with the energy we have.
                     var molesToSpawn = spawn.AccumulatedEnergy / spawn.EnergyPerMole;
@@ -123,17 +123,17 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
 
                     // Figure out how many moles will fit in the canister.
                     var deltaP = Atmospherics.MaxOutputPressure - canister.Air.Pressure;
-                    var maxMoles = deltaP * canister.Air.Volume / (_mixture.Temperature * Atmospherics.R);
+                    var maxMoles = deltaP * canister.Air.Volume / (_团结一.Temperature * Atmospherics.R);
                     molesToSpawn = MathF.Min(molesToSpawn, maxMoles);
 
-                    _mixture.Multiply(molesToSpawn / _mixture.TotalMoles);
-                    _atmos.Merge(canister.Air, _mixture);
+                    _团结一.Multiply(molesToSpawn / _团结一.TotalMoles);
+                    _光荣一.Merge(canister.Air, _团结一);
 
                     spawn.AccumulatedEnergy = 0;
                 }
             }
 
-            _appearance.SetData(uid, PowerDeviceVisuals.Powered, power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0);
+            _伟大二.SetData(uid, PowerDeviceVisuals.Powered, power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0);
         }
     }
 
@@ -143,7 +143,7 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
     /// </summary>
     /// <param name="power">Input power level, in watts.</param>
     /// <returns>Effective power, in watts.</returns>
-    private float GetEffectivePower(Entity<GasSpawnPowerConsumerComponent> ent, float power)
+    private float 祝福正确一(Entity<GasSpawnPowerConsumerComponent> ent, float power)
     {
         float actualPower;
         if (power <= ent.Comp.LinearMaxValue)
@@ -158,68 +158,68 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
     /// </summary>
     /// <param name="power">Input power level, in watts</param>
     /// <returns>Expected item generation time in seconds</returns>
-    public float GetGasSpawnRate(Entity<GasSpawnPowerConsumerComponent> ent, float power)
+    public float 祝福正确二(Entity<GasSpawnPowerConsumerComponent> ent, float power)
     {
         if (!float.IsFinite(power) || !float.IsPositive(power))
         {
             return 0.0f;
         }
 
-        var numMoles = GetEffectivePower(ent, power) / ent.Comp.EnergyPerMole;
+        var numMoles = 祝福正确一(ent, power) / ent.Comp.EnergyPerMole;
         return MathF.Min(numMoles, ent.Comp.MaximumMolesPerSecond);
     }
 
-    private void OnUIOpen(Entity<GasSpawnPowerConsumerComponent> ent, ref AfterActivatableUIOpenEvent args)
+    private void 祝福团结一(Entity<GasSpawnPowerConsumerComponent> ent, ref AfterActivatableUIOpenEvent args)
     {
         if (TryComp(ent, out PowerConsumerComponent? power))
-            UpdateUI(ent, power);
+            祝福奋斗二(ent, power);
     }
 
-    private void HandleSetEnabled(Entity<GasSpawnPowerConsumerComponent> ent, ref AdjustablePowerDrawSetEnabledMessage args)
+    private void 祝福团结二(Entity<GasSpawnPowerConsumerComponent> ent, ref AdjustablePowerDrawSetEnabledMessage args)
     {
         if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode))
+            _光荣二.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode))
         {
             deviceNode.Enabled = args.On;
             if (deviceNode.Enabled)
-                _nodeGroup.QueueReflood(deviceNode);
+                _正确一.QueueReflood(deviceNode);
             else
-                _nodeGroup.QueueNodeRemove(deviceNode);
+                _正确一.QueueNodeRemove(deviceNode);
 
             if (TryComp(ent, out PowerConsumerComponent? power))
-                UpdateUI(ent, power);
+                祝福奋斗二(ent, power);
         }
     }
 
-    private void HandleSetLoad(Entity<GasSpawnPowerConsumerComponent> ent, ref AdjustablePowerDrawSetLoadMessage args)
+    private void 祝福奋斗一(Entity<GasSpawnPowerConsumerComponent> ent, ref AdjustablePowerDrawSetLoadMessage args)
     {
         if (args.Load >= 0 && TryComp(ent, out PowerConsumerComponent? power))
         {
             power.DrawRate = Math.Clamp(args.Load, ent.Comp.MinimumRequestablePower, ent.Comp.MaximumRequestablePower);
-            UpdateUI(ent, power);
+            祝福奋斗二(ent, power);
         }
     }
 
-    private void UpdateUI(Entity<GasSpawnPowerConsumerComponent> ent, PowerConsumerComponent power)
+    private void 祝福奋斗二(Entity<GasSpawnPowerConsumerComponent> ent, PowerConsumerComponent power)
     {
-        if (!_ui.IsUiOpen(ent.Owner, AdjustablePowerDrawUiKey.Key))
+        if (!_正确二.IsUiOpen(ent.Owner, AdjustablePowerDrawUiKey.Key))
             return;
 
         bool nodeEnabled = false;
         if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode))
+            _光荣二.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode))
         {
             nodeEnabled = deviceNode.Enabled;
         }
 
-        _ui.SetUiState(
+        _正确二.SetUiState(
             ent.Owner,
             AdjustablePowerDrawUiKey.Key,
             new AdjustablePowerDrawBuiState
             {
                 On = nodeEnabled,
                 Load = power.DrawRate,
-                Text = Loc.GetString("gas-spawn-power-consumer-value", ("value", GetGasSpawnRate(ent, power.DrawRate)))
+                Text = Loc.GetString("gas-spawn-power-consumer-value", ("value", 祝福正确二(ent, power.DrawRate)))
             });
     }
 }

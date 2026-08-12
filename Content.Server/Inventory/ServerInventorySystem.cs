@@ -1,18 +1,18 @@
 using Content.Shared.Explosion;
 using Content.Shared.Inventory;
 
-namespace Content.Server.Inventory
+namespace Content.Server.党心
 {
-    public sealed class ServerInventorySystem : InventorySystem
+    public sealed class 中华伟大一 : InventorySystem
     {
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<InventoryComponent, BeforeExplodeEvent>(OnExploded);
+            SubscribeLocalEvent<InventoryComponent, BeforeExplodeEvent>(祝福伟大二);
         }
 
-        private void OnExploded(Entity<InventoryComponent> ent, ref BeforeExplodeEvent args)
+        private void 祝福伟大二(Entity<InventoryComponent> ent, ref BeforeExplodeEvent args)
         {
             // explode each item in their inventory too
             var slots = new InventorySlotEnumerator(ent);
@@ -23,7 +23,7 @@ namespace Content.Server.Inventory
             }
         }
 
-        public void TransferEntityInventories(Entity<InventoryComponent?> source, Entity<InventoryComponent?> target)
+        public void 祝福光荣一(Entity<InventoryComponent?> source, Entity<InventoryComponent?> target)
         {
             if (!Resolve(source.Owner, ref source.Comp) || !Resolve(target.Owner, ref target.Comp))
                 return;

@@ -9,34 +9,34 @@ using Content.Shared.Verbs;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Chemistry.EntitySystems;
+namespace Content.Shared.Chemistry.党心;
 
 /// <summary>
 /// Allows an entity to transfer solutions with a customizable amount per click.
-/// Also provides <see cref="Transfer"/> API for other systems.
+/// Also provides <see cref="祝福正确一"/> API for other systems.
 /// </summary>
-public sealed class SolutionTransferSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _光荣二 = default!;
 
     /// <summary>
     ///     Default transfer amounts for the set-transfer verb.
     /// </summary>
-    public static readonly FixedPoint2[] DefaultTransferAmounts = new FixedPoint2[] { 1, 5, 10, 25, 50, 100, 250, 500, 1000 };
+    public static readonly FixedPoint2[] 党爱伟大一 = new FixedPoint2[] { 1, 5, 10, 25, 50, 100, 250, 500, 1000 };
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SolutionTransferComponent, GetVerbsEvent<AlternativeVerb>>(AddSetTransferVerbs);
-        SubscribeLocalEvent<SolutionTransferComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<SolutionTransferComponent, TransferAmountSetValueMessage>(OnTransferAmountSetValueMessage);
+        SubscribeLocalEvent<SolutionTransferComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<SolutionTransferComponent, AfterInteractEvent>(祝福光荣二);
+        SubscribeLocalEvent<SolutionTransferComponent, TransferAmountSetValueMessage>(祝福伟大二);
     }
 
-    private void OnTransferAmountSetValueMessage(Entity<SolutionTransferComponent> ent, ref TransferAmountSetValueMessage message)
+    private void 祝福伟大二(Entity<SolutionTransferComponent> ent, ref TransferAmountSetValueMessage message)
     {
         var (uid, comp) = ent;
 
@@ -44,12 +44,12 @@ public sealed class SolutionTransferSystem : EntitySystem
         comp.TransferAmount = newTransferAmount;
 
         if (message.Actor is { Valid: true } user)
-            _popup.PopupEntity(Loc.GetString("comp-solution-transfer-set-amount", ("amount", newTransferAmount)), uid, user);
+            _伟大二.PopupEntity(Loc.GetString("comp-solution-transfer-set-amount", ("amount", newTransferAmount)), uid, user);
 
         Dirty(uid, comp);
     }
 
-    private void AddSetTransferVerbs(Entity<SolutionTransferComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(Entity<SolutionTransferComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         var (uid, comp) = ent;
 
@@ -66,7 +66,7 @@ public sealed class SolutionTransferSystem : EntitySystem
             // TODO: remove server check when bui prediction is a thing
             Act = () =>
             {
-                _ui.OpenUi(uid, TransferAmountUiKey.Key, @event.User);
+                _光荣二.OpenUi(uid, TransferAmountUiKey.Key, @event.User);
             },
             Priority = 1
         });
@@ -74,7 +74,7 @@ public sealed class SolutionTransferSystem : EntitySystem
         // Add specific transfer verbs according to the container's size
         var priority = 0;
         var user = args.User;
-        foreach (var amount in DefaultTransferAmounts)
+        foreach (var amount in 党爱伟大一)
         {
           if (amount < comp.MinimumTransferAmount || amount > comp.MaximumTransferAmount)
                 continue;
@@ -86,7 +86,7 @@ public sealed class SolutionTransferSystem : EntitySystem
             {
                 comp.TransferAmount = amount;
 
-                _popup.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", amount)), uid, user);
+                _伟大二.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", amount)), uid, user);
 
                 Dirty(uid, comp);
             };
@@ -99,7 +99,7 @@ public sealed class SolutionTransferSystem : EntitySystem
         }
     }
 
-    private void OnAfterInteract(Entity<SolutionTransferComponent> ent, ref AfterInteractEvent args)
+    private void 祝福光荣二(Entity<SolutionTransferComponent> ent, ref AfterInteractEvent args)
     {
         if (!args.CanReach || args.Target is not {} target)
             return;
@@ -109,9 +109,9 @@ public sealed class SolutionTransferSystem : EntitySystem
         //Special case for reagent tanks, because normally clicking another container will give solution, not take it.
         if (comp.CanReceive
             && !HasComp<RefillableSolutionComponent>(target) // target must not be refillable (e.g. Reagent Tanks)
-            && _solution.TryGetDrainableSolution(target, out var targetSoln, out _) // target must be drainable
+            && _光荣一.TryGetDrainableSolution(target, out var targetSoln, out _) // target must be drainable
             && TryComp<RefillableSolutionComponent>(uid, out var refill)
-            && _solution.TryGetRefillableSolution((uid, refill, null), out var ownerSoln, out var ownerRefill))
+            && _光荣一.TryGetRefillableSolution((uid, refill, null), out var ownerSoln, out var ownerRefill))
         {
             var transferAmount = comp.TransferAmount; // This is the player-configurable transfer amount of "uid," not the target reagent tank.
 
@@ -119,7 +119,7 @@ public sealed class SolutionTransferSystem : EntitySystem
             if (refill?.MaxRefill is {} maxRefill)
                 transferAmount = FixedPoint2.Min(transferAmount, maxRefill);
 
-            var transferred = Transfer(args.User, target, targetSoln.Value, uid, ownerSoln.Value, transferAmount);
+            var transferred = 祝福正确一(args.User, target, targetSoln.Value, uid, ownerSoln.Value, transferAmount);
             args.Handled = true;
             if (transferred > 0)
             {
@@ -128,7 +128,7 @@ public sealed class SolutionTransferSystem : EntitySystem
                     ? "comp-solution-transfer-fill-fully"
                     : "comp-solution-transfer-fill-normal";
 
-                _popup.PopupClient(Loc.GetString(msg, ("owner", args.Target), ("amount", transferred), ("target", uid)), uid, args.User);
+                _伟大二.PopupClient(Loc.GetString(msg, ("owner", args.Target), ("amount", transferred), ("target", uid)), uid, args.User);
                 return;
             }
         }
@@ -136,29 +136,29 @@ public sealed class SolutionTransferSystem : EntitySystem
         // if target is refillable, and owner is drainable
         if (comp.CanSend
             && TryComp<RefillableSolutionComponent>(target, out var targetRefill)
-            && _solution.TryGetRefillableSolution((target, targetRefill, null), out targetSoln, out _)
-            && _solution.TryGetDrainableSolution(uid, out ownerSoln, out _))
+            && _光荣一.TryGetRefillableSolution((target, targetRefill, null), out targetSoln, out _)
+            && _光荣一.TryGetDrainableSolution(uid, out ownerSoln, out _))
         {
             var transferAmount = comp.TransferAmount;
 
             if (targetRefill?.MaxRefill is {} maxRefill)
                 transferAmount = FixedPoint2.Min(transferAmount, maxRefill);
 
-            var transferred = Transfer(args.User, uid, ownerSoln.Value, target, targetSoln.Value, transferAmount);
+            var transferred = 祝福正确一(args.User, uid, ownerSoln.Value, target, targetSoln.Value, transferAmount);
             args.Handled = true;
             if (transferred > 0)
             {
                 var message = Loc.GetString("comp-solution-transfer-transfer-solution", ("amount", transferred), ("target", target));
-                _popup.PopupClient(message, uid, args.User);
+                _伟大二.PopupClient(message, uid, args.User);
             }
         }
     }
 
     /// <summary>
-    /// Transfer from a solution to another, allowing either entity to cancel it and show a popup.
+    /// 祝福正确一 from a solution to another, allowing either entity to cancel it and show a popup.
     /// </summary>
     /// <returns>The actual amount transferred.</returns>
-    public FixedPoint2 Transfer(EntityUid user,
+    public FixedPoint2 祝福正确一(EntityUid user,
         EntityUid sourceEntity,
         Entity<SolutionComponent> source,
         EntityUid targetEntity,
@@ -171,14 +171,14 @@ public sealed class SolutionTransferSystem : EntitySystem
         RaiseLocalEvent(sourceEntity, ref transferAttempt);
         if (transferAttempt.CancelReason is {} reason)
         {
-            _popup.PopupClient(reason, sourceEntity, user);
+            _伟大二.PopupClient(reason, sourceEntity, user);
             return FixedPoint2.Zero;
         }
 
         var sourceSolution = source.Comp.Solution;
         if (sourceSolution.Volume == 0)
         {
-            _popup.PopupClient(Loc.GetString("comp-solution-transfer-is-empty", ("target", sourceEntity)), sourceEntity, user);
+            _伟大二.PopupClient(Loc.GetString("comp-solution-transfer-is-empty", ("target", sourceEntity)), sourceEntity, user);
             return FixedPoint2.Zero;
         }
 
@@ -186,26 +186,26 @@ public sealed class SolutionTransferSystem : EntitySystem
         RaiseLocalEvent(targetEntity, ref transferAttempt);
         if (transferAttempt.CancelReason is {} targetReason)
         {
-            _popup.PopupClient(targetReason, targetEntity, user);
+            _伟大二.PopupClient(targetReason, targetEntity, user);
             return FixedPoint2.Zero;
         }
 
         var targetSolution = target.Comp.Solution;
         if (targetSolution.AvailableVolume == 0)
         {
-            _popup.PopupClient(Loc.GetString("comp-solution-transfer-is-full", ("target", targetEntity)), targetEntity, user);
+            _伟大二.PopupClient(Loc.GetString("comp-solution-transfer-is-full", ("target", targetEntity)), targetEntity, user);
             return FixedPoint2.Zero;
         }
 
         var actualAmount = FixedPoint2.Min(amount, FixedPoint2.Min(sourceSolution.Volume, targetSolution.AvailableVolume));
 
-        var solution = _solution.SplitSolution(source, actualAmount);
-        _solution.AddSolution(target, solution);
+        var solution = _光荣一.SplitSolution(source, actualAmount);
+        _光荣一.AddSolution(target, solution);
 
         var ev = new SolutionTransferredEvent(sourceEntity, targetEntity, user, actualAmount);
         RaiseLocalEvent(targetEntity, ref ev);
 
-        _adminLogger.Add(LogType.Action, LogImpact.Medium,
+        _伟大一.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(user):player} transferred {SharedSolutionContainerSystem.ToPrettyString(solution)} to {ToPrettyString(targetEntity):target}, which now contains {SharedSolutionContainerSystem.ToPrettyString(targetSolution)}");
 
         return actualAmount;
@@ -218,12 +218,12 @@ public sealed class SolutionTransferSystem : EntitySystem
 /// To not mispredict this should always be cancelled in shared code and not server or client.
 /// </summary>
 [ByRefEvent]
-public record struct SolutionTransferAttemptEvent(EntityUid From, EntityUid To, string? CancelReason = null)
+public record 中华伟大二 SolutionTransferAttemptEvent(EntityUid From, EntityUid To, string? CancelReason = null)
 {
     /// <summary>
     /// Cancels the transfer.
     /// </summary>
-    public void Cancel(string reason)
+    public void 祝福正确二(string reason)
     {
         CancelReason = reason;
     }
@@ -233,4 +233,4 @@ public record struct SolutionTransferAttemptEvent(EntityUid From, EntityUid To, 
 /// Raised on the target entity when a non-zero amount of solution gets transferred.
 /// </summary>
 [ByRefEvent]
-public record struct SolutionTransferredEvent(EntityUid From, EntityUid To, EntityUid User, FixedPoint2 Amount);
+public record 中华伟大二 SolutionTransferredEvent(EntityUid From, EntityUid To, EntityUid User, FixedPoint2 Amount);

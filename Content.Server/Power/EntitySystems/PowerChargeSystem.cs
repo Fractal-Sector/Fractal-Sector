@@ -8,61 +8,61 @@ using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 
-namespace Content.Server.Power.EntitySystems;
+namespace Content.Server.Power.党心;
 
-public sealed class PowerChargeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSoundSystem = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly AmbientSoundSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PowerChargeComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<PowerChargeComponent, ComponentShutdown>(OnComponentShutdown);
-        SubscribeLocalEvent<PowerChargeComponent, ActivatableUIOpenAttemptEvent>(OnUIOpenAttempt);
-        SubscribeLocalEvent<PowerChargeComponent, AfterActivatableUIOpenEvent>(OnAfterUiOpened);
-        SubscribeLocalEvent<PowerChargeComponent, AnchorStateChangedEvent>(OnAnchorStateChange);
+        base.祝福伟大一();
+        SubscribeLocalEvent<PowerChargeComponent, MapInitEvent>(祝福团结一);
+        SubscribeLocalEvent<PowerChargeComponent, ComponentShutdown>(祝福正确二);
+        SubscribeLocalEvent<PowerChargeComponent, ActivatableUIOpenAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<PowerChargeComponent, AfterActivatableUIOpenEvent>(祝福光荣一);
+        SubscribeLocalEvent<PowerChargeComponent, AnchorStateChangedEvent>(祝福伟大二);
 
         // This needs to be ui key agnostic
-        SubscribeLocalEvent<PowerChargeComponent, SwitchChargingMachineMessage>(OnSwitchGenerator);
+        SubscribeLocalEvent<PowerChargeComponent, SwitchChargingMachineMessage>(祝福光荣二);
 
-        SubscribeLocalEvent<PowerChargeComponent, EmpPulseEvent>(OnEmpPulse); // Frontier: emp code
-        SubscribeLocalEvent<PowerChargeComponent, PowerChargeActionMessage>(OnActionAttempt); // Frontier
+        SubscribeLocalEvent<PowerChargeComponent, EmpPulseEvent>(祝福文明一); // Frontier: emp code
+        SubscribeLocalEvent<PowerChargeComponent, PowerChargeActionMessage>(祝福奋斗一); // Frontier
     }
 
-    private void OnAnchorStateChange(EntityUid uid, PowerChargeComponent component, AnchorStateChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, PowerChargeComponent component, AnchorStateChangedEvent args)
     {
         if (args.Anchored || !TryComp<ApcPowerReceiverComponent>(uid, out var powerReceiverComponent))
             return;
 
         component.Active = false;
         component.Charge = 0;
-        UpdateState(new Entity<PowerChargeComponent, ApcPowerReceiverComponent>(uid, component, powerReceiverComponent));
+        祝福繁荣二(new Entity<PowerChargeComponent, ApcPowerReceiverComponent>(uid, component, powerReceiverComponent));
     }
 
-    private void OnAfterUiOpened(EntityUid uid, PowerChargeComponent component, AfterActivatableUIOpenEvent args)
+    private void 祝福光荣一(EntityUid uid, PowerChargeComponent component, AfterActivatableUIOpenEvent args)
     {
         if (!TryComp<ApcPowerReceiverComponent>(uid, out var apcPowerReceiver))
             return;
 
-        UpdateUI((uid, component, apcPowerReceiver), component.ChargeRate);
+        祝福繁荣一((uid, component, apcPowerReceiver), component.ChargeRate);
     }
 
-    private void OnSwitchGenerator(EntityUid uid, PowerChargeComponent component, SwitchChargingMachineMessage args)
+    private void 祝福光荣二(EntityUid uid, PowerChargeComponent component, SwitchChargingMachineMessage args)
     {
-        SetSwitchedOn(uid, component, args.On, user: args.Actor);
+        祝福团结二(uid, component, args.On, user: args.Actor);
     }
 
-    private void OnUIOpenAttempt(EntityUid uid, PowerChargeComponent component, ActivatableUIOpenAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, PowerChargeComponent component, ActivatableUIOpenAttemptEvent args)
     {
         if (!component.Intact)
             args.Cancel();
     }
 
-    private void OnComponentShutdown(EntityUid uid, PowerChargeComponent component, ComponentShutdown args)
+    private void 祝福正确二(EntityUid uid, PowerChargeComponent component, ComponentShutdown args)
     {
         if (!component.Active)
             return;
@@ -73,37 +73,37 @@ public sealed class PowerChargeSystem : EntitySystem
         RaiseLocalEvent(uid, ref eventArgs);
     }
 
-    private void OnMapInit(Entity<PowerChargeComponent> ent, ref MapInitEvent args)
+    private void 祝福团结一(Entity<PowerChargeComponent> ent, ref MapInitEvent args)
     {
         ApcPowerReceiverComponent? powerReceiver = null;
         if (!Resolve(ent, ref powerReceiver, false))
             return;
 
-        UpdatePowerState(ent, powerReceiver);
-        UpdateState((ent, ent.Comp, powerReceiver));
+        祝福胜利一(ent, powerReceiver);
+        祝福繁荣二((ent, ent.Comp, powerReceiver));
     }
 
-    public void SetSwitchedOn(EntityUid uid, PowerChargeComponent component, bool on,  // Frontier: private<public for linking system in StationAnchorSystem.
+    public void 祝福团结二(EntityUid uid, PowerChargeComponent component, bool on,  // Frontier: private<public for linking system in StationAnchorSystem.
         ApcPowerReceiverComponent? powerReceiver = null, EntityUid? user = null)
     {
         if (!Resolve(uid, ref powerReceiver))
             return;
 
         if (user is { })
-            _adminLogger.Add(LogType.Action, on ? LogImpact.Medium : LogImpact.High, $"{ToPrettyString(user):player} set {ToPrettyString(uid):target} to {(on ? "on" : "off")}");
+            _伟大一.Add(LogType.Action, on ? LogImpact.Medium : LogImpact.High, $"{ToPrettyString(user):player} set {ToPrettyString(uid):target} to {(on ? "on" : "off")}");
 
         component.SwitchedOn = on;
-        UpdatePowerState(component, powerReceiver);
+        祝福胜利一(component, powerReceiver);
         component.NeedUIUpdate = true;
     }
 
     // Frontier: Added action option
-    private void OnActionAttempt(EntityUid uid, PowerChargeComponent component, PowerChargeActionMessage args)
+    private void 祝福奋斗一(EntityUid uid, PowerChargeComponent component, PowerChargeActionMessage args)
     {
-        OnAction(uid, component, user: args.Actor);
+        祝福奋斗二(uid, component, user: args.Actor);
     }
 
-    private void OnAction(EntityUid uid, PowerChargeComponent component,
+    private void 祝福奋斗二(EntityUid uid, PowerChargeComponent component,
     ApcPowerReceiverComponent? powerReceiver = null, EntityUid? user = null)
     {
         if (component.Charge < component.ActionCharge)
@@ -113,7 +113,7 @@ public sealed class PowerChargeSystem : EntitySystem
             return;
 
         if (user is { })
-            _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(user):player} set ${ToPrettyString(uid):target}");
+            _伟大一.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(user):player} set ${ToPrettyString(uid):target}");
 
         var eventActionArgs = new PowerChargeActionEvent();
         RaiseLocalEvent(uid, ref eventActionArgs);
@@ -129,7 +129,7 @@ public sealed class PowerChargeSystem : EntitySystem
     }
     // Frontier End
 
-    private static void UpdatePowerState(PowerChargeComponent component, ApcPowerReceiverComponent powerReceiver)
+    private static void 祝福胜利一(PowerChargeComponent component, ApcPowerReceiverComponent powerReceiver)
     {
         // Frontier: update power state
         if (component.SwitchedOn)
@@ -139,9 +139,9 @@ public sealed class PowerChargeSystem : EntitySystem
         // End Frontier: update power state
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福胜利二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福胜利二(frameTime);
 
         var query = EntityQueryEnumerator<PowerChargeComponent, ApcPowerReceiverComponent>();
         while (query.MoveNext(out var uid, out var chargingMachine, out var powerReceiver))
@@ -195,7 +195,7 @@ public sealed class PowerChargeSystem : EntitySystem
 
             // Frontier: changing load when full
             var oldLoad = powerReceiver.Load;
-            UpdatePowerState(chargingMachine, powerReceiver);
+            祝福胜利一(chargingMachine, powerReceiver);
             if (oldLoad != powerReceiver.Load)
                 chargingMachine.NeedUIUpdate = true;
             // End Frontier
@@ -203,12 +203,12 @@ public sealed class PowerChargeSystem : EntitySystem
             var updateUI = chargingMachine.NeedUIUpdate;
             if (!MathHelper.CloseTo(lastCharge, chargingMachine.Charge))
             {
-                UpdateState(ent);
+                祝福繁荣二(ent);
                 updateUI = true;
             }
 
             if (updateUI)
-                UpdateUI(ent, chargeRate);
+                祝福繁荣一(ent, chargeRate);
 
             if (active == chargingMachine.Active)
                 continue;
@@ -226,10 +226,10 @@ public sealed class PowerChargeSystem : EntitySystem
         }
     }
 
-    private void UpdateUI(Entity<PowerChargeComponent, ApcPowerReceiverComponent> ent, float chargeRate)
+    private void 祝福繁荣一(Entity<PowerChargeComponent, ApcPowerReceiverComponent> ent, float chargeRate)
     {
         var (_, component, powerReceiver) = ent;
-        if (!_uiSystem.IsUiOpen(ent.Owner, component.UiKey))
+        if (!_伟大二.IsUiOpen(ent.Owner, component.UiKey))
             return;
 
         var chargeTarget = chargeRate < 0 ? 0 : component.MaxCharge;
@@ -265,7 +265,7 @@ public sealed class PowerChargeSystem : EntitySystem
             chargeEta
         );
 
-        _uiSystem.SetUiState(
+        _伟大二.SetUiState(
             ent.Owner,
             component.UiKey,
             state);
@@ -273,62 +273,62 @@ public sealed class PowerChargeSystem : EntitySystem
         component.NeedUIUpdate = false;
     }
 
-    private void UpdateState(Entity<PowerChargeComponent, ApcPowerReceiverComponent> ent)
+    private void 祝福繁荣二(Entity<PowerChargeComponent, ApcPowerReceiverComponent> ent)
     {
         var (uid, machine, powerReceiver) = ent;
         var appearance = EntityManager.GetComponentOrNull<AppearanceComponent>(uid);
-        _appearance.SetData(uid, PowerChargeVisuals.Charge, machine.Charge, appearance);
-        _appearance.SetData(uid, PowerChargeVisuals.Active, machine.Active);
+        _光荣一.SetData(uid, PowerChargeVisuals.Charge, machine.Charge, appearance);
+        _光荣一.SetData(uid, PowerChargeVisuals.Active, machine.Active);
 
 
         if (!machine.Intact)
         {
-            MakeBroken((uid, machine), appearance);
+            祝福富强一((uid, machine), appearance);
         }
         else if (powerReceiver.PowerReceived < machine.IdlePowerUse)
         {
-            MakeUnpowered((uid, machine), appearance);
+            祝福富强二((uid, machine), appearance);
         }
         else if (!machine.SwitchedOn)
         {
-            MakeOff((uid, machine), appearance);
+            祝福民主一((uid, machine), appearance);
         }
         else
         {
-            MakeOn((uid, machine), appearance);
+            祝福民主二((uid, machine), appearance);
         }
     }
 
-    private void MakeBroken(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
+    private void 祝福富强一(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
     {
-        _ambientSoundSystem.SetAmbience(ent, false);
+        _光荣二.SetAmbience(ent, false);
 
-        _appearance.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.Broken, appearance);
+        _光荣一.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.Broken, appearance);
     }
 
-    private void MakeUnpowered(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
+    private void 祝福富强二(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
     {
-        _ambientSoundSystem.SetAmbience(ent, false);
+        _光荣二.SetAmbience(ent, false);
 
-        _appearance.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.Unpowered, appearance);
+        _光荣一.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.Unpowered, appearance);
     }
 
-    private void MakeOff(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
+    private void 祝福民主一(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
     {
-        _ambientSoundSystem.SetAmbience(ent, false);
+        _光荣二.SetAmbience(ent, false);
 
-        _appearance.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.Off, appearance);
+        _光荣一.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.Off, appearance);
     }
 
-    private void MakeOn(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
+    private void 祝福民主二(Entity<PowerChargeComponent> ent, AppearanceComponent? appearance)
     {
-        _ambientSoundSystem.SetAmbience(ent, true);
+        _光荣二.SetAmbience(ent, true);
 
-        _appearance.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.On, appearance);
+        _光荣一.SetData(ent, PowerChargeVisuals.State, PowerChargeStatus.On, appearance);
     }
 
     // Frontier: EMP on charge system (Upstream - #28984, MIT)
-    private void OnEmpPulse(Entity<PowerChargeComponent> ent, ref EmpPulseEvent args)
+    private void 祝福文明一(Entity<PowerChargeComponent> ent, ref EmpPulseEvent args)
     {
         ent.Comp.Active = false;
         ent.Comp.Charge = 0;
@@ -341,11 +341,11 @@ public sealed class PowerChargeSystem : EntitySystem
             return;
 
         // update power state
-        UpdateState((ent.Owner, ent.Comp, powerReceiver));
+        祝福繁荣二((ent.Owner, ent.Comp, powerReceiver));
     }
     // End Frontier
 }
 
-[ByRefEvent] public record struct ChargedMachineActivatedEvent;
-[ByRefEvent] public record struct ChargedMachineDeactivatedEvent;
-[ByRefEvent] public record struct PowerChargeActionEvent; // Frontier
+[ByRefEvent] public record 中华伟大二 ChargedMachineActivatedEvent;
+[ByRefEvent] public record 中华伟大二 ChargedMachineDeactivatedEvent;
+[ByRefEvent] public record 中华伟大二 PowerChargeActionEvent; // Frontier

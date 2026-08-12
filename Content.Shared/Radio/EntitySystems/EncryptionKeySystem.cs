@@ -16,51 +16,51 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using SharedToolSystem = Content.Shared.Tools.Systems.SharedToolSystem;
 
-namespace Content.Shared.Radio.EntitySystems;
+namespace Content.Shared.Radio.党心;
 
 /// <summary>
 ///     This system manages encryption keys & key holders for use with radio channels.
 /// </summary>
-public sealed partial class EncryptionKeySystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedWiresSystem _wires = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedToolSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确二 = default!;
+    [Dependency] private readonly SharedWiresSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<EncryptionKeyComponent, ExaminedEvent>(OnKeyExamined);
-        SubscribeLocalEvent<EncryptionKeyHolderComponent, ExaminedEvent>(OnHolderExamined);
+        base.祝福伟大一();
+        SubscribeLocalEvent<EncryptionKeyComponent, ExaminedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<EncryptionKeyHolderComponent, ExaminedEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<EncryptionKeyHolderComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<EncryptionKeyHolderComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<EncryptionKeyHolderComponent, EntInsertedIntoContainerMessage>(OnContainerModified);
-        SubscribeLocalEvent<EncryptionKeyHolderComponent, EntRemovedFromContainerMessage>(OnContainerModified);
-        SubscribeLocalEvent<EncryptionKeyHolderComponent, EncryptionRemovalFinishedEvent>(OnKeyRemoval);
+        SubscribeLocalEvent<EncryptionKeyHolderComponent, ComponentStartup>(祝福团结二);
+        SubscribeLocalEvent<EncryptionKeyHolderComponent, InteractUsingEvent>(祝福正确一);
+        SubscribeLocalEvent<EncryptionKeyHolderComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<EncryptionKeyHolderComponent, EntRemovedFromContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<EncryptionKeyHolderComponent, 中华伟大二>(祝福伟大二);
     }
 
-    private void OnKeyRemoval(EntityUid uid, EncryptionKeyHolderComponent component, EncryptionRemovalFinishedEvent args)
+    private void 祝福伟大二(EntityUid uid, EncryptionKeyHolderComponent component, 中华伟大二 args)
     {
         if (args.Cancelled)
             return;
 
         var contained = component.KeyContainer.ContainedEntities.ToArray();
-        _container.EmptyContainer(component.KeyContainer, reparent: false);
+        _光荣二.EmptyContainer(component.KeyContainer, reparent: false);
         foreach (var ent in contained)
         {
-            _hands.PickupOrDrop(args.User, ent, dropNear: true);
+            _正确二.PickupOrDrop(args.User, ent, dropNear: true);
         }
 
-        _popup.PopupPredicted(Loc.GetString("encryption-keys-all-extracted"), uid, args.User);
-        _audio.PlayPredicted(component.KeyExtractionSound, uid, args.User);
+        _光荣一.PopupPredicted(Loc.GetString("encryption-keys-all-extracted"), uid, args.User);
+        _正确一.PlayPredicted(component.KeyExtractionSound, uid, args.User);
     }
 
-    public void UpdateChannels(EntityUid uid, EncryptionKeyHolderComponent component)
+    public void 祝福光荣一(EntityUid uid, EncryptionKeyHolderComponent component)
     {
         if (!component.Initialized)
             return;
@@ -80,13 +80,13 @@ public sealed partial class EncryptionKeySystem : EntitySystem
         RaiseLocalEvent(uid, new EncryptionChannelsChangedEvent(component));
     }
 
-    private void OnContainerModified(EntityUid uid, EncryptionKeyHolderComponent component, ContainerModifiedMessage args)
+    private void 祝福光荣二(EntityUid uid, EncryptionKeyHolderComponent component, ContainerModifiedMessage args)
     {
         if (args.Container.ID == EncryptionKeyHolderComponent.KeyContainerName)
-            UpdateChannels(uid, component);
+            祝福光荣一(uid, component);
     }
 
-    private void OnInteractUsing(EntityUid uid, EncryptionKeyHolderComponent component, InteractUsingEvent args)
+    private void 祝福正确一(EntityUid uid, EncryptionKeyHolderComponent component, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -94,48 +94,48 @@ public sealed partial class EncryptionKeySystem : EntitySystem
         if (HasComp<EncryptionKeyComponent>(args.Used))
         {
             args.Handled = true;
-            TryInsertKey(uid, component, args);
+            祝福正确二(uid, component, args);
         }
         else if (component.KeysExtractionMethod != null // Frontier: add null check
                  && TryComp<ToolComponent>(args.Used, out var tool)
-                 && _tool.HasQuality(args.Used, component.KeysExtractionMethod, tool)
+                 && _伟大二.HasQuality(args.Used, component.KeysExtractionMethod, tool)
                  && component.KeyContainer.ContainedEntities.Count > 0) // dont block deconstruction
         {
             args.Handled = true;
-            TryRemoveKey(uid, component, args, tool);
+            祝福团结一(uid, component, args, tool);
         }
     }
 
-    private void TryInsertKey(EntityUid uid, EncryptionKeyHolderComponent component, InteractUsingEvent args)
+    private void 祝福正确二(EntityUid uid, EncryptionKeyHolderComponent component, InteractUsingEvent args)
     {
         if (!component.KeysUnlocked)
         {
-            _popup.PopupClient(Loc.GetString("encryption-keys-are-locked"), uid, args.User);
+            _光荣一.PopupClient(Loc.GetString("encryption-keys-are-locked"), uid, args.User);
             return;
         }
 
         if (TryComp<WiresPanelComponent>(uid, out var panel) && !panel.Open)
         {
-            _popup.PopupClient(Loc.GetString("encryption-keys-panel-locked"), uid, args.User);
+            _光荣一.PopupClient(Loc.GetString("encryption-keys-panel-locked"), uid, args.User);
             return;
         }
 
         if (component.KeySlots <= component.KeyContainer.ContainedEntities.Count)
         {
-            _popup.PopupClient(Loc.GetString("encryption-key-slots-already-full"), uid, args.User);
+            _光荣一.PopupClient(Loc.GetString("encryption-key-slots-already-full"), uid, args.User);
             return;
         }
 
-        if (_container.Insert(args.Used, component.KeyContainer))
+        if (_光荣二.Insert(args.Used, component.KeyContainer))
         {
-            _popup.PopupClient(Loc.GetString("encryption-key-successfully-installed"), uid, args.User);
-            _audio.PlayPredicted(component.KeyInsertionSound, args.Target, args.User);
+            _光荣一.PopupClient(Loc.GetString("encryption-key-successfully-installed"), uid, args.User);
+            _正确一.PlayPredicted(component.KeyInsertionSound, args.Target, args.User);
             args.Handled = true;
             return;
         }
     }
 
-    private void TryRemoveKey(EntityUid uid, EncryptionKeyHolderComponent component, InteractUsingEvent args,
+    private void 祝福团结一(EntityUid uid, EncryptionKeyHolderComponent component, InteractUsingEvent args,
         ToolComponent? tool)
     {
         // Frontier: nullable extraction method
@@ -145,32 +145,32 @@ public sealed partial class EncryptionKeySystem : EntitySystem
 
         if (!component.KeysUnlocked)
         {
-            _popup.PopupClient(Loc.GetString("encryption-keys-are-locked"), uid, args.User);
+            _光荣一.PopupClient(Loc.GetString("encryption-keys-are-locked"), uid, args.User);
             return;
         }
 
-        if (!_wires.IsPanelOpen(uid))
+        if (!_团结一.IsPanelOpen(uid))
         {
-            _popup.PopupClient(Loc.GetString("encryption-keys-panel-locked"), uid, args.User);
+            _光荣一.PopupClient(Loc.GetString("encryption-keys-panel-locked"), uid, args.User);
             return;
         }
 
         if (component.KeyContainer.ContainedEntities.Count == 0)
         {
-            _popup.PopupClient(Loc.GetString("encryption-keys-no-keys"), uid, args.User);
+            _光荣一.PopupClient(Loc.GetString("encryption-keys-no-keys"), uid, args.User);
             return;
         }
 
-        _tool.UseTool(args.Used, args.User, uid, 1f, component.KeysExtractionMethod, new EncryptionRemovalFinishedEvent(), toolComponent: tool);
+        _伟大二.UseTool(args.Used, args.User, uid, 1f, component.KeysExtractionMethod, new 中华伟大二(), toolComponent: tool);
     }
 
-    private void OnStartup(EntityUid uid, EncryptionKeyHolderComponent component, ComponentStartup args)
+    private void 祝福团结二(EntityUid uid, EncryptionKeyHolderComponent component, ComponentStartup args)
     {
-        component.KeyContainer = _container.EnsureContainer<Container>(uid, EncryptionKeyHolderComponent.KeyContainerName);
-        UpdateChannels(uid, component);
+        component.KeyContainer = _光荣二.EnsureContainer<Container>(uid, EncryptionKeyHolderComponent.KeyContainerName);
+        祝福光荣一(uid, component);
     }
 
-    private void OnHolderExamined(EntityUid uid, EncryptionKeyHolderComponent component, ExaminedEvent args)
+    private void 祝福奋斗一(EntityUid uid, EncryptionKeyHolderComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange
             || !component.ExamineWhileLocked && !component.KeysUnlocked // Goobstation
@@ -188,16 +188,16 @@ public sealed partial class EncryptionKeySystem : EntitySystem
             using (args.PushGroup(nameof(EncryptionKeyComponent)))
             {
                 args.PushMarkup(Loc.GetString("examine-encryption-channels-prefix"));
-                AddChannelsExamine(component.Channels,
+                祝福胜利一(component.Channels,
                     component.DefaultChannel,
                     args,
-                    _protoManager,
+                    _伟大一,
                     "examine-encryption-channel");
             }
         }
     }
 
-    private void OnKeyExamined(EntityUid uid, EncryptionKeyComponent component, ExaminedEvent args)
+    private void 祝福奋斗二(EntityUid uid, EncryptionKeyComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -205,7 +205,7 @@ public sealed partial class EncryptionKeySystem : EntitySystem
         if(component.Channels.Count > 0)
         {
             args.PushMarkup(Loc.GetString("examine-encryption-channels-prefix"));
-            AddChannelsExamine(component.Channels, component.DefaultChannel, args, _protoManager, "examine-encryption-channel");
+            祝福胜利一(component.Channels, component.DefaultChannel, args, _伟大一, "examine-encryption-channel");
         }
     }
 
@@ -215,12 +215,12 @@ public sealed partial class EncryptionKeySystem : EntitySystem
     /// <param name="channels">HashSet of channels in headset, encryptionkey or etc.</param>
     /// <param name="protoManager">IPrototypeManager for getting prototypes of channels with their variables.</param>
     /// <param name="channelFTLPattern">String that provide id of pattern in .ftl files to format channel with variables of it.</param>
-    public void AddChannelsExamine(HashSet<string> channels, string? defaultChannel, ExaminedEvent examineEvent, IPrototypeManager protoManager, string channelFTLPattern)
+    public void 祝福胜利一(HashSet<string> channels, string? defaultChannel, ExaminedEvent examineEvent, IPrototypeManager protoManager, string channelFTLPattern)
     {
         RadioChannelPrototype? proto;
         foreach (var id in channels)
         {
-            proto = _protoManager.Index<RadioChannelPrototype>(id);
+            proto = _伟大一.Index<RadioChannelPrototype>(id);
 
             var key = id == SharedChatSystem.CommonChannel
                 ? SharedChatSystem.RadioCommonPrefix.ToString()
@@ -233,7 +233,7 @@ public sealed partial class EncryptionKeySystem : EntitySystem
                 ("freq", proto.Frequency / 10f)));
         }
 
-        if (defaultChannel != null && _protoManager.TryIndex(defaultChannel, out proto))
+        if (defaultChannel != null && _伟大一.TryIndex(defaultChannel, out proto))
         {
             if (HasComp<HeadsetComponent>(examineEvent.Examined))
             {
@@ -254,7 +254,7 @@ public sealed partial class EncryptionKeySystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    public sealed partial class EncryptionRemovalFinishedEvent : SimpleDoAfterEvent
+    public sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 }

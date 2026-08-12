@@ -8,19 +8,19 @@ using Content.Shared.Station.Components;
 using Robust.Shared.Random;
 
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class RandomFaxRule : StationEventSystem<RandomFaxRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<RandomFaxRuleComponent>
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly FaxSystem _faxSystem = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly FaxSystem _伟大二 = default!;
+    [Dependency] private readonly StationSystem _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
 
     private const int MaxRetries = 10;
-    protected override void Added(EntityUid uid, RandomFaxRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, RandomFaxRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.Added(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
         if (component.PreFaxActions != null)
         {
@@ -39,11 +39,11 @@ public sealed class RandomFaxRule : StationEventSystem<RandomFaxRuleComponent>
         }
     }
 
-    protected override void Started(EntityUid uid, RandomFaxRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, RandomFaxRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大二(uid, component, gameRule, args);
 
-        var numFaxes = _random.Next(component.MinFaxes, component.MaxFaxes + 1);
+        var numFaxes = _光荣二.Next(component.MinFaxes, component.MaxFaxes + 1);
 
         List<EntityUid> stations = new();
         int retries = 0;
@@ -94,10 +94,10 @@ public sealed class RandomFaxRule : StationEventSystem<RandomFaxRuleComponent>
                 }
             }
 
-            var faxQuery = _entMan.EntityQueryEnumerator<FaxMachineComponent>();
+            var faxQuery = _伟大一.EntityQueryEnumerator<FaxMachineComponent>();
             while (faxQuery.MoveNext(out var faxUid, out var faxComp))
             {
-                if (_stationSystem.GetOwningStation(faxUid) != chosenStation)
+                if (_光荣一.GetOwningStation(faxUid) != chosenStation)
                     continue;
 
                 EditableFaxPrintout recipientPrintout = localPrintout;
@@ -121,7 +121,7 @@ public sealed class RandomFaxRule : StationEventSystem<RandomFaxRuleComponent>
                     stampProtected: recipientPrintout.StampProtected,
                     blueprintRecipes: recipientPrintout.BlueprintRecipes
                     );
-                _faxSystem.Receive(faxUid, printout, recipientAddress, faxComp);
+                _伟大二.Receive(faxUid, printout, recipientAddress, faxComp);
                 break;
             }
             stations.Add(chosenStation.Value);

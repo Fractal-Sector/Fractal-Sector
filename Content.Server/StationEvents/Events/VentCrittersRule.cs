@@ -5,18 +5,18 @@ using Content.Shared.Storage;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class VentCrittersRule : StationEventSystem<VentCrittersRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<VentCrittersRuleComponent>
 {
     /*
      * DO NOT COPY PASTE THIS TO MAKE YOUR MOB EVENT.
      * USE THE PROTOTYPE.
      */
 
-    protected override void Started(EntityUid uid, VentCrittersRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, VentCrittersRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
         if (!TryGetRandomStation(out var station))
         {

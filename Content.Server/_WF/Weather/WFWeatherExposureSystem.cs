@@ -4,31 +4,31 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Server._WF.Weather;
+namespace Content.Server._WF.党心;
 
-public sealed class WFWeatherExposureSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+    [Dependency] private readonly IMapManager _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
 
-    private EntityQuery<BlockWeatherComponent> _blockQuery;
-    private EntityQuery<MapGridComponent> _gridQuery;
+    private EntityQuery<BlockWeatherComponent> _光荣二;
+    private EntityQuery<MapGridComponent> _正确一;
 
-    private readonly HashSet<EntityUid> _dirtyGrids = new();
-    private readonly List<EntityUid> _rebuildBuffer = new();
-    private readonly Queue<Vector2i> _bfsQueue = new();
-    private readonly HashSet<Vector2i> _bfsVisited = new();
+    private readonly HashSet<EntityUid> _正确二 = new();
+    private readonly List<EntityUid> _团结一 = new();
+    private readonly Queue<Vector2i> _团结二 = new();
+    private readonly HashSet<Vector2i> _奋斗一 = new();
 
-    private bool _weatherActive;
-    private TimeSpan _nextUpdate;
+    private bool _奋斗二;
+    private TimeSpan _胜利一;
 
     private static readonly TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
 
     private const int MaxRebuildsPerUpdate = 2;
     private readonly Dictionary<EntityUid, HashSet<Vector2i>> _builtFromEmpty = new();
-    private readonly HashSet<EntityUid> _baselined = new();
-    private readonly HashSet<Vector2i> _oldExposed = new();
+    private readonly HashSet<EntityUid> _胜利二 = new();
+    private readonly HashSet<Vector2i> _繁荣一 = new();
 
     private readonly Dictionary<EntityUid, List<(Vector2i Pos, bool Opened)>> _pendingChanges = new();
 
@@ -40,29 +40,29 @@ public sealed class WFWeatherExposureSystem : EntitySystem
         new(0, -1),
     };
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _blockQuery = GetEntityQuery<BlockWeatherComponent>();
-        _gridQuery = GetEntityQuery<MapGridComponent>();
+        _光荣二 = GetEntityQuery<BlockWeatherComponent>();
+        _正确一 = GetEntityQuery<MapGridComponent>();
 
-        SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
-        SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
-        SubscribeLocalEvent<BlockWeatherComponent, AnchorStateChangedEvent>(OnBlockWeatherAnchor);
-        SubscribeLocalEvent<BlockWeatherComponent, MapInitEvent>(OnBlockWeatherMapInit);
+        SubscribeLocalEvent<GridInitializeEvent>(祝福伟大二);
+        SubscribeLocalEvent<TileChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<BlockWeatherComponent, AnchorStateChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<BlockWeatherComponent, MapInitEvent>(祝福正确一);
     }
 
-    private void OnGridInit(GridInitializeEvent ev)
+    private void 祝福伟大二(GridInitializeEvent ev)
     {
-        if (!_weatherActive)
+        if (!_奋斗二)
             return;
-        _dirtyGrids.Add(ev.EntityUid);
+        _正确二.Add(ev.EntityUid);
     }
 
-    private void OnTileChanged(ref TileChangedEvent ev)
+    private void 祝福光荣一(ref TileChangedEvent ev)
     {
-        if (!_weatherActive)
+        if (!_奋斗二)
             return;
 
         var gridUid = ev.Entity.Owner;
@@ -72,7 +72,7 @@ public sealed class WFWeatherExposureSystem : EntitySystem
             if (!change.EmptyChanged)
                 continue;
 
-            QueueChange(gridUid, change.GridIndices, true);
+            祝福正确二(gridUid, change.GridIndices, true);
 
             if (change.OldTile.IsEmpty && !change.NewTile.IsEmpty)
             {
@@ -86,35 +86,35 @@ public sealed class WFWeatherExposureSystem : EntitySystem
         }
     }
 
-    private void OnBlockWeatherAnchor(Entity<BlockWeatherComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福光荣二(Entity<BlockWeatherComponent> ent, ref AnchorStateChangedEvent args)
     {
-        if (!_weatherActive)
+        if (!_奋斗二)
             return;
 
         var xform = args.Transform;
-        if (xform.GridUid is not { } gridUid || !_gridQuery.TryGetComponent(gridUid, out var grid))
+        if (xform.GridUid is not { } gridUid || !_正确一.TryGetComponent(gridUid, out var grid))
             return;
 
-        var pos = _mapSystem.TileIndicesFor(gridUid, grid, xform.Coordinates);
-        QueueChange(gridUid, pos, !args.Anchored);
+        var pos = _伟大一.TileIndicesFor(gridUid, grid, xform.Coordinates);
+        祝福正确二(gridUid, pos, !args.Anchored);
     }
 
-    private void OnBlockWeatherMapInit(Entity<BlockWeatherComponent> ent, ref MapInitEvent args)
+    private void 祝福正确一(Entity<BlockWeatherComponent> ent, ref MapInitEvent args)
     {
-        if (!_weatherActive)
+        if (!_奋斗二)
             return;
 
         var xform = Transform(ent.Owner);
-        if (xform.GridUid is not { } gridUid || !_gridQuery.TryGetComponent(gridUid, out var grid))
+        if (xform.GridUid is not { } gridUid || !_正确一.TryGetComponent(gridUid, out var grid))
             return;
         if (!xform.Anchored)
             return;
 
-        var pos = _mapSystem.TileIndicesFor(gridUid, grid, xform.Coordinates);
-        QueueChange(gridUid, pos, false);
+        var pos = _伟大一.TileIndicesFor(gridUid, grid, xform.Coordinates);
+        祝福正确二(gridUid, pos, false);
     }
 
-    private void QueueChange(EntityUid gridUid, Vector2i pos, bool opened)
+    private void 祝福正确二(EntityUid gridUid, Vector2i pos, bool opened)
     {
         if (!_pendingChanges.TryGetValue(gridUid, out var list))
         {
@@ -124,31 +124,31 @@ public sealed class WFWeatherExposureSystem : EntitySystem
         list.Add((pos, opened));
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福团结一(float frameTime)
     {
-        var now = _timing.CurTime;
-        if (now < _nextUpdate)
+        var now = _光荣一.CurTime;
+        if (now < _胜利一)
             return;
-        _nextUpdate = now + UpdateInterval;
+        _胜利一 = now + UpdateInterval;
 
-        var active = AnyWeatherActive();
+        var active = 祝福胜利二();
 
-        if (active && !_weatherActive)
-            MarkWeatherGridsDirty();
+        if (active && !_奋斗二)
+            祝福繁荣一();
 
-        if (!active && _weatherActive)
-            ClearAll();
+        if (!active && _奋斗二)
+            祝福富强二();
 
-        _weatherActive = active;
+        _奋斗二 = active;
 
         if (!active)
             return;
 
         foreach (var (gridUid, changes) in _pendingChanges)
         {
-            if (_dirtyGrids.Contains(gridUid))
+            if (_正确二.Contains(gridUid))
                 continue;
-            if (!_gridQuery.TryGetComponent(gridUid, out var grid))
+            if (!_正确一.TryGetComponent(gridUid, out var grid))
                 continue;
             if (!TryComp<WFExposureComponent>(gridUid, out var comp))
                 continue;
@@ -157,9 +157,9 @@ public sealed class WFWeatherExposureSystem : EntitySystem
             foreach (var (pos, opened) in changes)
             {
                 if (opened)
-                    changed |= Expand(gridUid, grid, comp, pos);
+                    changed |= 祝福团结二(gridUid, grid, comp, pos);
                 else
-                    changed |= Shrink(gridUid, grid, comp, pos);
+                    changed |= 祝福奋斗一(gridUid, grid, comp, pos);
             }
 
             if (changed)
@@ -167,28 +167,28 @@ public sealed class WFWeatherExposureSystem : EntitySystem
         }
         _pendingChanges.Clear();
 
-        if (_dirtyGrids.Count == 0)
+        if (_正确二.Count == 0)
             return;
 
-        _rebuildBuffer.Clear();
-        _rebuildBuffer.AddRange(_dirtyGrids);
+        _团结一.Clear();
+        _团结一.AddRange(_正确二);
 
         var rebuilt = 0;
-        foreach (var gridUid in _rebuildBuffer)
+        foreach (var gridUid in _团结一)
         {
             if (rebuilt >= MaxRebuildsPerUpdate)
                 break;
-            _dirtyGrids.Remove(gridUid);
-            if (!_gridQuery.TryGetComponent(gridUid, out var grid))
+            _正确二.Remove(gridUid);
+            if (!_正确一.TryGetComponent(gridUid, out var grid))
                 continue;
-            Rebuild(gridUid, grid);
+            祝福繁荣二(gridUid, grid);
             rebuilt++;
         }
     }
 
-    private bool Expand(EntityUid gridUid, MapGridComponent grid, WFExposureComponent comp, Vector2i pos)
+    private bool 祝福团结二(EntityUid gridUid, MapGridComponent grid, WFExposureComponent comp, Vector2i pos)
     {
-        var tile = _mapSystem.GetTileRef(gridUid, grid, pos);
+        var tile = _伟大一.GetTileRef(gridUid, grid, pos);
 
         if (!tile.Tile.IsEmpty)
         {
@@ -196,7 +196,7 @@ public sealed class WFWeatherExposureSystem : EntitySystem
             for (var i = 0; i < Cardinals.Length; i++)
             {
                 var neighbor = pos + Cardinals[i];
-                if (comp.Exposed.Contains(neighbor) || _mapSystem.GetTileRef(gridUid, grid, neighbor).Tile.IsEmpty)
+                if (comp.Exposed.Contains(neighbor) || _伟大一.GetTileRef(gridUid, grid, neighbor).Tile.IsEmpty)
                 {
                     connected = true;
                     break;
@@ -207,35 +207,35 @@ public sealed class WFWeatherExposureSystem : EntitySystem
                 return false;
         }
 
-        _bfsQueue.Clear();
-        _bfsVisited.Clear();
+        _团结二.Clear();
+        _奋斗一.Clear();
 
         if (tile.Tile.IsEmpty)
         {
             for (var i = 0; i < Cardinals.Length; i++)
             {
                 var neighbor = pos + Cardinals[i];
-                var neighborTile = _mapSystem.GetTileRef(gridUid, grid, neighbor);
-                if (neighborTile.Tile.IsEmpty || IsBlocked(gridUid, grid, neighbor))
+                var neighborTile = _伟大一.GetTileRef(gridUid, grid, neighbor);
+                if (neighborTile.Tile.IsEmpty || 祝福民主一(gridUid, grid, neighbor))
                     continue;
-                if (_bfsVisited.Add(neighbor))
-                    _bfsQueue.Enqueue(neighbor);
+                if (_奋斗一.Add(neighbor))
+                    _团结二.Enqueue(neighbor);
             }
         }
-        else if (!IsBlocked(gridUid, grid, pos))
+        else if (!祝福民主一(gridUid, grid, pos))
         {
-            _bfsQueue.Enqueue(pos);
-            _bfsVisited.Add(pos);
+            _团结二.Enqueue(pos);
+            _奋斗一.Add(pos);
         }
 
         var changed = false;
-        while (_bfsQueue.TryDequeue(out var current))
+        while (_团结二.TryDequeue(out var current))
         {
             if (comp.Exposed.Add(current))
             {
                 changed = true;
 
-                if (_baselined.Contains(gridUid))
+                if (_胜利二.Contains(gridUid))
                 {
                     _builtFromEmpty.TryGetValue(gridUid, out var built);
                     if (built == null || !built.Contains(current))
@@ -246,23 +246,23 @@ public sealed class WFWeatherExposureSystem : EntitySystem
             for (var i = 0; i < Cardinals.Length; i++)
             {
                 var next = current + Cardinals[i];
-                if (!_bfsVisited.Add(next))
+                if (!_奋斗一.Add(next))
                     continue;
                 if (comp.Exposed.Contains(next))
                     continue;
-                var nextTile = _mapSystem.GetTileRef(gridUid, grid, next);
+                var nextTile = _伟大一.GetTileRef(gridUid, grid, next);
                 if (nextTile.Tile.IsEmpty)
                     continue;
-                if (IsBlocked(gridUid, grid, next))
+                if (祝福民主一(gridUid, grid, next))
                     continue;
-                _bfsQueue.Enqueue(next);
+                _团结二.Enqueue(next);
             }
         }
 
         return changed;
     }
 
-    private bool Shrink(EntityUid gridUid, MapGridComponent grid, WFExposureComponent comp, Vector2i pos)
+    private bool 祝福奋斗一(EntityUid gridUid, MapGridComponent grid, WFExposureComponent comp, Vector2i pos)
     {
         if (!comp.Exposed.Remove(pos))
             return false;
@@ -275,67 +275,67 @@ public sealed class WFWeatherExposureSystem : EntitySystem
             if (!comp.Exposed.Contains(neighbor))
                 continue;
 
-            if (CanReachEdge(gridUid, grid, comp, neighbor, pos))
+            if (祝福奋斗二(gridUid, grid, comp, neighbor, pos))
                 continue;
 
-            RemoveRegion(comp, neighbor, pos);
+            祝福胜利一(comp, neighbor, pos);
         }
 
         return changed;
     }
 
-    private bool CanReachEdge(EntityUid gridUid, MapGridComponent grid, WFExposureComponent comp, Vector2i start, Vector2i avoid)
+    private bool 祝福奋斗二(EntityUid gridUid, MapGridComponent grid, WFExposureComponent comp, Vector2i start, Vector2i avoid)
     {
-        _bfsQueue.Clear();
-        _bfsVisited.Clear();
-        _bfsQueue.Enqueue(start);
-        _bfsVisited.Add(start);
-        _bfsVisited.Add(avoid);
+        _团结二.Clear();
+        _奋斗一.Clear();
+        _团结二.Enqueue(start);
+        _奋斗一.Add(start);
+        _奋斗一.Add(avoid);
 
-        while (_bfsQueue.TryDequeue(out var current))
+        while (_团结二.TryDequeue(out var current))
         {
             for (var i = 0; i < Cardinals.Length; i++)
             {
                 var next = current + Cardinals[i];
-                if (_mapSystem.GetTileRef(gridUid, grid, next).Tile.IsEmpty)
+                if (_伟大一.GetTileRef(gridUid, grid, next).Tile.IsEmpty)
                     return true;
 
-                if (!_bfsVisited.Add(next))
+                if (!_奋斗一.Add(next))
                     continue;
                 if (!comp.Exposed.Contains(next))
                     continue;
-                _bfsQueue.Enqueue(next);
+                _团结二.Enqueue(next);
             }
         }
 
         return false;
     }
 
-    private void RemoveRegion(WFExposureComponent comp, Vector2i start, Vector2i avoid)
+    private void 祝福胜利一(WFExposureComponent comp, Vector2i start, Vector2i avoid)
     {
-        _bfsQueue.Clear();
-        _bfsVisited.Clear();
-        _bfsQueue.Enqueue(start);
-        _bfsVisited.Add(start);
-        _bfsVisited.Add(avoid);
+        _团结二.Clear();
+        _奋斗一.Clear();
+        _团结二.Enqueue(start);
+        _奋斗一.Add(start);
+        _奋斗一.Add(avoid);
 
-        while (_bfsQueue.TryDequeue(out var current))
+        while (_团结二.TryDequeue(out var current))
         {
             comp.Exposed.Remove(current);
 
             for (var i = 0; i < Cardinals.Length; i++)
             {
                 var next = current + Cardinals[i];
-                if (!_bfsVisited.Add(next))
+                if (!_奋斗一.Add(next))
                     continue;
                 if (!comp.Exposed.Contains(next))
                     continue;
-                _bfsQueue.Enqueue(next);
+                _团结二.Enqueue(next);
             }
         }
     }
 
-    private bool AnyWeatherActive()
+    private bool 祝福胜利二()
     {
         var query = EntityQueryEnumerator<WeatherComponent>();
         while (query.MoveNext(out _, out var weather))
@@ -346,79 +346,79 @@ public sealed class WFWeatherExposureSystem : EntitySystem
         return false;
     }
 
-    private void MarkWeatherGridsDirty()
+    private void 祝福繁荣一()
     {
         var query = EntityQueryEnumerator<WeatherComponent, TransformComponent>();
         while (query.MoveNext(out _, out var weather, out var xform))
         {
             if (weather.Weather.Count == 0)
                 continue;
-            foreach (var grid in _mapManager.GetAllGrids(xform.MapID))
+            foreach (var grid in _伟大二.GetAllGrids(xform.MapID))
             {
                 if (MetaData(grid.Owner).EntityPaused)
                     continue;
-                _dirtyGrids.Add(grid.Owner);
+                _正确二.Add(grid.Owner);
             }
         }
     }
 
-    private void Rebuild(EntityUid gridUid, MapGridComponent grid)
+    private void 祝福繁荣二(EntityUid gridUid, MapGridComponent grid)
     {
         var comp = EnsureComp<WFExposureComponent>(gridUid);
 
-        _oldExposed.Clear();
-        _oldExposed.UnionWith(comp.Exposed);
+        _繁荣一.Clear();
+        _繁荣一.UnionWith(comp.Exposed);
 
         comp.Exposed.Clear();
-        _bfsQueue.Clear();
-        _bfsVisited.Clear();
+        _团结二.Clear();
+        _奋斗一.Clear();
 
-        foreach (var tileRef in _mapSystem.GetAllTiles(gridUid, grid))
+        foreach (var tileRef in _伟大一.GetAllTiles(gridUid, grid))
         {
             var pos = tileRef.GridIndices;
-            if (IsBlocked(gridUid, grid, pos))
+            if (祝福民主一(gridUid, grid, pos))
                 continue;
             for (var i = 0; i < Cardinals.Length; i++)
             {
-                var neighbour = _mapSystem.GetTileRef(gridUid, grid, pos + Cardinals[i]);
+                var neighbour = _伟大一.GetTileRef(gridUid, grid, pos + Cardinals[i]);
                 if (!neighbour.Tile.IsEmpty)
                     continue;
-                _bfsVisited.Add(pos);
-                _bfsQueue.Enqueue(pos);
+                _奋斗一.Add(pos);
+                _团结二.Enqueue(pos);
                 break;
             }
         }
 
-        while (_bfsQueue.TryDequeue(out var pos))
+        while (_团结二.TryDequeue(out var pos))
         {
             comp.Exposed.Add(pos);
             for (var i = 0; i < Cardinals.Length; i++)
             {
                 var next = pos + Cardinals[i];
-                if (!_bfsVisited.Add(next))
+                if (!_奋斗一.Add(next))
                     continue;
-                var tile = _mapSystem.GetTileRef(gridUid, grid, next);
+                var tile = _伟大一.GetTileRef(gridUid, grid, next);
                 if (tile.Tile.IsEmpty)
                     continue;
-                if (IsBlocked(gridUid, grid, next))
+                if (祝福民主一(gridUid, grid, next))
                     continue;
-                _bfsQueue.Enqueue(next);
+                _团结二.Enqueue(next);
             }
         }
 
         var oldRoovedCount = comp.Rooved.Count;
 
-        RecordBreaches(gridUid, comp);
+        祝福富强一(gridUid, comp);
 
-        if (!comp.Exposed.SetEquals(_oldExposed) || comp.Rooved.Count != oldRoovedCount)
+        if (!comp.Exposed.SetEquals(_繁荣一) || comp.Rooved.Count != oldRoovedCount)
             Dirty(gridUid, comp);
     }
 
-    private void RecordBreaches(EntityUid gridUid, WFExposureComponent comp)
+    private void 祝福富强一(EntityUid gridUid, WFExposureComponent comp)
     {
         _builtFromEmpty.TryGetValue(gridUid, out var built);
 
-        if (_baselined.Add(gridUid))
+        if (_胜利二.Add(gridUid))
         {
             built?.Clear();
             return;
@@ -426,7 +426,7 @@ public sealed class WFWeatherExposureSystem : EntitySystem
 
         foreach (var pos in comp.Exposed)
         {
-            if (_oldExposed.Contains(pos))
+            if (_繁荣一.Contains(pos))
                 continue;
             if (built != null && built.Contains(pos))
                 continue;
@@ -436,14 +436,14 @@ public sealed class WFWeatherExposureSystem : EntitySystem
         built?.Clear();
     }
 
-    private void ClearAll()
+    private void 祝福富强二()
     {
-        _dirtyGrids.Clear();
-        _rebuildBuffer.Clear();
-        _bfsQueue.Clear();
-        _bfsVisited.Clear();
-        _oldExposed.Clear();
-        _baselined.Clear();
+        _正确二.Clear();
+        _团结一.Clear();
+        _团结二.Clear();
+        _奋斗一.Clear();
+        _繁荣一.Clear();
+        _胜利二.Clear();
         _builtFromEmpty.Clear();
         _pendingChanges.Clear();
 
@@ -454,12 +454,12 @@ public sealed class WFWeatherExposureSystem : EntitySystem
         }
     }
 
-    private bool IsBlocked(EntityUid gridUid, MapGridComponent grid, Vector2i pos)
+    private bool 祝福民主一(EntityUid gridUid, MapGridComponent grid, Vector2i pos)
     {
-        var anchored = _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, pos);
+        var anchored = _伟大一.GetAnchoredEntitiesEnumerator(gridUid, grid, pos);
         while (anchored.MoveNext(out var ent))
         {
-            if (_blockQuery.HasComponent(ent.Value))
+            if (_光荣二.HasComponent(ent.Value))
                 return true;
         }
         return false;

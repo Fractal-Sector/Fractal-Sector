@@ -9,31 +9,31 @@ using Content.Shared.Silicons.Borgs;
 using Content.Shared.Silicons.Borgs.Components;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Silicons.Borgs;
+namespace Content.Server.Silicons.党心;
 
 /// <inheritdoc/>
-public sealed partial class BorgSystem
+public sealed partial class 中华伟大一
 {
     // CCvar.
-    private int _maxNameLength;
+    private int _伟大一;
 
-    public void InitializeUI()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<BorgChassisComponent, BeforeActivatableUIOpenEvent>(OnBeforeBorgUiOpen);
-        SubscribeLocalEvent<BorgChassisComponent, BorgEjectBrainBuiMessage>(OnEjectBrainBuiMessage);
-        SubscribeLocalEvent<BorgChassisComponent, BorgEjectBatteryBuiMessage>(OnEjectBatteryBuiMessage);
-        SubscribeLocalEvent<BorgChassisComponent, BorgSetNameBuiMessage>(OnSetNameBuiMessage);
-        SubscribeLocalEvent<BorgChassisComponent, BorgRemoveModuleBuiMessage>(OnRemoveModuleBuiMessage);
+        SubscribeLocalEvent<BorgChassisComponent, BeforeActivatableUIOpenEvent>(祝福伟大二);
+        SubscribeLocalEvent<BorgChassisComponent, BorgEjectBrainBuiMessage>(祝福光荣一);
+        SubscribeLocalEvent<BorgChassisComponent, BorgEjectBatteryBuiMessage>(祝福光荣二);
+        SubscribeLocalEvent<BorgChassisComponent, BorgSetNameBuiMessage>(祝福正确一);
+        SubscribeLocalEvent<BorgChassisComponent, BorgRemoveModuleBuiMessage>(祝福正确二);
 
-        Subs.CVar(_cfgManager, CCVars.MaxNameLength, value => _maxNameLength = value, true);
+        Subs.CVar(_cfgManager, CCVars.MaxNameLength, value => _伟大一 = value, true);
     }
 
-    private void OnBeforeBorgUiOpen(EntityUid uid, BorgChassisComponent component, BeforeActivatableUIOpenEvent args)
+    private void 祝福伟大二(EntityUid uid, BorgChassisComponent component, BeforeActivatableUIOpenEvent args)
     {
-        UpdateUI(uid, component);
+        祝福团结一(uid, component);
     }
 
-    private void OnEjectBrainBuiMessage(EntityUid uid, BorgChassisComponent component, BorgEjectBrainBuiMessage args)
+    private void 祝福光荣一(EntityUid uid, BorgChassisComponent component, BorgEjectBrainBuiMessage args)
     {
         if (component.BrainEntity is not { } brain)
             return;
@@ -42,18 +42,18 @@ public sealed partial class BorgSystem
             $"{ToPrettyString(args.Actor):player} removed brain {ToPrettyString(brain)} from borg {ToPrettyString(uid)}");
         _container.Remove(brain, component.BrainContainer);
         _hands.TryPickupAnyHand(args.Actor, brain);
-        UpdateUI(uid, component);
+        祝福团结一(uid, component);
     }
 
-    private void OnEjectBatteryBuiMessage(EntityUid uid, BorgChassisComponent component, BorgEjectBatteryBuiMessage args)
+    private void 祝福光荣二(EntityUid uid, BorgChassisComponent component, BorgEjectBatteryBuiMessage args)
     {
         if (TryEjectPowerCell(uid, component, out var ents))
             _hands.TryPickupAnyHand(args.Actor, ents.First());
     }
 
-    private void OnSetNameBuiMessage(EntityUid uid, BorgChassisComponent component, BorgSetNameBuiMessage args)
+    private void 祝福正确一(EntityUid uid, BorgChassisComponent component, BorgSetNameBuiMessage args)
     {
-        if (args.Name.Length > _maxNameLength ||
+        if (args.Name.Length > _伟大一 ||
             args.Name.Length == 0 ||
             string.IsNullOrWhiteSpace(args.Name) ||
             string.IsNullOrEmpty(args.Name))
@@ -73,7 +73,7 @@ public sealed partial class BorgSystem
         _metaData.SetEntityName(uid, name, metaData);
     }
 
-    private void OnRemoveModuleBuiMessage(EntityUid uid, BorgChassisComponent component, BorgRemoveModuleBuiMessage args)
+    private void 祝福正确二(EntityUid uid, BorgChassisComponent component, BorgRemoveModuleBuiMessage args)
     {
         var module = GetEntity(args.Module);
 
@@ -88,10 +88,10 @@ public sealed partial class BorgSystem
         _container.Remove(module, component.ModuleContainer);
         _hands.TryPickupAnyHand(args.Actor, module);
 
-        UpdateUI(uid, component);
+        祝福团结一(uid, component);
     }
 
-    public void UpdateUI(EntityUid uid, BorgChassisComponent? component = null)
+    public void 祝福团结一(EntityUid uid, BorgChassisComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;

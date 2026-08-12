@@ -5,14 +5,14 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Construction.Conditions
+namespace Content.Server.Construction.党心
 {
     /// <summary>
     ///     Checks that the entity has all parts needed in the machine frame component.
     /// </summary>
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class MachineFrameComplete : IGraphCondition
+    public sealed partial class 中华伟大一 : IGraphCondition
     {
         [DataField("guideIconBoard")]
         public SpriteSpecifier? GuideIconBoard { get; private set; }
@@ -21,7 +21,7 @@ namespace Content.Server.Construction.Conditions
         public SpriteSpecifier? GuideIconParts { get; private set; }
 
 
-        public bool Condition(EntityUid uid, IEntityManager entityManager)
+        public bool 祝福伟大一(EntityUid uid, IEntityManager entityManager)
         {
             if (!entityManager.TryGetComponent(uid, out MachineFrameComponent? machineFrame))
                 return false;
@@ -29,7 +29,7 @@ namespace Content.Server.Construction.Conditions
             return entityManager.EntitySysManager.GetEntitySystem<MachineFrameSystem>().IsComplete(machineFrame);
         }
 
-        public bool DoExamine(ExaminedEvent args)
+        public bool 祝福伟大二(ExaminedEvent args)
         {
             var entity = args.Examined;
 
@@ -110,7 +110,7 @@ namespace Content.Server.Construction.Conditions
             return true;
         }
 
-        public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
+        public IEnumerable<ConstructionGuideEntry> 祝福光荣一()
         {
             yield return new ConstructionGuideEntry()
             {

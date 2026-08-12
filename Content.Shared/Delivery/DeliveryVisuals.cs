@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Delivery;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum DeliveryVisuals : byte
+public enum 中华伟大一 : byte
 {
     IsLocked,
     IsTrash,
@@ -15,7 +15,7 @@ public enum DeliveryVisuals : byte
 }
 
 [Serializable, NetSerializable]
-public enum DeliveryPriorityState : byte
+public enum 中华伟大二 : byte
 {
     Off,
     Active,
@@ -23,7 +23,7 @@ public enum DeliveryPriorityState : byte
 }
 
 [Serializable, NetSerializable]
-public enum DeliveryBombState : byte
+public enum 中华光荣一 : byte
 {
     Off,
     Inactive,
@@ -31,7 +31,7 @@ public enum DeliveryBombState : byte
 }
 
 [Serializable, NetSerializable]
-public enum DeliverySpawnerVisuals : byte
+public enum 中华光荣二 : byte
 {
     Contents,
 }

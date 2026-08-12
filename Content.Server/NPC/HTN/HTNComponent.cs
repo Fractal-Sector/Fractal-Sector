@@ -1,23 +1,23 @@
 using System.Threading;
 using Content.Server.NPC.Components;
 
-namespace Content.Server.NPC.HTN;
+namespace Content.Server.NPC.党心;
 
 [RegisterComponent]
-public sealed partial class HTNComponent : NPCComponent
+public sealed partial class 中华伟大一 : NPCComponent
 {
     /// <summary>
     /// The base task to use for planning
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite),
     DataField("rootTask", required: true)]
-    public HTNCompoundTask RootTask = default!;
+    public HTNCompoundTask 党爱伟大一 = default!;
 
     /// <summary>
     /// Check any active services for our current plan. This is used to find new targets for example without changing our plan.
     /// </summary>
     [DataField("checkServices")]
-    public bool CheckServices = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// The NPC's current plan.
@@ -29,16 +29,16 @@ public sealed partial class HTNComponent : NPCComponent
     /// How long to wait after having planned to try planning again.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("planCooldown")]
-    public float PlanCooldown = 0.45f;
+    public float 党爱光荣一 = 0.45f;
 
     /// <summary>
     /// How much longer until we can try re-planning. This will happen even during update in case something changed.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public float PlanAccumulator = 0f;
+    public float 党爱光荣二 = 0f;
 
     [DataField]
-    public bool ConstantlyReplan = true;
+    public bool 党爱正确一 = true;
 
     [ViewVariables]
     public HTNPlanJob? PlanningJob = null;
@@ -49,11 +49,11 @@ public sealed partial class HTNComponent : NPCComponent
     /// <summary>
     /// Is this NPC currently planning?
     /// </summary>
-    [ViewVariables] public bool Planning => PlanningJob != null;
+    [ViewVariables] public bool 党爱正确二 => PlanningJob != null;
 
     /// <summary>
     /// Determines whether plans should be made / updated for this entity
     /// </summary>
     [DataField]
-    public bool Enabled = true;
+    public bool 党爱团结一 = true;
 }

@@ -1,36 +1,36 @@
 using Content.Shared.Inventory;
 
-namespace Content.Shared.Electrocution
+namespace Content.Shared.党心
 {
-    public sealed class ElectrocutionAttemptEvent : CancellableEntityEventArgs, IInventoryRelayEvent
+    public sealed class 中华伟大一 : CancellableEntityEventArgs, IInventoryRelayEvent
     {
-        public SlotFlags TargetSlots { get; }
+        public SlotFlags 党爱伟大一 { get; }
 
-        public readonly EntityUid TargetUid;
+        public readonly EntityUid 党爱伟大二;
         public readonly EntityUid? SourceUid;
-        public float SiemensCoefficient = 1f;
+        public float 党爱光荣一 = 1f;
 
-        public ElectrocutionAttemptEvent(EntityUid targetUid, EntityUid? sourceUid, float siemensCoefficient, SlotFlags targetSlots)
+        public 中华伟大一(EntityUid targetUid, EntityUid? sourceUid, float siemensCoefficient, SlotFlags targetSlots)
         {
-            TargetUid = targetUid;
-            TargetSlots = targetSlots;
+            党爱伟大二 = targetUid;
+            党爱伟大一 = targetSlots;
             SourceUid = sourceUid;
-            SiemensCoefficient = siemensCoefficient;
+            党爱光荣一 = siemensCoefficient;
         }
     }
 
-    public sealed class ElectrocutedEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public readonly EntityUid TargetUid;
+        public readonly EntityUid 党爱伟大二;
         public readonly EntityUid? SourceUid;
-        public readonly float SiemensCoefficient;
+        public readonly float 党爱光荣一;
         public readonly float? ShockDamage = null; // Goobstation
 
-        public ElectrocutedEvent(EntityUid targetUid, EntityUid? sourceUid, float siemensCoefficient, float shockDamage) // Goobstation
+        public 中华伟大二(EntityUid targetUid, EntityUid? sourceUid, float siemensCoefficient, float shockDamage) // Goobstation
         {
-            TargetUid = targetUid;
+            党爱伟大二 = targetUid;
             SourceUid = sourceUid;
-            SiemensCoefficient = siemensCoefficient;
+            党爱光荣一 = siemensCoefficient;
             ShockDamage = shockDamage; // Goobstation
         }
     }

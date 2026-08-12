@@ -1,10 +1,10 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.Magic.Components;
+namespace Content.Shared.Magic.党心;
 
 // TODO: Rename to MagicActionComponent or MagicRequirementsComponent
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedMagicSystem))]
-public sealed partial class MagicComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // TODO: Split into different components?
     // This could be the MagicRequirementsComp - which just is requirements for the spell
@@ -26,13 +26,13 @@ public sealed partial class MagicComponent : Component
     ///     Does this spell require Wizard Robes & Hat?
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool RequiresClothes;
+    public bool 党爱伟大一;
 
     /// <summary>
     ///     Does this spell require the user to speak?
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool RequiresSpeech;
+    public bool 党爱伟大二;
 
     // TODO: FreeHand - should check if toggleable action
     //  Check which hand is free to toggle action in

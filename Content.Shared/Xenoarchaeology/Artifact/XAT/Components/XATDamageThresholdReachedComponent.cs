@@ -4,19 +4,19 @@ using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Xenoarchaeology.Artifact.XAT.Components;
+namespace Content.Shared.Xenoarchaeology.Artifact.XAT.党心;
 
 /// <summary>
 /// This is used for an artifact that is activated after a certain amount of damage is dealt.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(XATDamageThresholdReachedSystem))]
-public sealed partial class XATDamageThresholdReachedComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Damage, accumulated by artifact so far. Is cleared on node activation.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public DamageSpecifier AccumulatedDamage = new();
+    public DamageSpecifier 党爱伟大一 = new();
 
     /// <summary>
     /// Damage that is required to activate trigger, grouped by damage type.

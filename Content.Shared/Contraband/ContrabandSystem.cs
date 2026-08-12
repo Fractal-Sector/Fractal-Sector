@@ -9,31 +9,31 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using System.Linq;
 
-namespace Content.Shared.Contraband;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles showing examine messages for contraband-marked items.
 /// </summary>
-public sealed class ContrabandSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedIdCardSystem _id = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly SharedIdCardSystem _光荣一 = default!;
+    [Dependency] private readonly ExamineSystemShared _光荣二 = default!;
 
-    private bool _contrabandExamineEnabled;
-    private bool _contrabandExamineOnlyInHudEnabled;
+    private bool _正确一;
+    private bool _正确二;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ContrabandComponent, GetVerbsEvent<ExamineVerb>>(OnDetailedExamine);
+        SubscribeLocalEvent<ContrabandComponent, GetVerbsEvent<ExamineVerb>>(祝福光荣一);
 
-        Subs.CVar(_configuration, CCVars.ContrabandExamine, SetContrabandExamine, true);
-        Subs.CVar(_configuration, CCVars.ContrabandExamineOnlyInHUD, SetContrabandExamineOnlyInHUD, true);
+        Subs.CVar(_伟大一, CCVars.ContrabandExamine, 祝福正确一, true);
+        Subs.CVar(_伟大一, CCVars.ContrabandExamineOnlyInHUD, 祝福正确二, true);
     }
 
-    public void CopyDetails(EntityUid uid, ContrabandComponent other, ContrabandComponent? contraband = null)
+    public void 祝福伟大二(EntityUid uid, ContrabandComponent other, ContrabandComponent? contraband = null)
     {
         if (!Resolve(uid, ref contraband))
             return;
@@ -48,14 +48,14 @@ public sealed class ContrabandSystem : EntitySystem
         Dirty(uid, contraband);
     }
 
-    private void OnDetailedExamine(EntityUid ent, ContrabandComponent component, ref GetVerbsEvent<ExamineVerb> args)
+    private void 祝福光荣一(EntityUid ent, ContrabandComponent component, ref GetVerbsEvent<ExamineVerb> args)
     {
 
-        if (!_contrabandExamineEnabled)
+        if (!_正确一)
             return;
 
         // Checking if contraband is only shown in the HUD
-        if (_contrabandExamineOnlyInHudEnabled)
+        if (_正确二)
         {
             var ev = new GetContrabandDetailsEvent();
             RaiseLocalEvent(args.User, ref ev);
@@ -73,10 +73,10 @@ public sealed class ContrabandSystem : EntitySystem
         // two strings:
         // one, the actual informative 'this is restricted'
         // then, the 'you can/shouldn't carry this around' based on the ID the user is wearing
-        var localizedDepartments = component.AllowedDepartments.Select(p => Loc.GetString("contraband-department-plural", ("department", Loc.GetString(_proto.Index(p).Name))));
-        var jobs = component.AllowedJobs.Select(p => _proto.Index(p).LocalizedName).ToArray();
+        var localizedDepartments = component.AllowedDepartments.Select(p => Loc.GetString("contraband-department-plural", ("department", Loc.GetString(_伟大二.Index(p).Name))));
+        var jobs = component.AllowedJobs.Select(p => _伟大二.Index(p).LocalizedName).ToArray();
         var localizedJobs = jobs.Select(p => Loc.GetString("contraband-job-plural", ("job", p)));
-        var severity = _proto.Index(component.Severity);
+        var severity = _伟大二.Index(component.Severity);
         String? departmentExamineMessage = null;
         if (severity.ShowDepartmentsAndJobs)
         {
@@ -95,7 +95,7 @@ public sealed class ContrabandSystem : EntitySystem
         // text based on ID card
         List<ProtoId<DepartmentPrototype>> departments = new();
         var jobId = "";
-        if (_id.TryFindIdCard(args.User, out var id))
+        if (_光荣一.TryFindIdCard(args.User, out var id))
         {
             departments = id.Comp.JobDepartments;
             if (id.Comp.LocalizedJobTitle is not null)
@@ -114,15 +114,15 @@ public sealed class ContrabandSystem : EntitySystem
             iconTexture = "/Textures/Interface/VerbIcons/unlock-green.svg.192dpi.png";
         }
 
-        var examineMarkup = GetContrabandExamine(Loc.GetString(severity.ExamineText), departmentExamineMessage, component.HideCarryStatus ? null : carryingMessage); // Frontier: add severity examine text, pass HideCarryStatus
-        _examine.AddHoverExamineVerb(args,
+        var examineMarkup = 祝福光荣二(Loc.GetString(severity.ExamineText), departmentExamineMessage, component.HideCarryStatus ? null : carryingMessage); // Frontier: add severity examine text, pass HideCarryStatus
+        _光荣二.AddHoverExamineVerb(args,
             component,
             Loc.GetString("contraband-examinable-verb-text"),
             examineMarkup.ToMarkup(),
             iconTexture);
     }
 
-    private FormattedMessage GetContrabandExamine(String severity, String? deptMessage, String? carryMessage) // Frontier: add severity, optional deptMessage
+    private FormattedMessage 祝福光荣二(String severity, String? deptMessage, String? carryMessage) // Frontier: add severity, optional deptMessage
     {
         var msg = new FormattedMessage();
 
@@ -142,13 +142,13 @@ public sealed class ContrabandSystem : EntitySystem
         return msg;
     }
 
-    private void SetContrabandExamine(bool val)
+    private void 祝福正确一(bool val)
     {
-        _contrabandExamineEnabled = val;
+        _正确一 = val;
     }
 
-    private void SetContrabandExamineOnlyInHUD(bool val)
+    private void 祝福正确二(bool val)
     {
-        _contrabandExamineOnlyInHudEnabled = val;
+        _正确二 = val;
     }
 }

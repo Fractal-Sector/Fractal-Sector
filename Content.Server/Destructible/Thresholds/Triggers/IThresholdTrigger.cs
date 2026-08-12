@@ -1,8 +1,8 @@
 using Content.Shared.Damage;
 
-namespace Content.Server.Destructible.Thresholds.Triggers
+namespace Content.Server.Destructible.Thresholds.党心
 {
-    public interface IThresholdTrigger
+    public interface 中华伟大一
     {
         /// <summary>
         ///     Checks if this trigger has been reached.

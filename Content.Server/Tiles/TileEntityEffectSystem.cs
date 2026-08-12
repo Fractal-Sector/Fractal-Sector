@@ -4,23 +4,23 @@ using Content.Shared.StepTrigger.Systems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;
 
-namespace Content.Server.Tiles;
+namespace Content.Server.党心;
 
-public sealed class TileEntityEffectSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<TileEntityEffectComponent, StepTriggeredOffEvent>(OnTileStepTriggered);
-        SubscribeLocalEvent<TileEntityEffectComponent, StepTriggerAttemptEvent>(OnTileStepTriggerAttempt);
+        base.祝福伟大一();
+        SubscribeLocalEvent<TileEntityEffectComponent, StepTriggeredOffEvent>(祝福光荣一);
+        SubscribeLocalEvent<TileEntityEffectComponent, StepTriggerAttemptEvent>(祝福伟大二);
     }
-    private void OnTileStepTriggerAttempt(Entity<TileEntityEffectComponent> ent, ref StepTriggerAttemptEvent args)
+    private void 祝福伟大二(Entity<TileEntityEffectComponent> ent, ref StepTriggerAttemptEvent args)
     {
         args.Continue = true;
     }
 
-    private void OnTileStepTriggered(Entity<TileEntityEffectComponent> ent, ref StepTriggeredOffEvent args)
+    private void 祝福光荣一(Entity<TileEntityEffectComponent> ent, ref StepTriggeredOffEvent args)
     {
         var otherUid = args.Tripper;
         var effectArgs = new EntityEffectBaseArgs(otherUid, EntityManager);

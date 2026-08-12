@@ -1,16 +1,16 @@
 using System.Numerics;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.EntitySystems
+namespace Content.Shared.Atmos.党心
 {
-    public abstract class SharedAtmosDebugOverlaySystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
         // Keep in mind, this system is hilariously unoptimized. The goal here is to provide accurate debug data.
-        public const int LocalViewRange = 16;
-        protected float AccumulatedFrameTime;
+        public const int 党爱伟大一 = 16;
+        protected float 党爱伟大二;
 
         [Serializable, NetSerializable]
-        public readonly record struct AtmosDebugOverlayData(
+        public readonly record 中华伟大二 AtmosDebugOverlayData(
             Vector2 Indices,
             float Temperature,
             float[]? Moles,
@@ -28,24 +28,24 @@ namespace Content.Shared.Atmos.EntitySystems
         ///     No point re-sending every tile if only a subset might have been updated.
         /// </summary>
         [Serializable, NetSerializable]
-        public sealed class AtmosDebugOverlayMessage : EntityEventArgs
+        public sealed class 中华光荣一 : EntityEventArgs
         {
-            public NetEntity GridId { get; }
+            public NetEntity 党爱光荣一 { get; }
 
-            public Vector2i BaseIdx { get; }
-            // LocalViewRange*LocalViewRange
+            public Vector2i 党爱光荣二 { get; }
+            // 党爱伟大一*党爱伟大一
             public AtmosDebugOverlayData?[] OverlayData { get; }
 
-            public AtmosDebugOverlayMessage(NetEntity gridIndices, Vector2i baseIdx, AtmosDebugOverlayData?[] overlayData)
+            public 中华光荣一(NetEntity gridIndices, Vector2i baseIdx, AtmosDebugOverlayData?[] overlayData)
             {
-                GridId = gridIndices;
-                BaseIdx = baseIdx;
+                党爱光荣一 = gridIndices;
+                党爱光荣二 = baseIdx;
                 OverlayData = overlayData;
             }
         }
 
         [Serializable, NetSerializable]
-        public sealed class AtmosDebugOverlayDisableMessage : EntityEventArgs
+        public sealed class 中华光荣二 : EntityEventArgs
         {
         }
     }

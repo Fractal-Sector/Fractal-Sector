@@ -7,45 +7,45 @@ using Content.Server.NodeContainer.Nodes;
 using Content.Shared.Atmos;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Piping.Unary.EntitySystems
+namespace Content.Server.Atmos.Piping.Unary.党心
 {
     [UsedImplicitly]
-    public sealed class GasPassiveVentSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+        [Dependency] private readonly NodeContainerSystem _伟大二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasPassiveVentComponent, AtmosDeviceUpdateEvent>(OnPassiveVentUpdated);
+            SubscribeLocalEvent<GasPassiveVentComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
         }
 
-        private void OnPassiveVentUpdated(EntityUid uid, GasPassiveVentComponent vent, ref AtmosDeviceUpdateEvent args)
+        private void 祝福伟大二(EntityUid uid, GasPassiveVentComponent vent, ref AtmosDeviceUpdateEvent args)
         {
             // Frontier: check running gas extraction
-            if (!_atmosphereSystem.AtmosInputCanRunOnMap(args.Map))
+            if (!_伟大一.AtmosInputCanRunOnMap(args.Map))
                 return;
             // End Frontier
 
-            var environment = _atmosphereSystem.GetContainingMixture(uid, args.Grid, args.Map, true, true);
+            var environment = _伟大一.GetContainingMixture(uid, args.Grid, args.Map, true, true);
 
             if (environment == null)
                 return;
 
-            if (!_nodeContainer.TryGetNode(uid, vent.InletName, out PipeNode? inlet))
+            if (!_伟大二.TryGetNode(uid, vent.InletName, out PipeNode? inlet))
                 return;
 
             var inletAir = inlet.Air.RemoveRatio(1f);
             var envAir = environment.RemoveRatio(1f);
 
             var mergeAir = new GasMixture(inletAir.Volume + envAir.Volume);
-            _atmosphereSystem.Merge(mergeAir, inletAir);
-            _atmosphereSystem.Merge(mergeAir, envAir);
+            _伟大一.Merge(mergeAir, inletAir);
+            _伟大一.Merge(mergeAir, envAir);
 
-            _atmosphereSystem.Merge(inlet.Air, mergeAir.RemoveVolume(inletAir.Volume));
-            _atmosphereSystem.Merge(environment, mergeAir);
+            _伟大一.Merge(inlet.Air, mergeAir.RemoveVolume(inletAir.Volume));
+            _伟大一.Merge(environment, mergeAir);
         }
     }
 }

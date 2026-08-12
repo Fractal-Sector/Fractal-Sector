@@ -7,22 +7,22 @@ using Content.Shared.Tools.Components;
 using Content.Shared.Tools.Systems;
 using ItemToggleComponent = Content.Shared.Item.ItemToggle.Components.ItemToggleComponent;
 
-namespace Content.Server.Damage.Systems
+namespace Content.Server.Damage.党心
 {
-    public sealed class DamageOnToolInteractSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+        [Dependency] private readonly DamageableSystem _伟大一 = default!;
+        [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+        [Dependency] private readonly SharedToolSystem _光荣一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<DamageOnToolInteractComponent, InteractUsingEvent>(OnInteracted);
+            SubscribeLocalEvent<DamageOnToolInteractComponent, InteractUsingEvent>(祝福伟大二);
         }
 
-        private void OnInteracted(EntityUid uid, DamageOnToolInteractComponent component, InteractUsingEvent args)
+        private void 祝福伟大二(EntityUid uid, DamageOnToolInteractComponent component, InteractUsingEvent args)
         {
             if (args.Handled)
                 return;
@@ -35,21 +35,21 @@ namespace Content.Server.Damage.Systems
             && itemToggle.Activated
             && !welder.TankSafe)
             {
-                var dmg = _damageableSystem.TryChangeDamage(args.Target, weldingDamage, origin: args.User);
+                var dmg = _伟大一.TryChangeDamage(args.Target, weldingDamage, origin: args.User);
 
                 if (dmg != null)
-                    _adminLogger.Add(LogType.Damaged,
+                    _伟大二.Add(LogType.Damaged,
                         $"{ToPrettyString(args.User):user} used {ToPrettyString(args.Used):used} as a welder to deal {dmg.GetTotal():damage} damage to {ToPrettyString(args.Target):target}");
 
                 args.Handled = true;
             }
             else if (component.DefaultDamage is {} damage
-                && _toolSystem.HasQuality(args.Used, component.Tools))
+                && _光荣一.HasQuality(args.Used, component.Tools))
             {
-                var dmg = _damageableSystem.TryChangeDamage(args.Target, damage, origin: args.User);
+                var dmg = _伟大一.TryChangeDamage(args.Target, damage, origin: args.User);
 
                 if (dmg != null)
-                    _adminLogger.Add(LogType.Damaged,
+                    _伟大二.Add(LogType.Damaged,
                         $"{ToPrettyString(args.User):user} used {ToPrettyString(args.Used):used} as a tool to deal {dmg.GetTotal():damage} damage to {ToPrettyString(args.Target):target}");
 
                 args.Handled = true;

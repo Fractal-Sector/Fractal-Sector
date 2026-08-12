@@ -9,34 +9,34 @@ using Content.Shared.Storage.Components;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Shared.Burial;
+namespace Content.Shared.党心;
 
-public sealed class BurialSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedEntityStorageSystem _storageSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大一 = default!;
+    [Dependency] private readonly SharedEntityStorageSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GraveComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<GraveComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<GraveComponent, AfterInteractUsingEvent>(OnAfterInteractUsing, before: new[] { typeof(PlaceableSurfaceSystem) });
-        SubscribeLocalEvent<GraveComponent, GraveDiggingDoAfterEvent>(OnGraveDigging);
+        SubscribeLocalEvent<GraveComponent, InteractUsingEvent>(祝福伟大二);
+        SubscribeLocalEvent<GraveComponent, ActivateInWorldEvent>(祝福光荣二);
+        SubscribeLocalEvent<GraveComponent, AfterInteractUsingEvent>(祝福光荣一, before: new[] { typeof(PlaceableSurfaceSystem) });
+        SubscribeLocalEvent<GraveComponent, GraveDiggingDoAfterEvent>(祝福正确一);
 
-        SubscribeLocalEvent<GraveComponent, StorageOpenAttemptEvent>(OnOpenAttempt);
-        SubscribeLocalEvent<GraveComponent, StorageCloseAttemptEvent>(OnCloseAttempt);
-        SubscribeLocalEvent<GraveComponent, StorageAfterOpenEvent>(OnAfterOpen);
-        SubscribeLocalEvent<GraveComponent, StorageAfterCloseEvent>(OnAfterClose);
+        SubscribeLocalEvent<GraveComponent, StorageOpenAttemptEvent>(祝福团结一);
+        SubscribeLocalEvent<GraveComponent, StorageCloseAttemptEvent>(祝福团结二);
+        SubscribeLocalEvent<GraveComponent, StorageAfterOpenEvent>(祝福奋斗一);
+        SubscribeLocalEvent<GraveComponent, StorageAfterCloseEvent>(祝福奋斗二);
 
-        SubscribeLocalEvent<GraveComponent, ContainerRelayMovementEntityEvent>(OnRelayMovement);
+        SubscribeLocalEvent<GraveComponent, ContainerRelayMovementEntityEvent>(祝福胜利一);
     }
 
-    private void OnInteractUsing(EntityUid uid, GraveComponent component, InteractUsingEvent args)
+    private void 祝福伟大二(EntityUid uid, GraveComponent component, InteractUsingEvent args)
     {
         if (args.Handled || component.ActiveShovelDigging)
             return;
@@ -51,26 +51,26 @@ public sealed class BurialSystem : EntitySystem
             };
 
             if (component.Stream == null)
-                component.Stream = _audioSystem.PlayPredicted(component.DigSound, uid, args.User)?.Entity;
+                component.Stream = _光荣一.PlayPredicted(component.DigSound, uid, args.User)?.Entity;
 
-            if (!_doAfterSystem.TryStartDoAfter(doAfterEventArgs))
+            if (!_伟大一.TryStartDoAfter(doAfterEventArgs))
             {
-                _audioSystem.Stop(component.Stream);
+                _光荣一.Stop(component.Stream);
                 return;
             }
 
 
-            StartDigging(uid, args.User, args.Used, component);
+            祝福正确二(uid, args.User, args.Used, component);
         }
         else
         {
-            _popupSystem.PopupClient(Loc.GetString("grave-digging-requires-tool", ("grave", args.Target)), uid, args.User);
+            _光荣二.PopupClient(Loc.GetString("grave-digging-requires-tool", ("grave", args.Target)), uid, args.User);
         }
 
         args.Handled = true;
     }
 
-    private void OnAfterInteractUsing(EntityUid uid, GraveComponent component, AfterInteractUsingEvent args)
+    private void 祝福光荣一(EntityUid uid, GraveComponent component, AfterInteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -80,21 +80,21 @@ public sealed class BurialSystem : EntitySystem
             args.Handled = true;
     }
 
-    private void OnActivate(EntityUid uid, GraveComponent component, ActivateInWorldEvent args)
+    private void 祝福光荣二(EntityUid uid, GraveComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
 
-        _popupSystem.PopupClient(Loc.GetString("grave-digging-requires-tool", ("grave", args.Target)), uid, args.User);
+        _光荣二.PopupClient(Loc.GetString("grave-digging-requires-tool", ("grave", args.Target)), uid, args.User);
         args.Handled = true;
     }
 
-    private void OnGraveDigging(EntityUid uid, GraveComponent component, GraveDiggingDoAfterEvent args)
+    private void 祝福正确一(EntityUid uid, GraveComponent component, GraveDiggingDoAfterEvent args)
     {
         if (args.Used != null)
         {
             component.ActiveShovelDigging = false;
-            component.Stream = _audioSystem.Stop(component.Stream);
+            component.Stream = _光荣一.Stop(component.Stream);
         }
         else
         {
@@ -107,28 +107,28 @@ public sealed class BurialSystem : EntitySystem
         component.DiggingComplete = true;
 
         if (args.Used != null)
-            _storageSystem.ToggleOpen(args.User, uid);
+            _伟大二.ToggleOpen(args.User, uid);
         else
-            _storageSystem.TryOpenStorage(args.User, uid); //can only claw out
+            _伟大二.TryOpenStorage(args.User, uid); //can only claw out
     }
 
-    private void StartDigging(EntityUid uid, EntityUid user, EntityUid? used, GraveComponent component)
+    private void 祝福正确二(EntityUid uid, EntityUid user, EntityUid? used, GraveComponent component)
     {
         if (used != null)
         {
             var selfMessage = Loc.GetString("grave-start-digging-user", ("grave", uid), ("tool", used));
             var othersMessage = Loc.GetString("grave-start-digging-others", ("user", user), ("grave", uid), ("tool", used));
-            _popupSystem.PopupPredicted(selfMessage, othersMessage, user, user);
+            _光荣二.PopupPredicted(selfMessage, othersMessage, user, user);
             component.ActiveShovelDigging = true;
             Dirty(uid, component);
         }
         else
         {
-            _popupSystem.PopupClient(Loc.GetString("grave-start-digging-user-trapped", ("grave", uid)), user, user, PopupType.Medium);
+            _光荣二.PopupClient(Loc.GetString("grave-start-digging-user-trapped", ("grave", uid)), user, user, PopupType.Medium);
         }
     }
 
-    private void OnOpenAttempt(EntityUid uid, GraveComponent component, ref StorageOpenAttemptEvent args)
+    private void 祝福团结一(EntityUid uid, GraveComponent component, ref StorageOpenAttemptEvent args)
     {
         if (component.DiggingComplete)
             return;
@@ -136,7 +136,7 @@ public sealed class BurialSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    private void OnCloseAttempt(EntityUid uid, GraveComponent component, ref StorageCloseAttemptEvent args)
+    private void 祝福团结二(EntityUid uid, GraveComponent component, ref StorageCloseAttemptEvent args)
     {
         if (component.DiggingComplete)
             return;
@@ -144,24 +144,24 @@ public sealed class BurialSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    private void OnAfterOpen(EntityUid uid, GraveComponent component, ref StorageAfterOpenEvent args)
+    private void 祝福奋斗一(EntityUid uid, GraveComponent component, ref StorageAfterOpenEvent args)
     {
         component.DiggingComplete = false;
     }
 
-    private void OnAfterClose(EntityUid uid, GraveComponent component, ref StorageAfterCloseEvent args)
+    private void 祝福奋斗二(EntityUid uid, GraveComponent component, ref StorageAfterCloseEvent args)
     {
         component.DiggingComplete = false;
     }
 
-    private void OnRelayMovement(EntityUid uid, GraveComponent component, ref ContainerRelayMovementEntityEvent args)
+    private void 祝福胜利一(EntityUid uid, GraveComponent component, ref ContainerRelayMovementEntityEvent args)
     {
         // We track a separate doAfter here, as we want someone with a shovel to
         // be able to come along and help someone trying to claw their way out
-        if (_doAfterSystem.IsRunning(component.HandDiggingDoAfter))
+        if (_伟大一.IsRunning(component.HandDiggingDoAfter))
             return;
 
-        if (!_actionBlocker.CanMove(args.Entity))
+        if (!_正确一.CanMove(args.Entity))
             return;
 
         var doAfterEventArgs = new DoAfterArgs(EntityManager, args.Entity, component.DigDelay / component.DigOutByHandModifier, new GraveDiggingDoAfterEvent(), uid, target: uid)
@@ -174,14 +174,14 @@ public sealed class BurialSystem : EntitySystem
 
 
         if (component.Stream == null)
-            component.Stream = _audioSystem.PlayPredicted(component.DigSound, uid, args.Entity)?.Entity;
+            component.Stream = _光荣一.PlayPredicted(component.DigSound, uid, args.Entity)?.Entity;
 
-        if (!_doAfterSystem.TryStartDoAfter(doAfterEventArgs, out component.HandDiggingDoAfter))
+        if (!_伟大一.TryStartDoAfter(doAfterEventArgs, out component.HandDiggingDoAfter))
         {
-            _audioSystem.Stop(component.Stream);
+            _光荣一.Stop(component.Stream);
             return;
         }
 
-        StartDigging(uid, args.Entity, null, component);
+        祝福正确二(uid, args.Entity, null, component);
     }
 }

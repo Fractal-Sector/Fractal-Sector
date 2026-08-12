@@ -2,21 +2,21 @@ using Content.Shared.Trigger.Components.Effects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class EmitSoundOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EmitSoundOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<EmitSoundOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<EmitSoundOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<EmitSoundOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -26,10 +26,10 @@ public sealed class EmitSoundOnTriggerSystem : EntitySystem
         if (target == null)
             return;
 
-        args.Handled |= TryEmitSound(ent, target.Value, args.User);
+        args.Handled |= 祝福光荣一(ent, target.Value, args.User);
     }
 
-    private bool TryEmitSound(Entity<EmitSoundOnTriggerComponent> ent, EntityUid target, EntityUid? user = null)
+    private bool 祝福光荣一(Entity<EmitSoundOnTriggerComponent> ent, EntityUid target, EntityUid? user = null)
     {
         if (ent.Comp.Sound == null)
             return false;
@@ -38,16 +38,16 @@ public sealed class EmitSoundOnTriggerSystem : EntitySystem
         {
             var coords = Transform(target).Coordinates;
             if (ent.Comp.Predicted)
-                _audio.PlayPredicted(ent.Comp.Sound, coords, user);
-            else if (_netMan.IsServer)
-                _audio.PlayPvs(ent.Comp.Sound, coords);
+                _伟大二.PlayPredicted(ent.Comp.Sound, coords, user);
+            else if (_伟大一.IsServer)
+                _伟大二.PlayPvs(ent.Comp.Sound, coords);
         }
         else
         {
             if (ent.Comp.Predicted)
-                _audio.PlayPredicted(ent.Comp.Sound, target, user);
-            else if (_netMan.IsServer)
-                _audio.PlayPvs(ent.Comp.Sound, target);
+                _伟大二.PlayPredicted(ent.Comp.Sound, target, user);
+            else if (_伟大一.IsServer)
+                _伟大二.PlayPvs(ent.Comp.Sound, target);
         }
 
         return true;

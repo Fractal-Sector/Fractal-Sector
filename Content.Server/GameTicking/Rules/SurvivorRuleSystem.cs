@@ -12,33 +12,33 @@ using Content.Shared.Tag;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<SurvivorRuleComponent>
 {
-    [Dependency] private readonly RoleSystem _role = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly TransformSystem _xform = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _eShuttle = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly RoleSystem _伟大一 = default!;
+    [Dependency] private readonly MindSystem _伟大二 = default!;
+    [Dependency] private readonly AntagSelectionSystem _光荣一 = default!;
+    [Dependency] private readonly TransformSystem _光荣二 = default!;
+    [Dependency] private readonly EmergencyShuttleSystem _正确一 = default!;
+    [Dependency] private readonly TagSystem _正确二 = default!;
+    [Dependency] private readonly MobStateSystem _团结一 = default!;
 
     private static readonly ProtoId<TagPrototype> InvalidForSurvivorAntagTag = "InvalidForSurvivorAntag";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SurvivorRoleComponent, GetBriefingEvent>(OnGetBriefing);
+        SubscribeLocalEvent<SurvivorRoleComponent, GetBriefingEvent>(祝福光荣一);
     }
 
     // TODO: Planned rework post wizard release when RandomGlobalSpawnSpell becomes a gamerule
-    protected override void Started(EntityUid uid, SurvivorRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, SurvivorRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大二(uid, component, gameRule, args);
 
-        var allAliveHumanMinds = _mind.GetAliveHumans();
+        var allAliveHumanMinds = _伟大二.GetAliveHumans();
 
         foreach (var humanMind in allAliveHumanMinds)
         {
@@ -48,26 +48,26 @@ public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
             var mind = humanMind.Owner;
             var ent = humanMind.Comp.OwnedEntity.Value;
 
-            if (HasComp<SurvivorComponent>(mind) || _tag.HasTag(mind, InvalidForSurvivorAntagTag))
+            if (HasComp<SurvivorComponent>(mind) || _正确二.HasTag(mind, InvalidForSurvivorAntagTag))
                 continue;
 
             EnsureComp<SurvivorComponent>(mind);
-            _role.MindAddRole(mind, "MindRoleSurvivor");
-            _antag.SendBriefing(ent, Loc.GetString("survivor-role-greeting"), Color.Olive, null);
+            _伟大一.MindAddRole(mind, "MindRoleSurvivor");
+            _光荣一.SendBriefing(ent, Loc.GetString("survivor-role-greeting"), Color.Olive, null);
         }
     }
 
-    private void OnGetBriefing(Entity<SurvivorRoleComponent> ent, ref GetBriefingEvent args)
+    private void 祝福光荣一(Entity<SurvivorRoleComponent> ent, ref GetBriefingEvent args)
     {
         args.Append(Loc.GetString("survivor-role-greeting"));
     }
 
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void 祝福光荣二(EntityUid uid,
         SurvivorRuleComponent component,
         GameRuleComponent gameRule,
         ref RoundEndTextAppendEvent args)
     {
-        base.AppendRoundEndText(uid, component, gameRule, ref args);
+        base.祝福光荣二(uid, component, gameRule, ref args);
 
         // Using this instead of alive antagonists to make checking for shuttle & if the ent is alive easier
         var existingSurvivors = AllEntityQuery<SurvivorComponent, MindComponent>();
@@ -75,7 +75,7 @@ public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
         var deadSurvivors = 0;
         var aliveMarooned = 0;
         var aliveOnShuttle = 0;
-        var eShuttle = _eShuttle.GetShuttle();
+        var eShuttle = _正确一.GetShuttle();
 
         while (existingSurvivors.MoveNext(out _, out _, out var mindComp))
         {
@@ -88,13 +88,13 @@ public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
 
             var survivor = mindComp.CurrentEntity.Value;
 
-            if (!_mobState.IsAlive(survivor))
+            if (!_团结一.IsAlive(survivor))
             {
                 deadSurvivors++;
                 continue;
             }
 
-            if (eShuttle != null && eShuttle.Value.IsValid() && (Transform(eShuttle.Value).MapID == _xform.GetMapCoordinates(survivor).MapId))
+            if (eShuttle != null && eShuttle.Value.IsValid() && (Transform(eShuttle.Value).MapID == _光荣二.GetMapCoordinates(survivor).MapId))
             {
                 aliveOnShuttle++;
                 continue;

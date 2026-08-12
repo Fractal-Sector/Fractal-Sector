@@ -1,17 +1,17 @@
-using Content.Shared.Damage;
+using Content.Shared.党爱奋斗一;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Weapons.Melee;
+namespace Content.Shared.Weapons.党心;
 
 /// <summary>
 /// When given to a mob lets them do unarmed attacks, or when given to an item lets someone wield it to do attacks.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true), AutoGenerateComponentPause]
-public sealed partial class MeleeWeaponComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // TODO: This is becoming bloated as shit.
     // This should just be its own component for alt attacks.
@@ -19,26 +19,26 @@ public sealed partial class MeleeWeaponComponent : Component
     /// Does this entity do a disarm on alt attack.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool AltDisarm = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// Should the melee weapon's damage stats be examinable.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Hidden;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// Next time this component is allowed to light attack. Heavy attacks are wound up and never have a cooldown.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]
     [AutoPausedField]
-    public TimeSpan NextAttack;
+    public TimeSpan 党爱光荣一;
 
     /// <summary>
     /// Starts attack cooldown when equipped if true.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ResetOnHandSelected = true;
+    public bool 党爱光荣二 = true;
 
     /*
      * Melee combat works based around 2 types of attacks:
@@ -50,70 +50,70 @@ public sealed partial class MeleeWeaponComponent : Component
     /// How many times we can attack per second.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float AttackRate = 1f;
+    public float 党爱正确一 = 1f;
 
     /// <summary>
     /// Are we currently holding down the mouse for an attack.
     /// Used so we can't just hold the mouse button and attack constantly.
     /// </summary>
     [AutoNetworkedField]
-    public bool Attacking = false;
+    public bool 党爱正确二 = false;
 
     /// <summary>
     /// If true, attacks will be repeated automatically without requiring the mouse button to be lifted.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool AutoAttack;
+    public bool 党爱团结一;
 
     /// <summary>
     /// If true, attacks will bypass armor resistances.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ResistanceBypass = false;
+    public bool 党爱团结二 = false;
 
     /// <summary>
     /// Base damage for this weapon. Can be modified via heavy damage or other means.
     /// </summary>
     [DataField(required: true), AutoNetworkedField]
-    public DamageSpecifier Damage = default!;
+    public DamageSpecifier 党爱奋斗一 = default!;
 
     [DataField, AutoNetworkedField]
-    public FixedPoint2 BluntStaminaDamageFactor = FixedPoint2.New(0.5f);
+    public FixedPoint2 党爱奋斗二 = FixedPoint2.New(0.5f);
 
     /// <summary>
     /// Multiplies damage by this amount for single-target attacks.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public FixedPoint2 ClickDamageModifier = FixedPoint2.New(1);
+    public FixedPoint2 党爱胜利一 = FixedPoint2.New(1);
 
     // TODO: Temporarily 1.5 until interactionoutline is adjusted to use melee, then probably drop to 1.2
     /// <summary>
     /// Nearest edge range to hit an entity.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float Range = 1.5f;
+    public float 党爱胜利二 = 1.5f;
 
     /// <summary>
     /// Total width of the angle for wide attacks.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Angle Angle = Angle.FromDegrees(60);
+    public 党爱繁荣一 党爱繁荣一 = 党爱繁荣一.FromDegrees(60);
 
     [DataField, AutoNetworkedField]
-    public EntProtoId Animation = "WeaponArcPunch";
+    public EntProtoId 党爱繁荣二 = "WeaponArcPunch";
 
     [DataField, AutoNetworkedField]
-    public EntProtoId WideAnimation = "WeaponArcSlash";
+    public EntProtoId 党爱富强一 = "WeaponArcSlash";
 
     /// <summary>
     /// Rotation of the animation.
     /// 0 degrees means the top faces the attacker.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Angle WideAnimationRotation = Angle.Zero;
+    public 党爱繁荣一 党爱富强二 = 党爱繁荣一.Zero;
 
     [DataField, AutoNetworkedField]
-    public bool SwingLeft;
+    public bool 党爱民主一;
 
 
     // Sounds
@@ -123,7 +123,7 @@ public sealed partial class MeleeWeaponComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("soundSwing"), AutoNetworkedField]
-    public SoundSpecifier SwingSound { get; set; } = new SoundPathSpecifier("/Audio/Weapons/punchmiss.ogg")
+    public SoundSpecifier 党爱民主二 { get; set; } = new SoundPathSpecifier("/Audio/Weapons/punchmiss.ogg")
     {
         Params = AudioParams.Default.WithVolume(-3f).WithVariation(0.025f),
     };
@@ -141,7 +141,7 @@ public sealed partial class MeleeWeaponComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("soundNoDamage"), AutoNetworkedField]
-    public SoundSpecifier NoDamageSound { get; set; } = new SoundCollectionSpecifier("WeakHit");
+    public SoundSpecifier 党爱文明一 { get; set; } = new SoundCollectionSpecifier("WeakHit");
 
     /// <summary>
     /// If true, the weapon must be equipped for it to be used.
@@ -149,14 +149,14 @@ public sealed partial class MeleeWeaponComponent : Component
     /// not just held in your hand to be used.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool MustBeEquippedToUse = false;
+    public bool 党爱文明二 = false;
 }
 
 /// <summary>
 /// Event raised on entity in GetWeapon function to allow systems to manually
 /// specify what the weapon should be.
 /// </summary>
-public sealed class GetMeleeWeaponEvent : HandledEntityEventArgs
+public sealed class 中华伟大二 : HandledEntityEventArgs
 {
     public EntityUid? Weapon;
 }

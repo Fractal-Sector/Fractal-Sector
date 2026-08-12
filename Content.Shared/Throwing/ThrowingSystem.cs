@@ -15,44 +15,44 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Throwing;
+namespace Content.Shared.党心;
 
-public sealed class ThrowingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public const float ThrowAngularImpulse = 5f;
+    public const float 党爱伟大一 = 5f;
 
-    public const float PushbackDefault = 2f;
+    public const float 党爱伟大二 = 2f;
 
-    public const float FlyTimePercentage = 0.8f;
+    public const float 党爱光荣一 = 0.8f;
 
     private const float TileFrictionMod = 1.5f;
 
-    private float _frictionModifier;
-    private float _airDamping;
+    private float _伟大一;
+    private float _伟大二;
 
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ThrownItemSystem _thrownSystem = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoil = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly SharedGravitySystem _光荣二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _正确一 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确二 = default!;
+    [Dependency] private readonly ThrownItemSystem _团结一 = default!;
+    [Dependency] private readonly SharedCameraRecoilSystem _团结二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _奋斗一 = default!;
+    [Dependency] private readonly IConfigurationManager _奋斗二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        Subs.CVar(_configManager, CCVars.TileFrictionModifier, value => _frictionModifier = value, true);
-        Subs.CVar(_configManager, CCVars.AirFriction, value => _airDamping = value, true);
+        Subs.CVar(_奋斗二, CCVars.TileFrictionModifier, value => _伟大一 = value, true);
+        Subs.CVar(_奋斗二, CCVars.AirFriction, value => _伟大二 = value, true);
     }
 
-    public void TryThrow(
+    public void 祝福伟大二(
         EntityUid uid,
         EntityCoordinates coordinates,
         float baseThrowSpeed = 10.0f,
         EntityUid? user = null,
-        float pushbackRatio = PushbackDefault,
+        float pushbackRatio = 党爱伟大二,
         float? friction = null,
         bool compensateFriction = false,
         bool recoil = true,
@@ -61,13 +61,13 @@ public sealed class ThrowingSystem : EntitySystem
         bool doSpin = true,
         bool unanchor = false)
     {
-        var thrownPos = _transform.GetMapCoordinates(uid);
-        var mapPos = _transform.ToMapCoordinates(coordinates);
+        var thrownPos = _正确二.GetMapCoordinates(uid);
+        var mapPos = _正确二.ToMapCoordinates(coordinates);
 
         if (mapPos.MapId != thrownPos.MapId)
             return;
 
-        TryThrow(uid, mapPos.Position - thrownPos.Position, baseThrowSpeed, user, pushbackRatio, friction, compensateFriction: compensateFriction, recoil: recoil, animated: animated, playSound: playSound, doSpin: doSpin, unanchor: unanchor);
+        祝福伟大二(uid, mapPos.Position - thrownPos.Position, baseThrowSpeed, user, pushbackRatio, friction, compensateFriction: compensateFriction, recoil: recoil, animated: animated, playSound: playSound, doSpin: doSpin, unanchor: unanchor);
     }
 
     /// <summary>
@@ -81,11 +81,11 @@ public sealed class ThrowingSystem : EntitySystem
     /// <param name="compensateFriction">True will adjust the throw so the item stops at the target coordinates. False means it will land at the target and keep sliding.</param>
     /// <param name="doSpin">Whether spin will be applied to the thrown entity.</param>
     /// <param name="unanchor">If true and the thrown entity has <see cref="AnchorableComponent"/>, unanchor the thrown entity</param>
-    public void TryThrow(EntityUid uid,
+    public void 祝福伟大二(EntityUid uid,
         Vector2 direction,
         float baseThrowSpeed = 10.0f,
         EntityUid? user = null,
-        float pushbackRatio = PushbackDefault,
+        float pushbackRatio = 党爱伟大二,
         float? friction = null,
         bool compensateFriction = false,
         bool recoil = true,
@@ -100,7 +100,7 @@ public sealed class ThrowingSystem : EntitySystem
 
         var projectileQuery = GetEntityQuery<ProjectileComponent>();
 
-        TryThrow(
+        祝福伟大二(
             uid,
             direction,
             physics,
@@ -123,14 +123,14 @@ public sealed class ThrowingSystem : EntitySystem
     /// <param name="compensateFriction">True will adjust the throw so the item stops at the target coordinates. False means it will land at the target and keep sliding.</param>
     /// <param name="doSpin">Whether spin will be applied to the thrown entity.</param>
     /// <param name="unanchor">If true and the thrown entity has <see cref="AnchorableComponent"/>, unanchor the thrown entity</param>
-    public void TryThrow(EntityUid uid,
+    public void 祝福伟大二(EntityUid uid,
         Vector2 direction,
         PhysicsComponent physics,
         TransformComponent transform,
         EntityQuery<ProjectileComponent> projectileQuery,
         float baseThrowSpeed = 10.0f,
         EntityUid? user = null,
-        float pushbackRatio = PushbackDefault,
+        float pushbackRatio = 党爱伟大二,
         float? friction = null,
         bool compensateFriction = false,
         bool recoil = true,
@@ -143,7 +143,7 @@ public sealed class ThrowingSystem : EntitySystem
             return;
 
         if (unanchor && HasComp<AnchorableComponent>(uid))
-            _transform.Unanchor(uid);
+            _正确二.Unanchor(uid);
 
         if ((physics.BodyType & (BodyType.Dynamic | BodyType.KinematicController)) == 0x0)
             return;
@@ -159,7 +159,7 @@ public sealed class ThrowingSystem : EntitySystem
         };
 
         // if not given, get the default friction value for distance calculation
-        var tileFriction = friction ?? _frictionModifier * TileFrictionMod;
+        var tileFriction = friction ?? _伟大一 * TileFrictionMod;
 
         if (tileFriction == 0f)
             compensateFriction = false; // cannot calculate this if there is no friction
@@ -168,8 +168,8 @@ public sealed class ThrowingSystem : EntitySystem
         // This is a free parameter, but we should set it to something reasonable.
         var flyTime = direction.Length() / baseThrowSpeed;
         if (compensateFriction)
-            flyTime *= FlyTimePercentage;
-        comp.ThrownTime = _gameTiming.CurTime;
+            flyTime *= 党爱光荣一;
+        comp.ThrownTime = _光荣一.CurTime;
         comp.LandTime = comp.ThrownTime + TimeSpan.FromSeconds(flyTime);
         comp.PlayLandSound = playSound;
         AddComp(uid, comp, true);
@@ -181,20 +181,20 @@ public sealed class ThrowingSystem : EntitySystem
         {
             if (physics.InvI > 0f && (!TryComp(uid, out throwingAngle) || throwingAngle.AngularVelocity))
             {
-                _physics.ApplyAngularImpulse(uid, ThrowAngularImpulse / physics.InvI, body: physics);
+                _正确一.ApplyAngularImpulse(uid, 党爱伟大一 / physics.InvI, body: physics);
             }
             else
             {
                 Resolve(uid, ref throwingAngle, false);
-                var gridRot = _transform.GetWorldRotation(transform.ParentUid);
+                var gridRot = _正确二.GetWorldRotation(transform.ParentUid);
                 var angle = direction.ToWorldAngle() - gridRot;
                 var offset = throwingAngle?.Angle ?? Angle.Zero;
-                _transform.SetLocalRotation(uid, angle + offset);
+                _正确二.SetLocalRotation(uid, angle + offset);
             }
         }
 
         if (user != null)
-            _adminLogger.Add(LogType.Throw, LogImpact.Low, $"{ToPrettyString(user.Value):user} threw {ToPrettyString(uid):entity}");
+            _奋斗一.Add(LogType.Throw, LogImpact.Low, $"{ToPrettyString(user.Value):user} threw {ToPrettyString(uid):entity}");
 
         // if compensateFriction==true compensate for the distance the item will slide over the floor after landing by reducing the throw speed accordingly.
         // else let the item land on the cursor and from where it slides a little further.
@@ -203,7 +203,7 @@ public sealed class ThrowingSystem : EntitySystem
         // This doesn't actually compensate for air friction, but it's low enough it shouldn't matter.
         var throwSpeed = compensateFriction ? direction.Length() / (flyTime + 1 / tileFriction) : baseThrowSpeed;
         var impulseVector = direction.Normalized() * throwSpeed * physics.Mass;
-        _physics.ApplyLinearImpulse(uid, impulseVector, body: physics);
+        _正确一.ApplyLinearImpulse(uid, impulseVector, body: physics);
 
         var thrownEvent = new ThrownEvent(user, uid);
         RaiseLocalEvent(uid, ref thrownEvent, true);
@@ -215,18 +215,18 @@ public sealed class ThrowingSystem : EntitySystem
 
         if (comp.LandTime == null || comp.LandTime <= TimeSpan.Zero)
         {
-            _thrownSystem.LandComponent(uid, comp, physics, playSound);
+            _团结一.LandComponent(uid, comp, physics, playSound);
         }
         else
         {
-            _physics.SetBodyStatus(uid, physics, BodyStatus.InAir);
+            _正确一.SetBodyStatus(uid, physics, BodyStatus.InAir);
         }
 
         if (user == null)
             return;
 
         if (recoil)
-            _recoil.KickCamera(user.Value, -direction * 0.04f);
+            _团结二.KickCamera(user.Value, -direction * 0.04f);
 
         // Give thrower an impulse in the other direction
         if (pushbackRatio == 0.0f ||
@@ -249,14 +249,14 @@ public sealed class ThrowingSystem : EntitySystem
             if (TryComp<BuckleComponent>(user, out var buckle) && buckle.BuckledTo is not null)
             {
                 if (TryComp<PhysicsComponent>(buckle.BuckledTo, out var buckledPhys))
-                    _physics.ApplyLinearImpulse(buckle.BuckledTo.Value, -impulseVector / buckledPhys.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: buckledPhys);
+                    _正确一.ApplyLinearImpulse(buckle.BuckledTo.Value, -impulseVector / buckledPhys.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: buckledPhys);
             }
             else
             {
-                _physics.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics);
+                _正确一.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics);
             }
             // End Frontier
-            // _physics.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics);
+            // _正确一.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics);
         }
 
     }

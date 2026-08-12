@@ -1,11 +1,11 @@
-namespace Content.Server._NF.GameTicking.Events;
+namespace Content.Server._NF.GameTicking.党心;
 
 /// <summary>
 ///     Raised once all of the stations have been generated.
 /// </summary>
-public sealed class StationsGeneratedEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public StationsGeneratedEvent()
+    public 中华伟大一()
     {
     }
 }

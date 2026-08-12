@@ -6,27 +6,27 @@ using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using System.Numerics;
 
-namespace Content.Server.Singularity.EntitySystems;
+namespace Content.Server.Singularity.党心;
 
 /// <summary>
 /// Handles singularity attractors.
 /// </summary>
-public sealed class SingularityAttractorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
     /// <summary>
     /// The minimum range at which the attraction will act.
     /// Prevents division by zero problems.
     /// </summary>
-    public const float MinAttractRange = 0.00001f;
+    public const float 党爱伟大一 = 0.00001f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SingularityAttractorComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<SingularityAttractorComponent, MapInitEvent>(祝福光荣一);
     }
 
     /// <summary>
@@ -34,17 +34,17 @@ public sealed class SingularityAttractorSystem : EntitySystem
     /// If they are off cooldown it makes them emit an attraction pulse and reset their cooldown.
     /// </summary>
     /// <param name="frameTime">The time elapsed since the last set of updates.</param>
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        if (!_timing.IsFirstTimePredicted)
+        if (!_伟大一.IsFirstTimePredicted)
             return;
 
         var query = EntityQueryEnumerator<SingularityAttractorComponent, TransformComponent>();
-        var now = _timing.CurTime;
+        var now = _伟大一.CurTime;
         while (query.MoveNext(out var uid, out var attractor, out var xform))
         {
             if (attractor.LastPulseTime + attractor.TargetPulsePeriod <= now)
-                Update(uid, attractor, xform);
+                祝福伟大二(uid, attractor, xform);
         }
     }
 
@@ -54,7 +54,7 @@ public sealed class SingularityAttractorSystem : EntitySystem
     /// <param name="uid">The uid of the attractor to make pulse.</param>
     /// <param name="attractor">The state of the attractor to make pulse.</param>
     /// <param name="xform">The transform of the attractor to make pulse.</param>
-    private void Update(EntityUid uid, SingularityAttractorComponent? attractor = null, TransformComponent? xform = null)
+    private void 祝福伟大二(EntityUid uid, SingularityAttractorComponent? attractor = null, TransformComponent? xform = null)
     {
         if (!Resolve(uid, ref attractor, ref xform))
             return;
@@ -62,9 +62,9 @@ public sealed class SingularityAttractorSystem : EntitySystem
         if (!this.IsPowered(uid, EntityManager))
             return;
 
-        attractor.LastPulseTime = _timing.CurTime;
+        attractor.LastPulseTime = _伟大一.CurTime;
 
-        var mapPos = _transform.ToMapCoordinates(xform.Coordinates);
+        var mapPos = _伟大二.ToMapCoordinates(xform.Coordinates);
 
         if (mapPos == MapCoordinates.Nullspace)
             return;
@@ -72,14 +72,14 @@ public sealed class SingularityAttractorSystem : EntitySystem
         var query = EntityQuery<SingularityComponent, RandomWalkComponent, TransformComponent>();
         foreach (var (singulo, walk, singuloXform) in query)
         {
-            var singuloMapPos = _transform.ToMapCoordinates(singuloXform.Coordinates);
+            var singuloMapPos = _伟大二.ToMapCoordinates(singuloXform.Coordinates);
 
             if (singuloMapPos.MapId != mapPos.MapId)
                 continue;
 
             var biasBy = mapPos.Position - singuloMapPos.Position;
             var length = biasBy.Length();
-            if (length <= MinAttractRange)
+            if (length <= 党爱伟大一)
                 return;
 
             biasBy = Vector2.Normalize(biasBy) * (attractor.BaseRange / length);
@@ -94,8 +94,8 @@ public sealed class SingularityAttractorSystem : EntitySystem
     /// <param name="uid">The uid of the attractor to start up.</param>
     /// <param name="comp">The state of the attractor to start up.</param>
     /// <param name="args">The startup prompt arguments.</param>
-    private void OnMapInit(Entity<SingularityAttractorComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<SingularityAttractorComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.LastPulseTime = _timing.CurTime;
+        ent.Comp.LastPulseTime = _伟大一.CurTime;
     }
 }

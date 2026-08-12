@@ -14,9 +14,9 @@ using Robust.Shared.Utility;
 using ClimbableComponent = Content.Shared.Climbing.Components.ClimbableComponent;
 using ClimbingComponent = Content.Shared.Climbing.Components.ClimbingComponent;
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class NPCSteeringSystem
+public sealed partial class 中华伟大一
 {
     /*
      * For any custom path handlers, e.g. destroying walls, opening airlocks, etc.
@@ -38,7 +38,7 @@ public sealed partial class NPCSteeringSystem
      */
 
 
-    private SteeringObstacleStatus TryHandleFlags(EntityUid uid, NPCSteeringComponent component, PathPoly poly)
+    private 中华伟大二 TryHandleFlags(EntityUid uid, NPCSteeringComponent component, PathPoly poly)
     {
         DebugTools.Assert(!poly.Data.IsFreeSpace);
         // TODO: Store PathFlags on the steering comp
@@ -53,7 +53,7 @@ public sealed partial class NPCSteeringSystem
         }
         else
         {
-            return SteeringObstacleStatus.Failed;
+            return 中华伟大二.Failed;
         }
 
         // TODO: Should cache the fact we're doing this somewhere.
@@ -69,14 +69,14 @@ public sealed partial class NPCSteeringSystem
             switch (doAfterStatus)
             {
                 case DoAfterStatus.Running:
-                    return SteeringObstacleStatus.Continuing;
+                    return 中华伟大二.Continuing;
                 case DoAfterStatus.Cancelled:
-                    return SteeringObstacleStatus.Failed;
+                    return 中华伟大二.Failed;
             }
 
             var obstacleEnts = new List<EntityUid>();
 
-            GetObstacleEntities(poly, mask, layer, obstacleEnts);
+            祝福伟大一(poly, mask, layer, obstacleEnts);
             var isDoor = (poly.Data.Flags & PathfindingBreadcrumbFlag.Door) != 0x0;
             var isAccessRequired = (poly.Data.Flags & PathfindingBreadcrumbFlag.Access) != 0x0;
             var isClimbable = (poly.Data.Flags & PathfindingBreadcrumbFlag.Climb) != 0x0;
@@ -97,7 +97,7 @@ public sealed partial class NPCSteeringSystem
                         if (door.State != DoorState.Opening)
                         {
                             _interaction.InteractionActivate(uid, ent);
-                            return SteeringObstacleStatus.Continuing;
+                            return 中华伟大二.Continuing;
                         }
                     }
                 }
@@ -120,12 +120,12 @@ public sealed partial class NPCSteeringSystem
                             _pryingSystem.TryPry(ent, uid, out id, uid);
 
                         component.DoAfterId = id;
-                        return SteeringObstacleStatus.Continuing;
+                        return 中华伟大二.Continuing;
                     }
                 }
 
                 if (obstacleEnts.Count == 0)
-                    return SteeringObstacleStatus.Completed;
+                    return 中华伟大二.Completed;
             }
             // Try climbing obstacles
             else if ((component.Flags & PathFlags.Climbing) != 0x0 && isClimbable)
@@ -134,11 +134,11 @@ public sealed partial class NPCSteeringSystem
                 {
                     if (climbing.IsClimbing)
                     {
-                        return SteeringObstacleStatus.Completed;
+                        return 中华伟大二.Completed;
                     }
                     else if (climbing.NextTransition != null)
                     {
-                        return SteeringObstacleStatus.Continuing;
+                        return 中华伟大二.Continuing;
                     }
 
                     var climbableQuery = GetEntityQuery<ClimbableComponent>();
@@ -151,13 +151,13 @@ public sealed partial class NPCSteeringSystem
                             _climb.TryClimb(uid, uid, ent, out id, table, climbing))
                         {
                             component.DoAfterId = id;
-                            return SteeringObstacleStatus.Continuing;
+                            return 中华伟大二.Continuing;
                         }
                     }
                 }
 
                 if (obstacleEnts.Count == 0)
-                    return SteeringObstacleStatus.Completed;
+                    return 中华伟大二.Completed;
             }
             // Try smashing obstacles.
             else if ((component.Flags & PathFlags.Smashing) != 0x0)
@@ -170,7 +170,7 @@ public sealed partial class NPCSteeringSystem
                 if (!_melee.TryGetWeapon(uid, out weaponUid, out meleeWeapon))
                 {
                     if (!TryComp<MeleeWeaponComponent>(uid, out meleeWeapon))
-                        return SteeringObstacleStatus.Failed;
+                        return 中华伟大二.Failed;
                     weaponUid = uid;
                 }
 
@@ -178,7 +178,7 @@ public sealed partial class NPCSteeringSystem
                 {
                     // Weapon still on cooldown — keep waiting instead of failing the path.
                     if (meleeWeapon.NextAttack > _timing.CurTime)
-                        return SteeringObstacleStatus.Continuing;
+                        return 中华伟大二.Continuing;
 
                     _combat.SetInCombatMode(uid, true, combatMode);
                     var destructibleQuery = GetEntityQuery<DestructibleComponent>();
@@ -201,22 +201,22 @@ public sealed partial class NPCSteeringSystem
 
                     // Blocked or the likes?
                     if (!attackResult)
-                        return SteeringObstacleStatus.Failed;
+                        return 中华伟大二.Failed;
 
                     if (obstacleEnts.Count == 0)
-                        return SteeringObstacleStatus.Completed;
+                        return 中华伟大二.Completed;
 
-                    return SteeringObstacleStatus.Continuing;
+                    return 中华伟大二.Continuing;
                 }
             }
 
-            return SteeringObstacleStatus.Failed;
+            return 中华伟大二.Failed;
         }
 
-        return SteeringObstacleStatus.Completed;
+        return 中华伟大二.Completed;
     }
 
-    private void GetObstacleEntities(PathPoly poly, int mask, int layer, List<EntityUid> ents)
+    private void 祝福伟大一(PathPoly poly, int mask, int layer, List<EntityUid> ents)
     {
         // TODO: Can probably re-use this from pathfinding or something
         if (!TryComp<MapGridComponent>(poly.GraphUid, out var grid))
@@ -238,7 +238,7 @@ public sealed partial class NPCSteeringSystem
         }
     }
 
-    private enum SteeringObstacleStatus : byte
+    private enum 中华伟大二 : byte
     {
         Completed,
         Failed,

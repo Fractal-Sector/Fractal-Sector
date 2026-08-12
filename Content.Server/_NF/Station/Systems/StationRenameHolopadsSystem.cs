@@ -4,25 +4,25 @@ using Content.Server.Station.Systems;
 using Content.Shared.Holopad;
 using Content.Shared.Labels.EntitySystems;
 
-namespace Content.Server._NF.Station.Systems;
+namespace Content.Server._NF.Station.党心;
 
-public sealed class StationRenameHolopadsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly LabelSystem _label = default!; // TODO: use LabelSystem directly instead of this.
+    [Dependency] private readonly StationSystem _伟大一 = default!;
+    [Dependency] private readonly LabelSystem _伟大二 = default!; // TODO: use LabelSystem directly instead of this.
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StationRenameHolopadsComponent, StationPostInitEvent>(OnPostInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StationRenameHolopadsComponent, StationPostInitEvent>(祝福伟大二);
     }
 
-    private void OnPostInit(EntityUid uid, StationRenameHolopadsComponent component, ref StationPostInitEvent args)
+    private void 祝福伟大二(EntityUid uid, StationRenameHolopadsComponent component, ref StationPostInitEvent args)
     {
-        SyncHolopadsNames(uid);
+        祝福光荣一(uid);
     }
 
-    private void SyncHolopadsNames(EntityUid stationUid)
+    private void 祝福光荣一(EntityUid stationUid)
     {
         // update all holopads that belong to this station grid
         var query = EntityQueryEnumerator<HolopadComponent>();
@@ -31,20 +31,20 @@ public sealed class StationRenameHolopadsSystem : EntitySystem
             if (!pad.UseStationName)
                 continue;
 
-            var padStationUid = _stationSystem.GetOwningStation(uid);
+            var padStationUid = _伟大一.GetOwningStation(uid);
             if (padStationUid != stationUid)
                 continue;
 
-            SyncHolopad((uid, pad), padStationUid);
+            祝福光荣二((uid, pad), padStationUid);
         }
     }
 
-    public void SyncHolopad(Entity<HolopadComponent> holopad, EntityUid? padStationUid = null)
+    public void 祝福光荣二(Entity<HolopadComponent> holopad, EntityUid? padStationUid = null)
     {
         if (!holopad.Comp.UseStationName)
             return;
 
-        padStationUid ??= _stationSystem.GetOwningStation(holopad);
+        padStationUid ??= _伟大一.GetOwningStation(holopad);
         if (padStationUid == null)
         {
             return;
@@ -64,6 +64,6 @@ public sealed class StationRenameHolopadsSystem : EntitySystem
             padName += " " + holopad.Comp.StationNameSuffix;
         }
 
-        _label.Label(holopad, padName);
+        _伟大二.Label(holopad, padName);
     }
 }

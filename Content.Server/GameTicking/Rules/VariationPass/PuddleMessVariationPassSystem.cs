@@ -5,19 +5,19 @@ using Content.Shared.Random.Helpers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.GameTicking.Rules.VariationPass;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <inheritdoc cref="PuddleMessVariationPassComponent"/>
-public sealed class PuddleMessVariationPassSystem : VariationPassSystem<PuddleMessVariationPassComponent>
+public sealed class 中华伟大一 : VariationPassSystem<PuddleMessVariationPassComponent>
 {
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly PuddleSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-    protected override void ApplyVariation(Entity<PuddleMessVariationPassComponent> ent, ref StationVariationPassEvent args)
+    protected override void 祝福伟大一(Entity<PuddleMessVariationPassComponent> ent, ref StationVariationPassEvent args)
     {
         var totalTiles = Stations.GetTileCount(args.Station.AsNullable());
 
-        if (!_proto.TryIndex(ent.Comp.RandomPuddleSolutionFill, out var proto))
+        if (!_伟大二.TryIndex(ent.Comp.RandomPuddleSolutionFill, out var proto))
             return;
 
         var puddleMod = Random.NextGaussian(ent.Comp.TilesPerSpillAverage, ent.Comp.TilesPerSpillStdDev);
@@ -29,7 +29,7 @@ public sealed class PuddleMessVariationPassSystem : VariationPassSystem<PuddleMe
                 continue;
 
             var sol = proto.Pick(Random);
-            _puddle.TrySpillAt(coords, new Solution(sol.reagent, sol.quantity), out _, sound: false);
+            _伟大一.TrySpillAt(coords, new Solution(sol.reagent, sol.quantity), out _, sound: false);
         }
     }
 }

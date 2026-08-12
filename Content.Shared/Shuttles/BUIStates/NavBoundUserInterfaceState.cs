@@ -1,17 +1,17 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Shuttles.BUIStates;
+namespace Content.Shared.Shuttles.党心;
 
 /// <summary>
 /// Wrapper around <see cref="NavInterfaceState"/>
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class NavBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
-    public NavInterfaceState State;
+    public NavInterfaceState 党爱伟大一;
 
-    public NavBoundUserInterfaceState(NavInterfaceState state)
+    public 中华伟大一(NavInterfaceState state)
     {
-        State = state;
+        党爱伟大一 = state;
     }
 }

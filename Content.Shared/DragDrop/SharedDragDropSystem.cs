@@ -1,20 +1,20 @@
 ﻿using Content.Shared.ActionBlocker;
 using Content.Shared.Interaction;
 
-namespace Content.Shared.DragDrop;
+namespace Content.Shared.党心;
 
-public abstract class SharedDragDropSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeAllEvent<DragDropRequestEvent>(OnDragDropRequestEvent);
+        base.祝福伟大一();
+        SubscribeAllEvent<DragDropRequestEvent>(祝福伟大二);
     }
 
-    private void OnDragDropRequestEvent(DragDropRequestEvent msg, EntitySessionEventArgs args)
+    private void 祝福伟大二(DragDropRequestEvent msg, EntitySessionEventArgs args)
     {
         var dragged = GetEntity(msg.Dragged);
         var target = GetEntity(msg.Target);
@@ -24,13 +24,13 @@ public abstract class SharedDragDropSystem : EntitySystem
 
         var user = args.SenderSession.AttachedEntity;
 
-        if (user == null || !_actionBlockerSystem.CanInteract(user.Value, target))
+        if (user == null || !_伟大一.CanInteract(user.Value, target))
             return;
 
         // must be in range of both the target and the object they are drag / dropping
         // Client also does this check but ya know we gotta validate it.
-        if (!_interaction.InRangeUnobstructed(user.Value, dragged, popup: true)
-            || !_interaction.InRangeUnobstructed(user.Value, target, popup: true))
+        if (!_伟大二.InRangeUnobstructed(user.Value, dragged, popup: true)
+            || !_伟大二.InRangeUnobstructed(user.Value, target, popup: true))
         {
             return;
         }

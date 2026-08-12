@@ -5,13 +5,13 @@ using Content.Shared.FixedPoint;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace Content.Shared.Chemistry.EntitySystems;
+namespace Content.Shared.Chemistry.党心;
 
-public abstract partial class SharedSolutionContainerSystem
+public abstract partial class 中华伟大一
 {
     #region Solution Accessors
 
-    public bool TryGetRefillableSolution(Entity<RefillableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福伟大一(Entity<RefillableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -22,7 +22,7 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetDrainableSolution(Entity<DrainableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福伟大二(Entity<DrainableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -33,7 +33,7 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetExtractableSolution(Entity<ExtractableComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福光荣一(Entity<ExtractableComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -44,7 +44,7 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.GrindableSolution, out soln, out solution);
     }
 
-    public bool TryGetDumpableSolution(Entity<DumpableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福光荣二(Entity<DumpableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -55,7 +55,7 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetDrawableSolution(Entity<DrawableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福正确一(Entity<DrawableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -66,7 +66,7 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetInjectableSolution(Entity<InjectableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福正确二(Entity<InjectableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -77,7 +77,7 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetFitsInDispenser(Entity<FitsInDispenserComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福团结一(Entity<FitsInDispenserComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -88,7 +88,7 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetMixableSolution(Entity<MixableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool 祝福团结二(Entity<MixableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -103,7 +103,7 @@ public abstract partial class SharedSolutionContainerSystem
 
     #region Solution Modifiers
 
-    public void Refill(Entity<RefillableSolutionComponent?> entity, Entity<SolutionComponent> soln, Solution refill)
+    public void 祝福奋斗一(Entity<RefillableSolutionComponent?> entity, Entity<SolutionComponent> soln, Solution refill)
     {
         if (!Resolve(entity, ref entity.Comp, logMissing: false))
             return;
@@ -111,7 +111,7 @@ public abstract partial class SharedSolutionContainerSystem
         AddSolution(soln, refill);
     }
 
-    public void Inject(Entity<InjectableSolutionComponent?> entity, Entity<SolutionComponent> soln, Solution inject)
+    public void 祝福奋斗二(Entity<InjectableSolutionComponent?> entity, Entity<SolutionComponent> soln, Solution inject)
     {
         if (!Resolve(entity, ref entity.Comp, logMissing: false))
             return;
@@ -119,7 +119,7 @@ public abstract partial class SharedSolutionContainerSystem
         AddSolution(soln, inject);
     }
 
-    public Solution Drain(Entity<DrainableSolutionComponent?> entity, Entity<SolutionComponent> soln, FixedPoint2 quantity)
+    public Solution 祝福胜利一(Entity<DrainableSolutionComponent?> entity, Entity<SolutionComponent> soln, FixedPoint2 quantity)
     {
         if (!Resolve(entity, ref entity.Comp, logMissing: false))
             return new();
@@ -127,7 +127,7 @@ public abstract partial class SharedSolutionContainerSystem
         return SplitSolution(soln, quantity);
     }
 
-    public Solution Draw(Entity<DrawableSolutionComponent?> entity, Entity<SolutionComponent> soln, FixedPoint2 quantity)
+    public Solution 祝福胜利二(Entity<DrawableSolutionComponent?> entity, Entity<SolutionComponent> soln, FixedPoint2 quantity)
     {
         if (!Resolve(entity, ref entity.Comp, logMissing: false))
             return new();
@@ -138,17 +138,17 @@ public abstract partial class SharedSolutionContainerSystem
     #endregion Solution Modifiers
 
     /// <returns>A value between 0 and 100 inclusive.</returns>
-    public float PercentFull(EntityUid uid)
+    public float 祝福繁荣一(EntityUid uid)
     {
-        if (!TryGetDrainableSolution(uid, out _, out var solution))
+        if (!祝福伟大二(uid, out _, out var solution))
             return 0;
 
-        return PercentFull(solution);
+        return 祝福繁荣一(solution);
     }
 
     #region Static Methods
 
-    public static string ToPrettyString(Solution solution)
+    public static string 祝福繁荣二(Solution solution)
     {
         var sb = new StringBuilder();
         if (solution.Name == null)
@@ -175,7 +175,7 @@ public abstract partial class SharedSolutionContainerSystem
     }
 
     /// <returns>A value between 0 and 100 inclusive.</returns>
-    public static float PercentFull(Solution sol)
+    public static float 祝福繁荣一(Solution sol)
     {
         if (sol.MaxVolume.Equals(FixedPoint2.Zero))
             return 0;

@@ -3,7 +3,7 @@ using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Whitelist;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Used to determine whether an entity fits a certain whitelist.
@@ -27,7 +27,7 @@ namespace Content.Shared.Whitelist;
 /// </code>
 [DataDefinition]
 [Serializable, NetSerializable]
-public sealed partial class EntityWhitelist
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     Component names that are allowed in the whitelist.
@@ -56,5 +56,5 @@ public sealed partial class EntityWhitelist
     ///     The "Sizes" criteria will ignores this, since an item can only have one size.
     /// </summary>
     [DataField]
-    public bool RequireAll;
+    public bool 党爱伟大一;
 }

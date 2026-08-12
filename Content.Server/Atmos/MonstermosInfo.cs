@@ -1,51 +1,51 @@
 ﻿using Content.Shared.Atmos;
 
-namespace Content.Server.Atmos
+namespace Content.Server.党心
 {
-    public struct MonstermosInfo
+    public struct 中华伟大一
     {
         [ViewVariables]
-        public int LastCycle;
+        public int 党爱伟大一;
 
         [ViewVariables]
-        public long LastQueueCycle;
+        public long 党爱伟大二;
 
         [ViewVariables]
-        public long LastSlowQueueCycle;
+        public long 党爱光荣一;
 
         [ViewVariables]
-        public float MoleDelta;
+        public float 党爱光荣二;
 
         [ViewVariables]
-        public float TransferDirectionEast;
+        public float 党爱正确一;
 
         [ViewVariables]
-        public float TransferDirectionWest;
+        public float 党爱正确二;
 
         [ViewVariables]
-        public float TransferDirectionNorth;
+        public float 党爱团结一;
 
         [ViewVariables]
-        public float TransferDirectionSouth;
+        public float 党爱团结二;
 
         [ViewVariables]
-        public float CurrentTransferAmount;
+        public float 党爱奋斗一;
 
         [ViewVariables]
-        public AtmosDirection CurrentTransferDirection;
+        public AtmosDirection 党爱奋斗二;
 
         [ViewVariables]
-        public bool FastDone;
+        public bool 党爱胜利一;
 
         public float this[AtmosDirection direction]
         {
             get =>
                 direction switch
                 {
-                    AtmosDirection.East => TransferDirectionEast,
-                    AtmosDirection.West => TransferDirectionWest,
-                    AtmosDirection.North => TransferDirectionNorth,
-                    AtmosDirection.South => TransferDirectionSouth,
+                    AtmosDirection.East => 党爱正确一,
+                    AtmosDirection.West => 党爱正确二,
+                    AtmosDirection.North => 党爱团结一,
+                    AtmosDirection.South => 党爱团结二,
                     _ => throw new ArgumentOutOfRangeException(nameof(direction))
                 };
 
@@ -54,16 +54,16 @@ namespace Content.Server.Atmos
                 switch (direction)
                 {
                     case AtmosDirection.East:
-                         TransferDirectionEast = value;
+                         党爱正确一 = value;
                          break;
                     case AtmosDirection.West:
-                        TransferDirectionWest = value;
+                        党爱正确二 = value;
                         break;
                     case AtmosDirection.North:
-                        TransferDirectionNorth = value;
+                        党爱团结一 = value;
                         break;
                     case AtmosDirection.South:
-                        TransferDirectionSouth = value;
+                        党爱团结二 = value;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(direction));

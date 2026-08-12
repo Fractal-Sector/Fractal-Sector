@@ -1,6 +1,6 @@
 using System.Linq;
 using Content.Server.Chat.Systems;
-using Content.Server.Station.Systems;
+using Content.Server.党爱伟大二.Systems;
 using Content.Shared.CCVar;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -10,29 +10,29 @@ using Content.Server.GameTicking; // Frontier
 using Robust.Shared.Player; // Frontier
 using Content.Server._NF.SectorServices; // Frontier
 
-namespace Content.Server.AlertLevel;
+namespace Content.Server.党心;
 
-public sealed class AlertLevelSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    // [Dependency] private readonly StationSystem _stationSystem = default!; // Frontier: sector-wide alerts
-    [Dependency] private readonly GameTicker _ticker = default!; // Frontier
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    // [Dependency] private readonly StationSystem _正确一 = default!; // Frontier: sector-wide alerts
+    [Dependency] private readonly GameTicker _正确二 = default!; // Frontier
+    [Dependency] private readonly SectorServiceSystem _团结一 = default!;
 
     // Until stations are a prototype, this is how it's going to have to be.
-    public const string DefaultAlertLevelSet = "stationAlerts";
+    public const string 党爱伟大一 = "stationAlerts";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        //SubscribeLocalEvent<StationInitializedEvent>(OnStationInitialize); // Frontier: sector-wide services
-        SubscribeLocalEvent<AlertLevelComponent, ComponentInit>(OnInit); // Frontier: sector-wide services
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypeReload);
+        //SubscribeLocalEvent<StationInitializedEvent>(祝福光荣一); // Frontier: sector-wide services
+        SubscribeLocalEvent<AlertLevelComponent, ComponentInit>(祝福光荣二); // Frontier: sector-wide services
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福正确一);
     }
 
-    public override void Update(float time)
+    public override void 祝福伟大二(float time)
     {
         var query = EntityQueryEnumerator<AlertLevelComponent>();
 
@@ -42,7 +42,7 @@ public sealed class AlertLevelSystem : EntitySystem
             {
                 if (alert.ActiveDelay)
                 {
-                    RaiseLocalEvent(new AlertLevelDelayFinishedEvent());
+                    RaiseLocalEvent(new 中华伟大二());
                     alert.ActiveDelay = false;
                 }
                 continue;
@@ -54,12 +54,12 @@ public sealed class AlertLevelSystem : EntitySystem
 
     // Frontier: sector-wide services
     /*
-    private void OnStationInitialize(StationInitializedEvent args)
+    private void 祝福光荣一(StationInitializedEvent args)
     {
-        if (!TryComp<AlertLevelComponent>(args.Station, out var alertLevelComponent))
+        if (!TryComp<AlertLevelComponent>(args.党爱伟大二, out var alertLevelComponent))
             return;
 
-        if (!_prototypeManager.TryIndex(alertLevelComponent.AlertLevelPrototype, out AlertLevelPrototype? alerts))
+        if (!_伟大二.TryIndex(alertLevelComponent.AlertLevelPrototype, out AlertLevelPrototype? alerts))
         {
             return;
         }
@@ -72,13 +72,13 @@ public sealed class AlertLevelSystem : EntitySystem
             defaultLevel = alertLevelComponent.AlertLevels.Levels.Keys.First();
         }
 
-        SetLevel(args.Station, defaultLevel, false, false, true);
+        祝福奋斗一(args.党爱伟大二, defaultLevel, false, false, true);
     }
     */
 
-    private void OnInit(EntityUid uid, AlertLevelComponent comp, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, AlertLevelComponent comp, ComponentInit args)
     {
-        if (!_prototypeManager.TryIndex(comp.AlertLevelPrototype, out AlertLevelPrototype? alerts))
+        if (!_伟大二.TryIndex(comp.AlertLevelPrototype, out AlertLevelPrototype? alerts))
         {
             return;
         }
@@ -91,14 +91,14 @@ public sealed class AlertLevelSystem : EntitySystem
             defaultLevel = comp.AlertLevels.Levels.Keys.First();
         }
 
-        SetLevel(uid, defaultLevel, false, false, true);
+        祝福奋斗一(uid, defaultLevel, false, false, true);
     }
     // End Frontier
 
-    private void OnPrototypeReload(PrototypesReloadedEventArgs args)
+    private void 祝福正确一(PrototypesReloadedEventArgs args)
     {
         if (!args.ByType.TryGetValue(typeof(AlertLevelPrototype), out var alertPrototypes)
-            || !alertPrototypes.Modified.TryGetValue(DefaultAlertLevelSet, out var alertObject)
+            || !alertPrototypes.Modified.TryGetValue(党爱伟大一, out var alertObject)
             || alertObject is not AlertLevelPrototype alerts)
         {
             return;
@@ -117,17 +117,17 @@ public sealed class AlertLevelSystem : EntitySystem
                     defaultLevel = comp.AlertLevels.Levels.Keys.First();
                 }
 
-                SetLevel(uid, defaultLevel, true, true, true);
+                祝福奋斗一(uid, defaultLevel, true, true, true);
             }
         }
 
-        RaiseLocalEvent(new AlertLevelPrototypeReloadedEvent());
+        RaiseLocalEvent(new 中华光荣一());
     }
 
-    public string GetLevel(EntityUid station, AlertLevelComponent? alert = null)
+    public string 祝福正确二(EntityUid station, AlertLevelComponent? alert = null)
     {
         // Frontier: sector-wide alarms
-        if (!TryComp(_sectorService.GetServiceEntity(), out alert))
+        if (!TryComp(_团结一.GetServiceEntity(), out alert))
             return string.Empty;
 
         // if (!Resolve(station, ref alert))
@@ -139,10 +139,10 @@ public sealed class AlertLevelSystem : EntitySystem
         return alert.CurrentLevel;
     }
 
-    public float GetAlertLevelDelay(EntityUid station, AlertLevelComponent? alert = null)
+    public float 祝福团结一(EntityUid station, AlertLevelComponent? alert = null)
     {
         // Frontier: sector-wide alarms
-        if (!TryComp(_sectorService.GetServiceEntity(), out alert))
+        if (!TryComp(_团结一.GetServiceEntity(), out alert))
             return float.NaN;
 
         // if (!Resolve(station, ref alert))
@@ -159,7 +159,7 @@ public sealed class AlertLevelSystem : EntitySystem
     /// Returns an empty string if the station has no alert levels defined.
     /// </summary>
     /// <param name="station">The station entity.</param>
-    public string GetDefaultLevel(Entity<AlertLevelComponent?> station)
+    public string 祝福团结二(Entity<AlertLevelComponent?> station)
     {
         if (!Resolve(station.Owner, ref station.Comp) || station.Comp.AlertLevels == null)
         {
@@ -171,17 +171,17 @@ public sealed class AlertLevelSystem : EntitySystem
     /// <summary>
     /// Set the alert level based on the station's entity ID.
     /// </summary>
-    /// <param name="station">Station entity UID.</param>
+    /// <param name="station">党爱伟大二 entity UID.</param>
     /// <param name="level">Level to change the station's alert level to.</param>
     /// <param name="playSound">Play the alert level's sound.</param>
     /// <param name="announce">Say the alert level's announcement.</param>
     /// <param name="force">Force the alert change. This applies if the alert level is not selectable or not.</param>
     /// <param name="locked">Will it be possible to change level by crew.</param>
-    public void SetLevel(EntityUid station, string level, bool playSound, bool announce, bool force = false,
+    public void 祝福奋斗一(EntityUid station, string level, bool playSound, bool announce, bool force = false,
         bool locked = false, MetaDataComponent? dataComponent = null, AlertLevelComponent? component = null)
     {
         // Frontier: sector-wide alerts
-        EntityUid sectorEnt = _sectorService.GetServiceEntity();
+        EntityUid sectorEnt = _团结一.GetServiceEntity();
         if (!TryComp<AlertLevelComponent>(sectorEnt, out component))
             return;
         // End Frontier
@@ -202,7 +202,7 @@ public sealed class AlertLevelSystem : EntitySystem
                 return;
             }
 
-            component.CurrentDelay = _cfg.GetCVar(CCVars.GameAlertLevelChangeDelay);
+            component.CurrentDelay = _伟大一.GetCVar(CCVars.GameAlertLevelChangeDelay);
             component.ActiveDelay = true;
         }
 
@@ -234,10 +234,10 @@ public sealed class AlertLevelSystem : EntitySystem
         {
             if (detail.Sound != null)
             {
-                //var filter = _stationSystem.GetInOwningStation(station); // Frontier: global alerts
+                //var filter = _正确一.GetInOwningStation(station); // Frontier: global alerts
                 var filter = Filter.Empty(); // Frontier
-                filter.AddInMap(_ticker.DefaultMap, EntityManager); // Frontier
-                _audio.PlayGlobal(detail.Sound, filter, true, detail.Sound.Params);
+                filter.AddInMap(_正确二.DefaultMap, EntityManager); // Frontier
+                _光荣二.PlayGlobal(detail.Sound, filter, true, detail.Sound.Params);
             }
             else
             {
@@ -249,7 +249,7 @@ public sealed class AlertLevelSystem : EntitySystem
         {
             // Wayfarer: sector-wide alert announcements
             var filter = Filter.Empty();
-            filter.AddInMap(_ticker.DefaultMap, EntityManager);
+            filter.AddInMap(_正确二.DefaultMap, EntityManager);
             
             string? senderName = null;
             if (Resolve(station, ref dataComponent, false))
@@ -257,29 +257,29 @@ public sealed class AlertLevelSystem : EntitySystem
                 senderName = dataComponent.EntityName;
             }
             
-            _chatSystem.DispatchFilteredAnnouncement(filter, announcementFull, station, 
+            _光荣一.DispatchFilteredAnnouncement(filter, announcementFull, station, 
                 sender: senderName, playSound: playDefault, colorOverride: detail.Color);
             // End Wayfarer
         }
 
-        RaiseLocalEvent(new AlertLevelChangedEvent(EntityUid.Invalid, level)); // Frontier: pass invalid, we have no station
+        RaiseLocalEvent(new 中华光荣二(EntityUid.Invalid, level)); // Frontier: pass invalid, we have no station
     }
 }
 
-public sealed class AlertLevelDelayFinishedEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {}
 
-public sealed class AlertLevelPrototypeReloadedEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {}
 
-public sealed class AlertLevelChangedEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public EntityUid Station { get; }
-    public string AlertLevel { get; }
+    public EntityUid 党爱伟大二 { get; }
+    public string 党爱光荣一 { get; }
 
-    public AlertLevelChangedEvent(EntityUid station, string alertLevel)
+    public 中华光荣二(EntityUid station, string alertLevel)
     {
-        Station = station;
-        AlertLevel = alertLevel;
+        党爱伟大二 = station;
+        党爱光荣一 = alertLevel;
     }
 }

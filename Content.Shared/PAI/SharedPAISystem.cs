@@ -1,6 +1,6 @@
 using Content.Shared.Actions;
 
-namespace Content.Shared.PAI;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// pAIs, or Personal AIs, are essentially portable ghost role generators.
@@ -11,28 +11,28 @@ namespace Content.Shared.PAI;
 /// This seems too complicated for an initial implementation, though,
 ///  and there's not always enough players and ghost roles to justify it.
 /// </summary>
-public abstract class SharedPAISystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PAIComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<PAIComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<PAIComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<PAIComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnMapInit(Entity<PAIComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<PAIComponent> ent, ref MapInitEvent args)
     {
-        _actions.AddAction(ent, ent.Comp.ShopActionId);
+        _伟大一.AddAction(ent, ent.Comp.ShopActionId);
     }
 
-    private void OnShutdown(Entity<PAIComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣一(Entity<PAIComponent> ent, ref ComponentShutdown args)
     {
-        _actions.RemoveAction(ent.Owner, ent.Comp.ShopAction);
+        _伟大一.RemoveAction(ent.Owner, ent.Comp.ShopAction);
     }
 }
-public sealed partial class PAIShopActionEvent : InstantActionEvent
+public sealed partial class 中华伟大二 : InstantActionEvent
 {
 }

@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Chat
+﻿namespace Content.Shared.党心
 {
     /// <summary>
     ///     Chat channels that the player can select in the chat box.
@@ -7,7 +7,7 @@
     ///     Maps to <see cref="ChatChannel"/>, giving better names.
     /// </remarks>
     [Flags]
-    public enum ChatSelectChannel : uint
+    public enum 中华伟大一 : uint
     {
         None = 0,
 

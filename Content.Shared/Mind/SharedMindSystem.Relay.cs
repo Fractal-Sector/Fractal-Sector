@@ -1,15 +1,15 @@
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Mind.Components;
 
-namespace Content.Shared.Mind;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Relays events raised on a mobs body to its mind and mind role entities.
 ///     Useful for events that should be raised both on the body and the mind.
 /// </summary>
-public abstract partial class SharedMindSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    public void InitializeRelay()
+    public void 祝福伟大一()
     {
         // for name modifiers that depend on certain mind roles
         SubscribeLocalEvent<MindContainerComponent, RefreshNameModifiersEvent>(RelayRefToMind);
@@ -45,4 +45,4 @@ public abstract partial class SharedMindSystem : EntitySystem
 }
 
 [ByRefEvent]
-public record struct MindRelayedEvent<TEvent>(TEvent Args);
+public record 中华伟大二 MindRelayedEvent<TEvent>(TEvent Args);

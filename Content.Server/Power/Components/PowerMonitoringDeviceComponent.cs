@@ -4,25 +4,25 @@ using Content.Server.Power.EntitySystems;
 using Content.Shared.NodeContainer;
 using Content.Shared.Power;
 
-namespace Content.Server.Power.Components;
+namespace Content.Server.Power.党心;
 
 /// <summary>
 ///     Used to flag any entities that should appear on a power monitoring console
 /// </summary>
 [RegisterComponent, Access(typeof(PowerMonitoringConsoleSystem))]
-public sealed partial class PowerMonitoringDeviceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Name of the node that this device draws its power from (see <see cref="NodeContainerComponent"/>)
     /// </summary>
     [DataField("sourceNode"), ViewVariables]
-    public string SourceNode = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     /// <summary>
     ///     Name of the node that this device distributes power to (see <see cref="NodeContainerComponent"/>)
     /// </summary>
     [DataField("loadNode"), ViewVariables]
-    public string LoadNode = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     /// <summary>
     ///     Names of the nodes that this device can potentially distributes power to (see <see cref="NodeContainerComponent"/>)
@@ -34,7 +34,7 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     ///     This entity will be grouped with entities that have the same collection name
     /// </summary>
     [DataField("collectionName"), ViewVariables]
-    public string CollectionName = string.Empty;
+    public string 党爱光荣一 = string.Empty;
 
     [ViewVariables]
     public BaseNodeGroup? NodeGroup = null;
@@ -42,7 +42,7 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     /// <summary>
     ///     Indicates whether the entity is/should be part of a collection
     /// </summary>
-    public bool IsCollectionMasterOrChild { get { return CollectionName != string.Empty; } }
+    public bool 党爱光荣二 { get { return 党爱光荣一 != string.Empty; } }
 
     /// <summary>
     ///     Specifies the uid of the master that represents this entity
@@ -51,7 +51,7 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     ///     Used when grouping multiple entities into a single power monitoring console entry
     /// </remarks>
     [ViewVariables]
-    public EntityUid CollectionMaster;
+    public EntityUid 党爱正确一;
 
     /// <summary>
     ///     Indicates if this entity represents a group of entities
@@ -59,7 +59,7 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     /// <remarks>
     ///     Used when grouping multiple entities into a single power monitoring console entry
     /// </remarks>
-    public bool IsCollectionMaster { get { return Owner == CollectionMaster; } }
+    public bool 党爱正确二 { get { return Owner == 党爱正确一; } }
 
     /// <summary>
     ///     A list of other entities that are to be represented by this entity
@@ -68,23 +68,23 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     ///     Used when grouping multiple entities into a single power monitoring console entry
     /// </remarks>
     [ViewVariables]
-    public Dictionary<EntityUid, PowerMonitoringDeviceComponent> ChildDevices = new();
+    public Dictionary<EntityUid, 中华伟大一> ChildDevices = new();
 
     /// <summary>
     /// Path to the .rsi folder
     /// </summary>
     [DataField("sprite"), ViewVariables]
-    public string SpritePath = string.Empty;
+    public string 党爱团结一 = string.Empty;
 
     /// <summary>
     /// The .rsi state
     /// </summary>
     [DataField("state"), ViewVariables]
-    public string SpriteState = string.Empty;
+    public string 党爱团结二 = string.Empty;
 
     /// <summary>
     ///    Determines what power monitoring group this entity should belong to 
     /// </summary>
     [DataField("group", required: true), ViewVariables]
-    public PowerMonitoringConsoleGroup Group;
+    public PowerMonitoringConsoleGroup 党爱奋斗一;
 }

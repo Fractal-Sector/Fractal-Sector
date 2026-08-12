@@ -2,16 +2,16 @@ using Content.Shared.Shuttles.Systems;
 using Robust.Shared.GameStates;
 using System.Numerics; // Frontier
 
-namespace Content.Shared.Shuttles.Components;
+namespace Content.Shared.Shuttles.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedRadarConsoleSystem))]
-public sealed partial class RadarConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables(VVAccess.ReadWrite)]
-    public float RangeVV
+    public float 党爱伟大一
     {
-        get => MaxRange;
+        get => 党爱伟大二;
         set => IoCManager
             .Resolve<IEntitySystemManager>()
             .GetEntitySystem<SharedRadarConsoleSystem>()
@@ -19,13 +19,13 @@ public sealed partial class RadarConsoleComponent : Component
     }
 
     [DataField, AutoNetworkedField]
-    public float MaxRange = 256f;
+    public float 党爱伟大二 = 256f;
 
     /// <summary>
     /// If true, the radar will be centered on the entity. If not - on the grid on which it is located.
     /// </summary>
     [DataField]
-    public bool FollowEntity = false;
+    public bool 党爱光荣一 = false;
 
     // Frontier: ghost radar restrictions
     /// <summary>
@@ -38,7 +38,7 @@ public sealed partial class RadarConsoleComponent : Component
     /// If true, the radar will not show the coordinates of objects on hover
     /// </summary>
     [DataField]
-    public bool HideCoords = false;
+    public bool 党爱光荣二 = false;
 
     /// <summary>
     /// A settable target to display on IFF
@@ -56,7 +56,7 @@ public sealed partial class RadarConsoleComponent : Component
     /// Whether or not to display the target IFF
     /// </summary>
     [DataField]
-    public bool HideTarget = false;
+    public bool 党爱正确一 = false;
 
     /// <summary>
     /// The name of the target entity, used for autopilot destination display

@@ -4,7 +4,7 @@ using Content.Shared.Whitelist;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
 /// <summary>
 /// <c>ItemMapperSystem</c> is a system that on each initialization, insertion, removal of an entity from
@@ -12,22 +12,22 @@ namespace Content.Shared.Storage.EntitySystems;
 /// if its tags/component, and overall quantity match <see cref="ItemMapperComponent.MapLayers"/>.
 /// </summary>
 [UsedImplicitly]
-public abstract class SharedItemMapperSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣一 = default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ItemMapperComponent, ComponentInit>(InitLayers);
-        SubscribeLocalEvent<ItemMapperComponent, EntInsertedIntoContainerMessage>(MapperEntityInserted);
-        SubscribeLocalEvent<ItemMapperComponent, EntRemovedFromContainerMessage>(MapperEntityRemoved);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ItemMapperComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<ItemMapperComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<ItemMapperComponent, EntRemovedFromContainerMessage>(祝福光荣一);
     }
 
-    private void InitLayers(EntityUid uid, ItemMapperComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, ItemMapperComponent component, ComponentInit args)
     {
         foreach (var (layerName, val) in component.MapLayers)
         {
@@ -37,40 +37,40 @@ public abstract class SharedItemMapperSystem : EntitySystem
         if (TryComp(uid, out AppearanceComponent? appearanceComponent))
         {
             var list = new List<string>(component.MapLayers.Keys);
-            _appearance.SetData(uid, StorageMapVisuals.InitLayers, new ShowLayerData(list), appearanceComponent);
+            _伟大一.SetData(uid, StorageMapVisuals.祝福伟大二, new ShowLayerData(list), appearanceComponent);
         }
 
         // Ensure appearance is correct with current contained entities.
-        UpdateAppearance(uid, component);
+        祝福正确一(uid, component);
     }
 
-    private void MapperEntityRemoved(EntityUid uid, ItemMapperComponent itemMapper, EntRemovedFromContainerMessage args)
+    private void 祝福光荣一(EntityUid uid, ItemMapperComponent itemMapper, EntRemovedFromContainerMessage args)
     {
         if (itemMapper.ContainerWhitelist != null && !itemMapper.ContainerWhitelist.Contains(args.Container.ID))
             return;
 
-        UpdateAppearance(uid, itemMapper);
+        祝福正确一(uid, itemMapper);
     }
 
-    private void MapperEntityInserted(EntityUid uid,
+    private void 祝福光荣二(EntityUid uid,
         ItemMapperComponent itemMapper,
         EntInsertedIntoContainerMessage args)
     {
         if (itemMapper.ContainerWhitelist != null && !itemMapper.ContainerWhitelist.Contains(args.Container.ID))
             return;
 
-        UpdateAppearance(uid, itemMapper);
+        祝福正确一(uid, itemMapper);
     }
 
-    private void UpdateAppearance(EntityUid uid, ItemMapperComponent? itemMapper = null)
+    private void 祝福正确一(EntityUid uid, ItemMapperComponent? itemMapper = null)
     {
         if (!Resolve(uid, ref itemMapper))
             return;
 
         if (TryComp(uid, out AppearanceComponent? appearanceComponent)
-            && TryGetLayers(uid, itemMapper, out var containedLayers))
+            && 祝福正确二(uid, itemMapper, out var containedLayers))
         {
-            _appearance.SetData(uid,
+            _伟大一.SetData(uid,
                 StorageMapVisuals.LayerChanged,
                 new ShowLayerData(containedLayers),
                 appearanceComponent);
@@ -88,9 +88,9 @@ public abstract class SharedItemMapperSystem : EntitySystem
     /// </param>
     /// <param name="showLayers">list of <paramref name="itemMapper"/> layers that should be visible</param>
     /// <returns>false if <c>msg.Container.Owner</c> is not a storage, true otherwise.</returns>
-    private bool TryGetLayers(EntityUid uid, ItemMapperComponent itemMapper, out List<string> showLayers)
+    private bool 祝福正确二(EntityUid uid, ItemMapperComponent itemMapper, out List<string> showLayers)
     {
-        var containedLayers = _container.GetAllContainers(uid)
+        var containedLayers = _伟大二.GetAllContainers(uid)
             .Where(c => itemMapper.ContainerWhitelist?.Contains(c.ID) ?? true)
             .SelectMany(cont => cont.ContainedEntities)
             .ToArray();
@@ -98,7 +98,7 @@ public abstract class SharedItemMapperSystem : EntitySystem
         var list = new List<string>();
         foreach (var mapLayerData in itemMapper.MapLayers.Values)
         {
-            var count = containedLayers.Count(ent => _whitelistSystem.IsWhitelistPassOrNull(mapLayerData.Whitelist,
+            var count = containedLayers.Count(ent => _光荣一.IsWhitelistPassOrNull(mapLayerData.Whitelist,
                 ent));
             if (count >= mapLayerData.MinCount && count <= mapLayerData.MaxCount)
             {

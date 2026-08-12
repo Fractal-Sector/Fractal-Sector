@@ -13,13 +13,13 @@ using Content.Shared.NPC;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.NPC.Components;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// Added to NPCs that are moving.
 /// </summary>
 [RegisterComponent, AutoGenerateComponentPause]
-public sealed partial class NPCSteeringComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     #region Context Steering
 
@@ -27,22 +27,22 @@ public sealed partial class NPCSteeringComponent : Component
     /// Used to override seeking behavior for context steering.
     /// </summary>
     [ViewVariables]
-    public bool CanSeek = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
-    /// Radius for collision avoidance.
+    /// 党爱伟大二 for collision avoidance.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public float Radius = 0.35f;
+    public float 党爱伟大二 = 0.35f;
 
     [ViewVariables, DataField]
-    public float[] Interest = new float[SharedNPCSteeringSystem.InterestDirections];
+    public float[] 党爱光荣一 = new float[SharedNPCSteeringSystem.InterestDirections];
 
     [ViewVariables, DataField]
-    public float[] Danger = new float[SharedNPCSteeringSystem.InterestDirections];
+    public float[] 党爱光荣二 = new float[SharedNPCSteeringSystem.InterestDirections];
 
     // TODO: Update radius, also danger points debug only
-    public readonly List<Vector2> DangerPoints = new();
+    public readonly List<Vector2> 党爱正确一 = new();
 
     #endregion
 
@@ -50,66 +50,66 @@ public sealed partial class NPCSteeringComponent : Component
     /// Set to true from other systems if you wish to force the NPC to move closer.
     /// </summary>
     [DataField("forceMove")]
-    public bool ForceMove = false;
+    public bool 党爱正确二 = false;
 
     [DataField("lastSteerDirection")]
-    public Vector2 LastSteerDirection = Vector2.Zero;
+    public Vector2 党爱团结一 = Vector2.Zero;
 
     /// <summary>
     /// Last position we considered for being stuck.
     /// </summary>
     [DataField("lastStuckCoordinates")]
-    public EntityCoordinates LastStuckCoordinates;
+    public EntityCoordinates 党爱团结二;
 
     [DataField("lastStuckTime", customTypeSerializer:typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan LastStuckTime;
+    public TimeSpan 党爱奋斗一;
 
-    public const float StuckDistance = 1f;
+    public const float 党爱奋斗二 = 1f;
 
     /// <summary>
     /// Have we currently requested a path.
     /// </summary>
     [ViewVariables]
-    public bool Pathfind => PathfindToken != null;
+    public bool 党爱胜利一 => PathfindToken != null;
 
     /// <summary>
     /// Are we considered arrived if we have line of sight of the target.
     /// </summary>
     [DataField("arriveOnLineOfSight")]
-    public bool ArriveOnLineOfSight = false;
+    public bool 党爱胜利二 = false;
 
     /// <summary>
     /// How long the target has been in line of sight if applicable.
     /// </summary>
     [DataField("lineOfSightTimer")]
-    public float LineOfSightTimer = 0f;
+    public float 党爱繁荣一 = 0f;
 
     [DataField("lineOfSightTimeRequired")]
-    public float LineOfSightTimeRequired = 0.5f;
+    public float 党爱繁荣二 = 0.5f;
 
     [ViewVariables] public CancellationTokenSource? PathfindToken = null;
 
     /// <summary>
     /// Current path we're following to our coordinates.
     /// </summary>
-    [ViewVariables] public Queue<PathPoly> CurrentPath = new();
+    [ViewVariables] public Queue<PathPoly> 党爱富强一 = new();
 
     /// <summary>
     /// End target that we're trying to move to.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite)] public EntityCoordinates Coordinates;
+    [ViewVariables(VVAccess.ReadWrite)] public EntityCoordinates 党爱富强二;
 
     /// <summary>
     /// How close are we trying to get to the coordinates before being considered in range.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite)] public float Range = 0.2f;
+    [ViewVariables(VVAccess.ReadWrite)] public float 党爱民主一 = 0.2f;
 
     // <Monolith> - early port of wizden#38846
     /// <summary>
     /// Whether to ignore pathing and just move directly to target.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite)] public bool DirectMove = false;
+    [ViewVariables(VVAccess.ReadWrite)] public bool 党爱民主二 = false;
 
     /// <summary>
     /// Up to how fast can we be going before being considered in range, if not null.
@@ -120,18 +120,18 @@ public sealed partial class NPCSteeringComponent : Component
     /// <summary>
     /// How far does the last node in the path need to be before considering re-pathfinding.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite)] public float RepathRange = 1.5f;
+    [ViewVariables(VVAccess.ReadWrite)] public float 党爱文明一 = 1.5f;
 
-    public const int FailedPathLimit = 3;
+    public const int 党爱文明二 = 3;
 
     /// <summary>
     /// How many times we've failed to pathfind. Once this hits the limit we'll stop steering.
     /// </summary>
-    [ViewVariables] public int FailedPathCount;
+    [ViewVariables] public int 党爱和谐一;
 
-    [ViewVariables] public SteeringStatus Status = SteeringStatus.Moving;
+    [ViewVariables] public 中华伟大二 Status = 中华伟大二.Moving;
 
-    [ViewVariables(VVAccess.ReadWrite)] public PathFlags Flags = PathFlags.None;
+    [ViewVariables(VVAccess.ReadWrite)] public PathFlags 党爱和谐二 = PathFlags.None;
 
     /// <summary>
     /// If the NPC is using a do_after to clear an obstacle.
@@ -140,7 +140,7 @@ public sealed partial class NPCSteeringComponent : Component
     public DoAfterId? DoAfterId = null;
 }
 
-public enum SteeringStatus : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     /// If we can't reach the target (e.g. different map).

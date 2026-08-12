@@ -4,63 +4,63 @@ using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Security.Components;
 using Robust.Shared.Physics.Systems;
 
-namespace Content.Shared.Security.Systems;
+namespace Content.Shared.Security.党心;
 
-public sealed class DeployableBarrierSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly SharedPointLightSystem _pointLight = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly FixtureSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣一 = default!;
+    [Dependency] private readonly PullingSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<DeployableBarrierComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<DeployableBarrierComponent, LockToggledEvent>(OnLockToggled);
+        SubscribeLocalEvent<DeployableBarrierComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<DeployableBarrierComponent, LockToggledEvent>(祝福光荣一);
     }
 
-    private void OnMapInit(EntityUid uid, DeployableBarrierComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, DeployableBarrierComponent component, MapInitEvent args)
     {
         if (!TryComp(uid, out LockComponent? lockComponent))
             return;
 
-        ToggleBarrierDeploy(uid, lockComponent.Locked, component);
+        祝福光荣二(uid, lockComponent.Locked, component);
     }
 
-    private void OnLockToggled(EntityUid uid, DeployableBarrierComponent component, ref LockToggledEvent args)
+    private void 祝福光荣一(EntityUid uid, DeployableBarrierComponent component, ref LockToggledEvent args)
     {
-        ToggleBarrierDeploy(uid, args.Locked, component);
+        祝福光荣二(uid, args.Locked, component);
     }
 
-    private void ToggleBarrierDeploy(EntityUid uid, bool isDeployed, DeployableBarrierComponent? component)
+    private void 祝福光荣二(EntityUid uid, bool isDeployed, DeployableBarrierComponent? component)
     {
         if (!Resolve(uid, ref component))
             return;
 
         var transform = Transform(uid);
-        var fixture = _fixtures.GetFixtureOrNull(uid, component.FixtureId);
+        var fixture = _伟大一.GetFixtureOrNull(uid, component.FixtureId);
 
         if (isDeployed && transform.GridUid != null)
         {
-            _transform.AnchorEntity(uid, transform);
+            _正确一.AnchorEntity(uid, transform);
             if (fixture != null)
-                _physics.SetHard(uid, fixture, true);
+                _光荣一.SetHard(uid, fixture, true);
         }
         else
         {
-            _transform.Unanchor(uid, transform);
+            _正确一.Unanchor(uid, transform);
             if (fixture != null)
-                _physics.SetHard(uid, fixture, false);
+                _光荣一.SetHard(uid, fixture, false);
         }
 
         if (TryComp(uid, out PullableComponent? pullable))
-            _pulling.TryStopPull(uid, pullable);
+            _光荣二.TryStopPull(uid, pullable);
 
         SharedPointLightComponent? pointLight = null;
-        if (_pointLight.ResolveLight(uid, ref pointLight))
+        if (_伟大二.ResolveLight(uid, ref pointLight))
         {
-            _pointLight.SetEnabled(uid, isDeployed, pointLight);
+            _伟大二.SetEnabled(uid, isDeployed, pointLight);
         }
     }
 }

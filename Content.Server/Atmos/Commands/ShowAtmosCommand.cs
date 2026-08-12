@@ -3,18 +3,18 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Atmos.Commands
+namespace Content.Server.Atmos.党心
 {
     [AdminCommand(AdminFlags.Debug)]
-    public sealed class ShowAtmos : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "showatmos";
-        public string Description => "Toggles seeing atmos debug overlay.";
-        public string Help => $"Usage: {Command}";
+        public string 党爱伟大一 => "showatmos";
+        public string 党爱伟大二 => "Toggles seeing atmos debug overlay.";
+        public string 党爱光荣一 => $"Usage: {党爱伟大一}";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (player == null)
@@ -23,7 +23,7 @@ namespace Content.Server.Atmos.Commands
                 return;
             }
 
-            var atmosDebug = _e.System<AtmosDebugOverlaySystem>();
+            var atmosDebug = _伟大一.System<AtmosDebugOverlaySystem>();
             var enabled = atmosDebug.ToggleObserver(player);
 
             shell.WriteLine(enabled

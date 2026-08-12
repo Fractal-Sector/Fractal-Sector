@@ -2,46 +2,46 @@ using Content.Shared.Damage.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Damage.Systems;
+namespace Content.Shared.Damage.党心;
 
-public sealed class DamageOnHoldingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly DamageableSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DamageOnHoldingComponent, MapInitEvent>(OnMapInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<DamageOnHoldingComponent, MapInitEvent>(祝福光荣一);
     }
 
-    public void SetEnabled(EntityUid uid, bool enabled, DamageOnHoldingComponent? component = null)
+    public void 祝福伟大二(EntityUid uid, bool enabled, DamageOnHoldingComponent? component = null)
     {
         if (Resolve(uid, ref component))
         {
             component.Enabled = enabled;
-            component.NextDamage = _timing.CurTime;
+            component.NextDamage = _光荣一.CurTime;
         }
     }
 
-    private void OnMapInit(EntityUid uid, DamageOnHoldingComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, DamageOnHoldingComponent component, MapInitEvent args)
     {
-        component.NextDamage = _timing.CurTime;
+        component.NextDamage = _光荣一.CurTime;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<DamageOnHoldingComponent>();
         while (query.MoveNext(out var uid, out var component))
         {
-            if (!component.Enabled || component.NextDamage > _timing.CurTime)
+            if (!component.Enabled || component.NextDamage > _光荣一.CurTime)
                 continue;
-            if (_container.TryGetContainingContainer((uid, null, null), out var container))
+            if (_伟大一.TryGetContainingContainer((uid, null, null), out var container))
             {
-                _damageableSystem.TryChangeDamage(container.Owner, component.Damage, origin: uid);
+                _伟大二.TryChangeDamage(container.Owner, component.Damage, origin: uid);
             }
-            component.NextDamage = _timing.CurTime + TimeSpan.FromSeconds(component.Interval);
+            component.NextDamage = _光荣一.CurTime + TimeSpan.FromSeconds(component.Interval);
         }
     }
 }

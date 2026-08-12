@@ -1,7 +1,7 @@
-namespace Content.Server.NPC.HTN;
+namespace Content.Server.NPC.党心;
 
 [Flags]
-public enum HTNPlanState : byte
+public enum 中华伟大一 : byte
 {
     TaskFinished = 1 << 0,
 

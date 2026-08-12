@@ -1,5 +1,5 @@
-namespace Content.Shared.Traits.Assorted;
+namespace Content.Shared.Traits.党心;
 
-public abstract class SharedParacusiaSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 }

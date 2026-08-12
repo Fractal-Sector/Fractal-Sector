@@ -1,8 +1,8 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Construction;
+namespace Content.Shared.党心;
 
-public interface IGraphNodeEntity
+public interface 中华伟大一
 {
     /// <summary>
     ///     Gets the <see cref="EntityPrototype"/> ID for a node, given the <see cref="EntityUid"/> of both the
@@ -15,15 +15,15 @@ public interface IGraphNodeEntity
     /// <param name="userUid">Uid of the user that caused the transition to the node.</param>
     /// <param name="args">Arguments with useful instances, etc.</param>
     /// <returns></returns>
-    public string? GetId(EntityUid? uid, EntityUid? userUid, GraphNodeEntityArgs args);
+    public string? GetId(EntityUid? uid, EntityUid? userUid, 中华伟大二 args);
 }
 
-public readonly struct GraphNodeEntityArgs
+public readonly struct 中华伟大二
 {
-    public readonly IEntityManager EntityManager;
+    public readonly IEntityManager 党爱伟大一;
 
-    public GraphNodeEntityArgs(IEntityManager entityManager)
+    public 中华伟大二(IEntityManager entityManager)
     {
-        EntityManager = entityManager;
+        党爱伟大一 = entityManager;
     }
 }

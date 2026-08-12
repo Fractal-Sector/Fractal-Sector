@@ -17,14 +17,14 @@ using Content.Shared.Paper;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Nyanotrasen.Kitchen.EntitySystems;
+namespace Content.Server.Nyanotrasen.Kitchen.党心;
 
-public sealed partial class DeepFryerSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     Make an item look deep-fried.
     /// </summary>
-    public void MakeCrispy(EntityUid item, ProtoId<CrispinessLevelSetPrototype> crispiness) // Frontier: add CrispinessLevelSetPrototype
+    public void 祝福伟大一(EntityUid item, ProtoId<CrispinessLevelSetPrototype> crispiness) // Frontier: add CrispinessLevelSetPrototype
     {
         EnsureComp<AppearanceComponent>(item);
         // Frontier: apply the fryer-appropriate shader
@@ -49,7 +49,7 @@ public sealed partial class DeepFryerSystem
     /// <remarks>
     ///     This is meant to be an irreversible process, similar to gibbing.
     /// </remarks>
-    public bool TryMakeMobIntoFood(EntityUid mob, MobStateComponent mobStateComponent, bool force = false)
+    public bool 祝福伟大二(EntityUid mob, MobStateComponent mobStateComponent, bool force = false)
     {
         // Don't do anything to mobs until they're dead.
         if (force || _mobStateSystem.IsDead(mob, mobStateComponent))
@@ -109,7 +109,7 @@ public sealed partial class DeepFryerSystem
     /// <summary>
     ///     Make an item actually edible.
     /// </summary>
-    private void MakeEdible(EntityUid uid, DeepFryerComponent component, EntityUid item, FixedPoint2 solutionQuantity)
+    private void 祝福光荣一(EntityUid uid, DeepFryerComponent component, EntityUid item, FixedPoint2 solutionQuantity)
     {
         if (!TryComp<DeepFriedComponent>(item, out var deepFriedComponent))
         {

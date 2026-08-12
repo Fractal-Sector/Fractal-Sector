@@ -6,26 +6,26 @@ using Content.Shared.Atmos.EntitySystems;
 using Content.Shared.NodeContainer;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Atmos.Piping.EntitySystems;
+namespace Content.Server.Atmos.Piping.党心;
 
-public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanceSystem
+public sealed partial class 中华伟大一 : SharedAtmosPipeAppearanceSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PipeAppearanceComponent, NodeGroupsRebuilt>(OnNodeUpdate);
+        SubscribeLocalEvent<PipeAppearanceComponent, NodeGroupsRebuilt>(祝福伟大二);
     }
 
-    private void OnNodeUpdate(EntityUid uid, PipeAppearanceComponent component, ref NodeGroupsRebuilt args)
+    private void 祝福伟大二(EntityUid uid, PipeAppearanceComponent component, ref NodeGroupsRebuilt args)
     {
-        UpdateAppearance(args.NodeOwner);
+        祝福光荣一(args.NodeOwner);
     }
 
-    private void UpdateAppearance(EntityUid uid, AppearanceComponent? appearance = null, NodeContainerComponent? container = null,
+    private void 祝福光荣一(EntityUid uid, AppearanceComponent? appearance = null, NodeContainerComponent? container = null,
         TransformComponent? xform = null)
     {
         if (!Resolve(uid, ref appearance, ref container, ref xform, false))
@@ -61,7 +61,7 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
         var connectedDirections = new PipeDirection[numberOfPipeLayers];
         Array.Fill(connectedDirections, PipeDirection.None);
 
-        var tile = _map.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates);
+        var tile = _伟大二.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates);
 
         foreach (var (neighbour, pipeLayer) in connected)
         {
@@ -70,7 +70,7 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
             if (pipeIndex >= numberOfPipeLayers)
                 continue;
 
-            var otherTile = _map.TileIndicesFor(xform.GridUid.Value, grid, Transform(neighbour).Coordinates);
+            var otherTile = _伟大二.TileIndicesFor(xform.GridUid.Value, grid, Transform(neighbour).Coordinates);
             var pipeLayerDirections = connectedDirections[pipeIndex];
 
             pipeLayerDirections |= (otherTile - tile) switch
@@ -91,6 +91,6 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
         for (var i = numberOfPipeLayers - 1; i >= 0; i--)
             netConnectedDirections += (int)connectedDirections[i] << (PipeDirectionHelpers.PipeDirections * i);
 
-        _appearance.SetData(uid, PipeVisuals.VisualState, netConnectedDirections, appearance);
+        _伟大一.SetData(uid, PipeVisuals.VisualState, netConnectedDirections, appearance);
     }
 }

@@ -1,12 +1,12 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Cargo.Components;
+namespace Content.Shared.Cargo.党心;
 
 /// <summary>
 /// Can be inserted into a <see cref="CargoOrderConsoleComponent"/> to increase the station's bank account.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class CashComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

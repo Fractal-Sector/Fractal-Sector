@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Doors
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum AirlockWireStatus
+    public enum 中华伟大一
     {
         PowerIndicator,
         BoltIndicator,

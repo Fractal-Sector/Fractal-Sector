@@ -1,12 +1,12 @@
 ﻿using Content.Shared.Database;
 using Robust.Shared.Network;
 
-namespace Content.Server.Connection;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Helper functions for working with <see cref="NetUserData"/>.
 /// </summary>
-public static class UserDataExt
+public static class 中华伟大一
 {
     /// <summary>
     /// Get the preferred HWID that should be used for new records related to a player.

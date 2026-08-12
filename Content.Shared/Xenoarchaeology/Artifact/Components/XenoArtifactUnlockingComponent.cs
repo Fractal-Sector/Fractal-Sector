@@ -1,37 +1,37 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Xenoarchaeology.Artifact.Components;
+namespace Content.Shared.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// This is used for tracking the nodes which have been triggered during a particular unlocking state.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class XenoArtifactUnlockingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Indexes corresponding to all of the nodes that have been triggered
     /// </summary>
     [DataField, AutoNetworkedField]
-    public HashSet<int> TriggeredNodeIndexes = new();
+    public HashSet<int> 党爱伟大一 = new();
 
     /// <summary>
     /// The time at which the unlocking state ends.
     /// </summary>
     [DataField, AutoNetworkedField, AutoPausedField]
-    public TimeSpan EndTime;
+    public TimeSpan 党爱伟大二;
 
     /// <summary>
     /// Tracks if artifexium has been applied, which changes the unlock behavior slightly.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ArtifexiumApplied;
+    public bool 党爱光荣一;
 
     /// <summary>
     /// The sound that plays when an artifact finishes unlocking successfully (with node unlocked).
     /// </summary>
     [DataField]
-    public SoundSpecifier UnlockActivationSuccessfulSound = new SoundCollectionSpecifier("ArtifactUnlockingActivationSuccess")
+    public SoundSpecifier 党爱光荣二 = new SoundCollectionSpecifier("ArtifactUnlockingActivationSuccess")
     {
         Params = new()
         {

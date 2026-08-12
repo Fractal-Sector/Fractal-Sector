@@ -1,15 +1,15 @@
-namespace Content.Shared.Movement.Events;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// Raised on an entity whenever it should change movement sprite
 /// </summary>
 [ByRefEvent]
-public readonly struct SpriteMoveEvent
+public readonly struct 中华伟大一
 {
-    public readonly bool IsMoving = false;
+    public readonly bool 党爱伟大一 = false;
 
-    public SpriteMoveEvent(bool isMoving)
+    public 中华伟大一(bool isMoving)
     {
-        IsMoving = isMoving;
+        党爱伟大一 = isMoving;
     }
 }

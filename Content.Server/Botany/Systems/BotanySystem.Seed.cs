@@ -18,30 +18,30 @@ using Content.Shared.Database;
 using Content.Server._NF.Contraband.Systems; // Frontier
 using Content.Shared.Kitchen.Components;
 
-namespace Content.Server.Botany.Systems;
+namespace Content.Server.Botany.党心;
 
-public sealed partial class BotanySystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly RandomHelperSystem _randomHelper = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ContrabandTurnInSystem _contraband = default!; // Frontier
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly AppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _正确二 = default!;
+    [Dependency] private readonly MetaDataSystem _团结一 = default!;
+    [Dependency] private readonly RandomHelperSystem _团结二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _奋斗一 = default!;
+    [Dependency] private readonly ContrabandTurnInSystem _奋斗二 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SeedComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<SeedComponent, ExaminedEvent>(祝福光荣一);
         SubscribeLocalEvent<ProduceComponent, ExaminedEvent>(OnProduceExamined);
     }
 
-    public bool TryGetSeed(SeedComponent comp, [NotNullWhen(true)] out SeedData? seed)
+    public bool 祝福伟大二(SeedComponent comp, [NotNullWhen(true)] out SeedData? seed)
     {
         if (comp.Seed != null)
         {
@@ -50,7 +50,7 @@ public sealed partial class BotanySystem : EntitySystem
         }
 
         if (comp.SeedId != null
-            && _prototypeManager.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
+            && _伟大一.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
         {
             seed = protoSeed;
             return true;
@@ -60,7 +60,7 @@ public sealed partial class BotanySystem : EntitySystem
         return false;
     }
 
-    public bool TryGetSeed(ProduceComponent comp, [NotNullWhen(true)] out SeedData? seed)
+    public bool 祝福伟大二(ProduceComponent comp, [NotNullWhen(true)] out SeedData? seed)
     {
         if (comp.Seed != null)
         {
@@ -69,7 +69,7 @@ public sealed partial class BotanySystem : EntitySystem
         }
 
         if (comp.SeedId != null
-            && _prototypeManager.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
+            && _伟大一.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
         {
             seed = protoSeed;
             return true;
@@ -79,12 +79,12 @@ public sealed partial class BotanySystem : EntitySystem
         return false;
     }
 
-    private void OnExamined(EntityUid uid, SeedComponent component, ExaminedEvent args)
+    private void 祝福光荣一(EntityUid uid, SeedComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
-        if (!TryGetSeed(component, out var seed))
+        if (!祝福伟大二(component, out var seed))
             return;
 
         using (args.PushGroup(nameof(SeedComponent), 1))
@@ -101,10 +101,10 @@ public sealed partial class BotanySystem : EntitySystem
     /// <summary>
     /// Spawns a new seed packet on the floor at a position, then tries to put it in the user's hands if possible.
     /// </summary>
-    public EntityUid SpawnSeedPacket(SeedData proto, EntityCoordinates coords, EntityUid user, float? healthOverride = null)
+    public EntityUid 祝福光荣二(SeedData proto, EntityCoordinates coords, EntityUid user, float? healthOverride = null)
     {
         var seed = SpawnAtPosition(proto.PacketPrototype, coords); // Frontier: Spawn<SpawnAtPosition
-        _contraband.ClearContrabandValue(seed); // Frontier
+        _奋斗二.ClearContrabandValue(seed); // Frontier
         var seedComp = EnsureComp<SeedComponent>(seed);
         seedComp.Seed = proto;
         seedComp.HealthOverride = healthOverride;
@@ -112,45 +112,45 @@ public sealed partial class BotanySystem : EntitySystem
         var name = Loc.GetString(proto.Name);
         var noun = Loc.GetString(proto.Noun);
         var val = Loc.GetString(proto.PacketName, ("seedName", name), ("seedNoun", noun)); // Frontier: "botany-seed-packet-name"<proto.PacketName
-        _metaData.SetEntityName(seed, val);
+        _团结一.SetEntityName(seed, val);
 
         // try to automatically place in user's other hand
-        _hands.TryPickupAnyHand(user, seed);
+        _正确一.TryPickupAnyHand(user, seed);
         return seed;
     }
 
-    public IEnumerable<EntityUid> AutoHarvest(SeedData proto, EntityCoordinates position, int yieldMod = 1)
+    public IEnumerable<EntityUid> 祝福正确一(SeedData proto, EntityCoordinates position, int yieldMod = 1)
     {
         if (position.IsValid(EntityManager) &&
             proto.ProductPrototypes.Count > 0)
         {
             if (proto.HarvestLogImpact != null)
-                _adminLogger.Add(LogType.Botany, proto.HarvestLogImpact.Value, $"Auto-harvested {Loc.GetString(proto.Name):seed} at Pos:{position}.");
+                _奋斗一.Add(LogType.Botany, proto.HarvestLogImpact.Value, $"Auto-harvested {Loc.GetString(proto.Name):seed} at Pos:{position}.");
 
-            return GenerateProduct(proto, position, yieldMod);
+            return 祝福团结一(proto, position, yieldMod);
         }
 
         return Enumerable.Empty<EntityUid>();
     }
 
-    public IEnumerable<EntityUid> Harvest(SeedData proto, EntityUid user, int yieldMod = 1)
+    public IEnumerable<EntityUid> 祝福正确二(SeedData proto, EntityUid user, int yieldMod = 1)
     {
         if (proto.ProductPrototypes.Count == 0 || proto.Yield <= 0)
         {
-            _popupSystem.PopupCursor(Loc.GetString("botany-harvest-fail-message"), user, PopupType.Medium);
+            _光荣二.PopupCursor(Loc.GetString("botany-harvest-fail-message"), user, PopupType.Medium);
             return Enumerable.Empty<EntityUid>();
         }
 
         var name = Loc.GetString(proto.DisplayName);
-        _popupSystem.PopupCursor(Loc.GetString("botany-harvest-success-message", ("name", name)), user, PopupType.Medium);
+        _光荣二.PopupCursor(Loc.GetString("botany-harvest-success-message", ("name", name)), user, PopupType.Medium);
 
         if (proto.HarvestLogImpact != null)
-            _adminLogger.Add(LogType.Botany, proto.HarvestLogImpact.Value, $"{ToPrettyString(user):player} harvested {Loc.GetString(proto.Name):seed} at Pos:{Transform(user).Coordinates}.");
+            _奋斗一.Add(LogType.Botany, proto.HarvestLogImpact.Value, $"{ToPrettyString(user):player} harvested {Loc.GetString(proto.Name):seed} at Pos:{Transform(user).Coordinates}.");
 
-        return GenerateProduct(proto, Transform(user).Coordinates, yieldMod);
+        return 祝福团结一(proto, Transform(user).Coordinates, yieldMod);
     }
 
-    public IEnumerable<EntityUid> GenerateProduct(SeedData proto, EntityCoordinates position, int yieldMod = 1)
+    public IEnumerable<EntityUid> 祝福团结一(SeedData proto, EntityCoordinates position, int yieldMod = 1)
     {
         var totalYield = 0;
         if (proto.Yield > -1)
@@ -170,11 +170,11 @@ public sealed partial class BotanySystem : EntitySystem
 
         for (var i = 0; i < totalYield; i++)
         {
-            var product = _robustRandom.Pick(proto.ProductPrototypes);
+            var product = _伟大二.Pick(proto.ProductPrototypes);
 
             var entity = SpawnAtPosition(product, position); // Frontier: Spawn<SpawnAtPosition
-            _contraband.ClearContrabandValue(entity); // Frontier
-            _randomHelper.RandomOffset(entity, 0.25f);
+            _奋斗二.ClearContrabandValue(entity); // Frontier
+            _团结二.RandomOffset(entity, 0.25f);
             products.Add(entity);
 
             var produce = EnsureComp<ProduceComponent>(entity);
@@ -182,13 +182,13 @@ public sealed partial class BotanySystem : EntitySystem
             produce.Seed = proto;
             ProduceGrown(entity, produce);
 
-            _appearance.SetData(entity, ProduceVisuals.Potency, proto.Potency);
+            _光荣一.SetData(entity, ProduceVisuals.Potency, proto.Potency);
 
             if (proto.Mysterious)
             {
                 var metaData = MetaData(entity);
-                _metaData.SetEntityName(entity, metaData.EntityName + "?", metaData);
-                _metaData.SetEntityDescription(entity,
+                _团结一.SetEntityName(entity, metaData.EntityName + "?", metaData);
+                _团结一.SetEntityDescription(entity,
                     metaData.EntityDescription + " " + Loc.GetString("botany-mysterious-description-addon"), metaData);
             }
         }
@@ -196,7 +196,7 @@ public sealed partial class BotanySystem : EntitySystem
         return products;
     }
 
-    public bool CanHarvest(SeedData proto, EntityUid? held = null)
+    public bool 祝福团结二(SeedData proto, EntityUid? held = null)
     {
         return !proto.Ligneous || proto.Ligneous && held != null && HasComp<SharpComponent>(held);
     }

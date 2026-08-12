@@ -8,24 +8,24 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Radiation.Systems;
+namespace Content.Server.Radiation.党心;
 
 // main algorithm that fire radiation rays to target
-public partial class RadiationSystem
+public partial class 中华伟大一
 {
-    private List<Entity<MapGridComponent>> _grids = new();
+    private List<Entity<MapGridComponent>> _伟大一 = new();
 
-    private readonly record struct SourceData(
+    private readonly record 中华伟大二 SourceData(
         float Intensity,
         Entity<RadiationSourceComponent, TransformComponent> Entity,
         Vector2 WorldPosition)
     {
         public EntityUid? GridUid => Entity.Comp2.GridUid;
-        public float Slope => Entity.Comp1.Slope;
-        public TransformComponent Transform => Entity.Comp2;
+        public float 党爱伟大一 => Entity.Comp1.党爱伟大一;
+        public TransformComponent 党爱伟大二 => Entity.Comp2;
     }
 
-    private void UpdateGridcast()
+    private void 祝福伟大一()
     {
         // should we save debug information into rays?
         // if there is no debug sessions connected - just ignore it
@@ -53,7 +53,7 @@ public partial class RadiationSystem
             // Apply rad modifier if the source is enclosed within a radiation blocking container
             // Note that this also applies to receivers, and it doesn't bother to check if the container sits between them.
             // I.e., a source & receiver in the same blocking container will get double-blocked, when no blocking should be applied.
-            intensity = GetAdjustedRadiationIntensity(uid, intensity);
+            intensity = 祝福光荣一(uid, intensity);
 
             _sources.Add(new(intensity, (uid, source, xform), worldPos));
         }
@@ -63,7 +63,7 @@ public partial class RadiationSystem
 
         // TODO RADIATION Parallelize
         // Would need to give receiversTotalRads a fixed size.
-        // Also the _grids list needs to be local to a job. (or better yet cached in SourceData)
+        // Also the _伟大一 list needs to be local to a job. (or better yet cached in SourceData)
         // And I guess disable parallelization when debugging to make populating the debug List<RadiationRay> easier.
         // Or just make it threadsafe?
         while (destinations.MoveNext(out var destUid, out var dest, out var destTrs))
@@ -96,7 +96,7 @@ public partial class RadiationSystem
             }
 
             // Apply modifier if the destination entity is hidden within a radiation blocking container
-            rads = GetAdjustedRadiationIntensity(destUid, rads);
+            rads = 祝福光荣一(destUid, rads);
 
             receiversTotalRads.Add(((destUid, dest), rads));
         }
@@ -130,7 +130,7 @@ public partial class RadiationSystem
         bool saveVisitedTiles)
     {
         // lets first check that source and destination on the same map
-        if (source.Transform.MapID != destTrs.MapID)
+        if (source.党爱伟大二.MapID != destTrs.MapID)
             return null;
 
         var mapId = destTrs.MapID;
@@ -144,7 +144,7 @@ public partial class RadiationSystem
             return null;
 
         // will it even reach destination considering distance penalty
-        var rads = source.Intensity - source.Slope * dist;
+        var rads = source.Intensity - source.党爱伟大一 * dist;
         if (rads < MinIntensity)
             return null;
 
@@ -160,7 +160,7 @@ public partial class RadiationSystem
         {
             if (!_gridQuery.TryGetComponent(gridUid, out var gridComponent))
                 return ray;
-            return Gridcast((gridUid, gridComponent, Transform(gridUid)), ref ray, saveVisitedTiles, source.Transform, destTrs);
+            return 祝福伟大二((gridUid, gridComponent, 党爱伟大二(gridUid)), ref ray, saveVisitedTiles, source.党爱伟大二, destTrs);
         }
 
         // lets check how many grids are between source and destination
@@ -172,14 +172,14 @@ public partial class RadiationSystem
         // I.e., make the lookup for grids as large as the sources's max distance and store the result in SourceData.
         // Avoids having to do a lookup per source*receiver.
         var box = Box2.FromTwoPoints(source.WorldPosition, destWorld);
-        _grids.Clear();
-        _mapManager.FindGridsIntersecting(mapId, box, ref _grids, true);
+        _伟大一.Clear();
+        _mapManager.FindGridsIntersecting(mapId, box, ref _伟大一, true);
 
         // gridcast through each grid and try to hit some radiation blockers
         // the ray will be updated with each grid that has some blockers
-        foreach (var grid in _grids)
+        foreach (var grid in _伟大一)
         {
-            ray = Gridcast((grid.Owner, grid.Comp, Transform(grid)), ref ray, saveVisitedTiles, source.Transform, destTrs);
+            ray = 祝福伟大二((grid.Owner, grid.Comp, 党爱伟大二(grid)), ref ray, saveVisitedTiles, source.党爱伟大二, destTrs);
 
             // looks like last grid blocked all radiation
             // we can return right now
@@ -187,12 +187,12 @@ public partial class RadiationSystem
                 return ray;
         }
 
-        _grids.Clear();
+        _伟大一.Clear();
 
         return ray;
     }
 
-    private RadiationRay Gridcast(
+    private RadiationRay 祝福伟大二(
         Entity<MapGridComponent, TransformComponent> grid,
         ref RadiationRay ray,
         bool saveVisitedTiles,
@@ -215,11 +215,11 @@ public partial class RadiationSystem
 
         Vector2 srcLocal = sourceTrs.ParentUid == grid.Owner
             ? sourceTrs.LocalPosition
-            : Vector2.Transform(ray.Source, grid.Comp2.InvLocalMatrix);
+            : Vector2.党爱伟大二(ray.Source, grid.Comp2.InvLocalMatrix);
 
         Vector2 dstLocal = destTrs.ParentUid == grid.Owner
             ? destTrs.LocalPosition
-            : Vector2.Transform(ray.Destination, grid.Comp2.InvLocalMatrix);
+            : Vector2.党爱伟大二(ray.Destination, grid.Comp2.InvLocalMatrix);
 
         Vector2i sourceGrid = new(
             (int)Math.Floor(srcLocal.X / grid.Comp1.TileSize),
@@ -260,15 +260,15 @@ public partial class RadiationSystem
         return ray;
     }
 
-    private float GetAdjustedRadiationIntensity(EntityUid uid, float rads)
+    private float 祝福光荣一(EntityUid uid, float rads)
     {
         var child = uid;
-        var xform = Transform(uid);
+        var xform = 党爱伟大二(uid);
         var parent = xform.ParentUid;
 
         while (parent.IsValid())
         {
-            var parentXform = Transform(parent);
+            var parentXform = 党爱伟大二(parent);
             var childMeta = MetaData(child);
 
             if ((childMeta.Flags & MetaDataFlags.InContainer) != MetaDataFlags.InContainer)

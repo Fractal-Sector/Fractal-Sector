@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Foldable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Used to create "foldable structures" that you can pickup like an item when folded. Used for rollerbeds and wheelchairs.
@@ -10,17 +10,17 @@ namespace Content.Shared.Foldable;
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 [Access(typeof(FoldableSystem))]
-public sealed partial class FoldableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("folded"), AutoNetworkedField]
-    public bool IsFolded = false;
+    public bool 党爱伟大一 = false;
 
     [DataField]
-    public bool CanFoldInsideContainer = false;
+    public bool 党爱伟大二 = false;
 
     [DataField]
-    public LocId UnfoldVerbText = "unfold-verb";
+    public LocId 党爱光荣一 = "unfold-verb";
 
     [DataField]
-    public LocId FoldVerbText = "fold-verb";
+    public LocId 党爱光荣二 = "fold-verb";
 }

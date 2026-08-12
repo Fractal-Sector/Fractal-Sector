@@ -1,12 +1,12 @@
 using Content.Shared.Whitelist;
 
-namespace Content.Server.Animals.Components;
+namespace Content.Server.Animals.党心;
 
 /// <summary>
 /// Makes an entity able to listen to messages from IC chat and attempt to commit them to memory
 /// </summary>
 [RegisterComponent]
-public sealed partial class ParrotListenerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whitelist for purposes of limiting which entities a parrot will listen to

@@ -7,11 +7,11 @@ using Content.Shared.CCVar;
 using JetBrains.Annotations;
 using Robust.Shared.Player;
 
-namespace Content.Server.GameTicking;
+namespace Content.Server.党心;
 
-public sealed partial class GameTicker
+public sealed partial class 中华伟大一
 {
-    public const float PresetFailedCooldownIncrease = 30f;
+    public const float 党爱伟大一 = 30f;
 
     /// <summary>
     /// The selected preset that will be used at the start of the next round.
@@ -28,7 +28,7 @@ public sealed partial class GameTicker
     /// </summary>
     public int? ResetCountdown;
 
-    private bool StartPreset(ICommonSession[] origReadyPlayers, bool force)
+    private bool 祝福伟大一(ICommonSession[] origReadyPlayers, bool force)
     {
         var startAttempt = new RoundStartAttemptEvent(origReadyPlayers, force);
         RaiseLocalEvent(startAttempt);
@@ -43,7 +43,7 @@ public sealed partial class GameTicker
             SendServerMessage(Loc.GetString("game-ticker-start-round-cannot-start-game-mode-restart",
                 ("failedGameMode", presetTitle)));
             RestartRound();
-            DelayStart(TimeSpan.FromSeconds(PresetFailedCooldownIncrease));
+            DelayStart(TimeSpan.FromSeconds(党爱伟大一));
         }
 
             if (_cfg.GetCVar(CCVars.GameLobbyFallbackEnabled))
@@ -54,9 +54,9 @@ public sealed partial class GameTicker
             foreach (var preset in fallbackPresets)
             {
                 ClearGameRules();
-                SetGamePreset(preset);
-                AddGamePresetRules();
-                StartGamePresetRules();
+                祝福光荣一(preset);
+                祝福团结一();
+                祝福奋斗一();
 
                 startAttempt.Uncancel();
                 RaiseLocalEvent(startAttempt);
@@ -89,12 +89,12 @@ public sealed partial class GameTicker
         return true;
     }
 
-        private void InitializeGamePreset()
+        private void 祝福伟大二()
         {
-            SetGamePreset(LobbyEnabled ? _cfg.GetCVar(CCVars.GameLobbyDefaultPreset) : "sandbox");
+            祝福光荣一(LobbyEnabled ? _cfg.GetCVar(CCVars.GameLobbyDefaultPreset) : "sandbox");
         }
 
-    public void SetGamePreset(GamePresetPrototype? preset, bool force = false, int? resetDelay = null)
+    public void 祝福光荣一(GamePresetPrototype? preset, bool force = false, int? resetDelay = null)
     {
         // Do nothing if this game ticker is a dummy!
         if (DummyTicker)
@@ -114,7 +114,7 @@ public sealed partial class GameTicker
         }
 
         Preset = preset;
-        ValidateMap();
+        祝福正确二();
         UpdateInfoText();
 
         if (force)
@@ -123,11 +123,11 @@ public sealed partial class GameTicker
         }
     }
 
-    public void SetGamePreset(string preset, bool force = false)
+    public void 祝福光荣一(string preset, bool force = false)
     {
         var proto = FindGamePreset(preset);
         if(proto != null)
-            SetGamePreset(proto, force);
+            祝福光荣一(proto, force);
     }
 
     public GamePresetPrototype? FindGamePreset(string preset)
@@ -147,14 +147,14 @@ public sealed partial class GameTicker
         return null;
     }
 
-    public bool TryFindGamePreset(string preset, [NotNullWhen(true)] out GamePresetPrototype? prototype)
+    public bool 祝福光荣二(string preset, [NotNullWhen(true)] out GamePresetPrototype? prototype)
     {
         prototype = FindGamePreset(preset);
 
         return prototype != null;
     }
 
-    public bool IsMapEligible(GameMapPrototype map)
+    public bool 祝福正确一(GameMapPrototype map)
     {
         if (Preset == null)
             return true;
@@ -165,7 +165,7 @@ public sealed partial class GameTicker
         return pool.Maps.Contains(map.ID);
     }
 
-    private void ValidateMap()
+    private void 祝福正确二()
     {
         if (Preset == null || _gameMapManager.GetSelectedMap() is not { } map)
             return;
@@ -181,7 +181,7 @@ public sealed partial class GameTicker
     }
 
     [PublicAPI]
-    private bool AddGamePresetRules()
+    private bool 祝福团结一()
     {
         if (DummyTicker || Preset == null)
             return false;
@@ -195,16 +195,16 @@ public sealed partial class GameTicker
         return true;
     }
 
-    private void TryResetPreset()
+    private void 祝福团结二()
     {
         if (ResetCountdown is null || ResetCountdown-- > 0)
             return;
 
-        InitializeGamePreset();
+        祝福伟大二();
         ResetCountdown = null;
     }
 
-    public void StartGamePresetRules()
+    public void 祝福奋斗一()
     {
         // May be touched by the preset during init.
         var rules = new List<EntityUid>(GetAddedGameRules());
@@ -214,7 +214,7 @@ public sealed partial class GameTicker
         }
     }
 
-        private void IncrementRoundNumber()
+        private void 祝福奋斗二()
         {
             var playerIds = _playerGameStatuses.Keys.Select(player => player.UserId).ToArray();
             var serverName = _cfg.GetCVar(CCVars.AdminLogsServerName);

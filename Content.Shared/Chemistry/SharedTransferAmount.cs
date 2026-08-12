@@ -1,34 +1,34 @@
 ﻿using Content.Shared.FixedPoint;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chemistry
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public sealed class TransferAmountBoundInterfaceState : BoundUserInterfaceState
+    public sealed class 中华伟大一 : BoundUserInterfaceState
     {
-        public FixedPoint2 Max;
-        public FixedPoint2 Min;
+        public FixedPoint2 党爱伟大一;
+        public FixedPoint2 党爱伟大二;
 
-        public TransferAmountBoundInterfaceState(FixedPoint2 max, FixedPoint2 min)
+        public 中华伟大一(FixedPoint2 max, FixedPoint2 min)
         {
-            Max = max;
-            Min = min;
+            党爱伟大一 = max;
+            党爱伟大二 = min;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class TransferAmountSetValueMessage : BoundUserInterfaceMessage
+    public sealed class 中华伟大二 : BoundUserInterfaceMessage
     {
-        public FixedPoint2 Value;
+        public FixedPoint2 党爱光荣一;
 
-        public TransferAmountSetValueMessage(FixedPoint2 value)
+        public 中华伟大二(FixedPoint2 value)
         {
-            Value = value;
+            党爱光荣一 = value;
         }
     }
 
     [Serializable, NetSerializable]
-    public enum TransferAmountUiKey
+    public enum 中华光荣一
     {
         Key,
     }

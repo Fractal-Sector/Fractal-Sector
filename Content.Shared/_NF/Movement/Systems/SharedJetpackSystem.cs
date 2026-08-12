@@ -2,24 +2,24 @@ using Content.Shared._NF.Radar;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Movement.Components;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public abstract partial class SharedJetpackSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EmagSystem _emag = default!;
+    [Dependency] private readonly EmagSystem _伟大一 = default!;
 
-    public void NfInitialize()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<JetpackComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<JetpackComponent, GotUnEmaggedEvent>(OnUnEmagged);
+        SubscribeLocalEvent<JetpackComponent, GotEmaggedEvent>(祝福伟大二);
+        SubscribeLocalEvent<JetpackComponent, GotUnEmaggedEvent>(祝福光荣一);
     }
 
-    private void OnEmagged(EntityUid uid, JetpackComponent component, ref GotEmaggedEvent args)
+    private void 祝福伟大二(EntityUid uid, JetpackComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_伟大一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_伟大一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         component.RadarBlip = false;
@@ -28,12 +28,12 @@ public abstract partial class SharedJetpackSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnUnEmagged(EntityUid uid, JetpackComponent component, ref GotUnEmaggedEvent args)
+    private void 祝福光荣一(EntityUid uid, JetpackComponent component, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_伟大一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_伟大一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         if (component.RadarBlip)
@@ -41,12 +41,12 @@ public abstract partial class SharedJetpackSystem : EntitySystem
 
         component.RadarBlip = true;
         if (HasComp<ActiveJetpackComponent>(uid))
-            SetupRadarBlip(uid);
+            祝福光荣二(uid);
 
         args.Handled = true;
     }
 
-    private void SetupRadarBlip(EntityUid uid)
+    private void 祝福光荣二(EntityUid uid)
     {
         var blip = EnsureComp<RadarBlipComponent>(uid);
         blip.RadarColor = Color.Cyan;

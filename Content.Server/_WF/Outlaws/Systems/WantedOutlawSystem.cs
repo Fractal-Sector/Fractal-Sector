@@ -9,37 +9,37 @@ using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Radio;
 using Content.Shared.Security;
 
-namespace Content.Server._WF.Outlaws;
+namespace Content.Server._WF.党心;
 
 [RegisterComponent]
-public sealed partial class WantedOutlawComponent : Component;
+public sealed partial class 中华伟大一 : Component;
 
-public sealed class WantedOutlawSystem : EntitySystem
+public sealed class 中华伟大二 : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly CriminalRecordsSystem _criminalRecords = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
+    [Dependency] private readonly InventorySystem _伟大一 = default!;
+    [Dependency] private readonly StationRecordsSystem _伟大二 = default!;
+    [Dependency] private readonly CriminalRecordsSystem _光荣一 = default!;
+    [Dependency] private readonly RadioSystem _光荣二 = default!;
 
     [ValidatePrototypeId<RadioChannelPrototype>]
     private const string CgpChannel = "Nfsd";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<WantedOutlawComponent, PlayerSpawnCompleteEvent>(OnPlayerSpawn);
+        base.祝福伟大一();
+        SubscribeLocalEvent<中华伟大一, PlayerSpawnCompleteEvent>(祝福伟大二);
     }
 
-    private void OnPlayerSpawn(EntityUid uid, WantedOutlawComponent component, PlayerSpawnCompleteEvent args)
+    private void 祝福伟大二(EntityUid uid, 中华伟大一 component, PlayerSpawnCompleteEvent args)
     {
         if (args.JobId is not { } jobId)
             return;
 
-        _inventory.TryGetSlotEntity(uid, "id", out var idUid);
+        _伟大一.TryGetSlotEntity(uid, "id", out var idUid);
         TryComp<FingerprintComponent>(uid, out var fingerprint);
         TryComp<DnaComponent>(uid, out var dna);
 
-        if (_records.TryCreateSectorRecord(uid, idUid, args.Profile, jobId, fingerprint?.Fingerprint, dna?.DNA) is not { } key)
+        if (_伟大二.TryCreateSectorRecord(uid, idUid, args.Profile, jobId, fingerprint?.Fingerprint, dna?.DNA) is not { } key)
             return;
 
         var reason = args.Profile.Loadouts.TryGetValue(LoadoutSystem.GetJobPrototype(jobId), out var loadout)
@@ -47,13 +47,13 @@ public sealed class WantedOutlawSystem : EntitySystem
             ? loadout.CrimeReason
             : Loc.GetString("wf-wanted-outlaw-crime-reason-unspecified");
 
-        _criminalRecords.TryChangeStatus(
+        _光荣一.TryChangeStatus(
             key,
             SecurityStatus.Wanted,
             reason,
             Loc.GetString("wf-wanted-outlaw-initiator"));
 
-        _radio.SendRadioMessage(key.OriginStation, Loc.GetString(
+        _光荣二.SendRadioMessage(key.OriginStation, Loc.GetString(
             "wf-wanted-outlaw-arrival-broadcast",
             ("name", args.Profile.Name),
             ("reason", reason)), CgpChannel, uid);

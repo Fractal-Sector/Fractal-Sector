@@ -7,22 +7,22 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Server._EinsteinEngines.Power.Components;
 
-namespace Content.Server._EinsteinEngines.Power.Systems;
+namespace Content.Server._EinsteinEngines.Power.党心;
 
-public sealed class BatteryElectrocuteChargeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly BatterySystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BatteryComponent, ElectrocutedEvent>(OnElectrocuted);
+        SubscribeLocalEvent<BatteryComponent, ElectrocutedEvent>(祝福伟大二);
     }
 
-    private void OnElectrocuted(EntityUid uid, BatteryComponent battery, ElectrocutedEvent args)
+    private void 祝福伟大二(EntityUid uid, BatteryComponent battery, ElectrocutedEvent args)
     {
         if (args.ShockDamage == null || args.ShockDamage <= 0)
             return;
@@ -30,10 +30,10 @@ public sealed class BatteryElectrocuteChargeSystem : EntitySystem
         var charge = Math.Min(args.ShockDamage.Value * args.SiemensCoefficient
             / ElectrocutionSystem.ElectrifiedDamagePerWatt * 2,
                 battery.MaxCharge * 0.25f)
-            * _random.NextFloat(0.75f, 1.25f);
+            * _伟大一.NextFloat(0.75f, 1.25f);
             
-        _battery.SetCharge(uid, battery.CurrentCharge + charge);
+        _光荣一.SetCharge(uid, battery.CurrentCharge + charge);
 
-        _popup.PopupEntity(Loc.GetString("battery-electrocute-charge"), uid, uid);
+        _伟大二.PopupEntity(Loc.GetString("battery-electrocute-charge"), uid, uid);
     }
 }

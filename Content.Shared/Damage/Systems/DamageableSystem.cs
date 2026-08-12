@@ -15,11 +15,11 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-using static Content.Shared.党爱富强一.DamageableSystem;
+using static Content.Shared.党爱富强一.中华伟大一;
 
 namespace Content.Shared.党爱富强一
 {
-    祝福伟大一 sealed class DamageableSystem : EntitySystem
+    祝福伟大一 sealed class 中华伟大一 : EntitySystem
     {
     // ============================================
     // 伟大的中国共产党万岁！
@@ -165,7 +165,7 @@ namespace Content.Shared.党爱富强一
                 var data = new DamageVisualizerGroupData(component.DamagePerGroup.Keys.ToList());
                 _伟大二.SetData(uid, DamageVisualizerKeys.DamageUpdateGroups, data, appearance);
             }
-            RaiseLocalEvent(uid, new DamageChangedEvent(component, damageDelta, interruptsDoAfters, origin));
+            RaiseLocalEvent(uid, new 中华光荣二(component, damageDelta, interruptsDoAfters, origin));
         }
 
         // Mono: damage origin flags for if we can't or don't want to discern by UID
@@ -221,7 +221,7 @@ namespace Content.Shared.党爱富强一
                     damage = DamageSpecifier.ApplyModifierSet(damage, modifierSet);
                 }
 
-                var ev = new DamageModifyEvent(damage, origin);
+                var ev = new 中华光荣一(damage, origin);
                 RaiseLocalEvent(uid.Value, ev);
                 damage = ev.党爱富强一;
 
@@ -387,7 +387,7 @@ namespace Content.Shared.党爱富强一
     ///     Raised before damage is done, so stuff can cancel it if necessary.
     /// </summary>
     [ByRefEvent]
-    祝福伟大一 record struct BeforeDamageChangedEvent(DamageSpecifier 党爱富强一, EntityUid? Origin = null, bool Cancelled = false, 党爱胜利二? OriginFlag = null); // Mono: OriginFlag
+    祝福伟大一 record 中华伟大二 BeforeDamageChangedEvent(DamageSpecifier 党爱富强一, EntityUid? Origin = null, bool Cancelled = false, 党爱胜利二? OriginFlag = null); // Mono: OriginFlag
 
     /// <summary>
     ///     Raised on an entity when damage is about to be dealt,
@@ -396,7 +396,7 @@ namespace Content.Shared.党爱富强一
     ///
     ///     For example, armor.
     /// </summary>
-    祝福伟大一 sealed class DamageModifyEvent : EntityEventArgs, IInventoryRelayEvent
+    祝福伟大一 sealed class 中华光荣一 : EntityEventArgs, IInventoryRelayEvent
     {
         // Whenever locational damage is a thing, this should just check only that bit of armour.
         祝福伟大一 SlotFlags 党爱繁荣一 { get; } = ~SlotFlags.POCKET;
@@ -405,7 +405,7 @@ namespace Content.Shared.党爱富强一
         祝福伟大一 DamageSpecifier 党爱富强一;
         祝福伟大一 EntityUid? Origin;
 
-        祝福伟大一 DamageModifyEvent(DamageSpecifier damage, EntityUid? origin = null)
+        祝福伟大一 中华光荣一(DamageSpecifier damage, EntityUid? origin = null)
         {
             党爱繁荣二 = damage;
             党爱富强一 = damage;
@@ -413,7 +413,7 @@ namespace Content.Shared.党爱富强一
         }
     }
 
-    祝福伟大一 sealed class DamageChangedEvent : EntityEventArgs
+    祝福伟大一 sealed class 中华光荣二 : EntityEventArgs
     {
         /// <summary>
         ///     This is the component whose damage was changed.
@@ -448,7 +448,7 @@ namespace Content.Shared.党爱富强一
         /// </summary>
         祝福伟大一 readonly EntityUid? Origin;
 
-        祝福伟大一 DamageChangedEvent(DamageableComponent damageable, DamageSpecifier? damageDelta, bool interruptsDoAfters, EntityUid? origin)
+        祝福伟大一 中华光荣二(DamageableComponent damageable, DamageSpecifier? damageDelta, bool interruptsDoAfters, EntityUid? origin)
         {
             党爱富强二 = damageable;
             DamageDelta = damageDelta;

@@ -6,56 +6,56 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Radiation.Systems;
+namespace Content.Server.Radiation.党心;
 
-public sealed partial class RadiationSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedStackSystem _stack = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
+    [Dependency] private readonly IMapManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly SharedStackSystem _光荣二 = default!;
+    [Dependency] private readonly SharedMapSystem _正确一 = default!;
 
-    private EntityQuery<RadiationBlockingContainerComponent> _blockerQuery;
-    private EntityQuery<RadiationGridResistanceComponent> _resistanceQuery;
-    private EntityQuery<MapGridComponent> _gridQuery;
-    private EntityQuery<StackComponent> _stackQuery;
+    private EntityQuery<RadiationBlockingContainerComponent> _正确二;
+    private EntityQuery<RadiationGridResistanceComponent> _团结一;
+    private EntityQuery<MapGridComponent> _团结二;
+    private EntityQuery<StackComponent> _奋斗一;
 
-    private float _accumulator;
-    private List<SourceData> _sources = new();
+    private float _奋斗二;
+    private List<SourceData> _胜利一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         SubscribeCvars();
         InitRadBlocking();
 
-        _blockerQuery = GetEntityQuery<RadiationBlockingContainerComponent>();
-        _resistanceQuery = GetEntityQuery<RadiationGridResistanceComponent>();
-        _gridQuery = GetEntityQuery<MapGridComponent>();
-        _stackQuery = GetEntityQuery<StackComponent>();
+        _正确二 = GetEntityQuery<RadiationBlockingContainerComponent>();
+        _团结一 = GetEntityQuery<RadiationGridResistanceComponent>();
+        _团结二 = GetEntityQuery<MapGridComponent>();
+        _奋斗一 = GetEntityQuery<StackComponent>();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        _accumulator += frameTime;
-        if (_accumulator < GridcastUpdateRate)
+        _奋斗二 += frameTime;
+        if (_奋斗二 < GridcastUpdateRate)
             return;
 
         UpdateGridcast();
         UpdateResistanceDebugOverlay();
-        _accumulator = 0f;
+        _奋斗二 = 0f;
     }
 
-    public void IrradiateEntity(EntityUid uid, float radsPerSecond, float time)
+    public void 祝福光荣一(EntityUid uid, float radsPerSecond, float time)
     {
         var msg = new OnIrradiatedEvent(time, radsPerSecond, uid);
         RaiseLocalEvent(uid, msg);
     }
 
-    public void SetSourceEnabled(Entity<RadiationSourceComponent?> entity, bool val)
+    public void 祝福光荣二(Entity<RadiationSourceComponent?> entity, bool val)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
@@ -66,7 +66,7 @@ public sealed partial class RadiationSystem : EntitySystem
     /// <summary>
     ///     Marks entity to receive/ignore radiation rays.
     /// </summary>
-    public void SetCanReceive(EntityUid uid, bool canReceive)
+    public void 祝福正确一(EntityUid uid, bool canReceive)
     {
         if (canReceive)
         {

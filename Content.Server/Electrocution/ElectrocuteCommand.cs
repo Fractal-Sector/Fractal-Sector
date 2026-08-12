@@ -4,19 +4,19 @@ using Content.Shared.StatusEffect;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Electrocution;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class ElectrocuteCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private readonly ElectrocutionSystem _伟大一 = default!;
+    [Dependency] private readonly StatusEffectsSystem _伟大二 = default!;
 
-    public override string Command => "electrocute";
+    public override string 党爱伟大一 => "electrocute";
 
     private static readonly ProtoId<StatusEffectPrototype> ElectrocutionStatusEffect = "Electrocution";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length is < 1 or > 3)
         {
@@ -32,7 +32,7 @@ public sealed class ElectrocuteCommand : LocalizedEntityCommands
             return;
         }
 
-        if (!_statusEffects.CanApplyEffect(uid.Value, ElectrocutionStatusEffect))
+        if (!_伟大二.CanApplyEffect(uid.Value, ElectrocutionStatusEffect))
         {
             shell.WriteError(Loc.GetString("cmd-electrocute-entity-cannot-be-electrocuted"));
             return;
@@ -44,6 +44,6 @@ public sealed class ElectrocuteCommand : LocalizedEntityCommands
         if (args.Length < 3 || !int.TryParse(args[2], out var damage))
             damage = 10;
 
-        _electrocution.TryDoElectrocution(uid.Value, null, damage, TimeSpan.FromSeconds(seconds), refresh: true, ignoreInsulation: true);
+        _伟大一.TryDoElectrocution(uid.Value, null, damage, TimeSpan.FromSeconds(seconds), refresh: true, ignoreInsulation: true);
     }
 }

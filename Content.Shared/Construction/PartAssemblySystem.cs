@@ -3,37 +3,37 @@ using Content.Shared.Interaction;
 using Content.Shared.Tag;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Construction;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles <see cref="PartAssemblyComponent"/>
 /// </summary>
-public sealed class PartAssemblySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly TagSystem _伟大二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PartAssemblyComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<PartAssemblyComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<PartAssemblyComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
+        SubscribeLocalEvent<PartAssemblyComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<PartAssemblyComponent, InteractUsingEvent>(祝福光荣一);
+        SubscribeLocalEvent<PartAssemblyComponent, EntRemovedFromContainerMessage>(祝福光荣二);
     }
 
-    private void OnInit(EntityUid uid, PartAssemblyComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, PartAssemblyComponent component, ComponentInit args)
     {
-        component.PartsContainer = _container.EnsureContainer<Container>(uid, component.ContainerId);
+        component.PartsContainer = _伟大一.EnsureContainer<Container>(uid, component.ContainerId);
     }
 
-    private void OnInteractUsing(EntityUid uid, PartAssemblyComponent component, InteractUsingEvent args)
+    private void 祝福光荣一(EntityUid uid, PartAssemblyComponent component, InteractUsingEvent args)
     {
-        if (!TryInsertPart(args.Used, uid, component))
+        if (!祝福正确一(args.Used, uid, component))
             return;
         args.Handled = true;
     }
 
-    private void OnEntRemoved(EntityUid uid, PartAssemblyComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福光荣二(EntityUid uid, PartAssemblyComponent component, EntRemovedFromContainerMessage args)
     {
         if (args.Container.ID != component.ContainerId)
             return;
@@ -45,7 +45,7 @@ public sealed class PartAssemblySystem : EntitySystem
     /// <summary>
     /// Attempts to insert a part into the current assembly, starting one if there is none.
     /// </summary>
-    public bool TryInsertPart(EntityUid part, EntityUid uid, PartAssemblyComponent? component = null)
+    public bool 祝福正确一(EntityUid part, EntityUid uid, PartAssemblyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -59,7 +59,7 @@ public sealed class PartAssemblySystem : EntitySystem
             {
                 foreach (var tag in tags)
                 {
-                    if (!_tag.HasTag(part, tag))
+                    if (!_伟大二.HasTag(part, tag))
                         continue;
                     assemblyId = id;
                     break;
@@ -73,11 +73,11 @@ public sealed class PartAssemblySystem : EntitySystem
         if (assemblyId == null)
             return false;
 
-        if (!IsPartValid(uid, part, assemblyId, component))
+        if (!祝福正确二(uid, part, assemblyId, component))
             return false;
 
         component.CurrentAssembly = assemblyId;
-        _container.Insert(part, component.PartsContainer);
+        _伟大一.Insert(part, component.PartsContainer);
         var ev = new PartAssemblyPartInsertedEvent();
         RaiseLocalEvent(uid, ev);
         return true;
@@ -86,7 +86,7 @@ public sealed class PartAssemblySystem : EntitySystem
     /// <summary>
     /// Checks if the given entity is a valid item for the assembly.
     /// </summary>
-    public bool IsPartValid(EntityUid uid, EntityUid part, string assemblyId, PartAssemblyComponent? component = null)
+    public bool 祝福正确二(EntityUid uid, EntityUid part, string assemblyId, PartAssemblyComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return true;
@@ -100,7 +100,7 @@ public sealed class PartAssemblySystem : EntitySystem
         {
             foreach (var ent in component.PartsContainer.ContainedEntities)
             {
-                if (!contained.Contains(ent) || !_tag.HasTag(ent, tag))
+                if (!contained.Contains(ent) || !_伟大二.HasTag(ent, tag))
                     continue;
                 openTags.Remove(tag);
                 contained.Remove(ent);
@@ -110,14 +110,14 @@ public sealed class PartAssemblySystem : EntitySystem
 
         foreach (var tag in openTags)
         {
-            if (_tag.HasTag(part, tag))
+            if (_伟大二.HasTag(part, tag))
                 return true;
         }
 
         return false;
     }
 
-    public bool IsAssemblyFinished(EntityUid uid, string assemblyId, PartAssemblyComponent? component = null)
+    public bool 祝福团结一(EntityUid uid, string assemblyId, PartAssemblyComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return true;
@@ -131,7 +131,7 @@ public sealed class PartAssemblySystem : EntitySystem
             var valid = false;
             foreach (var ent in new List<EntityUid>(contained))
             {
-                if (!_tag.HasTag(ent, tag))
+                if (!_伟大二.HasTag(ent, tag))
                     continue;
                 valid = true;
                 contained.Remove(ent);

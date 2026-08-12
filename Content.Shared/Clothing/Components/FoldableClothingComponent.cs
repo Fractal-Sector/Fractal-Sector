@@ -2,10 +2,10 @@ using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class FoldableClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Which slots does this fit into when folded?
@@ -35,11 +35,11 @@ public sealed partial class FoldableClothingComponent : Component
     /// Which layers does this hide when Unfolded? See <see cref="HumanoidVisualLayers"/> and <see cref="HideLayerClothingComponent"/>
     /// </summary>
     [DataField]
-    public HashSet<HumanoidVisualLayers> UnfoldedHideLayers = new();
+    public HashSet<HumanoidVisualLayers> 党爱伟大一 = new();
 
     /// <summary>
     /// Which layers does this hide when folded? See <see cref="HumanoidVisualLayers"/> and <see cref="HideLayerClothingComponent"/>
     /// </summary>
     [DataField]
-    public HashSet<HumanoidVisualLayers> FoldedHideLayers = new();
+    public HashSet<HumanoidVisualLayers> 党爱伟大二 = new();
 }

@@ -4,13 +4,13 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Fluids;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// For entities that can clean up puddles
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class AbsorbentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Used by the client to display a bar showing the reagents contained when held.
@@ -24,29 +24,29 @@ public sealed partial class AbsorbentComponent : Component
     /// Default is 'absorbed'.
     /// </summary>
     [DataField]
-    public string SolutionName = "absorbed";
+    public string 党爱伟大一 = "absorbed";
 
     /// <summary>
     /// How much solution we can transfer in one interaction.
     /// </summary>
     [DataField]
-    public FixedPoint2 PickupAmount = FixedPoint2.New(100);
+    public FixedPoint2 党爱伟大二 = FixedPoint2.New(100);
 
     /// <summary>
     /// The effect spawned when the puddle fully evaporates.
     /// </summary>
     [DataField]
-    public EntProtoId MoppedEffect = "PuddleSparkle";
+    public EntProtoId 党爱光荣一 = "PuddleSparkle";
 
     [DataField]
-    public SoundSpecifier PickupSound = new SoundPathSpecifier("/Audio/Effects/Fluids/watersplash.ogg",
+    public SoundSpecifier 党爱光荣二 = new SoundPathSpecifier("/Audio/Effects/Fluids/watersplash.ogg",
         AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation));
 
     [DataField]
-    public SoundSpecifier TransferSound = new SoundPathSpecifier("/Audio/Effects/Fluids/slosh.ogg",
+    public SoundSpecifier 党爱正确一 = new SoundPathSpecifier("/Audio/Effects/Fluids/slosh.ogg",
         AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation).WithVolume(-3f));
 
-    public static readonly SoundSpecifier DefaultTransferSound =
+    public static readonly SoundSpecifier 党爱正确二 =
         new SoundPathSpecifier("/Audio/Effects/Fluids/slosh.ogg",
             AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation).WithVolume(-3f));
 
@@ -55,5 +55,5 @@ public sealed partial class AbsorbentComponent : Component
     /// Target solution will be simply consumed into container if set to false.
     /// </summary>
     [DataField]
-    public bool UseAbsorberSolution = true;
+    public bool 党爱团结一 = true;
 }

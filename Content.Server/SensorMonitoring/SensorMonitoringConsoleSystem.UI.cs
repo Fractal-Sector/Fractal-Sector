@@ -4,19 +4,19 @@ using ConsoleUIState = Content.Shared.SensorMonitoring.SensorMonitoringConsoleBo
 using Content.Shared.DeviceNetwork.Components;
 using IncrementalUIState = Content.Shared.SensorMonitoring.SensorMonitoringIncrementalUpdate;
 
-namespace Content.Server.SensorMonitoring;
+namespace Content.Server.党心;
 
-public sealed partial class SensorMonitoringConsoleSystem
+public sealed partial class 中华伟大一
 {
-    private void InitUI()
+    private void 祝福伟大一()
     {
         Subs.BuiEvents<SensorMonitoringConsoleComponent>(SensorMonitoringConsoleUiKey.Key, subs =>
         {
-            subs.Event<BoundUIClosedEvent>(ConsoleUIClosed);
+            subs.Event<BoundUIClosedEvent>(祝福光荣一);
         });
     }
 
-    private void UpdateConsoleUI(EntityUid uid, SensorMonitoringConsoleComponent comp)
+    private void 祝福伟大二(EntityUid uid, SensorMonitoringConsoleComponent comp)
     {
         if (!_userInterface.IsUiOpen(uid, SensorMonitoringConsoleUiKey.Key))
         {
@@ -122,7 +122,7 @@ public sealed partial class SensorMonitoringConsoleSystem
         }
     }
 
-    private static void ConsoleUIClosed(
+    private static void 祝福光荣一(
         EntityUid uid,
         SensorMonitoringConsoleComponent component,
         BoundUIClosedEvent args)

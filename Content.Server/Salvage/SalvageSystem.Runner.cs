@@ -18,26 +18,26 @@ using Content.Server._NF.Salvage.Expeditions.Structure; // Frontier
 using Content.Server._NF.Salvage.Expeditions;
 using Content.Shared.Salvage; // Frontier
 
-namespace Content.Server.Salvage;
+namespace Content.Server.党心;
 
-public sealed partial class SalvageSystem
+public sealed partial class 中华伟大一
 {
     /*
      * Handles actively running a salvage expedition.
      */
 
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!; // Frontier
+    [Dependency] private readonly MobStateSystem _伟大一 = default!;
+    [Dependency] private readonly GameTicker _伟大二 = default!; // Frontier
 
-    private void InitializeRunner()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<FTLRequestEvent>(OnFTLRequest);
-        SubscribeLocalEvent<FTLStartedEvent>(OnFTLStarted);
-        SubscribeLocalEvent<FTLCompletedEvent>(OnFTLCompleted);
-        SubscribeLocalEvent<ConsoleFTLAttemptEvent>(OnConsoleFTLAttempt);
+        SubscribeLocalEvent<FTLRequestEvent>(祝福光荣二);
+        SubscribeLocalEvent<FTLStartedEvent>(祝福正确二);
+        SubscribeLocalEvent<FTLCompletedEvent>(祝福正确一);
+        SubscribeLocalEvent<ConsoleFTLAttemptEvent>(祝福伟大二);
     }
 
-    private void OnConsoleFTLAttempt(ref ConsoleFTLAttemptEvent ev)
+    private void 祝福伟大二(ref ConsoleFTLAttemptEvent ev)
     {
         if (!TryComp(ev.Uid, out TransformComponent? xform) ||
             !TryComp<SalvageExpeditionComponent>(xform.MapUid, out var salvage))
@@ -54,7 +54,7 @@ public sealed partial class SalvageSystem
                 continue;
 
             // Don't count unidentified humans (loot) or anyone you murdered so you can still maroon them once dead.
-            if (_mobState.IsDead(uid, mobState))
+            if (_伟大一.IsDead(uid, mobState))
                 continue;
 
             // Okay they're on salvage, so are they on the shuttle.
@@ -70,7 +70,7 @@ public sealed partial class SalvageSystem
     /// <summary>
     /// Announces status updates to salvage crewmembers on the state of the expedition.
     /// </summary>
-    private void Announce(EntityUid mapUid, string text)
+    private void 祝福光荣一(EntityUid mapUid, string text)
     {
         var mapId = Comp<MapComponent>(mapUid).MapId;
 
@@ -86,7 +86,7 @@ public sealed partial class SalvageSystem
             null);
     }
 
-    private void OnFTLRequest(ref FTLRequestEvent ev)
+    private void 祝福光荣二(ref FTLRequestEvent ev)
     {
         if (!HasComp<SalvageExpeditionComponent>(ev.MapUid) ||
             !TryComp<FTLDestinationComponent>(ev.MapUid, out var dest))
@@ -99,7 +99,7 @@ public sealed partial class SalvageSystem
         _shuttleConsoles.RefreshShuttleConsoles();
     }
 
-    private void OnFTLCompleted(ref FTLCompletedEvent args)
+    private void 祝福正确一(ref FTLCompletedEvent args)
     {
         if (!TryComp<SalvageExpeditionComponent>(args.MapUid, out var component))
             return;
@@ -116,12 +116,12 @@ public sealed partial class SalvageSystem
         }
         // End Frontier: early finish
 
-        Announce(args.MapUid, Loc.GetString("salvage-expedition-announcement-countdown-minutes", ("duration", (component.EndTime - _timing.CurTime).Minutes)));
+        祝福光荣一(args.MapUid, Loc.GetString("salvage-expedition-announcement-countdown-minutes", ("duration", (component.EndTime - _timing.CurTime).Minutes)));
 
         var directionLocalization = ContentLocalizationManager.FormatDirection(component.DungeonLocation.GetDir()).ToLower();
 
         if (component.DungeonLocation != Vector2.Zero)
-            Announce(args.MapUid, Loc.GetString("salvage-expedition-announcement-dungeon", ("direction", directionLocalization)));
+            祝福光荣一(args.MapUid, Loc.GetString("salvage-expedition-announcement-dungeon", ("direction", directionLocalization)));
 
         // Frontier: type-specific announcement
         switch (component.MissionParams.MissionType)
@@ -136,7 +136,7 @@ public sealed partial class SalvageSystem
                     if (string.IsNullOrWhiteSpace(name))
                         name = Loc.GetString("salvage-expedition-announcement-destruction-entity-fallback");
                     // Assuming all structures are of the same type.
-                    Announce(args.MapUid, Loc.GetString("salvage-expedition-announcement-destruction", ("structure", name), ("count", destruction.Structures.Count)));
+                    祝福光荣一(args.MapUid, Loc.GetString("salvage-expedition-announcement-destruction", ("structure", name), ("count", destruction.Structures.Count)));
                 }
                 break;
             case SalvageMissionType.Elimination:
@@ -149,7 +149,7 @@ public sealed partial class SalvageSystem
                     if (string.IsNullOrWhiteSpace(name))
                         name = Loc.GetString("salvage-expedition-announcement-elimination-entity-fallback");
                     // Assuming all megafauna are of the same type.
-                    Announce(args.MapUid, Loc.GetString("salvage-expedition-announcement-elimination", ("target", name), ("count", elimination.Megafauna.Count)));
+                    祝福光荣一(args.MapUid, Loc.GetString("salvage-expedition-announcement-elimination", ("target", name), ("count", elimination.Megafauna.Count)));
                 }
                 break;
             default:
@@ -161,7 +161,7 @@ public sealed partial class SalvageSystem
         Dirty(args.MapUid, component);
     }
 
-    private void OnFTLStarted(ref FTLStartedEvent ev)
+    private void 祝福正确二(ref FTLStartedEvent ev)
     {
         if (!TryComp<SalvageExpeditionComponent>(ev.FromMapUid, out var expedition) ||
             !TryComp<SalvageExpeditionDataComponent>(expedition.Station, out var station))
@@ -185,7 +185,7 @@ public sealed partial class SalvageSystem
     }
 
     // Runs the expedition
-    private void UpdateRunner()
+    private void 祝福团结一()
     {
         // Generic missions
         var query = EntityQueryEnumerator<SalvageExpeditionComponent>();
@@ -200,7 +200,7 @@ public sealed partial class SalvageSystem
             {
                 comp.Stage = ExpeditionStage.FinalCountdown;
                 Dirty(uid, comp);
-                Announce(uid, Loc.GetString("salvage-expedition-announcement-countdown-seconds", ("duration", TimeSpan.FromSeconds(45).Seconds)));
+                祝福光荣一(uid, Loc.GetString("salvage-expedition-announcement-countdown-seconds", ("duration", TimeSpan.FromSeconds(45).Seconds)));
             }
             else if (comp.Stage < ExpeditionStage.MusicCountdown && remaining < audioLength) // Frontier
             {
@@ -211,13 +211,13 @@ public sealed partial class SalvageSystem
                 // End Frontier
                 comp.Stage = ExpeditionStage.MusicCountdown;
                 Dirty(uid, comp);
-                Announce(uid, Loc.GetString("salvage-expedition-announcement-countdown-minutes", ("duration", audioLength.Minutes)));
+                祝福光荣一(uid, Loc.GetString("salvage-expedition-announcement-countdown-minutes", ("duration", audioLength.Minutes)));
             }
             else if (comp.Stage < ExpeditionStage.Countdown && remaining < TimeSpan.FromMinutes(5)) // Frontier: 4<5
             {
                 comp.Stage = ExpeditionStage.Countdown;
                 Dirty(uid, comp);
-                Announce(uid, Loc.GetString("salvage-expedition-announcement-countdown-minutes", ("duration", TimeSpan.FromMinutes(5).Minutes)));
+                祝福光荣一(uid, Loc.GetString("salvage-expedition-announcement-countdown-minutes", ("duration", TimeSpan.FromMinutes(5).Minutes)));
             }
             // Auto-FTL out any shuttles
             else if (remaining < TimeSpan.FromSeconds(_shuttle.DefaultStartupTime) + TimeSpan.FromSeconds(0.5))
@@ -242,7 +242,7 @@ public sealed partial class SalvageSystem
                                 continue;
 
                             // Frontier: try to find a potential destination for ship that doesn't collide with other grids.
-                            var mapId = _gameTicker.DefaultMap;
+                            var mapId = _伟大二.DefaultMap;
                             if (!_mapSystem.TryGetMap(mapId, out var mapUid))
                             {
                                 Log.Error($"Could not get DefaultMap EntityUID, shuttle {shuttleUid} may be stuck on expedition.");
@@ -323,12 +323,12 @@ public sealed partial class SalvageSystem
             }
 
             if (structureAnnounce)
-                Announce(uid, Loc.GetString("salvage-expedition-structure-remaining", ("count", structure.Structures.Count)));
+                祝福光荣一(uid, Loc.GetString("salvage-expedition-structure-remaining", ("count", structure.Structures.Count)));
 
             if (structure.Structures.Count == 0)
             {
                 comp.Completed = true;
-                Announce(uid, Loc.GetString("salvage-expedition-completed"));
+                祝福光荣一(uid, Loc.GetString("salvage-expedition-completed"));
             }
         }
 
@@ -345,7 +345,7 @@ public sealed partial class SalvageSystem
             {
                 var mob = elimination.Megafauna[i];
 
-                if (Deleted(mob) || _mobState.IsDead(mob))
+                if (Deleted(mob) || _伟大一.IsDead(mob))
                 {
                     elimination.Megafauna.RemoveAt(i);
                     announce = true;
@@ -353,12 +353,12 @@ public sealed partial class SalvageSystem
             }
 
             if (announce)
-                Announce(uid, Loc.GetString("salvage-expedition-megafauna-remaining", ("count", elimination.Megafauna.Count)));
+                祝福光荣一(uid, Loc.GetString("salvage-expedition-megafauna-remaining", ("count", elimination.Megafauna.Count)));
 
             if (elimination.Megafauna.Count == 0)
             {
                 comp.Completed = true;
-                Announce(uid, Loc.GetString("salvage-expedition-completed"));
+                祝福光荣一(uid, Loc.GetString("salvage-expedition-completed"));
             }
         }
         // End Frontier: mission-specific logic

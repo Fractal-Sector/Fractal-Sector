@@ -1,15 +1,15 @@
-namespace Content.Shared.Body.Events;
+namespace Content.Shared.Body.党心;
 
 /// <summary>
 /// Raised on an entity to determine their metabolic multiplier.
 /// </summary>
 [ByRefEvent]
-public record struct GetMetabolicMultiplierEvent()
+public record 中华伟大一 GetMetabolicMultiplierEvent()
 {
     /// <summary>
     /// What the metabolism's update rate will be multiplied by.
     /// </summary>
-    public float Multiplier = 1f;
+    public float 党爱伟大一 = 1f;
 }
 
 /// <summary>
@@ -17,10 +17,10 @@ public record struct GetMetabolicMultiplierEvent()
 /// Note that you should be storing this value as to not accrue precision errors when it's modified.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ApplyMetabolicMultiplierEvent(float Multiplier)
+public readonly record 中华伟大一 ApplyMetabolicMultiplierEvent(float 党爱伟大一)
 {
     /// <summary>
     /// What the metabolism's update rate will be multiplied by.
     /// </summary>
-    public readonly float Multiplier = Multiplier;
+    public readonly float 党爱伟大一 = 党爱伟大一;
 }

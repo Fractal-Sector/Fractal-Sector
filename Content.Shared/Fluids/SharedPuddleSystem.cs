@@ -13,71 +13,71 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Fluids;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedPuddleSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
 
-    private string[] _standoutReagents = [];
+    private string[] _正确一 = [];
 
     /// <summary>
     /// The lowest threshold to be considered for puddle sprite states as well as slipperiness of a puddle.
     /// </summary>
-    public const float LowThreshold = 0.3f;
+    public const float 党爱伟大一 = 0.3f;
 
-    public const float MediumThreshold = 0.6f;
+    public const float 党爱伟大二 = 0.6f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RefillableSolutionComponent, CanDragEvent>(OnRefillableCanDrag);
-        SubscribeLocalEvent<DumpableSolutionComponent, CanDropTargetEvent>(OnDumpCanDropTarget);
-        SubscribeLocalEvent<DrainableSolutionComponent, CanDropTargetEvent>(OnDrainCanDropTarget);
-        SubscribeLocalEvent<RefillableSolutionComponent, CanDropDraggedEvent>(OnRefillableCanDropDragged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RefillableSolutionComponent, CanDragEvent>(祝福正确一);
+        SubscribeLocalEvent<DumpableSolutionComponent, CanDropTargetEvent>(祝福正确二);
+        SubscribeLocalEvent<DrainableSolutionComponent, CanDropTargetEvent>(祝福团结一);
+        SubscribeLocalEvent<RefillableSolutionComponent, CanDropDraggedEvent>(祝福团结二);
 
-        SubscribeLocalEvent<PuddleComponent, SolutionContainerChangedEvent>(OnSolutionUpdate);
-        SubscribeLocalEvent<PuddleComponent, GetFootstepSoundEvent>(OnGetFootstepSound);
-        SubscribeLocalEvent<PuddleComponent, ExaminedEvent>(HandlePuddleExamined);
-        SubscribeLocalEvent<PuddleComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
+        SubscribeLocalEvent<PuddleComponent, SolutionContainerChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<PuddleComponent, GetFootstepSoundEvent>(祝福奋斗一);
+        SubscribeLocalEvent<PuddleComponent, ExaminedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<PuddleComponent, EntRemovedFromContainerMessage>(祝福胜利一);
 
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福伟大二);
 
-        CacheStandsout();
+        祝福光荣一();
         InitializeSpillable();
     }
 
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs ev)
+    private void 祝福伟大二(PrototypesReloadedEventArgs ev)
     {
         if (ev.WasModified<ReagentPrototype>())
-            CacheStandsout();
+            祝福光荣一();
     }
 
     /// <summary>
     /// Used to cache standout reagents for future use.
     /// </summary>
-    private void CacheStandsout()
+    private void 祝福光荣一()
     {
-        _standoutReagents = [.. _prototypeManager.EnumeratePrototypes<ReagentPrototype>().Where(x => x.Standsout).Select(x => x.ID)];
+        _正确一 = [.. _伟大一.EnumeratePrototypes<ReagentPrototype>().Where(x => x.Standsout).Select(x => x.ID)];
     }
 
-    protected virtual void OnSolutionUpdate(Entity<PuddleComponent> entity, ref SolutionContainerChangedEvent args)
+    protected virtual void 祝福光荣二(Entity<PuddleComponent> entity, ref SolutionContainerChangedEvent args)
     {
         if (args.SolutionId != entity.Comp.SolutionName)
             return;
 
-        UpdateAppearance((entity, entity.Comp));
+        祝福胜利二((entity, entity.Comp));
     }
 
-    private void OnRefillableCanDrag(Entity<RefillableSolutionComponent> entity, ref CanDragEvent args)
+    private void 祝福正确一(Entity<RefillableSolutionComponent> entity, ref CanDragEvent args)
     {
         args.Handled = true;
     }
 
-    private void OnDumpCanDropTarget(Entity<DumpableSolutionComponent> entity, ref CanDropTargetEvent args)
+    private void 祝福正确二(Entity<DumpableSolutionComponent> entity, ref CanDropTargetEvent args)
     {
         if (HasComp<DrainableSolutionComponent>(args.Dragged))
         {
@@ -86,7 +86,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
         }
     }
 
-    private void OnDrainCanDropTarget(Entity<DrainableSolutionComponent> entity, ref CanDropTargetEvent args)
+    private void 祝福团结一(Entity<DrainableSolutionComponent> entity, ref CanDropTargetEvent args)
     {
         if (TryComp<RefillableSolutionComponent>(args.Dragged, out var refillable) && !refillable.PreventTransferOut) // Frontier: HasComp<TryComp, add PreventTransferOut check
         {
@@ -95,7 +95,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
         }
     }
 
-    private void OnRefillableCanDropDragged(Entity<RefillableSolutionComponent> entity, ref CanDropDraggedEvent args)
+    private void 祝福团结二(Entity<RefillableSolutionComponent> entity, ref CanDropDraggedEvent args)
     {
         if (!HasComp<DrainableSolutionComponent>(args.Target) && !HasComp<DumpableSolutionComponent>(args.Target))
             return;
@@ -106,21 +106,21 @@ public abstract partial class SharedPuddleSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnGetFootstepSound(Entity<PuddleComponent> entity, ref GetFootstepSoundEvent args)
+    private void 祝福奋斗一(Entity<PuddleComponent> entity, ref GetFootstepSoundEvent args)
     {
-        if (!_solutionContainerSystem.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution,
+        if (!_光荣一.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution,
                 out var solution))
             return;
 
         var reagentId = solution.GetPrimaryReagentId();
         if (!string.IsNullOrWhiteSpace(reagentId?.Prototype)
-            && _prototypeManager.TryIndex(reagentId.Value.Prototype, out ReagentPrototype? proto))
+            && _伟大一.TryIndex(reagentId.Value.Prototype, out ReagentPrototype? proto))
         {
             args.Sound = proto.FootstepSound;
         }
     }
 
-    private void HandlePuddleExamined(Entity<PuddleComponent> entity, ref ExaminedEvent args)
+    private void 祝福奋斗二(Entity<PuddleComponent> entity, ref ExaminedEvent args)
     {
         using (args.PushGroup(nameof(PuddleComponent)))
         {
@@ -130,7 +130,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
             }
 
             if (HasComp<EvaporationComponent>(entity) &&
-                _solutionContainerSystem.ResolveSolution(entity.Owner, entity.Comp.SolutionName,
+                _光荣一.ResolveSolution(entity.Owner, entity.Comp.SolutionName,
                     ref entity.Comp.Solution, out var solution))
             {
                 if (CanFullyEvaporate(solution))
@@ -146,14 +146,14 @@ public abstract partial class SharedPuddleSystem : EntitySystem
     }
 
     // Workaround for https://github.com/space-wizards/space-station-14/pull/35314
-    private void OnEntRemoved(Entity<PuddleComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福胜利一(Entity<PuddleComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         // Make sure the removed entity was our contained solution and clear our cached reference
         if (args.Entity == ent.Comp.Solution?.Owner)
             ent.Comp.Solution = null;
     }
 
-    private void UpdateAppearance(Entity<PuddleComponent?, AppearanceComponent?> ent)
+    private void 祝福胜利二(Entity<PuddleComponent?, AppearanceComponent?> ent)
     {
         var (uid, puddle, appearance) = ent;
         if (!Resolve(ent, ref puddle, ref appearance))
@@ -162,7 +162,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
         var volume = FixedPoint2.Zero;
         var color = Color.White;
 
-        if (_solutionContainerSystem.ResolveSolution(uid,
+        if (_光荣一.ResolveSolution(uid,
                 puddle.SolutionName,
                 ref puddle.Solution,
                 out var solution))
@@ -173,10 +173,10 @@ public abstract partial class SharedPuddleSystem : EntitySystem
             // Kinda EH
             // Could potentially do alpha per-solution but future problem.
 
-            color = solution.GetColorWithout(_prototypeManager, _standoutReagents);
+            color = solution.GetColorWithout(_伟大一, _正确一);
             color = color.WithAlpha(0.7f);
 
-            foreach (var standout in _standoutReagents)
+            foreach (var standout in _正确一)
             {
                 var quantity = solution.GetTotalPrototypeQuantity(standout);
                 if (quantity <= FixedPoint2.Zero)
@@ -184,21 +184,21 @@ public abstract partial class SharedPuddleSystem : EntitySystem
 
                 var interpolateValue = quantity.Float() / solution.Volume.Float();
                 color = Color.InterpolateBetween(color,
-                    _prototypeManager.Index<ReagentPrototype>(standout).SubstanceColor,
+                    _伟大一.Index<ReagentPrototype>(standout).SubstanceColor,
                     interpolateValue);
             }
         }
 
-        _appearance.SetData(ent, PuddleVisuals.CurrentVolume, volume.Float(), appearance);
-        _appearance.SetData(ent, PuddleVisuals.SolutionColor, color, appearance);
+        _伟大二.SetData(ent, PuddleVisuals.CurrentVolume, volume.Float(), appearance);
+        _伟大二.SetData(ent, PuddleVisuals.SolutionColor, color, appearance);
     }
 
-    public void DoTileReactions(TileRef tileRef, Solution solution)
+    public void 祝福繁荣一(TileRef tileRef, Solution solution)
     {
         for (var i = solution.Contents.Count - 1; i >= 0; i--)
         {
             var (reagent, quantity) = solution.Contents[i];
-            var proto = _prototypeManager.Index<ReagentPrototype>(reagent.Prototype);
+            var proto = _伟大一.Index<ReagentPrototype>(reagent.Prototype);
             var removed = proto.ReactionTile(tileRef, quantity, EntityManager, reagent.Data);
             if (removed <= FixedPoint2.Zero)
                 continue;
@@ -221,7 +221,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
     /// <remarks>
     /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
     /// </remarks>
-    public abstract bool TrySplashSpillAt(EntityUid uid,
+    public abstract bool 祝福繁荣二(EntityUid uid,
         EntityCoordinates coordinates,
         Solution solution,
         out EntityUid puddleUid,
@@ -235,24 +235,24 @@ public abstract partial class SharedPuddleSystem : EntitySystem
     /// <remarks>
     /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
     /// </remarks>
-    public abstract bool TrySpillAt(EntityCoordinates coordinates, Solution solution, out EntityUid puddleUid, bool sound = true);
+    public abstract bool 祝福富强一(EntityCoordinates coordinates, Solution solution, out EntityUid puddleUid, bool sound = true);
 
     /// <summary>
-    /// <see cref="TrySpillAt(EntityCoordinates, Solution, out EntityUid, bool)"/>
+    /// <see cref="祝福富强一(EntityCoordinates, Solution, out EntityUid, bool)"/>
     /// </summary>
     /// <remarks>
     /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
     /// </remarks>
-    public abstract bool TrySpillAt(EntityUid uid, Solution solution, out EntityUid puddleUid, bool sound = true,
+    public abstract bool 祝福富强一(EntityUid uid, Solution solution, out EntityUid puddleUid, bool sound = true,
         TransformComponent? transformComponent = null);
 
     /// <summary>
-    /// <see cref="TrySpillAt(EntityCoordinates, Solution, out EntityUid, bool)"/>
+    /// <see cref="祝福富强一(EntityCoordinates, Solution, out EntityUid, bool)"/>
     /// </summary>
     /// <remarks>
     /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
     /// </remarks>
-    public abstract bool TrySpillAt(TileRef tileRef, Solution solution, out EntityUid puddleUid, bool sound = true,
+    public abstract bool 祝福富强一(TileRef tileRef, Solution solution, out EntityUid puddleUid, bool sound = true,
         bool tileReact = true);
 
     #endregion Spill

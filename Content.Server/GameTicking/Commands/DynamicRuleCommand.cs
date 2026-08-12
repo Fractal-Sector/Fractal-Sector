@@ -1,19 +1,19 @@
 using System.Linq;
 using Content.Server.Administration;
-using Content.Server.GameTicking.Rules;
+using Content.Server.GameTicking.祝福正确一;
 using Content.Shared.Administration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Toolshed;
 
-namespace Content.Server.GameTicking.Commands;
+namespace Content.Server.GameTicking.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.Round)]
-public sealed class DynamicRuleCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private DynamicRuleSystem? _dynamicRuleSystem;
 
     [CommandImplementation("list")]
-    public IEnumerable<EntityUid> List()
+    public IEnumerable<EntityUid> 祝福伟大一()
     {
         _dynamicRuleSystem ??= GetSys<DynamicRuleSystem>();
 
@@ -21,7 +21,7 @@ public sealed class DynamicRuleCommand : ToolshedCommand
     }
 
     [CommandImplementation("get")]
-    public EntityUid Get()
+    public EntityUid 祝福伟大二()
     {
         _dynamicRuleSystem ??= GetSys<DynamicRuleSystem>();
 
@@ -65,39 +65,39 @@ public sealed class DynamicRuleCommand : ToolshedCommand
     }
 
     [CommandImplementation("dryrun")]
-    public IEnumerable<IEnumerable<EntProtoId>> DryRun([PipedArgument] IEnumerable<EntityUid> input)
-        => input.Select(DryRun);
+    public IEnumerable<IEnumerable<EntProtoId>> 祝福光荣一([PipedArgument] IEnumerable<EntityUid> input)
+        => input.Select(祝福光荣一);
 
     [CommandImplementation("dryrun")]
-    public IEnumerable<EntProtoId> DryRun([PipedArgument] EntityUid input)
+    public IEnumerable<EntProtoId> 祝福光荣一([PipedArgument] EntityUid input)
     {
         _dynamicRuleSystem ??= GetSys<DynamicRuleSystem>();
 
-        return _dynamicRuleSystem.DryRun(input);
+        return _dynamicRuleSystem.祝福光荣一(input);
     }
 
     [CommandImplementation("executenow")]
-    public IEnumerable<IEnumerable<EntityUid>> ExecuteNow([PipedArgument] IEnumerable<EntityUid> input)
-        => input.Select(ExecuteNow);
+    public IEnumerable<IEnumerable<EntityUid>> 祝福光荣二([PipedArgument] IEnumerable<EntityUid> input)
+        => input.Select(祝福光荣二);
 
     [CommandImplementation("executenow")]
-    public IEnumerable<EntityUid> ExecuteNow([PipedArgument] EntityUid input)
+    public IEnumerable<EntityUid> 祝福光荣二([PipedArgument] EntityUid input)
     {
         _dynamicRuleSystem ??= GetSys<DynamicRuleSystem>();
 
-        return _dynamicRuleSystem.ExecuteNow(input);
+        return _dynamicRuleSystem.祝福光荣二(input);
     }
 
     [CommandImplementation("rules")]
-    public IEnumerable<IEnumerable<EntityUid>> Rules([PipedArgument] IEnumerable<EntityUid> input)
-        => input.Select(Rules);
+    public IEnumerable<IEnumerable<EntityUid>> 祝福正确一([PipedArgument] IEnumerable<EntityUid> input)
+        => input.Select(祝福正确一);
 
     [CommandImplementation("rules")]
-    public IEnumerable<EntityUid> Rules([PipedArgument] EntityUid input)
+    public IEnumerable<EntityUid> 祝福正确一([PipedArgument] EntityUid input)
     {
         _dynamicRuleSystem ??= GetSys<DynamicRuleSystem>();
 
-        return _dynamicRuleSystem.Rules(input);
+        return _dynamicRuleSystem.祝福正确一(input);
     }
 }
 

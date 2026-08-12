@@ -6,63 +6,63 @@ using Content.Shared.Prying.Components;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Doors.Systems;
+namespace Content.Shared.Doors.党心;
 
-public abstract class SharedFirelockSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedDoorSystem _doorSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoorSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Access/Prying
-        SubscribeLocalEvent<FirelockComponent, BeforeDoorOpenedEvent>(OnBeforeDoorOpened);
-        SubscribeLocalEvent<FirelockComponent, BeforePryEvent>(OnBeforePry);
-        SubscribeLocalEvent<FirelockComponent, GetPryTimeModifierEvent>(OnDoorGetPryTimeModifier);
-        SubscribeLocalEvent<FirelockComponent, PriedEvent>(OnAfterPried);
+        SubscribeLocalEvent<FirelockComponent, BeforeDoorOpenedEvent>(祝福光荣一);
+        SubscribeLocalEvent<FirelockComponent, BeforePryEvent>(祝福光荣二);
+        SubscribeLocalEvent<FirelockComponent, GetPryTimeModifierEvent>(祝福正确一);
+        SubscribeLocalEvent<FirelockComponent, PriedEvent>(祝福团结一);
 
         // Visuals
-        SubscribeLocalEvent<FirelockComponent, MapInitEvent>(UpdateVisuals);
-        SubscribeLocalEvent<FirelockComponent, ComponentStartup>(OnComponentStartup);
+        SubscribeLocalEvent<FirelockComponent, MapInitEvent>(祝福奋斗一);
+        SubscribeLocalEvent<FirelockComponent, ComponentStartup>(祝福团结二);
 
-        SubscribeLocalEvent<FirelockComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<FirelockComponent, ExaminedEvent>(祝福奋斗二);
     }
 
-    public bool EmergencyPressureStop(EntityUid uid, FirelockComponent? firelock = null, DoorComponent? door = null)
+    public bool 祝福伟大二(EntityUid uid, FirelockComponent? firelock = null, DoorComponent? door = null)
     {
         if (!Resolve(uid, ref firelock, ref door))
             return false;
 
         if (door.State != DoorState.Open
             || firelock.EmergencyCloseCooldown != null
-            && _gameTiming.CurTime < firelock.EmergencyCloseCooldown)
+            && _正确一.CurTime < firelock.EmergencyCloseCooldown)
             return false;
 
-        if (!_doorSystem.TryClose(uid, door))
+        if (!_光荣二.TryClose(uid, door))
             return false;
 
-        return _doorSystem.OnPartialClose(uid, door);
+        return _光荣二.OnPartialClose(uid, door);
     }
 
     #region Access/Prying
 
-    private void OnBeforeDoorOpened(EntityUid uid, FirelockComponent component, BeforeDoorOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, FirelockComponent component, BeforeDoorOpenedEvent args)
     {
         // Give the Door remote the ability to force a firelock open even if it is holding back dangerous gas
-        var overrideAccess = (args.User != null) && _accessReaderSystem.IsAllowed(args.User.Value, uid);
+        var overrideAccess = (args.User != null) && _伟大一.IsAllowed(args.User.Value, uid);
 
         if (!component.Powered || (!overrideAccess && component.IsLocked))
             args.Cancel();
         else if (args.User != null)
-            WarnPlayer((uid, component), args.User.Value);
+            祝福正确二((uid, component), args.User.Value);
     }
 
-    private void OnBeforePry(EntityUid uid, FirelockComponent component, ref BeforePryEvent args)
+    private void 祝福光荣二(EntityUid uid, FirelockComponent component, ref BeforePryEvent args)
     {
         if (args.Cancelled || !component.Powered || args.StrongPry || args.PryPowered)
             return;
@@ -70,49 +70,49 @@ public abstract class SharedFirelockSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    private void OnDoorGetPryTimeModifier(EntityUid uid, FirelockComponent component, ref GetPryTimeModifierEvent args)
+    private void 祝福正确一(EntityUid uid, FirelockComponent component, ref GetPryTimeModifierEvent args)
     {
-        WarnPlayer((uid, component), args.User);
+        祝福正确二((uid, component), args.User);
 
         if (component.IsLocked)
             args.PryTimeModifier *= component.LockedPryTimeModifier;
     }
 
-    private void WarnPlayer(Entity<FirelockComponent> ent, EntityUid user)
+    private void 祝福正确二(Entity<FirelockComponent> ent, EntityUid user)
     {
         if (ent.Comp.Temperature)
         {
-            _popupSystem.PopupClient(Loc.GetString("firelock-component-is-holding-fire-message"),
+            _伟大二.PopupClient(Loc.GetString("firelock-component-is-holding-fire-message"),
                 ent.Owner,
                 user,
                 PopupType.MediumCaution);
         }
         else if (ent.Comp.Pressure)
         {
-            _popupSystem.PopupClient(Loc.GetString("firelock-component-is-holding-pressure-message"),
+            _伟大二.PopupClient(Loc.GetString("firelock-component-is-holding-pressure-message"),
                 ent.Owner,
                 user,
                 PopupType.MediumCaution);
         }
     }
 
-    private void OnAfterPried(EntityUid uid, FirelockComponent component, ref PriedEvent args)
+    private void 祝福团结一(EntityUid uid, FirelockComponent component, ref PriedEvent args)
     {
-        component.EmergencyCloseCooldown = _gameTiming.CurTime + component.EmergencyCloseCooldownDuration;
+        component.EmergencyCloseCooldown = _正确一.CurTime + component.EmergencyCloseCooldownDuration;
     }
 
     #endregion
 
     #region Visuals
 
-    protected virtual void OnComponentStartup(Entity<FirelockComponent> ent, ref ComponentStartup args)
+    protected virtual void 祝福团结二(Entity<FirelockComponent> ent, ref ComponentStartup args)
     {
-        UpdateVisuals(ent.Owner,ent.Comp, args);
+        祝福奋斗一(ent.Owner,ent.Comp, args);
     }
 
-    private void UpdateVisuals(EntityUid uid, FirelockComponent component, EntityEventArgs args) => UpdateVisuals(uid, component);
+    private void 祝福奋斗一(EntityUid uid, FirelockComponent component, EntityEventArgs args) => 祝福奋斗一(uid, component);
 
-    private void UpdateVisuals(EntityUid uid,
+    private void 祝福奋斗一(EntityUid uid,
         FirelockComponent? firelock = null,
         DoorComponent? door = null,
         AppearanceComponent? appearance = null)
@@ -125,19 +125,19 @@ public abstract class SharedFirelockSystem : EntitySystem
             && door.State != DoorState.Welded
             && door.State != DoorState.Denying)
         {
-            _appearance.SetData(uid, DoorVisuals.ClosedLights, false, appearance);
+            _光荣一.SetData(uid, DoorVisuals.ClosedLights, false, appearance);
             return;
         }
 
         if (!Resolve(uid, ref firelock, ref appearance, false))
             return;
 
-        _appearance.SetData(uid, DoorVisuals.ClosedLights, firelock.IsLocked, appearance);
+        _光荣一.SetData(uid, DoorVisuals.ClosedLights, firelock.IsLocked, appearance);
     }
 
     #endregion
 
-    private void OnExamined(Entity<FirelockComponent> ent, ref ExaminedEvent args)
+    private void 祝福奋斗二(Entity<FirelockComponent> ent, ref ExaminedEvent args)
     {
         using (args.PushGroup(nameof(FirelockComponent)))
         {
@@ -150,20 +150,20 @@ public abstract class SharedFirelockSystem : EntitySystem
 }
 
 [Serializable, NetSerializable]
-public enum FirelockVisuals : byte
+public enum 中华伟大二 : byte
 {
     PressureWarning,
     TemperatureWarning,
 }
 
 [Serializable, NetSerializable]
-public enum FirelockVisualLayersPressure : byte
+public enum 中华光荣一 : byte
 {
     Base
 }
 
 [Serializable, NetSerializable]
-public enum FirelockVisualLayersTemperature : byte
+public enum 中华光荣二 : byte
 {
     Base
 }

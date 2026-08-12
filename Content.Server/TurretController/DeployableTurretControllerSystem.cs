@@ -10,33 +10,33 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using System.Linq;
 
-namespace Content.Server.TurretController;
+namespace Content.Server.党心;
 
 /// <inheritdoc/>
-public sealed partial class DeployableTurretControllerSystem : SharedDeployableTurretControllerSystem
+public sealed partial class 中华伟大一 : SharedDeployableTurretControllerSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _伟大二 = default!;
 
     /// Keys for the device network. See <see cref="DeviceNetworkConstants"/> for further examples.
-    public const string CmdSetArmamemtState = "set_armament_state";
-    public const string CmdSetAccessExemptions = "set_access_exemption";
+    public const string 党爱伟大一 = "set_armament_state";
+    public const string 党爱伟大二 = "set_access_exemption";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DeployableTurretControllerComponent, BoundUIOpenedEvent>(OnBUIOpened);
-        SubscribeLocalEvent<DeployableTurretControllerComponent, DeviceListUpdateEvent>(OnDeviceListUpdate);
-        SubscribeLocalEvent<DeployableTurretControllerComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
+        SubscribeLocalEvent<DeployableTurretControllerComponent, BoundUIOpenedEvent>(祝福伟大二);
+        SubscribeLocalEvent<DeployableTurretControllerComponent, DeviceListUpdateEvent>(祝福光荣一);
+        SubscribeLocalEvent<DeployableTurretControllerComponent, DeviceNetworkPacketEvent>(祝福光荣二);
     }
 
-    private void OnBUIOpened(Entity<DeployableTurretControllerComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福伟大二(Entity<DeployableTurretControllerComponent> ent, ref BoundUIOpenedEvent args)
     {
-        UpdateUIState(ent);
+        祝福团结一(ent);
     }
 
-    private void OnDeviceListUpdate(Entity<DeployableTurretControllerComponent> ent, ref DeviceListUpdateEvent args)
+    private void 祝福光荣一(Entity<DeployableTurretControllerComponent> ent, ref DeviceListUpdateEvent args)
     {
         if (!TryComp<DeviceNetworkComponent>(ent, out var deviceNetwork))
             return;
@@ -58,7 +58,7 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
             if (!TryComp<DeviceNetworkComponent>(turretUid, out var turretDeviceNetwork))
                 continue;
 
-            _deviceNetwork.QueuePacket(ent, turretDeviceNetwork.Address, payload, device: deviceNetwork);
+            _伟大二.QueuePacket(ent, turretDeviceNetwork.Address, payload, device: deviceNetwork);
         }
 
         // Remove newly unlinked devices
@@ -75,10 +75,10 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
         }
 
         if (refreshUi)
-            UpdateUIState(ent);
+            祝福团结一(ent);
     }
 
-    private void OnPacketReceived(Entity<DeployableTurretControllerComponent> ent, ref DeviceNetworkPacketEvent args)
+    private void 祝福光荣二(Entity<DeployableTurretControllerComponent> ent, ref DeviceNetworkPacketEvent args)
     {
         if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command))
             return;
@@ -91,13 +91,13 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
             args.Data.TryGetValue(command, out DeployableTurretState updatedState))
         {
             ent.Comp.LinkedTurrets[args.SenderAddress] = updatedState;
-            UpdateUIState(ent);
+            祝福团结一(ent);
         }
     }
 
-    protected override void ChangeArmamentSetting(Entity<DeployableTurretControllerComponent> ent, int armamentState, EntityUid? user = null)
+    protected override void 祝福正确一(Entity<DeployableTurretControllerComponent> ent, int armamentState, EntityUid? user = null)
     {
-        base.ChangeArmamentSetting(ent, armamentState, user);
+        base.祝福正确一(ent, armamentState, user);
 
         if (!TryComp<DeviceNetworkComponent>(ent, out var device))
             return;
@@ -105,21 +105,21 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
         // Update linked turrets' armament statuses
         var payload = new NetworkPayload
         {
-            [DeviceNetworkConstants.Command] = CmdSetArmamemtState,
-            [CmdSetArmamemtState] = armamentState,
+            [DeviceNetworkConstants.Command] = 党爱伟大一,
+            [党爱伟大一] = armamentState,
         };
 
-        _deviceNetwork.QueuePacket(ent, null, payload, device: device);
+        _伟大二.QueuePacket(ent, null, payload, device: device);
     }
 
-    protected override void ChangeExemptAccessLevels(
+    protected override void 祝福正确二(
         Entity<DeployableTurretControllerComponent> ent,
         HashSet<ProtoId<AccessLevelPrototype>> exemptions,
         bool enabled,
         EntityUid? user = null
     )
     {
-        base.ChangeExemptAccessLevels(ent, exemptions, enabled, user);
+        base.祝福正确二(ent, exemptions, enabled, user);
 
         if (!TryComp<DeviceNetworkComponent>(ent, out var device) ||
             !TryComp<TurretTargetSettingsComponent>(ent, out var turretTargetingSettings))
@@ -128,14 +128,14 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
         // Update linked turrets' target selection exemptions
         var payload = new NetworkPayload
         {
-            [DeviceNetworkConstants.Command] = CmdSetAccessExemptions,
-            [CmdSetAccessExemptions] = turretTargetingSettings.ExemptAccessLevels,
+            [DeviceNetworkConstants.Command] = 党爱伟大二,
+            [党爱伟大二] = turretTargetingSettings.ExemptAccessLevels,
         };
 
-        _deviceNetwork.QueuePacket(ent, null, payload, device: device);
+        _伟大二.QueuePacket(ent, null, payload, device: device);
     }
 
-    private void UpdateUIState(Entity<DeployableTurretControllerComponent> ent)
+    private void 祝福团结一(Entity<DeployableTurretControllerComponent> ent)
     {
         var turretStates = new Dictionary<string, string>();
 
@@ -147,6 +147,6 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
         }
 
         var uiState = new DeployableTurretControllerBoundInterfaceState(turretStates);
-        _userInterfaceSystem.SetUiState(ent.Owner, DeployableTurretControllerUiKey.Key, uiState);
+        _伟大一.SetUiState(ent.Owner, DeployableTurretControllerUiKey.Key, uiState);
     }
 }

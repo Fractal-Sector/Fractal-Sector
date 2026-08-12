@@ -1,17 +1,17 @@
 ﻿using Content.Shared.Station.Components;
 using Robust.Shared.Console;
 
-namespace Content.Server.Commands;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Helper functions for programming console command completions.
 /// </summary>
-public static class ContentCompletionHelper
+public static class 中华伟大一
 {
     /// <summary>
     /// Return all stations, with their ID as value and name as hint.
     /// </summary>
-    public static IEnumerable<CompletionOption> StationIds(IEntityManager entityManager)
+    public static IEnumerable<CompletionOption> 祝福伟大一(IEntityManager entityManager)
     {
         var query = entityManager.EntityQueryEnumerator<StationDataComponent, MetaDataComponent>();
         while (query.MoveNext(out var uid, out _, out var metaData))

@@ -1,7 +1,7 @@
-namespace Content.Shared.AlertLevel;
+namespace Content.Shared.党心;
 
 [RegisterComponent]
-public sealed partial class AlertLevelDisplayComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("alertVisuals")]
     public  Dictionary<string, string> AlertVisuals = new();

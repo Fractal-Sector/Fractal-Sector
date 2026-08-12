@@ -4,19 +4,19 @@ using Content.Shared.Administration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.ViewNotes)]
-public sealed class OpenAdminNotesCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IAdminNotesManager _adminNotes = default!;
-    [Dependency] private readonly IPlayerLocator _locator = default!;
+    [Dependency] private readonly IAdminNotesManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerLocator _伟大二 = default!;
 
-    public const string CommandName = "adminnotes";
+    public const string 党爱伟大一 = "adminnotes";
 
-    public override string Command => CommandName;
+    public override string 党爱伟大二 => 党爱伟大一;
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } player)
         {
@@ -31,7 +31,7 @@ public sealed class OpenAdminNotesCommand : LocalizedCommands
             case 1 when Guid.TryParse(args[0], out notedPlayer):
                 break;
             case 1:
-                var dbGuid = await _locator.LookupIdByNameAsync(args[0]);
+                var dbGuid = await _伟大二.LookupIdByNameAsync(args[0]);
 
                 if (dbGuid == null)
                 {
@@ -46,10 +46,10 @@ public sealed class OpenAdminNotesCommand : LocalizedCommands
                 return;
         }
 
-        await _adminNotes.OpenEui(player, notedPlayer);
+        await _伟大一.OpenEui(player, notedPlayer);
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length != 1)
             return CompletionResult.Empty;

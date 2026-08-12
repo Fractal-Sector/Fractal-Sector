@@ -10,55 +10,55 @@ using System.Linq;
 using Content.Server.Codewords;
 using Content.Shared.Paper;
 
-namespace Content.Server.Traitor.Systems;
+namespace Content.Server.Traitor.党心;
 
-public sealed class TraitorCodePaperSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly CodewordSystem _codewordSystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly PaperSystem _伟大二 = default!;
+    [Dependency] private readonly CodewordSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<TraitorCodePaperComponent, MapInitEvent>(OnMapInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<TraitorCodePaperComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, TraitorCodePaperComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, TraitorCodePaperComponent component, MapInitEvent args)
     {
-        SetupPaper(uid, component);
+        祝福光荣一(uid, component);
     }
 
-    private void SetupPaper(EntityUid uid, TraitorCodePaperComponent? component = null)
+    private void 祝福光荣一(EntityUid uid, TraitorCodePaperComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         if (TryComp(uid, out PaperComponent? paperComp))
         {
-            if (TryGetTraitorCode(out var paperContent, component))
+            if (祝福光荣二(out var paperContent, component))
             {
-                _paper.SetContent((uid, paperComp), paperContent);
+                _伟大二.SetContent((uid, paperComp), paperContent);
             }
         }
     }
 
-    private bool TryGetTraitorCode([NotNullWhen(true)] out string? traitorCode, TraitorCodePaperComponent component)
+    private bool 祝福光荣二([NotNullWhen(true)] out string? traitorCode, TraitorCodePaperComponent component)
     {
         traitorCode = null;
 
         var codesMessage = new FormattedMessage();
-        var codeList = _codewordSystem.GetCodewords(component.CodewordFaction).ToList();
+        var codeList = _光荣一.GetCodewords(component.CodewordFaction).ToList();
 
         if (codeList.Count == 0)
         {
             if (component.FakeCodewords)
-                codeList = _codewordSystem.GenerateCodewords(component.CodewordGenerator).ToList();
+                codeList = _光荣一.GenerateCodewords(component.CodewordGenerator).ToList();
             else
                 codeList = [Loc.GetString("traitor-codes-none")];
         }
 
-        _random.Shuffle(codeList);
+        _伟大一.Shuffle(codeList);
 
         int i = 0;
         foreach (var code in codeList)

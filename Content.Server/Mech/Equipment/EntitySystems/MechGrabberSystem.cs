@@ -22,36 +22,36 @@ using Content.Shared.Buckle; // Frontier
 using Content.Shared.Mind.Components; // Frontier
 using Content.Server.Ghost.Roles.Components; // Frontier
 
-namespace Content.Server.Mech.Equipment.EntitySystems;
+namespace Content.Server.Mech.Equipment.党心;
 
 /// <summary>
 /// Handles <see cref="MechGrabberComponent"/> and all related UI logic
 /// </summary>
-public sealed class MechGrabberSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly MechSystem _mech = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!; // Frontier
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!; // Frontier
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly MechSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly InteractionSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly TransformSystem _正确二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结一 = default!; // Frontier
+    [Dependency] private readonly SharedBuckleSystem _团结二 = default!; // Frontier
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MechGrabberComponent, MechEquipmentUiMessageRelayEvent>(OnGrabberMessage);
-        SubscribeLocalEvent<MechGrabberComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<MechGrabberComponent, MechEquipmentUiStateReadyEvent>(OnUiStateReady);
-        SubscribeLocalEvent<MechGrabberComponent, MechEquipmentRemovedEvent>(OnEquipmentRemoved);
-        SubscribeLocalEvent<MechGrabberComponent, AttemptRemoveMechEquipmentEvent>(OnAttemptRemove);
+        SubscribeLocalEvent<MechGrabberComponent, MechEquipmentUiMessageRelayEvent>(祝福伟大二);
+        SubscribeLocalEvent<MechGrabberComponent, ComponentStartup>(祝福正确二);
+        SubscribeLocalEvent<MechGrabberComponent, MechEquipmentUiStateReadyEvent>(祝福团结一);
+        SubscribeLocalEvent<MechGrabberComponent, MechEquipmentRemovedEvent>(祝福光荣二);
+        SubscribeLocalEvent<MechGrabberComponent, AttemptRemoveMechEquipmentEvent>(祝福正确一);
 
-        SubscribeLocalEvent<MechGrabberComponent, UserActivateInWorldEvent>(OnInteract);
-        SubscribeLocalEvent<MechGrabberComponent, GrabberDoAfterEvent>(OnMechGrab);
+        SubscribeLocalEvent<MechGrabberComponent, UserActivateInWorldEvent>(祝福团结二);
+        SubscribeLocalEvent<MechGrabberComponent, GrabberDoAfterEvent>(祝福奋斗一);
     }
 
-    private void OnGrabberMessage(EntityUid uid, MechGrabberComponent component, MechEquipmentUiMessageRelayEvent args)
+    private void 祝福伟大二(EntityUid uid, MechGrabberComponent component, MechEquipmentUiMessageRelayEvent args)
     {
         if (args.Message is not MechGrabberEjectMessage msg)
             return;
@@ -62,7 +62,7 @@ public sealed class MechGrabberSystem : EntitySystem
         var mech = equipmentComponent.EquipmentOwner.Value;
 
         var targetCoords = new EntityCoordinates(mech, component.DepositOffset);
-        if (!_interaction.InRangeUnobstructed(mech, targetCoords))
+        if (!_光荣二.InRangeUnobstructed(mech, targetCoords))
             return;
 
         var item = GetEntity(msg.Item);
@@ -70,7 +70,7 @@ public sealed class MechGrabberSystem : EntitySystem
         if (!component.ItemContainer.Contains(item))
             return;
 
-        RemoveItem(uid, mech, item, component);
+        祝福光荣一(uid, mech, item, component);
     }
 
     /// <summary>
@@ -80,23 +80,23 @@ public sealed class MechGrabberSystem : EntitySystem
     /// <param name="mech">The mech it belongs to</param>
     /// <param name="toRemove">The item being removed</param>
     /// <param name="component"></param>
-    public void RemoveItem(EntityUid uid, EntityUid mech, EntityUid toRemove, MechGrabberComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, EntityUid mech, EntityUid toRemove, MechGrabberComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        _container.Remove(toRemove, component.ItemContainer);
+        _伟大一.Remove(toRemove, component.ItemContainer);
         var mechxform = Transform(mech);
         var xform = Transform(toRemove);
-        _transform.AttachToGridOrMap(toRemove, xform);
-        var (mechPos, mechRot) = _transform.GetWorldPositionRotation(mechxform);
+        _正确二.AttachToGridOrMap(toRemove, xform);
+        var (mechPos, mechRot) = _正确二.GetWorldPositionRotation(mechxform);
 
         var offset = mechPos + mechRot.RotateVec(component.DepositOffset);
-        _transform.SetWorldPositionRotation(toRemove, offset, Angle.Zero);
-        _mech.UpdateUserInterface(mech);
+        _正确二.SetWorldPositionRotation(toRemove, offset, Angle.Zero);
+        _伟大二.UpdateUserInterface(mech);
     }
 
-    private void OnEquipmentRemoved(EntityUid uid, MechGrabberComponent component, ref MechEquipmentRemovedEvent args)
+    private void 祝福光荣二(EntityUid uid, MechGrabberComponent component, ref MechEquipmentRemovedEvent args)
     {
         if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) ||
             equipmentComponent.EquipmentOwner == null)
@@ -106,21 +106,21 @@ public sealed class MechGrabberSystem : EntitySystem
         var allItems = new List<EntityUid>(component.ItemContainer.ContainedEntities);
         foreach (var item in allItems)
         {
-            RemoveItem(uid, mech, item, component);
+            祝福光荣一(uid, mech, item, component);
         }
     }
 
-    private void OnAttemptRemove(EntityUid uid, MechGrabberComponent component, ref AttemptRemoveMechEquipmentEvent args)
+    private void 祝福正确一(EntityUid uid, MechGrabberComponent component, ref AttemptRemoveMechEquipmentEvent args)
     {
         args.Cancelled = component.ItemContainer.ContainedEntities.Any();
     }
 
-    private void OnStartup(EntityUid uid, MechGrabberComponent component, ComponentStartup args)
+    private void 祝福正确二(EntityUid uid, MechGrabberComponent component, ComponentStartup args)
     {
-        component.ItemContainer = _container.EnsureContainer<Container>(uid, "item-container");
+        component.ItemContainer = _伟大一.EnsureContainer<Container>(uid, "item-container");
     }
 
-    private void OnUiStateReady(EntityUid uid, MechGrabberComponent component, MechEquipmentUiStateReadyEvent args)
+    private void 祝福团结一(EntityUid uid, MechGrabberComponent component, MechEquipmentUiStateReadyEvent args)
     {
         var state = new MechGrabberUiState
         {
@@ -130,7 +130,7 @@ public sealed class MechGrabberSystem : EntitySystem
         args.States.Add(GetNetEntity(uid), state);
     }
 
-    private void OnInteract(EntityUid uid, MechGrabberComponent component, UserActivateInWorldEvent args)
+    private void 祝福团结二(EntityUid uid, MechGrabberComponent component, UserActivateInWorldEvent args)
     {
         if (args.Handled)
             return;
@@ -146,7 +146,7 @@ public sealed class MechGrabberSystem : EntitySystem
             return;
         }
 
-        if (_whitelist.IsBlacklistPass(component.Blacklist, target)) // Frontier: Blacklist
+        if (_团结一.IsBlacklistPass(component.Blacklist, target)) // Frontier: Blacklist
             return;
 
         if (Transform(target).Anchored)
@@ -161,26 +161,26 @@ public sealed class MechGrabberSystem : EntitySystem
         if (mech.Energy + component.GrabEnergyDelta < 0)
             return;
 
-        if (!_interaction.InRangeUnobstructed(args.User, target))
+        if (!_光荣二.InRangeUnobstructed(args.User, target))
             return;
 
         args.Handled = true;
-        component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
+        component.AudioStream = _正确一.PlayPvs(component.GrabSound, uid)?.Entity;
         var doAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new GrabberDoAfterEvent(), uid, target: target, used: uid)
         {
             BreakOnMove = true
         };
 
-        _doAfter.TryStartDoAfter(doAfterArgs, out component.DoAfter);
+        _光荣一.TryStartDoAfter(doAfterArgs, out component.DoAfter);
     }
 
-    private void OnMechGrab(EntityUid uid, MechGrabberComponent component, DoAfterEvent args)
+    private void 祝福奋斗一(EntityUid uid, MechGrabberComponent component, DoAfterEvent args)
     {
         component.DoAfter = null;
 
         if (args.Cancelled)
         {
-            component.AudioStream = _audio.Stop(component.AudioStream);
+            component.AudioStream = _正确一.Stop(component.AudioStream);
             return;
         }
 
@@ -189,7 +189,7 @@ public sealed class MechGrabberSystem : EntitySystem
 
         if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
             return;
-        if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
+        if (!_伟大二.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;
 
         // Frontier: Remove people from chairs and containers
@@ -197,7 +197,7 @@ public sealed class MechGrabberSystem : EntitySystem
         {
             foreach (var buckleUid in strapComp.BuckledEntities)
             {
-                _buckle.Unbuckle(buckleUid, args.Args.User);
+                _团结二.Unbuckle(buckleUid, args.Args.User);
             }
         }
 
@@ -224,14 +224,14 @@ public sealed class MechGrabberSystem : EntitySystem
                 }
                 foreach (var removeUid in toRemove)
                 {
-                    _container.Remove(removeUid, container.Value, destination: coords);
+                    _伟大一.Remove(removeUid, container.Value, destination: coords);
                 }
             }
         }
         // End Frontier: Remove people from chairs and containers
 
-        _container.Insert(args.Args.Target.Value, component.ItemContainer);
-        _mech.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
+        _伟大一.Insert(args.Args.Target.Value, component.ItemContainer);
+        _伟大二.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
 
         args.Handled = true;
     }

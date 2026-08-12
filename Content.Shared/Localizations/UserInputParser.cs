@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Content.Shared.Localizations;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Helpers for user input parsing.
@@ -10,7 +10,7 @@ namespace Content.Shared.Localizations;
 /// with the goal of trying more options to make the user input parsing less restrictive.
 /// For culture-invariant parsing use <see cref="Robust.Shared.Utility.Parse"/>.
 /// </remarks>
-public static class UserInputParser
+public static class 中华伟大一
 {
     private static readonly NumberFormatInfo[] StandardDecimalNumberFormats = new[]
     {
@@ -24,7 +24,7 @@ public static class UserInputParser
         }
     };
 
-    public static bool TryFloat(ReadOnlySpan<char> text, out float result)
+    public static bool 祝福伟大一(ReadOnlySpan<char> text, out float result)
     {
         foreach (var format in StandardDecimalNumberFormats)
         {
@@ -38,7 +38,7 @@ public static class UserInputParser
         return false;
     }
 
-    public static bool TryDouble(ReadOnlySpan<char> text, out double result)
+    public static bool 祝福伟大二(ReadOnlySpan<char> text, out double result)
     {
         foreach (var format in StandardDecimalNumberFormats)
         {

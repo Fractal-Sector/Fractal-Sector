@@ -12,36 +12,36 @@ using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using static Content.Shared.Atmos.Components.GasAnalyzerComponent;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
 [UsedImplicitly]
-public sealed class GasAnalyzerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly AtmosphereSystem _atmo = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+    [Dependency] private readonly PopupSystem _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedInteractionSystem _正确一 = default!;
 
     /// <summary>
     /// Minimum moles of a gas to be sent to the client.
     /// </summary>
     private const float UIMinMoles = 0.01f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GasAnalyzerComponent, AfterInteractEvent>(OnAfterInteract);
+        SubscribeLocalEvent<GasAnalyzerComponent, AfterInteractEvent>(祝福光荣一);
 
         Subs.BuiEvents<GasAnalyzerComponent>(GasAnalyzerUiKey.Key, subs =>
         {
-            subs.Event<BoundUIOpenedEvent>(OnBoundUIOpened);
-            subs.Event<BoundUIClosedEvent>(OnBoundUIClosed);
+            subs.Event<BoundUIOpenedEvent>(祝福团结一);
+            subs.Event<BoundUIClosedEvent>(祝福正确二);
         });
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var query = EntityQueryEnumerator<ActiveGasAnalyzerComponent>();
         while (query.MoveNext(out var uid, out var analyzer))
@@ -54,7 +54,7 @@ public sealed class GasAnalyzerSystem : EntitySystem
 
             analyzer.AccumulatedFrametime -= analyzer.UpdateInterval;
 
-            if (!UpdateAnalyzer(uid))
+            if (!祝福团结二(uid))
                 RemCompDeferred<ActiveGasAnalyzerComponent>(uid);
         }
     }
@@ -62,80 +62,80 @@ public sealed class GasAnalyzerSystem : EntitySystem
     /// <summary>
     /// Activates the analyzer when used in the world, scanning the target entity (if it exists) and the tile the analyzer is in
     /// </summary>
-    private void OnAfterInteract(Entity<GasAnalyzerComponent> entity, ref AfterInteractEvent args)
+    private void 祝福光荣一(Entity<GasAnalyzerComponent> entity, ref AfterInteractEvent args)
     {
         var target = args.Target;
-        if (target != null && !_interactionSystem.InRangeUnobstructed((args.User, null), (target.Value, null)))
+        if (target != null && !_正确一.InRangeUnobstructed((args.User, null), (target.Value, null)))
         {
             target = null; // if the target is out of reach, invalidate it
         }
         // always run the analyzer, regardless of weather or not there is a target
         // since we can always show the local environment.
-        ActivateAnalyzer(entity, args.User, target);
+        祝福光荣二(entity, args.User, target);
         args.Handled = true;
     }
 
     /// <summary>
     /// Handles analyzer activation logic
     /// </summary>
-    private void ActivateAnalyzer(Entity<GasAnalyzerComponent> entity, EntityUid user, EntityUid? target = null)
+    private void 祝福光荣二(Entity<GasAnalyzerComponent> entity, EntityUid user, EntityUid? target = null)
     {
-        if (!_userInterface.TryOpenUi(entity.Owner, GasAnalyzerUiKey.Key, user))
+        if (!_光荣二.TryOpenUi(entity.Owner, GasAnalyzerUiKey.Key, user))
             return;
 
         entity.Comp.Target = target;
         entity.Comp.User = user;
         entity.Comp.Enabled = true;
         Dirty(entity);
-        _appearance.SetData(entity.Owner, GasAnalyzerVisuals.Enabled, entity.Comp.Enabled);
+        _光荣一.SetData(entity.Owner, GasAnalyzerVisuals.Enabled, entity.Comp.Enabled);
         EnsureComp<ActiveGasAnalyzerComponent>(entity.Owner);
-        UpdateAnalyzer(entity.Owner, entity.Comp);
+        祝福团结二(entity.Owner, entity.Comp);
     }
 
     /// <summary>
     /// Closes the UI, sets the icon to off, and removes it from the update list
     /// </summary>
-    private void DisableAnalyzer(Entity<GasAnalyzerComponent> entity, EntityUid? user = null)
+    private void 祝福正确一(Entity<GasAnalyzerComponent> entity, EntityUid? user = null)
     {
-        _userInterface.CloseUi(entity.Owner, GasAnalyzerUiKey.Key, user);
+        _光荣二.CloseUi(entity.Owner, GasAnalyzerUiKey.Key, user);
 
         if (user.HasValue && entity.Comp.Enabled)
-            _popup.PopupEntity(Loc.GetString("gas-analyzer-shutoff"), user.Value, user.Value);
+            _伟大一.PopupEntity(Loc.GetString("gas-analyzer-shutoff"), user.Value, user.Value);
 
         entity.Comp.Enabled = false;
         Dirty(entity);
-        _appearance.SetData(entity.Owner, GasAnalyzerVisuals.Enabled, entity.Comp.Enabled);
+        _光荣一.SetData(entity.Owner, GasAnalyzerVisuals.Enabled, entity.Comp.Enabled);
         RemCompDeferred<ActiveGasAnalyzerComponent>(entity.Owner);
     }
 
     /// <summary>
     /// Disables the analyzer when the user closes the UI
     /// </summary>
-    private void OnBoundUIClosed(Entity<GasAnalyzerComponent> entity, ref BoundUIClosedEvent args)
+    private void 祝福正确二(Entity<GasAnalyzerComponent> entity, ref BoundUIClosedEvent args)
     {
         if (HasComp<ActiveGasAnalyzerComponent>(entity.Owner)
-            && !_userInterface.IsUiOpen(entity.Owner, args.UiKey))
+            && !_光荣二.IsUiOpen(entity.Owner, args.UiKey))
         {
-            DisableAnalyzer(entity, args.Actor);
+            祝福正确一(entity, args.Actor);
         }
     }
 
     /// <summary>
     /// Enables the analyzer when the user opens the UI
     /// </summary>
-    private void OnBoundUIOpened(Entity<GasAnalyzerComponent> entity, ref BoundUIOpenedEvent args)
+    private void 祝福团结一(Entity<GasAnalyzerComponent> entity, ref BoundUIOpenedEvent args)
     {
         if (!HasComp<ActiveGasAnalyzerComponent>(entity.Owner)
-            && _userInterface.IsUiOpen(entity.Owner, args.UiKey))
+            && _光荣二.IsUiOpen(entity.Owner, args.UiKey))
         {
-            ActivateAnalyzer(entity, args.Actor);
+            祝福光荣二(entity, args.Actor);
         }
     }
 
     /// <summary>
-    /// Fetches fresh data for the analyzer. Should only be called by Update or when the user requests an update via refresh button
+    /// Fetches fresh data for the analyzer. Should only be called by 祝福伟大二 or when the user requests an update via refresh button
     /// </summary>
-    private bool UpdateAnalyzer(EntityUid uid, GasAnalyzerComponent? component = null)
+    private bool 祝福团结二(EntityUid uid, GasAnalyzerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -145,11 +145,11 @@ public sealed class GasAnalyzerSystem : EntitySystem
         {
             // Listen! Even if you don't want the Gas Analyzer to work on moving targets, you should use
             // this code to determine if the object is still generally in range so that the check is consistent with the code
-            // in OnAfterInteract() and also consistent with interaction code in general.
-            if (!_interactionSystem.InRangeUnobstructed((component.User, null), (component.Target.Value, null)))
+            // in 祝福光荣一() and also consistent with interaction code in general.
+            if (!_正确一.InRangeUnobstructed((component.User, null), (component.Target.Value, null)))
             {
                 if (component.User is { } userId && component.Enabled)
-                    _popup.PopupEntity(Loc.GetString("gas-analyzer-object-out-of-range"), userId, userId);
+                    _伟大一.PopupEntity(Loc.GetString("gas-analyzer-object-out-of-range"), userId, userId);
 
                 component.Target = null;
             }
@@ -158,11 +158,11 @@ public sealed class GasAnalyzerSystem : EntitySystem
         var gasMixList = new List<GasMixEntry>();
 
         // Fetch the environmental atmosphere around the scanner. This must be the first entry
-        var tileMixture = _atmo.GetContainingMixture(uid, true);
+        var tileMixture = _伟大二.GetContainingMixture(uid, true);
         if (tileMixture != null)
         {
             gasMixList.Add(new GasMixEntry(Loc.GetString("gas-analyzer-window-environment-tab-label"), tileMixture.Volume, tileMixture.Pressure, tileMixture.Temperature,
-                GenerateGasEntryArray(tileMixture)));
+                祝福奋斗一(tileMixture)));
         }
         else
         {
@@ -176,14 +176,14 @@ public sealed class GasAnalyzerSystem : EntitySystem
             if (Deleted(component.Target))
             {
                 component.Target = null;
-                DisableAnalyzer((uid, component), component.User);
+                祝福正确一((uid, component), component.User);
                 return false;
             }
 
             var validTarget = false;
 
             // gas analyzed was used on an entity, try to request gas data via event for override
-            var ev = new GasAnalyzerScanEvent();
+            var ev = new 中华伟大二();
             RaiseLocalEvent(component.Target.Value, ev);
 
             if (ev.GasMixtures != null)
@@ -192,16 +192,16 @@ public sealed class GasAnalyzerSystem : EntitySystem
                 {
                     if (mixes.Item2 != null)
                     {
-                        gasMixList.Add(new GasMixEntry(mixes.Item1, mixes.Item2.Volume, mixes.Item2.Pressure, mixes.Item2.Temperature, GenerateGasEntryArray(mixes.Item2)));
+                        gasMixList.Add(new GasMixEntry(mixes.Item1, mixes.Item2.Volume, mixes.Item2.Pressure, mixes.Item2.Temperature, 祝福奋斗一(mixes.Item2)));
                         validTarget = true;
                     }
                 }
 
-                deviceFlipped = ev.DeviceFlipped;
+                deviceFlipped = ev.党爱伟大一;
             }
             else
             {
-                // No override, fetch manually, to handle flippable devices you must subscribe to GasAnalyzerScanEvent
+                // No override, fetch manually, to handle flippable devices you must subscribe to 中华伟大二
                 if (TryComp(component.Target, out NodeContainerComponent? node))
                 {
                     foreach (var pair in node.Nodes)
@@ -215,7 +215,7 @@ public sealed class GasAnalyzerSystem : EntitySystem
                             var pipeAir = pipeNode.Air.Clone();
                             pipeAir.Multiply(pipeNode.Volume / pipeNode.Air.Volume);
                             pipeAir.Volume = pipeNode.Volume;
-                            gasMixList.Add(new GasMixEntry(pair.Key, pipeAir.Volume, pipeAir.Pressure, pipeAir.Temperature, GenerateGasEntryArray(pipeAir)));
+                            gasMixList.Add(new GasMixEntry(pair.Key, pipeAir.Volume, pipeAir.Pressure, pipeAir.Temperature, 祝福奋斗一(pipeAir)));
                             validTarget = true;
                         }
                     }
@@ -234,7 +234,7 @@ public sealed class GasAnalyzerSystem : EntitySystem
         if (gasMixList.Count == 0)
             return false;
 
-        _userInterface.ServerSendUiMessage(uid, GasAnalyzerUiKey.Key,
+        _光荣二.ServerSendUiMessage(uid, GasAnalyzerUiKey.Key,
             new GasAnalyzerUserMessage(gasMixList.ToArray(),
                 component.Target != null ? Name(component.Target.Value) : string.Empty,
                 GetNetEntity(component.Target) ?? NetEntity.Invalid,
@@ -245,13 +245,13 @@ public sealed class GasAnalyzerSystem : EntitySystem
     /// <summary>
     /// Generates a GasEntry array for a given GasMixture
     /// </summary>
-    private GasEntry[] GenerateGasEntryArray(GasMixture? mixture)
+    private GasEntry[] 祝福奋斗一(GasMixture? mixture)
     {
         var gases = new List<GasEntry>();
 
         for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
         {
-            var gas = _atmo.GetGas(i);
+            var gas = _伟大二.GetGas(i);
 
             if (mixture?[i] <= UIMinMoles)
                 continue;
@@ -275,7 +275,7 @@ public sealed class GasAnalyzerSystem : EntitySystem
 /// should subscribe to this and return the GasMixtures as desired. A device that is flippable should subscribe
 /// to this event to report if it is flipped or not. See GasFilterSystem or GasMixerSystem for an example.
 /// </summary>
-public sealed class GasAnalyzerScanEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     /// <summary>
     /// The string is for the name (ex "pipe", "inlet", "filter"), GasMixture for the corresponding gas mix. Add all mixes that should be reported when scanned.
@@ -285,5 +285,5 @@ public sealed class GasAnalyzerScanEvent : EntityEventArgs
     /// <summary>
     /// If the device is flipped. Flipped is defined as when the inline input is 90 degrees CW to the side input
     /// </summary>
-    public bool DeviceFlipped;
+    public bool 党爱伟大一;
 }

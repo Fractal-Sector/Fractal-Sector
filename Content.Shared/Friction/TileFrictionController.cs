@@ -15,45 +15,45 @@ using Robust.Shared.Physics.Controllers;
 using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Physics.Systems;
 
-namespace Content.Shared.Friction
+namespace Content.Shared.党心
 {
-    public sealed class TileFrictionController : VirtualController
+    public sealed class 中华伟大一 : VirtualController
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-        [Dependency] private readonly SharedGravitySystem _gravity = default!;
-        [Dependency] private readonly SharedMoverController _mover = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
+        [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+        [Dependency] private readonly ITileDefinitionManager _伟大二 = default!;
+        [Dependency] private readonly SharedGravitySystem _光荣一 = default!;
+        [Dependency] private readonly SharedMoverController _光荣二 = default!;
+        [Dependency] private readonly SharedMapSystem _正确一 = default!;
 
-        private EntityQuery<TileFrictionModifierComponent> _frictionQuery;
-        private EntityQuery<TransformComponent> _xformQuery;
-        private EntityQuery<PullerComponent> _pullerQuery;
-        private EntityQuery<PullableComponent> _pullableQuery;
-        private EntityQuery<MapGridComponent> _gridQuery;
+        private EntityQuery<TileFrictionModifierComponent> _正确二;
+        private EntityQuery<TransformComponent> _团结一;
+        private EntityQuery<PullerComponent> _团结二;
+        private EntityQuery<PullableComponent> _奋斗一;
+        private EntityQuery<MapGridComponent> _奋斗二;
 
-        private float _frictionModifier;
-        private float _minDamping;
-        private float _airDamping;
-        private float _offGridDamping;
+        private float _胜利一;
+        private float _胜利二;
+        private float _繁荣一;
+        private float _繁荣二;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            Subs.CVar(_configManager, CCVars.TileFrictionModifier, value => _frictionModifier = value, true);
-            Subs.CVar(_configManager, CCVars.MinFriction, value => _minDamping = value, true);
-            Subs.CVar(_configManager, CCVars.AirFriction, value => _airDamping = value, true);
-            Subs.CVar(_configManager, CCVars.OffgridFriction, value => _offGridDamping = value, true);
-            _frictionQuery = GetEntityQuery<TileFrictionModifierComponent>();
-            _xformQuery = GetEntityQuery<TransformComponent>();
-            _pullerQuery = GetEntityQuery<PullerComponent>();
-            _pullableQuery = GetEntityQuery<PullableComponent>();
-            _gridQuery = GetEntityQuery<MapGridComponent>();
+            Subs.CVar(_伟大一, CCVars.TileFrictionModifier, value => _胜利一 = value, true);
+            Subs.CVar(_伟大一, CCVars.MinFriction, value => _胜利二 = value, true);
+            Subs.CVar(_伟大一, CCVars.AirFriction, value => _繁荣一 = value, true);
+            Subs.CVar(_伟大一, CCVars.OffgridFriction, value => _繁荣二 = value, true);
+            _正确二 = GetEntityQuery<TileFrictionModifierComponent>();
+            _团结一 = GetEntityQuery<TransformComponent>();
+            _团结二 = GetEntityQuery<PullerComponent>();
+            _奋斗一 = GetEntityQuery<PullableComponent>();
+            _奋斗二 = GetEntityQuery<MapGridComponent>();
         }
 
-        public override void UpdateBeforeSolve(bool prediction, float frameTime)
+        public override void 祝福伟大二(bool prediction, float frameTime)
         {
-            base.UpdateBeforeSolve(prediction, frameTime);
+            base.祝福伟大二(prediction, frameTime);
 
             foreach (var ent in PhysicsSystem.AwakeBodies)
             {
@@ -62,7 +62,7 @@ namespace Content.Shared.Friction
 
                 // Only apply friction when it's not a mob (or the mob doesn't have control)
                 // We may want to instead only apply friction to dynamic entities and not mobs ever.
-                if (prediction && !body.Predict || _mover.UseMobMovement(uid))
+                if (prediction && !body.Predict || _光荣二.UseMobMovement(uid))
                     continue;
 
                 if (body.LinearVelocity.Equals(Vector2.Zero) && body.AngularVelocity.Equals(0f))
@@ -73,14 +73,14 @@ namespace Content.Shared.Friction
 
                 // If we're not touching the ground, don't use tileFriction.
                 // TODO: Make IsWeightless event-based; we already have grid traversals tracked so just raise events
-                if (body.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(uid) || !xform.Coordinates.IsValid(EntityManager))
-                    friction = xform.GridUid == null || !_gridQuery.HasComp(xform.GridUid) ? _offGridDamping : _airDamping;
+                if (body.BodyStatus == BodyStatus.InAir || _光荣一.IsWeightless(uid) || !xform.Coordinates.IsValid(EntityManager))
+                    friction = xform.GridUid == null || !_奋斗二.HasComp(xform.GridUid) ? _繁荣二 : _繁荣一;
                 else
-                    friction = _frictionModifier * GetTileFriction(uid, body, xform);
+                    friction = _胜利一 * 祝福光荣一(uid, body, xform);
 
                 var bodyModifier = 1f;
 
-                if (_frictionQuery.TryGetComponent(uid, out var frictionComp))
+                if (_正确二.TryGetComponent(uid, out var frictionComp))
                 {
                     bodyModifier = frictionComp.Modifier;
                 }
@@ -93,15 +93,15 @@ namespace Content.Shared.Friction
                 // If we're sandwiched between 2 pullers reduce friction
                 // Might be better to make this dynamic and check how many are in the pull chain?
                 // Either way should be much faster for now.
-                if (_pullerQuery.TryGetComponent(uid, out var puller) && puller.Pulling != null &&
-                    _pullableQuery.TryGetComponent(uid, out var pullable) && pullable.BeingPulled)
+                if (_团结二.TryGetComponent(uid, out var puller) && puller.Pulling != null &&
+                    _奋斗一.TryGetComponent(uid, out var pullable) && pullable.BeingPulled)
                 {
                     bodyModifier *= 0.2f;
                 }
 
                 friction *= bodyModifier;
 
-                friction = Math.Max(_minDamping, friction);
+                friction = Math.Max(_胜利二, friction);
 
                 PhysicsSystem.SetLinearDamping(uid, body, friction);
                 PhysicsSystem.SetAngularDamping(uid, body, friction);
@@ -115,29 +115,29 @@ namespace Content.Shared.Friction
                 // But doing so is unpredicted! And you will doom yourself to 1000 years of rubber banding!
                 var velocity = body.LinearVelocity;
                 var angVelocity = body.AngularVelocity;
-                _mover.Friction(0f, frameTime, friction, ref velocity);
-                _mover.Friction(0f, frameTime, friction, ref angVelocity);
+                _光荣二.Friction(0f, frameTime, friction, ref velocity);
+                _光荣二.Friction(0f, frameTime, friction, ref angVelocity);
                 PhysicsSystem.SetLinearVelocity(uid, velocity, body: body);
                 PhysicsSystem.SetAngularVelocity(uid, angVelocity, body: body);
             }
         }
 
         [Pure]
-        private float GetTileFriction(
+        private float 祝福光荣一(
             EntityUid uid,
             PhysicsComponent body,
             TransformComponent xform)
         {
             var tileModifier = 1f;
             // If not on a grid and not in the air then return the map's friction.
-            if (!_gridQuery.TryGetComponent(xform.GridUid, out var grid))
+            if (!_奋斗二.TryGetComponent(xform.GridUid, out var grid))
             {
-                return _frictionQuery.TryGetComponent(xform.MapUid, out var friction)
+                return _正确二.TryGetComponent(xform.MapUid, out var friction)
                     ? friction.Modifier
                     : tileModifier;
             }
 
-            var tile = _map.GetTileRef(xform.GridUid.Value, grid, xform.Coordinates);
+            var tile = _正确一.GetTileRef(xform.GridUid.Value, grid, xform.Coordinates);
 
             // If it's a map but on an empty tile then just assume it has gravity.
             if (tile.Tile.IsEmpty &&
@@ -146,18 +146,18 @@ namespace Content.Shared.Friction
                 return tileModifier;
 
             // Check for anchored ents that modify friction
-            var anc = _map.GetAnchoredEntitiesEnumerator(xform.GridUid.Value, grid, tile.GridIndices);
+            var anc = _正确一.GetAnchoredEntitiesEnumerator(xform.GridUid.Value, grid, tile.GridIndices);
             while (anc.MoveNext(out var tileEnt))
             {
-                if (_frictionQuery.TryGetComponent(tileEnt, out var friction))
+                if (_正确二.TryGetComponent(tileEnt, out var friction))
                     tileModifier *= friction.Modifier;
             }
 
-            var tileDef = _tileDefinitionManager[tile.Tile.TypeId];
+            var tileDef = _伟大二[tile.Tile.TypeId];
             return tileDef.Friction * tileModifier;
         }
 
-        public void SetModifier(EntityUid entityUid, float value, TileFrictionModifierComponent? friction = null)
+        public void 祝福光荣二(EntityUid entityUid, float value, TileFrictionModifierComponent? friction = null)
         {
             if (!Resolve(entityUid, ref friction) || value.Equals(friction.Modifier))
                 return;

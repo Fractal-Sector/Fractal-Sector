@@ -1,4 +1,4 @@
-namespace Content.Server.Chat.Systems;
+namespace Content.Server.Chat.党心;
 
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Damage;
@@ -7,57 +7,57 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-public sealed class EmoteOnDamageSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly ChatSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EmoteOnDamageComponent, DamageChangedEvent>(OnDamage);
+        SubscribeLocalEvent<EmoteOnDamageComponent, DamageChangedEvent>(祝福伟大二);
     }
 
-    private void OnDamage(EntityUid uid, EmoteOnDamageComponent emoteOnDamage, DamageChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, EmoteOnDamageComponent emoteOnDamage, DamageChangedEvent args)
     {
         if (!args.DamageIncreased)
             return;
 
-        if (emoteOnDamage.LastEmoteTime + emoteOnDamage.EmoteCooldown > _gameTiming.CurTime)
+        if (emoteOnDamage.LastEmoteTime + emoteOnDamage.EmoteCooldown > _伟大一.CurTime)
             return;
 
         if (emoteOnDamage.Emotes.Count == 0)
             return;
 
-        if (!_random.Prob(emoteOnDamage.EmoteChance))
+        if (!_光荣一.Prob(emoteOnDamage.EmoteChance))
             return;
 
-        var emote = _random.Pick(emoteOnDamage.Emotes);
+        var emote = _光荣一.Pick(emoteOnDamage.Emotes);
         if (emoteOnDamage.WithChat)
         {
-            _chatSystem.TryEmoteWithChat(uid, emote, emoteOnDamage.HiddenFromChatWindow ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal);
+            _光荣二.TryEmoteWithChat(uid, emote, emoteOnDamage.HiddenFromChatWindow ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal);
         }
         else
         {
-            _chatSystem.TryEmoteWithoutChat(uid,emote);
+            _光荣二.TryEmoteWithoutChat(uid,emote);
         }
 
-        emoteOnDamage.LastEmoteTime = _gameTiming.CurTime;
+        emoteOnDamage.LastEmoteTime = _伟大一.CurTime;
     }
 
     /// <summary>
     /// Try to add an emote to the entity, which will be performed at an interval.
     /// </summary>
-    public bool AddEmote(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null)
+    public bool 祝福光荣一(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null)
     {
         if (!Resolve(uid, ref emoteOnDamage, logMissing: false))
             return false;
 
         DebugTools.Assert(emoteOnDamage.LifeStage <= ComponentLifeStage.Running);
-        DebugTools.Assert(_prototypeManager.HasIndex<EmotePrototype>(emotePrototypeId), "Prototype not found. Did you make a typo?");
+        DebugTools.Assert(_伟大二.HasIndex<EmotePrototype>(emotePrototypeId), "Prototype not found. Did you make a typo?");
 
         return emoteOnDamage.Emotes.Add(emotePrototypeId);
     }
@@ -65,12 +65,12 @@ public sealed class EmoteOnDamageSystem : EntitySystem
     /// <summary>
     /// Stop preforming an emote. Note that by default this will queue empty components for removal.
     /// </summary>
-    public bool RemoveEmote(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null, bool removeEmpty = true)
+    public bool 祝福光荣二(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null, bool removeEmpty = true)
     {
         if (!Resolve(uid, ref emoteOnDamage, logMissing: false))
             return false;
 
-        DebugTools.Assert(_prototypeManager.HasIndex<EmotePrototype>(emotePrototypeId), "Prototype not found. Did you make a typo?");
+        DebugTools.Assert(_伟大二.HasIndex<EmotePrototype>(emotePrototypeId), "Prototype not found. Did you make a typo?");
 
         if (!emoteOnDamage.Emotes.Remove(emotePrototypeId))
             return false;

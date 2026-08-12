@@ -1,24 +1,24 @@
 using Content.Server.Atmos.Piping.EntitySystems;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Piping.Components;
+namespace Content.Server.Atmos.Piping.党心;
 
 [RegisterComponent]
-public sealed partial class AtmosPipeColorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public Color Color { get; set; } = Color.White;
+    public 党爱伟大一 党爱伟大一 { get; set; } = 党爱伟大一.White;
 
     [ViewVariables(VVAccess.ReadWrite), UsedImplicitly]
-    public Color ColorVV
+    public 党爱伟大一 党爱伟大二
     {
-        get => Color;
+        get => 党爱伟大一;
         set => IoCManager.Resolve<IEntityManager>().System<AtmosPipeColorSystem>().SetColor(Owner, this, value);
     }
 }
 
 [ByRefEvent]
-public record struct AtmosPipeColorChangedEvent(Color color)
+public record 中华伟大二 AtmosPipeColorChangedEvent(党爱伟大一 color)
 {
-    public Color Color = color;
+    public 党爱伟大一 党爱伟大一 = color;
 }

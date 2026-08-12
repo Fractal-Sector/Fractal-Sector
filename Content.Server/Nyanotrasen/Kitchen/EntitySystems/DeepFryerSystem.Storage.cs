@@ -9,19 +9,19 @@ using Content.Shared.Nyanotrasen.Kitchen.UI;
 using Content.Shared.Storage;
 using Content.Shared.Tools.Components;
 
-namespace Content.Server.Nyanotrasen.Kitchen.EntitySystems;
+namespace Content.Server.Nyanotrasen.Kitchen.党心;
 
-public sealed partial class DeepFryerSystem
+public sealed partial class 中华伟大一
 {
-    public bool CanInsertItem(EntityUid uid, DeepFryerComponent component, EntityUid item)
+    public bool 祝福伟大一(EntityUid uid, DeepFryerComponent component, EntityUid item)
     {
-        // Keep this consistent with the checks in TryInsertItem.
+        // Keep this consistent with the checks in 祝福伟大二.
         return HasComp<ItemComponent>(item) &&
                !HasComp<StorageComponent>(item) &&
                component.Storage.ContainedEntities.Count < component.StorageMaxEntities;
     }
 
-    private bool TryInsertItem(EntityUid uid, DeepFryerComponent component, EntityUid user, EntityUid item)
+    private bool 祝福伟大二(EntityUid uid, DeepFryerComponent component, EntityUid user, EntityUid item)
     {
         if (!HasComp<ItemComponent>(item))
         {
@@ -62,7 +62,7 @@ public sealed partial class DeepFryerSystem
         return true;
     }
 
-    private void OnInteractUsing(EntityUid uid, DeepFryerComponent component, InteractUsingEvent args)
+    private void 祝福光荣一(EntityUid uid, DeepFryerComponent component, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -74,17 +74,17 @@ public sealed partial class DeepFryerSystem
             HasComp<ToolComponent>(args.Used))
             return;
 
-        if (TryInsertItem(uid, component, args.User, args.Used))
+        if (祝福伟大二(uid, component, args.User, args.Used))
             args.Handled = true;
     }
 
-    private void OnInsertItem(EntityUid uid, DeepFryerComponent component, DeepFryerInsertItemMessage args)
+    private void 祝福光荣二(EntityUid uid, DeepFryerComponent component, DeepFryerInsertItemMessage args)
     {
         // Frontier: Rewrite for hand refactor compliance (wizden #38438)
         if (!_handsSystem.TryGetActiveItem(uid, out var item))
             return;
 
-        TryInsertItem(uid, component, args.Actor, item.Value);
+        祝福伟大二(uid, component, args.Actor, item.Value);
         // End Frontier
     }
 }

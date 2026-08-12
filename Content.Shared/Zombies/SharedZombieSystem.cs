@@ -3,27 +3,27 @@ using Content.Shared.Inventory;
 using Content.Shared.Movement.Systems;
 using Content.Shared.NameModifier.EntitySystems;
 
-namespace Content.Shared.Zombies;
+namespace Content.Shared.党心;
 
-public abstract class SharedZombieSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ZombieComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
-        SubscribeLocalEvent<ZombieComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers);
-        SubscribeLocalEvent<ZombificationResistanceComponent, ArmorExamineEvent>(OnArmorExamine);
-        SubscribeLocalEvent<ZombificationResistanceComponent, InventoryRelayedEvent<ZombificationResistanceQueryEvent>>(OnResistanceQuery);
+        SubscribeLocalEvent<ZombieComponent, RefreshMovementSpeedModifiersEvent>(祝福光荣二);
+        SubscribeLocalEvent<ZombieComponent, RefreshNameModifiersEvent>(祝福正确一);
+        SubscribeLocalEvent<ZombificationResistanceComponent, ArmorExamineEvent>(祝福光荣一);
+        SubscribeLocalEvent<ZombificationResistanceComponent, InventoryRelayedEvent<ZombificationResistanceQueryEvent>>(祝福伟大二);
     }
 
-    private void OnResistanceQuery(Entity<ZombificationResistanceComponent> ent, ref InventoryRelayedEvent<ZombificationResistanceQueryEvent> query)
+    private void 祝福伟大二(Entity<ZombificationResistanceComponent> ent, ref InventoryRelayedEvent<ZombificationResistanceQueryEvent> query)
     {
         query.Args.TotalCoefficient *= ent.Comp.ZombificationResistanceCoefficient;
     }
 
-    private void OnArmorExamine(Entity<ZombificationResistanceComponent> ent, ref ArmorExamineEvent args)
+    private void 祝福光荣一(Entity<ZombificationResistanceComponent> ent, ref ArmorExamineEvent args)
     {
         var value = MathF.Round((1f - ent.Comp.ZombificationResistanceCoefficient) * 100, 1);
 
@@ -34,13 +34,13 @@ public abstract class SharedZombieSystem : EntitySystem
         args.Msg.AddMarkupOrThrow(Loc.GetString(ent.Comp.Examine, ("value", value)));
     }
 
-    private void OnRefreshSpeed(EntityUid uid, ZombieComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福光荣二(EntityUid uid, ZombieComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         var mod = component.ZombieMovementSpeedDebuff;
         args.ModifySpeed(mod, mod);
     }
 
-    private void OnRefreshNameModifiers(Entity<ZombieComponent> entity, ref RefreshNameModifiersEvent args)
+    private void 祝福正确一(Entity<ZombieComponent> entity, ref RefreshNameModifiersEvent args)
     {
         args.AddModifier("zombie-name-prefix");
     }

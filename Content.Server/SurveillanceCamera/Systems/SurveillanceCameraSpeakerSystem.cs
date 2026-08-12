@@ -5,25 +5,25 @@ using Content.Shared.Chat;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Server.SurveillanceCamera;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     This handles speech for surveillance camera monitors.
 /// </summary>
-public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SpeechSoundSystem _speechSound = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly SpeechSoundSystem _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SurveillanceCameraSpeakerComponent, SurveillanceCameraSpeechSendEvent>(OnSpeechSent);
+        SubscribeLocalEvent<SurveillanceCameraSpeakerComponent, SurveillanceCameraSpeechSendEvent>(祝福伟大二);
     }
 
-    private void OnSpeechSent(EntityUid uid, SurveillanceCameraSpeakerComponent component,
+    private void 祝福伟大二(EntityUid uid, SurveillanceCameraSpeakerComponent component,
         SurveillanceCameraSpeechSendEvent args)
     {
         if (!component.SpeechEnabled)
@@ -31,7 +31,7 @@ public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
             return;
         }
 
-        var time = _gameTiming.CurTime;
+        var time = _光荣二.CurTime;
         var cd = TimeSpan.FromSeconds(component.SpeechSoundCooldown);
 
         // this part's mostly copied from speech
@@ -39,8 +39,8 @@ public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
         if (time - component.LastSoundPlayed < cd
             && TryComp<SpeechComponent>(args.Speaker, out var speech))
         {
-            var sound = _speechSound.GetSpeechSound((args.Speaker, speech), args.Message);
-            _audioSystem.PlayPvs(sound, uid);
+            var sound = _伟大二.GetSpeechSound((args.Speaker, speech), args.Message);
+            _伟大一.PlayPvs(sound, uid);
 
             component.LastSoundPlayed = time;
         }
@@ -53,6 +53,6 @@ public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
 
         // Frontier: Do not send TV messages to admins that are out of range. (GhostRangeLimit>GhostRangeLimitNoAdminCheck)
         // log to chat so people can identity the speaker/source, but avoid clogging ghost chat if there are many radios
-        _chatSystem.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Speak, ChatTransmitRange.GhostRangeLimitNoAdminCheck, nameOverride: name);
+        _光荣一.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Speak, ChatTransmitRange.GhostRangeLimitNoAdminCheck, nameOverride: name);
     }
 }

@@ -3,27 +3,27 @@ using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.DeviceNetwork;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
-public sealed class EdgeDetectorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EdgeDetectorComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<EdgeDetectorComponent, SignalReceivedEvent>(OnSignalReceived);
+        SubscribeLocalEvent<EdgeDetectorComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<EdgeDetectorComponent, SignalReceivedEvent>(祝福光荣一);
     }
 
-    private void OnInit(EntityUid uid, EdgeDetectorComponent comp, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, EdgeDetectorComponent comp, ComponentInit args)
     {
-        _deviceLink.EnsureSinkPorts(uid, comp.InputPort);
-        _deviceLink.EnsureSourcePorts(uid, comp.OutputHighPort, comp.OutputLowPort);
+        _伟大一.EnsureSinkPorts(uid, comp.InputPort);
+        _伟大一.EnsureSourcePorts(uid, comp.OutputHighPort, comp.OutputLowPort);
     }
 
-    private void OnSignalReceived(EntityUid uid, EdgeDetectorComponent comp, ref SignalReceivedEvent args)
+    private void 祝福光荣一(EntityUid uid, EdgeDetectorComponent comp, ref SignalReceivedEvent args)
     {
         // only handle signals with edges
         var state = SignalState.Momentary;
@@ -41,7 +41,7 @@ public sealed class EdgeDetectorSystem : EntitySystem
             comp.State = state;
 
             var port = state == SignalState.High ? comp.OutputHighPort : comp.OutputLowPort;
-            _deviceLink.InvokePort(uid, port);
+            _伟大一.InvokePort(uid, port);
         }
     }
 }

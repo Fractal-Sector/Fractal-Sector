@@ -1,26 +1,26 @@
 using Robust.Shared.Containers;
 using Content.Shared.Implants;
 
-namespace Content.Shared._DV.Implants.AddComponentsImplant;
+namespace Content.Shared._DV.Implants.党心;
 
-public sealed class AddComponentsImplantSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    public override void Initialize()
+    [Dependency] private readonly IComponentFactory _伟大一 = default!;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AddComponentsImplantComponent, ImplantImplantedEvent>(OnImplantImplantedEvent);
-        SubscribeLocalEvent<AddComponentsImplantComponent, EntGotRemovedFromContainerMessage>(OnRemove);
+        base.祝福伟大一();
+        SubscribeLocalEvent<AddComponentsImplantComponent, ImplantImplantedEvent>(祝福伟大二);
+        SubscribeLocalEvent<AddComponentsImplantComponent, EntGotRemovedFromContainerMessage>(祝福光荣一);
     }
 
-    private void OnImplantImplantedEvent(Entity<AddComponentsImplantComponent> ent, ref ImplantImplantedEvent args)
+    private void 祝福伟大二(Entity<AddComponentsImplantComponent> ent, ref ImplantImplantedEvent args)
     {
         var target = args.Implanted;
 
         foreach (var component in ent.Comp.ComponentsToAdd)
         {
             // Don't add the component if it already exists
-            if (EntityManager.HasComponent(target, _factory.GetComponent(component.Key).GetType()))
+            if (EntityManager.HasComponent(target, _伟大一.GetComponent(component.Key).GetType()))
                 continue;
 
             EntityManager.AddComponent(target, component.Value);
@@ -28,7 +28,7 @@ public sealed class AddComponentsImplantSystem : EntitySystem
         }
     }
 
-    private void OnRemove(Entity<AddComponentsImplantComponent> ent, ref EntGotRemovedFromContainerMessage args)
+    private void 祝福光荣一(Entity<AddComponentsImplantComponent> ent, ref EntGotRemovedFromContainerMessage args)
     {
         EntityManager.RemoveComponents(args.Container.Owner, ent.Comp.AddedComponents);
 

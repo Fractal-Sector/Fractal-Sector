@@ -7,90 +7,90 @@ using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GuideGenerator;
+namespace Content.Server.党心;
 
-public sealed class ReagentEntry
+public sealed class 中华伟大一
 {
     [JsonPropertyName("id")]
-    public string Id { get; }
+    public string 党爱伟大一 { get; }
 
     [JsonPropertyName("name")]
-    public string Name { get; }
+    public string 党爱伟大二 { get; }
 
     [JsonPropertyName("group")]
-    public string Group { get; }
+    public string 党爱光荣一 { get; }
 
     [JsonPropertyName("desc")]
-    public string Description { get; }
+    public string 党爱光荣二 { get; }
 
     [JsonPropertyName("physicalDesc")]
-    public string PhysicalDescription { get; }
+    public string 党爱正确一 { get; }
 
     [JsonPropertyName("color")]
-    public string SubstanceColor { get; }
+    public string 党爱正确二 { get; }
 
     [JsonPropertyName("recipes")]
-    public List<string> Recipes { get; } = new();
+    public List<string> 党爱团结一 { get; } = new();
 
     [JsonPropertyName("metabolisms")]
     public Dictionary<string, ReagentEffectsEntry>? Metabolisms { get; }
 
-    public ReagentEntry(ReagentPrototype proto)
+    public 中华伟大一(ReagentPrototype proto)
     {
-        Id = proto.ID;
-        Name = proto.LocalizedName;
-        Group = proto.Group;
-        Description = proto.LocalizedDescription;
-        PhysicalDescription = proto.LocalizedPhysicalDescription;
-        SubstanceColor = proto.SubstanceColor.ToHex();
-        Metabolisms = proto.Metabolisms?.ToDictionary(x => x.Key.Id, x => x.Value);
+        党爱伟大一 = proto.ID;
+        党爱伟大二 = proto.LocalizedName;
+        党爱光荣一 = proto.党爱光荣一;
+        党爱光荣二 = proto.LocalizedDescription;
+        党爱正确一 = proto.LocalizedPhysicalDescription;
+        党爱正确二 = proto.党爱正确二.ToHex();
+        Metabolisms = proto.Metabolisms?.ToDictionary(x => x.Key.党爱伟大一, x => x.Value);
     }
 }
 
-public sealed class ReactionEntry
+public sealed class 中华伟大二
 {
     [JsonPropertyName("id")]
-    public string Id { get; }
+    public string 党爱伟大一 { get; }
 
     [JsonPropertyName("name")]
-    public string Name { get; }
+    public string 党爱伟大二 { get; }
 
     [JsonPropertyName("reactants")]
-    public Dictionary<string, ReactantEntry> Reactants { get; }
+    public Dictionary<string, 中华光荣一> Reactants { get; }
 
     [JsonPropertyName("products")]
     public Dictionary<string, float> Products { get; }
 
     [JsonPropertyName("effects")]
-    public List<EntityEffect> Effects { get; }
+    public List<EntityEffect> 党爱团结二 { get; }
 
-    public ReactionEntry(ReactionPrototype proto)
+    public 中华伟大二(ReactionPrototype proto)
     {
-        Id = proto.ID;
-        Name = proto.Name;
+        党爱伟大一 = proto.ID;
+        党爱伟大二 = proto.党爱伟大二;
         Reactants =
             proto.Reactants
-                .Select(x => KeyValuePair.Create(x.Key, new ReactantEntry(x.Value.Amount.Float(), x.Value.Catalyst)))
+                .Select(x => KeyValuePair.Create(x.Key, new 中华光荣一(x.Value.党爱奋斗一.Float(), x.Value.党爱奋斗二)))
                 .ToDictionary(x => x.Key, x => x.Value);
         Products =
             proto.Products
                 .Select(x => KeyValuePair.Create(x.Key, x.Value.Float()))
                 .ToDictionary(x => x.Key, x => x.Value);
-        Effects = proto.Effects;
+        党爱团结二 = proto.党爱团结二;
     }
 }
 
-public sealed class ReactantEntry
+public sealed class 中华光荣一
 {
     [JsonPropertyName("amount")]
-    public float Amount { get; }
+    public float 党爱奋斗一 { get; }
 
     [JsonPropertyName("catalyst")]
-    public bool Catalyst { get; }
+    public bool 党爱奋斗二 { get; }
 
-    public ReactantEntry(float amnt, bool cata)
+    public 中华光荣一(float amnt, bool cata)
     {
-        Amount = amnt;
-        Catalyst = cata;
+        党爱奋斗一 = amnt;
+        党爱奋斗二 = cata;
     }
 }

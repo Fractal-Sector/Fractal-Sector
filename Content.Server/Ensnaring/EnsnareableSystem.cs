@@ -1,5 +1,5 @@
 using Content.Shared.Ensnaring;
 
-namespace Content.Server.Ensnaring;
+namespace Content.Server.党心;
 
-public sealed class EnsnareableSystem : SharedEnsnareableSystem;
+public sealed class 中华伟大一 : SharedEnsnareableSystem;

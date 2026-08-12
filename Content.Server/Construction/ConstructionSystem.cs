@@ -7,23 +7,23 @@ using Robust.Server.Containers;
 using Robust.Shared.Random;
 using SharedToolSystem = Content.Shared.Tools.Systems.SharedToolSystem;
 
-namespace Content.Server.Construction
+namespace Content.Server.党心
 {
     /// <summary>
     /// The server-side implementation of the construction system, which is used for constructing entities in game.
     /// </summary>
     [UsedImplicitly]
-    public sealed partial class ConstructionSystem : SharedConstructionSystem
+    public sealed partial class 中华伟大一 : SharedConstructionSystem
     {
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly ContainerSystem _container = default!;
-        [Dependency] private readonly StackSystem _stackSystem = default!;
-        [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly SharedDoAfterSystem _伟大二 = default!;
+        [Dependency] private readonly ContainerSystem _光荣一 = default!;
+        [Dependency] private readonly StackSystem _光荣二 = default!;
+        [Dependency] private readonly SharedToolSystem _正确一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
             InitializeComputer();
             InitializeGraphs();
@@ -34,11 +34,11 @@ namespace Content.Server.Construction
             InitializeMachineUpgrades(); // Frontier
             InitializeComputerBoards(); // Frontier
 
-            SubscribeLocalEvent<ConstructionComponent, ComponentInit>(OnConstructionInit);
-            SubscribeLocalEvent<ConstructionComponent, ComponentStartup>(OnConstructionStartup);
+            SubscribeLocalEvent<ConstructionComponent, ComponentInit>(祝福伟大二);
+            SubscribeLocalEvent<ConstructionComponent, ComponentStartup>(祝福光荣一);
         }
 
-        private void OnConstructionInit(Entity<ConstructionComponent> ent, ref ComponentInit args)
+        private void 祝福伟大二(Entity<ConstructionComponent> ent, ref ComponentInit args)
         {
             var construction = ent.Comp;
             if (GetCurrentGraph(ent, construction) is not {} graph)
@@ -77,7 +77,7 @@ namespace Content.Server.Construction
             }
         }
 
-        private void OnConstructionStartup(EntityUid uid, ConstructionComponent construction, ComponentStartup args)
+        private void 祝福光荣一(EntityUid uid, ConstructionComponent construction, ComponentStartup args)
         {
             if (GetCurrentNode(uid, construction) is not {} node)
                 return;
@@ -85,9 +85,9 @@ namespace Content.Server.Construction
             PerformActions(uid, null, node.Actions);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福光荣二(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福光荣二(frameTime);
 
             UpdateInteractions();
         }

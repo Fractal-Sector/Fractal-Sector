@@ -1,13 +1,13 @@
 using Content.Shared.Radio.Components;
 
-namespace Content.Shared.Radio;
+namespace Content.Shared.党心;
 
-public sealed class EncryptionChannelsChangedEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public readonly EncryptionKeyHolderComponent Component;
+    public readonly EncryptionKeyHolderComponent 党爱伟大一;
 
-    public EncryptionChannelsChangedEvent(EncryptionKeyHolderComponent component)
+    public 中华伟大一(EncryptionKeyHolderComponent component)
     {
-        Component = component;
+        党爱伟大一 = component;
     }
 }

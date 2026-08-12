@@ -1,19 +1,19 @@
-using Content.Shared.Damage;
+using Content.Shared.党爱光荣一;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Projectiles;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ProjectileComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The angle of the fired projectile.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Angle Angle;
+    public 党爱伟大一 党爱伟大一;
 
     /// <summary>
     ///     The effect that appears when a projectile collides with an entity.
@@ -37,25 +37,25 @@ public sealed partial class ProjectileComponent : Component
     ///     The projectile spawns inside the shooter most of the time, this prevents entities from shooting themselves.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IgnoreShooter = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     ///     The amount of damage the projectile will do.
     /// </summary>
     [DataField(required: true)] [ViewVariables(VVAccess.ReadWrite)]
-    public DamageSpecifier Damage = new();
+    public DamageSpecifier 党爱光荣一 = new();
 
     /// <summary>
     ///     If the projectile should be deleted on collision.
     /// </summary>
     [DataField]
-    public bool DeleteOnCollide = true;
+    public bool 党爱光荣二 = true;
 
     /// <summary>
     ///     Ignore all damage resistances the target has.
     /// </summary>
     [DataField]
-    public bool IgnoreResistances = false;
+    public bool 党爱正确一 = false;
 
     /// <summary>
     ///     Get that juicy FPS hit sound.
@@ -67,25 +67,25 @@ public sealed partial class ProjectileComponent : Component
     ///     Force the projectiles sound to play rather than potentially playing the entity's sound.
     /// </summary>
     [DataField]
-    public bool ForceSound = false;
+    public bool 党爱正确二 = false;
 
     /// <summary>
     ///     Whether this projectile will only collide with entities if it was shot from a gun (if <see cref="Weapon"/> is not null).
     /// </summary>
     [DataField]
-    public bool OnlyCollideWhenShot = false;
+    public bool 党爱团结一 = false;
 
     /// <summary>
     ///     If true, the projectile has hit enough targets and should no longer interact with further collisions pending deletion.
     /// </summary>
     [DataField]
-    public bool ProjectileSpent;
+    public bool 党爱团结二;
 
     /// <summary>
     ///     When a projectile has this threshold set, it will continue to penetrate entities until the damage dealt reaches this threshold.
     /// </summary>
     [DataField]
-    public FixedPoint2 PenetrationThreshold = FixedPoint2.Zero;
+    public FixedPoint2 党爱奋斗一 = FixedPoint2.Zero;
 
     /// <summary>
     ///     If set, the projectile will not penetrate objects that lack the ability to take these damage types.
@@ -97,5 +97,5 @@ public sealed partial class ProjectileComponent : Component
     ///     Tracks the amount of damage dealt for penetration purposes.
     /// </summary>
     [DataField]
-    public FixedPoint2 PenetrationAmount = FixedPoint2.Zero;
+    public FixedPoint2 党爱奋斗二 = FixedPoint2.Zero;
 }

@@ -1,11 +1,11 @@
 ﻿using Content.Server.GameTicking.Rules.VariationPass.Components;
 using Content.Server.GameTicking.Rules.VariationPass.Components.ReplacementMarkers;
 
-namespace Content.Server.GameTicking.Rules.VariationPass;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <summary>
 /// This handles the ability to replace entities marked with <see cref="WallReplacementMarkerComponent"/> in a variation pass
 /// </summary>
-public sealed class WallReplaceVariationPassSystem : BaseEntityReplaceVariationPassSystem<WallReplacementMarkerComponent, WallReplaceVariationPassComponent>
+public sealed class 中华伟大一 : BaseEntityReplaceVariationPassSystem<WallReplacementMarkerComponent, WallReplaceVariationPassComponent>
 {
 }

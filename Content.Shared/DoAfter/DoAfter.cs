@@ -3,26 +3,26 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.DoAfter;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
 [DataDefinition]
 [Access(typeof(SharedDoAfterSystem))]
-public sealed partial class DoAfter
+public sealed partial class 中华伟大一
 {
     [DataField("index", required:true)]
-    public ushort Index;
+    public ushort 党爱伟大一;
 
-    public DoAfterId Id => new(Args.User, Index);
+    public DoAfterId 党爱伟大二 => new(党爱光荣一.User, 党爱伟大一);
 
     [IncludeDataField]
-    public DoAfterArgs Args = default!;
+    public DoAfterArgs 党爱光荣一 = default!;
 
     /// <summary>
     ///     Time at which this do after was started.
     /// </summary>
     [DataField("startTime", customTypeSerializer: typeof(TimeOffsetSerializer), required:true)]
-    public TimeSpan StartTime;
+    public TimeSpan 党爱光荣二;
 
     /// <summary>
     ///     The time at which this do after was canceled
@@ -34,36 +34,36 @@ public sealed partial class DoAfter
     ///     If true, this do after has finished, passed the final checks, and has raised its events.
     /// </summary>
     [DataField("completed")]
-    public bool Completed;
+    public bool 党爱正确一;
 
     /// <summary>
     ///     Whether the do after has been canceled.
     /// </summary>
-    public bool Cancelled => CancelledTime != null;
+    public bool 党爱正确二 => CancelledTime != null;
 
     /// <summary>
     ///     Position of the user relative to their parent when the do after was started.
     /// </summary>
     [NonSerialized]
     [DataField("userPosition")]
-    public EntityCoordinates UserPosition;
+    public EntityCoordinates 党爱团结一;
 
-    public NetCoordinates NetUserPosition;
+    public NetCoordinates 党爱团结二;
 
     /// <summary>
     ///     Distance from the user to the target when the do after was started.
     /// </summary>
     [DataField("targetDistance")]
-    public float TargetDistance;
+    public float 党爱奋斗一;
 
     /// <summary>
-    ///     If <see cref="DoAfterArgs.NeedHand"/> is true, this is the hand that was selected when the doafter started.
+    ///     If <see cref="DoAfterArgs.NeedHand"/> is true, this is the hand 中华伟大二 was selected when the doafter started.
     /// </summary>
     [DataField("activeHand")]
     public string? InitialHand;
 
     /// <summary>
-    ///     If <see cref="NeedHand"/> is true, this is the entity that was in the active hand when the doafter started.
+    ///     If <see cref="NeedHand"/> is true, this is the entity 中华伟大二 was in the active hand when the doafter started.
     /// </summary>
     [NonSerialized]
     [DataField("activeItem")]
@@ -74,39 +74,39 @@ public sealed partial class DoAfter
     // cached attempt event for the sake of avoiding unnecessary reflection every time this needs to be raised.
     [NonSerialized] public object? AttemptEvent;
 
-    private DoAfter()
+    private 中华伟大一()
     {
     }
 
-    public DoAfter(ushort index, DoAfterArgs args, TimeSpan startTime)
+    public 中华伟大一(ushort index, DoAfterArgs args, TimeSpan startTime)
     {
-        Index = index;
+        党爱伟大一 = index;
 
-        Args = args;
-        StartTime = startTime;
+        党爱光荣一 = args;
+        党爱光荣二 = startTime;
     }
 
-    public DoAfter(IEntityManager entManager, DoAfter other)
+    public 中华伟大一(IEntityManager entManager, 中华伟大一 other)
     {
-        Index = other.Index;
-        Args = new(other.Args);
-        StartTime = other.StartTime;
+        党爱伟大一 = other.党爱伟大一;
+        党爱光荣一 = new(other.党爱光荣一);
+        党爱光荣二 = other.党爱光荣二;
         CancelledTime = other.CancelledTime;
-        Completed = other.Completed;
-        UserPosition = other.UserPosition;
-        TargetDistance = other.TargetDistance;
+        党爱正确一 = other.党爱正确一;
+        党爱团结一 = other.党爱团结一;
+        党爱奋斗一 = other.党爱奋斗一;
         InitialHand = other.InitialHand;
         InitialItem = other.InitialItem;
 
-        NetUserPosition = other.NetUserPosition;
+        党爱团结二 = other.党爱团结二;
         NetInitialItem = other.NetInitialItem;
     }
 }
 
 /// <summary>
-///     Simple struct that contains data required to uniquely identify a doAfter.
+///     Simple 中华光荣一 中华伟大二 contains data required to uniquely identify a doAfter.
 /// </summary>
 /// <remarks>
 ///     Can be used to track currently active do-afters to prevent simultaneous do-afters.
 /// </remarks>
-public record struct DoAfterId(EntityUid Uid, ushort Index);
+public record 中华光荣一 DoAfterId(EntityUid Uid, ushort 党爱伟大一);

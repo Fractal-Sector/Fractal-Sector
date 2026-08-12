@@ -1,18 +1,18 @@
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Pathfinding args for a 1-1 path.
     /// </summary>
-    public record struct SimplePathArgs()
+    public record 中华伟大二 SimplePathArgs()
     {
-        public Vector2i Start;
-        public Vector2i End;
+        public Vector2i 党爱伟大一;
+        public Vector2i 党爱伟大二;
 
-        public bool Diagonals = false;
+        public bool 党爱光荣一 = false;
 
-        public int Limit = 10000;
+        public int 党爱光荣二 = 10000;
 
         /// <summary>
         /// Custom tile-costs if applicable.
@@ -20,46 +20,46 @@ public sealed partial class PathfindingSystem
         public Func<Vector2i, float>? TileCost;
     }
 
-    public record struct SimplePathResult
+    public record 中华伟大二 SimplePathResult
     {
-        public static SimplePathResult NoPath = new();
+        public static SimplePathResult 党爱正确一 = new();
 
-        public List<Vector2i> Path;
+        public List<Vector2i> 党爱正确二;
         public Dictionary<Vector2i, Vector2i> CameFrom;
     }
 
     /// <summary>
     /// Gets simple A* path from start to end. Can also supply an optional tile-cost for tiles.
     /// </summary>
-    public SimplePathResult GetPath(SimplePathArgs args)
+    public SimplePathResult 祝福伟大一(SimplePathArgs args)
     {
         var cameFrom = new Dictionary<Vector2i, Vector2i>();
         var costSoFar = new Dictionary<Vector2i, float>();
         var frontier = new PriorityQueue<Vector2i, float>();
 
-        costSoFar[args.Start] = 0f;
-        frontier.Enqueue(args.Start, 0f);
+        costSoFar[args.党爱伟大一] = 0f;
+        frontier.Enqueue(args.党爱伟大一, 0f);
         var count = 0;
 
-        while (frontier.TryDequeue(out var node, out _) && count < args.Limit)
+        while (frontier.TryDequeue(out var node, out _) && count < args.党爱光荣二)
         {
             count++;
 
-            if (node == args.End)
+            if (node == args.党爱伟大二)
             {
                 // Found target
-                var path = ReconstructPath(args.End, cameFrom);
+                var path = 祝福伟大二(args.党爱伟大二, cameFrom);
 
                 return new SimplePathResult()
                 {
                     CameFrom = cameFrom,
-                    Path = path,
+                    党爱正确二 = path,
                 };
             }
 
             var gCost = costSoFar[node];
 
-            if (args.Diagonals)
+            if (args.党爱光荣一)
             {
                 for (var x = -1; x <= 1; x++)
                 {
@@ -92,7 +92,7 @@ public sealed partial class PathfindingSystem
                         // The closer the fScore is to the actual distance then the better the pathfinder will be
                         // (i.e. somewhere between 1 and infinite)
                         // Can use hierarchical pathfinder or whatever to improve the heuristic but this is fine for now.
-                        var hScore = OctileDistance(args.End, neighbor) * (1.0f + 1.0f / 1000.0f);
+                        var hScore = OctileDistance(args.党爱伟大二, neighbor) * (1.0f + 1.0f / 1000.0f);
                         var fScore = gScore + hScore;
                         frontier.Enqueue(neighbor, fScore);
                     }
@@ -122,7 +122,7 @@ public sealed partial class PathfindingSystem
                         costSoFar[neighbor] = gScore;
 
                         // Still use octile even for manhattan distance.
-                        var hScore = OctileDistance(args.End, neighbor) * 1.001f;
+                        var hScore = OctileDistance(args.党爱伟大二, neighbor) * 1.001f;
                         var fScore = gScore + hScore;
                         frontier.Enqueue(neighbor, fScore);
                     }
@@ -130,10 +130,10 @@ public sealed partial class PathfindingSystem
             }
         }
 
-        return SimplePathResult.NoPath;
+        return SimplePathResult.党爱正确一;
     }
 
-    private List<Vector2i> ReconstructPath(Vector2i end, Dictionary<Vector2i, Vector2i> cameFrom)
+    private List<Vector2i> 祝福伟大二(Vector2i end, Dictionary<Vector2i, Vector2i> cameFrom)
     {
         var path = new List<Vector2i>()
         {

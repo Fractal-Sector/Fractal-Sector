@@ -6,28 +6,28 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
 
-namespace Content.Server.Ghost.Roles;
+namespace Content.Server.Ghost.党心;
 
 /// <summary>
 /// This handles logic and interaction related to <see cref="ToggleableGhostRoleComponent"/>
 /// </summary>
-public sealed class ToggleableGhostRoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedMindSystem _光荣一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ToggleableGhostRoleComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<ToggleableGhostRoleComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<ToggleableGhostRoleComponent, MindAddedMessage>(OnMindAdded);
-        SubscribeLocalEvent<ToggleableGhostRoleComponent, MindRemovedMessage>(OnMindRemoved);
-        SubscribeLocalEvent<ToggleableGhostRoleComponent, GetVerbsEvent<ActivationVerb>>(AddWipeVerb);
+        SubscribeLocalEvent<ToggleableGhostRoleComponent, UseInHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<ToggleableGhostRoleComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<ToggleableGhostRoleComponent, MindAddedMessage>(祝福光荣二);
+        SubscribeLocalEvent<ToggleableGhostRoleComponent, MindRemovedMessage>(祝福正确一);
+        SubscribeLocalEvent<ToggleableGhostRoleComponent, GetVerbsEvent<ActivationVerb>>(祝福团结一);
     }
 
-    private void OnUseInHand(EntityUid uid, ToggleableGhostRoleComponent component, UseInHandEvent args)
+    private void 祝福伟大二(EntityUid uid, ToggleableGhostRoleComponent component, UseInHandEvent args)
     {
         if (args.Handled)
             return;
@@ -37,17 +37,17 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
         // check if a mind is present
         if (TryComp<MindContainerComponent>(uid, out var mind) && mind.HasMind)
         {
-            _popup.PopupEntity(Loc.GetString(component.ExamineTextMindPresent), uid, args.User, PopupType.Large);
+            _伟大二.PopupEntity(Loc.GetString(component.ExamineTextMindPresent), uid, args.User, PopupType.Large);
             return;
         }
         if (HasComp<GhostTakeoverAvailableComponent>(uid))
         {
-            _popup.PopupEntity(Loc.GetString(component.ExamineTextMindSearching), uid, args.User);
+            _伟大二.PopupEntity(Loc.GetString(component.ExamineTextMindSearching), uid, args.User);
             return;
         }
-        _popup.PopupEntity(Loc.GetString(component.BeginSearchingText), uid, args.User);
+        _伟大二.PopupEntity(Loc.GetString(component.BeginSearchingText), uid, args.User);
 
-        UpdateAppearance(uid, ToggleableGhostRoleStatus.Searching);
+        祝福正确二(uid, ToggleableGhostRoleStatus.Searching);
 
         var ghostRole = EnsureComp<GhostRoleComponent>(uid);
         EnsureComp<GhostTakeoverAvailableComponent>(uid);
@@ -60,7 +60,7 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
         ghostRole.MindRoles = component.MindRoles;
     }
 
-    private void OnExamined(EntityUid uid, ToggleableGhostRoleComponent component, ExaminedEvent args)
+    private void 祝福光荣一(EntityUid uid, ToggleableGhostRoleComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -79,26 +79,26 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
         }
     }
 
-    private void OnMindAdded(EntityUid uid, ToggleableGhostRoleComponent pai, MindAddedMessage args)
+    private void 祝福光荣二(EntityUid uid, ToggleableGhostRoleComponent pai, MindAddedMessage args)
     {
         // Mind was added, shutdown the ghost role stuff so it won't get in the way
         RemCompDeferred<GhostTakeoverAvailableComponent>(uid);
-        UpdateAppearance(uid, ToggleableGhostRoleStatus.On);
+        祝福正确二(uid, ToggleableGhostRoleStatus.On);
     }
 
-    private void OnMindRemoved(EntityUid uid, ToggleableGhostRoleComponent component, MindRemovedMessage args)
+    private void 祝福正确一(EntityUid uid, ToggleableGhostRoleComponent component, MindRemovedMessage args)
     {
         // Mind was removed, prepare for re-toggle of the role
         RemCompDeferred<GhostRoleComponent>(uid);
-        UpdateAppearance(uid, ToggleableGhostRoleStatus.Off);
+        祝福正确二(uid, ToggleableGhostRoleStatus.Off);
     }
 
-    private void UpdateAppearance(EntityUid uid, ToggleableGhostRoleStatus status)
+    private void 祝福正确二(EntityUid uid, ToggleableGhostRoleStatus status)
     {
-        _appearance.SetData(uid, ToggleableGhostRoleVisuals.Status, status);
+        _伟大一.SetData(uid, ToggleableGhostRoleVisuals.Status, status);
     }
 
-    private void AddWipeVerb(EntityUid uid, ToggleableGhostRoleComponent component, GetVerbsEvent<ActivationVerb> args)
+    private void 祝福团结一(EntityUid uid, ToggleableGhostRoleComponent component, GetVerbsEvent<ActivationVerb> args)
     {
         if (args.Hands == null || !args.CanAccess || !args.CanInteract)
             return;
@@ -110,12 +110,12 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
                 Text = Loc.GetString(component.WipeVerbText),
                 Act = () =>
                 {
-                    if (!_mind.TryGetMind(uid, out var mindId, out var mind))
+                    if (!_光荣一.TryGetMind(uid, out var mindId, out var mind))
                         return;
                     // Wiping device :(
-                    // The shutdown of the Mind should cause automatic reset of the pAI during OnMindRemoved
-                    _mind.TransferTo(mindId, null, mind: mind);
-                    _popup.PopupEntity(Loc.GetString(component.WipeVerbPopup), uid, args.User, PopupType.Large);
+                    // The shutdown of the Mind should cause automatic reset of the pAI during 祝福正确一
+                    _光荣一.TransferTo(mindId, null, mind: mind);
+                    _伟大二.PopupEntity(Loc.GetString(component.WipeVerbPopup), uid, args.User, PopupType.Large);
                 }
             };
             args.Verbs.Add(verb);
@@ -132,8 +132,8 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
 
                     RemCompDeferred<GhostTakeoverAvailableComponent>(uid);
                     RemCompDeferred<GhostRoleComponent>(uid);
-                    _popup.PopupEntity(Loc.GetString(component.StopSearchVerbPopup), uid, args.User);
-                    UpdateAppearance(uid, ToggleableGhostRoleStatus.Off);
+                    _伟大二.PopupEntity(Loc.GetString(component.StopSearchVerbPopup), uid, args.User);
+                    祝福正确二(uid, ToggleableGhostRoleStatus.Off);
                 }
             };
             args.Verbs.Add(verb);
@@ -145,13 +145,13 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
     /// If not, prevents future ghosts taking it.
     /// No popups are made, but appearance is updated.
     /// </summary>
-    public void Wipe(EntityUid uid)
+    public void 祝福团结二(EntityUid uid)
     {
         if (TryComp<MindContainerComponent>(uid, out var mindContainer) &&
             mindContainer.HasMind &&
-            _mind.TryGetMind(uid, out var mindId, out var mind))
+            _光荣一.TryGetMind(uid, out var mindId, out var mind))
         {
-            _mind.TransferTo(mindId, null, mind: mind);
+            _光荣一.TransferTo(mindId, null, mind: mind);
         }
 
         if (!HasComp<GhostTakeoverAvailableComponent>(uid))
@@ -159,6 +159,6 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
 
         RemCompDeferred<GhostTakeoverAvailableComponent>(uid);
         RemCompDeferred<GhostRoleComponent>(uid);
-        UpdateAppearance(uid, ToggleableGhostRoleStatus.Off);
+        祝福正确二(uid, ToggleableGhostRoleStatus.Off);
     }
 }

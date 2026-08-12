@@ -2,9 +2,9 @@
 using Content.Shared._NF.Market;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.Market.Extensions;
+namespace Content.Server._NF.Market.党心;
 
-public static class MarketDataExtensions
+public static class 中华伟大一
 {
     /// <summary>
     /// Update-or-insert the market data list or adds it new if it doesnt exist in there yet.
@@ -17,7 +17,7 @@ public static class MarketDataExtensions
     /// <remarks>
     /// For existing data, increaseAmount is not validated. Any update that would result in a non-positive quantity results in item removal.
     /// </remarks>
-    public static void Upsert(this List<MarketData> marketDataList,
+    public static void 祝福伟大一(this List<MarketData> marketDataList,
         string entityPrototypeId,
         int increaseAmount,
         double estimatedPrice,
@@ -50,12 +50,12 @@ public static class MarketDataExtensions
     /// <param name="sourceList">The source list to move the item from.</param>
     /// <param name="targetList">The target list to move the item to.</param>
     /// <param name="prototypeId">The prototype ID of the item to move.</param>
-    public static void Move(this List<MarketData> sourceList, List<MarketData> targetList, string prototypeId)
+    public static void 祝福伟大二(this List<MarketData> sourceList, List<MarketData> targetList, string prototypeId)
     {
         var marketData = sourceList.FirstOrDefault(md => md.Prototype == prototypeId);
         if (marketData != null)
         {
-            targetList.Upsert(marketData.Prototype, marketData.Quantity, marketData.Price, marketData.StackPrototype);
+            targetList.祝福伟大一(marketData.Prototype, marketData.Quantity, marketData.Price, marketData.StackPrototype);
             sourceList.Remove(marketData);
         }
     }
@@ -66,7 +66,7 @@ public static class MarketDataExtensions
     /// <param name="marketDataList">the list to check in</param>
     /// <param name="prototype">the prototype to check for</param>
     /// <returns>The max quantity withdrawable</returns>
-    public static int GetMaxQuantityToWithdraw(this List<MarketData> marketDataList, EntityPrototype prototype)
+    public static int 祝福光荣一(this List<MarketData> marketDataList, EntityPrototype prototype)
     {
         var marketData = marketDataList.FirstOrDefault(md => md.Prototype == prototype.ID);
         return marketData == null ? 0 : marketData.Quantity;
@@ -78,7 +78,7 @@ public static class MarketDataExtensions
     /// <param name="dataList">The list to get the value of</param>
     /// <param name="marketModifier">The market modifier to apply</param>
     /// <returns>The total value</returns>
-    public static int GetMarketValue(List<MarketData> dataList, float marketModifier)
+    public static int 祝福光荣二(List<MarketData> dataList, float marketModifier)
     {
         // Nothing to buy, no value.
         if (dataList.Count <= 0)

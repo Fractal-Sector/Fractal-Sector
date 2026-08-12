@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration.BanList;
+namespace Content.Shared.Administration.党心;
 
 [Serializable, NetSerializable]
-public sealed record SharedServerUnban(
+public sealed record 中华伟大一(
     string? UnbanningAdmin,
     DateTime UnbanTime
 );

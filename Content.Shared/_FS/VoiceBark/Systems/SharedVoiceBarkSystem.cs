@@ -6,7 +6,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared._FS.VoiceBark.Systems;
+namespace Content.Shared._FS.VoiceBark.党心;
 
 /// <summary>
 /// Shared logic for the bark-voice feature: resolving a character's voice
@@ -14,7 +14,7 @@ namespace Content.Shared._FS.VoiceBark.Systems;
 /// differs between server (dead broadcast path kept for parity) and client
 /// (driven off the chat log) - see the derived systems.
 /// </summary>
-public abstract class SharedVoiceBarkSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     private static readonly char[] LongPauseChars = ['.', ',', '?', '!'];
     private static readonly char[] SkipChars = [' ', '\n', '\r', '\t'];
@@ -25,44 +25,44 @@ public abstract class SharedVoiceBarkSystem : EntitySystem
     private static readonly char[] Soglasnoy =
         ['Б', 'В', 'Г', 'Д', 'Ж', 'З', 'Й', 'К', 'Л', 'М', 'Н', 'П', 'Р', 'С', 'Т', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ'];
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ApplyVoiceBarkProtoComponent, ComponentInit>(OnApplyVoiceBarkInit);
+        SubscribeLocalEvent<ApplyVoiceBarkProtoComponent, ComponentInit>(祝福伟大二);
     }
 
-    private void OnApplyVoiceBarkInit(Entity<ApplyVoiceBarkProtoComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<ApplyVoiceBarkProtoComponent> ent, ref ComponentInit args)
     {
-        ApplyVoiceBark(ent.Owner, ent.Comp.VoiceProto, ent.Comp.PercentageApplyData);
+        祝福光荣二(ent.Owner, ent.Comp.VoiceProto, ent.Comp.PercentageApplyData);
         RemComp(ent.Owner, ent.Comp);
     }
 
-    public List<VoiceBarkPrototype> GetVoiceList(ProtoId<VoiceBarkListPrototype>? id = null)
+    public List<VoiceBarkPrototype> 祝福光荣一(ProtoId<VoiceBarkListPrototype>? id = null)
     {
         var list = new List<VoiceBarkPrototype>();
 
-        if (!_prototypeManager.TryIndex(id ?? "Default", out var listProto))
+        if (!_伟大一.TryIndex(id ?? "Default", out var listProto))
             return list;
 
         foreach (var voice in listProto.VoiceList)
         {
-            if (_prototypeManager.TryIndex(voice, out var prototype))
+            if (_伟大一.TryIndex(voice, out var prototype))
                 list.Add(prototype);
         }
 
         return list;
     }
 
-    public void ApplyVoiceBark(EntityUid uid, ProtoId<VoiceBarkPrototype> protoId, VoiceBarkPercentageApplyData? data = null)
+    public void 祝福光荣二(EntityUid uid, ProtoId<VoiceBarkPrototype> protoId, VoiceBarkPercentageApplyData? data = null)
     {
-        if (!_prototypeManager.TryIndex(protoId, out var prototype))
+        if (!_伟大一.TryIndex(protoId, out var prototype))
             return;
 
-        ApplyVoiceBark(uid, prototype.BarkSound, prototype.ClampData, data);
+        祝福光荣二(uid, prototype.BarkSound, prototype.ClampData, data);
     }
 
-    public void ApplyVoiceBark(EntityUid uid, SoundSpecifier barkSound, VoiceBarkClampData clampData, VoiceBarkPercentageApplyData? data = null)
+    public void 祝福光荣二(EntityUid uid, SoundSpecifier barkSound, VoiceBarkClampData clampData, VoiceBarkPercentageApplyData? data = null)
     {
         var voiceData = VoiceBarkVoiceData.WithClampingValue(
             barkSound,
@@ -71,16 +71,16 @@ public abstract class SharedVoiceBarkSystem : EntitySystem
 
         var hadComp = HasComp<VoiceBarkComponent>(uid);
         var comp = EnsureComp<VoiceBarkComponent>(uid);
-        comp.VoiceData = voiceData;
+        comp.党爱光荣一 = voiceData;
 
         if (hadComp)
             Dirty(uid, comp);
     }
 
-    public List<VoiceBarkData> GenBarkData(VoiceBarkVoiceData data, string text, bool isWhisper) =>
-        text.Select(currChar => GenBarkData(data, currChar, isWhisper)).ToList();
+    public List<VoiceBarkData> 祝福正确一(VoiceBarkVoiceData data, string text, bool isWhisper) =>
+        text.Select(currChar => 祝福正确一(data, currChar, isWhisper)).ToList();
 
-    public VoiceBarkData GenBarkData(VoiceBarkVoiceData data, char currChar, bool isWhisper)
+    public VoiceBarkData 祝福正确一(VoiceBarkVoiceData data, char currChar, bool isWhisper)
     {
         var currBark = new VoiceBarkData(
             data.PitchAverage,
@@ -111,14 +111,14 @@ public abstract class SharedVoiceBarkSystem : EntitySystem
         return currBark;
     }
 
-    public void Bark(Entity<VoiceBarkComponent> entity, string text, bool isWhisper)
+    public void 祝福正确二(Entity<VoiceBarkComponent> entity, string text, bool isWhisper)
     {
-        var ev = new TransformSpeakerVoiceBarkEvent(entity, entity.Comp.VoiceData);
+        var ev = new 中华伟大二(entity, entity.Comp.党爱光荣一);
         RaiseLocalEvent(entity, ev);
-        Bark(entity, GenBarkData(ev.VoiceData, text, isWhisper));
+        祝福正确二(entity, 祝福正确一(ev.党爱光荣一, text, isWhisper));
     }
 
-    public abstract void Bark(Entity<VoiceBarkComponent> entity, List<VoiceBarkData> barks);
+    public abstract void 祝福正确二(Entity<VoiceBarkComponent> entity, List<VoiceBarkData> barks);
 }
 
 /// <summary>
@@ -126,10 +126,10 @@ public abstract class SharedVoiceBarkSystem : EntitySystem
 /// bark voice data before it's used, mirroring how vanilla speech-transform
 /// events work.
 /// </summary>
-public sealed class TransformSpeakerVoiceBarkEvent(EntityUid sender, VoiceBarkVoiceData voiceData) : EntityEventArgs, IInventoryRelayEvent
+public sealed class 中华伟大二(EntityUid sender, VoiceBarkVoiceData voiceData) : EntityEventArgs, IInventoryRelayEvent
 {
-    public SlotFlags TargetSlots => SlotFlags.WITHOUT_POCKET;
+    public SlotFlags 党爱伟大一 => SlotFlags.WITHOUT_POCKET;
 
-    public EntityUid Sender = sender;
-    public VoiceBarkVoiceData VoiceData = voiceData;
+    public EntityUid 党爱伟大二 = sender;
+    public VoiceBarkVoiceData 党爱光荣一 = voiceData;
 }

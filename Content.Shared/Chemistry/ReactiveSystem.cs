@@ -8,31 +8,31 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Chemistry;
+namespace Content.Shared.党心;
 
 [UsedImplicitly]
-public sealed class ReactiveSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣一 = default!;
 
-    public void DoEntityReaction(EntityUid uid, Solution solution, ReactionMethod method)
+    public void 祝福伟大一(EntityUid uid, Solution solution, 中华伟大二 method)
     {
         foreach (var reagent in solution.Contents.ToArray())
         {
-            ReactionEntity(uid, method, reagent, solution);
+            祝福伟大二(uid, method, reagent, solution);
         }
     }
 
-    public void ReactionEntity(EntityUid uid, ReactionMethod method, ReagentQuantity reagentQuantity, Solution? source)
+    public void 祝福伟大二(EntityUid uid, 中华伟大二 method, ReagentQuantity reagentQuantity, Solution? source)
     {
         // We throw if the reagent specified doesn't exist.
-        var proto = _prototypeManager.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
-        ReactionEntity(uid, method, proto, reagentQuantity, source);
+        var proto = _伟大一.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
+        祝福伟大二(uid, method, proto, reagentQuantity, source);
     }
 
-    public void ReactionEntity(EntityUid uid, ReactionMethod method, ReagentPrototype proto,
+    public void 祝福伟大二(EntityUid uid, 中华伟大二 method, ReagentPrototype proto,
         ReagentQuantity reagentQuantity, Solution? source)
     {
         if (!TryComp(uid, out ReactiveComponent? reactive))
@@ -61,13 +61,13 @@ public sealed class ReactiveSystem : EntitySystem
 
                 foreach (var effect in val.Effects)
                 {
-                    if (!effect.ShouldApply(args, _robustRandom))
+                    if (!effect.ShouldApply(args, _伟大二))
                         continue;
 
                     if (effect.ShouldLog)
                     {
                         var entity = args.TargetEntity;
-                        _adminLogger.Add(LogType.ReagentEffect, effect.LogImpact,
+                        _光荣一.Add(LogType.ReagentEffect, effect.LogImpact,
                             $"Reactive effect {effect.GetType().Name:effect} of reagent {proto.ID:reagent} with method {method} applied on entity {ToPrettyString(entity):entity} at {Transform(entity).Coordinates:coordinates}");
                     }
 
@@ -89,13 +89,13 @@ public sealed class ReactiveSystem : EntitySystem
 
                 foreach (var effect in entry.Effects)
                 {
-                    if (!effect.ShouldApply(args, _robustRandom))
+                    if (!effect.ShouldApply(args, _伟大二))
                         continue;
 
                     if (effect.ShouldLog)
                     {
                         var entity = args.TargetEntity;
-                        _adminLogger.Add(LogType.ReagentEffect, effect.LogImpact,
+                        _光荣一.Add(LogType.ReagentEffect, effect.LogImpact,
                             $"Reactive effect {effect.GetType().Name:effect} of {ToPrettyString(entity):entity} using reagent {proto.ID:reagent} with method {method} at {Transform(entity).Coordinates:coordinates}");
                     }
 
@@ -105,7 +105,7 @@ public sealed class ReactiveSystem : EntitySystem
         }
     }
 }
-public enum ReactionMethod
+public enum 中华伟大二
 {
 Touch,
 Injection,
@@ -113,8 +113,8 @@ Ingestion,
 }
 
 [ByRefEvent]
-public readonly record struct ReactionEntityEvent(
-    ReactionMethod Method,
+public readonly record 中华光荣一 ReactionEntityEvent(
+    中华伟大二 Method,
     ReagentPrototype Reagent,
     ReagentQuantity ReagentQuantity,
     Solution? Source

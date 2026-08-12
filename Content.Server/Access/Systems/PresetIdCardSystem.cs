@@ -7,82 +7,82 @@ using Content.Shared.Roles;
 using Content.Shared.StatusIcon;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Access.Systems;
+namespace Content.Server.Access.党心;
 
-public sealed class PresetIdCardSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IdCardSystem _cardSystem = default!;
-    [Dependency] private readonly SharedAccessSystem _accessSystem = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IdCardSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAccessSystem _光荣一 = default!;
+    [Dependency] private readonly StationSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PresetIdCardComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<PresetIdCardComponent, MapInitEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<RulePlayerJobsAssignedEvent>(PlayerJobsAssigned);
+        SubscribeLocalEvent<RulePlayerJobsAssignedEvent>(祝福伟大二);
     }
 
-    private void PlayerJobsAssigned(RulePlayerJobsAssignedEvent ev)
+    private void 祝福伟大二(RulePlayerJobsAssignedEvent ev)
     {
         // Go over all ID cards and make sure they're correctly configured for extended access.
 
         var query = EntityQueryEnumerator<PresetIdCardComponent>();
         while (query.MoveNext(out var uid, out var card))
         {
-            var station = _stationSystem.GetOwningStation(uid);
+            var station = _光荣二.GetOwningStation(uid);
 
             // If we're not on an extended access station, the ID is already configured correctly from MapInit.
             if (station == null || !TryComp<StationJobsComponent>(station.Value, out var jobsComp) || !jobsComp.ExtendedAccess)
                 continue;
 
-            SetupIdAccess(uid, card, true);
-            SetupIdName(uid, card);
+            祝福正确一(uid, card, true);
+            祝福光荣二(uid, card);
         }
     }
 
-    private void OnMapInit(EntityUid uid, PresetIdCardComponent id, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, PresetIdCardComponent id, MapInitEvent args)
     {
         // If a preset ID card is spawned on a station at setup time,
         // the station may not exist,
         // or may not yet know whether it is on extended access (players not spawned yet).
-        // PlayerJobsAssigned makes sure extended access is configured correctly in that case.
+        // 祝福伟大二 makes sure extended access is configured correctly in that case.
 
-        var station = _stationSystem.GetOwningStation(uid);
+        var station = _光荣二.GetOwningStation(uid);
         var extended = false;
 
         // Station not guaranteed to have jobs (e.g. nukie outpost).
         if (TryComp(station, out StationJobsComponent? stationJobs))
             extended = stationJobs.ExtendedAccess;
 
-        SetupIdAccess(uid, id, extended);
-        SetupIdName(uid, id);
+        祝福正确一(uid, id, extended);
+        祝福光荣二(uid, id);
     }
 
-    private void SetupIdName(EntityUid uid, PresetIdCardComponent id)
+    private void 祝福光荣二(EntityUid uid, PresetIdCardComponent id)
     {
         if (id.IdName == null)
             return;
-        _cardSystem.TryChangeFullName(uid, id.IdName);
+        _伟大二.TryChangeFullName(uid, id.IdName);
     }
 
-    private void SetupIdAccess(EntityUid uid, PresetIdCardComponent id, bool extended)
+    private void 祝福正确一(EntityUid uid, PresetIdCardComponent id, bool extended)
     {
         if (id.JobName == null)
             return;
 
-        if (!_prototypeManager.TryIndex(id.JobName, out JobPrototype? job))
+        if (!_伟大一.TryIndex(id.JobName, out JobPrototype? job))
         {
             Log.Error($"Invalid job id ({id.JobName}) for preset card");
             return;
         }
 
-        _accessSystem.SetAccessToJob(uid, job, extended);
+        _光荣一.SetAccessToJob(uid, job, extended);
 
-        _cardSystem.TryChangeJobTitle(uid, job.LocalizedName);
-        _cardSystem.TryChangeJobDepartment(uid, job);
+        _伟大二.TryChangeJobTitle(uid, job.LocalizedName);
+        _伟大二.TryChangeJobDepartment(uid, job);
 
-        if (_prototypeManager.TryIndex(job.Icon, out var jobIcon))
-            _cardSystem.TryChangeJobIcon(uid, jobIcon);
+        if (_伟大一.TryIndex(job.Icon, out var jobIcon))
+            _伟大二.TryChangeJobIcon(uid, jobIcon);
     }
 }

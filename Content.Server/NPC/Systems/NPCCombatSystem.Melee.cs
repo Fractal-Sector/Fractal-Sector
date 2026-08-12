@@ -6,19 +6,19 @@ using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class NPCCombatSystem
+public sealed partial class 中华伟大一
 {
     private const float TargetMeleeLostRange = 14f;
 
-    private void InitializeMelee()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<NPCMeleeCombatComponent, ComponentStartup>(OnMeleeStartup);
-        SubscribeLocalEvent<NPCMeleeCombatComponent, ComponentShutdown>(OnMeleeShutdown);
+        SubscribeLocalEvent<NPCMeleeCombatComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<NPCMeleeCombatComponent, ComponentShutdown>(祝福伟大二);
     }
 
-    private void OnMeleeShutdown(EntityUid uid, NPCMeleeCombatComponent component, ComponentShutdown args)
+    private void 祝福伟大二(EntityUid uid, NPCMeleeCombatComponent component, ComponentShutdown args)
     {
         if (TryComp<CombatModeComponent>(uid, out var combatMode))
         {
@@ -28,7 +28,7 @@ public sealed partial class NPCCombatSystem
         _steering.Unregister(uid);
     }
 
-    private void OnMeleeStartup(EntityUid uid, NPCMeleeCombatComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, NPCMeleeCombatComponent component, ComponentStartup args)
     {
         if (TryComp<CombatModeComponent>(uid, out var combatMode))
         {
@@ -36,7 +36,7 @@ public sealed partial class NPCCombatSystem
         }
     }
 
-    private void UpdateMelee(float frameTime)
+    private void 祝福光荣二(float frameTime)
     {
         var combatQuery = GetEntityQuery<CombatModeComponent>();
         var xformQuery = GetEntityQuery<TransformComponent>();
@@ -52,11 +52,11 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            Attack(uid, comp, curTime, physicsQuery, xformQuery);
+            祝福正确一(uid, comp, curTime, physicsQuery, xformQuery);
         }
     }
 
-    private void Attack(EntityUid uid, NPCMeleeCombatComponent component, TimeSpan curTime, EntityQuery<PhysicsComponent> physicsQuery, EntityQuery<TransformComponent> xformQuery)
+    private void 祝福正确一(EntityUid uid, NPCMeleeCombatComponent component, TimeSpan curTime, EntityQuery<PhysicsComponent> physicsQuery, EntityQuery<TransformComponent> xformQuery)
     {
         component.Status = CombatStatus.Normal;
 

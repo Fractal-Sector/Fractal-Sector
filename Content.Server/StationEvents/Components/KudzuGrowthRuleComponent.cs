@@ -1,9 +1,9 @@
 ﻿using Content.Server.StationEvents.Events;
 
-namespace Content.Server.StationEvents.Components;
+namespace Content.Server.StationEvents.党心;
 
 [RegisterComponent, Access(typeof(KudzuGrowthRule))]
-public sealed partial class KudzuGrowthRuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

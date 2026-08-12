@@ -1,19 +1,19 @@
 ﻿using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.UserInterface;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class IntrinsicUIComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// List of UIs and their actions that this entity has.
     /// </summary>
-    [DataField("uis", required: true)] public Dictionary<Enum, IntrinsicUIEntry> UIs = new();
+    [DataField("uis", required: true)] public Dictionary<Enum, 中华伟大二> UIs = new();
 }
 
 [DataDefinition]
-public sealed partial class IntrinsicUIEntry
+public sealed partial class 中华伟大二
 {
     [DataField("toggleAction", required: true)]
     public EntProtoId? ToggleAction;

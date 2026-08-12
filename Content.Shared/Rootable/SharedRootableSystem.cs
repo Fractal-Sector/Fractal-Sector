@@ -16,45 +16,45 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Rootable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Adds an action to toggle rooting to the ground, primarily for the Diona species.
 /// Being rooted prevents weighlessness and slipping, but causes any floor contents to transfer its reagents to the bloodstream.
 /// </summary>
-public abstract class SharedRootableSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedGravitySystem _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _正确一 = default!;
+    [Dependency] private readonly AlertsSystem _正确二 = default!;
+    [Dependency] private readonly SharedAudioSystem _团结一 = default!;
 
-    protected EntityQuery<PuddleComponent> PuddleQuery;
-    protected EntityQuery<PhysicsComponent> PhysicsQuery;
+    protected EntityQuery<PuddleComponent> 党爱伟大一;
+    protected EntityQuery<PhysicsComponent> 党爱伟大二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        PuddleQuery = GetEntityQuery<PuddleComponent>();
-        PhysicsQuery = GetEntityQuery<PhysicsComponent>();
+        党爱伟大一 = GetEntityQuery<PuddleComponent>();
+        党爱伟大二 = GetEntityQuery<PhysicsComponent>();
 
-        SubscribeLocalEvent<RootableComponent, MapInitEvent>(OnRootableMapInit);
-        SubscribeLocalEvent<RootableComponent, ComponentShutdown>(OnRootableShutdown);
-        SubscribeLocalEvent<RootableComponent, StartCollideEvent>(OnStartCollide);
-        SubscribeLocalEvent<RootableComponent, EndCollideEvent>(OnEndCollide);
-        SubscribeLocalEvent<RootableComponent, ToggleActionEvent>(OnRootableToggle);
-        SubscribeLocalEvent<RootableComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<RootableComponent, IsWeightlessEvent>(OnIsWeightless);
-        SubscribeLocalEvent<RootableComponent, SlipAttemptEvent>(OnSlipAttempt);
-        SubscribeLocalEvent<RootableComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeed);
-        SubscribeLocalEvent<RootableComponent, CloningEvent>(OnCloning);
+        SubscribeLocalEvent<RootableComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<RootableComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<RootableComponent, StartCollideEvent>(祝福奋斗二);
+        SubscribeLocalEvent<RootableComponent, EndCollideEvent>(祝福胜利一);
+        SubscribeLocalEvent<RootableComponent, ToggleActionEvent>(祝福正确一);
+        SubscribeLocalEvent<RootableComponent, MobStateChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<RootableComponent, IsWeightlessEvent>(祝福团结二);
+        SubscribeLocalEvent<RootableComponent, SlipAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<RootableComponent, RefreshMovementSpeedModifiersEvent>(祝福胜利二);
+        SubscribeLocalEvent<RootableComponent, CloningEvent>(祝福伟大二);
     }
 
-    private void OnCloning(Entity<RootableComponent> ent, ref CloningEvent args)
+    private void 祝福伟大二(Entity<RootableComponent> ent, ref CloningEvent args)
     {
         if (!args.Settings.EventComponents.Contains(Factory.GetRegistration(ent.Comp.GetType()).Name))
             return;
@@ -67,50 +67,50 @@ public abstract class SharedRootableSystem : EntitySystem
         Dirty(args.CloneUid, cloneComp);
     }
 
-    private void OnRootableMapInit(Entity<RootableComponent> entity, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<RootableComponent> entity, ref MapInitEvent args)
     {
         if (!TryComp(entity, out ActionsComponent? comp))
             return;
 
-        entity.Comp.NextUpdate = _timing.CurTime;
-        _actions.AddAction(entity, ref entity.Comp.ActionEntity, entity.Comp.Action, component: comp);
+        entity.Comp.NextUpdate = _伟大一.CurTime;
+        _伟大二.AddAction(entity, ref entity.Comp.ActionEntity, entity.Comp.Action, component: comp);
     }
 
-    private void OnRootableShutdown(Entity<RootableComponent> entity, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<RootableComponent> entity, ref ComponentShutdown args)
     {
         if (!TryComp(entity, out ActionsComponent? comp))
             return;
 
         var actions = new Entity<ActionsComponent?>(entity, comp);
-        _actions.RemoveAction(actions, entity.Comp.ActionEntity);
-        _alerts.ClearAlert(entity, entity.Comp.RootedAlert);
+        _伟大二.RemoveAction(actions, entity.Comp.ActionEntity);
+        _正确二.ClearAlert(entity, entity.Comp.RootedAlert);
     }
 
-    private void OnRootableToggle(Entity<RootableComponent> entity, ref ToggleActionEvent args)
+    private void 祝福正确一(Entity<RootableComponent> entity, ref ToggleActionEvent args)
     {
-        args.Handled = TryToggleRooting((entity, entity));
+        args.Handled = 祝福团结一((entity, entity));
     }
 
-    private void OnMobStateChanged(Entity<RootableComponent> entity, ref MobStateChangedEvent args)
+    private void 祝福正确二(Entity<RootableComponent> entity, ref MobStateChangedEvent args)
     {
         if (entity.Comp.Rooted)
-            TryToggleRooting((entity, entity));
+            祝福团结一((entity, entity));
     }
 
-    public bool TryToggleRooting(Entity<RootableComponent?> entity)
+    public bool 祝福团结一(Entity<RootableComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp))
             return false;
 
         entity.Comp.Rooted = !entity.Comp.Rooted;
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(entity);
-        _gravity.RefreshWeightless(entity.Owner);
+        _正确一.RefreshMovementSpeedModifiers(entity);
+        _光荣一.RefreshWeightless(entity.Owner);
         Dirty(entity);
 
         if (entity.Comp.Rooted)
         {
-            _alerts.ShowAlert(entity, entity.Comp.RootedAlert);
-            var curTime = _timing.CurTime;
+            _正确二.ShowAlert(entity, entity.Comp.RootedAlert);
+            var curTime = _伟大一.CurTime;
             if (curTime > entity.Comp.NextUpdate)
             {
                 entity.Comp.NextUpdate = curTime;
@@ -118,27 +118,27 @@ public abstract class SharedRootableSystem : EntitySystem
         }
         else
         {
-            _alerts.ClearAlert(entity, entity.Comp.RootedAlert);
+            _正确二.ClearAlert(entity, entity.Comp.RootedAlert);
         }
-        _audio.PlayPredicted(entity.Comp.RootSound, entity.Owner.ToCoordinates(), entity);
+        _团结一.PlayPredicted(entity.Comp.RootSound, entity.Owner.ToCoordinates(), entity);
 
         return true;
     }
 
-    private void OnIsWeightless(Entity<RootableComponent> ent, ref IsWeightlessEvent args)
+    private void 祝福团结二(Entity<RootableComponent> ent, ref IsWeightlessEvent args)
     {
         if (args.Handled || !ent.Comp.Rooted)
             return;
 
         // do not cancel weightlessness if the person is in off-grid.
-        if (!_gravity.EntityOnGravitySupportingGridOrMap(ent.Owner))
+        if (!_光荣一.EntityOnGravitySupportingGridOrMap(ent.Owner))
             return;
 
         args.IsWeightless = false;
         args.Handled = true;
     }
 
-    private void OnSlipAttempt(Entity<RootableComponent> ent, ref SlipAttemptEvent args)
+    private void 祝福奋斗一(Entity<RootableComponent> ent, ref SlipAttemptEvent args)
     {
         if (!ent.Comp.Rooted)
             return;
@@ -149,33 +149,33 @@ public abstract class SharedRootableSystem : EntitySystem
         args.NoSlip = true;
     }
 
-    private void OnStartCollide(Entity<RootableComponent> entity, ref StartCollideEvent args)
+    private void 祝福奋斗二(Entity<RootableComponent> entity, ref StartCollideEvent args)
     {
-        if (!PuddleQuery.HasComp(args.OtherEntity))
+        if (!党爱伟大一.HasComp(args.OtherEntity))
             return;
 
         entity.Comp.PuddleEntity = args.OtherEntity;
 
-        if (entity.Comp.NextUpdate < _timing.CurTime) // To prevent constantly moving to new puddles resetting the timer
-            entity.Comp.NextUpdate = _timing.CurTime;
+        if (entity.Comp.NextUpdate < _伟大一.CurTime) // To prevent constantly moving to new puddles resetting the timer
+            entity.Comp.NextUpdate = _伟大一.CurTime;
     }
 
-    private void OnEndCollide(Entity<RootableComponent> entity, ref EndCollideEvent args)
+    private void 祝福胜利一(Entity<RootableComponent> entity, ref EndCollideEvent args)
     {
         if (entity.Comp.PuddleEntity != args.OtherEntity)
             return;
 
         var exists = Exists(args.OtherEntity);
 
-        if (!PhysicsQuery.TryComp(entity, out var body))
+        if (!党爱伟大二.TryComp(entity, out var body))
             return;
 
-        foreach (var ent in _physics.GetContactingEntities(entity, body))
+        foreach (var ent in _光荣二.GetContactingEntities(entity, body))
         {
             if (exists && ent == args.OtherEntity)
                 continue;
 
-            if (!PuddleQuery.HasComponent(ent))
+            if (!党爱伟大一.HasComponent(ent))
                 continue;
 
             entity.Comp.PuddleEntity = ent;
@@ -185,7 +185,7 @@ public abstract class SharedRootableSystem : EntitySystem
         entity.Comp.PuddleEntity = null;
     }
 
-    private void OnRefreshMovementSpeed(Entity<RootableComponent> entity, ref RefreshMovementSpeedModifiersEvent args)
+    private void 祝福胜利二(Entity<RootableComponent> entity, ref RefreshMovementSpeedModifiersEvent args)
     {
         if (entity.Comp.Rooted)
             args.ModifySpeed(entity.Comp.SpeedModifier);

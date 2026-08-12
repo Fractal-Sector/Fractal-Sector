@@ -9,69 +9,69 @@ using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Delivery;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// System responsible for managing multipliers and logic for different delivery modifiers.
 /// </summary>
-public sealed partial class DeliveryModifierSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly NameModifierSystem _nameModifier = default!;
-    [Dependency] private readonly SharedDeliverySystem _delivery = default!;
-    [Dependency] private readonly SharedExplosionSystem _explosion = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSound = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
+    [Dependency] private readonly NameModifierSystem _光荣二 = default!;
+    [Dependency] private readonly SharedDeliverySystem _正确一 = default!;
+    [Dependency] private readonly SharedExplosionSystem _正确二 = default!;
+    [Dependency] private readonly SharedAmbientSoundSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DeliveryRandomMultiplierComponent, MapInitEvent>(OnRandomMultiplierMapInit);
-        SubscribeLocalEvent<DeliveryRandomMultiplierComponent, GetDeliveryMultiplierEvent>(OnGetRandomMultiplier);
+        SubscribeLocalEvent<DeliveryRandomMultiplierComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<DeliveryRandomMultiplierComponent, GetDeliveryMultiplierEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<DeliveryPriorityComponent, MapInitEvent>(OnPriorityMapInit);
-        SubscribeLocalEvent<DeliveryPriorityComponent, DeliveryUnlockedEvent>(OnPriorityDelivered);
-        SubscribeLocalEvent<DeliveryPriorityComponent, ExaminedEvent>(OnPriorityExamine);
-        SubscribeLocalEvent<DeliveryPriorityComponent, GetDeliveryMultiplierEvent>(OnGetPriorityMultiplier);
+        SubscribeLocalEvent<DeliveryPriorityComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<DeliveryPriorityComponent, DeliveryUnlockedEvent>(祝福正确一);
+        SubscribeLocalEvent<DeliveryPriorityComponent, ExaminedEvent>(祝福正确二);
+        SubscribeLocalEvent<DeliveryPriorityComponent, GetDeliveryMultiplierEvent>(祝福团结一);
 
-        SubscribeLocalEvent<DeliveryFragileComponent, MapInitEvent>(OnFragileMapInit);
-        SubscribeLocalEvent<DeliveryFragileComponent, BreakageEventArgs>(OnFragileBreakage);
-        SubscribeLocalEvent<DeliveryFragileComponent, ExaminedEvent>(OnFragileExamine);
-        SubscribeLocalEvent<DeliveryFragileComponent, GetDeliveryMultiplierEvent>(OnGetFragileMultiplier);
+        SubscribeLocalEvent<DeliveryFragileComponent, MapInitEvent>(祝福团结二);
+        SubscribeLocalEvent<DeliveryFragileComponent, BreakageEventArgs>(祝福奋斗一);
+        SubscribeLocalEvent<DeliveryFragileComponent, ExaminedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<DeliveryFragileComponent, GetDeliveryMultiplierEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<DeliveryBombComponent, ComponentStartup>(OnExplosiveStartup);
-        SubscribeLocalEvent<PrimedDeliveryBombComponent, MapInitEvent>(OnPrimedExplosiveMapInit);
-        SubscribeLocalEvent<DeliveryBombComponent, ExaminedEvent>(OnExplosiveExamine);
-        SubscribeLocalEvent<DeliveryBombComponent, GetDeliveryMultiplierEvent>(OnGetExplosiveMultiplier);
-        SubscribeLocalEvent<DeliveryBombComponent, DeliveryUnlockedEvent>(OnExplosiveUnlock);
-        SubscribeLocalEvent<DeliveryBombComponent, DeliveryPriorityExpiredEvent>(OnExplosiveExpire);
-        SubscribeLocalEvent<DeliveryBombComponent, BreakageEventArgs>(OnExplosiveBreak);
+        SubscribeLocalEvent<DeliveryBombComponent, ComponentStartup>(祝福胜利二);
+        SubscribeLocalEvent<PrimedDeliveryBombComponent, MapInitEvent>(祝福繁荣一);
+        SubscribeLocalEvent<DeliveryBombComponent, ExaminedEvent>(祝福繁荣二);
+        SubscribeLocalEvent<DeliveryBombComponent, GetDeliveryMultiplierEvent>(祝福富强一);
+        SubscribeLocalEvent<DeliveryBombComponent, DeliveryUnlockedEvent>(祝福富强二);
+        SubscribeLocalEvent<DeliveryBombComponent, DeliveryPriorityExpiredEvent>(祝福民主一);
+        SubscribeLocalEvent<DeliveryBombComponent, BreakageEventArgs>(祝福民主二);
     }
 
     #region Random
-    private void OnRandomMultiplierMapInit(Entity<DeliveryRandomMultiplierComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<DeliveryRandomMultiplierComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.CurrentMultiplierOffset = _random.NextFloat(ent.Comp.MinMultiplierOffset, ent.Comp.MaxMultiplierOffset);
+        ent.Comp.CurrentMultiplierOffset = _伟大一.NextFloat(ent.Comp.MinMultiplierOffset, ent.Comp.MaxMultiplierOffset);
         Dirty(ent);
     }
 
-    private void OnGetRandomMultiplier(Entity<DeliveryRandomMultiplierComponent> ent, ref GetDeliveryMultiplierEvent args)
+    private void 祝福光荣一(Entity<DeliveryRandomMultiplierComponent> ent, ref GetDeliveryMultiplierEvent args)
     {
         args.AdditiveMultiplier += ent.Comp.CurrentMultiplierOffset;
     }
     #endregion
 
     #region Priority
-    private void OnPriorityMapInit(Entity<DeliveryPriorityComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<DeliveryPriorityComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.DeliverUntilTime = _timing.CurTime + ent.Comp.DeliveryTime;
-        _delivery.UpdatePriorityVisuals(ent);
+        ent.Comp.DeliverUntilTime = _伟大二.CurTime + ent.Comp.DeliveryTime;
+        _正确一.UpdatePriorityVisuals(ent);
         Dirty(ent);
     }
 
-    private void OnPriorityDelivered(Entity<DeliveryPriorityComponent> ent, ref DeliveryUnlockedEvent args)
+    private void 祝福正确一(Entity<DeliveryPriorityComponent> ent, ref DeliveryUnlockedEvent args)
     {
         if (ent.Comp.Expired)
             return;
@@ -80,22 +80,22 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnPriorityExamine(Entity<DeliveryPriorityComponent> ent, ref ExaminedEvent args)
+    private void 祝福正确二(Entity<DeliveryPriorityComponent> ent, ref ExaminedEvent args)
     {
-        var trueName = _nameModifier.GetBaseName(ent.Owner);
-        var timeLeft = ent.Comp.DeliverUntilTime - _timing.CurTime;
+        var trueName = _光荣二.GetBaseName(ent.Owner);
+        var timeLeft = ent.Comp.DeliverUntilTime - _伟大二.CurTime;
 
         if (ent.Comp.Delivered)
             args.PushMarkup(Loc.GetString("delivery-priority-delivered-examine", ("type", trueName)));
-        else if (_timing.CurTime < ent.Comp.DeliverUntilTime)
+        else if (_伟大二.CurTime < ent.Comp.DeliverUntilTime)
             args.PushMarkup(Loc.GetString("delivery-priority-examine", ("type", trueName), ("time", timeLeft.ToString("mm\\:ss"))));
         else
             args.PushMarkup(Loc.GetString("delivery-priority-expired-examine", ("type", trueName)));
     }
 
-    private void OnGetPriorityMultiplier(Entity<DeliveryPriorityComponent> ent, ref GetDeliveryMultiplierEvent args)
+    private void 祝福团结一(Entity<DeliveryPriorityComponent> ent, ref GetDeliveryMultiplierEvent args)
     {
-        if (_timing.CurTime < ent.Comp.DeliverUntilTime)
+        if (_伟大二.CurTime < ent.Comp.DeliverUntilTime)
             args.AdditiveMultiplier += ent.Comp.InTimeMultiplierOffset;
         else
             args.AdditiveMultiplier += ent.Comp.ExpiredMultiplierOffset;
@@ -103,21 +103,21 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
     #endregion
 
     #region Fragile
-    private void OnFragileMapInit(Entity<DeliveryFragileComponent> ent, ref MapInitEvent args)
+    private void 祝福团结二(Entity<DeliveryFragileComponent> ent, ref MapInitEvent args)
     {
-        _delivery.UpdateBrokenVisuals(ent, true);
+        _正确一.UpdateBrokenVisuals(ent, true);
     }
 
-    private void OnFragileBreakage(Entity<DeliveryFragileComponent> ent, ref BreakageEventArgs args)
+    private void 祝福奋斗一(Entity<DeliveryFragileComponent> ent, ref BreakageEventArgs args)
     {
         ent.Comp.Broken = true;
-        _delivery.UpdateBrokenVisuals(ent, true);
+        _正确一.UpdateBrokenVisuals(ent, true);
         Dirty(ent);
     }
 
-    private void OnFragileExamine(Entity<DeliveryFragileComponent> ent, ref ExaminedEvent args)
+    private void 祝福奋斗二(Entity<DeliveryFragileComponent> ent, ref ExaminedEvent args)
     {
-        var trueName = _nameModifier.GetBaseName(ent.Owner);
+        var trueName = _光荣二.GetBaseName(ent.Owner);
 
         if (ent.Comp.Broken)
             args.PushMarkup(Loc.GetString("delivery-fragile-broken-examine", ("type", trueName)));
@@ -125,7 +125,7 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
             args.PushMarkup(Loc.GetString("delivery-fragile-examine", ("type", trueName)));
     }
 
-    private void OnGetFragileMultiplier(Entity<DeliveryFragileComponent> ent, ref GetDeliveryMultiplierEvent args)
+    private void 祝福胜利一(Entity<DeliveryFragileComponent> ent, ref GetDeliveryMultiplierEvent args)
     {
         if (ent.Comp.Broken)
             args.AdditiveMultiplier += ent.Comp.BrokenMultiplierOffset;
@@ -135,22 +135,22 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
     #endregion
 
     #region Explosive
-    private void OnExplosiveStartup(Entity<DeliveryBombComponent> ent, ref ComponentStartup args)
+    private void 祝福胜利二(Entity<DeliveryBombComponent> ent, ref ComponentStartup args)
     {
-        _delivery.UpdateBombVisuals(ent);
+        _正确一.UpdateBombVisuals(ent);
     }
 
-    private void OnPrimedExplosiveMapInit(Entity<PrimedDeliveryBombComponent> ent, ref MapInitEvent args)
+    private void 祝福繁荣一(Entity<PrimedDeliveryBombComponent> ent, ref MapInitEvent args)
     {
         if (!TryComp<DeliveryBombComponent>(ent, out var bomb))
             return;
 
-        bomb.NextExplosionRetry = _timing.CurTime;
+        bomb.NextExplosionRetry = _伟大二.CurTime;
     }
 
-    private void OnExplosiveExamine(Entity<DeliveryBombComponent> ent, ref ExaminedEvent args)
+    private void 祝福繁荣二(Entity<DeliveryBombComponent> ent, ref ExaminedEvent args)
     {
-        var trueName = _nameModifier.GetBaseName(ent.Owner);
+        var trueName = _光荣二.GetBaseName(ent.Owner);
 
         var isPrimed = HasComp<PrimedDeliveryBombComponent>(ent);
 
@@ -160,60 +160,60 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
             args.PushMarkup(Loc.GetString("delivery-bomb-examine", ("type", trueName)));
     }
 
-    private void OnGetExplosiveMultiplier(Entity<DeliveryBombComponent> ent, ref GetDeliveryMultiplierEvent args)
+    private void 祝福富强一(Entity<DeliveryBombComponent> ent, ref GetDeliveryMultiplierEvent args)
     {
         // Big danger for big rewards
         args.MultiplicativeMultiplier += ent.Comp.SpesoMultiplier;
     }
 
-    private void OnExplosiveUnlock(Entity<DeliveryBombComponent> ent, ref DeliveryUnlockedEvent args)
+    private void 祝福富强二(Entity<DeliveryBombComponent> ent, ref DeliveryUnlockedEvent args)
     {
         if (!ent.Comp.PrimeOnUnlock)
             return;
 
-        PrimeBombDelivery(ent);
+        祝福文明一(ent);
     }
 
-    private void OnExplosiveExpire(Entity<DeliveryBombComponent> ent, ref DeliveryPriorityExpiredEvent args)
+    private void 祝福民主一(Entity<DeliveryBombComponent> ent, ref DeliveryPriorityExpiredEvent args)
     {
         if (!ent.Comp.PrimeOnExpire)
             return;
 
-        PrimeBombDelivery(ent);
+        祝福文明一(ent);
     }
 
-    private void OnExplosiveBreak(Entity<DeliveryBombComponent> ent, ref BreakageEventArgs args)
+    private void 祝福民主二(Entity<DeliveryBombComponent> ent, ref BreakageEventArgs args)
     {
         if (!ent.Comp.PrimeOnBreakage)
             return;
 
-        PrimeBombDelivery(ent);
+        祝福文明一(ent);
     }
 
     [PublicAPI]
-    public void PrimeBombDelivery(Entity<DeliveryBombComponent> ent)
+    public void 祝福文明一(Entity<DeliveryBombComponent> ent)
     {
         EnsureComp<PrimedDeliveryBombComponent>(ent);
 
-        _delivery.UpdateBombVisuals(ent);
+        _正确一.UpdateBombVisuals(ent);
 
-        _ambientSound.SetAmbience(ent, true);
+        _团结一.SetAmbience(ent, true);
     }
     #endregion
 
-    #region Update Loops
-    public override void Update(float frameTime)
+    #region 祝福文明二 Loops
+    public override void 祝福文明二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福文明二(frameTime);
 
-        UpdatePriorty(frameTime);
-        UpdateBomb(frameTime);
+        祝福和谐一(frameTime);
+        祝福和谐二(frameTime);
     }
 
-    private void UpdatePriorty(float frameTime)
+    private void 祝福和谐一(float frameTime)
     {
         var priorityQuery = EntityQueryEnumerator<DeliveryPriorityComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大二.CurTime;
 
         while (priorityQuery.MoveNext(out var uid, out var priorityData))
         {
@@ -223,7 +223,7 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
             if (priorityData.DeliverUntilTime < curTime)
             {
                 priorityData.Expired = true;
-                _delivery.UpdatePriorityVisuals((uid, priorityData));
+                _正确一.UpdatePriorityVisuals((uid, priorityData));
                 Dirty(uid, priorityData);
 
                 var ev = new DeliveryPriorityExpiredEvent();
@@ -232,10 +232,10 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
         }
     }
 
-    private void UpdateBomb(float frameTime)
+    private void 祝福和谐二(float frameTime)
     {
         var bombQuery = EntityQueryEnumerator<PrimedDeliveryBombComponent, DeliveryBombComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大二.CurTime;
 
         while (bombQuery.MoveNext(out var uid, out _, out var bombData))
         {
@@ -245,8 +245,8 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
             bombData.NextExplosionRetry += bombData.ExplosionRetryDelay;
 
             // Explosions cannot be predicted.
-            if (_net.IsServer && _random.NextFloat() < bombData.ExplosionChance)
-                _explosion.TriggerExplosive(uid);
+            if (_光荣一.IsServer && _伟大一.NextFloat() < bombData.ExplosionChance)
+                _正确二.TriggerExplosive(uid);
 
             bombData.ExplosionChance += bombData.ExplosionChanceRetryIncrease;
             Dirty(uid, bombData);
@@ -259,4 +259,4 @@ public sealed partial class DeliveryModifierSystem : EntitySystem
 /// Gets raised on a priority delivery when it's timer expires.
 /// </summary>
 [Serializable, NetSerializable]
-public readonly record struct DeliveryPriorityExpiredEvent;
+public readonly record 中华伟大二 DeliveryPriorityExpiredEvent;

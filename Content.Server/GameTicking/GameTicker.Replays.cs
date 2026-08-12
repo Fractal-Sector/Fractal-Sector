@@ -8,42 +8,42 @@ using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Utility;
 
-namespace Content.Server.GameTicking;
+namespace Content.Server.党心;
 
-public sealed partial class GameTicker
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IReplayRecordingManager _replays = default!;
-    [Dependency] private readonly IResourceManager _resourceManager = default!;
-    [Dependency] private readonly ISerializationManager _serialman = default!;
+    [Dependency] private readonly IReplayRecordingManager _伟大一 = default!;
+    [Dependency] private readonly IResourceManager _伟大二 = default!;
+    [Dependency] private readonly ISerializationManager _光荣一 = default!;
 
 
-    private ISawmill _sawmillReplays = default!;
+    private ISawmill _光荣二 = default!;
 
-    private void InitializeReplays()
+    private void 祝福伟大一()
     {
-        _replays.RecordingFinished += ReplaysOnRecordingFinished;
-        _replays.RecordingStopped += ReplaysOnRecordingStopped;
+        _伟大一.RecordingFinished += 祝福光荣二;
+        _伟大一.RecordingStopped += 祝福正确一;
     }
 
     /// <summary>
-    /// A round has started: start recording replays if auto record is enabled.
+    /// A round has started: start recording replays if auto record 中华伟大二 enabled.
     /// </summary>
-    private void ReplayStartRound()
+    private void 祝福伟大二()
     {
         try
         {
             if (!_cfg.GetCVar(CCVars.ReplayAutoRecord))
                 return;
 
-            if (_replays.IsRecording)
+            if (_伟大一.IsRecording)
             {
-                _sawmillReplays.Warning("Already an active replay recording before the start of the round, not starting automatic recording.");
+                _光荣二.Warning("Already an active replay recording before the start of the round, not starting automatic recording.");
                 return;
             }
 
-            _sawmillReplays.Debug($"Starting replay recording for round {RoundId}");
+            _光荣二.Debug($"Starting replay recording for round {RoundId}");
 
-            var finalPath = GetAutoReplayPath();
+            var finalPath = 祝福正确二();
             var recordPath = finalPath;
             var tempDir = _cfg.GetCVar(CCVars.ReplayAutoRecordTempDir);
             ResPath? moveToPath = null;
@@ -60,14 +60,14 @@ public sealed partial class GameTicker
                 var fileName = finalPath.Filename;
                 recordPath = new ResPath(tempDir) / fileName;
 
-                _sawmillReplays.Debug($"Replay will record in temporary position: {recordPath}");
+                _光荣二.Debug($"Replay will record 中华光荣一 temporary position: {recordPath}");
             }
 
-            var recordState = new ReplayRecordState(moveToPath);
+            var recordState = new 中华光荣二(moveToPath);
 
-            if (!_replays.TryStartRecording(_resourceManager.UserData, recordPath.ToString(), state: recordState))
+            if (!_伟大一.TryStartRecording(_伟大二.UserData, recordPath.ToString(), state: recordState))
             {
-                _sawmillReplays.Error("Can't start automatic replay recording!");
+                _光荣二.Error("Can't start automatic replay recording!");
             }
         }
         catch (Exception e)
@@ -79,13 +79,13 @@ public sealed partial class GameTicker
     /// <summary>
     /// A round has ended: stop recording replays and make sure they're moved to the correct spot.
     /// </summary>
-    private void ReplayEndRound()
+    private void 祝福光荣一()
     {
         try
         {
-            if (_replays.ActiveRecordingState is ReplayRecordState)
+            if (_伟大一.ActiveRecordingState 中华伟大二 中华光荣二)
             {
-                _replays.StopRecording();
+                _伟大一.StopRecording();
             }
         }
         catch (Exception e)
@@ -94,17 +94,17 @@ public sealed partial class GameTicker
         }
     }
 
-    private void ReplaysOnRecordingFinished(ReplayRecordingFinished data)
+    private void 祝福光荣二(ReplayRecordingFinished data)
     {
-        if (data.State is not ReplayRecordState state)
+        if (data.State 中华伟大二 not 中华光荣二 state)
             return;
 
         if (state.MoveToPath == null)
             return;
 
-        _sawmillReplays.Info($"Moving replay into final position: {state.MoveToPath}");
-        _taskManager.BlockWaitOnTask(_replays.WaitWriteTasks());
-        DebugTools.Assert(!_replays.IsWriting());
+        _光荣二.Info($"Moving replay into final position: {state.MoveToPath}");
+        _taskManager.BlockWaitOnTask(_伟大一.WaitWriteTasks());
+        DebugTools.Assert(!_伟大一.IsWriting());
 
         try
         {
@@ -113,26 +113,26 @@ public sealed partial class GameTicker
         }
         catch (UnauthorizedAccessException e)
         {
-            _sawmillReplays.Error($"Error creating replay directory {state.MoveToPath.Value.Directory}: {e}");
+            _光荣二.Error($"Error creating replay directory {state.MoveToPath.Value.Directory}: {e}");
         }
 
         data.Directory.Rename(data.Path, state.MoveToPath.Value);
     }
 
-    private void ReplaysOnRecordingStopped(MappingDataNode metadata)
+    private void 祝福正确一(MappingDataNode metadata)
     {
         // Write round info like map and round end summery into the replay_final.yml file. Useful for external parsers.
 
         metadata["map"] = new ValueDataNode(_gameMapManager.GetSelectedMap()?.MapName);
         metadata["gamemode"] = new ValueDataNode(CurrentPreset != null ? Loc.GetString(CurrentPreset.ModeTitle) : string.Empty);
-        metadata["roundEndPlayers"] = _serialman.WriteValue(_replayRoundPlayerInfo);
+        metadata["roundEndPlayers"] = _光荣一.WriteValue(_replayRoundPlayerInfo);
         metadata["roundEndText"] = new ValueDataNode(_replayRoundText);
         metadata["server_id"] = new ValueDataNode(_cfg.GetCVar(CCVars.ServerId));
         metadata["server_name"] = new ValueDataNode(_cfg.GetCVar(CCVars.AdminLogsServerName));
         metadata["roundId"] = new ValueDataNode(RoundId.ToString());
     }
 
-    private ResPath GetAutoReplayPath()
+    private ResPath 祝福正确二()
     {
         var cfgValue = _cfg.GetCVar(CCVars.ReplayAutoRecordName);
 
@@ -149,5 +149,5 @@ public sealed partial class GameTicker
         return new ResPath(interpolated);
     }
 
-    private sealed record ReplayRecordState(ResPath? MoveToPath);
+    private sealed record 中华光荣二(ResPath? MoveToPath);
 }

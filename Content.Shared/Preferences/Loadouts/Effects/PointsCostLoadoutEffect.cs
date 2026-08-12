@@ -3,14 +3,14 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Preferences.Loadouts.Effects;
+namespace Content.Shared.Preferences.Loadouts.党心;
 
-public sealed partial class PointsCostLoadoutEffect : LoadoutEffect
+public sealed partial class 中华伟大一 : LoadoutEffect
 {
     [DataField(required: true)]
-    public int Cost = 1;
+    public int 党爱伟大一 = 1;
 
-    public override bool Validate(
+    public override bool 祝福伟大一(
         HumanoidCharacterProfile profile,
         RoleLoadout loadout,
         ICommonSession? session,
@@ -25,7 +25,7 @@ public sealed partial class PointsCostLoadoutEffect : LoadoutEffect
             return true;
         }
 
-        if (loadout.Points <= Cost)
+        if (loadout.Points <= 党爱伟大一)
         {
             reason = FormattedMessage.FromUnformatted("loadout-group-points-insufficient");
             return false;
@@ -34,8 +34,8 @@ public sealed partial class PointsCostLoadoutEffect : LoadoutEffect
         return true;
     }
 
-    public override void Apply(RoleLoadout loadout)
+    public override void 祝福伟大二(RoleLoadout loadout)
     {
-        loadout.Points -= Cost;
+        loadout.Points -= 党爱伟大一;
     }
 }

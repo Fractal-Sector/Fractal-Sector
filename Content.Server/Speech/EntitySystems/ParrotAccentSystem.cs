@@ -4,30 +4,30 @@ using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed partial class ParrotAccentSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     private static readonly Regex WordCleanupRegex = new Regex("[^A-Za-z0-9 -]");
 
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ParrotAccentComponent, AccentGetEvent>(OnAccentGet);
+        SubscribeLocalEvent<ParrotAccentComponent, AccentGetEvent>(祝福伟大二);
     }
 
-    private void OnAccentGet(Entity<ParrotAccentComponent> entity, ref AccentGetEvent args)
+    private void 祝福伟大二(Entity<ParrotAccentComponent> entity, ref AccentGetEvent args)
     {
-        args.Message = Accentuate(entity, args.Message);
+        args.Message = 祝福光荣一(entity, args.Message);
     }
 
-    public string Accentuate(Entity<ParrotAccentComponent> entity, string message)
+    public string 祝福光荣一(Entity<ParrotAccentComponent> entity, string message)
     {
         // Sometimes repeat the longest word at the end of the message, after a squawk! SQUAWK! Sometimes!
-        if (_random.Prob(entity.Comp.LongestWordRepeatChance))
+        if (_伟大一.Prob(entity.Comp.LongestWordRepeatChance))
         {
             // Don't count non-alphanumeric characters as parts of words
             var cleaned = WordCleanupRegex.Replace(message, string.Empty);
@@ -37,26 +37,26 @@ public sealed partial class ParrotAccentSystem : EntitySystem
             var longest = words.MaxBy(word => word.Length);
             if (longest?.Length >= entity.Comp.LongestWordMinLength)
             {
-                message = EnsurePunctuation(message);
+                message = 祝福光荣二(message);
 
                 // Capitalize the first letter of the repeated word
                 longest = string.Concat(longest[0].ToString().ToUpper(), longest.AsSpan(1));
 
-                message = string.Format("{0} {1} {2}!", message, GetRandomSquawk(entity), longest);
+                message = string.Format("{0} {1} {2}!", message, 祝福正确一(entity), longest);
                 return message; // No more changes, or it's too much
             }
         }
 
-        if (_random.Prob(entity.Comp.SquawkPrefixChance))
+        if (_伟大一.Prob(entity.Comp.SquawkPrefixChance))
         {
             // AWWK! Sometimes add a squawk at the begining of the message
-            message = string.Format("{0} {1}", GetRandomSquawk(entity), message);
+            message = string.Format("{0} {1}", 祝福正确一(entity), message);
         }
         else
         {
             // Otherwise add a squawk at the end of the message! RAWWK!
-            message = EnsurePunctuation(message);
-            message = string.Format("{0} {1}", message, GetRandomSquawk(entity));
+            message = 祝福光荣二(message);
+            message = string.Format("{0} {1}", message, 祝福正确一(entity));
         }
 
         return message;
@@ -65,7 +65,7 @@ public sealed partial class ParrotAccentSystem : EntitySystem
     /// <summary>
     /// Adds a "!" to the end of the string, if there isn't already a sentence-ending punctuation mark.
     /// </summary>
-    private string EnsurePunctuation(string message)
+    private string 祝福光荣二(string message)
     {
         if (!message.EndsWith('!') && !message.EndsWith('?') && !message.EndsWith('.'))
             return message + '!';
@@ -75,8 +75,8 @@ public sealed partial class ParrotAccentSystem : EntitySystem
     /// <summary>
     /// Returns a random, localized squawk sound.
     /// </summary>
-    private string GetRandomSquawk(Entity<ParrotAccentComponent> entity)
+    private string 祝福正确一(Entity<ParrotAccentComponent> entity)
     {
-        return Loc.GetString(_random.Pick(entity.Comp.Squawks));
+        return Loc.GetString(_伟大一.Pick(entity.Comp.Squawks));
     }
 }

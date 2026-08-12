@@ -2,39 +2,39 @@ using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.StationRecords.Components;
+namespace Content.Shared._WF.StationRecords.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class RegisterCrewConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    public static string TargetIdSlotId = "RegisterCrewConsole-targetId";
-    public static string PrivilegedIdSlotId = "RegisterCrewConsole-privilegedId";
+    public static string 党爱伟大一 = "RegisterCrewConsole-targetId";
+    public static string 党爱伟大二 = "RegisterCrewConsole-privilegedId";
 
     [DataField]
-    public ItemSlot TargetIdSlot = new();
+    public ItemSlot 党爱光荣一 = new();
 
     [DataField]
-    public ItemSlot PrivilegedIdSlot = new();
+    public ItemSlot 党爱光荣二 = new();
 }
 
 [Serializable, NetSerializable]
-public sealed class RegisterCrewMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public RegisterCrewMessage(string customJobTitle)
+    public 中华伟大二(string customJobTitle)
     {
-        CustomJobTitle = customJobTitle;
+        党爱正确一 = customJobTitle;
     }
 
-    public readonly string CustomJobTitle;
+    public readonly string 党爱正确一;
 }
 
 [Serializable, NetSerializable]
-public sealed class RemoveCrewMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public RemoveCrewMessage(uint recordId)
+    public 中华光荣一(uint recordId)
     {
-        RecordId = recordId;
+        党爱正确二 = recordId;
     }
 
-    public readonly uint RecordId;
+    public readonly uint 党爱正确二;
 }

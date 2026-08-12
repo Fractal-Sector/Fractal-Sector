@@ -2,7 +2,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Bed.Cryostorage;
+namespace Content.Shared.Bed.党心;
 
 /// <summary>
 /// This is used for a container which, when a player logs out while inside of,
@@ -10,31 +10,31 @@ namespace Content.Shared.Bed.Cryostorage;
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState]
-public sealed partial class CryostorageComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public string ContainerId = "storage";
+    public string 党爱伟大一 = "storage";
 
     /// <summary>
     /// How long a player can remain inside Cryostorage before automatically being taken care of, given that they have no mind.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public TimeSpan NoMindGracePeriod = TimeSpan.FromSeconds(30f);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(30f);
 
     /// <summary>
     /// How long a player can remain inside Cryostorage before automatically being taken care of.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public TimeSpan GracePeriod = TimeSpan.FromMinutes(5f);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromMinutes(5f);
 
     /// <summary>
     /// A list of players who have actively entered cryostorage.
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public List<EntityUid> StoredPlayers = new();
+    public List<EntityUid> 党爱光荣二 = new();
 
     /// <summary>
     /// Sound that is played when a player is removed by a cryostorage.
@@ -44,23 +44,23 @@ public sealed partial class CryostorageComponent : Component
 }
 
 [Serializable, NetSerializable]
-public enum CryostorageVisuals : byte
+public enum 中华伟大二 : byte
 {
     Full
 }
 
 [Serializable, NetSerializable]
-public record struct CryostorageContainedPlayerData()
+public record 中华光荣一 CryostorageContainedPlayerData()
 {
     /// <summary>
     /// The player's IC name
     /// </summary>
-    public string PlayerName = string.Empty;
+    public string 党爱正确一 = string.Empty;
 
     /// <summary>
     /// The player's entity
     /// </summary>
-    public NetEntity PlayerEnt = NetEntity.Invalid;
+    public NetEntity 党爱正确二 = NetEntity.Invalid;
 
     /// <summary>
     /// A dictionary relating a slot definition name to the name of the item inside of it.
@@ -74,41 +74,41 @@ public record struct CryostorageContainedPlayerData()
 }
 
 [Serializable, NetSerializable]
-public sealed class CryostorageBuiState : BoundUserInterfaceState
+public sealed class 中华光荣二 : BoundUserInterfaceState
 {
-    public List<CryostorageContainedPlayerData> PlayerData;
+    public List<CryostorageContainedPlayerData> 党爱团结一;
 
-    public CryostorageBuiState(List<CryostorageContainedPlayerData> playerData)
+    public 中华光荣二(List<CryostorageContainedPlayerData> playerData)
     {
-        PlayerData = playerData;
+        党爱团结一 = playerData;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class CryostorageRemoveItemBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public NetEntity StoredEntity;
+    public NetEntity 党爱团结二;
 
-    public string Key;
+    public string 党爱奋斗一;
 
-    public RemovalType Type;
+    public 中华正确二 Type;
 
-    public enum RemovalType : byte
+    public enum 中华正确二 : byte
     {
         Hand,
         Inventory
     }
 
-    public CryostorageRemoveItemBuiMessage(NetEntity storedEntity, string key, RemovalType type)
+    public 中华正确一(NetEntity storedEntity, string key, 中华正确二 type)
     {
-        StoredEntity = storedEntity;
-        Key = key;
+        党爱团结二 = storedEntity;
+        党爱奋斗一 = key;
         Type = type;
     }
 }
 
 [Serializable, NetSerializable]
-public enum CryostorageUIKey : byte
+public enum 中华团结一 : byte
 {
-    Key
+    党爱奋斗一
 }

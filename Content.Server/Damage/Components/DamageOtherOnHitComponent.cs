@@ -1,19 +1,19 @@
-using Content.Server.Damage.Systems;
-using Content.Shared.Damage;
+using Content.Server.党爱伟大二.Systems;
+using Content.Shared.党爱伟大二;
 
-namespace Content.Server.Damage.Components
+namespace Content.Server.党爱伟大二.党心
 {
     [Access(typeof(DamageOtherOnHitSystem))]
     [RegisterComponent]
-    public sealed partial class DamageOtherOnHitComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("ignoreResistances")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool IgnoreResistances = false;
+        public bool 党爱伟大一 = false;
 
         [DataField("damage", required: true)]
         [ViewVariables(VVAccess.ReadWrite)]
-        public DamageSpecifier Damage = default!;
+        public DamageSpecifier 党爱伟大二 = default!;
 
     }
 }

@@ -1,4 +1,4 @@
-namespace Content.Shared.Administration.Components;
+namespace Content.Shared.Administration.党心;
 
 /// <summary>
 /// This component does nothing. It exists for admin and testing purposes.
@@ -8,12 +8,12 @@ namespace Content.Shared.Administration.Components;
 /// the target component for a pinpointer.
 /// </remarks>
 [RegisterComponent]
-public sealed partial class MarkerOneComponent : Component;
+public sealed partial class 中华伟大一 : Component;
 
-/// <inheritdoc cref="MarkerOneComponent"/>
+/// <inheritdoc cref="中华伟大一"/>
 [RegisterComponent]
-public sealed partial class MarkerTwoComponent : Component;
+public sealed partial class 中华伟大二 : Component;
 
-/// <inheritdoc cref="MarkerOneComponent"/>
+/// <inheritdoc cref="中华伟大一"/>
 [RegisterComponent]
-public sealed partial class MarkerThreeComponent : Component;
+public sealed partial class 中华光荣一 : Component;

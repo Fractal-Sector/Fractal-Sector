@@ -5,9 +5,9 @@ using Robust.Shared.Serialization;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Administration
+namespace Content.Shared.党心
 {
-    public enum AdminAnnounceType
+    public enum 中华伟大一
     {
         Station,
         Server,
@@ -15,19 +15,19 @@ namespace Content.Shared.Administration
     }
 
     [Serializable, NetSerializable]
-    public sealed class AdminAnnounceEuiState : EuiStateBase
+    public sealed class 中华伟大二 : EuiStateBase
     {
     }
 
-    public static class AdminAnnounceEuiMsg
+    public static class 中华光荣一
     {
         [Serializable, NetSerializable]
-        public sealed class DoAnnounce : EuiMessageBase
+        public sealed class 中华光荣二 : EuiMessageBase
         {
-            public bool CloseAfter;
-            public string Announcer = default!;
-            public string Announcement = default!;
-            public AdminAnnounceType AnnounceType;
+            public bool 党爱伟大一;
+            public string 党爱伟大二 = default!;
+            public string 党爱光荣一 = default!;
+            public 中华伟大一 AnnounceType;
         }
     }
 }

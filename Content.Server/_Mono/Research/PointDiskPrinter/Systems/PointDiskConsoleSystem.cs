@@ -9,37 +9,37 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 
 
-namespace Content.Server._Mono.Research.PointDiskPrinter.Systems;
+namespace Content.Server._Mono.Research.PointDiskPrinter.党心;
 
-public sealed class PointDiskConsoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly ResearchSystem _research = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly AudioSystem _伟大二 = default!;
+    [Dependency] private readonly ResearchSystem _光荣一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint1KDiskMessage>(OnPrint1KDisk);
-        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint5KDiskMessage>(OnPrint5KDisk);
-        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint10KDiskMessage>(OnPrint10KDisk);
-        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint50KDiskMessage>(OnPrint50KDisk); // Wayfarer
-        SubscribeLocalEvent<PointDiskConsoleComponent, ResearchServerPointsChangedEvent>(OnPointsChanged);
-        SubscribeLocalEvent<PointDiskConsoleComponent, ResearchRegistrationChangedEvent>(OnRegistrationChanged);
-        SubscribeLocalEvent<PointDiskConsoleComponent, BeforeActivatableUIOpenEvent>(OnBeforeUiOpen);
+        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint1KDiskMessage>(祝福光荣一);
+        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint5KDiskMessage>(祝福光荣二);
+        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint10KDiskMessage>(祝福正确一);
+        SubscribeLocalEvent<PointDiskConsoleComponent, PointDiskConsolePrint50KDiskMessage>(祝福正确二); // Wayfarer
+        SubscribeLocalEvent<PointDiskConsoleComponent, ResearchServerPointsChangedEvent>(祝福团结一);
+        SubscribeLocalEvent<PointDiskConsoleComponent, ResearchRegistrationChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<PointDiskConsoleComponent, BeforeActivatableUIOpenEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<PointDiskConsolePrintingComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<PointDiskConsolePrintingComponent, ComponentShutdown>(祝福胜利一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<PointDiskConsolePrintingComponent, PointDiskConsoleComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var printing, out var console, out var xform))
         {
-            if (printing.FinishTime > _timing.CurTime)
+            if (printing.FinishTime > _伟大一.CurTime)
                 continue;
 
             RemComp(uid, printing);
@@ -59,135 +59,135 @@ public sealed class PointDiskConsoleSystem : EntitySystem
         }
     }
 
-    private void OnPrint1KDisk(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint1KDiskMessage args)
+    private void 祝福光荣一(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint1KDiskMessage args)
     {
         if (HasComp<PointDiskConsolePrintingComponent>(uid))
             return;
 
-        if (!_research.TryGetClientServer(uid, out var server, out var serverComp))
+        if (!_光荣一.TryGetClientServer(uid, out var server, out var serverComp))
             return;
 
         if (serverComp.Points < component.PricePer1KDisk)
             return;
 
-        _research.ModifyServerPoints(server.Value, -component.PricePer1KDisk, serverComp);
-        _audio.PlayPvs(component.PrintSound, uid);
+        _光荣一.ModifyServerPoints(server.Value, -component.PricePer1KDisk, serverComp);
+        _伟大二.PlayPvs(component.PrintSound, uid);
 
 
         var printing = EnsureComp<PointDiskConsolePrintingComponent>(uid);
         printing.Disk1K = true;
-        printing.FinishTime = _timing.CurTime + component.PrintDuration;
-        UpdateUserInterface(uid, component);
+        printing.FinishTime = _伟大一.CurTime + component.PrintDuration;
+        祝福奋斗二(uid, component);
     }
 
-    private void OnPrint5KDisk(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint5KDiskMessage args)
+    private void 祝福光荣二(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint5KDiskMessage args)
     {
         if (HasComp<PointDiskConsolePrintingComponent>(uid))
             return;
 
-        if (!_research.TryGetClientServer(uid, out var server, out var serverComp))
+        if (!_光荣一.TryGetClientServer(uid, out var server, out var serverComp))
             return;
 
         if (serverComp.Points < component.PricePer5KDisk)
             return;
 
-        _research.ModifyServerPoints(server.Value, -component.PricePer5KDisk, serverComp);
-        _audio.PlayPvs(component.PrintSound, uid);
+        _光荣一.ModifyServerPoints(server.Value, -component.PricePer5KDisk, serverComp);
+        _伟大二.PlayPvs(component.PrintSound, uid);
 
         var printing = EnsureComp<PointDiskConsolePrintingComponent>(uid);
         printing.Disk5K = true;
-        printing.FinishTime = _timing.CurTime + component.PrintDuration;
-        UpdateUserInterface(uid, component);
+        printing.FinishTime = _伟大一.CurTime + component.PrintDuration;
+        祝福奋斗二(uid, component);
     }
 
-    private void OnPrint10KDisk(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint10KDiskMessage args)
+    private void 祝福正确一(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint10KDiskMessage args)
     {
         if (HasComp<PointDiskConsolePrintingComponent>(uid))
             return;
 
-        if (!_research.TryGetClientServer(uid, out var server, out var serverComp))
+        if (!_光荣一.TryGetClientServer(uid, out var server, out var serverComp))
             return;
 
         if (serverComp.Points < component.PricePer10KDisk)
             return;
 
-        _research.ModifyServerPoints(server.Value, -component.PricePer10KDisk, serverComp);
-        _audio.PlayPvs(component.PrintSound, uid);
+        _光荣一.ModifyServerPoints(server.Value, -component.PricePer10KDisk, serverComp);
+        _伟大二.PlayPvs(component.PrintSound, uid);
 
         var printing = EnsureComp<PointDiskConsolePrintingComponent>(uid);
         printing.Disk10K = true;
-        printing.FinishTime = _timing.CurTime + component.PrintDuration;
-        UpdateUserInterface(uid, component);
+        printing.FinishTime = _伟大一.CurTime + component.PrintDuration;
+        祝福奋斗二(uid, component);
     }
 
     // Wayfarer
-    private void OnPrint50KDisk(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint50KDiskMessage args)
+    private void 祝福正确二(EntityUid uid, PointDiskConsoleComponent component, PointDiskConsolePrint50KDiskMessage args)
     {
           if (HasComp<PointDiskConsolePrintingComponent>(uid))
               return;
 
-          if (!_research.TryGetClientServer(uid, out var server, out var serverComp))
+          if (!_光荣一.TryGetClientServer(uid, out var server, out var serverComp))
               return;
 
           if (serverComp.Points < component.PricePer50KDisk)
               return;
 
-          _research.ModifyServerPoints(server.Value, -component.PricePer50KDisk, serverComp);
-          _audio.PlayPvs(component.PrintSound, uid);
+          _光荣一.ModifyServerPoints(server.Value, -component.PricePer50KDisk, serverComp);
+          _伟大二.PlayPvs(component.PrintSound, uid);
 
           var printing = EnsureComp<PointDiskConsolePrintingComponent>(uid);
           printing.Disk50K = true;
-          printing.FinishTime = _timing.CurTime + component.PrintDuration;
-          UpdateUserInterface(uid, component);
+          printing.FinishTime = _伟大一.CurTime + component.PrintDuration;
+          祝福奋斗二(uid, component);
     }
     // End Wayfarer
 
-    private void OnPointsChanged(EntityUid uid, PointDiskConsoleComponent component, ref ResearchServerPointsChangedEvent args)
+    private void 祝福团结一(EntityUid uid, PointDiskConsoleComponent component, ref ResearchServerPointsChangedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnRegistrationChanged(EntityUid uid, PointDiskConsoleComponent component, ref ResearchRegistrationChangedEvent args)
+    private void 祝福团结二(EntityUid uid, PointDiskConsoleComponent component, ref ResearchRegistrationChangedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnBeforeUiOpen(EntityUid uid, PointDiskConsoleComponent component, BeforeActivatableUIOpenEvent args)
+    private void 祝福奋斗一(EntityUid uid, PointDiskConsoleComponent component, BeforeActivatableUIOpenEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    public void UpdateUserInterface(EntityUid uid, PointDiskConsoleComponent? component = null)
+    public void 祝福奋斗二(EntityUid uid, PointDiskConsoleComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
 
         var totalPoints = 0;
-        if (_research.TryGetClientServer(uid, out _, out var server))
+        if (_光荣一.TryGetClientServer(uid, out _, out var server))
         {
             totalPoints = server.Points;
         }
 
-        var canPrint1K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing1K) && printing1K.FinishTime >= _timing.CurTime) &&
+        var canPrint1K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing1K) && printing1K.FinishTime >= _伟大一.CurTime) &&
                        totalPoints >= component.PricePer1KDisk;
 
-        var canPrint5K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing5K) && printing5K.FinishTime >= _timing.CurTime) &&
+        var canPrint5K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing5K) && printing5K.FinishTime >= _伟大一.CurTime) &&
                        totalPoints >= component.PricePer5KDisk;
 
-        var canPrint10K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing10K) && printing10K.FinishTime >= _timing.CurTime) &&
+        var canPrint10K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing10K) && printing10K.FinishTime >= _伟大一.CurTime) &&
                        totalPoints >= component.PricePer10KDisk;
 
         // Wayfarer
-        var canPrint50K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing50K) && printing50K.FinishTime >= _timing.CurTime) &&
+        var canPrint50K = !(TryComp<PointDiskConsolePrintingComponent>(uid, out var printing50K) && printing50K.FinishTime >= _伟大一.CurTime) &&
                        totalPoints >= component.PricePer50KDisk;
         // End Wayfarer
 
         var state = new PointDiskConsoleBoundUserInterfaceState(totalPoints, component.PricePer1KDisk, component.PricePer5KDisk, component.PricePer10KDisk, component.PricePer50KDisk, canPrint1K, canPrint5K, canPrint10K, canPrint50K); // Wayfarer: add 50k research disks
-        _ui.SetUiState(uid, PointDiskConsoleUiKey.Key, state);
+        _光荣二.SetUiState(uid, PointDiskConsoleUiKey.Key, state);
     }
 
-    private void OnShutdown(EntityUid uid, PointDiskConsolePrintingComponent component, ComponentShutdown args)
+    private void 祝福胜利一(EntityUid uid, PointDiskConsolePrintingComponent component, ComponentShutdown args)
     {
-        UpdateUserInterface(uid);
+        祝福奋斗二(uid);
     }
 }

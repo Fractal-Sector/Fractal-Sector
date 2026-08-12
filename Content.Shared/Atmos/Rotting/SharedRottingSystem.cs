@@ -7,36 +7,36 @@ using Content.Shared.Rejuvenate;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Atmos.Rotting;
+namespace Content.Shared.Atmos.党心;
 
-public abstract class SharedRottingSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] protected readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] protected readonly MobStateSystem 党爱伟大一 = default!;
 
-    public const int MaxStages = 3;
+    public const int 党爱伟大二 = 3;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PerishableComponent, MapInitEvent>(OnPerishableMapInit);
-        SubscribeLocalEvent<PerishableComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<PerishableComponent, ExaminedEvent>(OnPerishableExamined);
+        SubscribeLocalEvent<PerishableComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<PerishableComponent, MobStateChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<PerishableComponent, ExaminedEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<RottingComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<RottingComponent, MobStateChangedEvent>(OnRottingMobStateChanged);
-        SubscribeLocalEvent<RottingComponent, RejuvenateEvent>(OnRejuvenate);
-        SubscribeLocalEvent<RottingComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<RottingComponent, ComponentShutdown>(祝福正确一);
+        SubscribeLocalEvent<RottingComponent, MobStateChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<RottingComponent, RejuvenateEvent>(祝福团结一);
+        SubscribeLocalEvent<RottingComponent, ExaminedEvent>(祝福团结二);
     }
 
-    private void OnPerishableMapInit(EntityUid uid, PerishableComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, PerishableComponent component, MapInitEvent args)
     {
-        component.RotNextUpdate = _timing.CurTime + component.PerishUpdateRate;
+        component.RotNextUpdate = _伟大一.CurTime + component.PerishUpdateRate;
     }
 
-    private void OnMobStateChanged(EntityUid uid, PerishableComponent component, MobStateChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, PerishableComponent component, MobStateChangedEvent args)
     {
         if (args.NewMobState != MobState.Dead && args.OldMobState != MobState.Dead)
             return;
@@ -45,13 +45,13 @@ public abstract class SharedRottingSystem : EntitySystem
             return;
 
         component.RotAccumulator = TimeSpan.Zero;
-        component.RotNextUpdate = _timing.CurTime + component.PerishUpdateRate;
+        component.RotNextUpdate = _伟大一.CurTime + component.PerishUpdateRate;
     }
 
-    private void OnPerishableExamined(Entity<PerishableComponent> perishable, ref ExaminedEvent args)
+    private void 祝福光荣二(Entity<PerishableComponent> perishable, ref ExaminedEvent args)
     {
-        int stage = PerishStage(perishable, MaxStages);
-        if (stage < 1 || stage > MaxStages)
+        int stage = 祝福奋斗一(perishable, 党爱伟大二);
+        if (stage < 1 || stage > 党爱伟大二)
         {
             // We dont push an examined string if it hasen't started "perishing" or it's already rotting
             return;
@@ -62,7 +62,7 @@ public abstract class SharedRottingSystem : EntitySystem
         args.PushMarkup(Loc.GetString(description, ("target", Identity.Entity(perishable, EntityManager))));
     }
 
-    private void OnShutdown(EntityUid uid, RottingComponent component, ComponentShutdown args)
+    private void 祝福正确一(EntityUid uid, RottingComponent component, ComponentShutdown args)
     {
         if (TryComp<PerishableComponent>(uid, out var perishable))
         {
@@ -70,21 +70,21 @@ public abstract class SharedRottingSystem : EntitySystem
         }
     }
 
-    private void OnRottingMobStateChanged(EntityUid uid, RottingComponent component, MobStateChangedEvent args)
+    private void 祝福正确二(EntityUid uid, RottingComponent component, MobStateChangedEvent args)
     {
         if (args.NewMobState == MobState.Dead)
             return;
         RemCompDeferred(uid, component);
     }
 
-    private void OnRejuvenate(EntityUid uid, RottingComponent component, RejuvenateEvent args)
+    private void 祝福团结一(EntityUid uid, RottingComponent component, RejuvenateEvent args)
     {
         RemCompDeferred<RottingComponent>(uid);
     }
 
-    private void OnExamined(EntityUid uid, RottingComponent component, ExaminedEvent args)
+    private void 祝福团结二(EntityUid uid, RottingComponent component, ExaminedEvent args)
     {
-        var stage = RotStage(uid, component);
+        var stage = 祝福繁荣一(uid, component);
         var description = stage switch
         {
             >= 2 => "rotting-extremely-bloated",
@@ -102,14 +102,14 @@ public abstract class SharedRottingSystem : EntitySystem
     /// Return an integer from 0 to maxStage representing how close to rotting an entity is. Used to
     /// generate examine messages for items that are starting to rot.
     /// </summary>
-    public int PerishStage(Entity<PerishableComponent> perishable, int maxStages)
+    public int 祝福奋斗一(Entity<PerishableComponent> perishable, int maxStages)
     {
         if (perishable.Comp.RotAfter.TotalSeconds == 0 || perishable.Comp.RotAccumulator.TotalSeconds == 0)
             return 0;
         return (int)(1 + maxStages * perishable.Comp.RotAccumulator.TotalSeconds / perishable.Comp.RotAfter.TotalSeconds);
     }
 
-    public bool IsRotProgressing(EntityUid uid, PerishableComponent? perishable)
+    public bool 祝福奋斗二(EntityUid uid, PerishableComponent? perishable)
     {
         // things don't perish by default.
         if (!Resolve(uid, ref perishable, false))
@@ -120,10 +120,10 @@ public abstract class SharedRottingSystem : EntitySystem
             return true;
 
         // only dead things or inanimate objects can rot
-        if (TryComp<MobStateComponent>(uid, out var mobState) && !_mobState.IsDead(uid, mobState))
+        if (TryComp<MobStateComponent>(uid, out var mobState) && !党爱伟大一.IsDead(uid, mobState))
             return false;
 
-        if (_container.TryGetOuterContainer(uid, Transform(uid), out var container) &&
+        if (_伟大二.TryGetOuterContainer(uid, Transform(uid), out var container) &&
             HasComp<AntiRottingContainerComponent>(container.Owner))
         {
             return false;
@@ -135,12 +135,12 @@ public abstract class SharedRottingSystem : EntitySystem
         return !ev.Handled;
     }
 
-    public bool IsRotten(EntityUid uid, RottingComponent? rotting = null)
+    public bool 祝福胜利一(EntityUid uid, RottingComponent? rotting = null)
     {
         return Resolve(uid, ref rotting, false);
     }
 
-    public void ReduceAccumulator(EntityUid uid, TimeSpan time)
+    public void 祝福胜利二(EntityUid uid, TimeSpan time)
     {
         if (!TryComp<PerishableComponent>(uid, out var perishable))
             return;
@@ -165,7 +165,7 @@ public abstract class SharedRottingSystem : EntitySystem
     /// <summary>
     /// Return the rot stage, usually from 0 to 2 inclusive.
     /// </summary>
-    public int RotStage(EntityUid uid, RottingComponent? comp = null, PerishableComponent? perishable = null)
+    public int 祝福繁荣一(EntityUid uid, RottingComponent? comp = null, PerishableComponent? perishable = null)
     {
         if (!Resolve(uid, ref comp, ref perishable))
             return 0;

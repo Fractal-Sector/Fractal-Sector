@@ -1,8 +1,8 @@
 ﻿using Content.Shared.Actions;
 
-namespace Content.Shared.VoiceMask;
+namespace Content.Shared.党心;
 
-public sealed partial class VoiceMaskSetNameEvent : InstantActionEvent
+public sealed partial class 中华伟大一 : InstantActionEvent
 {
 }
 

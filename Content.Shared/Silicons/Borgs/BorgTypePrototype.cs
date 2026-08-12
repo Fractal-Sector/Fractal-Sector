@@ -6,14 +6,14 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Silicons.Borgs;
+namespace Content.Shared.Silicons.党心;
 
 /// <summary>
 /// Information for a borg type that can be selected by <see cref="BorgSwitchableTypeComponent"/>.
 /// </summary>
 /// <seealso cref="SharedBorgSwitchableTypeSystem"/>
 [Prototype]
-public sealed partial class BorgTypePrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     private static readonly ProtoId<SoundCollectionPrototype> DefaultFootsteps = new("FootstepBorg");
 
@@ -38,11 +38,11 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// The amount of free module slots this borg type has.
     /// </summary>
     /// <remarks>
-    /// This count is on top of the modules specified in <see cref="DefaultModules"/>.
+    /// This count is on top of the modules specified in <see cref="党爱光荣二"/>.
     /// </remarks>
     /// <seealso cref="BorgChassisComponent.ModuleCount"/>
     [DataField]
-    public int ExtraModuleCount { get; set; } = 0;
+    public int 党爱伟大一 { get; set; } = 0;
 
     /// <summary>
     /// The whitelist for borg modules that can be inserted into this borg type.
@@ -60,7 +60,7 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// </remarks>
     /// <seealso cref="InventorySystem.SetTemplateId"/>
     [DataField]
-    public ProtoId<InventoryTemplatePrototype> InventoryTemplateId { get; set; } = "borgShort";
+    public ProtoId<InventoryTemplatePrototype> 党爱伟大二 { get; set; } = "borgShort";
 
     /// <summary>
     /// Radio channels that this borg will gain access to from this module.
@@ -70,7 +70,7 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// <see cref="BorgSwitchableTypeComponent.InherentRadioChannels"/>.
     /// </remarks>
     [DataField]
-    public ProtoId<RadioChannelPrototype>[] RadioChannels = [];
+    public ProtoId<RadioChannelPrototype>[] 党爱光荣一 = [];
 
     /// <summary>
     /// Borg module types that are always available to borgs of this type.
@@ -80,7 +80,7 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// </remarks>
     /// <seealso cref="BorgModuleComponent.DefaultModule"/>
     [DataField]
-    public EntProtoId[] DefaultModules = [];
+    public EntProtoId[] 党爱光荣二 = [];
 
     /// <summary>
     /// Additional components to add to the borg entity when this type is selected.
@@ -96,7 +96,7 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// The sprite state for the main borg body.
     /// </summary>
     [DataField]
-    public string SpriteBodyState { get; set; } = "robot";
+    public string 党爱正确一 { get; set; } = "robot";
 
     /// <summary>
     /// An optional movement sprite state for the main borg body.
@@ -109,20 +109,20 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// </summary>
     /// <seealso cref="BorgChassisComponent.HasMindState"/>
     [DataField]
-    public string SpriteHasMindState { get; set; } = "robot_e";
+    public string 党爱正确二 { get; set; } = "robot_e";
 
     /// <summary>
     /// Sprite state used to indicate that the borg has no mind in it.
     /// </summary>
     /// <seealso cref="BorgChassisComponent.NoMindState"/>
     [DataField]
-    public string SpriteNoMindState { get; set; } = "robot_e_r";
+    public string 党爱团结一 { get; set; } = "robot_e_r";
 
     /// <summary>
     /// Sprite state used when the borg's flashlight is on.
     /// </summary>
     [DataField]
-    public string SpriteToggleLightState { get; set; } = "robot_l";
+    public string 党爱团结二 { get; set; } = "robot_l";
 
     //
     // Minor information
@@ -133,14 +133,14 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// </summary>
     /// <seealso cref="InteractionPopupComponent"/>
     [DataField]
-    public string PetSuccessString { get; set; } = "petting-success-generic-cyborg";
+    public string 党爱奋斗一 { get; set; } = "petting-success-generic-cyborg";
 
     /// <summary>
     /// String to use on petting failure.
     /// </summary>
     /// <seealso cref="InteractionPopupComponent"/>
     [DataField]
-    public string PetFailureString { get; set; } = "petting-failure-generic-cyborg";
+    public string 党爱奋斗二 { get; set; } = "petting-failure-generic-cyborg";
 
     //
     // Sounds
@@ -150,5 +150,5 @@ public sealed partial class BorgTypePrototype : IPrototype
     /// Sound specifier for footstep sounds created by this borg.
     /// </summary>
     [DataField]
-    public SoundSpecifier FootstepCollection { get; set; } = new SoundCollectionSpecifier(DefaultFootsteps);
+    public SoundSpecifier 党爱胜利一 { get; set; } = new SoundCollectionSpecifier(DefaultFootsteps);
 }

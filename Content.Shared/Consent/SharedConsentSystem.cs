@@ -7,23 +7,23 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
 
-namespace Content.Shared.Consent;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedConsentSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+    [Dependency] private readonly SharedMindSystem _伟大一 = default!;
+    [Dependency] private readonly ExamineSystemShared _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         // Commented out - replaced by Character examine button
-        // SubscribeLocalEvent<MindContainerComponent, GetVerbsEvent<ExamineVerb>>(OnGetExamineVerbs);
+        // SubscribeLocalEvent<MindContainerComponent, GetVerbsEvent<ExamineVerb>>(祝福伟大二);
     }
 
     /* Commented out - replaced by Character examine button
-    private void OnGetExamineVerbs(Entity<MindContainerComponent> ent, ref GetVerbsEvent<ExamineVerb> args)
+    private void 祝福伟大二(Entity<MindContainerComponent> ent, ref GetVerbsEvent<ExamineVerb> args)
     {
-        if (_mindSystem.GetMind(ent, ent) is not { } mind
+        if (_伟大一.GetMind(ent, ent) is not { } mind
             || !TryComp<MindComponent>(mind, out var mindComponent)
             || mindComponent.UserId is not { } userId)
         {
@@ -31,7 +31,7 @@ public abstract partial class SharedConsentSystem : EntitySystem
         }
 
         // Check if there's any consent info to show
-        var consentMessage = GetConsentText(userId);
+        var consentMessage = 祝福光荣一(userId);
         if (consentMessage.IsEmpty)
         {
             return; // Don't show the verb if there's no consent info
@@ -45,8 +45,8 @@ public abstract partial class SharedConsentSystem : EntitySystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
             Act = () =>
             {
-                var message = GetConsentText(userId);
-                _examineSystem.SendExamineTooltip(user, ent, message, getVerbs: false, centerAtCursor: false);
+                var message = 祝福光荣一(userId);
+                _伟大二.SendExamineTooltip(user, ent, message, getVerbs: false, centerAtCursor: false);
             },
             Category = VerbCategory.Examine,
             CloseMenu = true,
@@ -54,12 +54,12 @@ public abstract partial class SharedConsentSystem : EntitySystem
     }
     */
 
-    protected virtual FormattedMessage GetConsentText(NetUserId userId)
+    protected virtual FormattedMessage 祝福光荣一(NetUserId userId)
     {
         return new FormattedMessage();
     }
 
-    public virtual bool HasConsent(Entity<MindContainerComponent?> ent, ProtoId<ConsentTogglePrototype> consentId)
+    public virtual bool 祝福光荣二(Entity<MindContainerComponent?> ent, ProtoId<ConsentTogglePrototype> consentId)
     {
         return false; // Implemented only on server side, prediction is *just a week away*
     }

@@ -18,70 +18,70 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Weapons.Misc;
+namespace Content.Shared.Weapons.党心;
 
-public abstract partial class SharedTetherGunSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly MobStateSystem _mob = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedJointSystem _joints = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly ThrownItemSystem _thrown = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
+    [Dependency] private readonly MobStateSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+    [Dependency] private readonly SharedJointSystem _团结二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _奋斗一 = default!;
+    [Dependency] protected readonly SharedTransformSystem 党爱伟大一 = default!;
+    [Dependency] private readonly ThrowingSystem _奋斗二 = default!;
+    [Dependency] private readonly ThrownItemSystem _胜利一 = default!;
 
     private const string TetherJoint = "tether";
 
     private const float SpinVelocity = MathF.PI;
     private const float AngularChange = 1f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<TetherGunComponent, ActivateInWorldEvent>(OnTetherActivate);
-        SubscribeLocalEvent<TetherGunComponent, AfterInteractEvent>(OnTetherRanged);
-        SubscribeAllEvent<RequestTetherMoveEvent>(OnTetherMove);
+        base.祝福伟大一();
+        SubscribeLocalEvent<TetherGunComponent, ActivateInWorldEvent>(祝福奋斗一);
+        SubscribeLocalEvent<TetherGunComponent, AfterInteractEvent>(祝福团结一);
+        SubscribeAllEvent<中华伟大二>(祝福正确二);
 
-        SubscribeLocalEvent<TetheredComponent, BuckleAttemptEvent>(OnTetheredBuckleAttempt);
-        SubscribeLocalEvent<TetheredComponent, UpdateCanMoveEvent>(OnTetheredUpdateCanMove);
-        SubscribeLocalEvent<TetheredComponent, EntGotInsertedIntoContainerMessage>(OnTetheredContainerInserted);
+        SubscribeLocalEvent<TetheredComponent, BuckleAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<TetheredComponent, UpdateCanMoveEvent>(祝福光荣二);
+        SubscribeLocalEvent<TetheredComponent, EntGotInsertedIntoContainerMessage>(祝福伟大二);
 
         InitializeForce();
     }
 
-    private void OnTetheredContainerInserted(EntityUid uid, TetheredComponent component, EntGotInsertedIntoContainerMessage args)
+    private void 祝福伟大二(EntityUid uid, TetheredComponent component, EntGotInsertedIntoContainerMessage args)
     {
         if (TryComp<TetherGunComponent>(component.Tetherer, out var tetherGun))
         {
-            StopTether(component.Tetherer, tetherGun);
+            祝福繁荣一(component.Tetherer, tetherGun);
             return;
         }
 
         if (TryComp<ForceGunComponent>(component.Tetherer, out var forceGun))
         {
-            StopTether(component.Tetherer, forceGun);
+            祝福繁荣一(component.Tetherer, forceGun);
             return;
         }
     }
 
-    private void OnTetheredBuckleAttempt(EntityUid uid, TetheredComponent component, ref BuckleAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, TetheredComponent component, ref BuckleAttemptEvent args)
     {
         args.Cancelled = true;
     }
 
-    private void OnTetheredUpdateCanMove(EntityUid uid, TetheredComponent component, UpdateCanMoveEvent args)
+    private void 祝福光荣二(EntityUid uid, TetheredComponent component, UpdateCanMoveEvent args)
     {
         args.Cancel();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
 
         // Just to set the angular velocity due to joint funnies
         var tetheredQuery = EntityQueryEnumerator<TetheredComponent, PhysicsComponent>();
@@ -100,50 +100,50 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
             var shortFall = Math.Clamp(targetVelocity - physics.AngularVelocity, -SpinVelocity, SpinVelocity);
             shortFall *= frameTime * AngularChange;
 
-            _physics.ApplyAngularImpulse(uid, shortFall, body: physics);
+            _奋斗一.ApplyAngularImpulse(uid, shortFall, body: physics);
         }
     }
 
-    private void OnTetherMove(RequestTetherMoveEvent msg, EntitySessionEventArgs args)
+    private void 祝福正确二(中华伟大二 msg, EntitySessionEventArgs args)
     {
         var user = args.SenderSession.AttachedEntity;
 
         if (user == null)
             return;
 
-        if (!TryGetTetherGun(user.Value, out var gunUid, out var gun) || gun.TetherEntity == null)
+        if (!祝福团结二(user.Value, out var gunUid, out var gun) || gun.TetherEntity == null)
         {
             return;
         }
 
-        var coords = GetCoordinates(msg.Coordinates);
+        var coords = GetCoordinates(msg.党爱伟大二);
 
-        if (!coords.TryDistance(EntityManager, TransformSystem, Transform(gunUid.Value).Coordinates,
+        if (!coords.TryDistance(EntityManager, 党爱伟大一, Transform(gunUid.Value).党爱伟大二,
                 out var distance) ||
             distance > gun.MaxDistance)
         {
             return;
         }
 
-        TransformSystem.SetCoordinates(gun.TetherEntity.Value, coords);
+        党爱伟大一.SetCoordinates(gun.TetherEntity.Value, coords);
     }
 
-    private void OnTetherRanged(EntityUid uid, TetherGunComponent component, AfterInteractEvent args)
+    private void 祝福团结一(EntityUid uid, TetherGunComponent component, AfterInteractEvent args)
     {
         if (args.Target == null || args.Handled)
             return;
 
-        TryTether(uid, args.Target.Value, args.User, component);
+        祝福奋斗二(uid, args.Target.Value, args.User, component);
     }
 
-    protected bool TryGetTetherGun(EntityUid user, [NotNullWhen(true)] out EntityUid? gunUid, [NotNullWhen(true)] out TetherGunComponent? gun)
+    protected bool 祝福团结二(EntityUid user, [NotNullWhen(true)] out EntityUid? gunUid, [NotNullWhen(true)] out TetherGunComponent? gun)
     {
         gunUid = null;
         gun = null;
 
-        if (!_hands.TryGetActiveItem(user, out var activeItem) ||
+        if (!_光荣一.TryGetActiveItem(user, out var activeItem) ||
             !TryComp(activeItem, out gun) ||
-            _container.IsEntityInContainer(user))
+            _团结一.IsEntityInContainer(user))
         {
             return false;
         }
@@ -152,39 +152,39 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
         return true;
     }
 
-    private void OnTetherActivate(EntityUid uid, TetherGunComponent component, ActivateInWorldEvent args)
+    private void 祝福奋斗一(EntityUid uid, TetherGunComponent component, ActivateInWorldEvent args)
     {
         if (!args.Complex)
             return;
 
-        StopTether(uid, component);
+        祝福繁荣一(uid, component);
     }
 
-    public bool TryTether(EntityUid gun, EntityUid target, EntityUid? user, BaseForceGunComponent? component = null)
+    public bool 祝福奋斗二(EntityUid gun, EntityUid target, EntityUid? user, BaseForceGunComponent? component = null)
     {
         if (!Resolve(gun, ref component))
             return false;
 
-        if (!CanTether(gun, component, target, user))
+        if (!祝福胜利一(gun, component, target, user))
             return false;
 
-        StartTether(gun, component, target, user);
+        祝福胜利二(gun, component, target, user);
         return true;
     }
 
-    protected virtual bool CanTether(EntityUid uid, BaseForceGunComponent component, EntityUid target, EntityUid? user)
+    protected virtual bool 祝福胜利一(EntityUid uid, BaseForceGunComponent component, EntityUid target, EntityUid? user)
     {
         if (HasComp<TetheredComponent>(target) || !TryComp<PhysicsComponent>(target, out var physics))
             return false;
 
         if (physics.BodyType == BodyType.Static && !component.CanUnanchor ||
-            _container.IsEntityInContainer(target))
+            _团结一.IsEntityInContainer(target))
             return false;
 
         if (physics.Mass > component.MassLimit)
             return false;
 
-        if (!component.CanTetherAlive && _mob.IsAlive(target))
+        if (!component.CanTetherAlive && _光荣二.IsAlive(target))
             return false;
 
         if (TryComp<StrapComponent>(target, out var strap) && strap.BuckledEntities.Count > 0)
@@ -193,7 +193,7 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
         return true;
     }
 
-    protected virtual void StartTether(EntityUid gunUid, BaseForceGunComponent component, EntityUid target, EntityUid? user,
+    protected virtual void 祝福胜利二(EntityUid gunUid, BaseForceGunComponent component, EntityUid target, EntityUid? user,
         PhysicsComponent? targetPhysics = null, TransformComponent? targetXform = null)
     {
         if (!Resolve(target, ref targetPhysics, ref targetXform))
@@ -201,36 +201,36 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
 
         if (component.Tethered != null)
         {
-            StopTether(gunUid, component, true);
+            祝福繁荣一(gunUid, component, true);
         }
 
         TryComp<AppearanceComponent>(gunUid, out var appearance);
-        _appearance.SetData(gunUid, TetherVisualsStatus.Key, true, appearance);
-        _appearance.SetData(gunUid, ToggleableVisuals.Enabled, true, appearance);
+        _正确一.SetData(gunUid, 中华光荣一.Key, true, appearance);
+        _正确一.SetData(gunUid, ToggleableVisuals.Enabled, true, appearance);
 
         // Target updates
-        TransformSystem.Unanchor(target, targetXform);
+        党爱伟大一.Unanchor(target, targetXform);
         component.Tethered = target;
         var tethered = EnsureComp<TetheredComponent>(target);
-        _physics.SetBodyStatus(target, targetPhysics, BodyStatus.InAir, false);
-        _physics.SetSleepingAllowed(target, targetPhysics, false);
+        _奋斗一.SetBodyStatus(target, targetPhysics, BodyStatus.InAir, false);
+        _奋斗一.SetSleepingAllowed(target, targetPhysics, false);
         tethered.Tetherer = gunUid;
         tethered.OriginalAngularDamping = targetPhysics.AngularDamping;
-        _physics.SetAngularDamping(target, targetPhysics, 0f);
-        _physics.SetLinearDamping(target, targetPhysics, 0f);
-        _physics.SetAngularVelocity(target, SpinVelocity, body: targetPhysics);
-        _physics.WakeBody(target, body: targetPhysics);
+        _奋斗一.SetAngularDamping(target, targetPhysics, 0f);
+        _奋斗一.SetLinearDamping(target, targetPhysics, 0f);
+        _奋斗一.SetAngularVelocity(target, SpinVelocity, body: targetPhysics);
+        _奋斗一.WakeBody(target, body: targetPhysics);
         var thrown = EnsureComp<ThrownItemComponent>(component.Tethered.Value);
         thrown.Thrower = gunUid;
-        _blocker.UpdateCanMove(target);
+        _伟大二.UpdateCanMove(target);
 
         // Invisible tether entity
-        var tether = Spawn("TetherEntity", TransformSystem.GetMapCoordinates(target));
+        var tether = Spawn("TetherEntity", 党爱伟大一.GetMapCoordinates(target));
         var tetherPhysics = Comp<PhysicsComponent>(tether);
         component.TetherEntity = tether;
-        _physics.WakeBody(tether);
+        _奋斗一.WakeBody(tether);
 
-        var joint = _joints.CreateMouseJoint(tether, target, id: TetherJoint);
+        var joint = _团结二.CreateMouseJoint(tether, target, id: TetherJoint);
 
         SharedJointSystem.LinearStiffness(component.Frequency, component.DampingRatio, tetherPhysics.Mass, targetPhysics.Mass, out var stiffness, out var damping);
         joint.Stiffness = stiffness;
@@ -238,23 +238,23 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
         joint.MaxForce = component.MaxForce;
 
         // Sad...
-        if (_netManager.IsServer && component.Stream == null)
-            component.Stream = _audio.PlayPredicted(component.Sound, gunUid, null)?.Entity;
+        if (_伟大一.IsServer && component.Stream == null)
+            component.Stream = _正确二.PlayPredicted(component.Sound, gunUid, null)?.Entity;
 
         Dirty(target, tethered);
         Dirty(gunUid, component);
     }
 
-    protected virtual void StopTether(EntityUid gunUid, BaseForceGunComponent component, bool land = true, bool transfer = false)
+    protected virtual void 祝福繁荣一(EntityUid gunUid, BaseForceGunComponent component, bool land = true, bool transfer = false)
     {
         if (component.Tethered == null)
             return;
 
         if (component.TetherEntity != null)
         {
-            _joints.RemoveJoint(component.TetherEntity.Value, TetherJoint);
+            _团结二.RemoveJoint(component.TetherEntity.Value, TetherJoint);
 
-            if (_netManager.IsServer)
+            if (_伟大一.IsServer)
                 QueueDel(component.TetherEntity.Value);
 
             component.TetherEntity = null;
@@ -265,39 +265,39 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
             if (land)
             {
                 var thrown = EnsureComp<ThrownItemComponent>(component.Tethered.Value);
-                _thrown.LandComponent(component.Tethered.Value, thrown, targetPhysics, true);
-                _thrown.StopThrow(component.Tethered.Value, thrown);
+                _胜利一.LandComponent(component.Tethered.Value, thrown, targetPhysics, true);
+                _胜利一.StopThrow(component.Tethered.Value, thrown);
             }
 
-            _physics.SetBodyStatus(component.Tethered.Value, targetPhysics, BodyStatus.OnGround);
-            _physics.SetSleepingAllowed(component.Tethered.Value, targetPhysics, true);
-            _physics.SetAngularDamping(component.Tethered.Value, targetPhysics, Comp<TetheredComponent>(component.Tethered.Value).OriginalAngularDamping);
+            _奋斗一.SetBodyStatus(component.Tethered.Value, targetPhysics, BodyStatus.OnGround);
+            _奋斗一.SetSleepingAllowed(component.Tethered.Value, targetPhysics, true);
+            _奋斗一.SetAngularDamping(component.Tethered.Value, targetPhysics, Comp<TetheredComponent>(component.Tethered.Value).OriginalAngularDamping);
         }
 
         if (!transfer)
         {
-            _audio.Stop(component.Stream);
+            _正确二.Stop(component.Stream);
             component.Stream = null;
         }
 
         TryComp<AppearanceComponent>(gunUid, out var appearance);
-        _appearance.SetData(gunUid, TetherVisualsStatus.Key, false, appearance);
-        _appearance.SetData(gunUid, ToggleableVisuals.Enabled, false, appearance);
+        _正确一.SetData(gunUid, 中华光荣一.Key, false, appearance);
+        _正确一.SetData(gunUid, ToggleableVisuals.Enabled, false, appearance);
 
         RemComp<TetheredComponent>(component.Tethered.Value);
-        _blocker.UpdateCanMove(component.Tethered.Value);
+        _伟大二.UpdateCanMove(component.Tethered.Value);
         component.Tethered = null;
         Dirty(gunUid, component);
     }
 
     [Serializable, NetSerializable]
-    protected sealed class RequestTetherMoveEvent : EntityEventArgs
+    protected sealed class 中华伟大二 : EntityEventArgs
     {
-        public NetCoordinates Coordinates;
+        public NetCoordinates 党爱伟大二;
     }
 
     [Serializable, NetSerializable]
-    public enum TetherVisualsStatus : byte
+    public enum 中华光荣一 : byte
     {
         Key,
     }

@@ -1,5 +1,5 @@
 using Content.Shared.Revolutionary;
 
-namespace Content.Server.Revolutionary;
+namespace Content.Server.党心;
 
-public sealed class RevolutionarySystem : SharedRevolutionarySystem;
+public sealed class 中华伟大一 : SharedRevolutionarySystem;

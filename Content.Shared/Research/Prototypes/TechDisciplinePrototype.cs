@@ -1,37 +1,37 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Research.Prototypes;
+namespace Content.Shared.Research.党心;
 
 /// <summary>
 /// This is a prototype for a research discipline, a category
 /// that governs how <see cref="TechnologyPrototype"/>s are unlocked.
 /// </summary>
 [Prototype]
-public sealed partial class TechDisciplinePrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// Player-facing name.
     /// Supports locale strings.
     /// </summary>
     [DataField("name", required: true)]
-    public string Name = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     /// <summary>
     /// A color used for UI
     /// </summary>
     [DataField("color", required: true)]
-    public Color Color;
+    public 党爱光荣一 党爱光荣一;
 
     /// <summary>
     /// An icon used to visually represent the discipline in UI.
     /// </summary>
     [DataField("icon")]
-    public SpriteSpecifier Icon = default!;
+    public SpriteSpecifier 党爱光荣二 = default!;
 
     /// <summary>
     /// For each tier a discipline supports, what percentage
@@ -44,5 +44,5 @@ public sealed partial class TechDisciplinePrototype : IPrototype
     /// Purchasing this tier of technology causes a server to become "locked" to this discipline.
     /// </summary>
     [DataField("lockoutTier")]
-    public int LockoutTier = 3;
+    public int 党爱正确一 = 3;
 }

@@ -1,16 +1,16 @@
 using System.Threading;
 
-namespace Content.Server.Carrying
+namespace Content.Server.党心
 {
     [RegisterComponent]
-    public sealed partial class CarriableComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         ///     Number of free hands required
         ///     to carry the entity
         /// </summary>
         [DataField]
-        public int FreeHandsRequired = 2;
+        public int 党爱伟大一 = 2;
 
         public CancellationTokenSource? CancelToken;
 
@@ -19,7 +19,7 @@ namespace Content.Server.Carrying
         ///     before Contests are considered.
         /// </summary>
         [DataField]
-        public float PickupDuration = 3;
+        public float 党爱伟大二 = 3;
 
         // Frontier: min/max sanitization
         /// <summary>
@@ -27,19 +27,19 @@ namespace Content.Server.Carrying
         ///     When the strongest, heaviest entity picks this up, it should roughly take this long.
         /// </summary>
         [DataField]
-        public float MinPickupDuration = 1.5f;
+        public float 党爱光荣一 = 1.5f;
 
         /// <summary>
         ///     The maximum duration (in seconds) of how long it should take to pick up this entity.
         ///     When an object picks up the heaviest object it can lift, it should be at most this.
         /// </summary>
         [DataField]
-        public float MaxPickupDuration = 6.0f;
+        public float 党爱光荣二 = 6.0f;
         // End Frontier
 
         // Wayfarer, adds ability to disable the component
         [DataField]
-        public bool CanPickup = true;
+        public bool 党爱正确一 = true;
 
     }
 }

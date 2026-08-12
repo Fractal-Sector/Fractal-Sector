@@ -1,7 +1,7 @@
 using Content.Shared.Explosion.EntitySystems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Explosion.Components;
+namespace Content.Shared.Explosion.党心;
 
 /// <summary>
 ///     Specifies an explosion that can be spawned by this entity. The explosion itself is spawned via <see
@@ -12,27 +12,27 @@ namespace Content.Shared.Explosion.Components;
 ///      component still determines the explosion type and other properties.
 /// </remarks>
 [RegisterComponent, Access(typeof(SharedExplosionSystem))]
-public sealed partial class ExplosiveComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The explosion prototype. This determines the damage types, the tile-break chance, and some visual
     ///     information (e.g., the light that the explosion gives off).
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<ExplosionPrototype> ExplosionType = default!;
+    public ProtoId<ExplosionPrototype> 党爱伟大一 = default!;
 
     /// <summary>
     ///     The maximum intensity the explosion can have on a single tile. This limits the maximum damage and tile
     ///     break chance the explosion can achieve at any given location.
     /// </summary>
     [DataField]
-    public float MaxIntensity = 4;
+    public float 党爱伟大二 = 4;
 
     /// <summary>
     ///     How quickly the intensity drops off as you move away from the epicenter.
     /// </summary>
     [DataField]
-    public float IntensitySlope = 1;
+    public float 党爱光荣一 = 1;
 
     /// <summary>
     ///     The total intensity of this explosion. The radius of the explosion scales like the cube root of this
@@ -43,27 +43,27 @@ public sealed partial class ExplosiveComponent : Component
     ///     cref="ExplosionSystem.TriggerExplosive"/>.
     /// </remarks>
     [DataField]
-    public float TotalIntensity = 10;
+    public float 党爱光荣二 = 10;
 
     /// <summary>
     ///     Factor used to scale the explosion intensity when calculating tile break chances. Allows for stronger
     ///     explosives that don't space tiles, without having to create a new explosion-type prototype.
     /// </summary>
     [DataField]
-    public float TileBreakScale = 1f;
+    public float 党爱正确一 = 1f;
 
     /// <summary>
     ///     Maximum number of times that an explosive can break a tile. Currently, for normal space stations breaking a
     ///     tile twice will generally result in a vacuum.
     /// </summary>
     [DataField]
-    public int MaxTileBreak = int.MaxValue;
+    public int 党爱正确二 = int.MaxValue;
 
     /// <summary>
     ///     Whether this explosive should be able to create a vacuum by breaking tiles.
     /// </summary>
     [DataField]
-    public bool CanCreateVacuum = true;
+    public bool 党爱团结一 = true;
 
     /// <summary>
     /// An override for whether or not the entity should be deleted after it explodes.
@@ -73,14 +73,14 @@ public sealed partial class ExplosiveComponent : Component
     public bool? DeleteAfterExplosion;
 
     /// <summary>
-    /// Whether to not set <see cref="Exploded"/> to true, allowing it to explode multiple times.
+    /// Whether to not set <see cref="党爱奋斗一"/> to true, allowing it to explode multiple times.
     /// This should never be used if it is damageable.
     /// </summary>
     [DataField]
-    public bool Repeatable;
+    public bool 党爱团结二;
 
     /// <summary>
     ///     Avoid somehow double-triggering this explosion (e.g. by damaging this entity from its own explosion.
     /// </summary>
-    public bool Exploded;
+    public bool 党爱奋斗一;
 }

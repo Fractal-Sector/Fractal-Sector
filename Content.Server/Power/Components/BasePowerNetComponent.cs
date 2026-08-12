@@ -1,13 +1,13 @@
 using Content.Server.Power.NodeGroups;
 
-namespace Content.Server.Power.Components
+namespace Content.Server.Power.党心
 {
-    public interface IBasePowerNetComponent : IBaseNetConnectorComponent<IPowerNet>
+    public interface 中华伟大一 : IBaseNetConnectorComponent<IPowerNet>
     {
 
     }
 
-    public abstract partial class BasePowerNetComponent : BaseNetConnectorComponent<IPowerNet>
+    public abstract partial class 中华伟大二 : BaseNetConnectorComponent<IPowerNet>
     {
     }
 }

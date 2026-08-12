@@ -1,7 +1,7 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.Foldable;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(DeployFoldableSystem))]
-public sealed partial class DeployFoldableComponent : Component;
+public sealed partial class 中华伟大一 : Component;

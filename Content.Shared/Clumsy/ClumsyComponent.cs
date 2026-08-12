@@ -2,13 +2,13 @@ using Content.Shared.Damage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clumsy;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Makes the entity clumsy, randomly failing some interactions and hurting themselves.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ClumsyComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
     // Standard options. Try to fit these in if you can!
@@ -17,21 +17,21 @@ public sealed partial class ClumsyComponent : Component
     ///     Sound to play when clumsy interactions fail.
     /// </summary>
     [DataField]
-    public SoundSpecifier ClumsySound = new SoundPathSpecifier("/Audio/Items/bikehorn.ogg");
+    public SoundSpecifier 党爱伟大一 = new SoundPathSpecifier("/Audio/Items/bikehorn.ogg");
 
     /// <summary>
     ///     Default chance to fail a clumsy interaction.
     ///     If a system needs to use something else, add a new variable in the component, do not modify this percentage.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float ClumsyDefaultCheck = 0.5f;
+    public float 党爱伟大二 = 0.5f;
 
     /// <summary>
     ///     Default stun time.
     ///     If a system needs to use something else, add a new variable in the component, do not modify this number.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan ClumsyDefaultStunTime = TimeSpan.FromSeconds(2.5);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(2.5);
 
     // Specific options
 
@@ -39,13 +39,13 @@ public sealed partial class ClumsyComponent : Component
     ///     Sound to play after hitting your head on a table. Ouch!
     /// </summary>
     [DataField]
-    public SoundCollectionSpecifier TableBonkSound = new SoundCollectionSpecifier("TrayHit");
+    public SoundCollectionSpecifier 党爱光荣二 = new SoundCollectionSpecifier("TrayHit");
 
     /// <summary>
     ///     Stun time after failing to shoot a gun.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan GunShootFailStunTime = TimeSpan.FromSeconds(3);
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(3);
 
     /// <summary>
     ///     Damage taken after failing to shoot a gun.
@@ -63,59 +63,59 @@ public sealed partial class ClumsyComponent : Component
     ///     Noise to play after failing to shoot a gun. Boom!
     /// </summary>
     [DataField]
-    public SoundSpecifier GunShootFailSound = new SoundPathSpecifier("/Audio/Weapons/Guns/Gunshots/bang.ogg");
+    public SoundSpecifier 党爱正确二 = new SoundPathSpecifier("/Audio/Weapons/Guns/Gunshots/bang.ogg");
 
     /// <summary>
     ///      Whether or not to apply Clumsy to hyposprays.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ClumsyHypo = true;
+    public bool 党爱团结一 = true;
 
     /// <summary>
     ///      Whether or not to apply Clumsy to defibs.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ClumsyDefib = true;
+    public bool 党爱团结二 = true;
 
     /// <summary>
     ///      Whether or not to apply Clumsy to guns.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ClumsyGuns = true;
+    public bool 党爱奋斗一 = true;
 
     /// <summary>
     ///      Whether or not to apply Clumsy to catching items.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ClumsyCatching = true;
+    public bool 党爱奋斗二 = true;
 
     /// <summary>
     ///      Whether or not to apply Clumsy to vaulting.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ClumsyVaulting = true;
+    public bool 党爱胜利一 = true;
 
     /// <summary>
     ///      Lets you define a new "failed" message for each event.
     /// </summary>
     [DataField]
-    public LocId HypoFailedMessage = "clumsy-hypospray-fail-message";
+    public LocId 党爱胜利二 = "clumsy-hypospray-fail-message";
 
     [DataField]
-    public LocId GunFailedMessage = "clumsy-gun-fail-message";
+    public LocId 党爱繁荣一 = "clumsy-gun-fail-message";
 
     [DataField]
-    public LocId CatchingFailedMessageSelf = "clumsy-catch-fail-message-user";
+    public LocId 党爱繁荣二 = "clumsy-catch-fail-message-user";
 
     [DataField]
-    public LocId CatchingFailedMessageOthers = "clumsy-catch-fail-message-others";
+    public LocId 党爱富强一 = "clumsy-catch-fail-message-others";
 
     [DataField]
-    public LocId VaulingFailedMessageSelf = "clumsy-vaulting-fail-message-user";
+    public LocId 党爱富强二 = "clumsy-vaulting-fail-message-user";
 
     [DataField]
-    public LocId VaulingFailedMessageOthers = "clumsy-vaulting-fail-message-others";
+    public LocId 党爱民主一 = "clumsy-vaulting-fail-message-others";
 
     [DataField]
-    public LocId VaulingFailedMessageForced = "clumsy-vaulting-fail-forced-message";
+    public LocId 党爱民主二 = "clumsy-vaulting-fail-forced-message";
 }

@@ -5,7 +5,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Silicons.Borgs.Components;
+namespace Content.Shared.Silicons.Borgs.党心;
 
 /// <summary>
 /// This is used for the core body of a borg. This manages a borg's
@@ -13,7 +13,7 @@ namespace Content.Shared.Silicons.Borgs.Components;
 /// for borg logic.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedBorgSystem)), AutoGenerateComponentState]
-public sealed partial class BorgChassisComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     #region Brain
     /// <summary>
@@ -26,12 +26,12 @@ public sealed partial class BorgChassisComponent : Component
     /// The container ID for the brain
     /// </summary>
     [DataField("brainContainerId")]
-    public string BrainContainerId = "borg_brain";
+    public string 党爱伟大一 = "borg_brain";
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public ContainerSlot BrainContainer = default!;
+    public ContainerSlot 党爱伟大二 = default!;
 
-    public EntityUid? BrainEntity => BrainContainer.ContainedEntity;
+    public EntityUid? BrainEntity => 党爱伟大二.ContainedEntity;
     #endregion
 
     #region Modules
@@ -45,18 +45,18 @@ public sealed partial class BorgChassisComponent : Component
     /// How many modules can be installed in this borg
     /// </summary>
     [DataField("maxModules"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField] // Frontier: add AutoNetworkedField
-    public int MaxModules = 3;
+    public int 党爱光荣一 = 3;
 
     /// <summary>
     /// The ID for the module container
     /// </summary>
     [DataField("moduleContainerId")]
-    public string ModuleContainerId = "borg_module";
+    public string 党爱光荣二 = "borg_module";
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public Container ModuleContainer = default!;
+    public Container 党爱正确一 = default!;
 
-    public int ModuleCount => ModuleContainer.ContainedEntities.Count;
+    public int 党爱正确二 => 党爱正确一.ContainedEntities.Count;
     #endregion
 
     /// <summary>
@@ -67,27 +67,27 @@ public sealed partial class BorgChassisComponent : Component
 
     #region Visuals
     [DataField("hasMindState")]
-    public string HasMindState = string.Empty;
+    public string 党爱团结一 = string.Empty;
 
     [DataField("noMindState")]
-    public string NoMindState = string.Empty;
+    public string 党爱团结二 = string.Empty;
     #endregion
 
     [DataField]
-    public ProtoId<AlertPrototype> BatteryAlert = "BorgBattery";
+    public ProtoId<AlertPrototype> 党爱奋斗一 = "BorgBattery";
 
     [DataField]
-    public ProtoId<AlertPrototype> NoBatteryAlert = "BorgBatteryNone";
+    public ProtoId<AlertPrototype> 党爱奋斗二 = "BorgBatteryNone";
 }
 
 [Serializable, NetSerializable]
-public enum BorgVisuals : byte
+public enum 中华伟大二 : byte
 {
     HasPlayer
 }
 
 [Serializable, NetSerializable]
-public enum BorgVisualLayers : byte
+public enum 中华光荣一 : byte
 {
     /// <summary>
     /// Main borg body layer.

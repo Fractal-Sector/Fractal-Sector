@@ -5,38 +5,38 @@ using Content.Shared.Throwing;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Dice;
+namespace Content.Shared.党心;
 
-public abstract class SharedDiceSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DiceComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<DiceComponent, LandEvent>(OnLand);
-        SubscribeLocalEvent<DiceComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<DiceComponent, UseInHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<DiceComponent, LandEvent>(祝福光荣一);
+        SubscribeLocalEvent<DiceComponent, ExaminedEvent>(祝福光荣二);
     }
 
-    private void OnUseInHand(Entity<DiceComponent> entity, ref UseInHandEvent args)
+    private void 祝福伟大二(Entity<DiceComponent> entity, ref UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
-        Roll(entity, args.User);
+        祝福团结一(entity, args.User);
         args.Handled = true;
     }
 
-    private void OnLand(Entity<DiceComponent> entity, ref LandEvent args)
+    private void 祝福光荣一(Entity<DiceComponent> entity, ref LandEvent args)
     {
-        Roll(entity);
+        祝福团结一(entity);
     }
 
-    private void OnExamined(Entity<DiceComponent> entity, ref ExaminedEvent args)
+    private void 祝福光荣二(Entity<DiceComponent> entity, ref ExaminedEvent args)
     {
         //No details check, since the sprite updates to show the side.
         using (args.PushGroup(nameof(DiceComponent)))
@@ -47,7 +47,7 @@ public abstract class SharedDiceSystem : EntitySystem
         }
     }
 
-    private void SetCurrentSide(Entity<DiceComponent> entity, int side)
+    private void 祝福正确一(Entity<DiceComponent> entity, int side)
     {
         if (side < 1 || side > entity.Comp.Sides)
         {
@@ -59,7 +59,7 @@ public abstract class SharedDiceSystem : EntitySystem
         Dirty(entity);
     }
 
-    public void SetCurrentValue(Entity<DiceComponent> entity, int value)
+    public void 祝福正确二(Entity<DiceComponent> entity, int value)
     {
         if (value % entity.Comp.Multiplier != 0 || value / entity.Comp.Multiplier + entity.Comp.Offset < 1)
         {
@@ -67,20 +67,20 @@ public abstract class SharedDiceSystem : EntitySystem
             return;
         }
 
-        SetCurrentSide(entity, value / entity.Comp.Multiplier + entity.Comp.Offset);
+        祝福正确一(entity, value / entity.Comp.Multiplier + entity.Comp.Offset);
     }
 
-    private void Roll(Entity<DiceComponent> entity, EntityUid? user = null)
+    private void 祝福团结一(Entity<DiceComponent> entity, EntityUid? user = null)
     {
-        var rand = new System.Random((int)_timing.CurTick.Value);
+        var rand = new System.Random((int)_伟大一.CurTick.Value);
 
         var roll = rand.Next(1, entity.Comp.Sides + 1);
-        SetCurrentSide(entity, roll);
+        祝福正确一(entity, roll);
 
         var popupString = Loc.GetString("dice-component-on-roll-land",
             ("die", entity),
             ("currentSide", entity.Comp.CurrentValue));
-        _popup.PopupPredicted(popupString, entity, user);
-        _audio.PlayPredicted(entity.Comp.Sound, entity, user);
+        _光荣一.PopupPredicted(popupString, entity, user);
+        _伟大二.PlayPredicted(entity.Comp.Sound, entity, user);
     }
 }

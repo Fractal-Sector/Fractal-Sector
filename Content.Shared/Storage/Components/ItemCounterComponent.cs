@@ -1,7 +1,7 @@
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Whitelist;
 
-namespace Content.Shared.Storage.Components
+namespace Content.Shared.Storage.党心
 {
 
     /// <summary>
@@ -17,10 +17,10 @@ namespace Content.Shared.Storage.Components
     /// </code>
     [RegisterComponent]
     [Access(typeof(SharedItemCounterSystem))]
-    public sealed partial class ItemCounterComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("count", required: true)]
-        public EntityWhitelist Count { get; set; } = default!;
+        public EntityWhitelist 党爱伟大一 { get; set; } = default!;
 
         [DataField("amount")]
         public int? MaxAmount { get; set; }
@@ -30,7 +30,7 @@ namespace Content.Shared.Storage.Components
         /// </summary>
         [DataField("baseLayer")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public string BaseLayer = "";
+        public string 党爱伟大二 = "";
 
         /// <summary>
         /// Determines if the visualizer uses composite or non-composite layers for icons. Defaults to false.
@@ -47,7 +47,7 @@ namespace Content.Shared.Storage.Components
         /// </summary>
         [DataField("composite")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool IsComposite;
+        public bool 党爱光荣一;
 
         /// <summary>
         /// Sprite layers used in counter visualizer. Sprites first in layer correspond to lower stack states
@@ -55,6 +55,6 @@ namespace Content.Shared.Storage.Components
         /// </summary>
         [DataField("layerStates")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public List<string> LayerStates = new();
+        public List<string> 党爱光荣二 = new();
     }
 }

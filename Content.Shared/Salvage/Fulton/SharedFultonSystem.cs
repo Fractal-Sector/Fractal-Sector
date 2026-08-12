@@ -7,64 +7,64 @@ using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱伟大二;
+using Robust.Shared.党爱伟大二.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.Salvage.Fulton;
+namespace Content.Shared.Salvage.党心;
 
 /// <summary>
 /// Provides extraction devices that teleports the attached entity after <see cref="FultonDuration"/> elapses to the linked beacon.
 /// </summary>
-public abstract partial class SharedFultonSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private   readonly MetaDataSystem _metadata = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private   readonly FoldableSystem _foldable = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
-    [Dependency] private   readonly SharedPopupSystem _popup = default!;
-    [Dependency] private   readonly SharedStackSystem _stack = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private   readonly MetaDataSystem _伟大一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱伟大二 = default!;
+    [Dependency] private   readonly SharedDoAfterSystem _伟大二 = default!;
+    [Dependency] private   readonly FoldableSystem _光荣一 = default!;
+    [Dependency] protected readonly SharedContainerSystem 党爱光荣一 = default!;
+    [Dependency] private   readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private   readonly SharedStackSystem _正确一 = default!;
+    [Dependency] protected readonly SharedTransformSystem 党爱光荣二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确二 = default!;
 
-    public static readonly EntProtoId EffectProto = "FultonEffect";
-    protected static readonly Vector2 EffectOffset = Vector2.Zero;
+    public static readonly EntProtoId 党爱正确一 = "FultonEffect";
+    protected static readonly Vector2 党爱正确二 = Vector2.Zero;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<FultonedDoAfterEvent>(OnFultonDoAfter);
+        SubscribeLocalEvent<中华伟大二>(祝福正确二);
 
-        SubscribeLocalEvent<FultonedComponent, GetVerbsEvent<InteractionVerb>>(OnFultonedGetVerbs);
-        SubscribeLocalEvent<FultonedComponent, ExaminedEvent>(OnFultonedExamine);
-        SubscribeLocalEvent<FultonedComponent, EntGotInsertedIntoContainerMessage>(OnFultonContainerInserted);
+        SubscribeLocalEvent<FultonedComponent, GetVerbsEvent<InteractionVerb>>(祝福光荣二);
+        SubscribeLocalEvent<FultonedComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<FultonedComponent, EntGotInsertedIntoContainerMessage>(祝福伟大二);
 
-        SubscribeLocalEvent<FultonComponent, AfterInteractEvent>(OnFultonInteract);
+        SubscribeLocalEvent<FultonComponent, AfterInteractEvent>(祝福团结一);
 
-        SubscribeLocalEvent<FultonComponent, StackSplitEvent>(OnFultonSplit);
+        SubscribeLocalEvent<FultonComponent, StackSplitEvent>(祝福团结二);
     }
 
-    private void OnFultonContainerInserted(EntityUid uid, FultonedComponent component, EntGotInsertedIntoContainerMessage args)
+    private void 祝福伟大二(EntityUid uid, FultonedComponent component, EntGotInsertedIntoContainerMessage args)
     {
         RemCompDeferred<FultonedComponent>(uid);
     }
 
-    private void OnFultonedExamine(EntityUid uid, FultonedComponent component, ExaminedEvent args)
+    private void 祝福光荣一(EntityUid uid, FultonedComponent component, ExaminedEvent args)
     {
-        var remaining = component.NextFulton + _metadata.GetPauseTime(uid) - Timing.CurTime;
+        var remaining = component.NextFulton + _伟大一.GetPauseTime(uid) - 党爱伟大一.CurTime;
         var message = Loc.GetString("fulton-examine", ("time", $"{remaining.TotalSeconds:0.00}"));
 
         args.PushText(message);
     }
 
-    private void OnFultonedGetVerbs(EntityUid uid, FultonedComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福光荣二(EntityUid uid, FultonedComponent component, GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -74,12 +74,12 @@ public abstract partial class SharedFultonSystem : EntitySystem
             Text = Loc.GetString("fulton-remove"),
             Act = () =>
             {
-                Unfulton(uid);
+                祝福正确一(uid);
             }
         });
     }
 
-    private void Unfulton(EntityUid uid, FultonedComponent? component = null)
+    private void 祝福正确一(EntityUid uid, FultonedComponent? component = null)
     {
         if (!Resolve(uid, ref component, false) || !component.Removeable)
             return;
@@ -87,43 +87,43 @@ public abstract partial class SharedFultonSystem : EntitySystem
         RemCompDeferred<FultonedComponent>(uid);
     }
 
-    private void OnFultonDoAfter(FultonedDoAfterEvent args)
+    private void 祝福正确二(中华伟大二 args)
     {
         if (args.Cancelled || args.Target == null || !TryComp<FultonComponent>(args.Used, out var fulton))
             return;
 
-        if (!_stack.Use(args.Used.Value, 1))
+        if (!_正确一.Use(args.Used.Value, 1))
         {
             return;
         }
 
         var fultoned = AddComp<FultonedComponent>(args.Target.Value);
         fultoned.Beacon = fulton.Beacon;
-        fultoned.NextFulton = Timing.CurTime + fulton.FultonDuration;
+        fultoned.NextFulton = 党爱伟大一.CurTime + fulton.FultonDuration;
         fultoned.FultonDuration = fulton.FultonDuration;
         fultoned.Removeable = fulton.Removeable;
-        UpdateAppearance(args.Target.Value, fultoned);
+        祝福奋斗一(args.Target.Value, fultoned);
         Dirty(args.Target.Value, fultoned);
-        Audio.PlayPredicted(fulton.FultonSound, args.Target.Value, args.User);
+        党爱伟大二.PlayPredicted(fulton.FultonSound, args.Target.Value, args.User);
     }
 
-    private void OnFultonInteract(EntityUid uid, FultonComponent component, AfterInteractEvent args)
+    private void 祝福团结一(EntityUid uid, FultonComponent component, AfterInteractEvent args)
     {
         if (args.Target == null || args.Handled || !args.CanReach)
             return;
 
         if (TryComp<FultonBeaconComponent>(args.Target, out var beacon))
         {
-            if (!_foldable.IsFolded(args.Target.Value))
+            if (!_光荣一.IsFolded(args.Target.Value))
             {
                 component.Beacon = args.Target.Value;
-                Audio.PlayPredicted(beacon.LinkSound, uid, args.User);
-                _popup.PopupClient(Loc.GetString("fulton-linked"), uid, args.User);
+                党爱伟大二.PlayPredicted(beacon.LinkSound, uid, args.User);
+                _光荣二.PopupClient(Loc.GetString("fulton-linked"), uid, args.User);
             }
             else
             {
                 component.Beacon = EntityUid.Invalid;
-                _popup.PopupClient(Loc.GetString("fulton-folded"), uid, args.User);
+                _光荣二.PopupClient(Loc.GetString("fulton-folded"), uid, args.User);
             }
 
             return;
@@ -131,26 +131,26 @@ public abstract partial class SharedFultonSystem : EntitySystem
 
         if (Deleted(component.Beacon))
         {
-            _popup.PopupClient(Loc.GetString("fulton-not-found"), uid, args.User);
+            _光荣二.PopupClient(Loc.GetString("fulton-not-found"), uid, args.User);
             return;
         }
 
-        if (!CanApplyFulton(args.Target.Value, component))
+        if (!祝福奋斗二(args.Target.Value, component))
         {
-            _popup.PopupClient(Loc.GetString("fulton-invalid"), uid, uid);
+            _光荣二.PopupClient(Loc.GetString("fulton-invalid"), uid, uid);
             return;
         }
 
         if (HasComp<FultonedComponent>(args.Target))
         {
-            _popup.PopupClient(Loc.GetString("fulton-fultoned"), uid, uid);
+            _光荣二.PopupClient(Loc.GetString("fulton-fultoned"), uid, uid);
             return;
         }
 
         args.Handled = true;
 
-        var ev = new FultonedDoAfterEvent();
-        _doAfter.TryStartDoAfter(
+        var ev = new 中华伟大二();
+        _伟大二.TryStartDoAfter(
             new DoAfterArgs(EntityManager, args.User, component.ApplyFultonDuration, ev, args.Target, args.Target, args.Used)
             {
                 MovementThreshold = 0.5f,
@@ -160,30 +160,30 @@ public abstract partial class SharedFultonSystem : EntitySystem
             });
     }
 
-    private void OnFultonSplit(EntityUid uid, FultonComponent component, ref StackSplitEvent args)
+    private void 祝福团结二(EntityUid uid, FultonComponent component, ref StackSplitEvent args)
     {
         var newFulton = EnsureComp<FultonComponent>(args.NewId);
         newFulton.Beacon = component.Beacon;
         Dirty(args.NewId, newFulton);
     }
 
-    protected virtual void UpdateAppearance(EntityUid uid, FultonedComponent fultoned)
+    protected virtual void 祝福奋斗一(EntityUid uid, FultonedComponent fultoned)
     {
         return;
     }
 
-    protected bool CanApplyFulton(EntityUid targetUid, FultonComponent component)
+    protected bool 祝福奋斗二(EntityUid targetUid, FultonComponent component)
     {
-        if (!CanFulton(targetUid))
+        if (!祝福胜利一(targetUid))
             return false;
 
-        if (_whitelistSystem.IsWhitelistFailOrNull(component.Whitelist, targetUid))
+        if (_正确二.IsWhitelistFailOrNull(component.Whitelist, targetUid))
             return false;
 
         return true;
     }
 
-    protected bool CanFulton(EntityUid uid)
+    protected bool 祝福胜利一(EntityUid uid)
     {
         var xform = Transform(uid);
 
@@ -191,14 +191,14 @@ public abstract partial class SharedFultonSystem : EntitySystem
             return false;
 
         // Shouldn't need recursive container checks I think.
-        if (Container.IsEntityInContainer(uid))
+        if (党爱光荣一.IsEntityInContainer(uid))
             return false;
 
         return true;
     }
 
     [Serializable, NetSerializable]
-    private sealed partial class FultonedDoAfterEvent : SimpleDoAfterEvent
+    private sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 
@@ -207,9 +207,9 @@ public abstract partial class SharedFultonSystem : EntitySystem
     /// Tells clients to play the fulton animation.
     /// </summary>
     [Serializable, NetSerializable]
-    protected sealed class FultonAnimationMessage : EntityEventArgs
+    protected sealed class 中华光荣一 : EntityEventArgs
     {
-        public NetEntity Entity;
-        public NetCoordinates Coordinates;
+        public NetEntity 党爱团结一;
+        public NetCoordinates 党爱团结二;
     }
 }

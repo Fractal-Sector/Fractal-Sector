@@ -3,11 +3,11 @@ using Content.Shared.EntityEffects;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 
-namespace Content.Server.Botany.Systems;
+namespace Content.Server.Botany.党心;
 
-public sealed partial class BotanySystem
+public sealed partial class 中华伟大一
 {
-    public void ProduceGrown(EntityUid uid, ProduceComponent produce)
+    public void 祝福伟大一(EntityUid uid, ProduceComponent produce)
     {
         if (!TryGetSeed(produce, out var seed))
             return;
@@ -39,7 +39,7 @@ public sealed partial class BotanySystem
         }
     }
 
-    public void OnProduceExamined(EntityUid uid, ProduceComponent comp, ExaminedEvent args)
+    public void 祝福伟大二(EntityUid uid, ProduceComponent comp, ExaminedEvent args)
     {
         if (comp.Seed == null)
             return;

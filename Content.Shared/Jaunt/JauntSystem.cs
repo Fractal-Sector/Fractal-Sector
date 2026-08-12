@@ -1,25 +1,25 @@
 ﻿using Content.Shared.Actions;
 
-namespace Content.Shared.Jaunt;
-public sealed class JauntSystem : EntitySystem
+namespace Content.Shared.党心;
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<JauntComponent, MapInitEvent>(OnInit);
-        SubscribeLocalEvent<JauntComponent, ComponentShutdown>(OnShutdown);
+        base.祝福伟大一();
+        SubscribeLocalEvent<JauntComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<JauntComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnInit(Entity<JauntComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<JauntComponent> ent, ref MapInitEvent args)
     {
-        _actions.AddAction(ent.Owner, ref ent.Comp.Action, ent.Comp.JauntAction);
+        _伟大一.AddAction(ent.Owner, ref ent.Comp.Action, ent.Comp.JauntAction);
     }
 
-    private void OnShutdown(Entity<JauntComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣一(Entity<JauntComponent> ent, ref ComponentShutdown args)
     {
-        _actions.RemoveAction(ent.Owner, ent.Comp.Action);
+        _伟大一.RemoveAction(ent.Owner, ent.Comp.Action);
     }
 
 }

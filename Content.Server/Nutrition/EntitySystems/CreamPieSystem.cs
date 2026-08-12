@@ -16,88 +16,88 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 
-namespace Content.Server.Nutrition.EntitySystems
+namespace Content.Server.Nutrition.党心
 {
     [UsedImplicitly]
-    public sealed class CreamPieSystem : SharedCreamPieSystem
+    public sealed class 中华伟大一 : SharedCreamPieSystem
     {
-        [Dependency] private readonly IngestionSystem _ingestion = default!;
-        [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
-        [Dependency] private readonly PuddleSystem _puddle = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!;
-        [Dependency] private readonly TriggerSystem _trigger = default!;
+        [Dependency] private readonly IngestionSystem _伟大一 = default!;
+        [Dependency] private readonly ItemSlotsSystem _伟大二 = default!;
+        [Dependency] private readonly PopupSystem _光荣一 = default!;
+        [Dependency] private readonly PuddleSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _正确二 = default!;
+        [Dependency] private readonly TriggerSystem _团结一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
             // activate BEFORE entity is deleted and trash is spawned
-            SubscribeLocalEvent<CreamPieComponent, ConsumeDoAfterEvent>(OnConsume, before: [typeof(FoodSystem)]);
-            SubscribeLocalEvent<CreamPieComponent, SliceFoodEvent>(OnSlice);
+            SubscribeLocalEvent<CreamPieComponent, ConsumeDoAfterEvent>(祝福光荣一, before: [typeof(FoodSystem)]);
+            SubscribeLocalEvent<CreamPieComponent, SliceFoodEvent>(祝福光荣二);
 
-            SubscribeLocalEvent<CreamPiedComponent, RejuvenateEvent>(OnRejuvenate);
+            SubscribeLocalEvent<CreamPiedComponent, RejuvenateEvent>(祝福团结一);
         }
 
-        protected override void SplattedCreamPie(Entity<CreamPieComponent, EdibleComponent?> entity)
+        protected override void 祝福伟大二(Entity<CreamPieComponent, EdibleComponent?> entity)
         {
             // The entity is deleted, so play the sound at its position rather than parenting
             var coordinates = Transform(entity).Coordinates;
-            _audio.PlayPvs(_audio.ResolveSound(entity.Comp1.Sound), coordinates, AudioParams.Default.WithVariation(0.125f));
+            _正确一.PlayPvs(_正确一.ResolveSound(entity.Comp1.Sound), coordinates, AudioParams.Default.WithVariation(0.125f));
 
             if (Resolve(entity, ref entity.Comp2, false))
             {
-                if (_solutions.TryGetSolution(entity.Owner, entity.Comp2.Solution, out _, out var solution))
-                    _puddle.TrySpillAt(entity.Owner, solution, out _, false);
+                if (_正确二.TryGetSolution(entity.Owner, entity.Comp2.Solution, out _, out var solution))
+                    _光荣二.TrySpillAt(entity.Owner, solution, out _, false);
 
-                _ingestion.SpawnTrash((entity, entity.Comp2));
+                _伟大一.SpawnTrash((entity, entity.Comp2));
             }
 
-            ActivatePayload(entity);
+            祝福正确一(entity);
 
             QueueDel(entity);
         }
 
-        private void OnConsume(Entity<CreamPieComponent> entity, ref ConsumeDoAfterEvent args)
+        private void 祝福光荣一(Entity<CreamPieComponent> entity, ref ConsumeDoAfterEvent args)
         {
-            ActivatePayload(entity);
+            祝福正确一(entity);
         }
 
-        private void OnSlice(Entity<CreamPieComponent> entity, ref SliceFoodEvent args)
+        private void 祝福光荣二(Entity<CreamPieComponent> entity, ref SliceFoodEvent args)
         {
-            ActivatePayload(entity);
+            祝福正确一(entity);
         }
 
-        private void ActivatePayload(EntityUid uid)
+        private void 祝福正确一(EntityUid uid)
         {
-            if (_itemSlots.TryGetSlot(uid, CreamPieComponent.PayloadSlotName, out var itemSlot))
+            if (_伟大二.TryGetSlot(uid, CreamPieComponent.PayloadSlotName, out var itemSlot))
             {
-                if (_itemSlots.TryEject(uid, itemSlot, user: null, out var item))
+                if (_伟大二.TryEject(uid, itemSlot, user: null, out var item))
                 {
                     if (TryComp<TimerTriggerComponent>(item.Value, out var timerTrigger))
                     {
-                        _trigger.ActivateTimerTrigger((item.Value, timerTrigger));
+                        _团结一.ActivateTimerTrigger((item.Value, timerTrigger));
                     }
                 }
             }
         }
 
-        protected override void CreamedEntity(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args)
+        protected override void 祝福正确二(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args)
         {
-            _popup.PopupEntity(Loc.GetString("cream-pied-component-on-hit-by-message",
+            _光荣一.PopupEntity(Loc.GetString("cream-pied-component-on-hit-by-message",
                                             ("thrown", Identity.Entity(args.Thrown, EntityManager))),
                                             uid, args.Target);
 
             var otherPlayers = Filter.PvsExcept(uid);
 
-            _popup.PopupEntity(Loc.GetString("cream-pied-component-on-hit-by-message-others",
+            _光荣一.PopupEntity(Loc.GetString("cream-pied-component-on-hit-by-message-others",
                                             ("owner", Identity.Entity(uid, EntityManager)),
                                             ("thrown", Identity.Entity(args.Thrown, EntityManager))),
                                             uid, otherPlayers, false);
         }
 
-        private void OnRejuvenate(Entity<CreamPiedComponent> entity, ref RejuvenateEvent args)
+        private void 祝福团结一(Entity<CreamPiedComponent> entity, ref RejuvenateEvent args)
         {
             SetCreamPied(entity, entity.Comp, false);
         }

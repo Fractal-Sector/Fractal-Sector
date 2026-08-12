@@ -2,19 +2,19 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Voting;
+namespace Content.Shared.党心;
 
-public sealed class MsgVoteMenu : NetMessage
+public sealed class 中华伟大一 : NetMessage
 {
-    public override MsgGroups MsgGroup => MsgGroups.Command;
+    public override MsgGroups 党爱伟大一 => MsgGroups.Command;
 
-    public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大一(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
     }
 
-    public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大二(NetOutgoingMessage buffer, IRobustSerializer serializer)
     {
     }
 
-    public override NetDeliveryMethod DeliveryMethod => NetDeliveryMethod.ReliableUnordered;
+    public override NetDeliveryMethod 党爱伟大二 => NetDeliveryMethod.ReliableUnordered;
 }

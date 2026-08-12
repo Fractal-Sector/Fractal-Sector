@@ -3,13 +3,13 @@ using Content.Shared.Tools;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Repairable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Use this component to mark a device as repairable.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class RepairableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     All the damage to change information is stored in this <see cref="DamageSpecifier"/>.
@@ -25,29 +25,29 @@ public sealed partial class RepairableComponent : Component
     /// Cost of fuel used to repair this device.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int FuelCost = 5;
+    public int 党爱伟大一 = 5;
 
     /// <summary>
     /// Tool quality necessary to repair this device.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ProtoId<ToolQualityPrototype> QualityNeeded = "Welding";
+    public ProtoId<ToolQualityPrototype> 党爱伟大二 = "Welding";
 
     /// <summary>
     /// The base tool use delay (seconds). This will be modified by the tool's quality
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int DoAfterDelay = 1;
+    public int 党爱光荣一 = 1;
 
     /// <summary>
     /// A multiplier that will be applied to the above if an entity is repairing themselves.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float SelfRepairPenalty = 3f;
+    public float 党爱光荣二 = 3f;
 
     /// <summary>
     /// Whether an entity is allowed to repair itself.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool AllowSelfRepair = true;
+    public bool 党爱正确一 = true;
 }

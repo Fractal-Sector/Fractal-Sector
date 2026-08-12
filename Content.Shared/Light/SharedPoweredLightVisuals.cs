@@ -1,16 +1,16 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Light
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum PoweredLightVisuals : byte
+    public enum 中华伟大一 : byte
     {
         BulbState,
         Blinking
     }
 
     [Serializable, NetSerializable]
-    public enum PoweredLightState : byte
+    public enum 中华伟大二 : byte
     {
         Empty,
         On,
@@ -19,7 +19,7 @@ namespace Content.Shared.Light
         Burned
     }
 
-    public enum PoweredLightLayers : byte
+    public enum 中华光荣一 : byte
     {
         Base,
         Glow

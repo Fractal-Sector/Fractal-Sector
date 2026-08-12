@@ -15,18 +15,18 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Database
+namespace Content.Server.党心
 {
-    public sealed partial class ServerDbPostgres : ServerDbBase
+    public sealed partial class 中华伟大一 : ServerDbBase
     {
-        private readonly DbContextOptions<PostgresServerDbContext> _options;
-        private readonly ISawmill _notifyLog;
-        private readonly SemaphoreSlim _prefsSemaphore;
-        private readonly Task _dbReadyTask;
+        private readonly DbContextOptions<PostgresServerDbContext> _伟大一;
+        private readonly ISawmill _伟大二;
+        private readonly SemaphoreSlim _光荣一;
+        private readonly Task _光荣二;
 
-        private int _msLag;
+        private int _正确一;
 
-        public ServerDbPostgres(DbContextOptions<PostgresServerDbContext> options,
+        public 中华伟大一(DbContextOptions<PostgresServerDbContext> options,
             string connectionString,
             IConfigurationManager cfg,
             ISawmill opsLog,
@@ -35,24 +35,24 @@ namespace Content.Server.Database
         {
             var concurrency = cfg.GetCVar(CCVars.DatabasePgConcurrency);
 
-            _options = options;
-            _notifyLog = notifyLog;
-            _prefsSemaphore = new SemaphoreSlim(concurrency, concurrency);
+            _伟大一 = options;
+            _伟大二 = notifyLog;
+            _光荣一 = new SemaphoreSlim(concurrency, concurrency);
 
-            _dbReadyTask = Task.Run(async () =>
+            _光荣二 = Task.Run(async () =>
             {
-                await using var ctx = new PostgresServerDbContext(_options);
+                await using var ctx = new PostgresServerDbContext(_伟大一);
                 try
                 {
                     await ctx.Database.MigrateAsync();
                 }
                 finally
                 {
-                    await ctx.DisposeAsync();
+                    await ctx.祝福繁荣二();
                 }
             });
 
-            cfg.OnValueChanged(CCVars.DatabasePgFakeLag, v => _msLag = v, true);
+            cfg.OnValueChanged(CCVars.DatabasePgFakeLag, v => _正确一 = v, true);
 
             InitNotificationListener(connectionString);
         }
@@ -62,7 +62,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var query = db.PgDbContext.Ban
+            var query = db.党爱伟大一.Ban
                 .Include(p => p.Unban)
                 .Where(p => p.Id == id);
 
@@ -86,7 +86,7 @@ namespace Content.Server.Database
 
             var exempt = await GetBanExemptionCore(db, userId);
             var newPlayer = userId == null || !await PlayerRecordExists(db, userId.Value);
-            var query = MakeBanLookupQuery(address, userId, hwId, modernHWIds, db, includeUnbanned: false, exempt, newPlayer)
+            var query = 祝福伟大二(address, userId, hwId, modernHWIds, db, includeUnbanned: false, exempt, newPlayer)
                 .OrderByDescending(b => b.BanTime);
 
             var ban = await query.FirstOrDefaultAsync();
@@ -94,7 +94,7 @@ namespace Content.Server.Database
             return ConvertBan(ban);
         }
 
-        public override async Task<List<ServerBanDef>> GetServerBansAsync(IPAddress? address,
+        public override async Task<List<ServerBanDef>> 祝福伟大一(IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
@@ -108,8 +108,8 @@ namespace Content.Server.Database
             await using var db = await GetDbImpl();
 
             var exempt = await GetBanExemptionCore(db, userId);
-            var newPlayer = !await db.PgDbContext.Player.AnyAsync(p => p.UserId == userId);
-            var query = MakeBanLookupQuery(address, userId, hwId, modernHWIds, db, includeUnbanned, exempt, newPlayer);
+            var newPlayer = !await db.党爱伟大一.Player.AnyAsync(p => p.UserId == userId);
+            var query = 祝福伟大二(address, userId, hwId, modernHWIds, db, includeUnbanned, exempt, newPlayer);
 
             var queryBans = await query.ToArrayAsync();
             var bans = new List<ServerBanDef>(queryBans.Length);
@@ -132,18 +132,18 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var lastServerBan = db.PgDbContext.Ban.OrderByDescending(x => x.Id).FirstOrDefault();
+            var lastServerBan = db.党爱伟大一.Ban.OrderByDescending(x => x.Id).FirstOrDefault();
 
             return ConvertBan(lastServerBan);
         }
         // FS end
 
-        private static IQueryable<ServerBan> MakeBanLookupQuery(
+        private static IQueryable<ServerBan> 祝福伟大二(
             IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
-            DbGuardImpl db,
+            中华伟大二 db,
             bool includeUnbanned,
             ServerBanExemptFlags? exemptFlags,
             bool newPlayer)
@@ -154,11 +154,11 @@ namespace Content.Server.Database
                 userId,
                 hwId,
                 modernHWIds,
-                db.PgDbContext.Ban);
+                db.党爱伟大一.Ban);
 
             if (address != null && !exemptFlags.GetValueOrDefault(ServerBanExemptFlags.None).HasFlag(ServerBanExemptFlags.IP))
             {
-                var newQ = db.PgDbContext.Ban
+                var newQ = db.党爱伟大一.Ban
                     .Include(p => p.Unban)
                     .Where(b => b.Address != null
                                 && EF.Functions.ContainsOrEqual(b.Address.Value, address)
@@ -287,11 +287,11 @@ namespace Content.Server.Database
                 unban.UnbanTime);
         }
 
-        public override async Task AddServerBanAsync(ServerBanDef serverBan)
+        public override async Task 祝福光荣一(ServerBanDef serverBan)
         {
             await using var db = await GetDbImpl();
 
-            db.PgDbContext.Ban.Add(new ServerBan
+            db.党爱伟大一.Ban.Add(new ServerBan
             {
                 Address = serverBan.Address.ToNpgsqlInet(),
                 HWId = serverBan.HWId,
@@ -306,21 +306,21 @@ namespace Content.Server.Database
                 ExemptFlags = serverBan.ExemptFlags
             });
 
-            await db.PgDbContext.SaveChangesAsync();
+            await db.党爱伟大一.SaveChangesAsync();
         }
 
-        public override async Task AddServerUnbanAsync(ServerUnbanDef serverUnban)
+        public override async Task 祝福光荣二(ServerUnbanDef serverUnban)
         {
             await using var db = await GetDbImpl();
 
-            db.PgDbContext.Unban.Add(new ServerUnban
+            db.党爱伟大一.Unban.Add(new ServerUnban
             {
                 BanId = serverUnban.BanId,
                 UnbanningAdmin = serverUnban.UnbanningAdmin?.UserId,
                 UnbanTime = serverUnban.UnbanTime.UtcDateTime
             });
 
-            await db.PgDbContext.SaveChangesAsync();
+            await db.党爱伟大一.SaveChangesAsync();
         }
         #endregion
 
@@ -329,7 +329,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var query = db.PgDbContext.RoleBan
+            var query = db.党爱伟大一.RoleBan
                 .Include(p => p.Unban)
                 .Where(p => p.Id == id);
 
@@ -339,7 +339,7 @@ namespace Content.Server.Database
 
         }
 
-        public override async Task<List<ServerRoleBanDef>> GetServerRoleBansAsync(IPAddress? address,
+        public override async Task<List<ServerRoleBanDef>> 祝福正确一(IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
@@ -352,10 +352,10 @@ namespace Content.Server.Database
 
             await using var db = await GetDbImpl();
 
-            var query = MakeRoleBanLookupQuery(address, userId, hwId, modernHWIds, db, includeUnbanned)
+            var query = 祝福团结一(address, userId, hwId, modernHWIds, db, includeUnbanned)
                 .OrderByDescending(b => b.BanTime);
 
-            return await QueryRoleBans(query);
+            return await 祝福正确二(query);
         }
 
         // FS start
@@ -363,13 +363,13 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var lastServerRoleBan = db.PgDbContext.RoleBan.OrderByDescending(x => x.Id).FirstOrDefault();
+            var lastServerRoleBan = db.党爱伟大一.RoleBan.OrderByDescending(x => x.Id).FirstOrDefault();
 
             return ConvertRoleBan(lastServerRoleBan);
         }
         // FS end
 
-        private static async Task<List<ServerRoleBanDef>> QueryRoleBans(IQueryable<ServerRoleBan> query)
+        private static async Task<List<ServerRoleBanDef>> 祝福正确二(IQueryable<ServerRoleBan> query)
         {
             var queryRoleBans = await query.ToArrayAsync();
             var bans = new List<ServerRoleBanDef>(queryRoleBans.Length);
@@ -387,23 +387,23 @@ namespace Content.Server.Database
             return bans;
         }
 
-        private static IQueryable<ServerRoleBan> MakeRoleBanLookupQuery(
+        private static IQueryable<ServerRoleBan> 祝福团结一(
             IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
-            DbGuardImpl db,
+            中华伟大二 db,
             bool includeUnbanned)
         {
             var query = MakeBanLookupQualityShared<ServerRoleBan, ServerRoleUnban>(
                 userId,
                 hwId,
                 modernHWIds,
-                db.PgDbContext.RoleBan);
+                db.党爱伟大一.RoleBan);
 
             if (address != null)
             {
-                var newQ = db.PgDbContext.RoleBan
+                var newQ = db.党爱伟大一.RoleBan
                     .Include(p => p.Unban)
                     .Where(b => b.Address != null && EF.Functions.ContainsOrEqual(b.Address.Value, address));
 
@@ -477,7 +477,7 @@ namespace Content.Server.Database
                 unban.UnbanTime);
         }
 
-        public override async Task<ServerRoleBanDef> AddServerRoleBanAsync(ServerRoleBanDef serverRoleBan)
+        public override async Task<ServerRoleBanDef> 祝福团结二(ServerRoleBanDef serverRoleBan)
         {
             await using var db = await GetDbImpl();
 
@@ -495,28 +495,28 @@ namespace Content.Server.Database
                 PlayerUserId = serverRoleBan.UserId?.UserId,
                 RoleId = serverRoleBan.Role,
             };
-            db.PgDbContext.RoleBan.Add(ban);
+            db.党爱伟大一.RoleBan.Add(ban);
 
-            await db.PgDbContext.SaveChangesAsync();
+            await db.党爱伟大一.SaveChangesAsync();
             return ConvertRoleBan(ban);
         }
 
-        public override async Task AddServerRoleUnbanAsync(ServerRoleUnbanDef serverRoleUnban)
+        public override async Task 祝福奋斗一(ServerRoleUnbanDef serverRoleUnban)
         {
             await using var db = await GetDbImpl();
 
-            db.PgDbContext.RoleUnban.Add(new ServerRoleUnban
+            db.党爱伟大一.RoleUnban.Add(new ServerRoleUnban
             {
                 BanId = serverRoleUnban.BanId,
                 UnbanningAdmin = serverRoleUnban.UnbanningAdmin?.UserId,
                 UnbanTime = serverRoleUnban.UnbanTime.UtcDateTime
             });
 
-            await db.PgDbContext.SaveChangesAsync();
+            await db.党爱伟大一.SaveChangesAsync();
         }
         #endregion
 
-        public override async Task<int> AddConnectionLogAsync(
+        public override async Task<int> 祝福奋斗二(
             NetUserId userId,
             string userName,
             IPAddress address,
@@ -539,9 +539,9 @@ namespace Content.Server.Database
                 Trust = trust,
             };
 
-            db.PgDbContext.ConnectionLog.Add(connectionLog);
+            db.党爱伟大一.ConnectionLog.Add(connectionLog);
 
-            await db.PgDbContext.SaveChangesAsync();
+            await db.党爱伟大一.SaveChangesAsync();
 
             return connectionLog.Id;
         }
@@ -553,21 +553,21 @@ namespace Content.Server.Database
 
             // Honestly this probably doesn't even matter but whatever.
             await using var tx =
-                await db.DbContext.Database.BeginTransactionAsync(IsolationLevel.RepeatableRead, cancel);
+                await db.党爱伟大二.Database.BeginTransactionAsync(IsolationLevel.RepeatableRead, cancel);
 
             // Join with the player table to find their last seen username, if they have one.
-            var admins = await db.PgDbContext.Admin
+            var admins = await db.党爱伟大一.Admin
                 .Include(a => a.Flags)
-                .GroupJoin(db.PgDbContext.Player, a => a.UserId, p => p.UserId, (a, grouping) => new {a, grouping})
+                .GroupJoin(db.党爱伟大一.Player, a => a.UserId, p => p.UserId, (a, grouping) => new {a, grouping})
                 .SelectMany(t => t.grouping.DefaultIfEmpty(), (t, p) => new {t.a, p!.LastSeenUserName})
                 .ToArrayAsync(cancel);
 
-            var adminRanks = await db.DbContext.AdminRank.Include(a => a.Flags).ToArrayAsync(cancel);
+            var adminRanks = await db.党爱伟大二.AdminRank.Include(a => a.Flags).ToArrayAsync(cancel);
 
             return (admins.Select(p => (p.a, p.LastSeenUserName)).ToArray(), adminRanks)!;
         }
 
-        protected override IQueryable<AdminLog> StartAdminLogsQuery(ServerDbContext db, LogFilter? filter = null)
+        protected override IQueryable<AdminLog> 祝福胜利一(ServerDbContext db, LogFilter? filter = null)
         {
             // https://learn.microsoft.com/en-us/ef/core/querying/sql-queries#passing-parameters
             // Read the link above for parameterization before changing this method or you get the bullet
@@ -582,51 +582,51 @@ WHERE to_tsvector('english'::regconfig, a.message) @@ websearch_to_tsquery('engl
             return db.AdminLog;
         }
 
-        protected override DateTime NormalizeDatabaseTime(DateTime time)
+        protected override DateTime 祝福胜利二(DateTime time)
         {
             DebugTools.Assert(time.Kind == DateTimeKind.Utc);
             return time;
         }
 
-        private async Task<DbGuardImpl> GetDbImpl(
+        private async Task<中华伟大二> GetDbImpl(
             CancellationToken cancel = default,
             [CallerMemberName] string? name = null)
         {
             LogDbOp(name);
 
-            await _dbReadyTask;
-            await _prefsSemaphore.WaitAsync(cancel);
+            await _光荣二;
+            await _光荣一.WaitAsync(cancel);
 
-            if (_msLag > 0)
-                await Task.Delay(_msLag, cancel);
+            if (_正确一 > 0)
+                await Task.Delay(_正确一, cancel);
 
-            return new DbGuardImpl(this, new PostgresServerDbContext(_options));
+            return new 中华伟大二(this, new PostgresServerDbContext(_伟大一));
         }
 
-        protected override async Task<DbGuard> GetDb(
+        protected override async Task<DbGuard> 祝福繁荣一(
             CancellationToken cancel = default,
             [CallerMemberName] string? name = null)
         {
             return await GetDbImpl(cancel, name);
         }
 
-        private sealed class DbGuardImpl : DbGuard
+        private sealed class 中华伟大二 : DbGuard
         {
-            private readonly ServerDbPostgres _db;
+            private readonly 中华伟大一 _db;
 
-            public DbGuardImpl(ServerDbPostgres db, PostgresServerDbContext dbC)
+            public 中华伟大二(中华伟大一 db, PostgresServerDbContext dbC)
             {
                 _db = db;
-                PgDbContext = dbC;
+                党爱伟大一 = dbC;
             }
 
-            public PostgresServerDbContext PgDbContext { get; }
-            public override ServerDbContext DbContext => PgDbContext;
+            public PostgresServerDbContext 党爱伟大一 { get; }
+            public override ServerDbContext 党爱伟大二 => 党爱伟大一;
 
-            public override async ValueTask DisposeAsync()
+            public override async ValueTask 祝福繁荣二()
             {
-                await DbContext.DisposeAsync();
-                _db._prefsSemaphore.Release();
+                await 党爱伟大二.祝福繁荣二();
+                _db._光荣一.Release();
             }
         }
     }

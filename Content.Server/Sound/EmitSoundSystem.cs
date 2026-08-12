@@ -3,16 +3,16 @@ using Content.Shared.Sound.Components;
 using Robust.Shared.Timing;
 using Robust.Shared.Network;
 
-namespace Content.Server.Sound;
+namespace Content.Server.党心;
 
-public sealed class EmitSoundSystem : SharedEmitSoundSystem
+public sealed class 中华伟大一 : SharedEmitSoundSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
         var query = EntityQueryEnumerator<SpamEmitSoundComponent>();
 
         while (query.MoveNext(out var uid, out var soundSpammer))
@@ -20,46 +20,46 @@ public sealed class EmitSoundSystem : SharedEmitSoundSystem
             if (!soundSpammer.Enabled)
                 continue;
 
-            if (_timing.CurTime >= soundSpammer.NextSound)
+            if (_伟大一.CurTime >= soundSpammer.NextSound)
             {
                 if (soundSpammer.PopUp != null)
                     Popup.PopupEntity(Loc.GetString(soundSpammer.PopUp), uid);
                 TryEmitSound(uid, soundSpammer, predict: false);
 
-                SpamEmitSoundReset((uid, soundSpammer));
+                祝福光荣二((uid, soundSpammer));
             }
         }
     }
 
-    public override void Initialize()
+    public override void 祝福伟大二()
     {
-        base.Initialize();
+        base.祝福伟大二();
 
-        SubscribeLocalEvent<SpamEmitSoundComponent, MapInitEvent>(HandleSpamEmitSoundMapInit);
+        SubscribeLocalEvent<SpamEmitSoundComponent, MapInitEvent>(祝福光荣一);
     }
 
-    private void HandleSpamEmitSoundMapInit(Entity<SpamEmitSoundComponent> entity, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<SpamEmitSoundComponent> entity, ref MapInitEvent args)
     {
-        SpamEmitSoundReset(entity);
+        祝福光荣二(entity);
 
         // Prewarm so multiple entities have more variation.
         entity.Comp.NextSound -= Random.Next(entity.Comp.MaxInterval);
         Dirty(entity);
     }
 
-    private void SpamEmitSoundReset(Entity<SpamEmitSoundComponent> entity)
+    private void 祝福光荣二(Entity<SpamEmitSoundComponent> entity)
     {
-        if (_net.IsClient)
+        if (_伟大二.IsClient)
             return;
 
-        entity.Comp.NextSound = _timing.CurTime + ((entity.Comp.MinInterval < entity.Comp.MaxInterval)
+        entity.Comp.NextSound = _伟大一.CurTime + ((entity.Comp.MinInterval < entity.Comp.MaxInterval)
             ? Random.Next(entity.Comp.MinInterval, entity.Comp.MaxInterval)
             : entity.Comp.MaxInterval);
 
         Dirty(entity);
     }
 
-    public override void SetEnabled(Entity<SpamEmitSoundComponent?> entity, bool enabled)
+    public override void 祝福正确一(Entity<SpamEmitSoundComponent?> entity, bool enabled)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
@@ -70,6 +70,6 @@ public sealed class EmitSoundSystem : SharedEmitSoundSystem
         entity.Comp.Enabled = enabled;
 
         if (enabled)
-            SpamEmitSoundReset((entity, entity.Comp));
+            祝福光荣二((entity, entity.Comp));
     }
 }

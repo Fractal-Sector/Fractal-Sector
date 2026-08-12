@@ -14,37 +14,37 @@ using Robust.Shared.Serialization.Markdown.Sequence;
 using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Entry
+namespace Content.Shared.党心
 {
-    public sealed class EntryPoint : GameShared
+    public sealed class 中华伟大一 : GameShared
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-        [Dependency] private readonly IResourceManager _resMan = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+        [Dependency] private readonly ITileDefinitionManager _伟大二 = default!;
+        [Dependency] private readonly IResourceManager _光荣一 = default!;
 
-        private readonly ResPath _ignoreFileDirectory = new("/IgnoredPrototypes/");
+        private readonly ResPath _光荣二 = new("/IgnoredPrototypes/");
 
-        public override void PreInit()
+        public override void 祝福伟大一()
         {
             IoCManager.InjectDependencies(this);
             SharedContentIoC.Register();
         }
 
-        public override void Shutdown()
+        public override void 祝福伟大二()
         {
-            _prototypeManager.PrototypesReloaded -= PrototypeReload;
+            _伟大一.PrototypesReloaded -= 祝福正确二;
         }
 
-        public override void Init()
+        public override void 祝福光荣一()
         {
-            IgnorePrototypes();
+            祝福团结一();
         }
 
-        public override void PostInit()
+        public override void 祝福光荣二()
         {
-            base.PostInit();
+            base.祝福光荣二();
 
-            InitTileDefinitions();
+            祝福正确一();
             IoCManager.Resolve<MarkingManager>().Initialize();
 
 #if DEBUG
@@ -55,17 +55,17 @@ namespace Content.Shared.Entry
 #endif
         }
 
-        private void InitTileDefinitions()
+        private void 祝福正确一()
         {
-            _prototypeManager.PrototypesReloaded += PrototypeReload;
+            _伟大一.PrototypesReloaded += 祝福正确二;
 
             // Register space first because I'm a hard coding hack.
-            var spaceDef = _prototypeManager.Index<ContentTileDefinition>(ContentTileDefinition.SpaceID);
+            var spaceDef = _伟大一.Index<ContentTileDefinition>(ContentTileDefinition.SpaceID);
 
-            _tileDefinitionManager.Register(spaceDef);
+            _伟大二.Register(spaceDef);
 
             var prototypeList = new List<ContentTileDefinition>();
-            foreach (var tileDef in _prototypeManager.EnumeratePrototypes<ContentTileDefinition>())
+            foreach (var tileDef in _伟大一.EnumeratePrototypes<ContentTileDefinition>())
             {
                 if (tileDef.ID == ContentTileDefinition.SpaceID)
                 {
@@ -81,13 +81,13 @@ namespace Content.Shared.Entry
 
             foreach (var tileDef in prototypeList)
             {
-                _tileDefinitionManager.Register(tileDef);
+                _伟大二.Register(tileDef);
             }
 
-            _tileDefinitionManager.Initialize();
+            _伟大二.Initialize();
         }
 
-        private void PrototypeReload(PrototypesReloadedEventArgs obj)
+        private void 祝福正确二(PrototypesReloadedEventArgs obj)
         {
             /* I am leaving this here commented out to re-iterate
              - our game is shitcode
@@ -97,15 +97,15 @@ namespace Content.Shared.Entry
                 */
 
             // Need to re-allocate tiledefs due to how prototype reloads work
-            foreach (var def in _prototypeManager.EnumeratePrototypes<ContentTileDefinition>())
+            foreach (var def in _伟大一.EnumeratePrototypes<ContentTileDefinition>())
             {
-                def.AssignTileId(_tileDefinitionManager[def.ID].TileId);
+                def.AssignTileId(_伟大二[def.ID].TileId);
             }
         }
 
-        private void IgnorePrototypes()
+        private void 祝福团结一()
         {
-            if (!TryReadFile(out var sequences))
+            if (!祝福团结二(out var sequences))
                 return;
 
             foreach (var sequence in sequences)
@@ -116,23 +116,23 @@ namespace Content.Shared.Entry
 
                     if (string.IsNullOrEmpty(path.Extension))
                     {
-                        _prototypeManager.AbstractDirectory(path);
+                        _伟大一.AbstractDirectory(path);
                     }
                     else
                     {
-                        _prototypeManager.AbstractFile(path);
+                        _伟大一.AbstractFile(path);
                     }
                 }
             }
         }
 
-        private bool TryReadFile([NotNullWhen(true)] out List<SequenceDataNode>? sequence)
+        private bool 祝福团结二([NotNullWhen(true)] out List<SequenceDataNode>? sequence)
         {
             sequence = new();
 
-            foreach (var path in _resMan.ContentFindFiles(_ignoreFileDirectory))
+            foreach (var path in _光荣一.ContentFindFiles(_光荣二))
             {
-                if (!_resMan.TryContentFileRead(path, out var stream))
+                if (!_光荣一.TryContentFileRead(path, out var stream))
                     continue;
 
                 using var reader = new StreamReader(stream, EncodingHelpers.UTF8);

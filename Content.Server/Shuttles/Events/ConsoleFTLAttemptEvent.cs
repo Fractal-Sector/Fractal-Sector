@@ -1,4 +1,4 @@
-namespace Content.Server.Shuttles.Events;
+namespace Content.Server.Shuttles.党心;
 
 /// <summary>
 /// Raised when a shuttle console is trying to FTL via UI input.
@@ -6,4 +6,4 @@ namespace Content.Server.Shuttles.Events;
 /// <param name="Cancelled"></param>
 /// <param name="Reason"></param>
 [ByRefEvent]
-public record struct ConsoleFTLAttemptEvent(EntityUid Uid, bool Cancelled, string Reason);
+public record 中华伟大一 ConsoleFTLAttemptEvent(EntityUid Uid, bool Cancelled, string Reason);

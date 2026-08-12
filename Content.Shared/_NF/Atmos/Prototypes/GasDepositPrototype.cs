@@ -2,18 +2,18 @@ using System.Numerics;
 using Content.Shared.Atmos;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._NF.Atmos.Prototypes;
+namespace Content.Shared._NF.Atmos.党心;
 
 [Prototype]
-public sealed partial class GasDepositPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     ///     2-vectors (minAmount, maxAmount) in moles of each gas in the deposit.
     /// </summary>
     [DataField]
-    public Vector2[] Gases { get; private set; } = new Vector2[Atmospherics.TotalNumberOfGases];
+    public Vector2[] 党爱伟大二 { get; private set; } = new Vector2[Atmospherics.TotalNumberOfGases];
 }

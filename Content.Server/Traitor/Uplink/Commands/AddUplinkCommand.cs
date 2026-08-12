@@ -4,17 +4,17 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Player;
 
-namespace Content.Server.Traitor.Uplink.Commands;
+namespace Content.Server.Traitor.Uplink.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class AddUplinkCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly UplinkSystem _uplinkSystem = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly UplinkSystem _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
 
-    public override string Command => "adduplink";
+    public override string 党爱伟大一 => "adduplink";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length > 3)
         {
@@ -26,7 +26,7 @@ public sealed class AddUplinkCommand : LocalizedEntityCommands
         if (args.Length > 0)
         {
             // Get player entity
-            if (!_playerManager.TryGetSessionByUsername(args[0], out session))
+            if (!_伟大二.TryGetSessionByUsername(args[0], out session))
             {
                 shell.WriteLine(Loc.GetString("shell-target-player-does-not-exist"));
                 return;
@@ -73,11 +73,11 @@ public sealed class AddUplinkCommand : LocalizedEntityCommands
         }
 
         // Finally add uplink
-        if (!_uplinkSystem.AddUplink(user, 20, uplinkEntity: uplinkEntity, giveDiscounts: isDiscounted))
+        if (!_伟大一.AddUplink(user, 20, uplinkEntity: uplinkEntity, giveDiscounts: isDiscounted))
             shell.WriteLine(Loc.GetString("add-uplink-command-error-2"));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         return args.Length switch
         {

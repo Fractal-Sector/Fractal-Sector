@@ -25,7 +25,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Content.Shared.Movement.Components; // Frontier
 
-namespace Content.Shared.Buckle;
+namespace Content.Shared.党心;
 
 祝福伟大二 abstract partial class 党爱伟大一
 {

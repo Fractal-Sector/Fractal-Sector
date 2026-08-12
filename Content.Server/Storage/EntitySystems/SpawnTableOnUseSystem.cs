@@ -5,40 +5,40 @@ using Content.Shared.EntityTable;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction.Events;
 
-namespace Content.Server.Storage.EntitySystems;
+namespace Content.Server.Storage.党心;
 
-public sealed class SpawnTableOnUseSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityTableSystem _entityTable = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly EntityTableSystem _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpawnTableOnUseComponent, UseInHandEvent>(OnUseInHand);
+        SubscribeLocalEvent<SpawnTableOnUseComponent, UseInHandEvent>(祝福伟大二);
     }
 
-    private void OnUseInHand(Entity<SpawnTableOnUseComponent> ent, ref UseInHandEvent args)
+    private void 祝福伟大二(Entity<SpawnTableOnUseComponent> ent, ref UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
         var coords = Transform(ent).Coordinates;
-        var spawns = _entityTable.GetSpawns(ent.Comp.Table);
+        var spawns = _伟大一.GetSpawns(ent.Comp.Table);
 
         // Don't delete the entity in the event bus, so we queue it for deletion.
         // We need the free hand for the new item, so we send it to nullspace.
-        _transform.DetachEntity(ent, Transform(ent));
+        _光荣二.DetachEntity(ent, Transform(ent));
         QueueDel(ent);
 
         foreach (var id in spawns)
         {
             var spawned = Spawn(id, coords);
-            _adminLogger.Add(LogType.EntitySpawn, LogImpact.Low, $"{ToPrettyString(args.User):user} used {ToPrettyString(ent):spawner} which spawned {ToPrettyString(spawned)}");
-            _hands.PickupOrDrop(args.User, spawned);
+            _伟大二.Add(LogType.EntitySpawn, LogImpact.Low, $"{ToPrettyString(args.User):user} used {ToPrettyString(ent):spawner} which spawned {ToPrettyString(spawned)}");
+            _光荣一.PickupOrDrop(args.User, spawned);
         }
 
         args.Handled = true;

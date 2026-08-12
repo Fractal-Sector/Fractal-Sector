@@ -1,16 +1,16 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Sprite;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class RandomSpriteComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whether or not all groups from <see cref="Available"/> are used,
     /// or if only one is picked at random.
     /// </summary>
     [DataField("getAllGroups")]
-    public bool GetAllGroups;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// Available colors based on group, parsed layer enum, state, and color.

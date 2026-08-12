@@ -9,34 +9,34 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Content.Server.Shuttles.Components; // Frontier
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class RadarConsoleSystem : SharedRadarConsoleSystem // Frontier: add partial
+public sealed partial class 中华伟大一 : SharedRadarConsoleSystem // Frontier: add partial
 {
-    [Dependency] private readonly ShuttleConsoleSystem _console = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!; // Frontier
+    [Dependency] private readonly ShuttleConsoleSystem _伟大一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大二 = default!;
+    [Dependency] private readonly TransformSystem _光荣一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RadarConsoleComponent, ComponentStartup>(OnRadarStartup);
-        SubscribeLocalEvent<RadarConsoleComponent, BoundUIOpenedEvent>(OnUIOpened); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<RadarConsoleComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<RadarConsoleComponent, BoundUIOpenedEvent>(祝福光荣一); // Frontier
     }
 
-    private void OnRadarStartup(EntityUid uid, RadarConsoleComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, RadarConsoleComponent component, ComponentStartup args)
     {
-        UpdateState(uid, component);
+        祝福光荣二(uid, component);
     }
 
     // Frontier
-    private void OnUIOpened(EntityUid uid, RadarConsoleComponent component, ref BoundUIOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, RadarConsoleComponent component, ref BoundUIOpenedEvent args)
     {
-        UpdateState(uid, component);
+        祝福光荣二(uid, component);
     }
     // End Frontier
 
-    protected override void UpdateState(EntityUid uid, RadarConsoleComponent component)
+    protected override void 祝福光荣二(EntityUid uid, RadarConsoleComponent component)
     {
         var xform = Transform(uid);
         var onGrid = xform.ParentUid == xform.GridUid;
@@ -48,18 +48,18 @@ public sealed partial class RadarConsoleSystem : SharedRadarConsoleSystem // Fro
             angle = Angle.FromDegrees(180); // Frontier: Angle.Zero<Angle.FromDegrees(180)
         }
 
-        if (_uiSystem.HasUi(uid, RadarConsoleUiKey.Key))
+        if (_伟大二.HasUi(uid, RadarConsoleUiKey.Key))
         {
             NavInterfaceState state;
-            var docks = _console.GetAllDocks();
+            var docks = _伟大一.GetAllDocks();
 
             if (coordinates != null && angle != null)
             {
-                state = _console.GetNavState(uid, docks, coordinates.Value, angle.Value);
+                state = _伟大一.GetNavState(uid, docks, coordinates.Value, angle.Value);
             }
             else
             {
-                state = _console.GetNavState(uid, docks);
+                state = _伟大一.GetNavState(uid, docks);
             }
 
             state.RotateWithEntity = !component.FollowEntity;
@@ -73,12 +73,12 @@ public sealed partial class RadarConsoleSystem : SharedRadarConsoleSystem // Fro
             state.HideTarget = component.HideTarget;
             // End Frontier
 
-            _uiSystem.SetUiState(uid, RadarConsoleUiKey.Key, new NavBoundUserInterfaceState(state));
+            _伟大二.SetUiState(uid, RadarConsoleUiKey.Key, new NavBoundUserInterfaceState(state));
         }
     }
 
     // Frontier: settable waypoints
-    public void SetTarget(Entity<RadarConsoleComponent> ent, NetEntity targetEntity, Vector2 target)
+    public void 祝福正确一(Entity<RadarConsoleComponent> ent, NetEntity targetEntity, Vector2 target)
     {
         // Try to get entity
         if (EntityManager.TryGetEntity(targetEntity, out var targetUid)
@@ -87,7 +87,7 @@ public sealed partial class RadarConsoleSystem : SharedRadarConsoleSystem // Fro
             && TryComp(targetUid, out TransformComponent? xform))
         {
             ent.Comp.TargetEntity = targetUid.Value;
-            ent.Comp.Target = _transform.GetMapCoordinates(xform).Position;
+            ent.Comp.Target = _光荣一.GetMapCoordinates(xform).Position;
             // Store the target entity name
             if (TryComp<MetaDataComponent>(targetUid, out var metaData))
                 ent.Comp.TargetEntityName = metaData.EntityName;
@@ -103,7 +103,7 @@ public sealed partial class RadarConsoleSystem : SharedRadarConsoleSystem // Fro
         Dirty(ent);
     }
 
-    public void SetHideTarget(Entity<RadarConsoleComponent> ent, bool hideTarget)
+    public void 祝福正确二(Entity<RadarConsoleComponent> ent, bool hideTarget)
     {
         ent.Comp.HideTarget = hideTarget;
         Dirty(ent);

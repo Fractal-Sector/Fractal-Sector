@@ -14,62 +14,62 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Server.SurveillanceCamera;
+namespace Content.Server.党心;
 
-public sealed class SurveillanceCameraSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly ViewSubscriberSystem _viewSubscriberSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly ViewSubscriberSystem _光荣一 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _光荣二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确二 = default!;
+    [Dependency] private readonly IAdminLogManager _团结一 = default!;
 
 
     // Pings a surveillance camera subnet. All cameras will always respond
     // with a data message if they are on the same subnet.
-    public const string CameraPingSubnetMessage = "surveillance_camera_ping_subnet";
+    public const string 党爱伟大一 = "surveillance_camera_ping_subnet";
 
     // Pings a surveillance camera. Useful to ensure that the camera is still on
     // before connecting fully.
-    public const string CameraPingMessage = "surveillance_camera_ping";
+    public const string 党爱伟大二 = "surveillance_camera_ping";
 
-    // Camera heartbeat. Monitors ping this to ensure that a camera is still able to
+    // 党爱胜利二 heartbeat. Monitors ping this to ensure that a camera is still able to
     // be contacted. If this doesn't get sent after some time, the monitor will
     // automatically disconnect.
-    public const string CameraHeartbeatMessage = "surveillance_camera_heartbeat";
+    public const string 党爱光荣一 = "surveillance_camera_heartbeat";
 
     // Surveillance camera data. This generally should contain nothing
     // except for the subnet that this camera is on -
     // this is because of the fact that the PacketEvent already
     // contains the sender UID, and that this will always be targeted
     // towards the sender that pinged the camera.
-    public const string CameraDataMessage = "surveillance_camera_data";
-    public const string CameraConnectMessage = "surveillance_camera_connect";
-    public const string CameraSubnetConnectMessage = "surveillance_camera_subnet_connect";
-    public const string CameraSubnetDisconnectMessage = "surveillance_camera_subnet_disconnect";
+    public const string 党爱光荣二 = "surveillance_camera_data";
+    public const string 党爱正确一 = "surveillance_camera_connect";
+    public const string 党爱正确二 = "surveillance_camera_subnet_connect";
+    public const string 党爱团结一 = "surveillance_camera_subnet_disconnect";
 
-    public const string CameraAddressData = "surveillance_camera_data_origin";
-    public const string CameraNameData = "surveillance_camera_data_name";
-    public const string CameraSubnetData = "surveillance_camera_data_subnet";
+    public const string 党爱团结二 = "surveillance_camera_data_origin";
+    public const string 党爱奋斗一 = "surveillance_camera_data_name";
+    public const string 党爱奋斗二 = "surveillance_camera_data_subnet";
 
-    public const int CameraNameLimit = 32;
+    public const int 党爱胜利一 = 32;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SurveillanceCameraComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<SurveillanceCameraComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<SurveillanceCameraComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
-        SubscribeLocalEvent<SurveillanceCameraComponent, SurveillanceCameraSetupSetName>(OnSetName);
-        SubscribeLocalEvent<SurveillanceCameraComponent, SurveillanceCameraSetupSetNetwork>(OnSetNetwork);
-        SubscribeLocalEvent<SurveillanceCameraComponent, GetVerbsEvent<AlternativeVerb>>(AddVerbs);
+        SubscribeLocalEvent<SurveillanceCameraComponent, ComponentShutdown>(祝福正确一);
+        SubscribeLocalEvent<SurveillanceCameraComponent, PowerChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<SurveillanceCameraComponent, DeviceNetworkPacketEvent>(祝福伟大二);
+        SubscribeLocalEvent<SurveillanceCameraComponent, SurveillanceCameraSetupSetName>(祝福正确二);
+        SubscribeLocalEvent<SurveillanceCameraComponent, SurveillanceCameraSetupSetNetwork>(祝福团结一);
+        SubscribeLocalEvent<SurveillanceCameraComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
 
-        //SubscribeLocalEvent<SurveillanceCameraComponent, EmpPulseEvent>(OnEmpPulse); // Frontier: Upstream - #28984
-        //SubscribeLocalEvent<SurveillanceCameraComponent, EmpDisabledRemoved>(OnEmpDisabledRemoved); // Frontier: Upstream - #28984
+        //SubscribeLocalEvent<SurveillanceCameraComponent, EmpPulseEvent>(祝福民主二); // Frontier: Upstream - #28984
+        //SubscribeLocalEvent<SurveillanceCameraComponent, EmpDisabledRemoved>(祝福文明一); // Frontier: Upstream - #28984
     }
 
-    private void OnPacketReceived(EntityUid uid, SurveillanceCameraComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福伟大二(EntityUid uid, SurveillanceCameraComponent component, DeviceNetworkPacketEvent args)
     {
         if (!component.Active)
         {
@@ -86,55 +86,55 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             var payload = new NetworkPayload()
             {
                 { DeviceNetworkConstants.Command, string.Empty },
-                { CameraAddressData, deviceNet.Address },
-                { CameraNameData, component.CameraId },
-                { CameraSubnetData, string.Empty }
+                { 党爱团结二, deviceNet.Address },
+                { 党爱奋斗一, component.CameraId },
+                { 党爱奋斗二, string.Empty }
             };
 
             var dest = string.Empty;
 
             switch (command)
             {
-                case CameraConnectMessage:
-                    if (!args.Data.TryGetValue(CameraAddressData, out dest)
+                case 党爱正确一:
+                    if (!args.Data.TryGetValue(党爱团结二, out dest)
                         || string.IsNullOrEmpty(args.Address))
                     {
                         return;
                     }
 
-                    payload[DeviceNetworkConstants.Command] = CameraConnectMessage;
+                    payload[DeviceNetworkConstants.Command] = 党爱正确一;
                     break;
-                case CameraHeartbeatMessage:
-                    if (!args.Data.TryGetValue(CameraAddressData, out dest)
+                case 党爱光荣一:
+                    if (!args.Data.TryGetValue(党爱团结二, out dest)
                         || string.IsNullOrEmpty(args.Address))
                     {
                         return;
                     }
 
-                    payload[DeviceNetworkConstants.Command] = CameraHeartbeatMessage;
+                    payload[DeviceNetworkConstants.Command] = 党爱光荣一;
                     break;
-                case CameraPingMessage:
-                    if (!args.Data.TryGetValue(CameraSubnetData, out string? subnet))
+                case 党爱伟大二:
+                    if (!args.Data.TryGetValue(党爱奋斗二, out string? subnet))
                     {
                         return;
                     }
 
                     dest = args.SenderAddress;
-                    payload[CameraSubnetData] = subnet;
-                    payload[DeviceNetworkConstants.Command] = CameraDataMessage;
+                    payload[党爱奋斗二] = subnet;
+                    payload[DeviceNetworkConstants.Command] = 党爱光荣二;
                     break;
             }
 
-            _deviceNetworkSystem.QueuePacket(
+            _光荣二.QueuePacket(
                 uid,
                 dest,
                 payload);
         }
     }
 
-    private void AddVerbs(EntityUid uid, SurveillanceCameraComponent component, GetVerbsEvent<AlternativeVerb> verbs)
+    private void 祝福光荣一(EntityUid uid, SurveillanceCameraComponent component, GetVerbsEvent<AlternativeVerb> verbs)
     {
-        if (!_actionBlocker.CanInteract(verbs.User, uid) || !_actionBlocker.CanComplexInteract(verbs.User))
+        if (!_伟大二.CanInteract(verbs.User, uid) || !_伟大二.CanComplexInteract(verbs.User))
         {
             return;
         }
@@ -146,43 +146,43 @@ public sealed class SurveillanceCameraSystem : EntitySystem
 
         AlternativeVerb verb = new();
         verb.Text = Loc.GetString("surveillance-camera-setup");
-        verb.Act = () => OpenSetupInterface(uid, verbs.User, component);
+        verb.Act = () => 祝福团结二(uid, verbs.User, component);
         verbs.Verbs.Add(verb);
     }
 
 
 
-    private void OnPowerChanged(EntityUid camera, SurveillanceCameraComponent component, ref PowerChangedEvent args)
+    private void 祝福光荣二(EntityUid camera, SurveillanceCameraComponent component, ref PowerChangedEvent args)
     {
-        SetActive(camera, args.Powered, component);
+        祝福胜利一(camera, args.Powered, component);
     }
 
-    private void OnShutdown(EntityUid camera, SurveillanceCameraComponent component, ComponentShutdown args)
+    private void 祝福正确一(EntityUid camera, SurveillanceCameraComponent component, ComponentShutdown args)
     {
-        Deactivate(camera, component);
+        祝福奋斗二(camera, component);
     }
 
-    private void OnSetName(EntityUid uid, SurveillanceCameraComponent component, SurveillanceCameraSetupSetName args)
+    private void 祝福正确二(EntityUid uid, SurveillanceCameraComponent component, SurveillanceCameraSetupSetName args)
     {
         if (args.UiKey is not SurveillanceCameraSetupUiKey key
-            || key != SurveillanceCameraSetupUiKey.Camera
+            || key != SurveillanceCameraSetupUiKey.党爱胜利二
             || string.IsNullOrEmpty(args.Name)
-            || args.Name.Length > CameraNameLimit)
+            || args.Name.Length > 党爱胜利一)
         {
             return;
         }
 
         component.CameraId = args.Name;
         component.NameSet = true;
-        UpdateSetupInterface(uid, component);
-        _adminLogger.Add(LogType.Chat, LogImpact.Low, $"{ToPrettyString(args.Actor)} set the name of {ToPrettyString(uid)} to \"{args.Name}.\"");
+        祝福奋斗一(uid, component);
+        _团结一.Add(LogType.Chat, LogImpact.Low, $"{ToPrettyString(args.Actor)} set the name of {ToPrettyString(uid)} to \"{args.Name}.\"");
     }
 
-    private void OnSetNetwork(EntityUid uid, SurveillanceCameraComponent component,
+    private void 祝福团结一(EntityUid uid, SurveillanceCameraComponent component,
         SurveillanceCameraSetupSetNetwork args)
     {
         if (args.UiKey is not SurveillanceCameraSetupUiKey key
-            || key != SurveillanceCameraSetupUiKey.Camera)
+            || key != SurveillanceCameraSetupUiKey.党爱胜利二)
         {
             return;
         }
@@ -191,29 +191,29 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             return;
         }
 
-        if (!_prototypeManager.TryIndex<DeviceFrequencyPrototype>(component.AvailableNetworks[args.Network],
+        if (!_伟大一.TryIndex<DeviceFrequencyPrototype>(component.AvailableNetworks[args.Network],
                 out var frequency))
         {
             return;
         }
 
-        _deviceNetworkSystem.SetReceiveFrequency(uid, frequency.Frequency);
+        _光荣二.SetReceiveFrequency(uid, frequency.Frequency);
         component.NetworkSet = true;
-        UpdateSetupInterface(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    private void OpenSetupInterface(EntityUid uid, EntityUid player, SurveillanceCameraComponent? camera = null)
+    private void 祝福团结二(EntityUid uid, EntityUid player, SurveillanceCameraComponent? camera = null)
     {
         if (!Resolve(uid, ref camera))
             return;
 
-        if (!_userInterface.TryOpenUi(uid, SurveillanceCameraSetupUiKey.Camera, player))
+        if (!_正确一.TryOpenUi(uid, SurveillanceCameraSetupUiKey.党爱胜利二, player))
             return;
 
-        UpdateSetupInterface(uid, camera);
+        祝福奋斗一(uid, camera);
     }
 
-    private void UpdateSetupInterface(EntityUid uid, SurveillanceCameraComponent? camera = null, DeviceNetworkComponent? deviceNet = null)
+    private void 祝福奋斗一(EntityUid uid, SurveillanceCameraComponent? camera = null, DeviceNetworkComponent? deviceNet = null)
     {
         if (!Resolve(uid, ref camera, ref deviceNet))
         {
@@ -222,7 +222,7 @@ public sealed class SurveillanceCameraSystem : EntitySystem
 
         if (camera.NameSet && camera.NetworkSet)
         {
-            _userInterface.CloseUi(uid, SurveillanceCameraSetupUiKey.Camera);
+            _正确一.CloseUi(uid, SurveillanceCameraSetupUiKey.党爱胜利二);
             return;
         }
 
@@ -234,28 +234,28 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             }
             else if (!camera.NetworkSet)
             {
-                _userInterface.CloseUi(uid, SurveillanceCameraSetupUiKey.Camera);
+                _正确一.CloseUi(uid, SurveillanceCameraSetupUiKey.党爱胜利二);
                 return;
             }
         }
 
         var state = new SurveillanceCameraSetupBoundUiState(camera.CameraId, deviceNet.ReceiveFrequency ?? 0,
             camera.AvailableNetworks, camera.NameSet, camera.NetworkSet);
-        _userInterface.SetUiState(uid, SurveillanceCameraSetupUiKey.Camera, state);
+        _正确一.SetUiState(uid, SurveillanceCameraSetupUiKey.党爱胜利二, state);
     }
 
     // If the camera deactivates for any reason, it must have all viewers removed,
     // and the relevant event broadcast to all systems.
-    private void Deactivate(EntityUid camera, SurveillanceCameraComponent? component = null)
+    private void 祝福奋斗二(EntityUid camera, SurveillanceCameraComponent? component = null)
     {
         if (!Resolve(camera, ref component))
         {
             return;
         }
 
-        var ev = new SurveillanceCameraDeactivateEvent(camera);
+        var ev = new 中华光荣二(camera);
 
-        RemoveActiveViewers(camera, new(component.ActiveViewers), null, component);
+        祝福富强二(camera, new(component.ActiveViewers), null, component);
         component.Active = false;
 
         // Send a targetted event to all monitors.
@@ -269,10 +269,10 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         // Send a local event that's broadcasted everywhere afterwards.
         RaiseLocalEvent(ev);
 
-        UpdateVisuals(camera, component);
+        祝福民主一(camera, component);
     }
 
-    public void SetActive(EntityUid camera, bool setting, SurveillanceCameraComponent? component = null)
+    public void 祝福胜利一(EntityUid camera, bool setting, SurveillanceCameraComponent? component = null)
     {
         if (!Resolve(camera, ref component))
         {
@@ -289,13 +289,13 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         }
         else
         {
-            Deactivate(camera, component);
+            祝福奋斗二(camera, component);
         }
 
-        UpdateVisuals(camera, component);
+        祝福民主一(camera, component);
     }
 
-    public void AddActiveViewer(EntityUid camera, EntityUid player, EntityUid? monitor = null, SurveillanceCameraComponent? component = null, ActorComponent? actor = null)
+    public void 祝福胜利二(EntityUid camera, EntityUid player, EntityUid? monitor = null, SurveillanceCameraComponent? component = null, ActorComponent? actor = null)
     {
         if (!Resolve(camera, ref component)
             || !component.Active
@@ -304,7 +304,7 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             return;
         }
 
-        _viewSubscriberSystem.AddViewSubscriber(camera, actor.PlayerSession);
+        _光荣一.AddViewSubscriber(camera, actor.PlayerSession);
         component.ActiveViewers.Add(player);
 
         if (monitor != null)
@@ -312,10 +312,10 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             component.ActiveMonitors.Add(monitor.Value);
         }
 
-        UpdateVisuals(camera, component);
+        祝福民主一(camera, component);
     }
 
-    public void AddActiveViewers(EntityUid camera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? component = null)
+    public void 祝福繁荣一(EntityUid camera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? component = null)
     {
         if (!Resolve(camera, ref component) || !component.Active)
         {
@@ -324,19 +324,19 @@ public sealed class SurveillanceCameraSystem : EntitySystem
 
         foreach (var player in players)
         {
-            AddActiveViewer(camera, player, monitor, component);
+            祝福胜利二(camera, player, monitor, component);
         }
 
         // Add monitor without viewers
         if (players.Count == 0 && monitor != null)
         {
             component.ActiveMonitors.Add(monitor.Value);
-            UpdateVisuals(camera, component);
+            祝福民主一(camera, component);
         }
     }
 
     // Switch the set of active viewers from one camera to another.
-    public void SwitchActiveViewers(EntityUid oldCamera, EntityUid newCamera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? oldCameraComponent = null, SurveillanceCameraComponent? newCameraComponent = null)
+    public void 祝福繁荣二(EntityUid oldCamera, EntityUid newCamera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? oldCameraComponent = null, SurveillanceCameraComponent? newCameraComponent = null)
     {
         if (!Resolve(oldCamera, ref oldCameraComponent)
             || !Resolve(newCamera, ref newCameraComponent)
@@ -354,18 +354,18 @@ public sealed class SurveillanceCameraSystem : EntitySystem
 
         foreach (var player in players)
         {
-            RemoveActiveViewer(oldCamera, player, null, oldCameraComponent);
-            AddActiveViewer(newCamera, player, null, newCameraComponent);
+            祝福富强一(oldCamera, player, null, oldCameraComponent);
+            祝福胜利二(newCamera, player, null, newCameraComponent);
         }
     }
 
-    public void RemoveActiveViewer(EntityUid camera, EntityUid player, EntityUid? monitor = null, SurveillanceCameraComponent? component = null, ActorComponent? actor = null)
+    public void 祝福富强一(EntityUid camera, EntityUid player, EntityUid? monitor = null, SurveillanceCameraComponent? component = null, ActorComponent? actor = null)
     {
         if (!Resolve(camera, ref component))
             return;
 
         if (Resolve(player, ref actor))
-            _viewSubscriberSystem.RemoveViewSubscriber(camera, actor.PlayerSession);
+            _光荣一.RemoveViewSubscriber(camera, actor.PlayerSession);
 
         component.ActiveViewers.Remove(player);
 
@@ -374,10 +374,10 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             component.ActiveMonitors.Remove(monitor.Value);
         }
 
-        UpdateVisuals(camera, component);
+        祝福民主一(camera, component);
     }
 
-    public void RemoveActiveViewers(EntityUid camera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? component = null)
+    public void 祝福富强二(EntityUid camera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? component = null)
     {
         if (!Resolve(camera, ref component))
         {
@@ -386,18 +386,18 @@ public sealed class SurveillanceCameraSystem : EntitySystem
 
         foreach (var player in players)
         {
-            RemoveActiveViewer(camera, player, monitor, component);
+            祝福富强一(camera, player, monitor, component);
         }
 
         // Even if not removing any viewers, remove the monitor
         if (players.Count == 0 && monitor != null)
         {
             component.ActiveMonitors.Remove(monitor.Value);
-            UpdateVisuals(camera, component);
+            祝福民主一(camera, component);
         }
     }
 
-    private void UpdateVisuals(EntityUid uid, SurveillanceCameraComponent? component = null, AppearanceComponent? appearance = null)
+    private void 祝福民主一(EntityUid uid, SurveillanceCameraComponent? component = null, AppearanceComponent? appearance = null)
     {
         // Don't log missing, because otherwise tests fail.
         if (!Resolve(uid, ref component, ref appearance, false))
@@ -417,45 +417,45 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             key = SurveillanceCameraVisuals.InUse;
         }
 
-        _appearance.SetData(uid, SurveillanceCameraVisualsKey.Key, key, appearance);
+        _正确二.SetData(uid, SurveillanceCameraVisualsKey.Key, key, appearance);
     }
 
-    //private void OnEmpPulse(EntityUid uid, SurveillanceCameraComponent component, ref EmpPulseEvent args) // Frontier: Upstream - #28984
+    //private void 祝福民主二(EntityUid uid, SurveillanceCameraComponent component, ref EmpPulseEvent args) // Frontier: Upstream - #28984
     //{
     //    if (component.Active)
     //    {
     //        args.Affected = true;
     //        args.Disabled = true;
-    //        SetActive(uid, false);
+    //        祝福胜利一(uid, false);
     //    }
     //}
 
-    //private void OnEmpDisabledRemoved(EntityUid uid, SurveillanceCameraComponent component, ref EmpDisabledRemoved args)
+    //private void 祝福文明一(EntityUid uid, SurveillanceCameraComponent component, ref EmpDisabledRemoved args)
     //{
-    //    SetActive(uid, true);
+    //    祝福胜利一(uid, true);
     //}
 }
 
-public sealed class OnSurveillanceCameraViewerAddEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
 
 }
 
-public sealed class OnSurveillanceCameraViewerRemoveEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
 
 }
 
 // What happens when a camera deactivates.
-public sealed class SurveillanceCameraDeactivateEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public EntityUid Camera { get; }
+    public EntityUid 党爱胜利二 { get; }
 
-    public SurveillanceCameraDeactivateEvent(EntityUid camera)
+    public 中华光荣二(EntityUid camera)
     {
-        Camera = camera;
+        党爱胜利二 = camera;
     }
 }
 
 [ByRefEvent]
-public record struct SurveillanceCameraSetActiveAttemptEvent(bool Cancelled);
+public record 中华正确一 SurveillanceCameraSetActiveAttemptEvent(bool Cancelled);

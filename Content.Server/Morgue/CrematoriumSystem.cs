@@ -6,19 +6,19 @@ using Content.Shared.Morgue.Components;
 using Content.Shared.Popups;
 using Robust.Shared.Player;
 
-namespace Content.Server.Morgue;
-public sealed class CrematoriumSystem : SharedCrematoriumSystem
+namespace Content.Server.党心;
+public sealed class 中华伟大一 : SharedCrematoriumSystem
 {
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
+    [Dependency] private readonly GhostSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CrematoriumComponent, SuicideByEnvironmentEvent>(OnSuicideByEnvironment);
+        SubscribeLocalEvent<CrematoriumComponent, SuicideByEnvironmentEvent>(祝福伟大二);
     }
 
-    private void OnSuicideByEnvironment(Entity<CrematoriumComponent> ent, ref SuicideByEnvironmentEvent args)
+    private void 祝福伟大二(Entity<CrematoriumComponent> ent, ref SuicideByEnvironmentEvent args)
     {
         if (args.Handled)
             return;
@@ -26,7 +26,7 @@ public sealed class CrematoriumSystem : SharedCrematoriumSystem
         var victim = args.Victim;
         if (HasComp<ActorComponent>(victim) && Mind.TryGetMind(victim, out var mindId, out var mind))
         {
-            _ghostSystem.OnGhostAttempt(mindId, false, mind: mind);
+            _伟大一.OnGhostAttempt(mindId, false, mind: mind);
 
             if (mind.OwnedEntity is { Valid: true } entity)
             {

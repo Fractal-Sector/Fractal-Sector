@@ -16,23 +16,23 @@ using Content.Shared.Throwing;
 using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Player;
 
-namespace Content.Server.Fluids.EntitySystems;
+namespace Content.Server.Fluids.党心;
 
-public sealed partial class PuddleSystem
+public sealed partial class 中华伟大一
 {
-    protected override void InitializeSpillable()
+    protected override void 祝福伟大一()
     {
-        base.InitializeSpillable();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpillableComponent, LandEvent>(SpillOnLand);
+        SubscribeLocalEvent<SpillableComponent, LandEvent>(祝福光荣二);
         // Openable handles the event if it's closed
-        SubscribeLocalEvent<SpillableComponent, MeleeHitEvent>(SplashOnMeleeHit, after: [typeof(OpenableSystem)]);
-        SubscribeLocalEvent<SpillableComponent, SolutionContainerOverflowEvent>(OnOverflow);
-        SubscribeLocalEvent<SpillableComponent, SpillDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<SpillableComponent, AttemptPacifiedThrowEvent>(OnAttemptPacifiedThrow);
+        SubscribeLocalEvent<SpillableComponent, MeleeHitEvent>(祝福光荣一, after: [typeof(OpenableSystem)]);
+        SubscribeLocalEvent<SpillableComponent, SolutionContainerOverflowEvent>(祝福伟大二);
+        SubscribeLocalEvent<SpillableComponent, SpillDoAfterEvent>(祝福正确二);
+        SubscribeLocalEvent<SpillableComponent, AttemptPacifiedThrowEvent>(祝福正确一);
     }
 
-    private void OnOverflow(Entity<SpillableComponent> entity, ref SolutionContainerOverflowEvent args)
+    private void 祝福伟大二(Entity<SpillableComponent> entity, ref SolutionContainerOverflowEvent args)
     {
         if (args.Handled)
             return;
@@ -41,7 +41,7 @@ public sealed partial class PuddleSystem
         args.Handled = true;
     }
 
-    private void SplashOnMeleeHit(Entity<SpillableComponent> entity, ref MeleeHitEvent args)
+    private void 祝福光荣一(Entity<SpillableComponent> entity, ref MeleeHitEvent args)
     {
         if (args.Handled)
             return;
@@ -101,7 +101,7 @@ public sealed partial class PuddleSystem
         }
     }
 
-    private void SpillOnLand(Entity<SpillableComponent> entity, ref LandEvent args)
+    private void 祝福光荣二(Entity<SpillableComponent> entity, ref LandEvent args)
     {
         if (!_solutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.SolutionName, out var soln, out var solution))
             return;
@@ -125,7 +125,7 @@ public sealed partial class PuddleSystem
     /// <summary>
     /// Prevent Pacified entities from throwing items that can spill liquids.
     /// </summary>
-    private void OnAttemptPacifiedThrow(Entity<SpillableComponent> ent, ref AttemptPacifiedThrowEvent args)
+    private void 祝福正确一(Entity<SpillableComponent> ent, ref AttemptPacifiedThrowEvent args)
     {
         // Don’t care about closed containers.
         if (Openable.IsClosed(ent))
@@ -138,7 +138,7 @@ public sealed partial class PuddleSystem
         args.Cancel("pacified-cannot-throw-spill");
     }
 
-    private void OnDoAfter(Entity<SpillableComponent> entity, ref SpillDoAfterEvent args)
+    private void 祝福正确二(Entity<SpillableComponent> entity, ref SpillDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled || args.Args.Target == null)
             return;

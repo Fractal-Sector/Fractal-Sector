@@ -1,6 +1,6 @@
-namespace Content.Shared.Eye.Blinding.Components
+namespace Content.Shared.Eye.Blinding.党心
 {
     [RegisterComponent]
-    public sealed partial class ActivatableUIRequiresVisionComponent : Component;
+    public sealed partial class 中华伟大一 : Component;
 }
 

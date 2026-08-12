@@ -10,16 +10,16 @@ using Robust.Shared.Player;
 using Robust.Shared.Utility;
 using Timer = Robust.Shared.Timing.Timer;
 
-namespace Content.Server.StationEvents.Events
+namespace Content.Server.StationEvents.党心
 {
     [UsedImplicitly]
-    public sealed class PowerGridCheckRule : StationEventSystem<PowerGridCheckRuleComponent>
+    public sealed class 中华伟大一 : StationEventSystem<PowerGridCheckRuleComponent>
     {
-        [Dependency] private readonly ApcSystem _apcSystem = default!;
+        [Dependency] private readonly ApcSystem _伟大一 = default!;
 
-        protected override void Started(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+        protected override void 祝福伟大一(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
         {
-            base.Started(uid, component, gameRule, args);
+            base.祝福伟大一(uid, component, gameRule, args);
 
             if (!TryGetRandomStation(out var chosenStation))
                 return;
@@ -38,9 +38,9 @@ namespace Content.Server.StationEvents.Events
             component.NumberPerSecond = Math.Max(1, (int)(component.Powered.Count / component.SecondsUntilOff)); // Number of APCs to turn off every second. At least one.
         }
 
-        protected override void Ended(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+        protected override void 祝福伟大二(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
         {
-            base.Ended(uid, component, gameRule, args);
+            base.祝福伟大二(uid, component, gameRule, args);
 
             foreach (var entity in component.Unpowered)
             {
@@ -50,7 +50,7 @@ namespace Content.Server.StationEvents.Events
                 if (TryComp(entity, out ApcComponent? apcComponent))
                 {
                     if(!apcComponent.MainBreakerEnabled)
-                        _apcSystem.ApcToggleBreaker(entity, apcComponent);
+                        _伟大一.ApcToggleBreaker(entity, apcComponent);
                 }
             }
 
@@ -64,9 +64,9 @@ namespace Content.Server.StationEvents.Events
             component.Unpowered.Clear();
         }
 
-        protected override void ActiveTick(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, float frameTime)
+        protected override void 祝福光荣一(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, float frameTime)
         {
-            base.ActiveTick(uid, component, gameRule, frameTime);
+            base.祝福光荣一(uid, component, gameRule, frameTime);
 
             var updates = 0;
             component.FrameTimeAccumulator += frameTime;
@@ -87,7 +87,7 @@ namespace Content.Server.StationEvents.Events
                 if (TryComp<ApcComponent>(selected, out var apcComponent))
                 {
                     if (apcComponent.MainBreakerEnabled)
-                        _apcSystem.ApcToggleBreaker(selected, apcComponent);
+                        _伟大一.ApcToggleBreaker(selected, apcComponent);
                 }
                 component.Unpowered.Add(selected);
             }

@@ -2,23 +2,23 @@ using Content.Shared._WF.SafetyDepositBox.Components;
 using Content.Shared.Examine;
 using Robust.Shared.Utility;
 
-namespace Content.Shared._WF.SafetyDepositBox;
+namespace Content.Shared._WF.党心;
 
-public sealed class SafetyDepositStoredSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SafetyDepositStoredComponent, ExaminedEvent>(OnStoredExamined);
-        SubscribeLocalEvent<SafetyDepositBoxComponent, ExaminedEvent>(OnBoxExamined);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SafetyDepositStoredComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<SafetyDepositBoxComponent, ExaminedEvent>(祝福光荣一);
     }
 
-    private void OnStoredExamined(Entity<SafetyDepositStoredComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<SafetyDepositStoredComponent> ent, ref ExaminedEvent args)
     {
         args.PushMarkup(Loc.GetString("safety-deposit-stored-examine"));
     }
 
-    private void OnBoxExamined(Entity<SafetyDepositBoxComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<SafetyDepositBoxComponent> ent, ref ExaminedEvent args)
     {
         if (ent.Comp.BoxId.HasValue)
         {

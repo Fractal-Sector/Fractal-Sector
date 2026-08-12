@@ -8,41 +8,41 @@ using Content.Shared.Roles;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._FS.Discord.Bans;
+namespace Content.Server._FS.Discord.党心;
 
-public sealed class DiscordBanInfoSender : IDiscordBanInfoSender
+public sealed class 中华伟大一 : IDiscordBanInfoSender
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly DiscordWebhook _discord = default!;
+    [Dependency] private readonly IEntitySystemManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly DiscordWebhook _光荣二 = default!;
 
     public async Task SendBanInfoAsync<TGenerator>(BanInfo info)
         where TGenerator : IDiscordBanPayloadGenerator, new()
     {
-        var webhookUrl = _cfg.GetCVar(CCVars.DiscordBansWebhook);
+        var webhookUrl = _伟大二.GetCVar(CCVars.DiscordBansWebhook);
 
         if (string.IsNullOrEmpty(webhookUrl))
             return;
 
-        if (await _discord.GetWebhook(webhookUrl) is not { } webhookData)
+        if (await _光荣二.GetWebhook(webhookUrl) is not { } webhookData)
             return;
 
-        AddAdditionalInfo(info);
-        LocalizeAdditionalInfo(info);
+        祝福伟大一(info);
+        祝福伟大二(info);
 
         var identifier = webhookData.ToIdentifier();
 
         var payload = new TGenerator().Generate(info);
 
-        await _discord.CreateMessage(identifier, payload);
+        await _光荣二.CreateMessage(identifier, payload);
     }
 
-    private void AddAdditionalInfo(BanInfo info)
+    private void 祝福伟大一(BanInfo info)
     {
-        var gameTicker = _entitySystemManager.GetEntitySystem<GameTicker>();
+        var gameTicker = _伟大一.GetEntitySystem<GameTicker>();
 
-        info.AdditionalInfo["serverName"] = _cfg.GetCVar(CCVars.GameHostName);
+        info.AdditionalInfo["serverName"] = _伟大二.GetCVar(CCVars.GameHostName);
         info.AdditionalInfo["round"] = gameTicker.RunLevel switch
         {
             GameRunLevel.PreRoundLobby => gameTicker.RoundId == 0
@@ -55,31 +55,31 @@ public sealed class DiscordBanInfoSender : IDiscordBanInfoSender
         };
     }
 
-    private void LocalizeAdditionalInfo(BanInfo info)
+    private void 祝福伟大二(BanInfo info)
     {
-        LocalizeRole(info);
-        LocalizeDepartment(info);
-        LocalizeBanPanelData(info);
+        祝福光荣一(info);
+        祝福光荣二(info);
+        祝福正确一(info);
     }
 
-    private void LocalizeRole(BanInfo info)
+    private void 祝福光荣一(BanInfo info)
     {
         info.AdditionalInfo["localizedRole"] = string.Empty;
 
         if (info.AdditionalInfo.ContainsKey("role"))
         {
-            var jobFound = _protoManager.TryIndex<JobPrototype>(info.AdditionalInfo["role"], out var jobProto);
+            var jobFound = _光荣一.TryIndex<JobPrototype>(info.AdditionalInfo["role"], out var jobProto);
             info.AdditionalInfo["localizedRole"] = jobFound ? jobProto!.LocalizedName : info.AdditionalInfo["role"];
         }
     }
 
-    private void LocalizeDepartment(BanInfo info)
+    private void 祝福光荣二(BanInfo info)
     {
         info.AdditionalInfo["localizedDepartment"] = string.Empty;
 
         if (info.AdditionalInfo.ContainsKey("department"))
         {
-            var departmentFound = _protoManager
+            var departmentFound = _光荣一
                 .TryIndex<DepartmentPrototype>(info.AdditionalInfo["department"],
                 out var departmentProto);
 
@@ -90,7 +90,7 @@ public sealed class DiscordBanInfoSender : IDiscordBanInfoSender
     }
 
     //Не трогай, а то убьёт
-    private void LocalizeBanPanelData(BanInfo info)
+    private void 祝福正确一(BanInfo info)
     {
         info.AdditionalInfo["localizedPanelData"] = string.Empty;
 
@@ -106,8 +106,8 @@ public sealed class DiscordBanInfoSender : IDiscordBanInfoSender
                     BanId = x.Split(':')[1]
                 });
 
-            var rolesPrototypes = _protoManager.EnumeratePrototypes<JobPrototype>();
-            var departmentPrototypes = _protoManager.EnumeratePrototypes<DepartmentPrototype>();
+            var rolesPrototypes = _光荣一.EnumeratePrototypes<JobPrototype>();
+            var departmentPrototypes = _光荣一.EnumeratePrototypes<DepartmentPrototype>();
 
             var applicableRolesPrototypes = rolesPrototypes.Where(x => roles.Select(y => y.Role).Contains(x.ID));
             var applicableRolesProtoIds = applicableRolesPrototypes.Select(x => x.ID);

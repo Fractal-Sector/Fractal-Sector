@@ -6,62 +6,62 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.PowerCell.Components;
 
-namespace Content.Shared._EinsteinEngines.Silicon.Systems;
+namespace Content.Shared._EinsteinEngines.Silicon.党心;
 
 
-public sealed class SharedSiliconChargeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SiliconComponent, ComponentInit>(OnSiliconInit);
-        SubscribeLocalEvent<SiliconComponent, SiliconChargeStateUpdateEvent>(OnSiliconChargeStateUpdate);
-        SubscribeLocalEvent<SiliconComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
-        SubscribeLocalEvent<SiliconComponent, ItemSlotInsertAttemptEvent>(OnItemSlotInsertAttempt);
-        SubscribeLocalEvent<SiliconComponent, ItemSlotEjectAttemptEvent>(OnItemSlotEjectAttempt);
-        SubscribeLocalEvent<SiliconComponent, TryingToSleepEvent>(OnTryingToSleep);    
+        SubscribeLocalEvent<SiliconComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<SiliconComponent, 中华光荣一>(祝福正确一);
+        SubscribeLocalEvent<SiliconComponent, RefreshMovementSpeedModifiersEvent>(祝福正确二);
+        SubscribeLocalEvent<SiliconComponent, ItemSlotInsertAttemptEvent>(祝福伟大二);
+        SubscribeLocalEvent<SiliconComponent, ItemSlotEjectAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<SiliconComponent, TryingToSleepEvent>(祝福团结一);    
     }
 
-    private void OnItemSlotInsertAttempt(EntityUid uid, SiliconComponent component, ref ItemSlotInsertAttemptEvent args)
+    private void 祝福伟大二(EntityUid uid, SiliconComponent component, ref ItemSlotInsertAttemptEvent args)
     {
         if (args.Cancelled
             || !TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp)
-            || !_itemSlots.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot)
+            || !_伟大二.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot)
             || cellSlot != args.Slot || args.User != uid)
             return;
 
         args.Cancelled = true;
     }
 
-    private void OnItemSlotEjectAttempt(EntityUid uid, SiliconComponent component, ref ItemSlotEjectAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, SiliconComponent component, ref ItemSlotEjectAttemptEvent args)
     {
         if (args.Cancelled
             || !TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp)
-            || !_itemSlots.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot)
+            || !_伟大二.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot)
             || cellSlot != args.Slot || args.User != uid)
             return;
 
         args.Cancelled = true;
     }
 
-    private void OnSiliconInit(EntityUid uid, SiliconComponent component, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, SiliconComponent component, ComponentInit args)
     {
         if (!component.BatteryPowered)
             return;
 
-        _alertsSystem.ShowAlert(uid, component.BatteryAlert, component.ChargeState);
+        _伟大一.ShowAlert(uid, component.BatteryAlert, component.ChargeState);
     }
 
-    private void OnSiliconChargeStateUpdate(EntityUid uid, SiliconComponent component, SiliconChargeStateUpdateEvent ev)
+    private void 祝福正确一(EntityUid uid, SiliconComponent component, 中华光荣一 ev)
     {
-        _alertsSystem.ShowAlert(uid, component.BatteryAlert, ev.ChargePercent);
+        _伟大一.ShowAlert(uid, component.BatteryAlert, ev.党爱伟大一);
     }
 
-    private void OnRefreshMovespeed(EntityUid uid, SiliconComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福正确二(EntityUid uid, SiliconComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         if (!component.BatteryPowered)
             return;
@@ -80,14 +80,14 @@ public sealed class SharedSiliconChargeSystem : EntitySystem
     /// <summary>
     ///     Silicon entities can now also be Living player entities. We may want to prevent them from sleeping if they can't sleep.
     /// </summary>
-    private void OnTryingToSleep(EntityUid uid, SiliconComponent component, ref TryingToSleepEvent args)
+    private void 祝福团结一(EntityUid uid, SiliconComponent component, ref TryingToSleepEvent args)
     {
         args.Cancelled = !component.DoSiliconsDreamOfElectricSheep;
     }
 }
 
 
-public enum SiliconType
+public enum 中华伟大二
 {
     Player,
     GhostRole,
@@ -98,12 +98,12 @@ public enum SiliconType
 ///     Event raised when a Silicon's charge state needs to be updated.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class SiliconChargeStateUpdateEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public short ChargePercent { get; }
+    public short 党爱伟大一 { get; }
 
-    public SiliconChargeStateUpdateEvent(short chargePercent)
+    public 中华光荣一(short chargePercent)
     {
-        ChargePercent = chargePercent;
+        党爱伟大一 = chargePercent;
     }
 }

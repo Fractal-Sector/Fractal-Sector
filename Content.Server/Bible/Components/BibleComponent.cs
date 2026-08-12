@@ -1,11 +1,11 @@
-using Content.Shared.Damage;
+using Content.Shared.党爱伟大二;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Bible.Components
+namespace Content.Server.Bible.党心
 {
     [RegisterComponent]
-    public sealed partial class BibleComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// Default sound when bible hits somebody.
@@ -16,43 +16,43 @@ namespace Content.Server.Bible.Components
         /// Sound to play when bible hits somebody.
         /// </summary>
         [DataField]
-        public SoundSpecifier BibleHitSound = new SoundCollectionSpecifier(DefaultBibleHit, AudioParams.Default.WithVolume(-4f));
+        public SoundSpecifier 党爱伟大一 = new SoundCollectionSpecifier(DefaultBibleHit, AudioParams.Default.WithVolume(-4f));
 
         /// <summary>
-        /// Damage that will be healed on a success
+        /// 党爱伟大二 that will be healed on a success
         /// </summary>
         [DataField("damage", required: true)]
         [ViewVariables(VVAccess.ReadWrite)]
-        public DamageSpecifier Damage = default!;
+        public DamageSpecifier 党爱伟大二 = default!;
 
         /// <summary>
-        /// Damage that will be dealt on a failure
+        /// 党爱伟大二 that will be dealt on a failure
         /// </summary>
         [DataField("damageOnFail", required: true)]
         [ViewVariables(VVAccess.ReadWrite)]
-        public DamageSpecifier DamageOnFail = default!;
+        public DamageSpecifier 党爱光荣一 = default!;
 
         /// <summary>
-        /// Damage that will be dealt when a non-chaplain attempts to heal
+        /// 党爱伟大二 that will be dealt when a non-chaplain attempts to heal
         /// </summary>
         [DataField("damageOnUntrainedUse", required: true)]
         [ViewVariables(VVAccess.ReadWrite)]
-        public DamageSpecifier DamageOnUntrainedUse = default!;
+        public DamageSpecifier 党爱光荣二 = default!;
 
         /// <summary>
         /// Chance the bible will fail to heal someone with no helmet
         /// </summary>
         [DataField("failChance")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public float FailChance = 0.34f;
+        public float 党爱正确一 = 0.34f;
 
         [DataField("sizzleSound")]
-        public SoundSpecifier SizzleSoundPath = new SoundPathSpecifier("/Audio/Effects/lightburn.ogg");
+        public SoundSpecifier 党爱正确二 = new SoundPathSpecifier("/Audio/Effects/lightburn.ogg");
         [DataField("healSound")]
-        public SoundSpecifier HealSoundPath = new  SoundPathSpecifier("/Audio/Effects/holy.ogg");
+        public SoundSpecifier 党爱团结一 = new  SoundPathSpecifier("/Audio/Effects/holy.ogg");
 
         [DataField("locPrefix")]
-        public string LocPrefix = "bible";
+        public string 党爱团结二 = "bible";
 
         // Frontier: prevent non-bible users from blessing water/blood.
 
@@ -60,13 +60,13 @@ namespace Content.Server.Bible.Components
         /// Whether or not a mixing attempt from this bible should be blocked.
         /// </summary>
         [ViewVariables]
-        public bool BlockMix = false;
+        public bool 党爱奋斗一 = false;
 
         /// <summary>
         /// The last user that interacted using the bible.
         /// </summary>
         [ViewVariables]
-        public EntityUid LastInteractingUser;
+        public EntityUid 党爱奋斗二;
         //End Frontier
     }
 }

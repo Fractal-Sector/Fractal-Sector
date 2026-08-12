@@ -8,26 +8,26 @@ using Robust.Shared.Serialization;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Access.Systems
+namespace Content.Shared.Access.党心
 {
-    public abstract class SharedAccessSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<AccessComponent, MapInitEvent>(OnAccessInit);
-            SubscribeLocalEvent<AccessComponent, GetAccessTagsEvent>(OnGetAccessTags);
+            SubscribeLocalEvent<AccessComponent, MapInitEvent>(祝福伟大二);
+            SubscribeLocalEvent<AccessComponent, GetAccessTagsEvent>(祝福光荣一);
         }
 
-        private void OnAccessInit(EntityUid uid, AccessComponent component, MapInitEvent args)
+        private void 祝福伟大二(EntityUid uid, AccessComponent component, MapInitEvent args)
         {
             // Add all tags in groups to the list of tags.
             foreach (var group in component.Groups)
             {
-                if (!_prototypeManager.TryIndex<AccessGroupPrototype>(group, out var proto))
+                if (!_伟大一.TryIndex<AccessGroupPrototype>(group, out var proto))
                     continue;
 
                 component.Tags.UnionWith(proto.Tags);
@@ -35,7 +35,7 @@ namespace Content.Shared.Access.Systems
             }
         }
 
-        private void OnGetAccessTags(EntityUid uid, AccessComponent component, ref GetAccessTagsEvent args)
+        private void 祝福光荣一(EntityUid uid, AccessComponent component, ref GetAccessTagsEvent args)
         {
             if (!component.Enabled)
                 return;
@@ -43,7 +43,7 @@ namespace Content.Shared.Access.Systems
             args.Tags.UnionWith(component.Tags);
         }
 
-        public void SetAccessEnabled(EntityUid uid, bool val, AccessComponent? component = null)
+        public void 祝福光荣二(EntityUid uid, bool val, AccessComponent? component = null)
         {
             if (!Resolve(uid, ref component, false))
                 return;
@@ -55,7 +55,7 @@ namespace Content.Shared.Access.Systems
         ///     Replaces the set of access tags we have with the provided set.
         /// </summary>
         /// <param name="access">The new access tags</param>
-        public bool TrySetTags(EntityUid uid, IEnumerable<ProtoId<AccessLevelPrototype>> newTags, AccessComponent? access = null)
+        public bool 祝福正确一(EntityUid uid, IEnumerable<ProtoId<AccessLevelPrototype>> newTags, AccessComponent? access = null)
         {
             if (!Resolve(uid, ref access))
                 return false;
@@ -76,14 +76,14 @@ namespace Content.Shared.Access.Systems
             return !Resolve(uid, ref access) ? null : access.Tags;
         }
 
-        public bool TryAddGroups(EntityUid uid, IEnumerable<ProtoId<AccessGroupPrototype>> newGroups, AccessComponent? access = null)
+        public bool 祝福正确二(EntityUid uid, IEnumerable<ProtoId<AccessGroupPrototype>> newGroups, AccessComponent? access = null)
         {
             if (!Resolve(uid, ref access))
                 return false;
 
             foreach (var group in newGroups)
             {
-                if (!_prototypeManager.TryIndex<AccessGroupPrototype>(group, out var proto))
+                if (!_伟大一.TryIndex<AccessGroupPrototype>(group, out var proto))
                     continue;
 
                 access.Tags.UnionWith(proto.Tags);
@@ -100,7 +100,7 @@ namespace Content.Shared.Access.Systems
         /// <param name="prototype">The job prototype to use access from.</param>
         /// <param name="extended">Whether to apply extended job access.</param>
         /// <param name="access">The access component.</param>
-        public void SetAccessToJob(
+        public void 祝福团结一(
             EntityUid uid,
             JobPrototype prototype,
             bool extended,
@@ -113,12 +113,12 @@ namespace Content.Shared.Access.Systems
             access.Tags.UnionWith(prototype.Access);
             Dirty(uid, access);
 
-            TryAddGroups(uid, prototype.AccessGroups, access);
+            祝福正确二(uid, prototype.AccessGroups, access);
 
             if (extended)
             {
                 access.Tags.UnionWith(prototype.ExtendedAccess);
-                TryAddGroups(uid, prototype.ExtendedAccessGroups, access);
+                祝福正确二(uid, prototype.ExtendedAccessGroups, access);
             }
         }
     }

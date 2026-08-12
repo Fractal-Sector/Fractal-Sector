@@ -8,11 +8,11 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
 /// <see cref="ReagentProducerAnomalyComponent"/>
 
-public sealed class ReagentProducerAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     //The idea is to divide substances into several categories.
     //The anomaly will choose one of the categories with a given chance based on severity.
@@ -28,37 +28,37 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
     //Useful:
     //Those reagents that the players are hunting for. Very low percentage of loss.
 
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PointLightSystem _light = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly PointLightSystem _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
 
-    public const string FallbackReagent = "Water";
+    public const string 党爱伟大一 = "Water";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ReagentProducerAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<ReagentProducerAnomalyComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<ReagentProducerAnomalyComponent, AnomalyPulseEvent>(祝福伟大二);
+        SubscribeLocalEvent<ReagentProducerAnomalyComponent, MapInitEvent>(祝福正确一);
     }
 
-    private void OnPulse(Entity<ReagentProducerAnomalyComponent> entity, ref AnomalyPulseEvent args)
+    private void 祝福伟大二(Entity<ReagentProducerAnomalyComponent> entity, ref AnomalyPulseEvent args)
     {
-        if (_random.NextFloat(0.0f, 1.0f) > args.Stability)
-            ChangeReagent(entity, args.Severity);
+        if (_伟大二.NextFloat(0.0f, 1.0f) > args.Stability)
+            祝福光荣一(entity, args.Severity);
     }
 
-    private void ChangeReagent(Entity<ReagentProducerAnomalyComponent> entity, float severity)
+    private void 祝福光荣一(Entity<ReagentProducerAnomalyComponent> entity, float severity)
     {
-        var reagent = GetRandomReagentType(entity, severity);
+        var reagent = 祝福正确二(entity, severity);
         entity.Comp.ProducingReagent = reagent;
-        _audio.PlayPvs(entity.Comp.ChangeSound, entity);
+        _正确一.PlayPvs(entity.Comp.ChangeSound, entity);
     }
 
     //reagent realtime generation
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
         var query = EntityQueryEnumerator<ReagentProducerAnomalyComponent, AnomalyComponent>();
         while (query.MoveNext(out var uid, out var component, out var anomaly))
@@ -68,7 +68,7 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
             if (component.AccumulatedFrametime < component.UpdateInterval)
                 continue;
 
-            if (!_solutionContainer.ResolveSolution(uid, component.SolutionName, ref component.Solution, out var producerSolution))
+            if (!_伟大一.ResolveSolution(uid, component.SolutionName, ref component.Solution, out var producerSolution))
                 continue;
 
             Solution newSol = new();
@@ -76,7 +76,7 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
             if (anomaly.Severity >= 0.97) reagentProducingAmount *= component.SupercriticalReagentProducingModifier;
 
             newSol.AddReagent(component.ProducingReagent, reagentProducingAmount);
-            _solutionContainer.TryAddSolution(component.Solution.Value, newSol); // TODO - the container is not fully filled.
+            _伟大一.TryAddSolution(component.Solution.Value, newSol); // TODO - the container is not fully filled.
 
             component.AccumulatedFrametime = 0;
 
@@ -87,8 +87,8 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
             // and nothing worked out for me. So for now it will be like this.
             if (component.NeedRecolor)
             {
-                var color = producerSolution.GetColor(_prototypeManager);
-                _light.SetColor(uid, color);
+                var color = producerSolution.GetColor(_光荣二);
+                _光荣一.SetColor(uid, color);
                 if (TryComp<RandomSpriteComponent>(uid, out var randomSprite))
                 {
                     foreach (var ent in randomSprite.Selected)
@@ -103,9 +103,9 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
         }
     }
 
-    private void OnMapInit(Entity<ReagentProducerAnomalyComponent> entity, ref MapInitEvent args)
+    private void 祝福正确一(Entity<ReagentProducerAnomalyComponent> entity, ref MapInitEvent args)
     {
-        ChangeReagent(entity, 0.1f); //MapInit Reagent 100% change
+        祝福光荣一(entity, 0.1f); //MapInit Reagent 100% change
     }
 
     // returns a random reagent based on a system of random weights.
@@ -117,7 +117,7 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
     // After that, a random reagent in the selected category is selected.
     //
     // Such a system is made to control the danger and interest of the anomaly more.
-    private string GetRandomReagentType(Entity<ReagentProducerAnomalyComponent> entity, float severity)
+    private string 祝福正确二(Entity<ReagentProducerAnomalyComponent> entity, float severity)
     {
         //Category Weight Randomization
         var currentWeightDangerous = MathHelper.Lerp(entity.Comp.WeightSpreadDangerous.X, entity.Comp.WeightSpreadDangerous.Y, severity);
@@ -125,29 +125,29 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
         var currentWeightUseful = MathHelper.Lerp(entity.Comp.WeightSpreadUseful.X, entity.Comp.WeightSpreadUseful.Y, severity);
 
         var sumWeight = currentWeightDangerous + currentWeightFun + currentWeightUseful;
-        var rnd = _random.NextFloat(0f, sumWeight);
+        var rnd = _伟大二.NextFloat(0f, sumWeight);
         //Dangerous
         if (rnd <= currentWeightDangerous && entity.Comp.DangerousChemicals.Count > 0)
         {
-            var reagent = _random.Pick(entity.Comp.DangerousChemicals);
+            var reagent = _伟大二.Pick(entity.Comp.DangerousChemicals);
             return reagent;
         }
         else rnd -= currentWeightDangerous;
         //Fun
         if (rnd <= currentWeightFun && entity.Comp.FunChemicals.Count > 0)
         {
-            var reagent = _random.Pick(entity.Comp.FunChemicals);
+            var reagent = _伟大二.Pick(entity.Comp.FunChemicals);
             return reagent;
         }
         else rnd -= currentWeightFun;
         //Useful
         if (rnd <= currentWeightUseful && entity.Comp.UsefulChemicals.Count > 0)
         {
-            var reagent = _random.Pick(entity.Comp.UsefulChemicals);
+            var reagent = _伟大二.Pick(entity.Comp.UsefulChemicals);
             return reagent;
         }
         //We should never end up here.
         //Maybe Log Error?
-        return FallbackReagent;
+        return 党爱伟大一;
     }
 }

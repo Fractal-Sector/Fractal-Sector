@@ -7,42 +7,42 @@ using Robust.Shared.Map;
 using Robust.Shared.Random;
 using NPCImprintingOnSpawnBehaviourComponent = Content.Server.NPC.Components.NPCImprintingOnSpawnBehaviourComponent;
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class NPCImprintingOnSpawnBehaviourSystem : SharedNPCImprintingOnSpawnBehaviourSystem
+public sealed partial class 中华伟大一 : SharedNPCImprintingOnSpawnBehaviourSystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly NPCSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<NPCImprintingOnSpawnBehaviourComponent, MapInitEvent>(OnMapInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<NPCImprintingOnSpawnBehaviourComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<NPCImprintingOnSpawnBehaviourComponent> imprinting, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<NPCImprintingOnSpawnBehaviourComponent> imprinting, ref MapInitEvent args)
     {
         HashSet<EntityUid> friends = new();
-        _lookup.GetEntitiesInRange(imprinting, imprinting.Comp.SpawnFriendsSearchRadius, friends);
+        _伟大一.GetEntitiesInRange(imprinting, imprinting.Comp.SpawnFriendsSearchRadius, friends);
 
         foreach (var friend in friends)
         {
-            if (_whitelistSystem.IsWhitelistPassOrNull(imprinting.Comp.Whitelist, friend))
+            if (_光荣二.IsWhitelistPassOrNull(imprinting.Comp.Whitelist, friend))
             {
-                AddImprintingTarget(imprinting, friend, imprinting.Comp);
+                祝福光荣一(imprinting, friend, imprinting.Comp);
             }
         }
 
         if (imprinting.Comp.Follow && imprinting.Comp.Friends.Count > 0)
         {
-            var mommy = _random.Pick(imprinting.Comp.Friends);
-            _npc.SetBlackboard(imprinting, NPCBlackboard.FollowTarget, new EntityCoordinates(mommy, Vector2.Zero));
+            var mommy = _光荣一.Pick(imprinting.Comp.Friends);
+            _伟大二.SetBlackboard(imprinting, NPCBlackboard.FollowTarget, new EntityCoordinates(mommy, Vector2.Zero));
         }
     }
 
-    public void AddImprintingTarget(EntityUid entity, EntityUid friend, NPCImprintingOnSpawnBehaviourComponent component)
+    public void 祝福光荣一(EntityUid entity, EntityUid friend, NPCImprintingOnSpawnBehaviourComponent component)
     {
         component.Friends.Add(friend);
         var exception = EnsureComp<FactionExceptionComponent>(entity);

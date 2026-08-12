@@ -1,17 +1,17 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Body.Prototypes
+namespace Content.Shared.Body.党心
 {
     [Prototype]
-    public sealed partial class MetabolizerTypePrototype : IPrototype
+    public sealed partial class 中华伟大一 : IPrototype
     {
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
         [DataField("name", required: true)]
         private LocId Name { get; set; }
 
         [ViewVariables(VVAccess.ReadOnly)]
-        public string LocalizedName => Loc.GetString(Name);
+        public string 党爱伟大二 => Loc.GetString(Name);
     }
 }

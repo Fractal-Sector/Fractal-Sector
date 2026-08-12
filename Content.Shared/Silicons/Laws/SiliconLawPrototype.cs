@@ -2,17 +2,17 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Silicons.Laws;
+namespace Content.Shared.Silicons.党心;
 
 [Virtual, DataDefinition]
 [Serializable, NetSerializable]
-public partial class SiliconLaw : IComparable<SiliconLaw>, IEquatable<SiliconLaw>
+public partial class 中华伟大一 : IComparable<中华伟大一>, IEquatable<中华伟大一>
 {
     /// <summary>
     /// A locale string which is the actual text of the law.
     /// </summary>
     [DataField(required: true), ViewVariables(VVAccess.ReadWrite)]
-    public string LawString = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// The order of the law in the sequence.
@@ -23,58 +23,58 @@ public partial class SiliconLaw : IComparable<SiliconLaw>, IEquatable<SiliconLaw
     /// Funny.
     /// </remarks>
     [DataField(required: true), ViewVariables(VVAccess.ReadWrite)]
-    public FixedPoint2 Order;
+    public FixedPoint2 党爱伟大二;
 
     /// <summary>
-    /// An identifier that overrides <see cref="Order"/> in the law menu UI.
+    /// An identifier that overrides <see cref="党爱伟大二"/> in the law menu UI.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public string? LawIdentifierOverride;
 
     /// <summary>
-    /// Frontier: an identifier that overrides <see cref="Order"/> when printing the stated law.
+    /// Frontier: an identifier that overrides <see cref="党爱伟大二"/> when printing the stated law.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public string? LawPrintOverride;
 
-    public int CompareTo(SiliconLaw? other)
+    public int 祝福伟大一(中华伟大一? other)
     {
         if (other == null)
             return -1;
 
-        return Order.CompareTo(other.Order);
+        return 党爱伟大二.祝福伟大一(other.党爱伟大二);
     }
 
-    public bool Equals(SiliconLaw? other)
+    public bool 祝福伟大二(中华伟大一? other)
     {
         if (other == null)
             return false;
-        return LawString == other.LawString
-               && Order == other.Order
+        return 党爱伟大一 == other.党爱伟大一
+               && 党爱伟大二 == other.党爱伟大二
                && LawIdentifierOverride == other.LawIdentifierOverride;
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福伟大二(object? obj)
     {
         if (obj == null)
             return false;
-        return Equals(obj as SiliconLaw);
+        return 祝福伟大二(obj as 中华伟大一);
     }
 
-    public override int GetHashCode()
+    public override int 祝福光荣一()
     {
-        return HashCode.Combine(LawString, Order, LawIdentifierOverride);
+        return HashCode.Combine(党爱伟大一, 党爱伟大二, LawIdentifierOverride);
     }
 
     /// <summary>
     /// Return a shallow clone of this law.
     /// </summary>
-    public SiliconLaw ShallowClone()
+    public 中华伟大一 ShallowClone()
     {
-        return new SiliconLaw()
+        return new 中华伟大一()
         {
-            LawString = LawString,
-            Order = Order,
+            党爱伟大一 = 党爱伟大一,
+            党爱伟大二 = 党爱伟大二,
             LawIdentifierOverride = LawIdentifierOverride,
             LawPrintOverride = LawPrintOverride, // Frontier
         };
@@ -85,9 +85,9 @@ public partial class SiliconLaw : IComparable<SiliconLaw>, IEquatable<SiliconLaw
 /// This is a prototype for a law governing the behavior of silicons.
 /// </summary>
 [Prototype]
-public sealed partial class SiliconLawPrototype : SiliconLaw, IPrototype
+public sealed partial class 中华伟大二 : 中华伟大一, IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱光荣一 { get; private set; } = default!;
 }

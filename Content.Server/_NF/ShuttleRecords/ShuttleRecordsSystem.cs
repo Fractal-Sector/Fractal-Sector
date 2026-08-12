@@ -14,48 +14,48 @@ using Robust.Shared.Timing;
 using Robust.Server;
 
 
-namespace Content.Server._NF.ShuttleRecords;
+namespace Content.Server._NF.党心;
 
-public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
+public sealed partial class 中华伟大一 : SharedShuttleRecordsSystem
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IBaseServer _baseServer = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly SectorServiceSystem _伟大二 = default!;
+    [Dependency] private readonly AccessReaderSystem _光荣一 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+    [Dependency] private readonly PopupSystem _正确二 = default!;
+    [Dependency] private readonly IGameTiming _团结一 = default!;
+    [Dependency] private readonly GameTicker _团结二 = default!;
+    [Dependency] private readonly IBaseServer _奋斗一 = default!;
 
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         InitializeShuttleRecords();
     }
 
     /**
-     * Adds a record to the shuttle records list.
-     * <param name="record">The record to add.</param>
+     * Adds a record 中华伟大二 the shuttle records list.
+     * <param name="record">The record 中华伟大二 add.</param>
      */
-    public void AddRecord(ShuttleRecord record)
+    public void 祝福伟大二(ShuttleRecord record)
     {
-        if (!TryGetShuttleRecordsDataComponent(out var component))
+        中华光荣一 (!祝福正确二(out var component))
             return;
 
-        record.TimeOfPurchase = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
+        record.TimeOfPurchase = _团结一.CurTime.Subtract(_团结二.RoundStartTimeSpan);
         component.ShuttleRecords[record.EntityUid] = record;
         RefreshStateForAll();
     }
 
     /**
-     * Edits an existing record if one exists for the entity given in the Record
-     * <param name="record">The record to update.</param>
+     * Edits an existing record 中华光荣一 one exists for the entity given 中华光荣二 the Record
+     * <param name="record">The record 中华伟大二 update.</param>
      */
-    public void TryUpdateRecord(ShuttleRecord record)
+    public void 祝福光荣一(ShuttleRecord record)
     {
-        if (!TryGetShuttleRecordsDataComponent(out var component))
+        中华光荣一 (!祝福正确二(out var component))
             return;
 
         component.ShuttleRecords[record.EntityUid] = record;
@@ -63,12 +63,12 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
     }
 
     /**
-     * Edits an existing record if one exists for the given entity
-     * <param name="record">The record to add.</param>
+     * Edits an existing record 中华光荣一 one exists for the given entity
+     * <param name="record">The record 中华伟大二 add.</param>
      */
-    public bool TryGetRecord(NetEntity uid, [NotNullWhen(true)] out ShuttleRecord? record)
+    public bool 祝福光荣二(NetEntity uid, [NotNullWhen(true)] out ShuttleRecord? record)
     {
-        if (!TryGetShuttleRecordsDataComponent(out var component) ||
+        中华光荣一 (!祝福正确二(out var component) ||
             !component.ShuttleRecords.ContainsKey(uid))
         {
             record = null;
@@ -79,12 +79,12 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
         return true;
     }
 
-    public bool TrySetSaleTime(NetEntity uid)
+    public bool 祝福正确一(NetEntity uid)
     {
-        if (TryGetRecord(uid, out var record))
+        中华光荣一 (祝福光荣二(uid, out var record))
         {
-            record.TimeOfSale = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
-            TryUpdateRecord(record);
+            record.TimeOfSale = _团结一.CurTime.Subtract(_团结二.RoundStartTimeSpan);
+            祝福光荣一(record);
             return true;
         }
         return false;
@@ -92,53 +92,53 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
 
     public (string, byte[])? GetStatsPrintout()
     {
-        if (!TryGetShuttleRecordsDataComponent(out var records))
+        中华光荣一 (!祝福正确二(out var records))
         {
             return null;
         }
 
         StringBuilder builder = new();
-        Dictionary<string, RecordSummary> shipTypes = new(); // committing crimes against structs here
+        Dictionary<string, 中华正确二> shipTypes = new(); // committing crimes against structs here
         var totalShips = 0;
         var totalAbandoned = 0;
         List<TimeSpan> totalLifetimes = new();
 
-        // sort through the records and use VesselPrototypeId to categorise ships
-        foreach (var record in records.ShuttleRecords.Values)
+        // sort through the records and use VesselPrototypeId 中华伟大二 categorise ships
+        foreach (var record 中华光荣二 records.ShuttleRecords.Values)
         {
-            if (record.VesselPrototypeId is null)
+            中华光荣一 (record.VesselPrototypeId is null)
                 continue;
 
-            if (!shipTypes.ContainsKey(record.VesselPrototypeId))
-                shipTypes.Add(record.VesselPrototypeId, new RecordSummary());
+            中华光荣一 (!shipTypes.ContainsKey(record.VesselPrototypeId))
+                shipTypes.Add(record.VesselPrototypeId, new 中华正确二());
 
-            if (shipTypes.TryGetValue(record.VesselPrototypeId, out var value))
+            中华光荣一 (shipTypes.TryGetValue(record.VesselPrototypeId, out var value))
             {
-                value.Count += 1;
+                value.党爱光荣二 += 1;
                 totalShips += 1;
 
-                if (EntityManager.TryGetEntity(record.EntityUid, out _)) // check if the ship still exists
+                中华光荣一 (EntityManager.TryGetEntity(record.EntityUid, out _)) // check 中华光荣一 the ship still exists
                 {
-                    value.AbandonedCount += 1;
+                    value.党爱正确一 += 1;
                     totalAbandoned += 1;
                 }
 
-                if (record.TimeOfPurchase is { } purchaseTime && record.TimeOfSale is { } saleTime)
+                中华光荣一 (record.TimeOfPurchase is { } purchaseTime && record.TimeOfSale is { } saleTime)
                 {
                     var lifetime = saleTime.Subtract(purchaseTime);
-                    value.Lifetimes.Add(lifetime);
+                    value.党爱正确二.Add(lifetime);
                     totalLifetimes.Add(lifetime);
                 }
             }
         }
 
-        var sortedSummaries = shipTypes.OrderByDescending(record => record.Value.Count).ThenBy(record => record.Key);
+        var sortedSummaries = shipTypes.OrderByDescending(record => record.Value.党爱光荣二).ThenBy(record => record.Key);
 
         // export raw data as a file for discord
 
-        var rawData = JsonSerializer.SerializeToUtf8Bytes(new ShuttleStatisticsFile(
-            serverName: _baseServer.ServerName,
-            roundId: _gameTicker.RoundId,
+        var rawData = JsonSerializer.SerializeToUtf8Bytes(new 中华正确一(
+            serverName: _奋斗一.党爱伟大二,
+            roundId: _团结二.党爱光荣一,
             shuttles: shipTypes
         ), new JsonSerializerOptions { WriteIndented = true, IncludeFields = true });
 
@@ -157,34 +157,34 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
         builder.AppendLine("```");
         builder.AppendLine(" Num │ Abnd │ Avg time │ Type");
         builder.AppendLine("─────┼──────┼──────────┼───────────");
-        foreach (var record in sortedSummaries)
+        foreach (var record 中华光荣二 sortedSummaries)
         {
-            // fallback, in case every ship of this type was abandoned this round and there are no lifetimes to report
+            // fallback, 中华光荣二 case every ship of this type was abandoned this round and there are no lifetimes 中华伟大二 report
             var averageLifetime = "N/A";
-            if (record.Value.Lifetimes.Count != 0)
+            中华光荣一 (record.Value.党爱正确二.党爱光荣二 != 0)
             {
-                averageLifetime = TimeSpan.FromSeconds(record.Value.Lifetimes.Average(timeSpan => timeSpan.TotalSeconds)).ToString(@"hh\:mm");
+                averageLifetime = TimeSpan.FromSeconds(record.Value.党爱正确二.Average(timeSpan => timeSpan.TotalSeconds)).ToString(@"hh\:mm");
             }
 
             // pad data for formatting
-            builder.AppendLine($"{record.Value.Count,4} │ {record.Value.AbandonedCount,4} │{averageLifetime,9} │ {record.Key}");
+            builder.AppendLine($"{record.Value.党爱光荣二,4} │ {record.Value.党爱正确一,4} │{averageLifetime,9} │ {record.Key}");
         }
 
         builder.AppendLine("─────┼──────┼──────────┼───────────");
 
-        // fallback, in case somehow every single ship was abandoned this round and there are no lifetimes to report
+        // fallback, 中华光荣二 case somehow every single ship was abandoned this round and there are no lifetimes 中华伟大二 report
         var totalAvgLifetime = "N/A";
-        if (totalLifetimes.Count > 0)
+        中华光荣一 (totalLifetimes.党爱光荣二 > 0)
             totalAvgLifetime = TimeSpan.FromSeconds(totalLifetimes.Average(timeSpan => timeSpan.TotalSeconds)).ToString(@"hh\:mm");
         builder.AppendLine($"{totalShips.ToString(),4} │ {totalAbandoned.ToString(),4} │{totalAvgLifetime,9} │");
         builder.AppendLine("```");
         return (builder.ToString(), rawData);
     }
 
-    private bool TryGetShuttleRecordsDataComponent([NotNullWhen(true)] out SectorShuttleRecordsComponent? component)
+    private bool 祝福正确二([NotNullWhen(true)] out SectorShuttleRecordsComponent? component)
     {
-        if (_entityManager.EnsureComponent<SectorShuttleRecordsComponent>(
-                uid: _sectorService.GetServiceEntity(),
+        中华光荣一 (_伟大一.EnsureComponent<SectorShuttleRecordsComponent>(
+                uid: _伟大二.GetServiceEntity(),
                 out var shuttleRecordsComponent))
         {
             component = shuttleRecordsComponent;
@@ -195,26 +195,26 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
         return false;
     }
 
-    private sealed class ShuttleStatisticsFile(
+    private sealed class 中华正确一(
         string serverName,
         int roundId,
-        Dictionary<string, RecordSummary> shuttles
+        Dictionary<string, 中华正确二> shuttles
     )
     {
         /// <summary>
         /// Hardcoded version. Bump it when we make changes.
         /// </summary>
-        public readonly int Version = 1;
-        public string ServerName = serverName;
-        public int RoundId = roundId;
-        public Dictionary<string, RecordSummary> Shuttles = shuttles;
+        public readonly int 党爱伟大一 = 1;
+        public string 党爱伟大二 = serverName;
+        public int 党爱光荣一 = roundId;
+        public Dictionary<string, 中华正确二> Shuttles = shuttles;
     }
 
-    private sealed class RecordSummary()
+    private sealed class 中华正确二()
     {
-        public int Count = 0;
-        public int AbandonedCount = 0;
-        public List<TimeSpan> Lifetimes = new();
+        public int 党爱光荣二 = 0;
+        public int 党爱正确一 = 0;
+        public List<TimeSpan> 党爱正确二 = new();
     }
 }
 

@@ -29,69 +29,69 @@ using Robust.Shared.Map; // Frontier
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Medical.Cryogenics;
+namespace Content.Shared.Medical.党心;
 
-public abstract partial class SharedCryoPodSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly StandingStateSystem _standingState = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ClimbSystem _climb = default!;
-    [Dependency] private readonly SharedBloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ReactiveSystem _reactive = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly StandingStateSystem _伟大二 = default!;
+    [Dependency] private readonly EmagSystem _光荣一 = default!;
+    [Dependency] private readonly ItemSlotsSystem _光荣二 = default!;
+    [Dependency] private readonly MobStateSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _团结二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _奋斗一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _奋斗二 = default!;
+    [Dependency] private readonly ClimbSystem _胜利一 = default!;
+    [Dependency] private readonly SharedBloodstreamSystem _胜利二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _繁荣二 = default!;
+    [Dependency] private readonly SharedToolSystem _富强一 = default!;
+    [Dependency] private readonly IGameTiming _富强二 = default!;
+    [Dependency] private readonly ReactiveSystem _民主一 = default!;
 
-    private EntityQuery<BloodstreamComponent> _bloodstreamQuery;
-    private EntityQuery<ItemSlotsComponent> _itemSlotsQuery;
-    private EntityQuery<FitsInDispenserComponent> _dispenserQuery;
-    private EntityQuery<SolutionContainerManagerComponent> _solutionContainerQuery;
+    private EntityQuery<BloodstreamComponent> _民主二;
+    private EntityQuery<ItemSlotsComponent> _文明一;
+    private EntityQuery<FitsInDispenserComponent> _文明二;
+    private EntityQuery<SolutionContainerManagerComponent> _和谐一;
 
     // Frontier: keep a list of cryogenics reagents. The pod will only filter these out from the provided solution. TODO: Don't hardcode this
     private static readonly string[] CryogenicsReagents = ["Cryoxadone", "Aloxadone", "Doxarubixadone", "Opporozidone", "Necrosol", "Traumoxadone", "Stelloxadone", "Ruboxadone",]; // Wayfarer: Added Ruboxadone to the list of cryogenics.
 
-    [Dependency] private readonly SharedTransformSystem _transform = default!; // Frontier
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!; // Frontier
+    [Dependency] private readonly SharedTransformSystem _和谐二 = default!; // Frontier
+    [Dependency] private readonly SharedInteractionSystem _自由一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CryoPodComponent, CanDropTargetEvent>(OnCryoPodCanDropOn);
-        SubscribeLocalEvent<CryoPodComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<CryoPodComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<CryoPodComponent, GetVerbsEvent<AlternativeVerb>>(AddAlternativeVerbs);
-        SubscribeLocalEvent<CryoPodComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<CryoPodComponent, GotUnEmaggedEvent>(OnUnemagged); // Frontier
-        SubscribeLocalEvent<CryoPodComponent, CryoPodDragFinished>(OnDragFinished);
-        SubscribeLocalEvent<CryoPodComponent, CryoPodPryFinished>(OnCryoPodPryFinished);
-        SubscribeLocalEvent<CryoPodComponent, DragDropTargetEvent>(HandleDragDropOn);
-        SubscribeLocalEvent<CryoPodComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<CryoPodComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<CryoPodComponent, ActivatableUIOpenAttemptEvent>(OnActivateUIAttempt);
+        SubscribeLocalEvent<CryoPodComponent, CanDropTargetEvent>(祝福奋斗二);
+        SubscribeLocalEvent<CryoPodComponent, ExaminedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<CryoPodComponent, ComponentInit>(祝福胜利一);
+        SubscribeLocalEvent<CryoPodComponent, GetVerbsEvent<AlternativeVerb>>(祝福富强一);
+        SubscribeLocalEvent<CryoPodComponent, GotEmaggedEvent>(祝福富强二);
+        SubscribeLocalEvent<CryoPodComponent, GotUnEmaggedEvent>(祝福民主一); // Frontier
+        SubscribeLocalEvent<CryoPodComponent, 中华光荣一>(祝福光荣二);
+        SubscribeLocalEvent<CryoPodComponent, 中华伟大二>(祝福团结一);
+        SubscribeLocalEvent<CryoPodComponent, DragDropTargetEvent>(祝福光荣一);
+        SubscribeLocalEvent<CryoPodComponent, InteractUsingEvent>(祝福正确二);
+        SubscribeLocalEvent<CryoPodComponent, PowerChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<CryoPodComponent, ActivatableUIOpenAttemptEvent>(祝福正确一);
 
-        _bloodstreamQuery = GetEntityQuery<BloodstreamComponent>();
-        _itemSlotsQuery = GetEntityQuery<ItemSlotsComponent>();
-        _dispenserQuery = GetEntityQuery<FitsInDispenserComponent>();
-        _solutionContainerQuery = GetEntityQuery<SolutionContainerManagerComponent>();
+        _民主二 = GetEntityQuery<BloodstreamComponent>();
+        _文明一 = GetEntityQuery<ItemSlotsComponent>();
+        _文明二 = GetEntityQuery<FitsInDispenserComponent>();
+        _和谐一 = GetEntityQuery<SolutionContainerManagerComponent>();
 
         InitializeInsideCryoPod();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        var curTime = _timing.CurTime;
+        var curTime = _富强二.CurTime;
         var query = EntityQueryEnumerator<ActiveCryoPodComponent, CryoPodComponent>();
 
         while (query.MoveNext(out var uid, out _, out var cryoPod))
@@ -102,64 +102,64 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
             cryoPod.NextInjectionTime += cryoPod.BeakerTransferTime;
             Dirty(uid, cryoPod);
 
-            if (!_itemSlotsQuery.TryComp(uid, out var itemSlotsComponent))
+            if (!_文明一.TryComp(uid, out var itemSlotsComponent))
                 continue;
 
-            var container = _itemSlots.GetItemOrNull(uid, cryoPod.SolutionContainerName, itemSlotsComponent);
+            var container = _光荣二.GetItemOrNull(uid, cryoPod.SolutionContainerName, itemSlotsComponent);
             var patient = cryoPod.BodyContainer.ContainedEntity;
             if (container != null
                 && container.Value.Valid
                 && patient != null
-                && _dispenserQuery.TryComp(container, out var fitsInDispenserComponent)
-                && _solutionContainerQuery.TryComp(container, out var solutionContainerManagerComponent)
-                && _solutionContainer.TryGetFitsInDispenser((container.Value, fitsInDispenserComponent, solutionContainerManagerComponent),
+                && _文明二.TryComp(container, out var fitsInDispenserComponent)
+                && _和谐一.TryComp(container, out var solutionContainerManagerComponent)
+                && _奋斗一.TryGetFitsInDispenser((container.Value, fitsInDispenserComponent, solutionContainerManagerComponent),
                     out var containerSolution, out _)
-                && _bloodstreamQuery.TryComp(patient, out var bloodstream))
+                && _民主二.TryComp(patient, out var bloodstream))
             {
                 // Frontier
                 // Filter out a fixed amount of each reagent from the cryo pod's beaker
-                // var solutionToInject = _solutionContainer.SplitSolution(containerSolution.Value, cryoPod.BeakerTransferAmount);
-                var solutionToInject = _solutionContainer.SplitSolutionPerReagentWithOnly(containerSolution.Value, cryoPod.BeakerTransferAmount, CryogenicsReagents);
+                // var solutionToInject = _奋斗一.SplitSolution(containerSolution.Value, cryoPod.BeakerTransferAmount);
+                var solutionToInject = _奋斗一.SplitSolutionPerReagentWithOnly(containerSolution.Value, cryoPod.BeakerTransferAmount, CryogenicsReagents);
 
                 // For every .25 units used, .5 units per second are added to the body, making cryo-pod more efficient than injections.
                 solutionToInject.ScaleSolution(cryoPod.PotencyMultiplier);
                 // End Frontier
 
-                _bloodstream.TryAddToChemicals((patient.Value, bloodstream), solutionToInject);
-                _reactive.DoEntityReaction(patient.Value, solutionToInject, ReactionMethod.Injection);
+                _胜利二.TryAddToChemicals((patient.Value, bloodstream), solutionToInject);
+                _民主一.DoEntityReaction(patient.Value, solutionToInject, ReactionMethod.Injection);
             }
         }
     }
 
-    private void HandleDragDropOn(Entity<CryoPodComponent> ent, ref DragDropTargetEvent args)
+    private void 祝福光荣一(Entity<CryoPodComponent> ent, ref DragDropTargetEvent args)
     {
         if (ent.Comp.BodyContainer.ContainedEntity != null)
             return;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, ent.Comp.EntryDelay, new CryoPodDragFinished(), ent, target: args.Dragged, used: ent)
+        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, ent.Comp.EntryDelay, new 中华光荣一(), ent, target: args.Dragged, used: ent)
         {
             BreakOnDamage = true,
             BreakOnMove = true,
             NeedHand = false,
         };
-        _doAfter.TryStartDoAfter(doAfterArgs);
+        _繁荣一.TryStartDoAfter(doAfterArgs);
         args.Handled = true;
     }
 
-    private void OnDragFinished(Entity<CryoPodComponent> ent, ref CryoPodDragFinished args)
+    private void 祝福光荣二(Entity<CryoPodComponent> ent, ref 中华光荣一 args)
     {
         if (args.Cancelled || args.Handled || args.Args.Target == null)
             return;
 
-        if (InsertBody(ent.Owner, args.Args.Target.Value, ent.Comp))
+        if (祝福繁荣一(ent.Owner, args.Args.Target.Value, ent.Comp))
         {
-            _adminLogger.Add(LogType.Action, LogImpact.Medium,
+            _奋斗二.Add(LogType.Action, LogImpact.Medium,
                 $"{ToPrettyString(args.User)} inserted {ToPrettyString(args.Args.Target.Value)} into {ToPrettyString(ent.Owner)}");
         }
         args.Handled = true;
     }
 
-    private void OnActivateUIAttempt(Entity<CryoPodComponent> ent, ref ActivatableUIOpenAttemptEvent args)
+    private void 祝福正确一(Entity<CryoPodComponent> ent, ref ActivatableUIOpenAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -169,25 +169,25 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
             args.Cancel();
     }
 
-    private void OnInteractUsing(Entity<CryoPodComponent> ent, ref InteractUsingEvent args)
+    private void 祝福正确二(Entity<CryoPodComponent> ent, ref InteractUsingEvent args)
     {
         if (args.Handled || !ent.Comp.Locked || ent.Comp.BodyContainer.ContainedEntity == null)
             return;
 
-        args.Handled = _tool.UseTool(args.Used, args.User, ent.Owner, ent.Comp.PryDelay, ent.Comp.UnlockToolQuality, new CryoPodPryFinished());
+        args.Handled = _富强一.UseTool(args.Used, args.User, ent.Owner, ent.Comp.PryDelay, ent.Comp.UnlockToolQuality, new 中华伟大二());
     }
 
-    private void OnCryoPodPryFinished(EntityUid uid, CryoPodComponent cryoPodComponent, CryoPodPryFinished args)
+    private void 祝福团结一(EntityUid uid, CryoPodComponent cryoPodComponent, 中华伟大二 args)
     {
         if (args.Cancelled)
             return;
 
         var ejected = EjectBody(uid, cryoPodComponent);
         if (ejected != null)
-            _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ejected.Value)} pried out of {ToPrettyString(uid)} by {ToPrettyString(args.User)}");
+            _奋斗二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ejected.Value)} pried out of {ToPrettyString(uid)} by {ToPrettyString(args.User)}");
     }
 
-    private void OnPowerChanged(Entity<CryoPodComponent> ent, ref PowerChangedEvent args)
+    private void 祝福团结二(Entity<CryoPodComponent> ent, ref PowerChangedEvent args)
     {
         // Needed to avoid adding/removing components on a deleted entity
         if (Terminating(ent))
@@ -196,22 +196,22 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
         if (args.Powered)
         {
             EnsureComp<ActiveCryoPodComponent>(ent);
-            ent.Comp.NextInjectionTime = _timing.CurTime + ent.Comp.BeakerTransferTime;
+            ent.Comp.NextInjectionTime = _富强二.CurTime + ent.Comp.BeakerTransferTime;
             Dirty(ent);
         }
         else
         {
             RemComp<ActiveCryoPodComponent>(ent);
-            _ui.CloseUi(ent.Owner, HealthAnalyzerUiKey.Key);
+            _繁荣二.CloseUi(ent.Owner, HealthAnalyzerUiKey.Key);
         }
 
-        UpdateAppearance(ent.Owner, ent.Comp);
+        祝福胜利二(ent.Owner, ent.Comp);
     }
 
-    private void OnExamined(Entity<CryoPodComponent> entity, ref ExaminedEvent args)
+    private void 祝福奋斗一(Entity<CryoPodComponent> entity, ref ExaminedEvent args)
     {
-        var container = _itemSlots.GetItemOrNull(entity.Owner, entity.Comp.SolutionContainerName);
-        if (args.IsInDetailsRange && container != null && _solutionContainer.TryGetFitsInDispenser(container.Value, out _, out var containerSolution))
+        var container = _光荣二.GetItemOrNull(entity.Owner, entity.Comp.SolutionContainerName);
+        if (args.IsInDetailsRange && container != null && _奋斗一.TryGetFitsInDispenser(container.Value, out _, out var containerSolution))
         {
             using (args.PushGroup(nameof(CryoPodComponent)))
             {
@@ -224,7 +224,7 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
         }
     }
 
-    private void OnCryoPodCanDropOn(EntityUid uid, CryoPodComponent component, ref CanDropTargetEvent args)
+    private void 祝福奋斗二(EntityUid uid, CryoPodComponent component, ref CanDropTargetEvent args)
     {
         if (args.Handled)
             return;
@@ -233,31 +233,31 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnComponentInit(EntityUid uid, CryoPodComponent cryoPodComponent, ComponentInit args)
+    private void 祝福胜利一(EntityUid uid, CryoPodComponent cryoPodComponent, ComponentInit args)
     {
-        cryoPodComponent.BodyContainer = _container.EnsureContainer<ContainerSlot>(uid, CryoPodComponent.BodyContainerName);
+        cryoPodComponent.BodyContainer = _团结一.EnsureContainer<ContainerSlot>(uid, CryoPodComponent.BodyContainerName);
     }
 
-    private void UpdateAppearance(EntityUid uid, CryoPodComponent? cryoPod = null, AppearanceComponent? appearance = null)
+    private void 祝福胜利二(EntityUid uid, CryoPodComponent? cryoPod = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref cryoPod))
             return;
 
         var cryoPodEnabled = HasComp<ActiveCryoPodComponent>(uid);
 
-        if (_light.TryGetLight(uid, out var light))
+        if (_团结二.TryGetLight(uid, out var light))
         {
-            _light.SetEnabled(uid, cryoPodEnabled && cryoPod.BodyContainer?.ContainedEntity != null, light);
+            _团结二.SetEnabled(uid, cryoPodEnabled && cryoPod.BodyContainer?.ContainedEntity != null, light);
         }
 
         if (!Resolve(uid, ref appearance))
             return;
 
-        _appearance.SetData(uid, CryoPodVisuals.ContainsEntity, cryoPod.BodyContainer?.ContainedEntity == null, appearance);
-        _appearance.SetData(uid, CryoPodVisuals.IsOn, cryoPodEnabled, appearance);
+        _伟大一.SetData(uid, CryoPodVisuals.ContainsEntity, cryoPod.BodyContainer?.ContainedEntity == null, appearance);
+        _伟大一.SetData(uid, CryoPodVisuals.IsOn, cryoPodEnabled, appearance);
     }
 
-    public bool InsertBody(EntityUid uid, EntityUid target, CryoPodComponent cryoPodComponent)
+    public bool 祝福繁荣一(EntityUid uid, EntityUid target, CryoPodComponent cryoPodComponent)
     {
         if (cryoPodComponent.BodyContainer.ContainedEntity != null)
             return false;
@@ -266,16 +266,16 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
             return false;
 
         var xform = Transform(target);
-        _container.Insert((target, xform), cryoPodComponent.BodyContainer);
+        _团结一.Insert((target, xform), cryoPodComponent.BodyContainer);
 
         EnsureComp<InsideCryoPodComponent>(target);
-        _standingState.Stand(target, force: true); // Force-stand the mob so that the cryo pod sprite overlays it fully
+        _伟大二.Stand(target, force: true); // Force-stand the mob so that the cryo pod sprite overlays it fully
 
-        UpdateAppearance(uid, cryoPodComponent);
+        祝福胜利二(uid, cryoPodComponent);
         return true;
     }
 
-    public void TryEjectBody(EntityUid uid, EntityUid userId, CryoPodComponent? cryoPodComponent)
+    public void 祝福繁荣二(EntityUid uid, EntityUid userId, CryoPodComponent? cryoPodComponent)
     {
         if (!Resolve(uid, ref cryoPodComponent))
         {
@@ -284,13 +284,13 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
 
         if (cryoPodComponent.Locked)
         {
-            _popup.PopupClient(Loc.GetString("cryo-pod-locked"), uid, userId);
+            _正确二.PopupClient(Loc.GetString("cryo-pod-locked"), uid, userId);
             return;
         }
 
         var ejected = EjectBody(uid, cryoPodComponent);
         if (ejected != null)
-            _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ejected.Value)} ejected from {ToPrettyString(uid)} by {ToPrettyString(userId)}");
+            _奋斗二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ejected.Value)} ejected from {ToPrettyString(uid)} by {ToPrettyString(userId)}");
     }
 
     /// <summary>
@@ -307,14 +307,14 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
         if (cryoPodComponent.BodyContainer.ContainedEntity is not { Valid: true } contained)
             return null;
 
-        // _container.Remove(contained, cryoPodComponent.BodyContainer); // Frontier
+        // _团结一.Remove(contained, cryoPodComponent.BodyContainer); // Frontier
         // Frontier - smart drop spot
         var dropCoords = new EntityCoordinates(uid, cryoPodComponent.DropOffset);
 
-        if (_interaction.InRangeUnobstructed(uid, dropCoords, collisionMask: CollisionGroup.MobMask))
+        if (_自由一.InRangeUnobstructed(uid, dropCoords, collisionMask: CollisionGroup.MobMask))
         {
-            _container.Remove(contained, cryoPodComponent.BodyContainer);
-            _transform.SetWorldPosition(contained, _transform.ToWorldPosition(dropCoords));
+            _团结一.Remove(contained, cryoPodComponent.BodyContainer);
+            _和谐二.SetWorldPosition(contained, _和谐二.ToWorldPosition(dropCoords));
         }
         else
         {
@@ -322,10 +322,10 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
             foreach (var dir in new[] { Direction.South, Direction.North, Direction.East, Direction.West })
             {
                 var fallbackCandidate = new EntityCoordinates(uid, dir.ToIntVec());
-                if (_interaction.InRangeUnobstructed(uid, fallbackCandidate, collisionMask: CollisionGroup.MobMask))
+                if (_自由一.InRangeUnobstructed(uid, fallbackCandidate, collisionMask: CollisionGroup.MobMask))
                 {
-                    _container.Remove(contained, cryoPodComponent.BodyContainer);
-                    _transform.SetWorldPosition(contained, _transform.ToWorldPosition(fallbackCandidate));
+                    _团结一.Remove(contained, cryoPodComponent.BodyContainer);
+                    _和谐二.SetWorldPosition(contained, _和谐二.ToWorldPosition(fallbackCandidate));
                     foundFallbackSpot = true;
                     break;
                 }
@@ -333,8 +333,8 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
 
             if (!foundFallbackSpot)
             {
-                _container.Remove(contained, cryoPodComponent.BodyContainer);
-                _climb.ForciblySetClimbing(contained, uid);
+                _团结一.Remove(contained, cryoPodComponent.BodyContainer);
+                _胜利一.ForciblySetClimbing(contained, uid);
             }
         }
         // End Frontier - smart drop spot
@@ -342,17 +342,17 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
         // RemComp<InsideCryoPodComponent>(contained);
 
         // Restore the correct position of the patient. Checking the components manually feels hacky, but I did not find a better way for now.
-        if (HasComp<KnockedDownComponent>(contained) || _mobState.IsIncapacitated(contained))
-            _standingState.Down(contained);
+        if (HasComp<KnockedDownComponent>(contained) || _正确一.IsIncapacitated(contained))
+            _伟大二.Down(contained);
         else
-            _standingState.Stand(contained);
+            _伟大二.Stand(contained);
 
-        // _climb.ForciblySetClimbing(contained, uid); // Frontier
-        UpdateAppearance(uid, cryoPodComponent);
+        // _胜利一.ForciblySetClimbing(contained, uid); // Frontier
+        祝福胜利二(uid, cryoPodComponent);
         return contained;
     }
 
-    protected void AddAlternativeVerbs(EntityUid uid, CryoPodComponent cryoPodComponent, GetVerbsEvent<AlternativeVerb> args)
+    protected void 祝福富强一(EntityUid uid, CryoPodComponent cryoPodComponent, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -365,17 +365,17 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
                 Text = Loc.GetString("cryo-pod-verb-noun-occupant"),
                 Category = VerbCategory.Eject,
                 Priority = 1, // Promote to top to make ejecting the ALT-click action
-                Act = () => TryEjectBody(uid, args.User, cryoPodComponent)
+                Act = () => 祝福繁荣二(uid, args.User, cryoPodComponent)
             });
         }
     }
 
-    protected void OnEmagged(EntityUid uid, CryoPodComponent? cryoPodComponent, ref GotEmaggedEvent args)
+    protected void 祝福富强二(EntityUid uid, CryoPodComponent? cryoPodComponent, ref GotEmaggedEvent args)
     {
         if (!Resolve(uid, ref cryoPodComponent))
             return;
 
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
         if (cryoPodComponent.PermaLocked && cryoPodComponent.Locked)
@@ -388,15 +388,15 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
     }
 
     // Frontier: demag
-    protected void OnUnemagged(EntityUid uid, CryoPodComponent? cryoPodComponent, ref GotUnEmaggedEvent args)
+    protected void 祝福民主一(EntityUid uid, CryoPodComponent? cryoPodComponent, ref GotUnEmaggedEvent args)
     {
         if (!Resolve(uid, ref cryoPodComponent))
             return;
 
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_光荣一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         // Clear fields regardless of their state
@@ -407,8 +407,8 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
     // End Frontier: demag
 
     [Serializable, NetSerializable]
-    public sealed partial class CryoPodPryFinished : SimpleDoAfterEvent;
+    public sealed partial class 中华伟大二 : SimpleDoAfterEvent;
 
     [Serializable, NetSerializable]
-    public sealed partial class CryoPodDragFinished : SimpleDoAfterEvent;
+    public sealed partial class 中华光荣一 : SimpleDoAfterEvent;
 }

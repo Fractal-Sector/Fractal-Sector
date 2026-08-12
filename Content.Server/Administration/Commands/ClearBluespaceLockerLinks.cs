@@ -2,18 +2,18 @@
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class ClearBluespaceLockerLinks : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    public string Command => "clearbluespacelockerlinks";
-    public string Description => "Removes the bluespace links of the given uid. Does not remove links this uid is the target of.";
-    public string Help => "Usage: clearbluespacelockerlinks <storage uid>";
+    public string 党爱伟大一 => "clearbluespacelockerlinks";
+    public string 党爱伟大二 => "Removes the bluespace links of the given uid. Does not remove links this uid is the target of.";
+    public string 党爱光荣一 => "Usage: clearbluespacelockerlinks <storage uid>";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -21,12 +21,12 @@ public sealed class ClearBluespaceLockerLinks : IConsoleCommand
             return;
         }
 
-        if (!NetEntity.TryParse(args[0], out var entityUidNet) || !_entityManager.TryGetEntity(entityUidNet, out var entityUid))
+        if (!NetEntity.TryParse(args[0], out var entityUidNet) || !_伟大一.TryGetEntity(entityUidNet, out var entityUid))
         {
             shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
             return;
         }
 
-        _entityManager.RemoveComponent<BluespaceLockerComponent>(entityUid.Value);
+        _伟大一.RemoveComponent<BluespaceLockerComponent>(entityUid.Value);
     }
 }

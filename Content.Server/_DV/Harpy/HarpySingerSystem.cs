@@ -18,35 +18,35 @@ using Content.Shared.Zombies;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._DV.Harpy;
+namespace Content.Server._DV.党心;
 
-public sealed class HarpySingerSystem : SharedHarpySingerSystem
+public sealed class 中华伟大一 : SharedHarpySingerSystem
 {
-    [Dependency] private readonly InstrumentSystem _instrument = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly InstrumentSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly InventorySystem _光荣一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InstrumentComponent, MobStateChangedEvent>(OnMobStateChangedEvent);
-        SubscribeLocalEvent<GotEquippedEvent>(OnEquip);
-        SubscribeLocalEvent<EntityZombifiedEvent>(OnZombified);
-        SubscribeLocalEvent<InstrumentComponent, KnockedDownEvent>(OnKnockedDown);
-        SubscribeLocalEvent<InstrumentComponent, StunnedEvent>(OnStunned);
-        SubscribeLocalEvent<InstrumentComponent, SleepStateChangedEvent>(OnSleep);
-        SubscribeLocalEvent<InstrumentComponent, StatusEffectAddedEvent>(OnStatusEffect);
-        SubscribeLocalEvent<InstrumentComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<InstrumentComponent, MobStateChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<GotEquippedEvent>(祝福伟大二);
+        SubscribeLocalEvent<EntityZombifiedEvent>(祝福光荣二);
+        SubscribeLocalEvent<InstrumentComponent, KnockedDownEvent>(祝福正确一);
+        SubscribeLocalEvent<InstrumentComponent, StunnedEvent>(祝福正确二);
+        SubscribeLocalEvent<InstrumentComponent, SleepStateChangedEvent>(祝福团结一);
+        SubscribeLocalEvent<InstrumentComponent, StatusEffectAddedEvent>(祝福团结二);
+        SubscribeLocalEvent<InstrumentComponent, DamageChangedEvent>(祝福奋斗一);
 
         // This is intended to intercept the UI event and stop the MIDI UI from opening if the
         // singer is unable to sing. Thus it needs to run before the ActivatableUISystem.
-        SubscribeLocalEvent<HarpySingerComponent, OpenUiActionEvent>(OnInstrumentOpen, before: new[] { typeof(ActivatableUISystem) });
+        SubscribeLocalEvent<HarpySingerComponent, OpenUiActionEvent>(祝福胜利一, before: new[] { typeof(ActivatableUISystem) });
     }
 
-    private void OnEquip(GotEquippedEvent args)
+    private void 祝福伟大二(GotEquippedEvent args)
     {
         // Check if an item that makes the singer mumble is equipped to their face
         // (not their pockets!). As of writing, this should just be the muzzle.
@@ -54,51 +54,51 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
             accent.ReplacementPrototype == "mumble" &&
             args.Slot == "mask")
         {
-            CloseMidiUi(args.Equipee);
+            祝福奋斗二(args.Equipee);
         }
     }
 
-    private void OnMobStateChangedEvent(EntityUid uid, InstrumentComponent component, MobStateChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, InstrumentComponent component, MobStateChangedEvent args)
     {
         if (args.NewMobState is MobState.Critical or MobState.Dead)
-            CloseMidiUi(args.Target);
+            祝福奋斗二(args.Target);
     }
 
-    private void OnZombified(ref EntityZombifiedEvent args)
+    private void 祝福光荣二(ref EntityZombifiedEvent args)
     {
-        CloseMidiUi(args.Target);
+        祝福奋斗二(args.Target);
     }
 
-    private void OnKnockedDown(EntityUid uid, InstrumentComponent component, ref KnockedDownEvent args)
+    private void 祝福正确一(EntityUid uid, InstrumentComponent component, ref KnockedDownEvent args)
     {
-        CloseMidiUi(uid);
+        祝福奋斗二(uid);
     }
 
-    private void OnStunned(EntityUid uid, InstrumentComponent component, ref StunnedEvent args)
+    private void 祝福正确二(EntityUid uid, InstrumentComponent component, ref StunnedEvent args)
     {
-        CloseMidiUi(uid);
+        祝福奋斗二(uid);
     }
 
-    private void OnSleep(EntityUid uid, InstrumentComponent component, ref SleepStateChangedEvent args)
+    private void 祝福团结一(EntityUid uid, InstrumentComponent component, ref SleepStateChangedEvent args)
     {
         if (args.FellAsleep)
-            CloseMidiUi(uid);
+            祝福奋斗二(uid);
     }
 
-    private void OnStatusEffect(EntityUid uid, InstrumentComponent component, StatusEffectAddedEvent args)
+    private void 祝福团结二(EntityUid uid, InstrumentComponent component, StatusEffectAddedEvent args)
     {
         if (args.Key == "Muted")
-            CloseMidiUi(uid);
+            祝福奋斗二(uid);
     }
 
     /// <summary>
-    /// Almost a copy of Content.Server.Damage.ForceSay.DamageForceSaySystem.OnDamageChanged.
+    /// Almost a copy of Content.Server.Damage.ForceSay.DamageForceSaySystem.祝福奋斗一.
     /// Done so because DamageForceSaySystem doesn't output an event, and my understanding is
     /// that we don't want to change upstream code more than necessary to avoid merge conflicts
     /// and maintenance overhead. It still reuses the values from DamageForceSayComponent, so
     /// any tweaks to that will keep ForceSay consistent with singing interruptions.
     /// </summary>
-    private void OnDamageChanged(EntityUid uid, InstrumentComponent instrumentComponent, DamageChangedEvent args)
+    private void 祝福奋斗一(EntityUid uid, InstrumentComponent instrumentComponent, DamageChangedEvent args)
     {
         if (!TryComp<DamageForceSayComponent>(uid, out var component) ||
             args.DamageDelta == null ||
@@ -108,7 +108,7 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
             return;
 
         var totalApplicableDamage = FixedPoint2.Zero;
-        foreach (var (group, value) in args.DamageDelta.GetDamagePerGroup(_prototype))
+        foreach (var (group, value) in args.DamageDelta.GetDamagePerGroup(_正确一))
         {
             if (!component.ValidDamageGroups.Contains(group))
                 continue;
@@ -117,31 +117,31 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
         }
 
         if (totalApplicableDamage >= component.DamageThreshold)
-            CloseMidiUi(uid);
+            祝福奋斗二(uid);
     }
 
     /// <summary>
     /// Closes the MIDI UI if it is open.
     /// </summary>
-    private void CloseMidiUi(EntityUid uid)
+    private void 祝福奋斗二(EntityUid uid)
     {
         if (HasComp<ActiveInstrumentComponent>(uid) &&
             TryComp<ActorComponent>(uid, out var actor))
         {
-            _instrument.ToggleInstrumentUi(uid, uid);
+            _伟大一.ToggleInstrumentUi(uid, uid);
         }
     }
 
     /// <summary>
     /// Prevent the player from opening the MIDI UI under some circumstances.
     /// </summary>
-    private void OnInstrumentOpen(EntityUid uid, HarpySingerComponent component, OpenUiActionEvent args)
+    private void 祝福胜利一(EntityUid uid, HarpySingerComponent component, OpenUiActionEvent args)
     {
         // CanSpeak covers all reasons you can't talk, including being incapacitated
         // (crit/dead), asleep, or for any reason mute inclding glimmer or a mime's vow.
-        var canNotSpeak = !_blocker.CanSpeak(uid);
+        var canNotSpeak = !_光荣二.CanSpeak(uid);
         var zombified = TryComp<ZombieComponent>(uid, out var _);
-        var muzzled = _inventorySystem.TryGetSlotEntity(uid, "mask", out var maskUid) &&
+        var muzzled = _光荣一.TryGetSlotEntity(uid, "mask", out var maskUid) &&
             TryComp<AddAccentClothingComponent>(maskUid, out var accent) &&
             accent.ReplacementPrototype == "mumble";
 
@@ -151,6 +151,6 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
 
         // Tell the user that they can not sing.
         if (args.Handled)
-            _popupSystem.PopupEntity(Loc.GetString("no-sing-while-no-speak"), uid, uid, PopupType.Medium);
+            _伟大二.PopupEntity(Loc.GetString("no-sing-while-no-speak"), uid, uid, PopupType.Medium);
     }
 }

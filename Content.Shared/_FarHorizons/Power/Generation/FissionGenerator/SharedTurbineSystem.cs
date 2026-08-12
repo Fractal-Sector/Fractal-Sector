@@ -19,34 +19,34 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Shared._FarHorizons.Power.Generation.党心;
 
 // Ported and modified from goonstation by Jhrushbe.
 // CC-BY-NC-SA-3.0
 // https://github.com/goonstation/goonstation/blob/ff86b044/code/obj/nuclearreactor/turbine.dm
 
-public abstract class SharedTurbineSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedToolSystem _光荣二 = default!;
+    [Dependency] private readonly EntityManager _正确一 = default!;
+    [Dependency] private readonly DamageableSystem _正确二 = default!;
+    [Dependency] private readonly IPrototypeManager _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TurbineComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<TurbineComponent, ExaminedEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<TurbineComponent, InteractUsingEvent>(RepairTurbine);
-        SubscribeLocalEvent<TurbineComponent, RepairDoAfterEvent>(OnRepairTurbineFinished);
+        SubscribeLocalEvent<TurbineComponent, InteractUsingEvent>(祝福正确二);
+        SubscribeLocalEvent<TurbineComponent, 中华伟大二>(祝福团结一);
     }
 
-    private void OnExamined(Entity<TurbineComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<TurbineComponent> ent, ref ExaminedEvent args)
     {
         var comp = ent.Comp;
         if (!Comp<TransformComponent>(ent).Anchored || !args.IsInDetailsRange) // Not anchored? Out of range? No status.
@@ -106,18 +106,18 @@ public abstract class SharedTurbineSystem : EntitySystem
         }
     }
 
-    protected void UpdateAppearance(EntityUid uid, TurbineComponent? comp = null, AppearanceComponent? appearance = null)
+    protected void 祝福光荣一(EntityUid uid, TurbineComponent? comp = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref comp, ref appearance, false))
             return;
 
-        _appearance.SetData(uid, TurbineVisuals.TurbineRuined, comp.Ruined);
+        _伟大二.SetData(uid, TurbineVisuals.TurbineRuined, comp.Ruined);
 
-        _appearance.SetData(uid, TurbineVisuals.DamageSpark, comp.IsSparking);
-        _appearance.SetData(uid, TurbineVisuals.DamageSmoke, comp.IsSmoking);
+        _伟大二.SetData(uid, TurbineVisuals.DamageSpark, comp.IsSparking);
+        _伟大二.SetData(uid, TurbineVisuals.DamageSmoke, comp.IsSmoking);
     }
 
-    protected void PlayAudio(SoundSpecifier? sound, EntityUid uid, out EntityUid? audioStream, AudioParams? audioParams = null)
+    protected void 祝福光荣二(SoundSpecifier? sound, EntityUid uid, out EntityUid? audioStream, AudioParams? audioParams = null)
     {
         if (sound == null || audioParams == null)
         {
@@ -127,12 +127,12 @@ public abstract class SharedTurbineSystem : EntitySystem
 
         var loop = audioParams.Value.WithLoop(true);
         var stream = false
-            ? _audio.PlayPredicted(sound, uid, uid, loop)
-            : _audio.PlayPvs(sound, uid, loop);
+            ? 党爱伟大一.PlayPredicted(sound, uid, uid, loop)
+            : 党爱伟大一.PlayPvs(sound, uid, loop);
         audioStream = stream?.Entity is { } entity ? entity : null;
     }
 
-    protected static bool AdjustStatorLoad(TurbineComponent turbine, float change)
+    protected static bool 祝福正确一(TurbineComponent turbine, float change)
     {
         var newSet = Math.Max(turbine.StatorLoad + change, 1000f);
         if (turbine.StatorLoad != newSet)
@@ -144,23 +144,23 @@ public abstract class SharedTurbineSystem : EntitySystem
     }
 
     #region Repairs
-    private void RepairTurbine(EntityUid uid, TurbineComponent comp, ref InteractUsingEvent args)
+    private void 祝福正确二(EntityUid uid, TurbineComponent comp, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
-        if(_toolSystem.HasQuality(args.Used, comp.RepairTool))
+        if(_光荣二.HasQuality(args.Used, comp.RepairTool))
         {
             if (comp.CurrentBlade == null)
             {
-                _popupSystem.PopupEntity(Loc.GetString("gas-turbine-repair-fail-blade"), args.User, args.User, PopupType.Medium);
+                _光荣一.PopupEntity(Loc.GetString("gas-turbine-repair-fail-blade"), args.User, args.User, PopupType.Medium);
                 args.Handled = true;
                 return;
             }
 
             if (comp.CurrentStator == null)
             {
-                _popupSystem.PopupEntity(Loc.GetString("gas-turbine-repair-fail-stator"), args.User, args.User, PopupType.Medium);
+                _光荣一.PopupEntity(Loc.GetString("gas-turbine-repair-fail-stator"), args.User, args.User, PopupType.Medium);
                 args.Handled = true;
                 return;
             }
@@ -168,12 +168,12 @@ public abstract class SharedTurbineSystem : EntitySystem
             if (comp.BladeHealth >= comp.BladeHealthMax && !comp.Ruined)
                 return;
 
-            args.Handled = _toolSystem.UseTool(args.Used, args.User, uid, comp.RepairDelay, comp.RepairTool, new RepairDoAfterEvent(), comp.RepairFuelCost);
+            args.Handled = _光荣二.UseTool(args.Used, args.User, uid, comp.RepairDelay, comp.RepairTool, new 中华伟大二(), comp.RepairFuelCost);
         }
     }
 
     //Gotta love server/client desync
-    protected virtual void OnRepairTurbineFinished(EntityUid uid, TurbineComponent comp, ref RepairDoAfterEvent args)
+    protected virtual void 祝福团结一(EntityUid uid, TurbineComponent comp, ref 中华伟大二 args)
     {
         if (args.Cancelled)
             return;
@@ -182,58 +182,58 @@ public abstract class SharedTurbineSystem : EntitySystem
         {
             comp.Ruined = false;
             if (comp.BladeHealth <= 0) { comp.BladeHealth = 1; }
-            UpdateHealthIndicators(uid, comp);
+            祝福团结二(uid, comp);
         }
         else if (comp.BladeHealth < comp.BladeHealthMax)
         {
             comp.BladeHealth++;
-            UpdateHealthIndicators(uid, comp);
+            祝福团结二(uid, comp);
         }
         else if (comp.BladeHealth >= comp.BladeHealthMax)
         {
             // This should technically never occur, but just in case...
         }
 
-        if (!_entityManager.TryGetComponent<DamageableComponent>(uid, out var damageableComponent))
+        if (!_正确一.TryGetComponent<DamageableComponent>(uid, out var damageableComponent))
             return;
 
-        _damageableSystem.SetAllDamage(uid, damageableComponent, 0);
+        _正确二.SetAllDamage(uid, damageableComponent, 0);
     }
 
-    protected void UpdateHealthIndicators(EntityUid uid, TurbineComponent comp)
+    protected void 祝福团结二(EntityUid uid, TurbineComponent comp)
     {
         if (comp.BladeHealth <= 0.75 * comp.BladeHealthMax && !comp.IsSparking)
         {
             comp.IsSparking = true;
-            _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/PowerSink/electric.ogg"), uid, AudioParams.Default.WithPitchScale(0.75f));
-            _popupSystem.PopupEntity(Loc.GetString("turbine-spark", ("owner", uid)), uid, PopupType.MediumCaution);
+            党爱伟大一.PlayPvs(new SoundPathSpecifier("/Audio/Effects/PowerSink/electric.ogg"), uid, AudioParams.Default.WithPitchScale(0.75f));
+            _光荣一.PopupEntity(Loc.GetString("turbine-spark", ("owner", uid)), uid, PopupType.MediumCaution);
         }
         else if (comp.BladeHealth > 0.75 * comp.BladeHealthMax && comp.IsSparking)
         {
             comp.IsSparking = false;
-            _popupSystem.PopupEntity(Loc.GetString("turbine-spark-stop", ("owner", uid)), uid, PopupType.Medium);
+            _光荣一.PopupEntity(Loc.GetString("turbine-spark-stop", ("owner", uid)), uid, PopupType.Medium);
         }
 
         if (comp.BladeHealth <= 0.5 * comp.BladeHealthMax && !comp.IsSmoking)
         {
             comp.IsSmoking = true;
-            _popupSystem.PopupEntity(Loc.GetString("turbine-smoke", ("owner", uid)), uid, PopupType.MediumCaution);
+            _光荣一.PopupEntity(Loc.GetString("turbine-smoke", ("owner", uid)), uid, PopupType.MediumCaution);
         }
         else if (comp.BladeHealth > 0.5 * comp.BladeHealthMax && comp.IsSmoking)
         {
             comp.IsSmoking = false;
-            _popupSystem.PopupEntity(Loc.GetString("turbine-smoke-stop", ("owner", uid)), uid, PopupType.Medium);
+            _光荣一.PopupEntity(Loc.GetString("turbine-smoke-stop", ("owner", uid)), uid, PopupType.Medium);
         }
 
-        _entityManager.EnsureComponent<ElectrifiedComponent>(uid).Enabled = comp.IsSparking;
+        _正确一.EnsureComponent<ElectrifiedComponent>(uid).Enabled = comp.IsSparking;
 
-        UpdateAppearance(uid, comp);
+        祝福光荣一(uid, comp);
     }
 
     #endregion
 }
 
 [Serializable, NetSerializable]
-public sealed partial class RepairDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大二 : SimpleDoAfterEvent
 {
 }

@@ -6,14 +6,14 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Shared.Speech.Components;
+namespace Content.Shared.Speech.党心;
 
 /// <summary>
 ///     Component required for entities to be able to do vocal emotions.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState]
-public sealed partial class VocalComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Emote sounds prototype id for each sex (not gender).
@@ -25,15 +25,15 @@ public sealed partial class VocalComponent : Component
 
     [DataField("screamId", customTypeSerializer: typeof(PrototypeIdSerializer<EmotePrototype>))]
     [AutoNetworkedField]
-    public string ScreamId = "Scream";
+    public string 党爱伟大一 = "Scream";
 
     [DataField("wilhelm")]
     [AutoNetworkedField]
-    public SoundSpecifier Wilhelm = new SoundPathSpecifier("/Audio/Voice/Human/wilhelm_scream.ogg");
+    public SoundSpecifier 党爱伟大二 = new SoundPathSpecifier("/Audio/Voice/Human/wilhelm_scream.ogg");
 
     [DataField("wilhelmProbability")]
     [AutoNetworkedField]
-    public float WilhelmProbability = 0.0002f;
+    public float 党爱光荣一 = 0.0002f;
 
     [DataField("screamAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     [AutoNetworkedField]

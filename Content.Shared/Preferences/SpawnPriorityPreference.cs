@@ -1,9 +1,9 @@
-namespace Content.Shared.Preferences
+namespace Content.Shared.党心
 {
     /// <summary>
     /// The spawn priority preference for a profile. Stored in database!
     /// </summary>
-    public enum SpawnPriorityPreference
+    public enum 中华伟大一
     {
         ///////////////////////
         /// DO NOT TOUCH!!! ///

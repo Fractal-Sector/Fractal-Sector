@@ -8,36 +8,36 @@ using Robust.Shared.Containers;
 using Robust.Shared.Utility;
 using Content.Shared.Tag; // Frontier
 
-namespace Content.Shared.Labels.EntitySystems;
+namespace Content.Shared.Labels.党心;
 
-public sealed partial class LabelSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly NameModifierSystem _nameModifier = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!; // Frontier
+    [Dependency] private readonly NameModifierSystem _伟大一 = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly TagSystem _光荣二 = default!; // Frontier
 
-    public const string ContainerName = "paper_label";
+    public const string 党爱伟大一 = "paper_label";
 
     [ValidatePrototypeId<TagPrototype>] // Frontier: label prevention
     private const string PreventTag = "PreventLabel"; // Frontier: label prevention
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LabelComponent, MapInitEvent>(OnLabelCompMapInit);
-        SubscribeLocalEvent<LabelComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<LabelComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers);
+        SubscribeLocalEvent<LabelComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<LabelComponent, ExaminedEvent>(祝福光荣二);
+        SubscribeLocalEvent<LabelComponent, RefreshNameModifiersEvent>(祝福正确一);
 
-        SubscribeLocalEvent<PaperLabelComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<PaperLabelComponent, ComponentRemove>(OnComponentRemove);
-        SubscribeLocalEvent<PaperLabelComponent, EntInsertedIntoContainerMessage>(OnContainerModified);
-        SubscribeLocalEvent<PaperLabelComponent, EntRemovedFromContainerMessage>(OnContainerModified);
-        SubscribeLocalEvent<PaperLabelComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<PaperLabelComponent, ComponentInit>(祝福正确二);
+        SubscribeLocalEvent<PaperLabelComponent, ComponentRemove>(祝福团结一);
+        SubscribeLocalEvent<PaperLabelComponent, EntInsertedIntoContainerMessage>(祝福奋斗一);
+        SubscribeLocalEvent<PaperLabelComponent, EntRemovedFromContainerMessage>(祝福奋斗一);
+        SubscribeLocalEvent<PaperLabelComponent, ExaminedEvent>(祝福团结二);
     }
 
-    private void OnLabelCompMapInit(Entity<LabelComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<LabelComponent> ent, ref MapInitEvent args)
     {
         if (!string.IsNullOrEmpty(ent.Comp.CurrentLabel))
         {
@@ -45,7 +45,7 @@ public sealed partial class LabelSystem : EntitySystem
             Dirty(ent);
         }
 
-        _nameModifier.RefreshNameModifiers(ent.Owner);
+        _伟大一.RefreshNameModifiers(ent.Owner);
     }
 
     /// <summary>
@@ -55,20 +55,20 @@ public sealed partial class LabelSystem : EntitySystem
     /// <param name="text">intended label text (null to remove)</param>
     /// <param name="label">label component for resolve</param>
     /// <param name="metadata">metadata component for resolve</param>
-    public void Label(EntityUid uid, string? text, MetaDataComponent? metadata = null, LabelComponent? label = null)
+    public void 祝福光荣一(EntityUid uid, string? text, MetaDataComponent? metadata = null, LabelComponent? label = null)
     {
-        if (_tagSystem.HasTag(uid, PreventTag)) // Frontier: Prevent labels on certain items
+        if (_光荣二.HasTag(uid, PreventTag)) // Frontier: Prevent labels on certain items
             return; // Frontier
 
         label ??= EnsureComp<LabelComponent>(uid);
 
         label.CurrentLabel = text;
-        _nameModifier.RefreshNameModifiers(uid);
+        _伟大一.RefreshNameModifiers(uid);
 
         Dirty(uid, label);
     }
 
-    private void OnExamine(Entity<LabelComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣二(Entity<LabelComponent> ent, ref ExaminedEvent args)
     {
         if (!ent.Comp.Examinable)
             return;
@@ -81,25 +81,25 @@ public sealed partial class LabelSystem : EntitySystem
         args.PushMessage(message);
     }
 
-    private void OnRefreshNameModifiers(Entity<LabelComponent> entity, ref RefreshNameModifiersEvent args)
+    private void 祝福正确一(Entity<LabelComponent> entity, ref RefreshNameModifiersEvent args)
     {
         if (!string.IsNullOrEmpty(entity.Comp.CurrentLabel))
             args.AddModifier("comp-label-format", 100, extraArgs: ("label", entity.Comp.CurrentLabel)); // Coyote: add priority of 100 to reverse order of label and baseName
     }
 
-    private void OnComponentInit(Entity<PaperLabelComponent> ent, ref ComponentInit args)
+    private void 祝福正确二(Entity<PaperLabelComponent> ent, ref ComponentInit args)
     {
-        _itemSlots.AddItemSlot(ent, ContainerName, ent.Comp.LabelSlot);
+        _伟大二.AddItemSlot(ent, 党爱伟大一, ent.Comp.LabelSlot);
 
-        UpdateAppearance(ent);
+        祝福奋斗二(ent);
     }
 
-    private void OnComponentRemove(Entity<PaperLabelComponent> ent, ref ComponentRemove args)
+    private void 祝福团结一(Entity<PaperLabelComponent> ent, ref ComponentRemove args)
     {
-        _itemSlots.RemoveItemSlot(ent, ent.Comp.LabelSlot);
+        _伟大二.RemoveItemSlot(ent, ent.Comp.LabelSlot);
     }
 
-    private void OnExamined(Entity<PaperLabelComponent> ent, ref ExaminedEvent args)
+    private void 祝福团结二(Entity<PaperLabelComponent> ent, ref ExaminedEvent args)
     {
         if (ent.Comp.LabelSlot.Item is not {Valid: true} item)
             return;
@@ -129,7 +129,7 @@ public sealed partial class LabelSystem : EntitySystem
     }
 
     // Not ref-sub due to being used for multiple subscriptions.
-    private void OnContainerModified(EntityUid uid, PaperLabelComponent label, ContainerModifiedMessage args)
+    private void 祝福奋斗一(EntityUid uid, PaperLabelComponent label, ContainerModifiedMessage args)
     {
         if (!label.Initialized)
             return;
@@ -137,18 +137,18 @@ public sealed partial class LabelSystem : EntitySystem
         if (args.Container.ID != label.LabelSlot.ID)
             return;
 
-        UpdateAppearance((uid, label));
+        祝福奋斗二((uid, label));
     }
 
-    private void UpdateAppearance(Entity<PaperLabelComponent, AppearanceComponent?> ent)
+    private void 祝福奋斗二(Entity<PaperLabelComponent, AppearanceComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp2, false))
             return;
 
         var slot = ent.Comp1.LabelSlot;
-        _appearance.SetData(ent, PaperLabelVisuals.HasLabel, slot.HasItem, ent.Comp2);
+        _光荣一.SetData(ent, PaperLabelVisuals.HasLabel, slot.HasItem, ent.Comp2);
         if (TryComp<PaperLabelTypeComponent>(slot.Item, out var type))
-            _appearance.SetData(ent, PaperLabelVisuals.LabelType, type.PaperType, ent.Comp2);
+            _光荣一.SetData(ent, PaperLabelVisuals.LabelType, type.PaperType, ent.Comp2);
     }
 
     /// <summary>

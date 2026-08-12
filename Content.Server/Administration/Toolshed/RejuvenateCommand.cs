@@ -3,15 +3,15 @@ using Content.Shared.Administration;
 using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Errors;
 
-namespace Content.Server.Administration.Toolshed;
+namespace Content.Server.Administration.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.Debug)]
-public sealed class RejuvenateCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private RejuvenateSystem? _rejuvenate;
 
     [CommandImplementation]
-    public IEnumerable<EntityUid> Rejuvenate([PipedArgument] IEnumerable<EntityUid> input)
+    public IEnumerable<EntityUid> 祝福伟大一([PipedArgument] IEnumerable<EntityUid> input)
     {
         _rejuvenate ??= GetSys<RejuvenateSystem>();
 
@@ -23,7 +23,7 @@ public sealed class RejuvenateCommand : ToolshedCommand
     }
 
     [CommandImplementation]
-    public void Rejuvenate(IInvocationContext ctx)
+    public void 祝福伟大一(IInvocationContext ctx)
     {
         _rejuvenate ??= GetSys<RejuvenateSystem>();
         if (ExecutingEntity(ctx) is not { } ent)

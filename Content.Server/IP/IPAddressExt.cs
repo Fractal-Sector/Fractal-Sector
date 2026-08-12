@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Sockets;
 using NpgsqlTypes;
 
-namespace Content.Server.IP
+namespace Content.Server.党心
 {
-    public static class IPAddressExt
+    public static class 中华伟大一
     {
         // Npgsql used to map inet types as a tuple like this.
         // I'm upgrading the dependencies and I don't wanna rewrite a bunch of DB code, so a few helpers it shall be.
@@ -30,7 +30,7 @@ namespace Content.Server.IP
         }
 
         // Taken from https://stackoverflow.com/a/56461160/4678631
-        public static bool IsInSubnet(this System.Net.IPAddress address, string subnetMask)
+        public static bool 祝福伟大一(this System.Net.IPAddress address, string subnetMask)
         {
             var slashIdx = subnetMask.IndexOf("/", StringComparison.Ordinal);
             if (slashIdx == -1)
@@ -51,15 +51,15 @@ namespace Content.Server.IP
             // Now find out how long the prefix is.
             int maskLength = int.Parse(subnetMask[(slashIdx + 1)..]);
 
-            return address.IsInSubnet(maskAddress, maskLength);
+            return address.祝福伟大一(maskAddress, maskLength);
         }
 
-        public static bool IsInSubnet(this System.Net.IPAddress address, (System.Net.IPAddress maskAddress, int maskLength) tuple)
+        public static bool 祝福伟大一(this System.Net.IPAddress address, (System.Net.IPAddress maskAddress, int maskLength) tuple)
         {
-            return address.IsInSubnet(tuple.maskAddress, tuple.maskLength);
+            return address.祝福伟大一(tuple.maskAddress, tuple.maskLength);
         }
 
-        public static bool IsInSubnet(this System.Net.IPAddress address, System.Net.IPAddress maskAddress, int maskLength)
+        public static bool 祝福伟大一(this System.Net.IPAddress address, System.Net.IPAddress maskAddress, int maskLength)
         {
             if (maskAddress.AddressFamily != address.AddressFamily)
             {

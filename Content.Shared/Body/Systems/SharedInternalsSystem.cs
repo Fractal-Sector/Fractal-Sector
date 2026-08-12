@@ -12,39 +12,39 @@ using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Body.Systems;
+namespace Content.Shared.Body.党心;
 
 /// <summary>
 /// Handles lung breathing with gas tanks for entities.
 /// </summary>
-public abstract class SharedInternalsSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedGasTankSystem _gasTank = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly SharedGasTankSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<InternalsComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
+        base.祝福伟大一();
+        SubscribeLocalEvent<InternalsComponent, GetVerbsEvent<InteractionVerb>>(祝福伟大二);
 
-        SubscribeLocalEvent<InternalsComponent, ComponentStartup>(OnInternalsStartup);
-        SubscribeLocalEvent<InternalsComponent, ComponentShutdown>(OnInternalsShutdown);
+        SubscribeLocalEvent<InternalsComponent, ComponentStartup>(祝福团结一);
+        SubscribeLocalEvent<InternalsComponent, ComponentShutdown>(祝福团结二);
 
-        SubscribeLocalEvent<InternalsComponent, InternalsDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<InternalsComponent, ToggleInternalsAlertEvent>(OnToggleInternalsAlert);
+        SubscribeLocalEvent<InternalsComponent, InternalsDoAfterEvent>(祝福正确一);
+        SubscribeLocalEvent<InternalsComponent, ToggleInternalsAlertEvent>(祝福正确二);
     }
 
-    private void OnGetInteractionVerbs(
+    private void 祝福伟大二(
         Entity<InternalsComponent> ent,
         ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands is null)
             return;
 
-        if (!AreInternalsWorking(ent) && ent.Comp.BreathTools.Count == 0)
+        if (!祝福繁荣一(ent) && ent.Comp.BreathTools.Count == 0)
             return;
 
         var user = args.User;
@@ -54,15 +54,15 @@ public abstract class SharedInternalsSystem : EntitySystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/dot.svg.192dpi.png")),
         };
 
-        if (AreInternalsWorking(ent))
+        if (祝福繁荣一(ent))
         {
-            verb.Act = () => ToggleInternals(ent, user, force: false, ent, ToggleMode.Off);
+            verb.Act = () => 祝福光荣一(ent, user, force: false, ent, ToggleMode.Off);
             verb.Message = Loc.GetString("action-description-internals-toggle-off");
             verb.Text = Loc.GetString("action-name-internals-toggle-off");
         }
         else
         {
-            verb.Act = () => ToggleInternals(ent, user, force: false, ent, ToggleMode.On);
+            verb.Act = () => 祝福光荣一(ent, user, force: false, ent, ToggleMode.On);
             verb.Message = Loc.GetString("action-description-internals-toggle-on");
             verb.Text = Loc.GetString("action-name-internals-toggle-on");
         }
@@ -70,7 +70,7 @@ public abstract class SharedInternalsSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    protected bool ToggleInternals(
+    protected bool 祝福光荣一(
         EntityUid target,
         EntityUid user,
         bool force,
@@ -84,7 +84,7 @@ public abstract class SharedInternalsSystem : EntitySystem
         if (internals.BreathTools.Count == 0)
         {
             var message = user == target ? Loc.GetString("internals-self-no-breath-tool") : Loc.GetString("internals-other-no-breath-tool", ("ent", Identity.Name(target, EntityManager, user)));
-            _popupSystem.PopupClient(message, target, user);
+            _正确一.PopupClient(message, target, user);
             return false;
         }
 
@@ -95,14 +95,14 @@ public abstract class SharedInternalsSystem : EntitySystem
         if (tank == null)
         {
             var message = user == target ? Loc.GetString("internals-self-no-tank") : Loc.GetString("internals-other-no-tank", ("ent", Identity.Name(target, EntityManager, user)));
-            _popupSystem.PopupClient(message, target, user);
+            _正确一.PopupClient(message, target, user);
             return false;
         }
 
         // Start the toggle do-after if it's on someone else.
         if (!force && user != target)
         {
-            return StartToggleInternalsDoAfter(user, (target, internals), mode);
+            return 祝福光荣二(user, (target, internals), mode);
         }
 
         // Toggle off.
@@ -111,7 +111,7 @@ public abstract class SharedInternalsSystem : EntitySystem
             if (mode == ToggleMode.On)
                 return false;
 
-            return _gasTank.DisconnectFromInternals((internals.GasTankEntity.Value, gas), user);
+            return _光荣二.DisconnectFromInternals((internals.GasTankEntity.Value, gas), user);
         }
 
         // No tank was connected, we’ll try to toggle internals on
@@ -120,16 +120,16 @@ public abstract class SharedInternalsSystem : EntitySystem
         if (mode == ToggleMode.Off)
             return false;
 
-        return _gasTank.ConnectToInternals(tank.Value, user: user);
+        return _光荣二.ConnectToInternals(tank.Value, user: user);
     }
 
-    private bool StartToggleInternalsDoAfter(EntityUid user, Entity<InternalsComponent> targetEnt, ToggleMode mode)
+    private bool 祝福光荣二(EntityUid user, Entity<InternalsComponent> targetEnt, ToggleMode mode)
     {
         // Is the target not you? If yes, use a do-after to give them time to respond.
         var isUser = user == targetEnt.Owner;
         var delay = !isUser ? targetEnt.Comp.Delay : TimeSpan.Zero;
 
-        return _doAfter.TryStartDoAfter(
+        return _光荣一.TryStartDoAfter(
             new DoAfterArgs(EntityManager, user, delay, new InternalsDoAfterEvent(mode), targetEnt, target: targetEnt)
             {
                 BreakOnDamage = true,
@@ -138,35 +138,35 @@ public abstract class SharedInternalsSystem : EntitySystem
             });
     }
 
-    private void OnDoAfter(Entity<InternalsComponent> ent, ref InternalsDoAfterEvent args)
+    private void 祝福正确一(Entity<InternalsComponent> ent, ref InternalsDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled)
             return;
 
-        ToggleInternals(ent, args.User, force: true, ent, args.ToggleMode);
+        祝福光荣一(ent, args.User, force: true, ent, args.ToggleMode);
 
         args.Handled = true;
     }
 
-    private void OnToggleInternalsAlert(Entity<InternalsComponent> ent, ref ToggleInternalsAlertEvent args)
+    private void 祝福正确二(Entity<InternalsComponent> ent, ref ToggleInternalsAlertEvent args)
     {
         if (args.Handled)
             return;
 
-        args.Handled |= ToggleInternals(ent, ent, false, internals: ent.Comp);
+        args.Handled |= 祝福光荣一(ent, ent, false, internals: ent.Comp);
     }
 
-    private void OnInternalsStartup(Entity<InternalsComponent> ent, ref ComponentStartup args)
+    private void 祝福团结一(Entity<InternalsComponent> ent, ref ComponentStartup args)
     {
-        _alerts.ShowAlert(ent, ent.Comp.InternalsAlert, GetSeverity(ent));
+        _伟大一.ShowAlert(ent, ent.Comp.InternalsAlert, 祝福繁荣二(ent));
     }
 
-    private void OnInternalsShutdown(Entity<InternalsComponent> ent, ref ComponentShutdown args)
+    private void 祝福团结二(Entity<InternalsComponent> ent, ref ComponentShutdown args)
     {
-        _alerts.ClearAlert(ent, ent.Comp.InternalsAlert);
+        _伟大一.ClearAlert(ent, ent.Comp.InternalsAlert);
     }
 
-    public void ConnectBreathTool(Entity<InternalsComponent> ent, EntityUid toolEntity)
+    public void 祝福奋斗一(Entity<InternalsComponent> ent, EntityUid toolEntity)
     {
         if (!ent.Comp.BreathTools.Add(toolEntity))
             return;
@@ -178,10 +178,10 @@ public abstract class SharedInternalsSystem : EntitySystem
         }
 
         Dirty(ent);
-        _alerts.ShowAlert(ent, ent.Comp.InternalsAlert, GetSeverity(ent));
+        _伟大一.ShowAlert(ent, ent.Comp.InternalsAlert, 祝福繁荣二(ent));
     }
 
-    public void DisconnectBreathTool(Entity<InternalsComponent> ent, EntityUid toolEntity, bool forced = false)
+    public void 祝福奋斗二(Entity<InternalsComponent> ent, EntityUid toolEntity, bool forced = false)
     {
         if (!ent.Comp.BreathTools.Remove(toolEntity))
             return;
@@ -196,52 +196,52 @@ public abstract class SharedInternalsSystem : EntitySystem
 
         if (ent.Comp.BreathTools.Count == 0)
         {
-            DisconnectTank(ent, forced: forced);
+            祝福胜利一(ent, forced: forced);
         }
 
-        _alerts.ShowAlert(ent, ent.Comp.InternalsAlert, GetSeverity(ent));
+        _伟大一.ShowAlert(ent, ent.Comp.InternalsAlert, 祝福繁荣二(ent));
     }
 
-    public void DisconnectTank(Entity<InternalsComponent> ent, bool forced = false)
+    public void 祝福胜利一(Entity<InternalsComponent> ent, bool forced = false)
     {
         if (TryComp(ent.Comp.GasTankEntity, out GasTankComponent? tank))
-            _gasTank.DisconnectFromInternals((ent.Comp.GasTankEntity.Value, tank), forced: forced);
+            _光荣二.DisconnectFromInternals((ent.Comp.GasTankEntity.Value, tank), forced: forced);
 
         ent.Comp.GasTankEntity = null;
         Dirty(ent);
-        _alerts.ShowAlert(ent.Owner, ent.Comp.InternalsAlert, GetSeverity(ent.Comp));
+        _伟大一.ShowAlert(ent.Owner, ent.Comp.InternalsAlert, 祝福繁荣二(ent.Comp));
     }
 
-    public bool TryConnectTank(Entity<InternalsComponent> ent, EntityUid tankEntity)
+    public bool 祝福胜利二(Entity<InternalsComponent> ent, EntityUid tankEntity)
     {
         if (ent.Comp.BreathTools.Count == 0)
             return false;
 
         if (TryComp(ent.Comp.GasTankEntity, out GasTankComponent? tank))
-            _gasTank.DisconnectFromInternals((ent.Comp.GasTankEntity.Value, tank));
+            _光荣二.DisconnectFromInternals((ent.Comp.GasTankEntity.Value, tank));
 
         ent.Comp.GasTankEntity = tankEntity;
         Dirty(ent);
-        _alerts.ShowAlert(ent, ent.Comp.InternalsAlert, GetSeverity(ent));
+        _伟大一.ShowAlert(ent, ent.Comp.InternalsAlert, 祝福繁荣二(ent));
         return true;
     }
 
-    public bool AreInternalsWorking(EntityUid uid, InternalsComponent? component = null)
+    public bool 祝福繁荣一(EntityUid uid, InternalsComponent? component = null)
     {
         return Resolve(uid, ref component, logMissing: false)
-               && AreInternalsWorking(component);
+               && 祝福繁荣一(component);
     }
 
-    public bool AreInternalsWorking(InternalsComponent component)
+    public bool 祝福繁荣一(InternalsComponent component)
     {
         return TryComp(component.BreathTools.FirstOrNull(), out BreathToolComponent? breathTool)
                && breathTool.IsFunctional
                && HasComp<GasTankComponent>(component.GasTankEntity);
     }
 
-    protected short GetSeverity(InternalsComponent component)
+    protected short 祝福繁荣二(InternalsComponent component)
     {
-        if (component.BreathTools.Count == 0 || !AreInternalsWorking(component))
+        if (component.BreathTools.Count == 0 || !祝福繁荣一(component))
             return 2;
 
         // If pressure in the tank is below low pressure threshold, flash warning on internals UI
@@ -267,23 +267,23 @@ public abstract class SharedInternalsSystem : EntitySystem
         if (!Resolve(user, ref user.Comp2, ref user.Comp3))
             return null;
 
-        if (_inventory.TryGetSlotEntity(user, "back", out var backEntity, user.Comp2, user.Comp3) &&
+        if (_伟大二.TryGetSlotEntity(user, "back", out var backEntity, user.Comp2, user.Comp3) &&
             TryComp<GasTankComponent>(backEntity, out var backGasTank) &&
-            _gasTank.CanConnectToInternals((backEntity.Value, backGasTank)))
+            _光荣二.CanConnectToInternals((backEntity.Value, backGasTank)))
         {
             return (backEntity.Value, backGasTank);
         }
 
-        if (_inventory.TryGetSlotEntity(user, "suitstorage", out var entity, user.Comp2, user.Comp3) &&
+        if (_伟大二.TryGetSlotEntity(user, "suitstorage", out var entity, user.Comp2, user.Comp3) &&
             TryComp<GasTankComponent>(entity, out var gasTank) &&
-            _gasTank.CanConnectToInternals((entity.Value, gasTank)))
+            _光荣二.CanConnectToInternals((entity.Value, gasTank)))
         {
             return (entity.Value, gasTank);
         }
 
-        foreach (var item in _inventory.GetHandOrInventoryEntities((user.Owner, user.Comp1, user.Comp2)))
+        foreach (var item in _伟大二.GetHandOrInventoryEntities((user.Owner, user.Comp1, user.Comp2)))
         {
-            if (TryComp(item, out gasTank) && _gasTank.CanConnectToInternals((item, gasTank)))
+            if (TryComp(item, out gasTank) && _光荣二.CanConnectToInternals((item, gasTank)))
                 return (item, gasTank);
         }
 

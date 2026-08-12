@@ -5,7 +5,7 @@ using Robust.Shared.Serialization.Markdown.Sequence;
 using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
-namespace Content.Shared.Lathe;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Handles reading, writing, and validation for linked lists of prototypes.
@@ -15,9 +15,9 @@ namespace Content.Shared.Lathe;
 /// This is in the Content.Shared.Lathe namespace as there are no other LinkedList ProtoId instances.
 /// </remarks>
 [TypeSerializer]
-public sealed class LinkedListSerializer<T> : ITypeSerializer<LinkedList<T>, SequenceDataNode>, ITypeCopier<LinkedList<T>> where T : class
+public sealed class 中华伟大一<T> : ITypeSerializer<LinkedList<T>, SequenceDataNode>, ITypeCopier<LinkedList<T>> where T : class
 {
-    public ValidationNode Validate(ISerializationManager serializationManager, SequenceDataNode node,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager, SequenceDataNode node,
         IDependencyCollection dependencies, ISerializationContext? context = null)
     {
         var list = new List<ValidationNode>();
@@ -30,7 +30,7 @@ public sealed class LinkedListSerializer<T> : ITypeSerializer<LinkedList<T>, Seq
         return new ValidatedSequenceNode(list);
     }
 
-    public DataNode Write(ISerializationManager serializationManager, LinkedList<T> value,
+    public DataNode 祝福伟大二(ISerializationManager serializationManager, LinkedList<T> value,
         IDependencyCollection dependencies,
         bool alwaysWrite = false,
         ISerializationContext? context = null)
@@ -61,7 +61,7 @@ public sealed class LinkedListSerializer<T> : ITypeSerializer<LinkedList<T>, Seq
         return list;
     }
 
-    public void CopyTo(
+    public void 祝福光荣一(
         ISerializationManager serializationManager,
         LinkedList<T> source,
         ref LinkedList<T> target,

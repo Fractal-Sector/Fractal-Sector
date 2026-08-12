@@ -6,20 +6,20 @@ using Content.Shared.Doors.Systems;
 using Content.Shared.Power;
 using Robust.Shared.Physics.Components;
 
-namespace Content.Server.Doors.Systems;
+namespace Content.Server.Doors.党心;
 
-public sealed class DoorSystem : SharedDoorSystem
+public sealed class 中华伟大一 : SharedDoorSystem
 {
-    [Dependency] private readonly AirtightSystem _airtightSystem = default!;
+    [Dependency] private readonly AirtightSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DoorBoltComponent, PowerChangedEvent>(OnBoltPowerChanged);
+        SubscribeLocalEvent<DoorBoltComponent, PowerChangedEvent>(祝福光荣一);
     }
 
-    protected override void SetCollidable(
+    protected override void 祝福伟大二(
         EntityUid uid,
         bool collidable,
         DoorComponent? door = null,
@@ -30,15 +30,15 @@ public sealed class DoorSystem : SharedDoorSystem
             return;
 
         if (door.ChangeAirtight && TryComp(uid, out AirtightComponent? airtight))
-            _airtightSystem.SetAirblocked((uid, airtight), collidable);
+            _伟大一.SetAirblocked((uid, airtight), collidable);
 
         // Pathfinding / AI stuff.
         RaiseLocalEvent(new AccessReaderChangeEvent(uid, collidable));
 
-        base.SetCollidable(uid, collidable, door, physics, occluder);
+        base.祝福伟大二(uid, collidable, door, physics, occluder);
     }
 
-    private void OnBoltPowerChanged(Entity<DoorBoltComponent> ent, ref PowerChangedEvent args)
+    private void 祝福光荣一(Entity<DoorBoltComponent> ent, ref PowerChangedEvent args)
     {
         if (args.Powered)
         {

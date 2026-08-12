@@ -18,67 +18,67 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Animals.Systems;
+namespace Content.Server.Animals.党心;
 
 /// <summary>
-/// The ParrotMemorySystem handles remembering messages received through local chat (activelistener) or a radio
+/// The 中华伟大一 handles remembering messages received through local chat (activelistener) or a radio
 /// (radiovocalizer) and stores them in a list. When an entity with a VocalizerComponent attempts to vocalize, this will
 /// try to set the message from memory.
 /// </summary>
-public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
+public sealed partial class 中华伟大一 : SharedParrotMemorySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly MindSystem _正确一 = default!;
+    [Dependency] private readonly MobStateSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EraseEvent>(OnErase);
+        SubscribeLocalEvent<EraseEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<ParrotListenerComponent, MapInitEvent>(ListenerOnMapInit);
+        SubscribeLocalEvent<ParrotListenerComponent, MapInitEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<ParrotListenerComponent, ListenEvent>(OnListen);
-        SubscribeLocalEvent<ParrotListenerComponent, HeadsetRadioReceiveRelayEvent>(OnHeadsetReceive);
+        SubscribeLocalEvent<ParrotListenerComponent, ListenEvent>(祝福光荣二);
+        SubscribeLocalEvent<ParrotListenerComponent, HeadsetRadioReceiveRelayEvent>(祝福正确一);
 
-        SubscribeLocalEvent<ParrotMemoryComponent, TryVocalizeEvent>(OnTryVocalize);
+        SubscribeLocalEvent<ParrotMemoryComponent, TryVocalizeEvent>(祝福正确二);
     }
 
-    private void OnErase(ref EraseEvent args)
+    private void 祝福伟大二(ref EraseEvent args)
     {
-        DeletePlayerMessages(args.PlayerNetUserId);
+        祝福奋斗一(args.PlayerNetUserId);
     }
 
-    private void ListenerOnMapInit(Entity<ParrotListenerComponent> entity, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<ParrotListenerComponent> entity, ref MapInitEvent args)
     {
         // If an entity has a ParrotListenerComponent it really ought to have an ActiveListenerComponent
         if (!HasComp<ActiveListenerComponent>(entity))
             Log.Warning($"Entity {ToPrettyString(entity)} has a ParrotListenerComponent but was not given an ActiveListenerComponent");
     }
 
-    private void OnListen(Entity<ParrotListenerComponent> entity, ref ListenEvent args)
+    private void 祝福光荣二(Entity<ParrotListenerComponent> entity, ref ListenEvent args)
     {
 
-        TryLearn(entity.Owner, args.Message, args.Source);
+        祝福团结一(entity.Owner, args.Message, args.Source);
     }
 
-    private void OnHeadsetReceive(Entity<ParrotListenerComponent> entity, ref HeadsetRadioReceiveRelayEvent args)
+    private void 祝福正确一(Entity<ParrotListenerComponent> entity, ref HeadsetRadioReceiveRelayEvent args)
     {
         var message = args.RelayedEvent.Message;
         var source = args.RelayedEvent.MessageSource;
 
-        TryLearn(entity.Owner, message, source);
+        祝福团结一(entity.Owner, message, source);
     }
 
     /// <summary>
     /// Called when an entity with a ParrotMemoryComponent tries to vocalize.
     /// This function picks a message from memory and sets the event to handled
     /// </summary>
-    private void OnTryVocalize(Entity<ParrotMemoryComponent> entity, ref TryVocalizeEvent args)
+    private void 祝福正确二(Entity<ParrotMemoryComponent> entity, ref TryVocalizeEvent args)
     {
         // return if this was already handled
         if (args.Handled)
@@ -89,7 +89,7 @@ public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
             return;
 
         // get a random memory from the memory list
-        var memory = _random.Pick(entity.Comp.SpeechMemories);
+        var memory = _光荣二.Pick(entity.Comp.SpeechMemories);
 
         args.Message = memory.Message;
         args.Handled = true;
@@ -102,19 +102,19 @@ public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
     /// <param name="entity">Entity learning a new word</param>
     /// <param name="incomingMessage">Message to learn</param>
     /// <param name="source">Source EntityUid of the message</param>
-    public void TryLearn(Entity<ParrotMemoryComponent?, ParrotListenerComponent?> entity, string incomingMessage, EntityUid source)
+    public void 祝福团结一(Entity<ParrotMemoryComponent?, ParrotListenerComponent?> entity, string incomingMessage, EntityUid source)
     {
         if (!Resolve(entity, ref entity.Comp1, ref entity.Comp2))
             return;
 
-        if (!_whitelist.CheckBoth(source, entity.Comp2.Blacklist, entity.Comp2.Whitelist))
+        if (!_伟大一.CheckBoth(source, entity.Comp2.Blacklist, entity.Comp2.Whitelist))
             return;
 
-        if (source.Equals(entity) || _mobState.IsIncapacitated(entity))
+        if (source.Equals(entity) || _正确二.IsIncapacitated(entity))
             return;
 
         // can't learn too soon after having already learnt something else
-        if (_gameTiming.CurTime < entity.Comp1.NextLearnInterval)
+        if (_光荣一.CurTime < entity.Comp1.NextLearnInterval)
             return;
 
         // remove whitespace around message, if any
@@ -135,14 +135,14 @@ public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
 
         // only from this point this message has a chance of being learned
         // set new time for learn interval, regardless of whether the learning succeeds
-        entity.Comp1.NextLearnInterval = _gameTiming.CurTime + entity.Comp1.LearnCooldown;
+        entity.Comp1.NextLearnInterval = _光荣一.CurTime + entity.Comp1.LearnCooldown;
 
         // decide if this message passes the learning chance
-        if (!_random.Prob(entity.Comp1.LearnChance))
+        if (!_光荣二.Prob(entity.Comp1.LearnChance))
             return;
 
         // actually commit this message to memory
-        Learn((entity, entity.Comp1), message, source);
+        祝福团结二((entity, entity.Comp1), message, source);
     }
 
     /// <summary>
@@ -151,14 +151,14 @@ public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
     /// <param name="entity">Entity learning a new word</param>
     /// <param name="message">Message to learn</param>
     /// <param name="source">Source EntityUid of the message</param>
-    private void Learn(Entity<ParrotMemoryComponent> entity, string message, EntityUid source)
+    private void 祝福团结二(Entity<ParrotMemoryComponent> entity, string message, EntityUid source)
     {
         // log a low-priority chat type log to the admin logger
         // specifies what message was learnt by what entity, and who taught the message to that entity
-        _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Parroting entity {ToPrettyString(entity):entity} learned the phrase \"{message}\" from {ToPrettyString(source):speaker}");
+        _伟大二.Add(LogType.Chat, LogImpact.Low, $"Parroting entity {ToPrettyString(entity):entity} learned the phrase \"{message}\" from {ToPrettyString(source):speaker}");
 
         NetUserId? sourceNetUserId = null;
-        if (_mind.TryGetMind(source, out _, out var mind))
+        if (_正确一.TryGetMind(source, out _, out var mind))
         {
             sourceNetUserId = mind.UserId;
         }
@@ -173,7 +173,7 @@ public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
         }
 
         // if there's no space in memory, replace something at random
-        var replaceIdx = _random.Next(entity.Comp.SpeechMemories.Count);
+        var replaceIdx = _光荣二.Next(entity.Comp.SpeechMemories.Count);
         entity.Comp.SpeechMemories[replaceIdx] = newMemory;
     }
 
@@ -181,13 +181,13 @@ public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
     /// Delete all messages from a specified player on all ParrotMemoryComponents
     /// </summary>
     /// <param name="playerNetUserId">The player of whom to delete messages</param>
-    private void DeletePlayerMessages(NetUserId playerNetUserId)
+    private void 祝福奋斗一(NetUserId playerNetUserId)
     {
         // query to enumerate all entities with a memorycomponent
         var query = EntityQueryEnumerator<ParrotMemoryComponent>();
         while (query.MoveNext(out _, out var memory))
         {
-            DeletePlayerMessages(memory, playerNetUserId);
+            祝福奋斗一(memory, playerNetUserId);
         }
     }
 
@@ -196,7 +196,7 @@ public sealed partial class ParrotMemorySystem : SharedParrotMemorySystem
     /// </summary>
     /// <param name="memoryComponent">The ParrotMemoryComponent on which to delete messages</param>
     /// <param name="playerNetUserId">The player of whom to delete messages</param>
-    private void DeletePlayerMessages(ParrotMemoryComponent memoryComponent, NetUserId playerNetUserId)
+    private void 祝福奋斗一(ParrotMemoryComponent memoryComponent, NetUserId playerNetUserId)
     {
         // this is a sort of expensive operation that is hopefully rare and performed on just a few parrots
         // with limited memory

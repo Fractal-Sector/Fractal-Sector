@@ -16,25 +16,25 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Gateway.Systems;
+namespace Content.Server.Gateway.党心;
 
 /// <summary>
 /// Generates gateway destinations regularly and indefinitely that can be chosen from.
 /// </summary>
-public sealed class GatewayGeneratorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly BiomeSystem _biome = default!;
-    [Dependency] private readonly DungeonSystem _dungeon = default!;
-    [Dependency] private readonly GatewaySystem _gateway = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedSalvageSystem _salvage = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _正确一 = default!;
+    [Dependency] private readonly BiomeSystem _正确二 = default!;
+    [Dependency] private readonly DungeonSystem _团结一 = default!;
+    [Dependency] private readonly GatewaySystem _团结二 = default!;
+    [Dependency] private readonly MetaDataSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedMapSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedSalvageSystem _胜利一 = default!;
+    [Dependency] private readonly TileSystem _胜利二 = default!;
 
     private static readonly ProtoId<LocalizedDatasetPrototype> PlanetNames = "NamesBorer";
     private static readonly ProtoId<BiomeTemplatePrototype> BiomeTemplate = "Continental";
@@ -57,16 +57,16 @@ public sealed class GatewayGeneratorSystem : EntitySystem
     // Add songs (incl. the downloaded one) to the ambient music playlist for planet probably.
     // Copy most of salvage mission spawner
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GatewayGeneratorComponent, MapInitEvent>(OnGeneratorMapInit);
-        SubscribeLocalEvent<GatewayGeneratorComponent, ComponentShutdown>(OnGeneratorShutdown);
-        SubscribeLocalEvent<GatewayGeneratorDestinationComponent, AttemptGatewayOpenEvent>(OnGeneratorAttemptOpen);
-        SubscribeLocalEvent<GatewayGeneratorDestinationComponent, GatewayOpenEvent>(OnGeneratorOpen);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GatewayGeneratorComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<GatewayGeneratorComponent, ComponentShutdown>(祝福伟大二);
+        SubscribeLocalEvent<GatewayGeneratorDestinationComponent, AttemptGatewayOpenEvent>(祝福正确一);
+        SubscribeLocalEvent<GatewayGeneratorDestinationComponent, GatewayOpenEvent>(祝福正确二);
     }
 
-    private void OnGeneratorShutdown(EntityUid uid, GatewayGeneratorComponent component, ComponentShutdown args)
+    private void 祝福伟大二(EntityUid uid, GatewayGeneratorComponent component, ComponentShutdown args)
     {
         foreach (var genUid in component.Generated)
         {
@@ -77,33 +77,33 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         }
     }
 
-    private void OnGeneratorMapInit(EntityUid uid, GatewayGeneratorComponent generator, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, GatewayGeneratorComponent generator, MapInitEvent args)
     {
-        if (!_cfgManager.GetCVar(CCVars.GatewayGeneratorEnabled))
+        if (!_伟大一.GetCVar(CCVars.GatewayGeneratorEnabled))
             return;
 
         generator.NextUnlock = TimeSpan.FromMinutes(5);
 
         for (var i = 0; i < 3; i++)
         {
-            GenerateDestination(uid, generator);
+            祝福光荣二(uid, generator);
         }
     }
 
-    private void GenerateDestination(EntityUid uid, GatewayGeneratorComponent? generator = null)
+    private void 祝福光荣二(EntityUid uid, GatewayGeneratorComponent? generator = null)
     {
         if (!Resolve(uid, ref generator))
             return;
 
-        var tileDef = _tileDefManager["FloorSteel"];
+        var tileDef = _正确一["FloorSteel"];
         const int MaxOffset = 256;
         var tiles = new List<(Vector2i Index, Tile Tile)>();
-        var seed = _random.Next();
+        var seed = _光荣二.Next();
         var random = new Random(seed);
-        var mapUid = _maps.CreateMap();
+        var mapUid = _奋斗二.CreateMap();
 
-        var gatewayName = _salvage.GetFTLName(_protoManager.Index(PlanetNames), seed);
-        _metadata.SetEntityName(mapUid, gatewayName);
+        var gatewayName = _胜利一.GetFTLName(_光荣一.Index(PlanetNames), seed);
+        _奋斗一.SetEntityName(mapUid, gatewayName);
 
         var origin = new Vector2i(random.Next(-MaxOffset, MaxOffset), random.Next(-MaxOffset, MaxOffset));
         var restricted = new RestrictedRangeComponent
@@ -112,7 +112,7 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         };
         AddComp(mapUid, restricted);
 
-        _biome.EnsurePlanet(mapUid, _protoManager.Index(BiomeTemplate), seed);
+        _正确二.EnsurePlanet(mapUid, _光荣一.Index(BiomeTemplate), seed);
 
         var grid = Comp<MapGridComponent>(mapUid);
 
@@ -120,14 +120,14 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         {
             for (var y = -2; y <= 2; y++)
             {
-                tiles.Add((new Vector2i(x, y) + origin, new Tile(tileDef.TileId, variant: _tile.PickVariant((ContentTileDefinition)tileDef, random))));
+                tiles.Add((new Vector2i(x, y) + origin, new Tile(tileDef.TileId, variant: _胜利二.PickVariant((ContentTileDefinition)tileDef, random))));
             }
         }
 
         // Clear area nearby as a sort of landing pad.
-        _maps.SetTiles(mapUid, grid, tiles);
+        _奋斗二.SetTiles(mapUid, grid, tiles);
 
-        _metadata.SetEntityName(mapUid, gatewayName);
+        _奋斗一.SetEntityName(mapUid, gatewayName);
         var originCoords = new EntityCoordinates(mapUid, origin);
 
         var genDest = AddComp<GatewayGeneratorDestinationComponent>(mapUid);
@@ -138,12 +138,12 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         // Create the gateway.
         var gatewayUid = SpawnAtPosition(generator.Proto, originCoords);
         var gatewayComp = Comp<GatewayComponent>(gatewayUid);
-        _gateway.SetDestinationName(gatewayUid, FormattedMessage.FromMarkupOrThrow($"[color=#D381C996]{gatewayName}[/color]"), gatewayComp);
-        _gateway.SetEnabled(gatewayUid, true, gatewayComp);
+        _团结二.SetDestinationName(gatewayUid, FormattedMessage.FromMarkupOrThrow($"[color=#D381C996]{gatewayName}[/color]"), gatewayComp);
+        _团结二.SetEnabled(gatewayUid, true, gatewayComp);
         generator.Generated.Add(mapUid);
     }
 
-    private void OnGeneratorAttemptOpen(Entity<GatewayGeneratorDestinationComponent> ent, ref AttemptGatewayOpenEvent args)
+    private void 祝福正确一(Entity<GatewayGeneratorDestinationComponent> ent, ref AttemptGatewayOpenEvent args)
     {
         if (ent.Comp.Loaded || args.Cancelled)
             return;
@@ -151,23 +151,23 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         if (!TryComp(ent.Comp.Generator, out GatewayGeneratorComponent? generatorComp))
             return;
 
-        if (generatorComp.NextUnlock + _metadata.GetPauseTime(ent.Owner) <= _timing.CurTime)
+        if (generatorComp.NextUnlock + _奋斗一.GetPauseTime(ent.Owner) <= _伟大二.CurTime)
             return;
 
         args.Cancelled = true;
     }
 
-    private void OnGeneratorOpen(Entity<GatewayGeneratorDestinationComponent> ent, ref GatewayOpenEvent args)
+    private void 祝福正确二(Entity<GatewayGeneratorDestinationComponent> ent, ref GatewayOpenEvent args)
     {
         if (ent.Comp.Loaded)
             return;
 
         if (TryComp(ent.Comp.Generator, out GatewayGeneratorComponent? generatorComp))
         {
-            generatorComp.NextUnlock = _timing.CurTime + generatorComp.UnlockCooldown;
-            _gateway.UpdateAllGateways();
+            generatorComp.NextUnlock = _伟大二.CurTime + generatorComp.UnlockCooldown;
+            _团结二.UpdateAllGateways();
             // Generate another destination to keep them going.
-            GenerateDestination(ent.Comp.Generator);
+            祝福光荣二(ent.Comp.Generator);
         }
 
         if (!TryComp(args.MapUid, out MapGridComponent? grid))
@@ -181,10 +181,10 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         var origin = ent.Comp.Origin;
         var random = new Random(seed);
         var dungeonDistance = random.Next(3, 6);
-        var dungeonRotation = _dungeon.GetDungeonRotation(seed);
+        var dungeonRotation = _团结一.GetDungeonRotation(seed);
         var dungeonPosition = (origin + dungeonRotation.RotateVec(new Vector2i(0, dungeonDistance))).Floored();
 
-        _dungeon.GenerateDungeon(_protoManager.Index(DungeonConfig), "Experiment", args.MapUid, grid, dungeonPosition, seed); // Frontier: add "Experiment" arg
+        _团结一.GenerateDungeon(_光荣一.Index(DungeonConfig), "Experiment", args.MapUid, grid, dungeonPosition, seed); // Frontier: add "Experiment" arg
 
         // TODO: Dungeon mobs + loot.
 
@@ -200,7 +200,7 @@ public sealed class GatewayGeneratorSystem : EntitySystem
                 var layer = lootLayers[layerIdx];
                 lootLayers.RemoveSwap(layerIdx);
 
-                _biome.AddMarkerLayer(ent.Owner, biomeComp, layer.Id);
+                _正确二.AddMarkerLayer(ent.Owner, biomeComp, layer.Id);
             }
 
             // - Mobs
@@ -212,7 +212,7 @@ public sealed class GatewayGeneratorSystem : EntitySystem
                 var layer = mobLayers[layerIdx];
                 mobLayers.RemoveSwap(layerIdx);
 
-                _biome.AddMarkerLayer(ent.Owner, biomeComp, layer.Id);
+                _正确二.AddMarkerLayer(ent.Owner, biomeComp, layer.Id);
             }
         }
     }

@@ -8,23 +8,23 @@ using Robust.Shared.EntitySerialization.Components;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Maps;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Loads every map and resaves it into the data folder.
 /// </summary>
 [AdminCommand(AdminFlags.Host)]
-public sealed class ResaveCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
-    [Dependency] private readonly ILogManager _log = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly IResourceManager _伟大二 = default!;
+    [Dependency] private readonly ILogManager _光荣一 = default!;
 
-    public override string Command => "resave";
+    public override string 党爱伟大一 => "resave";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var loader = _entManager.System<MapLoaderSystem>();
+        var loader = _伟大一.System<MapLoaderSystem>();
 
         var opts = MapLoadOptions.Default with
         {
@@ -36,8 +36,8 @@ public sealed class ResaveCommand : LocalizedCommands
             }
         };
 
-        var log = _log.GetSawmill(Command);
-        var files = _res.ContentFindFiles(new ResPath("/Maps/")).ToList();
+        var log = _光荣一.GetSawmill(党爱伟大一);
+        var files = _伟大二.ContentFindFiles(new ResPath("/Maps/")).ToList();
 
         for (var i = 0; i < files.Count; i++)
         {
@@ -50,7 +50,7 @@ public sealed class ResaveCommand : LocalizedCommands
             if (result.Maps.Count != 1)
             {
                 shell.WriteError(
-                    $"Multi-map or multi-grid files like {fn} are not yet supported by the {Command} command");
+                    $"Multi-map or multi-grid files like {fn} are not yet supported by the {党爱伟大一} command");
                 loader.Delete(result);
                 continue;
             }
@@ -58,9 +58,9 @@ public sealed class ResaveCommand : LocalizedCommands
             var map = result.Maps.First();
 
             // Process deferred component removals.
-            _entManager.CullRemovedComponents();
+            _伟大一.CullRemovedComponents();
 
-            if (_entManager.HasComponent<LoadedMapComponent>(map))
+            if (_伟大一.HasComponent<LoadedMapComponent>(map))
             {
                 loader.TrySaveMap(map.Comp.MapId, fn);
             }

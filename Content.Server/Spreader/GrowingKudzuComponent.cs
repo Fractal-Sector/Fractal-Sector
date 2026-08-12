@@ -1,14 +1,14 @@
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.Spreader;
+namespace Content.Server.党心;
 
 [RegisterComponent, Access(typeof(KudzuSystem)), AutoGenerateComponentPause]
-public sealed partial class GrowingKudzuComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The next time kudzu will try to tick its growth level.
     /// </summary>
     [DataField("nextTick", customTypeSerializer:typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan NextTick = TimeSpan.Zero;
+    public TimeSpan 党爱伟大一 = TimeSpan.Zero;
 }

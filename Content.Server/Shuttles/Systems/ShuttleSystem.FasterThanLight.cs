@@ -29,35 +29,35 @@ using Robust.Shared.Utility;
 using FTLMapComponent = Content.Shared.Shuttles.Components.FTLMapComponent;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleSystem
+public sealed partial class 中华伟大一
 {
     /*
      * This is a way to move a shuttle from one location to another, via an intermediate map for fanciness.
      */
 
-    private readonly SoundSpecifier _startupSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg")
+    private readonly SoundSpecifier _伟大一 = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg")
     {
         Params = AudioParams.Default.WithVolume(-5f),
     };
 
-    private readonly SoundSpecifier _arrivalSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg")
+    private readonly SoundSpecifier _伟大二 = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg")
     {
         Params = AudioParams.Default.WithVolume(-5f),
     };
 
-    public float DefaultStartupTime;
-    public float DefaultTravelTime;
-    public float DefaultArrivalTime;
+    public float 党爱伟大一;
+    public float 党爱伟大二;
+    public float 党爱光荣一;
     private float FTLCooldown;
-    public float FTLMassLimit;
-    private TimeSpan _hyperspaceKnockdownTime = TimeSpan.FromSeconds(5);
+    public float 党爱光荣二;
+    private TimeSpan _光荣一 = TimeSpan.FromSeconds(5);
 
     /// <summary>
     /// Left-side of the station we're allowed to use
     /// </summary>
-    private float _index;
+    private float _光荣二;
 
     /// <summary>
     /// Space between grids within hyperspace.
@@ -81,40 +81,40 @@ public sealed partial class ShuttleSystem
     private const float CoordRollover = 40000f;
     // End Frontier: coordinate rollover
 
-    private readonly HashSet<EntityUid> _lookupEnts = new();
-    private readonly HashSet<EntityUid> _immuneEnts = new();
-    private readonly HashSet<Entity<NoFTLComponent>> _noFtls = new();
+    private readonly HashSet<EntityUid> _正确一 = new();
+    private readonly HashSet<EntityUid> _正确二 = new();
+    private readonly HashSet<Entity<NoFTLComponent>> _团结一 = new();
 
-    private EntityQuery<BodyComponent> _bodyQuery;
-    private EntityQuery<FTLSmashImmuneComponent> _immuneQuery;
-    private EntityQuery<StatusEffectsComponent> _statusQuery;
+    private EntityQuery<BodyComponent> _团结二;
+    private EntityQuery<FTLSmashImmuneComponent> _奋斗一;
+    private EntityQuery<StatusEffectsComponent> _奋斗二;
 
-    [Dependency] private readonly IEntityManager _entManager = default!; // Mono
+    [Dependency] private readonly IEntityManager _胜利一 = default!; // Mono
 
-    private void InitializeFTL()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StationPostInitEvent>(OnStationPostInit);
-        SubscribeLocalEvent<FTLComponent, ComponentShutdown>(OnFtlShutdown);
+        SubscribeLocalEvent<StationPostInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<FTLComponent, ComponentShutdown>(祝福伟大二);
 
-        _bodyQuery = GetEntityQuery<BodyComponent>();
-        _immuneQuery = GetEntityQuery<FTLSmashImmuneComponent>();
-        _statusQuery = GetEntityQuery<StatusEffectsComponent>();
+        _团结二 = GetEntityQuery<BodyComponent>();
+        _奋斗一 = GetEntityQuery<FTLSmashImmuneComponent>();
+        _奋斗二 = GetEntityQuery<StatusEffectsComponent>();
 
-        _cfg.OnValueChanged(CCVars.FTLStartupTime, time => DefaultStartupTime = time, true);
-        _cfg.OnValueChanged(CCVars.FTLTravelTime, time => DefaultTravelTime = time, true);
-        _cfg.OnValueChanged(CCVars.FTLArrivalTime, time => DefaultArrivalTime = time, true);
+        _cfg.OnValueChanged(CCVars.FTLStartupTime, time => 党爱伟大一 = time, true);
+        _cfg.OnValueChanged(CCVars.FTLTravelTime, time => 党爱伟大二 = time, true);
+        _cfg.OnValueChanged(CCVars.FTLArrivalTime, time => 党爱光荣一 = time, true);
         _cfg.OnValueChanged(CCVars.FTLCooldown, time => FTLCooldown = time, true);
-        _cfg.OnValueChanged(CCVars.FTLMassLimit, time => FTLMassLimit = time, true);
-        _cfg.OnValueChanged(CCVars.HyperspaceKnockdownTime, time => _hyperspaceKnockdownTime = TimeSpan.FromSeconds(time), true);
+        _cfg.OnValueChanged(CCVars.党爱光荣二, time => 党爱光荣二 = time, true);
+        _cfg.OnValueChanged(CCVars.HyperspaceKnockdownTime, time => _光荣一 = TimeSpan.FromSeconds(time), true);
     }
 
-    private void OnFtlShutdown(Entity<FTLComponent> ent, ref ComponentShutdown args)
+    private void 祝福伟大二(Entity<FTLComponent> ent, ref ComponentShutdown args)
     {
         QueueDel(ent.Comp.VisualizerEntity);
         ent.Comp.VisualizerEntity = null;
     }
 
-    private void OnStationPostInit(ref StationPostInitEvent ev)
+    private void 祝福光荣一(ref StationPostInitEvent ev)
     {
         // Add all grid maps as ftl destinations that anyone can FTL to.
         foreach (var gridUid in ev.Station.Comp.Grids)
@@ -126,14 +126,14 @@ public sealed partial class ShuttleSystem
                 continue;
             }
 
-            TryAddFTLDestination(gridXform.MapID, true, false, false, out _);
+            祝福团结一(gridXform.MapID, true, false, false, out _);
         }
     }
 
     /// <summary>
     /// Ensures the FTL map exists and returns it.
     /// </summary>
-    private EntityUid EnsureFTLMap()
+    private EntityUid 祝福光荣二()
     {
         var query = AllEntityQuery<FTLMapComponent>();
 
@@ -154,7 +154,7 @@ public sealed partial class ShuttleSystem
         return mapUid;
     }
 
-    public StartEndTime GetStateTime(FTLComponent component)
+    public StartEndTime 祝福正确一(FTLComponent component)
     {
         var state = component.State;
 
@@ -177,7 +177,7 @@ public sealed partial class ShuttleSystem
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="whitelist"></param>
-    public void SetFTLWhitelist(Entity<FTLDestinationComponent?> entity, EntityWhitelist? whitelist)
+    public void 祝福正确二(Entity<FTLDestinationComponent?> entity, EntityWhitelist? whitelist)
     {
         if (!Resolve(entity, ref entity.Comp))
             return;
@@ -193,12 +193,12 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Adds the target map as available for FTL.
     /// </summary>
-    public bool TryAddFTLDestination(MapId mapId, bool enabled, [NotNullWhen(true)] out FTLDestinationComponent? component)
+    public bool 祝福团结一(MapId mapId, bool enabled, [NotNullWhen(true)] out FTLDestinationComponent? component)
     {
-        return TryAddFTLDestination(mapId, enabled, true, false, out component);
+        return 祝福团结一(mapId, enabled, true, false, out component);
     }
 
-    public bool TryAddFTLDestination(MapId mapId, bool enabled, bool requireDisk, bool beaconsOnly, [NotNullWhen(true)] out FTLDestinationComponent? component)
+    public bool 祝福团结一(MapId mapId, bool enabled, bool requireDisk, bool beaconsOnly, [NotNullWhen(true)] out FTLDestinationComponent? component)
     {
         var mapUid = _mapSystem.GetMapOrInvalid(mapId);
         component = null;
@@ -221,7 +221,7 @@ public sealed partial class ShuttleSystem
     }
 
     [PublicAPI]
-    public void RemoveFTLDestination(EntityUid uid)
+    public void 祝福团结二(EntityUid uid)
     {
         if (!RemComp<FTLDestinationComponent>(uid))
             return;
@@ -232,7 +232,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Returns true if the grid can FTL. Used to block protected shuttles like the emergency shuttle.
     /// </summary>
-    public bool CanFTL(EntityUid shuttleUid, [NotNullWhen(false)] out string? reason)
+    public bool 祝福奋斗一(EntityUid shuttleUid, [NotNullWhen(false)] out string? reason)
     {
         // Currently in FTL already
         if (HasComp<FTLComponent>(shuttleUid))
@@ -245,7 +245,7 @@ public sealed partial class ShuttleSystem
         {
 
             // Too large to FTL
-            if (FTLMassLimit > 0 && shuttlePhysics.Mass > FTLMassLimit)
+            if (党爱光荣二 > 0 && shuttlePhysics.Mass > 党爱光荣二)
             {
                 reason = Loc.GetString("shuttle-console-mass");
                 return false;
@@ -274,7 +274,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Moves a shuttle from its current position to the target one without any checks. Goes through the hyperspace map while the timer is running.
     /// </summary>
-    public void FTLToCoordinates(
+    public void 祝福奋斗二(
         EntityUid shuttleUid,
         ShuttleComponent component,
         EntityCoordinates coordinates,
@@ -283,11 +283,11 @@ public sealed partial class ShuttleSystem
         float? hyperspaceTime = null,
         string? priorityTag = null)
     {
-        if (!TrySetupFTL(shuttleUid, component, out var hyperspace))
+        if (!祝福胜利二(shuttleUid, component, out var hyperspace))
             return;
 
-        startupTime ??= DefaultStartupTime;
-        hyperspaceTime ??= DefaultTravelTime;
+        startupTime ??= 党爱伟大一;
+        hyperspaceTime ??= 党爱伟大二;
 
         hyperspace.StartupTime = startupTime.Value;
         hyperspace.TravelTime = hyperspaceTime.Value;
@@ -310,7 +310,7 @@ public sealed partial class ShuttleSystem
     /// Moves a shuttle from its current position to docked on the target one.
     /// If no docks are free when FTLing it will arrive in proximity
     /// </summary>
-    public void FTLToDock(
+    public void 祝福胜利一(
         EntityUid shuttleUid,
         ShuttleComponent component,
         EntityUid target,
@@ -318,11 +318,11 @@ public sealed partial class ShuttleSystem
         float? hyperspaceTime = null,
         string? priorityTag = null)
     {
-        if (!TrySetupFTL(shuttleUid, component, out var hyperspace))
+        if (!祝福胜利二(shuttleUid, component, out var hyperspace))
             return;
 
-        startupTime ??= DefaultStartupTime;
-        hyperspaceTime ??= DefaultTravelTime;
+        startupTime ??= 党爱伟大一;
+        hyperspaceTime ??= 党爱伟大二;
 
         var config = _dockSystem.GetDockingConfig(shuttleUid, target, priorityTag);
         hyperspace.StartupTime = startupTime.Value;
@@ -340,7 +340,7 @@ public sealed partial class ShuttleSystem
             hyperspace.TargetCoordinates = config.Coordinates;
             hyperspace.TargetAngle = config.Angle;
         }
-        else if (TryGetFTLProximity(shuttleUid, new EntityCoordinates(target, Vector2.Zero), out var coords, out var targAngle))
+        else if (祝福平等一(shuttleUid, new EntityCoordinates(target, Vector2.Zero), out var coords, out var targAngle))
         {
             hyperspace.TargetCoordinates = coords;
             hyperspace.TargetAngle = targAngle;
@@ -353,7 +353,7 @@ public sealed partial class ShuttleSystem
         }
     }
 
-    private bool TrySetupFTL(EntityUid uid, ShuttleComponent shuttle, [NotNullWhen(true)] out FTLComponent? component)
+    private bool 祝福胜利二(EntityUid uid, ShuttleComponent shuttle, [NotNullWhen(true)] out FTLComponent? component)
     {
         component = null;
 
@@ -370,24 +370,24 @@ public sealed partial class ShuttleSystem
 
         component = AddComp<FTLComponent>(uid);
         component.State = FTLState.Starting;
-        var audio = _audio.PlayPvs(_startupSound, uid);
+        var audio = _audio.PlayPvs(_伟大一, uid);
         _audio.SetGridAudio(audio);
         component.StartupStream = audio?.Entity;
 
         // Make sure the map is setup before we leave to avoid pop-in (e.g. parallax).
-        EnsureFTLMap();
+        祝福光荣二();
         return true;
     }
 
     /// <summary>
     /// Transitions shuttle to FTL map.
     /// </summary>
-    private void UpdateFTLStarting(Entity<FTLComponent, ShuttleComponent> entity)
+    private void 祝福繁荣一(Entity<FTLComponent, ShuttleComponent> entity)
     {
         var uid = entity.Owner;
         var comp = entity.Comp1;
         var xform = _xformQuery.GetComponent(entity);
-        DoTheDinosaur(xform);
+        祝福文明一(xform);
 
         comp.State = FTLState.Travelling;
         var fromMapUid = xform.MapUid;
@@ -396,7 +396,7 @@ public sealed partial class ShuttleSystem
 
         var grid = Comp<MapGridComponent>(uid);
         var width = grid.LocalAABB.Width;
-        var ftlMap = EnsureFTLMap();
+        var ftlMap = 祝福光荣二();
         var body = _physicsQuery.GetComponent(entity);
         var shuttleCenter = grid.LocalAABB.Center;
 
@@ -404,7 +404,7 @@ public sealed partial class ShuttleSystem
         // Just so we don't clip
         if (fromMapUid != null && TryComp(comp.StartupStream, out AudioComponent? startupAudio))
         {
-            var clippedAudio = _audio.PlayStatic(_startupSound, Filter.Broadcast(),
+            var clippedAudio = _audio.PlayStatic(_伟大一, Filter.Broadcast(),
                 new EntityCoordinates(fromMapUid.Value, _mapSystem.GetGridPosition(entity.Owner)), true, startupAudio.Params);
 
             _audio.SetPlaybackPosition(clippedAudio, entity.Comp1.StartupTime);
@@ -413,23 +413,23 @@ public sealed partial class ShuttleSystem
         }
 
         // Offset the start by buffer range just to avoid overlap.
-        var ftlStart = new EntityCoordinates(ftlMap, new Vector2(_index + width / 2f, 0f) - shuttleCenter);
+        var ftlStart = new EntityCoordinates(ftlMap, new Vector2(_光荣二 + width / 2f, 0f) - shuttleCenter);
 
         // Store the matrix for the grid prior to movement. This means any entities we need to leave behind we can make sure their positions are updated.
         // Setting the entity to map directly may run grid traversal (at least at time of writing this).
         var oldMapUid = xform.MapUid;
         var oldGridMatrix = _transform.GetWorldMatrix(xform);
         _transform.SetCoordinates(entity.Owner, ftlStart);
-        LeaveNoFTLBehind((entity.Owner, xform), oldGridMatrix, oldMapUid);
+        祝福文明二((entity.Owner, xform), oldGridMatrix, oldMapUid);
 
         // Reset rotation so they always face the same direction.
         xform.LocalRotation = Angle.Zero;
-        _index += width + Buffer;
-        comp.StateTime = StartEndTime.FromCurTime(_gameTiming, comp.TravelTime - DefaultArrivalTime);
+        _光荣二 += width + Buffer;
+        comp.StateTime = StartEndTime.FromCurTime(_gameTiming, comp.TravelTime - 党爱光荣一);
 
         // Frontier: rollover coordinates
-        if (_index > MaxCoord)
-            _index -= CoordRollover;
+        if (_光荣二 > MaxCoord)
+            _光荣二 -= CoordRollover;
         // End Frontier
 
         Enable(uid, component: body);
@@ -451,11 +451,11 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Shuttle arriving.
     /// </summary>
-    private void UpdateFTLTravelling(Entity<FTLComponent, ShuttleComponent> entity)
+    private void 祝福繁荣二(Entity<FTLComponent, ShuttleComponent> entity)
     {
         var shuttle = entity.Comp2;
         var comp = entity.Comp1;
-        comp.StateTime = StartEndTime.FromCurTime(_gameTiming, DefaultArrivalTime);
+        comp.StateTime = StartEndTime.FromCurTime(_gameTiming, 党爱光荣一);
         comp.State = FTLState.Arriving;
 
         if (entity.Comp1.VisualizerProto != null)
@@ -478,13 +478,13 @@ public sealed partial class ShuttleSystem
     /// <summary>
     ///  Shuttle arrived.
     /// </summary>
-    private void UpdateFTLArriving(Entity<FTLComponent, ShuttleComponent> entity)
+    private void 祝福富强一(Entity<FTLComponent, ShuttleComponent> entity)
     {
         var uid = entity.Owner;
         var xform = _xformQuery.GetComponent(uid);
         var body = _physicsQuery.GetComponent(uid);
         var comp = entity.Comp1;
-        DoTheDinosaur(xform);
+        祝福文明一(xform);
         _dockSystem.SetDockBolts(entity, false);
 
         _physics.SetLinearVelocity(uid, Vector2.Zero, body: body);
@@ -505,7 +505,7 @@ public sealed partial class ShuttleSystem
             var map = maps.Min(o => o.GetHashCode());
 
             mapId = new MapId(map);
-            TryFTLProximity(uid, _mapSystem.GetMap(mapId));
+            祝福平等二(uid, _mapSystem.GetMap(mapId));
         }
         // Docking FTL
         else if (HasComp<MapGridComponent>(target.EntityId) &&
@@ -517,11 +517,11 @@ public sealed partial class ShuttleSystem
             // Couldn't dock somehow so just fallback to regular position FTL.
             if (config == null)
             {
-                TryFTLProximity(uid, target.EntityId);
+                祝福平等二(uid, target.EntityId);
             }
             else
             {
-                FTLDock((uid, xform), config);
+                祝福自由二((uid, xform), config);
             }
 
             mapId = mapCoordinates.MapId;
@@ -554,7 +554,7 @@ public sealed partial class ShuttleSystem
         _thruster.DisableLinearThrusters(entity.Comp2);
 
         comp.TravelStream = _audio.Stop(comp.TravelStream);
-        var audio = _audio.PlayPvs(_arrivalSound, uid);
+        var audio = _audio.PlayPvs(_伟大二, uid);
         _audio.SetGridAudio(audio);
 
         if (TryComp<FTLDestinationComponent>(uid, out var dest))
@@ -566,19 +566,19 @@ public sealed partial class ShuttleSystem
         comp.StateTime = StartEndTime.FromCurTime(_gameTiming, FTLCooldown);
         _console.RefreshShuttleConsoles(uid);
         _mapSystem.SetPaused(mapId, false);
-        Smimsh(uid, xform: xform);
+        祝福公正一(uid, xform: xform);
 
         var ftlEvent = new FTLCompletedEvent(uid, _mapSystem.GetMap(mapId));
         RaiseLocalEvent(uid, ref ftlEvent, true);
     }
 
-    private void UpdateFTLCooldown(Entity<FTLComponent, ShuttleComponent> entity)
+    private void 祝福富强二(Entity<FTLComponent, ShuttleComponent> entity)
     {
         RemCompDeferred<FTLComponent>(entity);
         _console.RefreshShuttleConsoles(entity);
     }
 
-    private void UpdateHyperspace()
+    private void 祝福民主一()
     {
         var curTime = _gameTiming.CurTime;
         var query = EntityQueryEnumerator<FTLComponent, ShuttleComponent>();
@@ -594,18 +594,18 @@ public sealed partial class ShuttleSystem
             {
                 // Startup time has elapsed and in hyperspace.
                 case FTLState.Starting:
-                    UpdateFTLStarting(entity);
+                    祝福繁荣一(entity);
                     break;
                 // Arriving, play effects
                 case FTLState.Travelling:
-                    UpdateFTLTravelling(entity);
+                    祝福繁荣二(entity);
                     break;
                 // Arrived
                 case FTLState.Arriving:
-                    UpdateFTLArriving(entity);
+                    祝福富强一(entity);
                     break;
                 case FTLState.Cooldown:
-                    UpdateFTLCooldown(entity);
+                    祝福富强二(entity);
                     break;
                 default:
                     Log.Error($"Found invalid FTL state {comp.State} for {uid}");
@@ -615,7 +615,7 @@ public sealed partial class ShuttleSystem
         }
     }
 
-    private float GetSoundRange(EntityUid uid)
+    private float 祝福民主二(EntityUid uid)
     {
         if (!TryComp<MapGridComponent>(uid, out var grid))
             return 4f;
@@ -626,11 +626,11 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Puts everyone unbuckled on the floor, paralyzed.
     /// </summary>
-    private void DoTheDinosaur(TransformComponent xform)
+    private void 祝福文明一(TransformComponent xform)
     {
         // Get enumeration exceptions from people dropping things if we just paralyze as we go
         var toKnock = new ValueList<EntityUid>();
-        KnockOverKids(xform, ref toKnock);
+        祝福和谐一(xform, ref toKnock);
         TryComp<MapGridComponent>(xform.GridUid, out var grid);
 
         if (TryComp<PhysicsComponent>(xform.GridUid, out var shuttleBody))
@@ -638,25 +638,25 @@ public sealed partial class ShuttleSystem
             foreach (var child in toKnock)
             {
                 if (!HasComp<FTLKnockdownImmuneComponent>(child)) // Frontier: FTL knockdown immunity
-                    _stuns.TryUpdateParalyzeDuration(child, _hyperspaceKnockdownTime);
+                    _stuns.TryUpdateParalyzeDuration(child, _光荣一);
 
                 // If the guy we knocked down is on a spaced tile, throw them too
                 if (grid != null)
-                    TossIfSpaced((xform.GridUid.Value, grid, shuttleBody), child);
+                    祝福和谐二((xform.GridUid.Value, grid, shuttleBody), child);
             }
         }
     }
 
-    private void LeaveNoFTLBehind(Entity<TransformComponent> grid, Matrix3x2 oldGridMatrix, EntityUid? oldMapUid)
+    private void 祝福文明二(Entity<TransformComponent> grid, Matrix3x2 oldGridMatrix, EntityUid? oldMapUid)
     {
         if (oldMapUid == null)
             return;
 
-        _noFtls.Clear();
+        _团结一.Clear();
         var oldGridRotation = oldGridMatrix.Rotation();
-        _lookup.GetGridEntities(grid.Owner, _noFtls);
+        _lookup.GetGridEntities(grid.Owner, _团结一);
 
-        foreach (var childUid in _noFtls)
+        foreach (var childUid in _团结一)
         {
             if (!_xformQuery.TryComp(childUid, out var childXform))
                 continue;
@@ -672,7 +672,7 @@ public sealed partial class ShuttleSystem
         }
     }
 
-    private void KnockOverKids(TransformComponent xform, ref ValueList<EntityUid> toKnock)
+    private void 祝福和谐一(TransformComponent xform, ref ValueList<EntityUid> toKnock)
     {
         // Not recursive because probably not necessary? If we need it to be that's why this method is separate.
         var childEnumerator = xform.ChildEnumerator;
@@ -688,7 +688,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Throws people who are standing on a spaced tile, tries to throw them towards a neighbouring space tile
     /// </summary>
-    private void TossIfSpaced(Entity<MapGridComponent, PhysicsComponent> shuttleEntity, EntityUid tossed)
+    private void 祝福和谐二(Entity<MapGridComponent, PhysicsComponent> shuttleEntity, EntityUid tossed)
     {
         var shuttleGrid = shuttleEntity.Comp1;
         var shuttleBody = shuttleEntity.Comp2;
@@ -713,21 +713,21 @@ public sealed partial class ShuttleSystem
     /// Tries to dock with the target grid, otherwise falls back to proximity.
     /// This bypasses FTL travel time.
     /// </summary>
-    public bool TryFTLDock(
+    public bool 祝福自由一(
         EntityUid shuttleUid,
         ShuttleComponent component,
         EntityUid targetUid,
         string? priorityTag = null,
         DockType dockType = DockType.None) // Frontier
     {
-        return TryFTLDock(shuttleUid, component, targetUid, out _, priorityTag, dockType); // Frontier: add dockType
+        return 祝福自由一(shuttleUid, component, targetUid, out _, priorityTag, dockType); // Frontier: add dockType
     }
 
     /// <summary>
     /// Tries to dock with the target grid, otherwise falls back to proximity.
     /// This bypasses FTL travel time.
     /// </summary>
-    public bool TryFTLDock(
+    public bool 祝福自由一(
         EntityUid shuttleUid,
         ShuttleComponent component,
         EntityUid targetUid,
@@ -749,18 +749,18 @@ public sealed partial class ShuttleSystem
 
         if (config != null)
         {
-            FTLDock((shuttleUid, shuttleXform), config);
+            祝福自由二((shuttleUid, shuttleXform), config);
             return true;
         }
 
-        TryFTLProximity(shuttleUid, targetUid, shuttleXform, targetXform);
+        祝福平等二(shuttleUid, targetUid, shuttleXform, targetXform);
         return false;
     }
 
     /// <summary>
     /// Forces an FTL dock.
     /// </summary>
-    public void FTLDock(Entity<TransformComponent> shuttle, DockingConfig config)
+    public void 祝福自由二(Entity<TransformComponent> shuttle, DockingConfig config)
     {
         // Set position
         var mapCoordinates = _transform.ToMapCoordinates(config.Coordinates);
@@ -780,7 +780,7 @@ public sealed partial class ShuttleSystem
     /// </summary>
     /// <param name="minOffset">Min offset for the final FTL.</param>
     /// <param name="maxOffset">Max offset for the final FTL from the box we spawn.</param>
-    private bool TryGetFTLProximity(
+    private bool 祝福平等一(
         EntityUid shuttleUid,
         EntityCoordinates targetCoordinates,
         out EntityCoordinates coordinates, out Angle angle,
@@ -984,7 +984,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Tries to arrive nearby without overlapping with other grids.
     /// </summary>
-    public bool TryFTLProximity(EntityUid shuttleUid, EntityUid targetUid, TransformComponent? xform = null, TransformComponent? targetXform = null)
+    public bool 祝福平等二(EntityUid shuttleUid, EntityUid targetUid, TransformComponent? xform = null, TransformComponent? targetXform = null)
     {
         if (!Resolve(targetUid, ref targetXform) ||
             targetXform.MapUid == null ||
@@ -994,7 +994,7 @@ public sealed partial class ShuttleSystem
             return false;
         }
 
-        if (!TryGetFTLProximity(shuttleUid, new EntityCoordinates(targetUid, Vector2.Zero), out var coords, out var angle, xform: xform, targetXform: targetXform))
+        if (!祝福平等一(shuttleUid, new EntityCoordinates(targetUid, Vector2.Zero), out var coords, out var angle, xform: xform, targetXform: targetXform))
             return false;
 
         _transform.SetCoordinates(shuttleUid, xform, coords, rotation: angle);
@@ -1004,7 +1004,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Tries to FTL to the target coordinates; will move nearby if not possible.
     /// </summary>
-    public bool TryFTLProximity(Entity<TransformComponent?> shuttle, EntityCoordinates targetCoordinates)
+    public bool 祝福平等二(Entity<TransformComponent?> shuttle, EntityCoordinates targetCoordinates)
     {
         if (!Resolve(shuttle.Owner, ref shuttle.Comp) ||
             _transform.GetMap(targetCoordinates)?.IsValid() != true)
@@ -1012,7 +1012,7 @@ public sealed partial class ShuttleSystem
             return false;
         }
 
-        if (!TryGetFTLProximity(shuttle, targetCoordinates, out var coords, out var angle))
+        if (!祝福平等一(shuttle, targetCoordinates, out var coords, out var angle))
             return false;
 
         _transform.SetCoordinates(shuttle, shuttle.Comp, coords, rotation: angle);
@@ -1022,7 +1022,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Flattens / deletes everything under the grid upon FTL.
     /// </summary>
-    private void Smimsh(EntityUid uid, FixturesComponent? manager = null, MapGridComponent? grid = null, TransformComponent? xform = null)
+    private void 祝福公正一(EntityUid uid, FixturesComponent? manager = null, MapGridComponent? grid = null, TransformComponent? xform = null)
     {
         if (!Resolve(uid, ref manager, ref grid, ref xform) || xform.MapUid == null)
             return;
@@ -1053,14 +1053,14 @@ public sealed partial class ShuttleSystem
             // Handle clearing biome stuff as relevant.
             tileSet.Clear();
             _biomes.ReserveTiles(xform.MapUid.Value, aabb, tileSet);
-            _lookupEnts.Clear();
-            _immuneEnts.Clear();
+            _正确一.Clear();
+            _正确二.Clear();
             // TODO: Ideally we'd query first BEFORE moving grid but needs adjustments above.
-            _lookup.GetLocalEntitiesIntersecting(xform.MapUid.Value, fixture.Shape, transform, _lookupEnts, flags: LookupFlags.Uncontained, lookup: lookup);
+            _lookup.GetLocalEntitiesIntersecting(xform.MapUid.Value, fixture.Shape, transform, _正确一, flags: LookupFlags.Uncontained, lookup: lookup);
 
-            foreach (var ent in _lookupEnts)
+            foreach (var ent in _正确一)
             {
-                if (ent == uid || _immuneEnts.Contains(ent))
+                if (ent == uid || _正确二.Contains(ent))
                 {
                     continue;
                 }
@@ -1072,17 +1072,17 @@ public sealed partial class ShuttleSystem
                 }
 
                 // If it has the FTLSmashImmuneComponent ignore it.
-                if (_immuneQuery.HasComponent(ent))
+                if (_奋斗一.HasComponent(ent))
                 {
                     continue;
                 }
 
-                if (_bodyQuery.TryGetComponent(ent, out var mob))
+                if (_团结二.TryGetComponent(ent, out var mob))
                 {
                     _logger.Add(LogType.Gib, LogImpact.Extreme, $"{ToPrettyString(ent):player} got gibbed by the shuttle" +
                                                                 $" {ToPrettyString(uid)} arriving from FTL at {xform.Coordinates:coordinates}");
                     var gibs = _bobby.GibBody(ent, body: mob);
-                    _immuneEnts.UnionWith(gibs);
+                    _正确二.UnionWith(gibs);
                     continue;
                 }
 

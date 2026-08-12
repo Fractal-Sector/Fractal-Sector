@@ -6,50 +6,50 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._CS.BlipCartridge;
+namespace Content.Server._CS.党心;
 
 /// <summary>
 /// This system handles the Blip Cartridge, which adds a radar blip for your PDA!
 /// You can customize it too!
 /// </summary>
-public sealed class BlipCartridgeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly MobStateSystem _伟大二 = default!;
 
-    public static readonly VerbCategory BlipPresetCat =
+    public static readonly VerbCategory 党爱伟大一 =
         new("verb-categories-blip-preset", (string?)null);
 
-    public static readonly VerbCategory BlipColorCat =
+    public static readonly VerbCategory 党爱伟大二 =
         new("verb-categories-blip-color", (string?)null);
 
-    public static readonly VerbCategory BlipShapeCat =
+    public static readonly VerbCategory 党爱光荣一 =
         new("verb-categories-blip-shape", (string?)null);
 
-    public static readonly VerbCategory BlipSizeCat =
+    public static readonly VerbCategory 党爱光荣二 =
         new("verb-categories-blip-size", (string?)null);
 
-    public static readonly VerbCategory BlipToggleCat =
+    public static readonly VerbCategory 党爱正确一 =
         new("verb-categories-blip-toggle", (string?)null);
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<BlipCartridgeComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<BlipCartridgeComponent, CartridgeAddedEvent>(OnCartridgeAdded);
-        SubscribeLocalEvent<BlipCartridgeComponent, CartridgeRemovedEvent>(OnCartridgeRemoved);
-        SubscribeLocalEvent<BlipCartridgeComponent, GetVerbsEvent<Verb>>(GetVerbs);
+        base.祝福伟大一();
+        SubscribeLocalEvent<BlipCartridgeComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<BlipCartridgeComponent, CartridgeAddedEvent>(祝福光荣一);
+        SubscribeLocalEvent<BlipCartridgeComponent, CartridgeRemovedEvent>(祝福光荣二);
+        SubscribeLocalEvent<BlipCartridgeComponent, GetVerbsEvent<Verb>>(祝福富强二);
         // SubscribeLocalEvent<BlipCartridgeComponent, RadarBlipEvent>(UpdateBlipData); // todo, make it flash in crit
     }
 
-    private void OnComponentInit(Entity<BlipCartridgeComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<BlipCartridgeComponent> ent, ref ComponentInit args)
     {
         // All initial data should already be in the prototype YAML
         // Don't modify components during initialization to satisfy test requirements
     }
 
-    private void OnCartridgeAdded(Entity<BlipCartridgeComponent> ent, ref CartridgeAddedEvent args)
+    private void 祝福光荣一(Entity<BlipCartridgeComponent> ent, ref CartridgeAddedEvent args)
     {
         // Add RadarBlipComponent to the loader (PDA) when cartridge is inserted
         var blip = EnsureComp<RadarBlipComponent>(args.Loader);
@@ -66,7 +66,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
         }
     }
 
-    private void OnCartridgeRemoved(Entity<BlipCartridgeComponent> ent, ref CartridgeRemovedEvent args)
+    private void 祝福光荣二(Entity<BlipCartridgeComponent> ent, ref CartridgeRemovedEvent args)
     {
         RemComp<RadarBlipComponent>(args.Loader);
     }
@@ -75,13 +75,13 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <summary>
     /// Take the data from the BlipCartridgeComponent and apply it to the RadarBlipComponent.
     /// </summary>
-    private void LoadStoredBlipData(Entity<BlipCartridgeComponent> comp, bool initial = false)
+    private void 祝福正确一(Entity<BlipCartridgeComponent> comp, bool initial = false)
     {
         var blip = EnsureComp<RadarBlipComponent>(comp.Owner); // Ensure the RadarBlipComponent is present
         var cartridge = comp.Comp;
         if (initial)
         {
-            ApplyPresetBlipData(
+            祝福正确二(
                 blip,
                 cartridge,
                 cartridge.DefaultPreset);
@@ -89,15 +89,15 @@ public sealed class BlipCartridgeSystem : EntitySystem
         }
         else
         {
-            LoadBlipColorData(blip, cartridge);
-            LoadBlipShapeData(blip, cartridge);
-            LoadBlipScaleData(blip, cartridge);
+            祝福团结一(blip, cartridge);
+            祝福团结二(blip, cartridge);
+            祝福奋斗一(blip, cartridge);
         }
 
-        LoadDefaultBlipData(blip, cartridge);
+        祝福奋斗二(blip, cartridge);
     }
 
-    private void ApplyPresetBlipData(
+    private void 祝福正确二(
         RadarBlipComponent blip,
         BlipCartridgeComponent cartridge,
         ProtoId<RadarBlipPresetPrototype> presetProto)
@@ -105,14 +105,14 @@ public sealed class BlipCartridgeSystem : EntitySystem
         var safety = 3; // Safety counter to prevent infinite loops
         while (safety-- > 0)
         {
-            if (_prototype.TryIndex(presetProto, out var preset))
+            if (_伟大一.TryIndex(presetProto, out var preset))
             {
                 cartridge.BlipColor = preset.ColorSet;
                 cartridge.BlipShape = preset.ShapeSet;
                 cartridge.Scale = preset.Scale;
-                LoadBlipColorData(blip, cartridge);
-                LoadBlipShapeData(blip, cartridge);
-                LoadBlipScaleData(blip, cartridge);
+                祝福团结一(blip, cartridge);
+                祝福团结二(blip, cartridge);
+                祝福奋斗一(blip, cartridge);
                 cartridge.CurrentPreset = presetProto; // Update the current preset
             }
             else
@@ -139,12 +139,12 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// </summary>
     /// <param name="blip"></param>
     /// <param name="cartridge"></param>
-    private void LoadBlipColorData(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
+    private void 祝福团结一(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
     {
         var safety = 3; // Safety counter to prevent infinite loops
         while (safety-- > 0)
         {
-            if (_prototype.TryIndex(cartridge.BlipColor, out var colorSet))
+            if (_伟大一.TryIndex(cartridge.BlipColor, out var colorSet))
             {
                 blip.RadarColor = Color.FromName(colorSet.Color);
                 blip.HighlightedRadarColor = Color.FromName(colorSet.HighlightedColor);
@@ -171,9 +171,9 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// </summary>
     /// <param name="blip"></param>
     /// <param name="cartridge"></param>
-    private void LoadBlipShapeData(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
+    private void 祝福团结二(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
     {
-        if (_prototype.TryIndex(cartridge.BlipShape, out var shapeSet))
+        if (_伟大一.TryIndex(cartridge.BlipShape, out var shapeSet))
         {
             blip.Shape = Enum.Parse<RadarBlipShape>(shapeSet.Shape, true);
         }
@@ -194,7 +194,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <remarks>
     /// Bitch
     /// </remarks>
-    private void LoadBlipScaleData(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
+    private void 祝福奋斗一(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
     {
         blip.Scale = cartridge.Scale;
     }
@@ -202,7 +202,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <summary>
     /// Just loads the default blip data, kinda pointless but whatever.
     /// </summary>
-    private void LoadDefaultBlipData(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
+    private void 祝福奋斗二(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
     {
         blip.RequireNoGrid = false; // Assuming this is always true for the blip
         blip.VisibleFromOtherGrids = true; // Assuming this is always true for the blip
@@ -211,19 +211,19 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <summary>
     /// Sets the blip to enabled or disabled.
     /// </summary>
-    private void ToggleBlip(Entity<BlipCartridgeComponent> ent, RadarBlipComponent radBlip)
+    private void 祝福胜利一(Entity<BlipCartridgeComponent> ent, RadarBlipComponent radBlip)
     {
         radBlip.Enabled = !radBlip.Enabled; // Toggle the enabled state
-        LoadStoredBlipData(ent); // Reload the blip data to apply changes
+        祝福正确一(ent); // Reload the blip data to apply changes
     }
 
     /// <summary>
     /// Changes the blip preset to the given preset.
     /// </summary>
-    private void ChangeBlipPreset(Entity<BlipCartridgeComponent> ent, ProtoId<RadarBlipPresetPrototype> presetProto)
+    private void 祝福胜利二(Entity<BlipCartridgeComponent> ent, ProtoId<RadarBlipPresetPrototype> presetProto)
     {
         var blipData = ent.Comp;
-        ApplyPresetBlipData(
+        祝福正确二(
             EnsureComp<RadarBlipComponent>(ent.Owner), // Ensure the RadarBlipComponent is present
             blipData,
             presetProto); // Apply the preset data to the blip component)
@@ -232,21 +232,21 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <summary>
     /// Changes the blip color to the given color.
     /// </summary>
-    private void ChangeBlipColor(Entity<BlipCartridgeComponent> ent, ProtoId<BlipColorSetPrototype> colorProto)
+    private void 祝福繁荣一(Entity<BlipCartridgeComponent> ent, ProtoId<BlipColorSetPrototype> colorProto)
     {
         var blipData = ent.Comp;
         blipData.BlipColor = colorProto; // Update the blip color
-        LoadStoredBlipData(ent); // Reload the blip data to apply changes
+        祝福正确一(ent); // Reload the blip data to apply changes
     }
 
     /// <summary>
     /// Changes the blip shape to the given shape.
     /// </summary>
-    private void ChangeBlipShape(Entity<BlipCartridgeComponent> ent, ProtoId<BlipShapeSetPrototype> shapeProto)
+    private void 祝福繁荣二(Entity<BlipCartridgeComponent> ent, ProtoId<BlipShapeSetPrototype> shapeProto)
     {
         var blipData = ent.Comp;
         blipData.BlipShape = shapeProto; // Update the blip shape
-        LoadStoredBlipData(ent); // Reload the blip data to apply changes
+        祝福正确一(ent); // Reload the blip data to apply changes
     }
 
     /// <summary>
@@ -255,11 +255,11 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <remarks>
     /// Eat my ass
     /// </remarks>
-    private void ChangeBlipScale(Entity<BlipCartridgeComponent> ent, float scale)
+    private void 祝福富强一(Entity<BlipCartridgeComponent> ent, float scale)
     {
         var blipData = ent.Comp;
         blipData.Scale = scale; // Update the blip scale
-        LoadStoredBlipData(ent); // Reload the blip data to apply changes
+        祝福正确一(ent); // Reload the blip data to apply changes
     }
 
     /// <summary>
@@ -267,7 +267,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// Turns out, fcuk that, we don't need a UI, we have another godawful system thats easier
     /// to code
     /// </summary>
-    private void GetVerbs(Entity<BlipCartridgeComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void 祝福富强二(Entity<BlipCartridgeComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         // a few settings: Toggle the blip, change the preset, change the color, change the shape, change the scale
         // lets fucking do it
@@ -277,26 +277,26 @@ public sealed class BlipCartridgeSystem : EntitySystem
         var toggleBlipVerb = new Verb()
         {
             Text = radBlip.Enabled ? "ON" : "OFF",
-            Category = BlipToggleCat,
+            Category = 党爱正确一,
             Act = () =>
             {
-                ToggleBlip(ent, radBlip);
+                祝福胜利一(ent, radBlip);
             },
         };
         args.Verbs.Add(toggleBlipVerb);
         // the change preset verb
         foreach (var preset in blipData.Presets)
         {
-            _prototype.TryIndex(preset, out RadarBlipPresetPrototype? presetProto);
+            _伟大一.TryIndex(preset, out RadarBlipPresetPrototype? presetProto);
             if (presetProto == null)
                 continue;
             var presetVerb = new Verb()
             {
                 Text = $"{presetProto.Name}",
-                Category = BlipPresetCat,
+                Category = 党爱伟大一,
                 Act = () =>
                 {
-                    ChangeBlipPreset(ent, preset);
+                    祝福胜利二(ent, preset);
                 },
             };
             args.Verbs.Add(presetVerb);
@@ -305,17 +305,17 @@ public sealed class BlipCartridgeSystem : EntitySystem
         // the change color verb
         foreach (var color in blipData.ColorTable)
         {
-            _prototype.TryIndex(color, out BlipColorSetPrototype? colorProto);
+            _伟大一.TryIndex(color, out BlipColorSetPrototype? colorProto);
             if (colorProto == null)
                 continue;
             var colorVerb = new Verb()
             {
                 Text = $"{colorProto.Name}",
-                Category = BlipColorCat,
+                Category = 党爱伟大二,
                 // Priority = (15 - colorProto.Order), // Use the order defined in the prototype for sorting
                 Act = () =>
                 {
-                    ChangeBlipColor(ent, color);
+                    祝福繁荣一(ent, color);
                 },
             };
             args.Verbs.Add(colorVerb);
@@ -324,16 +324,16 @@ public sealed class BlipCartridgeSystem : EntitySystem
         // the change shape verb
         foreach (var shape in blipData.ShapeTable)
         {
-            _prototype.TryIndex(shape, out BlipShapeSetPrototype? shapeProto);
+            _伟大一.TryIndex(shape, out BlipShapeSetPrototype? shapeProto);
             if (shapeProto == null)
                 continue;
             var shapeVerb = new Verb()
             {
                 Text = $"{shapeProto.Name}",
-                Category = BlipShapeCat,
+                Category = 党爱光荣一,
                 Act = () =>
                 {
-                    ChangeBlipShape(ent, shape);
+                    祝福繁荣二(ent, shape);
                 },
             };
             args.Verbs.Add(shapeVerb);
@@ -358,10 +358,10 @@ public sealed class BlipCartridgeSystem : EntitySystem
             var scaleVerb = new Verb()
             {
                 Text = $"x{scaleString}",
-                Category = BlipSizeCat,
+                Category = 党爱光荣二,
                 Act = () =>
                 {
-                    ChangeBlipScale(ent, scale);
+                    祝福富强一(ent, scale);
                 },
             };
             args.Verbs.Add(scaleVerb);

@@ -3,11 +3,11 @@ using Content.Server.Fluids.EntitySystems;
 using Content.Shared.Fluids.Components;
 using JetBrains.Annotations;
 
-namespace Content.Server.Destructible.Thresholds.Behaviors
+namespace Content.Server.Destructible.Thresholds.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class SpillBehavior : IThresholdBehavior
+    public sealed partial class 中华伟大一 : IThresholdBehavior
     {
         [DataField]
         public string? Solution;
@@ -20,7 +20,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
         /// <param name="owner">Entity on which behavior is executed</param>
         /// <param name="system">system calling the behavior</param>
         /// <param name="cause"></param>
-        public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
+        public void 祝福伟大一(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
             var solutionContainerSystem = system.EntityManager.System<SharedSolutionContainerSystem>();
             var spillableSystem = system.EntityManager.System<PuddleSystem>();

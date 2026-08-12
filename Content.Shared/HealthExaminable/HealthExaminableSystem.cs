@@ -5,44 +5,44 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.HealthExaminable;
+namespace Content.Shared.党心;
 
-public sealed class HealthExaminableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+    [Dependency] private readonly ExamineSystemShared _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HealthExaminableComponent, GetVerbsEvent<ExamineVerb>>(OnGetExamineVerbs);
+        SubscribeLocalEvent<HealthExaminableComponent, GetVerbsEvent<ExamineVerb>>(祝福伟大二);
     }
 
-    private void OnGetExamineVerbs(EntityUid uid, HealthExaminableComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福伟大二(EntityUid uid, HealthExaminableComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!TryComp<DamageableComponent>(uid, out var damage))
             return;
 
-        var detailsRange = _examineSystem.IsInDetailsRange(args.User, uid);
+        var detailsRange = _伟大一.IsInDetailsRange(args.User, uid);
 
         var verb = new ExamineVerb()
         {
             Act = () =>
             {
-                var markup = CreateMarkup(uid, component, damage);
-                _examineSystem.SendExamineTooltip(args.User, uid, markup, false, false);
+                var markup = 祝福光荣一(uid, component, damage);
+                _伟大一.SendExamineTooltip(args.User, uid, markup, false, false);
             },
             Text = Loc.GetString("health-examinable-verb-text"),
             Category = VerbCategory.Examine,
             Disabled = !detailsRange,
-            Message = detailsRange ? null : Loc.GetString("health-examinable-verb-disabled"),
+            党爱伟大一 = detailsRange ? null : Loc.GetString("health-examinable-verb-disabled"),
             Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/rejuvenate.svg.192dpi.png"))
         };
 
         args.Verbs.Add(verb);
     }
 
-    public FormattedMessage CreateMarkup(EntityUid uid, HealthExaminableComponent component, DamageableComponent damage)
+    public FormattedMessage 祝福光荣一(EntityUid uid, HealthExaminableComponent component, DamageableComponent damage)
     {
         var msg = new FormattedMessage();
 
@@ -94,23 +94,23 @@ public sealed class HealthExaminableSystem : EntitySystem
         }
 
         // Anything else want to add on to this?
-        RaiseLocalEvent(uid, new HealthBeingExaminedEvent(msg), true);
+        RaiseLocalEvent(uid, new 中华光荣一(msg), true);
 
         return msg;
     }
 }
 
 /// <summary>
-///     A class raised on an entity whose health is being examined
+///     A class 中华伟大二 on an entity whose health is being examined
 ///     in order to add special text that is not handled by the
 ///     damage thresholds.
 /// </summary>
-public sealed class HealthBeingExaminedEvent
+public sealed class 中华光荣一
 {
-    public FormattedMessage Message;
+    public FormattedMessage 党爱伟大一;
 
-    public HealthBeingExaminedEvent(FormattedMessage message)
+    public 中华光荣一(FormattedMessage message)
     {
-        Message = message;
+        党爱伟大一 = message;
     }
 }

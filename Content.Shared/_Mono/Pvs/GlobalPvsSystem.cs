@@ -1,20 +1,20 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared._Mono.Pvs;
+namespace Content.Shared._Mono.党心;
 
-public sealed partial class GlobalPvsSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPvsOverrideSystem _pvs = default!;
+    [Dependency] private readonly SharedPvsOverrideSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GlobalPvsComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<GlobalPvsComponent, ComponentInit>(祝福伟大二);
     }
 
-    private void OnInit(Entity<GlobalPvsComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<GlobalPvsComponent> ent, ref ComponentInit args)
     {
-        _pvs.AddGlobalOverride(ent);
+        _伟大一.AddGlobalOverride(ent);
     }
 }

@@ -1,22 +1,22 @@
 using Content.Shared.Inventory;
 using Content.Shared.StatusEffect;
 
-namespace Content.Shared.Electrocution
+namespace Content.Shared.党心
 {
-    public abstract class SharedElectrocutionSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<InsulatedComponent, ElectrocutionAttemptEvent>(OnInsulatedElectrocutionAttempt);
+            SubscribeLocalEvent<InsulatedComponent, ElectrocutionAttemptEvent>(祝福正确二);
             // as long as legally distinct electric-mice are never added, this should be fine (otherwise a mouse-hat will transfer it's power to the wearer).
-            SubscribeLocalEvent<InsulatedComponent, InventoryRelayedEvent<ElectrocutionAttemptEvent>>((e, c, ev) => OnInsulatedElectrocutionAttempt(e, c, ev.Args));
+            SubscribeLocalEvent<InsulatedComponent, InventoryRelayedEvent<ElectrocutionAttemptEvent>>((e, c, ev) => 祝福正确二(e, c, ev.Args));
         }
 
-        public void SetInsulatedSiemensCoefficient(EntityUid uid, float siemensCoefficient, InsulatedComponent? insulated = null)
+        public void 祝福伟大二(EntityUid uid, float siemensCoefficient, InsulatedComponent? insulated = null)
         {
             if (!Resolve(uid, ref insulated))
                 return;
@@ -28,7 +28,7 @@ namespace Content.Shared.Electrocution
         /// <summary>
         /// Sets electrified value of component and marks dirty if required.
         /// </summary>
-        public void SetElectrified(Entity<ElectrifiedComponent> ent, bool value)
+        public void 祝福光荣一(Entity<ElectrifiedComponent> ent, bool value)
         {
             if (ent.Comp.Enabled == value)
             {
@@ -38,10 +38,10 @@ namespace Content.Shared.Electrocution
             ent.Comp.Enabled = value;
             Dirty(ent, ent.Comp);
 
-            _appearance.SetData(ent.Owner, ElectrifiedVisuals.IsElectrified, value);
+            _伟大一.SetData(ent.Owner, ElectrifiedVisuals.IsElectrified, value);
         }
 
-        public void SetElectrifiedWireCut(Entity<ElectrifiedComponent> ent, bool value)
+        public void 祝福光荣二(Entity<ElectrifiedComponent> ent, bool value)
         {
             if (ent.Comp.IsWireCut == value)
             {
@@ -61,7 +61,7 @@ namespace Content.Shared.Electrocution
         /// <param name="statusEffects">Status effects to apply to the entity.</param>
         /// <param name="ignoreInsulation">Should the electrocution bypass the Insulated component?</param>
         /// <returns>Whether the entity <see cref="uid"/> was stunned by the shock.</returns>
-        public virtual bool TryDoElectrocution(
+        public virtual bool 祝福正确一(
             EntityUid uid, EntityUid? sourceUid, int shockDamage, TimeSpan time, bool refresh, float siemensCoefficient = 1f,
             StatusEffectsComponent? statusEffects = null, bool ignoreInsulation = false)
         {
@@ -69,7 +69,7 @@ namespace Content.Shared.Electrocution
             return false;
         }
 
-        private void OnInsulatedElectrocutionAttempt(EntityUid uid, InsulatedComponent insulated, ElectrocutionAttemptEvent args)
+        private void 祝福正确二(EntityUid uid, InsulatedComponent insulated, ElectrocutionAttemptEvent args)
         {
             args.SiemensCoefficient *= insulated.Coefficient;
         }

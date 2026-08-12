@@ -13,19 +13,19 @@ using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.GameTicking
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed partial class GameTicker
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
 
-        private void InitializePlayer()
+        private void 祝福伟大一()
         {
-            _playerManager.PlayerStatusChanged += PlayerStatusChanged;
+            _伟大一.祝福伟大二 += 祝福伟大二;
         }
 
-        private async void PlayerStatusChanged(object? sender, SessionStatusEventArgs args)
+        private async void 祝福伟大二(object? sender, SessionStatusEventArgs args)
         {
             var session = args.Session;
 
@@ -56,7 +56,7 @@ namespace Content.Server.GameTicking
 
                     // Make the player actually join the game.
                     // timer time must be > tick length
-                    // Timer.Spawn(0, () => _playerManager.JoinGame(args.Session)); - Harmony Queue: Removed line, login is done by JoinQueueManager
+                    // Timer.Spawn(0, () => _伟大一.JoinGame(args.Session)); - Harmony Queue: Removed line, login is done by JoinQueueManager
 
                     var record = await _db.GetPlayerRecordByUserId(args.Session.UserId);
                     var firstConnection = record != null &&
@@ -89,7 +89,7 @@ namespace Content.Server.GameTicking
                     if (mind == null)
                     {
                         if (LobbyEnabled)
-                            PlayerJoinLobby(session);
+                            祝福正确一(session);
                         else
                             SpawnWaitDb();
 
@@ -107,9 +107,9 @@ namespace Content.Server.GameTicking
                     }
                     else
                     {
-                        if (_playerManager.SetAttachedEntity(session, mind.CurrentEntity))
+                        if (_伟大一.SetAttachedEntity(session, mind.CurrentEntity))
                         {
-                            PlayerJoinGame(session);
+                            祝福光荣二(session);
                         }
                         else
                         {
@@ -178,12 +178,12 @@ namespace Content.Server.GameTicking
             }
         }
 
-        public HumanoidCharacterProfile GetPlayerProfile(ICommonSession p)
+        public HumanoidCharacterProfile 祝福光荣一(ICommonSession p)
         {
             return (HumanoidCharacterProfile) _prefsManager.GetPreferences(p.UserId).SelectedCharacter;
         }
 
-        public void PlayerJoinGame(ICommonSession session, bool silent = false)
+        public void 祝福光荣二(ICommonSession session, bool silent = false)
         {
             if (!silent)
                 _chatManager.DispatchServerMessage(session, Loc.GetString("game-ticker-player-join-game-message"));
@@ -205,7 +205,7 @@ namespace Content.Server.GameTicking
             RaiseNetworkEvent(new TickerJoinGameEvent(), session.Channel);
         }
 
-        private void PlayerJoinLobby(ICommonSession session)
+        private void 祝福正确一(ICommonSession session)
         {
             _playerGameStatuses[session.UserId] = LobbyEnabled ? PlayerGameStatus.NotReadyToPlay : PlayerGameStatus.ReadyToPlay;
             _db.AddRoundPlayers(RoundId, session.UserId);
@@ -214,26 +214,26 @@ namespace Content.Server.GameTicking
             RaiseNetworkEvent(new TickerJoinLobbyEvent(), client);
             RaiseNetworkEvent(GetStatusMsg(session), client);
             RaiseNetworkEvent(GetInfoMsg(), client);
-            RaiseLocalEvent(new PlayerJoinedLobbyEvent(session));
+            RaiseLocalEvent(new 中华伟大二(session));
 
             // Wayfarer: Send cached preferences immediately so the client's character list is populated
             // as soon as they enter the lobby, without waiting for the async DB refresh from BankSystem.
             _prefsManager.SendCachedPreferences(session);
         }
 
-        private void ReqWindowAttentionAll()
+        private void 祝福正确二()
         {
             RaiseNetworkEvent(new RequestWindowAttentionEvent());
         }
     }
 
-    public sealed class PlayerJoinedLobbyEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public ICommonSession PlayerSession;
+        public ICommonSession 党爱伟大一;
 
-        public PlayerJoinedLobbyEvent(ICommonSession playerSession)
+        public 中华伟大二(ICommonSession playerSession)
         {
-            PlayerSession = playerSession;
+            党爱伟大一 = playerSession;
         }
     }
 }

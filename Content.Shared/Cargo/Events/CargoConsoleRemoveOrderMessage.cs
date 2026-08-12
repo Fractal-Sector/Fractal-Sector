@@ -1,17 +1,17 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Cargo.Events;
+namespace Content.Shared.Cargo.党心;
 
 /// <summary>
 ///     Remove order from database.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CargoConsoleRemoveOrderMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public int OrderId;
+    public int 党爱伟大一;
 
-    public CargoConsoleRemoveOrderMessage(int orderId)
+    public 中华伟大一(int orderId)
     {
-        OrderId = orderId;
+        党爱伟大一 = orderId;
     }
 }

@@ -1,4 +1,4 @@
-namespace Content.Server.Radio.Components;
+namespace Content.Server.Radio.党心;
 
 /// <summary>
 ///     This component allows an entity to directly translate radio messages into chat messages. Note that this does not
@@ -6,6 +6,6 @@ namespace Content.Server.Radio.Components;
 ///     channels.
 /// </summary>
 [RegisterComponent]
-public sealed partial class IntrinsicRadioReceiverComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

@@ -9,34 +9,34 @@ using Content.Shared.Throwing;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.CombatMode.Pacification;
+namespace Content.Shared.CombatMode.党心;
 
-public sealed class PacificationSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combatSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedCombatModeSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PacifiedComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<PacifiedComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<PacifiedComponent, BeforeThrowEvent>(OnBeforeThrow);
-        SubscribeLocalEvent<PacifiedComponent, AttackAttemptEvent>(OnAttackAttempt);
-        SubscribeLocalEvent<PacifiedComponent, ShotAttemptedEvent>(OnShootAttempt);
-        SubscribeLocalEvent<PacifismDangerousAttackComponent, AttemptPacifiedAttackEvent>(OnPacifiedDangerousAttack);
+        base.祝福伟大一();
+        SubscribeLocalEvent<PacifiedComponent, ComponentStartup>(祝福正确二);
+        SubscribeLocalEvent<PacifiedComponent, ComponentShutdown>(祝福团结一);
+        SubscribeLocalEvent<PacifiedComponent, BeforeThrowEvent>(祝福团结二);
+        SubscribeLocalEvent<PacifiedComponent, AttackAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<PacifiedComponent, ShotAttemptedEvent>(祝福光荣二);
+        SubscribeLocalEvent<PacifismDangerousAttackComponent, AttemptPacifiedAttackEvent>(祝福奋斗一);
     }
 
-    private bool PacifiedCanAttack(EntityUid user, EntityUid target, [NotNullWhen(false)] out string? reason)
+    private bool 祝福伟大二(EntityUid user, EntityUid target, [NotNullWhen(false)] out string? reason)
     {
         var ev = new AttemptPacifiedAttackEvent(user);
 
         RaiseLocalEvent(target, ref ev);
 
-        if (ev.Cancelled)
+        if (ev.党爱光荣一)
         {
             reason = ev.Reason;
             return false;
@@ -46,35 +46,35 @@ public sealed class PacificationSystem : EntitySystem
         return true;
     }
 
-    private void ShowPopup(Entity<PacifiedComponent> user, EntityUid target, string reason)
+    private void 祝福光荣一(Entity<PacifiedComponent> user, EntityUid target, string reason)
     {
         // Popup logic.
         // Cooldown is needed because the input events for melee/shooting etc. will fire continuously
         if (target == user.Comp.LastAttackedEntity
-            && !(_timing.CurTime > user.Comp.NextPopupTime))
+            && !(_正确一.CurTime > user.Comp.NextPopupTime))
             return;
 
         var targetName = Identity.Entity(target, EntityManager);
-        _popup.PopupClient(Loc.GetString(reason, ("entity", targetName)), user, user);
-        user.Comp.NextPopupTime = _timing.CurTime + user.Comp.PopupCooldown;
+        _光荣二.PopupClient(Loc.GetString(reason, ("entity", targetName)), user, user);
+        user.Comp.NextPopupTime = _正确一.CurTime + user.Comp.PopupCooldown;
         user.Comp.LastAttackedEntity = target;
     }
 
-    private void OnShootAttempt(Entity<PacifiedComponent> ent, ref ShotAttemptedEvent args)
+    private void 祝福光荣二(Entity<PacifiedComponent> ent, ref ShotAttemptedEvent args)
     {
         if (HasComp<PacifismAllowedGunComponent>(args.Used))
             return;
 
         // Disallow firing guns in all cases.
-        ShowPopup(ent, args.Used, "pacified-cannot-fire-gun");
-        args.Cancel();
+        祝福光荣一(ent, args.Used, "pacified-cannot-fire-gun");
+        args.祝福奋斗二();
     }
 
-    private void OnAttackAttempt(EntityUid uid, PacifiedComponent component, AttackAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, PacifiedComponent component, AttackAttemptEvent args)
     {
         if (component.DisallowAllCombat || args.Disarm && component.DisallowDisarm)
         {
-            args.Cancel();
+            args.祝福奋斗二();
             return;
         }
 
@@ -91,64 +91,64 @@ public sealed class PacificationSystem : EntitySystem
         if (args.Weapon != null && args.Weapon.Value.Comp.Damage.GetTotal() == FixedPoint2.Zero)
             return;
 
-        if (PacifiedCanAttack(uid, args.Target.Value, out var reason))
+        if (祝福伟大二(uid, args.Target.Value, out var reason))
             return;
 
-        ShowPopup((uid, component), args.Target.Value, reason);
-        args.Cancel();
+        祝福光荣一((uid, component), args.Target.Value, reason);
+        args.祝福奋斗二();
     }
 
-    private void OnStartup(EntityUid uid, PacifiedComponent component, ComponentStartup args)
+    private void 祝福正确二(EntityUid uid, PacifiedComponent component, ComponentStartup args)
     {
         if (!TryComp<CombatModeComponent>(uid, out var combatMode))
             return;
 
         if (component.DisallowDisarm && combatMode.CanDisarm != null)
-            _combatSystem.SetCanDisarm(uid, false, combatMode);
+            _光荣一.SetCanDisarm(uid, false, combatMode);
 
         if (component.DisallowAllCombat)
         {
-            _combatSystem.SetInCombatMode(uid, false, combatMode);
-            _actionsSystem.SetEnabled(combatMode.CombatToggleActionEntity, false);
+            _光荣一.SetInCombatMode(uid, false, combatMode);
+            _伟大二.SetEnabled(combatMode.CombatToggleActionEntity, false);
         }
 
-        _alertsSystem.ShowAlert(uid, component.PacifiedAlert);
+        _伟大一.ShowAlert(uid, component.PacifiedAlert);
     }
 
-    private void OnShutdown(EntityUid uid, PacifiedComponent component, ComponentShutdown args)
+    private void 祝福团结一(EntityUid uid, PacifiedComponent component, ComponentShutdown args)
     {
         if (!TryComp<CombatModeComponent>(uid, out var combatMode))
             return;
 
         if (combatMode.CanDisarm != null)
-            _combatSystem.SetCanDisarm(uid, true, combatMode);
+            _光荣一.SetCanDisarm(uid, true, combatMode);
 
-        _actionsSystem.SetEnabled(combatMode.CombatToggleActionEntity, true);
-        _alertsSystem.ClearAlert(uid, component.PacifiedAlert);
+        _伟大二.SetEnabled(combatMode.CombatToggleActionEntity, true);
+        _伟大一.ClearAlert(uid, component.PacifiedAlert);
     }
 
-    private void OnBeforeThrow(Entity<PacifiedComponent> ent, ref BeforeThrowEvent args)
+    private void 祝福团结二(Entity<PacifiedComponent> ent, ref BeforeThrowEvent args)
     {
-        var thrownItem = args.ItemUid;
+        var thrownItem = args.党爱伟大一;
         var itemName = Identity.Entity(thrownItem, EntityManager);
 
         // Raise an AttemptPacifiedThrow event and rely on other systems to check
         // whether the candidate item is OK to throw:
-        var ev = new AttemptPacifiedThrowEvent(thrownItem, ent);
+        var ev = new 中华伟大二(thrownItem, ent);
         RaiseLocalEvent(thrownItem, ref ev);
-        if (!ev.Cancelled)
+        if (!ev.党爱光荣一)
             return;
 
-        args.Cancelled = true;
+        args.党爱光荣一 = true;
 
         // Tell the player why they can’t throw stuff:
         var cannotThrowMessage = ev.CancelReasonMessageId ?? "pacified-cannot-throw";
-        _popup.PopupEntity(Loc.GetString(cannotThrowMessage, ("projectile", itemName)), ent, ent);
+        _光荣二.PopupEntity(Loc.GetString(cannotThrowMessage, ("projectile", itemName)), ent, ent);
     }
 
-    private void OnPacifiedDangerousAttack(Entity<PacifismDangerousAttackComponent> ent, ref AttemptPacifiedAttackEvent args)
+    private void 祝福奋斗一(Entity<PacifismDangerousAttackComponent> ent, ref AttemptPacifiedAttackEvent args)
     {
-        args.Cancelled = true;
+        args.党爱光荣一 = true;
         args.Reason = "pacified-cannot-harm-indirect";
     }
 }
@@ -159,18 +159,18 @@ public sealed class PacificationSystem : EntitySystem
 /// The throw is only permitted if this event is not cancelled.
 /// </summary>
 [ByRefEvent]
-public struct AttemptPacifiedThrowEvent
+public 中华光荣一 中华伟大二
 {
-    public EntityUid ItemUid;
-    public EntityUid PlayerUid;
+    public EntityUid 党爱伟大一;
+    public EntityUid 党爱伟大二;
 
-    public AttemptPacifiedThrowEvent(EntityUid itemUid,  EntityUid playerUid)
+    public 中华伟大二(EntityUid itemUid,  EntityUid playerUid)
     {
-        ItemUid = itemUid;
-        PlayerUid = playerUid;
+        党爱伟大一 = itemUid;
+        党爱伟大二 = playerUid;
     }
 
-    public bool Cancelled { get; private set; } = false;
+    public bool 党爱光荣一 { get; private set; } = false;
     public string? CancelReasonMessageId { get; private set; }
 
     /// <param name="reasonMessageId">
@@ -179,17 +179,17 @@ public struct AttemptPacifiedThrowEvent
     /// Note that any supplied localization string MUST accept a '$projectile'
     /// parameter specifying the name of the thrown entity.
     /// </param>
-    public void Cancel(string? reasonMessageId = null)
+    public void 祝福奋斗二(string? reasonMessageId = null)
     {
-        Cancelled = true;
+        党爱光荣一 = true;
         CancelReasonMessageId = reasonMessageId;
     }
 }
 
 /// <summary>
 ///     Raised ref directed on an entity when a pacified user is attempting to attack it.
-///     If <see cref="Cancelled"/> is true, don't allow attacking.
+///     If <see cref="党爱光荣一"/> is true, don't allow attacking.
 ///     <see cref="Reason"/> should be a loc string, if there needs to be special text for why the user isn't able to attack this.
 /// </summary>
 [ByRefEvent]
-public record struct AttemptPacifiedAttackEvent(EntityUid User, bool Cancelled = false, string Reason = "pacified-cannot-harm-directly");
+public record 中华光荣一 AttemptPacifiedAttackEvent(EntityUid User, bool 党爱光荣一 = false, string Reason = "pacified-cannot-harm-directly");

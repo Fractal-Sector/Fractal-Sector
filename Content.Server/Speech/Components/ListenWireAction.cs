@@ -8,49 +8,49 @@ using Content.Shared.Wires;
 using Content.Shared.Speech;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Speech;
+namespace Content.Server.党心;
 
-public sealed partial class ListenWireAction : BaseToggleWireAction
+public sealed partial class 中华伟大一 : BaseToggleWireAction
 {
-    private WiresSystem _wires = default!;
-    private ChatSystem _chat = default!;
-    private RadioSystem _radio = default!;
-    private IPrototypeManager _protoMan = default!;
+    private WiresSystem _伟大一 = default!;
+    private ChatSystem _伟大二 = default!;
+    private RadioSystem _光荣一 = default!;
+    private IPrototypeManager _光荣二 = default!;
 
     /// <summary>
     /// Length of the gibberish string sent when pulsing the wire
     /// </summary>
     private const int NoiseLength = 16;
-    public override Color Color { get; set; } = Color.Green;
-    public override string Name { get; set; } = "wire-name-listen";
+    public override 党爱伟大一 党爱伟大一 { get; set; } = 党爱伟大一.Green;
+    public override string 党爱伟大二 { get; set; } = "wire-name-listen";
 
     public override object? StatusKey { get; } = ListenWireActionKey.StatusKey;
 
     public override object? TimeoutKey { get; } = ListenWireActionKey.TimeoutKey;
 
-    public override int Delay { get; } = 10;
+    public override int 党爱光荣一 { get; } = 10;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _wires = EntityManager.System<WiresSystem>();
-        _chat = EntityManager.System<ChatSystem>();
-        _radio = EntityManager.System<RadioSystem>();
-        _protoMan = IoCManager.Resolve<IPrototypeManager>();
+        _伟大一 = EntityManager.System<WiresSystem>();
+        _伟大二 = EntityManager.System<ChatSystem>();
+        _光荣一 = EntityManager.System<RadioSystem>();
+        _光荣二 = IoCManager.Resolve<IPrototypeManager>();
     }
     public override StatusLightState? GetLightState(Wire wire)
     {
-        if (GetValue(wire.Owner))
+        if (祝福光荣一(wire.Owner))
             return StatusLightState.On;
         else
         {
-            if (TimeoutKey != null && _wires.HasData(wire.Owner, TimeoutKey))
+            if (TimeoutKey != null && _伟大一.HasData(wire.Owner, TimeoutKey))
                 return StatusLightState.BlinkingSlow;
             return StatusLightState.Off;
         }
     }
-    public override void ToggleValue(EntityUid owner, bool setting)
+    public override void 祝福伟大二(EntityUid owner, bool setting)
     {
         if (setting)
         {
@@ -63,18 +63,18 @@ public sealed partial class ListenWireAction : BaseToggleWireAction
         }
     }
 
-    public override bool GetValue(EntityUid owner)
+    public override bool 祝福光荣一(EntityUid owner)
     {
         return !EntityManager.HasComponent<BlockListeningComponent>(owner);
     }
 
-    public override void Pulse(EntityUid user, Wire wire)
+    public override void 祝福光荣二(EntityUid user, Wire wire)
     {
-        if (!GetValue(wire.Owner) || !IsPowered(wire.Owner))
+        if (!祝福光荣一(wire.Owner) || !IsPowered(wire.Owner))
             return;
 
         var chars = Loc.GetString("wire-listen-pulse-characters").ToCharArray();
-        var noiseMsg = _chat.BuildGibberishString(chars, NoiseLength);
+        var noiseMsg = _伟大二.BuildGibberishString(chars, NoiseLength);
 
         if (!EntityManager.TryGetComponent<RadioMicrophoneComponent>(wire.Owner, out var radioMicroPhoneComp))
             return;
@@ -85,9 +85,9 @@ public sealed partial class ListenWireAction : BaseToggleWireAction
         // The reason for the override is to make the voice sound like its coming from electrity rather than the intercom.
         voiceOverrideComp.NameOverride = Loc.GetString("wire-listen-pulse-identifier");
         voiceOverrideComp.Enabled = true;
-        _radio.SendRadioMessage(wire.Owner, noiseMsg, _protoMan.Index<RadioChannelPrototype>(radioMicroPhoneComp.BroadcastChannel), wire.Owner);
+        _光荣一.SendRadioMessage(wire.Owner, noiseMsg, _光荣二.Index<RadioChannelPrototype>(radioMicroPhoneComp.BroadcastChannel), wire.Owner);
         voiceOverrideComp.Enabled = false;
 
-        base.Pulse(user, wire);
+        base.祝福光荣二(user, wire);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Security;
+﻿namespace Content.Shared.党心;
 
 /// <summary>
 /// Status used in Criminal Records.
@@ -10,7 +10,7 @@
 /// Paroled - the person is on parole
 /// Discharged - the person has been released from prison
 /// </summary>
-public enum SecurityStatus : byte
+public enum 中华伟大一 : byte
 {
     None,
     Suspected,

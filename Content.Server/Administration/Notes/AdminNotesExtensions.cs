@@ -2,11 +2,11 @@ using Content.Server.Database;
 using Content.Shared.Administration.Notes;
 using Content.Shared.Database;
 
-namespace Content.Server.Administration.Notes;
+namespace Content.Server.Administration.党心;
 
-public static class AdminNotesExtensions
+public static class 中华伟大一
 {
-    public static SharedAdminNote ToShared(this IAdminRemarksRecord note)
+    public static SharedAdminNote 祝福伟大一(this IAdminRemarksRecord note)
     {
         NoteSeverity? severity = null;
         var secret = false;

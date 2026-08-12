@@ -4,20 +4,20 @@ using Content.Shared.Atmos.Components;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed partial class AtmosphereSystem
+    public sealed partial class 中华伟大一
     {
-        private void ExcitedGroupAddTile(ExcitedGroup excitedGroup, TileAtmosphere tile)
+        private void 祝福伟大一(ExcitedGroup excitedGroup, TileAtmosphere tile)
         {
             DebugTools.Assert(!excitedGroup.Disposed, "Excited group is disposed!");
             DebugTools.Assert(tile.ExcitedGroup == null, "Tried to add a tile to an excited group when it's already in another one!");
             excitedGroup.Tiles.Add(tile);
             tile.ExcitedGroup = excitedGroup;
-            ExcitedGroupResetCooldowns(excitedGroup);
+            祝福光荣二(excitedGroup);
         }
 
-        private void ExcitedGroupRemoveTile(ExcitedGroup excitedGroup, TileAtmosphere tile)
+        private void 祝福伟大二(ExcitedGroup excitedGroup, TileAtmosphere tile)
         {
             DebugTools.Assert(!excitedGroup.Disposed, "Excited group is disposed!");
             DebugTools.Assert(tile.ExcitedGroup == excitedGroup, "Tried to remove a tile from an excited group it's not present in!");
@@ -25,7 +25,7 @@ namespace Content.Server.Atmos.EntitySystems
             excitedGroup.Tiles.Remove(tile);
         }
 
-        private void ExcitedGroupMerge(GridAtmosphereComponent gridAtmosphere, ExcitedGroup ourGroup, ExcitedGroup otherGroup)
+        private void 祝福光荣一(GridAtmosphereComponent gridAtmosphere, ExcitedGroup ourGroup, ExcitedGroup otherGroup)
         {
             DebugTools.Assert(!ourGroup.Disposed, "Excited group is disposed!");
             DebugTools.Assert(!otherGroup.Disposed, "Excited group is disposed!");
@@ -55,18 +55,18 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             loser.Tiles.Clear();
-            ExcitedGroupDispose(gridAtmosphere, loser);
-            ExcitedGroupResetCooldowns(winner);
+            祝福团结一(gridAtmosphere, loser);
+            祝福光荣二(winner);
         }
 
-        private void ExcitedGroupResetCooldowns(ExcitedGroup excitedGroup)
+        private void 祝福光荣二(ExcitedGroup excitedGroup)
         {
             DebugTools.Assert(!excitedGroup.Disposed, "Excited group is disposed!");
             excitedGroup.BreakdownCooldown = 0;
             excitedGroup.DismantleCooldown = 0;
         }
 
-        private void ExcitedGroupSelfBreakdown(
+        private void 祝福正确一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
             ExcitedGroup excitedGroup)
         {
@@ -81,7 +81,7 @@ namespace Content.Server.Atmos.EntitySystems
 
             if (tileSize == 0)
             {
-                ExcitedGroupDispose(ent.Comp1, excitedGroup);
+                祝福团结一(ent.Comp1, excitedGroup);
                 return;
             }
 
@@ -116,7 +116,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         /// This de-activates and removes all tiles in an excited group.
         /// </summary>
-        private void DeactivateGroupTiles(GridAtmosphereComponent gridAtmosphere, ExcitedGroup excitedGroup)
+        private void 祝福正确二(GridAtmosphereComponent gridAtmosphere, ExcitedGroup excitedGroup)
         {
             foreach (var tile in excitedGroup.Tiles)
             {
@@ -130,7 +130,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         /// This removes an excited group without de-activating its tiles.
         /// </summary>
-        private void ExcitedGroupDispose(GridAtmosphereComponent gridAtmosphere, ExcitedGroup excitedGroup)
+        private void 祝福团结一(GridAtmosphereComponent gridAtmosphere, ExcitedGroup excitedGroup)
         {
             if (excitedGroup.Disposed)
                 return;

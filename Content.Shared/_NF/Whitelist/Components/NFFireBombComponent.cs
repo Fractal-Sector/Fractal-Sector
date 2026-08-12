@@ -1,7 +1,7 @@
-namespace Content.Shared._NF.Whitelist.Components;
+namespace Content.Shared._NF.Whitelist.党心;
 
 /// <summary>
 /// Whitelist component for fire bombs to avoid tag redefinition and collisions
 /// </summary>
 [RegisterComponent]
-public sealed partial class NFFireBombComponent : Component;
+public sealed partial class 中华伟大一 : Component;

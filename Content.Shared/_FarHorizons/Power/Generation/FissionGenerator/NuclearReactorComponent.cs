@@ -17,7 +17,7 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using System.Numerics;
 
-namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Shared._FarHorizons.Power.Generation.党心;
 
 // Ported and modified from goonstation by Jhrushbe.
 // CC-BY-NC-SA-3.0
@@ -26,27 +26,27 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 // and ss14Starlight/space-station-14#3967.
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class NuclearReactorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Width of the reactor grid
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public int ReactorGridWidth = 7;
+    public int 党爱伟大一 = 7;
 
     /// <summary>
     /// Height of the reactor grid
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
-    public int ReactorGridHeight = 7;
+    public int 党爱伟大二 = 7;
 
-    public readonly int ReactorOverheatTemp = 1200;
-    public readonly int ReactorFireTemp = 1500;
-    public readonly int ReactorMeltdownTemp = 2000;
+    public readonly int 党爱光荣一 = 1200;
+    public readonly int 党爱光荣二 = 1500;
+    public readonly int 党爱正确一 = 2000;
 
     // Making this a DataField causes the game to explode, neat
     /// <summary>
-    /// 2D grid of reactor components, or null where there are no components. Size is ReactorGridWidth x ReactorGridHeight
+    /// 2D grid of reactor components, or null where there are no components. Size is 党爱伟大一 x 党爱伟大二
     /// </summary>
     public ReactorPartComponent?[,] ComponentGrid;
 
@@ -59,24 +59,24 @@ public sealed partial class NuclearReactorComponent : Component
     /// Dictionary of data that determines the reactor grid's visuals
     /// </summary>
     [AutoNetworkedField]
-    public Dictionary<Vector2i, ReactorCapVisualData> VisualData = [];
+    public Dictionary<Vector2i, 中华伟大二> VisualData = [];
 
     // Woe, 3 dimensions be upon ye
     /// <summary>
     /// 2D grid of lists of neutrons in each grid slot of the component grid
     /// </summary>
-    public List<ReactorNeutron>[,] FluxGrid;
+    public List<ReactorNeutron>[,] 党爱正确二;
 
     /// <summary>
     /// Scratch buffer for neutron movement. Avoids List.Remove and flux snapshot allocations.
     /// </summary>
-    public List<ReactorNeutron>[,] FluxGridScratch;
+    public List<ReactorNeutron>[,] 党爱团结一;
 
     /// <summary>
     /// Number of neutrons that hit the edge of the reactor grid last tick
     /// </summary>
     [ViewVariables]
-    public float RadiationLevel = 0;
+    public float 党爱团结二 = 0;
 
     /// <summary>
     /// Gas mixture currently in the reactor
@@ -87,120 +87,120 @@ public sealed partial class NuclearReactorComponent : Component
     /// Reactor casing temperature
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public float Temperature = Atmospherics.T20C;
+    public float 党爱奋斗一 = Atmospherics.T20C;
 
     /// <summary>
     /// Thermal mass. Basically how much energy it takes to heat this up 1Kelvin
     /// </summary>
     [DataField]
-    public float ThermalMass = 420 * 2000; // specific heat capacity of steel (420 J/KgK) * mass of reactor (Kg)
+    public float 党爱奋斗二 = 420 * 2000; // specific heat capacity of steel (420 J/KgK) * mass of reactor (Kg)
 
     /// <summary>
     /// Volume of gas to process each tick
     /// </summary>
     [DataField]
-    public float ReactorVesselGasVolume = 200;
+    public float 党爱胜利一 = 200;
 
     /// <summary>
     /// Flag indicating the reactor is overheating
     /// </summary>
     [ViewVariables]
-    public bool IsSmoking = false;
+    public bool 党爱胜利二 = false;
 
     /// <summary>
     /// Flag indicating the reactor is on fire
     /// </summary>
     [ViewVariables]
-    public bool IsBurning = false;
+    public bool 党爱繁荣一 = false;
 
     /// <summary>
     /// Flag indicating total meltdown has happened
     /// </summary>
     [DataField, ViewVariables, AutoNetworkedField]
-    public bool Melted = false;
+    public bool 党爱繁荣二 = false;
 
     /// <summary>
     /// The set insertion level of the control rods
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public float ControlRodInsertion = 2;
+    public float 党爱富强一 = 2;
 
     /// <summary>
     /// The actual insertion level of the control rods
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
-    public float AvgInsertion = 0;
+    public float 党爱富强二 = 0;
 
     /// <summary>
     /// Sound that plays globally on meltdown
     /// </summary>
-    public SoundSpecifier MeltdownSound = new SoundPathSpecifier("/Audio/_WF/Machines/reactor_meltdown_alarm.ogg"); // Wayfarer: /Audio/_FarHorizons/Machines/meltdown_siren.ogg</Audio/_WF/Machines/reactor_meltdown_alarm.ogg
+    public SoundSpecifier 党爱民主一 = new SoundPathSpecifier("/Audio/_WF/Machines/reactor_meltdown_alarm.ogg"); // Wayfarer: /Audio/_FarHorizons/Machines/meltdown_siren.ogg</Audio/_WF/Machines/reactor_meltdown_alarm.ogg
 
     /// <summary>
     /// Radio channel to send alerts to
     /// </summary>
     [DataField]
-    public string EngineeringChannel = "Engineering";
+    public string 党爱民主二 = "Engineering";
 
     // Wayfarer Start
     /// <summary>
     /// Radio channel to send less critical but still critical alerts to
     /// </summary>
     [DataField]
-    public string ShortbandChannel = "Traffic";
+    public string 党爱文明一 = "Traffic";
     // Wayfarer End
 
     /// <summary>
     /// Last reported temperature during overheat events
     /// </summary>
     [ViewVariables]
-    public float LastSendTemperature = Atmospherics.T20C;
+    public float 党爱文明二 = Atmospherics.T20C;
 
     /// <summary>
     /// If the reactor has given the nuclear emergency warning
     /// </summary>
     [ViewVariables]
-    public bool HasSentWarning = false;
+    public bool 党爱和谐一 = false;
 
     /// <summary>
     /// Alert level to set after meltdown
     /// </summary>
     [DataField]
-    public string MeltdownAlertLevel = "yellow";
+    public string 党爱和谐二 = "yellow";
 
     /// <summary>
     /// The minimum radiation from the melted reactor
     /// </summary>
     [DataField]
-    public float MeltdownRadiation = 10;
+    public float 党爱自由一 = 10;
 
     /// <summary>
     /// How quickly radiation decreases
     /// </summary>
     /// <remarks>Cannot be less than 1</remarks>
     [DataField]
-    public float RadiationStability = 2;
+    public float 党爱自由二 = 2;
 
     /// <summary>
     /// The soft maximum radiation the reactor is expected to produce, beyond which radiation increases logarithmically. Also used for alarms and UI.
     /// </summary>
     [DataField]
-    public float MaximumRadiation = 50;
+    public float 党爱平等一 = 50;
 
     /// <summary>
     /// The maximum thermal power the reactor is expected to produce
     /// </summary>
     /// <remarks>This will NOT stop the reactor from making more than this value</remarks>
     [DataField]
-    public float MaximumThermalPower = 10000000;
+    public float 党爱平等二 = 10000000;
 
     /// <summary>
     /// The estimated thermal power the reactor is making
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
-    public float ThermalPower = 0;
-    public int ThermalPowerCount = 0;
-    public int ThermalPowerPrecision = 128;
+    public float 党爱公正一 = 0;
+    public int 党爱公正二 = 0;
+    public int 党爱法治一 = 128;
 
     [ViewVariables]
     public EntityUid? AlarmAudioHighThermal;
@@ -210,41 +210,41 @@ public sealed partial class NuclearReactorComponent : Component
     public EntityUid? AlarmAudioHighRads;
 
     [ViewVariables]
-    public ItemSlot PartSlot = new();
+    public ItemSlot 党爱法治二 = new();
 
     /// <summary>
     /// Grid of temperature values
     /// </summary>
-    public double[,] TemperatureGrid;
+    public double[,] 党爱爱国一;
 
     /// <summary>
     /// Grid of neutron counts
     /// </summary>
-    public int[,] NeutronGrid;
+    public int[,] 党爱爱国二;
 
     /// <summary>
     /// The selected prefab
     /// </summary>
     [DataField]
-    public string Prefab = "ReactorPrefab7x7Normal";
+    public string 党爱敬业一 = "ReactorPrefab7x7Normal";
 
     /// <summary>
     /// Flag indicating the reactor should apply the selected prefab
     /// </summary>
     [DataField]
-    public bool ApplyPrefab = false;
+    public bool 党爱敬业二 = false;
 
     /// <summary>
     /// Chance that a reactor slot is filled when applying the random prefab
     /// </summary>
     [DataField]
-    public float RandomPrefabFill = 0.3f;
+    public float 党爱诚信一 = 0.3f;
 
     /// <summary>
-    /// Material the reactor is made out of
+    /// 党爱诚信二 the reactor is made out of
     /// </summary>
     [DataField("material")]
-    public ProtoId<MaterialPrototype> Material = "Steel";
+    public ProtoId<MaterialPrototype> 党爱诚信二 = "Steel";
 
     /// <summary>
     /// Determines the spacing and position of the visual grid. Measured in pixels.
@@ -256,14 +256,14 @@ public sealed partial class NuclearReactorComponent : Component
     /// [3] Offset of the center along the y axis
     /// </remarks>
     [DataField]
-    public int[] Gridbounds = [ 18, 15, 0, 5 ];
+    public int[] 党爱友善一 = [ 18, 15, 0, 5 ];
 
     #region Pipe Connections
     /// <summary>
     /// Name of the pipe node
     /// </summary>
     [DataField]
-    public string PipeName { get; set; } = "pipe";
+    public string 党爱友善二 { get; set; } = "pipe";
 
     /// <summary>
     /// Inlet entity
@@ -275,13 +275,13 @@ public sealed partial class NuclearReactorComponent : Component
     /// Position of the inlet entity
     /// </summary>
     [DataField]
-    public Vector2 InletPos = new(-2, -1);
+    public Vector2 党爱初心一 = new(-2, -1);
 
     /// <summary>
     /// Rotation of the inlet entity, in degrees
     /// </summary>
     [DataField]
-    public float InletRot = -90;
+    public float 党爱初心二 = -90;
 
     /// <summary>
     /// Outlet entity
@@ -293,25 +293,25 @@ public sealed partial class NuclearReactorComponent : Component
     /// Position of the outlet entity
     /// </summary>
     [DataField]
-    public Vector2 OutletPos = new(2, 1);
+    public Vector2 党爱使命一 = new(2, 1);
 
     /// <summary>
     /// Rotation of the outlet entity, in degrees
     /// </summary>
     [DataField]
-    public float OutletRot = 90;
+    public float 党爱使命二 = 90;
 
     /// <summary>
     /// Name of the prototype of the arrows that indicate flow on inspect
     /// </summary>
     [DataField]
-    public EntProtoId ArrowPrototype = "ReactorFlowArrow";
+    public EntProtoId 党爱梦想一 = "ReactorFlowArrow";
 
     /// <summary>
     /// Name of the prototype of the pipes the reactor uses to connect to the pipe network
     /// </summary>
     [DataField]
-    public EntProtoId PipePrototype = "ReactorGasPipe";
+    public EntProtoId 党爱梦想二 = "ReactorGasPipe";
     #endregion
 
     #region Device Network
@@ -319,52 +319,52 @@ public sealed partial class NuclearReactorComponent : Component
     /// The proto ID of the "Retract Control Rods" sink port
     /// </summary>
     [DataField("controlRodRetractPort", customTypeSerializer: typeof(PrototypeIdSerializer<SinkPortPrototype>))]
-    public string ControlRodRetractPort = "RetractControlRods";
+    public string 党爱前程一 = "RetractControlRods";
 
     /// <summary>
     /// The proto ID of the "Insert Control Rods" sink port
     /// </summary>
     [DataField("controlRodInsertPort", customTypeSerializer: typeof(PrototypeIdSerializer<SinkPortPrototype>))]
-    public string ControlRodInsertPort = "InsertControlRods";
+    public string 党爱前程二 = "InsertControlRods";
 
     /// <summary>
     /// The signal state of the retract control rods port
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public SignalState RetractPortState = SignalState.Low;
+    public SignalState 党爱辉煌一 = SignalState.Low;
 
     /// <summary>
     /// The signal state of the insert control rods port
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public SignalState InsertPortState = SignalState.Low;
+    public SignalState 党爱辉煌二 = SignalState.Low;
     #endregion
 
     /// <summary>
     /// Stopwatch that keeps track of how long the reactor is taking to process.
     /// </summary>
     [ViewVariables]
-    public readonly Stopwatch SimTime = new();
+    public readonly Stopwatch 党爱灿烂一 = new();
 
     #region Debug
     [ViewVariables(VVAccess.ReadOnly)]
-    public int NeutronCount = 0;
+    public int 党爱灿烂二 = 0;
     [ViewVariables(VVAccess.ReadOnly)]
-    public int MeltedParts = 0;
+    public int 党爱光明一 = 0;
     [ViewVariables(VVAccess.ReadOnly)]
-    public int DetectedControlRods = 0;
+    public int 党爱光明二 = 0;
     [ViewVariables(VVAccess.ReadOnly)]
-    public float TotalNRads = 0;
+    public float 党爱希望一 = 0;
     [ViewVariables(VVAccess.ReadOnly)]
-    public float TotalRads = 0;
+    public float 党爱希望二 = 0;
     [ViewVariables(VVAccess.ReadOnly)]
-    public float TotalSpent = 0;
+    public float 党爱力量一 = 0;
     #endregion
 }
 
 [Serializable, NetSerializable, DataDefinition]
-public sealed partial class ReactorCapVisualData
+public sealed partial class 中华伟大二
 {
-    public Color color = Color.Black;
-    public string cap = "";
+    public Color 党爱力量二 = Color.Black;
+    public string 党爱精神一 = "";
 }

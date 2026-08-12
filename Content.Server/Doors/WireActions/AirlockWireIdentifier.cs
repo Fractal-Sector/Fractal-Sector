@@ -1,6 +1,6 @@
-namespace Content.Server.Doors;
+namespace Content.Server.党心;
 
-public enum AirlockWireIdentifier : byte
+public enum 中华伟大一 : byte
 {
     Bolt,
     BoltLight,

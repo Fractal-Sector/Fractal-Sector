@@ -4,25 +4,25 @@ using Content.Shared.Tools.Systems;
 using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Content.Shared.Xenoarchaeology.Artifact.XAT.Components;
 
-namespace Content.Shared.Xenoarchaeology.Artifact.XAT;
+namespace Content.Shared.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// This handles <see cref="XATToolUseComponent"/>
 /// </summary>
-public sealed class XATToolUseSystem : BaseXATSystem<XATToolUseComponent>
+public sealed class 中华伟大一 : BaseXATSystem<XATToolUseComponent>
 {
-    [Dependency] private readonly SharedToolSystem _tool = default!;
+    [Dependency] private readonly SharedToolSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        XATSubscribeDirectEvent<InteractUsingEvent>(OnInteractUsing);
-        XATSubscribeDirectEvent<XATToolUseDoAfterEvent>(OnToolUseComplete);
+        XATSubscribeDirectEvent<InteractUsingEvent>(祝福光荣一);
+        XATSubscribeDirectEvent<XATToolUseDoAfterEvent>(祝福伟大二);
     }
 
-    private void OnToolUseComplete(Entity<XenoArtifactComponent> artifact, Entity<XATToolUseComponent, XenoArtifactNodeComponent> node, ref XATToolUseDoAfterEvent args)
+    private void 祝福伟大二(Entity<XenoArtifactComponent> artifact, Entity<XATToolUseComponent, XenoArtifactNodeComponent> node, ref XATToolUseDoAfterEvent args)
     {
         if (args.Cancelled)
             return;
@@ -34,13 +34,13 @@ public sealed class XATToolUseSystem : BaseXATSystem<XATToolUseComponent>
         args.Handled = true;
     }
 
-    private void OnInteractUsing(Entity<XenoArtifactComponent> artifact, Entity<XATToolUseComponent, XenoArtifactNodeComponent> node, ref InteractUsingEvent args)
+    private void 祝福光荣一(Entity<XenoArtifactComponent> artifact, Entity<XATToolUseComponent, XenoArtifactNodeComponent> node, ref InteractUsingEvent args)
     {
         if (!TryComp<ToolComponent>(args.Used, out var tool))
             return;
 
         var toolUseTriggerComponent = node.Comp1;
-        args.Handled = _tool.UseTool(args.Used,
+        args.Handled = _伟大一.UseTool(args.Used,
             args.User,
             artifact,
             toolUseTriggerComponent.Delay,

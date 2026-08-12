@@ -4,58 +4,58 @@ using Content.Server.GameTicking.Rules.Components;
 using Content.Shared.GameTicking.Components;
 using Timer = Robust.Shared.Timing.Timer;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class MaxTimeRestartRuleSystem : GameRuleSystem<MaxTimeRestartRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<MaxTimeRestartRuleComponent>
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency] private readonly IChatManager _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GameRunLevelChangedEvent>(RunLevelChanged);
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福团结一);
     }
 
-    protected override void Started(EntityUid uid, MaxTimeRestartRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, MaxTimeRestartRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大二(uid, component, gameRule, args);
 
         if(GameTicker.RunLevel == GameRunLevel.InRound)
-            RestartTimer(component);
+            祝福光荣二(component);
     }
 
-    protected override void Ended(EntityUid uid, MaxTimeRestartRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void 祝福光荣一(EntityUid uid, MaxTimeRestartRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
-        base.Ended(uid, component, gameRule, args);
+        base.祝福光荣一(uid, component, gameRule, args);
 
-        StopTimer(component);
+        祝福正确一(component);
     }
 
-    public void RestartTimer(MaxTimeRestartRuleComponent component)
+    public void 祝福光荣二(MaxTimeRestartRuleComponent component)
     {
         // TODO FULL GAME SAVE
         component.TimerCancel.Cancel();
         component.TimerCancel = new CancellationTokenSource();
-        Timer.Spawn(component.RoundMaxTime, () => TimerFired(component), component.TimerCancel.Token);
+        Timer.Spawn(component.RoundMaxTime, () => 祝福正确二(component), component.TimerCancel.Token);
     }
 
-    public void StopTimer(MaxTimeRestartRuleComponent component)
+    public void 祝福正确一(MaxTimeRestartRuleComponent component)
     {
         component.TimerCancel.Cancel();
     }
 
-    private void TimerFired(MaxTimeRestartRuleComponent component)
+    private void 祝福正确二(MaxTimeRestartRuleComponent component)
     {
         GameTicker.EndRound(Loc.GetString("rule-time-has-run-out"));
 
-        _chatManager.DispatchServerAnnouncement(Loc.GetString("rule-restarting-in-seconds",("seconds", (int) component.RoundEndDelay.TotalSeconds)));
+        _伟大一.DispatchServerAnnouncement(Loc.GetString("rule-restarting-in-seconds",("seconds", (int) component.RoundEndDelay.TotalSeconds)));
 
         // TODO FULL GAME SAVE
         Timer.Spawn(component.RoundEndDelay, () => GameTicker.RestartRound());
     }
 
-    private void RunLevelChanged(GameRunLevelChangedEvent args)
+    private void 祝福团结一(GameRunLevelChangedEvent args)
     {
         var query = EntityQueryEnumerator<MaxTimeRestartRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var timer, out var gameRule))
@@ -66,11 +66,11 @@ public sealed class MaxTimeRestartRuleSystem : GameRuleSystem<MaxTimeRestartRule
             switch (args.New)
             {
                 case GameRunLevel.InRound:
-                    RestartTimer(timer);
+                    祝福光荣二(timer);
                     break;
                 case GameRunLevel.PreRoundLobby:
                 case GameRunLevel.PostRound:
-                    StopTimer(timer);
+                    祝福正确一(timer);
                     break;
             }
         }

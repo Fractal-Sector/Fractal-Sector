@@ -3,26 +3,26 @@ using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.DeviceNetwork;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
 /// <summary>
 /// Handles the control of output based on the input and enable ports.
 /// </summary>
-public sealed class MemoryCellSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MemoryCellComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<MemoryCellComponent, SignalReceivedEvent>(OnSignalReceived);
+        SubscribeLocalEvent<MemoryCellComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<MemoryCellComponent, SignalReceivedEvent>(祝福光荣二);
     }
 
-    public override void Update(float deltaTime)
+    public override void 祝福伟大二(float deltaTime)
     {
-        base.Update(deltaTime);
+        base.祝福伟大二(deltaTime);
 
         var query = EntityQueryEnumerator<MemoryCellComponent, DeviceLinkSourceComponent>();
         while (query.MoveNext(out var uid, out var comp, out var source))
@@ -32,18 +32,18 @@ public sealed class MemoryCellSystem : EntitySystem
             if (comp.EnableState == SignalState.Momentary)
                 comp.EnableState = SignalState.Low;
 
-            UpdateOutput((uid, comp, source));
+            祝福正确一((uid, comp, source));
         }
     }
 
-    private void OnInit(Entity<MemoryCellComponent> ent, ref ComponentInit args)
+    private void 祝福光荣一(Entity<MemoryCellComponent> ent, ref ComponentInit args)
     {
         var (uid, comp) = ent;
-        _deviceLink.EnsureSinkPorts(uid, comp.InputPort, comp.EnablePort);
-        _deviceLink.EnsureSourcePorts(uid, comp.OutputPort);
+        _伟大一.EnsureSinkPorts(uid, comp.InputPort, comp.EnablePort);
+        _伟大一.EnsureSourcePorts(uid, comp.OutputPort);
     }
 
-    private void OnSignalReceived(Entity<MemoryCellComponent> ent, ref SignalReceivedEvent args)
+    private void 祝福光荣二(Entity<MemoryCellComponent> ent, ref SignalReceivedEvent args)
     {
         var state = SignalState.Momentary;
         args.Data?.TryGetValue(DeviceNetworkConstants.LogicState, out state);
@@ -53,10 +53,10 @@ public sealed class MemoryCellSystem : EntitySystem
         else if (args.Port == ent.Comp.EnablePort)
             ent.Comp.EnableState = state;
 
-        UpdateOutput(ent);
+        祝福正确一(ent);
     }
 
-    private void UpdateOutput(Entity<MemoryCellComponent, DeviceLinkSourceComponent?> ent)
+    private void 祝福正确一(Entity<MemoryCellComponent, DeviceLinkSourceComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp2))
             return;
@@ -69,6 +69,6 @@ public sealed class MemoryCellSystem : EntitySystem
             return;
 
         ent.Comp1.LastOutput = value;
-        _deviceLink.SendSignal(ent, ent.Comp1.OutputPort, value, ent.Comp2);
+        _伟大一.SendSignal(ent, ent.Comp1.OutputPort, value, ent.Comp2);
     }
 }

@@ -1,13 +1,13 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Defines what slot types an item can fit into.
 /// </summary>
 [Serializable, NetSerializable]
 [Flags]
-public enum SlotFlags
+public enum 中华伟大一
 {
     NONE = 0,
     PREVENTEQUIP = 1 << 0,

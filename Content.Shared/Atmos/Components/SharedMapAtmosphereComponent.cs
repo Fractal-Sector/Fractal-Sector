@@ -2,21 +2,21 @@ using Content.Shared.Atmos.EntitySystems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Components;
+namespace Content.Shared.Atmos.党心;
 
 [NetworkedComponent]
-public abstract partial class SharedMapAtmosphereComponent : Component
+public abstract partial class 中华伟大一 : Component
 {
-    [ViewVariables] public SharedGasTileOverlaySystem.GasOverlayData OverlayData;
+    [ViewVariables] public SharedGasTileOverlaySystem.GasOverlayData 党爱伟大一;
 }
 
 [Serializable, NetSerializable]
-public sealed class MapAtmosphereComponentState : ComponentState
+public sealed class 中华伟大二 : ComponentState
 {
-    public SharedGasTileOverlaySystem.GasOverlayData Overlay;
+    public SharedGasTileOverlaySystem.GasOverlayData 党爱伟大二;
 
-    public MapAtmosphereComponentState(SharedGasTileOverlaySystem.GasOverlayData overlay)
+    public 中华伟大二(SharedGasTileOverlaySystem.GasOverlayData overlay)
     {
-        Overlay = overlay;
+        党爱伟大二 = overlay;
     }
 }

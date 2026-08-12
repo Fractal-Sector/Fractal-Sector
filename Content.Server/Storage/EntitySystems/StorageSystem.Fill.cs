@@ -10,22 +10,22 @@ using Content.Shared.Storage.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Storage.EntitySystems;
+namespace Content.Server.Storage.党心;
 
-public sealed partial class StorageSystem
+public sealed partial class 中华伟大一
 {
-    private void OnStorageFillMapInit(EntityUid uid, StorageFillComponent component, MapInitEvent args)
+    private void 祝福伟大一(EntityUid uid, StorageFillComponent component, MapInitEvent args)
     {
         if (component.Contents.Count == 0)
             return;
 
         if (TryComp<StorageComponent>(uid, out var storageComp))
         {
-            FillStorage((uid, component, storageComp));
+            祝福伟大二((uid, component, storageComp));
         }
         else if (TryComp<EntityStorageComponent>(uid, out var entityStorageComp))
         {
-            FillEntityStorage((uid, component, entityStorageComp));
+            祝福光荣一((uid, component, entityStorageComp));
         }
         else
         {
@@ -33,7 +33,7 @@ public sealed partial class StorageSystem
         }
     }
 
-    private void FillStorage(Entity<StorageFillComponent?, StorageComponent?> entity)
+    private void 祝福伟大二(Entity<StorageFillComponent?, StorageComponent?> entity)
     {
         var (uid, component, storage) = entity;
 
@@ -93,7 +93,7 @@ public sealed partial class StorageSystem
         // End Frontier
     }
 
-    private void FillEntityStorage(Entity<StorageFillComponent?, EntityStorageComponent?> entity)
+    private void 祝福光荣一(Entity<StorageFillComponent?, EntityStorageComponent?> entity)
     {
         var (uid, component, entityStorageComp) = entity;
 

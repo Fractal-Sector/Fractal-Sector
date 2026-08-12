@@ -5,27 +5,27 @@ using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Swab;
 
-namespace Content.Server.Botany.Systems;
+namespace Content.Server.Botany.党心;
 
-public sealed class BotanySwabSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly MutationSystem _mutationSystem = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly MutationSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<BotanySwabComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<BotanySwabComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<BotanySwabComponent, BotanySwabDoAfterEvent>(OnDoAfter);
+        base.祝福伟大一();
+        SubscribeLocalEvent<BotanySwabComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<BotanySwabComponent, AfterInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<BotanySwabComponent, BotanySwabDoAfterEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// This handles swab examination text
     /// so you can tell if they are used or not.
     /// </summary>
-    private void OnExamined(EntityUid uid, BotanySwabComponent swab, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, BotanySwabComponent swab, ExaminedEvent args)
     {
         if (args.IsInDetailsRange)
         {
@@ -39,7 +39,7 @@ public sealed class BotanySwabSystem : EntitySystem
     /// <summary>
     /// Handles swabbing a plant.
     /// </summary>
-    private void OnAfterInteract(EntityUid uid, BotanySwabComponent swab, AfterInteractEvent args)
+    private void 祝福光荣一(EntityUid uid, BotanySwabComponent swab, AfterInteractEvent args)
     {
         if (args.Target == null || !args.CanReach || !TryComp<PlantHolderComponent>(args.Target, out var plant)) // Frontier: HasComp<TryComp
             return;
@@ -47,12 +47,12 @@ public sealed class BotanySwabSystem : EntitySystem
         // Frontier: prevent swabbing
         if (plant.Seed != null && plant.Seed.PreventSwabbing)
         {
-            _popupSystem.PopupEntity(Loc.GetString("botany-cannot-be-swabbed-message"), args.Target.Value, args.User);
+            _伟大二.PopupEntity(Loc.GetString("botany-cannot-be-swabbed-message"), args.Target.Value, args.User);
             return;
         }
         // End Frontier
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, swab.SwabDelay, new BotanySwabDoAfterEvent(), uid, target: args.Target, used: uid)
+        _伟大一.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, swab.SwabDelay, new BotanySwabDoAfterEvent(), uid, target: args.Target, used: uid)
         {
             Broadcast = true,
             BreakOnMove = true,
@@ -63,7 +63,7 @@ public sealed class BotanySwabSystem : EntitySystem
     /// <summary>
     /// Save seed data or cross-pollenate.
     /// </summary>
-    private void OnDoAfter(EntityUid uid, BotanySwabComponent swab, DoAfterEvent args)
+    private void 祝福光荣二(EntityUid uid, BotanySwabComponent swab, DoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || !TryComp<PlantHolderComponent>(args.Args.Target, out var plant))
             return;
@@ -71,7 +71,7 @@ public sealed class BotanySwabSystem : EntitySystem
         // Frontier: prevent swabbing
         if (plant.Seed != null && plant.Seed.PreventSwabbing)
         {
-            _popupSystem.PopupEntity(Loc.GetString("botany-cannot-be-swabbed-message"), args.Args.Target.Value, args.Args.User);
+            _伟大二.PopupEntity(Loc.GetString("botany-cannot-be-swabbed-message"), args.Args.Target.Value, args.Args.User);
             return;
         }
         // End Frontier
@@ -80,16 +80,16 @@ public sealed class BotanySwabSystem : EntitySystem
         {
             // Pick up pollen
             swab.SeedData = plant.Seed;
-            _popupSystem.PopupEntity(Loc.GetString("botany-swab-from"), args.Args.Target.Value, args.Args.User);
+            _伟大二.PopupEntity(Loc.GetString("botany-swab-from"), args.Args.Target.Value, args.Args.User);
         }
         else
         {
             var old = plant.Seed;
             if (old == null)
                 return;
-            plant.Seed = _mutationSystem.Cross(swab.SeedData, old); // Cross-pollenate
+            plant.Seed = _光荣一.Cross(swab.SeedData, old); // Cross-pollenate
             swab.SeedData = old; // Transfer old plant pollen to swab
-            _popupSystem.PopupEntity(Loc.GetString("botany-swab-to"), args.Args.Target.Value, args.Args.User);
+            _伟大二.PopupEntity(Loc.GetString("botany-swab-to"), args.Args.Target.Value, args.Args.User);
         }
 
         args.Handled = true;

@@ -3,20 +3,20 @@
 // See AGPLv3.txt for details.
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Shuttles.Events
+namespace Content.Shared._NF.Shuttles.党心
 {
     /// <summary>
     /// Raised on the client when it wishes to change the inertial dampening of a ship.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class SetInertiaDampeningRequest : BoundUserInterfaceMessage
+    public sealed class 中华伟大一 : BoundUserInterfaceMessage
     {
         public NetEntity? ShuttleEntityUid { get; set; }
-        public InertiaDampeningMode Mode { get; set; }
+        public 中华伟大二 Mode { get; set; }
     }
 
     [Serializable, NetSerializable]
-    public enum InertiaDampeningMode : byte
+    public enum 中华伟大二 : byte
     {
         Off = 0,
         Dampen = 1,

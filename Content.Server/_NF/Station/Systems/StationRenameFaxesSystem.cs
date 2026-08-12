@@ -2,30 +2,30 @@ using Content.Server.Station.Components;
 using Content.Server.Station.Events;
 using Content.Shared.Fax.Components;
 
-namespace Content.Server.Station.Systems;
+namespace Content.Server.Station.党心;
 
-public sealed class StationRenameFaxesSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency] private readonly StationSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StationRenameFaxesComponent, StationRenamedEvent>(OnRenamed);
-        SubscribeLocalEvent<StationRenameFaxesComponent, StationPostInitEvent>(OnPostInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StationRenameFaxesComponent, StationRenamedEvent>(祝福光荣一);
+        SubscribeLocalEvent<StationRenameFaxesComponent, StationPostInitEvent>(祝福伟大二);
     }
 
-    private void OnPostInit(EntityUid uid, StationRenameFaxesComponent component, ref StationPostInitEvent args)
+    private void 祝福伟大二(EntityUid uid, StationRenameFaxesComponent component, ref StationPostInitEvent args)
     {
-        SyncFaxesNames(uid);
+        祝福光荣二(uid);
     }
 
-    private void OnRenamed(EntityUid uid, StationRenameFaxesComponent component, StationRenamedEvent args)
+    private void 祝福光荣一(EntityUid uid, StationRenameFaxesComponent component, StationRenamedEvent args)
     {
-        SyncFaxesNames(uid);
+        祝福光荣二(uid);
     }
 
-    private void SyncFaxesNames(EntityUid stationUid)
+    private void 祝福光荣二(EntityUid stationUid)
     {
         // update all faxes that belong to this station grid
         var query = EntityQueryEnumerator<FaxMachineComponent>();
@@ -34,7 +34,7 @@ public sealed class StationRenameFaxesSystem : EntitySystem
             if (!fax.UseStationName)
                 continue;
 
-            var faxStationUid = _stationSystem.GetOwningStation(uid);
+            var faxStationUid = _伟大一.GetOwningStation(uid);
             if (faxStationUid != stationUid)
                 continue;
 

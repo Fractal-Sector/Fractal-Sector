@@ -3,31 +3,31 @@ using Content.Server.Construction.Components;
 using Content.Server.Power.Components;
 using Content.Server._NF.Power.Components;
 
-namespace Content.Server._NF.Power.EntitySystems;
+namespace Content.Server._NF.Power.党心;
 
 /// <summary>
 /// This handles using upgraded machine parts
 /// to modify the power supply/generation of a machine.
 /// </summary>
-public sealed class UpgradePowerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<UpgradePowerDrawComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<UpgradePowerDrawComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<UpgradePowerDrawComponent, UpgradeExamineEvent>(OnUpgradeExamine);
+        SubscribeLocalEvent<UpgradePowerDrawComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<UpgradePowerDrawComponent, RefreshPartsEvent>(祝福光荣一);
+        SubscribeLocalEvent<UpgradePowerDrawComponent, UpgradeExamineEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<UpgradePowerSupplierComponent, MapInitEvent>(OnSupplierMapInit);
-        SubscribeLocalEvent<UpgradePowerSupplierComponent, RefreshPartsEvent>(OnSupplierRefreshParts);
-        SubscribeLocalEvent<UpgradePowerSupplierComponent, UpgradeExamineEvent>(OnSupplierUpgradeExamine);
+        SubscribeLocalEvent<UpgradePowerSupplierComponent, MapInitEvent>(祝福正确一);
+        SubscribeLocalEvent<UpgradePowerSupplierComponent, RefreshPartsEvent>(祝福正确二);
+        SubscribeLocalEvent<UpgradePowerSupplierComponent, UpgradeExamineEvent>(祝福团结一);
 
-        SubscribeLocalEvent<UpgradePowerSupplyRampingComponent, MapInitEvent>(OnSupplyRampingMapInit);
-        SubscribeLocalEvent<UpgradePowerSupplyRampingComponent, RefreshPartsEvent>(OnSupplyRampingRefreshParts);
-        SubscribeLocalEvent<UpgradePowerSupplyRampingComponent, UpgradeExamineEvent>(OnSupplyRampingUpgradeExamine);
+        SubscribeLocalEvent<UpgradePowerSupplyRampingComponent, MapInitEvent>(祝福团结二);
+        SubscribeLocalEvent<UpgradePowerSupplyRampingComponent, RefreshPartsEvent>(祝福奋斗一);
+        SubscribeLocalEvent<UpgradePowerSupplyRampingComponent, UpgradeExamineEvent>(祝福奋斗二);
     }
 
-    private void OnMapInit(EntityUid uid, UpgradePowerDrawComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, UpgradePowerDrawComponent component, MapInitEvent args)
     {
         if (TryComp<PowerConsumerComponent>(uid, out var powa))
             component.BaseLoad = powa.DrawRate;
@@ -35,7 +35,7 @@ public sealed class UpgradePowerSystem : EntitySystem
             component.BaseLoad = powa2.Load;
     }
 
-    private void OnRefreshParts(EntityUid uid, UpgradePowerDrawComponent component, RefreshPartsEvent args)
+    private void 祝福光荣一(EntityUid uid, UpgradePowerDrawComponent component, RefreshPartsEvent args)
     {
         var load = component.BaseLoad;
         var rating = args.PartRatings[component.MachinePartPowerDraw];
@@ -58,7 +58,7 @@ public sealed class UpgradePowerSystem : EntitySystem
             powa2.DrawRate = load;
     }
 
-    private void OnUpgradeExamine(EntityUid uid, UpgradePowerDrawComponent component, UpgradeExamineEvent args)
+    private void 祝福光荣二(EntityUid uid, UpgradePowerDrawComponent component, UpgradeExamineEvent args)
     {
         // UpgradePowerDrawComponent.PowerDrawMultiplier is not the actual multiplier, so we have to do this.
         var powerDrawMultiplier = CompOrNull<ApcPowerReceiverComponent>(uid)?.Load / component.BaseLoad
@@ -68,13 +68,13 @@ public sealed class UpgradePowerSystem : EntitySystem
             args.AddPercentageUpgrade("upgrade-power-draw", powerDrawMultiplier.Value);
     }
 
-    private void OnSupplierMapInit(EntityUid uid, UpgradePowerSupplierComponent component, MapInitEvent args)
+    private void 祝福正确一(EntityUid uid, UpgradePowerSupplierComponent component, MapInitEvent args)
     {
         if (TryComp<PowerSupplierComponent>(uid, out var supplier))
             component.BaseSupplyRate = supplier.MaxSupply;
     }
 
-    private void OnSupplierRefreshParts(EntityUid uid, UpgradePowerSupplierComponent component, RefreshPartsEvent args)
+    private void 祝福正确二(EntityUid uid, UpgradePowerSupplierComponent component, RefreshPartsEvent args)
     {
         var supply = component.BaseSupplyRate;
         var rating = args.PartRatings[component.MachinePartPowerSupply];
@@ -98,18 +98,18 @@ public sealed class UpgradePowerSystem : EntitySystem
             powa.MaxSupply = supply;
     }
 
-    private void OnSupplierUpgradeExamine(EntityUid uid, UpgradePowerSupplierComponent component, UpgradeExamineEvent args)
+    private void 祝福团结一(EntityUid uid, UpgradePowerSupplierComponent component, UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("upgrade-power-supply", component.ActualScalar);
     }
 
-    private void OnSupplyRampingMapInit(EntityUid uid, UpgradePowerSupplyRampingComponent component, MapInitEvent args)
+    private void 祝福团结二(EntityUid uid, UpgradePowerSupplyRampingComponent component, MapInitEvent args)
     {
         if (TryComp<PowerNetworkBatteryComponent>(uid, out var battery))
             component.BaseRampRate = battery.SupplyRampRate;
     }
 
-    private void OnSupplyRampingRefreshParts(EntityUid uid, UpgradePowerSupplyRampingComponent component, RefreshPartsEvent args)
+    private void 祝福奋斗一(EntityUid uid, UpgradePowerSupplyRampingComponent component, RefreshPartsEvent args)
     {
         var rampRate = component.BaseRampRate;
         var rating = args.PartRatings[component.MachinePartRampRate];
@@ -133,7 +133,7 @@ public sealed class UpgradePowerSystem : EntitySystem
             battery.SupplyRampRate = rampRate;
     }
 
-    private void OnSupplyRampingUpgradeExamine(EntityUid uid, UpgradePowerSupplyRampingComponent component, UpgradeExamineEvent args)
+    private void 祝福奋斗二(EntityUid uid, UpgradePowerSupplyRampingComponent component, UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("upgrade-power-supply-ramping", component.ActualScalar);
     }

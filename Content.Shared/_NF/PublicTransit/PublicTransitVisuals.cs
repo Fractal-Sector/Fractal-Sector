@@ -1,15 +1,15 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.PublicTransit;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum PublicTransitVisuals : byte
+public enum 中华伟大一 : byte
 {
     Livery
 }
 
 [Serializable, NetSerializable]
-public enum PublicTransitVisualLayers : byte
+public enum 中华伟大二 : byte
 {
     Livery
 }

@@ -3,20 +3,20 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Trigger.Components;
+namespace Content.Shared.Trigger.党心;
 
 /// <summary>
 /// After being triggered applies the specified components and runs triggers again.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class TwoStageTriggerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The keys that will activate the timer and add the given components (first stage).
     /// </summary>
     [DataField, AutoNetworkedField]
-    public List<string> KeysIn = new() { TriggerSystem.DefaultTriggerKey };
+    public List<string> 党爱伟大一 = new() { TriggerSystem.DefaultTriggerKey };
 
     /// <summary>
     /// The key that will trigger once the timer is finished (second stage).
@@ -28,13 +28,13 @@ public sealed partial class TwoStageTriggerComponent : Component
     /// How long it takes for the second stage to be triggered.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan TriggerDelay = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// This list of components that will be added on the first trigger.
     /// </summary>
     [DataField(required: true)]
-    public ComponentRegistry Components = new();
+    public ComponentRegistry 党爱光荣一 = new();
 
     /// <summary>
     /// The time at which the second stage will trigger.
@@ -48,7 +48,7 @@ public sealed partial class TwoStageTriggerComponent : Component
     /// Used to prevent the components from being added multiple times.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Triggered = false;
+    public bool 党爱光荣二 = false;
 
     /// <summary>
     /// The entity that activated this trigger.

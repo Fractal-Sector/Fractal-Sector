@@ -25,7 +25,7 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
 /// <remarks>
 /// I was warned about puddle system, I knew the risks with body system, but food and drink system?
@@ -41,53 +41,53 @@ namespace Content.Shared.Nutrition.EntitySystems;
 /// <summary>
 /// This handles the ingestion of solutions and entities.
 /// </summary>
-public sealed partial class IngestionSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly FlavorProfileSystem _flavorProfile = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣一 = default!;
+    [Dependency] private readonly FlavorProfileSystem _光荣二 = default!;
+    [Dependency] private readonly MobStateSystem _正确一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确二 = default!;
+    [Dependency] private readonly SharedAudioSystem _团结一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _团结二 = default!;
+    [Dependency] private readonly SharedHandsSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedPopupSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _胜利一 = default!;
+    [Dependency] private readonly SharedTransformSystem _胜利二 = default!;
 
     // Body Component Dependencies
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly ReactiveSystem _reaction = default!;
-    [Dependency] private readonly StomachSystem _stomach = default!;
+    [Dependency] private readonly SharedBodySystem _繁荣一 = default!;
+    [Dependency] private readonly ReactiveSystem _繁荣二 = default!;
+    [Dependency] private readonly StomachSystem _富强一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EdibleComponent, ComponentInit>(OnEdibleInit);
+        SubscribeLocalEvent<EdibleComponent, ComponentInit>(祝福正确一);
 
         // Interactions
-        SubscribeLocalEvent<EdibleComponent, UseInHandEvent>(OnUseEdibleInHand, after: new[] { typeof(OpenableSystem), typeof(InventorySystem) });
-        SubscribeLocalEvent<EdibleComponent, AfterInteractEvent>(OnEdibleInteract, after: new[] { typeof(ToolOpenableSystem) });
+        SubscribeLocalEvent<EdibleComponent, UseInHandEvent>(祝福伟大二, after: new[] { typeof(OpenableSystem), typeof(InventorySystem) });
+        SubscribeLocalEvent<EdibleComponent, AfterInteractEvent>(祝福光荣一, after: new[] { typeof(ToolOpenableSystem) });
 
         // Generic Eating Handlers
-        SubscribeLocalEvent<EdibleComponent, BeforeIngestedEvent>(OnBeforeIngested);
-        SubscribeLocalEvent<EdibleComponent, IngestedEvent>(OnEdibleIngested);
-        SubscribeLocalEvent<EdibleComponent, FullyEatenEvent>(OnFullyEaten);
+        SubscribeLocalEvent<EdibleComponent, BeforeIngestedEvent>(祝福胜利二);
+        SubscribeLocalEvent<EdibleComponent, IngestedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<EdibleComponent, FullyEatenEvent>(祝福繁荣二);
 
         // Body Component eating handler
-        SubscribeLocalEvent<BodyComponent, AttemptIngestEvent>(OnTryIngest);
-        SubscribeLocalEvent<BodyComponent, EatingDoAfterEvent>(OnEatingDoAfter);
+        SubscribeLocalEvent<BodyComponent, AttemptIngestEvent>(祝福奋斗一);
+        SubscribeLocalEvent<BodyComponent, EatingDoAfterEvent>(祝福奋斗二);
 
         // Verbs
-        SubscribeLocalEvent<EdibleComponent, GetVerbsEvent<AlternativeVerb>>(AddEdibleVerbs);
-        SubscribeLocalEvent<EdibleComponent, SolutionContainerChangedEvent>(OnSolutionContainerChanged);
+        SubscribeLocalEvent<EdibleComponent, GetVerbsEvent<AlternativeVerb>>(祝福富强二);
+        SubscribeLocalEvent<EdibleComponent, SolutionContainerChangedEvent>(祝福团结一);
 
         // Misc
-        SubscribeLocalEvent<EdibleComponent, AttemptShakeEvent>(OnAttemptShake);
-        SubscribeLocalEvent<EdibleComponent, BeforeFullySlicedEvent>(OnBeforeFullySliced);
+        SubscribeLocalEvent<EdibleComponent, AttemptShakeEvent>(祝福民主一);
+        SubscribeLocalEvent<EdibleComponent, BeforeFullySlicedEvent>(祝福富强一);
 
         InitializeBlockers();
         InitializeUtensils();
@@ -96,7 +96,7 @@ public sealed partial class IngestionSystem : EntitySystem
     /// <summary>
     /// Eat or drink an item
     /// </summary>
-    private void OnUseEdibleInHand(Entity<EdibleComponent> entity, ref UseInHandEvent ev)
+    private void 祝福伟大二(Entity<EdibleComponent> entity, ref UseInHandEvent ev)
     {
         if (ev.Handled)
             return;
@@ -107,7 +107,7 @@ public sealed partial class IngestionSystem : EntitySystem
     /// <summary>
     /// Feed someone else
     /// </summary>
-    private void OnEdibleInteract(Entity<EdibleComponent> entity, ref AfterInteractEvent args)
+    private void 祝福光荣一(Entity<EdibleComponent> entity, ref AfterInteractEvent args)
     {
         if (args.Handled || args.Target == null || !args.CanReach)
             return;
@@ -122,7 +122,7 @@ public sealed partial class IngestionSystem : EntitySystem
     /// <param name="ingest">Bool that determines whethere this is a Try or a Can effectively.
     /// When set to true, it tries to ingest, when false it checks if we can.</param>
     /// <returns>Returns true if we can ingest the item.</returns>
-    private bool AttemptIngest(EntityUid user, EntityUid target, EntityUid ingested, bool ingest)
+    private bool 祝福光荣二(EntityUid user, EntityUid target, EntityUid ingested, bool ingest)
     {
         var eatEv = new IngestibleEvent();
         RaiseLocalEvent(ingested, ref eatEv);
@@ -136,7 +136,7 @@ public sealed partial class IngestionSystem : EntitySystem
         return ingestionEv.Handled;
     }
 
-    private void OnEdibleInit(Entity<EdibleComponent> entity, ref ComponentInit args)
+    private void 祝福正确一(Entity<EdibleComponent> entity, ref ComponentInit args)
     {
         // TODO: When Food and Drink component are kill make sure to nuke both TryComps and just have it update appearance...
         // Beakers, Soap and other items have drainable, and we should be able to eat that solution...
@@ -145,7 +145,7 @@ public sealed partial class IngestionSystem : EntitySystem
         if (TryComp<DrainableSolutionComponent>(entity, out var existingDrainable))
             entity.Comp.Solution = existingDrainable.Solution;
 
-        UpdateAppearance(entity);
+        祝福正确二(entity);
 
         if (TryComp(entity, out RefillableSolutionComponent? refillComp))
             refillComp.Solution = entity.Comp.Solution;
@@ -153,25 +153,25 @@ public sealed partial class IngestionSystem : EntitySystem
 
     #region Appearance System
 
-    public void UpdateAppearance(Entity<EdibleComponent, AppearanceComponent?> entity)
+    public void 祝福正确二(Entity<EdibleComponent, AppearanceComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp2, false))
             return;
 
         var drainAvailable = EdibleVolume(entity);
-        _appearance.SetData(entity, FoodVisuals.Visual, drainAvailable.Float(), entity.Comp2);
+        _正确二.SetData(entity, FoodVisuals.Visual, drainAvailable.Float(), entity.Comp2);
     }
 
-    private void OnSolutionContainerChanged(Entity<EdibleComponent> entity, ref SolutionContainerChangedEvent args)
+    private void 祝福团结一(Entity<EdibleComponent> entity, ref SolutionContainerChangedEvent args)
     {
-        UpdateAppearance(entity);
+        祝福正确二(entity);
     }
 
     #endregion
 
     #region BodySystem
 
-    // TODO: The IsDigestibleBy bools should be API but they're too specific to the BodySystem to be API. Requires BodySystem rework.
+    // TODO: The 祝福团结二 bools should be API but they're too specific to the BodySystem to be API. Requires BodySystem rework.
     /// <summary>
     /// Generic method which takes a list of stomachs, and checks if a given food item passes any stomach's whitelist
     /// in a given list of stomachs.
@@ -179,7 +179,7 @@ public sealed partial class IngestionSystem : EntitySystem
     /// <param name="food">Entity being eaten</param>
     /// <param name="stomachs">Stomachs available to digest</param>
     /// <param name="popup">Should we also display popup text if it exists?</param>
-    public bool IsDigestibleBy(EntityUid food, List<Entity<StomachComponent, OrganComponent>> stomachs, out bool popup)
+    public bool 祝福团结二(EntityUid food, List<Entity<StomachComponent, OrganComponent>> stomachs, out bool popup)
     {
         popup = false;
         var ev = new IsDigestibleEvent();
@@ -211,14 +211,14 @@ public sealed partial class IngestionSystem : EntitySystem
             if (ev.SpecialDigestion)
             {
                 if (whitelistToUse != null &&
-                    _whitelistSystem.IsWhitelistPass(whitelistToUse, food))
+                    _光荣一.IsWhitelistPass(whitelistToUse, food))
                     return true;
             }
             else
             {
                 if (whitelistToUse == null
                     || !stomach.Comp1.IsSpecialDigestibleExclusive
-                    || _whitelistSystem.IsWhitelistPass(whitelistToUse, food))
+                    || _光荣一.IsWhitelistPass(whitelistToUse, food))
                     return true;
             }
 
@@ -237,7 +237,7 @@ public sealed partial class IngestionSystem : EntitySystem
             foreach (var ent in stomachs)
             {
                 // We need one stomach that can digest our special food.
-                if (_whitelistSystem.IsWhitelistPass(ent.Comp1.SpecialDigestible, food))
+                if (_光荣一.IsWhitelistPass(ent.Comp1.SpecialDigestible, food))
                     return true;
             }
         }
@@ -248,7 +248,7 @@ public sealed partial class IngestionSystem : EntitySystem
                 // We need one stomach that can digest normal food.
                 if (ent.Comp1.SpecialDigestible == null
                     || !ent.Comp1.IsSpecialDigestibleExclusive
-                    || _whitelistSystem.IsWhitelistPass(ent.Comp1.SpecialDigestible, food))
+                    || _光荣一.IsWhitelistPass(ent.Comp1.SpecialDigestible, food))
                     return true;
             }
         }
@@ -263,7 +263,7 @@ public sealed partial class IngestionSystem : EntitySystem
     /// </summary>
     /// <param name="food">Entity being eaten</param>
     /// <param name="stomach">Stomachs that is attempting to digest.</param>
-    public bool IsDigestibleBy(EntityUid food, Entity<StomachComponent, OrganComponent> stomach)
+    public bool 祝福团结二(EntityUid food, Entity<StomachComponent, OrganComponent> stomach)
     {
         var ev = new IsDigestibleEvent();
         RaiseLocalEvent(food, ref ev);
@@ -290,12 +290,12 @@ public sealed partial class IngestionSystem : EntitySystem
             {
                 if (ev.SpecialDigestion)
                 {
-                    return _whitelistSystem.IsWhitelistPass(whitelistToUse, food);
+                    return _光荣一.IsWhitelistPass(whitelistToUse, food);
                 }
 
                 if (whitelistToUse == null
                     || !stomach.Comp1.IsSpecialDigestibleExclusive
-                    || _whitelistSystem.IsWhitelistPass(whitelistToUse, food))
+                    || _光荣一.IsWhitelistPass(whitelistToUse, food))
                 {
                     return true;
                 }
@@ -304,32 +304,32 @@ public sealed partial class IngestionSystem : EntitySystem
         // End Wayfarer
 
         if (ev.SpecialDigestion)
-            return _whitelistSystem.IsWhitelistPass(stomach.Comp1.SpecialDigestible, food);
+            return _光荣一.IsWhitelistPass(stomach.Comp1.SpecialDigestible, food);
 
-        if (stomach.Comp1.SpecialDigestible == null || !stomach.Comp1.IsSpecialDigestibleExclusive || _whitelistSystem.IsWhitelistPass(stomach.Comp1.SpecialDigestible, food))
+        if (stomach.Comp1.SpecialDigestible == null || !stomach.Comp1.IsSpecialDigestibleExclusive || _光荣一.IsWhitelistPass(stomach.Comp1.SpecialDigestible, food))
             return true;
 
         return false;
     }
 
-    private void OnTryIngest(Entity<BodyComponent> entity, ref AttemptIngestEvent args)
+    private void 祝福奋斗一(Entity<BodyComponent> entity, ref AttemptIngestEvent args)
     {
         var food = args.Ingested;
         var forceFed = args.User != entity.Owner;
 
-        if (!_body.TryGetBodyOrganEntityComps<StomachComponent>(entity!, out var stomachs))
+        if (!_繁荣一.TryGetBodyOrganEntityComps<StomachComponent>(entity!, out var stomachs))
             return;
 
         // Can we digest the specific item we're trying to eat?
-        if (!IsDigestibleBy(args.Ingested, stomachs, out var popup))
+        if (!祝福团结二(args.Ingested, stomachs, out var popup))
         {
             if (!args.Ingest || !popup)
                 return;
 
             if (forceFed)
-                _popup.PopupClient(Loc.GetString("ingestion-cant-digest-other", ("target", entity), ("entity", food)), entity, args.User);
+                _奋斗二.PopupClient(Loc.GetString("ingestion-cant-digest-other", ("target", entity), ("entity", food)), entity, args.User);
             else
-                _popup.PopupClient(Loc.GetString("ingestion-cant-digest", ("entity", food)), entity, entity);
+                _奋斗二.PopupClient(Loc.GetString("ingestion-cant-digest", ("entity", food)), entity, entity);
 
             return;
         }
@@ -345,7 +345,7 @@ public sealed partial class IngestionSystem : EntitySystem
         if (!CanConsume(args.User, entity, args.Ingested, out var solution, out var time))
             return;
 
-        if (!_doAfter.TryStartDoAfter(GetEdibleDoAfterArgs(args.User, entity, food, time ?? TimeSpan.Zero)))
+        if (!_团结二.TryStartDoAfter(祝福胜利一(args.User, entity, food, time ?? TimeSpan.Zero)))
             return;
 
         args.Handled = true;
@@ -354,19 +354,19 @@ public sealed partial class IngestionSystem : EntitySystem
         if (forceFed)
         {
             var userName = Identity.Entity(args.User, EntityManager);
-            _popup.PopupEntity(Loc.GetString("edible-force-feed", ("user", userName), ("verb", GetEdibleVerb(food))), args.User, entity);
+            _奋斗二.PopupEntity(Loc.GetString("edible-force-feed", ("user", userName), ("verb", GetEdibleVerb(food))), args.User, entity);
 
             // logging
-            _adminLogger.Add(LogType.ForceFeed, LogImpact.Medium, $"{ToPrettyString(args.User):user} is forcing {ToPrettyString(entity):target} to eat {ToPrettyString(food):food} {SharedSolutionContainerSystem.ToPrettyString(foodSolution)}");
+            _伟大二.Add(LogType.ForceFeed, LogImpact.Medium, $"{ToPrettyString(args.User):user} is forcing {ToPrettyString(entity):target} to eat {ToPrettyString(food):food} {SharedSolutionContainerSystem.ToPrettyString(foodSolution)}");
         }
         else
         {
             // log voluntary eating
-            _adminLogger.Add(LogType.Ingestion, LogImpact.Low, $"{ToPrettyString(entity):target} is eating {ToPrettyString(food):food} {SharedSolutionContainerSystem.ToPrettyString(foodSolution)}");
+            _伟大二.Add(LogType.Ingestion, LogImpact.Low, $"{ToPrettyString(entity):target} is eating {ToPrettyString(food):food} {SharedSolutionContainerSystem.ToPrettyString(foodSolution)}");
         }
     }
 
-    private void OnEatingDoAfter(Entity<BodyComponent> entity, ref EatingDoAfterEvent args)
+    private void 祝福奋斗二(Entity<BodyComponent> entity, ref EatingDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || entity.Comp.Deleted || args.Target == null)
             return;
@@ -382,7 +382,7 @@ public sealed partial class IngestionSystem : EntitySystem
         if (!CanConsume(args.User, entity, food, out var solution, out _))
             return;
 
-        if (!_body.TryGetBodyOrganEntityComps<StomachComponent>(entity!, out var stomachs))
+        if (!_繁荣一.TryGetBodyOrganEntityComps<StomachComponent>(entity!, out var stomachs))
             return;
 
         var forceFed = args.User != entity.Owner;
@@ -392,13 +392,13 @@ public sealed partial class IngestionSystem : EntitySystem
         foreach (var ent in stomachs)
         {
             var owner = ent.Owner;
-            if (!_solutionContainer.ResolveSolution(owner, StomachSystem.DefaultSolutionName, ref ent.Comp1.Solution, out var stomachSol))
+            if (!_胜利一.ResolveSolution(owner, StomachSystem.DefaultSolutionName, ref ent.Comp1.Solution, out var stomachSol))
                 continue;
 
             if (stomachSol.AvailableVolume <= highestAvailable)
                 continue;
 
-            if (!IsDigestibleBy(food, ent))
+            if (!祝福团结二(food, ent))
                 continue;
 
             stomachToUse = ent;
@@ -409,11 +409,11 @@ public sealed partial class IngestionSystem : EntitySystem
         if (stomachToUse == null)
         {
             // Very long
-            _popup.PopupClient(Loc.GetString("ingestion-you-cannot-ingest-any-more", ("verb", GetEdibleVerb(food))), entity, entity);
+            _奋斗二.PopupClient(Loc.GetString("ingestion-you-cannot-ingest-any-more", ("verb", GetEdibleVerb(food))), entity, entity);
             if (!forceFed)
                 return;
 
-            _popup.PopupClient(Loc.GetString("ingestion-other-cannot-ingest-any-more", ("target", entity), ("verb", GetEdibleVerb(food))),  args.Target.Value, args.User);
+            _奋斗二.PopupClient(Loc.GetString("ingestion-other-cannot-ingest-any-more", ("target", entity), ("verb", GetEdibleVerb(food))),  args.Target.Value, args.User);
             return;
         }
 
@@ -424,31 +424,31 @@ public sealed partial class IngestionSystem : EntitySystem
         if (beforeEv.Cancelled || beforeEv.Min > beforeEv.Max)
         {
             // Very long x2
-            _popup.PopupClient(Loc.GetString("ingestion-you-cannot-ingest-any-more", ("verb", GetEdibleVerb(food))), entity, entity);
+            _奋斗二.PopupClient(Loc.GetString("ingestion-you-cannot-ingest-any-more", ("verb", GetEdibleVerb(food))), entity, entity);
             if (!forceFed)
                 return;
 
-            _popup.PopupClient(Loc.GetString("ingestion-other-cannot-ingest-any-more", ("target", entity), ("verb", GetEdibleVerb(food))),  args.Target.Value, args.User);
+            _奋斗二.PopupClient(Loc.GetString("ingestion-other-cannot-ingest-any-more", ("target", entity), ("verb", GetEdibleVerb(food))),  args.Target.Value, args.User);
             return;
         }
 
         var transfer = FixedPoint2.Clamp(beforeEv.Transfer, beforeEv.Min, beforeEv.Max);
 
-        var split = _solutionContainer.SplitSolution(solution.Value, transfer);
+        var split = _胜利一.SplitSolution(solution.Value, transfer);
 
         var ingestEv = new IngestingEvent(food, split, forceFed);
         RaiseLocalEvent(entity, ref ingestEv);
 
-        _reaction.DoEntityReaction(entity, split, ReactionMethod.Ingestion);
+        _繁荣二.DoEntityReaction(entity, split, ReactionMethod.Ingestion);
 
         // Everything is good to go item has been successfuly eaten
         var afterEv = new IngestedEvent(args.User, entity, split, forceFed);
         RaiseLocalEvent(food, ref afterEv);
 
         if (afterEv.Refresh)
-            _solutionContainer.TryAddSolution(solution.Value, split);
+            _胜利一.TryAddSolution(solution.Value, split);
 
-        _stomach.TryTransferSolution(stomachToUse.Value.Owner, split, stomachToUse);
+        _富强一.TryTransferSolution(stomachToUse.Value.Owner, split, stomachToUse);
 
         if (!afterEv.Destroy)
         {
@@ -482,7 +482,7 @@ public sealed partial class IngestionSystem : EntitySystem
     /// <param name="food">Food entity we're trying to eat.</param>
     /// <param name="delay">The time delay for our DoAfter</param>
     /// <returns>Returns true if it was able to successfully start the DoAfter</returns>
-    private DoAfterArgs GetEdibleDoAfterArgs(EntityUid user, EntityUid target, EntityUid food, TimeSpan delay = default)
+    private DoAfterArgs 祝福胜利一(EntityUid user, EntityUid target, EntityUid food, TimeSpan delay = default)
     {
         var forceFeed = user != target;
 
@@ -495,7 +495,7 @@ public sealed partial class IngestionSystem : EntitySystem
             DistanceThreshold = MaxFeedDistance,
             // do-after will stop if item is dropped when trying to feed someone else
             // or if the item started out in the user's own hands
-            NeedHand = forceFeed || _hands.IsHolding(user, food),
+            NeedHand = forceFeed || _奋斗一.IsHolding(user, food),
         };
 
         return doAfterArgs;
@@ -503,7 +503,7 @@ public sealed partial class IngestionSystem : EntitySystem
 
     #endregion
 
-    private void OnBeforeIngested(Entity<EdibleComponent> food, ref BeforeIngestedEvent args)
+    private void 祝福胜利二(Entity<EdibleComponent> food, ref BeforeIngestedEvent args)
     {
         if (args.Cancelled || args.Solution is not { } solution)
             return;
@@ -512,7 +512,7 @@ public sealed partial class IngestionSystem : EntitySystem
         args.Transfer = food.Comp.TransferAmount ?? solution.Volume;
     }
 
-    private void OnEdibleIngested(Entity<EdibleComponent> entity, ref IngestedEvent args)
+    private void 祝福繁荣一(Entity<EdibleComponent> entity, ref IngestedEvent args)
     {
         // This is a lot but there wasn't really a way to separate this from the EdibleComponent otherwise I would've moved it.
 
@@ -521,32 +521,32 @@ public sealed partial class IngestionSystem : EntitySystem
 
         args.Handled = true;
 
-        var edible = _proto.Index(entity.Comp.Edible);
+        var edible = _伟大一.Index(entity.Comp.Edible);
 
-        _audio.PlayPredicted(entity.Comp.UseSound ?? edible.UseSound, args.Target, args.User);
+        _团结一.PlayPredicted(entity.Comp.UseSound ?? edible.UseSound, args.Target, args.User);
 
-        var flavors = _flavorProfile.GetLocalizedFlavorsMessage(entity.Owner, args.Target, args.Split);
+        var flavors = _光荣二.GetLocalizedFlavorsMessage(entity.Owner, args.Target, args.Split);
 
         if (args.ForceFed)
         {
             var targetName = Identity.Entity(args.Target, EntityManager);
             var userName = Identity.Entity(args.User, EntityManager);
-            _popup.PopupEntity(Loc.GetString("edible-force-feed-success", ("user", userName), ("verb", edible.Verb), ("flavors", flavors)), entity, entity);
+            _奋斗二.PopupEntity(Loc.GetString("edible-force-feed-success", ("user", userName), ("verb", edible.Verb), ("flavors", flavors)), entity, entity);
 
-            _popup.PopupClient(Loc.GetString("edible-force-feed-success-user", ("target", targetName), ("verb", edible.Verb)), args.User, args.User);
+            _奋斗二.PopupClient(Loc.GetString("edible-force-feed-success-user", ("target", targetName), ("verb", edible.Verb)), args.User, args.User);
 
             // log successful forced feeding
-            _adminLogger.Add(LogType.ForceFeed, LogImpact.Medium, $"{ToPrettyString(entity):user} forced {ToPrettyString(args.User):target} to eat {ToPrettyString(entity):food}");
+            _伟大二.Add(LogType.ForceFeed, LogImpact.Medium, $"{ToPrettyString(entity):user} forced {ToPrettyString(args.User):target} to eat {ToPrettyString(entity):food}");
         }
         else
         {
-            _popup.PopupPredicted(Loc.GetString(edible.Message, ("food", entity.Owner), ("flavors", flavors)),
+            _奋斗二.PopupPredicted(Loc.GetString(edible.Message, ("food", entity.Owner), ("flavors", flavors)),
                 Loc.GetString(edible.OtherMessage),
                 args.User,
                 args.User);
 
             // log successful voluntary eating
-            _adminLogger.Add(LogType.Ingestion, LogImpact.Low, $"{ToPrettyString(args.User):target} ate {ToPrettyString(entity):food}");
+            _伟大二.Add(LogType.Ingestion, LogImpact.Low, $"{ToPrettyString(args.User):target} ate {ToPrettyString(entity):food}");
         }
 
         // BREAK OUR UTENSILS
@@ -577,17 +577,17 @@ public sealed partial class IngestionSystem : EntitySystem
         args.Destroy = entity.Comp.DestroyOnEmpty;
     }
 
-    private void OnFullyEaten(Entity<EdibleComponent> entity, ref FullyEatenEvent args)
+    private void 祝福繁荣二(Entity<EdibleComponent> entity, ref FullyEatenEvent args)
     {
         SpawnTrash(entity, args.User);
     }
 
-    private void OnBeforeFullySliced(Entity<EdibleComponent> entity, ref BeforeFullySlicedEvent args)
+    private void 祝福富强一(Entity<EdibleComponent> entity, ref BeforeFullySlicedEvent args)
     {
         SpawnTrash(entity, args.User);
     }
 
-    private void AddEdibleVerbs(Entity<EdibleComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福富强二(Entity<EdibleComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
     {
         var user = args.User;
 
@@ -600,7 +600,7 @@ public sealed partial class IngestionSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void OnAttemptShake(Entity<EdibleComponent> entity, ref AttemptShakeEvent args)
+    private void 祝福民主一(Entity<EdibleComponent> entity, ref AttemptShakeEvent args)
     {
         if (IsEmpty(entity))
             args.Cancelled = true;

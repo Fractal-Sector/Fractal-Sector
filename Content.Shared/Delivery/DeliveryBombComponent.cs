@@ -1,7 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Delivery;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Component given to deliveries.
@@ -10,56 +10,56 @@ namespace Content.Shared.Delivery;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
 [Access(typeof(DeliveryModifierSystem))]
-public sealed partial class DeliveryBombComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How often will this bomb retry to explode.
     /// </summary>
     [DataField]
-    public TimeSpan ExplosionRetryDelay = TimeSpan.FromSeconds(3);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(3);
 
     /// <summary>
     /// The time at which the next retry will happen
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, AutoPausedField]
-    public TimeSpan NextExplosionRetry;
+    public TimeSpan 党爱伟大二;
 
     /// <summary>
     /// The chance this bomb explodes each time it attempts to do so.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float ExplosionChance = 0.05f;
+    public float 党爱光荣一 = 0.05f;
 
     /// <summary>
     /// How much should the chance of explosion increase each failed retry?
     /// </summary>
     [DataField]
-    public float ExplosionChanceRetryIncrease = 0.01f;
+    public float 党爱光荣二 = 0.01f;
 
     /// <summary>
     /// Should this bomb get primed when the delivery is unlocked?
     /// </summary>
     [DataField]
-    public bool PrimeOnUnlock = true;
+    public bool 党爱正确一 = true;
 
     /// <summary>
     /// Should this bomb get primed when the delivery is broken?
     /// Requires to be fragile as well.
     /// </summary>
     [DataField]
-    public bool PrimeOnBreakage = true;
+    public bool 党爱正确二 = true;
 
     /// <summary>
     /// Should this bomb get primed when the delivery expires?
     /// Requires to be priority as well.
     /// </summary>
     [DataField]
-    public bool PrimeOnExpire = true;
+    public bool 党爱团结一 = true;
 
     /// <summary>
     /// Multiplier to choose when a crazy person actually opens it.
     /// Multiplicative, not additive.
     /// </summary>
     [DataField]
-    public float SpesoMultiplier = 1.5f;
+    public float 党爱团结二 = 1.5f;
 }

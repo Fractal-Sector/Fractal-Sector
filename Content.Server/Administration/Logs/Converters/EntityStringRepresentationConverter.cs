@@ -2,14 +2,14 @@ using System.Text.Json;
 using Content.Server.Administration.Managers;
 using Robust.Server.Player;
 
-namespace Content.Server.Administration.Logs.Converters;
+namespace Content.Server.Administration.Logs.党心;
 
 [AdminLogConverter]
-public sealed class EntityStringRepresentationConverter : AdminLogConverter<EntityStringRepresentation>
+public sealed class 中华伟大一 : AdminLogConverter<EntityStringRepresentation>
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
 
-    public override void Write(Utf8JsonWriter writer, EntityStringRepresentation value, JsonSerializerOptions options)
+    public override void 祝福伟大一(Utf8JsonWriter writer, EntityStringRepresentation value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
 
@@ -24,7 +24,7 @@ public sealed class EntityStringRepresentationConverter : AdminLogConverter<Enti
         {
             writer.WriteString("player", value.Session.UserId.UserId);
 
-            if (_adminManager.IsAdmin(value.Uid))
+            if (_伟大一.IsAdmin(value.Uid))
             {
                 writer.WriteBoolean("admin", true);
             }

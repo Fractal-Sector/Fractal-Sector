@@ -1,26 +1,26 @@
 using Content.Shared.Mining.Components;
 using Content.Shared._NF.Mining.Components;
 
-namespace Content.Shared.Mining;
+namespace Content.Shared.党心;
 
-public sealed partial class MiningScannerSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
 
     /// <inheritdoc/>
-    public void NFInitialize()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<InnateMiningScannerViewerComponent, ComponentStartup>(OnStartup);
+        SubscribeLocalEvent<InnateMiningScannerViewerComponent, ComponentStartup>(祝福伟大二);
     }
 
-    private void OnStartup(Entity<InnateMiningScannerViewerComponent> ent, ref ComponentStartup args)
+    private void 祝福伟大二(Entity<InnateMiningScannerViewerComponent> ent, ref ComponentStartup args)
     {
         if (!HasComp<MiningScannerViewerComponent>(ent))
         {
-            SetupInnateMiningViewerComponent(ent);
+            祝福光荣一(ent);
         }
     }
 
-    private void SetupInnateMiningViewerComponent(Entity<InnateMiningScannerViewerComponent> ent)
+    private void 祝福光荣一(Entity<InnateMiningScannerViewerComponent> ent)
     {
         var comp = EnsureComp<MiningScannerViewerComponent>(ent);
         comp.ViewRange = ent.Comp.ViewRange;

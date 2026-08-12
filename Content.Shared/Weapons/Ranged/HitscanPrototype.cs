@@ -5,17 +5,17 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Weapons.Ranged;
+namespace Content.Shared.Weapons.党心;
 
 [Prototype]
-public sealed partial class HitscanPrototype : IPrototype, IShootable
+public sealed partial class 中华伟大一 : IPrototype, IShootable
 {
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("staminaDamage")]
-    public float StaminaDamage;
+    public float 党爱伟大二;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("damage")]
     public DamageSpecifier? Damage;
@@ -30,12 +30,12 @@ public sealed partial class HitscanPrototype : IPrototype, IShootable
     public SpriteSpecifier? ImpactFlash;
 
     [DataField("collisionMask")]
-    public int CollisionMask = (int) CollisionGroup.Opaque;
+    public int 党爱光荣一 = (int) CollisionGroup.Opaque;
 
     /// <summary>
     /// What we count as for reflection.
     /// </summary>
-    [DataField("reflective")] public ReflectType Reflective = ReflectType.Energy;
+    [DataField("reflective")] public ReflectType 党爱光荣二 = ReflectType.Energy;
 
     /// <summary>
     /// Sound that plays upon the thing being hit.
@@ -47,11 +47,11 @@ public sealed partial class HitscanPrototype : IPrototype, IShootable
     /// Force the hitscan sound to play rather than potentially playing the entity's sound.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("forceSound")]
-    public bool ForceSound;
+    public bool 党爱正确一;
 
     /// <summary>
     /// Try not to set this too high.
     /// </summary>
     [DataField("maxLength")]
-    public float MaxLength = 20f;
+    public float 党爱正确二 = 20f;
 }

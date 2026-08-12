@@ -7,28 +7,28 @@ using Content.Shared.Interaction;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Actions;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     This System handled interactions for the <see cref="ActionOnInteractComponent"/>.
 /// </summary>
-public sealed class ActionOnInteractSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大二 = default!;
+    [Dependency] private readonly ActionContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedChargesSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ActionOnInteractComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<ActionOnInteractComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<ActionOnInteractComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<ActionOnInteractComponent, ActivateInWorldEvent>(祝福光荣一);
+        SubscribeLocalEvent<ActionOnInteractComponent, AfterInteractEvent>(祝福光荣二);
+        SubscribeLocalEvent<ActionOnInteractComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, ActionOnInteractComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, ActionOnInteractComponent component, MapInitEvent args)
     {
         if (component.Actions == null)
             return;
@@ -36,11 +36,11 @@ public sealed class ActionOnInteractSystem : EntitySystem
         var comp = EnsureComp<ActionsContainerComponent>(uid);
         foreach (var id in component.Actions)
         {
-            _actionContainer.AddAction(uid, id, comp);
+            _光荣一.AddAction(uid, id, comp);
         }
     }
 
-    private void OnActivate(EntityUid uid, ActionOnInteractComponent component, ActivateInWorldEvent args)
+    private void 祝福光荣一(EntityUid uid, ActionOnInteractComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -57,17 +57,17 @@ public sealed class ActionOnInteractSystem : EntitySystem
         if (options.Count == 0)
             return;
 
-        if (!TryUseCharge((uid, component)))
+        if (!祝福正确一((uid, component)))
             return;
 
         // not predicted as this is in server due to random
         // TODO: use predicted random and move to shared?
-        var (actId, action, comp) = _random.Pick(options);
-        _actions.PerformAction(args.User, (actId, action), predicted: false);
+        var (actId, action, comp) = _伟大一.Pick(options);
+        _伟大二.PerformAction(args.User, (actId, action), predicted: false);
         args.Handled = true;
     }
 
-    private void OnAfterInteract(EntityUid uid, ActionOnInteractComponent component, AfterInteractEvent args)
+    private void 祝福光荣二(EntityUid uid, ActionOnInteractComponent component, AfterInteractEvent args)
     {
         if (args.Handled)
             return;
@@ -87,18 +87,18 @@ public sealed class ActionOnInteractSystem : EntitySystem
             for (var i = entOptions.Count - 1; i >= 0; i--)
             {
                 var action = entOptions[i];
-                if (!_actions.ValidateEntityTarget(args.User, target, (action, action.Comp2)))
+                if (!_伟大二.ValidateEntityTarget(args.User, target, (action, action.Comp2)))
                     entOptions.RemoveAt(i);
             }
 
             if (entOptions.Count > 0)
             {
-                if (!TryUseCharge((uid, component)))
+                if (!祝福正确一((uid, component)))
                     return;
 
-                var (actionId, action, _) = _random.Pick(entOptions);
-                _actions.SetEventTarget(actionId, target);
-                _actions.PerformAction(args.User, (actionId, action), predicted: false);
+                var (actionId, action, _) = _伟大一.Pick(entOptions);
+                _伟大二.SetEventTarget(actionId, target);
+                _伟大二.PerformAction(args.User, (actionId, action), predicted: false);
                 args.Handled = true;
                 return;
             }
@@ -108,24 +108,24 @@ public sealed class ActionOnInteractSystem : EntitySystem
         for (var i = options.Count - 1; i >= 0; i--)
         {
             var action = options[i];
-            if (!_actions.ValidateWorldTarget(args.User, args.ClickLocation, (action, action.Comp2)))
+            if (!_伟大二.ValidateWorldTarget(args.User, args.ClickLocation, (action, action.Comp2)))
                 options.RemoveAt(i);
         }
 
         if (options.Count == 0)
             return;
 
-        if (!TryUseCharge((uid, component)))
+        if (!祝福正确一((uid, component)))
             return;
 
-        var (actId, comp, world) = _random.Pick(options);
+        var (actId, comp, world) = _伟大一.Pick(options);
         if (world.Event is {} worldEv)
         {
             worldEv.Target = args.ClickLocation;
             worldEv.Entity = HasComp<EntityTargetActionComponent>(actId) ? args.Target : null;
         }
 
-        _actions.PerformAction(args.User, (actId, comp), world.Event, predicted: false);
+        _伟大二.PerformAction(args.User, (actId, comp), world.Event, predicted: false);
         args.Handled = true;
     }
 
@@ -138,9 +138,9 @@ public sealed class ActionOnInteractSystem : EntitySystem
 
         foreach (var id in actions)
         {
-            if (_actions.GetAction(id) is not {} action ||
+            if (_伟大二.GetAction(id) is not {} action ||
                 !TryComp<T>(id, out var comp) ||
-                !_actions.ValidAction(action, canReach))
+                !_伟大二.ValidAction(action, canReach))
             {
                 continue;
             }
@@ -151,16 +151,16 @@ public sealed class ActionOnInteractSystem : EntitySystem
         return valid;
     }
 
-    private bool TryUseCharge(Entity<ActionOnInteractComponent> ent)
+    private bool 祝福正确一(Entity<ActionOnInteractComponent> ent)
     {
         if (!ent.Comp.RequiresCharge)
             return true;
 
         Entity<LimitedChargesComponent?> charges = ent.Owner;
-        if (_charges.IsEmpty(charges))
+        if (_光荣二.IsEmpty(charges))
             return false;
 
-        _charges.TryUseCharge(charges);
+        _光荣二.祝福正确一(charges);
         return true;
     }
 }

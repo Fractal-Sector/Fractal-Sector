@@ -7,38 +7,38 @@ using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 
-namespace Content.Server.Salvage;
+namespace Content.Server.党心;
 
-public sealed class RestrictedRangeSystem : SharedRestrictedRangeSystem
+public sealed class 中华伟大一 : SharedRestrictedRangeSystem
 {
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly FixtureSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RestrictedRangeComponent, MapInitEvent>(OnRestrictedMapInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RestrictedRangeComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnRestrictedMapInit(EntityUid uid, RestrictedRangeComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, RestrictedRangeComponent component, MapInitEvent args)
     {
-        component.BoundaryEntity = CreateBoundary(new EntityCoordinates(uid, component.Origin), component.Range);
+        component.BoundaryEntity = 祝福光荣一(new EntityCoordinates(uid, component.Origin), component.Range);
     }
 
-    public EntityUid CreateBoundary(EntityCoordinates coordinates, float range)
+    public EntityUid 祝福光荣一(EntityCoordinates coordinates, float range)
     {
         var boundaryUid = Spawn(null, coordinates);
         var boundaryPhysics = AddComp<PhysicsComponent>(boundaryUid);
         var cShape = new ChainShape();
         // Don't need it to be a perfect circle, just need it to be loosely accurate.
         cShape.CreateLoop(Vector2.Zero, range + 0.25f, false, count: 4);
-        _fixtures.TryCreateFixture(
+        _伟大一.TryCreateFixture(
             boundaryUid,
             cShape,
             "boundary",
             collisionLayer: (int) (CollisionGroup.HighImpassable | CollisionGroup.Impassable | CollisionGroup.LowImpassable),
             body: boundaryPhysics);
-        _physics.WakeBody(boundaryUid, body: boundaryPhysics);
+        _伟大二.WakeBody(boundaryUid, body: boundaryPhysics);
         AddComp<BoundaryComponent>(boundaryUid);
         return boundaryUid;
     }

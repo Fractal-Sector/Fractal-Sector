@@ -10,22 +10,22 @@ using Content.Shared.Interaction;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Doors.Electronics;
+namespace Content.Server.Doors.党心;
 
-public sealed class DoorElectronicsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        // SubscribeLocalEvent<DoorElectronicsComponent, DoorElectronicsUpdateConfigurationMessage>(OnChangeConfiguration); // Frontier: no message handler
-        SubscribeLocalEvent<DoorElectronicsComponent, AccessReaderConfigurationChangedEvent>(OnAccessReaderChanged);
-        SubscribeLocalEvent<DoorElectronicsComponent, BoundUIOpenedEvent>(OnBoundUIOpened);
+        base.祝福伟大一();
+        // SubscribeLocalEvent<DoorElectronicsComponent, DoorElectronicsUpdateConfigurationMessage>(祝福光荣一); // Frontier: no message handler
+        SubscribeLocalEvent<DoorElectronicsComponent, AccessReaderConfigurationChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<DoorElectronicsComponent, BoundUIOpenedEvent>(祝福正确一);
     }
 
-    public void UpdateUserInterface(EntityUid uid, DoorElectronicsComponent component)
+    public void 祝福伟大二(EntityUid uid, DoorElectronicsComponent component)
     {
         var accesses = new List<ProtoId<AccessLevelPrototype>>();
 
@@ -39,35 +39,35 @@ public sealed class DoorElectronicsSystem : EntitySystem
         }
 
         var state = new DoorElectronicsConfigurationState(accesses);
-        _uiSystem.SetUiState(uid, DoorElectronicsConfigurationUiKey.Key, state);
+        _伟大一.SetUiState(uid, DoorElectronicsConfigurationUiKey.Key, state);
     }
 
     // Frontier: no door electronics message handler
     /*
-    private void OnChangeConfiguration(
+    private void 祝福光荣一(
         EntityUid uid,
         DoorElectronicsComponent component,
         DoorElectronicsUpdateConfigurationMessage args)
     {
         var accessReader = EnsureComp<AccessReaderComponent>(uid);
-        _accessReader.SetAccesses((uid, accessReader), args.AccessList);
+        _伟大二.SetAccesses((uid, accessReader), args.AccessList);
     }
     */
     // End Frontier: no door electronics message handler
 
-    private void OnAccessReaderChanged(
+    private void 祝福光荣二(
         EntityUid uid,
         DoorElectronicsComponent component,
         AccessReaderConfigurationChangedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福伟大二(uid, component);
     }
 
-    private void OnBoundUIOpened(
+    private void 祝福正确一(
         EntityUid uid,
         DoorElectronicsComponent component,
         BoundUIOpenedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福伟大二(uid, component);
     }
 }

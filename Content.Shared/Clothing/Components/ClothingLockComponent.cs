@@ -1,7 +1,7 @@
 using Content.Shared.Clothing.EntitySystems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// When applied to a collar (or other clothing item), prevents clothing from being removed
@@ -12,7 +12,7 @@ namespace Content.Shared.Clothing.Components;
 [NetworkedComponent]
 [AutoGenerateComponentState]
 [Access(typeof(ClothingLockSystem))]
-public sealed partial class ClothingLockComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// List of inventory slot names to lock. If empty or null, locks all slots.

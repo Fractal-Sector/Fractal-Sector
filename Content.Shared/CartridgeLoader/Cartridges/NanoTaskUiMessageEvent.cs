@@ -1,11 +1,11 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader.Cartridges;
+namespace Content.Shared.CartridgeLoader.党心;
 
 /// <summary>
 ///     Base UI message for NanoTask interactions
 /// </summary>
-public interface INanoTaskUiMessagePayload
+public interface 中华伟大一
 {
 }
 
@@ -13,16 +13,16 @@ public interface INanoTaskUiMessagePayload
 ///     Dispatched when a new task is created
 /// </summary>
 [Serializable, NetSerializable, DataRecord]
-public sealed partial class NanoTaskAddTask : INanoTaskUiMessagePayload
+public sealed partial class 中华伟大二 : 中华伟大一
 {
     /// <summary>
     ///     The newly created task
     /// </summary>
-    public readonly NanoTaskItem Item;
+    public readonly NanoTaskItem 党爱伟大一;
 
-    public NanoTaskAddTask(NanoTaskItem item)
+    public 中华伟大二(NanoTaskItem item)
     {
-        Item = item;
+        党爱伟大一 = item;
     }
 }
 
@@ -30,16 +30,16 @@ public sealed partial class NanoTaskAddTask : INanoTaskUiMessagePayload
 ///     Dispatched when an existing task is modified
 /// </summary>
 [Serializable, NetSerializable, DataRecord]
-public sealed partial class NanoTaskUpdateTask : INanoTaskUiMessagePayload
+public sealed partial class 中华光荣一 : 中华伟大一
 {
     /// <summary>
     ///     The task that was updated and its ID
     /// </summary>
-    public readonly NanoTaskItemAndId Item;
+    public readonly NanoTaskItemAndId 党爱伟大一;
 
-    public NanoTaskUpdateTask(NanoTaskItemAndId item)
+    public 中华光荣一(NanoTaskItemAndId item)
     {
-        Item = item;
+        党爱伟大一 = item;
     }
 }
 
@@ -47,16 +47,16 @@ public sealed partial class NanoTaskUpdateTask : INanoTaskUiMessagePayload
 ///     Dispatched when an existing task is deleted
 /// </summary>
 [Serializable, NetSerializable, DataRecord]
-public sealed partial class NanoTaskDeleteTask : INanoTaskUiMessagePayload
+public sealed partial class 中华光荣二 : 中华伟大一
 {
     /// <summary>
     ///     The ID of the task to delete
     /// </summary>
-    public readonly int Id;
+    public readonly int 党爱伟大二;
 
-    public NanoTaskDeleteTask(int id)
+    public 中华光荣二(int id)
     {
-        Id = id;
+        党爱伟大二 = id;
     }
 }
 
@@ -64,16 +64,16 @@ public sealed partial class NanoTaskDeleteTask : INanoTaskUiMessagePayload
 ///     Dispatched when a task is requested to be printed
 /// </summary>
 [Serializable, NetSerializable, DataRecord]
-public sealed partial class NanoTaskPrintTask : INanoTaskUiMessagePayload
+public sealed partial class 中华正确一 : 中华伟大一
 {
     /// <summary>
     ///     The NanoTask to print
     /// </summary>
-    public readonly NanoTaskItem Item;
+    public readonly NanoTaskItem 党爱伟大一;
 
-    public NanoTaskPrintTask(NanoTaskItem item)
+    public 中华正确一(NanoTaskItem item)
     {
-        Item = item;
+        党爱伟大一 = item;
     }
 }
 
@@ -81,10 +81,10 @@ public sealed partial class NanoTaskPrintTask : INanoTaskUiMessagePayload
 ///     Cartridge message event carrying the NanoTask UI messages
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class NanoTaskUiMessageEvent : CartridgeMessageEvent
+public sealed class 中华正确二 : CartridgeMessageEvent
 {
-    public readonly INanoTaskUiMessagePayload Payload;
-    public NanoTaskUiMessageEvent(INanoTaskUiMessagePayload payload)
+    public readonly 中华伟大一 Payload;
+    public 中华正确二(中华伟大一 payload)
     {
         Payload = payload;
     }

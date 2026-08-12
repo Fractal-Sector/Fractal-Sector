@@ -19,55 +19,55 @@ using Robust.Shared.Containers;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Ame.EntitySystems;
+namespace Content.Server.Ame.党心;
 
-public sealed class AmeControllerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly AppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+    [Dependency] private readonly ItemSlotsSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AmeControllerComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<AmeControllerComponent, ComponentRemove>(OnRemove);
-        SubscribeLocalEvent<AmeControllerComponent, EntInsertedIntoContainerMessage>(OnItemSlotChanged);
-        SubscribeLocalEvent<AmeControllerComponent, EntRemovedFromContainerMessage>(OnItemSlotChanged);
-        SubscribeLocalEvent<AmeControllerComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<AmeControllerComponent, UiButtonPressedMessage>(OnUiButtonPressed);
+        SubscribeLocalEvent<AmeControllerComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<AmeControllerComponent, ComponentRemove>(祝福光荣二);
+        SubscribeLocalEvent<AmeControllerComponent, EntInsertedIntoContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<AmeControllerComponent, EntRemovedFromContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<AmeControllerComponent, PowerChangedEvent>(祝福民主二);
+        SubscribeLocalEvent<AmeControllerComponent, UiButtonPressedMessage>(祝福文明一);
     }
 
-    private void OnInit(EntityUid uid, AmeControllerComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, AmeControllerComponent component, ComponentInit args)
     {
-        _itemSlots.AddItemSlot(uid, SharedAmeControllerComponent.FuelSlotId, component.FuelSlot);
+        _正确二.AddItemSlot(uid, SharedAmeControllerComponent.FuelSlotId, component.FuelSlot);
 
-        UpdateUi(uid, component);
+        祝福团结一(uid, component);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        var curTime = _gameTiming.CurTime;
+        var curTime = _伟大二.CurTime;
         var query = EntityQueryEnumerator<AmeControllerComponent, NodeContainerComponent>();
         while (query.MoveNext(out var uid, out var controller, out var nodes))
         {
             if (controller.NextUpdate <= curTime)
-                UpdateController(uid, curTime, controller, nodes);
+                祝福正确二(uid, curTime, controller, nodes);
             else if (controller.NextUIUpdate <= curTime)
-                UpdateUi(uid, controller);
+                祝福团结一(uid, controller);
         }
     }
 
-    private void OnRemove(EntityUid uid, AmeControllerComponent component, ComponentRemove args)
+    private void 祝福光荣二(EntityUid uid, AmeControllerComponent component, ComponentRemove args)
     {
-        _itemSlots.RemoveItemSlot(uid, component.FuelSlot);
+        _正确二.RemoveItemSlot(uid, component.FuelSlot);
     }
 
-    private void OnItemSlotChanged(EntityUid uid, AmeControllerComponent component, ContainerModifiedMessage args)
+    private void 祝福正确一(EntityUid uid, AmeControllerComponent component, ContainerModifiedMessage args)
     {
         if (!component.Initialized)
             return;
@@ -75,10 +75,10 @@ public sealed class AmeControllerSystem : EntitySystem
         if (args.Container.ID != component.FuelSlot.ID)
             return;
 
-        UpdateUi(uid, component);
+        祝福团结一(uid, component);
     }
 
-    private void UpdateController(EntityUid uid, TimeSpan curTime, AmeControllerComponent? controller = null, NodeContainerComponent? nodes = null)
+    private void 祝福正确二(EntityUid uid, TimeSpan curTime, AmeControllerComponent? controller = null, NodeContainerComponent? nodes = null)
     {
         if (!Resolve(uid, ref controller))
             return;
@@ -86,12 +86,12 @@ public sealed class AmeControllerSystem : EntitySystem
         controller.LastUpdate = curTime;
         controller.NextUpdate = curTime + controller.UpdatePeriod;
         // update the UI regardless of other factors to update the power readings
-        UpdateUi(uid, controller);
+        祝福团结一(uid, controller);
 
         if (!controller.Injecting)
             return;
 
-        if (!TryGetAMENodeGroup(uid, out var group, nodes))
+        if (!祝福奋斗二(uid, out var group, nodes))
             return;
 
         if (TryComp<AmeFuelContainerComponent>(controller.FuelSlot.Item, out var fuelContainer))
@@ -99,7 +99,7 @@ public sealed class AmeControllerSystem : EntitySystem
             // if the jar is empty shut down the AME
             if (fuelContainer.FuelAmount <= 0)
             {
-                SetInjecting(uid, false, null, controller);
+                祝福胜利二(uid, false, null, controller);
             }
             else
             {
@@ -115,46 +115,46 @@ public sealed class AmeControllerSystem : EntitySystem
 
                 // only play audio if we actually had an injection
                 if (availableInject > 0)
-                    _audioSystem.PlayPvs(controller.InjectSound, uid, AudioParams.Default.WithVolume(overloading ? 5f : -5f));
-                UpdateUi(uid, controller);
+                    _光荣二.PlayPvs(controller.InjectSound, uid, AudioParams.Default.WithVolume(overloading ? 5f : -5f));
+                祝福团结一(uid, controller);
             }
         }
         // Frontier: turn AME off without a fuel container
         else
-            SetInjecting(uid, false, null, controller);
+            祝福胜利二(uid, false, null, controller);
         // End Frontier
 
         controller.Stability = group.GetTotalStability();
 
         group.UpdateCoreVisuals();
-        UpdateDisplay(uid, controller.Stability, controller);
+        祝福民主一(uid, controller.Stability, controller);
 
         if (controller.Stability <= 0)
             group.ExplodeCores();
     }
 
-    public void UpdateUi(EntityUid uid, AmeControllerComponent? controller = null)
+    public void 祝福团结一(EntityUid uid, AmeControllerComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return;
 
-        if (!_userInterfaceSystem.HasUi(uid, AmeControllerUiKey.Key))
+        if (!_正确一.HasUi(uid, AmeControllerUiKey.Key))
             return;
 
-        var state = GetUiState(uid, controller);
-        _userInterfaceSystem.SetUiState(uid, AmeControllerUiKey.Key, state);
+        var state = 祝福团结二(uid, controller);
+        _正确一.SetUiState(uid, AmeControllerUiKey.Key, state);
 
-        controller.NextUIUpdate = _gameTiming.CurTime + controller.UpdateUIPeriod;
+        controller.NextUIUpdate = _伟大二.CurTime + controller.UpdateUIPeriod;
     }
 
-    private AmeControllerBoundUserInterfaceState GetUiState(EntityUid uid, AmeControllerComponent controller)
+    private AmeControllerBoundUserInterfaceState 祝福团结二(EntityUid uid, AmeControllerComponent controller)
     {
         var powered = !TryComp<ApcPowerReceiverComponent>(uid, out var powerSource) || powerSource.Powered;
         var coreCount = 0;
         // how much power can be produced at the current settings, in kW
         // we don't use max. here since this is what is set in the Controller, not what the AME is actually producing
         float targetedPowerSupply = 0;
-        if (TryGetAMENodeGroup(uid, out var group))
+        if (祝福奋斗二(uid, out var group))
         {
             coreCount = group.CoreCount;
             targetedPowerSupply = group.CalculatePower(controller.InjectionAmount, group.CoreCount) / 1000;
@@ -171,7 +171,7 @@ public sealed class AmeControllerSystem : EntitySystem
         var hasFuelContainerInSlot = Exists(fuelContainerInSlot);
         if (!hasFuelContainerInSlot || !TryComp<AmeFuelContainerComponent>(fuelContainerInSlot, out var fuelContainer))
             return new AmeControllerBoundUserInterfaceState(powered,
-                                                            IsMasterController(uid),
+                                                            祝福奋斗一(uid),
                                                             false,
                                                             hasFuelContainerInSlot,
                                                             0,
@@ -181,7 +181,7 @@ public sealed class AmeControllerSystem : EntitySystem
                                                             targetedPowerSupply);
 
         return new AmeControllerBoundUserInterfaceState(powered,
-                                                        IsMasterController(uid),
+                                                        祝福奋斗一(uid),
                                                         controller.Injecting,
                                                         hasFuelContainerInSlot,
                                                         fuelContainer.FuelAmount,
@@ -191,12 +191,12 @@ public sealed class AmeControllerSystem : EntitySystem
                                                         targetedPowerSupply);
     }
 
-    private bool IsMasterController(EntityUid uid)
+    private bool 祝福奋斗一(EntityUid uid)
     {
-        return TryGetAMENodeGroup(uid, out var group) && group.MasterController == uid;
+        return 祝福奋斗二(uid, out var group) && group.MasterController == uid;
     }
 
-    private bool TryGetAMENodeGroup(EntityUid uid, [MaybeNullWhen(false)] out AmeNodeGroup group, NodeContainerComponent? nodes = null)
+    private bool 祝福奋斗二(EntityUid uid, [MaybeNullWhen(false)] out AmeNodeGroup group, NodeContainerComponent? nodes = null)
     {
         if (!Resolve(uid, ref nodes))
         {
@@ -212,7 +212,7 @@ public sealed class AmeControllerSystem : EntitySystem
         return group != null;
     }
 
-    public void TryEject(EntityUid uid, EntityUid? user = null, AmeControllerComponent? controller = null)
+    public void 祝福胜利一(EntityUid uid, EntityUid? user = null, AmeControllerComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return;
@@ -223,12 +223,12 @@ public sealed class AmeControllerSystem : EntitySystem
         if (!Exists(controller.FuelSlot.Item))
             return;
 
-        _itemSlots.TryEjectToHands(uid, controller.FuelSlot, user);
+        _正确二.TryEjectToHands(uid, controller.FuelSlot, user);
 
-        UpdateUi(uid, controller);
+        祝福团结一(uid, controller);
     }
 
-    public void SetInjecting(EntityUid uid, bool value, EntityUid? user = null, AmeControllerComponent? controller = null)
+    public void 祝福胜利二(EntityUid uid, bool value, EntityUid? user = null, AmeControllerComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return;
@@ -237,30 +237,30 @@ public sealed class AmeControllerSystem : EntitySystem
             return;
 
         controller.Injecting = value;
-        UpdateDisplay(uid, controller.Stability, controller);
+        祝福民主一(uid, controller.Stability, controller);
         if (!value && TryComp<PowerSupplierComponent>(uid, out var powerOut))
             powerOut.MaxSupply = 0;
 
-        UpdateUi(uid, controller);
+        祝福团结一(uid, controller);
 
-        _itemSlots.SetLock(uid, controller.FuelSlot, value);
+        _正确二.SetLock(uid, controller.FuelSlot, value);
 
         // Logging
         if (!HasComp<MindContainerComponent>(user))
             return;
 
         var humanReadableState = value ? "Inject" : "Not inject";
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user.Value):player} has set the AME to {humanReadableState}");
+        _伟大一.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user.Value):player} has set the AME to {humanReadableState}");
     }
 
-    public void ToggleInjecting(EntityUid uid, EntityUid? user = null, AmeControllerComponent? controller = null)
+    public void 祝福繁荣一(EntityUid uid, EntityUid? user = null, AmeControllerComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return;
-        SetInjecting(uid, !controller.Injecting, user, controller);
+        祝福胜利二(uid, !controller.Injecting, user, controller);
     }
 
-    public void SetInjectionAmount(EntityUid uid, int value, EntityUid? user = null, AmeControllerComponent? controller = null)
+    public void 祝福繁荣二(EntityUid uid, int value, EntityUid? user = null, AmeControllerComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return;
@@ -270,7 +270,7 @@ public sealed class AmeControllerSystem : EntitySystem
         var oldValue = controller.InjectionAmount;
         controller.InjectionAmount = value;
 
-        UpdateUi(uid, controller);
+        祝福团结一(uid, controller);
 
         // Logging
         if (!TryComp<MindContainerComponent>(user, out var mindContainer))
@@ -280,31 +280,31 @@ public sealed class AmeControllerSystem : EntitySystem
 
 
         var safeLimit = int.MaxValue;
-        if (TryGetAMENodeGroup(uid, out var group))
+        if (祝福奋斗二(uid, out var group))
             safeLimit = group.CoreCount * 4;
 
         var logImpact = (oldValue <= safeLimit && value > safeLimit) ? LogImpact.Extreme : LogImpact.Medium;
 
-        _adminLogger.Add(LogType.Action, logImpact, $"{ToPrettyString(user.Value):player} has set the AME to inject {controller.InjectionAmount} while set to {humanReadableState}");
+        _伟大一.Add(LogType.Action, logImpact, $"{ToPrettyString(user.Value):player} has set the AME to inject {controller.InjectionAmount} while set to {humanReadableState}");
     }
 
-    public void AdjustInjectionAmount(EntityUid uid, int delta, EntityUid? user = null, AmeControllerComponent? controller = null)
+    public void 祝福富强一(EntityUid uid, int delta, EntityUid? user = null, AmeControllerComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return;
 
-        var max = GetMaxInjectionAmount((uid, controller));
-        SetInjectionAmount(uid, MathHelper.Clamp(controller.InjectionAmount + delta, 0, max), user, controller);
+        var max = 祝福富强二((uid, controller));
+        祝福繁荣二(uid, MathHelper.Clamp(controller.InjectionAmount + delta, 0, max), user, controller);
     }
 
-    public int GetMaxInjectionAmount(Entity<AmeControllerComponent> ent)
+    public int 祝福富强二(Entity<AmeControllerComponent> ent)
     {
-        if (!TryGetAMENodeGroup(ent, out var group))
+        if (!祝福奋斗二(ent, out var group))
             return 0;
         return  group.CoreCount * 8;
     }
 
-    private void UpdateDisplay(EntityUid uid, int stability, AmeControllerComponent? controller = null, AppearanceComponent? appearance = null)
+    private void 祝福民主一(EntityUid uid, int stability, AmeControllerComponent? controller = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref controller, ref appearance))
             return;
@@ -320,7 +320,7 @@ public sealed class AmeControllerSystem : EntitySystem
         if (!controller.Injecting)
             ameControllerState = AmeControllerState.Off;
 
-        _appearanceSystem.SetData(
+        _光荣一.SetData(
             uid,
             AmeControllerVisuals.DisplayState,
             ameControllerState,
@@ -328,12 +328,12 @@ public sealed class AmeControllerSystem : EntitySystem
         );
     }
 
-    private void OnPowerChanged(EntityUid uid, AmeControllerComponent comp, ref PowerChangedEvent args)
+    private void 祝福民主二(EntityUid uid, AmeControllerComponent comp, ref PowerChangedEvent args)
     {
-        UpdateUi(uid, comp);
+        祝福团结一(uid, comp);
     }
 
-    private void OnUiButtonPressed(EntityUid uid, AmeControllerComponent comp, UiButtonPressedMessage msg)
+    private void 祝福文明一(EntityUid uid, AmeControllerComponent comp, UiButtonPressedMessage msg)
     {
         var user = msg.Actor;
         if (!Exists(user))
@@ -345,30 +345,30 @@ public sealed class AmeControllerSystem : EntitySystem
             _ => true,
         };
 
-        if (!PlayerCanUseController(uid, user, needsPower, comp))
+        if (!祝福文明二(uid, user, needsPower, comp))
             return;
 
-        _audioSystem.PlayPvs(comp.ClickSound, uid, AudioParams.Default.WithVolume(-2f));
+        _光荣二.PlayPvs(comp.ClickSound, uid, AudioParams.Default.WithVolume(-2f));
         switch (msg.Button)
         {
             case UiButton.Eject:
-                TryEject(uid, user: user, controller: comp);
+                祝福胜利一(uid, user: user, controller: comp);
                 break;
             case UiButton.ToggleInjection:
-                ToggleInjecting(uid, user: user, controller: comp);
+                祝福繁荣一(uid, user: user, controller: comp);
                 break;
             case UiButton.IncreaseFuel:
-                AdjustInjectionAmount(uid, +2, user: user, controller: comp);
+                祝福富强一(uid, +2, user: user, controller: comp);
                 break;
             case UiButton.DecreaseFuel:
-                AdjustInjectionAmount(uid, -2, user: user, controller: comp);
+                祝福富强一(uid, -2, user: user, controller: comp);
                 break;
         }
 
-        if (TryGetAMENodeGroup(uid, out var group))
+        if (祝福奋斗二(uid, out var group))
             group.UpdateCoreVisuals();
 
-        UpdateUi(uid, comp);
+        祝福团结一(uid, comp);
     }
 
     /// <summary>
@@ -376,7 +376,7 @@ public sealed class AmeControllerSystem : EntitySystem
     /// </summary>
     /// <param name="playerEntity">The player entity.</param>
     /// <returns>Returns true if the entity can use the controller, and false if it cannot.</returns>
-    private bool PlayerCanUseController(EntityUid uid, EntityUid playerEntity, bool needsPower = true, AmeControllerComponent? controller = null)
+    private bool 祝福文明二(EntityUid uid, EntityUid playerEntity, bool needsPower = true, AmeControllerComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))
             return false;

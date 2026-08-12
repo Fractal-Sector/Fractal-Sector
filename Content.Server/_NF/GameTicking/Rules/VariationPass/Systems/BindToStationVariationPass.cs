@@ -4,12 +4,12 @@ using Content.Server.GameTicking.Rules.VariationPass;
 using Content.Server.GameTicking.Rules.VariationPass.Components;
 using Content.Shared._NF.BindToStation;
 
-namespace Content.Server._NF.GameTicking.Rules.VariationPass;
+namespace Content.Server._NF.GameTicking.Rules.党心;
 
-public sealed class BindToStationVariationPass : VariationPassSystem<BindToStationVariationPassComponent>
+public sealed class 中华伟大一 : VariationPassSystem<BindToStationVariationPassComponent>
 {
     [Dependency] BindToStationSystem _bindToStation = default!;
-    protected override void ApplyVariation(Entity<BindToStationVariationPassComponent> ent, ref StationVariationPassEvent args)
+    protected override void 祝福伟大一(Entity<BindToStationVariationPassComponent> ent, ref StationVariationPassEvent args)
     {
         // Exempt station?  Don't apply this variation.
         if (HasComp<BindToStationVariationPassExemptionComponent>(args.Station))

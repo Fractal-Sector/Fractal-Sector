@@ -4,30 +4,30 @@ using JetBrains.Annotations;
 using Content.Shared.Throwing;
 using Robust.Shared.Physics.Events;
 
-namespace Content.Server.Stunnable.Systems;
+namespace Content.Server.Stunnable.党心;
 
 [UsedImplicitly]
-internal sealed class StunOnCollideSystem : EntitySystem
+internal sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly StunSystem _stunSystem = default!;
-    [Dependency] private readonly MovementModStatusSystem _movementMod = default!;
+    [Dependency] private readonly StunSystem _伟大一 = default!;
+    [Dependency] private readonly MovementModStatusSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StunOnCollideComponent, StartCollideEvent>(HandleCollide);
-        SubscribeLocalEvent<StunOnCollideComponent, ThrowDoHitEvent>(HandleThrow);
+        SubscribeLocalEvent<StunOnCollideComponent, StartCollideEvent>(祝福光荣一);
+        SubscribeLocalEvent<StunOnCollideComponent, ThrowDoHitEvent>(祝福光荣二);
     }
 
-    private void TryDoCollideStun(Entity<StunOnCollideComponent> ent, EntityUid target)
+    private void 祝福伟大二(Entity<StunOnCollideComponent> ent, EntityUid target)
     {
-        _stunSystem.TryKnockdown(target, ent.Comp.KnockdownAmount, ent.Comp.Refresh, ent.Comp.AutoStand, ent.Comp.Drop, true);
+        _伟大一.TryKnockdown(target, ent.Comp.KnockdownAmount, ent.Comp.Refresh, ent.Comp.AutoStand, ent.Comp.Drop, true);
 
         if (ent.Comp.Refresh)
         {
-            _stunSystem.TryUpdateStunDuration(target, ent.Comp.StunAmount);
-            _movementMod.TryUpdateMovementSpeedModDuration(
+            _伟大一.TryUpdateStunDuration(target, ent.Comp.StunAmount);
+            _伟大二.TryUpdateMovementSpeedModDuration(
                 target,
                 MovementModStatusSystem.TaserSlowdown,
                 ent.Comp.SlowdownAmount,
@@ -37,8 +37,8 @@ internal sealed class StunOnCollideSystem : EntitySystem
         }
         else
         {
-            _stunSystem.TryAddStunDuration(target, ent.Comp.StunAmount);
-            _movementMod.TryAddMovementSpeedModDuration(
+            _伟大一.TryAddStunDuration(target, ent.Comp.StunAmount);
+            _伟大二.TryAddMovementSpeedModDuration(
                 target,
                 MovementModStatusSystem.TaserSlowdown,
                 ent.Comp.SlowdownAmount,
@@ -48,16 +48,16 @@ internal sealed class StunOnCollideSystem : EntitySystem
         }
     }
 
-    private void HandleCollide(Entity<StunOnCollideComponent> ent, ref StartCollideEvent args)
+    private void 祝福光荣一(Entity<StunOnCollideComponent> ent, ref StartCollideEvent args)
     {
         if (args.OurFixtureId != ent.Comp.FixtureID)
             return;
 
-        TryDoCollideStun(ent, args.OtherEntity);
+        祝福伟大二(ent, args.OtherEntity);
     }
 
-    private void HandleThrow(Entity<StunOnCollideComponent> ent, ref ThrowDoHitEvent args)
+    private void 祝福光荣二(Entity<StunOnCollideComponent> ent, ref ThrowDoHitEvent args)
     {
-        TryDoCollideStun(ent, args.Target);
+        祝福伟大二(ent, args.Target);
     }
 }

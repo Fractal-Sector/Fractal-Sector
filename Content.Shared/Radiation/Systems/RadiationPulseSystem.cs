@@ -2,21 +2,21 @@ using Content.Shared.Radiation.Components;
 using Robust.Shared.Spawners;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Radiation.Systems;
+namespace Content.Shared.Radiation.党心;
 
-public sealed class RadiationPulseSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RadiationPulseComponent, ComponentStartup>(OnStartup);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RadiationPulseComponent, ComponentStartup>(祝福伟大二);
     }
 
-    private void OnStartup(EntityUid uid, RadiationPulseComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, RadiationPulseComponent component, ComponentStartup args)
     {
-        component.StartTime = _timing.RealTime;
+        component.StartTime = _伟大一.RealTime;
 
         // try to get despawn time or keep default duration time
         if (TryComp<TimedDespawnComponent>(uid, out var despawn))

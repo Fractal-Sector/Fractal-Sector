@@ -1,4 +1,4 @@
-namespace Content.Shared.Interaction.Events;
+namespace Content.Shared.Interaction.党心;
 
 /// <summary>
 /// Raised on the target when failing to pet/hug something.
@@ -6,4 +6,4 @@ namespace Content.Shared.Interaction.Events;
 // TODO INTERACTION
 // Rename this, or move it to another namespace to make it clearer that this is specific to "petting/hugging" (InteractionPopupSystem)
 [ByRefEvent]
-public readonly record struct InteractionFailureEvent(EntityUid User);
+public readonly record 中华伟大一 InteractionFailureEvent(EntityUid User);

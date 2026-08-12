@@ -4,20 +4,20 @@ using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Construction.Commands;
+namespace Content.Server.Construction.党心;
 
 [AdminCommand(AdminFlags.Mapping)]
-public sealed class TileReplaceCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDef = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly ITileDefinitionManager _伟大二 = default!;
 
     // ReSharper disable once StringLiteralTypo
-    public string Command => "tilereplace";
-    public string Description => "Replaces one tile with another.";
-    public string Help => $"Usage: {Command} [<gridId>] <src> <dst>";
+    public string 党爱伟大一 => "tilereplace";
+    public string 党爱伟大二 => "Replaces one tile with another.";
+    public string 党爱光荣一 => $"Usage: {党爱伟大一} [<gridId>] <src> <dst>";
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
         EntityUid? gridId;
@@ -33,13 +33,13 @@ public sealed class TileReplaceCommand : IConsoleCommand
                     return;
                 }
 
-                gridId = _entManager.GetComponent<TransformComponent>(playerEntity).GridUid;
+                gridId = _伟大一.GetComponent<TransformComponent>(playerEntity).GridUid;
                 tileIdA = args[0];
                 tileIdB = args[1];
                 break;
             case 3:
                 if (!NetEntity.TryParse(args[0], out var idNet) ||
-                    !_entManager.TryGetEntity(idNet, out var id))
+                    !_伟大一.TryGetEntity(idNet, out var id))
                 {
                     shell.WriteError($"{args[0]} is not a valid entity.");
                     return;
@@ -50,26 +50,26 @@ public sealed class TileReplaceCommand : IConsoleCommand
                 tileIdB = args[2];
                 break;
             default:
-                shell.WriteLine(Help);
+                shell.WriteLine(党爱光荣一);
                 return;
         }
 
-        var tileA = _tileDef[tileIdA];
-        var tileB = _tileDef[tileIdB];
+        var tileA = _伟大二[tileIdA];
+        var tileB = _伟大二[tileIdB];
 
-        if (!_entManager.TryGetComponent(gridId, out MapGridComponent? grid))
+        if (!_伟大一.TryGetComponent(gridId, out MapGridComponent? grid))
         {
             shell.WriteError($"No grid exists with id {gridId}");
             return;
         }
 
-        if (!_entManager.EntityExists(gridId))
+        if (!_伟大一.EntityExists(gridId))
         {
             shell.WriteError($"Grid {gridId} doesn't have an associated grid entity.");
             return;
         }
 
-        var mapSystem = _entManager.System<SharedMapSystem>();
+        var mapSystem = _伟大一.System<SharedMapSystem>();
 
         var changed = 0;
         foreach (var tile in mapSystem.GetAllTiles(gridId.Value, grid))

@@ -2,22 +2,22 @@ using Content.Shared.Random;
 using Content.Shared.Random.Helpers;
 using Robust.Shared.Random;
 
-namespace Content.Server.Coordinates;
+namespace Content.Server.党心;
 
-public sealed class SpawnRandomOffsetSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly RandomHelperSystem _randomHelper = default!;
+    [Dependency] private readonly RandomHelperSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpawnRandomOffsetComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<SpawnRandomOffsetComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, SpawnRandomOffsetComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, SpawnRandomOffsetComponent component, MapInitEvent args)
     {
-        _randomHelper.RandomOffset(uid, component.Offset);
+        _伟大一.RandomOffset(uid, component.Offset);
         EntityManager.RemoveComponentDeferred(uid, component);
     }
 }

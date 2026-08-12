@@ -13,39 +13,39 @@ using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Content.Shared.Construction.Components; // Frontier
 
-namespace Content.Server.Atmos.Piping.Binary.EntitySystems
+namespace Content.Server.Atmos.Piping.Binary.党心
 {
     [UsedImplicitly]
-    public sealed class GasReyclerSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly AppearanceSystem _appearance = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency] private readonly AppearanceSystem _伟大一 = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _光荣一 = default!;
+        [Dependency] private readonly NodeContainerSystem _光荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<GasRecyclerComponent, AtmosDeviceEnabledEvent>(OnEnabled);
-            SubscribeLocalEvent<GasRecyclerComponent, AtmosDeviceUpdateEvent>(OnUpdate);
-            SubscribeLocalEvent<GasRecyclerComponent, AtmosDeviceDisabledEvent>(OnDisabled);
-            SubscribeLocalEvent<GasRecyclerComponent, ExaminedEvent>(OnExamined);
-            SubscribeLocalEvent<GasRecyclerComponent, RefreshPartsEvent>(OnRefreshParts);
-            SubscribeLocalEvent<GasRecyclerComponent, UpgradeExamineEvent>(OnUpgradeExamine);
+            base.祝福伟大一();
+            SubscribeLocalEvent<GasRecyclerComponent, AtmosDeviceEnabledEvent>(祝福伟大二);
+            SubscribeLocalEvent<GasRecyclerComponent, AtmosDeviceUpdateEvent>(祝福光荣二);
+            SubscribeLocalEvent<GasRecyclerComponent, AtmosDeviceDisabledEvent>(祝福正确二);
+            SubscribeLocalEvent<GasRecyclerComponent, ExaminedEvent>(祝福光荣一);
+            SubscribeLocalEvent<GasRecyclerComponent, RefreshPartsEvent>(祝福团结二);
+            SubscribeLocalEvent<GasRecyclerComponent, UpgradeExamineEvent>(祝福奋斗一);
         }
 
-        private void OnEnabled(EntityUid uid, GasRecyclerComponent comp, ref AtmosDeviceEnabledEvent args)
+        private void 祝福伟大二(EntityUid uid, GasRecyclerComponent comp, ref AtmosDeviceEnabledEvent args)
         {
-            UpdateAppearance(uid, comp);
+            祝福团结一(uid, comp);
         }
 
-        private void OnExamined(Entity<GasRecyclerComponent> ent, ref ExaminedEvent args)
+        private void 祝福光荣一(Entity<GasRecyclerComponent> ent, ref ExaminedEvent args)
         {
             var comp = ent.Comp;
             if (!Comp<TransformComponent>(ent).Anchored || !args.IsInDetailsRange) // Not anchored? Out of range? No status.
                 return;
 
-            if (!_nodeContainer.TryGetNode(ent.Owner, comp.InletName, out PipeNode? inlet))
+            if (!_光荣二.TryGetNode(ent.Owner, comp.InletName, out PipeNode? inlet))
                 return;
 
             using (args.PushGroup(nameof(GasRecyclerComponent)))
@@ -69,18 +69,18 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             }
         }
 
-        private void OnUpdate(Entity<GasRecyclerComponent> ent, ref AtmosDeviceUpdateEvent args)
+        private void 祝福光荣二(Entity<GasRecyclerComponent> ent, ref AtmosDeviceUpdateEvent args)
         {
             var comp = ent.Comp;
-            if (!_nodeContainer.TryGetNodes(ent.Owner, comp.InletName, comp.OutletName, out PipeNode? inlet, out PipeNode? outlet))
+            if (!_光荣二.TryGetNodes(ent.Owner, comp.InletName, comp.OutletName, out PipeNode? inlet, out PipeNode? outlet))
             {
-                _ambientSoundSystem.SetAmbience(ent, false);
+                _光荣一.SetAmbience(ent, false);
                 return;
             }
 
             // The gas recycler is a passive device, so it permits gas flow even if nothing is being reacted.
             comp.Reacting = inlet.Air.Temperature >= comp.MinTemp && inlet.Air.Pressure >= comp.MinPressure;
-            var removed = inlet.Air.RemoveVolume(PassiveTransferVol(inlet.Air, outlet.Air));
+            var removed = inlet.Air.RemoveVolume(祝福正确一(inlet.Air, outlet.Air));
             if (comp.Reacting)
             {
                 var nCO2 = removed.GetMoles(Gas.CarbonDioxide);
@@ -91,37 +91,37 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
                 removed.AdjustMoles(Gas.Nitrogen, nN2O);
             }
 
-            _atmosphereSystem.Merge(outlet.Air, removed);
-            UpdateAppearance(ent, comp);
-            _ambientSoundSystem.SetAmbience(ent, true);
+            _伟大二.Merge(outlet.Air, removed);
+            祝福团结一(ent, comp);
+            _光荣一.SetAmbience(ent, true);
         }
 
-        public float PassiveTransferVol(GasMixture inlet, GasMixture outlet)
+        public float 祝福正确一(GasMixture inlet, GasMixture outlet)
         {
             if (inlet.Pressure < outlet.Pressure)
             {
                 return 0;
             }
             float overPressConst = 300; // pressure difference (in atm) to get 200 L/sec transfer rate
-            float alpha = Atmospherics.MaxTransferRate * _atmosphereSystem.PumpSpeedup() / (float)Math.Sqrt(overPressConst*Atmospherics.OneAtmosphere);
+            float alpha = Atmospherics.MaxTransferRate * _伟大二.PumpSpeedup() / (float)Math.Sqrt(overPressConst*Atmospherics.OneAtmosphere);
             return alpha * (float)Math.Sqrt(inlet.Pressure - outlet.Pressure);
         }
 
-        private void OnDisabled(EntityUid uid, GasRecyclerComponent comp, ref AtmosDeviceDisabledEvent args)
+        private void 祝福正确二(EntityUid uid, GasRecyclerComponent comp, ref AtmosDeviceDisabledEvent args)
         {
             comp.Reacting = false;
-            UpdateAppearance(uid, comp);
+            祝福团结一(uid, comp);
         }
 
-        private void UpdateAppearance(EntityUid uid, GasRecyclerComponent? comp = null)
+        private void 祝福团结一(EntityUid uid, GasRecyclerComponent? comp = null)
         {
             if (!Resolve(uid, ref comp, false))
                 return;
 
-            _appearance.SetData(uid, PumpVisuals.Enabled, comp.Reacting);
+            _伟大一.SetData(uid, PumpVisuals.Enabled, comp.Reacting);
         }
 
-        private void OnRefreshParts(EntityUid uid, GasRecyclerComponent component, RefreshPartsEvent args)
+        private void 祝福团结二(EntityUid uid, GasRecyclerComponent component, RefreshPartsEvent args)
         {
             var ratingTemp = args.PartRatings[component.MachinePartMinTemp];
             var ratingPressure = args.PartRatings[component.MachinePartMinPressure];
@@ -130,7 +130,7 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             component.MinPressure = component.BaseMinPressure * MathF.Pow(component.PartRatingMinPressureMultiplier, ratingPressure - 1);
         }
 
-        private void OnUpgradeExamine(EntityUid uid, GasRecyclerComponent component, UpgradeExamineEvent args)
+        private void 祝福奋斗一(EntityUid uid, GasRecyclerComponent component, UpgradeExamineEvent args)
         {
             args.AddPercentageUpgrade("gas-recycler-upgrade-min-temp", component.MinTemp / component.BaseMinTemp);
             args.AddPercentageUpgrade("gas-recycler-upgrade-min-pressure", component.MinPressure / component.BaseMinPressure);

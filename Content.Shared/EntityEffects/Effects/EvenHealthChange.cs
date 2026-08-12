@@ -6,12 +6,12 @@ using Content.Shared.Localizations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.EntityEffects.Effects;
+namespace Content.Shared.EntityEffects.党心;
 
 /// <summary>
 /// Version of <see cref="HealthChange"/> that distributes the healing to groups
 /// </summary>
-public sealed partial class EvenHealthChange : EntityEffect
+public sealed partial class 中华伟大一 : EntityEffect
 {
     /// <summary>
     /// Damage to heal, collected into entire damage groups.
@@ -25,15 +25,15 @@ public sealed partial class EvenHealthChange : EntityEffect
     /// Only usable if the EntityEffectBaseArgs is an EntityEffectReagentArgs.
     /// </summary>
     [DataField]
-    public bool ScaleByQuantity;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// Should this effect ignore damage modifiers?
     /// </summary>
     [DataField]
-    public bool IgnoreResistances = true;
+    public bool 党爱伟大二 = true;
 
-    protected override string ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
+    protected override string 祝福伟大一(IPrototypeManager prototype, IEntitySystemManager entSys)
     {
         var damages = new List<string>();
         var heals = false;
@@ -76,7 +76,7 @@ public sealed partial class EvenHealthChange : EntityEffect
             ("healsordeals", healsordeals));
     }
 
-    public override void Effect(EntityEffectBaseArgs args)
+    public override void 祝福伟大二(EntityEffectBaseArgs args)
     {
         if (!args.EntityManager.TryGetComponent<DamageableComponent>(args.TargetEntity, out var damageable))
             return;
@@ -87,7 +87,7 @@ public sealed partial class EvenHealthChange : EntityEffect
 
         if (args is EntityEffectReagentArgs reagentArgs)
         {
-            scale = ScaleByQuantity ? reagentArgs.Quantity * reagentArgs.Scale : reagentArgs.Scale;
+            scale = 党爱伟大一 ? reagentArgs.Quantity * reagentArgs.Scale : reagentArgs.Scale;
         }
 
         var damagableSystem = args.EntityManager.System<DamageableSystem>();
@@ -133,7 +133,7 @@ public sealed partial class EvenHealthChange : EntityEffect
         damagableSystem.TryChangeDamage(
             args.TargetEntity,
             dspec * scale,
-            IgnoreResistances,
+            党爱伟大二,
             interruptsDoAfters: false);
     }
 }

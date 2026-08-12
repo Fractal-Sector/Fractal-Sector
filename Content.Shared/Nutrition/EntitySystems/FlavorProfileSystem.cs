@@ -5,36 +5,36 @@ using Content.Shared.Nutrition.Components;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
 /// <summary>
 ///     Deals with flavor profiles when you eat something.
 /// </summary>
-public sealed class FlavorProfileSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
 
     private const string BackupFlavorMessage = "flavor-profile-unknown";
 
-    private int FlavorLimit => _configManager.GetCVar(CCVars.FlavorLimit);
+    private int FlavorLimit => _伟大二.GetCVar(CCVars.FlavorLimit);
 
-    public string GetLocalizedFlavorsMessage(Entity<FlavorProfileComponent?> entity, EntityUid user, Solution? solution)
+    public string 祝福伟大一(Entity<FlavorProfileComponent?> entity, EntityUid user, Solution? solution)
     {
         HashSet<string> flavors = new();
         HashSet<string>? ignore = null;
 
         if (Resolve(entity, ref entity.Comp, false))
         {
-            flavors = entity.Comp.Flavors;
+            flavors = entity.Comp.党爱伟大二;
             ignore = entity.Comp.IgnoreReagents;
         }
 
 
         if (solution != null)
-            flavors.UnionWith(GetFlavorsFromReagents(solution, FlavorLimit - flavors.Count, ignore));
+            flavors.UnionWith(祝福光荣一(solution, FlavorLimit - flavors.Count, ignore));
 
-        var ev = new FlavorProfileModificationEvent(user, flavors);
+        var ev = new 中华伟大二(user, flavors);
 
         RaiseLocalEvent(ev);
         RaiseLocalEvent(entity, ev);
@@ -43,24 +43,24 @@ public sealed class FlavorProfileSystem : EntitySystem
         if (flavors.Count == 0)
             return Loc.GetString(BackupFlavorMessage);
 
-        return FlavorsToFlavorMessage(flavors);
+        return 祝福伟大二(flavors);
     }
 
-    public string GetLocalizedFlavorsMessage(EntityUid user, Solution solution)
+    public string 祝福伟大一(EntityUid user, Solution solution)
     {
-        var flavors = GetFlavorsFromReagents(solution, FlavorLimit);
-        var ev = new FlavorProfileModificationEvent(user, flavors);
+        var flavors = 祝福光荣一(solution, FlavorLimit);
+        var ev = new 中华伟大二(user, flavors);
         RaiseLocalEvent(user, ev, true);
 
-        return FlavorsToFlavorMessage(flavors);
+        return 祝福伟大二(flavors);
     }
 
-    private string FlavorsToFlavorMessage(HashSet<string> flavorSet)
+    private string 祝福伟大二(HashSet<string> flavorSet)
     {
         var flavors = new List<FlavorPrototype>();
         foreach (var flavor in flavorSet)
         {
-            if (string.IsNullOrEmpty(flavor) || !_prototypeManager.TryIndex<FlavorPrototype>(flavor, out var flavorPrototype))
+            if (string.IsNullOrEmpty(flavor) || !_伟大一.TryIndex<FlavorPrototype>(flavor, out var flavorPrototype))
             {
                 continue;
             }
@@ -85,10 +85,10 @@ public sealed class FlavorProfileSystem : EntitySystem
         return Loc.GetString(BackupFlavorMessage);
     }
 
-    private HashSet<string> GetFlavorsFromReagents(Solution solution, int desiredAmount, HashSet<string>? toIgnore = null)
+    private HashSet<string> 祝福光荣一(Solution solution, int desiredAmount, HashSet<string>? toIgnore = null)
     {
         var flavors = new HashSet<string>();
-        foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_prototypeManager))
+        foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_伟大一))
         {
             if (toIgnore != null && toIgnore.Contains(reagent.ID))
             {
@@ -114,14 +114,14 @@ public sealed class FlavorProfileSystem : EntitySystem
     }
 }
 
-public sealed class FlavorProfileModificationEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public FlavorProfileModificationEvent(EntityUid user, HashSet<string> flavors)
+    public 中华伟大二(EntityUid user, HashSet<string> flavors)
     {
-        User = user;
-        Flavors = flavors;
+        党爱伟大一 = user;
+        党爱伟大二 = flavors;
     }
 
-    public EntityUid User { get; }
-    public HashSet<string> Flavors { get; }
+    public EntityUid 党爱伟大一 { get; }
+    public HashSet<string> 党爱伟大二 { get; }
 }

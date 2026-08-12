@@ -9,39 +9,39 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Content.Server.Power.EntitySystems;
 
-namespace Content.Server.PowerSink
+namespace Content.Server.党心
 {
-    public sealed class PowerSinkSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
         /// <summary>
         /// Percentage of battery full to trigger the announcement warning at.
         /// </summary>
         private const float WarningMessageThreshold = 0.70f;
 
-        private readonly float[] _warningSoundThresholds = new[] { .80f, .90f, .95f, .98f };
+        private readonly float[] _伟大一 = new[] { .80f, .90f, .95f, .98f };
 
         /// <summary>
         /// Length of time to delay explosion from battery full state -- this is used to play
         /// a brief SFX winding up the explosion.
         /// </summary>
         /// <returns></returns>
-        private readonly TimeSpan _explosionDelayTime = TimeSpan.FromSeconds(1.465);
+        private readonly TimeSpan _伟大二 = TimeSpan.FromSeconds(1.465);
 
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ChatSystem _chat = default!;
-        [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly BatterySystem _battery = default!;
+        [Dependency] private readonly IGameTiming _光荣一 = default!;
+        [Dependency] private readonly ChatSystem _光荣二 = default!;
+        [Dependency] private readonly ExplosionSystem _正确一 = default!;
+        [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+        [Dependency] private readonly StationSystem _团结一 = default!;
+        [Dependency] private readonly BatterySystem _团结二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<PowerSinkComponent, ExaminedEvent>(OnExamine);
+            SubscribeLocalEvent<PowerSinkComponent, ExaminedEvent>(祝福伟大二);
         }
 
-        private void OnExamine(EntityUid uid, PowerSinkComponent component, ExaminedEvent args)
+        private void 祝福伟大二(EntityUid uid, PowerSinkComponent component, ExaminedEvent args)
         {
             if (!args.IsInDetailsRange || !TryComp<PowerConsumerComponent>(uid, out var consumer))
                 return;
@@ -55,7 +55,7 @@ namespace Content.Server.PowerSink
             );
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福光荣一(float frameTime)
         {
             var toRemove = new RemQueue<(EntityUid Entity, PowerSinkComponent Sink)>();
             var query = EntityQueryEnumerator<PowerSinkComponent, PowerConsumerComponent, BatteryComponent, TransformComponent>();
@@ -66,7 +66,7 @@ namespace Content.Server.PowerSink
                 if (!transform.Anchored)
                     continue;
 
-                _battery.SetCharge(entity, battery.CurrentCharge + networkLoad.NetworkLoad.ReceivingPower / 1000, battery);
+                _团结二.SetCharge(entity, battery.CurrentCharge + networkLoad.NetworkLoad.ReceivingPower / 1000, battery);
 
                 var currentBatteryThreshold = battery.CurrentCharge / battery.MaxCharge;
 
@@ -74,17 +74,17 @@ namespace Content.Server.PowerSink
                 if (!component.SentImminentExplosionWarningMessage &&
                     currentBatteryThreshold >= WarningMessageThreshold)
                 {
-                    NotifyStationOfImminentExplosion(entity, component);
+                    祝福光荣二(entity, component);
                 }
 
                 // Check for warning sound threshold
-                foreach (var testThreshold in _warningSoundThresholds)
+                foreach (var testThreshold in _伟大一)
                 {
                     if (currentBatteryThreshold >= testThreshold &&
                         testThreshold > component.HighestWarningSoundThreshold)
                     {
                         component.HighestWarningSoundThreshold = currentBatteryThreshold; // Don't re-play in future until next threshold hit
-                        _audio.PlayPvs(component.ElectricSound, entity); // Play SFX
+                        _正确二.PlayPvs(component.ElectricSound, entity); // Play SFX
                         break;
                     }
                 }
@@ -96,12 +96,12 @@ namespace Content.Server.PowerSink
                 if (component.ExplosionTime == null)
                 {
                     // Set explosion sequence to start soon
-                    component.ExplosionTime = _gameTiming.CurTime.Add(_explosionDelayTime);
+                    component.ExplosionTime = _光荣一.CurTime.Add(_伟大二);
 
                     // Wind-up SFX
-                    _audio.PlayPvs(component.ChargeFireSound, entity); // Play SFX
+                    _正确二.PlayPvs(component.ChargeFireSound, entity); // Play SFX
                 }
-                else if (_gameTiming.CurTime >= component.ExplosionTime)
+                else if (_光荣一.CurTime >= component.ExplosionTime)
                 {
                     // Explode!
                     toRemove.Add((entity, component));
@@ -110,23 +110,23 @@ namespace Content.Server.PowerSink
 
             foreach (var (entity, component) in toRemove)
             {
-                _explosionSystem.QueueExplosion(entity, "PowerSink", 2000f, 4f, 20f, canCreateVacuum: true);
+                _正确一.QueueExplosion(entity, "PowerSink", 2000f, 4f, 20f, canCreateVacuum: true);
                 RemComp(entity, component);
             }
         }
 
-        private void NotifyStationOfImminentExplosion(EntityUid uid, PowerSinkComponent powerSinkComponent)
+        private void 祝福光荣二(EntityUid uid, PowerSinkComponent powerSinkComponent)
         {
             if (powerSinkComponent.SentImminentExplosionWarningMessage)
                 return;
 
             powerSinkComponent.SentImminentExplosionWarningMessage = true;
-            var station = _station.GetOwningStation(uid);
+            var station = _团结一.GetOwningStation(uid);
 
             if (station == null)
                 return;
 
-            _chat.DispatchStationAnnouncement(
+            _光荣二.DispatchStationAnnouncement(
                 station.Value,
                 Loc.GetString("powersink-imminent-explosion-announcement"),
                 playDefaultSound: true,

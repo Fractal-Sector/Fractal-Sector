@@ -6,18 +6,18 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Toolshed.Commands.Generic;
 
-namespace Content.Server.Commands
+namespace Content.Server.党心
 {
     /// <summary>
     /// Utilities for writing commands
     /// </summary>
-    public static class CommandUtils
+    public static class 中华伟大一
     {
         /// <summary>
         /// Gets the player session for the player with the indicated id,
         /// sending a failure to the performer if unable to.
         /// </summary>
-        public static bool TryGetSessionByUsernameOrId(IConsoleShell shell,
+        public static bool 祝福伟大一(IConsoleShell shell,
             string usernameOrId, ICommonSession performer, [NotNullWhen(true)] out ICommonSession? session)
         {
             var plyMgr = IoCManager.Resolve<IPlayerManager>();
@@ -37,11 +37,11 @@ namespace Content.Server.Commands
         /// Gets the attached entity for the player session with the indicated id,
         /// sending a failure to the performer if unable to.
         /// </summary>
-        public static bool TryGetAttachedEntityByUsernameOrId(IConsoleShell shell,
+        public static bool 祝福伟大二(IConsoleShell shell,
             string usernameOrId, ICommonSession performer, out EntityUid attachedEntity)
         {
             attachedEntity = default;
-            if (!TryGetSessionByUsernameOrId(shell, usernameOrId, performer, out var session)) return false;
+            if (!祝福伟大一(shell, usernameOrId, performer, out var session)) return false;
             if (session.AttachedEntity == null)
             {
                 shell.WriteLine("User has no attached entity.");

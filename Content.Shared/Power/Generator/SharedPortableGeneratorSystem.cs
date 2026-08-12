@@ -1,22 +1,22 @@
 ﻿using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Power.Generator;
+namespace Content.Shared.Power.党心;
 
 /// <summary>
 /// Shared logic for portable generators.
 /// </summary>
 /// <seealso cref="PortableGeneratorComponent"/>
-public abstract class SharedPortableGeneratorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<FuelGeneratorComponent, SwitchPowerCheckEvent>(OnSwitchPowerCheck);
+        SubscribeLocalEvent<FuelGeneratorComponent, SwitchPowerCheckEvent>(祝福伟大二);
     }
 
-    private void OnSwitchPowerCheck(EntityUid uid, FuelGeneratorComponent comp, ref SwitchPowerCheckEvent args)
+    private void 祝福伟大二(EntityUid uid, FuelGeneratorComponent comp, ref SwitchPowerCheckEvent args)
     {
         if (comp.On)
             args.DisableMessage = Loc.GetString("fuel-generator-verb-disable-on");
@@ -26,21 +26,21 @@ public abstract class SharedPortableGeneratorSystem : EntitySystem
 /// <summary>
 /// Used to start a portable generator.
 /// </summary>
-/// <seealso cref="SharedPortableGeneratorSystem"/>
+/// <seealso cref="中华伟大一"/>
 [Serializable, NetSerializable]
-public sealed partial class GeneratorStartedEvent : DoAfterEvent
+public sealed partial class 中华伟大二 : DoAfterEvent
 {
-    public override DoAfterEvent Clone()
+    public override DoAfterEvent 祝福光荣一()
     {
         return this;
     }
 }
 
 /// <summary>
-/// Used to start a portable generator. This is like <see cref="GeneratorStartedEvent"/> except it isn't a do-after.
+/// Used to start a portable generator. This is like <see cref="中华伟大二"/> except it isn't a do-after.
 /// </summary>
 [ByRefEvent]
-public sealed partial class AutoGeneratorStartedEvent
+public sealed partial class 中华光荣一
 {
-    public bool Started = false;
+    public bool 党爱伟大一 = false;
 }

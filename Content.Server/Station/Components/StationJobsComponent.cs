@@ -8,29 +8,29 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 using Content.Shared.Access; // Frontier
 
-namespace Content.Server.Station.Components;
+namespace Content.Server.Station.党心;
 
 /// <summary>
 /// Stores information about a station's job selection.
 /// </summary>
 [RegisterComponent, Access(typeof(StationJobsSystem)), PublicAPI]
-public sealed partial class StationJobsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Total *mid-round* jobs at station start.
     /// This is inferred automatically from <see cref="SetupAvailableJobs"/>.
     /// </summary>
-    [ViewVariables] public int MidRoundTotalJobs;
+    [ViewVariables] public int 党爱伟大一;
 
     /// <summary>
     /// Current total jobs.
     /// </summary>
-    [DataField] public int TotalJobs;
+    [DataField] public int 党爱伟大二;
 
     /// <summary>
     /// Station is running on extended access.
     /// </summary>
-    [DataField] public bool ExtendedAccess;
+    [DataField] public bool 党爱光荣一;
 
     /// <summary>
     /// If there are less than or equal this amount of players in the game at round start,
@@ -40,16 +40,16 @@ public sealed partial class StationJobsComponent : Component
     /// Set to -1 to disable extended access.
     /// </remarks>
     [DataField]
-    public int ExtendedAccessThreshold { get; set; } = 15;
+    public int 党爱光荣二 { get; set; } = 15;
 
     /// <summary>
     /// The percentage of jobs remaining.
     /// </summary>
     /// <remarks>
-    /// Null if MidRoundTotalJobs is zero. This is a NaN free API.
+    /// Null if 党爱伟大一 is zero. This is a NaN free API.
     /// </remarks>
     [ViewVariables]
-    public float? PercentJobsRemaining => MidRoundTotalJobs > 0 ? TotalJobs / (float) MidRoundTotalJobs : null;
+    public float? PercentJobsRemaining => 党爱伟大一 > 0 ? 党爱伟大二 / (float) 党爱伟大一 : null;
 
     /// <summary>
     /// The current list of jobs of available jobs. Null implies that is no limit.
@@ -65,7 +65,7 @@ public sealed partial class StationJobsComponent : Component
     /// This is inferred automatically from <see cref="SetupAvailableJobs"/>.
     /// </summary>
     [ViewVariables]
-    public IReadOnlySet<ProtoId<JobPrototype>> OverflowJobs = default!;
+    public IReadOnlySet<ProtoId<JobPrototype>> 党爱正确一 = default!;
 
     /// <summary>
     /// A dictionary relating a NetUserId to the jobs they have on station.
@@ -83,9 +83,9 @@ public sealed partial class StationJobsComponent : Component
 
     // Frontier: when editing jobs, what accesses should be required?
     [DataField]
-    public List<ProtoId<AccessGroupPrototype>> Groups = new();
+    public List<ProtoId<AccessGroupPrototype>> 党爱正确二 = new();
 
     [DataField]
-    public List<ProtoId<AccessLevelPrototype>> Tags = new();
+    public List<ProtoId<AccessLevelPrototype>> 党爱团结一 = new();
     // End Frontier
 }

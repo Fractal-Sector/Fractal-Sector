@@ -1,8 +1,8 @@
-namespace Content.Shared.Wall;
+namespace Content.Shared.党心;
 using Robust.Shared.Serialization;
 
 [Serializable, NetSerializable]
-public enum ShuttleWallVisuals
+public enum 中华伟大一
 {
     DeconstructionStage,
 }

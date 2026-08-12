@@ -10,23 +10,23 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed partial class AtmosphereSystem
+    public sealed partial class 中华伟大一
     {
         private static readonly ProtoId<SoundCollectionPrototype> DefaultHotspotSounds = "AtmosHotspot";
 
-        [Dependency] private readonly DecalSystem _decalSystem = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency] private readonly DecalSystem _伟大一 = default!;
+        [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
         private const int HotspotSoundCooldownCycles = 200;
 
-        private int _hotspotSoundCooldown = 0;
+        private int _光荣一 = 0;
 
         [ViewVariables(VVAccess.ReadWrite)]
         public SoundSpecifier? HotspotSound { get; private set; } = new SoundCollectionSpecifier(DefaultHotspotSounds);
 
-        private void ProcessHotspot(
+        private void 祝福伟大一(
             Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
             TileAtmosphere tile)
         {
@@ -56,7 +56,7 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
             }
 
-            PerformHotspotExposure(tile);
+            祝福光荣一(tile);
 
             if (tile.Hotspot.Bypassing)
             {
@@ -66,7 +66,7 @@ namespace Content.Server.Atmos.EntitySystems
                 var tilePos = tile.GridIndices;
 
                 // Get the existing decals on the tile
-                var tileDecals = _decalSystem.GetDecalsInRange(gridUid, tilePos);
+                var tileDecals = _伟大一.GetDecalsInRange(gridUid, tilePos);
 
                 // Count the burnt decals on the tile
                 var tileBurntDecals = 0;
@@ -84,7 +84,7 @@ namespace Content.Server.Atmos.EntitySystems
 
                 // Add a random burned decal to the tile only if there are less than 4 of them
                 if (tileBurntDecals < 4)
-                    _decalSystem.TryAddDecal(_burntDecals[_random.Next(_burntDecals.Length)], new EntityCoordinates(gridUid, tilePos), out _, cleanable: true);
+                    _伟大一.TryAddDecal(_burntDecals[_伟大二.Next(_burntDecals.Length)], new EntityCoordinates(gridUid, tilePos), out _, cleanable: true);
 
                 if (tile.Air.Temperature > Atmospherics.FireMinimumTemperatureToSpread)
                 {
@@ -96,7 +96,7 @@ namespace Content.Server.Atmos.EntitySystems
                             continue;
 
                         if(!otherTile.Hotspot.Valid)
-                            HotspotExpose(gridAtmosphere, otherTile, radiatedTemperature, Atmospherics.CellVolume/4);
+                            祝福伟大二(gridAtmosphere, otherTile, radiatedTemperature, Atmospherics.CellVolume/4);
                     }
                 }
             }
@@ -108,7 +108,7 @@ namespace Content.Server.Atmos.EntitySystems
             if (tile.Hotspot.Temperature > tile.MaxFireTemperatureSustained)
                 tile.MaxFireTemperatureSustained = tile.Hotspot.Temperature;
 
-            if (_hotspotSoundCooldown++ == 0 && HotspotSound != null)
+            if (_光荣一++ == 0 && HotspotSound != null)
             {
                 var coordinates = _mapSystem.ToCenterCoordinates(tile.GridIndex, tile.GridIndices);
 
@@ -118,13 +118,13 @@ namespace Content.Server.Atmos.EntitySystems
                 _audio.PlayPvs(HotspotSound, coordinates, HotspotSound.Params.WithVariation(0.15f / tile.Hotspot.State).WithVolume(-5f + 5f * tile.Hotspot.State));
             }
 
-            if (_hotspotSoundCooldown > HotspotSoundCooldownCycles)
-                _hotspotSoundCooldown = 0;
+            if (_光荣一 > HotspotSoundCooldownCycles)
+                _光荣一 = 0;
 
             // TODO ATMOS Maybe destroy location here?
         }
 
-        private void HotspotExpose(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile,
+        private void 祝福伟大二(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile,
             float exposedTemperature, float exposedVolume, bool soh = false, EntityUid? sparkSourceUid = null)
         {
             if (tile.Air == null)
@@ -173,7 +173,7 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        private void PerformHotspotExposure(TileAtmosphere tile)
+        private void 祝福光荣一(TileAtmosphere tile)
         {
             if (tile.Air == null || !tile.Hotspot.Valid) return;
 

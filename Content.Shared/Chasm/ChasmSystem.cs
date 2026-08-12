@@ -8,71 +8,71 @@ using Robust.Shared.Network;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Chasm;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Handles making entities fall into chasms when stepped on.
 /// </summary>
-public sealed class ChasmSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ChasmComponent, StepTriggeredOffEvent>(OnStepTriggered);
-        SubscribeLocalEvent<ChasmComponent, StepTriggerAttemptEvent>(OnStepTriggerAttempt);
-        SubscribeLocalEvent<ChasmFallingComponent, UpdateCanMoveEvent>(OnUpdateCanMove);
+        SubscribeLocalEvent<ChasmComponent, StepTriggeredOffEvent>(祝福光荣一);
+        SubscribeLocalEvent<ChasmComponent, StepTriggerAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<ChasmFallingComponent, UpdateCanMoveEvent>(祝福正确二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         // don't predict queuedels on client
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return;
 
         var query = EntityQueryEnumerator<ChasmFallingComponent>();
         while (query.MoveNext(out var uid, out var chasm))
         {
-            if (_timing.CurTime < chasm.NextDeletionTime)
+            if (_伟大一.CurTime < chasm.NextDeletionTime)
                 continue;
 
             QueueDel(uid);
         }
     }
 
-    private void OnStepTriggered(EntityUid uid, ChasmComponent component, ref StepTriggeredOffEvent args)
+    private void 祝福光荣一(EntityUid uid, ChasmComponent component, ref StepTriggeredOffEvent args)
     {
         // already doomed
         if (HasComp<ChasmFallingComponent>(args.Tripper))
             return;
 
-        StartFalling(uid, component, args.Tripper);
+        祝福光荣二(uid, component, args.Tripper);
     }
 
-    public void StartFalling(EntityUid chasm, ChasmComponent component, EntityUid tripper, bool playSound = true)
+    public void 祝福光荣二(EntityUid chasm, ChasmComponent component, EntityUid tripper, bool playSound = true)
     {
         var falling = AddComp<ChasmFallingComponent>(tripper);
 
-        falling.NextDeletionTime = _timing.CurTime + falling.DeletionTime;
-        _blocker.UpdateCanMove(tripper);
+        falling.NextDeletionTime = _伟大一.CurTime + falling.DeletionTime;
+        _伟大二.UpdateCanMove(tripper);
 
         if (playSound)
-            _audio.PlayPredicted(component.FallingSound, chasm, tripper);
+            _光荣二.PlayPredicted(component.FallingSound, chasm, tripper);
     }
 
-    private void OnStepTriggerAttempt(EntityUid uid, ChasmComponent component, ref StepTriggerAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, ChasmComponent component, ref StepTriggerAttemptEvent args)
     {
         args.Continue = true;
     }
 
-    private void OnUpdateCanMove(EntityUid uid, ChasmFallingComponent component, UpdateCanMoveEvent args)
+    private void 祝福正确二(EntityUid uid, ChasmFallingComponent component, UpdateCanMoveEvent args)
     {
         args.Cancel();
     }

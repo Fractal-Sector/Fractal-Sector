@@ -4,93 +4,93 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Cargo.Components;
+namespace Content.Shared.Cargo.党心;
 
 [RegisterComponent, AutoGenerateComponentPause]
-public sealed partial class CargoBountyConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The id of the label entity spawned by the print label button.
     /// </summary>
     [DataField("bountyLabelId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string BountyLabelId = "PaperCargoBountyManifest";
+    public string 党爱伟大一 = "PaperCargoBountyManifest";
 
     /// <summary>
     /// The time at which the console will be able to print a label again.
     /// </summary>
     [DataField("nextPrintTime", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan NextPrintTime = TimeSpan.Zero;
+    public TimeSpan 党爱伟大二 = TimeSpan.Zero;
 
     /// <summary>
     /// The time between prints.
     /// </summary>
     [DataField("printDelay")]
-    public TimeSpan PrintDelay = TimeSpan.FromSeconds(5);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(5);
 
     /// <summary>
     /// The sound made when printing occurs
     /// </summary>
     [DataField("printSound")]
-    public SoundSpecifier PrintSound = new SoundPathSpecifier("/Audio/Machines/printer.ogg");
+    public SoundSpecifier 党爱光荣二 = new SoundPathSpecifier("/Audio/Machines/printer.ogg");
 
     /// <summary>
     /// The sound made when the bounty is skipped.
     /// </summary>
     [DataField("skipSound")]
-    public SoundSpecifier SkipSound = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
+    public SoundSpecifier 党爱正确一 = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 
     /// <summary>
     /// The sound made when bounty skipping is denied due to lacking access.
     /// </summary>
     [DataField("denySound")]
-    public SoundSpecifier DenySound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_two.ogg");
+    public SoundSpecifier 党爱正确二 = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_two.ogg");
 
     /// <summary>
     /// The time at which the console will be able to make the denial sound again.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan NextDenySoundTime = TimeSpan.Zero;
+    public TimeSpan 党爱团结一 = TimeSpan.Zero;
 
     /// <summary>
     /// The time between playing a denial sound.
     /// </summary>
     [DataField]
-    public TimeSpan DenySoundDelay = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱团结二 = TimeSpan.FromSeconds(2);
 }
 
 [NetSerializable, Serializable]
-public sealed class CargoBountyConsoleState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public List<CargoBountyData> Bounties;
-    public List<CargoBountyHistoryData> History;
-    public TimeSpan UntilNextSkip;
+    public List<CargoBountyData> 党爱奋斗一;
+    public List<CargoBountyHistoryData> 党爱奋斗二;
+    public TimeSpan 党爱胜利一;
 
-    public CargoBountyConsoleState(List<CargoBountyData> bounties, List<CargoBountyHistoryData> history, TimeSpan untilNextSkip)
+    public 中华伟大二(List<CargoBountyData> bounties, List<CargoBountyHistoryData> history, TimeSpan untilNextSkip)
     {
-        Bounties = bounties;
-        History = history;
-        UntilNextSkip = untilNextSkip;
+        党爱奋斗一 = bounties;
+        党爱奋斗二 = history;
+        党爱胜利一 = untilNextSkip;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class BountyPrintLabelMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public string BountyId;
+    public string 党爱胜利二;
 
-    public BountyPrintLabelMessage(string bountyId)
+    public 中华光荣一(string bountyId)
     {
-        BountyId = bountyId;
+        党爱胜利二 = bountyId;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class BountySkipMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public string BountyId;
+    public string 党爱胜利二;
 
-    public BountySkipMessage(string bountyId)
+    public 中华光荣二(string bountyId)
     {
-        BountyId = bountyId;
+        党爱胜利二 = bountyId;
     }
 }

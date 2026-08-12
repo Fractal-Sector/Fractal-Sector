@@ -1,17 +1,17 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Humanoid.Prototypes;
+namespace Content.Shared.Humanoid.党心;
 
 /// <summary>
 ///     Base sprites for a species (e.g., what replaces the empty tagged layer,
 ///     or settings per layer)
 /// </summary>
 [Prototype("speciesBaseSprites")]
-public sealed partial class HumanoidSpeciesBaseSpritesPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
      [IdDataField]
-     public string ID { get; private set; } = default!;
+     public string 党爱伟大一 { get; private set; } = default!;
 
      /// <summary>
      ///     Sprites that this species will use on the given humanoid
@@ -29,10 +29,10 @@ public sealed partial class HumanoidSpeciesBaseSpritesPrototype : IPrototype
 ///     that sprite (or at least, the layer this sprite is on).
 /// </summary>
 [Prototype("humanoidBaseSprite")]
-public sealed partial class HumanoidSpeciesSpriteLayer : IPrototype
+public sealed partial class 中华伟大二 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
     /// <summary>
     ///     The base sprite for this sprite layer. This is what
     ///     will replace the empty layer tagged by the enum
@@ -50,20 +50,20 @@ public sealed partial class HumanoidSpeciesSpriteLayer : IPrototype
     ///     of alpha.
     /// </summary>
     [DataField("layerAlpha")]
-    public float LayerAlpha { get; private set; } = 1.0f;
+    public float 党爱伟大二 { get; private set; } = 1.0f;
 
     /// <summary>
     ///     If this sprite layer should allow markings or not.
     /// </summary>
     [DataField("allowsMarkings")]
-    public bool AllowsMarkings { get; private set; } = true;
+    public bool 党爱光荣一 { get; private set; } = true;
 
     /// <summary>
     ///     If this layer should always match the
     ///     skin tone in a character profile.
     /// </summary>
     [DataField("matchSkin")]
-    public bool MatchSkin { get; private set; } = true;
+    public bool 党爱光荣二 { get; private set; } = true;
 
     /// <summary>
     ///     If any markings that go on this layer should
@@ -71,11 +71,11 @@ public sealed partial class HumanoidSpeciesSpriteLayer : IPrototype
     ///     alpha.
     /// </summary>
     [DataField("markingsMatchSkin")]
-    public bool MarkingsMatchSkin { get; private set; }
+    public bool 党爱正确一 { get; private set; }
 
     /// <summary>
     ///     Frontier: If this layer should always use the same color
     /// </summary>
     [DataField]
-    public bool ForcedColoring { get; private set; }
+    public bool 党爱正确二 { get; private set; }
 }

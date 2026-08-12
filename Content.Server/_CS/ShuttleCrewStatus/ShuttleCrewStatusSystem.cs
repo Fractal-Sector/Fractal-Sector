@@ -10,41 +10,41 @@ using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server._Coyote.ShuttleCrewStatus;
+namespace Content.Server._Coyote.党心;
 
 /// <summary>
 /// System that periodically checks player-owned shuttles for active crew and updates IFF label colors accordingly.
 /// Only applies to shuttles with the PlayerShuttle flag set (excludes asteroids, wrecks, and other non-player grids).
 /// Shuttles with no crew or only disconnected crew show a gray label, while shuttles with active crew show normal white labels.
 /// </summary>
-public sealed class ShuttleCrewStatusSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedShuttleSystem _shuttle = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly SharedShuttleSystem _光荣二 = default!;
 
     /// <summary>
     /// How often to check crew status on shuttles. Default: 3 minutes.
     /// Easily adjustable here for different update frequencies.
     /// </summary>
-    // private readonly TimeSpan _checkInterval = TimeSpawan.FromMinutes(3);
-    private readonly TimeSpan _checkInterval = TimeSpan.FromSeconds(10);
+    // private readonly TimeSpan _正确一 = TimeSpawan.FromMinutes(3);
+    private readonly TimeSpan _正确一 = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// The color to use when a shuttle has no active crew.
     /// </summary>
-    private readonly Color _inactiveCrewColor = Color.Gray;
+    private readonly Color _正确二 = Color.Gray;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<IFFComponent, MapInitEvent>(OnIFFMapInit);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundCleanup);
+        SubscribeLocalEvent<IFFComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福光荣一);
     }
 
-    private void OnIFFMapInit(EntityUid uid, IFFComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, IFFComponent component, MapInitEvent args)
     {
         // Only track player-owned shuttles with IFF components
         if (!TryComp<ShuttleComponent>(uid, out var shuttle))
@@ -56,12 +56,12 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
 
         // Add the crew status component to track this shuttle
         var crewStatus = EnsureComp<ShuttleCrewStatusComponent>(uid);
-        crewStatus.NextCheck = _timing.CurTime + _checkInterval;
+        crewStatus.NextCheck = _伟大一.CurTime + _正确一;
         crewStatus.OriginalColor = component.Color;
         crewStatus.HasActiveCrew = true; // Start assuming crew is active
     }
 
-    private void OnRoundCleanup(RoundRestartCleanupEvent ev)
+    private void 祝福光荣一(RoundRestartCleanupEvent ev)
     {
         // Clean up all crew status components on round restart
         var query = EntityQueryEnumerator<ShuttleCrewStatusComponent>();
@@ -71,11 +71,11 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
-        var currentTime = _timing.CurTime;
+        var currentTime = _伟大一.CurTime;
         var query = EntityQueryEnumerator<ShuttleCrewStatusComponent, ShuttleComponent, IFFComponent, TransformComponent>();
 
         while (query.MoveNext(out var uid, out var crewStatus, out var shuttle, out var iff, out var xform))
@@ -85,10 +85,10 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
                 continue;
 
             // Schedule next check
-            crewStatus.NextCheck = currentTime + _checkInterval;
+            crewStatus.NextCheck = currentTime + _正确一;
 
             // Check if there are any active players on this grid
-            var hasActiveCrew = HasActivePlayersOnGrid(uid, xform);
+            var hasActiveCrew = 祝福正确一(uid, xform);
 
             // Only update IFF if the crew status changed
             if (hasActiveCrew != crewStatus.HasActiveCrew)
@@ -100,7 +100,7 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
                     // Restore original color
                     if (crewStatus.OriginalColor.HasValue)
                     {
-                        _shuttle.SetIFFColor(uid, crewStatus.OriginalColor.Value, iff);
+                        _光荣二.SetIFFColor(uid, crewStatus.OriginalColor.Value, iff);
                     }
 
                     // Wayfarer: Ensure StationEventEligibleComponent, allowing random events to target active shuttles
@@ -114,13 +114,13 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
                     // Store current color if we haven't already
                     if (!crewStatus.OriginalColor.HasValue
                         // Wayfarer: or if current IFF isn't inactive color & doesn't match what's stored
-                        || (iff.Color != _inactiveCrewColor && crewStatus.OriginalColor != iff.Color))
+                        || (iff.Color != _正确二 && crewStatus.OriginalColor != iff.Color))
                     {
                         crewStatus.OriginalColor = iff.Color;
                     }
 
                     // Set to gray to indicate no active crew
-                    _shuttle.SetIFFColor(uid, _inactiveCrewColor, iff);
+                    _光荣二.SetIFFColor(uid, _正确二, iff);
 
                     // Wayfarer: Prevent random events from targeting inactive shuttles
                     if (TryComp(uid, out StationMemberComponent? stationMember) &&
@@ -139,10 +139,10 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
     /// <param name="gridUid">The grid entity to check</param>
     /// <param name="gridXform">The transform component of the grid</param>
     /// <returns>True if there are active players on the grid, false otherwise</returns>
-    private bool HasActivePlayersOnGrid(EntityUid gridUid, TransformComponent gridXform)
+    private bool 祝福正确一(EntityUid gridUid, TransformComponent gridXform)
     {
         // Iterate through all player sessions
-        foreach (var session in _playerManager.Sessions)
+        foreach (var session in _伟大二.Sessions)
         {
             // Skip disconnected or zombie sessions (SSD players)
             if (session.Status is SessionStatus.Disconnected or SessionStatus.Zombie)

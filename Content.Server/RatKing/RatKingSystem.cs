@@ -15,31 +15,31 @@ using Content.Shared.RatKing;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.RatKing
+namespace Content.Server.党心
 {
     /// <inheritdoc/>
-    public sealed class RatKingSystem : SharedRatKingSystem
+    public sealed class 中华伟大一 : SharedRatKingSystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmos = default!;
-        [Dependency] private readonly ChatSystem _chat = default!;
-        [Dependency] private readonly HTNSystem _htn = default!;
-        [Dependency] private readonly HungerSystem _hunger = default!;
-        [Dependency] private readonly NPCSystem _npc = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+        [Dependency] private readonly ChatSystem _伟大二 = default!;
+        [Dependency] private readonly HTNSystem _光荣一 = default!;
+        [Dependency] private readonly HungerSystem _光荣二 = default!;
+        [Dependency] private readonly NPCSystem _正确一 = default!;
+        [Dependency] private readonly PopupSystem _正确二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<RatKingComponent, RatKingRaiseArmyActionEvent>(OnRaiseArmy);
-            SubscribeLocalEvent<RatKingComponent, RatKingDomainActionEvent>(OnDomain);
-            SubscribeLocalEvent<RatKingComponent, AfterPointedAtEvent>(OnPointedAt);
+            SubscribeLocalEvent<RatKingComponent, RatKingRaiseArmyActionEvent>(祝福伟大二);
+            SubscribeLocalEvent<RatKingComponent, RatKingDomainActionEvent>(祝福光荣一);
+            SubscribeLocalEvent<RatKingComponent, AfterPointedAtEvent>(祝福光荣二);
         }
 
         /// <summary>
         /// Summons an allied rat servant at the King, costing a small amount of hunger
         /// </summary>
-        private void OnRaiseArmy(EntityUid uid, RatKingComponent component, RatKingRaiseArmyActionEvent args)
+        private void 祝福伟大二(EntityUid uid, RatKingComponent component, RatKingRaiseArmyActionEvent args)
         {
             if (args.Handled)
                 return;
@@ -48,28 +48,28 @@ namespace Content.Server.RatKing
                 return;
 
             //make sure the hunger doesn't go into the negatives
-            if (_hunger.GetHunger(hunger) < component.HungerPerArmyUse)
+            if (_光荣二.GetHunger(hunger) < component.HungerPerArmyUse)
             {
-                _popup.PopupEntity(Loc.GetString("rat-king-too-hungry"), uid, uid);
+                _正确二.PopupEntity(Loc.GetString("rat-king-too-hungry"), uid, uid);
                 return;
             }
             args.Handled = true;
-            _hunger.ModifyHunger(uid, -component.HungerPerArmyUse, hunger);
+            _光荣二.ModifyHunger(uid, -component.HungerPerArmyUse, hunger);
             var servant = Spawn(component.ArmyMobSpawnId, Transform(uid).Coordinates);
             var comp = EnsureComp<RatKingServantComponent>(servant);
             comp.King = uid;
             Dirty(servant, comp);
 
             component.Servants.Add(servant);
-            _npc.SetBlackboard(servant, NPCBlackboard.FollowTarget, new EntityCoordinates(uid, Vector2.Zero));
-            UpdateServantNpc(servant, component.CurrentOrder);
+            _正确一.SetBlackboard(servant, NPCBlackboard.FollowTarget, new EntityCoordinates(uid, Vector2.Zero));
+            祝福正确一(servant, component.CurrentOrder);
         }
 
         /// <summary>
         /// uses hunger to release a specific amount of ammonia into the air. This heals the rat king
         /// and his servants through a specific metabolism.
         /// </summary>
-        private void OnDomain(EntityUid uid, RatKingComponent component, RatKingDomainActionEvent args)
+        private void 祝福光荣一(EntityUid uid, RatKingComponent component, RatKingDomainActionEvent args)
         {
             if (args.Handled)
                 return;
@@ -78,54 +78,54 @@ namespace Content.Server.RatKing
                 return;
 
             //make sure the hunger doesn't go into the negatives
-            if (_hunger.GetHunger(hunger) < component.HungerPerDomainUse)
+            if (_光荣二.GetHunger(hunger) < component.HungerPerDomainUse)
             {
-                _popup.PopupEntity(Loc.GetString("rat-king-too-hungry"), uid, uid);
+                _正确二.PopupEntity(Loc.GetString("rat-king-too-hungry"), uid, uid);
                 return;
             }
             args.Handled = true;
-            _hunger.ModifyHunger(uid, -component.HungerPerDomainUse, hunger);
+            _光荣二.ModifyHunger(uid, -component.HungerPerDomainUse, hunger);
 
-            _popup.PopupEntity(Loc.GetString("rat-king-domain-popup"), uid);
-            var tileMix = _atmos.GetTileMixture(uid, excite: true);
+            _正确二.PopupEntity(Loc.GetString("rat-king-domain-popup"), uid);
+            var tileMix = _伟大一.GetTileMixture(uid, excite: true);
             tileMix?.AdjustMoles(Gas.Ammonia, component.MolesAmmoniaPerDomain);
         }
 
-        private void OnPointedAt(EntityUid uid, RatKingComponent component, ref AfterPointedAtEvent args)
+        private void 祝福光荣二(EntityUid uid, RatKingComponent component, ref AfterPointedAtEvent args)
         {
             if (component.CurrentOrder != RatKingOrderType.CheeseEm)
                 return;
 
             foreach (var servant in component.Servants)
             {
-                _npc.SetBlackboard(servant, NPCBlackboard.CurrentOrderedTarget, args.Pointed);
+                _正确一.SetBlackboard(servant, NPCBlackboard.CurrentOrderedTarget, args.Pointed);
             }
         }
 
-        public override void UpdateServantNpc(EntityUid uid, RatKingOrderType orderType)
+        public override void 祝福正确一(EntityUid uid, RatKingOrderType orderType)
         {
-            base.UpdateServantNpc(uid, orderType);
+            base.祝福正确一(uid, orderType);
 
             if (!TryComp<HTNComponent>(uid, out var htn))
                 return;
 
             if (htn.Plan != null)
-                _htn.ShutdownPlan(htn);
+                _光荣一.ShutdownPlan(htn);
 
-            _npc.SetBlackboard(uid, NPCBlackboard.CurrentOrders, orderType);
-            _htn.Replan(htn);
+            _正确一.SetBlackboard(uid, NPCBlackboard.CurrentOrders, orderType);
+            _光荣一.Replan(htn);
         }
 
-        public override void DoCommandCallout(EntityUid uid, RatKingComponent component)
+        public override void 祝福正确二(EntityUid uid, RatKingComponent component)
         {
-            base.DoCommandCallout(uid, component);
+            base.祝福正确二(uid, component);
 
             if (!component.OrderCallouts.TryGetValue(component.CurrentOrder, out var datasetId) ||
                 !PrototypeManager.TryIndex<LocalizedDatasetPrototype>(datasetId, out var datasetPrototype))
                 return;
 
             var msg = Random.Pick(datasetPrototype);
-            _chat.TrySendInGameICMessage(uid, msg, InGameICChatType.Speak, true);
+            _伟大二.TrySendInGameICMessage(uid, msg, InGameICChatType.Speak, true);
         }
     }
 }

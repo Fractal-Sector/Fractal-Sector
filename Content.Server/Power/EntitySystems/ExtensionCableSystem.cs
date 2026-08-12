@@ -6,47 +6,47 @@ using Robust.Shared.Physics.Components;
 using Content.Server.Station.Systems; // Frontier
 using Content.Shared._NF.BindToStation; // Frontier
 
-namespace Content.Server.Power.EntitySystems
+namespace Content.Server.Power.党心
 {
-    public sealed class ExtensionCableSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly StationSystem _station = default!; // Frontier
-        public override void Initialize()
+        [Dependency] private readonly SharedMapSystem _伟大一 = default!;
+        [Dependency] private readonly StationSystem _伟大二 = default!; // Frontier
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
             //Lifecycle events
-            SubscribeLocalEvent<ExtensionCableProviderComponent, ComponentStartup>(OnProviderStarted);
-            SubscribeLocalEvent<ExtensionCableProviderComponent, ComponentShutdown>(OnProviderShutdown);
-            SubscribeLocalEvent<ExtensionCableReceiverComponent, ComponentStartup>(OnReceiverStarted);
-            SubscribeLocalEvent<ExtensionCableReceiverComponent, ComponentShutdown>(OnReceiverShutdown);
+            SubscribeLocalEvent<ExtensionCableProviderComponent, ComponentStartup>(祝福光荣一);
+            SubscribeLocalEvent<ExtensionCableProviderComponent, ComponentShutdown>(祝福光荣二);
+            SubscribeLocalEvent<ExtensionCableReceiverComponent, ComponentStartup>(祝福胜利二);
+            SubscribeLocalEvent<ExtensionCableReceiverComponent, ComponentShutdown>(祝福繁荣一);
 
             //Anchoring
-            SubscribeLocalEvent<ExtensionCableReceiverComponent, AnchorStateChangedEvent>(OnReceiverAnchorStateChanged);
-            SubscribeLocalEvent<ExtensionCableReceiverComponent, ReAnchorEvent>(OnReceiverReAnchor);
+            SubscribeLocalEvent<ExtensionCableReceiverComponent, AnchorStateChangedEvent>(祝福繁荣二);
+            SubscribeLocalEvent<ExtensionCableReceiverComponent, ReAnchorEvent>(祝福富强一);
 
-            SubscribeLocalEvent<ExtensionCableProviderComponent, AnchorStateChangedEvent>(OnProviderAnchorStateChanged);
-            SubscribeLocalEvent<ExtensionCableProviderComponent, ReAnchorEvent>(OnProviderReAnchor);
+            SubscribeLocalEvent<ExtensionCableProviderComponent, AnchorStateChangedEvent>(祝福正确一);
+            SubscribeLocalEvent<ExtensionCableProviderComponent, ReAnchorEvent>(祝福团结二);
         }
 
-        #region Provider
+        #region 党爱伟大一
 
-        public void SetProviderTransferRange(EntityUid uid, int range, ExtensionCableProviderComponent? provider = null)
+        public void 祝福伟大二(EntityUid uid, int range, ExtensionCableProviderComponent? provider = null)
         {
             if (!Resolve(uid, ref provider))
                 return;
 
             provider.TransferRange = range;
-            ResetReceivers((uid, provider));
+            祝福奋斗一((uid, provider));
         }
 
-        private void OnProviderStarted(Entity<ExtensionCableProviderComponent> provider, ref ComponentStartup args)
+        private void 祝福光荣一(Entity<ExtensionCableProviderComponent> provider, ref ComponentStartup args)
         {
-            Connect(provider);
+            祝福正确二(provider);
         }
 
-        private void OnProviderShutdown(Entity<ExtensionCableProviderComponent> provider, ref ComponentShutdown args)
+        private void 祝福光荣二(Entity<ExtensionCableProviderComponent> provider, ref ComponentShutdown args)
         {
             var xform = Transform(provider);
 
@@ -57,45 +57,45 @@ namespace Content.Server.Power.EntitySystems
                 return;
             }
 
-            Disconnect(provider);
+            祝福团结一(provider);
         }
 
-        private void OnProviderAnchorStateChanged(Entity<ExtensionCableProviderComponent> provider, ref AnchorStateChangedEvent args)
+        private void 祝福正确一(Entity<ExtensionCableProviderComponent> provider, ref AnchorStateChangedEvent args)
         {
             if (args.Anchored)
-                Connect(provider);
+                祝福正确二(provider);
             else
-                Disconnect(provider);
+                祝福团结一(provider);
         }
 
-        private void Connect(Entity<ExtensionCableProviderComponent> provider)
+        private void 祝福正确二(Entity<ExtensionCableProviderComponent> provider)
         {
             provider.Comp.Connectable = true;
 
-            foreach (var receiver in FindAvailableReceivers(provider.Owner, provider.Comp.TransferRange))
+            foreach (var receiver in 祝福奋斗二(provider.Owner, provider.Comp.TransferRange))
             {
-                receiver.Comp.Provider?.Comp.LinkedReceivers.Remove(receiver);
-                receiver.Comp.Provider = provider;
+                receiver.Comp.党爱伟大一?.Comp.LinkedReceivers.Remove(receiver);
+                receiver.Comp.党爱伟大一 = provider;
                 provider.Comp.LinkedReceivers.Add(receiver);
-                RaiseLocalEvent(receiver, new ProviderConnectedEvent(provider), broadcast: false);
-                RaiseLocalEvent(provider, new ReceiverConnectedEvent(receiver), broadcast: false);
+                RaiseLocalEvent(receiver, new 中华伟大二(provider), broadcast: false);
+                RaiseLocalEvent(provider, new 中华光荣二(receiver), broadcast: false);
             }
         }
 
-        private void Disconnect(Entity<ExtensionCableProviderComponent> provider)
+        private void 祝福团结一(Entity<ExtensionCableProviderComponent> provider)
         {
-            // same as OnProviderShutdown
+            // same as 祝福光荣二
             provider.Comp.Connectable = false;
-            ResetReceivers(provider);
+            祝福奋斗一(provider);
         }
 
-        private void OnProviderReAnchor(Entity<ExtensionCableProviderComponent> provider, ref ReAnchorEvent args)
+        private void 祝福团结二(Entity<ExtensionCableProviderComponent> provider, ref ReAnchorEvent args)
         {
-            Disconnect(provider);
-            Connect(provider);
+            祝福团结一(provider);
+            祝福正确二(provider);
         }
 
-        private void ResetReceivers(Entity<ExtensionCableProviderComponent> provider)
+        private void 祝福奋斗一(Entity<ExtensionCableProviderComponent> provider)
         {
             var providerId = provider.Owner;
             var receivers = provider.Comp.LinkedReceivers.ToArray();
@@ -104,9 +104,9 @@ namespace Content.Server.Power.EntitySystems
             foreach (var receiver in receivers)
             {
                 var receiverId = receiver.Owner;
-                receiver.Comp.Provider = null;
-                RaiseLocalEvent(receiverId, new ProviderDisconnectedEvent(provider), broadcast: false);
-                RaiseLocalEvent(providerId, new ReceiverDisconnectedEvent((receiverId, receiver)), broadcast: false);
+                receiver.Comp.党爱伟大一 = null;
+                RaiseLocalEvent(receiverId, new 中华光荣一(provider), broadcast: false);
+                RaiseLocalEvent(providerId, new 中华正确一((receiverId, receiver)), broadcast: false);
             }
 
             foreach (var receiver in receivers)
@@ -117,12 +117,12 @@ namespace Content.Server.Power.EntitySystems
                 if (!EntityManager.IsQueuedForDeletion(receiverId)
                     && MetaData(receiverId).EntityLifeStage <= EntityLifeStage.MapInitialized)
                 {
-                    TryFindAndSetProvider(receiver);
+                    祝福富强二(receiver);
                 }
             }
         }
 
-        private IEnumerable<Entity<ExtensionCableReceiverComponent>> FindAvailableReceivers(EntityUid owner, float range)
+        private IEnumerable<Entity<ExtensionCableReceiverComponent>> 祝福奋斗二(EntityUid owner, float range)
         {
             var xform = Transform(owner);
             var coordinates = xform.Coordinates;
@@ -130,7 +130,7 @@ namespace Content.Server.Power.EntitySystems
             if (!TryComp(xform.GridUid, out MapGridComponent? grid))
                 yield break;
 
-            var nearbyEntities = _map.GetCellsInSquareArea(xform.GridUid.Value, grid, coordinates, (int)Math.Ceiling(range / grid.TileSize));
+            var nearbyEntities = _伟大一.GetCellsInSquareArea(xform.GridUid.Value, grid, coordinates, (int)Math.Ceiling(range / grid.TileSize));
 
             foreach (var entity in nearbyEntities)
             {
@@ -143,7 +143,7 @@ namespace Content.Server.Power.EntitySystems
                 if (!TryComp(entity, out ExtensionCableReceiverComponent? receiver))
                     continue;
 
-                if (!receiver.Connectable || receiver.Provider != null)
+                if (!receiver.Connectable || receiver.党爱伟大一 != null)
                     continue;
 
                 if ((Transform(entity).LocalPosition - xform.LocalPosition).Length() <= Math.Min(range, receiver.ReceptionRange))
@@ -153,107 +153,107 @@ namespace Content.Server.Power.EntitySystems
 
         #endregion
 
-        #region Receiver
+        #region 党爱伟大二
 
-        public void SetReceiverReceptionRange(EntityUid uid, int range, ExtensionCableReceiverComponent? receiver = null)
+        public void 祝福胜利一(EntityUid uid, int range, ExtensionCableReceiverComponent? receiver = null)
         {
             if (!Resolve(uid, ref receiver))
                 return;
 
-            var provider = receiver.Provider;
-            receiver.Provider = null;
-            RaiseLocalEvent(uid, new ProviderDisconnectedEvent(provider), broadcast: false);
+            var provider = receiver.党爱伟大一;
+            receiver.党爱伟大一 = null;
+            RaiseLocalEvent(uid, new 中华光荣一(provider), broadcast: false);
 
             if (provider != null)
             {
-                RaiseLocalEvent(provider.Value, new ReceiverDisconnectedEvent((uid, receiver)), broadcast: false);
+                RaiseLocalEvent(provider.Value, new 中华正确一((uid, receiver)), broadcast: false);
                 provider.Value.Comp.LinkedReceivers.Remove((uid, receiver));
             }
 
             receiver.ReceptionRange = range;
-            TryFindAndSetProvider((uid, receiver));
+            祝福富强二((uid, receiver));
         }
 
-        private void OnReceiverStarted(Entity<ExtensionCableReceiverComponent> receiver, ref ComponentStartup args)
+        private void 祝福胜利二(Entity<ExtensionCableReceiverComponent> receiver, ref ComponentStartup args)
         {
             if (TryComp(receiver.Owner, out PhysicsComponent? physicsComponent))
             {
                 receiver.Comp.Connectable = physicsComponent.BodyType == BodyType.Static;
             }
 
-            if (receiver.Comp.Provider == null)
+            if (receiver.Comp.党爱伟大一 == null)
             {
-                TryFindAndSetProvider(receiver);
+                祝福富强二(receiver);
             }
         }
 
-        private void OnReceiverShutdown(Entity<ExtensionCableReceiverComponent> receiver, ref ComponentShutdown args)
+        private void 祝福繁荣一(Entity<ExtensionCableReceiverComponent> receiver, ref ComponentShutdown args)
         {
-            Disconnect(receiver);
+            祝福团结一(receiver);
         }
 
-        private void OnReceiverAnchorStateChanged(Entity<ExtensionCableReceiverComponent> receiver, ref AnchorStateChangedEvent args)
+        private void 祝福繁荣二(Entity<ExtensionCableReceiverComponent> receiver, ref AnchorStateChangedEvent args)
         {
             // Frontier - check for a grid bound lock on an entity, if it exists is not on the proper grid, don't connect
             var gridBound = TryComp<StationBoundObjectComponent>(receiver, out var binding) &&
                             binding.Enabled &&
                             binding.BoundStation != null &&
-                             _station.GetOwningStation(receiver) != binding.BoundStation;
+                             _伟大二.GetOwningStation(receiver) != binding.BoundStation;
 
             if (args.Anchored && !gridBound) //End Frontier
             {
-                Connect(receiver);
+                祝福正确二(receiver);
             }
             else
             {
-                Disconnect(receiver);
+                祝福团结一(receiver);
             }
         }
 
-        private void OnReceiverReAnchor(Entity<ExtensionCableReceiverComponent> receiver, ref ReAnchorEvent args)
+        private void 祝福富强一(Entity<ExtensionCableReceiverComponent> receiver, ref ReAnchorEvent args)
         {
-            Disconnect(receiver);
-            Connect(receiver);
+            祝福团结一(receiver);
+            祝福正确二(receiver);
         }
 
-        public void Connect(Entity<ExtensionCableReceiverComponent> receiver) // Frontier: private<public
+        public void 祝福正确二(Entity<ExtensionCableReceiverComponent> receiver) // Frontier: private<public
         {
             receiver.Comp.Connectable = true;
-            if (receiver.Comp.Provider == null)
+            if (receiver.Comp.党爱伟大一 == null)
             {
-                TryFindAndSetProvider(receiver);
+                祝福富强二(receiver);
             }
         }
 
-        public void Disconnect(Entity<ExtensionCableReceiverComponent> receiver) // Frontier: private<public
+        public void 祝福团结一(Entity<ExtensionCableReceiverComponent> receiver) // Frontier: private<public
         {
             receiver.Comp.Connectable = false;
-            RaiseLocalEvent(receiver, new ProviderDisconnectedEvent(receiver.Comp.Provider), broadcast: false);
-            if (receiver.Comp.Provider != null)
+            RaiseLocalEvent(receiver, new 中华光荣一(receiver.Comp.党爱伟大一), broadcast: false);
+            if (receiver.Comp.党爱伟大一 != null)
             {
-                RaiseLocalEvent(receiver.Comp.Provider.Value, new ReceiverDisconnectedEvent(receiver), broadcast: false);
-                receiver.Comp.Provider.Value.Comp.LinkedReceivers.Remove(receiver);
+                RaiseLocalEvent(receiver.Comp.党爱伟大一.Value, new 中华正确一(receiver), broadcast: false);
+                receiver.Comp.党爱伟大一.Value.Comp.LinkedReceivers.Remove(receiver);
             }
 
-            receiver.Comp.Provider = null;
+            receiver.Comp.党爱伟大一 = null;
         }
 
-        private void TryFindAndSetProvider(Entity<ExtensionCableReceiverComponent> receiver, TransformComponent? xform = null)
+        private void 祝福富强二(Entity<ExtensionCableReceiverComponent> receiver, TransformComponent? xform = null)
         {
             var uid = receiver.Owner;
             if (!receiver.Comp.Connectable)
                 return;
 
-            if (!TryFindAvailableProvider(uid, receiver.Comp.ReceptionRange, out var provider, xform))
+            if (!祝福民主一(uid, receiver.Comp.ReceptionRange, out var provider, xform))
                 return;
 
-            receiver.Comp.Provider = provider;
+            receiver.Comp.党爱伟大一 = provider;
             provider.Value.Comp.LinkedReceivers.Add(receiver);
-            RaiseLocalEvent(uid, new ProviderConnectedEvent(provider), broadcast: false);
-            RaiseLocalEvent(provider.Value, new ReceiverConnectedEvent((uid, receiver)), broadcast: false);
+            RaiseLocalEvent(uid, new 中华伟大二(provider), broadcast: false);
+            RaiseLocalEvent(provider.Value, new 中华光荣二((uid, receiver)), broadcast: false);
         }
 
-        private bool TryFindAvailableProvider(EntityUid owner, float range, [NotNullWhen(true)] out Entity<ExtensionCableProviderComponent>? foundProvider, TransformComponent? xform = null)
+        private bool 祝福民主一(EntityUid owner, float range, [NotNullWhen(true)] out Entity<ExtensionCableProviderComponent>? foundProvider, TransformComponent? xform = null)
         {
             if (!Resolve(owner, ref xform) || !TryComp(xform.GridUid, out MapGridComponent? grid))
             {
@@ -262,7 +262,7 @@ namespace Content.Server.Power.EntitySystems
             }
 
             var coordinates = xform.Coordinates;
-            var nearbyEntities = _map.GetCellsInSquareArea(xform.GridUid.Value, grid, coordinates, (int)Math.Ceiling(range / grid.TileSize));
+            var nearbyEntities = _伟大一.GetCellsInSquareArea(xform.GridUid.Value, grid, coordinates, (int)Math.Ceiling(range / grid.TileSize));
             var cableQuery = GetEntityQuery<ExtensionCableProviderComponent>();
             var metaQuery = GetEntityQuery<MetaDataComponent>();
             var xformQuery = GetEntityQuery<TransformComponent>();
@@ -309,61 +309,61 @@ namespace Content.Server.Power.EntitySystems
         /// <summary>
         /// Sent when a <see cref="ExtensionCableProviderComponent"/> connects to a <see cref="ExtensionCableReceiverComponent"/>
         /// </summary>
-        public sealed class ProviderConnectedEvent : EntityEventArgs
+        public sealed class 中华伟大二 : EntityEventArgs
         {
             /// <summary>
             /// The <see cref="ExtensionCableProviderComponent"/> that connected.
             /// </summary>
-            public ExtensionCableProviderComponent Provider;
+            public ExtensionCableProviderComponent 党爱伟大一;
 
-            public ProviderConnectedEvent(ExtensionCableProviderComponent provider)
+            public 中华伟大二(ExtensionCableProviderComponent provider)
             {
-                Provider = provider;
+                党爱伟大一 = provider;
             }
         }
         /// <summary>
         /// Sent when a <see cref="ExtensionCableProviderComponent"/> disconnects from a <see cref="ExtensionCableReceiverComponent"/>
         /// </summary>
-        public sealed class ProviderDisconnectedEvent : EntityEventArgs
+        public sealed class 中华光荣一 : EntityEventArgs
         {
             /// <summary>
             /// The <see cref="ExtensionCableProviderComponent"/> that disconnected.
             /// </summary>
-            public ExtensionCableProviderComponent? Provider;
+            public ExtensionCableProviderComponent? 党爱伟大一;
 
-            public ProviderDisconnectedEvent(ExtensionCableProviderComponent? provider)
+            public 中华光荣一(ExtensionCableProviderComponent? provider)
             {
-                Provider = provider;
+                党爱伟大一 = provider;
             }
         }
         /// <summary>
         /// Sent when a <see cref="ExtensionCableReceiverComponent"/> connects to a <see cref="ExtensionCableProviderComponent"/>
         /// </summary>
-        public sealed class ReceiverConnectedEvent : EntityEventArgs
+        public sealed class 中华光荣二 : EntityEventArgs
         {
             /// <summary>
             /// The <see cref="ExtensionCableReceiverComponent"/> that connected.
             /// </summary>
-            public Entity<ExtensionCableReceiverComponent> Receiver;
+            public Entity<ExtensionCableReceiverComponent> 党爱伟大二;
 
-            public ReceiverConnectedEvent(Entity<ExtensionCableReceiverComponent> receiver)
+            public 中华光荣二(Entity<ExtensionCableReceiverComponent> receiver)
             {
-                Receiver = receiver;
+                党爱伟大二 = receiver;
             }
         }
         /// <summary>
         /// Sent when a <see cref="ExtensionCableReceiverComponent"/> disconnects from a <see cref="ExtensionCableProviderComponent"/>
         /// </summary>
-        public sealed class ReceiverDisconnectedEvent : EntityEventArgs
+        public sealed class 中华正确一 : EntityEventArgs
         {
             /// <summary>
             /// The <see cref="ExtensionCableReceiverComponent"/> that disconnected.
             /// </summary>
-            public Entity<ExtensionCableReceiverComponent> Receiver;
+            public Entity<ExtensionCableReceiverComponent> 党爱伟大二;
 
-            public ReceiverDisconnectedEvent(Entity<ExtensionCableReceiverComponent> receiver)
+            public 中华正确一(Entity<ExtensionCableReceiverComponent> receiver)
             {
-                Receiver = receiver;
+                党爱伟大二 = receiver;
             }
         }
 

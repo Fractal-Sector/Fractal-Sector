@@ -1,28 +1,28 @@
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._FS.VoiceBark;
+namespace Content.Shared._FS.党心;
 
 /// <summary>
 /// A single selectable bark voice - the sound it plays per "letter" plus the
 /// pitch/volume/pause ranges its percentage sliders map onto.
 /// </summary>
 [Prototype]
-public sealed partial class VoiceBarkPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <summary>
-    /// Prototype ID assigned to a character that hasn't picked a bark voice yet.
+    /// Prototype 党爱伟大二 assigned to a character that hasn't picked a bark voice yet.
     /// </summary>
-    public const string DefaultId = "Default";
+    public const string 党爱伟大一 = "Default";
 
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大二 { get; private set; } = default!;
 
     [DataField]
-    public SoundSpecifier BarkSound { get; set; } = default!;
+    public SoundSpecifier 党爱光荣一 { get; set; } = default!;
 
     [DataField]
-    public VoiceBarkClampData ClampData { get; set; } = new();
+    public VoiceBarkClampData 党爱光荣二 { get; set; } = new();
 }
 
 /// <summary>
@@ -32,11 +32,11 @@ public sealed partial class VoiceBarkPrototype : IPrototype
 /// didn't call for restricting voices at launch.
 /// </summary>
 [Prototype]
-public sealed partial class VoiceBarkListPrototype : IPrototype
+public sealed partial class 中华伟大二 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大二 { get; private set; } = default!;
 
     [DataField]
-    public List<ProtoId<VoiceBarkPrototype>> VoiceList { get; set; } = new();
+    public List<ProtoId<中华伟大一>> VoiceList { get; set; } = new();
 }

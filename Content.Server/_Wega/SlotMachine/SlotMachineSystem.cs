@@ -16,20 +16,20 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Economy.SlotMachine;
+namespace Content.Server.Economy.党心;
 
-public sealed class SlotMachineSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly DamageableSystem _damage = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
+    [Dependency] private readonly DamageableSystem _光荣二 = default!;
+    [Dependency] private readonly DestructibleSystem _正确一 = default!;
+    [Dependency] private readonly HandsSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
+    [Dependency] private readonly IRobustRandom _团结二 = default!;
+    [Dependency] private readonly StackSystem _奋斗一 = default!;
+    [Dependency] private readonly IGameTiming _奋斗二 = default!;
 
     private static readonly string[] AllSymbols = { "♥", "★", "♠", "♦", "♣", "♡" };
     private static readonly string[] CursedSymbols = { "☠", "🩸", "☢", "☣" };
@@ -45,36 +45,36 @@ public sealed class SlotMachineSystem : EntitySystem
     private const float TinyWinChance = 0.1f;
     private const float CursedWinChance = 0.05f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SlotMachineComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<SlotMachineComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<SlotMachineComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<SlotMachineComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<SlotMachineComponent, ExaminedEvent>(祝福光荣二);
+        SubscribeLocalEvent<SlotMachineComponent, InteractUsingEvent>(祝福正确一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<SlotMachineComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
             if (comp.Working && comp.SpinFinishTime.HasValue)
             {
-                if (_timing.CurTime >= comp.SpinFinishTime.Value)
-                    FinishSpin(uid, comp);
+                if (_奋斗二.CurTime >= comp.SpinFinishTime.Value)
+                    祝福奋斗一(uid, comp);
                 else
-                    UpdateSlotsAnimation(uid, comp);
+                    祝福团结二(uid, comp);
             }
         }
     }
 
-    private void OnMapInit(EntityUid uid, SlotMachineComponent comp, MapInitEvent args)
-        => UpdateAppearance(uid);
+    private void 祝福光荣一(EntityUid uid, SlotMachineComponent comp, MapInitEvent args)
+        => 祝福法治二(uid);
 
-    private void OnExamined(Entity<SlotMachineComponent> entity, ref ExaminedEvent args)
+    private void 祝福光荣二(Entity<SlotMachineComponent> entity, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -92,29 +92,29 @@ public sealed class SlotMachineSystem : EntitySystem
         }
     }
 
-    private void OnInteractUsing(Entity<SlotMachineComponent> entity, ref InteractUsingEvent args)
+    private void 祝福正确一(Entity<SlotMachineComponent> entity, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
-        args.Handled = TrySpin(entity, args.User, args.Used);
+        args.Handled = 祝福正确二(entity, args.User, args.Used);
     }
 
-    public bool TrySpin(Entity<SlotMachineComponent> entity, EntityUid user, EntityUid used)
+    public bool 祝福正确二(Entity<SlotMachineComponent> entity, EntityUid user, EntityUid used)
     {
         if (!TryComp<StackComponent>(used, out var stack))
             return false;
 
         if (entity.Comp.Working)
         {
-            _popup.PopupEntity(Loc.GetString("slot-machine-busy"), user, user);
+            _团结一.PopupEntity(Loc.GetString("slot-machine-busy"), user, user);
             return false;
         }
 
         bool isCursed = HasComp<CursedSlotMachineComponent>(entity);
         if (!this.IsPowered(entity.Owner, EntityManager) && !isCursed)
         {
-            _popup.PopupEntity(Loc.GetString("slot-machine-unpowered"), user, user);
+            _团结一.PopupEntity(Loc.GetString("slot-machine-unpowered"), user, user);
             return false;
         }
 
@@ -126,147 +126,147 @@ public sealed class SlotMachineSystem : EntitySystem
             var cursedComp = Comp<CursedSlotMachineComponent>(entity);
             if (cursedComp.Uses >= cursedComp.MaxUses)
             {
-                _popup.PopupEntity(Loc.GetString("cursed-slot-machine-deny"), user, user, PopupType.SmallCaution);
+                _团结一.PopupEntity(Loc.GetString("cursed-slot-machine-deny"), user, user, PopupType.SmallCaution);
                 return false;
             }
         }
 
         if (stack.Count < entity.Comp.SpinCost)
         {
-            _popup.PopupEntity(Loc.GetString("slot-machine-no-money"), user, user);
+            _团结一.PopupEntity(Loc.GetString("slot-machine-no-money"), user, user);
             return false;
         }
 
-        StartSpin(entity, user, isCursed);
-        _stack.ReduceCount(used, entity.Comp.SpinCost);
+        祝福团结一(entity, user, isCursed);
+        _奋斗一.ReduceCount(used, entity.Comp.SpinCost);
         return true;
     }
 
-    private void StartSpin(Entity<SlotMachineComponent> entity, EntityUid user, bool isCursed)
+    private void 祝福团结一(Entity<SlotMachineComponent> entity, EntityUid user, bool isCursed)
     {
         entity.Comp.User = user;
 
         var spinTime = isCursed ? 5 : 2.5;
-        entity.Comp.SpinFinishTime = _timing.CurTime + TimeSpan.FromSeconds(spinTime);
+        entity.Comp.SpinFinishTime = _奋斗二.CurTime + TimeSpan.FromSeconds(spinTime);
         entity.Comp.Working = true;
         entity.Comp.Plays++;
 
         entity.Comp.Slots = new[] { "?", "?", "?" };
 
-        UpdateAppearance(entity.Owner);
+        祝福法治二(entity.Owner);
 
         if (isCursed && TryComp<CursedSlotMachineComponent>(entity, out var cursedComp))
         {
-            _audio.PlayPvs(entity.Comp.CoinSound, entity);
-            _audio.PlayPvs(cursedComp.RollSound, entity);
+            _伟大二.PlayPvs(entity.Comp.CoinSound, entity);
+            _伟大二.PlayPvs(cursedComp.RollSound, entity);
         }
         else
         {
-            _audio.PlayPvs(entity.Comp.CoinSound, entity);
-            _audio.PlayPvs(entity.Comp.RollSound, entity);
+            _伟大二.PlayPvs(entity.Comp.CoinSound, entity);
+            _伟大二.PlayPvs(entity.Comp.RollSound, entity);
         }
 
-        _popup.PopupEntity(Loc.GetString("slot-machine-spinning"), user, user);
+        _团结一.PopupEntity(Loc.GetString("slot-machine-spinning"), user, user);
 
         if (isCursed)
         {
-            _popup.PopupEntity(Loc.GetString("cursed-slot-machine-spin", ("name", Identity.Name(user, EntityManager))),
+            _团结一.PopupEntity(Loc.GetString("cursed-slot-machine-spin", ("name", Identity.Name(user, EntityManager))),
                 entity.Owner, PopupType.Medium);
         }
     }
 
-    private void UpdateSlotsAnimation(EntityUid uid, SlotMachineComponent comp)
+    private void 祝福团结二(EntityUid uid, SlotMachineComponent comp)
     {
         var symbols = HasComp<CursedSlotMachineComponent>(uid) ? CursedSymbols : AllSymbols;
 
         for (int i = 0; i < comp.Slots.Length; i++)
         {
-            if (_random.Prob(0.3f))
+            if (_团结二.Prob(0.3f))
             {
-                comp.Slots[i] = _random.Pick(symbols);
+                comp.Slots[i] = _团结二.Pick(symbols);
             }
         }
     }
 
-    private void FinishSpin(EntityUid machineUid, SlotMachineComponent comp)
+    private void 祝福奋斗一(EntityUid machineUid, SlotMachineComponent comp)
     {
         comp.Working = false;
         comp.SpinFinishTime = null;
 
         if (TryComp<CursedSlotMachineComponent>(machineUid, out var cursed))
         {
-            DetermineCursedResult(machineUid, comp, cursed);
+            祝福胜利一(machineUid, comp, cursed);
         }
         else
         {
-            DetermineNormalResult(machineUid, comp);
+            祝福奋斗二(machineUid, comp);
         }
 
-        UpdateAppearance(machineUid);
+        祝福法治二(machineUid);
 
-        _audio.PlayPvs(comp.EndSound, machineUid);
+        _伟大二.PlayPvs(comp.EndSound, machineUid);
     }
 
-    private void DetermineNormalResult(EntityUid machineUid, SlotMachineComponent comp)
+    private void 祝福奋斗二(EntityUid machineUid, SlotMachineComponent comp)
     {
         var user = comp.User;
         if (user == null)
             return;
 
-        var rand = _random.NextFloat();
+        var rand = _团结二.NextFloat();
 
         if (rand < JackpotChance)
         {
-            GenerateJackpotSlots(comp);
-            AwardJackpot(machineUid, comp, user.Value);
+            祝福胜利二(comp);
+            祝福和谐一(machineUid, comp, user.Value);
         }
         else if (rand < JackpotChance + BigWinChance)
         {
-            GenerateBigWinSlots(comp);
-            AwardBigWin(machineUid, comp, user.Value);
+            祝福繁荣一(comp);
+            祝福和谐二(machineUid, comp, user.Value);
         }
         else if (rand < JackpotChance + BigWinChance + MediumWinChance)
         {
-            GenerateMediumWinSlots(comp);
-            AwardMediumWin(machineUid, comp, user.Value);
+            祝福繁荣二(comp);
+            祝福自由一(machineUid, comp, user.Value);
         }
         else if (rand < JackpotChance + BigWinChance + MediumWinChance + SmallWinChance)
         {
-            GenerateSmallWinSlots(comp);
-            AwardSmallWin(machineUid, comp, user.Value);
+            祝福富强一(comp);
+            祝福自由二(machineUid, comp, user.Value);
         }
         else if (rand < JackpotChance + BigWinChance + MediumWinChance + SmallWinChance + TinyWinChance)
         {
-            GenerateTinyWinSlots(comp);
-            AwardTinyWin(machineUid, comp, user.Value);
+            祝福富强二(comp);
+            祝福平等一(machineUid, comp, user.Value);
         }
         else
         {
-            GenerateLoseSlots(comp);
-            _popup.PopupEntity(Loc.GetString("slot-machine-lose"), user.Value, user.Value);
-            _audio.PlayPvs(comp.FailedSound, machineUid);
+            祝福民主一(comp);
+            _团结一.PopupEntity(Loc.GetString("slot-machine-lose"), user.Value, user.Value);
+            _伟大二.PlayPvs(comp.FailedSound, machineUid);
         }
 
         comp.User = null;
     }
 
-    private void DetermineCursedResult(EntityUid machineUid, SlotMachineComponent comp, CursedSlotMachineComponent cursed)
+    private void 祝福胜利一(EntityUid machineUid, SlotMachineComponent comp, CursedSlotMachineComponent cursed)
     {
         var user = comp.User;
         if (user == null)
             return;
 
-        var rand = _random.NextFloat();
+        var rand = _团结二.NextFloat();
 
         if (rand < CursedWinChance)
         {
-            GenerateCursedWinSlots(comp);
-            AwardCursedJackpot(machineUid, user.Value, cursed);
+            祝福民主二(comp);
+            祝福平等二(machineUid, user.Value, cursed);
         }
         else
         {
-            GenerateCursedLoseSlots(comp);
-            AwardCursedLoss(machineUid, comp, user.Value, cursed);
+            祝福文明一(comp);
+            祝福公正一(machineUid, comp, user.Value, cursed);
         }
 
         comp.User = null;
@@ -274,98 +274,98 @@ public sealed class SlotMachineSystem : EntitySystem
 
     #region Slots Vis Generation
 
-    private void GenerateJackpotSlots(SlotMachineComponent comp)
+    private void 祝福胜利二(SlotMachineComponent comp)
     {
         comp.Slots = new[] { "★", "★", "★" };
     }
 
-    private void GenerateBigWinSlots(SlotMachineComponent comp)
+    private void 祝福繁荣一(SlotMachineComponent comp)
     {
-        var symbol = _random.Pick(AllSymbols.Where(s => s != "★").ToArray());
+        var symbol = _团结二.Pick(AllSymbols.Where(s => s != "★").ToArray());
         comp.Slots = new[] { symbol, symbol, symbol };
     }
 
-    private void GenerateMediumWinSlots(SlotMachineComponent comp)
+    private void 祝福繁荣二(SlotMachineComponent comp)
     {
         var symbols = new[] { "♥", "♦", "♡" };
-        var symbol = _random.Pick(symbols);
+        var symbol = _团结二.Pick(symbols);
         comp.Slots = new[] { symbol, symbol, symbol };
     }
 
-    private void GenerateSmallWinSlots(SlotMachineComponent comp)
+    private void 祝福富强一(SlotMachineComponent comp)
     {
-        var symbol = _random.Pick(AllSymbols);
+        var symbol = _团结二.Pick(AllSymbols);
         var otherSymbols = AllSymbols.Where(s => s != symbol).ToArray();
 
-        var pattern = _random.Next(3);
+        var pattern = _团结二.Next(3);
         switch (pattern)
         {
             case 0:
-                comp.Slots = new[] { symbol, symbol, _random.Pick(otherSymbols) };
+                comp.Slots = new[] { symbol, symbol, _团结二.Pick(otherSymbols) };
                 break;
             case 1:
-                comp.Slots = new[] { _random.Pick(otherSymbols), symbol, symbol };
+                comp.Slots = new[] { _团结二.Pick(otherSymbols), symbol, symbol };
                 break;
             default:
-                comp.Slots = new[] { symbol, _random.Pick(otherSymbols), symbol };
+                comp.Slots = new[] { symbol, _团结二.Pick(otherSymbols), symbol };
                 break;
         }
     }
 
-    private void GenerateTinyWinSlots(SlotMachineComponent comp)
+    private void 祝福富强二(SlotMachineComponent comp)
     {
         var symbols = new[] { "♠", "♣" };
-        var symbol = _random.Pick(symbols);
+        var symbol = _团结二.Pick(symbols);
         var otherSymbols = AllSymbols.Where(s => s != symbol).ToArray();
 
-        var pattern = _random.Next(3);
+        var pattern = _团结二.Next(3);
         switch (pattern)
         {
             case 0:
-                comp.Slots = new[] { symbol, symbol, _random.Pick(otherSymbols) };
+                comp.Slots = new[] { symbol, symbol, _团结二.Pick(otherSymbols) };
                 break;
             case 1:
-                comp.Slots = new[] { _random.Pick(otherSymbols), symbol, symbol };
+                comp.Slots = new[] { _团结二.Pick(otherSymbols), symbol, symbol };
                 break;
             default:
-                comp.Slots = new[] { symbol, _random.Pick(otherSymbols), symbol };
+                comp.Slots = new[] { symbol, _团结二.Pick(otherSymbols), symbol };
                 break;
         }
     }
 
-    private void GenerateLoseSlots(SlotMachineComponent comp)
+    private void 祝福民主一(SlotMachineComponent comp)
     {
         while (true)
         {
             comp.Slots = new[]
             {
-                _random.Pick(AllSymbols),
-                _random.Pick(AllSymbols),
-                _random.Pick(AllSymbols)
+                _团结二.Pick(AllSymbols),
+                _团结二.Pick(AllSymbols),
+                _团结二.Pick(AllSymbols)
             };
 
-            if (IsLosingCombination(comp.Slots))
+            if (祝福文明二(comp.Slots))
                 break;
         }
     }
 
-    private void GenerateCursedWinSlots(SlotMachineComponent comp)
+    private void 祝福民主二(SlotMachineComponent comp)
     {
-        var symbol = _random.Pick(CursedWinSymbols);
+        var symbol = _团结二.Pick(CursedWinSymbols);
         comp.Slots = new[] { symbol, symbol, symbol };
     }
 
-    private void GenerateCursedLoseSlots(SlotMachineComponent comp)
+    private void 祝福文明一(SlotMachineComponent comp)
     {
         comp.Slots = new[]
         {
-            _random.Pick(CursedSymbols),
-            _random.Pick(CursedSymbols),
-            _random.Pick(CursedSymbols)
+            _团结二.Pick(CursedSymbols),
+            _团结二.Pick(CursedSymbols),
+            _团结二.Pick(CursedSymbols)
         };
     }
 
-    private bool IsLosingCombination(string[] slots)
+    private bool 祝福文明二(string[] slots)
     {
         if (slots[0] == slots[1] && slots[1] == slots[2])
             return false;
@@ -384,86 +384,86 @@ public sealed class SlotMachineSystem : EntitySystem
 
     #region Awards
 
-    private void AwardJackpot(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
+    private void 祝福和谐一(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
     {
-        SpawnAward(machineUid, user, comp.JackpotPrize);
-        _audio.PlayPvs(comp.JackpotSound, machineUid);
-        _popup.PopupEntity(Loc.GetString("slot-machine-jackpot", ("prize", comp.JackpotPrize)), user, user);
+        祝福公正二(machineUid, user, comp.JackpotPrize);
+        _伟大二.PlayPvs(comp.JackpotSound, machineUid);
+        _团结一.PopupEntity(Loc.GetString("slot-machine-jackpot", ("prize", comp.JackpotPrize)), user, user);
 
         var name = Identity.Name(user, EntityManager);
-        _chat.DispatchGlobalAnnouncement(Loc.GetString("auto-announcements-jackpot", ("winner", name)),
+        _光荣一.DispatchGlobalAnnouncement(Loc.GetString("auto-announcements-jackpot", ("winner", name)),
             Loc.GetString("auto-announcements-title"), true, colorOverride: Color.Turquoise);
     }
 
-    private void AwardBigWin(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
+    private void 祝福和谐二(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
     {
-        SpawnAward(machineUid, user, comp.BigWinPrize);
-        _popup.PopupEntity(Loc.GetString("slot-machine-bigwin", ("prize", comp.BigWinPrize)), user, user);
+        祝福公正二(machineUid, user, comp.BigWinPrize);
+        _团结一.PopupEntity(Loc.GetString("slot-machine-bigwin", ("prize", comp.BigWinPrize)), user, user);
     }
 
-    private void AwardMediumWin(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
+    private void 祝福自由一(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
     {
-        SpawnAward(machineUid, user, comp.MediumWinPrize);
-        _popup.PopupEntity(Loc.GetString("slot-medium-win", ("prize", comp.MediumWinPrize)), user, user);
+        祝福公正二(machineUid, user, comp.MediumWinPrize);
+        _团结一.PopupEntity(Loc.GetString("slot-medium-win", ("prize", comp.MediumWinPrize)), user, user);
     }
 
-    private void AwardSmallWin(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
+    private void 祝福自由二(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
     {
-        SpawnAward(machineUid, user, comp.SmallWinPrize);
-        _popup.PopupEntity(Loc.GetString("slot-small-win", ("prize", comp.SmallWinPrize)), user, user);
+        祝福公正二(machineUid, user, comp.SmallWinPrize);
+        _团结一.PopupEntity(Loc.GetString("slot-small-win", ("prize", comp.SmallWinPrize)), user, user);
     }
 
-    private void AwardTinyWin(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
+    private void 祝福平等一(EntityUid machineUid, SlotMachineComponent comp, EntityUid user)
     {
-        SpawnAward(machineUid, user, comp.TinyWinPrize);
-        _popup.PopupEntity(Loc.GetString("slot-tiny-win", ("prize", comp.TinyWinPrize)), user, user);
+        祝福公正二(machineUid, user, comp.TinyWinPrize);
+        _团结一.PopupEntity(Loc.GetString("slot-tiny-win", ("prize", comp.TinyWinPrize)), user, user);
     }
 
-    private void AwardCursedJackpot(EntityUid machineUid, EntityUid user, CursedSlotMachineComponent cursedComp)
+    private void 祝福平等二(EntityUid machineUid, EntityUid user, CursedSlotMachineComponent cursedComp)
     {
         var die = Spawn(Reward, Transform(machineUid).Coordinates);
-        _hands.TryPickupAnyHand(user, die);
+        _正确二.TryPickupAnyHand(user, die);
 
-        _audio.PlayPvs(cursedComp.JackpotSound, machineUid);
-        _popup.PopupEntity(Loc.GetString("cursed-slot-machine-jackpot", ("name", Name(user))), // He know who are you
+        _伟大二.PlayPvs(cursedComp.JackpotSound, machineUid);
+        _团结一.PopupEntity(Loc.GetString("cursed-slot-machine-jackpot", ("name", Name(user))), // He know who are you
             machineUid, PopupType.LargeCaution);
 
         cursedComp.Uses = 5; // Win. Stop
-        Timer.Spawn(TimeSpan.FromSeconds(5), () => { _destructible.DestroyEntity(machineUid); });
+        Timer.Spawn(TimeSpan.FromSeconds(5), () => { _正确一.DestroyEntity(machineUid); });
     }
 
-    private void AwardCursedLoss(EntityUid machineUid, SlotMachineComponent comp, EntityUid user, CursedSlotMachineComponent cursedComp)
+    private void 祝福公正一(EntityUid machineUid, SlotMachineComponent comp, EntityUid user, CursedSlotMachineComponent cursedComp)
     {
         cursedComp.Uses++;
-        _damage.TryChangeDamage(user, cursedComp.Damage, true);
+        _光荣二.TryChangeDamage(user, cursedComp.Damage, true);
 
-        _audio.PlayPvs(comp.FailedSound, machineUid);
-        _popup.PopupEntity(Loc.GetString("cursed-slot-machine-lose"), user, user, PopupType.SmallCaution);
+        _伟大二.PlayPvs(comp.FailedSound, machineUid);
+        _团结一.PopupEntity(Loc.GetString("cursed-slot-machine-lose"), user, user, PopupType.SmallCaution);
     }
 
-    private void SpawnAward(EntityUid machineUid, EntityUid user, int award)
+    private void 祝福公正二(EntityUid machineUid, EntityUid user, int award)
     {
         var cash = Spawn(SpaceCash, Transform(machineUid).Coordinates);
-        _stack.SetCount(cash, award);
+        _奋斗一.SetCount(cash, award);
 
-        _hands.TryPickupAnyHand(user, cash);
+        _正确二.TryPickupAnyHand(user, cash);
     }
 
     #endregion
 
-    public void FreeSpeen(Entity<SlotMachineComponent?> entity, EntityUid user)
+    public void 祝福法治一(Entity<SlotMachineComponent?> entity, EntityUid user)
     {
         if (!Resolve(entity.Owner, ref entity.Comp))
             return;
 
-        StartSpin((entity.Owner, entity.Comp), user, HasComp<CursedSlotMachineComponent>(entity));
+        祝福团结一((entity.Owner, entity.Comp), user, HasComp<CursedSlotMachineComponent>(entity));
     }
 
-    private void UpdateAppearance(Entity<SlotMachineComponent?> entity)
+    private void 祝福法治二(Entity<SlotMachineComponent?> entity)
     {
         if (!Resolve(entity.Owner, ref entity.Comp))
             return;
 
-        _appearance.SetData(entity, SlotMachineVisuals.Working, entity.Comp.Working);
+        _伟大一.SetData(entity, SlotMachineVisuals.Working, entity.Comp.Working);
     }
 }

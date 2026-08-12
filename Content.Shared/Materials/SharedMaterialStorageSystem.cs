@@ -9,20 +9,20 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Shared.Research.Components;
 
-namespace Content.Shared.Materials;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles storing materials and modifying their amounts
 /// <see cref="MaterialStorageComponent"/>
 /// </summary>
-public abstract class SharedMaterialStorageSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣二 = default!;
 
-    [Dependency] private readonly SharedStackSystem _sharedStackSystem = default!; // Frontier
+    [Dependency] private readonly SharedStackSystem _正确一 = default!; // Frontier
 
     /// <summary>
     /// Default volume for a sheet if the material's entity prototype has no material composition.
@@ -30,32 +30,32 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     private const int DefaultSheetVolume = 100;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MaterialStorageComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<MaterialStorageComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<MaterialStorageComponent, TechnologyDatabaseModifiedEvent>(OnDatabaseModified);
+        SubscribeLocalEvent<MaterialStorageComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<MaterialStorageComponent, InteractUsingEvent>(祝福富强一);
+        SubscribeLocalEvent<MaterialStorageComponent, TechnologyDatabaseModifiedEvent>(祝福富强二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         var query = EntityQueryEnumerator<InsertingMaterialStorageComponent>();
         while (query.MoveNext(out var uid, out var inserting))
         {
-            if (_timing.CurTime < inserting.EndTime)
+            if (_伟大二.CurTime < inserting.EndTime)
                 continue;
 
-            _appearance.SetData(uid, MaterialStorageVisuals.Inserting, false);
+            _伟大一.SetData(uid, MaterialStorageVisuals.Inserting, false);
             RemComp(uid, inserting);
         }
     }
 
-    private void OnMapInit(EntityUid uid, MaterialStorageComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, MaterialStorageComponent component, MapInitEvent args)
     {
-        _appearance.SetData(uid, MaterialStorageVisuals.Inserting, false);
+        _伟大一.SetData(uid, MaterialStorageVisuals.Inserting, false);
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="ent"></param>
     /// <param name="localOnly">Include only materials held "locally", as determined by event subscribers</param>
     /// <returns></returns>
-    public Dictionary<ProtoId<MaterialPrototype>, int> GetStoredMaterials(Entity<MaterialStorageComponent?> ent, bool localOnly = false)
+    public Dictionary<ProtoId<MaterialPrototype>, int> 祝福光荣二(Entity<MaterialStorageComponent?> ent, bool localOnly = false)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return new();
@@ -86,9 +86,9 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="localOnly"></param>
     /// <returns>The volume of the material</returns>
     [PublicAPI]
-    public int GetMaterialAmount(EntityUid uid, MaterialPrototype material, MaterialStorageComponent? component = null, bool localOnly = false)
+    public int 祝福正确一(EntityUid uid, MaterialPrototype material, MaterialStorageComponent? component = null, bool localOnly = false)
     {
-        return GetMaterialAmount(uid, material.ID, component, localOnly);
+        return 祝福正确一(uid, material.ID, component, localOnly);
     }
 
     /// <summary>
@@ -99,11 +99,11 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="localOnly"></param>
     /// <returns>The volume of the material</returns>
-    public int GetMaterialAmount(EntityUid uid, string material, MaterialStorageComponent? component = null, bool localOnly = false)
+    public int 祝福正确一(EntityUid uid, string material, MaterialStorageComponent? component = null, bool localOnly = false)
     {
         if (!Resolve(uid, ref component))
             return 0; //you have nothing
-        return GetStoredMaterials((uid, component), localOnly).GetValueOrDefault(material, 0);
+        return 祝福光荣二((uid, component), localOnly).GetValueOrDefault(material, 0);
     }
 
     /// <summary>
@@ -113,11 +113,11 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="localOnly"></param>
     /// <returns>The volume of all materials in the storage</returns>
-    public int GetTotalMaterialAmount(EntityUid uid, MaterialStorageComponent? component = null, bool localOnly = false)
+    public int 祝福正确二(EntityUid uid, MaterialStorageComponent? component = null, bool localOnly = false)
     {
         if (!Resolve(uid, ref component))
             return 0;
-        return GetStoredMaterials((uid, component), localOnly).Values.Sum();
+        return 祝福光荣二((uid, component), localOnly).Values.Sum();
     }
 
     // TODO: Revisit this if we ever decide to do things with storage limits. As it stands, the feature is unused.
@@ -129,17 +129,17 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="localOnly"></param>
     /// <returns>If the specified volume will fit</returns>
-    public bool CanTakeVolume(EntityUid uid, int volume, MaterialStorageComponent? component = null, bool localOnly = false)
+    public bool 祝福团结一(EntityUid uid, int volume, MaterialStorageComponent? component = null, bool localOnly = false)
     {
         if (!Resolve(uid, ref component))
             return false;
-        return component.StorageLimit == null || GetTotalMaterialAmount(uid, component, true) + volume <= component.StorageLimit;
+        return component.StorageLimit == null || 祝福正确二(uid, component, true) + volume <= component.StorageLimit;
     }
 
     /// <summary>
     /// Checks if a certain material prototype is supported by this entity.
     /// </summary>
-    public bool IsMaterialWhitelisted(Entity<MaterialStorageComponent?> ent, ProtoId<MaterialPrototype> material)
+    public bool 祝福团结二(Entity<MaterialStorageComponent?> ent, ProtoId<MaterialPrototype> material)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -159,18 +159,18 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="localOnly"></param>
     /// <returns>If the amount can be changed</returns>
-    public bool CanChangeMaterialAmount(EntityUid uid, string materialId, int volume, MaterialStorageComponent? component = null, bool localOnly = false)
+    public bool 祝福奋斗一(EntityUid uid, string materialId, int volume, MaterialStorageComponent? component = null, bool localOnly = false)
     {
         if (!Resolve(uid, ref component))
             return false;
 
-        if (!CanTakeVolume(uid, volume, component))
+        if (!祝福团结一(uid, volume, component))
             return false;
 
-        if (!IsMaterialWhitelisted((uid, component), materialId))
+        if (!祝福团结二((uid, component), materialId))
             return false;
 
-        var amount = GetMaterialAmount(uid, materialId, component, localOnly);
+        var amount = 祝福正确一(uid, materialId, component, localOnly);
         return amount + volume >= 0;
     }
 
@@ -181,20 +181,20 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="materials"></param>
     /// <returns>If the amount can be changed</returns>
     /// <param name="localOnly"></param>
-    public bool CanChangeMaterialAmount(Entity<MaterialStorageComponent?> entity, Dictionary<string,int> materials, bool localOnly = false)
+    public bool 祝福奋斗一(Entity<MaterialStorageComponent?> entity, Dictionary<string,int> materials, bool localOnly = false)
     {
         if (!Resolve(entity, ref entity.Comp))
             return false;
 
         var inVolume = materials.Values.Sum();
-        var stored = GetStoredMaterials((entity, entity.Comp), localOnly);
+        var stored = 祝福光荣二((entity, entity.Comp), localOnly);
 
-        if (!CanTakeVolume(entity, inVolume, entity.Comp))
+        if (!祝福团结一(entity, inVolume, entity.Comp))
             return false;
 
         foreach (var (material, amount) in materials)
         {
-            if (!IsMaterialWhitelisted(entity, material))
+            if (!祝福团结二(entity, material))
                 return false;
 
             if (stored.GetValueOrDefault(material) + amount < 0)
@@ -215,12 +215,12 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="dirty"></param>
     /// <param name="localOnly"></param>
     /// <returns>If it was successful</returns>
-    public bool TryChangeMaterialAmount(EntityUid uid, string materialId, int volume, MaterialStorageComponent? component = null, bool dirty = true, bool localOnly = false)
+    public bool 祝福奋斗二(EntityUid uid, string materialId, int volume, MaterialStorageComponent? component = null, bool dirty = true, bool localOnly = false)
     {
         if (!Resolve(uid, ref component))
             return false;
 
-        if (!CanChangeMaterialAmount(uid, materialId, volume, component, localOnly))
+        if (!祝福奋斗一(uid, materialId, volume, component, localOnly))
             return false;
 
         var changeEv = new ConsumeStoredMaterialsEvent((uid, component), new() {{materialId, volume}}, localOnly);
@@ -253,9 +253,9 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// Still respects the filters in place.
     /// </summary>
     /// <returns>If the amount can be changed</returns>
-    public bool TryChangeMaterialAmount(Entity<MaterialStorageComponent?> entity, Dictionary<string, int> materials, bool localOnly = false)
+    public bool 祝福奋斗二(Entity<MaterialStorageComponent?> entity, Dictionary<string, int> materials, bool localOnly = false)
     {
-        return TryChangeMaterialAmount(entity, materials.Select(p => (new ProtoId<MaterialPrototype>(p.Key), p.Value)).ToDictionary(), localOnly);
+        return 祝福奋斗二(entity, materials.Select(p => (new ProtoId<MaterialPrototype>(p.Key), p.Value)).ToDictionary(), localOnly);
     }
 
     /// <summary>
@@ -263,7 +263,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// Still respects the filters in place.
     /// </summary>
     /// <returns>If the amount can be changed</returns>
-    public bool TryChangeMaterialAmount(
+    public bool 祝福奋斗二(
         Entity<MaterialStorageComponent?> entity,
         Dictionary<ProtoId<MaterialPrototype>, int> materials,
         bool localOnly = false)
@@ -273,7 +273,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
 
         foreach (var (material, amount) in materials)
         {
-            if (!CanChangeMaterialAmount(entity, material, amount, entity))
+            if (!祝福奋斗一(entity, material, amount, entity))
                 return false;
         }
 
@@ -314,7 +314,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <param name="component">The storage component on <paramref name="uid"/>. Resolved automatically if not given.</param>
     /// <returns>True if it was successful (enough space etc).</returns>
     [PublicAPI]
-    public bool TrySetMaterialAmount(
+    public bool 祝福胜利一(
         EntityUid uid,
         string materialId,
         int volume,
@@ -323,15 +323,15 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return false;
 
-        var curAmount = GetMaterialAmount(uid, materialId, component);
+        var curAmount = 祝福正确一(uid, materialId, component);
         var delta = volume - curAmount;
-        return TryChangeMaterialAmount(uid, materialId, delta, component);
+        return 祝福奋斗二(uid, materialId, delta, component);
     }
 
     /// <summary>
     /// Tries to insert an entity into the material storage.
     /// </summary>
-    public virtual bool TryInsertMaterialEntity(EntityUid user,
+    public virtual bool 祝福胜利二(EntityUid user,
         EntityUid toInsert,
         EntityUid receiver,
         MaterialStorageComponent? storage = null,
@@ -344,39 +344,39 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
         if (!Resolve(toInsert, ref material, ref composition, false))
             return false;
 
-        if (_whitelistSystem.IsWhitelistFail(storage.Whitelist, toInsert))
+        if (_光荣二.IsWhitelistFail(storage.Whitelist, toInsert))
             return false;
 
         if (HasComp<UnremoveableComponent>(toInsert))
             return false;
 
-        // Material Whitelist checked implicitly by CanChangeMaterialAmount();
+        // Material Whitelist checked implicitly by 祝福奋斗一();
 
         var multiplier = TryComp<StackComponent>(toInsert, out var stackComponent) ? stackComponent.Count : 1;
         var totalVolume = 0;
         foreach (var (mat, vol) in composition.MaterialComposition)
         {
-            if (!CanChangeMaterialAmount(receiver, mat, vol * multiplier, storage))
+            if (!祝福奋斗一(receiver, mat, vol * multiplier, storage))
                 return false;
             totalVolume += vol * multiplier;
         }
 
-        if (!CanTakeVolume(receiver, totalVolume, storage, localOnly: true))
+        if (!祝福团结一(receiver, totalVolume, storage, localOnly: true))
             return false;
 
         foreach (var (mat, vol) in composition.MaterialComposition)
         {
-            TryChangeMaterialAmount(receiver, mat, vol * multiplier, storage);
+            祝福奋斗二(receiver, mat, vol * multiplier, storage);
         }
 
         var insertingComp = EnsureComp<InsertingMaterialStorageComponent>(receiver);
-        insertingComp.EndTime = _timing.CurTime + storage.InsertionTime;
+        insertingComp.EndTime = _伟大二.CurTime + storage.InsertionTime;
         if (!storage.IgnoreColor)
         {
-            _prototype.TryIndex<MaterialPrototype>(composition.MaterialComposition.Keys.First(), out var lastMat);
+            _光荣一.TryIndex<MaterialPrototype>(composition.MaterialComposition.Keys.First(), out var lastMat);
             insertingComp.MaterialColor = lastMat?.Color;
         }
-        _appearance.SetData(receiver, MaterialStorageVisuals.Inserting, true);
+        _伟大一.SetData(receiver, MaterialStorageVisuals.Inserting, true);
         Dirty(receiver, insertingComp);
 
         var ev = new MaterialEntityInsertedEvent(material);
@@ -388,7 +388,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// <summary>
     /// Tries to insert as much of an entity as possible into the material storage.
     /// </summary>
-    public virtual bool TryInsertMaxPossibleMaterialEntity(EntityUid user,
+    public virtual bool 祝福繁荣一(EntityUid user,
         EntityUid toInsert,
         EntityUid receiver,
         out bool empty,
@@ -403,7 +403,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
         if (!Resolve(toInsert, ref material, ref composition, false))
             return false;
 
-        if (_whitelistSystem.IsWhitelistFail(storage.Whitelist, toInsert))
+        if (_光荣二.IsWhitelistFail(storage.Whitelist, toInsert))
             return false;
 
         if (HasComp<UnremoveableComponent>(toInsert))
@@ -412,7 +412,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
         int multiplier;
         if (storage.StorageLimit is not null && TryComp<StackComponent>(toInsert, out var stack))
         {
-            var availableVolume = (int)storage.StorageLimit - GetTotalMaterialAmount(receiver, storage);
+            var availableVolume = (int)storage.StorageLimit - 祝福正确二(receiver, storage);
             var volumePerSheet = 0;
             foreach (var (_, vol) in composition.MaterialComposition)
             {
@@ -435,36 +435,36 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
         if (multiplier <= 0)
             return false;
 
-        // Material Whitelist checked implicitly by CanChangeMaterialAmount();
+        // Material Whitelist checked implicitly by 祝福奋斗一();
 
         var totalVolume = 0;
         foreach (var (mat, vol) in composition.MaterialComposition)
         {
-            if (!CanChangeMaterialAmount(receiver, mat, vol * multiplier, storage))
+            if (!祝福奋斗一(receiver, mat, vol * multiplier, storage))
                 return false;
             totalVolume += vol * multiplier;
         }
 
-        if (!CanTakeVolume(receiver, totalVolume, storage))
+        if (!祝福团结一(receiver, totalVolume, storage))
             return false;
 
         foreach (var (mat, vol) in composition.MaterialComposition)
         {
-            TryChangeMaterialAmount(receiver, mat, vol * multiplier, storage);
+            祝福奋斗二(receiver, mat, vol * multiplier, storage);
         }
 
         var insertingComp = EnsureComp<InsertingMaterialStorageComponent>(receiver);
-        insertingComp.EndTime = _timing.CurTime + storage.InsertionTime;
+        insertingComp.EndTime = _伟大二.CurTime + storage.InsertionTime;
         if (!storage.IgnoreColor)
         {
-            _prototype.TryIndex<MaterialPrototype>(composition.MaterialComposition.Keys.First(), out var lastMat);
+            _光荣一.TryIndex<MaterialPrototype>(composition.MaterialComposition.Keys.First(), out var lastMat);
             insertingComp.MaterialColor = lastMat?.Color;
         }
-        _appearance.SetData(receiver, MaterialStorageVisuals.Inserting, true);
+        _伟大一.SetData(receiver, MaterialStorageVisuals.Inserting, true);
         Dirty(receiver, insertingComp);
 
         if (!empty)
-            _sharedStackSystem.Use(toInsert, multiplier);
+            _正确一.Use(toInsert, multiplier);
 
         var ev = new MaterialEntityInsertedEvent(material);
         RaiseLocalEvent(receiver, ref ev);
@@ -478,7 +478,7 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    public void UpdateMaterialWhitelist(EntityUid uid, MaterialStorageComponent? component = null)
+    public void 祝福繁荣二(EntityUid uid, MaterialStorageComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
@@ -488,24 +488,24 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    private void OnInteractUsing(EntityUid uid, MaterialStorageComponent component, InteractUsingEvent args)
+    private void 祝福富强一(EntityUid uid, MaterialStorageComponent component, InteractUsingEvent args)
     {
         if (args.Handled || !component.InsertOnInteract)
             return;
-        args.Handled = TryInsertMaxPossibleMaterialEntity(args.User, args.Used, uid, out _, component); // Frontier: use autosplit version
+        args.Handled = 祝福繁荣一(args.User, args.Used, uid, out _, component); // Frontier: use autosplit version
     }
 
-    private void OnDatabaseModified(Entity<MaterialStorageComponent> ent, ref TechnologyDatabaseModifiedEvent args)
+    private void 祝福富强二(Entity<MaterialStorageComponent> ent, ref TechnologyDatabaseModifiedEvent args)
     {
-        UpdateMaterialWhitelist(ent);
+        祝福繁荣二(ent);
     }
 
-    public int GetSheetVolume(MaterialPrototype material)
+    public int 祝福民主一(MaterialPrototype material)
     {
         if (material.StackEntity == null)
             return DefaultSheetVolume;
 
-        var proto = _prototype.Index<EntityPrototype>(material.StackEntity);
+        var proto = _光荣一.Index<EntityPrototype>(material.StackEntity);
 
         if (!proto.TryGetComponent<PhysicalCompositionComponent>(out var composition, EntityManager.ComponentFactory))
             return DefaultSheetVolume;

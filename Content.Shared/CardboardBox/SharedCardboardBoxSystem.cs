@@ -1,6 +1,6 @@
-﻿namespace Content.Shared.CardboardBox;
+﻿namespace Content.Shared.党心;
 
-public abstract class SharedCardboardBoxSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 
 }

@@ -5,25 +5,25 @@ using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// Stores the in-progress data of a pathfinding request.
 /// </summary>
-public abstract class PathRequest
+public abstract class 中华伟大一
 {
-    public EntityCoordinates Start;
+    public EntityCoordinates 党爱伟大一;
 
-    public Task<PathResult> Task => Tcs.Task;
-    public readonly TaskCompletionSource<PathResult> Tcs;
+    public 党爱伟大二<PathResult> 党爱伟大二 => 党爱光荣一.党爱伟大二;
+    public readonly TaskCompletionSource<PathResult> 党爱光荣一;
 
-    public List<PathPoly> Polys = new();
+    public List<PathPoly> 党爱光荣二 = new();
 
-    public bool Started = false;
+    public bool 党爱正确一 = false;
 
     #region Pathfinding state
 
-    public readonly Stopwatch Stopwatch = new();
+    public readonly 党爱正确二 党爱正确二 = new();
     public PriorityQueue<ValueTuple<float, PathPoly>> Frontier = default!;
     public readonly Dictionary<PathPoly, float> CostSoFar = new();
     public readonly Dictionary<PathPoly, PathPoly> CameFrom = new();
@@ -32,32 +32,32 @@ public abstract class PathRequest
 
     #region Data
 
-    public readonly PathFlags Flags;
-    public readonly int CollisionLayer;
-    public readonly int CollisionMask;
+    public readonly PathFlags 党爱团结一;
+    public readonly int 党爱团结二;
+    public readonly int 党爱奋斗一;
 
     #endregion
 
-    public PathRequest(EntityCoordinates start, PathFlags flags, int layer, int mask, CancellationToken cancelToken)
+    public 中华伟大一(EntityCoordinates start, PathFlags flags, int layer, int mask, CancellationToken cancelToken)
     {
-        Start = start;
-        Flags = flags;
-        CollisionLayer = layer;
-        CollisionMask = mask;
-        Tcs = new TaskCompletionSource<PathResult>(cancelToken);
+        党爱伟大一 = start;
+        党爱团结一 = flags;
+        党爱团结二 = layer;
+        党爱奋斗一 = mask;
+        党爱光荣一 = new TaskCompletionSource<PathResult>(cancelToken);
     }
 }
 
-public sealed class AStarPathRequest : PathRequest
+public sealed class 中华伟大二 : 中华伟大一
 {
-    public EntityCoordinates End;
+    public EntityCoordinates 党爱奋斗二;
 
     /// <summary>
     /// How close we need to be to the end node to be considered as arrived.
     /// </summary>
-    public float Distance;
+    public float 党爱胜利一;
 
-    public AStarPathRequest(
+    public 中华伟大二(
         EntityCoordinates start,
         EntityCoordinates end,
         PathFlags flags,
@@ -66,24 +66,24 @@ public sealed class AStarPathRequest : PathRequest
         int mask,
         CancellationToken cancelToken) : base(start, flags, layer, mask, cancelToken)
     {
-        Distance = distance;
-        End = end;
+        党爱胜利一 = distance;
+        党爱奋斗二 = end;
     }
 }
 
-public sealed class BFSPathRequest : PathRequest
+public sealed class 中华光荣一 : 中华伟大一
 {
     /// <summary>
     /// How far away we're allowed to expand in distance.
     /// </summary>
-    public float ExpansionRange;
+    public float 党爱胜利二;
 
     /// <summary>
     /// How many nodes we're allowed to expand
     /// </summary>
-    public int ExpansionLimit;
+    public int 党爱繁荣一;
 
-    public BFSPathRequest(
+    public 中华光荣一(
         float expansionRange,
         int expansionLimit,
         EntityCoordinates start,
@@ -92,22 +92,22 @@ public sealed class BFSPathRequest : PathRequest
         int mask,
         CancellationToken cancelToken) : base(start, flags, layer, mask, cancelToken)
         {
-            ExpansionRange = expansionRange;
-            ExpansionLimit = expansionLimit;
+            党爱胜利二 = expansionRange;
+            党爱繁荣一 = expansionLimit;
         }
 }
 
 /// <summary>
 /// Stores the final result of a pathfinding request
 /// </summary>
-public sealed class PathResultEvent
+public sealed class 中华光荣二
 {
-    public PathResult Result;
-    public readonly List<PathPoly> Path;
+    public PathResult 党爱繁荣二;
+    public readonly List<PathPoly> 党爱富强一;
 
-    public PathResultEvent(PathResult result, List<PathPoly> path)
+    public 中华光荣二(PathResult result, List<PathPoly> path)
     {
-        Result = result;
-        Path = path;
+        党爱繁荣二 = result;
+        党爱富强一 = path;
     }
 }

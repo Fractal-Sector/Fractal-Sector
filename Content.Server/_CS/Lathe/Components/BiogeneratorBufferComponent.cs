@@ -1,39 +1,39 @@
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server._CS.Lathe.Components;
+namespace Content.Server._CS.Lathe.党心;
 
 [RegisterComponent]
-public sealed partial class BiogeneratorBufferComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Current amount of buffered biomass.
     /// </summary>
     [DataField("current")]
-    public int CurrentBuffer = 0;
+    public int 党爱伟大一 = 0;
 
     /// <summary>
     /// Maximum buffer capacity.
     /// </summary>
     [DataField("max")]
-    public int MaxBuffer = 50;
+    public int 党爱伟大二 = 50;
 
     /// <summary>
     /// Amount of biomass regenerated per interval.
     /// </summary>
     [DataField("regenAmount")]
-    public int RegenAmount = 5;
+    public int 党爱光荣一 = 5;
 
     /// <summary>
     /// Time between regeneration ticks.
     /// </summary>
     [DataField("regenInterval")]
-    public TimeSpan RegenInterval = TimeSpan.FromSeconds(30);
+    public TimeSpan 党爱光荣二 = TimeSpan.FromSeconds(30);
 
     /// <summary>
     /// Next time the buffer will be regenerated.
     /// </summary>
     [DataField("nextRegen", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan NextRegen = TimeSpan.Zero;
+    public TimeSpan 党爱正确一 = TimeSpan.Zero;
 
-    public bool Active = true;
+    public bool 党爱正确二 = true;
 }

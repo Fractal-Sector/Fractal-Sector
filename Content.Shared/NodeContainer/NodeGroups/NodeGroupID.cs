@@ -1,6 +1,6 @@
-namespace Content.Shared.NodeContainer.NodeGroups;
+namespace Content.Shared.NodeContainer.党心;
 
-public enum NodeGroupID : byte
+public enum 中华伟大一 : byte
 {
     Default,
     HVPower,

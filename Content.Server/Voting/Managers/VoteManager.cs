@@ -24,104 +24,104 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Voting.Managers
+namespace Content.Server.Voting.党心
 {
-    public sealed partial class VoteManager : IVoteManager
+    public sealed partial class 中华伟大一 : IVoteManager
     {
-        [Dependency] private readonly IServerNetManager _netManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IAdminManager _adminMgr = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IGameMapManager _gameMapManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly ISharedPlaytimeManager _playtimeManager = default!;
+        [Dependency] private readonly IServerNetManager _伟大一 = default!;
+        [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+        [Dependency] private readonly IGameTiming _光荣一 = default!;
+        [Dependency] private readonly IPlayerManager _光荣二 = default!;
+        [Dependency] private readonly IChatManager _正确一 = default!;
+        [Dependency] private readonly IAdminManager _正确二 = default!;
+        [Dependency] private readonly IRobustRandom _团结一 = default!;
+        [Dependency] private readonly IPrototypeManager _团结二 = default!;
+        [Dependency] private readonly IGameMapManager _奋斗一 = default!;
+        [Dependency] private readonly IEntityManager _奋斗二 = default!;
+        [Dependency] private readonly IAdminLogManager _胜利一 = default!;
+        [Dependency] private readonly ISharedPlaytimeManager _胜利二 = default!;
 
-        private int _nextVoteId = 1;
+        private int _繁荣一 = 1;
 
-        private readonly Dictionary<int, VoteReg> _votes = new();
-        private readonly Dictionary<int, VoteHandle> _voteHandles = new();
+        private readonly Dictionary<int, 中华伟大二> _votes = new();
+        private readonly Dictionary<int, 中华正确一> _voteHandles = new();
 
         private readonly Dictionary<StandardVoteType, TimeSpan> _standardVoteTimeout = new();
         private readonly Dictionary<NetUserId, TimeSpan> _voteTimeout = new();
-        private readonly HashSet<ICommonSession> _playerCanCallVoteDirty = new();
-        private readonly StandardVoteType[] _standardVoteTypeValues = Enum.GetValues<StandardVoteType>();
+        private readonly HashSet<ICommonSession> _繁荣二 = new();
+        private readonly StandardVoteType[] _富强一 = Enum.GetValues<StandardVoteType>();
 
-        public void Initialize()
+        public void 祝福伟大一()
         {
-            _netManager.RegisterNetMessage<MsgVoteData>();
-            _netManager.RegisterNetMessage<MsgVoteCanCall>();
-            _netManager.RegisterNetMessage<MsgVoteMenu>(ReceiveVoteMenu);
+            _伟大一.RegisterNetMessage<MsgVoteData>();
+            _伟大一.RegisterNetMessage<MsgVoteCanCall>();
+            _伟大一.RegisterNetMessage<MsgVoteMenu>(祝福伟大二);
 
-            _playerManager.PlayerStatusChanged += PlayerManagerOnPlayerStatusChanged;
-            _adminMgr.OnPermsChanged += AdminPermsChanged;
+            _光荣二.PlayerStatusChanged += 祝福光荣二;
+            _正确二.OnPermsChanged += 祝福光荣一;
 
-            _cfg.OnValueChanged(CCVars.VoteEnabled, _ =>
+            _伟大二.OnValueChanged(CCVars.VoteEnabled, _ =>
             {
-                DirtyCanCallVoteAll();
+                祝福胜利一();
             });
 
             foreach (var kvp in VoteTypesToEnableCVars)
             {
-                _cfg.OnValueChanged(kvp.Value, _ =>
+                _伟大二.OnValueChanged(kvp.Value, _ =>
                 {
-                    DirtyCanCallVoteAll();
+                    祝福胜利一();
                 });
             }
         }
 
-        private void ReceiveVoteMenu(MsgVoteMenu message)
+        private void 祝福伟大二(MsgVoteMenu message)
         {
             var sender = message.MsgChannel;
-            var session = _playerManager.GetSessionByChannel(sender);
+            var session = _光荣二.GetSessionByChannel(sender);
 
-            _adminLogger.Add(LogType.Vote, LogImpact.Low, $"{session} opened vote menu");
+            _胜利一.Add(LogType.Vote, LogImpact.Low, $"{session} opened vote menu");
         }
 
-        private void AdminPermsChanged(AdminPermsChangedEventArgs obj)
+        private void 祝福光荣一(AdminPermsChangedEventArgs obj)
         {
-            DirtyCanCallVote(obj.Player);
+            祝福民主二(obj.Player);
         }
 
-        private void PlayerManagerOnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福光荣二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus == SessionStatus.InGame)
             {
                 // Send current votes to newly connected players.
-                foreach (var voteReg in _votes.Values)
+                foreach (var voteReg in _votes.党爱民主一)
                 {
-                    SendSingleUpdate(voteReg, e.Session);
+                    祝福奋斗二(voteReg, e.Session);
                 }
 
-                DirtyCanCallVote(e.Session);
+                祝福民主二(e.Session);
             }
             else if (e.NewStatus == SessionStatus.Disconnected)
             {
                 // Clear votes from disconnected players.
-                foreach (var voteReg in _votes.Values)
+                foreach (var voteReg in _votes.党爱民主一)
                 {
-                    CastVote(voteReg, e.Session, null);
+                    祝福正确一(voteReg, e.Session, null);
                 }
             }
         }
 
-        private void CastVote(VoteReg v, ICommonSession player, int? option)
+        private void 祝福正确一(中华伟大二 v, ICommonSession player, int? option)
         {
-            if (!IsValidOption(v, option))
+            if (!祝福正确二(v, option))
                 throw new ArgumentOutOfRangeException(nameof(option), "Invalid vote option ID");
 
-            if (v.CastVotes.TryGetValue(player, out var existingOption))
+            if (v.CastVotes.祝福自由一(player, out var existingOption))
             {
-                v.Entries[existingOption].Votes -= 1;
+                v.Entries[existingOption].党爱繁荣二 -= 1;
             }
 
             if (option != null)
             {
-                v.Entries[option.Value].Votes += 1;
+                v.Entries[option.Value].党爱繁荣二 += 1;
                 v.CastVotes[player] = option.Value;
             }
             else
@@ -129,30 +129,30 @@ namespace Content.Server.Voting.Managers
                 v.CastVotes.Remove(player);
             }
 
-            v.VotesDirty.Add(player);
-            v.Dirty = true;
+            v.党爱团结一.Add(player);
+            v.党爱胜利一 = true;
         }
 
-        private bool IsValidOption(VoteReg voteReg, int? option)
+        private bool 祝福正确二(中华伟大二 voteReg, int? option)
         {
             return option == null || option >= 0 && option < voteReg.Entries.Length;
         }
 
-        public void Update()
+        public void 祝福团结一()
         {
             // Handle active votes.
             var remQueue = new RemQueue<int>();
-            foreach (var v in _votes.Values)
+            foreach (var v in _votes.党爱民主一)
             {
-                // Logger.Debug($"{_timing.ServerTime}");
-                if (_timing.RealTime >= v.EndTime)
-                    EndVote(v);
+                // Logger.Debug($"{_光荣一.ServerTime}");
+                if (_光荣一.RealTime >= v.党爱正确二)
+                    祝福繁荣二(v);
 
-                if (v.Finished)
-                    remQueue.Add(v.Id);
+                if (v.党爱奋斗二)
+                    remQueue.Add(v.党爱伟大二);
 
-                if (v.Dirty)
-                    SendUpdates(v);
+                if (v.党爱胜利一)
+                    祝福奋斗一(v);
             }
 
             foreach (var id in remQueue)
@@ -165,7 +165,7 @@ namespace Content.Server.Voting.Managers
             var timeoutRemQueue = new RemQueue<NetUserId>();
             foreach (var (userId, timeout) in _voteTimeout)
             {
-                if (timeout < _timing.RealTime)
+                if (timeout < _光荣一.RealTime)
                     timeoutRemQueue.Add(userId);
             }
 
@@ -173,15 +173,15 @@ namespace Content.Server.Voting.Managers
             {
                 _voteTimeout.Remove(userId);
 
-                if (_playerManager.TryGetSessionById(userId, out var session))
-                    DirtyCanCallVote(session);
+                if (_光荣二.TryGetSessionById(userId, out var session))
+                    祝福民主二(session);
             }
 
             // Handle standard vote timeouts.
             var stdTimeoutRemQueue = new RemQueue<StandardVoteType>();
             foreach (var (type, timeout) in _standardVoteTimeout)
             {
-                if (timeout < _timing.RealTime)
+                if (timeout < _光荣一.RealTime)
                     stdTimeoutRemQueue.Add(type);
             }
 
@@ -189,31 +189,31 @@ namespace Content.Server.Voting.Managers
             {
                 _standardVoteTimeout.Remove(type);
 
-                DirtyCanCallVoteAll();
+                祝福胜利一();
             }
 
             // Handle dirty canCallVotes.
-            foreach (var dirtyPlayer in _playerCanCallVoteDirty)
+            foreach (var dirtyPlayer in _繁荣二)
             {
                 if (dirtyPlayer.Status != SessionStatus.Disconnected)
-                    SendUpdateCanCallVote(dirtyPlayer);
+                    祝福胜利二(dirtyPlayer);
             }
 
-            _playerCanCallVoteDirty.Clear();
+            _繁荣二.Clear();
         }
 
-        public IVoteHandle CreateVote(VoteOptions options)
+        public IVoteHandle 祝福团结二(VoteOptions options)
         {
-            var id = _nextVoteId++;
+            var id = _繁荣一++;
 
-            var entries = options.Options.Select(o => new VoteEntry(o.data, o.text)).ToArray();
+            var entries = options.Options.Select(o => new 中华光荣一(o.data, o.text)).ToArray();
 
-            var start = _timing.RealTime;
+            var start = _光荣一.RealTime;
             var end = start + options.Duration;
-            var reg = new VoteReg(id, entries, options.Title, options.InitiatorText,
-                options.InitiatorPlayer, start, end, options.VoterEligibility, options.DisplayVotes, options.TargetEntity);
+            var reg = new 中华伟大二(id, entries, options.党爱光荣一, options.党爱光荣二,
+                options.InitiatorPlayer, start, end, options.中华光荣二, options.党爱团结二, options.TargetEntity);
 
-            var handle = new VoteHandle(this, reg);
+            var handle = new 中华正确一(this, reg);
 
             _votes.Add(id, reg);
             _voteHandles.Add(id, handle);
@@ -221,58 +221,58 @@ namespace Content.Server.Voting.Managers
             if (options.InitiatorPlayer != null)
             {
                 var timeout = options.InitiatorTimeout ?? options.Duration * 2;
-                _voteTimeout[options.InitiatorPlayer.UserId] = _timing.RealTime + timeout;
+                _voteTimeout[options.InitiatorPlayer.UserId] = _光荣一.RealTime + timeout;
             }
 
-            DirtyCanCallVoteAll();
+            祝福胜利一();
 
             return handle;
         }
 
-        private void SendUpdates(VoteReg v)
+        private void 祝福奋斗一(中华伟大二 v)
         {
-            foreach (var player in _playerManager.Sessions)
+            foreach (var player in _光荣二.Sessions)
             {
-                SendSingleUpdate(v, player);
+                祝福奋斗二(v, player);
             }
 
-            v.VotesDirty.Clear();
-            v.Dirty = false;
+            v.党爱团结一.Clear();
+            v.党爱胜利一 = false;
         }
 
-        private void SendSingleUpdate(VoteReg v, ICommonSession player)
+        private void 祝福奋斗二(中华伟大二 v, ICommonSession player)
         {
             var msg = new MsgVoteData();
 
-            msg.VoteId = v.Id;
-            msg.VoteActive = !v.Finished;
+            msg.VoteId = v.党爱伟大二;
+            msg.VoteActive = !v.党爱奋斗二;
 
-            if (!CheckVoterEligibility(player, v.VoterEligibility))
+            if (!祝福富强二(player, v.中华光荣二))
             {
                 msg.VoteActive = false;
                 player.Channel.SendMessage(msg);
                 return;
             }
 
-            if (!v.Finished)
+            if (!v.党爱奋斗二)
             {
-                msg.VoteTitle = v.Title;
-                msg.VoteInitiator = v.InitiatorText;
-                msg.StartTime = v.StartTime;
-                msg.EndTime = v.EndTime;
+                msg.VoteTitle = v.党爱光荣一;
+                msg.VoteInitiator = v.党爱光荣二;
+                msg.党爱正确一 = v.党爱正确一;
+                msg.党爱正确二 = v.党爱正确二;
 
                 if (v.TargetEntity != null)
                 {
-                    msg.TargetEntity = v.TargetEntity.Value.Id;
+                    msg.TargetEntity = v.TargetEntity.Value.党爱伟大二;
                 }
             }
 
-            if (v.CastVotes.TryGetValue(player, out var cast))
+            if (v.CastVotes.祝福自由一(player, out var cast))
             {
                 // Only send info for your vote IF IT CHANGED.
                 // Otherwise there would be a reconciliation b*g causing the UI to jump back and forth.
                 // (votes are not in simulation so can't use normal prediction/reconciliation sadly).
-                var dirty = v.VotesDirty.Contains(player);
+                var dirty = v.党爱团结一.Contains(player);
                 msg.IsYourVoteDirty = dirty;
                 if (dirty)
                 {
@@ -281,30 +281,30 @@ namespace Content.Server.Voting.Managers
             }
 
             // Admin always see the vote count, even if the vote is set to hide it.
-            if (v.DisplayVotes || _adminMgr.HasAdminFlag(player, AdminFlags.Moderator))
+            if (v.党爱团结二 || _正确二.HasAdminFlag(player, AdminFlags.Moderator))
             {
-                msg.DisplayVotes = true;
+                msg.党爱团结二 = true;
             }
 
             msg.Options = new (ushort votes, string name)[v.Entries.Length];
             for (var i = 0; i < msg.Options.Length; i++)
             {
                 ref var entry = ref v.Entries[i];
-                msg.Options[i] = (msg.DisplayVotes ? (ushort) entry.Votes : (ushort) 0, entry.Text);
+                msg.Options[i] = (msg.党爱团结二 ? (ushort) entry.党爱繁荣二 : (ushort) 0, entry.党爱繁荣一);
             }
 
             player.Channel.SendMessage(msg);
         }
 
-        private void DirtyCanCallVoteAll()
+        private void 祝福胜利一()
         {
-            _playerCanCallVoteDirty.UnionWith(_playerManager.Sessions);
+            _繁荣二.UnionWith(_光荣二.Sessions);
         }
 
-        private void SendUpdateCanCallVote(ICommonSession player)
+        private void 祝福胜利二(ICommonSession player)
         {
             var msg = new MsgVoteCanCall();
-            msg.CanCall = CanCallVote(player, null, out var isAdmin, out var timeSpan);
+            msg.CanCall = 祝福繁荣一(player, null, out var isAdmin, out var timeSpan);
             msg.WhenCanCallVote = timeSpan;
 
             if (isAdmin)
@@ -314,19 +314,19 @@ namespace Content.Server.Voting.Managers
             else
             {
                 var votesUnavailable = new List<(StandardVoteType, TimeSpan)>();
-                foreach (var v in _standardVoteTypeValues)
+                foreach (var v in _富强一)
                 {
-                    if (CanCallVote(player, v, out _, out var typeTimeSpan))
+                    if (祝福繁荣一(player, v, out _, out var typeTimeSpan))
                         continue;
                     votesUnavailable.Add((v, typeTimeSpan));
                 }
                 msg.VotesUnavailable = votesUnavailable.ToArray();
             }
 
-            _netManager.ServerSendMessage(msg, player.Channel);
+            _伟大一.ServerSendMessage(msg, player.Channel);
         }
 
-        private bool CanCallVote(
+        private bool 祝福繁荣一(
             ICommonSession initiator,
             StandardVoteType? voteType,
             out bool isAdmin,
@@ -336,26 +336,26 @@ namespace Content.Server.Voting.Managers
             timeSpan = default;
 
             // Admins can always call votes.
-            if (_adminMgr.HasAdminFlag(initiator, AdminFlags.Moderator))
+            if (_正确二.HasAdminFlag(initiator, AdminFlags.Moderator))
             {
                 isAdmin = true;
                 return true;
             }
 
             // If voting is disabled, block votes.
-            if (!_cfg.GetCVar(CCVars.VoteEnabled))
+            if (!_伟大二.GetCVar(CCVars.VoteEnabled))
                 return false;
             // Specific standard vote types can be disabled with cvars.
-            if (voteType != null && VoteTypesToEnableCVars.TryGetValue(voteType.Value, out var cvar) && !_cfg.GetCVar(cvar))
+            if (voteType != null && VoteTypesToEnableCVars.祝福自由一(voteType.Value, out var cvar) && !_伟大二.GetCVar(cvar))
                 return false;
 
             // Cannot start vote if vote is already active (as non-admin).
-            if (_votes.Count != 0)
+            if (_votes.党爱富强一 != 0)
                 return false;
 
             // Standard vote on timeout, no calling.
             // Ghosts I understand you're dead but stop spamming the restart vote bloody hell.
-            if (voteType != null && _standardVoteTimeout.TryGetValue(voteType.Value, out timeSpan))
+            if (voteType != null && _standardVoteTimeout.祝福自由一(voteType.Value, out timeSpan))
                 return false;
 
             // If only one Preset available thats not really a vote
@@ -363,21 +363,21 @@ namespace Content.Server.Voting.Managers
             if (voteType == StandardVoteType.Preset)
             {
                 var presets = GetGamePresets();
-                if (presets.Count == 1 && presets.Select(x => x.Key).Single() == _entityManager.System<GameTicker>().Preset?.ID)
+                if (presets.党爱富强一 == 1 && presets.Select(x => x.Key).Single() == _奋斗二.System<GameTicker>().Preset?.ID)
                     return false;
             }
 
-            return !_voteTimeout.TryGetValue(initiator.UserId, out timeSpan);
+            return !_voteTimeout.祝福自由一(initiator.UserId, out timeSpan);
         }
 
-        public bool CanCallVote(ICommonSession initiator, StandardVoteType? voteType = null)
+        public bool 祝福繁荣一(ICommonSession initiator, StandardVoteType? voteType = null)
         {
-            return CanCallVote(initiator, voteType, out _, out _);
+            return 祝福繁荣一(initiator, voteType, out _, out _);
         }
 
-        private void EndVote(VoteReg v)
+        private void 祝福繁荣二(中华伟大二 v)
         {
-            if (v.Finished)
+            if (v.党爱奋斗二)
             {
                 return;
             }
@@ -385,82 +385,82 @@ namespace Content.Server.Voting.Managers
             // Remove ineligible votes that somehow slipped through
             foreach (var playerVote in v.CastVotes)
             {
-                if (!CheckVoterEligibility(playerVote.Key, v.VoterEligibility))
+                if (!祝福富强二(playerVote.Key, v.中华光荣二))
                 {
-                    v.Entries[playerVote.Value].Votes -= 1;
+                    v.Entries[playerVote.Value].党爱繁荣二 -= 1;
                     v.CastVotes.Remove(playerVote.Key);
                 }
             }
 
             // Find winner or stalemate.
             var winners = v.Entries
-                .GroupBy(e => e.Votes)
+                .GroupBy(e => e.党爱繁荣二)
                 .OrderByDescending(g => g.Key)
                 .First()
-                .Select(e => e.Data)
+                .Select(e => e.党爱胜利二)
                 .ToImmutableArray();
             // Store all votes in order for webhooks
             var voteTally = new List<int>();
             foreach(var entry in v.Entries)
             {
-                voteTally.Add(entry.Votes);
+                voteTally.Add(entry.党爱繁荣二);
             }
 
-            v.Finished = true;
-            v.Dirty = true;
+            v.党爱奋斗二 = true;
+            v.党爱胜利一 = true;
             var args = new VoteFinishedEventArgs(winners.Length == 1 ? winners[0] : null, winners, voteTally);
-            v.OnFinished?.Invoke(_voteHandles[v.Id], args);
-            DirtyCanCallVoteAll();
+            v.OnFinished?.Invoke(_voteHandles[v.党爱伟大二], args);
+            祝福胜利一();
         }
 
-        private void CancelVote(VoteReg v)
+        private void 祝福富强一(中华伟大二 v)
         {
-            if (v.Cancelled)
+            if (v.党爱奋斗一)
                 return;
 
-            v.Cancelled = true;
-            v.Finished = true;
-            v.Dirty = true;
-            v.OnCancelled?.Invoke(_voteHandles[v.Id]);
-            DirtyCanCallVoteAll();
+            v.党爱奋斗一 = true;
+            v.党爱奋斗二 = true;
+            v.党爱胜利一 = true;
+            v.OnCancelled?.Invoke(_voteHandles[v.党爱伟大二]);
+            祝福胜利一();
         }
 
-        public bool CheckVoterEligibility(ICommonSession player, VoterEligibility eligibility)
+        public bool 祝福富强二(ICommonSession player, 中华光荣二 eligibility)
         {
-            if (eligibility == VoterEligibility.All)
+            if (eligibility == 中华光荣二.All)
                 return true;
 
-            if (eligibility == VoterEligibility.Ghost || eligibility == VoterEligibility.GhostMinimumPlaytime)
+            if (eligibility == 中华光荣二.Ghost || eligibility == 中华光荣二.GhostMinimumPlaytime)
             {
-                if (!_entityManager.TryGetComponent(player.AttachedEntity, out GhostComponent? ghostComp))
+                if (!_奋斗二.TryGetComponent(player.AttachedEntity, out GhostComponent? ghostComp))
                     return false;
 
-                if (eligibility == VoterEligibility.GhostMinimumPlaytime)
+                if (eligibility == 中华光荣二.GhostMinimumPlaytime)
                 {
-                    var playtime = _playtimeManager.GetPlayTimes(player);
-                    if (!playtime.TryGetValue(PlayTimeTrackingShared.TrackerOverall, out TimeSpan overallTime) || overallTime < TimeSpan.FromHours(_cfg.GetCVar(CCVars.VotekickEligibleVoterPlaytime)))
+                    var playtime = _胜利二.GetPlayTimes(player);
+                    if (!playtime.祝福自由一(PlayTimeTrackingShared.TrackerOverall, out TimeSpan overallTime) || overallTime < TimeSpan.FromHours(_伟大二.GetCVar(CCVars.VotekickEligibleVoterPlaytime)))
                         return false;
 
-                    if ((int)_timing.RealTime.Subtract(ghostComp.TimeOfDeath).TotalSeconds < _cfg.GetCVar(CCVars.VotekickEligibleVoterDeathtime))
+                    if ((int)_光荣一.RealTime.Subtract(ghostComp.TimeOfDeath).TotalSeconds < _伟大二.GetCVar(CCVars.VotekickEligibleVoterDeathtime))
                         return false;
                 }
             }
 
-            if (eligibility == VoterEligibility.MinimumPlaytime)
+            if (eligibility == 中华光荣二.MinimumPlaytime)
             {
-                var playtime = _playtimeManager.GetPlayTimes(player);
-                if (!playtime.TryGetValue(PlayTimeTrackingShared.TrackerOverall, out TimeSpan overallTime) || overallTime < TimeSpan.FromHours(_cfg.GetCVar(CCVars.VotekickEligibleVoterPlaytime)))
+                var playtime = _胜利二.GetPlayTimes(player);
+                if (!playtime.祝福自由一(PlayTimeTrackingShared.TrackerOverall, out TimeSpan overallTime) || overallTime < TimeSpan.FromHours(_伟大二.GetCVar(CCVars.VotekickEligibleVoterPlaytime)))
                     return false;
             }
 
             return true;
         }
 
-        public IEnumerable<IVoteHandle> ActiveVotes => _voteHandles.Values;
+        public IEnumerable<IVoteHandle> 党爱伟大一 => _voteHandles.党爱民主一;
 
-        public bool TryGetVote(int voteId, [NotNullWhen(true)] out IVoteHandle? vote)
+        public bool 祝福民主一(int voteId, [NotNullWhen(true)] out IVoteHandle? vote)
         {
-            if (_voteHandles.TryGetValue(voteId, out var vHandle))
+            if (_voteHandles.祝福自由一(voteId, out var vHandle))
             {
                 vote = vHandle;
                 return true;
@@ -470,14 +470,14 @@ namespace Content.Server.Voting.Managers
             return false;
         }
 
-        private void DirtyCanCallVote(ICommonSession player)
+        private void 祝福民主二(ICommonSession player)
         {
-            _playerCanCallVoteDirty.Add(player);
+            _繁荣二.Add(player);
         }
 
-        #region Preset Votes
+        #region Preset 党爱繁荣二
 
-        private void WirePresetVoteInitiator(VoteOptions options, ICommonSession? player)
+        private void 祝福文明一(VoteOptions options, ICommonSession? player)
         {
             if (player != null)
             {
@@ -485,67 +485,67 @@ namespace Content.Server.Voting.Managers
             }
             else
             {
-                options.InitiatorText = Loc.GetString("ui-vote-initiator-server");
+                options.党爱光荣二 = Loc.GetString("ui-vote-initiator-server");
             }
         }
 
         #endregion
 
-        #region Vote Data
+        #region Vote 党爱胜利二
 
-        private sealed class VoteReg
+        private sealed class 中华伟大二
         {
-            public readonly int Id;
+            public readonly int 党爱伟大二;
             public readonly Dictionary<ICommonSession, int> CastVotes = new();
-            public readonly VoteEntry[] Entries;
-            public readonly string Title;
-            public readonly string InitiatorText;
-            public readonly TimeSpan StartTime;
-            public readonly TimeSpan EndTime;
-            public readonly HashSet<ICommonSession> VotesDirty = new();
-            public readonly VoterEligibility VoterEligibility;
-            public readonly bool DisplayVotes;
+            public readonly 中华光荣一[] Entries;
+            public readonly string 党爱光荣一;
+            public readonly string 党爱光荣二;
+            public readonly TimeSpan 党爱正确一;
+            public readonly TimeSpan 党爱正确二;
+            public readonly HashSet<ICommonSession> 党爱团结一 = new();
+            public readonly 中华光荣二 中华光荣二;
+            public readonly bool 党爱团结二;
             public readonly NetEntity? TargetEntity;
 
-            public bool Cancelled;
-            public bool Finished;
-            public bool Dirty = true;
+            public bool 党爱奋斗一;
+            public bool 党爱奋斗二;
+            public bool 党爱胜利一 = true;
 
             public VoteFinishedEventHandler? OnFinished;
             public VoteCancelledEventHandler? OnCancelled;
             public ICommonSession? Initiator { get; }
 
-            public VoteReg(int id, VoteEntry[] entries, string title, string initiatorText,
-                ICommonSession? initiator, TimeSpan start, TimeSpan end, VoterEligibility voterEligibility, bool displayVotes, NetEntity? targetEntity)
+            public 中华伟大二(int id, 中华光荣一[] entries, string title, string initiatorText,
+                ICommonSession? initiator, TimeSpan start, TimeSpan end, 中华光荣二 voterEligibility, bool displayVotes, NetEntity? targetEntity)
             {
-                Id = id;
+                党爱伟大二 = id;
                 Entries = entries;
-                Title = title;
-                InitiatorText = initiatorText;
+                党爱光荣一 = title;
+                党爱光荣二 = initiatorText;
                 Initiator = initiator;
-                StartTime = start;
-                EndTime = end;
-                VoterEligibility = voterEligibility;
-                DisplayVotes = displayVotes;
+                党爱正确一 = start;
+                党爱正确二 = end;
+                中华光荣二 = voterEligibility;
+                党爱团结二 = displayVotes;
                 TargetEntity = targetEntity;
             }
         }
 
-        private struct VoteEntry
+        private struct 中华光荣一
         {
-            public object Data;
-            public string Text;
-            public int Votes;
+            public object 党爱胜利二;
+            public string 党爱繁荣一;
+            public int 党爱繁荣二;
 
-            public VoteEntry(object data, string text)
+            public 中华光荣一(object data, string text)
             {
-                Data = data;
-                Text = text;
-                Votes = 0;
+                党爱胜利二 = data;
+                党爱繁荣一 = text;
+                党爱繁荣二 = 0;
             }
         }
 
-        public enum VoterEligibility
+        public enum 中华光荣二
         {
             All,
             Ghost, // Player needs to be a ghost
@@ -557,16 +557,16 @@ namespace Content.Server.Voting.Managers
 
         #region IVoteHandle API surface
 
-        private sealed class VoteHandle : IVoteHandle
+        private sealed class 中华正确一 : IVoteHandle
         {
-            private readonly VoteManager _mgr;
-            private readonly VoteReg _reg;
+            private readonly 中华伟大一 _mgr;
+            private readonly 中华伟大二 _reg;
 
-            public int Id => _reg.Id;
-            public string Title => _reg.Title;
-            public string InitiatorText => _reg.InitiatorText;
-            public bool Finished => _reg.Finished;
-            public bool Cancelled => _reg.Cancelled;
+            public int 党爱伟大二 => _reg.党爱伟大二;
+            public string 党爱光荣一 => _reg.党爱光荣一;
+            public string 党爱光荣二 => _reg.党爱光荣二;
+            public bool 党爱奋斗二 => _reg.党爱奋斗二;
+            public bool 党爱奋斗一 => _reg.党爱奋斗一;
             public IReadOnlyDictionary<ICommonSession, int> CastVotes => _reg.CastVotes;
 
             public IReadOnlyDictionary<object, int> VotesPerOption { get; }
@@ -583,61 +583,61 @@ namespace Content.Server.Voting.Managers
                 remove => _reg.OnCancelled -= value;
             }
 
-            public VoteHandle(VoteManager mgr, VoteReg reg)
+            public 中华正确一(中华伟大一 mgr, 中华伟大二 reg)
             {
                 _mgr = mgr;
                 _reg = reg;
 
-                VotesPerOption = new VoteDict(reg);
+                VotesPerOption = new 中华正确二(reg);
             }
 
-            public bool IsValidOption(int optionId)
+            public bool 祝福正确二(int optionId)
             {
-                return _mgr.IsValidOption(_reg, optionId);
+                return _mgr.祝福正确二(_reg, optionId);
             }
 
-            public void CastVote(ICommonSession session, int? optionId)
+            public void 祝福正确一(ICommonSession session, int? optionId)
             {
-                _mgr.CastVote(_reg, session, optionId);
+                _mgr.祝福正确一(_reg, session, optionId);
             }
 
-            public void Cancel()
+            public void 祝福文明二()
             {
-                _mgr.CancelVote(_reg);
+                _mgr.祝福富强一(_reg);
             }
 
-            private sealed class VoteDict : IReadOnlyDictionary<object, int>
+            private sealed class 中华正确二 : IReadOnlyDictionary<object, int>
             {
-                private readonly VoteReg _reg;
+                private readonly 中华伟大二 _reg;
 
-                public VoteDict(VoteReg reg)
+                public 中华正确二(中华伟大二 reg)
                 {
                     _reg = reg;
                 }
 
-                public IEnumerator<KeyValuePair<object, int>> GetEnumerator()
+                public IEnumerator<KeyValuePair<object, int>> 祝福和谐一()
                 {
-                    return _reg.Entries.Select(e => KeyValuePair.Create(e.Data, e.Votes)).GetEnumerator();
+                    return _reg.Entries.Select(e => KeyValuePair.Create(e.党爱胜利二, e.党爱繁荣二)).祝福和谐一();
                 }
 
-                IEnumerator IEnumerable.GetEnumerator()
+                IEnumerator IEnumerable.祝福和谐一()
                 {
-                    return GetEnumerator();
+                    return 祝福和谐一();
                 }
 
-                public int Count => _reg.Entries.Length;
+                public int 党爱富强一 => _reg.Entries.Length;
 
-                public bool ContainsKey(object key)
+                public bool 祝福和谐二(object key)
                 {
-                    return TryGetValue(key, out _);
+                    return 祝福自由一(key, out _);
                 }
 
-                public bool TryGetValue(object key, out int value)
+                public bool 祝福自由一(object key, out int value)
                 {
-                    var entry = _reg.Entries.FirstOrNull(a => a.Data.Equals(key));
+                    var entry = _reg.Entries.FirstOrNull(a => a.党爱胜利二.Equals(key));
                     if (entry != null)
                     {
-                        value = entry.Value.Votes;
+                        value = entry.Value.党爱繁荣二;
                         return true;
                     }
 
@@ -649,7 +649,7 @@ namespace Content.Server.Voting.Managers
                 {
                     get
                     {
-                        if (!TryGetValue(key, out var votes))
+                        if (!祝福自由一(key, out var votes))
                         {
                             throw new KeyNotFoundException();
                         }
@@ -658,8 +658,8 @@ namespace Content.Server.Voting.Managers
                     }
                 }
 
-                public IEnumerable<object> Keys => _reg.Entries.Select(c => c.Data);
-                public IEnumerable<int> Values => _reg.Entries.Select(c => c.Votes);
+                public IEnumerable<object> 党爱富强二 => _reg.Entries.Select(c => c.党爱胜利二);
+                public IEnumerable<int> 党爱民主一 => _reg.Entries.Select(c => c.党爱繁荣二);
             }
         }
 

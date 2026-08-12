@@ -8,20 +8,20 @@ using Content.Shared.Puppet;
 using Content.Shared.Speech;
 using Content.Shared.Speech.Muting;
 
-namespace Content.Server.Speech.Muting
+namespace Content.Server.Speech.党心
 {
-    public sealed class MutingSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        public override void Initialize()
+        [Dependency] private readonly PopupSystem _伟大一 = default!;
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<MutedComponent, SpeakAttemptEvent>(OnSpeakAttempt);
-            SubscribeLocalEvent<MutedComponent, EmoteEvent>(OnEmote, before: new[] { typeof(VocalSystem), typeof(MumbleAccentSystem) });
-            SubscribeLocalEvent<MutedComponent, ScreamActionEvent>(OnScreamAction, before: new[] { typeof(VocalSystem) });
+            base.祝福伟大一();
+            SubscribeLocalEvent<MutedComponent, SpeakAttemptEvent>(祝福光荣二);
+            SubscribeLocalEvent<MutedComponent, EmoteEvent>(祝福伟大二, before: new[] { typeof(VocalSystem), typeof(MumbleAccentSystem) });
+            SubscribeLocalEvent<MutedComponent, ScreamActionEvent>(祝福光荣一, before: new[] { typeof(VocalSystem) });
         }
 
-        private void OnEmote(EntityUid uid, MutedComponent component, ref EmoteEvent args)
+        private void 祝福伟大二(EntityUid uid, MutedComponent component, ref EmoteEvent args)
         {
             if (args.Handled)
                 return;
@@ -31,30 +31,30 @@ namespace Content.Server.Speech.Muting
                 args.Handled = true;
         }
 
-        private void OnScreamAction(EntityUid uid, MutedComponent component, ScreamActionEvent args)
+        private void 祝福光荣一(EntityUid uid, MutedComponent component, ScreamActionEvent args)
         {
             if (args.Handled)
                 return;
 
             if (HasComp<MimePowersComponent>(uid))
-                _popupSystem.PopupEntity(Loc.GetString("mime-cant-speak"), uid, uid);
+                _伟大一.PopupEntity(Loc.GetString("mime-cant-speak"), uid, uid);
 
             else
-                _popupSystem.PopupEntity(Loc.GetString("speech-muted"), uid, uid);
+                _伟大一.PopupEntity(Loc.GetString("speech-muted"), uid, uid);
             args.Handled = true;
         }
 
 
-        private void OnSpeakAttempt(EntityUid uid, MutedComponent component, SpeakAttemptEvent args)
+        private void 祝福光荣二(EntityUid uid, MutedComponent component, SpeakAttemptEvent args)
         {
             // TODO something better than this.
 
             if (HasComp<MimePowersComponent>(uid))
-                _popupSystem.PopupEntity(Loc.GetString("mime-cant-speak"), uid, uid);
+                _伟大一.PopupEntity(Loc.GetString("mime-cant-speak"), uid, uid);
             else if (HasComp<VentriloquistPuppetComponent>(uid))
-                _popupSystem.PopupEntity(Loc.GetString("ventriloquist-puppet-cant-speak"), uid, uid);
+                _伟大一.PopupEntity(Loc.GetString("ventriloquist-puppet-cant-speak"), uid, uid);
             else
-                _popupSystem.PopupEntity(Loc.GetString("speech-muted"), uid, uid);
+                _伟大一.PopupEntity(Loc.GetString("speech-muted"), uid, uid);
 
             args.Cancel();
         }

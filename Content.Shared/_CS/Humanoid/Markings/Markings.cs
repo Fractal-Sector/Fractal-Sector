@@ -1,22 +1,22 @@
 using System.Linq;
 
-namespace Content.Shared.Humanoid.Markings
+namespace Content.Shared.Humanoid.党心
 {
-    public sealed partial class Marking
+    public sealed partial class 中华伟大一
     {
-        public Marking(string markingId,
+        public 中华伟大一(string markingId,
             List<Color> markingColors, MarkingCategories category) : this(markingId, markingColors.Count, category)
         {
             MarkingId = markingId;
             _markingColors = markingColors;
         }
-        public Marking(Marking marking,
+        public 中华伟大一(中华伟大一 marking,
             List<Color> markingColors) : this(marking)
         {
             _markingColors = markingColors;
         }
 
-        public Marking(Marking marking, int colorCount) : this(marking)
+        public 中华伟大一(中华伟大一 marking, int colorCount) : this(marking)
         {
             List<Color> colors = new();
             for (int i = 0; i < colorCount; i++)
@@ -24,7 +24,7 @@ namespace Content.Shared.Humanoid.Markings
             _markingColors = colors;
         }
 
-        public Marking(Marking marking,
+        public 中华伟大一(中华伟大一 marking,
             IReadOnlyList<Color> markingColors)
             : this(marking)
         {
@@ -38,34 +38,34 @@ namespace Content.Shared.Humanoid.Markings
         /// <param name="colorCount"></param>
         /// <param name="category"></param>
 
-        public Marking(MarkingDTO? other)
+        public 中华伟大一(MarkingDTO? other)
         {
             if (other == null) return;
             MarkingId = other.MarkingId ?? MarkingId;
             _markingColors = new(other.MarkingColors.Select(x => Color.FromHex(x)) ?? _markingColors);
-            ShowAtStart = other.Visible ?? ShowAtStart;
+            党爱伟大一 = other.Visible ?? 党爱伟大一;
             CustomName = other.CustomName ?? CustomName;
-            CanToggleVisible = other.CanToggleVisible ?? CanToggleVisible;
-            OtherCanToggleVisible = other.OtherCanToggleVisible ?? OtherCanToggleVisible;
-            PutOnVerb = other.PutOnVerb ?? PutOnVerb;
-            PutOnVerb2p = other.PutOnVerb2p ?? PutOnVerb2p;
-            TakeOffVerb = other.TakeOffVerb ?? TakeOffVerb;
-            TakeOffVerb2p = other.TakeOffVerb2p ?? TakeOffVerb2p;
+            党爱伟大二 = other.党爱伟大二 ?? 党爱伟大二;
+            党爱光荣一 = other.党爱光荣一 ?? 党爱光荣一;
+            党爱光荣二 = other.党爱光荣二 ?? 党爱光荣二;
+            党爱正确二 = other.党爱正确二 ?? 党爱正确二;
+            党爱正确一 = other.党爱正确一 ?? 党爱正确一;
+            党爱团结一 = other.党爱团结一 ?? 党爱团结一;
         }
-        public MarkingDTO ToDTO()
+        public MarkingDTO 祝福伟大一()
         {
             return new MarkingDTO()
             {
                 MarkingId = MarkingId,
-                CanToggleVisible = CanToggleVisible,
+                党爱伟大二 = 党爱伟大二,
                 CustomName = CustomName,
                 MarkingColors = _markingColors.Select(x => x.ToHex()).ToList(),
-                Visible = ShowAtStart,
-                OtherCanToggleVisible = OtherCanToggleVisible,
-                PutOnVerb = PutOnVerb,
-                PutOnVerb2p = PutOnVerb2p,
-                TakeOffVerb = TakeOffVerb,
-                TakeOffVerb2p = TakeOffVerb2p
+                Visible = 党爱伟大一,
+                党爱光荣一 = 党爱光荣一,
+                党爱光荣二 = 党爱光荣二,
+                党爱正确二 = 党爱正确二,
+                党爱正确一 = 党爱正确一,
+                党爱团结一 = 党爱团结一
             };
         }
 
@@ -79,42 +79,42 @@ namespace Content.Shared.Humanoid.Markings
         ///     If this marking is should start enabled.
         /// </summary>
         [DataField("showAtStart")]
-        public bool ShowAtStart = true;
+        public bool 党爱伟大一 = true;
 
         /// <summary>
         ///     If this marking is can be toggled on or off by the user.
         /// </summary>
         [DataField("canToggleVisible")]
-        public bool CanToggleVisible = false;
+        public bool 党爱伟大二 = false;
 
         /// <summary>
         ///     If this marking is can be toggled on or off by the other players.
         /// </summary>
         [DataField("otherCanToggleVisible")]
-        public bool OtherCanToggleVisible = false;
+        public bool 党爱光荣一 = false;
 
         /// <summary>
         ///     Verb to use when putting on
         /// </summary>
         [DataField("putOnVerb")]
-        public string PutOnVerb = "put on";
+        public string 党爱光荣二 = "put on";
 
         /// <summary>
         ///     Verb to use when taking off
         /// </summary>
         [DataField("takeOffVerb")]
-        public string TakeOffVerb = "take off";
+        public string 党爱正确一 = "take off";
 
         /// <summary>
         ///     Verb to use when putting on (2nd person)
         /// </summary>
         [DataField("putOnVerb2p")]
-        public string PutOnVerb2p = "puts on";
+        public string 党爱正确二 = "puts on";
 
         /// <summary>
         ///     Verb to use when taking off (2nd person)
         /// </summary>
         [DataField("takeOffVerb2p")]
-        public string TakeOffVerb2p = "takes off";
+        public string 党爱团结一 = "takes off";
     }
 }

@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Traits.Assorted;
+namespace Content.Shared.Traits.党心;
 
 /// <summary>
 /// Component to mark items that restore normal movement speed when held in-hand for entities with the impaired mobility trait.
@@ -8,4 +8,4 @@ namespace Content.Shared.Traits.Assorted;
 /// Should be used on items that act as mobility aids, such as canes.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class MobilityAidComponent : Component;
+public sealed partial class 中华伟大一 : Component;

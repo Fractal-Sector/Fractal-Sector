@@ -14,50 +14,50 @@ using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 
-namespace Content.Shared._NF.Power.EntitySystems;
+namespace Content.Shared._NF.Power.党心;
 
 /// <summary>
 /// Handles logic for the PowerTransmissionComponent.
 /// Consumes power, pays a sector bank account depending on the amount of power consumed.
 /// </summary>
-public sealed partial class PowerTransmissionSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly NodeContainerSystem _node = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly AmbientSoundSystem _伟大二 = default!;
+    [Dependency] private readonly AppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly BankSystem _光荣二 = default!;
+    [Dependency] private readonly NodeContainerSystem _正确一 = default!;
+    [Dependency] private readonly NodeGroupSystem _正确二 = default!;
+    [Dependency] private readonly PointLightSystem _团结一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         UpdatesAfter.Add(typeof(PowerNetSystem));
 
-        SubscribeLocalEvent<PowerTransmissionComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<PowerTransmissionComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<PowerTransmissionComponent, AfterActivatableUIOpenEvent>(OnUIOpen);
+        SubscribeLocalEvent<PowerTransmissionComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<PowerTransmissionComponent, ExaminedEvent>(祝福光荣一);
+        SubscribeLocalEvent<PowerTransmissionComponent, AfterActivatableUIOpenEvent>(祝福正确二);
 
         Subs.BuiEvents<PowerTransmissionComponent>(
             AdjustablePowerDrawUiKey.Key,
             subs =>
             {
-                subs.Event<AdjustablePowerDrawSetEnabledMessage>(HandleSetEnabled);
-                subs.Event<AdjustablePowerDrawSetLoadMessage>(HandleSetLoad);
+                subs.Event<AdjustablePowerDrawSetEnabledMessage>(祝福团结一);
+                subs.Event<AdjustablePowerDrawSetLoadMessage>(祝福团结二);
             });
     }
 
-    private void OnMapInit(Entity<PowerTransmissionComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<PowerTransmissionComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextDeposit = _timing.CurTime + ent.Comp.DepositPeriod;
+        ent.Comp.NextDeposit = _伟大一.CurTime + ent.Comp.DepositPeriod;
         if (TryComp(ent, out PowerConsumerComponent? power))
             power.DrawRate = Math.Clamp(power.DrawRate, ent.Comp.MinimumRequestablePower, ent.Comp.MaximumRequestablePower);
     }
 
-    private void OnExamined(Entity<PowerTransmissionComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<PowerTransmissionComponent> ent, ref ExaminedEvent args)
     {
         if (TryComp(ent, out PowerConsumerComponent? power))
         {
@@ -74,7 +74,7 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<PowerTransmissionComponent, PowerConsumerComponent>();
         while (query.MoveNext(out var uid, out var xmit, out var power))
@@ -84,7 +84,7 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
                 xmit.AccumulatedEnergy += power.NetworkLoad.ReceivingPower * frameTime;
 
             // If our time window has elapsed, scale your energy based on average power
-            if (_timing.CurTime >= xmit.NextDeposit)
+            if (_伟大一.CurTime >= xmit.NextDeposit)
             {
                 xmit.NextDeposit += xmit.DepositPeriod;
 
@@ -95,20 +95,20 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
                 }
 
                 float totalPeriodSeconds = (float)xmit.DepositPeriod.TotalSeconds;
-                float depositValue = GetPowerPayRate((uid, xmit), xmit.AccumulatedEnergy / totalPeriodSeconds) * totalPeriodSeconds;
+                float depositValue = 祝福正确一((uid, xmit), xmit.AccumulatedEnergy / totalPeriodSeconds) * totalPeriodSeconds;
 
                 xmit.AccumulatedEnergy = 0.0f;
                 var depositSpesos = (int)depositValue;
                 if (depositSpesos > 0)
-                    _bank.TrySectorDeposit(xmit.Account, depositSpesos, LedgerEntryType.PowerTransmission);
+                    _光荣二.TrySectorDeposit(xmit.Account, depositSpesos, LedgerEntryType.PowerTransmission);
             }
 
             bool powered = power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0;
             if (powered != xmit.LastPowered)
             {
-                _appearance.SetData(uid, PowerDeviceVisuals.Powered, powered);
-                _pointLight.SetEnabled(uid, powered);
-                _ambientSound.SetAmbience(uid, powered);
+                _光荣一.SetData(uid, PowerDeviceVisuals.Powered, powered);
+                _团结一.SetEnabled(uid, powered);
+                _伟大二.SetAmbience(uid, powered);
                 xmit.LastPowered = powered;
             }
         }
@@ -119,7 +119,7 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
     /// </summary>
     /// <param name="power">Input power level, in watts</param>
     /// <returns>Expected power sale value in spesos per second</returns>
-    public float GetPowerPayRate(Entity<PowerTransmissionComponent> ent, float power)
+    public float 祝福正确一(Entity<PowerTransmissionComponent> ent, float power)
     {
         if (!float.IsFinite(power) || !float.IsPositive(power))
         {
@@ -135,57 +135,57 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
         return MathF.Min(depositValue, ent.Comp.MaxValuePerSecond);
     }
 
-    private void OnUIOpen(Entity<PowerTransmissionComponent> ent, ref AfterActivatableUIOpenEvent args)
+    private void 祝福正确二(Entity<PowerTransmissionComponent> ent, ref AfterActivatableUIOpenEvent args)
     {
         if (TryComp(ent, out PowerConsumerComponent? power))
-            UpdateUI(ent, power);
+            祝福奋斗一(ent, power);
     }
 
-    private void HandleSetEnabled(Entity<PowerTransmissionComponent> ent, ref AdjustablePowerDrawSetEnabledMessage args)
+    private void 祝福团结一(Entity<PowerTransmissionComponent> ent, ref AdjustablePowerDrawSetEnabledMessage args)
     {
         if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
+            _正确一.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
         {
             deviceNode.Enabled = args.On;
             if (deviceNode.Enabled)
-                _nodeGroup.QueueReflood(deviceNode);
+                _正确二.QueueReflood(deviceNode);
             else
-                _nodeGroup.QueueNodeRemove(deviceNode);
+                _正确二.QueueNodeRemove(deviceNode);
 
             if (TryComp(ent, out PowerConsumerComponent? power))
-                UpdateUI(ent, power);
+                祝福奋斗一(ent, power);
         }
     }
 
-    private void HandleSetLoad(Entity<PowerTransmissionComponent> ent, ref AdjustablePowerDrawSetLoadMessage args)
+    private void 祝福团结二(Entity<PowerTransmissionComponent> ent, ref AdjustablePowerDrawSetLoadMessage args)
     {
         if (args.Load >= 0 && TryComp(ent, out PowerConsumerComponent? power))
         {
             power.DrawRate = Math.Clamp(args.Load, ent.Comp.MinimumRequestablePower, ent.Comp.MaximumRequestablePower);
-            UpdateUI(ent, power);
+            祝福奋斗一(ent, power);
         }
     }
 
-    private void UpdateUI(Entity<PowerTransmissionComponent> ent, PowerConsumerComponent power)
+    private void 祝福奋斗一(Entity<PowerTransmissionComponent> ent, PowerConsumerComponent power)
     {
-        if (!_ui.IsUiOpen(ent.Owner, AdjustablePowerDrawUiKey.Key))
+        if (!_团结二.IsUiOpen(ent.Owner, AdjustablePowerDrawUiKey.Key))
             return;
 
         bool nodeEnabled = false;
         if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
+            _正确一.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
         {
             nodeEnabled = deviceNode.Enabled;
         }
 
-        _ui.SetUiState(
+        _团结二.SetUiState(
             ent.Owner,
             AdjustablePowerDrawUiKey.Key,
             new AdjustablePowerDrawBuiState
             {
                 On = nodeEnabled,
                 Load = power.DrawRate,
-                Text = Loc.GetString("power-transmission-estimated-value", ("value", BankSystemExtensions.ToSpesoString((int)GetPowerPayRate(ent, power.DrawRate))))
+                Text = Loc.GetString("power-transmission-estimated-value", ("value", BankSystemExtensions.ToSpesoString((int)祝福正确一(ent, power.DrawRate))))
             });
     }
 }

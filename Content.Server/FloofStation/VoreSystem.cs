@@ -42,79 +42,79 @@ using Robust.Shared.Audio;
 using Content.Shared.Body.Systems;
 using Content.Shared.Body.Components;
 
-namespace Content.Server.FloofStation;
+namespace Content.Server.党心;
 
-public sealed class VoreSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ConsentSystem _consent = default!;
-    [Dependency] private readonly BlindableSystem _blindableSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly ContestsSystem _contests = default!;
-    [Dependency] private readonly StandingStateSystem _standingState = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly MouthStorageSystem _mouthStorage = default!;
-    [Dependency] private readonly SharedBloodstreamSystem _bloodstream = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly ConsentSystem _光荣一 = default!;
+    [Dependency] private readonly BlindableSystem _光荣二 = default!;
+    [Dependency] private readonly DamageableSystem _正确一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _正确二 = default!;
+    [Dependency] private readonly IChatManager _团结一 = default!;
+    [Dependency] private readonly DoAfterSystem _团结二 = default!;
+    [Dependency] private readonly SharedPopupSystem _奋斗一 = default!;
+    [Dependency] private readonly IPlayerManager _奋斗二 = default!;
+    [Dependency] private readonly MobStateSystem _胜利一 = default!;
+    [Dependency] private readonly IRobustRandom _胜利二 = default!;
+    [Dependency] private readonly InventorySystem _繁荣一 = default!;
+    [Dependency] private readonly HungerSystem _繁荣二 = default!;
+    [Dependency] private readonly BatterySystem _富强一 = default!;
+    [Dependency] private readonly ContestsSystem _富强二 = default!;
+    [Dependency] private readonly StandingStateSystem _民主一 = default!;
+    [Dependency] private readonly SharedTransformSystem _民主二 = default!;
+    [Dependency] private readonly MouthStorageSystem _文明一 = default!;
+    [Dependency] private readonly SharedBloodstreamSystem _文明二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<VoreComponent, MapInitEvent>(OnInit);
-        SubscribeLocalEvent<VoreComponent, GetVerbsEvent<InnateVerb>>(AddVerbs);
-        SubscribeLocalEvent<VoreComponent, BeingGibbedEvent>(OnGibContents);
-        SubscribeLocalEvent<VoreComponent, ExaminedEvent>((uid, _, args) => OnExamine(uid, args));
-        SubscribeLocalEvent<VoreComponent, VoreDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<VoreComponent, PlaceInMouthDoAfterEvent>(OnMouthDoAfter);
+        SubscribeLocalEvent<VoreComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<VoreComponent, GetVerbsEvent<InnateVerb>>(祝福光荣一);
+        SubscribeLocalEvent<VoreComponent, BeingGibbedEvent>(祝福平等一);
+        SubscribeLocalEvent<VoreComponent, ExaminedEvent>((uid, _, args) => 祝福自由一(uid, args));
+        SubscribeLocalEvent<VoreComponent, VoreDoAfterEvent>(祝福团结一);
+        SubscribeLocalEvent<VoreComponent, PlaceInMouthDoAfterEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<VoredComponent, EntGotRemovedFromContainerMessage>(OnRelease);
-        SubscribeLocalEvent<VoredComponent, CanSeeAttemptEvent>(OnSeeAttempt);
-        SubscribeLocalEvent<VoredComponent, ContainerGettingRemovedAttemptEvent>(OnVoredRemoveAttempt);
+        SubscribeLocalEvent<VoredComponent, EntGotRemovedFromContainerMessage>(祝福文明一);
+        SubscribeLocalEvent<VoredComponent, CanSeeAttemptEvent>(祝福自由二);
+        SubscribeLocalEvent<VoredComponent, ContainerGettingRemovedAttemptEvent>(祝福民主二);
 
-        SubscribeLocalEvent<HeldInMouthComponent, EntGotRemovedFromContainerMessage>(OnMouthRelease);
-        SubscribeLocalEvent<HeldInMouthComponent, CanSeeAttemptEvent>(OnMouthSeeAttempt);
-        SubscribeLocalEvent<HeldInMouthComponent, ContainerGettingRemovedAttemptEvent>(OnHeldInMouthRemoveAttempt);
+        SubscribeLocalEvent<HeldInMouthComponent, EntGotRemovedFromContainerMessage>(祝福富强一);
+        SubscribeLocalEvent<HeldInMouthComponent, CanSeeAttemptEvent>(祝福富强二);
+        SubscribeLocalEvent<HeldInMouthComponent, ContainerGettingRemovedAttemptEvent>(祝福民主一);
     }
 
-    private void OnInit(EntityUid uid, VoreComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, VoreComponent component, MapInitEvent args)
     {
-        component.Stomach = _containerSystem.EnsureContainer<Container>(uid, "stomach");
-        component.Mouth = _containerSystem.EnsureContainer<Container>(uid, "vore-mouth");
+        component.Stomach = _伟大一.EnsureContainer<Container>(uid, "stomach");
+        component.Mouth = _伟大一.EnsureContainer<Container>(uid, "vore-mouth");
     }
 
-    private void AddVerbs(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
+    private void 祝福光荣一(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
     {
-        DevourVerb(uid, component, args);
-        PlaceInMouthVerb(uid, component, args);
-        VoreVerb(uid, component, args);
+        祝福光荣二(uid, component, args);
+        祝福奋斗一(uid, component, args);
+        祝福正确一(uid, component, args);
     }
 
-    private void DevourVerb(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
+    private void 祝福光荣二(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
     {
         if (!args.CanInteract
             || !args.CanAccess
             || args.User == args.Target
             || !HasComp<VoreComponent>(args.Target)
-            || !_consent.HasConsent(args.Target, "Vore")
-            || !_consent.HasConsent(args.User, "Vore")
+            || !_光荣一.HasConsent(args.Target, "Vore")
+            || !_光荣一.HasConsent(args.User, "Vore")
             || HasComp<VoredComponent>(args.User)
             || HasComp<HeldInMouthComponent>(args.User))
             return;
 
         InnateVerb verbDevour = new()
         {
-            Act = () => TryDevour(uid, args.Target, component),
+            Act = () => 祝福正确二(uid, args.Target, component),
             Text = Loc.GetString("vore-devour"),
             Category = VerbCategory.Vore,
             Icon = new SpriteSpecifier.Rsi(new ResPath("Interface/Actions/devour.rsi"), "icon-on"),
@@ -123,15 +123,15 @@ public sealed class VoreSystem : EntitySystem
         args.Verbs.Add(verbDevour);
     }
 
-    private void VoreVerb(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
+    private void 祝福正确一(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
     {
         // Wayfarer: No vore verb if they turned consent off for vore (why was this missed?)
         if (!args.CanInteract
             || !args.CanAccess
             || args.User != args.Target
             || !HasComp<VoreComponent>(args.Target)
-            || !_consent.HasConsent(args.Target, "Vore")
-            || !_consent.HasConsent(args.User, "Vore")
+            || !_光荣一.HasConsent(args.Target, "Vore")
+            || !_光荣一.HasConsent(args.User, "Vore")
             || HasComp<VoredComponent>(args.User)
             || HasComp<HeldInMouthComponent>(args.User))
             return;
@@ -167,7 +167,7 @@ public sealed class VoreSystem : EntitySystem
         {
             InnateVerb verbSpitOut = new()
             {
-                Act = () => _containerSystem.TryRemoveFromContainer(mouthPrey, true),
+                Act = () => _伟大一.TryRemoveFromContainer(mouthPrey, true),
                 Text = Loc.GetString("vore-spit-out", ("entity", mouthPrey)),
                 Category = VerbCategory.Vore,
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
@@ -177,7 +177,7 @@ public sealed class VoreSystem : EntitySystem
 
             InnateVerb verbSwallow = new()
             {
-                Act = () => SwallowFromMouth(uid, mouthPrey, component),
+                Act = () => 祝福繁荣一(uid, mouthPrey, component),
                 Text = Loc.GetString("vore-swallow", ("entity", mouthPrey)),
                 Category = VerbCategory.Vore,
                 Icon = new SpriteSpecifier.Rsi(new ResPath("Interface/Actions/devour.rsi"), "icon-on"),
@@ -187,7 +187,7 @@ public sealed class VoreSystem : EntitySystem
 
             InnateVerb verbChew = new()
             {
-                Act = () => Chew(uid, mouthPrey),
+                Act = () => 祝福繁荣二(uid, mouthPrey),
                 Text = Loc.GetString("vore-chew", ("entity", mouthPrey)),
                 Category = VerbCategory.Vore,
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/cutlery.svg.192dpi.png")),
@@ -200,7 +200,7 @@ public sealed class VoreSystem : EntitySystem
         {
             InnateVerb verbRelease = new()
             {
-                Act = () => _containerSystem.TryRemoveFromContainer(prey, true),
+                Act = () => _伟大一.TryRemoveFromContainer(prey, true),
                 Text = Loc.GetString("vore-release", ("entity", prey)),
                 Category = VerbCategory.Vore,
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
@@ -211,13 +211,13 @@ public sealed class VoreSystem : EntitySystem
             if (!TryComp<VoredComponent>(prey, out var vored))
                 return;
 
-            if (_consent.HasConsent(prey, "Digestion")
+            if (_光荣一.HasConsent(prey, "Digestion")
                 && HasComp<DamageableComponent>(args.Target)
                 && !vored.Digesting)
             {
                 InnateVerb verbDigest = new()
                 {
-                    Act = () => Digest(prey),
+                    Act = () => 祝福文明二(prey),
                     Text = Loc.GetString("vore-digest", ("entity", prey)),
                     Category = VerbCategory.Vore,
                     Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/cutlery.svg.192dpi.png")),
@@ -230,7 +230,7 @@ public sealed class VoreSystem : EntitySystem
             {
                 InnateVerb verbStopDigest = new()
                 {
-                    Act = () => StopDigest(prey),
+                    Act = () => 祝福和谐一(prey),
                     Text = Loc.GetString("vore-stop-digest", ("entity", prey)),
                     Category = VerbCategory.Vore,
                     Priority = 1,
@@ -240,26 +240,26 @@ public sealed class VoreSystem : EntitySystem
         }
     }
 
-    public void TryDevour(EntityUid uid, EntityUid target, VoreComponent? component = null)
+    public void 祝福正确二(EntityUid uid, EntityUid target, VoreComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        if (_mouthStorage.IsMouthBlocked(uid))
+        if (_文明一.IsMouthBlocked(uid))
             return;
 
-        _popups.PopupEntity(Loc.GetString("vore-attempt-devour", ("entity", uid), ("prey", target)), uid, PopupType.LargeCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-attempt-devour", ("entity", uid), ("prey", target)), uid, PopupType.LargeCaution);
 
         if (!TryComp<PhysicsComponent>(uid, out var predPhysics)
             || !TryComp<PhysicsComponent>(target, out var preyPhysics))
             return;
 
         var length = TimeSpan.FromSeconds(component.Delay
-                        * _contests.MassContest(preyPhysics, predPhysics, false, 4f)
-                        * _contests.StaminaContest(uid, target)
-                        * (_standingState.IsDown(target) ? 0.5f : 1));
+                        * _富强二.MassContest(preyPhysics, predPhysics, false, 4f)
+                        * _富强二.StaminaContest(uid, target)
+                        * (_民主一.IsDown(target) ? 0.5f : 1));
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, length, new VoreDoAfterEvent(), uid, target: target)
+        _团结二.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, length, new VoreDoAfterEvent(), uid, target: target)
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -267,7 +267,7 @@ public sealed class VoreSystem : EntitySystem
         });
     }
 
-    private void OnDoAfter(EntityUid uid, VoreComponent component, VoreDoAfterEvent args)
+    private void 祝福团结一(EntityUid uid, VoreComponent component, VoreDoAfterEvent args)
     {
         if (component is null)
             return;
@@ -276,10 +276,10 @@ public sealed class VoreSystem : EntitySystem
             || args.Cancelled)
             return;
 
-        Devour(uid, args.Target.Value, component);
+        祝福团结二(uid, args.Target.Value, component);
     }
 
-    public void Devour(EntityUid uid, EntityUid target, VoreComponent? component = null)
+    public void 祝福团结二(EntityUid uid, EntityUid target, VoreComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -288,23 +288,23 @@ public sealed class VoreSystem : EntitySystem
         vored.Pred = uid;
         EnsureComp<PressureImmunityComponent>(target);
         // EnsureComp<RespiratorImmuneComponent>(target);
-        _blindableSystem.UpdateIsBlind(target);
+        _光荣二.UpdateIsBlind(target);
         if (TryComp<TemperatureComponent>(target, out var temp))
             temp.AtmosTemperatureTransferEfficiency = 0;
 
-        _containerSystem.Insert(target, component.Stomach);
-        _audioSystem.PlayPvs(component.SoundDevour, uid);
+        _伟大一.Insert(target, component.Stomach);
+        _伟大二.PlayPvs(component.SoundDevour, uid);
 
-        if (_playerManager.TryGetSessionByEntity(target, out var sessionprey)
+        if (_奋斗二.TryGetSessionByEntity(target, out var sessionprey)
             || sessionprey is not null)
-            _audioSystem.PlayEntity(component.SoundDevour, sessionprey, uid);
+            _伟大二.PlayEntity(component.SoundDevour, sessionprey, uid);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionpred)
+        if (_奋斗二.TryGetSessionByEntity(uid, out var sessionpred)
             || sessionpred is not null)
         {
-            _audioSystem.PlayEntity(component.SoundDevour, sessionpred, uid);
+            _伟大二.PlayEntity(component.SoundDevour, sessionpred, uid);
             // var message = Loc.GetString("", ("entity", uid));
-            // _chatManager.ChatMessageToOne(
+            // _团结一.ChatMessageToOne(
             //     ChatChannel.Emotes,
             //     message,
             //     message,
@@ -313,20 +313,20 @@ public sealed class VoreSystem : EntitySystem
             //     sessionprey.Channel);
         }
 
-        _popups.PopupEntity(Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)), target, target, PopupType.SmallCaution);
-        _popups.PopupEntity(Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)), target, uid, PopupType.SmallCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)), target, target, PopupType.SmallCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)), target, uid, PopupType.SmallCaution);
 
-        _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(uid)} vored {ToPrettyString(target)}");
+        _正确二.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(uid)} vored {ToPrettyString(target)}");
     }
 
-    private void PlaceInMouthVerb(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
+    private void 祝福奋斗一(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
     {
         if (!args.CanInteract
             || !args.CanAccess
             || args.User == args.Target
             || !HasComp<VoreComponent>(args.Target)
-            || !_consent.HasConsent(args.Target, "Vore")
-            || !_consent.HasConsent(args.User, "Vore")
+            || !_光荣一.HasConsent(args.Target, "Vore")
+            || !_光荣一.HasConsent(args.User, "Vore")
             || HasComp<VoredComponent>(args.User)
             || HasComp<HeldInMouthComponent>(args.User)
             || HasComp<VoredComponent>(args.Target)
@@ -336,7 +336,7 @@ public sealed class VoreSystem : EntitySystem
 
         InnateVerb verbPlaceInMouth = new()
         {
-            Act = () => TryPlaceInMouth(uid, args.Target, component),
+            Act = () => 祝福奋斗二(uid, args.Target, component),
             Text = Loc.GetString("vore-place-in-mouth", ("entity", args.Target)),
             Category = VerbCategory.Vore,
             Icon = new SpriteSpecifier.Rsi(new ResPath("Interface/Actions/devour.rsi"), "icon-on"),
@@ -345,26 +345,26 @@ public sealed class VoreSystem : EntitySystem
         args.Verbs.Add(verbPlaceInMouth);
     }
 
-    public void TryPlaceInMouth(EntityUid uid, EntityUid target, VoreComponent? component = null)
+    public void 祝福奋斗二(EntityUid uid, EntityUid target, VoreComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        if (_mouthStorage.IsMouthBlocked(uid))
+        if (_文明一.IsMouthBlocked(uid))
             return;
 
-        _popups.PopupEntity(Loc.GetString("vore-attempt-place-in-mouth", ("entity", uid), ("prey", target)), uid, PopupType.LargeCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-attempt-place-in-mouth", ("entity", uid), ("prey", target)), uid, PopupType.LargeCaution);
 
         if (!TryComp<PhysicsComponent>(uid, out var predPhysics)
             || !TryComp<PhysicsComponent>(target, out var preyPhysics))
             return;
 
         var length = TimeSpan.FromSeconds(component.Delay * 0.7f
-                        * _contests.MassContest(preyPhysics, predPhysics, false, 4f)
-                        * _contests.StaminaContest(uid, target)
-                        * (_standingState.IsDown(target) ? 0.5f : 1));
+                        * _富强二.MassContest(preyPhysics, predPhysics, false, 4f)
+                        * _富强二.StaminaContest(uid, target)
+                        * (_民主一.IsDown(target) ? 0.5f : 1));
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, length, new PlaceInMouthDoAfterEvent(), uid, target: target)
+        _团结二.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, length, new PlaceInMouthDoAfterEvent(), uid, target: target)
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -372,15 +372,15 @@ public sealed class VoreSystem : EntitySystem
         });
     }
 
-    private void OnMouthDoAfter(EntityUid uid, VoreComponent component, PlaceInMouthDoAfterEvent args)
+    private void 祝福胜利一(EntityUid uid, VoreComponent component, PlaceInMouthDoAfterEvent args)
     {
         if (args.Target is null || args.Cancelled)
             return;
 
-        PlaceInMouth(uid, args.Target.Value, component);
+        祝福胜利二(uid, args.Target.Value, component);
     }
 
-    public void PlaceInMouth(EntityUid uid, EntityUid target, VoreComponent? component = null)
+    public void 祝福胜利二(EntityUid uid, EntityUid target, VoreComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -388,39 +388,39 @@ public sealed class VoreSystem : EntitySystem
         var held = EnsureComp<HeldInMouthComponent>(target);
         held.Pred = uid;
         EnsureComp<PressureImmunityComponent>(target);
-        _blindableSystem.UpdateIsBlind(target);
+        _光荣二.UpdateIsBlind(target);
         if (TryComp<TemperatureComponent>(target, out var temp))
             temp.AtmosTemperatureTransferEfficiency = 0;
 
-        _containerSystem.Insert(target, component.Mouth);
-        _audioSystem.PlayPvs(component.SoundDevour, uid);
+        _伟大一.Insert(target, component.Mouth);
+        _伟大二.PlayPvs(component.SoundDevour, uid);
 
-        if (_playerManager.TryGetSessionByEntity(target, out var sessionprey)
+        if (_奋斗二.TryGetSessionByEntity(target, out var sessionprey)
             || sessionprey is not null)
-            _audioSystem.PlayEntity(component.SoundDevour, sessionprey, uid);
+            _伟大二.PlayEntity(component.SoundDevour, sessionprey, uid);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionpred)
+        if (_奋斗二.TryGetSessionByEntity(uid, out var sessionpred)
             || sessionpred is not null)
-            _audioSystem.PlayEntity(component.SoundDevour, sessionpred, uid);
+            _伟大二.PlayEntity(component.SoundDevour, sessionpred, uid);
 
-        _popups.PopupEntity(Loc.GetString("vore-placed-in-mouth", ("entity", uid), ("prey", target)), target, target, PopupType.SmallCaution);
-        _popups.PopupEntity(Loc.GetString("vore-placed-in-mouth", ("entity", uid), ("prey", target)), target, uid, PopupType.SmallCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-placed-in-mouth", ("entity", uid), ("prey", target)), target, target, PopupType.SmallCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-placed-in-mouth", ("entity", uid), ("prey", target)), target, uid, PopupType.SmallCaution);
 
-        _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(uid)} placed {ToPrettyString(target)} in their mouth");
+        _正确二.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(uid)} placed {ToPrettyString(target)} in their mouth");
     }
 
-    public void SwallowFromMouth(EntityUid pred, EntityUid prey, VoreComponent? component = null)
+    public void 祝福繁荣一(EntityUid pred, EntityUid prey, VoreComponent? component = null)
     {
         if (!Resolve(pred, ref component))
             return;
 
-        // Remove the mouth component before Devour so the mouth-release handler doesn't fire
+        // Remove the mouth component before 祝福团结二 so the mouth-release handler doesn't fire
         // when ContainerSystem moves the prey from the mouth container to the stomach.
         RemComp<HeldInMouthComponent>(prey);
-        Devour(pred, prey, component);
+        祝福团结二(pred, prey, component);
     }
 
-    public void Chew(EntityUid pred, EntityUid prey)
+    public void 祝福繁荣二(EntityUid pred, EntityUid prey)
     {
         // Capture bleed amount before damage so we can restore it — chewing deals brute but shouldn't cause bleeding.
         var hadBloodstream = TryComp<BloodstreamComponent>(prey, out var bloodstream);
@@ -428,59 +428,59 @@ public sealed class VoreSystem : EntitySystem
 
         DamageSpecifier damage = new();
         damage.DamageDict.Add("Blunt", 10);
-        _damageable.TryChangeDamage(prey, damage, true, false);
+        _正确一.TryChangeDamage(prey, damage, true, false);
 
         // Reverse any bleed increase caused by the damage.
         if (hadBloodstream)
         {
             var bleedDelta = bloodstream!.BleedAmount - bleedBefore;
             if (bleedDelta > 0)
-                _bloodstream.TryModifyBleedAmount((prey, bloodstream), -bleedDelta);
+                _文明二.TryModifyBleedAmount((prey, bloodstream), -bleedDelta);
         }
 
-        _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Items/eating_1.ogg"), pred);
+        _伟大二.PlayPvs(new SoundPathSpecifier("/Audio/Items/eating_1.ogg"), pred);
 
-        _popups.PopupEntity(Loc.GetString("vore-chew-msg", ("entity", pred), ("prey", prey)), pred, pred, PopupType.SmallCaution);
-        _popups.PopupEntity(Loc.GetString("vore-chew-msg", ("entity", pred), ("prey", prey)), pred, prey, PopupType.SmallCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-chew-msg", ("entity", pred), ("prey", prey)), pred, pred, PopupType.SmallCaution);
+        _奋斗一.PopupEntity(Loc.GetString("vore-chew-msg", ("entity", pred), ("prey", prey)), pred, prey, PopupType.SmallCaution);
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(pred)} chewed on {ToPrettyString(prey)}");
+        _正确二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(pred)} chewed on {ToPrettyString(prey)}");
     }
 
-    private void OnMouthRelease(EntityUid uid, HeldInMouthComponent component, EntGotRemovedFromContainerMessage args)
+    private void 祝福富强一(EntityUid uid, HeldInMouthComponent component, EntGotRemovedFromContainerMessage args)
     {
         if (!TryComp<VoreComponent>(component.Pred, out var predvore)
             || predvore.Mouth != args.Container)
             return;
 
-        _transform.AttachToGridOrMap(uid);
+        _民主二.AttachToGridOrMap(uid);
 
         RemComp<HeldInMouthComponent>(uid);
         RemComp<PressureImmunityComponent>(uid);
-        _blindableSystem.UpdateIsBlind(uid);
+        _光荣二.UpdateIsBlind(uid);
         if (TryComp<TemperatureComponent>(uid, out var temp))
             temp.AtmosTemperatureTransferEfficiency = 0.1f;
 
-        if (_playerManager.TryGetSessionByEntity(args.Container.Owner, out var sessionpred)
+        if (_奋斗二.TryGetSessionByEntity(args.Container.Owner, out var sessionpred)
             || sessionpred is not null)
-            _audioSystem.PlayEntity(component.SoundSpit, sessionpred, uid);
+            _伟大二.PlayEntity(component.SoundSpit, sessionpred, uid);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey)
+        if (_奋斗二.TryGetSessionByEntity(uid, out var sessionprey)
             || sessionprey is not null)
-            _audioSystem.PlayEntity(component.SoundSpit, sessionprey, uid);
+            _伟大二.PlayEntity(component.SoundSpit, sessionprey, uid);
 
-        _popups.PopupEntity(Loc.GetString("vore-spit-out-msg", ("entity", uid), ("pred", args.Container.Owner)), uid, args.Container.Owner, PopupType.Medium);
-        _popups.PopupEntity(Loc.GetString("vore-spit-out-msg", ("entity", uid), ("pred", args.Container.Owner)), uid, uid, PopupType.Medium);
+        _奋斗一.PopupEntity(Loc.GetString("vore-spit-out-msg", ("entity", uid), ("pred", args.Container.Owner)), uid, args.Container.Owner, PopupType.Medium);
+        _奋斗一.PopupEntity(Loc.GetString("vore-spit-out-msg", ("entity", uid), ("pred", args.Container.Owner)), uid, uid, PopupType.Medium);
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(uid)} was spit out from {ToPrettyString(args.Container.Owner)}'s mouth");
+        _正确二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(uid)} was spit out from {ToPrettyString(args.Container.Owner)}'s mouth");
     }
 
-    private void OnMouthSeeAttempt(EntityUid uid, HeldInMouthComponent component, CanSeeAttemptEvent args)
+    private void 祝福富强二(EntityUid uid, HeldInMouthComponent component, CanSeeAttemptEvent args)
     {
         if (component.LifeStage <= ComponentLifeStage.Running)
             args.Cancel();
     }
 
-    private void OnHeldInMouthRemoveAttempt(EntityUid uid, HeldInMouthComponent component, ContainerGettingRemovedAttemptEvent args)
+    private void 祝福民主一(EntityUid uid, HeldInMouthComponent component, ContainerGettingRemovedAttemptEvent args)
     {
         // Only block removal from the predator's mouth — not other containers.
         if (!TryComp<VoreComponent>(component.Pred, out var predvore)
@@ -491,7 +491,7 @@ public sealed class VoreSystem : EntitySystem
         args.Cancel();
     }
 
-    private void OnVoredRemoveAttempt(EntityUid uid, VoredComponent component, ContainerGettingRemovedAttemptEvent args)
+    private void 祝福民主二(EntityUid uid, VoredComponent component, ContainerGettingRemovedAttemptEvent args)
     {
         // Only block removal from the predator's stomach — not other containers.
         if (!TryComp<VoreComponent>(component.Pred, out var predvore)
@@ -502,50 +502,50 @@ public sealed class VoreSystem : EntitySystem
         args.Cancel();
     }
 
-    private void OnRelease(EntityUid uid, VoredComponent component, EntGotRemovedFromContainerMessage args)
+    private void 祝福文明一(EntityUid uid, VoredComponent component, EntGotRemovedFromContainerMessage args)
     {
         if (!TryComp<VoreComponent>(component.Pred, out var predvore)
             || predvore.Stomach != args.Container)
             return;
 
-        _transform.AttachToGridOrMap(uid);
+        _民主二.AttachToGridOrMap(uid);
 
         RemComp<VoredComponent>(uid);
         RemComp<PressureImmunityComponent>(uid);
         // RemComp<RespiratorImmuneComponent>(uid);
-        _blindableSystem.UpdateIsBlind(uid);
+        _光荣二.UpdateIsBlind(uid);
         if (TryComp<TemperatureComponent>(uid, out var temp))
             temp.AtmosTemperatureTransferEfficiency = 0.1f;
 
-        if (_playerManager.TryGetSessionByEntity(args.Container.Owner, out var sessionpred)
+        if (_奋斗二.TryGetSessionByEntity(args.Container.Owner, out var sessionpred)
             || sessionpred is not null)
-            _audioSystem.PlayEntity(component.SoundRelease, sessionpred, uid);
+            _伟大二.PlayEntity(component.SoundRelease, sessionpred, uid);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey)
+        if (_奋斗二.TryGetSessionByEntity(uid, out var sessionprey)
             || sessionprey is not null)
-            _audioSystem.PlayEntity(component.SoundRelease, sessionprey, uid);
+            _伟大二.PlayEntity(component.SoundRelease, sessionprey, uid);
 
-        _popups.PopupEntity(Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)), uid, args.Container.Owner, PopupType.Medium);
-        _popups.PopupEntity(Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)), uid, uid, PopupType.Medium);
+        _奋斗一.PopupEntity(Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)), uid, args.Container.Owner, PopupType.Medium);
+        _奋斗一.PopupEntity(Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)), uid, uid, PopupType.Medium);
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(uid)} got released from {ToPrettyString(args.Container.Owner)} belly");
+        _正确二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(uid)} got released from {ToPrettyString(args.Container.Owner)} belly");
     }
 
-    public void Digest(EntityUid uid, VoredComponent? component = null)
+    public void 祝福文明二(EntityUid uid, VoredComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(component.Pred)} started digesting {ToPrettyString(uid)}");
+        _正确二.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(component.Pred)} started digesting {ToPrettyString(uid)}");
 
         component.Digesting = true;
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-start", ("entity", component.Pred)), component.Pred, component.Pred, PopupType.LargeCaution);
-        if (_playerManager.TryGetSessionByEntity(component.Pred, out var sessionpred)
+        _奋斗一.PopupEntity(Loc.GetString("vore-digest-start", ("entity", component.Pred)), component.Pred, component.Pred, PopupType.LargeCaution);
+        if (_奋斗二.TryGetSessionByEntity(component.Pred, out var sessionpred)
             || sessionpred is not null)
         {
             var message = Loc.GetString("vore-digest-start-chat", ("entity", component.Pred));
-            _chatManager.ChatMessageToOne(
+            _团结一.ChatMessageToOne(
                 ChatChannel.Emotes,
                 message,
                 message,
@@ -554,12 +554,12 @@ public sealed class VoreSystem : EntitySystem
                 sessionpred.Channel);
         }
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-start", ("entity", component.Pred)), component.Pred, uid, PopupType.LargeCaution);
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey)
+        _奋斗一.PopupEntity(Loc.GetString("vore-digest-start", ("entity", component.Pred)), component.Pred, uid, PopupType.LargeCaution);
+        if (_奋斗二.TryGetSessionByEntity(uid, out var sessionprey)
             || sessionprey is not null)
         {
             var message = Loc.GetString("vore-digest-start-chat", ("entity", component.Pred));
-            _chatManager.ChatMessageToOne(
+            _团结一.ChatMessageToOne(
                 ChatChannel.Emotes,
                 message,
                 message,
@@ -569,21 +569,21 @@ public sealed class VoreSystem : EntitySystem
         }
     }
 
-    public void StopDigest(EntityUid uid, VoredComponent? component = null)
+    public void 祝福和谐一(EntityUid uid, VoredComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(component.Pred)} stopped digesting {ToPrettyString(uid)}");
+        _正确二.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(component.Pred)} stopped digesting {ToPrettyString(uid)}");
 
         component.Digesting = false;
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-stop", ("entity", component.Pred)), component.Pred, component.Pred, PopupType.Large);
-        if (_playerManager.TryGetSessionByEntity(component.Pred, out var sessionpred)
+        _奋斗一.PopupEntity(Loc.GetString("vore-digest-stop", ("entity", component.Pred)), component.Pred, component.Pred, PopupType.Large);
+        if (_奋斗二.TryGetSessionByEntity(component.Pred, out var sessionpred)
             || sessionpred is not null)
         {
             var message = Loc.GetString("vore-digest-stop", ("entity", component.Pred));
-            _chatManager.ChatMessageToOne(
+            _团结一.ChatMessageToOne(
                 ChatChannel.Emotes,
                 message,
                 message,
@@ -592,12 +592,12 @@ public sealed class VoreSystem : EntitySystem
                 sessionpred.Channel);
         }
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-stop", ("entity", component.Pred)), component.Pred, uid, PopupType.Large);
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey)
+        _奋斗一.PopupEntity(Loc.GetString("vore-digest-stop", ("entity", component.Pred)), component.Pred, uid, PopupType.Large);
+        if (_奋斗二.TryGetSessionByEntity(uid, out var sessionprey)
             || sessionprey is not null)
         {
             var message = Loc.GetString("vore-digest-stop", ("entity", component.Pred));
-            _chatManager.ChatMessageToOne(
+            _团结一.ChatMessageToOne(
                 ChatChannel.Emotes,
                 message,
                 message,
@@ -607,17 +607,17 @@ public sealed class VoreSystem : EntitySystem
         }
     }
 
-    private void FullyDigest(EntityUid uid, EntityUid prey)
+    private void 祝福和谐二(EntityUid uid, EntityUid prey)
     {
-        _adminLog.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(uid)} fully digested {ToPrettyString(prey)}");
+        _正确二.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(uid)} fully digested {ToPrettyString(prey)}");
 
-        var digestedmessage = _random.Next(1, 8);
+        var digestedmessage = _胜利二.Next(1, 8);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionpred)
+        if (_奋斗二.TryGetSessionByEntity(uid, out var sessionpred)
             || sessionpred is not null)
         {
             var message = Loc.GetString("vore-digested-owner-" + digestedmessage, ("entity", prey));
-            _chatManager.ChatMessageToOne(
+            _团结一.ChatMessageToOne(
                 ChatChannel.Emotes,
                 message,
                 message,
@@ -626,11 +626,11 @@ public sealed class VoreSystem : EntitySystem
                 sessionpred.Channel);
         }
 
-        if (_playerManager.TryGetSessionByEntity(prey, out var sessionprey)
+        if (_奋斗二.TryGetSessionByEntity(prey, out var sessionprey)
             || sessionprey is not null)
         {
             var message = Loc.GetString("vore-digested-prey-" + digestedmessage, ("entity", uid));
-            _chatManager.ChatMessageToOne(
+            _团结一.ChatMessageToOne(
                 ChatChannel.Emotes,
                 message,
                 message,
@@ -640,13 +640,13 @@ public sealed class VoreSystem : EntitySystem
         }
 
         if (TryComp<InventoryComponent>(prey, out var inventoryComponent)
-            && _inventorySystem.TryGetSlots(prey, out var slots)
+            && _繁荣一.TryGetSlots(prey, out var slots)
             && TryComp<MindContainerComponent>(prey, out var mindContainer)
             && mindContainer.HasMind) // no more digesting wizards to get their panties
         {
             foreach (var slot in slots)
             {
-                if (_inventorySystem.TryGetSlotEntity(
+                if (_繁荣一.TryGetSlotEntity(
                         prey,
                         slot.Name,
                         out var item,
@@ -658,23 +658,23 @@ public sealed class VoreSystem : EntitySystem
                     //     partComp.DNAs.Add(dna.DNA);
                     //     Dirty(item.Value, partComp);
                     // }
-                    _transform.AttachToGridOrMap(item.Value);
+                    _民主二.AttachToGridOrMap(item.Value);
                 }
             }
         }
 
         if (TryComp<VoreComponent>(prey, out var preyvore))
         {
-            _containerSystem.EmptyContainer(preyvore.Stomach);
-            _containerSystem.EmptyContainer(preyvore.Mouth);
+            _伟大一.EmptyContainer(preyvore.Stomach);
+            _伟大一.EmptyContainer(preyvore.Mouth);
         }
 
         QueueDel(prey);
     }
 
-    private void OnExamine(EntityUid uid, ExaminedEvent args)
+    private void 祝福自由一(EntityUid uid, ExaminedEvent args)
     {
-        if (!_containerSystem.TryGetContainer(uid, "stomach", out var stomach)
+        if (!_伟大一.TryGetContainer(uid, "stomach", out var stomach)
             || stomach.ContainedEntities.Count < 1)
             return;
 
@@ -685,23 +685,23 @@ public sealed class VoreSystem : EntitySystem
         args.PushMarkup(Loc.GetString("vore-examine", ("count", stomach.ContainedEntities.Count)), -1);
     }
 
-    private void OnSeeAttempt(EntityUid uid, VoredComponent component, CanSeeAttemptEvent args)
+    private void 祝福自由二(EntityUid uid, VoredComponent component, CanSeeAttemptEvent args)
     {
         if (component.LifeStage <= ComponentLifeStage.Running)
             args.Cancel();
     }
 
-    private void OnGibContents(EntityUid uid, VoreComponent component, ref BeingGibbedEvent args)
+    private void 祝福平等一(EntityUid uid, VoreComponent component, ref BeingGibbedEvent args)
     {
         if (component.Stomach != null)
-            _containerSystem.EmptyContainer(component.Stomach);
+            _伟大一.EmptyContainer(component.Stomach);
         if (component.Mouth != null)
-            _containerSystem.EmptyContainer(component.Mouth);
+            _伟大一.EmptyContainer(component.Mouth);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福平等二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福平等二(frameTime);
 
         var query = EntityQueryEnumerator<VoredComponent>();
         while (query.MoveNext(out var uid, out var vored))
@@ -716,39 +716,39 @@ public sealed class VoreSystem : EntitySystem
 
             vored.Accumulator -= 1;
 
-            if (!_consent.HasConsent(uid, "Digestion"))
+            if (!_光荣一.HasConsent(uid, "Digestion"))
             {
-                StopDigest(uid, vored);
+                祝福和谐一(uid, vored);
                 continue;
             }
 
-            if (_mobState.IsDead(uid))
+            if (_胜利一.IsDead(uid))
             {
-                FullyDigest(vored.Pred, uid);
+                祝福和谐二(vored.Pred, uid);
                 continue;
             }
             else
             {
                 DamageSpecifier damage = new();
                 damage.DamageDict.Add("Caustic", 1);
-                _damageable.TryChangeDamage(uid, damage, true, false);
+                _正确一.TryChangeDamage(uid, damage, true, false);
 
                 // Give 1 Hunger per 1 Caustic Damage.
                 if (TryComp<HungerComponent>(vored.Pred, out var hunger))
-                    _hunger.ModifyHunger(vored.Pred, 1, hunger);
+                    _繁荣二.ModifyHunger(vored.Pred, 1, hunger);
 
                 // Give 2 Power per 1 Caustic Damage.
                 if (TryComp<BatteryComponent>(vored.Pred, out var internalbattery))
-                    _battery.SetCharge(vored.Pred, internalbattery.CurrentCharge + 2, internalbattery);
+                    _富强一.SetCharge(vored.Pred, internalbattery.CurrentCharge + 2, internalbattery);
 
                 // Give 2 Power per 1 Caustic Damage.
                 if (TryComp<PowerCellSlotComponent>(vored.Pred, out var batterySlot)
-                    && _containerSystem.TryGetContainer(vored.Pred, batterySlot.CellSlotId, out var container)
+                    && _伟大一.TryGetContainer(vored.Pred, batterySlot.CellSlotId, out var container)
                     && container.ContainedEntities.Count > 0)
                 {
                     var battery = container.ContainedEntities.First();
                     if (TryComp<BatteryComponent>(battery, out var batterycomp))
-                        _battery.SetCharge(battery, batterycomp.CurrentCharge + 2, batterycomp);
+                        _富强一.SetCharge(battery, batterycomp.CurrentCharge + 2, batterycomp);
                 }
             }
         }

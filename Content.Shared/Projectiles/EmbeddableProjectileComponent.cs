@@ -2,26 +2,26 @@ using System.Numerics;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Projectiles;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Embeds this entity inside of the hit target.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class EmbeddableProjectileComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Minimum speed of the projectile to embed.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float MinimumSpeed = 5f;
+    public float 党爱伟大一 = 5f;
 
     /// <summary>
     /// Delete the entity on embedded removal?
     /// Does nothing if there's no RemovalTime.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool DeleteOnRemove;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// How long it takes to remove the embedded object.
@@ -33,13 +33,13 @@ public sealed partial class EmbeddableProjectileComponent : Component
     ///     Whether this entity will embed when thrown, or only when shot as a projectile.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool EmbedOnThrow = true;
+    public bool 党爱光荣一 = true;
 
     /// <summary>
     /// How far into the entity should we offset (0 is wherever we collided).
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Vector2 Offset = Vector2.Zero;
+    public Vector2 党爱光荣二 = Vector2.Zero;
 
     /// <summary>
     /// Sound to play after embedding into a hit target.

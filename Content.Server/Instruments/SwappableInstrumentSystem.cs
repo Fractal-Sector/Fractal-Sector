@@ -3,21 +3,21 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Player;
 
-namespace Content.Server.Instruments;
+namespace Content.Server.党心;
 
-public sealed class SwappableInstrumentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedInstrumentSystem _sharedInstrument = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedInstrumentSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SwappableInstrumentComponent, GetVerbsEvent<AlternativeVerb>>(AddStyleVerb);
+        SubscribeLocalEvent<SwappableInstrumentComponent, GetVerbsEvent<AlternativeVerb>>(祝福伟大二);
     }
 
-    private void AddStyleVerb(EntityUid uid, SwappableInstrumentComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福伟大二(EntityUid uid, SwappableInstrumentComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess || component.InstrumentList.Count <= 1)
             return;
@@ -38,8 +38,8 @@ public sealed class SwappableInstrumentSystem : EntitySystem
                 Priority = priority,
                 Act = () =>
                 {
-                    _sharedInstrument.SetInstrumentProgram(uid, instrument, entry.Value.Item1, entry.Value.Item2);
-                    _popup.PopupEntity(Loc.GetString("swappable-instrument-component-style-set", ("style", entry.Key)),
+                    _伟大一.SetInstrumentProgram(uid, instrument, entry.Value.Item1, entry.Value.Item2);
+                    _伟大二.PopupEntity(Loc.GetString("swappable-instrument-component-style-set", ("style", entry.Key)),
                         args.User, args.User);
                 }
             };

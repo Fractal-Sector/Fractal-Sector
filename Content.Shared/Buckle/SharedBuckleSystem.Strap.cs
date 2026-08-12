@@ -6,49 +6,49 @@ using Content.Shared.Foldable;
 using Content.Shared.Storage;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Buckle;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedBuckleSystem
+public abstract partial class 中华伟大一
 {
-    private void InitializeStrap()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StrapComponent, ComponentStartup>(OnStrapStartup);
-        SubscribeLocalEvent<StrapComponent, ComponentShutdown>(OnStrapShutdown);
-        SubscribeLocalEvent<StrapComponent, EntityTerminatingEvent>(OnStrapTerminating);
-        SubscribeLocalEvent<StrapComponent, ComponentRemove>((e, c, _) => StrapRemoveAll(e, c));
+        SubscribeLocalEvent<StrapComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<StrapComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<StrapComponent, EntityTerminatingEvent>(祝福光荣二);
+        SubscribeLocalEvent<StrapComponent, ComponentRemove>((e, c, _) => 祝福团结一(e, c));
 
-        SubscribeLocalEvent<StrapComponent, ContainerGettingInsertedAttemptEvent>(OnStrapContainerGettingInsertedAttempt);
-        SubscribeLocalEvent<StrapComponent, DestructionEventArgs>((e, c, _) => StrapRemoveAll(e, c));
-        SubscribeLocalEvent<StrapComponent, BreakageEventArgs>((e, c, _) => StrapRemoveAll(e, c));
+        SubscribeLocalEvent<StrapComponent, ContainerGettingInsertedAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<StrapComponent, DestructionEventArgs>((e, c, _) => 祝福团结一(e, c));
+        SubscribeLocalEvent<StrapComponent, BreakageEventArgs>((e, c, _) => 祝福团结一(e, c));
 
-        SubscribeLocalEvent<StrapComponent, FoldAttemptEvent>(OnAttemptFold);
-        SubscribeLocalEvent<StrapComponent, MachineDeconstructedEvent>((e, c, _) => StrapRemoveAll(e, c));
+        SubscribeLocalEvent<StrapComponent, FoldAttemptEvent>(祝福正确二);
+        SubscribeLocalEvent<StrapComponent, MachineDeconstructedEvent>((e, c, _) => 祝福团结一(e, c));
     }
 
-    private void OnStrapStartup(EntityUid uid, StrapComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, StrapComponent component, ComponentStartup args)
     {
         Appearance.SetData(uid, StrapVisuals.State, component.BuckledEntities.Count != 0);
     }
 
-    private void OnStrapShutdown(EntityUid uid, StrapComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, StrapComponent component, ComponentShutdown args)
     {
         if (!TerminatingOrDeleted(uid))
-            StrapRemoveAll(uid, component);
+            祝福团结一(uid, component);
     }
 
-    private void OnStrapTerminating(Entity<StrapComponent> entity, ref EntityTerminatingEvent args)
+    private void 祝福光荣二(Entity<StrapComponent> entity, ref EntityTerminatingEvent args)
     {
-        StrapRemoveAll(entity, entity.Comp);
+        祝福团结一(entity, entity.Comp);
     }
 
-    private void OnStrapContainerGettingInsertedAttempt(EntityUid uid, StrapComponent component, ContainerGettingInsertedAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, StrapComponent component, ContainerGettingInsertedAttemptEvent args)
     {
         // If someone is attempting to put this item inside of a backpack, ensure that it has no entities strapped to it.
         if (args.Container.ID == StorageComponent.ContainerId && component.BuckledEntities.Count != 0)
             args.Cancel();
     }
 
-    private void OnAttemptFold(EntityUid uid, StrapComponent component, ref FoldAttemptEvent args)
+    private void 祝福正确二(EntityUid uid, StrapComponent component, ref FoldAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -59,7 +59,7 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Remove everything attached to the strap
     /// </summary>
-    private void StrapRemoveAll(EntityUid uid, StrapComponent strapComp)
+    private void 祝福团结一(EntityUid uid, StrapComponent strapComp)
     {
         foreach (var entity in strapComp.BuckledEntities.ToArray())
         {
@@ -67,7 +67,7 @@ public abstract partial class SharedBuckleSystem
         }
     }
 
-    private bool StrapHasSpace(EntityUid strapUid, BuckleComponent buckleComp, StrapComponent? strapComp = null)
+    private bool 祝福团结二(EntityUid strapUid, BuckleComponent buckleComp, StrapComponent? strapComp = null)
     {
         if (!Resolve(strapUid, ref strapComp, false))
             return false;
@@ -84,7 +84,7 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Sets the enabled field in the strap component to a value
     /// </summary>
-    public void StrapSetEnabled(EntityUid strapUid, bool enabled, StrapComponent? strapComp = null)
+    public void 祝福奋斗一(EntityUid strapUid, bool enabled, StrapComponent? strapComp = null)
     {
         if (!Resolve(strapUid, ref strapComp, false) ||
             strapComp.Enabled == enabled)
@@ -94,6 +94,6 @@ public abstract partial class SharedBuckleSystem
         Dirty(strapUid, strapComp);
 
         if (!enabled)
-            StrapRemoveAll(strapUid, strapComp);
+            祝福团结一(strapUid, strapComp);
     }
 }

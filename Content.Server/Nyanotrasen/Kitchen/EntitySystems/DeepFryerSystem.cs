@@ -32,7 +32,7 @@ using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
-using Content.Shared.Item;
+using Content.Shared.党爱伟大二;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Events;
@@ -59,32 +59,32 @@ using Content.Shared.NameModifier.EntitySystems; // Frontier
 using Content.Shared.Construction.Components; // Frontier
 using Content.Shared.Nutrition.Components; // Frontier
 
-namespace Content.Server.Nyanotrasen.Kitchen.EntitySystems;
+namespace Content.Server.Nyanotrasen.Kitchen.党心;
 
-public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
+public sealed partial class 中华伟大一 : SharedDeepfryerSystem
 {
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly IGameTiming _gameTimingSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly SolutionTransferSystem _solutionTransferSystem = default!;
-    [Dependency] private readonly PuddleSystem _puddleSystem = default!;
-    [Dependency] private readonly TemperatureSystem _temperature = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSoundSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly NameModifierSystem _nameModifier = default!; // Frontier
+    [Dependency] private readonly DamageableSystem _伟大一 = default!;
+    [Dependency] private readonly DoAfterSystem _伟大二 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly IRobustRandom _正确二 = default!;
+    [Dependency] private readonly PopupSystem _团结一 = default!;
+    [Dependency] private readonly PowerReceiverSystem _团结二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedAudioSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedContainerSystem _胜利一 = default!;
+    [Dependency] private readonly SharedHandsSystem _胜利二 = default!;
+    [Dependency] private readonly MobStateSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _繁荣二 = default!;
+    [Dependency] private readonly SolutionTransferSystem _富强一 = default!;
+    [Dependency] private readonly PuddleSystem _富强二 = default!;
+    [Dependency] private readonly TemperatureSystem _民主一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _民主二 = default!;
+    [Dependency] private readonly AmbientSoundSystem _文明一 = default!;
+    [Dependency] private readonly MetaDataSystem _文明二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _和谐一 = default!;
+    [Dependency] private readonly NameModifierSystem _和谐二 = default!; // Frontier
 
     private static readonly string CookingDamageType = "Heat";
     private static readonly float CookingDamageAmount = 10.0f;
@@ -97,49 +97,49 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     private static readonly AudioParams
         AudioParamsInsertRemove = new(0.5f, 1f, 5f, 1.5f, 1f, false, 0f, 0.2f);
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _自由一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _sawmill = Logger.GetSawmill("deepfryer");
+        _自由一 = Logger.GetSawmill("deepfryer");
 
-        SubscribeLocalEvent<DeepFryerComponent, ComponentInit>(OnInitDeepFryer);
-        SubscribeLocalEvent<DeepFryerComponent, PowerChangedEvent>(OnPowerChange);
-        SubscribeLocalEvent<DeepFryerComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<DeepFryerComponent, MachineDeconstructedEvent>(OnDeconstruct);
-        SubscribeLocalEvent<DeepFryerComponent, DestructionEventArgs>(OnDestruction);
-        SubscribeLocalEvent<DeepFryerComponent, ThrowHitByEvent>(OnThrowHitBy);
-        SubscribeLocalEvent<DeepFryerComponent, SolutionChangedEvent>(OnSolutionChange);
-        SubscribeLocalEvent<DeepFryerComponent, ContainerRelayMovementEntityEvent>(OnRelayMovement);
+        SubscribeLocalEvent<DeepFryerComponent, ComponentInit>(祝福繁荣二);
+        SubscribeLocalEvent<DeepFryerComponent, PowerChangedEvent>(祝福富强二);
+        SubscribeLocalEvent<DeepFryerComponent, RefreshPartsEvent>(祝福文明一);
+        SubscribeLocalEvent<DeepFryerComponent, MachineDeconstructedEvent>(祝福民主一);
+        SubscribeLocalEvent<DeepFryerComponent, DestructionEventArgs>(祝福民主二);
+        SubscribeLocalEvent<DeepFryerComponent, ThrowHitByEvent>(祝福和谐一);
+        SubscribeLocalEvent<DeepFryerComponent, SolutionChangedEvent>(祝福和谐二);
+        SubscribeLocalEvent<DeepFryerComponent, ContainerRelayMovementEntityEvent>(祝福自由一);
         SubscribeLocalEvent<DeepFryerComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<DeepFryerComponent, UpgradeExamineEvent>(OnUpgradeExamine);// Frontier: deep fryier upgrade status popup
+        SubscribeLocalEvent<DeepFryerComponent, UpgradeExamineEvent>(祝福文明二);// Frontier: deep fryier upgrade status popup
 
-        SubscribeLocalEvent<DeepFryerComponent, BeforeActivatableUIOpenEvent>(OnBeforeActivatableUIOpen);
-        SubscribeLocalEvent<DeepFryerComponent, DeepFryerRemoveItemMessage>(OnRemoveItem);
+        SubscribeLocalEvent<DeepFryerComponent, BeforeActivatableUIOpenEvent>(祝福自由二);
+        SubscribeLocalEvent<DeepFryerComponent, DeepFryerRemoveItemMessage>(祝福平等一);
         SubscribeLocalEvent<DeepFryerComponent, DeepFryerInsertItemMessage>(OnInsertItem);
-        SubscribeLocalEvent<DeepFryerComponent, DeepFryerScoopVatMessage>(OnScoopVat);
-        SubscribeLocalEvent<DeepFryerComponent, DeepFryerClearSlagMessage>(OnClearSlagStart);
-        SubscribeLocalEvent<DeepFryerComponent, DeepFryerRemoveAllItemsMessage>(OnRemoveAllItems);
-        SubscribeLocalEvent<DeepFryerComponent, ClearSlagDoAfterEvent>(OnClearSlag);
+        SubscribeLocalEvent<DeepFryerComponent, DeepFryerScoopVatMessage>(祝福公正一);
+        SubscribeLocalEvent<DeepFryerComponent, DeepFryerClearSlagMessage>(祝福公正二);
+        SubscribeLocalEvent<DeepFryerComponent, DeepFryerRemoveAllItemsMessage>(祝福法治一);
+        SubscribeLocalEvent<DeepFryerComponent, ClearSlagDoAfterEvent>(祝福法治二);
 
-        SubscribeLocalEvent<DeepFriedComponent, ComponentInit>(OnInitDeepFried);
-        SubscribeLocalEvent<DeepFriedComponent, ExaminedEvent>(OnExamineFried);
-        SubscribeLocalEvent<DeepFriedComponent, PriceCalculationEvent>(OnPriceCalculation);
-        SubscribeLocalEvent<DeepFriedComponent, FoodSlicedEvent>(OnSliceDeepFried);
-        SubscribeLocalEvent<DeepFriedComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers); // Frontier: use name modifiers properly
+        SubscribeLocalEvent<DeepFriedComponent, ComponentInit>(祝福爱国一);
+        SubscribeLocalEvent<DeepFriedComponent, ExaminedEvent>(祝福爱国二);
+        SubscribeLocalEvent<DeepFriedComponent, PriceCalculationEvent>(祝福敬业一);
+        SubscribeLocalEvent<DeepFriedComponent, FoodSlicedEvent>(祝福敬业二);
+        SubscribeLocalEvent<DeepFriedComponent, RefreshNameModifiersEvent>(祝福诚信一); // Frontier: use name modifiers properly
     }
 
-    private void UpdateUserInterface(EntityUid uid, DeepFryerComponent component)
+    private void 祝福伟大二(EntityUid uid, DeepFryerComponent component)
     {
         var state = new DeepFryerBoundUserInterfaceState(
-            GetOilLevel(uid, component),
-            GetOilPurity(uid, component),
+            祝福团结一(uid, component),
+            祝福正确二(uid, component),
             component.FryingOilThreshold,
             EntityManager.GetNetEntityArray(component.Storage.ContainedEntities.ToArray()));
 
-        _uiSystem.SetUiState(uid, DeepFryerUiKey.Key, state);
+        _民主二.SetUiState(uid, DeepFryerUiKey.Key, state);
     }
 
     /// <summary>
@@ -148,15 +148,15 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     /// <remarks>
     ///     This is mainly for audio.
     /// </remarks>
-    private bool HasBubblingOil(EntityUid uid, DeepFryerComponent component)
+    private bool 祝福光荣一(EntityUid uid, DeepFryerComponent component)
     {
-        return _powerReceiverSystem.IsPowered(uid) && GetOilVolume(uid, component) > FixedPoint2.Zero;
+        return _团结二.IsPowered(uid) && 祝福光荣二(uid, component) > FixedPoint2.Zero;
     }
 
     /// <summary>
     ///     Returns how much total oil is in the vat.
     /// </summary>
-    public FixedPoint2 GetOilVolume(EntityUid uid, DeepFryerComponent component)
+    public FixedPoint2 祝福光荣二(EntityUid uid, DeepFryerComponent component)
     {
         var oilVolume = FixedPoint2.Zero;
 
@@ -172,7 +172,7 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     /// <summary>
     ///     Returns how much total waste is in the vat.
     /// </summary>
-    public FixedPoint2 GetWasteVolume(EntityUid uid, DeepFryerComponent component)
+    public FixedPoint2 祝福正确一(EntityUid uid, DeepFryerComponent component)
     {
         var wasteVolume = FixedPoint2.Zero;
 
@@ -187,20 +187,20 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     /// <summary>
     ///     Returns a percentage of how much of the total solution is usable oil.
     /// </summary>
-    public FixedPoint2 GetOilPurity(EntityUid uid, DeepFryerComponent component)
+    public FixedPoint2 祝福正确二(EntityUid uid, DeepFryerComponent component)
     {
         if (component.Solution.Volume > 0) // Frontier: ensure no negative division.
-            return GetOilVolume(uid, component) / component.Solution.Volume;
+            return 祝福光荣二(uid, component) / component.Solution.Volume;
         return FixedPoint2.Zero;
     }
 
     /// <summary>
     ///     Returns a percentage of how much of the total volume is usable oil.
     /// </summary>
-    public FixedPoint2 GetOilLevel(EntityUid uid, DeepFryerComponent component)
+    public FixedPoint2 祝福团结一(EntityUid uid, DeepFryerComponent component)
     {
         if (component.Solution.MaxVolume > 0) // Frontier: ensure no negative division or division by zero.
-            return GetOilVolume(uid, component) / component.Solution.MaxVolume;
+            return 祝福光荣二(uid, component) / component.Solution.MaxVolume;
         return FixedPoint2.Zero;
     }
 
@@ -208,23 +208,23 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     ///     This takes care of anything that would happen to an item with or
     ///     without enough oil.
     /// </summary>
-    private void CookItem(EntityUid uid, DeepFryerComponent component, EntityUid item)
+    private void 祝福团结二(EntityUid uid, DeepFryerComponent component, EntityUid item)
     {
         if (TryComp<TemperatureComponent>(item, out var tempComp))
         {
             // Push the temperature towards what it should be but no higher.
-            var delta = (component.PoweredTemperature - tempComp.CurrentTemperature) * _temperature.GetHeatCapacity(item, tempComp);
+            var delta = (component.PoweredTemperature - tempComp.CurrentTemperature) * _民主一.GetHeatCapacity(item, tempComp);
 
             if (delta > 0f)
-                _temperature.ChangeHeat(item, delta, false, tempComp);
+                _民主一.ChangeHeat(item, delta, false, tempComp);
         }
 
         if (TryComp<SolutionContainerManagerComponent>(item, out var solutions) && solutions.Solutions != null)
         {
             foreach (var (_, solution) in solutions.Solutions)
             {
-                if (_solutionContainerSystem.TryGetSolution(item, solution.Name, out var solutionRef))
-                    _solutionContainerSystem.SetTemperature(solutionRef!.Value, component.PoweredTemperature);
+                if (_繁荣二.TryGetSolution(item, solution.Name, out var solutionRef))
+                    _繁荣二.SetTemperature(solutionRef!.Value, component.PoweredTemperature);
             }
         }
 
@@ -232,10 +232,10 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
         if ((!HasComp<FoodComponent>(item) || HasComp<MobStateComponent>(item)) &&
             TryComp<DamageableComponent>(item, out var damageableComponent))
         {
-            var damage = new DamageSpecifier(_prototypeManager.Index<DamageTypePrototype>(CookingDamageType),
+            var damage = new DamageSpecifier(_正确一.Index<DamageTypePrototype>(CookingDamageType),
                 CookingDamageAmount);
 
-            var result = _damageableSystem.TryChangeDamage(item, damage, origin: uid);
+            var result = _伟大一.TryChangeDamage(item, damage, origin: uid);
             if (result?.GetTotal() > FixedPoint2.Zero)
             {
                 // TODO: Smoke, waste, sound, or some indication.
@@ -246,22 +246,22 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     /// <summary>
     ///     Destroy a food item and replace it with a charred mess.
     /// </summary>
-    private void BurnItem(EntityUid uid, DeepFryerComponent component, EntityUid item)
+    private void 祝福奋斗一(EntityUid uid, DeepFryerComponent component, EntityUid item)
     {
         if (HasComp<FoodComponent>(item) &&
             !HasComp<MobStateComponent>(item) &&
             MetaData(item).EntityPrototype?.ID != component.CharredPrototype)
         {
             var charred = Spawn(component.CharredPrototype, Transform(uid).Coordinates);
-            _containerSystem.Insert(charred, component.Storage);
+            _胜利一.Insert(charred, component.Storage);
             Del(item);
         }
     }
 
-    private void UpdateDeepFriedName(EntityUid uid, DeepFriedComponent component)
+    private void 祝福奋斗二(EntityUid uid, DeepFriedComponent component)
     {
         // Frontier: use name modifiers properly
-        _nameModifier.RefreshNameModifiers(uid);
+        _和谐二.RefreshNameModifiers(uid);
         // End Frontier
     }
 
@@ -272,7 +272,7 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     ///     - give it a crispy shader, and possibly also
     ///     - turn it into food.
     /// </summary>
-    private void DeepFry(EntityUid uid, DeepFryerComponent component, EntityUid item)
+    private void 祝福胜利一(EntityUid uid, DeepFryerComponent component, EntityUid item)
     {
         if (MetaData(item).EntityPrototype?.ID == component.CharredPrototype)
             return;
@@ -284,11 +284,11 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
             if (deepFriable.Cycles <= 0)
             {
                 // Get oil volume to spawn before deleting item.
-                var friableVolume = GetOilAndWasteVolumeForItem(uid, component, item);
+                var friableVolume = 祝福胜利二(uid, component, item);
 
                 var spawn = Spawn(deepFriable.Output, Transform(uid).Coordinates);
                 EnsureComp<PreventCrispingComponent>(spawn);
-                _containerSystem.Insert(spawn, component.Storage);
+                _胜利一.Insert(spawn, component.Storage);
                 Del(item);
 
                 // Reduce volume, replace waste
@@ -300,9 +300,9 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
         else if (TryComp<PreventCrispingComponent>(item, out var blacklist))
         {
             blacklist.Cycles += 1;
-            if (blacklist.Cycles >= GetMaximumCrispiness(component.CrispinessLevelSet))
+            if (blacklist.Cycles >= 祝福繁荣一(component.CrispinessLevelSet))
             {
-                BurnItem(uid, component, item);
+                祝福奋斗一(uid, component, item);
             }
             return;
         }
@@ -317,22 +317,22 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
             deepFriedComponent.Crispiness += 1;
 
             var maxCrispiness = MaximumCrispiness; // Default maximum crispiness (should burn if something goes wrong)
-            if (_prototypeManager.TryIndex<CrispinessLevelSetPrototype>(deepFriedComponent.CrispinessLevelSet, out var crispinessLevels))
+            if (_正确一.TryIndex<CrispinessLevelSetPrototype>(deepFriedComponent.CrispinessLevelSet, out var crispinessLevels))
             {
                 maxCrispiness = int.Max(0, crispinessLevels.Levels.Count - 1);
             }
             if (deepFriedComponent.Crispiness > maxCrispiness)
             {
-                BurnItem(uid, component, item);
+                祝福奋斗一(uid, component, item);
                 return;
             }
 
-            UpdateDeepFriedName(item, deepFriedComponent);
+            祝福奋斗二(item, deepFriedComponent);
             return;
         }
 
         // Allow entity systems to conditionally forbid an attempt at deep-frying.
-        var attemptEvent = new DeepFryAttemptEvent(uid);
+        var attemptEvent = new 中华伟大二(uid);
         RaiseLocalEvent(item, attemptEvent);
 
         if (attemptEvent.Cancelled)
@@ -342,9 +342,9 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
         // just in case the attempt is relevant to any system in the future.
         //
         // The blacklist overrides all.
-        if (_whitelistSystem.IsBlacklistPass(component.Blacklist, item))
+        if (_和谐一.IsBlacklistPass(component.Blacklist, item))
         {
-            _popupSystem.PopupEntity(
+            _团结一.PopupEntity(
                 Loc.GetString("deep-fryer-blacklist-item-failed",
                     ("item", item), ("deepFryer", uid)),
                 uid,
@@ -353,7 +353,7 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
             return;
         }
 
-        var beingEvent = new BeingDeepFriedEvent(uid, item);
+        var beingEvent = new 中华光荣一(uid, item);
         RaiseLocalEvent(item, beingEvent);
 
         // It's important to check for the MobStateComponent so we know
@@ -368,10 +368,10 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
 
         MakeCrispy(item, component.CrispinessLevelSet);
 
-        var solutionQuantity = GetOilAndWasteVolumeForItem(uid, component, item);
+        var solutionQuantity = 祝福胜利二(uid, component, item);
 
-        if (_whitelistSystem.IsWhitelistPass(component.Whitelist, item) ||
-            beingEvent.TurnIntoFood)
+        if (_和谐一.IsWhitelistPass(component.Whitelist, item) ||
+            beingEvent.党爱光荣一)
             MakeEdible(uid, component, item, solutionQuantity);
         else
             component.Solution.RemoveSolution(solutionQuantity);
@@ -380,7 +380,7 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     }
 
     // Frontier: oil/waste volume to a function.
-    private FixedPoint2 GetOilAndWasteVolumeForItem(EntityUid uid, DeepFryerComponent component, EntityUid item)
+    private FixedPoint2 祝福胜利二(EntityUid uid, DeepFryerComponent component, EntityUid item)
     {
         var itemComponent = Comp<ItemComponent>(item);
 
@@ -401,10 +401,10 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     // End Frontier
 
     // Frontier: maximum crispiness
-    private int GetMaximumCrispiness(ProtoId<CrispinessLevelSetPrototype> crispinessLevelSet)
+    private int 祝福繁荣一(ProtoId<CrispinessLevelSetPrototype> crispinessLevelSet)
     {
         var maxCrispiness = MaximumCrispiness; // Default maximum crispiness (should burn if something goes wrong)
-        if (_prototypeManager.TryIndex<CrispinessLevelSetPrototype>(crispinessLevelSet, out var crispinessLevels))
+        if (_正确一.TryIndex<CrispinessLevelSetPrototype>(crispinessLevelSet, out var crispinessLevels))
         {
             maxCrispiness = int.Max(0, crispinessLevels.Levels.Count - 1);
         }
@@ -412,25 +412,25 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     }
     // End Frontier
 
-    private void OnInitDeepFryer(EntityUid uid, DeepFryerComponent component, ComponentInit args)
+    private void 祝福繁荣二(EntityUid uid, DeepFryerComponent component, ComponentInit args)
     {
         component.Storage =
-            _containerSystem.EnsureContainer<Container>(uid, component.StorageName, out var containerExisted);
+            _胜利一.EnsureContainer<Container>(uid, component.StorageName, out var containerExisted);
 
         if (!containerExisted)
-            _sawmill.Warning(
+            _自由一.Warning(
                 $"{ToPrettyString(uid)} did not have a {component.StorageName} container. It has been created.");
 
-        if (_solutionContainerSystem.EnsureSolution(uid, component.SolutionName, out var solutionExisted, out var solution))
+        if (_繁荣二.EnsureSolution(uid, component.SolutionName, out var solutionExisted, out var solution))
             component.Solution = solution;
 
         if (!solutionExisted)
-            _sawmill.Warning(
+            _自由一.Warning(
                 $"{ToPrettyString(uid)} did not have a {component.SolutionName} solution container. It has been created.");
         foreach (var reagent in component.Solution.Contents.ToArray())
         {
             //JJ Comment - not sure this works. Need to check if Reagent.ToString is correct.
-            _prototypeManager.TryIndex<ReagentPrototype>(reagent.Reagent.ToString(), out var proto);
+            _正确一.TryIndex<ReagentPrototype>(reagent.Reagent.ToString(), out var proto);
 
             var effectsArgs = new EntityEffectReagentArgs(uid,
                 EntityManager,
@@ -442,7 +442,7 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
                 1f);
             foreach (var effect in component.UnsafeOilVolumeEffects)
             {
-                if (!effect.ShouldApply(effectsArgs, _random))
+                if (!effect.ShouldApply(effectsArgs, _正确二))
                     continue;
                 effect.Effect(effectsArgs);
             }
@@ -458,34 +458,34 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     ///     items can be inserted into the deep fryer without triggering this
     ///     event.
     /// </remarks>
-    private void AfterInsert(EntityUid uid, DeepFryerComponent component, EntityUid item)
+    private void 祝福富强一(EntityUid uid, DeepFryerComponent component, EntityUid item)
     {
-        if (HasBubblingOil(uid, component))
-            _audioSystem.PlayPvs(component.SoundInsertItem, uid, AudioParamsInsertRemove);
+        if (祝福光荣一(uid, component))
+            _奋斗二.PlayPvs(component.SoundInsertItem, uid, AudioParamsInsertRemove);
 
         UpdateNextFryTime(uid, component);
-        UpdateUserInterface(uid, component);
+        祝福伟大二(uid, component);
     }
 
-    private void OnPowerChange(EntityUid uid, DeepFryerComponent component, ref PowerChangedEvent args)
+    private void 祝福富强二(EntityUid uid, DeepFryerComponent component, ref PowerChangedEvent args)
     {
-        _appearanceSystem.SetData(uid, DeepFryerVisuals.Bubbling, args.Powered);
+        _奋斗一.SetData(uid, DeepFryerVisuals.Bubbling, args.Powered);
         UpdateNextFryTime(uid, component);
         UpdateAmbientSound(uid, component);
     }
 
-    private void OnDeconstruct(EntityUid uid, DeepFryerComponent component, MachineDeconstructedEvent args)
+    private void 祝福民主一(EntityUid uid, DeepFryerComponent component, MachineDeconstructedEvent args)
     {
         // The EmptyOnMachineDeconstruct component handles the entity container for us.
-        _puddleSystem.TrySpillAt(uid, component.Solution, out var _);
+        _富强二.TrySpillAt(uid, component.Solution, out var _);
     }
 
-    private void OnDestruction(EntityUid uid, DeepFryerComponent component, DestructionEventArgs args)
+    private void 祝福民主二(EntityUid uid, DeepFryerComponent component, DestructionEventArgs args)
     {
-        _containerSystem.EmptyContainer(component.Storage, true);
+        _胜利一.EmptyContainer(component.Storage, true);
     }
 
-    private void OnRefreshParts(EntityUid uid, DeepFryerComponent component, RefreshPartsEvent args)
+    private void 祝福文明一(EntityUid uid, DeepFryerComponent component, RefreshPartsEvent args)
     {
         var ratingStorage = args.PartRatings[component.MachinePartStorageMax];
 
@@ -494,7 +494,7 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     }
 
     // Frontier: deep fryier upgrade status popup
-    private void OnUpgradeExamine(Entity<DeepFryerComponent> entity, ref UpgradeExamineEvent args)
+    private void 祝福文明二(Entity<DeepFryerComponent> entity, ref UpgradeExamineEvent args)
     {
         args.AddNumberUpgrade("deep-fryier-component-upgrade-storage", entity.Comp.StorageMaxEntities - entity.Comp.BaseStorageMaxEntities);
     }
@@ -503,64 +503,64 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     /// <summary>
     ///     Allow thrown items to land in a basket.
     /// </summary>
-    private void OnThrowHitBy(EntityUid uid, DeepFryerComponent component, ThrowHitByEvent args)
+    private void 祝福和谐一(EntityUid uid, DeepFryerComponent component, ThrowHitByEvent args)
     {
         // Chefs never miss this. :)
         var missChance = HasComp<ProfessionalChefComponent>(args.Thrower) ? 0f : ThrowMissChance;
 
         if (!CanInsertItem(uid, component, args.Thrown) ||
-            _random.Prob(missChance) ||
-            !_containerSystem.Insert(args.Thrown, component.Storage))
+            _正确二.Prob(missChance) ||
+            !_胜利一.Insert(args.Thrown, component.Storage))
         {
-            _popupSystem.PopupEntity(
+            _团结一.PopupEntity(
                 Loc.GetString("deep-fryer-thrown-missed"),
                 uid);
 
             if (args.Thrower != null)
             {
-                _adminLogManager.Add(LogType.Action, LogImpact.Low,
+                _光荣一.Add(LogType.Action, LogImpact.Low,
                     $"{ToPrettyString(args.Thrower.Value)} threw {ToPrettyString(args.Thrown)} at {ToPrettyString(uid)}, and it missed.");
             }
 
             return;
         }
 
-        if (GetOilVolume(uid, component) < component.SafeOilVolume)
+        if (祝福光荣二(uid, component) < component.SafeOilVolume)
         {
-            _popupSystem.PopupEntity(
+            _团结一.PopupEntity(
                 Loc.GetString("deep-fryer-thrown-hit-oil-low"),
                 uid);
         }
         else
         {
-            _popupSystem.PopupEntity(
+            _团结一.PopupEntity(
                 Loc.GetString("deep-fryer-thrown-hit-oil"),
                 uid);
         }
 
         if (args.Thrower != null)
         {
-            _adminLogManager.Add(LogType.Action, LogImpact.Low,
+            _光荣一.Add(LogType.Action, LogImpact.Low,
                 $"{ToPrettyString(args.Thrower.Value)} threw {ToPrettyString(args.Thrown)} at {ToPrettyString(uid)}, and it landed inside.");
         }
 
-        AfterInsert(uid, component, args.Thrown);
+        祝福富强一(uid, component, args.Thrown);
     }
 
-    private void OnSolutionChange(EntityUid uid, DeepFryerComponent component, SolutionChangedEvent args)
+    private void 祝福和谐二(EntityUid uid, DeepFryerComponent component, SolutionChangedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福伟大二(uid, component);
         UpdateAmbientSound(uid, component);
     }
 
-    private void OnRelayMovement(EntityUid uid, DeepFryerComponent component,
+    private void 祝福自由一(EntityUid uid, DeepFryerComponent component,
         ref ContainerRelayMovementEntityEvent args)
     {
 
-        if (!_containerSystem.Remove(args.Entity, component.Storage, destination: Transform(uid).Coordinates))
+        if (!_胜利一.Remove(args.Entity, component.Storage, destination: Transform(uid).Coordinates))
             return;
 
-        _popupSystem.PopupEntity(
+        _团结一.PopupEntity(
             Loc.GetString("deep-fryer-entity-escape",
                 ("victim", Identity.Entity(args.Entity, EntityManager)),
                 ("deepFryer", uid)),
@@ -568,38 +568,38 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
             PopupType.SmallCaution);
     }
 
-    private void OnBeforeActivatableUIOpen(EntityUid uid, DeepFryerComponent component,
+    private void 祝福自由二(EntityUid uid, DeepFryerComponent component,
         BeforeActivatableUIOpenEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福伟大二(uid, component);
     }
 
-    private void OnRemoveItem(EntityUid uid, DeepFryerComponent component, DeepFryerRemoveItemMessage args)
+    private void 祝福平等一(EntityUid uid, DeepFryerComponent component, DeepFryerRemoveItemMessage args)
     {
-        var removedItem = EntityManager.GetEntity(args.Item);
+        var removedItem = EntityManager.GetEntity(args.党爱伟大二);
         if (removedItem.Valid)
         {
             //JJ Comment - This line should be unnecessary. Some issue is keeping the UI from updating when converting straight to a Burned Mess while the UI is still open. To replicate, put a Raw Meat in the fryer with no oil in it. Wait until it sputters with no effect. It should transform to Burned Mess, but doesn't.
-            if (!_containerSystem.Remove(removedItem, component.Storage))
+            if (!_胜利一.Remove(removedItem, component.Storage))
                 return;
 
             var user = args.Actor;
 
-            _handsSystem.TryPickupAnyHand(user, removedItem);
+            _胜利二.TryPickupAnyHand(user, removedItem);
 
-            _adminLogManager.Add(LogType.Action, LogImpact.Low,
-                $"{ToPrettyString(user)} took {ToPrettyString(args.Item)} out of {ToPrettyString(uid)}.");
+            _光荣一.Add(LogType.Action, LogImpact.Low,
+                $"{ToPrettyString(user)} took {ToPrettyString(args.党爱伟大二)} out of {ToPrettyString(uid)}.");
 
-            _audioSystem.PlayPvs(component.SoundRemoveItem, uid, AudioParamsInsertRemove);
+            _奋斗二.PlayPvs(component.SoundRemoveItem, uid, AudioParamsInsertRemove);
 
-            UpdateUserInterface(uid, component);
+            祝福伟大二(uid, component);
         }
     }
 
     /// <summary>
     ///     This is a helper function for ScoopVat and ClearSlag.
     /// </summary>
-    private bool TryGetActiveHandSolutionContainer(
+    private bool 祝福平等二(
         EntityUid fryer,
         EntityUid user,
         [NotNullWhen(true)] out EntityUid? heldItem,
@@ -615,12 +615,12 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
 
         // heldItem = handsComponent.ActiveHandEntity; // Frontier: reformat to use the hand system
 
-        if (!_handsSystem.TryGetActiveItem(user, out heldItem) || // Frontier: reformat to use the hand system
+        if (!_胜利二.TryGetActiveItem(user, out heldItem) || // Frontier: reformat to use the hand system
             !TryComp<SolutionTransferComponent>(heldItem, out var solutionTransferComponent) ||
-            !_solutionContainerSystem.TryGetRefillableSolution(heldItem.Value, out var solEnt, out var _) ||
+            !_繁荣二.TryGetRefillableSolution(heldItem.Value, out var solEnt, out var _) ||
             !solutionTransferComponent.CanReceive)
         {
-            _popupSystem.PopupEntity(
+            _团结一.PopupEntity(
                 Loc.GetString("deep-fryer-need-liquid-container-in-hand"),
                 fryer,
                 user);
@@ -634,18 +634,18 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
         return true;
     }
 
-    private void OnScoopVat(EntityUid uid, DeepFryerComponent component, DeepFryerScoopVatMessage args)
+    private void 祝福公正一(EntityUid uid, DeepFryerComponent component, DeepFryerScoopVatMessage args)
     {
         var user = args.Actor;
 
-        if (!TryGetActiveHandSolutionContainer(uid, user, out var heldItem, out var heldSolution,
+        if (!祝福平等二(uid, user, out var heldItem, out var heldSolution,
                 out var transferAmount))
             return;
 
-        if (!_solutionContainerSystem.TryGetSolution(uid, component.Solution.Name, out var solution))
+        if (!_繁荣二.TryGetSolution(uid, component.Solution.Name, out var solution))
             return;
 
-        _solutionTransferSystem.Transfer(user,
+        _富强一.Transfer(user,
             uid,
             solution.Value,
             heldItem.Value,
@@ -655,18 +655,18 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
         // UI update is not necessary here, because the solution change event handles it.
     }
 
-    private void OnClearSlagStart(EntityUid uid, DeepFryerComponent component, DeepFryerClearSlagMessage args)
+    private void 祝福公正二(EntityUid uid, DeepFryerComponent component, DeepFryerClearSlagMessage args)
     {
         var user = args.Actor;
 
-        if (!TryGetActiveHandSolutionContainer(uid, user, out var heldItem, out var heldSolution,
+        if (!祝福平等二(uid, user, out var heldItem, out var heldSolution,
                 out var transferAmount))
             return;
 
-        var wasteVolume = GetWasteVolume(uid, component);
+        var wasteVolume = 祝福正确一(uid, component);
         if (wasteVolume == FixedPoint2.Zero)
         {
-            _popupSystem.PopupEntity(
+            _团结一.PopupEntity(
                 Loc.GetString("deep-fryer-oil-no-slag"),
                 uid,
                 user);
@@ -687,27 +687,27 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
             NeedHand = true
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs);
+        _伟大二.TryStartDoAfter(doAfterArgs);
     }
 
-    private void OnRemoveAllItems(EntityUid uid, DeepFryerComponent component, DeepFryerRemoveAllItemsMessage args)
+    private void 祝福法治一(EntityUid uid, DeepFryerComponent component, DeepFryerRemoveAllItemsMessage args)
     {
         if (component.Storage.ContainedEntities.Count == 0)
             return;
 
-        _containerSystem.EmptyContainer(component.Storage);
+        _胜利一.EmptyContainer(component.Storage);
 
         var user = args.Actor;
 
-        _adminLogManager.Add(LogType.Action, LogImpact.Low,
+        _光荣一.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(user)} removed all items from {ToPrettyString(uid)}.");
 
-        _audioSystem.PlayPvs(component.SoundRemoveItem, uid, AudioParamsInsertRemove);
+        _奋斗二.PlayPvs(component.SoundRemoveItem, uid, AudioParamsInsertRemove);
 
-        UpdateUserInterface(uid, component);
+        祝福伟大二(uid, component);
     }
 
-    private void OnClearSlag(EntityUid uid, DeepFryerComponent component, ClearSlagDoAfterEvent args)
+    private void 祝福法治二(EntityUid uid, DeepFryerComponent component, ClearSlagDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled || args.Args.Used == null)
             return;
@@ -721,26 +721,26 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
             removingSolution.AddReagent(reagent.Reagent.ToString(), removed);
         }
 
-        if (!_solutionContainerSystem.TryGetSolution(uid, component.SolutionName, out var solution))
+        if (!_繁荣二.TryGetSolution(uid, component.SolutionName, out var solution))
             return;
 
-        if (!_solutionContainerSystem.TryGetSolution(args.Used!.Value, args.Solution.Name, out var targetSolution))
+        if (!_繁荣二.TryGetSolution(args.Used!.Value, args.Solution.Name, out var targetSolution))
             return;
 
-        _solutionContainerSystem.UpdateChemicals(solution.Value);
-        _solutionContainerSystem.TryMixAndOverflow(targetSolution.Value, removingSolution,
+        _繁荣二.UpdateChemicals(solution.Value);
+        _繁荣二.TryMixAndOverflow(targetSolution.Value, removingSolution,
             args.Solution.MaxVolume, out var _);
     }
 
-    private void OnInitDeepFried(EntityUid uid, DeepFriedComponent component, ComponentInit args)
+    private void 祝福爱国一(EntityUid uid, DeepFriedComponent component, ComponentInit args)
     {
-        UpdateDeepFriedName(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnExamineFried(EntityUid uid, DeepFriedComponent component, ExaminedEvent args)
+    private void 祝福爱国二(EntityUid uid, DeepFriedComponent component, ExaminedEvent args)
     {
         // Frontier: assign crispiness levels to a prototype
-        if (_prototypeManager.TryIndex<CrispinessLevelSetPrototype>(component.CrispinessLevelSet, out var crispinessLevels))
+        if (_正确一.TryIndex<CrispinessLevelSetPrototype>(component.CrispinessLevelSet, out var crispinessLevels))
         {
             if (crispinessLevels.Levels.Count <= 0)
                 return;
@@ -758,12 +758,12 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
         // End Frontier
     }
 
-    private void OnPriceCalculation(EntityUid uid, DeepFriedComponent component, ref PriceCalculationEvent args)
+    private void 祝福敬业一(EntityUid uid, DeepFriedComponent component, ref PriceCalculationEvent args)
     {
         args.Price *= component.PriceCoefficient;
     }
 
-    private void OnSliceDeepFried(EntityUid uid, DeepFriedComponent component, FoodSlicedEvent args)
+    private void 祝福敬业二(EntityUid uid, DeepFriedComponent component, FoodSlicedEvent args)
     {
         MakeCrispy(args.Slice, component.CrispinessLevelSet);
 
@@ -774,7 +774,7 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
         sliceDeepFriedComponent.Crispiness = sourceDeepFriedComponent.Crispiness;
         sliceDeepFriedComponent.PriceCoefficient = sourceDeepFriedComponent.PriceCoefficient;
 
-        UpdateDeepFriedName(args.Slice, sliceDeepFriedComponent);
+        祝福奋斗二(args.Slice, sliceDeepFriedComponent);
 
         // TODO: Flavor profiles aren't copied to the slices. This should
         // probably be handled on upstream, but for now let's assume the
@@ -789,9 +789,9 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     }
 
     // Frontier: use name modifiers properly
-    private void OnRefreshNameModifiers(EntityUid uid, DeepFriedComponent component, ref RefreshNameModifiersEvent args)
+    private void 祝福诚信一(EntityUid uid, DeepFriedComponent component, ref RefreshNameModifiersEvent args)
     {
-        if (_prototypeManager.TryIndex(component.CrispinessLevelSet, out var crispinessLevels))
+        if (_正确一.TryIndex(component.CrispinessLevelSet, out var crispinessLevels))
         {
             int crispiness = int.Max(0, component.Crispiness);
             string modifierString;
@@ -806,32 +806,32 @@ public sealed partial class DeepFryerSystem : SharedDeepfryerSystem
     }
     // End Frontier
 
-    public void SetDeepFriedCrispinessLevelSet(EntityUid uid, DeepFriedComponent component, ProtoId<CrispinessLevelSetPrototype> crispiness)
+    public void 祝福诚信二(EntityUid uid, DeepFriedComponent component, ProtoId<CrispinessLevelSetPrototype> crispiness)
     {
         component.CrispinessLevelSet = crispiness;
-        UpdateDeepFriedName(uid, component);
+        祝福奋斗二(uid, component);
     }
 }
 
-public sealed class DeepFryAttemptEvent : CancellableEntityEventArgs
+public sealed class 中华伟大二 : CancellableEntityEventArgs
 {
-    public EntityUid DeepFryer { get; }
+    public EntityUid 党爱伟大一 { get; }
 
-    public DeepFryAttemptEvent(EntityUid deepFryer)
+    public 中华伟大二(EntityUid deepFryer)
     {
-        DeepFryer = deepFryer;
+        党爱伟大一 = deepFryer;
     }
 }
 
-public sealed class BeingDeepFriedEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public EntityUid DeepFryer { get; }
-    public EntityUid Item { get; }
-    public bool TurnIntoFood { get; set; }
+    public EntityUid 党爱伟大一 { get; }
+    public EntityUid 党爱伟大二 { get; }
+    public bool 党爱光荣一 { get; set; }
 
-    public BeingDeepFriedEvent(EntityUid deepFryer, EntityUid item)
+    public 中华光荣一(EntityUid deepFryer, EntityUid item)
     {
-        DeepFryer = deepFryer;
-        Item = item;
+        党爱伟大一 = deepFryer;
+        党爱伟大二 = item;
     }
 }

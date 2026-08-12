@@ -15,78 +15,78 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Movement.Systems
+namespace Content.Shared.Movement.党心
 {
     /// <summary>
     ///     Handles converting inputs into movement.
     /// </summary>
-    public abstract partial class SharedMoverController
+    public abstract partial class 中华伟大一
     {
-        public bool CameraRotationLocked { get; set; }
+        public bool 党爱伟大一 { get; set; }
 
-        public static ProtoId<AlertPrototype> WalkingAlert = "Walking";
+        public static ProtoId<AlertPrototype> 党爱伟大二 = "Walking";
 
-        private void InitializeInput()
+        private void 祝福伟大一()
         {
-            var moveUpCmdHandler = new MoverDirInputCmdHandler(this, Direction.North);
-            var moveLeftCmdHandler = new MoverDirInputCmdHandler(this, Direction.West);
-            var moveRightCmdHandler = new MoverDirInputCmdHandler(this, Direction.East);
-            var moveDownCmdHandler = new MoverDirInputCmdHandler(this, Direction.South);
+            var moveUpCmdHandler = new 中华光荣二(this, Direction.North);
+            var moveLeftCmdHandler = new 中华光荣二(this, Direction.West);
+            var moveRightCmdHandler = new 中华光荣二(this, Direction.East);
+            var moveDownCmdHandler = new 中华光荣二(this, Direction.South);
 
             CommandBinds.Builder
                 .Bind(EngineKeyFunctions.MoveUp, moveUpCmdHandler)
                 .Bind(EngineKeyFunctions.MoveLeft, moveLeftCmdHandler)
                 .Bind(EngineKeyFunctions.MoveRight, moveRightCmdHandler)
                 .Bind(EngineKeyFunctions.MoveDown, moveDownCmdHandler)
-                .Bind(EngineKeyFunctions.Walk, new WalkInputCmdHandler(this))
-                .Bind(EngineKeyFunctions.CameraRotateLeft, new CameraRotateInputCmdHandler(this, Direction.East))
-                .Bind(EngineKeyFunctions.CameraRotateRight, new CameraRotateInputCmdHandler(this, Direction.West))
-                .Bind(EngineKeyFunctions.CameraReset, new CameraResetInputCmdHandler(this))
+                .Bind(EngineKeyFunctions.Walk, new 中华正确一(this))
+                .Bind(EngineKeyFunctions.CameraRotateLeft, new 中华伟大二(this, Direction.East))
+                .Bind(EngineKeyFunctions.CameraRotateRight, new 中华伟大二(this, Direction.West))
+                .Bind(EngineKeyFunctions.CameraReset, new 中华光荣一(this))
                 // TODO: Relay
                 // Shuttle
-                .Bind(ContentKeyFunctions.ShuttleStrafeUp, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeUp))
-                .Bind(ContentKeyFunctions.ShuttleStrafeLeft, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeLeft))
-                .Bind(ContentKeyFunctions.ShuttleStrafeRight, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeRight))
-                .Bind(ContentKeyFunctions.ShuttleStrafeDown, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeDown))
-                .Bind(ContentKeyFunctions.ShuttleRotateLeft, new ShuttleInputCmdHandler(this, ShuttleButtons.RotateLeft))
-                .Bind(ContentKeyFunctions.ShuttleRotateRight, new ShuttleInputCmdHandler(this, ShuttleButtons.RotateRight))
-                .Bind(ContentKeyFunctions.ShuttleBrake, new ShuttleInputCmdHandler(this, ShuttleButtons.Brake))
-                .Register<SharedMoverController>();
+                .Bind(ContentKeyFunctions.ShuttleStrafeUp, new 中华正确二(this, 中华团结二.StrafeUp))
+                .Bind(ContentKeyFunctions.ShuttleStrafeLeft, new 中华正确二(this, 中华团结二.StrafeLeft))
+                .Bind(ContentKeyFunctions.ShuttleStrafeRight, new 中华正确二(this, 中华团结二.StrafeRight))
+                .Bind(ContentKeyFunctions.ShuttleStrafeDown, new 中华正确二(this, 中华团结二.StrafeDown))
+                .Bind(ContentKeyFunctions.ShuttleRotateLeft, new 中华正确二(this, 中华团结二.RotateLeft))
+                .Bind(ContentKeyFunctions.ShuttleRotateRight, new 中华正确二(this, 中华团结二.RotateRight))
+                .Bind(ContentKeyFunctions.ShuttleBrake, new 中华正确二(this, 中华团结二.Brake))
+                .Register<中华伟大一>();
 
-            SubscribeLocalEvent<InputMoverComponent, ComponentInit>(OnInputInit);
-            SubscribeLocalEvent<InputMoverComponent, ComponentGetState>(OnMoverGetState);
-            SubscribeLocalEvent<InputMoverComponent, ComponentHandleState>(OnMoverHandleState);
-            SubscribeLocalEvent<InputMoverComponent, EntParentChangedMessage>(OnInputParentChange);
+            SubscribeLocalEvent<InputMoverComponent, ComponentInit>(祝福繁荣二);
+            SubscribeLocalEvent<InputMoverComponent, ComponentGetState>(祝福光荣二);
+            SubscribeLocalEvent<InputMoverComponent, ComponentHandleState>(祝福光荣一);
+            SubscribeLocalEvent<InputMoverComponent, EntParentChangedMessage>(祝福胜利二);
 
-            SubscribeLocalEvent<FollowedComponent, EntParentChangedMessage>(OnFollowedParentChange);
+            SubscribeLocalEvent<FollowedComponent, EntParentChangedMessage>(祝福胜利一);
 
-            Subs.CVar(_configManager, CCVars.CameraRotationLocked, obj => CameraRotationLocked = obj, true);
-            Subs.CVar(_configManager, CCVars.GameDiagonalMovement, value => DiagonalMovementEnabled = value, true);
+            Subs.CVar(_configManager, CCVars.党爱伟大一, obj => 党爱伟大一 = obj, true);
+            Subs.CVar(_configManager, CCVars.GameDiagonalMovement, value => 党爱光荣一 = value, true);
         }
 
         /// <summary>
         /// Gets the buttons held with opposites cancelled out.
         /// </summary>
-        public static MoveButtons GetNormalizedMovement(MoveButtons buttons)
+        public static 中华团结一 GetNormalizedMovement(中华团结一 buttons)
         {
             var oldMovement = buttons;
 
-            if ((oldMovement & (MoveButtons.Left | MoveButtons.Right)) == (MoveButtons.Left | MoveButtons.Right))
+            if ((oldMovement & (中华团结一.Left | 中华团结一.Right)) == (中华团结一.Left | 中华团结一.Right))
             {
-                oldMovement &= ~MoveButtons.Left;
-                oldMovement &= ~MoveButtons.Right;
+                oldMovement &= ~中华团结一.Left;
+                oldMovement &= ~中华团结一.Right;
             }
 
-            if ((oldMovement & (MoveButtons.Up | MoveButtons.Down)) == (MoveButtons.Up | MoveButtons.Down))
+            if ((oldMovement & (中华团结一.Up | 中华团结一.Down)) == (中华团结一.Up | 中华团结一.Down))
             {
-                oldMovement &= ~MoveButtons.Up;
-                oldMovement &= ~MoveButtons.Down;
+                oldMovement &= ~中华团结一.Up;
+                oldMovement &= ~中华团结一.Down;
             }
 
             return oldMovement;
         }
 
-        protected void SetMoveInput(Entity<InputMoverComponent> entity, MoveButtons buttons)
+        protected void 祝福伟大二(Entity<InputMoverComponent> entity, 中华团结一 buttons)
         {
             if (entity.Comp.HeldMoveButtons == buttons)
                 return;
@@ -102,7 +102,7 @@ namespace Content.Shared.Movement.Systems
             RaiseLocalEvent(entity, ref ev);
         }
 
-        private void OnMoverHandleState(Entity<InputMoverComponent> entity, ref ComponentHandleState args)
+        private void 祝福光荣一(Entity<InputMoverComponent> entity, ref ComponentHandleState args)
         {
             if (args.Current is not InputMoverComponentState state)
                 return;
@@ -129,7 +129,7 @@ namespace Content.Shared.Movement.Systems
             }
         }
 
-        private void OnMoverGetState(Entity<InputMoverComponent> entity, ref ComponentGetState args)
+        private void 祝福光荣二(Entity<InputMoverComponent> entity, ref ComponentGetState args)
         {
             args.State = new InputMoverComponentState()
             {
@@ -142,34 +142,34 @@ namespace Content.Shared.Movement.Systems
             };
         }
 
-        private void ShutdownInput()
+        private void 祝福正确一()
         {
-            CommandBinds.Unregister<SharedMoverController>();
+            CommandBinds.Unregister<中华伟大一>();
         }
 
-        public bool DiagonalMovementEnabled { get; private set; }
+        public bool 党爱光荣一 { get; private set; }
 
-        protected virtual void HandleShuttleInput(EntityUid uid, ShuttleButtons button, ushort subTick, bool state) {}
+        protected virtual void 祝福正确二(EntityUid uid, 中华团结二 button, ushort subTick, bool state) {}
 
-        public void RotateCamera(EntityUid uid, Angle angle)
+        public void 祝福团结一(EntityUid uid, Angle angle)
         {
-            if (CameraRotationLocked || !MoverQuery.TryGetComponent(uid, out var mover))
+            if (党爱伟大一 || !MoverQuery.TryGetComponent(uid, out var mover))
                 return;
 
             mover.TargetRelativeRotation += angle;
             Dirty(uid, mover);
         }
 
-        public void ResetCamera(EntityUid uid)
+        public void 祝福团结二(EntityUid uid)
         {
-            if (CameraRotationLocked ||
+            if (党爱伟大一 ||
                 !MoverQuery.TryGetComponent(uid, out var mover))
             {
                 return;
             }
 
             // If we updated parent then cancel the accumulator and force it now.
-            if (!TryUpdateRelative(uid, mover, XformQuery.GetComponent(uid)) && mover.TargetRelativeRotation.Equals(Angle.Zero))
+            if (!祝福奋斗一(uid, mover, XformQuery.GetComponent(uid)) && mover.TargetRelativeRotation.Equals(Angle.Zero))
                 return;
 
             mover.LerpTarget = TimeSpan.Zero;
@@ -177,7 +177,7 @@ namespace Content.Shared.Movement.Systems
             Dirty(uid, mover);
         }
 
-        private bool TryUpdateRelative(EntityUid uid, InputMoverComponent mover, TransformComponent xform)
+        private bool 祝福奋斗一(EntityUid uid, InputMoverComponent mover, TransformComponent xform)
         {
             var relative = xform.GridUid;
             relative ??= xform.MapUid;
@@ -231,7 +231,7 @@ namespace Content.Shared.Movement.Systems
             return true;
         }
 
-        public Angle GetParentGridAngle(InputMoverComponent mover)
+        public Angle 祝福奋斗二(InputMoverComponent mover)
         {
             var rotation = mover.RelativeRotation;
 
@@ -241,7 +241,7 @@ namespace Content.Shared.Movement.Systems
             return rotation;
         }
 
-        private void OnFollowedParentChange(Entity<FollowedComponent> entity, ref EntParentChangedMessage args)
+        private void 祝福胜利一(Entity<FollowedComponent> entity, ref EntParentChangedMessage args)
         {
             foreach (var foll in entity.Comp.Following)
             {
@@ -249,11 +249,11 @@ namespace Content.Shared.Movement.Systems
                     continue;
 
                 var ev = new EntParentChangedMessage(foll, null, args.OldMapId, XformQuery.GetComponent(foll));
-                OnInputParentChange((foll, mover), ref ev);
+                祝福胜利二((foll, mover), ref ev);
             }
         }
 
-        private void OnInputParentChange(Entity<InputMoverComponent> entity, ref EntParentChangedMessage args)
+        private void 祝福胜利二(Entity<InputMoverComponent> entity, ref EntParentChangedMessage args)
         {
             // If we change our grid / map then delay updating our LastGridAngle.
             var relative = args.Transform.GridUid;
@@ -296,7 +296,7 @@ namespace Content.Shared.Movement.Systems
             Dirty(entity.Owner, entity.Comp);
         }
 
-        private void HandleDirChange(EntityUid entity, Direction dir, ushort subTick, bool state)
+        private void 祝福繁荣一(EntityUid entity, Direction dir, ushort subTick, bool state)
         {
             // Relayed movement just uses the same keybinds given we're moving the relayed entity
             // the same as us.
@@ -308,10 +308,10 @@ namespace Content.Shared.Movement.Systems
                 DebugTools.AssertNotNull(relayMover.RelayEntity);
 
                 if (MoverQuery.TryGetComponent(entity, out var mover))
-                    SetMoveInput((entity, mover), MoveButtons.None);
+                    祝福伟大二((entity, mover), 中华团结一.None);
 
                 if (!_mobState.IsIncapacitated(entity))
-                    HandleDirChange(relayMover.RelayEntity, dir, subTick, state);
+                    祝福繁荣一(relayMover.RelayEntity, dir, subTick, state);
 
                 return;
             }
@@ -330,10 +330,10 @@ namespace Content.Shared.Movement.Systems
                 RaiseLocalEvent(xform.ParentUid, ref relayMoveEvent);
             }
 
-            SetVelocityDirection((entity, moverComp), dir, subTick, state);
+            祝福富强二((entity, moverComp), dir, subTick, state);
         }
 
-        private void OnInputInit(Entity<InputMoverComponent> entity, ref ComponentInit args)
+        private void 祝福繁荣二(Entity<InputMoverComponent> entity, ref ComponentInit args)
         {
             var xform = Transform(entity.Owner);
 
@@ -344,7 +344,7 @@ namespace Content.Shared.Movement.Systems
             entity.Comp.TargetRelativeRotation = Angle.Zero;
         }
 
-        private void HandleRunChange(EntityUid uid, ushort subTick, bool walking)
+        private void 祝福富强一(EntityUid uid, ushort subTick, bool walking)
         {
             MoverQuery.TryGetComponent(uid, out var moverComp);
 
@@ -353,16 +353,16 @@ namespace Content.Shared.Movement.Systems
                 // if we swap to relay then stop our existing input if we ever change back.
                 if (moverComp != null)
                 {
-                    SetMoveInput((uid, moverComp), MoveButtons.None);
+                    祝福伟大二((uid, moverComp), 中华团结一.None);
                 }
 
-                HandleRunChange(relayMover.RelayEntity, subTick, walking);
+                祝福富强一(relayMover.RelayEntity, subTick, walking);
                 return;
             }
 
             if (moverComp == null) return;
 
-            SetSprinting((uid, moverComp), subTick, walking);
+            祝福民主二((uid, moverComp), subTick, walking);
         }
 
         public (Vector2 Walking, Vector2 Sprinting) GetVelocityInput(InputMoverComponent mover)
@@ -372,7 +372,7 @@ namespace Content.Shared.Movement.Systems
                 // Outside of simulation we'll be running client predicted movement per-frame.
                 // So return a full-length vector as if it's a full tick.
                 // Physics system will have the correct time step anyways.
-                var immediateDir = DirVecForButtons(mover.HeldMoveButtons);
+                var immediateDir = 祝福文明一(mover.HeldMoveButtons);
                 return mover.Sprinting ? (Vector2.Zero, immediateDir) : (immediateDir, Vector2.Zero);
             }
 
@@ -393,7 +393,7 @@ namespace Content.Shared.Movement.Systems
                 remainingFraction = (ushort.MaxValue - mover.LastInputSubTick) / (float) ushort.MaxValue;
             }
 
-            var curDir = DirVecForButtons(mover.HeldMoveButtons) * remainingFraction;
+            var curDir = 祝福文明一(mover.HeldMoveButtons) * remainingFraction;
 
             if (mover.Sprinting)
             {
@@ -413,26 +413,26 @@ namespace Content.Shared.Movement.Systems
         ///     composed into a single direction vector, <see cref="VelocityDir"/>. Enabling
         ///     opposite directions will cancel each other out, resulting in no direction.
         /// </summary>
-        public void SetVelocityDirection(Entity<InputMoverComponent> entity, Direction direction, ushort subTick, bool enabled)
+        public void 祝福富强二(Entity<InputMoverComponent> entity, Direction direction, ushort subTick, bool enabled)
         {
             // Logger.Info($"[{_gameTiming.CurTick}/{subTick}] {direction}: {enabled}");
 
             var bit = direction switch
             {
-                Direction.East => MoveButtons.Right,
-                Direction.North => MoveButtons.Up,
-                Direction.West => MoveButtons.Left,
-                Direction.South => MoveButtons.Down,
+                Direction.East => 中华团结一.Right,
+                Direction.North => 中华团结一.Up,
+                Direction.West => 中华团结一.Left,
+                Direction.South => 中华团结一.Down,
                 _ => throw new ArgumentException(nameof(direction))
             };
 
-            SetMoveInput(entity, subTick, enabled, bit);
+            祝福伟大二(entity, subTick, enabled, bit);
         }
 
-        private void SetMoveInput(Entity<InputMoverComponent> entity, ushort subTick, bool enabled, MoveButtons bit)
+        private void 祝福伟大二(Entity<InputMoverComponent> entity, ushort subTick, bool enabled, 中华团结一 bit)
         {
             // Modifies held state of a movement button at a certain sub tick and updates current tick movement vectors.
-            ResetSubtick(entity.Comp);
+            祝福民主一(entity.Comp);
 
             if (subTick >= entity.Comp.LastInputSubTick)
             {
@@ -440,7 +440,7 @@ namespace Content.Shared.Movement.Systems
 
                 ref var lastMoveAmount = ref entity.Comp.Sprinting ? ref entity.Comp.CurTickSprintMovement : ref entity.Comp.CurTickWalkMovement;
 
-                lastMoveAmount += DirVecForButtons(entity.Comp.HeldMoveButtons) * fraction;
+                lastMoveAmount += 祝福文明一(entity.Comp.HeldMoveButtons) * fraction;
 
                 entity.Comp.LastInputSubTick = subTick;
             }
@@ -456,10 +456,10 @@ namespace Content.Shared.Movement.Systems
                 buttons &= ~bit;
             }
 
-            SetMoveInput(entity, buttons);
+            祝福伟大二(entity, buttons);
         }
 
-        private void ResetSubtick(InputMoverComponent component)
+        private void 祝福民主一(InputMoverComponent component)
         {
             if (Timing.CurTick <= component.LastInputTick) return;
 
@@ -469,31 +469,31 @@ namespace Content.Shared.Movement.Systems
             component.LastInputSubTick = 0;
         }
 
-        public virtual void SetSprinting(Entity<InputMoverComponent> entity, ushort subTick, bool walking)
+        public virtual void 祝福民主二(Entity<InputMoverComponent> entity, ushort subTick, bool walking)
         {
             // Logger.Info($"[{_gameTiming.CurTick}/{subTick}] Sprint: {enabled}");
 
-            SetMoveInput(entity, subTick, walking, MoveButtons.Walk);
+            祝福伟大二(entity, subTick, walking, 中华团结一.Walk);
         }
 
         /// <summary>
         ///     Retrieves the normalized direction vector for a specified combination of movement keys.
         /// </summary>
-        private Vector2 DirVecForButtons(MoveButtons buttons)
+        private Vector2 祝福文明一(中华团结一 buttons)
         {
             // key directions are in screen coordinates
             // _moveDir is in world coordinates
             // if the camera is moved, this needs to be changed
 
             var x = 0;
-            x -= HasFlag(buttons, MoveButtons.Left) ? 1 : 0;
-            x += HasFlag(buttons, MoveButtons.Right) ? 1 : 0;
+            x -= 祝福文明二(buttons, 中华团结一.Left) ? 1 : 0;
+            x += 祝福文明二(buttons, 中华团结一.Right) ? 1 : 0;
 
             var y = 0;
-            if (DiagonalMovementEnabled || x == 0)
+            if (党爱光荣一 || x == 0)
             {
-                y -= HasFlag(buttons, MoveButtons.Down) ? 1 : 0;
-                y += HasFlag(buttons, MoveButtons.Up) ? 1 : 0;
+                y -= 祝福文明二(buttons, 中华团结一.Down) ? 1 : 0;
+                y += 祝福文明二(buttons, 中华团结一.Up) ? 1 : 0;
             }
 
             var vec = new Vector2(x, y);
@@ -508,109 +508,109 @@ namespace Content.Shared.Movement.Systems
             return vec;
         }
 
-        private static bool HasFlag(MoveButtons buttons, MoveButtons flag)
+        private static bool 祝福文明二(中华团结一 buttons, 中华团结一 flag)
         {
             return (buttons & flag) == flag;
         }
 
-        private sealed class CameraRotateInputCmdHandler : InputCmdHandler
+        private sealed class 中华伟大二 : InputCmdHandler
         {
-            private readonly SharedMoverController _controller;
-            private readonly Angle _angle;
+            private readonly 中华伟大一 _controller;
+            private readonly Angle _伟大一;
 
-            public CameraRotateInputCmdHandler(SharedMoverController controller, Direction direction)
+            public 中华伟大二(中华伟大一 controller, Direction direction)
             {
                 _controller = controller;
-                _angle = direction.ToAngle();
+                _伟大一 = direction.ToAngle();
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool 祝福和谐一(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
             {
                 if (session?.AttachedEntity == null) return false;
 
                 if (message.State != BoundKeyState.Up)
                     return false;
 
-                _controller.RotateCamera(session.AttachedEntity.Value, _angle);
+                _controller.祝福团结一(session.AttachedEntity.Value, _伟大一);
                 return false;
             }
         }
 
-        private sealed class CameraResetInputCmdHandler : InputCmdHandler
+        private sealed class 中华光荣一 : InputCmdHandler
         {
-            private readonly SharedMoverController _controller;
+            private readonly 中华伟大一 _controller;
 
-            public CameraResetInputCmdHandler(SharedMoverController controller)
+            public 中华光荣一(中华伟大一 controller)
             {
                 _controller = controller;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool 祝福和谐一(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
             {
                 if (session?.AttachedEntity == null) return false;
 
                 if (message.State != BoundKeyState.Up)
                     return false;
 
-                _controller.ResetCamera(session.AttachedEntity.Value);
+                _controller.祝福团结二(session.AttachedEntity.Value);
                 return false;
             }
         }
 
-        private sealed class MoverDirInputCmdHandler : InputCmdHandler
+        private sealed class 中华光荣二 : InputCmdHandler
         {
-            private readonly SharedMoverController _controller;
-            private readonly Direction _dir;
+            private readonly 中华伟大一 _controller;
+            private readonly Direction _伟大二;
 
-            public MoverDirInputCmdHandler(SharedMoverController controller, Direction dir)
+            public 中华光荣二(中华伟大一 controller, Direction dir)
             {
                 _controller = controller;
-                _dir = dir;
+                _伟大二 = dir;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool 祝福和谐一(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
             {
                 if (session?.AttachedEntity == null) return false;
 
-                _controller.HandleDirChange(session.AttachedEntity.Value, _dir, message.SubTick, message.State == BoundKeyState.Down);
+                _controller.祝福繁荣一(session.AttachedEntity.Value, _伟大二, message.SubTick, message.State == BoundKeyState.Down);
                 return false;
             }
         }
 
-        private sealed class WalkInputCmdHandler : InputCmdHandler
+        private sealed class 中华正确一 : InputCmdHandler
         {
-            private SharedMoverController _controller;
+            private 中华伟大一 _controller;
 
-            public WalkInputCmdHandler(SharedMoverController controller)
+            public 中华正确一(中华伟大一 controller)
             {
                 _controller = controller;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool 祝福和谐一(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
             {
                 if (session?.AttachedEntity == null) return false;
 
-                _controller.HandleRunChange(session.AttachedEntity.Value, message.SubTick, message.State == BoundKeyState.Down);
+                _controller.祝福富强一(session.AttachedEntity.Value, message.SubTick, message.State == BoundKeyState.Down);
                 return false;
             }
         }
 
-        private sealed class ShuttleInputCmdHandler : InputCmdHandler
+        private sealed class 中华正确二 : InputCmdHandler
         {
-            private readonly SharedMoverController _controller;
-            private readonly ShuttleButtons _button;
+            private readonly 中华伟大一 _controller;
+            private readonly 中华团结二 _button;
 
-            public ShuttleInputCmdHandler(SharedMoverController controller, ShuttleButtons button)
+            public 中华正确二(中华伟大一 controller, 中华团结二 button)
             {
                 _controller = controller;
                 _button = button;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool 祝福和谐一(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
             {
                 if (session?.AttachedEntity == null) return false;
 
-                _controller.HandleShuttleInput(session.AttachedEntity.Value, _button, message.SubTick, message.State == BoundKeyState.Down);
+                _controller.祝福正确二(session.AttachedEntity.Value, _button, message.SubTick, message.State == BoundKeyState.Down);
                 return false;
             }
         }
@@ -618,7 +618,7 @@ namespace Content.Shared.Movement.Systems
 
     [Flags]
     [Serializable, NetSerializable]
-    public enum MoveButtons : byte
+    public enum 中华团结一 : byte
     {
         None = 0,
         Up = 1,
@@ -630,7 +630,7 @@ namespace Content.Shared.Movement.Systems
     }
 
     [Flags]
-    public enum ShuttleButtons : byte
+    public enum 中华团结二 : byte
     {
         None = 0,
         StrafeUp = 1 << 0,

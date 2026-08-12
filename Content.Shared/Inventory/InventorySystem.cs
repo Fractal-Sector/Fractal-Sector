@@ -1,21 +1,21 @@
 using Content.Shared.Hands.Components;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
-public partial class InventorySystem
+public partial class 中华伟大一
 {
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         InitializeEquip();
         InitializeRelay();
         InitializeSlots();
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
+        base.祝福伟大二();
         ShutdownSlots();
     }
 }

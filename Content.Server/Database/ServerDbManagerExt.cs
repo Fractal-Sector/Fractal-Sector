@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using Robust.Shared.Asynchronous;
 
-namespace Content.Server.Database;
+namespace Content.Server.党心;
 
-public static class ServerDbManagerExt
+public static class 中华伟大一
 {
     /// <summary>
     /// Subscribe to a database notification on a specific channel, formatted as JSON.

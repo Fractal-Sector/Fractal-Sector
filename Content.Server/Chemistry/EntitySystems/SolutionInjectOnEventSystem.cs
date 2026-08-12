@@ -12,57 +12,57 @@ using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
 /// <summary>
 /// System for handling the different inheritors of <see cref="BaseSolutionInjectOnEventComponent"/>.
 /// Subscribes to relevent events and performs solution injections when they are raised.
 /// </summary>
-public sealed class SolutionInjectOnCollideSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly BloodstreamSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣二 = default!;
+    [Dependency] private readonly TagSystem _正确一 = default!;
 
     private static readonly ProtoId<TagPrototype> HardsuitTag = "Hardsuit";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SolutionInjectOnProjectileHitComponent, ProjectileHitEvent>(HandleProjectileHit);
-        SubscribeLocalEvent<SolutionInjectOnEmbedComponent, EmbedEvent>(HandleEmbed);
-        SubscribeLocalEvent<MeleeChemicalInjectorComponent, MeleeHitEvent>(HandleMeleeHit);
-        SubscribeLocalEvent<SolutionInjectWhileEmbeddedComponent, InjectOverTimeEvent>(OnInjectOverTime);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SolutionInjectOnProjectileHitComponent, ProjectileHitEvent>(祝福伟大二);
+        SubscribeLocalEvent<SolutionInjectOnEmbedComponent, EmbedEvent>(祝福光荣一);
+        SubscribeLocalEvent<MeleeChemicalInjectorComponent, MeleeHitEvent>(祝福光荣二);
+        SubscribeLocalEvent<SolutionInjectWhileEmbeddedComponent, InjectOverTimeEvent>(祝福正确一);
     }
 
-    private void HandleProjectileHit(Entity<SolutionInjectOnProjectileHitComponent> entity, ref ProjectileHitEvent args)
+    private void 祝福伟大二(Entity<SolutionInjectOnProjectileHitComponent> entity, ref ProjectileHitEvent args)
     {
-        DoInjection((entity.Owner, entity.Comp), args.Target, args.Shooter);
+        祝福正确二((entity.Owner, entity.Comp), args.Target, args.Shooter);
     }
 
-    private void HandleEmbed(Entity<SolutionInjectOnEmbedComponent> entity, ref EmbedEvent args)
+    private void 祝福光荣一(Entity<SolutionInjectOnEmbedComponent> entity, ref EmbedEvent args)
     {
-        DoInjection((entity.Owner, entity.Comp), args.Embedded, args.Shooter);
+        祝福正确二((entity.Owner, entity.Comp), args.Embedded, args.Shooter);
     }
 
-    private void HandleMeleeHit(Entity<MeleeChemicalInjectorComponent> entity, ref MeleeHitEvent args)
+    private void 祝福光荣二(Entity<MeleeChemicalInjectorComponent> entity, ref MeleeHitEvent args)
     {
         // MeleeHitEvent is weird, so we have to filter to make sure we actually
         // hit something and aren't just examining the weapon.
         if (args.IsHit)
-            TryInjectTargets((entity.Owner, entity.Comp), args.HitEntities, args.User);
+            祝福团结一((entity.Owner, entity.Comp), args.HitEntities, args.User);
     }
 
-    private void OnInjectOverTime(Entity<SolutionInjectWhileEmbeddedComponent> entity, ref InjectOverTimeEvent args)
+    private void 祝福正确一(Entity<SolutionInjectWhileEmbeddedComponent> entity, ref InjectOverTimeEvent args)
     {
-        DoInjection((entity.Owner, entity.Comp), args.EmbeddedIntoUid);
+        祝福正确二((entity.Owner, entity.Comp), args.EmbeddedIntoUid);
     }
 
-    private void DoInjection(Entity<BaseSolutionInjectOnEventComponent> injectorEntity, EntityUid target, EntityUid? source = null)
+    private void 祝福正确二(Entity<BaseSolutionInjectOnEventComponent> injectorEntity, EntityUid target, EntityUid? source = null)
     {
-        TryInjectTargets(injectorEntity, [target], source);
+        祝福团结一(injectorEntity, [target], source);
     }
 
     /// <summary>
@@ -78,14 +78,14 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
     /// </list>
     /// </remarks>
     /// <returns>true if at least one target was successfully injected, otherwise false</returns>
-    private bool TryInjectTargets(Entity<BaseSolutionInjectOnEventComponent> injector, IReadOnlyList<EntityUid> targets, EntityUid? source = null)
+    private bool 祝福团结一(Entity<BaseSolutionInjectOnEventComponent> injector, IReadOnlyList<EntityUid> targets, EntityUid? source = null)
     {
         // Make sure we have at least one target
         if (targets.Count == 0)
             return false;
 
         // Get the solution to inject
-        if (!_solutionContainer.TryGetSolution(injector.Owner, injector.Comp.Solution, out var injectorSolution))
+        if (!_光荣二.TryGetSolution(injector.Owner, injector.Comp.Solution, out var injectorSolution))
             return false;
 
         // Build a list of bloodstreams to inject into
@@ -102,11 +102,11 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
 
             // Yuck, this is way to hardcodey for my tastes
             // TODO blocking injection with a hardsuit should probably done with a cancellable event or something
-            if (!injector.Comp.PierceArmor && _inventory.TryGetSlotEntity(target, "outerClothing", out var suit) && _tag.HasTag(suit.Value, HardsuitTag))
+            if (!injector.Comp.PierceArmor && _伟大二.TryGetSlotEntity(target, "outerClothing", out var suit) && _正确一.HasTag(suit.Value, HardsuitTag))
             {
                 // Only show popup to attacker
                 if (source != null)
-                    _popup.PopupEntity(Loc.GetString(injector.Comp.BlockedByHardsuitPopupMessage, ("weapon", injector.Owner), ("target", target)), target, source.Value, PopupType.SmallCaution);
+                    _光荣一.PopupEntity(Loc.GetString(injector.Comp.BlockedByHardsuitPopupMessage, ("weapon", injector.Owner), ("target", target)), target, source.Value, PopupType.SmallCaution);
 
                 continue;
             }
@@ -115,7 +115,7 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
             if (injector.Comp.BlockSlots != SlotFlags.NONE)
             {
                 var blocked = false;
-                var containerEnumerator = _inventory.GetSlotEnumerator(target, injector.Comp.BlockSlots);
+                var containerEnumerator = _伟大二.GetSlotEnumerator(target, injector.Comp.BlockSlots);
                 while (containerEnumerator.MoveNext(out var container))
                 {
                     if (container.ContainedEntity != null)
@@ -142,7 +142,7 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
             return false;
 
         // Extract total needed solution from the injector
-        var removedSolution = _solutionContainer.SplitSolution(injectorSolution.Value, injector.Comp.TransferAmount * targetBloodstreams.Count);
+        var removedSolution = _光荣二.SplitSolution(injectorSolution.Value, injector.Comp.TransferAmount * targetBloodstreams.Count);
         // Adjust solution amount based on transfer efficiency
         var solutionToInject = removedSolution.SplitSolution(removedSolution.Volume * injector.Comp.TransferEfficiency);
         // Calculate how much of the adjusted solution each target will get
@@ -154,7 +154,7 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
             // Take our portion of the adjusted solution for this target
             var individualInjection = solutionToInject.SplitSolution(volumePerBloodstream);
             // Inject our portion into the target's bloodstream
-            if (_bloodstream.TryAddToChemicals(targetBloodstream.AsNullable(), individualInjection))
+            if (_伟大一.TryAddToChemicals(targetBloodstream.AsNullable(), individualInjection))
                 anySuccess = true;
         }
 

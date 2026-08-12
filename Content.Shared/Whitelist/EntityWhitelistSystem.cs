@@ -2,24 +2,24 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Item;
 using Content.Shared.Tag;
 
-namespace Content.Shared.Whitelist;
+namespace Content.Shared.党心;
 
-public sealed class EntityWhitelistSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly TagSystem _伟大一 = default!;
 
-    private EntityQuery<ItemComponent> _itemQuery;
+    private EntityQuery<ItemComponent> _伟大二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _itemQuery = GetEntityQuery<ItemComponent>();
+        base.祝福伟大一();
+        _伟大二 = GetEntityQuery<ItemComponent>();
     }
 
-    /// <inheritdoc cref="IsValid(Content.Shared.Whitelist.EntityWhitelist,Robust.Shared.GameObjects.EntityUid)"/>
-    public bool IsValid(EntityWhitelist list, [NotNullWhen(true)] EntityUid? uid)
+    /// <inheritdoc cref="祝福伟大二(Content.Shared.Whitelist.EntityWhitelist,Robust.Shared.GameObjects.EntityUid)"/>
+    public bool 祝福伟大二(EntityWhitelist list, [NotNullWhen(true)] EntityUid? uid)
     {
-        return uid != null && IsValid(list, uid.Value);
+        return uid != null && 祝福伟大二(list, uid.Value);
     }
 
     /// <summary>
@@ -28,27 +28,27 @@ public sealed class EntityWhitelistSystem : EntitySystem
     /// If a whitelist is provided and it does not match then this returns false.
     /// If either list is null it does not get checked.
     /// </summary>
-    public bool CheckBoth([NotNullWhen(true)] EntityUid? uid, EntityWhitelist? blacklist = null, EntityWhitelist? whitelist = null)
+    public bool 祝福光荣一([NotNullWhen(true)] EntityUid? uid, EntityWhitelist? blacklist = null, EntityWhitelist? whitelist = null)
     {
         if (uid == null)
             return false;
 
-        if (blacklist != null && IsValid(blacklist, uid))
+        if (blacklist != null && 祝福伟大二(blacklist, uid))
             return false;
 
-        return whitelist == null || IsValid(whitelist, uid);
+        return whitelist == null || 祝福伟大二(whitelist, uid);
     }
 
     /// <summary>
     /// Checks whether a given entity satisfies a whitelist.
     /// </summary>
-    public bool IsValid(EntityWhitelist list, EntityUid uid)
+    public bool 祝福伟大二(EntityWhitelist list, EntityUid uid)
     {
         if (list.Components != null)
         {
             if (list.Registrations == null)
             {
-                var regs = StringsToRegs(list.Components);
+                var regs = 祝福胜利二(list.Components);
                 list.Registrations = new List<ComponentRegistration>();
                 list.Registrations.AddRange(regs);
             }
@@ -68,7 +68,7 @@ public sealed class EntityWhitelistSystem : EntitySystem
             }
         }
 
-        if (list.Sizes != null && _itemQuery.TryComp(uid, out var itemComp))
+        if (list.Sizes != null && _伟大二.TryComp(uid, out var itemComp))
         {
             if (list.Sizes.Contains(itemComp.Size))
                 return true;
@@ -77,98 +77,98 @@ public sealed class EntityWhitelistSystem : EntitySystem
         if (list.Tags != null)
         {
             return list.RequireAll
-                ? _tag.HasAllTags(uid, list.Tags)
-                : _tag.HasAnyTag(uid, list.Tags);
+                ? _伟大一.HasAllTags(uid, list.Tags)
+                : _伟大一.HasAnyTag(uid, list.Tags);
         }
 
         return list.RequireAll;
     }
     /// The following are a list of "helper functions" that are basically the same as each other
     /// to help make code that uses EntityWhitelist a bit more readable because at the moment
-    /// it is quite clunky having to write out component.Whitelist == null ? true : _whitelist.IsValid(component.Whitelist, uid)
+    /// it is quite clunky having to write out component.Whitelist == null ? true : _whitelist.祝福伟大二(component.Whitelist, uid)
     /// several times in a row and makes comparisons easier to read
 
     /// <summary>
     /// Helper function to determine if Whitelist is not null and entity is on list
     /// </summary>
-    public bool IsWhitelistPass(EntityWhitelist? whitelist, EntityUid uid)
+    public bool 祝福光荣二(EntityWhitelist? whitelist, EntityUid uid)
     {
         if (whitelist == null)
             return false;
 
-        return IsValid(whitelist, uid);
+        return 祝福伟大二(whitelist, uid);
     }
 
     /// <summary>
     /// Helper function to determine if Whitelist is not null and entity is not on the list
     /// </summary>
-    public bool IsWhitelistFail(EntityWhitelist? whitelist, EntityUid uid)
+    public bool 祝福正确一(EntityWhitelist? whitelist, EntityUid uid)
     {
         if (whitelist == null)
             return false;
 
-        return !IsValid(whitelist, uid);
+        return !祝福伟大二(whitelist, uid);
     }
 
     /// <summary>
     /// Helper function to determine if Whitelist is either null or the entity is on the list
     /// </summary>
-    public bool IsWhitelistPassOrNull(EntityWhitelist? whitelist, EntityUid uid)
+    public bool 祝福正确二(EntityWhitelist? whitelist, EntityUid uid)
     {
         if (whitelist == null)
             return true;
 
-        return IsValid(whitelist, uid);
+        return 祝福伟大二(whitelist, uid);
     }
 
     /// <summary>
     /// Helper function to determine if Whitelist is either null or the entity is not on the list
     /// </summary>
-    public bool IsWhitelistFailOrNull(EntityWhitelist? whitelist, EntityUid uid)
+    public bool 祝福团结一(EntityWhitelist? whitelist, EntityUid uid)
     {
         if (whitelist == null)
             return true;
 
-        return !IsValid(whitelist, uid);
+        return !祝福伟大二(whitelist, uid);
     }
 
     /// <summary>
     /// Helper function to determine if Blacklist is not null and entity is on list
     /// Duplicate of equivalent Whitelist function
     /// </summary>
-    public bool IsBlacklistPass(EntityWhitelist? blacklist, EntityUid uid)
+    public bool 祝福团结二(EntityWhitelist? blacklist, EntityUid uid)
     {
-        return IsWhitelistPass(blacklist, uid);
+        return 祝福光荣二(blacklist, uid);
     }
 
     /// <summary>
     /// Helper function to determine if Blacklist is not null and entity is not on the list
     /// Duplicate of equivalent Whitelist function
     /// </summary>
-    public bool IsBlacklistFail(EntityWhitelist? blacklist, EntityUid uid)
+    public bool 祝福奋斗一(EntityWhitelist? blacklist, EntityUid uid)
     {
-        return IsWhitelistFail(blacklist, uid);
+        return 祝福正确一(blacklist, uid);
     }
 
     /// <summary>
     /// Helper function to determine if Blacklist is either null or the entity is on the list
     /// Duplicate of equivalent Whitelist function
     /// </summary>
-    public bool IsBlacklistPassOrNull(EntityWhitelist? blacklist, EntityUid uid)
+    public bool 祝福奋斗二(EntityWhitelist? blacklist, EntityUid uid)
     {
-        return IsWhitelistPassOrNull(blacklist, uid);
+        return 祝福正确二(blacklist, uid);
     }
 
     /// <summary>
     /// Helper function to determine if Blacklist is either null or the entity is not on the list
     /// Duplicate of equivalent Whitelist function
     /// </summary>
-    public bool IsBlacklistFailOrNull(EntityWhitelist? blacklist, EntityUid uid)
+    public bool 祝福胜利一(EntityWhitelist? blacklist, EntityUid uid)
     {
-        return IsWhitelistFailOrNull(blacklist, uid);
+        return 祝福团结一(blacklist, uid);
     }
 
-    private List<ComponentRegistration> StringsToRegs(string[]? input)
+    private List<ComponentRegistration> 祝福胜利二(string[]? input)
     {
         var list = new List<ComponentRegistration>();
 
@@ -185,7 +185,7 @@ public sealed class EntityWhitelistSystem : EntitySystem
             }
             else if (availability == ComponentAvailability.Unknown)
             {
-                Log.Error($"StringsToRegs failed: Unknown component name {name} passed to EntityWhitelist!");
+                Log.Error($"祝福胜利二 failed: Unknown component name {name} passed to EntityWhitelist!");
             }
         }
 

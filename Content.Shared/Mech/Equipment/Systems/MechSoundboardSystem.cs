@@ -3,25 +3,25 @@ using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Timing;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Shared.Mech.Equipment.Systems;
+namespace Content.Shared.Mech.Equipment.党心;
 
 /// <summary>
 /// Handles everything for mech soundboard.
 /// </summary>
-public sealed class MechSoundboardSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly UseDelaySystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MechSoundboardComponent, MechEquipmentUiStateReadyEvent>(OnUiStateReady);
-        SubscribeLocalEvent<MechSoundboardComponent, MechEquipmentUiMessageRelayEvent>(OnSoundboardMessage);
+        SubscribeLocalEvent<MechSoundboardComponent, MechEquipmentUiStateReadyEvent>(祝福伟大二);
+        SubscribeLocalEvent<MechSoundboardComponent, MechEquipmentUiMessageRelayEvent>(祝福光荣一);
     }
 
-    private void OnUiStateReady(EntityUid uid, MechSoundboardComponent comp, MechEquipmentUiStateReadyEvent args)
+    private void 祝福伟大二(EntityUid uid, MechSoundboardComponent comp, MechEquipmentUiStateReadyEvent args)
     {
         // you have to specify a collection so it must exist probably
         var sounds = comp.Sounds.Select(sound => sound.Collection!);
@@ -32,7 +32,7 @@ public sealed class MechSoundboardSystem : EntitySystem
         args.States.Add(GetNetEntity(uid), state);
     }
 
-    private void OnSoundboardMessage(EntityUid uid, MechSoundboardComponent comp, MechEquipmentUiMessageRelayEvent args)
+    private void 祝福光荣一(EntityUid uid, MechSoundboardComponent comp, MechEquipmentUiMessageRelayEvent args)
     {
         if (args.Message is not MechSoundboardPlayMessage msg)
             return;
@@ -45,10 +45,10 @@ public sealed class MechSoundboardSystem : EntitySystem
             return;
 
         if (TryComp(uid, out UseDelayComponent? useDelay)
-            && !_useDelay.TryResetDelay((uid, useDelay), true))
+            && !_伟大二.TryResetDelay((uid, useDelay), true))
             return;
 
         // honk!!!!!
-        _audio.PlayPvs(comp.Sounds[msg.Sound], uid);
+        _伟大一.PlayPvs(comp.Sounds[msg.Sound], uid);
     }
 }

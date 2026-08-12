@@ -3,20 +3,20 @@ using Content.Server.Power.EntitySystems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Power.Commands;
+namespace Content.Server.Power.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class PowerValidateCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly PowerNetSystem _powerNet = null!;
+    [Dependency] private readonly PowerNetSystem _伟大一 = null!;
 
-    public override string Command => "power_validate";
+    public override string 党爱伟大一 => "power_validate";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         try
         {
-            _powerNet.Validate();
+            _伟大一.Validate();
         }
         catch (Exception e)
         {

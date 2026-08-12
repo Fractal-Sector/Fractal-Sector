@@ -2,36 +2,36 @@ using Content.Server.Objectives.Components;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Handles keep alive condition logic.
 /// </summary>
-public sealed class KeepAliveConditionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly TargetObjectiveSystem _target = default!;
+    [Dependency] private readonly SharedMindSystem _伟大一 = default!;
+    [Dependency] private readonly TargetObjectiveSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<KeepAliveConditionComponent, ObjectiveGetProgressEvent>(OnGetProgress);
+        SubscribeLocalEvent<KeepAliveConditionComponent, ObjectiveGetProgressEvent>(祝福伟大二);
     }
 
-    private void OnGetProgress(EntityUid uid, KeepAliveConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void 祝福伟大二(EntityUid uid, KeepAliveConditionComponent comp, ref ObjectiveGetProgressEvent args)
     {
-        if (!_target.GetTarget(uid, out var target))
+        if (!_伟大二.GetTarget(uid, out var target))
             return;
 
-        args.Progress = GetProgress(target.Value);
+        args.Progress = 祝福光荣一(target.Value);
     }
 
-    private float GetProgress(EntityUid target)
+    private float 祝福光荣一(EntityUid target)
     {
         if (!TryComp<MindComponent>(target, out var mind))
             return 0f;
 
-        return _mind.IsCharacterDeadIc(mind) ? 0f : 1f;
+        return _伟大一.IsCharacterDeadIc(mind) ? 0f : 1f;
     }
 }

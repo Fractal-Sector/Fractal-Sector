@@ -1,17 +1,17 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.StationRecords;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class StationRecordsFilter
+public sealed class 中华伟大一
 {
-    public StationRecordFilterType Type = StationRecordFilterType.Name;
-    public string Value  = "";
+    public 中华光荣一 Type = 中华光荣一.Name;
+    public string 党爱伟大一  = "";
 
-    public StationRecordsFilter(StationRecordFilterType filterType, string newValue = "")
+    public 中华伟大一(中华光荣一 filterType, string newValue = "")
     {
         Type = filterType;
-        Value = newValue;
+        党爱伟大一 = newValue;
     }
 }
 
@@ -19,16 +19,16 @@ public sealed class StationRecordsFilter
 /// Message for updating the filter on any kind of records console.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class SetStationRecordFilter : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public readonly string Value;
-    public readonly StationRecordFilterType Type;
+    public readonly string 党爱伟大一;
+    public readonly 中华光荣一 Type;
 
-    public SetStationRecordFilter(StationRecordFilterType filterType,
+    public 中华伟大二(中华光荣一 filterType,
         string filterValue)
     {
         Type = filterType;
-        Value = filterValue;
+        党爱伟大一 = filterValue;
     }
 }
 
@@ -36,7 +36,7 @@ public sealed class SetStationRecordFilter : BoundUserInterfaceMessage
 /// Different strings that results can be filtered by.
 /// </summary>
 [Serializable, NetSerializable]
-public enum StationRecordFilterType : byte
+public enum 中华光荣一 : byte
 {
     Name,
     Job,

@@ -4,17 +4,17 @@ using Content.Shared.Administration;
 using Content.Shared.Body.Components;
 using Robust.Shared.Console;
 
-namespace Content.Server.Body.Commands
+namespace Content.Server.Body.党心
 {
     [AdminCommand(AdminFlags.Fun)]
-    internal sealed class DestroyMechanismCommand : LocalizedEntityCommands
+    internal sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IComponentFactory _compFactory = default!;
-        [Dependency] private readonly BodySystem _bodySystem = default!;
+        [Dependency] private readonly IComponentFactory _伟大一 = default!;
+        [Dependency] private readonly BodySystem _伟大二 = default!;
 
-        public override string Command => "destroymechanism";
+        public override string 党爱伟大一 => "destroymechanism";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (player == null)
@@ -43,9 +43,9 @@ namespace Content.Server.Body.Commands
 
             var mechanismName = string.Join(" ", args).ToLowerInvariant();
 
-            foreach (var organ in _bodySystem.GetBodyOrgans(attached, body))
+            foreach (var organ in _伟大二.GetBodyOrgans(attached, body))
             {
-                if (_compFactory.GetComponentName(organ.Component.GetType()).ToLowerInvariant() == mechanismName)
+                if (_伟大一.GetComponentName(organ.Component.GetType()).ToLowerInvariant() == mechanismName)
                 {
                     EntityManager.QueueDeleteEntity(organ.Id);
                     shell.WriteLine(Loc.GetString($"cmd-destroymechanism-success", ("name", mechanismName)));

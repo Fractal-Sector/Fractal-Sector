@@ -3,18 +3,18 @@ using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
 using Content.Shared.Fluids.Components;
 
-namespace Content.Server.Fluids.EntitySystems;
+namespace Content.Server.Fluids.党心;
 
-public sealed partial class PuddleSystem
+public sealed partial class 中华伟大一
 {
     private static readonly TimeSpan EvaporationCooldown = TimeSpan.FromSeconds(1);
 
-    private void OnEvaporationMapInit(Entity<EvaporationComponent> entity, ref MapInitEvent args)
+    private void 祝福伟大一(Entity<EvaporationComponent> entity, ref MapInitEvent args)
     {
         entity.Comp.NextTick = _timing.CurTime + EvaporationCooldown;
     }
 
-    private void UpdateEvaporation(EntityUid uid, Solution solution)
+    private void 祝福伟大二(EntityUid uid, Solution solution)
     {
         if (HasComp<EvaporationComponent>(uid))
         {
@@ -31,7 +31,7 @@ public sealed partial class PuddleSystem
         RemComp<EvaporationComponent>(uid);
     }
 
-    private void TickEvaporation()
+    private void 祝福光荣一()
     {
         var query = EntityQueryEnumerator<EvaporationComponent, PuddleComponent>();
         var xformQuery = GetEntityQuery<TransformComponent>();

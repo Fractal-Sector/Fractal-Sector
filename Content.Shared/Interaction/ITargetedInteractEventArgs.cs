@@ -1,6 +1,6 @@
-﻿namespace Content.Shared.Interaction
+﻿namespace Content.Shared.党心
 {
-    public interface ITargetedInteractEventArgs
+    public interface 中华伟大一
     {
         /// <summary>
         /// Performer of the attack

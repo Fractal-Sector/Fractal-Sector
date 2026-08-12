@@ -15,14 +15,14 @@ using Robust.Shared.Utility;
 using Content.Server._NF.GameTicking.Rules.Components; // Frontier
 using Content.Server._NF.Pirate.Components; // Frontier
 
-namespace Content.Server.Administration.Systems;
+namespace Content.Server.Administration.党心;
 
-public sealed partial class AdminVerbSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly ZombieSystem _zombie = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly OutfitSystem _outfit = default!;
+    [Dependency] private readonly AntagSelectionSystem _伟大一 = default!;
+    [Dependency] private readonly ZombieSystem _伟大二 = default!;
+    [Dependency] private readonly GameTicker _光荣一 = default!;
+    [Dependency] private readonly OutfitSystem _光荣二 = default!;
 
     private static readonly EntProtoId DefaultTraitorRule = "Traitor";
     private static readonly EntProtoId DefaultInitialInfectedRule = "Zombie";
@@ -35,7 +35,7 @@ public sealed partial class AdminVerbSystem
     // private static readonly ProtoId<StartingGearPrototype> PirateGearId = "PirateGear"; // Frontier
 
     // All antag verbs have names so invokeverb works.
-    private void AddAntagVerbs(GetVerbsEvent<Verb> args)
+    private void 祝福伟大一(GetVerbsEvent<Verb> args)
     {
         if (!TryComp<ActorComponent>(args.User, out var actor))
             return;
@@ -58,7 +58,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/job_icons.rsi"), "Syndicate"),
             Act = () =>
             {
-                _antag.ForceMakeAntag<TraitorRuleComponent>(targetPlayer, DefaultTraitorRule);
+                _伟大一.ForceMakeAntag<TraitorRuleComponent>(targetPlayer, DefaultTraitorRule);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", traitorName, Loc.GetString("admin-verb-make-traitor")),
@@ -73,7 +73,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/Interface/Misc/job_icons.rsi"), "InitialInfected"),
             Act = () =>
             {
-                _antag.ForceMakeAntag<ZombieRuleComponent>(targetPlayer, DefaultInitialInfectedRule);
+                _伟大一.ForceMakeAntag<ZombieRuleComponent>(targetPlayer, DefaultInitialInfectedRule);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", initialInfectedName, Loc.GetString("admin-verb-make-initial-infected")),
@@ -88,7 +88,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/Interface/Misc/job_icons.rsi"), "Zombie"),
             Act = () =>
             {
-                _zombie.ZombifyEntity(args.Target);
+                _伟大二.ZombifyEntity(args.Target);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", zombieName, Loc.GetString("admin-verb-make-zombie")),
@@ -103,7 +103,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/Clothing/Head/Hardsuits/syndicate.rsi"), "icon"),
             Act = () =>
             {
-                _antag.ForceMakeAntag<NukeopsRuleComponent>(targetPlayer, DefaultNukeOpRule);
+                _伟大一.ForceMakeAntag<NukeopsRuleComponent>(targetPlayer, DefaultNukeOpRule);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", nukeOpName, Loc.GetString("admin-verb-make-nuclear-operative")),
@@ -120,10 +120,10 @@ public sealed partial class AdminVerbSystem
             Act = () =>
             {
                 EnsureComp<AutoPirateComponent>(args.User); // Frontier: needed to pass the pirate whitelist
-                _antag.ForceMakeAntag<NFPirateRuleComponent>(targetPlayer, PirateRuleId); // Frontier
+                _伟大一.ForceMakeAntag<NFPirateRuleComponent>(targetPlayer, PirateRuleId); // Frontier
 
                 // pirates just get an outfit because they don't really have logic associated with them
-                // _outfit.SetOutfit(args.Target, PirateGearId); // Frontier
+                // _光荣二.SetOutfit(args.Target, PirateGearId); // Frontier
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", pirateName, Loc.GetString("admin-verb-make-nf-pirate")),
@@ -139,7 +139,7 @@ public sealed partial class AdminVerbSystem
             Act = () =>
             {
                 EnsureComp<AutoPirateFirstMateComponent>(args.User); // Frontier: needed to pass the pirate whitelist
-                _antag.ForceMakeAntag<NFPirateRuleComponent>(targetPlayer, PirateRuleId);
+                _伟大一.ForceMakeAntag<NFPirateRuleComponent>(targetPlayer, PirateRuleId);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", pirateFirstMateName, Loc.GetString("admin-verb-make-nf-pirate-first-mate")),
@@ -155,7 +155,7 @@ public sealed partial class AdminVerbSystem
             Act = () =>
             {
                 EnsureComp<AutoPirateCaptainComponent>(args.User); // Pass the pirate captain whitelist
-                _antag.ForceMakeAntag<NFPirateRuleComponent>(targetPlayer, PirateRuleId);
+                _伟大一.ForceMakeAntag<NFPirateRuleComponent>(targetPlayer, PirateRuleId);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", pirateCaptainName, Loc.GetString("admin-verb-make-nf-pirate-captain")),
@@ -171,7 +171,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/Interface/Misc/job_icons.rsi"), "HeadRevolutionary"),
             Act = () =>
             {
-                _antag.ForceMakeAntag<RevolutionaryRuleComponent>(targetPlayer, DefaultRevsRule);
+                _伟大一.ForceMakeAntag<RevolutionaryRuleComponent>(targetPlayer, DefaultRevsRule);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", headRevName, Loc.GetString("admin-verb-make-head-rev")),
@@ -186,7 +186,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/Clothing/Hands/Gloves/Color/black.rsi"), "icon"),
             Act = () =>
             {
-                _antag.ForceMakeAntag<ThiefRuleComponent>(targetPlayer, DefaultThiefRule);
+                _伟大一.ForceMakeAntag<ThiefRuleComponent>(targetPlayer, DefaultThiefRule);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", thiefName, Loc.GetString("admin-verb-make-thief")),
@@ -201,7 +201,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/Objects/Weapons/Melee/armblade.rsi"), "icon"),
             Act = () =>
             {
-                _antag.ForceMakeAntag<ChangelingRuleComponent>(targetPlayer, DefaultChangelingRule);
+                _伟大一.ForceMakeAntag<ChangelingRuleComponent>(targetPlayer, DefaultChangelingRule);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", changelingName, Loc.GetString("admin-verb-make-changeling")),
@@ -216,14 +216,14 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/Interface/Misc/job_icons.rsi"), "ParadoxClone"),
             Act = () =>
             {
-                var ruleEnt = _gameTicker.AddGameRule(ParadoxCloneRuleId);
+                var ruleEnt = _光荣一.AddGameRule(ParadoxCloneRuleId);
 
                 if (!TryComp<ParadoxCloneRuleComponent>(ruleEnt, out var paradoxCloneRuleComp))
                     return;
 
                 paradoxCloneRuleComp.OriginalBody = args.Target; // override the target player
 
-                _gameTicker.StartGameRule(ruleEnt);
+                _光荣一.StartGameRule(ruleEnt);
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", paradoxCloneName, Loc.GetString("admin-verb-make-paradox-clone")),

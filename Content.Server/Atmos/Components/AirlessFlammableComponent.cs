@@ -1,4 +1,4 @@
-namespace Content.Server.Atmos.Components;
+namespace Content.Server.Atmos.党心;
 
 /// <summary>
 /// Marker component that prevents FlammableComponent from being extinguished in airless/low oxygen environments.
@@ -6,6 +6,6 @@ namespace Content.Server.Atmos.Components;
 /// Wayfarer-14
 /// </summary>
 [RegisterComponent]
-public sealed partial class AirlessFlammableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

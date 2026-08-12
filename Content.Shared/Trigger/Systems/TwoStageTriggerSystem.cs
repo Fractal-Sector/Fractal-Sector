@@ -1,21 +1,21 @@
 using Robust.Shared.Timing;
 using Content.Shared.Trigger.Components;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class TwoStageTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly TriggerSystem _triggerSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly TriggerSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TwoStageTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<TwoStageTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<TwoStageTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<TwoStageTriggerComponent> ent, ref TriggerEvent args)
     {
         if (ent.Comp.Triggered)
             return; // already triggered
@@ -26,18 +26,18 @@ public sealed class TwoStageTriggerSystem : EntitySystem
         EntityManager.AddComponents(ent, ent.Comp.Components);
         EnsureComp<ActiveTwoStageTriggerComponent>(ent);
         ent.Comp.Triggered = true;
-        ent.Comp.NextTriggerTime = _timing.CurTime + ent.Comp.TriggerDelay;
+        ent.Comp.NextTriggerTime = _伟大一.CurTime + ent.Comp.TriggerDelay;
         ent.Comp.User = args.User;
         Dirty(ent);
 
         args.Handled = true;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         var enumerator = EntityQueryEnumerator<ActiveTwoStageTriggerComponent, TwoStageTriggerComponent>();
         while (enumerator.MoveNext(out var uid, out _, out var component))
         {
@@ -45,7 +45,7 @@ public sealed class TwoStageTriggerSystem : EntitySystem
                 continue;
 
             RemComp<ActiveTwoStageTriggerComponent>(uid);
-            _triggerSystem.Trigger(uid, component.User, component.KeyOut);
+            _伟大二.Trigger(uid, component.User, component.KeyOut);
         }
     }
 }

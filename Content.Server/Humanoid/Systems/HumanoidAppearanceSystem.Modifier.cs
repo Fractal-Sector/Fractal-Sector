@@ -6,21 +6,21 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Humanoid;
+namespace Content.Server.党心;
 
-public sealed partial class HumanoidAppearanceSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大二 = default!;
 
-    private void OnVerbsRequest(EntityUid uid, HumanoidAppearanceComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福伟大一(EntityUid uid, HumanoidAppearanceComponent component, GetVerbsEvent<Verb> args)
     {
         if (!TryComp<ActorComponent>(args.User, out var actor))
         {
             return;
         }
 
-        if (!_adminManager.HasAdminFlag(actor.PlayerSession, AdminFlags.Fun))
+        if (!_伟大一.HasAdminFlag(actor.PlayerSession, AdminFlags.Fun))
         {
             return;
         }
@@ -32,8 +32,8 @@ public sealed partial class HumanoidAppearanceSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/Mobs/Customization/reptilian_parts.rsi"), "tail_smooth"),
             Act = () =>
             {
-                _uiSystem.OpenUi(uid, HumanoidMarkingModifierKey.Key, actor.PlayerSession);
-                _uiSystem.SetUiState(
+                _伟大二.OpenUi(uid, HumanoidMarkingModifierKey.Key, actor.PlayerSession);
+                _伟大二.SetUiState(
                     uid,
                     HumanoidMarkingModifierKey.Key,
                     new HumanoidMarkingModifierState(component.MarkingSet, component.Species,
@@ -45,10 +45,10 @@ public sealed partial class HumanoidAppearanceSystem
         });
     }
 
-    private void OnBaseLayersSet(EntityUid uid, HumanoidAppearanceComponent component,
+    private void 祝福伟大二(EntityUid uid, HumanoidAppearanceComponent component,
         HumanoidMarkingModifierBaseLayersSetMessage message)
     {
-        if (!_adminManager.HasAdminFlag(message.Actor, AdminFlags.Fun))
+        if (!_伟大一.HasAdminFlag(message.Actor, AdminFlags.Fun))
         {
             return;
         }
@@ -66,7 +66,7 @@ public sealed partial class HumanoidAppearanceSystem
 
         if (message.ResendState)
         {
-            _uiSystem.SetUiState(
+            _伟大二.SetUiState(
                 uid,
                 HumanoidMarkingModifierKey.Key,
                 new HumanoidMarkingModifierState(component.MarkingSet, component.Species,
@@ -77,10 +77,10 @@ public sealed partial class HumanoidAppearanceSystem
         }
     }
 
-    private void OnMarkingsSet(EntityUid uid, HumanoidAppearanceComponent component,
+    private void 祝福光荣一(EntityUid uid, HumanoidAppearanceComponent component,
         HumanoidMarkingModifierMarkingSetMessage message)
     {
-        if (!_adminManager.HasAdminFlag(message.Actor, AdminFlags.Fun))
+        if (!_伟大一.HasAdminFlag(message.Actor, AdminFlags.Fun))
         {
             return;
         }
@@ -90,7 +90,7 @@ public sealed partial class HumanoidAppearanceSystem
 
         if (message.ResendState)
         {
-            _uiSystem.SetUiState(
+            _伟大二.SetUiState(
                 uid,
                 HumanoidMarkingModifierKey.Key,
                 new HumanoidMarkingModifierState(component.MarkingSet, component.Species,

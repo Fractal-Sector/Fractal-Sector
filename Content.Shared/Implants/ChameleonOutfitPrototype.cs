@@ -2,7 +2,7 @@ using Content.Shared.Roles;
 using Content.Shared.StatusIcon;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Implants;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// A chameleon clothing outfit. Used for the chameleon controller jobs! Has various fields to help describe a full
@@ -10,11 +10,11 @@ namespace Content.Shared.Implants;
 /// that make sense for the best outcome.
 /// </summary>
 [Prototype]
-public sealed partial class ChameleonOutfitPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <inheritdoc/>
     [ViewVariables, IdDataField]
-    public string ID { get; private set; } = string.Empty;
+    public string 党爱伟大一 { get; private set; } = string.Empty;
 
     /// <summary>
     /// Job this outfit is based off of. Will use various things (job icon, job name, loadout etc...) for the outfit.
@@ -43,7 +43,7 @@ public sealed partial class ChameleonOutfitPrototype : IPrototype
     public ProtoId<StartingGearPrototype>? StartingGear;
 
     /// <summary>
-    /// Icon for the outfit - used for stuff like the UI or agent ID.
+    /// Icon for the outfit - used for stuff like the UI or agent 党爱伟大一.
     /// </summary>
     [DataField]
     public ProtoId<JobIconPrototype>? Icon;
@@ -52,7 +52,7 @@ public sealed partial class ChameleonOutfitPrototype : IPrototype
     public List<ProtoId<DepartmentPrototype>>? Departments;
 
     [DataField]
-    public bool HasMindShield;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// Custom equipment for this specific chameleon outfit. If your making a new outfit that's just for the controller

@@ -1,14 +1,14 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Dataset
+namespace Content.Shared.党心
 {
     [Prototype]
-    public sealed partial class DatasetPrototype : IPrototype
+    public sealed partial class 中华伟大一 : IPrototype
     {
         [ViewVariables]
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
-        [DataField("values")] public IReadOnlyList<string> Values { get; private set; } = new List<string>();
+        [DataField("values")] public IReadOnlyList<string> 党爱伟大二 { get; private set; } = new List<string>();
     }
 }

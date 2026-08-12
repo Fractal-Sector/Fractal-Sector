@@ -5,28 +5,28 @@ using Content.Server.PowerCell;
 using Content.Shared.Interaction;
 using Content.Shared.Storage;
 
-namespace Content.Server.Holosign;
+namespace Content.Server.党心;
 
-public sealed class HolosignSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly PowerCellSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<HolosignProjectorComponent, BeforeRangedInteractEvent>(OnBeforeInteract);
-        SubscribeLocalEvent<HolosignProjectorComponent, ExaminedEvent>(OnExamine);
+        base.祝福伟大一();
+        SubscribeLocalEvent<HolosignProjectorComponent, BeforeRangedInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<HolosignProjectorComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamine(EntityUid uid, HolosignProjectorComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, HolosignProjectorComponent component, ExaminedEvent args)
     {
         // TODO: This should probably be using an itemstatus
         // TODO: I'm too lazy to do this rn but it's literally copy-paste from emag.
-        _powerCell.TryGetBatteryFromSlot(uid, out var battery);
-        var charges = UsesRemaining(component, battery);
-        var maxCharges = MaxUses(component, battery);
+        _伟大一.TryGetBatteryFromSlot(uid, out var battery);
+        var charges = 祝福光荣二(component, battery);
+        var maxCharges = 祝福正确一(component, battery);
 
         using (args.PushGroup(nameof(HolosignProjectorComponent)))
         {
@@ -39,13 +39,13 @@ public sealed class HolosignSystem : EntitySystem
         }
     }
 
-    private void OnBeforeInteract(EntityUid uid, HolosignProjectorComponent component, BeforeRangedInteractEvent args)
+    private void 祝福光荣一(EntityUid uid, HolosignProjectorComponent component, BeforeRangedInteractEvent args)
     {
 
         if (args.Handled
             || !args.CanReach // prevent placing out of range
             || HasComp<StorageComponent>(args.Target) // if it's a storage component like a bag, we ignore usage so it can be stored
-            || !_powerCell.TryUseCharge(uid, component.ChargeUse, user: args.User) // if no battery or no charge, doesn't work
+            || !_伟大一.TryUseCharge(uid, component.ChargeUse, user: args.User) // if no battery or no charge, doesn't work
             )
             return;
 
@@ -54,12 +54,12 @@ public sealed class HolosignSystem : EntitySystem
         var holoUid = Spawn(component.SignProto, args.ClickLocation.SnapToGrid(EntityManager));
         var xform = Transform(holoUid);
         if (!xform.Anchored)
-            _transform.AnchorEntity(holoUid, xform); // anchor to prevent any tempering with (don't know what could even interact with it)
+            _伟大二.AnchorEntity(holoUid, xform); // anchor to prevent any tempering with (don't know what could even interact with it)
 
         args.Handled = true;
     }
 
-    private int UsesRemaining(HolosignProjectorComponent component, BatteryComponent? battery = null)
+    private int 祝福光荣二(HolosignProjectorComponent component, BatteryComponent? battery = null)
     {
         if (battery == null ||
             component.ChargeUse == 0f) return 0;
@@ -67,7 +67,7 @@ public sealed class HolosignSystem : EntitySystem
         return (int) (battery.CurrentCharge / component.ChargeUse);
     }
 
-    private int MaxUses(HolosignProjectorComponent component, BatteryComponent? battery = null)
+    private int 祝福正确一(HolosignProjectorComponent component, BatteryComponent? battery = null)
     {
         if (battery == null ||
             component.ChargeUse == 0f) return 0;

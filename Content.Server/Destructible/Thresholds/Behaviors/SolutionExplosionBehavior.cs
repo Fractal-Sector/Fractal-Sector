@@ -1,21 +1,21 @@
 using Content.Shared.Explosion.Components;
 using JetBrains.Annotations;
 
-namespace Content.Server.Destructible.Thresholds.Behaviors
+namespace Content.Server.Destructible.Thresholds.党心
 {
     /// <summary>
     /// Works like a SpillBehavior combined with an ExplodeBehavior
     /// </summary>
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class SolutionExplosionBehavior : IThresholdBehavior
+    public sealed partial class 中华伟大一 : IThresholdBehavior
     {
         [DataField(required: true)]
-        public string Solution = default!;
+        public string 党爱伟大一 = default!;
 
-        public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
+        public void 祝福伟大一(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
-            if (system.SolutionContainerSystem.TryGetSolution(owner, Solution, out _, out var explodingSolution)
+            if (system.SolutionContainerSystem.TryGetSolution(owner, 党爱伟大一, out _, out var explodingSolution)
                 && system.EntityManager.TryGetComponent(owner, out ExplosiveComponent? explosiveComponent))
             {
                 // Don't explode if there's no solution

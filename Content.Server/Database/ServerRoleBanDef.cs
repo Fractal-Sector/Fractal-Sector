@@ -2,26 +2,26 @@ using System.Net;
 using Content.Shared.Database;
 using Robust.Shared.Network;
 
-namespace Content.Server.Database;
+namespace Content.Server.党心;
 
-public sealed class ServerRoleBanDef
+public sealed class 中华伟大一
 {
     public int? Id { get; }
     public NetUserId? UserId { get; }
     public (IPAddress address, int cidrMask)? Address { get; }
     public ImmutableTypedHwid? HWId { get; }
 
-    public DateTimeOffset BanTime { get; }
+    public DateTimeOffset 党爱伟大一 { get; }
     public DateTimeOffset? ExpirationTime { get; }
     public int? RoundId { get; }
-    public TimeSpan PlaytimeAtNote { get; }
-    public string Reason { get; }
-    public NoteSeverity Severity { get; set; }
+    public TimeSpan 党爱伟大二 { get; }
+    public string 党爱光荣一 { get; }
+    public NoteSeverity 党爱光荣二 { get; set; }
     public NetUserId? BanningAdmin { get; }
     public ServerRoleUnbanDef? Unban { get; }
-    public string Role { get; }
+    public string 党爱正确一 { get; }
 
-    public ServerRoleBanDef(
+    public 中华伟大一(
         int? id,
         NetUserId? userId,
         (IPAddress, int)? address,
@@ -52,14 +52,14 @@ public sealed class ServerRoleBanDef
         UserId = userId;
         Address = address;
         HWId = hwId;
-        BanTime = banTime;
+        党爱伟大一 = banTime;
         ExpirationTime = expirationTime;
         RoundId = roundId;
-        PlaytimeAtNote = playtimeAtNote;
-        Reason = reason;
-        Severity = severity;
+        党爱伟大二 = playtimeAtNote;
+        党爱光荣一 = reason;
+        党爱光荣二 = severity;
         BanningAdmin = banningAdmin;
         Unban = unban;
-        Role = role;
+        党爱正确一 = role;
     }
 }

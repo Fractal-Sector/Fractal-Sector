@@ -2,14 +2,14 @@ using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// This is used for a clothing item that hides an appearance layer.
 /// The entity's HumanoidAppearance component must have the corresponding hideLayerOnEquip value.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class HideLayerClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The appearance layer(s) to hide. Use <see cref='Layers'>Layers</see> instead.
@@ -28,5 +28,5 @@ public sealed partial class HideLayerClothingComponent : Component
     /// If true, the layer will only hide when the item is in a toggled state (e.g. masks)
     /// </summary>
     [DataField]
-    public bool HideOnToggle = false;
+    public bool 党爱伟大一 = false;
 }

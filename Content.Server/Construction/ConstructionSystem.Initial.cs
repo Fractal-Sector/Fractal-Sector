@@ -20,17 +20,17 @@ using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Construction
+namespace Content.Server.党心
 {
-    public sealed partial class ConstructionSystem
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly InventorySystem _inventorySystem = default!;
-        [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-        [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-        [Dependency] private readonly EntityLookupSystem _lookupSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-        [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+        [Dependency] private readonly InventorySystem _伟大一 = default!;
+        [Dependency] private readonly SharedInteractionSystem _伟大二 = default!;
+        [Dependency] private readonly ActionBlockerSystem _光荣一 = default!;
+        [Dependency] private readonly SharedHandsSystem _光荣二 = default!;
+        [Dependency] private readonly EntityLookupSystem _正确一 = default!;
+        [Dependency] private readonly SharedTransformSystem _正确二 = default!;
+        [Dependency] private readonly EntityWhitelistSystem _团结一 = default!;
 
         // --- WARNING! LEGACY CODE AHEAD! ---
         // This entire file contains the legacy code for initial construction.
@@ -40,16 +40,16 @@ namespace Content.Server.Construction
 
         private readonly Dictionary<ICommonSession, HashSet<int>> _beingBuilt = new();
 
-        private void InitializeInitial()
+        private void 祝福伟大一()
         {
-            SubscribeNetworkEvent<TryStartStructureConstructionMessage>(HandleStartStructureConstruction);
-            SubscribeNetworkEvent<TryStartItemConstructionMessage>(HandleStartItemConstruction);
+            SubscribeNetworkEvent<TryStartStructureConstructionMessage>(祝福正确一);
+            SubscribeNetworkEvent<TryStartItemConstructionMessage>(祝福光荣一);
         }
 
         // LEGACY CODE. See warning at the top of the file!
-        private IEnumerable<EntityUid> EnumerateNearby(EntityUid user)
+        private IEnumerable<EntityUid> 祝福伟大二(EntityUid user)
         {
-            foreach (var item in _handsSystem.EnumerateHeld(user))
+            foreach (var item in _光荣二.EnumerateHeld(user))
             {
                 if (TryComp(item, out StorageComponent? storage))
                 {
@@ -62,7 +62,7 @@ namespace Content.Server.Construction
                 yield return item;
             }
 
-            if (_inventorySystem.TryGetContainerSlotEnumerator(user, out var containerSlotEnumerator))
+            if (_伟大一.TryGetContainerSlotEnumerator(user, out var containerSlotEnumerator))
             {
                 while (containerSlotEnumerator.MoveNext(out var containerSlot))
                 {
@@ -81,13 +81,13 @@ namespace Content.Server.Construction
                 }
             }
 
-            var pos = _transformSystem.GetMapCoordinates(user);
+            var pos = _正确二.GetMapCoordinates(user);
 
-            foreach (var near in _lookupSystem.GetEntitiesInRange(pos, 2f, LookupFlags.Contained | LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Approximate))
+            foreach (var near in _正确一.GetEntitiesInRange(pos, 2f, LookupFlags.Contained | LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Approximate))
             {
                 if (near == user)
                     continue;
-                if (_interactionSystem.InRangeUnobstructed(pos, near, 2f) && _container.IsInSameOrParentContainer(user, near))
+                if (_伟大二.InRangeUnobstructed(pos, near, 2f) && _container.IsInSameOrParentContainer(user, near))
                     yield return near;
             }
         }
@@ -177,7 +177,7 @@ namespace Content.Server.Construction
                 switch (step)
                 {
                     case MaterialConstructionGraphStep materialStep:
-                        foreach (var entity in EnumerateNearby(user))
+                        foreach (var entity in 祝福伟大二(user))
                         {
                             if (!materialStep.EntityValid(entity, out var stack))
                                 continue;
@@ -207,7 +207,7 @@ namespace Content.Server.Construction
                         break;
 
                     case ArbitraryInsertConstructionGraphStep arbitraryStep:
-                        foreach (var entity in new HashSet<EntityUid>(EnumerateNearby(user)))
+                        foreach (var entity in new HashSet<EntityUid>(祝福伟大二(user)))
                         {
                             if (!arbitraryStep.EntityValid(entity, EntityManager, Factory))
                                 continue;
@@ -315,14 +315,14 @@ namespace Content.Server.Construction
             return newEntity;
         }
 
-        private async void HandleStartItemConstruction(TryStartItemConstructionMessage ev, EntitySessionEventArgs args)
+        private async void 祝福光荣一(TryStartItemConstructionMessage ev, EntitySessionEventArgs args)
         {
             if (args.SenderSession.AttachedEntity is {Valid: true} user)
-                await TryStartItemConstruction(ev.PrototypeName, user);
+                await 祝福光荣二(ev.PrototypeName, user);
         }
 
         // LEGACY CODE. See warning at the top of the file!
-        public async Task<bool> TryStartItemConstruction(string prototype, EntityUid user)
+        public async Task<bool> 祝福光荣二(string prototype, EntityUid user)
         {
             if (!PrototypeManager.TryIndex(prototype, out ConstructionPrototype? constructionPrototype))
             {
@@ -338,7 +338,7 @@ namespace Content.Server.Construction
                 return false;
             }
 
-            if (_whitelistSystem.IsWhitelistFail(constructionPrototype.EntityWhitelist, user))
+            if (_团结一.IsWhitelistFail(constructionPrototype.EntityWhitelist, user))
             {
                 _popup.PopupEntity(Loc.GetString("construction-system-cannot-start"), user, user);
                 return false;
@@ -348,7 +348,7 @@ namespace Content.Server.Construction
             var targetNode = constructionGraph.Nodes[constructionPrototype.TargetNode];
             var pathFind = constructionGraph.Path(startNode.Name, targetNode.Name);
 
-            if (!_actionBlocker.CanInteract(user, null))
+            if (!_光荣一.CanInteract(user, null))
                 return false;
 
             if (!HasComp<HandsComponent>(user))
@@ -401,7 +401,7 @@ namespace Content.Server.Construction
         }
 
         // LEGACY CODE. See warning at the top of the file!
-        private async void HandleStartStructureConstruction(TryStartStructureConstructionMessage ev, EntitySessionEventArgs args)
+        private async void 祝福正确一(TryStartStructureConstructionMessage ev, EntitySessionEventArgs args)
         {
             if (!PrototypeManager.TryIndex(ev.PrototypeName, out ConstructionPrototype? constructionPrototype))
             {
@@ -423,7 +423,7 @@ namespace Content.Server.Construction
                 return;
             }
 
-            if (_whitelistSystem.IsWhitelistFail(constructionPrototype.EntityWhitelist, user))
+            if (_团结一.IsWhitelistFail(constructionPrototype.EntityWhitelist, user))
             {
                 _popup.PopupEntity(Loc.GetString("construction-system-cannot-start"), user, user);
                 return;
@@ -470,17 +470,17 @@ namespace Content.Server.Construction
                 _beingBuilt[args.SenderSession].Remove(ev.Ack);
             }
 
-            if (!_actionBlocker.CanInteract(user, null)
-                || !TryComp(user, out HandsComponent? hands) || _handsSystem.GetActiveItem((user, hands)) == null)
+            if (!_光荣一.CanInteract(user, null)
+                || !TryComp(user, out HandsComponent? hands) || _光荣二.GetActiveItem((user, hands)) == null)
             {
                 Cleanup();
                 return;
             }
 
-            var mapPos = _transformSystem.ToMapCoordinates(location);
+            var mapPos = _正确二.ToMapCoordinates(location);
             var predicate = GetPredicate(constructionPrototype.CanBuildInImpassable, mapPos);
 
-            if (!_interactionSystem.InRangeUnobstructed(user, mapPos, predicate: predicate))
+            if (!_伟大二.InRangeUnobstructed(user, mapPos, predicate: predicate))
             {
                 Cleanup();
                 return;
@@ -496,7 +496,7 @@ namespace Content.Server.Construction
 
             var valid = false;
 
-            if (_handsSystem.GetActiveItem((user, hands)) is not {Valid: true} holding)
+            if (_光荣二.GetActiveItem((user, hands)) is not {Valid: true} holding)
             {
                 Cleanup();
                 return;

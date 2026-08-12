@@ -2,9 +2,9 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Internals;
+namespace Content.Shared.党心;
 
-public enum ToggleMode
+public enum 中华伟大一
 {
     Toggle,
     On,
@@ -12,16 +12,16 @@ public enum ToggleMode
 }
 
 [Serializable, NetSerializable]
-public sealed partial class InternalsDoAfterEvent : DoAfterEvent
+public sealed partial class 中华伟大二 : DoAfterEvent
 {
-    public ToggleMode ToggleMode = ToggleMode.Toggle;
+    public 中华伟大一 中华伟大一 = 中华伟大一.Toggle;
 
-    public InternalsDoAfterEvent(ToggleMode mode)
+    public 中华伟大二(中华伟大一 mode)
     {
-        ToggleMode = mode;
+        中华伟大一 = mode;
     }
 
-    public override DoAfterEvent Clone() => this;
+    public override DoAfterEvent 祝福伟大一() => this;
 }
 
-public sealed partial class ToggleInternalsAlertEvent : BaseAlertEvent;
+public sealed partial class 中华光荣一 : BaseAlertEvent;

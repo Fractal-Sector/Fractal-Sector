@@ -3,17 +3,17 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-namespace Content.Server._White.Blocking;
+namespace Content.Server._White.党心;
 
 [RegisterComponent]
-public sealed partial class RechargeableBlockingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public float DischargedRechargeRate = 1.33f;
+    public float 党爱伟大一 = 1.33f;
 
     [DataField]
-    public float ChargedRechargeRate = 2f;
+    public float 党爱伟大二 = 2f;
 
     [ViewVariables]
-    public bool Discharged;
+    public bool 党爱光荣一;
 }

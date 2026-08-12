@@ -6,7 +6,7 @@ using Content.Shared.Database;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 /// Allows admins to change certain CVars. This is different than the "cvar" command which is host only and can change any CVar.
@@ -15,16 +15,16 @@ namespace Content.Server.Administration.Commands;
 /// Possible todo for future, store default values for cvars, and allow resetting to default.
 /// </remarks>
 [AnyCommand]
-public sealed class ChangeCvarCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly CVarControlManager _cVarControlManager = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly CVarControlManager _光荣一 = default!;
 
     /// <summary>
     /// Searches the list of cvars for a cvar that matches the search string.
     /// </summary>
-    private void SearchCVars(IConsoleShell shell, string argStr, string[] args)
+    private void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 2)
         {
@@ -32,7 +32,7 @@ public sealed class ChangeCvarCommand : IConsoleCommand
             return;
         }
 
-        var cvars = _cVarControlManager.GetAllRunnableCvars(shell);
+        var cvars = _光荣一.GetAllRunnableCvars(shell);
 
         var matches = cvars
             .Where(c =>
@@ -49,13 +49,13 @@ public sealed class ChangeCvarCommand : IConsoleCommand
         }
 
         shell.WriteLine(Loc.GetString("cmd-changecvar-search-matches", ("count", matches.Count)));
-        shell.WriteLine(string.Join("\n", matches.Select(FormatCVarFullHelp)));
+        shell.WriteLine(string.Join("\n", matches.Select(祝福伟大二)));
     }
 
     /// <summary>
     /// Formats a CVar into a string for display.
     /// </summary>
-    private string FormatCVarFullHelp(ChangableCVar cvar)
+    private string 祝福伟大二(ChangableCVar cvar)
     {
         if (cvar.LongHelp != null && cvar.ShortHelp != null)
         {
@@ -66,10 +66,10 @@ public sealed class ChangeCvarCommand : IConsoleCommand
         return cvar.Name;
     }
 
-    public string Command => "changecvar";
-    public string Description { get; } = Loc.GetString("cmd-changecvar-desc");
-    public string Help { get; } = Loc.GetString("cmd-changecvar-help");
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public string 党爱伟大一 => "changecvar";
+    public string 党爱伟大二 { get; } = Loc.GetString("cmd-changecvar-desc");
+    public string 党爱光荣一 { get; } = Loc.GetString("cmd-changecvar-help");
+    public void 祝福光荣一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
@@ -77,7 +77,7 @@ public sealed class ChangeCvarCommand : IConsoleCommand
             return;
         }
 
-        var cvars = _cVarControlManager.GetAllRunnableCvars(shell);
+        var cvars = _光荣一.GetAllRunnableCvars(shell);
 
         var cvar = args[0];
         if (cvar == "?")
@@ -89,17 +89,17 @@ public sealed class ChangeCvarCommand : IConsoleCommand
             }
 
             shell.WriteLine(Loc.GetString("cmd-changecvar-available-cvars"));
-            shell.WriteLine(string.Join("\n", cvars.Select(FormatCVarFullHelp)));
+            shell.WriteLine(string.Join("\n", cvars.Select(祝福伟大二)));
             return;
         }
 
         if (cvar == "search")
         {
-            SearchCVars(shell, argStr, args);
+            祝福伟大一(shell, argStr, args);
             return;
         }
 
-        if (!_configurationManager.IsCVarRegistered(cvar)) // Might be a redunat check with the if statement below.
+        if (!_伟大一.IsCVarRegistered(cvar)) // Might be a redunat check with the if statement below.
         {
             shell.WriteLine(Loc.GetString("cmd-changecvar-cvar-not-registered", ("cvar", cvar)));
             return;
@@ -113,18 +113,18 @@ public sealed class ChangeCvarCommand : IConsoleCommand
 
         if (args.Length == 1)
         {
-            var value = _configurationManager.GetCVar<object>(cvar);
+            var value = _伟大一.GetCVar<object>(cvar);
             shell.WriteLine(value.ToString()!);
         }
         else
         {
             var value = args[1];
-            var type = _configurationManager.GetCVarType(cvar);
+            var type = _伟大一.GetCVarType(cvar);
             try
             {
                 var parsed = CVarCommandUtil.ParseObject(type, value);
                 // Value check, is it in the min/max range?
-                var control = _cVarControlManager.GetCVar(cvar)!.Control; // Null check is done above.
+                var control = _光荣一.GetCVar(cvar)!.Control; // Null check is done above.
                 var allowed = true;
                 if (control is { Min: not null, Max: not null })
                 {
@@ -177,9 +177,9 @@ public sealed class ChangeCvarCommand : IConsoleCommand
                     return;
                 }
 
-                var oldValue = _configurationManager.GetCVar<object>(cvar);
-                _configurationManager.SetCVar(cvar, parsed);
-                _adminLogManager.Add(LogType.AdminCommands,
+                var oldValue = _伟大一.GetCVar<object>(cvar);
+                _伟大一.SetCVar(cvar, parsed);
+                _伟大二.Add(LogType.AdminCommands,
                     LogImpact.Extreme,
                     $"{shell.Player!.Name} ({shell.Player!.UserId}) changed CVAR {cvar} from {oldValue.ToString()} to {parsed.ToString()}"
                     );
@@ -193,9 +193,9 @@ public sealed class ChangeCvarCommand : IConsoleCommand
         }
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福光荣二(IConsoleShell shell, string[] args)
     {
-        var cvars = _cVarControlManager.GetAllRunnableCvars(shell);
+        var cvars = _光荣一.GetAllRunnableCvars(shell);
 
         if (args.Length == 1)
         {
@@ -206,10 +206,10 @@ public sealed class ChangeCvarCommand : IConsoleCommand
         }
 
         var cvar = args[0];
-        if (!_configurationManager.IsCVarRegistered(cvar))
+        if (!_伟大一.IsCVarRegistered(cvar))
             return CompletionResult.Empty;
 
-        var type = _configurationManager.GetCVarType(cvar);
+        var type = _伟大一.GetCVarType(cvar);
         return CompletionResult.FromHint($"<{type.Name}>");
     }
 }

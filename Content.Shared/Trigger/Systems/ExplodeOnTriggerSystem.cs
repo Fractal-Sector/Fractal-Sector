@@ -1,20 +1,20 @@
 using Content.Shared.Explosion.EntitySystems;
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class ExplodeOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedExplosionSystem _explosion = default!;
+    [Dependency] private readonly SharedExplosionSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ExplodeOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<ExplodeOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<ExplodeOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<ExplodeOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -24,7 +24,7 @@ public sealed class ExplodeOnTriggerSystem : EntitySystem
         if (target == null)
             return;
 
-        _explosion.TriggerExplosive(target.Value, user: args.User);
+        _伟大一.TriggerExplosive(target.Value, user: args.User);
         args.Handled = true;
     }
 }

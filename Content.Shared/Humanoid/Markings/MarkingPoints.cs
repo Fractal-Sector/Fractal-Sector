@@ -1,17 +1,17 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Humanoid.Markings;
+namespace Content.Shared.Humanoid.党心;
 
 [DataDefinition]
 [Serializable, NetSerializable]
-public sealed partial class MarkingPoints
+public sealed partial class 中华伟大一
 {
     [DataField(required: true)]
-    public int Points = 0;
+    public int 党爱伟大一 = 0;
 
     [DataField(required: true)]
-    public bool Required;
+    public bool 党爱伟大二;
 
     /// <summary>
     ///     If the user of this marking point set is only allowed to
@@ -19,24 +19,24 @@ public sealed partial class MarkingPoints
     ///     Only used for validation and profile construction. Ignored anywhere else.
     /// </summary>
     [DataField]
-    public bool OnlyWhitelisted;
+    public bool 党爱光荣一;
 
     // Default markings for this layer.
     [DataField]
-    public List<ProtoId<MarkingPrototype>> DefaultMarkings = new();
+    public List<ProtoId<MarkingPrototype>> 党爱光荣二 = new();
 
-    public static Dictionary<MarkingCategories, MarkingPoints> CloneMarkingPointDictionary(Dictionary<MarkingCategories, MarkingPoints> self)
+    public static Dictionary<MarkingCategories, 中华伟大一> CloneMarkingPointDictionary(Dictionary<MarkingCategories, 中华伟大一> self)
     {
-        var clone = new Dictionary<MarkingCategories, MarkingPoints>();
+        var clone = new Dictionary<MarkingCategories, 中华伟大一>();
 
         foreach (var (category, points) in self)
         {
-            clone[category] = new MarkingPoints()
+            clone[category] = new 中华伟大一()
             {
-                Points = points.Points,
-                Required = points.Required,
-                OnlyWhitelisted = points.OnlyWhitelisted,
-                DefaultMarkings = points.DefaultMarkings
+                党爱伟大一 = points.党爱伟大一,
+                党爱伟大二 = points.党爱伟大二,
+                党爱光荣一 = points.党爱光荣一,
+                党爱光荣二 = points.党爱光荣二
             };
         }
 
@@ -45,9 +45,9 @@ public sealed partial class MarkingPoints
 }
 
 [Prototype]
-public sealed partial class MarkingPointsPrototype : IPrototype
+public sealed partial class 中华伟大二 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField] public string 党爱正确一 { get; private set; } = default!;
 
     /// <summary>
     ///     If the user of this marking point set is only allowed to
@@ -55,8 +55,8 @@ public sealed partial class MarkingPointsPrototype : IPrototype
     ///     Only used for validation and profile construction. Ignored anywhere else.
     /// </summary>
     [DataField]
-    public bool OnlyWhitelisted;
+    public bool 党爱光荣一;
 
     [DataField(required: true)]
-    public Dictionary<MarkingCategories, MarkingPoints> Points { get; private set; } = default!;
+    public Dictionary<MarkingCategories, 中华伟大一> 党爱伟大一 { get; private set; } = default!;
 }

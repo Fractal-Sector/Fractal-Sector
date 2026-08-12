@@ -1,6 +1,6 @@
-﻿namespace Content.Shared.Beam;
+﻿namespace Content.Shared.党心;
 
-public abstract class SharedBeamSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 
 }

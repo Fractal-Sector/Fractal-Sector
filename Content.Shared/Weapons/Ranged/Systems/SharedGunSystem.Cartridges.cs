@@ -6,34 +6,34 @@ using Content.Shared.Projectiles;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
+    [Dependency] private readonly DamageExamineSystem _伟大一 = default!;
 
     // needed for server system
-    protected virtual void InitializeCartridge()
+    protected virtual void 祝福伟大一()
     {
-        SubscribeLocalEvent<CartridgeAmmoComponent, ExaminedEvent>(OnCartridgeExamine);
-        SubscribeLocalEvent<CartridgeAmmoComponent, DamageExamineEvent>(OnCartridgeDamageExamine);
+        SubscribeLocalEvent<CartridgeAmmoComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<CartridgeAmmoComponent, DamageExamineEvent>(祝福光荣一);
     }
 
-    private void OnCartridgeExamine(Entity<CartridgeAmmoComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<CartridgeAmmoComponent> ent, ref ExaminedEvent args)
     {
         args.PushMarkup(ent.Comp.Spent
             ? Loc.GetString("gun-cartridge-spent")
             : Loc.GetString("gun-cartridge-unspent"));
     }
 
-    private void OnCartridgeDamageExamine(EntityUid uid, CartridgeAmmoComponent component, ref DamageExamineEvent args)
+    private void 祝福光荣一(EntityUid uid, CartridgeAmmoComponent component, ref DamageExamineEvent args)
     {
         var damageSpec = GetProjectileDamage(component.Prototype);
 
         if (damageSpec == null)
             return;
 
-        _damageExamine.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-projectile"));
+        _伟大一.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-projectile"));
     }
 
     private DamageSpecifier? GetProjectileDamage(EntProtoId proto)

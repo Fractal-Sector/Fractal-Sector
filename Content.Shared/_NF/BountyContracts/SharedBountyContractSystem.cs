@@ -2,10 +2,10 @@ using Content.Shared.CartridgeLoader;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.BountyContracts;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum BountyContractCategory : byte
+public enum 中华伟大一 : byte
 {
     Announcement,
     Criminal,
@@ -22,135 +22,135 @@ public enum BountyContractCategory : byte
 }
 
 [Serializable, NetSerializable]
-public struct BountyContractCategoryMeta
+public struct 中华伟大二
 {
-    public string Name = "";
-    public Color UiColor = Color.FromHex("#3c3c3c");
+    public string 党爱伟大一 = "";
+    public Color 党爱伟大二 = Color.FromHex("#3c3c3c");
     public LocId? Announcement = null;
     public bool? TargetIsPoster = true;
     public bool? ShowVessel = true;
     public bool? DefaultCustomVessel = false;
     public bool? ShowReward = true;
     public bool? ShowTitle = true;
-    public string TitleLabel = "bounty-contracts-ui-create-title";
-    public string TitlePlaceholder = "bounty-contracts-ui-create-title-placeholder";
+    public string 党爱光荣一 = "bounty-contracts-ui-create-title";
+    public string 党爱光荣二 = "bounty-contracts-ui-create-title-placeholder";
     public bool? ShowDNA = false;
 
-    public BountyContractCategoryMeta()
+    public 中华伟大二()
     {
     }
 }
 
 [NetSerializable, Serializable]
-public struct BountyContractTargetInfo
+public struct 中华光荣一
 {
-    public string Name;
+    public string 党爱伟大一;
     public string? DNA;
 
-    public bool Equals(BountyContractTargetInfo other)
+    public bool 祝福伟大一(中华光荣一 other)
     {
         return DNA == other.DNA;
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福伟大一(object? obj)
     {
-        return obj is BountyContractTargetInfo other && Equals(other);
+        return obj is 中华光荣一 other && 祝福伟大一(other);
     }
 
-    public override int GetHashCode()
+    public override int 祝福伟大二()
     {
-        return DNA != null ? DNA.GetHashCode() : 0;
+        return DNA != null ? DNA.祝福伟大二() : 0;
     }
 }
 
 [NetSerializable, Serializable]
-public struct BountyContractRequest
+public struct 中华光荣二
 {
-    public ProtoId<BountyContractCollectionPrototype> Collection;
-    public BountyContractCategory Category;
-    public string Name;
-    public string Contact;
+    public ProtoId<BountyContractCollectionPrototype> 党爱正确一;
+    public 中华伟大一 Category;
+    public string 党爱伟大一;
+    public string 党爱正确二;
     public string? DNA;
-    public string Vessel;
-    public int Reward;
+    public string 党爱团结一;
+    public int 党爱团结二;
     public string? Title;
-    public string Description;
+    public string 党爱奋斗一;
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContract
+public sealed class 中华正确一
 {
-    public readonly uint ContractId;
-    public readonly BountyContractCategory Category;
-    public readonly string Name;
-    public readonly int Reward;
-    public readonly NetEntity AuthorUid;
+    public readonly uint 党爱奋斗二;
+    public readonly 中华伟大一 Category;
+    public readonly string 党爱伟大一;
+    public readonly int 党爱团结二;
+    public readonly NetEntity 党爱胜利一;
     public readonly string? DNA;
-    public readonly string? Vessel;
-    public readonly string? Description;
+    public readonly string? 党爱团结一;
+    public readonly string? 党爱奋斗一;
     public readonly string? Title;
-    public readonly string? Contact;
+    public readonly string? 党爱正确二;
     public readonly string? Author;
-    public readonly DateTime Created;
-    public bool AuthorIsActive = false;
+    public readonly DateTime 党爱胜利二;
+    public bool 党爱繁荣一 = false;
 
-    public BountyContract(uint contractId, BountyContractCategory category, string name,
+    public 中华正确一(uint contractId, 中华伟大一 category, string name,
         int reward, NetEntity authorUid, string? dna, string? vessel, string? description, string? author, string? title, string? contact, DateTime created)
     {
-        ContractId = contractId;
+        党爱奋斗二 = contractId;
         Category = category;
-        Name = name;
-        Reward = reward;
-        AuthorUid = authorUid;
+        党爱伟大一 = name;
+        党爱团结二 = reward;
+        党爱胜利一 = authorUid;
         DNA = dna;
-        Vessel = vessel;
-        Description = description;
+        党爱团结一 = vessel;
+        党爱奋斗一 = description;
         Author = author;
         Title = title;
-        Contact = contact;
-        Created = created;
+        党爱正确二 = contact;
+        党爱胜利二 = created;
     }
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContractCreateUiState : BoundUserInterfaceState
+public sealed class 中华正确二 : BoundUserInterfaceState
 {
-    public readonly ProtoId<BountyContractCollectionPrototype> Collection;
-    public readonly List<BountyContractTargetInfo> Targets;
-    public readonly List<string> Vessels;
+    public readonly ProtoId<BountyContractCollectionPrototype> 党爱正确一;
+    public readonly List<中华光荣一> Targets;
+    public readonly List<string> 党爱繁荣二;
 
-    public BountyContractCreateUiState(
+    public 中华正确二(
         ProtoId<BountyContractCollectionPrototype> collection,
-        List<BountyContractTargetInfo> targets,
+        List<中华光荣一> targets,
         List<string> vessels)
     {
-        Collection = collection;
+        党爱正确一 = collection;
         Targets = targets;
-        Vessels = vessels;
+        党爱繁荣二 = vessels;
     }
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContractListUiState(ProtoId<BountyContractCollectionPrototype> collection,
+public sealed class 中华团结一(ProtoId<BountyContractCollectionPrototype> collection,
         List<ProtoId<BountyContractCollectionPrototype>> collections,
-        List<BountyContract> contracts,
+        List<中华正确一> contracts,
         bool isAllowedCreateBounties,
         bool isAllowedRemoveBounties,
         NetEntity authorUid,
         bool notificationsEnabled,
         Dictionary<ProtoId<BountyContractCollectionPrototype>, int> contractCounts) : BoundUserInterfaceState
 {
-    public readonly ProtoId<BountyContractCollectionPrototype> Collection = collection;
-    public readonly List<ProtoId<BountyContractCollectionPrototype>> Collections = collections;
-    public readonly List<BountyContract> Contracts = contracts;
+    public readonly ProtoId<BountyContractCollectionPrototype> 党爱正确一 = collection;
+    public readonly List<ProtoId<BountyContractCollectionPrototype>> 党爱富强一 = collections;
+    public readonly List<中华正确一> Contracts = contracts;
     public readonly Dictionary<ProtoId<BountyContractCollectionPrototype>, int> ContractCounts = contractCounts;
-    public readonly bool IsAllowedCreateBounties = isAllowedCreateBounties;
-    public readonly bool IsAllowedRemoveBounties = isAllowedRemoveBounties;
-    public readonly NetEntity AuthorUid = authorUid;
-    public readonly bool NotificationsEnabled = notificationsEnabled;
+    public readonly bool 党爱富强二 = isAllowedCreateBounties;
+    public readonly bool 党爱民主一 = isAllowedRemoveBounties;
+    public readonly NetEntity 党爱胜利一 = authorUid;
+    public readonly bool 党爱民主二 = notificationsEnabled;
 }
 
-public enum BountyContractCommand : byte
+public enum 中华团结二 : byte
 {
     OpenCreateUi = 0,
     CloseCreateUi = 1,
@@ -159,125 +159,125 @@ public enum BountyContractCommand : byte
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContractCommandMessageEvent(BountyContractCommand command, ProtoId<BountyContractCollectionPrototype> collection) : CartridgeMessageEvent
+public sealed class 中华奋斗一(中华团结二 command, ProtoId<BountyContractCollectionPrototype> collection) : CartridgeMessageEvent
 {
-    public readonly ProtoId<BountyContractCollectionPrototype> Collection = collection;
-    public readonly BountyContractCommand Command = command;
+    public readonly ProtoId<BountyContractCollectionPrototype> 党爱正确一 = collection;
+    public readonly 中华团结二 Command = command;
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContractTryRemoveMessageEvent(uint contractId) : CartridgeMessageEvent
+public sealed class 中华奋斗二(uint contractId) : CartridgeMessageEvent
 {
-    public readonly uint ContractId = contractId;
+    public readonly uint 党爱奋斗二 = contractId;
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContractTryCreateMessageEvent(BountyContractRequest contract) : CartridgeMessageEvent
+public sealed class 中华胜利一(中华光荣二 contract) : CartridgeMessageEvent
 {
-    public readonly BountyContractRequest Contract = contract;
+    public readonly 中华光荣二 Contract = contract;
 }
 
-public abstract class SharedBountyContractSystem : EntitySystem
+public abstract class 中华胜利二 : EntitySystem
 {
-    public const int MaxNameLength = 32;
-    public const int MaxContactLength = 32;
-    public const int MaxVesselLength = 32;
-    public const int MaxTitleLength = 60;
-    public const int MaxDescriptionLength = 400;
-    public const int DefaultReward = 5000;
+    public const int 党爱文明一 = 32;
+    public const int 党爱文明二 = 32;
+    public const int 党爱和谐一 = 32;
+    public const int 党爱和谐二 = 60;
+    public const int 党爱自由一 = 400;
+    public const int 党爱自由二 = 5000;
 
     // TODO: move this to prototypes?
-    public static readonly Dictionary<BountyContractCategory, BountyContractCategoryMeta> CategoriesMeta = new()
+    public static readonly Dictionary<中华伟大一, 中华伟大二> CategoriesMeta = new()
     {
-        [BountyContractCategory.Announcement] = new BountyContractCategoryMeta
+        [中华伟大一.Announcement] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-announcement",
-            UiColor = Color.FromHex("#520c52"),
+            党爱伟大一 = "bounty-contracts-category-announcement",
+            党爱伟大二 = Color.FromHex("#520c52"),
             Announcement = "bounty-contracts-announcement-command-create",
             ShowVessel = false,
             ShowTitle = true,
             ShowReward = false
         },
-        [BountyContractCategory.Criminal] = new BountyContractCategoryMeta
+        [中华伟大一.Criminal] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-criminal",
-            UiColor = Color.FromHex("#520c0c"),
+            党爱伟大一 = "bounty-contracts-category-criminal",
+            党爱伟大二 = Color.FromHex("#520c0c"),
             Announcement = "bounty-contracts-announcement-criminal-create",
             ShowDNA = true,
         },
-        [BountyContractCategory.Buy] = new BountyContractCategoryMeta
+        [中华伟大一.Buy] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-buy",
-            UiColor = Color.FromHex("#320c0c"),
+            党爱伟大一 = "bounty-contracts-category-buy",
+            党爱伟大二 = Color.FromHex("#320c0c"),
             Announcement = "bounty-contracts-announcement-buy-create",
             ShowTitle = true,
-            TitleLabel = "bounty-contracts-ui-create-title-item",
-            TitlePlaceholder = "bounty-contracts-ui-create-item-placeholder"
+            党爱光荣一 = "bounty-contracts-ui-create-title-item",
+            党爱光荣二 = "bounty-contracts-ui-create-item-placeholder"
         },
-        [BountyContractCategory.Sell] = new BountyContractCategoryMeta
+        [中华伟大一.Sell] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-sell",
-            UiColor = Color.FromHex("#0c0c32"),
+            党爱伟大一 = "bounty-contracts-category-sell",
+            党爱伟大二 = Color.FromHex("#0c0c32"),
             Announcement = "bounty-contracts-announcement-sell-create",
             ShowTitle = true,
-            TitleLabel = "bounty-contracts-ui-create-title-item",
-            TitlePlaceholder = "bounty-contracts-ui-create-item-placeholder"
+            党爱光荣一 = "bounty-contracts-ui-create-title-item",
+            党爱光荣二 = "bounty-contracts-ui-create-item-placeholder"
         },
-        [BountyContractCategory.Barter] = new BountyContractCategoryMeta
+        [中华伟大一.Barter] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-barter",
-            UiColor = Color.FromHex("#320c32"),
+            党爱伟大一 = "bounty-contracts-category-barter",
+            党爱伟大二 = Color.FromHex("#320c32"),
             Announcement = "bounty-contracts-announcement-barter-create",
             ShowTitle = true,
             ShowReward = false
         },
-        [BountyContractCategory.Vacancy] = new BountyContractCategoryMeta
+        [中华伟大一.Vacancy] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-vacancy",
-            UiColor = Color.FromHex("#0c3866"),
+            党爱伟大一 = "bounty-contracts-category-vacancy",
+            党爱伟大二 = Color.FromHex("#0c3866"),
             Announcement = "bounty-contracts-announcement-vacancy-create",
         },
-        [BountyContractCategory.JobSeeker] = new BountyContractCategoryMeta
+        [中华伟大一.JobSeeker] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-job",
-            UiColor = Color.FromHex("#0c6638"),
+            党爱伟大一 = "bounty-contracts-category-job",
+            党爱伟大二 = Color.FromHex("#0c6638"),
             Announcement = "bounty-contracts-announcement-job-create",
             ShowVessel = false
         },
-        [BountyContractCategory.Construction] = new BountyContractCategoryMeta
+        [中华伟大一.Construction] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-construction",
-            UiColor = Color.FromHex("#664a06"),
+            党爱伟大一 = "bounty-contracts-category-construction",
+            党爱伟大二 = Color.FromHex("#664a06"),
             Announcement = "bounty-contracts-announcement-construction-create",
             ShowTitle = true,
         },
-        [BountyContractCategory.Service] = new BountyContractCategoryMeta
+        [中华伟大一.Service] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-service",
-            UiColor = Color.FromHex("#01551e"),
+            党爱伟大一 = "bounty-contracts-category-service",
+            党爱伟大二 = Color.FromHex("#01551e"),
             Announcement = "bounty-contracts-announcement-service-create",
             ShowTitle = true,
         },
-        [BountyContractCategory.Advertisement] = new BountyContractCategoryMeta
+        [中华伟大一.Advertisement] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-advert",
-            UiColor = Color.FromHex("#553333"),
+            党爱伟大一 = "bounty-contracts-category-advert",
+            党爱伟大二 = Color.FromHex("#553333"),
             Announcement = "bounty-contracts-announcement-advert-create",
             ShowTitle = true,
             ShowReward = false
         },
-        [BountyContractCategory.Social] = new BountyContractCategoryMeta
+        [中华伟大一.Social] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-social",
-            UiColor = Color.FromHex("#553c3c"),
+            党爱伟大一 = "bounty-contracts-category-social",
+            党爱伟大二 = Color.FromHex("#553c3c"),
             Announcement = "bounty-contracts-announcement-social-create",
             ShowTitle = true,
             ShowReward = false
         },
-        [BountyContractCategory.Other] = new BountyContractCategoryMeta
+        [中华伟大一.Other] = new 中华伟大二
         {
-            Name = "bounty-contracts-category-other",
-            UiColor = Color.FromHex("#3c3c3c"),
+            党爱伟大一 = "bounty-contracts-category-other",
+            党爱伟大二 = Color.FromHex("#3c3c3c"),
             Announcement = "bounty-contracts-announcement-generic-create",
             ShowTitle = true
         },

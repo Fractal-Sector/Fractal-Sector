@@ -2,74 +2,74 @@ using Content.Shared.Access.Components;
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.PDA
+namespace Content.Shared.党心
 {
-    public abstract class SharedPdaSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] protected readonly ItemSlotsSystem ItemSlotsSystem = default!;
-        [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
+        [Dependency] protected readonly 党爱伟大一 党爱伟大一 = default!;
+        [Dependency] protected readonly SharedAppearanceSystem 党爱伟大二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<PdaComponent, ComponentInit>(OnComponentInit);
-            SubscribeLocalEvent<PdaComponent, ComponentRemove>(OnComponentRemove);
+            SubscribeLocalEvent<PdaComponent, ComponentInit>(祝福伟大二);
+            SubscribeLocalEvent<PdaComponent, ComponentRemove>(祝福光荣一);
 
-            SubscribeLocalEvent<PdaComponent, EntInsertedIntoContainerMessage>(OnItemInserted);
-            SubscribeLocalEvent<PdaComponent, EntRemovedFromContainerMessage>(OnItemRemoved);
+            SubscribeLocalEvent<PdaComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+            SubscribeLocalEvent<PdaComponent, EntRemovedFromContainerMessage>(祝福正确一);
 
-            SubscribeLocalEvent<PdaComponent, GetAdditionalAccessEvent>(OnGetAdditionalAccess);
+            SubscribeLocalEvent<PdaComponent, GetAdditionalAccessEvent>(祝福正确二);
         }
-        protected virtual void OnComponentInit(EntityUid uid, PdaComponent pda, ComponentInit args)
+        protected virtual void 祝福伟大二(EntityUid uid, PdaComponent pda, ComponentInit args)
         {
             if (pda.IdCard != null)
                 pda.IdSlot.StartingItem = pda.IdCard;
 
-            ItemSlotsSystem.AddItemSlot(uid, PdaComponent.PdaIdSlotId, pda.IdSlot);
-            ItemSlotsSystem.AddItemSlot(uid, PdaComponent.PdaPenSlotId, pda.PenSlot);
-            ItemSlotsSystem.AddItemSlot(uid, PdaComponent.PdaPaiSlotId, pda.PaiSlot);
-            ItemSlotsSystem.AddItemSlot(uid, PdaComponent.PdaBookSlotId, pda.BookSlot);
+            党爱伟大一.AddItemSlot(uid, PdaComponent.PdaIdSlotId, pda.IdSlot);
+            党爱伟大一.AddItemSlot(uid, PdaComponent.PdaPenSlotId, pda.PenSlot);
+            党爱伟大一.AddItemSlot(uid, PdaComponent.PdaPaiSlotId, pda.PaiSlot);
+            党爱伟大一.AddItemSlot(uid, PdaComponent.PdaBookSlotId, pda.BookSlot);
 
-            UpdatePdaAppearance(uid, pda);
+            祝福团结一(uid, pda);
         }
 
-        private void OnComponentRemove(EntityUid uid, PdaComponent pda, ComponentRemove args)
+        private void 祝福光荣一(EntityUid uid, PdaComponent pda, ComponentRemove args)
         {
-            ItemSlotsSystem.RemoveItemSlot(uid, pda.IdSlot);
-            ItemSlotsSystem.RemoveItemSlot(uid, pda.PenSlot);
-            ItemSlotsSystem.RemoveItemSlot(uid, pda.PaiSlot);
-            ItemSlotsSystem.RemoveItemSlot(uid, pda.BookSlot);
+            党爱伟大一.RemoveItemSlot(uid, pda.IdSlot);
+            党爱伟大一.RemoveItemSlot(uid, pda.PenSlot);
+            党爱伟大一.RemoveItemSlot(uid, pda.PaiSlot);
+            党爱伟大一.RemoveItemSlot(uid, pda.BookSlot);
         }
 
-        protected virtual void OnItemInserted(EntityUid uid, PdaComponent pda, EntInsertedIntoContainerMessage args)
+        protected virtual void 祝福光荣二(EntityUid uid, PdaComponent pda, EntInsertedIntoContainerMessage args)
         {
             if (args.Container.ID == PdaComponent.PdaIdSlotId)
                 pda.ContainedId = args.Entity;
 
-            UpdatePdaAppearance(uid, pda);
+            祝福团结一(uid, pda);
         }
 
-        protected virtual void OnItemRemoved(EntityUid uid, PdaComponent pda, EntRemovedFromContainerMessage args)
+        protected virtual void 祝福正确一(EntityUid uid, PdaComponent pda, EntRemovedFromContainerMessage args)
         {
             if (args.Container.ID == pda.IdSlot.ID)
                 pda.ContainedId = null;
 
-            UpdatePdaAppearance(uid, pda);
+            祝福团结一(uid, pda);
         }
 
-        private void OnGetAdditionalAccess(EntityUid uid, PdaComponent component, ref GetAdditionalAccessEvent args)
+        private void 祝福正确二(EntityUid uid, PdaComponent component, ref GetAdditionalAccessEvent args)
         {
             if (component.ContainedId is { } id)
                 args.Entities.Add(id);
         }
 
-        private void UpdatePdaAppearance(EntityUid uid, PdaComponent pda)
+        private void 祝福团结一(EntityUid uid, PdaComponent pda)
         {
-            Appearance.SetData(uid, PdaVisuals.IdCardInserted, pda.ContainedId != null);
+            党爱伟大二.SetData(uid, PdaVisuals.IdCardInserted, pda.ContainedId != null);
         }
 
-        public virtual void UpdatePdaUi(EntityUid uid, PdaComponent? pda = null, EntityUid? actorUid = null) // Frontier: add actorUid
+        public virtual void 祝福团结二(EntityUid uid, PdaComponent? pda = null, EntityUid? actorUid = null) // Frontier: add actorUid
         {
             // This does nothing yet while I finish up PDA prediction
             // Overriden by the server

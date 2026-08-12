@@ -2,12 +2,12 @@ using Content.Shared.Security.Components;
 using Content.Shared.Security.Systems;
 using Content.Shared.Wall;
 
-namespace Content.Server.Security;
+namespace Content.Server.党心;
 
-public sealed class GenpopSystem : SharedGenpopSystem
+public sealed class 中华伟大一 : SharedGenpopSystem
 {
     private const float GenpopIDEjectDistanceFromWall = 1f;
-    protected override void CreateId(Entity<GenpopLockerComponent> ent, string name, float sentence, string crime)
+    protected override void 祝福伟大一(Entity<GenpopLockerComponent> ent, string name, float sentence, string crime)
     {
         // Default to prisoner locker coordinates for ID spawn
         var xform = Transform(ent);

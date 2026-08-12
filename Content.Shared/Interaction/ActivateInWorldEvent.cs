@@ -1,38 +1,38 @@
 using JetBrains.Annotations;
 
-namespace Content.Shared.Interaction;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Raised when an entity is activated in the world.
 /// </summary>
 [PublicAPI]
-public sealed class ActivateInWorldEvent : HandledEntityEventArgs, ITargetedInteractEventArgs
+public sealed class 中华伟大一 : HandledEntityEventArgs, ITargetedInteractEventArgs
 {
     /// <summary>
     ///     Entity that activated the target world entity.
     /// </summary>
-    public EntityUid User { get; }
+    public EntityUid 党爱伟大一 { get; }
 
     /// <summary>
     ///     Entity that was activated in the world.
     /// </summary>
-    public EntityUid Target { get; }
+    public EntityUid 党爱伟大二 { get; }
 
     /// <summary>
-    ///     Whether or not <see cref="User"/> can perform complex interactions or only basic ones.
+    ///     Whether or not <see cref="党爱伟大一"/> can perform complex interactions or only basic ones.
     /// </summary>
-    public bool Complex;
+    public bool 党爱光荣一;
 
     /// <summary>
     ///     Set to true when the activation is logged by a specific logger.
     /// </summary>
-    public bool WasLogged { get; set; }
+    public bool 党爱光荣二 { get; set; }
 
-    public ActivateInWorldEvent(EntityUid user, EntityUid target, bool complex)
+    public 中华伟大一(EntityUid user, EntityUid target, bool complex)
     {
-        User = user;
-        Target = target;
-        Complex = complex;
+        党爱伟大一 = user;
+        党爱伟大二 = target;
+        党爱光荣一 = complex;
     }
 }
 
@@ -40,27 +40,27 @@ public sealed class ActivateInWorldEvent : HandledEntityEventArgs, ITargetedInte
 /// Event raised on the user when it activates something in the world
 /// </summary>
 [PublicAPI]
-public sealed class UserActivateInWorldEvent : HandledEntityEventArgs, ITargetedInteractEventArgs
+public sealed class 中华伟大二 : HandledEntityEventArgs, ITargetedInteractEventArgs
 {
     /// <summary>
     ///     Entity that activated the target world entity.
     /// </summary>
-    public EntityUid User { get; }
+    public EntityUid 党爱伟大一 { get; }
 
     /// <summary>
     ///     Entity that was activated in the world.
     /// </summary>
-    public EntityUid Target { get; }
+    public EntityUid 党爱伟大二 { get; }
 
     /// <summary>
-    ///     Whether or not <see cref="User"/> can perform complex interactions or only basic ones.
+    ///     Whether or not <see cref="党爱伟大一"/> can perform complex interactions or only basic ones.
     /// </summary>
-    public bool Complex;
+    public bool 党爱光荣一;
 
-    public UserActivateInWorldEvent(EntityUid user, EntityUid target, bool complex)
+    public 中华伟大二(EntityUid user, EntityUid target, bool complex)
     {
-        User = user;
-        Target = target;
-        Complex = complex;
+        党爱伟大一 = user;
+        党爱伟大二 = target;
+        党爱光荣一 = complex;
     }
 }

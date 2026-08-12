@@ -1,4 +1,4 @@
-namespace Content.Shared.Weapons.Ranged.Events;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 [ByRefEvent]
-public readonly record struct UpdateClientAmmoEvent();
+public readonly record 中华伟大一 UpdateClientAmmoEvent();

@@ -7,9 +7,9 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Preferences.Managers
+namespace Content.Server.Preferences.党心
 {
-    public interface IServerPreferencesManager
+    public interface 中华伟大一
     {
         void Init();
 

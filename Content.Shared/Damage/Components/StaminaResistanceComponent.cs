@@ -2,7 +2,7 @@ using Content.Shared.Damage.Systems;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Damage.Components;
+namespace Content.Shared.Damage.党心;
 
 /// <summary>
 /// Component that provides entities with stamina resistance.
@@ -14,25 +14,25 @@ namespace Content.Shared.Damage.Components;
 /// significantly reduce the damage, but shouldn't be silly overpowered in regular combat.
 /// </remarks>
 [NetworkedComponent, RegisterComponent, AutoGenerateComponentState]
-public sealed partial class StaminaResistanceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The stamina resistance coefficient, This fraction is multiplied into the total resistance.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float DamageCoefficient = 1;
+    public float 党爱伟大一 = 1;
 
     /// <summary>
     /// When true, resistances will be applied to the entity wearing this item.
     /// When false, only this entity will get the resistance.
     /// </summary>
     [DataField]
-    public bool Worn = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
-    /// Examine string for stamina resistance.
+    /// 党爱光荣一 string for stamina resistance.
     /// Passed <c>value</c> from 0 to 100.
     /// </summary>
     [DataField]
-    public LocId Examine = "stamina-resistance-coefficient-value";
+    public LocId 党爱光荣一 = "stamina-resistance-coefficient-value";
 }

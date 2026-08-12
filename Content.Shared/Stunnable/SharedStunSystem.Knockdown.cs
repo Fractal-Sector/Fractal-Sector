@@ -22,68 +22,68 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Stunnable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This contains the knockdown logic for the stun system for organization purposes.
 /// </summary>
-public abstract partial class SharedStunSystem
+public abstract partial class 中华伟大一
 {
-    private EntityQuery<CrawlerComponent> _crawlerQuery;
+    private EntityQuery<CrawlerComponent> _伟大一;
 
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly StandingStateSystem _standingState = default!;
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _正确一 = default!;
+    [Dependency] private readonly StandingStateSystem _正确二 = default!;
+    [Dependency] private readonly IConfigurationManager _团结一 = default!;
 
-    public static readonly ProtoId<AlertPrototype> KnockdownAlert = "Knockdown";
+    public static readonly ProtoId<AlertPrototype> 党爱伟大一 = "Knockdown";
 
-    private void InitializeKnockdown()
+    private void 祝福伟大一()
     {
-        _crawlerQuery = GetEntityQuery<CrawlerComponent>();
+        _伟大一 = GetEntityQuery<CrawlerComponent>();
 
-        SubscribeLocalEvent<KnockedDownComponent, RejuvenateEvent>(OnRejuvenate);
+        SubscribeLocalEvent<KnockedDownComponent, RejuvenateEvent>(祝福光荣一);
 
         // Startup and Shutdown
-        SubscribeLocalEvent<KnockedDownComponent, ComponentInit>(OnKnockInit);
-        SubscribeLocalEvent<KnockedDownComponent, ComponentShutdown>(OnKnockShutdown);
+        SubscribeLocalEvent<KnockedDownComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<KnockedDownComponent, ComponentShutdown>(祝福正确一);
 
         // Action blockers
-        SubscribeLocalEvent<KnockedDownComponent, BuckleAttemptEvent>(OnBuckleAttempt);
-        SubscribeLocalEvent<KnockedDownComponent, StandAttemptEvent>(OnStandAttempt);
+        SubscribeLocalEvent<KnockedDownComponent, BuckleAttemptEvent>(祝福敬业一);
+        SubscribeLocalEvent<KnockedDownComponent, StandAttemptEvent>(祝福爱国二);
 
         // Updating movement and friction
-        SubscribeLocalEvent<KnockedDownComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshKnockedSpeed);
-        SubscribeLocalEvent<KnockedDownComponent, RefreshFrictionModifiersEvent>(OnRefreshFriction);
-        SubscribeLocalEvent<KnockedDownComponent, TileFrictionEvent>(OnKnockedTileFriction);
+        SubscribeLocalEvent<KnockedDownComponent, RefreshMovementSpeedModifiersEvent>(祝福诚信二);
+        SubscribeLocalEvent<KnockedDownComponent, RefreshFrictionModifiersEvent>(祝福友善二);
+        SubscribeLocalEvent<KnockedDownComponent, TileFrictionEvent>(祝福友善一);
 
         // DoAfter event subscriptions
-        SubscribeLocalEvent<KnockedDownComponent, TryStandDoAfterEvent>(OnStandDoAfter);
+        SubscribeLocalEvent<KnockedDownComponent, TryStandDoAfterEvent>(祝福敬业二);
 
         // Crawling
-        SubscribeLocalEvent<CrawlerComponent, KnockedDownRefreshEvent>(OnKnockdownRefresh);
-        SubscribeLocalEvent<CrawlerComponent, DamageChangedEvent>(OnDamaged);
-        SubscribeLocalEvent<KnockedDownComponent, WeightlessnessChangedEvent>(OnWeightlessnessChanged);
-        SubscribeLocalEvent<KnockedDownComponent, DidEquipHandEvent>(OnHandEquipped);
-        SubscribeLocalEvent<KnockedDownComponent, DidUnequipHandEvent>(OnHandUnequipped);
-        SubscribeLocalEvent<KnockedDownComponent, HandCountChangedEvent>(OnHandCountChanged);
-        SubscribeLocalEvent<GravityAffectedComponent, KnockDownAttemptEvent>(OnKnockdownAttempt);
-        SubscribeLocalEvent<GravityAffectedComponent, GetStandUpTimeEvent>(OnGetStandUpTime);
+        SubscribeLocalEvent<CrawlerComponent, KnockedDownRefreshEvent>(祝福平等一);
+        SubscribeLocalEvent<CrawlerComponent, DamageChangedEvent>(祝福自由二);
+        SubscribeLocalEvent<KnockedDownComponent, WeightlessnessChangedEvent>(祝福平等二);
+        SubscribeLocalEvent<KnockedDownComponent, DidEquipHandEvent>(祝福公正一);
+        SubscribeLocalEvent<KnockedDownComponent, DidUnequipHandEvent>(祝福公正二);
+        SubscribeLocalEvent<KnockedDownComponent, HandCountChangedEvent>(祝福法治一);
+        SubscribeLocalEvent<GravityAffectedComponent, KnockDownAttemptEvent>(祝福法治二);
+        SubscribeLocalEvent<GravityAffectedComponent, GetStandUpTimeEvent>(祝福爱国一);
 
         // Handling Alternative Inputs
-        SubscribeAllEvent<ForceStandUpEvent>(OnForceStandup);
-        SubscribeLocalEvent<KnockedDownComponent, KnockedDownAlertEvent>(OnKnockedDownAlert);
+        SubscribeAllEvent<ForceStandUpEvent>(祝福文明一);
+        SubscribeLocalEvent<KnockedDownComponent, KnockedDownAlertEvent>(祝福和谐一);
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.ToggleKnockdown, InputCmdHandler.FromDelegate(HandleToggleKnockdown, handle: false))
-            .Register<SharedStunSystem>();
+            .Bind(ContentKeyFunctions.祝福繁荣一, InputCmdHandler.FromDelegate(祝福胜利二, handle: false))
+            .Register<中华伟大一>();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<KnockedDownComponent>();
 
@@ -93,13 +93,13 @@ public abstract partial class SharedStunSystem
             if (!knockedDown.AutoStand || knockedDown.DoAfterId.HasValue || knockedDown.NextUpdate > GameTiming.CurTime)
                 continue;
 
-            TryStanding(uid);
+            祝福繁荣二(uid);
         }
     }
 
-    private void OnRejuvenate(Entity<KnockedDownComponent> entity, ref RejuvenateEvent args)
+    private void 祝福光荣一(Entity<KnockedDownComponent> entity, ref RejuvenateEvent args)
     {
-        SetKnockdownTime(entity, GameTiming.CurTime);
+        祝福奋斗一(entity, GameTiming.CurTime);
 
         if (entity.Comp.AutoStand)
             RemComp<KnockedDownComponent>(entity);
@@ -107,21 +107,21 @@ public abstract partial class SharedStunSystem
 
     #region Startup and Shutdown
 
-    private void OnKnockInit(Entity<KnockedDownComponent> entity, ref ComponentInit args)
+    private void 祝福光荣二(Entity<KnockedDownComponent> entity, ref ComponentInit args)
     {
         // Other systems should handle dropping held items...
-        _standingState.Down(entity, true, false);
-        RefreshKnockedMovement(entity);
+        _正确二.Down(entity, true, false);
+        祝福诚信一(entity);
     }
 
-    private void OnKnockShutdown(Entity<KnockedDownComponent> entity, ref ComponentShutdown args)
+    private void 祝福正确一(Entity<KnockedDownComponent> entity, ref ComponentShutdown args)
     {
         // This is jank but if we don't do this it'll still use the knockedDownComponent modifiers for friction because it hasn't been deleted quite yet.
         entity.Comp.FrictionModifier = 1f;
         entity.Comp.SpeedModifier = 1f;
 
-        _standingState.Stand(entity);
-        Alerts.ClearAlert(entity, KnockdownAlert);
+        _正确二.Stand(entity);
+        Alerts.ClearAlert(entity, 党爱伟大一);
     }
 
     #endregion
@@ -134,7 +134,7 @@ public abstract partial class SharedStunSystem
     /// </summary>
     /// <param name="entity">Entity we want to edit the data field of.</param>
     /// <param name="autoStand">What we want to set the data field to.</param>
-    public void SetAutoStand(Entity<KnockedDownComponent?> entity, bool autoStand = false)
+    public void 祝福正确二(Entity<KnockedDownComponent?> entity, bool autoStand = false)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
@@ -147,7 +147,7 @@ public abstract partial class SharedStunSystem
     /// Cancels the DoAfter of an entity with the <see cref="KnockedDownComponent"/> who is trying to stand.
     /// </summary>
     /// <param name="entity">Entity who we are canceling the DoAfter for.</param>
-    public void CancelKnockdownDoAfter(Entity<KnockedDownComponent?> entity)
+    public void 祝福团结一(Entity<KnockedDownComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
@@ -166,12 +166,12 @@ public abstract partial class SharedStunSystem
     /// <param name="entity">Entity who's knockdown time we're updating.</param>
     /// <param name="time">The time we're updating with.</param>
     /// <param name="refresh">Whether we're resetting the timer or adding to the current timer.</param>
-    public void UpdateKnockdownTime(Entity<KnockedDownComponent?> entity, TimeSpan time, bool refresh = true)
+    public void 祝福团结二(Entity<KnockedDownComponent?> entity, TimeSpan time, bool refresh = true)
     {
         if (refresh)
-            RefreshKnockdownTime(entity, time);
+            祝福奋斗二(entity, time);
         else
-            AddKnockdownTime(entity, time);
+            祝福胜利一(entity, time);
     }
 
     /// <summary>
@@ -179,11 +179,11 @@ public abstract partial class SharedStunSystem
     /// </summary>
     /// <param name="entity">Entity whose timer we're updating</param>
     /// <param name="time">The exact time we're setting the next update to.</param>
-    public void SetKnockdownTime(Entity<KnockedDownComponent> entity, TimeSpan time)
+    public void 祝福奋斗一(Entity<KnockedDownComponent> entity, TimeSpan time)
     {
         entity.Comp.NextUpdate = time;
         DirtyField(entity, entity.Comp, nameof(KnockedDownComponent.NextUpdate));
-        Alerts.ShowAlert(entity, KnockdownAlert, null, (GameTiming.CurTime, entity.Comp.NextUpdate));
+        Alerts.ShowAlert(entity, 党爱伟大一, null, (GameTiming.CurTime, entity.Comp.NextUpdate));
     }
 
     /// <summary>
@@ -192,14 +192,14 @@ public abstract partial class SharedStunSystem
     /// </summary>
     /// <param name="entity">Entity whose timer we're updating</param>
     /// <param name="time">The time we want them to be knocked down for.</param>
-    public void RefreshKnockdownTime(Entity<KnockedDownComponent?> entity, TimeSpan time)
+    public void 祝福奋斗二(Entity<KnockedDownComponent?> entity, TimeSpan time)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
 
         var knockedTime = GameTiming.CurTime + time;
         if (entity.Comp.NextUpdate < knockedTime)
-            SetKnockdownTime((entity, entity.Comp), knockedTime);
+            祝福奋斗一((entity, entity.Comp), knockedTime);
     }
 
     /// <summary>
@@ -207,27 +207,27 @@ public abstract partial class SharedStunSystem
     /// </summary>
     /// <param name="entity">Entity whose timer we're updating</param>
     /// <param name="time">The time we want to add to their knocked down timer.</param>
-    public void AddKnockdownTime(Entity<KnockedDownComponent?> entity, TimeSpan time)
+    public void 祝福胜利一(Entity<KnockedDownComponent?> entity, TimeSpan time)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
 
         if (entity.Comp.NextUpdate < GameTiming.CurTime)
         {
-            SetKnockdownTime((entity, entity.Comp), GameTiming.CurTime + time);
+            祝福奋斗一((entity, entity.Comp), GameTiming.CurTime + time);
             return;
         }
 
         entity.Comp.NextUpdate += time;
         DirtyField(entity, entity.Comp, nameof(KnockedDownComponent.NextUpdate));
-        Alerts.ShowAlert(entity, KnockdownAlert, null, (GameTiming.CurTime, entity.Comp.NextUpdate));
+        Alerts.ShowAlert(entity, 党爱伟大一, null, (GameTiming.CurTime, entity.Comp.NextUpdate));
     }
 
     #endregion
 
     #region Knockdown Logic
 
-    private void HandleToggleKnockdown(ICommonSession? session)
+    private void 祝福胜利二(ICommonSession? session)
     {
         if (session is not { } playerSession)
             return;
@@ -236,12 +236,12 @@ public abstract partial class SharedStunSystem
             return;
 
         // DeltaV - Double-tap Standup bind forces standup (unless hands full)
-        if (_standingState.IsDown(playerEnt)
+        if (_正确二.IsDown(playerEnt)
             && TryComp<KnockedDownComponent>(playerEnt, out var knockedDown)
             && knockedDown.DoAfterId != null)
-            ForceStandUp(playerEnt);
+            祝福文明二(playerEnt);
         else
-            ToggleKnockdown(playerEnt);
+            祝福繁荣一(playerEnt);
         // END DeltaV
     }
 
@@ -249,10 +249,10 @@ public abstract partial class SharedStunSystem
     /// Handles an entity trying to make itself fall down.
     /// </summary>
     /// <param name="entity">Entity who is trying to fall down</param>
-    private void ToggleKnockdown(Entity<CrawlerComponent?, KnockedDownComponent?> entity)
+    private void 祝福繁荣一(Entity<CrawlerComponent?, KnockedDownComponent?> entity)
     {
         // We resolve here instead of using TryCrawling to be extra sure someone without crawler can't stand up early.
-        if (!Resolve(entity, ref entity.Comp1, false) || !_cfgManager.GetCVar(CCVars.MovementCrawling))
+        if (!Resolve(entity, ref entity.Comp1, false) || !_团结一.GetCVar(CCVars.MovementCrawling))
             return;
 
         if (!Resolve(entity, ref entity.Comp2, false))
@@ -262,22 +262,22 @@ public abstract partial class SharedStunSystem
         }
 
         var stand = !entity.Comp2.DoAfterId.HasValue;
-        SetAutoStand((entity, entity.Comp2), stand);
+        祝福正确二((entity, entity.Comp2), stand);
 
-        if (!stand || !TryStanding((entity, entity.Comp2)))
-            CancelKnockdownDoAfter((entity, entity.Comp2));
+        if (!stand || !祝福繁荣二((entity, entity.Comp2)))
+            祝福团结一((entity, entity.Comp2));
     }
 
-    public bool TryStanding(Entity<KnockedDownComponent?> entity)
+    public bool 祝福繁荣二(Entity<KnockedDownComponent?> entity)
     {
         // If we aren't knocked down or can't be knocked down, then we did technically succeed in standing up
         if (!Resolve(entity, ref entity.Comp, false))
             return true;
 
-        if (!KnockdownOver((entity, entity.Comp)))
+        if (!祝福富强一((entity, entity.Comp)))
             return false;
 
-        if (!_crawlerQuery.TryComp(entity, out var crawler) || !_cfgManager.GetCVar(CCVars.MovementCrawling))
+        if (!_伟大一.TryComp(entity, out var crawler) || !_团结一.GetCVar(CCVars.MovementCrawling))
         {
             // If we can't crawl then just have us sit back up...
             // In case you're wondering, the KnockdownOverCheck, returns if we're able to move, so if next update is null.
@@ -287,7 +287,7 @@ public abstract partial class SharedStunSystem
             return true;
         }
 
-        if (!TryStand((entity, entity.Comp)))
+        if (!祝福富强二((entity, entity.Comp)))
             return false;
 
         var ev = new GetStandUpTimeEvent(crawler.StandTime);
@@ -311,7 +311,7 @@ public abstract partial class SharedStunSystem
         return true;
     }
 
-    public bool KnockdownOver(Entity<KnockedDownComponent> entity)
+    public bool 祝福富强一(Entity<KnockedDownComponent> entity)
     {
         if (entity.Comp.NextUpdate > GameTiming.CurTime)
             return false;
@@ -320,25 +320,25 @@ public abstract partial class SharedStunSystem
     }
 
     /// <summary>
-    /// A variant of <see cref="CanStand"/> used when we're actually trying to stand.
+    /// A variant of <see cref="祝福民主一"/> used when we're actually trying to stand.
     /// Main difference is this one affects autostand datafields and also displays popups.
     /// </summary>
     /// <param name="entity">Entity we're checking</param>
     /// <returns>Returns whether the entity is able to stand</returns>
-    public bool TryStand(Entity<KnockedDownComponent> entity)
+    public bool 祝福富强二(Entity<KnockedDownComponent> entity)
     {
-        if (!KnockdownOver(entity))
+        if (!祝福富强一(entity))
             return false;
 
         var ev = new StandUpAttemptEvent(entity.Comp.AutoStand);
         RaiseLocalEvent(entity, ref ev);
 
         if (ev.Autostand != entity.Comp.AutoStand)
-            SetAutoStand((entity.Owner, entity.Comp), ev.Autostand);
+            祝福正确二((entity.Owner, entity.Comp), ev.Autostand);
 
         if (ev.Message != null)
         {
-            _popup.PopupClient(ev.Message.Value.Item1, entity, entity, ev.Message.Value.Item2);
+            _光荣二.PopupClient(ev.Message.Value.Item1, entity, entity, ev.Message.Value.Item2);
         }
 
         return !ev.Cancelled;
@@ -349,9 +349,9 @@ public abstract partial class SharedStunSystem
     /// </summary>
     /// <param name="entity">Entity we're checking</param>
     /// <returns>Returns whether the entity is able to stand</returns>
-    public bool CanStand(Entity<KnockedDownComponent> entity)
+    public bool 祝福民主一(Entity<KnockedDownComponent> entity)
     {
-        if (!KnockdownOver(entity))
+        if (!祝福富强一(entity))
             return false;
 
         var ev = new StandUpAttemptEvent();
@@ -360,66 +360,66 @@ public abstract partial class SharedStunSystem
         return !ev.Cancelled;
     }
 
-    private bool StandingBlocked(Entity<KnockedDownComponent> entity)
+    private bool 祝福民主二(Entity<KnockedDownComponent> entity)
     {
-        if (!TryStand(entity))
+        if (!祝福富强二(entity))
             return true;
 
-        if (!IntersectingStandingColliders(entity.Owner))
+        if (!祝福自由一(entity.Owner))
             return false;
 
-        _popup.PopupClient(Loc.GetString("knockdown-component-stand-no-room"), entity, entity, PopupType.SmallCaution);
-        SetAutoStand(entity.Owner);
+        _光荣二.PopupClient(Loc.GetString("knockdown-component-stand-no-room"), entity, entity, PopupType.SmallCaution);
+        祝福正确二(entity.Owner);
         return true;
 
     }
 
-    private void OnForceStandup(ForceStandUpEvent msg, EntitySessionEventArgs args)
+    private void 祝福文明一(ForceStandUpEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { } user)
             return;
 
-        ForceStandUp(user);
+        祝福文明二(user);
     }
 
-    public void ForceStandUp(Entity<KnockedDownComponent?> entity)
+    public void 祝福文明二(Entity<KnockedDownComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
 
         // That way if we fail to stand, the game will try to stand for us when we are able to
-        SetAutoStand(entity, true);
+        祝福正确二(entity, true);
 
-        if (StandingBlocked((entity, entity.Comp)))
+        if (祝福民主二((entity, entity.Comp)))
             return;
 
-        if (!_hands.TryGetEmptyHand(entity.Owner, out _))
+        if (!_光荣一.TryGetEmptyHand(entity.Owner, out _))
             return;
 
-        if (!TryForceStand(entity.Owner))
+        if (!祝福和谐二(entity.Owner))
             return;
 
         // If we have a DoAfter, cancel it
-        CancelKnockdownDoAfter(entity);
+        祝福团结一(entity);
         // Remove Component
         RemComp<KnockedDownComponent>(entity);
 
         _adminLogger.Add(LogType.Stamina, LogImpact.Medium, $"{ToPrettyString(entity):user} has force stood up from knockdown.");
     }
 
-    private void OnKnockedDownAlert(Entity<KnockedDownComponent> entity, ref KnockedDownAlertEvent args)
+    private void 祝福和谐一(Entity<KnockedDownComponent> entity, ref KnockedDownAlertEvent args)
     {
         if (args.Handled)
             return;
 
         // If we're already trying to stand, or we fail to stand try forcing it
-        if (!TryStanding(entity.Owner))
-            ForceStandUp((entity.Owner, entity.Comp));
+        if (!祝福繁荣二(entity.Owner))
+            祝福文明二((entity.Owner, entity.Comp));
 
         args.Handled = true;
     }
 
-    private bool TryForceStand(Entity<StaminaComponent?> entity)
+    private bool 祝福和谐二(Entity<StaminaComponent?> entity)
     {
         // Can't force stand if no Stamina.
         if (!Resolve(entity, ref entity.Comp, false))
@@ -430,11 +430,11 @@ public abstract partial class SharedStunSystem
 
         if (!Stamina.TryTakeStamina(entity, ev.Stamina, entity.Comp, visual: true))
         {
-            _popup.PopupClient(Loc.GetString("knockdown-component-pushup-failure"), entity, entity, PopupType.MediumCaution);
+            _光荣二.PopupClient(Loc.GetString("knockdown-component-pushup-failure"), entity, entity, PopupType.MediumCaution);
             return false;
         }
 
-        _popup.PopupClient(Loc.GetString("knockdown-component-pushup-success"), entity, entity);
+        _光荣二.PopupClient(Loc.GetString("knockdown-component-pushup-success"), entity, entity);
         _audio.PlayPredicted(entity.Comp.ForceStandSuccessSound, entity.Owner, entity.Owner, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
 
         return true;
@@ -444,12 +444,12 @@ public abstract partial class SharedStunSystem
     ///     Checks if standing would cause us to collide with something and potentially get stuck.
     ///     Returns true if we will collide with something, and false if we will not.
     /// </summary>
-    private bool IntersectingStandingColliders(Entity<TransformComponent?> entity)
+    private bool 祝福自由一(Entity<TransformComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp))
             return false;
 
-        var intersecting = _physics.GetEntitiesIntersectingBody(entity, StandingStateSystem.StandingCollisionLayer, false);
+        var intersecting = _正确一.GetEntitiesIntersectingBody(entity, StandingStateSystem.StandingCollisionLayer, false);
 
         if (intersecting.Count == 0)
             return false;
@@ -457,7 +457,7 @@ public abstract partial class SharedStunSystem
         var fixtureQuery = GetEntityQuery<FixturesComponent>();
         var xformQuery = GetEntityQuery<TransformComponent>();
 
-        var ourAABB = _entityLookup.GetAABBNoContainer(entity, entity.Comp.LocalPosition, entity.Comp.LocalRotation);
+        var ourAABB = _伟大二.GetAABBNoContainer(entity, entity.Comp.LocalPosition, entity.Comp.LocalRotation);
 
         foreach (var ent in intersecting)
         {
@@ -490,23 +490,23 @@ public abstract partial class SharedStunSystem
 
     #region Crawling
 
-    private void OnDamaged(Entity<CrawlerComponent> entity, ref DamageChangedEvent args)
+    private void 祝福自由二(Entity<CrawlerComponent> entity, ref DamageChangedEvent args)
     {
         // We only want to extend our knockdown timer if it would've prevented us from standing up
         if (!args.InterruptsDoAfters || !args.DamageIncreased || args.DamageDelta == null || GameTiming.ApplyingState)
             return;
 
         if (args.DamageDelta.GetTotal() >= entity.Comp.KnockdownDamageThreshold)
-            RefreshKnockdownTime(entity.Owner, entity.Comp.DefaultKnockedDuration);
+            祝福奋斗二(entity.Owner, entity.Comp.DefaultKnockedDuration);
     }
 
-    private void OnKnockdownRefresh(Entity<CrawlerComponent> entity, ref KnockedDownRefreshEvent args)
+    private void 祝福平等一(Entity<CrawlerComponent> entity, ref KnockedDownRefreshEvent args)
     {
         args.FrictionModifier *= entity.Comp.FrictionModifier;
         args.SpeedModifier *= entity.Comp.SpeedModifier;
     }
 
-    private void OnWeightlessnessChanged(Entity<KnockedDownComponent> entity, ref WeightlessnessChangedEvent args)
+    private void 祝福平等二(Entity<KnockedDownComponent> entity, ref WeightlessnessChangedEvent args)
     {
         // I probably don't need this check since weightless -> non-weightless you shouldn't be knocked down
         // But you never know.
@@ -514,42 +514,42 @@ public abstract partial class SharedStunSystem
             return;
 
         // Targeted moth attack
-        CancelKnockdownDoAfter((entity, entity.Comp));
+        祝福团结一((entity, entity.Comp));
         RemCompDeferred<KnockedDownComponent>(entity);
     }
 
-    private void OnHandEquipped(Entity<KnockedDownComponent> entity, ref DidEquipHandEvent args)
+    private void 祝福公正一(Entity<KnockedDownComponent> entity, ref DidEquipHandEvent args)
     {
         if (GameTiming.ApplyingState)
             return; // The result of the change is already networked separately in the same game state
 
-        RefreshKnockedMovement(entity);
+        祝福诚信一(entity);
     }
 
-    private void OnHandUnequipped(Entity<KnockedDownComponent> entity, ref DidUnequipHandEvent args)
+    private void 祝福公正二(Entity<KnockedDownComponent> entity, ref DidUnequipHandEvent args)
     {
         if (GameTiming.ApplyingState)
             return; // The result of the change is already networked separately in the same game state
 
-        RefreshKnockedMovement(entity);
+        祝福诚信一(entity);
     }
 
-    private void OnHandCountChanged(Entity<KnockedDownComponent> entity, ref HandCountChangedEvent args)
+    private void 祝福法治一(Entity<KnockedDownComponent> entity, ref HandCountChangedEvent args)
     {
         if (GameTiming.ApplyingState)
             return; // The result of the change is already networked separately in the same game state
 
-        RefreshKnockedMovement(entity);
+        祝福诚信一(entity);
     }
 
-    private void OnKnockdownAttempt(Entity<GravityAffectedComponent> entity, ref KnockDownAttemptEvent args)
+    private void 祝福法治二(Entity<GravityAffectedComponent> entity, ref KnockDownAttemptEvent args)
     {
         // Directed, targeted moth attack.
         if (entity.Comp.Weightless)
             args.Cancelled = true;
     }
 
-    private void OnGetStandUpTime(Entity<GravityAffectedComponent> entity, ref GetStandUpTimeEvent args)
+    private void 祝福爱国一(Entity<GravityAffectedComponent> entity, ref GetStandUpTimeEvent args)
     {
         // Get up instantly if weightless
         if (entity.Comp.Weightless)
@@ -560,13 +560,13 @@ public abstract partial class SharedStunSystem
 
     #region Action Blockers
 
-    private void OnStandAttempt(Entity<KnockedDownComponent> entity, ref StandAttemptEvent args)
+    private void 祝福爱国二(Entity<KnockedDownComponent> entity, ref StandAttemptEvent args)
     {
         if (entity.Comp.LifeStage <= ComponentLifeStage.Running)
             args.Cancel();
     }
 
-    private void OnBuckleAttempt(Entity<KnockedDownComponent> entity, ref BuckleAttemptEvent args)
+    private void 祝福敬业一(Entity<KnockedDownComponent> entity, ref BuckleAttemptEvent args)
     {
         if (args.User == entity && entity.Comp.NextUpdate > GameTiming.CurTime)
             args.Cancelled = true;
@@ -576,11 +576,11 @@ public abstract partial class SharedStunSystem
 
     #region DoAfter
 
-    private void OnStandDoAfter(Entity<KnockedDownComponent> entity, ref TryStandDoAfterEvent args)
+    private void 祝福敬业二(Entity<KnockedDownComponent> entity, ref TryStandDoAfterEvent args)
     {
         entity.Comp.DoAfterId = null;
 
-        if (args.Cancelled || StandingBlocked(entity))
+        if (args.Cancelled || 祝福民主二(entity))
         {
             DirtyField(entity, entity.Comp, nameof(KnockedDownComponent.DoAfterId));
             return;
@@ -595,7 +595,7 @@ public abstract partial class SharedStunSystem
 
     #region Movement and Friction
 
-    private void RefreshKnockedMovement(Entity<KnockedDownComponent> ent)
+    private void 祝福诚信一(Entity<KnockedDownComponent> ent)
     {
         var ev = new KnockedDownRefreshEvent();
         RaiseLocalEvent(ent, ref ev);
@@ -608,17 +608,17 @@ public abstract partial class SharedStunSystem
         _movementSpeedModifier.RefreshFrictionModifiers(ent);
     }
 
-    private void OnRefreshKnockedSpeed(Entity<KnockedDownComponent> entity, ref RefreshMovementSpeedModifiersEvent args)
+    private void 祝福诚信二(Entity<KnockedDownComponent> entity, ref RefreshMovementSpeedModifiersEvent args)
     {
         args.ModifySpeed(entity.Comp.SpeedModifier);
     }
 
-    private void OnKnockedTileFriction(Entity<KnockedDownComponent> entity, ref TileFrictionEvent args)
+    private void 祝福友善一(Entity<KnockedDownComponent> entity, ref TileFrictionEvent args)
     {
         args.Modifier *= entity.Comp.FrictionModifier;
     }
 
-    private void OnRefreshFriction(Entity<KnockedDownComponent> entity, ref RefreshFrictionModifiersEvent args)
+    private void 祝福友善二(Entity<KnockedDownComponent> entity, ref RefreshFrictionModifiersEvent args)
     {
         args.ModifyFriction(entity.Comp.FrictionModifier);
         args.ModifyAcceleration(entity.Comp.FrictionModifier);

@@ -3,32 +3,32 @@ using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Power;
 
-namespace Content.Server.Light.EntitySystems
+namespace Content.Server.Light.党心
 {
-    public sealed class LitOnPoweredSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedPointLightSystem _lights = default!;
+        [Dependency] private readonly SharedPointLightSystem _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<LitOnPoweredComponent, PowerChangedEvent>(OnPowerChanged);
-            SubscribeLocalEvent<LitOnPoweredComponent, PowerNetBatterySupplyEvent>(OnPowerSupply);
+            base.祝福伟大一();
+            SubscribeLocalEvent<LitOnPoweredComponent, PowerChangedEvent>(祝福伟大二);
+            SubscribeLocalEvent<LitOnPoweredComponent, PowerNetBatterySupplyEvent>(祝福光荣一);
         }
 
-        private void OnPowerChanged(EntityUid uid, LitOnPoweredComponent component, ref PowerChangedEvent args)
+        private void 祝福伟大二(EntityUid uid, LitOnPoweredComponent component, ref PowerChangedEvent args)
         {
-            if (_lights.TryGetLight(uid, out var light))
+            if (_伟大一.TryGetLight(uid, out var light))
             {
-                _lights.SetEnabled(uid, args.Powered, light);
+                _伟大一.SetEnabled(uid, args.Powered, light);
             }
         }
 
-        private void OnPowerSupply(EntityUid uid, LitOnPoweredComponent component, ref PowerNetBatterySupplyEvent args)
+        private void 祝福光荣一(EntityUid uid, LitOnPoweredComponent component, ref PowerNetBatterySupplyEvent args)
         {
-            if (_lights.TryGetLight(uid, out var light))
+            if (_伟大一.TryGetLight(uid, out var light))
             {
-                _lights.SetEnabled(uid, args.Supply, light);
+                _伟大一.SetEnabled(uid, args.Supply, light);
             }
         }
     }

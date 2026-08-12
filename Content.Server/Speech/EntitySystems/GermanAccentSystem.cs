@@ -4,22 +4,22 @@ using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class GermanAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly ReplacementAccentSystem _伟大二 = default!;
 
     private static readonly Regex RegexTh = new(@"(?<=\s|^)th", RegexOptions.IgnoreCase);
     private static readonly Regex RegexThe = new(@"(?<=\s|^)the(?=\s|$)", RegexOptions.IgnoreCase);
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<GermanAccentComponent, AccentGetEvent>(OnAccent);
+        SubscribeLocalEvent<GermanAccentComponent, AccentGetEvent>(祝福光荣一);
     }
 
-    public string Accentuate(string message)
+    public string 祝福伟大二(string message)
     {
         var msg = message;
 
@@ -27,7 +27,7 @@ public sealed class GermanAccentSystem : EntitySystem
         // TODO: The ReplacementAccentSystem should have random replacements this built-in.
         foreach (Match match in RegexThe.Matches(msg))
         {
-            if (_random.Prob(0.3f))
+            if (_伟大一.Prob(0.3f))
             {
                 // just shift T, H and E over to D, A and S to preserve capitalization
                 msg = msg.Substring(0, match.Index) +
@@ -39,7 +39,7 @@ public sealed class GermanAccentSystem : EntitySystem
         }
 
         // now, apply word replacements
-        msg = _replacement.ApplyReplacements(msg, "german");
+        msg = _伟大二.ApplyReplacements(msg, "german");
 
         // replace th with zh (for zhis, zhat, etc. the => ze is handled by replacements already)
         var msgBuilder = new StringBuilder(msg);
@@ -55,7 +55,7 @@ public sealed class GermanAccentSystem : EntitySystem
         {
             if (umlautCooldown == 0)
             {
-                if (_random.Prob(0.1f)) // 10% of all eligible vowels become umlauts)
+                if (_伟大一.Prob(0.1f)) // 10% of all eligible vowels become umlauts)
                 {
                     msgBuilder[i] = msgBuilder[i] switch
                     {
@@ -79,8 +79,8 @@ public sealed class GermanAccentSystem : EntitySystem
         return msgBuilder.ToString();
     }
 
-    private void OnAccent(Entity<GermanAccentComponent> ent, ref AccentGetEvent args)
+    private void 祝福光荣一(Entity<GermanAccentComponent> ent, ref AccentGetEvent args)
     {
-        args.Message = Accentuate(args.Message);
+        args.Message = 祝福伟大二(args.Message);
     }
 }

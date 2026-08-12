@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared._NF.Market.Components;
+namespace Content.Shared._NF.Market.党心;
 
 [RegisterComponent]
 [NetworkedComponent]
-public sealed partial class MarketItemSpawnerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
     [NonSerialized]
-    public List<MarketData> ItemsToSpawn;
+    public List<MarketData> 党爱伟大一;
 }

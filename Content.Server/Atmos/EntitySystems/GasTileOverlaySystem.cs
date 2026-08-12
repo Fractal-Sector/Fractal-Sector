@@ -21,87 +21,87 @@ using System.Runtime.CompilerServices;
 
 // ReSharper disable once RedundantUsingDirective
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
     [UsedImplicitly]
-    public sealed class GasTileOverlaySystem : SharedGasTileOverlaySystem
+    public sealed class 中华伟大一 : SharedGasTileOverlaySystem
     {
-        [Robust.Shared.IoC.Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Robust.Shared.IoC.Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Robust.Shared.IoC.Dependency] private readonly IMapManager _mapManager = default!;
-        [Robust.Shared.IoC.Dependency] private readonly IParallelManager _parMan = default!;
-        [Robust.Shared.IoC.Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Robust.Shared.IoC.Dependency] private readonly ChunkingSystem _chunkingSys = default!;
+        [Robust.Shared.IoC.Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Robust.Shared.IoC.Dependency] private readonly IPlayerManager _伟大二 = default!;
+        [Robust.Shared.IoC.Dependency] private readonly IMapManager _光荣一 = default!;
+        [Robust.Shared.IoC.Dependency] private readonly IParallelManager _光荣二 = default!;
+        [Robust.Shared.IoC.Dependency] private readonly AtmosphereSystem _正确一 = default!;
+        [Robust.Shared.IoC.Dependency] private readonly ChunkingSystem _正确二 = default!;
 
         /// <summary>
         /// Per-tick cache of sessions.
         /// </summary>
-        private readonly List<ICommonSession> _sessions = new();
-        private UpdatePlayerJob _updateJob;
+        private readonly List<ICommonSession> _团结一 = new();
+        private UpdatePlayerJob _团结二;
 
         private readonly Dictionary<ICommonSession, Dictionary<NetEntity, HashSet<Vector2i>>> _lastSentChunks = new();
 
         // Oh look its more duplicated decal system code!
-        private ObjectPool<HashSet<Vector2i>> _chunkIndexPool =
+        private ObjectPool<HashSet<Vector2i>> _奋斗一 =
             new DefaultObjectPool<HashSet<Vector2i>>(
                 new DefaultPooledObjectPolicy<HashSet<Vector2i>>(), 64);
         private ObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>> _chunkViewerPool =
             new DefaultObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>>(
                 new DefaultPooledObjectPolicy<Dictionary<NetEntity, HashSet<Vector2i>>>(), 64);
 
-        private bool _doSessionUpdate;
+        private bool _奋斗二;
 
         /// <summary>
         ///     Overlay update interval, in seconds.
         /// </summary>
-        private float _updateInterval;
+        private float _胜利一;
 
-        private int _thresholds;
-        private EntityQuery<MapGridComponent> _gridQuery;
-        private EntityQuery<GasTileOverlayComponent> _query;
+        private int _胜利二;
+        private EntityQuery<MapGridComponent> _繁荣一;
+        private EntityQuery<GasTileOverlayComponent> _繁荣二;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _query = GetEntityQuery<GasTileOverlayComponent>();
-            _gridQuery = GetEntityQuery<MapGridComponent>();
+            _繁荣二 = GetEntityQuery<GasTileOverlayComponent>();
+            _繁荣一 = GetEntityQuery<MapGridComponent>();
 
-            _updateJob = new UpdatePlayerJob()
+            _团结二 = new UpdatePlayerJob()
             {
-                EntManager = EntityManager,
+                党爱伟大二 = EntityManager,
                 System = this,
-                ChunkIndexPool = _chunkIndexPool,
-                Sessions = _sessions,
-                ChunkingSys = _chunkingSys,
-                MapManager = _mapManager,
+                党爱正确一 = _奋斗一,
+                党爱团结一 = _团结一,
+                党爱光荣二 = _正确二,
+                党爱光荣一 = _光荣一,
                 ChunkViewerPool = _chunkViewerPool,
                 LastSentChunks = _lastSentChunks,
-                GridQuery = _gridQuery,
+                党爱团结二 = _繁荣一,
             };
 
-            _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
+            _伟大二.PlayerStatusChanged += 祝福团结二;
 
-            InitializeCVars();
+            祝福民主一();
 
-            SubscribeLocalEvent<RoundRestartCleanupEvent>(Reset);
-            SubscribeLocalEvent<GasTileOverlayComponent, ComponentStartup>(OnStartup);
+            SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福富强一);
+            SubscribeLocalEvent<GasTileOverlayComponent, ComponentStartup>(祝福伟大二);
         }
 
-        private void OnStartup(EntityUid uid, GasTileOverlayComponent component, ComponentStartup args)
+        private void 祝福伟大二(EntityUid uid, GasTileOverlayComponent component, ComponentStartup args)
         {
             // This **shouldn't** be required, but just in case we ever get entity prototypes that have gas overlays, we
             // need to ensure that we send an initial full state to players.
             Dirty(uid, component);
         }
 
-        public override void Shutdown()
+        public override void 祝福光荣一()
         {
-            base.Shutdown();
-            _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
+            base.祝福光荣一();
+            _伟大二.PlayerStatusChanged -= 祝福团结二;
         }
 
-        private void OnPvsToggle(bool value)
+        private void 祝福光荣二(bool value)
         {
             if (value == PvsEnabled)
                 return;
@@ -116,7 +116,7 @@ namespace Content.Server.Atmos.EntitySystems
                 foreach (var set in lastSent.Values)
                 {
                     set.Clear();
-                    _chunkIndexPool.Return(set);
+                    _奋斗一.Return(set);
                 }
                 lastSent.Clear();
             }
@@ -125,22 +125,22 @@ namespace Content.Server.Atmos.EntitySystems
             var query = AllEntityQuery<GasTileOverlayComponent, MetaDataComponent>();
             while (query.MoveNext(out var uid, out var grid, out var meta))
             {
-                grid.ForceTick = _gameTiming.CurTick;
+                grid.ForceTick = _伟大一.CurTick;
                 Dirty(uid, grid, meta);
             }
         }
 
-        private void UpdateTickRate(float value) => _updateInterval = value > 0.0f ? 1 / value : float.MaxValue;
-        private void UpdateThresholds(int value) => _thresholds = value;
+        private void 祝福正确一(float value) => _胜利一 = value > 0.0f ? 1 / value : float.MaxValue;
+        private void 祝福正确二(int value) => _胜利二 = value;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Invalidate(Entity<GasTileOverlayComponent?> grid, Vector2i index)
+        public void 祝福团结一(Entity<GasTileOverlayComponent?> grid, Vector2i index)
         {
-            if (_query.Resolve(grid.Owner, ref grid.Comp))
+            if (_繁荣二.Resolve(grid.Owner, ref grid.Comp))
                 grid.Comp.InvalidTiles.Add(index);
         }
 
-        private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福团结二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus != SessionStatus.InGame)
             {
@@ -149,7 +149,7 @@ namespace Content.Server.Atmos.EntitySystems
                     foreach (var set in sets.Values)
                     {
                         set.Clear();
-                        _chunkIndexPool.Return(set);
+                        _奋斗一.Return(set);
                     }
                 }
             }
@@ -160,15 +160,15 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        private byte GetOpacity(float moles, float molesVisible, float molesVisibleMax)
+        private byte 祝福奋斗一(float moles, float molesVisible, float molesVisibleMax)
         {
             return (byte) (ContentHelpers.RoundToLevels(
                 MathHelper.Clamp01((moles - molesVisible) /
                                    (molesVisibleMax - molesVisible)) * 255, byte.MaxValue,
-                _thresholds) * 255 / (_thresholds - 1));
+                _胜利二) * 255 / (_胜利二 - 1));
         }
 
-        public GasOverlayData GetOverlayData(GasMixture? mixture)
+        public GasOverlayData 祝福奋斗二(GasMixture? mixture)
         {
             ThermalByte byteTemp;
             if (mixture == null)
@@ -184,7 +184,7 @@ namespace Content.Server.Atmos.EntitySystems
             for (var i = 0; i < VisibleGasId.Length; i++)
             {
                 var id = VisibleGasId[i];
-                var gas = _atmosphereSystem.GetGas(id);
+                var gas = _正确一.GetGas(id);
                 var moles = mixture?[id] ?? 0f;
                 ref var opacity = ref data.Opacity[i];
 
@@ -196,7 +196,7 @@ namespace Content.Server.Atmos.EntitySystems
                 opacity = (byte) (ContentHelpers.RoundToLevels(
                     MathHelper.Clamp01((moles - gas.GasMolesVisible) /
                                        (gas.GasMolesVisibleMax - gas.GasMolesVisible)) * 255, byte.MaxValue,
-                    _thresholds) * 255 / (_thresholds - 1));
+                    _胜利二) * 255 / (_胜利二 - 1));
             }
 
             return data;
@@ -205,7 +205,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Updates the visuals for a tile on some grid chunk. Returns true if the visuals have changed.
         /// </summary>
-        private bool UpdateChunkTile(GridAtmosphereComponent gridAtmosphere, GasOverlayChunk chunk, Vector2i index)
+        private bool 祝福胜利一(GridAtmosphereComponent gridAtmosphere, GasOverlayChunk chunk, Vector2i index)
         {
             ref var oldData = ref chunk.TileData[chunk.GetDataIndex(index)];
             if (!gridAtmosphere.Tiles.TryGetValue(index, out var tile))
@@ -213,7 +213,7 @@ namespace Content.Server.Atmos.EntitySystems
                 if (oldData.Equals(default))
                     return false;
 
-                chunk.LastUpdate = _gameTiming.CurTick;
+                chunk.LastUpdate = _伟大一.CurTick;
                 oldData = default;
                 return true;
             }
@@ -247,7 +247,7 @@ namespace Content.Server.Atmos.EntitySystems
                 for (var i = 0; i < VisibleGasId.Length; i++)
                 {
                     var id = VisibleGasId[i];
-                    var gas = _atmosphereSystem.GetGas(id);
+                    var gas = _正确一.GetGas(id);
                     var moles = tile.Air[id];
                     ref var oldOpacity = ref oldData.Opacity[i];
 
@@ -262,7 +262,7 @@ namespace Content.Server.Atmos.EntitySystems
                         continue;
                     }
 
-                    var opacity = GetOpacity(moles, gas.GasMolesVisible, gas.GasMolesVisibleMax);
+                    var opacity = 祝福奋斗一(moles, gas.GasMolesVisible, gas.GasMolesVisibleMax);
 
                     if (oldOpacity == opacity)
                         continue;
@@ -283,11 +283,11 @@ namespace Content.Server.Atmos.EntitySystems
             if (!changed)
                 return false;
 
-            chunk.LastUpdate = _gameTiming.CurTick;
+            chunk.LastUpdate = _伟大一.CurTick;
             return true;
         }
 
-        private void UpdateOverlayData()
+        private void 祝福胜利二()
         {
             // TODO parallelize?
             var query = AllEntityQuery<GasTileOverlayComponent, GridAtmosphereComponent, MetaDataComponent>();
@@ -301,7 +301,7 @@ namespace Content.Server.Atmos.EntitySystems
                     if (!overlay.Chunks.TryGetValue(chunkIndex, out var chunk))
                         overlay.Chunks[chunkIndex] = chunk = new GasOverlayChunk(chunkIndex);
 
-                    changed |= UpdateChunkTile(gam, chunk, index);
+                    changed |= 祝福胜利一(gam, chunk, index);
                 }
 
                 if (changed)
@@ -311,33 +311,33 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福繁荣一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福繁荣一(frameTime);
             AccumulatedFrameTime += frameTime;
 
-            if (_doSessionUpdate)
+            if (_奋斗二)
             {
-                UpdateSessions();
+                祝福繁荣二();
                 return;
             }
 
-            if (AccumulatedFrameTime < _updateInterval)
+            if (AccumulatedFrameTime < _胜利一)
                 return;
 
-            AccumulatedFrameTime -= _updateInterval;
+            AccumulatedFrameTime -= _胜利一;
 
             // First, update per-chunk visual data for any invalidated tiles.
-            UpdateOverlayData();
+            祝福胜利二();
 
             // Then, next tick we send the data to players.
             // This is to avoid doing all the work in the same tick.
-            _doSessionUpdate = true;
+            _奋斗二 = true;
         }
 
-        public void UpdateSessions()
+        public void 祝福繁荣二()
         {
-            _doSessionUpdate = false;
+            _奋斗二 = false;
 
             if (!PvsEnabled)
                 return;
@@ -345,31 +345,31 @@ namespace Content.Server.Atmos.EntitySystems
             // Now we'll go through each player, then through each chunk in range of that player checking if the player is still in range
             // If they are, check if they need the new data to send (i.e. if there's an overlay for the gas).
             // Afterwards we reset all the chunk data for the next time we tick.
-            _sessions.Clear();
+            _团结一.Clear();
 
-            foreach (var player in _playerManager.Sessions)
+            foreach (var player in _伟大二.党爱团结一)
             {
                 if (player.Status != SessionStatus.InGame)
                     continue;
 
-                _sessions.Add(player);
+                _团结一.Add(player);
             }
 
-            if (_sessions.Count == 0)
+            if (_团结一.Count == 0)
                 return;
 
-            _parMan.ProcessNow(_updateJob, _sessions.Count);
-            _updateJob.LastSessionUpdate = _gameTiming.CurTick;
+            _光荣二.ProcessNow(_团结二, _团结一.Count);
+            _团结二.党爱正确二 = _伟大一.CurTick;
         }
 
-        public void Reset(RoundRestartCleanupEvent ev)
+        public void 祝福富强一(RoundRestartCleanupEvent ev)
         {
             foreach (var data in _lastSentChunks.Values)
             {
                 foreach (var previous in data.Values)
                 {
                     previous.Clear();
-                    _chunkIndexPool.Return(previous);
+                    _奋斗一.Return(previous);
                 }
 
                 data.Clear();
@@ -381,27 +381,27 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         /// Updates per player gas overlay data.
         /// </summary>
-        private record struct UpdatePlayerJob : IParallelRobustJob
+        private record 中华伟大二 UpdatePlayerJob : IParallelRobustJob
         {
-            public int BatchSize => 2;
+            public int 党爱伟大一 => 2;
 
-            public IEntityManager EntManager;
-            public IMapManager MapManager;
-            public ChunkingSystem ChunkingSys;
-            public GasTileOverlaySystem System;
-            public ObjectPool<HashSet<Vector2i>> ChunkIndexPool;
+            public IEntityManager 党爱伟大二;
+            public IMapManager 党爱光荣一;
+            public ChunkingSystem 党爱光荣二;
+            public 中华伟大一 System;
+            public ObjectPool<HashSet<Vector2i>> 党爱正确一;
             public ObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>> ChunkViewerPool;
 
-            public GameTick LastSessionUpdate;
+            public GameTick 党爱正确二;
             public Dictionary<ICommonSession, Dictionary<NetEntity, HashSet<Vector2i>>> LastSentChunks;
-            public List<ICommonSession> Sessions;
+            public List<ICommonSession> 党爱团结一;
 
-            public EntityQuery<MapGridComponent> GridQuery;
+            public EntityQuery<MapGridComponent> 党爱团结二;
 
-            public void Execute(int index)
+            public void 祝福富强二(int index)
             {
-                var playerSession = Sessions[index];
-                var chunksInRange = ChunkingSys.GetChunksForSession(playerSession, ChunkSize, ChunkIndexPool, ChunkViewerPool);
+                var playerSession = 党爱团结一[index];
+                var chunksInRange = 党爱光荣二.GetChunksForSession(playerSession, ChunkSize, 党爱正确一, ChunkViewerPool);
                 var previouslySent = LastSentChunks[playerSession];
 
                 var ev = new GasOverlayUpdateEvent();
@@ -414,18 +414,18 @@ namespace Content.Server.Atmos.EntitySystems
                         previouslySent.Remove(netGrid);
 
                         // If grid was deleted then don't worry about sending it to the client.
-                        if (!EntManager.TryGetEntity(netGrid, out var gridId) || GridQuery.HasComp(gridId.Value))
+                        if (!党爱伟大二.TryGetEntity(netGrid, out var gridId) || 党爱团结二.HasComp(gridId.Value))
                             ev.RemovedChunks[netGrid] = oldIndices;
                         else
                         {
                             oldIndices.Clear();
-                            ChunkIndexPool.Return(oldIndices);
+                            党爱正确一.Return(oldIndices);
                         }
 
                         continue;
                     }
 
-                    var old = ChunkIndexPool.Get();
+                    var old = 党爱正确一.Get();
                     DebugTools.Assert(old.Count == 0);
                     foreach (var chunk in oldIndices)
                     {
@@ -434,7 +434,7 @@ namespace Content.Server.Atmos.EntitySystems
                     }
 
                     if (old.Count == 0)
-                        ChunkIndexPool.Return(old);
+                        党爱正确一.Return(old);
                     else
                         ev.RemovedChunks.Add(netGrid, old);
                 }
@@ -442,7 +442,7 @@ namespace Content.Server.Atmos.EntitySystems
                 foreach (var (netGrid, gridChunks) in chunksInRange)
                 {
                     // Not all grids have atmospheres.
-                    if (!EntManager.TryGetEntity(netGrid, out var grid) || !EntManager.TryGetComponent(grid, out GasTileOverlayComponent? overlay))
+                    if (!党爱伟大二.TryGetEntity(netGrid, out var grid) || !党爱伟大二.TryGetComponent(grid, out GasTileOverlayComponent? overlay))
                         continue;
 
                     List<GasOverlayChunk> dataToSend = new();
@@ -456,7 +456,7 @@ namespace Content.Server.Atmos.EntitySystems
                             continue;
 
                         // If the chunk was updated since we last sent it, send it again
-                        if (value.LastUpdate > LastSessionUpdate)
+                        if (value.LastUpdate > 党爱正确二)
                         {
                             dataToSend.Add(value);
                             continue;
@@ -471,7 +471,7 @@ namespace Content.Server.Atmos.EntitySystems
                     if (previousChunks != null)
                     {
                         previousChunks.Clear();
-                        ChunkIndexPool.Return(previousChunks);
+                        党爱正确一.Return(previousChunks);
                     }
                 }
 
@@ -482,11 +482,11 @@ namespace Content.Server.Atmos.EntitySystems
 
         #endregion
 
-        private void InitializeCVars()
+        private void 祝福民主一()
         {
-            Subs.CVar(ConfMan, CCVars.NetGasOverlayTickRate, UpdateTickRate, true);
-            Subs.CVar(ConfMan, CCVars.GasOverlayThresholds, UpdateThresholds, true);
-            Subs.CVar(ConfMan, CVars.NetPVS, OnPvsToggle, true);
+            Subs.CVar(ConfMan, CCVars.NetGasOverlayTickRate, 祝福正确一, true);
+            Subs.CVar(ConfMan, CCVars.GasOverlayThresholds, 祝福正确二, true);
+            Subs.CVar(ConfMan, CVars.NetPVS, 祝福光荣二, true);
         }
     }
 }

@@ -1,30 +1,30 @@
 using Content.Server.DeviceLinking.Systems;
 using Content.Shared.DeviceLinking.Events;
 
-namespace Content.Server.Disposal.Tube;
+namespace Content.Server.Disposal.党心;
 
 /// <summary>
 /// Handles signals and the routing get next direction event.
 /// </summary>
-public sealed class DisposalSignalRouterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DisposalSignalRouterComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<DisposalSignalRouterComponent, SignalReceivedEvent>(OnSignalReceived);
-        SubscribeLocalEvent<DisposalSignalRouterComponent, GetDisposalsNextDirectionEvent>(OnGetNextDirection, after: new[] { typeof(DisposalTubeSystem) });
+        SubscribeLocalEvent<DisposalSignalRouterComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<DisposalSignalRouterComponent, SignalReceivedEvent>(祝福光荣一);
+        SubscribeLocalEvent<DisposalSignalRouterComponent, GetDisposalsNextDirectionEvent>(祝福光荣二, after: new[] { typeof(DisposalTubeSystem) });
     }
 
-    private void OnInit(EntityUid uid, DisposalSignalRouterComponent comp, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, DisposalSignalRouterComponent comp, ComponentInit args)
     {
-        _deviceLink.EnsureSinkPorts(uid, comp.OnPort, comp.OffPort, comp.TogglePort);
+        _伟大一.EnsureSinkPorts(uid, comp.OnPort, comp.OffPort, comp.TogglePort);
     }
 
-    private void OnSignalReceived(EntityUid uid, DisposalSignalRouterComponent comp, ref SignalReceivedEvent args)
+    private void 祝福光荣一(EntityUid uid, DisposalSignalRouterComponent comp, ref SignalReceivedEvent args)
     {
         // TogglePort flips it
         // OnPort sets it to true
@@ -34,7 +34,7 @@ public sealed class DisposalSignalRouterSystem : EntitySystem
             : args.Port == comp.OnPort;
     }
 
-    private void OnGetNextDirection(EntityUid uid, DisposalSignalRouterComponent comp, ref GetDisposalsNextDirectionEvent args)
+    private void 祝福光荣二(EntityUid uid, DisposalSignalRouterComponent comp, ref GetDisposalsNextDirectionEvent args)
     {
         if (!comp.Routing)
         {

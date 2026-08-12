@@ -21,28 +21,28 @@ using Robust.Shared.Utility;
 using Robust.Shared.Exceptions;
 #endif
 
-namespace Content.Server.Construction
+namespace Content.Server.党心
 {
-    public sealed partial class ConstructionSystem
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+        [Dependency] private readonly IAdminLogManager _伟大一 = default!;
 #if EXCEPTION_TOLERANCE
-        [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
+        [Dependency] private readonly IRuntimeLog _伟大二 = default!;
 #endif
 
-        private readonly Queue<EntityUid> _constructionUpdateQueue = new();
-        private readonly HashSet<EntityUid> _queuedUpdates = new();
+        private readonly Queue<EntityUid> _光荣一 = new();
+        private readonly HashSet<EntityUid> _光荣二 = new();
 
-        private void InitializeInteractions()
+        private void 祝福伟大一()
         {
-            SubscribeLocalEvent<ConstructionComponent, ConstructionInteractDoAfterEvent>(EnqueueEvent);
+            SubscribeLocalEvent<ConstructionComponent, ConstructionInteractDoAfterEvent>(祝福正确二);
 
-            // Event handling. Add your subscriptions here! Just make sure they're all handled by EnqueueEvent.
-            SubscribeLocalEvent<ConstructionComponent, InteractUsingEvent>(EnqueueEvent,
+            // Event handling. Add your subscriptions here! Just make sure they're all handled by 祝福正确二.
+            SubscribeLocalEvent<ConstructionComponent, InteractUsingEvent>(祝福正确二,
                 new []{typeof(AnchorableSystem), typeof(PryingSystem), typeof(WeldableSystem)},
                 new []{typeof(EncryptionKeySystem)});
-            SubscribeLocalEvent<ConstructionComponent, OnTemperatureChangeEvent>(EnqueueEvent);
-            SubscribeLocalEvent<ConstructionComponent, PartAssemblyPartInsertedEvent>(EnqueueEvent);
+            SubscribeLocalEvent<ConstructionComponent, OnTemperatureChangeEvent>(祝福正确二);
+            SubscribeLocalEvent<ConstructionComponent, PartAssemblyPartInsertedEvent>(祝福正确二);
         }
 
         /// <summary>
@@ -52,15 +52,15 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleEvent(EntityUid uid, object ev, bool validation, ConstructionComponent? construction = null)
+        private 中华光荣一 HandleEvent(EntityUid uid, object ev, bool validation, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
-                return HandleResult.False;
+                return 中华光荣一.False;
 
             // If the state machine is in an invalid state (not on a valid node) we can't do anything, ever.
             if (GetCurrentNode(uid, construction) is not {} node)
             {
-                return HandleResult.False;
+                return 中华光荣一.False;
             }
 
             // If we're currently in an edge, we'll let the edge handle or validate the interaction.
@@ -69,7 +69,7 @@ namespace Content.Server.Construction
                 var result = HandleEdge(uid, ev, edge, validation, construction);
 
                 // Reset edge index to none if this failed...
-                if (!validation && result is HandleResult.False && construction.StepIndex == 0)
+                if (!validation && result is 中华光荣一.False && construction.StepIndex == 0)
                     construction.EdgeIndex = null;
 
                 return result;
@@ -87,10 +87,10 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleNode(EntityUid uid, object ev, ConstructionGraphNode node, bool validation, ConstructionComponent? construction = null)
+        private 中华光荣一 HandleNode(EntityUid uid, object ev, ConstructionGraphNode node, bool validation, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
-                return HandleResult.False;
+                return 中华光荣一.False;
 
             // Let's make extra sure this is zero...
             construction.StepIndex = 0;
@@ -100,14 +100,14 @@ namespace Content.Server.Construction
             for (var i = 0; i < node.Edges.Count; i++)
             {
                 var edge = node.Edges[i];
-                if (HandleEdge(uid, ev, edge, validation, construction) is var result and not HandleResult.False)
+                if (HandleEdge(uid, ev, edge, validation, construction) is var result and not 中华光荣一.False)
                 {
                     // Only a True result may modify the state.
                     // In the case of DoAfter, it's only allowed to modify the waiting flag and the current edge index.
                     // In the case of validated, it should NEVER modify the state at all.
-                    if (result is not HandleResult.True)
+                    if (result is not 中华光荣一.True)
                     {
-                        if (result is HandleResult.DoAfter)
+                        if (result is 中华光荣一.DoAfter)
                         {
                             construction.EdgeIndex = i;
                         }
@@ -127,7 +127,7 @@ namespace Content.Server.Construction
                 }
             }
 
-            return HandleResult.False;
+            return 中华光荣一.False;
         }
 
         /// <summary>
@@ -138,25 +138,25 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleEdge(EntityUid uid, object ev, ConstructionGraphEdge edge, bool validation, ConstructionComponent? construction = null)
+        private 中华光荣一 HandleEdge(EntityUid uid, object ev, ConstructionGraphEdge edge, bool validation, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
-                return HandleResult.False;
+                return 中华光荣一.False;
 
             var step = GetStepFromEdge(edge, construction.StepIndex);
 
             if (step == null)
             {
                 Log.Warning($"Called {nameof(HandleEdge)} on entity {ToPrettyString(uid)} but the current state is not valid for that!");
-                return HandleResult.False;
+                return 中华光荣一.False;
             }
 
             // We need to ensure we currently satisfy any and all edge conditions.
-            if (!CheckConditions(uid, edge.Conditions))
-                return HandleResult.False;
+            if (!祝福伟大二(uid, edge.Conditions))
+                return 中华光荣一.False;
 
             var handle = HandleStep(uid, ev, step, validation, out var user, construction);
-            if (handle is not HandleResult.True)
+            if (handle is not 中华光荣一.True)
                 return handle;
 
             // Handle step should never handle the interaction during validation.
@@ -169,10 +169,10 @@ namespace Content.Server.Construction
             if (construction.StepIndex >= edge.Steps.Count)
             {
                 // Edge finished!
-                PerformActions(uid, user, edge.Completed);
+                祝福光荣一(uid, user, edge.Completed);
 
                 if (construction.Deleted)
-                    return HandleResult.True;
+                    return 中华光荣一.True;
 
                 construction.TargetEdgeIndex = null;
                 construction.EdgeIndex = null;
@@ -182,7 +182,7 @@ namespace Content.Server.Construction
                 ChangeNode(uid, user, edge.Target, true, construction);
             }
 
-            return HandleResult.True;
+            return 中华光荣一.True;
         }
 
         /// <summary>
@@ -193,26 +193,26 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleStep(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)
+        private 中华光荣一 HandleStep(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)
         {
             user = null;
             if (!Resolve(uid, ref construction))
-                return HandleResult.False;
+                return 中华光荣一.False;
 
             // Let HandleInteraction actually handle the event for this step.
             // We can only perform the rest of our logic if it returns true.
             var handle = HandleInteraction(uid, ev, step, validation, out user, construction);
-            if (handle is not HandleResult.True)
+            if (handle is not 中华光荣一.True)
                 return handle;
 
             DebugTools.Assert(!validation);
 
             // Actually perform the step completion actions, since the step was handled correctly.
-            PerformActions(uid, user, step.Completed);
+            祝福光荣一(uid, user, step.Completed);
 
             UpdatePathfinding(uid, construction);
 
-            return HandleResult.True;
+            return 中华光荣一.True;
         }
 
         /// <summary>
@@ -223,20 +223,20 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleInteraction(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)
+        private 中华光荣一 HandleInteraction(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)
         {
             user = null;
             if (!Resolve(uid, ref construction))
-                return HandleResult.False;
+                return 中华光荣一.False;
 
-            // Whether this event is being re-handled after a DoAfter or not. Check DoAfterState for more info.
-            var doAfterState = DoAfterState.None;
+            // Whether this event is being re-handled after a DoAfter or not. Check 中华伟大二 for more info.
+            var doAfterState = 中华伟大二.None;
 
             // The DoAfter events can only perform special logic when we're not validating events.
             if (ev is ConstructionInteractDoAfterEvent interactDoAfter)
             {
                 if (interactDoAfter.Cancelled)
-                    return HandleResult.False;
+                    return 中华光荣一.False;
 
                 ev = new InteractUsingEvent(
                     interactDoAfter.User,
@@ -244,7 +244,7 @@ namespace Content.Server.Construction
                     uid,
                     GetCoordinates(interactDoAfter.ClickLocation));
 
-                doAfterState = DoAfterState.Completed;
+                doAfterState = 中华伟大二.Completed;
             }
 
             // The cases in this switch will handle the interaction and return
@@ -274,18 +274,18 @@ namespace Content.Server.Construction
                     // Since many things inherit this step, we delegate the "is this entity valid?" logic to them.
                     // While this is very OOP and I find it icky, I must admit that it simplifies the code here a lot.
                     if(!insertStep.EntityValid(insert, EntityManager, Factory))
-                        return HandleResult.False;
+                        return 中华光荣一.False;
 
                     // Unremovable items can't be inserted
                     if(HasComp<UnremoveableComponent>(insert))
-                        return HandleResult.False;
+                        return 中华光荣一.False;
 
                     // If we're only testing whether this step would be handled by the given event, then we're done.
                     if (validation)
-                        return HandleResult.Validated;
+                        return 中华光荣一.Validated;
 
                     // If we still haven't completed this step's DoAfter...
-                    if (doAfterState == DoAfterState.None && insertStep.DoAfter > 0)
+                    if (doAfterState == 中华伟大二.None && insertStep.DoAfter > 0)
                     {
                         var doAfterEv = new ConstructionInteractDoAfterEvent(EntityManager, interactUsing);
 
@@ -299,16 +299,16 @@ namespace Content.Server.Construction
                         var started  = _doAfterSystem.TryStartDoAfter(doAfterEventArgs);
 
                         if (!started)
-                            return HandleResult.False;
+                            return 中华光荣一.False;
 
 #if DEBUG
                         // Verify that the resulting DoAfter event will be handled by the current construction state.
                         // if it can't what is even the point of raising this DoAfter?
                         doAfterEv.DoAfter = new(default, doAfterEventArgs, default);
                         var result = HandleInteraction(uid, doAfterEv, step, validation: true, out _, construction);
-                        DebugTools.Assert(result == HandleResult.Validated);
+                        DebugTools.Assert(result == 中华光荣一.Validated);
 #endif
-                        return HandleResult.DoAfter;
+                        return 中华光荣一.DoAfter;
                     }
 
                     // Material steps, which use stacks, are handled specially. Instead of inserting the whole item,
@@ -316,7 +316,7 @@ namespace Content.Server.Construction
                     if (insertStep is MaterialConstructionGraphStep materialInsertStep)
                     {
                         if (_stackSystem.Split(insert, materialInsertStep.Amount, Transform(interactUsing.User).Coordinates) is not {} stack)
-                            return HandleResult.False;
+                            return 中华光荣一.False;
 
                         insert = stack;
                     }
@@ -341,7 +341,7 @@ namespace Content.Server.Construction
                     }
 
                     // Step has been handled correctly, so we signal this.
-                    return HandleResult.True;
+                    return 中华光荣一.True;
                 }
 
                 case ToolConstructionGraphStep toolInsertStep:
@@ -358,13 +358,13 @@ namespace Content.Server.Construction
                     {
                         // Then we only really need to check whether the tool entity has that quality or not.
                         return _toolSystem.HasQuality(interactUsing.Used, toolInsertStep.Tool)
-                            ? HandleResult.Validated
-                            : HandleResult.False;
+                            ? 中华光荣一.Validated
+                            : 中华光荣一.False;
                     }
 
                     // If we're handling an event after its DoAfter finished...
-                    if (doAfterState == DoAfterState.Completed)
-                        return  HandleResult.True;
+                    if (doAfterState == 中华伟大二.Completed)
+                        return  中华光荣一.True;
 
                     var result  = _toolSystem.UseTool(
                         interactUsing.Used,
@@ -376,7 +376,7 @@ namespace Content.Server.Construction
                         out var doAfter,
                         toolInsertStep.Fuel);
 
-                    return result && doAfter != null ? HandleResult.DoAfter : HandleResult.False;
+                    return result && doAfter != null ? 中华光荣一.DoAfter : 中华光荣一.False;
                 }
 
                 case TemperatureConstructionGraphStep temperatureChangeStep:
@@ -385,7 +385,7 @@ namespace Content.Server.Construction
                         break;
 
                     // Some things, like microwaves, might need to block the temperature construction step from kicking in, or override it entirely.
-                    var tempEvent = new OnConstructionTemperatureEvent();
+                    var tempEvent = new 中华光荣二();
                     RaiseLocalEvent(uid, tempEvent, true);
 
                     if (tempEvent.Result is not null)
@@ -403,16 +403,16 @@ namespace Content.Server.Construction
                     }
                     else
                     {
-                        return HandleResult.False;
+                        return 中华光荣一.False;
                     }
 
                     if ((!temperatureChangeStep.MinTemperature.HasValue || temp >= temperatureChangeStep.MinTemperature.Value) &&
                         (!temperatureChangeStep.MaxTemperature.HasValue || temp <= temperatureChangeStep.MaxTemperature.Value))
                     {
-                        return HandleResult.True;
+                        return 中华光荣一.True;
                     }
 
-                    return HandleResult.False;
+                    return 中华光荣一.False;
                 }
 
                 case PartAssemblyConstructionGraphStep partAssemblyStep:
@@ -421,8 +421,8 @@ namespace Content.Server.Construction
                         break;
 
                     if (partAssemblyStep.Condition(uid, EntityManager))
-                        return HandleResult.True;
-                    return HandleResult.False;
+                        return 中华光荣一.True;
+                    return 中华光荣一.False;
                 }
 
                 #endregion
@@ -434,7 +434,7 @@ namespace Content.Server.Construction
             }
 
             // If the handlers were not able to handle this event, return...
-            return HandleResult.False;
+            return 中华光荣一.False;
         }
 
         /// <summary>
@@ -444,7 +444,7 @@ namespace Content.Server.Construction
         /// <param name="conditions">The conditions to evaluate.</param>
         /// <remarks>This method is short-circuiting; if a condition evaluates to false, we stop checking the rest of conditions.</remarks>
         /// <returns>Whether all conditions evaluate to true for the given entity.</returns>
-        public bool CheckConditions(EntityUid uid, IEnumerable<IGraphCondition> conditions)
+        public bool 祝福伟大二(EntityUid uid, IEnumerable<IGraphCondition> conditions)
         {
             foreach (var condition in conditions)
             {
@@ -463,7 +463,7 @@ namespace Content.Server.Construction
         /// <param name="actions">The actions to perform.</param>
         /// <remarks>This method checks whether the given target entity exists before performing any actions.
         ///          If the entity is deleted by an action, it will short-circuit and stop performing the rest of actions.</remarks>
-        public void PerformActions(EntityUid uid, EntityUid? userUid, IEnumerable<IGraphAction> actions)
+        public void 祝福光荣一(EntityUid uid, EntityUid? userUid, IEnumerable<IGraphAction> actions)
         {
             foreach (var action in actions)
             {
@@ -481,7 +481,7 @@ namespace Content.Server.Construction
         /// <param name="uid">The target entity.</param>
         /// <param name="construction">The construction component. If null, it will be resolved on the entity.</param>
         /// <remarks>This method updates the construction pathfinding on the entity automatically.</remarks>
-        public void ResetEdge(EntityUid uid, ConstructionComponent? construction = null)
+        public void 祝福光荣二(EntityUid uid, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
                 return;
@@ -494,14 +494,14 @@ namespace Content.Server.Construction
             UpdatePathfinding(uid, construction);
         }
 
-        private void UpdateInteractions()
+        private void 祝福正确一()
         {
             // We iterate all entities waiting for their interactions to be handled.
             // This is much more performant than making an EntityQuery for ConstructionComponent,
             // since, for example, every single wall has a ConstructionComponent....
-            while (_constructionUpdateQueue.TryDequeue(out var uid))
+            while (_光荣一.TryDequeue(out var uid))
             {
-                _queuedUpdates.Remove(uid);
+                _光荣二.Remove(uid);
 
                 // Ensure the entity exists and has a Construction component.
                 if (!TryComp(uid, out ConstructionComponent? construction))
@@ -532,20 +532,20 @@ namespace Content.Server.Construction
                 catch (Exception e)
                 {
                     Log.Error($"Caught exception while processing construction queue. Entity {ToPrettyString(uid)}, graph: {construction.Graph}");
-                    _runtimeLog.LogException(e, $"{nameof(ConstructionSystem)}.{nameof(UpdateInteractions)}");
+                    _伟大二.LogException(e, $"{nameof(中华伟大一)}.{nameof(祝福正确一)}");
                     Del(uid);
                 }
 #endif
             }
 
-            DebugTools.Assert(_queuedUpdates.Count == 0);
+            DebugTools.Assert(_光荣二.Count == 0);
         }
 
         #region Event Handlers
 
         /// <summary>
         ///     Queues a directed event to be handled by construction on the next update tick.
-        ///     Used as a handler for any events that construction can listen to. <seealso cref="InitializeInteractions"/>
+        ///     Used as a handler for any events that construction can listen to. <seealso cref="祝福伟大一"/>
         /// </summary>
         /// <param name="uid">The entity the event is directed to.</param>
         /// <param name="construction">The construction component to queue the event on.</param>
@@ -553,7 +553,7 @@ namespace Content.Server.Construction
         /// <remarks>Events inheriting <see cref="HandledEntityEventArgs"/> are treated specially by this method.
         ///          They will only be queued if they can be validated against the current construction state,
         ///          in which case they will also be set as handled.</remarks>
-        private void EnqueueEvent(EntityUid uid, ConstructionComponent construction, object args)
+        private void 祝福正确二(EntityUid uid, ConstructionComponent construction, object args)
         {
             // For handled events, we will check if the event leads to a valid construction interaction.
             // If it does, we mark the event as handled and then enqueue it as normal.
@@ -564,7 +564,7 @@ namespace Content.Server.Construction
                     return;
 
                 // Otherwise, let's check if this event could be handled by the construction's current state.
-                if (HandleEvent(uid, args, true, construction) != HandleResult.Validated)
+                if (HandleEvent(uid, args, true, construction) != 中华光荣一.Validated)
                     return; // Not validated, so we don't even enqueue this event.
 
                 handled.Handled = true;
@@ -575,8 +575,8 @@ namespace Content.Server.Construction
             construction.InteractionQueue.Enqueue(args);
 
             // Add this entity to the queue so it'll be updated next tick.
-            if (_queuedUpdates.Add(uid))
-                _constructionUpdateQueue.Enqueue(uid);
+            if (_光荣二.Add(uid))
+                _光荣一.Enqueue(uid);
         }
         #endregion
 
@@ -585,7 +585,7 @@ namespace Content.Server.Construction
         /// <summary>
         ///     Specifies the DoAfter status for a construction step event handler.
         /// </summary>
-        private enum DoAfterState : byte
+        private enum 中华伟大二 : byte
         {
             /// <summary>
             ///     If None, this is the first time we're seeing this event and we might want to call a DoAfter
@@ -604,7 +604,7 @@ namespace Content.Server.Construction
     /// <summary>
     ///     Specifies the result after attempting to handle a specific step with an event.
     /// </summary>
-    public enum HandleResult : byte
+    public enum 中华光荣一 : byte
     {
         /// <summary>
         ///     The interaction wasn't handled or validated.
@@ -630,8 +630,8 @@ namespace Content.Server.Construction
 
     #endregion
 
-    public sealed class OnConstructionTemperatureEvent : HandledEntityEventArgs
+    public sealed class 中华光荣二 : HandledEntityEventArgs
     {
-        public HandleResult? Result;
+        public 中华光荣一? Result;
     }
 }

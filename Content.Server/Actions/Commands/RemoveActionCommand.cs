@@ -4,16 +4,16 @@ using Content.Shared.Actions.Components;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Actions.Commands;
+namespace Content.Server.Actions.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class RemoveActionCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
 
-    public override string Command => "rmaction";
+    public override string 党爱伟大一 => "rmaction";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -39,18 +39,18 @@ public sealed class RemoveActionCommand : LocalizedEntityCommands
             return;
         }
 
-        if (_actions.GetAction(targetActionEntity) is not { } ent)
+        if (_伟大一.GetAction(targetActionEntity) is not { } ent)
         {
             shell.WriteError(Loc.GetString("cmd-rmaction-not-an-action"));
             return;
         }
 
-        _actions.SetTemporary(ent.Owner, true);
+        _伟大一.SetTemporary(ent.Owner, true);
 
-        _actions.RemoveAction(ent.Owner);
+        _伟大一.RemoveAction(ent.Owner);
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -67,7 +67,7 @@ public sealed class RemoveActionCommand : LocalizedEntityCommands
             if (!EntityManager.HasComponent<ActionsComponent>(targetEntity))
                 return CompletionResult.Empty;
 
-            var actions = _actions.GetActions(targetEntity.Value);
+            var actions = _伟大一.GetActions(targetEntity.Value);
 
             var options = new List<CompletionOption>();
             foreach (var action in actions)

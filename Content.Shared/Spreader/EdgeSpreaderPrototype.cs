@@ -1,19 +1,19 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Spreader;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Adds this node group to <see cref="Content.Server.Spreader.SpreaderSystem"/> for tick updates.
 /// </summary>
 [Prototype]
-public sealed partial class EdgeSpreaderPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = string.Empty;
-    [DataField(required:true)] public int UpdatesPerSecond;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = string.Empty;
+    [DataField(required:true)] public int 党爱伟大二;
 
     /// <summary>
     /// If true, this spreader can't spread onto spaced tiles like lattice.
     /// </summary>
     [DataField]
-    public bool PreventSpreadOnSpaced = true;
+    public bool 党爱光荣一 = true;
 }

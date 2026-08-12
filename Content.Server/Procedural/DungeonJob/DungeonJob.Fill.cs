@@ -2,14 +2,14 @@ using System.Threading.Tasks;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.DungeonLayers;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="Shared.Procedural.DungeonLayers.FillGridDunGen"/>
     /// </summary>
-    private async Task GenerateFillDunGen(FillGridDunGen fill, List<Dungeon> dungeons, HashSet<Vector2i> reservedTiles)
+    private async Task 祝福伟大一(FillGridDunGen fill, List<Dungeon> dungeons, HashSet<Vector2i> reservedTiles)
     {
         foreach (var dungeon in dungeons)
         {

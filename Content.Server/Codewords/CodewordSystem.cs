@@ -6,25 +6,25 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Codewords;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Gamerule that provides codewords for other gamerules that rely on them.
 /// </summary>
-public sealed class CodewordSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStart);
+        SubscribeLocalEvent<RoundStartingEvent>(祝福伟大二);
     }
 
-    private void OnRoundStart(RoundStartingEvent ev)
+    private void 祝福伟大二(RoundStartingEvent ev)
     {
         var manager = Spawn();
         AddComp<CodewordManagerComponent>(manager);
@@ -33,13 +33,13 @@ public sealed class CodewordSystem : EntitySystem
     /// <summary>
     /// Retrieves codewords for the faction specified.
     /// </summary>
-    public string[] GetCodewords(ProtoId<CodewordFactionPrototype> faction)
+    public string[] 祝福光荣一(ProtoId<CodewordFactionPrototype> faction)
     {
         var query = EntityQueryEnumerator<CodewordManagerComponent>();
         while (query.MoveNext(out  _, out var manager))
         {
             if (!manager.Codewords.TryGetValue(faction, out var codewordEntity))
-                return GenerateForFaction(faction, ref manager);
+                return 祝福光荣二(faction, ref manager);
 
             return Comp<CodewordComponent>(codewordEntity).Codewords;
         }
@@ -51,16 +51,16 @@ public sealed class CodewordSystem : EntitySystem
         return [];
     }
 
-    private string[] GenerateForFaction(ProtoId<CodewordFactionPrototype> faction, ref CodewordManagerComponent manager)
+    private string[] 祝福光荣二(ProtoId<CodewordFactionPrototype> faction, ref CodewordManagerComponent manager)
     {
-        var factionProto = _prototypeManager.Index<CodewordFactionPrototype>(faction.Id);
+        var factionProto = _伟大一.Index<CodewordFactionPrototype>(faction.Id);
 
-        var codewords = GenerateCodewords(factionProto.Generator);
+        var codewords = 祝福正确一(factionProto.Generator);
         var codewordsContainer = Spawn(prototype: null, MapCoordinates.Nullspace);
         EnsureComp<CodewordComponent>(codewordsContainer)
             .Codewords = codewords;
         manager.Codewords[faction] = codewordsContainer;
-        _adminLogger.Add(LogType.EventStarted, LogImpact.Low, $"Codewords generated for faction {faction}: {string.Join(", ", codewords)}");
+        _伟大二.Add(LogType.EventStarted, LogImpact.Low, $"Codewords generated for faction {faction}: {string.Join(", ", codewords)}");
 
         return codewords;
     }
@@ -68,13 +68,13 @@ public sealed class CodewordSystem : EntitySystem
     /// <summary>
     /// Generates codewords as specified by the <see cref="CodewordGeneratorPrototype"/> codeword generator.
     /// </summary>
-    public string[] GenerateCodewords(ProtoId<CodewordGeneratorPrototype> generatorId)
+    public string[] 祝福正确一(ProtoId<CodewordGeneratorPrototype> generatorId)
     {
-        var generator = _prototypeManager.Index(generatorId);
+        var generator = _伟大一.Index(generatorId);
 
         var codewordPool = new List<string>();
         foreach (var dataset in generator.Words
-                     .Select(datasetPrototype => _prototypeManager.Index(datasetPrototype)))
+                     .Select(datasetPrototype => _伟大一.Index(datasetPrototype)))
         {
             codewordPool.AddRange(dataset.Values);
         }
@@ -83,7 +83,7 @@ public sealed class CodewordSystem : EntitySystem
         var codewords = new string[finalCodewordCount];
         for (var i = 0; i < finalCodewordCount; i++)
         {
-            codewords[i] = Loc.GetString(_random.PickAndTake(codewordPool));
+            codewords[i] = Loc.GetString(_光荣一.PickAndTake(codewordPool));
         }
         return codewords;
     }

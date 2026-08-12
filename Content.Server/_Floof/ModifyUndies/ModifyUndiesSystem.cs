@@ -15,47 +15,47 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 
-namespace Content.Server.FloofStation.ModifyUndies;
+namespace Content.Server.FloofStation.党心;
 
 
 /// <summary>
 /// This is a component that lets you show/hide specific underwear slots.
 ///
 /// </summary>
-public sealed class ModifyUndiesSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly EntityManager _entMan = default!;
+    [Dependency] private readonly MarkingManager _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly AudioSystem _光荣一 = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _正确一 = default!;
+    [Dependency] private readonly EntityManager _正确二 = default!;
 
-    public static readonly VerbCategory UndiesCat =
+    public static readonly VerbCategory 党爱伟大一 =
         new("verb-categories-undies", "/Textures/Interface/VerbIcons/undies.png");
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ModifyUndiesComponent, GetVerbsEvent<Verb>>(AddModifyUndiesVerb);
-        SubscribeLocalEvent<ModifyUndiesComponent, ModifyUndiesDoAfterEvent>(ToggleUndies);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ModifyUndiesComponent, GetVerbsEvent<Verb>>(祝福伟大二);
+        SubscribeLocalEvent<ModifyUndiesComponent, ModifyUndiesDoAfterEvent>(祝福光荣一);
     }
 
-    private void AddModifyUndiesVerb(EntityUid uid, ModifyUndiesComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福伟大二(EntityUid uid, ModifyUndiesComponent component, GetVerbsEvent<Verb> args)
     {
         if (args.Hands == null || !args.CanAccess || !args.CanInteract)
             return;
         if (!TryComp<HumanoidAppearanceComponent>(args.Target, out var humApp))
             return;
-        if (args.User != args.Target && _entMan.System<InventorySystem>().TryGetSlotEntity(args.Target, "jumpsuit", out _))
+        if (args.User != args.Target && _正确二.System<InventorySystem>().TryGetSlotEntity(args.Target, "jumpsuit", out _))
             return; // mainly so people cant just spy on others undies *too* easily
         var isMine = args.User == args.Target;
         // okay go through their markings, and find all the undershirts and underwear markings
         // <marking_ID>, list:(localized name, bodypart enum, isvisible)
         foreach (var marking in humApp.MarkingSet.Markings.Values.SelectMany(markingLust => markingLust))
         {
-            if (!_markingManager.TryGetMarking(marking, out var mProt))
+            if (!_伟大一.TryGetMarking(marking, out var mProt))
                 continue;
 
             /* Coyote: Commented for the Marking System Improvements
@@ -93,7 +93,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                     ("takeOffVerb", string.IsNullOrEmpty(marking.TakeOffVerb) ? Loc.GetString("marking-toggle-self-default-verb-off") : marking.TakeOffVerb) // Coyote: Marking system improvements.
                     ),
                 Icon = undieOrBra,
-                Category = UndiesCat,
+                Category = 党爱伟大一,
                 Act = () =>
                 {
                     var ev = new ModifyUndiesDoAfterEvent(
@@ -125,7 +125,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                             : "undies-equipped-self-start";
                         */
                         gString = "marking-toggle-self-start"; // Coyote: Marking System Improvements
-                        _popupSystem.PopupCoordinates(
+                        _伟大二.PopupCoordinates(
                             Loc.GetString(
                                 gString,
                                 //("undie", localizedName) // Coyote: Commented out for the two lines below
@@ -147,7 +147,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                             : "undies-equipped-user-start";
                         */
                         gString = "marking-toggle-other-start"; // Coyote: Marking System Improvements
-                        _popupSystem.PopupCoordinates(
+                        _伟大二.PopupCoordinates(
                             Loc.GetString(
                                 gString,
                                 //("undie", localizedName) // Coyote: Commented out for the lines below
@@ -165,7 +165,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                             : "undies-equipped-target-start";
                         */
                         gString = "marking-toggle-by-other-start"; // Coyote: Marking System Improvements
-                        _popupSystem.PopupCoordinates(
+                        _伟大二.PopupCoordinates(
                             Loc.GetString(
                                 gString,
                                 /* Coyote: Commented out for the lines below
@@ -183,14 +183,14 @@ public sealed class ModifyUndiesSystem : EntitySystem
                     }
                     // and then play a sound!
                     var rufthleAudio = new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg");
-                    _audio.PlayEntity(
+                    _光荣一.PlayEntity(
                         rufthleAudio,
                         Filter.Entities(args.User, args.Target),
                         args.Target,
                         false,
                         AudioParams.Default.WithVariation(0.5f).WithVolume(0.5f));
-                    _doAfterSystem.TryStartDoAfter(doAfterArgs);
-                    // ToggleUndies(uid, mProt, isVisible, localizedName, args.User, args.Target, humApp);
+                    _正确一.TryStartDoAfter(doAfterArgs);
+                    // 祝福光荣一(uid, mProt, isVisible, localizedName, args.User, args.Target, humApp);
                 },
                 Disabled = false,
                 Message = null
@@ -198,18 +198,18 @@ public sealed class ModifyUndiesSystem : EntitySystem
             args.Verbs.Add(verb);
         }
     }
-    private void ToggleUndies(
+    private void 祝福光荣一(
         EntityUid uid,
         ModifyUndiesComponent component,
         ModifyUndiesDoAfterEvent args
         )
     {
-        if (!_markingManager.TryGetMarking(args.Marking, out var mProt))
+        if (!_伟大一.TryGetMarking(args.Marking, out var mProt))
             return;
         if (!TryComp<HumanoidAppearanceComponent>(args.Target, out var humApp))
             return;
 
-        _humanoid.SetMarkingVisibility(
+        _光荣二.SetMarkingVisibility(
             uid,
             humApp,
             mProt.ID,
@@ -231,7 +231,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                 : "undies-equipped-self";
             */
             gString = "marking-toggle-self"; // Coyote: Marking System Improvements
-            _popupSystem.PopupCoordinates(
+            _伟大二.PopupCoordinates(
                 Loc.GetString(
                     gString,
                     //("undie", args.MarkingPrototypeName) // Coyote: Commented out for the lines below
@@ -253,7 +253,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                 : "undies-equipped-user";
             */
             gString = "marking-toggle-other"; // Coyote: Marking System Improvements
-            _popupSystem.PopupCoordinates(
+            _伟大二.PopupCoordinates(
                 Loc.GetString(
                     gString,
                     //("undie", args.MarkingPrototypeName) // Coyote: Commented out for the lines below
@@ -271,7 +271,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                 : "undies-equipped-target";
             */
             gString = "marking-toggle-by-other"; // Coyote: Marking System Improvements
-            _popupSystem.PopupCoordinates(
+            _伟大二.PopupCoordinates(
                 Loc.GetString(
                     gString,
                     /* Coyote: Commented out for the lines below
@@ -289,7 +289,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
         }
         // and then play a sound!
         var rufthleAudio = new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg");
-        _audio.PlayEntity(
+        _光荣一.PlayEntity(
             rufthleAudio,
             Filter.Entities(args.User, args.Target.Value),
             args.Target.Value,

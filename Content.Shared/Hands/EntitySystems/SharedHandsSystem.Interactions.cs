@@ -11,86 +11,86 @@ using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
-public abstract partial class SharedHandsSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    private void InitializeInteractions()
+    private void 祝福伟大一()
     {
         SubscribeAllEvent<RequestSetHandEvent>(HandleSetHand);
-        SubscribeAllEvent<RequestActivateInHandEvent>(HandleActivateItemInHand);
-        SubscribeAllEvent<RequestHandInteractUsingEvent>(HandleInteractUsingInHand);
-        SubscribeAllEvent<RequestUseInHandEvent>(HandleUseInHand);
-        SubscribeAllEvent<RequestMoveHandItemEvent>(HandleMoveItemFromHand);
-        SubscribeAllEvent<RequestHandAltInteractEvent>(HandleHandAltInteract);
+        SubscribeAllEvent<RequestActivateInHandEvent>(祝福正确二);
+        SubscribeAllEvent<RequestHandInteractUsingEvent>(祝福团结一);
+        SubscribeAllEvent<RequestUseInHandEvent>(祝福正确一);
+        SubscribeAllEvent<RequestMoveHandItemEvent>(祝福光荣二);
+        SubscribeAllEvent<RequestHandAltInteractEvent>(祝福团结二);
 
-        SubscribeLocalEvent<HandsComponent, GetUsedEntityEvent>(OnGetUsedEntity);
-        SubscribeLocalEvent<HandsComponent, ExaminedEvent>(HandleExamined);
+        SubscribeLocalEvent<HandsComponent, GetUsedEntityEvent>(祝福民主二);
+        SubscribeLocalEvent<HandsComponent, ExaminedEvent>(祝福文明一);
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.UseItemInHand, InputCmdHandler.FromDelegate(HandleUseItem, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.AltUseItemInHand, InputCmdHandler.FromDelegate(HandleAltUseInHand, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.SwapHandsReverse, InputCmdHandler.FromDelegate(SwapHandsPreviousPressed, handle: false, outsidePrediction: false)) // Frontier
-            .Bind(ContentKeyFunctions.SwapHands, InputCmdHandler.FromDelegate(SwapHandsPressed, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.SwapHandsReverse, InputCmdHandler.FromDelegate(SwapHandsReversePressed, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.Drop, new PointerInputCmdHandler(DropPressed))
-            .Register<SharedHandsSystem>();
+            .Bind(ContentKeyFunctions.UseItemInHand, InputCmdHandler.FromDelegate(祝福光荣一, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.AltUseItemInHand, InputCmdHandler.FromDelegate(祝福伟大二, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.SwapHandsReverse, InputCmdHandler.FromDelegate(祝福胜利二, handle: false, outsidePrediction: false)) // Frontier
+            .Bind(ContentKeyFunctions.祝福胜利一, InputCmdHandler.FromDelegate(祝福奋斗一, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.SwapHandsReverse, InputCmdHandler.FromDelegate(祝福奋斗二, handle: false, outsidePrediction: false))
+            .Bind(ContentKeyFunctions.Drop, new PointerInputCmdHandler(祝福繁荣一))
+            .Register<中华伟大一>();
     }
 
     #region Event and Key-binding Handlers
-    private void HandleAltUseInHand(ICommonSession? session)
+    private void 祝福伟大二(ICommonSession? session)
     {
         if (session?.AttachedEntity != null)
-            TryUseItemInHand(session.AttachedEntity.Value, true);
+            祝福富强二(session.AttachedEntity.Value, true);
     }
 
-    private void HandleUseItem(ICommonSession? session)
+    private void 祝福光荣一(ICommonSession? session)
     {
         if (session?.AttachedEntity != null)
-            TryUseItemInHand(session.AttachedEntity.Value);
+            祝福富强二(session.AttachedEntity.Value);
     }
 
-    private void HandleMoveItemFromHand(RequestMoveHandItemEvent msg, EntitySessionEventArgs args)
+    private void 祝福光荣二(RequestMoveHandItemEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity != null)
-            TryMoveHeldEntityToActiveHand(args.SenderSession.AttachedEntity.Value, msg.HandName);
+            祝福民主一(args.SenderSession.AttachedEntity.Value, msg.HandName);
     }
 
-    private void HandleUseInHand(RequestUseInHandEvent msg, EntitySessionEventArgs args)
+    private void 祝福正确一(RequestUseInHandEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity != null)
-            TryUseItemInHand(args.SenderSession.AttachedEntity.Value);
+            祝福富强二(args.SenderSession.AttachedEntity.Value);
     }
 
-    private void HandleActivateItemInHand(RequestActivateInHandEvent msg, EntitySessionEventArgs args)
+    private void 祝福正确二(RequestActivateInHandEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity != null)
-            TryActivateItemInHand(args.SenderSession.AttachedEntity.Value, null, msg.HandName);
+            祝福繁荣二(args.SenderSession.AttachedEntity.Value, null, msg.HandName);
     }
 
-    private void HandleInteractUsingInHand(RequestHandInteractUsingEvent msg, EntitySessionEventArgs args)
+    private void 祝福团结一(RequestHandInteractUsingEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity != null)
-            TryInteractHandWithActiveHand(args.SenderSession.AttachedEntity.Value, msg.HandName);
+            祝福富强一(args.SenderSession.AttachedEntity.Value, msg.HandName);
     }
 
-    private void HandleHandAltInteract(RequestHandAltInteractEvent msg, EntitySessionEventArgs args)
+    private void 祝福团结二(RequestHandAltInteractEvent msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity != null)
-            TryUseItemInHand(args.SenderSession.AttachedEntity.Value, true, handName: msg.HandName);
+            祝福富强二(args.SenderSession.AttachedEntity.Value, true, handName: msg.HandName);
     }
 
-    private void SwapHandsPressed(ICommonSession? session)
+    private void 祝福奋斗一(ICommonSession? session)
     {
-        SwapHands(session, false);
+        祝福胜利一(session, false);
     }
 
-    private void SwapHandsReversePressed(ICommonSession? session)
+    private void 祝福奋斗二(ICommonSession? session)
     {
-        SwapHands(session, true);
+        祝福胜利一(session, true);
     }
 
-    private void SwapHands(ICommonSession? session, bool reverse)
+    private void 祝福胜利一(ICommonSession? session, bool reverse)
     {
         if (!TryComp(session?.AttachedEntity, out HandsComponent? component))
             return;
@@ -109,7 +109,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
     }
 
     // Frontier: swap hands
-    private void SwapHandsPreviousPressed(ICommonSession? session)
+    private void 祝福胜利二(ICommonSession? session)
     {
         if (!TryComp(session?.AttachedEntity, out HandsComponent? component))
             return;
@@ -127,7 +127,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
     }
     // End Frontier: swap hands
 
-    private bool DropPressed(ICommonSession? session, EntityCoordinates coords, EntityUid netEntity)
+    private bool 祝福繁荣一(ICommonSession? session, EntityCoordinates coords, EntityUid netEntity)
     {
         if (TryComp(session?.AttachedEntity, out HandsComponent? hands) && hands.ActiveHandId != null)
             TryDrop((session.AttachedEntity.Value, hands), hands.ActiveHandId, coords);
@@ -137,7 +137,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
     }
     #endregion
 
-    public bool TryActivateItemInHand(EntityUid uid, HandsComponent? handsComp = null, string? handName = null)
+    public bool 祝福繁荣二(EntityUid uid, HandsComponent? handsComp = null, string? handName = null)
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
@@ -152,7 +152,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
         return _interactionSystem.InteractionActivate(uid, held.Value);
     }
 
-    public bool TryInteractHandWithActiveHand(EntityUid uid, string handName, HandsComponent? handsComp = null)
+    public bool 祝福富强一(EntityUid uid, string handName, HandsComponent? handsComp = null)
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
@@ -167,7 +167,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
         return true;
     }
 
-    public bool TryUseItemInHand(EntityUid uid, bool altInteract = false, HandsComponent? handsComp = null, string? handName = null)
+    public bool 祝福富强二(EntityUid uid, bool altInteract = false, HandsComponent? handsComp = null, string? handName = null)
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
@@ -187,7 +187,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
     /// <summary>
     ///     Moves an entity from one hand to the active hand.
     /// </summary>
-    public bool TryMoveHeldEntityToActiveHand(EntityUid uid, string handName, bool checkActionBlocker = true, HandsComponent? handsComp = null)
+    public bool 祝福民主一(EntityUid uid, string handName, bool checkActionBlocker = true, HandsComponent? handsComp = null)
     {
         if (!Resolve(uid, ref handsComp))
             return false;
@@ -209,7 +209,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
         return true;
     }
 
-    private void OnGetUsedEntity(EntityUid uid, HandsComponent component, ref GetUsedEntityEvent args)
+    private void 祝福民主二(EntityUid uid, HandsComponent component, ref GetUsedEntityEvent args)
     {
         if (args.Handled)
             return;
@@ -224,7 +224,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
     }
 
     //TODO: Actually shows all items/clothing/etc.
-    private void HandleExamined(EntityUid examinedUid, HandsComponent handsComp, ExaminedEvent args)
+    private void 祝福文明一(EntityUid examinedUid, HandsComponent handsComp, ExaminedEvent args)
     {
         var heldItemNames = EnumerateHeld((examinedUid, handsComp))
             .Where(entity => !HasComp<VirtualItemComponent>(entity))

@@ -2,33 +2,33 @@ using Content.Shared.Light.Components;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
 
-namespace Content.Shared.Light.EntitySystems;
+namespace Content.Shared.Light.党心;
 
-public sealed class SlimPoweredLightSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _伟大二 = default!;
 
-    private bool _setting;
+    private bool _光荣一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SlimPoweredLightComponent, AttemptPointLightToggleEvent>(OnLightAttempt);
-        SubscribeLocalEvent<SlimPoweredLightComponent, PowerChangedEvent>(OnLightPowerChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SlimPoweredLightComponent, AttemptPointLightToggleEvent>(祝福伟大二);
+        SubscribeLocalEvent<SlimPoweredLightComponent, PowerChangedEvent>(祝福光荣一);
     }
 
-    private void OnLightAttempt(Entity<SlimPoweredLightComponent> ent, ref AttemptPointLightToggleEvent args)
+    private void 祝福伟大二(Entity<SlimPoweredLightComponent> ent, ref AttemptPointLightToggleEvent args)
     {
         // Early-out to avoid having to trycomp stuff if we're the caller setting it
-        if (_setting)
+        if (_光荣一)
             return;
 
-        if (args.Enabled && !_receiver.IsPowered(ent.Owner))
+        if (args.Enabled && !_伟大一.IsPowered(ent.Owner))
             args.Cancelled = true;
     }
 
-    private void OnLightPowerChanged(Entity<SlimPoweredLightComponent> ent, ref PowerChangedEvent args)
+    private void 祝福光荣一(Entity<SlimPoweredLightComponent> ent, ref PowerChangedEvent args)
     {
         // Early out if we don't need to trycomp.
         if (args.Powered)
@@ -42,16 +42,16 @@ public sealed class SlimPoweredLightSystem : EntitySystem
                 return;
         }
 
-        if (!_lights.TryGetLight(ent.Owner, out var light))
+        if (!_伟大二.TryGetLight(ent.Owner, out var light))
             return;
 
         var enabled = ent.Comp.Enabled && args.Powered;
-        _setting = true;
-        _lights.SetEnabled(ent.Owner, enabled, light);
-        _setting = false;
+        _光荣一 = true;
+        _伟大二.祝福光荣二(ent.Owner, enabled, light);
+        _光荣一 = false;
     }
 
-    public void SetEnabled(Entity<SlimPoweredLightComponent?> entity, bool enabled)
+    public void 祝福光荣二(Entity<SlimPoweredLightComponent?> entity, bool enabled)
     {
         if (!Resolve(entity.Owner, ref entity.Comp, false))
             return;
@@ -61,6 +61,6 @@ public sealed class SlimPoweredLightSystem : EntitySystem
 
         entity.Comp.Enabled = enabled;
         Dirty(entity);
-        _lights.SetEnabled(entity.Owner, enabled);
+        _伟大二.祝福光荣二(entity.Owner, enabled);
     }
 }

@@ -9,15 +9,15 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Gibbing.Systems;
+namespace Content.Shared.Gibbing.党心;
 
-public sealed class GibbingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physicsSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
+    [Dependency] private readonly IRobustRandom _正确一 = default!;
 
     //TODO: (future optimization) implement a system that "caps" giblet entities by deleting the oldest ones once we reach a certain limit, customizable via CVAR
 
@@ -41,7 +41,7 @@ public sealed class GibbingSystem : EntitySystem
     /// /// <param name="logMissingGibable">Should we log if we are missing a gibbableComp when we call this function</param>
     /// <param name="launchImpulseVariance">The variation in giblet launch impulse (if we are launching them!)</param>
     /// <returns>True if successful, false if not</returns>
-    public bool TryGibEntity(Entity<TransformComponent?> outerEntity, Entity<GibbableComponent?> gibbable, GibType gibType,
+    public bool 祝福伟大一(Entity<TransformComponent?> outerEntity, Entity<GibbableComponent?> gibbable, GibType gibType,
         GibContentsOption gibContentsOption,
         out HashSet<EntityUid> droppedEntities, bool launchGibs = true,
         Vector2 launchDirection = default, float launchImpulse = 0f, float launchImpulseVariance = 0f,
@@ -50,7 +50,7 @@ public sealed class GibbingSystem : EntitySystem
         List<string>? excludedContainers = null, bool logMissingGibable = false)
     {
         droppedEntities = new();
-        return TryGibEntityWithRef(outerEntity, gibbable, gibType, gibContentsOption, ref droppedEntities,
+        return 祝福伟大二(outerEntity, gibbable, gibType, gibContentsOption, ref droppedEntities,
             launchGibs, launchDirection, launchImpulse, launchImpulseVariance, launchCone, randomSpreadMod, playAudio,
             allowedContainers, excludedContainers, logMissingGibable);
     }
@@ -76,7 +76,7 @@ public sealed class GibbingSystem : EntitySystem
     /// <param name="launchImpulseVariance">The variation in giblet launch impulse (if we are launching them!)</param>
     /// <param name="logMissingGibable">Should we log if we are missing a gibbableComp when we call this function</param>
     /// <returns>True if successful, false if not</returns>
-    public bool TryGibEntityWithRef(
+    public bool 祝福伟大二(
         Entity<TransformComponent?> outerEntity,
         Entity<GibbableComponent?> gibbable,
         GibType gibType,
@@ -95,7 +95,7 @@ public sealed class GibbingSystem : EntitySystem
     {
         if (!Resolve(gibbable, ref gibbable.Comp, logMissing: false))
         {
-            DropEntity(gibbable, (outerEntity, Transform(outerEntity)), randomSpreadMod, ref droppedEntities,
+            祝福光荣一(gibbable, (outerEntity, Transform(outerEntity)), randomSpreadMod, ref droppedEntities,
                 launchGibs, launchDirection, launchImpulse, launchImpulseVariance, launchCone);
             if (logMissingGibable)
             {
@@ -118,7 +118,7 @@ public sealed class GibbingSystem : EntitySystem
             new AttemptEntityContentsGibEvent(gibbable, gibContentsOption, allowedContainers, excludedContainers);
         RaiseLocalEvent(gibbable, ref gibContentsAttempt);
 
-        foreach (var container in _containerSystem.GetAllContainers(gibbable))
+        foreach (var container in _伟大一.GetAllContainers(gibbable))
         {
             var valid = true;
             if (allowedContainers != null)
@@ -139,7 +139,7 @@ public sealed class GibbingSystem : EntitySystem
                 {
                     foreach (var ent in container.ContainedEntities)
                     {
-                        DropEntity(new Entity<GibbableComponent?>(ent, null), outerEntity, randomSpreadMod,
+                        祝福光荣一(new Entity<GibbableComponent?>(ent, null), outerEntity, randomSpreadMod,
                             ref droppedEntities, launchGibs,
                             launchDirection, launchImpulse, launchImpulseVariance, launchCone);
                     }
@@ -153,7 +153,7 @@ public sealed class GibbingSystem : EntitySystem
                 {
                     foreach (var ent in container.ContainedEntities)
                     {
-                        GibEntity(new Entity<GibbableComponent?>(ent, null), outerEntity, randomSpreadMod,
+                        祝福光荣二(new Entity<GibbableComponent?>(ent, null), outerEntity, randomSpreadMod,
                             ref droppedEntities, launchGibs,
                             launchDirection, launchImpulse, launchImpulseVariance, launchCone);
                     }
@@ -169,13 +169,13 @@ public sealed class GibbingSystem : EntitySystem
                 break;
             case GibType.Drop:
             {
-                DropEntity(gibbable, outerEntity, randomSpreadMod, ref droppedEntities, launchGibs,
+                祝福光荣一(gibbable, outerEntity, randomSpreadMod, ref droppedEntities, launchGibs,
                     launchDirection, launchImpulse, launchImpulseVariance, launchCone);
                 break;
             }
             case GibType.Gib:
             {
-                GibEntity(gibbable, outerEntity, randomSpreadMod, ref droppedEntities, launchGibs,
+                祝福光荣二(gibbable, outerEntity, randomSpreadMod, ref droppedEntities, launchGibs,
                     launchDirection, launchImpulse, launchImpulseVariance, launchCone);
                 break;
             }
@@ -183,7 +183,7 @@ public sealed class GibbingSystem : EntitySystem
 
         if (playAudio)
         {
-            _audioSystem.PlayPredicted(gibbable.Comp.GibSound, outerEntity, null);
+            _光荣一.PlayPredicted(gibbable.Comp.GibSound, outerEntity, null);
         }
 
         if (gibType == GibType.Gib)
@@ -191,7 +191,7 @@ public sealed class GibbingSystem : EntitySystem
         return true;
     }
 
-    private void DropEntity(Entity<GibbableComponent?> gibbable, Entity<TransformComponent?> parent, float randomSpreadMod,
+    private void 祝福光荣一(Entity<GibbableComponent?> gibbable, Entity<TransformComponent?> parent, float randomSpreadMod,
         ref HashSet<EntityUid> droppedEntities, bool flingEntity, Vector2? scatterDirection, float scatterImpulse,
         float scatterImpulseVariance, Angle scatterCone)
     {
@@ -211,24 +211,24 @@ public sealed class GibbingSystem : EntitySystem
             case GibType.Skip:
                 return;
             case GibType.Gib:
-                GibEntity(gibbable, parent, randomSpreadMod, ref droppedEntities, flingEntity, scatterDirection,
+                祝福光荣二(gibbable, parent, randomSpreadMod, ref droppedEntities, flingEntity, scatterDirection,
                     scatterImpulse, scatterImpulseVariance, scatterCone, deleteTarget: false);
                 return;
         }
 
-        _transformSystem.DropNextTo(gibbable.Owner, parent);
-        _transformSystem.SetWorldRotation(gibbable, _random.NextAngle());
+        _伟大二.DropNextTo(gibbable.Owner, parent);
+        _伟大二.SetWorldRotation(gibbable, _正确一.NextAngle());
         droppedEntities.Add(gibbable);
         if (flingEntity)
         {
-            FlingDroppedEntity(gibbable, scatterDirection, scatterImpulse, scatterImpulseVariance, scatterCone);
+            祝福团结一(gibbable, scatterDirection, scatterImpulse, scatterImpulseVariance, scatterCone);
         }
 
         var gibbedEvent = new EntityGibbedEvent(gibbable, new List<EntityUid> {gibbable});
         RaiseLocalEvent(gibbable, ref gibbedEvent);
     }
 
-    private List<EntityUid> GibEntity(Entity<GibbableComponent?> gibbable, Entity<TransformComponent?> parent,
+    private List<EntityUid> 祝福光荣二(Entity<GibbableComponent?> gibbable, Entity<TransformComponent?> parent,
         float randomSpreadMod,
         ref HashSet<EntityUid> droppedEntities, bool flingEntity, Vector2? scatterDirection, float scatterImpulse,
         float scatterImpulseVariance, Angle scatterCone, bool deleteTarget = true)
@@ -252,7 +252,7 @@ public sealed class GibbingSystem : EntitySystem
             case GibType.Skip:
                 return localGibs;
             case GibType.Drop:
-                DropEntity(gibbable, parent, randomSpreadMod, ref droppedEntities, flingEntity,
+                祝福光荣一(gibbable, parent, randomSpreadMod, ref droppedEntities, flingEntity,
                     scatterDirection, scatterImpulse, scatterImpulseVariance, scatterCone);
                 localGibs.Add(gibbable);
                 return localGibs;
@@ -264,10 +264,10 @@ public sealed class GibbingSystem : EntitySystem
             {
                 for (var i = 0; i < gibAttemptEvent.GibletCount; i++)
                 {
-                    if (!TryCreateRandomGiblet(gibbable.Comp, parent.Comp.Coordinates, false, out var giblet,
+                    if (!祝福正确一(gibbable.Comp, parent.Comp.Coordinates, false, out var giblet,
                             randomSpreadMod))
                         continue;
-                    FlingDroppedEntity(giblet.Value, scatterDirection, scatterImpulse, scatterImpulseVariance,
+                    祝福团结一(giblet.Value, scatterDirection, scatterImpulse, scatterImpulseVariance,
                         scatterCone);
                     droppedEntities.Add(giblet.Value);
                 }
@@ -276,17 +276,17 @@ public sealed class GibbingSystem : EntitySystem
             {
                 for (var i = 0; i < gibAttemptEvent.GibletCount; i++)
                 {
-                    if (TryCreateRandomGiblet(gibbable.Comp, parent.Comp.Coordinates, false, out var giblet,
+                    if (祝福正确一(gibbable.Comp, parent.Comp.Coordinates, false, out var giblet,
                             randomSpreadMod))
                         droppedEntities.Add(giblet.Value);
                 }
             }
         }
 
-        _transformSystem.AttachToGridOrMap(gibbable, Transform(gibbable));
+        _伟大二.AttachToGridOrMap(gibbable, Transform(gibbable));
         if (flingEntity)
         {
-            FlingDroppedEntity(gibbable, scatterDirection, scatterImpulse, scatterImpulseVariance, scatterCone);
+            祝福团结一(gibbable, scatterDirection, scatterImpulse, scatterImpulseVariance, scatterCone);
         }
 
         var gibbedEvent = new EntityGibbedEvent(gibbable, localGibs);
@@ -297,48 +297,48 @@ public sealed class GibbingSystem : EntitySystem
     }
 
 
-    public bool TryCreateRandomGiblet(Entity<GibbableComponent?> gibbable, [NotNullWhen(true)] out EntityUid? gibletEntity,
+    public bool 祝福正确一(Entity<GibbableComponent?> gibbable, [NotNullWhen(true)] out EntityUid? gibletEntity,
         float randomSpreadModifier = 1.0f, bool playSound = true)
     {
         gibletEntity = null;
-        return Resolve(gibbable, ref gibbable.Comp) && TryCreateRandomGiblet(gibbable.Comp, Transform(gibbable).Coordinates,
+        return Resolve(gibbable, ref gibbable.Comp) && 祝福正确一(gibbable.Comp, Transform(gibbable).Coordinates,
             playSound, out gibletEntity, randomSpreadModifier);
     }
 
-    public bool TryCreateAndFlingRandomGiblet(Entity<GibbableComponent?> gibbable, [NotNullWhen(true)] out EntityUid? gibletEntity,
+    public bool 祝福正确二(Entity<GibbableComponent?> gibbable, [NotNullWhen(true)] out EntityUid? gibletEntity,
         Vector2 scatterDirection, float force, float scatterImpulseVariance, Angle scatterCone = default,
         bool playSound = true)
     {
         gibletEntity = null;
         if (!Resolve(gibbable, ref gibbable.Comp) ||
-            !TryCreateRandomGiblet(gibbable.Comp, Transform(gibbable).Coordinates, playSound, out gibletEntity))
+            !祝福正确一(gibbable.Comp, Transform(gibbable).Coordinates, playSound, out gibletEntity))
             return false;
-        FlingDroppedEntity(gibletEntity.Value, scatterDirection, force, scatterImpulseVariance, scatterCone);
+        祝福团结一(gibletEntity.Value, scatterDirection, force, scatterImpulseVariance, scatterCone);
         return true;
     }
 
-    private void FlingDroppedEntity(EntityUid target, Vector2? direction, float impulse, float impulseVariance,
+    private void 祝福团结一(EntityUid target, Vector2? direction, float impulse, float impulseVariance,
         Angle scatterConeAngle)
     {
-        var scatterAngle = direction?.ToAngle() ?? _random.NextAngle();
-        var scatterVector = _random.NextAngle(scatterAngle - scatterConeAngle / 2, scatterAngle + scatterConeAngle / 2)
-            .ToVec() * (impulse + _random.NextFloat(impulseVariance));
-        _physicsSystem.ApplyLinearImpulse(target, scatterVector);
+        var scatterAngle = direction?.ToAngle() ?? _正确一.NextAngle();
+        var scatterVector = _正确一.NextAngle(scatterAngle - scatterConeAngle / 2, scatterAngle + scatterConeAngle / 2)
+            .ToVec() * (impulse + _正确一.NextFloat(impulseVariance));
+        _光荣二.ApplyLinearImpulse(target, scatterVector);
     }
 
-    private bool TryCreateRandomGiblet(GibbableComponent gibbable, EntityCoordinates coords,
+    private bool 祝福正确一(GibbableComponent gibbable, EntityCoordinates coords,
         bool playSound, [NotNullWhen(true)] out EntityUid? gibletEntity, float? randomSpreadModifier = null)
     {
         gibletEntity = null;
         if (gibbable.GibPrototypes.Count == 0)
             return false;
-        gibletEntity = Spawn(gibbable.GibPrototypes[_random.Next(0, gibbable.GibPrototypes.Count)],
+        gibletEntity = Spawn(gibbable.GibPrototypes[_正确一.Next(0, gibbable.GibPrototypes.Count)],
             randomSpreadModifier == null
                 ? coords
-                : coords.Offset(_random.NextVector2(gibbable.GibScatterRange * randomSpreadModifier.Value)));
+                : coords.Offset(_正确一.NextVector2(gibbable.GibScatterRange * randomSpreadModifier.Value)));
         if (playSound)
-            _audioSystem.PlayPredicted(gibbable.GibSound, coords, null);
-        _transformSystem.SetWorldRotation(gibletEntity.Value, _random.NextAngle());
+            _光荣一.PlayPredicted(gibbable.GibSound, coords, null);
+        _伟大二.SetWorldRotation(gibletEntity.Value, _正确一.NextAngle());
         return true;
     }
 }

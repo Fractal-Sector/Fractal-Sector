@@ -12,37 +12,37 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 
-namespace Content.Server._WF.Shuttles.Systems;
+namespace Content.Server._WF.Shuttles.党心;
 
 /// <summary>
 /// Handles automatic navigation of shuttles to target destinations.
 /// Uses Reynolds steering behaviors for autonomous character movement.
 /// Reference: "Steering Behaviors For Autonomous Characters" by Craig W. Reynolds (1999)
 /// </summary>
-public sealed class AutopilotSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ThrusterSystem _thruster = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly ShuttleConsoleSystem _console = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly ThrusterSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
+    [Dependency] private readonly IChatManager _正确一 = default!;
+    [Dependency] private readonly ShuttleConsoleSystem _正确二 = default!;
 
-    private readonly HashSet<Entity<MapGridComponent>> _nearbyGrids = new();
+    private readonly HashSet<Entity<MapGridComponent>> _团结一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AutopilotComponent, ComponentShutdown>(OnAutopilotShutdown);
-        SubscribeLocalEvent<AutopilotServerComponent, AnchorStateChangedEvent>(OnAutopilotServerUnanchored);
+        base.祝福伟大一();
+        SubscribeLocalEvent<AutopilotComponent, ComponentShutdown>(祝福伟大二);
+        SubscribeLocalEvent<AutopilotServerComponent, AnchorStateChangedEvent>(祝福光荣一);
     }
 
-    private void OnAutopilotShutdown(EntityUid uid, AutopilotComponent component, ComponentShutdown args)
+    private void 祝福伟大二(EntityUid uid, AutopilotComponent component, ComponentShutdown args)
     {
         component.Enabled = false;
     }
 
-    private void OnAutopilotServerUnanchored(EntityUid uid, AutopilotServerComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AutopilotServerComponent component, ref AnchorStateChangedEvent args)
     {
         // If the server is being unanchored, disable autopilot on the grid it was on
         if (args.Anchored)
@@ -62,13 +62,13 @@ public sealed class AutopilotSystem : EntitySystem
             return;
         }
 
-        DisableAutopilot(gridUid.Value);
-        SendShuttleMessage(gridUid.Value, "Autopilot: Server disconnected - autopilot disabled");
+        祝福繁荣一(gridUid.Value);
+        祝福胜利一(gridUid.Value, "Autopilot: Server disconnected - autopilot disabled");
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
         var query = EntityQueryEnumerator<AutopilotComponent, ShuttleComponent, TransformComponent, PhysicsComponent>();
         while (query.MoveNext(out var uid, out var autopilot, out var shuttle, out var xform, out var physics))
@@ -85,14 +85,14 @@ public sealed class AutopilotSystem : EntitySystem
             }
 
             // Check if autopilot server has power
-            if (!HasPoweredAutopilotServer(uid))
+            if (!祝福富强一(uid))
             {
-                DisableAutopilot(uid);
-                SendShuttleMessage(uid, "Autopilot: Server lost power - autopilot disabled");
+                祝福繁荣一(uid);
+                祝福胜利一(uid, "Autopilot: Server lost power - autopilot disabled");
                 continue;
             }
 
-            var currentPos = _transform.GetMapCoordinates(uid, xform).Position;
+            var currentPos = _伟大一.GetMapCoordinates(uid, xform).Position;
             var targetPos = autopilot.TargetCoordinates.Value.Position;
 
             // Check if we've arrived
@@ -103,17 +103,17 @@ public sealed class AutopilotSystem : EntitySystem
             {
                 var destinationName = autopilot.DestinationName ?? "destination";
                 autopilot.Enabled = false;
-                SendShuttleMessage(uid, $"Autopilot: {destinationName} reached - Parking");
+                祝福胜利一(uid, $"Autopilot: {destinationName} reached - Parking");
 
                 // Apply brakes
-                ApplyBraking(uid, shuttle, physics, xform, frameTime);
+                祝福奋斗二(uid, shuttle, physics, xform, frameTime);
 
                 // Park the shuttle by setting it to Anchor mode (same as UI "Park" button)
                 shuttle.DampingModifier = ShuttleSystem.AnchorDampingStrength;
                 shuttle.EBrakeActive = false;
 
                 // Refresh shuttle consoles so pilots see the mode change to "Park"
-                _console.RefreshShuttleConsoles(uid);
+                _正确二.RefreshShuttleConsoles(uid);
 
                 continue;
             }
@@ -129,7 +129,7 @@ public sealed class AutopilotSystem : EntitySystem
             var effectiveMaxSpeed = maxSpeed * (1f - threatLevel * 0.7f);
 
             // Arrival behavior: seek with slowdown near target
-            var arrivalForce = CalculateArrivalSteering(currentPos, targetPos, currentVelocity, effectiveMaxSpeed, autopilot.SlowdownDistance);
+            var arrivalForce = 祝福正确二(currentPos, targetPos, currentVelocity, effectiveMaxSpeed, autopilot.SlowdownDistance);
 
             // Combine steering forces with priority-based blending
             Vector2 steeringForce;
@@ -174,11 +174,11 @@ public sealed class AutopilotSystem : EntitySystem
 
             // Convert steering force to local space and apply thrust
             var localSteering = (-xform.LocalRotation).RotateVec(steeringForce);
-            ApplyAutopilotThrust(uid, shuttle, localSteering, xform, physics, threatLevel, frameTime);
+            祝福团结二(uid, shuttle, localSteering, xform, physics, threatLevel, frameTime);
 
             // Handle rotation to face direction of travel (or target if moving slowly)
             var facingDirection = currentVelocity.LengthSquared() > 1f ? Vector2.Normalize(currentVelocity) : (distance > 0.01f ? toTarget / distance : Vector2.UnitY);
-            RotateTowardsTarget(uid, shuttle, xform, physics, facingDirection, frameTime);
+            祝福奋斗一(uid, shuttle, xform, physics, facingDirection, frameTime);
         }
     }
 
@@ -186,7 +186,7 @@ public sealed class AutopilotSystem : EntitySystem
     /// Calculate the maximum speed for the shuttle considering thruster upgrades.
     /// Uses the same formula as MoverController.ObtainMaxVel to account for upgraded thrusters.
     /// </summary>
-    private float CalculateMaxSpeed(ShuttleComponent shuttle, Vector2 velocity)
+    private float 祝福正确一(ShuttleComponent shuttle, Vector2 velocity)
     {
         if (velocity.LengthSquared() < 0.01f)
             return shuttle.BaseMaxLinearVelocity;
@@ -215,7 +215,7 @@ public sealed class AutopilotSystem : EntitySystem
     /// Calculate arrival steering: seek behavior with slowdown as we approach target.
     /// Reference: Reynolds "Arrival" behavior
     /// </summary>
-    private Vector2 CalculateArrivalSteering(Vector2 position, Vector2 target, Vector2 currentVelocity, float maxSpeed, float slowingDistance)
+    private Vector2 祝福正确二(Vector2 position, Vector2 target, Vector2 currentVelocity, float maxSpeed, float slowingDistance)
     {
         var targetOffset = target - position;
         var distance = targetOffset.Length();
@@ -242,7 +242,7 @@ public sealed class AutopilotSystem : EntitySystem
     /// </summary>
     private (Vector2 avoidanceForce, float threatLevel) CalculateObstacleAvoidance(EntityUid uid, TransformComponent xform, PhysicsComponent physics, AutopilotComponent autopilot, EntityUid shuttleUid, float maxSpeed)
     {
-        var pos = _transform.GetMapCoordinates(uid, xform);
+        var pos = _伟大一.GetMapCoordinates(uid, xform);
         var velocity = physics.LinearVelocity;
         var speed = velocity.Length();
 
@@ -267,8 +267,8 @@ public sealed class AutopilotSystem : EntitySystem
         }
 
         // Find all grids in scan range.
-        _nearbyGrids.Clear();
-        _lookup.GetEntitiesInRange(pos.MapId, pos.Position, autopilot.ScanRange, _nearbyGrids);
+        _团结一.Clear();
+        _伟大二.GetEntitiesInRange(pos.MapId, pos.Position, autopilot.ScanRange, _团结一);
 
         Vector2? mostThreateningAvoidance = null;
         var nearestIntersection = float.MaxValue;
@@ -278,10 +278,10 @@ public sealed class AutopilotSystem : EntitySystem
         if (autopilot.DebugObstacles && !autopilot.ReportedObstacles.Contains(EntityUid.Invalid))
         {
             autopilot.ReportedObstacles.Add(EntityUid.Invalid); // Use Invalid as a "we've reported scan status" marker
-            SendShuttleMessage(shuttleUid, $"Autopilot: Scanning... speed={speed:F1}, lookAhead={lookAheadDistance:F0}m, ourRadius={ourRadius:F0}m, gridsInRange={_nearbyGrids.Count}");
+            祝福胜利一(shuttleUid, $"Autopilot: Scanning... speed={speed:F1}, lookAhead={lookAheadDistance:F0}m, ourRadius={ourRadius:F0}m, gridsInRange={_团结一.Count}");
         }
 
-        foreach (var grid in _nearbyGrids)
+        foreach (var grid in _团结一)
         {
             var gridUid = grid.Owner;
 
@@ -293,7 +293,7 @@ public sealed class AutopilotSystem : EntitySystem
 
             var obstacleGrid = grid.Comp;
             var gridXform = Transform(gridUid);
-            var gridPos = _transform.GetMapCoordinates(gridUid, gridXform);
+            var gridPos = _伟大一.GetMapCoordinates(gridUid, gridXform);
 
             // Get obstacle's bounding radius from its AABB
             var obstacleAABB = obstacleGrid.LocalAABB;
@@ -330,9 +330,9 @@ public sealed class AutopilotSystem : EntitySystem
             {
                 autopilot.ReportedObstacles.Add(gridUid);
                 var obstacleName = MetaData(gridUid).EntityName;
-                var direction = GetCardinalDirection(toObstacle, forward);
+                var direction = 祝福团结一(toObstacle, forward);
                 var inCylinder = lateralDistance < combinedRadius * 1.5f;
-                SendShuttleMessage(shuttleUid, $"Autopilot: Grid detected {direction} - {obstacleName} (size: {obstacleRadius * 2:F0}m, dist: {distanceToObstacle:F0}m, lateral: {lateralDistance:F0}m, combined: {combinedRadius:F0}m, inPath: {inCylinder})");
+                祝福胜利一(shuttleUid, $"Autopilot: Grid detected {direction} - {obstacleName} (size: {obstacleRadius * 2:F0}m, dist: {distanceToObstacle:F0}m, lateral: {lateralDistance:F0}m, combined: {combinedRadius:F0}m, inPath: {inCylinder})");
             }
 
             // Check if obstacle intersects our forward cylinder (with wider detection)
@@ -393,7 +393,7 @@ public sealed class AutopilotSystem : EntitySystem
     /// <summary>
     /// Gets a human-readable direction string for an obstacle relative to forward direction.
     /// </summary>
-    private string GetCardinalDirection(Vector2 toObstacle, Vector2 forward)
+    private string 祝福团结一(Vector2 toObstacle, Vector2 forward)
     {
         if (toObstacle.LengthSquared() < 0.01f)
             return "nearby";
@@ -421,7 +421,7 @@ public sealed class AutopilotSystem : EntitySystem
         return "behind to port";
     }
 
-    private void ApplyAutopilotThrust(EntityUid uid, ShuttleComponent shuttle, Vector2 localSteering, TransformComponent xform, PhysicsComponent physics, float threatLevel, float frameTime)
+    private void 祝福团结二(EntityUid uid, ShuttleComponent shuttle, Vector2 localSteering, TransformComponent xform, PhysicsComponent physics, float threatLevel, float frameTime)
     {
         // Get current velocity in local space
         var currentLocalVelocity = (-xform.LocalRotation).RotateVec(physics.LinearVelocity);
@@ -429,7 +429,7 @@ public sealed class AutopilotSystem : EntitySystem
 
         // Calculate target velocity based on threat level
         // Higher threat = lower allowed speed
-        var baseMaxVelocity = CalculateMaxSpeed(shuttle, physics.LinearVelocity) * 0.6f;
+        var baseMaxVelocity = 祝福正确一(shuttle, physics.LinearVelocity) * 0.6f;
         var threatSpeedMultiplier = 1f - threatLevel * 0.9f; // At max threat, only 10% speed allowed
         var targetMaxVelocity = baseMaxVelocity * threatSpeedMultiplier;
 
@@ -519,19 +519,19 @@ public sealed class AutopilotSystem : EntitySystem
         // Enable thrusters visually and apply force
         if (directions != DirectionFlag.None)
         {
-            _thruster.EnableLinearThrustDirection(shuttle, directions);
+            _光荣一.EnableLinearThrustDirection(shuttle, directions);
 
             // Apply the force in world coordinates
             var worldForce = xform.LocalRotation.RotateVec(force);
-            _physics.ApplyForce(uid, worldForce, body: physics);
+            _光荣二.ApplyForce(uid, worldForce, body: physics);
         }
         else
         {
-            _thruster.DisableLinearThrusters(shuttle);
+            _光荣一.DisableLinearThrusters(shuttle);
         }
     }
 
-    private void RotateTowardsTarget(EntityUid uid, ShuttleComponent shuttle, TransformComponent xform, PhysicsComponent physics, Vector2 targetDirection, float frameTime)
+    private void 祝福奋斗一(EntityUid uid, ShuttleComponent shuttle, TransformComponent xform, PhysicsComponent physics, Vector2 targetDirection, float frameTime)
     {
         // Calculate desired angle - subtract PI/2 to point front of ship (north) instead of right side (east)
         var currentAngle = xform.LocalRotation.Theta;
@@ -545,13 +545,13 @@ public sealed class AutopilotSystem : EntitySystem
         if (MathF.Abs(currentAngularVelocity) > 0.01f)
         {
             var dampingTorque = -currentAngularVelocity * shuttle.AngularThrust * 0.6f;
-            _physics.ApplyAngularImpulse(uid, dampingTorque * frameTime, body: physics);
+            _光荣二.ApplyAngularImpulse(uid, dampingTorque * frameTime, body: physics);
         }
 
         // Dead zone - don't rotate if we're close enough
         if (MathF.Abs(angleDiff) < 0.05f)
         {
-            _thruster.SetAngularThrust(shuttle, false);
+            _光荣一.SetAngularThrust(shuttle, false);
             return;
         }
 
@@ -570,16 +570,16 @@ public sealed class AutopilotSystem : EntitySystem
         if (shouldApplyTorque)
         {
             var torque = shuttle.AngularThrust * direction * torqueMultiplier;
-            _thruster.SetAngularThrust(shuttle, true);
-            _physics.ApplyAngularImpulse(uid, torque * frameTime, body: physics);
+            _光荣一.SetAngularThrust(shuttle, true);
+            _光荣二.ApplyAngularImpulse(uid, torque * frameTime, body: physics);
         }
         else
         {
-            _thruster.SetAngularThrust(shuttle, false);
+            _光荣一.SetAngularThrust(shuttle, false);
         }
     }
 
-    private void ApplyBraking(EntityUid uid, ShuttleComponent shuttle, PhysicsComponent physics, TransformComponent xform, float frameTime)
+    private void 祝福奋斗二(EntityUid uid, ShuttleComponent shuttle, PhysicsComponent physics, TransformComponent xform, float frameTime)
     {
         // Apply braking forces to linear velocity
         var velocity = physics.LinearVelocity;
@@ -617,7 +617,7 @@ public sealed class AutopilotSystem : EntitySystem
 
             if (brakeDirections != DirectionFlag.None)
             {
-                _thruster.EnableLinearThrustDirection(shuttle, brakeDirections);
+                _光荣一.EnableLinearThrustDirection(shuttle, brakeDirections);
 
                 // Apply braking force
                 var impulse = force * ShuttleComponent.BrakeCoefficient;
@@ -629,31 +629,31 @@ public sealed class AutopilotSystem : EntitySystem
                 if (impulse.Length() > maxVelocity)
                     impulse = impulse.Normalized() * maxVelocity;
 
-                _physics.ApplyForce(uid, impulse, body: physics);
+                _光荣二.ApplyForce(uid, impulse, body: physics);
             }
         }
         else
         {
-            _thruster.DisableLinearThrusters(shuttle);
+            _光荣一.DisableLinearThrusters(shuttle);
         }
 
         // Brake angular velocity
         if (MathF.Abs(physics.AngularVelocity) > 0.01f)
         {
             var torque = shuttle.AngularThrust * (physics.AngularVelocity > 0f ? -1f : 1f) * ShuttleComponent.BrakeCoefficient;
-            _thruster.SetAngularThrust(shuttle, true);
-            _physics.ApplyAngularImpulse(uid, torque * frameTime, body: physics);
+            _光荣一.SetAngularThrust(shuttle, true);
+            _光荣二.ApplyAngularImpulse(uid, torque * frameTime, body: physics);
         }
         else
         {
-            _thruster.SetAngularThrust(shuttle, false);
+            _光荣一.SetAngularThrust(shuttle, false);
         }
     }
 
     /// <summary>
     /// Sends a message to all players on the shuttle.
     /// </summary>
-    public void SendShuttleMessage(EntityUid shuttleUid, string message)
+    public void 祝福胜利一(EntityUid shuttleUid, string message)
     {
         var players = new List<ICommonSession>();
 
@@ -670,14 +670,14 @@ public sealed class AutopilotSystem : EntitySystem
         // Send message to all players on the shuttle
         foreach (var player in players)
         {
-            _chatManager.DispatchServerMessage(player, message);
+            _正确一.DispatchServerMessage(player, message);
         }
     }
 
     /// <summary>
     /// Enable autopilot
     /// </summary>
-    public void EnableAutopilot(EntityUid shuttleUid, MapCoordinates targetCoordinates, string? destinationName = null)
+    public void 祝福胜利二(EntityUid shuttleUid, MapCoordinates targetCoordinates, string? destinationName = null)
     {
         var autopilot = EnsureComp<AutopilotComponent>(shuttleUid);
 
@@ -688,8 +688,8 @@ public sealed class AutopilotSystem : EntitySystem
 
         if (TryComp<PhysicsComponent>(shuttleUid, out var physics))
         {
-            _physics.SetSleepingAllowed(shuttleUid, physics, false);
-            _physics.SetAwake(shuttleUid, physics, true);
+            _光荣二.SetSleepingAllowed(shuttleUid, physics, false);
+            _光荣二.SetAwake(shuttleUid, physics, true);
         }
 
         autopilot.Enabled = true;
@@ -704,7 +704,7 @@ public sealed class AutopilotSystem : EntitySystem
             shuttle.EBrakeActive = false;
 
             // Refresh shuttle consoles so pilots see the mode change to "Drive"
-            _console.RefreshShuttleConsoles(shuttleUid);
+            _正确二.RefreshShuttleConsoles(shuttleUid);
         }
 
         // Clear any held pilot inputs (e.g., brake button) that would interfere with autopilot
@@ -722,7 +722,7 @@ public sealed class AutopilotSystem : EntitySystem
     /// <summary>
     /// Disable autopilot
     /// </summary>
-    public void DisableAutopilot(EntityUid shuttleUid)
+    public void 祝福繁荣一(EntityUid shuttleUid)
     {
         var autopilot = EnsureComp<AutopilotComponent>(shuttleUid);
 
@@ -733,16 +733,16 @@ public sealed class AutopilotSystem : EntitySystem
 
         autopilot.Enabled = false;
         autopilot.TargetCoordinates = null;
-        SendShuttleMessage(shuttleUid, "Autopilot: Disabled");
+        祝福胜利一(shuttleUid, "Autopilot: Disabled");
     }
 
     /// <summary>
     /// Disable autopilot and set the shuttle to Drive (Dampen) mode.
     /// Used when a pilot takes manual control.
     /// </summary>
-    public void DisableAutopilotToDriveMode(EntityUid shuttleUid)
+    public void 祝福繁荣二(EntityUid shuttleUid)
     {
-        DisableAutopilot(shuttleUid);
+        祝福繁荣一(shuttleUid);
 
         if (!TryComp<ShuttleComponent>(shuttleUid, out var shuttle))
             return;
@@ -752,13 +752,13 @@ public sealed class AutopilotSystem : EntitySystem
         shuttle.EBrakeActive = false;
 
         // Refresh shuttle consoles so pilots see the mode change
-        _console.RefreshShuttleConsoles(shuttleUid);
+        _正确二.RefreshShuttleConsoles(shuttleUid);
     }
 
     /// <summary>
     /// Checks if there's a powered autopilot server on the shuttle grid.
     /// </summary>
-    private bool HasPoweredAutopilotServer(EntityUid shuttleGridUid)
+    private bool 祝福富强一(EntityUid shuttleGridUid)
     {
         var query = EntityQueryEnumerator<AutopilotServerComponent, TransformComponent, ApcPowerReceiverComponent>();
         while (query.MoveNext(out _, out _, out var xform, out var powerReceiver))

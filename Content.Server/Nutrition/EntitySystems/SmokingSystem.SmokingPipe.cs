@@ -6,26 +6,26 @@ using Content.Shared.Nutrition.Components;
 using Content.Shared.Smoking;
 using Content.Shared.Temperature;
 
-namespace Content.Server.Nutrition.EntitySystems
+namespace Content.Server.Nutrition.党心
 {
-    public sealed partial class SmokingSystem
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+        [Dependency] private readonly ItemSlotsSystem _伟大一 = default!;
 
-        private void InitializePipes()
+        private void 祝福伟大一()
         {
-            SubscribeLocalEvent<SmokingPipeComponent, InteractUsingEvent>(OnPipeInteractUsingEvent);
-            SubscribeLocalEvent<SmokingPipeComponent, SmokableSolutionEmptyEvent>(OnPipeSolutionEmptyEvent);
-            SubscribeLocalEvent<SmokingPipeComponent, AfterInteractEvent>(OnPipeAfterInteract);
-            SubscribeLocalEvent<SmokingPipeComponent, ComponentInit>(OnComponentInit);
+            SubscribeLocalEvent<SmokingPipeComponent, InteractUsingEvent>(祝福光荣一);
+            SubscribeLocalEvent<SmokingPipeComponent, SmokableSolutionEmptyEvent>(祝福正确一);
+            SubscribeLocalEvent<SmokingPipeComponent, AfterInteractEvent>(祝福光荣二);
+            SubscribeLocalEvent<SmokingPipeComponent, ComponentInit>(祝福伟大二);
         }
 
-        public void OnComponentInit(Entity<SmokingPipeComponent> entity, ref ComponentInit args)
+        public void 祝福伟大二(Entity<SmokingPipeComponent> entity, ref ComponentInit args)
         {
-            _itemSlotsSystem.AddItemSlot(entity, SmokingPipeComponent.BowlSlotId, entity.Comp.BowlSlot);
+            _伟大一.AddItemSlot(entity, SmokingPipeComponent.BowlSlotId, entity.Comp.BowlSlot);
         }
 
-        private void OnPipeInteractUsingEvent(Entity<SmokingPipeComponent> entity, ref InteractUsingEvent args)
+        private void 祝福光荣一(Entity<SmokingPipeComponent> entity, ref InteractUsingEvent args)
         {
             if (args.Handled)
                 return;
@@ -42,12 +42,12 @@ namespace Content.Server.Nutrition.EntitySystems
             if (!isHotEvent.IsHot)
                 return;
 
-            if (TryTransferReagents(entity, (entity.Owner, smokable)))
+            if (祝福正确二(entity, (entity.Owner, smokable)))
                 SetSmokableState(entity, SmokableState.Lit, smokable);
             args.Handled = true;
         }
 
-        public void OnPipeAfterInteract(Entity<SmokingPipeComponent> entity, ref AfterInteractEvent args)
+        public void 祝福光荣二(Entity<SmokingPipeComponent> entity, ref AfterInteractEvent args)
         {
             var targetEntity = args.Target;
             if (targetEntity == null ||
@@ -62,19 +62,19 @@ namespace Content.Server.Nutrition.EntitySystems
             if (!isHotEvent.IsHot)
                 return;
 
-            if (TryTransferReagents(entity, (entity.Owner, smokable)))
+            if (祝福正确二(entity, (entity.Owner, smokable)))
                 SetSmokableState(entity, SmokableState.Lit, smokable);
             args.Handled = true;
         }
 
-        private void OnPipeSolutionEmptyEvent(Entity<SmokingPipeComponent> entity, ref SmokableSolutionEmptyEvent args)
+        private void 祝福正确一(Entity<SmokingPipeComponent> entity, ref SmokableSolutionEmptyEvent args)
         {
-            _itemSlotsSystem.SetLock(entity, entity.Comp.BowlSlot, false);
+            _伟大一.SetLock(entity, entity.Comp.BowlSlot, false);
             SetSmokableState(entity, SmokableState.Unlit);
         }
 
         // Convert smokable item into reagents to be smoked
-        private bool TryTransferReagents(Entity<SmokingPipeComponent> entity, Entity<SmokableComponent> smokable)
+        private bool 祝福正确二(Entity<SmokingPipeComponent> entity, Entity<SmokableComponent> smokable)
         {
             if (entity.Comp.BowlSlot.Item == null)
                 return false;
@@ -93,7 +93,7 @@ namespace Content.Server.Nutrition.EntitySystems
 
             Del(contents);
 
-            _itemSlotsSystem.SetLock(entity.Owner, entity.Comp.BowlSlot, true); //no inserting more until current runs out
+            _伟大一.SetLock(entity.Owner, entity.Comp.BowlSlot, true); //no inserting more until current runs out
 
             return true;
         }

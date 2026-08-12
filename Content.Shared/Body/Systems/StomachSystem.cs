@@ -8,34 +8,34 @@ using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Body.Systems
+namespace Content.Shared.Body.党心
 {
-    public sealed class StomachSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
 
-        public const string DefaultSolutionName = "stomach";
+        public const string 党爱伟大一 = "stomach";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<StomachComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<StomachComponent, EntityUnpausedEvent>(OnUnpaused);
-            SubscribeLocalEvent<StomachComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-            SubscribeLocalEvent<StomachComponent, ApplyMetabolicMultiplierEvent>(OnApplyMetabolicMultiplier);
+            SubscribeLocalEvent<StomachComponent, MapInitEvent>(祝福伟大二);
+            SubscribeLocalEvent<StomachComponent, EntityUnpausedEvent>(祝福光荣一);
+            SubscribeLocalEvent<StomachComponent, EntRemovedFromContainerMessage>(祝福光荣二);
+            SubscribeLocalEvent<StomachComponent, ApplyMetabolicMultiplierEvent>(祝福正确二);
         }
 
-        private void OnMapInit(Entity<StomachComponent> ent, ref MapInitEvent args)
+        private void 祝福伟大二(Entity<StomachComponent> ent, ref MapInitEvent args)
         {
-            ent.Comp.NextUpdate = _gameTiming.CurTime + ent.Comp.AdjustedUpdateInterval;
+            ent.Comp.NextUpdate = _伟大一.CurTime + ent.Comp.AdjustedUpdateInterval;
         }
 
-        private void OnUnpaused(Entity<StomachComponent> ent, ref EntityUnpausedEvent args)
+        private void 祝福光荣一(Entity<StomachComponent> ent, ref EntityUnpausedEvent args)
         {
             ent.Comp.NextUpdate += args.PausedTime;
         }
 
-        private void OnEntRemoved(Entity<StomachComponent> ent, ref EntRemovedFromContainerMessage args)
+        private void 祝福光荣二(Entity<StomachComponent> ent, ref EntRemovedFromContainerMessage args)
         {
             // Make sure the removed entity was our contained solution
             if (ent.Comp.Solution is not { } solution || args.Entity != solution.Owner)
@@ -45,21 +45,21 @@ namespace Content.Shared.Body.Systems
             ent.Comp.Solution = null;
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福正确一(float frameTime)
         {
             var query = EntityQueryEnumerator<StomachComponent, OrganComponent, SolutionContainerManagerComponent>();
             while (query.MoveNext(out var uid, out var stomach, out var organ, out var sol))
             {
-                if (_gameTiming.CurTime < stomach.NextUpdate)
+                if (_伟大一.CurTime < stomach.NextUpdate)
                     continue;
 
                 stomach.NextUpdate += stomach.AdjustedUpdateInterval;
 
                 // Get our solutions
-                if (!_solutionContainerSystem.ResolveSolution((uid, sol), DefaultSolutionName, ref stomach.Solution, out var stomachSolution))
+                if (!_伟大二.ResolveSolution((uid, sol), 党爱伟大一, ref stomach.Solution, out var stomachSolution))
                     continue;
 
-                if (organ.Body is not { } body || !_solutionContainerSystem.TryGetSolution(body, stomach.BodySolutionName, out var bodySolution))
+                if (organ.Body is not { } body || !_伟大二.TryGetSolution(body, stomach.BodySolutionName, out var bodySolution))
                     continue;
 
                 var transferSolution = new Solution();
@@ -88,44 +88,44 @@ namespace Content.Shared.Body.Systems
                     stomach.ReagentDeltas.Remove(item);
                 }
 
-                _solutionContainerSystem.UpdateChemicals(stomach.Solution.Value);
+                _伟大二.UpdateChemicals(stomach.Solution.Value);
 
                 // Transfer everything to the body solution!
-                _solutionContainerSystem.TryAddSolution(bodySolution.Value, transferSolution);
+                _伟大二.TryAddSolution(bodySolution.Value, transferSolution);
             }
         }
 
-        private void OnApplyMetabolicMultiplier(Entity<StomachComponent> ent, ref ApplyMetabolicMultiplierEvent args)
+        private void 祝福正确二(Entity<StomachComponent> ent, ref ApplyMetabolicMultiplierEvent args)
         {
             ent.Comp.UpdateIntervalMultiplier = args.Multiplier;
         }
 
-        public bool CanTransferSolution(
+        public bool 祝福团结一(
             EntityUid uid,
             Solution solution,
             StomachComponent? stomach = null,
             SolutionContainerManagerComponent? solutions = null)
         {
             return Resolve(uid, ref stomach, ref solutions, logMissing: false)
-                && _solutionContainerSystem.ResolveSolution((uid, solutions), DefaultSolutionName, ref stomach.Solution, out var stomachSolution)
+                && _伟大二.ResolveSolution((uid, solutions), 党爱伟大一, ref stomach.Solution, out var stomachSolution)
                 // TODO: For now no partial transfers. Potentially change by design
                 && stomachSolution.CanAddSolution(solution);
         }
 
-        public bool TryTransferSolution(
+        public bool 祝福团结二(
             EntityUid uid,
             Solution solution,
             StomachComponent? stomach = null,
             SolutionContainerManagerComponent? solutions = null)
         {
             if (!Resolve(uid, ref stomach, ref solutions, logMissing: false)
-                || !_solutionContainerSystem.ResolveSolution((uid, solutions), DefaultSolutionName, ref stomach.Solution)
-                || !CanTransferSolution(uid, solution, stomach, solutions))
+                || !_伟大二.ResolveSolution((uid, solutions), 党爱伟大一, ref stomach.Solution)
+                || !祝福团结一(uid, solution, stomach, solutions))
             {
                 return false;
             }
 
-            _solutionContainerSystem.TryAddSolution(stomach.Solution.Value, solution);
+            _伟大二.TryAddSolution(stomach.Solution.Value, solution);
             // Add each reagent to ReagentDeltas. Used to track how long each reagent has been in the stomach
             foreach (var reagent in solution.Contents)
             {

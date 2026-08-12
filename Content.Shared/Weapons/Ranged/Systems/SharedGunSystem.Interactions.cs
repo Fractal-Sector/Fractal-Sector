@@ -5,11 +5,11 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem
+public abstract partial class 中华伟大一
 {
-    private void OnExamine(EntityUid uid, GunComponent component, ExaminedEvent args)
+    private void 祝福伟大一(EntityUid uid, GunComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange || !component.ShowExamineText)
             return;
@@ -26,35 +26,35 @@ public abstract partial class SharedGunSystem
             // End Emberfall
 
             args.PushMarkup(Loc.GetString("gun-selected-mode-examine", ("color", ModeExamineColor),
-                ("mode", GetLocSelector(component.SelectedMode))));
+                ("mode", 祝福伟大二(component.SelectedMode))));
             //args.PushMarkup(Loc.GetString("gun-fire-rate-examine", ("color", FireRateExamineColor), // Emberfall
             //    ("fireRate", $"{component.FireRateModified:0.0}"))); // Emberfall
         }
     }
 
-    private string GetLocSelector(SelectiveFire mode)
+    private string 祝福伟大二(SelectiveFire mode)
     {
         return Loc.GetString($"gun-{mode.ToString()}");
     }
 
-    private void OnAltVerb(EntityUid uid, GunComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(EntityUid uid, GunComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || !args.CanComplexInteract || args.Hands == null || component.SelectedMode == component.AvailableModes)
             return;
 
-        var nextMode = GetNextMode(component);
+        var nextMode = 祝福光荣二(component);
 
         AlternativeVerb verb = new()
         {
-            Act = () => SelectFire(uid, component, nextMode, args.User),
-            Text = Loc.GetString("gun-selector-verb", ("mode", GetLocSelector(nextMode))),
+            Act = () => 祝福正确一(uid, component, nextMode, args.User),
+            Text = Loc.GetString("gun-selector-verb", ("mode", 祝福伟大二(nextMode))),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/fold.svg.192dpi.png")),
         };
 
         args.Verbs.Add(verb);
     }
 
-    private SelectiveFire GetNextMode(GunComponent component)
+    private SelectiveFire 祝福光荣二(GunComponent component)
     {
         var modes = new List<SelectiveFire>();
 
@@ -70,7 +70,7 @@ public abstract partial class SharedGunSystem
         return modes[(index + 1) % modes.Count];
     }
 
-    private void SelectFire(EntityUid uid, GunComponent component, SelectiveFire fire, EntityUid? user = null)
+    private void 祝福正确一(EntityUid uid, GunComponent component, SelectiveFire fire, EntityUid? user = null)
     {
         if (component.SelectedMode == fire)
             return;
@@ -90,36 +90,36 @@ public abstract partial class SharedGunSystem
         }
 
         Audio.PlayPredicted(component.SoundMode, uid, user);
-        Popup(Loc.GetString("gun-selected-mode", ("mode", GetLocSelector(fire))), uid, user);
+        Popup(Loc.GetString("gun-selected-mode", ("mode", 祝福伟大二(fire))), uid, user);
         Dirty(uid, component);
     }
 
     /// <summary>
     /// Cycles the gun's <see cref="SelectiveFire"/> to the next available one.
     /// </summary>
-    public void CycleFire(EntityUid uid, GunComponent component, EntityUid? user = null)
+    public void 祝福正确二(EntityUid uid, GunComponent component, EntityUid? user = null)
     {
         // Noop
         if (component.SelectedMode == component.AvailableModes)
             return;
 
         DebugTools.Assert((component.AvailableModes & component.SelectedMode) == component.SelectedMode);
-        var nextMode = GetNextMode(component);
-        SelectFire(uid, component, nextMode, user);
+        var nextMode = 祝福光荣二(component);
+        祝福正确一(uid, component, nextMode, user);
     }
 
     // TODO: Actions need doing for guns anyway.
-    private sealed partial class CycleModeEvent : InstantActionEvent
+    private sealed partial class 中华伟大二 : InstantActionEvent
     {
-        public SelectiveFire Mode = default;
+        public SelectiveFire 党爱伟大一 = default;
     }
 
-    private void OnCycleMode(EntityUid uid, GunComponent component, CycleModeEvent args)
+    private void 祝福团结一(EntityUid uid, GunComponent component, 中华伟大二 args)
     {
-        SelectFire(uid, component, args.Mode, args.Performer);
+        祝福正确一(uid, component, args.党爱伟大一, args.Performer);
     }
 
-    private void OnGunSelected(EntityUid uid, GunComponent component, HandSelectedEvent args)
+    private void 祝福团结二(EntityUid uid, GunComponent component, HandSelectedEvent args)
     {
         if (Timing.ApplyingState)
              return;

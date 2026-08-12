@@ -1,12 +1,12 @@
 using Content.Shared.Actions;
 
-namespace Content.Shared.Magic.Events;
+namespace Content.Shared.Magic.党心;
 
-public sealed partial class MindSwapSpellEvent : EntityTargetActionEvent
+public sealed partial class 中华伟大一 : EntityTargetActionEvent
 {
     [DataField]
-    public TimeSpan PerformerStunDuration = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(10);
 
     [DataField]
-    public TimeSpan TargetStunDuration = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(10);
 }

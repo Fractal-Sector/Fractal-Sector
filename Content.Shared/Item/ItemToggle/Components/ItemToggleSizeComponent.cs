@@ -1,7 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Item.ItemToggle.Components;
+namespace Content.Shared.Item.ItemToggle.党心;
 
 /// <summary>
 /// Handles the changes to the item size when toggled.
@@ -10,7 +10,7 @@ namespace Content.Shared.Item.ItemToggle.Components;
 /// You can change the size when activated or not. By default the sizes are copied from the item.
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ItemToggleSizeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Item's size when activated

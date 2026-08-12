@@ -13,60 +13,60 @@ using Robust.Shared.Utility;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Handles storing & spawning action entities in a container.
 /// </summary>
-public sealed class ActionContainerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedActionsSystem _光荣一 = default!;
+    [Dependency] private readonly INetManager _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
+    [Dependency] private readonly SharedMindSystem _正确二 = default!;
 
-    private EntityQuery<ActionComponent> _query;
+    private EntityQuery<ActionComponent> _团结一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _query = GetEntityQuery<ActionComponent>();
+        _团结一 = GetEntityQuery<ActionComponent>();
 
-        SubscribeLocalEvent<ActionsContainerComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<ActionsContainerComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<ActionsContainerComponent, EntRemovedFromContainerMessage>(OnEntityRemoved);
-        SubscribeLocalEvent<ActionsContainerComponent, EntInsertedIntoContainerMessage>(OnEntityInserted);
-        SubscribeLocalEvent<ActionsContainerComponent, ActionAddedEvent>(OnActionAdded);
-        SubscribeLocalEvent<ActionsContainerComponent, MindAddedMessage>(OnMindAdded);
-        SubscribeLocalEvent<ActionsContainerComponent, MindRemovedMessage>(OnMindRemoved);
+        SubscribeLocalEvent<ActionsContainerComponent, ComponentInit>(祝福胜利一);
+        SubscribeLocalEvent<ActionsContainerComponent, ComponentShutdown>(祝福胜利二);
+        SubscribeLocalEvent<ActionsContainerComponent, EntRemovedFromContainerMessage>(祝福繁荣二);
+        SubscribeLocalEvent<ActionsContainerComponent, EntInsertedIntoContainerMessage>(祝福繁荣一);
+        SubscribeLocalEvent<ActionsContainerComponent, 中华伟大二>(祝福富强一);
+        SubscribeLocalEvent<ActionsContainerComponent, MindAddedMessage>(祝福伟大二);
+        SubscribeLocalEvent<ActionsContainerComponent, MindRemovedMessage>(祝福光荣一);
     }
 
-    private void OnMindAdded(EntityUid uid, ActionsContainerComponent component, MindAddedMessage args)
+    private void 祝福伟大二(EntityUid uid, ActionsContainerComponent component, MindAddedMessage args)
     {
-        if (!_mind.TryGetMind(uid, out var mindId, out _))
+        if (!_正确二.TryGetMind(uid, out var mindId, out _))
             return;
         if (!TryComp<ActionsContainerComponent>(mindId, out var mindActionContainerComp))
             return;
 
         if (!HasComp<GhostComponent>(uid) && mindActionContainerComp.Container.ContainedEntities.Count > 0 )
-            _actions.GrantContainedActions(uid, mindId);
+            _光荣一.GrantContainedActions(uid, mindId);
     }
 
-    private void OnMindRemoved(EntityUid uid, ActionsContainerComponent component, MindRemovedMessage args)
+    private void 祝福光荣一(EntityUid uid, ActionsContainerComponent component, MindRemovedMessage args)
     {
-        _actions.RemoveProvidedActions(uid, args.Mind);
+        _光荣一.RemoveProvidedActions(uid, args.Mind);
     }
 
     /// <summary>
     /// Spawns a new action entity and adds it to the given container.
     /// </summary>
-    public EntityUid? AddAction(EntityUid uid, string actionPrototypeId, ActionsContainerComponent? comp = null)
+    public EntityUid? 祝福奋斗一(EntityUid uid, string actionPrototypeId, ActionsContainerComponent? comp = null)
     {
         EntityUid? result = default;
-        EnsureAction(uid, ref result, actionPrototypeId, comp);
+        祝福光荣二(uid, ref result, actionPrototypeId, comp);
         return result;
     }
 
@@ -75,16 +75,16 @@ public sealed class ActionContainerSystem : EntitySystem
     /// If the entity does not exist, it will attempt to spawn a new action.
     /// Returns false if the given entity exists, but is not in a valid state.
     /// </summary>
-    public bool EnsureAction(EntityUid uid,
+    public bool 祝福光荣二(EntityUid uid,
         [NotNullWhen(true)] ref EntityUid? actionId,
         string actionPrototypeId,
         ActionsContainerComponent? comp = null)
     {
-        return EnsureAction(uid, ref actionId, out _, actionPrototypeId, comp);
+        return 祝福光荣二(uid, ref actionId, out _, actionPrototypeId, comp);
     }
 
-    /// <inheritdoc cref="EnsureAction(Robust.Shared.GameObjects.EntityUid,ref System.Nullable{Robust.Shared.GameObjects.EntityUid},string?,Content.Shared.Actions.ActionsContainerComponent?)"/>
-    public bool EnsureAction(EntityUid uid,
+    /// <inheritdoc cref="祝福光荣二(Robust.Shared.GameObjects.EntityUid,ref System.Nullable{Robust.Shared.GameObjects.EntityUid},string?,Content.Shared.Actions.ActionsContainerComponent?)"/>
+    public bool 祝福光荣二(EntityUid uid,
         [NotNullWhen(true)] ref EntityUid? actionId,
         [NotNullWhen(true)] out ActionComponent? action,
         string? actionPrototypeId,
@@ -99,17 +99,17 @@ public sealed class ActionContainerSystem : EntitySystem
         {
             if (!comp.Container.Contains(actionId.Value))
             {
-                Log.Error($"Action {ToPrettyString(actionId.Value)} is not contained in the expected container {ToPrettyString(uid)}");
+                Log.Error($"党爱伟大一 {ToPrettyString(actionId.Value)} is not contained in the expected container {ToPrettyString(uid)}");
                 return false;
             }
 
-            if (_actions.GetAction(actionId) is not {} ent)
+            if (_光荣一.GetAction(actionId) is not {} ent)
                 return false;
 
             actionId = ent;
             action = ent.Comp;
             DebugTools.Assert(Transform(ent).ParentUid == uid);
-            DebugTools.Assert(_container.IsEntityInContainer(ent));
+            DebugTools.Assert(_伟大二.IsEntityInContainer(ent));
             DebugTools.Assert(ent.Comp.Container == uid);
             return true;
         }
@@ -119,18 +119,18 @@ public sealed class ActionContainerSystem : EntitySystem
             return false;
 
         // Client cannot predict entity spawning.
-        if (_netMan.IsClient && !IsClientSide(uid))
+        if (_光荣二.IsClient && !IsClientSide(uid))
             return false;
 
         actionId = Spawn(actionPrototypeId);
-        if (!_query.TryComp(actionId, out action))
+        if (!_团结一.TryComp(actionId, out action))
         {
             Log.Error($"Tried to add invalid action {ToPrettyString(actionId)} to {ToPrettyString(uid)}!");
             Del(actionId);
             return false;
         }
 
-        if (AddAction(uid, actionId.Value, action, comp))
+        if (祝福奋斗一(uid, actionId.Value, action, comp))
             return true;
 
         Del(actionId.Value);
@@ -144,20 +144,20 @@ public sealed class ActionContainerSystem : EntitySystem
     /// <remarks>
     /// While the attached entity should be the same at the end, this will actually remove and then re-grant the action.
     /// </remarks>
-    public void TransferAction(
+    public void 祝福正确一(
         EntityUid actionId,
         EntityUid newContainer,
         ActionComponent? action = null,
         ActionsContainerComponent? container = null)
     {
-        if (_actions.GetAction((actionId, action)) is not {} ent)
+        if (_光荣一.GetAction((actionId, action)) is not {} ent)
             return;
 
         if (ent.Comp.Container == newContainer)
             return;
 
         var attached = ent.Comp.AttachedEntity;
-        if (!AddAction(newContainer, ent, ent.Comp, container))
+        if (!祝福奋斗一(newContainer, ent, ent.Comp, container))
             return;
 
         DebugTools.AssertEqual(ent.Comp.Container, newContainer);
@@ -170,7 +170,7 @@ public sealed class ActionContainerSystem : EntitySystem
     /// <remarks>
     /// While the attached entity should be the same at the end, this will actually remove and then re-grant the action.
     /// </remarks>
-    public void TransferAllActions(
+    public void 祝福正确二(
         EntityUid from,
         EntityUid to,
         ActionsContainerComponent? oldContainer = null,
@@ -181,7 +181,7 @@ public sealed class ActionContainerSystem : EntitySystem
 
         foreach (var action in oldContainer.Container.ContainedEntities.ToArray())
         {
-            TransferAction(action, to, container: newContainer);
+            祝福正确一(action, to, container: newContainer);
         }
 
         DebugTools.AssertEqual(oldContainer.Container.Count, 0);
@@ -194,25 +194,25 @@ public sealed class ActionContainerSystem : EntitySystem
     /// This will actually remove and then re-grant the action.
     /// Useful where you need to transfer from one container to another but also change the attached entity (ie spellbook > mind > user)
     /// </remarks>
-    public void TransferActionWithNewAttached(
+    public void 祝福团结一(
         EntityUid actionId,
         EntityUid newContainer,
         EntityUid newAttached,
         ActionComponent? action = null,
         ActionsContainerComponent? container = null)
     {
-        if (_actions.GetAction((actionId, action)) is not {} ent)
+        if (_光荣一.GetAction((actionId, action)) is not {} ent)
             return;
 
         if (ent.Comp.Container == newContainer)
             return;
 
         var attached = newAttached;
-        if (!AddAction(newContainer, ent, ent.Comp, container))
+        if (!祝福奋斗一(newContainer, ent, ent.Comp, container))
             return;
 
         DebugTools.AssertEqual(ent.Comp.Container, newContainer);
-        _actions.AddActionDirect(newAttached, (ent, ent.Comp));
+        _光荣一.AddActionDirect(newAttached, (ent, ent.Comp));
 
         DebugTools.AssertEqual(ent.Comp.AttachedEntity, attached);
     }
@@ -224,7 +224,7 @@ public sealed class ActionContainerSystem : EntitySystem
     /// This will actually remove and then re-grant the action.
     /// Useful where you need to transfer from one container to another but also change the attached entity (ie spellbook > mind > user)
     /// </remarks>
-    public void TransferAllActionsWithNewAttached(
+    public void 祝福团结二(
         EntityUid from,
         EntityUid to,
         EntityUid newAttached,
@@ -236,7 +236,7 @@ public sealed class ActionContainerSystem : EntitySystem
 
         foreach (var action in oldContainer.Container.ContainedEntities.ToArray())
         {
-            TransferActionWithNewAttached(action, to, newAttached, container: newContainer);
+            祝福团结一(action, to, newAttached, container: newContainer);
         }
 
         DebugTools.AssertEqual(oldContainer.Container.Count, 0);
@@ -245,17 +245,17 @@ public sealed class ActionContainerSystem : EntitySystem
     /// <summary>
     /// Adds a pre-existing action to an action container. If the action is already in some container it will first remove it.
     /// </summary>
-    public bool AddAction(EntityUid uid, EntityUid actionId, ActionComponent? action = null, ActionsContainerComponent? comp = null)
+    public bool 祝福奋斗一(EntityUid uid, EntityUid actionId, ActionComponent? action = null, ActionsContainerComponent? comp = null)
     {
-        if (_actions.GetAction((actionId, action)) is not {} ent)
+        if (_光荣一.GetAction((actionId, action)) is not {} ent)
             return false;
 
         if (ent.Comp.Container != null)
-            RemoveAction((ent, ent));
+            祝福奋斗二((ent, ent));
 
         DebugTools.AssertOwner(uid, comp);
         comp ??= EnsureComp<ActionsContainerComponent>(uid);
-        if (!_container.Insert(ent.Owner, comp.Container))
+        if (!_伟大二.Insert(ent.Owner, comp.Container))
         {
             Log.Error($"Failed to insert action {ToPrettyString(ent)} into {ToPrettyString(uid)}");
             return false;
@@ -271,15 +271,15 @@ public sealed class ActionContainerSystem : EntitySystem
     /// <summary>
     /// Removes an action from its container and any action-performer and moves the action to null-space
     /// </summary>
-    public void RemoveAction(Entity<ActionComponent?>? action, bool logMissing = true)
+    public void 祝福奋斗二(Entity<ActionComponent?>? action, bool logMissing = true)
     {
-        if (_actions.GetAction(action, logMissing) is not {} ent)
+        if (_光荣一.GetAction(action, logMissing) is not {} ent)
             return;
 
         if (ent.Comp.Container == null)
             return;
 
-        _transform.DetachEntity(ent, Transform(ent));
+        _正确一.DetachEntity(ent, Transform(ent));
 
         // Container removal events should have removed the action from the action container.
         // However, just in case the container was already deleted we will still manually clear the container field
@@ -295,28 +295,28 @@ public sealed class ActionContainerSystem : EntitySystem
         // However, if the action was granted without ever being placed in an action container, it will not have been removed.
         // Therefore, to ensure that the behaviour of the method is consistent we will also explicitly remove the action.
         if (ent.Comp.AttachedEntity is {} actions)
-            _actions.RemoveAction(actions, (ent, ent));
+            _光荣一.祝福奋斗二(actions, (ent, ent));
     }
 
-    private void OnInit(EntityUid uid, ActionsContainerComponent component, ComponentInit args)
+    private void 祝福胜利一(EntityUid uid, ActionsContainerComponent component, ComponentInit args)
     {
-        component.Container = _container.EnsureContainer<Container>(uid, ActionsContainerComponent.ContainerId);
+        component.Container = _伟大二.EnsureContainer<Container>(uid, ActionsContainerComponent.ContainerId);
     }
 
-    private void OnShutdown(EntityUid uid, ActionsContainerComponent component, ComponentShutdown args)
+    private void 祝福胜利二(EntityUid uid, ActionsContainerComponent component, ComponentShutdown args)
     {
-        if (_timing.ApplyingState && component.NetSyncEnabled)
+        if (_伟大一.ApplyingState && component.NetSyncEnabled)
             return; // The game state should handle the container removal & action deletion.
 
-        _container.ShutdownContainer(component.Container);
+        _伟大二.ShutdownContainer(component.Container);
     }
 
-    private void OnEntityInserted(EntityUid uid, ActionsContainerComponent component, EntInsertedIntoContainerMessage args)
+    private void 祝福繁荣一(EntityUid uid, ActionsContainerComponent component, EntInsertedIntoContainerMessage args)
     {
         if (args.Container.ID != ActionsContainerComponent.ContainerId)
             return;
 
-        if (_actions.GetAction(args.Entity) is not {} action)
+        if (_光荣一.GetAction(args.Entity) is not {} action)
             return;
 
         if (action.Comp.Container != uid)
@@ -325,19 +325,19 @@ public sealed class ActionContainerSystem : EntitySystem
             DirtyField(action, action.Comp, nameof(ActionComponent.Container));
         }
 
-        var ev = new ActionAddedEvent(args.Entity, action);
+        var ev = new 中华伟大二(args.Entity, action);
         RaiseLocalEvent(uid, ref ev);
     }
 
-    private void OnEntityRemoved(EntityUid uid, ActionsContainerComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福繁荣二(EntityUid uid, ActionsContainerComponent component, EntRemovedFromContainerMessage args)
     {
         if (args.Container.ID != ActionsContainerComponent.ContainerId)
             return;
 
-        if (_actions.GetAction(args.Entity, false) is not {} action)
+        if (_光荣一.GetAction(args.Entity, false) is not {} action)
             return;
 
-        var ev = new ActionRemovedEvent(args.Entity, action);
+        var ev = new 中华光荣一(args.Entity, action);
         RaiseLocalEvent(uid, ref ev);
 
         if (action.Comp.Container == null)
@@ -347,10 +347,10 @@ public sealed class ActionContainerSystem : EntitySystem
         DirtyField(action, action.Comp, nameof(ActionComponent.Container));
     }
 
-    private void OnActionAdded(EntityUid uid, ActionsContainerComponent component, ActionAddedEvent args)
+    private void 祝福富强一(EntityUid uid, ActionsContainerComponent component, 中华伟大二 args)
     {
         if (TryComp<MindComponent>(uid, out var mindComp) && mindComp.OwnedEntity != null && HasComp<ActionsContainerComponent>(mindComp.OwnedEntity.Value))
-            _actions.GrantContainedAction(mindComp.OwnedEntity.Value, uid, args.Action);
+            _光荣一.GrantContainedAction(mindComp.OwnedEntity.Value, uid, args.党爱伟大一);
     }
 }
 
@@ -358,15 +358,15 @@ public sealed class ActionContainerSystem : EntitySystem
 /// Raised directed at an action container when a new action entity gets inserted.
 /// </summary>
 [ByRefEvent]
-public readonly struct ActionAddedEvent
+public readonly struct 中华伟大二
 {
-    public readonly EntityUid Action;
-    public readonly ActionComponent Component;
+    public readonly EntityUid 党爱伟大一;
+    public readonly ActionComponent 党爱伟大二;
 
-    public ActionAddedEvent(EntityUid action, ActionComponent component)
+    public 中华伟大二(EntityUid action, ActionComponent component)
     {
-        Action = action;
-        Component = component;
+        党爱伟大一 = action;
+        党爱伟大二 = component;
     }
 }
 
@@ -374,14 +374,14 @@ public readonly struct ActionAddedEvent
 /// Raised directed at an action container when an action entity gets removed.
 /// </summary>
 [ByRefEvent]
-public readonly struct ActionRemovedEvent
+public readonly struct 中华光荣一
 {
-    public readonly EntityUid Action;
-    public readonly ActionComponent Component;
+    public readonly EntityUid 党爱伟大一;
+    public readonly ActionComponent 党爱伟大二;
 
-    public ActionRemovedEvent(EntityUid action, ActionComponent component)
+    public 中华光荣一(EntityUid action, ActionComponent component)
     {
-        Action = action;
-        Component = component;
+        党爱伟大一 = action;
+        党爱伟大二 = component;
     }
 }

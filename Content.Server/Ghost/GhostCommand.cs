@@ -5,18 +5,18 @@ using Content.Shared.Mind;
 using Robust.Shared.Console;
 using Content.Server.GameTicking;
 
-namespace Content.Server.Ghost
+namespace Content.Server.党心
 {
     [AnyCommand]
-    public sealed class GhostCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "ghost";
-        public string Description => Loc.GetString("ghost-command-description");
-        public string Help => Loc.GetString("ghost-command-help-text");
+        public string 党爱伟大一 => "ghost";
+        public string 党爱伟大二 => Loc.GetString("ghost-command-description");
+        public string 党爱光荣一 => Loc.GetString("ghost-command-help-text");
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (player == null)
@@ -25,7 +25,7 @@ namespace Content.Server.Ghost
                 return;
             }
 
-            var gameTicker = _entities.System<GameTicker>();
+            var gameTicker = _伟大一.System<GameTicker>();
             if (!gameTicker.PlayerGameStatuses.TryGetValue(player.UserId, out var playerStatus) ||
                 playerStatus is not PlayerGameStatus.JoinedGame)
             {
@@ -34,23 +34,23 @@ namespace Content.Server.Ghost
             }
 
             if (player.AttachedEntity is { Valid: true } frozen &&
-                _entities.HasComponent<AdminFrozenComponent>(frozen))
+                _伟大一.HasComponent<AdminFrozenComponent>(frozen))
             {
                 var deniedMessage = Loc.GetString("ghost-command-denied");
                 shell.WriteLine(deniedMessage);
-                _entities.System<PopupSystem>()
+                _伟大一.System<PopupSystem>()
                     .PopupEntity(deniedMessage, frozen, frozen);
                 return;
             }
 
-            var minds = _entities.System<SharedMindSystem>();
+            var minds = _伟大一.System<SharedMindSystem>();
             if (!minds.TryGetMind(player, out var mindId, out var mind))
             {
                 mindId = minds.CreateMind(player.UserId);
-                mind = _entities.GetComponent<MindComponent>(mindId);
+                mind = _伟大一.GetComponent<MindComponent>(mindId);
             }
 
-            if (!_entities.System<GhostSystem>().OnGhostAttempt(mindId, true, true, mind: mind))
+            if (!_伟大一.System<GhostSystem>().OnGhostAttempt(mindId, true, true, mind: mind))
             {
                 shell.WriteLine(Loc.GetString("ghost-command-denied"));
             }

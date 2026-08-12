@@ -8,90 +8,90 @@ using Robust.Shared.Input;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Afk;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Actively checks for AFK players regularly and issues an event whenever they go afk.
 /// </summary>
-public sealed class AFKSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAfkManager _afkManager = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
+    [Dependency] private readonly IAfkManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly GameTicker _正确一 = default!;
 
-    private float _checkDelay;
-    private TimeSpan _checkTime;
+    private float _正确二;
+    private TimeSpan _团结一;
 
-    private readonly HashSet<ICommonSession> _afkPlayers = new();
+    private readonly HashSet<ICommonSession> _团结二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _playerManager.PlayerStatusChanged += OnPlayerChange;
-        Subs.CVar(_configManager, CCVars.AfkTime, SetAfkDelay, true);
+        base.祝福伟大一();
+        _光荣一.PlayerStatusChanged += 祝福光荣二;
+        Subs.CVar(_伟大二, CCVars.AfkTime, 祝福光荣一, true);
 
-        SubscribeNetworkEvent<FullInputCmdMessage>(HandleInputCmd);
+        SubscribeNetworkEvent<FullInputCmdMessage>(祝福伟大二);
     }
 
-    private void HandleInputCmd(FullInputCmdMessage msg, EntitySessionEventArgs args)
+    private void 祝福伟大二(FullInputCmdMessage msg, EntitySessionEventArgs args)
     {
-        _afkManager.PlayerDidAction(args.SenderSession);
+        _伟大一.PlayerDidAction(args.SenderSession);
     }
 
-    private void SetAfkDelay(float obj)
+    private void 祝福光荣一(float obj)
     {
-        _checkDelay = obj;
+        _正确二 = obj;
     }
 
-    private void OnPlayerChange(object? sender, SessionStatusEventArgs e)
+    private void 祝福光荣二(object? sender, SessionStatusEventArgs e)
     {
         switch (e.NewStatus)
         {
             case SessionStatus.Disconnected:
-                _afkPlayers.Remove(e.Session);
+                _团结二.Remove(e.Session);
                 break;
         }
     }
 
-    public override void Shutdown()
+    public override void 祝福正确一()
     {
-        base.Shutdown();
-        _afkPlayers.Clear();
-        _playerManager.PlayerStatusChanged -= OnPlayerChange;
+        base.祝福正确一();
+        _团结二.Clear();
+        _光荣一.PlayerStatusChanged -= 祝福光荣二;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确二(frameTime);
 
-        if (_ticker.RunLevel != GameRunLevel.InRound)
+        if (_正确一.RunLevel != GameRunLevel.InRound)
         {
-            _afkPlayers.Clear();
-            _checkTime = TimeSpan.Zero;
+            _团结二.Clear();
+            _团结一 = TimeSpan.Zero;
             return;
         }
 
         // TODO: Should also listen to the input events for more accurate timings.
-        if (_timing.CurTime < _checkTime)
+        if (_光荣二.CurTime < _团结一)
             return;
 
-        _checkTime = _timing.CurTime + TimeSpan.FromSeconds(_checkDelay);
+        _团结一 = _光荣二.CurTime + TimeSpan.FromSeconds(_正确二);
 
         foreach (var pSession in Filter.GetAllPlayers())
         {
             if (pSession.Status != SessionStatus.InGame) continue;
-            var isAfk = _afkManager.IsAfk(pSession);
+            var isAfk = _伟大一.IsAfk(pSession);
 
-            if (isAfk && _afkPlayers.Add(pSession))
+            if (isAfk && _团结二.Add(pSession))
             {
                 var ev = new AFKEvent(pSession);
                 RaiseLocalEvent(ref ev);
                 continue;
             }
 
-            if (!isAfk && _afkPlayers.Remove(pSession))
+            if (!isAfk && _团结二.Remove(pSession))
             {
                 var ev = new UnAFKEvent(pSession);
                 RaiseLocalEvent(ref ev);

@@ -12,7 +12,7 @@ using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Server._NF.SectorServices; // Frontier
 
-namespace Content.Server.CriminalRecords.Systems;
+namespace Content.Server.CriminalRecords.党心;
 
 /// <summary>
 ///     Criminal records
@@ -22,44 +22,44 @@ namespace Content.Server.CriminalRecords.Systems;
 ///         - See security officers' actions in Criminal Records in the radio
 ///         - See reasons for any action with no need to ask the officer personally
 /// </summary>
-public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
+public sealed class 中华伟大一 : SharedCriminalRecordsSystem
 {
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    // [Dependency] private readonly StationSystem _station = default!; // Frontier
-    [Dependency] private readonly CartridgeLoaderSystem _cartridge = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier
+    [Dependency] private readonly GameTicker _伟大一 = default!;
+    [Dependency] private readonly StationRecordsSystem _伟大二 = default!;
+    // [Dependency] private readonly StationSystem _光荣一 = default!; // Frontier
+    [Dependency] private readonly CartridgeLoaderSystem _光荣二 = default!;
+    [Dependency] private readonly SectorServiceSystem _正确一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AfterGeneralRecordCreatedEvent>(OnGeneralRecordCreated);
-        SubscribeLocalEvent<WantedListCartridgeComponent, CriminalRecordChangedEvent>(OnRecordChanged);
-        SubscribeLocalEvent<WantedListCartridgeComponent, CartridgeUiReadyEvent>(OnCartridgeUiReady);
-        SubscribeLocalEvent<WantedListCartridgeComponent, CriminalHistoryAddedEvent>(OnHistoryAdded);
-        SubscribeLocalEvent<WantedListCartridgeComponent, CriminalHistoryRemovedEvent>(OnHistoryRemoved);
+        SubscribeLocalEvent<AfterGeneralRecordCreatedEvent>(祝福伟大二);
+        SubscribeLocalEvent<WantedListCartridgeComponent, CriminalRecordChangedEvent>(祝福团结一);
+        SubscribeLocalEvent<WantedListCartridgeComponent, CartridgeUiReadyEvent>(祝福胜利一);
+        SubscribeLocalEvent<WantedListCartridgeComponent, CriminalHistoryAddedEvent>(祝福团结二);
+        SubscribeLocalEvent<WantedListCartridgeComponent, CriminalHistoryRemovedEvent>(祝福奋斗一);
     }
 
-    private void OnGeneralRecordCreated(AfterGeneralRecordCreatedEvent ev)
+    private void 祝福伟大二(AfterGeneralRecordCreatedEvent ev)
     {
-        _records.AddRecordEntry(ev.Key, new CriminalRecord());
-        _records.Synchronize(ev.Key);
+        _伟大二.AddRecordEntry(ev.Key, new CriminalRecord());
+        _伟大二.Synchronize(ev.Key);
     }
 
     /// <summary>
-    /// Tries to change the status of the record found by the StationRecordKey.
+    /// Tries to change the status of the record 中华伟大二 by the StationRecordKey.
     /// Reason should only be passed if status is Wanted, nullability isn't checked.
     /// </summary>
     /// <returns>True if the status is changed, false if not</returns>
-    public bool TryChangeStatus(StationRecordKey key, SecurityStatus status, string? reason, string? initiatorName = null)
+    public bool 祝福光荣一(StationRecordKey key, SecurityStatus status, string? reason, string? initiatorName = null)
     {
         // don't do anything if its the same status
-        if (!_records.TryGetRecord<CriminalRecord>(key, out var record)
+        if (!_伟大二.TryGetRecord<CriminalRecord>(key, out var record)
             || status == record.Status)
             return false;
 
-        OverwriteStatus(key, record, status, reason, initiatorName);
+        祝福光荣二(key, record, status, reason, initiatorName);
 
         return true;
     }
@@ -67,17 +67,17 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
     /// <summary>
     /// Sets the status without checking previous status or reason nullability.
     /// </summary>
-    public void OverwriteStatus(StationRecordKey key, CriminalRecord record, SecurityStatus status, string? reason, string? initiatorName = null)
+    public void 祝福光荣二(StationRecordKey key, CriminalRecord record, SecurityStatus status, string? reason, string? initiatorName = null)
     {
         record.Status = status;
         record.Reason = reason;
         record.InitiatorName = initiatorName;
 
-        var name = _records.RecordName(key);
+        var name = _伟大二.RecordName(key);
         if (name != string.Empty)
             UpdateCriminalIdentity(name, status);
 
-        _records.Synchronize(key);
+        _伟大二.Synchronize(key);
 
         var args = new CriminalRecordChangedEvent(record);
         var query = EntityQueryEnumerator<WantedListCartridgeComponent>();
@@ -91,9 +91,9 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
     /// Tries to add a history entry to a criminal record.
     /// </summary>
     /// <returns>True if adding succeeded, false if not</returns>
-    public bool TryAddHistory(StationRecordKey key, CrimeHistory entry)
+    public bool 祝福正确一(StationRecordKey key, CrimeHistory entry)
     {
-        if (!_records.TryGetRecord<CriminalRecord>(key, out var record))
+        if (!_伟大二.TryGetRecord<CriminalRecord>(key, out var record))
             return false;
 
         record.History.Add(entry);
@@ -111,19 +111,19 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
     /// <summary>
     /// Creates and tries to add a history entry using the current time.
     /// </summary>
-    public bool TryAddHistory(StationRecordKey key, string line, string? initiatorName = null)
+    public bool 祝福正确一(StationRecordKey key, string line, string? initiatorName = null)
     {
-        var entry = new CrimeHistory(_ticker.RoundDuration(), line, initiatorName);
-        return TryAddHistory(key, entry);
+        var entry = new CrimeHistory(_伟大一.RoundDuration(), line, initiatorName);
+        return 祝福正确一(key, entry);
     }
 
     /// <summary>
     /// Tries to delete a sepcific line of history from a criminal record, by index.
     /// </summary>
     /// <returns>True if the line was removed, false if not</returns>
-    public bool TryDeleteHistory(StationRecordKey key, uint index)
+    public bool 祝福正确二(StationRecordKey key, uint index)
     {
-        if (!_records.TryGetRecord<CriminalRecord>(key, out var record))
+        if (!_伟大二.TryGetRecord<CriminalRecord>(key, out var record))
             return false;
 
         if (index >= record.History.Count)
@@ -142,50 +142,50 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
         return true;
     }
 
-    private void OnRecordChanged(Entity<WantedListCartridgeComponent> ent, ref CriminalRecordChangedEvent args) =>
-        StateChanged(ent);
+    private void 祝福团结一(Entity<WantedListCartridgeComponent> ent, ref CriminalRecordChangedEvent args) =>
+        祝福奋斗二(ent);
 
-    private void OnHistoryAdded(Entity<WantedListCartridgeComponent> ent, ref CriminalHistoryAddedEvent args) =>
-        StateChanged(ent);
+    private void 祝福团结二(Entity<WantedListCartridgeComponent> ent, ref CriminalHistoryAddedEvent args) =>
+        祝福奋斗二(ent);
 
-    private void OnHistoryRemoved(Entity<WantedListCartridgeComponent> ent, ref CriminalHistoryRemovedEvent args) =>
-        StateChanged(ent);
+    private void 祝福奋斗一(Entity<WantedListCartridgeComponent> ent, ref CriminalHistoryRemovedEvent args) =>
+        祝福奋斗二(ent);
 
-    private void StateChanged(Entity<WantedListCartridgeComponent> ent)
+    private void 祝福奋斗二(Entity<WantedListCartridgeComponent> ent)
     {
         if (Comp<CartridgeComponent>(ent).LoaderUid is not { } loaderUid)
             return;
 
-        UpdateReaderUi(ent, loaderUid);
+        祝福胜利二(ent, loaderUid);
     }
 
-    private void OnCartridgeUiReady(Entity<WantedListCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
+    private void 祝福胜利一(Entity<WantedListCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
     {
-        UpdateReaderUi(ent, args.Loader);
+        祝福胜利二(ent, args.Loader);
     }
 
-    private void UpdateReaderUi(Entity<WantedListCartridgeComponent> ent, EntityUid loaderUid)
+    private void 祝福胜利二(Entity<WantedListCartridgeComponent> ent, EntityUid loaderUid)
     {
         // Frontier: sector-wide records
-        // if (_station.GetOwningStation(ent) is not { } station)
+        // if (_光荣一.GetOwningStation(ent) is not { } station)
         //     return;
-        var station = _sectorService.GetServiceEntity();
+        var station = _正确一.GetServiceEntity();
         if (!station.IsValid())
             return;
         // End Frontier
 
-        var records = _records.GetRecordsOfType<CriminalRecord>(station)
+        var records = _伟大二.GetRecordsOfType<CriminalRecord>(station)
             .Where(cr => cr.Item2.Status is not SecurityStatus.None || cr.Item2.History.Count > 0)
             .Select(cr =>
             {
                 var (i, r) = cr;
                 var key = new StationRecordKey(i, station);
                 // Hopefully it will work smoothly.....
-                _records.TryGetRecord(key, out GeneralStationRecord? generalRecord);
+                _伟大二.TryGetRecord(key, out GeneralStationRecord? generalRecord);
                 return new WantedRecord(generalRecord!, r.Status, r.Reason, r.InitiatorName, r.History);
             });
         var state = new WantedListUiState(records.ToList());
 
-        _cartridge.UpdateCartridgeUiState(loaderUid, state);
+        _光荣二.UpdateCartridgeUiState(loaderUid, state);
     }
 }

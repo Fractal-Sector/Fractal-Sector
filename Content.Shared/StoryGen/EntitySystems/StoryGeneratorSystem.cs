@@ -3,15 +3,15 @@ using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared.StoryGen;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Provides functionality to generate a story from a <see cref="StoryTemplatePrototype"/>.
 /// </summary>
-public sealed partial class StoryGeneratorSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
     /// <summary>
     /// Tries to generate a random story using the given template, picking a random word from the referenced
@@ -21,10 +21,10 @@ public sealed partial class StoryGeneratorSystem : EntitySystem
     /// Fails if the template prototype cannot be loaded.
     /// </summary>
     /// <returns>true if the template was loaded, otherwise false.</returns>
-    public bool TryGenerateStoryFromTemplate(ProtoId<StoryTemplatePrototype> template, [NotNullWhen(true)] out string? story, int? seed = null)
+    public bool 祝福伟大一(ProtoId<StoryTemplatePrototype> template, [NotNullWhen(true)] out string? story, int? seed = null)
     {
         // Get the story template prototype from the ID
-        if (!_protoMan.TryIndex(template, out var templateProto))
+        if (!_伟大一.TryIndex(template, out var templateProto))
         {
             story = null;
             return false;
@@ -32,18 +32,18 @@ public sealed partial class StoryGeneratorSystem : EntitySystem
 
         // If given a seed, use it
         if (seed != null)
-            _random.SetSeed(seed.Value);
+            _伟大二.SetSeed(seed.Value);
 
         // Pick values for all of the variables in the template
         var variables = new ValueList<(string, object)>(templateProto.Variables.Count);
         foreach (var (name, list) in templateProto.Variables)
         {
             // Get the prototype for the world list dataset
-            if (!_protoMan.TryIndex(list, out var listProto))
+            if (!_伟大一.TryIndex(list, out var listProto))
                 continue; // Missed one, but keep going with the rest of the story
 
             // Pick a random word from the dataset and localize it
-            var chosenWord = Loc.GetString(_random.Pick(listProto.Values));
+            var chosenWord = Loc.GetString(_伟大二.Pick(listProto.Values));
             variables.Add((name, chosenWord));
         }
 

@@ -32,79 +32,79 @@ using Content.Server._NF.Shuttles.Components; // Frontier
 using Content.Server.GameTicking; // Frontier
 using Content.Shared.Maps;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
 [UsedImplicitly]
-public sealed partial class ShuttleSystem : SharedShuttleSystem
+public sealed partial class 中华伟大一 : SharedShuttleSystem
 {
-    [Dependency] private readonly IAdminLogManager _logger = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly BiomeSystem _biomes = default!;
-    [Dependency] private readonly BodySystem _bobby = default!;
-    [Dependency] private readonly BuckleSystem _buckle = default!;
-    [Dependency] private readonly DamageableSystem _damageSys = default!;
-    [Dependency] private readonly DockingSystem _dockSystem = default!;
-    [Dependency] private readonly DungeonSystem _dungeon = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvs = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedSalvageSystem _salvage = default!;
-    [Dependency] private readonly ShuttleConsoleSystem _console = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StunSystem _stuns = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly ThrusterSystem _thruster = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly GameTicker _ticker = default!; //Frontier: needed to get the main map in FTL
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly IMapManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly IRobustRandom _正确二 = default!;
+    [Dependency] private readonly BiomeSystem _团结一 = default!;
+    [Dependency] private readonly BodySystem _团结二 = default!;
+    [Dependency] private readonly BuckleSystem _奋斗一 = default!;
+    [Dependency] private readonly DamageableSystem _奋斗二 = default!;
+    [Dependency] private readonly DockingSystem _胜利一 = default!;
+    [Dependency] private readonly DungeonSystem _胜利二 = default!;
+    [Dependency] private readonly EntityLookupSystem _繁荣一 = default!;
+    [Dependency] private readonly MapLoaderSystem _繁荣二 = default!;
+    [Dependency] private readonly MapSystem _富强一 = default!;
+    [Dependency] private readonly MetaDataSystem _富强二 = default!;
+    [Dependency] private readonly PvsOverrideSystem _民主一 = default!;
+    [Dependency] private readonly SharedAudioSystem _民主二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _文明一 = default!;
+    [Dependency] private readonly SharedTransformSystem _文明二 = default!;
+    [Dependency] private readonly SharedSalvageSystem _和谐一 = default!;
+    [Dependency] private readonly ShuttleConsoleSystem _和谐二 = default!;
+    [Dependency] private readonly StationSystem _自由一 = default!;
+    [Dependency] private readonly StunSystem _自由二 = default!;
+    [Dependency] private readonly ThrowingSystem _平等一 = default!;
+    [Dependency] private readonly ThrusterSystem _平等二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _公正一 = default!;
+    [Dependency] private readonly GameTicker _公正二 = default!; //Frontier: needed to get the main map in FTL
+    [Dependency] private readonly TurfSystem _法治一 = default!;
 
-    private EntityQuery<BuckleComponent> _buckleQuery;
-    private EntityQuery<MapGridComponent> _gridQuery;
-    private EntityQuery<PhysicsComponent> _physicsQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<BuckleComponent> _法治二;
+    private EntityQuery<MapGridComponent> _爱国一;
+    private EntityQuery<PhysicsComponent> _爱国二;
+    private EntityQuery<TransformComponent> _敬业一;
     private readonly Dictionary<EntityUid, float> _ftlDampingBackup = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _buckleQuery = GetEntityQuery<BuckleComponent>();
-        _gridQuery = GetEntityQuery<MapGridComponent>();
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _法治二 = GetEntityQuery<BuckleComponent>();
+        _爱国一 = GetEntityQuery<MapGridComponent>();
+        _爱国二 = GetEntityQuery<PhysicsComponent>();
+        _敬业一 = GetEntityQuery<TransformComponent>();
 
         InitializeFTL();
         InitializeGridFills();
         InitializeIFF();
         InitializeImpact();
 
-        SubscribeLocalEvent<ShuttleComponent, ComponentStartup>(OnShuttleStartup);
-        SubscribeLocalEvent<ShuttleComponent, ComponentShutdown>(OnShuttleShutdown);
-        SubscribeLocalEvent<ShuttleComponent, TileFrictionEvent>(OnTileFriction);
-        SubscribeLocalEvent<ShuttleComponent, FTLStartedEvent>(OnFTLStarted);
-        SubscribeLocalEvent<ShuttleComponent, FTLCompletedEvent>(OnFTLCompleted);
+        SubscribeLocalEvent<ShuttleComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<ShuttleComponent, ComponentShutdown>(祝福团结二);
+        SubscribeLocalEvent<ShuttleComponent, TileFrictionEvent>(祝福奋斗一);
+        SubscribeLocalEvent<ShuttleComponent, FTLStartedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<ShuttleComponent, FTLCompletedEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
+        SubscribeLocalEvent<GridInitializeEvent>(祝福光荣一);
         NfInitialize(); // Frontier
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         UpdateHyperspace();
         ShouldEmergencyBrake();
     }
 
-    private void OnGridInit(GridInitializeEvent ev)
+    private void 祝福光荣一(GridInitializeEvent ev)
     {
         if (HasComp<MapComponent>(ev.EntityUid))
             return;
@@ -113,7 +113,7 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
         EnsureComp<ImplicitRoofComponent>(ev.EntityUid);
     }
 
-    private void OnShuttleStartup(EntityUid uid, ShuttleComponent component, ComponentStartup args)
+    private void 祝福光荣二(EntityUid uid, ShuttleComponent component, ComponentStartup args)
     {
         if (!HasComp<MapGridComponent>(uid))
         {
@@ -127,11 +127,11 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
 
         if (component.Enabled)
         {
-            Enable(uid, component: physicsComponent, shuttle: component);
+            祝福正确二(uid, component: physicsComponent, shuttle: component);
         }
     }
 
-    public void Toggle(EntityUid uid, ShuttleComponent component)
+    public void 祝福正确一(EntityUid uid, ShuttleComponent component)
     {
         if (!TryComp(uid, out PhysicsComponent? physicsComponent))
             return;
@@ -143,15 +143,15 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
 
         if (component.Enabled)
         {
-            Enable(uid, component: physicsComponent, shuttle: component);
+            祝福正确二(uid, component: physicsComponent, shuttle: component);
         }
         else
         {
-            Disable(uid, component: physicsComponent);
+            祝福团结一(uid, component: physicsComponent);
         }
     }
 
-    public void Enable(EntityUid uid, FixturesComponent? manager = null, PhysicsComponent? component = null, ShuttleComponent? shuttle = null)
+    public void 祝福正确二(EntityUid uid, FixturesComponent? manager = null, PhysicsComponent? component = null, ShuttleComponent? shuttle = null)
     {
         if (!Resolve(uid, ref manager, ref component, ref shuttle, false))
             return;
@@ -159,12 +159,12 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
         if (HasComp<PreventGridAnchorChangesComponent>(uid)) // Frontier
             return; // Frontier
 
-        _physics.SetBodyType(uid, BodyType.Dynamic, manager: manager, body: component);
-        _physics.SetBodyStatus(uid, component, BodyStatus.InAir);
-        _physics.SetFixedRotation(uid, false, manager: manager, body: component);
+        _文明一.SetBodyType(uid, BodyType.Dynamic, manager: manager, body: component);
+        _文明一.SetBodyStatus(uid, component, BodyStatus.InAir);
+        _文明一.SetFixedRotation(uid, false, manager: manager, body: component);
     }
 
-    public void Disable(EntityUid uid, FixturesComponent? manager = null, PhysicsComponent? component = null)
+    public void 祝福团结一(EntityUid uid, FixturesComponent? manager = null, PhysicsComponent? component = null)
     {
         if (!Resolve(uid, ref manager, ref component, false))
             return;
@@ -172,12 +172,12 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
         if (HasComp<PreventGridAnchorChangesComponent>(uid)) // Frontier
             return; // Frontier
 
-        _physics.SetBodyType(uid, BodyType.Static, manager: manager, body: component);
-        _physics.SetBodyStatus(uid, component, BodyStatus.OnGround);
-        _physics.SetFixedRotation(uid, true, manager: manager, body: component);
+        _文明一.SetBodyType(uid, BodyType.Static, manager: manager, body: component);
+        _文明一.SetBodyStatus(uid, component, BodyStatus.OnGround);
+        _文明一.SetFixedRotation(uid, true, manager: manager, body: component);
     }
 
-    private void OnShuttleShutdown(EntityUid uid, ShuttleComponent component, ComponentShutdown args)
+    private void 祝福团结二(EntityUid uid, ShuttleComponent component, ComponentShutdown args)
     {
         // None of the below is necessary for any cleanup if we're just deleting.
         if (Comp<MetaDataComponent>(uid).EntityLifeStage >= EntityLifeStage.Terminating)
@@ -185,21 +185,21 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
 
         _ftlDampingBackup.Remove(uid);
 
-        Disable(uid);
+        祝福团结一(uid);
     }
 
-    private void OnTileFriction(Entity<ShuttleComponent> ent, ref TileFrictionEvent args)
+    private void 祝福奋斗一(Entity<ShuttleComponent> ent, ref TileFrictionEvent args)
     {
         args.Modifier *= ent.Comp.DampingModifier;
     }
 
-    private void OnFTLStarted(Entity<ShuttleComponent> ent, ref FTLStartedEvent args)
+    private void 祝福奋斗二(Entity<ShuttleComponent> ent, ref FTLStartedEvent args)
     {
         _ftlDampingBackup[ent.Owner] = ent.Comp.DampingModifier;
         ent.Comp.DampingModifier = 0f;
     }
 
-    private void OnFTLCompleted(Entity<ShuttleComponent> ent, ref FTLCompletedEvent args)
+    private void 祝福胜利一(Entity<ShuttleComponent> ent, ref FTLCompletedEvent args)
     {
         if (_ftlDampingBackup.Remove(ent.Owner, out var previousDamping))
             ent.Comp.DampingModifier = previousDamping;

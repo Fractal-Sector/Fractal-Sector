@@ -4,18 +4,18 @@ using Content.Server.Worldgen.Systems.Debris;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Worldgen.Components.Debris;
+namespace Content.Server.Worldgen.Components.党心;
 
 /// <summary>
 ///     Represents a debris entity waiting to be spawned.
 /// </summary>
-public struct PendingDebrisSpawn
+public struct 中华伟大一
 {
-    public Vector2 Point;
-    public string DebrisProto;
-    public EntityCoordinates Coords;
-    public EntityUid ControllerUid;
-    public EntityUid ChunkUid;
+    public Vector2 党爱伟大一;
+    public string 党爱伟大二;
+    public EntityCoordinates 党爱光荣一;
+    public EntityUid 党爱光荣二;
+    public EntityUid 党爱正确一;
 }
 
 /// <summary>
@@ -23,17 +23,17 @@ public struct PendingDebrisSpawn
 /// </summary>
 [RegisterComponent]
 [Access(typeof(DebrisFeaturePlacerSystem))]
-public sealed partial class DebrisFeaturePlacerControllerComponent : Component
+public sealed partial class 中华伟大二 : Component
 {
     /// <summary>
     ///     Whether or not to clip debris that would spawn at a location that has a density of zero.
     /// </summary>
-    [DataField("densityClip")] public bool DensityClip = true;
+    [DataField("densityClip")] public bool 党爱正确二 = true;
 
     /// <summary>
     ///     Whether or not entities are already spawned.
     /// </summary>
-    public bool DoSpawns = true;
+    public bool 党爱团结一 = true;
 
     [DataField("ownedDebris")]
     public Dictionary<Vector2, EntityUid?> OwnedDebris = new();
@@ -42,7 +42,7 @@ public sealed partial class DebrisFeaturePlacerControllerComponent : Component
     ///     Queue of pending debris spawns to be processed gradually across ticks.
     /// </summary>
     [DataField("pendingSpawns")]
-    public Queue<PendingDebrisSpawn> PendingSpawns = new();
+    public Queue<中华伟大一> PendingSpawns = new();
 
     /// <summary>
     ///     Queue of debrises that are scheduled to be despawned.
@@ -53,17 +53,17 @@ public sealed partial class DebrisFeaturePlacerControllerComponent : Component
     /// <summary>
     ///     The chance spawning a piece of debris will just be cancelled randomly.
     /// </summary>
-    [DataField("randomCancelChance")] public float RandomCancellationChance = 0.85f; //FS: 0.35f<0.85f
+    [DataField("randomCancelChance")] public float 党爱团结二 = 0.85f; //FS: 0.35f<0.85f
 
     /// <summary>
     ///     Radius in which there should be no objects for debris to spawn.
     /// </summary>
-    [DataField("safetyZoneRadius")] public float SafetyZoneRadius = 24.0f;
+    [DataField("safetyZoneRadius")] public float 党爱奋斗一 = 24.0f;
 
     /// <summary>
     ///     The noise channel to use as a density controller.
     /// </summary>
     [DataField("densityNoiseChannel", customTypeSerializer: typeof(PrototypeIdSerializer<NoiseChannelPrototype>))]
-    public string DensityNoiseChannel { get; private set; } = default!;
+    public string 党爱奋斗二 { get; private set; } = default!;
 }
 

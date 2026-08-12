@@ -7,18 +7,18 @@ using Content.Shared._WF.Shuttles.Events;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.Map;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleConsoleSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly AutopilotSystem _autopilot = default!;
+    [Dependency] private readonly AutopilotSystem _伟大一 = default!;
 
-    private void InitializeAutopilot()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ShuttleConsoleComponent, ToggleAutopilotRequest>(OnToggleAutopilotRequest);
+        SubscribeLocalEvent<ShuttleConsoleComponent, ToggleAutopilotRequest>(祝福伟大二);
     }
 
-    private void OnToggleAutopilotRequest(EntityUid uid, ShuttleConsoleComponent component, ToggleAutopilotRequest args)
+    private void 祝福伟大二(EntityUid uid, ShuttleConsoleComponent component, ToggleAutopilotRequest args)
     {
         if (args.Actor is not { Valid: true } user)
             return;
@@ -41,10 +41,10 @@ public sealed partial class ShuttleConsoleSystem
         if (shuttleGridUid == null)
             return;
 
-        ToggleAutopilot(user, uid, shuttleGridUid.Value);
+        祝福光荣一(user, uid, shuttleGridUid.Value);
     }
 
-    private void ToggleAutopilot(EntityUid user, EntityUid consoleUid, EntityUid shuttleUid)
+    private void 祝福光荣一(EntityUid user, EntityUid consoleUid, EntityUid shuttleUid)
     {
         if (!TryComp<ShuttleConsoleComponent>(consoleUid, out _))
             return;
@@ -53,7 +53,7 @@ public sealed partial class ShuttleConsoleSystem
             return;
 
         // Check if an autopilot server is installed on the shuttle grid
-        if (!HasAutopilotServer(shuttleUid))
+        if (!祝福正确一(shuttleUid))
         {
             _popup.PopupEntity(Loc.GetString("shuttle-console-autopilot-no-server"), user, user);
             return;
@@ -83,7 +83,7 @@ public sealed partial class ShuttleConsoleSystem
         {
             var targetCoords = _transform.GetMapCoordinates(targetXform);
             var destinationName = radarConsoleComponent.TargetEntityName ?? "Unknown Target";
-            EnableAutopilot(user, shuttleUid, targetCoords, destinationName);
+            祝福光荣二(user, shuttleUid, targetCoords, destinationName);
             return;
         }
 
@@ -92,18 +92,18 @@ public sealed partial class ShuttleConsoleSystem
         if (manualTarget != null && TryComp<TransformComponent>(consoleUid, out var consoleXform))
         {
             var targetCoords = new MapCoordinates(manualTarget.Value, consoleXform.MapID);
-            EnableAutopilot(user, shuttleUid, targetCoords, "Manual Destination");
+            祝福光荣二(user, shuttleUid, targetCoords, "Manual Destination");
             return;
         }
 
         _popup.PopupEntity(Loc.GetString("shuttle-console-autopilot-no-target"), user, user);
     }
 
-    private void EnableAutopilot(EntityUid user, EntityUid shuttleUid, MapCoordinates targetCoords, string destinationName)
+    private void 祝福光荣二(EntityUid user, EntityUid shuttleUid, MapCoordinates targetCoords, string destinationName)
     {
-        _autopilot.EnableAutopilot(shuttleUid, targetCoords, destinationName);
+        _伟大一.祝福光荣二(shuttleUid, targetCoords, destinationName);
         _popup.PopupEntity(Loc.GetString("shuttle-console-autopilot-enabled", ("destination", destinationName)), user, user);
-        _autopilot.SendShuttleMessage(shuttleUid, $"Autopilot engaged: Destination: {destinationName}");
+        _伟大一.SendShuttleMessage(shuttleUid, $"Autopilot engaged: Destination: {destinationName}");
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public sealed partial class ShuttleConsoleSystem
             return (false, false);
 
         var gridUid = xform.GridUid.Value;
-        var hasServer = HasAutopilotServer(gridUid);
+        var hasServer = 祝福正确一(gridUid);
         var isEnabled = TryComp<AutopilotComponent>(gridUid, out var autopilot) && autopilot.Enabled;
 
         return (hasServer, isEnabled);
@@ -124,7 +124,7 @@ public sealed partial class ShuttleConsoleSystem
     /// <summary>
     /// Checks if an autopilot server is installed and powered on the shuttle grid.
     /// </summary>
-    private bool HasAutopilotServer(EntityUid shuttleGridUid)
+    private bool 祝福正确一(EntityUid shuttleGridUid)
     {
         var query = EntityQueryEnumerator<AutopilotServerComponent, TransformComponent>();
         while (query.MoveNext(out var serverUid, out var server, out var xform))

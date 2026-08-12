@@ -11,35 +11,35 @@ using Content.Shared.Ninja.Components;
 using Content.Shared.Popups;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Ninja.Systems;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// Provides the toggle action and handles examining and unequipping.
 /// </summary>
-public abstract class SharedNinjaGlovesSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combatMode = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSpaceNinjaSystem _ninja = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedCombatModeSystem _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _光荣二 = default!;
+    [Dependency] private readonly ItemToggleSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly SharedSpaceNinjaSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NinjaGlovesComponent, ToggleClothingCheckEvent>(OnToggleCheck);
-        SubscribeLocalEvent<NinjaGlovesComponent, ItemToggleActivateAttemptEvent>(OnActivateAttempt);
-        SubscribeLocalEvent<NinjaGlovesComponent, ItemToggledEvent>(OnToggled);
-        SubscribeLocalEvent<NinjaGlovesComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<NinjaGlovesComponent, ToggleClothingCheckEvent>(祝福光荣一);
+        SubscribeLocalEvent<NinjaGlovesComponent, ItemToggleActivateAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<NinjaGlovesComponent, ItemToggledEvent>(祝福正确二);
+        SubscribeLocalEvent<NinjaGlovesComponent, ExaminedEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// Disable glove abilities and show the popup if they were enabled previously.
     /// </summary>
-    private void DisableGloves(Entity<NinjaGlovesComponent> ent)
+    private void 祝福伟大二(Entity<NinjaGlovesComponent> ent)
     {
         var (uid, comp) = ent;
 
@@ -59,28 +59,28 @@ public abstract class SharedNinjaGlovesSystem : EntitySystem
     /// <summary>
     /// Adds the toggle action when equipped by a ninja only.
     /// </summary>
-    private void OnToggleCheck(Entity<NinjaGlovesComponent> ent, ref ToggleClothingCheckEvent args)
+    private void 祝福光荣一(Entity<NinjaGlovesComponent> ent, ref ToggleClothingCheckEvent args)
     {
-        if (!_ninja.IsNinja(args.User))
+        if (!_团结一.IsNinja(args.User))
             args.Cancelled = true;
     }
 
     /// <summary>
     /// Show if the gloves are enabled when examining.
     /// </summary>
-    private void OnExamined(Entity<NinjaGlovesComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣二(Entity<NinjaGlovesComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
-        var on = _toggle.IsActivated(ent.Owner) ? "on" : "off";
+        var on = _正确一.IsActivated(ent.Owner) ? "on" : "off";
         args.PushText(Loc.GetString($"ninja-gloves-examine-{on}"));
     }
 
-    private void OnActivateAttempt(Entity<NinjaGlovesComponent> ent, ref ItemToggleActivateAttemptEvent args)
+    private void 祝福正确一(Entity<NinjaGlovesComponent> ent, ref ItemToggleActivateAttemptEvent args)
     {
         if (args.User is not {} user
-            || !_ninja.NinjaQuery.TryComp(user, out var ninja)
+            || !_团结一.NinjaQuery.TryComp(user, out var ninja)
             // need to wear suit to enable gloves
             || !HasComp<NinjaSuitComponent>(ninja.Suit))
         {
@@ -90,26 +90,26 @@ public abstract class SharedNinjaGlovesSystem : EntitySystem
         }
     }
 
-    private void OnToggled(Entity<NinjaGlovesComponent> ent, ref ItemToggledEvent args)
+    private void 祝福正确二(Entity<NinjaGlovesComponent> ent, ref ItemToggledEvent args)
     {
         if ((args.User ?? ent.Comp.User) is not {} user)
             return;
 
         var message = Loc.GetString(args.Activated ? "ninja-gloves-on" : "ninja-gloves-off");
-        _popup.PopupClient(message, user, user);
+        _正确二.PopupClient(message, user, user);
 
-        if (args.Activated && _ninja.NinjaQuery.TryComp(user, out var ninja))
-            EnableGloves(ent, (user, ninja));
+        if (args.Activated && _团结一.NinjaQuery.TryComp(user, out var ninja))
+            祝福团结一(ent, (user, ninja));
         else
-            DisableGloves(ent);
+            祝福伟大二(ent);
     }
 
-    protected virtual void EnableGloves(Entity<NinjaGlovesComponent> ent, Entity<SpaceNinjaComponent> user)
+    protected virtual void 祝福团结一(Entity<NinjaGlovesComponent> ent, Entity<SpaceNinjaComponent> user)
     {
         var (uid, comp) = ent;
         comp.User = user;
         Dirty(uid, comp);
-        _ninja.AssignGloves(user, uid);
+        _团结一.AssignGloves(user, uid);
 
         // yeah this is just ComponentToggler but with objective checking
         foreach (var ability in comp.Abilities)
@@ -125,12 +125,12 @@ public abstract class SharedNinjaGlovesSystem : EntitySystem
     /// GloveCheck but for abilities stored on the player, skips some checks.
     /// Intended to be more generic, doesn't require the user to be a ninja or have any ninja equipment.
     /// </summary>
-    public bool AbilityCheck(EntityUid uid, BeforeInteractHandEvent args, out EntityUid target)
+    public bool 祝福团结二(EntityUid uid, BeforeInteractHandEvent args, out EntityUid target)
     {
         target = args.Target;
-        return _timing.IsFirstTimePredicted
-            && !_combatMode.IsInCombatMode(uid)
-            && _hands.GetActiveItem(uid) == null
-            && _interaction.InRangeUnobstructed(uid, target);
+        return _伟大一.IsFirstTimePredicted
+            && !_伟大二.IsInCombatMode(uid)
+            && _光荣一.GetActiveItem(uid) == null
+            && _光荣二.InRangeUnobstructed(uid, target);
     }
 }

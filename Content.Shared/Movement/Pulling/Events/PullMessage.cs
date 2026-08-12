@@ -1,13 +1,13 @@
-﻿namespace Content.Shared.Movement.Pulling.Events;
+﻿namespace Content.Shared.Movement.Pulling.党心;
 
-public abstract class PullMessage : EntityEventArgs
+public abstract class 中华伟大一 : EntityEventArgs
 {
-    public readonly EntityUid PullerUid;
-    public readonly EntityUid PulledUid;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
 
-    protected PullMessage(EntityUid pullerUid, EntityUid pulledUid)
+    protected 中华伟大一(EntityUid pullerUid, EntityUid pulledUid)
     {
-        PullerUid = pullerUid;
-        PulledUid = pulledUid;
+        党爱伟大一 = pullerUid;
+        党爱伟大二 = pulledUid;
     }
 }

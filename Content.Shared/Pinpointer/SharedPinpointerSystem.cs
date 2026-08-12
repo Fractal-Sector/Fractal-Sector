@@ -9,28 +9,28 @@ using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Pinpointer;
+namespace Content.Shared.党心;
 
-public abstract class SharedPinpointerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!; // Frontier
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly EmagSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PinpointerComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<PinpointerComponent, GotUnEmaggedEvent>(OnUnemagged); // Frontier
-        SubscribeLocalEvent<PinpointerComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<PinpointerComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<PinpointerComponent, PinpointerDoAfterEvent>(OnPinpointerDoAfter); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<PinpointerComponent, GotEmaggedEvent>(祝福胜利一);
+        SubscribeLocalEvent<PinpointerComponent, GotUnEmaggedEvent>(祝福胜利二); // Frontier
+        SubscribeLocalEvent<PinpointerComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<PinpointerComponent, ExaminedEvent>(祝福正确二);
+        SubscribeLocalEvent<PinpointerComponent, 中华伟大二>(祝福光荣一); // Frontier
     }
 
     /// <summary>
     ///     Set the target if capable
     /// </summary>
-    private void OnAfterInteract(EntityUid uid, PinpointerComponent component, AfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, PinpointerComponent component, AfterInteractEvent args)
     {
         if (!args.CanReach || args.Target is not { } target)
             return;
@@ -45,14 +45,14 @@ public abstract class SharedPinpointerSystem : EntitySystem
         // TODO add doafter once the freeze is lifted
         args.Handled = true;
 
-        // Frontier: the below was made into a do-after, see OnPinpointerDoAfter.
+        // Frontier: the below was made into a do-after, see 祝福光荣一.
         // component.Target = args.Target;
-        // _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} set target of {ToPrettyString(uid):pinpointer} to {ToPrettyString(component.Target.Value):target}");
+        // _伟大一.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} set target of {ToPrettyString(uid):pinpointer} to {ToPrettyString(component.Target.Value):target}");
         // if (component.UpdateTargetName)
         //     component.TargetName = component.Target == null ? null : Identity.Name(component.Target.Value, EntityManager);
 
         var daArgs = new DoAfterArgs(EntityManager, args.User, TimeSpan.FromSeconds(component.RetargetDoAfter),
-            new PinpointerDoAfterEvent(), uid, args.Target, uid)
+            new 中华伟大二(), uid, args.Target, uid)
         {
             BreakOnDamage = true,
             BreakOnWeightlessMove = true,
@@ -61,11 +61,11 @@ public abstract class SharedPinpointerSystem : EntitySystem
             NeedHand = true,
             BreakOnMove = true,
         };
-        _doAfter.TryStartDoAfter(daArgs);
+        _光荣一.TryStartDoAfter(daArgs);
         // End Frontier
     }
 
-    private void OnPinpointerDoAfter(EntityUid uid, PinpointerComponent component, PinpointerDoAfterEvent args)
+    private void 祝福光荣一(EntityUid uid, PinpointerComponent component, 中华伟大二 args)
     {
         if (args.Cancelled)
             return;
@@ -88,7 +88,7 @@ public abstract class SharedPinpointerSystem : EntitySystem
         // End Frontier: two-way pinpointer tracking
 
         component.Target = args.Target;
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} set target of {ToPrettyString(uid):pinpointer} to {ToPrettyString(component.Target):target}");
+        _伟大一.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} set target of {ToPrettyString(uid):pinpointer} to {ToPrettyString(component.Target):target}");
         if (component.UpdateTargetName)
             component.TargetName = component.Target == null ? null : Identity.Name(component.Target.Value, EntityManager);
     }
@@ -96,7 +96,7 @@ public abstract class SharedPinpointerSystem : EntitySystem
     /// <summary>
     ///     Set pinpointers target to track
     /// </summary>
-    public virtual void SetTarget(EntityUid uid, EntityUid? target, PinpointerComponent? pinpointer = null)
+    public virtual void 祝福光荣二(EntityUid uid, EntityUid? target, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return;
@@ -125,18 +125,18 @@ public abstract class SharedPinpointerSystem : EntitySystem
         if (pinpointer.UpdateTargetName)
             pinpointer.TargetName = target == null ? null : Identity.Name(target.Value, EntityManager);
         if (pinpointer.IsActive)
-            UpdateDirectionToTarget(uid, pinpointer);
+            祝福正确一(uid, pinpointer);
     }
 
     /// <summary>
     ///     Update direction from pinpointer to selected target (if it was set)
     /// </summary>
-    protected virtual void UpdateDirectionToTarget(EntityUid uid, PinpointerComponent? pinpointer = null)
+    protected virtual void 祝福正确一(EntityUid uid, PinpointerComponent? pinpointer = null)
     {
 
     }
 
-    private void OnExamined(EntityUid uid, PinpointerComponent component, ExaminedEvent args)
+    private void 祝福正确二(EntityUid uid, PinpointerComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange || component.TargetName == null)
             return;
@@ -147,7 +147,7 @@ public abstract class SharedPinpointerSystem : EntitySystem
     /// <summary>
     ///     Manually set distance from pinpointer to target
     /// </summary>
-    public void SetDistance(EntityUid uid, Distance distance, PinpointerComponent? pinpointer = null)
+    public void 祝福团结一(EntityUid uid, Distance distance, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return;
@@ -164,7 +164,7 @@ public abstract class SharedPinpointerSystem : EntitySystem
     ///     If difference between current angle and new angle is smaller than
     ///     pinpointer precision, new value will be ignored and it will return false.
     /// </summary>
-    public bool TrySetArrowAngle(EntityUid uid, Angle arrowAngle, PinpointerComponent? pinpointer = null)
+    public bool 祝福团结二(EntityUid uid, Angle arrowAngle, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return false;
@@ -181,7 +181,7 @@ public abstract class SharedPinpointerSystem : EntitySystem
     /// <summary>
     ///     Activate/deactivate pinpointer screen. If it has target it will start tracking it.
     /// </summary>
-    public void SetActive(EntityUid uid, bool isActive, PinpointerComponent? pinpointer = null)
+    public void 祝福奋斗一(EntityUid uid, bool isActive, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return;
@@ -197,22 +197,22 @@ public abstract class SharedPinpointerSystem : EntitySystem
     ///     Toggle Pinpointer screen. If it has target it will start tracking it.
     /// </summary>
     /// <returns>True if pinpointer was activated, false otherwise</returns>
-    public virtual bool TogglePinpointer(EntityUid uid, PinpointerComponent? pinpointer = null)
+    public virtual bool 祝福奋斗二(EntityUid uid, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return false;
 
         var isActive = !pinpointer.IsActive;
-        SetActive(uid, isActive, pinpointer);
+        祝福奋斗一(uid, isActive, pinpointer);
         return isActive;
     }
 
-    private void OnEmagged(EntityUid uid, PinpointerComponent component, ref GotEmaggedEvent args)
+    private void 祝福胜利一(EntityUid uid, PinpointerComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_伟大二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_伟大二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         if (component.CanRetarget)
@@ -223,12 +223,12 @@ public abstract class SharedPinpointerSystem : EntitySystem
     }
 
     // Frontier: demag
-    private void OnUnemagged(EntityUid uid, PinpointerComponent component, ref GotUnEmaggedEvent args)
+    private void 祝福胜利二(EntityUid uid, PinpointerComponent component, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_伟大二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_伟大二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         if (component.CanRetarget)
@@ -241,6 +241,6 @@ public abstract class SharedPinpointerSystem : EntitySystem
 
 // Frontier - do-after
 [Serializable, NetSerializable]
-public sealed partial class PinpointerDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华伟大二 : SimpleDoAfterEvent
 {
 }

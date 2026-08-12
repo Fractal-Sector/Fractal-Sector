@@ -1,11 +1,11 @@
 ﻿using Robust.Shared.GameStates;
 
-namespace Content.Shared.DoAfter;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Added to entities that are currently performing any doafters.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ActiveDoAfterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

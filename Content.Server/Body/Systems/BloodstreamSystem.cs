@@ -3,22 +3,22 @@ using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Forensics;
 
-namespace Content.Server.Body.Systems;
+namespace Content.Server.Body.党心;
 
-public sealed class BloodstreamSystem : SharedBloodstreamSystem
+public sealed class 中华伟大一 : SharedBloodstreamSystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BloodstreamComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<BloodstreamComponent, GenerateDnaEvent>(OnDnaGenerated);
+        SubscribeLocalEvent<BloodstreamComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<BloodstreamComponent, GenerateDnaEvent>(祝福光荣一);
     }
 
     // not sure if we can move this to shared or not
     // it would certainly help if SolutionContainer was documented
     // but since we usually don't add the component dynamically to entities we can keep this unpredicted for now
-    private void OnComponentInit(Entity<BloodstreamComponent> entity, ref ComponentInit args)
+    private void 祝福伟大二(Entity<BloodstreamComponent> entity, ref ComponentInit args)
     {
         if (!SolutionContainer.EnsureSolution(entity.Owner,
                 entity.Comp.ChemicalSolutionName,
@@ -41,7 +41,7 @@ public sealed class BloodstreamSystem : SharedBloodstreamSystem
     }
 
     // forensics is not predicted yet
-    private void OnDnaGenerated(Entity<BloodstreamComponent> entity, ref GenerateDnaEvent args)
+    private void 祝福光荣一(Entity<BloodstreamComponent> entity, ref GenerateDnaEvent args)
     {
         if (SolutionContainer.ResolveSolution(entity.Owner, entity.Comp.BloodSolutionName, ref entity.Comp.BloodSolution, out var bloodSolution))
         {

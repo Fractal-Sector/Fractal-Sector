@@ -1,11 +1,11 @@
-namespace Content.Shared.Gravity;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedGravitySystem
+public abstract partial class 中华伟大一
 {
-    protected const float GravityKick = 100.0f;
-    protected const float ShakeCooldown = 0.2f;
+    protected const float 党爱伟大一 = 100.0f;
+    protected const float 党爱伟大二 = 0.2f;
 
-    private void UpdateShake()
+    private void 祝福伟大一()
     {
         var curTime = Timing.CurTime;
         var gravityQuery = GetEntityQuery<GravityComponent>();
@@ -21,15 +21,15 @@ public abstract partial class SharedGravitySystem
                     continue;
                 }
 
-                ShakeGrid(uid, gravity);
+                祝福光荣一(uid, gravity);
                 comp.ShakeTimes--;
-                comp.NextShake += TimeSpan.FromSeconds(ShakeCooldown);
+                comp.NextShake += TimeSpan.FromSeconds(党爱伟大二);
                 Dirty(uid, comp);
             }
         }
     }
 
-    public void StartGridShake(EntityUid uid, GravityComponent? gravity = null)
+    public void 祝福伟大二(EntityUid uid, GravityComponent? gravity = null)
     {
         if (Terminating(uid))
             return;
@@ -47,5 +47,5 @@ public abstract partial class SharedGravitySystem
         Dirty(uid, shake);
     }
 
-    protected virtual void ShakeGrid(EntityUid uid, GravityComponent? comp = null) {}
+    protected virtual void 祝福光荣一(EntityUid uid, GravityComponent? comp = null) {}
 }

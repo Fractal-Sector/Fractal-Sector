@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.Effects.PlantMetabolism;
+namespace Content.Shared.EntityEffects.Effects.党心;
 
 /// <summary>
 ///     Handles removal of seeds on a plant.
 /// </summary>
 
-public sealed partial class PlantDestroySeeds : EventEntityEffect<PlantDestroySeeds>
+public sealed partial class 中华伟大一 : EventEntityEffect<中华伟大一>
 {
     protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
         Loc.GetString("reagent-effect-guidebook-plant-seeds-remove", ("chance", Probability));

@@ -1,23 +1,23 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Effects;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Raised on the server and sent to a client to play the color flash animation.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ColorFlashEffectEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     /// <summary>
-    /// Color to play for the flash.
+    /// 党爱伟大一 to play for the flash.
     /// </summary>
-    public Color Color;
+    public 党爱伟大一 党爱伟大一;
 
-    public List<NetEntity> Entities;
+    public List<NetEntity> 党爱伟大二;
 
-    public ColorFlashEffectEvent(Color color, List<NetEntity> entities)
+    public 中华伟大一(党爱伟大一 color, List<NetEntity> entities)
     {
-        Color = color;
-        Entities = entities;
+        党爱伟大一 = color;
+        党爱伟大二 = entities;
     }
 }

@@ -1,14 +1,14 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Inventory.Events;
+namespace Content.Shared.Inventory.党心;
 
 [NetSerializable, Serializable]
-public sealed class OpenSlotStorageNetworkMessage : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public readonly string Slot;
+    public readonly string 党爱伟大一;
 
-    public OpenSlotStorageNetworkMessage(string slot)
+    public 中华伟大一(string slot)
     {
-        Slot = slot;
+        党爱伟大一 = slot;
     }
 }

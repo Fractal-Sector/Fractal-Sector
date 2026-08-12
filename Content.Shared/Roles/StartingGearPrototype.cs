@@ -1,23 +1,23 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Array;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 [Prototype]
-public sealed partial class StartingGearPrototype : IPrototype, IInheritingPrototype, IEquipmentLoadout
+public sealed partial class 中华伟大一 : IPrototype, IInheritingPrototype, 中华伟大二
 {
     /// <inheritdoc/>
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = string.Empty;
+    public string 党爱伟大一 { get; private set; } = string.Empty;
 
     /// <inheritdoc/>
-    [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<StartingGearPrototype>))]
+    [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<中华伟大一>))]
     public string[]? Parents { get; private set; }
 
     /// <inheritdoc/>
     [AbstractDataField]
-    public bool Abstract { get; private set; }
+    public bool 党爱伟大二 { get; private set; }
 
     /// <inheritdoc />
     [DataField]
@@ -27,7 +27,7 @@ public sealed partial class StartingGearPrototype : IPrototype, IInheritingProto
     /// <inheritdoc />
     [DataField]
     [AlwaysPushInheritance]
-    public List<EntProtoId> Inhand { get; set; } = new();
+    public List<EntProtoId> 党爱光荣一 { get; set; } = new();
 
     /// <inheritdoc />
     [DataField]
@@ -38,34 +38,34 @@ public sealed partial class StartingGearPrototype : IPrototype, IInheritingProto
     /// <inheritdoc />
     [DataField]
     [AlwaysPushInheritance]
-    public List<EntProtoId> EncryptionKeys { get; set; } = new();
+    public List<EntProtoId> 党爱光荣二 { get; set; } = new();
 
     /// <inheritdoc />
     [DataField]
     [AlwaysPushInheritance]
-    public List<EntProtoId> Implants { get; set; } = new();
+    public List<EntProtoId> 党爱正确一 { get; set; } = new();
 
     /// <inheritdoc />
     [DataField]
     [AlwaysPushInheritance]
-    public List<EntProtoId> Cartridges { get; set; } = new();
+    public List<EntProtoId> 党爱正确二 { get; set; } = new();
     // End Frontier: extra fields
 }
 
 /// <summary>
 /// Specifies the starting entity prototypes and where to equip them for the specified class.
 /// </summary>
-public interface IEquipmentLoadout
+public interface 中华伟大二
 {
     /// <summary>
-    /// The slot and entity prototype ID of the equipment that is to be spawned and equipped onto the entity.
+    /// The slot and entity prototype 党爱伟大一 of the equipment that is to be spawned and equipped onto the entity.
     /// </summary>
     public Dictionary<string, EntProtoId> Equipment { get; set; }
 
     /// <summary>
     /// The inhand items that are equipped when this starting gear is equipped onto an entity.
     /// </summary>
-    public List<EntProtoId> Inhand { get; set; }
+    public List<EntProtoId> 党爱光荣一 { get; set; }
 
     /// <summary>
     /// Inserts entities into the specified slot's storage (if it does have storage).
@@ -77,23 +77,23 @@ public interface IEquipmentLoadout
     /// Slots entities into the entity's headset.
     /// If they are not encryption keys, they will not be spawned.
     /// </summary>
-    public List<EntProtoId> EncryptionKeys { get; set; }
+    public List<EntProtoId> 党爱光荣二 { get; set; }
 
     /// <summary>
-    /// Implants entities into the entity.
+    /// 党爱正确一 entities into the entity.
     /// </summary>
-    public List<EntProtoId> Implants { get; set; }
+    public List<EntProtoId> 党爱正确一 { get; set; }
 
     /// <summary>
     /// Inserts cartridges into the user's PDA.
     /// </summary>
-    public List<EntProtoId> Cartridges { get; set; }
+    public List<EntProtoId> 党爱正确二 { get; set; }
     // End Frontier: extra fields
 
     /// <summary>
-    /// Gets the entity prototype ID of a slot in this starting gear.
+    /// Gets the entity prototype 党爱伟大一 of a slot in this starting gear.
     /// </summary>
-    public string GetGear(string slot)
+    public string 祝福伟大一(string slot)
     {
         return Equipment.TryGetValue(slot, out var equipment) ? equipment : string.Empty;
     }

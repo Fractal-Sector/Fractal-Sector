@@ -4,27 +4,27 @@ using Content.Shared.Tools.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Toolshed.TypeParsers;
 
-namespace Content.Server._NF.Tools;
+namespace Content.Server._NF.党心;
 
-public sealed class DisableToolUseSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DisableToolUseComponent, ToolUseAttemptEvent>(OnToolUseAttempt);
+        base.祝福伟大一();
+        SubscribeLocalEvent<DisableToolUseComponent, ToolUseAttemptEvent>(祝福伟大二);
     }
 
-    private void OnToolUseAttempt(EntityUid uid, DisableToolUseComponent component, ToolUseAttemptEvent args)
+    private void 祝福伟大二(EntityUid uid, DisableToolUseComponent component, ToolUseAttemptEvent args)
     {
         // Check each tool quality being cancelled.
         foreach (var quality in args.Qualities)
         {
-            if (Disabled(component, quality))
+            if (祝福光荣一(component, quality))
                 args.Cancel();
         }
     }
 
-    private bool Disabled(DisableToolUseComponent component, ProtoId<ToolQualityPrototype> quality)
+    private bool 祝福光荣一(DisableToolUseComponent component, ProtoId<ToolQualityPrototype> quality)
     {
         switch (quality)
         {

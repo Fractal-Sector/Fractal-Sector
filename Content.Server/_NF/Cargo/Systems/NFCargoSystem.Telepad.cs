@@ -10,20 +10,20 @@ using Robust.Shared.Audio;
 using Robust.Shared.Utility;
 
 
-namespace Content.Server._NF.Cargo.Systems;
+namespace Content.Server._NF.Cargo.党心;
 
-public sealed partial class NFCargoSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeTelepad()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<NFCargoTelepadComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<NFCargoTelepadComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<NFCargoTelepadComponent, UpgradeExamineEvent>(OnUpgradeExamine);
-        SubscribeLocalEvent<NFCargoTelepadComponent, PowerChangedEvent>(OnTelepadPowerChange);
+        SubscribeLocalEvent<NFCargoTelepadComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<NFCargoTelepadComponent, RefreshPartsEvent>(祝福光荣二);
+        SubscribeLocalEvent<NFCargoTelepadComponent, UpgradeExamineEvent>(祝福正确一);
+        SubscribeLocalEvent<NFCargoTelepadComponent, PowerChangedEvent>(祝福团结一);
         // Shouldn't need re-anchored event
-        SubscribeLocalEvent<NFCargoTelepadComponent, AnchorStateChangedEvent>(OnTelepadAnchorChange);
+        SubscribeLocalEvent<NFCargoTelepadComponent, AnchorStateChangedEvent>(祝福团结二);
     }
-    private void UpdateTelepad(float frameTime)
+    private void 祝福伟大二(float frameTime)
     {
         var query = EntityQueryEnumerator<NFCargoTelepadComponent>();
         while (query.MoveNext(out var uid, out var comp))
@@ -83,23 +83,23 @@ public sealed partial class NFCargoSystem
         }
     }
 
-    private void OnInit(Entity<NFCargoTelepadComponent> ent, ref ComponentInit args)
+    private void 祝福光荣一(Entity<NFCargoTelepadComponent> ent, ref ComponentInit args)
     {
         _linker.EnsureSinkPorts(ent, ent.Comp.ReceiverPort);
     }
 
-    private void OnRefreshParts(Entity<NFCargoTelepadComponent> ent, ref RefreshPartsEvent args)
+    private void 祝福光荣二(Entity<NFCargoTelepadComponent> ent, ref RefreshPartsEvent args)
     {
         var rating = args.PartRatings[ent.Comp.MachinePartTeleportDelay] - 1;
         ent.Comp.Delay = ent.Comp.BaseDelay * MathF.Pow(ent.Comp.PartRatingTeleportDelay, rating);
     }
 
-    private void OnUpgradeExamine(Entity<NFCargoTelepadComponent> ent, ref UpgradeExamineEvent args)
+    private void 祝福正确一(Entity<NFCargoTelepadComponent> ent, ref UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("cargo-telepad-delay-upgrade", ent.Comp.Delay / ent.Comp.BaseDelay);
     }
 
-    private void SetEnabled(Entity<NFCargoTelepadComponent> ent, ApcPowerReceiverComponent? receiver = null,
+    private void 祝福正确二(Entity<NFCargoTelepadComponent> ent, ApcPowerReceiverComponent? receiver = null,
         TransformComponent? xform = null)
     {
         // False due to AllCompsOneEntity test where they may not have the powerreceiver.
@@ -117,13 +117,13 @@ public sealed partial class NFCargoSystem
         _appearance.SetData(ent, CargoTelepadVisuals.State, CargoTelepadState.Unpowered, appearance);
     }
 
-    private void OnTelepadPowerChange(Entity<NFCargoTelepadComponent> ent, ref PowerChangedEvent args)
+    private void 祝福团结一(Entity<NFCargoTelepadComponent> ent, ref PowerChangedEvent args)
     {
-        SetEnabled(ent);
+        祝福正确二(ent);
     }
 
-    private void OnTelepadAnchorChange(Entity<NFCargoTelepadComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福团结二(Entity<NFCargoTelepadComponent> ent, ref AnchorStateChangedEvent args)
     {
-        SetEnabled(ent);
+        祝福正确二(ent);
     }
 }

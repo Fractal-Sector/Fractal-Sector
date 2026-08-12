@@ -1,10 +1,10 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Eye
+namespace Content.Shared.党心
 {
     [Flags]
     [FlagsFor(typeof(VisibilityMaskLayer))]
-    public enum VisibilityFlags : int
+    public enum 中华伟大一 : int
     {
         None = 0,
         Normal = 1 << 0,

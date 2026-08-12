@@ -1,22 +1,22 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class CartridgeLoaderUiMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public readonly NetEntity CartridgeUid;
-    public readonly CartridgeUiMessageAction Action;
+    public readonly NetEntity 党爱伟大一;
+    public readonly 中华伟大二 Action;
 
-    public CartridgeLoaderUiMessage(NetEntity cartridgeUid, CartridgeUiMessageAction action)
+    public 中华伟大一(NetEntity cartridgeUid, 中华伟大二 action)
     {
-        CartridgeUid = cartridgeUid;
+        党爱伟大一 = cartridgeUid;
         Action = action;
     }
 }
 
 [Serializable, NetSerializable]
-public enum CartridgeUiMessageAction
+public enum 中华伟大二
 {
     Activate,
     Deactivate,

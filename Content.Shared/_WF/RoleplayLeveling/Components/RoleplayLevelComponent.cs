@@ -1,40 +1,40 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared._WF.RoleplayLeveling.Components;
+namespace Content.Shared._WF.RoleplayLeveling.党心;
 
 /// <summary>
 /// Tracks a player's roleplay level and experience
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class RoleplayLevelComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Current roleplay level
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int Level = 1;
+    public int 党爱伟大一 = 1;
 
     /// <summary>
     /// Current experience points
     /// </summary>
     [DataField, AutoNetworkedField]
-    public long Experience = 0;
+    public long 党爱伟大二 = 0;
 
     /// <summary>
-    /// Experience required to reach the next level
+    /// 党爱伟大二 required to reach the next level
     /// </summary>
     [DataField, AutoNetworkedField]
-    public long ExperienceToNextLevel = 100;
+    public long 党爱光荣一 = 100;
 
     /// <summary>
     /// Total number of commends received from other players
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int TotalCommends = 0;
+    public int 党爱光荣二 = 0;
 
     /// <summary>
     /// The user's account ID
     /// </summary>
     [DataField]
-    public Guid UserId;
+    public Guid 党爱正确一;
 }

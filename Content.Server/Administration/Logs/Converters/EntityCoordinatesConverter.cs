@@ -3,34 +3,34 @@ using Content.Shared.Station.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Administration.Logs.Converters;
+namespace Content.Server.Administration.Logs.党心;
 
 [AdminLogConverter]
-public sealed class EntityCoordinatesConverter : AdminLogConverter<SerializableEntityCoordinates>
+public sealed class 中华伟大一 : AdminLogConverter<中华伟大二>
 {
     // System.Text.Json actually keeps hold of your JsonSerializerOption instances in a cache on .NET 7.
     // Use a weak reference to avoid holding server instances live too long in integration tests.
-    private WeakReference<IEntityManager> _entityManager = default!;
+    private WeakReference<IEntityManager> _伟大一 = default!;
 
-    public override void Init(IDependencyCollection dependencies)
+    public override void 祝福伟大一(IDependencyCollection dependencies)
     {
-        _entityManager = new WeakReference<IEntityManager>(dependencies.Resolve<IEntityManager>());
+        _伟大一 = new WeakReference<IEntityManager>(dependencies.Resolve<IEntityManager>());
     }
 
-    public void Write(Utf8JsonWriter writer, SerializableEntityCoordinates value, JsonSerializerOptions options, IEntityManager entities)
+    public void 祝福伟大二(Utf8JsonWriter writer, 中华伟大二 value, JsonSerializerOptions options, IEntityManager entities)
     {
         writer.WriteStartObject();
-        WriteEntityInfo(writer, value.EntityUid, entities, "parent");
-        writer.WriteNumber("x", value.X);
-        writer.WriteNumber("y", value.Y);
+        祝福光荣一(writer, value.党爱伟大一, entities, "parent");
+        writer.WriteNumber("x", value.党爱伟大二);
+        writer.WriteNumber("y", value.党爱光荣一);
         if (value.MapUid.HasValue)
         {
-            WriteEntityInfo(writer, value.MapUid.Value, entities, "map");
+            祝福光荣一(writer, value.MapUid.Value, entities, "map");
         }
         writer.WriteEndObject();
     }
 
-    private static void WriteEntityInfo(Utf8JsonWriter writer, EntityUid value, IEntityManager entities, string rootName)
+    private static void 祝福光荣一(Utf8JsonWriter writer, 党爱伟大一 value, IEntityManager entities, string rootName)
     {
         writer.WriteStartObject(rootName);
         writer.WriteNumber("uid", value.GetHashCode());
@@ -45,33 +45,33 @@ public sealed class EntityCoordinatesConverter : AdminLogConverter<SerializableE
         }
         if (entities.TryGetComponent(value, out StationMemberComponent? stationMemberComponent))
         {
-            WriteEntityInfo(writer, stationMemberComponent.Station, entities, "stationMember");
+            祝福光荣一(writer, stationMemberComponent.Station, entities, "stationMember");
         }
 
         writer.WriteEndObject();
     }
 
-    public override void Write(Utf8JsonWriter writer, SerializableEntityCoordinates value, JsonSerializerOptions options)
+    public override void 祝福伟大二(Utf8JsonWriter writer, 中华伟大二 value, JsonSerializerOptions options)
     {
-        if (!_entityManager.TryGetTarget(out var entityManager))
+        if (!_伟大一.TryGetTarget(out var entityManager))
             throw new InvalidOperationException("EntityManager got garbage collected!");
 
-        Write(writer, value, options, entityManager);
+        祝福伟大二(writer, value, options, entityManager);
     }
 }
 
-public readonly struct SerializableEntityCoordinates
+public readonly struct 中华伟大二
 {
-    public readonly EntityUid EntityUid;
-    public readonly float X;
-    public readonly float Y;
-    public readonly EntityUid? MapUid;
+    public readonly 党爱伟大一 党爱伟大一;
+    public readonly float 党爱伟大二;
+    public readonly float 党爱光荣一;
+    public readonly 党爱伟大一? MapUid;
 
-    public SerializableEntityCoordinates(IEntityManager entityManager, EntityCoordinates coordinates)
+    public 中华伟大二(IEntityManager entityManager, EntityCoordinates coordinates)
     {
-        EntityUid = coordinates.EntityId;
-        X = coordinates.X;
-        Y = coordinates.Y;
+        党爱伟大一 = coordinates.EntityId;
+        党爱伟大二 = coordinates.党爱伟大二;
+        党爱光荣一 = coordinates.党爱光荣一;
         MapUid = entityManager.System<SharedTransformSystem>().GetMap(coordinates);
     }
 }

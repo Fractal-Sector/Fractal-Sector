@@ -7,27 +7,27 @@ using Content.Server.Power.Components;
 using Content.Shared.Atmos;
 using Content.Shared.Power;
 
-namespace Content.Server.Power.Generator;
+namespace Content.Server.Power.党心;
 
 /// <summary>
 /// This handles gas power receivers, allowing devices to accept power in the form of a gas.
 /// </summary>
-public sealed class GasPowerReceiverSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly NodeContainerSystem _伟大二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<GasPowerReceiverComponent, AtmosDeviceUpdateEvent>(OnDeviceUpdated);
+        SubscribeLocalEvent<GasPowerReceiverComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
     }
 
-    private void OnDeviceUpdated(EntityUid uid, GasPowerReceiverComponent component, ref AtmosDeviceUpdateEvent args)
+    private void 祝福伟大二(EntityUid uid, GasPowerReceiverComponent component, ref AtmosDeviceUpdateEvent args)
     {
         var timeDelta = args.dt;
 
-        if (!_nodeContainer.TryGetNode(uid, "pipe", out PipeNode? pipe))
+        if (!_伟大二.TryGetNode(uid, "pipe", out PipeNode? pipe))
             return;
 
         // if we're below the max temperature, then we are simply consuming our target gas
@@ -37,11 +37,11 @@ public sealed class GasPowerReceiverSystem : EntitySystem
             if (pipe.Air[(int) component.TargetGas] > component.MolesConsumedSec * timeDelta)
             {
                 pipe.Air.AdjustMoles(component.TargetGas, -component.MolesConsumedSec * timeDelta);
-                SetPowered(uid, component, true);
+                祝福光荣一(uid, component, true);
             }
             else // we do not have enough gas, so we power off
             {
-                SetPowered(uid, component, false);
+                祝福光荣一(uid, component, false);
             }
         }
         else // we are exceeding the max temp and are now operating in pressure mode
@@ -54,21 +54,21 @@ public sealed class GasPowerReceiverSystem : EntitySystem
                 if (component.OffVentGas)
                 {
                     // eject the gas into the atmosphere
-                    var mix = _atmosphereSystem.GetContainingMixture(uid, args.Grid, args.Map, false, true);
+                    var mix = _伟大一.GetContainingMixture(uid, args.Grid, args.Map, false, true);
                     if (mix is not null)
-                        _atmosphereSystem.Merge(res, mix);
+                        _伟大一.Merge(res, mix);
                 }
 
-                SetPowered(uid, component, true);
+                祝福光荣一(uid, component, true);
             }
             else // if we do not have high enough pressure to operate, power off
             {
-                SetPowered(uid, component, false);
+                祝福光荣一(uid, component, false);
             }
         }
     }
 
-    private void SetPowered(EntityUid uid, GasPowerReceiverComponent comp, bool state)
+    private void 祝福光荣一(EntityUid uid, GasPowerReceiverComponent comp, bool state)
     {
         if (state != comp.Powered)
         {

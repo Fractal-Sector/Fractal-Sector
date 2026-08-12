@@ -1,6 +1,6 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._FS.VoiceBark;
+namespace Content.Shared._FS.党心;
 
 /// <summary>
 /// Local (client-only) preference for whether the player wants to hear bark
@@ -8,7 +8,7 @@ namespace Content.Shared._FS.VoiceBark;
 /// this fork has no text-to-speech system.
 /// </summary>
 [Serializable, NetSerializable]
-public enum CharacterVoiceType
+public enum 中华伟大一
 {
     None,
     Bark,

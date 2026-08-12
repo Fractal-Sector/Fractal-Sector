@@ -1,15 +1,15 @@
 ﻿using Content.Server.StationEvents.Events;
-using Content.Server.AlertLevel;
+using Content.Server.党爱伟大一;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.StationEvents.Components;
+namespace Content.Server.StationEvents.党心;
 
 [RegisterComponent, Access(typeof(AlertLevelInterceptionRule))]
-public sealed partial class AlertLevelInterceptionRuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Alert level to set the station to when the event starts.
     /// </summary>
     [DataField]
-    public string AlertLevel = "blue";
+    public string 党爱伟大一 = "blue";
 }

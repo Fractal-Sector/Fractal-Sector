@@ -1,12 +1,12 @@
 using Content.Shared.Atmos;
 using Robust.Shared.Map;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
 /// <summary>
 ///     See <see cref="ExplosionTileFlood"/>.
 /// </summary>
-public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
+public sealed class 中华伟大一 : ExplosionTileFlood
 {
     /// <summary>
     ///     The keys of this dictionary correspond to space tiles that intersect a grid. The values have information
@@ -21,15 +21,15 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
     /// </summary>
     public Dictionary<EntityUid, HashSet<Vector2i>> GridJump = new();
 
-    public ushort TileSize = ExplosionSystem.DefaultTileSize;
+    public ushort 党爱伟大一 = ExplosionSystem.DefaultTileSize;
 
-    public ExplosionSpaceTileFlood(ExplosionSystem system, MapCoordinates epicentre, EntityUid? referenceGrid, List<EntityUid> localGrids, float maxDistance)
+    public 中华伟大一(ExplosionSystem system, MapCoordinates epicentre, EntityUid? referenceGrid, List<EntityUid> localGrids, float maxDistance)
     {
-        (_gridBlockMap, TileSize) = system.TransformGridEdges(epicentre, referenceGrid, localGrids, maxDistance);
-        system.GetUnblockedDirections(_gridBlockMap, TileSize);
+        (_gridBlockMap, 党爱伟大一) = system.TransformGridEdges(epicentre, referenceGrid, localGrids, maxDistance);
+        system.GetUnblockedDirections(_gridBlockMap, 党爱伟大一);
     }
 
-    public int AddNewTiles(int iteration, HashSet<Vector2i> inputSpaceTiles)
+    public int 祝福伟大一(int iteration, HashSet<Vector2i> inputSpaceTiles)
     {
         NewTiles = new();
         NewBlockedTiles = new();
@@ -38,9 +38,9 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
 
         // Adjacent tiles
         if (TileLists.TryGetValue(iteration - 2, out var adjacent))
-            AddNewAdjacentTiles(iteration, adjacent);
+            祝福光荣一(iteration, adjacent);
         if (FreedTileLists.TryGetValue((iteration - 2) % 3, out var delayedAdjacent))
-            AddNewAdjacentTiles(iteration, delayedAdjacent);
+            祝福光荣一(iteration, delayedAdjacent);
 
         // Diagonal tiles
         if (TileLists.TryGetValue(iteration - 3, out var diagonal))
@@ -51,7 +51,7 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
         // Tiles entering space from some grid.
         foreach (var tile in inputSpaceTiles)
         {
-            ProcessNewTile(iteration, tile, AtmosDirection.All);
+            祝福正确一(iteration, tile, AtmosDirection.All);
         }
 
         // Store new tiles
@@ -65,7 +65,7 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
         return NewTiles.Count + NewBlockedTiles.Count;
     }
 
-    private void JumpToGrid(BlockedSpaceTile blocker)
+    private void 祝福伟大二(BlockedSpaceTile blocker)
     {
         foreach (var edge in blocker.BlockingGridEdges)
         {
@@ -81,11 +81,11 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
         }
     }
 
-    private void AddNewAdjacentTiles(int iteration, IEnumerable<Vector2i> tiles)
+    private void 祝福光荣一(int iteration, IEnumerable<Vector2i> tiles)
     {
         foreach (var tile in tiles)
         {
-            var unblockedDirections = GetUnblockedDirectionOrAll(tile);
+            var unblockedDirections = 祝福正确二(tile);
 
             if (unblockedDirections == AtmosDirection.Invalid)
                 continue;
@@ -97,12 +97,12 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
                 if (!unblockedDirections.IsFlagSet(direction))
                     continue; // explosion cannot propagate in this direction. Ever.
 
-                ProcessNewTile(iteration, tile.Offset(direction), i.ToOppositeDir());
+                祝福正确一(iteration, tile.Offset(direction), i.ToOppositeDir());
             }
         }
     }
 
-    public override void InitTile(Vector2i initialTile)
+    public override void 祝福光荣二(Vector2i initialTile)
     {
         ProcessedTiles.Add(initialTile);
         TileLists[0] = new() { initialTile };
@@ -111,10 +111,10 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
         // need to manually add it to the `spaceToGridTiles` dictionary. This would normally be done automatically
         // during the neighbor finding steps.
         if (_gridBlockMap.TryGetValue(initialTile, out var blocker))
-            JumpToGrid(blocker);
+            祝福伟大二(blocker);
     }
 
-    protected override void ProcessNewTile(int iteration, Vector2i tile, AtmosDirection entryDirection)
+    protected override void 祝福正确一(int iteration, Vector2i tile, AtmosDirection entryDirection)
     {
         if (!_gridBlockMap.TryGetValue(tile, out var blocker))
         {
@@ -137,7 +137,7 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
 
             // First time the explosion is reaching this tile.
             NewBlockedTiles.Add(tile);
-            JumpToGrid(blocker);
+            祝福伟大二(blocker);
         }
 
         // Was this tile already entered?
@@ -153,10 +153,10 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
 
         // This is a completely new tile, and we just so happened to enter it from an unblocked direction.
         NewTiles.Add(tile);
-        JumpToGrid(blocker);
+        祝福伟大二(blocker);
     }
 
-    protected override AtmosDirection GetUnblockedDirectionOrAll(Vector2i tile)
+    protected override AtmosDirection 祝福正确二(Vector2i tile)
     {
         return _gridBlockMap.TryGetValue(tile, out var blocker) ? blocker.UnblockedDirections : AtmosDirection.All;
     }

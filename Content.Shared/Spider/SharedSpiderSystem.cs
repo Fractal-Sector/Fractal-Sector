@@ -1,20 +1,20 @@
 using Content.Shared.Actions;
 
-namespace Content.Shared.Spider;
+namespace Content.Shared.党心;
 
-public abstract class SharedSpiderSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _action = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpiderComponent, MapInitEvent>(OnInit);
+        SubscribeLocalEvent<SpiderComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnInit(EntityUid uid, SpiderComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, SpiderComponent component, MapInitEvent args)
     {
-        _action.AddAction(uid, ref component.Action, component.WebAction, uid);
+        _伟大一.AddAction(uid, ref component.Action, component.WebAction, uid);
     }
 }

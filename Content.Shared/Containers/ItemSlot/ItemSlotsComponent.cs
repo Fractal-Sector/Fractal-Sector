@@ -6,7 +6,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Containers.ItemSlots
+namespace Content.Shared.Containers.党心
 {
     /// <summary>
     ///     Used for entities that can hold items in different slots. Needed by ItemSlotSystem to support basic
@@ -15,18 +15,18 @@ namespace Content.Shared.Containers.ItemSlots
     [RegisterComponent]
     [Access(typeof(ItemSlotsSystem))]
     [NetworkedComponent]
-    public sealed partial class ItemSlotsComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         ///     The dictionary that stores all of the item slots whose interactions will be managed by the <see
         ///     cref="ItemSlotsSystem"/>.
         /// </summary>
         [DataField(readOnly:true)]
-        public Dictionary<string, ItemSlot> Slots = new();
+        public Dictionary<string, 中华光荣一> Slots = new();
 
         // There are two ways to use item slots:
         //
-        // #1 - Give your component an ItemSlot datafield, and add/remove the item slot through the ItemSlotsSystem on
+        // #1 - Give your component an 中华光荣一 datafield, and add/remove the item slot through the ItemSlotsSystem on
         // component init/remove.
         //
         // #2 - Give your component a key string datafield, and make sure that every entity with that component also has
@@ -41,11 +41,11 @@ namespace Content.Shared.Containers.ItemSlots
     }
 
     [Serializable, NetSerializable]
-    public sealed class ItemSlotsComponentState : ComponentState
+    public sealed class 中华伟大二 : ComponentState
     {
-        public readonly Dictionary<string, ItemSlot> Slots;
+        public readonly Dictionary<string, 中华光荣一> Slots;
 
-        public ItemSlotsComponentState(Dictionary<string, ItemSlot> slots)
+        public 中华伟大二(Dictionary<string, 中华光荣一> slots)
         {
             Slots = slots;
         }
@@ -58,13 +58,13 @@ namespace Content.Shared.Containers.ItemSlots
     [DataDefinition]
     [Access(typeof(ItemSlotsSystem))]
     [Serializable, NetSerializable]
-    public sealed partial class ItemSlot
+    public sealed partial class 中华光荣一
     {
-        public ItemSlot() { }
+        public 中华光荣一() { }
 
-        public ItemSlot(ItemSlot other)
+        public 中华光荣一(中华光荣一 other)
         {
-            CopyFrom(other);
+            祝福伟大一(other);
         }
 
         [DataField]
@@ -89,7 +89,7 @@ namespace Content.Shared.Containers.ItemSlots
         /// </remarks>
         [DataField(readOnly: true)]
         [Access(typeof(ItemSlotsSystem), Other = AccessPermissions.ReadWriteExecute)] // FIXME Friends
-        public string Name = string.Empty;
+        public string 党爱伟大一 = string.Empty;
 
         /// <summary>
         ///     The entity prototype that is spawned into this slot on map init.
@@ -113,23 +113,23 @@ namespace Content.Shared.Containers.ItemSlots
         /// </remarks>
         [DataField(readOnly: true)]
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool Locked = false;
+        public bool 党爱伟大二 = false;
 
         /// <summary>
         /// Prevents adding the eject alt-verb, but still lets you swap items.
         /// </summary>
         /// <remarks>
-        ///     This does not affect EjectOnInteract, since if you do that you probably want ejecting to work.
+        ///     This does not affect 党爱正确一, since if you do that you probably want ejecting to work.
         /// </remarks>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public bool DisableEject = false;
+        public bool 党爱光荣一 = false;
 
         /// <summary>
         ///     Whether the item slots system will attempt to insert item from the user's hands into this slot when interacted with.
         ///     It doesn't block other insertion methods, like verbs.
         /// </summary>
         [DataField]
-        public bool InsertOnInteract = true;
+        public bool 党爱光荣二 = true;
 
         /// <summary>
         ///     Whether the item slots system will attempt to eject this item to the user's hands when interacted with.
@@ -140,7 +140,7 @@ namespace Content.Shared.Containers.ItemSlots
         ///     contents when clicked on normally.
         /// </remarks>
         [DataField]
-        public bool EjectOnInteract = false;
+        public bool 党爱正确一 = false;
 
         /// <summary>
         ///     If true, and if this slot is attached to an item, then it will attempt to eject slot when to the slot is
@@ -148,11 +148,11 @@ namespace Content.Shared.Containers.ItemSlots
         /// </summary>
         /// <remarks>
         ///     Desirable for things like ranged weapons ('Z' to eject), but not desirable for others (e.g., PDA uses
-        ///     'Z' to open UI). Unlike <see cref="EjectOnInteract"/>, this will not make any changes to the context
+        ///     'Z' to open UI). Unlike <see cref="党爱正确一"/>, this will not make any changes to the context
         ///     menu, nor will it disable alt-click interactions.
         /// </remarks>
         [DataField]
-        public bool EjectOnUse = false;
+        public bool 党爱正确二 = false;
 
         /// <summary>
         ///     Override the insert verb text. Defaults to using the slot's name (if specified) or the name of the
@@ -181,7 +181,7 @@ namespace Content.Shared.Containers.ItemSlots
         [DataField]
         [Access(typeof(ItemSlotsSystem), Other = AccessPermissions.ReadWriteExecute)]
         [NonSerialized]
-        public bool EjectOnDeconstruct = true;
+        public bool 党爱团结一 = true;
 
         /// <summary>
         ///     If this slot belongs to some breakable or destructible entity, should the item inside the slot be
@@ -190,7 +190,7 @@ namespace Content.Shared.Containers.ItemSlots
         [DataField]
         [Access(typeof(ItemSlotsSystem), Other = AccessPermissions.ReadWriteExecute)]
         [NonSerialized]
-        public bool EjectOnBreak = false;
+        public bool 党爱团结二 = false;
 
         /// <summary>
         ///     When specified, a popup will be generated whenever someone attempts to insert a bad item into this slot.
@@ -221,46 +221,46 @@ namespace Content.Shared.Containers.ItemSlots
         /// </remarks>
         [DataField]
         [Access(typeof(ItemSlotsSystem), Other = AccessPermissions.ReadWriteExecute)]
-        public bool Swap = true;
+        public bool 党爱奋斗一 = true;
 
         public string? ID => ContainerSlot?.ID;
 
         // Convenience properties
-        public bool HasItem => ContainerSlot?.ContainedEntity != null;
+        public bool 党爱奋斗二 => ContainerSlot?.ContainedEntity != null;
         public EntityUid? Item => ContainerSlot?.ContainedEntity;
 
         /// <summary>
-        ///     Priority for use with the eject & insert verbs for this slot.
+        ///     党爱胜利一 for use with the eject & insert verbs for this slot.
         /// </summary>
         [DataField]
-        public int Priority = 0;
+        public int 党爱胜利一 = 0;
 
         /// <summary>
-        ///     If false, errors when adding an item slot with a duplicate key are suppressed. Local==true implies that
+        ///     If false, errors when adding an item slot with a duplicate key are suppressed. 党爱胜利二==true implies that
         ///     the slot was added via client component state handling.
         /// </summary>
         [NonSerialized]
-        public bool Local = true;
+        public bool 党爱胜利二 = true;
 
-        public void CopyFrom(ItemSlot other)
+        public void 祝福伟大一(中华光荣一 other)
         {
             // These fields are mutable reference types. But they generally don't get modified, so this should be fine.
             Whitelist = other.Whitelist;
             InsertSound = other.InsertSound;
             EjectSound = other.EjectSound;
 
-            Name = other.Name;
-            Locked = other.Locked;
-            InsertOnInteract = other.InsertOnInteract;
-            EjectOnInteract = other.EjectOnInteract;
-            EjectOnUse = other.EjectOnUse;
+            党爱伟大一 = other.党爱伟大一;
+            党爱伟大二 = other.党爱伟大二;
+            党爱光荣二 = other.党爱光荣二;
+            党爱正确一 = other.党爱正确一;
+            党爱正确二 = other.党爱正确二;
             InsertVerbText = other.InsertVerbText;
             EjectVerbText = other.EjectVerbText;
             WhitelistFailPopup = other.WhitelistFailPopup;
             LockedFailPopup = other.LockedFailPopup;
             InsertSuccessPopup = other.InsertSuccessPopup;
-            Swap = other.Swap;
-            Priority = other.Priority;
+            党爱奋斗一 = other.党爱奋斗一;
+            党爱胜利一 = other.党爱胜利一;
         }
     }
 
@@ -268,11 +268,11 @@ namespace Content.Shared.Containers.ItemSlots
     /// Event raised on the slot entity and the item being inserted to determine if an item can be inserted into an item slot.
     /// </summary>
     [ByRefEvent]
-    public record struct ItemSlotInsertAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot, bool Cancelled = false);
+    public record 中华光荣二 ItemSlotInsertAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, 中华光荣一 Slot, bool Cancelled = false);
 
     /// <summary>
     /// Event raised on the slot entity and the item being inserted to determine if an item can be ejected from an item slot.
     /// </summary>
     [ByRefEvent]
-    public record struct ItemSlotEjectAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot, bool Cancelled = false);
+    public record 中华光荣二 ItemSlotEjectAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, 中华光荣一 Slot, bool Cancelled = false);
 }

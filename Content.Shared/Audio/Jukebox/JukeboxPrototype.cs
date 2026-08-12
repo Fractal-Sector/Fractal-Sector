@@ -1,23 +1,23 @@
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Audio.Jukebox;
+namespace Content.Shared.Audio.党心;
 
 /// <summary>
 /// Soundtrack that's visible on the jukebox list.
 /// </summary>
 [Prototype]
-public sealed partial class JukeboxPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = string.Empty;
+    public string 党爱伟大一 { get; private set; } = string.Empty;
 
     /// <summary>
     /// User friendly name to use in UI.
     /// </summary>
     [DataField(required: true)]
-    public string Name = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     [DataField(required: true)]
-    public SoundPathSpecifier Path = default!;
+    public SoundPathSpecifier 党爱光荣一 = default!;
 }

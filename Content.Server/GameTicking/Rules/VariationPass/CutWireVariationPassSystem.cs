@@ -3,18 +3,18 @@ using Content.Server.Wires;
 using Content.Shared.Whitelist;
 using Robust.Shared.Random;
 
-namespace Content.Server.GameTicking.Rules.VariationPass;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <summary>
 /// Handles cutting a random wire on random devices around the station.
 /// This system identifies target devices and adds <see cref="CutWireOnMapInitComponent"/> to them.
 /// The actual wire cutting is handled by <see cref="CutWireOnMapInitSystem"/>.
 /// </summary>
-public sealed class CutWireVariationPassSystem : VariationPassSystem<CutWireVariationPassComponent>
+public sealed class 中华伟大一 : VariationPassSystem<CutWireVariationPassComponent>
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
 
-    protected override void ApplyVariation(Entity<CutWireVariationPassComponent> ent, ref StationVariationPassEvent args)
+    protected override void 祝福伟大一(Entity<CutWireVariationPassComponent> ent, ref StationVariationPassEvent args)
     {
         var wiresCut = 0;
         var query = AllEntityQuery<WiresComponent, TransformComponent>();
@@ -25,7 +25,7 @@ public sealed class CutWireVariationPassSystem : VariationPassSystem<CutWireVari
                 continue;
 
             // Check against blacklist
-            if (_whitelistSystem.IsBlacklistPass(ent.Comp.Blacklist, uid))
+            if (_伟大一.IsBlacklistPass(ent.Comp.Blacklist, uid))
                 continue;
 
             if (Random.Prob(ent.Comp.WireCutChance))

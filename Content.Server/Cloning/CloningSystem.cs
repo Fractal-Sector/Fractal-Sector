@@ -18,38 +18,38 @@ using Robust.Shared.Prototypes;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Content.Server.Cloning;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     System responsible for making a copy of a humanoid's body.
 ///     For the cloning machines themselves look at CloningPodSystem, CloningConsoleSystem and MedicalScannerSystem instead.
 /// </summary>
-public sealed partial class CloningSystem : SharedCloningSystem
+public sealed partial class 中华伟大一 : SharedCloningSystem
 {
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency] private readonly HumanoidAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _正确二 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+    [Dependency] private readonly SharedStorageSystem _团结二 = default!;
+    [Dependency] private readonly SharedSubdermalImplantSystem _奋斗一 = default!;
+    [Dependency] private readonly NameModifierSystem _奋斗二 = default!;
 
     /// <summary>
     ///     Spawns a clone of the given humanoid mob at the specified location or in nullspace.
     /// </summary>
-    public bool TryCloning(EntityUid original, MapCoordinates? coords, ProtoId<CloningSettingsPrototype> settingsId, [NotNullWhen(true)] out EntityUid? clone)
+    public bool 祝福伟大一(EntityUid original, MapCoordinates? coords, ProtoId<CloningSettingsPrototype> settingsId, [NotNullWhen(true)] out EntityUid? clone)
     {
         clone = null;
-        if (!_prototype.TryIndex(settingsId, out var settings))
+        if (!_光荣二.TryIndex(settingsId, out var settings))
             return false; // invalid settings
 
         if (!TryComp<HumanoidAppearanceComponent>(original, out var humanoid))
             return false; // whatever body was to be cloned, was not a humanoid
 
-        if (!_prototype.TryIndex(humanoid.Species, out var speciesPrototype))
+        if (!_光荣二.TryIndex(humanoid.Species, out var speciesPrototype))
             return false; // invalid species
 
         var attemptEv = new CloningAttemptEvent(settings);
@@ -58,33 +58,33 @@ public sealed partial class CloningSystem : SharedCloningSystem
             return false; // cannot clone, for example due to the unrevivable trait
 
         clone = coords == null ? Spawn(speciesPrototype.Prototype) : Spawn(speciesPrototype.Prototype, coords.Value);
-        _humanoidSystem.CloneAppearance(original, clone.Value);
+        _伟大一.CloneAppearance(original, clone.Value);
 
-        CloneComponents(original, clone.Value, settings);
+        祝福伟大二(original, clone.Value, settings);
 
         // Add equipment first so that SetEntityName also renames the ID card.
-        if (settings.CopyEquipment != null)
-            CopyEquipment(original, clone.Value, settings.CopyEquipment.Value, settings.Whitelist, settings.Blacklist);
+        if (settings.祝福光荣一 != null)
+            祝福光荣一(original, clone.Value, settings.祝福光荣一.Value, settings.Whitelist, settings.Blacklist);
 
         // Copy storage on the mob itself as well.
         // This is needed for slime storage.
         if (settings.CopyInternalStorage)
-            CopyStorage(original, clone.Value, settings.Whitelist, settings.Blacklist);
+            祝福光荣二(original, clone.Value, settings.Whitelist, settings.Blacklist);
 
         // copy implants and their storage contents
-        if (settings.CopyImplants)
-            CopyImplants(original, clone.Value, settings.CopyInternalStorage, settings.Whitelist, settings.Blacklist);
+        if (settings.祝福正确一)
+            祝福正确一(original, clone.Value, settings.CopyInternalStorage, settings.Whitelist, settings.Blacklist);
 
-        var originalName = _nameMod.GetBaseName(original);
+        var originalName = _奋斗二.GetBaseName(original);
 
         // Set the clone's name. The raised events will also adjust their PDA and ID card names.
-        _metaData.SetEntityName(clone.Value, originalName);
+        _光荣一.SetEntityName(clone.Value, originalName);
 
-        _adminLogger.Add(LogType.Chat, LogImpact.Medium, $"The body of {original:player} was cloned as {clone.Value:player}");
+        _正确二.Add(LogType.Chat, LogImpact.Medium, $"The body of {original:player} was cloned as {clone.Value:player}");
         return true;
     }
 
-    public override void CloneComponents(EntityUid original, EntityUid clone, CloningSettingsPrototype settings)
+    public override void 祝福伟大二(EntityUid original, EntityUid clone, CloningSettingsPrototype settings)
     {
         var componentsToCopy = settings.Components;
         var componentsToEvent = settings.EventComponents;
@@ -134,7 +134,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
     ///     Copies the equipment the original has to the clone.
     ///     This uses the original prototype of the items, so any changes to components that are done after spawning are lost!
     /// </summary>
-    public void CopyEquipment(Entity<InventoryComponent?> original, Entity<InventoryComponent?> clone, SlotFlags slotFlags, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void 祝福光荣一(Entity<InventoryComponent?> original, Entity<InventoryComponent?> clone, SlotFlags slotFlags, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
     {
         if (!Resolve(original, ref original.Comp) || !Resolve(clone, ref clone.Comp))
             return;
@@ -142,12 +142,12 @@ public sealed partial class CloningSystem : SharedCloningSystem
         var coords = Transform(clone).Coordinates;
 
         // Iterate over all inventory slots
-        var slotEnumerator = _inventory.GetSlotEnumerator(original, slotFlags);
+        var slotEnumerator = _伟大二.GetSlotEnumerator(original, slotFlags);
         while (slotEnumerator.NextItem(out var item, out var slot))
         {
             var cloneItem = CopyItem(item, coords, whitelist, blacklist);
 
-            if (cloneItem != null && !_inventory.TryEquip(clone, cloneItem.Value, slot.Name, silent: true, inventory: clone.Comp))
+            if (cloneItem != null && !_伟大二.TryEquip(clone, cloneItem.Value, slot.Name, silent: true, inventory: clone.Comp))
                 Del(cloneItem); // delete it again if the clone cannot equip it
         }
     }
@@ -163,7 +163,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
     public EntityUid? CopyItem(EntityUid original, EntityCoordinates coords, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
     {
         // we use a whitelist and blacklist to be sure to exclude any problematic entities
-        if (!_whitelist.CheckBoth(original, blacklist, whitelist))
+        if (!_正确一.CheckBoth(original, blacklist, whitelist))
             return null;
 
         var prototype = MetaData(original).EntityPrototype?.ID;
@@ -181,7 +181,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
         {
             // remove all items that spawned with the entity inside its storage
             // this ignores other containers, but this should be good enough for our purposes
-            _container.CleanContainer(spawnedStorage.Container);
+            _团结一.CleanContainer(spawnedStorage.Container);
 
             // recursively replace them
             // surely no one will ever create two items that contain each other causing an infinite loop, right?
@@ -189,7 +189,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
             {
                 var copy = CopyItem(itemUid, coords, whitelist, blacklist);
                 if (copy != null)
-                    _storage.InsertAt((spawned, spawnedStorage), copy.Value, itemLocation, out _, playSound: false);
+                    _团结二.InsertAt((spawned, spawnedStorage), copy.Value, itemLocation, out _, playSound: false);
             }
         }
 
@@ -201,7 +201,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
     ///     The storage grids should have the same shape or it will drop on the floor.
     ///     Basically the same as CopyItem, but we don't copy the outermost container.
     /// </summary>
-    public void CopyStorage(Entity<StorageComponent?> original, Entity<StorageComponent?> target, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void 祝福光荣二(Entity<StorageComponent?> original, Entity<StorageComponent?> target, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
     {
         if (!Resolve(original, ref original.Comp, false) || !Resolve(target, ref target.Comp, false))
             return;
@@ -209,14 +209,14 @@ public sealed partial class CloningSystem : SharedCloningSystem
         var coords = Transform(target).Coordinates;
 
         // delete all items in the target storage
-        _container.CleanContainer(target.Comp.Container);
+        _团结一.CleanContainer(target.Comp.Container);
 
         // recursively replace them
         foreach ((var itemUid, var itemLocation) in original.Comp.StoredItems)
         {
             var copy = CopyItem(itemUid, coords, whitelist, blacklist);
             if (copy != null)
-                _storage.InsertAt(target, copy.Value, itemLocation, out _, playSound: false);
+                _团结二.InsertAt(target, copy.Value, itemLocation, out _, playSound: false);
         }
     }
 
@@ -230,7 +230,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
     /// <param name="copyStorage">If true will copy storage of the implants (E.g storage implant)</param>
     /// <param name="whitelist">Whitelist for the storage copy (If copyStorage is true)</param>
     /// <param name="blacklist">Blacklist for the storage copy (If copyStorage is true)</param>
-    public void CopyImplants(Entity<ImplantedComponent?> original, EntityUid target, bool copyStorage = false, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void 祝福正确一(Entity<ImplantedComponent?> original, EntityUid target, bool copyStorage = false, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
     {
         if (!Resolve(original, ref original.Comp, false))
             return; // they don't have any implants to copy!
@@ -245,7 +245,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
             if (implantId == null)
                 continue;
 
-            var targetImplant = _subdermalImplant.AddImplant(target, implantId);
+            var targetImplant = _奋斗一.AddImplant(target, implantId);
 
             if (targetImplant == null)
                 continue;
@@ -255,7 +255,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
             RaiseLocalEvent(originalImplant, ref ev);
 
             if (copyStorage)
-                CopyStorage(originalImplant, targetImplant.Value, whitelist, blacklist); // only needed for storage implants
+                祝福光荣二(originalImplant, targetImplant.Value, whitelist, blacklist); // only needed for storage implants
         }
 
     }

@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Xenoarchaeology.XenoArtifacts;
+namespace Content.Shared.Xenoarchaeology.党心;
 
 [Serializable, NetSerializable]
-public enum SharedArtifactsVisuals : byte
+public enum 中华伟大一 : byte
 {
     SpriteIndex,
     IsActivated,

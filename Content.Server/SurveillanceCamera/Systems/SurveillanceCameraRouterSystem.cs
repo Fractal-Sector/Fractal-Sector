@@ -9,27 +9,27 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Server.SurveillanceCamera;
+namespace Content.Server.党心;
 
-public sealed class SurveillanceCameraRouterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    public override void Initialize()
+    [Dependency] private readonly DeviceNetworkSystem _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _光荣二 = default!;
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SurveillanceCameraRouterComponent, ComponentInit>(OnInitialize);
-        SubscribeLocalEvent<SurveillanceCameraRouterComponent, DeviceNetworkPacketEvent>(OnPacketReceive);
-        SubscribeLocalEvent<SurveillanceCameraRouterComponent, SurveillanceCameraSetupSetNetwork>(OnSetNetwork);
-        SubscribeLocalEvent<SurveillanceCameraRouterComponent, GetVerbsEvent<AlternativeVerb>>(AddVerbs);
-        SubscribeLocalEvent<SurveillanceCameraRouterComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<SurveillanceCameraRouterComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<SurveillanceCameraRouterComponent, DeviceNetworkPacketEvent>(祝福光荣一);
+        SubscribeLocalEvent<SurveillanceCameraRouterComponent, SurveillanceCameraSetupSetNetwork>(祝福正确二);
+        SubscribeLocalEvent<SurveillanceCameraRouterComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
+        SubscribeLocalEvent<SurveillanceCameraRouterComponent, PowerChangedEvent>(祝福光荣二);
     }
 
-    private void OnInitialize(EntityUid uid, SurveillanceCameraRouterComponent router, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, SurveillanceCameraRouterComponent router, ComponentInit args)
     {
         if (router.SubnetFrequencyId == null ||
-            !_prototypeManager.TryIndex(router.SubnetFrequencyId, out DeviceFrequencyPrototype? subnetFrequency))
+            !_光荣一.TryIndex(router.SubnetFrequencyId, out DeviceFrequencyPrototype? subnetFrequency))
         {
             return;
         }
@@ -38,7 +38,7 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
         router.Active = true;
     }
 
-    private void OnPacketReceive(EntityUid uid, SurveillanceCameraRouterComponent router, DeviceNetworkPacketEvent args)
+    private void 祝福光荣一(EntityUid uid, SurveillanceCameraRouterComponent router, DeviceNetworkPacketEvent args)
     {
         if (!router.Active
             || string.IsNullOrEmpty(args.SenderAddress)
@@ -55,7 +55,7 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
                     return;
                 }
 
-                ConnectCamera(uid, args.SenderAddress, address, router);
+                祝福胜利一(uid, args.SenderAddress, address, router);
                 break;
             case SurveillanceCameraSystem.CameraHeartbeatMessage:
                 if (!args.Data.TryGetValue(SurveillanceCameraSystem.CameraAddressData, out string? camera))
@@ -63,36 +63,36 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
                     return;
                 }
 
-                SendHeartbeat(uid, args.SenderAddress, camera, router);
+                祝福奋斗一(uid, args.SenderAddress, camera, router);
                 break;
             case SurveillanceCameraSystem.CameraSubnetConnectMessage:
-                AddMonitorToRoute(uid, args.SenderAddress, router);
-                PingSubnet(uid, router);
+                祝福胜利二(uid, args.SenderAddress, router);
+                祝福繁荣二(uid, router);
                 break;
             case SurveillanceCameraSystem.CameraSubnetDisconnectMessage:
-                RemoveMonitorFromRoute(uid, args.SenderAddress, router);
+                祝福繁荣一(uid, args.SenderAddress, router);
                 break;
             case SurveillanceCameraSystem.CameraPingSubnetMessage:
-                PingSubnet(uid, router);
+                祝福繁荣二(uid, router);
                 break;
             case SurveillanceCameraSystem.CameraPingMessage:
-                SubnetPingResponse(uid, args.SenderAddress, router);
+                祝福奋斗二(uid, args.SenderAddress, router);
                 break;
             case SurveillanceCameraSystem.CameraDataMessage:
-                SendCameraInfo(uid, args.Data, router);
+                祝福富强一(uid, args.Data, router);
                 break;
         }
     }
 
-    private void OnPowerChanged(EntityUid uid, SurveillanceCameraRouterComponent component, ref PowerChangedEvent args)
+    private void 祝福光荣二(EntityUid uid, SurveillanceCameraRouterComponent component, ref PowerChangedEvent args)
     {
         component.MonitorRoutes.Clear();
         component.Active = args.Powered;
     }
 
-    private void AddVerbs(EntityUid uid, SurveillanceCameraRouterComponent component, GetVerbsEvent<AlternativeVerb> verbs)
+    private void 祝福正确一(EntityUid uid, SurveillanceCameraRouterComponent component, GetVerbsEvent<AlternativeVerb> verbs)
     {
-        if (!_actionBlocker.CanInteract(verbs.User, uid) || !_actionBlocker.CanComplexInteract(verbs.User))
+        if (!_伟大二.CanInteract(verbs.User, uid) || !_伟大二.CanComplexInteract(verbs.User))
         {
             return;
         }
@@ -104,11 +104,11 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
 
         AlternativeVerb verb = new();
         verb.Text = Loc.GetString("surveillance-camera-setup");
-        verb.Act = () => OpenSetupInterface(uid, verbs.User, component);
+        verb.Act = () => 祝福团结一(uid, verbs.User, component);
         verbs.Verbs.Add(verb);
     }
 
-    private void OnSetNetwork(EntityUid uid, SurveillanceCameraRouterComponent component,
+    private void 祝福正确二(EntityUid uid, SurveillanceCameraRouterComponent component,
             SurveillanceCameraSetupSetNetwork args)
     {
         if (args.UiKey is not SurveillanceCameraSetupUiKey key
@@ -121,7 +121,7 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
             return;
         }
 
-        if (!_prototypeManager.TryIndex<DeviceFrequencyPrototype>(component.AvailableNetworks[args.Network],
+        if (!_光荣一.TryIndex<DeviceFrequencyPrototype>(component.AvailableNetworks[args.Network],
                 out var frequency))
         {
             return;
@@ -130,21 +130,21 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
         component.SubnetFrequencyId = component.AvailableNetworks[args.Network];
         component.SubnetFrequency = frequency.Frequency;
         component.Active = true;
-        UpdateSetupInterface(uid, component);
+        祝福团结二(uid, component);
     }
 
-    private void OpenSetupInterface(EntityUid uid, EntityUid player, SurveillanceCameraRouterComponent? camera = null)
+    private void 祝福团结一(EntityUid uid, EntityUid player, SurveillanceCameraRouterComponent? camera = null)
     {
         if (!Resolve(uid, ref camera))
             return;
 
-        if (!_userInterface.TryOpenUi(uid, SurveillanceCameraSetupUiKey.Router, player))
+        if (!_光荣二.TryOpenUi(uid, SurveillanceCameraSetupUiKey.Router, player))
             return;
 
-        UpdateSetupInterface(uid, camera);
+        祝福团结二(uid, camera);
     }
 
-    private void UpdateSetupInterface(EntityUid uid, SurveillanceCameraRouterComponent? router = null, DeviceNetworkComponent? deviceNet = null)
+    private void 祝福团结二(EntityUid uid, SurveillanceCameraRouterComponent? router = null, DeviceNetworkComponent? deviceNet = null)
     {
         if (!Resolve(uid, ref router, ref deviceNet))
         {
@@ -153,16 +153,16 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
 
         if (router.AvailableNetworks.Count == 0 || router.SubnetFrequencyId != null)
         {
-            _userInterface.CloseUi(uid, SurveillanceCameraSetupUiKey.Router);
+            _光荣二.CloseUi(uid, SurveillanceCameraSetupUiKey.Router);
             return;
         }
 
         var state = new SurveillanceCameraSetupBoundUiState(router.SubnetName, deviceNet.ReceiveFrequency ?? 0,
             router.AvailableNetworks, true, router.SubnetFrequencyId != null);
-        _userInterface.SetUiState(uid, SurveillanceCameraSetupUiKey.Router, state);
+        _光荣二.SetUiState(uid, SurveillanceCameraSetupUiKey.Router, state);
     }
 
-    private void SendHeartbeat(EntityUid uid, string origin, string destination,
+    private void 祝福奋斗一(EntityUid uid, string origin, string destination,
         SurveillanceCameraRouterComponent? router = null)
     {
         if (!Resolve(uid, ref router))
@@ -176,10 +176,10 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
             { SurveillanceCameraSystem.CameraAddressData, origin }
         };
 
-        _deviceNetworkSystem.QueuePacket(uid, destination, payload, router.SubnetFrequency);
+        _伟大一.QueuePacket(uid, destination, payload, router.SubnetFrequency);
     }
 
-    private void SubnetPingResponse(EntityUid uid, string origin, SurveillanceCameraRouterComponent? router = null)
+    private void 祝福奋斗二(EntityUid uid, string origin, SurveillanceCameraRouterComponent? router = null)
     {
         if (!Resolve(uid, ref router) || router.SubnetFrequencyId == null)
         {
@@ -192,10 +192,10 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
             { SurveillanceCameraSystem.CameraSubnetData, router.SubnetFrequencyId }
         };
 
-        _deviceNetworkSystem.QueuePacket(uid, origin, payload);
+        _伟大一.QueuePacket(uid, origin, payload);
     }
 
-    private void ConnectCamera(EntityUid uid, string origin, string address, SurveillanceCameraRouterComponent? router = null)
+    private void 祝福胜利一(EntityUid uid, string origin, string address, SurveillanceCameraRouterComponent? router = null)
     {
         if (!Resolve(uid, ref router))
         {
@@ -208,11 +208,11 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
             { SurveillanceCameraSystem.CameraAddressData, origin }
         };
 
-        _deviceNetworkSystem.QueuePacket(uid, address, payload, router.SubnetFrequency);
+        _伟大一.QueuePacket(uid, address, payload, router.SubnetFrequency);
     }
 
     // Adds a monitor to the set of routes.
-    private void AddMonitorToRoute(EntityUid uid, string address, SurveillanceCameraRouterComponent? router = null)
+    private void 祝福胜利二(EntityUid uid, string address, SurveillanceCameraRouterComponent? router = null)
     {
         if (!Resolve(uid, ref router))
         {
@@ -222,7 +222,7 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
         router.MonitorRoutes.Add(address);
     }
 
-    private void RemoveMonitorFromRoute(EntityUid uid, string address, SurveillanceCameraRouterComponent? router = null)
+    private void 祝福繁荣一(EntityUid uid, string address, SurveillanceCameraRouterComponent? router = null)
     {
         if (!Resolve(uid, ref router))
         {
@@ -233,7 +233,7 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
     }
 
     // Pings a subnet to get all camera information.
-    private void PingSubnet(EntityUid uid, SurveillanceCameraRouterComponent? router = null)
+    private void 祝福繁荣二(EntityUid uid, SurveillanceCameraRouterComponent? router = null)
     {
         if (!Resolve(uid, ref router))
         {
@@ -246,11 +246,11 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
             { SurveillanceCameraSystem.CameraSubnetData, router.SubnetName }
         };
 
-        _deviceNetworkSystem.QueuePacket(uid, null, payload, router.SubnetFrequency);
+        _伟大一.QueuePacket(uid, null, payload, router.SubnetFrequency);
     }
 
     // Sends camera information to all monitors currently interested.
-    private void SendCameraInfo(EntityUid uid, NetworkPayload payload, SurveillanceCameraRouterComponent? router = null)
+    private void 祝福富强一(EntityUid uid, NetworkPayload payload, SurveillanceCameraRouterComponent? router = null)
     {
         if (!Resolve(uid, ref router))
         {
@@ -259,7 +259,7 @@ public sealed class SurveillanceCameraRouterSystem : EntitySystem
 
         foreach (var address in router.MonitorRoutes)
         {
-            _deviceNetworkSystem.QueuePacket(uid, address, payload);
+            _伟大一.QueuePacket(uid, address, payload);
         }
     }
 }

@@ -1,34 +1,34 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Piping.Binary.Components
+namespace Content.Shared.Atmos.Piping.Binary.党心
 {
-    public sealed record GasVolumePumpData(float LastMolesTransferred);
+    public sealed record 中华伟大一(float LastMolesTransferred);
 
     [Serializable, NetSerializable]
-    public enum GasVolumePumpUiKey : byte
+    public enum 中华伟大二 : byte
     {
         Key,
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasVolumePumpToggleStatusMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public bool Enabled { get; }
+        public bool 党爱伟大一 { get; }
 
-        public GasVolumePumpToggleStatusMessage(bool enabled)
+        public 中华光荣一(bool enabled)
         {
-            Enabled = enabled;
+            党爱伟大一 = enabled;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasVolumePumpChangeTransferRateMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public float TransferRate { get; }
+        public float 党爱伟大二 { get; }
 
-        public GasVolumePumpChangeTransferRateMessage(float transferRate)
+        public 中华光荣二(float transferRate)
         {
-            TransferRate = transferRate;
+            党爱伟大二 = transferRate;
         }
     }
 }

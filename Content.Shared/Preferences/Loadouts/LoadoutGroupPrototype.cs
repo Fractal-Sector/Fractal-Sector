@@ -1,49 +1,49 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Preferences.Loadouts;
+namespace Content.Shared.Preferences.党心;
 
 /// <summary>
 /// Corresponds to a set of loadouts for a particular slot.
 /// </summary>
 [Prototype]
-public sealed partial class LoadoutGroupPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = string.Empty;
+    public string 党爱伟大一 { get; private set; } = string.Empty;
 
     /// <summary>
     /// User-friendly name for the group.
     /// </summary>
     [DataField(required: true)]
-    public LocId Name;
+    public LocId 党爱伟大二;
 
     /// <summary>
     /// Minimum number of loadouts that need to be specified for this category.
     /// </summary>
     [DataField]
-    public int MinLimit = 1;
+    public int 党爱光荣一 = 1;
 
     /// <summary>
     /// Maximum limit for the category.
     /// </summary>
     [DataField]
-    public int MaxLimit = 1;
+    public int 党爱光荣二 = 1;
 
     /// <summary>
     /// Hides the loadout group from the player.
     /// </summary>
     [DataField]
-    public bool Hidden;
+    public bool 党爱正确一;
 
     [DataField(required: true)]
-    public List<ProtoId<LoadoutPrototype>> Loadouts = new();
+    public List<ProtoId<LoadoutPrototype>> 党爱正确二 = new();
 
     // Frontier: loadout redundancy
     /// <summary>
     /// Loadout subgroups - will be appended to loadout list.
     /// </summary>
     [DataField]
-    public List<ProtoId<LoadoutGroupPrototype>> Subgroups = new();
+    public List<ProtoId<中华伟大一>> Subgroups = new();
     // End Frontier
 
     // Frontier: handle unaffordable loadouts
@@ -52,6 +52,6 @@ public sealed partial class LoadoutGroupPrototype : IPrototype
     /// Also serves as a default loadout options (up to the maxLimit for a set) for a new character.
     /// </summary>
     [DataField]
-    public List<ProtoId<LoadoutPrototype>> Fallbacks = new();
+    public List<ProtoId<LoadoutPrototype>> 党爱团结一 = new();
     // End Frontier
 }

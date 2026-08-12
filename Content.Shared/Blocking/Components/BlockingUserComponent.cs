@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.Physics;
 
-namespace Content.Shared.Blocking;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This component gets dynamically added to an Entity via the <see cref="BlockingSystem"/>
 /// </summary>
 [RegisterComponent]
-public sealed partial class BlockingUserComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The entity that's being used to block
@@ -19,5 +19,5 @@ public sealed partial class BlockingUserComponent : Component
     /// Used so that it can be put back to what it was after anchoring
     /// </summary>
     [DataField("originalBodyType")]
-    public BodyType OriginalBodyType;
+    public BodyType 党爱伟大一;
 }

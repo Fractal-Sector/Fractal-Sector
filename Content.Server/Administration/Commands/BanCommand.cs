@@ -12,29 +12,29 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class BanCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
 
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly IBanManager _bans = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IDiscordBanInfoSender _discordBanInfoSender = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    public override string Command => "ban";
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly IBanManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly ILogManager _正确一 = default!;
+    [Dependency] private readonly IDiscordBanInfoSender _正确二 = default!;
+    [Dependency] private readonly IServerDbManager _团结一 = default!;
+    public override string 党爱伟大一 => "ban";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         string target;
         string reason;
         uint minutes;
-        if (!Enum.TryParse(_cfg.GetCVar(CCVars.ServerBanDefaultSeverity), out NoteSeverity severity))
+        if (!Enum.TryParse(_光荣一.GetCVar(CCVars.ServerBanDefaultSeverity), out NoteSeverity severity))
         {
-            _logManager.GetSawmill("admin.server_ban")
+            _正确一.GetSawmill("admin.server_ban")
                 .Warning("Server ban severity could not be parsed from config! Defaulting to high.");
             severity = NoteSeverity.High;
         }
@@ -83,7 +83,7 @@ public sealed class BanCommand : LocalizedCommands
                 return;
         }
 
-        var located = await _locator.LookupIdByNameOrIdAsync(target);
+        var located = await _伟大一.LookupIdByNameOrIdAsync(target);
         var player = shell.Player;
 
         if (located == null)
@@ -96,7 +96,7 @@ public sealed class BanCommand : LocalizedCommands
         var targetHWid = located.LastHWId;
 
         // FS start
-        var lastServerBan = await _dbManager.GetLastServerBanAsync();
+        var lastServerBan = await _团结一.GetLastServerBanAsync();
         var newServerBanId = lastServerBan is not null ? lastServerBan.Id + 1 : 1;
         var banInfo = new BanInfo
         {
@@ -108,16 +108,16 @@ public sealed class BanCommand : LocalizedCommands
             Expires = DateTimeOffset.Now + TimeSpan.FromMinutes(minutes)
         };
 
-        _bans.CreateServerBan(targetUid, target, player?.UserId, null, targetHWid, minutes, severity, reason);
-        await _discordBanInfoSender.SendBanInfoAsync<ServerBanPayloadGenerator>(banInfo);
+        _伟大二.CreateServerBan(targetUid, target, player?.UserId, null, targetHWid, minutes, severity, reason);
+        await _正确二.SendBanInfoAsync<ServerBanPayloadGenerator>(banInfo);
         // FS end
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
-            var options = _playerManager.Sessions.Select(c => c.Name).OrderBy(c => c).ToArray();
+            var options = _光荣二.Sessions.Select(c => c.Name).OrderBy(c => c).ToArray();
             return CompletionResult.FromHintOptions(options, LocalizationManager.GetString("cmd-ban-hint"));
         }
 

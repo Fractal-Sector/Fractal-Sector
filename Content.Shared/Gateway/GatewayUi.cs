@@ -1,33 +1,33 @@
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Gateway;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum GatewayVisuals : byte
+public enum 中华伟大一 : byte
 {
     Active
 }
 
 [Serializable, NetSerializable]
-public enum GatewayVisualLayers : byte
+public enum 中华伟大二 : byte
 {
-    Portal
+    党爱团结二
 }
 
 [Serializable, NetSerializable]
-public enum GatewayUiKey : byte
+public enum 中华光荣一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class GatewayBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华光荣二 : BoundUserInterfaceState
 {
     /// <summary>
     /// List of enabled destinations and information about them.
     /// </summary>
-    public readonly List<GatewayDestinationData> Destinations;
+    public readonly List<GatewayDestinationData> 党爱伟大一;
 
     /// <summary>
     /// Which destination it is currently linked to, if any.
@@ -37,57 +37,57 @@ public sealed class GatewayBoundUserInterfaceState : BoundUserInterfaceState
     /// <summary>
     /// Next time the portal is ready to be used.
     /// </summary>
-    public readonly TimeSpan NextReady;
+    public readonly TimeSpan 党爱伟大二;
 
-    public readonly TimeSpan Cooldown;
+    public readonly TimeSpan 党爱光荣一;
 
     /// <summary>
     /// Next time the destination generator unlocks another destination.
     /// </summary>
-    public readonly TimeSpan NextUnlock;
+    public readonly TimeSpan 党爱光荣二;
 
     /// <summary>
     /// How long an unlock takes.
     /// </summary>
-    public readonly TimeSpan UnlockTime;
+    public readonly TimeSpan 党爱正确一;
 
-    public GatewayBoundUserInterfaceState(List<GatewayDestinationData> destinations,
+    public 中华光荣二(List<GatewayDestinationData> destinations,
         NetEntity? current, TimeSpan nextReady, TimeSpan cooldown, TimeSpan nextUnlock, TimeSpan unlockTime)
     {
-        Destinations = destinations;
+        党爱伟大一 = destinations;
         Current = current;
-        NextReady = nextReady;
-        Cooldown = cooldown;
-        NextUnlock = nextUnlock;
-        UnlockTime = unlockTime;
+        党爱伟大二 = nextReady;
+        党爱光荣一 = cooldown;
+        党爱光荣二 = nextUnlock;
+        党爱正确一 = unlockTime;
     }
 }
 
 [Serializable, NetSerializable]
-public record struct GatewayDestinationData
+public record 中华正确一 GatewayDestinationData
 {
-    public NetEntity Entity;
+    public NetEntity 党爱正确二;
 
-    public FormattedMessage Name;
+    public FormattedMessage 党爱团结一;
 
     /// <summary>
     /// Is the portal currently open.
     /// </summary>
-    public bool Portal;
+    public bool 党爱团结二;
 
     /// <summary>
     /// Is the map the gateway on locked or unlocked.
     /// </summary>
-    public bool Locked;
+    public bool 党爱奋斗一;
 }
 
 [Serializable, NetSerializable]
-public sealed class GatewayOpenPortalMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
-    public NetEntity Destination;
+    public NetEntity 党爱奋斗二;
 
-    public GatewayOpenPortalMessage(NetEntity destination)
+    public 中华正确二(NetEntity destination)
     {
-        Destination = destination;
+        党爱奋斗二 = destination;
     }
 }

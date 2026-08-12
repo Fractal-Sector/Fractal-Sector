@@ -1,15 +1,15 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos.Monitor.Components;
+namespace Content.Shared.Atmos.Monitor.党心;
 
 [Serializable, NetSerializable]
-public enum SharedAirAlarmInterfaceKey
+public enum 中华伟大一
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public enum AirAlarmMode
+public enum 中华伟大二
 {
     None,
     Filtering,
@@ -19,7 +19,7 @@ public enum AirAlarmMode
 }
 
 [Serializable, NetSerializable]
-public enum AirAlarmWireStatus
+public enum 中华光荣一
 {
     Power,
     Access,
@@ -27,33 +27,33 @@ public enum AirAlarmWireStatus
     DeviceSync
 }
 
-public interface IAtmosDeviceData
+public interface 中华光荣二
 {
-    public bool Enabled { get; set; }
-    public bool Dirty { get; set; }
-    public bool IgnoreAlarms { get; set; }
+    public bool 党爱伟大一 { get; set; }
+    public bool 党爱伟大二 { get; set; }
+    public bool 党爱光荣一 { get; set; }
 }
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmUIState : BoundUserInterfaceState
+public sealed class 中华正确一 : BoundUserInterfaceState
 {
-    public AirAlarmUIState(string address, int deviceCount, float pressureAverage, float temperatureAverage, List<(string, IAtmosDeviceData)> deviceData, AirAlarmMode mode, AtmosAlarmType alarmType, bool autoMode, bool panicWireCut)
+    public 中华正确一(string address, int deviceCount, float pressureAverage, float temperatureAverage, List<(string, 中华光荣二)> deviceData, 中华伟大二 mode, AtmosAlarmType alarmType, bool autoMode, bool panicWireCut)
     {
-        Address = address;
-        DeviceCount = deviceCount;
-        PressureAverage = pressureAverage;
-        TemperatureAverage = temperatureAverage;
+        党爱光荣二 = address;
+        党爱正确一 = deviceCount;
+        党爱正确二 = pressureAverage;
+        党爱团结一 = temperatureAverage;
         DeviceData = deviceData;
         Mode = mode;
-        AlarmType = alarmType;
-        AutoMode = autoMode;
-        PanicWireCut = panicWireCut;
+        党爱团结二 = alarmType;
+        党爱奋斗一 = autoMode;
+        党爱奋斗二 = panicWireCut;
     }
 
-    public string Address { get; }
-    public int DeviceCount { get; }
-    public float PressureAverage { get; }
-    public float TemperatureAverage { get; }
+    public string 党爱光荣二 { get; }
+    public int 党爱正确一 { get; }
+    public float 党爱正确二 { get; }
+    public float 党爱团结一 { get; }
     /// <summary>
     ///     Every single device data that can be seen from this
     ///     air alarm. This includes vents, scrubbers, and sensors.
@@ -61,76 +61,76 @@ public sealed class AirAlarmUIState : BoundUserInterfaceState
     ///     data. The same address may appear multiple times, if
     ///     that device provides multiple functions.
     /// </summary>
-    public List<(string, IAtmosDeviceData)> DeviceData { get; }
-    public AirAlarmMode Mode { get; }
-    public AtmosAlarmType AlarmType { get; }
-    public bool AutoMode { get; }
-    public bool PanicWireCut { get; }
+    public List<(string, 中华光荣二)> DeviceData { get; }
+    public 中华伟大二 Mode { get; }
+    public AtmosAlarmType 党爱团结二 { get; }
+    public bool 党爱奋斗一 { get; }
+    public bool 党爱奋斗二 { get; }
 }
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmResyncAllDevicesMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {}
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmUpdateAlarmModeMessage : BoundUserInterfaceMessage
+public sealed class 中华团结一 : BoundUserInterfaceMessage
 {
-    public AirAlarmMode Mode { get; }
+    public 中华伟大二 Mode { get; }
 
-    public AirAlarmUpdateAlarmModeMessage(AirAlarmMode mode)
+    public 中华团结一(中华伟大二 mode)
     {
         Mode = mode;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmUpdateAutoModeMessage : BoundUserInterfaceMessage
+public sealed class 中华团结二 : BoundUserInterfaceMessage
 {
-    public bool Enabled { get; }
+    public bool 党爱伟大一 { get; }
 
-    public AirAlarmUpdateAutoModeMessage(bool enabled)
+    public 中华团结二(bool enabled)
     {
-        Enabled = enabled;
+        党爱伟大一 = enabled;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmUpdateDeviceDataMessage : BoundUserInterfaceMessage
+public sealed class 中华奋斗一 : BoundUserInterfaceMessage
 {
-    public string Address { get; }
-    public IAtmosDeviceData Data { get; }
+    public string 党爱光荣二 { get; }
+    public 中华光荣二 Data { get; }
 
-    public AirAlarmUpdateDeviceDataMessage(string addr, IAtmosDeviceData data)
+    public 中华奋斗一(string addr, 中华光荣二 data)
     {
-        Address = addr;
+        党爱光荣二 = addr;
         Data = data;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmCopyDeviceDataMessage : BoundUserInterfaceMessage
+public sealed class 中华奋斗二 : BoundUserInterfaceMessage
 {
-    public IAtmosDeviceData Data { get; }
+    public 中华光荣二 Data { get; }
 
-    public AirAlarmCopyDeviceDataMessage(IAtmosDeviceData data)
+    public 中华奋斗二(中华光荣二 data)
     {
         Data = data;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmUpdateAlarmThresholdMessage : BoundUserInterfaceMessage
+public sealed class 中华胜利一 : BoundUserInterfaceMessage
 {
-    public string Address { get; }
-    public AtmosAlarmThreshold Threshold { get; }
-    public AtmosMonitorThresholdType Type { get; }
+    public string 党爱光荣二 { get; }
+    public AtmosAlarmThreshold 党爱胜利一 { get; }
+    public AtmosMonitorThresholdType 党爱胜利二 { get; }
     public Gas? Gas { get; }
 
-    public AirAlarmUpdateAlarmThresholdMessage(string address, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null)
+    public 中华胜利一(string address, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null)
     {
-        Address = address;
-        Threshold = threshold;
-        Type = type;
+        党爱光荣二 = address;
+        党爱胜利一 = threshold;
+        党爱胜利二 = type;
         Gas = gas;
     }
 }

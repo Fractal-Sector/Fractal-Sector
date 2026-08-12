@@ -3,29 +3,29 @@ using Content.Shared.Random.Helpers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Vocalization.Systems;
+namespace Content.Server.Vocalization.党心;
 
 /// <inheritdoc cref="DatasetVocalizerComponent"/>
-public sealed class DatasetVocalizationSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DatasetVocalizerComponent, TryVocalizeEvent>(OnTryVocalize);
+        SubscribeLocalEvent<DatasetVocalizerComponent, TryVocalizeEvent>(祝福伟大二);
     }
 
-    private void OnTryVocalize(Entity<DatasetVocalizerComponent> ent, ref TryVocalizeEvent args)
+    private void 祝福伟大二(Entity<DatasetVocalizerComponent> ent, ref TryVocalizeEvent args)
     {
         if (args.Handled)
             return;
 
-        var dataset = _protoMan.Index(ent.Comp.Dataset);
+        var dataset = _伟大一.Index(ent.Comp.Dataset);
 
-        args.Message = _random.Pick(dataset);
+        args.Message = _伟大二.Pick(dataset);
         args.Handled = true;
     }
 }

@@ -4,17 +4,17 @@ using Content.Server.NodeContainer.Nodes;
 using Content.Shared.NodeContainer;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Electrocution
+namespace Content.Server.党心
 {
     [DataDefinition]
-    public sealed partial class ElectrocutionNode : Node
+    public sealed partial class 中华伟大一 : Node
     {
         [DataField("cable")]
         public EntityUid? CableEntity;
         [DataField("node")]
         public string? NodeName;
 
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> 祝福伟大一(TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,

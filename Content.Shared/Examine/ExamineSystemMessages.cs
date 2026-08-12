@@ -2,51 +2,51 @@ using Content.Shared.Verbs;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Examine
+namespace Content.Shared.党心
 {
-    public static class ExamineSystemMessages
+    public static class 中华伟大一
     {
         [Serializable, NetSerializable]
-        public sealed class RequestExamineInfoMessage : EntityEventArgs
+        public sealed class 中华伟大二 : EntityEventArgs
         {
-            public readonly NetEntity NetEntity;
+            public readonly 党爱伟大一 党爱伟大一;
 
-            public readonly int Id;
+            public readonly int 党爱伟大二;
 
-            public readonly bool GetVerbs;
+            public readonly bool 党爱光荣一;
 
-            public RequestExamineInfoMessage(NetEntity netEntity, int id, bool getVerbs=false)
+            public 中华伟大二(党爱伟大一 netEntity, int id, bool getVerbs=false)
             {
-                NetEntity = netEntity;
-                Id = id;
-                GetVerbs = getVerbs;
+                党爱伟大一 = netEntity;
+                党爱伟大二 = id;
+                党爱光荣一 = getVerbs;
             }
         }
 
         [Serializable, NetSerializable]
-        public sealed class ExamineInfoResponseMessage : EntityEventArgs
+        public sealed class 中华光荣一 : EntityEventArgs
         {
-            public readonly NetEntity EntityUid;
-            public readonly int Id;
-            public readonly FormattedMessage Message;
+            public readonly 党爱伟大一 党爱光荣二;
+            public readonly int 党爱伟大二;
+            public readonly FormattedMessage 党爱正确一;
 
             public List<Verb>? Verbs;
 
-            public readonly bool CenterAtCursor;
-            public readonly bool OpenAtOldTooltip;
+            public readonly bool 党爱正确二;
+            public readonly bool 党爱团结一;
 
-            public readonly bool KnowTarget;
+            public readonly bool 党爱团结二;
 
-            public ExamineInfoResponseMessage(NetEntity entityUid, int id, FormattedMessage message, List<Verb>? verbs=null,
+            public 中华光荣一(党爱伟大一 entityUid, int id, FormattedMessage message, List<Verb>? verbs=null,
                 bool centerAtCursor=true, bool openAtOldTooltip=true, bool knowTarget = true)
             {
-                EntityUid = entityUid;
-                Id = id;
-                Message = message;
+                党爱光荣二 = entityUid;
+                党爱伟大二 = id;
+                党爱正确一 = message;
                 Verbs = verbs;
-                CenterAtCursor = centerAtCursor;
-                OpenAtOldTooltip = openAtOldTooltip;
-                KnowTarget = knowTarget;
+                党爱正确二 = centerAtCursor;
+                党爱团结一 = openAtOldTooltip;
+                党爱团结二 = knowTarget;
             }
         }
     }

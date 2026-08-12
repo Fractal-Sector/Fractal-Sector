@@ -9,73 +9,73 @@ using Content.Shared.Clothing.EntitySystems;
 using Content.Shared._NF.Clothing.Components;
 using Content.Shared.Clothing;
 
-namespace Content.Shared._NF.Clothing.EntitySystems;
+namespace Content.Shared._NF.Clothing.党心;
 
-public sealed class SharedNFMoonBootsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly ClothingSystem _伟大二 = default!;
+    [Dependency] private readonly InventorySystem _光荣一 = default!;
+    [Dependency] private readonly ItemToggleSystem _光荣二 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确一 = default!;
+    [Dependency] private readonly SharedItemSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NFMoonBootsComponent, ItemToggledEvent>(OnToggled);
-        SubscribeLocalEvent<NFMoonBootsComponent, ClothingGotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<NFMoonBootsComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<NFMoonBootsComponent, IsWeightlessEvent>(OnIsWeightless);
-        SubscribeLocalEvent<NFMoonBootsComponent, InventoryRelayedEvent<IsWeightlessEvent>>(OnIsWeightless);
+        SubscribeLocalEvent<NFMoonBootsComponent, ItemToggledEvent>(祝福伟大二);
+        SubscribeLocalEvent<NFMoonBootsComponent, ClothingGotEquippedEvent>(祝福光荣二);
+        SubscribeLocalEvent<NFMoonBootsComponent, ClothingGotUnequippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<NFMoonBootsComponent, IsWeightlessEvent>(祝福正确二);
+        SubscribeLocalEvent<NFMoonBootsComponent, InventoryRelayedEvent<IsWeightlessEvent>>(祝福正确二);
     }
 
-    private void OnToggled(Entity<NFMoonBootsComponent> ent, ref ItemToggledEvent args)
+    private void 祝福伟大二(Entity<NFMoonBootsComponent> ent, ref ItemToggledEvent args)
     {
         var (uid, comp) = ent;
         // only works if being worn in the correct slot
-        if (_container.TryGetContainingContainer((uid, null, null), out var container) &&
-            _inventory.TryGetSlotEntity(container.Owner, comp.Slot, out var worn)
+        if (_正确一.TryGetContainingContainer((uid, null, null), out var container) &&
+            _光荣一.TryGetSlotEntity(container.Owner, comp.Slot, out var worn)
             && uid == worn)
         {
-            UpdateMoonbootEffects(container.Owner, ent, args.Activated);
+            祝福正确一(container.Owner, ent, args.Activated);
         }
 
         var prefix = args.Activated ? "on" : null;
-        _item.SetHeldPrefix(ent, prefix);
-        _clothing.SetEquippedPrefix(ent, prefix);
+        _正确二.SetHeldPrefix(ent, prefix);
+        _伟大二.SetEquippedPrefix(ent, prefix);
     }
 
-    private void OnGotUnequipped(Entity<NFMoonBootsComponent> ent, ref ClothingGotUnequippedEvent args)
+    private void 祝福光荣一(Entity<NFMoonBootsComponent> ent, ref ClothingGotUnequippedEvent args)
     {
-        UpdateMoonbootEffects(args.Wearer, ent, false);
+        祝福正确一(args.Wearer, ent, false);
     }
 
-    private void OnGotEquipped(Entity<NFMoonBootsComponent> ent, ref ClothingGotEquippedEvent args)
+    private void 祝福光荣二(Entity<NFMoonBootsComponent> ent, ref ClothingGotEquippedEvent args)
     {
-        UpdateMoonbootEffects(args.Wearer, ent, _toggle.IsActivated(ent.Owner));
+        祝福正确一(args.Wearer, ent, _光荣二.IsActivated(ent.Owner));
     }
 
-    public void UpdateMoonbootEffects(EntityUid user, Entity<NFMoonBootsComponent> ent, bool state)
+    public void 祝福正确一(EntityUid user, Entity<NFMoonBootsComponent> ent, bool state)
     {
         if (state)
-            _alerts.ShowAlert(user, ent.Comp.MoonBootsAlert);
+            _伟大一.ShowAlert(user, ent.Comp.MoonBootsAlert);
         else
-            _alerts.ClearAlert(user, ent.Comp.MoonBootsAlert);
+            _伟大一.ClearAlert(user, ent.Comp.MoonBootsAlert);
     }
 
-    private void OnIsWeightless(Entity<NFMoonBootsComponent> ent, ref IsWeightlessEvent args)
+    private void 祝福正确二(Entity<NFMoonBootsComponent> ent, ref IsWeightlessEvent args)
     {
-        if (args.Handled || !_toggle.IsActivated(ent.Owner))
+        if (args.Handled || !_光荣二.IsActivated(ent.Owner))
             return;
 
         args.Handled = true;
         args.IsWeightless = true;
     }
 
-    private void OnIsWeightless(Entity<NFMoonBootsComponent> ent, ref InventoryRelayedEvent<IsWeightlessEvent> args)
+    private void 祝福正确二(Entity<NFMoonBootsComponent> ent, ref InventoryRelayedEvent<IsWeightlessEvent> args)
     {
-        OnIsWeightless(ent, ref args.Args);
+        祝福正确二(ent, ref args.Args);
     }
 }

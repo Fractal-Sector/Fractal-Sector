@@ -5,15 +5,15 @@ using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Procedural;
+namespace Content.Server.党心;
 
-public sealed partial class DungeonSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Generates a dungeon via command.
     /// </summary>
     [AdminCommand(AdminFlags.Fun)]
-    private async void GenerateDungeon(IConsoleShell shell, string argstr, string[] args)
+    private async void 祝福伟大一(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length < 4)
         {
@@ -69,10 +69,10 @@ public sealed partial class DungeonSystem
         }
 
         shell.WriteLine(Loc.GetString("cmd-dungen-start", ("seed", seed)));
-        GenerateDungeon(dungeon, dungeon.ID, dungeonUid, dungeonGrid, position, seed); // Frontier: add dungeon.ID
+        祝福伟大一(dungeon, dungeon.ID, dungeonUid, dungeonGrid, position, seed); // Frontier: add dungeon.ID
     }
 
-    private CompletionResult CompletionCallback(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -103,7 +103,7 @@ public sealed partial class DungeonSystem
     }
 
     [AdminCommand(AdminFlags.Mapping)]
-    private void DungeonPackVis(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣一(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -159,7 +159,7 @@ public sealed partial class DungeonSystem
     }
 
     [AdminCommand(AdminFlags.Mapping)]
-    private void DungeonPresetVis(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -199,7 +199,7 @@ public sealed partial class DungeonSystem
         shell.WriteLine(Loc.GetString("cmd-dungen_pack_vis"));
     }
 
-    private CompletionResult PresetCallback(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福正确一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
@@ -214,7 +214,7 @@ public sealed partial class DungeonSystem
         return CompletionResult.Empty;
     }
 
-    private CompletionResult PackCallback(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福正确二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {

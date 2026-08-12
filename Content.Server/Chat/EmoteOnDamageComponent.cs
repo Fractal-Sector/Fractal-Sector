@@ -1,4 +1,4 @@
-namespace Content.Server.Chat;
+namespace Content.Server.党心;
 
 using Content.Server.Chat.Systems;
 using Content.Shared.Chat.Prototypes;
@@ -9,44 +9,44 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 /// Causes an entity to automatically emote when taking damage.
 /// </summary>
 [RegisterComponent, Access(typeof(EmoteOnDamageSystem)), AutoGenerateComponentPause]
-public sealed partial class EmoteOnDamageComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Chance of preforming an emote when taking damage and not on cooldown.
     /// </summary>
     [DataField("emoteChance"), ViewVariables(VVAccess.ReadWrite)]
-    public float EmoteChance = 0.5f;
+    public float 党爱伟大一 = 0.5f;
 
     /// <summary>
     /// A set of emotes that will be randomly picked from.
     /// <see cref="EmotePrototype"/>
     /// </summary>
     [DataField("emotes", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<EmotePrototype>)), ViewVariables(VVAccess.ReadWrite)]
-    public HashSet<string> Emotes = new();
+    public HashSet<string> 党爱伟大二 = new();
 
     /// <summary>
     /// Also send the emote in chat.
     /// <summary>
     [DataField("withChat"), ViewVariables(VVAccess.ReadWrite)]
-    public bool WithChat = false;
+    public bool 党爱光荣一 = false;
 
     /// <summary>
     /// Hide the chat message from the chat window, only showing the popup.
-    /// This does nothing if WithChat is false.
+    /// This does nothing if 党爱光荣一 is false.
     /// <summary>
     [DataField("hiddenFromChatWindow")]
-    public bool HiddenFromChatWindow = false;
+    public bool 党爱光荣二 = false;
 
     /// <summary>
     /// The simulation time of the last emote preformed due to taking damage.
     /// </summary>
     [DataField("lastEmoteTime", customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite)]
     [AutoPausedField]
-    public TimeSpan LastEmoteTime = TimeSpan.Zero;
+    public TimeSpan 党爱正确一 = TimeSpan.Zero;
 
     /// <summary>
     /// The cooldown between emotes.
     /// </summary>
     [DataField("emoteCooldown"), ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan EmoteCooldown = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱正确二 = TimeSpan.FromSeconds(2);
 }

@@ -15,101 +15,101 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Physics.Events;
 
-namespace Content.Shared.Slippery;
+namespace Content.Shared.党心;
 
 [UsedImplicitly]
-public sealed class SlipperySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly MovementModStatusSystem _movementMod = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly StatusEffectsSystem _status = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SpeedModifierContactsSystem _speedModifier = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly MovementModStatusSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedStunSystem _光荣二 = default!;
+    [Dependency] private readonly StatusEffectsSystem _正确一 = default!;
+    [Dependency] private readonly SharedStaminaSystem _正确二 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _团结二 = default!;
+    [Dependency] private readonly SpeedModifierContactsSystem _奋斗一 = default!;
 
-    private EntityQuery<KnockedDownComponent> _knockedDownQuery;
-    private EntityQuery<PhysicsComponent> _physicsQuery;
-    private EntityQuery<SlidingComponent> _slidingQuery;
+    private EntityQuery<KnockedDownComponent> _奋斗二;
+    private EntityQuery<PhysicsComponent> _胜利一;
+    private EntityQuery<SlidingComponent> _胜利二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _knockedDownQuery = GetEntityQuery<KnockedDownComponent>();
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        _slidingQuery = GetEntityQuery<SlidingComponent>();
+        _奋斗二 = GetEntityQuery<KnockedDownComponent>();
+        _胜利一 = GetEntityQuery<PhysicsComponent>();
+        _胜利二 = GetEntityQuery<SlidingComponent>();
 
-        SubscribeLocalEvent<SlipperyComponent, StepTriggerAttemptEvent>(HandleAttemptCollide);
-        SubscribeLocalEvent<SlipperyComponent, StepTriggeredOffEvent>(HandleStepTrigger);
-        SubscribeLocalEvent<NoSlipComponent, SlipAttemptEvent>(OnNoSlipAttempt);
-        SubscribeLocalEvent<SlowedOverSlipperyComponent, SlipAttemptEvent>(OnSlowedOverSlipAttempt);
-        SubscribeLocalEvent<ThrownItemComponent, SlipCausingAttemptEvent>(OnThrownSlipAttempt);
-        SubscribeLocalEvent<NoSlipComponent, InventoryRelayedEvent<SlipAttemptEvent>>((e, c, ev) => OnNoSlipAttempt(e, c, ev.Args));
-        SubscribeLocalEvent<SlowedOverSlipperyComponent, InventoryRelayedEvent<SlipAttemptEvent>>((e, c, ev) => OnSlowedOverSlipAttempt(e, c, ev.Args));
-        SubscribeLocalEvent<SlowedOverSlipperyComponent, InventoryRelayedEvent<GetSlowedOverSlipperyModifierEvent>>(OnGetSlowedOverSlipperyModifier);
-        SubscribeLocalEvent<SlipperyComponent, EndCollideEvent>(OnEntityExit);
+        SubscribeLocalEvent<SlipperyComponent, StepTriggerAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<SlipperyComponent, StepTriggeredOffEvent>(祝福伟大二);
+        SubscribeLocalEvent<NoSlipComponent, 中华伟大二>(祝福光荣二);
+        SubscribeLocalEvent<SlowedOverSlipperyComponent, 中华伟大二>(祝福正确一);
+        SubscribeLocalEvent<ThrownItemComponent, SlipCausingAttemptEvent>(祝福正确二);
+        SubscribeLocalEvent<NoSlipComponent, InventoryRelayedEvent<中华伟大二>>((e, c, ev) => 祝福光荣二(e, c, ev.Args));
+        SubscribeLocalEvent<SlowedOverSlipperyComponent, InventoryRelayedEvent<中华伟大二>>((e, c, ev) => 祝福正确一(e, c, ev.Args));
+        SubscribeLocalEvent<SlowedOverSlipperyComponent, InventoryRelayedEvent<GetSlowedOverSlipperyModifierEvent>>(祝福团结一);
+        SubscribeLocalEvent<SlipperyComponent, EndCollideEvent>(祝福团结二);
     }
 
-    private void HandleStepTrigger(EntityUid uid, SlipperyComponent component, ref StepTriggeredOffEvent args)
+    private void 祝福伟大二(EntityUid uid, SlipperyComponent component, ref StepTriggeredOffEvent args)
     {
-        TrySlip(uid, component, args.Tripper);
+        祝福奋斗二(uid, component, args.Tripper);
     }
 
-    private void HandleAttemptCollide(
+    private void 祝福光荣一(
         EntityUid uid,
         SlipperyComponent component,
         ref StepTriggerAttemptEvent args)
     {
-        args.Continue |= CanSlip(uid, args.Tripper);
+        args.Continue |= 祝福奋斗一(uid, args.Tripper);
     }
 
-    private static void OnNoSlipAttempt(EntityUid uid, NoSlipComponent component, SlipAttemptEvent args)
+    private static void 祝福光荣二(EntityUid uid, NoSlipComponent component, 中华伟大二 args)
     {
-        args.NoSlip = true;
+        args.党爱伟大一 = true;
     }
 
-    private void OnSlowedOverSlipAttempt(EntityUid uid, SlowedOverSlipperyComponent component, SlipAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, SlowedOverSlipperyComponent component, 中华伟大二 args)
     {
-        args.SlowOverSlippery = true;
+        args.党爱伟大二 = true;
     }
 
-    private void OnThrownSlipAttempt(EntityUid uid, ThrownItemComponent comp, ref SlipCausingAttemptEvent args)
+    private void 祝福正确二(EntityUid uid, ThrownItemComponent comp, ref SlipCausingAttemptEvent args)
     {
         args.Cancelled = true;
     }
 
-    private void OnGetSlowedOverSlipperyModifier(EntityUid uid, SlowedOverSlipperyComponent comp, ref InventoryRelayedEvent<GetSlowedOverSlipperyModifierEvent> args)
+    private void 祝福团结一(EntityUid uid, SlowedOverSlipperyComponent comp, ref InventoryRelayedEvent<GetSlowedOverSlipperyModifierEvent> args)
     {
         args.Args.SlowdownModifier *= comp.SlowdownModifier;
     }
 
-    private void OnEntityExit(EntityUid uid, SlipperyComponent component, ref EndCollideEvent args)
+    private void 祝福团结二(EntityUid uid, SlipperyComponent component, ref EndCollideEvent args)
     {
         if (HasComp<SpeedModifiedByContactComponent>(args.OtherEntity))
-            _speedModifier.AddModifiedEntity(args.OtherEntity);
+            _奋斗一.AddModifiedEntity(args.OtherEntity);
     }
 
-    private bool CanSlip(EntityUid uid, EntityUid toSlip)
+    private bool 祝福奋斗一(EntityUid uid, EntityUid toSlip)
     {
-        return !_container.IsEntityInContainer(uid)
-                && _status.CanAddStatusEffect(toSlip, SharedStunSystem.StunId); //Should be KnockedDown instead?
+        return !_团结一.IsEntityInContainer(uid)
+                && _正确一.CanAddStatusEffect(toSlip, SharedStunSystem.StunId); //Should be KnockedDown instead?
     }
 
-    public void TrySlip(EntityUid uid, SlipperyComponent component, EntityUid other, bool requiresContact = true)
+    public void 祝福奋斗二(EntityUid uid, SlipperyComponent component, EntityUid other, bool requiresContact = true)
     {
-        var knockedDown = _knockedDownQuery.HasComp(other);
+        var knockedDown = _奋斗二.HasComp(other);
         if (knockedDown && !component.SlipData.SuperSlippery)
             return;
 
-        var attemptEv = new SlipAttemptEvent(uid);
+        var attemptEv = new 中华伟大二(uid);
         RaiseLocalEvent(other, attemptEv);
-        if (attemptEv.SlowOverSlippery)
-            _speedModifier.AddModifiedEntity(other);
+        if (attemptEv.党爱伟大二)
+            _奋斗一.AddModifiedEntity(other);
 
-        if (attemptEv.NoSlip)
+        if (attemptEv.党爱伟大一)
             return;
 
         var attemptCausingEv = new SlipCausingAttemptEvent();
@@ -120,9 +120,9 @@ public sealed class SlipperySystem : EntitySystem
         var ev = new SlipEvent(other);
         RaiseLocalEvent(uid, ref ev);
 
-        if (_physicsQuery.TryComp(other, out var physics) && !_slidingQuery.HasComp(other))
+        if (_胜利一.TryComp(other, out var physics) && !_胜利二.HasComp(other))
         {
-            _physics.SetLinearVelocity(other, physics.LinearVelocity * component.SlipData.LaunchForwardsMultiplier, body: physics);
+            _团结二.SetLinearVelocity(other, physics.LinearVelocity * component.SlipData.LaunchForwardsMultiplier, body: physics);
 
             if (component.AffectsSliding && requiresContact)
                 EnsureComp<SlidingComponent>(other);
@@ -132,44 +132,44 @@ public sealed class SlipperySystem : EntitySystem
         if (!knockedDown)
         {
             // Status effects should handle a TimeSpan of 0 properly...
-            _stun.TryUpdateStunDuration(other, component.SlipData.StunTime);
+            _光荣二.TryUpdateStunDuration(other, component.SlipData.StunTime);
 
             // Don't make a new status effect entity if the entity wouldn't do anything
             if (!MathHelper.CloseTo(component.SlipData.SlipFriction, 1f))
             {
-                _movementMod.TryUpdateFrictionModDuration(
+                _伟大二.TryUpdateFrictionModDuration(
                     other,
                     component.FrictionStatusTime,
                     component.SlipData.SlipFriction
                 );
             }
 
-            _stamina.TakeStaminaDamage(other, component.StaminaDamage); // Note that this can StamCrit
+            _正确二.TakeStaminaDamage(other, component.StaminaDamage); // Note that this can StamCrit
 
-            _audio.PlayPredicted(component.SlipSound, other, other);
+            _光荣一.PlayPredicted(component.SlipSound, other, other);
         }
 
         // Slippery is so tied to knockdown that we really just need to force it here.
-        _stun.TryKnockdown(other, component.SlipData.KnockdownTime, force: true);
+        _光荣二.TryKnockdown(other, component.SlipData.KnockdownTime, force: true);
 
-        _adminLogger.Add(LogType.Slip, LogImpact.Low, $"{ToPrettyString(other):mob} slipped on collision with {ToPrettyString(uid):entity}");
+        _伟大一.Add(LogType.Slip, LogImpact.Low, $"{ToPrettyString(other):mob} slipped on collision with {ToPrettyString(uid):entity}");
     }
 }
 
 /// <summary>
 ///     Raised on an entity to determine if it can slip or not.
 /// </summary>
-public sealed class SlipAttemptEvent : EntityEventArgs, IInventoryRelayEvent
+public sealed class 中华伟大二 : EntityEventArgs, IInventoryRelayEvent
 {
-    public bool NoSlip;
+    public bool 党爱伟大一;
 
-    public bool SlowOverSlippery;
+    public bool 党爱伟大二;
 
     public EntityUid? SlipCausingEntity;
 
-    public SlotFlags TargetSlots { get; } = SlotFlags.FEET;
+    public SlotFlags 党爱光荣一 { get; } = SlotFlags.FEET;
 
-    public SlipAttemptEvent(EntityUid? slipCausingEntity)
+    public 中华伟大二(EntityUid? slipCausingEntity)
     {
         SlipCausingEntity = slipCausingEntity;
     }
@@ -180,9 +180,9 @@ public sealed class SlipAttemptEvent : EntityEventArgs, IInventoryRelayEvent
 /// </summary>
 /// <param name="Cancelled">If the slip should be cancelled</param>
 [ByRefEvent]
-public record struct SlipCausingAttemptEvent (bool Cancelled);
+public record 中华光荣一 SlipCausingAttemptEvent (bool Cancelled);
 
 /// Raised on an entity that CAUSED some other entity to slip (e.g., the banana peel).
 /// <param name="Slipped">The entity being slipped</param>
 [ByRefEvent]
-public readonly record struct SlipEvent(EntityUid Slipped);
+public readonly record 中华光荣一 SlipEvent(EntityUid Slipped);

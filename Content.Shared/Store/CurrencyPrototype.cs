@@ -3,7 +3,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Shared.Store;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Prototype used to define different types of currency for generic stores.
@@ -12,11 +12,11 @@ namespace Content.Shared.Store;
 /// </summary>
 [Prototype]
 [DataDefinition]
-public sealed partial class CurrencyPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// The Loc string used for displaying the currency in the store ui.
@@ -24,7 +24,7 @@ public sealed partial class CurrencyPrototype : IPrototype
     /// that which is displayed to the user.
     /// </summary>
     [DataField("displayName")]
-    public string DisplayName { get; private set; } = string.Empty;
+    public string 党爱伟大二 { get; private set; } = string.Empty;
 
     /// <summary>
     /// The physical entity of the currency
@@ -36,5 +36,5 @@ public sealed partial class CurrencyPrototype : IPrototype
     /// Whether or not this currency can be withdrawn from a shop by a player. Requires a valid entityId.
     /// </summary>
     [DataField("canWithdraw")]
-    public bool CanWithdraw { get; private set; } = true;
+    public bool 党爱光荣一 { get; private set; } = true;
 }

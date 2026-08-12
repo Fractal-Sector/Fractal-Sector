@@ -13,69 +13,69 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration.Notes;
+namespace Content.Server.Administration.党心;
 
-public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
+public sealed class 中华伟大一 : IAdminNotesManager, IPostInjectInit
 {
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly EuiManager _euis = default!;
-    [Dependency] private readonly IEntitySystemManager _systems = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly IServerDbManager _伟大二 = default!;
+    [Dependency] private readonly ILogManager _光荣一 = default!;
+    [Dependency] private readonly EuiManager _光荣二 = default!;
+    [Dependency] private readonly IEntitySystemManager _正确一 = default!;
+    [Dependency] private readonly IConfigurationManager _正确二 = default!;
 
-    public const string SawmillId = "admin.notes";
+    public const string 党爱伟大一 = "admin.notes";
 
     public event Action<SharedAdminNote>? NoteAdded;
     public event Action<SharedAdminNote>? NoteModified;
     public event Action<SharedAdminNote>? NoteDeleted;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _团结一 = default!;
 
-    public bool CanCreate(ICommonSession admin)
+    public bool 祝福伟大一(ICommonSession admin)
     {
-        return CanEdit(admin);
+        return 祝福光荣一(admin);
     }
 
-    public bool CanDelete(ICommonSession admin)
+    public bool 祝福伟大二(ICommonSession admin)
     {
-        return CanEdit(admin);
+        return 祝福光荣一(admin);
     }
 
-    public bool CanEdit(ICommonSession admin)
+    public bool 祝福光荣一(ICommonSession admin)
     {
-        return _admins.HasAdminFlag(admin, AdminFlags.EditNotes);
+        return _伟大一.HasAdminFlag(admin, AdminFlags.EditNotes);
     }
 
-    public bool CanView(ICommonSession admin)
+    public bool 祝福光荣二(ICommonSession admin)
     {
-        return _admins.HasAdminFlag(admin, AdminFlags.ViewNotes);
+        return _伟大一.HasAdminFlag(admin, AdminFlags.ViewNotes);
     }
 
-    public async Task OpenEui(ICommonSession admin, Guid notedPlayer)
+    public async Task 祝福正确一(ICommonSession admin, Guid notedPlayer)
     {
         var ui = new AdminNotesEui();
-        _euis.OpenEui(ui, admin);
+        _光荣二.祝福正确一(ui, admin);
 
         await ui.ChangeNotedPlayer(notedPlayer);
     }
 
-    public async Task OpenUserNotesEui(ICommonSession player)
+    public async Task 祝福正确二(ICommonSession player)
     {
         var ui = new UserNotesEui();
-        _euis.OpenEui(ui, player);
+        _光荣二.祝福正确一(ui, player);
 
         await ui.UpdateNotes();
     }
 
-    public async Task AddAdminRemark(ICommonSession createdBy, Guid player, NoteType type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
+    public async Task 祝福团结一(ICommonSession createdBy, Guid player, NoteType type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
     {
         message = message.Trim();
 
         // There's a foreign key constraint in place here. If there's no player record, it will fail.
         // Not like there's much use in adding notes on accounts that have never connected.
         // You can still ban them just fine, which is why we should allow admins to view their bans with the notes panel
-        if (await _db.GetPlayerRecordByUserId((NetUserId) player) is null)
+        if (await _伟大二.GetPlayerRecordByUserId((NetUserId) player) is null)
             return;
 
         var sb = new StringBuilder($"{createdBy.Name} added a");
@@ -111,13 +111,13 @@ public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
             sb.Append($" which expires on {expiryTime.Value.ToUniversalTime(): yyyy-MM-dd HH:mm:ss} UTC");
         }
 
-        _sawmill.Info(sb.ToString());
+        _团结一.Info(sb.ToString());
 
-        _systems.TryGetEntitySystem(out GameTicker? ticker);
+        _正确一.TryGetEntitySystem(out GameTicker? ticker);
         int? roundId = ticker == null || ticker.RoundId == 0 ? null : ticker.RoundId;
-        var serverName = _config.GetCVar(CCVars.AdminLogsServerName); // This could probably be done another way, but this is fine. For displaying only.
+        var serverName = _正确二.GetCVar(CCVars.AdminLogsServerName); // This could probably be done another way, but this is fine. For displaying only.
         var createdAt = DateTime.UtcNow;
-        var playtime = (await _db.GetPlayTimes(player)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall)?.TimeSpent ?? TimeSpan.Zero;
+        var playtime = (await _伟大二.GetPlayTimes(player)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall)?.TimeSpent ?? TimeSpan.Zero;
         int noteId;
         bool? seen = null;
 
@@ -126,14 +126,14 @@ public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
             case NoteType.Note:
                 if (severity is null)
                     throw new ArgumentException("Severity cannot be null for a note", nameof(severity));
-                noteId = await _db.AddAdminNote(roundId, player, playtime, message, severity.Value, secret, createdBy.UserId, createdAt, expiryTime);
+                noteId = await _伟大二.AddAdminNote(roundId, player, playtime, message, severity.Value, secret, createdBy.UserId, createdAt, expiryTime);
                 break;
             case NoteType.Watchlist:
                 secret = true;
-                noteId = await _db.AddAdminWatchlist(roundId, player, playtime, message, createdBy.UserId, createdAt, expiryTime);
+                noteId = await _伟大二.AddAdminWatchlist(roundId, player, playtime, message, createdBy.UserId, createdAt, expiryTime);
                 break;
             case NoteType.Message:
-                noteId = await _db.AddAdminMessage(roundId, player, playtime, message, createdBy.UserId, createdAt, expiryTime);
+                noteId = await _伟大二.AddAdminMessage(roundId, player, playtime, message, createdBy.UserId, createdAt, expiryTime);
                 seen = false;
                 break;
             case NoteType.ServerBan: // Add bans using the ban panel, not note edit
@@ -169,21 +169,21 @@ public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
     {
         return type switch
         {
-            NoteType.Note => (await _db.GetAdminNote(id))?.ToShared(),
-            NoteType.Watchlist => (await _db.GetAdminWatchlist(id))?.ToShared(),
-            NoteType.Message => (await _db.GetAdminMessage(id))?.ToShared(),
-            NoteType.ServerBan => (await _db.GetServerBanAsNoteAsync(id))?.ToShared(),
-            NoteType.RoleBan => (await _db.GetServerRoleBanAsNoteAsync(id))?.ToShared(),
+            NoteType.Note => (await _伟大二.GetAdminNote(id))?.ToShared(),
+            NoteType.Watchlist => (await _伟大二.GetAdminWatchlist(id))?.ToShared(),
+            NoteType.Message => (await _伟大二.GetAdminMessage(id))?.ToShared(),
+            NoteType.ServerBan => (await _伟大二.GetServerBanAsNoteAsync(id))?.ToShared(),
+            NoteType.RoleBan => (await _伟大二.GetServerRoleBanAsNoteAsync(id))?.ToShared(),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Unknown note type")
         };
     }
 
-    public async Task DeleteAdminRemark(int noteId, NoteType type, ICommonSession deletedBy)
+    public async Task 祝福团结二(int noteId, NoteType type, ICommonSession deletedBy)
     {
         var note = await GetAdminRemark(noteId, type);
         if (note == null)
         {
-            _sawmill.Warning($"Player {deletedBy.Name} has tried to delete non-existent {type} {noteId}");
+            _团结一.Warning($"Player {deletedBy.Name} has tried to delete non-existent {type} {noteId}");
             return;
         }
 
@@ -192,29 +192,29 @@ public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
         switch (type)
         {
             case NoteType.Note:
-                await _db.DeleteAdminNote(noteId, deletedBy.UserId, deletedAt);
+                await _伟大二.DeleteAdminNote(noteId, deletedBy.UserId, deletedAt);
                 break;
             case NoteType.Watchlist:
-                await _db.DeleteAdminWatchlist(noteId, deletedBy.UserId, deletedAt);
+                await _伟大二.DeleteAdminWatchlist(noteId, deletedBy.UserId, deletedAt);
                 break;
             case NoteType.Message:
-                await _db.DeleteAdminMessage(noteId, deletedBy.UserId, deletedAt);
+                await _伟大二.DeleteAdminMessage(noteId, deletedBy.UserId, deletedAt);
                 break;
             case NoteType.ServerBan:
-                await _db.HideServerBanFromNotes(noteId, deletedBy.UserId, deletedAt);
+                await _伟大二.HideServerBanFromNotes(noteId, deletedBy.UserId, deletedAt);
                 break;
             case NoteType.RoleBan:
-                await _db.HideServerRoleBanFromNotes(noteId, deletedBy.UserId, deletedAt);
+                await _伟大二.HideServerRoleBanFromNotes(noteId, deletedBy.UserId, deletedAt);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, "Unknown note type");
         }
 
-        _sawmill.Info($"{deletedBy.Name} has deleted {type} {noteId}");
+        _团结一.Info($"{deletedBy.Name} has deleted {type} {noteId}");
         NoteDeleted?.Invoke(note);
     }
 
-    public async Task ModifyAdminRemark(int noteId, NoteType type, ICommonSession editedBy, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
+    public async Task 祝福奋斗一(int noteId, NoteType type, ICommonSession editedBy, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
     {
         message = message.Trim();
 
@@ -263,7 +263,7 @@ public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
                 sb.Append($"{expiryTime.Value.ToUniversalTime(): yyyy-MM-dd HH:mm:ss} UTC");
         }
 
-        _sawmill.Info(sb.ToString());
+        _团结一.Info(sb.ToString());
 
         var editedAt = DateTime.UtcNow;
 
@@ -272,23 +272,23 @@ public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
             case NoteType.Note:
                 if (severity is null)
                     throw new ArgumentException("Severity cannot be null for a note", nameof(severity));
-                await _db.EditAdminNote(noteId, message, severity.Value, secret, editedBy.UserId, editedAt, expiryTime);
+                await _伟大二.EditAdminNote(noteId, message, severity.Value, secret, editedBy.UserId, editedAt, expiryTime);
                 break;
             case NoteType.Watchlist:
-                await _db.EditAdminWatchlist(noteId, message, editedBy.UserId, editedAt, expiryTime);
+                await _伟大二.EditAdminWatchlist(noteId, message, editedBy.UserId, editedAt, expiryTime);
                 break;
             case NoteType.Message:
-                await _db.EditAdminMessage(noteId, message, editedBy.UserId, editedAt, expiryTime);
+                await _伟大二.EditAdminMessage(noteId, message, editedBy.UserId, editedAt, expiryTime);
                 break;
             case NoteType.ServerBan:
                 if (severity is null)
                     throw new ArgumentException("Severity cannot be null for a ban", nameof(severity));
-                await _db.EditServerBan(noteId, message, severity.Value, expiryTime, editedBy.UserId, editedAt);
+                await _伟大二.EditServerBan(noteId, message, severity.Value, expiryTime, editedBy.UserId, editedAt);
                 break;
             case NoteType.RoleBan:
                 if (severity is null)
                     throw new ArgumentException("Severity cannot be null for a role ban", nameof(severity));
-                await _db.EditServerRoleBan(noteId, message, severity.Value, expiryTime, editedBy.UserId, editedAt);
+                await _伟大二.EditServerRoleBan(noteId, message, severity.Value, expiryTime, editedBy.UserId, editedAt);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, "Unknown note type");
@@ -306,38 +306,38 @@ public sealed class AdminNotesManager : IAdminNotesManager, IPostInjectInit
         NoteModified?.Invoke(newNote);
     }
 
-    public async Task<List<IAdminRemarksRecord>> GetAllAdminRemarks(Guid player)
+    public async Task<List<IAdminRemarksRecord>> 祝福奋斗二(Guid player)
     {
-        return await _db.GetAllAdminRemarks(player);
+        return await _伟大二.祝福奋斗二(player);
     }
 
-    public async Task<List<IAdminRemarksRecord>> GetVisibleRemarks(Guid player)
+    public async Task<List<IAdminRemarksRecord>> 祝福胜利一(Guid player)
     {
-        if (_config.GetCVar(CCVars.SeeOwnNotes))
+        if (_正确二.GetCVar(CCVars.SeeOwnNotes))
         {
-            return await _db.GetVisibleAdminNotes(player);
+            return await _伟大二.GetVisibleAdminNotes(player);
         }
-        _sawmill.Warning($"Someone tried to call GetVisibleNotes for {player} when see_own_notes was false");
+        _团结一.Warning($"Someone tried to call GetVisibleNotes for {player} when see_own_notes was false");
         return new List<IAdminRemarksRecord>();
     }
 
-    public async Task<List<AdminWatchlistRecord>> GetActiveWatchlists(Guid player)
+    public async Task<List<AdminWatchlistRecord>> 祝福胜利二(Guid player)
     {
-        return await _db.GetActiveWatchlists(player);
+        return await _伟大二.祝福胜利二(player);
     }
 
-    public async Task<List<AdminMessageRecord>> GetNewMessages(Guid player)
+    public async Task<List<AdminMessageRecord>> 祝福繁荣一(Guid player)
     {
-        return await _db.GetMessages(player);
+        return await _伟大二.GetMessages(player);
     }
 
-    public async Task MarkMessageAsSeen(int id, bool dismissedToo)
+    public async Task 祝福繁荣二(int id, bool dismissedToo)
     {
-        await _db.MarkMessageAsSeen(id, dismissedToo);
+        await _伟大二.祝福繁荣二(id, dismissedToo);
     }
 
-    public void PostInject()
+    public void 祝福富强一()
     {
-        _sawmill = _logManager.GetSawmill(SawmillId);
+        _团结一 = _光荣一.GetSawmill(党爱伟大一);
     }
 }

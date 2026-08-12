@@ -31,7 +31,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Spawners;
 
-namespace Content.Shared.Magic;
+namespace Content.Shared.党心;
 
 // TODO: Move BeforeCast & Prerequirements (like Wizard clothes) to action comp
 //   Alt idea - make it its own comp and split, like the Charge PR
@@ -40,58 +40,58 @@ namespace Content.Shared.Magic;
 /// <summary>
 /// Handles learning and using spells (actions)
 /// </summary>
-public abstract class SharedMagicSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISerializationManager _seriMan = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedGunSystem _gunSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly ISerializationManager _伟大一 = default!;
+    [Dependency] private readonly IMapManager _伟大二 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly SharedGunSystem _正确一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _正确二 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结一 = default!;
+    [Dependency] private readonly INetManager _团结二 = default!;
+    [Dependency] private readonly SharedBodySystem _奋斗一 = default!;
+    [Dependency] private readonly EntityLookupSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedDoorSystem _胜利一 = default!;
+    [Dependency] private readonly InventorySystem _胜利二 = default!;
+    [Dependency] private readonly SharedPopupSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _繁荣二 = default!;
+    [Dependency] private readonly LockSystem _富强一 = default!;
+    [Dependency] private readonly SharedHandsSystem _富强二 = default!;
+    [Dependency] private readonly TagSystem _民主一 = default!;
+    [Dependency] private readonly SharedAudioSystem _民主二 = default!;
+    [Dependency] private readonly SharedMindSystem _文明一 = default!;
+    [Dependency] private readonly SharedStunSystem _文明二 = default!;
+    [Dependency] private readonly TurfSystem _和谐一 = default!;
 
     private static readonly ProtoId<TagPrototype> InvalidForGlobalSpawnSpellTag = "InvalidForGlobalSpawnSpell";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<MagicComponent, BeforeCastSpellEvent>(OnBeforeCastSpell);
+        base.祝福伟大一();
+        SubscribeLocalEvent<MagicComponent, BeforeCastSpellEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<InstantSpawnSpellEvent>(OnInstantSpawn);
-        SubscribeLocalEvent<TeleportSpellEvent>(OnTeleportSpell);
-        SubscribeLocalEvent<WorldSpawnSpellEvent>(OnWorldSpawn);
-        SubscribeLocalEvent<ProjectileSpellEvent>(OnProjectileSpell);
-        SubscribeLocalEvent<ChangeComponentsSpellEvent>(OnChangeComponentsSpell);
-        SubscribeLocalEvent<SmiteSpellEvent>(OnSmiteSpell);
-        SubscribeLocalEvent<KnockSpellEvent>(OnKnockSpell);
-        SubscribeLocalEvent<ChargeSpellEvent>(OnChargeSpell);
-        SubscribeLocalEvent<RandomGlobalSpawnSpellEvent>(OnRandomGlobalSpawnSpell);
-        SubscribeLocalEvent<MindSwapSpellEvent>(OnMindSwapSpell);
-        SubscribeLocalEvent<VoidApplauseSpellEvent>(OnVoidApplause);
+        SubscribeLocalEvent<InstantSpawnSpellEvent>(祝福光荣二);
+        SubscribeLocalEvent<TeleportSpellEvent>(祝福奋斗二);
+        SubscribeLocalEvent<WorldSpawnSpellEvent>(祝福正确二);
+        SubscribeLocalEvent<ProjectileSpellEvent>(祝福团结二);
+        SubscribeLocalEvent<ChangeComponentsSpellEvent>(祝福奋斗一);
+        SubscribeLocalEvent<SmiteSpellEvent>(祝福富强一);
+        SubscribeLocalEvent<KnockSpellEvent>(祝福富强二);
+        SubscribeLocalEvent<ChargeSpellEvent>(祝福民主一);
+        SubscribeLocalEvent<RandomGlobalSpawnSpellEvent>(祝福民主二);
+        SubscribeLocalEvent<MindSwapSpellEvent>(祝福文明一);
+        SubscribeLocalEvent<VoidApplauseSpellEvent>(祝福胜利一);
     }
 
-    private void OnBeforeCastSpell(Entity<MagicComponent> ent, ref BeforeCastSpellEvent args)
+    private void 祝福伟大二(Entity<MagicComponent> ent, ref BeforeCastSpellEvent args)
     {
         var comp = ent.Comp;
         var hasReqs = true;
 
         if (comp.RequiresClothes)
         {
-            var enumerator = _inventory.GetSlotEnumerator(args.Performer, SlotFlags.OUTERCLOTHING | SlotFlags.HEAD);
+            var enumerator = _胜利二.GetSlotEnumerator(args.Performer, SlotFlags.OUTERCLOTHING | SlotFlags.HEAD);
             while (enumerator.MoveNext(out var containerSlot))
             {
                 if (containerSlot.ContainedEntity is { } item)
@@ -111,12 +111,12 @@ public abstract class SharedMagicSystem : EntitySystem
             return;
 
         args.Cancelled = true;
-        _popup.PopupClient(Loc.GetString("spell-requirements-failed"), args.Performer, args.Performer);
+        _繁荣一.PopupClient(Loc.GetString("spell-requirements-failed"), args.Performer, args.Performer);
 
         // TODO: Pre-cast do after, either here or in SharedActionsSystem
     }
 
-    private bool PassesSpellPrerequisites(EntityUid spell, EntityUid performer)
+    private bool 祝福光荣一(EntityUid spell, EntityUid performer)
     {
         var ev = new BeforeCastSpellEvent(performer);
         RaiseLocalEvent(spell, ref ev);
@@ -128,16 +128,16 @@ public abstract class SharedMagicSystem : EntitySystem
     /// <summary>
     /// Handles the instant action (i.e. on the caster) attempting to spawn an entity.
     /// </summary>
-    private void OnInstantSpawn(InstantSpawnSpellEvent args)
+    private void 祝福光荣二(InstantSpawnSpellEvent args)
     {
-        if (args.Handled || !PassesSpellPrerequisites(args.Action, args.Performer))
+        if (args.Handled || !祝福光荣一(args.Action, args.Performer))
             return;
 
         var transform = Transform(args.Performer);
 
-        foreach (var position in GetInstantSpawnPositions(transform, args.PosData))
+        foreach (var position in 祝福正确一(transform, args.PosData))
         {
-            SpawnSpellHelper(args.Prototype, position, args.Performer, preventCollide: args.PreventCollideWithCaster);
+            祝福胜利二(args.Prototype, position, args.Performer, preventCollide: args.PreventCollideWithCaster);
         }
 
         args.Handled = true;
@@ -147,7 +147,7 @@ public abstract class SharedMagicSystem : EntitySystem
     ///     Gets spawn positions listed on <see cref="InstantSpawnSpellEvent"/>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private List<EntityCoordinates> GetInstantSpawnPositions(TransformComponent casterXform, MagicInstantSpawnData data)
+    private List<EntityCoordinates> 祝福正确一(TransformComponent casterXform, MagicInstantSpawnData data)
     {
         switch (data)
         {
@@ -159,11 +159,11 @@ public abstract class SharedMagicSystem : EntitySystem
 
                 if (!TryComp<MapGridComponent>(casterXform.GridUid, out var mapGrid))
                     return new List<EntityCoordinates>();
-                if (!_turf.TryGetTileRef(directionPos, out var tileReference))
+                if (!_和谐一.TryGetTileRef(directionPos, out var tileReference))
                     return new List<EntityCoordinates>();
 
                 var tileIndex = tileReference.Value.GridIndices;
-                return new List<EntityCoordinates>(1) { _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex) };
+                return new List<EntityCoordinates>(1) { _光荣一.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex) };
             }
             case TargetInFront:
             {
@@ -172,11 +172,11 @@ public abstract class SharedMagicSystem : EntitySystem
                 if (!TryComp<MapGridComponent>(casterXform.GridUid, out var mapGrid))
                     return new List<EntityCoordinates>();
 
-                if (!_turf.TryGetTileRef(directionPos, out var tileReference))
+                if (!_和谐一.TryGetTileRef(directionPos, out var tileReference))
                     return new List<EntityCoordinates>();
 
                 var tileIndex = tileReference.Value.GridIndices;
-                var coords = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex);
+                var coords = _光荣一.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex);
                 EntityCoordinates coordsPlus;
                 EntityCoordinates coordsMinus;
 
@@ -186,8 +186,8 @@ public abstract class SharedMagicSystem : EntitySystem
                     case Direction.North:
                     case Direction.South:
                     {
-                        coordsPlus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (1, 0));
-                        coordsMinus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (-1, 0));
+                        coordsPlus = _光荣一.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (1, 0));
+                        coordsMinus = _光荣一.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (-1, 0));
                         return new List<EntityCoordinates>(3)
                         {
                             coords,
@@ -198,8 +198,8 @@ public abstract class SharedMagicSystem : EntitySystem
                     case Direction.East:
                     case Direction.West:
                     {
-                        coordsPlus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (0, 1));
-                        coordsMinus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (0, -1));
+                        coordsPlus = _光荣一.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (0, 1));
+                        coordsMinus = _光荣一.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (0, -1));
                         return new List<EntityCoordinates>(3)
                         {
                             coords,
@@ -225,14 +225,14 @@ public abstract class SharedMagicSystem : EntitySystem
     /// It will offset entities after the first entity based on the OffsetVector2.
     /// </remarks>
     /// <param name="args"> The Spawn Spell Event args.</param>
-    private void OnWorldSpawn(WorldSpawnSpellEvent args)
+    private void 祝福正确二(WorldSpawnSpellEvent args)
     {
-        if (args.Handled || !PassesSpellPrerequisites(args.Action, args.Performer))
+        if (args.Handled || !祝福光荣一(args.Action, args.Performer))
             return;
 
         var targetMapCoords = args.Target;
 
-        WorldSpawnSpellHelper(args.Prototypes, targetMapCoords, args.Performer, args.Lifetime, args.Offset);
+        祝福团结一(args.Prototypes, targetMapCoords, args.Performer, args.Lifetime, args.Offset);
         args.Handled = true;
     }
 
@@ -248,23 +248,23 @@ public abstract class SharedMagicSystem : EntitySystem
     /// <param name="entityCoords"> Map Coordinates where the entities will spawn</param>
     /// <param name="lifetime"> Check to see if the entities should self delete</param>
     /// <param name="offsetVector2"> A Vector2 offset that the entities will spawn in</param>
-    private void WorldSpawnSpellHelper(List<EntitySpawnEntry> entityEntries, EntityCoordinates entityCoords, EntityUid performer, float? lifetime, Vector2 offsetVector2)
+    private void 祝福团结一(List<EntitySpawnEntry> entityEntries, EntityCoordinates entityCoords, EntityUid performer, float? lifetime, Vector2 offsetVector2)
     {
-        var getProtos = EntitySpawnCollection.GetSpawns(entityEntries, _random);
+        var getProtos = EntitySpawnCollection.GetSpawns(entityEntries, _光荣二);
 
         var offsetCoords = entityCoords;
         foreach (var proto in getProtos)
         {
-            SpawnSpellHelper(proto, offsetCoords, performer, lifetime);
+            祝福胜利二(proto, offsetCoords, performer, lifetime);
             offsetCoords = offsetCoords.Offset(offsetVector2);
         }
     }
     // End World Spawn Spells
     #endregion
     #region Projectile Spells
-    private void OnProjectileSpell(ProjectileSpellEvent ev)
+    private void 祝福团结二(ProjectileSpellEvent ev)
     {
-        if (ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer) || !_net.IsServer)
+        if (ev.Handled || !祝福光荣一(ev.Action, ev.Performer) || !_团结二.IsServer)
             return;
 
         ev.Handled = true;
@@ -272,28 +272,28 @@ public abstract class SharedMagicSystem : EntitySystem
         var xform = Transform(ev.Performer);
         var fromCoords = xform.Coordinates;
         var toCoords = ev.Target;
-        var userVelocity = _physics.GetMapLinearVelocity(ev.Performer);
+        var userVelocity = _正确二.GetMapLinearVelocity(ev.Performer);
 
         // If applicable, this ensures the projectile is parented to grid on spawn, instead of the map.
-        var fromMap = _transform.ToMapCoordinates(fromCoords);
+        var fromMap = _团结一.ToMapCoordinates(fromCoords);
         var ent = Spawn(ev.Prototype, fromMap);
-        var direction = _transform.ToMapCoordinates(toCoords).Position -
+        var direction = _团结一.ToMapCoordinates(toCoords).Position -
                          fromMap.Position;
-        _gunSystem.ShootProjectile(ent, direction, userVelocity, ev.Performer, ev.Performer);
+        _正确一.ShootProjectile(ent, direction, userVelocity, ev.Performer, ev.Performer);
     }
     // End Projectile Spells
     #endregion
     #region Change Component Spells
     // staves.yml ActionRGB light
-    private void OnChangeComponentsSpell(ChangeComponentsSpellEvent ev)
+    private void 祝福奋斗一(ChangeComponentsSpellEvent ev)
     {
-        if (ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer))
+        if (ev.Handled || !祝福光荣一(ev.Action, ev.Performer))
             return;
 
         ev.Handled = true;
 
-        RemoveComponents(ev.Target, ev.ToRemove);
-        AddComponents(ev.Target, ev.ToAdd);
+        祝福繁荣二(ev.Target, ev.ToRemove);
+        祝福繁荣一(ev.Target, ev.ToAdd);
     }
     // End Change Component Spells
     #endregion
@@ -303,38 +303,38 @@ public abstract class SharedMagicSystem : EntitySystem
     /// Teleports the user to the clicked location
     /// </summary>
     /// <param name="args"></param>
-    private void OnTeleportSpell(TeleportSpellEvent args)
+    private void 祝福奋斗二(TeleportSpellEvent args)
     {
-        if (args.Handled || !PassesSpellPrerequisites(args.Action, args.Performer))
+        if (args.Handled || !祝福光荣一(args.Action, args.Performer))
             return;
 
         var transform = Transform(args.Performer);
-        if (transform.MapID != _transform.GetMapId(args.Target) || !_interaction.InRangeUnobstructed(args.Performer, args.Target, range: 1000F, collisionMask: CollisionGroup.Opaque, popup: true))
+        if (transform.MapID != _团结一.GetMapId(args.Target) || !_繁荣二.InRangeUnobstructed(args.Performer, args.Target, range: 1000F, collisionMask: CollisionGroup.Opaque, popup: true))
             return;
 
-        _transform.SetCoordinates(args.Performer, args.Target);
-        _transform.AttachToGridOrMap(args.Performer, transform);
+        _团结一.SetCoordinates(args.Performer, args.Target);
+        _团结一.AttachToGridOrMap(args.Performer, transform);
         args.Handled = true;
     }
 
-    public virtual void OnVoidApplause(VoidApplauseSpellEvent ev)
+    public virtual void 祝福胜利一(VoidApplauseSpellEvent ev)
     {
-        if (ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer))
+        if (ev.Handled || !祝福光荣一(ev.Action, ev.Performer))
             return;
 
         ev.Handled = true;
 
-        _transform.SwapPositions(ev.Performer, ev.Target);
+        _团结一.SwapPositions(ev.Performer, ev.Target);
     }
     // End Teleport Spells
     #endregion
     #region Spell Helpers
-    private void SpawnSpellHelper(string? proto, EntityCoordinates position, EntityUid performer, float? lifetime = null, bool preventCollide = false)
+    private void 祝福胜利二(string? proto, EntityCoordinates position, EntityUid performer, float? lifetime = null, bool preventCollide = false)
     {
-        if (!_net.IsServer)
+        if (!_团结二.IsServer)
             return;
 
-        var ent = Spawn(proto, position.SnapToGrid(EntityManager, _mapManager));
+        var ent = Spawn(proto, position.SnapToGrid(EntityManager, _伟大二));
 
         if (lifetime != null)
         {
@@ -349,7 +349,7 @@ public abstract class SharedMagicSystem : EntitySystem
         }
     }
 
-    private void AddComponents(EntityUid target, ComponentRegistry comps)
+    private void 祝福繁荣一(EntityUid target, ComponentRegistry comps)
     {
         foreach (var (name, data) in comps)
         {
@@ -358,12 +358,12 @@ public abstract class SharedMagicSystem : EntitySystem
 
             var component = (Component)Factory.GetComponent(name);
             var temp = (object)component;
-            _seriMan.CopyTo(data.Component, ref temp);
+            _伟大一.CopyTo(data.Component, ref temp);
             AddComp(target, (Component)temp!);
         }
     }
 
-    private void RemoveComponents(EntityUid target, HashSet<string> comps)
+    private void 祝福繁荣二(EntityUid target, HashSet<string> comps)
     {
         foreach (var toRemove in comps)
         {
@@ -374,22 +374,22 @@ public abstract class SharedMagicSystem : EntitySystem
     // End Spell Helpers
     #endregion
     #region Touch Spells
-    private void OnSmiteSpell(SmiteSpellEvent ev)
+    private void 祝福富强一(SmiteSpellEvent ev)
     {
-        if (ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer))
+        if (ev.Handled || !祝福光荣一(ev.Action, ev.Performer))
             return;
 
         ev.Handled = true;
 
-        var direction = _transform.GetMapCoordinates(ev.Target, Transform(ev.Target)).Position - _transform.GetMapCoordinates(ev.Performer, Transform(ev.Performer)).Position;
+        var direction = _团结一.GetMapCoordinates(ev.Target, Transform(ev.Target)).Position - _团结一.GetMapCoordinates(ev.Performer, Transform(ev.Performer)).Position;
         var impulseVector = direction * 10000;
 
-        _physics.ApplyLinearImpulse(ev.Target, impulseVector);
+        _正确二.ApplyLinearImpulse(ev.Target, impulseVector);
 
         if (!TryComp<BodyComponent>(ev.Target, out var body))
             return;
 
-        _body.GibBody(ev.Target, true, body);
+        _奋斗一.GibBody(ev.Target, true, body);
     }
 
     // End Touch Spells
@@ -399,9 +399,9 @@ public abstract class SharedMagicSystem : EntitySystem
     /// Opens all doors and locks within range
     /// </summary>
     /// <param name="args"></param>
-    private void OnKnockSpell(KnockSpellEvent args)
+    private void 祝福富强二(KnockSpellEvent args)
     {
-        if (args.Handled || !PassesSpellPrerequisites(args.Action, args.Performer))
+        if (args.Handled || !祝福光荣一(args.Action, args.Performer))
             return;
 
         args.Handled = true;
@@ -409,34 +409,34 @@ public abstract class SharedMagicSystem : EntitySystem
         var transform = Transform(args.Performer);
 
         // Look for doors and lockers, and don't open/unlock them if they're already opened/unlocked.
-        foreach (var target in _lookup.GetEntitiesInRange(_transform.GetMapCoordinates(args.Performer, transform), args.Range, flags: LookupFlags.Dynamic | LookupFlags.Static))
+        foreach (var target in _奋斗二.GetEntitiesInRange(_团结一.GetMapCoordinates(args.Performer, transform), args.Range, flags: LookupFlags.Dynamic | LookupFlags.Static))
         {
-            if (!_interaction.InRangeUnobstructed(args.Performer, target, range: 0, collisionMask: CollisionGroup.Opaque))
+            if (!_繁荣二.InRangeUnobstructed(args.Performer, target, range: 0, collisionMask: CollisionGroup.Opaque))
                 continue;
 
             if (TryComp<DoorBoltComponent>(target, out var doorBoltComp) && doorBoltComp.BoltsDown)
-                _door.SetBoltsDown((target, doorBoltComp), false, predicted: true);
+                _胜利一.SetBoltsDown((target, doorBoltComp), false, predicted: true);
 
             if (TryComp<DoorComponent>(target, out var doorComp) && doorComp.State is not DoorState.Open)
-                _door.StartOpening(target);
+                _胜利一.StartOpening(target);
 
             if (TryComp<LockComponent>(target, out var lockComp) && lockComp.Locked)
-                _lock.Unlock(target, args.Performer, lockComp);
+                _富强一.Unlock(target, args.Performer, lockComp);
         }
     }
     // End Knock Spells
     #endregion
     #region Charge Spells
     // TODO: Future support to charge other items
-    private void OnChargeSpell(ChargeSpellEvent ev)
+    private void 祝福民主一(ChargeSpellEvent ev)
     {
-        if (ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer) || !TryComp<HandsComponent>(ev.Performer, out var handsComp))
+        if (ev.Handled || !祝福光荣一(ev.Action, ev.Performer) || !TryComp<HandsComponent>(ev.Performer, out var handsComp))
             return;
 
         EntityUid? wand = null;
-        foreach (var item in _hands.EnumerateHeld((ev.Performer, handsComp)))
+        foreach (var item in _富强二.EnumerateHeld((ev.Performer, handsComp)))
         {
-            if (!_tag.HasTag(item, ev.WandTag))
+            if (!_民主一.HasTag(item, ev.WandTag))
                 continue;
 
             wand = item;
@@ -447,21 +447,21 @@ public abstract class SharedMagicSystem : EntitySystem
         if (wand == null || !TryComp<BasicEntityAmmoProviderComponent>(wand, out var basicAmmoComp) || basicAmmoComp.Count == null)
             return;
 
-        _gunSystem.UpdateBasicEntityAmmoCount(wand.Value, basicAmmoComp.Count.Value + ev.Charge, basicAmmoComp);
+        _正确一.UpdateBasicEntityAmmoCount(wand.Value, basicAmmoComp.Count.Value + ev.Charge, basicAmmoComp);
     }
     // End Charge Spells
     #endregion
     #region Global Spells
 
     // TODO: Change this into a "StartRuleAction" when actions with multiple events are supported
-    protected virtual void OnRandomGlobalSpawnSpell(RandomGlobalSpawnSpellEvent ev)
+    protected virtual void 祝福民主二(RandomGlobalSpawnSpellEvent ev)
     {
-        if (!_net.IsServer || ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer) || ev.Spawns is not { } spawns)
+        if (!_团结二.IsServer || ev.Handled || !祝福光荣一(ev.Action, ev.Performer) || ev.Spawns is not { } spawns)
             return;
 
         ev.Handled = true;
 
-        var allHumans = _mind.GetAliveHumans();
+        var allHumans = _文明一.GetAliveHumans();
 
         foreach (var human in allHumans)
         {
@@ -470,26 +470,26 @@ public abstract class SharedMagicSystem : EntitySystem
 
             var ent = human.Comp.OwnedEntity.Value;
 
-            if (_tag.HasTag(ent, InvalidForGlobalSpawnSpellTag))
+            if (_民主一.HasTag(ent, InvalidForGlobalSpawnSpellTag))
                 continue;
 
-            var mapCoords = _transform.GetMapCoordinates(ent);
-            foreach (var spawn in EntitySpawnCollection.GetSpawns(spawns, _random))
+            var mapCoords = _团结一.GetMapCoordinates(ent);
+            foreach (var spawn in EntitySpawnCollection.GetSpawns(spawns, _光荣二))
             {
                 var spawned = Spawn(spawn, mapCoords);
-                _hands.PickupOrDrop(ent, spawned);
+                _富强二.PickupOrDrop(ent, spawned);
             }
         }
 
-        _audio.PlayGlobal(ev.Sound, ev.Performer);
+        _民主二.PlayGlobal(ev.Sound, ev.Performer);
     }
 
     #endregion
     #region Mindswap Spells
 
-    private void OnMindSwapSpell(MindSwapSpellEvent ev)
+    private void 祝福文明一(MindSwapSpellEvent ev)
     {
-        if (ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer))
+        if (ev.Handled || !祝福光荣一(ev.Action, ev.Performer))
             return;
 
         ev.Handled = true;
@@ -498,20 +498,20 @@ public abstract class SharedMagicSystem : EntitySystem
         // Need to get target mind before putting performer mind into their body if they have one
         // Thus, assign bool before first transfer, then check afterwards
 
-        if (!_mind.TryGetMind(ev.Performer, out var perMind, out var perMindComp))
+        if (!_文明一.TryGetMind(ev.Performer, out var perMind, out var perMindComp))
             return;
 
-        var tarHasMind = _mind.TryGetMind(ev.Target, out var tarMind, out var tarMindComp);
+        var tarHasMind = _文明一.TryGetMind(ev.Target, out var tarMind, out var tarMindComp);
 
-        _mind.TransferTo(perMind, ev.Target);
+        _文明一.TransferTo(perMind, ev.Target);
 
         if (tarHasMind)
         {
-            _mind.TransferTo(tarMind, ev.Performer);
+            _文明一.TransferTo(tarMind, ev.Performer);
         }
 
-        _stun.TryUpdateParalyzeDuration(ev.Target, ev.TargetStunDuration);
-        _stun.TryUpdateParalyzeDuration(ev.Performer, ev.PerformerStunDuration);
+        _文明二.TryUpdateParalyzeDuration(ev.Target, ev.TargetStunDuration);
+        _文明二.TryUpdateParalyzeDuration(ev.Performer, ev.PerformerStunDuration);
     }
 
     #endregion

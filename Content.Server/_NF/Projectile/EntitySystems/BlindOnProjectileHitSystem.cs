@@ -8,28 +8,28 @@ using Content.Shared.StatusEffect;
 using Robust.Shared.Prototypes;
 using Content.Shared.Chat.Prototypes;
 
-namespace Content.Server._NF.Projectile.EntitySystems;
+namespace Content.Server._NF.Projectile.党心;
 
-public sealed partial class BlindOnProjectileHitSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-    [Dependency] private readonly BlindableSystem _blindingSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly StatusEffectsSystem _伟大一 = default!;
+    [Dependency] private readonly BlindableSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly ChatSystem _光荣二 = default!;
 
-    private readonly ProtoId<EmotePrototype> _screamEmoteId = "Scream";
+    private readonly ProtoId<EmotePrototype> _正确一 = "Scream";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<BlindOnProjectileHitComponent, ProjectileHitEvent>(OnProjectileHit);
+        SubscribeLocalEvent<BlindOnProjectileHitComponent, ProjectileHitEvent>(祝福伟大二);
     }
 
-    private void OnProjectileHit(Entity<BlindOnProjectileHitComponent> ent, ref ProjectileHitEvent args)
+    private void 祝福伟大二(Entity<BlindOnProjectileHitComponent> ent, ref ProjectileHitEvent args)
     {
         if (!TryComp<BlindableComponent>(args.Target, out var blindable) || blindable.IsBlind)
             return;
 
-        if (!_random.Prob(ent.Comp.Prob))
+        if (!_光荣一.Prob(ent.Comp.Prob))
             return;
 
         var eyeProtectionEv = new GetEyeProtectionEvent();
@@ -39,13 +39,13 @@ public sealed partial class BlindOnProjectileHitSystem : EntitySystem
         if (time <= 0)
             return;
 
-        _chat.TryEmoteWithoutChat(args.Target, _screamEmoteId);
+        _光荣二.TryEmoteWithoutChat(args.Target, _正确一);
 
         // Add permanent eye damage if they had zero protection, also somewhat scale their temporary blindness by
         // how much damage they already accumulated.
-        _blindingSystem.AdjustEyeDamage((args.Target, blindable), 1);
+        _伟大二.AdjustEyeDamage((args.Target, blindable), 1);
         var statusTimeSpan = TimeSpan.FromSeconds(time * MathF.Sqrt(blindable.EyeDamage));
-        _statusEffectsSystem.TryAddStatusEffect(args.Target, TemporaryBlindnessSystem.BlindingStatusEffect,
+        _伟大一.TryAddStatusEffect(args.Target, TemporaryBlindnessSystem.BlindingStatusEffect,
             statusTimeSpan, false, TemporaryBlindnessSystem.BlindingStatusEffect);
     }
 }

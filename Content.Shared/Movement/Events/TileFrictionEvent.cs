@@ -1,16 +1,16 @@
-namespace Content.Shared.Movement.Events;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// Raised to try and get any tile friction modifiers for a particular body.
 /// </summary>
 [ByRefEvent]
-public struct TileFrictionEvent
+public struct 中华伟大一
 {
-    public float Modifier;
+    public float 党爱伟大一;
 
-    public TileFrictionEvent(float modifier)
+    public 中华伟大一(float modifier)
     {
         // TODO: If something ever uses different angular and linear modifiers, split this into two modifiers
-        Modifier = modifier;
+        党爱伟大一 = modifier;
     }
 }

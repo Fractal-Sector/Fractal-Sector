@@ -6,27 +6,27 @@ using Content.Shared.Xenoarchaeology.Artifact.XAE;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Xenoarchaeology.Artifact.XAE;
+namespace Content.Server.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// System for xeno artifact effect that creates puddle of chemical reagents under artifact.
 /// </summary>
-public sealed class XAECreatePuddleSystem: BaseXAESystem<XAECreatePuddleComponent>
+public sealed class 中华伟大一: BaseXAESystem<XAECreatePuddleComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly MetaDataSystem _metaData= default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager= default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly PuddleSystem _伟大二 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣一= default!;
+    [Dependency] private readonly IPrototypeManager _光荣二= default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<XAECreatePuddleComponent, MapInitEvent>(OnInit);
+        SubscribeLocalEvent<XAECreatePuddleComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnInit(EntityUid uid, XAECreatePuddleComponent component, MapInitEvent _)
+    private void 祝福伟大二(EntityUid uid, XAECreatePuddleComponent component, MapInitEvent _)
     {
         if (component.PossibleChemicals == null || component.PossibleChemicals.Count == 0)
             return;
@@ -34,10 +34,10 @@ public sealed class XAECreatePuddleSystem: BaseXAESystem<XAECreatePuddleComponen
         if (component.SelectedChemicals == null)
         {
             var chemicalList = new List<ProtoId<ReagentPrototype>>();
-            var chemAmount = component.ChemAmount.Next(_random);
+            var chemAmount = component.ChemAmount.Next(_伟大一);
             for (var i = 0; i < chemAmount; i++)
             {
-                var chemProto = _random.Pick(component.PossibleChemicals);
+                var chemProto = _伟大一.Pick(component.PossibleChemicals);
                 chemicalList.Add(chemProto);
             }
 
@@ -49,18 +49,18 @@ public sealed class XAECreatePuddleSystem: BaseXAESystem<XAECreatePuddleComponen
             var reagentNames = new HashSet<string>();
             foreach (var chemProtoId in component.SelectedChemicals)
             {
-                var reagent = _prototypeManager.Index(chemProtoId);
+                var reagent = _光荣二.Index(chemProtoId);
                 reagentNames.Add(reagent.LocalizedName);
             }
 
             var reagentNamesStr = string.Join(", ", reagentNames);
             var newEntityDescription = Loc.GetString("xenoarch-effect-puddle", ("reagent", reagentNamesStr));
-            _metaData.SetEntityDescription(uid, newEntityDescription);
+            _光荣一.SetEntityDescription(uid, newEntityDescription);
         }
     }
 
     /// <inheritdoc />
-    protected override void OnActivated(Entity<XAECreatePuddleComponent> ent, ref XenoArtifactNodeActivatedEvent args)
+    protected override void 祝福光荣一(Entity<XAECreatePuddleComponent> ent, ref XenoArtifactNodeActivatedEvent args)
     {
         var component = ent.Comp;
         if (component.SelectedChemicals == null)
@@ -72,6 +72,6 @@ public sealed class XAECreatePuddleSystem: BaseXAESystem<XAECreatePuddleComponen
             component.ChemicalSolution.AddReagent(reagent, amountPerChem);
         }
 
-        _puddle.TrySpillAt(ent, component.ChemicalSolution, out _);
+        _伟大二.TrySpillAt(ent, component.ChemicalSolution, out _);
     }
 }

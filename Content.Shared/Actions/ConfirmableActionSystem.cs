@@ -7,29 +7,29 @@ using Robust.Shared.Timing;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Handles action priming, confirmation and automatic unpriming.
 /// </summary>
-public sealed class ConfirmableActionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ConfirmableActionComponent, ActionAttemptEvent>(OnAttempt);
+        SubscribeLocalEvent<ConfirmableActionComponent, ActionAttemptEvent>(祝福光荣一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         // handle automatic unpriming
-        var now = _timing.CurTime;
+        var now = _伟大一.CurTime;
         var query = EntityQueryEnumerator<ConfirmableActionComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
@@ -37,11 +37,11 @@ public sealed class ConfirmableActionSystem : EntitySystem
                 continue;
 
             if (now >= time)
-                Unprime((uid, comp));
+                祝福正确一((uid, comp));
         }
     }
 
-    private void OnAttempt(Entity<ConfirmableActionComponent> ent, ref ActionAttemptEvent args)
+    private void 祝福光荣一(Entity<ConfirmableActionComponent> ent, ref ActionAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -49,33 +49,33 @@ public sealed class ConfirmableActionSystem : EntitySystem
         // if not primed, prime it and cancel the action
         if (ent.Comp.NextConfirm is not {} confirm)
         {
-            Prime(ent, args.User);
+            祝福光荣二(ent, args.User);
             args.Cancelled = true;
             return;
         }
 
         // primed but the delay isnt over, cancel the action
-        if (_timing.CurTime < confirm)
+        if (_伟大一.CurTime < confirm)
         {
             args.Cancelled = true;
             return;
         }
 
         // primed and delay has passed, let the action go through
-        Unprime(ent);
+        祝福正确一(ent);
     }
 
-    private void Prime(Entity<ConfirmableActionComponent> ent, EntityUid user)
+    private void 祝福光荣二(Entity<ConfirmableActionComponent> ent, EntityUid user)
     {
         var (uid, comp) = ent;
-        comp.NextConfirm = _timing.CurTime + comp.ConfirmDelay;
+        comp.NextConfirm = _伟大一.CurTime + comp.ConfirmDelay;
         comp.NextUnprime = comp.NextConfirm + comp.PrimeTime;
         Dirty(uid, comp);
 
-        _popup.PopupClient(Loc.GetString(comp.Popup), user, user, PopupType.LargeCaution);
+        _伟大二.PopupClient(Loc.GetString(comp.Popup), user, user, PopupType.LargeCaution);
     }
 
-    private void Unprime(Entity<ConfirmableActionComponent> ent)
+    private void 祝福正确一(Entity<ConfirmableActionComponent> ent)
     {
         var (uid, comp) = ent;
         comp.NextConfirm = null;

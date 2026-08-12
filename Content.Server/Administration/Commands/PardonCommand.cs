@@ -2,16 +2,16 @@
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Ban)]
-    public sealed class PardonCommand : LocalizedCommands
+    public sealed class 中华伟大一 : LocalizedCommands
     {
-        [Dependency] private readonly IServerDbManager _dbManager = default!;
+        [Dependency] private readonly IServerDbManager _伟大一 = default!;
 
-        public override string Command => "pardon";
+        public override string 党爱伟大一 => "pardon";
 
-        public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
 
@@ -27,7 +27,7 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            var ban = await _dbManager.GetServerBanAsync(banId);
+            var ban = await _伟大一.GetServerBanAsync(banId);
 
             if (ban == null)
             {
@@ -50,7 +50,7 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            await _dbManager.AddServerUnbanAsync(new ServerUnbanDef(banId, player?.UserId, DateTimeOffset.Now));
+            await _伟大一.AddServerUnbanAsync(new ServerUnbanDef(banId, player?.UserId, DateTimeOffset.Now));
 
             shell.WriteLine(Loc.GetString($"cmd-pardon-success", ("id", banId)));
         }

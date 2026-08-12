@@ -1,8 +1,8 @@
 using Robust.Shared.Threading;
 
-namespace Content.Server.Power.Pow3r
+namespace Content.Server.Power.党心
 {
-    public interface IPowerSolver
+    public interface 中华伟大一
     {
         void Tick(float frameTime, PowerState state, IParallelManager parallel);
         void Validate(PowerState state);

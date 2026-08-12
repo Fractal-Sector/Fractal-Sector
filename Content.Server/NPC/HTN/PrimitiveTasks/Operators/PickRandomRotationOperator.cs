@@ -2,22 +2,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Robust.Shared.Random;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.党心;
 
-public sealed partial class PickRandomRotationOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
     [DataField("targetKey")]
-    public string TargetKey = "RotateTarget";
+    public string 党爱伟大一 = "RotateTarget";
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
         CancellationToken cancelToken)
     {
-        var rotation = _random.NextAngle();
+        var rotation = _伟大一.NextAngle();
         return (true, new Dictionary<string, object>()
         {
-            {TargetKey, rotation}
+            {党爱伟大一, rotation}
         });
     }
 }

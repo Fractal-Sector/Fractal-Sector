@@ -13,27 +13,27 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Tips;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     Handles periodically displaying gameplay tips to all players ingame.
 /// </summary>
-public sealed class TipsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly IConsoleHost _conHost = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IChatManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly IRobustRandom _正确一 = default!;
+    [Dependency] private readonly GameTicker _正确二 = default!;
+    [Dependency] private readonly IConsoleHost _团结一 = default!;
+    [Dependency] private readonly IPlayerManager _团结二 = default!;
 
-    private bool _tipsEnabled;
-    private float _tipTimeOutOfRound;
-    private float _tipTimeInRound;
-    private string _tipsDataset = "";
-    private float _tipTippyChance;
+    private bool _奋斗一;
+    private float _奋斗二;
+    private float _胜利一;
+    private string _胜利二 = "";
+    private float _繁荣一;
 
     /// <summary>
     /// Always adds this time to a speech message. This is so really short message stay around for a bit.
@@ -46,34 +46,34 @@ public sealed class TipsSystem : EntitySystem
     private const float Wpm = 180f;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    private TimeSpan _nextTipTime = TimeSpan.Zero;
+    private TimeSpan _繁荣二 = TimeSpan.Zero;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GameRunLevelChangedEvent>(OnGameRunLevelChanged);
-        Subs.CVar(_cfg, CCVars.TipFrequencyOutOfRound, SetOutOfRound, true);
-        Subs.CVar(_cfg, CCVars.TipFrequencyInRound, SetInRound, true);
-        Subs.CVar(_cfg, CCVars.TipsEnabled, SetEnabled, true);
-        Subs.CVar(_cfg, CCVars.TipsDataset, SetDataset, true);
-        Subs.CVar(_cfg, CCVars.TipsTippyChance, SetTippyChance, true);
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福繁荣二);
+        Subs.CVar(_光荣一, CCVars.TipFrequencyOutOfRound, 祝福正确二, true);
+        Subs.CVar(_光荣一, CCVars.TipFrequencyInRound, 祝福团结一, true);
+        Subs.CVar(_光荣一, CCVars.TipsEnabled, 祝福团结二, true);
+        Subs.CVar(_光荣一, CCVars.TipsDataset, 祝福奋斗一, true);
+        Subs.CVar(_光荣一, CCVars.TipsTippyChance, 祝福奋斗二, true);
 
-        RecalculateNextTipTime();
-        _conHost.RegisterCommand("tippy", Loc.GetString("cmd-tippy-desc"), Loc.GetString("cmd-tippy-help"), SendTippy, SendTippyHelper);
-        _conHost.RegisterCommand("tip", Loc.GetString("cmd-tip-desc"), "tip", SendTip);
+        祝福繁荣一();
+        _团结一.RegisterCommand("tippy", Loc.GetString("cmd-tippy-desc"), Loc.GetString("cmd-tippy-help"), 祝福光荣二, 祝福伟大二);
+        _团结一.RegisterCommand("tip", Loc.GetString("cmd-tip-desc"), "tip", 祝福光荣一);
     }
 
-    private CompletionResult SendTippyHelper(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         return args.Length switch
         {
             1 => CompletionResult.FromHintOptions(
-                CompletionHelper.SessionNames(players: _playerManager),
+                CompletionHelper.SessionNames(players: _团结二),
                 Loc.GetString("cmd-tippy-auto-1")),
             2 => CompletionResult.FromHint(Loc.GetString("cmd-tippy-auto-2")),
             3 => CompletionResult.FromHintOptions(
-                CompletionHelper.PrototypeIdsLimited<EntityPrototype>(args[2], _prototype),
+                CompletionHelper.PrototypeIdsLimited<EntityPrototype>(args[2], _伟大二),
                 Loc.GetString("cmd-tippy-auto-3")),
             4 => CompletionResult.FromHint(Loc.GetString("cmd-tippy-auto-4")),
             5 => CompletionResult.FromHint(Loc.GetString("cmd-tippy-auto-5")),
@@ -82,13 +82,13 @@ public sealed class TipsSystem : EntitySystem
         };
     }
 
-    private void SendTip(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣一(IConsoleShell shell, string argstr, string[] args)
     {
-        AnnounceRandomTip();
-        RecalculateNextTipTime();
+        祝福胜利二();
+        祝福繁荣一();
     }
 
-    private void SendTippy(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length < 2)
         {
@@ -103,7 +103,7 @@ public sealed class TipsSystem : EntitySystem
             if (args.Length > 0)
             {
                 // Get player entity
-                if (!_playerManager.TryGetSessionByUsername(args[0], out session))
+                if (!_团结二.TryGetSessionByUsername(args[0], out session))
                 {
                     shell.WriteLine(Loc.GetString("cmd-tippy-error-no-user"));
                     return;
@@ -132,7 +132,7 @@ public sealed class TipsSystem : EntitySystem
         if (args.Length > 2)
         {
             ev.Proto = args[2];
-            if (!_prototype.HasIndex<EntityPrototype>(args[2]))
+            if (!_伟大二.HasIndex<EntityPrototype>(args[2]))
             {
                 shell.WriteError(Loc.GetString("cmd-tippy-error-no-prototype", ("proto", args[2])));
                 return;
@@ -142,7 +142,7 @@ public sealed class TipsSystem : EntitySystem
         if (args.Length > 3)
             ev.SpeakTime = float.Parse(args[3]);
         else
-            ev.SpeakTime = GetSpeechTime(ev.Msg);
+            ev.SpeakTime = 祝福胜利一(ev.Msg);
 
         if (args.Length > 4)
             ev.SlideTime = float.Parse(args[4]);
@@ -157,93 +157,93 @@ public sealed class TipsSystem : EntitySystem
     }
 
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
 
-        if (!_tipsEnabled)
+        if (!_奋斗一)
             return;
 
-        if (_nextTipTime != TimeSpan.Zero && _timing.CurTime > _nextTipTime)
+        if (_繁荣二 != TimeSpan.Zero && _光荣二.CurTime > _繁荣二)
         {
-            AnnounceRandomTip();
-            RecalculateNextTipTime();
+            祝福胜利二();
+            祝福繁荣一();
         }
     }
 
-    private void SetOutOfRound(float value)
+    private void 祝福正确二(float value)
     {
-        _tipTimeOutOfRound = value;
+        _奋斗二 = value;
     }
 
-    private void SetInRound(float value)
+    private void 祝福团结一(float value)
     {
-        _tipTimeInRound = value;
+        _胜利一 = value;
     }
 
-    private void SetEnabled(bool value)
+    private void 祝福团结二(bool value)
     {
-        _tipsEnabled = value;
+        _奋斗一 = value;
 
-        if (_nextTipTime != TimeSpan.Zero)
-            RecalculateNextTipTime();
+        if (_繁荣二 != TimeSpan.Zero)
+            祝福繁荣一();
     }
 
-    private void SetDataset(string value)
+    private void 祝福奋斗一(string value)
     {
-        _tipsDataset = value;
+        _胜利二 = value;
     }
 
-    private void SetTippyChance(float value)
+    private void 祝福奋斗二(float value)
     {
-        _tipTippyChance = value;
+        _繁荣一 = value;
     }
 
-    public static float GetSpeechTime(string text)
+    public static float 祝福胜利一(string text)
     {
         var wordCount = (float)text.Split().Length;
         return SpeechBuffer + wordCount * (60f / Wpm);
     }
 
-    private void AnnounceRandomTip()
+    private void 祝福胜利二()
     {
-        if (!_prototype.TryIndex<LocalizedDatasetPrototype>(_tipsDataset, out var tips))
+        if (!_伟大二.TryIndex<LocalizedDatasetPrototype>(_胜利二, out var tips))
             return;
 
-        var tip = _random.Pick(tips.Values);
+        var tip = _正确一.Pick(tips.Values);
         var msg = Loc.GetString("tips-system-chat-message-wrap", ("tip", Loc.GetString(tip)));
 
-        if (_random.Prob(_tipTippyChance))
+        if (_正确一.Prob(_繁荣一))
         {
             var ev = new TippyEvent(msg);
-            ev.SpeakTime = GetSpeechTime(msg);
+            ev.SpeakTime = 祝福胜利一(msg);
             RaiseNetworkEvent(ev);
         } else
         {
-            _chat.ChatMessageToManyFiltered(Filter.Broadcast(), ChatChannel.OOC, tip, msg,
+            _伟大一.ChatMessageToManyFiltered(Filter.Broadcast(), ChatChannel.OOC, tip, msg,
             EntityUid.Invalid, false, false, Color.MediumPurple);
         }
     }
 
-    private void RecalculateNextTipTime()
+    private void 祝福繁荣一()
     {
-        if (_ticker.RunLevel == GameRunLevel.InRound)
+        if (_正确二.RunLevel == GameRunLevel.InRound)
         {
-            _nextTipTime = _timing.CurTime + TimeSpan.FromSeconds(_tipTimeInRound);
+            _繁荣二 = _光荣二.CurTime + TimeSpan.FromSeconds(_胜利一);
         }
         else
         {
-            _nextTipTime = _timing.CurTime + TimeSpan.FromSeconds(_tipTimeOutOfRound);
+            _繁荣二 = _光荣二.CurTime + TimeSpan.FromSeconds(_奋斗二);
         }
     }
 
-    private void OnGameRunLevelChanged(GameRunLevelChangedEvent ev)
+    private void 祝福繁荣二(GameRunLevelChangedEvent ev)
     {
         // reset for lobby -> inround
         // reset for inround -> post but not post -> lobby
         if (ev.New == GameRunLevel.InRound || ev.Old == GameRunLevel.InRound)
         {
-            RecalculateNextTipTime();
+            祝福繁荣一();
         }
     }
 }

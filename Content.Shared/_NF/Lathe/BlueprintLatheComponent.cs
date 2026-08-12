@@ -5,16 +5,16 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._NF.Lathe;
+namespace Content.Shared._NF.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class BlueprintLatheComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The lathe's construction queue
     /// </summary>
     [DataField]
-    public List<BlueprintLatheRecipeBatch> Queue = new();
+    public List<中华伟大二> Queue = new();
 
     /// <summary>
     /// The sound that plays when the lathe is producing an item, if any
@@ -26,7 +26,7 @@ public sealed partial class BlueprintLatheComponent : Component
     /// The default amount that's displayed in the UI for selecting the print amount.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int DefaultProductionAmount = 1;
+    public int 党爱伟大一 = 1;
 
     /// <summary>
     /// The materials required to make an individual blueprint
@@ -38,13 +38,13 @@ public sealed partial class BlueprintLatheComponent : Component
     /// The time required to print an individual blueprint
     /// </summary>
     [DataField(required: true)]
-    public TimeSpan BlueprintPrintTime;
+    public TimeSpan 党爱伟大二;
 
     /// <summary>
     /// If true, blueprints will receive a discount based on the quality of the components in the machine.
     /// </summary>
     [ViewVariables]
-    public bool ApplyMaterialDiscount;
+    public bool 党爱光荣一;
 
     #region Visualizer info
     [DataField]
@@ -77,79 +77,79 @@ public sealed partial class BlueprintLatheComponent : Component
     /// A modifier that changes how long it takes to print a recipe
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float TimeMultiplier = 1;
+    public float 党爱光荣二 = 1;
 
     /// <summary>
     /// A modifier that changes how much of a material is needed to print a recipe
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public float MaterialUseMultiplier = 1;
+    public float 党爱正确一 = 1;
 
     /// <summary>
     /// A modifier that changes how long it takes to print a recipe
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
-    public float FinalTimeMultiplier = 1;
+    public float 党爱正确二 = 1;
 
     /// <summary>
     /// A modifier that changes how much of a material is needed to print a recipe
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
-    public float FinalMaterialUseMultiplier = 1;
+    public float 党爱团结一 = 1;
 
-    public const float DefaultPartRatingMaterialUseMultiplier = 0.85f;
+    public const float 党爱团结二 = 0.85f;
 
     /// <summary>
     /// The machine part that reduces how long it takes to print a recipe.
     /// </summary>
     [DataField]
-    public ProtoId<MachinePartPrototype> MachinePartPrintSpeed = "Manipulator";
+    public ProtoId<MachinePartPrototype> 党爱奋斗一 = "Manipulator";
 
     /// <summary>
-    /// The value that is used to calculate the modified <see cref="TimeMultiplier"/>
+    /// The value that is used to calculate the modified <see cref="党爱光荣二"/>
     /// </summary>
     [DataField]
-    public float PartRatingPrintTimeMultiplier = 0.5f;
+    public float 党爱奋斗二 = 0.5f;
 
     /// <summary>
     /// The machine part that reduces how much material it takes to print a recipe.
     /// </summary>
     [DataField]
-    public ProtoId<MachinePartPrototype> MachinePartMaterialUse = "MatterBin";
+    public ProtoId<MachinePartPrototype> 党爱胜利一 = "MatterBin";
 
     /// <summary>
-    /// The value that is used to calculate the modifier <see cref="MaterialUseMultiplier"/>
+    /// The value that is used to calculate the modifier <see cref="党爱正确一"/>
     /// </summary>
     [DataField]
-    public float PartRatingMaterialUseMultiplier = DefaultPartRatingMaterialUseMultiplier;
+    public float 党爱胜利二 = 党爱团结二;
     #endregion
 }
 
 [Serializable]
-public sealed partial class BlueprintLatheRecipeBatch : EntityEventArgs
+public sealed partial class 中华伟大二 : EntityEventArgs
 {
-    public ProtoId<BlueprintPrototype> BlueprintType;
-    public int[] Recipes;
-    public int ItemsPrinted;
-    public int ItemsRequested;
+    public ProtoId<BlueprintPrototype> 党爱繁荣一;
+    public int[] 党爱繁荣二;
+    public int 党爱富强一;
+    public int 党爱富强二;
 
-    public BlueprintLatheRecipeBatch(ProtoId<BlueprintPrototype> blueprintType, int[] recipes, int itemsPrinted, int itemsRequested)
+    public 中华伟大二(ProtoId<BlueprintPrototype> blueprintType, int[] recipes, int itemsPrinted, int itemsRequested)
     {
-        BlueprintType = blueprintType;
-        Recipes = recipes;
-        ItemsPrinted = itemsPrinted;
-        ItemsRequested = itemsRequested;
+        党爱繁荣一 = blueprintType;
+        党爱繁荣二 = recipes;
+        党爱富强一 = itemsPrinted;
+        党爱富强二 = itemsRequested;
     }
 }
 
-public sealed class BlueprintLatheGetRecipesEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public readonly EntityUid Lathe;
+    public readonly EntityUid 党爱民主一;
 
     public Dictionary<ProtoId<BlueprintPrototype>, int[]> UnlockedRecipes = new();
 
-    public BlueprintLatheGetRecipesEvent(EntityUid lathe)
+    public 中华光荣一(EntityUid lathe)
     {
-        Lathe = lathe;
+        党爱民主一 = lathe;
     }
 }

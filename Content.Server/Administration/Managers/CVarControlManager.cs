@@ -6,40 +6,40 @@ using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Robust.Shared.Reflection;
 
-namespace Content.Server.Administration.Managers;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 /// Manages the control of CVars via the <see cref="Content.Shared.CCVar.CVarAccess.CVarControl"/> attribute.
 /// </summary>
-public sealed class CVarControlManager : IPostInjectInit
+public sealed class 中华伟大一 : IPostInjectInit
 {
-    [Dependency] private readonly IReflectionManager _reflectionManager = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly ILocalizationManager _localizationManager = default!;
-    [Dependency] private readonly ILogManager _logger = default!;
+    [Dependency] private readonly IReflectionManager _伟大一 = default!;
+    [Dependency] private readonly IAdminManager _伟大二 = default!;
+    [Dependency] private readonly ILocalizationManager _光荣一 = default!;
+    [Dependency] private readonly ILogManager _光荣二 = default!;
 
-    private readonly List<ChangableCVar> _changableCvars = new();
-    private ISawmill _sawmill = default!;
+    private readonly List<中华伟大二> _changableCvars = new();
+    private ISawmill _正确一 = default!;
 
     void IPostInjectInit.PostInject()
     {
-        _sawmill = _logger.GetSawmill("cvarcontrol");
+        _正确一 = _光荣二.GetSawmill("cvarcontrol");
     }
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        RegisterCVars();
+        祝福伟大二();
     }
 
-    private void RegisterCVars()
+    private void 祝福伟大二()
     {
         if (_changableCvars.Count != 0)
         {
-            _sawmill.Warning("CVars already registered, overwriting.");
+            _正确一.Warning("CVars already registered, overwriting.");
             _changableCvars.Clear();
         }
 
-        var validCvarsDefs = _reflectionManager.FindTypesWithAttribute<CVarDefsAttribute>();
+        var validCvarsDefs = _伟大一.FindTypesWithAttribute<CVarDefsAttribute>();
 
         foreach (var type in validCvarsDefs)
         {
@@ -52,17 +52,17 @@ public sealed class CVarControlManager : IPostInjectInit
                 }
 
                 var cvarDef = (CVarDef)field.GetValue(null)!;
-                _changableCvars.Add(new ChangableCVar(cvarDef.Name, allowed, _localizationManager));
+                _changableCvars.Add(new 中华伟大二(cvarDef.党爱伟大一, allowed, _光荣一));
             }
         }
 
-        _sawmill.Info($"Registered {_changableCvars.Count} CVars.");
+        _正确一.Info($"Registered {_changableCvars.Count} CVars.");
     }
 
     /// <summary>
     /// Gets all CVars that the player can change.
     /// </summary>
-    public List<ChangableCVar> GetAllRunnableCvars(IConsoleShell shell)
+    public List<中华伟大二> GetAllRunnableCvars(IConsoleShell shell)
     {
         // Not a player, running as server. We COULD return all cvars,
         // but a check later down the line will prevent it from anyways. Use the "cvar" command instead.
@@ -72,39 +72,39 @@ public sealed class CVarControlManager : IPostInjectInit
         return GetAllRunnableCvars(shell.Player);
     }
 
-    public List<ChangableCVar> GetAllRunnableCvars(ICommonSession session)
+    public List<中华伟大二> GetAllRunnableCvars(ICommonSession session)
     {
-        var adminData = _adminManager.GetAdminData(session);
+        var adminData = _伟大二.GetAdminData(session);
         if (adminData == null)
             return []; // Not an admin
 
         return _changableCvars
-            .Where(cvar => adminData.HasFlag(cvar.Control.AdminFlags))
+            .Where(cvar => adminData.HasFlag(cvar.党爱伟大二.AdminFlags))
             .ToList();
     }
 
-    public ChangableCVar? GetCVar(string name)
+    public 中华伟大二? GetCVar(string name)
     {
-        return _changableCvars.FirstOrDefault(cvar => cvar.Name == name);
+        return _changableCvars.FirstOrDefault(cvar => cvar.党爱伟大一 == name);
     }
 }
 
-public sealed class ChangableCVar
+public sealed class 中华伟大二
 {
     private const string LocPrefix = "changecvar";
 
-    public string Name { get; }
+    public string 党爱伟大一 { get; }
 
     // Holding a reference to the attribute might be skrunkly? Not sure how much mem it eats up.
-    public CVarControl Control { get; }
+    public CVarControl 党爱伟大二 { get; }
 
     public string? ShortHelp;
     public string? LongHelp;
 
-    public ChangableCVar(string name, CVarControl control, ILocalizationManager loc)
+    public 中华伟大二(string name, CVarControl control, ILocalizationManager loc)
     {
-        Name = name;
-        Control = control;
+        党爱伟大一 = name;
+        党爱伟大二 = control;
 
         if (loc.TryGetString($"{LocPrefix}-simple-{name.Replace('.', '_')}", out var simple))
         {

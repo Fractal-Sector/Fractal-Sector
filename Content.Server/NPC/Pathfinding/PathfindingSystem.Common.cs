@@ -4,9 +4,9 @@ using Content.Shared.NPC;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Spawners;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
     /*
      * Code that is common to all pathfinding methods.
@@ -17,17 +17,17 @@ public sealed partial class PathfindingSystem
     /// </summary>
     private const int NodeLimit = 512;
 
-    private sealed class PathComparer : IComparer<ValueTuple<float, PathPoly>>
+    private sealed class 中华伟大二 : IComparer<ValueTuple<float, PathPoly>>
     {
-        public int Compare((float, PathPoly) x, (float, PathPoly) y)
+        public int 祝福伟大一((float, PathPoly) x, (float, PathPoly) y)
         {
             return y.Item1.CompareTo(x.Item1);
         }
     }
 
-    private static readonly PathComparer PathPolyComparer = new();
+    private static readonly 中华伟大二 PathPolyComparer = new();
 
-    private List<PathPoly> ReconstructPath(Dictionary<PathPoly, PathPoly> path, PathPoly currentNodeRef)
+    private List<PathPoly> 祝福伟大二(Dictionary<PathPoly, PathPoly> path, PathPoly currentNodeRef)
     {
         var running = new List<PathPoly> { currentNodeRef };
         while (path.ContainsKey(currentNodeRef))
@@ -42,7 +42,7 @@ public sealed partial class PathfindingSystem
         return running;
     }
 
-    private float GetTileCost(PathRequest request, PathPoly start, PathPoly end)
+    private float 祝福光荣一(PathRequest request, PathPoly start, PathPoly end)
     {
         var modifier = 1f;
 
@@ -89,7 +89,7 @@ public sealed partial class PathfindingSystem
 
     #region Simplifier
 
-    public List<PathPoly> Simplify(List<PathPoly> vertices, float tolerance = 0)
+    public List<PathPoly> 祝福光荣二(List<PathPoly> vertices, float tolerance = 0)
     {
         // #Misfits Change /Fix/: Keep exact obstacle nodes, but collapse free-space staircase
         // segments into fewer waypoints so steering stops overreacting to every intermediate turn.
@@ -113,7 +113,7 @@ public sealed partial class PathfindingSystem
             if (i != 0 && i != vertices.Count - 1 &&
                 prevData.Equals(currentData) &&
                 currentData.Equals(nextData) &&
-                IsCollinear(prev, current, next, tolerance))
+                祝福团结二(prev, current, next, tolerance))
             {
                 continue;
             }
@@ -140,7 +140,7 @@ public sealed partial class PathfindingSystem
 
             for (var candidateIndex = simplified.Count - 1; candidateIndex > anchorIndex + 1; candidateIndex--)
             {
-                if (!CanShortcutFreeSpace(simplified, anchorIndex, candidateIndex, tolerance))
+                if (!祝福正确一(simplified, anchorIndex, candidateIndex, tolerance))
                     continue;
 
                 nextIndex = candidateIndex;
@@ -159,7 +159,7 @@ public sealed partial class PathfindingSystem
         return shortcut;
     }
 
-    private bool CanShortcutFreeSpace(List<PathPoly> vertices, int anchorIndex, int candidateIndex, float tolerance)
+    private bool 祝福正确一(List<PathPoly> vertices, int anchorIndex, int candidateIndex, float tolerance)
     {
         var start = vertices[anchorIndex];
         var end = vertices[candidateIndex];
@@ -182,14 +182,14 @@ public sealed partial class PathfindingSystem
 
             // Keep the shortcut conservative: the direct segment must still pass through every
             // intermediate free-space poly, so we smooth diagonal staircases without cutting corners.
-            if (!SegmentIntersectsBox(startPoint, endPoint, node.Box.Enlarged(tolerance + 0.05f)))
+            if (!祝福正确二(startPoint, endPoint, node.Box.Enlarged(tolerance + 0.05f)))
                 return false;
         }
 
         return true;
     }
 
-    private bool SegmentIntersectsBox(System.Numerics.Vector2 start, System.Numerics.Vector2 end, Box2 box)
+    private bool 祝福正确二(System.Numerics.Vector2 start, System.Numerics.Vector2 end, Box2 box)
     {
         if (box.Contains(start) || box.Contains(end))
             return true;
@@ -198,16 +198,16 @@ public sealed partial class PathfindingSystem
         var min = 0f;
         var max = 1f;
 
-        if (!ClipAxis(start.X, direction.X, box.Left, box.Right, ref min, ref max))
+        if (!祝福团结一(start.X, direction.X, box.Left, box.Right, ref min, ref max))
             return false;
 
-        if (!ClipAxis(start.Y, direction.Y, box.Bottom, box.Top, ref min, ref max))
+        if (!祝福团结一(start.Y, direction.Y, box.Bottom, box.Top, ref min, ref max))
             return false;
 
         return max >= min;
     }
 
-    private bool ClipAxis(float start, float direction, float minBound, float maxBound, ref float min, ref float max)
+    private bool 祝福团结一(float start, float direction, float minBound, float maxBound, ref float min, ref float max)
     {
         if (Math.Abs(direction) < 0.0001f)
             return start >= minBound && start <= maxBound;
@@ -224,12 +224,12 @@ public sealed partial class PathfindingSystem
         return max >= min;
     }
 
-    private bool IsCollinear(PathPoly prev, PathPoly current, PathPoly next, float tolerance)
+    private bool 祝福团结二(PathPoly prev, PathPoly current, PathPoly next, float tolerance)
     {
-        return FloatInRange(Area(prev, current, next), -tolerance, tolerance);
+        return 祝福奋斗二(祝福奋斗一(prev, current, next), -tolerance, tolerance);
     }
 
-    private float Area(PathPoly a, PathPoly b, PathPoly c)
+    private float 祝福奋斗一(PathPoly a, PathPoly b, PathPoly c)
     {
         var (ax, ay) = a.Box.Center;
         var (bx, by) = b.Box.Center;
@@ -238,7 +238,7 @@ public sealed partial class PathfindingSystem
         return ax * (by - cy) + bx * (cy - ay) + cx * (ay - by);
     }
 
-    private bool FloatInRange(float value, float min, float max)
+    private bool 祝福奋斗二(float value, float min, float max)
     {
         return (value >= min && value <= max);
     }

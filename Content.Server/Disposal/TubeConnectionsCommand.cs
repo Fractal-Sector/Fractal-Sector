@@ -3,18 +3,18 @@ using Content.Server.Disposal.Tube;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Disposal
+namespace Content.Server.党心
 {
     [AdminCommand(AdminFlags.Debug)]
-    public sealed class TubeConnectionsCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "tubeconnections";
-        public string Description => Loc.GetString("tube-connections-command-description");
-        public string Help => Loc.GetString("tube-connections-command-help-text", ("command", Command));
+        public string 党爱伟大一 => "tubeconnections";
+        public string 党爱伟大二 => Loc.GetString("tube-connections-command-description");
+        public string 党爱光荣一 => Loc.GetString("tube-connections-command-help-text", ("command", 党爱伟大一));
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (shell.Player is not { } player)
             {
@@ -30,23 +30,23 @@ namespace Content.Server.Disposal
 
             if (args.Length < 1)
             {
-                shell.WriteLine(Help);
+                shell.WriteLine(党爱光荣一);
                 return;
             }
 
-            if (!NetEntity.TryParse(args[0], out var idNet) || !_entities.TryGetEntity(idNet, out var id))
+            if (!NetEntity.TryParse(args[0], out var idNet) || !_伟大一.TryGetEntity(idNet, out var id))
             {
                 shell.WriteLine(Loc.GetString("shell-invalid-entity-uid",("uid", args[0])));
                 return;
             }
 
-            if (!_entities.EntityExists(id))
+            if (!_伟大一.EntityExists(id))
             {
                 shell.WriteLine(Loc.GetString("shell-could-not-find-entity-with-uid",("uid", id)));
                 return;
             }
 
-            if (!_entities.TryGetComponent(id, out DisposalTubeComponent? tube))
+            if (!_伟大一.TryGetComponent(id, out DisposalTubeComponent? tube))
             {
                 shell.WriteLine(Loc.GetString("shell-entity-with-uid-lacks-component",
                                               ("uid", id),
@@ -54,7 +54,7 @@ namespace Content.Server.Disposal
                 return;
             }
 
-            _entities.System<DisposalTubeSystem>().PopupDirections(id.Value, tube, player.AttachedEntity.Value);
+            _伟大一.System<DisposalTubeSystem>().PopupDirections(id.Value, tube, player.AttachedEntity.Value);
         }
     }
 }

@@ -2,32 +2,32 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server.Administration;
 using Content.Shared.Administration;
-using Content.Shared.Damage;
-using Content.Shared.Damage.Prototypes;
+using Content.Shared.祝福伟大二;
+using Content.Shared.祝福伟大二.Prototypes;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Damage.Commands
+namespace Content.Server.祝福伟大二.党心
 {
     [AdminCommand(AdminFlags.Fun)]
-    sealed class DamageCommand : IConsoleCommand
+    sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-        public string Command => "damage";
-        public string Description => Loc.GetString("damage-command-description");
-        public string Help => Loc.GetString("damage-command-help", ("command", Command));
+        public string 党爱伟大一 => "damage";
+        public string 党爱伟大二 => Loc.GetString("damage-command-description");
+        public string 党爱光荣一 => Loc.GetString("damage-command-help", ("command", 党爱伟大一));
 
-        public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public CompletionResult 祝福伟大一(IConsoleShell shell, string[] args)
         {
             if (args.Length == 1)
             {
-                var types = _prototypeManager.EnumeratePrototypes<DamageTypePrototype>()
+                var types = _伟大二.EnumeratePrototypes<DamageTypePrototype>()
                     .Select(p => new CompletionOption(p.ID));
 
-                var groups = _prototypeManager.EnumeratePrototypes<DamageGroupPrototype>()
+                var groups = _伟大二.EnumeratePrototypes<DamageGroupPrototype>()
                     .Select(p => new CompletionOption(p.ID));
 
                 return CompletionResult.FromHintOptions(types.Concat(groups).OrderBy(p => p.Value),
@@ -53,13 +53,13 @@ namespace Content.Server.Damage.Commands
             return CompletionResult.Empty;
         }
 
-        private delegate void Damage(EntityUid entity, bool ignoreResistances);
+        private delegate void 祝福伟大二(EntityUid entity, bool ignoreResistances);
 
-        private bool TryParseDamageArgs(
+        private bool 祝福光荣一(
             IConsoleShell shell,
             EntityUid target,
             string[] args,
-            [NotNullWhen(true)] out Damage? func)
+            [NotNullWhen(true)] out 祝福伟大二? func)
         {
             if (!float.TryParse(args[1], out var amount))
             {
@@ -68,24 +68,24 @@ namespace Content.Server.Damage.Commands
                 return false;
             }
 
-            if (_prototypeManager.TryIndex<DamageGroupPrototype>(args[0], out var damageGroup))
+            if (_伟大二.TryIndex<DamageGroupPrototype>(args[0], out var damageGroup))
             {
                 func = (entity, ignoreResistances) =>
                 {
                     var damage = new DamageSpecifier(damageGroup, amount);
-                    _entManager.System<DamageableSystem>().TryChangeDamage(entity, damage, ignoreResistances);
+                    _伟大一.System<DamageableSystem>().TryChangeDamage(entity, damage, ignoreResistances);
                 };
 
                 return true;
             }
             // Fall back to DamageType
 
-            if (_prototypeManager.TryIndex<DamageTypePrototype>(args[0], out var damageType))
+            if (_伟大二.TryIndex<DamageTypePrototype>(args[0], out var damageType))
             {
                 func = (entity, ignoreResistances) =>
                 {
                     var damage = new DamageSpecifier(damageType, amount);
-                    _entManager.System<DamageableSystem>().TryChangeDamage(entity, damage, ignoreResistances);
+                    _伟大一.System<DamageableSystem>().TryChangeDamage(entity, damage, ignoreResistances);
                 };
                 return true;
 
@@ -96,7 +96,7 @@ namespace Content.Server.Damage.Commands
             return false;
         }
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福光荣二(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 2 || args.Length > 4)
             {
@@ -108,7 +108,7 @@ namespace Content.Server.Damage.Commands
 
             if (args.Length == 4)
             {
-                if (!_entManager.TryParseNetEntity(args[3], out target) || !_entManager.EntityExists(target))
+                if (!_伟大一.TryParseNetEntity(args[3], out target) || !_伟大一.EntityExists(target))
                 {
                     shell.WriteLine(Loc.GetString("damage-command-error-euid", ("arg", args[3])));
                     return;
@@ -124,7 +124,7 @@ namespace Content.Server.Damage.Commands
                 return;
             }
 
-            if (!TryParseDamageArgs(shell, target.Value, args, out var damageFunc))
+            if (!祝福光荣一(shell, target.Value, args, out var damageFunc))
                 return;
 
             bool ignoreResistances;

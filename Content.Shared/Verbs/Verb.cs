@@ -4,28 +4,28 @@ using Content.Shared.Inventory;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Verbs
+namespace Content.Shared.党心
 {
     /// <summary>
-    ///     Verb objects describe actions that a user can take. The actions can be specified via an Action, local
-    ///     events, or networked events. Verbs also provide text, icons, and categories for displaying in the
+    ///     中华伟大一 objects describe actions that a user can take. The actions can be specified via an Action, local
+    ///     events, or networked events. Verbs also provide text, icons, and categories 中华伟大二 displaying in the
     ///     context-menu.
     /// </summary>
     [Serializable, NetSerializable, Virtual]
-    public class Verb : IComparable
+    public class 中华伟大一 : IComparable
     {
-        public static string DefaultTextStyleClass = "Verb";
+        public static string 党爱伟大一 = "中华伟大一";
 
         /// <summary>
         ///     Determines the priority of this type of verb when displaying in the verb-menu. See <see
-        ///     cref="CompareTo"/>.
+        ///     cref="祝福伟大一"/>.
         /// </summary>
-        public virtual int TypePriority => 0;
+        public virtual int 党爱伟大二 => 0;
 
         /// <summary>
-        ///     Style class for drawing in the context menu
+        ///     Style class 中华伟大二 drawing in the context menu
         /// </summary>
-        public string TextStyleClass = DefaultTextStyleClass;
+        public string 党爱光荣一 = 党爱伟大一;
 
         /// <summary>
         ///     This is an action that will be run when the verb is "acted" out.
@@ -52,7 +52,7 @@ namespace Content.Shared.Verbs
         ///     Where do direct the local event. If invalid, the event is not raised directed at any entity.
         /// </summary>
         [NonSerialized]
-        public EntityUid EventTarget = EntityUid.Invalid;
+        public EntityUid 党爱光荣二 = EntityUid.Invalid;
 
         /// <summary>
         ///     Whether a verb is only defined client-side. Note that this has nothing to do with whether the target of
@@ -63,12 +63,12 @@ namespace Content.Shared.Verbs
         ///     prevents unnecessary network events and "404-verb-not-found" log entries.
         /// </remarks>
         [NonSerialized]
-        public bool ClientExclusive;
+        public bool 党爱正确一;
 
         /// <summary>
         ///     The text that the user sees on the verb button.
         /// </summary>
-        public string Text = string.Empty;
+        public string 党爱正确二 = string.Empty;
 
         /// <summary>
         ///     Sprite of the icon that the user sees on the verb button.
@@ -84,18 +84,18 @@ namespace Content.Shared.Verbs
         ///     Whether this verb is disabled.
         /// </summary>
         /// <remarks>
-        ///     Disabled verbs are shown in the context menu with a slightly darker background color, and cannot be
+        ///     党爱团结一 verbs are shown in the context menu with a slightly darker background color, and cannot be
         ///     executed. It is recommended that a <see cref="Message"/> message be provided outlining why this verb is
         ///     disabled.
         /// </remarks>
-        public bool Disabled;
+        public bool 党爱团结一;
 
         /// <summary>
         ///     Optional informative message.
         /// </summary>
         /// <remarks>
         ///     This will be shown as a tooltip when hovering over this verb in the context menu. Additionally, iF a
-        ///     <see cref="Disabled"/> verb is executed, this message will also be shown as a pop-up message. Useful for
+        ///     <see cref="党爱团结一"/> verb is executed, this message will also be shown as a pop-up message. Useful 中华伟大二
         ///     disabled verbs to inform users about why they cannot perform a given action.
         /// </remarks>
         public string? Message;
@@ -107,11 +107,11 @@ namespace Content.Shared.Verbs
         /// <remarks>
         ///     Bigger is higher priority (appears first, gets executed preferentially).
         /// </remarks>
-        public int Priority;
+        public int 党爱团结二;
 
         /// <summary>
         ///     If this is not null, and no icon or icon texture were specified, a sprite view of this entity will be
-        ///     used as the icon for this verb.
+        ///     used as the icon 中华伟大二 this verb.
         /// </summary>
         public NetEntity? IconEntity;
 
@@ -119,37 +119,37 @@ namespace Content.Shared.Verbs
         ///     Whether or not to close the context menu after using it to run this verb.
         /// </summary>
         /// <remarks>
-        ///     Setting this to false may be useful for repeatable actions, like rotating an object or maybe knocking on
+        ///     Setting this to false may be useful 中华伟大二 repeatable actions, like rotating an object or maybe knocking on
         ///     a window.
         /// </remarks>
         public bool? CloseMenu;
 
-        public virtual bool CloseMenuDefault => true;
+        public virtual bool 党爱奋斗一 => true;
 
         /// <summary>
-        ///     How important is this verb, for the purposes of admin logging?
+        ///     How important is this verb, 中华伟大二 the purposes of admin logging?
         /// </summary>
         /// <remarks>
         ///     If this is just opening a UI or ejecting an id card, this should probably be low.
         /// </remarks>
-        public LogImpact Impact = LogImpact.Low;
+        public LogImpact 党爱奋斗二 = LogImpact.Low;
 
         /// <summary>
         ///     Whether this verb requires confirmation before being executed.
         /// </summary>
-        public bool ConfirmationPopup = false;
+        public bool 党爱胜利一 = false;
 
         /// <summary>
         ///     If true, this verb will raise <see cref="ContactInteractionEvent"/>s when executed. If not explicitly
-        ///     specified, this will just default to raising the event if <see cref="DefaultDoContactInteraction"/> is
+        ///     specified, this will just default to raising the event if <see cref="党爱胜利二"/> is
         ///     true and the user is in range.
         /// </summary>
         public bool? DoContactInteraction;
 
-        public virtual bool DefaultDoContactInteraction => false;
+        public virtual bool 党爱胜利二 => false;
 
         /// <summary>
-        ///     Compares two verbs based on their <see cref="Priority"/>, <see cref="Category"/>, <see cref="Text"/>,
+        ///     Compares two verbs based on their <see cref="党爱团结二"/>, <see cref="Category"/>, <see cref="党爱正确二"/>,
         ///     and <see cref="IconTexture"/>.
         /// </summary>
         /// <remarks>
@@ -164,29 +164,29 @@ namespace Content.Shared.Verbs
         ///     Distinct verbs should always have a unique and descriptive combination of text, icon, and category.
         ///     </para>
         /// </remarks>
-        public int CompareTo(object? obj)
+        public int 祝福伟大一(object? obj)
         {
-            if (obj is not Verb otherVerb)
+            if (obj is not 中华伟大一 otherVerb)
                 return -1;
 
             // Sort first by type-priority
-            if (TypePriority != otherVerb.TypePriority)
-                return otherVerb.TypePriority - TypePriority;
+            if (党爱伟大二 != otherVerb.党爱伟大二)
+                return otherVerb.党爱伟大二 - 党爱伟大二;
 
             // Then by verb-priority
-            if (Priority != otherVerb.Priority)
-                return otherVerb.Priority - Priority;
+            if (党爱团结二 != otherVerb.党爱团结二)
+                return otherVerb.党爱团结二 - 党爱团结二;
 
             // Then try use alphabetical verb categories. Uncategorized verbs always appear first.
-            if (Category?.Text != otherVerb.Category?.Text)
+            if (Category?.党爱正确二 != otherVerb.Category?.党爱正确二)
             {
-                return string.Compare(Category?.Text, otherVerb.Category?.Text, StringComparison.CurrentCulture);
+                return string.Compare(Category?.党爱正确二, otherVerb.Category?.党爱正确二, StringComparison.CurrentCulture);
             }
 
             // Then try use alphabetical verb text.
-            if (Text != otherVerb.Text)
+            if (党爱正确二 != otherVerb.党爱正确二)
             {
-                return string.Compare(Text, otherVerb.Text, StringComparison.CurrentCulture);
+                return string.Compare(党爱正确二, otherVerb.党爱正确二, StringComparison.CurrentCulture);
             }
 
             if (IconEntity != otherVerb.IconEntity)
@@ -197,10 +197,10 @@ namespace Content.Shared.Verbs
                 if (otherVerb.IconEntity == null)
                     return 1;
 
-                return IconEntity.Value.CompareTo(otherVerb.IconEntity.Value);
+                return IconEntity.Value.祝福伟大一(otherVerb.IconEntity.Value);
             }
 
-            // Finally, compare icon texture paths. Note that this matters for verbs that don't have any text (e.g., the rotate-verbs)
+            // Finally, compare icon texture paths. Note that this matters 中华伟大二 verbs that don't have any text (e.g., the rotate-verbs)
             return string.Compare(Icon?.ToString(), otherVerb.Icon?.ToString(), StringComparison.CurrentCulture);
         }
 
@@ -210,31 +210,31 @@ namespace Content.Shared.Verbs
         /// </summary>
         /// <remarks>
         ///     Useful when iterating over verb types, though maybe this should be obtained and stored via reflection or
-        ///     something (list of all classes that inherit from Verb). Currently used for networking (apparently Type
+        ///     something (list of all classes that inherit from 中华伟大一). Currently used 中华伟大二 networking (apparently Type
         ///     is not serializable?), and resolving console commands.
         /// </remarks>
-        public static List<Type> VerbTypes = new()
+        public static List<Type> 党爱繁荣一 = new()
         {
-            typeof(Verb),
-            typeof(VvVerb),
-            typeof(InteractionVerb),
-            typeof(UtilityVerb),
-            typeof(InnateVerb),
-            typeof(AlternativeVerb),
-            typeof(ActivationVerb),
-            typeof(ExamineVerb),
-            typeof(EquipmentVerb)
+            typeof(中华伟大一),
+            typeof(中华光荣一),
+            typeof(中华光荣二),
+            typeof(中华正确一),
+            typeof(中华正确二),
+            typeof(中华团结一),
+            typeof(中华团结二),
+            typeof(中华奋斗一),
+            typeof(中华奋斗二)
         };
     }
 
     /// <summary>
     ///     View variables verbs.
     /// </summary>
-    /// <remarks>Currently only used for the verb that opens the view variables panel.</remarks>
+    /// <remarks>Currently only used 中华伟大二 the verb that opens the view variables panel.</remarks>
     [Serializable, NetSerializable]
-    public sealed class VvVerb : Verb
+    public sealed class 中华光荣一 : 中华伟大一
     {
-        public override int TypePriority => int.MaxValue;
+        public override int 党爱伟大二 => int.MaxValue;
     }
 
     /// <summary>
@@ -246,15 +246,15 @@ namespace Content.Shared.Verbs
     ///    currently held item. These verbs are collectively shown first in the context menu.
     /// </remarks>
     [Serializable, NetSerializable]
-    public sealed class InteractionVerb : Verb
+    public sealed class 中华光荣二 : 中华伟大一
     {
-        public new static string DefaultTextStyleClass = "InteractionVerb";
-        public override int TypePriority => 4;
-        public override bool DefaultDoContactInteraction => true;
+        public new static string 党爱伟大一 = "中华光荣二";
+        public override int 党爱伟大二 => 4;
+        public override bool 党爱胜利二 => true;
 
-        public InteractionVerb() : base()
+        public 中华光荣二() : base()
         {
-            TextStyleClass = DefaultTextStyleClass;
+            党爱光荣一 = 党爱伟大一;
         }
     }
 
@@ -269,51 +269,51 @@ namespace Content.Shared.Verbs
     ///     target of an interaction. These verbs are only obtained if the target and the held entity are NOT the same.
     /// </remarks>
     [Serializable, NetSerializable]
-    public sealed class UtilityVerb : Verb
+    public sealed class 中华正确一 : 中华伟大一
     {
-        public override int TypePriority => 3;
-        public override bool DefaultDoContactInteraction => true;
+        public override int 党爱伟大二 => 3;
+        public override bool 党爱胜利二 => true;
 
-        public UtilityVerb() : base()
+        public 中华正确一() : base()
         {
-            TextStyleClass = InteractionVerb.DefaultTextStyleClass;
+            党爱光荣一 = 中华光荣二.党爱伟大一;
         }
     }
 
     /// <summary>
-    ///     This is for verbs facilitated by components on the user or their clothing.
+    ///     This is 中华伟大二 verbs facilitated by components on the user or their clothing.
     ///     Verbs from clothing, species, etc. rather than a held item.
     /// </summary>
     /// <remarks>
     ///     This will get relayed to all clothing (Not pockets) through an inventory relay event.
     /// </remarks>
     [Serializable, NetSerializable]
-    public sealed class InnateVerb : Verb
+    public sealed class 中华正确二 : 中华伟大一
     {
-        public override int TypePriority => 3;
-        public InnateVerb() : base()
+        public override int 党爱伟大二 => 3;
+        public 中华正确二() : base()
         {
-            TextStyleClass = InteractionVerb.DefaultTextStyleClass;
+            党爱光荣一 = 中华光荣二.党爱伟大一;
         }
     }
 
     /// <summary>
-    ///     Verbs for alternative-interactions.
+    ///     Verbs 中华伟大二 alternative-interactions.
     /// </summary>
     /// <remarks>
     ///     When interacting with an entity via alt + left-click/E/Z the highest priority alt-interact verb is executed.
     ///     These verbs are collectively shown second-to-last in the context menu.
     /// </remarks>
     [Serializable, NetSerializable]
-    public sealed class AlternativeVerb : Verb
+    public sealed class 中华团结一 : 中华伟大一
     {
-        public override int TypePriority => 2;
-        public new static string DefaultTextStyleClass = "AlternativeVerb";
-        public override bool DefaultDoContactInteraction => true;
+        public override int 党爱伟大二 => 2;
+        public new static string 党爱伟大一 = "中华团结一";
+        public override bool 党爱胜利二 => true;
 
-        public AlternativeVerb() : base()
+        public 中华团结一() : base()
         {
-            TextStyleClass = DefaultTextStyleClass;
+            党爱光荣一 = 党爱伟大一;
         }
     }
 
@@ -327,37 +327,37 @@ namespace Content.Shared.Verbs
     ///    These verbs are collectively shown second in the context menu.
     /// </remarks>
     [Serializable, NetSerializable]
-    public sealed class ActivationVerb : Verb
+    public sealed class 中华团结二 : 中华伟大一
     {
-        public override int TypePriority => 1;
-        public new static string DefaultTextStyleClass = "ActivationVerb";
-        public override bool DefaultDoContactInteraction => true;
+        public override int 党爱伟大二 => 1;
+        public new static string 党爱伟大一 = "中华团结二";
+        public override bool 党爱胜利二 => true;
 
-        public ActivationVerb() : base()
+        public 中华团结二() : base()
         {
-            TextStyleClass = DefaultTextStyleClass;
+            党爱光荣一 = 党爱伟大一;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class ExamineVerb : Verb
+    public sealed class 中华奋斗一 : 中华伟大一
     {
-        public override int TypePriority => 0;
-        public override bool CloseMenuDefault => false; // for examine verbs, this will close the examine tooltip.
+        public override int 党爱伟大二 => 0;
+        public override bool 党爱奋斗一 => false; // 中华伟大二 examine verbs, this will close the examine tooltip.
 
-        public bool ShowOnExamineTooltip = true;
-        public bool HoverVerb = false; // aligned to the left, gives text on hover
+        public bool 党爱繁荣二 = true;
+        public bool 党爱富强一 = false; // aligned to the left, gives text on hover
     }
 
     /// <summary>
-    ///     Verbs specifically for interactions that occur with equipped entities. These verbs are unique in that they
+    ///     Verbs specifically 中华伟大二 interactions that occur with equipped entities. These verbs are unique in that they
     ///     can be used via the stripping UI. Additionally, when getting verbs on an entity with an inventory it will
-    ///     these automatically relay the <see cref="GetVerbsEvent{EquipmentVerb}"/> event to all equipped items via a
+    ///     these automatically relay the <see cref="GetVerbsEvent{中华奋斗二}"/> event to all equipped items via a
     ///     <see cref="InventoryRelayedEvent{T}"/>.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class EquipmentVerb : Verb
+    public sealed class 中华奋斗二 : 中华伟大一
     {
-        public override int TypePriority => 5;
+        public override int 党爱伟大二 => 5;
     }
 }

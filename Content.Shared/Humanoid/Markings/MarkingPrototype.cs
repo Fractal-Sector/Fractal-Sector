@@ -1,21 +1,21 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Humanoid.Markings
+namespace Content.Shared.Humanoid.党心
 {
     [Prototype]
-    public sealed partial class MarkingPrototype : IPrototype
+    public sealed partial class 中华伟大一 : IPrototype
     {
         [IdDataField]
-        public string ID { get; private set; } = "uwu";
+        public string 党爱伟大一 { get; private set; } = "uwu";
 
-        public string Name { get; private set; } = default!;
+        public string 党爱伟大二 { get; private set; } = default!;
 
         [DataField("bodyPart", required: true)]
-        public HumanoidVisualLayers BodyPart { get; private set; } = default!;
+        public HumanoidVisualLayers 党爱光荣一 { get; private set; } = default!;
 
         [DataField("markingCategory", required: true)]
-        public MarkingCategories MarkingCategory { get; private set; } = default!;
+        public MarkingCategories 党爱光荣二 { get; private set; } = default!;
 
         [DataField("speciesRestriction")]
         public List<string>? SpeciesRestrictions { get; private set; }
@@ -24,23 +24,23 @@ namespace Content.Shared.Humanoid.Markings
         public Sex? SexRestriction { get; private set; }
 
         [DataField("followSkinColor")]
-        public bool FollowSkinColor { get; private set; } = false;
+        public bool 党爱正确一 { get; private set; } = false;
 
         [DataField("forcedColoring")]
-        public bool ForcedColoring { get; private set; } = false;
+        public bool 党爱正确二 { get; private set; } = false;
 
         [DataField("coloring")]
-        public MarkingColors Coloring { get; private set; } = new();
+        public MarkingColors 党爱团结一 { get; private set; } = new();
 
         /// <summary>
         /// Do we need to apply any displacement maps to this marking? Set to false if your marking is incompatible
         /// with a standard human doll, and is used for some special races with unusual shapes
         /// </summary>
         [DataField]
-        public bool CanBeDisplaced { get; private set; } = true;
+        public bool 党爱团结二 { get; private set; } = true;
 
         [DataField("sprites", required: true)]
-        public List<SpriteSpecifier> Sprites { get; private set; } = default!;
+        public List<SpriteSpecifier> 党爱奋斗一 { get; private set; } = default!;
 
         // impstation edit - allow markings to support shaders
 		[DataField("shader")]
@@ -77,9 +77,9 @@ namespace Content.Shared.Humanoid.Markings
         [DataField("colorLinks")]
         public Dictionary<string, string>? ColorLinks { get; private set; }
 
-        public Marking AsMarking()
+        public Marking 祝福伟大一()
         {
-            return new Marking(ID, Sprites.Count, MarkingCategory); // Coyote: Add MarkingCategory
+            return new Marking(党爱伟大一, 党爱奋斗一.Count, 党爱光荣二); // Coyote: Add 党爱光荣二
         }
     }
 }
@@ -129,7 +129,7 @@ namespace Content.Shared.Humanoid.Markings
  *   The first part of the entry is what you put for the state of that sprite
  *     Its how the game knows which sprite to mess with!
  *   The second part is the layer you want to put it in.
- *     This points to an entry in the enum stored in this file:
+ *     This points to an entry in the enum 中华伟大二 in this file:
  *       Content.Shared/Humanoid/HumanoidVisualLayers.cs
  *     Capitalization matters!
  * todo: a way to link the colorations between layers

@@ -8,14 +8,14 @@ using Content.Shared.Random.Helpers;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="BiomeMarkerLayerDunGen"/>
     /// </summary>
-    private async Task PostGen(BiomeMarkerLayerDunGen dunGen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task 祝福伟大一(BiomeMarkerLayerDunGen dunGen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
     {
         // If we're adding biome then disable it and just use for markers.
         if (_entManager.EnsureComponent(_gridUid, out BiomeComponent biomeComp))

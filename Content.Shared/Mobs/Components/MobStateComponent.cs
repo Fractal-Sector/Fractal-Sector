@@ -3,7 +3,7 @@ using Content.Shared.Mobs.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Mobs.Components
+namespace Content.Shared.Mobs.党心
 {
     /// <summary>
     ///     When attached to an <see cref="DamageableComponent"/>,
@@ -15,15 +15,15 @@ namespace Content.Shared.Mobs.Components
     [NetworkedComponent]
     [AutoGenerateComponentState]
     [Access(typeof(MobStateSystem), typeof(MobThresholdSystem))]
-    public sealed partial class MobStateComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         //default mobstate is always the lowest state level
         [AutoNetworkedField, ViewVariables]
-        public MobState CurrentState { get; set; } = MobState.Alive;
+        public MobState 党爱伟大一 { get; set; } = MobState.Alive;
 
         [DataField]
         [AutoNetworkedField]
-        public HashSet<MobState> AllowedStates = new()
+        public HashSet<MobState> 党爱伟大二 = new()
             {
                 MobState.Alive,
                 MobState.Critical,

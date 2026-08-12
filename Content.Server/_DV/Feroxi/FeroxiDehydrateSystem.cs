@@ -4,19 +4,19 @@ using Content.Server.Body.Systems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;
 
-namespace Content.Server._DV.Feroxi;
+namespace Content.Server._DV.党心;
 
-public sealed class FeroxiDehydrateSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BodySystem _body = default!;
-    public override void Initialize()
+    [Dependency] private readonly BodySystem _伟大一 = default!;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<FeroxiDehydrateComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
+        SubscribeLocalEvent<FeroxiDehydrateComponent, RefreshMovementSpeedModifiersEvent>(祝福伟大二);
     }
 
-    private void OnRefreshMovespeed(EntityUid uid, FeroxiDehydrateComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福伟大二(EntityUid uid, FeroxiDehydrateComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         if (!TryComp<ThirstComponent>(uid, out var thirst))
         {
@@ -44,7 +44,7 @@ public sealed class FeroxiDehydrateSystem : EntitySystem
     }
 }
 
-    // public override void Update(float frameTime)
+    // public override void 祝福光荣一(float frameTime)
     // {
     //     var query = EntityQueryEnumerator<FeroxiDehydrateComponent, ThirstComponent>();
     //

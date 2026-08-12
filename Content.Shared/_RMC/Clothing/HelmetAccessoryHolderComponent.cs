@@ -1,20 +1,20 @@
 ﻿using Content.Shared.Inventory;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(HelmetAccessorySystem))]
-public sealed partial class HelmetAccessoryHolderComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoNetworkedField]
-    public SlotFlags Slot = SlotFlags.HEAD;
+    public SlotFlags 党爱伟大一 = SlotFlags.HEAD;
 
     [DataField, AutoNetworkedField]
-    public bool IsHat = true;
+    public bool 党爱伟大二 = true;
 }
 
-public enum HelmetAccessoryLayers
+public enum 中华伟大二
 {
     Helmet
 }

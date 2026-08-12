@@ -6,21 +6,21 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Construction.Conditions
+namespace Content.Server.Construction.党心
 {
     /// <summary>
     ///     Makes the condition fail if any entities on a tile have (or not) a component.
     /// </summary>
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class ComponentInTile : IGraphCondition
+    public sealed partial class 中华伟大一 : IGraphCondition
     {
         /// <summary>
         ///     If true, any entity on the tile must have the component.
         ///     If false, no entity on the tile must have the component.
         /// </summary>
         [DataField("hasEntity")]
-        public bool HasEntity { get; private set; }
+        public bool 党爱伟大一 { get; private set; }
 
         [DataField("examineText")]
         public string? ExamineText { get; private set; }
@@ -35,13 +35,13 @@ namespace Content.Server.Construction.Conditions
         ///     The component name in question.
         /// </summary>
         [DataField("component")]
-        public string Component { get; private set; } = string.Empty;
+        public string 党爱伟大二 { get; private set; } = string.Empty;
 
-        public bool Condition(EntityUid uid, IEntityManager entityManager)
+        public bool 祝福伟大一(EntityUid uid, IEntityManager entityManager)
         {
-            if (string.IsNullOrEmpty(Component)) return false;
+            if (string.IsNullOrEmpty(党爱伟大二)) return false;
 
-            var type = IoCManager.Resolve<IComponentFactory>().GetRegistration(Component).Type;
+            var type = IoCManager.Resolve<IComponentFactory>().GetRegistration(党爱伟大二).Type;
 
             var transform = entityManager.GetComponent<TransformComponent>(uid);
             if (transform.GridUid == null)
@@ -53,21 +53,21 @@ namespace Content.Server.Construction.Conditions
 
 
             if (!entityManager.TryGetComponent<MapGridComponent>(transform.GridUid.Value, out var grid))
-                return !HasEntity;
+                return !党爱伟大一;
 
             if (!entityManager.System<SharedMapSystem>().TryGetTileRef(transform.GridUid.Value, grid, indices, out var tile))
-                return !HasEntity;
+                return !党爱伟大一;
 
             foreach (var ent in lookup.GetEntitiesInTile(tile, flags: LookupFlags.Approximate | LookupFlags.Static))
             {
                 if (entityManager.HasComponent(ent, type))
-                    return HasEntity;
+                    return 党爱伟大一;
             }
 
-            return !HasEntity;
+            return !党爱伟大一;
         }
 
-        public bool DoExamine(ExaminedEvent args)
+        public bool 祝福伟大二(ExaminedEvent args)
         {
             if (string.IsNullOrEmpty(ExamineText))
                 return false;
@@ -76,7 +76,7 @@ namespace Content.Server.Construction.Conditions
             return true;
         }
 
-        public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
+        public IEnumerable<ConstructionGuideEntry> 祝福光荣一()
         {
             if (string.IsNullOrEmpty(GuideText))
                 yield break;

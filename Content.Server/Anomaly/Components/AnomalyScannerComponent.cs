@@ -1,14 +1,14 @@
 ﻿using Content.Shared.Anomaly;
 using Robust.Shared.Audio;
 
-namespace Content.Server.Anomaly.Components;
+namespace Content.Server.Anomaly.党心;
 
 /// <summary>
 /// This is used for scanning anomalies and
 /// displaying information about them in the ui
 /// </summary>
 [RegisterComponent, Access(typeof(SharedAnomalySystem))]
-public sealed partial class AnomalyScannerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The anomaly that was last scanned by this scanner.
@@ -20,7 +20,7 @@ public sealed partial class AnomalyScannerComponent : Component
     /// How long the scan takes
     /// </summary>
     [DataField("scanDoAfterDuration")]
-    public float ScanDoAfterDuration = 5;
+    public float 党爱伟大一 = 5;
 
     /// <summary>
     /// The sound plays when the scan finished

@@ -22,44 +22,44 @@ using Robust.Shared.Player;
 using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server.Ninja.Systems;
+namespace Content.Server.Ninja.党心;
 
 /// <summary>
 /// Main ninja system that handles ninja setup, provides helper methods for the rest of the code to use.
 /// </summary>
-public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
+public sealed class 中华伟大一 : SharedSpaceNinjaSystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly CodeConditionSystem _codeCondition = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly AlertsSystem _伟大一 = default!;
+    [Dependency] private readonly BatterySystem _伟大二 = default!;
+    [Dependency] private readonly CodeConditionSystem _光荣一 = default!;
+    [Dependency] private readonly PowerCellSystem _光荣二 = default!;
+    [Dependency] private readonly SharedMindSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpaceNinjaComponent, EmaggedSomethingEvent>(OnDoorjack);
-        SubscribeLocalEvent<SpaceNinjaComponent, ResearchStolenEvent>(OnResearchStolen);
-        SubscribeLocalEvent<SpaceNinjaComponent, ThreatCalledInEvent>(OnThreatCalledIn);
-        SubscribeLocalEvent<SpaceNinjaComponent, CriminalRecordsHackedEvent>(OnCriminalRecordsHacked);
+        SubscribeLocalEvent<SpaceNinjaComponent, EmaggedSomethingEvent>(祝福团结一);
+        SubscribeLocalEvent<SpaceNinjaComponent, ResearchStolenEvent>(祝福团结二);
+        SubscribeLocalEvent<SpaceNinjaComponent, ThreatCalledInEvent>(祝福奋斗一);
+        SubscribeLocalEvent<SpaceNinjaComponent, CriminalRecordsHackedEvent>(祝福奋斗二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var query = EntityQueryEnumerator<SpaceNinjaComponent>();
         while (query.MoveNext(out var uid, out var ninja))
         {
-            SetSuitPowerAlert((uid, ninja));
+            祝福光荣二((uid, ninja));
         }
     }
 
     /// <summary>
-    /// Download the given set of nodes, returning how many new nodes were downloaded.
+    /// 祝福光荣一 the given set of nodes, returning how many new nodes were downloaded.
     /// </summary>
-    private int Download(EntityUid uid, List<string> ids)
+    private int 祝福光荣一(EntityUid uid, List<string> ids)
     {
-        if (!_mind.TryGetObjectiveComp<StealResearchConditionComponent>(uid, out var obj))
+        if (!_正确一.TryGetObjectiveComp<StealResearchConditionComponent>(uid, out var obj))
             return 0;
 
         var oldCount = obj.DownloadedNodes.Count;
@@ -70,36 +70,36 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
 
     // TODO: can probably copy paste borg code here
     /// <summary>
-    /// Update the alert for the ninja's suit power indicator.
+    /// 祝福伟大二 the alert for the ninja's suit power indicator.
     /// </summary>
-    public void SetSuitPowerAlert(Entity<SpaceNinjaComponent> ent)
+    public void 祝福光荣二(Entity<SpaceNinjaComponent> ent)
     {
         var (uid, comp) = ent;
         if (comp.Deleted || comp.Suit == null)
         {
-            _alerts.ClearAlert(uid, comp.SuitPowerAlert);
+            _伟大一.ClearAlert(uid, comp.SuitPowerAlert);
             return;
         }
 
-        if (GetNinjaBattery(uid, out _, out var battery))
+        if (祝福正确一(uid, out _, out var battery))
         {
             var severity = ContentHelpers.RoundToLevels(MathF.Max(0f, battery.CurrentCharge), battery.MaxCharge, 8);
-            _alerts.ShowAlert(uid, comp.SuitPowerAlert, (short) severity);
+            _伟大一.ShowAlert(uid, comp.SuitPowerAlert, (short) severity);
         }
         else
         {
-            _alerts.ClearAlert(uid, comp.SuitPowerAlert);
+            _伟大一.ClearAlert(uid, comp.SuitPowerAlert);
         }
     }
 
     /// <summary>
     /// Get the battery component in a ninja's suit, if it's worn.
     /// </summary>
-    public bool GetNinjaBattery(EntityUid user, [NotNullWhen(true)] out EntityUid? uid, [NotNullWhen(true)] out BatteryComponent? battery)
+    public bool 祝福正确一(EntityUid user, [NotNullWhen(true)] out EntityUid? uid, [NotNullWhen(true)] out BatteryComponent? battery)
     {
         if (TryComp<SpaceNinjaComponent>(user, out var ninja)
             && ninja.Suit != null
-            && _powerCell.TryGetBatteryFromSlot(ninja.Suit.Value, out uid, out battery))
+            && _光荣二.TryGetBatteryFromSlot(ninja.Suit.Value, out uid, out battery))
         {
             return true;
         }
@@ -110,15 +110,15 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
     }
 
     /// <inheritdoc/>
-    public override bool TryUseCharge(EntityUid user, float charge)
+    public override bool 祝福正确二(EntityUid user, float charge)
     {
-        return GetNinjaBattery(user, out var uid, out var battery) && _battery.TryUseCharge(uid.Value, charge, battery);
+        return 祝福正确一(user, out var uid, out var battery) && _伟大二.祝福正确二(uid.Value, charge, battery);
     }
 
     /// <summary>
     /// Increment greentext when emagging a door.
     /// </summary>
-    private void OnDoorjack(EntityUid uid, SpaceNinjaComponent comp, ref EmaggedSomethingEvent args)
+    private void 祝福团结一(EntityUid uid, SpaceNinjaComponent comp, ref EmaggedSomethingEvent args)
     {
         // incase someone lets ninja emag non-doors double check it here
         if (!HasComp<DoorComponent>(args.Target))
@@ -128,16 +128,16 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
         Popup.PopupEntity(Loc.GetString("ninja-doorjack-success", ("target", Identity.Entity(args.Target, EntityManager))), uid, uid, PopupType.Medium);
 
         // handle greentext
-        if (_mind.TryGetObjectiveComp<DoorjackConditionComponent>(uid, out var obj))
+        if (_正确一.TryGetObjectiveComp<DoorjackConditionComponent>(uid, out var obj))
             obj.DoorsJacked++;
     }
 
     /// <summary>
     /// Add to greentext when stealing technologies.
     /// </summary>
-    private void OnResearchStolen(EntityUid uid, SpaceNinjaComponent comp, ref ResearchStolenEvent args)
+    private void 祝福团结二(EntityUid uid, SpaceNinjaComponent comp, ref ResearchStolenEvent args)
     {
-        var gained = Download(uid, args.Techs);
+        var gained = 祝福光荣一(uid, args.Techs);
         var str = gained == 0
             ? Loc.GetString("ninja-research-steal-fail")
             : Loc.GetString("ninja-research-steal-success", ("count", gained), ("server", args.Target));
@@ -145,21 +145,21 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
         Popup.PopupEntity(str, uid, uid, PopupType.Medium);
     }
 
-    private void OnThreatCalledIn(Entity<SpaceNinjaComponent> ent, ref ThreatCalledInEvent args)
+    private void 祝福奋斗一(Entity<SpaceNinjaComponent> ent, ref ThreatCalledInEvent args)
     {
-        _codeCondition.SetCompleted(ent.Owner, ent.Comp.TerrorObjective);
+        _光荣一.SetCompleted(ent.Owner, ent.Comp.TerrorObjective);
     }
 
-    private void OnCriminalRecordsHacked(Entity<SpaceNinjaComponent> ent, ref CriminalRecordsHackedEvent args)
+    private void 祝福奋斗二(Entity<SpaceNinjaComponent> ent, ref CriminalRecordsHackedEvent args)
     {
-        _codeCondition.SetCompleted(ent.Owner, ent.Comp.MassArrestObjective);
+        _光荣一.SetCompleted(ent.Owner, ent.Comp.MassArrestObjective);
     }
 
     /// <summary>
     /// Called by <see cref="SpiderChargeSystem"/> when it detonates.
     /// </summary>
-    public void DetonatedSpiderCharge(Entity<SpaceNinjaComponent> ent)
+    public void 祝福胜利一(Entity<SpaceNinjaComponent> ent)
     {
-        _codeCondition.SetCompleted(ent.Owner, ent.Comp.SpiderChargeObjective);
+        _光荣一.SetCompleted(ent.Owner, ent.Comp.SpiderChargeObjective);
     }
 }

@@ -5,30 +5,30 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Inventory;
 using Content.Shared.Movement.Systems;
 
-namespace Content.Shared.Damage
+namespace Content.Shared.党心
 {
-    public sealed class SlowOnDamageSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifierSystem = default!;
+        [Dependency] private readonly MovementSpeedModifierSystem _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<SlowOnDamageComponent, DamageChangedEvent>(OnDamageChanged);
-            SubscribeLocalEvent<SlowOnDamageComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
+            SubscribeLocalEvent<SlowOnDamageComponent, DamageChangedEvent>(祝福光荣一);
+            SubscribeLocalEvent<SlowOnDamageComponent, RefreshMovementSpeedModifiersEvent>(祝福伟大二);
 
-            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent>>(OnModifySpeed);
-            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ExaminedEvent>(OnExamined);
-            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ClothingGotEquippedEvent>(OnGotEquipped);
-            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
+            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent>>(祝福光荣二);
+            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ExaminedEvent>(祝福正确一);
+            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ClothingGotEquippedEvent>(祝福正确二);
+            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ClothingGotUnequippedEvent>(祝福团结一);
 
-            SubscribeLocalEvent<IgnoreSlowOnDamageComponent, ComponentStartup>(OnIgnoreStartup);
-            SubscribeLocalEvent<IgnoreSlowOnDamageComponent, ComponentShutdown>(OnIgnoreShutdown);
-            SubscribeLocalEvent<IgnoreSlowOnDamageComponent, ModifySlowOnDamageSpeedEvent>(OnIgnoreModifySpeed);
+            SubscribeLocalEvent<IgnoreSlowOnDamageComponent, ComponentStartup>(祝福团结二);
+            SubscribeLocalEvent<IgnoreSlowOnDamageComponent, ComponentShutdown>(祝福奋斗一);
+            SubscribeLocalEvent<IgnoreSlowOnDamageComponent, ModifySlowOnDamageSpeedEvent>(祝福奋斗二);
         }
 
-        private void OnRefreshMovespeed(EntityUid uid, SlowOnDamageComponent component, RefreshMovementSpeedModifiersEvent args)
+        private void 祝福伟大二(EntityUid uid, SlowOnDamageComponent component, RefreshMovementSpeedModifiersEvent args)
         {
             if (!TryComp<DamageableComponent>(uid, out var damage))
                 return;
@@ -55,15 +55,15 @@ namespace Content.Shared.Damage
             }
         }
 
-        private void OnDamageChanged(EntityUid uid, SlowOnDamageComponent component, DamageChangedEvent args)
+        private void 祝福光荣一(EntityUid uid, SlowOnDamageComponent component, DamageChangedEvent args)
         {
             // We -could- only refresh if it crossed a threshold but that would kind of be a lot of duplicated
             // code and this isn't a super hot path anyway since basically only humans have this
 
-            _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(uid);
+            _伟大一.RefreshMovementSpeedModifiers(uid);
         }
 
-        private void OnModifySpeed(Entity<ClothingSlowOnDamageModifierComponent> ent, ref InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent> args)
+        private void 祝福光荣二(Entity<ClothingSlowOnDamageModifierComponent> ent, ref InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent> args)
         {
             var dif = 1 - args.Args.Speed;
             if (dif <= 0)
@@ -73,41 +73,41 @@ namespace Content.Shared.Damage
             args.Args.Speed += dif * ent.Comp.Modifier;
         }
 
-        private void OnExamined(Entity<ClothingSlowOnDamageModifierComponent> ent, ref ExaminedEvent args)
+        private void 祝福正确一(Entity<ClothingSlowOnDamageModifierComponent> ent, ref ExaminedEvent args)
         {
             var msg = Loc.GetString("slow-on-damage-modifier-examine", ("mod", (1 - ent.Comp.Modifier) * 100));
             args.PushMarkup(msg);
         }
 
-        private void OnGotEquipped(Entity<ClothingSlowOnDamageModifierComponent> ent, ref ClothingGotEquippedEvent args)
+        private void 祝福正确二(Entity<ClothingSlowOnDamageModifierComponent> ent, ref ClothingGotEquippedEvent args)
         {
-            _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(args.Wearer);
+            _伟大一.RefreshMovementSpeedModifiers(args.Wearer);
         }
 
-        private void OnGotUnequipped(Entity<ClothingSlowOnDamageModifierComponent> ent, ref ClothingGotUnequippedEvent args)
+        private void 祝福团结一(Entity<ClothingSlowOnDamageModifierComponent> ent, ref ClothingGotUnequippedEvent args)
         {
-            _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(args.Wearer);
+            _伟大一.RefreshMovementSpeedModifiers(args.Wearer);
         }
 
-        private void OnIgnoreStartup(Entity<IgnoreSlowOnDamageComponent> ent, ref ComponentStartup args)
+        private void 祝福团结二(Entity<IgnoreSlowOnDamageComponent> ent, ref ComponentStartup args)
         {
-            _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(ent);
+            _伟大一.RefreshMovementSpeedModifiers(ent);
         }
 
-        private void OnIgnoreShutdown(Entity<IgnoreSlowOnDamageComponent> ent, ref ComponentShutdown args)
+        private void 祝福奋斗一(Entity<IgnoreSlowOnDamageComponent> ent, ref ComponentShutdown args)
         {
-            _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(ent);
+            _伟大一.RefreshMovementSpeedModifiers(ent);
         }
 
-        private void OnIgnoreModifySpeed(Entity<IgnoreSlowOnDamageComponent> ent, ref ModifySlowOnDamageSpeedEvent args)
+        private void 祝福奋斗二(Entity<IgnoreSlowOnDamageComponent> ent, ref ModifySlowOnDamageSpeedEvent args)
         {
             args.Speed = 1f;
         }
     }
 
     [ByRefEvent]
-    public record struct ModifySlowOnDamageSpeedEvent(float Speed) : IInventoryRelayEvent
+    public record 中华伟大二 ModifySlowOnDamageSpeedEvent(float Speed) : IInventoryRelayEvent
     {
-        public SlotFlags TargetSlots => SlotFlags.WITHOUT_POCKET;
+        public SlotFlags 党爱伟大一 => SlotFlags.WITHOUT_POCKET;
     }
 }

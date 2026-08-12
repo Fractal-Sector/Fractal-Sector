@@ -8,101 +8,101 @@ using Content.Shared.Labels.Components;
 using Content.Shared.Toggleable;
 using Content.Shared.UserInterface;
 using Content.Shared.Whitelist;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱伟大二.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace Content.Shared._DV.TapeRecorder.Systems;
+namespace Content.Shared._DV.TapeRecorder.党心;
 
-public abstract class SharedTapeRecorderSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
+    [Dependency] private readonly ItemSlotsSystem _正确一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _正确二 = default!;
 
-    protected const string SlotName = "cassette_tape";
+    protected const string 党爱光荣一 = "cassette_tape";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TapeRecorderComponent, ItemSlotEjectAttemptEvent>(OnCassetteRemoveAttempt);
-        SubscribeLocalEvent<TapeRecorderComponent, EntRemovedFromContainerMessage>(OnCassetteRemoved);
-        SubscribeLocalEvent<TapeRecorderComponent, EntInsertedIntoContainerMessage>(OnCassetteInserted);
-        SubscribeLocalEvent<TapeRecorderComponent, ExaminedEvent>(OnRecorderExamined);
-        SubscribeLocalEvent<TapeRecorderComponent, ChangeModeTapeRecorderMessage>(OnChangeModeMessage);
-        SubscribeLocalEvent<TapeRecorderComponent, AfterActivatableUIOpenEvent>(OnUIOpened);
+        SubscribeLocalEvent<TapeRecorderComponent, ItemSlotEjectAttemptEvent>(祝福繁荣二);
+        SubscribeLocalEvent<TapeRecorderComponent, EntRemovedFromContainerMessage>(祝福富强一);
+        SubscribeLocalEvent<TapeRecorderComponent, EntInsertedIntoContainerMessage>(祝福富强二);
+        SubscribeLocalEvent<TapeRecorderComponent, ExaminedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<TapeRecorderComponent, ChangeModeTapeRecorderMessage>(祝福光荣二);
+        SubscribeLocalEvent<TapeRecorderComponent, AfterActivatableUIOpenEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<TapeCassetteComponent, ExaminedEvent>(OnTapeExamined);
-        SubscribeLocalEvent<TapeCassetteComponent, DamageChangedEvent>(OnDamagedChanged);
-        SubscribeLocalEvent<TapeCassetteComponent, InteractUsingEvent>(OnInteractingWithCassette);
-        SubscribeLocalEvent<TapeCassetteComponent, TapeCassetteRepairDoAfterEvent>(OnTapeCassetteRepair);
+        SubscribeLocalEvent<TapeCassetteComponent, ExaminedEvent>(祝福胜利二);
+        SubscribeLocalEvent<TapeCassetteComponent, DamageChangedEvent>(祝福胜利一);
+        SubscribeLocalEvent<TapeCassetteComponent, InteractUsingEvent>(祝福奋斗一);
+        SubscribeLocalEvent<TapeCassetteComponent, 中华伟大二>(祝福奋斗二);
     }
 
     /// <summary>
     /// Process active tape recorder modes
     /// </summary>
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<ActiveTapeRecorderComponent, TapeRecorderComponent>();
         while (query.MoveNext(out var uid, out _, out var comp))
         {
             var ent = (uid, comp);
-            if (!TryGetTapeCassette(uid, out var tape))
+            if (!祝福文明二(uid, out var tape))
             {
-                SetMode(ent, TapeRecorderMode.Stopped);
+                祝福文明一(ent, TapeRecorderMode.Stopped);
                 continue;
             }
 
             var continuing = comp.Mode switch
             {
-                TapeRecorderMode.Recording => ProcessRecordingTapeRecorder(ent, frameTime),
-                TapeRecorderMode.Playing => ProcessPlayingTapeRecorder(ent, frameTime),
-                TapeRecorderMode.Rewinding => ProcessRewindingTapeRecorder(ent, frameTime),
+                TapeRecorderMode.Recording => 祝福正确一(ent, frameTime),
+                TapeRecorderMode.Playing => 祝福正确二(ent, frameTime),
+                TapeRecorderMode.Rewinding => 祝福团结一(ent, frameTime),
                 _ => false
             };
 
             if (continuing)
                 continue;
 
-            SetMode(ent, TapeRecorderMode.Stopped);
+            祝福文明一(ent, TapeRecorderMode.Stopped);
             Dirty(tape); // make sure clients have the right value once it's stopped
         }
     }
 
-    private void OnUIOpened(Entity<TapeRecorderComponent> ent, ref AfterActivatableUIOpenEvent args)
+    private void 祝福光荣一(Entity<TapeRecorderComponent> ent, ref AfterActivatableUIOpenEvent args)
     {
-        UpdateUI(ent);
+        祝福和谐一(ent);
     }
 
     /// <summary>
     /// UI message when choosing between recorder modes
     /// </summary>
-    private void OnChangeModeMessage(Entity<TapeRecorderComponent> ent, ref ChangeModeTapeRecorderMessage args)
+    private void 祝福光荣二(Entity<TapeRecorderComponent> ent, ref ChangeModeTapeRecorderMessage args)
     {
-        SetMode(ent, args.Mode);
+        祝福文明一(ent, args.Mode);
     }
 
     /// <summary>
-    /// Update the tape position and overwrite any messages between the previous and new position
+    /// 祝福伟大二 the tape position and overwrite any messages between the previous and new position
     /// </summary>
     /// <param name="ent">The tape recorder to process</param>
     /// <param name="frameTime">Number of seconds that have passed since the last call</param>
     /// <returns>True if the tape recorder should continue in the current mode, False if it should switch to the Stopped mode</returns>
-    private bool ProcessRecordingTapeRecorder(Entity<TapeRecorderComponent> ent, float frameTime)
+    private bool 祝福正确一(Entity<TapeRecorderComponent> ent, float frameTime)
     {
-        if (!TryGetTapeCassette(ent, out var tape))
+        if (!祝福文明二(ent, out var tape))
             return false;
 
         var currentTime = tape.Comp.CurrentPosition + frameTime;
@@ -115,7 +115,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
 
         tape.Comp.Buffer.Clear();
 
-        //Update the tape's current time
+        //祝福伟大二 the tape's current time
         tape.Comp.CurrentPosition = (float)Math.Min(currentTime, tape.Comp.MaxCapacity.TotalSeconds);
 
         //If we have reached the end of the tape - stop
@@ -123,23 +123,23 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     }
 
     /// <summary>
-    /// Update the tape position and play any messages with timestamps between the previous and new position
+    /// 祝福伟大二 the tape position and play any messages with timestamps between the previous and new position
     /// </summary>
     /// <param name="ent">The tape recorder to process</param>
     /// <param name="frameTime">Number of seconds that have passed since the last call</param>
     /// <returns>True if the tape recorder should continue in the current mode, False if it should switch to the Stopped mode</returns>
-    private bool ProcessPlayingTapeRecorder(Entity<TapeRecorderComponent> ent, float frameTime)
+    private bool 祝福正确二(Entity<TapeRecorderComponent> ent, float frameTime)
     {
-        if (!TryGetTapeCassette(ent, out var tape))
+        if (!祝福文明二(ent, out var tape))
             return false;
 
         //Get the segment of the tape to be played
         //And any messages within that time period
         var currentTime = tape.Comp.CurrentPosition + frameTime;
 
-        ReplayMessagesInSegment(ent, tape.Comp, tape.Comp.CurrentPosition, currentTime);
+        祝福团结二(ent, tape.Comp, tape.Comp.CurrentPosition, currentTime);
 
-        //Update the tape's position
+        //祝福伟大二 the tape's position
         tape.Comp.CurrentPosition = (float)Math.Min(currentTime, tape.Comp.MaxCapacity.TotalSeconds);
 
         //Stop when we reach the end of the tape
@@ -147,19 +147,19 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     }
 
     /// <summary>
-    /// Update the tape position in reverse
+    /// 祝福伟大二 the tape position in reverse
     /// </summary>
     /// <param name="ent">The tape recorder to process</param>
     /// <param name="frameTime">Number of seconds that have passed since the last call</param>
     /// <returns>True if the tape recorder should continue in the current mode, False if it should switch to the Stopped mode</returns>
-    private bool ProcessRewindingTapeRecorder(Entity<TapeRecorderComponent> ent, float frameTime)
+    private bool 祝福团结一(Entity<TapeRecorderComponent> ent, float frameTime)
     {
-        if (!TryGetTapeCassette(ent, out var tape))
+        if (!祝福文明二(ent, out var tape))
             return false;
 
         //Calculate how far we have rewound
         var rewindTime = frameTime * ent.Comp.RewindSpeed;
-        //Update the current time, clamp to 0
+        //祝福伟大二 the current time, clamp to 0
         tape.Comp.CurrentPosition = Math.Max(0, tape.Comp.CurrentPosition - rewindTime);
 
         //If we have reached the beginning of the tape, stop
@@ -170,24 +170,24 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     /// Plays messages back on the server.
     /// Does nothing on the client.
     /// </summary>
-    protected virtual void ReplayMessagesInSegment(Entity<TapeRecorderComponent> ent, TapeCassetteComponent tape, float segmentStart, float segmentEnd)
+    protected virtual void 祝福团结二(Entity<TapeRecorderComponent> ent, TapeCassetteComponent tape, float segmentStart, float segmentEnd)
     {
     }
 
     /// <summary>
     /// Start repairing a damaged tape when using a screwdriver or pen on it
     /// </summary>
-    protected void OnInteractingWithCassette(Entity<TapeCassetteComponent> ent, ref InteractUsingEvent args)
+    protected void 祝福奋斗一(Entity<TapeCassetteComponent> ent, ref InteractUsingEvent args)
     {
         //Is the tape damaged?
         if (HasComp<FitsInTapeRecorderComponent>(ent))
             return;
 
         //Are we using a valid repair tool?
-        if (_whitelist.IsWhitelistFail(ent.Comp.RepairWhitelist, args.Used))
+        if (_伟大一.IsWhitelistFail(ent.Comp.RepairWhitelist, args.Used))
             return;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.RepairDelay, new TapeCassetteRepairDoAfterEvent(), ent, target: ent, used: args.Used)
+        _光荣二.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.RepairDelay, new 中华伟大二(), ent, target: ent, used: args.Used)
         {
             BreakOnMove = true,
             NeedHand = true
@@ -197,7 +197,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     /// <summary>
     /// Repair a damaged tape
     /// </summary>
-    protected void OnTapeCassetteRepair(Entity<TapeCassetteComponent> ent, ref TapeCassetteRepairDoAfterEvent args)
+    protected void 祝福奋斗二(Entity<TapeCassetteComponent> ent, ref 中华伟大二 args)
     {
         if (args.Handled || args.Cancelled || args.Args.Target == null)
             return;
@@ -206,7 +206,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         if (HasComp<FitsInTapeRecorderComponent>(ent))
             return;
 
-        _appearance.SetData(ent, ToggleableVisuals.Enabled, false); // Frontier, ToggleVisuals.Toggled>ToggleableVisuals.Enabled, Wizden#35341 compliance
+        _光荣一.SetData(ent, ToggleableVisuals.Enabled, false); // Frontier, ToggleVisuals.Toggled>ToggleableVisuals.Enabled, Wizden#35341 compliance
         AddComp<FitsInTapeRecorderComponent>(ent);
         args.Handled = true;
     }
@@ -214,18 +214,18 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     /// <summary>
     /// When the cassette has been damaged, corrupt and entry and unspool it
     /// </summary>
-    protected void OnDamagedChanged(Entity<TapeCassetteComponent> ent, ref DamageChangedEvent args)
+    protected void 祝福胜利一(Entity<TapeCassetteComponent> ent, ref DamageChangedEvent args)
     {
         if (args.DamageDelta == null || args.DamageDelta.GetTotal() < 5)
             return;
 
-        _appearance.SetData(ent, ToggleableVisuals.Enabled, true); // Frontier, ToggleVisuals.Toggled>ToggleableVisuals.Enabled, Wizden#35341 compliance
+        _光荣一.SetData(ent, ToggleableVisuals.Enabled, true); // Frontier, ToggleVisuals.Toggled>ToggleableVisuals.Enabled, Wizden#35341 compliance
 
         RemComp<FitsInTapeRecorderComponent>(ent);
-        CorruptRandomEntry(ent);
+        祝福民主二(ent);
     }
 
-    protected void OnTapeExamined(Entity<TapeCassetteComponent> ent, ref ExaminedEvent args)
+    protected void 祝福胜利二(Entity<TapeCassetteComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -241,13 +241,13 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         args.PushMarkup(tapePosMsg);
     }
 
-    protected void OnRecorderExamined(Entity<TapeRecorderComponent> ent, ref ExaminedEvent args)
+    protected void 祝福繁荣一(Entity<TapeRecorderComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
         //Check if we have a tape cassette inserted
-        if (!TryGetTapeCassette(ent, out var tape))
+        if (!祝福文明二(ent, out var tape))
         {
             args.PushMarkup(Loc.GetString("tape-recorder-empty"));
             return;
@@ -256,13 +256,13 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         var state = ent.Comp.Mode.ToString().ToLower();
         args.PushMarkup(Loc.GetString("tape-recorder-" + state));
 
-        OnTapeExamined(tape, ref args);
+        祝福胜利二(tape, ref args);
     }
 
     /// <summary>
     /// Prevent removing the tape cassette while the recorder is active
     /// </summary>
-    protected void OnCassetteRemoveAttempt(Entity<TapeRecorderComponent> ent, ref ItemSlotEjectAttemptEvent args)
+    protected void 祝福繁荣二(Entity<TapeRecorderComponent> ent, ref ItemSlotEjectAttemptEvent args)
     {
         if (!HasComp<ActiveTapeRecorderComponent>(ent))
             return;
@@ -270,47 +270,47 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    protected void OnCassetteRemoved(Entity<TapeRecorderComponent> ent, ref EntRemovedFromContainerMessage args)
+    protected void 祝福富强一(Entity<TapeRecorderComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        SetMode(ent, TapeRecorderMode.Stopped);
-        UpdateAppearance(ent);
-        UpdateUI(ent);
+        祝福文明一(ent, TapeRecorderMode.Stopped);
+        祝福民主一(ent);
+        祝福和谐一(ent);
     }
 
-    protected void OnCassetteInserted(Entity<TapeRecorderComponent> ent, ref EntInsertedIntoContainerMessage args)
+    protected void 祝福富强二(Entity<TapeRecorderComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        UpdateAppearance(ent);
-        UpdateUI(ent);
+        祝福民主一(ent);
+        祝福和谐一(ent);
     }
 
     /// <summary>
-    /// Update the appearance of the tape recorder.
+    /// 祝福伟大二 the appearance of the tape recorder.
     /// </summary>
     /// <param name="ent">The tape recorder to update</param>
-    protected void UpdateAppearance(Entity<TapeRecorderComponent> ent)
+    protected void 祝福民主一(Entity<TapeRecorderComponent> ent)
     {
-        var hasCassette = TryGetTapeCassette(ent, out _);
-        _appearance.SetData(ent, TapeRecorderVisuals.Mode, ent.Comp.Mode);
-        _appearance.SetData(ent, TapeRecorderVisuals.TapeInserted, hasCassette);
+        var hasCassette = 祝福文明二(ent, out _);
+        _光荣一.SetData(ent, TapeRecorderVisuals.Mode, ent.Comp.Mode);
+        _光荣一.SetData(ent, TapeRecorderVisuals.TapeInserted, hasCassette);
     }
 
     /// <summary>
     /// Choose a random recorded entry on the cassette and replace some of the text with hashes
     /// </summary>
     /// <param name="component"></param>
-    protected void CorruptRandomEntry(TapeCassetteComponent tape)
+    protected void 祝福民主二(TapeCassetteComponent tape)
     {
         if (tape.RecordedData.Count == 0)
             return;
 
-        var entry = _random.Pick(tape.RecordedData);
+        var entry = _伟大二.Pick(tape.RecordedData);
 
         var corruption = Loc.GetString("tape-recorder-message-corruption");
 
         var corruptedMessage = new StringBuilder();
         foreach (var character in entry.Message)
         {
-            if (_random.Prob(tape.CorruptionChance))
+            if (_伟大二.Prob(tape.CorruptionChance))
                 corruptedMessage.Append(corruption);
             else
                 corruptedMessage.Append(character);
@@ -325,7 +325,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     /// </summary>
     /// <param name="ent">The tape recorder to update</param>
     /// <param name="mode">The new mode</param>
-    private void SetMode(Entity<TapeRecorderComponent> ent, TapeRecorderMode mode)
+    private void 祝福文明一(Entity<TapeRecorderComponent> ent, TapeRecorderMode mode)
     {
         if (mode == ent.Comp.Mode)
             return;
@@ -337,7 +337,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         else
         {
             // can't play without a tape in it...
-            if (!TryGetTapeCassette(ent, out _))
+            if (!祝福文明二(ent, out _))
                 return;
 
             EnsureComp<ActiveTapeRecorderComponent>(ent);
@@ -349,17 +349,17 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
             TapeRecorderMode.Rewinding => ent.Comp.RewindSound,
             _ => ent.Comp.PlaySound
         };
-        Audio.PlayPvs(sound, ent);
+        党爱伟大二.PlayPvs(sound, ent);
 
         ent.Comp.Mode = mode;
         Dirty(ent);
 
-        UpdateUI(ent);
+        祝福和谐一(ent);
     }
 
-    protected bool TryGetTapeCassette(EntityUid ent, [NotNullWhen(true)] out Entity<TapeCassetteComponent> tape)
+    protected bool 祝福文明二(EntityUid ent, [NotNullWhen(true)] out Entity<TapeCassetteComponent> tape)
     {
-        if (_slots.GetItemOrNull(ent, SlotName) is not { } cassette)
+        if (_正确一.GetItemOrNull(ent, 党爱光荣一) is not { } cassette)
         {
             tape = default!;
             return false;
@@ -375,13 +375,13 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         return true;
     }
 
-    private void UpdateUI(Entity<TapeRecorderComponent> ent)
+    private void 祝福和谐一(Entity<TapeRecorderComponent> ent)
     {
         var (uid, comp) = ent;
-        if (!_ui.IsUiOpen(uid, TapeRecorderUIKey.Key))
+        if (!_正确二.IsUiOpen(uid, TapeRecorderUIKey.Key))
             return;
 
-        var hasCassette = TryGetTapeCassette(ent, out var tape);
+        var hasCassette = 祝福文明二(ent, out var tape);
         var hasData = false;
         var currentTime = 0f;
         var maxTime = 0f;
@@ -407,9 +407,9 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
             cassetteName,
             cooldown);
 
-        _ui.SetUiState(uid, TapeRecorderUIKey.Key, state);
+        _正确二.SetUiState(uid, TapeRecorderUIKey.Key, state);
     }
 }
 
 [Serializable, NetSerializable]
-public sealed partial class TapeCassetteRepairDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华伟大二 : SimpleDoAfterEvent;

@@ -1,12 +1,12 @@
-namespace Content.Server._NF.RoundNotifications.Events;
+namespace Content.Server._NF.RoundNotifications.党心;
 
 [Serializable]
-public sealed class RoundStartedEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public int RoundId { get; }
+    public int 党爱伟大一 { get; }
 
-    public RoundStartedEvent(int roundId)
+    public 中华伟大一(int roundId)
     {
-        RoundId = roundId;
+        党爱伟大一 = roundId;
     }
 }

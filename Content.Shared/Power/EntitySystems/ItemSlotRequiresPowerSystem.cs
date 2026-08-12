@@ -1,21 +1,21 @@
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Power.Components;
 
-namespace Content.Shared.Power.EntitySystems;
+namespace Content.Shared.Power.党心;
 
-public sealed class ItemSlotRequiresPowerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ItemSlotRequiresPowerComponent, ItemSlotInsertAttemptEvent>(OnInsertAttempt);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ItemSlotRequiresPowerComponent, ItemSlotInsertAttemptEvent>(祝福伟大二);
     }
 
-    private void OnInsertAttempt(Entity<ItemSlotRequiresPowerComponent> ent, ref ItemSlotInsertAttemptEvent args)
+    private void 祝福伟大二(Entity<ItemSlotRequiresPowerComponent> ent, ref ItemSlotInsertAttemptEvent args)
     {
-        if (!_receiver.IsPowered(ent.Owner))
+        if (!_伟大一.IsPowered(ent.Owner))
         {
             args.Cancelled = true;
         }

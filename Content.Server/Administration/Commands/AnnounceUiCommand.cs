@@ -3,16 +3,16 @@ using Content.Server.EUI;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Moderator)]
-    public sealed class AnnounceUiCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly EuiManager _euiManager = default!;
+        [Dependency] private readonly EuiManager _伟大一 = default!;
 
-        public override string Command => "announceui";
+        public override string 党爱伟大一 => "announceui";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (player == null)
@@ -22,7 +22,7 @@ namespace Content.Server.Administration.Commands
             }
 
             var ui = new AdminAnnounceEui();
-            _euiManager.OpenEui(ui, player);
+            _伟大一.OpenEui(ui, player);
         }
     }
 }

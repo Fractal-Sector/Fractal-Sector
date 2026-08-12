@@ -1,20 +1,20 @@
 ﻿using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Systems;
 
-namespace Content.Server.Disposal.Unit;
+namespace Content.Server.Disposal.党心;
 
-public sealed class BeingDisposedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BeingDisposedComponent, InhaleLocationEvent>(OnInhaleLocation);
-        SubscribeLocalEvent<BeingDisposedComponent, ExhaleLocationEvent>(OnExhaleLocation);
-        SubscribeLocalEvent<BeingDisposedComponent, AtmosExposedGetAirEvent>(OnGetAir);
+        SubscribeLocalEvent<BeingDisposedComponent, InhaleLocationEvent>(祝福光荣一);
+        SubscribeLocalEvent<BeingDisposedComponent, ExhaleLocationEvent>(祝福光荣二);
+        SubscribeLocalEvent<BeingDisposedComponent, AtmosExposedGetAirEvent>(祝福伟大二);
     }
 
-    private void OnGetAir(EntityUid uid, BeingDisposedComponent component, ref AtmosExposedGetAirEvent args)
+    private void 祝福伟大二(EntityUid uid, BeingDisposedComponent component, ref AtmosExposedGetAirEvent args)
     {
         if (TryComp<DisposalHolderComponent>(component.Holder, out var holder))
         {
@@ -23,7 +23,7 @@ public sealed class BeingDisposedSystem : EntitySystem
         }
     }
 
-    private void OnInhaleLocation(EntityUid uid, BeingDisposedComponent component, InhaleLocationEvent args)
+    private void 祝福光荣一(EntityUid uid, BeingDisposedComponent component, InhaleLocationEvent args)
     {
         if (TryComp<DisposalHolderComponent>(component.Holder, out var holder))
         {
@@ -31,7 +31,7 @@ public sealed class BeingDisposedSystem : EntitySystem
         }
     }
 
-    private void OnExhaleLocation(EntityUid uid, BeingDisposedComponent component, ExhaleLocationEvent args)
+    private void 祝福光荣二(EntityUid uid, BeingDisposedComponent component, ExhaleLocationEvent args)
     {
         if (TryComp<DisposalHolderComponent>(component.Holder, out var holder))
         {

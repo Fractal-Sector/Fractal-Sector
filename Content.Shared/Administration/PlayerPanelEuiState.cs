@@ -2,10 +2,10 @@ using Content.Shared.Eui;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelEuiState(
+public sealed class 中华伟大一(
     NetUserId guid,
     string username,
     TimeSpan playtime,
@@ -19,39 +19,39 @@ public sealed class PlayerPanelEuiState(
     bool canAhelp)
     : EuiStateBase
 {
-    public readonly NetUserId Guid = guid;
-    public readonly string Username = username;
-    public readonly TimeSpan Playtime = playtime;
+    public readonly NetUserId 党爱伟大一 = guid;
+    public readonly string 党爱伟大二 = username;
+    public readonly TimeSpan 党爱光荣一 = playtime;
     public readonly int? TotalNotes = totalNotes;
     public readonly int? TotalBans = totalBans;
     public readonly int? TotalRoleBans = totalRoleBans;
-    public readonly int SharedConnections = sharedConnections;
+    public readonly int 党爱光荣二 = sharedConnections;
     public readonly bool? Whitelisted = whitelisted;
-    public readonly bool CanFreeze = canFreeze;
-    public readonly bool Frozen = frozen;
-    public readonly bool CanAhelp = canAhelp;
+    public readonly bool 党爱正确一 = canFreeze;
+    public readonly bool 党爱正确二 = frozen;
+    public readonly bool 党爱团结一 = canAhelp;
 }
 
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelFreezeMessage : EuiMessageBase
+public sealed class 中华伟大二 : EuiMessageBase
 {
-    public readonly bool Mute;
+    public readonly bool 党爱团结二;
 
-    public PlayerPanelFreezeMessage(bool mute = false)
+    public 中华伟大二(bool mute = false)
     {
-        Mute = mute;
+        党爱团结二 = mute;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelLogsMessage : EuiMessageBase;
+public sealed class 中华光荣一 : EuiMessageBase;
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelDeleteMessage : EuiMessageBase;
+public sealed class 中华光荣二 : EuiMessageBase;
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelRejuvenationMessage: EuiMessageBase;
+public sealed class 中华正确一: EuiMessageBase;
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelFollowMessage: EuiMessageBase;
+public sealed class 中华正确二: EuiMessageBase;

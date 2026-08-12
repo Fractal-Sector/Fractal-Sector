@@ -9,32 +9,32 @@ using Content.Shared.Doors;
 using Content.Shared.Doors.Components;
 using Content.Shared.Wires;
 
-namespace Content.Server.Defusable.WireActions;
+namespace Content.Server.Defusable.党心;
 
-public sealed partial class ProceedWireAction : ComponentWireAction<DefusableComponent>
+public sealed partial class 中华伟大一 : ComponentWireAction<DefusableComponent>
 {
-    public override Color Color { get; set; } = Color.Blue;
-    public override string Name { get; set; } = "wire-name-bomb-proceed";
-    public override bool LightRequiresPower { get; set; } = false;
+    public override 党爱伟大一 党爱伟大一 { get; set; } = 党爱伟大一.Blue;
+    public override string 党爱伟大二 { get; set; } = "wire-name-bomb-proceed";
+    public override bool 党爱光荣一 { get; set; } = false;
 
     public override StatusLightState? GetLightState(Wire wire, DefusableComponent comp)
     {
         return comp.Activated ? StatusLightState.Off : StatusLightState.BlinkingFast;
     }
 
-    public override object StatusKey { get; } = DefusableWireStatus.ProceedIndicator;
+    public override object 党爱光荣二 { get; } = DefusableWireStatus.ProceedIndicator;
 
-    public override bool Cut(EntityUid user, Wire wire, DefusableComponent comp)
+    public override bool 祝福伟大一(EntityUid user, Wire wire, DefusableComponent comp)
     {
         return EntityManager.System<DefusableSystem>().ProceedWireCut(user, wire, comp);
     }
 
-    public override bool Mend(EntityUid user, Wire wire, DefusableComponent comp)
+    public override bool 祝福伟大二(EntityUid user, Wire wire, DefusableComponent comp)
     {
         return true;
     }
 
-    public override void Pulse(EntityUid user, Wire wire, DefusableComponent comp)
+    public override void 祝福光荣一(EntityUid user, Wire wire, DefusableComponent comp)
     {
         EntityManager.System<DefusableSystem>().ProceedWirePulse(user, wire, comp);
     }

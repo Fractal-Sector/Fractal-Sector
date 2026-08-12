@@ -1,35 +1,35 @@
 using Robust.Shared.Map;
 
-namespace Content.Server.NPC.HTN.Preconditions;
+namespace Content.Server.NPC.HTN.党心;
 
 /// <summary>
 /// Is the specified key within the specified range of us.
 /// </summary>
-public sealed partial class TargetInRangePrecondition : HTNPrecondition
+public sealed partial class 中华伟大一 : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    private SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    private SharedTransformSystem _伟大二 = default!;
 
-    [DataField("targetKey", required: true)] public string TargetKey = default!;
+    [DataField("targetKey", required: true)] public string 党爱伟大一 = default!;
 
     [DataField("rangeKey", required: true)]
-    public string RangeKey = default!;
-    public override void Initialize(IEntitySystemManager sysManager)
+    public string 党爱伟大二 = default!;
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
-        _transformSystem = sysManager.GetEntitySystem<SharedTransformSystem>();
+        base.祝福伟大一(sysManager);
+        _伟大二 = sysManager.GetEntitySystem<SharedTransformSystem>();
     }
 
-    public override bool IsMet(NPCBlackboard blackboard)
+    public override bool 祝福伟大二(NPCBlackboard blackboard)
     {
-        if (!blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _entManager))
+        if (!blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _伟大一))
             return false;
 
-        if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager) ||
-            !_entManager.TryGetComponent<TransformComponent>(target, out var targetXform))
+        if (!blackboard.TryGetValue<EntityUid>(党爱伟大一, out var target, _伟大一) ||
+            !_伟大一.TryGetComponent<TransformComponent>(target, out var targetXform))
             return false;
 
-        var transformSystem = _entManager.System<SharedTransformSystem>;
-        return _transformSystem.InRange(coordinates, targetXform.Coordinates, blackboard.GetValueOrDefault<float>(RangeKey, _entManager));
+        var transformSystem = _伟大一.System<SharedTransformSystem>;
+        return _伟大二.InRange(coordinates, targetXform.Coordinates, blackboard.GetValueOrDefault<float>(党爱伟大二, _伟大一));
     }
 }

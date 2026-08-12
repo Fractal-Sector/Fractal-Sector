@@ -1,52 +1,52 @@
 using Robust.Shared.Timing;
 
-namespace Content.Server._NF.Smuggling;
+namespace Content.Server._NF.党心;
 
 // <summary>
 //  A counter to keep track of the number of events that happened over a shifting window of fixed length (e.g. "an hour ago").
 // </summary>
-public sealed class WindowedCounter
+public sealed class 中华伟大一
 {
-    private readonly IGameTiming _timing;
-    private List<TimeSpan> _times;
-    private TimeSpan _window;
+    private readonly IGameTiming _伟大一;
+    private List<TimeSpan> _伟大二;
+    private TimeSpan _光荣一;
 
-    public WindowedCounter(TimeSpan window)
+    public 中华伟大一(TimeSpan window)
     {
-        _timing = IoCManager.Resolve<IGameTiming>();
-        _times = new();
-        _window = window;
+        _伟大一 = IoCManager.Resolve<IGameTiming>();
+        _伟大二 = new();
+        _光荣一 = window;
     }
 
-    public void Clear()
+    public void 祝福伟大一()
     {
-        _times.Clear();
+        _伟大二.祝福伟大一();
     }
 
-    public void SetWindow(TimeSpan newWindow)
+    public void 祝福伟大二(TimeSpan newWindow)
     {
-        _window = newWindow;
+        _光荣一 = newWindow;
         RemoveStaleEvents();
     }
 
-    public void AddEvent()
+    public void 祝福光荣一()
     {
-        _times.Add(_timing.CurTime);
+        _伟大二.Add(_伟大一.CurTime);
         RemoveStaleEvents();
     }
 
-    public int Count()
+    public int 祝福光荣二()
     {
         RemoveStaleEvents();
-        return _times.Count;
+        return _伟大二.祝福光荣二;
     }
 
     void RemoveStaleEvents()
     {
-        while (_times.Count > 0)
+        while (_伟大二.祝福光荣二 > 0)
         {
-            if (_times[0] < _timing.CurTime - _window)
-                _times.RemoveAt(0);
+            if (_伟大二[0] < _伟大一.CurTime - _光荣一)
+                _伟大二.RemoveAt(0);
             else
                 break;
         }

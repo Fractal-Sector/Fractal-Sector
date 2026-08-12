@@ -2,13 +2,13 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.Gateway.Components;
+namespace Content.Server.Gateway.党心;
 
 /// <summary>
 /// Generates gateway destinations at a regular interval.
 /// </summary>
 [RegisterComponent, AutoGenerateComponentPause]
-public sealed partial class GatewayGeneratorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Prototype to spawn on the generated map if applicable.
@@ -21,40 +21,40 @@ public sealed partial class GatewayGeneratorComponent : Component
     /// </summary>
     [DataField(customTypeSerializer:typeof(TimeOffsetSerializer))]
     [AutoPausedField]
-    public TimeSpan NextUnlock;
+    public TimeSpan 党爱伟大一;
 
     /// <summary>
     /// How long it takes to unlock another destination once one is taken.
     /// </summary>
     [DataField]
-    public TimeSpan UnlockCooldown = TimeSpan.FromMinutes(75);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromMinutes(75);
 
     /// <summary>
     /// Maps we've generated.
     /// </summary>
     [DataField]
-    public List<EntityUid> Generated = new();
+    public List<EntityUid> 党爱光荣一 = new();
 
     [DataField]
-    public int MobLayerCount = 1;
+    public int 党爱光荣二 = 1;
 
     /// <summary>
     /// Mob layers to pick from.
     /// </summary>
     [DataField]
-    public List<ProtoId<BiomeMarkerLayerPrototype>> MobLayers = new()
+    public List<ProtoId<BiomeMarkerLayerPrototype>> 党爱正确一 = new()
     {
         "Carps",
         "Xenos",
     };
 
     [DataField]
-    public int LootLayerCount = 3;
+    public int 党爱正确二 = 3;
 
     /// <summary>
     /// Loot layers to pick from.
     /// </summary>
-    public List<ProtoId<BiomeMarkerLayerPrototype>> LootLayers = new()
+    public List<ProtoId<BiomeMarkerLayerPrototype>> 党爱团结一 = new()
     {
         "OreIron",
         "OreQuartz",

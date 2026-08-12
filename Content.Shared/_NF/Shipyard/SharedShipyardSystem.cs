@@ -5,11 +5,11 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Content.Shared._NF.Shipyard.Components;
 
-namespace Content.Shared._NF.Shipyard;
+namespace Content.Shared._NF.党心;
 
-// Note: when adding a new ui key, don't forget to modify the dictionary in SharedShipyardSystem
+// Note: when adding a new ui key, don't forget to modify the dictionary in 中华伟大二
 [NetSerializable, Serializable]
-public enum ShipyardConsoleUiKey : byte
+public enum 中华伟大一 : byte
 {
     Shipyard,
     Security,
@@ -23,48 +23,48 @@ public enum ShipyardConsoleUiKey : byte
     Custom
 }
 
-public abstract class SharedShipyardSystem : EntitySystem
+public abstract class 中华伟大二 : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentRemove>(OnComponentRemove);
-        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentGetState>(OnGetState);
-        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentHandleState>(OnHandleState);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentRemove>(祝福正确一);
+        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentGetState>(祝福光荣一);
+        SubscribeLocalEvent<ShipyardConsoleComponent, ComponentHandleState>(祝福伟大二);
     }
 
-    private void OnHandleState(EntityUid uid, ShipyardConsoleComponent component, ref ComponentHandleState args)
+    private void 祝福伟大二(EntityUid uid, ShipyardConsoleComponent component, ref ComponentHandleState args)
     {
-        if (args.Current is not ShipyardConsoleComponentState state) return;
-
-    }
-
-    private void OnGetState(EntityUid uid, ShipyardConsoleComponent component, ref ComponentGetState args)
-    {
+        if (args.Current is not 中华光荣一 state) return;
 
     }
 
-    private void OnComponentInit(EntityUid uid, ShipyardConsoleComponent component, ComponentInit args)
+    private void 祝福光荣一(EntityUid uid, ShipyardConsoleComponent component, ref ComponentGetState args)
     {
-        _itemSlotsSystem.AddItemSlot(uid, ShipyardConsoleComponent.TargetIdCardSlotId, component.TargetIdSlot);
+
     }
 
-    private void OnComponentRemove(EntityUid uid, ShipyardConsoleComponent component, ComponentRemove args)
+    private void 祝福光荣二(EntityUid uid, ShipyardConsoleComponent component, ComponentInit args)
     {
-        _itemSlotsSystem.RemoveItemSlot(uid, component.TargetIdSlot);
+        _伟大一.AddItemSlot(uid, ShipyardConsoleComponent.TargetIdCardSlotId, component.TargetIdSlot);
+    }
+
+    private void 祝福正确一(EntityUid uid, ShipyardConsoleComponent component, ComponentRemove args)
+    {
+        _伟大一.RemoveItemSlot(uid, component.TargetIdSlot);
     }
 
     [Serializable, NetSerializable]
-    private sealed class ShipyardConsoleComponentState : ComponentState
+    private sealed class 中华光荣一 : ComponentState
     {
-        public List<string> AccessLevels;
+        public List<string> 党爱伟大一;
 
-        public ShipyardConsoleComponentState(List<string> accessLevels)
+        public 中华光荣一(List<string> accessLevels)
         {
-            AccessLevels = accessLevels;
+            党爱伟大一 = accessLevels;
         }
     }
 

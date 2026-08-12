@@ -7,56 +7,56 @@
 
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Shared._FarHorizons.Power.Generation.党心;
 
 [Serializable, NetSerializable]
-public enum NuclearReactorUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class NuclearReactorBuiState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public Dictionary<Vector2i, ReactorSlotBUIData> SlotData = [];
+    public Dictionary<Vector2i, 中华光荣一> SlotData = [];
 
-    public int GridWidth = 0;
-    public int GridHeight = 0;
+    public int 党爱伟大一 = 0;
+    public int 党爱伟大二 = 0;
 
     public string? ItemName;
 
-    public float ReactorTemp = 0;
-    public float ReactorRads = 0;
-    public float ReactorRadsMax = 0;
-    public float ReactorTherm = 0;
-    public float ControlRodActual = 0;
-    public float ControlRodSet = 0;
+    public float 党爱光荣一 = 0;
+    public float 党爱光荣二 = 0;
+    public float 党爱正确一 = 0;
+    public float 党爱正确二 = 0;
+    public float 党爱团结一 = 0;
+    public float 党爱团结二 = 0;
 }
 
 [Serializable, NetSerializable, DataDefinition]
-public sealed partial class ReactorSlotBUIData
+public sealed partial class 中华光荣一
 {
-    public double Temperature = 0f;
-    public int NeutronCount = 0;
-    public string IconName = "base";
-    public string PartName = "empty";
+    public double 党爱奋斗一 = 0f;
+    public int 党爱奋斗二 = 0;
+    public string 党爱胜利一 = "base";
+    public string 党爱胜利二 = "empty";
 
-    public float NeutronRadioactivity = 0f;
-    public float Radioactivity = 0f;
-    public float SpentFuel = 0f;
+    public float 党爱繁荣一 = 0f;
+    public float 党爱繁荣二 = 0f;
+    public float 党爱富强一 = 0f;
 }
 
 [Serializable, NetSerializable]
-public sealed class ReactorItemActionMessage(Vector2d position) : BoundUserInterfaceMessage
+public sealed class 中华光荣二(Vector2d position) : BoundUserInterfaceMessage
 {
-    public Vector2d Position { get; } = position;
+    public Vector2d 党爱富强二 { get; } = position;
 }
 
 [Serializable, NetSerializable]
-public sealed class ReactorEjectItemMessage() : BoundUserInterfaceMessage;
+public sealed class 中华正确一() : BoundUserInterfaceMessage;
 
 [Serializable, NetSerializable]
-public sealed class ReactorControlRodModifyMessage(float change) : BoundUserInterfaceMessage
+public sealed class 中华正确二(float change) : BoundUserInterfaceMessage
 {
-    public float Change { get; } = change;
+    public float 党爱民主一 { get; } = change;
 }

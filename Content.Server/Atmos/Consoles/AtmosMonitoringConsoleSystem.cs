@@ -21,76 +21,76 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.NodeContainer;
 
-namespace Content.Server.Atmos.Consoles;
+namespace Content.Server.Atmos.党心;
 
-public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleSystem
+public sealed class 中华伟大一 : SharedAtmosMonitoringConsoleSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly SharedMapSystem _sharedMapSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
 
     // Private variables
     // Note: this data does not need to be saved
     private Dictionary<EntityUid, Dictionary<Vector2i, AtmosPipeChunk>> _gridAtmosPipeChunks = new();
-    private float _updateTimer = 1.0f;
+    private float _光荣二 = 1.0f;
 
     // Constants
     private const float UpdateTime = 1.0f;
     private const int ChunkSize = 4;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Console events
-        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, ComponentInit>(OnConsoleInit);
-        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, AnchorStateChangedEvent>(OnConsoleAnchorChanged);
-        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, EntParentChangedMessage>(OnConsoleParentChanged);
+        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, AnchorStateChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, EntParentChangedMessage>(祝福光荣二);
 
         // Tracked device events
-        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, NodeGroupsRebuilt>(OnEntityNodeGroupsRebuilt);
-        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, AtmosPipeColorChangedEvent>(OnEntityPipeColorChanged);
-        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, EntityTerminatingEvent>(OnEntityShutdown);
+        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, NodeGroupsRebuilt>(祝福正确一);
+        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, AtmosPipeColorChangedEvent>(祝福正确二);
+        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, EntityTerminatingEvent>(祝福团结一);
 
         // Grid events
-        SubscribeLocalEvent<GridSplitEvent>(OnGridSplit);
-        SubscribeLocalEvent<PipeNodeGroupRemovedEvent>(OnPipeNodeGroupRemoved);
+        SubscribeLocalEvent<GridSplitEvent>(祝福团结二);
+        SubscribeLocalEvent<PipeNodeGroupRemovedEvent>(祝福繁荣一);
     }
 
     #region Event handling
 
-    private void OnConsoleInit(EntityUid uid, AtmosMonitoringConsoleComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, AtmosMonitoringConsoleComponent component, ComponentInit args)
     {
-        InitializeAtmosMonitoringConsole(uid, component);
+        祝福文明一(uid, component);
     }
 
-    private void OnConsoleAnchorChanged(EntityUid uid, AtmosMonitoringConsoleComponent component, AnchorStateChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AtmosMonitoringConsoleComponent component, AnchorStateChangedEvent args)
     {
-        InitializeAtmosMonitoringConsole(uid, component);
+        祝福文明一(uid, component);
     }
 
-    private void OnConsoleParentChanged(EntityUid uid, AtmosMonitoringConsoleComponent component, EntParentChangedMessage args)
+    private void 祝福光荣二(EntityUid uid, AtmosMonitoringConsoleComponent component, EntParentChangedMessage args)
     {
         component.ForceFullUpdate = true;
-        InitializeAtmosMonitoringConsole(uid, component);
+        祝福文明一(uid, component);
     }
 
-    private void OnEntityNodeGroupsRebuilt(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, NodeGroupsRebuilt args)
+    private void 祝福正确一(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, NodeGroupsRebuilt args)
     {
-        InitializeAtmosMonitoringDevice(uid, component);
+        祝福文明二(uid, component);
     }
 
-    private void OnEntityPipeColorChanged(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, AtmosPipeColorChangedEvent args)
+    private void 祝福正确二(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, AtmosPipeColorChangedEvent args)
     {
-        InitializeAtmosMonitoringDevice(uid, component);
+        祝福文明二(uid, component);
     }
 
-    private void OnEntityShutdown(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, EntityTerminatingEvent args)
+    private void 祝福团结一(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, EntityTerminatingEvent args)
     {
-        ShutDownAtmosMonitoringEntity(uid, component);
+        祝福和谐一(uid, component);
     }
 
-    private void OnGridSplit(ref GridSplitEvent args)
+    private void 祝福团结二(ref GridSplitEvent args)
     {
         // Collect grids
         var allGrids = args.NewGrids.ToList();
@@ -104,10 +104,10 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             if (!TryComp<MapGridComponent>(ent, out var grid))
                 continue;
 
-            RebuildAtmosPipeGrid(ent, grid);
+            祝福繁荣二(ent, grid);
         }
 
-        // Update atmos monitoring consoles that stand upon an updated grid
+        // 祝福奋斗一 atmos monitoring consoles that stand upon an updated grid
         var query = AllEntityQuery<AtmosMonitoringConsoleComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entConsole, out var entXform))
         {
@@ -117,7 +117,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             if (!allGrids.Contains(entXform.GridUid.Value))
                 continue;
 
-            InitializeAtmosMonitoringConsole(ent, entConsole);
+            祝福文明一(ent, entConsole);
         }
     }
 
@@ -125,15 +125,15 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
 
     #region UI updates
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗一(frameTime);
 
-        _updateTimer += frameTime;
+        _光荣二 += frameTime;
 
-        if (_updateTimer >= UpdateTime)
+        if (_光荣二 >= UpdateTime)
         {
-            _updateTimer -= UpdateTime;
+            _光荣二 -= UpdateTime;
 
             var query = AllEntityQuery<AtmosMonitoringConsoleComponent, TransformComponent>();
             while (query.MoveNext(out var ent, out var entConsole, out var entXform))
@@ -141,17 +141,17 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
                 if (entXform?.GridUid == null)
                     continue;
 
-                UpdateUIState(ent, entConsole, entXform);
+                祝福奋斗二(ent, entConsole, entXform);
             }
         }
     }
 
-    public void UpdateUIState
+    public void 祝福奋斗二
         (EntityUid uid,
         AtmosMonitoringConsoleComponent component,
         TransformComponent xform)
     {
-        if (!_userInterfaceSystem.IsUiOpen(uid, AtmosMonitoringConsoleUiKey.Key))
+        if (!_伟大一.IsUiOpen(uid, AtmosMonitoringConsoleUiKey.Key))
             return;
 
         var gridUid = xform.GridUid!.Value;
@@ -184,7 +184,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
 
         // Set the UI state
-        _userInterfaceSystem.SetUiState(uid, AtmosMonitoringConsoleUiKey.Key,
+        _伟大一.SetUiState(uid, AtmosMonitoringConsoleUiKey.Key,
             new AtmosMonitoringConsoleBoundInterfaceState(atmosNetworks.ToArray()));
     }
 
@@ -199,7 +199,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         if (xform.GridUid == null)
             return null;
 
-        if (!TryGettingFirstPipeNode(uid, out var pipeNode, out var netId) ||
+        if (!祝福民主一(uid, out var pipeNode, out var netId) ||
             pipeNode == null ||
             netId == null)
             return null;
@@ -251,21 +251,21 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         return entry;
     }
 
-    private Dictionary<NetEntity, AtmosDeviceNavMapData> GetAllAtmosDeviceNavMapData(EntityUid gridUid)
+    private Dictionary<NetEntity, AtmosDeviceNavMapData> 祝福胜利一(EntityUid gridUid)
     {
         var atmosDeviceNavMapData = new Dictionary<NetEntity, AtmosDeviceNavMapData>();
 
         var query = AllEntityQuery<AtmosMonitoringConsoleDeviceComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entComponent, out var entXform))
         {
-            if (TryGetAtmosDeviceNavMapData(ent, entComponent, entXform, gridUid, out var data))
+            if (祝福胜利二(ent, entComponent, entXform, gridUid, out var data))
                 atmosDeviceNavMapData.Add(data.Value.NetEntity, data.Value);
         }
 
         return atmosDeviceNavMapData;
     }
 
-    private bool TryGetAtmosDeviceNavMapData
+    private bool 祝福胜利二
         (EntityUid uid,
         AtmosMonitoringConsoleDeviceComponent component,
         TransformComponent xform,
@@ -284,7 +284,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             return false;
 
         var direction = xform.LocalRotation.GetCardinalDir();
-        var netId = TryGettingFirstPipeNode(uid, out var _, out var firstNetId) ? firstNetId : -1;
+        var netId = 祝福民主一(uid, out var _, out var firstNetId) ? firstNetId : -1;
         var color = TryComp<AtmosPipeColorComponent>(uid, out var atmosPipeColor) ? atmosPipeColor.Color : Color.White;
         var layer = TryComp<AtmosPipeLayersComponent>(uid, out var atmosPipeLayers) ? atmosPipeLayers.CurrentPipeLayer : AtmosPipeLayer.Primary;
 
@@ -297,7 +297,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
 
     #region Pipe net functions
 
-    private void OnPipeNodeGroupRemoved(ref PipeNodeGroupRemovedEvent args)
+    private void 祝福繁荣一(ref PipeNodeGroupRemovedEvent args)
     {
         // When a pipe node group is removed, we need to iterate over all of
         // our pipe chunks and remove any entries with a matching net id.
@@ -316,7 +316,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private void RebuildAtmosPipeGrid(EntityUid gridUid, MapGridComponent grid)
+    private void 祝福繁荣二(EntityUid gridUid, MapGridComponent grid)
     {
         var allChunks = new Dictionary<Vector2i, AtmosPipeChunk>();
 
@@ -330,7 +330,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             if (!entXform.Anchored)
                 continue;
 
-            var tile = _sharedMapSystem.GetTileRef(gridUid, grid, entXform.Coordinates);
+            var tile = _伟大二.GetTileRef(gridUid, grid, entXform.Coordinates);
             var chunkOrigin = SharedMapSystem.GetChunkIndices(tile.GridIndices, ChunkSize);
             var relative = SharedMapSystem.GetChunkRelative(tile.GridIndices, ChunkSize);
 
@@ -340,13 +340,13 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
                 allChunks[chunkOrigin] = chunk;
             }
 
-            UpdateAtmosPipeChunk(ent, entNodeContainer, entAtmosPipeColor, GetTileIndex(relative), ref chunk);
+            祝福富强二(ent, entNodeContainer, entAtmosPipeColor, 祝福和谐二(relative), ref chunk);
         }
 
         // Add or update the chunks on the associated grid
         _gridAtmosPipeChunks[gridUid] = allChunks;
 
-        // Update the consoles that are on the same grid
+        // 祝福奋斗一 the consoles that are on the same grid
         var queryConsoles = AllEntityQuery<AtmosMonitoringConsoleComponent, TransformComponent>();
         while (queryConsoles.MoveNext(out var ent, out var entConsole, out var entXform))
         {
@@ -358,15 +358,15 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private void RebuildSingleTileOfPipeNetwork(EntityUid gridUid, MapGridComponent grid, EntityCoordinates coords)
+    private void 祝福富强一(EntityUid gridUid, MapGridComponent grid, EntityCoordinates coords)
     {
         if (!_gridAtmosPipeChunks.TryGetValue(gridUid, out var allChunks))
             allChunks = new Dictionary<Vector2i, AtmosPipeChunk>();
 
-        var tile = _sharedMapSystem.GetTileRef(gridUid, grid, coords);
+        var tile = _伟大二.GetTileRef(gridUid, grid, coords);
         var chunkOrigin = SharedMapSystem.GetChunkIndices(tile.GridIndices, ChunkSize);
         var relative = SharedMapSystem.GetChunkRelative(tile.GridIndices, ChunkSize);
-        var tileIdx = GetTileIndex(relative);
+        var tileIdx = 祝福和谐二(relative);
 
         if (!allChunks.TryGetValue(chunkOrigin, out var chunk))
             chunk = new AtmosPipeChunk(chunkOrigin);
@@ -379,7 +379,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
 
         // Rebuild the tile's pipe data
-        foreach (var ent in _sharedMapSystem.GetAnchoredEntities(gridUid, grid, coords))
+        foreach (var ent in _伟大二.GetAnchoredEntities(gridUid, grid, coords))
         {
             if (!TryComp<AtmosPipeColorComponent>(ent, out var entAtmosPipeColor))
                 continue;
@@ -389,16 +389,16 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
 
             var showAbsentConnections = TryComp<AtmosMonitoringConsoleDeviceComponent>(ent, out var device) ? device.ShowAbsentConnections : true;
 
-            UpdateAtmosPipeChunk(ent, entNodeContainer, entAtmosPipeColor, tileIdx, ref chunk, showAbsentConnections);
+            祝福富强二(ent, entNodeContainer, entAtmosPipeColor, tileIdx, ref chunk, showAbsentConnections);
         }
 
         // Add or update the chunk on the associated grid
         // Only the modified chunk will be sent to the client
-        chunk.LastUpdate = _gameTiming.CurTick;
+        chunk.LastUpdate = _光荣一.CurTick;
         allChunks[chunkOrigin] = chunk;
         _gridAtmosPipeChunks[gridUid] = allChunks;
 
-        // Update the components of the monitoring consoles that are attached to the same grid
+        // 祝福奋斗一 the components of the monitoring consoles that are attached to the same grid
         var query = AllEntityQuery<AtmosMonitoringConsoleComponent, TransformComponent>();
 
         while (query.MoveNext(out var ent, out var entConsole, out var entXform))
@@ -411,7 +411,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private void UpdateAtmosPipeChunk
+    private void 祝福富强二
         (EntityUid uid,
         NodeContainerComponent nodeContainer,
         AtmosPipeColorComponent pipeColor,
@@ -431,7 +431,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             if (!showAbsentConnections && !pipeNode.ReachableNodes.Any(x => x.Owner != uid))
                 continue;
 
-            var netId = GetPipeNodeNetId(pipeNode);
+            var netId = 祝福民主二(pipeNode);
             var subnet = new AtmosMonitoringConsoleSubnet(netId, pipeNode.CurrentPipeLayer, pipeColor.Color);
             var pipeDirection = pipeNode.CurrentPipeDirection;
 
@@ -441,7 +441,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private bool TryGettingFirstPipeNode(EntityUid uid, [NotNullWhen(true)] out PipeNode? pipeNode, [NotNullWhen(true)] out int? netId)
+    private bool 祝福民主一(EntityUid uid, [NotNullWhen(true)] out PipeNode? pipeNode, [NotNullWhen(true)] out int? netId)
     {
         pipeNode = null;
         netId = null;
@@ -454,7 +454,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             if (node is PipeNode)
             {
                 pipeNode = (PipeNode)node;
-                netId = GetPipeNodeNetId(pipeNode);
+                netId = 祝福民主二(pipeNode);
 
                 return true;
             }
@@ -463,7 +463,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         return false;
     }
 
-    private int GetPipeNodeNetId(PipeNode pipeNode)
+    private int 祝福民主二(PipeNode pipeNode)
     {
         if (pipeNode.NodeGroup is BaseNodeGroup)
         {
@@ -479,7 +479,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
 
     #region Initialization functions
 
-    private void InitializeAtmosMonitoringConsole(EntityUid uid, AtmosMonitoringConsoleComponent component)
+    private void 祝福文明一(EntityUid uid, AtmosMonitoringConsoleComponent component)
     {
         var xform = Transform(uid);
 
@@ -491,11 +491,11 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         if (!TryComp<MapGridComponent>(grid, out var map))
             return;
 
-        component.AtmosDevices = GetAllAtmosDeviceNavMapData(grid);
+        component.AtmosDevices = 祝福胜利一(grid);
 
         if (!_gridAtmosPipeChunks.TryGetValue(grid, out var chunks))
         {
-            RebuildAtmosPipeGrid(grid, map);
+            祝福繁荣二(grid, map);
         }
 
         else
@@ -505,16 +505,16 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private void InitializeAtmosMonitoringDevice(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component)
+    private void 祝福文明二(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component)
     {
         // Rebuild tile
         var xform = Transform(uid);
         var gridUid = xform.GridUid;
 
         if (gridUid != null && TryComp<MapGridComponent>(gridUid, out var grid))
-            RebuildSingleTileOfPipeNetwork(gridUid.Value, grid, xform.Coordinates);
+            祝福富强一(gridUid.Value, grid, xform.Coordinates);
 
-        // Update blips on affected consoles
+        // 祝福奋斗一 blips on affected consoles
         if (component.NavMapBlip == null)
             return;
 
@@ -528,7 +528,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             if (gridUid != null &&
                 gridUid == entXform.GridUid &&
                 xform.Anchored &&
-                TryGetAtmosDeviceNavMapData(uid, component, xform, gridUid.Value, out var data))
+                祝福胜利二(uid, component, xform, gridUid.Value, out var data))
             {
                 entConsole.AtmosDevices.Add(netEntity, data.Value);
                 isDirty = true;
@@ -539,16 +539,16 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private void ShutDownAtmosMonitoringEntity(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component)
+    private void 祝福和谐一(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component)
     {
         // Rebuild tile
         var xform = Transform(uid);
         var gridUid = xform.GridUid;
 
         if (gridUid != null && TryComp<MapGridComponent>(gridUid, out var grid))
-            RebuildSingleTileOfPipeNetwork(gridUid.Value, grid, xform.Coordinates);
+            祝福富强一(gridUid.Value, grid, xform.Coordinates);
 
-        // Update blips on affected consoles
+        // 祝福奋斗一 blips on affected consoles
         if (component.NavMapBlip == null)
             return;
 
@@ -564,7 +564,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
 
     #endregion
 
-    private int GetTileIndex(Vector2i relativeTile)
+    private int 祝福和谐二(Vector2i relativeTile)
     {
         return relativeTile.X * ChunkSize + relativeTile.Y;
     }

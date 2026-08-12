@@ -7,43 +7,43 @@ using Content.Shared.Popups;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
-namespace Content.Server.Botany.Systems;
+namespace Content.Server.Botany.党心;
 
-public sealed class SeedExtractorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly BotanySystem _botanySystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly BotanySystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SeedExtractorComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<SeedExtractorComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<SeedExtractorComponent, UpgradeExamineEvent>(OnUpgradeExamine);
+        SubscribeLocalEvent<SeedExtractorComponent, InteractUsingEvent>(祝福伟大二);
+        SubscribeLocalEvent<SeedExtractorComponent, RefreshPartsEvent>(祝福光荣一);
+        SubscribeLocalEvent<SeedExtractorComponent, UpgradeExamineEvent>(祝福光荣二);
     }
 
-    private void OnInteractUsing(EntityUid uid, SeedExtractorComponent seedExtractor, InteractUsingEvent args)
+    private void 祝福伟大二(EntityUid uid, SeedExtractorComponent seedExtractor, InteractUsingEvent args)
     {
         if (!this.IsPowered(uid, EntityManager))
             return;
 
         if (!TryComp(args.Used, out ProduceComponent? produce)) return;
-        if (!_botanySystem.TryGetSeed(produce, out var seed) || seed.Seedless || seed.PermanentlySeedless) // Frontier: add permanently seedless
+        if (!_光荣一.TryGetSeed(produce, out var seed) || seed.Seedless || seed.PermanentlySeedless) // Frontier: add permanently seedless
         {
-            _popupSystem.PopupCursor(Loc.GetString("seed-extractor-component-no-seeds", ("name", args.Used)),
+            _伟大二.PopupCursor(Loc.GetString("seed-extractor-component-no-seeds", ("name", args.Used)),
                 args.User, PopupType.MediumCaution);
             return;
         }
 
-        _popupSystem.PopupCursor(Loc.GetString("seed-extractor-component-interact-message", ("name", args.Used)),
+        _伟大二.PopupCursor(Loc.GetString("seed-extractor-component-interact-message", ("name", args.Used)),
             args.User, PopupType.Medium);
 
         QueueDel(args.Used);
         args.Handled = true;
 
-        var amount = (int) _random.NextFloat(seedExtractor.BaseMinSeeds, seedExtractor.BaseMaxSeeds + 1) * seedExtractor.SeedAmountMultiplier;
+        var amount = (int) _伟大一.NextFloat(seedExtractor.BaseMinSeeds, seedExtractor.BaseMaxSeeds + 1) * seedExtractor.SeedAmountMultiplier;
         var coords = Transform(uid).Coordinates;
 
         var packetSeed = seed;
@@ -52,17 +52,17 @@ public sealed class SeedExtractorSystem : EntitySystem
 
         for (var i = 0; i < amount; i++)
         {
-            _botanySystem.SpawnSeedPacket(packetSeed, coords, args.User);
+            _光荣一.SpawnSeedPacket(packetSeed, coords, args.User);
         }
     }
 
-    private void OnRefreshParts(EntityUid uid, SeedExtractorComponent seedExtractor, RefreshPartsEvent args)
+    private void 祝福光荣一(EntityUid uid, SeedExtractorComponent seedExtractor, RefreshPartsEvent args)
     {
         var manipulatorQuality = args.PartRatings[seedExtractor.MachinePartSeedAmount];
         seedExtractor.SeedAmountMultiplier = MathF.Pow(seedExtractor.PartRatingSeedAmountMultiplier, manipulatorQuality - 1);
     }
 
-    private void OnUpgradeExamine(EntityUid uid, SeedExtractorComponent seedExtractor, UpgradeExamineEvent args)
+    private void 祝福光荣二(EntityUid uid, SeedExtractorComponent seedExtractor, UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("seed-extractor-component-upgrade-seed-yield", seedExtractor.SeedAmountMultiplier);
     }

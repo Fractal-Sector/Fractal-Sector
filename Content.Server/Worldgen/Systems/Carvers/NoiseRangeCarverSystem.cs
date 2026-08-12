@@ -1,23 +1,23 @@
 using Content.Server.Worldgen.Components.Carvers;
 using Content.Server.Worldgen.Systems.Debris;
 
-namespace Content.Server.Worldgen.Systems.Carvers;
+namespace Content.Server.Worldgen.Systems.党心;
 
 /// <summary>
 ///     This handles carving out holes in world generation according to a noise channel.
 /// </summary>
-public sealed class NoiseRangeCarverSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly NoiseIndexSystem _index = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly NoiseIndexSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<NoiseRangeCarverComponent, PrePlaceDebrisFeatureEvent>(OnPrePlaceDebris);
+        SubscribeLocalEvent<NoiseRangeCarverComponent, PrePlaceDebrisFeatureEvent>(祝福伟大二);
     }
 
-    private void OnPrePlaceDebris(EntityUid uid, NoiseRangeCarverComponent component,
+    private void 祝福伟大二(EntityUid uid, NoiseRangeCarverComponent component,
         ref PrePlaceDebrisFeatureEvent args)
     {
         // Frontier: something handled this, nothing to do
@@ -25,8 +25,8 @@ public sealed class NoiseRangeCarverSystem : EntitySystem
             return;
         // End Frontier
 
-        var coords = WorldGen.WorldToChunkCoords(_transform.ToMapCoordinates(args.Coords).Position);
-        var val = _index.Evaluate(uid, component.NoiseChannel, coords);
+        var coords = WorldGen.WorldToChunkCoords(_伟大二.ToMapCoordinates(args.Coords).Position);
+        var val = _伟大一.Evaluate(uid, component.NoiseChannel, coords);
 
         foreach (var (low, high) in component.Ranges)
         {

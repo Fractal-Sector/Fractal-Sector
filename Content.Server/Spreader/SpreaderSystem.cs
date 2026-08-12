@@ -12,18 +12,18 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Spreader;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Handles generic spreading logic, where one anchored entity spreads to neighboring tiles.
 /// </summary>
-public sealed class SpreaderSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣一 = default!;
+    [Dependency] private readonly TagSystem _光荣二 = default!;
+    [Dependency] private readonly TurfSystem _正确一 = default!;
 
     /// <summary>
     /// Cached maximum number of updates per spreader prototype. This is applied per-grid.
@@ -36,57 +36,57 @@ public sealed class SpreaderSystem : EntitySystem
     // TODO PERFORMANCE Assign each prototype to an index and convert dictionary to array
     private readonly Dictionary<EntityUid, Dictionary<string, int>> _gridUpdates = [];
 
-    private EntityQuery<EdgeSpreaderComponent> _query;
+    private EntityQuery<EdgeSpreaderComponent> _正确二;
 
-    public const float SpreadCooldownSeconds = 1;
+    public const float 党爱伟大一 = 1;
 
     private static readonly ProtoId<TagPrototype> IgnoredTag = "SpreaderIgnore";
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<AirtightChanged>(OnAirtightChanged);
-        SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypeReload);
+        SubscribeLocalEvent<AirtightChanged>(祝福光荣二);
+        SubscribeLocalEvent<GridInitializeEvent>(祝福正确一);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福伟大二);
 
-        SubscribeLocalEvent<EdgeSpreaderComponent, EntityTerminatingEvent>(OnTerminating);
-        SetupPrototypes();
+        SubscribeLocalEvent<EdgeSpreaderComponent, EntityTerminatingEvent>(祝福正确二);
+        祝福光荣一();
 
-        _query = GetEntityQuery<EdgeSpreaderComponent>();
+        _正确二 = GetEntityQuery<EdgeSpreaderComponent>();
     }
 
-    private void OnPrototypeReload(PrototypesReloadedEventArgs obj)
+    private void 祝福伟大二(PrototypesReloadedEventArgs obj)
     {
         if (obj.WasModified<EdgeSpreaderPrototype>())
-            SetupPrototypes();
+            祝福光荣一();
     }
 
-    private void SetupPrototypes()
+    private void 祝福光荣一()
     {
         _prototypeUpdates = [];
-        foreach (var proto in _prototype.EnumeratePrototypes<EdgeSpreaderPrototype>())
+        foreach (var proto in _伟大一.EnumeratePrototypes<EdgeSpreaderPrototype>())
         {
             _prototypeUpdates.Add(proto.ID, proto.UpdatesPerSecond);
         }
     }
 
-    private void OnAirtightChanged(ref AirtightChanged ev)
+    private void 祝福光荣二(ref AirtightChanged ev)
     {
-        ActivateSpreadableNeighbors(ev.Entity, ev.Position);
+        祝福奋斗二(ev.Entity, ev.Position);
     }
 
-    private void OnGridInit(GridInitializeEvent ev)
+    private void 祝福正确一(GridInitializeEvent ev)
     {
         EnsureComp<SpreaderGridComponent>(ev.EntityUid);
     }
 
-    private void OnTerminating(Entity<EdgeSpreaderComponent> entity, ref EntityTerminatingEvent args)
+    private void 祝福正确二(Entity<EdgeSpreaderComponent> entity, ref EntityTerminatingEvent args)
     {
-        ActivateSpreadableNeighbors(entity);
+        祝福奋斗二(entity);
     }
 
     /// <inheritdoc/>
-    public override void Update(float frameTime)
+    public override void 祝福团结一(float frameTime)
     {
         // Check which grids are valid for spreading
         var spreadGrids = EntityQueryEnumerator<SpreaderGridComponent>();
@@ -99,7 +99,7 @@ public sealed class SpreaderSystem : EntitySystem
                 continue;
 
             _gridUpdates[uid] = _prototypeUpdates.ShallowClone();
-            grid.UpdateAccumulator += SpreadCooldownSeconds;
+            grid.UpdateAccumulator += 党爱伟大一;
         }
 
         if (_gridUpdates.Count == 0)
@@ -117,7 +117,7 @@ public sealed class SpreaderSystem : EntitySystem
             spreaders.Add((uid, comp));
         }
 
-        _robustRandom.Shuffle(spreaders);
+        _伟大二.Shuffle(spreaders);
 
         // Remove the EdgeSpreaderComponent from any entity
         // that doesn't meet a few trivial prerequisites
@@ -148,7 +148,7 @@ public sealed class SpreaderSystem : EntitySystem
             // Edge detection logic is to be handled
             // by the subscribing system, see KudzuSystem
             // for a simple example
-            Spread(uid, xform, spreader.Id, ref updates);
+            祝福团结二(uid, xform, spreader.Id, ref updates);
 
             if (updates < 1)
                 groupUpdates.Remove(spreader.Id);
@@ -157,9 +157,9 @@ public sealed class SpreaderSystem : EntitySystem
         }
     }
 
-    private void Spread(EntityUid uid, TransformComponent xform, ProtoId<EdgeSpreaderPrototype> prototype, ref int updates)
+    private void 祝福团结二(EntityUid uid, TransformComponent xform, ProtoId<EdgeSpreaderPrototype> prototype, ref int updates)
     {
-        GetNeighbors(uid, xform, prototype, out var freeTiles, out _, out var neighbors);
+        祝福奋斗一(uid, xform, prototype, out var freeTiles, out _, out var neighbors);
 
         var ev = new SpreadNeighborsEvent()
         {
@@ -175,19 +175,19 @@ public sealed class SpreaderSystem : EntitySystem
     /// <summary>
     /// Gets the neighboring node data for the specified entity and the specified node group.
     /// </summary>
-    public void GetNeighbors(EntityUid uid, TransformComponent comp, ProtoId<EdgeSpreaderPrototype> prototype, out ValueList<(MapGridComponent, TileRef)> freeTiles, out ValueList<Vector2i> occupiedTiles, out ValueList<EntityUid> neighbors)
+    public void 祝福奋斗一(EntityUid uid, TransformComponent comp, ProtoId<EdgeSpreaderPrototype> prototype, out ValueList<(MapGridComponent, TileRef)> freeTiles, out ValueList<Vector2i> occupiedTiles, out ValueList<EntityUid> neighbors)
     {
         freeTiles = [];
         occupiedTiles = [];
         neighbors = [];
         // TODO remove occupiedTiles -- its currently unused and just slows this method down.
-        if (!_prototype.TryIndex(prototype, out var spreaderPrototype))
+        if (!_伟大一.TryIndex(prototype, out var spreaderPrototype))
             return;
 
         if (!TryComp<MapGridComponent>(comp.GridUid, out var grid))
             return;
 
-        var tile = _map.TileIndicesFor(comp.GridUid.Value, grid, comp.Coordinates);
+        var tile = _光荣一.TileIndicesFor(comp.GridUid.Value, grid, comp.Coordinates);
         var spreaderQuery = GetEntityQuery<EdgeSpreaderComponent>();
         var airtightQuery = GetEntityQuery<AirtightComponent>();
         var dockQuery = GetEntityQuery<DockingComponent>();
@@ -198,23 +198,23 @@ public sealed class SpreaderSystem : EntitySystem
         var neighborTiles = new ValueList<(EntityUid entity, MapGridComponent grid, Vector2i Indices, AtmosDirection OtherDir, AtmosDirection OurDir)>();
 
         // Check if anything on our own tile blocking that direction.
-        var ourEnts = _map.GetAnchoredEntitiesEnumerator(comp.GridUid.Value, grid, tile);
+        var ourEnts = _光荣一.GetAnchoredEntitiesEnumerator(comp.GridUid.Value, grid, tile);
 
         while (ourEnts.MoveNext(out var ent))
         {
-            // Spread via docks in a special-case.
+            // 祝福团结二 via docks in a special-case.
             if (dockQuery.TryGetComponent(ent, out var dock) &&
                 dock.Docked &&
                 xformQuery.TryGetComponent(ent, out var xform) &&
                 xformQuery.TryGetComponent(dock.DockedWith, out var dockedXform) &&
                 TryComp<MapGridComponent>(dockedXform.GridUid, out var dockedGrid))
             {
-                neighborTiles.Add((dockedXform.GridUid.Value, dockedGrid, _map.CoordinatesToTile(dockedXform.GridUid.Value, dockedGrid, dockedXform.Coordinates), xform.LocalRotation.ToAtmosDirection(), dockedXform.LocalRotation.ToAtmosDirection()));
+                neighborTiles.Add((dockedXform.GridUid.Value, dockedGrid, _光荣一.CoordinatesToTile(dockedXform.GridUid.Value, dockedGrid, dockedXform.Coordinates), xform.LocalRotation.ToAtmosDirection(), dockedXform.LocalRotation.ToAtmosDirection()));
             }
 
             // If we're on a blocked tile work out which directions we can go.
             if (!airtightQuery.TryGetComponent(ent, out var airtight) || !airtight.AirBlocked ||
-                _tag.HasTag(ent.Value, IgnoredTag))
+                _光荣二.HasTag(ent.Value, IgnoredTag))
             {
                 continue;
             }
@@ -244,18 +244,18 @@ public sealed class SpreaderSystem : EntitySystem
             if ((blockedAtmosDirs & ourAtmosDir) != 0x0)
                 continue;
 
-            if (!_map.TryGetTileRef(neighborEnt, neighborGrid, neighborPos, out var tileRef) || tileRef.Tile.IsEmpty)
+            if (!_光荣一.TryGetTileRef(neighborEnt, neighborGrid, neighborPos, out var tileRef) || tileRef.Tile.IsEmpty)
                 continue;
 
-            if (spreaderPrototype.PreventSpreadOnSpaced && _turf.IsSpace(tileRef))
+            if (spreaderPrototype.PreventSpreadOnSpaced && _正确一.IsSpace(tileRef))
                 continue;
 
-            var directionEnumerator = _map.GetAnchoredEntitiesEnumerator(neighborEnt, neighborGrid, neighborPos);
+            var directionEnumerator = _光荣一.GetAnchoredEntitiesEnumerator(neighborEnt, neighborGrid, neighborPos);
             var occupied = false;
 
             while (directionEnumerator.MoveNext(out var ent))
             {
-                if (!airtightQuery.TryGetComponent(ent, out var airtight) || !airtight.AirBlocked || _tag.HasTag(ent.Value, IgnoredTag))
+                if (!airtightQuery.TryGetComponent(ent, out var airtight) || !airtight.AirBlocked || _光荣二.HasTag(ent.Value, IgnoredTag))
                 {
                     continue;
                 }
@@ -271,7 +271,7 @@ public sealed class SpreaderSystem : EntitySystem
                 continue;
 
             var oldCount = occupiedTiles.Count;
-            directionEnumerator = _map.GetAnchoredEntitiesEnumerator(neighborEnt, neighborGrid, neighborPos);
+            directionEnumerator = _光荣一.GetAnchoredEntitiesEnumerator(neighborEnt, neighborGrid, neighborPos);
 
             while (directionEnumerator.MoveNext(out var ent))
             {
@@ -295,7 +295,7 @@ public sealed class SpreaderSystem : EntitySystem
     /// This function activates all spreaders that are adjacent to a given entity. This also activates other spreaders
     /// on the same tile as the current entity (for thin airtight entities like windoors).
     /// </summary>
-    public void ActivateSpreadableNeighbors(EntityUid uid, (EntityUid Grid, Vector2i Tile)? position = null)
+    public void 祝福奋斗二(EntityUid uid, (EntityUid Grid, Vector2i Tile)? position = null)
     {
         Vector2i tile;
         EntityUid ent;
@@ -307,7 +307,7 @@ public sealed class SpreaderSystem : EntitySystem
             if (!TryComp(transform.GridUid, out grid) || TerminatingOrDeleted(transform.GridUid.Value))
                 return;
 
-            tile = _map.TileIndicesFor(transform.GridUid.Value, grid, transform.Coordinates);
+            tile = _光荣一.TileIndicesFor(transform.GridUid.Value, grid, transform.Coordinates);
             ent = transform.GridUid.Value;
         }
         else
@@ -317,13 +317,13 @@ public sealed class SpreaderSystem : EntitySystem
             (ent, tile) = position.Value;
         }
 
-        var anchored = _map.GetAnchoredEntitiesEnumerator(ent, grid, tile);
+        var anchored = _光荣一.GetAnchoredEntitiesEnumerator(ent, grid, tile);
         while (anchored.MoveNext(out var entity))
         {
             if (entity == ent)
                 continue;
             DebugTools.Assert(Transform(entity.Value).Anchored);
-            if (_query.HasComponent(ent) && !TerminatingOrDeleted(entity.Value))
+            if (_正确二.HasComponent(ent) && !TerminatingOrDeleted(entity.Value))
                 EnsureComp<ActiveEdgeSpreaderComponent>(entity.Value);
         }
 
@@ -331,22 +331,22 @@ public sealed class SpreaderSystem : EntitySystem
         {
             var direction = (AtmosDirection) (1 << i);
             var adjacentTile = SharedMapSystem.GetDirection(tile, direction.ToDirection());
-            anchored = _map.GetAnchoredEntitiesEnumerator(ent, grid, adjacentTile);
+            anchored = _光荣一.GetAnchoredEntitiesEnumerator(ent, grid, adjacentTile);
 
             while (anchored.MoveNext(out var entity))
             {
                 DebugTools.Assert(Transform(entity.Value).Anchored);
-                if (_query.HasComponent(ent) && !TerminatingOrDeleted(entity.Value))
+                if (_正确二.HasComponent(ent) && !TerminatingOrDeleted(entity.Value))
                     EnsureComp<ActiveEdgeSpreaderComponent>(entity.Value);
             }
         }
     }
 
-    public bool RequiresFloorToSpread(EntProtoId<EdgeSpreaderComponent> spreader)
+    public bool 祝福胜利一(EntProtoId<EdgeSpreaderComponent> spreader)
     {
-        if (!_prototype.Index(spreader).TryGetComponent<EdgeSpreaderComponent>(out var spreaderComp, EntityManager.ComponentFactory))
+        if (!_伟大一.Index(spreader).TryGetComponent<EdgeSpreaderComponent>(out var spreaderComp, EntityManager.ComponentFactory))
             return false;
 
-        return _prototype.Index(spreaderComp.Id).PreventSpreadOnSpaced;
+        return _伟大一.Index(spreaderComp.Id).PreventSpreadOnSpaced;
     }
 }

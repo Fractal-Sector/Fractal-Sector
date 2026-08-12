@@ -2,13 +2,13 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Humanoid.Markings
+namespace Content.Shared.Humanoid.党心
 {
-    public sealed class MarkingDTO
+    public sealed class 中华伟大一
     {
-        public List<string> MarkingColors { get; set; } = new() { Color.White.ToHex() };
+        public List<string> 党爱伟大一 { get; set; } = new() { Color.White.ToHex() };
 
-        public MarkingDTO()
+        public 中华伟大一()
         {
         }
 

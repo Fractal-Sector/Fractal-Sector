@@ -20,40 +20,40 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Kitchen.EntitySystems;
+namespace Content.Server.Kitchen.党心;
 
-public sealed class SharpSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly SharedDestructibleSystem _destructibleSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly ContainerSystem _containerSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly BodySystem _伟大一 = default!;
+    [Dependency] private readonly SharedDestructibleSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly ContainerSystem _正确一 = default!;
+    [Dependency] private readonly MobStateSystem _正确二 = default!;
+    [Dependency] private readonly TransformSystem _团结一 = default!;
+    [Dependency] private readonly IRobustRandom _团结二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _奋斗一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SharpComponent, AfterInteractEvent>(OnAfterInteract, before: [typeof(IngestionSystem)]);
-        SubscribeLocalEvent<SharpComponent, SharpDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<SharpComponent, AfterInteractEvent>(祝福伟大二, before: [typeof(IngestionSystem)]);
+        SubscribeLocalEvent<SharpComponent, SharpDoAfterEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<ButcherableComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
+        SubscribeLocalEvent<ButcherableComponent, GetVerbsEvent<InteractionVerb>>(祝福正确一);
     }
 
-    private void OnAfterInteract(EntityUid uid, SharpComponent component, AfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, SharpComponent component, AfterInteractEvent args)
     {
         if (args.Handled || args.Target is null || !args.CanReach)
             return;
 
-        if (TryStartButcherDoafter(uid, args.Target.Value, args.User))
+        if (祝福光荣一(uid, args.Target.Value, args.User))
             args.Handled = true;
     }
 
-    private bool TryStartButcherDoafter(EntityUid knife, EntityUid target, EntityUid user)
+    private bool 祝福光荣一(EntityUid knife, EntityUid target, EntityUid user)
     {
         if (!TryComp<ButcherableComponent>(target, out var butcher))
             return false;
@@ -61,12 +61,12 @@ public sealed class SharpSystem : EntitySystem
         if (!TryComp<SharpComponent>(knife, out var sharp))
             return false;
 
-        if (TryComp<MobStateComponent>(target, out var mobState) && !_mobStateSystem.IsDead(target, mobState))
+        if (TryComp<MobStateComponent>(target, out var mobState) && !_正确二.IsDead(target, mobState))
             return false;
 
         if (butcher.Type != ButcheringType.Knife && target != user)
         {
-            _popupSystem.PopupEntity(Loc.GetString("butcherable-different-tool", ("target", target)), knife, user);
+            _光荣二.PopupEntity(Loc.GetString("butcherable-different-tool", ("target", target)), knife, user);
             return false;
         }
 
@@ -85,11 +85,11 @@ public sealed class SharpSystem : EntitySystem
                 BreakOnMove = true,
                 NeedHand = needHand,
             };
-        _doAfterSystem.TryStartDoAfter(doAfter);
+        _光荣一.TryStartDoAfter(doAfter);
         return true;
     }
 
-    private void OnDoAfter(EntityUid uid, SharpComponent component, DoAfterEvent args)
+    private void 祝福光荣二(EntityUid uid, SharpComponent component, DoAfterEvent args)
     {
         if (args.Handled || !TryComp<ButcherableComponent>(args.Args.Target, out var butcher))
             return;
@@ -102,11 +102,11 @@ public sealed class SharpSystem : EntitySystem
 
         component.Butchering.Remove(args.Args.Target.Value);
 
-        var spawnEntities = EntitySpawnCollection.GetSpawns(butcher.SpawnedEntities, _robustRandom);
-        var coords = _transform.GetMapCoordinates(args.Args.Target.Value);
+        var spawnEntities = EntitySpawnCollection.GetSpawns(butcher.SpawnedEntities, _团结二);
+        var coords = _团结一.GetMapCoordinates(args.Args.Target.Value);
         EntityUid popupEnt = default!;
 
-        if (_containerSystem.TryGetContainingContainer(args.Args.Target.Value, out var container))
+        if (_正确一.TryGetContainingContainer(args.Args.Target.Value, out var container))
         {
             foreach (var proto in spawnEntities)
             {
@@ -119,7 +119,7 @@ public sealed class SharpSystem : EntitySystem
             foreach (var proto in spawnEntities)
             {
                 // distribute the spawned items randomly in a small radius around the origin
-                popupEnt = Spawn(proto, coords.Offset(_robustRandom.NextVector2(0.25f)));
+                popupEnt = Spawn(proto, coords.Offset(_团结二.NextVector2(0.25f)));
             }
         }
 
@@ -129,23 +129,23 @@ public sealed class SharpSystem : EntitySystem
             ? PopupType.LargeCaution
             : PopupType.Small;
 
-        _popupSystem.PopupEntity(Loc.GetString("butcherable-knife-butchered-success", ("target", args.Args.Target.Value), ("knife", Identity.Entity(uid, EntityManager))),
+        _光荣二.PopupEntity(Loc.GetString("butcherable-knife-butchered-success", ("target", args.Args.Target.Value), ("knife", Identity.Entity(uid, EntityManager))),
             popupEnt,
             args.Args.User,
             popupType);
 
-        _bodySystem.GibBody(args.Args.Target.Value); // does nothing if ent can't be gibbed
-        _destructibleSystem.DestroyEntity(args.Args.Target.Value);
+        _伟大一.GibBody(args.Args.Target.Value); // does nothing if ent can't be gibbed
+        _伟大二.DestroyEntity(args.Args.Target.Value);
 
         args.Handled = true;
 
-        _adminLogger.Add(LogType.Gib,
+        _奋斗一.Add(LogType.Gib,
             $"{ToPrettyString(args.User):user} " +
             $"has butchered {ToPrettyString(args.Target):target} " +
             $"with {ToPrettyString(args.Used):knife}");
     }
 
-    private void OnGetInteractionVerbs(EntityUid uid, ButcherableComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福正确一(EntityUid uid, ButcherableComponent component, GetVerbsEvent<InteractionVerb> args)
     {
         if (component.Type != ButcheringType.Knife || !args.CanAccess || !args.CanInteract)
             return;
@@ -166,13 +166,13 @@ public sealed class SharpSystem : EntitySystem
             message = Loc.GetString("butcherable-need-knife",
                 ("target", uid));
         }
-        else if (_containerSystem.IsEntityInContainer(uid))
+        else if (_正确一.IsEntityInContainer(uid))
         {
             disabled = true;
             message = Loc.GetString("butcherable-not-in-container",
                 ("target", uid));
         }
-        else if (TryComp<MobStateComponent>(uid, out var state) && !_mobStateSystem.IsDead(uid, state))
+        else if (TryComp<MobStateComponent>(uid, out var state) && !_正确二.IsDead(uid, state))
         {
             disabled = true;
             message = Loc.GetString("butcherable-mob-isnt-dead");
@@ -191,7 +191,7 @@ public sealed class SharpSystem : EntitySystem
             Act = () =>
             {
                 if (!disabled)
-                    TryStartButcherDoafter(sharpObject, args.Target, args.User);
+                    祝福光荣一(sharpObject, args.Target, args.User);
             },
             Message = message,
             Disabled = disabled,

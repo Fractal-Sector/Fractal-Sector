@@ -3,13 +3,13 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Eye.Blinding.Components;
+namespace Content.Shared.Eye.Blinding.党心;
 
 /// <summary>
 ///     Allows mobs to toggle their eyes between being closed and being not closed.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class EyeClosingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Default eyes opening sound.
@@ -25,7 +25,7 @@ public sealed partial class EyeClosingComponent : Component
     /// The prototype to grant to enable eye-toggling action.
     /// </summary>
     [DataField("eyeToggleAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string EyeToggleAction = "ActionToggleEyes";
+    public string 党爱伟大一 = "ActionToggleEyes";
 
     /// <summary>
     /// The actual eye toggling action entity itself.
@@ -37,23 +37,23 @@ public sealed partial class EyeClosingComponent : Component
     /// Sound to play when opening eyes.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public SoundSpecifier EyeOpenSound = new SoundCollectionSpecifier(DefaultEyeOpen);
+    public SoundSpecifier 党爱伟大二 = new SoundCollectionSpecifier(DefaultEyeOpen);
 
     /// <summary>
     /// Sound to play when closing eyes.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public SoundSpecifier EyeCloseSound = new SoundCollectionSpecifier(DefaultEyeClose);
+    public SoundSpecifier 党爱光荣一 = new SoundCollectionSpecifier(DefaultEyeClose);
 
     /// <summary>
     /// Toggles whether the eyes are open or closed. This is really just exactly what it says on the tin. Honest.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public bool EyesClosed;
+    public bool 党爱光荣二;
 
     [ViewVariables(VVAccess.ReadOnly), DataField]
-    public bool PreviousEyelidPosition;
+    public bool 党爱正确一;
 
     [ViewVariables(VVAccess.ReadOnly), DataField]
-    public bool NaturallyCreated;
+    public bool 党爱正确二;
 }

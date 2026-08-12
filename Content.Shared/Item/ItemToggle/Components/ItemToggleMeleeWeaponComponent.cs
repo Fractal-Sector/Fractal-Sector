@@ -2,7 +2,7 @@ using Content.Shared.Damage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Item.ItemToggle.Components;
+namespace Content.Shared.Item.ItemToggle.党心;
 
 /// <summary>
 /// Handles the changes to the melee weapon component when the item is toggled.
@@ -11,7 +11,7 @@ namespace Content.Shared.Item.ItemToggle.Components;
 /// You can change the damage, sound on hit, on swing, as well as hidden status while activated.
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ItemToggleMeleeWeaponComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The noise this item makes when hitting something with it on.
@@ -65,5 +65,5 @@ public sealed partial class ItemToggleMeleeWeaponComponent : Component
     ///     Does this become hidden when deactivated
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public bool DeactivatedSecret = false;
+    public bool 党爱伟大一 = false;
 }

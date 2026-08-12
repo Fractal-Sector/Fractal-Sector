@@ -7,23 +7,23 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Array;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Research.Prototypes
+namespace Content.Shared.Research.党心
 {
     [Prototype]
-    public sealed partial class LatheRecipePrototype : IPrototype, IInheritingPrototype
+    public sealed partial class 中华伟大一 : IPrototype, IInheritingPrototype
     {
         [ViewVariables]
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
         /// <inheritdoc/>
-        [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<LatheRecipePrototype>))]
+        [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<中华伟大一>))]
         public string[]? Parents { get; private set; }
 
         /// <inheritdoc />
         [NeverPushInheritance]
         [AbstractDataField]
-        public bool Abstract { get; private set; }
+        public bool 党爱伟大二 { get; private set; }
 
         /// <summary>
         ///     Name displayed in the lathe GUI.
@@ -53,22 +53,22 @@ namespace Content.Shared.Research.Prototypes
         public SpriteSpecifier? Icon;
 
         [DataField("completetime")]
-        public TimeSpan CompleteTime = TimeSpan.FromSeconds(5);
+        public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(5);
 
         /// <summary>
         ///     The materials required to produce this recipe.
-        ///     Takes a material ID as string.
+        ///     Takes a material 党爱伟大一 as string.
         /// </summary>
         [DataField]
         public Dictionary<ProtoId<MaterialPrototype>, int> Materials = new();
 
         [DataField]
-        public bool ApplyMaterialDiscount = true;
+        public bool 党爱光荣二 = true;
 
         /// <summary>
         /// List of categories used for visually sorting lathe recipes in the UI.
         /// </summary>
         [DataField]
-        public List<ProtoId<LatheCategoryPrototype>> Categories = new();
+        public List<ProtoId<LatheCategoryPrototype>> 党爱正确一 = new();
     }
 }

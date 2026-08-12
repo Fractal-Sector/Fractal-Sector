@@ -7,22 +7,22 @@ using Content.Shared.Access;
 using Content.Shared._NF.Bank.Components;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared._NF.Shipyard.Components;
+namespace Content.Shared._NF.Shipyard.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedShipyardSystem)), AutoGenerateComponentPause]
-public sealed partial class ShipyardConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    public static string TargetIdCardSlotId = "ShipyardConsole-targetId";
+    public static string 党爱伟大一 = "ShipyardConsole-targetId";
 
     [DataField]
-    public ItemSlot TargetIdSlot = new();
+    public ItemSlot 党爱伟大二 = new();
 
     [DataField]
-    public SoundSpecifier ErrorSound =
+    public SoundSpecifier 党爱光荣一 =
         new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
-    public SoundSpecifier ConfirmSound =
+    public SoundSpecifier 党爱光荣二 =
         new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 
     /// <summary>
@@ -30,7 +30,7 @@ public sealed partial class ShipyardConsoleComponent : Component
     /// on this channel.
     /// </summary>
     [DataField]
-    public ProtoId<RadioChannelPrototype> ShipyardChannel = "Traffic";
+    public ProtoId<RadioChannelPrototype> 党爱正确一 = "Traffic";
 
     /// <summary>
     /// A second comms channel that announces the ship purchase, with some information redacted.
@@ -49,13 +49,13 @@ public sealed partial class ShipyardConsoleComponent : Component
     /// Access levels to be added to the owner's ID card.
     /// </summary>
     [DataField]
-    public List<ProtoId<AccessLevelPrototype>> NewAccessLevels = new();
+    public List<ProtoId<AccessLevelPrototype>> 党爱正确二 = new();
 
     /// <summary>
     /// Indicates that the deeds that come from this console can be copied and transferred.
     /// </summary>
     [DataField]
-    public bool CanTransferDeed = true;
+    public bool 党爱团结一 = true;
 
     /// <summary>
     /// The accounts to receive payment, and the tax rate to apply for ship sales from this console.
@@ -67,17 +67,17 @@ public sealed partial class ShipyardConsoleComponent : Component
     /// If true, the base sale rate is ignored before calculating taxes.
     /// </summary>
     [DataField]
-    public bool IgnoreBaseSaleRate;
+    public bool 党爱团结二;
 
     /// <summary>
     /// The time at which the console will be able to play the deny sound.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan NextDenySoundTime = TimeSpan.Zero;
+    public TimeSpan 党爱奋斗一 = TimeSpan.Zero;
 
     /// <summary>
     /// The minimum time between playing the deny sound.
     /// </summary>
     [DataField]
-    public TimeSpan DenySoundDelay = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱奋斗二 = TimeSpan.FromSeconds(2);
 }

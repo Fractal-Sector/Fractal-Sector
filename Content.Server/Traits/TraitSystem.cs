@@ -6,27 +6,27 @@ using Content.Shared.Traits;
 using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Traits;
+namespace Content.Server.党心;
 
-public sealed class TraitSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedHandsSystem _sharedHandsSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawnComplete);
+        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(祝福伟大二);
     }
 
     // When the player is spawned in, add all trait components selected during character creation
-    private void OnPlayerSpawnComplete(PlayerSpawnCompleteEvent args)
+    private void 祝福伟大二(PlayerSpawnCompleteEvent args)
     {
         // Check if player's job allows to apply traits
         if (args.JobId == null ||
-            !_prototypeManager.TryIndex<JobPrototype>(args.JobId ?? string.Empty, out var protoJob) ||
+            !_伟大一.TryIndex<JobPrototype>(args.JobId ?? string.Empty, out var protoJob) ||
             !protoJob.ApplyTraits)
         {
             return;
@@ -34,14 +34,14 @@ public sealed class TraitSystem : EntitySystem
 
         foreach (var traitId in args.Profile.TraitPreferences)
         {
-            if (!_prototypeManager.TryIndex<TraitPrototype>(traitId, out var traitPrototype))
+            if (!_伟大一.TryIndex<TraitPrototype>(traitId, out var traitPrototype))
             {
                 Log.Warning($"No trait found with ID {traitId}!");
                 return;
             }
 
-            if (_whitelistSystem.IsWhitelistFail(traitPrototype.Whitelist, args.Mob) ||
-                _whitelistSystem.IsBlacklistPass(traitPrototype.Blacklist, args.Mob))
+            if (_光荣一.IsWhitelistFail(traitPrototype.Whitelist, args.Mob) ||
+                _光荣一.IsBlacklistPass(traitPrototype.Blacklist, args.Mob))
                 continue;
 
             // Add all components required by the prototype
@@ -56,7 +56,7 @@ public sealed class TraitSystem : EntitySystem
 
             var coords = Transform(args.Mob).Coordinates;
             var inhandEntity = Spawn(traitPrototype.TraitGear, coords);
-            _sharedHandsSystem.TryPickup(args.Mob,
+            _伟大二.TryPickup(args.Mob,
                 inhandEntity,
                 checkActionBlocker: false,
                 handsComp: handsComponent);

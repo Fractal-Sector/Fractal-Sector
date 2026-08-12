@@ -1,7 +1,7 @@
-namespace Content.Shared.Humanoid.Markings
+namespace Content.Shared.Humanoid.党心
 {
     [RegisterComponent]
-    public sealed partial class MarkingsComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         public Dictionary<HumanoidVisualLayers, List<Marking>> ActiveMarkings = new();
 

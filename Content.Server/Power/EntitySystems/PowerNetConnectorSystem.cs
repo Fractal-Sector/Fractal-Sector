@@ -1,17 +1,17 @@
 using Content.Server.Power.Components;
 using Content.Server.Power.NodeGroups;
 
-namespace Content.Server.Power.EntitySystems;
+namespace Content.Server.Power.党心;
 
-public sealed class PowerNetConnectorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ApcComponent, ComponentInit>(OnApcInit);
-        SubscribeLocalEvent<ApcPowerProviderComponent, ComponentInit>(OnApcPowerProviderInit);
-        SubscribeLocalEvent<BatteryChargerComponent, ComponentInit>(OnBatteryChargerInit);
-        SubscribeLocalEvent<BatteryDischargerComponent, ComponentInit>(OnBatteryDischargerInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ApcComponent, ComponentInit>(祝福正确二);
+        SubscribeLocalEvent<ApcPowerProviderComponent, ComponentInit>(祝福正确一);
+        SubscribeLocalEvent<BatteryChargerComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<BatteryDischargerComponent, ComponentInit>(祝福光荣一);
 
         // TODO please end my life
         SubscribeLocalEvent<ApcComponent, ComponentRemove>(OnRemove<ApcComponent, IApcNet>);
@@ -29,27 +29,27 @@ public sealed class PowerNetConnectorSystem : EntitySystem
         component.ClearNet();
     }
 
-    private void OnPowerSupplierInit(EntityUid uid, PowerSupplierComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, PowerSupplierComponent component, ComponentInit args)
     {
         BaseNetConnectorInit(component);
     }
 
-    private void OnBatteryDischargerInit(EntityUid uid, BatteryDischargerComponent component, ComponentInit args)
+    private void 祝福光荣一(EntityUid uid, BatteryDischargerComponent component, ComponentInit args)
     {
         BaseNetConnectorInit(component);
     }
 
-    private void OnBatteryChargerInit(EntityUid uid, BatteryChargerComponent component, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, BatteryChargerComponent component, ComponentInit args)
     {
         BaseNetConnectorInit(component);
     }
 
-    private void OnApcPowerProviderInit(EntityUid uid, ApcPowerProviderComponent component, ComponentInit args)
+    private void 祝福正确一(EntityUid uid, ApcPowerProviderComponent component, ComponentInit args)
     {
         BaseNetConnectorInit(component);
     }
 
-    private void OnApcInit(EntityUid uid, ApcComponent component, ComponentInit args)
+    private void 祝福正确二(EntityUid uid, ApcComponent component, ComponentInit args)
     {
         BaseNetConnectorInit(component);
     }

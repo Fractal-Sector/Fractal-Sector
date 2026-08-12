@@ -1,7 +1,7 @@
-namespace Content.Shared.EntityEffects.Effects.PlantMetabolism;
+namespace Content.Shared.EntityEffects.Effects.党心;
 
-public sealed partial class PlantAdjustPests : PlantAdjustAttribute<PlantAdjustPests>
+public sealed partial class 中华伟大一 : PlantAdjustAttribute<中华伟大一>
 {
-    public override string GuidebookAttributeName { get; set; } = "plant-attribute-pests";
-    public override bool GuidebookIsAttributePositive { get; protected set; } = false;
+    public override string 党爱伟大一 { get; set; } = "plant-attribute-pests";
+    public override bool 党爱伟大二 { get; protected set; } = false;
 }

@@ -1,16 +1,16 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Salvage.Expeditions;
+namespace Content.Shared.Salvage.党心;
 
 [Prototype]
-public sealed partial class SalvageFactionPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = default!;
 
-    [DataField("desc")] public LocId Description { get; private set; } = string.Empty;
+    [DataField("desc")] public LocId 党爱伟大二 { get; private set; } = string.Empty;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("entries", required: true)]
-    public List<SalvageMobEntry> MobGroups = new();
+    public List<SalvageMobEntry> 党爱光荣一 = new();
 
     /// <summary>
     /// Miscellaneous data for factions.

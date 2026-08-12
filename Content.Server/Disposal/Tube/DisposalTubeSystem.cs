@@ -17,90 +17,90 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.Disposal.Tube
+namespace Content.Server.Disposal.党心
 {
-    public sealed class DisposalTubeSystem : SharedDisposalTubeSystem
+    public sealed class 中华伟大一 : SharedDisposalTubeSystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-        [Dependency] private readonly PopupSystem _popups = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-        [Dependency] private readonly DisposableSystem _disposableSystem = default!;
-        [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosSystem = default!;
-        [Dependency] private readonly TransformSystem _transform = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+        [Dependency] private readonly PopupSystem _光荣一 = default!;
+        [Dependency] private readonly UserInterfaceSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+        [Dependency] private readonly DisposableSystem _正确二 = default!;
+        [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+        [Dependency] private readonly AtmosphereSystem _团结二 = default!;
+        [Dependency] private readonly TransformSystem _奋斗一 = default!;
+        [Dependency] private readonly SharedMapSystem _奋斗二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<DisposalTubeComponent, ComponentInit>(OnComponentInit);
-            SubscribeLocalEvent<DisposalTubeComponent, ComponentRemove>(OnComponentRemove);
+            SubscribeLocalEvent<DisposalTubeComponent, ComponentInit>(祝福光荣一);
+            SubscribeLocalEvent<DisposalTubeComponent, ComponentRemove>(祝福光荣二);
 
-            SubscribeLocalEvent<DisposalTubeComponent, AnchorStateChangedEvent>(OnAnchorChange);
-            SubscribeLocalEvent<DisposalTubeComponent, BreakageEventArgs>(OnBreak);
-            SubscribeLocalEvent<DisposalTubeComponent, ComponentStartup>(OnStartup);
-            SubscribeLocalEvent<DisposalTubeComponent, ConstructionBeforeDeleteEvent>(OnDeconstruct);
+            SubscribeLocalEvent<DisposalTubeComponent, AnchorStateChangedEvent>(祝福自由一);
+            SubscribeLocalEvent<DisposalTubeComponent, BreakageEventArgs>(祝福文明一);
+            SubscribeLocalEvent<DisposalTubeComponent, ComponentStartup>(祝福民主二);
+            SubscribeLocalEvent<DisposalTubeComponent, ConstructionBeforeDeleteEvent>(祝福民主一);
 
-            SubscribeLocalEvent<DisposalBendComponent, GetDisposalsConnectableDirectionsEvent>(OnGetBendConnectableDirections);
-            SubscribeLocalEvent<DisposalBendComponent, GetDisposalsNextDirectionEvent>(OnGetBendNextDirection);
+            SubscribeLocalEvent<DisposalBendComponent, GetDisposalsConnectableDirectionsEvent>(祝福正确一);
+            SubscribeLocalEvent<DisposalBendComponent, GetDisposalsNextDirectionEvent>(祝福正确二);
 
-            SubscribeLocalEvent<Shared.Disposal.Tube.DisposalEntryComponent, GetDisposalsConnectableDirectionsEvent>(OnGetEntryConnectableDirections);
-            SubscribeLocalEvent<Shared.Disposal.Tube.DisposalEntryComponent, GetDisposalsNextDirectionEvent>(OnGetEntryNextDirection);
+            SubscribeLocalEvent<Shared.Disposal.Tube.DisposalEntryComponent, GetDisposalsConnectableDirectionsEvent>(祝福团结一);
+            SubscribeLocalEvent<Shared.Disposal.Tube.DisposalEntryComponent, GetDisposalsNextDirectionEvent>(祝福团结二);
 
-            SubscribeLocalEvent<DisposalJunctionComponent, GetDisposalsConnectableDirectionsEvent>(OnGetJunctionConnectableDirections);
-            SubscribeLocalEvent<DisposalJunctionComponent, GetDisposalsNextDirectionEvent>(OnGetJunctionNextDirection);
+            SubscribeLocalEvent<DisposalJunctionComponent, GetDisposalsConnectableDirectionsEvent>(祝福奋斗一);
+            SubscribeLocalEvent<DisposalJunctionComponent, GetDisposalsNextDirectionEvent>(祝福奋斗二);
 
-            SubscribeLocalEvent<DisposalRouterComponent, GetDisposalsConnectableDirectionsEvent>(OnGetRouterConnectableDirections);
-            SubscribeLocalEvent<DisposalRouterComponent, GetDisposalsNextDirectionEvent>(OnGetRouterNextDirection);
+            SubscribeLocalEvent<DisposalRouterComponent, GetDisposalsConnectableDirectionsEvent>(祝福胜利一);
+            SubscribeLocalEvent<DisposalRouterComponent, GetDisposalsNextDirectionEvent>(祝福胜利二);
 
-            SubscribeLocalEvent<DisposalTransitComponent, GetDisposalsConnectableDirectionsEvent>(OnGetTransitConnectableDirections);
-            SubscribeLocalEvent<DisposalTransitComponent, GetDisposalsNextDirectionEvent>(OnGetTransitNextDirection);
+            SubscribeLocalEvent<DisposalTransitComponent, GetDisposalsConnectableDirectionsEvent>(祝福繁荣一);
+            SubscribeLocalEvent<DisposalTransitComponent, GetDisposalsNextDirectionEvent>(祝福繁荣二);
 
-            SubscribeLocalEvent<DisposalTaggerComponent, GetDisposalsConnectableDirectionsEvent>(OnGetTaggerConnectableDirections);
-            SubscribeLocalEvent<DisposalTaggerComponent, GetDisposalsNextDirectionEvent>(OnGetTaggerNextDirection);
+            SubscribeLocalEvent<DisposalTaggerComponent, GetDisposalsConnectableDirectionsEvent>(祝福富强一);
+            SubscribeLocalEvent<DisposalTaggerComponent, GetDisposalsNextDirectionEvent>(祝福富强二);
 
             Subs.BuiEvents<DisposalRouterComponent>(SharedDisposalRouterComponent.DisposalRouterUiKey.Key, subs =>
             {
-                subs.Event<BoundUIOpenedEvent>(OnOpenRouterUI);
-                subs.Event<SharedDisposalRouterComponent.UiActionMessage>(OnUiAction);
+                subs.Event<BoundUIOpenedEvent>(祝福文明二);
+                subs.Event<SharedDisposalRouterComponent.UiActionMessage>(祝福伟大二);
             });
 
             Subs.BuiEvents<DisposalTaggerComponent>(SharedDisposalTaggerComponent.DisposalTaggerUiKey.Key, subs =>
             {
-                subs.Event<BoundUIOpenedEvent>(OnOpenTaggerUI);
-                subs.Event<SharedDisposalTaggerComponent.UiActionMessage>(OnUiAction);
+                subs.Event<BoundUIOpenedEvent>(祝福和谐一);
+                subs.Event<SharedDisposalTaggerComponent.UiActionMessage>(祝福伟大二);
             });
         }
 
 
         /// <summary>
-        /// Handles ui messages from the client. For things such as button presses
+        /// Handles ui messages from the 中华光荣一. For things such as button presses
         /// which interact with the world and require server action.
         /// </summary>
-        /// <param name="msg">A user interface message from the client.</param>
-        private void OnUiAction(EntityUid uid, DisposalTaggerComponent tagger, SharedDisposalTaggerComponent.UiActionMessage msg)
+        /// <param name="msg">A user interface 中华伟大二 from the 中华光荣一.</param>
+        private void 祝福伟大二(EntityUid uid, DisposalTaggerComponent tagger, SharedDisposalTaggerComponent.UiActionMessage msg)
         {
             if (TryComp<PhysicsComponent>(uid, out var physBody) && physBody.BodyType != BodyType.Static)
                 return;
 
-            //Check for correct message and ignore maleformed strings
+            //Check for correct 中华伟大二 and ignore maleformed strings
             if (msg.Action == SharedDisposalTaggerComponent.UiAction.Ok && SharedDisposalTaggerComponent.TagRegex.IsMatch(msg.Tag))
             {
                 tagger.Tag = msg.Tag.Trim();
-                _audioSystem.PlayPvs(tagger.ClickSound, uid, AudioParams.Default.WithVolume(-2f));
+                _正确一.PlayPvs(tagger.ClickSound, uid, AudioParams.Default.WithVolume(-2f));
             }
         }
 
 
         /// <summary>
-        /// Handles ui messages from the client. For things such as button presses
+        /// Handles ui messages from the 中华光荣一. For things such as button presses
         /// which interact with the world and require server action.
         /// </summary>
-        /// <param name="msg">A user interface message from the client.</param>
-        private void OnUiAction(EntityUid uid, DisposalRouterComponent router, SharedDisposalRouterComponent.UiActionMessage msg)
+        /// <param name="msg">A user interface 中华伟大二 from the 中华光荣一.</param>
+        private void 祝福伟大二(EntityUid uid, DisposalRouterComponent router, SharedDisposalRouterComponent.UiActionMessage msg)
         {
             if (!Exists(msg.Actor))
                 return;
@@ -108,7 +108,7 @@ namespace Content.Server.Disposal.Tube
             if (TryComp<PhysicsComponent>(uid, out var physBody) && physBody.BodyType != BodyType.Static)
                 return;
 
-            //Check for correct message and ignore maleformed strings
+            //Check for correct 中华伟大二 and ignore maleformed strings
             if (msg.Action == SharedDisposalRouterComponent.UiAction.Ok && SharedDisposalRouterComponent.TagRegex.IsMatch(msg.Tags))
             {
                 router.Tags.Clear();
@@ -121,21 +121,21 @@ namespace Content.Server.Disposal.Tube
                     router.Tags.Add(trimmed);
                 }
 
-                _audioSystem.PlayPvs(router.ClickSound, uid, AudioParams.Default.WithVolume(-2f));
+                _正确一.PlayPvs(router.ClickSound, uid, AudioParams.Default.WithVolume(-2f));
             }
         }
 
-        private void OnComponentInit(EntityUid uid, DisposalTubeComponent tube, ComponentInit args)
+        private void 祝福光荣一(EntityUid uid, DisposalTubeComponent tube, ComponentInit args)
         {
-            tube.Contents = _containerSystem.EnsureContainer<Container>(uid, tube.ContainerId);
+            tube.Contents = _团结一.EnsureContainer<Container>(uid, tube.ContainerId);
         }
 
-        private void OnComponentRemove(EntityUid uid, DisposalTubeComponent tube, ComponentRemove args)
+        private void 祝福光荣二(EntityUid uid, DisposalTubeComponent tube, ComponentRemove args)
         {
-            DisconnectTube(uid, tube);
+            祝福平等二(uid, tube);
         }
 
-        private void OnGetBendConnectableDirections(EntityUid uid, DisposalBendComponent component, ref GetDisposalsConnectableDirectionsEvent args)
+        private void 祝福正确一(EntityUid uid, DisposalBendComponent component, ref GetDisposalsConnectableDirectionsEvent args)
         {
             var direction = Transform(uid).LocalRotation;
             var side = new Angle(MathHelper.DegreesToRadians(direction.Degrees - 90));
@@ -143,7 +143,7 @@ namespace Content.Server.Disposal.Tube
             args.Connectable = new[] { direction.GetDir(), side.GetDir() };
         }
 
-        private void OnGetBendNextDirection(EntityUid uid, DisposalBendComponent component, ref GetDisposalsNextDirectionEvent args)
+        private void 祝福正确二(EntityUid uid, DisposalBendComponent component, ref GetDisposalsNextDirectionEvent args)
         {
             var ev = new GetDisposalsConnectableDirectionsEvent();
             RaiseLocalEvent(uid, ref ev);
@@ -159,12 +159,12 @@ namespace Content.Server.Disposal.Tube
             args.Next = previousDF == ev.Connectable[0] ? ev.Connectable[1] : ev.Connectable[0];
         }
 
-        private void OnGetEntryConnectableDirections(EntityUid uid, Shared.Disposal.Tube.DisposalEntryComponent component, ref GetDisposalsConnectableDirectionsEvent args)
+        private void 祝福团结一(EntityUid uid, Shared.Disposal.Tube.DisposalEntryComponent component, ref GetDisposalsConnectableDirectionsEvent args)
         {
             args.Connectable = new[] { Transform(uid).LocalRotation.GetDir() };
         }
 
-        private void OnGetEntryNextDirection(EntityUid uid, Shared.Disposal.Tube.DisposalEntryComponent component, ref GetDisposalsNextDirectionEvent args)
+        private void 祝福团结二(EntityUid uid, Shared.Disposal.Tube.DisposalEntryComponent component, ref GetDisposalsNextDirectionEvent args)
         {
             // Ejects contents when they come from the same direction the entry is facing.
             if (args.Holder.PreviousDirectionFrom != Direction.Invalid)
@@ -178,7 +178,7 @@ namespace Content.Server.Disposal.Tube
             args.Next = ev.Connectable[0];
         }
 
-        private void OnGetJunctionConnectableDirections(EntityUid uid, DisposalJunctionComponent component, ref GetDisposalsConnectableDirectionsEvent args)
+        private void 祝福奋斗一(EntityUid uid, DisposalJunctionComponent component, ref GetDisposalsConnectableDirectionsEvent args)
         {
             var direction = Transform(uid).LocalRotation;
 
@@ -187,7 +187,7 @@ namespace Content.Server.Disposal.Tube
                 .ToArray();
         }
 
-        private void OnGetJunctionNextDirection(EntityUid uid, DisposalJunctionComponent component, ref GetDisposalsNextDirectionEvent args)
+        private void 祝福奋斗二(EntityUid uid, DisposalJunctionComponent component, ref GetDisposalsNextDirectionEvent args)
         {
             var next = Transform(uid).LocalRotation.GetDir();
             var ev = new GetDisposalsConnectableDirectionsEvent();
@@ -197,19 +197,19 @@ namespace Content.Server.Disposal.Tube
             if (args.Holder.PreviousDirectionFrom == Direction.Invalid ||
                 args.Holder.PreviousDirectionFrom == next)
             {
-                args.Next = _random.Pick(directions);
+                args.Next = _伟大一.Pick(directions);
                 return;
             }
 
             args.Next = next;
         }
 
-        private void OnGetRouterConnectableDirections(EntityUid uid, DisposalRouterComponent component, ref GetDisposalsConnectableDirectionsEvent args)
+        private void 祝福胜利一(EntityUid uid, DisposalRouterComponent component, ref GetDisposalsConnectableDirectionsEvent args)
         {
-            OnGetJunctionConnectableDirections(uid, component, ref args);
+            祝福奋斗一(uid, component, ref args);
         }
 
-        private void OnGetRouterNextDirection(EntityUid uid, DisposalRouterComponent component, ref GetDisposalsNextDirectionEvent args)
+        private void 祝福胜利二(EntityUid uid, DisposalRouterComponent component, ref GetDisposalsNextDirectionEvent args)
         {
             var ev = new GetDisposalsConnectableDirectionsEvent();
             RaiseLocalEvent(uid, ref ev);
@@ -223,7 +223,7 @@ namespace Content.Server.Disposal.Tube
             args.Next = Transform(uid).LocalRotation.GetDir();
         }
 
-        private void OnGetTransitConnectableDirections(EntityUid uid, DisposalTransitComponent component, ref GetDisposalsConnectableDirectionsEvent args)
+        private void 祝福繁荣一(EntityUid uid, DisposalTransitComponent component, ref GetDisposalsConnectableDirectionsEvent args)
         {
             var rotation = Transform(uid).LocalRotation;
             var opposite = new Angle(rotation.Theta + Math.PI);
@@ -231,7 +231,7 @@ namespace Content.Server.Disposal.Tube
             args.Connectable = new[] { rotation.GetDir(), opposite.GetDir() };
         }
 
-        private void OnGetTransitNextDirection(EntityUid uid, DisposalTransitComponent component, ref GetDisposalsNextDirectionEvent args)
+        private void 祝福繁荣二(EntityUid uid, DisposalTransitComponent component, ref GetDisposalsNextDirectionEvent args)
         {
             var ev = new GetDisposalsConnectableDirectionsEvent();
             RaiseLocalEvent(uid, ref ev);
@@ -248,55 +248,55 @@ namespace Content.Server.Disposal.Tube
             args.Next = previousDF == forward ? backward : forward;
         }
 
-        private void OnGetTaggerConnectableDirections(EntityUid uid, DisposalTaggerComponent component, ref GetDisposalsConnectableDirectionsEvent args)
+        private void 祝福富强一(EntityUid uid, DisposalTaggerComponent component, ref GetDisposalsConnectableDirectionsEvent args)
         {
-            OnGetTransitConnectableDirections(uid, component, ref args);
+            祝福繁荣一(uid, component, ref args);
         }
 
-        private void OnGetTaggerNextDirection(EntityUid uid, DisposalTaggerComponent component, ref GetDisposalsNextDirectionEvent args)
+        private void 祝福富强二(EntityUid uid, DisposalTaggerComponent component, ref GetDisposalsNextDirectionEvent args)
         {
             args.Holder.Tags.Add(component.Tag);
-            OnGetTransitNextDirection(uid, component, ref args);
+            祝福繁荣二(uid, component, ref args);
         }
 
-        private void OnDeconstruct(EntityUid uid, DisposalTubeComponent component, ConstructionBeforeDeleteEvent args)
+        private void 祝福民主一(EntityUid uid, DisposalTubeComponent component, ConstructionBeforeDeleteEvent args)
         {
-            DisconnectTube(uid, component);
+            祝福平等二(uid, component);
         }
 
-        private void OnStartup(EntityUid uid, DisposalTubeComponent component, ComponentStartup args)
+        private void 祝福民主二(EntityUid uid, DisposalTubeComponent component, ComponentStartup args)
         {
-            UpdateAnchored(uid, component, Transform(uid).Anchored);
+            祝福自由二(uid, component, Transform(uid).Anchored);
         }
 
-        private void OnBreak(EntityUid uid, DisposalTubeComponent component, BreakageEventArgs args)
+        private void 祝福文明一(EntityUid uid, DisposalTubeComponent component, BreakageEventArgs args)
         {
-            DisconnectTube(uid, component);
+            祝福平等二(uid, component);
         }
 
-        private void OnOpenRouterUI(EntityUid uid, DisposalRouterComponent router, BoundUIOpenedEvent args)
+        private void 祝福文明二(EntityUid uid, DisposalRouterComponent router, BoundUIOpenedEvent args)
         {
-            UpdateRouterUserInterface(uid, router);
+            祝福和谐二(uid, router);
         }
 
-        private void OnOpenTaggerUI(EntityUid uid, DisposalTaggerComponent tagger, BoundUIOpenedEvent args)
+        private void 祝福和谐一(EntityUid uid, DisposalTaggerComponent tagger, BoundUIOpenedEvent args)
         {
-            if (_uiSystem.HasUi(uid, SharedDisposalTaggerComponent.DisposalTaggerUiKey.Key))
+            if (_光荣二.HasUi(uid, SharedDisposalTaggerComponent.DisposalTaggerUiKey.Key))
             {
-                _uiSystem.SetUiState(uid, SharedDisposalTaggerComponent.DisposalTaggerUiKey.Key,
+                _光荣二.SetUiState(uid, SharedDisposalTaggerComponent.DisposalTaggerUiKey.Key,
                     new SharedDisposalTaggerComponent.DisposalTaggerUserInterfaceState(tagger.Tag));
             }
         }
 
         /// <summary>
-        /// Gets component data to be used to update the user interface client-side.
+        /// Gets component data to be used to update the user interface 中华光荣一-side.
         /// </summary>
         /// <returns>Returns a <see cref="SharedDisposalRouterComponent.DisposalRouterUserInterfaceState"/></returns>
-        private void UpdateRouterUserInterface(EntityUid uid, DisposalRouterComponent router)
+        private void 祝福和谐二(EntityUid uid, DisposalRouterComponent router)
         {
             if (router.Tags.Count <= 0)
             {
-                _uiSystem.SetUiState(uid, SharedDisposalRouterComponent.DisposalRouterUiKey.Key, new SharedDisposalRouterComponent.DisposalRouterUserInterfaceState(""));
+                _光荣二.SetUiState(uid, SharedDisposalRouterComponent.DisposalRouterUiKey.Key, new SharedDisposalRouterComponent.DisposalRouterUserInterfaceState(""));
                 return;
             }
 
@@ -310,27 +310,27 @@ namespace Content.Server.Disposal.Tube
 
             taglist.Remove(taglist.Length - 2, 2);
 
-            _uiSystem.SetUiState(uid, SharedDisposalRouterComponent.DisposalRouterUiKey.Key, new SharedDisposalRouterComponent.DisposalRouterUserInterfaceState(taglist.ToString()));
+            _光荣二.SetUiState(uid, SharedDisposalRouterComponent.DisposalRouterUiKey.Key, new SharedDisposalRouterComponent.DisposalRouterUserInterfaceState(taglist.ToString()));
         }
 
-        private void OnAnchorChange(EntityUid uid, DisposalTubeComponent component, ref AnchorStateChangedEvent args)
+        private void 祝福自由一(EntityUid uid, DisposalTubeComponent component, ref AnchorStateChangedEvent args)
         {
-            UpdateAnchored(uid, component, args.Anchored);
+            祝福自由二(uid, component, args.Anchored);
         }
 
-        private void UpdateAnchored(EntityUid uid, DisposalTubeComponent component, bool anchored)
+        private void 祝福自由二(EntityUid uid, DisposalTubeComponent component, bool anchored)
         {
             if (anchored)
             {
-                ConnectTube(uid, component);
+                祝福平等一(uid, component);
 
                 // TODO this visual data should just generalized into some anchored-visuals system/comp, this has nothing to do with disposal tubes.
-                _appearanceSystem.SetData(uid, DisposalTubeVisuals.VisualState, DisposalTubeVisualState.Anchored);
+                _伟大二.SetData(uid, DisposalTubeVisuals.VisualState, DisposalTubeVisualState.Anchored);
             }
             else
             {
-                DisconnectTube(uid, component);
-                _appearanceSystem.SetData(uid, DisposalTubeVisuals.VisualState, DisposalTubeVisualState.Free);
+                祝福平等二(uid, component);
+                _伟大二.SetData(uid, DisposalTubeVisuals.VisualState, DisposalTubeVisualState.Free);
             }
         }
 
@@ -345,19 +345,19 @@ namespace Content.Server.Disposal.Tube
                 return null;
 
             var position = xform.Coordinates;
-            foreach (var entity in _map.GetInDir(xform.GridUid.Value, grid, position, nextDirection))
+            foreach (var entity in _奋斗二.GetInDir(xform.GridUid.Value, grid, position, nextDirection))
             {
                 if (!TryComp(entity, out DisposalTubeComponent? tube))
                 {
                     continue;
                 }
 
-                if (!CanConnect(entity, tube, oppositeDirection))
+                if (!祝福公正一(entity, tube, oppositeDirection))
                 {
                     continue;
                 }
 
-                if (!CanConnect(target, targetTube, nextDirection))
+                if (!祝福公正一(target, targetTube, nextDirection))
                 {
                     continue;
                 }
@@ -368,7 +368,7 @@ namespace Content.Server.Disposal.Tube
             return null;
         }
 
-        public static void ConnectTube(EntityUid _, DisposalTubeComponent tube)
+        public static void 祝福平等一(EntityUid _, DisposalTubeComponent tube)
         {
             if (tube.Connected)
             {
@@ -379,7 +379,7 @@ namespace Content.Server.Disposal.Tube
         }
 
 
-        public void DisconnectTube(EntityUid _, DisposalTubeComponent tube)
+        public void 祝福平等二(EntityUid _, DisposalTubeComponent tube)
         {
             if (!tube.Connected)
             {
@@ -392,11 +392,11 @@ namespace Content.Server.Disposal.Tube
             foreach (var entity in tube.Contents.ContainedEntities.ToArray())
             {
                 if (query.TryGetComponent(entity, out var holder))
-                    _disposableSystem.ExitDisposals(entity, holder);
+                    _正确二.ExitDisposals(entity, holder);
             }
         }
 
-        public bool CanConnect(EntityUid tubeId, DisposalTubeComponent tube, Direction direction)
+        public bool 祝福公正一(EntityUid tubeId, DisposalTubeComponent tube, Direction direction)
         {
             if (!tube.Connected)
             {
@@ -408,36 +408,36 @@ namespace Content.Server.Disposal.Tube
             return ev.Connectable.Contains(direction);
         }
 
-        public void PopupDirections(EntityUid tubeId, DisposalTubeComponent _, EntityUid recipient)
+        public void 祝福公正二(EntityUid tubeId, DisposalTubeComponent _, EntityUid recipient)
         {
             var ev = new GetDisposalsConnectableDirectionsEvent();
             RaiseLocalEvent(tubeId, ref ev);
             var directions = string.Join(", ", ev.Connectable);
 
-            _popups.PopupEntity(Loc.GetString("disposal-tube-component-popup-directions-text", ("directions", directions)), tubeId, recipient);
+            _光荣一.PopupEntity(Loc.GetString("disposal-tube-component-popup-directions-text", ("directions", directions)), tubeId, recipient);
         }
 
-        public override bool TryInsert(EntityUid uid, DisposalUnitComponent from, IEnumerable<string>? tags = default, DisposalEntryComponent? entry = null)
+        public override bool 祝福法治一(EntityUid uid, DisposalUnitComponent from, IEnumerable<string>? tags = default, DisposalEntryComponent? entry = null)
         {
             if (!Resolve(uid, ref entry))
                 return false;
 
             var xform = Transform(uid);
-            var holder = Spawn(entry.HolderPrototypeId, _transform.GetMapCoordinates(uid, xform: xform));
+            var holder = Spawn(entry.HolderPrototypeId, _奋斗一.GetMapCoordinates(uid, xform: xform));
             var holderComponent = Comp<DisposalHolderComponent>(holder);
 
             foreach (var entity in from.Container.ContainedEntities.ToArray())
             {
-                _containerSystem.Insert(entity, holderComponent.Container);
+                _团结一.Insert(entity, holderComponent.Container);
             }
 
-            _atmosSystem.Merge(holderComponent.Air, from.Air);
+            _团结二.Merge(holderComponent.Air, from.Air);
             from.Air.Clear();
 
             if (tags != null)
                 holderComponent.Tags.UnionWith(tags);
 
-            return _disposableSystem.EnterTube(holder, uid, holderComponent);
+            return _正确二.EnterTube(holder, uid, holderComponent);
         }
     }
 }

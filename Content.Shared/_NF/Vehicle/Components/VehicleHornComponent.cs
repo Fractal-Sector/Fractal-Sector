@@ -3,14 +3,14 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._NF.Vehicle.Components;
+namespace Content.Shared._NF.Vehicle.党心;
 
 /// <summary>
 /// 
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(VehicleHornSystem))]
-public sealed partial class VehicleHornComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The sound that the horn makes

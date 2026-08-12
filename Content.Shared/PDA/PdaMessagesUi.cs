@@ -1,39 +1,39 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.PDA;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class PdaToggleFlashlightMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public PdaToggleFlashlightMessage() { }
+    public 中华伟大一() { }
 }
 
 [Serializable, NetSerializable]
-public sealed class PdaShowRingtoneMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public PdaShowRingtoneMessage() { }
+    public 中华伟大二() { }
 }
 
 [Serializable, NetSerializable]
-public sealed class PdaShowUplinkMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public PdaShowUplinkMessage() { }
+    public 中华光荣一() { }
 }
 
 [Serializable, NetSerializable]
-public sealed class PdaLockUplinkMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public PdaLockUplinkMessage() { }
+    public 中华光荣二() { }
 }
 
 [Serializable, NetSerializable]
-public sealed class PdaShowMusicMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public PdaShowMusicMessage() { }
+    public 中华正确一() { }
 }
 
 [Serializable, NetSerializable]
-public sealed class PdaRequestUpdateInterfaceMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
-    public PdaRequestUpdateInterfaceMessage() { }
+    public 中华正确二() { }
 }

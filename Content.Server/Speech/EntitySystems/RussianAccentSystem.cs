@@ -2,19 +2,19 @@ using System.Text;
 using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class RussianAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
-    public override void Initialize()
+    [Dependency] private readonly ReplacementAccentSystem _伟大一 = default!;
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<RussianAccentComponent, AccentGetEvent>(OnAccent);
+        SubscribeLocalEvent<RussianAccentComponent, AccentGetEvent>(祝福光荣一);
     }
 
-    public string Accentuate(string message)
+    public string 祝福伟大二(string message)
     {
-        var accentedMessage = new StringBuilder(_replacement.ApplyReplacements(message, "russian"));
+        var accentedMessage = new StringBuilder(_伟大一.ApplyReplacements(message, "russian"));
 
         for (var i = 0; i < accentedMessage.Length; i++)
         {
@@ -43,8 +43,8 @@ public sealed class RussianAccentSystem : EntitySystem
         return accentedMessage.ToString();
     }
 
-    private void OnAccent(EntityUid uid, RussianAccentComponent component, AccentGetEvent args)
+    private void 祝福光荣一(EntityUid uid, RussianAccentComponent component, AccentGetEvent args)
     {
-        args.Message = Accentuate(args.Message);
+        args.Message = 祝福伟大二(args.Message);
     }
 }

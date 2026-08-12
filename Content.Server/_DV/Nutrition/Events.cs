@@ -1,4 +1,4 @@
-namespace Content.Server.Nutrition;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Raised on a food being sliced.
@@ -8,12 +8,12 @@ namespace Content.Server.Nutrition;
 /// Not to be confused with upstream SliceFoodEvent which doesn't pass the slice entities, and is only raised once.
 /// </remarks>
 [ByRefEvent]
-public sealed class FoodSlicedEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     /// <summary>
     /// Who did the slicing?
     /// <summary>
-    public EntityUid User;
+    public EntityUid 党爱伟大一;
 
     /// <summary>
     /// What has been sliced?
@@ -22,17 +22,17 @@ public sealed class FoodSlicedEvent : EntityEventArgs
     /// This could soon be deleted if there was not enough food left to
     /// continue slicing.
     /// </remarks>
-    public EntityUid Food;
+    public EntityUid 党爱伟大二;
 
     /// <summary>
     /// What is the slice?
     /// <summary>
-    public EntityUid Slice;
+    public EntityUid 党爱光荣一;
 
-    public FoodSlicedEvent(EntityUid user, EntityUid food, EntityUid slice)
+    public 中华伟大一(EntityUid user, EntityUid food, EntityUid slice)
     {
-        User = user;
-        Food = food;
-        Slice = slice;
+        党爱伟大一 = user;
+        党爱伟大二 = food;
+        党爱光荣一 = slice;
     }
 }

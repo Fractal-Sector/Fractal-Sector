@@ -2,18 +2,18 @@ using Content.Shared.Popups;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Remotes.Components;
 
-namespace Content.Shared.Remotes.EntitySystems;
+namespace Content.Shared.Remotes.党心;
 
-public abstract class SharedDoorRemoteSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
+    [Dependency] protected readonly SharedPopupSystem 党爱伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<DoorRemoteComponent, UseInHandEvent>(OnInHandActivation);
+        SubscribeLocalEvent<DoorRemoteComponent, UseInHandEvent>(祝福伟大二);
     }
 
-    private void OnInHandActivation(Entity<DoorRemoteComponent> entity, ref UseInHandEvent args)
+    private void 祝福伟大二(Entity<DoorRemoteComponent> entity, ref UseInHandEvent args)
     {
         string switchMessageId;
         switch (entity.Comp.Mode)
@@ -39,6 +39,6 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
                     $"{nameof(DoorRemoteComponent)} had invalid mode {entity.Comp.Mode}");
         }
         Dirty(entity);
-        Popup.PopupClient(Loc.GetString(switchMessageId), entity, args.User);
+        党爱伟大一.PopupClient(Loc.GetString(switchMessageId), entity, args.User);
     }
 }

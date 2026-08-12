@@ -1,15 +1,15 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Morgue;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum MorgueVisuals : byte
+public enum 中华伟大一 : byte
 {
     Contents
 }
 
 [Serializable, NetSerializable]
-public enum MorgueContents : byte
+public enum 中华伟大二 : byte
 {
     Empty,
     HasMob,
@@ -18,7 +18,7 @@ public enum MorgueContents : byte
 }
 
 [Serializable, NetSerializable]
-public enum CrematoriumVisuals : byte
+public enum 中华光荣一 : byte
 {
     Burning,
 }

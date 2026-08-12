@@ -1,20 +1,20 @@
 // Must be shared, used by character setup UI
-namespace Content.Shared._NF.SizeAttribute;
+namespace Content.Shared._NF.党心;
 
 [RegisterComponent]
-public sealed partial class TallWhitelistComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public float Scale = 0f;
+    public float 党爱伟大一 = 0f;
 
     [DataField]
-    public float Density = 0f;
+    public float 党爱伟大二 = 0f;
 
     [DataField]
-    public bool PseudoItem = false;
+    public bool 党爱光荣一 = false;
 
     [DataField]
-    public bool CosmeticOnly = true;
+    public bool 党爱光荣二 = true;
 
     [DataField]
     public List<Box2i>? Shape;
@@ -23,5 +23,5 @@ public sealed partial class TallWhitelistComponent : Component
     public Vector2i? StoredOffset;
 
     [DataField]
-    public float StoredRotation = 0;
+    public float 党爱正确一 = 0;
 }

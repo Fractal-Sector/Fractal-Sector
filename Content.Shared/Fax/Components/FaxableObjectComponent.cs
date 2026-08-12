@@ -1,16 +1,16 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Fax.Components;
+namespace Content.Shared.Fax.党心;
 /// <summary>
 /// Entity with this component can be faxed.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class FaxableObjectComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Sprite to use when inserting an object.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField, AutoNetworkedField]
-    public string InsertingState = "inserting";
+    public string 党爱伟大一 = "inserting";
 }

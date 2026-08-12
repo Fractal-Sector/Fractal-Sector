@@ -6,42 +6,42 @@ using Robust.Shared.Player;
 using System.Text;
 using Content.Shared._Harmony.CCVars; // Harmony Queue
 
-namespace Content.Server.GameTicking
+namespace Content.Server.党心
 {
-    public sealed partial class GameTicker
+    public sealed partial class 中华伟大一
     {
         [ViewVariables]
         private readonly Dictionary<NetUserId, PlayerGameStatus> _playerGameStatuses = new();
 
         [ViewVariables]
-        private TimeSpan _roundStartTime;
+        private TimeSpan _伟大一;
 
         /// <summary>
         /// How long before RoundStartTime do we load maps.
         /// </summary>
         [ViewVariables]
-        public TimeSpan RoundPreloadTime { get; } = TimeSpan.FromSeconds(15);
+        public TimeSpan 党爱伟大一 { get; } = TimeSpan.FromSeconds(15);
 
         [ViewVariables]
-        private TimeSpan _pauseTime;
+        private TimeSpan _伟大二;
 
         [ViewVariables]
-        public new bool Paused { get; set; }
+        public new bool 党爱伟大二 { get; set; }
 
         [ViewVariables]
-        private bool _roundStartCountdownHasNotStartedYetDueToNoPlayers;
+        private bool _光荣一;
 
         /// <summary>
         /// The game status of a players user Id. May contain disconnected players
         /// </summary>
         public IReadOnlyDictionary<NetUserId, PlayerGameStatus> PlayerGameStatuses => _playerGameStatuses;
 
-        public void UpdateInfoText()
+        public void 祝福伟大一()
         {
-            RaiseNetworkEvent(GetInfoMsg(), Filter.Empty().AddPlayers(_playerManager.NetworkedSessions));
+            RaiseNetworkEvent(祝福正确二(), Filter.Empty().AddPlayers(_playerManager.NetworkedSessions));
         }
 
-        private string GetInfoText()
+        private string 祝福伟大二()
         {
             var preset = CurrentPreset ?? Preset;
             if (preset == null)
@@ -87,69 +87,69 @@ namespace Content.Server.GameTicking
                 ("desc", desc));
         }
 
-        private TickerConnectionStatusEvent GetConnectionStatusMsg()
+        private TickerConnectionStatusEvent 祝福光荣一()
         {
             return new TickerConnectionStatusEvent(RoundStartTimeSpan);
         }
 
-        private TickerLobbyStatusEvent GetStatusMsg(ICommonSession session)
+        private TickerLobbyStatusEvent 祝福光荣二(ICommonSession session)
         {
             _playerGameStatuses.TryGetValue(session.UserId, out var status);
-            return new TickerLobbyStatusEvent(RunLevel != GameRunLevel.PreRoundLobby, LobbyBackground, status == PlayerGameStatus.ReadyToPlay, _roundStartTime, RoundPreloadTime, RoundStartTimeSpan, Paused);
+            return new TickerLobbyStatusEvent(RunLevel != GameRunLevel.PreRoundLobby, LobbyBackground, status == PlayerGameStatus.ReadyToPlay, _伟大一, 党爱伟大一, RoundStartTimeSpan, 党爱伟大二);
         }
 
-        private void SendStatusToAll()
+        private void 祝福正确一()
         {
             foreach (var player in _playerManager.Sessions)
             {
-                RaiseNetworkEvent(GetStatusMsg(player), player.Channel);
+                RaiseNetworkEvent(祝福光荣二(player), player.Channel);
             }
         }
 
-        private TickerLobbyInfoEvent GetInfoMsg()
+        private TickerLobbyInfoEvent 祝福正确二()
         {
-            return new (GetInfoText());
+            return new (祝福伟大二());
         }
 
-        private void UpdateLateJoinStatus()
+        private void 祝福团结一()
         {
             RaiseNetworkEvent(new TickerLateJoinStatusEvent(DisallowLateJoin));
         }
 
-        public bool PauseStart(bool pause = true)
+        public bool 祝福团结二(bool pause = true)
         {
-            if (Paused == pause)
+            if (党爱伟大二 == pause)
             {
                 return false;
             }
 
-            Paused = pause;
+            党爱伟大二 = pause;
 
             if (pause)
             {
-                _pauseTime = _gameTiming.CurTime;
+                _伟大二 = _gameTiming.CurTime;
             }
-            else if (_pauseTime != default)
+            else if (_伟大二 != default)
             {
-                _roundStartTime += _gameTiming.CurTime - _pauseTime;
+                _伟大一 += _gameTiming.CurTime - _伟大二;
             }
 
-            RaiseNetworkEvent(new TickerLobbyCountdownEvent(_roundStartTime, Paused));
+            RaiseNetworkEvent(new TickerLobbyCountdownEvent(_伟大一, 党爱伟大二));
 
-            _chatManager.DispatchServerAnnouncement(Loc.GetString(Paused
+            _chatManager.DispatchServerAnnouncement(Loc.GetString(党爱伟大二
                 ? "game-ticker-pause-start"
                 : "game-ticker-pause-start-resumed"));
 
             return true;
         }
 
-        public bool TogglePause()
+        public bool 祝福奋斗一()
         {
-            PauseStart(!Paused);
-            return Paused;
+            祝福团结二(!党爱伟大二);
+            return 党爱伟大二;
         }
 
-        public void ToggleReadyAll(bool ready)
+        public void 祝福奋斗二(bool ready)
         {
             var status = ready ? PlayerGameStatus.ReadyToPlay : PlayerGameStatus.NotReadyToPlay;
             foreach (var playerUserId in _playerGameStatuses.Keys)
@@ -157,11 +157,11 @@ namespace Content.Server.GameTicking
                 _playerGameStatuses[playerUserId] = status;
                 if (!_playerManager.TryGetSessionById(playerUserId, out var playerSession))
                     continue;
-                RaiseNetworkEvent(GetStatusMsg(playerSession), playerSession.Channel);
+                RaiseNetworkEvent(祝福光荣二(playerSession), playerSession.Channel);
             }
         }
 
-        public void ToggleReady(ICommonSession player, bool ready)
+        public void 祝福胜利一(ICommonSession player, bool ready)
         {
             if (!_playerGameStatuses.ContainsKey(player.UserId))
                 return;
@@ -176,15 +176,15 @@ namespace Content.Server.GameTicking
 
             var status = ready ? PlayerGameStatus.ReadyToPlay : PlayerGameStatus.NotReadyToPlay;
             _playerGameStatuses[player.UserId] = ready ? PlayerGameStatus.ReadyToPlay : PlayerGameStatus.NotReadyToPlay;
-            RaiseNetworkEvent(GetStatusMsg(player), player.Channel);
+            RaiseNetworkEvent(祝福光荣二(player), player.Channel);
             // update server info to reflect new ready count
-            UpdateInfoText();
+            祝福伟大一();
         }
 
-        public bool UserHasJoinedGame(ICommonSession session)
-            => UserHasJoinedGame(session.UserId);
+        public bool 祝福胜利二(ICommonSession session)
+            => 祝福胜利二(session.UserId);
 
-        public bool UserHasJoinedGame(NetUserId userId)
+        public bool 祝福胜利二(NetUserId userId)
             => PlayerGameStatuses.TryGetValue(userId, out var status) && status == PlayerGameStatus.JoinedGame;
     }
 }

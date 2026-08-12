@@ -1,33 +1,33 @@
 using Content.Shared.Instruments;
 using Content.Shared.UserInterface;
 
-namespace Content.Shared._DV.Instruments;
+namespace Content.Shared._DV.党心;
 
-public sealed class InstrumentVisualsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InstrumentVisualsComponent, BoundUIClosedEvent>(OnUIClosed);
-        SubscribeLocalEvent<InstrumentVisualsComponent, BoundUIOpenedEvent>(OnUIOpened);
+        SubscribeLocalEvent<InstrumentVisualsComponent, BoundUIClosedEvent>(祝福伟大二);
+        SubscribeLocalEvent<InstrumentVisualsComponent, BoundUIOpenedEvent>(祝福光荣一);
     }
 
-    private void OnUIClosed(Entity<InstrumentVisualsComponent> ent, ref BoundUIClosedEvent args)
+    private void 祝福伟大二(Entity<InstrumentVisualsComponent> ent, ref BoundUIClosedEvent args)
     {
         if (args.UiKey is not InstrumentUiKey)
             return;
 
-        _appearance.SetData(ent, InstrumentVisuals.Playing, false);
+        _伟大一.SetData(ent, InstrumentVisuals.Playing, false);
     }
 
-    private void OnUIOpened(Entity<InstrumentVisualsComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福光荣一(Entity<InstrumentVisualsComponent> ent, ref BoundUIOpenedEvent args)
     {
         if (args.UiKey is not InstrumentUiKey)
             return;
 
-        _appearance.SetData(ent, InstrumentVisuals.Playing, true);
+        _伟大一.SetData(ent, InstrumentVisuals.Playing, true);
     }
 }

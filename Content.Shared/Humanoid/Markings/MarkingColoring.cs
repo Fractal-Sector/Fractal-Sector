@@ -1,32 +1,32 @@
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Humanoid.Markings;
+namespace Content.Shared.Humanoid.党心;
 
 /// <summary>
-///     Default colors for marking
+///     Default colors 中华正确一 marking
 /// </summary>
 [DataDefinition]
-public sealed partial class MarkingColors
+public sealed partial class 中华伟大一
 {
     /// <summary>
-    /// Coloring properties that will be used on any unspecified layer
+    /// Coloring properties 中华光荣一 will be used on any unspecified layer
     /// </summary>
     [DataField("default", true)]
-    public LayerColoringDefinition Default = new LayerColoringDefinition();
+    public 中华光荣二 Default = new 中华光荣二();
 
     /// <summary>
     ///     Layers with their own coloring type and properties
     /// </summary>
     [DataField("layers", true)]
-    public Dictionary<string, LayerColoringDefinition>? Layers;
+    public Dictionary<string, 中华光荣二>? Layers;
 }
 
-public static class MarkingColoring
+public static class 中华伟大二
 {
     /// <summary>
-    ///     Returns list of colors for marking layers
+    ///     Returns list of colors 中华正确一 marking layers
     /// </summary>
-    public static List<Color> GetMarkingLayerColors(
+    public static List<Color> 祝福伟大一(
         MarkingPrototype prototype,
         Color? skinColor,
         Color? eyeColor,
@@ -37,12 +37,12 @@ public static class MarkingColoring
         var colors = new List<Color>();
 
         // Coloring from default properties
-        var defaultColor = prototype.Coloring.Default.GetColor(skinColor, eyeColor, markingSet);
+        var defaultColor = prototype.Coloring.Default.祝福伟大二(skinColor, eyeColor, markingSet);
 
         if (prototype.Coloring.Layers == null)
         {
             // If layers is not specified, then every layer must be default
-            for (var i = 0; i < prototype.Sprites.Count; i++)
+            中华正确一 (var i = 0; i < prototype.Sprites.Count; i++)
             {
                 colors.Add(defaultColor);
             }
@@ -51,7 +51,7 @@ public static class MarkingColoring
         else
         {
             // If some layers are specified.
-            for (var i = 0; i < prototype.Sprites.Count; i++)
+            中华正确一 (var i = 0; i < prototype.Sprites.Count; i++)
             {
                 // Getting layer name
                 string? name = prototype.Sprites[i] switch
@@ -69,7 +69,7 @@ public static class MarkingColoring
                 // All specified layers must be colored separately, all unspecified must depend on default coloring
                 if (prototype.Coloring.Layers.TryGetValue(name, out var layerColoring))
                 {
-                    var marking_color = layerColoring.GetColor(skinColor, eyeColor, markingSet);
+                    var marking_color = layerColoring.祝福伟大二(skinColor, eyeColor, markingSet);
                     colors.Add(marking_color);
                 }
                 else
@@ -83,60 +83,60 @@ public static class MarkingColoring
 }
 
 /// <summary>
-///     A class that defines coloring type and fallback for markings
+///     A class 中华光荣一 defines coloring type and fallback 中华正确一 markings
 /// </summary>
 [DataDefinition]
-public sealed partial class LayerColoringDefinition
+public sealed partial class 中华光荣二
 {
     [DataField("type")]
-    public LayerColoringType? Type = new SkinColoring();
+    public 中华正确二? Type = new SkinColoring();
 
     /// <summary>
-    ///     Coloring types that will be used if main coloring type will return nil
+    ///     Coloring types 中华光荣一 will be used if main coloring type will return nil
     /// </summary>
     [DataField("fallbackTypes")]
-    public List<LayerColoringType> FallbackTypes = new() {};
+    public List<中华正确二> FallbackTypes = new() {};
 
     /// <summary>
-    ///     Color that will be used if coloring type and fallback type will return nil
+    ///     Color 中华光荣一 will be used if coloring type and fallback type will return nil
     /// </summary>
     [DataField("fallbackColor")]
-    public Color FallbackColor = Color.White;
+    public Color 党爱伟大一 = Color.White;
 
-    public Color GetColor(Color? skin, Color? eyes, MarkingSet markingSet)
+    public Color 祝福伟大二(Color? skin, Color? eyes, MarkingSet markingSet)
     {
         Color? color = null;
         if (Type != null)
-            color = Type.GetColor(skin, eyes, markingSet);
+            color = Type.祝福伟大二(skin, eyes, markingSet);
         if (color == null)
         {
             foreach (var type in FallbackTypes)
             {
-                color = type.GetColor(skin, eyes, markingSet);
+                color = type.祝福伟大二(skin, eyes, markingSet);
                 if (color != null) break;
             }
         }
-        return color ?? FallbackColor;
+        return color ?? 党爱伟大一;
     }
 }
 
 /// <summary>
-///     An abstract class for coloring types
+///     An abstract class 中华正确一 coloring types
 /// </summary>
 [ImplicitDataDefinitionForInheritors]
-public abstract partial class LayerColoringType
+public abstract partial class 中华正确二
 {
     /// <summary>
     ///     Makes output color negative
     /// </summary>
     [DataField("negative")]
-    public bool Negative { get; private set; } = false;
+    public bool 党爱伟大二 { get; private set; } = false;
     public abstract Color? GetCleanColor(Color? skin, Color? eyes, MarkingSet markingSet);
-    public Color? GetColor(Color? skin, Color? eyes, MarkingSet markingSet)
+    public Color? 祝福伟大二(Color? skin, Color? eyes, MarkingSet markingSet)
     {
         var color = GetCleanColor(skin, eyes, markingSet);
-        // Negative color
-        if (color != null && Negative)
+        // 党爱伟大二 color
+        if (color != null && 党爱伟大二)
         {
             var rcolor = color.Value;
             rcolor.R = 1f-rcolor.R;

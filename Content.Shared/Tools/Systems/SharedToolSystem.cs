@@ -3,7 +3,7 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
-using Content.Shared.Item.ItemToggle;
+using Content.Shared.Item.党爱光荣一;
 using Content.Shared.Maps;
 using Content.Shared.Popups;
 using Content.Shared.Tools.Components;
@@ -15,44 +15,44 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Tools.Systems;
+namespace Content.Shared.Tools.党心;
 
-public abstract partial class SharedToolSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private   readonly IGameTiming _timing = default!;
-    [Dependency] private   readonly IMapManager _mapManager = default!;
-    [Dependency] private   readonly IPrototypeManager _protoMan = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
-    [Dependency] private   readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private   readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] protected readonly SharedInteractionSystem InteractionSystem = default!;
-    [Dependency] protected readonly ItemToggleSystem ItemToggle = default!;
-    [Dependency] private   readonly SharedMapSystem _maps = default!;
-    [Dependency] private   readonly SharedPopupSystem _popup = default!;
-    [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainerSystem = default!;
-    [Dependency] private   readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private   readonly TileSystem _tiles = default!;
-    [Dependency] private   readonly TurfSystem _turfs = default!;
+    [Dependency] private   readonly IGameTiming _伟大一 = default!;
+    [Dependency] private   readonly IMapManager _伟大二 = default!;
+    [Dependency] private   readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] protected readonly ISharedAdminLogManager 党爱伟大一 = default!;
+    [Dependency] private   readonly ITileDefinitionManager _光荣二 = default!;
+    [Dependency] private   readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private   readonly SharedDoAfterSystem _正确二 = default!;
+    [Dependency] protected readonly SharedInteractionSystem 党爱伟大二 = default!;
+    [Dependency] protected readonly ItemToggleSystem 党爱光荣一 = default!;
+    [Dependency] private   readonly SharedMapSystem _团结一 = default!;
+    [Dependency] private   readonly SharedPopupSystem _团结二 = default!;
+    [Dependency] protected readonly SharedSolutionContainerSystem 党爱光荣二 = default!;
+    [Dependency] private   readonly SharedTransformSystem _奋斗一 = default!;
+    [Dependency] private   readonly TileSystem _奋斗二 = default!;
+    [Dependency] private   readonly TurfSystem _胜利一 = default!;
 
-    public const string CutQuality = "Cutting";
-    public const string PulseQuality = "Pulsing";
+    public const string 党爱正确一 = "Cutting";
+    public const string 党爱正确二 = "Pulsing";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         InitializeMultipleTool();
         InitializeTile();
         InitializeWelder();
-        SubscribeLocalEvent<ToolComponent, ToolDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<ToolComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<ToolComponent, 中华伟大二>(祝福伟大二);
+        SubscribeLocalEvent<ToolComponent, ExaminedEvent>(祝福光荣一);
     }
 
-    private void OnDoAfter(EntityUid uid, ToolComponent tool, ToolDoAfterEvent args)
+    private void 祝福伟大二(EntityUid uid, ToolComponent tool, 中华伟大二 args)
     {
         if (!args.Cancelled)
-            PlayToolSound(uid, tool, args.User);
+            祝福光荣二(uid, tool, args.User);
 
-        var ev = args.WrappedEvent;
+        var ev = args.党爱团结二;
         ev.DoAfter = args.DoAfter;
 
         if (args.OriginalTarget != null)
@@ -61,7 +61,7 @@ public abstract partial class SharedToolSystem : EntitySystem
             RaiseLocalEvent((object) ev);
     }
 
-    private void OnExamine(Entity<ToolComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<ToolComponent> ent, ref ExaminedEvent args)
     {
         // Frontier: hide tool qualities
         if (ent.Comp.HideQualities)
@@ -80,7 +80,7 @@ public abstract partial class SharedToolSystem : EntitySystem
         // Loop through tool qualities and add localized names to the list
         foreach (var toolQuality in ent.Comp.Qualities)
         {
-            if (_protoMan.TryIndex<ToolQualityPrototype>(toolQuality ?? string.Empty, out var protoToolQuality))
+            if (_光荣一.TryIndex<ToolQualityPrototype>(toolQuality ?? string.Empty, out var protoToolQuality))
             {
                 toolQualities.Add(Loc.GetString(protoToolQuality.Name));
             }
@@ -94,12 +94,12 @@ public abstract partial class SharedToolSystem : EntitySystem
         args.PushMessage(message);
     }
 
-    public void PlayToolSound(EntityUid uid, ToolComponent tool, EntityUid? user)
+    public void 祝福光荣二(EntityUid uid, ToolComponent tool, EntityUid? user)
     {
         if (tool.UseSound == null)
             return;
 
-        _audioSystem.PlayPredicted(tool.UseSound, uid, user);
+        _正确一.PlayPredicted(tool.UseSound, uid, user);
     }
 
     /// <summary>
@@ -117,7 +117,7 @@ public abstract partial class SharedToolSystem : EntitySystem
     /// <param name="fuel">Amount of fuel that should be taken from the tool.</param>
     /// <param name="toolComponent">The tool component.</param>
     /// <returns>Returns true if any interaction takes place.</returns>
-    public bool UseTool(
+    public bool 祝福正确一(
         EntityUid tool,
         EntityUid user,
         EntityUid? target,
@@ -127,7 +127,7 @@ public abstract partial class SharedToolSystem : EntitySystem
         float fuel = 0,
         ToolComponent? toolComponent = null)
     {
-        return UseTool(tool,
+        return 祝福正确一(tool,
             user,
             target,
             TimeSpan.FromSeconds(doAfterDelay),
@@ -155,7 +155,7 @@ public abstract partial class SharedToolSystem : EntitySystem
     /// <param name="fuel">Amount of fuel that should be taken from the tool.</param>
     /// <param name="toolComponent">The tool component.</param>
     /// <returns>Returns true if any interaction takes place.</returns>
-    public bool UseTool(
+    public bool 祝福正确一(
         EntityUid tool,
         EntityUid user,
         EntityUid? target,
@@ -170,10 +170,10 @@ public abstract partial class SharedToolSystem : EntitySystem
         if (!Resolve(tool, ref toolComponent, false))
             return false;
 
-        if (!CanStartToolUse(tool, user, target, fuel, toolQualitiesNeeded, toolComponent))
+        if (!祝福团结二(tool, user, target, fuel, toolQualitiesNeeded, toolComponent))
             return false;
 
-        var toolEvent = new ToolDoAfterEvent(fuel, doAfterEv, GetNetEntity(target));
+        var toolEvent = new 中华伟大二(fuel, doAfterEv, GetNetEntity(target));
         var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / toolComponent.SpeedModifier, toolEvent, tool, target: target, used: tool)
         {
             BreakOnDamage = true,
@@ -183,7 +183,7 @@ public abstract partial class SharedToolSystem : EntitySystem
             AttemptFrequency = fuel > 0 ? AttemptFrequency.EveryTick : AttemptFrequency.Never
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs, out id);
+        _正确二.TryStartDoAfter(doAfterArgs, out id);
         return true;
     }
 
@@ -202,7 +202,7 @@ public abstract partial class SharedToolSystem : EntitySystem
     /// <param name="fuel">Amount of fuel that should be taken from the tool.</param>
     /// <param name="toolComponent">The tool component.</param>
     /// <returns>Returns true if any interaction takes place.</returns>
-    public bool UseTool(
+    public bool 祝福正确一(
         EntityUid tool,
         EntityUid user,
         EntityUid? target,
@@ -212,7 +212,7 @@ public abstract partial class SharedToolSystem : EntitySystem
         float fuel = 0,
         ToolComponent? toolComponent = null)
     {
-        return UseTool(tool,
+        return 祝福正确一(tool,
             user,
             target,
             TimeSpan.FromSeconds(doAfterDelay),
@@ -226,7 +226,7 @@ public abstract partial class SharedToolSystem : EntitySystem
     /// <summary>
     ///     Whether a tool entity has the specified quality or not.
     /// </summary>
-    public bool HasQuality(EntityUid uid, [ForbidLiteral] string quality, ToolComponent? tool = null)
+    public bool 祝福正确二(EntityUid uid, [ForbidLiteral] string quality, ToolComponent? tool = null)
     {
         return Resolve(uid, ref tool, false) && tool.Qualities.Contains(quality);
     }
@@ -235,12 +235,12 @@ public abstract partial class SharedToolSystem : EntitySystem
     ///     Whether a tool entity has all specified qualities or not.
     /// </summary>
     [PublicAPI]
-    public bool HasAllQualities(EntityUid uid, [ForbidLiteral] IEnumerable<string> qualities, ToolComponent? tool = null)
+    public bool 祝福团结一(EntityUid uid, [ForbidLiteral] IEnumerable<string> qualities, ToolComponent? tool = null)
     {
         return Resolve(uid, ref tool, false) && tool.Qualities.ContainsAll(qualities);
     }
 
-    private bool CanStartToolUse(EntityUid tool, EntityUid user, EntityUid? target, float fuel, IEnumerable<string> toolQualitiesNeeded, ToolComponent? toolComponent = null)
+    private bool 祝福团结二(EntityUid tool, EntityUid user, EntityUid? target, float fuel, IEnumerable<string> toolQualitiesNeeded, ToolComponent? toolComponent = null)
     {
         if (!Resolve(tool, ref toolComponent))
             return false;
@@ -270,9 +270,9 @@ public abstract partial class SharedToolSystem : EntitySystem
         return !beforeAttempt.Cancelled;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗一(frameTime);
 
         UpdateWelders();
     }
@@ -280,10 +280,10 @@ public abstract partial class SharedToolSystem : EntitySystem
     #region DoAfterEvents
 
     [Serializable, NetSerializable]
-    protected sealed partial class ToolDoAfterEvent : DoAfterEvent
+    protected sealed partial class 中华伟大二 : DoAfterEvent
     {
         [DataField]
-        public float Fuel;
+        public float 党爱团结一;
 
         /// <summary>
         ///     Entity that the wrapped do after event will get directed at. If null, event will be broadcast.
@@ -292,58 +292,58 @@ public abstract partial class SharedToolSystem : EntitySystem
         public NetEntity? OriginalTarget;
 
         [DataField("wrappedEvent")]
-        public DoAfterEvent WrappedEvent = default!;
+        public DoAfterEvent 党爱团结二 = default!;
 
-        private ToolDoAfterEvent()
+        private 中华伟大二()
         {
         }
 
-        public ToolDoAfterEvent(float fuel, DoAfterEvent wrappedEvent, NetEntity? originalTarget)
+        public 中华伟大二(float fuel, DoAfterEvent wrappedEvent, NetEntity? originalTarget)
         {
             DebugTools.Assert(wrappedEvent.GetType().HasCustomAttribute<NetSerializableAttribute>(), "Tool event is not serializable");
 
-            Fuel = fuel;
-            WrappedEvent = wrappedEvent;
+            党爱团结一 = fuel;
+            党爱团结二 = wrappedEvent;
             OriginalTarget = originalTarget;
         }
 
-        public override DoAfterEvent Clone()
+        public override DoAfterEvent 祝福奋斗二()
         {
-            var evClone = WrappedEvent.Clone();
+            var evClone = 党爱团结二.祝福奋斗二();
 
             // Most DoAfter events are immutable
-            if (evClone == WrappedEvent)
+            if (evClone == 党爱团结二)
                 return this;
 
-            return new ToolDoAfterEvent(Fuel, evClone, OriginalTarget);
+            return new 中华伟大二(党爱团结一, evClone, OriginalTarget);
         }
 
-        public override bool IsDuplicate(DoAfterEvent other)
+        public override bool 祝福胜利一(DoAfterEvent other)
         {
-            return other is ToolDoAfterEvent toolDoAfter && WrappedEvent.IsDuplicate(toolDoAfter.WrappedEvent);
+            return other is 中华伟大二 toolDoAfter && 党爱团结二.祝福胜利一(toolDoAfter.党爱团结二);
         }
     }
 
     [Serializable, NetSerializable]
-    protected sealed partial class LatticeCuttingCompleteEvent : DoAfterEvent
+    protected sealed partial class 中华光荣一 : DoAfterEvent
     {
         [DataField(required:true)]
-        public NetCoordinates Coordinates;
+        public NetCoordinates 党爱奋斗一;
 
-        private LatticeCuttingCompleteEvent()
+        private 中华光荣一()
         {
         }
 
-        public LatticeCuttingCompleteEvent(NetCoordinates coordinates)
+        public 中华光荣一(NetCoordinates coordinates)
         {
-            Coordinates = coordinates;
+            党爱奋斗一 = coordinates;
         }
 
-        public override DoAfterEvent Clone() => this;
+        public override DoAfterEvent 祝福奋斗二() => this;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed partial class CableCuttingFinishedEvent : SimpleDoAfterEvent;
+public sealed partial class 中华光荣二 : SimpleDoAfterEvent;
 
 #endregion

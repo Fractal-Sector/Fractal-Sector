@@ -4,16 +4,16 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Decals;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Mapping)]
-public sealed class EditDecalCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-    public string Command => "editdecal";
-    public string Description => "Edits a decal.";
-    public string Help => $@"{Command} <gridId> <uid> <mode>\n
+    public string 党爱伟大一 => "editdecal";
+    public string 党爱伟大二 => "Edits a decal.";
+    public string 党爱光荣一 => $@"{党爱伟大一} <gridId> <uid> <mode>\n
 Possible modes are:\n
 - position <x position> <y position>\n
 - color <color>\n
@@ -22,7 +22,7 @@ Possible modes are:\n
 - zindex <zIndex>\n
 - clean <cleanable>
 ";
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 4)
         {
@@ -30,7 +30,7 @@ Possible modes are:\n
             return;
         }
 
-        if (!NetEntity.TryParse(args[0], out var gridIdNet) || !_entManager.TryGetEntity(gridIdNet, out var gridId))
+        if (!NetEntity.TryParse(args[0], out var gridIdNet) || !_伟大一.TryGetEntity(gridIdNet, out var gridId))
         {
             shell.WriteError($"Failed parsing gridId '{args[3]}'.");
             return;
@@ -42,13 +42,13 @@ Possible modes are:\n
             return;
         }
 
-        if (!_entManager.HasComponent<MapGridComponent>(gridId))
+        if (!_伟大一.HasComponent<MapGridComponent>(gridId))
         {
             shell.WriteError($"No grid with gridId {gridId} exists.");
             return;
         }
 
-        var decalSystem = _entManager.System<DecalSystem>();
+        var decalSystem = _伟大一.System<DecalSystem>();
         switch (args[2].ToLower())
         {
             case "position":

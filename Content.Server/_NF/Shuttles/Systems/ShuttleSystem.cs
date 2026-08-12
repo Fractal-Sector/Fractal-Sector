@@ -23,35 +23,35 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly RadarConsoleSystem _radarConsole = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = null!;
-    [Dependency] private readonly AutopilotSystem _autopilot = default!; // Wayfarer: Autopilot
-    public TimeSpan BrakeDelay = TimeSpan.FromSeconds(10);
-    public TimeSpan NextBrakeCheck = TimeSpan.Zero;
+    [Dependency] private readonly RadarConsoleSystem _伟大一 = default!;
+    [Dependency] private readonly MobStateSystem _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = null!;
+    [Dependency] private readonly AutopilotSystem _正确一 = default!; // Wayfarer: Autopilot
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(10);
+    public TimeSpan 党爱伟大二 = TimeSpan.Zero;
 
     // Cache for shuttle consoles to avoid repeated spatial queries
     private readonly Dictionary<EntityUid, HashSet<Entity<ShuttleConsoleComponent>>> _shuttleConsoleCache = new();
-    private TimeSpan _nextConsoleCacheRefresh = TimeSpan.Zero;
-    private readonly TimeSpan _consoleCacheRefreshInterval = TimeSpan.FromSeconds(30);
+    private TimeSpan _正确二 = TimeSpan.Zero;
+    private readonly TimeSpan _团结一 = TimeSpan.FromSeconds(30);
 
-    public const float SpaceFrictionStrength = 0.0000f; // Wayfarer: Zero friction in Cruise mode
-    public const float DampenDampingStrength = 0.25f; // Wayfarer: Public for autopilot
-    public const float AnchorDampingStrength = 2.5f; // Wayfarer: Public for autopilot
-    private void NfInitialize()
+    public const float 党爱光荣一 = 0.0000f; // Wayfarer: Zero friction in Cruise mode
+    public const float 党爱光荣二 = 0.25f; // Wayfarer: Public for autopilot
+    public const float 党爱正确一 = 2.5f; // Wayfarer: Public for autopilot
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ShuttleConsoleComponent, SetInertiaDampeningRequest>(OnSetInertiaDampening);
-        SubscribeLocalEvent<ShuttleConsoleComponent, SetServiceFlagsRequest>(NfSetServiceFlags);
-        SubscribeLocalEvent<ShuttleConsoleComponent, SetTargetCoordinatesRequest>(NfSetTargetCoordinates);
-        SubscribeLocalEvent<ShuttleConsoleComponent, SetHideTargetRequest>(NfSetHideTarget);
+        SubscribeLocalEvent<ShuttleConsoleComponent, SetInertiaDampeningRequest>(祝福光荣一);
+        SubscribeLocalEvent<ShuttleConsoleComponent, SetServiceFlagsRequest>(祝福团结一);
+        SubscribeLocalEvent<ShuttleConsoleComponent, SetTargetCoordinatesRequest>(祝福团结二);
+        SubscribeLocalEvent<ShuttleConsoleComponent, SetHideTargetRequest>(祝福奋斗一);
     }
 
-    private bool SetInertiaDampening(EntityUid uid, PhysicsComponent physicsComponent, ShuttleComponent shuttleComponent, TransformComponent transform, InertiaDampeningMode mode)
+    private bool 祝福伟大二(EntityUid uid, PhysicsComponent physicsComponent, ShuttleComponent shuttleComponent, TransformComponent transform, InertiaDampeningMode mode)
     {
         if (!transform.GridUid.HasValue)
         {
@@ -72,10 +72,10 @@ public sealed partial class ShuttleSystem
 
         shuttleComponent.DampingModifier = mode switch // Wayfarer: Set DampingModifier directly
         {
-            InertiaDampeningMode.Off => SpaceFrictionStrength,
-            InertiaDampeningMode.Dampen => DampenDampingStrength,
-            InertiaDampeningMode.Anchor => AnchorDampingStrength,
-            _ => DampenDampingStrength, // other values: default to some sane behaviour (assume normal dampening)
+            InertiaDampeningMode.Off => 党爱光荣一,
+            InertiaDampeningMode.Dampen => 党爱光荣二,
+            InertiaDampeningMode.Anchor => 党爱正确一,
+            _ => 党爱光荣二, // other values: default to some sane behaviour (assume normal dampening)
         };
 
         shuttleComponent.EBrakeActive = false;
@@ -83,7 +83,7 @@ public sealed partial class ShuttleSystem
         return true;
     }
 
-    private void OnSetInertiaDampening(EntityUid uid, ShuttleConsoleComponent component, SetInertiaDampeningRequest args)
+    private void 祝福光荣一(EntityUid uid, ShuttleConsoleComponent component, SetInertiaDampeningRequest args)
     {
         // Ensure that the entity requested is a valid shuttle (stations should not be togglable)
         if (!EntityManager.TryGetComponent(uid, out TransformComponent? transform) ||
@@ -99,16 +99,16 @@ public sealed partial class ShuttleSystem
             TryComp<AutopilotComponent>(transform.GridUid.Value, out var autopilot) &&
             autopilot.Enabled)
         {
-            _autopilot.DisableAutopilot(transform.GridUid.Value);
-            _autopilot.SendShuttleMessage(transform.GridUid.Value, "Autopilot disengaged - manual mode change");
+            _正确一.DisableAutopilot(transform.GridUid.Value);
+            _正确一.SendShuttleMessage(transform.GridUid.Value, "Autopilot disengaged - manual mode change");
         }
         // End Wayfarer
 
-        if (SetInertiaDampening(uid, physicsComponent, shuttleComponent, transform, args.Mode) && args.Mode != InertiaDampeningMode.Query)
+        if (祝福伟大二(uid, physicsComponent, shuttleComponent, transform, args.Mode) && args.Mode != InertiaDampeningMode.Query)
             component.DampeningMode = args.Mode;
     }
 
-    public InertiaDampeningMode NfGetInertiaDampeningMode(EntityUid entity)
+    public InertiaDampeningMode 祝福光荣二(EntityUid entity)
     {
         if (!EntityManager.TryGetComponent<TransformComponent>(entity, out var xform))
             return InertiaDampeningMode.Dampen;
@@ -124,15 +124,15 @@ public sealed partial class ShuttleSystem
         if (shuttle.EBrakeActive)
             return InertiaDampeningMode.Emergency; // mainly to uncheck the thing in the UI
 
-        if (shuttle.DampingModifier >= AnchorDampingStrength) // Wayfarer: Set DampingModifier directly
+        if (shuttle.DampingModifier >= 党爱正确一) // Wayfarer: Set DampingModifier directly
             return InertiaDampeningMode.Anchor;
-        else if (shuttle.DampingModifier <= SpaceFrictionStrength) // Wayfarer: Set DampingModifier directly
+        else if (shuttle.DampingModifier <= 党爱光荣一) // Wayfarer: Set DampingModifier directly
             return InertiaDampeningMode.Off;
         else
             return InertiaDampeningMode.Dampen;
     }
 
-    public void NfSetPowered(EntityUid uid, ShuttleConsoleComponent component, bool powered)
+    public void 祝福正确一(EntityUid uid, ShuttleConsoleComponent component, bool powered)
     {
         // Ensure that the entity requested is a valid shuttle (stations should not be togglable)
         if (!EntityManager.TryGetComponent(uid, out TransformComponent? transform) ||
@@ -146,17 +146,17 @@ public sealed partial class ShuttleSystem
         // Update dampening physics without adjusting requested mode.
         if (!powered)
         {
-            SetInertiaDampening(uid, physicsComponent, shuttleComponent, transform, InertiaDampeningMode.Anchor);
+            祝福伟大二(uid, physicsComponent, shuttleComponent, transform, InertiaDampeningMode.Anchor);
         }
         else
         {
             // Update our dampening mode if we need to, and if we aren't a station.
-            var currentDampening = NfGetInertiaDampeningMode(uid);
+            var currentDampening = 祝福光荣二(uid);
             if (currentDampening != component.DampeningMode &&
                 currentDampening != InertiaDampeningMode.Station &&
                 component.DampeningMode != InertiaDampeningMode.Station)
             {
-                SetInertiaDampening(uid, physicsComponent, shuttleComponent, transform, component.DampeningMode);
+                祝福伟大二(uid, physicsComponent, shuttleComponent, transform, component.DampeningMode);
             }
         }
     }
@@ -164,7 +164,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Get the current service flags for this grid.
     /// </summary>
-    public ServiceFlags NfGetServiceFlags(EntityUid uid)
+    public ServiceFlags 祝福正确二(EntityUid uid)
     {
         var transform = Transform(uid);
         // Get the grid entity from the console transform
@@ -183,7 +183,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Set the service flags for this grid.
     /// </summary>
-    public void NfSetServiceFlags(EntityUid uid, ShuttleConsoleComponent component, SetServiceFlagsRequest args)
+    public void 祝福团结一(EntityUid uid, ShuttleConsoleComponent component, SetServiceFlagsRequest args)
     {
         var transform = Transform(uid);
         // Get the grid entity from the console transform
@@ -201,7 +201,7 @@ public sealed partial class ShuttleSystem
         Dirty(gridUid, iffComponent);
     }
 
-    public void NfSetTargetCoordinates(EntityUid uid, ShuttleConsoleComponent component, SetTargetCoordinatesRequest args)
+    public void 祝福团结二(EntityUid uid, ShuttleConsoleComponent component, SetTargetCoordinatesRequest args)
     {
         if (!TryComp<RadarConsoleComponent>(uid, out var radarConsole))
             return;
@@ -213,12 +213,12 @@ public sealed partial class ShuttleSystem
 
         var gridUid = transform.GridUid.Value;
 
-        _radarConsole.SetTarget((uid, radarConsole), args.TrackedEntity, args.TrackedPosition);
-        _radarConsole.SetHideTarget((uid, radarConsole), false); // Force target visibility
+        _伟大一.SetTarget((uid, radarConsole), args.TrackedEntity, args.TrackedPosition);
+        _伟大一.SetHideTarget((uid, radarConsole), false); // Force target visibility
         _console.RefreshShuttleConsoles(gridUid);
     }
 
-    public void NfSetHideTarget(EntityUid uid, ShuttleConsoleComponent component, SetHideTargetRequest args)
+    public void 祝福奋斗一(EntityUid uid, ShuttleConsoleComponent component, SetHideTargetRequest args)
     {
         if (!TryComp<RadarConsoleComponent>(uid, out var radarConsole))
             return;
@@ -230,7 +230,7 @@ public sealed partial class ShuttleSystem
 
         var gridUid = transform.GridUid.Value;
 
-        _radarConsole.SetHideTarget((uid, radarConsole), args.Hidden);
+        _伟大一.SetHideTarget((uid, radarConsole), args.Hidden);
         _console.RefreshShuttleConsoles(gridUid);
     }
 
@@ -241,22 +241,22 @@ public sealed partial class ShuttleSystem
     /// everyone inside is either in crit or dead OR
     /// The shuttle console is not powered or EMPed
     /// </summary>
-    public void ShouldEmergencyBrake()
+    public void 祝福奋斗二()
     {
         var curTime = _gameTiming.CurTime;
-        if (curTime < NextBrakeCheck)
+        if (curTime < 党爱伟大二)
             return;
-        NextBrakeCheck = curTime + BrakeDelay;
+        党爱伟大二 = curTime + 党爱伟大一;
 
         // Refresh console cache periodically
-        if (curTime >= _nextConsoleCacheRefresh)
+        if (curTime >= _正确二)
         {
             _shuttleConsoleCache.Clear();
-            _nextConsoleCacheRefresh = curTime + _consoleCacheRefreshInterval;
+            _正确二 = curTime + _团结一;
         }
 
         var query = EntityQueryEnumerator<ShuttleComponent>();
-        var whereIsEveryone = GetPlayerShipsWithPeopleOnThem();
+        var whereIsEveryone = 祝福胜利一();
 
         while (query.MoveNext(out var uid, out var shuttle))
         {
@@ -268,7 +268,7 @@ public sealed partial class ShuttleSystem
             {
                 continue;
             }
-            if (shuttle.DampingModifier > SpaceFrictionStrength)
+            if (shuttle.DampingModifier > 党爱光荣一)
             {
                 // Its already able to slow down on its own, no need to emergency brake
                 continue;
@@ -308,7 +308,7 @@ public sealed partial class ShuttleSystem
             // is the shuttle present in the list of player ships with people on them?
             if (!whereIsEveryone.Contains(shuttle))
             {
-                EngageEmergencyBrake(
+                祝福胜利二(
                     uid,
                     shuttle,
                     cronsoles,
@@ -318,7 +318,7 @@ public sealed partial class ShuttleSystem
             // find all the shuttle consoles on this shuttle
             if (cronsoles.Count == 0)
             {
-                EngageEmergencyBrake(
+                祝福胜利二(
                     uid,
                     shuttle,
                     cronsoles,
@@ -337,7 +337,7 @@ public sealed partial class ShuttleSystem
             }
             if (!poweredFound)
             {
-                EngageEmergencyBrake(
+                祝福胜利二(
                     uid,
                     shuttle,
                     cronsoles,
@@ -351,10 +351,10 @@ public sealed partial class ShuttleSystem
     /// Returns a HashSet of shuttles where: it is a player shuttle, and players are inside, and at least one player is alive.
     /// Using HashSet for O(1) lookups instead of O(N) with List.
     /// </summary>
-    private HashSet<ShuttleComponent> GetPlayerShipsWithPeopleOnThem()
+    private HashSet<ShuttleComponent> 祝福胜利一()
     {
         var occupiedShuttles = new HashSet<ShuttleComponent>();
-        foreach (var sesh in _players.Sessions)
+        foreach (var sesh in _光荣一.Sessions)
         {
             // Get the player entity
             if (!sesh.AttachedEntity.HasValue)
@@ -362,7 +362,7 @@ public sealed partial class ShuttleSystem
 
             var attached = sesh.AttachedEntity.Value;
             // If the player is in crit or dead, skip them
-            if (!_mobState.IsAlive(attached) || HasComp<GhostComponent>(attached))
+            if (!_伟大二.IsAlive(attached) || HasComp<GhostComponent>(attached))
                 continue;
 
             // Get the shuttle the player is on, if any
@@ -380,7 +380,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Turns on the emergency brake for a given shuttle.
     /// </summary>
-    private void EngageEmergencyBrake(
+    private void 祝福胜利二(
         EntityUid uid,
         ShuttleComponent shuttle,
         HashSet<Entity<ShuttleConsoleComponent>> consoles,
@@ -398,7 +398,7 @@ public sealed partial class ShuttleSystem
             return;
         }
         Log.Debug($"Engaging E-Brake for {ToPrettyString(uid)}.");
-        SetInertiaDampening(
+        祝福伟大二(
             uid,
             physicsComponent,
             shuttle,
@@ -435,14 +435,14 @@ public sealed partial class ShuttleSystem
                 }
                 if (quietly)
                 {
-                    _popupSystem.PopupEntity(
+                    _光荣二.PopupEntity(
                         "Emergency Brake Engaged",
                         consoleEntity,
                         PopupType.MediumCaution);
                 }
                 else
                 {
-                    _popupSystem.PopupEntity(
+                    _光荣二.PopupEntity(
                         "EMERGENCY BRAKE ENGAGED!!",
                         consoleEntity,
                         PopupType.LargeCaution);

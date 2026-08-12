@@ -10,29 +10,29 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
-public sealed class DumpableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
 
-    private EntityQuery<ItemComponent> _itemQuery;
+    private EntityQuery<ItemComponent> _正确二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _itemQuery = GetEntityQuery<ItemComponent>();
-        SubscribeLocalEvent<DumpableComponent, AfterInteractEvent>(OnAfterInteract, after: new[]{ typeof(SharedEntityStorageSystem) });
-        SubscribeLocalEvent<DumpableComponent, GetVerbsEvent<AlternativeVerb>>(AddDumpVerb);
-        SubscribeLocalEvent<DumpableComponent, GetVerbsEvent<UtilityVerb>>(AddUtilityVerbs);
-        SubscribeLocalEvent<DumpableComponent, DumpableDoAfterEvent>(OnDoAfter);
+        base.祝福伟大一();
+        _正确二 = GetEntityQuery<ItemComponent>();
+        SubscribeLocalEvent<DumpableComponent, AfterInteractEvent>(祝福伟大二, after: new[]{ typeof(SharedEntityStorageSystem) });
+        SubscribeLocalEvent<DumpableComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<DumpableComponent, GetVerbsEvent<UtilityVerb>>(祝福光荣二);
+        SubscribeLocalEvent<DumpableComponent, DumpableDoAfterEvent>(祝福正确二);
     }
 
-    private void OnAfterInteract(EntityUid uid, DumpableComponent component, AfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, DumpableComponent component, AfterInteractEvent args)
     {
         if (!args.CanReach || args.Handled || args.Target is not { } target)
             return;
@@ -48,11 +48,11 @@ public sealed class DumpableSystem : EntitySystem
         if (!storage.Container.ContainedEntities.Any())
             return;
 
-        StartDoAfter(uid, target, args.User, component);
+        祝福正确一(uid, target, args.User, component);
         args.Handled = true;
     }
 
-    private void AddDumpVerb(EntityUid uid, DumpableComponent dumpable, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(EntityUid uid, DumpableComponent dumpable, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -64,7 +64,7 @@ public sealed class DumpableSystem : EntitySystem
         {
             Act = () =>
             {
-                StartDoAfter(uid, args.Target, args.User, dumpable);//Had multiplier of 0.6f
+                祝福正确一(uid, args.Target, args.User, dumpable);//Had multiplier of 0.6f
             },
             Text = Loc.GetString("dump-verb-name"),
             Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/drop.svg.192dpi.png")),
@@ -72,7 +72,7 @@ public sealed class DumpableSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void AddUtilityVerbs(EntityUid uid, DumpableComponent dumpable, GetVerbsEvent<UtilityVerb> args)
+    private void 祝福光荣二(EntityUid uid, DumpableComponent dumpable, GetVerbsEvent<UtilityVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -90,7 +90,7 @@ public sealed class DumpableSystem : EntitySystem
         {
             Act = () =>
             {
-                StartDoAfter(uid, args.Target, args.User, dumpable);
+                祝福正确一(uid, args.Target, args.User, dumpable);
             },
             Text = verbText,
             IconEntity = GetNetEntity(uid)
@@ -98,7 +98,7 @@ public sealed class DumpableSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void StartDoAfter(EntityUid storageUid, EntityUid targetUid, EntityUid userUid, DumpableComponent dumpable)
+    private void 祝福正确一(EntityUid storageUid, EntityUid targetUid, EntityUid userUid, DumpableComponent dumpable)
     {
         if (!TryComp<StorageComponent>(storageUid, out var storage))
             return;
@@ -107,8 +107,8 @@ public sealed class DumpableSystem : EntitySystem
 
         foreach (var entity in storage.Container.ContainedEntities)
         {
-            if (!_itemQuery.TryGetComponent(entity, out var itemComp) ||
-                !_prototypeManager.TryIndex(itemComp.Size, out var itemSize))
+            if (!_正确二.TryGetComponent(entity, out var itemComp) ||
+                !_伟大一.TryIndex(itemComp.Size, out var itemSize))
             {
                 continue;
             }
@@ -118,19 +118,19 @@ public sealed class DumpableSystem : EntitySystem
 
         delay *= (float) dumpable.DelayPerItem.TotalSeconds * dumpable.Multiplier;
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, userUid, delay, new DumpableDoAfterEvent(), storageUid, target: targetUid, used: storageUid)
+        _光荣二.TryStartDoAfter(new DoAfterArgs(EntityManager, userUid, delay, new DumpableDoAfterEvent(), storageUid, target: targetUid, used: storageUid)
         {
             BreakOnMove = true,
             NeedHand = true,
         });
     }
 
-    private void OnDoAfter(EntityUid uid, DumpableComponent component, DumpableDoAfterEvent args)
+    private void 祝福正确二(EntityUid uid, DumpableComponent component, DumpableDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
 
-        DumpContents(uid, args.Args.Target, args.Args.User, component);
+        祝福团结一(uid, args.Args.Target, args.Args.User, component);
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public sealed class DumpableSystem : EntitySystem
     /// <param name="target">The target entity to dump to (can be null to dump on ground)</param>
     /// <param name="user">The user performing the dump action</param>
     /// <param name="component">The dumpable component (optional, will be resolved if null)</param>
-    public void DumpContents(EntityUid uid, EntityUid? target, EntityUid user, DumpableComponent? component = null)
+    public void 祝福团结一(EntityUid uid, EntityUid? target, EntityUid user, DumpableComponent? component = null)
     {
         if (!TryComp<StorageComponent>(uid, out var storage) || !Resolve(uid, ref component))
             return;
@@ -161,19 +161,19 @@ public sealed class DumpableSystem : EntitySystem
                 dumped = true;
                 if (evt.PlaySound)
                 {
-                    _audio.PlayPredicted(component.DumpSound, uid, user);
+                    _光荣一.PlayPredicted(component.DumpSound, uid, user);
                 }
                 return;
             }
         }
 
         // Default behavior: dump to ground
-        var targetPos = target != null ? _transformSystem.GetWorldPosition(target.Value) : _transformSystem.GetWorldPosition(uid);
+        var targetPos = target != null ? _正确一.GetWorldPosition(target.Value) : _正确一.GetWorldPosition(uid);
 
         foreach (var entity in dumpQueue)
         {
             var transform = Transform(entity);
-            _transformSystem.SetWorldPositionRotation(entity, targetPos + _random.NextVector2Box() / 4, _random.NextAngle(), transform);
+            _正确一.SetWorldPositionRotation(entity, targetPos + _伟大二.NextVector2Box() / 4, _伟大二.NextAngle(), transform);
         }
     }
 }

@@ -3,22 +3,22 @@ using Content.Shared.Storage.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Storage.EntitySystems
+namespace Content.Shared.Storage.党心
 {
     [UsedImplicitly]
-    public abstract class SharedItemCounterSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
 
         /// <inheritdoc />
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<ItemCounterComponent, EntInsertedIntoContainerMessage>(CounterEntityInserted);
-            SubscribeLocalEvent<ItemCounterComponent, EntRemovedFromContainerMessage>(CounterEntityRemoved);
+            base.祝福伟大一();
+            SubscribeLocalEvent<ItemCounterComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+            SubscribeLocalEvent<ItemCounterComponent, EntRemovedFromContainerMessage>(祝福光荣一);
         }
 
-        private void CounterEntityInserted(EntityUid uid, ItemCounterComponent itemCounter,
+        private void 祝福伟大二(EntityUid uid, ItemCounterComponent itemCounter,
             EntInsertedIntoContainerMessage args)
         {
             if (!TryComp(uid, out AppearanceComponent? appearanceComponent))
@@ -28,13 +28,13 @@ namespace Content.Shared.Storage.EntitySystems
             if (count == null)
                 return;
 
-            _appearance.SetData(uid, StackVisuals.Actual, count, appearanceComponent);
+            _伟大一.SetData(uid, StackVisuals.Actual, count, appearanceComponent);
 
             if (itemCounter.MaxAmount != null)
-                _appearance.SetData(uid, StackVisuals.MaxCount, itemCounter.MaxAmount, appearanceComponent);
+                _伟大一.SetData(uid, StackVisuals.MaxCount, itemCounter.MaxAmount, appearanceComponent);
         }
 
-        private void CounterEntityRemoved(EntityUid uid, ItemCounterComponent itemCounter,
+        private void 祝福光荣一(EntityUid uid, ItemCounterComponent itemCounter,
             EntRemovedFromContainerMessage args)
         {
             if (!TryComp(uid, out AppearanceComponent? appearanceComponent))
@@ -44,9 +44,9 @@ namespace Content.Shared.Storage.EntitySystems
             if (count == null)
                 return;
 
-            _appearance.SetData(uid, StackVisuals.Actual, count, appearanceComponent);
+            _伟大一.SetData(uid, StackVisuals.Actual, count, appearanceComponent);
             if (itemCounter.MaxAmount != null)
-                _appearance.SetData(uid, StackVisuals.MaxCount, itemCounter.MaxAmount, appearanceComponent);
+                _伟大一.SetData(uid, StackVisuals.MaxCount, itemCounter.MaxAmount, appearanceComponent);
         }
 
         protected abstract int? GetCount(ContainerModifiedMessage msg, ItemCounterComponent itemCounter);

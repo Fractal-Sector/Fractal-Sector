@@ -8,32 +8,32 @@ using Content.Shared._DeltaV.CartridgeLoader.Cartridges;
 using Content.Shared._DeltaV.NanoChat;
 using Content.Shared.Eui;
 
-namespace Content.Server.Administration.UI;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 /// Admin EUI for viewing all NanoChat messages between players
 /// </summary>
-public sealed class NanoChatAdminEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly IEntityManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
 
-    public NanoChatAdminEui()
+    public 中华伟大一()
     {
         IoCManager.InjectDependencies(this);
     }
 
-    public override void Opened()
+    public override void 祝福伟大一()
     {
-        base.Opened();
+        base.祝福伟大一();
         StateDirty();
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福伟大二()
     {
         // Check if the player has admin permissions
-        if (!_adminManager.HasAdminFlag(Player, AdminFlags.Admin))
+        if (!_伟大一.HasAdminFlag(Player, AdminFlags.Admin))
         {
             return new NanoChatAdminEuiState();
         }
@@ -41,7 +41,7 @@ public sealed class NanoChatAdminEui : BaseEui
         var cards = new List<NanoChatCardData>();
 
         // Query all NanoChat cards in the game
-        var query = _entityManager.EntityQueryEnumerator<NanoChatCardComponent>();
+        var query = _伟大二.EntityQueryEnumerator<NanoChatCardComponent>();
         while (query.MoveNext(out var uid, out var nanoChatCard))
         {
             // Get ID card info if available
@@ -49,7 +49,7 @@ public sealed class NanoChatAdminEui : BaseEui
             string? jobTitle = null;
             string? username = null;
             
-            if (_entityManager.TryGetComponent<IdCardComponent>(uid, out var idCard))
+            if (_伟大二.TryGetComponent<IdCardComponent>(uid, out var idCard))
             {
                 ownerName = idCard.FullName ?? "Unknown";
                 jobTitle = idCard.LocalizedJobTitle;
@@ -57,14 +57,14 @@ public sealed class NanoChatAdminEui : BaseEui
 
             // Try to find the player who owns this card
             // First check if the card is in a PDA
-            if (nanoChatCard.PdaUid != null && _entityManager.TryGetComponent(nanoChatCard.PdaUid.Value, out TransformComponent? pdaTransform))
+            if (nanoChatCard.PdaUid != null && _伟大二.TryGetComponent(nanoChatCard.PdaUid.Value, out TransformComponent? pdaTransform))
             {
                 // Try to find the player holding the PDA or whose inventory contains it
                 var parent = pdaTransform.ParentUid;
-                if (_entityManager.EntityExists(parent))
+                if (_伟大二.EntityExists(parent))
                 {
                     // Check if the parent entity has a player session
-                    if (_playerManager.TryGetSessionByEntity(parent, out var session))
+                    if (_光荣一.TryGetSessionByEntity(parent, out var session))
                     {
                         username = session.Name;
                     }
@@ -72,12 +72,12 @@ public sealed class NanoChatAdminEui : BaseEui
             }
             
             // If still no username, try to find if the card itself has a player attached somehow
-            if (username == null && _entityManager.TryGetComponent(uid, out TransformComponent? cardTransform))
+            if (username == null && _伟大二.TryGetComponent(uid, out TransformComponent? cardTransform))
             {
                 var parent = cardTransform.ParentUid;
-                if (_entityManager.EntityExists(parent))
+                if (_伟大二.EntityExists(parent))
                 {
-                    if (_playerManager.TryGetSessionByEntity(parent, out var session))
+                    if (_光荣一.TryGetSessionByEntity(parent, out var session))
                     {
                         username = session.Name;
                     }
@@ -86,7 +86,7 @@ public sealed class NanoChatAdminEui : BaseEui
 
             var cardData = new NanoChatCardData
             {
-                CardEntity = _entityManager.GetNetEntity(uid),
+                CardEntity = _伟大二.GetNetEntity(uid),
                 Number = nanoChatCard.Number,
                 OwnerName = ownerName,
                 Username = username,
@@ -114,14 +114,14 @@ public sealed class NanoChatAdminEui : BaseEui
         };
     }
 
-    public override void HandleMessage(EuiMessageBase msg)
+    public override void 祝福光荣一(EuiMessageBase msg)
     {
-        base.HandleMessage(msg);
+        base.祝福光荣一(msg);
 
         switch (msg)
         {
             case NanoChatAdminEuiMsg.Refresh:
-                if (!_adminManager.HasAdminFlag(Player, AdminFlags.Admin))
+                if (!_伟大一.HasAdminFlag(Player, AdminFlags.Admin))
                 {
                     Close();
                     break;

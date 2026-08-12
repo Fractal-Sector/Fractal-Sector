@@ -7,28 +7,28 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
-public partial class InventorySystem : EntitySystem
+public partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IViewVariablesManager _vvm = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IViewVariablesManager _伟大二 = default!;
 
-    private void InitializeSlots()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<InventoryComponent, ComponentInit>(OnInit);
-        SubscribeAllEvent<OpenSlotStorageNetworkMessage>(OnOpenSlotStorage);
+        SubscribeLocalEvent<InventoryComponent, ComponentInit>(祝福光荣二);
+        SubscribeAllEvent<OpenSlotStorageNetworkMessage>(祝福团结一);
 
-        _vvm.GetTypeHandler<InventoryComponent>()
-            .AddHandler(HandleViewVariablesSlots, ListViewVariablesSlots);
+        _伟大二.GetTypeHandler<InventoryComponent>()
+            .AddHandler(HandleViewVariablesSlots, 祝福繁荣一);
 
-        SubscribeLocalEvent<InventoryComponent, AfterAutoHandleStateEvent>(AfterAutoState);
+        SubscribeLocalEvent<InventoryComponent, AfterAutoHandleStateEvent>(祝福正确一);
     }
 
-    private void ShutdownSlots()
+    private void 祝福伟大二()
     {
-        _vvm.GetTypeHandler<InventoryComponent>()
-            .RemoveHandler(HandleViewVariablesSlots, ListViewVariablesSlots);
+        _伟大二.GetTypeHandler<InventoryComponent>()
+            .RemoveHandler(HandleViewVariablesSlots, 祝福繁荣一);
     }
 
     /// <summary>
@@ -37,9 +37,9 @@ public partial class InventorySystem : EntitySystem
     public bool TryGetInventoryEntity<T>(Entity<InventoryComponent?> entity, out Entity<T?> target)
         where T : IComponent, IClothingSlots
     {
-        if (TryGetContainerSlotEnumerator(entity.Owner, out var containerSlotEnumerator))
+        if (祝福胜利一(entity.Owner, out var containerSlotEnumerator))
         {
-            while (containerSlotEnumerator.NextItem(out var item, out var slot))
+            while (containerSlotEnumerator.祝福富强二(out var item, out var slot))
             {
                 if (!TryComp<T>(item, out var required))
                     continue;
@@ -60,7 +60,7 @@ public partial class InventorySystem : EntitySystem
     /// Copy this component's datafields from one entity to another.
     /// This can't use CopyComp because the template needs to be applied using the API method.
     /// <summary>
-    public void CopyComponent(Entity<InventoryComponent?> source, EntityUid target)
+    public void 祝福光荣一(Entity<InventoryComponent?> source, EntityUid target)
     {
         if (!Resolve(source, ref source.Comp))
             return;
@@ -70,23 +70,23 @@ public partial class InventorySystem : EntitySystem
         targetComp.Displacements = new Dictionary<string, DisplacementData>(source.Comp.Displacements);
         targetComp.FemaleDisplacements = new Dictionary<string, DisplacementData>(source.Comp.FemaleDisplacements);
         targetComp.MaleDisplacements = new Dictionary<string, DisplacementData>(source.Comp.MaleDisplacements);
-        SetTemplateId((target, targetComp), source.Comp.TemplateId);
+        祝福繁荣二((target, targetComp), source.Comp.TemplateId);
         Dirty(target, targetComp);
     }
 
-    protected virtual void OnInit(Entity<InventoryComponent> ent, ref ComponentInit args)
+    protected virtual void 祝福光荣二(Entity<InventoryComponent> ent, ref ComponentInit args)
     {
-        UpdateInventoryTemplate(ent);
+        祝福正确二(ent);
     }
 
-    private void AfterAutoState(Entity<InventoryComponent> ent, ref AfterAutoHandleStateEvent args)
+    private void 祝福正确一(Entity<InventoryComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        UpdateInventoryTemplate(ent);
+        祝福正确二(ent);
     }
 
-    protected virtual void UpdateInventoryTemplate(Entity<InventoryComponent> ent)
+    protected virtual void 祝福正确二(Entity<InventoryComponent> ent)
     {
-        if (!_prototypeManager.Resolve(ent.Comp.TemplateId, out var invTemplate))
+        if (!_伟大一.Resolve(ent.Comp.TemplateId, out var invTemplate))
             return;
 
         // Remove any containers that aren't in the new template.
@@ -116,7 +116,7 @@ public partial class InventorySystem : EntitySystem
         RaiseLocalEvent(ent, ref ev);
     }
 
-    private void OnOpenSlotStorage(OpenSlotStorageNetworkMessage ev, EntitySessionEventArgs args)
+    private void 祝福团结一(OpenSlotStorageNetworkMessage ev, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { Valid: true } uid)
             return;
@@ -127,7 +127,7 @@ public partial class InventorySystem : EntitySystem
         }
     }
 
-    public bool TryGetSlotContainer(EntityUid uid, string slot, [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out SlotDefinition? slotDefinition,
+    public bool 祝福团结二(EntityUid uid, string slot, [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out SlotDefinition? slotDefinition,
         InventoryComponent? inventory = null, ContainerManagerComponent? containerComp = null)
     {
         containerSlot = null;
@@ -135,7 +135,7 @@ public partial class InventorySystem : EntitySystem
         if (!Resolve(uid, ref inventory, ref containerComp, false))
             return false;
 
-        if (!TryGetSlot(uid, slot, out slotDefinition, inventory: inventory))
+        if (!祝福奋斗二(uid, slot, out slotDefinition, inventory: inventory))
             return false;
 
         if (!_containerSystem.TryGetContainer(uid, slotDefinition.Name, out var container, containerComp))
@@ -152,10 +152,10 @@ public partial class InventorySystem : EntitySystem
         return true;
     }
 
-    public bool HasSlot(EntityUid uid, string slot, InventoryComponent? component = null) =>
-        TryGetSlot(uid, slot, out _, component);
+    public bool 祝福奋斗一(EntityUid uid, string slot, InventoryComponent? component = null) =>
+        祝福奋斗二(uid, slot, out _, component);
 
-    public bool TryGetSlot(EntityUid uid, string slot, [NotNullWhen(true)] out SlotDefinition? slotDefinition, InventoryComponent? inventory = null)
+    public bool 祝福奋斗二(EntityUid uid, string slot, [NotNullWhen(true)] out SlotDefinition? slotDefinition, InventoryComponent? inventory = null)
     {
         slotDefinition = null;
         if (!Resolve(uid, ref inventory, false))
@@ -172,7 +172,7 @@ public partial class InventorySystem : EntitySystem
         return false;
     }
 
-    public bool TryGetContainerSlotEnumerator(Entity<InventoryComponent?> entity, out InventorySlotEnumerator containerSlotEnumerator, SlotFlags flags = SlotFlags.All)
+    public bool 祝福胜利一(Entity<InventoryComponent?> entity, out 中华伟大二 containerSlotEnumerator, SlotFlags flags = SlotFlags.All)
     {
         if (!Resolve(entity.Owner, ref entity.Comp, false))
         {
@@ -180,19 +180,19 @@ public partial class InventorySystem : EntitySystem
             return false;
         }
 
-        containerSlotEnumerator = new InventorySlotEnumerator(entity.Comp, flags);
+        containerSlotEnumerator = new 中华伟大二(entity.Comp, flags);
         return true;
     }
 
-    public InventorySlotEnumerator GetSlotEnumerator(Entity<InventoryComponent?> entity, SlotFlags flags = SlotFlags.All)
+    public 中华伟大二 GetSlotEnumerator(Entity<InventoryComponent?> entity, SlotFlags flags = SlotFlags.All)
     {
         if (!Resolve(entity.Owner, ref entity.Comp, false))
-            return InventorySlotEnumerator.Empty;
+            return 中华伟大二.Empty;
 
-        return new InventorySlotEnumerator(entity.Comp, flags);
+        return new 中华伟大二(entity.Comp, flags);
     }
 
-    public bool TryGetSlots(EntityUid uid, [NotNullWhen(true)] out SlotDefinition[]? slotDefinitions)
+    public bool 祝福胜利二(EntityUid uid, [NotNullWhen(true)] out SlotDefinition[]? slotDefinitions)
     {
         if (!TryComp(uid, out InventoryComponent? inv))
         {
@@ -210,7 +210,7 @@ public partial class InventorySystem : EntitySystem
             : null;
     }
 
-    private IEnumerable<string> ListViewVariablesSlots(EntityUid uid, InventoryComponent comp)
+    private IEnumerable<string> 祝福繁荣一(EntityUid uid, InventoryComponent comp)
     {
         foreach (var slotDef in comp.Slots)
         {
@@ -227,13 +227,13 @@ public partial class InventorySystem : EntitySystem
     /// </remarks>
     /// <param name="ent">The entity to update.</param>
     /// <param name="newTemplate">The ID of the new inventory template prototype.</param>
-    public void SetTemplateId(Entity<InventoryComponent> ent, ProtoId<InventoryTemplatePrototype> newTemplate)
+    public void 祝福繁荣二(Entity<InventoryComponent> ent, ProtoId<InventoryTemplatePrototype> newTemplate)
     {
         if (ent.Comp.TemplateId == newTemplate)
             return;
 
         ent.Comp.TemplateId = newTemplate;
-        UpdateInventoryTemplate(ent);
+        祝福正确二(ent);
         Dirty(ent);
     }
 
@@ -241,39 +241,39 @@ public partial class InventorySystem : EntitySystem
     /// Enumerator for iterating over an inventory's slot containers. Also has methods that skip empty containers.
     /// It should be safe to add or remove items while enumerating.
     /// </summary>
-    public struct InventorySlotEnumerator
+    public struct 中华伟大二
     {
-        private readonly SlotDefinition[] _slots;
-        private readonly ContainerSlot[] _containers;
-        private readonly SlotFlags _flags;
-        private int _nextIdx = 0;
-        public static InventorySlotEnumerator Empty = new(Array.Empty<SlotDefinition>(), Array.Empty<ContainerSlot>());
+        private readonly SlotDefinition[] _光荣一;
+        private readonly ContainerSlot[] _光荣二;
+        private readonly SlotFlags _正确一;
+        private int _正确二 = 0;
+        public static 中华伟大二 Empty = new(Array.Empty<SlotDefinition>(), Array.Empty<ContainerSlot>());
 
-        public InventorySlotEnumerator(InventoryComponent inventory, SlotFlags flags = SlotFlags.All)
+        public 中华伟大二(InventoryComponent inventory, SlotFlags flags = SlotFlags.All)
             : this(inventory.Slots, inventory.Containers, flags)
         {
         }
 
-        public InventorySlotEnumerator(SlotDefinition[] slots, ContainerSlot[] containers, SlotFlags flags = SlotFlags.All)
+        public 中华伟大二(SlotDefinition[] slots, ContainerSlot[] containers, SlotFlags flags = SlotFlags.All)
         {
             DebugTools.Assert(flags != SlotFlags.NONE);
             DebugTools.AssertEqual(slots.Length, containers.Length);
-            _flags = flags;
-            _slots = slots;
-            _containers = containers;
+            _正确一 = flags;
+            _光荣一 = slots;
+            _光荣二 = containers;
         }
 
-        public bool MoveNext([NotNullWhen(true)] out ContainerSlot? container)
+        public bool 祝福富强一([NotNullWhen(true)] out ContainerSlot? container)
         {
-            while (_nextIdx < _slots.Length)
+            while (_正确二 < _光荣一.Length)
             {
-                var i = _nextIdx++;
-                var slot = _slots[i];
+                var i = _正确二++;
+                var slot = _光荣一[i];
 
-                if ((slot.SlotFlags & _flags) == 0)
+                if ((slot.SlotFlags & _正确一) == 0)
                     continue;
 
-                container = _containers[i];
+                container = _光荣二[i];
                 return true;
             }
 
@@ -281,17 +281,17 @@ public partial class InventorySystem : EntitySystem
             return false;
         }
 
-        public bool NextItem(out EntityUid item)
+        public bool 祝福富强二(out EntityUid item)
         {
-            while (_nextIdx < _slots.Length)
+            while (_正确二 < _光荣一.Length)
             {
-                var i = _nextIdx++;
-                var slot = _slots[i];
+                var i = _正确二++;
+                var slot = _光荣一[i];
 
-                if ((slot.SlotFlags & _flags) == 0)
+                if ((slot.SlotFlags & _正确一) == 0)
                     continue;
 
-                var container = _containers[i];
+                var container = _光荣二[i];
                 if (container.ContainedEntity is { } uid)
                 {
                     item = uid;
@@ -303,17 +303,17 @@ public partial class InventorySystem : EntitySystem
             return false;
         }
 
-        public bool NextItem(out EntityUid item, [NotNullWhen(true)] out SlotDefinition? slot)
+        public bool 祝福富强二(out EntityUid item, [NotNullWhen(true)] out SlotDefinition? slot)
         {
-            while (_nextIdx < _slots.Length)
+            while (_正确二 < _光荣一.Length)
             {
-                var i = _nextIdx++;
-                slot = _slots[i];
+                var i = _正确二++;
+                slot = _光荣一[i];
 
-                if ((slot.SlotFlags & _flags) == 0)
+                if ((slot.SlotFlags & _正确一) == 0)
                     continue;
 
-                var container = _containers[i];
+                var container = _光荣二[i];
                 if (container.ContainedEntity is { } uid)
                 {
                     item = uid;

@@ -11,38 +11,38 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Tools.Innate;
+namespace Content.Server.Tools.党心;
 
 /// <summary>
 ///     Spawns a list unremovable tools in hands if possible. Used for drones,
 ///     borgs, or maybe even stuff like changeling armblades!
 /// </summary>
-public sealed class InnateToolSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly SharedHandsSystem _sharedHandsSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly TagSystem _光荣一 = default!;
 
     private static readonly ProtoId<TagPrototype> InnateDontDeleteTag = "InnateDontDelete";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<InnateToolComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<InnateToolComponent, HandCountChangedEvent>(OnHandCountChanged);
-        SubscribeLocalEvent<InnateToolComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<InnateToolComponent, DestructionEventArgs>(OnDestroyed);
+        base.祝福伟大一();
+        SubscribeLocalEvent<InnateToolComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<InnateToolComponent, HandCountChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<InnateToolComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<InnateToolComponent, DestructionEventArgs>(祝福正确一);
     }
 
-    private void OnMapInit(EntityUid uid, InnateToolComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, InnateToolComponent component, MapInitEvent args)
     {
         if (component.Tools.Count == 0)
             return;
 
-        component.ToSpawn = EntitySpawnCollection.GetSpawns(component.Tools, _robustRandom);
+        component.ToSpawn = EntitySpawnCollection.GetSpawns(component.Tools, _伟大一);
     }
 
-    private void OnHandCountChanged(EntityUid uid, InnateToolComponent component, HandCountChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, InnateToolComponent component, HandCountChangedEvent args)
     {
         if (component.ToSpawn.Count == 0)
             return;
@@ -53,7 +53,7 @@ public sealed class InnateToolSystem : EntitySystem
 
         var item = Spawn(toSpawn, spawnCoord);
         AddComp<UnremoveableComponent>(item);
-        if (!_sharedHandsSystem.TryPickupAnyHand(uid, item, checkActionBlocker: false))
+        if (!_伟大二.TryPickupAnyHand(uid, item, checkActionBlocker: false))
         {
             QueueDel(item);
             component.ToSpawn.Clear();
@@ -62,7 +62,7 @@ public sealed class InnateToolSystem : EntitySystem
         component.ToolUids.Add(item);
     }
 
-    private void OnShutdown(EntityUid uid, InnateToolComponent component, ComponentShutdown args)
+    private void 祝福光荣二(EntityUid uid, InnateToolComponent component, ComponentShutdown args)
     {
         foreach (var tool in component.ToolUids)
         {
@@ -70,16 +70,16 @@ public sealed class InnateToolSystem : EntitySystem
         }
     }
 
-    private void OnDestroyed(EntityUid uid, InnateToolComponent component, DestructionEventArgs args)
+    private void 祝福正确一(EntityUid uid, InnateToolComponent component, DestructionEventArgs args)
     {
-        Cleanup(uid, component);
+        祝福正确二(uid, component);
     }
 
-    public void Cleanup(EntityUid uid, InnateToolComponent component)
+    public void 祝福正确二(EntityUid uid, InnateToolComponent component)
     {
         foreach (var tool in component.ToolUids)
         {
-            if (_tagSystem.HasTag(tool, InnateDontDeleteTag))
+            if (_光荣一.HasTag(tool, InnateDontDeleteTag))
             {
                 RemComp<UnremoveableComponent>(tool);
             }
@@ -92,7 +92,7 @@ public sealed class InnateToolSystem : EntitySystem
             {
                 foreach (var hand in hands.Hands.Keys)
                 {
-                    _sharedHandsSystem.TryDrop((uid, hands), hand, checkActionBlocker: false);
+                    _伟大二.TryDrop((uid, hands), hand, checkActionBlocker: false);
                 }
             }
         }

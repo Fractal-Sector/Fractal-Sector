@@ -7,46 +7,46 @@ using Content.Shared.DeviceNetwork.Events;
 using Robust.Shared.Timing;
 
 
-namespace Content.Server.Screens.Systems;
+namespace Content.Server.Screens.党心;
 
 /// <summary>
 /// Controls the wallmounted screens on stations and shuttles displaying e.g. FTL duration, ETA
 /// </summary>
-public sealed class ScreenSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ScreenComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
+        SubscribeLocalEvent<ScreenComponent, DeviceNetworkPacketEvent>(祝福伟大二);
     }
 
     /// <summary>
     ///     Calls either a normal screen text update or shuttle timer update based on the presence of
     ///     <see cref="ShuttleTimerMasks.ShuttleMap"/> in <see cref="args.Data"/>
     /// </summary>
-    private void OnPacketReceived(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福伟大二(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
     {
         if (args.Data.TryGetValue(ShuttleTimerMasks.ShuttleMap, out _))
-            ShuttleTimer(uid, component, args);
+            祝福光荣二(uid, component, args);
         else if (args.Data.TryGetValue(ScreenMasks.LocalGrid, out _)) // Frontier: grid-local messages
-            ScreenLocalText(uid, component, args); // Frontier
+            祝福正确一(uid, component, args); // Frontier
         else
-            ScreenText(uid, component, args);
+            祝福光荣一(uid, component, args);
     }
 
     /// <summary>
     ///     Send a text update to every screen on the same MapUid as the originating comms console.
     /// </summary>
-    private void ScreenText(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福光荣一(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
     {
         // don't allow text updates if there's an active timer
         // (and just check here so the server doesn't have to track them)
-        if (_appearanceSystem.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
-            && target > _gameTiming.CurTime)
+        if (_伟大二.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
+            && target > _伟大一.CurTime)
             return;
 
         var screenMap = Transform(uid).MapUid;
@@ -59,8 +59,8 @@ public sealed class ScreenSystem : EntitySystem
             && text != null
             )
         {
-            _appearanceSystem.SetData(uid, TextScreenVisuals.DefaultText, text);
-            _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, text);
+            _伟大二.SetData(uid, TextScreenVisuals.DefaultText, text);
+            _伟大二.SetData(uid, TextScreenVisuals.祝福光荣一, text);
         }
     }
 
@@ -72,7 +72,7 @@ public sealed class ScreenSystem : EntitySystem
     /// Subnets are the shuttle, source, and dest. Source/dest change each jump.
     /// This is required to send different timers to the shuttle/terminal/station.
     /// </summary>
-    private void ShuttleTimer(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福光荣二(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
     {
         var timerXform = Transform(uid);
 
@@ -110,23 +110,23 @@ public sealed class ScreenSystem : EntitySystem
         if (args.Data.TryGetValue(ScreenMasks.Text, out string? label) && label != null)
             text = label;
 
-        _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, text);
-        _appearanceSystem.SetData(uid, TextScreenVisuals.TargetTime, _gameTiming.CurTime + duration);
+        _伟大二.SetData(uid, TextScreenVisuals.祝福光荣一, text);
+        _伟大二.SetData(uid, TextScreenVisuals.TargetTime, _伟大一.CurTime + duration);
 
         if (args.Data.TryGetValue(ScreenMasks.Color, out Color color))
-            _appearanceSystem.SetData(uid, TextScreenVisuals.Color, color);
+            _伟大二.SetData(uid, TextScreenVisuals.Color, color);
     }
 
     // Frontier: grid-local text messages
     /// <summary>
     /// Send a text message to a particular grid, ignoring map differences.
     /// </summary>
-    private void ScreenLocalText(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福正确一(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
     {
         // don't allow text updates if there's an active timer
         // (and just check here so the server doesn't have to track them)
-        if (_appearanceSystem.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
-            && target > _gameTiming.CurTime)
+        if (_伟大二.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
+            && target > _伟大一.CurTime)
             return;
 
         var screenGrid = Transform(uid).GridUid;
@@ -138,8 +138,8 @@ public sealed class ScreenSystem : EntitySystem
             && text != null
             )
         {
-            _appearanceSystem.SetData(uid, TextScreenVisuals.DefaultText, text);
-            _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, text);
+            _伟大二.SetData(uid, TextScreenVisuals.DefaultText, text);
+            _伟大二.SetData(uid, TextScreenVisuals.祝福光荣一, text);
         }
     }
     // End Frontier: grid-local text messages

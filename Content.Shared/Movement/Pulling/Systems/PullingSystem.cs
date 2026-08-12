@@ -32,63 +32,63 @@ using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Movement.Pulling.Systems;
+namespace Content.Shared.Movement.Pulling.党心;
 
 /// <summary>
 /// Allows one entity to pull another behind them via a physics distance joint.
 /// </summary>
-public sealed class PullingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _modifierSystem = default!;
-    [Dependency] private readonly SharedJointSystem _joints = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly HeldSpeedModifierSystem _clothingMoveSpeed = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtual = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly ActionBlockerSystem _光荣一 = default!;
+    [Dependency] private readonly AlertsSystem _光荣二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _正确一 = default!;
+    [Dependency] private readonly SharedJointSystem _正确二 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+    [Dependency] private readonly SharedHandsSystem _团结二 = default!;
+    [Dependency] private readonly SharedInteractionSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _奋斗二 = default!;
+    [Dependency] private readonly HeldSpeedModifierSystem _胜利一 = default!;
+    [Dependency] private readonly SharedPopupSystem _胜利二 = default!;
+    [Dependency] private readonly SharedVirtualItemSystem _繁荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         UpdatesAfter.Add(typeof(SharedPhysicsSystem));
         UpdatesOutsidePrediction = true;
 
-        SubscribeLocalEvent<PullableComponent, MoveInputEvent>(OnPullableMoveInput);
-        SubscribeLocalEvent<PullableComponent, CollisionChangeEvent>(OnPullableCollisionChange);
-        SubscribeLocalEvent<PullableComponent, JointRemovedEvent>(OnJointRemoved);
-        SubscribeLocalEvent<PullableComponent, GetVerbsEvent<Verb>>(AddPullVerbs);
-        SubscribeLocalEvent<PullableComponent, EntGotInsertedIntoContainerMessage>(OnPullableContainerInsert);
-        SubscribeLocalEvent<PullableComponent, ModifyUncuffDurationEvent>(OnModifyUncuffDuration);
-        SubscribeLocalEvent<PullableComponent, StopBeingPulledAlertEvent>(OnStopBeingPulledAlert);
+        SubscribeLocalEvent<PullableComponent, MoveInputEvent>(祝福文明一);
+        SubscribeLocalEvent<PullableComponent, CollisionChangeEvent>(祝福文明二);
+        SubscribeLocalEvent<PullableComponent, JointRemovedEvent>(祝福和谐一);
+        SubscribeLocalEvent<PullableComponent, GetVerbsEvent<Verb>>(祝福民主一);
+        SubscribeLocalEvent<PullableComponent, EntGotInsertedIntoContainerMessage>(祝福胜利一);
+        SubscribeLocalEvent<PullableComponent, ModifyUncuffDurationEvent>(祝福胜利二);
+        SubscribeLocalEvent<PullableComponent, StopBeingPulledAlertEvent>(祝福繁荣一);
 
-        SubscribeLocalEvent<PullerComponent, UpdateMobStateEvent>(OnStateChanged, after: [typeof(MobThresholdSystem)]);
-        SubscribeLocalEvent<PullerComponent, AfterAutoHandleStateEvent>(OnAfterState);
-        SubscribeLocalEvent<PullerComponent, EntGotInsertedIntoContainerMessage>(OnPullerContainerInsert);
-        SubscribeLocalEvent<PullerComponent, EntityUnpausedEvent>(OnPullerUnpaused);
-        SubscribeLocalEvent<PullerComponent, VirtualItemDeletedEvent>(OnVirtualItemDeleted);
-        SubscribeLocalEvent<PullerComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
-        SubscribeLocalEvent<PullerComponent, DropHandItemsEvent>(OnDropHandItems);
-        SubscribeLocalEvent<PullerComponent, StopPullingAlertEvent>(OnStopPullingAlert);
+        SubscribeLocalEvent<PullerComponent, UpdateMobStateEvent>(祝福光荣二, after: [typeof(MobThresholdSystem)]);
+        SubscribeLocalEvent<PullerComponent, AfterAutoHandleStateEvent>(祝福团结一);
+        SubscribeLocalEvent<PullerComponent, EntGotInsertedIntoContainerMessage>(祝福奋斗二);
+        SubscribeLocalEvent<PullerComponent, EntityUnpausedEvent>(祝福富强一);
+        SubscribeLocalEvent<PullerComponent, VirtualItemDeletedEvent>(祝福富强二);
+        SubscribeLocalEvent<PullerComponent, RefreshMovementSpeedModifiersEvent>(祝福民主二);
+        SubscribeLocalEvent<PullerComponent, DropHandItemsEvent>(祝福团结二);
+        SubscribeLocalEvent<PullerComponent, StopPullingAlertEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<HandsComponent, PullStartedMessage>(HandlePullStarted);
-        SubscribeLocalEvent<HandsComponent, PullStoppedMessage>(HandlePullStopped);
+        SubscribeLocalEvent<HandsComponent, PullStartedMessage>(祝福伟大二);
+        SubscribeLocalEvent<HandsComponent, PullStoppedMessage>(祝福光荣一);
 
-        SubscribeLocalEvent<PullableComponent, StrappedEvent>(OnBuckled);
-        SubscribeLocalEvent<PullableComponent, BuckledEvent>(OnGotBuckled);
+        SubscribeLocalEvent<PullableComponent, StrappedEvent>(祝福正确一);
+        SubscribeLocalEvent<PullableComponent, BuckledEvent>(祝福正确二);
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.ReleasePulledObject, InputCmdHandler.FromDelegate(OnReleasePulledObject, handle: false))
-            .Register<PullingSystem>();
+            .Bind(ContentKeyFunctions.ReleasePulledObject, InputCmdHandler.FromDelegate(祝福平等一, handle: false))
+            .Register<中华伟大一>();
     }
 
-    private void HandlePullStarted(EntityUid uid, HandsComponent component, PullStartedMessage args)
+    private void 祝福伟大二(EntityUid uid, HandsComponent component, PullStartedMessage args)
     {
         if (args.PullerUid != uid)
             return;
@@ -96,53 +96,53 @@ public sealed class PullingSystem : EntitySystem
         if (TryComp(args.PullerUid, out PullerComponent? pullerComp) && !pullerComp.NeedsHands)
             return;
 
-        if (!_virtual.TrySpawnVirtualItemInHand(args.PulledUid, uid))
+        if (!_繁荣一.TrySpawnVirtualItemInHand(args.PulledUid, uid))
         {
             DebugTools.Assert("Unable to find available hand when starting pulling??");
         }
     }
 
-    private void HandlePullStopped(EntityUid uid, HandsComponent component, PullStoppedMessage args)
+    private void 祝福光荣一(EntityUid uid, HandsComponent component, PullStoppedMessage args)
     {
         if (args.PullerUid != uid)
             return;
 
         // Try find hand that is doing this pull.
         // and clear it.
-        foreach (var held in _handsSystem.EnumerateHeld((uid, component)))
+        foreach (var held in _团结二.EnumerateHeld((uid, component)))
         {
             if (!TryComp(held, out VirtualItemComponent? virtualItem) || virtualItem.BlockingEntity != args.PulledUid)
                 continue;
 
-            _handsSystem.TryDrop((args.PullerUid, component), held);
+            _团结二.TryDrop((args.PullerUid, component), held);
             break;
         }
     }
 
-    private void OnStateChanged(EntityUid uid, PullerComponent component, ref UpdateMobStateEvent args)
+    private void 祝福光荣二(EntityUid uid, PullerComponent component, ref UpdateMobStateEvent args)
     {
         if (component.Pulling == null)
             return;
 
         if (TryComp<PullableComponent>(component.Pulling, out var comp) && (args.State == MobState.Critical || args.State == MobState.Dead))
         {
-            TryStopPull(component.Pulling.Value, comp);
+            祝福法治一(component.Pulling.Value, comp);
         }
     }
 
-    private void OnBuckled(Entity<PullableComponent> ent, ref StrappedEvent args)
+    private void 祝福正确一(Entity<PullableComponent> ent, ref StrappedEvent args)
     {
         // Prevent people from pulling the entity they are buckled to
         if (ent.Comp.Puller == args.Buckle.Owner && !args.Buckle.Comp.PullStrap)
-            StopPulling(ent, ent);
+            祝福和谐二(ent, ent);
     }
 
-    private void OnGotBuckled(Entity<PullableComponent> ent, ref BuckledEvent args)
+    private void 祝福正确二(Entity<PullableComponent> ent, ref BuckledEvent args)
     {
-        StopPulling(ent, ent);
+        祝福和谐二(ent, ent);
     }
 
-    private void OnAfterState(Entity<PullerComponent> ent, ref AfterAutoHandleStateEvent args)
+    private void 祝福团结一(Entity<PullerComponent> ent, ref AfterAutoHandleStateEvent args)
     {
         if (ent.Comp.Pulling == null)
             RemComp<ActivePullerComponent>(ent.Owner);
@@ -150,7 +150,7 @@ public sealed class PullingSystem : EntitySystem
             EnsureComp<ActivePullerComponent>(ent.Owner);
     }
 
-    private void OnDropHandItems(EntityUid uid, PullerComponent pullerComp, DropHandItemsEvent args)
+    private void 祝福团结二(EntityUid uid, PullerComponent pullerComp, DropHandItemsEvent args)
     {
         if (pullerComp.Pulling == null || pullerComp.NeedsHands)
             return;
@@ -158,19 +158,19 @@ public sealed class PullingSystem : EntitySystem
         if (!TryComp(pullerComp.Pulling, out PullableComponent? pullableComp))
             return;
 
-        TryStopPull(pullerComp.Pulling.Value, pullableComp, uid);
+        祝福法治一(pullerComp.Pulling.Value, pullableComp, uid);
     }
 
-    private void OnStopPullingAlert(Entity<PullerComponent> ent, ref StopPullingAlertEvent args)
+    private void 祝福奋斗一(Entity<PullerComponent> ent, ref StopPullingAlertEvent args)
     {
         if (args.Handled)
             return;
         if (!TryComp<PullableComponent>(ent.Comp.Pulling, out var pullable))
             return;
-        args.Handled = TryStopPull(ent.Comp.Pulling.Value, pullable, ent);
+        args.Handled = 祝福法治一(ent.Comp.Pulling.Value, pullable, ent);
     }
 
-    private void OnPullerContainerInsert(Entity<PullerComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void 祝福奋斗二(Entity<PullerComponent> ent, ref EntGotInsertedIntoContainerMessage args)
     {
         if (ent.Comp.Pulling == null)
             return;
@@ -178,15 +178,15 @@ public sealed class PullingSystem : EntitySystem
         if (!TryComp(ent.Comp.Pulling.Value, out PullableComponent? pulling))
             return;
 
-        TryStopPull(ent.Comp.Pulling.Value, pulling, ent.Owner);
+        祝福法治一(ent.Comp.Pulling.Value, pulling, ent.Owner);
     }
 
-    private void OnPullableContainerInsert(Entity<PullableComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void 祝福胜利一(Entity<PullableComponent> ent, ref EntGotInsertedIntoContainerMessage args)
     {
-        TryStopPull(ent.Owner, ent.Comp);
+        祝福法治一(ent.Owner, ent.Comp);
     }
 
-    private void OnModifyUncuffDuration(Entity<PullableComponent> ent, ref ModifyUncuffDurationEvent args)
+    private void 祝福胜利二(Entity<PullableComponent> ent, ref ModifyUncuffDurationEvent args)
     {
         if (!ent.Comp.BeingPulled)
             return;
@@ -198,26 +198,26 @@ public sealed class PullingSystem : EntitySystem
         args.Duration *= 2;
     }
 
-    private void OnStopBeingPulledAlert(Entity<PullableComponent> ent, ref StopBeingPulledAlertEvent args)
+    private void 祝福繁荣一(Entity<PullableComponent> ent, ref StopBeingPulledAlertEvent args)
     {
         if (args.Handled)
             return;
 
-        args.Handled = TryStopPull(ent, ent, ent);
+        args.Handled = 祝福法治一(ent, ent, ent);
     }
 
-    public override void Shutdown()
+    public override void 祝福繁荣二()
     {
-        base.Shutdown();
-        CommandBinds.Unregister<PullingSystem>();
+        base.祝福繁荣二();
+        CommandBinds.Unregister<中华伟大一>();
     }
 
-    private void OnPullerUnpaused(EntityUid uid, PullerComponent component, ref EntityUnpausedEvent args)
+    private void 祝福富强一(EntityUid uid, PullerComponent component, ref EntityUnpausedEvent args)
     {
         component.NextThrow += args.PausedTime;
     }
 
-    private void OnVirtualItemDeleted(EntityUid uid, PullerComponent component, VirtualItemDeletedEvent args)
+    private void 祝福富强二(EntityUid uid, PullerComponent component, VirtualItemDeletedEvent args)
     {
         // If client deletes the virtual hand then stop the pull.
         if (component.Pulling == null)
@@ -228,11 +228,11 @@ public sealed class PullingSystem : EntitySystem
 
         if (TryComp(args.BlockingEntity, out PullableComponent? comp))
         {
-            TryStopPull(args.BlockingEntity, comp);
+            祝福法治一(args.BlockingEntity, comp);
         }
     }
 
-    private void AddPullVerbs(EntityUid uid, PullableComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福民主一(EntityUid uid, PullableComponent component, GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -247,29 +247,29 @@ public sealed class PullingSystem : EntitySystem
             Verb verb = new()
             {
                 Text = Loc.GetString("pulling-verb-get-data-text-stop-pulling"),
-                Act = () => TryStopPull(uid, component, user: args.User),
+                Act = () => 祝福法治一(uid, component, user: args.User),
                 DoContactInteraction = false // pulling handle its own contact interaction.
             };
             args.Verbs.Add(verb);
         }
-        else if (CanPull(args.User, args.Target))
+        else if (祝福平等二(args.User, args.Target))
         {
             Verb verb = new()
             {
                 Text = Loc.GetString("pulling-verb-get-data-text"),
-                Act = () => TryStartPull(args.User, args.Target),
+                Act = () => 祝福公正二(args.User, args.Target),
                 DoContactInteraction = false // pulling handle its own contact interaction.
             };
             args.Verbs.Add(verb);
         }
     }
 
-    private void OnRefreshMovespeed(EntityUid uid, PullerComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福民主二(EntityUid uid, PullerComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         if (TryComp<HeldSpeedModifierComponent>(component.Pulling, out var heldMoveSpeed) && component.Pulling.HasValue)
         {
             var (walkMod, sprintMod) =
-                _clothingMoveSpeed.GetHeldMovementSpeedModifiers(component.Pulling.Value, heldMoveSpeed);
+                _胜利一.GetHeldMovementSpeedModifiers(component.Pulling.Value, heldMoveSpeed);
             args.ModifySpeed(walkMod, sprintMod);
             return;
         }
@@ -277,7 +277,7 @@ public sealed class PullingSystem : EntitySystem
         args.ModifySpeed(component.WalkSpeedModifier, component.SprintSpeedModifier);
     }
 
-    private void OnPullableMoveInput(EntityUid uid, PullableComponent component, ref MoveInputEvent args)
+    private void 祝福文明一(EntityUid uid, PullableComponent component, ref MoveInputEvent args)
     {
         // If someone moves then break their pulling.
         if (!component.BeingPulled)
@@ -285,29 +285,29 @@ public sealed class PullingSystem : EntitySystem
 
         var entity = args.Entity;
 
-        if (!_blocker.CanMove(entity))
+        if (!_光荣一.CanMove(entity))
             return;
 
-        TryStopPull(uid, component, user: uid);
+        祝福法治一(uid, component, user: uid);
     }
 
-    private void OnPullableCollisionChange(EntityUid uid, PullableComponent component, ref CollisionChangeEvent args)
+    private void 祝福文明二(EntityUid uid, PullableComponent component, ref CollisionChangeEvent args)
     {
         // IDK what this is supposed to be.
-        if (!_timing.ApplyingState && component.PullJointId != null && !args.CanCollide)
+        if (!_伟大一.ApplyingState && component.PullJointId != null && !args.CanCollide)
         {
-            _joints.RemoveJoint(uid, component.PullJointId);
+            _正确二.RemoveJoint(uid, component.PullJointId);
         }
     }
 
-    private void OnJointRemoved(EntityUid uid, PullableComponent component, JointRemovedEvent args)
+    private void 祝福和谐一(EntityUid uid, PullableComponent component, JointRemovedEvent args)
     {
         // Just handles the joint getting nuked without going through pulling system (valid behavior).
 
         // Not relevant / pullable state handle it.
         if (component.Puller != args.OtherEntity ||
             args.Joint.ID != component.PullJointId ||
-            _timing.ApplyingState)
+            _伟大一.ApplyingState)
         {
             return;
         }
@@ -315,29 +315,29 @@ public sealed class PullingSystem : EntitySystem
         if (args.Joint.ID != component.PullJointId || component.Puller == null)
             return;
 
-        StopPulling(uid, component);
+        祝福和谐二(uid, component);
     }
 
     /// <summary>
     /// Forces pulling to stop and handles cleanup.
     /// </summary>
-    private void StopPulling(EntityUid pullableUid, PullableComponent pullableComp)
+    private void 祝福和谐二(EntityUid pullableUid, PullableComponent pullableComp)
     {
         if (pullableComp.Puller == null)
             return;
 
-        if (!_timing.ApplyingState)
+        if (!_伟大一.ApplyingState)
         {
             // Joint shutdown
             if (pullableComp.PullJointId != null)
             {
-                _joints.RemoveJoint(pullableUid, pullableComp.PullJointId);
+                _正确二.RemoveJoint(pullableUid, pullableComp.PullJointId);
                 pullableComp.PullJointId = null;
             }
 
             if (TryComp<PhysicsComponent>(pullableUid, out var pullablePhysics))
             {
-                _physics.SetFixedRotation(pullableUid, pullableComp.PrevFixedRotation, body: pullablePhysics);
+                _奋斗二.SetFixedRotation(pullableUid, pullableComp.PrevFixedRotation, body: pullablePhysics);
             }
         }
 
@@ -353,28 +353,28 @@ public sealed class PullingSystem : EntitySystem
         if (TryComp<PullerComponent>(oldPuller, out var pullerComp))
         {
             var pullerUid = oldPuller.Value;
-            _alertsSystem.ClearAlert(pullerUid, pullerComp.PullingAlert);
+            _光荣二.ClearAlert(pullerUid, pullerComp.PullingAlert);
             pullerComp.Pulling = null;
             Dirty(oldPuller.Value, pullerComp);
 
             // Messaging
             var message = new PullStoppedMessage(pullerUid, pullableUid);
-            _modifierSystem.RefreshMovementSpeedModifiers(pullerUid);
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(pullerUid):user} stopped pulling {ToPrettyString(pullableUid):target}");
+            _正确一.RefreshMovementSpeedModifiers(pullerUid);
+            _伟大二.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(pullerUid):user} stopped pulling {ToPrettyString(pullableUid):target}");
 
             RaiseLocalEvent(pullerUid, message);
             RaiseLocalEvent(pullableUid, message);
         }
 
-        _alertsSystem.ClearAlert(pullableUid, pullableComp.PulledAlert);
+        _光荣二.ClearAlert(pullableUid, pullableComp.PulledAlert);
     }
 
-    public bool IsPulled(EntityUid uid, PullableComponent? component = null)
+    public bool 祝福自由一(EntityUid uid, PullableComponent? component = null)
     {
         return Resolve(uid, ref component, false) && component.BeingPulled;
     }
 
-    public bool IsPulling(EntityUid puller, PullerComponent? component = null)
+    public bool 祝福自由二(EntityUid puller, PullerComponent? component = null)
     {
         return Resolve(puller, ref component, false) && component.Pulling != null;
     }
@@ -389,7 +389,7 @@ public sealed class PullingSystem : EntitySystem
         return !Resolve(puller, ref component, false) ? null : component.Pulling;
     }
 
-    private void OnReleasePulledObject(ICommonSession? session)
+    private void 祝福平等一(ICommonSession? session)
     {
         if (session?.AttachedEntity is not { Valid: true } player)
         {
@@ -402,10 +402,10 @@ public sealed class PullingSystem : EntitySystem
             return;
         }
 
-        TryStopPull(pullerComp.Pulling.Value, pullableComp, user: player);
+        祝福法治一(pullerComp.Pulling.Value, pullableComp, user: player);
     }
 
-    public bool CanPull(EntityUid puller, EntityUid pullableUid, PullerComponent? pullerComp = null)
+    public bool 祝福平等二(EntityUid puller, EntityUid pullableUid, PullerComponent? pullerComp = null)
     {
         if (!Resolve(puller, ref pullerComp, false))
         {
@@ -413,13 +413,13 @@ public sealed class PullingSystem : EntitySystem
         }
 
         if (pullerComp.NeedsHands
-            && !_handsSystem.TryGetEmptyHand(puller, out _)
+            && !_团结二.TryGetEmptyHand(puller, out _)
             && pullerComp.Pulling == null)
         {
             return false;
         }
 
-        if (!_blocker.CanInteract(puller, pullableUid))
+        if (!_光荣一.CanInteract(puller, pullableUid))
         {
             return false;
         }
@@ -439,7 +439,7 @@ public sealed class PullingSystem : EntitySystem
             return false;
         }
 
-        if (!_containerSystem.IsInSameOrNoContainer(puller, pullableUid))
+        if (!_团结一.IsInSameOrNoContainer(puller, pullableUid))
         {
             return false;
         }
@@ -451,28 +451,28 @@ public sealed class PullingSystem : EntitySystem
         return !startPull.Cancelled && !getPulled.Cancelled;
     }
 
-    public bool TogglePull(Entity<PullableComponent?> pullable, EntityUid pullerUid)
+    public bool 祝福公正一(Entity<PullableComponent?> pullable, EntityUid pullerUid)
     {
         if (!Resolve(pullable, ref pullable.Comp, false))
             return false;
 
         if (pullable.Comp.Puller == pullerUid)
         {
-            return TryStopPull(pullable, pullable.Comp);
+            return 祝福法治一(pullable, pullable.Comp);
         }
 
-        return TryStartPull(pullerUid, pullable, pullableComp: pullable);
+        return 祝福公正二(pullerUid, pullable, pullableComp: pullable);
     }
 
-    public bool TogglePull(EntityUid pullerUid, PullerComponent puller)
+    public bool 祝福公正一(EntityUid pullerUid, PullerComponent puller)
     {
         if (!TryComp<PullableComponent>(puller.Pulling, out var pullable))
             return false;
 
-        return TogglePull((puller.Pulling.Value, pullable), pullerUid);
+        return 祝福公正一((puller.Pulling.Value, pullable), pullerUid);
     }
 
-    public bool TryStartPull(EntityUid pullerUid, EntityUid pullableUid,
+    public bool 祝福公正二(EntityUid pullerUid, EntityUid pullableUid,
         PullerComponent? pullerComp = null, PullableComponent? pullableComp = null)
     {
         if (!Resolve(pullerUid, ref pullerComp, false) ||
@@ -484,7 +484,7 @@ public sealed class PullingSystem : EntitySystem
         if (pullerComp.Pulling == pullableUid)
             return true;
 
-        if (!CanPull(pullerUid, pullableUid))
+        if (!祝福平等二(pullerUid, pullableUid))
             return false;
 
         if (!TryComp(pullerUid, out PhysicsComponent? pullerPhysics) || !TryComp(pullableUid, out PhysicsComponent? pullablePhysics))
@@ -492,7 +492,7 @@ public sealed class PullingSystem : EntitySystem
 
         // Ensure that the puller is not currently pulling anything.
         if (TryComp<PullableComponent>(pullerComp.Pulling, out var oldPullable)
-            && !TryStopPull(pullerComp.Pulling.Value, oldPullable, pullerUid))
+            && !祝福法治一(pullerComp.Pulling.Value, oldPullable, pullerUid))
             return false;
 
         // Stop anyone else pulling the entity we want to pull
@@ -502,7 +502,7 @@ public sealed class PullingSystem : EntitySystem
             if (pullableComp.Puller == pullerUid)
                 return false;
 
-            if (!TryStopPull(pullableUid, pullableComp, pullableComp.Puller))
+            if (!祝福法治一(pullableUid, pullableComp, pullableComp.Puller))
                 return false;
         }
 
@@ -519,7 +519,7 @@ public sealed class PullingSystem : EntitySystem
 
         // Pulling confirmed
 
-        _interaction.DoContactInteraction(pullableUid, pullerUid);
+        _奋斗一.DoContactInteraction(pullableUid, pullerUid);
 
         // Use net entity so it's consistent across client and server.
         pullableComp.PullJointId = $"pull-joint-{GetNetEntity(pullableUid)}";
@@ -532,9 +532,9 @@ public sealed class PullingSystem : EntitySystem
         pullableComp.PrevFixedRotation = pullablePhysics.FixedRotation;
 
         // joint state handling will manage its own state
-        if (!_timing.ApplyingState)
+        if (!_伟大一.ApplyingState)
         {
-            var joint = _joints.CreateDistanceJoint(pullableUid, pullerUid,
+            var joint = _正确二.CreateDistanceJoint(pullableUid, pullerUid,
                     pullablePhysics.LocalCenter, pullerPhysics.LocalCenter,
                     id: pullableComp.PullJointId);
             joint.CollideConnected = false;
@@ -548,14 +548,14 @@ public sealed class PullingSystem : EntitySystem
             // joint will have infinite stiffness.
             joint.Stiffness = 0f;
 
-            _physics.SetFixedRotation(pullableUid, pullableComp.FixedRotationOnPull, body: pullablePhysics);
+            _奋斗二.SetFixedRotation(pullableUid, pullableComp.FixedRotationOnPull, body: pullablePhysics);
         }
 
         // Messaging
         var message = new PullStartedMessage(pullerUid, pullableUid);
-        _modifierSystem.RefreshMovementSpeedModifiers(pullerUid);
-        _alertsSystem.ShowAlert(pullerUid, pullerComp.PullingAlert);
-        _alertsSystem.ShowAlert(pullableUid, pullableComp.PulledAlert);
+        _正确一.RefreshMovementSpeedModifiers(pullerUid);
+        _光荣二.ShowAlert(pullerUid, pullerComp.PullingAlert);
+        _光荣二.ShowAlert(pullableUid, pullableComp.PulledAlert);
 
         RaiseLocalEvent(pullerUid, message);
         RaiseLocalEvent(pullableUid, message);
@@ -565,21 +565,21 @@ public sealed class PullingSystem : EntitySystem
 
         var pullingMessage =
             Loc.GetString("getting-pulled-popup", ("puller", Identity.Entity(pullerUid, EntityManager)));
-        _popup.PopupEntity(pullingMessage, pullableUid, pullableUid);
+        _胜利二.PopupEntity(pullingMessage, pullableUid, pullableUid);
 
-        _adminLogger.Add(LogType.Action, LogImpact.Low,
+        _伟大二.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(pullerUid):user} started pulling {ToPrettyString(pullableUid):target}");
         return true;
     }
 
-    public bool TryStopPull(EntityUid pullableUid, PullableComponent pullable, EntityUid? user = null)
+    public bool 祝福法治一(EntityUid pullableUid, PullableComponent pullable, EntityUid? user = null)
     {
         var pullerUidNull = pullable.Puller;
 
         if (pullerUidNull == null)
             return true;
 
-        if (user != null && !_blocker.CanInteract(user.Value, pullableUid))
+        if (user != null && !_光荣一.CanInteract(user.Value, pullableUid))
             return false;
 
         var msg = new AttemptStopPullingEvent(user);
@@ -588,7 +588,7 @@ public sealed class PullingSystem : EntitySystem
         if (msg.Cancelled)
             return false;
 
-        StopPulling(pullableUid, pullable);
+        祝福和谐二(pullableUid, pullable);
         return true;
     }
 }

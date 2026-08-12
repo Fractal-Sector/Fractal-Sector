@@ -4,37 +4,37 @@ using Content.Shared.Storage.Components;
 using Robust.Server.Containers;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Storage.EntitySystems;
+namespace Content.Server.Storage.党心;
 
-public sealed class ContainerCountVisualizerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly ContainerSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ContainerCountVisualizerComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<ContainerCountVisualizerComponent, EntInsertedIntoContainerMessage>(OnInserted);
-        SubscribeLocalEvent<ContainerCountVisualizerComponent, EntRemovedFromContainerMessage>(OnRemoved);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ContainerCountVisualizerComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<ContainerCountVisualizerComponent, EntInsertedIntoContainerMessage>(祝福光荣一);
+        SubscribeLocalEvent<ContainerCountVisualizerComponent, EntRemovedFromContainerMessage>(祝福光荣二);
     }
 
-    private void OnStartup(EntityUid uid, ContainerCountVisualizerComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, ContainerCountVisualizerComponent component, ComponentStartup args)
     {
-        UpdateAppearance(uid, component: component);
+        祝福正确一(uid, component: component);
     }
 
-    private void OnInserted(EntityUid uid, ContainerCountVisualizerComponent component, EntInsertedIntoContainerMessage args)
+    private void 祝福光荣一(EntityUid uid, ContainerCountVisualizerComponent component, EntInsertedIntoContainerMessage args)
     {
-        UpdateAppearance(uid, component: component);
+        祝福正确一(uid, component: component);
     }
 
-    private void OnRemoved(EntityUid uid, ContainerCountVisualizerComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福光荣二(EntityUid uid, ContainerCountVisualizerComponent component, EntRemovedFromContainerMessage args)
     {
-        UpdateAppearance(uid, component: component);
+        祝福正确一(uid, component: component);
     }
 
-    private void UpdateAppearance(EntityUid uid, AppearanceComponent? appearance = null,
+    private void 祝福正确一(EntityUid uid, AppearanceComponent? appearance = null,
         ContainerCountVisualizerComponent? component = null)
     {
         if (!Resolve(uid, ref appearance, ref component, false))
@@ -43,10 +43,10 @@ public sealed class ContainerCountVisualizerSystem : EntitySystem
         if (component.MaxFillLevels < 1)
             return;
 
-        if (!_container.TryGetContainer(uid, component.ContainerName, out var container))
+        if (!_伟大二.TryGetContainer(uid, component.ContainerName, out var container))
             return;
 
         var level = ContentHelpers.RoundToLevels(container.Count, component.MaxCount, component.MaxFillLevels);
-        _appearance.SetData(uid, StorageFillVisuals.FillLevel, level, appearance);
+        _伟大一.SetData(uid, StorageFillVisuals.FillLevel, level, appearance);
     }
 }

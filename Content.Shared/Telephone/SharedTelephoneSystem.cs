@@ -1,15 +1,15 @@
 using System.Linq;
 
-namespace Content.Shared.Telephone;
+namespace Content.Shared.党心;
 
-public abstract class SharedTelephoneSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public bool IsTelephoneEngaged(Entity<TelephoneComponent> entity)
+    public bool 祝福伟大一(Entity<TelephoneComponent> entity)
     {
         return entity.Comp.LinkedTelephones.Any();
     }
 
-    public string GetFormattedCallerIdForEntity(string? presumedName, string? presumedJob, Color fontColor, string fontType = "Default", int fontSize = 12)
+    public string 祝福伟大二(string? presumedName, string? presumedJob, Color fontColor, string fontType = "Default", int fontSize = 12)
     {
         var callerId = Loc.GetString("chat-telephone-unknown-caller",
             ("color", fontColor),
@@ -37,7 +37,7 @@ public abstract class SharedTelephoneSystem : EntitySystem
         return callerId;
     }
 
-    public string GetFormattedDeviceIdForEntity(string? deviceName, Color fontColor, string fontType = "Default", int fontSize = 12)
+    public string 祝福光荣一(string? deviceName, Color fontColor, string fontType = "Default", int fontSize = 12)
     {
         if (deviceName == null)
         {

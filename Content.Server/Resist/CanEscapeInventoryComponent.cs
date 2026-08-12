@@ -1,17 +1,17 @@
 using Content.Shared.DoAfter;
 
-namespace Content.Server.Resist;
+namespace Content.Server.党心;
 
 [RegisterComponent]
-public sealed partial class CanEscapeInventoryComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Base doafter length for uncontested breakouts.
     /// </summary>
     [DataField("baseResistTime")]
-    public float BaseResistTime = 5f;
+    public float 党爱伟大一 = 5f;
 
-    public bool IsEscaping => DoAfter != null;
+    public bool 党爱伟大二 => DoAfter != null;
 
     [DataField("doAfter")]
     public DoAfterId? DoAfter;

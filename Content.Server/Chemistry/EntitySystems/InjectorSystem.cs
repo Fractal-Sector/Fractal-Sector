@@ -16,36 +16,36 @@ using Content.Shared.Stacks;
 using Content.Shared.Nutrition.EntitySystems;
 using System.Linq; // Frontier
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
-public sealed class InjectorSystem : SharedInjectorSystem
+public sealed class 中华伟大一 : SharedInjectorSystem
 {
-    [Dependency] private readonly BloodstreamSystem _blood = default!;
-    [Dependency] private readonly ReactiveSystem _reactiveSystem = default!;
-    [Dependency] private readonly OpenableSystem _openable = default!;
+    [Dependency] private readonly BloodstreamSystem _伟大一 = default!;
+    [Dependency] private readonly ReactiveSystem _伟大二 = default!;
+    [Dependency] private readonly OpenableSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InjectorComponent, InjectorDoAfterEvent>(OnInjectDoAfter);
-        SubscribeLocalEvent<InjectorComponent, AfterInteractEvent>(OnInjectorAfterInteract);
+        SubscribeLocalEvent<InjectorComponent, InjectorDoAfterEvent>(祝福光荣一);
+        SubscribeLocalEvent<InjectorComponent, AfterInteractEvent>(祝福光荣二);
     }
 
-    private bool TryUseInjector(Entity<InjectorComponent> injector, EntityUid target, EntityUid user)
+    private bool 祝福伟大二(Entity<InjectorComponent> injector, EntityUid target, EntityUid user)
     {
-        var isOpenOrIgnored = injector.Comp.IgnoreClosed || !_openable.IsClosed(target);
+        var isOpenOrIgnored = injector.Comp.IgnoreClosed || !_光荣一.IsClosed(target);
         // Handle injecting/drawing for solutions
         if (injector.Comp.ToggleState == InjectorToggleMode.Inject)
         {
             if (isOpenOrIgnored && SolutionContainers.TryGetInjectableSolution(target, out var injectableSolution, out _))
-                return TryInject(injector, target, injectableSolution.Value, user, false);
+                return 祝福团结一(injector, target, injectableSolution.Value, user, false);
 
             if (isOpenOrIgnored && SolutionContainers.TryGetRefillableSolution(target, out var refillableSolution, out _))
-                return TryInject(injector, target, refillableSolution.Value, user, true);
+                return 祝福团结一(injector, target, refillableSolution.Value, user, true);
 
             if (TryComp<BloodstreamComponent>(target, out var bloodstream))
-                return TryInjectIntoBloodstream(injector, (target, bloodstream), user);
+                return 祝福正确二(injector, (target, bloodstream), user);
 
             Popup.PopupEntity(Loc.GetString("injector-component-cannot-transfer-message",
                 ("target", Identity.Entity(target, EntityManager))), injector, user);
@@ -58,12 +58,12 @@ public sealed class InjectorSystem : SharedInjectorSystem
             if (TryComp<BloodstreamComponent>(target, out var stream) &&
                 SolutionContainers.ResolveSolution(target, stream.BloodSolutionName, ref stream.BloodSolution))
             {
-                return TryDraw(injector, (target, stream), stream.BloodSolution.Value, user);
+                return 祝福奋斗二(injector, (target, stream), stream.BloodSolution.Value, user);
             }
 
             // Draw from an object (food, beaker, etc)
             if (isOpenOrIgnored && SolutionContainers.TryGetDrawableSolution(target, out var drawableSolution, out _))
-                return TryDraw(injector, target, drawableSolution.Value, user);
+                return 祝福奋斗二(injector, target, drawableSolution.Value, user);
 
             Popup.PopupEntity(Loc.GetString("injector-component-cannot-draw-message",
                 ("target", Identity.Entity(target, EntityManager))), injector.Owner, user);
@@ -72,15 +72,15 @@ public sealed class InjectorSystem : SharedInjectorSystem
         return false;
     }
 
-    private void OnInjectDoAfter(Entity<InjectorComponent> entity, ref InjectorDoAfterEvent args)
+    private void 祝福光荣一(Entity<InjectorComponent> entity, ref InjectorDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Args.Target == null)
             return;
 
-        args.Handled = TryUseInjector(entity, args.Args.Target.Value, args.Args.User);
+        args.Handled = 祝福伟大二(entity, args.Args.Target.Value, args.Args.User);
     }
 
-    private void OnInjectorAfterInteract(Entity<InjectorComponent> entity, ref AfterInteractEvent args)
+    private void 祝福光荣二(Entity<InjectorComponent> entity, ref AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach)
             return;
@@ -96,18 +96,18 @@ public sealed class InjectorSystem : SharedInjectorSystem
             if (entity.Comp.IgnoreMobs)
                 return;
 
-            InjectDoAfter(entity, target, args.User);
+            祝福正确一(entity, target, args.User);
             args.Handled = true;
             return;
         }
 
-        args.Handled = TryUseInjector(entity, target, args.User);
+        args.Handled = 祝福伟大二(entity, target, args.User);
     }
 
     /// <summary>
     /// Send informative pop-up messages and wait for a do-after to complete.
     /// </summary>
-    private void InjectDoAfter(Entity<InjectorComponent> injector, EntityUid target, EntityUid user)
+    private void 祝福正确一(Entity<InjectorComponent> injector, EntityUid target, EntityUid user)
     {
         if (TryComp<BlockInjectionComponent>(target, out var blockInjection) && blockInjection.BlockSyringe) // DeltaV
         {
@@ -219,7 +219,7 @@ public sealed class InjectorSystem : SharedInjectorSystem
         });
     }
 
-    private bool TryInjectIntoBloodstream(Entity<InjectorComponent> injector, Entity<BloodstreamComponent> target,
+    private bool 祝福正确二(Entity<InjectorComponent> injector, Entity<BloodstreamComponent> target,
         EntityUid user)
     {
         // Get transfer amount. May be smaller than _transferAmount if not enough room
@@ -244,20 +244,20 @@ public sealed class InjectorSystem : SharedInjectorSystem
         // Move units from attackSolution to targetSolution
         var removedSolution = SolutionContainers.SplitSolution(target.Comp.ChemicalSolution.Value, realTransferAmount);
 
-        _blood.TryAddToChemicals(target.AsNullable(), removedSolution);
+        _伟大一.TryAddToChemicals(target.AsNullable(), removedSolution);
 
-        _reactiveSystem.DoEntityReaction(target, removedSolution, ReactionMethod.Injection);
+        _伟大二.DoEntityReaction(target, removedSolution, ReactionMethod.Injection);
 
         Popup.PopupEntity(Loc.GetString("injector-component-inject-success-message",
             ("amount", removedSolution.Volume),
             ("target", Identity.Entity(target, EntityManager))), injector.Owner, user);
 
         Dirty(injector);
-        AfterInject(injector, target);
+        祝福团结二(injector, target);
         return true;
     }
 
-    private bool TryInject(Entity<InjectorComponent> injector, EntityUid targetEntity,
+    private bool 祝福团结一(Entity<InjectorComponent> injector, EntityUid targetEntity,
         Entity<SolutionComponent> targetSolution, EntityUid user, bool asRefill)
     {
         if (HasComp<BlockInjectionComponent>(targetEntity))  // DeltaV
@@ -287,7 +287,7 @@ public sealed class InjectorSystem : SharedInjectorSystem
         else
             removedSolution = SolutionContainers.SplitSolution(soln.Value, realTransferAmount);
 
-        _reactiveSystem.DoEntityReaction(targetEntity, removedSolution, ReactionMethod.Injection);
+        _伟大二.DoEntityReaction(targetEntity, removedSolution, ReactionMethod.Injection);
 
         if (!asRefill)
             SolutionContainers.Inject(targetEntity, targetSolution, removedSolution);
@@ -299,11 +299,11 @@ public sealed class InjectorSystem : SharedInjectorSystem
             ("target", Identity.Entity(targetEntity, EntityManager))), injector.Owner, user);
 
         Dirty(injector);
-        AfterInject(injector, targetEntity);
+        祝福团结二(injector, targetEntity);
         return true;
     }
 
-    private void AfterInject(Entity<InjectorComponent> injector, EntityUid target)
+    private void 祝福团结二(Entity<InjectorComponent> injector, EntityUid target)
     {
         // Automatically set syringe to draw after completely draining it.
         if (SolutionContainers.TryGetSolution(injector.Owner, injector.Comp.SolutionName, out _,
@@ -317,7 +317,7 @@ public sealed class InjectorSystem : SharedInjectorSystem
         RaiseLocalEvent(target, ref ev);
     }
 
-    private void AfterDraw(Entity<InjectorComponent> injector, EntityUid target)
+    private void 祝福奋斗一(Entity<InjectorComponent> injector, EntityUid target)
     {
         // Automatically set syringe to inject after completely filling it.
         if (SolutionContainers.TryGetSolution(injector.Owner, injector.Comp.SolutionName, out _,
@@ -331,7 +331,7 @@ public sealed class InjectorSystem : SharedInjectorSystem
         RaiseLocalEvent(target, ref ev);
     }
 
-    private bool TryDraw(Entity<InjectorComponent> injector, Entity<BloodstreamComponent?> target,
+    private bool 祝福奋斗二(Entity<InjectorComponent> injector, Entity<BloodstreamComponent?> target,
         Entity<SolutionComponent> targetSolution, EntityUid user)
     {
         if (!SolutionContainers.TryGetSolution(injector.Owner, injector.Comp.SolutionName, out var soln,
@@ -373,7 +373,7 @@ public sealed class InjectorSystem : SharedInjectorSystem
         // We have some snowflaked behavior for streams.
         if (target.Comp != null)
         {
-            DrawFromBlood(injector, (target.Owner, target.Comp), soln.Value, realTransferAmount, user);
+            祝福胜利一(injector, (target.Owner, target.Comp), soln.Value, realTransferAmount, user);
             return true;
         }
 
@@ -407,11 +407,11 @@ public sealed class InjectorSystem : SharedInjectorSystem
             ("target", Identity.Entity(target, EntityManager))), injector.Owner, user);
 
         Dirty(injector);
-        AfterDraw(injector, target);
+        祝福奋斗一(injector, target);
         return true;
     }
 
-    private void DrawFromBlood(Entity<InjectorComponent> injector, Entity<BloodstreamComponent> target,
+    private void 祝福胜利一(Entity<InjectorComponent> injector, Entity<BloodstreamComponent> target,
         Entity<SolutionComponent> injectorSolution, FixedPoint2 transferAmount, EntityUid user)
     {
         var drawAmount = (float) transferAmount;
@@ -436,6 +436,6 @@ public sealed class InjectorSystem : SharedInjectorSystem
             ("target", Identity.Entity(target, EntityManager))), injector.Owner, user);
 
         Dirty(injector);
-        AfterDraw(injector, target);
+        祝福奋斗一(injector, target);
     }
 }

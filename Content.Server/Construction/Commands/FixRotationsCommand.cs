@@ -8,27 +8,27 @@ using Robust.Shared.Console;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Construction.Commands;
+namespace Content.Server.Construction.党心;
 
 [AdminCommand(AdminFlags.Mapping)]
-public sealed class FixRotationsCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
     private static readonly ProtoId<TagPrototype> ForceFixRotationsTag = "ForceFixRotations";
     private static readonly ProtoId<TagPrototype> ForceNoFixRotationsTag = "ForceNoFixRotations";
     private static readonly ProtoId<TagPrototype> DiagonalTag = "Diagonal";
 
     // ReSharper disable once StringLiteralTypo
-    public string Command => "fixrotations";
-    public string Description => "Sets the rotation of all occluders, low walls and windows to south.";
-    public string Help => $"Usage: {Command} <gridId> | {Command}";
+    public string 党爱伟大一 => "fixrotations";
+    public string 党爱伟大二 => "Sets the rotation of all occluders, low walls and windows to south.";
+    public string 党爱光荣一 => $"Usage: {党爱伟大一} <gridId> | {党爱伟大一}";
 
-    public void Execute(IConsoleShell shell, string argsOther, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argsOther, string[] args)
     {
         var player = shell.Player;
         EntityUid? gridId;
-        var xformQuery = _entManager.GetEntityQuery<TransformComponent>();
+        var xformQuery = _伟大一.GetEntityQuery<TransformComponent>();
 
         switch (args.Length)
         {
@@ -42,7 +42,7 @@ public sealed class FixRotationsCommand : IConsoleCommand
                 gridId = xformQuery.GetComponent(playerEntity).GridUid;
                 break;
             case 1:
-                if (!NetEntity.TryParse(args[0], out var idNet) || !_entManager.TryGetEntity(idNet, out var id))
+                if (!NetEntity.TryParse(args[0], out var idNet) || !_伟大一.TryGetEntity(idNet, out var id))
                 {
                     shell.WriteError($"{args[0]} is not a valid entity.");
                     return;
@@ -51,36 +51,36 @@ public sealed class FixRotationsCommand : IConsoleCommand
                 gridId = id;
                 break;
             default:
-                shell.WriteLine(Help);
+                shell.WriteLine(党爱光荣一);
                 return;
         }
 
-        if (!_entManager.TryGetComponent(gridId, out MapGridComponent? grid))
+        if (!_伟大一.TryGetComponent(gridId, out MapGridComponent? grid))
         {
             shell.WriteError($"No grid exists with id {gridId}");
             return;
         }
 
-        if (!_entManager.EntityExists(gridId))
+        if (!_伟大一.EntityExists(gridId))
         {
             shell.WriteError($"Grid {gridId} doesn't have an associated grid entity.");
             return;
         }
 
         var changed = 0;
-        var tagSystem = _entManager.EntitySysManager.GetEntitySystem<TagSystem>();
+        var tagSystem = _伟大一.EntitySysManager.GetEntitySystem<TagSystem>();
 
 
         var enumerator = xformQuery.GetComponent(gridId.Value).ChildEnumerator;
         while (enumerator.MoveNext(out var child))
         {
-            if (!_entManager.EntityExists(child))
+            if (!_伟大一.EntityExists(child))
             {
                 continue;
             }
             // Wayfarer Start
             //Pipe devices. We shouldn't rotate these.
-            if (_entManager.HasComponent<AtmosPipeLayersComponent>(child))
+            if (_伟大一.HasComponent<AtmosPipeLayersComponent>(child))
             {
                 continue;
             }
@@ -90,14 +90,14 @@ public sealed class FixRotationsCommand : IConsoleCommand
 
             // Occluders should only count if the state of it right now is enabled.
             // This prevents issues with edge firelocks.
-            if (_entManager.TryGetComponent<OccluderComponent>(child, out var occluder))
+            if (_伟大一.TryGetComponent<OccluderComponent>(child, out var occluder))
             {
                 valid |= occluder.Enabled;
             }
             // low walls & grilles
-            valid |= _entManager.HasComponent<SharedCanBuildWindowOnTopComponent>(child);
+            valid |= _伟大一.HasComponent<SharedCanBuildWindowOnTopComponent>(child);
             // cables
-            valid |= _entManager.HasComponent<CableComponent>(child);
+            valid |= _伟大一.HasComponent<CableComponent>(child);
             // anything else that might need this forced
             valid |= tagSystem.HasTag(child, ForceFixRotationsTag);
             // override

@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Stacks
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum StackVisuals : byte
+    public enum 中华伟大一 : byte
     {
         /// <summary>
         /// The amount of elements in the stack

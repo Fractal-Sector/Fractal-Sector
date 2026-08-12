@@ -18,37 +18,37 @@ using Robust.Shared.Prototypes;
 using Content.Shared.Stacks;
 using Content.Shared.Construction.Prototypes;
 
-namespace Content.Server._NF.Construction;
+namespace Content.Server._NF.党心;
 
-public sealed class PartExchangerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ConstructionSystem _construction = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StorageSystem _storage = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
+    [Dependency] private readonly ConstructionSystem _伟大一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly StorageSystem _正确二 = default!;
+    [Dependency] private readonly StackSystem _团结一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PartExchangerComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<PartExchangerComponent, ExchangerDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<PartExchangerComponent, AfterInteractEvent>(祝福正确一);
+        SubscribeLocalEvent<PartExchangerComponent, ExchangerDoAfterEvent>(祝福伟大二);
     }
 
-    private struct UpgradePartState
+    private struct 中华伟大二
     {
-        public MachinePartComponent Part;
+        public MachinePartComponent 党爱伟大一;
         public StackComponent? Stack;
-        public bool InContainer;
+        public bool 党爱伟大二;
     }
 
-    private void OnDoAfter(EntityUid uid, PartExchangerComponent component, DoAfterEvent args)
+    private void 祝福伟大二(EntityUid uid, PartExchangerComponent component, DoAfterEvent args)
     {
         if (args.Cancelled)
         {
-            component.AudioStream = _audio.Stop(component.AudioStream);
+            component.AudioStream = _正确一.Stop(component.AudioStream);
             return;
         }
 
@@ -58,36 +58,36 @@ public sealed class PartExchangerSystem : EntitySystem
         if (!TryComp<StorageComponent>(uid, out var storage) || storage.Container == null)
             return;
 
-        var partsByType = new Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid, UpgradePartState)>>();
+        var partsByType = new Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid, 中华伟大二)>>();
 
         // Insert the contained parts into a dictionary for indexing.
         // Note: these parts remain in the starting container.
         foreach (var item in storage.Container.ContainedEntities)
         {
-            if (_construction.GetMachinePartState(item, out var partState))
+            if (_伟大一.GetMachinePartState(item, out var partState))
             {
-                UpgradePartState upgrade;
-                upgrade.Part = partState.Part;
+                中华伟大二 upgrade;
+                upgrade.党爱伟大一 = partState.党爱伟大一;
                 upgrade.Stack = partState.Stack;
-                upgrade.InContainer = true;
+                upgrade.党爱伟大二 = true;
 
-                var partType = upgrade.Part.PartType;
+                var partType = upgrade.党爱伟大一.PartType;
                 if (!partsByType.ContainsKey(partType))
-                    partsByType[partType] = new List<(EntityUid, UpgradePartState)>();
+                    partsByType[partType] = new List<(EntityUid, 中华伟大二)>();
                 partsByType[partType].Add((item, upgrade));
             }
         }
 
         // Exchange machine parts with the machine or frame.
         if (TryComp<MachineComponent>(args.Args.Target.Value, out var machine))
-            TryExchangeMachineParts(machine, args.Args.Target.Value, uid, partsByType);
+            祝福光荣一(machine, args.Args.Target.Value, uid, partsByType);
         else if (TryComp<MachineFrameComponent>(args.Args.Target.Value, out var machineFrame))
-            TryConstructMachineParts(machineFrame, args.Args.Target.Value, uid, partsByType);
+            祝福光荣二(machineFrame, args.Args.Target.Value, uid, partsByType);
 
         args.Handled = true;
     }
 
-    private void TryExchangeMachineParts(MachineComponent machine, EntityUid uid, EntityUid storageUid, Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, UpgradePartState state)>> partsByType)
+    private void 祝福光荣一(MachineComponent machine, EntityUid uid, EntityUid storageUid, Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, 中华伟大二 state)>> partsByType)
     {
         var board = machine.BoardContainer.ContainedEntities.FirstOrNull();
 
@@ -97,25 +97,25 @@ public sealed class PartExchangerSystem : EntitySystem
         // Add all components in the machine to form a complete set of available components.
         foreach (var item in new ValueList<EntityUid>(machine.PartContainer.ContainedEntities)) //clone so don't modify during enumeration
         {
-            if (_construction.GetMachinePartState(item, out var partState))
+            if (_伟大一.GetMachinePartState(item, out var partState))
             {
-                UpgradePartState upgrade;
-                upgrade.Part = partState.Part;
+                中华伟大二 upgrade;
+                upgrade.党爱伟大一 = partState.党爱伟大一;
                 upgrade.Stack = partState.Stack;
-                upgrade.InContainer = false;
+                upgrade.党爱伟大二 = false;
 
-                var partType = upgrade.Part.PartType;
+                var partType = upgrade.党爱伟大一.PartType;
                 if (!partsByType.ContainsKey(partType))
-                    partsByType[partType] = new List<(EntityUid, UpgradePartState)>();
+                    partsByType[partType] = new List<(EntityUid, 中华伟大二)>();
                 partsByType[partType].Add((item, upgrade));
 
-                _container.RemoveEntity(uid, item);
+                _光荣二.RemoveEntity(uid, item);
             }
         }
 
         // Sort by rating in descending order (highest rated parts first)
         foreach (var (partKey, partList) in partsByType)
-            partList.Sort((x, y) => y.state.Part.Rating.CompareTo(x.state.Part.Rating));
+            partList.Sort((x, y) => y.state.党爱伟大一.Rating.CompareTo(x.state.党爱伟大一.Rating));
 
         var updatedParts = new List<(EntityUid id, MachinePartState state, int index)>();
         foreach (var (type, amount) in macBoardComp.Requirements)
@@ -137,7 +137,7 @@ public sealed class PartExchangerSystem : EntitySystem
                         if (count <= partsNeeded)
                         {
                             MachinePartState partState;
-                            partState.Part = state.Part;
+                            partState.党爱伟大一 = state.党爱伟大一;
                             partState.Stack = state.Stack;
 
                             updatedParts.Add((part, partState, index));
@@ -146,13 +146,13 @@ public sealed class PartExchangerSystem : EntitySystem
                         else
                         {
                             // Partial stack is needed, split off what we need, ensure the new entry is moved.
-                            EntityUid splitStack = _stack.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack) ?? EntityUid.Invalid;
+                            EntityUid splitStack = _团结一.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack) ?? EntityUid.Invalid;
 
                             if (splitStack == EntityUid.Invalid)
                                 continue;
 
                             // Create a new MachinePartState out of our new entity
-                            if (_construction.GetMachinePartState(splitStack, out var splitState))
+                            if (_伟大一.GetMachinePartState(splitStack, out var splitState))
                             {
                                 updatedParts.Add((splitStack, splitState, -1)); // Use -1 for index, nothing to remove
                                 partsNeeded = 0;
@@ -163,7 +163,7 @@ public sealed class PartExchangerSystem : EntitySystem
                     {
                         // Not a stack, move the single part.
                         MachinePartState partState;
-                        partState.Part = state.Part;
+                        partState.党爱伟大一 = state.党爱伟大一;
                         partState.Stack = state.Stack;
 
                         updatedParts.Add((part, partState, index));
@@ -180,9 +180,9 @@ public sealed class PartExchangerSystem : EntitySystem
         for (int i = updatedParts.Count - 1; i >= 0; i--)
         {
             var part = updatedParts[i];
-            bool inserted = _container.Insert(part.id, machine.PartContainer);
+            bool inserted = _光荣二.Insert(part.id, machine.PartContainer);
             if (part.index >= 0)
-                partsByType[part.state.Part.PartType].RemoveAt(part.index);
+                partsByType[part.state.党爱伟大一.PartType].RemoveAt(part.index);
         }
 
         //Put the unused parts back into the container (if they aren't already there)
@@ -190,14 +190,14 @@ public sealed class PartExchangerSystem : EntitySystem
         {
             foreach (var partState in partSet)
             {
-                if (!partState.state.InContainer)
-                    _storage.Insert(storageUid, partState.part, out _, playSound: false);
+                if (!partState.state.党爱伟大二)
+                    _正确二.Insert(storageUid, partState.part, out _, playSound: false);
             }
         }
-        _construction.RefreshParts(uid, machine);
+        _伟大一.RefreshParts(uid, machine);
     }
 
-    private void TryConstructMachineParts(MachineFrameComponent machine, EntityUid uid, EntityUid storageEnt, Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, UpgradePartState state)>> partsByType)
+    private void 祝福光荣二(MachineFrameComponent machine, EntityUid uid, EntityUid storageEnt, Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, 中华伟大二 state)>> partsByType)
     {
         var board = machine.BoardContainer.ContainedEntities.FirstOrNull();
 
@@ -207,31 +207,31 @@ public sealed class PartExchangerSystem : EntitySystem
         // Add all components in the machine to form a complete set of available components.
         foreach (var item in new ValueList<EntityUid>(machine.PartContainer.ContainedEntities)) //clone so don't modify during enumeration
         {
-            if (_construction.GetMachinePartState(item, out var partState))
+            if (_伟大一.GetMachinePartState(item, out var partState))
             {
                 // Construct our entry
-                UpgradePartState upgrade;
-                upgrade.Part = partState.Part;
+                中华伟大二 upgrade;
+                upgrade.党爱伟大一 = partState.党爱伟大一;
                 upgrade.Stack = partState.Stack;
-                upgrade.InContainer = false;
+                upgrade.党爱伟大二 = false;
 
                 // Add it to the table
-                var partType = upgrade.Part.PartType;
+                var partType = upgrade.党爱伟大一.PartType;
                 if (!partsByType.ContainsKey(partType))
-                    partsByType[partType] = new List<(EntityUid, UpgradePartState)>();
+                    partsByType[partType] = new List<(EntityUid, 中华伟大二)>();
                 partsByType[partType].Add((item, upgrade));
 
                 // Make sure the construction status is consistent with the removed parts.
                 machine.Progress[partType] -= partState.Quantity();
                 machine.Progress[partType] = int.Max(0, machine.Progress[partType]); // Ensure progress isn't negative.
 
-                _container.RemoveEntity(uid, item);
+                _光荣二.RemoveEntity(uid, item);
             }
         }
 
         // Sort parts in descending order of rating (highest rated parts first)
         foreach (var partList in partsByType.Values)
-            partList.Sort((x, y) => y.state.Part.Rating.CompareTo(x.state.Part.Rating));
+            partList.Sort((x, y) => y.state.党爱伟大一.Rating.CompareTo(x.state.党爱伟大一.Rating));
 
         var updatedParts = new List<(EntityUid id, MachinePartState state, int index)>();
         foreach (var (type, amount) in macBoardComp.Requirements)
@@ -253,7 +253,7 @@ public sealed class PartExchangerSystem : EntitySystem
                         if (count <= partsNeeded)
                         {
                             MachinePartState partState;
-                            partState.Part = state.Part;
+                            partState.党爱伟大一 = state.党爱伟大一;
                             partState.Stack = state.Stack;
 
                             updatedParts.Add((part, partState, index));
@@ -262,13 +262,13 @@ public sealed class PartExchangerSystem : EntitySystem
                         else
                         {
                             // Partial stack is needed, split off what we need, ensure the new entry is moved.
-                            EntityUid splitStack = _stack.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack) ?? EntityUid.Invalid;
+                            EntityUid splitStack = _团结一.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack) ?? EntityUid.Invalid;
 
                             if (splitStack == EntityUid.Invalid)
                                 continue;
 
                             // Create a new MachinePartState out of our new entity
-                            if (_construction.GetMachinePartState(splitStack, out var splitState))
+                            if (_伟大一.GetMachinePartState(splitStack, out var splitState))
                             {
                                 updatedParts.Add((splitStack, splitState, -1)); // New entity, nothing to remove, set index to -1 to flag this.
                                 partsNeeded = 0;
@@ -279,7 +279,7 @@ public sealed class PartExchangerSystem : EntitySystem
                     {
                         // Not a stack, move the single part.
                         MachinePartState partState;
-                        partState.Part = state.Part;
+                        partState.党爱伟大一 = state.党爱伟大一;
                         partState.Stack = state.Stack;
 
                         updatedParts.Add((part, partState, index));
@@ -296,10 +296,10 @@ public sealed class PartExchangerSystem : EntitySystem
         for (int i = updatedParts.Count - 1; i >= 0; i--)
         {
             var part = updatedParts[i];
-            _container.Insert(part.id, machine.PartContainer, force: true);
+            _光荣二.Insert(part.id, machine.PartContainer, force: true);
             if (part.index >= 0)
-                partsByType[part.state.Part.PartType].RemoveAt(part.index);
-            machine.Progress[part.state.Part.PartType] += part.state.Quantity();
+                partsByType[part.state.党爱伟大一.PartType].RemoveAt(part.index);
+            machine.Progress[part.state.党爱伟大一.PartType] += part.state.Quantity();
         }
 
         //Put the unused parts back into the container (if they aren't already there)
@@ -307,13 +307,13 @@ public sealed class PartExchangerSystem : EntitySystem
         {
             foreach (var partState in partSet)
             {
-                if (!partState.state.InContainer)
-                    _storage.Insert(storageEnt, partState.part, out _, playSound: false);
+                if (!partState.state.党爱伟大二)
+                    _正确二.Insert(storageEnt, partState.part, out _, playSound: false);
             }
         }
     }
 
-    private void OnAfterInteract(EntityUid uid, PartExchangerComponent component, AfterInteractEvent args)
+    private void 祝福正确一(EntityUid uid, PartExchangerComponent component, AfterInteractEvent args)
     {
         if (component.DoDistanceCheck && !args.CanReach)
             return;
@@ -326,18 +326,18 @@ public sealed class PartExchangerSystem : EntitySystem
 
         if (TryComp<WiresPanelComponent>(args.Target, out var panel) && !panel.Open)
         {
-            _popup.PopupEntity(Loc.GetString("construction-step-condition-wire-panel-open"),
+            _光荣一.PopupEntity(Loc.GetString("construction-step-condition-wire-panel-open"),
                 args.Target.Value);
             return;
         }
 
-        var audioStream = _audio.PlayPvs(component.ExchangeSound, uid);
+        var audioStream = _正确一.PlayPvs(component.ExchangeSound, uid);
         if (audioStream != null)
         {
             component.AudioStream = audioStream.Value.Entity;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.ExchangeDuration, new ExchangerDoAfterEvent(), uid, target: args.Target, used: uid)
+        _伟大二.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.ExchangeDuration, new ExchangerDoAfterEvent(), uid, target: args.Target, used: uid)
         {
             BreakOnDamage = true,
             BreakOnMove = true

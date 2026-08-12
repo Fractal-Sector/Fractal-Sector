@@ -7,26 +7,26 @@ using Content.Server.Roles;
 using Content.Shared.Humanoid;
 using Content.Shared.NPC.Systems;
 
-namespace Content.Server._NF.GameTicking.Rules;
+namespace Content.Server._NF.GameTicking.党心;
 
-public sealed class NFPirateRuleSystem : GameRuleSystem<NFPirateRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<NFPirateRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
+    [Dependency] private readonly AntagSelectionSystem _伟大一 = default!;
+    [Dependency] private readonly NpcFactionSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NFPirateRuleComponent, AfterAntagEntitySelectedEvent>(AfterAntagSelected);
-        SubscribeLocalEvent<NFPirateRoleComponent, GetBriefingEvent>(OnGetBriefing);
+        SubscribeLocalEvent<NFPirateRuleComponent, AfterAntagEntitySelectedEvent>(祝福伟大二);
+        SubscribeLocalEvent<NFPirateRoleComponent, GetBriefingEvent>(祝福光荣一);
     }
 
     // Greeting upon pirate activation
-    private void AfterAntagSelected(Entity<NFPirateRuleComponent> mindId, ref AfterAntagEntitySelectedEvent args)
+    private void 祝福伟大二(Entity<NFPirateRuleComponent> mindId, ref AfterAntagEntitySelectedEvent args)
     {
         var ent = args.EntityUid;
-        _antag.SendBriefing(ent, MakeBriefing(ent), null, null);
+        _伟大一.SendBriefing(ent, 祝福光荣二(ent), null, null);
 
         if (TryComp(ent, out AutoPirateComponent? pirate) && !pirate.ApplyFaction)
             return;
@@ -34,21 +34,21 @@ public sealed class NFPirateRuleSystem : GameRuleSystem<NFPirateRuleComponent>
         if (TryComp(ent, out AutoPirateCaptainComponent? captain) && !captain.ApplyFaction)
             return;
 
-        _npcFaction.RemoveFaction(ent, mindId.Comp.NanoTrasenFaction, false);
-        _npcFaction.AddFaction(ent, mindId.Comp.PirateFaction);
+        _伟大二.RemoveFaction(ent, mindId.Comp.NanoTrasenFaction, false);
+        _伟大二.AddFaction(ent, mindId.Comp.PirateFaction);
     }
 
     // Character screen briefing
-    private void OnGetBriefing(Entity<NFPirateRoleComponent> role, ref GetBriefingEvent args)
+    private void 祝福光荣一(Entity<NFPirateRoleComponent> role, ref GetBriefingEvent args)
     {
         var ent = args.Mind.Comp.OwnedEntity;
 
         if (ent is null)
             return;
-        args.Append(MakeBriefing(ent.Value));
+        args.Append(祝福光荣二(ent.Value));
     }
 
-    private string MakeBriefing(EntityUid uid)
+    private string 祝福光荣二(EntityUid uid)
     {
         string ret;
         // This is hacky.

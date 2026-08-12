@@ -1,18 +1,18 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.DeviceLinking;
+namespace Content.Shared.党心;
 
 [RegisterComponent]
 [NetworkedComponent] // for interactions. Actual state isn't currently synced.
 [Access(typeof(SharedDeviceLinkSystem))]
-public sealed partial class DeviceLinkSourceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The ports the device link source sends signals from
     /// </summary>
     [DataField]
-    public HashSet<ProtoId<SourcePortPrototype>> Ports = new();
+    public HashSet<ProtoId<SourcePortPrototype>> 党爱伟大一 = new();
 
     /// <summary>
     /// Dictionary mapping each port to a set of linked sink entities.
@@ -38,5 +38,5 @@ public sealed partial class DeviceLinkSourceComponent : Component
     ///     Limits the range devices can be linked across.
     /// </summary>
     [DataField]
-    public float Range = 30f;
+    public float 党爱伟大二 = 30f;
 }

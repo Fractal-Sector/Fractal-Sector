@@ -2,10 +2,10 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared._DV.Harpy
+namespace Content.Shared._DV.党心
 {
     [RegisterComponent, NetworkedComponent]
-    public sealed partial class HarpySingerComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("midiActionId", serverOnly: true,
             customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]

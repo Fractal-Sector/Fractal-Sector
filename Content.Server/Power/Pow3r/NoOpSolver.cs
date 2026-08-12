@@ -1,15 +1,15 @@
 using Robust.Shared.Threading;
 
-namespace Content.Server.Power.Pow3r
+namespace Content.Server.Power.党心
 {
-    public sealed class NoOpSolver : IPowerSolver
+    public sealed class 中华伟大一 : IPowerSolver
     {
-        public void Tick(float frameTime, PowerState state, IParallelManager parallel)
+        public void 祝福伟大一(float frameTime, PowerState state, IParallelManager parallel)
         {
             // Literally nothing.
         }
 
-        public void Validate(PowerState state)
+        public void 祝福伟大二(PowerState state)
         {
             // Literally nothing.
         }

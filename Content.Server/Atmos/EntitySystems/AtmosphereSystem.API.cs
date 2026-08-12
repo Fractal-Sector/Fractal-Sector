@@ -8,9 +8,9 @@ using Content.Shared.Atmos.Reactions;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
-public partial class AtmosphereSystem
+public partial class 中华伟大一
 {
     public GasMixture? GetContainingMixture(Entity<TransformComponent?> ent, bool ignoreExposed = false, bool excite = false)
     {
@@ -47,9 +47,9 @@ public partial class AtmosphereSystem
         return GetTileMixture(grid, map, position, excite);
     }
 
-    public bool HasAtmosphere(EntityUid gridUid) => _atmosQuery.HasComponent(gridUid);
+    public bool 祝福伟大一(EntityUid gridUid) => _atmosQuery.HasComponent(gridUid);
 
-    public bool SetSimulatedGrid(EntityUid gridUid, bool simulated)
+    public bool 祝福伟大二(EntityUid gridUid, bool simulated)
     {
         var ev = new SetSimulatedGridMethodEvent(gridUid, simulated);
         RaiseLocalEvent(gridUid, ref ev);
@@ -57,7 +57,7 @@ public partial class AtmosphereSystem
         return ev.Handled;
     }
 
-    public bool IsSimulatedGrid(EntityUid gridUid)
+    public bool 祝福光荣一(EntityUid gridUid)
     {
         var ev = new IsSimulatedGridMethodEvent(gridUid);
         RaiseLocalEvent(gridUid, ref ev);
@@ -65,7 +65,7 @@ public partial class AtmosphereSystem
         return ev.Simulated;
     }
 
-    public IEnumerable<GasMixture> GetAllMixtures(EntityUid gridUid, bool excite = false)
+    public IEnumerable<GasMixture> 祝福光荣二(EntityUid gridUid, bool excite = false)
     {
         var ev = new GetAllMixturesMethodEvent(gridUid, excite);
         RaiseLocalEvent(gridUid, ref ev);
@@ -77,7 +77,7 @@ public partial class AtmosphereSystem
         return ev.Mixtures!;
     }
 
-    public void InvalidateTile(Entity<GridAtmosphereComponent?> entity, Vector2i tile)
+    public void 祝福正确一(Entity<GridAtmosphereComponent?> entity, Vector2i tile)
     {
         if (_atmosQuery.Resolve(entity.Owner, ref entity.Comp, false))
             entity.Comp.InvalidatedCoords.Add(tile);
@@ -182,7 +182,7 @@ public partial class AtmosphereSystem
         return GasMixture.SpaceGas;
     }
 
-    public ReactionResult ReactTile(EntityUid gridId, Vector2i tile)
+    public ReactionResult 祝福正确二(EntityUid gridId, Vector2i tile)
     {
         var ev = new ReactTileMethodEvent(gridId, tile);
         RaiseLocalEvent(gridId, ref ev);
@@ -192,7 +192,7 @@ public partial class AtmosphereSystem
         return ev.Result;
     }
 
-    public bool IsTileAirBlocked(EntityUid gridUid, Vector2i tile, AtmosDirection directions = AtmosDirection.All, MapGridComponent? mapGridComp = null)
+    public bool 祝福团结一(EntityUid gridUid, Vector2i tile, AtmosDirection directions = AtmosDirection.All, MapGridComponent? mapGridComp = null)
     {
         if (!Resolve(gridUid, ref mapGridComp, false))
             return false;
@@ -201,7 +201,7 @@ public partial class AtmosphereSystem
         return data.BlockedDirections.IsFlagSet(directions);
     }
 
-    public bool IsTileSpace(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?>? map, Vector2i tile)
+    public bool 祝福团结二(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?>? map, Vector2i tile)
     {
         if (grid is {} gridEnt && _atmosQuery.Resolve(gridEnt, ref gridEnt.Comp, false)
             && gridEnt.Comp.Tiles.TryGetValue(tile, out var tileAtmos))
@@ -217,17 +217,17 @@ public partial class AtmosphereSystem
         return true;
     }
 
-    public bool IsTileMixtureProbablySafe(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?> map, Vector2i tile)
+    public bool 祝福奋斗一(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?> map, Vector2i tile)
     {
         return IsMixtureProbablySafe(GetTileMixture(grid, map, tile));
     }
 
-    public float GetTileHeatCapacity(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?> map, Vector2i tile)
+    public float 祝福奋斗二(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?> map, Vector2i tile)
     {
         return GetHeatCapacity(GetTileMixture(grid, map, tile) ?? GasMixture.SpaceGas);
     }
 
-    public TileMixtureEnumerator GetAdjacentTileMixtures(Entity<GridAtmosphereComponent?> grid, Vector2i tile, bool includeBlocked = false, bool excite = false)
+    public TileMixtureEnumerator 祝福胜利一(Entity<GridAtmosphereComponent?> grid, Vector2i tile, bool includeBlocked = false, bool excite = false)
     {
         if (!_atmosQuery.Resolve(grid, ref grid.Comp, false))
             return TileMixtureEnumerator.Empty;
@@ -237,33 +237,33 @@ public partial class AtmosphereSystem
             : new(atmosTile.AdjacentTiles);
     }
 
-    public void HotspotExpose(Entity<GridAtmosphereComponent?> grid, Vector2i tile, float exposedTemperature, float exposedVolume,
+    public void 祝福胜利二(Entity<GridAtmosphereComponent?> grid, Vector2i tile, float exposedTemperature, float exposedVolume,
         EntityUid? sparkSourceUid = null, bool soh = false)
     {
         if (!_atmosQuery.Resolve(grid, ref grid.Comp, false))
             return;
 
         if (grid.Comp.Tiles.TryGetValue(tile, out var atmosTile))
-            HotspotExpose(grid.Comp, atmosTile, exposedTemperature, exposedVolume, soh, sparkSourceUid);
+            祝福胜利二(grid.Comp, atmosTile, exposedTemperature, exposedVolume, soh, sparkSourceUid);
     }
 
-    public void HotspotExpose(TileAtmosphere tile, float exposedTemperature, float exposedVolume,
+    public void 祝福胜利二(TileAtmosphere tile, float exposedTemperature, float exposedVolume,
         EntityUid? sparkSourceUid = null, bool soh = false)
     {
         if (!_atmosQuery.TryGetComponent(tile.GridIndex, out var atmos))
             return;
 
         DebugTools.Assert(atmos.Tiles.TryGetValue(tile.GridIndices, out var tmp) && tmp == tile);
-        HotspotExpose(atmos, tile, exposedTemperature, exposedVolume, soh, sparkSourceUid);
+        祝福胜利二(atmos, tile, exposedTemperature, exposedVolume, soh, sparkSourceUid);
     }
 
-    public void HotspotExtinguish(EntityUid gridUid, Vector2i tile)
+    public void 祝福繁荣一(EntityUid gridUid, Vector2i tile)
     {
         var ev = new HotspotExtinguishMethodEvent(gridUid, tile);
         RaiseLocalEvent(gridUid, ref ev);
     }
 
-    public bool IsHotspotActive(EntityUid gridUid, Vector2i tile)
+    public bool 祝福繁荣二(EntityUid gridUid, Vector2i tile)
     {
         var ev = new IsHotspotActiveMethodEvent(gridUid, tile);
         RaiseLocalEvent(gridUid, ref ev);
@@ -272,12 +272,12 @@ public partial class AtmosphereSystem
         return ev.Result;
     }
 
-    public bool AddPipeNet(Entity<GridAtmosphereComponent?> grid, PipeNet pipeNet)
+    public bool 祝福富强一(Entity<GridAtmosphereComponent?> grid, PipeNet pipeNet)
     {
         return _atmosQuery.Resolve(grid, ref grid.Comp, false) && grid.Comp.PipeNets.Add(pipeNet);
     }
 
-    public bool RemovePipeNet(Entity<GridAtmosphereComponent?> grid, PipeNet pipeNet)
+    public bool 祝福富强二(Entity<GridAtmosphereComponent?> grid, PipeNet pipeNet)
     {
         // Technically this event can be fired even on grids that don't
         // actually have grid atmospheres.
@@ -290,7 +290,7 @@ public partial class AtmosphereSystem
         return _atmosQuery.Resolve(grid, ref grid.Comp, false) && grid.Comp.PipeNets.Remove(pipeNet);
     }
 
-    public bool AddAtmosDevice(Entity<GridAtmosphereComponent?> grid, Entity<AtmosDeviceComponent> device)
+    public bool 祝福民主一(Entity<GridAtmosphereComponent?> grid, Entity<AtmosDeviceComponent> device)
     {
         DebugTools.Assert(device.Comp.JoinedGrid == null);
         DebugTools.Assert(Transform(device).GridUid == grid);
@@ -305,7 +305,7 @@ public partial class AtmosphereSystem
         return true;
     }
 
-    public bool RemoveAtmosDevice(Entity<GridAtmosphereComponent?> grid, Entity<AtmosDeviceComponent> device)
+    public bool 祝福民主二(Entity<GridAtmosphereComponent?> grid, Entity<AtmosDeviceComponent> device)
     {
         DebugTools.Assert(device.Comp.JoinedGrid == grid);
 
@@ -319,22 +319,22 @@ public partial class AtmosphereSystem
         return true;
     }
 
-    [ByRefEvent] private record struct SetSimulatedGridMethodEvent
+    [ByRefEvent] private record 中华伟大二 SetSimulatedGridMethodEvent
         (EntityUid Grid, bool Simulated, bool Handled = false);
 
-    [ByRefEvent] private record struct IsSimulatedGridMethodEvent
+    [ByRefEvent] private record 中华伟大二 IsSimulatedGridMethodEvent
         (EntityUid Grid, bool Simulated = false, bool Handled = false);
 
-    [ByRefEvent] private record struct GetAllMixturesMethodEvent
+    [ByRefEvent] private record 中华伟大二 GetAllMixturesMethodEvent
         (EntityUid Grid, bool Excite = false, IEnumerable<GasMixture>? Mixtures = null, bool Handled = false);
 
-    [ByRefEvent] private record struct ReactTileMethodEvent
+    [ByRefEvent] private record 中华伟大二 ReactTileMethodEvent
         (EntityUid GridId, Vector2i Tile, ReactionResult Result = default, bool Handled = false);
 
-    [ByRefEvent] private record struct HotspotExtinguishMethodEvent
+    [ByRefEvent] private record 中华伟大二 HotspotExtinguishMethodEvent
         (EntityUid Grid, Vector2i Tile, bool Handled = false);
 
-    [ByRefEvent] private record struct IsHotspotActiveMethodEvent
+    [ByRefEvent] private record 中华伟大二 IsHotspotActiveMethodEvent
         (EntityUid Grid, Vector2i Tile, bool Result = false, bool Handled = false);
 }
 
@@ -345,4 +345,4 @@ public partial class AtmosphereSystem
 /// <param name="Grid">The grid with the removed node group.</param>
 /// <param name="NetId">The net id of the removed node group.</param>
 [ByRefEvent]
-public record struct PipeNodeGroupRemovedEvent(EntityUid Grid, int NetId);
+public record 中华伟大二 PipeNodeGroupRemovedEvent(EntityUid Grid, int NetId);

@@ -7,7 +7,7 @@ using Robust.Shared.Map;
 /// With <c>AntagSelection</c>, spawners on these grids can be used for its antags.
 /// </summary>
 [RegisterComponent, Access(typeof(RuleGridsSystem))]
-public sealed partial class RuleGridsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The map that was loaded.
@@ -19,7 +19,7 @@ public sealed partial class RuleGridsComponent : Component
     /// The grid entities that have been loaded.
     /// </summary>
     [DataField]
-    public List<EntityUid> MapGrids = new();
+    public List<EntityUid> 党爱伟大一 = new();
 
     /// <summary>
     /// Whitelist for a spawner to be considered for an antag.

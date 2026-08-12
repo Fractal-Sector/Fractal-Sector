@@ -10,34 +10,34 @@ using Content.Shared.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Clothing.Systems;
+namespace Content.Server.Clothing.党心;
 
-public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
+public sealed class 中华伟大一 : SharedChameleonClothingSystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IdentitySystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ChameleonClothingComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ChameleonClothingComponent, ChameleonPrototypeSelectedMessage>(OnSelected);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ChameleonClothingComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ChameleonClothingComponent, ChameleonPrototypeSelectedMessage>(祝福光荣一);
 
-        SubscribeLocalEvent<ChameleonClothingComponent, EmpPulseEvent>(OnEmpPulse);
+        SubscribeLocalEvent<ChameleonClothingComponent, EmpPulseEvent>(祝福光荣二);
     }
 
-    private void OnMapInit(EntityUid uid, ChameleonClothingComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, ChameleonClothingComponent component, MapInitEvent args)
     {
-        SetSelectedPrototype(uid, component.Default, true, component);
+        祝福正确二(uid, component.Default, true, component);
     }
 
-    private void OnSelected(EntityUid uid, ChameleonClothingComponent component, ChameleonPrototypeSelectedMessage args)
+    private void 祝福光荣一(EntityUid uid, ChameleonClothingComponent component, ChameleonPrototypeSelectedMessage args)
     {
-        SetSelectedPrototype(uid, args.SelectedId, component: component);
+        祝福正确二(uid, args.SelectedId, component: component);
     }
 
-    private void OnEmpPulse(EntityUid uid, ChameleonClothingComponent component, ref EmpPulseEvent args)
+    private void 祝福光荣二(EntityUid uid, ChameleonClothingComponent component, ref EmpPulseEvent args)
     {
         if (!component.AffectedByEmp)
             return;
@@ -45,14 +45,14 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
         if (component.EmpContinuous)
             component.NextEmpChange = _timing.CurTime + TimeSpan.FromSeconds(1f / component.EmpChangeIntensity);
 
-        var pick = GetRandomValidPrototype(component.Slot, component.RequireTag);
-        SetSelectedPrototype(uid, pick, component: component);
+        var pick = 祝福团结一(component.Slot, component.RequireTag);
+        祝福正确二(uid, pick, component: component);
 
         args.Affected = true;
         args.Disabled = true;
     }
 
-    private void UpdateUi(EntityUid uid, ChameleonClothingComponent? component = null)
+    private void 祝福正确一(EntityUid uid, ChameleonClothingComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -64,7 +64,7 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
     /// <summary>
     ///     Change chameleon items name, description and sprite to mimic other entity prototype.
     /// </summary>
-    public void SetSelectedPrototype(EntityUid uid, string? protoId, bool forceUpdate = false,
+    public void 祝福正确二(EntityUid uid, string? protoId, bool forceUpdate = false,
         ChameleonClothingComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
@@ -76,29 +76,29 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
             return;
 
         // make sure that it is valid change
-        if (string.IsNullOrEmpty(protoId) || !_proto.TryIndex(protoId, out EntityPrototype? proto))
+        if (string.IsNullOrEmpty(protoId) || !_伟大一.TryIndex(protoId, out EntityPrototype? proto))
             return;
         if (!IsValidTarget(proto, component.Slot, component.RequireTag))
             return;
         component.Default = protoId;
 
-        UpdateIdentityBlocker(uid, component, proto);
+        祝福奋斗一(uid, component, proto);
         UpdateVisuals(uid, component);
-        UpdateUi(uid, component);
+        祝福正确一(uid, component);
         Dirty(uid, component);
     }
 
     /// <summary>
     ///     Get a random prototype for a given slot.
     /// </summary>
-    public string GetRandomValidPrototype(SlotFlags slot, string? tag = null)
+    public string 祝福团结一(SlotFlags slot, string? tag = null)
     {
-        return _random.Pick(GetValidTargets(slot, tag).ToList());
+        return _光荣一.Pick(GetValidTargets(slot, tag).ToList());
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福团结二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福团结二(frameTime);
         // Randomize EMP-affected clothing
         var query = EntityQueryEnumerator<EmpDisabledComponent, ChameleonClothingComponent>();
         while (query.MoveNext(out var uid, out _, out var chameleon))
@@ -110,14 +110,14 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
                 continue;
 
             // randomly pick cloth element from available and apply it
-            var pick = GetRandomValidPrototype(chameleon.Slot, chameleon.RequireTag);
-            SetSelectedPrototype(uid, pick, component: chameleon);
+            var pick = 祝福团结一(chameleon.Slot, chameleon.RequireTag);
+            祝福正确二(uid, pick, component: chameleon);
 
             chameleon.NextEmpChange += TimeSpan.FromSeconds(1f / chameleon.EmpChangeIntensity);
         }
     }
 
-    private void UpdateIdentityBlocker(EntityUid uid, ChameleonClothingComponent component, EntityPrototype proto)
+    private void 祝福奋斗一(EntityUid uid, ChameleonClothingComponent component, EntityPrototype proto)
     {
         if (proto.HasComponent<IdentityBlockerComponent>(Factory))
             EnsureComp<IdentityBlockerComponent>(uid);
@@ -125,6 +125,6 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
             RemComp<IdentityBlockerComponent>(uid);
 
         if (component.User != null)
-            _identity.QueueIdentityUpdate(component.User.Value);
+            _伟大二.QueueIdentityUpdate(component.User.Value);
     }
 }

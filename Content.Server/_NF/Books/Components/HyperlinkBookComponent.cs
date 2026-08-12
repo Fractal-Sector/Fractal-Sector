@@ -1,9 +1,9 @@
-namespace Content.Server._NF.Books.Components
+namespace Content.Server._NF.Books.党心
 {
     [RegisterComponent]
-    public sealed partial class HyperlinkBookComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("url")]
-        public string URL = string.Empty;
+        public string 党爱伟大一 = string.Empty;
     }
 }

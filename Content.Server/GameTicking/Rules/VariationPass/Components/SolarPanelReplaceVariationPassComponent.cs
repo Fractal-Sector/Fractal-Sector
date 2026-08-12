@@ -1,5 +1,5 @@
-namespace Content.Server.GameTicking.Rules.VariationPass.Components;
+namespace Content.Server.GameTicking.Rules.VariationPass.党心;
 
 
 [RegisterComponent]
-public sealed partial class SolarPanelReplaceVariationPassComponent : Component;
+public sealed partial class 中华伟大一 : Component;

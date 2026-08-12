@@ -15,51 +15,51 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Preferences.Managers
+namespace Content.Server.Preferences.党心
 {
     /// <summary>
     /// Sends <see cref="MsgPreferencesAndSettings"/> before the client joins the lobby.
     /// Receives <see cref="MsgSelectCharacter"/> and <see cref="MsgUpdateCharacter"/> at any time.
     /// </summary>
-    public sealed class ServerPreferencesManager : IServerPreferencesManager, IPostInjectInit
+    public sealed class 中华伟大一 : IServerPreferencesManager, IPostInjectInit
     {
-        [Dependency] private readonly IServerNetManager _netManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IDependencyCollection _dependencies = default!;
-        [Dependency] private readonly ILogManager _log = default!;
-        [Dependency] private readonly IServerConsentManager _consentManager = default!;
-        [Dependency] private readonly UserDbDataManager _userDb = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!; // Frontier
+        [Dependency] private readonly IServerNetManager _伟大一 = default!;
+        [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+        [Dependency] private readonly IServerDbManager _光荣一 = default!;
+        [Dependency] private readonly IPlayerManager _光荣二 = default!;
+        [Dependency] private readonly IDependencyCollection _正确一 = default!;
+        [Dependency] private readonly ILogManager _正确二 = default!;
+        [Dependency] private readonly IServerConsentManager _团结一 = default!;
+        [Dependency] private readonly UserDbDataManager _团结二 = default!;
+        [Dependency] private readonly IPrototypeManager _奋斗一 = default!;
+        [Dependency] private readonly IEntityManager _奋斗二 = default!; // Frontier
 
         // Cache player prefs on the server so we don't need as much async hell related to them.
-        private readonly Dictionary<NetUserId, PlayerPrefData> _cachedPlayerPrefs =
+        private readonly Dictionary<NetUserId, 中华伟大二> _cachedPlayerPrefs =
             new();
 
-        private ISawmill _sawmill = default!;
+        private ISawmill _胜利一 = default!;
 
-        private int MaxCharacterSlots => _cfg.GetCVar(CCVars.GameMaxCharacterSlots);
+        private int MaxCharacterSlots => _伟大二.GetCVar(CCVars.GameMaxCharacterSlots);
 
-        public void Init()
+        public void 祝福伟大一()
         {
-            _netManager.RegisterNetMessage<MsgPreferencesAndSettings>();
-            _netManager.RegisterNetMessage<MsgSelectCharacter>(HandleSelectCharacterMessage);
-            _netManager.RegisterNetMessage<MsgUpdateCharacter>(HandleUpdateCharacterMessage);
-            _netManager.RegisterNetMessage<MsgDeleteCharacter>(HandleDeleteCharacterMessage);
-            _netManager.RegisterNetMessage<MsgUpdateConstructionFavorites>(HandleUpdateConstructionFavoritesMessage);
-            _sawmill = _log.GetSawmill("prefs");
+            _伟大一.RegisterNetMessage<MsgPreferencesAndSettings>();
+            _伟大一.RegisterNetMessage<MsgSelectCharacter>(祝福伟大二);
+            _伟大一.RegisterNetMessage<MsgUpdateCharacter>(祝福光荣一);
+            _伟大一.RegisterNetMessage<MsgDeleteCharacter>(祝福正确二);
+            _伟大一.RegisterNetMessage<MsgUpdateConstructionFavorites>(祝福团结一);
+            _胜利一 = _正确二.GetSawmill("prefs");
         }
 
-        private async void HandleSelectCharacterMessage(MsgSelectCharacter message)
+        private async void 祝福伟大二(MsgSelectCharacter message)
         {
             var index = message.SelectedCharacterIndex;
             var userId = message.MsgChannel.UserId;
 
-            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.PrefsLoaded)
+            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.党爱伟大一)
             {
-                _sawmill.Warning($"User {userId} tried to modify preferences before they loaded.");
+                _胜利一.Warning($"User {userId} tried to modify preferences before they loaded.");
                 return;
             }
 
@@ -68,7 +68,7 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            var curPrefs = prefsData.Prefs!;
+            var curPrefs = prefsData.党爱光荣一!;
 
             if (!curPrefs.Characters.ContainsKey(index))
             {
@@ -76,43 +76,43 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, index, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
+            prefsData.党爱光荣一 = new PlayerPreferences(curPrefs.Characters, index, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
 
-            if (ShouldStorePrefs(message.MsgChannel.AuthType))
+            if (祝福文明一(message.MsgChannel.AuthType))
             {
-                await _db.SaveSelectedCharacterIndexAsync(message.MsgChannel.UserId, message.SelectedCharacterIndex);
+                await _光荣一.SaveSelectedCharacterIndexAsync(message.MsgChannel.UserId, message.SelectedCharacterIndex);
 
                 // Reload consent settings for the new character
-                await _consentManager.ReloadCharacterConsent(userId, index);
+                await _团结一.ReloadCharacterConsent(userId, index);
             }
         }
 
-        private async void HandleUpdateCharacterMessage(MsgUpdateCharacter message)
+        private async void 祝福光荣一(MsgUpdateCharacter message)
         {
             var userId = message.MsgChannel.UserId;
 
             // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             if (message.Profile == null)
-                _sawmill.Error($"User {userId} sent a {nameof(MsgUpdateCharacter)} with a null profile in slot {message.Slot}.");
+                _胜利一.Error($"User {userId} sent a {nameof(MsgUpdateCharacter)} with a null profile in slot {message.Slot}.");
             else
-                await SetProfile(userId, message.Slot, message.Profile);
+                await 祝福光荣二(userId, message.Slot, message.Profile);
         }
 
-        public async Task SetProfile(NetUserId userId, int slot, ICharacterProfile profile, bool validateFields = true) // Frontier: add validateFields
+        public async Task 祝福光荣二(NetUserId userId, int slot, ICharacterProfile profile, bool validateFields = true) // Frontier: add validateFields
         {
-            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.PrefsLoaded)
+            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.党爱伟大一)
             {
-                _sawmill.Error($"Tried to modify user {userId} preferences before they loaded.");
+                _胜利一.Error($"Tried to modify user {userId} preferences before they loaded.");
                 return;
             }
 
             if (slot < 0 || slot >= MaxCharacterSlots)
                 return;
 
-            var curPrefs = prefsData.Prefs!;
-            var session = _playerManager.GetSessionById(userId);
+            var curPrefs = prefsData.党爱光荣一!;
+            var session = _光荣二.GetSessionById(userId);
 
-            profile.EnsureValid(session, _dependencies);
+            profile.EnsureValid(session, _正确一);
 
             // Frontier: check for profile modifications (based on Monolith's impl)
             if (validateFields && profile is HumanoidCharacterProfile humanProfile)
@@ -122,7 +122,7 @@ namespace Content.Server.Preferences.Managers
                 {
                     if (humanProfile.BankBalance != humanoidEditingTarget.BankBalance)
                     {
-                        _sawmill.Info($"{session.Name} has tried to modify a character's money (expected: {humanoidEditingTarget.BankBalance} requested: {humanProfile.BankBalance}). They may be using a modified client!");
+                        _胜利一.Info($"{session.Name} has tried to modify a character's money (expected: {humanoidEditingTarget.BankBalance} requested: {humanProfile.BankBalance}). They may be using a modified client!");
                         profile = humanProfile.WithBankBalance(humanoidEditingTarget.BankBalance);
                     }
                 }
@@ -130,7 +130,7 @@ namespace Content.Server.Preferences.Managers
                 {
                     if (humanProfile.BankBalance != HumanoidCharacterProfile.DefaultBalance)
                     {
-                        _sawmill.Info($"{session.Name} tried to create a character with a non-default balance (expected: {HumanoidCharacterProfile.DefaultBalance} requested: {humanProfile.BankBalance}). They may be using a modified client!");
+                        _胜利一.Info($"{session.Name} tried to create a character with a non-default balance (expected: {HumanoidCharacterProfile.DefaultBalance} requested: {humanProfile.BankBalance}). They may be using a modified client!");
                         profile = humanProfile.WithBankBalance(HumanoidCharacterProfile.DefaultBalance);
                     }
                 }
@@ -142,36 +142,36 @@ namespace Content.Server.Preferences.Managers
                 [slot] = profile
             };
 
-            prefsData.Prefs = new PlayerPreferences(profiles, slot, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
+            prefsData.党爱光荣一 = new PlayerPreferences(profiles, slot, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
 
-            if (ShouldStorePrefs(session.Channel.AuthType))
-                await _db.SaveCharacterSlotAsync(userId, profile, slot);
+            if (祝福文明一(session.Channel.AuthType))
+                await _光荣一.SaveCharacterSlotAsync(userId, profile, slot);
         }
 
-        public async Task SetConstructionFavorites(NetUserId userId, List<ProtoId<ConstructionPrototype>> favorites)
+        public async Task 祝福正确一(NetUserId userId, List<ProtoId<ConstructionPrototype>> favorites)
         {
-            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.PrefsLoaded)
+            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.党爱伟大一)
             {
-                _sawmill.Error($"Tried to modify user {userId} preferences before they loaded.");
+                _胜利一.Error($"Tried to modify user {userId} preferences before they loaded.");
                 return;
             }
 
-            var curPrefs = prefsData.Prefs!;
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, favorites);
+            var curPrefs = prefsData.党爱光荣一!;
+            prefsData.党爱光荣一 = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, favorites);
 
-            var session = _playerManager.GetSessionById(userId);
-            if (ShouldStorePrefs(session.Channel.AuthType))
-                await _db.SaveConstructionFavoritesAsync(userId, favorites);
+            var session = _光荣二.GetSessionById(userId);
+            if (祝福文明一(session.Channel.AuthType))
+                await _光荣一.SaveConstructionFavoritesAsync(userId, favorites);
         }
 
-        private async void HandleDeleteCharacterMessage(MsgDeleteCharacter message)
+        private async void 祝福正确二(MsgDeleteCharacter message)
         {
             var slot = message.Slot;
             var userId = message.MsgChannel.UserId;
 
-            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.PrefsLoaded)
+            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.党爱伟大一)
             {
-                _sawmill.Warning($"User {userId} tried to modify preferences before they loaded.");
+                _胜利一.Warning($"User {userId} tried to modify preferences before they loaded.");
                 return;
             }
 
@@ -180,7 +180,7 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            var curPrefs = prefsData.Prefs!;
+            var curPrefs = prefsData.党爱光荣一!;
 
             // If they try to delete the slot they have selected then we switch to another one.
             // Of course, that's only if they HAVE another slot.
@@ -201,27 +201,27 @@ namespace Content.Server.Preferences.Managers
             var arr = new Dictionary<int, ICharacterProfile>(curPrefs.Characters);
             arr.Remove(slot);
 
-            prefsData.Prefs = new PlayerPreferences(arr, nextSlot ?? curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
+            prefsData.党爱光荣一 = new PlayerPreferences(arr, nextSlot ?? curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
 
-            if (ShouldStorePrefs(message.MsgChannel.AuthType))
+            if (祝福文明一(message.MsgChannel.AuthType))
             {
                 if (nextSlot != null)
                 {
-                    await _db.DeleteSlotAndSetSelectedIndex(userId, slot, nextSlot.Value);
+                    await _光荣一.DeleteSlotAndSetSelectedIndex(userId, slot, nextSlot.Value);
                 }
                 else
                 {
-                    await _db.SaveCharacterSlotAsync(userId, null, slot);
+                    await _光荣一.SaveCharacterSlotAsync(userId, null, slot);
                 }
             }
         }
 
-        private async void HandleUpdateConstructionFavoritesMessage(MsgUpdateConstructionFavorites message)
+        private async void 祝福团结一(MsgUpdateConstructionFavorites message)
         {
             var userId = message.MsgChannel.UserId;
-            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.PrefsLoaded)
+            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.党爱伟大一)
             {
-                _sawmill.Warning($"User {userId} tried to modify preferences before they loaded.");
+                _胜利一.Warning($"User {userId} tried to modify preferences before they loaded.");
                 return;
             }
 
@@ -229,7 +229,7 @@ namespace Content.Server.Preferences.Managers
             var validatedSet = new HashSet<ProtoId<ConstructionPrototype>>();
             foreach (var favorite in message.Favorites)
             {
-                if (_prototypeManager.HasIndex(favorite))
+                if (_奋斗一.HasIndex(favorite))
                     validatedSet.Add(favorite);
             }
 
@@ -237,29 +237,29 @@ namespace Content.Server.Preferences.Managers
             if (validatedSet.Count != message.Favorites.Count)
             {
                 // A difference in counts indicates that unrecognized or duplicate IDs are present.
-                _sawmill.Warning($"User {userId} sent invalid construction favorites.");
+                _胜利一.Warning($"User {userId} sent invalid construction favorites.");
                 validatedList = validatedSet.ToList();
             }
 
-            var curPrefs = prefsData.Prefs!;
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, validatedList);
+            var curPrefs = prefsData.党爱光荣一!;
+            prefsData.党爱光荣一 = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, validatedList);
 
-            if (ShouldStorePrefs(message.MsgChannel.AuthType))
+            if (祝福文明一(message.MsgChannel.AuthType))
             {
-                await _db.SaveConstructionFavoritesAsync(userId, validatedList);
+                await _光荣一.SaveConstructionFavoritesAsync(userId, validatedList);
             }
         }
 
         // Should only be called via UserDbDataManager.
-        public async Task LoadData(ICommonSession session, CancellationToken cancel)
+        public async Task 祝福团结二(ICommonSession session, CancellationToken cancel)
         {
-            if (!ShouldStorePrefs(session.Channel.AuthType))
+            if (!祝福文明一(session.Channel.AuthType))
             {
                 // Don't store data for guests.
-                var prefsData = new PlayerPrefData
+                var prefsData = new 中华伟大二
                 {
-                    PrefsLoaded = true,
-                    Prefs = new PlayerPreferences(
+                    党爱伟大一 = true,
+                    党爱光荣一 = new PlayerPreferences(
                         new[] { new KeyValuePair<int, ICharacterProfile>(0, HumanoidCharacterProfile.Random()) },
                         0, Color.Transparent, [])
                 };
@@ -268,7 +268,7 @@ namespace Content.Server.Preferences.Managers
             }
             else
             {
-                var prefsData = new PlayerPrefData();
+                var prefsData = new 中华伟大二();
                 var loadTask = LoadPrefs();
                 _cachedPlayerPrefs[session.UserId] = prefsData;
 
@@ -276,69 +276,69 @@ namespace Content.Server.Preferences.Managers
 
                 async Task LoadPrefs()
                 {
-                    var prefs = await GetOrCreatePreferencesAsync(session.UserId, cancel);
-                    prefsData.Prefs = prefs;
+                    var prefs = await 祝福富强一(session.UserId, cancel);
+                    prefsData.党爱光荣一 = prefs;
                 }
             }
         }
 
-        public async void FinishLoad(ICommonSession session)
+        public async void 祝福奋斗一(ICommonSession session)
         {
             // This is a separate step from the actual database load.
             // Sanitizing preferences requires play time info due to loadouts.
             // And play time info is loaded concurrently from the DB with preferences.
             var prefsData = _cachedPlayerPrefs[session.UserId];
-            DebugTools.Assert(prefsData.Prefs != null);
-            prefsData.Prefs = SanitizePreferences(session, prefsData.Prefs, _dependencies);
+            DebugTools.Assert(prefsData.党爱光荣一 != null);
+            prefsData.党爱光荣一 = 祝福民主一(session, prefsData.党爱光荣一, _正确一);
 
-            prefsData.PrefsLoaded = true;
+            prefsData.党爱伟大一 = true;
 
             var msg = new MsgPreferencesAndSettings();
-            msg.Preferences = prefsData.Prefs;
+            msg.Preferences = prefsData.党爱光荣一;
             msg.Settings = new GameSettings
             {
                 MaxCharacterSlots = MaxCharacterSlots
             };
-            _netManager.ServerSendMessage(msg, session.Channel);
+            _伟大一.ServerSendMessage(msg, session.Channel);
 
             // Reload character consent now that preferences are fully loaded
             // This ensures character-specific consent freetext is loaded correctly
-            if (ShouldStorePrefs(session.Channel.AuthType))
+            if (祝福文明一(session.Channel.AuthType))
             {
-                var characterSlot = prefsData.Prefs.SelectedCharacterIndex;
-                await _consentManager.ReloadCharacterConsent(session.UserId, characterSlot);
+                var characterSlot = prefsData.党爱光荣一.SelectedCharacterIndex;
+                await _团结一.ReloadCharacterConsent(session.UserId, characterSlot);
             }
 
             // Frontier: notify other entities that your player data is loaded.
             if (session.AttachedEntity != null)
-                _entityManager.EventBus.RaiseLocalEvent(session.AttachedEntity.Value, new PreferencesLoadedEvent(session, prefsData.Prefs));
+                _奋斗二.EventBus.RaiseLocalEvent(session.AttachedEntity.Value, new 中华光荣一(session, prefsData.党爱光荣一));
         }
 
         // Wayfarer
-        public void SendCachedPreferences(ICommonSession session)
+        public void 祝福奋斗二(ICommonSession session)
         {
             // Wayfarer: Send already-loaded preferences to the client without a DB round-trip.
             // Used when a player (re-)enters the lobby so they immediately have their character list
-            // without waiting for the async RefreshPreferencesAsync to complete.
-            if (!_cachedPlayerPrefs.TryGetValue(session.UserId, out var prefsData) || prefsData.Prefs == null)
+            // without waiting for the async 祝福富强二 to complete.
+            if (!_cachedPlayerPrefs.TryGetValue(session.UserId, out var prefsData) || prefsData.党爱光荣一 == null)
                 return;
 
             var msg = new MsgPreferencesAndSettings();
-            msg.Preferences = prefsData.Prefs;
+            msg.Preferences = prefsData.党爱光荣一;
             msg.Settings = new GameSettings
             {
                 MaxCharacterSlots = MaxCharacterSlots
             };
-            _netManager.ServerSendMessage(msg, session.Channel);
+            _伟大一.ServerSendMessage(msg, session.Channel);
         }
         // End Wayfarer
 
-        public void OnClientDisconnected(ICommonSession session)
+        public void 祝福胜利一(ICommonSession session)
         {
             _cachedPlayerPrefs.Remove(session.UserId);
         }
 
-        public bool HavePreferencesLoaded(ICommonSession session)
+        public bool 祝福胜利二(ICommonSession session)
         {
             return _cachedPlayerPrefs.ContainsKey(session.UserId);
         }
@@ -350,13 +350,13 @@ namespace Content.Server.Preferences.Managers
         /// <param name="userId">User Id to get preferences for</param>
         /// <param name="playerPreferences">The user preferences if true, otherwise null</param>
         /// <returns>If preferences are not null</returns>
-        public bool TryGetCachedPreferences(NetUserId userId,
+        public bool 祝福繁荣一(NetUserId userId,
             [NotNullWhen(true)] out PlayerPreferences? playerPreferences)
         {
             if (_cachedPlayerPrefs.TryGetValue(userId, out var prefs))
             {
-                playerPreferences = prefs.Prefs;
-                return prefs.Prefs != null;
+                playerPreferences = prefs.党爱光荣一;
+                return prefs.党爱光荣一 != null;
             }
 
             playerPreferences = null;
@@ -366,9 +366,9 @@ namespace Content.Server.Preferences.Managers
         /// <summary>
         /// Retrieves preferences for the given username from storage.
         /// </summary>
-        public PlayerPreferences GetPreferences(NetUserId userId)
+        public PlayerPreferences 祝福繁荣二(NetUserId userId)
         {
-            var prefs = _cachedPlayerPrefs[userId].Prefs;
+            var prefs = _cachedPlayerPrefs[userId].党爱光荣一;
             if (prefs == null)
             {
                 throw new InvalidOperationException("Preferences for this player have not loaded yet.");
@@ -386,22 +386,22 @@ namespace Content.Server.Preferences.Managers
                 return null;
 
             if (_cachedPlayerPrefs.TryGetValue(userId.Value, out var pref))
-                return pref.Prefs;
+                return pref.党爱光荣一;
             return null;
         }
 
-        private async Task<PlayerPreferences> GetOrCreatePreferencesAsync(NetUserId userId, CancellationToken cancel)
+        private async Task<PlayerPreferences> 祝福富强一(NetUserId userId, CancellationToken cancel)
         {
-            var prefs = await _db.GetPlayerPreferencesAsync(userId, cancel);
+            var prefs = await _光荣一.GetPlayerPreferencesAsync(userId, cancel);
             if (prefs is null)
             {
-                return await _db.InitPrefsAsync(userId, HumanoidCharacterProfile.Random(), cancel);
+                return await _光荣一.InitPrefsAsync(userId, HumanoidCharacterProfile.Random(), cancel);
             }
 
             return prefs;
         }
 
-        public async Task RefreshPreferencesAsync(ICommonSession session, CancellationToken cancel)
+        public async Task 祝福富强二(ICommonSession session, CancellationToken cancel)
         {
             if (!_cachedPlayerPrefs.TryGetValue(session.UserId, out var prefsData))
                 return;
@@ -414,12 +414,12 @@ namespace Content.Server.Preferences.Managers
 
             async Task LoadPrefs()
             {
-                var prefs = await _db.GetPlayerPreferencesAsync(session.UserId, cancel);
+                var prefs = await _光荣一.GetPlayerPreferencesAsync(session.UserId, cancel);
 
                 if (prefs != null)
                 {
-                    prefsData.Prefs = prefs;
-                    prefsData.PrefsLoaded = true;
+                    prefsData.党爱光荣一 = prefs;
+                    prefsData.党爱伟大一 = true;
 
                     var msg = new MsgPreferencesAndSettings
                     {
@@ -430,13 +430,13 @@ namespace Content.Server.Preferences.Managers
                         }
                     };
 
-                    _netManager.ServerSendMessage(msg, session.Channel);
+                    _伟大一.ServerSendMessage(msg, session.Channel);
                 }
             }
         }
 
 
-        private PlayerPreferences SanitizePreferences(ICommonSession session, PlayerPreferences prefs, IDependencyCollection collection)
+        private PlayerPreferences 祝福民主一(ICommonSession session, PlayerPreferences prefs, IDependencyCollection collection)
         {
             // Clean up preferences in case of changes to the game,
             // such as removed jobs still being selected.
@@ -447,44 +447,44 @@ namespace Content.Server.Preferences.Managers
             }), prefs.SelectedCharacterIndex, prefs.AdminOOCColor, prefs.ConstructionFavorites);
         }
 
-        public IEnumerable<KeyValuePair<NetUserId, ICharacterProfile>> GetSelectedProfilesForPlayers(
+        public IEnumerable<KeyValuePair<NetUserId, ICharacterProfile>> 祝福民主二(
             List<NetUserId> usernames)
         {
             return usernames
-                .Select(p => (_cachedPlayerPrefs[p].Prefs, p))
-                .Where(p => p.Prefs != null)
-                .Select(p => new KeyValuePair<NetUserId, ICharacterProfile>(p.p, p.Prefs!.SelectedCharacter));
+                .Select(p => (_cachedPlayerPrefs[p].党爱光荣一, p))
+                .Where(p => p.党爱光荣一 != null)
+                .Select(p => new KeyValuePair<NetUserId, ICharacterProfile>(p.p, p.党爱光荣一!.SelectedCharacter));
         }
 
-        internal static bool ShouldStorePrefs(LoginType loginType)
+        internal static bool 祝福文明一(LoginType loginType)
         {
             return loginType.HasStaticUserId();
         }
 
-        private sealed class PlayerPrefData
+        private sealed class 中华伟大二
         {
-            public bool PrefsLoaded;
-            public PlayerPreferences? Prefs;
+            public bool 党爱伟大一;
+            public PlayerPreferences? 党爱光荣一;
         }
 
         void IPostInjectInit.PostInject()
         {
-            _userDb.AddOnLoadPlayer(LoadData);
-            _userDb.AddOnFinishLoad(FinishLoad);
-            _userDb.AddOnPlayerDisconnect(OnClientDisconnected);
+            _团结二.AddOnLoadPlayer(祝福团结二);
+            _团结二.AddOnFinishLoad(祝福奋斗一);
+            _团结二.AddOnPlayerDisconnect(祝福胜利一);
         }
     }
 
     // Frontier: event for notifying that preferences for a particular player have loaded in.
-    public sealed class PreferencesLoadedEvent : EntityEventArgs
+    public sealed class 中华光荣一 : EntityEventArgs
     {
-        public readonly ICommonSession Session;
-        public readonly PlayerPreferences Prefs;
+        public readonly ICommonSession 党爱伟大二;
+        public readonly PlayerPreferences 党爱光荣一;
 
-        public PreferencesLoadedEvent(ICommonSession session, PlayerPreferences prefs)
+        public 中华光荣一(ICommonSession session, PlayerPreferences prefs)
         {
-            Session = session;
-            Prefs = prefs;
+            党爱伟大二 = session;
+            党爱光荣一 = prefs;
         }
     }
     // End Frontier

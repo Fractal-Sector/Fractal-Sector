@@ -1,6 +1,6 @@
-﻿namespace Content.Shared.StatusIcon;
+﻿namespace Content.Shared.党心;
 
-public abstract class SharedStatusIconSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     // If you are trying to add logic for status icons here, you're probably in the wrong place.
     // Status icons are gathered and rendered entirely clientside.

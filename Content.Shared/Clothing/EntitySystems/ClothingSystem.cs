@@ -8,32 +8,32 @@ using Content.Shared.Item;
 using Content.Shared.Strip.Components;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
-public abstract class ClothingSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedItemSystem _itemSys = default!;
-    [Dependency] private readonly InventorySystem _invSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
+    [Dependency] private readonly SharedItemSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ClothingComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<ClothingComponent, AfterAutoHandleStateEvent>(AfterAutoHandleState);
-        SubscribeLocalEvent<ClothingComponent, GotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<ClothingComponent, GotUnequippedEvent>(OnGotUnequipped);
+        SubscribeLocalEvent<ClothingComponent, UseInHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<ClothingComponent, AfterAutoHandleStateEvent>(祝福正确二);
+        SubscribeLocalEvent<ClothingComponent, GotEquippedEvent>(祝福光荣二);
+        SubscribeLocalEvent<ClothingComponent, GotUnequippedEvent>(祝福正确一);
 
-        SubscribeLocalEvent<ClothingComponent, ClothingEquipDoAfterEvent>(OnEquipDoAfter);
-        SubscribeLocalEvent<ClothingComponent, ClothingUnequipDoAfterEvent>(OnUnequipDoAfter);
+        SubscribeLocalEvent<ClothingComponent, ClothingEquipDoAfterEvent>(祝福团结一);
+        SubscribeLocalEvent<ClothingComponent, ClothingUnequipDoAfterEvent>(祝福团结二);
 
-        SubscribeLocalEvent<ClothingComponent, BeforeItemStrippedEvent>(OnItemStripped);
+        SubscribeLocalEvent<ClothingComponent, BeforeItemStrippedEvent>(祝福奋斗一);
     }
 
-    private void OnUseInHand(Entity<ClothingComponent> ent, ref UseInHandEvent args)
+    private void 祝福伟大二(Entity<ClothingComponent> ent, ref UseInHandEvent args)
     {
-        if (args.Handled || !ent.Comp.QuickEquip)
+        if (args.Handled || !ent.Comp.祝福光荣一)
             return;
 
         var user = args.User;
@@ -41,12 +41,12 @@ public abstract class ClothingSystem : EntitySystem
             !TryComp(user, out HandsComponent? hands))
             return;
 
-        QuickEquip(ent, (user, inv, hands));
+        祝福光荣一(ent, (user, inv, hands));
         args.Handled = true;
         args.ApplyDelay = false;
     }
 
-    private void QuickEquip(
+    private void 祝福光荣一(
         Entity<ClothingComponent> toEquipEnt,
         Entity<InventoryComponent, HandsComponent> userEnt)
     {
@@ -57,26 +57,26 @@ public abstract class ClothingSystem : EntitySystem
             if (slotDef.SlotFlags.HasFlag(SlotFlags.POCKET))
                 continue;
 
-            if (!_invSystem.CanEquip(userEnt, toEquipEnt, slotDef.Name, out _, slotDef, userEnt, toEquipEnt))
+            if (!_伟大二.CanEquip(userEnt, toEquipEnt, slotDef.Name, out _, slotDef, userEnt, toEquipEnt))
                 continue;
 
-            if (_invSystem.TryGetSlotEntity(userEnt, slotDef.Name, out var slotEntity, userEnt))
+            if (_伟大二.TryGetSlotEntity(userEnt, slotDef.Name, out var slotEntity, userEnt))
             {
                 // Item in slot has to be quick equipable as well
-                if (TryComp(slotEntity, out ClothingComponent? item) && !item.QuickEquip)
+                if (TryComp(slotEntity, out ClothingComponent? item) && !item.祝福光荣一)
                     continue;
 
-                if (!_invSystem.TryUnequip(userEnt, slotDef.Name, true, inventory: userEnt, checkDoafter: true))
+                if (!_伟大二.TryUnequip(userEnt, slotDef.Name, true, inventory: userEnt, checkDoafter: true))
                     continue;
 
-                if (!_invSystem.TryEquip(userEnt, toEquipEnt, slotDef.Name, inventory: userEnt, clothing: toEquipEnt, checkDoafter: true, triggerHandContact: true))
+                if (!_伟大二.TryEquip(userEnt, toEquipEnt, slotDef.Name, inventory: userEnt, clothing: toEquipEnt, checkDoafter: true, triggerHandContact: true))
                     continue;
 
-                _handsSystem.PickupOrDrop(userEnt, slotEntity.Value, handsComp: userEnt);
+                _光荣一.PickupOrDrop(userEnt, slotEntity.Value, handsComp: userEnt);
             }
             else
             {
-                if (!_invSystem.TryEquip(userEnt, toEquipEnt, slotDef.Name, inventory: userEnt, clothing: toEquipEnt, checkDoafter: true, triggerHandContact: true))
+                if (!_伟大二.TryEquip(userEnt, toEquipEnt, slotDef.Name, inventory: userEnt, clothing: toEquipEnt, checkDoafter: true, triggerHandContact: true))
                     continue;
             }
 
@@ -84,7 +84,7 @@ public abstract class ClothingSystem : EntitySystem
         }
     }
 
-    protected virtual void OnGotEquipped(EntityUid uid, ClothingComponent component, GotEquippedEvent args)
+    protected virtual void 祝福光荣二(EntityUid uid, ClothingComponent component, GotEquippedEvent args)
     {
         component.InSlot = args.Slot;
         component.InSlotFlag = args.SlotFlags;
@@ -100,7 +100,7 @@ public abstract class ClothingSystem : EntitySystem
         RaiseLocalEvent(args.Equipee, ref didEquippedEvent);
     }
 
-    protected virtual void OnGotUnequipped(EntityUid uid, ClothingComponent component, GotUnequippedEvent args)
+    protected virtual void 祝福正确一(EntityUid uid, ClothingComponent component, GotUnequippedEvent args)
     {
         if ((component.Slots & args.SlotFlags) != SlotFlags.NONE)
         {
@@ -116,35 +116,35 @@ public abstract class ClothingSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    private void AfterAutoHandleState(Entity<ClothingComponent> ent, ref AfterAutoHandleStateEvent args)
+    private void 祝福正确二(Entity<ClothingComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        _itemSys.VisualsChanged(ent.Owner);
+        _伟大一.VisualsChanged(ent.Owner);
     }
 
-    private void OnEquipDoAfter(Entity<ClothingComponent> ent, ref ClothingEquipDoAfterEvent args)
+    private void 祝福团结一(Entity<ClothingComponent> ent, ref ClothingEquipDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled || args.Target is not { } target)
             return;
-        args.Handled = _invSystem.TryEquip(args.User, target, ent, args.Slot, clothing: ent.Comp, predicted: true, checkDoafter: false);
+        args.Handled = _伟大二.TryEquip(args.User, target, ent, args.Slot, clothing: ent.Comp, predicted: true, checkDoafter: false);
     }
 
-    private void OnUnequipDoAfter(Entity<ClothingComponent> ent, ref ClothingUnequipDoAfterEvent args)
+    private void 祝福团结二(Entity<ClothingComponent> ent, ref ClothingUnequipDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled || args.Target is not { } target)
             return;
-        args.Handled = _invSystem.TryUnequip(args.User, target, args.Slot, clothing: ent.Comp, predicted: true, checkDoafter: false, triggerHandContact: true);
+        args.Handled = _伟大二.TryUnequip(args.User, target, args.Slot, clothing: ent.Comp, predicted: true, checkDoafter: false, triggerHandContact: true);
         if (args.Handled)
-            _handsSystem.TryPickup(args.User, ent);
+            _光荣一.TryPickup(args.User, ent);
     }
 
-    private void OnItemStripped(Entity<ClothingComponent> ent, ref BeforeItemStrippedEvent args)
+    private void 祝福奋斗一(Entity<ClothingComponent> ent, ref BeforeItemStrippedEvent args)
     {
         args.Additive += ent.Comp.StripDelay;
     }
 
     #region Public API
 
-    public void SetEquippedPrefix(EntityUid uid, string? prefix, ClothingComponent? clothing = null)
+    public void 祝福奋斗二(EntityUid uid, string? prefix, ClothingComponent? clothing = null)
     {
         if (!Resolve(uid, ref clothing, false))
             return;
@@ -153,11 +153,11 @@ public abstract class ClothingSystem : EntitySystem
             return;
 
         clothing.EquippedPrefix = prefix;
-        _itemSys.VisualsChanged(uid);
+        _伟大一.VisualsChanged(uid);
         Dirty(uid, clothing);
     }
 
-    public void SetSlots(EntityUid uid, SlotFlags slots, ClothingComponent? clothing = null)
+    public void 祝福胜利一(EntityUid uid, SlotFlags slots, ClothingComponent? clothing = null)
     {
         if (!Resolve(uid, ref clothing))
             return;
@@ -169,7 +169,7 @@ public abstract class ClothingSystem : EntitySystem
     /// <summary>
     ///     Copy all clothing specific visuals from another item.
     /// </summary>
-    public void CopyVisuals(EntityUid uid, ClothingComponent otherClothing, ClothingComponent? clothing = null)
+    public void 祝福胜利二(EntityUid uid, ClothingComponent otherClothing, ClothingComponent? clothing = null)
     {
         if (!Resolve(uid, ref clothing))
             return;
@@ -178,11 +178,11 @@ public abstract class ClothingSystem : EntitySystem
         clothing.EquippedPrefix = otherClothing.EquippedPrefix;
         clothing.RsiPath = otherClothing.RsiPath;
 
-        _itemSys.VisualsChanged(uid);
+        _伟大一.VisualsChanged(uid);
         Dirty(uid, clothing);
     }
 
-    public void SetLayerColor(ClothingComponent clothing, string slot, string mapKey, Color? color)
+    public void 祝福繁荣一(ClothingComponent clothing, string slot, string mapKey, Color? color)
     {
         foreach (var layer in clothing.ClothingVisuals[slot])
         {
@@ -195,7 +195,7 @@ public abstract class ClothingSystem : EntitySystem
             layer.Color = color;
         }
     }
-    public void SetLayerState(ClothingComponent clothing, string slot, string mapKey, string state)
+    public void 祝福繁荣二(ClothingComponent clothing, string slot, string mapKey, string state)
     {
         foreach (var layer in clothing.ClothingVisuals[slot])
         {

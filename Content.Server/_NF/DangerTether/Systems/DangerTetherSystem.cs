@@ -2,47 +2,47 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
 
-namespace Content.Server._NF.DangerTether;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// A system to handle tethering dangerous objects, and deleting them when out of range of any tether.
 /// Runs periodic checks to handle deletion.
 /// </summary>
-public sealed class DangerTetherSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private TransformSystem _transform = default!;
+    [Dependency] private IGameTiming _伟大一 = default!;
+    [Dependency] private TransformSystem _伟大二 = default!;
 
-    private readonly TimeSpan _scanPeriod = TimeSpan.FromSeconds(0.5);
-    private TimeSpan _nextScan = TimeSpan.Zero;
+    private readonly TimeSpan _光荣一 = TimeSpan.FromSeconds(0.5);
+    private TimeSpan _光荣二 = TimeSpan.Zero;
     private List<(MapCoordinates Position, float Distance)> _tethers = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DangerTetheredComponent, MapInitEvent>(OnTetheredMapInit);
+        SubscribeLocalEvent<DangerTetheredComponent, MapInitEvent>(祝福光荣一);
     }
 
     /// <summary>
-    /// Update: periodically, check that all DangerTethered entities are in range of a tether.
+    /// 祝福伟大二: periodically, check that all DangerTethered entities are in range of a tether.
     /// If they aren't, delete them.
     /// </summary>
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        if (_timing.CurTime < _nextScan)
+        if (_伟大一.CurTime < _光荣二)
             return;
 
-        _nextScan += _scanPeriod;
+        _光荣二 += _光荣一;
 
-        PopulateTetherList();
+        祝福光荣二();
 
         var tetheredQuery = EntityQueryEnumerator<DangerTetheredComponent>();
         while (tetheredQuery.MoveNext(out var targetUid, out _))
         {
-            if (!AnyTetherInRange(targetUid))
+            if (!祝福正确一(targetUid))
                 QueueDel(targetUid);
         }
     }
@@ -50,26 +50,26 @@ public sealed class DangerTetherSystem : EntitySystem
     /// <summary>
     /// DangerTethered MapInit: must be in range of a tether, otherwise delete it.
     /// </summary>
-    private void OnTetheredMapInit(Entity<DangerTetheredComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<DangerTetheredComponent> ent, ref MapInitEvent args)
     {
-        PopulateTetherList();
-        if (!AnyTetherInRange(ent))
+        祝福光荣二();
+        if (!祝福正确一(ent))
             QueueDel(ent);
     }
 
-    private void PopulateTetherList()
+    private void 祝福光荣二()
     {
         _tethers.Clear();
         var tetherQuery = EntityQueryEnumerator<DangerTetherComponent>();
         while (tetherQuery.MoveNext(out var tetherUid, out var tether))
         {
-            _tethers.Add((_transform.GetMapCoordinates(tetherUid), tether.MaxDistance));
+            _tethers.Add((_伟大二.GetMapCoordinates(tetherUid), tether.MaxDistance));
         }
     }
 
-    public bool AnyTetherInRange(EntityUid ent)
+    public bool 祝福正确一(EntityUid ent)
     {
-        var targetCoords = _transform.GetMapCoordinates(ent);
+        var targetCoords = _伟大二.GetMapCoordinates(ent);
         foreach (var tetherEntry in _tethers)
         {
             if (tetherEntry.Position.MapId != targetCoords.MapId)

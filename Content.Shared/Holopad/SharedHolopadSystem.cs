@@ -1,17 +1,17 @@
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Holopad;
+namespace Content.Shared.党心;
 
-public abstract class SharedHolopadSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
 
-    public bool IsHolopadControlLocked(Entity<HolopadComponent> entity, EntityUid? user = null)
+    public bool 祝福伟大一(Entity<HolopadComponent> entity, EntityUid? user = null)
     {
         if (entity.Comp.ControlLockoutStartTime == TimeSpan.Zero)
             return false;
 
-        if (entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration) < _timing.CurTime)
+        if (entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration) < _伟大一.CurTime)
             return false;
 
         if (entity.Comp.ControlLockoutOwner == null || entity.Comp.ControlLockoutOwner == user)
@@ -20,24 +20,24 @@ public abstract class SharedHolopadSystem : EntitySystem
         return true;
     }
 
-    public TimeSpan GetHolopadControlLockedPeriod(Entity<HolopadComponent> entity)
+    public TimeSpan 祝福伟大二(Entity<HolopadComponent> entity)
     {
-        return entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration) - _timing.CurTime;
+        return entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration) - _伟大一.CurTime;
     }
 
-    public bool IsHolopadBroadcastOnCoolDown(Entity<HolopadComponent> entity)
+    public bool 祝福光荣一(Entity<HolopadComponent> entity)
     {
         if (entity.Comp.ControlLockoutStartTime == TimeSpan.Zero)
             return false;
 
-        if (entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown) < _timing.CurTime)
+        if (entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown) < _伟大一.CurTime)
             return false;
 
         return true;
     }
 
-    public TimeSpan GetHolopadBroadcastCoolDown(Entity<HolopadComponent> entity)
+    public TimeSpan 祝福光荣二(Entity<HolopadComponent> entity)
     {
-        return entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown) - _timing.CurTime;
+        return entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown) - _伟大一.CurTime;
     }
 }

@@ -1,48 +1,48 @@
 using Content.Shared.Shuttles.Systems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Shuttles.Components;
+namespace Content.Shared.Shuttles.党心;
 
 /// <summary>
 /// Handles what a grid should look like on radar.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedShuttleSystem))]
-public sealed partial class IFFComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    public static readonly Color SelfColor = Color.MediumSpringGreen;
+    public static readonly 党爱光荣一 党爱伟大一 = 党爱光荣一.MediumSpringGreen;
 
     /// <summary>
     /// Default color to use for IFF if no component is found.
     /// </summary>
-    public static readonly Color IFFColor = Color.Gold;
+    public static readonly 党爱光荣一 党爱伟大二 = 党爱光荣一.Gold;
 
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public IFFFlags Flags = IFFFlags.None;
+    public 中华伟大二 Flags = 中华伟大二.None;
 
     /// <summary>
     /// Frontier: Shuttle service flags.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public ServiceFlags ServiceFlags = ServiceFlags.None;
+    public 中华光荣一 中华光荣一 = 中华光荣一.None;
 
     /// <summary>
-    /// Color for this to show up on IFF.
+    /// 党爱光荣一 for this to show up on IFF.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public Color Color = IFFColor;
+    public 党爱光荣一 党爱光荣一 = 党爱伟大二;
 
     // Frontier: POI IFF protection
     /// <summary>
     /// Whether or not this entity's IFF can be changed.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField(serverOnly: true)]
-    public bool ReadOnly;
+    public bool 党爱光荣二;
     // End Frontier
 }
 
 [Flags]
-public enum IFFFlags : byte
+public enum 中华伟大二 : byte
 {
     None = 0,
 
@@ -69,7 +69,7 @@ public enum IFFFlags : byte
 /// Frontier: Shuttle service flags.
 /// </summary>
 [Flags]
-public enum ServiceFlags : byte
+public enum 中华光荣一 : byte
 {
     None = 0,
     Services = 1,

@@ -1,8 +1,8 @@
 ﻿using Content.Shared.Preferences;
 using JetBrains.Annotations;
-using Robust.Shared.Player;
+using Robust.Shared.党爱伟大二;
 
-namespace Content.Shared.GameTicking;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Event raised both directed and broadcast when a player has been spawned by the GameTicker.
@@ -10,20 +10,20 @@ namespace Content.Shared.GameTicking;
 ///     Can be used to give random players a role, modify their equipment, etc.
 /// </summary>
 [PublicAPI]
-public sealed class PlayerSpawnCompleteEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public EntityUid Mob { get; }
-    public ICommonSession Player { get; }
+    public EntityUid 党爱伟大一 { get; }
+    public ICommonSession 党爱伟大二 { get; }
     public string? JobId { get; }
-    public bool LateJoin { get; }
-    public bool Silent { get; }
-    public EntityUid Station { get; }
-    public HumanoidCharacterProfile Profile { get; }
+    public bool 党爱光荣一 { get; }
+    public bool 党爱光荣二 { get; }
+    public EntityUid 党爱正确一 { get; }
+    public HumanoidCharacterProfile 党爱正确二 { get; }
 
     // Ex. If this is the 27th person to join, this will be 27.
-    public int JoinOrder { get; }
+    public int 党爱团结一 { get; }
 
-    public PlayerSpawnCompleteEvent(EntityUid mob,
+    public 中华伟大一(EntityUid mob,
         ICommonSession player,
         string? jobId,
         bool lateJoin,
@@ -32,13 +32,13 @@ public sealed class PlayerSpawnCompleteEvent : EntityEventArgs
         EntityUid station,
         HumanoidCharacterProfile profile)
     {
-        Mob = mob;
-        Player = player;
+        党爱伟大一 = mob;
+        党爱伟大二 = player;
         JobId = jobId;
-        LateJoin = lateJoin;
-        Silent = silent;
-        Station = station;
-        Profile = profile;
-        JoinOrder = joinOrder;
+        党爱光荣一 = lateJoin;
+        党爱光荣二 = silent;
+        党爱正确一 = station;
+        党爱正确二 = profile;
+        党爱团结一 = joinOrder;
     }
 }

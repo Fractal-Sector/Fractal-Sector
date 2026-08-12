@@ -1,12 +1,12 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.NPC;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class PathPolysRefreshMessage : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public NetEntity GridUid;
-    public Vector2i Origin;
+    public NetEntity 党爱伟大一;
+    public Vector2i 党爱伟大二;
 
     /// <summary>
     /// Multi-dimension arrays aren't supported so

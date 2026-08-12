@@ -2,11 +2,11 @@ using System.Numerics;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Shared.Coordinates.Helpers
+namespace Content.Shared.Coordinates.党心
 {
-    public static class SnapgridHelper
+    public static class 中华伟大一
     {
-        public static EntityCoordinates SnapToGrid(this EntityCoordinates coordinates, IEntityManager? entMan = null, IMapManager? mapManager = null)
+        public static EntityCoordinates 祝福伟大一(this EntityCoordinates coordinates, IEntityManager? entMan = null, IMapManager? mapManager = null)
         {
             IoCManager.Resolve(ref entMan, ref mapManager);
 
@@ -31,7 +31,7 @@ namespace Content.Shared.Coordinates.Helpers
             return gridPos.WithEntityId(coordinates.EntityId);
         }
 
-        public static EntityCoordinates SnapToGrid(this EntityCoordinates coordinates, MapGridComponent grid)
+        public static EntityCoordinates 祝福伟大一(this EntityCoordinates coordinates, MapGridComponent grid)
         {
             var tileSize = grid.TileSize;
 

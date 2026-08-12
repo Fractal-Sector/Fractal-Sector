@@ -7,18 +7,18 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Network;
 
-namespace Content.Server.Info;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class ShowRulesCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
 
-    public override string Command => "showrules";
+    public override string 党爱伟大一 => "showrules";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length is < 1 or > 2)
         {
@@ -26,7 +26,7 @@ public sealed class ShowRulesCommand : LocalizedCommands
             return;
         }
 
-        var seconds = _configuration.GetCVar(CCVars.RulesWaitTime);
+        var seconds = _伟大一.GetCVar(CCVars.RulesWaitTime);
 
         if (args.Length == 2 && !float.TryParse(args[1], out seconds))
         {
@@ -34,22 +34,22 @@ public sealed class ShowRulesCommand : LocalizedCommands
             return;
         }
 
-        if (!_player.TryGetSessionByUsername(args[0], out var player))
+        if (!_光荣一.TryGetSessionByUsername(args[0], out var player))
         {
             shell.WriteError(Loc.GetString("shell-target-player-does-not-exist"));
             return;
         }
 
-        var coreRules = _configuration.GetCVar(CCVars.RulesFile);
+        var coreRules = _伟大一.GetCVar(CCVars.RulesFile);
         var message = new SendRulesInformationMessage
             { PopupTime = seconds, CoreRules = coreRules, ShouldShowRules = true };
-        _net.ServerSendMessage(message, player.Channel);
+        _伟大二.ServerSendMessage(message, player.Channel);
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         return args.Length == 1
-            ? CompletionResult.FromOptions(CompletionHelper.SessionNames(players: _player))
+            ? CompletionResult.FromOptions(CompletionHelper.SessionNames(players: _光荣一))
             : CompletionResult.Empty;
     }
 }

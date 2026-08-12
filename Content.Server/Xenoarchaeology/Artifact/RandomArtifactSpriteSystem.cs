@@ -5,28 +5,28 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Xenoarchaeology.Artifact;
+namespace Content.Server.Xenoarchaeology.党心;
 
-public sealed class RandomArtifactSpriteSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _time = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly AppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedItemSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RandomArtifactSpriteComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<RandomArtifactSpriteComponent, ArtifactUnlockingStartedEvent>(UnlockingStageStarted);
-        SubscribeLocalEvent<RandomArtifactSpriteComponent, ArtifactUnlockingFinishedEvent>(UnlockingStageFinished);
-        SubscribeLocalEvent<RandomArtifactSpriteComponent, XenoArtifactActivatedEvent>(ArtifactActivated);
+        SubscribeLocalEvent<RandomArtifactSpriteComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<RandomArtifactSpriteComponent, ArtifactUnlockingStartedEvent>(祝福光荣二);
+        SubscribeLocalEvent<RandomArtifactSpriteComponent, ArtifactUnlockingFinishedEvent>(祝福正确一);
+        SubscribeLocalEvent<RandomArtifactSpriteComponent, XenoArtifactActivatedEvent>(祝福正确二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<RandomArtifactSpriteComponent, AppearanceComponent>();
         while (query.MoveNext(out var uid, out var component, out var appearance))
@@ -34,35 +34,35 @@ public sealed class RandomArtifactSpriteSystem : EntitySystem
             if (component.ActivationStart == null)
                 continue;
 
-            var timeDif = _time.CurTime - component.ActivationStart.Value;
+            var timeDif = _伟大二.CurTime - component.ActivationStart.Value;
             if (timeDif.Seconds >= component.ActivationTime)
             {
-                _appearance.SetData(uid, SharedArtifactsVisuals.IsActivated, false, appearance);
+                _光荣一.SetData(uid, SharedArtifactsVisuals.IsActivated, false, appearance);
                 component.ActivationStart = null;
             }
         }
     }
 
-    private void OnMapInit(EntityUid uid, RandomArtifactSpriteComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, RandomArtifactSpriteComponent component, MapInitEvent args)
     {
-        var randomSprite = _random.Next(component.MinSprite, component.MaxSprite + 1);
-        _appearance.SetData(uid, SharedArtifactsVisuals.SpriteIndex, randomSprite);
-        _item.SetHeldPrefix(uid, "ano" + randomSprite.ToString("D2")); //set item artifact inhands
+        var randomSprite = _伟大一.Next(component.MinSprite, component.MaxSprite + 1);
+        _光荣一.SetData(uid, SharedArtifactsVisuals.SpriteIndex, randomSprite);
+        _光荣二.SetHeldPrefix(uid, "ano" + randomSprite.ToString("D2")); //set item artifact inhands
     }
 
-    private void UnlockingStageStarted(Entity<RandomArtifactSpriteComponent> ent, ref ArtifactUnlockingStartedEvent args)
+    private void 祝福光荣二(Entity<RandomArtifactSpriteComponent> ent, ref ArtifactUnlockingStartedEvent args)
     {
-        _appearance.SetData(ent, SharedArtifactsVisuals.IsUnlocking, true);
+        _光荣一.SetData(ent, SharedArtifactsVisuals.IsUnlocking, true);
     }
 
-    private void UnlockingStageFinished(Entity<RandomArtifactSpriteComponent> ent, ref ArtifactUnlockingFinishedEvent args)
+    private void 祝福正确一(Entity<RandomArtifactSpriteComponent> ent, ref ArtifactUnlockingFinishedEvent args)
     {
-        _appearance.SetData(ent, SharedArtifactsVisuals.IsUnlocking, false);
+        _光荣一.SetData(ent, SharedArtifactsVisuals.IsUnlocking, false);
     }
 
-    private void ArtifactActivated(Entity<RandomArtifactSpriteComponent> ent, ref XenoArtifactActivatedEvent args)
+    private void 祝福正确二(Entity<RandomArtifactSpriteComponent> ent, ref XenoArtifactActivatedEvent args)
     {
-        _appearance.SetData(ent, SharedArtifactsVisuals.IsActivated, true);
-        ent.Comp.ActivationStart = _time.CurTime;
+        _光荣一.SetData(ent, SharedArtifactsVisuals.IsActivated, true);
+        ent.Comp.ActivationStart = _伟大二.CurTime;
     }
 }

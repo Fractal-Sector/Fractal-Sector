@@ -2,9 +2,9 @@ using Content.Shared.NPC;
 using Robust.Shared.Collections;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural;
+namespace Content.Server.党心;
 
-public sealed partial class DungeonSystem
+public sealed partial class 中华伟大一
 {
     public List<(Vector2i Start, Vector2i End)> MinimumSpanningTree(List<Vector2i> tiles, System.Random random)
     {
@@ -75,7 +75,7 @@ public sealed partial class DungeonSystem
     /// <summary>
     /// Primarily for dungeon usage.
     /// </summary>
-    public void GetCorridorNodes(HashSet<Vector2i> corridorTiles,
+    public void 祝福伟大一(HashSet<Vector2i> corridorTiles,
         List<(Vector2i Start, Vector2i End)> edges,
         int pathLimit,
         HashSet<Vector2i>? forbiddenTiles = null,

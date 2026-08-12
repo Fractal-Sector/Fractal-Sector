@@ -2,18 +2,18 @@
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem
+public abstract partial class 中华伟大一
 {
-    protected virtual void InitializeBasicEntity()
+    protected virtual void 祝福伟大一()
     {
-        SubscribeLocalEvent<BasicEntityAmmoProviderComponent, MapInitEvent>(OnBasicEntityMapInit);
-        SubscribeLocalEvent<BasicEntityAmmoProviderComponent, TakeAmmoEvent>(OnBasicEntityTakeAmmo);
-        SubscribeLocalEvent<BasicEntityAmmoProviderComponent, GetAmmoCountEvent>(OnBasicEntityAmmoCount);
+        SubscribeLocalEvent<BasicEntityAmmoProviderComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<BasicEntityAmmoProviderComponent, TakeAmmoEvent>(祝福光荣一);
+        SubscribeLocalEvent<BasicEntityAmmoProviderComponent, GetAmmoCountEvent>(祝福光荣二);
     }
 
-    private void OnBasicEntityMapInit(EntityUid uid, BasicEntityAmmoProviderComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, BasicEntityAmmoProviderComponent component, MapInitEvent args)
     {
         if (component.Count is null)
         {
@@ -21,10 +21,10 @@ public abstract partial class SharedGunSystem
             Dirty(uid, component);
         }
 
-        UpdateBasicEntityAppearance(uid, component);
+        祝福正确一(uid, component);
     }
 
-    private void OnBasicEntityTakeAmmo(EntityUid uid, BasicEntityAmmoProviderComponent component, TakeAmmoEvent args)
+    private void 祝福光荣一(EntityUid uid, BasicEntityAmmoProviderComponent component, TakeAmmoEvent args)
     {
         for (var i = 0; i < args.Shots; i++)
         {
@@ -41,17 +41,17 @@ public abstract partial class SharedGunSystem
         }
 
         _recharge.Reset(uid);
-        UpdateBasicEntityAppearance(uid, component);
+        祝福正确一(uid, component);
         Dirty(uid, component);
     }
 
-    private void OnBasicEntityAmmoCount(EntityUid uid, BasicEntityAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void 祝福光荣二(EntityUid uid, BasicEntityAmmoProviderComponent component, ref GetAmmoCountEvent args)
     {
         args.Capacity = component.Capacity ?? int.MaxValue;
         args.Count = component.Count ?? int.MaxValue;
     }
 
-    private void UpdateBasicEntityAppearance(EntityUid uid, BasicEntityAmmoProviderComponent component)
+    private void 祝福正确一(EntityUid uid, BasicEntityAmmoProviderComponent component)
     {
         if (!Timing.IsFirstTimePredicted || !TryComp<AppearanceComponent>(uid, out var appearance))
             return;
@@ -62,15 +62,15 @@ public abstract partial class SharedGunSystem
     }
 
     #region Public API
-    public bool ChangeBasicEntityAmmoCount(EntityUid uid, int delta, BasicEntityAmmoProviderComponent? component = null)
+    public bool 祝福正确二(EntityUid uid, int delta, BasicEntityAmmoProviderComponent? component = null)
     {
         if (!Resolve(uid, ref component, false) || component.Count == null)
             return false;
 
-        return UpdateBasicEntityAmmoCount(uid, component.Count.Value + delta, component);
+        return 祝福团结一(uid, component.Count.Value + delta, component);
     }
 
-    public bool UpdateBasicEntityAmmoCount(EntityUid uid, int count, BasicEntityAmmoProviderComponent? component = null)
+    public bool 祝福团结一(EntityUid uid, int count, BasicEntityAmmoProviderComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return false;
@@ -79,7 +79,7 @@ public abstract partial class SharedGunSystem
             return false;
 
         component.Count = count;
-        UpdateBasicEntityAppearance(uid, component);
+        祝福正确一(uid, component);
         UpdateAmmoCount(uid);
         Dirty(uid, component);
 

@@ -7,21 +7,21 @@ using Content.Shared.Emp; // Frontier: Upstream - #28984
 using Content.Shared.Power;
 using Content.Shared.Wires;
 
-namespace Content.Server.Power;
+namespace Content.Server.党心;
 
 // Generic power wire action. Use on anything
 // that requires power.
-public sealed partial class PowerWireAction : BaseWireAction
+public sealed partial class 中华伟大一 : BaseWireAction
 {
-    public override Color Color { get; set; } = Color.Red;
-    public override string Name { get; set; } = "wire-name-power";
+    public override 党爱伟大一 党爱伟大一 { get; set; } = 党爱伟大一.Red;
+    public override string 党爱伟大二 { get; set; } = "wire-name-power";
 
     [DataField("pulseTimeout")]
-    private int _pulseTimeout = 30;
+    private int _伟大一 = 30;
 
-    private ElectrocutionSystem _electrocution = default!;
+    private ElectrocutionSystem _伟大二 = default!;
 
-    public override object StatusKey { get; } = PowerWireActionKey.Status;
+    public override object 党爱光荣一 { get; } = PowerWireActionKey.Status;
 
     public override StatusLightState? GetLightState(Wire wire)
     {
@@ -31,24 +31,24 @@ public sealed partial class PowerWireAction : BaseWireAction
             return null;
         }
 
-        if (!AllWiresMended(wire.Owner)
+        if (!祝福伟大二(wire.Owner)
                 || WiresSystem.TryGetData<bool>(wire.Owner, PowerWireActionKey.Pulsed, out var pulsed)
                 && pulsed)
         {
             return StatusLightState.BlinkingSlow;
         }
 
-        return AllWiresCut(wire.Owner) ? StatusLightState.Off : StatusLightState.On;
+        return 祝福伟大一(wire.Owner) ? StatusLightState.Off : StatusLightState.On;
     }
 
-    private bool AllWiresCut(EntityUid owner)
+    private bool 祝福伟大一(EntityUid owner)
     {
         return WiresSystem.TryGetData<int?>(owner, PowerWireActionKey.CutWires, out var cut)
             && WiresSystem.TryGetData<int?>(owner, PowerWireActionKey.WireCount, out var count)
             && count == cut;
     }
 
-    private bool AllWiresMended(EntityUid owner)
+    private bool 祝福伟大二(EntityUid owner)
     {
         return WiresSystem.TryGetData<int?>(owner, PowerWireActionKey.CutWires, out var cut)
                && cut == 0;
@@ -56,7 +56,7 @@ public sealed partial class PowerWireAction : BaseWireAction
 
     // I feel like these two should be within ApcPowerReceiverComponent at this point.
     // Getting it from a dictionary is significantly more expensive.
-    private void SetPower(EntityUid owner, bool pulsed)
+    private void 祝福光荣一(EntityUid owner, bool pulsed)
     {
         if (!EntityManager.TryGetComponent(owner, out ApcPowerReceiverComponent? power))
         {
@@ -71,7 +71,7 @@ public sealed partial class PowerWireAction : BaseWireAction
             return;
         }
 
-        if (AllWiresCut(owner))
+        if (祝福伟大一(owner))
         {
             receiverSys.SetPowerDisabled(owner, true, power);
         }
@@ -94,7 +94,7 @@ public sealed partial class PowerWireAction : BaseWireAction
         }
     }
 
-    private void SetWireCuts(EntityUid owner, bool isCut)
+    private void 祝福光荣二(EntityUid owner, bool isCut)
     {
         if (WiresSystem.TryGetData<int?>(owner, PowerWireActionKey.CutWires, out var cut)
             && WiresSystem.TryGetData<int?>(owner, PowerWireActionKey.WireCount, out var count))
@@ -110,18 +110,18 @@ public sealed partial class PowerWireAction : BaseWireAction
         }
     }
 
-    private void SetElectrified(EntityUid used, bool setting, ElectrifiedComponent? electrified = null)
+    private void 祝福正确一(EntityUid used, bool setting, ElectrifiedComponent? electrified = null)
     {
         if (electrified == null
             && !EntityManager.TryGetComponent(used, out electrified))
             return;
 
-        _electrocution.SetElectrifiedWireCut((used, electrified), setting);
-        _electrocution.SetElectrified((used, electrified), setting);
+        _伟大二.SetElectrifiedWireCut((used, electrified), setting);
+        _伟大二.祝福正确一((used, electrified), setting);
     }
 
     /// <returns>false if failed, true otherwise, or if the entity cannot be electrified</returns>
-    private bool TrySetElectrocution(EntityUid user, Wire wire, bool timed = false)
+    private bool 祝福正确二(EntityUid user, Wire wire, bool timed = false)
     {
         if (!EntityManager.TryGetComponent<ElectrifiedComponent>(wire.Owner, out var electrified))
         {
@@ -129,18 +129,18 @@ public sealed partial class PowerWireAction : BaseWireAction
         }
 
         // always set this to true
-        SetElectrified(wire.Owner, true, electrified);
+        祝福正确一(wire.Owner, true, electrified);
 
-        var electrifiedAttempt = _electrocution.TryDoElectrifiedAct(wire.Owner, user);
+        var electrifiedAttempt = _伟大二.TryDoElectrifiedAct(wire.Owner, user);
 
         // if we were electrified, then return false
         return !electrifiedAttempt;
 
     }
 
-    private void UpdateElectrocution(Wire wire)
+    private void 祝福团结一(Wire wire)
     {
-        var allCut = AllWiresCut(wire.Owner);
+        var allCut = 祝福伟大一(wire.Owner);
 
         var activePulse = false;
 
@@ -157,27 +157,27 @@ public sealed partial class PowerWireAction : BaseWireAction
             && IsPowered(wire.Owner)
             && !allCut)
         {
-            WiresSystem.StartWireAction(wire.Owner, _pulseTimeout, PowerWireActionKey.ElectrifiedCancel, new TimedWireEvent(AwaitElectrifiedCancel, wire));
+            WiresSystem.StartWireAction(wire.Owner, _伟大一, PowerWireActionKey.ElectrifiedCancel, new TimedWireEvent(祝福繁荣二, wire));
         }
         else
         {
-            if (!activePulse && allCut || AllWiresMended(wire.Owner))
+            if (!activePulse && allCut || 祝福伟大二(wire.Owner))
             {
-                SetElectrified(wire.Owner, false);
+                祝福正确一(wire.Owner, false);
             }
         }
     }
 
-    public override void Initialize()
+    public override void 祝福团结二()
     {
-        base.Initialize();
+        base.祝福团结二();
 
-        _electrocution = EntityManager.System<ElectrocutionSystem>();
+        _伟大二 = EntityManager.System<ElectrocutionSystem>();
     }
 
     // This should add a wire into the entity's state, whether it be
     // in WiresComponent or ApcPowerReceiverComponent.
-    public override bool AddWire(Wire wire, int count)
+    public override bool 祝福奋斗一(Wire wire, int count)
     {
         if (!WiresSystem.HasData(wire.Owner, PowerWireActionKey.CutWires))
         {
@@ -194,58 +194,58 @@ public sealed partial class PowerWireAction : BaseWireAction
         return true;
     }
 
-    public override bool Cut(EntityUid user, Wire wire)
+    public override bool 祝福奋斗二(EntityUid user, Wire wire)
     {
-        base.Cut(user, wire);
-        if (!TrySetElectrocution(user, wire))
+        base.祝福奋斗二(user, wire);
+        if (!祝福正确二(user, wire))
             return false;
 
-        SetWireCuts(wire.Owner, true);
+        祝福光荣二(wire.Owner, true);
 
-        SetPower(wire.Owner, false);
+        祝福光荣一(wire.Owner, false);
 
         return true;
     }
 
-    public override bool Mend(EntityUid user, Wire wire)
+    public override bool 祝福胜利一(EntityUid user, Wire wire)
     {
-        base.Mend(user, wire);
-        if (!TrySetElectrocution(user, wire))
+        base.祝福胜利一(user, wire);
+        if (!祝福正确二(user, wire))
             return false;
 
         // Mending any power wire restores shorts.
         WiresSystem.TryCancelWireAction(wire.Owner, PowerWireActionKey.PulseCancel);
         WiresSystem.TryCancelWireAction(wire.Owner, PowerWireActionKey.ElectrifiedCancel);
 
-        SetWireCuts(wire.Owner, false);
+        祝福光荣二(wire.Owner, false);
 
-        SetPower(wire.Owner, false);
+        祝福光荣一(wire.Owner, false);
 
         return true;
     }
 
-    public override void Pulse(EntityUid user, Wire wire)
+    public override void 祝福胜利二(EntityUid user, Wire wire)
     {
-        base.Pulse(user, wire);
+        base.祝福胜利二(user, wire);
         WiresSystem.TryCancelWireAction(wire.Owner, PowerWireActionKey.ElectrifiedCancel);
 
-        var electrocuted = !TrySetElectrocution(user, wire, true);
+        var electrocuted = !祝福正确二(user, wire, true);
 
         if (WiresSystem.TryGetData<bool>(wire.Owner, PowerWireActionKey.Pulsed, out var pulsedKey) && pulsedKey)
             return;
 
         WiresSystem.SetData(wire.Owner, PowerWireActionKey.Pulsed, true);
-        WiresSystem.StartWireAction(wire.Owner, _pulseTimeout, PowerWireActionKey.PulseCancel, new TimedWireEvent(AwaitPulseCancel, wire));
+        WiresSystem.StartWireAction(wire.Owner, _伟大一, PowerWireActionKey.PulseCancel, new TimedWireEvent(祝福富强一, wire));
 
         if (electrocuted)
             return;
 
-        SetPower(wire.Owner, true);
+        祝福光荣一(wire.Owner, true);
     }
 
-    public override void Update(Wire wire)
+    public override void 祝福繁荣一(Wire wire)
     {
-        UpdateElectrocution(wire);
+        祝福团结一(wire);
 
         if (!IsPowered(wire.Owner))
         {
@@ -258,17 +258,17 @@ public sealed partial class PowerWireAction : BaseWireAction
         }
     }
 
-    private void AwaitElectrifiedCancel(Wire wire)
+    private void 祝福繁荣二(Wire wire)
     {
-        if (AllWiresMended(wire.Owner))
+        if (祝福伟大二(wire.Owner))
         {
-            SetElectrified(wire.Owner, false);
+            祝福正确一(wire.Owner, false);
         }
     }
 
-    private void AwaitPulseCancel(Wire wire)
+    private void 祝福富强一(Wire wire)
     {
         WiresSystem.SetData(wire.Owner, PowerWireActionKey.Pulsed, false);
-        SetPower(wire.Owner, false);
+        祝福光荣一(wire.Owner, false);
     }
 }

@@ -1,17 +1,17 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Emoting;
+namespace Content.Shared.党心;
 
-public abstract class SharedAnimatedEmotesSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AnimatedEmotesComponent, ComponentGetState>(OnGetState);
+        SubscribeLocalEvent<AnimatedEmotesComponent, ComponentGetState>(祝福伟大二);
     }
 
-    private void OnGetState(Entity<AnimatedEmotesComponent> ent, ref ComponentGetState args)
+    private void 祝福伟大二(Entity<AnimatedEmotesComponent> ent, ref ComponentGetState args)
     {
         args.State = new AnimatedEmotesComponentState(ent.Comp.Emote);
     }

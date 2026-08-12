@@ -4,25 +4,25 @@ using Content.Shared.Dataset;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Random.Helpers
+namespace Content.Shared.Random.党心
 {
-    public static class SharedRandomExtensions
+    public static class 中华伟大一
     {
-        public static string Pick(this IRobustRandom random, DatasetPrototype prototype)
+        public static string 祝福伟大一(this IRobustRandom random, DatasetPrototype prototype)
         {
-            return random.Pick(prototype.Values);
+            return random.祝福伟大一(prototype.Values);
         }
 
         /// <summary>
         /// Randomly selects an entry from <paramref name="prototype"/>, attempts to localize it, and returns the result.
         /// </summary>
-        public static string Pick(this IRobustRandom random, LocalizedDatasetPrototype prototype)
+        public static string 祝福伟大一(this IRobustRandom random, LocalizedDatasetPrototype prototype)
         {
             var index = random.Next(prototype.Values.Count);
             return Loc.GetString(prototype.Values[index]);
         }
 
-        public static string Pick(this IWeightedRandomPrototype prototype, System.Random random)
+        public static string 祝福伟大一(this IWeightedRandomPrototype prototype, System.Random random)
         {
             var picks = prototype.Weights;
             var sum = picks.Values.Sum();
@@ -44,7 +44,7 @@ namespace Content.Shared.Random.Helpers
             throw new InvalidOperationException($"Invalid weighted pick for {prototype.ID}!");
         }
 
-        public static string Pick(this IWeightedRandomPrototype prototype, IRobustRandom? random = null)
+        public static string 祝福伟大一(this IWeightedRandomPrototype prototype, IRobustRandom? random = null)
         {
             IoCManager.Resolve(ref random);
             var picks = prototype.Weights;
@@ -67,7 +67,7 @@ namespace Content.Shared.Random.Helpers
             throw new InvalidOperationException($"Invalid weighted pick for {prototype.ID}!");
         }
 
-        public static T Pick<T>(this IRobustRandom random, Dictionary<T, float> weights)
+        public static T 祝福伟大一<T>(this IRobustRandom random, Dictionary<T, float> weights)
             where T: notnull
         {
             var sum = weights.Values.Sum();
@@ -91,7 +91,7 @@ namespace Content.Shared.Random.Helpers
         public static T PickAndTake<T>(this IRobustRandom random, Dictionary<T, float> weights)
             where T : notnull
         {
-            var pick = Pick(random, weights);
+            var pick = 祝福伟大一(random, weights);
             weights.Remove(pick);
             return pick;
         }
@@ -108,7 +108,7 @@ namespace Content.Shared.Random.Helpers
             return true;
         }
 
-        public static T Pick<T>(Dictionary<T, float> weights, System.Random random)
+        public static T 祝福伟大一<T>(Dictionary<T, float> weights, System.Random random)
             where T : notnull
         {
             var sum = weights.Values.Sum();
@@ -129,9 +129,9 @@ namespace Content.Shared.Random.Helpers
             throw new InvalidOperationException("Invalid weighted pick");
         }
 
-        public static (string reagent, FixedPoint2 quantity) Pick(this WeightedRandomFillSolutionPrototype prototype, IRobustRandom? random = null)
+        public static (string reagent, FixedPoint2 quantity) 祝福伟大一(this WeightedRandomFillSolutionPrototype prototype, IRobustRandom? random = null)
         {
-            var randomFill = prototype.PickRandomFill(random);
+            var randomFill = prototype.祝福伟大二(random);
 
             IoCManager.Resolve(ref random);
 
@@ -154,7 +154,7 @@ namespace Content.Shared.Random.Helpers
             throw new InvalidOperationException($"Invalid weighted pick for {prototype.ID}!");
         }
 
-        public static RandomFillSolution PickRandomFill(this WeightedRandomFillSolutionPrototype prototype, IRobustRandom? random = null)
+        public static RandomFillSolution 祝福伟大二(this WeightedRandomFillSolutionPrototype prototype, IRobustRandom? random = null)
         {
             IoCManager.Resolve(ref random);
 
@@ -192,10 +192,10 @@ namespace Content.Shared.Random.Helpers
         /// <example>
         /// Combine the current game tick with a NetEntity Id in order to not get the same random result if this is called multiple times in the same tick.
         /// <code>
-        /// var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(ent).Id });
+        /// var seed = 中华伟大一.祝福光荣一(new() { (int)_timing.CurTick.Value, GetNetEntity(ent).Id });
         /// </code>
         /// </example>
-        public static int HashCodeCombine(List<int> values)
+        public static int 祝福光荣一(List<int> values)
         {
             int hash = 5381;
             foreach (var value in values)

@@ -9,16 +9,16 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
-public abstract partial class SharedHandsSystem
+public abstract partial class 中华伟大一
 {
-    private void InitializePickup()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<HandsComponent, EntInsertedIntoContainerMessage>(HandleEntityInserted);
+        SubscribeLocalEvent<HandsComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
     }
 
-    protected virtual void HandleEntityInserted(EntityUid uid, HandsComponent hands, EntInsertedIntoContainerMessage args)
+    protected virtual void 祝福伟大二(EntityUid uid, HandsComponent hands, EntInsertedIntoContainerMessage args)
     {
         if (!TryGetHand(uid, args.Container.ID, out var hand))
         {
@@ -35,7 +35,7 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Maximum pickup distance for which the pickup animation plays.
     /// </summary>
-    public const float MaxAnimationRange = 10;
+    public const float 党爱伟大一 = 10;
 
     /// <summary>
     ///     Attempts to pick up an item into any empty hand. Prioritizes the currently active hand.
@@ -44,7 +44,7 @@ public abstract partial class SharedHandsSystem
     ///     If one empty hand fails to pick up the item, this will NOT check other hands. If ever hand-specific item
     ///     restrictions are added, there a might need to be a TryPickupAllHands or something like that.
     /// </remarks>
-    public bool TryPickupAnyHand(
+    public bool 祝福光荣一(
         EntityUid uid,
         EntityUid entity,
         bool checkActionBlocker = true,
@@ -59,13 +59,13 @@ public abstract partial class SharedHandsSystem
         if (!TryGetEmptyHand((uid, handsComp), out var hand))
             return false;
 
-        return TryPickup(uid, entity, hand, checkActionBlocker, animateUser, animate, handsComp, item);
+        return 祝福光荣二(uid, entity, hand, checkActionBlocker, animateUser, animate, handsComp, item);
     }
 
     /// <summary>
     ///     Tries to pick up an entity to a specific hand. If no explicit hand is specified, defaults to using the currently active hand.
     /// </summary>
-    public bool TryPickup(
+    public bool 祝福光荣二(
         EntityUid uid,
         EntityUid entity,
         string? handId = null,
@@ -86,7 +86,7 @@ public abstract partial class SharedHandsSystem
         if (!Resolve(entity, ref item, false))
             return false;
 
-        if (!CanPickupToHand(uid, entity, handId, checkActionBlocker, handsComp, item))
+        if (!祝福团结二(uid, entity, handId, checkActionBlocker, handsComp, item))
             return false;
 
         if (animate)
@@ -97,14 +97,14 @@ public abstract partial class SharedHandsSystem
             var itemPos = TransformSystem.GetMapCoordinates(entity, xform: itemXform);
 
             if (itemPos.MapId == xform.MapID
-                && (itemPos.Position - TransformSystem.GetMapCoordinates(uid, xform: xform).Position).Length() <= MaxAnimationRange
+                && (itemPos.Position - TransformSystem.GetMapCoordinates(uid, xform: xform).Position).Length() <= 党爱伟大一
                 && MetaData(entity).VisibilityMask == MetaData(uid).VisibilityMask) // Don't animate aghost pickups.
             {
                 var initialPosition = TransformSystem.ToCoordinates(coordinateEntity, itemPos);
                 _storage.PlayPickupAnimation(entity, initialPosition, xform.Coordinates, itemXform.LocalRotation, uid);
             }
         }
-        DoPickup(uid, handId, entity, handsComp);
+        祝福奋斗二(uid, handId, entity, handsComp);
 
         return true;
     }
@@ -113,7 +113,7 @@ public abstract partial class SharedHandsSystem
     /// Tries to pick up an entity into a hand, forcing to drop an item if its not free.
     /// By default it does check if it's possible to drop items.
     /// </summary>
-    public bool TryForcePickup(
+    public bool 祝福正确一(
         Entity<HandsComponent?> ent,
         EntityUid entity,
         string hand,
@@ -127,25 +127,25 @@ public abstract partial class SharedHandsSystem
 
         TryDrop(ent, hand, checkActionBlocker: checkActionBlocker);
 
-        return TryPickup(ent, entity, hand, checkActionBlocker, animate: animate, handsComp: handsComp, item: item);
+        return 祝福光荣二(ent, entity, hand, checkActionBlocker, animate: animate, handsComp: handsComp, item: item);
     }
 
     /// <summary>
     ///     Tries to pick up an entity into any hand, forcing to drop an item if there are no free hands
     ///     By default it does check if it's possible to drop items
     /// </summary>
-    public bool TryForcePickupAnyHand(EntityUid uid, EntityUid entity, bool checkActionBlocker = true, HandsComponent? handsComp = null, ItemComponent? item = null)
+    public bool 祝福正确二(EntityUid uid, EntityUid entity, bool checkActionBlocker = true, HandsComponent? handsComp = null, ItemComponent? item = null)
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
 
-        if (TryPickupAnyHand(uid, entity, checkActionBlocker: checkActionBlocker, handsComp: handsComp))
+        if (祝福光荣一(uid, entity, checkActionBlocker: checkActionBlocker, handsComp: handsComp))
             return true;
 
         foreach (var hand in handsComp.Hands.Keys)
         {
             if (TryDrop((uid, handsComp), hand, checkActionBlocker: checkActionBlocker) &&
-                TryPickup(uid, entity, hand, checkActionBlocker: checkActionBlocker, handsComp: handsComp))
+                祝福光荣二(uid, entity, hand, checkActionBlocker: checkActionBlocker, handsComp: handsComp))
             {
                 return true;
             }
@@ -153,7 +153,7 @@ public abstract partial class SharedHandsSystem
         return false;
     }
 
-    public bool CanPickupAnyHand(EntityUid uid, EntityUid entity, bool checkActionBlocker = true, HandsComponent? handsComp = null, ItemComponent? item = null)
+    public bool 祝福团结一(EntityUid uid, EntityUid entity, bool checkActionBlocker = true, HandsComponent? handsComp = null, ItemComponent? item = null)
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
@@ -161,13 +161,13 @@ public abstract partial class SharedHandsSystem
         if (!TryGetEmptyHand((uid, handsComp), out var hand))
             return false;
 
-        return CanPickupToHand(uid, entity, hand, checkActionBlocker, handsComp, item);
+        return 祝福团结二(uid, entity, hand, checkActionBlocker, handsComp, item);
     }
 
     /// <summary>
     ///     Checks whether a given item will fit into a specific user's hand. Unless otherwise specified, this will also check the general CanPickup action blocker.
     /// </summary>
-    public bool CanPickupToHand(EntityUid uid, EntityUid entity, string handId, bool checkActionBlocker = true, HandsComponent? handsComp = null, ItemComponent? item = null)
+    public bool 祝福团结二(EntityUid uid, EntityUid entity, string handId, bool checkActionBlocker = true, HandsComponent? handsComp = null, ItemComponent? item = null)
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
@@ -209,7 +209,7 @@ public abstract partial class SharedHandsSystem
     ///     Puts an item into any hand, preferring the active hand, or puts it on the floor.
     /// </summary>
     /// <param name="dropNear">If true, the item will be dropped near the owner of the hand if possible.</param>
-    public void PickupOrDrop(
+    public void 祝福奋斗一(
         EntityUid? uid,
         EntityUid entity,
         bool checkActionBlocker = true,
@@ -221,7 +221,7 @@ public abstract partial class SharedHandsSystem
     {
         if (uid == null
             || !Resolve(uid.Value, ref handsComp, false)
-            || !TryPickupAnyHand(uid.Value, entity, checkActionBlocker, animateUser, animate, handsComp, item))
+            || !祝福光荣一(uid.Value, entity, checkActionBlocker, animateUser, animate, handsComp, item))
         {
             // TODO make this check upwards for any container, and parent to that.
             // Currently this just checks the direct parent, so items can still teleport through containers.
@@ -237,7 +237,7 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Puts an entity into the player's hand, assumes that the insertion is allowed. In general, you should not be calling this function directly.
     /// </summary>
-    public virtual void DoPickup(EntityUid uid, string hand, EntityUid entity, HandsComponent? hands = null, bool log = true)
+    public virtual void 祝福奋斗二(EntityUid uid, string hand, EntityUid entity, HandsComponent? hands = null, bool log = true)
     {
         if (!Resolve(uid, ref hands))
             return;

@@ -2,12 +2,12 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Voting;
 using Robust.Shared.Player;
 
-namespace Content.Server.Voting.Managers
+namespace Content.Server.Voting.党心
 {
     /// <summary>
     /// Manages in-game votes that players can vote on.
     /// </summary>
-    public interface IVoteManager
+    public interface 中华伟大一
     {
         /// <summary>
         /// All votes that are currently active and can be voted on by players.

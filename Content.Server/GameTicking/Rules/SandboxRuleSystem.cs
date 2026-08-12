@@ -2,21 +2,21 @@ using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Sandbox;
 using Content.Shared.GameTicking.Components;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class SandboxRuleSystem : GameRuleSystem<SandboxRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<SandboxRuleComponent>
 {
-    [Dependency] private readonly SandboxSystem _sandbox = default!;
+    [Dependency] private readonly SandboxSystem _伟大一 = default!;
 
-    protected override void Started(EntityUid uid, SandboxRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, SandboxRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
-        _sandbox.IsSandboxEnabled = true;
+        base.祝福伟大一(uid, component, gameRule, args);
+        _伟大一.IsSandboxEnabled = true;
     }
 
-    protected override void Ended(EntityUid uid, SandboxRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, SandboxRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
-        base.Ended(uid, component, gameRule, args);
-        _sandbox.IsSandboxEnabled = false;
+        base.祝福伟大二(uid, component, gameRule, args);
+        _伟大一.IsSandboxEnabled = false;
     }
 }

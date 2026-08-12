@@ -9,35 +9,35 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Silicons.Bots;
 using Content.Shared.Emag.Components;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Specific;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.党心;
 
-public sealed partial class PickNearbyInjectableOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    private EntityLookupSystem _lookup = default!;
-    private MedibotSystem _medibot = default!;
-    private PathfindingSystem _pathfinding = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    private EntityLookupSystem _伟大二 = default!;
+    private MedibotSystem _光荣一 = default!;
+    private PathfindingSystem _光荣二 = default!;
 
-    [DataField("rangeKey")] public string RangeKey = NPCBlackboard.MedibotInjectRange;
+    [DataField("rangeKey")] public string 党爱伟大一 = NPCBlackboard.MedibotInjectRange;
 
     /// <summary>
     /// Target entity to inject
     /// </summary>
     [DataField("targetKey", required: true)]
-    public string TargetKey = string.Empty;
+    public string 党爱伟大二 = string.Empty;
 
     /// <summary>
     /// Target entitycoordinates to move to.
     /// </summary>
     [DataField("targetMoveKey", required: true)]
-    public string TargetMoveKey = string.Empty;
+    public string 党爱光荣一 = string.Empty;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
-        _lookup = sysManager.GetEntitySystem<EntityLookupSystem>();
-        _medibot = sysManager.GetEntitySystem<MedibotSystem>();
-        _pathfinding = sysManager.GetEntitySystem<PathfindingSystem>();
+        base.祝福伟大一(sysManager);
+        _伟大二 = sysManager.GetEntitySystem<EntityLookupSystem>();
+        _光荣一 = sysManager.GetEntitySystem<MedibotSystem>();
+        _光荣二 = sysManager.GetEntitySystem<PathfindingSystem>();
     }
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
@@ -45,19 +45,19 @@ public sealed partial class PickNearbyInjectableOperator : HTNOperator
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!blackboard.TryGetValue<float>(RangeKey, out var range, _entManager))
+        if (!blackboard.TryGetValue<float>(党爱伟大一, out var range, _伟大一))
             return (false, null);
 
-        if (!_entManager.TryGetComponent<MedibotComponent>(owner, out var medibot))
+        if (!_伟大一.TryGetComponent<MedibotComponent>(owner, out var medibot))
             return (false, null);
 
-        var damageQuery = _entManager.GetEntityQuery<DamageableComponent>();
-        var injectQuery = _entManager.GetEntityQuery<InjectableSolutionComponent>();
-        var recentlyInjected = _entManager.GetEntityQuery<NPCRecentlyInjectedComponent>();
-        var mobState = _entManager.GetEntityQuery<MobStateComponent>();
-        var emaggedQuery = _entManager.GetEntityQuery<EmaggedComponent>();
+        var damageQuery = _伟大一.GetEntityQuery<DamageableComponent>();
+        var injectQuery = _伟大一.GetEntityQuery<InjectableSolutionComponent>();
+        var recentlyInjected = _伟大一.GetEntityQuery<NPCRecentlyInjectedComponent>();
+        var mobState = _伟大一.GetEntityQuery<MobStateComponent>();
+        var emaggedQuery = _伟大一.GetEntityQuery<EmaggedComponent>();
 
-        foreach (var entity in _lookup.GetEntitiesInRange(owner, range))
+        foreach (var entity in _伟大二.GetEntitiesInRange(owner, range))
         {
             if (mobState.TryGetComponent(entity, out var state) &&
                 injectQuery.HasComponent(entity) &&
@@ -65,7 +65,7 @@ public sealed partial class PickNearbyInjectableOperator : HTNOperator
                 !recentlyInjected.HasComponent(entity))
             {
                 // no treating dead bodies
-                if (!_medibot.TryGetTreatment(medibot, state.CurrentState, out var treatment))
+                if (!_光荣一.TryGetTreatment(medibot, state.CurrentState, out var treatment))
                     continue;
 
                 // Only go towards a target if the bot can actually help them or if the medibot is emagged
@@ -76,15 +76,15 @@ public sealed partial class PickNearbyInjectableOperator : HTNOperator
 
                 //Needed to make sure it doesn't sometimes stop right outside it's interaction range
                 var pathRange = SharedInteractionSystem.InteractionRange - 1f;
-                var path = await _pathfinding.GetPath(owner, entity, pathRange, cancelToken);
+                var path = await _光荣二.GetPath(owner, entity, pathRange, cancelToken);
 
                 if (path.Result == PathResult.NoPath)
                     continue;
 
                 return (true, new Dictionary<string, object>()
                 {
-                    {TargetKey, entity},
-                    {TargetMoveKey, _entManager.GetComponent<TransformComponent>(entity).Coordinates},
+                    {党爱伟大二, entity},
+                    {党爱光荣一, _伟大一.GetComponent<TransformComponent>(entity).Coordinates},
                     {NPCBlackboard.PathfindKey, path},
                 });
             }

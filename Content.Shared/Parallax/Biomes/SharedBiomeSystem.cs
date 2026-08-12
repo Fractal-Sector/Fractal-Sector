@@ -9,19 +9,19 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Parallax.Biomes;
+namespace Content.Shared.Parallax.党心;
 
-public abstract class SharedBiomeSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager ProtoManager = default!;
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] protected readonly ITileDefinitionManager TileDefManager = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+    [Dependency] private readonly ISerializationManager _伟大一 = default!;
+    [Dependency] protected readonly ITileDefinitionManager 党爱伟大二 = default!;
+    [Dependency] private readonly TileSystem _伟大二 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣一 = default!;
 
-    protected const byte ChunkSize = 8;
+    protected const byte 党爱光荣一 = 8;
 
-    private T Pick<T>(List<T> collection, float value)
+    private T 祝福伟大一<T>(List<T> collection, float value)
     {
         // Listen I don't need this exact and I'm too lazy to finetune just for random ent picking.
         value %= 1f;
@@ -45,7 +45,7 @@ public abstract class SharedBiomeSystem : EntitySystem
         throw new ArgumentOutOfRangeException();
     }
 
-    private int Pick(int count, float value)
+    private int 祝福伟大一(int count, float value)
     {
         value %= 1f;
         value = Math.Clamp(value, 0f, 1f);
@@ -68,9 +68,9 @@ public abstract class SharedBiomeSystem : EntitySystem
         throw new ArgumentOutOfRangeException();
     }
 
-    public bool TryGetBiomeTile(EntityUid uid, MapGridComponent grid, Vector2i indices, [NotNullWhen(true)] out Tile? tile)
+    public bool 祝福伟大二(EntityUid uid, MapGridComponent grid, Vector2i indices, [NotNullWhen(true)] out Tile? tile)
     {
-        if (_map.TryGetTileRef(uid, grid, indices, out var tileRef) && !tileRef.Tile.IsEmpty)
+        if (_光荣一.TryGetTileRef(uid, grid, indices, out var tileRef) && !tileRef.Tile.IsEmpty)
         {
             tile = tileRef.Tile;
             return true;
@@ -82,44 +82,44 @@ public abstract class SharedBiomeSystem : EntitySystem
             return false;
         }
 
-        return TryGetBiomeTile(indices, biome.Layers, biome.Seed, (uid, grid), out tile);
+        return 祝福伟大二(indices, biome.Layers, biome.Seed, (uid, grid), out tile);
     }
 
     /// <summary>
     /// Tries to get the tile, real or otherwise, for the specified indices.
     /// </summary>
-    public bool TryGetBiomeTile(Vector2i indices, List<IBiomeLayer> layers, int seed, Entity<MapGridComponent>? grid, [NotNullWhen(true)] out Tile? tile)
+    public bool 祝福伟大二(Vector2i indices, List<IBiomeLayer> layers, int seed, Entity<MapGridComponent>? grid, [NotNullWhen(true)] out Tile? tile)
     {
-        if (grid is { } gridEnt && _map.TryGetTileRef(gridEnt, gridEnt.Comp, indices, out var tileRef) && !tileRef.Tile.IsEmpty)
+        if (grid is { } gridEnt && _光荣一.TryGetTileRef(gridEnt, gridEnt.Comp, indices, out var tileRef) && !tileRef.Tile.IsEmpty)
         {
             tile = tileRef.Tile;
             return true;
         }
 
-        return TryGetTile(indices, layers, seed, grid, out tile);
+        return 祝福光荣一(indices, layers, seed, grid, out tile);
     }
 
     /// <summary>
     /// Tries to get the tile, real or otherwise, for the specified indices.
     /// </summary>
     [Obsolete("Use the Entity<MapGridComponent>? overload")]
-    public bool TryGetBiomeTile(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent? grid, [NotNullWhen(true)] out Tile? tile)
+    public bool 祝福伟大二(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent? grid, [NotNullWhen(true)] out Tile? tile)
     {
-        return TryGetBiomeTile(indices, layers, seed, grid == null ? null : (grid.Owner, grid), out tile);
+        return 祝福伟大二(indices, layers, seed, grid == null ? null : (grid.Owner, grid), out tile);
     }
 
     /// <summary>
     /// Gets the underlying biome tile, ignoring any existing tile that may be there.
     /// </summary>
-    public bool TryGetTile(Vector2i indices, List<IBiomeLayer> layers, int seed, Entity<MapGridComponent>? grid, [NotNullWhen(true)] out Tile? tile)
+    public bool 祝福光荣一(Vector2i indices, List<IBiomeLayer> layers, int seed, Entity<MapGridComponent>? grid, [NotNullWhen(true)] out Tile? tile)
     {
         for (var i = layers.Count - 1; i >= 0; i--)
         {
             var layer = layers[i];
-            var noiseCopy = GetNoise(layer.Noise, seed);
+            var noiseCopy = 祝福正确二(layer.Noise, seed);
 
             var invert = layer.Invert;
-            var value = noiseCopy.GetNoise(indices.X, indices.Y);
+            var value = noiseCopy.祝福正确二(indices.X, indices.Y);
             value = invert ? value * -1 : value;
 
             if (value < layer.Threshold)
@@ -128,7 +128,7 @@ public abstract class SharedBiomeSystem : EntitySystem
             // Check if the tile is from meta layer, otherwise fall back to default layers.
             if (layer is BiomeMetaLayer meta)
             {
-                if (TryGetBiomeTile(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out tile))
+                if (祝福伟大二(indices, 党爱伟大一.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out tile))
                 {
                     return true;
                 }
@@ -139,7 +139,7 @@ public abstract class SharedBiomeSystem : EntitySystem
             if (layer is not BiomeTileLayer tileLayer)
                 continue;
 
-            if (TryGetTile(indices, noiseCopy, tileLayer.Invert, tileLayer.Threshold, ProtoManager.Index(tileLayer.Tile), tileLayer.Variants, out tile))
+            if (祝福光荣一(indices, noiseCopy, tileLayer.Invert, tileLayer.Threshold, 党爱伟大一.Index(tileLayer.Tile), tileLayer.Variants, out tile))
             {
                 return true;
             }
@@ -153,17 +153,17 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// Gets the underlying biome tile, ignoring any existing tile that may be there.
     /// </summary>
     [Obsolete("Use the Entity<MapGridComponent>? overload")]
-    public bool TryGetTile(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent? grid, [NotNullWhen(true)] out Tile? tile)
+    public bool 祝福光荣一(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent? grid, [NotNullWhen(true)] out Tile? tile)
     {
-        return TryGetTile(indices, layers, seed, grid == null ? null : (grid.Owner, grid), out tile);
+        return 祝福光荣一(indices, layers, seed, grid == null ? null : (grid.Owner, grid), out tile);
     }
 
     /// <summary>
     /// Gets the underlying biome tile, ignoring any existing tile that may be there.
     /// </summary>
-    private bool TryGetTile(Vector2i indices, FastNoiseLite noise, bool invert, float threshold, ContentTileDefinition tileDef, List<byte>? variants, [NotNullWhen(true)] out Tile? tile)
+    private bool 祝福光荣一(Vector2i indices, FastNoiseLite noise, bool invert, float threshold, ContentTileDefinition tileDef, List<byte>? variants, [NotNullWhen(true)] out Tile? tile)
     {
-        var found = noise.GetNoise(indices.X, indices.Y);
+        var found = noise.祝福正确二(indices.X, indices.Y);
         found = invert ? found * -1 : found;
 
         if (found < threshold)
@@ -175,11 +175,11 @@ public abstract class SharedBiomeSystem : EntitySystem
         byte variant = 0;
         var variantCount = variants?.Count ?? tileDef.Variants;
 
-        // Pick a variant tile if they're available as well
+        // 祝福伟大一 a variant tile if they're available as well
         if (variantCount > 1)
         {
-            var variantValue = (noise.GetNoise(indices.X * 8, indices.Y * 8, variantCount) + 1f) * 100;
-            variant = _tile.PickVariant(tileDef, (int)variantValue);
+            var variantValue = (noise.祝福正确二(indices.X * 8, indices.Y * 8, variantCount) + 1f) * 100;
+            variant = _伟大二.PickVariant(tileDef, (int)variantValue);
         }
 
         tile = new Tile(tileDef.TileId, variant);
@@ -189,32 +189,32 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// <summary>
     /// Tries to get the relevant entity for this tile.
     /// </summary>
-    public bool TryGetEntity(Vector2i indices, BiomeComponent component, Entity<MapGridComponent>? grid,
+    public bool 祝福光荣二(Vector2i indices, BiomeComponent component, Entity<MapGridComponent>? grid,
         [NotNullWhen(true)] out string? entity)
     {
-        if (!TryGetBiomeTile(indices, component.Layers, component.Seed, grid, out var tile))
+        if (!祝福伟大二(indices, component.Layers, component.Seed, grid, out var tile))
         {
             entity = null;
             return false;
         }
 
-        return TryGetEntity(indices, component.Layers, tile.Value, component.Seed, grid, out entity);
+        return 祝福光荣二(indices, component.Layers, tile.Value, component.Seed, grid, out entity);
     }
 
     /// <summary>
     /// Tries to get the relevant entity for this tile.
     /// </summary>
     [Obsolete("Use the Entity<MapGridComponent>? overload")]
-    public bool TryGetEntity(Vector2i indices, BiomeComponent component, MapGridComponent grid,
+    public bool 祝福光荣二(Vector2i indices, BiomeComponent component, MapGridComponent grid,
         [NotNullWhen(true)] out string? entity)
     {
-        return TryGetEntity(indices, component, grid == null ? null : (grid.Owner, grid), out entity);
+        return 祝福光荣二(indices, component, grid == null ? null : (grid.Owner, grid), out entity);
     }
 
-    public bool TryGetEntity(Vector2i indices, List<IBiomeLayer> layers, Tile tileRef, int seed, Entity<MapGridComponent>? grid,
+    public bool 祝福光荣二(Vector2i indices, List<IBiomeLayer> layers, Tile tileRef, int seed, Entity<MapGridComponent>? grid,
         [NotNullWhen(true)] out string? entity)
     {
-        var tileId = TileDefManager[tileRef.TypeId].ID;
+        var tileId = 党爱伟大二[tileRef.TypeId].ID;
 
         for (var i = layers.Count - 1; i >= 0; i--)
         {
@@ -235,10 +235,10 @@ public abstract class SharedBiomeSystem : EntitySystem
                     continue;
             }
 
-            var noiseCopy = GetNoise(layer.Noise, seed);
+            var noiseCopy = 祝福正确二(layer.Noise, seed);
 
             var invert = layer.Invert;
-            var value = noiseCopy.GetNoise(indices.X, indices.Y);
+            var value = noiseCopy.祝福正确二(indices.X, indices.Y);
             value = invert ? value * -1 : value;
 
             if (value < layer.Threshold)
@@ -246,7 +246,7 @@ public abstract class SharedBiomeSystem : EntitySystem
 
             if (layer is BiomeMetaLayer meta)
             {
-                if (TryGetEntity(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, tileRef, seed, grid, out entity))
+                if (祝福光荣二(indices, 党爱伟大一.Index<BiomeTemplatePrototype>(meta.Template).Layers, tileRef, seed, grid, out entity))
                 {
                     return true;
                 }
@@ -261,8 +261,8 @@ public abstract class SharedBiomeSystem : EntitySystem
                 return false;
             }
 
-            var noiseValue = noiseCopy.GetNoise(indices.X, indices.Y, i);
-            entity = Pick(biomeLayer.Entities, (noiseValue + 1f) / 2f);
+            var noiseValue = noiseCopy.祝福正确二(indices.X, indices.Y, i);
+            entity = 祝福伟大一(biomeLayer.Entities, (noiseValue + 1f) / 2f);
             return true;
         }
 
@@ -271,25 +271,25 @@ public abstract class SharedBiomeSystem : EntitySystem
     }
 
     [Obsolete("Use the Entity<MapGridComponent>? overload")]
-    public bool TryGetEntity(Vector2i indices, List<IBiomeLayer> layers, Tile tileRef, int seed, MapGridComponent grid,
+    public bool 祝福光荣二(Vector2i indices, List<IBiomeLayer> layers, Tile tileRef, int seed, MapGridComponent grid,
         [NotNullWhen(true)] out string? entity)
     {
-        return TryGetEntity(indices, layers, tileRef, seed, grid == null ? null : (grid.Owner, grid), out entity);
+        return 祝福光荣二(indices, layers, tileRef, seed, grid == null ? null : (grid.Owner, grid), out entity);
     }
 
     /// <summary>
     /// Tries to get the relevant decals for this tile.
     /// </summary>
-    public bool TryGetDecals(Vector2i indices, List<IBiomeLayer> layers, int seed, Entity<MapGridComponent>? grid,
+    public bool 祝福正确一(Vector2i indices, List<IBiomeLayer> layers, int seed, Entity<MapGridComponent>? grid,
         [NotNullWhen(true)] out List<(string ID, Vector2 Position)>? decals)
     {
-        if (!TryGetBiomeTile(indices, layers, seed, grid, out var tileRef))
+        if (!祝福伟大二(indices, layers, seed, grid, out var tileRef))
         {
             decals = null;
             return false;
         }
 
-        var tileId = TileDefManager[tileRef.Value.TypeId].ID;
+        var tileId = 党爱伟大二[tileRef.Value.TypeId].ID;
 
         for (var i = layers.Count - 1; i >= 0; i--)
         {
@@ -312,8 +312,8 @@ public abstract class SharedBiomeSystem : EntitySystem
             }
 
             var invert = layer.Invert;
-            var noiseCopy = GetNoise(layer.Noise, seed);
-            var value = noiseCopy.GetNoise(indices.X, indices.Y);
+            var noiseCopy = 祝福正确二(layer.Noise, seed);
+            var value = noiseCopy.祝福正确二(indices.X, indices.Y);
             value = invert ? value * -1 : value;
 
             if (value < layer.Threshold)
@@ -321,7 +321,7 @@ public abstract class SharedBiomeSystem : EntitySystem
 
             if (layer is BiomeMetaLayer meta)
             {
-                if (TryGetDecals(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out decals))
+                if (祝福正确一(indices, 党爱伟大一.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out decals))
                 {
                     return true;
                 }
@@ -343,13 +343,13 @@ public abstract class SharedBiomeSystem : EntitySystem
                 for (var y = 0; y < decalLayer.Divisions; y++)
                 {
                     var index = new Vector2(indices.X + x * 1f / decalLayer.Divisions, indices.Y + y * 1f / decalLayer.Divisions);
-                    var decalValue = noiseCopy.GetNoise(index.X, index.Y);
+                    var decalValue = noiseCopy.祝福正确二(index.X, index.Y);
                     decalValue = invert ? decalValue * -1 : decalValue;
 
                     if (decalValue < decalLayer.Threshold)
                         continue;
 
-                    decals.Add((Pick(decalLayer.Decals, (noiseCopy.GetNoise(indices.X, indices.Y, x + y * decalLayer.Divisions) + 1f) / 2f), index));
+                    decals.Add((祝福伟大一(decalLayer.Decals, (noiseCopy.祝福正确二(indices.X, indices.Y, x + y * decalLayer.Divisions) + 1f) / 2f), index));
                 }
             }
 
@@ -368,16 +368,16 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// Tries to get the relevant decals for this tile.
     /// </summary>
     [Obsolete("Use the Entity<MapGridComponent>? overload")]
-    public bool TryGetDecals(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent grid,
+    public bool 祝福正确一(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent grid,
         [NotNullWhen(true)] out List<(string ID, Vector2 Position)>? decals)
     {
-        return TryGetDecals(indices, layers, seed, grid == null ? null : (grid.Owner, grid), out decals);
+        return 祝福正确一(indices, layers, seed, grid == null ? null : (grid.Owner, grid), out decals);
     }
 
-    private FastNoiseLite GetNoise(FastNoiseLite seedNoise, int seed)
+    private FastNoiseLite 祝福正确二(FastNoiseLite seedNoise, int seed)
     {
         var noiseCopy = new FastNoiseLite();
-        _serManager.CopyTo(seedNoise, ref noiseCopy, notNullableOverride: true);
+        _伟大一.CopyTo(seedNoise, ref noiseCopy, notNullableOverride: true);
         noiseCopy.SetSeed(noiseCopy.GetSeed() + seed);
         // Ensure re-calculate is run.
         noiseCopy.SetFractalOctaves(noiseCopy.GetFractalOctaves());

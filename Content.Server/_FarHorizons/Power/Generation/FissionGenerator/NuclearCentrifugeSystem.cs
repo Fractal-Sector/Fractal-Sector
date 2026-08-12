@@ -13,43 +13,43 @@ using Content.Shared.Power;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Server._FarHorizons.Power.Generation.党心;
 
 // Ported and modified from goonstation by Jhrushbe.
 // CC-BY-NC-SA-3.0
 // https://github.com/goonstation/goonstation/blob/ff86b044/code/obj/nuclearreactor/centrifuge.dm
 
-public sealed class NuclearCentrifugeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly EntityManager _伟大一 = default!;
+    [Dependency] private readonly StackSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
 
-    private readonly float _threshold = 1f;
-    private float _accumulator = 0f;
-    private readonly int _stackSize = 30;
+    private readonly float _正确二 = 1f;
+    private float _团结一 = 0f;
+    private readonly int _团结二 = 30;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NuclearCentrifugeComponent, InteractUsingEvent>(OnInteract);
-        SubscribeLocalEvent<NuclearCentrifugeComponent, PowerChangedEvent>(OnPowerChange);
+        SubscribeLocalEvent<NuclearCentrifugeComponent, InteractUsingEvent>(祝福光荣二);
+        SubscribeLocalEvent<NuclearCentrifugeComponent, PowerChangedEvent>(祝福正确一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        _accumulator += frameTime;
-        if (_accumulator > _threshold)
+        _团结一 += frameTime;
+        if (_团结一 > _正确二)
         {
-            AccUpdate();
-            _accumulator = 0;
+            祝福光荣一();
+            _团结一 = 0;
         }
     }
 
-    public void AccUpdate()
+    public void 祝福光荣一()
     {
         var query = EntityQueryEnumerator<NuclearCentrifugeComponent>();
         while (query.MoveNext(out var uid, out var comp))
@@ -71,72 +71,72 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
                     while (comp.ExtractedFuel > 1) 
                     {
                         var plutoniumStack = Spawn("IngotPlutonium1", Transform(uid).Coordinates);
-                        _stackSystem.SetCount(plutoniumStack, Math.Clamp((int)Math.Floor(comp.ExtractedFuel), 1, _stackSize));
-                        comp.ExtractedFuel -= _stackSystem.GetCount(plutoniumStack);
-                        _stackSystem.TryMergeToContacts(plutoniumStack);
+                        _伟大二.SetCount(plutoniumStack, Math.Clamp((int)Math.Floor(comp.ExtractedFuel), 1, _团结二));
+                        comp.ExtractedFuel -= _伟大二.GetCount(plutoniumStack);
+                        _伟大二.TryMergeToContacts(plutoniumStack);
                     }
-                    _audio.PlayPvs(comp.SoundSucceed, uid);
+                    _光荣二.PlayPvs(comp.SoundSucceed, uid);
                 }
                 else
                 {
-                    _audio.PlayPvs(comp.SoundFail, uid, AudioParams.Default.WithVolume(-2));
+                    _光荣二.PlayPvs(comp.SoundFail, uid, AudioParams.Default.WithVolume(-2));
                 }
 
-                _audio.Stop(comp.AudioProcess);
+                _光荣二.Stop(comp.AudioProcess);
 
                 comp.Processing = false;
-                _appearance.SetData(uid, NuclearCentrifugeVisuals.Processing, false);
+                _光荣一.SetData(uid, NuclearCentrifugeVisuals.Processing, false);
             }
         }
     }
 
-    private void OnInteract(EntityUid uid, NuclearCentrifugeComponent comp, ref InteractUsingEvent args)
+    private void 祝福光荣二(EntityUid uid, NuclearCentrifugeComponent comp, ref InteractUsingEvent args)
     {
-        if (!this.IsPowered(uid, _entityManager))
+        if (!this.IsPowered(uid, _伟大一))
             return;
 
-        if (!_entityManager.TryGetComponent<ReactorPartComponent>(args.Used, out var ReactorPart) || !ReactorPart.HasRodType(ReactorPartComponent.RodTypes.FuelRod))
+        if (!_伟大一.TryGetComponent<ReactorPartComponent>(args.Used, out var ReactorPart) || !ReactorPart.HasRodType(ReactorPartComponent.RodTypes.FuelRod))
         {
-            _popupSystem.PopupEntity(Loc.GetString("nuclear-centrifuge-wrong-item", ("item", args.Used)), uid);
+            _正确一.PopupEntity(Loc.GetString("nuclear-centrifuge-wrong-item", ("item", args.Used)), uid);
             return;
         }
 
         if (ReactorPart.Properties == null || ReactorPart.Properties.FissileIsotopes < 0.1)
         {
-            _popupSystem.PopupEntity(Loc.GetString("nuclear-centrifuge-unfit-item", ("item", args.Used)), uid);
+            _正确一.PopupEntity(Loc.GetString("nuclear-centrifuge-unfit-item", ("item", args.Used)), uid);
             return;
         }
 
-        _popupSystem.PopupEntity(Loc.GetString("nuclear-centrifuge-insert-item", ("user", args.User), ("machine", uid), ("item", args.Used)), uid);
-        _audio.PlayPvs(comp.SoundLoad, uid);
+        _正确一.PopupEntity(Loc.GetString("nuclear-centrifuge-insert-item", ("user", args.User), ("machine", uid), ("item", args.Used)), uid);
+        _光荣二.PlayPvs(comp.SoundLoad, uid);
 
-        if(!_audio.IsPlaying(comp.AudioProcess))
-            comp.AudioProcess = _audio.PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))?.Entity;
+        if(!_光荣二.IsPlaying(comp.AudioProcess))
+            comp.AudioProcess = _光荣二.PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))?.Entity;
 
         comp.FuelToExtract += ReactorPart.Properties.FissileIsotopes;
         comp.Processing = true;
-        _entityManager.DeleteEntity(args.Used);
+        _伟大一.DeleteEntity(args.Used);
 
-        _appearance.SetData(uid, NuclearCentrifugeVisuals.Processing, true);
+        _光荣一.SetData(uid, NuclearCentrifugeVisuals.Processing, true);
 
         args.Handled = true;
     }
 
-    private void OnPowerChange(EntityUid uid, NuclearCentrifugeComponent comp, ref PowerChangedEvent args)
+    private void 祝福正确一(EntityUid uid, NuclearCentrifugeComponent comp, ref PowerChangedEvent args)
     {
         if(!args.Powered && comp.Processing)
         {
-            if(_audio.IsPlaying(comp.AudioProcess))
-                _audio.Stop(comp.AudioProcess);
+            if(_光荣二.IsPlaying(comp.AudioProcess))
+                _光荣二.Stop(comp.AudioProcess);
             comp.Processing = false;
         }
 
         if(args.Powered && comp.FuelToExtract > 0)
         {
-            comp.AudioProcess = _audio.PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))?.Entity;
+            comp.AudioProcess = _光荣二.PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))?.Entity;
             comp.Processing = true;
         }
 
-        _appearance.SetData(uid, NuclearCentrifugeVisuals.Processing, comp.Processing);
+        _光荣一.SetData(uid, NuclearCentrifugeVisuals.Processing, comp.Processing);
     }
 }

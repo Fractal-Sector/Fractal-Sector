@@ -20,65 +20,65 @@ using Robust.Shared.Network;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Changeling.Systems;
+namespace Content.Shared.Changeling.党心;
 
-public sealed class ChangelingDevourSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedChangelingIdentitySystem _changelingIdentitySystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedActionsSystem _正确一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确二 = default!;
+    [Dependency] private readonly DamageableSystem _团结一 = default!;
+    [Dependency] private readonly MobStateSystem _团结二 = default!;
+    [Dependency] private readonly SharedChangelingIdentitySystem _奋斗一 = default!;
+    [Dependency] private readonly InventorySystem _奋斗二 = default!;
+    [Dependency] private readonly SharedAudioSystem _胜利一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _胜利二 = default!;
+    [Dependency] private readonly IRobustRandom _繁荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ChangelingDevourComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ChangelingDevourComponent, ChangelingDevourActionEvent>(OnDevourAction);
-        SubscribeLocalEvent<ChangelingDevourComponent, ChangelingDevourWindupDoAfterEvent>(OnDevourWindup);
-        SubscribeLocalEvent<ChangelingDevourComponent, ChangelingDevourConsumeDoAfterEvent>(OnDevourConsume);
-        SubscribeLocalEvent<ChangelingDevourComponent, DoAfterAttemptEvent<ChangelingDevourConsumeDoAfterEvent>>(OnConsumeAttemptTick);
-        SubscribeLocalEvent<ChangelingDevourComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<ChangelingDevourComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ChangelingDevourComponent, ChangelingDevourActionEvent>(祝福团结一);
+        SubscribeLocalEvent<ChangelingDevourComponent, ChangelingDevourWindupDoAfterEvent>(祝福团结二);
+        SubscribeLocalEvent<ChangelingDevourComponent, ChangelingDevourConsumeDoAfterEvent>(祝福奋斗一);
+        SubscribeLocalEvent<ChangelingDevourComponent, DoAfterAttemptEvent<ChangelingDevourConsumeDoAfterEvent>>(祝福光荣二);
+        SubscribeLocalEvent<ChangelingDevourComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnMapInit(Entity<ChangelingDevourComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ChangelingDevourComponent> ent, ref MapInitEvent args)
     {
-        _actionsSystem.AddAction(ent, ref ent.Comp.ChangelingDevourActionEntity, ent.Comp.ChangelingDevourAction);
+        _正确一.AddAction(ent, ref ent.Comp.ChangelingDevourActionEntity, ent.Comp.ChangelingDevourAction);
     }
 
-    private void OnShutdown(Entity<ChangelingDevourComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣一(Entity<ChangelingDevourComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Comp.ChangelingDevourActionEntity != null)
         {
-            _actionsSystem.RemoveAction(ent.Owner, ent.Comp.ChangelingDevourActionEntity);
+            _正确一.RemoveAction(ent.Owner, ent.Comp.ChangelingDevourActionEntity);
         }
     }
 
     //TODO: Allow doafters to have proper update loop support. Attempt events should not be doing state changes.
-    private void OnConsumeAttemptTick(Entity<ChangelingDevourComponent> ent,
+    private void 祝福光荣二(Entity<ChangelingDevourComponent> ent,
        ref DoAfterAttemptEvent<ChangelingDevourConsumeDoAfterEvent> eventData)
     {
 
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
 
         if (curTime < ent.Comp.NextTick)
             return;
 
-        ConsumeDamageTick(eventData.Event.Target, ent.Comp, eventData.Event.User);
+        祝福正确一(eventData.Event.Target, ent.Comp, eventData.Event.User);
         ent.Comp.NextTick += ent.Comp.DamageTimeBetweenTicks;
         Dirty(ent, ent.Comp);
     }
 
-    private void ConsumeDamageTick(EntityUid? target, ChangelingDevourComponent comp, EntityUid? user)
+    private void 祝福正确一(EntityUid? target, ChangelingDevourComponent comp, EntityUid? user)
     {
         if (target == null)
             return;
@@ -92,7 +92,7 @@ public sealed class ChangelingDevourSystem : EntitySystem
             if (damage.Damage.DamageDict.TryGetValue(damagePoints.Key, out var val) && val > comp.DevourConsumeDamageCap)
                 return;
         }
-        _damageable.TryChangeDamage(target, comp.DamagePerTick, true, true, damage, user);
+        _团结一.TryChangeDamage(target, comp.DamagePerTick, true, true, damage, user);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public sealed class ChangelingDevourSystem : EntitySystem
     /// <param name="target">The Targeted entity</param>
     /// <param name="ent">Changelings Devour Component</param>
     /// <returns>Is the target Protected from the attack</returns>
-    private bool IsTargetProtected(EntityUid target, Entity<ChangelingDevourComponent> ent)
+    private bool 祝福正确二(EntityUid target, Entity<ChangelingDevourComponent> ent)
     {
         var ev = new CoefficientQueryEvent(SlotFlags.OUTERCLOTHING);
 
@@ -118,9 +118,9 @@ public sealed class ChangelingDevourSystem : EntitySystem
         return false;
     }
 
-    private void OnDevourAction(Entity<ChangelingDevourComponent> ent, ref ChangelingDevourActionEvent args)
+    private void 祝福团结一(Entity<ChangelingDevourComponent> ent, ref ChangelingDevourActionEvent args)
     {
-        if (args.Handled || _whitelistSystem.IsWhitelistFailOrNull(ent.Comp.Whitelist, args.Target)
+        if (args.Handled || _正确二.IsWhitelistFailOrNull(ent.Comp.Whitelist, args.Target)
                          || !HasComp<ChangelingIdentityComponent>(ent))
             return;
 
@@ -132,26 +132,26 @@ public sealed class ChangelingDevourSystem : EntitySystem
 
         if (HasComp<RottingComponent>(target))
         {
-            _popupSystem.PopupClient(Loc.GetString("changeling-devour-attempt-failed-rotting"), args.Performer, args.Performer, PopupType.Medium);
+            _光荣二.PopupClient(Loc.GetString("changeling-devour-attempt-failed-rotting"), args.Performer, args.Performer, PopupType.Medium);
             return;
         }
 
-        if (IsTargetProtected(target, ent))
+        if (祝福正确二(target, ent))
         {
-            _popupSystem.PopupClient(Loc.GetString("changeling-devour-attempt-failed-protected"), ent, ent, PopupType.Medium);
+            _光荣二.PopupClient(Loc.GetString("changeling-devour-attempt-failed-protected"), ent, ent, PopupType.Medium);
             return;
         }
 
-        if (_net.IsServer)
+        if (_伟大二.IsServer)
         {
-            var pvsSound = _audio.PlayPvs(ent.Comp.DevourWindupNoise, ent);
+            var pvsSound = _胜利一.PlayPvs(ent.Comp.DevourWindupNoise, ent);
             if (pvsSound != null)
                 ent.Comp.CurrentDevourSound = pvsSound.Value.Entity;
         }
 
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ent:player} started changeling devour windup against {target:player}");
+        _胜利二.Add(LogType.Action, LogImpact.Medium, $"{ent:player} started changeling devour windup against {target:player}");
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, ent, ent.Comp.DevourWindupTime, new ChangelingDevourWindupDoAfterEvent(), ent, target: target, used: ent)
+        _光荣一.TryStartDoAfter(new DoAfterArgs(EntityManager, ent, ent.Comp.DevourWindupTime, new ChangelingDevourWindupDoAfterEvent(), ent, target: target, used: ent)
         {
             BreakOnMove = true,
             BlockDuplicate = true,
@@ -160,7 +160,7 @@ public sealed class ChangelingDevourSystem : EntitySystem
 
         var selfMessage = Loc.GetString("changeling-devour-begin-windup-self", ("user", Identity.Entity(ent.Owner, EntityManager)));
         var othersMessage = Loc.GetString("changeling-devour-begin-windup-others", ("user", Identity.Entity(ent.Owner, EntityManager)));
-        _popupSystem.PopupPredicted(
+        _光荣二.PopupPredicted(
             selfMessage,
             othersMessage,
             args.Performer,
@@ -168,29 +168,29 @@ public sealed class ChangelingDevourSystem : EntitySystem
             PopupType.MediumCaution);
     }
 
-    private void OnDevourWindup(Entity<ChangelingDevourComponent> ent, ref ChangelingDevourWindupDoAfterEvent args)
+    private void 祝福团结二(Entity<ChangelingDevourComponent> ent, ref ChangelingDevourWindupDoAfterEvent args)
     {
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         args.Handled = true;
 
         if (!EntityManager.EntityExists(ent.Comp.CurrentDevourSound))
-            _audio.Stop(ent.Comp.CurrentDevourSound!);
+            _胜利一.Stop(ent.Comp.CurrentDevourSound!);
 
         if (args.Cancelled)
             return;
 
         var selfMessage = Loc.GetString("changeling-devour-begin-consume-self", ("user", Identity.Entity(ent.Owner, EntityManager)));
         var othersMessage = Loc.GetString("changeling-devour-begin-consume-others", ("user", Identity.Entity(ent.Owner, EntityManager)));
-        _popupSystem.PopupPredicted(
+        _光荣二.PopupPredicted(
             selfMessage,
             othersMessage,
             args.User,
             args.User,
             PopupType.LargeCaution);
 
-        if (_net.IsServer)
+        if (_伟大二.IsServer)
         {
-            var pvsSound = _audio.PlayPvs(ent.Comp.ConsumeNoise, ent);
+            var pvsSound = _胜利一.PlayPvs(ent.Comp.ConsumeNoise, ent);
 
             if (pvsSound != null)
                 ent.Comp.CurrentDevourSound = pvsSound.Value.Entity;
@@ -199,9 +199,9 @@ public sealed class ChangelingDevourSystem : EntitySystem
 
         ent.Comp.NextTick = curTime + ent.Comp.DamageTimeBetweenTicks;
 
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner):player} began to devour {ToPrettyString(args.Target):player} identity");
+        _胜利二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner):player} began to devour {ToPrettyString(args.Target):player} identity");
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager,
+        _光荣一.TryStartDoAfter(new DoAfterArgs(EntityManager,
             ent,
             ent.Comp.DevourConsumeTime,
             new ChangelingDevourConsumeDoAfterEvent(),
@@ -216,7 +216,7 @@ public sealed class ChangelingDevourSystem : EntitySystem
         });
     }
 
-    private void OnDevourConsume(Entity<ChangelingDevourComponent> ent, ref ChangelingDevourConsumeDoAfterEvent args)
+    private void 祝福奋斗一(Entity<ChangelingDevourComponent> ent, ref ChangelingDevourConsumeDoAfterEvent args)
     {
         args.Handled = true;
         var target = args.Target;
@@ -225,46 +225,46 @@ public sealed class ChangelingDevourSystem : EntitySystem
             return;
 
         if (EntityManager.EntityExists(ent.Comp.CurrentDevourSound))
-            _audio.Stop(ent.Comp.CurrentDevourSound!);
+            _胜利一.Stop(ent.Comp.CurrentDevourSound!);
 
         if (args.Cancelled)
             return;
 
-        if (!_mobState.IsDead((EntityUid)target))
+        if (!_团结二.IsDead((EntityUid)target))
         {
-            _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner):player}  unsuccessfully devoured {ToPrettyString(args.Target):player}'s identity");
-            _popupSystem.PopupClient(Loc.GetString("changeling-devour-consume-failed-not-dead"), args.User, args.User, PopupType.Medium);
+            _胜利二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner):player}  unsuccessfully devoured {ToPrettyString(args.Target):player}'s identity");
+            _光荣二.PopupClient(Loc.GetString("changeling-devour-consume-failed-not-dead"), args.User, args.User, PopupType.Medium);
             return;
         }
 
         var selfMessage = Loc.GetString("changeling-devour-consume-complete-self", ("user", Identity.Entity(args.User, EntityManager)));
         var othersMessage = Loc.GetString("changeling-devour-consume-complete-others", ("user", Identity.Entity(args.User, EntityManager)));
-        _popupSystem.PopupPredicted(
+        _光荣二.PopupPredicted(
             selfMessage,
             othersMessage,
             args.User,
             args.User,
             PopupType.LargeCaution);
 
-        if (_mobState.IsDead(target.Value)
+        if (_团结二.IsDead(target.Value)
             && TryComp<BodyComponent>(target, out var body)
             && HasComp<HumanoidAppearanceComponent>(target)
             && TryComp<ChangelingIdentityComponent>(args.User, out var identityStorage))
         {
-            _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner):player}  successfully devoured {ToPrettyString(args.Target):player}'s identity");
-            _changelingIdentitySystem.CloneToPausedMap((ent, identityStorage), target.Value);
+            _胜利二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner):player}  successfully devoured {ToPrettyString(args.Target):player}'s identity");
+            _奋斗一.CloneToPausedMap((ent, identityStorage), target.Value);
 
-            if (_inventorySystem.TryGetSlotEntity(target.Value, "jumpsuit", out var item)
+            if (_奋斗二.TryGetSlotEntity(target.Value, "jumpsuit", out var item)
                 && TryComp<ButcherableComponent>(item, out var butcherable))
-                RipClothing(target.Value, (item.Value, butcherable));
+                祝福奋斗二(target.Value, (item.Value, butcherable));
         }
 
         Dirty(ent);
     }
 
-    private void RipClothing(EntityUid victim, Entity<ButcherableComponent> item)
+    private void 祝福奋斗二(EntityUid victim, Entity<ButcherableComponent> item)
     {
-        var spawnEntities = EntitySpawnCollection.GetSpawns(item.Comp.SpawnedEntities, _robustRandom);
+        var spawnEntities = EntitySpawnCollection.GetSpawns(item.Comp.SpawnedEntities, _繁荣一);
 
         foreach (var proto in spawnEntities)
         {

@@ -1,11 +1,11 @@
 using Robust.Shared.Player;
 
-namespace Content.Shared.Administration.Managers;
+namespace Content.Shared.Administration.党心;
 
 /// <summary>
 ///     Manages server administrators and their permission flags.
 /// </summary>
-public interface ISharedAdminManager
+public interface 中华伟大一
 {
     /// <summary>
     ///     Gets the admin data for a player, if they are an admin.

@@ -5,7 +5,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.CombatMode
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Stores whether an entity is in "combat mode"
@@ -14,7 +14,7 @@ namespace Content.Shared.CombatMode
     /// </summary>
     [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
     [Access(typeof(SharedCombatModeSystem))]
-    public sealed partial class CombatModeComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         #region Disarm
 
@@ -26,27 +26,27 @@ namespace Content.Shared.CombatMode
         public bool? CanDisarm;
 
         [DataField("disarmSuccessSound")]
-        public SoundSpecifier DisarmSuccessSound = new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg");
+        public SoundSpecifier 党爱伟大一 = new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg");
 
         [DataField("disarmFailChance")]
-        public float BaseDisarmFailChance = 0.75f;
+        public float 党爱伟大二 = 0.75f;
 
         #endregion
 
         [DataField("combatToggleAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-        public string CombatToggleAction = "ActionCombatModeToggle";
+        public string 党爱光荣一 = "ActionCombatModeToggle";
 
         [DataField, AutoNetworkedField]
         public EntityUid? CombatToggleActionEntity;
 
         [ViewVariables(VVAccess.ReadWrite), DataField("isInCombatMode"), AutoNetworkedField]
-        public bool IsInCombatMode;
+        public bool 党爱光荣二;
 
         /// <summary>
         ///     Will add <see cref="MouseRotatorComponent"/> and <see cref="NoRotateOnMoveComponent"/>
         ///     to entities with this flag enabled that enter combat mode, and vice versa for removal.
         /// </summary>
         [DataField, AutoNetworkedField]
-        public bool ToggleMouseRotator = true;
+        public bool 党爱正确一 = true;
     }
 }

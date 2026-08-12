@@ -6,9 +6,9 @@ using Content.Shared.Verbs;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Silicons.StationAi;
+namespace Content.Shared.Silicons.党心;
 
-public abstract partial class SharedStationAiSystem
+public abstract partial class 中华伟大一
 {
     /*
      * Added when an entity is inserted into a StationAiCore.
@@ -17,19 +17,19 @@ public abstract partial class SharedStationAiSystem
     //TODO: Fix this, please
     private const string JobNameLocId = "job-name-station-ai";
 
-    private void InitializeHeld()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StationAiRadialMessage>(OnRadialMessage);
-        SubscribeLocalEvent<StationAiWhitelistComponent, BoundUserInterfaceMessageAttempt>(OnMessageAttempt);
-        SubscribeLocalEvent<StationAiWhitelistComponent, GetVerbsEvent<AlternativeVerb>>(OnTargetVerbs);
+        SubscribeLocalEvent<中华伟大二>(祝福团结一);
+        SubscribeLocalEvent<StationAiWhitelistComponent, BoundUserInterfaceMessageAttempt>(祝福团结二);
+        SubscribeLocalEvent<StationAiWhitelistComponent, GetVerbsEvent<AlternativeVerb>>(祝福奋斗二);
 
-        SubscribeLocalEvent<StationAiHeldComponent, InteractionAttemptEvent>(OnHeldInteraction);
-        SubscribeLocalEvent<StationAiHeldComponent, AttemptRelayActionComponentChangeEvent>(OnHeldRelay);
-        SubscribeLocalEvent<StationAiHeldComponent, JumpToCoreEvent>(OnCoreJump);
-        SubscribeLocalEvent<TryGetIdentityShortInfoEvent>(OnTryGetIdentityShortInfo);
+        SubscribeLocalEvent<StationAiHeldComponent, InteractionAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<StationAiHeldComponent, AttemptRelayActionComponentChangeEvent>(祝福正确二);
+        SubscribeLocalEvent<StationAiHeldComponent, JumpToCoreEvent>(祝福光荣一);
+        SubscribeLocalEvent<TryGetIdentityShortInfoEvent>(祝福伟大二);
     }
 
-    private void OnTryGetIdentityShortInfo(TryGetIdentityShortInfoEvent args)
+    private void 祝福伟大二(TryGetIdentityShortInfoEvent args)
     {
         if (args.Handled)
         {
@@ -44,9 +44,9 @@ public abstract partial class SharedStationAiSystem
         args.Handled = true;
     }
 
-    private void OnCoreJump(Entity<StationAiHeldComponent> ent, ref JumpToCoreEvent args)
+    private void 祝福光荣一(Entity<StationAiHeldComponent> ent, ref JumpToCoreEvent args)
     {
-        if (!TryGetCore(ent.Owner, out var core) || core.Comp?.RemoteEntity == null)
+        if (!祝福正确一(ent.Owner, out var core) || core.Comp?.RemoteEntity == null)
             return;
 
         _xforms.DropNextTo(core.Comp.RemoteEntity.Value, core.Owner) ;
@@ -55,7 +55,7 @@ public abstract partial class SharedStationAiSystem
     /// <summary>
     /// Tries to get the entity held in the AI core using StationAiCore.
     /// </summary>
-    public bool TryGetHeld(Entity<StationAiCoreComponent?> entity, out EntityUid held)
+    public bool 祝福光荣二(Entity<StationAiCoreComponent?> entity, out EntityUid held)
     {
         held = EntityUid.Invalid;
 
@@ -73,14 +73,14 @@ public abstract partial class SharedStationAiSystem
     /// <summary>
     /// Tries to get the entity held in the AI using StationAiHolder.
     /// </summary>
-    public bool TryGetHeld(Entity<StationAiHolderComponent?> entity, out EntityUid held)
+    public bool 祝福光荣二(Entity<StationAiHolderComponent?> entity, out EntityUid held)
     {
         TryComp<StationAiCoreComponent>(entity.Owner, out var stationAiCore);
 
-        return TryGetHeld((entity.Owner, stationAiCore), out held);
+        return 祝福光荣二((entity.Owner, stationAiCore), out held);
     }
 
-    public bool TryGetCore(EntityUid entity, out Entity<StationAiCoreComponent?> core)
+    public bool 祝福正确一(EntityUid entity, out Entity<StationAiCoreComponent?> core)
     {
         var xform = Transform(entity);
         var meta = MetaData(entity);
@@ -99,24 +99,24 @@ public abstract partial class SharedStationAiSystem
         return true;
     }
 
-    private void OnHeldRelay(Entity<StationAiHeldComponent> ent, ref AttemptRelayActionComponentChangeEvent args)
+    private void 祝福正确二(Entity<StationAiHeldComponent> ent, ref AttemptRelayActionComponentChangeEvent args)
     {
-        if (!TryGetCore(ent.Owner, out var core))
+        if (!祝福正确一(ent.Owner, out var core))
             return;
 
         args.Target = core.Comp?.RemoteEntity;
     }
 
-    private void OnRadialMessage(StationAiRadialMessage ev)
+    private void 祝福团结一(中华伟大二 ev)
     {
         if (!TryGetEntity(ev.Entity, out var target))
             return;
 
-        ev.Event.User = ev.Actor;
+        ev.Event.党爱伟大一 = ev.Actor;
         RaiseLocalEvent(target.Value, (object) ev.Event);
     }
 
-    private void OnMessageAttempt(Entity<StationAiWhitelistComponent> ent, ref BoundUserInterfaceMessageAttempt ev)
+    private void 祝福团结二(Entity<StationAiWhitelistComponent> ent, ref BoundUserInterfaceMessageAttempt ev)
     {
         if (ev.Actor == ev.Target)
             return;
@@ -128,7 +128,7 @@ public abstract partial class SharedStationAiSystem
             // Don't allow the AI to interact with anything that isn't powered.
             if (!PowerReceiver.IsPowered(ev.Target))
             {
-                ShowDeviceNotRespondingPopup(ev.Actor);
+                祝福胜利一(ev.Actor);
                 ev.Cancel();
                 return;
             }
@@ -136,13 +136,13 @@ public abstract partial class SharedStationAiSystem
             // Don't allow the AI to interact with anything that it isn't allowed to (ex. AI wire is cut)
             if (whitelistComponent is { Enabled: false })
             {
-                ShowDeviceNotRespondingPopup(ev.Actor);
+                祝福胜利一(ev.Actor);
             }
             ev.Cancel();
         }
     }
 
-    private void OnHeldInteraction(Entity<StationAiHeldComponent> ent, ref InteractionAttemptEvent args)
+    private void 祝福奋斗一(Entity<StationAiHeldComponent> ent, ref InteractionAttemptEvent args)
     {
         // Cancel if it's not us or something with a whitelist, or whitelist is disabled.
         args.Cancelled = (!TryComp(args.Target, out StationAiWhitelistComponent? whitelistComponent)
@@ -151,27 +151,27 @@ public abstract partial class SharedStationAiSystem
                          && args.Target != null;
         if (whitelistComponent is { Enabled: false })
         {
-            ShowDeviceNotRespondingPopup(ent.Owner);
+            祝福胜利一(ent.Owner);
         }
     }
 
-    private void OnTargetVerbs(Entity<StationAiWhitelistComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福奋斗二(Entity<StationAiWhitelistComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!_uiSystem.HasUi(args.Target, AiUi.Key))
+        if (!_uiSystem.HasUi(args.Target, 中华正确二.Key))
             return;
 
         if (!args.CanComplexInteract
-            || !HasComp<StationAiHeldComponent>(args.User)
+            || !HasComp<StationAiHeldComponent>(args.党爱伟大一)
             || !args.CanInteract)
         {
             return;
         }
 
-        var user = args.User;
+        var user = args.党爱伟大一;
 
         var target = args.Target;
 
-        var isOpen = _uiSystem.IsUiOpen(target, AiUi.Key, user);
+        var isOpen = _uiSystem.IsUiOpen(target, 中华正确二.Key, user);
 
         var verb = new AlternativeVerb
         {
@@ -180,18 +180,18 @@ public abstract partial class SharedStationAiSystem
             {
                 if (isOpen)
                 {
-                    _uiSystem.CloseUi(ent.Owner, AiUi.Key, user);
+                    _uiSystem.CloseUi(ent.Owner, 中华正确二.Key, user);
                 }
                 else
                 {
-                    _uiSystem.OpenUi(ent.Owner, AiUi.Key, user);
+                    _uiSystem.OpenUi(ent.Owner, 中华正确二.Key, user);
                 }
             }
         };
         args.Verbs.Add(verb);
     }
 
-    private void ShowDeviceNotRespondingPopup(EntityUid toEntity)
+    private void 祝福胜利一(EntityUid toEntity)
     {
         _popup.PopupClient(Loc.GetString("ai-device-not-responding"), toEntity, PopupType.MediumCaution);
     }
@@ -202,22 +202,22 @@ public abstract partial class SharedStationAiSystem
 /// Also handles AI action validation.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class StationAiRadialMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public BaseStationAiAction Event = default!;
+    public 中华光荣二 Event = default!;
 }
 
 // Do nothing on server just here for shared move along.
 /// <summary>
 /// Raised on client to get the relevant data for radial actions.
 /// </summary>
-public sealed class StationAiRadial : BaseStationAiAction
+public sealed class 中华光荣一 : 中华光荣二
 {
     public SpriteSpecifier? Sprite;
 
     public string? Tooltip;
 
-    public BaseStationAiAction Event = default!;
+    public 中华光荣二 Event = default!;
 }
 
 /// <summary>
@@ -225,10 +225,10 @@ public sealed class StationAiRadial : BaseStationAiAction
 /// When a client requests a radial action this will get sent.
 /// </summary>
 [Serializable, NetSerializable]
-public abstract class BaseStationAiAction
+public abstract class 中华光荣二
 {
     [field:NonSerialized]
-    public EntityUid User { get; set; }
+    public EntityUid 党爱伟大一 { get; set; }
 }
 
 // No idea if there's a better way to do this.
@@ -236,13 +236,13 @@ public abstract class BaseStationAiAction
 /// Grab actions possible for an AI on the target entity.
 /// </summary>
 [ByRefEvent]
-public record struct GetStationAiRadialEvent()
+public record 中华正确一 GetStationAiRadialEvent()
 {
-    public List<StationAiRadial> Actions = new();
+    public List<中华光荣一> Actions = new();
 }
 
 [Serializable, NetSerializable]
-public enum AiUi : byte
+public enum 中华正确二 : byte
 {
     Key,
 }

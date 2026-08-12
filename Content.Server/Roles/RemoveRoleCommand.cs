@@ -7,18 +7,18 @@ using Content.Shared.Roles.Components;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Roles
+namespace Content.Server.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class RemoveRoleCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly SharedJobSystem _jobs = default!;
-        [Dependency] private readonly SharedRoleSystem _roles = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly SharedJobSystem _伟大二 = default!;
+        [Dependency] private readonly SharedRoleSystem _光荣一 = default!;
 
-        public override string Command => "rmrole";
+        public override string 党爱伟大一 => "rmrole";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
             {
@@ -28,7 +28,7 @@ namespace Content.Server.Roles
                 return;
             }
 
-            if (!_playerManager.TryGetPlayerDataByUsername(args[0], out var data))
+            if (!_伟大一.TryGetPlayerDataByUsername(args[0], out var data))
             {
                 shell.WriteLine(Loc.GetString($"cmd-addrole-mind-not-found"));
                 return;
@@ -42,8 +42,8 @@ namespace Content.Server.Roles
                 return;
             }
 
-            if (_jobs.MindHasJobWithId(mind, args[1]))
-                _roles.MindRemoveRole<JobRoleComponent>(mind.Value);
+            if (_伟大二.MindHasJobWithId(mind, args[1]))
+                _光荣一.MindRemoveRole<JobRoleComponent>(mind.Value);
         }
     }
 }

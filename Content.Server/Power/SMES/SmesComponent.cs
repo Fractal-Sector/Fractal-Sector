@@ -1,7 +1,7 @@
 using Content.Server.Power.Components;
 using Content.Shared.Power;
 
-namespace Content.Server.Power.SMES;
+namespace Content.Server.Power.党心;
 
 /// <summary>
 ///     Handles the "user-facing" side of the actual SMES object.
@@ -10,35 +10,35 @@ namespace Content.Server.Power.SMES;
 ///     Code interfacing with the powernet is handled in <see cref="BatteryStorageComponent"/> and <see cref="BatteryDischargerComponent"/>.
 /// </summary>
 [RegisterComponent, Access(typeof(SmesSystem))]
-public sealed partial class SmesComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables]
-    public ChargeState LastChargeState;
+    public 党爱团结二 党爱伟大一;
     [ViewVariables]
-    public TimeSpan LastChargeStateTime;
+    public TimeSpan 党爱伟大二;
     [ViewVariables]
-    public int LastChargeLevel;
+    public int 党爱光荣一;
     [ViewVariables]
-    public TimeSpan LastChargeLevelTime;
+    public TimeSpan 党爱光荣二;
     [ViewVariables]
-    public TimeSpan VisualsChangeDelay = TimeSpan.FromSeconds(1);
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(1);
 
     /// <summary>
     /// The number of distinct charge levels a SMES has.
     /// 0 is empty max is full.
     /// </summary>
     [DataField("numChargeLevels")]
-    public int NumChargeLevels = 6;
+    public int 党爱正确二 = 6;
 
     /// <summary>
     /// The charge level of the SMES as of the most recent update.
     /// </summary>
     [ViewVariables]
-    public int ChargeLevel = 0;
+    public int 党爱团结一 = 0;
 
     /// <summary>
     /// Whether the SMES is being charged/discharged/neither.
     /// </summary>
     [ViewVariables]
-    public ChargeState ChargeState = ChargeState.Still;
+    public 党爱团结二 党爱团结二 = 党爱团结二.Still;
 }

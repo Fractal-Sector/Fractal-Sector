@@ -1,13 +1,13 @@
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Guardian
+namespace Content.Server.党心
 {
     /// <summary>
     /// Given to guardian users upon establishing a guardian link with the entity
     /// </summary>
     [RegisterComponent]
-    public sealed partial class GuardianHostComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// Guardian hosted within the component
@@ -21,10 +21,10 @@ namespace Content.Server.Guardian
         /// <summary>
         /// Container which holds the guardian
         /// </summary>
-        [ViewVariables] public ContainerSlot GuardianContainer = default!;
+        [ViewVariables] public ContainerSlot 党爱伟大一 = default!;
 
         [DataField]
-        public EntProtoId Action = "ActionToggleGuardian";
+        public EntProtoId 党爱伟大二 = "ActionToggleGuardian";
 
         [DataField] public EntityUid? ActionEntity;
     }

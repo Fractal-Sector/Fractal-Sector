@@ -6,13 +6,13 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Popups;
 using Robust.Shared.Player;
 
-namespace Content.Server.Nyanotrasen.Kitchen.EntitySystems;
+namespace Content.Server.Nyanotrasen.Kitchen.党心;
 
-public sealed partial class DeepFryerSystem
+public sealed partial class 中华伟大一
 {
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         var deepFryers = EntityManager.EntityQueryEnumerator<DeepFryerComponent>();
         while (deepFryers.MoveNext(out var uid, out var component))
@@ -23,7 +23,7 @@ public sealed partial class DeepFryerSystem
                 continue;
             }
 
-            UpdateNextFryTime(uid, component);
+            祝福光荣一(uid, component);
 
             if (!_solutionContainerSystem.TryGetSolution(uid, component.Solution.Name, out var solution))
                 continue;
@@ -112,12 +112,12 @@ public sealed partial class DeepFryerSystem
         }
     }
 
-    private void UpdateAmbientSound(EntityUid uid, DeepFryerComponent component)
+    private void 祝福伟大二(EntityUid uid, DeepFryerComponent component)
     {
         _ambientSoundSystem.SetAmbience(uid, HasBubblingOil(uid, component));
     }
 
-    private void UpdateNextFryTime(EntityUid uid, DeepFryerComponent component)
+    private void 祝福光荣一(EntityUid uid, DeepFryerComponent component)
     {
         component.NextFryTime = _gameTimingSystem.CurTime + component.FryInterval;
     }

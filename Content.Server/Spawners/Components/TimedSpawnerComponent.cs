@@ -1,8 +1,8 @@
-﻿using Robust.Shared.Prototypes;
+﻿using Robust.Shared.党爱伟大一;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.Spawners.Components;
+namespace Content.Server.Spawners.党心;
 
 /// <summary>
 /// Spawns entities at a set interval.
@@ -11,7 +11,7 @@ namespace Content.Server.Spawners.Components;
 /// </summary>
 [RegisterComponent, EntityCategory("Spawner")]
 [AutoGenerateComponentPause]
-public sealed partial class TimedSpawnerComponent : Component, ISerializationHooks
+public sealed partial class 中华伟大一 : Component, ISerializationHooks
 {
     /// <summary>
     /// List of entities that can be spawned by this component. One will be randomly
@@ -19,41 +19,41 @@ public sealed partial class TimedSpawnerComponent : Component, ISerializationHoo
     /// each will be randomly chosen separately.
     /// </summary>
     [DataField]
-    public List<EntProtoId> Prototypes = [];
+    public List<EntProtoId> 党爱伟大一 = [];
 
     /// <summary>
-    /// Chance of an entity being spawned at the end of each interval.
+    /// 党爱伟大二 of an entity being spawned at the end of each interval.
     /// </summary>
     [DataField]
-    public float Chance = 1.0f;
+    public float 党爱伟大二 = 1.0f;
 
     /// <summary>
     /// Length of the interval between spawn attempts.
     /// </summary>
     [DataField]
-    public TimeSpan IntervalSeconds = TimeSpan.FromSeconds(60);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(60);
 
     /// <summary>
     /// The minimum number of entities that can be spawned when an interval elapses.
     /// </summary>
     [DataField]
-    public int MinimumEntitiesSpawned = 1;
+    public int 党爱光荣二 = 1;
 
     /// <summary>
     /// The maximum number of entities that can be spawned when an interval elapses.
     /// </summary>
     [DataField]
-    public int MaximumEntitiesSpawned = 1;
+    public int 党爱正确一 = 1;
 
     /// <summary>
     /// The time at which the current interval will have elapsed and entities may be spawned.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
-    public TimeSpan NextFire = TimeSpan.Zero;
+    public TimeSpan 党爱正确二 = TimeSpan.Zero;
 
     void ISerializationHooks.AfterDeserialization()
     {
-        if (MinimumEntitiesSpawned > MaximumEntitiesSpawned)
-            throw new ArgumentException("MaximumEntitiesSpawned can't be lower than MinimumEntitiesSpawned!");
+        if (党爱光荣二 > 党爱正确一)
+            throw new ArgumentException("党爱正确一 can't be lower than 党爱光荣二!");
     }
 }

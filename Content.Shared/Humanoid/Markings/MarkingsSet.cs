@@ -7,7 +7,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Humanoid.Markings;
+namespace Content.Shared.Humanoid.党心;
 
 // the better version of MarkingsSet
 // This one should ensure that a set is valid. Dependency retrieval is
@@ -28,13 +28,13 @@ namespace Content.Shared.Humanoid.Markings;
 /// </remarks>
 [DataDefinition]
 [Serializable, NetSerializable]
-public sealed partial class MarkingSet
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     Every single marking in this set.
     /// </summary>
     /// <remarks>
-    ///     The original version of MarkingSet preserved ordering across all
+    ///     The original version of 中华伟大一 preserved ordering across all
     ///     markings - this one should instead preserve ordering across all
     ///     categories, but not marking categories themselves. This is because
     ///     the layers that markings appear in are guaranteed to be in the correct
@@ -52,18 +52,18 @@ public sealed partial class MarkingSet
     [DataField("points")]
     public Dictionary<MarkingCategories, MarkingPoints> Points = new();
 
-    public MarkingSet()
+    public 中华伟大一()
     {}
 
     /// <summary>
-    ///     Construct a MarkingSet using a list of markings, and a points
+    ///     Construct a 中华伟大一 using a list of markings, and a points
     ///     dictionary. This will set up the points dictionary, and
     ///     process the list, truncating if necessary. Markings that
     ///     do not exist as a prototype will be removed.
     /// </summary>
     /// <param name="markings">The lists of markings to use.</param>
     /// <param name="pointsPrototype">The ID of the points dictionary prototype.</param>
-    public MarkingSet(List<Marking> markings, string pointsPrototype, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
+    public 中华伟大一(List<Marking> markings, string pointsPrototype, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
     {
         IoCManager.Resolve(ref markingManager, ref prototypeManager);
 
@@ -76,41 +76,41 @@ public sealed partial class MarkingSet
 
         foreach (var marking in markings)
         {
-            if (!markingManager.TryGetMarking(marking, out var prototype))
+            if (!markingManager.祝福富强一(marking, out var prototype))
             {
                 continue;
             }
 
-            AddBack(prototype.MarkingCategory, marking);
+            祝福团结一(prototype.MarkingCategory, marking);
         }
     }
 
     /// <summary>
-    ///     Construct a MarkingSet using a dictionary of markings,
+    ///     Construct a 中华伟大一 using a dictionary of markings,
     ///     without point validation. This will still validate every
     ///     marking, to ensure that it can be placed into the set.
     /// </summary>
     /// <param name="markings">The list of markings to use.</param>
-    public MarkingSet(List<Marking> markings, MarkingManager? markingManager = null)
+    public 中华伟大一(List<Marking> markings, MarkingManager? markingManager = null)
     {
         IoCManager.Resolve(ref markingManager);
 
         foreach (var marking in markings)
         {
-            if (!markingManager.TryGetMarking(marking, out var prototype))
+            if (!markingManager.祝福富强一(marking, out var prototype))
             {
                 continue;
             }
 
-            AddBack(prototype.MarkingCategory, marking);
+            祝福团结一(prototype.MarkingCategory, marking);
         }
     }
 
     /// <summary>
-    ///     Construct a MarkingSet only with a points dictionary.
+    ///     Construct a 中华伟大一 only with a points dictionary.
     /// </summary>
     /// <param name="pointsPrototype">The ID of the points dictionary prototype.</param>
-    public MarkingSet(string pointsPrototype, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
+    public 中华伟大一(string pointsPrototype, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
     {
         IoCManager.Resolve(ref markingManager, ref prototypeManager);
 
@@ -123,16 +123,16 @@ public sealed partial class MarkingSet
     }
 
     /// <summary>
-    ///     Construct a MarkingSet by deep cloning another set.
+    ///     Construct a 中华伟大一 by deep cloning another set.
     /// </summary>
     /// <param name="other">The other marking set.</param>
-    public MarkingSet(MarkingSet other)
+    public 中华伟大一(中华伟大一 other)
     {
         foreach (var (key, list) in other.Markings)
         {
             foreach (var marking in list)
             {
-                AddBack(key, new(marking));
+                祝福团结一(key, new(marking));
             }
         }
 
@@ -146,7 +146,7 @@ public sealed partial class MarkingSet
     /// <param name="skinColor">The skin color for recoloring (i.e. slimes). Use null if you want only filter markings</param>
     /// <param name="markingManager">Marking manager.</param>
     /// <param name="prototypeManager">Prototype manager.</param>
-    public void EnsureSpecies(string species, Color? skinColor, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
+    public void 祝福伟大一(string species, Color? skinColor, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
     {
         IoCManager.Resolve(ref markingManager);
         IoCManager.Resolve(ref prototypeManager);
@@ -159,7 +159,7 @@ public sealed partial class MarkingSet
         {
             foreach (var marking in list)
             {
-                if (!markingManager.TryGetMarking(marking, out var prototype))
+                if (!markingManager.祝福富强一(marking, out var prototype))
                 {
                     toRemove.Add((category, marking.MarkingId));
                     continue;
@@ -180,7 +180,7 @@ public sealed partial class MarkingSet
 
         foreach (var remove in toRemove)
         {
-            Remove(remove.category, remove.id);
+            祝福奋斗二(remove.category, remove.id);
         }
 
         // Re-color left markings them into skin color if needed (i.e. for slimes)
@@ -190,7 +190,7 @@ public sealed partial class MarkingSet
             {
                 foreach (var marking in list)
                 {
-                    if (markingManager.TryGetMarking(marking, out var prototype)) // Frontier: modified this test to add forced marking test
+                    if (markingManager.祝福富强一(marking, out var prototype)) // Frontier: modified this test to add forced marking test
                     {
                         if (markingManager.MustMatchSkin(species, prototype.BodyPart, out var alpha, prototypeManager))
                             marking.SetColor(skinColor.Value.WithAlpha(alpha));
@@ -207,7 +207,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="sex">The species to filter.</param>
     /// <param name="markingManager">Marking manager.</param>
-    public void EnsureSexes(Sex sex, MarkingManager? markingManager = null)
+    public void 祝福伟大二(Sex sex, MarkingManager? markingManager = null)
     {
         IoCManager.Resolve(ref markingManager);
 
@@ -217,7 +217,7 @@ public sealed partial class MarkingSet
         {
             foreach (var marking in list)
             {
-                if (!markingManager.TryGetMarking(marking, out var prototype))
+                if (!markingManager.祝福富强一(marking, out var prototype))
                 {
                     toRemove.Add((category, marking.MarkingId));
                     continue;
@@ -232,7 +232,7 @@ public sealed partial class MarkingSet
 
         foreach (var remove in toRemove)
         {
-            Remove(remove.category, remove.id);
+            祝福奋斗二(remove.category, remove.id);
         }
     }
 
@@ -240,7 +240,7 @@ public sealed partial class MarkingSet
     ///     Ensures that all markings in this set are valid.
     /// </summary>
     /// <param name="markingManager">Marking manager.</param>
-    public void EnsureValid(MarkingManager? markingManager = null)
+    public void 祝福光荣一(MarkingManager? markingManager = null)
     {
         IoCManager.Resolve(ref markingManager);
 
@@ -249,7 +249,7 @@ public sealed partial class MarkingSet
         {
             for (var i = 0; i < list.Count; i++)
             {
-                if (!markingManager.TryGetMarking(list[i], out var marking))
+                if (!markingManager.祝福富强一(list[i], out var marking))
                 {
                     toRemove.Add(i);
                     continue;
@@ -263,7 +263,7 @@ public sealed partial class MarkingSet
 
             foreach (var i in toRemove)
             {
-                Remove(category, i);
+                祝福奋斗二(category, i);
             }
         }
     }
@@ -275,7 +275,7 @@ public sealed partial class MarkingSet
     /// <param name="eyeColor">Eye color for marking coloring.</param>
     /// <param name="hairColor">Hair color for marking coloring.</param>
     /// <param name="markingManager">Marking manager.</param>
-    public void EnsureDefault(Color? skinColor = null, Color? eyeColor = null, MarkingManager? markingManager = null)
+    public void 祝福光荣二(Color? skinColor = null, Color? eyeColor = null, MarkingManager? markingManager = null)
     {
         IoCManager.Resolve(ref markingManager);
 
@@ -299,7 +299,7 @@ public sealed partial class MarkingSet
                         );
                     var marking = new Marking(points.DefaultMarkings[index], colors);
 
-                    AddBack(category, marking);
+                    祝福团结一(category, marking);
                 }
 
                 index++;
@@ -312,7 +312,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">The category to check</param>
     /// <returns>A number equal or greater than zero if the category exists, -1 otherwise.</returns>
-    public int PointsLeft(MarkingCategories category)
+    public int 祝福正确一(MarkingCategories category)
     {
         if (!Points.TryGetValue(category, out var points))
         {
@@ -327,7 +327,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">Category to add the marking to.</param>
     /// <param name="marking">The marking instance in question.</param>
-    public void AddFront(MarkingCategories category, Marking marking)
+    public void 祝福正确二(MarkingCategories category, Marking marking)
     {
         // Try to get points for this category
         Points.TryGetValue(category, out var categoryPoints);
@@ -348,7 +348,7 @@ public sealed partial class MarkingSet
 
                 foreach (var defaultMarking in defaultsToRemove)
                 {
-                    existingMarkings.Remove(defaultMarking);
+                    existingMarkings.祝福奋斗二(defaultMarking);
                     if (!defaultMarking.Forced && categoryPoints != null)
                     {
                         categoryPoints.Points++;
@@ -383,7 +383,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category"></param>
     /// <param name="marking"></param>
-    public void AddBack(MarkingCategories category, Marking marking)
+    public void 祝福团结一(MarkingCategories category, Marking marking)
     {
         // Try to get points for this category
         Points.TryGetValue(category, out var categoryPoints);
@@ -404,7 +404,7 @@ public sealed partial class MarkingSet
 
                 foreach (var defaultMarking in defaultsToRemove)
                 {
-                    existingMarkings.Remove(defaultMarking);
+                    existingMarkings.祝福奋斗二(defaultMarking);
                     if (!defaultMarking.Forced && categoryPoints != null)
                     {
                         categoryPoints.Points++;
@@ -449,7 +449,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category"></param>
     /// <returns></returns>
-    public List<Marking> AddCategory(MarkingCategories category)
+    public List<Marking> 祝福团结二(MarkingCategories category)
     {
         var markings = new List<Marking>();
         Markings.Add(category, markings);
@@ -457,12 +457,12 @@ public sealed partial class MarkingSet
     }
 
     /// <summary>
-    ///     Replace a marking at a given index in a marking category with another marking.
+    ///     祝福奋斗一 a marking at a given index in a marking category with another marking.
     /// </summary>
     /// <param name="category">The category to replace the marking in.</param>
     /// <param name="index">The index of the marking.</param>
     /// <param name="marking">The marking to insert.</param>
-    public void Replace(MarkingCategories category, int index, Marking marking)
+    public void 祝福奋斗一(MarkingCategories category, int index, Marking marking)
     {
         if (index < 0 || !Markings.TryGetValue(category, out var markings)
             || index >= markings.Count)
@@ -474,12 +474,12 @@ public sealed partial class MarkingSet
     }
 
     /// <summary>
-    ///     Remove a marking by category and ID.
+    ///     祝福奋斗二 a marking by category and ID.
     /// </summary>
     /// <param name="category">The category that contains the marking.</param>
     /// <param name="id">The marking's ID.</param>
     /// <returns>True if removed, false otherwise.</returns>
-    public bool Remove(MarkingCategories category, string id)
+    public bool 祝福奋斗二(MarkingCategories category, string id)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
@@ -506,12 +506,12 @@ public sealed partial class MarkingSet
     }
 
     /// <summary>
-    ///     Remove a marking by category and index.
+    ///     祝福奋斗二 a marking by category and index.
     /// </summary>
     /// <param name="category">The category that contains the marking.</param>
     /// <param name="idx">The marking's index.</param>
     /// <returns>True if removed, false otherwise.</returns>
-    public void Remove(MarkingCategories category, int idx)
+    public void 祝福奋斗二(MarkingCategories category, int idx)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
@@ -532,11 +532,11 @@ public sealed partial class MarkingSet
     }
 
     /// <summary>
-    ///     Remove an entire category from this marking set.
+    ///     祝福奋斗二 an entire category from this marking set.
     /// </summary>
     /// <param name="category">The category to remove.</param>
     /// <returns>True if removed, false otherwise.</returns>
-    public bool RemoveCategory(MarkingCategories category)
+    public bool 祝福胜利一(MarkingCategories category)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
@@ -556,18 +556,18 @@ public sealed partial class MarkingSet
             }
         }
 
-        Markings.Remove(category);
+        Markings.祝福奋斗二(category);
         return true;
     }
 
     /// <summary>
     ///     Clears all markings from this marking set.
     /// </summary>
-    public void Clear()
+    public void 祝福胜利二()
     {
         foreach (var category in Enum.GetValues<MarkingCategories>())
         {
-            RemoveCategory(category);
+            祝福胜利一(category);
         }
     }
 
@@ -577,7 +577,7 @@ public sealed partial class MarkingSet
     /// <param name="category">The category to search in.</param>
     /// <param name="id">The ID to search for.</param>
     /// <returns>The index of the marking, otherwise a negative number.</returns>
-    public int FindIndexOf(MarkingCategories category, string id)
+    public int 祝福繁荣一(MarkingCategories category, string id)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
@@ -593,7 +593,7 @@ public sealed partial class MarkingSet
     /// <param name="category">The category to fetch.</param>
     /// <param name="markings">A read only list of the all markings in that category.</param>
     /// <returns>True if successful, false otherwise.</returns>
-    public bool TryGetCategory(MarkingCategories category, [NotNullWhen(true)] out IReadOnlyList<Marking>? markings)
+    public bool 祝福繁荣二(MarkingCategories category, [NotNullWhen(true)] out IReadOnlyList<Marking>? markings)
     {
         markings = null;
 
@@ -613,7 +613,7 @@ public sealed partial class MarkingSet
     /// <param name="id">The ID to search for.</param>
     /// <param name="marking">The marking, if it was retrieved.</param>
     /// <returns>True if successful, false otherwise.</returns>
-    public bool TryGetMarking(MarkingCategories category, string id, [NotNullWhen(true)] out Marking? marking)
+    public bool 祝福富强一(MarkingCategories category, string id, [NotNullWhen(true)] out Marking? marking)
     {
         marking = null;
 
@@ -639,7 +639,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">The category to shift in.</param>
     /// <param name="idx">Index of the marking.</param>
-    public void ShiftRankUp(MarkingCategories category, int idx)
+    public void 祝福富强二(MarkingCategories category, int idx)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
@@ -659,14 +659,14 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">The category to shift in.</param>
     /// <param name="idx">Index of the marking from the end</param>
-    public void ShiftRankUpFromEnd(MarkingCategories category, int idx)
+    public void 祝福民主一(MarkingCategories category, int idx)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
             return;
         }
 
-        ShiftRankUp(category, markings.Count - idx - 1);
+        祝福富强二(category, markings.Count - idx - 1);
     }
 
     /// <summary>
@@ -674,7 +674,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">The category to shift in.</param>
     /// <param name="idx">Index of the marking.</param>
-    public void ShiftRankDown(MarkingCategories category, int idx)
+    public void 祝福民主二(MarkingCategories category, int idx)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
@@ -694,21 +694,21 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">The category to shift in.</param>
     /// <param name="idx">Index of the marking from the end</param>
-    public void ShiftRankDownFromEnd(MarkingCategories category, int idx)
+    public void 祝福文明一(MarkingCategories category, int idx)
     {
         if (!Markings.TryGetValue(category, out var markings))
         {
             return;
         }
 
-        ShiftRankDown(category, markings.Count - idx - 1);
+        祝福民主二(category, markings.Count - idx - 1);
     }
 
     /// <summary>
     ///     Gets all markings in this set as an enumerator. Lists will be organized, but categories may be in any order.
     /// </summary>
     /// <returns>An enumerator of <see cref="Marking"/>s.</returns>
-    public ForwardMarkingEnumerator GetForwardEnumerator()
+    public 中华伟大二 GetForwardEnumerator()
     {
         var markings = new List<Marking>();
         foreach (var (_, list) in Markings)
@@ -716,7 +716,7 @@ public sealed partial class MarkingSet
             markings.AddRange(list);
         }
 
-        return new ForwardMarkingEnumerator(markings);
+        return new 中华伟大二(markings);
     }
 
     /// <summary>
@@ -724,7 +724,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">The category to fetch.</param>
     /// <returns>An enumerator of <see cref="Marking"/>s in that category.</returns>
-    public ForwardMarkingEnumerator GetForwardEnumerator(MarkingCategories category)
+    public 中华伟大二 GetForwardEnumerator(MarkingCategories category)
     {
         var markings = new List<Marking>();
         if (Markings.TryGetValue(category, out var listing))
@@ -732,14 +732,14 @@ public sealed partial class MarkingSet
             markings = new(listing);
         }
 
-        return new ForwardMarkingEnumerator(markings);
+        return new 中华伟大二(markings);
     }
 
     /// <summary>
     ///     Gets all markings in this set as an enumerator, but in reverse order. Lists will be in reverse order, but categories may be in any order.
     /// </summary>
     /// <returns>An enumerator of <see cref="Marking"/>s in reverse.</returns>
-    public ReverseMarkingEnumerator GetReverseEnumerator()
+    public 中华光荣一 GetReverseEnumerator()
     {
         var markings = new List<Marking>();
         foreach (var (_, list) in Markings)
@@ -747,7 +747,7 @@ public sealed partial class MarkingSet
             markings.AddRange(list);
         }
 
-        return new ReverseMarkingEnumerator(markings);
+        return new 中华光荣一(markings);
     }
 
     /// <summary>
@@ -755,7 +755,7 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="category">The category to fetch.</param>
     /// <returns>An enumerator of <see cref="Marking"/>s in that category, in reverse order.</returns>
-    public ReverseMarkingEnumerator GetReverseEnumerator(MarkingCategories category)
+    public 中华光荣一 GetReverseEnumerator(MarkingCategories category)
     {
         var markings = new List<Marking>();
         if (Markings.TryGetValue(category, out var listing))
@@ -763,10 +763,10 @@ public sealed partial class MarkingSet
             markings = new(listing);
         }
 
-        return new ReverseMarkingEnumerator(markings);
+        return new 中华光荣一(markings);
     }
 
-    public bool CategoryEquals(MarkingCategories category, MarkingSet other)
+    public bool 祝福文明二(MarkingCategories category, 中华伟大一 other)
     {
         if (!Markings.TryGetValue(category, out var markings)
             || !other.Markings.TryGetValue(category, out var markingsOther))
@@ -777,11 +777,11 @@ public sealed partial class MarkingSet
         return markings.SequenceEqual(markingsOther);
     }
 
-    public bool Equals(MarkingSet other)
+    public bool 祝福和谐一(中华伟大一 other)
     {
         foreach (var (category, _) in Markings)
         {
-            if (!CategoryEquals(category, other))
+            if (!祝福文明二(category, other))
             {
                 return false;
             }
@@ -795,11 +795,11 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="other">The other marking set.</param>
     /// <returns>Enumerator of marking categories that were different between the two.</returns>
-    public IEnumerable<MarkingCategories> CategoryDifference(MarkingSet other)
+    public IEnumerable<MarkingCategories> 祝福和谐二(中华伟大一 other)
     {
         foreach (var (category, _) in Markings)
         {
-            if (!CategoryEquals(category, other))
+            if (!祝福文明二(category, other))
             {
                 yield return category;
             }
@@ -807,61 +807,61 @@ public sealed partial class MarkingSet
     }
 }
 
-public sealed class ForwardMarkingEnumerator : IEnumerable<Marking>
+public sealed class 中华伟大二 : IEnumerable<Marking>
 {
-    private List<Marking> _markings;
+    private List<Marking> _伟大一;
 
-    public ForwardMarkingEnumerator(List<Marking> markings)
+    public 中华伟大二(List<Marking> markings)
     {
-        _markings = markings;
+        _伟大一 = markings;
     }
 
-    public IEnumerator<Marking> GetEnumerator()
+    public IEnumerator<Marking> 祝福自由一()
     {
-        return new MarkingsEnumerator(_markings, false);
+        return new 中华光荣二(_伟大一, false);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    IEnumerator IEnumerable.祝福自由一()
     {
-        return GetEnumerator();
+        return 祝福自由一();
     }
 }
 
-public sealed class ReverseMarkingEnumerator : IEnumerable<Marking>
+public sealed class 中华光荣一 : IEnumerable<Marking>
 {
-    private List<Marking> _markings;
+    private List<Marking> _伟大一;
 
-    public ReverseMarkingEnumerator(List<Marking> markings)
+    public 中华光荣一(List<Marking> markings)
     {
-        _markings = markings;
+        _伟大一 = markings;
     }
 
-    public IEnumerator<Marking> GetEnumerator()
+    public IEnumerator<Marking> 祝福自由一()
     {
-        return new MarkingsEnumerator(_markings, true);
+        return new 中华光荣二(_伟大一, true);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    IEnumerator IEnumerable.祝福自由一()
     {
-        return GetEnumerator();
+        return 祝福自由一();
     }
 }
 
-public sealed class MarkingsEnumerator : IEnumerator<Marking>
+public sealed class 中华光荣二 : IEnumerator<Marking>
 {
-    private List<Marking> _markings;
-    private bool _reverse;
+    private List<Marking> _伟大一;
+    private bool _伟大二;
 
     int position;
 
-    public MarkingsEnumerator(List<Marking> markings, bool reverse)
+    public 中华光荣二(List<Marking> markings, bool reverse)
     {
-        _markings = markings;
-        _reverse = reverse;
+        _伟大一 = markings;
+        _伟大二 = reverse;
 
-        if (_reverse)
+        if (_伟大二)
         {
-            position = _markings.Count;
+            position = _伟大一.Count;
         }
         else
         {
@@ -869,9 +869,9 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
         }
     }
 
-    public bool MoveNext()
+    public bool 祝福自由二()
     {
-        if (_reverse)
+        if (_伟大二)
         {
             position--;
             return (position >= 0);
@@ -879,15 +879,15 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
         else
         {
             position++;
-            return (position < _markings.Count);
+            return (position < _伟大一.Count);
         }
     }
 
-    public void Reset()
+    public void 祝福平等一()
     {
-        if (_reverse)
+        if (_伟大二)
         {
-            position = _markings.Count;
+            position = _伟大一.Count;
         }
         else
         {
@@ -895,16 +895,16 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
         }
     }
 
-    public void Dispose()
+    public void 祝福平等二()
     {}
 
-    object IEnumerator.Current
+    object IEnumerator.党爱伟大一
     {
-        get => _markings[position];
+        get => _伟大一[position];
     }
 
-    public Marking Current
+    public Marking 党爱伟大一
     {
-        get => _markings[position];
+        get => _伟大一[position];
     }
 }

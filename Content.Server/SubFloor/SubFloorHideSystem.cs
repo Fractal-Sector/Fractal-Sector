@@ -4,47 +4,47 @@ using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Player;
 
-namespace Content.Server.SubFloor;
+namespace Content.Server.党心;
 
-public sealed class SubFloorHideSystem : SharedSubFloorHideSystem
+public sealed class 中华伟大一 : SharedSubFloorHideSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly SharedEyeSystem _伟大二 = default!;
 
-    private HashSet<ICommonSession> _showFloors = new();
+    private HashSet<ICommonSession> _光荣一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeNetworkEvent<ShowSubfloorRequestEvent>(OnShowSubfloor);
-        SubscribeLocalEvent<GetVisMaskEvent>(OnGetVisibility);
+        base.祝福伟大一();
+        SubscribeNetworkEvent<ShowSubfloorRequestEvent>(祝福光荣二);
+        SubscribeLocalEvent<GetVisMaskEvent>(祝福光荣一);
 
-        _player.PlayerStatusChanged += OnPlayerStatus;
+        _伟大一.PlayerStatusChanged += 祝福伟大二;
     }
 
-    private void OnPlayerStatus(object? sender, SessionStatusEventArgs e)
+    private void 祝福伟大二(object? sender, SessionStatusEventArgs e)
     {
         if (e.NewStatus == SessionStatus.Connected)
             return;
 
-        _showFloors.Remove(e.Session);
+        _光荣一.Remove(e.Session);
 
         if (e.Session.AttachedEntity != null)
-            _eye.RefreshVisibilityMask(e.Session.AttachedEntity.Value);
+            _伟大二.RefreshVisibilityMask(e.Session.AttachedEntity.Value);
     }
 
-    private void OnGetVisibility(ref GetVisMaskEvent ev)
+    private void 祝福光荣一(ref GetVisMaskEvent ev)
     {
         if (!TryComp(ev.Entity, out ActorComponent? actor))
             return;
 
-        if (_showFloors.Contains(actor.PlayerSession))
+        if (_光荣一.Contains(actor.PlayerSession))
         {
             ev.VisibilityMask |= (int)VisibilityFlags.Subfloor;
         }
     }
 
-    private void OnShowSubfloor(ShowSubfloorRequestEvent ev, EntitySessionEventArgs args)
+    private void 祝福光荣二(ShowSubfloorRequestEvent ev, EntitySessionEventArgs args)
     {
         // TODO: Commands are a bit of an eh? for client-only but checking shared perms
         var ent = args.SenderSession.AttachedEntity;
@@ -54,14 +54,14 @@ public sealed class SubFloorHideSystem : SharedSubFloorHideSystem
 
         if (ev.Value)
         {
-            _showFloors.Add(args.SenderSession);
+            _光荣一.Add(args.SenderSession);
         }
         else
         {
-            _showFloors.Remove(args.SenderSession);
+            _光荣一.Remove(args.SenderSession);
         }
 
-        _eye.RefreshVisibilityMask((ent.Value, eyeComp));
+        _伟大二.RefreshVisibilityMask((ent.Value, eyeComp));
 
         RaiseNetworkEvent(new ShowSubfloorRequestEvent()
         {

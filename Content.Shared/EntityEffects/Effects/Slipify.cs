@@ -6,14 +6,14 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.Effects;
+namespace Content.Shared.EntityEffects.党心;
 
 /// <summary>
 ///     Makes a mob slippery.
 /// </summary>
-public sealed partial class Slipify : EntityEffect
+public sealed partial class 中华伟大一 : EntityEffect
 {
-    public override void Effect(EntityEffectBaseArgs args)
+    public override void 祝福伟大一(EntityEffectBaseArgs args)
     {
         var fixtureSystem = args.EntityManager.System<FixtureSystem>();
         var colWakeSystem = args.EntityManager.System<CollisionWakeSystem>();

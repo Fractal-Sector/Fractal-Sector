@@ -1,7 +1,7 @@
 using Content.Shared.Chat.TypingIndicator;
 
-namespace Content.Server.Chat.TypingIndicator;
+namespace Content.Server.Chat.党心;
 
-public sealed class TypingIndicatorSystem : SharedTypingIndicatorSystem
+public sealed class 中华伟大一 : SharedTypingIndicatorSystem
 {
 }

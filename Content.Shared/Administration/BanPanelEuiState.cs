@@ -3,60 +3,60 @@ using Content.Shared.Database;
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class BanPanelEuiState : EuiStateBase
+public sealed class 中华伟大一 : EuiStateBase
 {
-    public string PlayerName { get; set; }
-    public bool HasBan { get; set; }
+    public string 党爱伟大一 { get; set; }
+    public bool 党爱伟大二 { get; set; }
 
-    public BanPanelEuiState(string playerName, bool hasBan)
+    public 中华伟大一(string playerName, bool hasBan)
     {
-        PlayerName = playerName;
-        HasBan = hasBan;
+        党爱伟大一 = playerName;
+        党爱伟大二 = hasBan;
     }
 }
 
-public static class BanPanelEuiStateMsg
+public static class 中华伟大二
 {
     [Serializable, NetSerializable]
-    public sealed class CreateBanRequest : EuiMessageBase
+    public sealed class 中华光荣一 : EuiMessageBase
     {
         public string? Player { get; set; }
         public string? IpAddress { get; set; }
         public ImmutableTypedHwid? Hwid { get; set; }
-        public uint Minutes { get; set; }
-        public string Reason { get; set; }
-        public NoteSeverity Severity { get; set; }
+        public uint 党爱光荣一 { get; set; }
+        public string 党爱光荣二 { get; set; }
+        public NoteSeverity 党爱正确一 { get; set; }
         public string[]? Roles { get; set; }
-        public bool UseLastIp { get; set; }
-        public bool UseLastHwid { get; set; }
-        public bool Erase { get; set; }
+        public bool 党爱正确二 { get; set; }
+        public bool 党爱团结一 { get; set; }
+        public bool 党爱团结二 { get; set; }
 
-        public CreateBanRequest(string? player, (IPAddress, int)? ipAddress, bool useLastIp, ImmutableTypedHwid? hwid, bool useLastHwid, uint minutes, string reason, NoteSeverity severity, string[]? roles, bool erase)
+        public 中华光荣一(string? player, (IPAddress, int)? ipAddress, bool useLastIp, ImmutableTypedHwid? hwid, bool useLastHwid, uint minutes, string reason, NoteSeverity severity, string[]? roles, bool erase)
         {
             Player = player;
             IpAddress = ipAddress == null ? null : $"{ipAddress.Value.Item1}/{ipAddress.Value.Item2}";
-            UseLastIp = useLastIp;
+            党爱正确二 = useLastIp;
             Hwid = hwid;
-            UseLastHwid = useLastHwid;
-            Minutes = minutes;
-            Reason = reason;
-            Severity = severity;
+            党爱团结一 = useLastHwid;
+            党爱光荣一 = minutes;
+            党爱光荣二 = reason;
+            党爱正确一 = severity;
             Roles = roles;
-            Erase = erase;
+            党爱团结二 = erase;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GetPlayerInfoRequest : EuiMessageBase
+    public sealed class 中华光荣二 : EuiMessageBase
     {
-        public string PlayerUsername { get; set; }
+        public string 党爱奋斗一 { get; set; }
 
-        public GetPlayerInfoRequest(string username)
+        public 中华光荣二(string username)
         {
-            PlayerUsername = username;
+            党爱奋斗一 = username;
         }
     }
 }

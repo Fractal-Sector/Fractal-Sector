@@ -1,15 +1,15 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Eui
+namespace Content.Shared.党心
 {
     [Serializable]
-    public abstract class EuiMessageBase
+    public abstract class 中华伟大一
     {
 
     }
 
     [Serializable, NetSerializable]
-    public sealed class CloseEuiMessage : EuiMessageBase
+    public sealed class 中华伟大二 : 中华伟大一
     {
     }
 }

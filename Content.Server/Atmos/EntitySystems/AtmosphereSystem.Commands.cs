@@ -8,27 +8,27 @@ using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
-public sealed partial class AtmosphereSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
+    [Dependency] private readonly IConsoleHost _伟大一 = default!;
 
-    private void InitializeCommands()
+    private void 祝福伟大一()
     {
         // Fix Grid Atmos command.
-        _consoleHost.RegisterCommand("fixgridatmos",
+        _伟大一.RegisterCommand("fixgridatmos",
             "Makes every tile on a grid have a roundstart gas mix.",
-            "fixgridatmos <grid Ids>", FixGridAtmosCommand, FixGridAtmosCommandCompletions);
+            "fixgridatmos <grid Ids>", 祝福光荣一, 祝福正确一);
     }
 
-    private void ShutdownCommands()
+    private void 祝福伟大二()
     {
-        _consoleHost.UnregisterCommand("fixgridatmos");
+        _伟大一.UnregisterCommand("fixgridatmos");
     }
 
     [AdminCommand(AdminFlags.Debug)]
-    private void FixGridAtmosCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣一(IConsoleShell shell, string argstr, string[] args)
     {
        if (args.Length == 0)
        {
@@ -111,7 +111,7 @@ public sealed partial class AtmosphereSystem
            Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> grid =
                new(euid.Value, gridAtmosphere, Comp<GasTileOverlayComponent>(euid.Value), gridComp, Transform(euid.Value));
 
-           RebuildGridTiles(grid);
+           祝福光荣二(grid);
 
            var query = GetEntityQuery<AtmosFixMarkerComponent>();
            foreach (var (indices, tile) in gridAtmosphere.Tiles.ToArray())
@@ -138,7 +138,7 @@ public sealed partial class AtmosphereSystem
     /// <summary>
     /// Clears & re-creates all references to <see cref="TileAtmosphere"/>s stored on a grid.
     /// </summary>
-    private void RebuildGridTiles(
+    private void 祝福光荣二(
         Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent)
     {
         foreach (var indices in ent.Comp1.Tiles.Keys)
@@ -173,7 +173,7 @@ public sealed partial class AtmosphereSystem
         }
     }
 
-    private CompletionResult FixGridAtmosCommandCompletions(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福正确一(IConsoleShell shell, string[] args)
     {
         MapId? playerMap = null;
         if (shell.Player is { AttachedEntity: { } playerEnt })

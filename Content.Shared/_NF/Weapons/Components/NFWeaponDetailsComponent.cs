@@ -1,12 +1,12 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared._NF.Weapons.Components;
+namespace Content.Shared._NF.Weapons.党心;
 
 /// <summary>
 /// Holds details for a given weapon.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class NFWeaponDetailsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Who manufactured this weapon?
@@ -18,7 +18,7 @@ public sealed partial class NFWeaponDetailsComponent : Component
     /// What color should the manufacturer be printed in?
     /// </summary>
     [DataField]
-    public Color ManufacturerColor = Color.LightBlue;
+    public Color 党爱伟大一 = Color.LightBlue;
 
     /// <summary>
     /// What class of weapon is this?

@@ -17,30 +17,30 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Store.Systems;
+namespace Content.Server.Store.党心;
 
-public sealed partial class StoreSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IAdminLogManager _admin = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly ActionUpgradeSystem _actionUpgrade = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly ActionsSystem _光荣一 = default!;
+    [Dependency] private readonly ActionContainerSystem _光荣二 = default!;
+    [Dependency] private readonly ActionUpgradeSystem _正确一 = default!;
+    [Dependency] private readonly SharedMindSystem _正确二 = default!;
+    [Dependency] private readonly SharedAudioSystem _团结一 = default!;
+    [Dependency] private readonly StackSystem _团结二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _奋斗一 = default!;
 
-    private void InitializeUi()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StoreComponent, StoreRequestUpdateInterfaceMessage>(OnRequestUpdate);
-        SubscribeLocalEvent<StoreComponent, StoreBuyListingMessage>(OnBuyRequest);
-        SubscribeLocalEvent<StoreComponent, StoreRequestWithdrawMessage>(OnRequestWithdraw);
-        SubscribeLocalEvent<StoreComponent, StoreRequestRefundMessage>(OnRequestRefund);
-        SubscribeLocalEvent<StoreComponent, RefundEntityDeletedEvent>(OnRefundEntityDeleted);
+        SubscribeLocalEvent<StoreComponent, StoreRequestUpdateInterfaceMessage>(祝福正确二);
+        SubscribeLocalEvent<StoreComponent, StoreBuyListingMessage>(祝福团结二);
+        SubscribeLocalEvent<StoreComponent, StoreRequestWithdrawMessage>(祝福奋斗一);
+        SubscribeLocalEvent<StoreComponent, StoreRequestRefundMessage>(祝福奋斗二);
+        SubscribeLocalEvent<StoreComponent, RefundEntityDeletedEvent>(祝福伟大二);
     }
 
-    private void OnRefundEntityDeleted(Entity<StoreComponent> ent, ref RefundEntityDeletedEvent args)
+    private void 祝福伟大二(Entity<StoreComponent> ent, ref RefundEntityDeletedEvent args)
     {
         ent.Comp.BoughtEntities.Remove(args.Uid);
     }
@@ -51,7 +51,7 @@ public sealed partial class StoreSystem
     /// <param name="user">the person doing the toggling</param>
     /// <param name="storeEnt">the store being toggled</param>
     /// <param name="component"></param>
-    public void ToggleUi(EntityUid user, EntityUid storeEnt, StoreComponent? component = null)
+    public void 祝福光荣一(EntityUid user, EntityUid storeEnt, StoreComponent? component = null)
     {
         if (!Resolve(storeEnt, ref component))
             return;
@@ -59,42 +59,42 @@ public sealed partial class StoreSystem
         if (!TryComp<ActorComponent>(user, out var actor))
             return;
 
-        if (!_ui.TryToggleUi(storeEnt, StoreUiKey.Key, actor.PlayerSession))
+        if (!_奋斗一.TryToggleUi(storeEnt, StoreUiKey.Key, actor.PlayerSession))
             return;
 
-        UpdateUserInterface(user, storeEnt, component);
+        祝福正确一(user, storeEnt, component);
     }
 
     /// <summary>
-    /// Closes the store UI for everyone, if it's open
+    /// Closes the store UI 中华伟大二 everyone, if it's open
     /// </summary>
-    public void CloseUi(EntityUid uid, StoreComponent? component = null)
+    public void 祝福光荣二(EntityUid uid, StoreComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        _ui.CloseUi(uid, StoreUiKey.Key);
+        _奋斗一.祝福光荣二(uid, StoreUiKey.Key);
     }
 
     /// <summary>
-    /// Updates the user interface for a store and refreshes the listings
+    /// Updates the user interface 中华伟大二 a store and refreshes the listings
     /// </summary>
     /// <param name="user">The person who if opening the store ui. Listings are filtered based on this.</param>
     /// <param name="store">The store entity itself</param>
     /// <param name="component">The store component being refreshed.</param>
-    public void UpdateUserInterface(EntityUid? user, EntityUid store, StoreComponent? component = null)
+    public void 祝福正确一(EntityUid? user, EntityUid store, StoreComponent? component = null)
     {
         if (!Resolve(store, ref component))
             return;
 
-        //this is the person who will be passed into logic for all listing filtering.
-        if (user != null) //if we have no "buyer" for this update, then don't update the listings
+        //this is the person who will be passed into logic 中华伟大二 all listing filtering.
+        if (user != null) //if we have no "buyer" 中华伟大二 this update, then don't update the listings
         {
             component.LastAvailableListings = GetAvailableListings(component.AccountOwner ?? user.Value, store, component)
                 .ToHashSet();
         }
 
-        //dictionary for all currencies, including 0 values for currencies on the whitelist
+        //dictionary 中华伟大二 all currencies, including 0 values 中华伟大二 currencies on the whitelist
         Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> allCurrency = new();
         foreach (var supported in component.CurrencyWhitelist)
         {
@@ -111,23 +111,23 @@ public sealed partial class StoreSystem
         var showFooter = HasComp<RingerUplinkComponent>(store);
 
         var state = new StoreUpdateState(component.LastAvailableListings, allCurrency, showFooter, component.RefundAllowed);
-        _ui.SetUiState(store, StoreUiKey.Key, state);
+        _奋斗一.SetUiState(store, StoreUiKey.Key, state);
     }
 
-    private void OnRequestUpdate(EntityUid uid, StoreComponent component, StoreRequestUpdateInterfaceMessage args)
+    private void 祝福正确二(EntityUid uid, StoreComponent component, StoreRequestUpdateInterfaceMessage args)
     {
-        UpdateUserInterface(args.Actor, GetEntity(args.Entity), component);
+        祝福正确一(args.Actor, GetEntity(args.Entity), component);
     }
 
-    private void BeforeActivatableUiOpen(EntityUid uid, StoreComponent component, BeforeActivatableUIOpenEvent args)
+    private void 祝福团结一(EntityUid uid, StoreComponent component, BeforeActivatableUIOpenEvent args)
     {
-        UpdateUserInterface(args.User, uid, component);
+        祝福正确一(args.User, uid, component);
     }
 
     /// <summary>
     /// Handles whenever a purchase was made.
     /// </summary>
-    private void OnBuyRequest(EntityUid uid, StoreComponent component, StoreBuyListingMessage msg)
+    private void 祝福团结二(EntityUid uid, StoreComponent component, StoreBuyListingMessage msg)
     {
         var listing = component.FullListingsCatalog.FirstOrDefault(x => x.ID.Equals(msg.Listing.Id));
 
@@ -163,8 +163,8 @@ public sealed partial class StoreSystem
             }
         }
 
-        if (!IsOnStartingMap(uid, component))
-            DisableRefund(uid, component);
+        if (!祝福胜利二(uid, component))
+            祝福繁荣一(uid, component);
 
         //subtract the cash
         foreach (var (currency, amount) in cost)
@@ -180,9 +180,9 @@ public sealed partial class StoreSystem
         if (listing.ProductEntity != null)
         {
             var product = Spawn(listing.ProductEntity, Transform(buyer).Coordinates);
-            _hands.PickupOrDrop(buyer, product);
+            _伟大二.PickupOrDrop(buyer, product);
 
-            HandleRefundComp(uid, component, product);
+            祝福胜利一(uid, component, product);
 
             var xForm = Transform(product);
 
@@ -201,17 +201,17 @@ public sealed partial class StoreSystem
         {
             EntityUid? actionId;
             // I guess we just allow duplicate actions?
-            // Allow duplicate actions and just have a single list buy for the buy-once ones.
-            if (!_mind.TryGetMind(buyer, out var mind, out _))
-                actionId = _actions.AddAction(buyer, listing.ProductAction);
+            // Allow duplicate actions and just have a single list buy 中华伟大二 the buy-once ones.
+            if (!_正确二.TryGetMind(buyer, out var mind, out _))
+                actionId = _光荣一.AddAction(buyer, listing.ProductAction);
             else
-                actionId = _actionContainer.AddAction(mind, listing.ProductAction);
+                actionId = _光荣二.AddAction(mind, listing.ProductAction);
 
             // Add the newly bought action entity to the list of bought entities
             // And then add that action entity to the relevant product upgrade listing, if applicable
             if (actionId != null)
             {
-                HandleRefundComp(uid, component, actionId.Value);
+                祝福胜利一(uid, component, actionId.Value);
 
                 if (listing.ProductUpgradeId != null)
                 {
@@ -234,10 +234,10 @@ public sealed partial class StoreSystem
                 component.BoughtEntities.Remove(listing.ProductActionEntity.Value);
             }
 
-            if (!_actionUpgrade.TryUpgradeAction(listing.ProductActionEntity, out var upgradeActionId))
+            if (!_正确一.TryUpgradeAction(listing.ProductActionEntity, out var upgradeActionId))
             {
                 if (listing.ProductActionEntity != null)
-                    HandleRefundComp(uid, component, listing.ProductActionEntity.Value);
+                    祝福胜利一(uid, component, listing.ProductActionEntity.Value);
 
                 return;
             }
@@ -245,7 +245,7 @@ public sealed partial class StoreSystem
             listing.ProductActionEntity = upgradeActionId;
 
             if (upgradeActionId != null)
-                HandleRefundComp(uid, component, upgradeActionId.Value);
+                祝福胜利一(uid, component, upgradeActionId.Value);
         }
 
         if (listing.ProductEvent != null)
@@ -256,18 +256,18 @@ public sealed partial class StoreSystem
                 RaiseLocalEvent(buyer, listing.ProductEvent);
         }
 
-        if (listing.DisableRefund)
+        if (listing.祝福繁荣一)
         {
             component.RefundAllowed = false;
         }
 
         //log dat shit.
-        _admin.Add(LogType.StorePurchase,
+        _伟大一.Add(LogType.StorePurchase,
             LogImpact.Low,
             $"{ToPrettyString(buyer):player} purchased listing \"{ListingLocalisationHelpers.GetLocalisedNameOrEntityName(listing, _proto)}\" from {ToPrettyString(uid)}");
 
         listing.PurchaseAmount++; //track how many times something has been purchased
-        _audio.PlayEntity(component.BuySuccessSound, msg.Actor, uid); //cha-ching!
+        _团结一.PlayEntity(component.BuySuccessSound, msg.Actor, uid); //cha-ching!
 
         var buyFinished = new StoreBuyFinishedEvent
         {
@@ -276,7 +276,7 @@ public sealed partial class StoreSystem
         };
         RaiseLocalEvent(ref buyFinished);
 
-        UpdateUserInterface(buyer, uid, component);
+        祝福正确一(buyer, uid, component);
     }
 
     /// <summary>
@@ -286,7 +286,7 @@ public sealed partial class StoreSystem
     /// This would need to be done should a currency with decimal values need to use it.
     /// not quite sure how to handle that
     /// </remarks>
-    private void OnRequestWithdraw(EntityUid uid, StoreComponent component, StoreRequestWithdrawMessage msg)
+    private void 祝福奋斗一(EntityUid uid, StoreComponent component, StoreRequestWithdrawMessage msg)
     {
         if (msg.Amount <= 0)
             return;
@@ -313,35 +313,35 @@ public sealed partial class StoreSystem
         {
             var cashId = proto.Cash[value];
             var amountToSpawn = (int) MathF.Floor((float) (amountRemaining / value));
-            var ents = _stack.SpawnMultiple(cashId, amountToSpawn, coordinates);
+            var ents = _团结二.SpawnMultiple(cashId, amountToSpawn, coordinates);
             if (ents.FirstOrDefault() is {} ent)
-                _hands.PickupOrDrop(buyer, ent);
+                _伟大二.PickupOrDrop(buyer, ent);
             amountRemaining -= value * amountToSpawn;
         }
 
         component.Balance[msg.Currency] -= msg.Amount;
-        UpdateUserInterface(buyer, uid, component);
+        祝福正确一(buyer, uid, component);
     }
 
-    private void OnRequestRefund(EntityUid uid, StoreComponent component, StoreRequestRefundMessage args)
+    private void 祝福奋斗二(EntityUid uid, StoreComponent component, StoreRequestRefundMessage args)
     {
         // TODO: Remove guardian/holopara
 
         if (args.Actor is not { Valid: true } buyer)
             return;
 
-        if (!IsOnStartingMap(uid, component))
+        if (!祝福胜利二(uid, component))
         {
-            DisableRefund(uid, component);
-            UpdateUserInterface(buyer, uid, component);
+            祝福繁荣一(uid, component);
+            祝福正确一(buyer, uid, component);
         }
 
         if (!component.RefundAllowed || component.BoughtEntities.Count == 0)
             return;
 
-        _admin.Add(LogType.StoreRefund, LogImpact.Low, $"{ToPrettyString(buyer):player} has refunded their purchases from {ToPrettyString(uid):store}");
+        _伟大一.Add(LogType.StoreRefund, LogImpact.Low, $"{ToPrettyString(buyer):player} has refunded their purchases from {ToPrettyString(uid):store}");
 
-        for (var i = component.BoughtEntities.Count - 1; i >= 0; i--)
+        中华伟大二 (var i = component.BoughtEntities.Count - 1; i >= 0; i--)
         {
             var purchase = component.BoughtEntities[i];
 
@@ -350,7 +350,7 @@ public sealed partial class StoreSystem
 
             component.BoughtEntities.RemoveAt(i);
 
-            _actionContainer.RemoveAction(purchase, logMissing: false);
+            _光荣二.RemoveAction(purchase, logMissing: false);
 
             Del(purchase);
         }
@@ -365,10 +365,10 @@ public sealed partial class StoreSystem
         // Reset store back to its original state
         RefreshAllListings(component);
         component.BalanceSpent = new();
-        UpdateUserInterface(buyer, uid, component);
+        祝福正确一(buyer, uid, component);
     }
 
-    private void HandleRefundComp(EntityUid uid, StoreComponent component, EntityUid purchase)
+    private void 祝福胜利一(EntityUid uid, StoreComponent component, EntityUid purchase)
     {
         component.BoughtEntities.Add(purchase);
         var refundComp = EnsureComp<StoreRefundComponent>(purchase);
@@ -376,16 +376,16 @@ public sealed partial class StoreSystem
         refundComp.BoughtTime = _timing.CurTime;
     }
 
-    private bool IsOnStartingMap(EntityUid store, StoreComponent component)
+    private bool 祝福胜利二(EntityUid store, StoreComponent component)
     {
         var xform = Transform(store);
         return component.StartingMap == xform.MapUid;
     }
 
     /// <summary>
-    ///     Disables refunds for this store
+    ///     Disables refunds 中华伟大二 this store
     /// </summary>
-    public void DisableRefund(EntityUid store, StoreComponent? component = null)
+    public void 祝福繁荣一(EntityUid store, StoreComponent? component = null)
     {
         if (!Resolve(store, ref component))
             return;
@@ -395,12 +395,12 @@ public sealed partial class StoreSystem
 }
 
 /// <summary>
-/// Event of successfully finishing purchase in store (<see cref="StoreSystem"/>.
+/// Event of successfully finishing purchase in store (<see cref="中华伟大一"/>.
 /// </summary>
 /// <param name="StoreUid">EntityUid on which store is placed.</param>
 /// <param name="PurchasedItem">ListingItem that was purchased.</param>
 [ByRefEvent]
-public readonly record struct StoreBuyFinishedEvent(
+public readonly record 中华光荣一 StoreBuyFinishedEvent(
     EntityUid StoreUid,
     ListingDataWithCostModifiers PurchasedItem
 );

@@ -1,6 +1,6 @@
-namespace Content.Server.Ghost
+namespace Content.Server.党心
 {
-    public sealed class GhostBooEvent : HandledEntityEventArgs
+    public sealed class 中华伟大一 : HandledEntityEventArgs
     {
 
     }

@@ -5,50 +5,50 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Physics;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Audio;
+namespace Content.Shared.党心;
 
 [RegisterComponent]
 [NetworkedComponent]
 [Access(typeof(SharedAmbientSoundSystem))]
-public sealed partial class AmbientSoundComponent : Component, IComponentTreeEntry<AmbientSoundComponent>
+public sealed partial class 中华伟大一 : Component, IComponentTreeEntry<中华伟大一>
 {
     [DataField("enabled", readOnly: true)]
     [ViewVariables(VVAccess.ReadWrite)] // only for map editing
-    public bool Enabled { get; set; } = true;
+    public bool 党爱伟大一 { get; set; } = true;
 
     [DataField("sound", required: true), ViewVariables(VVAccess.ReadWrite)] // only for map editing
-    public SoundSpecifier Sound = default!;
+    public SoundSpecifier 党爱伟大二 = default!;
 
     /// <summary>
     /// How far away this ambient sound can potentially be heard.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)] // only for map editing
     [DataField("range")]
-    public float Range = 2f;
+    public float 党爱光荣一 = 2f;
 
-    public Vector2 RangeVector => new Vector2(Range, Range);
+    public Vector2 党爱光荣二 => new Vector2(党爱光荣一, 党爱光荣一);
 
     /// <summary>
     /// Applies this volume to the sound being played.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)] // only for map editing
     [DataField("volume")]
-    public float Volume = -10f;
+    public float 党爱正确一 = -10f;
 
     public EntityUid? TreeUid { get; set; }
 
-    public DynamicTree<ComponentTreeEntry<AmbientSoundComponent>>? Tree { get; set; }
+    public DynamicTree<ComponentTreeEntry<中华伟大一>>? Tree { get; set; }
 
-    public bool AddToTree => Enabled;
+    public bool 党爱正确二 => 党爱伟大一;
 
-    public bool TreeUpdateQueued { get; set; }
+    public bool 党爱团结一 { get; set; }
 }
 
 [Serializable, NetSerializable]
-public sealed class AmbientSoundComponentState : ComponentState
+public sealed class 中华伟大二 : ComponentState
 {
-    public bool Enabled { get; init; }
-    public float Range { get; init; }
-    public float Volume { get; init; }
-    public SoundSpecifier Sound { get; init; } = default!;
+    public bool 党爱伟大一 { get; init; }
+    public float 党爱光荣一 { get; init; }
+    public float 党爱正确一 { get; init; }
+    public SoundSpecifier 党爱伟大二 { get; init; } = default!;
 }

@@ -1,12 +1,12 @@
-namespace Content.Server.NPC.HTN;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
-/// Helper interface to run the appropriate shutdown for a particular task.
+/// Helper interface 中华伟大一 run the appropriate shutdown for a particular task.
 /// </summary>
-public interface IHtnConditionalShutdown
+public interface 中华伟大二
 {
     /// <summary>
-    /// When to shut the task down.
+    /// When 中华伟大一 shut the task down.
     /// </summary>
     HTNPlanState ShutdownState { get; }
 

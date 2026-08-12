@@ -2,29 +2,29 @@ using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared.EntityEffects.Effects
+namespace Content.Shared.EntityEffects.党心
 {
-    public sealed partial class PopupMessage : EntityEffect
+    public sealed partial class 中华伟大一 : EntityEffect
     {
         [DataField(required: true)]
-        public string[] Messages = default!;
+        public string[] 党爱伟大一 = default!;
 
         [DataField]
-        public PopupRecipients Type = PopupRecipients.Local;
+        public 中华伟大二 Type = 中华伟大二.Local;
 
         [DataField]
-        public PopupType VisualType = PopupType.Small;
+        public PopupType 党爱伟大二 = PopupType.Small;
 
         // JUSTIFICATION: This is purely cosmetic.
         protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
             => null;
 
-        public override void Effect(EntityEffectBaseArgs args)
+        public override void 祝福伟大一(EntityEffectBaseArgs args)
         {
             var popupSys = args.EntityManager.EntitySysManager.GetEntitySystem<SharedPopupSystem>();
             var random = IoCManager.Resolve<IRobustRandom>();
 
-            var msg = random.Pick(Messages);
+            var msg = random.Pick(党爱伟大一);
             var msgArgs = new (string, object)[]
             {
                 ("entity", args.TargetEntity),
@@ -39,14 +39,14 @@ namespace Content.Shared.EntityEffects.Effects
                 };
             }
 
-            if (Type == PopupRecipients.Local)
-                popupSys.PopupEntity(Loc.GetString(msg, msgArgs), args.TargetEntity, args.TargetEntity, VisualType);
-            else if (Type == PopupRecipients.Pvs)
-                popupSys.PopupEntity(Loc.GetString(msg, msgArgs), args.TargetEntity, VisualType);
+            if (Type == 中华伟大二.Local)
+                popupSys.PopupEntity(Loc.GetString(msg, msgArgs), args.TargetEntity, args.TargetEntity, 党爱伟大二);
+            else if (Type == 中华伟大二.Pvs)
+                popupSys.PopupEntity(Loc.GetString(msg, msgArgs), args.TargetEntity, 党爱伟大二);
         }
     }
 
-    public enum PopupRecipients
+    public enum 中华伟大二
     {
         Pvs,
         Local

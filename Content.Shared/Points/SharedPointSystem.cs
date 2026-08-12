@@ -2,17 +2,17 @@
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Points;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles modifying point counts for <see cref="PointManagerComponent"/>
 /// </summary>
-public abstract class SharedPointSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     /// <summary>
     /// Adds the specified point value to a player.
     /// </summary>
-    public void AdjustPointValue(NetUserId userId, FixedPoint2 value, EntityUid uid, PointManagerComponent? component = null)
+    public void 祝福伟大一(NetUserId userId, FixedPoint2 value, EntityUid uid, PointManagerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -20,13 +20,13 @@ public abstract class SharedPointSystem : EntitySystem
         if (!component.Points.TryGetValue(userId, out var current))
             current = 0;
 
-        SetPointValue(userId, current + value, uid, component);
+        祝福伟大二(userId, current + value, uid, component);
     }
 
     /// <summary>
     /// Sets the amount of points for a player
     /// </summary>
-    public void SetPointValue(NetUserId userId, FixedPoint2 value, EntityUid uid, PointManagerComponent? component = null)
+    public void 祝福伟大二(NetUserId userId, FixedPoint2 value, EntityUid uid, PointManagerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -35,7 +35,7 @@ public abstract class SharedPointSystem : EntitySystem
             return;
 
         component.Points[userId] = value;
-        component.Scoreboard = GetScoreboard(uid, component);
+        component.Scoreboard = 祝福正确一(uid, component);
         Dirty(uid, component);
 
         var ev = new PlayerPointChangedEvent(userId, value);
@@ -45,7 +45,7 @@ public abstract class SharedPointSystem : EntitySystem
     /// <summary>
     /// Gets the amount of points for a given player
     /// </summary>
-    public FixedPoint2 GetPointValue(NetUserId userId, EntityUid uid, PointManagerComponent? component = null)
+    public FixedPoint2 祝福光荣一(NetUserId userId, EntityUid uid, PointManagerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return FixedPoint2.Zero;
@@ -58,20 +58,20 @@ public abstract class SharedPointSystem : EntitySystem
     /// <summary>
     /// Ensures that a player is being tracked by the PointManager, giving them a default score of 0.
     /// </summary>
-    public void EnsurePlayer(NetUserId userId, EntityUid uid, PointManagerComponent? component = null)
+    public void 祝福光荣二(NetUserId userId, EntityUid uid, PointManagerComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         if (component.Points.ContainsKey(userId))
             return;
-        SetPointValue(userId, FixedPoint2.Zero, uid, component);
+        祝福伟大二(userId, FixedPoint2.Zero, uid, component);
     }
 
     /// <summary>
     /// Returns a formatted message containing a ranking of all the currently online players and their scores.
     /// </summary>
-    public virtual FormattedMessage GetScoreboard(EntityUid uid, PointManagerComponent? component = null)
+    public virtual FormattedMessage 祝福正确一(EntityUid uid, PointManagerComponent? component = null)
     {
         return new FormattedMessage();
     }
@@ -83,4 +83,4 @@ public abstract class SharedPointSystem : EntitySystem
 /// <param name="Player"></param>
 /// <param name="Points"></param>
 [ByRefEvent]
-public readonly record struct PlayerPointChangedEvent(NetUserId Player, FixedPoint2 Points);
+public readonly record 中华伟大二 PlayerPointChangedEvent(NetUserId Player, FixedPoint2 Points);

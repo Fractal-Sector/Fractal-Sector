@@ -1,24 +1,24 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.ParticleAccelerator.Components;
+namespace Content.Shared.ParticleAccelerator.党心;
 
 [RegisterComponent]
-public sealed partial class ParticleAcceleratorEmitterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public EntProtoId EmittedPrototype = "ParticlesProjectile";
+    public EntProtoId 党爱伟大一 = "ParticlesProjectile";
 
     [DataField("emitterType")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public ParticleAcceleratorEmitterType Type = ParticleAcceleratorEmitterType.Fore;
+    public 中华伟大二 Type = 中华伟大二.Fore;
 
-    public override string ToString()
+    public override string 祝福伟大一()
     {
-        return base.ToString() + $" EmitterType:{Type}";
+        return base.祝福伟大一() + $" EmitterType:{Type}";
     }
 }
 
-public enum ParticleAcceleratorEmitterType
+public enum 中华伟大二
 {
     Port,
     Fore,

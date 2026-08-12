@@ -3,31 +3,31 @@ using Content.Shared.Speech;
 using Content.Server.Speech.EntitySystems;
 using System.Text.RegularExpressions;
 
-namespace Content.Server._DV.Speech.EntitySystems;
+namespace Content.Server._DV.Speech.党心;
 
-public sealed class ScottishAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency] private readonly ReplacementAccentSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ScottishAccentComponent, AccentGetEvent>(OnAccentGet);
+        SubscribeLocalEvent<ScottishAccentComponent, AccentGetEvent>(祝福光荣一);
     }
 
     // converts left word when typed into the right word. For example typing you becomes ye.
-    public string Accentuate(string message, ScottishAccentComponent component)
+    public string 祝福伟大二(string message, ScottishAccentComponent component)
     {
         var msg = message;
 
-        msg = _replacement.ApplyReplacements(msg, "scottish");
+        msg = _伟大一.ApplyReplacements(msg, "scottish");
 
         return msg;
     }
 
-    private void OnAccentGet(EntityUid uid, ScottishAccentComponent component, AccentGetEvent args)
+    private void 祝福光荣一(EntityUid uid, ScottishAccentComponent component, AccentGetEvent args)
     {
-        args.Message = Accentuate(args.Message, component);
+        args.Message = 祝福伟大二(args.Message, component);
     }
 }

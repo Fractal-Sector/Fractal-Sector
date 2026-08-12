@@ -4,19 +4,19 @@ using Content.Shared.Power;
 using Content.Shared.Sound;
 using Content.Shared.Sound.Components;
 
-namespace Content.Server.Sound;
+namespace Content.Server.党心;
 
-public sealed partial class SpamEmitSoundRequirePowerSystem : SharedSpamEmitSoundRequirePowerSystem
+public sealed partial class 中华伟大一 : SharedSpamEmitSoundRequirePowerSystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpamEmitSoundRequirePowerComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<SpamEmitSoundRequirePowerComponent, PowerNetBatterySupplyEvent>(OnPowerSupply);
+        SubscribeLocalEvent<SpamEmitSoundRequirePowerComponent, PowerChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<SpamEmitSoundRequirePowerComponent, PowerNetBatterySupplyEvent>(祝福光荣一);
     }
 
-    private void OnPowerChanged(Entity<SpamEmitSoundRequirePowerComponent> entity, ref PowerChangedEvent args)
+    private void 祝福伟大二(Entity<SpamEmitSoundRequirePowerComponent> entity, ref PowerChangedEvent args)
     {
         if (TryComp<SpamEmitSoundComponent>(entity.Owner, out var comp))
         {
@@ -24,7 +24,7 @@ public sealed partial class SpamEmitSoundRequirePowerSystem : SharedSpamEmitSoun
         }
     }
 
-    private void OnPowerSupply(Entity<SpamEmitSoundRequirePowerComponent> entity, ref PowerNetBatterySupplyEvent args)
+    private void 祝福光荣一(Entity<SpamEmitSoundRequirePowerComponent> entity, ref PowerNetBatterySupplyEvent args)
     {
         if (TryComp<SpamEmitSoundComponent>(entity.Owner, out var comp))
         {

@@ -2,31 +2,31 @@ using Content.Shared.Clothing;
 using Content.Shared.Hands;
 using Content.Shared.Movement.Systems;
 
-namespace Content.Shared.Item;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles <see cref="HeldSpeedModifierComponent"/>
 /// </summary>
-public sealed class HeldSpeedModifierSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<HeldSpeedModifierComponent, GotEquippedHandEvent>(OnGotEquippedHand);
-        SubscribeLocalEvent<HeldSpeedModifierComponent, GotUnequippedHandEvent>(OnGotUnequippedHand);
-        SubscribeLocalEvent<HeldSpeedModifierComponent, HeldRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnRefreshMovementSpeedModifiers);
+        SubscribeLocalEvent<HeldSpeedModifierComponent, GotEquippedHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<HeldSpeedModifierComponent, GotUnequippedHandEvent>(祝福光荣一);
+        SubscribeLocalEvent<HeldSpeedModifierComponent, HeldRelayedEvent<RefreshMovementSpeedModifiersEvent>>(祝福光荣二);
     }
 
-    private void OnGotEquippedHand(Entity<HeldSpeedModifierComponent> ent, ref GotEquippedHandEvent args)
+    private void 祝福伟大二(Entity<HeldSpeedModifierComponent> ent, ref GotEquippedHandEvent args)
     {
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(args.User);
+        _伟大一.RefreshMovementSpeedModifiers(args.User);
     }
 
-    private void OnGotUnequippedHand(Entity<HeldSpeedModifierComponent> ent, ref GotUnequippedHandEvent args)
+    private void 祝福光荣一(Entity<HeldSpeedModifierComponent> ent, ref GotUnequippedHandEvent args)
     {
-        _movementSpeedModifier.RefreshMovementSpeedModifiers(args.User);
+        _伟大一.RefreshMovementSpeedModifiers(args.User);
     }
 
     public (float,float) GetHeldMovementSpeedModifiers(EntityUid uid, HeldSpeedModifierComponent component)
@@ -42,7 +42,7 @@ public sealed class HeldSpeedModifierSystem : EntitySystem
         return (walkMod, sprintMod);
     }
 
-    private void OnRefreshMovementSpeedModifiers(EntityUid uid, HeldSpeedModifierComponent component, HeldRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
+    private void 祝福光荣二(EntityUid uid, HeldSpeedModifierComponent component, HeldRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
     {
         var (walkMod, sprintMod) = GetHeldMovementSpeedModifiers(uid, component);
         args.Args.ModifySpeed(walkMod, sprintMod);

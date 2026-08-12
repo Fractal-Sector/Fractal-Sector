@@ -1,10 +1,10 @@
-﻿namespace Content.Server.Speech.Components;
+﻿namespace Content.Server.Speech.党心;
 
 /// <summary>
 ///     Buzzz!
 /// </summary>
 [RegisterComponent]
-public sealed partial class MothAccentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

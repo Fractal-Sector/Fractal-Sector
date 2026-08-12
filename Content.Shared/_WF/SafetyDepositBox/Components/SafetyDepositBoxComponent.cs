@@ -2,13 +2,13 @@ using Content.Shared.Storage;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.SafetyDepositBox.Components;
+namespace Content.Shared._WF.SafetyDepositBox.党心;
 
 /// <summary>
 /// A physical box that stores items and can be deposited into a console for persistence.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class SafetyDepositBoxComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Unique ID for this deposit box, assigned when purchased.
@@ -42,7 +42,7 @@ public sealed partial class SafetyDepositBoxComponent : Component
 }
 
 [Serializable, NetSerializable]
-public enum SafetyDepositBoxVisuals : byte
+public enum 中华伟大二 : byte
 {
     Locked,
 }

@@ -7,20 +7,20 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class JobWhitelistAddCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly JobWhitelistManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerLocator _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
 
-    public override string Command => "jobwhitelistadd";
+    public override string 党爱伟大一 => "jobwhitelistadd";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -33,18 +33,18 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
 
         var player = args[0].Trim();
         var job = new ProtoId<JobPrototype>(args[1].Trim());
-        if (!_prototypes.TryIndex(job, out var jobPrototype))
+        if (!_正确一.TryIndex(job, out var jobPrototype))
         {
             shell.WriteError(Loc.GetString("cmd-jobwhitelist-job-does-not-exist", ("job", job.Id)));
             shell.WriteLine(Help);
             return;
         }
 
-        var data = await _playerLocator.LookupIdByNameAsync(player);
+        var data = await _光荣一.LookupIdByNameAsync(player);
         if (data != null)
         {
             var guid = data.UserId;
-            var isWhitelisted = await _db.IsJobWhitelisted(guid, job);
+            var isWhitelisted = await _伟大一.IsJobWhitelisted(guid, job);
             if (isWhitelisted)
             {
                 shell.WriteLine(Loc.GetString("cmd-jobwhitelistadd-already-whitelisted",
@@ -54,7 +54,7 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
                 return;
             }
 
-            _jobWhitelist.AddWhitelist(guid, job);
+            _伟大二.AddWhitelist(guid, job);
             shell.WriteLine(Loc.GetString("cmd-jobwhitelistadd-added",
                 ("player", player),
                 ("jobId", job.Id),
@@ -65,19 +65,19 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-jobwhitelist-player-not-found", ("player", player)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                _players.Sessions.Select(s => s.Name),
+                _光荣二.Sessions.Select(s => s.Name),
                 Loc.GetString("cmd-jobwhitelist-hint-player"));
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
-                _prototypes.EnumeratePrototypes<JobPrototype>().Select(p => p.ID),
+                _正确一.EnumeratePrototypes<JobPrototype>().Select(p => p.ID),
                 Loc.GetString("cmd-jobwhitelist-hint-job"));
         }
 
@@ -86,15 +86,15 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class GetJobWhitelistCommand : LocalizedCommands
+public sealed class 中华伟大二 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerLocator _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
 
-    public override string Command => "jobwhitelistget";
+    public override string 党爱伟大一 => "jobwhitelistget";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
@@ -104,11 +104,11 @@ public sealed class GetJobWhitelistCommand : LocalizedCommands
         }
 
         var player = string.Join(' ', args).Trim();
-        var data = await _playerLocator.LookupIdByNameAsync(player);
+        var data = await _光荣一.LookupIdByNameAsync(player);
         if (data != null)
         {
             var guid = data.UserId;
-            var whitelists = await _db.GetJobWhitelists(guid);
+            var whitelists = await _伟大一.GetJobWhitelists(guid);
             if (whitelists.Count == 0)
             {
                 shell.WriteLine(Loc.GetString("cmd-jobwhitelistget-whitelisted-none", ("player", player)));
@@ -124,12 +124,12 @@ public sealed class GetJobWhitelistCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-jobwhitelist-player-not-found", ("player", player)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                _players.Sessions.Select(s => s.Name),
+                _光荣二.Sessions.Select(s => s.Name),
                 Loc.GetString("cmd-jobwhitelist-hint-player"));
         }
 
@@ -138,17 +138,17 @@ public sealed class GetJobWhitelistCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class RemoveJobWhitelistCommand : LocalizedCommands
+public sealed class 中华光荣一 : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly JobWhitelistManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerLocator _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
 
-    public override string Command => "jobwhitelistremove";
+    public override string 党爱伟大一 => "jobwhitelistremove";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -161,18 +161,18 @@ public sealed class RemoveJobWhitelistCommand : LocalizedCommands
 
         var player = args[0].Trim();
         var job = new ProtoId<JobPrototype>(args[1].Trim());
-        if (!_prototypes.TryIndex(job, out var jobPrototype))
+        if (!_正确一.TryIndex(job, out var jobPrototype))
         {
             shell.WriteError(Loc.GetString("cmd-jobwhitelist-job-does-not-exist", ("job", job)));
             shell.WriteLine(Help);
             return;
         }
 
-        var data = await _playerLocator.LookupIdByNameAsync(player);
+        var data = await _光荣一.LookupIdByNameAsync(player);
         if (data != null)
         {
             var guid = data.UserId;
-            var isWhitelisted = await _db.IsJobWhitelisted(guid, job);
+            var isWhitelisted = await _伟大一.IsJobWhitelisted(guid, job);
             if (!isWhitelisted)
             {
                 shell.WriteError(Loc.GetString("cmd-jobwhitelistremove-was-not-whitelisted",
@@ -182,7 +182,7 @@ public sealed class RemoveJobWhitelistCommand : LocalizedCommands
                 return;
             }
 
-            _jobWhitelist.RemoveWhitelist(guid, job);
+            _伟大二.RemoveWhitelist(guid, job);
             shell.WriteLine(Loc.GetString("cmd-jobwhitelistremove-removed",
                 ("player", player),
                 ("jobId", job.Id),
@@ -193,19 +193,19 @@ public sealed class RemoveJobWhitelistCommand : LocalizedCommands
         shell.WriteError(Loc.GetString("cmd-jobwhitelist-player-not-found", ("player", player)));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                _players.Sessions.Select(s => s.Name),
+                _光荣二.Sessions.Select(s => s.Name),
                 Loc.GetString("cmd-jobwhitelist-hint-player"));
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
-                _prototypes.EnumeratePrototypes<JobPrototype>().Select(p => p.ID),
+                _正确一.EnumeratePrototypes<JobPrototype>().Select(p => p.ID),
                 Loc.GetString("cmd-jobwhitelist-hint-job"));
         }
 

@@ -6,18 +6,18 @@ using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Round | AdminFlags.Spawn)]
-    public sealed class LoadGameMapCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+        [Dependency] private readonly GameTicker _伟大二 = default!;
+        [Dependency] private readonly SharedMapSystem _光荣一 = default!;
 
-        public override string Command => "loadgamemap";
+        public override string 党爱伟大一 => "loadgamemap";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length is not (2 or 4 or 5))
             {
@@ -25,7 +25,7 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            if (!_prototypeManager.TryIndex<GameMapPrototype>(args[1], out var gameMap))
+            if (!_伟大一.TryIndex<GameMapPrototype>(args[1], out var gameMap))
             {
                 shell.WriteError($"The given map prototype {args[0]} is invalid.");
                 return;
@@ -42,14 +42,14 @@ namespace Content.Server.Administration.Commands
 
             var id = new MapId(mapId);
 
-            var grids = _mapSystem.MapExists(id)
-                ? _gameTicker.MergeGameMap(gameMap, id, stationName: stationName, offset: offset)
-                : _gameTicker.LoadGameMapWithId(gameMap, id, stationName: stationName, offset: offset);
+            var grids = _光荣一.MapExists(id)
+                ? _伟大二.MergeGameMap(gameMap, id, stationName: stationName, offset: offset)
+                : _伟大二.LoadGameMapWithId(gameMap, id, stationName: stationName, offset: offset);
 
             shell.WriteLine($"Loaded {grids.Count} grids.");
         }
 
-        public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
         {
             switch (args.Length)
             {
@@ -73,20 +73,20 @@ namespace Content.Server.Administration.Commands
     }
 
     [AdminCommand(AdminFlags.Round | AdminFlags.Spawn)]
-    public sealed class ListGameMaps : LocalizedCommands
+    public sealed class 中华伟大二 : LocalizedCommands
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-        public override string Command => "listgamemaps";
+        public override string 党爱伟大一 => "listgamemaps";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 0)
             {
                 shell.WriteError(Loc.GetString("shell-wrong-arguments-number"));
                 return;
             }
-            foreach (var prototype in _prototypeManager.EnumeratePrototypes<GameMapPrototype>())
+            foreach (var prototype in _伟大一.EnumeratePrototypes<GameMapPrototype>())
             {
                 shell.WriteLine($"{prototype.ID} - {prototype.MapName}");
             }

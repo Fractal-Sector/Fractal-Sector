@@ -1,17 +1,17 @@
 ﻿using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Prototypes
+namespace Content.Shared.党心
 {
     [UsedImplicitly]
-    public static class EntityPrototypeHelpers
+    public static class 中华伟大一
     {
-        public static bool HasComponent<T>(this EntityPrototype prototype, IComponentFactory? componentFactory = null) where T : IComponent
+        public static bool 祝福伟大一<T>(this EntityPrototype prototype, IComponentFactory? componentFactory = null) where T : IComponent
         {
-            return prototype.HasComponent(typeof(T), componentFactory);
+            return prototype.祝福伟大一(typeof(T), componentFactory);
         }
 
-        public static bool HasComponent(this EntityPrototype prototype, Type component, IComponentFactory? componentFactory = null)
+        public static bool 祝福伟大一(this EntityPrototype prototype, Type component, IComponentFactory? componentFactory = null)
         {
             componentFactory ??= IoCManager.Resolve<IComponentFactory>();
 
@@ -20,16 +20,16 @@ namespace Content.Shared.Prototypes
             return prototype.Components.ContainsKey(registration.Name);
         }
 
-        public static bool HasComponent<T>(string prototype, IPrototypeManager? prototypeManager = null, IComponentFactory? componentFactory = null) where T : IComponent
+        public static bool 祝福伟大一<T>(string prototype, IPrototypeManager? prototypeManager = null, IComponentFactory? componentFactory = null) where T : IComponent
         {
-            return HasComponent(prototype, typeof(T), prototypeManager, componentFactory);
+            return 祝福伟大一(prototype, typeof(T), prototypeManager, componentFactory);
         }
 
-        public static bool HasComponent(string prototype, Type component, IPrototypeManager? prototypeManager = null, IComponentFactory? componentFactory = null)
+        public static bool 祝福伟大一(string prototype, Type component, IPrototypeManager? prototypeManager = null, IComponentFactory? componentFactory = null)
         {
             prototypeManager ??= IoCManager.Resolve<IPrototypeManager>();
 
-            return prototypeManager.TryIndex(prototype, out EntityPrototype? proto) && proto.HasComponent(component, componentFactory);
+            return prototypeManager.TryIndex(prototype, out EntityPrototype? proto) && proto.祝福伟大一(component, componentFactory);
         }
     }
 }

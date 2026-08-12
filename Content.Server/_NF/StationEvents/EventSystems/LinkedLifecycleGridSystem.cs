@@ -12,34 +12,34 @@ using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Content.Shared._Goobstation.Vehicles;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class LinkedLifecycleGridSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMindSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LinkedLifecycleGridParentComponent, GridSplitEvent>(OnParentSplit);
-        SubscribeLocalEvent<LinkedLifecycleGridChildComponent, GridSplitEvent>(OnChildSplit);
+        SubscribeLocalEvent<LinkedLifecycleGridParentComponent, GridSplitEvent>(祝福伟大二);
+        SubscribeLocalEvent<LinkedLifecycleGridChildComponent, GridSplitEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<LinkedLifecycleGridParentComponent, ComponentRemove>(OnMasterRemoved);
+        SubscribeLocalEvent<LinkedLifecycleGridParentComponent, ComponentRemove>(祝福正确一);
     }
 
-    private void OnParentSplit(EntityUid uid, LinkedLifecycleGridParentComponent component, ref GridSplitEvent args)
+    private void 祝福伟大二(EntityUid uid, LinkedLifecycleGridParentComponent component, ref GridSplitEvent args)
     {
-        LinkSplitGrids(uid, ref args);
+        祝福光荣二(uid, ref args);
     }
 
-    private void OnChildSplit(EntityUid uid, LinkedLifecycleGridChildComponent component, ref GridSplitEvent args)
+    private void 祝福光荣一(EntityUid uid, LinkedLifecycleGridChildComponent component, ref GridSplitEvent args)
     {
-        LinkSplitGrids(component.LinkedUid, ref args);
+        祝福光荣二(component.LinkedUid, ref args);
     }
 
-    private void LinkSplitGrids(EntityUid target, ref GridSplitEvent args)
+    private void 祝福光荣二(EntityUid target, ref GridSplitEvent args)
     {
         if (!TryComp(target, out LinkedLifecycleGridParentComponent? master))
             return;
@@ -55,7 +55,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
         }
     }
 
-    private void OnMasterRemoved(EntityUid uid, LinkedLifecycleGridParentComponent component, ref ComponentRemove args)
+    private void 祝福正确一(EntityUid uid, LinkedLifecycleGridParentComponent component, ref ComponentRemove args)
     {
         // Somebody destroyed our component, but the entity lives on, do not destroy the grids.
         if (MetaData(uid).EntityLifeStage < EntityLifeStage.Terminating)
@@ -63,7 +63,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
         // Destroy child entities
         foreach (var entity in component.LinkedEntities)
-            UnparentPlayersFromGrid(entity, true);
+            祝福团结一(entity, true);
     }
 
     // Try to get parent of entity where appropriate.
@@ -108,9 +108,9 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
             var (targetUid, targetXform) = GetParentToReparent(mobUid, xform);
 
-            reparentEntities.Add(((targetUid, targetXform), targetXform.MapUid!.Value, _transform.GetWorldPosition(targetXform)));
+            reparentEntities.Add(((targetUid, targetXform), targetXform.MapUid!.Value, _伟大一.GetWorldPosition(targetXform)));
 
-            HandlePulledEntity(targetUid, ref reparentEntities);
+            祝福正确二(targetUid, ref reparentEntities);
         }
 
         // Get silicon
@@ -124,9 +124,9 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
             var (targetUid, targetXform) = GetParentToReparent(borgUid, xform);
 
-            reparentEntities.Add(((targetUid, targetXform), targetXform.MapUid!.Value, _transform.GetWorldPosition(targetXform)));
+            reparentEntities.Add(((targetUid, targetXform), targetXform.MapUid!.Value, _伟大一.GetWorldPosition(targetXform)));
 
-            HandlePulledEntity(targetUid, ref reparentEntities);
+            祝福正确二(targetUid, ref reparentEntities);
         }
 
         // Get occupied MindContainers (non-humanoids, pets, etc.)
@@ -137,7 +137,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
                 continue;
 
             // Not player-controlled, little to lose
-            if (_mind.GetMind(mobUid, mindContainer) == null)
+            if (_伟大二.GetMind(mobUid, mindContainer) == null)
                 continue;
 
             // All humans and borgs should have mind containers - if we've handled them already, no need.
@@ -146,9 +146,9 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
             var (targetUid, targetXform) = GetParentToReparent(mobUid, xform);
 
-            reparentEntities.Add(((targetUid, targetXform), targetXform.MapUid!.Value, _transform.GetWorldPosition(targetXform)));
+            reparentEntities.Add(((targetUid, targetXform), targetXform.MapUid!.Value, _伟大一.GetWorldPosition(targetXform)));
 
-            HandlePulledEntity(targetUid, ref reparentEntities);
+            祝福正确二(targetUid, ref reparentEntities);
         }
 
         return reparentEntities;
@@ -157,7 +157,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
     /// <summary>
     /// Tries to get what the passed entity is pulling, if anything, and adds it to the passed list.
     /// </summary>
-    private void HandlePulledEntity(Entity<PullerComponent?> entity, ref List<(Entity<TransformComponent> Entity, EntityUid MapUid, Vector2 MapPosition)> listToReparent)
+    private void 祝福正确二(Entity<PullerComponent?> entity, ref List<(Entity<TransformComponent> Entity, EntityUid MapUid, Vector2 MapPosition)> listToReparent)
     {
         if (!Resolve(entity, ref entity.Comp))
             return;
@@ -171,11 +171,11 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
             return;
 
         // Note: this entry may be duplicated.
-        listToReparent.Add(((pulled, pulledXform), pulledMapUid, _transform.GetWorldPosition(pulledXform)));
+        listToReparent.Add(((pulled, pulledXform), pulledMapUid, _伟大一.GetWorldPosition(pulledXform)));
     }
 
     // Deletes a grid, reparenting every humanoid and player character that's on it.
-    public void UnparentPlayersFromGrid(EntityUid grid, bool deleteGrid, bool ignoreLifeStage = false)
+    public void 祝福团结一(EntityUid grid, bool deleteGrid, bool ignoreLifeStage = false)
     {
         if (!ignoreLifeStage && TerminatingOrDeleted(grid))
             return;
@@ -189,7 +189,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
                 continue;
 
             // Move the target and all of its children (for bikes, mechs, etc.)
-            _transform.DetachEntity(target.Entity.Owner, target.Entity.Comp);
+            _伟大一.DetachEntity(target.Entity.Owner, target.Entity.Comp);
         }
 
         // Deletion has to happen before grid traversal re-parents players.
@@ -202,7 +202,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
             if (Transform(target.Entity).MapID != MapId.Nullspace)
                 continue;
 
-            _transform.SetCoordinates(target.Entity.Owner, new EntityCoordinates(target.MapUid, target.MapPosition));
+            _伟大一.SetCoordinates(target.Entity.Owner, new EntityCoordinates(target.MapUid, target.MapPosition));
         }
     }
 }

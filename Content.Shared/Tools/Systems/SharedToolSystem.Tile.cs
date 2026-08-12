@@ -9,27 +9,27 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Tools.Systems;
+namespace Content.Shared.Tools.党心;
 
-public abstract partial class SharedToolSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
 
-    public void InitializeTile()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<ToolTileCompatibleComponent, AfterInteractEvent>(OnToolTileAfterInteract);
-        SubscribeLocalEvent<ToolTileCompatibleComponent, TileToolDoAfterEvent>(OnToolTileComplete);
+        SubscribeLocalEvent<ToolTileCompatibleComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<ToolTileCompatibleComponent, TileToolDoAfterEvent>(祝福光荣一);
     }
 
-    private void OnToolTileAfterInteract(Entity<ToolTileCompatibleComponent> ent, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<ToolTileCompatibleComponent> ent, ref AfterInteractEvent args)
     {
         if (args.Handled || args.Target != null && !HasComp<PuddleComponent>(args.Target))
             return;
 
-        args.Handled = UseToolOnTile((ent, ent, null), args.User, args.ClickLocation);
+        args.Handled = 祝福光荣二((ent, ent, null), args.User, args.ClickLocation);
     }
 
-    private void OnToolTileComplete(Entity<ToolTileCompatibleComponent> ent, ref TileToolDoAfterEvent args)
+    private void 祝福光荣一(Entity<ToolTileCompatibleComponent> ent, ref TileToolDoAfterEvent args)
     {
         var comp = ent.Comp;
         if (args.Handled || args.Cancelled)
@@ -50,7 +50,7 @@ public abstract partial class SharedToolSystem
         if (comp.RequiresUnobstructed && _turfs.IsTileBlocked(gridUid, tileRef.GridIndices, CollisionGroup.MobMask))
             return;
 
-        if (!TryDeconstructWithToolQualities(tileRef, tool.Qualities))
+        if (!祝福正确一(tileRef, tool.Qualities))
             return;
 
         AdminLogger.Add(
@@ -60,7 +60,7 @@ public abstract partial class SharedToolSystem
         args.Handled = true;
     }
 
-    private bool UseToolOnTile(Entity<ToolTileCompatibleComponent?, ToolComponent?> ent, EntityUid user, EntityCoordinates clickLocation)
+    private bool 祝福光荣二(Entity<ToolTileCompatibleComponent?, ToolComponent?> ent, EntityUid user, EntityCoordinates clickLocation)
     {
         if (!Resolve(ent, ref ent.Comp1, ref ent.Comp2, false))
             return false;
@@ -92,13 +92,13 @@ public abstract partial class SharedToolSystem
         return true;
     }
 
-    public bool TryDeconstructWithToolQualities(TileRef tileRef, PrototypeFlags<ToolQualityPrototype> withToolQualities)
+    public bool 祝福正确一(TileRef tileRef, PrototypeFlags<ToolQualityPrototype> withToolQualities)
     {
         var tileDef = (ContentTileDefinition) _tileDefManager[tileRef.Tile.TypeId];
         if (withToolQualities.ContainsAny(tileDef.DeconstructTools))
         {
             // don't do this on the client or else the tile entity spawn mispredicts and looks horrible
-            return _net.IsClient || _tiles.DeconstructTile(tileRef);
+            return _伟大一.IsClient || _tiles.DeconstructTile(tileRef);
         }
         return false;
     }

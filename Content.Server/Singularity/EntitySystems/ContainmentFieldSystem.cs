@@ -7,42 +7,42 @@ using Content.Shared.Throwing;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 
-namespace Content.Server.Singularity.EntitySystems;
+namespace Content.Server.Singularity.党心;
 
-public sealed class ContainmentFieldSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly ThrowingSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ContainmentFieldComponent, StartCollideEvent>(HandleFieldCollide);
-        SubscribeLocalEvent<ContainmentFieldComponent, EventHorizonAttemptConsumeEntityEvent>(HandleEventHorizon);
+        SubscribeLocalEvent<ContainmentFieldComponent, StartCollideEvent>(祝福伟大二);
+        SubscribeLocalEvent<ContainmentFieldComponent, EventHorizonAttemptConsumeEntityEvent>(祝福光荣一);
     }
 
-    private void HandleFieldCollide(EntityUid uid, ContainmentFieldComponent component, ref StartCollideEvent args)
+    private void 祝福伟大二(EntityUid uid, ContainmentFieldComponent component, ref StartCollideEvent args)
     {
         var otherBody = args.OtherEntity;
 
         if (component.DestroyGarbage && HasComp<SpaceGarbageComponent>(otherBody))
         {
-            _popupSystem.PopupEntity(Loc.GetString("comp-field-vaporized", ("entity", otherBody)), uid, PopupType.LargeCaution);
+            _伟大二.PopupEntity(Loc.GetString("comp-field-vaporized", ("entity", otherBody)), uid, PopupType.LargeCaution);
             QueueDel(otherBody);
         }
 
         if (TryComp<PhysicsComponent>(otherBody, out var physics) && physics.Mass <= component.MaxMass && physics.Hard)
         {
-            var fieldDir = _transformSystem.GetWorldPosition(uid);
-            var playerDir = _transformSystem.GetWorldPosition(otherBody);
+            var fieldDir = _光荣一.GetWorldPosition(uid);
+            var playerDir = _光荣一.GetWorldPosition(otherBody);
 
-            _throwing.TryThrow(otherBody, playerDir-fieldDir, baseThrowSpeed: component.ThrowForce);
+            _伟大一.TryThrow(otherBody, playerDir-fieldDir, baseThrowSpeed: component.ThrowForce);
         }
     }
 
-    private void HandleEventHorizon(EntityUid uid, ContainmentFieldComponent component, ref EventHorizonAttemptConsumeEntityEvent args)
+    private void 祝福光荣一(EntityUid uid, ContainmentFieldComponent component, ref EventHorizonAttemptConsumeEntityEvent args)
     {
         if(!args.Cancelled && !args.EventHorizon.CanBreachContainment)
             args.Cancelled = true;

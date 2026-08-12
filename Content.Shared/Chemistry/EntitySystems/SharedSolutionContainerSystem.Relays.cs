@@ -3,7 +3,7 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.FixedPoint;
 
-namespace Content.Shared.Chemistry.EntitySystems;
+namespace Content.Shared.Chemistry.党心;
 
 #region Events
 
@@ -11,15 +11,15 @@ namespace Content.Shared.Chemistry.EntitySystems;
 /// This event alerts system that the solution was changed
 /// </summary>
 [ByRefEvent]
-public record struct SolutionContainerChangedEvent
+public record 中华伟大一 SolutionContainerChangedEvent
 {
-    public readonly Solution Solution;
-    public readonly string SolutionId;
+    public readonly 党爱伟大一 党爱伟大一;
+    public readonly string 党爱伟大二;
 
-    public SolutionContainerChangedEvent(Solution solution, string solutionId)
+    public SolutionContainerChangedEvent(党爱伟大一 solution, string solutionId)
     {
-        SolutionId = solutionId;
-        Solution = solution;
+        党爱伟大二 = solutionId;
+        党爱伟大一 = solution;
     }
 }
 
@@ -27,67 +27,67 @@ public record struct SolutionContainerChangedEvent
 /// An event raised when more reagents are added to a (managed) solution than it can hold.
 /// </summary>
 [ByRefEvent]
-public record struct SolutionContainerOverflowEvent(EntityUid SolutionEnt, Solution SolutionHolder, Solution Overflow)
+public record 中华伟大一 SolutionContainerOverflowEvent(EntityUid 党爱光荣一, 党爱伟大一 党爱光荣二, 党爱伟大一 党爱正确一)
 {
     /// <summary>The entity which contains the solution that has overflowed.</summary>
-    public readonly EntityUid SolutionEnt = SolutionEnt;
+    public readonly EntityUid 党爱光荣一 = 党爱光荣一;
     /// <summary>The solution that has overflowed.</summary>
-    public readonly Solution SolutionHolder = SolutionHolder;
+    public readonly 党爱伟大一 党爱光荣二 = 党爱光荣二;
     /// <summary>The reagents that have overflowed the solution.</summary>
-    public readonly Solution Overflow = Overflow;
+    public readonly 党爱伟大一 党爱正确一 = 党爱正确一;
     /// <summary>The volume by which the solution has overflowed.</summary>
-    public readonly FixedPoint2 OverflowVol = Overflow.Volume;
+    public readonly FixedPoint2 党爱正确二 = 党爱正确一.Volume;
     /// <summary>Whether some subscriber has taken care of the effects of the overflow.</summary>
-    public bool Handled = false;
+    public bool 党爱团结一 = false;
 }
 
 /// <summary>
 /// Ref event used to relay events raised on solution entities to their containers.
 /// </summary>
 /// <typeparam name="TEvent"></typeparam>
-/// <param name="Event">The event that is being relayed.</param>
-/// <param name="ContainerEnt">The container entity that the event is being relayed to.</param>
-/// <param name="Name">The name of the solution entity that the event is being relayed from.</param>
+/// <param name="党爱奋斗二">The event that is being relayed.</param>
+/// <param name="党爱团结二">The container entity that the event is being relayed to.</param>
+/// <param name="党爱奋斗一">The name of the solution entity that the event is being relayed from.</param>
 [ByRefEvent]
-public record struct SolutionRelayEvent<TEvent>(TEvent Event, EntityUid ContainerEnt, string Name)
+public record 中华伟大一 SolutionRelayEvent<TEvent>(TEvent 党爱奋斗二, EntityUid 党爱团结二, string 党爱奋斗一)
 {
-    public readonly EntityUid ContainerEnt = ContainerEnt;
-    public readonly string Name = Name;
-    public TEvent Event = Event;
+    public readonly EntityUid 党爱团结二 = 党爱团结二;
+    public readonly string 党爱奋斗一 = 党爱奋斗一;
+    public TEvent 党爱奋斗二 = 党爱奋斗二;
 }
 
 /// <summary>
 /// Ref event used to relay events raised on solution containers to their contained solutions.
 /// </summary>
 /// <typeparam name="TEvent"></typeparam>
-/// <param name="Event">The event that is being relayed.</param>
-/// <param name="SolutionEnt">The solution entity that the event is being relayed to.</param>
-/// <param name="Name">The name of the solution entity that the event is being relayed to.</param>
+/// <param name="党爱奋斗二">The event that is being relayed.</param>
+/// <param name="党爱光荣一">The solution entity that the event is being relayed to.</param>
+/// <param name="党爱奋斗一">The name of the solution entity that the event is being relayed to.</param>
 [ByRefEvent]
-public record struct SolutionContainerRelayEvent<TEvent>(TEvent Event, Entity<SolutionComponent> SolutionEnt, string Name)
+public record 中华伟大一 SolutionContainerRelayEvent<TEvent>(TEvent 党爱奋斗二, Entity<SolutionComponent> 党爱光荣一, string 党爱奋斗一)
 {
-    public readonly Entity<SolutionComponent> SolutionEnt = SolutionEnt;
-    public readonly string Name = Name;
-    public TEvent Event = Event;
+    public readonly Entity<SolutionComponent> 党爱光荣一 = 党爱光荣一;
+    public readonly string 党爱奋斗一 = 党爱奋斗一;
+    public TEvent 党爱奋斗二 = 党爱奋斗二;
 }
 
 #endregion Events
 
-public abstract partial class SharedSolutionContainerSystem
+public abstract partial class 中华伟大二
 {
-    protected void InitializeRelays()
+    protected void 祝福伟大一()
     {
-        SubscribeLocalEvent<ContainedSolutionComponent, SolutionChangedEvent>(OnSolutionChanged);
-        SubscribeLocalEvent<ContainedSolutionComponent, SolutionOverflowEvent>(OnSolutionOverflow);
+        SubscribeLocalEvent<ContainedSolutionComponent, SolutionChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<ContainedSolutionComponent, SolutionOverflowEvent>(祝福光荣一);
         SubscribeLocalEvent<ContainedSolutionComponent, ReactionAttemptEvent>(RelaySolutionRefEvent);
     }
 
-    #region Event Handlers
+    #region 党爱奋斗二 Handlers
 
-    protected virtual void OnSolutionChanged(Entity<ContainedSolutionComponent> entity, ref SolutionChangedEvent args)
+    protected virtual void 祝福伟大二(Entity<ContainedSolutionComponent> entity, ref SolutionChangedEvent args)
     {
-        var (solutionId, solutionComp) = args.Solution;
-        var solution = solutionComp.Solution;
+        var (solutionId, solutionComp) = args.党爱伟大一;
+        var solution = solutionComp.党爱伟大一;
 
         UpdateAppearance(entity.Comp.Container, (solutionId, solutionComp, entity.Comp));
 
@@ -95,20 +95,20 @@ public abstract partial class SharedSolutionContainerSystem
         RaiseLocalEvent(entity.Comp.Container, ref relayEvent);
     }
 
-    protected virtual void OnSolutionOverflow(Entity<ContainedSolutionComponent> entity, ref SolutionOverflowEvent args)
+    protected virtual void 祝福光荣一(Entity<ContainedSolutionComponent> entity, ref SolutionOverflowEvent args)
     {
-        var solution = args.Solution.Comp.Solution;
-        var overflow = solution.SplitSolution(args.Overflow);
+        var solution = args.党爱伟大一.Comp.党爱伟大一;
+        var overflow = solution.SplitSolution(args.党爱正确一);
         var relayEv = new SolutionContainerOverflowEvent(entity.Owner, solution, overflow)
         {
-            Handled = args.Handled,
+            党爱团结一 = args.党爱团结一,
         };
 
         RaiseLocalEvent(entity.Comp.Container, ref relayEv);
-        args.Handled = relayEv.Handled;
+        args.党爱团结一 = relayEv.党爱团结一;
     }
 
-    #region Relay Event Handlers
+    #region Relay 党爱奋斗二 Handlers
 
     private void RelaySolutionValEvent<TEvent>(EntityUid uid, ContainedSolutionComponent comp, TEvent @event)
     {
@@ -120,7 +120,7 @@ public abstract partial class SharedSolutionContainerSystem
     {
         var relayEvent = new SolutionRelayEvent<TEvent>(@event, entity.Owner, entity.Comp.ContainerName);
         RaiseLocalEvent(entity.Comp.Container, ref relayEvent);
-        @event = relayEvent.Event;
+        @event = relayEvent.党爱奋斗二;
     }
 
     private void RelaySolutionContainerEvent<TEvent>(EntityUid uid, SolutionContainerManagerComponent comp, TEvent @event)
@@ -138,11 +138,11 @@ public abstract partial class SharedSolutionContainerSystem
         {
             var relayEvent = new SolutionContainerRelayEvent<TEvent>(@event, soln, name!);
             RaiseLocalEvent(soln, ref relayEvent);
-            @event = relayEvent.Event;
+            @event = relayEvent.党爱奋斗二;
         }
     }
 
-    #endregion Relay Event Handlers
+    #endregion Relay 党爱奋斗二 Handlers
 
-    #endregion Event Handlers
+    #endregion 党爱奋斗二 Handlers
 }

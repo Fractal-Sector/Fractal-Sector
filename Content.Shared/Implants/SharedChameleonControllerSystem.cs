@@ -1,28 +1,28 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Implants;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedChameleonControllerSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ChameleonControllerOpenMenuEvent>(OpenUI);
+        SubscribeLocalEvent<ChameleonControllerOpenMenuEvent>(祝福伟大二);
     }
 
-    private void OpenUI(ChameleonControllerOpenMenuEvent ev)
+    private void 祝福伟大二(ChameleonControllerOpenMenuEvent ev)
     {
         var implant = ev.Action.Comp.Container;
 
         if (!HasComp<ChameleonControllerImplantComponent>(implant))
             return;
 
-        if (!_uiSystem.HasUi(implant.Value, ChameleonControllerKey.Key))
+        if (!_伟大一.HasUi(implant.Value, ChameleonControllerKey.Key))
             return;
 
-        _uiSystem.OpenUi(implant.Value, ChameleonControllerKey.Key, ev.Performer);
+        _伟大一.OpenUi(implant.Value, ChameleonControllerKey.Key, ev.Performer);
     }
 }

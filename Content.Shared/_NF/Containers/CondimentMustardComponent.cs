@@ -1,11 +1,11 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared._NF.Containers.Components;
+namespace Content.Shared._NF.Containers.党心;
 /// <summary>
 /// CondimentMustard empty component
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class CondimentMustardComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
 }

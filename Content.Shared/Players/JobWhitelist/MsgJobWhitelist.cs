@@ -2,30 +2,30 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Players.JobWhitelist;
+namespace Content.Shared.Players.党心;
 
-public sealed class MsgJobWhitelist : NetMessage
+public sealed class 中华伟大一 : NetMessage
 {
-    public override MsgGroups MsgGroup => MsgGroups.EntityEvent;
+    public override MsgGroups 党爱伟大一 => MsgGroups.EntityEvent;
 
-    public HashSet<string> Whitelist = new();
+    public HashSet<string> 党爱伟大二 = new();
 
-    public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大一(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
         var count = buffer.ReadVariableInt32();
-        Whitelist.EnsureCapacity(count);
+        党爱伟大二.EnsureCapacity(count);
 
         for (var i = 0; i < count; i++)
         {
-            Whitelist.Add(buffer.ReadString());
+            党爱伟大二.Add(buffer.ReadString());
         }
     }
 
-    public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大二(NetOutgoingMessage buffer, IRobustSerializer serializer)
     {
-        buffer.WriteVariableInt32(Whitelist.Count);
+        buffer.WriteVariableInt32(党爱伟大二.Count);
 
-        foreach (var ban in Whitelist)
+        foreach (var ban in 党爱伟大二)
         {
             buffer.Write(ban);
         }

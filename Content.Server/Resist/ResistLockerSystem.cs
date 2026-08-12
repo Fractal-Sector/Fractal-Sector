@@ -10,25 +10,25 @@ using Content.Shared.Tools.Components;
 using Content.Shared.Tools.Systems;
 using Content.Shared.ActionBlocker;
 
-namespace Content.Server.Resist;
+namespace Content.Server.党心;
 
-public sealed class ResistLockerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly LockSystem _lockSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly WeldableSystem _weldable = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private readonly EntityStorageSystem _伟大一 = default!;
+    [Dependency] private readonly LockSystem _伟大二 = default!;
+    [Dependency] private readonly PopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
+    [Dependency] private readonly WeldableSystem _正确一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ResistLockerComponent, ContainerRelayMovementEntityEvent>(OnRelayMovement);
-        SubscribeLocalEvent<ResistLockerComponent, ResistLockerDoAfterEvent>(OnDoAfter);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ResistLockerComponent, ContainerRelayMovementEntityEvent>(祝福伟大二);
+        SubscribeLocalEvent<ResistLockerComponent, ResistLockerDoAfterEvent>(祝福光荣二);
     }
 
-    private void OnRelayMovement(EntityUid uid, ResistLockerComponent component, ref ContainerRelayMovementEntityEvent args)
+    private void 祝福伟大二(EntityUid uid, ResistLockerComponent component, ref ContainerRelayMovementEntityEvent args)
     {
         if (component.IsResisting)
             return;
@@ -36,16 +36,16 @@ public sealed class ResistLockerSystem : EntitySystem
         if (!TryComp(uid, out EntityStorageComponent? storageComponent))
             return;
 
-        if (!_actionBlocker.CanMove(args.Entity))
+        if (!_正确二.CanMove(args.Entity))
             return;
 
-        if (TryComp<LockComponent>(uid, out var lockComponent) && lockComponent.Locked || _weldable.IsWelded(uid))
+        if (TryComp<LockComponent>(uid, out var lockComponent) && lockComponent.Locked || _正确一.IsWelded(uid))
         {
-            AttemptResist(args.Entity, uid, storageComponent, component);
+            祝福光荣一(args.Entity, uid, storageComponent, component);
         }
     }
 
-    private void AttemptResist(EntityUid user, EntityUid target, EntityStorageComponent? storageComponent = null, ResistLockerComponent? resistLockerComponent = null)
+    private void 祝福光荣一(EntityUid user, EntityUid target, EntityStorageComponent? storageComponent = null, ResistLockerComponent? resistLockerComponent = null)
     {
         if (!Resolve(target, ref storageComponent, ref resistLockerComponent))
             return;
@@ -58,16 +58,16 @@ public sealed class ResistLockerSystem : EntitySystem
         };
 
         resistLockerComponent.IsResisting = true;
-        _popupSystem.PopupEntity(Loc.GetString("resist-locker-component-start-resisting"), user, user, PopupType.Large);
-        _doAfterSystem.TryStartDoAfter(doAfterEventArgs);
+        _光荣一.PopupEntity(Loc.GetString("resist-locker-component-start-resisting"), user, user, PopupType.Large);
+        _光荣二.TryStartDoAfter(doAfterEventArgs);
     }
 
-    private void OnDoAfter(EntityUid uid, ResistLockerComponent component, DoAfterEvent args)
+    private void 祝福光荣二(EntityUid uid, ResistLockerComponent component, DoAfterEvent args)
     {
         if (args.Cancelled)
         {
             component.IsResisting = false;
-            _popupSystem.PopupEntity(Loc.GetString("resist-locker-component-resist-interrupted"), args.Args.User, args.Args.User, PopupType.Medium);
+            _光荣一.PopupEntity(Loc.GetString("resist-locker-component-resist-interrupted"), args.Args.User, args.Args.User, PopupType.Medium);
             return;
         }
 
@@ -79,13 +79,13 @@ public sealed class ResistLockerSystem : EntitySystem
         if (HasComp<EntityStorageComponent>(uid))
         {
             WeldableComponent? weldable = null;
-            if (_weldable.IsWelded(uid, weldable))
-                _weldable.SetWeldedState(uid, false, weldable);
+            if (_正确一.IsWelded(uid, weldable))
+                _正确一.SetWeldedState(uid, false, weldable);
 
             if (TryComp<LockComponent>(args.Args.Target.Value, out var lockComponent))
-                _lockSystem.Unlock(uid, args.Args.User, lockComponent);
+                _伟大二.Unlock(uid, args.Args.User, lockComponent);
 
-            _entityStorage.TryOpenStorage(args.Args.User, uid);
+            _伟大一.TryOpenStorage(args.Args.User, uid);
         }
 
         args.Handled = true;

@@ -4,10 +4,10 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._DV.Abilities;
+namespace Content.Shared._DV.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class CrawlUnderObjectsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
     public EntityUid? ToggleHideAction;
@@ -16,7 +16,7 @@ public sealed partial class CrawlUnderObjectsComponent : Component
     public EntProtoId? ActionProto;
 
     [DataField]
-    public bool Enabled = false;
+    public bool 党爱伟大一 = false;
 
     /// <summary>
     ///     List of fixtures that had their collision mask changed.
@@ -29,19 +29,19 @@ public sealed partial class CrawlUnderObjectsComponent : Component
     public int? OriginalDrawDepth;
 
     [DataField]
-    public float SneakSpeedModifier = 0.7f;
+    public float 党爱伟大二 = 0.7f;
 }
 
 [Serializable, NetSerializable]
-public enum SneakMode : byte
+public enum 中华伟大二 : byte
 {
-    Enabled
+    党爱伟大一
 }
 
-public sealed partial class ToggleCrawlingStateEvent : InstantActionEvent { }
+public sealed partial class 中华光荣一 : InstantActionEvent { }
 
 [Serializable, NetSerializable]
-public sealed partial class CrawlingUpdatedEvent(bool enabled = false) : EventArgs
+public sealed partial class 中华光荣二(bool enabled = false) : EventArgs
 {
-    public readonly bool Enabled = enabled;
+    public readonly bool 党爱伟大一 = enabled;
 }

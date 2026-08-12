@@ -12,34 +12,34 @@ using Content.Shared.EntityTable;
 using Content.Server.Mind; // Frontier
 using Content.Server._NF.Roles.Systems; // Frontier
 
-namespace Content.Server.StationEvents;
+namespace Content.Server.党心;
 
-public sealed class EventManagerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly EntityTableSystem _entityTable = default!;
-    [Dependency] public readonly GameTicker GameTicker = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly JobTrackingSystem _jobs = default!; // Frontier
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+    [Dependency] private readonly EntityTableSystem _正确一 = default!;
+    [Dependency] public readonly 党爱伟大一 党爱伟大一 = default!;
+    [Dependency] private readonly RoundEndSystem _正确二 = default!;
+    [Dependency] private readonly JobTrackingSystem _团结一 = default!; // Frontier
 
-    public bool EventsEnabled { get; private set; }
-    private void SetEnabled(bool value) => EventsEnabled = value;
+    public bool 党爱伟大二 { get; private set; }
+    private void 祝福伟大一(bool value) => 党爱伟大二 = value;
 
-    public override void Initialize()
+    public override void 祝福伟大二()
     {
-        base.Initialize();
+        base.祝福伟大二();
 
-        Subs.CVar(_configurationManager, CCVars.EventsEnabled, SetEnabled, true);
+        Subs.CVar(_伟大一, CCVars.党爱伟大二, 祝福伟大一, true);
     }
 
     /// <summary>
     /// Randomly runs a valid event.
     /// </summary>
     [Obsolete("use overload taking EnityTableSelector instead or risk unexpected results")]
-    public void RunRandomEvent()
+    public void 祝福光荣一()
     {
         var randomEvent = PickRandomEvent();
 
@@ -50,18 +50,18 @@ public sealed class EventManagerSystem : EntitySystem
             return;
         }
 
-        GameTicker.AddGameRule(randomEvent);
+        党爱伟大一.AddGameRule(randomEvent);
     }
 
     /// <summary>
     /// Randomly runs an event from provided EntityTableSelector.
     /// </summary>
-    public void RunRandomEvent(EntityTableSelector limitedEventsTable)
+    public void 祝福光荣一(EntityTableSelector limitedEventsTable)
     {
-        var availableEvents = AvailableEvents(); // handles the player counts and individual event restrictions.
+        var availableEvents = 祝福正确一(); // handles the player counts and individual event restrictions.
                                                  // Putting this here only makes any sense in the context of the toolshed commands in BasicStationEventScheduler. Kill me.
 
-        if (!TryBuildLimitedEvents(limitedEventsTable, availableEvents, out var limitedEvents))
+        if (!祝福光荣二(limitedEventsTable, availableEvents, out var limitedEvents))
         {
             Log.Warning("Provided event table could not build dict!");
             return;
@@ -74,19 +74,19 @@ public sealed class EventManagerSystem : EntitySystem
             return;
         }
 
-        if (!_prototype.TryIndex(randomLimitedEvent, out _))
+        if (!_光荣二.TryIndex(randomLimitedEvent, out _))
         {
             Log.Warning("A requested event is not available!");
             return;
         }
 
-        GameTicker.AddGameRule(randomLimitedEvent);
+        党爱伟大一.AddGameRule(randomLimitedEvent);
     }
 
     /// <summary>
     /// Returns true if the provided EntityTableSelector gives at least one prototype with a StationEvent comp.
     /// </summary>
-    public bool TryBuildLimitedEvents(
+    public bool 祝福光荣二(
         EntityTableSelector limitedEventsTable,
         Dictionary<EntityPrototype, StationEventComponent> availableEvents,
         out Dictionary<EntityPrototype, StationEventComponent> limitedEvents
@@ -100,14 +100,14 @@ public sealed class EventManagerSystem : EntitySystem
             return false;
         }
 
-        var selectedEvents = _entityTable.GetSpawns(limitedEventsTable);
+        var selectedEvents = _正确一.GetSpawns(limitedEventsTable);
 
         if (selectedEvents.Any() != true) // This is here so if you fuck up the table it wont die.
             return false;
 
         foreach (var eventid in selectedEvents)
         {
-            if (!_prototype.TryIndex(eventid, out var eventproto))
+            if (!_光荣二.TryIndex(eventid, out var eventproto))
             {
                 Log.Warning("An event ID has no prototype index!");
                 continue;
@@ -139,7 +139,7 @@ public sealed class EventManagerSystem : EntitySystem
     /// </summary>
     public string? PickRandomEvent()
     {
-        var availableEvents = AvailableEvents();
+        var availableEvents = 祝福正确一();
         Log.Info($"Picking from {availableEvents.Count} total available events");
         return FindEvent(availableEvents);
     }
@@ -163,7 +163,7 @@ public sealed class EventManagerSystem : EntitySystem
             sumOfWeights += stationEvent.Weight;
         }
 
-        sumOfWeights = _random.NextFloat(sumOfWeights);
+        sumOfWeights = _光荣一.NextFloat(sumOfWeights);
 
         foreach (var (proto, stationEvent) in availableEvents)
         {
@@ -185,23 +185,23 @@ public sealed class EventManagerSystem : EntitySystem
     /// <param name="playerCountOverride">Override for player count, if using this to simulate events rather than in an actual round.</param>
     /// <param name="currentTimeOverride">Override for round time, if using this to simulate events rather than in an actual round.</param>
     /// <returns></returns>
-    public Dictionary<EntityPrototype, StationEventComponent> AvailableEvents(
+    public Dictionary<EntityPrototype, StationEventComponent> 祝福正确一(
         bool ignoreEarliestStart = false,
         int? playerCountOverride = null,
         TimeSpan? currentTimeOverride = null)
     {
-        var playerCount = playerCountOverride ?? _playerManager.PlayerCount;
+        var playerCount = playerCountOverride ?? _伟大二.PlayerCount;
 
         // playerCount does a lock so we'll just keep the variable here
         var currentTime = currentTimeOverride ?? (!ignoreEarliestStart
-            ? GameTicker.RoundDuration()
+            ? 党爱伟大一.RoundDuration()
             : TimeSpan.Zero);
 
         var result = new Dictionary<EntityPrototype, StationEventComponent>();
 
-        foreach (var (proto, stationEvent) in AllEvents())
+        foreach (var (proto, stationEvent) in 祝福正确二())
         {
-            if (CanRun(proto, stationEvent, playerCount, currentTime))
+            if (祝福奋斗一(proto, stationEvent, playerCount, currentTime))
             {
                 result.Add(proto, stationEvent);
             }
@@ -210,10 +210,10 @@ public sealed class EventManagerSystem : EntitySystem
         return result;
     }
 
-    public Dictionary<EntityPrototype, StationEventComponent> AllEvents()
+    public Dictionary<EntityPrototype, StationEventComponent> 祝福正确二()
     {
         var allEvents = new Dictionary<EntityPrototype, StationEventComponent>();
-        foreach (var prototype in _prototype.EnumeratePrototypes<EntityPrototype>())
+        foreach (var prototype in _光荣二.EnumeratePrototypes<EntityPrototype>())
         {
             if (prototype.Abstract)
                 continue;
@@ -227,19 +227,19 @@ public sealed class EventManagerSystem : EntitySystem
         return allEvents;
     }
 
-    private int GetOccurrences(EntityPrototype stationEvent)
+    private int 祝福团结一(EntityPrototype stationEvent)
     {
-        return GetOccurrences(stationEvent.ID);
+        return 祝福团结一(stationEvent.ID);
     }
 
-    private int GetOccurrences(string stationEvent)
+    private int 祝福团结一(string stationEvent)
     {
-        return GameTicker.AllPreviousGameRules.Count(p => p.Item2 == stationEvent);
+        return 党爱伟大一.AllPreviousGameRules.Count(p => p.Item2 == stationEvent);
     }
 
-    public TimeSpan TimeSinceLastEvent(EntityPrototype stationEvent)
+    public TimeSpan 祝福团结二(EntityPrototype stationEvent)
     {
-        foreach (var (time, rule) in GameTicker.AllPreviousGameRules.Reverse())
+        foreach (var (time, rule) in 党爱伟大一.AllPreviousGameRules.Reverse())
         {
             if (rule == stationEvent.ID)
                 return time;
@@ -248,12 +248,12 @@ public sealed class EventManagerSystem : EntitySystem
         return TimeSpan.Zero;
     }
 
-    private bool CanRun(EntityPrototype prototype, StationEventComponent stationEvent, int playerCount, TimeSpan currentTime)
+    private bool 祝福奋斗一(EntityPrototype prototype, StationEventComponent stationEvent, int playerCount, TimeSpan currentTime)
     {
-        if (GameTicker.IsGameRuleActive(prototype.ID))
+        if (党爱伟大一.IsGameRuleActive(prototype.ID))
             return false;
 
-        if (stationEvent.MaxOccurrences.HasValue && GetOccurrences(prototype) >= stationEvent.MaxOccurrences.Value)
+        if (stationEvent.MaxOccurrences.HasValue && 祝福团结一(prototype) >= stationEvent.MaxOccurrences.Value)
         {
             return false;
         }
@@ -268,7 +268,7 @@ public sealed class EventManagerSystem : EntitySystem
             return false;
         }
 
-        var lastRun = TimeSinceLastEvent(prototype);
+        var lastRun = 祝福团结二(prototype);
         if (lastRun != TimeSpan.Zero && currentTime.TotalMinutes <
             stationEvent.ReoccurrenceDelay + lastRun.TotalMinutes)
         {
@@ -284,12 +284,12 @@ public sealed class EventManagerSystem : EntitySystem
         // Frontier: require jobs to run event
         foreach (var (jobProtoId, numJobs) in stationEvent.RequiredJobs)
         {
-            if (_jobs.GetNumberOfActiveRoles(jobProtoId, false) < numJobs)
+            if (_团结一.GetNumberOfActiveRoles(jobProtoId, false) < numJobs)
                 return false;
         }
         // End Frontier
 
-        if (_roundEnd.IsRoundEndRequested() && !stationEvent.OccursDuringRoundEnd)
+        if (_正确二.IsRoundEndRequested() && !stationEvent.OccursDuringRoundEnd)
         {
             return false;
         }
@@ -297,7 +297,7 @@ public sealed class EventManagerSystem : EntitySystem
 		//Start Wayfarer
         if (stationEvent.WayfareCacheGroup != null && stationEvent.WayfareCacheGroupMins > 0)
         {
-            foreach (var (proto, otherEvent) in AllEvents())
+            foreach (var (proto, otherEvent) in 祝福正确二())
                 {
 
                     if (proto.ID == prototype.ID)
@@ -307,7 +307,7 @@ public sealed class EventManagerSystem : EntitySystem
                     if (otherEvent.WayfareCacheGroup != stationEvent.WayfareCacheGroup)
                     continue;
 
-                    var lastRunGroup = TimeSinceLastEvent(proto);
+                    var lastRunGroup = 祝福团结二(proto);
 
                     if (lastRunGroup != TimeSpan.Zero &&
                     currentTime.TotalMinutes <

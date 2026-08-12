@@ -37,28 +37,28 @@ using Robust.Shared.Prototypes;
 using Content.Shared._NF.Bank.Events; // Frontier
 using Content.Server._NF.Bank; // Frontier
 
-namespace Content.Server.Administration.Systems;
+namespace Content.Server.Administration.党心;
 
-public sealed class AdminSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly SharedJobSystem _jobs = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly MindSystem _minds = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTime = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedRoleSystem _role = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly BankSystem _bank = default!; // Wayfarer
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly IChatManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly HandsSystem _正确一 = default!;
+    [Dependency] private readonly SharedJobSystem _正确二 = default!;
+    [Dependency] private readonly InventorySystem _团结一 = default!;
+    [Dependency] private readonly MindSystem _团结二 = default!;
+    [Dependency] private readonly PopupSystem _奋斗一 = default!;
+    [Dependency] private readonly PhysicsSystem _奋斗二 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _胜利一 = default!;
+    [Dependency] private readonly IPrototypeManager _胜利二 = default!;
+    [Dependency] private readonly SharedRoleSystem _繁荣一 = default!;
+    [Dependency] private readonly GameTicker _繁荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _富强一 = default!;
+    [Dependency] private readonly StationRecordsSystem _富强二 = default!;
+    [Dependency] private readonly TransformSystem _民主一 = default!;
+    [Dependency] private readonly BankSystem _民主二 = default!; // Wayfarer
 
     // Wayfarer: NFSD icon in ahelp
     private static readonly FrozenSet<string> NfsdJobIds = new string[]
@@ -72,78 +72,78 @@ public sealed class AdminSystem : EntitySystem
     /// <summary>
     ///     Set of players that have participated in this round.
     /// </summary>
-    public IReadOnlySet<NetUserId> RoundActivePlayers => _roundActivePlayers;
+    public IReadOnlySet<NetUserId> 党爱伟大一 => _文明一;
 
-    private readonly HashSet<NetUserId> _roundActivePlayers = new();
-    public readonly PanicBunkerStatus PanicBunker = new();
+    private readonly HashSet<NetUserId> _文明一 = new();
+    public readonly PanicBunkerStatus 党爱伟大二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
-        _adminManager.OnPermsChanged += OnAdminPermsChanged;
-        _playTime.SessionPlayTimeUpdated += OnSessionPlayTimeUpdated;
+        _光荣二.PlayerStatusChanged += 祝福胜利二;
+        _伟大一.OnPermsChanged += 祝福团结一;
+        _胜利一.SessionPlayTimeUpdated += 祝福平等一;
 
         // Panic Bunker Settings
-        Subs.CVar(_config, CCVars.PanicBunkerEnabled, OnPanicBunkerChanged, true);
-        Subs.CVar(_config, CCVars.PanicBunkerDisableWithAdmins, OnPanicBunkerDisableWithAdminsChanged, true);
-        Subs.CVar(_config, CCVars.PanicBunkerEnableWithoutAdmins, OnPanicBunkerEnableWithoutAdminsChanged, true);
-        Subs.CVar(_config, CCVars.PanicBunkerCountDeadminnedAdmins, OnPanicBunkerCountDeadminnedAdminsChanged, true);
-        Subs.CVar(_config, CCVars.PanicBunkerShowReason, OnPanicBunkerShowReasonChanged, true);
-        Subs.CVar(_config, CCVars.PanicBunkerMinAccountAge, OnPanicBunkerMinAccountAgeChanged, true);
-        Subs.CVar(_config, CCVars.PanicBunkerMinOverallMinutes, OnPanicBunkerMinOverallMinutesChanged, true);
+        Subs.CVar(_光荣一, CCVars.PanicBunkerEnabled, 祝福富强一, true);
+        Subs.CVar(_光荣一, CCVars.PanicBunkerDisableWithAdmins, 祝福富强二, true);
+        Subs.CVar(_光荣一, CCVars.PanicBunkerEnableWithoutAdmins, 祝福民主一, true);
+        Subs.CVar(_光荣一, CCVars.PanicBunkerCountDeadminnedAdmins, 祝福民主二, true);
+        Subs.CVar(_光荣一, CCVars.PanicBunkerShowReason, 祝福文明一, true);
+        Subs.CVar(_光荣一, CCVars.PanicBunkerMinAccountAge, 祝福文明二, true);
+        Subs.CVar(_光荣一, CCVars.PanicBunkerMinOverallMinutes, 祝福和谐一, true);
 
-        SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
-        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
-        SubscribeLocalEvent<RoleAddedEvent>(OnRoleEvent);
-        SubscribeLocalEvent<RoleRemovedEvent>(OnRoleEvent);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
+        SubscribeLocalEvent<PlayerAttachedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<PlayerDetachedEvent>(祝福团结二);
+        SubscribeLocalEvent<RoleAddedEvent>(祝福正确二);
+        SubscribeLocalEvent<RoleRemovedEvent>(祝福正确二);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<ActorComponent, EntityRenamedEvent>(OnPlayerRenamed);
-        SubscribeLocalEvent<ActorComponent, IdentityChangedEvent>(OnIdentityChanged);
-        SubscribeLocalEvent<BalanceChangedEvent>(OnBalanceChanged); // Frontier
+        SubscribeLocalEvent<ActorComponent, EntityRenamedEvent>(祝福光荣一);
+        SubscribeLocalEvent<ActorComponent, IdentityChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<BalanceChangedEvent>(祝福奋斗二); // Frontier
     }
 
-    private void OnRoundRestartCleanup(RoundRestartCleanupEvent ev)
+    private void 祝福伟大二(RoundRestartCleanupEvent ev)
     {
-        _roundActivePlayers.Clear();
+        _文明一.Clear();
 
         foreach (var (id, data) in _playerList)
         {
             if (!data.ActiveThisRound)
                 continue;
 
-            if (!_playerManager.TryGetPlayerData(id, out var playerData))
+            if (!_光荣二.TryGetPlayerData(id, out var playerData))
                 return;
 
-            _playerManager.TryGetSessionById(id, out var session);
-            _playerList[id] = GetPlayerInfo(playerData, session);
+            _光荣二.TryGetSessionById(id, out var session);
+            _playerList[id] = 祝福繁荣二(playerData, session);
         }
 
         var updateEv = new FullPlayerListEvent() { PlayersInfo = _playerList.Values.ToList() };
 
-        foreach (var admin in _adminManager.ActiveAdmins)
+        foreach (var admin in _伟大一.ActiveAdmins)
         {
             RaiseNetworkEvent(updateEv, admin.Channel);
         }
     }
 
-    private void OnPlayerRenamed(Entity<ActorComponent> ent, ref EntityRenamedEvent args)
+    private void 祝福光荣一(Entity<ActorComponent> ent, ref EntityRenamedEvent args)
     {
-        UpdatePlayerList(ent.Comp.PlayerSession);
+        祝福光荣二(ent.Comp.PlayerSession);
     }
 
-    public void UpdatePlayerList(ICommonSession player)
+    public void 祝福光荣二(ICommonSession player)
     {
-        _playerList[player.UserId] = GetPlayerInfo(player.Data, player);
+        _playerList[player.UserId] = 祝福繁荣二(player.Data, player);
 
         var playerInfoChangedEvent = new PlayerInfoChangedEvent
         {
             PlayerInfo = _playerList[player.UserId]
         };
 
-        foreach (var admin in _adminManager.ActiveAdmins)
+        foreach (var admin in _伟大一.ActiveAdmins)
         {
             RaiseNetworkEvent(playerInfoChangedEvent, admin.Channel);
         }
@@ -158,22 +158,22 @@ public sealed class AdminSystem : EntitySystem
         return value ?? null;
     }
 
-    private void OnIdentityChanged(Entity<ActorComponent> ent, ref IdentityChangedEvent ev)
+    private void 祝福正确一(Entity<ActorComponent> ent, ref IdentityChangedEvent ev)
     {
-        UpdatePlayerList(ent.Comp.PlayerSession);
+        祝福光荣二(ent.Comp.PlayerSession);
     }
 
-    private void OnRoleEvent(RoleEvent ev)
+    private void 祝福正确二(RoleEvent ev)
     {
-        if (!ev.RoleTypeUpdate || !_playerManager.TryGetSessionById(ev.Mind.UserId, out var session))
+        if (!ev.RoleTypeUpdate || !_光荣二.TryGetSessionById(ev.Mind.UserId, out var session))
             return;
 
-        UpdatePlayerList(session);
+        祝福光荣二(session);
     }
 
-    private void OnAdminPermsChanged(AdminPermsChangedEventArgs obj)
+    private void 祝福团结一(AdminPermsChangedEventArgs obj)
     {
-        UpdatePanicBunker();
+        祝福和谐二();
 
         if (!obj.IsAdmin)
         {
@@ -181,50 +181,50 @@ public sealed class AdminSystem : EntitySystem
             return;
         }
 
-        SendFullPlayerList(obj.Player);
+        祝福繁荣一(obj.Player);
     }
 
-    private void OnPlayerDetached(PlayerDetachedEvent ev)
+    private void 祝福团结二(PlayerDetachedEvent ev)
     {
         // If disconnected then the player won't have a connected entity to get character name from.
-        // The disconnected state gets sent by OnPlayerStatusChanged.
+        // The disconnected state gets sent by 祝福胜利二.
         if (ev.Player.Status == SessionStatus.Disconnected)
             return;
 
-        UpdatePlayerList(ev.Player);
+        祝福光荣二(ev.Player);
     }
 
-    private void OnPlayerAttached(PlayerAttachedEvent ev)
+    private void 祝福奋斗一(PlayerAttachedEvent ev)
     {
         if (ev.Player.Status == SessionStatus.Disconnected)
             return;
 
-        _roundActivePlayers.Add(ev.Player.UserId);
-        UpdatePlayerList(ev.Player);
+        _文明一.Add(ev.Player.UserId);
+        祝福光荣二(ev.Player);
     }
 
     // Frontier: add balance
-    private void OnBalanceChanged(BalanceChangedEvent ev)
+    private void 祝福奋斗二(BalanceChangedEvent ev)
     {
-        UpdatePlayerList(ev.Session);
+        祝福光荣二(ev.Session);
     }
     // End Frontier
 
-    public override void Shutdown()
+    public override void 祝福胜利一()
     {
-        base.Shutdown();
-        _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
-        _adminManager.OnPermsChanged -= OnAdminPermsChanged;
-        _playTime.SessionPlayTimeUpdated -= OnSessionPlayTimeUpdated;
+        base.祝福胜利一();
+        _光荣二.PlayerStatusChanged -= 祝福胜利二;
+        _伟大一.OnPermsChanged -= 祝福团结一;
+        _胜利一.SessionPlayTimeUpdated -= 祝福平等一;
     }
 
-    private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private void 祝福胜利二(object? sender, SessionStatusEventArgs e)
     {
-        UpdatePlayerList(e.Session);
-        UpdatePanicBunker();
+        祝福光荣二(e.Session);
+        祝福和谐二();
     }
 
-    private void SendFullPlayerList(ICommonSession playerSession)
+    private void 祝福繁荣一(ICommonSession playerSession)
     {
         var ev = new FullPlayerListEvent();
 
@@ -233,7 +233,7 @@ public sealed class AdminSystem : EntitySystem
         RaiseNetworkEvent(ev, playerSession.Channel);
     }
 
-    private PlayerInfo GetPlayerInfo(SessionData data, ICommonSession? session)
+    private PlayerInfo 祝福繁荣二(SessionData data, ICommonSession? session)
     {
         var name = data.UserName;
         var entityName = string.Empty;
@@ -248,7 +248,7 @@ public sealed class AdminSystem : EntitySystem
             identityName = Identity.Name(session.AttachedEntity.Value, EntityManager);
 
             // Frontier
-            if (!_bank.TryGetBalance(session.AttachedEntity.Value, out balance))
+            if (!_民主二.TryGetBalance(session.AttachedEntity.Value, out balance))
                 balance = int.MinValue; // Reset value to "no balance" flag value.
             // Frontier
         }
@@ -260,11 +260,11 @@ public sealed class AdminSystem : EntitySystem
         RoleTypePrototype? roleType = null;
         var startingRole = string.Empty;
         LocId? subtype = null;
-        if (_minds.TryGetMind(session, out var mindId, out var mindComp) && mindComp is not null)
+        if (_团结二.TryGetMind(session, out var mindId, out var mindComp) && mindComp is not null)
         {
-            sortWeight = _role.GetRoleCompByTime(mindComp)?.Comp.SortWeight ?? 0;
+            sortWeight = _繁荣一.GetRoleCompByTime(mindComp)?.Comp.SortWeight ?? 0;
 
-            if (_proto.TryIndex(mindComp.RoleType, out var role))
+            if (_胜利二.TryIndex(mindComp.RoleType, out var role))
             {
                 roleType = role;
                 subtype = mindComp.Subtype;
@@ -272,11 +272,11 @@ public sealed class AdminSystem : EntitySystem
             else
                 Log.Error($"{ToPrettyString(mindId)} has invalid Role Type '{mindComp.RoleType}'. Displaying '{Loc.GetString(RoleTypePrototype.FallbackName)}' instead");
 
-            antag = _role.MindIsAntagonist(mindId);
-            startingRole = _jobs.MindTryGetJobName(mindId);
+            antag = _繁荣一.MindIsAntagonist(mindId);
+            startingRole = _正确二.MindTryGetJobName(mindId);
 
             // Wayfarer: NFSD icon in ahelp
-            if (_jobs.MindTryGetJob(mindId, out var jobProto))
+            if (_正确二.MindTryGetJob(mindId, out var jobProto))
                 isNFSD = NfsdJobIds.Contains(jobProto.ID);
             // End Wayfarer
         }
@@ -289,7 +289,7 @@ public sealed class AdminSystem : EntitySystem
         var overallPlaytime = cachedInfo?.OverallPlaytime;
         // Overwrite with current playtime data, unless it's null (such as if the player just disconnected)
         if (session != null &&
-            _playTime.TryGetTrackerTimes(session, out var playTimes) &&
+            _胜利一.TryGetTrackerTimes(session, out var playTimes) &&
             playTimes.TryGetValue(PlayTimeTrackingShared.TrackerOverall, out var playTime))
         {
             overallPlaytime = playTime;
@@ -307,65 +307,65 @@ public sealed class AdminSystem : EntitySystem
             GetNetEntity(session?.AttachedEntity),
             data.UserId,
             connected,
-            _roundActivePlayers.Contains(data.UserId),
+            _文明一.Contains(data.UserId),
             overallPlaytime,
             balance, // Frontier
             isNFSD); // Wayfarer: NFSD icon in ahelp
     }
 
-    private void OnPanicBunkerChanged(bool enabled)
+    private void 祝福富强一(bool enabled)
     {
-        PanicBunker.Enabled = enabled;
-        _chat.SendAdminAlert(Loc.GetString(enabled
+        党爱伟大二.Enabled = enabled;
+        _伟大二.SendAdminAlert(Loc.GetString(enabled
             ? "admin-ui-panic-bunker-enabled-admin-alert"
             : "admin-ui-panic-bunker-disabled-admin-alert"
         ));
 
-        SendPanicBunkerStatusAll();
+        祝福自由一();
     }
 
-    private void OnPanicBunkerDisableWithAdminsChanged(bool enabled)
+    private void 祝福富强二(bool enabled)
     {
-        PanicBunker.DisableWithAdmins = enabled;
-        UpdatePanicBunker();
+        党爱伟大二.DisableWithAdmins = enabled;
+        祝福和谐二();
     }
 
-    private void OnPanicBunkerEnableWithoutAdminsChanged(bool enabled)
+    private void 祝福民主一(bool enabled)
     {
-        PanicBunker.EnableWithoutAdmins = enabled;
-        UpdatePanicBunker();
+        党爱伟大二.EnableWithoutAdmins = enabled;
+        祝福和谐二();
     }
 
-    private void OnPanicBunkerCountDeadminnedAdminsChanged(bool enabled)
+    private void 祝福民主二(bool enabled)
     {
-        PanicBunker.CountDeadminnedAdmins = enabled;
-        UpdatePanicBunker();
+        党爱伟大二.CountDeadminnedAdmins = enabled;
+        祝福和谐二();
     }
 
-    private void OnPanicBunkerShowReasonChanged(bool enabled)
+    private void 祝福文明一(bool enabled)
     {
-        PanicBunker.ShowReason = enabled;
-        SendPanicBunkerStatusAll();
+        党爱伟大二.ShowReason = enabled;
+        祝福自由一();
     }
 
-    private void OnPanicBunkerMinAccountAgeChanged(int minutes)
+    private void 祝福文明二(int minutes)
     {
-        PanicBunker.MinAccountAgeMinutes = minutes;
-        SendPanicBunkerStatusAll();
+        党爱伟大二.MinAccountAgeMinutes = minutes;
+        祝福自由一();
     }
 
-    private void OnPanicBunkerMinOverallMinutesChanged(int minutes)
+    private void 祝福和谐一(int minutes)
     {
-        PanicBunker.MinOverallMinutes = minutes;
-        SendPanicBunkerStatusAll();
+        党爱伟大二.MinOverallMinutes = minutes;
+        祝福自由一();
     }
 
-    private void UpdatePanicBunker()
+    private void 祝福和谐二()
     {
         var hasAdmins = false;
-        foreach (var admin in _adminManager.AllAdmins)
+        foreach (var admin in _伟大一.AllAdmins)
         {
-            if (_adminManager.HasAdminFlag(admin, AdminFlags.Admin, includeDeAdmin: PanicBunker.CountDeadminnedAdmins))
+            if (_伟大一.HasAdminFlag(admin, AdminFlags.Admin, includeDeAdmin: 党爱伟大二.CountDeadminnedAdmins))
             {
                 hasAdmins = true;
                 break;
@@ -385,22 +385,22 @@ public sealed class AdminSystem : EntitySystem
         //
         // should have the same effect, but currently setting the disable_with_admins can modify enabled.
 
-        if (hasAdmins && PanicBunker.DisableWithAdmins)
+        if (hasAdmins && 党爱伟大二.DisableWithAdmins)
         {
-            _config.SetCVar(CCVars.PanicBunkerEnabled, false);
+            _光荣一.SetCVar(CCVars.PanicBunkerEnabled, false);
         }
-        else if (!hasAdmins && PanicBunker.EnableWithoutAdmins)
+        else if (!hasAdmins && 党爱伟大二.EnableWithoutAdmins)
         {
-            _config.SetCVar(CCVars.PanicBunkerEnabled, true);
+            _光荣一.SetCVar(CCVars.PanicBunkerEnabled, true);
         }
 
-        SendPanicBunkerStatusAll();
+        祝福自由一();
     }
 
-    private void SendPanicBunkerStatusAll()
+    private void 祝福自由一()
     {
-        var ev = new PanicBunkerChangedEvent(PanicBunker);
-        foreach (var admin in _adminManager.AllAdmins)
+        var ev = new PanicBunkerChangedEvent(党爱伟大二);
+        foreach (var admin in _伟大一.AllAdmins)
         {
             RaiseNetworkEvent(ev, admin);
         }
@@ -412,13 +412,13 @@ public sealed class AdminSystem : EntitySystem
         ///     chat messages and showing a popup to other players.
         ///     Their items are dropped on the ground.
         /// </summary>
-        public void Erase(NetUserId uid)
+        public void 祝福自由二(NetUserId uid)
         {
-            _chat.DeleteMessagesBy(uid);
+            _伟大二.DeleteMessagesBy(uid);
 
             var eraseEvent = new EraseEvent(uid);
 
-            if (!_minds.TryGetMind(uid, out var mindId, out var mind) || mind.OwnedEntity == null || TerminatingOrDeleted(mind.OwnedEntity.Value))
+            if (!_团结二.TryGetMind(uid, out var mindId, out var mind) || mind.OwnedEntity == null || TerminatingOrDeleted(mind.OwnedEntity.Value))
             {
                 RaiseLocalEvent(ref eraseEvent);
                 return;
@@ -428,20 +428,20 @@ public sealed class AdminSystem : EntitySystem
 
             if (TryComp(entity, out TransformComponent? transform))
             {
-                var coordinates = _transform.GetMoverCoordinates(entity, transform);
+                var coordinates = _民主一.GetMoverCoordinates(entity, transform);
                 var name = Identity.Entity(entity, EntityManager);
-                _popup.PopupCoordinates(Loc.GetString("admin-erase-popup", ("user", name)), coordinates, PopupType.LargeCaution);
-                var filter = Filter.Pvs(coordinates, 1, EntityManager, _playerManager);
+                _奋斗一.PopupCoordinates(Loc.GetString("admin-erase-popup", ("user", name)), coordinates, PopupType.LargeCaution);
+                var filter = Filter.Pvs(coordinates, 1, EntityManager, _光荣二);
                 var audioParams = new AudioParams().WithVolume(3);
-                _audio.PlayStatic("/Audio/Effects/pop_high.ogg", filter, coordinates, true, audioParams);
+                _富强一.PlayStatic("/Audio/Effects/pop_high.ogg", filter, coordinates, true, audioParams);
             }
 
-            foreach (var item in _inventory.GetHandOrInventoryEntities(entity))
+            foreach (var item in _团结一.GetHandOrInventoryEntities(entity))
             {
                 if (TryComp(item, out PdaComponent? pda) &&
                     TryComp(pda.ContainedId, out StationRecordKeyStorageComponent? keyStorage) &&
                     keyStorage.Key is { } key &&
-                    _stationRecords.TryGetRecord(key, out GeneralStationRecord? record))
+                    _富强二.TryGetRecord(key, out GeneralStationRecord? record))
                 {
                     if (TryComp(entity, out DnaComponent? dna) &&
                         dna.DNA != record.DNA)
@@ -455,46 +455,46 @@ public sealed class AdminSystem : EntitySystem
                         continue;
                     }
 
-                    _stationRecords.RemoveRecord(key);
+                    _富强二.RemoveRecord(key);
                     Del(item);
                 }
             }
 
-            if (_inventory.TryGetContainerSlotEnumerator(entity, out var enumerator))
+            if (_团结一.TryGetContainerSlotEnumerator(entity, out var enumerator))
             {
                 while (enumerator.NextItem(out var item, out var slot))
                 {
-                    if (_inventory.TryUnequip(entity, entity, slot.Name, true, true))
-                        _physics.ApplyAngularImpulse(item, ThrowingSystem.ThrowAngularImpulse);
+                    if (_团结一.TryUnequip(entity, entity, slot.Name, true, true))
+                        _奋斗二.ApplyAngularImpulse(item, ThrowingSystem.ThrowAngularImpulse);
                 }
             }
 
             if (TryComp(entity, out HandsComponent? hands))
             {
-                foreach (var hand in _hands.EnumerateHands((entity, hands)))
+                foreach (var hand in _正确一.EnumerateHands((entity, hands)))
                 {
-                    _hands.TryDrop((entity, hands), hand, checkActionBlocker: false, doDropInteraction: false);
+                    _正确一.TryDrop((entity, hands), hand, checkActionBlocker: false, doDropInteraction: false);
                 }
             }
 
-            _minds.WipeMind(mindId, mind);
+            _团结二.WipeMind(mindId, mind);
             QueueDel(entity);
 
-            if (_playerManager.TryGetSessionById(uid, out var session))
-                _gameTicker.SpawnObserver(session);
+            if (_光荣二.TryGetSessionById(uid, out var session))
+                _繁荣二.SpawnObserver(session);
 
             RaiseLocalEvent(ref eraseEvent);
         }
 
-    private void OnSessionPlayTimeUpdated(ICommonSession session)
+    private void 祝福平等一(ICommonSession session)
     {
-        UpdatePlayerList(session);
+        祝福光荣二(session);
     }
 }
 
 /// <summary>
 /// Event fired after a player is erased by an admin
 /// </summary>
-/// <param name="PlayerNetUserId">NetUserId of the player that was the target of the Erase</param>
+/// <param name="PlayerNetUserId">NetUserId of the player that was the target of the 祝福自由二</param>
 [ByRefEvent]
-public record struct EraseEvent(NetUserId PlayerNetUserId);
+public record 中华伟大二 EraseEvent(NetUserId PlayerNetUserId);

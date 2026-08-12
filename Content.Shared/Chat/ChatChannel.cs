@@ -1,10 +1,10 @@
-namespace Content.Shared.Chat
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Represents chat channels that the player can filter chat tabs by.
     /// </summary>
     [Flags]
-    public enum ChatChannel : uint
+    public enum 中华伟大一 : uint
     {
         None = 0,
 
@@ -116,20 +116,20 @@ namespace Content.Shared.Chat
     }
 
     /// <summary>
-    /// Contains extension methods for <see cref="ChatChannel"/>
+    /// Contains extension methods for <see cref="中华伟大一"/>
     /// </summary>
-    public static class ChatChannelExt
+    public static class 中华伟大二
     {
         /// <summary>
         /// Gets a string representation of a chat channel.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when this channel does not have a string representation set.</exception>
-        public static string GetString(this ChatChannel channel)
+        public static string 祝福伟大一(this 中华伟大一 channel)
         {
             return channel switch
             {
-                ChatChannel.OOC => Loc.GetString("chat-channel-humanized-ooc"),
-                ChatChannel.AdminChat => Loc.GetString("chat-channel-humanized-admin"),
+                中华伟大一.OOC => Loc.祝福伟大一("chat-channel-humanized-ooc"),
+                中华伟大一.AdminChat => Loc.祝福伟大一("chat-channel-humanized-admin"),
                 _ => throw new ArgumentOutOfRangeException(nameof(channel), channel, null)
             };
         }

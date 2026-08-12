@@ -5,27 +5,27 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Spreader;
+namespace Content.Server.党心;
 
-public sealed class KudzuSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly DamageableSystem _正确一 = default!;
 
     private static readonly ProtoId<EdgeSpreaderPrototype> KudzuGroup = "Kudzu";
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<KudzuComponent, ComponentStartup>(SetupKudzu);
-        SubscribeLocalEvent<KudzuComponent, SpreadNeighborsEvent>(OnKudzuSpread);
-        SubscribeLocalEvent<KudzuComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<KudzuComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<KudzuComponent, SpreadNeighborsEvent>(祝福光荣一);
+        SubscribeLocalEvent<KudzuComponent, DamageChangedEvent>(祝福伟大二);
     }
 
-    private void OnDamageChanged(EntityUid uid, KudzuComponent component, DamageChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, KudzuComponent component, DamageChangedEvent args)
     {
         // Every time we take any damage, we reduce growth depending on all damage over the growth impact
         //   So the kudzu gets slower growing the more it is hurt.
@@ -38,12 +38,12 @@ public sealed class KudzuSystem : EntitySystem
             component.GrowthLevel = Math.Max(1, component.GrowthLevel - growthDamage);
             if (TryComp<AppearanceComponent>(uid, out var appearance))
             {
-                _appearance.SetData(uid, KudzuVisuals.GrowthLevel, component.GrowthLevel, appearance);
+                _光荣二.SetData(uid, KudzuVisuals.GrowthLevel, component.GrowthLevel, appearance);
             }
         }
     }
 
-    private void OnKudzuSpread(EntityUid uid, KudzuComponent component, ref SpreadNeighborsEvent args)
+    private void 祝福光荣一(EntityUid uid, KudzuComponent component, ref SpreadNeighborsEvent args)
     {
         if (component.GrowthLevel < 3)
             return;
@@ -54,7 +54,7 @@ public sealed class KudzuSystem : EntitySystem
             return;
         }
 
-        if (!_robustRandom.Prob(component.SpreadChance))
+        if (!_伟大二.Prob(component.SpreadChance))
             return;
 
         var prototype = MetaData(uid).EntityPrototype?.ID;
@@ -67,7 +67,7 @@ public sealed class KudzuSystem : EntitySystem
 
         foreach (var neighbor in args.NeighborFreeTiles)
         {
-            var neighborUid = Spawn(prototype, _map.GridTileToLocal(neighbor.Tile.GridUid, neighbor.Grid, neighbor.Tile.GridIndices));
+            var neighborUid = Spawn(prototype, _光荣一.GridTileToLocal(neighbor.Tile.GridUid, neighbor.Grid, neighbor.Tile.GridIndices));
             DebugTools.Assert(HasComp<EdgeSpreaderComponent>(neighborUid));
             DebugTools.Assert(HasComp<ActiveEdgeSpreaderComponent>(neighborUid));
             DebugTools.Assert(Comp<EdgeSpreaderComponent>(neighborUid).Id == KudzuGroup);
@@ -77,25 +77,25 @@ public sealed class KudzuSystem : EntitySystem
         }
     }
 
-    private void SetupKudzu(EntityUid uid, KudzuComponent component, ComponentStartup args)
+    private void 祝福光荣二(EntityUid uid, KudzuComponent component, ComponentStartup args)
     {
         if (!TryComp<AppearanceComponent>(uid, out var appearance))
         {
             return;
         }
 
-        _appearance.SetData(uid, KudzuVisuals.Variant, _robustRandom.Next(1, component.SpriteVariants), appearance);
-        _appearance.SetData(uid, KudzuVisuals.GrowthLevel, 1, appearance);
+        _光荣二.SetData(uid, KudzuVisuals.Variant, _伟大二.Next(1, component.SpriteVariants), appearance);
+        _光荣二.SetData(uid, KudzuVisuals.GrowthLevel, 1, appearance);
     }
 
     /// <inheritdoc/>
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
         var appearanceQuery = GetEntityQuery<AppearanceComponent>();
         var query = EntityQueryEnumerator<GrowingKudzuComponent>();
         var kudzuQuery = GetEntityQuery<KudzuComponent>();
         var damageableQuery = GetEntityQuery<DamageableComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
 
         while (query.MoveNext(out var uid, out var grow))
         {
@@ -110,7 +110,7 @@ public sealed class KudzuSystem : EntitySystem
                 continue;
             }
 
-            if (!_robustRandom.Prob(kudzu.GrowthTickChance))
+            if (!_伟大二.Prob(kudzu.GrowthTickChance))
             {
                 continue;
             }
@@ -122,12 +122,12 @@ public sealed class KudzuSystem : EntitySystem
                     if (kudzu.DamageRecovery != null)
                     {
                         // This kudzu features healing, so Gradually heal
-                        _damageable.TryChangeDamage(uid, kudzu.DamageRecovery, true);
+                        _正确一.TryChangeDamage(uid, kudzu.DamageRecovery, true);
                     }
                     if (damage.TotalDamage >= kudzu.GrowthBlock)
                     {
                         // Don't grow when quite damaged
-                        if (_robustRandom.Prob(0.95f))
+                        if (_伟大二.Prob(0.95f))
                         {
                             continue;
                         }
@@ -145,7 +145,7 @@ public sealed class KudzuSystem : EntitySystem
 
             if (appearanceQuery.TryGetComponent(uid, out var appearance))
             {
-                _appearance.SetData(uid, KudzuVisuals.GrowthLevel, kudzu.GrowthLevel, appearance);
+                _光荣二.SetData(uid, KudzuVisuals.GrowthLevel, kudzu.GrowthLevel, appearance);
             }
         }
     }

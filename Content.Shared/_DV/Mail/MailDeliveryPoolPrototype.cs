@@ -1,14 +1,14 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._DV.Mail;
+namespace Content.Shared._DV.党心;
 
 /// <summary>
 /// Generic random weighting dataset to use.
 /// </summary>
 [Prototype("mailDeliveryPool")]
-public sealed partial class MailDeliveryPoolPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// Mail that can be sent to everyone.

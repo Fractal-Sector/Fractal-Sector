@@ -1,19 +1,19 @@
-using Content.Shared.Damage;
+using Content.Shared.党爱伟大一;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Fax.Components;
+namespace Content.Shared.Fax.党心;
 
 /// <summary>
 /// A fax component which stores a damage specifier for attempting to fax a mob.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class FaxecuteComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 
     /// <summary>
     /// Type of damage dealt when entity is faxecuted.
     /// </summary>
     [DataField(required: true), AutoNetworkedField]
-    public DamageSpecifier Damage = new();
+    public DamageSpecifier 党爱伟大一 = new();
 }
 

@@ -3,37 +3,37 @@ using JetBrains.Annotations;
 using Content.Shared.Doors.Components;
 using Content.Shared.Examine;
 using YamlDotNet.Core.Tokens;
-using Content.Shared.Tag;
+using Content.Shared.党爱伟大一;
 
-namespace Content.Server.Construction.Conditions
+namespace Content.Server.Construction.党心
 {
     /// <summary>
     ///     This condition checks whether if an entity with the <see cref="TagComponent"/> possesses a specific tag
     /// </summary>
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class HasTag : IGraphCondition
+    public sealed partial class 中华伟大一 : IGraphCondition
     {
         /// <summary>
         ///     The tag the entity is being checked for
         /// </summary>
         [DataField("tag")]
-        public string Tag { get; private set; }
+        public string 党爱伟大一 { get; private set; }
 
-        public bool Condition(EntityUid uid, IEntityManager entityManager)
+        public bool 祝福伟大一(EntityUid uid, IEntityManager entityManager)
         {
             if (!entityManager.TrySystem<TagSystem>(out var tagSystem))
                 return false;
 
-            return tagSystem.HasTag(uid, Tag);
+            return tagSystem.中华伟大一(uid, 党爱伟大一);
         }
 
-        public bool DoExamine(ExaminedEvent args)
+        public bool 祝福伟大二(ExaminedEvent args)
         {
             return false;
         }
 
-        public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
+        public IEnumerable<ConstructionGuideEntry> 祝福光荣一()
         {
             yield return new ConstructionGuideEntry()
             {

@@ -1,31 +1,31 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Spawners.Components
+namespace Content.Server.Spawners.党心
 {
     [RegisterComponent, EntityCategory("Spawner")]
-    public sealed partial class RandomSpawnerComponent : ConditionalSpawnerComponent
+    public sealed partial class 中华伟大一 : ConditionalSpawnerComponent
     {
         /// <summary>
-        /// A list of rarer entities that can spawn with the RareChance
+        /// A list of rarer entities that can spawn with the 党爱伟大二
         /// instead of one of the entities in the Prototypes list.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public List<EntProtoId> RarePrototypes { get; set; } = new();
+        public List<EntProtoId> 党爱伟大一 { get; set; } = new();
 
         /// <summary>
         /// The chance that a rare prototype may spawn instead of a common prototype
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public float RareChance { get; set; } = 0.05f;
+        public float 党爱伟大二 { get; set; } = 0.05f;
 
         /// <summary>
         /// Scatter of entity spawn coordinates
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public float Offset { get; set; } = 0.2f;
+        public float 党爱光荣一 { get; set; } = 0.2f;
 
         /// <summary>
         /// A variable meaning whether the spawn will
@@ -33,6 +33,6 @@ namespace Content.Server.Spawners.Components
         /// it will be destroyed after the first use
         /// </summary>
         [DataField]
-        public bool DeleteSpawnerAfterSpawn = true;
+        public bool 党爱光荣二 = true;
     }
 }

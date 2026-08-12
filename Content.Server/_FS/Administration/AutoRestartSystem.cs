@@ -5,43 +5,43 @@ using Content.Server.GameTicking;
 using Robust.Shared;
 using Robust.Shared.Configuration;
 
-namespace Content.Server._FS.Administration;
+namespace Content.Server._FS.党心;
 
 /// <summary>
 /// Upon round end, notifies the server's own Status API /update
 /// endpoint, triggering the existing ServerUpdateManager shutdown-after-round flow.
-/// We deliberately do NOT call this at server Initialize() anymore: if we did,
+/// We deliberately do NOT call this at server 祝福伟大一() anymore: if we did,
 /// ServerUpdateManager would restart as soon as the server goes empty (its "or
 /// the server to empty" fallback), even if that happens between rounds in the
 /// lobby. By waiting for GameRunLevel.PostRound, the round is already over by
 /// the time we notify, so the restart only ever happens right after a round ends.
 /// </summary>
-public sealed class AutoRestartSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
     private static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(5);
     private const int MaxAttempts = 5;
     private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(3);
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRunLevelChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福伟大二);
     }
 
-    private void OnRunLevelChanged(GameRunLevelChangedEvent args)
+    private void 祝福伟大二(GameRunLevelChangedEvent args)
     {
         if (args.New != GameRunLevel.PostRound)
             return;
 
-        _ = RequestRestartAfterThisRound();
+        _ = 祝福光荣一();
     }
 
-    public async Task RequestRestartAfterThisRound()
+    public async Task 祝福光荣一()
     {
-        var port = _cfg.GetCVar(CVars.NetPort);
-        var token = _cfg.GetCVar(CVars.WatchdogToken);
+        var port = _伟大一.GetCVar(CVars.NetPort);
+        var token = _伟大一.GetCVar(CVars.WatchdogToken);
 
         if (string.IsNullOrEmpty(token))
         {

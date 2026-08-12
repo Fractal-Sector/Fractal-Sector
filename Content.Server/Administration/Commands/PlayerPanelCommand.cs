@@ -4,18 +4,18 @@ using Content.Shared.Administration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class PlayerPanelCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly EuiManager _euis = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly EuiManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
 
-    public override string Command => "playerpanel";
+    public override string 党爱伟大一 => "playerpanel";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } admin)
         {
@@ -29,7 +29,7 @@ public sealed class PlayerPanelCommand : LocalizedCommands
             return;
         }
 
-        var queriedPlayer = await _locator.LookupIdByNameOrIdAsync(args[0]);
+        var queriedPlayer = await _伟大一.LookupIdByNameOrIdAsync(args[0]);
 
         if (queriedPlayer == null)
         {
@@ -38,15 +38,15 @@ public sealed class PlayerPanelCommand : LocalizedCommands
         }
 
         var ui = new PlayerPanelEui(queriedPlayer);
-        _euis.OpenEui(ui, admin);
+        _伟大二.OpenEui(ui, admin);
         ui.SetPlayerState();
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
-            var options = _players.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
+            var options = _光荣一.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
 
             return CompletionResult.FromHintOptions(options, LocalizationManager.GetString("cmd-playerpanel-completion"));
         }

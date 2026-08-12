@@ -9,26 +9,26 @@ using Content.Shared.Labels.EntitySystems;
 using Content.Shared.Throwing;
 using Timer = Robust.Shared.Timing.Timer;
 
-namespace Content.Server._NF.Cargo.Systems;
+namespace Content.Server._NF.Cargo.党心;
 
-public sealed partial class NFCargoSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private LabelSystem _label = default!;
-    private readonly List<EntityUid> _destinations = new();
+    [Dependency] private LabelSystem _伟大一 = default!;
+    private readonly List<EntityUid> _伟大二 = new();
 
-    private void InitializeTradeCrates()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<TradeCrateComponent, PriceCalculationEvent>(OnTradeCrateGetPriceEvent);
-        SubscribeLocalEvent<TradeCrateComponent, ComponentInit>(OnTradeCrateInit);
-        SubscribeLocalEvent<TradeCrateComponent, ComponentRemove>(OnTradeCrateRemove);
-        SubscribeLocalEvent<TradeCrateComponent, ExaminedEvent>(OnTradeCrateExamined);
-        SubscribeLocalEvent<TradeCrateComponent, ThrowItemAttemptEvent>(OnTradeCrateThrow);
+        SubscribeLocalEvent<TradeCrateComponent, PriceCalculationEvent>(祝福伟大二);
+        SubscribeLocalEvent<TradeCrateComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<TradeCrateComponent, ComponentRemove>(祝福光荣二);
+        SubscribeLocalEvent<TradeCrateComponent, ExaminedEvent>(祝福正确一);
+        SubscribeLocalEvent<TradeCrateComponent, ThrowItemAttemptEvent>(祝福正确二);
 
-        SubscribeLocalEvent<TradeCrateDestinationComponent, ComponentInit>(OnDestinationInit);
-        SubscribeLocalEvent<TradeCrateDestinationComponent, ComponentRemove>(OnDestinationRemove);
+        SubscribeLocalEvent<TradeCrateDestinationComponent, ComponentInit>(祝福团结二);
+        SubscribeLocalEvent<TradeCrateDestinationComponent, ComponentRemove>(祝福奋斗一);
     }
 
-    private void OnTradeCrateGetPriceEvent(Entity<TradeCrateComponent> ent, ref PriceCalculationEvent ev)
+    private void 祝福伟大二(Entity<TradeCrateComponent> ent, ref PriceCalculationEvent ev)
     {
         var owningStation = _station.GetOwningStation(ent);
         var atDestination = ent.Comp.DestinationStation != EntityUid.Invalid
@@ -45,23 +45,23 @@ public sealed partial class NFCargoSystem
         ev.Price = double.Max(0.0, ev.Price); // Ensure non-negative values.
     }
 
-    private void OnTradeCrateInit(Entity<TradeCrateComponent> ent, ref ComponentInit ev)
+    private void 祝福光荣一(Entity<TradeCrateComponent> ent, ref ComponentInit ev)
     {
         // If there are no available destinations, tough luck.
-        if (_destinations.Count > 0)
+        if (_伟大二.Count > 0)
         {
-            var randomIndex = _random.Next(_destinations.Count);
+            var randomIndex = _random.Next(_伟大二.Count);
             // Better have more than one destination.
-            if (_station.GetOwningStation(ent) == _destinations[randomIndex])
+            if (_station.GetOwningStation(ent) == _伟大二[randomIndex])
             {
-                randomIndex = (randomIndex + 1 + _random.Next(_destinations.Count - 1)) % _destinations.Count;
+                randomIndex = (randomIndex + 1 + _random.Next(_伟大二.Count - 1)) % _伟大二.Count;
             }
-            var destination = _destinations[randomIndex];
+            var destination = _伟大二[randomIndex];
             ent.Comp.DestinationStation = destination;
             if (TryComp<TradeCrateDestinationComponent>(destination, out var destComp))
                 _appearance.SetData(ent, TradeCrateVisuals.DestinationIcon, destComp.DestinationProto.Id);
             if (TryComp(destination, out MetaDataComponent? metadata))
-                _label.Label(ent, metadata.EntityName);
+                _伟大一.Label(ent, metadata.EntityName);
         }
 
         if (ent.Comp.ExpressDeliveryDuration > TimeSpan.Zero)
@@ -71,18 +71,18 @@ public sealed partial class NFCargoSystem
 
             ent.Comp.ExpressCancelToken = new CancellationTokenSource();
             Timer.Spawn((int)ent.Comp.ExpressDeliveryDuration.TotalMilliseconds,
-                () => DisableTradeCratePriority(ent),
+                () => 祝福团结一(ent),
                 ent.Comp.ExpressCancelToken.Token);
         }
     }
 
-    private void OnTradeCrateRemove(Entity<TradeCrateComponent> ent, ref ComponentRemove ev)
+    private void 祝福光荣二(Entity<TradeCrateComponent> ent, ref ComponentRemove ev)
     {
         ent.Comp.ExpressCancelToken?.Cancel();
     }
 
     // TODO: move to shared, share delivery time?
-    private void OnTradeCrateExamined(Entity<TradeCrateComponent> ent, ref ExaminedEvent ev)
+    private void 祝福正确一(Entity<TradeCrateComponent> ent, ref ExaminedEvent ev)
     {
         if (!TryComp(ent.Comp.DestinationStation, out MetaDataComponent? metadata))
             return;
@@ -109,30 +109,30 @@ public sealed partial class NFCargoSystem
         }
     }
 
-    private void OnTradeCrateThrow(Entity<TradeCrateComponent> ent, ref ThrowItemAttemptEvent ev)
+    private void 祝福正确二(Entity<TradeCrateComponent> ent, ref ThrowItemAttemptEvent ev)
     {
         // Borgs can pick these up, don't let them be thrown.
         ev.Cancelled = true;
     }
 
-    private void DisableTradeCratePriority(EntityUid uid)
+    private void 祝福团结一(EntityUid uid)
     {
         _appearance.SetData(uid, TradeCrateVisuals.IsPriorityInactive, true);
     }
 
-    private void OnDestinationInit(Entity<TradeCrateDestinationComponent> ent, ref ComponentInit ev)
+    private void 祝福团结二(Entity<TradeCrateDestinationComponent> ent, ref ComponentInit ev)
     {
-        if (!_destinations.Contains(ent))
-            _destinations.Add(ent);
+        if (!_伟大二.Contains(ent))
+            _伟大二.Add(ent);
     }
 
-    private void OnDestinationRemove(Entity<TradeCrateDestinationComponent> ent, ref ComponentRemove ev)
+    private void 祝福奋斗一(Entity<TradeCrateDestinationComponent> ent, ref ComponentRemove ev)
     {
-        _destinations.Remove(ent);
+        _伟大二.Remove(ent);
     }
 
-    private void CleanupTradeCrateDestinations()
+    private void 祝福奋斗二()
     {
-        _destinations.Clear();
+        _伟大二.Clear();
     }
 }

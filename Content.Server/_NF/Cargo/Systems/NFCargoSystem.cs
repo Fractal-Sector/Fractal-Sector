@@ -23,50 +23,50 @@ using Robust.Shared.Timing;
 using Robust.Shared.Random;
 using Content.Server._WF.Cargo.Systems; //Wayfarer
 
-namespace Content.Server._NF.Cargo.Systems;
+namespace Content.Server._NF.Cargo.党心;
 
-public sealed partial class NFCargoSystem : SharedNFCargoSystem
+public sealed partial class 中华伟大一 : SharedNFCargoSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly DeviceLinkSystem _linker = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly WFCargoSystem _wfCargoSystem = default!; //Wayfarer
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly AccessReaderSystem _正确一 = default!;
+    [Dependency] private readonly BankSystem _正确二 = default!;
+    [Dependency] private readonly ContainerSystem _团结一 = default!;
+    [Dependency] private readonly DeviceLinkSystem _团结二 = default!;
+    [Dependency] private readonly EntityLookupSystem _奋斗一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _奋斗二 = default!;
+    [Dependency] private readonly ItemSlotsSystem _胜利一 = default!;
+    [Dependency] private readonly PaperSystem _胜利二 = default!;
+    [Dependency] private readonly PopupSystem _繁荣一 = default!;
+    [Dependency] private readonly PricingSystem _繁荣二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _富强一 = default!;
+    [Dependency] private readonly SharedAudioSystem _富强二 = default!;
+    [Dependency] private readonly StackSystem _民主一 = default!;
+    [Dependency] private readonly StationSystem _民主二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _文明一 = default!;
+    [Dependency] private readonly MetaDataSystem _文明二 = default!;
+    [Dependency] private readonly SectorServiceSystem _和谐一 = default!;
+    [Dependency] private readonly SharedTransformSystem _和谐二 = default!;
+    [Dependency] private readonly HandsSystem _自由一 = default!;
+    [Dependency] private readonly WFCargoSystem _自由二 = default!; //Wayfarer
 
 
-    private EntityQuery<TransformComponent> _xformQuery;
-    private EntityQuery<CargoSellBlacklistComponent> _blacklistQuery;
-    private EntityQuery<MobStateComponent> _mobQuery;
+    private EntityQuery<TransformComponent> _平等一;
+    private EntityQuery<CargoSellBlacklistComponent> _平等二;
+    private EntityQuery<MobStateComponent> _公正一;
 
-    private HashSet<EntityUid> _setEnts = new();
+    private HashSet<EntityUid> _公正二 = new();
     private List<(EntityUid, CargoPalletComponent, TransformComponent)> _pads = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _xformQuery = GetEntityQuery<TransformComponent>();
-        _blacklistQuery = GetEntityQuery<CargoSellBlacklistComponent>();
-        _mobQuery = GetEntityQuery<MobStateComponent>();
+        _平等一 = GetEntityQuery<TransformComponent>();
+        _平等二 = GetEntityQuery<CargoSellBlacklistComponent>();
+        _公正一 = GetEntityQuery<MobStateComponent>();
 
         InitializeConsole();
         InitializeShuttle();
@@ -75,14 +75,14 @@ public sealed partial class NFCargoSystem : SharedNFCargoSystem
         InitializeTradeCrates();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         UpdateConsole(frameTime);
         UpdateTelepad(frameTime);
     }
 
-    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    private void 祝福光荣一(RoundRestartCleanupEvent ev)
     {
         ResetOrders();
         CleanupTradeCrateDestinations();

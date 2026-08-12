@@ -3,16 +3,16 @@ using Content.Server.Chat.Managers;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Chat.Commands
+namespace Content.Server.Chat.党心
 {
     [AdminCommand(AdminFlags.Adminchat)]
-    internal sealed class AdminChatCommand : LocalizedCommands
+    internal sealed class 中华伟大一 : LocalizedCommands
     {
-        [Dependency] private readonly IChatManager _chatManager = default!;
+        [Dependency] private readonly IChatManager _伟大一 = default!;
 
-        public override string Command => "asay";
+        public override string 党爱伟大一 => "asay";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
 
@@ -29,7 +29,7 @@ namespace Content.Server.Chat.Commands
             if (string.IsNullOrEmpty(message))
                 return;
 
-            _chatManager.TrySendOOCMessage(player, message, OOCChatType.Admin);
+            _伟大一.TrySendOOCMessage(player, message, OOCChatType.Admin);
         }
     }
 }

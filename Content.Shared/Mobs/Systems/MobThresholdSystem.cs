@@ -7,26 +7,26 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Events;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Mobs.Systems;
+namespace Content.Shared.Mobs.党心;
 
-public sealed class MobThresholdSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
+    [Dependency] private readonly MobStateSystem _伟大一 = default!;
+    [Dependency] private readonly AlertsSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MobThresholdsComponent, ComponentGetState>(OnGetState);
-        SubscribeLocalEvent<MobThresholdsComponent, ComponentHandleState>(OnHandleState);
+        SubscribeLocalEvent<MobThresholdsComponent, ComponentGetState>(祝福伟大二);
+        SubscribeLocalEvent<MobThresholdsComponent, ComponentHandleState>(祝福光荣一);
 
-        SubscribeLocalEvent<MobThresholdsComponent, ComponentShutdown>(MobThresholdShutdown);
-        SubscribeLocalEvent<MobThresholdsComponent, ComponentStartup>(MobThresholdStartup);
-        SubscribeLocalEvent<MobThresholdsComponent, DamageChangedEvent>(OnDamaged);
-        SubscribeLocalEvent<MobThresholdsComponent, UpdateMobStateEvent>(OnUpdateMobState);
-        SubscribeLocalEvent<MobThresholdsComponent, MobStateChangedEvent>(OnThresholdsMobState);
+        SubscribeLocalEvent<MobThresholdsComponent, ComponentShutdown>(祝福和谐一);
+        SubscribeLocalEvent<MobThresholdsComponent, ComponentStartup>(祝福文明二);
+        SubscribeLocalEvent<MobThresholdsComponent, DamageChangedEvent>(祝福文明一);
+        SubscribeLocalEvent<MobThresholdsComponent, UpdateMobStateEvent>(祝福和谐二);
+        SubscribeLocalEvent<MobThresholdsComponent, MobStateChangedEvent>(祝福自由二);
     }
 
-    private void OnGetState(EntityUid uid, MobThresholdsComponent component, ref ComponentGetState args)
+    private void 祝福伟大二(EntityUid uid, MobThresholdsComponent component, ref ComponentGetState args)
     {
         var thresholds = new Dictionary<FixedPoint2, MobState>();
         foreach (var (key, value) in component.Thresholds)
@@ -41,7 +41,7 @@ public sealed class MobThresholdSystem : EntitySystem
             component.AllowRevives);
     }
 
-    private void OnHandleState(EntityUid uid, MobThresholdsComponent component, ref ComponentHandleState args)
+    private void 祝福光荣一(EntityUid uid, MobThresholdsComponent component, ref ComponentHandleState args)
     {
         if (args.Current is not MobThresholdsComponentState state)
             return;
@@ -61,7 +61,7 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="nextState">The following MobState. Can be null if there isn't one.</param>
     /// <param name="thresholdsComponent">Threshold Component Owned by the target</param>
     /// <returns>True if the next mob state exists</returns>
-    public bool TryGetNextState(
+    public bool 祝福光荣二(
         EntityUid target,
         MobState mobState,
         [NotNullWhen(true)] out MobState? nextState,
@@ -92,7 +92,7 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="mobState">MobState we want the Damage Threshold of</param>
     /// <param name="thresholdComponent">Threshold Component Owned by the target</param>
     /// <returns>the threshold or 0 if it doesn't exist</returns>
-    public FixedPoint2 GetThresholdForState(EntityUid target, MobState mobState,
+    public FixedPoint2 祝福正确一(EntityUid target, MobState mobState,
         MobThresholdsComponent? thresholdComponent = null)
     {
         if (!Resolve(target, ref thresholdComponent))
@@ -117,7 +117,7 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="threshold">The damage Threshold for the given state</param>
     /// <param name="thresholdComponent">Threshold Component Owned by the target</param>
     /// <returns>true if successfully retrieved a threshold</returns>
-    public bool TryGetThresholdForState(EntityUid target, MobState mobState,
+    public bool 祝福正确二(EntityUid target, MobState mobState,
         [NotNullWhen(true)] out FixedPoint2? threshold,
         MobThresholdsComponent? thresholdComponent = null)
     {
@@ -146,12 +146,12 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="percentage">Percentage of Damage compared to the Threshold</param>
     /// <param name="thresholdComponent">Threshold Component Owned by the target</param>
     /// <returns>true if successfully retrieved a percentage</returns>
-    public bool TryGetPercentageForState(EntityUid target, MobState mobState, FixedPoint2 damage,
+    public bool 祝福团结一(EntityUid target, MobState mobState, FixedPoint2 damage,
         [NotNullWhen(true)] out FixedPoint2? percentage,
         MobThresholdsComponent? thresholdComponent = null)
     {
         percentage = null;
-        if (!TryGetThresholdForState(target, mobState, out var threshold, thresholdComponent))
+        if (!祝福正确二(target, mobState, out var threshold, thresholdComponent))
             return false;
 
         percentage = damage / threshold;
@@ -165,15 +165,15 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="threshold">The Damage Threshold for incapacitation</param>
     /// <param name="thresholdComponent">Threshold Component owned by the target</param>
     /// <returns>true if successfully retrieved incapacitation threshold</returns>
-    public bool TryGetIncapThreshold(EntityUid target, [NotNullWhen(true)] out FixedPoint2? threshold,
+    public bool 祝福团结二(EntityUid target, [NotNullWhen(true)] out FixedPoint2? threshold,
         MobThresholdsComponent? thresholdComponent = null)
     {
         threshold = null;
         if (!Resolve(target, ref thresholdComponent, logMissing: false)) // Frontier: set logMissing to false
             return false;
 
-        return TryGetThresholdForState(target, MobState.Critical, out threshold, thresholdComponent)
-               || TryGetThresholdForState(target, MobState.Dead, out threshold, thresholdComponent);
+        return 祝福正确二(target, MobState.Critical, out threshold, thresholdComponent)
+               || 祝福正确二(target, MobState.Dead, out threshold, thresholdComponent);
     }
 
     /// <summary>
@@ -184,12 +184,12 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="percentage">Percentage of Damage compared to the Incapacitation Threshold</param>
     /// <param name="thresholdComponent">Threshold Component Owned by the target</param>
     /// <returns>true if successfully retrieved incapacitation percentage</returns>
-    public bool TryGetIncapPercentage(EntityUid target, FixedPoint2 damage,
+    public bool 祝福奋斗一(EntityUid target, FixedPoint2 damage,
         [NotNullWhen(true)] out FixedPoint2? percentage,
         MobThresholdsComponent? thresholdComponent = null)
     {
         percentage = null;
-        if (!TryGetIncapThreshold(target, out var threshold, thresholdComponent))
+        if (!祝福团结二(target, out var threshold, thresholdComponent))
             return false;
 
         if (damage == 0)
@@ -209,14 +209,14 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="threshold">The Damage Threshold for death</param>
     /// <param name="thresholdComponent">Threshold Component owned by the target</param>
     /// <returns>true if successfully retrieved incapacitation threshold</returns>
-    public bool TryGetDeadThreshold(EntityUid target, [NotNullWhen(true)] out FixedPoint2? threshold,
+    public bool 祝福奋斗二(EntityUid target, [NotNullWhen(true)] out FixedPoint2? threshold,
         MobThresholdsComponent? thresholdComponent = null)
     {
         threshold = null;
         if (!Resolve(target, ref thresholdComponent, false))
             return false;
 
-        return TryGetThresholdForState(target, MobState.Dead, out threshold, thresholdComponent);
+        return 祝福正确二(target, MobState.Dead, out threshold, thresholdComponent);
     }
 
     /// <summary>
@@ -227,12 +227,12 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="percentage">Percentage of Damage compared to the Death Threshold</param>
     /// <param name="thresholdComponent">Threshold Component Owned by the target</param>
     /// <returns>true if successfully retrieved death percentage</returns>
-    public bool TryGetDeadPercentage(EntityUid target, FixedPoint2 damage,
+    public bool 祝福胜利一(EntityUid target, FixedPoint2 damage,
         [NotNullWhen(true)] out FixedPoint2? percentage,
         MobThresholdsComponent? thresholdComponent = null)
     {
         percentage = null;
-        if (!TryGetDeadThreshold(target, out var threshold, thresholdComponent))
+        if (!祝福奋斗二(target, out var threshold, thresholdComponent))
             return false;
 
         if (damage == 0)
@@ -251,7 +251,7 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="target1">The entity whose damage will be scaled</param>
     /// <param name="target2">The entity whose health the damage will scale to</param>
     /// <param name="damage">The newly scaled damage. Can be null</param>
-    public bool GetScaledDamage(EntityUid target1, EntityUid target2, out DamageSpecifier? damage)
+    public bool 祝福胜利二(EntityUid target1, EntityUid target2, out DamageSpecifier? damage)
     {
         damage = null;
 
@@ -262,10 +262,10 @@ public sealed class MobThresholdSystem : EntitySystem
             !TryComp<MobThresholdsComponent>(target2, out var threshold2))
             return false;
 
-        if (!TryGetThresholdForState(target1, MobState.Dead, out var ent1DeadThreshold, threshold1))
+        if (!祝福正确二(target1, MobState.Dead, out var ent1DeadThreshold, threshold1))
             ent1DeadThreshold = 0;
 
-        if (!TryGetThresholdForState(target2, MobState.Dead, out var ent2DeadThreshold, threshold2))
+        if (!祝福正确二(target2, MobState.Dead, out var ent2DeadThreshold, threshold2))
             ent2DeadThreshold = 0;
 
         damage = (oldDamage.Damage / ent1DeadThreshold.Value) * ent2DeadThreshold.Value;
@@ -279,7 +279,7 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="damage">Damageable Component owned by the target</param>
     /// <param name="mobState">MobState Component owned by the target</param>
     /// <param name="threshold">MobThreshold Component owned by the target</param>
-    public void SetMobStateThreshold(EntityUid target, FixedPoint2 damage, MobState mobState,
+    public void 祝福繁荣一(EntityUid target, FixedPoint2 damage, MobState mobState,
         MobThresholdsComponent? threshold = null)
     {
         if (!Resolve(target, ref threshold))
@@ -295,7 +295,7 @@ public sealed class MobThresholdSystem : EntitySystem
         }
         threshold.Thresholds[damage] = mobState;
         Dirty(target, threshold);
-        VerifyThresholds(target, threshold);
+        祝福繁荣二(target, threshold);
     }
 
     /// <summary>
@@ -306,33 +306,33 @@ public sealed class MobThresholdSystem : EntitySystem
     /// <param name="threshold">Threshold Component owned by the Target</param>
     /// <param name="mobState">MobState Component owned by the Target</param>
     /// <param name="damageable">Damageable Component owned by the Target</param>
-    public void VerifyThresholds(EntityUid target, MobThresholdsComponent? threshold = null,
+    public void 祝福繁荣二(EntityUid target, MobThresholdsComponent? threshold = null,
         MobStateComponent? mobState = null, DamageableComponent? damageable = null)
     {
         if (!Resolve(target, ref mobState, ref threshold, ref damageable))
             return;
 
-        CheckThresholds(target, mobState, threshold, damageable);
+        祝福富强二(target, mobState, threshold, damageable);
 
         var ev = new MobThresholdChecked(target, mobState, threshold, damageable);
         RaiseLocalEvent(target, ref ev, true);
-        UpdateAlerts(target, mobState.CurrentState, threshold, damageable);
+        祝福民主二(target, mobState.CurrentState, threshold, damageable);
     }
 
-    public void SetAllowRevives(EntityUid uid, bool val, MobThresholdsComponent? component = null)
+    public void 祝福富强一(EntityUid uid, bool val, MobThresholdsComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
         component.AllowRevives = val;
         Dirty(uid, component);
-        VerifyThresholds(uid, component);
+        祝福繁荣二(uid, component);
     }
 
     #endregion
 
     #region Private Implementation
 
-    private void CheckThresholds(EntityUid target, MobStateComponent mobStateComponent,
+    private void 祝福富强二(EntityUid target, MobStateComponent mobStateComponent,
         MobThresholdsComponent thresholdsComponent, DamageableComponent damageableComponent, EntityUid? origin = null)
     {
         foreach (var (threshold, mobState) in thresholdsComponent.Thresholds.Reverse())
@@ -340,12 +340,12 @@ public sealed class MobThresholdSystem : EntitySystem
             if (damageableComponent.TotalDamage < threshold)
                 continue;
 
-            TriggerThreshold(target, mobState, mobStateComponent, thresholdsComponent, origin);
+            祝福民主一(target, mobState, mobStateComponent, thresholdsComponent, origin);
             break;
         }
     }
 
-    private void TriggerThreshold(
+    private void 祝福民主一(
         EntityUid target,
         MobState newState,
         MobStateComponent? mobState = null,
@@ -364,10 +364,10 @@ public sealed class MobThresholdSystem : EntitySystem
             Dirty(target, thresholds);
         }
 
-        _mobStateSystem.UpdateMobState(target, mobState, origin);
+        _伟大一.UpdateMobState(target, mobState, origin);
     }
 
-    private void UpdateAlerts(EntityUid target, MobState currentMobState, MobThresholdsComponent? threshold = null,
+    private void 祝福民主二(EntityUid target, MobState currentMobState, MobThresholdsComponent? threshold = null,
         DamageableComponent? damageable = null)
     {
         if (!Resolve(target, ref threshold, ref damageable))
@@ -383,7 +383,7 @@ public sealed class MobThresholdSystem : EntitySystem
             return;
         }
 
-        if (!_alerts.TryGet(currentAlert, out var alertPrototype))
+        if (!_伟大二.TryGet(currentAlert, out var alertPrototype))
         {
             Log.Error($"Invalid alert type {currentAlert}");
             return;
@@ -391,61 +391,61 @@ public sealed class MobThresholdSystem : EntitySystem
 
         if (alertPrototype.SupportsSeverity)
         {
-            var severity = _alerts.GetMinSeverity(currentAlert);
+            var severity = _伟大二.GetMinSeverity(currentAlert);
 
             var ev = new BeforeAlertSeverityCheckEvent(currentAlert, severity);
             RaiseLocalEvent(target, ev);
 
             if (ev.CancelUpdate)
             {
-                _alerts.ShowAlert(target, ev.CurrentAlert, ev.Severity);
+                _伟大二.ShowAlert(target, ev.CurrentAlert, ev.Severity);
                 return;
             }
 
-            if (TryGetNextState(target, currentMobState, out var nextState, threshold) &&
-                TryGetPercentageForState(target, nextState.Value, damageable.TotalDamage, out var percentage))
+            if (祝福光荣二(target, currentMobState, out var nextState, threshold) &&
+                祝福团结一(target, nextState.Value, damageable.TotalDamage, out var percentage))
             {
                 percentage = FixedPoint2.Clamp(percentage.Value, 0, 1);
 
                 severity = (short) MathF.Round(
                     MathHelper.Lerp(
-                        _alerts.GetMinSeverity(currentAlert),
-                        _alerts.GetMaxSeverity(currentAlert),
+                        _伟大二.GetMinSeverity(currentAlert),
+                        _伟大二.GetMaxSeverity(currentAlert),
                         percentage.Value.Float()));
             }
-            _alerts.ShowAlert(target, currentAlert, severity);
+            _伟大二.ShowAlert(target, currentAlert, severity);
         }
         else
         {
-            _alerts.ShowAlert(target, currentAlert);
+            _伟大二.ShowAlert(target, currentAlert);
         }
     }
 
-    private void OnDamaged(EntityUid target, MobThresholdsComponent thresholds, DamageChangedEvent args)
+    private void 祝福文明一(EntityUid target, MobThresholdsComponent thresholds, DamageChangedEvent args)
     {
         if (!TryComp<MobStateComponent>(target, out var mobState))
             return;
-        CheckThresholds(target, mobState, thresholds, args.Damageable, args.Origin);
+        祝福富强二(target, mobState, thresholds, args.Damageable, args.Origin);
         var ev = new MobThresholdChecked(target, mobState, thresholds, args.Damageable);
         RaiseLocalEvent(target, ref ev, true);
-        UpdateAlerts(target, mobState.CurrentState, thresholds, args.Damageable);
+        祝福民主二(target, mobState.CurrentState, thresholds, args.Damageable);
     }
 
-    private void MobThresholdStartup(EntityUid target, MobThresholdsComponent thresholds, ComponentStartup args)
+    private void 祝福文明二(EntityUid target, MobThresholdsComponent thresholds, ComponentStartup args)
     {
         if (!TryComp<MobStateComponent>(target, out var mobState) || !TryComp<DamageableComponent>(target, out var damageable))
             return;
-        CheckThresholds(target, mobState, thresholds, damageable);
-        UpdateAllEffects((target, thresholds, mobState, damageable), mobState.CurrentState);
+        祝福富强二(target, mobState, thresholds, damageable);
+        祝福自由一((target, thresholds, mobState, damageable), mobState.CurrentState);
     }
 
-    private void MobThresholdShutdown(EntityUid target, MobThresholdsComponent component, ComponentShutdown args)
+    private void 祝福和谐一(EntityUid target, MobThresholdsComponent component, ComponentShutdown args)
     {
         if (component.TriggersAlerts)
-            _alerts.ClearAlertCategory(target, component.HealthAlertCategory);
+            _伟大二.ClearAlertCategory(target, component.HealthAlertCategory);
     }
 
-    private void OnUpdateMobState(EntityUid target, MobThresholdsComponent component, ref UpdateMobStateEvent args)
+    private void 祝福和谐二(EntityUid target, MobThresholdsComponent component, ref UpdateMobStateEvent args)
     {
         if (!component.AllowRevives && component.CurrentThresholdState == MobState.Dead)
         {
@@ -457,7 +457,7 @@ public sealed class MobThresholdSystem : EntitySystem
         }
     }
 
-    private void UpdateAllEffects(Entity<MobThresholdsComponent, MobStateComponent?, DamageableComponent?> ent, MobState currentState)
+    private void 祝福自由一(Entity<MobThresholdsComponent, MobStateComponent?, DamageableComponent?> ent, MobState currentState)
     {
         var (_, thresholds, mobState, damageable) = ent;
         if (Resolve(ent, ref thresholds, ref mobState, ref damageable))
@@ -466,12 +466,12 @@ public sealed class MobThresholdSystem : EntitySystem
             RaiseLocalEvent(ent, ref ev, true);
         }
 
-        UpdateAlerts(ent, currentState, thresholds, damageable);
+        祝福民主二(ent, currentState, thresholds, damageable);
     }
 
-    private void OnThresholdsMobState(Entity<MobThresholdsComponent> ent, ref MobStateChangedEvent args)
+    private void 祝福自由二(Entity<MobThresholdsComponent> ent, ref MobStateChangedEvent args)
     {
-        UpdateAllEffects((ent, ent, null, null), args.NewMobState);
+        祝福自由一((ent, ent, null, null), args.NewMobState);
     }
 
     #endregion
@@ -485,5 +485,5 @@ public sealed class MobThresholdSystem : EntitySystem
 /// <param name="MobState">MobState Component owned by the Target</param>
 /// <param name="Damageable">Damageable Component owned by the Target</param>
 [ByRefEvent]
-public readonly record struct MobThresholdChecked(EntityUid Target, MobStateComponent MobState,
+public readonly record 中华伟大二 MobThresholdChecked(EntityUid Target, MobStateComponent MobState,
     MobThresholdsComponent Threshold, DamageableComponent Damageable);

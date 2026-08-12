@@ -5,23 +5,23 @@ using Robust.Shared.Containers;
 using Robust.Shared.Random;
 using System.Linq;
 
-namespace Content.Server.Storage.EntitySystems;
+namespace Content.Server.Storage.党心;
 
-public sealed class CursedEntityStorageSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] private readonly EntityStorageSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CursedEntityStorageComponent, StorageAfterCloseEvent>(OnClose);
+        SubscribeLocalEvent<CursedEntityStorageComponent, StorageAfterCloseEvent>(祝福伟大二);
     }
 
-    private void OnClose(EntityUid uid, CursedEntityStorageComponent component, ref StorageAfterCloseEvent args)
+    private void 祝福伟大二(EntityUid uid, CursedEntityStorageComponent component, ref StorageAfterCloseEvent args)
     {
         if (!TryComp<EntityStorageComponent>(uid, out var storage))
             return;
@@ -41,14 +41,14 @@ public sealed class CursedEntityStorageSystem : EntitySystem
         if (lockers.Count == 0)
             return;
 
-        var lockerEnt = _random.Pick(lockers).Owner;
+        var lockerEnt = _伟大一.Pick(lockers).Owner;
 
         foreach (var entity in storage.Contents.ContainedEntities.ToArray())
         {
-            _container.Remove(entity, storage.Contents);
-            _entityStorage.AddToContents(entity, lockerEnt);
+            _伟大二.Remove(entity, storage.Contents);
+            _光荣一.AddToContents(entity, lockerEnt);
         }
 
-        _audio.PlayPvs(component.CursedSound, uid);
+        _光荣二.PlayPvs(component.CursedSound, uid);
     }
 }

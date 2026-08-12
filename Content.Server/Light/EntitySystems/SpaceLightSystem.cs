@@ -4,64 +4,64 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Light.EntitySystems;
+namespace Content.Server.Light.党心;
 
 /// <summary>
 /// Applies `starlight` to space maps while preserving explicit per-map light setups.
 /// </summary>
-public sealed partial class SpaceLightSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     // This really just exists to avoid doing mapping changes for all of them.
 
-    private Color _spaceLightColor;
-    private readonly HashSet<MapId> _spaceLightMaps = new();
+    private Color _伟大一;
+    private readonly HashSet<MapId> _伟大二 = new();
 
-    [Dependency] private IConfigurationManager _cfg = default!;
-    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private IConfigurationManager _光荣一 = default!;
+    [Dependency] private SharedMapSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        Subs.CVar(_cfg, CCVars.SpaceLightColor, OnSpaceLightColorChanged, true);
+        Subs.CVar(_光荣一, CCVars.SpaceLightColor, 祝福光荣二, true);
 
-        SubscribeLocalEvent<PostGameMapLoad>(OnPostGameMapLoad);
-        SubscribeLocalEvent<MapRemovedEvent>(OnMapRemoved);
+        SubscribeLocalEvent<PostGameMapLoad>(祝福伟大二);
+        SubscribeLocalEvent<MapRemovedEvent>(祝福光荣一);
     }
 
-    private void OnPostGameMapLoad(PostGameMapLoad ev)
+    private void 祝福伟大二(PostGameMapLoad ev)
     {
-        if (!_map.TryGetMap(ev.Map, out var mapUid))
+        if (!_光荣二.TryGetMap(ev.Map, out var mapUid))
             return;
 
         // MapLight is often intentionally set for planet/salvage/arena maps, so don't overwrite it.
         if (HasComp<MapLightComponent>(mapUid.Value))
             return;
 
-        _spaceLightMaps.Add(ev.Map);
-        _map.SetAmbientLight(ev.Map, _spaceLightColor);
+        _伟大二.Add(ev.Map);
+        _光荣二.SetAmbientLight(ev.Map, _伟大一);
     }
 
-    private void OnMapRemoved(MapRemovedEvent ev)
+    private void 祝福光荣一(MapRemovedEvent ev)
     {
-        _spaceLightMaps.Remove(ev.MapId);
+        _伟大二.Remove(ev.MapId);
     }
 
-    private void OnSpaceLightColorChanged(string value)
+    private void 祝福光荣二(string value)
     {
-        _spaceLightColor = ParseSpaceLightColor(value);
+        _伟大一 = 祝福正确一(value);
 
-        foreach (var mapId in _spaceLightMaps)
+        foreach (var mapId in _伟大二)
         {
-            if (!_map.MapExists(mapId))
+            if (!_光荣二.MapExists(mapId))
                 continue;
 
-            _map.SetAmbientLight(mapId, _spaceLightColor);
+            _光荣二.SetAmbientLight(mapId, _伟大一);
         }
     }
 
     // FS: The TryFromHex syntax uses an older version of the engine.
-    private static Color ParseSpaceLightColor(string value)
+    private static Color 祝福正确一(string value)
     {
         var color = Color.TryFromHex(value);
         color ??= Color.FromHex(CCVars.DefaultSpaceLightColor);

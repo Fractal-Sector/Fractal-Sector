@@ -5,25 +5,25 @@ using Content.Shared.Examine;
 using Content.Shared.Rounding;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Damage.Systems;
+namespace Content.Server.Damage.党心;
 
-public sealed class ExaminableDamageSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly DestructibleSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ExaminableDamageComponent, ExaminedEvent>(OnExamine);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ExaminableDamageComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamine(Entity<ExaminableDamageComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<ExaminableDamageComponent> ent, ref ExaminedEvent args)
     {
-        if (!_prototype.TryIndex(ent.Comp.Messages, out var proto) || proto.Values.Count == 0)
+        if (!_伟大二.TryIndex(ent.Comp.Messages, out var proto) || proto.Values.Count == 0)
             return;
 
-        var percent = GetDamagePercent(ent);
+        var percent = 祝福光荣一(ent);
         var level = ContentHelpers.RoundToNearestLevels(percent, 1, proto.Values.Count - 1);
         var msg = Loc.GetString(proto.Values[level]);
         args.PushMarkup(msg, -99);
@@ -34,13 +34,13 @@ public sealed class ExaminableDamageSystem : EntitySystem
     /// where 0 is undamaged and 1 is fully damaged.
     /// </summary>
     /// <returns>How damaged the entity is from 0 to 1</returns>
-    private float GetDamagePercent(Entity<ExaminableDamageComponent> ent)
+    private float 祝福光荣一(Entity<ExaminableDamageComponent> ent)
     {
         if (!TryComp<DamageableComponent>(ent, out var damageable))
             return 0;
 
         var damage = damageable.TotalDamage;
-        var damageThreshold = _destructible.DestroyedAt(ent);
+        var damageThreshold = _伟大一.DestroyedAt(ent);
 
         if (damageThreshold == 0)
             return 0;

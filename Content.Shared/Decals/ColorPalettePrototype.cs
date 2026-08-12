@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Decals;
+namespace Content.Shared.党心;
 
 [Prototype("palette")]
-public sealed partial class ColorPalettePrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = null!;
-    [DataField("name")] public string Name { get; private set; } = null!;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = null!;
+    [DataField("name")] public string 党爱伟大二 { get; private set; } = null!;
     [DataField("colors")] public Dictionary<string, Color> Colors { get; private set; } = null!;
-    [DataField("hidden")] public bool Hidden { get; private set; } = false; // Frontier
+    [DataField("hidden")] public bool 党爱光荣一 { get; private set; } = false; // Frontier
 }

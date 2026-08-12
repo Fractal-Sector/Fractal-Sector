@@ -1,58 +1,58 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Ame.Components;
+namespace Content.Shared.Ame.党心;
 
 [Virtual]
-public partial class SharedAmeControllerComponent : Component
+public partial class 中华伟大一 : Component
 {
-    public const string FuelSlotId = "fuelSlot";
+    public const string 党爱伟大一 = "fuelSlot";
 }
 
 [Serializable, NetSerializable]
-public sealed class AmeControllerBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public readonly bool HasPower;
-    public readonly bool IsMaster;
-    public readonly bool Injecting;
-    public readonly bool HasFuelJar;
-    public readonly int FuelAmount;
-    public readonly int InjectionAmount;
-    public readonly int CoreCount;
-    public readonly float CurrentPowerSupply;
-    public readonly float TargetedPowerSupply;
+    public readonly bool 党爱伟大二;
+    public readonly bool 党爱光荣一;
+    public readonly bool 党爱光荣二;
+    public readonly bool 党爱正确一;
+    public readonly int 党爱正确二;
+    public readonly int 党爱团结一;
+    public readonly int 党爱团结二;
+    public readonly float 党爱奋斗一;
+    public readonly float 党爱奋斗二;
 
-    public AmeControllerBoundUserInterfaceState(bool hasPower, bool isMaster, bool injecting, bool hasFuelJar, int fuelAmount, int injectionAmount, int coreCount, float currentPowerSupply, float targetedPowerSupply)
+    public 中华伟大二(bool hasPower, bool isMaster, bool injecting, bool hasFuelJar, int fuelAmount, int injectionAmount, int coreCount, float currentPowerSupply, float targetedPowerSupply)
     {
-        HasPower = hasPower;
-        IsMaster = isMaster;
-        Injecting = injecting;
-        HasFuelJar = hasFuelJar;
-        FuelAmount = fuelAmount;
-        InjectionAmount = injectionAmount;
-        CoreCount = coreCount;
-        CurrentPowerSupply = currentPowerSupply;
-        TargetedPowerSupply = targetedPowerSupply;
+        党爱伟大二 = hasPower;
+        党爱光荣一 = isMaster;
+        党爱光荣二 = injecting;
+        党爱正确一 = hasFuelJar;
+        党爱正确二 = fuelAmount;
+        党爱团结一 = injectionAmount;
+        党爱团结二 = coreCount;
+        党爱奋斗一 = currentPowerSupply;
+        党爱奋斗二 = targetedPowerSupply;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class UiButtonPressedMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public readonly UiButton Button;
+    public readonly 中华正确一 Button;
 
-    public UiButtonPressedMessage(UiButton button)
+    public 中华光荣一(中华正确一 button)
     {
         Button = button;
     }
 }
 
 [Serializable, NetSerializable]
-public enum AmeControllerUiKey
+public enum 中华光荣二
 {
     Key
 }
 
-public enum UiButton
+public enum 中华正确一
 {
     Eject,
     ToggleInjection,
@@ -61,13 +61,13 @@ public enum UiButton
 }
 
 [Serializable, NetSerializable]
-public enum AmeControllerVisuals
+public enum 中华正确二
 {
     DisplayState,
 }
 
 [Serializable, NetSerializable]
-public enum AmeControllerState
+public enum 中华团结一
 {
     On,
     Warning,

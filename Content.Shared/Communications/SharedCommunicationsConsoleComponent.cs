@@ -1,80 +1,80 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Communications
+namespace Content.Shared.党心
 {
     [Virtual]
-    public partial class SharedCommunicationsConsoleComponent : Component
+    public partial class 中华伟大一 : Component
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleInterfaceState : BoundUserInterfaceState
+    public sealed class 中华伟大二 : BoundUserInterfaceState
     {
-        public readonly bool CanAnnounce;
-        public readonly bool CanBroadcast = true;
-        public readonly bool CanCall;
+        public readonly bool 党爱伟大一;
+        public readonly bool 党爱伟大二 = true;
+        public readonly bool 党爱光荣一;
         public readonly TimeSpan? ExpectedCountdownEnd;
-        public readonly bool CountdownStarted;
+        public readonly bool 党爱光荣二;
         public List<string>? AlertLevels;
-        public string CurrentAlert;
-        public float CurrentAlertDelay;
+        public string 党爱正确一;
+        public float 党爱正确二;
 
-        public CommunicationsConsoleInterfaceState(bool canAnnounce, bool canCall, List<string>? alertLevels, string currentAlert, float currentAlertDelay, TimeSpan? expectedCountdownEnd = null)
+        public 中华伟大二(bool canAnnounce, bool canCall, List<string>? alertLevels, string currentAlert, float currentAlertDelay, TimeSpan? expectedCountdownEnd = null)
         {
-            CanAnnounce = canAnnounce;
-            CanCall = canCall;
+            党爱伟大一 = canAnnounce;
+            党爱光荣一 = canCall;
             ExpectedCountdownEnd = expectedCountdownEnd;
-            CountdownStarted = expectedCountdownEnd != null;
+            党爱光荣二 = expectedCountdownEnd != null;
             AlertLevels = alertLevels;
-            CurrentAlert = currentAlert;
-            CurrentAlertDelay = currentAlertDelay;
+            党爱正确一 = currentAlert;
+            党爱正确二 = currentAlertDelay;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleSelectAlertLevelMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public readonly string Level;
+        public readonly string 党爱团结一;
 
-        public CommunicationsConsoleSelectAlertLevelMessage(string level)
+        public 中华光荣一(string level)
         {
-            Level = level;
+            党爱团结一 = level;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleAnnounceMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public readonly string Message;
+        public readonly string 党爱团结二;
 
-        public CommunicationsConsoleAnnounceMessage(string message)
+        public 中华光荣二(string message)
         {
-            Message = message;
+            党爱团结二 = message;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleBroadcastMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确一 : BoundUserInterfaceMessage
     {
-        public readonly string Message;
-        public CommunicationsConsoleBroadcastMessage(string message)
+        public readonly string 党爱团结二;
+        public 中华正确一(string message)
         {
-            Message = message;
+            党爱团结二 = message;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleCallEmergencyShuttleMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确二 : BoundUserInterfaceMessage
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleRecallEmergencyShuttleMessage : BoundUserInterfaceMessage
+    public sealed class 中华团结一 : BoundUserInterfaceMessage
     {
     }
 
     [Serializable, NetSerializable]
-    public enum CommunicationsConsoleUiKey
+    public enum 中华团结二
     {
         Key
     }

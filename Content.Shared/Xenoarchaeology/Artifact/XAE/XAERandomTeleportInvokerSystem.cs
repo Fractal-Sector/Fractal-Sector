@@ -3,27 +3,27 @@ using Content.Shared.Xenoarchaeology.Artifact.XAE.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Xenoarchaeology.Artifact.XAE;
+namespace Content.Shared.Xenoarchaeology.Artifact.党心;
 
-public sealed class XAERandomTeleportInvokerSystem : BaseXAESystem<XAERandomTeleportInvokerComponent>
+public sealed class 中华伟大一 : BaseXAESystem<XAERandomTeleportInvokerComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
 
     /// <inheritdoc />
-    protected override void OnActivated(Entity<XAERandomTeleportInvokerComponent> ent, ref XenoArtifactNodeActivatedEvent args)
+    protected override void 祝福伟大一(Entity<XAERandomTeleportInvokerComponent> ent, ref XenoArtifactNodeActivatedEvent args)
     {
-        if (!_timing.IsFirstTimePredicted)
+        if (!_光荣二.IsFirstTimePredicted)
             return;
         // todo: teleport person who activated artifact with artifact itself
         var component = ent.Comp;
 
         var xform = Transform(ent.Owner);
-        _popup.PopupCoordinates(Loc.GetString("blink-artifact-popup"), xform.Coordinates, PopupType.Medium);
+        _伟大二.PopupCoordinates(Loc.GetString("blink-artifact-popup"), xform.Coordinates, PopupType.Medium);
 
-        var offsetTo = _random.NextVector2(component.MinRange, component.MaxRange);
-        _xform.SetCoordinates(ent.Owner, xform, xform.Coordinates.Offset(offsetTo));
+        var offsetTo = _伟大一.NextVector2(component.MinRange, component.MaxRange);
+        _光荣一.SetCoordinates(ent.Owner, xform, xform.Coordinates.Offset(offsetTo));
     }
 }

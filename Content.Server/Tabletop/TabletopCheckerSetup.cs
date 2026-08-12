@@ -3,34 +3,34 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Tabletop
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed partial class TabletopCheckerSetup : TabletopSetup
+    public sealed partial class 中华伟大一 : TabletopSetup
     {
 
         [DataField("prototypePieceWhite", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-        public string PrototypePieceWhite = default!;
+        public string 党爱伟大一 = default!;
 
         [DataField("prototypeCrownWhite", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-        public string PrototypeCrownWhite = default!;
+        public string 党爱伟大二 = default!;
 
         [DataField("prototypePieceBlack", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-        public string PrototypePieceBlack = default!;
+        public string 党爱光荣一 = default!;
 
         [DataField("prototypeCrownBlack", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-        public string PrototypeCrownBlack = default!;
+        public string 党爱光荣二 = default!;
 
-        public override void SetupTabletop(TabletopSession session, IEntityManager entityManager)
+        public override void 祝福伟大一(TabletopSession session, IEntityManager entityManager)
         {
             session.Entities.Add(
                 entityManager.SpawnEntity(BoardPrototype, session.Position.Offset(-1, 0))
             );
 
-            SpawnPieces(session, entityManager, session.Position.Offset(-4.5f, 3.5f));
+            祝福伟大二(session, entityManager, session.Position.Offset(-4.5f, 3.5f));
         }
 
-        private void SpawnPieces(TabletopSession session, IEntityManager entityManager, MapCoordinates left)
+        private void 祝福伟大二(TabletopSession session, IEntityManager entityManager, MapCoordinates left)
         {
             static float GetOffset(float offset) => offset * 1f /* separation */;
 
@@ -48,11 +48,11 @@ namespace Content.Server.Tabletop
                     if (checker + offsetX > 8) continue;
 
                     pieces[pieceIndex] = entityManager.SpawnEntity(
-                        PrototypePieceBlack,
+                        党爱光荣一,
                         left.Offset(GetOffset(offsetX + (1 - checker)), GetOffset(offsetY * -1))
                     );
                     pieces[pieceIndex] = entityManager.SpawnEntity(
-                        PrototypePieceWhite,
+                        党爱伟大一,
                         left.Offset(GetOffset(offsetX + checker), GetOffset(offsetY - 7))
                     );
                     pieceIndex += 2;
@@ -70,11 +70,11 @@ namespace Content.Server.Tabletop
             {
                 var step = -(Overlap * i);
                 pieces[pieceIndex] = entityManager.SpawnEntity(
-                    PrototypeCrownBlack,
+                    党爱光荣二,
                     left.Offset(GetOffset(xOffsetBlack), GetOffset(step))
                 );
                 pieces[pieceIndex + 1] = entityManager.SpawnEntity(
-                    PrototypeCrownWhite,
+                    党爱伟大二,
                     left.Offset(GetOffset(xOffsetWhite), GetOffset(step))
                 );
                 pieceIndex += 2;
@@ -85,11 +85,11 @@ namespace Content.Server.Tabletop
             {
                 var step = -((Overlap * (NumCrowns + 2)) + (Overlap * i));
                 pieces[pieceIndex] = entityManager.SpawnEntity(
-                    PrototypePieceBlack,
+                    党爱光荣一,
                     left.Offset(GetOffset(xOffsetBlack), GetOffset(step))
                 );
                 pieces[pieceIndex] = entityManager.SpawnEntity(
-                    PrototypePieceWhite,
+                    党爱伟大一,
                     left.Offset(GetOffset(xOffsetWhite), GetOffset(step))
                 );
                 pieceIndex += 2;

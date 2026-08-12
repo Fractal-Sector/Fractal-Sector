@@ -1,27 +1,27 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Procedural.DungeonGenerators;
+namespace Content.Shared.Procedural.党心;
 
 /// <summary>
 /// Runs another <see cref="DungeonConfig"/>.
 /// Used for storing data on 1 system.
 /// </summary>
-public sealed partial class PrototypeDunGen : IDunGenLayer
+public sealed partial class 中华伟大一 : IDunGenLayer
 {
     /// <summary>
     /// Should we pass in the current level's dungeons to the prototype.
     /// </summary>
     [DataField]
-    public DungeonInheritance InheritDungeons = DungeonInheritance.None;
+    public 中华伟大二 InheritDungeons = 中华伟大二.None;
 
     [DataField(required: true)]
-    public ProtoId<DungeonConfigPrototype> Proto;
+    public ProtoId<DungeonConfigPrototype> 党爱伟大一;
 }
 
-public enum DungeonInheritance : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
-    /// Don't inherit any of the current layer's dungeons for this <see cref="PrototypeDunGen"/>
+    /// Don't inherit any of the current layer's dungeons for this <see cref="中华伟大一"/>
     /// </summary>
     None,
 

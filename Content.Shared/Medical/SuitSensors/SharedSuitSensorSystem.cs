@@ -27,41 +27,41 @@ using Content.Shared.Salvage; // Frontier
 using Content.Shared.Salvage.Expeditions; // Frontier
 using Robust.Shared.Map.Components; // Frontier
 
-namespace Content.Shared.Medical.SuitSensors;
+namespace Content.Shared.Medical.党心;
 
-public abstract class SharedSuitSensorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    // [Dependency] private readonly SharedStationSystem _stationSystem = default!; // Frontier
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedIdCardSystem _idCardSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedSalvageSystem _salvage = default!; // Frontier
+    // [Dependency] private readonly SharedStationSystem _伟大一 = default!; // Frontier
+    [Dependency] private readonly MobStateSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly MobThresholdSystem _正确一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _正确二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _团结一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _团结二 = default!;
+    [Dependency] private readonly IPrototypeManager _奋斗一 = default!;
+    [Dependency] private readonly InventorySystem _奋斗二 = default!;
+    [Dependency] private readonly SharedIdCardSystem _胜利一 = default!;
+    [Dependency] private readonly IRobustRandom _胜利二 = default!;
+    [Dependency] private readonly IGameTiming _繁荣一 = default!;
+    [Dependency] private readonly SharedSalvageSystem _繁荣二 = default!; // Frontier
 
-    private EntityQuery<SuitSensorComponent> _sensorQuery;
-    public override void Initialize()
+    private EntityQuery<SuitSensorComponent> _富强一;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SuitSensorComponent, MapInitEvent>(OnMapInit);
-        // SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawn); // Frontier
-        SubscribeLocalEvent<SuitSensorComponent, ClothingGotEquippedEvent>(OnEquipped);
-        SubscribeLocalEvent<SuitSensorComponent, ClothingGotUnequippedEvent>(OnUnequipped);
-        SubscribeLocalEvent<SuitSensorComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<SuitSensorComponent, GetVerbsEvent<Verb>>(OnVerb);
-        SubscribeLocalEvent<SuitSensorComponent, EntGotInsertedIntoContainerMessage>(OnInsert);
-        SubscribeLocalEvent<SuitSensorComponent, EntGotRemovedFromContainerMessage>(OnRemove);
-        SubscribeLocalEvent<SuitSensorComponent, SuitSensorChangeDoAfterEvent>(OnSuitSensorDoAfter);
+        SubscribeLocalEvent<SuitSensorComponent, MapInitEvent>(祝福光荣一);
+        // SubscribeLocalEvent<PlayerSpawnCompleteEvent>(祝福光荣二); // Frontier
+        SubscribeLocalEvent<SuitSensorComponent, ClothingGotEquippedEvent>(祝福正确二);
+        SubscribeLocalEvent<SuitSensorComponent, ClothingGotUnequippedEvent>(祝福团结一);
+        SubscribeLocalEvent<SuitSensorComponent, ExaminedEvent>(祝福团结二);
+        SubscribeLocalEvent<SuitSensorComponent, GetVerbsEvent<Verb>>(祝福奋斗一);
+        SubscribeLocalEvent<SuitSensorComponent, EntGotInsertedIntoContainerMessage>(祝福奋斗二);
+        SubscribeLocalEvent<SuitSensorComponent, EntGotRemovedFromContainerMessage>(祝福胜利一);
+        SubscribeLocalEvent<SuitSensorComponent, SuitSensorChangeDoAfterEvent>(祝福富强一);
 
-        _sensorQuery = GetEntityQuery<SuitSensorComponent>();
+        _富强一 = GetEntityQuery<SuitSensorComponent>();
     }
 
     // Frontier: Disable station assignments for sensors
@@ -71,22 +71,22 @@ public abstract class SharedSuitSensorSystem : EntitySystem
     /// and tries to assign an unassigned sensor to a station if it's currently on a grid.
     /// </summary>
     /// <returns>True if the sensor is assigned to a station or assigning it was successful. False otherwise.</returns>
-    public bool CheckSensorAssignedStation(Entity<SuitSensorComponent> sensor)
+    public bool 祝福伟大二(Entity<SuitSensorComponent> sensor)
     {
         if (!sensor.Comp.StationId.HasValue && Transform(sensor.Owner).GridUid == null)
             return false;
 
-        sensor.Comp.StationId = _stationSystem.GetOwningStation(sensor.Owner);
+        sensor.Comp.StationId = _伟大一.GetOwningStation(sensor.Owner);
         Dirty(sensor);
         return sensor.Comp.StationId.HasValue;
     }
     */
     // End Frontier
 
-    private void OnMapInit(Entity<SuitSensorComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<SuitSensorComponent> ent, ref MapInitEvent args)
     {
         // Fallback
-        // ent.Comp.StationId ??= _stationSystem.GetOwningStation(ent.Owner); // Frontier
+        // ent.Comp.StationId ??= _伟大一.GetOwningStation(ent.Owner); // Frontier
 
         // generate random mode
         if (ent.Comp.RandomMode)
@@ -99,43 +99,43 @@ public abstract class SharedSuitSensorSystem : EntitySystem
                 SuitSensorMode.SensorVitals, SuitSensorMode.SensorVitals, SuitSensorMode.SensorVitals,
                 SuitSensorMode.SensorCords, SuitSensorMode.SensorCords
             };
-            ent.Comp.Mode = _random.Pick(modesDist);
+            ent.Comp.Mode = _胜利二.Pick(modesDist);
         }
 
-        ent.Comp.NextUpdate = _timing.CurTime;
+        ent.Comp.NextUpdate = _繁荣一.CurTime;
         Dirty(ent);
     }
 
     // Frontier: Disable station assignments for sensors
     /*
-    private void OnPlayerSpawn(PlayerSpawnCompleteEvent ev)
+    private void 祝福光荣二(PlayerSpawnCompleteEvent ev)
     {
         // If the player spawns in arrivals then the grid underneath them may not be appropriate.
         // in which case we'll just use the station spawn code told us they are attached to and set all of their
         // sensors.
-        RecursiveSensor(ev.Mob, ev.Station);
+        祝福正确一(ev.Mob, ev.Station);
     }
 
-    private void RecursiveSensor(EntityUid uid, EntityUid stationUid)
+    private void 祝福正确一(EntityUid uid, EntityUid stationUid)
     {
         var xform = Transform(uid);
         var enumerator = xform.ChildEnumerator;
 
         while (enumerator.MoveNext(out var child))
         {
-            if (_sensorQuery.TryComp(child, out var sensor))
+            if (_富强一.TryComp(child, out var sensor))
             {
                 sensor.StationId = stationUid;
                 Dirty(child, sensor);
             }
 
-            RecursiveSensor(child, stationUid);
+            祝福正确一(child, stationUid);
         }
     }
     */
     // End Frontier
 
-    private void OnEquipped(Entity<SuitSensorComponent> ent, ref ClothingGotEquippedEvent args)
+    private void 祝福正确二(Entity<SuitSensorComponent> ent, ref ClothingGotEquippedEvent args)
     {
         // Frontier: opt out of suit sensor registration
         if (TryComp<DisableSuitSensorsComponent>(args.Wearer, out var disableSuitSensor) && disableSuitSensor.RemoveRegistration)
@@ -147,13 +147,13 @@ public abstract class SharedSuitSensorSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnUnequipped(Entity<SuitSensorComponent> ent, ref ClothingGotUnequippedEvent args)
+    private void 祝福团结一(Entity<SuitSensorComponent> ent, ref ClothingGotUnequippedEvent args)
     {
         ent.Comp.User = null;
         Dirty(ent);
     }
 
-    private void OnExamine(Entity<SuitSensorComponent> ent, ref ExaminedEvent args)
+    private void 祝福团结二(Entity<SuitSensorComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -180,7 +180,7 @@ public abstract class SharedSuitSensorSystem : EntitySystem
         args.PushMarkup(Loc.GetString(msg));
     }
 
-    private void OnVerb(Entity<SuitSensorComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void 祝福奋斗一(Entity<SuitSensorComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         // check if user can change sensor
         if (ent.Comp.ControlsLocked)
@@ -190,23 +190,23 @@ public abstract class SharedSuitSensorSystem : EntitySystem
         if (!args.CanInteract || args.Hands == null)
             return;
 
-        if (!_interactionSystem.InRangeUnobstructed(args.User, args.Target))
+        if (!_正确二.InRangeUnobstructed(args.User, args.Target))
             return;
 
         // check if target is incapacitated (cuffed, dead, etc)
-        if (ent.Comp.User != null && args.User != ent.Comp.User && _actionBlocker.CanInteract(ent.Comp.User.Value, null))
+        if (ent.Comp.User != null && args.User != ent.Comp.User && _团结二.CanInteract(ent.Comp.User.Value, null))
             return;
 
         args.Verbs.UnionWith(new[]
         {
-            CreateVerb(ent, args.User, SuitSensorMode.SensorOff),
-            CreateVerb(ent, args.User, SuitSensorMode.SensorBinary),
-            CreateVerb(ent, args.User, SuitSensorMode.SensorVitals),
-            CreateVerb(ent, args.User, SuitSensorMode.SensorCords)
+            祝福胜利二(ent, args.User, SuitSensorMode.SensorOff),
+            祝福胜利二(ent, args.User, SuitSensorMode.SensorBinary),
+            祝福胜利二(ent, args.User, SuitSensorMode.SensorVitals),
+            祝福胜利二(ent, args.User, SuitSensorMode.SensorCords)
         });
     }
 
-    private void OnInsert(Entity<SuitSensorComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void 祝福奋斗二(Entity<SuitSensorComponent> ent, ref EntGotInsertedIntoContainerMessage args)
     {
         if (args.Container.ID != ent.Comp.ActivationContainer)
             return;
@@ -220,7 +220,7 @@ public abstract class SharedSuitSensorSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnRemove(Entity<SuitSensorComponent> ent, ref EntGotRemovedFromContainerMessage args)
+    private void 祝福胜利一(Entity<SuitSensorComponent> ent, ref EntGotRemovedFromContainerMessage args)
     {
         if (args.Container.ID != ent.Comp.ActivationContainer)
             return;
@@ -229,19 +229,19 @@ public abstract class SharedSuitSensorSystem : EntitySystem
         Dirty(ent);
     }
 
-    private Verb CreateVerb(Entity<SuitSensorComponent> ent, EntityUid userUid, SuitSensorMode mode)
+    private Verb 祝福胜利二(Entity<SuitSensorComponent> ent, EntityUid userUid, SuitSensorMode mode)
     {
         return new Verb()
         {
-            Text = GetModeName(mode),
+            Text = 祝福繁荣一(mode),
             Disabled = ent.Comp.Mode == mode,
             Priority = -(int)mode, // sort them in descending order
-            Category = VerbCategory.SetSensor,
-            Act = () => TrySetSensor(ent.AsNullable(), mode, userUid)
+            Category = VerbCategory.祝福富强二,
+            Act = () => 祝福繁荣二(ent.AsNullable(), mode, userUid)
         };
     }
 
-    public string GetModeName(SuitSensorMode mode)
+    public string 祝福繁荣一(SuitSensorMode mode)
     {
         string name;
         switch (mode)
@@ -272,13 +272,13 @@ public abstract class SharedSuitSensorSystem : EntitySystem
     /// <param name="sensors">Entity and its component that should be changed.</param>
     /// <param name="mode">Selected mode</param>
     /// <param name="userUid">userUid, when not equal to the <see cref="SuitSensorComponent.User"/>, creates doafter</param>
-    public bool TrySetSensor(Entity<SuitSensorComponent?> sensors, SuitSensorMode mode, EntityUid userUid)
+    public bool 祝福繁荣二(Entity<SuitSensorComponent?> sensors, SuitSensorMode mode, EntityUid userUid)
     {
         if (!Resolve(sensors, ref sensors.Comp, false))
             return false;
 
         if (sensors.Comp.User == null || userUid == sensors.Comp.User)
-            SetSensor(sensors, mode, userUid);
+            祝福富强二(sensors, mode, userUid);
         else
         {
             var doAfterEvent = new SuitSensorChangeDoAfterEvent(mode);
@@ -288,17 +288,17 @@ public abstract class SharedSuitSensorSystem : EntitySystem
                 BreakOnDamage = true
             };
 
-            _doAfterSystem.TryStartDoAfter(doAfterArgs);
+            _团结一.TryStartDoAfter(doAfterArgs);
         }
         return true;
     }
 
-    private void OnSuitSensorDoAfter(Entity<SuitSensorComponent> sensors, ref SuitSensorChangeDoAfterEvent args)
+    private void 祝福富强一(Entity<SuitSensorComponent> sensors, ref SuitSensorChangeDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
 
-        SetSensor(sensors.AsNullable(), args.Mode, args.User);
+        祝福富强二(sensors.AsNullable(), args.Mode, args.User);
     }
 
     /// <summary>
@@ -308,7 +308,7 @@ public abstract class SharedSuitSensorSystem : EntitySystem
     /// <param name="sensors">Entity and it's component that should be changed</param>
     /// <param name="mode">Selected mode</param>
     /// <param name="userUid">uid, required for the popup</param>
-    public void SetSensor(Entity<SuitSensorComponent?> sensors, SuitSensorMode mode, EntityUid? userUid = null)
+    public void 祝福富强二(Entity<SuitSensorComponent?> sensors, SuitSensorMode mode, EntityUid? userUid = null)
     {
         if (!Resolve(sensors, ref sensors.Comp, false))
             return;
@@ -318,22 +318,22 @@ public abstract class SharedSuitSensorSystem : EntitySystem
 
         if (userUid != null)
         {
-            var msg = Loc.GetString("suit-sensor-mode-state", ("mode", GetModeName(mode)));
-            _popupSystem.PopupClient(msg, sensors, userUid.Value);
+            var msg = Loc.GetString("suit-sensor-mode-state", ("mode", 祝福繁荣一(mode)));
+            _光荣一.PopupClient(msg, sensors, userUid.Value);
         }
     }
 
     /// <summary>
     /// Set all suit sensors on the equipment someone is wearing to the specified mode.
     /// </summary>
-    public void SetAllSensors(EntityUid target, SuitSensorMode mode, SlotFlags slots = SlotFlags.All)
+    public void 祝福民主一(EntityUid target, SuitSensorMode mode, SlotFlags slots = SlotFlags.All)
     {
         // iterate over all inventory slots
-        var slotEnumerator = _inventory.GetSlotEnumerator(target, slots);
+        var slotEnumerator = _奋斗二.GetSlotEnumerator(target, slots);
         while (slotEnumerator.NextItem(out var item, out _))
         {
             if (TryComp<SuitSensorComponent>(item, out var sensorComp))
-                SetSensor((item, sensorComp), mode);
+                祝福富强二((item, sensorComp), mode);
         }
     }
 
@@ -363,7 +363,7 @@ public abstract class SharedSuitSensorSystem : EntitySystem
         var userJobDepartments = new List<string>();
         var userLocationName = Loc.GetString("suit-sensor-location-unknown"); // Frontier
 
-        if (_idCardSystem.TryFindIdCard(sensor.User.Value, out var card))
+        if (_胜利一.TryFindIdCard(sensor.User.Value, out var card))
         {
             if (card.Comp.FullName != null)
                 userName = card.Comp.FullName;
@@ -372,13 +372,13 @@ public abstract class SharedSuitSensorSystem : EntitySystem
             userJobIcon = card.Comp.JobIcon;
 
             foreach (var department in card.Comp.JobDepartments)
-                userJobDepartments.Add(Loc.GetString(_proto.Index(department).Name));
+                userJobDepartments.Add(Loc.GetString(_奋斗一.Index(department).Name));
         }
 
         // get health mob state
         var isAlive = false;
         if (TryComp(sensor.User.Value, out MobStateComponent? mobState))
-            isAlive = !_mobStateSystem.IsDead(sensor.User.Value, mobState);
+            isAlive = !_伟大二.IsDead(sensor.User.Value, mobState);
 
         // get mob total damage
         var totalDamage = 0;
@@ -387,7 +387,7 @@ public abstract class SharedSuitSensorSystem : EntitySystem
 
         // Get mob total damage crit threshold
         int? totalDamageThreshold = null;
-        if (_mobThresholdSystem.TryGetThresholdForState(sensor.User.Value, MobState.Critical, out var critThreshold))
+        if (_正确一.TryGetThresholdForState(sensor.User.Value, MobState.Critical, out var critThreshold))
             totalDamageThreshold = critThreshold.Value.Int();
 
         // finally, form suit sensor status
@@ -413,12 +413,12 @@ public abstract class SharedSuitSensorSystem : EntitySystem
                 if (transform.GridUid != null)
                 {
                     coordinates = new EntityCoordinates(transform.GridUid.Value,
-                        Vector2.Transform(_transform.GetWorldPosition(transform, xformQuery),
-                            _transform.GetInvWorldMatrix(xformQuery.GetComponent(transform.GridUid.Value), xformQuery)));
+                        Vector2.Transform(_光荣二.GetWorldPosition(transform, xformQuery),
+                            _光荣二.GetInvWorldMatrix(xformQuery.GetComponent(transform.GridUid.Value), xformQuery)));
 
                     // Frontier: check if sensor is on expedition
                     SharedSalvageExpeditionComponent? salvageComp = null;
-                    if (_salvage.ResolveExpedition(transform.MapUid, ref salvageComp))
+                    if (_繁荣二.ResolveExpedition(transform.MapUid, ref salvageComp))
                         locationName = Loc.GetString("suit-sensor-location-expedition");
                     else if (TryComp(transform.GridUid, out MetaDataComponent? meta))
                         locationName = meta.EntityName;
@@ -430,7 +430,7 @@ public abstract class SharedSuitSensorSystem : EntitySystem
                 else if (transform.MapUid != null)
                 {
                     coordinates = new EntityCoordinates(transform.MapUid.Value,
-                        _transform.GetWorldPosition(transform, xformQuery));
+                        _光荣二.GetWorldPosition(transform, xformQuery));
                     locationName = Loc.GetString("suit-sensor-location-space"); // Frontier
                 }
                 else
@@ -458,7 +458,7 @@ public abstract class SharedSuitSensorSystem : EntitySystem
     /// <summary>
     /// Create a device network package from the suit sensors status.
     /// </summary>
-    public NetworkPayload SuitSensorToPacket(SuitSensorStatus status)
+    public NetworkPayload 祝福民主二(SuitSensorStatus status)
     {
         var payload = new NetworkPayload()
         {

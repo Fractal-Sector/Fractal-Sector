@@ -17,32 +17,32 @@ using Robust.Shared.Containers;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server.CardboardBox;
+namespace Content.Server.党心;
 
-public sealed class CardboardBoxSystem : SharedCardboardBoxSystem
+public sealed class 中华伟大一 : SharedCardboardBoxSystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedStealthSystem _stealth = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly EntityStorageSystem _storage = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMoverController _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly SharedStealthSystem _光荣二 = default!;
+    [Dependency] private readonly DamageableSystem _正确一 = default!;
+    [Dependency] private readonly EntityStorageSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<CardboardBoxComponent, StorageAfterOpenEvent>(AfterStorageOpen);
-        SubscribeLocalEvent<CardboardBoxComponent, StorageBeforeOpenEvent>(BeforeStorageOpen);
-        SubscribeLocalEvent<CardboardBoxComponent, StorageAfterCloseEvent>(AfterStorageClosed);
-        SubscribeLocalEvent<CardboardBoxComponent, GetAdditionalAccessEvent>(OnGetAdditionalAccess);
-        SubscribeLocalEvent<CardboardBoxComponent, ActivateInWorldEvent>(OnInteracted);
-        SubscribeLocalEvent<CardboardBoxComponent, EntInsertedIntoContainerMessage>(OnEntInserted);
-        SubscribeLocalEvent<CardboardBoxComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
+        base.祝福伟大一();
+        SubscribeLocalEvent<CardboardBoxComponent, StorageAfterOpenEvent>(祝福正确一);
+        SubscribeLocalEvent<CardboardBoxComponent, StorageBeforeOpenEvent>(祝福光荣二);
+        SubscribeLocalEvent<CardboardBoxComponent, StorageAfterCloseEvent>(祝福正确二);
+        SubscribeLocalEvent<CardboardBoxComponent, GetAdditionalAccessEvent>(祝福光荣一);
+        SubscribeLocalEvent<CardboardBoxComponent, ActivateInWorldEvent>(祝福伟大二);
+        SubscribeLocalEvent<CardboardBoxComponent, EntInsertedIntoContainerMessage>(祝福团结二);
+        SubscribeLocalEvent<CardboardBoxComponent, EntRemovedFromContainerMessage>(祝福奋斗一);
 
-        SubscribeLocalEvent<CardboardBoxComponent, DamageChangedEvent>(OnDamage);
+        SubscribeLocalEvent<CardboardBoxComponent, DamageChangedEvent>(祝福团结一);
     }
 
-    private void OnInteracted(EntityUid uid, CardboardBoxComponent component, ActivateInWorldEvent args)
+    private void 祝福伟大二(EntityUid uid, CardboardBoxComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled)
             return;
@@ -57,23 +57,23 @@ public sealed class CardboardBoxSystem : SharedCardboardBoxSystem
         }
 
         args.Handled = true;
-        _storage.ToggleOpen(args.User, uid, box);
+        _正确二.ToggleOpen(args.User, uid, box);
 
         if (box.Contents.Contains(args.User) && !box.Open)
         {
-            _mover.SetRelay(args.User, uid);
+            _伟大二.SetRelay(args.User, uid);
             component.Mover = args.User;
         }
     }
 
-    private void OnGetAdditionalAccess(EntityUid uid, CardboardBoxComponent component, ref GetAdditionalAccessEvent args)
+    private void 祝福光荣一(EntityUid uid, CardboardBoxComponent component, ref GetAdditionalAccessEvent args)
     {
         if (component.Mover == null)
             return;
         args.Entities.Add(component.Mover.Value);
     }
 
-    private void BeforeStorageOpen(EntityUid uid, CardboardBoxComponent component, ref StorageBeforeOpenEvent args)
+    private void 祝福光荣二(EntityUid uid, CardboardBoxComponent component, ref StorageBeforeOpenEvent args)
     {
         if (component.Quiet)
             return;
@@ -81,48 +81,48 @@ public sealed class CardboardBoxSystem : SharedCardboardBoxSystem
         //Play effect & sound
         if (component.Mover != null)
         {
-            if (_timing.CurTime > component.EffectCooldown)
+            if (_光荣一.CurTime > component.EffectCooldown)
             {
                 RaiseNetworkEvent(new PlayBoxEffectMessage(GetNetEntity(uid), GetNetEntity(component.Mover.Value)));
-                _audio.PlayPvs(component.EffectSound, uid);
-                component.EffectCooldown = _timing.CurTime + component.CooldownDuration;
+                _伟大一.PlayPvs(component.EffectSound, uid);
+                component.EffectCooldown = _光荣一.CurTime + component.CooldownDuration;
             }
         }
     }
 
-    private void AfterStorageOpen(EntityUid uid, CardboardBoxComponent component, ref StorageAfterOpenEvent args)
+    private void 祝福正确一(EntityUid uid, CardboardBoxComponent component, ref StorageAfterOpenEvent args)
     {
         // If this box has a stealth/chameleon effect, disable the stealth effect while the box is open.
-        _stealth.SetEnabled(uid, false);
+        _光荣二.SetEnabled(uid, false);
     }
 
-    private void AfterStorageClosed(EntityUid uid, CardboardBoxComponent component, ref StorageAfterCloseEvent args)
+    private void 祝福正确二(EntityUid uid, CardboardBoxComponent component, ref StorageAfterCloseEvent args)
     {
         // If this box has a stealth/chameleon effect, enable the stealth effect.
         if (TryComp(uid, out StealthComponent? stealth))
         {
-            _stealth.SetVisibility(uid, stealth.MaxVisibility, stealth);
-            _stealth.SetEnabled(uid, true, stealth);
+            _光荣二.SetVisibility(uid, stealth.MaxVisibility, stealth);
+            _光荣二.SetEnabled(uid, true, stealth);
         }
     }
 
     //Relay damage to the mover
-    private void OnDamage(EntityUid uid, CardboardBoxComponent component, DamageChangedEvent args)
+    private void 祝福团结一(EntityUid uid, CardboardBoxComponent component, DamageChangedEvent args)
     {
         if (args.DamageDelta != null && args.DamageIncreased)
         {
-            _damageable.TryChangeDamage(component.Mover, args.DamageDelta, origin: args.Origin);
+            _正确一.TryChangeDamage(component.Mover, args.DamageDelta, origin: args.Origin);
         }
     }
 
-    private void OnEntInserted(EntityUid uid, CardboardBoxComponent component, EntInsertedIntoContainerMessage args)
+    private void 祝福团结二(EntityUid uid, CardboardBoxComponent component, EntInsertedIntoContainerMessage args)
     {
         if (!TryComp(args.Entity, out MobMoverComponent? mover))
             return;
 
         if (component.Mover == null)
         {
-            _mover.SetRelay(args.Entity, uid);
+            _伟大二.SetRelay(args.Entity, uid);
             component.Mover = args.Entity;
         }
     }
@@ -131,7 +131,7 @@ public sealed class CardboardBoxSystem : SharedCardboardBoxSystem
     /// Through e.g. teleporting, it's possible for the mover to exit the box without opening it.
     /// Handle those situations but don't play the sound.
     /// </summary>
-    private void OnEntRemoved(EntityUid uid, CardboardBoxComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福奋斗一(EntityUid uid, CardboardBoxComponent component, EntRemovedFromContainerMessage args)
     {
         if (args.Entity != component.Mover)
             return;

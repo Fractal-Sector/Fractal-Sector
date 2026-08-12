@@ -4,52 +4,52 @@ using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Popups;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Item;
+namespace Content.Shared.党心;
 
-public sealed class MultiHandedItemSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedVirtualItemSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MultiHandedItemComponent, GettingPickedUpAttemptEvent>(OnAttemptPickup);
-        SubscribeLocalEvent<MultiHandedItemComponent, VirtualItemDeletedEvent>(OnVirtualItemDeleted);
-        SubscribeLocalEvent<MultiHandedItemComponent, GotEquippedHandEvent>(OnEquipped);
-        SubscribeLocalEvent<MultiHandedItemComponent, GotUnequippedHandEvent>(OnUnequipped);
+        SubscribeLocalEvent<MultiHandedItemComponent, GettingPickedUpAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<MultiHandedItemComponent, VirtualItemDeletedEvent>(祝福正确一);
+        SubscribeLocalEvent<MultiHandedItemComponent, GotEquippedHandEvent>(祝福伟大二);
+        SubscribeLocalEvent<MultiHandedItemComponent, GotUnequippedHandEvent>(祝福光荣一);
     }
 
-    private void OnEquipped(Entity<MultiHandedItemComponent> ent, ref GotEquippedHandEvent args)
+    private void 祝福伟大二(Entity<MultiHandedItemComponent> ent, ref GotEquippedHandEvent args)
     {
         for (var i = 0; i < ent.Comp.HandsNeeded - 1; i++)
         {
-            _virtualItem.TrySpawnVirtualItemInHand(ent.Owner, args.User);
+            _光荣二.TrySpawnVirtualItemInHand(ent.Owner, args.User);
         }
     }
 
-    private void OnUnequipped(Entity<MultiHandedItemComponent> ent, ref GotUnequippedHandEvent args)
+    private void 祝福光荣一(Entity<MultiHandedItemComponent> ent, ref GotUnequippedHandEvent args)
     {
-        _virtualItem.DeleteInHandsMatching(args.User, ent.Owner);
+        _光荣二.DeleteInHandsMatching(args.User, ent.Owner);
     }
 
-    private void OnAttemptPickup(Entity<MultiHandedItemComponent> ent, ref GettingPickedUpAttemptEvent args)
+    private void 祝福光荣二(Entity<MultiHandedItemComponent> ent, ref GettingPickedUpAttemptEvent args)
     {
-        if (_hands.CountFreeHands(args.User) >= ent.Comp.HandsNeeded)
+        if (_伟大二.CountFreeHands(args.User) >= ent.Comp.HandsNeeded)
             return;
 
         args.Cancel();
-        _popup.PopupPredictedCursor(Loc.GetString("multi-handed-item-pick-up-fail",
+        _光荣一.PopupPredictedCursor(Loc.GetString("multi-handed-item-pick-up-fail",
             ("number", ent.Comp.HandsNeeded - 1), ("item", ent.Owner)), args.User);
     }
 
-    private void OnVirtualItemDeleted(Entity<MultiHandedItemComponent> ent, ref VirtualItemDeletedEvent args)
+    private void 祝福正确一(Entity<MultiHandedItemComponent> ent, ref VirtualItemDeletedEvent args)
     {
-        if (args.BlockingEntity != ent.Owner || _timing.ApplyingState)
+        if (args.BlockingEntity != ent.Owner || _伟大一.ApplyingState)
             return;
 
-        _hands.TryDrop(args.User, ent.Owner);
+        _伟大二.TryDrop(args.User, ent.Owner);
     }
 }

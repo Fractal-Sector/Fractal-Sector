@@ -4,16 +4,16 @@ using Content.Shared.EntityList;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.EntityList
+namespace Content.Server.党心
 {
     [AdminCommand(AdminFlags.Spawn)]
-    public sealed class SpawnEntityListCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-        public override string Command => "spawnentitylist";
+        public override string 党爱伟大一 => "spawnentitylist";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 1)
             {
@@ -33,7 +33,7 @@ namespace Content.Server.EntityList
                 return;
             }
 
-            if (!_prototypeManager.TryIndex(args[0], out EntityListPrototype? prototype))
+            if (!_伟大一.TryIndex(args[0], out EntityListPrototype? prototype))
             {
                 shell.WriteError(Loc.GetString($"cmd-spawnentitylist-failed",
                     ("prototype", nameof(EntityListPrototype)),
@@ -43,7 +43,7 @@ namespace Content.Server.EntityList
 
             var i = 0;
 
-            foreach (var entity in prototype.GetEntities(_prototypeManager))
+            foreach (var entity in prototype.GetEntities(_伟大一))
             {
                 EntityManager.SpawnEntity(entity.ID, EntityManager.GetComponent<TransformComponent>(attached).Coordinates);
                 i++;

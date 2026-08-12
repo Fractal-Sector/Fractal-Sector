@@ -2,18 +2,18 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Content.Server.EUI;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class BanPanelCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
 
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly EuiManager _euis = default!;
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly EuiManager _伟大二 = default!;
 
-    public override string Command => "banpanel";
+    public override string 党爱伟大一 => "banpanel";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } player)
         {
@@ -24,17 +24,17 @@ public sealed class BanPanelCommand : LocalizedCommands
         switch (args.Length)
         {
             case 0:
-                _euis.OpenEui(new BanPanelEui(), player);
+                _伟大二.OpenEui(new BanPanelEui(), player);
                 break;
             case 1:
-                var located = await _locator.LookupIdByNameOrIdAsync(args[0]);
+                var located = await _伟大一.LookupIdByNameOrIdAsync(args[0]);
                 if (located is null)
                 {
                     shell.WriteError(Loc.GetString("cmd-banpanel-player-err"));
                     return;
                 }
                 var ui = new BanPanelEui();
-                _euis.OpenEui(ui, player);
+                _伟大二.OpenEui(ui, player);
                 ui.ChangePlayer(located.UserId, located.Username, located.LastAddress, located.LastHWId);
                 break;
             default:

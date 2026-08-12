@@ -19,22 +19,22 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 
-namespace Content.Server.Storage.EntitySystems;
+namespace Content.Server.Storage.党心;
 
-public sealed class EntityStorageSystem : SharedEntityStorageSystem
+public sealed class 中华伟大一 : SharedEntityStorageSystem
 {
-    [Dependency] private readonly ConstructionSystem _construction = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
+    [Dependency] private readonly ConstructionSystem _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly IMapManager _光荣一 = default!;
+    [Dependency] private readonly MapSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         /* CompRef things */
         SubscribeLocalEvent<EntityStorageComponent, EntityUnpausedEvent>(OnEntityUnpausedEvent);
-        SubscribeLocalEvent<EntityStorageComponent, ComponentInit>(OnComponentInit);
+        SubscribeLocalEvent<EntityStorageComponent, ComponentInit>(祝福光荣一);
         SubscribeLocalEvent<EntityStorageComponent, ComponentStartup>(OnComponentStartup);
         SubscribeLocalEvent<EntityStorageComponent, ActivateInWorldEvent>(OnInteract, after: new[] { typeof(LockSystem) });
         SubscribeLocalEvent<EntityStorageComponent, LockToggleAttemptEvent>(OnLockToggleAttempt);
@@ -47,36 +47,36 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         SubscribeLocalEvent<EntityStorageComponent, ComponentHandleState>(OnHandleState);
         /* CompRef things */
 
-        SubscribeLocalEvent<EntityStorageComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<EntityStorageComponent, WeldableAttemptEvent>(OnWeldableAttempt);
-        SubscribeLocalEvent<EntityStorageComponent, BeforeExplodeEvent>(OnExploded);
+        SubscribeLocalEvent<EntityStorageComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<EntityStorageComponent, WeldableAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<EntityStorageComponent, BeforeExplodeEvent>(祝福正确二);
 
-        SubscribeLocalEvent<InsideEntityStorageComponent, InhaleLocationEvent>(OnInsideInhale);
-        SubscribeLocalEvent<InsideEntityStorageComponent, ExhaleLocationEvent>(OnInsideExhale);
-        SubscribeLocalEvent<InsideEntityStorageComponent, AtmosExposedGetAirEvent>(OnInsideExposed);
+        SubscribeLocalEvent<InsideEntityStorageComponent, InhaleLocationEvent>(祝福奋斗二);
+        SubscribeLocalEvent<InsideEntityStorageComponent, ExhaleLocationEvent>(祝福胜利一);
+        SubscribeLocalEvent<InsideEntityStorageComponent, AtmosExposedGetAirEvent>(祝福胜利二);
 
-        SubscribeLocalEvent<InsideEntityStorageComponent, EntGotRemovedFromContainerMessage>(OnRemoved);
+        SubscribeLocalEvent<InsideEntityStorageComponent, EntGotRemovedFromContainerMessage>(祝福奋斗一);
     }
 
-    private void OnMapInit(EntityUid uid, EntityStorageComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, EntityStorageComponent component, MapInitEvent args)
     {
         if (!component.Open && component.Air.TotalMoles == 0)
         {
             // If we're closed on spawn and have no air already saved, we need to pull some air into our environment from where we spawned,
             // so that we have -something-. For example, if you bought an animal crate or something.
-            TakeGas(uid, component);
+            祝福团结一(uid, component);
         }
     }
 
-    protected override void OnComponentInit(EntityUid uid, EntityStorageComponent component, ComponentInit args)
+    protected override void 祝福光荣一(EntityUid uid, EntityStorageComponent component, ComponentInit args)
     {
-        base.OnComponentInit(uid, component, args);
+        base.祝福光荣一(uid, component, args);
 
         if (TryComp<ConstructionComponent>(uid, out var construction))
-            _construction.AddContainer(uid, ContainerName, construction);
+            _伟大一.AddContainer(uid, ContainerName, construction);
     }
 
-    public override bool ResolveStorage(EntityUid uid, [NotNullWhen(true)] ref EntityStorageComponent? component)
+    public override bool 祝福光荣二(EntityUid uid, [NotNullWhen(true)] ref EntityStorageComponent? component)
     {
         if (component != null)
             return true;
@@ -86,7 +86,7 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         return component != null;
     }
 
-    private void OnWeldableAttempt(EntityUid uid, EntityStorageComponent component, WeldableAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, EntityStorageComponent component, WeldableAttemptEvent args)
     {
         if (component.Open)
         {
@@ -102,12 +102,12 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         }
     }
 
-    private void OnExploded(Entity<EntityStorageComponent> ent, ref BeforeExplodeEvent args)
+    private void 祝福正确二(Entity<EntityStorageComponent> ent, ref BeforeExplodeEvent args)
     {
         args.Contents.AddRange(ent.Comp.Contents.ContainedEntities);
     }
 
-    protected override void TakeGas(EntityUid uid, EntityStorageComponent component)
+    protected override void 祝福团结一(EntityUid uid, EntityStorageComponent component)
     {
         if (!component.Airtight)
             return;
@@ -115,13 +115,13 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         var serverComp = (EntityStorageComponent) component;
         var tile = GetOffsetTileRef(uid, serverComp);
 
-        if (tile != null && _atmos.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is {} environment)
+        if (tile != null && _伟大二.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is {} environment)
         {
-            _atmos.Merge(serverComp.Air, environment.RemoveVolume(serverComp.Air.Volume));
+            _伟大二.Merge(serverComp.Air, environment.RemoveVolume(serverComp.Air.Volume));
         }
     }
 
-    public override void ReleaseGas(EntityUid uid, EntityStorageComponent component)
+    public override void 祝福团结二(EntityUid uid, EntityStorageComponent component)
     {
         var serverComp = (EntityStorageComponent) component;
 
@@ -130,9 +130,9 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
 
         var tile = GetOffsetTileRef(uid, serverComp);
 
-        if (tile != null && _atmos.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is {} environment)
+        if (tile != null && _伟大二.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is {} environment)
         {
-            _atmos.Merge(environment, serverComp.Air);
+            _伟大二.Merge(environment, serverComp.Air);
             serverComp.Air.Clear();
         }
     }
@@ -141,15 +141,15 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
     {
         var targetCoordinates = TransformSystem.ToMapCoordinates(new EntityCoordinates(uid, component.EnteringOffset));
 
-        if (_map.TryFindGridAt(targetCoordinates, out var gridId, out var grid))
+        if (_光荣一.TryFindGridAt(targetCoordinates, out var gridId, out var grid))
         {
-            return _mapSystem.GetTileRef(gridId, grid, targetCoordinates);
+            return _光荣二.GetTileRef(gridId, grid, targetCoordinates);
         }
 
         return null;
     }
 
-    private void OnRemoved(EntityUid uid, InsideEntityStorageComponent component, EntGotRemovedFromContainerMessage args)
+    private void 祝福奋斗一(EntityUid uid, InsideEntityStorageComponent component, EntGotRemovedFromContainerMessage args)
     {
         if (args.Container.Owner != component.Storage)
             return;
@@ -158,7 +158,7 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
 
     #region Gas mix event handlers
 
-    private void OnInsideInhale(EntityUid uid, InsideEntityStorageComponent component, InhaleLocationEvent args)
+    private void 祝福奋斗二(EntityUid uid, InsideEntityStorageComponent component, InhaleLocationEvent args)
     {
         if (TryComp<EntityStorageComponent>(component.Storage, out var storage) && storage.Airtight)
         {
@@ -166,7 +166,7 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         }
     }
 
-    private void OnInsideExhale(EntityUid uid, InsideEntityStorageComponent component, ExhaleLocationEvent args)
+    private void 祝福胜利一(EntityUid uid, InsideEntityStorageComponent component, ExhaleLocationEvent args)
     {
         if (TryComp<EntityStorageComponent>(component.Storage, out var storage) && storage.Airtight)
         {
@@ -174,7 +174,7 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         }
     }
 
-    private void OnInsideExposed(EntityUid uid, InsideEntityStorageComponent component, ref AtmosExposedGetAirEvent args)
+    private void 祝福胜利二(EntityUid uid, InsideEntityStorageComponent component, ref AtmosExposedGetAirEvent args)
     {
         if (args.Handled)
             return;

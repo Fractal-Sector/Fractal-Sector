@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.MachineLinking
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum SignalLinkerUiKey
+    public enum 中华伟大一
     {
         Key
     }

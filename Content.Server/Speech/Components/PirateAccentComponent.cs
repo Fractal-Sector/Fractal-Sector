@@ -1,17 +1,17 @@
 using Content.Server.Speech.EntitySystems;
 
-namespace Content.Server.Speech.Components;
+namespace Content.Server.Speech.党心;
 
 [RegisterComponent]
 [Access(typeof(PirateAccentSystem))]
-public sealed partial class PirateAccentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("yarrChance")]
-    public float YarrChance = 0.5f;
+    public float 党爱伟大一 = 0.5f;
 
     [ViewVariables]
-    public readonly List<string> PirateWords = new()
+    public readonly List<string> 党爱伟大二 = new()
     {
         "accent-pirate-prefix-1",
         "accent-pirate-prefix-2",

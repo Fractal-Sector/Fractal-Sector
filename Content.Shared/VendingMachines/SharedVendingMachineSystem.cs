@@ -10,54 +10,54 @@ using Content.Shared.Emag.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Power.EntitySystems;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱光荣一;
+using Robust.Shared.党爱光荣一.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Network;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
-using Content.Shared.Containers.ItemSlots;
+using Robust.Shared.党爱伟大一;
+using Content.Shared.Containers.党爱团结二;
 using Robust.Shared.Containers;
 using Content.Shared.Stacks; // Frontier
 
-namespace Content.Shared.VendingMachines;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedVendingMachineSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] private   readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private   readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] protected readonly SharedPointLightSystem Light = default!;
-    [Dependency] private   readonly SharedPowerReceiverSystem _receiver = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] private   readonly SharedSpeakOnUIClosedSystem _speakOn = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UISystem = default!;
-    [Dependency] protected readonly IRobustRandom Randomizer = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] protected readonly ItemSlotsSystem ItemSlots = default!; // Frontier
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大二 = default!;
+    [Dependency] private   readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private   readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱光荣一 = default!;
+    [Dependency] private   readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] protected readonly SharedPointLightSystem 党爱光荣二 = default!;
+    [Dependency] private   readonly SharedPowerReceiverSystem _光荣二 = default!;
+    [Dependency] protected readonly SharedPopupSystem 党爱正确一 = default!;
+    [Dependency] private   readonly SharedSpeakOnUIClosedSystem _正确一 = default!;
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱正确二 = default!;
+    [Dependency] protected readonly IRobustRandom 党爱团结一 = default!;
+    [Dependency] private readonly EmagSystem _正确二 = default!;
+    [Dependency] protected readonly ItemSlotsSystem 党爱团结二 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<VendingMachineComponent, ComponentGetState>(OnVendingGetState);
-        SubscribeLocalEvent<VendingMachineComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<VendingMachineComponent, GotUnEmaggedEvent>(OnUnemagged); // Frontier
-        SubscribeLocalEvent<VendingMachineComponent, EntInsertedIntoContainerMessage>(OnEntityInserted); // Frontier
-        SubscribeLocalEvent<VendingMachineComponent, EntRemovedFromContainerMessage>(OnEntityRemoved); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<VendingMachineComponent, ComponentGetState>(祝福伟大二);
+        SubscribeLocalEvent<VendingMachineComponent, MapInitEvent>(祝福正确一);
+        SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(祝福繁荣二);
+        SubscribeLocalEvent<VendingMachineComponent, GotUnEmaggedEvent>(祝福富强一); // Frontier
+        SubscribeLocalEvent<VendingMachineComponent, EntInsertedIntoContainerMessage>(祝福文明一); // Frontier
+        SubscribeLocalEvent<VendingMachineComponent, EntRemovedFromContainerMessage>(祝福文明二); // Frontier
 
         SubscribeLocalEvent<VendingMachineRestockComponent, AfterInteractEvent>(OnAfterInteract);
 
         Subs.BuiEvents<VendingMachineComponent>(VendingMachineUiKey.Key, subs =>
         {
-            subs.Event<VendingMachineEjectMessage>(OnInventoryEjectMessage);
+            subs.Event<VendingMachineEjectMessage>(祝福光荣二);
         });
     }
 
-    private void OnVendingGetState(Entity<VendingMachineComponent> entity, ref ComponentGetState args)
+    private void 祝福伟大二(Entity<VendingMachineComponent> entity, ref ComponentGetState args)
     {
         var component = entity.Comp;
 
@@ -93,12 +93,12 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         };
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
         var query = EntityQueryEnumerator<VendingMachineComponent>();
-        var curTime = Timing.CurTime;
+        var curTime = 党爱伟大一.CurTime;
 
         while (query.MoveNext(out var uid, out var comp))
         {
@@ -109,8 +109,8 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
                     comp.EjectEnd = null;
                     Dirty(uid, comp);
 
-                    EjectItem(uid, comp);
-                    UpdateUI((uid, comp));
+                    祝福正确二(uid, comp);
+                    祝福奋斗二((uid, comp));
                 }
             }
 
@@ -121,7 +121,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
                     comp.DenyEnd = null;
                     Dirty(uid, comp);
 
-                    TryUpdateVisualState((uid, comp));
+                    祝福胜利一((uid, comp));
                 }
             }
 
@@ -136,28 +136,28 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         }
     }
 
-    private void OnInventoryEjectMessage(Entity<VendingMachineComponent> entity, ref VendingMachineEjectMessage args)
+    private void 祝福光荣二(Entity<VendingMachineComponent> entity, ref VendingMachineEjectMessage args)
     {
-        if (!_receiver.IsPowered(entity.Owner) || Deleted(entity))
+        if (!_光荣二.IsPowered(entity.Owner) || Deleted(entity))
             return;
 
         if (args.Actor is not { Valid: true } actor)
             return;
 
-        AuthorizedVend(entity.Owner, actor, args.Type, args.ID, entity.Comp); // Frontier
+        祝福胜利二(entity.Owner, actor, args.Type, args.ID, entity.Comp); // Frontier
     }
 
-    protected virtual void OnMapInit(EntityUid uid, VendingMachineComponent component, MapInitEvent args)
+    protected virtual void 祝福正确一(EntityUid uid, VendingMachineComponent component, MapInitEvent args)
     {
-        RestockInventoryFromPrototype(uid, component, component.InitialStockQuality);
+        祝福繁荣一(uid, component, component.InitialStockQuality);
 
         // Frontier: create the cash slot if this entity has one
         if (component.CashSlot != null && component.CashSlotName != null)
-            ItemSlots.AddItemSlot(uid, component.CashSlotName, component.CashSlot);
+            党爱团结二.AddItemSlot(uid, component.CashSlotName, component.CashSlot);
         // End Frontier
     }
 
-    protected virtual void EjectItem(EntityUid uid, VendingMachineComponent? vendComponent = null, bool forceEject = false) { }
+    protected virtual void 祝福正确二(EntityUid uid, VendingMachineComponent? vendComponent = null, bool forceEject = false) { }
 
     /// <summary>
     /// Checks if the user is authorized to use this vending machine
@@ -165,7 +165,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="sender">Entity trying to use the vending machine</param>
     /// <param name="vendComponent"></param>
-    public bool IsAuthorized(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
+    public bool 祝福团结一(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
     {
         if (!Resolve(uid, ref vendComponent))
             return false;
@@ -173,11 +173,11 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (!TryComp<AccessReaderComponent>(uid, out var accessReader))
             return true;
 
-        if (_accessReader.IsAllowed(sender, uid, accessReader) || HasComp<EmaggedComponent>(uid))
+        if (_伟大一.IsAllowed(sender, uid, accessReader) || HasComp<EmaggedComponent>(uid))
             return true;
 
-        Popup.PopupClient(Loc.GetString("vending-machine-component-try-eject-access-denied"), uid, sender);
-        Deny((uid, vendComponent), sender);
+        党爱正确一.PopupClient(Loc.GetString("vending-machine-component-try-eject-access-denied"), uid, sender);
+        祝福奋斗一((uid, vendComponent), sender);
         return false;
     }
 
@@ -204,12 +204,12 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     /// <param name="itemId">The prototype ID of the item</param>
     /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
     /// <param name="vendComponent"></param>
-    public bool TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null) // Frontier: void<bool
+    public bool 祝福团结二(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null) // Frontier: void<bool
     {
         if (!Resolve(uid, ref vendComponent))
             return false; // Frontier: false
 
-        if (vendComponent.Ejecting || vendComponent.Broken || !_receiver.IsPowered(uid))
+        if (vendComponent.Ejecting || vendComponent.Broken || !_光荣二.IsPowered(uid))
         {
             return false; // Frontier: false
         }
@@ -218,25 +218,25 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
         if (string.IsNullOrEmpty(entry?.ID))
         {
-            Popup.PopupClient(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid);
-            Deny((uid, vendComponent));
+            党爱正确一.PopupClient(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid);
+            祝福奋斗一((uid, vendComponent));
             return false; // Frontier: false
         }
 
         if (entry.Amount <= 0)
         {
-            Popup.PopupClient(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid);
-            Deny((uid, vendComponent));
+            党爱正确一.PopupClient(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid);
+            祝福奋斗一((uid, vendComponent));
             return false; // Frontier: false
         }
 
         // Start Ejecting, and prevent users from ordering while anim playing
-        vendComponent.EjectEnd = Timing.CurTime + vendComponent.EjectDelay;
+        vendComponent.EjectEnd = 党爱伟大一.CurTime + vendComponent.EjectDelay;
         vendComponent.NextItemToEject = entry.ID;
         vendComponent.ThrowNextItem = throwItem;
 
         if (TryComp(uid, out SpeakOnUIClosedComponent? speakComponent))
-            _speakOn.TrySetFlag((uid, speakComponent));
+            _正确一.TrySetFlag((uid, speakComponent));
 
         // Frontier: unlimited vending
         // Infinite supplies must stay infinite.
@@ -244,13 +244,13 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             entry.Amount--;
         // End Frontier
         Dirty(uid, vendComponent);
-        UpdateUI((uid, vendComponent));
-        TryUpdateVisualState((uid, vendComponent));
-        Audio.PlayPredicted(vendComponent.SoundVend, uid, user);
+        祝福奋斗二((uid, vendComponent));
+        祝福胜利一((uid, vendComponent));
+        党爱光荣一.PlayPredicted(vendComponent.SoundVend, uid, user);
         return true; // Frontier
     }
 
-    public void Deny(Entity<VendingMachineComponent?> entity, EntityUid? user = null)
+    public void 祝福奋斗一(Entity<VendingMachineComponent?> entity, EntityUid? user = null)
     {
         if (!Resolve(entity.Owner, ref entity.Comp))
             return;
@@ -258,18 +258,18 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (entity.Comp.Denying)
             return;
 
-        entity.Comp.DenyEnd = Timing.CurTime + entity.Comp.DenyDelay;
-        Audio.PlayPredicted(entity.Comp.SoundDeny, entity.Owner, user, AudioParams.Default.WithVolume(-2f));
-        TryUpdateVisualState(entity);
+        entity.Comp.DenyEnd = 党爱伟大一.CurTime + entity.Comp.DenyDelay;
+        党爱光荣一.PlayPredicted(entity.Comp.SoundDeny, entity.Owner, user, AudioParams.Default.WithVolume(-2f));
+        祝福胜利一(entity);
         Dirty(entity);
     }
 
-    protected virtual void UpdateUI(Entity<VendingMachineComponent?> entity) { }
+    protected virtual void 祝福奋斗二(Entity<VendingMachineComponent?> entity) { }
 
     /// <summary>
     /// Tries to update the visuals of the component based on its current state.
     /// </summary>
-    public void TryUpdateVisualState(Entity<VendingMachineComponent?> entity)
+    public void 祝福胜利一(Entity<VendingMachineComponent?> entity)
     {
         if (!Resolve(entity.Owner, ref entity.Comp))
             return;
@@ -285,28 +285,28 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         }
         else if (entity.Comp.Denying)
         {
-            finalState = VendingMachineVisualState.Deny;
+            finalState = VendingMachineVisualState.祝福奋斗一;
         }
-        else if (!_receiver.IsPowered(entity.Owner))
+        else if (!_光荣二.IsPowered(entity.Owner))
         {
             finalState = VendingMachineVisualState.Off;
         }
 
         // TODO: You know this should really live on the client with netsync off because client knows the state.
-        if (Light.TryGetLight(entity.Owner, out var pointlight))
+        if (党爱光荣二.TryGetLight(entity.Owner, out var pointlight))
         {
             var lightEnabled = finalState != VendingMachineVisualState.Broken && finalState != VendingMachineVisualState.Off;
-            Light.SetEnabled(entity.Owner, lightEnabled, pointlight);
+            党爱光荣二.SetEnabled(entity.Owner, lightEnabled, pointlight);
         }
 
-        _appearanceSystem.SetData(entity.Owner, VendingMachineVisuals.VisualState, finalState);
+        _伟大二.SetData(entity.Owner, VendingMachineVisuals.VisualState, finalState);
     }
 
     // Frontier: custom vending check
-    public abstract void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component);
+    public abstract void 祝福胜利二(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component);
     // End Frontier: custom vending check
 
-    public void RestockInventoryFromPrototype(EntityUid uid,
+    public void 祝福繁荣一(EntityUid uid,
         VendingMachineComponent? component = null, float restockQuality = 1f)
     {
         if (!Resolve(uid, ref component))
@@ -314,21 +314,21 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             return;
         }
 
-        if (!PrototypeManager.TryIndex(component.PackPrototypeId, out VendingMachineInventoryPrototype? packPrototype))
+        if (!党爱伟大二.TryIndex(component.PackPrototypeId, out VendingMachineInventoryPrototype? packPrototype))
             return;
 
-        AddInventoryFromPrototype(uid, packPrototype.StartingInventory, InventoryType.Regular, component, restockQuality);
-        AddInventoryFromPrototype(uid, packPrototype.EmaggedInventory, InventoryType.Emagged, component, restockQuality);
-        AddInventoryFromPrototype(uid, packPrototype.ContrabandInventory, InventoryType.Contraband, component, restockQuality);
+        祝福民主二(uid, packPrototype.StartingInventory, InventoryType.Regular, component, restockQuality);
+        祝福民主二(uid, packPrototype.EmaggedInventory, InventoryType.Emagged, component, restockQuality);
+        祝福民主二(uid, packPrototype.ContrabandInventory, InventoryType.Contraband, component, restockQuality);
         Dirty(uid, component);
     }
 
-    private void OnEmagged(EntityUid uid, VendingMachineComponent component, ref GotEmaggedEvent args)
+    private void 祝福繁荣二(EntityUid uid, VendingMachineComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_正确二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_正确二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         // only emag if there are emag-only items
@@ -336,12 +336,12 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     }
 
     // Frontier: demag
-    private void OnUnemagged(EntityUid uid, VendingMachineComponent component, ref GotUnEmaggedEvent args)
+    private void 祝福富强一(EntityUid uid, VendingMachineComponent component, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_正确二.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_正确二.CheckFlag(uid, EmagType.Interaction))
             return;
 
         // Always demag if emagged.
@@ -357,14 +357,14 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="component"></param>
     /// <returns></returns>
-    public List<VendingMachineInventoryEntry> GetAllInventory(EntityUid uid, VendingMachineComponent? component = null)
+    public List<VendingMachineInventoryEntry> 祝福富强二(EntityUid uid, VendingMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return new();
 
         var inventory = new List<VendingMachineInventoryEntry>(component.Inventory.Values);
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_正确二.CheckFlag(uid, EmagType.Interaction))
             inventory.AddRange(component.EmaggedInventory.Values);
 
         if (component.Contraband)
@@ -373,15 +373,15 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         return inventory;
     }
 
-    public List<VendingMachineInventoryEntry> GetAvailableInventory(EntityUid uid, VendingMachineComponent? component = null)
+    public List<VendingMachineInventoryEntry> 祝福民主一(EntityUid uid, VendingMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return new();
 
-        return GetAllInventory(uid, component).Where(_ => _.Amount > 0).ToList();
+        return 祝福富强二(uid, component).Where(_ => _.Amount > 0).ToList();
     }
 
-    private void AddInventoryFromPrototype(EntityUid uid, Dictionary<string, uint>? entries,
+    private void 祝福民主二(EntityUid uid, Dictionary<string, uint>? entries,
         InventoryType type,
         VendingMachineComponent? component = null, float restockQuality = 1.0f)
     {
@@ -408,12 +408,12 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
         foreach (var (id, amount) in entries)
         {
-            if (PrototypeManager.HasIndex<EntityPrototype>(id))
+            if (党爱伟大二.HasIndex<EntityPrototype>(id))
             {
                 var restock = amount;
                 var chanceOfMissingStock = 1 - restockQuality;
 
-                var result = Randomizer.NextFloat(0, 1);
+                var result = 党爱团结一.NextFloat(0, 1);
                 if (result < chanceOfMissingStock)
                 {
                     restock = (uint) Math.Floor(amount * result / chanceOfMissingStock);
@@ -443,11 +443,11 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     }
 
     // Frontier: cash slot handlers
-    private void OnEntityInserted(Entity<VendingMachineComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福文明一(Entity<VendingMachineComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         if (ent.Comp.CashSlotName != null
         && ent.Comp.CurrencyStackType != null
-        && ItemSlots.TryGetSlot(ent, ent.Comp.CashSlotName, out var slot)
+        && 党爱团结二.TryGetSlot(ent, ent.Comp.CashSlotName, out var slot)
         && TryComp<StackComponent>(slot?.ContainerSlot?.ContainedEntity, out var stack)
         && stack.StackTypeId == ent.Comp.CurrencyStackType)
         {
@@ -458,14 +458,14 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             ent.Comp.CashSlotBalance = 0;
         }
         Dirty(ent, ent.Comp);
-        UpdateUI((ent.Owner, ent.Comp)); // nullable type, must be reconstructed
+        祝福奋斗二((ent.Owner, ent.Comp)); // nullable type, must be reconstructed
     }
 
-    private void OnEntityRemoved(Entity<VendingMachineComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福文明二(Entity<VendingMachineComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         ent.Comp.CashSlotBalance = 0;
         Dirty(ent, ent.Comp);
-        UpdateUI((ent.Owner, ent.Comp)); // nullable type, must be reconstructed
+        祝福奋斗二((ent.Owner, ent.Comp)); // nullable type, must be reconstructed
     }
     // End Frontier: cash slot handlers
 }

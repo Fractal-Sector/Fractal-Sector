@@ -14,45 +14,45 @@ using Robust.Shared.Player;
 using Robust.Shared.Utility;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Content.Server.Mind;
+namespace Content.Server.党心;
 
-public sealed class MindSystem : SharedMindSystem
+public sealed class 中华伟大一 : SharedMindSystem
 {
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly GhostSystem _ghosts = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-    [Dependency] private readonly CryoSleepSystem _cryo = default!; // Frontier
+    [Dependency] private readonly GameTicker _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly GhostSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
+    [Dependency] private readonly PvsOverrideSystem _正确二 = default!;
+    [Dependency] private readonly CryoSleepSystem _团结一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MindContainerComponent, EntityTerminatingEvent>(OnMindContainerTerminating);
-        SubscribeLocalEvent<MindComponent, ComponentShutdown>(OnMindShutdown);
+        SubscribeLocalEvent<MindContainerComponent, EntityTerminatingEvent>(祝福光荣一);
+        SubscribeLocalEvent<MindComponent, ComponentShutdown>(祝福伟大二);
     }
 
-    private void OnMindShutdown(EntityUid uid, MindComponent mind, ComponentShutdown args)
+    private void 祝福伟大二(EntityUid uid, MindComponent mind, ComponentShutdown args)
     {
         if (mind.UserId is {} user)
         {
             UserMinds.Remove(user);
-            if (_players.TryGetPlayerData(user, out var data) && data.ContentData() is { } oldData)
+            if (_光荣一.TryGetPlayerData(user, out var data) && data.ContentData() is { } oldData)
                 oldData.Mind = null;
             mind.UserId = null;
         }
 
         if (mind.OwnedEntity != null && !TerminatingOrDeleted(mind.OwnedEntity.Value))
-            TransferTo(uid, null, mind: mind, createGhost: false);
+            祝福团结二(uid, null, mind: mind, createGhost: false);
 
         mind.OwnedEntity = null;
     }
 
-    private void OnMindContainerTerminating(EntityUid uid, MindContainerComponent component, ref EntityTerminatingEvent args)
+    private void 祝福光荣一(EntityUid uid, MindContainerComponent component, ref EntityTerminatingEvent args)
     {
-        if (!TryGetMind(uid, out var mindId, out var mind, component))
+        if (!祝福光荣二(uid, out var mindId, out var mind, component))
             return;
 
         // If the player is currently visiting some other entity, simply attach to that entity.
@@ -61,19 +61,19 @@ public sealed class MindSystem : SharedMindSystem
             && !Deleted(visiting)
             && !Terminating(visiting))
         {
-            TransferTo(mindId, visiting, mind: mind);
+            祝福团结二(mindId, visiting, mind: mind);
             if (TryComp(visiting, out GhostComponent? ghostComp))
-                _ghosts.SetCanReturnToBody((visiting, ghostComp), false);
+                _光荣二.SetCanReturnToBody((visiting, ghostComp), false);
             return;
         }
 
-        TransferTo(mindId, null, createGhost: false, mind: mind);
+        祝福团结二(mindId, null, createGhost: false, mind: mind);
         DebugTools.AssertNull(mind.OwnedEntity);
 
-        if (!component.GhostOnShutdown || !_players.TryGetSessionById(mind.UserId, out _) || _gameTicker.RunLevel == GameRunLevel.PreRoundLobby) // SS220 ghost-del-fix
+        if (!component.GhostOnShutdown || !_光荣一.TryGetSessionById(mind.UserId, out _) || _伟大一.RunLevel == GameRunLevel.PreRoundLobby) // SS220 ghost-del-fix
             return;
 
-        var ghost = _ghosts.SpawnGhost((mindId, mind), uid);
+        var ghost = _光荣二.SpawnGhost((mindId, mind), uid);
         if (ghost != null)
             // Log these to make sure they're not causing the GameTicker round restart bugs...
             Log.Debug($"Entity \"{ToPrettyString(uid)}\" for {mind.CharacterName} was deleted, spawned \"{ToPrettyString(ghost)}\".");
@@ -82,35 +82,35 @@ public sealed class MindSystem : SharedMindSystem
             Log.Warning($"Entity \"{ToPrettyString(uid)}\" for {mind.CharacterName} was deleted, and no applicable spawn location is available.");
     }
 
-    public override bool TryGetMind(NetUserId user, [NotNullWhen(true)] out EntityUid? mindId, [NotNullWhen(true)] out MindComponent? mind)
+    public override bool 祝福光荣二(NetUserId user, [NotNullWhen(true)] out EntityUid? mindId, [NotNullWhen(true)] out MindComponent? mind)
     {
-        if (base.TryGetMind(user, out mindId, out mind))
+        if (base.祝福光荣二(user, out mindId, out mind))
         {
-            DebugTools.Assert(!_players.TryGetPlayerData(user, out var playerData) || playerData.ContentData() is not { } data || data.Mind == mindId);
+            DebugTools.Assert(!_光荣一.TryGetPlayerData(user, out var playerData) || playerData.ContentData() is not { } data || data.Mind == mindId);
             return true;
         }
 
-        DebugTools.Assert(!_players.TryGetPlayerData(user, out var pData) || pData.ContentData()?.Mind == null);
+        DebugTools.Assert(!_光荣一.TryGetPlayerData(user, out var pData) || pData.ContentData()?.Mind == null);
         return false;
     }
 
-    public override void WipeAllMinds()
+    public override void 祝福正确一()
     {
-        base.WipeAllMinds();
+        base.祝福正确一();
 
-        foreach (var unCastData in _players.GetAllPlayerData())
+        foreach (var unCastData in _光荣一.GetAllPlayerData())
         {
             if (unCastData.ContentData()?.Mind is not { } mind)
                 continue;
 
-            Log.Error("Player mind was missing from MindSystem dictionary.");
+            Log.Error("Player mind was missing from 中华伟大一 dictionary.");
             WipeMind(mind);
         }
     }
 
-    public override void Visit(EntityUid mindId, EntityUid entity, MindComponent? mind = null)
+    public override void 祝福正确二(EntityUid mindId, EntityUid entity, MindComponent? mind = null)
     {
-        base.Visit(mindId, entity, mind);
+        base.祝福正确二(mindId, entity, mind);
 
         if (!Resolve(mindId, ref mind))
             return;
@@ -135,15 +135,15 @@ public sealed class MindSystem : SharedMindSystem
 
         // Do this AFTER the entity changes above as this will fire off a player-detached event
         // which will run ghosting twice.
-        if (_players.TryGetSessionById(mind.UserId, out var session))
-            _players.SetAttachedEntity(session, entity);
+        if (_光荣一.TryGetSessionById(mind.UserId, out var session))
+            _光荣一.SetAttachedEntity(session, entity);
 
         Log.Info($"Session {session?.Name} visiting entity {entity}.");
     }
 
-    public override void UnVisit(EntityUid mindId, MindComponent? mind = null)
+    public override void 祝福团结一(EntityUid mindId, MindComponent? mind = null)
     {
-        base.UnVisit(mindId, mind);
+        base.祝福团结一(mindId, mind);
 
         if (!Resolve(mindId, ref mind))
             return;
@@ -153,23 +153,23 @@ public sealed class MindSystem : SharedMindSystem
 
         RemoveVisitingEntity(mindId, mind);
 
-        if (mind.UserId == null || !_players.TryGetSessionById(mind.UserId.Value, out var session))
+        if (mind.UserId == null || !_光荣一.TryGetSessionById(mind.UserId.Value, out var session))
             return;
 
         if (session.AttachedEntity == mind.VisitingEntity)
             return;
 
         var owned = mind.OwnedEntity;
-        _players.SetAttachedEntity(session, owned);
+        _光荣一.SetAttachedEntity(session, owned);
 
         if (owned.HasValue)
         {
-            _adminLogger.Add(LogType.Mind, LogImpact.Low,
+            _伟大二.Add(LogType.Mind, LogImpact.Low,
                 $"{session.Name} returned to {ToPrettyString(owned.Value)}");
         }
     }
 
-    public override void TransferTo(EntityUid mindId, EntityUid? entity, bool ghostCheckOverride = false, bool createGhost = true,
+    public override void 祝福团结二(EntityUid mindId, EntityUid? entity, bool ghostCheckOverride = false, bool createGhost = true,
         MindComponent? mind = null)
     {
         if (mind == null && !Resolve(mindId, ref mind))
@@ -187,15 +187,15 @@ public sealed class MindSystem : SharedMindSystem
             component = EnsureComp<MindContainerComponent>(entity.Value);
 
             if (component.HasMind)
-                _ghosts.OnGhostAttempt(component.Mind.Value, false);
+                _光荣二.OnGhostAttempt(component.Mind.Value, false);
 
             if (TryComp<ActorComponent>(entity.Value, out var actor))
             {
                 // Happens when transferring to your currently visited entity.
-                if (!_players.TryGetSessionByEntity(entity.Value, out var session) ||
+                if (!_光荣一.TryGetSessionByEntity(entity.Value, out var session) ||
                     mind.UserId == null || actor.PlayerSession != session )
                 {
-                    throw new ArgumentException("Visit target already has a session.", nameof(entity));
+                    throw new ArgumentException("祝福正确二 target already has a session.", nameof(entity));
                 }
 
                 alreadyAttached = true;
@@ -209,14 +209,14 @@ public sealed class MindSystem : SharedMindSystem
             // not implicitly via optional arguments.
 
             var position = Deleted(mind.OwnedEntity)
-                ? _transform.ToMapCoordinates(_gameTicker.GetObserverSpawnPoint())
-                : _transform.GetMapCoordinates(mind.OwnedEntity.Value);
+                ? _正确一.ToMapCoordinates(_伟大一.GetObserverSpawnPoint())
+                : _正确一.GetMapCoordinates(mind.OwnedEntity.Value);
 
             entity = Spawn(GameTicker.ObserverPrototypeName, position);
             component = EnsureComp<MindContainerComponent>(entity.Value);
             var ghostComponent = Comp<GhostComponent>(entity.Value);
-            _ghosts.SetCanReturnToBody((entity.Value, ghostComponent), false);
-            _ghosts.SetCanReturnFromCryo(ghostComponent, mind.UserId != null ? _cryo.HasCryosleepingBody(mind.UserId.Value) : false); // Frontier
+            _光荣二.SetCanReturnToBody((entity.Value, ghostComponent), false);
+            _光荣二.SetCanReturnFromCryo(ghostComponent, mind.UserId != null ? _团结一.HasCryosleepingBody(mind.UserId.Value) : false); // Frontier
         }
 
         var oldEntity = mind.OwnedEntity;
@@ -248,10 +248,10 @@ public sealed class MindSystem : SharedMindSystem
         }
 
         // Player is CURRENTLY connected.
-        if (mind.UserId != null && _players.TryGetSessionById(mind.UserId.Value, out var userSession)
+        if (mind.UserId != null && _光荣一.TryGetSessionById(mind.UserId.Value, out var userSession)
                                 && !alreadyAttached && mind.VisitingEntity == null)
         {
-            _players.SetAttachedEntity(userSession, entity, true);
+            _光荣一.SetAttachedEntity(userSession, entity, true);
             DebugTools.Assert(userSession.AttachedEntity == entity, "Failed to attach entity.");
             Log.Info($"Session {userSession.Name} transferred to entity {entity}.");
         }
@@ -274,7 +274,7 @@ public sealed class MindSystem : SharedMindSystem
     /// entity that any mind is connected to, except as a side effect of the fact that it may change a player's
     /// attached entity. E.g., ghosts get deleted.
     /// </summary>
-    public override void SetUserId(EntityUid mindId, NetUserId? userId, MindComponent? mind = null)
+    public override void 祝福奋斗一(EntityUid mindId, NetUserId? userId, MindComponent? mind = null)
     {
         if (!Resolve(mindId, ref mind))
             return;
@@ -284,23 +284,23 @@ public sealed class MindSystem : SharedMindSystem
 
         Dirty(mindId, mind);
 
-        if (userId != null && !_players.TryGetPlayerData(userId.Value, out _))
+        if (userId != null && !_光荣一.TryGetPlayerData(userId.Value, out _))
         {
             Log.Error($"Attempted to set mind user to invalid value {userId}");
             return;
         }
 
         // Clear any existing entity attachment
-        if (_players.TryGetSessionById(mind.UserId, out var oldSession))
+        if (_光荣一.TryGetSessionById(mind.UserId, out var oldSession))
         {
-            _players.SetAttachedEntity(oldSession, null);
-            _pvsOverride.RemoveSessionOverride(mindId, oldSession);
+            _光荣一.SetAttachedEntity(oldSession, null);
+            _正确二.RemoveSessionOverride(mindId, oldSession);
         }
 
         if (mind.UserId != null)
         {
             UserMinds.Remove(mind.UserId.Value);
-            if (_players.GetPlayerData(mind.UserId.Value).ContentData() is { } oldData)
+            if (_光荣一.GetPlayerData(mind.UserId.Value).ContentData() is { } oldData)
                 oldData.Mind = null;
             mind.UserId = null;
         }
@@ -311,10 +311,10 @@ public sealed class MindSystem : SharedMindSystem
         if (UserMinds.TryGetValue(userId.Value, out var oldMindId) &&
             TryComp(oldMindId, out MindComponent? oldMind))
         {
-            SetUserId(oldMindId, null, oldMind);
+            祝福奋斗一(oldMindId, null, oldMind);
         }
 
-        DebugTools.AssertNull(_players.GetPlayerData(userId.Value).ContentData()?.Mind);
+        DebugTools.AssertNull(_光荣一.GetPlayerData(userId.Value).ContentData()?.Mind);
 
         UserMinds[userId.Value] = mindId;
         mind.UserId = userId;
@@ -322,23 +322,23 @@ public sealed class MindSystem : SharedMindSystem
 
         // The UserId may not have a current session, but user data may still exist for disconnected players.
         // So we cannot combine this with the TryGetSessionById() check below.
-        if (_players.GetPlayerData(userId.Value).ContentData() is { } data)
+        if (_光荣一.GetPlayerData(userId.Value).ContentData() is { } data)
             data.Mind = mindId;
 
-        if (_players.TryGetSessionById(userId.Value, out var session))
+        if (_光荣一.TryGetSessionById(userId.Value, out var session))
         {
-            _pvsOverride.AddSessionOverride(mindId, session);
-            _players.SetAttachedEntity(session, mind.CurrentEntity);
+            _正确二.AddSessionOverride(mindId, session);
+            _光荣一.SetAttachedEntity(session, mind.CurrentEntity);
         }
     }
 
-    public override void ControlMob(EntityUid user, EntityUid target)
+    public override void 祝福奋斗二(EntityUid user, EntityUid target)
     {
         if (TryComp(user, out ActorComponent? actor))
-            ControlMob(actor.PlayerSession.UserId, target);
+            祝福奋斗二(actor.PlayerSession.UserId, target);
     }
 
-    public override void ControlMob(NetUserId user, EntityUid target)
+    public override void 祝福奋斗二(NetUserId user, EntityUid target)
     {
         var (mindId, mind) = GetOrCreateMind(user);
 
@@ -347,11 +347,11 @@ public sealed class MindSystem : SharedMindSystem
 
         if (mind.OwnedEntity == target)
         {
-            UnVisit(mindId, mind);
+            祝福团结一(mindId, mind);
             return;
         }
 
         MakeSentient(target);
-        TransferTo(mindId, target, ghostCheckOverride: true, mind: mind);
+        祝福团结二(mindId, target, ghostCheckOverride: true, mind: mind);
     }
 }

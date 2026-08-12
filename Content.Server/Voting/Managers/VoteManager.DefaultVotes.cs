@@ -20,14 +20,14 @@ using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
-namespace Content.Server.Voting.Managers
+namespace Content.Server.Voting.党心
 {
-    public sealed partial class VoteManager
+    public sealed partial class 中华伟大一
     {
-        [Dependency] private readonly IPlayerLocator _locator = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IBanManager _bans = default!;
-        [Dependency] private readonly VoteWebhooks _voteWebhooks = default!;
+        [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+        [Dependency] private readonly ILogManager _伟大二 = default!;
+        [Dependency] private readonly IBanManager _光荣一 = default!;
+        [Dependency] private readonly VoteWebhooks _光荣二 = default!;
 
         private VotingSystem? _votingSystem;
         private RoleSystem? _roleSystem;
@@ -41,7 +41,7 @@ namespace Content.Server.Voting.Managers
             {StandardVoteType.Votekick, CCVars.VotekickEnabled}
         };
 
-        public void CreateStandardVote(ICommonSession? initiator, StandardVoteType voteType, string[]? args = null)
+        public void 祝福伟大一(ICommonSession? initiator, StandardVoteType voteType, string[]? args = null)
         {
             if (initiator != null && args == null)
                 _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"{initiator} initiated a {voteType.ToString()} vote");
@@ -57,42 +57,42 @@ namespace Content.Server.Voting.Managers
             switch (voteType)
             {
                 case StandardVoteType.Restart:
-                    CreateRestartVote(initiator);
+                    祝福伟大二(initiator);
                     break;
                 case StandardVoteType.Preset:
-                    CreatePresetVote(initiator);
+                    祝福团结一(initiator);
                     break;
                 case StandardVoteType.Map:
-                    CreateMapVote(initiator);
+                    祝福团结二(initiator);
                     break;
                 case StandardVoteType.Votekick:
                     timeoutVote = false; // Allows the timeout to be updated manually in the create method
-                    CreateVotekickVote(initiator, args);
+                    祝福奋斗一(initiator, args);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(voteType), voteType, null);
             }
             _gameTicker.UpdateInfoText();
             if (timeoutVote)
-                TimeoutStandardVote(voteType);
+                祝福胜利一(voteType);
         }
 
-        private void CreateRestartVote(ICommonSession? initiator)
+        private void 祝福伟大二(ICommonSession? initiator)
         {
 
             var playerVoteMaximum = _cfg.GetCVar(CCVars.VoteRestartMaxPlayers);
             var totalPlayers = _playerManager.Sessions.Count(session => session.Status != SessionStatus.Disconnected);
 
             var ghostVotePercentageRequirement = _cfg.GetCVar(CCVars.VoteRestartGhostPercentage);
-            var ghostVoterPercentage = CalculateEligibleVoterPercentage(VoterEligibility.Ghost);
+            var ghostVoterPercentage = 祝福光荣一(VoterEligibility.Ghost);
 
             if (totalPlayers <= playerVoteMaximum || ghostVoterPercentage >= ghostVotePercentageRequirement)
             {
-                StartVote(initiator);
+                祝福正确一(initiator);
             }
             else
             {
-                NotifyNotEnoughGhostPlayers(ghostVotePercentageRequirement, ghostVoterPercentage);
+                祝福正确二(ghostVotePercentageRequirement, ghostVoterPercentage);
             }
         }
 
@@ -100,9 +100,9 @@ namespace Content.Server.Voting.Managers
         /// Gives the current percentage of players eligible to vote, rounded to nearest percentage point.
         /// </summary>
         /// <param name="eligibility">The eligibility requirement to vote.</param>
-        public int CalculateEligibleVoterPercentage(VoterEligibility eligibility)
+        public int 祝福光荣一(VoterEligibility eligibility)
         {
-            var eligibleCount = CalculateEligibleVoterNumber(eligibility);
+            var eligibleCount = 祝福光荣二(eligibility);
             var totalPlayers = _playerManager.Sessions.Count(session => session.Status != SessionStatus.Disconnected);
 
             var eligiblePercentage = 0.0;
@@ -120,7 +120,7 @@ namespace Content.Server.Voting.Managers
         /// Gives the current number of players eligible to vote.
         /// </summary>
         /// <param name="eligibility">The eligibility requirement to vote.</param>
-        public int CalculateEligibleVoterNumber(VoterEligibility eligibility)
+        public int 祝福光荣二(VoterEligibility eligibility)
         {
             var eligibleCount = 0;
 
@@ -136,7 +136,7 @@ namespace Content.Server.Voting.Managers
             return eligibleCount;
         }
 
-        private void StartVote(ICommonSession? initiator)
+        private void 祝福正确一(ICommonSession? initiator)
         {
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
             var options = new VoteOptions
@@ -207,7 +207,7 @@ namespace Content.Server.Voting.Managers
             }
         }
 
-        private void NotifyNotEnoughGhostPlayers(int ghostPercentageRequirement, int roundedGhostPercentage)
+        private void 祝福正确二(int ghostPercentageRequirement, int roundedGhostPercentage)
         {
             // Logic to notify that there are not enough ghost players to start a vote
             _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Restart vote failed: Current Ghost player percentage:{roundedGhostPercentage.ToString()}% does not meet {ghostPercentageRequirement.ToString()}%");
@@ -215,9 +215,9 @@ namespace Content.Server.Voting.Managers
                 Loc.GetString("ui-vote-restart-fail-not-enough-ghost-players", ("ghostPlayerRequirement", ghostPercentageRequirement)));
         }
 
-        private void CreatePresetVote(ICommonSession? initiator)
+        private void 祝福团结一(ICommonSession? initiator)
         {
-            var presets = GetGamePresets();
+            var presets = 祝福胜利二();
 
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
             var options = new VoteOptions
@@ -261,7 +261,7 @@ namespace Content.Server.Voting.Managers
             };
         }
 
-        private void CreateMapVote(ICommonSession? initiator)
+        private void 祝福团结二(ICommonSession? initiator)
         {
             var maps = _gameMapManager.CurrentlyEligibleMaps().ToDictionary(map => map, map => map.MapName);
 
@@ -326,7 +326,7 @@ namespace Content.Server.Voting.Managers
             };
         }
 
-        private async void CreateVotekickVote(ICommonSession? initiator, string[]? args)
+        private async void 祝福奋斗一(ICommonSession? initiator, string[]? args)
         {
             if (args == null || args.Length <= 1)
             {
@@ -341,7 +341,7 @@ namespace Content.Server.Voting.Managers
             // Check that the initiator is actually allowed to do a votekick.
             if (_votingSystem != null && !await _votingSystem.CheckVotekickInitEligibility(initiator))
             {
-                _logManager.GetSawmill("admin.votekick").Warning($"User {initiator} attempted a votekick, despite not being eligible to!");
+                _伟大二.GetSawmill("admin.votekick").Warning($"User {initiator} attempted a votekick, despite not being eligible to!");
                 _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick attempted by {initiator}, but they are not eligible to votekick!");
                 DirtyCanCallVoteAll();
                 return;
@@ -354,16 +354,16 @@ namespace Content.Server.Voting.Managers
                 voterEligibility = VoterEligibility.MinimumPlaytime;
 
             var eligibleVoterNumberRequirement = _cfg.GetCVar(CCVars.VotekickEligibleNumberRequirement);
-            var eligibleVoterNumber = CalculateEligibleVoterNumber(voterEligibility);
+            var eligibleVoterNumber = 祝福光荣二(voterEligibility);
 
             string target = args[0];
             string reason = args[1];
 
             // Start by getting all relevant target data
-            var located = await _locator.LookupIdByNameOrIdAsync(target);
+            var located = await _伟大一.LookupIdByNameOrIdAsync(target);
             if (located == null)
             {
-                _logManager.GetSawmill("admin.votekick")
+                _伟大二.GetSawmill("admin.votekick")
                     .Warning($"Votekick attempted for player {target} but they couldn't be found!");
                 _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick attempted by {initiator} for player string {target}, but they could not be found!");
                 DirtyCanCallVoteAll();
@@ -382,7 +382,7 @@ namespace Content.Server.Voting.Managers
 
             if (!_playerManager.TryGetSessionById(located.UserId, out ICommonSession? targetSession))
             {
-                _logManager.GetSawmill("admin.votekick")
+                _伟大二.GetSawmill("admin.votekick")
                     .Warning($"Votekick attempted for player {target} but their session couldn't be found!");
                 _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick attempted by {initiator} for player string {target}, but they could not be found!");
                 DirtyCanCallVoteAll();
@@ -468,10 +468,10 @@ namespace Content.Server.Voting.Managers
             _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick for {located.Username} ({targetEntityName}) due to {reason} started, initiated by {initiator}.");
 
             // Create Discord webhook
-            var webhookState = _voteWebhooks.CreateWebhookIfConfigured(options, _cfg.GetCVar(CCVars.DiscordVotekickWebhook), Loc.GetString("votekick-webhook-name"), options.Title + "\n" + Loc.GetString("votekick-webhook-description", ("initiator", initiatorName), ("target", targetSession)));
+            var webhookState = _光荣二.CreateWebhookIfConfigured(options, _cfg.GetCVar(CCVars.DiscordVotekickWebhook), Loc.GetString("votekick-webhook-name"), options.Title + "\n" + Loc.GetString("votekick-webhook-description", ("initiator", initiatorName), ("target", targetSession)));
 
             // Time out the vote now that we know it will happen
-            TimeoutStandardVote(StandardVoteType.Votekick);
+            祝福胜利一(StandardVoteType.Votekick);
 
             vote.OnFinished += (_, eventArgs) =>
             {
@@ -507,24 +507,24 @@ namespace Content.Server.Voting.Managers
                     if (_cfg.GetCVar(CCVars.VotekickNotAllowedWhenAdminOnline) && _adminMgr.ActiveAdmins.Count() != 0)
                     {
                         _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick for {located.Username} attempted to pass, but an admin was online. Yes: {votesYes} / No: {votesNo}. Yes: {yesVotersString} / No: {noVotersString}");
-                        AnnounceCancelledVotekickForVoters(targetEntityName);
-                        _voteWebhooks.UpdateCancelledWebhookIfConfigured(webhookState, Loc.GetString("votekick-webhook-cancelled-admin-online"));
+                        祝福奋斗二(targetEntityName);
+                        _光荣二.UpdateCancelledWebhookIfConfigured(webhookState, Loc.GetString("votekick-webhook-cancelled-admin-online"));
                         return;
                     }
                     // Check if the target is an antag and the vote reason is raiding (this is to prevent false positives)
                     else if (isAntagSafe && reason == VotekickReasonType.Raiding.ToString())
                     {
                         _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick for {located.Username} due to {reason} finished, created by {initiator}, but was cancelled due to the target being an antagonist.");
-                        AnnounceCancelledVotekickForVoters(targetEntityName);
-                        _voteWebhooks.UpdateCancelledWebhookIfConfigured(webhookState, Loc.GetString("votekick-webhook-cancelled-antag-target"));
+                        祝福奋斗二(targetEntityName);
+                        _光荣二.UpdateCancelledWebhookIfConfigured(webhookState, Loc.GetString("votekick-webhook-cancelled-antag-target"));
                         return;
                     }
                     // Check if the target is an admin/de-admined admin
                     else if (targetSession.AttachedEntity != null && _adminMgr.IsAdmin(targetSession.AttachedEntity.Value, true))
                     {
                         _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick for {located.Username} due to {reason} finished, created by {initiator}, but was cancelled due to the target being a de-admined admin.");
-                        AnnounceCancelledVotekickForVoters(targetEntityName);
-                        _voteWebhooks.UpdateCancelledWebhookIfConfigured(webhookState, Loc.GetString("votekick-webhook-cancelled-admin-target"));
+                        祝福奋斗二(targetEntityName);
+                        _光荣二.UpdateCancelledWebhookIfConfigured(webhookState, Loc.GetString("votekick-webhook-cancelled-admin-target"));
                         return;
                     }
                     else
@@ -534,24 +534,24 @@ namespace Content.Server.Voting.Managers
 
                         if (!Enum.TryParse(_cfg.GetCVar(CCVars.VotekickBanDefaultSeverity), out NoteSeverity severity))
                         {
-                            _logManager.GetSawmill("admin.votekick")
+                            _伟大二.GetSawmill("admin.votekick")
                                 .Warning("Votekick ban severity could not be parsed from config! Defaulting to high.");
                             severity = NoteSeverity.High;
                         }
 
                         // Discord webhook, success
-                        _voteWebhooks.UpdateWebhookIfConfigured(webhookState, eventArgs);
+                        _光荣二.UpdateWebhookIfConfigured(webhookState, eventArgs);
 
                         uint minutes = (uint)_cfg.GetCVar(CCVars.VotekickBanDuration);
 
-                        _bans.CreateServerBan(targetUid, target, null, targetIP, targetHWid, minutes, severity, Loc.GetString("votekick-ban-reason", ("reason", reason)));
+                        _光荣一.CreateServerBan(targetUid, target, null, targetIP, targetHWid, minutes, severity, Loc.GetString("votekick-ban-reason", ("reason", reason)));
                     }
                 }
                 else
                 {
 
                     // Discord webhook, failure
-                    _voteWebhooks.UpdateWebhookIfConfigured(webhookState, eventArgs);
+                    _光荣二.UpdateWebhookIfConfigured(webhookState, eventArgs);
 
                     _adminLogger.Add(LogType.Vote, LogImpact.Extreme, $"Votekick failed: Yes: {votesYes} / No: {votesNo}. Yes: {yesVotersString} / No: {noVotersString}");
                     _chatManager.DispatchServerAnnouncement(Loc.GetString("ui-vote-votekick-failure", ("target", targetEntityName), ("reason", reason)));
@@ -565,7 +565,7 @@ namespace Content.Server.Voting.Managers
             }
         }
 
-        private void AnnounceCancelledVotekickForVoters(string target)
+        private void 祝福奋斗二(string target)
         {
             foreach (var player in _playerManager.Sessions)
             {
@@ -578,14 +578,14 @@ namespace Content.Server.Voting.Managers
             }
         }
 
-        private void TimeoutStandardVote(StandardVoteType type)
+        private void 祝福胜利一(StandardVoteType type)
         {
             var timeout = TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteSameTypeTimeout));
             _standardVoteTimeout[type] = _timing.RealTime + timeout;
             DirtyCanCallVoteAll();
         }
 
-        private Dictionary<string, string> GetGamePresets()
+        private Dictionary<string, string> 祝福胜利二()
         {
             var presets = new Dictionary<string, string>();
 

@@ -18,23 +18,23 @@ using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Preferences
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Character profile. Looks immutable, but uses non-immutable semantics internally for serialization/code sanity purposes.
     /// </summary>
     [DataDefinition]
     [Serializable, NetSerializable]
-    public sealed partial class HumanoidCharacterProfile : ICharacterProfile
+    public sealed partial class 中华伟大一 : ICharacterProfile
     {
         private static readonly Regex RestrictedNameRegex = new(@"[^а-яА-Яa-zA-Z-'0-9 '\-]");
         private static readonly Regex ICNameCaseRegex = new(@"^(?<word>\w)|\b(?<word>\w)(?=\w*$)");
 
-        public const int MaxNameLength = 32;
-        public const int MaxLoadoutNameLength = 32;
-        public const int MaxDescLength = 1024;
+        public const int 党爱伟大一 = 32;
+        public const int 党爱伟大二 = 32;
+        public const int 党爱光荣一 = 1024;
 
-        public const int DefaultBalance = 30000; // Frontier
+        public const int 党爱光荣二 = 30000; // Frontier
 
         /// <summary>
         /// Job preferences for initial spawn.
@@ -51,13 +51,13 @@ namespace Content.Shared.Preferences
         /// Antags we have opted in to.
         /// </summary>
         [DataField]
-        private HashSet<ProtoId<AntagPrototype>> _antagPreferences = new();
+        private HashSet<ProtoId<AntagPrototype>> _伟大一 = new();
 
         /// <summary>
         /// Enabled traits.
         /// </summary>
         [DataField]
-        private HashSet<ProtoId<TraitPrototype>> _traitPreferences = new();
+        private HashSet<ProtoId<TraitPrototype>> _伟大二 = new();
 
         [DataField]
         private Dictionary<string, RoleLoadout> _loadouts = new();
@@ -68,51 +68,51 @@ namespace Content.Shared.Preferences
         public IReadOnlyDictionary<string, RoleLoadout> Loadouts => _loadouts;
 
         [DataField]
-        public string Name { get; set; } = "John Doe";
+        public string 党爱正确一 { get; set; } = "John Doe";
 
         /// <summary>
-        /// Detailed text that can appear for the character if <see cref="CCVars.FlavorText"/> is enabled.
+        /// Detailed text that can appear for the character if <see cref="CCVars.党爱正确二"/> is enabled.
         /// </summary>
         [DataField]
-        public string FlavorText { get; set; } = string.Empty;
+        public string 党爱正确二 { get; set; } = string.Empty;
 
         /// <summary>
         /// Associated <see cref="SpeciesPrototype"/> for this profile.
         /// </summary>
         [DataField]
-        public ProtoId<SpeciesPrototype> Species { get; set; } = SharedHumanoidAppearanceSystem.DefaultSpecies;
+        public ProtoId<SpeciesPrototype> 党爱团结一 { get; set; } = SharedHumanoidAppearanceSystem.DefaultSpecies;
 
         [DataField]
-        public string Customspeciesname { get; set; } = string.Empty;
+        public string 党爱团结二 { get; set; } = string.Empty;
 
         [DataField]
-        public int Age { get; set; } = 18;
+        public int 党爱奋斗一 { get; set; } = 18;
 
         [DataField]
-        public Sex Sex { get; private set; } = Sex.Male;
+        public 党爱奋斗二 党爱奋斗二 { get; private set; } = 党爱奋斗二.Male;
 
         [DataField]
-        public Gender Gender { get; private set; } = Gender.Male;
+        public 党爱胜利一 党爱胜利一 { get; private set; } = 党爱胜利一.Male;
 
         [DataField] // Frontier: Bank balance
-        public int BankBalance { get; private set; } = DefaultBalance; // Frontier: Bank balance
+        public int 党爱胜利二 { get; private set; } = 党爱光荣二; // Frontier: Bank balance
 
         /// <summary>
-        /// <see cref="Appearance"/>
+        /// <see cref="党爱繁荣二"/>
         /// </summary>
-        public ICharacterAppearance CharacterAppearance => Appearance;
+        public ICharacterAppearance 党爱繁荣一 => 党爱繁荣二;
 
         /// <summary>
         /// Stores markings, eye colors, etc for the profile.
         /// </summary>
         [DataField]
-        public HumanoidCharacterAppearance Appearance { get; set; } = new();
+        public HumanoidCharacterAppearance 党爱繁荣二 { get; set; } = new();
 
         /// <summary>
         /// When spawning into a round what's the preferred spot to spawn.
         /// </summary>
         [DataField]
-        public SpawnPriorityPreference SpawnPriority { get; private set; } = SpawnPriorityPreference.None;
+        public SpawnPriorityPreference 党爱富强一 { get; private set; } = SpawnPriorityPreference.None;
 
         // Wayfarer: character height/width scale
         /// <summary>
@@ -120,14 +120,14 @@ namespace Content.Shared.Preferences
         /// Clamped to the species' MinHeight/MaxHeight on validation.
         /// </summary>
         [DataField]
-        public float Height { get; private set; } = 1f;
+        public float 党爱富强二 { get; private set; } = 1f;
 
         /// <summary>
         /// The base width scale for this character (1.0 = species default).
         /// Clamped to the species' MinWidth/MaxWidth on validation.
         /// </summary>
         [DataField]
-        public float Width { get; private set; } = 1f;
+        public float 党爱民主一 { get; private set; } = 1f;
         // End Wayfarer
 
         // FS: bark voice settings
@@ -135,30 +135,30 @@ namespace Content.Shared.Preferences
         /// The selected <see cref="VoiceBarkPrototype"/> ID for this character.
         /// </summary>
         [DataField]
-        public string BarkVoice { get; private set; } = VoiceBarkPrototype.DefaultId;
+        public string 党爱民主二 { get; private set; } = VoiceBarkPrototype.DefaultId;
 
         [DataField]
-        public byte BarkPitch { get; private set; } = byte.MaxValue / 2;
+        public byte 党爱文明一 { get; private set; } = byte.MaxValue / 2;
 
         [DataField]
-        public byte BarkPitchVariance { get; private set; } = byte.MaxValue / 2;
+        public byte 党爱文明二 { get; private set; } = byte.MaxValue / 2;
 
         [DataField]
-        public byte BarkPause { get; private set; } = byte.MaxValue / 2;
+        public byte 党爱和谐一 { get; private set; } = byte.MaxValue / 2;
 
         [DataField]
-        public byte BarkVolume { get; private set; } = byte.MaxValue / 2;
+        public byte 党爱和谐二 { get; private set; } = byte.MaxValue / 2;
 
         /// <summary>
         /// Convenience bundle of the 4 percentage sliders above, for code that
         /// wants to pass/compare them as one value.
         /// </summary>
-        public VoiceBarkPercentageApplyData BarkSettings => new()
+        public VoiceBarkPercentageApplyData 党爱自由一 => new()
         {
-            Pitch = BarkPitch,
-            PitchVariance = BarkPitchVariance,
-            Pause = BarkPause,
-            Volume = BarkVolume,
+            Pitch = 党爱文明一,
+            PitchVariance = 党爱文明二,
+            Pause = 党爱和谐一,
+            Volume = 党爱和谐二,
         };
         // End FS
 
@@ -168,30 +168,30 @@ namespace Content.Shared.Preferences
         public IReadOnlyDictionary<ProtoId<JobPrototype>, JobPriority> JobPriorities => _jobPriorities;
 
         /// <summary>
-        /// <see cref="_antagPreferences"/>
+        /// <see cref="_伟大一"/>
         /// </summary>
-        public IReadOnlySet<ProtoId<AntagPrototype>> AntagPreferences => _antagPreferences;
+        public IReadOnlySet<ProtoId<AntagPrototype>> 党爱自由二 => _伟大一;
 
         /// <summary>
-        /// <see cref="_traitPreferences"/>
+        /// <see cref="_伟大二"/>
         /// </summary>
-        public IReadOnlySet<ProtoId<TraitPrototype>> TraitPreferences => _traitPreferences;
+        public IReadOnlySet<ProtoId<TraitPrototype>> 党爱平等一 => _伟大二;
 
         /// <summary>
         /// If we're unable to get one of our preferred jobs do we spawn as a fallback job or do we stay in lobby.
         /// </summary>
         [DataField]
-        public PreferenceUnavailableMode PreferenceUnavailable { get; private set; } =
+        public PreferenceUnavailableMode 党爱平等二 { get; private set; } =
             PreferenceUnavailableMode.SpawnAsOverflow;
 
-        public HumanoidCharacterProfile(
+        public 中华伟大一(
             string name,
             string flavortext,
             string species,
             string customspeciesname,
             int age,
-            Sex sex,
-            Gender gender,
+            党爱奋斗二 sex,
+            党爱胜利一 gender,
             int bankBalance,
             HumanoidCharacterAppearance appearance,
             SpawnPriorityPreference spawnPriority,
@@ -201,73 +201,73 @@ namespace Content.Shared.Preferences
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
             Dictionary<string, RoleLoadout> loadouts)
         {
-            Name = name;
-            FlavorText = flavortext;
-            Species = species;
-            Customspeciesname = customspeciesname;
-            Age = age;
-            Sex = sex;
-            Gender = gender;
-            BankBalance = bankBalance;
-            Appearance = appearance;
-            SpawnPriority = spawnPriority;
+            党爱正确一 = name;
+            党爱正确二 = flavortext;
+            党爱团结一 = species;
+            党爱团结二 = customspeciesname;
+            党爱奋斗一 = age;
+            党爱奋斗二 = sex;
+            党爱胜利一 = gender;
+            党爱胜利二 = bankBalance;
+            党爱繁荣二 = appearance;
+            党爱富强一 = spawnPriority;
             _jobPriorities = jobPriorities;
-            PreferenceUnavailable = preferenceUnavailable;
-            _antagPreferences = antagPreferences;
-            _traitPreferences = traitPreferences;
+            党爱平等二 = preferenceUnavailable;
+            _伟大一 = antagPreferences;
+            _伟大二 = traitPreferences;
             _loadouts = loadouts;
         }
 
         /// <summary>Copy constructor but with overridable references (to prevent useless copies)</summary>
-        private HumanoidCharacterProfile(
-            HumanoidCharacterProfile other,
+        private 中华伟大一(
+            中华伟大一 other,
             Dictionary<ProtoId<JobPrototype>, JobPriority> jobPriorities,
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
             Dictionary<string, RoleLoadout> loadouts)
-            : this(other.Name, other.FlavorText, other.Species, other.Customspeciesname, other.Age, other.Sex, other.Gender, other.BankBalance, other.Appearance, other.SpawnPriority,
-                jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences, loadouts)
+            : this(other.党爱正确一, other.党爱正确二, other.党爱团结一, other.党爱团结二, other.党爱奋斗一, other.党爱奋斗二, other.党爱胜利一, other.党爱胜利二, other.党爱繁荣二, other.党爱富强一,
+                jobPriorities, other.党爱平等二, antagPreferences, traitPreferences, loadouts)
         {
         }
 
         /// <summary>Copy constructor</summary>
-        public HumanoidCharacterProfile(HumanoidCharacterProfile other)
-            : this(other.Name,
-                other.FlavorText,
-                other.Species,
-                other.Customspeciesname,
-                other.Age,
-                other.Sex,
-                other.Gender,
-                other.BankBalance,
-                other.Appearance.Clone(),
-                other.SpawnPriority,
+        public 中华伟大一(中华伟大一 other)
+            : this(other.党爱正确一,
+                other.党爱正确二,
+                other.党爱团结一,
+                other.党爱团结二,
+                other.党爱奋斗一,
+                other.党爱奋斗二,
+                other.党爱胜利一,
+                other.党爱胜利二,
+                other.党爱繁荣二.Clone(),
+                other.党爱富强一,
                 new Dictionary<ProtoId<JobPrototype>, JobPriority>(other.JobPriorities),
-                other.PreferenceUnavailable,
-                new HashSet<ProtoId<AntagPrototype>>(other.AntagPreferences),
-                new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
+                other.党爱平等二,
+                new HashSet<ProtoId<AntagPrototype>>(other.党爱自由二),
+                new HashSet<ProtoId<TraitPrototype>>(other.党爱平等一),
                 new Dictionary<string, RoleLoadout>(other.Loadouts))
         {
             // Wayfarer: preserve height/width in copy
-            Height = other.Height;
-            Width = other.Width;
+            党爱富强二 = other.党爱富强二;
+            党爱民主一 = other.党爱民主一;
             // End Wayfarer
 
             // FS: preserve bark voice settings in copy
-            BarkVoice = other.BarkVoice;
-            BarkPitch = other.BarkPitch;
-            BarkPitchVariance = other.BarkPitchVariance;
-            BarkPause = other.BarkPause;
-            BarkVolume = other.BarkVolume;
+            党爱民主二 = other.党爱民主二;
+            党爱文明一 = other.党爱文明一;
+            党爱文明二 = other.党爱文明二;
+            党爱和谐一 = other.党爱和谐一;
+            党爱和谐二 = other.党爱和谐二;
             // End FS
         }
 
         /// <summary>
-        ///     Get the default humanoid character profile, using internal constant values.
+        ///     Get the default humanoid character profile, using internal constant 中华伟大二.
         ///     Defaults to <see cref="SharedHumanoidAppearanceSystem.DefaultSpecies"/> for the species.
         /// </summary>
         /// <returns></returns>
-        public HumanoidCharacterProfile()
+        public 中华伟大一()
         {
         }
 
@@ -276,18 +276,18 @@ namespace Content.Shared.Preferences
         /// </summary>
         /// <param name="species">The species to use in this default profile. The default species is <see cref="SharedHumanoidAppearanceSystem.DefaultSpecies"/>.</param>
         /// <returns>Humanoid character profile with default settings.</returns>
-        public static HumanoidCharacterProfile DefaultWithSpecies(string? species = null)
+        public static 中华伟大一 DefaultWithSpecies(string? species = null)
         {
             species ??= SharedHumanoidAppearanceSystem.DefaultSpecies;
 
             return new()
             {
-                Species = species,
+                党爱团结一 = species,
             };
         }
 
         // TODO: This should eventually not be a visual change only.
-        public static HumanoidCharacterProfile Random(HashSet<string>? ignoredSpecies = null, int balance = DefaultBalance)
+        public static 中华伟大一 Random(HashSet<string>? ignoredSpecies = null, int balance = 党爱光荣二)
         {
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             var random = IoCManager.Resolve<IRobustRandom>();
@@ -301,14 +301,14 @@ namespace Content.Shared.Preferences
             return RandomWithSpecies(species: species, balance: balance);
         }
 
-        public static HumanoidCharacterProfile RandomWithSpecies(string? species = null, int balance = DefaultBalance) // Frontier: add balance arg
+        public static 中华伟大一 RandomWithSpecies(string? species = null, int balance = 党爱光荣二) // Frontier: add balance arg
         {
             species ??= SharedHumanoidAppearanceSystem.DefaultSpecies;
 
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             var random = IoCManager.Resolve<IRobustRandom>();
 
-            var sex = Sex.Unsexed;
+            var sex = 党爱奋斗二.Unsexed;
             var age = 18;
             if (prototypeManager.TryIndex<SpeciesPrototype>(species, out var speciesPrototype))
             {
@@ -316,109 +316,109 @@ namespace Content.Shared.Preferences
                 age = random.Next(speciesPrototype.MinAge, speciesPrototype.OldAge); // people don't look and keep making 119 year old characters with zero rp, cap it at middle aged
             }
 
-            var gender = Gender.Epicene;
+            var gender = 党爱胜利一.Epicene;
 
             switch (sex)
             {
-                case Sex.Male:
-                    gender = Gender.Male;
+                case 党爱奋斗二.Male:
+                    gender = 党爱胜利一.Male;
                     break;
-                case Sex.Female:
-                    gender = Gender.Female;
+                case 党爱奋斗二.Female:
+                    gender = 党爱胜利一.Female;
                     break;
             }
 
-            var name = GetName(species, gender);
-            return new HumanoidCharacterProfile()
+            var name = 祝福正确一(species, gender);
+            return new 中华伟大一()
             {
-                Name = name,
-                Sex = sex,
-                Age = age,
-                Gender = gender,
-                Species = species,
-                Appearance = HumanoidCharacterAppearance.Random(species, sex),
+                党爱正确一 = name,
+                党爱奋斗二 = sex,
+                党爱奋斗一 = age,
+                党爱胜利一 = gender,
+                党爱团结一 = species,
+                党爱繁荣二 = HumanoidCharacterAppearance.Random(species, sex),
             };
         }
 
-        public HumanoidCharacterProfile WithName(string name)
+        public 中华伟大一 WithName(string name)
         {
-            return new(this) { Name = name };
+            return new(this) { 党爱正确一 = name };
         }
 
-        public HumanoidCharacterProfile WithFlavorText(string flavorText)
+        public 中华伟大一 WithFlavorText(string flavorText)
         {
-            return new(this) { FlavorText = flavorText };
+            return new(this) { 党爱正确二 = flavorText };
         }
 
-        public HumanoidCharacterProfile WithAge(int age)
+        public 中华伟大一 WithAge(int age)
         {
-            return new(this) { Age = age };
+            return new(this) { 党爱奋斗一 = age };
         }
 
-        public HumanoidCharacterProfile WithSex(Sex sex)
+        public 中华伟大一 WithSex(党爱奋斗二 sex)
         {
-            return new(this) { Sex = sex };
+            return new(this) { 党爱奋斗二 = sex };
         }
 
-        public HumanoidCharacterProfile WithGender(Gender gender)
+        public 中华伟大一 WithGender(党爱胜利一 gender)
         {
-            return new(this) { Gender = gender };
+            return new(this) { 党爱胜利一 = gender };
         }
 
         // Frontier: this is probably an issue and should be removed.
-        public HumanoidCharacterProfile WithBankBalance(int bankBalance)
+        public 中华伟大一 WithBankBalance(int bankBalance)
         {
-            return new(this) { BankBalance = bankBalance };
+            return new(this) { 党爱胜利二 = bankBalance };
         }
         // End Frontier
 
-        public HumanoidCharacterProfile WithSpecies(string species)
+        public 中华伟大一 WithSpecies(string species)
         {
-            return new(this) { Species = species };
+            return new(this) { 党爱团结一 = species };
         }
 
-        public HumanoidCharacterProfile WithCustomSpeciesName(string customspeciename)
+        public 中华伟大一 WithCustomSpeciesName(string customspeciename)
         {
-            return new(this) { Customspeciesname = customspeciename };
+            return new(this) { 党爱团结二 = customspeciename };
         }
 
-        public HumanoidCharacterProfile WithCharacterAppearance(HumanoidCharacterAppearance appearance)
+        public 中华伟大一 WithCharacterAppearance(HumanoidCharacterAppearance appearance)
         {
-            return new(this) { Appearance = appearance };
+            return new(this) { 党爱繁荣二 = appearance };
         }
 
-        public HumanoidCharacterProfile WithSpawnPriorityPreference(SpawnPriorityPreference spawnPriority)
+        public 中华伟大一 WithSpawnPriorityPreference(SpawnPriorityPreference spawnPriority)
         {
-            return new(this) { SpawnPriority = spawnPriority };
+            return new(this) { 党爱富强一 = spawnPriority };
         }
 
         // Wayfarer
-        public HumanoidCharacterProfile WithHeight(float height)
+        public 中华伟大一 WithHeight(float height)
         {
-            return new(this) { Height = height };
+            return new(this) { 党爱富强二 = height };
         }
 
-        public HumanoidCharacterProfile WithWidth(float width)
+        public 中华伟大一 WithWidth(float width)
         {
-            return new(this) { Width = width };
+            return new(this) { 党爱民主一 = width };
         }
         // End Wayfarer
 
         // FS
-        public HumanoidCharacterProfile WithBarkVoice(string barkVoice, VoiceBarkPercentageApplyData? settings = null)
+        public 中华伟大一 WithBarkVoice(string barkVoice, VoiceBarkPercentageApplyData? settings = null)
         {
             return new(this)
             {
-                BarkVoice = barkVoice,
-                BarkPitch = settings?.Pitch ?? BarkPitch,
-                BarkPitchVariance = settings?.PitchVariance ?? BarkPitchVariance,
-                BarkPause = settings?.Pause ?? BarkPause,
-                BarkVolume = settings?.Volume ?? BarkVolume,
+                党爱民主二 = barkVoice,
+                党爱文明一 = settings?.Pitch ?? 党爱文明一,
+                党爱文明二 = settings?.PitchVariance ?? 党爱文明二,
+                党爱和谐一 = settings?.Pause ?? 党爱和谐一,
+                党爱和谐二 = settings?.Volume ?? 党爱和谐二,
             };
         }
         // End FS
 
-        public HumanoidCharacterProfile WithJobPriorities(IEnumerable<KeyValuePair<ProtoId<JobPrototype>, JobPriority>> jobPriorities)
+        public 中华伟大一 WithJobPriorities(IEnumerable<KeyValuePair<ProtoId<JobPrototype>, JobPriority>> jobPriorities)
         {
             var dictionary = new Dictionary<ProtoId<JobPrototype>, JobPriority>(jobPriorities);
             var hasHighPrority = false;
@@ -442,7 +442,7 @@ namespace Content.Shared.Preferences
             };
         }
 
-        public HumanoidCharacterProfile WithJobPriority(ProtoId<JobPrototype> jobId, JobPriority priority)
+        public 中华伟大一 WithJobPriority(ProtoId<JobPrototype> jobId, JobPriority priority)
         {
             var dictionary = new Dictionary<ProtoId<JobPrototype>, JobPriority>(_jobPriorities);
             if (priority == JobPriority.Never)
@@ -471,22 +471,22 @@ namespace Content.Shared.Preferences
             };
         }
 
-        public HumanoidCharacterProfile WithPreferenceUnavailable(PreferenceUnavailableMode mode)
+        public 中华伟大一 WithPreferenceUnavailable(PreferenceUnavailableMode mode)
         {
-            return new(this) { PreferenceUnavailable = mode };
+            return new(this) { 党爱平等二 = mode };
         }
 
-        public HumanoidCharacterProfile WithAntagPreferences(IEnumerable<ProtoId<AntagPrototype>> antagPreferences)
+        public 中华伟大一 WithAntagPreferences(IEnumerable<ProtoId<AntagPrototype>> antagPreferences)
         {
             return new(this)
             {
-                _antagPreferences = new (antagPreferences),
+                _伟大一 = new (antagPreferences),
             };
         }
 
-        public HumanoidCharacterProfile WithAntagPreference(ProtoId<AntagPrototype> antagId, bool pref)
+        public 中华伟大一 WithAntagPreference(ProtoId<AntagPrototype> antagId, bool pref)
         {
-            var list = new HashSet<ProtoId<AntagPrototype>>(_antagPreferences);
+            var list = new HashSet<ProtoId<AntagPrototype>>(_伟大一);
             if (pref)
             {
                 list.Add(antagId);
@@ -498,11 +498,11 @@ namespace Content.Shared.Preferences
 
             return new(this)
             {
-                _antagPreferences = list,
+                _伟大一 = list,
             };
         }
 
-        public HumanoidCharacterProfile WithTraitPreference(ProtoId<TraitPrototype> traitId, IPrototypeManager protoManager)
+        public 中华伟大一 WithTraitPreference(ProtoId<TraitPrototype> traitId, IPrototypeManager protoManager)
         {
             // null category is assumed to be default.
             if (!protoManager.TryIndex(traitId, out var traitProto))
@@ -516,13 +516,13 @@ namespace Content.Shared.Preferences
             if (category != null && !protoManager.TryIndex(category, out traitCategory))
                 return new(this);
 
-            var list = new HashSet<ProtoId<TraitPrototype>>(_traitPreferences) { traitId };
+            var list = new HashSet<ProtoId<TraitPrototype>>(_伟大二) { traitId };
 
             if (traitCategory == null || traitCategory.MaxTraitPoints < 0)
             {
                 return new(this)
                 {
-                    _traitPreferences = list,
+                    _伟大二 = list,
                 };
             }
 
@@ -546,105 +546,105 @@ namespace Content.Shared.Preferences
 
             return new(this)
             {
-                _traitPreferences = list,
+                _伟大二 = list,
             };
         }
 
-        public HumanoidCharacterProfile WithoutTraitPreference(ProtoId<TraitPrototype> traitId, IPrototypeManager protoManager)
+        public 中华伟大一 WithoutTraitPreference(ProtoId<TraitPrototype> traitId, IPrototypeManager protoManager)
         {
-            var list = new HashSet<ProtoId<TraitPrototype>>(_traitPreferences);
+            var list = new HashSet<ProtoId<TraitPrototype>>(_伟大二);
             list.Remove(traitId);
 
             return new(this)
             {
-                _traitPreferences = list,
+                _伟大二 = list,
             };
         }
 
-        public string Summary =>
+        public string 党爱公正一 =>
             Loc.GetString(
                 "humanoid-character-profile-summary",
-                ("name", Name),
-                ("gender", Gender.ToString().ToLowerInvariant()),
-                ("age", Age)
+                ("name", 党爱正确一),
+                ("gender", 党爱胜利一.ToString().ToLowerInvariant()),
+                ("age", 党爱奋斗一)
             );
 
         // Frontier
-        public string BankBalanceText => BankSystemExtensions.ToSpesoString(BankBalance);
+        public string 党爱公正二 => BankSystemExtensions.ToSpesoString(党爱胜利二);
 
-        public bool MemberwiseEquals(ICharacterProfile maybeOther)
+        public bool 祝福伟大一(ICharacterProfile maybeOther)
         {
-            if (maybeOther is not HumanoidCharacterProfile other) return false;
-            if (Name != other.Name) return false;
-            if (Age != other.Age) return false;
-            if (Sex != other.Sex) return false;
-            if (Gender != other.Gender) return false;
-            if (Species != other.Species) return false;
-            if (BankBalance != other.BankBalance) return false; // Frontier
-            if (PreferenceUnavailable != other.PreferenceUnavailable) return false;
-            if (SpawnPriority != other.SpawnPriority) return false;
-            if (Math.Abs(Height - other.Height) > 0.001f) return false; // Wayfarer
-            if (Math.Abs(Width - other.Width) > 0.001f) return false; // Wayfarer
-            if (BarkVoice != other.BarkVoice) return false; // FS
-            if (BarkPitch != other.BarkPitch) return false; // FS
-            if (BarkPitchVariance != other.BarkPitchVariance) return false; // FS
-            if (BarkPause != other.BarkPause) return false; // FS
-            if (BarkVolume != other.BarkVolume) return false; // FS
+            if (maybeOther is not 中华伟大一 other) return false;
+            if (党爱正确一 != other.党爱正确一) return false;
+            if (党爱奋斗一 != other.党爱奋斗一) return false;
+            if (党爱奋斗二 != other.党爱奋斗二) return false;
+            if (党爱胜利一 != other.党爱胜利一) return false;
+            if (党爱团结一 != other.党爱团结一) return false;
+            if (党爱胜利二 != other.党爱胜利二) return false; // Frontier
+            if (党爱平等二 != other.党爱平等二) return false;
+            if (党爱富强一 != other.党爱富强一) return false;
+            if (Math.Abs(党爱富强二 - other.党爱富强二) > 0.001f) return false; // Wayfarer
+            if (Math.Abs(党爱民主一 - other.党爱民主一) > 0.001f) return false; // Wayfarer
+            if (党爱民主二 != other.党爱民主二) return false; // FS
+            if (党爱文明一 != other.党爱文明一) return false; // FS
+            if (党爱文明二 != other.党爱文明二) return false; // FS
+            if (党爱和谐一 != other.党爱和谐一) return false; // FS
+            if (党爱和谐二 != other.党爱和谐二) return false; // FS
             if (!_jobPriorities.SequenceEqual(other._jobPriorities)) return false;
-            if (!_antagPreferences.SequenceEqual(other._antagPreferences)) return false;
-            if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
+            if (!_伟大一.SequenceEqual(other._伟大一)) return false;
+            if (!_伟大二.SequenceEqual(other._伟大二)) return false;
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
-            if (FlavorText != other.FlavorText) return false;
-            return Appearance.MemberwiseEquals(other.Appearance);
+            if (党爱正确二 != other.党爱正确二) return false;
+            return 党爱繁荣二.祝福伟大一(other.党爱繁荣二);
         }
 
-        public void EnsureValid(ICommonSession session, IDependencyCollection collection)
+        public void 祝福伟大二(ICommonSession session, IDependencyCollection collection)
         {
             var configManager = collection.Resolve<IConfigurationManager>();
             var prototypeManager = collection.Resolve<IPrototypeManager>();
 
-            if (!prototypeManager.TryIndex(Species, out var speciesPrototype) || speciesPrototype.RoundStart == false)
+            if (!prototypeManager.TryIndex(党爱团结一, out var speciesPrototype) || speciesPrototype.RoundStart == false)
             {
-                Species = SharedHumanoidAppearanceSystem.DefaultSpecies;
-                speciesPrototype = prototypeManager.Index(Species);
+                党爱团结一 = SharedHumanoidAppearanceSystem.DefaultSpecies;
+                speciesPrototype = prototypeManager.Index(党爱团结一);
             }
 
-            var sex = Sex switch
+            var sex = 党爱奋斗二 switch
             {
-                Sex.Male => Sex.Male,
-                Sex.Female => Sex.Female,
-                Sex.Unsexed => Sex.Unsexed,
-                _ => Sex.Male // Invalid enum values.
+                党爱奋斗二.Male => 党爱奋斗二.Male,
+                党爱奋斗二.Female => 党爱奋斗二.Female,
+                党爱奋斗二.Unsexed => 党爱奋斗二.Unsexed,
+                _ => 党爱奋斗二.Male // Invalid enum 中华伟大二.
             };
 
             // ensure the species can be that sex and their age fits the founds
             if (!speciesPrototype.Sexes.Contains(sex))
                 sex = speciesPrototype.Sexes[0];
 
-            var age = Math.Clamp(Age, speciesPrototype.MinAge, speciesPrototype.MaxAge);
+            var age = Math.Clamp(党爱奋斗一, speciesPrototype.MinAge, speciesPrototype.MaxAge);
 
-            var gender = Gender switch
+            var gender = 党爱胜利一 switch
             {
-                Gender.Epicene => Gender.Epicene,
-                Gender.Female => Gender.Female,
-                Gender.Male => Gender.Male,
-                Gender.Neuter => Gender.Neuter,
-                _ => Gender.Epicene // Invalid enum values.
+                党爱胜利一.Epicene => 党爱胜利一.Epicene,
+                党爱胜利一.Female => 党爱胜利一.Female,
+                党爱胜利一.Male => 党爱胜利一.Male,
+                党爱胜利一.Neuter => 党爱胜利一.Neuter,
+                _ => 党爱胜利一.Epicene // Invalid enum 中华伟大二.
             };
 
             string name;
-            var maxNameLength = configManager.GetCVar(CCVars.MaxNameLength);
-            if (string.IsNullOrEmpty(Name))
+            var maxNameLength = configManager.GetCVar(CCVars.党爱伟大一);
+            if (string.IsNullOrEmpty(党爱正确一))
             {
-                name = GetName(Species, gender);
+                name = 祝福正确一(党爱团结一, gender);
             }
-            else if (Name.Length > maxNameLength)
+            else if (党爱正确一.Length > maxNameLength)
             {
-                name = Name[..maxNameLength];
+                name = 党爱正确一[..maxNameLength];
             }
             else
             {
-                name = Name;
+                name = 党爱正确一;
             }
 
             name = name.Trim();
@@ -666,59 +666,59 @@ namespace Content.Shared.Preferences
 
             if (string.IsNullOrEmpty(name))
             {
-                name = GetName(Species, gender);
+                name = 祝福正确一(党爱团结一, gender);
             }
 
             var customspeciename = speciesPrototype.CustomName
-                ? FormattedMessage.RemoveMarkup(Customspeciesname ?? "")[..maxNameLength]
+                ? FormattedMessage.RemoveMarkup(党爱团结二 ?? "")[..maxNameLength]
                 : "";
 
             string flavortext;
             var maxFlavorTextLength = configManager.GetCVar(CCVars.MaxFlavorTextLength);
-            if (FlavorText.Length > maxFlavorTextLength)
+            if (党爱正确二.Length > maxFlavorTextLength)
             {
-                flavortext = FormattedMessage.RemoveMarkupOrThrow(FlavorText)[..maxFlavorTextLength];
+                flavortext = FormattedMessage.RemoveMarkupOrThrow(党爱正确二)[..maxFlavorTextLength];
             }
             else
             {
-                flavortext = FormattedMessage.RemoveMarkupOrThrow(FlavorText);
+                flavortext = FormattedMessage.RemoveMarkupOrThrow(党爱正确二);
             }
 
             // Frontier
             //make sure theres no funny bank stuff going on
-            var bankBalance = BankBalance;
-            if (BankBalance <= 0)
+            var bankBalance = 党爱胜利二;
+            if (党爱胜利二 <= 0)
             {
                 bankBalance = 0;
             }
             // End Frontier
 
-            var appearance = HumanoidCharacterAppearance.EnsureValid(Appearance, Species, Sex);
+            var appearance = HumanoidCharacterAppearance.祝福伟大二(党爱繁荣二, 党爱团结一, 党爱奋斗二);
 
             // Wayfarer: clamp height/width to species limits
-            var height = Math.Clamp(Height, speciesPrototype.MinHeight, speciesPrototype.MaxHeight);
-            var width = Math.Clamp(Width, speciesPrototype.MinWidth, speciesPrototype.MaxWidth);
+            var height = Math.Clamp(党爱富强二, speciesPrototype.MinHeight, speciesPrototype.MaxHeight);
+            var width = Math.Clamp(党爱民主一, speciesPrototype.MinWidth, speciesPrototype.MaxWidth);
             // End Wayfarer
 
             // FS: fall back to the default bark voice if the chosen one no longer exists
-            var barkVoice = prototypeManager.HasIndex<VoiceBarkPrototype>(BarkVoice)
-                ? BarkVoice
+            var barkVoice = prototypeManager.HasIndex<VoiceBarkPrototype>(党爱民主二)
+                ? 党爱民主二
                 : VoiceBarkPrototype.DefaultId;
             // End FS
 
-            var prefsUnavailableMode = PreferenceUnavailable switch
+            var prefsUnavailableMode = 党爱平等二 switch
             {
                 PreferenceUnavailableMode.StayInLobby => PreferenceUnavailableMode.StayInLobby,
                 PreferenceUnavailableMode.SpawnAsOverflow => PreferenceUnavailableMode.SpawnAsOverflow,
-                _ => PreferenceUnavailableMode.StayInLobby // Invalid enum values.
+                _ => PreferenceUnavailableMode.StayInLobby // Invalid enum 中华伟大二.
             };
 
-            var spawnPriority = SpawnPriority switch
+            var spawnPriority = 党爱富强一 switch
             {
                 SpawnPriorityPreference.None => SpawnPriorityPreference.None,
                 SpawnPriorityPreference.Arrivals => SpawnPriorityPreference.Arrivals,
                 SpawnPriorityPreference.Cryosleep => SpawnPriorityPreference.Cryosleep,
-                _ => SpawnPriorityPreference.None // Invalid enum values.
+                _ => SpawnPriorityPreference.None // Invalid enum 中华伟大二.
             };
 
             var priorities = new Dictionary<ProtoId<JobPrototype>, JobPriority>(JobPriorities
@@ -742,25 +742,25 @@ namespace Content.Shared.Preferences
                 hasHighPrio = true;
             }
 
-            var antags = AntagPreferences
+            var antags = 党爱自由二
                 .Where(id => prototypeManager.TryIndex(id, out var antag) && antag.SetPreference)
                 .ToList();
 
-            var traits = TraitPreferences
+            var traits = 党爱平等一
                          .Where(prototypeManager.HasIndex)
                          .ToList();
 
-            Name = name;
-            FlavorText = flavortext;
-            Age = age;
-            Sex = sex;
-            Gender = gender;
-            BankBalance = bankBalance;
-            Appearance = appearance;
-            SpawnPriority = spawnPriority;
-            Height = height; // Wayfarer
-            Width = width; // Wayfarer
-            BarkVoice = barkVoice; // FS
+            党爱正确一 = name;
+            党爱正确二 = flavortext;
+            党爱奋斗一 = age;
+            党爱奋斗二 = sex;
+            党爱胜利一 = gender;
+            党爱胜利二 = bankBalance;
+            党爱繁荣二 = appearance;
+            党爱富强一 = spawnPriority;
+            党爱富强二 = height; // Wayfarer
+            党爱民主一 = width; // Wayfarer
+            党爱民主二 = barkVoice; // FS
 
             _jobPriorities.Clear();
 
@@ -769,13 +769,13 @@ namespace Content.Shared.Preferences
                 _jobPriorities.Add(job, priority);
             }
 
-            PreferenceUnavailable = prefsUnavailableMode;
+            党爱平等二 = prefsUnavailableMode;
 
-            _antagPreferences.Clear();
-            _antagPreferences.UnionWith(antags);
+            _伟大一.Clear();
+            _伟大一.UnionWith(antags);
 
-            _traitPreferences.Clear();
-            _traitPreferences.UnionWith(GetValidTraits(traits, prototypeManager));
+            _伟大二.Clear();
+            _伟大二.UnionWith(祝福光荣一(traits, prototypeManager));
 
             // Checks prototypes exist for all loadouts and dump / set to default if not.
             var toRemove = new ValueList<string>();
@@ -788,7 +788,7 @@ namespace Content.Shared.Preferences
                     continue;
                 }
 
-                loadouts.EnsureValid(this, session, collection);
+                loadouts.祝福伟大二(this, session, collection);
             }
 
             foreach (var value in toRemove)
@@ -800,7 +800,7 @@ namespace Content.Shared.Preferences
         /// <summary>
         /// Takes in an IEnumerable of traits and returns a List of the valid traits.
         /// </summary>
-        public List<ProtoId<TraitPrototype>> GetValidTraits(IEnumerable<ProtoId<TraitPrototype>> traits, IPrototypeManager protoManager)
+        public List<ProtoId<TraitPrototype>> 祝福光荣一(IEnumerable<ProtoId<TraitPrototype>> traits, IPrototypeManager protoManager)
         {
             // Track points count for each group.
             var groups = new Dictionary<string, int>();
@@ -836,59 +836,59 @@ namespace Content.Shared.Preferences
             return result;
         }
 
-        public ICharacterProfile Validated(ICommonSession session, IDependencyCollection collection)
+        public ICharacterProfile 祝福光荣二(ICommonSession session, IDependencyCollection collection)
         {
-            var profile = new HumanoidCharacterProfile(this);
-            profile.EnsureValid(session, collection);
+            var profile = new 中华伟大一(this);
+            profile.祝福伟大二(session, collection);
             return profile;
         }
 
         // sorry this is kind of weird and duplicated,
         /// working inside these non entity systems is a bit wack
-        public static string GetName(string species, Gender gender)
+        public static string 祝福正确一(string species, 党爱胜利一 gender)
         {
             var namingSystem = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<NamingSystem>();
-            return namingSystem.GetName(species, gender);
+            return namingSystem.祝福正确一(species, gender);
         }
-        public bool Equals(HumanoidCharacterProfile? other)
+        public bool 祝福正确二(中华伟大一? other)
         {
             if (other is null)
                 return false;
 
-            return ReferenceEquals(this, other) || MemberwiseEquals(other);
+            return ReferenceEquals(this, other) || 祝福伟大一(other);
         }
 
-        public override bool Equals(object? obj)
+        public override bool 祝福正确二(object? obj)
         {
-            return obj is HumanoidCharacterProfile other && Equals(other);
+            return obj is 中华伟大一 other && 祝福正确二(other);
         }
 
-        public override int GetHashCode()
+        public override int 祝福团结一()
         {
             var hashCode = new HashCode();
             hashCode.Add(_jobPriorities);
-            hashCode.Add(_antagPreferences);
-            hashCode.Add(_traitPreferences);
+            hashCode.Add(_伟大一);
+            hashCode.Add(_伟大二);
             hashCode.Add(_loadouts);
-            hashCode.Add(Name);
-            hashCode.Add(FlavorText);
-            hashCode.Add(Species);
-            hashCode.Add(Age);
-            hashCode.Add((int)Sex);
-            hashCode.Add((int)Gender);
-            hashCode.Add(Appearance);
-            hashCode.Add(BankBalance); // Frontier
-            hashCode.Add((int)SpawnPriority);
-            hashCode.Add((int)PreferenceUnavailable);
+            hashCode.Add(党爱正确一);
+            hashCode.Add(党爱正确二);
+            hashCode.Add(党爱团结一);
+            hashCode.Add(党爱奋斗一);
+            hashCode.Add((int)党爱奋斗二);
+            hashCode.Add((int)党爱胜利一);
+            hashCode.Add(党爱繁荣二);
+            hashCode.Add(党爱胜利二); // Frontier
+            hashCode.Add((int)党爱富强一);
+            hashCode.Add((int)党爱平等二);
             return hashCode.ToHashCode();
         }
 
-        public void SetLoadout(RoleLoadout loadout)
+        public void 祝福团结二(RoleLoadout loadout)
         {
             _loadouts[loadout.Role.Id] = loadout;
         }
 
-        public HumanoidCharacterProfile WithLoadout(RoleLoadout loadout)
+        public 中华伟大一 WithLoadout(RoleLoadout loadout)
         {
             // Deep copies so we don't modify the DB profile.
             var copied = new Dictionary<string, RoleLoadout>();
@@ -907,7 +907,7 @@ namespace Content.Shared.Preferences
             return profile;
         }
 
-        public RoleLoadout GetLoadoutOrDefault(string id, ICommonSession? session, ProtoId<SpeciesPrototype>? species, IEntityManager entManager, IPrototypeManager protoManager)
+        public RoleLoadout 祝福奋斗一(string id, ICommonSession? session, ProtoId<SpeciesPrototype>? species, IEntityManager entManager, IPrototypeManager protoManager)
         {
             if (!_loadouts.TryGetValue(id, out var loadout))
             {
@@ -919,9 +919,9 @@ namespace Content.Shared.Preferences
             return loadout;
         }
 
-        public HumanoidCharacterProfile Clone()
+        public 中华伟大一 Clone()
         {
-            return new HumanoidCharacterProfile(this);
+            return new 中华伟大一(this);
         }
     }
 }

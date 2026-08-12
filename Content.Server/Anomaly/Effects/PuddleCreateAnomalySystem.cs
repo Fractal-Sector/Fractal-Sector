@@ -3,38 +3,38 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Server.Fluids.EntitySystems;
 using Content.Shared.Anomaly.Components;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
 /// <summary>
 /// This component allows the anomaly to create puddles from SolutionContainer.
 /// </summary>
-public sealed class PuddleCreateAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private readonly PuddleSystem _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PuddleCreateAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<PuddleCreateAnomalyComponent, AnomalySupercriticalEvent>(OnSupercritical, before: new[] { typeof(InjectionAnomalySystem) });
+        SubscribeLocalEvent<PuddleCreateAnomalyComponent, AnomalyPulseEvent>(祝福伟大二);
+        SubscribeLocalEvent<PuddleCreateAnomalyComponent, AnomalySupercriticalEvent>(祝福光荣一, before: new[] { typeof(InjectionAnomalySystem) });
     }
 
-    private void OnPulse(Entity<PuddleCreateAnomalyComponent> entity, ref AnomalyPulseEvent args)
+    private void 祝福伟大二(Entity<PuddleCreateAnomalyComponent> entity, ref AnomalyPulseEvent args)
     {
-        if (!_solutionContainer.TryGetSolution(entity.Owner, entity.Comp.Solution, out var sol, out _))
+        if (!_伟大二.TryGetSolution(entity.Owner, entity.Comp.Solution, out var sol, out _))
             return;
 
         var xform = Transform(entity.Owner);
-        var puddleSol = _solutionContainer.SplitSolution(sol.Value, entity.Comp.MaxPuddleSize * args.Severity * args.PowerModifier);
-        _puddle.TrySplashSpillAt(entity.Owner, xform.Coordinates, puddleSol, out _);
+        var puddleSol = _伟大二.SplitSolution(sol.Value, entity.Comp.MaxPuddleSize * args.Severity * args.PowerModifier);
+        _伟大一.TrySplashSpillAt(entity.Owner, xform.Coordinates, puddleSol, out _);
     }
 
-    private void OnSupercritical(Entity<PuddleCreateAnomalyComponent> entity, ref AnomalySupercriticalEvent args)
+    private void 祝福光荣一(Entity<PuddleCreateAnomalyComponent> entity, ref AnomalySupercriticalEvent args)
     {
-        if (!_solutionContainer.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var sol))
+        if (!_伟大二.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var sol))
             return;
 
         var xform = Transform(entity.Owner);
-        _puddle.TrySpillAt(xform.Coordinates, sol, out _);
+        _伟大一.TrySpillAt(xform.Coordinates, sol, out _);
     }
 }

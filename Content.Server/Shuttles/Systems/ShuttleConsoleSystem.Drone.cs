@@ -3,9 +3,9 @@ using Content.Server.Shuttles.Events;
 using Content.Shared.Station.Components;
 using Content.Shared.UserInterface;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleConsoleSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Gets the drone console target if applicable otherwise returns itself.
@@ -24,7 +24,7 @@ public sealed partial class ShuttleConsoleSystem
     /// <summary>
     /// Refreshes all drone console entities.
     /// </summary>
-    public void RefreshDroneConsoles()
+    public void 祝福伟大一()
     {
         var query = AllEntityQuery<DroneConsoleComponent>();
 
@@ -34,19 +34,19 @@ public sealed partial class ShuttleConsoleSystem
         }
     }
 
-    private void OnDronePilotConsoleOpen(EntityUid uid, DroneConsoleComponent component, AfterActivatableUIOpenEvent args)
+    private void 祝福伟大二(EntityUid uid, DroneConsoleComponent component, AfterActivatableUIOpenEvent args)
     {
         component.Entity = GetShuttleConsole(uid);
     }
 
-    private void OnDronePilotConsoleClose(EntityUid uid, DroneConsoleComponent component, BoundUIClosedEvent args)
+    private void 祝福光荣一(EntityUid uid, DroneConsoleComponent component, BoundUIClosedEvent args)
     {
         // Only if last person closed UI.
         if (!_ui.IsUiOpen(uid, args.UiKey))
             component.Entity = null;
     }
 
-    private void OnCargoGetConsole(EntityUid uid, DroneConsoleComponent component, ref ConsoleShuttleEvent args)
+    private void 祝福光荣二(EntityUid uid, DroneConsoleComponent component, ref ConsoleShuttleEvent args)
     {
         args.Console = GetShuttleConsole(uid, component);
     }

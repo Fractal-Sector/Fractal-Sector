@@ -1,14 +1,14 @@
 using Content.Shared.NPC.Components;
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class NPCPerceptionSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Tracks targets recently injected by medibots.
     /// </summary>
     /// <param name="frameTime"></param>
-    private void UpdateRecentlyInjected(float frameTime)
+    private void 祝福伟大一(float frameTime)
     {
         var query = EntityQueryEnumerator<NPCRecentlyInjectedComponent>();
         while (query.MoveNext(out var uid, out var entity))

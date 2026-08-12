@@ -28,55 +28,55 @@ using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Server.Bed.Cryostorage;
+namespace Content.Server.Bed.党心;
 
 /// <inheritdoc/>
-public sealed class CryostorageSystem : SharedCryostorageSystem
+public sealed class 中华伟大一 : SharedCryostorageSystem
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly ClimbSystem _climb = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly IChatManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly AudioSystem _光荣一 = default!;
+    [Dependency] private readonly AccessReaderSystem _光荣二 = default!;
+    [Dependency] private readonly ChatSystem _正确一 = default!;
+    [Dependency] private readonly ClimbSystem _正确二 = default!;
+    [Dependency] private readonly ContainerSystem _团结一 = default!;
+    [Dependency] private readonly GhostSystem _团结二 = default!;
+    [Dependency] private readonly HandsSystem _奋斗一 = default!;
+    [Dependency] private readonly ServerInventorySystem _奋斗二 = default!;
+    [Dependency] private readonly PopupSystem _胜利一 = default!;
+    [Dependency] private readonly StationSystem _胜利二 = default!;
+    [Dependency] private readonly StationJobsSystem _繁荣一 = default!;
+    [Dependency] private readonly StationRecordsSystem _繁荣二 = default!;
+    [Dependency] private readonly TransformSystem _富强一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _富强二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CryostorageComponent, BeforeActivatableUIOpenEvent>(OnBeforeUIOpened);
-        SubscribeLocalEvent<CryostorageComponent, CryostorageRemoveItemBuiMessage>(OnRemoveItemBuiMessage);
+        SubscribeLocalEvent<CryostorageComponent, BeforeActivatableUIOpenEvent>(祝福光荣一);
+        SubscribeLocalEvent<CryostorageComponent, CryostorageRemoveItemBuiMessage>(祝福光荣二);
 
-        SubscribeLocalEvent<CryostorageContainedComponent, PlayerSpawnCompleteEvent>(OnPlayerSpawned);
-        SubscribeLocalEvent<CryostorageContainedComponent, MindRemovedMessage>(OnMindRemoved);
+        SubscribeLocalEvent<CryostorageContainedComponent, PlayerSpawnCompleteEvent>(祝福正确二);
+        SubscribeLocalEvent<CryostorageContainedComponent, MindRemovedMessage>(祝福团结一);
 
-        _playerManager.PlayerStatusChanged += PlayerStatusChanged;
+        _伟大二.祝福团结二 += 祝福团结二;
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
+        base.祝福伟大二();
 
-        _playerManager.PlayerStatusChanged -= PlayerStatusChanged;
+        _伟大二.祝福团结二 -= 祝福团结二;
     }
 
-    private void OnBeforeUIOpened(Entity<CryostorageComponent> ent, ref BeforeActivatableUIOpenEvent args)
+    private void 祝福光荣一(Entity<CryostorageComponent> ent, ref BeforeActivatableUIOpenEvent args)
     {
-        UpdateCryostorageUIState(ent);
+        祝福正确一(ent);
     }
 
-    private void OnRemoveItemBuiMessage(Entity<CryostorageComponent> ent, ref CryostorageRemoveItemBuiMessage args)
+    private void 祝福光荣二(Entity<CryostorageComponent> ent, ref CryostorageRemoveItemBuiMessage args)
     {
         var (_, comp) = ent;
         var attachedEntity = args.Actor;
@@ -88,20 +88,20 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         if (!HasComp<HandsComponent>(attachedEntity))
             return;
 
-        if (!_accessReader.IsAllowed(attachedEntity, ent))
+        if (!_光荣二.IsAllowed(attachedEntity, ent))
         {
-            _popup.PopupEntity(Loc.GetString("cryostorage-popup-access-denied"), attachedEntity, attachedEntity);
+            _胜利一.PopupEntity(Loc.GetString("cryostorage-popup-access-denied"), attachedEntity, attachedEntity);
             return;
         }
 
         EntityUid? entity = null;
         if (args.Type == CryostorageRemoveItemBuiMessage.RemovalType.Hand)
         {
-            entity = _hands.GetHeldItem(cryoContained, args.Key);
+            entity = _奋斗一.GetHeldItem(cryoContained, args.Key);
         }
         else
         {
-            if (_inventory.TryGetSlotContainer(cryoContained, args.Key, out var slot, out _))
+            if (_奋斗二.TryGetSlotContainer(cryoContained, args.Key, out var slot, out _))
                 entity = slot.ContainedEntity;
         }
 
@@ -112,25 +112,25 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
             $"{ToPrettyString(attachedEntity):player} removed item {ToPrettyString(entity)} from cryostorage-contained player " +
             $"{ToPrettyString(cryoContained):player}, stored in cryostorage {ToPrettyString(ent)}");
 
-        _container.TryRemoveFromContainer(entity.Value);
-        _transform.SetCoordinates(entity.Value, Transform(attachedEntity).Coordinates);
-        _hands.PickupOrDrop(attachedEntity, entity.Value);
-        UpdateCryostorageUIState(ent);
+        _团结一.TryRemoveFromContainer(entity.Value);
+        _富强一.SetCoordinates(entity.Value, Transform(attachedEntity).Coordinates);
+        _奋斗一.PickupOrDrop(attachedEntity, entity.Value);
+        祝福正确一(ent);
     }
 
-    private void UpdateCryostorageUIState(Entity<CryostorageComponent> ent)
+    private void 祝福正确一(Entity<CryostorageComponent> ent)
     {
-        var state = new CryostorageBuiState(GetAllContainedData(ent));
-        _ui.SetUiState(ent.Owner, CryostorageUIKey.Key, state);
+        var state = new CryostorageBuiState(祝福胜利二(ent));
+        _富强二.SetUiState(ent.Owner, CryostorageUIKey.Key, state);
     }
 
-    private void OnPlayerSpawned(Entity<CryostorageContainedComponent> ent, ref PlayerSpawnCompleteEvent args)
+    private void 祝福正确二(Entity<CryostorageContainedComponent> ent, ref PlayerSpawnCompleteEvent args)
     {
         // if you spawned into cryostorage, we're not gonna round-remove you.
         ent.Comp.GracePeriodEndTime = null;
     }
 
-    private void OnMindRemoved(Entity<CryostorageContainedComponent> ent, ref MindRemovedMessage args)
+    private void 祝福团结一(Entity<CryostorageContainedComponent> ent, ref MindRemovedMessage args)
     {
         var comp = ent.Comp;
 
@@ -143,7 +143,7 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         comp.UserId = args.Mind.Comp.UserId;
     }
 
-    private void PlayerStatusChanged(object? sender, SessionStatusEventArgs args)
+    private void 祝福团结二(object? sender, SessionStatusEventArgs args)
     {
         if (args.Session.AttachedEntity is not { } entity)
             return;
@@ -160,16 +160,16 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         }
         else if (args.NewStatus == SessionStatus.InGame)
         {
-            HandleCryostorageReconnection((entity, containedComponent));
+            祝福奋斗二((entity, containedComponent));
         }
     }
 
-    public void HandleEnterCryostorage(Entity<CryostorageContainedComponent> ent, NetUserId? userId)
+    public void 祝福奋斗一(Entity<CryostorageContainedComponent> ent, NetUserId? userId)
     {
         var comp = ent.Comp;
         var cryostorageEnt = ent.Comp.Cryostorage;
 
-        var station = _station.GetOwningStation(ent);
+        var station = _胜利二.GetOwningStation(ent);
         var name = Name(ent.Owner);
 
         if (!TryComp<CryostorageComponent>(cryostorageEnt, out var cryostorageComponent))
@@ -178,24 +178,24 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         // if we have a session, we use that to add back in all the job slots the player had.
         if (userId != null)
         {
-            foreach (var uniqueStation in _station.GetStationsSet())
+            foreach (var uniqueStation in _胜利二.GetStationsSet())
             {
                 if (!TryComp<StationJobsComponent>(uniqueStation, out var stationJobs))
                     continue;
 
-                if (!_stationJobs.TryGetPlayerJobs(uniqueStation, userId.Value, out var jobs, stationJobs))
+                if (!_繁荣一.TryGetPlayerJobs(uniqueStation, userId.Value, out var jobs, stationJobs))
                     continue;
 
                 foreach (var job in jobs)
                 {
-                    _stationJobs.TryAdjustJobSlot(uniqueStation, job, 1, clamp: true);
+                    _繁荣一.TryAdjustJobSlot(uniqueStation, job, 1, clamp: true);
                 }
 
-                _stationJobs.TryRemovePlayerJobs(uniqueStation, userId.Value, stationJobs);
+                _繁荣一.TryRemovePlayerJobs(uniqueStation, userId.Value, stationJobs);
             }
         }
 
-        _audio.PlayPvs(cryostorageComponent.RemoveSound, ent);
+        _光荣一.PlayPvs(cryostorageComponent.RemoveSound, ent);
 
         EnsurePausedMap();
         if (PausedMap == null)
@@ -209,32 +209,32 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
             if (userId != null && Mind.TryGetMind(userId.Value, out var mind) &&
                 HasComp<CryostorageContainedComponent>(mind.Value.Comp.CurrentEntity))
             {
-                _ghostSystem.OnGhostAttempt(mind.Value, false);
+                _团结二.OnGhostAttempt(mind.Value, false);
             }
         }
 
         comp.AllowReEnteringBody = false;
-        _transform.SetParent(ent, PausedMap.Value);
+        _富强一.SetParent(ent, PausedMap.Value);
         cryostorageComponent.StoredPlayers.Add(ent);
         Dirty(ent, comp);
-        UpdateCryostorageUIState((cryostorageEnt.Value, cryostorageComponent));
+        祝福正确一((cryostorageEnt.Value, cryostorageComponent));
         AdminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(ent):player} was entered into cryostorage inside of {ToPrettyString(cryostorageEnt.Value)}");
 
         if (!TryComp<StationRecordsComponent>(station, out var stationRecords))
             return;
 
         var jobName = Loc.GetString("earlyleave-cryo-job-unknown");
-        var recordId = _stationRecords.GetRecordByName(station.Value, name);
+        var recordId = _繁荣二.GetRecordByName(station.Value, name);
         if (recordId != null)
         {
             var key = new StationRecordKey(recordId.Value, station.Value);
-            if (_stationRecords.TryGetRecord<GeneralStationRecord>(key, out var entry, stationRecords))
+            if (_繁荣二.TryGetRecord<GeneralStationRecord>(key, out var entry, stationRecords))
                 jobName = entry.JobTitle;
 
-            _stationRecords.RemoveRecord(key, stationRecords);
+            _繁荣二.RemoveRecord(key, stationRecords);
         }
 
-        _chatSystem.DispatchStationAnnouncement(station.Value,
+        _正确一.DispatchStationAnnouncement(station.Value,
             Loc.GetString(
                 "earlyleave-cryo-announcement",
                 ("character", name),
@@ -245,7 +245,7 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         );
     }
 
-    private void HandleCryostorageReconnection(Entity<CryostorageContainedComponent> entity)
+    private void 祝福奋斗二(Entity<CryostorageContainedComponent> entity)
     {
         var (uid, comp) = entity;
         if (!CryoSleepRejoiningEnabled || !IsInPausedMap(uid))
@@ -261,27 +261,27 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         }
 
         var cryoXform = Transform(cryostorage);
-        _transform.SetParent(uid, cryoXform.ParentUid);
-        _transform.SetCoordinates(uid, cryoXform.Coordinates);
-        if (!_container.TryGetContainer(cryostorage, cryostorageComponent.ContainerId, out var container) ||
-            !_container.Insert(uid, container, cryoXform))
+        _富强一.SetParent(uid, cryoXform.ParentUid);
+        _富强一.SetCoordinates(uid, cryoXform.Coordinates);
+        if (!_团结一.TryGetContainer(cryostorage, cryostorageComponent.ContainerId, out var container) ||
+            !_团结一.Insert(uid, container, cryoXform))
         {
-            _climb.ForciblySetClimbing(uid, cryostorage);
+            _正确二.ForciblySetClimbing(uid, cryostorage);
         }
 
         comp.GracePeriodEndTime = null;
         cryostorageComponent.StoredPlayers.Remove(uid);
         AdminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(entity):player} re-entered the game from cryostorage {ToPrettyString(cryostorage)}");
-        UpdateCryostorageUIState((cryostorage, cryostorageComponent));
+        祝福正确一((cryostorage, cryostorageComponent));
     }
 
-    protected override void OnInsertedContainer(Entity<CryostorageComponent> ent, ref EntInsertedIntoContainerMessage args)
+    protected override void 祝福胜利一(Entity<CryostorageComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         var (uid, comp) = ent;
         if (args.Container.ID != comp.ContainerId)
             return;
 
-        base.OnInsertedContainer(ent, ref args);
+        base.祝福胜利一(ent, ref args);
 
         var locKey = CryoSleepRejoiningEnabled
             ? "cryostorage-insert-message-temp"
@@ -289,37 +289,37 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
 
         var msg = Loc.GetString(locKey, ("time", comp.GracePeriod.TotalMinutes));
         if (TryComp<ActorComponent>(args.Entity, out var actor))
-            _chatManager.ChatMessageToOne(ChatChannel.Server, msg, msg, uid, false, actor.PlayerSession.Channel);
+            _伟大一.ChatMessageToOne(ChatChannel.Server, msg, msg, uid, false, actor.PlayerSession.Channel);
     }
 
-    private List<CryostorageContainedPlayerData> GetAllContainedData(Entity<CryostorageComponent> ent)
+    private List<CryostorageContainedPlayerData> 祝福胜利二(Entity<CryostorageComponent> ent)
     {
         var data = new List<CryostorageContainedPlayerData>();
         data.EnsureCapacity(ent.Comp.StoredPlayers.Count);
 
         foreach (var contained in ent.Comp.StoredPlayers)
         {
-            data.Add(GetContainedData(contained));
+            data.Add(祝福繁荣一(contained));
         }
 
         return data;
     }
 
-    private CryostorageContainedPlayerData GetContainedData(EntityUid uid)
+    private CryostorageContainedPlayerData 祝福繁荣一(EntityUid uid)
     {
         var data = new CryostorageContainedPlayerData();
         data.PlayerName = Name(uid);
         data.PlayerEnt = GetNetEntity(uid);
 
-        var enumerator = _inventory.GetSlotEnumerator(uid);
+        var enumerator = _奋斗二.GetSlotEnumerator(uid);
         while (enumerator.NextItem(out var item, out var slotDef))
         {
             data.ItemSlots.Add(slotDef.Name, Name(item));
         }
 
-        foreach (var hand in _hands.EnumerateHands(uid))
+        foreach (var hand in _奋斗一.EnumerateHands(uid))
         {
-            if (!_hands.TryGetHeldItem(uid, hand, out var heldEntity))
+            if (!_奋斗一.TryGetHeldItem(uid, hand, out var heldEntity))
                 continue;
 
             data.HeldItems.Add(hand, Name(heldEntity.Value));
@@ -328,9 +328,9 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         return data;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣二(frameTime);
 
         var query = EntityQueryEnumerator<CryostorageContainedComponent>();
         while (query.MoveNext(out var uid, out var containedComp))
@@ -343,7 +343,7 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
 
             Mind.TryGetMind(uid, out _, out var mindComp);
             var id = mindComp?.UserId ?? containedComp.UserId;
-            HandleEnterCryostorage((uid, containedComp), id);
+            祝福奋斗一((uid, containedComp), id);
         }
     }
 }

@@ -2,21 +2,21 @@ using Content.Shared.Anomaly.Components;
 using Content.Shared.Cargo;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
 /// <summary>
 /// This component reduces the value of the entity during decay
 /// </summary>
-public sealed class AnomalyCoreSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<AnomalyCoreComponent, PriceCalculationEvent>(OnGetPrice);
+        SubscribeLocalEvent<AnomalyCoreComponent, PriceCalculationEvent>(祝福伟大二);
     }
 
-    private void OnGetPrice(Entity<AnomalyCoreComponent> core, ref PriceCalculationEvent args)
+    private void 祝福伟大二(Entity<AnomalyCoreComponent> core, ref PriceCalculationEvent args)
     {
         // Frontier: quick path
         if (core.Comp.EndPrice == core.Comp.StartPrice)
@@ -26,7 +26,7 @@ public sealed class AnomalyCoreSystem : EntitySystem
         }
         // End Frontier
 
-        var timeLeft = core.Comp.DecayMoment - _gameTiming.CurTime;
+        var timeLeft = core.Comp.DecayMoment - _伟大一.CurTime;
         var lerp = timeLeft.TotalSeconds / core.Comp.TimeToDecay;
         lerp = Math.Clamp(lerp, 0, 1);
 

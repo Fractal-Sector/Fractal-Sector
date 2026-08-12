@@ -17,64 +17,64 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Body.Systems
+namespace Content.Server.Body.党心
 {
     /// <inheritdoc/>
-    public sealed class MetabolizerSystem : SharedMetabolizerSystem
+    public sealed class 中华伟大一 : SharedMetabolizerSystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly IRobustRandom _光荣一 = default!;
+        [Dependency] private readonly ISharedAdminLogManager _光荣二 = default!;
+        [Dependency] private readonly MobStateSystem _正确一 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _正确二 = default!;
 
-        private EntityQuery<OrganComponent> _organQuery;
-        private EntityQuery<SolutionContainerManagerComponent> _solutionQuery;
+        private EntityQuery<OrganComponent> _团结一;
+        private EntityQuery<SolutionContainerManagerComponent> _团结二;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _organQuery = GetEntityQuery<OrganComponent>();
-            _solutionQuery = GetEntityQuery<SolutionContainerManagerComponent>();
+            _团结一 = GetEntityQuery<OrganComponent>();
+            _团结二 = GetEntityQuery<SolutionContainerManagerComponent>();
 
-            SubscribeLocalEvent<MetabolizerComponent, ComponentInit>(OnMetabolizerInit);
-            SubscribeLocalEvent<MetabolizerComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<MetabolizerComponent, EntityUnpausedEvent>(OnUnpaused);
-            SubscribeLocalEvent<MetabolizerComponent, ApplyMetabolicMultiplierEvent>(OnApplyMetabolicMultiplier);
+            SubscribeLocalEvent<MetabolizerComponent, ComponentInit>(祝福光荣二);
+            SubscribeLocalEvent<MetabolizerComponent, MapInitEvent>(祝福伟大二);
+            SubscribeLocalEvent<MetabolizerComponent, EntityUnpausedEvent>(祝福光荣一);
+            SubscribeLocalEvent<MetabolizerComponent, ApplyMetabolicMultiplierEvent>(祝福正确一);
         }
 
-        private void OnMapInit(Entity<MetabolizerComponent> ent, ref MapInitEvent args)
+        private void 祝福伟大二(Entity<MetabolizerComponent> ent, ref MapInitEvent args)
         {
-            ent.Comp.NextUpdate = _gameTiming.CurTime + ent.Comp.AdjustedUpdateInterval;
+            ent.Comp.NextUpdate = _伟大一.CurTime + ent.Comp.AdjustedUpdateInterval;
         }
 
-        private void OnUnpaused(Entity<MetabolizerComponent> ent, ref EntityUnpausedEvent args)
+        private void 祝福光荣一(Entity<MetabolizerComponent> ent, ref EntityUnpausedEvent args)
         {
             ent.Comp.NextUpdate += args.PausedTime;
         }
 
-        private void OnMetabolizerInit(Entity<MetabolizerComponent> entity, ref ComponentInit args)
+        private void 祝福光荣二(Entity<MetabolizerComponent> entity, ref ComponentInit args)
         {
             if (!entity.Comp.SolutionOnBody)
             {
-                _solutionContainerSystem.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out _);
+                _正确二.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out _);
             }
-            else if (_organQuery.CompOrNull(entity)?.Body is { } body)
+            else if (_团结一.CompOrNull(entity)?.Body is { } body)
             {
-                _solutionContainerSystem.EnsureSolution(body, entity.Comp.SolutionName, out _);
+                _正确二.EnsureSolution(body, entity.Comp.SolutionName, out _);
             }
         }
 
-        private void OnApplyMetabolicMultiplier(Entity<MetabolizerComponent> ent, ref ApplyMetabolicMultiplierEvent args)
+        private void 祝福正确一(Entity<MetabolizerComponent> ent, ref ApplyMetabolicMultiplierEvent args)
         {
             ent.Comp.UpdateIntervalMultiplier = args.Multiplier;
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福正确二(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福正确二(frameTime);
 
             var metabolizers = new ValueList<(EntityUid Uid, MetabolizerComponent Component)>(Count<MetabolizerComponent>());
             var query = EntityQueryEnumerator<MetabolizerComponent>();
@@ -87,17 +87,17 @@ namespace Content.Server.Body.Systems
             foreach (var (uid, metab) in metabolizers)
             {
                 // Only update as frequently as it should
-                if (_gameTiming.CurTime < metab.NextUpdate)
+                if (_伟大一.CurTime < metab.NextUpdate)
                     continue;
 
                 metab.NextUpdate += metab.AdjustedUpdateInterval;
-                TryMetabolize((uid, metab));
+                祝福团结一((uid, metab));
             }
         }
 
-        private void TryMetabolize(Entity<MetabolizerComponent, OrganComponent?, SolutionContainerManagerComponent?> ent)
+        private void 祝福团结一(Entity<MetabolizerComponent, OrganComponent?, SolutionContainerManagerComponent?> ent)
         {
-            _organQuery.Resolve(ent, ref ent.Comp2, logMissing: false);
+            _团结一.Resolve(ent, ref ent.Comp2, logMissing: false);
 
             // First step is get the solution we actually care about
             var solutionName = ent.Comp1.SolutionName;
@@ -109,19 +109,19 @@ namespace Content.Server.Body.Systems
             {
                 if (ent.Comp2?.Body is { } body)
                 {
-                    if (!_solutionQuery.Resolve(body, ref ent.Comp3, logMissing: false))
+                    if (!_团结二.Resolve(body, ref ent.Comp3, logMissing: false))
                         return;
 
-                    _solutionContainerSystem.TryGetSolution((body, ent.Comp3), solutionName, out soln, out solution);
+                    _正确二.TryGetSolution((body, ent.Comp3), solutionName, out soln, out solution);
                     solutionEntityUid = body;
                 }
             }
             else
             {
-                if (!_solutionQuery.Resolve(ent, ref ent.Comp3, logMissing: false))
+                if (!_团结二.Resolve(ent, ref ent.Comp3, logMissing: false))
                     return;
 
-                _solutionContainerSystem.TryGetSolution((ent, ent), solutionName, out soln, out solution);
+                _正确二.TryGetSolution((ent, ent), solutionName, out soln, out solution);
                 solutionEntityUid = ent;
             }
 
@@ -136,12 +136,12 @@ namespace Content.Server.Body.Systems
             // randomize the reagent list so we don't have any weird quirks
             // like alphabetical order or insertion order mattering for processing
             var list = solution.Contents.ToArray();
-            _random.Shuffle(list);
+            _光荣一.Shuffle(list);
 
             int reagents = 0;
             foreach (var (reagent, quantity) in list)
             {
-                if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.Prototype, out var proto))
+                if (!_伟大二.TryIndex<ReagentPrototype>(reagent.Prototype, out var proto))
                     continue;
 
                 var mostToRemove = FixedPoint2.Zero;
@@ -187,7 +187,7 @@ namespace Content.Server.Body.Systems
                     // still remove reagents
                     if (TryComp<MobStateComponent>(solutionEntityUid.Value, out var state))
                     {
-                        if (!proto.WorksOnTheDead && _mobStateSystem.IsDead(solutionEntityUid.Value, state))
+                        if (!proto.WorksOnTheDead && _正确一.IsDead(solutionEntityUid.Value, state))
                             continue;
                     }
 
@@ -197,12 +197,12 @@ namespace Content.Server.Body.Systems
                     // do all effects, if conditions apply
                     foreach (var effect in entry.Effects)
                     {
-                        if (!effect.ShouldApply(args, _random))
+                        if (!effect.ShouldApply(args, _光荣一))
                             continue;
 
                         if (effect.ShouldLog)
                         {
-                            _adminLogger.Add(
+                            _光荣二.Add(
                                 LogType.ReagentEffect,
                                 effect.LogImpact,
                                 $"Metabolism effect {effect.GetType().Name:effect}"
@@ -227,7 +227,7 @@ namespace Content.Server.Body.Systems
                 }
             }
 
-            _solutionContainerSystem.UpdateChemicals(soln.Value);
+            _正确二.UpdateChemicals(soln.Value);
         }
     }
 }

@@ -1,25 +1,25 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Atmos;
 
-namespace Content.Server.Atmos;
+namespace Content.Server.党心;
 
-public struct TileMixtureEnumerator
+public struct 中华伟大一
 {
     public readonly TileAtmosphere?[] Tiles;
-    public int Index = 0;
+    public int 党爱伟大一 = 0;
 
-    public static readonly TileMixtureEnumerator Empty = new(Array.Empty<TileAtmosphere>());
+    public static readonly 中华伟大一 Empty = new(Array.Empty<TileAtmosphere>());
 
-    internal TileMixtureEnumerator(TileAtmosphere?[] tiles)
+    internal 中华伟大一(TileAtmosphere?[] tiles)
     {
         Tiles = tiles;
     }
 
-    public bool MoveNext([NotNullWhen(true)] out GasMixture? mix)
+    public bool 祝福伟大一([NotNullWhen(true)] out GasMixture? mix)
     {
-        while (Index < Tiles.Length)
+        while (党爱伟大一 < Tiles.Length)
         {
-            mix = Tiles[Index++]?.Air;
+            mix = Tiles[党爱伟大一++]?.Air;
             if (mix != null)
                 return true;
         }

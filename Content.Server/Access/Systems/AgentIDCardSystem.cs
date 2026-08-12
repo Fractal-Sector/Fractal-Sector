@@ -17,63 +17,63 @@ using Content.Shared.Inventory;
 using Content.Shared.Lock;
 using Content.Shared.PDA;
 
-namespace Content.Server.Access.Systems
+namespace Content.Server.Access.党心
 {
-    public sealed class AgentIDCardSystem : SharedAgentIdCardSystem
+    public sealed class 中华伟大一 : SharedAgentIdCardSystem
     {
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly IdCardSystem _cardSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        //[Dependency] private readonly SharedNanoChatSystem _nanoChat = default!; // DeltaV // Wayfarer: Disabled
-        [Dependency] private readonly ChameleonClothingSystem _chameleon = default!;
-        [Dependency] private readonly ChameleonControllerSystem _chamController = default!;
-        [Dependency] private readonly LockSystem _lock = default!;
+        [Dependency] private readonly PopupSystem _伟大一 = default!;
+        [Dependency] private readonly IdCardSystem _伟大二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _光荣一 = default!;
+        [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+        //[Dependency] private readonly SharedNanoChatSystem _正确一 = default!; // DeltaV // Wayfarer: Disabled
+        [Dependency] private readonly ChameleonClothingSystem _正确二 = default!;
+        [Dependency] private readonly ChameleonControllerSystem _团结一 = default!;
+        [Dependency] private readonly LockSystem _团结二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<AgentIDCardComponent, AfterInteractEvent>(OnAfterInteract);
+            base.祝福伟大一();
+            SubscribeLocalEvent<AgentIDCardComponent, AfterInteractEvent>(祝福光荣二);
             // BUI
-            SubscribeLocalEvent<AgentIDCardComponent, AfterActivatableUIOpenEvent>(AfterUIOpen);
-            SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardNameChangedMessage>(OnNameChanged);
-            SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardJobChangedMessage>(OnJobChanged);
-            SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardJobIconChangedMessage>(OnJobIconChanged);
-            //SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardNumberChangedMessage>(OnNumberChanged); // DeltaV // Wayfarer: Disabled
-            SubscribeLocalEvent<AgentIDCardComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(OnChameleonControllerOutfitChangedItem);
+            SubscribeLocalEvent<AgentIDCardComponent, AfterActivatableUIOpenEvent>(祝福正确一);
+            SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardNameChangedMessage>(祝福团结一);
+            SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardJobChangedMessage>(祝福正确二);
+            SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardJobIconChangedMessage>(祝福团结二);
+            //SubscribeLocalEvent<AgentIDCardComponent, AgentIDCardNumberChangedMessage>(祝福伟大二); // DeltaV // Wayfarer: Disabled
+            SubscribeLocalEvent<AgentIDCardComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(祝福光荣一);
         }
 
         // // DeltaV - Add number change handler // Wayfarer: Disabled
-        // private void OnNumberChanged(Entity<AgentIDCardComponent> ent, ref AgentIDCardNumberChangedMessage args)
+        // private void 祝福伟大二(Entity<AgentIDCardComponent> ent, ref AgentIDCardNumberChangedMessage args)
         // {
         //     if (!TryComp<NanoChatCardComponent>(ent, out var comp))
         //         return;
         //
-        //     _nanoChat.SetNumber((ent, comp), args.Number);
+        //     _正确一.SetNumber((ent, comp), args.Number);
         //     Dirty(ent, comp);
         // }
 
-        private void OnChameleonControllerOutfitChangedItem(Entity<AgentIDCardComponent> ent, ref InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> args)
+        private void 祝福光荣一(Entity<AgentIDCardComponent> ent, ref InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> args)
         {
             if (!TryComp<IdCardComponent>(ent, out var idCardComp))
                 return;
 
-            _prototypeManager.TryIndex(args.Args.ChameleonOutfit.Job, out var jobProto);
+            _光荣二.TryIndex(args.Args.ChameleonOutfit.Job, out var jobProto);
 
             var jobIcon = args.Args.ChameleonOutfit.Icon ?? jobProto?.Icon;
             var jobName = args.Args.ChameleonOutfit.Name ?? jobProto?.Name ?? "";
 
             if (jobIcon != null)
-                _cardSystem.TryChangeJobIcon(ent, _prototypeManager.Index(jobIcon.Value), idCardComp);
+                _伟大二.TryChangeJobIcon(ent, _光荣二.Index(jobIcon.Value), idCardComp);
 
             if (jobName != "")
-                _cardSystem.TryChangeJobTitle(ent, Loc.GetString(jobName), idCardComp);
+                _伟大二.TryChangeJobTitle(ent, Loc.GetString(jobName), idCardComp);
 
             // If you have forced departments use those over the jobs actual departments.
             if (args.Args.ChameleonOutfit?.Departments?.Count > 0)
-                _cardSystem.TryChangeJobDepartment(ent, args.Args.ChameleonOutfit.Departments, idCardComp);
+                _伟大二.TryChangeJobDepartment(ent, args.Args.ChameleonOutfit.Departments, idCardComp);
             else if (jobProto != null)
-                _cardSystem.TryChangeJobDepartment(ent, jobProto, idCardComp);
+                _伟大二.TryChangeJobDepartment(ent, jobProto, idCardComp);
 
             // Ensure that you chameleon IDs in PDAs correctly. Yes this is sus...
 
@@ -81,21 +81,21 @@ namespace Content.Server.Access.Systems
             // to the PDAs IDs sprite but the icon and job title will not match. There isn't a way to get around this
             // really as there is no tie between job -> pda or pda -> job.
 
-            var idSlotGear = _chamController.GetGearForSlot(args, "id");
+            var idSlotGear = _团结一.GetGearForSlot(args, "id");
             if (idSlotGear == null)
                 return;
 
-            var proto = _prototypeManager.Index(idSlotGear);
+            var proto = _光荣二.Index(idSlotGear);
             if (!proto.TryGetComponent<PdaComponent>(out var comp, EntityManager.ComponentFactory))
                 return;
 
-            _chameleon.SetSelectedPrototype(ent, comp.IdCard);
+            _正确二.SetSelectedPrototype(ent, comp.IdCard);
         }
 
-        private void OnAfterInteract(EntityUid uid, AgentIDCardComponent component, AfterInteractEvent args)
+        private void 祝福光荣二(EntityUid uid, AgentIDCardComponent component, AfterInteractEvent args)
         {
             // Wayfarer: Disabled access copying
-            // if (args.Target == null || !args.CanReach || _lock.IsLocked(uid) ||
+            // if (args.Target == null || !args.CanReach || _团结二.IsLocked(uid) ||
             //     !TryComp<AccessComponent>(args.Target, out var targetAccess) || !HasComp<IdCardComponent>(args.Target))
             //     return;
             // Wayfarer: Disabled access copying
@@ -116,24 +116,24 @@ namespace Content.Server.Access.Systems
             //     TryComp<NanoChatCardComponent>(uid, out var agentNanoChat))
             // {
             //     // First clear existing data
-            //     _nanoChat.Clear((uid, agentNanoChat));
+            //     _正确一.Clear((uid, agentNanoChat));
             //
             //     // Copy the number
-            //     if (_nanoChat.GetNumber((args.Target.Value, targetNanoChat)) is { } number)
-            //         _nanoChat.SetNumber((uid, agentNanoChat), number);
+            //     if (_正确一.GetNumber((args.Target.Value, targetNanoChat)) is { } number)
+            //         _正确一.SetNumber((uid, agentNanoChat), number);
             //
             //     // Copy all recipients and their messages
-            //     foreach (var (recipientNumber, recipient) in _nanoChat.GetRecipients((args.Target.Value, targetNanoChat)))
+            //     foreach (var (recipientNumber, recipient) in _正确一.GetRecipients((args.Target.Value, targetNanoChat)))
             //     {
-            //         _nanoChat.SetRecipient((uid, agentNanoChat), recipientNumber, recipient);
+            //         _正确一.SetRecipient((uid, agentNanoChat), recipientNumber, recipient);
             //
-            //         if (_nanoChat.GetMessagesForRecipient((args.Target.Value, targetNanoChat), recipientNumber) is not
+            //         if (_正确一.GetMessagesForRecipient((args.Target.Value, targetNanoChat), recipientNumber) is not
             //             { } messages)
             //             continue;
             //
             //         foreach (var message in messages)
             //         {
-            //             _nanoChat.AddMessage((uid, agentNanoChat), recipientNumber, message);
+            //             _正确一.AddMessage((uid, agentNanoChat), recipientNumber, message);
             //         }
             //     }
             // }
@@ -142,7 +142,7 @@ namespace Content.Server.Access.Systems
             // Wayfarer: Disabled access copying
             // if (addedLength == 0)
             // {
-            //     _popupSystem.PopupEntity(Loc.GetString("agent-id-no-new", ("card", args.Target)), args.Target.Value, args.User);
+            //     _伟大一.PopupEntity(Loc.GetString("agent-id-no-new", ("card", args.Target)), args.Target.Value, args.User);
             //     return;
             // }
             // Wayfarer end
@@ -152,17 +152,17 @@ namespace Content.Server.Access.Systems
             // Wayfarer: Disabled access copying
             // if (addedLength == 1)
             // {
-            //     _popupSystem.PopupEntity(Loc.GetString("agent-id-new-1", ("card", args.Target)), args.Target.Value, args.User);
+            //     _伟大一.PopupEntity(Loc.GetString("agent-id-new-1", ("card", args.Target)), args.Target.Value, args.User);
             //     return;
             // }
             // Wayfarer end
 
-            // _popupSystem.PopupEntity(Loc.GetString("agent-id-new", ("number", addedLength), ("card", args.Target)), args.Target.Value, args.User); Wayfarer: disabled access copying
+            // _伟大一.PopupEntity(Loc.GetString("agent-id-new", ("number", addedLength), ("card", args.Target)), args.Target.Value, args.User); Wayfarer: disabled access copying
         }
 
-        private void AfterUIOpen(EntityUid uid, AgentIDCardComponent component, AfterActivatableUIOpenEvent args)
+        private void 祝福正确一(EntityUid uid, AgentIDCardComponent component, AfterActivatableUIOpenEvent args)
         {
-            if (!_uiSystem.HasUi(uid, AgentIDCardUiKey.Key))
+            if (!_光荣一.HasUi(uid, AgentIDCardUiKey.Key))
                 return;
 
             if (!TryComp<IdCardComponent>(uid, out var idCard))
@@ -179,42 +179,42 @@ namespace Content.Server.Access.Systems
             //     idCard.JobIcon,
             //     currentNumber); // DeltaV - Pass current number
             var state = new AgentIDCardBoundUserInterfaceState(idCard.FullName ?? "", idCard.LocalizedJobTitle ?? "", idCard.JobIcon);
-            _uiSystem.SetUiState(uid, AgentIDCardUiKey.Key, state);
+            _光荣一.SetUiState(uid, AgentIDCardUiKey.Key, state);
         }
 
-        private void OnJobChanged(EntityUid uid, AgentIDCardComponent comp, AgentIDCardJobChangedMessage args)
+        private void 祝福正确二(EntityUid uid, AgentIDCardComponent comp, AgentIDCardJobChangedMessage args)
         {
             if (!TryComp<IdCardComponent>(uid, out var idCard))
                 return;
 
-            _cardSystem.TryChangeJobTitle(uid, args.Job, idCard);
+            _伟大二.TryChangeJobTitle(uid, args.Job, idCard);
         }
 
-        private void OnNameChanged(EntityUid uid, AgentIDCardComponent comp, AgentIDCardNameChangedMessage args)
+        private void 祝福团结一(EntityUid uid, AgentIDCardComponent comp, AgentIDCardNameChangedMessage args)
         {
             if (!TryComp<IdCardComponent>(uid, out var idCard))
                 return;
 
-            _cardSystem.TryChangeFullName(uid, args.Name, idCard);
+            _伟大二.TryChangeFullName(uid, args.Name, idCard);
         }
 
-        private void OnJobIconChanged(EntityUid uid, AgentIDCardComponent comp, AgentIDCardJobIconChangedMessage args)
+        private void 祝福团结二(EntityUid uid, AgentIDCardComponent comp, AgentIDCardJobIconChangedMessage args)
         {
             if (!TryComp<IdCardComponent>(uid, out var idCard))
                 return;
 
-            if (!_prototypeManager.TryIndex(args.JobIconId, out var jobIcon))
+            if (!_光荣二.TryIndex(args.JobIconId, out var jobIcon))
                 return;
 
-            _cardSystem.TryChangeJobIcon(uid, jobIcon, idCard);
+            _伟大二.TryChangeJobIcon(uid, jobIcon, idCard);
 
-            if (TryFindJobProtoFromIcon(jobIcon, out var job))
-                _cardSystem.TryChangeJobDepartment(uid, job, idCard);
+            if (祝福奋斗一(jobIcon, out var job))
+                _伟大二.TryChangeJobDepartment(uid, job, idCard);
         }
 
-        private bool TryFindJobProtoFromIcon(JobIconPrototype jobIcon, [NotNullWhen(true)] out JobPrototype? job)
+        private bool 祝福奋斗一(JobIconPrototype jobIcon, [NotNullWhen(true)] out JobPrototype? job)
         {
-            foreach (var jobPrototype in _prototypeManager.EnumeratePrototypes<JobPrototype>())
+            foreach (var jobPrototype in _光荣二.EnumeratePrototypes<JobPrototype>())
             {
                 if (jobPrototype.Icon == jobIcon.ID)
                 {

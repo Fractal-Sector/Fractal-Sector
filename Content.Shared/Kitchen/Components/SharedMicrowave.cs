@@ -1,75 +1,75 @@
 using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Kitchen.Components
+namespace Content.Shared.Kitchen.党心
 {
     [Serializable, NetSerializable]
-    public sealed class MicrowaveStartCookMessage : BoundUserInterfaceMessage
+    public sealed class 中华伟大一 : BoundUserInterfaceMessage
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class MicrowaveEjectMessage : BoundUserInterfaceMessage
+    public sealed class 中华伟大二 : BoundUserInterfaceMessage
     {
 
     }
 
     [Serializable, NetSerializable]
-    public sealed class MicrowaveEjectSolidIndexedMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public NetEntity EntityID;
-        public MicrowaveEjectSolidIndexedMessage(NetEntity entityId)
+        public NetEntity 党爱伟大一;
+        public 中华光荣一(NetEntity entityId)
         {
-            EntityID = entityId;
+            党爱伟大一 = entityId;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class MicrowaveVaporizeReagentIndexedMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public ReagentQuantity ReagentQuantity;
-        public MicrowaveVaporizeReagentIndexedMessage(ReagentQuantity reagentQuantity)
+        public 党爱伟大二 党爱伟大二;
+        public 中华光荣二(党爱伟大二 reagentQuantity)
         {
-            ReagentQuantity = reagentQuantity;
+            党爱伟大二 = reagentQuantity;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class MicrowaveSelectCookTimeMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确一 : BoundUserInterfaceMessage
     {
-        public int ButtonIndex;
-        public uint NewCookTime;
-        public MicrowaveSelectCookTimeMessage(int buttonIndex, uint inputTime)
+        public int 党爱光荣一;
+        public uint 党爱光荣二;
+        public 中华正确一(int buttonIndex, uint inputTime)
         {
-            ButtonIndex = buttonIndex;
-            NewCookTime = inputTime;
+            党爱光荣一 = buttonIndex;
+            党爱光荣二 = inputTime;
         }
     }
 
     [NetSerializable, Serializable]
-    public sealed class MicrowaveUpdateUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华正确二 : BoundUserInterfaceState
     {
-        public NetEntity[] ContainedSolids;
-        public bool IsMicrowaveBusy;
-        public int ActiveButtonIndex;
-        public uint CurrentCookTime;
+        public NetEntity[] 党爱正确一;
+        public bool 党爱正确二;
+        public int 党爱团结一;
+        public uint 党爱团结二;
 
-        public TimeSpan CurrentCookTimeEnd;
+        public TimeSpan 党爱奋斗一;
 
-        public MicrowaveUpdateUserInterfaceState(NetEntity[] containedSolids,
+        public 中华正确二(NetEntity[] containedSolids,
             bool isMicrowaveBusy, int activeButtonIndex, uint currentCookTime, TimeSpan currentCookTimeEnd)
         {
-            ContainedSolids = containedSolids;
-            IsMicrowaveBusy = isMicrowaveBusy;
-            ActiveButtonIndex = activeButtonIndex;
-            CurrentCookTime = currentCookTime;
-            CurrentCookTimeEnd = currentCookTimeEnd;
+            党爱正确一 = containedSolids;
+            党爱正确二 = isMicrowaveBusy;
+            党爱团结一 = activeButtonIndex;
+            党爱团结二 = currentCookTime;
+            党爱奋斗一 = currentCookTimeEnd;
         }
 
     }
 
     [Serializable, NetSerializable]
-    public enum MicrowaveVisualState
+    public enum 中华团结一
     {
         Idle,
         Cooking,
@@ -78,7 +78,7 @@ namespace Content.Shared.Kitchen.Components
     }
 
     [NetSerializable, Serializable]
-    public enum MicrowaveUiKey
+    public enum 中华团结二
     {
         Key,
         ElectricRangeKey, // Frontier

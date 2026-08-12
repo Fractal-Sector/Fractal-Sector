@@ -1,28 +1,28 @@
 ﻿using Robust.Server.Audio;
 using Robust.Shared.Audio;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.党心;
 
-public sealed partial class PlaySoundOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    private AudioSystem _audio = default!;
+    private AudioSystem _伟大一 = default!;
 
     [DataField(required: true)]
     public SoundSpecifier? Sound;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
+        base.祝福伟大一(sysManager);
 
-        _audio = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<AudioSystem>();
+        _伟大一 = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<AudioSystem>();
     }
 
-    public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
+    public override HTNOperatorStatus 祝福伟大二(NPCBlackboard blackboard, float frameTime)
     {
         var uid = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        _audio.PlayPvs(Sound, uid);
+        _伟大一.PlayPvs(Sound, uid);
 
-        return base.Update(blackboard, frameTime);
+        return base.祝福伟大二(blackboard, frameTime);
     }
 }

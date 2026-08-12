@@ -3,18 +3,18 @@ using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Analyzers;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Storage.Components;
+namespace Content.Shared.Storage.党心;
 
 /// <summary>
 ///     Attached to an actor to keep track of which storages it's opened in which order in order to close inventories on a LIFO basis if a new one past the limit is opened
 /// </summary>
 [RegisterComponent, Access(typeof(SharedStorageSystem)), AutoGenerateComponentState, NetworkedComponent]
-public sealed partial class RecentlyOpenedStoragesComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     A list of lists of entities whose storages this actor has opened. Nested inventories (e.g. folder in a briefcase) belong to the same sublist.
     /// </summary>
     [DataField, ViewVariables, AutoNetworkedField]
-    public List<List<NetEntity>> OpenedStorages = new();
+    public List<List<NetEntity>> 党爱伟大一 = new();
 }
 // End Frontier: cherry-pick upstream#35075

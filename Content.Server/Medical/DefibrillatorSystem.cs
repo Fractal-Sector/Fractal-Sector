@@ -24,45 +24,45 @@ using Content.Shared.Toggleable;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 
-namespace Content.Server.Medical;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles interactions and logic relating to <see cref="DefibrillatorComponent"/>
 /// </summary>
-public sealed class DefibrillatorSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chatManager = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly EuiManager _euiManager = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly RottingSystem _rotting = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
+    [Dependency] private readonly DamageableSystem _伟大二 = default!;
+    [Dependency] private readonly DoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly ElectrocutionSystem _光荣二 = default!;
+    [Dependency] private readonly EuiManager _正确一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _正确二 = default!;
+    [Dependency] private readonly ItemToggleSystem _团结一 = default!;
+    [Dependency] private readonly MobStateSystem _团结二 = default!;
+    [Dependency] private readonly MobThresholdSystem _奋斗一 = default!;
+    [Dependency] private readonly PopupSystem _奋斗二 = default!;
+    [Dependency] private readonly PowerCellSystem _胜利一 = default!;
+    [Dependency] private readonly RottingSystem _胜利二 = default!;
+    [Dependency] private readonly SharedAudioSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedMindSystem _繁荣二 = default!;
+    [Dependency] private readonly UseDelaySystem _富强一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<DefibrillatorComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<DefibrillatorComponent, DefibrillatorZapDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<DefibrillatorComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<DefibrillatorComponent, DefibrillatorZapDoAfterEvent>(祝福光荣一);
     }
 
-    private void OnAfterInteract(EntityUid uid, DefibrillatorComponent component, AfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, DefibrillatorComponent component, AfterInteractEvent args)
     {
         if (args.Handled || args.Target is not { } target)
             return;
 
-        args.Handled = TryStartZap(uid, target, args.User, component);
+        args.Handled = 祝福正确一(uid, target, args.User, component);
     }
 
-    private void OnDoAfter(EntityUid uid, DefibrillatorComponent component, DefibrillatorZapDoAfterEvent args)
+    private void 祝福光荣一(EntityUid uid, DefibrillatorComponent component, DefibrillatorZapDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
@@ -70,11 +70,11 @@ public sealed class DefibrillatorSystem : EntitySystem
         if (args.Target is not { } target)
             return;
 
-        if (!CanZap(uid, target, args.User, component))
+        if (!祝福光荣二(uid, target, args.User, component))
             return;
 
         args.Handled = true;
-        Zap(uid, target, args.User, component);
+        祝福正确二(uid, target, args.User, component);
     }
 
     /// <summary>
@@ -90,31 +90,31 @@ public sealed class DefibrillatorSystem : EntitySystem
     /// <returns>
     ///     Returns true if the target is valid to be defibed, false otherwise.
     /// </returns>
-    public bool CanZap(EntityUid uid, EntityUid target, EntityUid? user = null, DefibrillatorComponent? component = null, bool targetCanBeAlive = false)
+    public bool 祝福光荣二(EntityUid uid, EntityUid target, EntityUid? user = null, DefibrillatorComponent? component = null, bool targetCanBeAlive = false)
     {
         if (!Resolve(uid, ref component))
             return false;
 
-        if (!_toggle.IsActivated(uid))
+        if (!_团结一.IsActivated(uid))
         {
             if (user != null)
-                _popup.PopupEntity(Loc.GetString("defibrillator-not-on"), uid, user.Value);
+                _奋斗二.PopupEntity(Loc.GetString("defibrillator-not-on"), uid, user.Value);
             return false;
         }
 
-        if (!TryComp(uid, out UseDelayComponent? useDelay) || _useDelay.IsDelayed((uid, useDelay), component.DelayId))
+        if (!TryComp(uid, out UseDelayComponent? useDelay) || _富强一.IsDelayed((uid, useDelay), component.DelayId))
             return false;
 
         if (!TryComp<MobStateComponent>(target, out var mobState))
             return false;
 
-        if (!_powerCell.HasActivatableCharge(uid, user: user))
+        if (!_胜利一.HasActivatableCharge(uid, user: user))
             return false;
 
-        if (!targetCanBeAlive && _mobState.IsAlive(target, mobState))
+        if (!targetCanBeAlive && _团结二.IsAlive(target, mobState))
             return false;
 
-        if (!targetCanBeAlive && !component.CanDefibCrit && _mobState.IsCritical(target, mobState))
+        if (!targetCanBeAlive && !component.CanDefibCrit && _团结二.IsCritical(target, mobState))
             return false;
 
         return true;
@@ -130,16 +130,16 @@ public sealed class DefibrillatorSystem : EntitySystem
     /// <returns>
     ///     Returns true if the defibrillation do-after started, otherwise false.
     /// </returns>
-    public bool TryStartZap(EntityUid uid, EntityUid target, EntityUid user, DefibrillatorComponent? component = null)
+    public bool 祝福正确一(EntityUid uid, EntityUid target, EntityUid user, DefibrillatorComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
 
-        if (!CanZap(uid, target, user, component))
+        if (!祝福光荣二(uid, target, user, component))
             return false;
 
-        _audio.PlayPvs(component.ChargeSound, uid);
-        return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, component.DoAfterDuration, new DefibrillatorZapDoAfterEvent(),
+        _繁荣一.PlayPvs(component.ChargeSound, uid);
+        return _光荣一.TryStartDoAfter(new DoAfterArgs(EntityManager, user, component.DoAfterDuration, new DefibrillatorZapDoAfterEvent(),
             uid, target, uid)
         {
             NeedHand = true,
@@ -150,12 +150,12 @@ public sealed class DefibrillatorSystem : EntitySystem
     /// <summary>
     ///     Tries to defibrillate the target with the given defibrillator.
     /// </summary>
-    public void Zap(EntityUid uid, EntityUid target, EntityUid user, DefibrillatorComponent? component = null)
+    public void 祝福正确二(EntityUid uid, EntityUid target, EntityUid user, DefibrillatorComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        if (!_powerCell.TryUseActivatableCharge(uid, user: user))
+        if (!_胜利一.TryUseActivatableCharge(uid, user: user))
             return;
 
         var selfEvent = new SelfBeforeDefibrillatorZapsEvent(user, uid, target);
@@ -164,7 +164,7 @@ public sealed class DefibrillatorSystem : EntitySystem
         target = selfEvent.DefibTarget;
 
         // Ensure thet new target is still valid.
-        if (selfEvent.Cancelled || !CanZap(uid, target, user, component, true))
+        if (selfEvent.Cancelled || !祝福光荣二(uid, target, user, component, true))
             return;
 
         var targetEvent = new TargetBeforeDefibrillatorZapsEvent(user, uid, target);
@@ -172,59 +172,59 @@ public sealed class DefibrillatorSystem : EntitySystem
 
         target = targetEvent.DefibTarget;
 
-        if (targetEvent.Cancelled || !CanZap(uid, target, user, component, true))
+        if (targetEvent.Cancelled || !祝福光荣二(uid, target, user, component, true))
             return;
 
         if (!TryComp<MobStateComponent>(target, out var mob) ||
             !TryComp<MobThresholdsComponent>(target, out var thresholds))
             return;
 
-        _audio.PlayPvs(component.ZapSound, uid);
-        _electrocution.TryDoElectrocution(target, null, component.ZapDamage, component.WritheDuration, true, ignoreInsulation: true);
+        _繁荣一.PlayPvs(component.ZapSound, uid);
+        _光荣二.TryDoElectrocution(target, null, component.ZapDamage, component.WritheDuration, true, ignoreInsulation: true);
         if (!TryComp<UseDelayComponent>(uid, out var useDelay))
             return;
-        _useDelay.SetLength((uid, useDelay), component.ZapDelay, component.DelayId);
-        _useDelay.TryResetDelay((uid, useDelay), id: component.DelayId);
+        _富强一.SetLength((uid, useDelay), component.ZapDelay, component.DelayId);
+        _富强一.TryResetDelay((uid, useDelay), id: component.DelayId);
 
         ICommonSession? session = null;
 
         var dead = true;
-        if (_rotting.IsRotten(target))
+        if (_胜利二.IsRotten(target))
         {
-            _chatManager.TrySendInGameICMessage(uid, Loc.GetString("defibrillator-rotten"),
+            _伟大一.TrySendInGameICMessage(uid, Loc.GetString("defibrillator-rotten"),
                 InGameICChatType.Speak, true);
         }
         else if (TryComp<UnrevivableComponent>(target, out var unrevivable))
         {
-            _chatManager.TrySendInGameICMessage(uid, Loc.GetString(unrevivable.ReasonMessage),
+            _伟大一.TrySendInGameICMessage(uid, Loc.GetString(unrevivable.ReasonMessage),
                 InGameICChatType.Speak, true);
         }
         else
         {
-            if (_mobState.IsDead(target, mob))
-                _damageable.TryChangeDamage(target, component.ZapHeal, true, origin: uid);
+            if (_团结二.IsDead(target, mob))
+                _伟大二.TryChangeDamage(target, component.ZapHeal, true, origin: uid);
 
-            if (_mobThreshold.TryGetThresholdForState(target, MobState.Dead, out var threshold) &&
+            if (_奋斗一.TryGetThresholdForState(target, MobState.Dead, out var threshold) &&
                 TryComp<DamageableComponent>(target, out var damageableComponent) &&
                 damageableComponent.TotalDamage < threshold)
             {
-                _mobState.ChangeMobState(target, MobState.Critical, mob, uid);
+                _团结二.ChangeMobState(target, MobState.Critical, mob, uid);
                 dead = false;
             }
 
-            if (_mind.TryGetMind(target, out _, out var mind) &&
-                _player.TryGetSessionById(mind.UserId, out var playerSession))
+            if (_繁荣二.TryGetMind(target, out _, out var mind) &&
+                _正确二.TryGetSessionById(mind.UserId, out var playerSession))
             {
                 session = playerSession;
                 // notify them they're being revived.
                 if (mind.CurrentEntity != target)
                 {
-                    _euiManager.OpenEui(new ReturnToBodyEui(mind, _mind, _player), session);
+                    _正确一.OpenEui(new ReturnToBodyEui(mind, _繁荣二, _正确二), session);
                 }
             }
             else
             {
-                _chatManager.TrySendInGameICMessage(uid, Loc.GetString("defibrillator-no-mind"),
+                _伟大一.TrySendInGameICMessage(uid, Loc.GetString("defibrillator-no-mind"),
                     InGameICChatType.Speak, true);
             }
         }
@@ -232,11 +232,11 @@ public sealed class DefibrillatorSystem : EntitySystem
         var sound = dead || session == null
             ? component.FailureSound
             : component.SuccessSound;
-        _audio.PlayPvs(sound, uid);
+        _繁荣一.PlayPvs(sound, uid);
 
         // if we don't have enough power left for another shot, turn it off
-        if (!_powerCell.HasActivatableCharge(uid))
-            _toggle.TryDeactivate(uid);
+        if (!_胜利一.HasActivatableCharge(uid))
+            _团结一.TryDeactivate(uid);
 
         // TODO clean up this clown show above
         var ev = new TargetDefibrillatedEvent(user, (uid, component));

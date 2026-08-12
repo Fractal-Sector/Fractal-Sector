@@ -1,13 +1,13 @@
 ﻿using Content.Server.Worldgen.Systems;
 
-namespace Content.Server.Worldgen.Components;
+namespace Content.Server.Worldgen.党心;
 
 /// <summary>
 ///     This is used for marking a chunk as loaded.
 /// </summary>
 [RegisterComponent]
 [Access(typeof(WorldControllerSystem))]
-public sealed partial class LoadedChunkComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The current list of entities loading this chunk.

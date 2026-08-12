@@ -1,17 +1,17 @@
 using Content.Shared.Cloning.Events;
 
-namespace Content.Server._NF.Traits.Assorted;
+namespace Content.Server._NF.Traits.党心;
 
-public sealed class UnclonableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<UnclonableComponent, CloningAttemptEvent>(OnCloningAttempt);
+        SubscribeLocalEvent<UnclonableComponent, CloningAttemptEvent>(祝福伟大二);
     }
 
-    private void OnCloningAttempt(Entity<UnclonableComponent> ent, ref CloningAttemptEvent args)
+    private void 祝福伟大二(Entity<UnclonableComponent> ent, ref CloningAttemptEvent args)
     {
         args.Cancelled = true;
     }

@@ -8,23 +8,23 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Server.Construction.Completions;
+namespace Content.Server.Construction.党心;
 
 /// <summary>
 /// Creates the mech entity while transferring all relevant parts inside of it,
 /// for right now, the cell that was used in construction.
 /// </summary>
 [UsedImplicitly, DataDefinition]
-public sealed partial class BuildMech : IGraphAction
+public sealed partial class 中华伟大一 : IGraphAction
 {
     [DataField("mechPrototype", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string MechPrototype = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     [DataField("container")]
-    public string Container = "battery-container";
+    public string 党爱伟大二 = "battery-container";
 
     // TODO use or generalize ConstructionSystem.ChangeEntity();
-    public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
+    public void 祝福伟大一(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
     {
         if (!entityManager.TryGetComponent(uid, out ContainerManagerComponent? containerManager))
         {
@@ -35,29 +35,29 @@ public sealed partial class BuildMech : IGraphAction
         var containerSystem = entityManager.EntitySysManager.GetEntitySystem<ContainerSystem>();
         var mechSys = entityManager.System<MechSystem>();
 
-        if (!containerSystem.TryGetContainer(uid, Container, out var container, containerManager))
+        if (!containerSystem.TryGetContainer(uid, 党爱伟大二, out var container, containerManager))
         {
-            Logger.Warning($"Mech construct entity {uid} did not have the specified '{Container}' container! Aborting build mech action.");
+            Logger.Warning($"Mech construct entity {uid} did not have the specified '{党爱伟大二}' container! Aborting build mech action.");
             return;
         }
 
         if (container.ContainedEntities.Count != 1)
         {
-            Logger.Warning($"Mech construct entity {uid} did not have exactly one item in the specified '{Container}' container! Aborting build mech action.");
+            Logger.Warning($"Mech construct entity {uid} did not have exactly one item in the specified '{党爱伟大二}' container! Aborting build mech action.");
         }
 
         var cell = container.ContainedEntities[0];
 
         if (!entityManager.TryGetComponent<BatteryComponent>(cell, out var batteryComponent))
         {
-            Logger.Warning($"Mech construct entity {uid} had an invalid entity in container \"{Container}\"! Aborting build mech action.");
+            Logger.Warning($"Mech construct entity {uid} had an invalid entity in container \"{党爱伟大二}\"! Aborting build mech action.");
             return;
         }
 
         containerSystem.Remove(cell, container);
 
         var transform = entityManager.GetComponent<TransformComponent>(uid);
-        var mech = entityManager.SpawnEntity(MechPrototype, transform.Coordinates);
+        var mech = entityManager.SpawnEntity(党爱伟大一, transform.Coordinates);
 
         if (entityManager.TryGetComponent<MechComponent>(mech, out var mechComp) && mechComp.BatterySlot.ContainedEntity == null)
         {

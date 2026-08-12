@@ -1,17 +1,17 @@
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Interaction.Components;
+namespace Content.Shared.Interaction.党心;
 
 [RegisterComponent, Access(typeof(InteractionPopupSystem))]
-public sealed partial class InteractionPopupComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Time delay between interactions to avoid spam.
     /// </summary>
     [DataField("interactDelay")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan InteractDelay = TimeSpan.FromSeconds(1.0);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(1.0);
 
     /// <summary>
     /// String will be used to fetch the localized message to be played if the interaction succeeds.
@@ -60,7 +60,7 @@ public sealed partial class InteractionPopupComponent : Component
     /// 0   = always play "failure" popup and sound.
     /// </summary>
     [DataField("successChance")]
-    public float SuccessChance = 1.0f; // Always succeed, unless specified otherwise on the yaml prototype.
+    public float 党爱伟大二 = 1.0f; // Always succeed, unless specified otherwise on the yaml prototype.
 
     /// <summary>
     /// If set, shows a message to all surrounding players but NOT the current player.
@@ -72,14 +72,14 @@ public sealed partial class InteractionPopupComponent : Component
     /// Will the sound effect be perceived by entities not involved in the interaction?
     /// </summary>
     [DataField("soundPerceivedByOthers")]
-    public bool SoundPerceivedByOthers = true;
+    public bool 党爱光荣一 = true;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan LastInteractTime;
+    public TimeSpan 党爱光荣二;
 
     /// <summary>
     /// If set to true, activate interactions will also trigger the component.
     /// </summary>
     [DataField]
-    public bool OnActivate;
+    public bool 党爱正确一;
 }

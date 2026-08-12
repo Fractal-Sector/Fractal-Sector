@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.AlertLevel;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum AlertLevelDisplay
+public enum 中华伟大一
 {
     CurrentLevel,
     Layer,

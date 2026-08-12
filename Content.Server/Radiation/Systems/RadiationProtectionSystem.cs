@@ -2,22 +2,22 @@
 using Content.Shared.Damage.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Radiation.EntitySystems;
+namespace Content.Server.Radiation.党心;
 
-public sealed class RadiationProtectionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<RadiationProtectionComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<RadiationProtectionComponent, ComponentShutdown>(OnShutdown);
+        base.祝福伟大一();
+        SubscribeLocalEvent<RadiationProtectionComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<RadiationProtectionComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnInit(EntityUid uid, RadiationProtectionComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, RadiationProtectionComponent component, ComponentInit args)
     {
-        if (!_prototypeManager.TryIndex(component.RadiationProtectionModifierSetId, out var modifier))
+        if (!_伟大一.TryIndex(component.RadiationProtectionModifierSetId, out var modifier))
             return;
         var buffComp = EnsureComp<DamageProtectionBuffComponent>(uid);
         // add the damage modifier if it isn't in the dict yet
@@ -25,7 +25,7 @@ public sealed class RadiationProtectionSystem : EntitySystem
             buffComp.Modifiers.Add(component.RadiationProtectionModifierSetId, modifier);
     }
 
-    private void OnShutdown(EntityUid uid, RadiationProtectionComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, RadiationProtectionComponent component, ComponentShutdown args)
     {
         if (!TryComp<DamageProtectionBuffComponent>(uid, out var buffComp))
             return;

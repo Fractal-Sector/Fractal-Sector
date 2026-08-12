@@ -3,16 +3,16 @@ using Content.Server.Fax.AdminUI;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class FaxUiCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly EuiManager _euiManager = default!;
+    [Dependency] private readonly EuiManager _伟大一 = default!;
 
-    public override string Command => "faxui";
+    public override string 党爱伟大一 => "faxui";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } player)
         {
@@ -21,6 +21,6 @@ public sealed class FaxUiCommand : LocalizedEntityCommands
         }
 
         var ui = new AdminFaxEui();
-        _euiManager.OpenEui(ui, player);
+        _伟大一.OpenEui(ui, player);
     }
 }

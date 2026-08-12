@@ -2,24 +2,24 @@ using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.IgnitionSource.Components;
 
-namespace Content.Shared.IgnitionSource.EntitySystems;
+namespace Content.Shared.IgnitionSource.党心;
 
-public sealed class MatchboxSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MatchstickSystem _match = default!;
+    [Dependency] private readonly MatchstickSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MatchboxComponent, InteractUsingEvent>(OnInteractUsing, before: [ typeof(SharedStorageSystem) ]);
+        SubscribeLocalEvent<MatchboxComponent, InteractUsingEvent>(祝福伟大二, before: [ typeof(SharedStorageSystem) ]);
     }
 
-    private void OnInteractUsing(Entity<MatchboxComponent> ent, ref InteractUsingEvent args)
+    private void 祝福伟大二(Entity<MatchboxComponent> ent, ref InteractUsingEvent args)
     {
         if (args.Handled || !TryComp<MatchstickComponent>(args.Used, out var matchstick))
             return;
 
-        args.Handled = _match.TryIgnite((args.Used, matchstick), args.User);
+        args.Handled = _伟大一.TryIgnite((args.Used, matchstick), args.User);
     }
 }

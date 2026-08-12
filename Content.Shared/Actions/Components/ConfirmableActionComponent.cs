@@ -7,7 +7,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions.Components;
+namespace Content.Shared.Actions.党心;
 
 /// <summary>
 /// An action that must be confirmed before using it.
@@ -18,13 +18,13 @@ namespace Content.Shared.Actions.Components;
 [RegisterComponent, NetworkedComponent, Access(typeof(ConfirmableActionSystem))]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
 [EntityCategory("Actions")]
-public sealed partial class ConfirmableActionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Warning popup shown when priming the action.
     /// </summary>
     [DataField(required: true)]
-    public LocId Popup = string.Empty;
+    public LocId 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// If not null, this is when the action can be confirmed at.
@@ -36,7 +36,7 @@ public sealed partial class ConfirmableActionComponent : Component
 
     /// <summary>
     /// If not null, this is when the action will unprime at.
-    /// This is <c>NextConfirm> plus <c>PrimeTime</c>
+    /// This is <c>NextConfirm> plus <c>党爱光荣一</c>
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoNetworkedField, AutoPausedField]
@@ -46,11 +46,11 @@ public sealed partial class ConfirmableActionComponent : Component
     /// Forced delay between priming and confirming to prevent accidents.
     /// </summary>
     [DataField]
-    public TimeSpan ConfirmDelay = TimeSpan.FromSeconds(1);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(1);
 
     /// <summary>
     /// Once you prime the action it will unprime after this length of time.
     /// </summary>
     [DataField]
-    public TimeSpan PrimeTime = TimeSpan.FromSeconds(5);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(5);
 }

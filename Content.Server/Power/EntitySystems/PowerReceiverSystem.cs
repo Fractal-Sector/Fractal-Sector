@@ -12,46 +12,46 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
 using Content.Shared.Emp; // Frontier: Upstream - #28984
 
-namespace Content.Server.Power.EntitySystems
+namespace Content.Server.Power.党心
 {
-    public sealed class PowerReceiverSystem : SharedPowerReceiverSystem
+    public sealed class 中华伟大一 : SharedPowerReceiverSystem
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        private EntityQuery<ApcPowerReceiverComponent> _recQuery;
-        private EntityQuery<ApcPowerProviderComponent> _provQuery;
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
+        private EntityQuery<ApcPowerReceiverComponent> _伟大二;
+        private EntityQuery<ApcPowerProviderComponent> _光荣一;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ExaminedEvent>(OnExamined);
+            base.祝福伟大一();
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ExaminedEvent>(祝福伟大二);
 
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderConnectedEvent>(OnProviderConnected);
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderDisconnectedEvent>(OnProviderDisconnected);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderConnectedEvent>(祝福正确一);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderDisconnectedEvent>(祝福正确二);
 
-            SubscribeLocalEvent<ApcPowerProviderComponent, ComponentShutdown>(OnProviderShutdown);
-            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverConnectedEvent>(OnReceiverConnected);
-            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverDisconnectedEvent>(OnReceiverDisconnected);
+            SubscribeLocalEvent<ApcPowerProviderComponent, ComponentShutdown>(祝福光荣二);
+            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverConnectedEvent>(祝福团结一);
+            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverDisconnectedEvent>(祝福团结二);
 
-            SubscribeLocalEvent<ApcPowerReceiverComponent, GetVerbsEvent<Verb>>(OnGetVerbs);
-            SubscribeLocalEvent<PowerSwitchComponent, GetVerbsEvent<AlternativeVerb>>(AddSwitchPowerVerb);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, GetVerbsEvent<Verb>>(祝福光荣一);
+            SubscribeLocalEvent<PowerSwitchComponent, GetVerbsEvent<AlternativeVerb>>(祝福奋斗一);
 
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentGetState>(OnGetState);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ComponentGetState>(祝福奋斗二);
 
-            SubscribeLocalEvent<ApcPowerReceiverComponent, EmpPulseEvent>(OnEmpPulse); // Frontier: Upstream - #28984
-            SubscribeLocalEvent<ApcPowerReceiverComponent, EmpDisabledRemoved>(OnEmpEnd); // Frontier: Upstream - #28984
+            SubscribeLocalEvent<ApcPowerReceiverComponent, EmpPulseEvent>(祝福富强一); // Frontier: Upstream - #28984
+            SubscribeLocalEvent<ApcPowerReceiverComponent, EmpDisabledRemoved>(祝福富强二); // Frontier: Upstream - #28984
 
-            _recQuery = GetEntityQuery<ApcPowerReceiverComponent>();
-            _provQuery = GetEntityQuery<ApcPowerProviderComponent>();
+            _伟大二 = GetEntityQuery<ApcPowerReceiverComponent>();
+            _光荣一 = GetEntityQuery<ApcPowerProviderComponent>();
         }
 
-        private void OnExamined(Entity<ApcPowerReceiverComponent> ent, ref ExaminedEvent args)
+        private void 祝福伟大二(Entity<ApcPowerReceiverComponent> ent, ref ExaminedEvent args)
         {
             args.PushMarkup(GetExamineText(ent.Comp.Powered));
         }
 
-        private void OnGetVerbs(EntityUid uid, ApcPowerReceiverComponent component, GetVerbsEvent<Verb> args)
+        private void 祝福光荣一(EntityUid uid, ApcPowerReceiverComponent component, GetVerbsEvent<Verb> args)
         {
-            if (!_adminManager.HasAdminFlag(args.User, AdminFlags.Admin))
+            if (!_伟大一.HasAdminFlag(args.User, AdminFlags.Admin))
                 return;
 
             // add debug verb to toggle power requirements
@@ -67,7 +67,7 @@ namespace Content.Server.Power.EntitySystems
             });
         }
 
-        private void OnProviderShutdown(EntityUid uid, ApcPowerProviderComponent component, ComponentShutdown args)
+        private void 祝福光荣二(EntityUid uid, ApcPowerProviderComponent component, ComponentShutdown args)
         {
             foreach (var receiver in component.LinkedReceivers)
             {
@@ -78,41 +78,41 @@ namespace Content.Server.Power.EntitySystems
             component.LinkedReceivers.Clear();
         }
 
-        private void OnProviderConnected(Entity<ApcPowerReceiverComponent> receiver, ref ExtensionCableSystem.ProviderConnectedEvent args)
+        private void 祝福正确一(Entity<ApcPowerReceiverComponent> receiver, ref ExtensionCableSystem.ProviderConnectedEvent args)
         {
             var providerUid = args.Provider.Owner;
-            if (!_provQuery.TryGetComponent(providerUid, out var provider))
+            if (!_光荣一.TryGetComponent(providerUid, out var provider))
                 return;
 
             receiver.Comp.Provider = provider;
 
-            ProviderChanged(receiver);
+            祝福胜利一(receiver);
         }
 
-        private void OnProviderDisconnected(Entity<ApcPowerReceiverComponent> receiver, ref ExtensionCableSystem.ProviderDisconnectedEvent args)
+        private void 祝福正确二(Entity<ApcPowerReceiverComponent> receiver, ref ExtensionCableSystem.ProviderDisconnectedEvent args)
         {
             receiver.Comp.Provider = null;
 
-            ProviderChanged(receiver);
+            祝福胜利一(receiver);
         }
 
-        private void OnReceiverConnected(Entity<ApcPowerProviderComponent> provider, ref ExtensionCableSystem.ReceiverConnectedEvent args)
+        private void 祝福团结一(Entity<ApcPowerProviderComponent> provider, ref ExtensionCableSystem.ReceiverConnectedEvent args)
         {
-            if (_recQuery.TryGetComponent(args.Receiver, out var receiver))
+            if (_伟大二.TryGetComponent(args.Receiver, out var receiver))
             {
                 provider.Comp.AddReceiver(receiver);
             }
         }
 
-        private void OnReceiverDisconnected(EntityUid uid, ApcPowerProviderComponent provider, ExtensionCableSystem.ReceiverDisconnectedEvent args)
+        private void 祝福团结二(EntityUid uid, ApcPowerProviderComponent provider, ExtensionCableSystem.ReceiverDisconnectedEvent args)
         {
-            if (_recQuery.TryGetComponent(args.Receiver, out var receiver))
+            if (_伟大二.TryGetComponent(args.Receiver, out var receiver))
             {
                 provider.RemoveReceiver(receiver);
             }
         }
 
-        private void AddSwitchPowerVerb(EntityUid uid, PowerSwitchComponent component, GetVerbsEvent<AlternativeVerb> args)
+        private void 祝福奋斗一(EntityUid uid, PowerSwitchComponent component, GetVerbsEvent<AlternativeVerb> args)
         {
             if(!args.CanAccess || !args.CanInteract)
                 return;
@@ -120,7 +120,7 @@ namespace Content.Server.Power.EntitySystems
             if (!HasComp<HandsComponent>(args.User))
                 return;
 
-            if (!_recQuery.TryGetComponent(uid, out var receiver))
+            if (!_伟大二.TryGetComponent(uid, out var receiver))
                 return;
 
             if (!receiver.NeedsPower)
@@ -139,7 +139,7 @@ namespace Content.Server.Power.EntitySystems
             args.Verbs.Add(verb);
         }
 
-        private void OnGetState(EntityUid uid, ApcPowerReceiverComponent component, ref ComponentGetState args)
+        private void 祝福奋斗二(EntityUid uid, ApcPowerReceiverComponent component, ref ComponentGetState args)
         {
             args.State = new ApcPowerReceiverComponentState
             {
@@ -149,7 +149,7 @@ namespace Content.Server.Power.EntitySystems
             };
         }
 
-        private void ProviderChanged(Entity<ApcPowerReceiverComponent> receiver)
+        private void 祝福胜利一(Entity<ApcPowerReceiverComponent> receiver)
         {
             var comp = receiver.Comp;
             comp.NetworkLoad.LinkedNetwork = default;
@@ -161,17 +161,17 @@ namespace Content.Server.Power.EntitySystems
         /// it's effectively always powered.
         /// </summary>
         /// <returns>True when entity has no ApcPowerReceiverComponent or is Powered. False when not.</returns>
-        public bool IsPowered(EntityUid uid, ApcPowerReceiverComponent? receiver = null)
+        public bool 祝福胜利二(EntityUid uid, ApcPowerReceiverComponent? receiver = null)
         {
-            return !_recQuery.Resolve(uid, ref receiver, false) || receiver.Powered;
+            return !_伟大二.Resolve(uid, ref receiver, false) || receiver.Powered;
         }
 
-        public void SetLoad(ApcPowerReceiverComponent comp, float load)
+        public void 祝福繁荣一(ApcPowerReceiverComponent comp, float load)
         {
             comp.Load = load;
         }
 
-        public override bool ResolveApc(EntityUid entity, [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component)
+        public override bool 祝福繁荣二(EntityUid entity, [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component)
         {
             if (component != null)
                 return true;
@@ -184,7 +184,7 @@ namespace Content.Server.Power.EntitySystems
         }
 
         // Frontier: upstream (#28984) - MIT
-        private void OnEmpPulse(EntityUid uid, ApcPowerReceiverComponent component, ref EmpPulseEvent args)
+        private void 祝福富强一(EntityUid uid, ApcPowerReceiverComponent component, ref EmpPulseEvent args)
         {
             if (!component.PowerDisabled)
             {
@@ -194,7 +194,7 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void OnEmpEnd(EntityUid uid, ApcPowerReceiverComponent component, ref EmpDisabledRemoved args)
+        private void 祝福富强二(EntityUid uid, ApcPowerReceiverComponent component, ref EmpDisabledRemoved args)
         {
             if (component.PowerDisabled)
             {

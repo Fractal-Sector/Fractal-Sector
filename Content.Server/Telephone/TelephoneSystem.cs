@@ -22,60 +22,60 @@ using Robust.Shared.Random;
 using Robust.Shared.Replays;
 using System.Linq;
 
-namespace Content.Server.Telephone;
+namespace Content.Server.党心;
 
-public sealed class TelephoneSystem : SharedTelephoneSystem
+public sealed class 中华伟大一 : SharedTelephoneSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly IdCardSystem _idCardSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IReplayRecordingManager _replay = default!;
+    [Dependency] private readonly AppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly InteractionSystem _伟大二 = default!;
+    [Dependency] private readonly IdCardSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly ChatSystem _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly IGameTiming _团结一 = default!;
+    [Dependency] private readonly IRobustRandom _团结二 = default!;
+    [Dependency] private readonly IAdminLogManager _奋斗一 = default!;
+    [Dependency] private readonly IReplayRecordingManager _奋斗二 = default!;
 
     // Has set used to prevent telephone feedback loops
     private HashSet<(EntityUid, string, Entity<TelephoneComponent>)> _recentChatMessages = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TelephoneComponent, ComponentShutdown>(OnComponentShutdown);
-        SubscribeLocalEvent<TelephoneComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<TelephoneComponent, ListenAttemptEvent>(OnAttemptListen);
-        SubscribeLocalEvent<TelephoneComponent, ListenEvent>(OnListen);
-        SubscribeLocalEvent<TelephoneComponent, TelephoneMessageReceivedEvent>(OnTelephoneMessageReceived);
+        SubscribeLocalEvent<TelephoneComponent, ComponentShutdown>(祝福伟大二);
+        SubscribeLocalEvent<TelephoneComponent, PowerChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<TelephoneComponent, ListenAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<TelephoneComponent, ListenEvent>(祝福正确一);
+        SubscribeLocalEvent<TelephoneComponent, TelephoneMessageReceivedEvent>(祝福正确二);
     }
 
     #region: Events
 
-    private void OnComponentShutdown(Entity<TelephoneComponent> entity, ref ComponentShutdown ev)
+    private void 祝福伟大二(Entity<TelephoneComponent> entity, ref ComponentShutdown ev)
     {
-        TerminateTelephoneCalls(entity);
+        祝福富强一(entity);
     }
 
-    private void OnPowerChanged(Entity<TelephoneComponent> entity, ref PowerChangedEvent ev)
+    private void 祝福光荣一(Entity<TelephoneComponent> entity, ref PowerChangedEvent ev)
     {
         if (!ev.Powered)
-            TerminateTelephoneCalls(entity);
+            祝福富强一(entity);
     }
 
-    private void OnAttemptListen(Entity<TelephoneComponent> entity, ref ListenAttemptEvent args)
+    private void 祝福光荣二(Entity<TelephoneComponent> entity, ref ListenAttemptEvent args)
     {
-        if (!IsTelephonePowered(entity) ||
+        if (!祝福自由二(entity) ||
             !IsTelephoneEngaged(entity) ||
             entity.Comp.Muted ||
-            !_interaction.InRangeUnobstructed(args.Source, entity.Owner, 0))
+            !_伟大二.InRangeUnobstructed(args.Source, entity.Owner, 0))
         {
             args.Cancel();
         }
     }
 
-    private void OnListen(Entity<TelephoneComponent> entity, ref ListenEvent args)
+    private void 祝福正确一(Entity<TelephoneComponent> entity, ref ListenEvent args)
     {
         if (args.Source == entity.Owner)
             return;
@@ -88,17 +88,17 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         if (!_recentChatMessages.Add((args.Source, args.Message, entity)))
             return;
 
-        SendTelephoneMessage(args.Source, args.Message, entity);
+        祝福民主一(args.Source, args.Message, entity);
     }
 
-    private void OnTelephoneMessageReceived(Entity<TelephoneComponent> entity, ref TelephoneMessageReceivedEvent args)
+    private void 祝福正确二(Entity<TelephoneComponent> entity, ref TelephoneMessageReceivedEvent args)
     {
         // Prevent message feedback loops
         if (entity == args.TelephoneSource)
             return;
 
-        if (!IsTelephonePowered(entity) ||
-            !IsSourceConnectedToReceiver(args.TelephoneSource, entity))
+        if (!祝福自由二(entity) ||
+            !祝福自由一(args.TelephoneSource, entity))
             return;
 
         var nameEv = new TransformSpeakerNameEvent(args.MessageSource, Name(args.MessageSource));
@@ -114,14 +114,14 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         var range = args.TelephoneSource.Comp.LinkedTelephones.Count > 1 ? ChatTransmitRange.HideChat : ChatTransmitRange.GhostRangeLimitNoAdminCheck; // Frontier: GhostRangeLimit<GhostRangeLimitNoAdminCheck
         var volume = entity.Comp.SpeakerVolume == TelephoneVolume.Speak ? InGameICChatType.Speak : InGameICChatType.Whisper;
 
-        _chat.TrySendInGameICMessage(speaker, args.Message, volume, range, nameOverride: name, checkRadioPrefix: false);
+        _正确一.TrySendInGameICMessage(speaker, args.Message, volume, range, nameOverride: name, checkRadioPrefix: false);
     }
 
     #endregion
 
-    public override void Update(float frameTime)
+    public override void 祝福团结一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福团结一(frameTime);
 
         var query = EntityQueryEnumerator<TelephoneComponent>();
         while (query.MoveNext(out var uid, out var telephone))
@@ -132,10 +132,10 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             {
                 foreach (var receiver in telephone.LinkedTelephones)
                 {
-                    if (!IsSourceInRangeOfReceiver(entity, receiver) &&
-                        !IsSourceInRangeOfReceiver(receiver, entity))
+                    if (!祝福和谐二(entity, receiver) &&
+                        !祝福和谐二(receiver, entity))
                     {
-                        EndTelephoneCall(entity, receiver);
+                        祝福繁荣一(entity, receiver);
                     }
                 }
             }
@@ -144,29 +144,29 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             {
                 // Try to play ring tone if ringing
                 case TelephoneState.Ringing:
-                    if (_timing.CurTime > telephone.StateStartTime + TimeSpan.FromSeconds(telephone.RingingTimeout))
-                        EndTelephoneCalls(entity);
+                    if (_团结一.CurTime > telephone.StateStartTime + TimeSpan.FromSeconds(telephone.RingingTimeout))
+                        祝福繁荣二(entity);
 
                     else if (telephone.RingTone != null &&
-                        _timing.CurTime > telephone.NextRingToneTime)
+                        _团结一.CurTime > telephone.NextRingToneTime)
                     {
-                        _audio.PlayPvs(telephone.RingTone, uid);
-                        telephone.NextRingToneTime = _timing.CurTime + TimeSpan.FromSeconds(telephone.RingInterval);
+                        _光荣二.PlayPvs(telephone.RingTone, uid);
+                        telephone.NextRingToneTime = _团结一.CurTime + TimeSpan.FromSeconds(telephone.RingInterval);
                     }
 
                     break;
 
                 // Try to hang up if there has been no recent in-call activity
                 case TelephoneState.InCall:
-                    if (_timing.CurTime > telephone.StateStartTime + TimeSpan.FromSeconds(telephone.IdlingTimeout))
-                        EndTelephoneCalls(entity);
+                    if (_团结一.CurTime > telephone.StateStartTime + TimeSpan.FromSeconds(telephone.IdlingTimeout))
+                        祝福繁荣二(entity);
 
                     break;
 
                 // Try to terminate if the telephone has finished hanging up
                 case TelephoneState.EndingCall:
-                    if (_timing.CurTime > telephone.StateStartTime + TimeSpan.FromSeconds(telephone.HangingUpTimeout))
-                        TerminateTelephoneCalls(entity);
+                    if (_团结一.CurTime > telephone.StateStartTime + TimeSpan.FromSeconds(telephone.HangingUpTimeout))
+                        祝福富强一(entity);
 
                     break;
             }
@@ -175,31 +175,31 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         _recentChatMessages.Clear();
     }
 
-    public void BroadcastCallToTelephones(Entity<TelephoneComponent> source, HashSet<Entity<TelephoneComponent>> receivers, EntityUid user, TelephoneCallOptions? options = null)
+    public void 祝福团结二(Entity<TelephoneComponent> source, HashSet<Entity<TelephoneComponent>> receivers, EntityUid user, TelephoneCallOptions? options = null)
     {
         if (IsTelephoneEngaged(source))
             return;
 
         foreach (var receiver in receivers)
-            TryCallTelephone(source, receiver, user, options);
+            祝福奋斗二(source, receiver, user, options);
 
         // If no connections could be made, hang up the telephone
         if (!IsTelephoneEngaged(source))
-            EndTelephoneCalls(source);
+            祝福繁荣二(source);
     }
 
-    public void CallTelephone(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver, EntityUid user, TelephoneCallOptions? options = null)
+    public void 祝福奋斗一(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver, EntityUid user, TelephoneCallOptions? options = null)
     {
         if (IsTelephoneEngaged(source))
             return;
 
-        if (!TryCallTelephone(source, receiver, user, options))
-            EndTelephoneCalls(source);
+        if (!祝福奋斗二(source, receiver, user, options))
+            祝福繁荣二(source);
     }
 
-    private bool TryCallTelephone(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver, EntityUid user, TelephoneCallOptions? options = null)
+    private bool 祝福奋斗二(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver, EntityUid user, TelephoneCallOptions? options = null)
     {
-        if (!IsSourceAbleToReachReceiver(source, receiver) && options?.IgnoreRange != true)
+        if (!祝福和谐一(source, receiver) && options?.IgnoreRange != true)
             return false;
 
         if (IsTelephoneEngaged(receiver) &&
@@ -214,7 +214,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             return false;
 
         if (options?.ForceConnect == true)
-            TerminateTelephoneCalls(receiver);
+            祝福富强一(receiver);
 
         source.Comp.LinkedTelephones.Add(receiver);
         source.Comp.Muted = options?.MuteSource == true;
@@ -235,18 +235,18 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         if (options?.ForceConnect == true ||
             (options?.ForceJoin == true && receiver.Comp.CurrentState == TelephoneState.InCall))
         {
-            CommenceTelephoneCall(source, receiver);
+            祝福胜利二(source, receiver);
             return true;
         }
 
         // Otherwise start ringing the receiver
-        SetTelephoneState(source, TelephoneState.Calling);
-        SetTelephoneState(receiver, TelephoneState.Ringing);
+        祝福民主二(source, TelephoneState.Calling);
+        祝福民主二(receiver, TelephoneState.Ringing);
 
         return true;
     }
 
-    public void AnswerTelephone(Entity<TelephoneComponent> receiver, EntityUid user)
+    public void 祝福胜利一(Entity<TelephoneComponent> receiver, EntityUid user)
     {
         if (receiver.Comp.CurrentState != TelephoneState.Ringing)
             return;
@@ -258,16 +258,16 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             return;
 
         var source = receiver.Comp.LinkedTelephones.First();
-        CommenceTelephoneCall(source, receiver);
+        祝福胜利二(source, receiver);
     }
 
-    private void CommenceTelephoneCall(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
+    private void 祝福胜利二(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
     {
-        SetTelephoneState(source, TelephoneState.InCall);
-        SetTelephoneState(receiver, TelephoneState.InCall);
+        祝福民主二(source, TelephoneState.InCall);
+        祝福民主二(receiver, TelephoneState.InCall);
 
-        SetTelephoneMicrophoneState(source, true);
-        SetTelephoneMicrophoneState(receiver, true);
+        祝福文明一(source, true);
+        祝福文明一(receiver, true);
 
         var evSource = new TelephoneCallCommencedEvent(receiver);
         var evReceiver = new TelephoneCallCommencedEvent(source);
@@ -276,40 +276,40 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         RaiseLocalEvent(receiver, ref evReceiver);
     }
 
-    public void EndTelephoneCall(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
+    public void 祝福繁荣一(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
     {
         source.Comp.LinkedTelephones.Remove(receiver);
         receiver.Comp.LinkedTelephones.Remove(source);
 
         if (!IsTelephoneEngaged(source))
-            EndTelephoneCalls(source);
+            祝福繁荣二(source);
 
         if (!IsTelephoneEngaged(receiver))
-            EndTelephoneCalls(receiver);
+            祝福繁荣二(receiver);
     }
 
-    public void EndTelephoneCalls(Entity<TelephoneComponent> entity)
+    public void 祝福繁荣二(Entity<TelephoneComponent> entity)
     {
         // No need to end any calls if the telephone is already ending a call
         if (entity.Comp.CurrentState == TelephoneState.EndingCall)
             return;
 
-        HandleEndingTelephoneCalls(entity, TelephoneState.EndingCall);
+        祝福富强二(entity, TelephoneState.EndingCall);
 
         var ev = new TelephoneCallEndedEvent();
         RaiseLocalEvent(entity, ref ev);
     }
 
-    public void TerminateTelephoneCalls(Entity<TelephoneComponent> entity)
+    public void 祝福富强一(Entity<TelephoneComponent> entity)
     {
         // No need to terminate any calls if the telephone is idle
         if (entity.Comp.CurrentState == TelephoneState.Idle)
             return;
 
-        HandleEndingTelephoneCalls(entity, TelephoneState.Idle);
+        祝福富强二(entity, TelephoneState.Idle);
     }
 
-    private void HandleEndingTelephoneCalls(Entity<TelephoneComponent> entity, TelephoneState newState)
+    private void 祝福富强二(Entity<TelephoneComponent> entity, TelephoneState newState)
     {
         foreach (var linkedTelephone in entity.Comp.LinkedTelephones)
         {
@@ -317,17 +317,17 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
                 continue;
 
             if (!IsTelephoneEngaged(linkedTelephone))
-                EndTelephoneCalls(linkedTelephone);
+                祝福繁荣二(linkedTelephone);
         }
 
         entity.Comp.LinkedTelephones.Clear();
         entity.Comp.Muted = false;
 
-        SetTelephoneState(entity, newState);
-        SetTelephoneMicrophoneState(entity, false);
+        祝福民主二(entity, newState);
+        祝福文明一(entity, false);
     }
 
-    private void SendTelephoneMessage(EntityUid messageSource, string message, Entity<TelephoneComponent> source, bool escapeMarkup = true)
+    private void 祝福民主一(EntityUid messageSource, string message, Entity<TelephoneComponent> source, bool escapeMarkup = true)
     {
         // This method assumes that you've already checked that this
         // telephone is able to transmit messages and that it can
@@ -340,10 +340,10 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         name = FormattedMessage.EscapeText(name);
 
         SpeechVerbPrototype speech;
-        if (ev.SpeechVerb != null && _prototype.TryIndex(ev.SpeechVerb, out var evntProto))
+        if (ev.SpeechVerb != null && _正确二.TryIndex(ev.SpeechVerb, out var evntProto))
             speech = evntProto;
         else
-            speech = _chat.GetSpeechVerb(messageSource, message);
+            speech = _正确一.GetSpeechVerb(messageSource, message);
 
         var content = escapeMarkup
             ? FormattedMessage.EscapeText(message)
@@ -353,7 +353,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             ("color", Color.White),
             ("fontType", speech.FontId),
             ("fontSize", speech.FontSize),
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
+            ("verb", Loc.GetString(_团结二.Pick(speech.SpeechVerbStrings))),
             ("name", name),
             ("message", content));
 
@@ -368,39 +368,39 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
 
         var evSentMessage = new TelephoneMessageSentEvent(message, chatMsg, messageSource);
         RaiseLocalEvent(source, ref evSentMessage);
-        source.Comp.StateStartTime = _timing.CurTime;
+        source.Comp.StateStartTime = _团结一.CurTime;
 
         var evReceivedMessage = new TelephoneMessageReceivedEvent(message, chatMsg, messageSource, source);
 
         foreach (var receiver in source.Comp.LinkedTelephones)
         {
             RaiseLocalEvent(receiver, ref evReceivedMessage);
-            receiver.Comp.StateStartTime = _timing.CurTime;
+            receiver.Comp.StateStartTime = _团结一.CurTime;
         }
 
         if (name != Name(messageSource))
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Telephone message from {ToPrettyString(messageSource):user} as {name} on {source}: {message}");
+            _奋斗一.Add(LogType.Chat, LogImpact.Low, $"Telephone message from {ToPrettyString(messageSource):user} as {name} on {source}: {message}");
         else
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Telephone message from {ToPrettyString(messageSource):user} on {source}: {message}");
+            _奋斗一.Add(LogType.Chat, LogImpact.Low, $"Telephone message from {ToPrettyString(messageSource):user} on {source}: {message}");
 
-        _replay.RecordServerMessage(chat);
+        _奋斗二.RecordServerMessage(chat);
     }
 
-    private void SetTelephoneState(Entity<TelephoneComponent> entity, TelephoneState newState)
+    private void 祝福民主二(Entity<TelephoneComponent> entity, TelephoneState newState)
     {
         var oldState = entity.Comp.CurrentState;
 
         entity.Comp.CurrentState = newState;
-        entity.Comp.StateStartTime = _timing.CurTime;
+        entity.Comp.StateStartTime = _团结一.CurTime;
         Dirty(entity);
 
-        _appearanceSystem.SetData(entity, TelephoneVisuals.Key, entity.Comp.CurrentState);
+        _伟大一.SetData(entity, TelephoneVisuals.Key, entity.Comp.CurrentState);
 
         var ev = new TelephoneStateChangeEvent(oldState, newState);
         RaiseLocalEvent(entity, ref ev);
     }
 
-    private void SetTelephoneMicrophoneState(Entity<TelephoneComponent> entity, bool microphoneOn)
+    private void 祝福文明一(Entity<TelephoneComponent> entity, bool microphoneOn)
     {
         if (microphoneOn && !HasComp<ActiveListenerComponent>(entity))
         {
@@ -414,7 +414,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         }
     }
 
-    public void SetSpeakerForTelephone(Entity<TelephoneComponent> entity, Entity<SpeechComponent>? speaker)
+    public void 祝福文明二(Entity<TelephoneComponent> entity, Entity<SpeechComponent>? speaker)
     {
         entity.Comp.Speaker = speaker;
     }
@@ -430,7 +430,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             return (presumedName, presumedJob);
         }
 
-        if (_idCardSystem.TryFindIdCard(uid, out var idCard))
+        if (_光荣一.TryFindIdCard(uid, out var idCard))
         {
             presumedName = string.IsNullOrWhiteSpace(idCard.Comp.FullName) ? null : idCard.Comp.FullName;
             presumedJob = idCard.Comp.LocalizedJobTitle;
@@ -439,12 +439,12 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         return (presumedName, presumedJob);
     }
 
-    public bool IsSourceAbleToReachReceiver(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
+    public bool 祝福和谐一(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
     {
         if (source == receiver ||
-            !IsTelephonePowered(source) ||
-            !IsTelephonePowered(receiver) ||
-            !IsSourceInRangeOfReceiver(source, receiver))
+            !祝福自由二(source) ||
+            !祝福自由二(receiver) ||
+            !祝福和谐二(source, receiver))
         {
             return false;
         }
@@ -452,7 +452,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         return true;
     }
 
-    public bool IsSourceInRangeOfReceiver(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
+    public bool 祝福和谐二(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
     {
         // Check if the source and receiver have compatible transmision / reception bandwidths
         if (!source.Comp.CompatibleRanges.Contains(receiver.Comp.TransmissionRange))
@@ -482,12 +482,12 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         return false;
     }
 
-    public bool IsSourceConnectedToReceiver(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
+    public bool 祝福自由一(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
     {
         return source.Comp.LinkedTelephones.Contains(receiver);
     }
 
-    public bool IsTelephonePowered(Entity<TelephoneComponent> entity)
+    public bool 祝福自由二(Entity<TelephoneComponent> entity)
     {
         return this.IsPowered(entity, EntityManager);
     }

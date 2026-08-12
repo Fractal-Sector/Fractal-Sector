@@ -6,23 +6,23 @@ using Content.Shared.Objectives;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Objectives.Systems;
 
-namespace Content.Server.CharacterInfo;
+namespace Content.Server.党心;
 
-public sealed class CharacterInfoSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly JobSystem _jobs = default!;
-    [Dependency] private readonly MindSystem _minds = default!;
-    [Dependency] private readonly RoleSystem _roles = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
+    [Dependency] private readonly JobSystem _伟大一 = default!;
+    [Dependency] private readonly MindSystem _伟大二 = default!;
+    [Dependency] private readonly RoleSystem _光荣一 = default!;
+    [Dependency] private readonly SharedObjectivesSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeNetworkEvent<RequestCharacterInfoEvent>(OnRequestCharacterInfoEvent);
+        SubscribeNetworkEvent<RequestCharacterInfoEvent>(祝福伟大二);
     }
 
-    private void OnRequestCharacterInfoEvent(RequestCharacterInfoEvent msg, EntitySessionEventArgs args)
+    private void 祝福伟大二(RequestCharacterInfoEvent msg, EntitySessionEventArgs args)
     {
         if (!args.SenderSession.AttachedEntity.HasValue
             || args.SenderSession.AttachedEntity != GetEntity(msg.NetEntity))
@@ -33,12 +33,12 @@ public sealed class CharacterInfoSystem : EntitySystem
         var objectives = new Dictionary<string, List<ObjectiveInfo>>();
         var jobTitle = Loc.GetString("character-info-no-profession");
         string? briefing = null;
-        if (_minds.TryGetMind(entity, out var mindId, out var mind))
+        if (_伟大二.TryGetMind(entity, out var mindId, out var mind))
         {
             // Get objectives
             foreach (var objective in mind.Objectives)
             {
-                var info = _objectives.GetInfo(objective, mindId, mind);
+                var info = _光荣二.GetInfo(objective, mindId, mind);
                 if (info == null)
                     continue;
 
@@ -49,11 +49,11 @@ public sealed class CharacterInfoSystem : EntitySystem
                 objectives[issuer].Add(info.Value);
             }
 
-            if (_jobs.MindTryGetJobName(mindId, out var jobName))
+            if (_伟大一.MindTryGetJobName(mindId, out var jobName))
                 jobTitle = jobName;
 
             // Get briefing
-            briefing = _roles.MindGetBriefing(mindId);
+            briefing = _光荣一.MindGetBriefing(mindId);
         }
 
         RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing), args.SenderSession);

@@ -19,44 +19,44 @@ using Content.Shared.Strip.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Strip;
+namespace Content.Shared.党心;
 
-public abstract class SharedStrippableSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+    [Dependency] private readonly SharedInteractionSystem _伟大一 = default!;
 
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _伟大二 = default!;
 
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
+    [Dependency] private readonly InventorySystem _光荣一 = default!;
 
-    [Dependency] private readonly SharedCuffableSystem _cuffableSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly SharedCuffableSystem _光荣二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _正确一 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
 
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly ISharedAdminLogManager _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StrippableComponent, GetVerbsEvent<Verb>>(AddStripVerb);
-        SubscribeLocalEvent<StrippableComponent, GetVerbsEvent<ExamineVerb>>(AddStripExamineVerb);
+        SubscribeLocalEvent<StrippableComponent, GetVerbsEvent<Verb>>(祝福伟大二);
+        SubscribeLocalEvent<StrippableComponent, GetVerbsEvent<ExamineVerb>>(祝福光荣一);
 
         // BUI
-        SubscribeLocalEvent<StrippableComponent, StrippingSlotButtonPressed>(OnStripButtonPressed);
+        SubscribeLocalEvent<StrippableComponent, StrippingSlotButtonPressed>(祝福光荣二);
 
         // DoAfters
-        SubscribeLocalEvent<HandsComponent, DoAfterAttemptEvent<StrippableDoAfterEvent>>(OnStrippableDoAfterRunning);
-        SubscribeLocalEvent<HandsComponent, StrippableDoAfterEvent>(OnStrippableDoAfterFinished);
+        SubscribeLocalEvent<HandsComponent, DoAfterAttemptEvent<StrippableDoAfterEvent>>(祝福民主二);
+        SubscribeLocalEvent<HandsComponent, StrippableDoAfterEvent>(祝福文明一);
 
-        SubscribeLocalEvent<StrippingComponent, CanDropTargetEvent>(OnCanDropOn);
-        SubscribeLocalEvent<StrippableComponent, CanDropDraggedEvent>(OnCanDrop);
-        SubscribeLocalEvent<StrippableComponent, DragDropDraggedEvent>(OnDragDrop);
-        SubscribeLocalEvent<StrippableComponent, ActivateInWorldEvent>(OnActivateInWorld);
+        SubscribeLocalEvent<StrippingComponent, CanDropTargetEvent>(祝福自由一);
+        SubscribeLocalEvent<StrippableComponent, CanDropDraggedEvent>(祝福自由二);
+        SubscribeLocalEvent<StrippableComponent, DragDropDraggedEvent>(祝福和谐一);
+        SubscribeLocalEvent<StrippableComponent, ActivateInWorldEvent>(祝福文明二);
     }
 
-    private void AddStripVerb(EntityUid uid, StrippableComponent component, GetVerbsEvent<Verb> args)
+    private void 祝福伟大二(EntityUid uid, StrippableComponent component, GetVerbsEvent<Verb> args)
     {
         if (args.Hands == null || !args.CanAccess || !args.CanInteract || args.Target == args.User)
             return;
@@ -65,13 +65,13 @@ public abstract class SharedStrippableSystem : EntitySystem
         {
             Text = Loc.GetString("strip-verb-get-data-text"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/outfit.svg.192dpi.png")),
-            Act = () => TryOpenStrippingUi(args.User, (uid, component), true),
+            Act = () => 祝福和谐二(args.User, (uid, component), true),
         };
 
         args.Verbs.Add(verb);
     }
 
-    private void AddStripExamineVerb(EntityUid uid, StrippableComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福光荣一(EntityUid uid, StrippableComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (args.Hands == null || !args.CanAccess || !args.CanInteract || args.Target == args.User)
             return;
@@ -80,14 +80,14 @@ public abstract class SharedStrippableSystem : EntitySystem
         {
             Text = Loc.GetString("strip-verb-get-data-text"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/outfit.svg.192dpi.png")),
-            Act = () => TryOpenStrippingUi(args.User, (uid, component), true),
+            Act = () => 祝福和谐二(args.User, (uid, component), true),
             Category = VerbCategory.Examine,
         };
 
         args.Verbs.Add(verb);
     }
 
-    private void OnStripButtonPressed(Entity<StrippableComponent> strippable, ref StrippingSlotButtonPressed args)
+    private void 祝福光荣二(Entity<StrippableComponent> strippable, ref StrippingSlotButtonPressed args)
     {
         if (args.Actor is not { Valid: true } user ||
             !TryComp<HandsComponent>(user, out var userHands))
@@ -95,22 +95,22 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (args.IsHand)
         {
-            StripHand((user, userHands), (strippable.Owner, null), args.Slot, strippable);
+            祝福正确一((user, userHands), (strippable.Owner, null), args.Slot, strippable);
             return;
         }
 
         if (!TryComp<InventoryComponent>(strippable, out var inventory))
             return;
 
-        var hasEnt = _inventorySystem.TryGetSlotEntity(strippable, args.Slot, out var held, inventory);
+        var hasEnt = _光荣一.TryGetSlotEntity(strippable, args.Slot, out var held, inventory);
 
-        if (_handsSystem.GetActiveItem((user, userHands)) is { } activeItem && !hasEnt)
-            StartStripInsertInventory((user, userHands), strippable.Owner, activeItem, args.Slot);
+        if (_正确二.GetActiveItem((user, userHands)) is { } activeItem && !hasEnt)
+            祝福团结一((user, userHands), strippable.Owner, activeItem, args.Slot);
         else if (hasEnt)
-            StartStripRemoveInventory(user, strippable.Owner, held!.Value, args.Slot);
+            祝福奋斗二(user, strippable.Owner, held!.Value, args.Slot);
     }
 
-    private void StripHand(
+    private void 祝福正确一(
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         string handId,
@@ -124,27 +124,27 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!target.Comp.CanBeStripped)
             return;
 
-        var heldEntity = _handsSystem.GetHeldItem(target.Owner, handId);
+        var heldEntity = _正确二.GetHeldItem(target.Owner, handId);
 
         // Is the target a handcuff?
         if (TryComp<VirtualItemComponent>(heldEntity, out var virtualItem) &&
             TryComp<CuffableComponent>(target.Owner, out var cuffable) &&
-            _cuffableSystem.GetAllCuffs(cuffable).Contains(virtualItem.BlockingEntity))
+            _光荣二.GetAllCuffs(cuffable).Contains(virtualItem.BlockingEntity))
         {
-            _cuffableSystem.TryUncuff(target.Owner, user, virtualItem.BlockingEntity, cuffable);
+            _光荣二.TryUncuff(target.Owner, user, virtualItem.BlockingEntity, cuffable);
             return;
         }
 
-        if (_handsSystem.GetActiveItem(user.AsNullable()) is { } activeItem && heldEntity == null)
-            StartStripInsertHand(user, target, activeItem, handId, targetStrippable);
+        if (_正确二.GetActiveItem(user.AsNullable()) is { } activeItem && heldEntity == null)
+            祝福繁荣一(user, target, activeItem, handId, targetStrippable);
         else if (heldEntity != null)
-            StartStripRemoveHand(user, target, heldEntity.Value, handId, targetStrippable);
+            祝福富强二(user, target, heldEntity.Value, handId, targetStrippable);
     }
 
     /// <summary>
     ///     Checks whether the item is in a user's active hand and whether it can be inserted into the inventory slot.
     /// </summary>
-    private bool CanStripInsertInventory(
+    private bool 祝福正确二(
         Entity<HandsComponent?> user,
         EntityUid target,
         EntityUid held,
@@ -153,26 +153,26 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!Resolve(user, ref user.Comp))
             return false;
 
-        if (!_handsSystem.TryGetActiveItem(user, out var activeItem) || activeItem != held)
+        if (!_正确二.TryGetActiveItem(user, out var activeItem) || activeItem != held)
             return false;
 
-        if (!_handsSystem.CanDropHeld(user, user.Comp.ActiveHandId!))
+        if (!_正确二.CanDropHeld(user, user.Comp.ActiveHandId!))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-drop"));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-cannot-drop"));
             return false;
         }
 
         var targetIdentity = Identity.Entity(target, EntityManager);
 
-        if (_inventorySystem.TryGetSlotEntity(target, slot, out _))
+        if (_光荣一.TryGetSlotEntity(target, slot, out _))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-item-slot-occupied", ("owner", targetIdentity)));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-item-slot-occupied", ("owner", targetIdentity)));
             return false;
         }
 
-        if (!_inventorySystem.CanEquip(user, target, held, slot, out _))
+        if (!_光荣一.CanEquip(user, target, held, slot, out _))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-equip-message", ("owner", targetIdentity)));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-cannot-equip-message", ("owner", targetIdentity)));
             return false;
         }
 
@@ -182,7 +182,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Begins a DoAfter to insert the item in the user's active hand into the inventory slot.
     /// </summary>
-    private void StartStripInsertInventory(
+    private void 祝福团结一(
         Entity<HandsComponent?> user,
         EntityUid target,
         EntityUid held,
@@ -191,10 +191,10 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!Resolve(user, ref user.Comp))
             return;
 
-        if (!CanStripInsertInventory(user, target, held, slot))
+        if (!祝福正确二(user, target, held, slot))
             return;
 
-        if (!_inventorySystem.TryGetSlot(target, slot, out var slotDef))
+        if (!_光荣一.TryGetSlot(target, slot, out var slotDef))
         {
             Log.Error($"{ToPrettyString(user)} attempted to place an item in a non-existent inventory slot ({slot}) on {ToPrettyString(target)}");
             return;
@@ -204,16 +204,16 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (!stealth)
         {
-            _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner-insert",
+            _团结一.PopupEntity(Loc.GetString("strippable-component-alert-owner-insert",
                                                         ("user", Identity.Entity(user, EntityManager)),
-                                                        ("item", _handsSystem.GetActiveItem((user, user.Comp))!.Value)),
+                                                        ("item", _正确二.GetActiveItem((user, user.Comp))!.Value)),
                                                         target,
                                                         target,
                                                         PopupType.Large);
         }
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot");
+        _团结二.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot");
 
         var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(true, true, slot), user, target, held)
         {
@@ -225,13 +225,13 @@ public abstract class SharedStrippableSystem : EntitySystem
             DuplicateCondition = DuplicateConditions.SameTool
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs);
+        _正确一.TryStartDoAfter(doAfterArgs);
     }
 
     /// <summary>
     ///     Inserts the item in the user's active hand into the inventory slot.
     /// </summary>
-    private void StripInsertInventory(
+    private void 祝福团结二(
         Entity<HandsComponent?> user,
         EntityUid target,
         EntityUid held,
@@ -240,37 +240,37 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!Resolve(user, ref user.Comp))
             return;
 
-        if (!CanStripInsertInventory(user, target, held, slot))
+        if (!祝福正确二(user, target, held, slot))
             return;
 
-        if (!_handsSystem.TryDrop(user))
+        if (!_正确二.TryDrop(user))
             return;
 
-        _inventorySystem.TryEquip(user, target, held, slot, triggerHandContact: true);
-        _adminLogger.Add(LogType.Stripping, LogImpact.Medium, $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot");
+        _光荣一.TryEquip(user, target, held, slot, triggerHandContact: true);
+        _团结二.Add(LogType.Stripping, LogImpact.Medium, $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot");
     }
 
     /// <summary>
     ///     Checks whether the item can be removed from the target's inventory.
     /// </summary>
-    private bool CanStripRemoveInventory(
+    private bool 祝福奋斗一(
         EntityUid user,
         EntityUid target,
         EntityUid item,
         string slot)
     {
-        if (!_inventorySystem.TryGetSlotEntity(target, slot, out var slotItem))
+        if (!_光荣一.TryGetSlotEntity(target, slot, out var slotItem))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-item-slot-free-message", ("owner", Identity.Entity(target, EntityManager))));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-item-slot-free-message", ("owner", Identity.Entity(target, EntityManager))));
             return false;
         }
 
         if (slotItem != item)
             return false;
 
-        if (!_inventorySystem.CanUnequip(user, target, slot, out var reason))
+        if (!_光荣一.CanUnequip(user, target, slot, out var reason))
         {
-            _popupSystem.PopupCursor(Loc.GetString(reason));
+            _团结一.PopupCursor(Loc.GetString(reason));
             return false;
         }
 
@@ -280,16 +280,16 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Begins a DoAfter to remove the item from the target's inventory and insert it in the user's active hand.
     /// </summary>
-    private void StartStripRemoveInventory(
+    private void 祝福奋斗二(
         EntityUid user,
         EntityUid target,
         EntityUid item,
         string slot)
     {
-        if (!CanStripRemoveInventory(user, target, item, slot))
+        if (!祝福奋斗一(user, target, item, slot))
             return;
 
-        if (!_inventorySystem.TryGetSlot(target, slot, out var slotDef))
+        if (!_光荣一.TryGetSlot(target, slot, out var slotDef))
         {
             Log.Error($"{ToPrettyString(user)} attempted to take an item from a non-existent inventory slot ({slot}) on {ToPrettyString(target)}");
             return;
@@ -299,11 +299,11 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (!stealth)
         {
-            if (IsStripHidden(slotDef, user))
-                _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner-hidden", ("slot", slot)), target, target, PopupType.Large);
+            if (祝福平等一(slotDef, user))
+                _团结一.PopupEntity(Loc.GetString("strippable-component-alert-owner-hidden", ("slot", slot)), target, target, PopupType.Large);
             else
             {
-                _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner",
+                _团结一.PopupEntity(Loc.GetString("strippable-component-alert-owner",
                                                             ("user", Identity.Entity(user, EntityManager)),
                                                             ("item", item)),
                                                             target,
@@ -314,9 +314,9 @@ public abstract class SharedStrippableSystem : EntitySystem
         }
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot");
+        _团结二.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot");
 
-        _interactionSystem.DoContactInteraction(user, item);
+        _伟大一.DoContactInteraction(user, item);
 
         var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(false, true, slot), user, target, item)
         {
@@ -329,35 +329,35 @@ public abstract class SharedStrippableSystem : EntitySystem
             DuplicateCondition = DuplicateConditions.SameTool
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs);
+        _正确一.TryStartDoAfter(doAfterArgs);
     }
 
     /// <summary>
     ///     Removes the item from the target's inventory and inserts it in the user's active hand.
     /// </summary>
-    private void StripRemoveInventory(
+    private void 祝福胜利一(
         EntityUid user,
         EntityUid target,
         EntityUid item,
         string slot,
         bool stealth)
     {
-        if (!CanStripRemoveInventory(user, target, item, slot))
+        if (!祝福奋斗一(user, target, item, slot))
             return;
 
-        if (!_inventorySystem.TryUnequip(user, target, slot, triggerHandContact: true))
+        if (!_光荣一.TryUnequip(user, target, slot, triggerHandContact: true))
             return;
 
         RaiseLocalEvent(item, new DroppedEvent(user), true); // Gas tank internals etc.
 
-        _handsSystem.PickupOrDrop(user, item, animateUser: stealth, animate: !stealth);
-        _adminLogger.Add(LogType.Stripping, LogImpact.High, $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot");
+        _正确二.PickupOrDrop(user, item, animateUser: stealth, animate: !stealth);
+        _团结二.Add(LogType.Stripping, LogImpact.High, $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot");
     }
 
     /// <summary>
     ///     Checks whether the item in the user's active hand can be inserted into one of the target's hands.
     /// </summary>
-    private bool CanStripInsertHand(
+    private bool 祝福胜利二(
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         EntityUid held,
@@ -370,18 +370,18 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!target.Comp.CanBeStripped)
             return false;
 
-        if (!_handsSystem.TryGetActiveItem(user, out var activeItem) || activeItem != held)
+        if (!_正确二.TryGetActiveItem(user, out var activeItem) || activeItem != held)
             return false;
 
-        if (!_handsSystem.CanDropHeld(user, user.Comp.ActiveHandId!))
+        if (!_正确二.CanDropHeld(user, user.Comp.ActiveHandId!))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-drop"));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-cannot-drop"));
             return false;
         }
 
-        if (!_handsSystem.CanPickupToHand(target, activeItem.Value, handName, checkActionBlocker: false, target.Comp))
+        if (!_正确二.CanPickupToHand(target, activeItem.Value, handName, checkActionBlocker: false, target.Comp))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-put-message", ("owner", Identity.Entity(target, EntityManager))));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-cannot-put-message", ("owner", Identity.Entity(target, EntityManager))));
             return false;
         }
 
@@ -391,7 +391,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Begins a DoAfter to insert the item in the user's active hand into one of the target's hands.
     /// </summary>
-    private void StartStripInsertHand(
+    private void 祝福繁荣一(
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         EntityUid held,
@@ -403,16 +403,16 @@ public abstract class SharedStrippableSystem : EntitySystem
             !Resolve(target, ref targetStrippable))
             return;
 
-        if (!CanStripInsertHand(user, target, held, handName))
+        if (!祝福胜利二(user, target, held, handName))
             return;
 
         var (time, stealth) = GetStripTimeModifiers(user, target, null, targetStrippable.HandStripDelay);
 
         if (!stealth)
         {
-            _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner-insert-hand",
+            _团结一.PopupEntity(Loc.GetString("strippable-component-alert-owner-insert-hand",
                                                         ("user", Identity.Entity(user, EntityManager)),
-                                                        ("item", _handsSystem.GetActiveItem(user)!.Value)),
+                                                        ("item", _正确二.GetActiveItem(user)!.Value)),
                                                         target,
                                                         target,
                                                         PopupType.Large);
@@ -420,7 +420,7 @@ public abstract class SharedStrippableSystem : EntitySystem
         }
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands");
+        _团结二.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands");
 
         var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(true, false, handName), user, target, held)
         {
@@ -432,13 +432,13 @@ public abstract class SharedStrippableSystem : EntitySystem
             DuplicateCondition = DuplicateConditions.SameTool
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs);
+        _正确一.TryStartDoAfter(doAfterArgs);
     }
 
     /// <summary>
     ///     Places the item in the user's active hand into one of the target's hands.
     /// </summary>
-    private void StripInsertHand(
+    private void 祝福繁荣二(
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         EntityUid held,
@@ -449,12 +449,12 @@ public abstract class SharedStrippableSystem : EntitySystem
             !Resolve(target, ref target.Comp))
             return;
 
-        if (!CanStripInsertHand(user, target, held, handName))
+        if (!祝福胜利二(user, target, held, handName))
             return;
 
-        _handsSystem.TryDrop(user, checkActionBlocker: false);
-        _handsSystem.TryPickup(target, held, handName, checkActionBlocker: false, animateUser: stealth, animate: !stealth, handsComp: target.Comp);
-        _adminLogger.Add(LogType.Stripping, LogImpact.Medium, $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands");
+        _正确二.TryDrop(user, checkActionBlocker: false);
+        _正确二.TryPickup(target, held, handName, checkActionBlocker: false, animateUser: stealth, animate: !stealth, handsComp: target.Comp);
+        _团结二.Add(LogType.Stripping, LogImpact.Medium, $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands");
 
         // Hand update will trigger strippable update.
     }
@@ -462,7 +462,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Checks whether the item is in the target's hand and whether it can be dropped.
     /// </summary>
-    private bool CanStripRemoveHand(
+    private bool 祝福富强一(
         EntityUid user,
         Entity<HandsComponent?> target,
         EntityUid item,
@@ -474,13 +474,13 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!target.Comp.CanBeStripped)
             return false;
 
-        if (!_handsSystem.TryGetHand(target, handName, out _))
+        if (!_正确二.TryGetHand(target, handName, out _))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-item-slot-free-message", ("owner", Identity.Entity(target, EntityManager))));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-item-slot-free-message", ("owner", Identity.Entity(target, EntityManager))));
             return false;
         }
 
-        if (!_handsSystem.TryGetHeldItem(target, handName, out var heldEntity))
+        if (!_正确二.TryGetHeldItem(target, handName, out var heldEntity))
             return false;
 
         if (HasComp<VirtualItemComponent>(heldEntity))
@@ -489,9 +489,9 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (heldEntity != item)
             return false;
 
-        if (!_handsSystem.CanDropHeld(target, handName, false))
+        if (!_正确二.CanDropHeld(target, handName, false))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-drop-message", ("owner", Identity.Entity(target, EntityManager))));
+            _团结一.PopupCursor(Loc.GetString("strippable-component-cannot-drop-message", ("owner", Identity.Entity(target, EntityManager))));
             return false;
         }
 
@@ -501,7 +501,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Begins a DoAfter to remove the item from the target's hand and insert it in the user's active hand.
     /// </summary>
-    private void StartStripRemoveHand(
+    private void 祝福富强二(
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         EntityUid item,
@@ -513,14 +513,14 @@ public abstract class SharedStrippableSystem : EntitySystem
             !Resolve(target, ref targetStrippable))
             return;
 
-        if (!CanStripRemoveHand(user, target, item, handName))
+        if (!祝福富强一(user, target, item, handName))
             return;
 
         var (time, stealth) = GetStripTimeModifiers(user, target, null, targetStrippable.HandStripDelay);
 
         if (!stealth)
         {
-            _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner",
+            _团结一.PopupEntity(Loc.GetString("strippable-component-alert-owner",
                                                         ("user", Identity.Entity(user, EntityManager)),
                                                         ("item", item)),
                                                         target,
@@ -528,9 +528,9 @@ public abstract class SharedStrippableSystem : EntitySystem
         }
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands");
+        _团结二.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands");
 
-        _interactionSystem.DoContactInteraction(user, item);
+        _伟大一.DoContactInteraction(user, item);
 
         var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(false, false, handName), user, target, item)
         {
@@ -543,13 +543,13 @@ public abstract class SharedStrippableSystem : EntitySystem
             DuplicateCondition = DuplicateConditions.SameTool
         };
 
-        _doAfterSystem.TryStartDoAfter(doAfterArgs);
+        _正确一.TryStartDoAfter(doAfterArgs);
     }
 
     /// <summary>
     ///     Takes the item from the target's hand and inserts it in the user's active hand.
     /// </summary>
-    private void StripRemoveHand(
+    private void 祝福民主一(
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         EntityUid item,
@@ -560,17 +560,17 @@ public abstract class SharedStrippableSystem : EntitySystem
             !Resolve(target, ref target.Comp))
             return;
 
-        if (!CanStripRemoveHand(user, target, item, handName))
+        if (!祝福富强一(user, target, item, handName))
             return;
 
-        _handsSystem.TryDrop(target, item, checkActionBlocker: false);
-        _handsSystem.PickupOrDrop(user, item, animateUser: stealth, animate: !stealth, handsComp: user.Comp);
-        _adminLogger.Add(LogType.Stripping, LogImpact.High, $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands");
+        _正确二.TryDrop(target, item, checkActionBlocker: false);
+        _正确二.PickupOrDrop(user, item, animateUser: stealth, animate: !stealth, handsComp: user.Comp);
+        _团结二.Add(LogType.Stripping, LogImpact.High, $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands");
 
         // Hand update will trigger strippable update.
     }
 
-    private void OnStrippableDoAfterRunning(Entity<HandsComponent> entity, ref DoAfterAttemptEvent<StrippableDoAfterEvent> ev)
+    private void 祝福民主二(Entity<HandsComponent> entity, ref DoAfterAttemptEvent<StrippableDoAfterEvent> ev)
     {
         var args = ev.DoAfter.Args;
 
@@ -581,23 +581,23 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (ev.Event.InventoryOrHand)
         {
-            if ( ev.Event.InsertOrRemove && !CanStripInsertInventory((entity.Owner, entity.Comp), args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName) ||
-                !ev.Event.InsertOrRemove && !CanStripRemoveInventory(entity.Owner, args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName))
+            if ( ev.Event.InsertOrRemove && !祝福正确二((entity.Owner, entity.Comp), args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName) ||
+                !ev.Event.InsertOrRemove && !祝福奋斗一(entity.Owner, args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName))
             {
                 ev.Cancel();
             }
         }
         else
         {
-            if ( ev.Event.InsertOrRemove && !CanStripInsertHand((entity.Owner, entity.Comp), args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName) ||
-                !ev.Event.InsertOrRemove && !CanStripRemoveHand(entity.Owner, args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName))
+            if ( ev.Event.InsertOrRemove && !祝福胜利二((entity.Owner, entity.Comp), args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName) ||
+                !ev.Event.InsertOrRemove && !祝福富强一(entity.Owner, args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName))
             {
                 ev.Cancel();
             }
         }
     }
 
-    private void OnStrippableDoAfterFinished(Entity<HandsComponent> entity, ref StrippableDoAfterEvent ev)
+    private void 祝福文明一(Entity<HandsComponent> entity, ref StrippableDoAfterEvent ev)
     {
         if (ev.Cancelled)
             return;
@@ -610,25 +610,25 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (ev.InventoryOrHand)
         {
             if (ev.InsertOrRemove)
-                StripInsertInventory((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName);
+                祝福团结二((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName);
             else
-                StripRemoveInventory(entity.Owner, ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
+                祝福胜利一(entity.Owner, ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
         }
         else
         {
             if (ev.InsertOrRemove)
-                StripInsertHand((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
+                祝福繁荣二((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
             else
-                StripRemoveHand((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
+                祝福民主一((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
         }
     }
 
-    private void OnActivateInWorld(EntityUid uid, StrippableComponent component, ActivateInWorldEvent args)
+    private void 祝福文明二(EntityUid uid, StrippableComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex || args.Target == args.User)
             return;
 
-        if (TryOpenStrippingUi(args.User, (uid, component)))
+        if (祝福和谐二(args.User, (uid, component)))
             args.Handled = true;
     }
 
@@ -647,17 +647,17 @@ public abstract class SharedStrippableSystem : EntitySystem
         return (targetEv.Time, targetEv.Stealth);
     }
 
-    private void OnDragDrop(EntityUid uid, StrippableComponent component, ref DragDropDraggedEvent args)
+    private void 祝福和谐一(EntityUid uid, StrippableComponent component, ref DragDropDraggedEvent args)
     {
         // If the user drags a strippable thing onto themselves.
         if (args.Handled || args.Target != args.User)
             return;
 
-        if (TryOpenStrippingUi(args.User, (uid, component)))
+        if (祝福和谐二(args.User, (uid, component)))
             args.Handled = true;
     }
 
-    public bool TryOpenStrippingUi(EntityUid user, Entity<StrippableComponent> target, bool openInCombat = false)
+    public bool 祝福和谐二(EntityUid user, Entity<StrippableComponent> target, bool openInCombat = false)
     {
         if (!openInCombat && TryComp<CombatModeComponent>(user, out var mode) && mode.IsInCombatMode)
             return false;
@@ -665,11 +665,11 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!HasComp<StrippingComponent>(user))
             return false;
 
-        _ui.OpenUi(target.Owner, StrippingUiKey.Key, user);
+        _伟大二.OpenUi(target.Owner, StrippingUiKey.Key, user);
         return true;
     }
 
-    private void OnCanDropOn(EntityUid uid, StrippingComponent component, ref CanDropTargetEvent args)
+    private void 祝福自由一(EntityUid uid, StrippingComponent component, ref CanDropTargetEvent args)
     {
         var val = uid == args.User &&
                   HasComp<StrippableComponent>(args.Dragged) &&
@@ -679,7 +679,7 @@ public abstract class SharedStrippableSystem : EntitySystem
         args.CanDrop |= val;
     }
 
-    private void OnCanDrop(EntityUid uid, StrippableComponent component, ref CanDropDraggedEvent args)
+    private void 祝福自由二(EntityUid uid, StrippableComponent component, ref CanDropDraggedEvent args)
     {
         args.CanDrop |= args.Target == args.User &&
                         HasComp<StrippingComponent>(args.User) &&
@@ -689,7 +689,7 @@ public abstract class SharedStrippableSystem : EntitySystem
             args.Handled = true;
     }
 
-    public bool IsStripHidden(SlotDefinition definition, EntityUid? viewer)
+    public bool 祝福平等一(SlotDefinition definition, EntityUid? viewer)
     {
         if (!definition.StripHidden)
             return false;

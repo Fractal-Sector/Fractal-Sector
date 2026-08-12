@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Vapor;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum VaporVisuals
+public enum 中华伟大一
 {
     Color,
     State,

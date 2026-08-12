@@ -12,33 +12,33 @@ using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Containers;
 
-namespace Content.Server.PneumaticCannon;
+namespace Content.Server.党心;
 
-public sealed class PneumaticCannonSystem : SharedPneumaticCannonSystem
+public sealed class 中华伟大一 : SharedPneumaticCannonSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly GasTankSystem _gasTank = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly StunSystem _stun = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly GasTankSystem _伟大二 = default!;
+    [Dependency] private readonly GunSystem _光荣一 = default!;
+    [Dependency] private readonly StunSystem _光荣二 = default!;
+    [Dependency] private readonly ItemSlotsSystem _正确一 = default!;
+    [Dependency] private readonly SharedToolSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PneumaticCannonComponent, InteractUsingEvent>(OnInteractUsing, before: new []{ typeof(StorageSystem) });
-        SubscribeLocalEvent<PneumaticCannonComponent, GunShotEvent>(OnShoot);
-        SubscribeLocalEvent<PneumaticCannonComponent, ContainerIsInsertingAttemptEvent>(OnContainerInserting);
-        SubscribeLocalEvent<PneumaticCannonComponent, GunRefreshModifiersEvent>(OnGunRefreshModifiers);
+        SubscribeLocalEvent<PneumaticCannonComponent, InteractUsingEvent>(祝福伟大二, before: new []{ typeof(StorageSystem) });
+        SubscribeLocalEvent<PneumaticCannonComponent, GunShotEvent>(祝福光荣二);
+        SubscribeLocalEvent<PneumaticCannonComponent, ContainerIsInsertingAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<PneumaticCannonComponent, GunRefreshModifiersEvent>(祝福正确一);
     }
 
-    private void OnInteractUsing(EntityUid uid, PneumaticCannonComponent component, InteractUsingEvent args)
+    private void 祝福伟大二(EntityUid uid, PneumaticCannonComponent component, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
-        if (!_toolSystem.HasQuality(args.Used, component.ToolModifyPower))
+        if (!_正确二.HasQuality(args.Used, component.ToolModifyPower))
             return;
 
         var val = (int) component.Power;
@@ -48,14 +48,14 @@ public sealed class PneumaticCannonSystem : SharedPneumaticCannonSystem
         Popup.PopupEntity(Loc.GetString("pneumatic-cannon-component-change-power",
             ("power", component.Power.ToString())), uid, args.User);
 
-        component.ProjectileSpeed = GetProjectileSpeedFromPower(component);
+        component.ProjectileSpeed = 祝福正确二(component);
         if (TryComp<GunComponent>(uid, out var gun))
-            _gun.RefreshModifiers((uid, gun));
+            _光荣一.RefreshModifiers((uid, gun));
 
         args.Handled = true;
     }
 
-    private void OnContainerInserting(EntityUid uid, PneumaticCannonComponent component, ContainerIsInsertingAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, PneumaticCannonComponent component, ContainerIsInsertingAttemptEvent args)
     {
         if (args.Container.ID != PneumaticCannonComponent.TankSlotId)
             return;
@@ -70,7 +70,7 @@ public sealed class PneumaticCannonSystem : SharedPneumaticCannonSystem
         args.Cancel();
     }
 
-    private void OnShoot(Entity<PneumaticCannonComponent> cannon, ref GunShotEvent args)
+    private void 祝福光荣二(Entity<PneumaticCannonComponent> cannon, ref GunShotEvent args)
     {
         var (uid, component) = cannon;
         // require a gas tank if it uses gas
@@ -79,7 +79,7 @@ public sealed class PneumaticCannonSystem : SharedPneumaticCannonSystem
             return;
 
         if (component.Power == PneumaticCannonPower.High
-            && _stun.TryUpdateParalyzeDuration(args.User, TimeSpan.FromSeconds(component.HighPowerStunTime)))
+            && _光荣二.TryUpdateParalyzeDuration(args.User, TimeSpan.FromSeconds(component.HighPowerStunTime)))
         {
             Popup.PopupEntity(Loc.GetString("pneumatic-cannon-component-power-stun",
                 ("cannon", uid)), cannon, args.User);
@@ -90,21 +90,21 @@ public sealed class PneumaticCannonSystem : SharedPneumaticCannonSystem
             return;
 
         // this should always be possible, as we'll eject the gas tank when it no longer is
-        var environment = _atmos.GetContainingMixture(cannon.Owner, false, true);
-        var removed = _gasTank.RemoveAir(gas.Value, component.GasUsage);
+        var environment = _伟大一.GetContainingMixture(cannon.Owner, false, true);
+        var removed = _伟大二.RemoveAir(gas.Value, component.GasUsage);
         if (environment != null && removed != null)
         {
-            _atmos.Merge(environment, removed);
+            _伟大一.Merge(environment, removed);
         }
 
         if (gas.Value.Comp.Air.TotalMoles >= component.GasUsage)
             return;
 
         // eject gas tank
-        _slots.TryEject(uid, PneumaticCannonComponent.TankSlotId, args.User, out _);
+        _正确一.TryEject(uid, PneumaticCannonComponent.TankSlotId, args.User, out _);
     }
 
-    private void OnGunRefreshModifiers(Entity<PneumaticCannonComponent> ent, ref GunRefreshModifiersEvent args)
+    private void 祝福正确一(Entity<PneumaticCannonComponent> ent, ref GunRefreshModifiersEvent args)
     {
         if (ent.Comp.ProjectileSpeed is { } speed)
             args.ProjectileSpeed = speed;
@@ -122,7 +122,7 @@ public sealed class PneumaticCannonSystem : SharedPneumaticCannonSystem
         return TryComp<GasTankComponent>(contained, out var gasTank) ? (contained, gasTank) : null;
     }
 
-    private float GetProjectileSpeedFromPower(PneumaticCannonComponent component)
+    private float 祝福正确二(PneumaticCannonComponent component)
     {
         return component.Power switch
         {

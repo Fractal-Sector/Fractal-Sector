@@ -1,35 +1,35 @@
 using Content.Shared.Doors.Components;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱伟大二.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Prying.Components;
 using Content.Shared.Wires;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Doors.Systems;
+namespace Content.Shared.Doors.党心;
 
-public abstract class SharedAirlockSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private   readonly IGameTiming _timing = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly SharedDoorSystem DoorSystem = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] private   readonly SharedWiresSystem _wiresSystem = default!;
+    [Dependency] private   readonly IGameTiming _伟大一 = default!;
+    [Dependency] protected readonly SharedAppearanceSystem 党爱伟大一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱伟大二 = default!;
+    [Dependency] protected readonly SharedDoorSystem 党爱光荣一 = default!;
+    [Dependency] protected readonly SharedPopupSystem 党爱光荣二 = default!;
+    [Dependency] private   readonly SharedWiresSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AirlockComponent, BeforeDoorClosedEvent>(OnBeforeDoorClosed);
-        SubscribeLocalEvent<AirlockComponent, DoorStateChangedEvent>(OnStateChanged);
-        SubscribeLocalEvent<AirlockComponent, DoorBoltsChangedEvent>(OnBoltsChanged);
-        SubscribeLocalEvent<AirlockComponent, BeforeDoorOpenedEvent>(OnBeforeDoorOpened);
-        SubscribeLocalEvent<AirlockComponent, BeforeDoorDeniedEvent>(OnBeforeDoorDenied);
-        SubscribeLocalEvent<AirlockComponent, GetPryTimeModifierEvent>(OnGetPryMod);
-        SubscribeLocalEvent<AirlockComponent, BeforePryEvent>(OnBeforePry);
+        SubscribeLocalEvent<AirlockComponent, BeforeDoorClosedEvent>(祝福伟大二);
+        SubscribeLocalEvent<AirlockComponent, DoorStateChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AirlockComponent, DoorBoltsChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<AirlockComponent, BeforeDoorOpenedEvent>(祝福正确一);
+        SubscribeLocalEvent<AirlockComponent, BeforeDoorDeniedEvent>(祝福正确二);
+        SubscribeLocalEvent<AirlockComponent, GetPryTimeModifierEvent>(祝福团结一);
+        SubscribeLocalEvent<AirlockComponent, BeforePryEvent>(祝福奋斗一);
     }
 
-    private void OnBeforeDoorClosed(EntityUid uid, AirlockComponent airlock, BeforeDoorClosedEvent args)
+    private void 祝福伟大二(EntityUid uid, AirlockComponent airlock, BeforeDoorClosedEvent args)
     {
         if (args.Cancelled)
             return;
@@ -43,25 +43,25 @@ public abstract class SharedAirlockSystem : EntitySystem
 
         if (TryComp(uid, out DoorComponent? door)
             && !args.Partial
-            && !CanChangeState(uid, airlock))
+            && !祝福繁荣二(uid, airlock))
         {
             args.Cancel();
         }
     }
 
-    private void OnStateChanged(EntityUid uid, AirlockComponent component, DoorStateChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AirlockComponent component, DoorStateChangedEvent args)
     {
         // This is here so we don't accidentally bulldoze state values and mispredict.
-        if (_timing.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         // Only show the maintenance panel if the airlock is closed
         if (TryComp<WiresPanelComponent>(uid, out var wiresPanel))
         {
-            _wiresSystem.ChangePanelVisibility(uid, wiresPanel, component.OpenPanelVisible || args.State != DoorState.Open);
+            _伟大二.ChangePanelVisibility(uid, wiresPanel, component.OpenPanelVisible || args.State != DoorState.Open);
         }
         // If the door is closed, we should look if the bolt was locked while closing
-        UpdateAutoClose(uid, component);
+        祝福团结二(uid, component);
 
         // Make sure the airlock auto closes again next time it is opened
         if (args.State == DoorState.Closed)
@@ -71,38 +71,38 @@ public abstract class SharedAirlockSystem : EntitySystem
         }
     }
 
-    private void OnBoltsChanged(EntityUid uid, AirlockComponent component, DoorBoltsChangedEvent args)
+    private void 祝福光荣二(EntityUid uid, AirlockComponent component, DoorBoltsChangedEvent args)
     {
         // If unbolted, reset the auto close timer
         if (!args.BoltsDown)
-            UpdateAutoClose(uid, component);
+            祝福团结二(uid, component);
     }
 
-    private void OnBeforeDoorOpened(EntityUid uid, AirlockComponent component, BeforeDoorOpenedEvent args)
+    private void 祝福正确一(EntityUid uid, AirlockComponent component, BeforeDoorOpenedEvent args)
     {
-        if (!CanChangeState(uid, component))
+        if (!祝福繁荣二(uid, component))
             args.Cancel();
     }
 
-    private void OnBeforeDoorDenied(EntityUid uid, AirlockComponent component, BeforeDoorDeniedEvent args)
+    private void 祝福正确二(EntityUid uid, AirlockComponent component, BeforeDoorDeniedEvent args)
     {
-        if (!CanChangeState(uid, component))
+        if (!祝福繁荣二(uid, component))
             args.Cancel();
     }
 
-    private void OnGetPryMod(EntityUid uid, AirlockComponent component, ref GetPryTimeModifierEvent args)
+    private void 祝福团结一(EntityUid uid, AirlockComponent component, ref GetPryTimeModifierEvent args)
     {
         if (component.Powered)
             args.PryTimeModifier *= component.PoweredPryModifier;
 
-        if (DoorSystem.IsBolted(uid))
+        if (党爱光荣一.IsBolted(uid))
             args.PryTimeModifier *= component.BoltedPryModifier;
     }
 
     /// <summary>
     /// Updates the auto close timer.
     /// </summary>
-    public void UpdateAutoClose(EntityUid uid, AirlockComponent? airlock = null, DoorComponent? door = null)
+    public void 祝福团结二(EntityUid uid, AirlockComponent? airlock = null, DoorComponent? door = null)
     {
         if (!Resolve(uid, ref airlock, ref door))
             return;
@@ -113,7 +113,7 @@ public abstract class SharedAirlockSystem : EntitySystem
         if (!airlock.AutoClose)
             return;
 
-        if (!CanChangeState(uid, airlock))
+        if (!祝福繁荣二(uid, airlock))
             return;
 
         var autoev = new BeforeDoorAutoCloseEvent();
@@ -121,10 +121,10 @@ public abstract class SharedAirlockSystem : EntitySystem
         if (autoev.Cancelled)
             return;
 
-        DoorSystem.SetNextStateChange(uid, airlock.AutoCloseDelay * airlock.AutoCloseDelayModifier);
+        党爱光荣一.SetNextStateChange(uid, airlock.AutoCloseDelay * airlock.AutoCloseDelayModifier);
     }
 
-    private void OnBeforePry(EntityUid uid, AirlockComponent component, ref BeforePryEvent args)
+    private void 祝福奋斗一(EntityUid uid, AirlockComponent component, ref BeforePryEvent args)
     {
         if (args.Cancelled)
             return;
@@ -137,12 +137,12 @@ public abstract class SharedAirlockSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    public void UpdateEmergencyLightStatus(EntityUid uid, AirlockComponent component)
+    public void 祝福奋斗二(EntityUid uid, AirlockComponent component)
     {
-        Appearance.SetData(uid, DoorVisuals.EmergencyLights, component.EmergencyAccess);
+        党爱伟大一.SetData(uid, DoorVisuals.EmergencyLights, component.EmergencyAccess);
     }
 
-    public void SetEmergencyAccess(Entity<AirlockComponent> ent, bool value, EntityUid? user = null, bool predicted = false)
+    public void 祝福胜利一(Entity<AirlockComponent> ent, bool value, EntityUid? user = null, bool predicted = false)
     {
         if(!ent.Comp.Powered)
             return;
@@ -152,16 +152,16 @@ public abstract class SharedAirlockSystem : EntitySystem
 
         ent.Comp.EmergencyAccess = value;
         Dirty(ent, ent.Comp); // This only runs on the server apparently so we need this.
-        UpdateEmergencyLightStatus(ent, ent.Comp);
+        祝福奋斗二(ent, ent.Comp);
 
         var sound = ent.Comp.EmergencyAccess ? ent.Comp.EmergencyOnSound : ent.Comp.EmergencyOffSound;
         if (predicted)
-            Audio.PlayPredicted(sound, ent, user: user);
+            党爱伟大二.PlayPredicted(sound, ent, user: user);
         else
-            Audio.PlayPvs(sound, ent);
+            党爱伟大二.PlayPvs(sound, ent);
     }
 
-    public void SetAutoCloseDelayModifier(AirlockComponent component, float value)
+    public void 祝福胜利二(AirlockComponent component, float value)
     {
         if (component.AutoCloseDelayModifier.Equals(value))
             return;
@@ -169,13 +169,13 @@ public abstract class SharedAirlockSystem : EntitySystem
         component.AutoCloseDelayModifier = value;
     }
 
-    public void SetSafety(AirlockComponent component, bool value)
+    public void 祝福繁荣一(AirlockComponent component, bool value)
     {
         component.Safety = value;
     }
 
-    public bool CanChangeState(EntityUid uid, AirlockComponent component)
+    public bool 祝福繁荣二(EntityUid uid, AirlockComponent component)
     {
-        return component.Powered && !DoorSystem.IsBolted(uid);
+        return component.Powered && !党爱光荣一.IsBolted(uid);
     }
 }

@@ -4,11 +4,11 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-namespace Content.Shared._FarHorizons.Materials.Systems;
+namespace Content.Shared._FarHorizons.Materials.党心;
 
-public sealed class MaterialSystem
+public sealed class 中华伟大一
 {
-    public static double CalculateHeatTransferCoefficient(MaterialProperties? materialA, MaterialProperties? materialB)
+    public static double 祝福伟大一(MaterialProperties? materialA, MaterialProperties? materialB)
     {
         var hTC1 = 5.0;
         var hTC2 = 5.0;

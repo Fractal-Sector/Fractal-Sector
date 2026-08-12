@@ -23,13 +23,13 @@ using Robust.Shared.Threading;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NPC.Pathfinding
+namespace Content.Server.NPC.党心
 {
     /// <summary>
     /// This system handles pathfinding graph updates as well as dispatches to the pathfinder
     /// (90% of what it's doing is graph updates so not much point splitting the 2 roles)
     /// </summary>
-    public sealed partial class PathfindingSystem : SharedPathfindingSystem
+    public sealed partial class 中华伟大一 : SharedPathfindingSystem
     {
         /*
          * I have spent many hours looking at what pathfinding to use
@@ -37,26 +37,26 @@ namespace Content.Server.NPC.Pathfinding
          * we also have triangular / diagonal walls and thindows which makes that not exactly feasible
          * Recast is also overkill for our usecase, plus another lib, hence you get this.
          *
-         * See PathfindingSystem.Grid for a description of the grid implementation.
+         * See 中华伟大一.Grid for a description of the grid implementation.
          */
 
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IParallelManager _parallel = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly DestructibleSystem _destructible = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly FixtureSystem _fixtures = default!;
-        [Dependency] private readonly NPCSystem _npc = default!;
-        [Dependency] private readonly SharedMapSystem _maps = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
+        [Dependency] private readonly IGameTiming _伟大二 = default!;
+        [Dependency] private readonly IParallelManager _光荣一 = default!;
+        [Dependency] private readonly IPlayerManager _光荣二 = default!;
+        [Dependency] private readonly IRobustRandom _正确一 = default!;
+        [Dependency] private readonly DestructibleSystem _正确二 = default!;
+        [Dependency] private readonly EntityLookupSystem _团结一 = default!;
+        [Dependency] private readonly FixtureSystem _团结二 = default!;
+        [Dependency] private readonly NPCSystem _奋斗一 = default!;
+        [Dependency] private readonly SharedMapSystem _奋斗二 = default!;
+        [Dependency] private readonly SharedPhysicsSystem _胜利一 = default!;
+        [Dependency] private readonly SharedTransformSystem _胜利二 = default!;
 
         private readonly Dictionary<ICommonSession, PathfindingDebugMode> _subscribedSessions = new();
 
         [ViewVariables]
-        private readonly List<PathRequest> _pathRequests = new(PathTickLimit);
+        private readonly List<PathRequest> _繁荣一 = new(PathTickLimit);
 
         private static readonly TimeSpan PathTime = TimeSpan.FromMilliseconds(3);
 
@@ -65,53 +65,53 @@ namespace Content.Server.NPC.Pathfinding
         /// </summary>
         private const int PathTickLimit = 256;
 
-        private int _portalIndex;
+        private int _繁荣二;
         private readonly Dictionary<int, PathPortal> _portals = new();
 
-        private EntityQuery<AccessReaderComponent> _accessQuery;
-        private EntityQuery<DestructibleComponent> _destructibleQuery;
-        private EntityQuery<DoorComponent> _doorQuery;
-        private EntityQuery<ClimbableComponent> _climbableQuery;
-        private EntityQuery<FixturesComponent> _fixturesQuery;
-        private EntityQuery<MapGridComponent> _gridQuery;
-        private EntityQuery<TransformComponent> _xformQuery;
+        private EntityQuery<AccessReaderComponent> _富强一;
+        private EntityQuery<DestructibleComponent> _富强二;
+        private EntityQuery<DoorComponent> _民主一;
+        private EntityQuery<ClimbableComponent> _民主二;
+        private EntityQuery<FixturesComponent> _文明一;
+        private EntityQuery<MapGridComponent> _文明二;
+        private EntityQuery<TransformComponent> _和谐一;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _accessQuery = GetEntityQuery<AccessReaderComponent>();
-            _destructibleQuery = GetEntityQuery<DestructibleComponent>();
-            _doorQuery = GetEntityQuery<DoorComponent>();
-            _climbableQuery = GetEntityQuery<ClimbableComponent>();
-            _fixturesQuery = GetEntityQuery<FixturesComponent>();
-            _gridQuery = GetEntityQuery<MapGridComponent>();
-            _xformQuery = GetEntityQuery<TransformComponent>();
+            _富强一 = GetEntityQuery<AccessReaderComponent>();
+            _富强二 = GetEntityQuery<DestructibleComponent>();
+            _民主一 = GetEntityQuery<DoorComponent>();
+            _民主二 = GetEntityQuery<ClimbableComponent>();
+            _文明一 = GetEntityQuery<FixturesComponent>();
+            _文明二 = GetEntityQuery<MapGridComponent>();
+            _和谐一 = GetEntityQuery<TransformComponent>();
 
-            _playerManager.PlayerStatusChanged += OnPlayerChange;
+            _光荣二.PlayerStatusChanged += 祝福自由一;
             InitializeGrid();
-            SubscribeNetworkEvent<RequestPathfindingDebugMessage>(OnBreadcrumbs);
+            SubscribeNetworkEvent<RequestPathfindingDebugMessage>(祝福繁荣二);
         }
 
-        public override void Shutdown()
+        public override void 祝福伟大二()
         {
-            base.Shutdown();
+            base.祝福伟大二();
             _subscribedSessions.Clear();
-            _playerManager.PlayerStatusChanged -= OnPlayerChange;
-            _transform.OnGlobalMoveEvent -= OnMoveEvent;
+            _光荣二.PlayerStatusChanged -= 祝福自由一;
+            _胜利二.OnGlobalMoveEvent -= OnMoveEvent;
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福光荣一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福光荣一(frameTime);
             var options = new ParallelOptions()
             {
-                MaxDegreeOfParallelism = _parallel.ParallelProcessCount,
+                MaxDegreeOfParallelism = _光荣一.ParallelProcessCount,
             };
 
             UpdateGrid(options);
             _stopwatch.Restart();
-            var amount = Math.Min(PathTickLimit, _pathRequests.Count);
+            var amount = Math.Min(PathTickLimit, _繁荣一.Count);
             var results = ArrayPool<PathResult>.Shared.Rent(amount);
 
 
@@ -124,7 +124,7 @@ namespace Content.Server.NPC.Pathfinding
                     return;
                 }
 
-                var request = _pathRequests[i];
+                var request = _繁荣一[i];
 
                 try
                 {
@@ -134,7 +134,7 @@ namespace Content.Server.NPC.Pathfinding
                             results[i] = UpdateAStarPath(astar);
                             break;
                         case BFSPathRequest bfs:
-                            results[i] = UpdateBFSPath(_random, bfs);
+                            results[i] = UpdateBFSPath(_正确一, bfs);
                             break;
                         default:
                             throw new NotImplementedException();
@@ -153,7 +153,7 @@ namespace Content.Server.NPC.Pathfinding
             for (var i = 0; i < amount; i++)
             {
                 var resultIndex = i + offset;
-                var path = _pathRequests[resultIndex];
+                var path = _繁荣一[resultIndex];
                 var result = results[i];
 
                 if (path.Task.Exception != null)
@@ -168,12 +168,12 @@ namespace Content.Server.NPC.Pathfinding
                     case PathResult.PartialPath:
                     case PathResult.Path:
                     case PathResult.NoPath:
-                        SendDebug(path);
+                        祝福繁荣一(path);
                         // Don't use RemoveSwap because we still want to try and process them in order.
-                        _pathRequests.RemoveAt(resultIndex);
+                        _繁荣一.RemoveAt(resultIndex);
                         offset--;
                         path.Tcs.SetResult(result);
-                        SendRoute(path);
+                        祝福文明一(path);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -186,10 +186,10 @@ namespace Content.Server.NPC.Pathfinding
         /// <summary>
         /// Creates neighbouring edges at both locations, each leading to the other.
         /// </summary>
-        public bool TryCreatePortal(EntityCoordinates coordsA, EntityCoordinates coordsB, out int handle)
+        public bool 祝福光荣二(EntityCoordinates coordsA, EntityCoordinates coordsB, out int handle)
         {
-            var mapUidA = _transform.GetMap(coordsA);
-            var mapUidB = _transform.GetMap(coordsB);
+            var mapUidA = _胜利二.GetMap(coordsA);
+            var mapUidB = _胜利二.GetMap(coordsB);
             handle = -1;
 
             if (mapUidA != mapUidB || mapUidA == null)
@@ -197,8 +197,8 @@ namespace Content.Server.NPC.Pathfinding
                 return false;
             }
 
-            var gridUidA = _transform.GetGrid(coordsA);
-            var gridUidB = _transform.GetGrid(coordsB);
+            var gridUidA = _胜利二.GetGrid(coordsA);
+            var gridUidB = _胜利二.GetGrid(coordsB);
 
             if (!TryComp<GridPathfindingComponent>(gridUidA, out var gridA) ||
                 !TryComp<GridPathfindingComponent>(gridUidB, out var gridB))
@@ -206,7 +206,7 @@ namespace Content.Server.NPC.Pathfinding
                 return false;
             }
 
-            handle = _portalIndex++;
+            handle = _繁荣二++;
             var portal = new PathPortal(handle, coordsA, coordsB);
             _portals[handle] = portal;
             var originA = GetOrigin(coordsA, gridUidA.Value);
@@ -227,7 +227,7 @@ namespace Content.Server.NPC.Pathfinding
             return true;
         }
 
-        public bool RemovePortal(int handle)
+        public bool 祝福正确一(int handle)
         {
             if (!_portals.TryGetValue(handle, out var portal))
             {
@@ -236,8 +236,8 @@ namespace Content.Server.NPC.Pathfinding
 
             _portals.Remove(handle);
 
-            var gridUidA = _transform.GetGrid(portal.CoordinatesA);
-            var gridUidB = _transform.GetGrid(portal.CoordinatesB);
+            var gridUidA = _胜利二.GetGrid(portal.CoordinatesA);
+            var gridUidB = _胜利二.GetGrid(portal.CoordinatesB);
 
             if (!TryComp<GridPathfindingComponent>(gridUidA, out var gridA) ||
                 !TryComp<GridPathfindingComponent>(gridUidB, out var gridB))
@@ -257,7 +257,7 @@ namespace Content.Server.NPC.Pathfinding
             return true;
         }
 
-        public async Task<PathResultEvent> GetRandomPath(
+        public async Task<PathResultEvent> 祝福正确二(
             EntityUid entity,
             float maxRange,
             CancellationToken cancelToken,
@@ -272,11 +272,11 @@ namespace Content.Server.NPC.Pathfinding
 
             if (TryComp<FixturesComponent>(entity, out var fixtures))
             {
-                (layer, mask) = _physics.GetHardCollision(entity, fixtures);
+                (layer, mask) = _胜利一.GetHardCollision(entity, fixtures);
             }
 
             var request = new BFSPathRequest(maxRange, limit, start.Coordinates, flags, layer, mask, cancelToken);
-            var path = await GetPath(request);
+            var path = await 祝福团结一(request);
 
             if (path.Result != PathResult.Path)
                 return new PathResultEvent(PathResult.NoPath, new List<PathPoly>());
@@ -297,8 +297,8 @@ namespace Content.Server.NPC.Pathfinding
             if (!TryComp(entity, out TransformComponent? start))
                 return null;
 
-            var request = GetRequest(entity, start.Coordinates, end, range, cancelToken, flags);
-            var path = await GetPath(request);
+            var request = 祝福奋斗二(entity, start.Coordinates, end, range, cancelToken, flags);
+            var path = await 祝福团结一(request);
 
             if (path.Result != PathResult.Path)
                 return null;
@@ -318,7 +318,7 @@ namespace Content.Server.NPC.Pathfinding
             return distance;
         }
 
-        public async Task<PathResultEvent> GetPath(
+        public async Task<PathResultEvent> 祝福团结一(
             EntityUid entity,
             EntityUid target,
             float range,
@@ -329,11 +329,11 @@ namespace Content.Server.NPC.Pathfinding
                 !TryComp(target, out TransformComponent? targetXform))
                 return new PathResultEvent(PathResult.NoPath, new List<PathPoly>());
 
-            var request = GetRequest(entity, xform.Coordinates, targetXform.Coordinates, range, cancelToken, flags);
-            return await GetPath(request);
+            var request = 祝福奋斗二(entity, xform.Coordinates, targetXform.Coordinates, range, cancelToken, flags);
+            return await 祝福团结一(request);
         }
 
-        public async Task<PathResultEvent> GetPath(
+        public async Task<PathResultEvent> 祝福团结一(
             EntityUid entity,
             EntityCoordinates start,
             EntityCoordinates end,
@@ -341,14 +341,14 @@ namespace Content.Server.NPC.Pathfinding
             CancellationToken cancelToken,
             PathFlags flags = PathFlags.None)
         {
-            var request = GetRequest(entity, start, end, range, cancelToken, flags);
-            return await GetPath(request);
+            var request = 祝福奋斗二(entity, start, end, range, cancelToken, flags);
+            return await 祝福团结一(request);
         }
 
         /// <summary>
         /// Gets a path in a thread-safe way.
         /// </summary>
-        public async Task<PathResultEvent> GetPathSafe(
+        public async Task<PathResultEvent> 祝福团结二(
             EntityUid entity,
             EntityCoordinates start,
             EntityCoordinates end,
@@ -356,14 +356,14 @@ namespace Content.Server.NPC.Pathfinding
             CancellationToken cancelToken,
             PathFlags flags = PathFlags.None)
         {
-            var request = GetRequest(entity, start, end, range, cancelToken, flags);
-            return await GetPath(request, true);
+            var request = 祝福奋斗二(entity, start, end, range, cancelToken, flags);
+            return await 祝福团结一(request, true);
         }
 
         /// <summary>
         /// Asynchronously gets a path.
         /// </summary>
-        public async Task<PathResultEvent> GetPath(
+        public async Task<PathResultEvent> 祝福团结一(
             EntityCoordinates start,
             EntityCoordinates end,
             float range,
@@ -374,13 +374,13 @@ namespace Content.Server.NPC.Pathfinding
         {
             // Don't allow the caller to pass in the request in case they try to do something with its data.
             var request = new AStarPathRequest(start, end, flags, range, layer, mask, cancelToken);
-            return await GetPath(request);
+            return await 祝福团结一(request);
         }
 
         /// <summary>
         /// Raises the pathfinding result event on the entity when finished.
         /// </summary>
-        public async void GetPathEvent(
+        public async void 祝福奋斗一(
             EntityUid uid,
             EntityCoordinates start,
             EntityCoordinates end,
@@ -388,7 +388,7 @@ namespace Content.Server.NPC.Pathfinding
             CancellationToken cancelToken,
             PathFlags flags = PathFlags.None)
         {
-            var path = await GetPath(uid, start, end, range, cancelToken);
+            var path = await 祝福团结一(uid, start, end, range, cancelToken);
             RaiseLocalEvent(uid, path);
         }
 
@@ -397,7 +397,7 @@ namespace Content.Server.NPC.Pathfinding
         /// </summary>
         public PathPoly? GetPoly(EntityCoordinates coordinates)
         {
-            var gridUid = _transform.GetGrid(coordinates);
+            var gridUid = _胜利二.GetGrid(coordinates);
 
             if (!TryComp<GridPathfindingComponent>(gridUid, out var comp) ||
                 !TryComp(gridUid, out TransformComponent? xform))
@@ -405,7 +405,7 @@ namespace Content.Server.NPC.Pathfinding
                 return null;
             }
 
-            var localPos = Vector2.Transform(_transform.ToMapCoordinates(coordinates).Position, _transform.GetInvWorldMatrix(xform));
+            var localPos = Vector2.Transform(_胜利二.ToMapCoordinates(coordinates).Position, _胜利二.GetInvWorldMatrix(xform));
             var origin = GetOrigin(localPos);
 
             if (!TryGetChunk(origin, comp, out var chunk))
@@ -425,30 +425,30 @@ namespace Content.Server.NPC.Pathfinding
             return null;
         }
 
-        private PathRequest GetRequest(EntityUid entity, EntityCoordinates start, EntityCoordinates end, float range, CancellationToken cancelToken, PathFlags flags)
+        private PathRequest 祝福奋斗二(EntityUid entity, EntityCoordinates start, EntityCoordinates end, float range, CancellationToken cancelToken, PathFlags flags)
         {
             var layer = 0;
             var mask = 0;
 
             if (TryComp<FixturesComponent>(entity, out var fixtures))
             {
-                (layer, mask) = _physics.GetHardCollision(entity, fixtures);
+                (layer, mask) = _胜利一.GetHardCollision(entity, fixtures);
             }
 
             return new AStarPathRequest(start, end, flags, range, layer, mask, cancelToken);
         }
 
-        public PathFlags GetFlags(EntityUid uid)
+        public PathFlags 祝福胜利一(EntityUid uid)
         {
-            if (!_npc.TryGetNpc(uid, out var npc))
+            if (!_奋斗一.TryGetNpc(uid, out var npc))
             {
                 return PathFlags.None;
             }
 
-            return GetFlags(npc.Blackboard);
+            return 祝福胜利一(npc.Blackboard);
         }
 
-        public PathFlags GetFlags(NPCBlackboard blackboard)
+        public PathFlags 祝福胜利一(NPCBlackboard blackboard)
         {
             var flags = PathFlags.None;
 
@@ -475,7 +475,7 @@ namespace Content.Server.NPC.Pathfinding
             return flags;
         }
 
-        private async Task<PathResultEvent> GetPath(
+        private async Task<PathResultEvent> 祝福团结一(
             PathRequest request, bool safe = false)
         {
             // We could maybe try an initial quick run to avoid forcing time-slicing over ticks.
@@ -483,14 +483,14 @@ namespace Content.Server.NPC.Pathfinding
 
             if (safe)
             {
-                lock (_pathRequests)
+                lock (_繁荣一)
                 {
-                    _pathRequests.Add(request);
+                    _繁荣一.Add(request);
                 }
             }
             else
             {
-                _pathRequests.Add(request);
+                _繁荣一.Add(request);
             }
 
             await request.Task;
@@ -515,7 +515,7 @@ namespace Content.Server.NPC.Pathfinding
 
         #region Debug handlers
 
-        private DebugPathPoly GetDebugPoly(PathPoly poly)
+        private DebugPathPoly 祝福胜利二(PathPoly poly)
         {
             // Create fake neighbors for it
             var neighbors = new List<NetCoordinates>(poly.Neighbors.Count);
@@ -536,7 +536,7 @@ namespace Content.Server.NPC.Pathfinding
             };
         }
 
-        private void SendDebug(PathRequest request)
+        private void 祝福繁荣一(PathRequest request)
         {
             if (_subscribedSessions.Count == 0)
                 return;
@@ -546,15 +546,15 @@ namespace Content.Server.NPC.Pathfinding
                 if ((session.Value & PathfindingDebugMode.Routes) == 0x0)
                     continue;
 
-                RaiseNetworkEvent(new PathRouteMessage(request.Polys.Select(GetDebugPoly).ToList(), new Dictionary<DebugPathPoly, float>()), session.Key.Channel);
+                RaiseNetworkEvent(new PathRouteMessage(request.Polys.Select(祝福胜利二).ToList(), new Dictionary<DebugPathPoly, float>()), session.Key.Channel);
             }
         }
 
-        private void OnBreadcrumbs(RequestPathfindingDebugMessage msg, EntitySessionEventArgs args)
+        private void 祝福繁荣二(RequestPathfindingDebugMessage msg, EntitySessionEventArgs args)
         {
             var pSession = args.SenderSession;
 
-            if (!_adminManager.HasAdminFlag(pSession, AdminFlags.Debug))
+            if (!_伟大一.HasAdminFlag(pSession, AdminFlags.Debug))
             {
                 return;
             }
@@ -570,33 +570,33 @@ namespace Content.Server.NPC.Pathfinding
             sessions = msg.Mode;
             _subscribedSessions[args.SenderSession] = sessions;
 
-            if (IsCrumb(sessions))
+            if (祝福富强一(sessions))
             {
-                SendBreadcrumbs(pSession);
+                祝福民主二(pSession);
             }
 
-            if (IsPoly(sessions))
+            if (祝福富强二(sessions))
             {
-                SendPolys(pSession);
+                祝福文明二(pSession);
             }
         }
 
-        private bool IsCrumb(PathfindingDebugMode mode)
+        private bool 祝福富强一(PathfindingDebugMode mode)
         {
             return (mode & (PathfindingDebugMode.Breadcrumbs | PathfindingDebugMode.Crumb)) != 0x0;
         }
 
-        private bool IsPoly(PathfindingDebugMode mode)
+        private bool 祝福富强二(PathfindingDebugMode mode)
         {
             return (mode & (PathfindingDebugMode.Chunks | PathfindingDebugMode.Polys | PathfindingDebugMode.Poly | PathfindingDebugMode.PolyNeighbors)) != 0x0;
         }
 
-        private bool IsRoute(PathfindingDebugMode mode)
+        private bool 祝福民主一(PathfindingDebugMode mode)
         {
             return (mode & (PathfindingDebugMode.Routes | PathfindingDebugMode.RouteCosts)) != 0x0;
         }
 
-        private void SendBreadcrumbs(ICommonSession pSession)
+        private void 祝福民主二(ICommonSession pSession)
         {
             var msg = new PathBreadcrumbsMessage();
 
@@ -609,7 +609,7 @@ namespace Content.Server.NPC.Pathfinding
 
                 foreach (var chunk in comp.Chunks)
                 {
-                    var data = GetCrumbs(chunk.Value);
+                    var data = 祝福和谐一(chunk.Value);
                     msg.Breadcrumbs[netGrid].Add(chunk.Key, data);
                 }
             }
@@ -617,7 +617,7 @@ namespace Content.Server.NPC.Pathfinding
             RaiseNetworkEvent(msg, pSession.Channel);
         }
 
-        private void SendRoute(PathRequest request)
+        private void 祝福文明一(PathRequest request)
         {
             if (_subscribedSessions.Count == 0)
                 return;
@@ -627,26 +627,26 @@ namespace Content.Server.NPC.Pathfinding
 
             foreach (var poly in request.Polys)
             {
-                polys.Add(GetDebugPoly(poly));
+                polys.Add(祝福胜利二(poly));
             }
 
             foreach (var (poly, value) in request.CostSoFar)
             {
-                costs.Add(GetDebugPoly(poly), value);
+                costs.Add(祝福胜利二(poly), value);
             }
 
             var msg = new PathRouteMessage(polys, costs);
 
             foreach (var session in _subscribedSessions)
             {
-                if (!IsRoute(session.Value))
+                if (!祝福民主一(session.Value))
                     continue;
 
                 RaiseNetworkEvent(msg, session.Key.Channel);
             }
         }
 
-        private void SendPolys(ICommonSession pSession)
+        private void 祝福文明二(ICommonSession pSession)
         {
             var msg = new PathPolysMessage();
 
@@ -659,7 +659,7 @@ namespace Content.Server.NPC.Pathfinding
 
                 foreach (var chunk in comp.Chunks)
                 {
-                    var data = GetPolys(chunk.Value);
+                    var data = 祝福和谐二(chunk.Value);
                     msg.Polys[netGrid].Add(chunk.Key, data);
                 }
             }
@@ -667,7 +667,7 @@ namespace Content.Server.NPC.Pathfinding
             RaiseNetworkEvent(msg, pSession.Channel);
         }
 
-        private void SendBreadcrumbs(GridPathfindingChunk chunk, EntityUid gridUid)
+        private void 祝福民主二(GridPathfindingChunk chunk, EntityUid gridUid)
         {
             if (_subscribedSessions.Count == 0)
                 return;
@@ -676,19 +676,19 @@ namespace Content.Server.NPC.Pathfinding
             {
                 Origin = chunk.Origin,
                 GridUid = GetNetEntity(gridUid),
-                Data = GetCrumbs(chunk),
+                Data = 祝福和谐一(chunk),
             };
 
             foreach (var session in _subscribedSessions)
             {
-                if (!IsCrumb(session.Value))
+                if (!祝福富强一(session.Value))
                     continue;
 
                 RaiseNetworkEvent(msg, session.Key.Channel);
             }
         }
 
-        private void SendPolys(GridPathfindingChunk chunk, EntityUid gridUid,
+        private void 祝福文明二(GridPathfindingChunk chunk, EntityUid gridUid,
             List<PathPoly>[] tilePolys)
         {
             if (_subscribedSessions.Count == 0)
@@ -702,7 +702,7 @@ namespace Content.Server.NPC.Pathfinding
                 for (var y = 0; y < extent; y++)
                 {
                     var index = GetIndex(x, y);
-                    data[new Vector2i(x, y)] = tilePolys[index].Select(GetDebugPoly).ToList();
+                    data[new Vector2i(x, y)] = tilePolys[index].Select(祝福胜利二).ToList();
                 }
             }
 
@@ -715,14 +715,14 @@ namespace Content.Server.NPC.Pathfinding
 
             foreach (var session in _subscribedSessions)
             {
-                if (!IsPoly(session.Value))
+                if (!祝福富强二(session.Value))
                     continue;
 
                 RaiseNetworkEvent(msg, session.Key.Channel);
             }
         }
 
-        private List<PathfindingBreadcrumb> GetCrumbs(GridPathfindingChunk chunk)
+        private List<PathfindingBreadcrumb> 祝福和谐一(GridPathfindingChunk chunk)
         {
             var crumbs = new List<PathfindingBreadcrumb>(chunk.Points.Length);
             const int extent = ChunkSize * SubStep;
@@ -738,7 +738,7 @@ namespace Content.Server.NPC.Pathfinding
             return crumbs;
         }
 
-        private Dictionary<Vector2i, List<DebugPathPoly>> GetPolys(GridPathfindingChunk chunk)
+        private Dictionary<Vector2i, List<DebugPathPoly>> 祝福和谐二(GridPathfindingChunk chunk)
         {
             var polys = new Dictionary<Vector2i, List<DebugPathPoly>>(chunk.Polygons.Length);
 
@@ -747,14 +747,14 @@ namespace Content.Server.NPC.Pathfinding
                 for (var y = 0; y < ChunkSize; y++)
                 {
                     var index = GetIndex(x, y);
-                    polys[new Vector2i(x, y)] = chunk.Polygons[index].Select(GetDebugPoly).ToList();
+                    polys[new Vector2i(x, y)] = chunk.Polygons[index].Select(祝福胜利二).ToList();
                 }
             }
 
             return polys;
         }
 
-        private void OnPlayerChange(object? sender, SessionStatusEventArgs e)
+        private void 祝福自由一(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus == SessionStatus.Connected || !_subscribedSessions.ContainsKey(e.Session))
                 return;

@@ -4,25 +4,25 @@ using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Interaction;
 using Content.Shared.DeviceNetwork.Components;
 
-namespace Content.Server.DeviceNetwork.Systems.Devices
+namespace Content.Server.DeviceNetwork.Systems.党心
 {
-    public sealed class ApcNetSwitchSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+        [Dependency] private readonly DeviceNetworkSystem _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<ApcNetSwitchComponent, InteractHandEvent>(OnInteracted);
-            SubscribeLocalEvent<ApcNetSwitchComponent, DeviceNetworkPacketEvent>(OnPackedReceived);
+            SubscribeLocalEvent<ApcNetSwitchComponent, InteractHandEvent>(祝福伟大二);
+            SubscribeLocalEvent<ApcNetSwitchComponent, DeviceNetworkPacketEvent>(祝福光荣一);
         }
 
         /// <summary>
         /// Toggles the state of the switch and sents a <see cref="DeviceNetworkConstants.CmdSetState"/> command with the
         /// <see cref="DeviceNetworkConstants.StateEnabled"/> value set to state.
         /// </summary>
-        private void OnInteracted(EntityUid uid, ApcNetSwitchComponent component, InteractHandEvent args)
+        private void 祝福伟大二(EntityUid uid, ApcNetSwitchComponent component, InteractHandEvent args)
         {
             if (!TryComp(uid, out DeviceNetworkComponent? networkComponent)) return;
 
@@ -37,7 +37,7 @@ namespace Content.Server.DeviceNetwork.Systems.Devices
                 [DeviceNetworkConstants.StateEnabled] = component.State,
             };
 
-            _deviceNetworkSystem.QueuePacket(uid, null, payload, device: networkComponent);
+            _伟大一.QueuePacket(uid, null, payload, device: networkComponent);
 
             args.Handled = true;
         }
@@ -45,7 +45,7 @@ namespace Content.Server.DeviceNetwork.Systems.Devices
         /// <summary>
         /// Listens to the <see cref="DeviceNetworkConstants.CmdSetState"/> command of other switches to sync state
         /// </summary>
-        private void OnPackedReceived(EntityUid uid, ApcNetSwitchComponent component, DeviceNetworkPacketEvent args)
+        private void 祝福光荣一(EntityUid uid, ApcNetSwitchComponent component, DeviceNetworkPacketEvent args)
         {
             if (!TryComp(uid, out DeviceNetworkComponent? networkComponent) || args.SenderAddress == networkComponent.Address) return;
             if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command) || command != DeviceNetworkConstants.CmdSetState) return;

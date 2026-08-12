@@ -1,6 +1,6 @@
-namespace Content.Server.Power.Components
+namespace Content.Server.Power.党心
 {
     [RegisterComponent]
-    public sealed partial class ExaminableBatteryComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {}
 }

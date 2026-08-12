@@ -1,13 +1,13 @@
 using Content.Shared.Temperature.Systems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Temperature.Components;
+namespace Content.Shared.Temperature.党心;
 
 /// <summary>
 /// This is used for an entity that varies in speed based on current temperature.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedTemperatureSystem)), AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class TemperatureSpeedComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Pairs of temperature thresholds to applied slowdown values.

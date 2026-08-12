@@ -2,25 +2,25 @@ using System.Text;
 using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server.Speech.EntitySystems
+namespace Content.Server.Speech.党心
 {
-    public sealed class SpanishAccentSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<SpanishAccentComponent, AccentGetEvent>(OnAccent);
+            SubscribeLocalEvent<SpanishAccentComponent, AccentGetEvent>(祝福正确一);
         }
 
-        public string Accentuate(string message)
+        public string 祝福伟大二(string message)
         {
             // Insert E before every S
-            message = InsertS(message);
+            message = 祝福光荣一(message);
             // If a sentence ends with ?, insert a reverse ? at the beginning of the sentence
-            message = ReplacePunctuation(message);
+            message = 祝福光荣二(message);
             return message;
         }
 
-        private string InsertS(string message)
+        private string 祝福光荣一(string message)
         {
             // Replace every new Word that starts with s/S
             var msg = message.Replace(" s", " es").Replace(" S", " Es");
@@ -38,7 +38,7 @@ namespace Content.Server.Speech.EntitySystems
             return msg;
         }
 
-        private string ReplacePunctuation(string message)
+        private string 祝福光荣二(string message)
         {
             var sentences = AccentSystem.SentenceRegex.Split(message);
             var msg = new StringBuilder();
@@ -66,9 +66,9 @@ namespace Content.Server.Speech.EntitySystems
             return msg.ToString();
         }
 
-        private void OnAccent(EntityUid uid, SpanishAccentComponent component, AccentGetEvent args)
+        private void 祝福正确一(EntityUid uid, SpanishAccentComponent component, AccentGetEvent args)
         {
-            args.Message = Accentuate(args.Message);
+            args.Message = 祝福伟大二(args.Message);
         }
     }
 }

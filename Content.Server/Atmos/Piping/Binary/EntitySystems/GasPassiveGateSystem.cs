@@ -8,25 +8,25 @@ using Content.Shared.Atmos;
 using Content.Shared.Examine;
 using JetBrains.Annotations;
 
-namespace Content.Server.Atmos.Piping.Binary.EntitySystems
+namespace Content.Server.Atmos.Piping.Binary.党心
 {
     [UsedImplicitly]
-    public sealed class GasPassiveGateSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+        [Dependency] private readonly NodeContainerSystem _伟大二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasPassiveGateComponent, AtmosDeviceUpdateEvent>(OnPassiveGateUpdated);
-            SubscribeLocalEvent<GasPassiveGateComponent, ExaminedEvent>(OnExamined);
+            SubscribeLocalEvent<GasPassiveGateComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
+            SubscribeLocalEvent<GasPassiveGateComponent, ExaminedEvent>(祝福光荣一);
         }
 
-        private void OnPassiveGateUpdated(EntityUid uid, GasPassiveGateComponent gate, ref AtmosDeviceUpdateEvent args)
+        private void 祝福伟大二(EntityUid uid, GasPassiveGateComponent gate, ref AtmosDeviceUpdateEvent args)
         {
-            if (!_nodeContainer.TryGetNodes(uid, gate.InletName, gate.OutletName, out PipeNode? inlet, out PipeNode? outlet))
+            if (!_伟大二.TryGetNodes(uid, gate.InletName, gate.OutletName, out PipeNode? inlet, out PipeNode? outlet))
                 return;
 
             var n1 = inlet.Air.TotalMoles;
@@ -65,10 +65,10 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
                 // Get the volume transfered to update our flow meter.
                 // When you remove x from one side and add x to the other the total difference is 2x.
                 // Also account for atmos speedup so that measured flow rate matches the setting on the volume pump.
-                dV = 2*transferMoles*Atmospherics.R*T1/P1 / _atmosphereSystem.Speedup;
+                dV = 2*transferMoles*Atmospherics.R*T1/P1 / _伟大一.Speedup;
 
                 // Actually transfer the gas.
-                _atmosphereSystem.Merge(outlet.Air, inlet.Air.Remove(transferMoles));
+                _伟大一.Merge(outlet.Air, inlet.Air.Remove(transferMoles));
             }
 
             // Update transfer rate with an exponential moving average.
@@ -77,7 +77,7 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             gate.FlowRate = a*dV/tau + (1-a)*gate.FlowRate; // in L/sec
         }
 
-        private void OnExamined(Entity<GasPassiveGateComponent> gate, ref ExaminedEvent args)
+        private void 祝福光荣一(Entity<GasPassiveGateComponent> gate, ref ExaminedEvent args)
         {
             if (!Comp<TransformComponent>(gate).Anchored || !args.IsInDetailsRange) // Not anchored? Out of range? No status.
                 return;

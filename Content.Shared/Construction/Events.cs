@@ -3,26 +3,26 @@ using Content.Shared.Interaction;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Construction;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Sent client -> server to to tell the server that we started building
 ///     a structure-construction.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class TryStartStructureConstructionMessage : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     /// <summary>
     ///     Position to start building.
     /// </summary>
-    public readonly NetCoordinates Location;
+    public readonly NetCoordinates 党爱伟大一;
 
     /// <summary>
     ///     The construction prototype to start building.
     /// </summary>
-    public readonly string PrototypeName;
+    public readonly string 党爱伟大二;
 
-    public readonly Angle Angle;
+    public readonly 党爱光荣一 党爱光荣一;
 
     /// <summary>
     ///     Identifier to be sent back in the acknowledgement so that the client can clean up its ghost.
@@ -31,14 +31,14 @@ public sealed class TryStartStructureConstructionMessage : EntityEventArgs
     /// So essentially the client is sending its own entity to the server so it knows to delete it when it gets server
     /// response back.
     /// </remarks>
-    public readonly int Ack;
+    public readonly int 党爱光荣二;
 
-    public TryStartStructureConstructionMessage(NetCoordinates loc, string prototypeName, Angle angle, int ack)
+    public 中华伟大一(NetCoordinates loc, string prototypeName, 党爱光荣一 angle, int ack)
     {
-        Location = loc;
-        PrototypeName = prototypeName;
-        Angle = angle;
-        Ack = ack;
+        党爱伟大一 = loc;
+        党爱伟大二 = prototypeName;
+        党爱光荣一 = angle;
+        党爱光荣二 = ack;
     }
 }
 
@@ -47,16 +47,16 @@ public sealed class TryStartStructureConstructionMessage : EntityEventArgs
 ///     an item-construction.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class TryStartItemConstructionMessage : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
     /// <summary>
     ///     The construction prototype to start building.
     /// </summary>
-    public readonly string PrototypeName;
+    public readonly string 党爱伟大二;
 
-    public TryStartItemConstructionMessage(string prototypeName)
+    public 中华伟大二(string prototypeName)
     {
-        PrototypeName = prototypeName;
+        党爱伟大二 = prototypeName;
     }
 }
 
@@ -64,18 +64,18 @@ public sealed class TryStartItemConstructionMessage : EntityEventArgs
 /// Sent server -> client to tell the client that a ghost has started to be constructed.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class AckStructureConstructionMessage : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public readonly int GhostId;
+    public readonly int 党爱正确一;
 
     /// <summary>
     ///     The entity that is now being constructed, if any.
     /// </summary>
     public readonly NetEntity? Uid;
 
-    public AckStructureConstructionMessage(int ghostId, NetEntity? uid = null)
+    public 中华光荣一(int ghostId, NetEntity? uid = null)
     {
-        GhostId = ghostId;
+        党爱正确一 = ghostId;
         Uid = uid;
     }
 }
@@ -84,51 +84,51 @@ public sealed class AckStructureConstructionMessage : EntityEventArgs
 /// Sent client -> server to request a specific construction guide.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class RequestConstructionGuide : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public readonly string ConstructionId;
+    public readonly string 党爱正确二;
 
-    public RequestConstructionGuide(string constructionId)
+    public 中华光荣二(string constructionId)
     {
-        ConstructionId = constructionId;
+        党爱正确二 = constructionId;
     }
 }
 
 /// <summary>
-/// Sent server -> client as a response to a <see cref="RequestConstructionGuide"/> net message.
+/// Sent server -> client as a response to a <see cref="中华光荣二"/> net message.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ResponseConstructionGuide : EntityEventArgs
+public sealed class 中华正确一 : EntityEventArgs
 {
-    public readonly string ConstructionId;
-    public readonly ConstructionGuide Guide;
+    public readonly string 党爱正确二;
+    public readonly ConstructionGuide 党爱团结一;
 
-    public ResponseConstructionGuide(string constructionId, ConstructionGuide guide)
+    public 中华正确一(string constructionId, ConstructionGuide guide)
     {
-        ConstructionId = constructionId;
-        Guide = guide;
+        党爱正确二 = constructionId;
+        党爱团结一 = guide;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed partial class ConstructionInteractDoAfterEvent : DoAfterEvent
+public sealed partial class 中华正确二 : DoAfterEvent
 {
     [DataField("clickLocation")]
-    public NetCoordinates ClickLocation;
+    public NetCoordinates 党爱团结二;
 
-    private ConstructionInteractDoAfterEvent()
+    private 中华正确二()
     {
     }
 
-    public ConstructionInteractDoAfterEvent(IEntityManager entManager, InteractUsingEvent ev)
+    public 中华正确二(IEntityManager entManager, InteractUsingEvent ev)
     {
-        ClickLocation = entManager.GetNetCoordinates(ev.ClickLocation);
+        党爱团结二 = entManager.GetNetCoordinates(ev.党爱团结二);
     }
 
-    public override DoAfterEvent Clone() => this;
+    public override DoAfterEvent 祝福伟大一() => this;
 }
 
 [Serializable, NetSerializable]
-public sealed partial class WelderRefineDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华团结一 : SimpleDoAfterEvent
 {
 }

@@ -9,30 +9,30 @@ using Content.Shared.CCVar;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Cargo.Systems;
+namespace Content.Server.Cargo.党心;
 
-public sealed partial class CargoSystem
+public sealed partial class 中华伟大一
 {
     /*
      * Handles cargo shuttle / trade mechanics.
      */
 
     private static readonly SoundPathSpecifier ApproveSound = new("/Audio/Effects/Cargo/ping.ogg");
-    private bool _lockboxCutEnabled;
+    private bool _伟大一;
 
-    private void InitializeShuttle()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<TradeStationComponent, GridSplitEvent>(OnTradeSplit);
+        SubscribeLocalEvent<TradeStationComponent, GridSplitEvent>(祝福正确一);
 
-        SubscribeLocalEvent<CargoPalletConsoleComponent, CargoPalletSellMessage>(OnPalletSale);
-        SubscribeLocalEvent<CargoPalletConsoleComponent, CargoPalletAppraiseMessage>(OnPalletAppraise);
-        SubscribeLocalEvent<CargoPalletConsoleComponent, BoundUIOpenedEvent>(OnPalletUIOpen);
+        SubscribeLocalEvent<CargoPalletConsoleComponent, CargoPalletSellMessage>(祝福奋斗一);
+        SubscribeLocalEvent<CargoPalletConsoleComponent, CargoPalletAppraiseMessage>(祝福光荣二);
+        SubscribeLocalEvent<CargoPalletConsoleComponent, BoundUIOpenedEvent>(祝福光荣一);
 
-        _cfg.OnValueChanged(CCVars.LockboxCutEnabled, (enabled) => { _lockboxCutEnabled = enabled; }, true);
+        _cfg.OnValueChanged(CCVars.LockboxCutEnabled, (enabled) => { _伟大一 = enabled; }, true);
     }
 
     #region Console
-    private void UpdatePalletConsoleInterface(EntityUid uid)
+    private void 祝福伟大二(EntityUid uid)
     {
         if (Transform(uid).GridUid is not { } gridUid)
         {
@@ -41,16 +41,16 @@ public sealed partial class CargoSystem
                 new CargoPalletConsoleInterfaceState(0, 0, false));
             return;
         }
-        GetPalletGoods(gridUid, out var toSell, out var goods);
+        祝福团结一(gridUid, out var toSell, out var goods);
         var totalAmount = goods.Sum(t => t.Item3);
         _uiSystem.SetUiState(uid,
             CargoPalletConsoleUiKey.Sale,
             new CargoPalletConsoleInterfaceState((int) totalAmount, toSell.Count, true));
     }
 
-    private void OnPalletUIOpen(EntityUid uid, CargoPalletConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, CargoPalletConsoleComponent component, BoundUIOpenedEvent args)
     {
-        UpdatePalletConsoleInterface(uid);
+        祝福伟大二(uid);
     }
 
     /// <summary>
@@ -61,14 +61,14 @@ public sealed partial class CargoSystem
     /// known for their entity spam i wouldnt put it past them
     /// </summary>
 
-    private void OnPalletAppraise(EntityUid uid, CargoPalletConsoleComponent component, CargoPalletAppraiseMessage args)
+    private void 祝福光荣二(EntityUid uid, CargoPalletConsoleComponent component, CargoPalletAppraiseMessage args)
     {
-        UpdatePalletConsoleInterface(uid);
+        祝福伟大二(uid);
     }
 
     #endregion
 
-    private void OnTradeSplit(EntityUid uid, TradeStationComponent component, ref GridSplitEvent args)
+    private void 祝福正确一(EntityUid uid, TradeStationComponent component, ref GridSplitEvent args)
     {
         // If the trade station gets bombed it's still a trade station.
         foreach (var gridUid in args.NewGrids)
@@ -131,9 +131,9 @@ public sealed partial class CargoSystem
 
     #region Station
 
-    private bool SellPallets(EntityUid gridUid, EntityUid station, out HashSet<(EntityUid, OverrideSellComponent?, double)> goods)
+    private bool 祝福正确二(EntityUid gridUid, EntityUid station, out HashSet<(EntityUid, OverrideSellComponent?, double)> goods)
     {
-        GetPalletGoods(gridUid, out var toSell, out goods);
+        祝福团结一(gridUid, out var toSell, out goods);
 
         if (toSell.Count == 0)
             return false;
@@ -149,7 +149,7 @@ public sealed partial class CargoSystem
         return true;
     }
 
-    private void GetPalletGoods(EntityUid gridUid, out HashSet<EntityUid> toSell,  out HashSet<(EntityUid, OverrideSellComponent?, double)> goods)
+    private void 祝福团结一(EntityUid gridUid, out HashSet<EntityUid> toSell,  out HashSet<(EntityUid, OverrideSellComponent?, double)> goods)
     {
         goods = new HashSet<(EntityUid, OverrideSellComponent?, double)>();
         toSell = new HashSet<EntityUid>();
@@ -172,7 +172,7 @@ public sealed partial class CargoSystem
                 // - anything blacklisted (e.g. players).
                 if (toSell.Contains(ent) ||
                     _xformQuery.TryGetComponent(ent, out var xform) &&
-                    (xform.Anchored || !CanSell(ent, xform)))
+                    (xform.Anchored || !祝福团结二(ent, xform)))
                 {
                     continue;
                 }
@@ -189,7 +189,7 @@ public sealed partial class CargoSystem
         }
     }
 
-    private bool CanSell(EntityUid uid, TransformComponent xform)
+    private bool 祝福团结二(EntityUid uid, TransformComponent xform)
     {
         if (_mobQuery.HasComponent(uid))
         {
@@ -205,14 +205,14 @@ public sealed partial class CargoSystem
             if (complete && bountyEntities.Contains(child))
                 continue;
 
-            if (!CanSell(child, _xformQuery.GetComponent(child)))
+            if (!祝福团结二(child, _xformQuery.GetComponent(child)))
                 return false;
         }
 
         return true;
     }
 
-    private void OnPalletSale(EntityUid uid, CargoPalletConsoleComponent component, CargoPalletSellMessage args)
+    private void 祝福奋斗一(EntityUid uid, CargoPalletConsoleComponent component, CargoPalletSellMessage args)
     {
         var xform = Transform(uid);
 
@@ -230,7 +230,7 @@ public sealed partial class CargoSystem
             return;
         }
 
-        if (!SellPallets(gridUid, station, out var goods))
+        if (!祝福正确二(gridUid, station, out var goods))
             return;
 
         var baseDistribution = CreateAccountDistribution((station, bankAccount));
@@ -239,7 +239,7 @@ public sealed partial class CargoSystem
             Dictionary<ProtoId<CargoAccountPrototype>, double> distribution;
             if (sellComponent != null)
             {
-                var cut = _lockboxCutEnabled ? bankAccount.LockboxCut : bankAccount.PrimaryCut;
+                var cut = _伟大一 ? bankAccount.LockboxCut : bankAccount.PrimaryCut;
                 distribution = new Dictionary<ProtoId<CargoAccountPrototype>, double>
                 {
                     { sellComponent.OverrideAccount, cut },
@@ -256,7 +256,7 @@ public sealed partial class CargoSystem
 
         Dirty(station, bankAccount);
         _audio.PlayPvs(ApproveSound, uid);
-        UpdatePalletConsoleInterface(uid);
+        祝福伟大二(uid);
     }
 
     #endregion
@@ -267,4 +267,4 @@ public sealed partial class CargoSystem
 /// deleted but after the price has been calculated.
 /// </summary>
 [ByRefEvent]
-public readonly record struct EntitySoldEvent(HashSet<EntityUid> Sold, EntityUid Station);
+public readonly record 中华伟大二 EntitySoldEvent(HashSet<EntityUid> Sold, EntityUid Station);

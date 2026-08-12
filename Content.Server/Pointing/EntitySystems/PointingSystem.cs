@@ -26,28 +26,28 @@ using Robust.Shared.Player;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Pointing.EntitySystems
+namespace Content.Server.Pointing.党心
 {
     [UsedImplicitly]
-    internal sealed class PointingSystem : SharedPointingSystem
+    internal sealed class 中华伟大一 : SharedPointingSystem
     {
-        [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly IReplayRecordingManager _replay = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly RotateToFaceSystem _rotateToFaceSystem = default!;
-        [Dependency] private readonly SharedContainerSystem _container = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly VisibilitySystem _visibilitySystem = default!;
-        [Dependency] private readonly SharedMindSystem _minds = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly ExamineSystemShared _examine = default!;
+        [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+        [Dependency] private readonly IReplayRecordingManager _伟大二 = default!;
+        [Dependency] private readonly IMapManager _光荣一 = default!;
+        [Dependency] private readonly IPlayerManager _光荣二 = default!;
+        [Dependency] private readonly ITileDefinitionManager _正确一 = default!;
+        [Dependency] private readonly IGameTiming _正确二 = default!;
+        [Dependency] private readonly RotateToFaceSystem _团结一 = default!;
+        [Dependency] private readonly SharedContainerSystem _团结二 = default!;
+        [Dependency] private readonly SharedPopupSystem _奋斗一 = default!;
+        [Dependency] private readonly VisibilitySystem _奋斗二 = default!;
+        [Dependency] private readonly SharedMindSystem _胜利一 = default!;
+        [Dependency] private readonly SharedTransformSystem _胜利二 = default!;
+        [Dependency] private readonly SharedMapSystem _繁荣一 = default!;
+        [Dependency] private readonly IAdminLogManager _繁荣二 = default!;
+        [Dependency] private readonly ExamineSystemShared _富强一 = default!;
 
-        private TimeSpan _pointDelay = TimeSpan.FromSeconds(0.5f);
+        private TimeSpan _富强二 = TimeSpan.FromSeconds(0.5f);
 
         /// <summary>
         ///     A dictionary of players to the last time that they
@@ -57,7 +57,7 @@ namespace Content.Server.Pointing.EntitySystems
 
         private const float PointingRange = 15f;
 
-        private void GetCompState(Entity<PointingArrowComponent> entity, ref ComponentGetState args)
+        private void 祝福伟大一(Entity<PointingArrowComponent> entity, ref ComponentGetState args)
         {
             args.State = new SharedPointingArrowComponentState
             {
@@ -66,7 +66,7 @@ namespace Content.Server.Pointing.EntitySystems
             };
         }
 
-        private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福伟大二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus != SessionStatus.Disconnected)
             {
@@ -77,7 +77,7 @@ namespace Content.Server.Pointing.EntitySystems
         }
 
         // TODO: FOV
-        private void SendMessage(
+        private void 祝福光荣一(
             EntityUid source,
             IEnumerable<ICommonSession> viewers,
             EntityUid pointed,
@@ -106,22 +106,22 @@ namespace Content.Server.Pointing.EntitySystems
                 RaiseNetworkEvent(new PopupEntityEvent(message, popupType, netSource), viewerEntity);
             }
 
-            _replay.RecordServerMessage(new PopupEntityEvent(viewerMessage, PopupType.Small, netSource));
+            _伟大二.RecordServerMessage(new PopupEntityEvent(viewerMessage, PopupType.Small, netSource));
         }
 
-        public bool InRange(EntityUid pointer, EntityCoordinates coordinates)
+        public bool 祝福光荣二(EntityUid pointer, EntityCoordinates coordinates)
         {
             if (HasComp<GhostComponent>(pointer))
             {
-                return _transform.InRange(Transform(pointer).Coordinates, coordinates, 15);
+                return _胜利二.祝福光荣二(Transform(pointer).Coordinates, coordinates, 15);
             }
             else
             {
-                return _examine.InRangeUnOccluded(pointer, coordinates, 15, predicate: e => e == pointer);
+                return _富强一.InRangeUnOccluded(pointer, coordinates, 15, predicate: e => e == pointer);
             }
         }
 
-        public bool TryPoint(ICommonSession? session, EntityCoordinates coordsPointed, EntityUid pointed)
+        public bool 祝福正确一(ICommonSession? session, EntityCoordinates coordsPointed, EntityUid pointed)
         {
             if (session?.AttachedEntity is not { } player)
             {
@@ -136,7 +136,7 @@ namespace Content.Server.Pointing.EntitySystems
             }
 
             if (_pointers.TryGetValue(session, out var lastTime) &&
-                _gameTiming.CurTime < lastTime + _pointDelay)
+                _正确二.CurTime < lastTime + _富强二)
             {
                 return false;
             }
@@ -152,20 +152,20 @@ namespace Content.Server.Pointing.EntitySystems
                 return false;
             }
 
-            if (!InRange(player, coordsPointed))
+            if (!祝福光荣二(player, coordsPointed))
             {
-                _popup.PopupEntity(Loc.GetString("pointing-system-try-point-cannot-reach"), player, player);
+                _奋斗一.PopupEntity(Loc.GetString("pointing-system-try-point-cannot-reach"), player, player);
                 return false;
             }
-            var mapCoordsPointed = _transform.ToMapCoordinates(coordsPointed);
-            _rotateToFaceSystem.TryFaceCoordinates(player, mapCoordsPointed.Position);
+            var mapCoordsPointed = _胜利二.ToMapCoordinates(coordsPointed);
+            _团结一.TryFaceCoordinates(player, mapCoordsPointed.Position);
 
             var arrow = Spawn("PointingArrow", coordsPointed);
 
             if (TryComp<PointingArrowComponent>(arrow, out var pointing))
             {
-                pointing.StartPosition = _transform.ToCoordinates((arrow, Transform(arrow)), _transform.ToMapCoordinates(Transform(player).Coordinates)).Position;
-                pointing.EndTime = _gameTiming.CurTime + PointDuration;
+                pointing.StartPosition = _胜利二.ToCoordinates((arrow, Transform(arrow)), _胜利二.ToMapCoordinates(Transform(player).Coordinates)).Position;
+                pointing.EndTime = _正确二.CurTime + PointDuration;
 
                 Dirty(arrow, pointing);
             }
@@ -183,19 +183,19 @@ namespace Content.Server.Pointing.EntitySystems
             {
                 var arrowVisibility = EnsureComp<VisibilityComponent>(arrow);
                 layer = playerVisibility.Layer;
-                _visibilitySystem.SetLayer((arrow, arrowVisibility), (ushort) layer);
+                _奋斗二.SetLayer((arrow, arrowVisibility), (ushort) layer);
             }
 
             // Get players that are in range and whose visibility layer matches the arrow's.
             bool ViewerPredicate(ICommonSession playerSession)
             {
-                if (!_minds.TryGetMind(playerSession, out _, out var mind) ||
+                if (!_胜利一.TryGetMind(playerSession, out _, out var mind) ||
                     mind.CurrentEntity is not { Valid: true } ent ||
                     !TryComp(ent, out EyeComponent? eyeComp) ||
                     (eyeComp.VisibilityMask & layer) == 0)
                     return false;
 
-                return _transform.GetMapCoordinates(ent).InRange(_transform.GetMapCoordinates(player), PointingRange);
+                return _胜利二.GetMapCoordinates(ent).祝福光荣二(_胜利二.GetMapCoordinates(player), PointingRange);
             }
 
             var viewers = Filter.Empty()
@@ -214,7 +214,7 @@ namespace Content.Server.Pointing.EntitySystems
                 EntityUid? containingInventory = null;
                 // Search up through the target's containing containers until we find an inventory
                 var inventoryQuery = GetEntityQuery<InventoryComponent>();
-                foreach (var container in _container.GetContainingContainers(pointed))
+                foreach (var container in _团结二.GetContainingContainers(pointed))
                 {
                     if (inventoryQuery.HasComp(container.Owner))
                     {
@@ -277,83 +277,83 @@ namespace Content.Server.Pointing.EntitySystems
                 var gotev = new AfterGotPointedAtEvent(player);
                 RaiseLocalEvent(pointed, ref gotev);
 
-                _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):user} pointed at {ToPrettyString(pointed):target} {Transform(pointed).Coordinates}");
+                _繁荣二.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):user} pointed at {ToPrettyString(pointed):target} {Transform(pointed).Coordinates}");
             }
             else
             {
                 TileRef? tileRef = null;
                 string? position = null;
 
-                if (_mapManager.TryFindGridAt(mapCoordsPointed, out var gridUid, out var grid))
+                if (_光荣一.TryFindGridAt(mapCoordsPointed, out var gridUid, out var grid))
                 {
-                    position = $"EntId={gridUid} {_map.WorldToTile(gridUid, grid, mapCoordsPointed.Position)}";
-                    tileRef = _map.GetTileRef(gridUid, grid, _map.WorldToTile(gridUid, grid, mapCoordsPointed.Position));
+                    position = $"EntId={gridUid} {_繁荣一.WorldToTile(gridUid, grid, mapCoordsPointed.Position)}";
+                    tileRef = _繁荣一.GetTileRef(gridUid, grid, _繁荣一.WorldToTile(gridUid, grid, mapCoordsPointed.Position));
                 }
 
-                var tileDef = _tileDefinitionManager[tileRef?.Tile.TypeId ?? 0];
+                var tileDef = _正确一[tileRef?.Tile.TypeId ?? 0];
 
                 var name = Loc.GetString(tileDef.Name);
                 selfMessage = Loc.GetString("pointing-system-point-at-tile", ("tileName", name));
 
                 viewerMessage = Loc.GetString("pointing-system-other-point-at-tile", ("otherName", playerName), ("tileName", name));
 
-                _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):user} pointed at {name} {(position == null ? mapCoordsPointed : position)}");
+                _繁荣二.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):user} pointed at {name} {(position == null ? mapCoordsPointed : position)}");
             }
 
-            _pointers[session] = _gameTiming.CurTime;
+            _pointers[session] = _正确二.CurTime;
 
-            SendMessage(player, viewers, pointed, selfMessage, viewerMessage, viewerPointedAtMessage);
+            祝福光荣一(player, viewers, pointed, selfMessage, viewerMessage, viewerPointedAtMessage);
 
             return true;
         }
 
-        public override void Initialize()
+        public override void 祝福正确二()
         {
-            base.Initialize();
+            base.祝福正确二();
 
-            SubscribeLocalEvent<PointingArrowComponent, ComponentGetState>(GetCompState);
+            SubscribeLocalEvent<PointingArrowComponent, ComponentGetState>(祝福伟大一);
 
-            SubscribeNetworkEvent<PointingAttemptEvent>(OnPointAttempt);
+            SubscribeNetworkEvent<PointingAttemptEvent>(祝福团结一);
 
-            _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
+            _光荣二.PlayerStatusChanged += 祝福伟大二;
 
             CommandBinds.Builder
-                .Bind(ContentKeyFunctions.Point, new PointerInputCmdHandler(TryPoint))
-                .Register<PointingSystem>();
+                .Bind(ContentKeyFunctions.Point, new PointerInputCmdHandler(祝福正确一))
+                .Register<中华伟大一>();
 
-            Subs.CVar(_config, CCVars.PointingCooldownSeconds, v => _pointDelay = TimeSpan.FromSeconds(v), true);
+            Subs.CVar(_伟大一, CCVars.PointingCooldownSeconds, v => _富强二 = TimeSpan.FromSeconds(v), true);
         }
 
-        private void OnPointAttempt(PointingAttemptEvent ev, EntitySessionEventArgs args)
+        private void 祝福团结一(PointingAttemptEvent ev, EntitySessionEventArgs args)
         {
             var target = GetEntity(ev.Target);
 
             if (TryComp(target, out TransformComponent? xformTarget))
-                TryPoint(args.SenderSession, xformTarget.Coordinates, target);
+                祝福正确一(args.SenderSession, xformTarget.Coordinates, target);
             else
                 Log.Warning($"User {args.SenderSession} attempted to point at a non-existent entity uid: {ev.Target}");
         }
 
-        public override void Shutdown()
+        public override void 祝福团结二()
         {
-            base.Shutdown();
+            base.祝福团结二();
 
-            _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
+            _光荣二.PlayerStatusChanged -= 祝福伟大二;
             _pointers.Clear();
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福奋斗一(float frameTime)
         {
-            var currentTime = _gameTiming.CurTime;
+            var currentTime = _正确二.CurTime;
 
             var query = AllEntityQuery<PointingArrowComponent>();
             while (query.MoveNext(out var uid, out var component))
             {
-                Update((uid, component), currentTime);
+                祝福奋斗一((uid, component), currentTime);
             }
         }
 
-        private void Update(Entity<PointingArrowComponent> pointing, TimeSpan currentTime)
+        private void 祝福奋斗一(Entity<PointingArrowComponent> pointing, TimeSpan currentTime)
         {
             // TODO: That pause PR
             var component = pointing.Comp;

@@ -4,21 +4,21 @@ using Content.Shared.Explosion.Components;
 using Content.Shared.Xenoarchaeology.Artifact;
 using Content.Shared.Xenoarchaeology.Artifact.XAE;
 
-namespace Content.Server.Xenoarchaeology.Artifact.XAE;
+namespace Content.Server.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// System for xeno artifact effect of triggering explosion.
 /// </summary>
-public sealed class XAETriggerExplosivesSystem : BaseXAESystem<XAETriggerExplosivesComponent>
+public sealed class 中华伟大一 : BaseXAESystem<XAETriggerExplosivesComponent>
 {
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
+    [Dependency] private readonly ExplosionSystem _伟大一 = default!;
 
     /// <inheritdoc />
-    protected override void OnActivated(Entity<XAETriggerExplosivesComponent> ent, ref XenoArtifactNodeActivatedEvent args)
+    protected override void 祝福伟大一(Entity<XAETriggerExplosivesComponent> ent, ref XenoArtifactNodeActivatedEvent args)
     {
         if(!TryComp<ExplosiveComponent>(ent, out var explosiveComp))
             return;
 
-        _explosion.TriggerExplosive(ent, explosiveComp);
+        _伟大一.TriggerExplosive(ent, explosiveComp);
     }
 }

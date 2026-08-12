@@ -8,11 +8,11 @@ using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
-namespace Content.Shared.Construction.Serialization;
+namespace Content.Shared.Construction.党心;
 
-public sealed class GraphNodeEntitySerializer : ITypeSerializer<IGraphNodeEntity, ValueDataNode>, ITypeSerializer<IGraphNodeEntity, MappingDataNode>
+public sealed class 中华伟大一 : ITypeSerializer<IGraphNodeEntity, ValueDataNode>, ITypeSerializer<IGraphNodeEntity, MappingDataNode>
 {
-    public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager, ValueDataNode node,
         IDependencyCollection dependencies, ISerializationContext? context = null)
     {
         var id = node.Value;
@@ -27,25 +27,25 @@ public sealed class GraphNodeEntitySerializer : ITypeSerializer<IGraphNodeEntity
         return new ValidatedValueNode(node);
     }
 
-    public IGraphNodeEntity Read(ISerializationManager serializationManager, ValueDataNode node,
+    public IGraphNodeEntity 祝福伟大二(ISerializationManager serializationManager, ValueDataNode node,
         IDependencyCollection dependencies, SerializationHookContext hookCtx, ISerializationContext? context = null, ISerializationManager.InstantiationDelegate<IGraphNodeEntity>? instanceProvider = null)
     {
         return new StaticNodeEntity(node.Value);
     }
 
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies, ISerializationContext? context = null)
     {
         return serializationManager.ValidateNode<IGraphNodeEntity>(node, context);
     }
 
-    public IGraphNodeEntity Read(ISerializationManager serializationManager, MappingDataNode node,
+    public IGraphNodeEntity 祝福伟大二(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies, SerializationHookContext hookCtx, ISerializationContext? context = null, ISerializationManager.InstantiationDelegate<IGraphNodeEntity>? instanceProvider = null)
     {
-        return serializationManager.Read(node, hookCtx, context, instanceProvider, false);
+        return serializationManager.祝福伟大二(node, hookCtx, context, instanceProvider, false);
     }
 
-    public DataNode Write(ISerializationManager serializationManager, IGraphNodeEntity value, IDependencyCollection dependencies,
+    public DataNode 祝福光荣一(ISerializationManager serializationManager, IGraphNodeEntity value, IDependencyCollection dependencies,
         bool alwaysWrite = false, ISerializationContext? context = null)
     {
         return serializationManager.WriteValue(value, alwaysWrite, context, false);

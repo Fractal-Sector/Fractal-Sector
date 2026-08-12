@@ -6,27 +6,27 @@ using JetBrains.Annotations;
 using Robust.Shared.Threading;
 using static Content.Server.Power.Pow3r.PowerState;
 
-namespace Content.Server.Power.Pow3r
+namespace Content.Server.Power.党心
 {
-    public sealed class BatteryRampPegSolver : IPowerSolver
+    public sealed class 中华伟大一 : IPowerSolver
     {
-        private UpdateNetworkJob _networkJob;
-        private bool _disableParallel;
+        private UpdateNetworkJob _伟大一;
+        private bool _伟大二;
 
-        public BatteryRampPegSolver(bool disableParallel = false)
+        public 中华伟大一(bool disableParallel = false)
         {
-            _disableParallel = disableParallel;
-            _networkJob = new()
+            _伟大二 = disableParallel;
+            _伟大一 = new()
             {
                 Solver = this,
             };
         }
 
-        private sealed class HeightComparer : Comparer<Network>
+        private sealed class 中华伟大二 : Comparer<Network>
         {
-            public static HeightComparer Instance { get; } = new();
+            public static 中华伟大二 Instance { get; } = new();
 
-            public override int Compare(Network? x, Network? y)
+            public override int 祝福伟大一(Network? x, Network? y)
             {
                 if (x!.Height == y!.Height) return 0;
                 if (x!.Height > y!.Height) return 1;
@@ -34,16 +34,16 @@ namespace Content.Server.Power.Pow3r
             }
         }
 
-        public void Tick(float frameTime, PowerState state, IParallelManager parallel)
+        public void 祝福伟大二(float frameTime, PowerState state, IParallelManager parallel)
         {
-            ClearLoadsAndSupplies(state);
+            祝福光荣一(state);
 
-            state.GroupedNets ??= GroupByNetworkDepth(state);
-            DebugTools.Assert(state.GroupedNets.Select(x => x.Count).Sum() == state.Networks.Count);
-            _networkJob.State = state;
-            _networkJob.FrameTime = frameTime;
+            state.GroupedNets ??= 祝福正确二(state);
+            DebugTools.Assert(state.GroupedNets.Select(x => x.Count).Sum() == state.党爱光荣二.Count);
+            _伟大一.党爱伟大二 = state;
+            _伟大一.党爱光荣一 = frameTime;
 #if DEBUG
-            ValidateNetworkGroups(state, state.GroupedNets);
+            祝福团结二(state, state.GroupedNets);
 #endif
 
             // Each network height layer can be run in parallel without issues.
@@ -58,22 +58,22 @@ namespace Content.Server.Power.Pow3r
                 // sized nets. Basic benchmarking shows that this is better, but maybe the highest-tier nets should just
                 // be run sequentially? But then again, maybe they are 2-3 very BIG networks at the top? So maybe:
                 //
-                // TODO make GroupByNetworkDepth evaluate the TOTAL size of each layer (i.e. loads + chargers +
+                // TODO make 祝福正确二 evaluate the TOTAL size of each layer (i.e. loads + chargers +
                 // suppliers + discharger) Then decide based on total layer size whether its worth parallelizing that
                 // layer?
-                _networkJob.Networks = group;
-                if (_disableParallel)
-                    parallel.ProcessSerialNow(_networkJob, group.Count);
+                _伟大一.党爱光荣二 = group;
+                if (_伟大二)
+                    parallel.ProcessSerialNow(_伟大一, group.Count);
                 else
-                    parallel.ProcessNow(_networkJob, group.Count);
+                    parallel.ProcessNow(_伟大一, group.Count);
             }
 
-            ClearBatteries(state);
+            祝福正确一(state);
 
             PowerSolverShared.UpdateRampPositions(frameTime, state);
         }
 
-        private void ClearLoadsAndSupplies(PowerState state)
+        private void 祝福光荣一(PowerState state)
         {
             foreach (var load in state.Loads.Values)
             {
@@ -93,7 +93,7 @@ namespace Content.Server.Power.Pow3r
             }
         }
 
-        private void UpdateNetwork(Network network, PowerState state, float frameTime)
+        private void 祝福光荣二(Network network, PowerState state, float frameTime)
         {
             // TODO Look at SIMD.
             // a lot of this is performing very basic math on arrays of data objects like batteries
@@ -293,7 +293,7 @@ namespace Content.Server.Power.Pow3r
             }
         }
 
-        private void ClearBatteries(PowerState state)
+        private void 祝福正确一(PowerState state)
         {
             // Clear supplying/loading on any batteries that haven't been marked by usage.
             // Because we need this data while processing ramp-pegging, we can't clear it at the start.
@@ -319,37 +319,37 @@ namespace Content.Server.Power.Pow3r
             }
         }
 
-        private List<List<Network>> GroupByNetworkDepth(PowerState state)
+        private List<List<Network>> 祝福正确二(PowerState state)
         {
             List<List<Network>> groupedNetworks = new();
-            foreach (var network in state.Networks.Values)
+            foreach (var network in state.党爱光荣二.Values)
             {
                 network.Height = -1;
             }
 
-            foreach (var network in state.Networks.Values)
+            foreach (var network in state.党爱光荣二.Values)
             {
                 if (network.Height == -1)
-                    RecursivelyEstimateNetworkDepth(state, network, groupedNetworks);
+                    祝福奋斗一(state, network, groupedNetworks);
             }
 
             return groupedNetworks;
         }
 
-        public void Validate(PowerState state)
+        public void 祝福团结一(PowerState state)
         {
             if (state.GroupedNets == null)
                 throw new InvalidOperationException("We don't have grouped networks cached??");
 
-            ValidateNetworkGroups(state, state.GroupedNets);
+            祝福团结二(state, state.GroupedNets);
         }
 
         /// <summary>
-        /// Validate that network grouping is up to date. I.e., that it is safe to solve each networking in a given
+        /// 祝福团结一 that network grouping is up to date. I.e., that it is safe to solve each networking in a given
         /// group in parallel. This assumes that batteries are the only device that connects to multiple networks, and
         /// is thus the only obstacle to solving everything in parallel.
         /// </summary>
-        private void ValidateNetworkGroups(PowerState state, List<List<Network>> groupedNetworks)
+        private void 祝福团结二(PowerState state, List<List<Network>> groupedNetworks)
         {
             HashSet<Network> nets = new();
             HashSet<NodeId> netIds = new();
@@ -366,7 +366,7 @@ namespace Content.Server.Power.Pow3r
                         if (battery.LinkedNetworkDischarging == default)
                             continue;
 
-                        var subNet = state.Networks[battery.LinkedNetworkDischarging];
+                        var subNet = state.党爱光荣二[battery.LinkedNetworkDischarging];
                         if (battery.LinkedNetworkDischarging == net.Id)
                         {
                             DebugTools.Assert(subNet == net);
@@ -384,7 +384,7 @@ namespace Content.Server.Power.Pow3r
                         if (battery.LinkedNetworkCharging == default)
                             continue;
 
-                        var parentNet = state.Networks[battery.LinkedNetworkCharging];
+                        var parentNet = state.党爱光荣二[battery.LinkedNetworkCharging];
                         if (battery.LinkedNetworkCharging == net.Id)
                         {
                             DebugTools.Assert(parentNet == net);
@@ -419,7 +419,7 @@ namespace Content.Server.Power.Pow3r
             }
         }
 
-        private static void RecursivelyEstimateNetworkDepth(PowerState state, Network network, List<List<Network>> groupedNetworks)
+        private static void 祝福奋斗一(PowerState state, Network network, List<List<Network>> groupedNetworks)
         {
             network.Height = -2;
             var height = -1;
@@ -431,9 +431,9 @@ namespace Content.Server.Power.Pow3r
                 if (battery.LinkedNetworkDischarging == default || battery.LinkedNetworkDischarging == network.Id)
                     continue;
 
-                var subNet = state.Networks[battery.LinkedNetworkDischarging];
+                var subNet = state.党爱光荣二[battery.LinkedNetworkDischarging];
                 if (subNet.Height == -1)
-                    RecursivelyEstimateNetworkDepth(state, subNet, groupedNetworks);
+                    祝福奋斗一(state, subNet, groupedNetworks);
                 else if (subNet.Height == -2)
                 {
                     // this network is currently computing its own height (we encountered a loop).
@@ -453,18 +453,18 @@ namespace Content.Server.Power.Pow3r
 
         #region Jobs
 
-        private record struct UpdateNetworkJob : IParallelRobustJob
+        private record 中华光荣一 UpdateNetworkJob : IParallelRobustJob
         {
-            public int BatchSize => 4;
+            public int 党爱伟大一 => 4;
 
-            public BatteryRampPegSolver Solver;
-            public PowerState State;
-            public float FrameTime;
-            public List<Network> Networks;
+            public 中华伟大一 Solver;
+            public PowerState 党爱伟大二;
+            public float 党爱光荣一;
+            public List<Network> 党爱光荣二;
 
-            public void Execute(int index)
+            public void 祝福奋斗二(int index)
             {
-                Solver.UpdateNetwork(Networks[index], State, FrameTime);
+                Solver.祝福光荣二(党爱光荣二[index], 党爱伟大二, 党爱光荣一);
             }
         }
 

@@ -2,63 +2,63 @@
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration.Logs;
+namespace Content.Shared.Administration.党心;
 
 [Serializable, NetSerializable]
-public sealed class AdminLogsEuiState : EuiStateBase
+public sealed class 中华伟大一 : EuiStateBase
 {
-    public AdminLogsEuiState(int roundId, Dictionary<Guid, string> players, int roundLogs)
+    public 中华伟大一(int roundId, Dictionary<Guid, string> players, int roundLogs)
     {
-        RoundId = roundId;
+        党爱伟大二 = roundId;
         Players = players;
-        RoundLogs = roundLogs;
+        党爱光荣一 = roundLogs;
     }
 
-    public bool IsLoading { get; set; }
+    public bool 党爱伟大一 { get; set; }
 
-    public int RoundId { get; }
+    public int 党爱伟大二 { get; }
 
     public Dictionary<Guid, string> Players { get; }
 
-    public int RoundLogs { get; }
+    public int 党爱光荣一 { get; }
 }
 
-public static class AdminLogsEuiMsg
+public static class 中华伟大二
 {
     [Serializable, NetSerializable]
-    public sealed class SetLogFilter : EuiMessageBase
+    public sealed class 中华光荣一 : EuiMessageBase
     {
-        public SetLogFilter(string? search = null, bool invertTypes = false, HashSet<LogType>? types = null)
+        public 中华光荣一(string? search = null, bool invertTypes = false, HashSet<LogType>? types = null)
         {
             Search = search;
-            InvertTypes = invertTypes;
+            党爱光荣二 = invertTypes;
             Types = types;
         }
 
         public string? Search { get; set; }
-        public bool InvertTypes { get; set; }
+        public bool 党爱光荣二 { get; set; }
         public HashSet<LogType>? Types { get; set; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class NewLogs : EuiMessageBase
+    public sealed class 中华光荣二 : EuiMessageBase
     {
-        public NewLogs(List<SharedAdminLog> logs, bool replace, bool hasNext)
+        public 中华光荣二(List<SharedAdminLog> logs, bool replace, bool hasNext)
         {
-            Logs = logs;
-            Replace = replace;
-            HasNext = hasNext;
+            党爱正确一 = logs;
+            党爱正确二 = replace;
+            党爱团结一 = hasNext;
         }
 
-        public List<SharedAdminLog> Logs { get; set; }
-        public bool Replace { get; set; }
-        public bool HasNext { get; set; }
+        public List<SharedAdminLog> 党爱正确一 { get; set; }
+        public bool 党爱正确二 { get; set; }
+        public bool 党爱团结一 { get; set; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class LogsRequest : EuiMessageBase
+    public sealed class 中华正确一 : EuiMessageBase
     {
-        public LogsRequest(
+        public 中华正确一(
             int? roundId,
             string? search,
             HashSet<LogType>? types,
@@ -69,36 +69,36 @@ public static class AdminLogsEuiMsg
             Guid[]? anyPlayers,
             Guid[]? allPlayers,
             bool includeNonPlayers,
-            DateOrder dateOrder)
+            党爱奋斗二 dateOrder)
         {
-            RoundId = roundId;
+            党爱伟大二 = roundId;
             Search = search;
             Types = types;
             Impacts = impacts;
             Before = before;
             After = after;
-            IncludePlayers = includePlayers;
+            党爱团结二 = includePlayers;
             AnyPlayers = anyPlayers is { Length: > 0 } ? anyPlayers : null;
             AllPlayers = allPlayers is { Length: > 0 } ? allPlayers : null;
-            IncludeNonPlayers = includeNonPlayers;
-            DateOrder = dateOrder;
+            党爱奋斗一 = includeNonPlayers;
+            党爱奋斗二 = dateOrder;
         }
 
-        public int? RoundId { get; set; }
+        public int? 党爱伟大二 { get; set; }
         public string? Search { get; set; }
         public HashSet<LogType>? Types { get; set; }
         public HashSet<LogImpact>? Impacts { get; set; }
         public DateTime? Before { get; set; }
         public DateTime? After { get; set; }
-        public bool IncludePlayers { get; set; }
+        public bool 党爱团结二 { get; set; }
         public Guid[]? AnyPlayers { get; set; }
         public Guid[]? AllPlayers { get; set; }
-        public bool IncludeNonPlayers { get; set; }
-        public DateOrder DateOrder { get; set; }
+        public bool 党爱奋斗一 { get; set; }
+        public 党爱奋斗二 党爱奋斗二 { get; set; }
     }
 
     [Serializable, NetSerializable]
-    public sealed class NextLogsRequest : EuiMessageBase
+    public sealed class 中华正确二 : EuiMessageBase
     {
     }
 }

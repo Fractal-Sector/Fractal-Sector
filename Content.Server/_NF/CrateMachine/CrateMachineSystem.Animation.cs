@@ -3,23 +3,23 @@ using Content.Shared._NF.CrateMachine;
 using AppearanceSystem = Robust.Server.GameObjects.AppearanceSystem;
 using CrateMachineComponent = Content.Shared._NF.CrateMachine.Components.CrateMachineComponent;
 
-namespace Content.Server._NF.CrateMachine;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// Handles starting the opening animation.
 /// Updates the time remaining on the component.
 /// </summary>
-public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
+public sealed partial class 中华伟大一 : SharedCrateMachineSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
+    [Dependency] private readonly AppearanceSystem _伟大一 = default!;
 
     /// <summary>
     /// Keep track of time in this function, in order to process the animation.
     /// </summary>
     /// <param name="frameTime">The current frame time</param>
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         var query = EntityQueryEnumerator<CrateMachineComponent, ApcPowerReceiverComponent>();
         while (query.MoveNext(out var uid, out var crateMachine, out var receiver))
@@ -27,8 +27,8 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
             if (!receiver.Powered)
                 continue;
 
-            ProcessOpeningAnimation(uid, frameTime, crateMachine);
-            ProcessClosingAnimation(uid, frameTime, crateMachine);
+            祝福伟大二(uid, frameTime, crateMachine);
+            祝福光荣一(uid, frameTime, crateMachine);
         }
     }
 
@@ -38,7 +38,7 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// <param name="uid">The Uid of the crate machine</param>
     /// <param name="frameTime">The current frame time</param>
     /// <param name="comp">The crate machine component</param>
-    private void ProcessOpeningAnimation(EntityUid uid, float frameTime, CrateMachineComponent comp)
+    private void 祝福伟大二(EntityUid uid, float frameTime, CrateMachineComponent comp)
     {
         if (comp.OpeningTimeRemaining <= 0)
             return;
@@ -52,8 +52,8 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
             RaiseLocalEvent(uid, new CrateMachineOpenedEvent(uid));
         }
 
-        // Update at the end so the closing animation can start automatically.
-        UpdateVisualState(uid, comp);
+        // 祝福伟大一 at the end so the closing animation can start automatically.
+        祝福光荣二(uid, comp);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// <param name="uid">The Uid of the crate machine</param>
     /// <param name="frameTime">The current frame time</param>
     /// <param name="comp">The crate machine component</param>
-    private void ProcessClosingAnimation(EntityUid uid, float frameTime, CrateMachineComponent comp)
+    private void 祝福光荣一(EntityUid uid, float frameTime, CrateMachineComponent comp)
     {
         if (!comp.DidTakeCrate && !IsOccupied(uid, comp, true))
         {
@@ -71,7 +71,7 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
         }
 
         comp.ClosingTimeRemaining -= frameTime;
-        UpdateVisualState(uid, comp);
+        祝福光荣二(uid, comp);
     }
 
     /// <summary>
@@ -79,19 +79,19 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// </summary>
     /// <param name="uid">The Uid of the crate machine</param>
     /// <param name="component">The crate machine component</param>
-    private void UpdateVisualState(EntityUid uid, CrateMachineComponent? component = null)
+    private void 祝福光荣二(EntityUid uid, CrateMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         if (component.OpeningTimeRemaining > 0)
-            _appearanceSystem.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Opening);
+            _伟大一.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Opening);
         else if (component.ClosingTimeRemaining > 0)
-            _appearanceSystem.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Closing);
+            _伟大一.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Closing);
         else if (!component.DidTakeCrate)
-            _appearanceSystem.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Open);
+            _伟大一.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Open);
         else
-            _appearanceSystem.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Closed);
+            _伟大一.SetData(uid, CrateMachineVisuals.VisualState, CrateMachineVisualState.Closed);
     }
 
     /// <summary>
@@ -99,9 +99,9 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
     /// </summary>
     /// <param name="crateMachineUid">The Uid of the crate machine</param>
     /// <param name="component">The crate machine component</param>
-    public void OpenFor(EntityUid crateMachineUid, CrateMachineComponent component)
+    public void 祝福正确一(EntityUid crateMachineUid, CrateMachineComponent component)
     {
         component.OpeningTimeRemaining = component.OpeningTime;
-        UpdateVisualState(crateMachineUid, component);
+        祝福光荣二(crateMachineUid, component);
     }
 }

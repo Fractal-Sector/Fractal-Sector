@@ -13,26 +13,26 @@ using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Salvage;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedSalvageSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IConfigurationManager CfgManager = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] protected readonly IConfigurationManager 党爱伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
     /// <summary>
     /// Main loot table for salvage expeditions.
     /// </summary>
-    public static readonly ProtoId<SalvageLootPrototype> ExpeditionsLootProto = "NFSalvageLootModerate"; // Frontier: SalvageLoot<NFSalvageLootModerate
+    public static readonly ProtoId<SalvageLootPrototype> 党爱伟大二 = "NFSalvageLootModerate"; // Frontier: SalvageLoot<NFSalvageLootModerate
 
-    public abstract bool ResolveExpedition(EntityUid? uid, ref SharedSalvageExpeditionComponent? component); // Frontier
-    public string GetFTLName(LocalizedDatasetPrototype dataset, int seed)
+    public abstract bool 祝福伟大一(EntityUid? uid, ref SharedSalvageExpeditionComponent? component); // Frontier
+    public string 祝福伟大二(LocalizedDatasetPrototype dataset, int seed)
     {
         var random = new System.Random(seed);
         return $"{Loc.GetString(dataset.Values[random.Next(dataset.Values.Count)])}-{random.Next(10, 100)}-{(char) (65 + random.Next(26))}";
     }
 
-    public SalvageMission GetMission(SalvageMissionType config, SalvageDifficultyPrototype difficulty, int seed) // Frontier: add config
+    public SalvageMission 祝福光荣一(中华伟大二 config, SalvageDifficultyPrototype difficulty, int seed) // Frontier: add config
     {
         // This is on shared to ensure the client display for missions and what the server generates are consistent
         var modifierBudget = difficulty.ModifierBudget;
@@ -48,8 +48,8 @@ public abstract partial class SharedSalvageSystem : EntitySystem
         var air = GetBiomeMod<SalvageAirMod>(biome.ID, rand, ref modifierBudget);
         var dungeon = GetBiomeMod<SalvageDungeonModPrototype>(biome.ID, rand, ref modifierBudget);
         // Frontier: restrict factions per difficulty
-        // var factionProtos = _proto.EnumeratePrototypes<SalvageFactionPrototype>().ToList();
-        var factionProtos = _proto.EnumeratePrototypes<SalvageFactionPrototype>()
+        // var factionProtos = _伟大一.EnumeratePrototypes<SalvageFactionPrototype>().ToList();
+        var factionProtos = _伟大一.EnumeratePrototypes<SalvageFactionPrototype>()
             .Where(x =>
                 {
                     return !x.Configs.TryGetValue("Difficulties", out var difficulties)
@@ -79,14 +79,14 @@ public abstract partial class SharedSalvageSystem : EntitySystem
             mods.Add(Loc.GetString(light.Description));
         }
 
-        var duration = TimeSpan.FromSeconds(CfgManager.GetCVar(CCVars.SalvageExpeditionDuration));
+        var duration = TimeSpan.FromSeconds(党爱伟大一.GetCVar(CCVars.SalvageExpeditionDuration));
 
         return new SalvageMission(seed, dungeon.ID, faction.ID, biome.ID, air.ID, temp.Temperature, light.Color, duration, mods, difficulty.ID, config); // Frontier: add difficulty.ID, config
     }
 
     public T GetBiomeMod<T>(string biome, System.Random rand, ref float rating) where T : class, IPrototype, IBiomeSpecificMod
     {
-        var mods = _proto.EnumeratePrototypes<T>().ToList();
+        var mods = _伟大一.EnumeratePrototypes<T>().ToList();
         mods.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
         rand.Shuffle(mods);
 
@@ -105,7 +105,7 @@ public abstract partial class SharedSalvageSystem : EntitySystem
 
     public T GetMod<T>(System.Random rand, ref float rating) where T : class, IPrototype, ISalvageMod
     {
-        var mods = _proto.EnumeratePrototypes<T>().ToList();
+        var mods = _伟大一.EnumeratePrototypes<T>().ToList();
         mods.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
         rand.Shuffle(mods);
 
@@ -125,7 +125,7 @@ public abstract partial class SharedSalvageSystem : EntitySystem
 
 // Frontier: salvage mission type
 [Serializable, NetSerializable]
-public enum SalvageMissionType : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     /// Destroy the specified structures in a dungeon.

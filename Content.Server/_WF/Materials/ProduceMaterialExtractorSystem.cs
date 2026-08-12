@@ -4,11 +4,11 @@ using Content.Server.Materials.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Storage.Components;
 
-namespace Content.Server.Materials;
+namespace Content.Server.党心;
 
-public sealed partial class ProduceMaterialExtractorSystem
+public sealed partial class 中华伟大一
 {
-    private void OnGetDumpableVerb(Entity<ProduceMaterialExtractorComponent> ent, ref GetDumpableVerbEvent args)
+    private void 祝福伟大一(Entity<ProduceMaterialExtractorComponent> ent, ref GetDumpableVerbEvent args)
     {
         if (!this.IsPowered(ent, EntityManager))
             return;
@@ -16,7 +16,7 @@ public sealed partial class ProduceMaterialExtractorSystem
         args.Verb = Loc.GetString("dump-biogenerator-verb-name", ("unit", ent));
     }
 
-    private void OnDump(Entity<ProduceMaterialExtractorComponent> ent, ref DumpEvent args)
+    private void 祝福伟大二(Entity<ProduceMaterialExtractorComponent> ent, ref DumpEvent args)
     {
         if (args.Handled)
             return;
@@ -30,7 +30,7 @@ public sealed partial class ProduceMaterialExtractorSystem
 
         foreach (var item in args.DumpQueue)
         {
-            if (TryExtractFromProduce(ent, item, args.User))
+            if (祝福光荣一(ent, item, args.User))
                 success = true;
         }
 
@@ -40,7 +40,7 @@ public sealed partial class ProduceMaterialExtractorSystem
         }
     }
 
-    private bool TryExtractFromProduce(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used, EntityUid user)
+    private bool 祝福光荣一(Entity<ProduceMaterialExtractorComponent> ent, EntityUid used, EntityUid user)
     {
         if (!TryComp<ProduceComponent>(used, out var produce))
             return false;

@@ -2,7 +2,7 @@ using System.Linq;
 using Content.Shared.Access;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.Access;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// Utilities to check the access of a particular entity against an arbitrary set of AccessLevels and AccessTags
@@ -11,11 +11,11 @@ namespace Content.Server._NF.Access;
 /// <remarks>
 /// Does this have to be an EntitySystem?
 /// </remarks>
-public sealed partial class NFAccessSystemUtilities : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     [Dependency] IPrototypeManager _proto = default!;
 
-    public bool IsAllowed(ICollection<ProtoId<AccessLevelPrototype>>? targetTags, ICollection<ProtoId<AccessLevelPrototype>>? accessTags, ICollection<ProtoId<AccessGroupPrototype>>? accessGroups)
+    public bool 祝福伟大一(ICollection<ProtoId<AccessLevelPrototype>>? targetTags, ICollection<ProtoId<AccessLevelPrototype>>? accessTags, ICollection<ProtoId<AccessGroupPrototype>>? accessGroups)
     {
         // Empty/null sets: no access requested.
         if ((accessTags == null || accessTags.Count <= 0)

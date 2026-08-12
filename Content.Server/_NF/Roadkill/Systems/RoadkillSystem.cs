@@ -11,30 +11,30 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.Roadkill.Systems;
+namespace Content.Server._NF.Roadkill.党心;
 
 /// <summary>
 /// Kills and/or gibs entities (useful for space mobs) when they collide with a quickly moving grid.
 /// </summary>
-public sealed class RoadkillSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly PhysicsSystem _伟大一 = default!;
+    [Dependency] private readonly AudioSystem _伟大二 = default!;
+    [Dependency] private readonly MobStateSystem _光荣一 = default!;
+    [Dependency] private readonly MobThresholdSystem _光荣二 = default!;
+    [Dependency] private readonly DamageableSystem _正确一 = default!;
 
-    private readonly ProtoId<DamageTypePrototype> _bluntDamageType = "Blunt";
-    private readonly FixedPoint2 _extraDamage = 20;
+    private readonly ProtoId<DamageTypePrototype> _正确二 = "Blunt";
+    private readonly FixedPoint2 _团结一 = 20;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoadkillComponent, StartCollideEvent>(OnRoadkillCollide);
+        SubscribeLocalEvent<RoadkillComponent, StartCollideEvent>(祝福伟大二);
     }
 
-    private void OnRoadkillCollide(Entity<RoadkillComponent> ent, ref StartCollideEvent args)
+    private void 祝福伟大二(Entity<RoadkillComponent> ent, ref StartCollideEvent args)
     {
         var ourXform = Transform(ent);
         var otherXform = Transform(args.OtherEntity);
@@ -48,32 +48,32 @@ public sealed class RoadkillSystem : EntitySystem
             || HasComp<ItemComponent>(args.OtherEntity))
             return;
 
-        var ourVelocity = _physics.GetMapLinearVelocity(ent, args.OurBody, ourXform);
-        var otherVelocity = _physics.GetMapLinearVelocity(args.OtherEntity, args.OtherBody, otherXform);
+        var ourVelocity = _伟大一.GetMapLinearVelocity(ent, args.OurBody, ourXform);
+        var otherVelocity = _伟大一.GetMapLinearVelocity(args.OtherEntity, args.OtherBody, otherXform);
         var jungleDiff = (ourVelocity - otherVelocity).Length();
 
         if (jungleDiff >= ent.Comp.DestroySpeed)
         {
             // Play audio following the colliding entity (presumably more stable for doppler than a static position)
             if (ent.Comp.DestroySound != null)
-                _audio.PlayPvs(_audio.ResolveSound(ent.Comp.DestroySound), args.OtherEntity);
+                _伟大二.PlayPvs(_伟大二.ResolveSound(ent.Comp.DestroySound), args.OtherEntity);
             QueueDel(ent);
         }
         else if (jungleDiff >= ent.Comp.KillSpeed)
         {
-            if (_mobState.IsDead(ent))
+            if (_光荣一.IsDead(ent))
                 return;
 
             // Try to apply damage if this thing can take damage.
-            if (_mobThreshold.TryGetThresholdForState(ent, MobState.Dead, out var threshold) &&
+            if (_光荣二.TryGetThresholdForState(ent, MobState.Dead, out var threshold) &&
                 TryComp<DamageableComponent>(ent, out var damageableComponent) &&
                 damageableComponent.TotalDamage < threshold)
             {
                 var damage = new DamageSpecifier();
-                damage.DamageDict[_bluntDamageType] = threshold.Value - damageableComponent.TotalDamage + _extraDamage;
-                _damageable.TryChangeDamage(ent, damage, ignoreResistances: true);
+                damage.DamageDict[_正确二] = threshold.Value - damageableComponent.TotalDamage + _团结一;
+                _正确一.TryChangeDamage(ent, damage, ignoreResistances: true);
             }
-            _mobState.ChangeMobState(ent, MobState.Dead);
+            _光荣一.ChangeMobState(ent, MobState.Dead);
         }
     }
 }

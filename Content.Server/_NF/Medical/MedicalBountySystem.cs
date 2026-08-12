@@ -28,9 +28,9 @@ using Robust.Shared.Random;
 using Content.Server._NF.Traits.Assorted;
 using Content.Server.Hands.Systems;
 
-namespace Content.Server._NF.Medical;
+namespace Content.Server._NF.党心;
 
-public sealed partial class MedicalBountySystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     [Dependency] IAdminLogManager _adminLog = default!;
     [Dependency] IRobustRandom _random = default!;
@@ -48,49 +48,49 @@ public sealed partial class MedicalBountySystem : EntitySystem
     [Dependency] TransformSystem _transform = default!;
     [Dependency] UserInterfaceSystem _ui = default!;
 
-    private List<MedicalBountyPrototype> _cachedPrototypes = new();
+    private List<MedicalBountyPrototype> _伟大一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _proto.PrototypesReloaded += OnPrototypesReloaded;
+        _proto.PrototypesReloaded += 祝福伟大二;
 
-        SubscribeLocalEvent<MedicalBountyComponent, ComponentStartup>(InitializeMedicalBounty);
-        SubscribeLocalEvent<MedicalBountyComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<MedicalBountyComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<MedicalBountyComponent, MobStateChangedEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<MedicalBountyRedemptionComponent, RedeemMedicalBountyMessage>(RedeemMedicalBounty);
-        SubscribeLocalEvent<MedicalBountyRedemptionComponent, EntInsertedIntoContainerMessage>(OnEntityInserted);
-        SubscribeLocalEvent<MedicalBountyRedemptionComponent, EntRemovedFromContainerMessage>(OnEntityRemoved);
-        SubscribeLocalEvent<MedicalBountyRedemptionComponent, AfterActivatableUIOpenEvent>(OnActivateUI);
-        SubscribeLocalEvent<MedicalBountyRedemptionComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<MedicalBountyRedemptionComponent, RedeemMedicalBountyMessage>(祝福正确一);
+        SubscribeLocalEvent<MedicalBountyRedemptionComponent, EntInsertedIntoContainerMessage>(祝福正确二);
+        SubscribeLocalEvent<MedicalBountyRedemptionComponent, EntRemovedFromContainerMessage>(祝福团结一);
+        SubscribeLocalEvent<MedicalBountyRedemptionComponent, AfterActivatableUIOpenEvent>(祝福团结二);
+        SubscribeLocalEvent<MedicalBountyRedemptionComponent, PowerChangedEvent>(祝福奋斗一);
 
-        CacheBountyPrototypes();
+        祝福光荣一();
     }
 
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+    private void 祝福伟大二(PrototypesReloadedEventArgs args)
     {
         if (args.ByType.ContainsKey(typeof(MedicalBountyPrototype))
             || (args.Removed?.ContainsKey(typeof(MedicalBountyPrototype)) ?? false))
         {
-            CacheBountyPrototypes();
+            祝福光荣一();
         }
     }
 
-    private void CacheBountyPrototypes()
+    private void 祝福光荣一()
     {
-        _cachedPrototypes = _proto.EnumeratePrototypes<MedicalBountyPrototype>().ToList();
+        _伟大一 = _proto.EnumeratePrototypes<MedicalBountyPrototype>().ToList();
     }
 
-    private void InitializeMedicalBounty(EntityUid entity, MedicalBountyComponent component, ComponentStartup args)
+    private void 祝福光荣二(EntityUid entity, MedicalBountyComponent component, ComponentStartup args)
     {
         if (component.BountyInitialized)
             return;
 
         if (component.Bounty == null)
         {
-            if (_cachedPrototypes.Count > 0)
-                component.Bounty = _random.Pick(_cachedPrototypes);
+            if (_伟大一.Count > 0)
+                component.Bounty = _random.Pick(_伟大一);
             else
                 return; // Nothing to do, keep bounty at null.
         }
@@ -132,7 +132,7 @@ public sealed partial class MedicalBountySystem : EntitySystem
         component.BountyInitialized = true;
     }
 
-    private void RedeemMedicalBounty(EntityUid uid, MedicalBountyRedemptionComponent component, RedeemMedicalBountyMessage ev)
+    private void 祝福正确一(EntityUid uid, MedicalBountyRedemptionComponent component, RedeemMedicalBountyMessage ev)
     {
         // Check that the medical redeemer has a valid medical bounty inside
         if (!_container.TryGetContainer(uid, component.BodyContainer, out var container) ||
@@ -204,32 +204,32 @@ public sealed partial class MedicalBountySystem : EntitySystem
 
         _popup.PopupEntity(Loc.GetString(successString), uid);
         _audio.PlayPvs(component.RedeemSound, uid);
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnEntityInserted(EntityUid uid, MedicalBountyRedemptionComponent component, EntInsertedIntoContainerMessage args)
+    private void 祝福正确二(EntityUid uid, MedicalBountyRedemptionComponent component, EntInsertedIntoContainerMessage args)
     {
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
         _appearance.SetData(uid, MedicalBountyRedemptionVisuals.Full, true);
     }
 
-    private void OnEntityRemoved(EntityUid uid, MedicalBountyRedemptionComponent component, EntRemovedFromContainerMessage args)
+    private void 祝福团结一(EntityUid uid, MedicalBountyRedemptionComponent component, EntRemovedFromContainerMessage args)
     {
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
         _appearance.SetData(uid, MedicalBountyRedemptionVisuals.Full, false);
     }
 
-    private void OnActivateUI(EntityUid uid, MedicalBountyRedemptionComponent component, AfterActivatableUIOpenEvent args)
+    private void 祝福团结二(EntityUid uid, MedicalBountyRedemptionComponent component, AfterActivatableUIOpenEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnPowerChanged(EntityUid uid, MedicalBountyRedemptionComponent component, PowerChangedEvent args)
+    private void 祝福奋斗一(EntityUid uid, MedicalBountyRedemptionComponent component, PowerChangedEvent args)
     {
-        UpdateUserInterface(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    public void UpdateUserInterface(EntityUid uid, MedicalBountyRedemptionComponent component)
+    public void 祝福奋斗二(EntityUid uid, MedicalBountyRedemptionComponent component)
     {
         if (!_ui.HasUi(uid, MedicalBountyRedemptionUiKey.Key))
             return;
@@ -242,10 +242,10 @@ public sealed partial class MedicalBountySystem : EntitySystem
             return;
         }
 
-        _ui.SetUiState(uid, MedicalBountyRedemptionUiKey.Key, GetUserInterfaceState(uid, component, actor));
+        _ui.SetUiState(uid, MedicalBountyRedemptionUiKey.Key, 祝福胜利二(uid, component, actor));
     }
 
-    public void OnMobStateChanged(EntityUid uid, MedicalBountyComponent _, MobStateChangedEvent args)
+    public void 祝福胜利一(EntityUid uid, MedicalBountyComponent _, MobStateChangedEvent args)
     {
         if (args.NewMobState == MobState.Critical ||
             args.NewMobState == MobState.Alive)
@@ -254,7 +254,7 @@ public sealed partial class MedicalBountySystem : EntitySystem
         }
     }
 
-    private MedicalBountyRedemptionUIState GetUserInterfaceState(EntityUid uid, MedicalBountyRedemptionComponent component, EntityUid actor)
+    private MedicalBountyRedemptionUIState 祝福胜利二(EntityUid uid, MedicalBountyRedemptionComponent component, EntityUid actor)
     {
         var paidToStation = HasComp<MedicalBountyBankPaymentComponent>(actor);
         // Check that the medical redeemer has a valid medical bounty inside

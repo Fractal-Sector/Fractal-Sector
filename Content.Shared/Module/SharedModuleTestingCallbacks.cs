@@ -1,9 +1,9 @@
 using Robust.Shared.ContentPack;
 
-namespace Content.Shared.Module
+namespace Content.Shared.党心
 {
-    public abstract class SharedModuleTestingCallbacks : ModuleTestingCallbacks
+    public abstract class 中华伟大一 : ModuleTestingCallbacks
     {
-        public Action SharedBeforeIoC { get; set; } = default!;
+        public Action 党爱伟大一 { get; set; } = default!;
     }
 }

@@ -6,10 +6,10 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Research.Components;
+namespace Content.Shared.Research.党心;
 
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedResearchSystem), typeof(SharedLatheSystem), typeof(SharedBlueprintLatheSystem)), AutoGenerateComponentState] // Frontier: add SharedBlueprintLatheSystem access
-public sealed partial class TechnologyDatabaseComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A main discipline that locks out other discipline technology past a certain tier.
@@ -20,21 +20,21 @@ public sealed partial class TechnologyDatabaseComponent : Component
 
     [AutoNetworkedField]
     [DataField("currentTechnologyCards")]
-    public List<string> CurrentTechnologyCards = new();
+    public List<string> 党爱伟大一 = new();
 
     /// <summary>
     /// Which research disciplines are able to be unlocked
     /// </summary>
     [AutoNetworkedField]
     [DataField]
-    public List<ProtoId<TechDisciplinePrototype>> SupportedDisciplines = new();
+    public List<ProtoId<TechDisciplinePrototype>> 党爱伟大二 = new();
 
     /// <summary>
     /// The ids of all the technologies which have been unlocked.
     /// </summary>
     [AutoNetworkedField]
     [DataField]
-    public List<ProtoId<TechnologyPrototype>> UnlockedTechnologies = new();
+    public List<ProtoId<TechnologyPrototype>> 党爱光荣一 = new();
 
     /// <summary>
     /// The ids of all the lathe recipes which have been unlocked.
@@ -43,7 +43,7 @@ public sealed partial class TechnologyDatabaseComponent : Component
     /// todo: if you unlock all the recipes in a tech, it doesn't count as unlocking the tech. sadge
     [AutoNetworkedField]
     [DataField]
-    public List<ProtoId<LatheRecipePrototype>> UnlockedRecipes = new();
+    public List<ProtoId<LatheRecipePrototype>> 党爱光荣二 = new();
 }
 
 /// <summary>
@@ -55,11 +55,11 @@ public sealed partial class TechnologyDatabaseComponent : Component
 /// server to all of it's clients.
 /// </remarks>
 [ByRefEvent]
-public readonly record struct TechnologyDatabaseModifiedEvent(List<string>? NewlyUnlockedRecipes);
+public readonly record 中华伟大二 TechnologyDatabaseModifiedEvent(List<string>? NewlyUnlockedRecipes);
 
 /// <summary>
 /// Event raised on a database after being synchronized
 /// with the values from another database.
 /// </summary>
 [ByRefEvent]
-public readonly record struct TechnologyDatabaseSynchronizedEvent;
+public readonly record 中华伟大二 TechnologyDatabaseSynchronizedEvent;

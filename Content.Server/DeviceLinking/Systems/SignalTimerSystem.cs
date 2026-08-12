@@ -8,73 +8,73 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
-public sealed class SignalTimerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly DeviceLinkSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
+    [Dependency] private readonly AccessReaderSystem _正确二 = default!;
 
     /// <summary>
     /// Per-tick timer cache.
     /// </summary>
-    private List<Entity<SignalTimerComponent>> _timers = new();
+    private List<Entity<SignalTimerComponent>> _团结一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SignalTimerComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<SignalTimerComponent, AfterActivatableUIOpenEvent>(OnAfterActivatableUIOpen);
+        SubscribeLocalEvent<SignalTimerComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<SignalTimerComponent, AfterActivatableUIOpenEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<SignalTimerComponent, SignalTimerTextChangedMessage>(OnTextChangedMessage);
-        SubscribeLocalEvent<SignalTimerComponent, SignalTimerRepeatToggled>(OnRepeatChangedMessage); // Frontier: Repeat toggle event subscribe
-        SubscribeLocalEvent<SignalTimerComponent, SignalTimerDelayChangedMessage>(OnDelayChangedMessage);
-        SubscribeLocalEvent<SignalTimerComponent, SignalTimerStartMessage>(OnTimerStartMessage);
-        SubscribeLocalEvent<SignalTimerComponent, SignalReceivedEvent>(OnSignalReceived);
+        SubscribeLocalEvent<SignalTimerComponent, SignalTimerTextChangedMessage>(祝福团结二);
+        SubscribeLocalEvent<SignalTimerComponent, SignalTimerRepeatToggled>(祝福奋斗二); // Frontier: Repeat toggle event subscribe
+        SubscribeLocalEvent<SignalTimerComponent, SignalTimerDelayChangedMessage>(祝福奋斗一);
+        SubscribeLocalEvent<SignalTimerComponent, SignalTimerStartMessage>(祝福胜利一);
+        SubscribeLocalEvent<SignalTimerComponent, SignalReceivedEvent>(祝福胜利二);
     }
 
-    private void OnInit(EntityUid uid, SignalTimerComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, SignalTimerComponent component, ComponentInit args)
     {
-        _appearanceSystem.SetData(uid, TextScreenVisuals.DefaultText, component.Label);
-        _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, component.Label);
-        _signalSystem.EnsureSinkPorts(uid, component.Trigger);
+        _光荣二.SetData(uid, TextScreenVisuals.DefaultText, component.Label);
+        _光荣二.SetData(uid, TextScreenVisuals.ScreenText, component.Label);
+        _光荣一.EnsureSinkPorts(uid, component.祝福光荣二);
     }
 
-    private void OnAfterActivatableUIOpen(EntityUid uid, SignalTimerComponent component, AfterActivatableUIOpenEvent args)
+    private void 祝福光荣一(EntityUid uid, SignalTimerComponent component, AfterActivatableUIOpenEvent args)
     {
         var time = TryComp<ActiveSignalTimerComponent>(uid, out var active) ? active.TriggerTime : TimeSpan.Zero;
 
-        if (_ui.HasUi(uid, SignalTimerUiKey.Key))
+        if (_正确一.HasUi(uid, SignalTimerUiKey.Key))
         {
-            _ui.SetUiState(uid, SignalTimerUiKey.Key, new SignalTimerBoundUserInterfaceState(component.Label,
+            _正确一.SetUiState(uid, SignalTimerUiKey.Key, new SignalTimerBoundUserInterfaceState(component.Label,
                 TimeSpan.FromSeconds(component.Delay).Minutes.ToString("D2"),
                 TimeSpan.FromSeconds(component.Delay).Seconds.ToString("D2"),
                 component.Repeat, // Frontier: Repeat value
                 component.CanEditLabel,
                 time,
                 active != null,
-                _accessReader.IsAllowed(args.User, uid)));
+                _正确二.IsAllowed(args.User, uid)));
         }
     }
 
     /// <summary>
     ///     Finishes a timer, triggering its main port, and removing its <see cref="ActiveSignalTimerComponent"/>.
     /// </summary>
-    public void Trigger(EntityUid uid, SignalTimerComponent signalTimer)
+    public void 祝福光荣二(EntityUid uid, SignalTimerComponent signalTimer)
     {
         RemComp<ActiveSignalTimerComponent>(uid);
 
-        _audio.PlayPvs(signalTimer.DoneSound, uid);
-        _signalSystem.InvokePort(uid, signalTimer.TriggerPort);
+        _伟大一.PlayPvs(signalTimer.DoneSound, uid);
+        _光荣一.InvokePort(uid, signalTimer.TriggerPort);
 
-        if (_ui.HasUi(uid, SignalTimerUiKey.Key))
+        if (_正确一.HasUi(uid, SignalTimerUiKey.Key))
         {
-            _ui.SetUiState(uid, SignalTimerUiKey.Key, new SignalTimerBoundUserInterfaceState(signalTimer.Label,
+            _正确一.SetUiState(uid, SignalTimerUiKey.Key, new SignalTimerBoundUserInterfaceState(signalTimer.Label,
                 TimeSpan.FromSeconds(signalTimer.Delay).Minutes.ToString("D2"),
                 TimeSpan.FromSeconds(signalTimer.Delay).Seconds.ToString("D2"),
                 signalTimer.Repeat, // Frontier: Repeat value
@@ -87,37 +87,37 @@ public sealed class SignalTimerSystem : EntitySystem
         // Frontier: Start new timer if repeat is on and not set to 0 seconds
         if (signalTimer.Repeat && signalTimer.Delay > 0)
         {
-            OnStartTimer(uid, signalTimer);
+            祝福繁荣一(uid, signalTimer);
         }
         // End Frontier
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
-        UpdateTimer();
+        base.祝福正确一(frameTime);
+        祝福正确二();
     }
 
-    private void UpdateTimer()
+    private void 祝福正确二()
     {
-        _timers.Clear();
+        _团结一.Clear();
 
         var query = EntityQueryEnumerator<ActiveSignalTimerComponent, SignalTimerComponent>();
         while (query.MoveNext(out var uid, out var active, out var timer))
         {
-            if (active.TriggerTime > _gameTiming.CurTime)
+            if (active.TriggerTime > _伟大二.CurTime)
                 continue;
 
-            _timers.Add((uid, timer));
+            _团结一.Add((uid, timer));
         }
 
-        foreach (var timer in _timers)
+        foreach (var timer in _团结一)
         {
             // Exploded or the likes.
             if (!Exists(timer.Owner))
                 continue;
 
-            Trigger(timer.Owner, timer.Comp);
+            祝福光荣二(timer.Owner, timer.Comp);
         }
     }
 
@@ -125,9 +125,9 @@ public sealed class SignalTimerSystem : EntitySystem
     ///     Checks if a UI <paramref name="message"/> is allowed to be sent by the user.
     /// </summary>
     /// <param name="uid">The entity that is interacted with.</param>
-    private bool IsMessageValid(EntityUid uid, BoundUserInterfaceMessage message)
+    private bool 祝福团结一(EntityUid uid, BoundUserInterfaceMessage message)
     {
-        if (!_accessReader.IsAllowed(message.Actor, uid))
+        if (!_正确二.IsAllowed(message.Actor, uid))
             return false;
 
         return true;
@@ -137,9 +137,9 @@ public sealed class SignalTimerSystem : EntitySystem
     ///     Called by <see cref="SignalTimerTextChangedMessage"/> to both
     ///     change the default component label, and propagate that change to the TextScreen.
     /// </summary>
-    private void OnTextChangedMessage(EntityUid uid, SignalTimerComponent component, SignalTimerTextChangedMessage args)
+    private void 祝福团结二(EntityUid uid, SignalTimerComponent component, SignalTimerTextChangedMessage args)
     {
-        if (!IsMessageValid(uid, args))
+        if (!祝福团结一(uid, args))
             return;
 
         component.Label = args.Text[..Math.Min(component.MaxLength, args.Text.Length)];
@@ -148,8 +148,8 @@ public sealed class SignalTimerSystem : EntitySystem
         {
             // could maybe move the defaulttext update out of this block,
             // if you delved deep into appearance update batching
-            _appearanceSystem.SetData(uid, TextScreenVisuals.DefaultText, component.Label);
-            _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, component.Label);
+            _光荣二.SetData(uid, TextScreenVisuals.DefaultText, component.Label);
+            _光荣二.SetData(uid, TextScreenVisuals.ScreenText, component.Label);
         }
     }
 
@@ -157,22 +157,22 @@ public sealed class SignalTimerSystem : EntitySystem
     ///     Called by <see cref="SignalTimerDelayChangedMessage"/> to change the <see cref="SignalTimerComponent"/>
     ///     delay, and propagate that change to a textscreen.
     /// </summary>
-    private void OnDelayChangedMessage(EntityUid uid, SignalTimerComponent component, SignalTimerDelayChangedMessage args)
+    private void 祝福奋斗一(EntityUid uid, SignalTimerComponent component, SignalTimerDelayChangedMessage args)
     {
-        if (!IsMessageValid(uid, args))
+        if (!祝福团结一(uid, args))
             return;
 
         component.Delay = Math.Min(args.Delay.TotalSeconds, component.MaxDuration);
-        _appearanceSystem.SetData(uid, TextScreenVisuals.TargetTime, component.Delay);
+        _光荣二.SetData(uid, TextScreenVisuals.TargetTime, component.Delay);
     }
 
     // Frontier: Repeat changed message
     /// <summary>
     ///     Called by <see cref="SignalTimerRepeatChangedMessage"/>.
     /// </summary>
-    private void OnRepeatChangedMessage(EntityUid uid, SignalTimerComponent component, SignalTimerRepeatToggled args)
+    private void 祝福奋斗二(EntityUid uid, SignalTimerComponent component, SignalTimerRepeatToggled args)
     {
-        if (!IsMessageValid(uid, args))
+        if (!祝福团结一(uid, args))
             return;
 
         component.Repeat = args.Repeat;
@@ -183,41 +183,41 @@ public sealed class SignalTimerSystem : EntitySystem
     ///     Called by <see cref="SignalTimerStartMessage"/> to instantiate an <see cref="ActiveSignalTimerComponent"/>,
     ///     clear <see cref="TextScreenVisuals.ScreenText"/>, propagate those changes, and invoke the start port.
     /// </summary>
-    private void OnTimerStartMessage(EntityUid uid, SignalTimerComponent component, SignalTimerStartMessage args)
+    private void 祝福胜利一(EntityUid uid, SignalTimerComponent component, SignalTimerStartMessage args)
     {
-        if (!IsMessageValid(uid, args))
+        if (!祝福团结一(uid, args))
             return;
 
         // feedback received: pressing the timer button while a timer is running should cancel the timer.
         if (HasComp<ActiveSignalTimerComponent>(uid))
         {
-            _appearanceSystem.SetData(uid, TextScreenVisuals.TargetTime, _gameTiming.CurTime);
-            Trigger(uid, component);
+            _光荣二.SetData(uid, TextScreenVisuals.TargetTime, _伟大二.CurTime);
+            祝福光荣二(uid, component);
         }
         else
-            OnStartTimer(uid, component);
+            祝福繁荣一(uid, component);
     }
 
-    private void OnSignalReceived(EntityUid uid, SignalTimerComponent component, ref SignalReceivedEvent args)
+    private void 祝福胜利二(EntityUid uid, SignalTimerComponent component, ref SignalReceivedEvent args)
     {
-        if (args.Port == component.Trigger)
+        if (args.Port == component.祝福光荣二)
         {
-            OnStartTimer(uid, component);
+            祝福繁荣一(uid, component);
         }
     }
 
-    public void OnStartTimer(EntityUid uid, SignalTimerComponent component)
+    public void 祝福繁荣一(EntityUid uid, SignalTimerComponent component)
     {
         TryComp<AppearanceComponent>(uid, out var appearance);
         var timer = EnsureComp<ActiveSignalTimerComponent>(uid);
-        timer.TriggerTime = _gameTiming.CurTime + TimeSpan.FromSeconds(component.Delay);
+        timer.TriggerTime = _伟大二.CurTime + TimeSpan.FromSeconds(component.Delay);
 
         if (appearance != null)
         {
-            _appearanceSystem.SetData(uid, TextScreenVisuals.TargetTime, timer.TriggerTime, appearance);
-            _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, string.Empty, appearance);
+            _光荣二.SetData(uid, TextScreenVisuals.TargetTime, timer.TriggerTime, appearance);
+            _光荣二.SetData(uid, TextScreenVisuals.ScreenText, string.Empty, appearance);
         }
 
-        _signalSystem.InvokePort(uid, component.StartPort);
+        _光荣一.InvokePort(uid, component.StartPort);
     }
 }

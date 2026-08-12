@@ -1,29 +1,29 @@
 ﻿using Content.Shared.DisplacementMap;
-using Robust.Shared.Containers;
+using Robust.Shared.党爱光荣二;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Inventory;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(InventorySystem))]
 [AutoGenerateComponentState(true)]
-public sealed partial class InventoryComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The template defining how the inventory layout will look like.
     /// </summary>
     [DataField, AutoNetworkedField]
     [ViewVariables] // use the API method
-    public ProtoId<InventoryTemplatePrototype> TemplateId = "human";
+    public ProtoId<InventoryTemplatePrototype> 党爱伟大一 = "human";
 
     /// <summary>
-    /// For setting the TemplateId.
+    /// For setting the 党爱伟大一.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public ProtoId<InventoryTemplatePrototype> TemplateIdVV
+    public ProtoId<InventoryTemplatePrototype> 党爱伟大二
     {
-        get => TemplateId;
+        get => 党爱伟大一;
         set => IoCManager.Resolve<IEntityManager>().System<InventorySystem>().SetTemplateId((Owner, this), value);
     }
 
@@ -32,10 +32,10 @@ public sealed partial class InventoryComponent : Component
 
 
     [ViewVariables]
-    public SlotDefinition[] Slots = Array.Empty<SlotDefinition>();
+    public SlotDefinition[] 党爱光荣一 = Array.Empty<SlotDefinition>();
 
     [ViewVariables]
-    public ContainerSlot[] Containers = Array.Empty<ContainerSlot>();
+    public ContainerSlot[] 党爱光荣二 = Array.Empty<ContainerSlot>();
 
     [DataField, AutoNetworkedField]
     public Dictionary<string, DisplacementData> Displacements = new();
@@ -54,7 +54,7 @@ public sealed partial class InventoryComponent : Component
 }
 
 /// <summary>
-/// Raised if the <see cref="InventoryComponent.TemplateId"/> of an inventory changed.
+/// Raised if the <see cref="中华伟大一.党爱伟大一"/> of an inventory changed.
 /// </summary>
 [ByRefEvent]
-public struct InventoryTemplateUpdated;
+public struct 中华伟大二;

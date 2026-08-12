@@ -7,21 +7,21 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Player;
 
-namespace Content.Server.Objectives.Commands
+namespace Content.Server.Objectives.党心
 {
     [AdminCommand(AdminFlags.Logs)]
-    public sealed class ListObjectivesCommand : LocalizedCommands
+    public sealed class 中华伟大一 : LocalizedCommands
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
-        [Dependency] private readonly IPlayerManager _players = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly IPlayerManager _伟大二 = default!;
 
-        public override string Command => "lsobjectives";
+        public override string 党爱伟大一 => "lsobjectives";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             ICommonSession? player;
             if (args.Length > 0)
-                _players.TryGetSessionByUsername(args[0], out player);
+                _伟大二.TryGetSessionByUsername(args[0], out player);
             else
                 player = shell.Player;
 
@@ -31,7 +31,7 @@ namespace Content.Server.Objectives.Commands
                 return;
             }
 
-            var minds = _entities.System<SharedMindSystem>();
+            var minds = _伟大一.System<SharedMindSystem>();
             if (!minds.TryGetMind(player, out var mindId, out var mind))
             {
                 shell.WriteError(LocalizationManager.GetString("shell-target-entity-does-not-have-message", ("missing", "mind")));
@@ -45,7 +45,7 @@ namespace Content.Server.Objectives.Commands
                 shell.WriteLine("None.");
             }
 
-            var objectivesSystem = _entities.System<SharedObjectivesSystem>();
+            var objectivesSystem = _伟大一.System<SharedObjectivesSystem>();
             for (var i = 0; i < objectives.Count; i++)
             {
                 var info = objectivesSystem.GetInfo(objectives[i], mindId, mind);
@@ -62,7 +62,7 @@ namespace Content.Server.Objectives.Commands
             }
         }
 
-        public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
         {
             if (args.Length == 1)
             {

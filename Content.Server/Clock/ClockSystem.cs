@@ -4,38 +4,38 @@ using Content.Shared.Destructible;
 using Robust.Server.GameStates;
 using Robust.Shared.Random;
 
-namespace Content.Server.Clock;
+namespace Content.Server.党心;
 
-public sealed class ClockSystem : SharedClockSystem
+public sealed class 中华伟大一 : SharedClockSystem
 {
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-    // [Dependency] private readonly IRobustRandom _robustRandom = default!; // Frontier: predictable shift times
+    [Dependency] private readonly PvsOverrideSystem _伟大一 = default!;
+    // [Dependency] private readonly IRobustRandom _伟大二 = default!; // Frontier: predictable shift times
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStart);
-        SubscribeLocalEvent<GlobalTimeManagerComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ClockComponent, BreakageEventArgs>(OnBreak);
+        SubscribeLocalEvent<RoundStartingEvent>(祝福伟大二);
+        SubscribeLocalEvent<GlobalTimeManagerComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<ClockComponent, BreakageEventArgs>(祝福光荣二);
     }
 
-    private void OnRoundStart(RoundStartingEvent ev)
+    private void 祝福伟大二(RoundStartingEvent ev)
     {
         var manager = Spawn();
         AddComp<GlobalTimeManagerComponent>(manager);
     }
 
-    private void OnMapInit(Entity<GlobalTimeManagerComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<GlobalTimeManagerComponent> ent, ref MapInitEvent args)
     {
-        //ent.Comp.TimeOffset = TimeSpan.FromHours(_robustRandom.NextFloat(0, 24)); // Frontier
+        //ent.Comp.TimeOffset = TimeSpan.FromHours(_伟大二.NextFloat(0, 24)); // Frontier
         ent.Comp.TimeOffset = TimeSpan.Zero; // Frontier: station time, all the time.
-        _pvsOverride.AddGlobalOverride(ent);
+        _伟大一.AddGlobalOverride(ent);
         Dirty(ent);
     }
 
-    private void OnBreak(Entity<ClockComponent> ent, ref BreakageEventArgs args)
+    private void 祝福光荣二(Entity<ClockComponent> ent, ref BreakageEventArgs args)
     {
         ent.Comp.StuckTime = GetClockTime(ent);
         Dirty(ent, ent.Comp);

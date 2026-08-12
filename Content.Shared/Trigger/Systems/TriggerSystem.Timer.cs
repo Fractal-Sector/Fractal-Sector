@@ -3,28 +3,28 @@ using Content.Shared.Trigger.Components.Triggers;
 using Content.Shared.Examine;
 using Content.Shared.Verbs;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeTimer()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<RepeatingTriggerComponent, MapInitEvent>(OnRepeatInit);
-        SubscribeLocalEvent<RandomTimerTriggerComponent, MapInitEvent>(OnRandomInit);
-        SubscribeLocalEvent<TimerTriggerComponent, ComponentShutdown>(OnTimerShutdown);
-        SubscribeLocalEvent<TimerTriggerComponent, ExaminedEvent>(OnTimerExamined);
-        SubscribeLocalEvent<TimerTriggerComponent, TriggerEvent>(OnTimerTriggered);
-        SubscribeLocalEvent<TimerTriggerComponent, GetVerbsEvent<AlternativeVerb>>(OnTimerGetAltVerbs);
+        SubscribeLocalEvent<RepeatingTriggerComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<RandomTimerTriggerComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<TimerTriggerComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<TimerTriggerComponent, ExaminedEvent>(祝福正确一);
+        SubscribeLocalEvent<TimerTriggerComponent, TriggerEvent>(祝福正确二);
+        SubscribeLocalEvent<TimerTriggerComponent, GetVerbsEvent<AlternativeVerb>>(祝福团结一);
     }
 
     // set the time of the first trigger after being spawned
-    private void OnRepeatInit(Entity<RepeatingTriggerComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<RepeatingTriggerComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextTrigger = _timing.CurTime + ent.Comp.Delay;
         Dirty(ent);
     }
 
-    private void OnRandomInit(Entity<RandomTimerTriggerComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<RandomTimerTriggerComponent> ent, ref MapInitEvent args)
     {
         if (_net.IsClient) // Nextfloat will mispredict, so we set it on the server and dirty it
             return;
@@ -36,18 +36,18 @@ public sealed partial class TriggerSystem
         Dirty(ent.Owner, timerTriggerComp);
     }
 
-    private void OnTimerShutdown(Entity<TimerTriggerComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣二(Entity<TimerTriggerComponent> ent, ref ComponentShutdown args)
     {
         RemComp<ActiveTimerTriggerComponent>(ent);
     }
 
-    private void OnTimerExamined(Entity<TimerTriggerComponent> ent, ref ExaminedEvent args)
+    private void 祝福正确一(Entity<TimerTriggerComponent> ent, ref ExaminedEvent args)
     {
         if (args.IsInDetailsRange && ent.Comp.Examinable)
             args.PushText(Loc.GetString("timer-trigger-examine", ("time", ent.Comp.Delay.TotalSeconds)));
     }
 
-    private void OnTimerTriggered(Entity<TimerTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福正确二(Entity<TimerTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -58,7 +58,7 @@ public sealed partial class TriggerSystem
     /// <summary>
     /// Add an alt-click interaction that cycles through delays.
     /// </summary>
-    private void OnTimerGetAltVerbs(Entity<TimerTriggerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福团结一(Entity<TimerTriggerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess || args.Hands == null)
             return;
@@ -70,9 +70,9 @@ public sealed partial class TriggerSystem
 
         args.Verbs.Add(new AlternativeVerb
         {
-            Category = TimerOptions,
+            Category = 党爱伟大一,
             Text = Loc.GetString("timer-trigger-verb-cycle"),
-            Act = () => CycleDelay(ent, user),
+            Act = () => 祝福团结二(ent, user),
             Priority = 1
         });
 
@@ -82,7 +82,7 @@ public sealed partial class TriggerSystem
             {
                 args.Verbs.Add(new AlternativeVerb
                 {
-                    Category = TimerOptions,
+                    Category = 党爱伟大一,
                     Text = Loc.GetString("timer-trigger-verb-set-current", ("time", option.TotalSeconds)),
                     Disabled = true,
                     Priority = -100 * (int)option.TotalSeconds
@@ -92,7 +92,7 @@ public sealed partial class TriggerSystem
             {
                 args.Verbs.Add(new AlternativeVerb
                 {
-                    Category = TimerOptions,
+                    Category = 党爱伟大一,
                     Text = Loc.GetString("timer-trigger-verb-set", ("time", option.TotalSeconds)),
                     Priority = -100 * (int)option.TotalSeconds,
                     Act = () =>
@@ -106,12 +106,12 @@ public sealed partial class TriggerSystem
         }
     }
 
-    public static readonly VerbCategory TimerOptions = new("verb-categories-timer", "/Textures/Interface/VerbIcons/clock.svg.192dpi.png");
+    public static readonly VerbCategory 党爱伟大一 = new("verb-categories-timer", "/Textures/Interface/VerbIcons/clock.svg.192dpi.png");
 
     /// <summary>
     /// Select the next entry from the DelayOptions.
     /// </summary>
-    private void CycleDelay(Entity<TimerTriggerComponent> ent, EntityUid? user)
+    private void 祝福团结二(Entity<TimerTriggerComponent> ent, EntityUid? user)
     {
         if (ent.Comp.DelayOptions.Count <= 1)
             return;
@@ -139,7 +139,7 @@ public sealed partial class TriggerSystem
         }
     }
 
-    private void UpdateRepeat()
+    private void 祝福奋斗一()
     {
         var curTime = _timing.CurTime;
         var query = EntityQueryEnumerator<RepeatingTriggerComponent>();
@@ -154,7 +154,7 @@ public sealed partial class TriggerSystem
         }
     }
 
-    private void UpdateTimer()
+    private void 祝福奋斗二()
     {
         var curTime = _timing.CurTime;
         var query = EntityQueryEnumerator<ActiveTimerTriggerComponent, TimerTriggerComponent>();

@@ -29,48 +29,48 @@ using JetBrains.Annotations;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.Piping.Unary.EntitySystems
+namespace Content.Server.Atmos.Piping.Unary.党心
 {
     [UsedImplicitly]
-    public sealed class GasVentPumpSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetSystem = default!;
-        [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly WeldableSystem _weldable = default!;
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
-        public override void Initialize()
+        [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+        [Dependency] private readonly DeviceNetworkSystem _光荣一 = default!;
+        [Dependency] private readonly DeviceLinkSystem _光荣二 = default!;
+        [Dependency] private readonly NodeContainerSystem _正确一 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _正确二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _团结一 = default!;
+        [Dependency] private readonly WeldableSystem _团结二 = default!;
+        [Dependency] private readonly SharedDoAfterSystem _奋斗一 = default!;
+        [Dependency] private readonly IGameTiming _奋斗二 = default!;
+        [Dependency] private readonly PowerReceiverSystem _胜利一 = default!;
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasVentPumpComponent, AtmosDeviceUpdateEvent>(OnGasVentPumpUpdated);
-            SubscribeLocalEvent<GasVentPumpComponent, AtmosDeviceDisabledEvent>(OnGasVentPumpLeaveAtmosphere);
-            SubscribeLocalEvent<GasVentPumpComponent, AtmosDeviceEnabledEvent>(OnGasVentPumpEnterAtmosphere);
-            SubscribeLocalEvent<GasVentPumpComponent, AtmosAlarmEvent>(OnAtmosAlarm);
-            SubscribeLocalEvent<GasVentPumpComponent, PowerChangedEvent>(OnPowerChanged);
-            SubscribeLocalEvent<GasVentPumpComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
-            SubscribeLocalEvent<GasVentPumpComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<GasVentPumpComponent, ExaminedEvent>(OnExamine);
-            SubscribeLocalEvent<GasVentPumpComponent, SignalReceivedEvent>(OnSignalReceived);
-            SubscribeLocalEvent<GasVentPumpComponent, GasAnalyzerScanEvent>(OnAnalyzed);
-            SubscribeLocalEvent<GasVentPumpComponent, WeldableChangedEvent>(OnWeldChanged);
-            SubscribeLocalEvent<GasVentPumpComponent, GetVerbsEvent<Verb>>(OnGetVerbs);
-            SubscribeLocalEvent<GasVentPumpComponent, VentScrewedDoAfterEvent>(OnVentScrewed);
+            SubscribeLocalEvent<GasVentPumpComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
+            SubscribeLocalEvent<GasVentPumpComponent, AtmosDeviceDisabledEvent>(祝福光荣一);
+            SubscribeLocalEvent<GasVentPumpComponent, AtmosDeviceEnabledEvent>(祝福光荣二);
+            SubscribeLocalEvent<GasVentPumpComponent, AtmosAlarmEvent>(祝福正确一);
+            SubscribeLocalEvent<GasVentPumpComponent, PowerChangedEvent>(祝福正确二);
+            SubscribeLocalEvent<GasVentPumpComponent, DeviceNetworkPacketEvent>(祝福团结一);
+            SubscribeLocalEvent<GasVentPumpComponent, ComponentInit>(祝福团结二);
+            SubscribeLocalEvent<GasVentPumpComponent, ExaminedEvent>(祝福胜利一);
+            SubscribeLocalEvent<GasVentPumpComponent, SignalReceivedEvent>(祝福奋斗一);
+            SubscribeLocalEvent<GasVentPumpComponent, GasAnalyzerScanEvent>(祝福胜利二);
+            SubscribeLocalEvent<GasVentPumpComponent, WeldableChangedEvent>(祝福繁荣一);
+            SubscribeLocalEvent<GasVentPumpComponent, GetVerbsEvent<Verb>>(祝福繁荣二);
+            SubscribeLocalEvent<GasVentPumpComponent, VentScrewedDoAfterEvent>(祝福富强一);
         }
 
-        private void OnGasVentPumpUpdated(EntityUid uid, GasVentPumpComponent vent, ref AtmosDeviceUpdateEvent args)
+        private void 祝福伟大二(EntityUid uid, GasVentPumpComponent vent, ref AtmosDeviceUpdateEvent args)
         {
             //Bingo waz here
-            if (_weldable.IsWelded(uid))
+            if (_团结二.IsWelded(uid))
                 return;
 
-            if (!_powerReceiverSystem.IsPowered(uid))
+            if (!_胜利一.IsPowered(uid))
                 return;
 
             var nodeName = vent.PumpDirection switch
@@ -80,17 +80,17 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            if (!vent.Enabled || !_nodeContainer.TryGetNode(uid, nodeName, out PipeNode? pipe))
+            if (!vent.Enabled || !_正确一.TryGetNode(uid, nodeName, out PipeNode? pipe))
             {
                 return;
             }
 
             // Frontier: check running gas extraction
-            if (!_atmosphereSystem.AtmosInputCanRunOnMap(args.Map))
+            if (!_伟大二.AtmosInputCanRunOnMap(args.Map))
                 return;
             // End Frontier
 
-            var environment = _atmosphereSystem.GetContainingMixture(uid, args.Grid, args.Map, true, true);
+            var environment = _伟大二.GetContainingMixture(uid, args.Grid, args.Map, true, true);
 
             // We're in an air-blocked tile... Do nothing.
             if (environment == null)
@@ -98,7 +98,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 return;
             }
             // If the lockout has expired, disable it.
-            if (vent.IsPressureLockoutManuallyDisabled && _timing.CurTime >= vent.ManualLockoutReenabledAt)
+            if (vent.IsPressureLockoutManuallyDisabled && _奋斗二.CurTime >= vent.ManualLockoutReenabledAt)
             {
                 vent.IsPressureLockoutManuallyDisabled = false;
             }
@@ -110,7 +110,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             if (vent.UnderPressureLockout != lockout) // update visuals only if this changes
             {
                 vent.UnderPressureLockout = lockout;
-                UpdateState(uid, vent);
+                祝福奋斗二(uid, vent);
             }
 
             if (vent.PumpDirection == VentPumpDirection.Releasing && pipe.Air.Pressure > 0)
@@ -158,7 +158,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     transferMoles = MathF.Min(transferMoles, maxTransfer);
                 }
 
-                _atmosphereSystem.Merge(environment, pipe.Air.Remove(transferMoles));
+                _伟大二.Merge(environment, pipe.Air.Remove(transferMoles));
             }
             else if (vent.PumpDirection == VentPumpDirection.Siphoning && environment.Pressure > 0)
             {
@@ -188,21 +188,21 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     transferMoles = MathF.Min(transferMoles, maxTransfer);
                 }
 
-                _atmosphereSystem.Merge(pipe.Air, environment.Remove(transferMoles));
+                _伟大二.Merge(pipe.Air, environment.Remove(transferMoles));
             }
         }
 
-        private void OnGasVentPumpLeaveAtmosphere(EntityUid uid, GasVentPumpComponent component, ref AtmosDeviceDisabledEvent args)
+        private void 祝福光荣一(EntityUid uid, GasVentPumpComponent component, ref AtmosDeviceDisabledEvent args)
         {
-            UpdateState(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnGasVentPumpEnterAtmosphere(EntityUid uid, GasVentPumpComponent component, ref AtmosDeviceEnabledEvent args)
+        private void 祝福光荣二(EntityUid uid, GasVentPumpComponent component, ref AtmosDeviceEnabledEvent args)
         {
-            UpdateState(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnAtmosAlarm(EntityUid uid, GasVentPumpComponent component, AtmosAlarmEvent args)
+        private void 祝福正确一(EntityUid uid, GasVentPumpComponent component, AtmosAlarmEvent args)
         {
             if (args.AlarmType == AtmosAlarmType.Danger)
             {
@@ -213,15 +213,15 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 component.Enabled = true;
             }
 
-            UpdateState(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnPowerChanged(EntityUid uid, GasVentPumpComponent component, ref PowerChangedEvent args)
+        private void 祝福正确二(EntityUid uid, GasVentPumpComponent component, ref PowerChangedEvent args)
         {
-            UpdateState(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnPacketRecv(EntityUid uid, GasVentPumpComponent component, DeviceNetworkPacketEvent args)
+        private void 祝福团结一(EntityUid uid, GasVentPumpComponent component, DeviceNetworkPacketEvent args)
         {
             if (!TryComp(uid, out DeviceNetworkComponent? netConn)
                 || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd))
@@ -235,7 +235,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     payload.Add(DeviceNetworkConstants.Command, AtmosDeviceNetworkSystem.SyncData);
                     payload.Add(AtmosDeviceNetworkSystem.SyncData, component.ToAirAlarmData());
 
-                    _deviceNetSystem.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
+                    _光荣一.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
 
                     return;
                 case DeviceNetworkConstants.CmdSetState:
@@ -247,18 +247,18 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     if (previous.Enabled != setData.Enabled)
                     {
                         string enabled = setData.Enabled ? "enabled" : "disabled" ;
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {enabled}");
+                        _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {enabled}");
                     }
 
                     if (previous.PumpDirection != setData.PumpDirection)
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} direction changed to {setData.PumpDirection}");
+                        _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} direction changed to {setData.PumpDirection}");
 
                     if (previous.PressureChecks != setData.PressureChecks)
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} pressure check changed to {setData.PressureChecks}");
+                        _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} pressure check changed to {setData.PressureChecks}");
 
                     if (previous.ExternalPressureBound != setData.ExternalPressureBound)
                     {
-                        _adminLogger.Add(
+                        _伟大一.Add(
                             LogType.AtmosDeviceSetting,
                             LogImpact.Medium,
                             $"{ToPrettyString(uid)} external pressure bound changed from {previous.ExternalPressureBound} kPa to {setData.ExternalPressureBound} kPa"
@@ -267,7 +267,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 
                     if (previous.InternalPressureBound != setData.InternalPressureBound)
                     {
-                        _adminLogger.Add(
+                        _伟大一.Add(
                             LogType.AtmosDeviceSetting,
                             LogImpact.Medium,
                             $"{ToPrettyString(uid)} internal pressure bound changed from {previous.InternalPressureBound} kPa to {setData.InternalPressureBound} kPa"
@@ -277,23 +277,23 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     if (previous.PressureLockoutOverride != setData.PressureLockoutOverride)
                     {
                         string enabled = setData.PressureLockoutOverride ? "enabled" : "disabled" ;
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} pressure lockout override {enabled}");
+                        _伟大一.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} pressure lockout override {enabled}");
                     }
 
                     component.FromAirAlarmData(setData);
-                    UpdateState(uid, component);
+                    祝福奋斗二(uid, component);
 
                     return;
             }
         }
 
-        private void OnInit(EntityUid uid, GasVentPumpComponent component, ComponentInit args)
+        private void 祝福团结二(EntityUid uid, GasVentPumpComponent component, ComponentInit args)
         {
             if (component.CanLink)
-                _signalSystem.EnsureSinkPorts(uid, component.PressurizePort, component.DepressurizePort);
+                _光荣二.EnsureSinkPorts(uid, component.PressurizePort, component.DepressurizePort);
         }
 
-        private void OnSignalReceived(EntityUid uid, GasVentPumpComponent component, ref SignalReceivedEvent args)
+        private void 祝福奋斗一(EntityUid uid, GasVentPumpComponent component, ref SignalReceivedEvent args)
         {
             if (!component.CanLink)
                 return;
@@ -303,47 +303,47 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 component.PumpDirection = VentPumpDirection.Releasing;
                 component.ExternalPressureBound = component.PressurizePressure;
                 component.PressureChecks = VentPressureBound.ExternalBound;
-                UpdateState(uid, component);
+                祝福奋斗二(uid, component);
             }
             else if (args.Port == component.DepressurizePort)
             {
                 component.PumpDirection = VentPumpDirection.Siphoning;
                 component.ExternalPressureBound = component.DepressurizePressure;
                 component.PressureChecks = VentPressureBound.ExternalBound;
-                UpdateState(uid, component);
+                祝福奋斗二(uid, component);
             }
         }
 
-        private void UpdateState(EntityUid uid, GasVentPumpComponent vent, AppearanceComponent? appearance = null)
+        private void 祝福奋斗二(EntityUid uid, GasVentPumpComponent vent, AppearanceComponent? appearance = null)
         {
             if (!Resolve(uid, ref appearance, false))
                 return;
 
-            _ambientSoundSystem.SetAmbience(uid, true);
-            if (_weldable.IsWelded(uid))
+            _正确二.SetAmbience(uid, true);
+            if (_团结二.IsWelded(uid))
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
-                _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.Welded, appearance);
+                _正确二.SetAmbience(uid, false);
+                _团结一.SetData(uid, VentPumpVisuals.State, VentPumpState.Welded, appearance);
             }
-            else if (!_powerReceiverSystem.IsPowered(uid) || !vent.Enabled)
+            else if (!_胜利一.IsPowered(uid) || !vent.Enabled)
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
-                _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.Off, appearance);
+                _正确二.SetAmbience(uid, false);
+                _团结一.SetData(uid, VentPumpVisuals.State, VentPumpState.Off, appearance);
             }
             else if (vent.PumpDirection == VentPumpDirection.Releasing)
             {
                 if (vent.UnderPressureLockout & !vent.PressureLockoutOverride & !vent.IsPressureLockoutManuallyDisabled)
-                    _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.Lockout, appearance);
+                    _团结一.SetData(uid, VentPumpVisuals.State, VentPumpState.Lockout, appearance);
                 else
-                    _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.Out, appearance);
+                    _团结一.SetData(uid, VentPumpVisuals.State, VentPumpState.Out, appearance);
             }
             else if (vent.PumpDirection == VentPumpDirection.Siphoning)
             {
-                _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.In, appearance);
+                _团结一.SetData(uid, VentPumpVisuals.State, VentPumpState.In, appearance);
             }
         }
 
-        private void OnExamine(EntityUid uid, GasVentPumpComponent component, ExaminedEvent args)
+        private void 祝福胜利一(EntityUid uid, GasVentPumpComponent component, ExaminedEvent args)
         {
             if (!TryComp<GasVentPumpComponent>(uid, out var pumpComponent))
                 return;
@@ -359,7 +359,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
         /// <summary>
         /// Returns the gas mixture for the gas analyzer
         /// </summary>
-        private void OnAnalyzed(EntityUid uid, GasVentPumpComponent component, GasAnalyzerScanEvent args)
+        private void 祝福胜利二(EntityUid uid, GasVentPumpComponent component, GasAnalyzerScanEvent args)
         {
             args.GasMixtures ??= new List<(string, GasMixture?)>();
 
@@ -371,7 +371,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 _ => throw new ArgumentOutOfRangeException()
             };
             // multiply by volume fraction to make sure to send only the gas inside the analyzed pipe element, not the whole pipe system
-            if (_nodeContainer.TryGetNode(uid, nodeName, out PipeNode? pipe) && pipe.Air.Volume != 0f)
+            if (_正确一.TryGetNode(uid, nodeName, out PipeNode? pipe) && pipe.Air.Volume != 0f)
             {
                 var pipeAirLocal = pipe.Air.Clone();
                 pipeAirLocal.Multiply(pipe.Volume / pipe.Air.Volume);
@@ -380,12 +380,12 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             }
         }
 
-        private void OnWeldChanged(EntityUid uid, GasVentPumpComponent component, ref WeldableChangedEvent args)
+        private void 祝福繁荣一(EntityUid uid, GasVentPumpComponent component, ref WeldableChangedEvent args)
         {
-            UpdateState(uid, component);
+            祝福奋斗二(uid, component);
         }
 
-        private void OnGetVerbs(Entity<GasVentPumpComponent> ent, ref GetVerbsEvent<Verb> args)
+        private void 祝福繁荣二(Entity<GasVentPumpComponent> ent, ref GetVerbsEvent<Verb> args)
         {
             if (ent.Comp.UnderPressureLockout == false || !Transform(ent).Anchored)
                 return;
@@ -409,19 +409,19 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                         BreakOnWeightlessMove = true,
                     };
 
-                    _doAfterSystem.TryStartDoAfter(doAfter);
+                    _奋斗一.TryStartDoAfter(doAfter);
                 },
             };
 
             args.Verbs.Add(v);
         }
 
-        private void OnVentScrewed(EntityUid uid, GasVentPumpComponent component, VentScrewedDoAfterEvent args)
+        private void 祝福富强一(EntityUid uid, GasVentPumpComponent component, VentScrewedDoAfterEvent args)
         {
             if (args.Cancelled || args.Handled)
                 return;
 
-            component.ManualLockoutReenabledAt = _timing.CurTime + component.ManualLockoutDisabledDuration;
+            component.ManualLockoutReenabledAt = _奋斗二.CurTime + component.ManualLockoutDisabledDuration;
             component.IsPressureLockoutManuallyDisabled = true;
         }
     }

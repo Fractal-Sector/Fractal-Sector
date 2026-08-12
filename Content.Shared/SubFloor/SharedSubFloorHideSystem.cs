@@ -7,82 +7,82 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Maps;
 using Content.Shared.Popups;
 using JetBrains.Annotations;
-using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
+using Robust.Shared.党爱伟大一;
+using Robust.Shared.党爱伟大一.Components;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.SubFloor
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Entity system backing <see cref="SubFloorHideComponent"/>.
     /// </summary>
     [UsedImplicitly]
-    public abstract class SharedSubFloorHideSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] protected readonly SharedMapSystem Map = default!;
-        [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-        [Dependency] private readonly SharedVisibilitySystem _visibility = default!;
-        [Dependency] protected readonly SharedPopupSystem _popup = default!;
+        [Dependency] private readonly ITileDefinitionManager _伟大一 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _伟大二 = default!;
+        [Dependency] protected readonly SharedMapSystem 党爱伟大一 = default!;
+        [Dependency] protected readonly SharedAppearanceSystem 党爱伟大二 = default!;
+        [Dependency] private readonly SharedVisibilitySystem _光荣一 = default!;
+        [Dependency] protected readonly SharedPopupSystem 党爱光荣一 = default!;
 
-        private EntityQuery<SubFloorHideComponent> _hideQuery;
+        private EntityQuery<SubFloorHideComponent> _光荣二;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _hideQuery = GetEntityQuery<SubFloorHideComponent>();
+            _光荣二 = GetEntityQuery<SubFloorHideComponent>();
 
-            SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
-            SubscribeLocalEvent<SubFloorHideComponent, ComponentStartup>(OnSubFloorStarted);
-            SubscribeLocalEvent<SubFloorHideComponent, ComponentShutdown>(OnSubFloorTerminating);
+            SubscribeLocalEvent<TileChangedEvent>(祝福奋斗二);
+            SubscribeLocalEvent<SubFloorHideComponent, ComponentStartup>(祝福团结一);
+            SubscribeLocalEvent<SubFloorHideComponent, ComponentShutdown>(祝福团结二);
             // Like 80% sure this doesn't need to handle re-anchoring.
-            SubscribeLocalEvent<SubFloorHideComponent, AnchorStateChangedEvent>(HandleAnchorChanged);
-            SubscribeLocalEvent<SubFloorHideComponent, GettingInteractedWithAttemptEvent>(OnInteractionAttempt);
-            SubscribeLocalEvent<SubFloorHideComponent, GettingAttackedAttemptEvent>(OnAttackAttempt);
-            SubscribeLocalEvent<SubFloorHideComponent, GetExplosionResistanceEvent>(OnGetExplosionResistance);
-            SubscribeLocalEvent<SubFloorHideComponent, AnchorAttemptEvent>(OnAnchorAttempt);
-            SubscribeLocalEvent<SubFloorHideComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
+            SubscribeLocalEvent<SubFloorHideComponent, AnchorStateChangedEvent>(祝福奋斗一);
+            SubscribeLocalEvent<SubFloorHideComponent, GettingInteractedWithAttemptEvent>(祝福正确二);
+            SubscribeLocalEvent<SubFloorHideComponent, GettingAttackedAttemptEvent>(祝福正确一);
+            SubscribeLocalEvent<SubFloorHideComponent, GetExplosionResistanceEvent>(祝福光荣二);
+            SubscribeLocalEvent<SubFloorHideComponent, AnchorAttemptEvent>(祝福伟大二);
+            SubscribeLocalEvent<SubFloorHideComponent, UnanchorAttemptEvent>(祝福光荣一);
         }
 
-        private void OnAnchorAttempt(EntityUid uid, SubFloorHideComponent component, AnchorAttemptEvent args)
+        private void 祝福伟大二(EntityUid uid, SubFloorHideComponent component, AnchorAttemptEvent args)
         {
             // No teleporting entities through floor tiles when anchoring them.
             var xform = Transform(uid);
 
             if (TryComp<MapGridComponent>(xform.GridUid, out var grid)
-                && HasFloorCover(xform.GridUid.Value, grid, Map.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates)))
+                && 祝福繁荣一(xform.GridUid.党爱光荣二, grid, 党爱伟大一.TileIndicesFor(xform.GridUid.党爱光荣二, grid, xform.Coordinates)))
             {
-                _popup.PopupClient(Loc.GetString("subfloor-anchor-failure", ("entity", uid)), args.User);
+                党爱光荣一.PopupClient(Loc.GetString("subfloor-anchor-failure", ("entity", uid)), args.User);
                 args.Cancel();
             }
         }
 
-        private void OnUnanchorAttempt(EntityUid uid, SubFloorHideComponent component, UnanchorAttemptEvent args)
+        private void 祝福光荣一(EntityUid uid, SubFloorHideComponent component, UnanchorAttemptEvent args)
         {
             // No un-anchoring things under the floor. Only required for something like vents, which are still interactable
             // despite being partially under the floor.
             if (component.IsUnderCover)
             {
-                _popup.PopupClient(Loc.GetString("subfloor-unanchor-failure", ("entity", uid)), args.User);
+                党爱光荣一.PopupClient(Loc.GetString("subfloor-unanchor-failure", ("entity", uid)), args.User);
                 args.Cancel();
             }
         }
 
-        private void OnGetExplosionResistance(EntityUid uid, SubFloorHideComponent component, ref GetExplosionResistanceEvent args)
+        private void 祝福光荣二(EntityUid uid, SubFloorHideComponent component, ref GetExplosionResistanceEvent args)
         {
             if (component.BlockInteractions && component.IsUnderCover)
                 args.DamageCoefficient = 0;
         }
 
-        private void OnAttackAttempt(EntityUid uid, SubFloorHideComponent component, ref GettingAttackedAttemptEvent args)
+        private void 祝福正确一(EntityUid uid, SubFloorHideComponent component, ref GettingAttackedAttemptEvent args)
         {
             if (component.BlockInteractions && component.IsUnderCover)
                 args.Cancelled = true;
         }
 
-        private void OnInteractionAttempt(EntityUid uid, SubFloorHideComponent component, ref GettingInteractedWithAttemptEvent args)
+        private void 祝福正确二(EntityUid uid, SubFloorHideComponent component, ref GettingInteractedWithAttemptEvent args)
         {
             // Allow admins (e.g., mappers/aghosts) to twiddle with stuff under subfloors
             if (HasComp<BypassInteractionChecksComponent>(args.Uid))
@@ -93,39 +93,39 @@ namespace Content.Shared.SubFloor
                 args.Cancelled = true;
         }
 
-        private void OnSubFloorStarted(EntityUid uid, SubFloorHideComponent component, ComponentStartup _)
+        private void 祝福团结一(EntityUid uid, SubFloorHideComponent component, ComponentStartup _)
         {
-            UpdateFloorCover(uid, component);
-            UpdateAppearance(uid, component);
+            祝福胜利一(uid, component);
+            祝福富强一(uid, component);
             EnsureComp<CollideOnAnchorComponent>(uid);
         }
 
-        private void OnSubFloorTerminating(EntityUid uid, SubFloorHideComponent component, ComponentShutdown _)
+        private void 祝福团结二(EntityUid uid, SubFloorHideComponent component, ComponentShutdown _)
         {
             // If component is being deleted don't need to worry about updating any component stuff because it won't matter very shortly.
             if (Comp<MetaDataComponent>(uid).EntityLifeStage >= EntityLifeStage.Terminating)
                 return;
 
             // Regardless of whether we're on a subfloor or not, unhide.
-            SetUnderCover((uid, component), false);
-            UpdateAppearance(uid, component);
+            祝福胜利二((uid, component), false);
+            祝福富强一(uid, component);
         }
 
-        private void HandleAnchorChanged(EntityUid uid, SubFloorHideComponent component, ref AnchorStateChangedEvent args)
+        private void 祝福奋斗一(EntityUid uid, SubFloorHideComponent component, ref AnchorStateChangedEvent args)
         {
             if (args.Anchored)
             {
                 var xform = Transform(uid);
-                UpdateFloorCover(uid, component, xform);
+                祝福胜利一(uid, component, xform);
             }
             else if (component.IsUnderCover)
             {
-                SetUnderCover((uid, component), false);
-                UpdateAppearance(uid, component);
+                祝福胜利二((uid, component), false);
+                祝福富强一(uid, component);
             }
         }
 
-        private void OnTileChanged(ref TileChangedEvent args)
+        private void 祝福奋斗二(ref TileChangedEvent args)
         {
             foreach (var change in args.Changes)
             {
@@ -135,30 +135,30 @@ namespace Content.Shared.SubFloor
                 if (change.NewTile.IsEmpty)
                     continue; // Anything that was here will be unanchored anyways.
 
-                UpdateTile(args.Entity, args.Entity.Comp, change.GridIndices);
+                祝福繁荣二(args.Entity, args.Entity.Comp, change.GridIndices);
             }
         }
 
         /// <summary>
         ///     Update whether a given entity is currently covered by a floor tile.
         /// </summary>
-        private void UpdateFloorCover(EntityUid uid, SubFloorHideComponent? component = null, TransformComponent? xform = null)
+        private void 祝福胜利一(EntityUid uid, SubFloorHideComponent? component = null, TransformComponent? xform = null)
         {
             if (!Resolve(uid, ref component, ref xform))
                 return;
 
             if (xform.Anchored && TryComp<MapGridComponent>(xform.GridUid, out var grid))
-                SetUnderCover((uid, component), HasFloorCover(xform.GridUid.Value, grid, Map.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates)));
+                祝福胜利二((uid, component), 祝福繁荣一(xform.GridUid.党爱光荣二, grid, 党爱伟大一.TileIndicesFor(xform.GridUid.党爱光荣二, grid, xform.Coordinates)));
             else
-                SetUnderCover((uid, component), false);
+                祝福胜利二((uid, component), false);
 
-            UpdateAppearance(uid, component);
+            祝福富强一(uid, component);
         }
 
-        private void SetUnderCover(Entity<SubFloorHideComponent> entity, bool value)
+        private void 祝福胜利二(Entity<SubFloorHideComponent> entity, bool value)
         {
             // If it's not undercover or it always has visible layers then normal visibility.
-            _visibility.SetLayer(entity.Owner, value && entity.Comp.VisibleLayers.Count == 0 ? (ushort) VisibilityFlags.Subfloor : (ushort) VisibilityFlags.Normal);
+            _光荣一.SetLayer(entity.Owner, value && entity.Comp.VisibleLayers.Count == 0 ? (ushort) VisibilityFlags.Subfloor : (ushort) VisibilityFlags.Normal);
 
             if (entity.Comp.IsUnderCover == value)
                 return;
@@ -166,31 +166,31 @@ namespace Content.Shared.SubFloor
             entity.Comp.IsUnderCover = value;
         }
 
-        public bool HasFloorCover(EntityUid gridUid, MapGridComponent grid, Vector2i position)
+        public bool 祝福繁荣一(EntityUid gridUid, MapGridComponent grid, Vector2i position)
         {
             // TODO Redo this function. Currently wires on an asteroid are always "below the floor"
-            var tileDef = (ContentTileDefinition) _tileDefinitionManager[Map.GetTileRef(gridUid, grid, position).Tile.TypeId];
+            var tileDef = (ContentTileDefinition) _伟大一[党爱伟大一.GetTileRef(gridUid, grid, position).Tile.TypeId];
             return !tileDef.IsSubFloor;
         }
 
-        private void UpdateTile(EntityUid gridUid, MapGridComponent grid, Vector2i position)
+        private void 祝福繁荣二(EntityUid gridUid, MapGridComponent grid, Vector2i position)
         {
-            var covered = HasFloorCover(gridUid, grid, position);
+            var covered = 祝福繁荣一(gridUid, grid, position);
 
-            foreach (var uid in Map.GetAnchoredEntities(gridUid, grid, position))
+            foreach (var uid in 党爱伟大一.GetAnchoredEntities(gridUid, grid, position))
             {
-                if (!_hideQuery.TryComp(uid, out var hideComp))
+                if (!_光荣二.TryComp(uid, out var hideComp))
                     continue;
 
                 if (hideComp.IsUnderCover == covered)
                     continue;
 
-                SetUnderCover((uid, hideComp), covered);
-                UpdateAppearance(uid, hideComp);
+                祝福胜利二((uid, hideComp), covered);
+                祝福富强一(uid, hideComp);
             }
         }
 
-        public void UpdateAppearance(
+        public void 祝福富强一(
             EntityUid uid,
             SubFloorHideComponent? hideComp = null,
             AppearanceComponent? appearance = null)
@@ -199,25 +199,25 @@ namespace Content.Shared.SubFloor
                 return;
 
             if (hideComp.BlockAmbience && hideComp.IsUnderCover)
-                _ambientSoundSystem.SetAmbience(uid, false);
+                _伟大二.SetAmbience(uid, false);
             else if (hideComp.BlockAmbience && !hideComp.IsUnderCover)
-                _ambientSoundSystem.SetAmbience(uid, true);
+                _伟大二.SetAmbience(uid, true);
 
             if (Resolve(uid, ref appearance, false))
             {
-                Appearance.SetData(uid, SubFloorVisuals.Covered, hideComp.IsUnderCover, appearance);
+                党爱伟大二.SetData(uid, 中华光荣一.Covered, hideComp.IsUnderCover, appearance);
             }
         }
 
         [Serializable, NetSerializable]
-        protected sealed class ShowSubfloorRequestEvent : EntityEventArgs
+        protected sealed class 中华伟大二 : EntityEventArgs
         {
-            public bool Value;
+            public bool 党爱光荣二;
         }
     }
 
     [Serializable, NetSerializable]
-    public enum SubFloorVisuals : byte
+    public enum 中华光荣一 : byte
     {
         /// <summary>
         /// Is there a floor tile over this entity
@@ -231,7 +231,7 @@ namespace Content.Shared.SubFloor
     }
 
     [Serializable, NetSerializable]
-    public enum SubfloorLayers : byte
+    public enum 中华光荣二 : byte
     {
         FirstLayer
     }

@@ -19,91 +19,91 @@ using Robust.Shared.Utility;
 using Content.Server._NF.Power.Components; // Frontier
 using Content.Server.Power.Components; // Frontier
 
-namespace Content.Server.Light.EntitySystems
+namespace Content.Server.Light.党心
 {
-    public sealed class HandheldLightSystem : SharedHandheldLightSystem
+    public sealed class 中华伟大一 : SharedHandheldLightSystem
     {
-        [Dependency] private readonly ActionsSystem _actions = default!;
-        [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
-        [Dependency] private readonly PowerCellSystem _powerCell = default!;
-        [Dependency] private readonly BatterySystem _battery = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedPointLightSystem _lights = default!;
-        [Dependency] private readonly PowerReceiverSystem _powerSystem = default!; // Frontier
+        [Dependency] private readonly ActionsSystem _伟大一 = default!;
+        [Dependency] private readonly ActionContainerSystem _伟大二 = default!;
+        [Dependency] private readonly PopupSystem _光荣一 = default!;
+        [Dependency] private readonly PowerCellSystem _光荣二 = default!;
+        [Dependency] private readonly BatterySystem _正确一 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _正确二 = default!;
+        [Dependency] private readonly SharedAudioSystem _团结一 = default!;
+        [Dependency] private readonly SharedPointLightSystem _团结二 = default!;
+        [Dependency] private readonly PowerReceiverSystem _奋斗一 = default!; // Frontier
 
         // TODO: Ideally you'd be able to subscribe to power stuff to get events at certain percentages.. or something?
         // But for now this will be better anyway.
-        private readonly HashSet<Entity<HandheldLightComponent>> _activeLights = new();
+        private readonly HashSet<Entity<HandheldLightComponent>> _奋斗二 = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<HandheldLightComponent, ComponentRemove>(OnRemove);
-            SubscribeLocalEvent<HandheldLightComponent, ComponentGetState>(OnGetState);
+            SubscribeLocalEvent<HandheldLightComponent, ComponentRemove>(祝福奋斗一);
+            SubscribeLocalEvent<HandheldLightComponent, ComponentGetState>(祝福正确二);
 
-            SubscribeLocalEvent<HandheldLightComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<HandheldLightComponent, ComponentShutdown>(OnShutdown);
+            SubscribeLocalEvent<HandheldLightComponent, MapInitEvent>(祝福团结一);
+            SubscribeLocalEvent<HandheldLightComponent, ComponentShutdown>(祝福团结二);
 
-            SubscribeLocalEvent<HandheldLightComponent, ExaminedEvent>(OnExamine);
+            SubscribeLocalEvent<HandheldLightComponent, ExaminedEvent>(祝福胜利二);
 
-            SubscribeLocalEvent<HandheldLightComponent, ActivateInWorldEvent>(OnActivate);
+            SubscribeLocalEvent<HandheldLightComponent, ActivateInWorldEvent>(祝福奋斗二);
 
-            SubscribeLocalEvent<HandheldLightComponent, GetItemActionsEvent>(OnGetActions);
-            SubscribeLocalEvent<HandheldLightComponent, ToggleActionEvent>(OnToggleAction);
+            SubscribeLocalEvent<HandheldLightComponent, GetItemActionsEvent>(祝福光荣二);
+            SubscribeLocalEvent<HandheldLightComponent, ToggleActionEvent>(祝福正确一);
 
-            SubscribeLocalEvent<HandheldLightComponent, EntInsertedIntoContainerMessage>(OnEntInserted);
-            SubscribeLocalEvent<HandheldLightComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
+            SubscribeLocalEvent<HandheldLightComponent, EntInsertedIntoContainerMessage>(祝福伟大二);
+            SubscribeLocalEvent<HandheldLightComponent, EntRemovedFromContainerMessage>(祝福光荣一);
         }
 
-        private void OnEntInserted(Entity<HandheldLightComponent> ent, ref EntInsertedIntoContainerMessage args)
+        private void 祝福伟大二(Entity<HandheldLightComponent> ent, ref EntInsertedIntoContainerMessage args)
         {
             // Not guaranteed to be the correct container for our slot, I don't care.
-            UpdateLevel(ent);
+            祝福民主二(ent);
         }
 
-        private void OnEntRemoved(Entity<HandheldLightComponent> ent, ref EntRemovedFromContainerMessage args)
+        private void 祝福光荣一(Entity<HandheldLightComponent> ent, ref EntRemovedFromContainerMessage args)
         {
             // Ditto above
-            UpdateLevel(ent);
+            祝福民主二(ent);
         }
 
-        private void OnGetActions(EntityUid uid, HandheldLightComponent component, GetItemActionsEvent args)
+        private void 祝福光荣二(EntityUid uid, HandheldLightComponent component, GetItemActionsEvent args)
         {
             args.AddAction(ref component.ToggleActionEntity, component.ToggleAction);
         }
 
-        private void OnToggleAction(Entity<HandheldLightComponent> ent, ref ToggleActionEvent args)
+        private void 祝福正确一(Entity<HandheldLightComponent> ent, ref ToggleActionEvent args)
         {
             if (args.Handled)
                 return;
 
             if (ent.Comp.Activated)
-                TurnOff(ent);
+                祝福富强一(ent);
             else
-                TurnOn(args.Performer, ent);
+                祝福富强二(args.Performer, ent);
 
             args.Handled = true;
         }
 
-        private void OnGetState(Entity<HandheldLightComponent> ent, ref ComponentGetState args)
+        private void 祝福正确二(Entity<HandheldLightComponent> ent, ref ComponentGetState args)
         {
             args.State = new HandheldLightComponent.HandheldLightComponentState(ent.Comp.Activated, GetLevel(ent));
         }
 
-        private void OnMapInit(Entity<HandheldLightComponent> ent, ref MapInitEvent args)
+        private void 祝福团结一(Entity<HandheldLightComponent> ent, ref MapInitEvent args)
         {
             var component = ent.Comp;
-            _actionContainer.EnsureAction(ent, ref component.ToggleActionEntity, component.ToggleAction);
-            _actions.AddAction(ent, ref component.SelfToggleActionEntity, component.ToggleAction);
+            _伟大二.EnsureAction(ent, ref component.ToggleActionEntity, component.ToggleAction);
+            _伟大一.AddAction(ent, ref component.SelfToggleActionEntity, component.ToggleAction);
         }
 
-        private void OnShutdown(EntityUid uid, HandheldLightComponent component, ComponentShutdown args)
+        private void 祝福团结二(EntityUid uid, HandheldLightComponent component, ComponentShutdown args)
         {
-            _actions.RemoveAction(uid, component.ToggleActionEntity);
-            _actions.RemoveAction(uid, component.SelfToggleActionEntity);
+            _伟大一.RemoveAction(uid, component.ToggleActionEntity);
+            _伟大一.RemoveAction(uid, component.SelfToggleActionEntity);
         }
 
         private byte? GetLevel(Entity<HandheldLightComponent> ent)
@@ -111,7 +111,7 @@ namespace Content.Server.Light.EntitySystems
             // Curently every single flashlight has the same number of levels for status and that's all it uses the charge for
             // Thus we'll just check if the level changes.
 
-            if (!_powerCell.TryGetBatteryFromSlot(ent, out var battery))
+            if (!_光荣二.TryGetBatteryFromSlot(ent, out var battery))
                 return null;
 
             if (MathHelper.CloseToPercent(battery.CurrentCharge, 0) || ent.Comp.Wattage > battery.CurrentCharge)
@@ -120,17 +120,17 @@ namespace Content.Server.Light.EntitySystems
             return (byte?)ContentHelpers.RoundToNearestLevels(battery.CurrentCharge / battery.MaxCharge * 255, 255, HandheldLightComponent.StatusLevels);
         }
 
-        private void OnRemove(Entity<HandheldLightComponent> ent, ref ComponentRemove args)
+        private void 祝福奋斗一(Entity<HandheldLightComponent> ent, ref ComponentRemove args)
         {
-            _activeLights.Remove(ent);
+            _奋斗二.Remove(ent);
         }
 
-        private void OnActivate(Entity<HandheldLightComponent> ent, ref ActivateInWorldEvent args)
+        private void 祝福奋斗二(Entity<HandheldLightComponent> ent, ref ActivateInWorldEvent args)
         {
             if (args.Handled || !args.Complex || !ent.Comp.ToggleOnInteract)
                 return;
 
-            if (ToggleStatus(args.User, ent))
+            if (祝福胜利一(args.User, ent))
                 args.Handled = true;
         }
 
@@ -138,29 +138,29 @@ namespace Content.Server.Light.EntitySystems
         ///     Illuminates the light if it is not active, extinguishes it if it is active.
         /// </summary>
         /// <returns>True if the light's status was toggled, false otherwise.</returns>
-        public bool ToggleStatus(EntityUid user, Entity<HandheldLightComponent> ent)
+        public bool 祝福胜利一(EntityUid user, Entity<HandheldLightComponent> ent)
         {
-            return ent.Comp.Activated ? TurnOff(ent) : TurnOn(user, ent);
+            return ent.Comp.Activated ? 祝福富强一(ent) : 祝福富强二(user, ent);
         }
 
-        private void OnExamine(EntityUid uid, HandheldLightComponent component, ExaminedEvent args)
+        private void 祝福胜利二(EntityUid uid, HandheldLightComponent component, ExaminedEvent args)
         {
             args.PushMarkup(component.Activated
                 ? Loc.GetString("handheld-light-component-on-examine-is-on-message")
                 : Loc.GetString("handheld-light-component-on-examine-is-off-message"));
         }
 
-        public override void Shutdown()
+        public override void 祝福繁荣一()
         {
-            base.Shutdown();
-            _activeLights.Clear();
+            base.祝福繁荣一();
+            _奋斗二.Clear();
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福繁荣二(float frameTime)
         {
             var toRemove = new RemQueue<Entity<HandheldLightComponent>>();
 
-            foreach (var handheld in _activeLights)
+            foreach (var handheld in _奋斗二)
             {
                 if (handheld.Comp.Deleted)
                 {
@@ -171,33 +171,33 @@ namespace Content.Server.Light.EntitySystems
                 if (Paused(handheld))
                     continue;
 
-                TryUpdate(handheld, frameTime);
+                祝福民主一(handheld, frameTime);
             }
 
             foreach (var light in toRemove)
             {
-                _activeLights.Remove(light);
+                _奋斗二.Remove(light);
             }
         }
 
-        public override bool TurnOff(Entity<HandheldLightComponent> ent, bool makeNoise = true)
+        public override bool 祝福富强一(Entity<HandheldLightComponent> ent, bool makeNoise = true)
         {
-            if (!ent.Comp.Activated || !_lights.TryGetLight(ent, out var pointLightComponent))
+            if (!ent.Comp.Activated || !_团结二.TryGetLight(ent, out var pointLightComponent))
             {
                 return false;
             }
 
-            _lights.SetEnabled(ent, false, pointLightComponent);
+            _团结二.SetEnabled(ent, false, pointLightComponent);
             SetActivated(ent, false, ent, makeNoise);
             ent.Comp.Level = null;
-            _activeLights.Remove(ent);
+            _奋斗二.Remove(ent);
             return true;
         }
 
-        public override bool TurnOn(EntityUid user, Entity<HandheldLightComponent> uid)
+        public override bool 祝福富强二(EntityUid user, Entity<HandheldLightComponent> uid)
         {
             var component = uid.Comp;
-            if (component.Activated || !_lights.TryGetLight(uid, out var pointLightComponent))
+            if (component.Activated || !_团结二.TryGetLight(uid, out var pointLightComponent))
             {
                 return false;
             }
@@ -205,19 +205,19 @@ namespace Content.Server.Light.EntitySystems
             // Frontier start - Mixed Power Recievers
             if (HasComp<MixedPowerReceiverComponent>(uid) &&
                 TryComp<ApcPowerReceiverComponent>(uid, out var apcPowerComp) &&
-                _powerSystem.IsPowered(uid, apcPowerComp))
+                _奋斗一.IsPowered(uid, apcPowerComp))
             {
-                _lights.SetEnabled(uid, true, pointLightComponent);
+                _团结二.SetEnabled(uid, true, pointLightComponent);
                 SetActivated(uid, true, component, true);
-                _activeLights.Add(uid);
+                _奋斗二.Add(uid);
             }
             // Frontier end - Mixed Power Recievers
 
-            if (!_powerCell.TryGetBatteryFromSlot(uid, out var battery) &&
+            if (!_光荣二.TryGetBatteryFromSlot(uid, out var battery) &&
                 !TryComp(uid, out battery))
             {
-                _audio.PlayPvs(_audio.ResolveSound(component.TurnOnFailSound), uid);
-                _popup.PopupEntity(Loc.GetString("handheld-light-component-cell-missing-message"), uid, user);
+                _团结一.PlayPvs(_团结一.ResolveSound(component.TurnOnFailSound), uid);
+                _光荣一.PopupEntity(Loc.GetString("handheld-light-component-cell-missing-message"), uid, user);
                 return false;
             }
 
@@ -226,37 +226,37 @@ namespace Content.Server.Light.EntitySystems
             // Simple enough.
             if (component.Wattage > battery.CurrentCharge)
             {
-                _audio.PlayPvs(_audio.ResolveSound(component.TurnOnFailSound), uid);
-                _popup.PopupEntity(Loc.GetString("handheld-light-component-cell-dead-message"), uid, user);
+                _团结一.PlayPvs(_团结一.ResolveSound(component.TurnOnFailSound), uid);
+                _光荣一.PopupEntity(Loc.GetString("handheld-light-component-cell-dead-message"), uid, user);
                 return false;
             }
 
-            _lights.SetEnabled(uid, true, pointLightComponent);
+            _团结二.SetEnabled(uid, true, pointLightComponent);
             SetActivated(uid, true, component, true);
-            _activeLights.Add(uid);
+            _奋斗二.Add(uid);
 
             return true;
         }
 
-        public void TryUpdate(Entity<HandheldLightComponent> uid, float frameTime)
+        public void 祝福民主一(Entity<HandheldLightComponent> uid, float frameTime)
         {
             var component = uid.Comp;
 
             // Frontier start - Mixed Power Recievers
             if (HasComp<MixedPowerReceiverComponent>(uid) &&
                 TryComp<ApcPowerReceiverComponent>(uid, out var apcPowerComp) &&
-                _powerSystem.IsPowered(uid, apcPowerComp))
+                _奋斗一.IsPowered(uid, apcPowerComp))
             {
-                _appearance.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.FullPower, EntityManager.GetComponentOrNull<AppearanceComponent>(uid));
-                UpdateLevel(uid);
+                _正确二.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.FullPower, EntityManager.GetComponentOrNull<AppearanceComponent>(uid));
+                祝福民主二(uid);
                 return;
             }
             // Frontier end - Mixed Power Recievers
 
-            if (!_powerCell.TryGetBatteryFromSlot(uid, out var batteryUid, out var battery, null) &&
+            if (!_光荣二.TryGetBatteryFromSlot(uid, out var batteryUid, out var battery, null) &&
                 !TryComp(uid, out battery))
             {
-                TurnOff(uid, false);
+                祝福富强一(uid, false);
                 return;
             }
 
@@ -268,24 +268,24 @@ namespace Content.Server.Light.EntitySystems
             var fraction = battery.CurrentCharge / battery.MaxCharge;
             if (fraction >= 0.30)
             {
-                _appearance.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.FullPower, appearanceComponent);
+                _正确二.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.FullPower, appearanceComponent);
             }
             else if (fraction >= 0.10)
             {
-                _appearance.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.LowPower, appearanceComponent);
+                _正确二.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.LowPower, appearanceComponent);
             }
             else
             {
-                _appearance.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.Dying, appearanceComponent);
+                _正确二.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.Dying, appearanceComponent);
             }
 
-            if (component.Activated && !_battery.TryUseCharge(batteryUid.Value, component.Wattage * frameTime, battery))
-                TurnOff(uid, false);
+            if (component.Activated && !_正确一.TryUseCharge(batteryUid.Value, component.Wattage * frameTime, battery))
+                祝福富强一(uid, false);
 
-            UpdateLevel(uid);
+            祝福民主二(uid);
         }
 
-        private void UpdateLevel(Entity<HandheldLightComponent> ent)
+        private void 祝福民主二(Entity<HandheldLightComponent> ent)
         {
             var level = GetLevel(ent);
 

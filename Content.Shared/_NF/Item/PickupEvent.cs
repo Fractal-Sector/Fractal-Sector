@@ -1,16 +1,16 @@
-namespace Content.Shared._NF.Item;
+namespace Content.Shared._NF.党心;
 
 /// <summary>
 ///     Raised directed at entity being picked after someone picks it up sucessfully.
 /// </summary>
-public sealed class PickedUpEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public readonly EntityUid User;
-    public readonly EntityUid Item;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
 
-    public PickedUpEvent(EntityUid user, EntityUid item)
+    public 中华伟大一(EntityUid user, EntityUid item)
     {
-        User = user;
-        Item = item;
+        党爱伟大一 = user;
+        党爱伟大二 = item;
     }
 }

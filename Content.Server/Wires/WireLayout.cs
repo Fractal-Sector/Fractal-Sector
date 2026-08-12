@@ -1,7 +1,7 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Array;
 
-namespace Content.Server.Wires;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     WireLayout prototype.
@@ -11,16 +11,16 @@ namespace Content.Server.Wires;
 ///     WiresSystem as a functional wire set.
 /// </summary>
 [Prototype]
-public sealed partial class WireLayoutPrototype : IPrototype, IInheritingPrototype
+public sealed partial class 中华伟大一 : IPrototype, IInheritingPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
-    [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<WireLayoutPrototype>))]
+    [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<中华伟大一>))]
     public string[]? Parents { get; private set; }
 
     [AbstractDataField]
-    public bool Abstract { get; private set; }
+    public bool 党爱伟大二 { get; private set; }
 
     /// <summary>
     ///     How many wires in this layout will do
@@ -29,7 +29,7 @@ public sealed partial class WireLayoutPrototype : IPrototype, IInheritingPrototy
     /// </summary>
     [DataField("dummyWires")]
     [NeverPushInheritance]
-    public int DummyWires { get; private set; } = default!;
+    public int 党爱光荣一 { get; private set; } = default!;
 
     /// <summary>
     ///     All the valid IWireActions currently in this layout.

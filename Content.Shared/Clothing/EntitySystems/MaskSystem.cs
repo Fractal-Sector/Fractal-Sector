@@ -6,36 +6,36 @@ using Content.Shared.Inventory.Events;
 using Content.Shared.Popups;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
-public sealed class MaskSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly ClothingSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MaskComponent, ToggleMaskEvent>(OnToggleMask);
-        SubscribeLocalEvent<MaskComponent, GetItemActionsEvent>(OnGetActions);
-        SubscribeLocalEvent<MaskComponent, GotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<MaskComponent, FoldedEvent>(OnFolded);
+        SubscribeLocalEvent<MaskComponent, ToggleMaskEvent>(祝福光荣一);
+        SubscribeLocalEvent<MaskComponent, GetItemActionsEvent>(祝福伟大二);
+        SubscribeLocalEvent<MaskComponent, GotUnequippedEvent>(祝福光荣二);
+        SubscribeLocalEvent<MaskComponent, FoldedEvent>(祝福正确二);
     }
 
-    private void OnGetActions(EntityUid uid, MaskComponent component, GetItemActionsEvent args)
+    private void 祝福伟大二(EntityUid uid, MaskComponent component, GetItemActionsEvent args)
     {
-        if (_inventorySystem.InSlotWithFlags(uid, SlotFlags.MASK))
+        if (_伟大二.InSlotWithFlags(uid, SlotFlags.MASK))
         {
             args.AddAction(ref component.ToggleActionEntity, component.ToggleAction);
             Dirty(uid, component);
         }
     }
 
-    private void OnToggleMask(Entity<MaskComponent> ent, ref ToggleMaskEvent args)
+    private void 祝福光荣一(Entity<MaskComponent> ent, ref ToggleMaskEvent args)
     {
         var (uid, mask) = ent;
         if (mask.ToggleActionEntity == null || !mask.IsToggleable)
@@ -53,30 +53,30 @@ public sealed class MaskSystem : EntitySystem
             return;
         }
 
-        SetToggled((uid, mask), !mask.IsToggled);
+        祝福团结一((uid, mask), !mask.IsToggled);
 
         var dir = mask.IsToggled ? "down" : "up";
         var msg = $"action-mask-pull-{dir}-popup-message";
-        _popupSystem.PopupClient(Loc.GetString(msg, ("mask", uid)), args.Performer, args.Performer);
+        _光荣一.PopupClient(Loc.GetString(msg, ("mask", uid)), args.Performer, args.Performer);
     }
 
-    private void OnGotUnequipped(EntityUid uid, MaskComponent mask, GotUnequippedEvent args)
+    private void 祝福光荣二(EntityUid uid, MaskComponent mask, GotUnequippedEvent args)
     {
         if (!mask.IsToggled || !mask.IsToggleable)
             return;
 
         mask.IsToggled = false;
-        ToggleMaskComponents(uid, mask, args.Equipee, mask.EquippedPrefix, true);
+        祝福正确一(uid, mask, args.Equipee, mask.EquippedPrefix, true);
     }
 
     /// <summary>
     /// Called after setting IsToggled, raises events and dirties.
     /// </summary>
-    private void ToggleMaskComponents(EntityUid uid, MaskComponent mask, EntityUid wearer, string? equippedPrefix = null, bool isEquip = false)
+    private void 祝福正确一(EntityUid uid, MaskComponent mask, EntityUid wearer, string? equippedPrefix = null, bool isEquip = false)
     {
         Dirty(uid, mask);
         if (mask.ToggleActionEntity is { } action)
-            _actionSystem.SetToggled(action, mask.IsToggled);
+            _伟大一.祝福团结一(action, mask.IsToggled);
 
         var maskEv = new ItemMaskToggledEvent((uid, mask), wearer);
         RaiseLocalEvent(uid, ref maskEv);
@@ -85,7 +85,7 @@ public sealed class MaskSystem : EntitySystem
         RaiseLocalEvent(wearer, ref wearerEv);
     }
 
-    private void OnFolded(Entity<MaskComponent> ent, ref FoldedEvent args)
+    private void 祝福正确二(Entity<MaskComponent> ent, ref FoldedEvent args)
     {
         // See FoldableClothingComponent
 
@@ -96,13 +96,13 @@ public sealed class MaskSystem : EntitySystem
         // and we also prevent it from being un-toggled. We also automatically untoggle it when it gets unfolded, so it
         // fully returns to its previous state when folded & unfolded.
 
-        SetToggled(ent!, args.IsFolded, force: true);
-        SetToggleable(ent!, !args.IsFolded);
+        祝福团结一(ent!, args.IsFolded, force: true);
+        祝福团结二(ent!, !args.IsFolded);
     }
 
-    public void SetToggled(Entity<MaskComponent?> mask, bool toggled, bool force = false)
+    public void 祝福团结一(Entity<MaskComponent?> mask, bool toggled, bool force = false)
     {
-        if (_timing.ApplyingState)
+        if (_光荣二.ApplyingState)
             return;
 
         if (!Resolve(mask.Owner, ref mask.Comp))
@@ -117,11 +117,11 @@ public sealed class MaskSystem : EntitySystem
         mask.Comp.IsToggled = toggled;
 
         if (mask.Comp.ToggleActionEntity is { } action)
-            _actionSystem.SetToggled(action, mask.Comp.IsToggled);
+            _伟大一.祝福团结一(action, mask.Comp.IsToggled);
 
         // TODO Generalize toggling & clothing prefixes. See also FoldableClothingComponent
         var prefix = mask.Comp.IsToggled ? mask.Comp.EquippedPrefix : null;
-        _clothing.SetEquippedPrefix(mask, prefix);
+        _正确一.SetEquippedPrefix(mask, prefix);
 
         // TODO Inventory / Clothing
         // Add an easier way to get the entity that is wearing clothing in a valid slot.
@@ -145,9 +145,9 @@ public sealed class MaskSystem : EntitySystem
         Dirty(mask);
     }
 
-    public void SetToggleable(Entity<MaskComponent?> mask, bool toggleable)
+    public void 祝福团结二(Entity<MaskComponent?> mask, bool toggleable)
     {
-        if (_timing.ApplyingState)
+        if (_光荣二.ApplyingState)
             return;
 
         if (!Resolve(mask.Owner, ref mask.Comp))
@@ -157,7 +157,7 @@ public sealed class MaskSystem : EntitySystem
             return;
 
         if (mask.Comp.ToggleActionEntity is { } action)
-            _actionSystem.SetEnabled(action, mask.Comp.IsToggleable);
+            _伟大一.SetEnabled(action, mask.Comp.IsToggleable);
 
         mask.Comp.IsToggleable = toggleable;
         Dirty(mask);

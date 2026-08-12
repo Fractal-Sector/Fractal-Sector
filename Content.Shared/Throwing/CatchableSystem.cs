@@ -11,42 +11,42 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Throwing;
+namespace Content.Shared.党心;
 
-public sealed partial class CatchableSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ThrownItemSystem _thrown = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly ThrownItemSystem _正确一 = default!;
+    [Dependency] private readonly IGameTiming _正确二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结一 = default!;
 
-    private EntityQuery<HandsComponent> _handsQuery;
-    private EntityQuery<CombatModeComponent> _combatModeQuery;
+    private EntityQuery<HandsComponent> _团结二;
+    private EntityQuery<CombatModeComponent> _奋斗一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CatchableComponent, ThrowDoHitEvent>(OnDoHit);
+        SubscribeLocalEvent<CatchableComponent, ThrowDoHitEvent>(祝福伟大二);
 
-        _handsQuery = GetEntityQuery<HandsComponent>();
-        _combatModeQuery = GetEntityQuery<CombatModeComponent>();
+        _团结二 = GetEntityQuery<HandsComponent>();
+        _奋斗一 = GetEntityQuery<CombatModeComponent>();
     }
 
-    private void OnDoHit(Entity<CatchableComponent> ent, ref ThrowDoHitEvent args)
+    private void 祝福伟大二(Entity<CatchableComponent> ent, ref ThrowDoHitEvent args)
     {
-        if (!_handsQuery.TryGetComponent(args.Target, out var handsComp))
+        if (!_团结二.TryGetComponent(args.Target, out var handsComp))
             return; // don't do anything for walls etc
 
         // Is the catcher in combat mode if required?
-        if (ent.Comp.RequireCombatMode && (!_combatModeQuery.TryComp(args.Target, out var combatModeComp) || !combatModeComp.IsInCombatMode))
+        if (ent.Comp.RequireCombatMode && (!_奋斗一.TryComp(args.Target, out var combatModeComp) || !combatModeComp.IsInCombatMode))
             return;
 
         // Is the catcher able to catch this item?
-        if (!_whitelist.IsWhitelistPassOrNull(ent.Comp.CatcherWhitelist, args.Target))
+        if (!_团结一.IsWhitelistPassOrNull(ent.Comp.CatcherWhitelist, args.Target))
             return;
 
         var attemptEv = new CatchAttemptEvent(ent.Owner, ent.Comp.CatchChance);
@@ -56,30 +56,30 @@ public sealed partial class CatchableSystem : EntitySystem
             return;
 
         // TODO: Replace with RandomPredicted once the engine PR is merged
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_timing.CurTick.Value, GetNetEntity(ent).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_正确二.CurTick.Value, GetNetEntity(ent).Id });
         var rand = new System.Random(seed);
         if (!rand.Prob(ent.Comp.CatchChance))
             return;
 
         // Try to catch!
-        if (!_hands.TryPickupAnyHand(args.Target, ent.Owner, handsComp: handsComp, animate: false))
+        if (!_光荣一.TryPickupAnyHand(args.Target, ent.Owner, handsComp: handsComp, animate: false))
             return; // The hands are full!
 
         // Success!
 
         // We picked it up already but we still have to raise the throwing stop (but not the landing) events at the right time,
         // otherwise it will raise the events for that later while still in your hand
-        _thrown.StopThrow(ent.Owner, args.Component);
+        _正确一.StopThrow(ent.Owner, args.Component);
 
         // Collisions don't work properly with PopupPredicted or PlayPredicted.
         // So we make this server only.
-        if (_net.IsClient)
+        if (_伟大一.IsClient)
             return;
 
         var selfMessage = Loc.GetString("catchable-component-success-self", ("item", ent.Owner), ("catcher", Identity.Entity(args.Target, EntityManager)));
         var othersMessage = Loc.GetString("catchable-component-success-others", ("item", ent.Owner), ("catcher", Identity.Entity(args.Target, EntityManager)));
-        _popup.PopupEntity(selfMessage, args.Target, args.Target);
-        _popup.PopupEntity(othersMessage, args.Target, Filter.PvsExcept(args.Target), true);
-        _audio.PlayPvs(ent.Comp.CatchSuccessSound, args.Target);
+        _光荣二.PopupEntity(selfMessage, args.Target, args.Target);
+        _光荣二.PopupEntity(othersMessage, args.Target, Filter.PvsExcept(args.Target), true);
+        _伟大二.PlayPvs(ent.Comp.CatchSuccessSound, args.Target);
     }
 }

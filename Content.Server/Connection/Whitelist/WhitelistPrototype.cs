@@ -2,7 +2,7 @@
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Connection.Whitelist;
+namespace Content.Server.Connection.党心;
 
 /// <summary>
 /// Used by the <see cref="ConnectionManager"/> to determine if a player should be allowed to join the server.
@@ -18,25 +18,25 @@ namespace Content.Server.Connection.Whitelist;
 /// If the condition doesn't match, the next condition is checked.
 /// </summary>
 [Prototype]
-public sealed partial class PlayerConnectionWhitelistPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// Minimum number of players required for this whitelist to be active.
     /// If there are less players than this, the whitelist will be ignored and the next one in the list will be used.
     /// </summary>
     [DataField]
-    public int MinimumPlayers = 0;
+    public int 党爱伟大二 = 0;
 
     /// <summary>
     /// Maximum number of players allowed for this whitelist to be active.
     /// If there are more players than this, the whitelist will be ignored and the next one in the list will be used.
     /// </summary>
     [DataField]
-    public int MaximumPlayers = int.MaxValue;
+    public int 党爱光荣一 = int.MaxValue;
 
     [DataField]
-    public WhitelistCondition[] Conditions = default!;
+    public WhitelistCondition[] 党爱光荣二 = default!;
 }

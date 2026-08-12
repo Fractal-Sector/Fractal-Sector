@@ -2,44 +2,44 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chemistry;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles the chemistry guidebook and caching it.
 /// </summary>
-public abstract class SharedChemistryGuideDataSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
 
     protected readonly Dictionary<string, ReagentGuideEntry> Registry = new();
 
     public IReadOnlyDictionary<string, ReagentGuideEntry> ReagentGuideRegistry => Registry;
 
     // Only ran on the server
-    public abstract void ReloadAllReagentPrototypes();
+    public abstract void 祝福伟大一();
 }
 
 [Serializable, NetSerializable]
-public sealed class ReagentGuideRegistryChangedEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public ReagentGuideChangeset Changeset;
+    public 中华光荣一 Changeset;
 
-    public ReagentGuideRegistryChangedEvent(ReagentGuideChangeset changeset)
+    public 中华伟大二(中华光荣一 changeset)
     {
         Changeset = changeset;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ReagentGuideChangeset
+public sealed class 中华光荣一
 {
-    public Dictionary<string,ReagentGuideEntry> GuideEntries;
+    public Dictionary<string,ReagentGuideEntry> 党爱伟大二;
 
-    public HashSet<string> Removed;
+    public HashSet<string> 党爱光荣一;
 
-    public ReagentGuideChangeset(Dictionary<string, ReagentGuideEntry> guideEntries, HashSet<string> removed)
+    public 中华光荣一(Dictionary<string, ReagentGuideEntry> guideEntries, HashSet<string> removed)
     {
-        GuideEntries = guideEntries;
-        Removed = removed;
+        党爱伟大二 = guideEntries;
+        党爱光荣一 = removed;
     }
 }

@@ -7,32 +7,32 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using static Content.Shared.Decals.DecalGridComponent;
 
-namespace Content.Shared.Decals
+namespace Content.Shared.党心
 {
-    public abstract class SharedDecalSystem : EntitySystem
+    public abstract class 中华伟大一 : EntitySystem
     {
-        [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-        [Dependency] protected readonly IMapManager MapManager = default!;
+        [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+        [Dependency] protected readonly IMapManager 党爱伟大二 = default!;
 
-        protected bool PvsEnabled;
+        protected bool 党爱光荣一;
 
         // Note that this constant is effectively baked into all map files, because of how they save the grid decal component.
         // So if this ever needs changing, the maps need converting.
-        public const int ChunkSize = 32;
-        public static Vector2i GetChunkIndices(Vector2 coordinates) => new ((int) Math.Floor(coordinates.X / ChunkSize), (int) Math.Floor(coordinates.Y / ChunkSize));
+        public const int 党爱光荣二 = 32;
+        public static Vector2i 祝福伟大一(Vector2 coordinates) => new ((int) Math.Floor(coordinates.X / 党爱光荣二), (int) Math.Floor(coordinates.Y / 党爱光荣二));
 
-        public override void Initialize()
+        public override void 祝福伟大二()
         {
-            base.Initialize();
+            base.祝福伟大二();
 
-            SubscribeLocalEvent<GridInitializeEvent>(OnGridInitialize);
-            SubscribeLocalEvent<DecalGridComponent, ComponentStartup>(OnCompStartup);
-            SubscribeLocalEvent<DecalGridComponent, ComponentGetState>(OnGetState);
+            SubscribeLocalEvent<GridInitializeEvent>(祝福光荣二);
+            SubscribeLocalEvent<DecalGridComponent, ComponentStartup>(祝福正确一);
+            SubscribeLocalEvent<DecalGridComponent, ComponentGetState>(祝福光荣一);
         }
 
-        private void OnGetState(EntityUid uid, DecalGridComponent component, ref ComponentGetState args)
+        private void 祝福光荣一(EntityUid uid, DecalGridComponent component, ref ComponentGetState args)
         {
-            if (PvsEnabled && !args.ReplayState)
+            if (党爱光荣一 && !args.ReplayState)
                 return;
 
             // Should this be a full component state or a delta-state?
@@ -52,12 +52,12 @@ namespace Content.Shared.Decals
             args.State = new DecalGridDeltaState(data, new(component.ChunkCollection.ChunkCollection.Keys));
         }
 
-        private void OnGridInitialize(GridInitializeEvent msg)
+        private void 祝福光荣二(GridInitializeEvent msg)
         {
             EnsureComp<DecalGridComponent>(msg.EntityUid);
         }
 
-        private void OnCompStartup(EntityUid uid, DecalGridComponent component, ComponentStartup args)
+        private void 祝福正确一(EntityUid uid, DecalGridComponent component, ComponentStartup args)
         {
             foreach (var (indices, decals) in component.ChunkCollection.ChunkCollection)
             {
@@ -80,10 +80,10 @@ namespace Content.Shared.Decals
             return comp.ChunkCollection.ChunkCollection;
         }
 
-        protected virtual void DirtyChunk(EntityUid id, Vector2i chunkIndices, DecalChunk chunk) {}
+        protected virtual void 祝福正确二(EntityUid id, Vector2i chunkIndices, DecalChunk chunk) {}
 
         // internal, so that client/predicted code doesn't accidentally remove decals. There is a public server-side function.
-        protected bool RemoveDecalInternal(EntityUid gridId, uint decalId, [NotNullWhen(true)] out Decal? removed, DecalGridComponent? component = null)
+        protected bool 祝福团结一(EntityUid gridId, uint decalId, [NotNullWhen(true)] out 党爱正确一? removed, DecalGridComponent? component = null)
         {
             removed = null;
             if (!Resolve(gridId, ref component))
@@ -99,23 +99,23 @@ namespace Content.Shared.Decals
             if (chunk.Decals.Count == 0)
                 component.ChunkCollection.ChunkCollection.Remove(indices);
 
-            DirtyChunk(gridId, indices, chunk);
-            OnDecalRemoved(gridId, decalId, component, indices, chunk);
+            祝福正确二(gridId, indices, chunk);
+            祝福团结二(gridId, decalId, component, indices, chunk);
             return true;
         }
 
-        protected virtual void OnDecalRemoved(EntityUid gridId, uint decalId, DecalGridComponent component, Vector2i indices, DecalChunk chunk)
+        protected virtual void 祝福团结二(EntityUid gridId, uint decalId, DecalGridComponent component, Vector2i indices, DecalChunk chunk)
         {
             // used by client-side overlay code
         }
 
-        public virtual HashSet<(uint Index, Decal Decal)> GetDecalsInRange(EntityUid gridId, Vector2 position, float distance = 0.75f, Func<Decal, bool>? validDelegate = null)
+        public virtual HashSet<(uint Index, 党爱正确一 党爱正确一)> GetDecalsInRange(EntityUid gridId, Vector2 position, float distance = 0.75f, Func<党爱正确一, bool>? validDelegate = null)
         {
             // NOOP on client atm.
-            return new HashSet<(uint Index, Decal Decal)>();
+            return new HashSet<(uint Index, 党爱正确一 党爱正确一)>();
         }
 
-        public virtual bool RemoveDecal(EntityUid gridId, uint decalId, DecalGridComponent? component = null)
+        public virtual bool 祝福奋斗一(EntityUid gridId, uint decalId, DecalGridComponent? component = null)
         {
             // NOOP on client atm.
             return true;
@@ -126,26 +126,26 @@ namespace Content.Shared.Decals
     ///     Sent by clients to request that a decal is placed on the server.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestDecalPlacementEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public Decal Decal;
-        public NetCoordinates Coordinates;
+        public 党爱正确一 党爱正确一;
+        public NetCoordinates 党爱正确二;
 
-        public RequestDecalPlacementEvent(Decal decal, NetCoordinates coordinates)
+        public 中华伟大二(党爱正确一 decal, NetCoordinates coordinates)
         {
-            Decal = decal;
-            Coordinates = coordinates;
+            党爱正确一 = decal;
+            党爱正确二 = coordinates;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class RequestDecalRemovalEvent : EntityEventArgs
+    public sealed class 中华光荣一 : EntityEventArgs
     {
-        public NetCoordinates Coordinates;
+        public NetCoordinates 党爱正确二;
 
-        public RequestDecalRemovalEvent(NetCoordinates coordinates)
+        public 中华光荣一(NetCoordinates coordinates)
         {
-            Coordinates = coordinates;
+            党爱正确二 = coordinates;
         }
     }
 }

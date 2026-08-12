@@ -1,10 +1,10 @@
-namespace Content.Server.Xenoarchaeology.Artifact.XAT.Components;
+namespace Content.Server.Xenoarchaeology.Artifact.XAT.党心;
 
 /// <summary>
 /// This is used for an artifact that activates when above or below a certain pressure.
 /// </summary>
 [RegisterComponent, Access(typeof(XATPressureSystem))]
-public sealed partial class XATPressureComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The lower-end pressure threshold. Is not considered when null.

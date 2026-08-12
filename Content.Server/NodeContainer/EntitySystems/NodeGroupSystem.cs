@@ -13,38 +13,38 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NodeContainer.EntitySystems
+namespace Content.Server.NodeContainer.党心
 {
     /// <summary>
-    ///     Entity system that manages <see cref="NodeGroupSystem"/> and <see cref="Node"/> updating.
+    ///     Entity system that manages <see cref="中华伟大一"/> and <see cref="Node"/> updating.
     /// </summary>
     /// <seealso cref="NodeContainerSystem"/>
     [UsedImplicitly]
-    public sealed class NodeGroupSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly INodeGroupFactory _nodeGroupFactory = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IAdminManager _伟大二 = default!;
+        [Dependency] private readonly INodeGroupFactory _光荣一 = default!;
+        [Dependency] private readonly ILogManager _光荣二 = default!;
 
-        private readonly List<int> _visDeletes = new();
-        private readonly List<BaseNodeGroup> _visSends = new();
+        private readonly List<int> _正确一 = new();
+        private readonly List<BaseNodeGroup> _正确二 = new();
 
-        private readonly HashSet<ICommonSession> _visPlayers = new();
-        private readonly HashSet<BaseNodeGroup> _toRemake = new();
-        private readonly HashSet<BaseNodeGroup> _nodeGroups = new();
-        private readonly HashSet<Node> _toRemove = new();
-        private readonly List<Node> _toReflood = new();
+        private readonly HashSet<ICommonSession> _团结一 = new();
+        private readonly HashSet<BaseNodeGroup> _团结二 = new();
+        private readonly HashSet<BaseNodeGroup> _奋斗一 = new();
+        private readonly HashSet<Node> _奋斗二 = new();
+        private readonly List<Node> _胜利一 = new();
 
-        private ISawmill _sawmill = default!;
+        private ISawmill _胜利二 = default!;
 
         private const float VisDataUpdateInterval = 1;
-        private float _accumulatedFrameTime;
+        private float _繁荣一;
 
-        public bool VisEnabled => _visPlayers.Count != 0;
+        public bool 党爱伟大一 => _团结一.Count != 0;
 
-        private int _gen = 1;
-        private int _groupNetIdCounter = 1;
+        private int _繁荣二 = 1;
+        private int _富强一 = 1;
 
         /// <summary>
         ///     If true, UpdateGrid() will not process grids.
@@ -53,116 +53,116 @@ namespace Content.Server.NodeContainer.EntitySystems
         ///     Useful if something like a large explosion is in the process of shredding the grid, as it avoids uneccesary
         ///     updating.
         /// </remarks>
-        public bool PauseUpdating = false;
+        public bool 党爱伟大二 = false;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _sawmill = _logManager.GetSawmill("nodegroup");
+            _胜利二 = _光荣二.GetSawmill("nodegroup");
 
-            _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
+            _伟大一.PlayerStatusChanged += 祝福光荣二;
 
-            SubscribeNetworkEvent<NodeVis.MsgEnable>(HandleEnableMsg);
+            SubscribeNetworkEvent<NodeVis.MsgEnable>(祝福光荣一);
         }
 
-        public override void Shutdown()
+        public override void 祝福伟大二()
         {
-            base.Shutdown();
+            base.祝福伟大二();
 
-            _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
+            _伟大一.PlayerStatusChanged -= 祝福光荣二;
         }
 
-        private void HandleEnableMsg(NodeVis.MsgEnable msg, EntitySessionEventArgs args)
+        private void 祝福光荣一(NodeVis.MsgEnable msg, EntitySessionEventArgs args)
         {
             var session = args.SenderSession;
-            if (!_adminManager.HasAdminFlag(session, AdminFlags.Debug))
+            if (!_伟大二.HasAdminFlag(session, AdminFlags.Debug))
                 return;
 
             if (msg.Enabled)
             {
-                _visPlayers.Add(session);
-                VisSendFullStateImmediate(session);
+                _团结一.Add(session);
+                祝福民主一(session);
             }
             else
             {
-                _visPlayers.Remove(session);
+                _团结一.Remove(session);
             }
         }
 
-        private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福光荣二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus == SessionStatus.Disconnected)
-                _visPlayers.Remove(e.Session);
+                _团结一.Remove(e.Session);
         }
 
-        public void QueueRemakeGroup(BaseNodeGroup group)
+        public void 祝福正确一(BaseNodeGroup group)
         {
             if (group.Remaking)
                 return;
 
-            _toRemake.Add(group);
+            _团结二.Add(group);
             group.Remaking = true;
 
             foreach (var node in group.Nodes)
             {
-                QueueReflood(node);
+                祝福正确二(node);
             }
 
             if (group.NodeCount == 0)
             {
-                _nodeGroups.Remove(group);
+                _奋斗一.Remove(group);
             }
         }
 
-        public void QueueReflood(Node node)
+        public void 祝福正确二(Node node)
         {
             if (node.FlaggedForFlood)
                 return;
 
-            _toReflood.Add(node);
+            _胜利一.Add(node);
             node.FlaggedForFlood = true;
         }
 
-        public void QueueNodeRemove(Node node)
+        public void 祝福团结一(Node node)
         {
-            _toRemove.Add(node);
+            _奋斗二.Add(node);
         }
 
-        public void CreateSingleNetImmediate(Node node)
+        public void 祝福团结二(Node node)
         {
             if (node.NodeGroup != null)
                 return;
 
-            QueueReflood(node);
+            祝福正确二(node);
 
-            InitGroup(node, new List<Node> {node});
+            祝福繁荣一(node, new List<Node> {node});
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福奋斗一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福奋斗一(frameTime);
 
-            if (!PauseUpdating)
+            if (!党爱伟大二)
             {
-                DoGroupUpdates();
-                VisDoUpdate(frameTime);
+                祝福胜利一();
+                祝福富强二(frameTime);
             }
         }
 
         // used to manually force an update for the groups
-        // the VisDoUpdate will be done with the next scheduled update
-        public void ForceUpdate()
+        // the 祝福富强二 will be done with the next scheduled update
+        public void 祝福奋斗二()
         {
-            DoGroupUpdates();
+            祝福胜利一();
         }
 
-        private void DoGroupUpdates()
+        private void 祝福胜利一()
         {
             // "Why is there a separate queue for group remakes and node refloods when they both cause eachother"
             // Future planning for the potential ability to do more intelligent group updating.
 
-            if (_toRemake.Count == 0 && _toReflood.Count == 0 && _toRemove.Count == 0)
+            if (_团结二.Count == 0 && _胜利一.Count == 0 && _奋斗二.Count == 0)
                 return;
 
             var sw = Stopwatch.StartNew();
@@ -170,7 +170,7 @@ namespace Content.Server.NodeContainer.EntitySystems
             var xformQuery = GetEntityQuery<TransformComponent>();
             var nodeQuery = GetEntityQuery<NodeContainerComponent>();
 
-            foreach (var toRemove in _toRemove)
+            foreach (var toRemove in _奋斗二)
             {
                 if (toRemove.NodeGroup == null)
                     continue;
@@ -180,51 +180,51 @@ namespace Content.Server.NodeContainer.EntitySystems
                 group.RemoveNode(toRemove);
                 toRemove.NodeGroup = null;
 
-                QueueRemakeGroup(group);
+                祝福正确一(group);
             }
 
             // Break up all remaking groups.
             // Don't clear the list yet, we'll come back to these later.
-            foreach (var toRemake in _toRemake)
+            foreach (var toRemake in _团结二)
             {
-                QueueRemakeGroup(toRemake);
+                祝福正确一(toRemake);
             }
 
-            _gen += 1;
+            _繁荣二 += 1;
 
             // Go over all nodes to calculate reachable nodes and make an undirected graph out of them.
             // Node.GetReachableNodes() may return results asymmetrically,
             // i.e. node A may return B, but B may not return A.
             //
             // Must be for loop to allow concurrent modification from RemakeGroupImmediate.
-            for (var i = 0; i < _toReflood.Count; i++)
+            for (var i = 0; i < _胜利一.Count; i++)
             {
-                var node = _toReflood[i];
+                var node = _胜利一[i];
 
                 if (node.Deleting)
                     continue;
 
-                ClearReachableIfNecessary(node);
+                祝福胜利二(node);
 
                 if (node.NodeGroup?.Remaking == false)
                 {
-                    QueueRemakeGroup((BaseNodeGroup) node.NodeGroup);
+                    祝福正确一((BaseNodeGroup) node.NodeGroup);
                 }
 
-                // GetCompatibleNodes will involve getting the transform & grid as most connection requirements are
+                // 祝福富强一 will involve getting the transform & grid as most connection requirements are
                 // based on position & anchored neighbours However, here more than one node could be attached to the
                 // same parent. So there is probably a better way of doing this.
 
-                foreach (var compatible in GetCompatibleNodes(node, xformQuery, nodeQuery))
+                foreach (var compatible in 祝福富强一(node, xformQuery, nodeQuery))
                 {
-                    ClearReachableIfNecessary(compatible);
+                    祝福胜利二(compatible);
 
                     if (compatible.NodeGroup?.Remaking == false)
                     {
                         // We are expanding into an existing group,
                         // remake it so that we can treat it uniformly.
                         var group = (BaseNodeGroup) compatible.NodeGroup;
-                        QueueRemakeGroup(group);
+                        祝福正确一(group);
                     }
 
                     node.ReachableNodes.Add(compatible);
@@ -235,40 +235,40 @@ namespace Content.Server.NodeContainer.EntitySystems
             var newGroups = new List<BaseNodeGroup>();
 
             // Flood fill over nodes. Every node will only be flood filled once.
-            foreach (var node in _toReflood)
+            foreach (var node in _胜利一)
             {
                 node.FlaggedForFlood = false;
 
                 // Check if already flood filled.
-                if (node.FloodGen == _gen || node.Deleting)
+                if (node.FloodGen == _繁荣二 || node.Deleting)
                     continue;
 
                 // Flood fill
-                var groupNodes = FloodFillNode(node);
+                var groupNodes = 祝福繁荣二(node);
 
-                var newGroup = InitGroup(node, groupNodes);
+                var newGroup = 祝福繁荣一(node, groupNodes);
                 newGroups.Add(newGroup);
             }
 
             // Go over dead groups that need to be cleaned up.
             // Tell them to push their data to new groups too.
-            foreach (var oldGroup in _toRemake)
+            foreach (var oldGroup in _团结二)
             {
                 // Group by the NEW group.
                 var newGrouped = oldGroup.Nodes.GroupBy(n => n.NodeGroup);
 
                 oldGroup.Removed = true;
                 oldGroup.AfterRemake(newGrouped);
-                _nodeGroups.Remove(oldGroup);
-                if (VisEnabled)
-                    _visDeletes.Add(oldGroup.NetId);
+                _奋斗一.Remove(oldGroup);
+                if (党爱伟大一)
+                    _正确一.Add(oldGroup.NetId);
             }
 
-            var refloodCount = _toReflood.Count;
+            var refloodCount = _胜利一.Count;
 
-            _toReflood.Clear();
-            _toRemake.Clear();
-            _toRemove.Clear();
+            _胜利一.Clear();
+            _团结二.Clear();
+            _奋斗二.Clear();
 
             // notify entities that node groups have been updated, so they can do things like update their visuals.
             HashSet<EntityUid> entities = new();
@@ -282,27 +282,27 @@ namespace Content.Server.NodeContainer.EntitySystems
 
             foreach (var uid in entities)
             {
-                var ev = new NodeGroupsRebuilt(uid);
+                var ev = new 中华伟大二(uid);
                 RaiseLocalEvent(uid, ref ev, true);
             }
 
-            _sawmill.Debug($"Updated node groups in {sw.Elapsed.TotalMilliseconds}ms. {newGroups.Count} new groups, {refloodCount} nodes processed.");
+            _胜利二.Debug($"Updated node groups in {sw.Elapsed.TotalMilliseconds}ms. {newGroups.Count} new groups, {refloodCount} nodes processed.");
         }
 
-        private void ClearReachableIfNecessary(Node node)
+        private void 祝福胜利二(Node node)
         {
-            if (node.UndirectGen != _gen)
+            if (node.UndirectGen != _繁荣二)
             {
                 node.ReachableNodes.Clear();
-                node.UndirectGen = _gen;
+                node.UndirectGen = _繁荣二;
             }
         }
 
-        private BaseNodeGroup InitGroup(Node node, List<Node> groupNodes)
+        private BaseNodeGroup 祝福繁荣一(Node node, List<Node> groupNodes)
         {
-            var newGroup = (BaseNodeGroup) _nodeGroupFactory.MakeNodeGroup(node.NodeGroupID);
-            newGroup.Initialize(node, EntityManager);
-            newGroup.NetId = _groupNetIdCounter++;
+            var newGroup = (BaseNodeGroup) _光荣一.MakeNodeGroup(node.NodeGroupID);
+            newGroup.祝福伟大一(node, EntityManager);
+            newGroup.NetId = _富强一++;
 
             var netIdCounter = 0;
             foreach (var groupNode in groupNodes)
@@ -313,22 +313,22 @@ namespace Content.Server.NodeContainer.EntitySystems
 
             newGroup.LoadNodes(groupNodes);
 
-            _nodeGroups.Add(newGroup);
+            _奋斗一.Add(newGroup);
 
-            if (VisEnabled)
-                _visSends.Add(newGroup);
+            if (党爱伟大一)
+                _正确二.Add(newGroup);
 
             return newGroup;
         }
 
-        private List<Node> FloodFillNode(Node rootNode)
+        private List<Node> 祝福繁荣二(Node rootNode)
         {
             // All nodes we're filling into that currently have NO network.
             var allNodes = new List<Node>();
 
             var stack = new Stack<Node>();
             stack.Push(rootNode);
-            rootNode.FloodGen = _gen;
+            rootNode.FloodGen = _繁荣二;
 
             while (stack.TryPop(out var node))
             {
@@ -336,10 +336,10 @@ namespace Content.Server.NodeContainer.EntitySystems
 
                 foreach (var reachable in node.ReachableNodes)
                 {
-                    if (reachable.FloodGen == _gen)
+                    if (reachable.FloodGen == _繁荣二)
                         continue;
 
-                    reachable.FloodGen = _gen;
+                    reachable.FloodGen = _繁荣二;
                     stack.Push(reachable);
                 }
             }
@@ -347,7 +347,7 @@ namespace Content.Server.NodeContainer.EntitySystems
             return allNodes;
         }
 
-        private IEnumerable<Node> GetCompatibleNodes(Node node, EntityQuery<TransformComponent> xformQuery, EntityQuery<NodeContainerComponent> nodeQuery)
+        private IEnumerable<Node> 祝福富强一(Node node, EntityQuery<TransformComponent> xformQuery, EntityQuery<NodeContainerComponent> nodeQuery)
         {
             var xform = xformQuery.GetComponent(node.Owner);
             TryComp<MapGridComponent>(xform.GridUid, out var grid);
@@ -367,63 +367,63 @@ namespace Content.Server.NodeContainer.EntitySystems
             }
         }
 
-        private void VisDoUpdate(float frametime)
+        private void 祝福富强二(float frametime)
         {
-            if (_visPlayers.Count == 0)
+            if (_团结一.Count == 0)
                 return;
 
-            _accumulatedFrameTime += frametime;
+            _繁荣一 += frametime;
 
-            if (_accumulatedFrameTime < VisDataUpdateInterval
-                && _visSends.Count == 0
-                && _visDeletes.Count == 0)
+            if (_繁荣一 < VisDataUpdateInterval
+                && _正确二.Count == 0
+                && _正确一.Count == 0)
                 return;
 
             var msg = new NodeVis.MsgData();
 
-            msg.GroupDeletions.AddRange(_visDeletes);
-            msg.Groups.AddRange(_visSends.Select(VisMakeGroupState));
+            msg.GroupDeletions.AddRange(_正确一);
+            msg.Groups.AddRange(_正确二.Select(祝福民主二));
 
-            if (_accumulatedFrameTime > VisDataUpdateInterval)
+            if (_繁荣一 > VisDataUpdateInterval)
             {
-                _accumulatedFrameTime -= VisDataUpdateInterval;
-                foreach (var group in _nodeGroups)
+                _繁荣一 -= VisDataUpdateInterval;
+                foreach (var group in _奋斗一)
                 {
-                    if (_visSends.Contains(group))
+                    if (_正确二.Contains(group))
                         continue;
 
                     msg.GroupDataUpdates.Add(group.NetId, group.GetDebugData());
                 }
             }
 
-            _visSends.Clear();
-            _visDeletes.Clear();
+            _正确二.Clear();
+            _正确一.Clear();
 
-            foreach (var player in _visPlayers)
+            foreach (var player in _团结一)
             {
                 RaiseNetworkEvent(msg, player.Channel);
             }
         }
 
-        private void VisSendFullStateImmediate(ICommonSession player)
+        private void 祝福民主一(ICommonSession player)
         {
             var msg = new NodeVis.MsgData();
 
-            foreach (var network in _nodeGroups)
+            foreach (var network in _奋斗一)
             {
-                msg.Groups.Add(VisMakeGroupState(network));
+                msg.Groups.Add(祝福民主二(network));
             }
 
             RaiseNetworkEvent(msg, player.Channel);
         }
 
-        private NodeVis.GroupData VisMakeGroupState(BaseNodeGroup group)
+        private NodeVis.GroupData 祝福民主二(BaseNodeGroup group)
         {
             return new()
             {
                 NetId = group.NetId,
                 GroupId = group.GroupId.ToString(),
-                Color = CalcNodeGroupColor(group),
+                Color = 祝福文明一(group),
                 Nodes = group.Nodes.Select(n => new NodeVis.NodeDatum
                 {
                     Name = n.Name,
@@ -436,7 +436,7 @@ namespace Content.Server.NodeContainer.EntitySystems
             };
         }
 
-        private static Color CalcNodeGroupColor(BaseNodeGroup group)
+        private static Color 祝福文明一(BaseNodeGroup group)
         {
             return group.GroupId switch
             {
@@ -457,13 +457,13 @@ namespace Content.Server.NodeContainer.EntitySystems
     ///     cref="NodeContainerComponent"/> that had a relevant node.
     /// </summary>
     [ByRefEvent]
-    public readonly struct NodeGroupsRebuilt
+    public readonly struct 中华伟大二
     {
-        public readonly EntityUid NodeOwner;
+        public readonly EntityUid 党爱光荣一;
 
-        public NodeGroupsRebuilt(EntityUid nodeOwner)
+        public 中华伟大二(EntityUid nodeOwner)
         {
-            NodeOwner = nodeOwner;
+            党爱光荣一 = nodeOwner;
         }
     }
 }

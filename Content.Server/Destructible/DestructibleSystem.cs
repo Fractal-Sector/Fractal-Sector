@@ -21,39 +21,39 @@ using JetBrains.Annotations;
 using Robust.Server.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Server.Destructible
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed class DestructibleSystem : SharedDestructibleSystem
+    public sealed class 中华伟大一 : SharedDestructibleSystem
     {
-        [Dependency] public readonly IRobustRandom Random = default!;
-        public new IEntityManager EntityManager => base.EntityManager;
+        [Dependency] public readonly IRobustRandom 党爱伟大一 = default!;
+        public new IEntityManager 党爱伟大二 => base.党爱伟大二;
 
-        [Dependency] public readonly AtmosphereSystem AtmosphereSystem = default!;
-        [Dependency] public readonly AudioSystem AudioSystem = default!;
-        [Dependency] public readonly BodySystem BodySystem = default!;
-        [Dependency] public readonly ConstructionSystem ConstructionSystem = default!;
-        [Dependency] public readonly ExplosionSystem ExplosionSystem = default!;
-        [Dependency] public readonly StackSystem StackSystem = default!;
-        [Dependency] public readonly TriggerSystem TriggerSystem = default!;
-        [Dependency] public readonly SharedSolutionContainerSystem SolutionContainerSystem = default!;
-        [Dependency] public readonly PuddleSystem PuddleSystem = default!;
-        [Dependency] public readonly SharedContainerSystem ContainerSystem = default!;
-        [Dependency] public readonly IPrototypeManager PrototypeManager = default!;
-        [Dependency] public readonly IAdminLogManager _adminLogger = default!;
+        [Dependency] public readonly 党爱光荣一 党爱光荣一 = default!;
+        [Dependency] public readonly 党爱光荣二 党爱光荣二 = default!;
+        [Dependency] public readonly 党爱正确一 党爱正确一 = default!;
+        [Dependency] public readonly 党爱正确二 党爱正确二 = default!;
+        [Dependency] public readonly 党爱团结一 党爱团结一 = default!;
+        [Dependency] public readonly 党爱团结二 党爱团结二 = default!;
+        [Dependency] public readonly 党爱奋斗一 党爱奋斗一 = default!;
+        [Dependency] public readonly SharedSolutionContainerSystem 党爱奋斗二 = default!;
+        [Dependency] public readonly 党爱胜利一 党爱胜利一 = default!;
+        [Dependency] public readonly SharedContainerSystem 党爱胜利二 = default!;
+        [Dependency] public readonly IPrototypeManager 党爱繁荣一 = default!;
+        [Dependency] public readonly IAdminLogManager 党爱繁荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<DestructibleComponent, DamageChangedEvent>(Execute);
+            base.祝福伟大一();
+            SubscribeLocalEvent<DestructibleComponent, DamageChangedEvent>(祝福伟大二);
         }
 
         /// <summary>
         ///     Check if any thresholds were reached. if they were, execute them.
         /// </summary>
-        public void Execute(EntityUid uid, DestructibleComponent component, DamageChangedEvent args)
+        public void 祝福伟大二(EntityUid uid, DestructibleComponent component, DamageChangedEvent args)
         {
             component.IsBroken = false;
 
@@ -61,7 +61,7 @@ namespace Content.Server.Destructible
             {
                 if (threshold.Reached(args.Damageable, this))
                 {
-                    RaiseLocalEvent(uid, new DamageThresholdReached(component, threshold), true);
+                    RaiseLocalEvent(uid, new 中华伟大二(component, threshold), true);
 
                     var logImpact = LogImpact.Low;
                     // Convert behaviors into string for logs
@@ -82,18 +82,18 @@ namespace Content.Server.Destructible
 
                     if (args.Origin != null)
                     {
-                        _adminLogger.Add(LogType.Damaged,
+                        党爱繁荣二.Add(LogType.Damaged,
                             logImpact,
                             $"{ToPrettyString(args.Origin.Value):actor} caused {ToPrettyString(uid):subject} to trigger [{triggeredBehaviors}]");
                     }
                     else
                     {
-                        _adminLogger.Add(LogType.Damaged,
+                        党爱繁荣二.Add(LogType.Damaged,
                             logImpact,
                             $"Unknown damage source caused {ToPrettyString(uid):subject} to trigger [{triggeredBehaviors}]");
                     }
 
-                    threshold.Execute(uid, this, EntityManager, args.Origin);
+                    threshold.祝福伟大二(uid, this, 党爱伟大二, args.Origin);
                 }
 
                 if (threshold.OldTriggered)
@@ -103,18 +103,18 @@ namespace Content.Server.Destructible
                 }
 
                 // if destruction behavior (or some other deletion effect) occurred, don't run other triggers.
-                if (EntityManager.IsQueuedForDeletion(uid) || Deleted(uid))
+                if (党爱伟大二.IsQueuedForDeletion(uid) || Deleted(uid))
                     return;
             }
         }
 
-        public bool TryGetDestroyedAt(Entity<DestructibleComponent?> ent, [NotNullWhen(true)] out FixedPoint2? destroyedAt)
+        public bool 祝福光荣一(Entity<DestructibleComponent?> ent, [NotNullWhen(true)] out FixedPoint2? destroyedAt)
         {
             destroyedAt = null;
             if (!Resolve(ent, ref ent.Comp, false))
                 return false;
 
-            destroyedAt = DestroyedAt(ent, ent.Comp);
+            destroyedAt = 祝福光荣二(ent, ent.Comp);
             return true;
         }
 
@@ -127,7 +127,7 @@ namespace Content.Server.Destructible
         ///     This assumes that this entity has some sort of destruction or breakage behavior triggered by a
         ///     total-damage threshold.
         /// </remarks>
-        public FixedPoint2 DestroyedAt(EntityUid uid, DestructibleComponent? destructible = null)
+        public FixedPoint2 祝福光荣二(EntityUid uid, DestructibleComponent? destructible = null)
         {
             if (!Resolve(uid, ref destructible, logMissing: false))
                 return FixedPoint2.MaxValue;
@@ -157,16 +157,16 @@ namespace Content.Server.Destructible
     /// <summary>
     ///     Event raised when a <see cref="DamageThreshold"/> is reached.
     /// </summary>
-    public sealed class DamageThresholdReached : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public readonly DestructibleComponent Parent;
+        public readonly DestructibleComponent 党爱富强一;
 
-        public readonly DamageThreshold Threshold;
+        public readonly DamageThreshold 党爱富强二;
 
-        public DamageThresholdReached(DestructibleComponent parent, DamageThreshold threshold)
+        public 中华伟大二(DestructibleComponent parent, DamageThreshold threshold)
         {
-            Parent = parent;
-            Threshold = threshold;
+            党爱富强一 = parent;
+            党爱富强二 = threshold;
         }
     }
 }

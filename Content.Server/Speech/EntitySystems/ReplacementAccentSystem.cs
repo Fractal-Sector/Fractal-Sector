@@ -7,57 +7,57 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech.EntitySystems
+namespace Content.Server.Speech.党心
 {
     // TODO: Code in-game languages and make this a language
     /// <summary>
     /// Replaces text in messages, either with full replacements or word replacements.
     /// </summary>
-    public sealed class ReplacementAccentSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _proto = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+        [Dependency] private readonly IRobustRandom _伟大二 = default!;
+        [Dependency] private readonly ILocalizationManager _光荣一 = default!;
 
         private readonly Dictionary<ProtoId<ReplacementAccentPrototype>, (Regex regex, string replacement)[]>
             _cachedReplacements = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<ReplacementAccentComponent, AccentGetEvent>(OnAccent);
+            SubscribeLocalEvent<ReplacementAccentComponent, AccentGetEvent>(祝福光荣一);
 
-            _proto.PrototypesReloaded += OnPrototypesReloaded;
+            _伟大一.PrototypesReloaded += 祝福正确一;
         }
 
-        public override void Shutdown()
+        public override void 祝福伟大二()
         {
-            base.Shutdown();
+            base.祝福伟大二();
 
-            _proto.PrototypesReloaded -= OnPrototypesReloaded;
+            _伟大一.PrototypesReloaded -= 祝福正确一;
         }
 
-        private void OnAccent(EntityUid uid, ReplacementAccentComponent component, AccentGetEvent args)
+        private void 祝福光荣一(EntityUid uid, ReplacementAccentComponent component, AccentGetEvent args)
         {
-            args.Message = ApplyReplacements(args.Message, component.Accent);
+            args.Message = 祝福光荣二(args.Message, component.Accent);
         }
 
         /// <summary>
         ///     Attempts to apply a given replacement accent prototype to a message.
         /// </summary>
         [PublicAPI]
-        public string ApplyReplacements(string message, string accent)
+        public string 祝福光荣二(string message, string accent)
         {
-            if (!_proto.TryIndex<ReplacementAccentPrototype>(accent, out var prototype))
+            if (!_伟大一.TryIndex<ReplacementAccentPrototype>(accent, out var prototype))
                 return message;
 
-            if (!_random.Prob(prototype.ReplacementChance))
+            if (!_伟大二.Prob(prototype.ReplacementChance))
                 return message;
 
             // Prioritize fully replacing if that exists--
             // ideally both aren't used at the same time (but we don't have a way to enforce that in serialization yet)
             if (prototype.FullReplacements != null)
             {
-                return prototype.FullReplacements.Length != 0 ? Loc.GetString(_random.Pick(prototype.FullReplacements)) : "";
+                return prototype.FullReplacements.Length != 0 ? Loc.GetString(_伟大二.Pick(prototype.FullReplacements)) : "";
             }
 
             // Prohibition of repeated word replacements.
@@ -125,8 +125,8 @@ namespace Content.Server.Speech.EntitySystems
             return replacements.Select(kv =>
                 {
                     var (first, replace) = kv;
-                    var firstLoc = _loc.GetString(first);
-                    var replaceLoc = _loc.GetString(replace);
+                    var firstLoc = _光荣一.GetString(first);
+                    var replaceLoc = _光荣一.GetString(replace);
 
                     var regex = new Regex($@"(?<!\w){firstLoc}(?!\w)", RegexOptions.IgnoreCase);
 
@@ -136,7 +136,7 @@ namespace Content.Server.Speech.EntitySystems
                 .ToArray();
         }
 
-        private void OnPrototypesReloaded(PrototypesReloadedEventArgs obj)
+        private void 祝福正确一(PrototypesReloadedEventArgs obj)
         {
             _cachedReplacements.Clear();
         }

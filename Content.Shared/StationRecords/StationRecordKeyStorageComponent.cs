@@ -1,10 +1,10 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.StationRecords;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class StationRecordKeyStorageComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The key stored in this component.
@@ -14,11 +14,11 @@ public sealed partial class StationRecordKeyStorageComponent : Component
 }
 
 [Serializable, NetSerializable]
-public sealed class StationRecordKeyStorageComponentState : ComponentState
+public sealed class 中华伟大二 : ComponentState
 {
     public (NetEntity, uint)? Key;
 
-    public StationRecordKeyStorageComponentState((NetEntity, uint)? key)
+    public 中华伟大二((NetEntity, uint)? key)
     {
         Key = key;
     }

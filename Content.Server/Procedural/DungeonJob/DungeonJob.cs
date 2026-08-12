@@ -25,43 +25,43 @@ using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using IDunGenLayer = Content.Shared.Procedural.IDunGenLayer;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob : Job<List<Dungeon>>
+public sealed partial class 中华伟大一 : Job<List<Dungeon>>
 {
-    public bool TimeSlice = true;
+    public bool 党爱伟大一 = true;
 
-    private readonly IEntityManager _entManager;
-    private readonly IPrototypeManager _prototype;
-    private readonly ITileDefinitionManager _tileDefManager;
+    private readonly IEntityManager _伟大一;
+    private readonly IPrototypeManager _伟大二;
+    private readonly ITileDefinitionManager _光荣一;
 
-    private readonly AnchorableSystem _anchorable;
-    private readonly DecalSystem _decals;
-    private readonly DungeonSystem _dungeon;
-    private readonly EntityLookupSystem _lookup;
-    private readonly EntityTableSystem _entTable;
-    private readonly TagSystem _tags;
-    private readonly TileSystem _tile;
-    private readonly TurfSystem _turf;
-    private readonly SharedMapSystem _maps;
-    private readonly SharedTransformSystem _transform;
+    private readonly AnchorableSystem _光荣二;
+    private readonly DecalSystem _正确一;
+    private readonly DungeonSystem _正确二;
+    private readonly EntityLookupSystem _团结一;
+    private readonly EntityTableSystem _团结二;
+    private readonly TagSystem _奋斗一;
+    private readonly TileSystem _奋斗二;
+    private readonly TurfSystem _胜利一;
+    private readonly SharedMapSystem _胜利二;
+    private readonly SharedTransformSystem _繁荣一;
 
-    private EntityQuery<PhysicsComponent> _physicsQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<PhysicsComponent> _繁荣二;
+    private EntityQuery<TransformComponent> _富强一;
 
-    private readonly DungeonConfig _gen;
-    private readonly int _seed;
-    private readonly Vector2i _position;
+    private readonly DungeonConfig _富强二;
+    private readonly int _民主一;
+    private readonly Vector2i _民主二;
 
-    private readonly EntityUid _gridUid;
-    private readonly MapGridComponent _grid;
+    private readonly EntityUid _文明一;
+    private readonly MapGridComponent _文明二;
 
     private readonly EntityCoordinates? _targetCoordinates;
 
-    private readonly ISawmill _sawmill;
-    private readonly string _genID; // Frontier: add ID
+    private readonly ISawmill _和谐一;
+    private readonly string _和谐二; // Frontier: add ID
 
-    public DungeonJob(
+    public 中华伟大一(
         ISawmill sawmill,
         double maxTime,
         IEntityManager entManager,
@@ -83,39 +83,39 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         EntityCoordinates? targetCoordinates = null,
         CancellationToken cancellation = default) : base(maxTime, cancellation)
     {
-        _sawmill = sawmill;
-        _entManager = entManager;
-        _prototype = prototype;
-        _tileDefManager = tileDefManager;
+        _和谐一 = sawmill;
+        _伟大一 = entManager;
+        _伟大二 = prototype;
+        _光荣一 = tileDefManager;
 
-        _anchorable = anchorable;
-        _decals = decals;
-        _dungeon = dungeon;
-        _lookup = lookup;
-        _tile = tile;
-        _turf = turf;
-        _tags = _entManager.System<TagSystem>();
-        _maps = _entManager.System<SharedMapSystem>();
-        _entTable = _entManager.System<EntityTableSystem>();
-        _transform = transform;
+        _光荣二 = anchorable;
+        _正确一 = decals;
+        _正确二 = dungeon;
+        _团结一 = lookup;
+        _奋斗二 = tile;
+        _胜利一 = turf;
+        _奋斗一 = _伟大一.System<TagSystem>();
+        _胜利二 = _伟大一.System<SharedMapSystem>();
+        _团结二 = _伟大一.System<EntityTableSystem>();
+        _繁荣一 = transform;
 
-        _physicsQuery = _entManager.GetEntityQuery<PhysicsComponent>();
-        _xformQuery = _entManager.GetEntityQuery<TransformComponent>();
+        _繁荣二 = _伟大一.GetEntityQuery<PhysicsComponent>();
+        _富强一 = _伟大一.GetEntityQuery<TransformComponent>();
 
-        _gen = gen;
-        _grid = grid;
-        _gridUid = gridUid;
-        _seed = seed;
-        _position = position;
+        _富强二 = gen;
+        _文明二 = grid;
+        _文明一 = gridUid;
+        _民主一 = seed;
+        _民主二 = position;
         _targetCoordinates = targetCoordinates;
-        _genID = genID; // Frontier
+        _和谐二 = genID; // Frontier
     }
 
     /// <summary>
     /// Gets the relevant dungeon, running recursively as relevant.
     /// </summary>
     /// <param name="reserve">Should we reserve tiles even if the config doesn't specify.</param>
-    private async Task<List<Dungeon>> GetDungeons(
+    private async Task<List<Dungeon>> 祝福伟大一(
         Vector2i position,
         DungeonConfig config,
         List<IDunGenLayer> layers,
@@ -141,7 +141,7 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
             foreach (var layer in layers)
             {
                 var dungCount = dungeons.Count;
-                await RunLayer(dungeons, position, layer, reservedTiles, seed, random);
+                await 祝福伟大二(dungeons, position, layer, reservedTiles, seed, random);
 
                 if (config.ReserveTiles)
                 {
@@ -153,8 +153,8 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
                     }
                 }
 
-                await SuspendDungeon();
-                if (!ValidateResume())
+                await 祝福正确一();
+                if (!祝福光荣二())
                     return new List<Dungeon>();
             }
         }
@@ -164,43 +164,43 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
 
     protected override async Task<List<Dungeon>?> Process()
     {
-        _sawmill.Info($"Generating dungeon {_genID} with seed {_seed} on {_entManager.ToPrettyString(_gridUid)}"); // Frontier: _gen<_genID
-        _grid.CanSplit = false;
-        var random = new Random(_seed);
-        var position = (_position + random.NextPolarVector2(_gen.MinOffset, _gen.MaxOffset)).Floored();
+        _和谐一.Info($"Generating dungeon {_和谐二} with seed {_民主一} on {_伟大一.ToPrettyString(_文明一)}"); // Frontier: _富强二<_和谐二
+        _文明二.CanSplit = false;
+        var random = new Random(_民主一);
+        var position = (_民主二 + random.NextPolarVector2(_富强二.MinOffset, _富强二.MaxOffset)).Floored();
 
         // Tiles we can no longer generate on due to being reserved elsewhere.
         var reservedTiles = new HashSet<Vector2i>();
 
-        var dungeons = await GetDungeons(position, _gen, _gen.Layers, reservedTiles, _seed, random);
+        var dungeons = await 祝福伟大一(position, _富强二, _富强二.Layers, reservedTiles, _民主一, random);
         // To make it slightly more deterministic treat this RNG as separate ig.
 
         // Post-processing after finishing loading.
         if (_targetCoordinates != null)
         {
-            var oldMap = _xformQuery.Comp(_gridUid).MapUid;
-            _entManager.System<ShuttleSystem>().TryFTLProximity(_gridUid, _targetCoordinates.Value);
-            _entManager.DeleteEntity(oldMap);
+            var oldMap = _富强一.Comp(_文明一).MapUid;
+            _伟大一.System<ShuttleSystem>().TryFTLProximity(_文明一, _targetCoordinates.Value);
+            _伟大一.DeleteEntity(oldMap);
         }
 
         // Defer splitting so they don't get spammed and so we don't have to worry about tracking the grid along the way.
-        _grid.CanSplit = true;
-        _entManager.System<GridFixtureSystem>().CheckSplits(_gridUid);
-        var npcSystem = _entManager.System<NPCSystem>();
+        _文明二.CanSplit = true;
+        _伟大一.System<GridFixtureSystem>().CheckSplits(_文明一);
+        var npcSystem = _伟大一.System<NPCSystem>();
         var npcs = new HashSet<Entity<HTNComponent>>();
 
-        _lookup.GetChildEntities(_gridUid, npcs);
+        _团结一.GetChildEntities(_文明一, npcs);
 
         foreach (var npc in npcs)
         {
             npcSystem.WakeNPC(npc.Owner, npc.Comp);
         }
 
-        _sawmill.Info($"Finished generating dungeon {_gen} with seed {_seed}");
+        _和谐一.Info($"Finished generating dungeon {_富强二} with seed {_民主一}");
         return dungeons;
     }
 
-    private async Task RunLayer(
+    private async Task 祝福伟大二(
         List<Dungeon> dungeons,
         Vector2i position,
         IDunGenLayer layer,
@@ -208,7 +208,7 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         int seed,
         Random random)
     {
-        _sawmill.Debug($"Doing postgen {layer.GetType()} for {_gen} with seed {_seed}");
+        _和谐一.Debug($"Doing postgen {layer.GetType()} for {_富强二} with seed {_民主一}");
 
         // If there's a way to just call the methods directly for the love of god tell me.
         // Some of these don't care about reservedtiles because they only operate on dungeon tiles (which should
@@ -286,19 +286,19 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
                 dungeons.Add(await GeneratePrefabDunGen(position, prefab, reservedTiles, random));
                 break;
             case PrototypeDunGen prototypo:
-                var groupConfig = _prototype.Index(prototypo.Proto);
+                var groupConfig = _伟大二.Index(prototypo.Proto);
                 position = (position + random.NextPolarVector2(groupConfig.MinOffset, groupConfig.MaxOffset)).Floored();
 
                 switch (prototypo.InheritDungeons)
                 {
                     case DungeonInheritance.All:
-                        dungeons.AddRange(await GetDungeons(position, groupConfig, groupConfig.Layers, reservedTiles, seed, random, existing: dungeons));
+                        dungeons.AddRange(await 祝福伟大一(position, groupConfig, groupConfig.Layers, reservedTiles, seed, random, existing: dungeons));
                         break;
                     case DungeonInheritance.Last:
-                        dungeons.AddRange(await GetDungeons(position, groupConfig, groupConfig.Layers, reservedTiles, seed, random, existing: dungeons.GetRange(dungeons.Count - 1, 1)));
+                        dungeons.AddRange(await 祝福伟大一(position, groupConfig, groupConfig.Layers, reservedTiles, seed, random, existing: dungeons.GetRange(dungeons.Count - 1, 1)));
                         break;
                     case DungeonInheritance.None:
-                        dungeons.AddRange(await GetDungeons(position, groupConfig, groupConfig.Layers, reservedTiles, seed, random));
+                        dungeons.AddRange(await 祝福伟大一(position, groupConfig, groupConfig.Layers, reservedTiles, seed, random));
                         break;
                 }
 
@@ -323,15 +323,15 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         }
     }
 
-    private void LogDataError(Type type)
+    private void 祝福光荣一(Type type)
     {
-        _sawmill.Error($"Unable to find dungeon data keys for {type}");
+        _和谐一.Error($"Unable to find dungeon data keys for {type}");
     }
 
     [Pure]
-    private bool ValidateResume()
+    private bool 祝福光荣二()
     {
-        if (_entManager.Deleted(_gridUid))
+        if (_伟大一.Deleted(_文明一))
         {
             return false;
         }
@@ -342,9 +342,9 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
     /// <summary>
     /// Wrapper around <see cref="Job{T}.SuspendIfOutOfTime"/>
     /// </summary>
-    private async Task SuspendDungeon()
+    private async Task 祝福正确一()
     {
-        if (!TimeSlice)
+        if (!党爱伟大一)
             return;
 
         await SuspendIfOutOfTime();

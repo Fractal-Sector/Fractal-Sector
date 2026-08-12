@@ -6,16 +6,16 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Anomaly.Components;
+namespace Content.Shared.Anomaly.党心;
 
 /// <summary>
 /// An anomaly within the body of a living being. Controls the ability to return to the standard state.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true), Access(typeof(SharedInnerBodyAnomalySystem))]
-public sealed partial class InnerBodyAnomalyComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public bool Injected;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// A prototype of an entity whose components will be added to the anomaly host **AND** then removed at the right time
@@ -27,7 +27,7 @@ public sealed partial class InnerBodyAnomalyComponent : Component
     /// Duration of stun from the effect of the anomaly
     /// </summary>
     [DataField]
-    public float StunDuration = 4f;
+    public float 党爱伟大二 = 4f;
 
     /// <summary>
     /// A message sent in chat to a player who has become infected by an anomaly
@@ -51,7 +51,7 @@ public sealed partial class InnerBodyAnomalyComponent : Component
     /// Used to display messages to the player about their level of disease progression
     /// </summary>
     [DataField]
-    public float LastSeverityInformed = 0f;
+    public float 党爱光荣一 = 0f;
 
     /// <summary>
     /// The fallback sprite to be added on the original entity. Allows you to visually identify the feature and type of anomaly to other players
@@ -69,7 +69,7 @@ public sealed partial class InnerBodyAnomalyComponent : Component
     /// The key of the entity layer into which the sprite will be inserted
     /// </summary>
     [DataField]
-    public string LayerMap = "inner_anomaly_layer";
+    public string 党爱光荣二 = "inner_anomaly_layer";
 }
 
 /// <summary>
@@ -78,4 +78,4 @@ public sealed partial class InnerBodyAnomalyComponent : Component
 /// Cancel this if you want to prevent the host from losing their anomaly on death.
 /// </summary>
 [ByRefEvent]
-public record struct BeforeRemoveAnomalyOnDeathEvent(bool Cancelled = false);
+public record 中华伟大二 BeforeRemoveAnomalyOnDeathEvent(bool Cancelled = false);

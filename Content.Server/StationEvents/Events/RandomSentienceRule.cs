@@ -7,17 +7,17 @@ using Content.Shared.Random.Helpers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class RandomSentienceRule : StationEventSystem<RandomSentienceRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<RandomSentienceRuleComponent>
 {
     private static readonly ProtoId<LocalizedDatasetPrototype> DataSourceNames = "NFRandomSentienceEventData"; // Frontier: add NF prefix
     private static readonly ProtoId<LocalizedDatasetPrototype> IntelligenceLevelNames = "NFRandomSentienceEventStrength"; // Frontier: add NF prefix
 
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    protected override void Started(EntityUid uid, RandomSentienceRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, RandomSentienceRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
         if (!TryGetRandomStation(out var station))
             return;
@@ -32,7 +32,7 @@ public sealed class RandomSentienceRule : StationEventSystem<RandomSentienceRule
             targetList.Add((targetUid, target));
         }
 
-        var toMakeSentient = _random.Next(component.MinSentiences, component.MaxSentiences);
+        var toMakeSentient = _伟大二.Next(component.MinSentiences, component.MaxSentiences);
 
         var groups = new HashSet<string>();
 
@@ -43,7 +43,7 @@ public sealed class RandomSentienceRule : StationEventSystem<RandomSentienceRule
             // This initial target should never be picked.
             // It's just so that target doesn't need to be nullable and as a safety fallback for id floating point errors ever mess up the comparison in the foreach.
             var target = targetList[0];
-            var chosenWeight = _random.NextFloat(totalWeight);
+            var chosenWeight = _伟大二.NextFloat(totalWeight);
             var currentWeight = 0.0;
             foreach (var potentialTarget in targetList)
             {
@@ -76,8 +76,8 @@ public sealed class RandomSentienceRule : StationEventSystem<RandomSentienceRule
             station.Value,
             Loc.GetString("station-event-random-sentience-announcement",
                 ("kind1", kind1), ("kind2", kind2), ("kind3", kind3), ("amount", groupList.Count),
-                ("data", _random.Pick(_prototype.Index(DataSourceNames))),
-                ("strength", _random.Pick(_prototype.Index(IntelligenceLevelNames)))
+                ("data", _伟大二.Pick(_伟大一.Index(DataSourceNames))),
+                ("strength", _伟大二.Pick(_伟大一.Index(IntelligenceLevelNames)))
             ),
             playDefaultSound: false,
             colorOverride: Color.Gold

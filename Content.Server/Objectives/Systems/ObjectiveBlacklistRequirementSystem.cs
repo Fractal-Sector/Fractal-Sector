@@ -2,30 +2,30 @@ using Content.Server.Objectives.Components;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Whitelist;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Handles applying the objective component blacklist to the objective entity.
 /// </summary>
-public sealed class ObjectiveBlacklistRequirementSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ObjectiveBlacklistRequirementComponent, RequirementCheckEvent>(OnCheck);
+        SubscribeLocalEvent<ObjectiveBlacklistRequirementComponent, RequirementCheckEvent>(祝福伟大二);
     }
 
-    private void OnCheck(EntityUid uid, ObjectiveBlacklistRequirementComponent comp, ref RequirementCheckEvent args)
+    private void 祝福伟大二(EntityUid uid, ObjectiveBlacklistRequirementComponent comp, ref RequirementCheckEvent args)
     {
         if (args.Cancelled)
             return;
 
         foreach (var objective in args.Mind.Objectives)
         {
-            if (_whitelistSystem.IsBlacklistPass(comp.Blacklist, objective))
+            if (_伟大一.IsBlacklistPass(comp.Blacklist, objective))
             {
                 args.Cancelled = true;
                 return;

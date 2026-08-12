@@ -1,9 +1,9 @@
 ﻿using Content.Server.Body.Systems;
 
-namespace Content.Server.Body.Components
+namespace Content.Server.Body.党心
 {
     [RegisterComponent, Access(typeof(BrainSystem))]
-    public sealed partial class BrainComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
     }
 }

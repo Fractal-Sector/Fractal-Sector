@@ -6,22 +6,22 @@ using Robust.Shared.Console;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
-namespace Content.Server.GhostKick;
+namespace Content.Server.党心;
 
 // Handles logic for "ghost kicking".
 // Basically we boot the client off the server without telling them, so the game shits itself.
 // Hilarious, isn't it?
 
-public sealed class GhostKickManager
+public sealed class 中华伟大一
 {
-    [Dependency] private readonly IServerNetManager _netManager = default!;
+    [Dependency] private readonly IServerNetManager _伟大一 = default!;
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _netManager.RegisterNetMessage<MsgGhostKick>();
+        _伟大一.RegisterNetMessage<MsgGhostKick>();
     }
 
-    public void DoDisconnect(INetChannel channel, string reason)
+    public void 祝福伟大二(INetChannel channel, string reason)
     {
         Timer.Spawn(TimeSpan.FromMilliseconds(100), () =>
         {
@@ -45,14 +45,14 @@ public sealed class GhostKickManager
 }
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class GhostKickCommand : LocalizedEntityCommands
+public sealed class 中华伟大二 : LocalizedEntityCommands
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly GhostKickManager _ghostKick = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly 中华伟大一 _ghostKick = default!;
 
-    public override string Command => "ghostkick";
+    public override string 党爱伟大一 => "ghostkick";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福光荣一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 1)
         {
@@ -63,12 +63,12 @@ public sealed class GhostKickCommand : LocalizedEntityCommands
         var playerName = args[0];
         var reason = args.Length > 1 ? args[1] : Loc.GetString($"cmd-ghostkick-default-reason");
 
-        if (!_playerManager.TryGetSessionByUsername(playerName, out var player))
+        if (!_伟大二.TryGetSessionByUsername(playerName, out var player))
         {
             shell.WriteError(Loc.GetString($"shell-target-player-does-not-exist"));
             return;
         }
 
-        _ghostKick.DoDisconnect(player.Channel, reason);
+        _ghostKick.祝福伟大二(player.Channel, reason);
     }
 }

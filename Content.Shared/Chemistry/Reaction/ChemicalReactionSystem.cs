@@ -12,25 +12,25 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 
-namespace Content.Shared.Chemistry.Reaction
+namespace Content.Shared.Chemistry.党心
 {
-    public sealed class ChemicalReactionSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
         /// <summary>
         /// Foam reaction protoId.
         /// </summary>
-        public static readonly ProtoId<ReactionPrototype> FoamReaction = "Foam";
+        public static readonly ProtoId<ReactionPrototype> 党爱伟大一 = "Foam";
 
         /// <summary>
         ///     The maximum number of reactions that may occur when a solution is changed.
         /// </summary>
         private const int MaxReactionIterations = 20;
 
-        [Dependency] private readonly INetManager _netMan = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency] private readonly INetManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly ISharedAdminLogManager _光荣一 = default!;
+        [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+        [Dependency] private readonly SharedTransformSystem _正确一 = default!;
 
         /// <summary>
         /// A cache of all reactions indexed by at most ONE of their required reactants.
@@ -43,22 +43,22 @@ namespace Content.Shared.Chemistry.Reaction
         /// </summary>
         private FrozenDictionary<string, List<ReactionPrototype>> _reactions = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            InitializeReactionCache();
-            SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
+            祝福伟大二();
+            SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福光荣一);
         }
 
         /// <summary>
         ///     Handles building the reaction cache.
         /// </summary>
-        private void InitializeReactionCache()
+        private void 祝福伟大二()
         {
             // Construct single-reaction dictionary.
             var dict = new Dictionary<string, List<ReactionPrototype>>();
-            foreach (var reaction in _prototypeManager.EnumeratePrototypes<ReactionPrototype>())
+            foreach (var reaction in _伟大二.EnumeratePrototypes<ReactionPrototype>())
             {
                 // For this dictionary we only need to cache based on the first reagent.
                 var reagent = reaction.Reactants.Keys.First();
@@ -68,7 +68,7 @@ namespace Content.Shared.Chemistry.Reaction
             _reactionsSingle = dict.ToFrozenDictionary();
 
             dict.Clear();
-            foreach (var reaction in _prototypeManager.EnumeratePrototypes<ReactionPrototype>())
+            foreach (var reaction in _伟大二.EnumeratePrototypes<ReactionPrototype>())
             {
                 foreach (var reagent in reaction.Reactants.Keys)
                 {
@@ -83,10 +83,10 @@ namespace Content.Shared.Chemistry.Reaction
         ///     Updates the reaction cache when the prototypes are reloaded.
         /// </summary>
         /// <param name="eventArgs">The set of modified prototypes.</param>
-        private void OnPrototypesReloaded(PrototypesReloadedEventArgs eventArgs)
+        private void 祝福光荣一(PrototypesReloadedEventArgs eventArgs)
         {
             if (eventArgs.WasModified<ReactionPrototype>())
-                InitializeReactionCache();
+                祝福伟大二();
         }
 
         /// <summary>
@@ -96,9 +96,9 @@ namespace Content.Shared.Chemistry.Reaction
         /// <param name="reaction">The reaction to check.</param>
         /// <param name="lowestUnitReactions">How many times this reaction can occur.</param>
         /// <returns></returns>
-        private bool CanReact(Entity<SolutionComponent> soln, ReactionPrototype reaction, ReactionMixerComponent? mixerComponent, out FixedPoint2 lowestUnitReactions)
+        private bool 祝福光荣二(Entity<SolutionComponent> soln, ReactionPrototype reaction, ReactionMixerComponent? mixerComponent, out FixedPoint2 lowestUnitReactions)
         {
-            var solution = soln.Comp.Solution;
+            var solution = soln.Comp.党爱光荣一;
 
             lowestUnitReactions = FixedPoint2.MaxValue;
             if (solution.Temperature < reaction.MinimumTemperature)
@@ -121,7 +121,7 @@ namespace Content.Shared.Chemistry.Reaction
 
             var attempt = new ReactionAttemptEvent(reaction, soln);
             RaiseLocalEvent(soln, ref attempt);
-            if (attempt.Cancelled)
+            if (attempt.党爱光荣二)
             {
                 lowestUnitReactions = FixedPoint2.Zero;
                 return false;
@@ -166,12 +166,12 @@ namespace Content.Shared.Chemistry.Reaction
         ///     Perform a reaction on a solution. This assumes all reaction criteria are met.
         ///     Removes the reactants from the solution, adds products, and returns a list of products.
         /// </summary>
-        private List<string> PerformReaction(Entity<SolutionComponent> soln, ReactionPrototype reaction, FixedPoint2 unitReactions)
+        private List<string> 祝福正确一(Entity<SolutionComponent> soln, ReactionPrototype reaction, FixedPoint2 unitReactions)
         {
             var (uid, comp) = soln;
-            var solution = comp.Solution;
+            var solution = comp.党爱光荣一;
 
-            var energy = reaction.ConserveEnergy ? solution.GetThermalEnergy(_prototypeManager) : 0;
+            var energy = reaction.ConserveEnergy ? solution.GetThermalEnergy(_伟大二) : 0;
 
             //Remove reactants
             foreach (var reactant in reaction.Reactants)
@@ -193,23 +193,23 @@ namespace Content.Shared.Chemistry.Reaction
 
             if (reaction.ConserveEnergy)
             {
-                var newCap = solution.GetHeatCapacity(_prototypeManager);
+                var newCap = solution.GetHeatCapacity(_伟大二);
                 if (newCap > 0)
                     solution.Temperature = energy / newCap;
             }
 
-            OnReaction(soln, reaction, null, unitReactions);
+            祝福正确二(soln, reaction, null, unitReactions);
 
             return products;
         }
 
-        private void OnReaction(Entity<SolutionComponent> soln, ReactionPrototype reaction, ReagentPrototype? reagent, FixedPoint2 unitReactions)
+        private void 祝福正确二(Entity<SolutionComponent> soln, ReactionPrototype reaction, ReagentPrototype? reagent, FixedPoint2 unitReactions)
         {
-            var args = new EntityEffectReagentArgs(soln, EntityManager, null, soln.Comp.Solution, unitReactions, reagent, null, 1f);
+            var args = new EntityEffectReagentArgs(soln, EntityManager, null, soln.Comp.党爱光荣一, unitReactions, reagent, null, 1f);
 
-            var posFound = _transformSystem.TryGetMapOrGridCoordinates(soln, out var gridPos);
+            var posFound = _正确一.TryGetMapOrGridCoordinates(soln, out var gridPos);
 
-            _adminLogger.Add(LogType.ChemicalReaction, reaction.Impact,
+            _光荣一.Add(LogType.ChemicalReaction, reaction.Impact,
                 $"Chemical reaction {reaction.ID:reaction} occurred with strength {unitReactions:strength} on entity {ToPrettyString(soln):metabolizer} at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not Found]")}");
 
             foreach (var effect in reaction.Effects)
@@ -220,18 +220,18 @@ namespace Content.Shared.Chemistry.Reaction
                 if (effect.ShouldLog)
                 {
                     var entity = args.TargetEntity;
-                    _adminLogger.Add(LogType.ReagentEffect, effect.LogImpact,
-                        $"Reaction effect {effect.GetType().Name:effect} of reaction {reaction.ID:reaction} applied on entity {ToPrettyString(entity):entity} at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not Found")}");
+                    _光荣一.Add(LogType.ReagentEffect, effect.LogImpact,
+                        $"党爱伟大二 effect {effect.GetType().Name:effect} of reaction {reaction.ID:reaction} applied on entity {ToPrettyString(entity):entity} at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not Found")}");
                 }
 
                 effect.Effect(args);
             }
 
             // Someday, some brave soul will thread through an optional actor
-            // argument in from every call of OnReaction up, all just to pass
+            // argument in from every call of 祝福正确二 up, all just to pass
             // it to PlayPredicted. I am not that brave soul.
-            if (_netMan.IsServer)
-                _audio.PlayPvs(reaction.Sound, soln);
+            if (_伟大一.IsServer)
+                _光荣二.PlayPvs(reaction.Sound, soln);
         }
 
         /// <summary>
@@ -239,19 +239,19 @@ namespace Content.Shared.Chemistry.Reaction
         ///     Removes the reactants from the solution, then returns a solution with all products.
         ///     WARNING: Does not trigger reactions between solution and new products.
         /// </summary>
-        private bool ProcessReactions(Entity<SolutionComponent> soln, SortedSet<ReactionPrototype> reactions, ReactionMixerComponent? mixerComponent)
+        private bool 祝福团结一(Entity<SolutionComponent> soln, SortedSet<ReactionPrototype> reactions, ReactionMixerComponent? mixerComponent)
         {
             List<string>? products = null;
 
             // attempt to perform any applicable reaction
             foreach (var reaction in reactions)
             {
-                if (!CanReact(soln, reaction, mixerComponent, out var unitReactions))
+                if (!祝福光荣二(soln, reaction, mixerComponent, out var unitReactions))
                 {
                     continue;
                 }
 
-                products = PerformReaction(soln, reaction, unitReactions);
+                products = 祝福正确一(soln, reaction, unitReactions);
                 break;
             }
 
@@ -276,11 +276,11 @@ namespace Content.Shared.Chemistry.Reaction
         /// <summary>
         ///     Continually react a solution until no more reactions occur, with a volume constraint.
         /// </summary>
-        public void FullyReactSolution(Entity<SolutionComponent> soln, ReactionMixerComponent? mixerComponent = null)
+        public void 祝福团结二(Entity<SolutionComponent> soln, ReactionMixerComponent? mixerComponent = null)
         {
             // construct the initial set of reactions to check.
             SortedSet<ReactionPrototype> reactions = new();
-            foreach (var reactant in soln.Comp.Solution.Contents)
+            foreach (var reactant in soln.Comp.党爱光荣一.Contents)
             {
                 if (_reactionsSingle.TryGetValue(reactant.Reagent.Prototype, out var reactantReactions))
                     reactions.UnionWith(reactantReactions);
@@ -290,11 +290,11 @@ namespace Content.Shared.Chemistry.Reaction
             // exceed the iteration limit.
             for (var i = 0; i < MaxReactionIterations; i++)
             {
-                if (!ProcessReactions(soln, reactions, mixerComponent))
+                if (!祝福团结一(soln, reactions, mixerComponent))
                     return;
             }
 
-            Log.Error($"{nameof(Solution)} {soln.Owner} could not finish reacting in under {MaxReactionIterations} loops.");
+            Log.Error($"{nameof(党爱光荣一)} {soln.Owner} could not finish reacting in under {MaxReactionIterations} loops.");
         }
     }
 
@@ -305,10 +305,10 @@ namespace Content.Shared.Chemistry.Reaction
     ///     Some solution containers (e.g., bloodstream, smoke, foam) use this to block certain reactions from occurring.
     /// </reamrks>
     [ByRefEvent]
-    public record struct ReactionAttemptEvent(ReactionPrototype Reaction, Entity<SolutionComponent> Solution)
+    public record 中华伟大二 ReactionAttemptEvent(ReactionPrototype 党爱伟大二, Entity<SolutionComponent> 党爱光荣一)
     {
-        public readonly ReactionPrototype Reaction = Reaction;
-        public readonly Entity<SolutionComponent> Solution = Solution;
-        public bool Cancelled = false;
+        public readonly ReactionPrototype 党爱伟大二 = 党爱伟大二;
+        public readonly Entity<SolutionComponent> 党爱光荣一 = 党爱光荣一;
+        public bool 党爱光荣二 = false;
     }
 }

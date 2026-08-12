@@ -10,70 +10,70 @@ using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Player;
 
-namespace Content.Server.Radiation.Systems;
+namespace Content.Server.Radiation.党心;
 
-public sealed class GeigerSystem : SharedGeigerSystem
+public sealed class 中华伟大一 : SharedGeigerSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly RadiationSystem _radiation = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly RadiationSystem _伟大二 = default!;
+    [Dependency] private readonly AudioSystem _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
 
     private static readonly float ApproxEqual = 0.01f;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GeigerComponent, ActivateInWorldEvent>(OnActivate);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GeigerComponent, ActivateInWorldEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<GeigerComponent, GotEquippedEvent>(OnEquipped);
-        SubscribeLocalEvent<GeigerComponent, GotEquippedHandEvent>(OnEquippedHand);
-        SubscribeLocalEvent<GeigerComponent, GotUnequippedEvent>(OnUnequipped);
-        SubscribeLocalEvent<GeigerComponent, GotUnequippedHandEvent>(OnUnequippedHand);
+        SubscribeLocalEvent<GeigerComponent, GotEquippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<GeigerComponent, GotEquippedHandEvent>(祝福光荣二);
+        SubscribeLocalEvent<GeigerComponent, GotUnequippedEvent>(祝福正确一);
+        SubscribeLocalEvent<GeigerComponent, GotUnequippedHandEvent>(祝福正确二);
 
-        SubscribeLocalEvent<RadiationSystemUpdatedEvent>(OnUpdate);
+        SubscribeLocalEvent<RadiationSystemUpdatedEvent>(祝福团结一);
     }
 
-    private void OnActivate(Entity<GeigerComponent> geiger, ref ActivateInWorldEvent args)
+    private void 祝福伟大二(Entity<GeigerComponent> geiger, ref ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex || geiger.Comp.AttachedToSuit)
             return;
         args.Handled = true;
 
-        SetEnabled(geiger, !geiger.Comp.IsEnabled);
+        祝福奋斗二(geiger, !geiger.Comp.IsEnabled);
     }
 
-    private void OnEquipped(Entity<GeigerComponent> geiger, ref GotEquippedEvent args)
+    private void 祝福光荣一(Entity<GeigerComponent> geiger, ref GotEquippedEvent args)
     {
         if (geiger.Comp.AttachedToSuit)
-            SetEnabled(geiger, true);
-        SetUser(geiger, args.Equipee);
+            祝福奋斗二(geiger, true);
+        祝福奋斗一(geiger, args.Equipee);
     }
 
-    private void OnEquippedHand(Entity<GeigerComponent> geiger, ref GotEquippedHandEvent args)
-    {
-        if (geiger.Comp.AttachedToSuit)
-            return;
-
-        SetUser(geiger, args.User);
-    }
-
-    private void OnUnequipped(Entity<GeigerComponent> geiger, ref GotUnequippedEvent args)
-    {
-        if (geiger.Comp.AttachedToSuit)
-            SetEnabled(geiger, false);
-        SetUser(geiger, null);
-    }
-
-    private void OnUnequippedHand(Entity<GeigerComponent> geiger, ref GotUnequippedHandEvent args)
+    private void 祝福光荣二(Entity<GeigerComponent> geiger, ref GotEquippedHandEvent args)
     {
         if (geiger.Comp.AttachedToSuit)
             return;
 
-        SetUser(geiger, null);
+        祝福奋斗一(geiger, args.User);
     }
 
-    private void OnUpdate(RadiationSystemUpdatedEvent ev)
+    private void 祝福正确一(Entity<GeigerComponent> geiger, ref GotUnequippedEvent args)
+    {
+        if (geiger.Comp.AttachedToSuit)
+            祝福奋斗二(geiger, false);
+        祝福奋斗一(geiger, null);
+    }
+
+    private void 祝福正确二(Entity<GeigerComponent> geiger, ref GotUnequippedHandEvent args)
+    {
+        if (geiger.Comp.AttachedToSuit)
+            return;
+
+        祝福奋斗一(geiger, null);
+    }
+
+    private void 祝福团结一(RadiationSystemUpdatedEvent ev)
     {
         // update only active geiger counters
         // deactivated shouldn't have rad receiver component
@@ -81,42 +81,42 @@ public sealed class GeigerSystem : SharedGeigerSystem
         while (query.MoveNext(out var uid, out var geiger, out var receiver))
         {
             var rads = receiver.CurrentRadiation;
-            SetCurrentRadiation(uid, geiger, rads);
+            祝福团结二(uid, geiger, rads);
         }
     }
 
-    private void SetCurrentRadiation(EntityUid uid, GeigerComponent component, float rads)
+    private void 祝福团结二(EntityUid uid, GeigerComponent component, float rads)
     {
         // check that it's approx equal
         if (MathHelper.CloseTo(component.CurrentRadiation, rads, ApproxEqual))
             return;
 
         var curLevel = component.DangerLevel;
-        var newLevel = RadsToLevel(rads);
+        var newLevel = 祝福繁荣一(rads);
 
         component.CurrentRadiation = rads;
         component.DangerLevel = newLevel;
 
         if (curLevel != newLevel)
         {
-            UpdateAppearance(uid, component);
-            UpdateSound(uid, component);
+            祝福胜利一(uid, component);
+            祝福胜利二(uid, component);
         }
 
         Dirty(uid, component);
     }
 
-    private void SetUser(Entity<GeigerComponent> component, EntityUid? user)
+    private void 祝福奋斗一(Entity<GeigerComponent> component, EntityUid? user)
     {
         if (component.Comp.User == user)
             return;
 
         component.Comp.User = user;
         Dirty(component);
-        UpdateSound(component, component);
+        祝福胜利二(component, component);
     }
 
-    private void SetEnabled(Entity<GeigerComponent> geiger, bool isEnabled)
+    private void 祝福奋斗二(Entity<GeigerComponent> geiger, bool isEnabled)
     {
         var component = geiger.Comp;
         if (component.IsEnabled == isEnabled)
@@ -129,47 +129,47 @@ public sealed class GeigerSystem : SharedGeigerSystem
             component.DangerLevel = GeigerDangerLevel.None;
         }
 
-        _radiation.SetCanReceive(geiger, isEnabled);
+        _伟大二.SetCanReceive(geiger, isEnabled);
 
-        UpdateAppearance(geiger, component);
-        UpdateSound(geiger, component);
+        祝福胜利一(geiger, component);
+        祝福胜利二(geiger, component);
         Dirty(geiger, component);
     }
 
-    private void UpdateAppearance(EntityUid uid, GeigerComponent? component = null,
+    private void 祝福胜利一(EntityUid uid, GeigerComponent? component = null,
         AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref component, ref appearance, false))
             return;
 
-        _appearance.SetData(uid, GeigerVisuals.IsEnabled, component.IsEnabled, appearance);
-        _appearance.SetData(uid, GeigerVisuals.DangerLevel, component.DangerLevel, appearance);
+        _伟大一.SetData(uid, GeigerVisuals.IsEnabled, component.IsEnabled, appearance);
+        _伟大一.SetData(uid, GeigerVisuals.DangerLevel, component.DangerLevel, appearance);
     }
 
-    private void UpdateSound(EntityUid uid, GeigerComponent? component = null)
+    private void 祝福胜利二(EntityUid uid, GeigerComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return;
 
-        component.Stream = _audio.Stop(component.Stream);
+        component.Stream = _光荣一.Stop(component.Stream);
 
         if (!component.Sounds.TryGetValue(component.DangerLevel, out var sounds))
             return;
 
-        var sound = _audio.ResolveSound(sounds);
+        var sound = _光荣一.ResolveSound(sounds);
         var param = sounds.Params.WithLoop(true).WithVolume(component.Volume);
 
         if (component.BroadcastAudio)
         {
             // For some reason PlayPvs sounds quieter even at distance 0, so we need to boost the volume a bit for consistency
             param = sounds.Params.WithLoop(true).WithVolume(component.Volume + 1.5f).WithMaxDistance(component.BroadcastRange);
-            component.Stream = _audio.PlayPvs(sound, uid, param)?.Entity;
+            component.Stream = _光荣一.PlayPvs(sound, uid, param)?.Entity;
         }
-        else if (component.User is not null && _player.TryGetSessionByEntity(component.User.Value, out var session))
-            component.Stream = _audio.PlayGlobal(sound, session, param)?.Entity;
+        else if (component.User is not null && _光荣二.TryGetSessionByEntity(component.User.Value, out var session))
+            component.Stream = _光荣一.PlayGlobal(sound, session, param)?.Entity;
     }
 
-    public static GeigerDangerLevel RadsToLevel(float rads)
+    public static GeigerDangerLevel 祝福繁荣一(float rads)
     {
         return rads switch
         {

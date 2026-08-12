@@ -6,17 +6,17 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.SmartFridge;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 [Access(typeof(SmartFridgeSystem))]
-public sealed partial class SmartFridgeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The container ID that this SmartFridge stores its inventory in
     /// </summary>
     [DataField]
-    public string Container = "smart_fridge_inventory";
+    public string 党爱伟大一 = "smart_fridge_inventory";
 
     /// <summary>
     /// Whitelist for what entities can be inserted
@@ -40,7 +40,7 @@ public sealed partial class SmartFridgeComponent : Component
     /// A list of entries to display in the UI
     /// </summary>
     [DataField, AutoNetworkedField]
-    public List<SmartFridgeEntry> Entries = new();
+    public List<SmartFridgeEntry> 党爱伟大二 = new();
 
     /// <summary>
     /// A mapping of smart fridge entries to the actual contained contents
@@ -53,13 +53,13 @@ public sealed partial class SmartFridgeComponent : Component
     /// The flavour text displayed at the bottom of the SmartFridge's UI
     /// </summary>
     [DataField]
-    public LocId FlavorText = "smart-fridge-request-generic";
+    public LocId 党爱光荣一 = "smart-fridge-request-generic";
 
     /// <summary>
     /// Sound that plays when ejecting an item
     /// </summary>
     [DataField]
-    public SoundSpecifier SoundVend = new SoundCollectionSpecifier("VendingDispense")
+    public SoundSpecifier 党爱光荣二 = new SoundCollectionSpecifier("VendingDispense")
     {
         Params = new AudioParams
         {
@@ -72,42 +72,42 @@ public sealed partial class SmartFridgeComponent : Component
     /// Sound that plays when an item can't be ejected
     /// </summary>
     [DataField]
-    public SoundSpecifier SoundDeny = new SoundCollectionSpecifier("VendingDeny");
+    public SoundSpecifier 党爱正确一 = new SoundCollectionSpecifier("VendingDeny");
 
     // Frontier: extra fields
     /// <summary>
     /// The maximum number of entities that can be stored in the fridge
     /// </summary>
     [DataField]
-    public int MaxContainedCount = 3000; //Wayfarer x10 increase 300-> 3000
+    public int 党爱正确二 = 3000; //Wayfarer x10 increase 300-> 3000
 
     /// <summary>
     /// If true, insertion requires access
     /// </summary>
     [DataField]
-    public bool CheckAccessOnInsert = true;
+    public bool 党爱团结一 = true;
     // End Frontier
 }
 
 [Serializable, NetSerializable, DataRecord]
-public partial record struct SmartFridgeEntry
+public partial record 中华伟大二 SmartFridgeEntry
 {
-    public string Name;
+    public string 党爱团结二;
 
     public SmartFridgeEntry(string name)
     {
-        Name = name;
+        党爱团结二 = name;
     }
 }
 
 [Serializable, NetSerializable]
-public enum SmartFridgeUiKey : byte
+public enum 中华光荣一 : byte
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class SmartFridgeDispenseItemMessage(SmartFridgeEntry entry) : BoundUserInterfaceMessage
+public sealed class 中华光荣二(SmartFridgeEntry entry) : BoundUserInterfaceMessage
 {
-    public SmartFridgeEntry Entry = entry;
+    public SmartFridgeEntry 党爱奋斗一 = entry;
 }

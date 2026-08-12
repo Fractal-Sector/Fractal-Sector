@@ -6,35 +6,35 @@ using Content.Shared.Popups;
 using Content.Shared.Tiles;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server._NF.NPC.Systems;
+namespace Content.Server._NF.NPC.党心;
 
 /// <summary>
 ///     Destroys enemy NPCs on protected grids.
 /// </summary>
-public sealed partial class HostileNPCDeletionSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly SharedBodySystem _sharedBodySystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly NpcFactionSystem _伟大一 = default!;
+    [Dependency] private readonly SharedBodySystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ActiveNPCComponent, ComponentStartup>(OnActiveNPCStartup);
-        SubscribeLocalEvent<ActiveNPCComponent, EntParentChangedMessage>(OnActiveNPCParentChanged);
+        SubscribeLocalEvent<ActiveNPCComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<ActiveNPCComponent, EntParentChangedMessage>(祝福光荣一);
     }
 
-    private void OnActiveNPCStartup(EntityUid uid, ActiveNPCComponent comp, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, ActiveNPCComponent comp, ComponentStartup args)
     {
-        DestroyEntityIfHostileOnProtectedGrid(uid);
+        祝福光荣二(uid);
     }
 
-    private void OnActiveNPCParentChanged(EntityUid uid, ActiveNPCComponent comp, EntParentChangedMessage args)
+    private void 祝福光荣一(EntityUid uid, ActiveNPCComponent comp, EntParentChangedMessage args)
     {
-        DestroyEntityIfHostileOnProtectedGrid(uid);
+        祝福光荣二(uid);
     }
 
-    private void DestroyEntityIfHostileOnProtectedGrid(EntityUid uid)
+    private void 祝福光荣二(EntityUid uid)
     {
         // If this entity is being destroyed, no need to fiddle with components
         if (Terminating(uid))
@@ -45,12 +45,12 @@ public sealed partial class HostileNPCDeletionSystem : EntitySystem
         {
             if (protectedGrid.KillHostileMobs
                 && TryComp<NpcFactionMemberComponent>(uid, out var npcFactionMember)
-                && _npcFaction.IsFactionHostile("NanoTrasen", (uid, npcFactionMember)))
+                && _伟大一.IsFactionHostile("NanoTrasen", (uid, npcFactionMember)))
             {
-                _audio.PlayPredicted(protectedGrid.HostileMobKillSound, xform.Coordinates, null);
-                _sharedBodySystem.GibBody(uid);
+                _光荣二.PlayPredicted(protectedGrid.HostileMobKillSound, xform.Coordinates, null);
+                _伟大二.GibBody(uid);
                 Spawn("Ash", xform.Coordinates);
-                _popup.PopupCoordinates(Loc.GetString("admin-smite-turned-ash-other", ("name", uid)), xform.Coordinates, PopupType.LargeCaution);
+                _光荣一.PopupCoordinates(Loc.GetString("admin-smite-turned-ash-other", ("name", uid)), xform.Coordinates, PopupType.LargeCaution);
                 QueueDel(uid);
             }
         }

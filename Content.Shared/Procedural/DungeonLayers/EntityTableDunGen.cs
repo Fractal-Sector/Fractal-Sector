@@ -1,27 +1,27 @@
 using Content.Shared.EntityTable.EntitySelectors;
 
-namespace Content.Shared.Procedural.DungeonLayers;
+namespace Content.Shared.Procedural.党心;
 
 
 /// <summary>
 /// Spawns entities inside of the dungeon randomly.
 /// </summary>
-public sealed partial class EntityTableDunGen : IDunGenLayer
+public sealed partial class 中华伟大一 : IDunGenLayer
 {
     // Counts separate to config to avoid some duplication.
 
     [DataField]
-    public int MinCount = 1;
+    public int 党爱伟大一 = 1;
 
     [DataField]
-    public int MaxCount = 1;
+    public int 党爱伟大二 = 1;
 
     [DataField(required: true)]
-    public EntityTableSelector Table;
+    public EntityTableSelector 党爱光荣一;
 
     /// <summary>
     /// Should the count be per dungeon or across all dungeons.
     /// </summary>
     [DataField]
-    public bool PerDungeon;
+    public bool 党爱光荣二;
 }

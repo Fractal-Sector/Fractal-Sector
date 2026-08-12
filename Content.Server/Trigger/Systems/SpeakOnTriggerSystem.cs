@@ -4,22 +4,22 @@ using Content.Shared.Trigger.Components.Effects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Trigger.Systems;
+namespace Content.Server.Trigger.党心;
 
-public sealed class SpeakOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly ChatSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpeakOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<SpeakOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<SpeakOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<SpeakOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -34,15 +34,15 @@ public sealed class SpeakOnTriggerSystem : EntitySystem
             message = Loc.GetString(ent.Comp.Text);
         else
         {
-            if (!_prototypeManager.TryIndex(ent.Comp.Pack, out var messagePack))
+            if (!_伟大二.TryIndex(ent.Comp.Pack, out var messagePack))
                 return;
-            message = Loc.GetString(_random.Pick(messagePack.Values));
+            message = Loc.GetString(_伟大一.Pick(messagePack.Values));
         }
         // Chatcode moment: messages starting with "." are considered radio messages.
         // Prepending ">" forces the message to be spoken instead.
         // TODO chat refactor: remove this
         message = '>' + message;
-        _chat.TrySendInGameICMessage(target.Value, message, InGameICChatType.Speak, true);
+        _光荣一.TrySendInGameICMessage(target.Value, message, InGameICChatType.Speak, true);
         args.Handled = true;
     }
 }

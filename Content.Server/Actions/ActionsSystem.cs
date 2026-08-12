@@ -1,10 +1,10 @@
 using Content.Shared.Actions;
 using JetBrains.Annotations;
 
-namespace Content.Server.Actions
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed class ActionsSystem : SharedActionsSystem
+    public sealed class 中华伟大一 : SharedActionsSystem
     {
     }
 }

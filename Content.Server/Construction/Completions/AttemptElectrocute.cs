@@ -2,12 +2,12 @@ using Content.Server.Electrocution;
 using Content.Shared.Electrocution;
 using Content.Shared.Construction;
 
-namespace Content.Server.Construction.Completions;
+namespace Content.Server.Construction.党心;
 
 [DataDefinition]
-public sealed partial class AttemptElectrocute : IGraphAction
+public sealed partial class 中华伟大一 : IGraphAction
 {
-    public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
+    public void 祝福伟大一(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
     {
         if (userUid == null)
             return;

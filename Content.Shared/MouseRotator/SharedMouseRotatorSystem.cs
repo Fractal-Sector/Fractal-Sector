@@ -1,25 +1,25 @@
 ﻿using Content.Shared.Interaction;
 
-namespace Content.Shared.MouseRotator;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This handles rotating an entity based on mouse location
 /// </summary>
 /// <see cref="MouseRotatorComponent"/>
-public abstract class SharedMouseRotatorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly RotateToFaceSystem _rotate = default!;
+    [Dependency] private readonly RotateToFaceSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeAllEvent<RequestMouseRotatorRotationEvent>(OnRequestRotation);
+        SubscribeAllEvent<RequestMouseRotatorRotationEvent>(祝福光荣一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         // TODO maybe `ActiveMouseRotatorComponent` to avoid querying over more entities than we need?
         // (if this is added to players)
@@ -30,7 +30,7 @@ public abstract class SharedMouseRotatorSystem : EntitySystem
             if (rotator.GoalRotation == null)
                 continue;
 
-            if (_rotate.TryRotateTo(
+            if (_伟大一.TryRotateTo(
                     uid,
                     rotator.GoalRotation.Value,
                     frameTime,
@@ -45,7 +45,7 @@ public abstract class SharedMouseRotatorSystem : EntitySystem
         }
     }
 
-    private void OnRequestRotation(RequestMouseRotatorRotationEvent msg, EntitySessionEventArgs args)
+    private void 祝福光荣一(RequestMouseRotatorRotationEvent msg, EntitySessionEventArgs args)
     {
         // Ignore the request if the requested entity is not the user's attached entity.
         // This can happen when a player switches controlled entities while rotating.

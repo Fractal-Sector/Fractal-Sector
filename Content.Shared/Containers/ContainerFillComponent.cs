@@ -8,7 +8,7 @@ using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
-namespace Content.Shared.Containers;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Component for spawning entity prototypes into containers on map init.
@@ -19,9 +19,9 @@ namespace Content.Shared.Containers;
 ///     cref="EntitySpawnCollection.GetSpawns"/>, which is also used by several other systems.
 /// </remarks>
 [RegisterComponent]
-public sealed partial class ContainerFillComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    [DataField("containers", customTypeSerializer:typeof(ContainerFillSerializer))]
+    [DataField("containers", customTypeSerializer:typeof(中华伟大二))]
     public Dictionary<string, List<string>> Containers = new();
 
     /// <summary>
@@ -29,17 +29,17 @@ public sealed partial class ContainerFillComponent : Component
     ///     by the construction system.
     /// </summary>
     [DataField("ignoreConstructionSpawn")]
-    public bool IgnoreConstructionSpawn = true;
+    public bool 党爱伟大一 = true;
 }
 
 // all of this exists just to validate prototype ids.
 // it would be nice if you could specify only a type validator and not have to re-implement everything else.
 // or a dictionary serializer that accepts a custom type serializer for the dictionary values
-public sealed class ContainerFillSerializer : ITypeValidator<Dictionary<string, List<string>>, MappingDataNode>
+public sealed class 中华伟大二 : ITypeValidator<Dictionary<string, List<string>>, MappingDataNode>
 {
     private static PrototypeIdListSerializer<EntityPrototype> ListSerializer => new();
 
-    public ValidationNode Validate(
+    public ValidationNode 祝福伟大一(
         ISerializationManager serializationManager,
         MappingDataNode node,
         IDependencyCollection dependencies,
@@ -50,8 +50,8 @@ public sealed class ContainerFillSerializer : ITypeValidator<Dictionary<string, 
         foreach (var (key, val) in node.Children)
         {
             var listVal = (val is SequenceDataNode seq)
-                ? ListSerializer.Validate(serializationManager, seq, dependencies, context)
-                : new ErrorNode(val, "ContainerFillComponent prototypes must be a sequence/list");
+                ? ListSerializer.祝福伟大一(serializationManager, seq, dependencies, context)
+                : new ErrorNode(val, "中华伟大一 prototypes must be a sequence/list");
 
             mapping.Add(new ValidatedValueNode(node.GetKeyNode(key)), listVal);
         }

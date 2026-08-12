@@ -4,30 +4,30 @@ using Content.Shared.Examine;
 using Content.Shared.Morgue.Components;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Morgue;
+namespace Content.Shared.党心;
 
-public abstract class SharedMorgueSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MorgueComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<MorgueComponent, StorageAfterCloseEvent>(OnClosed);
-        SubscribeLocalEvent<MorgueComponent, StorageAfterOpenEvent>(OnOpened);
+        SubscribeLocalEvent<MorgueComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<MorgueComponent, StorageAfterCloseEvent>(祝福光荣一);
+        SubscribeLocalEvent<MorgueComponent, StorageAfterOpenEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// Handles the examination text for looking at a morgue.
     /// </summary>
-    private void OnExamine(Entity<MorgueComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<MorgueComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
-        _appearance.TryGetData<MorgueContents>(ent.Owner, MorgueVisuals.Contents, out var contents);
+        _伟大一.TryGetData<MorgueContents>(ent.Owner, MorgueVisuals.Contents, out var contents);
 
         var text = contents switch
         {
@@ -40,27 +40,27 @@ public abstract class SharedMorgueSystem : EntitySystem
         args.PushMarkup(Loc.GetString(text));
     }
 
-    private void OnClosed(Entity<MorgueComponent> ent, ref StorageAfterCloseEvent args)
+    private void 祝福光荣一(Entity<MorgueComponent> ent, ref StorageAfterCloseEvent args)
     {
-        CheckContents(ent.Owner, ent.Comp);
+        祝福正确一(ent.Owner, ent.Comp);
     }
 
-    private void OnOpened(Entity<MorgueComponent> ent, ref StorageAfterOpenEvent args)
+    private void 祝福光荣二(Entity<MorgueComponent> ent, ref StorageAfterOpenEvent args)
     {
-        CheckContents(ent.Owner, ent.Comp);
+        祝福正确一(ent.Owner, ent.Comp);
     }
 
     /// <summary>
     /// Updates data in case something died/got deleted in the morgue.
     /// </summary>
-    public void CheckContents(EntityUid uid, MorgueComponent? morgue = null, EntityStorageComponent? storage = null, AppearanceComponent? app = null)
+    public void 祝福正确一(EntityUid uid, MorgueComponent? morgue = null, EntityStorageComponent? storage = null, AppearanceComponent? app = null)
     {
         if (!Resolve(uid, ref morgue, ref storage, ref app))
             return;
 
         if (storage.Contents.ContainedEntities.Count == 0)
         {
-            _appearance.SetData(uid, MorgueVisuals.Contents, MorgueContents.Empty, app);
+            _伟大一.SetData(uid, MorgueVisuals.Contents, MorgueContents.Empty, app);
             return;
         }
 
@@ -73,11 +73,11 @@ public abstract class SharedMorgueSystem : EntitySystem
 
             if (HasComp<ActorComponent>(ent))
             {
-                _appearance.SetData(uid, MorgueVisuals.Contents, MorgueContents.HasSoul, app);
+                _伟大一.SetData(uid, MorgueVisuals.Contents, MorgueContents.HasSoul, app);
                 return;
             }
         }
 
-        _appearance.SetData(uid, MorgueVisuals.Contents, hasMob ? MorgueContents.HasMob : MorgueContents.HasContents, app);
+        _伟大一.SetData(uid, MorgueVisuals.Contents, hasMob ? MorgueContents.HasMob : MorgueContents.HasContents, app);
     }
 }

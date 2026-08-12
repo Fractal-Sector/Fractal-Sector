@@ -7,11 +7,11 @@ using Content.Shared.Projectiles;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Wieldable;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
-public abstract partial class SharedHandsSystem
+public abstract partial class 中华伟大一
 {
-    private void InitializeRelay()
+    private void 祝福伟大一()
     {
         SubscribeLocalEvent<HandsComponent, GetEyeOffsetRelayedEvent>(RelayEvent);
         SubscribeLocalEvent<HandsComponent, GetEyePvsScaleRelayedEvent>(RelayEvent);

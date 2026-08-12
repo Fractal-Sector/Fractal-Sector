@@ -1,6 +1,6 @@
-namespace Content.Server._WF.CartridgeLoader.Cartridges;
+namespace Content.Server._WF.CartridgeLoader.党心;
 
 [RegisterComponent]
-public sealed partial class CriticalImplantTrackerCartridgeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

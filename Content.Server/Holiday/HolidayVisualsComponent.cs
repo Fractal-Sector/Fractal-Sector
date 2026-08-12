@@ -1,12 +1,12 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Holiday;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This is used for an entity that enables unique visuals on specified holidays.
 /// </summary>
 [RegisterComponent]
-public sealed partial class HolidayVisualsComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A dictionary relating a generic key to a list of holidays.

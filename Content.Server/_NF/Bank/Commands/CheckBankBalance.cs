@@ -7,25 +7,25 @@ using Content.Shared.Preferences;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server._NF.Bank.Commands;
+namespace Content.Server._NF.Bank.党心;
 
 /// <summary>
-/// Command that allows administrators to check a player's bank balance using their username.
+/// 党爱伟大一 that allows administrators to check a player's bank balance using their username.
 /// Ported from Monolith.
 /// </summary>
 [AdminCommand(AdminFlags.Admin)]
-public sealed class CheckBankBalance : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency] private readonly IServerPreferencesManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IServerDbManager _光荣一 = default!;
+    [Dependency] private readonly IEntitySystemManager _光荣二 = default!;
 
-    public string Command => "checkbalance";
-    public string Description => "Check a player's bank balance by username.";
-    public string Help => "checkbalance <username>";
+    public string 党爱伟大一 => "checkbalance";
+    public string 党爱伟大二 => "Check a player's bank balance by username.";
+    public string 党爱光荣一 => "checkbalance <username>";
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -36,13 +36,13 @@ public sealed class CheckBankBalance : IConsoleCommand
         var username = args[0];
 
         // First try online players
-        var onlinePlayer = _playerManager.Sessions
+        var onlinePlayer = _伟大二.Sessions
             .FirstOrDefault(s => s.Name.Equals(username, StringComparison.OrdinalIgnoreCase));
 
         if (onlinePlayer != null)
         {
             // Get the server-side BankSystem for online players
-            var bankSystem = _entitySystemManager.GetEntitySystem<BankSystem>();
+            var bankSystem = _光荣二.GetEntitySystem<BankSystem>();
             if (bankSystem.TryGetBalance(onlinePlayer, out var balance))
             {
                 shell.WriteLine($"Player {username} has a bank balance of {balance} credits.");
@@ -51,18 +51,18 @@ public sealed class CheckBankBalance : IConsoleCommand
         }
 
         // If not online, check cached preferences
-        if (TryGetOfflinePlayerBalance(username, out var offlineBalance))
+        if (祝福伟大二(username, out var offlineBalance))
         {
             shell.WriteLine($"Player {username} has a bank balance of {offlineBalance} credits.");
             return;
         }
 
         // If not in cache, try the database
-        var record = await _dbManager.GetPlayerRecordByUserName(username);
+        var record = await _光荣一.GetPlayerRecordByUserName(username);
         if (record != null)
         {
             var userId = record.UserId;
-            var prefs = await _dbManager.GetPlayerPreferencesAsync(userId, default);
+            var prefs = await _光荣一.GetPlayerPreferencesAsync(userId, default);
             if (prefs != null &&
                 prefs.SelectedCharacterIndex >= 0 &&
                 prefs.Characters.TryGetValue(prefs.SelectedCharacterIndex, out var profile))
@@ -78,14 +78,14 @@ public sealed class CheckBankBalance : IConsoleCommand
         shell.WriteLine($"Could not find bank account for player {username}.");
     }
 
-    private bool TryGetOfflinePlayerBalance(string username, out int balance)
+    private bool 祝福伟大二(string username, out int balance)
     {
         balance = 0;
 
         // Check all users in the preferences cache
-        foreach (var playerData in _playerManager.GetAllPlayerData())
+        foreach (var playerData in _伟大二.GetAllPlayerData())
         {
-            if (_prefsManager.TryGetCachedPreferences(playerData.UserId, out var prefs))
+            if (_伟大一.TryGetCachedPreferences(playerData.UserId, out var prefs))
             {
                 foreach (var (_, profile) in prefs.Characters)
                 {
@@ -102,19 +102,19 @@ public sealed class CheckBankBalance : IConsoleCommand
         return false;
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福光荣一(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             var options = new List<string>();
 
             // Add online players
-            options.AddRange(_playerManager.Sessions.Select(s => s.Name));
+            options.AddRange(_伟大二.Sessions.Select(s => s.Name));
 
             // Add players from cached preferences
-            foreach (var playerData in _playerManager.GetAllPlayerData())
+            foreach (var playerData in _伟大二.GetAllPlayerData())
             {
-                if (_prefsManager.TryGetCachedPreferences(playerData.UserId, out var prefs))
+                if (_伟大一.TryGetCachedPreferences(playerData.UserId, out var prefs))
                 {
                     foreach (var (_, profile) in prefs.Characters)
                     {

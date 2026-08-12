@@ -1,21 +1,21 @@
 using Content.Shared.Sticky;
 using Content.Shared.Trigger.Components.Triggers;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class TriggerOnStuckSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TriggerSystem _trigger = default!;
+    [Dependency] private readonly TriggerSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TriggerOnStuckComponent, EntityStuckEvent>(OnStuck);
+        SubscribeLocalEvent<TriggerOnStuckComponent, EntityStuckEvent>(祝福伟大二);
     }
 
-    private void OnStuck(Entity<TriggerOnStuckComponent> ent, ref EntityStuckEvent args)
+    private void 祝福伟大二(Entity<TriggerOnStuckComponent> ent, ref EntityStuckEvent args)
     {
-        _trigger.Trigger(ent.Owner, args.User, ent.Comp.KeyOut);
+        _伟大一.Trigger(ent.Owner, args.User, ent.Comp.KeyOut);
     }
 }

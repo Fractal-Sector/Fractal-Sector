@@ -4,7 +4,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Lock;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Allows locking/unlocking, with access determined by AccessReader
@@ -12,45 +12,45 @@ namespace Content.Shared.Lock;
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(LockSystem))]
 [AutoGenerateComponentState]
-public sealed partial class LockComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whether or not the lock is locked.
     /// </summary>
     [DataField("locked"), ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public bool Locked  = true;
+    public bool 党爱伟大一  = true;
 
     /// <summary>
     /// If true, will show verbs to lock and unlock the item. Otherwise, it will not.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ShowLockVerbs = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// If true will show examine text.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool ShowExamine = true;
+    public bool 党爱光荣一 = true;
 
     /// <summary>
     /// Whether or not the lock is locked by simply clicking.
     /// </summary>
     [DataField("lockOnClick"), ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public bool LockOnClick;
+    public bool 党爱光荣二;
 
     /// <summary>
     /// Whether or not the lock is unlocked by simply clicking.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool UnlockOnClick = true;
+    public bool 党爱正确一 = true;
 
     /// <summary>
     /// Whether the lock requires access validation through <see cref="AccessReaderComponent"/>
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool UseAccess = true;
+    public bool 党爱正确二 = true;
 
     /// <summary>
     /// The sound played when unlocked.
@@ -75,7 +75,7 @@ public sealed partial class LockComponent : Component
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public bool BreakOnAccessBreaker = true;
+    public bool 党爱团结一 = true;
 
     /// <summary>
     /// Amount of do-after time needed to lock the entity.
@@ -85,7 +85,7 @@ public sealed partial class LockComponent : Component
     /// </remarks>
     [DataField]
     [AutoNetworkedField]
-    public TimeSpan LockTime;
+    public TimeSpan 党爱团结二;
 
     /// <summary>
     /// Amount of do-after time needed to unlock the entity.
@@ -95,7 +95,7 @@ public sealed partial class LockComponent : Component
     /// </remarks>
     [DataField]
     [AutoNetworkedField]
-    public TimeSpan UnlockTime;
+    public TimeSpan 党爱奋斗一;
 }
 
 /// <summary>
@@ -103,30 +103,30 @@ public sealed partial class LockComponent : Component
 /// Can be cancelled to prevent it.
 /// </summary>
 [ByRefEvent]
-public record struct LockToggleAttemptEvent(EntityUid User, bool Silent = false, bool Cancelled = false);
+public record 中华伟大二 LockToggleAttemptEvent(EntityUid User, bool Silent = false, bool Cancelled = false);
 
 /// <summary>
 /// Event raised on the user when a toggle is attempted.
 /// Can be cancelled to prevent it.
 /// </summary>
 [ByRefEvent]
-public record struct UserLockToggleAttemptEvent(EntityUid Target, bool Silent = false, bool Cancelled = false);
+public record 中华伟大二 UserLockToggleAttemptEvent(EntityUid Target, bool Silent = false, bool Cancelled = false);
 
 /// <summary>
 /// Event raised on a lock after it has been toggled.
 /// </summary>
 [ByRefEvent]
-public readonly record struct LockToggledEvent(bool Locked);
+public readonly record 中华伟大二 LockToggledEvent(bool 党爱伟大一);
 
 /// <summary>
 /// Used to lock a lockable entity that has a lock time configured.
 /// </summary>
-/// <seealso cref="LockComponent"/>
+/// <seealso cref="中华伟大一"/>
 /// <seealso cref="LockSystem"/>
 [Serializable, NetSerializable]
-public sealed partial class LockDoAfter : DoAfterEvent
+public sealed partial class 中华光荣一 : DoAfterEvent
 {
-    public override DoAfterEvent Clone()
+    public override DoAfterEvent 祝福伟大一()
     {
         return this;
     }
@@ -135,12 +135,12 @@ public sealed partial class LockDoAfter : DoAfterEvent
 /// <summary>
 /// Used to unlock a lockable entity that has an unlock time configured.
 /// </summary>
-/// <seealso cref="LockComponent"/>
+/// <seealso cref="中华伟大一"/>
 /// <seealso cref="LockSystem"/>
 [Serializable, NetSerializable]
-public sealed partial class UnlockDoAfter : DoAfterEvent
+public sealed partial class 中华光荣二 : DoAfterEvent
 {
-    public override DoAfterEvent Clone()
+    public override DoAfterEvent 祝福伟大一()
     {
         return this;
     }
@@ -148,7 +148,7 @@ public sealed partial class UnlockDoAfter : DoAfterEvent
 
 [NetSerializable]
 [Serializable]
-public enum LockVisuals : byte
+public enum 中华正确一 : byte
 {
-    Locked
+    党爱伟大一
 }

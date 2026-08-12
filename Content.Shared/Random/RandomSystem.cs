@@ -1,9 +1,9 @@
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Random;
+namespace Content.Shared.党心;
 
-public sealed class RandomSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     public IBudgetEntry? GetBudgetEntry(ref float budget, ref float probSum, IList<IBudgetEntry> entries, System.Random random)
     {
@@ -16,7 +16,7 @@ public sealed class RandomSystem : EntitySystem
         // - Remove the cost from budget
         // - If our remaining budget is under maxCost then start pruning unavailable entries.
         random.Shuffle(entries);
-        var budgetEntry = (IBudgetEntry) GetProbEntry(entries, probSum, random);
+        var budgetEntry = (IBudgetEntry) 祝福伟大一(entries, probSum, random);
 
         budget -= budgetEntry.Cost;
 
@@ -39,7 +39,7 @@ public sealed class RandomSystem : EntitySystem
     /// <summary>
     /// Gets a random entry based on each entry having a different probability.
     /// </summary>
-    public IProbEntry GetProbEntry(IEnumerable<IProbEntry> entries, float probSum, System.Random random)
+    public IProbEntry 祝福伟大一(IEnumerable<IProbEntry> entries, float probSum, System.Random random)
     {
         var value = random.NextFloat() * probSum;
 

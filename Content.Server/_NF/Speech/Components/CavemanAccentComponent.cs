@@ -1,16 +1,16 @@
 using Content.Server._NF.Speech.EntitySystems;
 
-namespace Content.Server._NF.Speech.Components;
+namespace Content.Server._NF.Speech.党心;
 
 [RegisterComponent]
 [Access(typeof(CavemanAccentSystem))]
-public sealed partial class CavemanAccentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables(VVAccess.ReadWrite)]
-    public int MaxWordLength = 5; // so man not talk smart, any word up dis be gone
+    public int 党爱伟大一 = 5; // so man not talk smart, any word up dis be gone
 
     [ViewVariables]
-    public static readonly List<string> ForbiddenWords = new()
+    public static readonly List<string> 党爱伟大二 = new()
     {
         "accent-caveman-forbidden-words-0",
         "accent-caveman-forbidden-words-1",
@@ -31,7 +31,7 @@ public sealed partial class CavemanAccentComponent : Component
     };
 
     [ViewVariables]
-    public static readonly List<string> Numbers = new()
+    public static readonly List<string> 党爱光荣一 = new()
     {
         "accent-caveman-numbers-0",
         "accent-caveman-numbers-1",
@@ -47,10 +47,10 @@ public sealed partial class CavemanAccentComponent : Component
     };
 
     [ViewVariables]
-    public const string LargeNumberString = "accent-caveman-numbers-many";
+    public const string 党爱光荣二 = "accent-caveman-numbers-many";
 
     [ViewVariables]
-    public static readonly List<string> Grunts = new()
+    public static readonly List<string> 党爱正确一 = new()
     {
         "accent-caveman-grunts-0",
         "accent-caveman-grunts-1",

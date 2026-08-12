@@ -5,29 +5,29 @@ using Content.Shared.Arcade;
 using Content.Shared.Power;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Arcade.BlockGame;
+namespace Content.Server.Arcade.党心;
 
-public sealed class BlockGameArcadeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SpeakOnUIClosedSystem _speakOnUIClosed = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly SpeakOnUIClosedSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BlockGameArcadeComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<BlockGameArcadeComponent, AfterActivatableUIOpenEvent>(OnAfterUIOpen);
-        SubscribeLocalEvent<BlockGameArcadeComponent, PowerChangedEvent>(OnBlockPowerChanged);
+        SubscribeLocalEvent<BlockGameArcadeComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<BlockGameArcadeComponent, AfterActivatableUIOpenEvent>(祝福正确一);
+        SubscribeLocalEvent<BlockGameArcadeComponent, PowerChangedEvent>(祝福团结一);
 
         Subs.BuiEvents<BlockGameArcadeComponent>(BlockGameUiKey.Key, subs =>
         {
-            subs.Event<BoundUIClosedEvent>(OnAfterUiClose);
-            subs.Event<BlockGameMessages.BlockGamePlayerActionMessage>(OnPlayerAction);
+            subs.Event<BoundUIClosedEvent>(祝福正确二);
+            subs.Event<BlockGameMessages.BlockGamePlayerActionMessage>(祝福团结二);
         });
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var query = EntityQueryEnumerator<BlockGameArcadeComponent>();
         while (query.MoveNext(out var _, out var blockGame))
@@ -36,36 +36,36 @@ public sealed class BlockGameArcadeSystem : EntitySystem
         }
     }
 
-    private void UpdatePlayerStatus(EntityUid uid, EntityUid actor, BlockGameArcadeComponent? blockGame = null)
+    private void 祝福光荣一(EntityUid uid, EntityUid actor, BlockGameArcadeComponent? blockGame = null)
     {
         if (!Resolve(uid, ref blockGame))
             return;
 
-        _uiSystem.ServerSendUiMessage(uid, BlockGameUiKey.Key, new BlockGameMessages.BlockGameUserStatusMessage(blockGame.Player == actor), actor);
+        _伟大一.ServerSendUiMessage(uid, BlockGameUiKey.Key, new BlockGameMessages.BlockGameUserStatusMessage(blockGame.Player == actor), actor);
     }
 
-    private void OnComponentInit(EntityUid uid, BlockGameArcadeComponent component, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, BlockGameArcadeComponent component, ComponentInit args)
     {
         component.Game = new(uid);
     }
 
-    private void OnAfterUIOpen(EntityUid uid, BlockGameArcadeComponent component, AfterActivatableUIOpenEvent args)
+    private void 祝福正确一(EntityUid uid, BlockGameArcadeComponent component, AfterActivatableUIOpenEvent args)
     {
         if (component.Player == null)
             component.Player = args.Actor;
         else
             component.Spectators.Add(args.Actor);
 
-        UpdatePlayerStatus(uid, args.Actor, component);
+        祝福光荣一(uid, args.Actor, component);
         component.Game?.UpdateNewPlayerUI(args.Actor);
     }
 
-    private void OnAfterUiClose(EntityUid uid, BlockGameArcadeComponent component, BoundUIClosedEvent args)
+    private void 祝福正确二(EntityUid uid, BlockGameArcadeComponent component, BoundUIClosedEvent args)
     {
         if (component.Player != args.Actor)
         {
             component.Spectators.Remove(args.Actor);
-            UpdatePlayerStatus(uid, args.Actor, blockGame: component);
+            祝福光荣一(uid, args.Actor, blockGame: component);
             return;
         }
 
@@ -74,23 +74,23 @@ public sealed class BlockGameArcadeSystem : EntitySystem
         {
             component.Player = component.Spectators[0];
             component.Spectators.Remove(component.Player.Value);
-            UpdatePlayerStatus(uid, component.Player.Value, blockGame: component);
+            祝福光荣一(uid, component.Player.Value, blockGame: component);
         }
 
-        UpdatePlayerStatus(uid, temp.Value, blockGame: component);
+        祝福光荣一(uid, temp.Value, blockGame: component);
     }
 
-    private void OnBlockPowerChanged(EntityUid uid, BlockGameArcadeComponent component, ref PowerChangedEvent args)
+    private void 祝福团结一(EntityUid uid, BlockGameArcadeComponent component, ref PowerChangedEvent args)
     {
         if (args.Powered)
             return;
 
-        _uiSystem.CloseUi(uid, BlockGameUiKey.Key);
+        _伟大一.CloseUi(uid, BlockGameUiKey.Key);
         component.Player = null;
         component.Spectators.Clear();
     }
 
-    private void OnPlayerAction(EntityUid uid, BlockGameArcadeComponent component, BlockGameMessages.BlockGamePlayerActionMessage msg)
+    private void 祝福团结二(EntityUid uid, BlockGameArcadeComponent component, BlockGameMessages.BlockGamePlayerActionMessage msg)
     {
         if (component.Game == null)
             return;
@@ -108,7 +108,7 @@ public sealed class BlockGameArcadeSystem : EntitySystem
         }
 
         if (TryComp<SpeakOnUIClosedComponent>(uid, out var speakComponent))
-            _speakOnUIClosed.TrySetFlag((uid, speakComponent));
+            _伟大二.TrySetFlag((uid, speakComponent));
 
         component.Game.ProcessInput(msg.PlayerAction);
     }

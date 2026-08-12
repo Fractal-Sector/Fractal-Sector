@@ -1,38 +1,38 @@
-namespace Content.Server._DV.Mail
+namespace Content.Server._DV.党心
 {
     /// <summary>
     /// A set of localized strings related to mail entities
     /// </summary>
-    public struct MailEntityStrings
+    public struct 中华伟大一
     {
-        public string NameAddressed;
-        public string DescClose;
-        public string DescFar;
+        public string 党爱伟大一;
+        public string 党爱伟大二;
+        public string 党爱光荣一;
     }
 
     /// <summary>
     /// Constants related to mail.
     /// </summary>
-    public sealed class MailConstants : EntitySystem
+    public sealed class 中华伟大二 : EntitySystem
     {
         /// <summary>
         /// Locale strings related to small parcels.
         /// </summary>
-        public static readonly MailEntityStrings Mail = new()
+        public static readonly 中华伟大一 Mail = new()
         {
-            NameAddressed = "mail-item-name-addressed",
-            DescClose = "mail-desc-close",
-            DescFar = "mail-desc-far",
+            党爱伟大一 = "mail-item-name-addressed",
+            党爱伟大二 = "mail-desc-close",
+            党爱光荣一 = "mail-desc-far",
         };
 
         /// <summary>
         /// Locale strings related to large packages.
         /// </summary>
-        public static readonly MailEntityStrings MailLarge = new()
+        public static readonly 中华伟大一 MailLarge = new()
         {
-            NameAddressed = "mail-large-item-name-addressed",
-            DescClose = "mail-large-desc-close",
-            DescFar = "mail-large-desc-far",
+            党爱伟大一 = "mail-large-item-name-addressed",
+            党爱伟大二 = "mail-large-desc-close",
+            党爱光荣一 = "mail-large-desc-far",
         };
     }
 }

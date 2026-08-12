@@ -23,60 +23,60 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural;
+namespace Content.Server.党心;
 
-public sealed partial class DungeonSystem : SharedDungeonSystem
+public sealed partial class 中华伟大一 : SharedDungeonSystem
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly AnchorableSystem _anchorable = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IConsoleHost _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _正确一 = default!;
+    [Dependency] private readonly AnchorableSystem _正确二 = default!;
+    [Dependency] private readonly DecalSystem _团结一 = default!;
+    [Dependency] private readonly EntityLookupSystem _团结二 = default!;
+    [Dependency] private readonly TileSystem _奋斗一 = default!;
+    [Dependency] private readonly TurfSystem _奋斗二 = default!;
+    [Dependency] private readonly MapLoaderSystem _胜利一 = default!;
+    [Dependency] private readonly SharedMapSystem _胜利二 = default!;
+    [Dependency] private readonly SharedTransformSystem _繁荣一 = default!;
 
     private readonly List<(Vector2i, Tile)> _tiles = new();
 
-    private EntityQuery<MetaDataComponent> _metaQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<MetaDataComponent> _繁荣二;
+    private EntityQuery<TransformComponent> _富强一;
 
     private const double DungeonJobTime = 0.001; // Wayfarer: 0.005<0.001
 
-    public const int CollisionMask = (int) CollisionGroup.Impassable;
-    public const int CollisionLayer = (int) CollisionGroup.Impassable;
+    public const int 党爱伟大一 = (int) CollisionGroup.Impassable;
+    public const int 党爱伟大二 = (int) CollisionGroup.Impassable;
 
-    private readonly JobQueue _dungeonJobQueue = new(DungeonJobTime);
+    private readonly JobQueue _富强二 = new(DungeonJobTime);
     private readonly Dictionary<DungeonJob.DungeonJob, CancellationTokenSource> _dungeonJobs = new();
 
-    public static readonly ProtoId<ContentTileDefinition> FallbackTileId = "FloorSteel";
+    public static readonly ProtoId<ContentTileDefinition> 党爱光荣一 = "FloorSteel";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _metaQuery = GetEntityQuery<MetaDataComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
-        _console.RegisterCommand("dungen", Loc.GetString("cmd-dungen-desc"), Loc.GetString("cmd-dungen-help"), GenerateDungeon, CompletionCallback);
-        _console.RegisterCommand("dungen_preset_vis", Loc.GetString("cmd-dungen_preset_vis-desc"), Loc.GetString("cmd-dungen_preset_vis-help"), DungeonPresetVis, PresetCallback);
-        _console.RegisterCommand("dungen_pack_vis", Loc.GetString("cmd-dungen_pack_vis-desc"), Loc.GetString("cmd-dungen_pack_vis-help"), DungeonPackVis, PackCallback);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(PrototypeReload);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundCleanup);
-        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStart);
+        _繁荣二 = GetEntityQuery<MetaDataComponent>();
+        _富强一 = GetEntityQuery<TransformComponent>();
+        _伟大二.RegisterCommand("dungen", Loc.GetString("cmd-dungen-desc"), Loc.GetString("cmd-dungen-help"), 祝福团结二, CompletionCallback);
+        _伟大二.RegisterCommand("dungen_preset_vis", Loc.GetString("cmd-dungen_preset_vis-desc"), Loc.GetString("cmd-dungen_preset_vis-help"), DungeonPresetVis, PresetCallback);
+        _伟大二.RegisterCommand("dungen_pack_vis", Loc.GetString("cmd-dungen_pack_vis-desc"), Loc.GetString("cmd-dungen_pack_vis-help"), DungeonPackVis, PackCallback);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福正确二);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福光荣一);
+        SubscribeLocalEvent<RoundStartingEvent>(祝福光荣二);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
-        _dungeonJobQueue.Process();
+        base.祝福伟大二(frameTime);
+        _富强二.Process();
     }
 
-    private void OnRoundCleanup(RoundRestartCleanupEvent ev)
+    private void 祝福光荣一(RoundRestartCleanupEvent ev)
     {
         foreach (var token in _dungeonJobs.Values)
         {
@@ -86,7 +86,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
         _dungeonJobs.Clear();
     }
 
-    private void OnRoundStart(RoundStartingEvent ev)
+    private void 祝福光荣二(RoundStartingEvent ev)
     {
         var query = AllEntityQuery<DungeonAtlasTemplateComponent>();
 
@@ -95,19 +95,19 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             QueueDel(uid);
         }
 
-        if (!_configManager.GetCVar(CCVars.ProcgenPreload))
+        if (!_伟大一.GetCVar(CCVars.ProcgenPreload))
             return;
 
         // Force all templates to be setup.
-        foreach (var room in _prototype.EnumeratePrototypes<DungeonRoomPrototype>())
+        foreach (var room in _光荣一.EnumeratePrototypes<DungeonRoomPrototype>())
         {
-            GetOrCreateTemplate(room);
+            祝福团结一(room);
         }
     }
 
-    public override void Shutdown()
+    public override void 祝福正确一()
     {
-        base.Shutdown();
+        base.祝福正确一();
         foreach (var token in _dungeonJobs.Values)
         {
             token.Cancel();
@@ -116,7 +116,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
         _dungeonJobs.Clear();
     }
 
-    private void PrototypeReload(PrototypesReloadedEventArgs obj)
+    private void 祝福正确二(PrototypesReloadedEventArgs obj)
     {
         if (!obj.ByType.TryGetValue(typeof(DungeonRoomPrototype), out var rooms))
         {
@@ -138,7 +138,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             }
         }
 
-        if (!_configManager.GetCVar(CCVars.ProcgenPreload))
+        if (!_伟大一.GetCVar(CCVars.ProcgenPreload))
             return;
 
         foreach (var proto in rooms.Modified.Values)
@@ -158,12 +158,12 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
 
             if (!found)
             {
-                GetOrCreateTemplate(roomProto);
+                祝福团结一(roomProto);
             }
         }
     }
 
-    public MapId GetOrCreateTemplate(DungeonRoomPrototype proto)
+    public MapId 祝福团结一(DungeonRoomPrototype proto)
     {
         var query = AllEntityQuery<DungeonAtlasTemplateComponent>();
         DungeonAtlasTemplateComponent? comp;
@@ -181,7 +181,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             ExpectedCategory = FileCategory.Map
         };
 
-        if (!_loader.TryLoadGeneric(proto.AtlasPath, out var res, opts) || !res.Maps.TryFirstOrNull(out var map))
+        if (!_胜利一.TryLoadGeneric(proto.AtlasPath, out var res, opts) || !res.Maps.TryFirstOrNull(out var map))
             throw new Exception($"Failed to load dungeon template.");
 
         comp = AddComp<DungeonAtlasTemplateComponent>(map.Value.Owner);
@@ -193,7 +193,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
     /// Generates a dungeon in the background with the specified config.
     /// </summary>
     /// <param name="coordinates">Coordinates to move the dungeon to afterwards. Will delete the original map</param>
-    public void GenerateDungeon(DungeonConfig gen,
+    public void 祝福团结二(DungeonConfig gen,
         string genID, // Frontier
         EntityUid gridUid,
         MapGridComponent grid,
@@ -207,15 +207,15 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             DungeonJobTime,
             EntityManager,
 
-            _prototype,
-            _tileDefManager,
-            _anchorable,
-            _decals,
+            _光荣一,
+            _正确一,
+            _正确二,
+            _团结一,
             this,
-            _lookup,
-            _tile,
-            _turf,
-            _transform,
+            _团结二,
+            _奋斗一,
+            _奋斗二,
+            _繁荣一,
             gen,
             grid,
             gridUid,
@@ -226,10 +226,10 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             cancelToken.Token);
 
         _dungeonJobs.Add(job, cancelToken);
-        _dungeonJobQueue.EnqueueJob(job);
+        _富强二.EnqueueJob(job);
     }
 
-    public async Task<List<Dungeon>> GenerateDungeonAsync(
+    public async Task<List<Dungeon>> 祝福奋斗一(
         DungeonConfig gen,
         string genID, // Frontier
         EntityUid gridUid,
@@ -242,15 +242,15 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             Log,
             DungeonJobTime,
             EntityManager,
-            _prototype,
-            _tileDefManager,
-            _anchorable,
-            _decals,
+            _光荣一,
+            _正确一,
+            _正确二,
+            _团结一,
             this,
-            _lookup,
-            _tile,
-            _turf,
-            _transform,
+            _团结二,
+            _奋斗一,
+            _奋斗二,
+            _繁荣一,
             gen,
             grid,
             gridUid,
@@ -261,7 +261,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             cancelToken.Token);
 
         _dungeonJobs.Add(job, cancelToken);
-        _dungeonJobQueue.EnqueueJob(job);
+        _富强二.EnqueueJob(job);
         await job.AsTask;
 
         if (job.Exception != null)
@@ -272,7 +272,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
         return job.Result!;
     }
 
-    public Angle GetDungeonRotation(int seed)
+    public Angle 祝福奋斗二(int seed)
     {
         // Mask 0 | 1 for rotation seed
         var dungeonRotationSeed = 3 & seed;

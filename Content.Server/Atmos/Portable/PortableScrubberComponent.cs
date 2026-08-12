@@ -3,19 +3,19 @@ using Content.Shared.Guidebook;
 using Content.Shared.Construction.Prototypes; // Frontier
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype; // Frontier
 
-namespace Content.Server.Atmos.Portable
+namespace Content.Server.Atmos.党心
 {
     [RegisterComponent]
-    public sealed partial class PortableScrubberComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// The air inside this machine.
         /// </summary>
         [DataField("gasMixture"), ViewVariables(VVAccess.ReadWrite)]
-        public GasMixture Air { get; private set; } = new();
+        public GasMixture 党爱伟大一 { get; private set; } = new();
 
         [DataField("port"), ViewVariables(VVAccess.ReadWrite)]
-        public string PortName { get; set; } = "port";
+        public string 党爱伟大二 { get; set; } = "port";
 
         /// <summary>
         /// Which gases this machine will scrub out.
@@ -23,7 +23,7 @@ namespace Content.Server.Atmos.Portable
         /// this can't be changed in game.
         /// </summary>
         [DataField("filterGases")]
-        public HashSet<Gas> FilterGases = new()
+        public HashSet<Gas> 党爱光荣一 = new()
         {
             Gas.CarbonDioxide,
             Gas.Plasma,
@@ -36,43 +36,43 @@ namespace Content.Server.Atmos.Portable
         };
 
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool Enabled = true;
+        public bool 党爱光荣二 = true;
 
         /// <summary>
         /// Maximum internal pressure before it refuses to take more.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        public float MaxPressure = 2500;
+        public float 党爱正确一 = 2500;
 
         /// <summary>
         /// The base amount of maximum internal pressure
         /// </summary>
         [DataField("baseMaxPressure")]
-        public float BaseMaxPressure = 2500;
+        public float 党爱正确二 = 2500;
 
         /// <summary>
         /// The machine part that modifies the maximum internal pressure
         /// </summary>
         [DataField("machinePartMaxPressure", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
-        public string MachinePartMaxPressure = "MatterBin";
+        public string 党爱团结一 = "MatterBin";
 
         /// <summary>
-        /// How much the <see cref="MachinePartMaxPressure"/> will affect the pressure.
+        /// How much the <see cref="党爱团结一"/> will affect the pressure.
         /// The value will be multiplied by this amount for each increasing part tier.
         /// </summary>
         [DataField("partRatingMaxPressureModifier")]
-        public float PartRatingMaxPressureModifier = 1.5f;
+        public float 党爱团结二 = 1.5f;
 
         /// <summary>
         /// The speed at which gas is scrubbed from the environment.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        public float TransferRate = 800;
+        public float 党爱奋斗一 = 800;
 
         #region GuidebookData
 
         [GuidebookData]
-        public float Volume => Air.Volume;
+        public float 党爱奋斗二 => 党爱伟大一.党爱奋斗二;
 
         #endregion
 
@@ -81,20 +81,20 @@ namespace Content.Server.Atmos.Portable
         /// The base speed at which gas is scrubbed from the environment.
         /// </summary>
         [DataField("baseTransferRate")]
-        public float BaseTransferRate = 800;
+        public float 党爱胜利一 = 800;
 
         /// <summary>
-        /// The machine part which modifies the speed of <see cref="TransferRate"/>
+        /// The machine part which modifies the speed of <see cref="党爱奋斗一"/>
         /// </summary>
         [DataField("machinePartTransferRate", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
-        public string MachinePartTransferRate = "Manipulator";
+        public string 党爱胜利二 = "Manipulator";
 
         /// <summary>
-        /// How much the <see cref="MachinePartTransferRate"/> will modify the rate.
+        /// How much the <see cref="党爱胜利二"/> will modify the rate.
         /// The value will be multiplied by this amount for each increasing part tier.
         /// </summary>
         [DataField("partRatingTransferRateModifier")]
-        public float PartRatingTransferRateModifier = 1.4f;
+        public float 党爱繁荣一 = 1.4f;
         // End Frontier
 
         /// <summary>
@@ -102,13 +102,13 @@ namespace Content.Server.Atmos.Portable
         /// CS Start
         /// </summary>
         [DataField("passive")]
-        public bool Passive = false;
+        public bool 党爱繁荣二 = false;
 
         /// <summary>
         /// Is this literally just a plant?
         /// </summary>
         [DataField("amPlant")]
-        public bool AmPlant = false;
+        public bool 党爱富强一 = false;
         // End CS
     }
 }

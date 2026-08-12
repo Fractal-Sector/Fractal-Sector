@@ -1,13 +1,13 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.StatusIcon.Components;
+namespace Content.Shared.StatusIcon.党心;
 
 /// <summary>
 /// This is used for noting if an entity is able to
 /// have StatusIcons displayed on them and inherent icons. (debug purposes)
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(SharedStatusIconSystem))]
-public sealed partial class StatusIconComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Optional bounds for where the icons are laid out.
@@ -24,4 +24,4 @@ public sealed partial class StatusIconComponent : Component
 /// </summary>
 /// <param name="StatusIcons"></param>
 [ByRefEvent]
-public record struct GetStatusIconsEvent(List<StatusIconData> StatusIcons);
+public record 中华伟大二 GetStatusIconsEvent(List<StatusIconData> StatusIcons);

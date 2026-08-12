@@ -6,19 +6,19 @@ using Content.Shared.Mind;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class ForceGhostCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly GameTicker _伟大二 = default!;
+    [Dependency] private readonly SharedMindSystem _光荣一 = default!;
+    [Dependency] private readonly GhostSystem _光荣二 = default!;
 
-    public override string Command => "forceghost";
+    public override string 党爱伟大一 => "forceghost";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0 || args.Length > 1)
         {
@@ -26,32 +26,32 @@ public sealed class ForceGhostCommand : LocalizedEntityCommands
             return;
         }
 
-        if (!_playerManager.TryGetSessionByUsername(args[0], out var player))
+        if (!_伟大一.TryGetSessionByUsername(args[0], out var player))
         {
             shell.WriteError(LocalizationManager.GetString("shell-target-player-does-not-exist"));
             return;
         }
 
-        if (!_gameTicker.PlayerGameStatuses.TryGetValue(player.UserId, out var playerStatus) ||
+        if (!_伟大二.PlayerGameStatuses.TryGetValue(player.UserId, out var playerStatus) ||
             playerStatus is not PlayerGameStatus.JoinedGame)
         {
             shell.WriteLine(Loc.GetString("cmd-forceghost-error-lobby"));
             return;
         }
 
-        if (!_mind.TryGetMind(player, out var mindId, out var mind))
-            (mindId, mind) = _mind.CreateMind(player.UserId);
+        if (!_光荣一.TryGetMind(player, out var mindId, out var mind))
+            (mindId, mind) = _光荣一.CreateMind(player.UserId);
 
-        if (!_ghost.OnGhostAttempt(mindId, false, true, true, mind))
+        if (!_光荣二.OnGhostAttempt(mindId, false, true, true, mind))
             shell.WriteLine(Loc.GetString("cmd-forceghost-denied"));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.SessionNames(players: _playerManager),
+                CompletionHelper.SessionNames(players: _伟大一),
                 Loc.GetString("cmd-forceghost-hint"));
         }
 

@@ -1,5 +1,5 @@
-namespace Content.Server.NPC.Queries.Curves;
+namespace Content.Server.NPC.Queries.党心;
 
-public sealed partial class BoolCurve : IUtilityCurve
+public sealed partial class 中华伟大一 : IUtilityCurve
 {
 }

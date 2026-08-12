@@ -6,31 +6,31 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using System.Linq;
 
-namespace Content.Server.Weather;
+namespace Content.Server.党心;
 
-public sealed class WeatherSystem : SharedWeatherSystem
+public sealed class 中华伟大一 : SharedWeatherSystem
 {
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly IConsoleHost _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<WeatherComponent, ComponentGetState>(OnWeatherGetState);
-        _console.RegisterCommand("weather",
+        base.祝福伟大一();
+        SubscribeLocalEvent<WeatherComponent, ComponentGetState>(祝福伟大二);
+        _伟大一.RegisterCommand("weather",
             Loc.GetString("cmd-weather-desc"),
             Loc.GetString("cmd-weather-help"),
-            WeatherTwo,
-            WeatherCompletion);
+            祝福光荣一,
+            祝福光荣二);
     }
 
-    private void OnWeatherGetState(EntityUid uid, WeatherComponent component, ref ComponentGetState args)
+    private void 祝福伟大二(EntityUid uid, WeatherComponent component, ref ComponentGetState args)
     {
         args.State = new WeatherComponentState(component.Weather);
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void WeatherTwo(IConsoleShell shell, string argStr, string[] args)
+    private void 祝福光荣一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 2)
         {
@@ -43,10 +43,10 @@ public sealed class WeatherSystem : SharedWeatherSystem
 
         var mapId = new MapId(mapInt);
 
-        if (!_mapSystem.MapExists(mapId))
+        if (!_伟大二.MapExists(mapId))
             return;
 
-        if (!_mapSystem.TryGetMap(mapId, out var mapUid))
+        if (!_伟大二.TryGetMap(mapId, out var mapUid))
             return;
 
         var weatherComp = EnsureComp<WeatherComponent>(mapUid.Value);
@@ -80,7 +80,7 @@ public sealed class WeatherSystem : SharedWeatherSystem
         SetWeather(mapId, weather, endTime);
     }
 
-    private CompletionResult WeatherCompletion(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福光荣二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
             return CompletionResult.FromHintOptions(CompletionHelper.MapIds(EntityManager), "Map Id");

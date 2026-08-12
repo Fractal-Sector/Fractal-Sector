@@ -4,25 +4,25 @@ using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Robust.Shared.Player;
 
-namespace Content.Server.Movement.Systems;
+namespace Content.Server.Movement.党心;
 
-public sealed class MobCollisionSystem : SharedMobCollisionSystem
+public sealed class 中华伟大一 : SharedMobCollisionSystem
 {
-    private EntityQuery<ActorComponent> _actorQuery;
+    private EntityQuery<ActorComponent> _伟大一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _actorQuery = GetEntityQuery<ActorComponent>();
-        SubscribeLocalEvent<MobCollisionComponent, MobCollisionMessage>(OnServerMobCollision);
+        base.祝福伟大一();
+        _伟大一 = GetEntityQuery<ActorComponent>();
+        SubscribeLocalEvent<MobCollisionComponent, MobCollisionMessage>(祝福伟大二);
     }
 
-    private void OnServerMobCollision(Entity<MobCollisionComponent> ent, ref MobCollisionMessage args)
+    private void 祝福伟大二(Entity<MobCollisionComponent> ent, ref MobCollisionMessage args)
     {
         MoveMob((ent.Owner, ent.Comp, Transform(ent.Owner)), args.Direction, args.SpeedModifier);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
         if (!CfgManager.GetCVar(CCVars.MovementMobPushing))
             return;
@@ -31,16 +31,16 @@ public sealed class MobCollisionSystem : SharedMobCollisionSystem
 
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (_actorQuery.HasComp(uid) || !PhysicsQuery.TryComp(uid, out var physics))
+            if (_伟大一.HasComp(uid) || !PhysicsQuery.TryComp(uid, out var physics))
                 continue;
 
             HandleCollisions((uid, comp, physics), frameTime);
         }
 
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
     }
 
-    protected override void RaiseCollisionEvent(EntityUid uid, Vector2 direction, float speedMod)
+    protected override void 祝福光荣二(EntityUid uid, Vector2 direction, float speedMod)
     {
         RaiseLocalEvent(uid, new MobCollisionMessage()
         {

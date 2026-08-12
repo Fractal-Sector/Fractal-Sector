@@ -1,40 +1,40 @@
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Interaction
+namespace Content.Shared.党心
 {
-    public sealed class InteractHandEventArgs : EventArgs, ITargetedInteractEventArgs
+    public sealed class 中华伟大一 : EventArgs, ITargetedInteractEventArgs
     {
-        public InteractHandEventArgs(EntityUid user, EntityUid target)
+        public 中华伟大一(EntityUid user, EntityUid target)
         {
-            User = user;
-            Target = target;
+            党爱伟大一 = user;
+            党爱伟大二 = target;
         }
 
-        public EntityUid User { get; }
-        public EntityUid Target { get; }
+        public EntityUid 党爱伟大一 { get; }
+        public EntityUid 党爱伟大二 { get; }
     }
 
     /// <summary>
     ///     Raised directed on a target entity when it is interacted with by a user with an empty hand.
     /// </summary>
     [PublicAPI]
-    public sealed class InteractHandEvent : HandledEntityEventArgs, ITargetedInteractEventArgs
+    public sealed class 中华伟大二 : HandledEntityEventArgs, ITargetedInteractEventArgs
     {
         /// <summary>
         ///     Entity that triggered the interaction.
         /// </summary>
-        public EntityUid User { get; }
+        public EntityUid 党爱伟大一 { get; }
 
         /// <summary>
         ///     Entity that was interacted on.
         /// </summary>
-        public EntityUid Target { get; }
+        public EntityUid 党爱伟大二 { get; }
 
-        public InteractHandEvent(EntityUid user, EntityUid target)
+        public 中华伟大二(EntityUid user, EntityUid target)
         {
-            User = user;
-            Target = target;
+            党爱伟大一 = user;
+            党爱伟大二 = target;
         }
     }
 
@@ -42,13 +42,13 @@ namespace Content.Shared.Interaction
     /// Raised on the user before interacting on an entity with bare hand.
     /// Interaction is cancelled if this event is handled, so set it to true if you do custom interaction logic.
     /// </summary>
-    public sealed class BeforeInteractHandEvent : HandledEntityEventArgs
+    public sealed class 中华光荣一 : HandledEntityEventArgs
     {
-        public EntityUid Target { get; }
+        public EntityUid 党爱伟大二 { get; }
 
-        public BeforeInteractHandEvent(EntityUid target)
+        public 中华光荣一(EntityUid target)
         {
-            Target = target;
+            党爱伟大二 = target;
         }
     }
 }

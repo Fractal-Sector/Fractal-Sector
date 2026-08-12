@@ -8,31 +8,31 @@ using Content.Shared.Storage;
 using Content.Shared.Trigger;
 using Robust.Server.Containers;
 
-namespace Content.Server.VoiceTrigger;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Allows storages to be manipulated using voice commands.
 /// </summary>
-public sealed class StorageVoiceControlSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StorageSystem _storage = default!;
+    [Dependency] private readonly ContainerSystem _伟大一 = default!;
+    [Dependency] private readonly HandsSystem _伟大二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly InventorySystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
+    [Dependency] private readonly StorageSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StorageVoiceControlComponent, VoiceTriggeredEvent>(VoiceTriggered);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StorageVoiceControlComponent, VoiceTriggeredEvent>(祝福伟大二);
     }
 
-    private void VoiceTriggered(Entity<StorageVoiceControlComponent> ent, ref VoiceTriggeredEvent args)
+    private void 祝福伟大二(Entity<StorageVoiceControlComponent> ent, ref VoiceTriggeredEvent args)
     {
         // Check if the component has any slot restrictions via AllowedSlots
         // If it has slot restrictions, check if the item is in a slot that is allowed
-        if (ent.Comp.AllowedSlots != null && _inventory.TryGetContainingSlot(ent.Owner, out var itemSlot) &&
+        if (ent.Comp.AllowedSlots != null && _光荣二.TryGetContainingSlot(ent.Owner, out var itemSlot) &&
             (itemSlot.SlotFlags & ent.Comp.AllowedSlots) == 0)
             return;
 
@@ -41,27 +41,27 @@ public sealed class StorageVoiceControlSystem : EntitySystem
             return;
 
         // If the player has something in their hands, try to insert it into the storage
-        if (_hands.TryGetActiveItem(args.Source, out var activeItem))
+        if (_伟大二.TryGetActiveItem(args.Source, out var activeItem))
         {
             // Disallow insertion and provide a reason why if the person decides to insert the item into itself
             if (ent.Owner.Equals(activeItem.Value))
             {
-                _popup.PopupEntity(Loc.GetString("comp-storagevoicecontrol-self-insert", ("entity", activeItem.Value)), ent, args.Source);
+                _正确一.PopupEntity(Loc.GetString("comp-storagevoicecontrol-self-insert", ("entity", activeItem.Value)), ent, args.Source);
                 return;
             }
-            if (_storage.CanInsert(ent, activeItem.Value, out var failedReason))
+            if (_正确二.CanInsert(ent, activeItem.Value, out var failedReason))
             {
                 // We adminlog before insertion, otherwise the logger will attempt to pull info on an entity that no longer is present and throw an exception
-                _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.Source)} inserted {ToPrettyString(activeItem.Value)} into {ToPrettyString(ent)} via voice control");
-                _storage.Insert(ent, activeItem.Value, out _);
+                _光荣一.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.Source)} inserted {ToPrettyString(activeItem.Value)} into {ToPrettyString(ent)} via voice control");
+                _正确二.Insert(ent, activeItem.Value, out _);
                 return;
             }
             {
                 // Tell the player the reason why the item couldn't be inserted
                 if (failedReason == null)
                     return;
-                _popup.PopupEntity(Loc.GetString(failedReason), ent, args.Source);
-                _adminLogger.Add(LogType.Action,
+                _正确一.PopupEntity(Loc.GetString(failedReason), ent, args.Source);
+                _光荣一.Add(LogType.Action,
                     LogImpact.Low,
                     $"{ToPrettyString(args.Source)} failed to insert {ToPrettyString(activeItem.Value)} into {ToPrettyString(ent)} via voice control");
             }
@@ -76,7 +76,7 @@ public sealed class StorageVoiceControlSystem : EntitySystem
             // E.g "go go s" would give you the screwdriver because "screwdriver" contains "s"
             if (Name(item).Contains(args.MessageWithoutPhrase))
             {
-                ExtractItemFromStorage(ent, item, args.Source);
+                祝福光荣一(ent, item, args.Source);
                 break;
             }
         }
@@ -88,14 +88,14 @@ public sealed class StorageVoiceControlSystem : EntitySystem
     /// <param name="ent">The entity with the <see cref="StorageVoiceControlComponent"/></param>
     /// <param name="item">The entity to be extracted from the attached storage</param>
     /// <param name="source">The entity wearing the item</param>
-    private void ExtractItemFromStorage(Entity<StorageVoiceControlComponent> ent,
+    private void 祝福光荣一(Entity<StorageVoiceControlComponent> ent,
         EntityUid item,
         EntityUid source)
     {
-        _container.RemoveEntity(ent, item);
-        _adminLogger.Add(LogType.Action,
+        _伟大一.RemoveEntity(ent, item);
+        _光荣一.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(source)} retrieved {ToPrettyString(item)} from {ToPrettyString(ent)} via voice control");
-        _hands.TryPickup(source, item);
+        _伟大二.TryPickup(source, item);
     }
 }

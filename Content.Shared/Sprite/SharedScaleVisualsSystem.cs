@@ -1,33 +1,33 @@
 using System.Numerics;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Sprite;
+namespace Content.Shared.党心;
 
-public abstract class SharedScaleVisualsSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ScaleVisualsComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ScaleVisualsComponent, ComponentShutdown>(OnComponentShutdown);
+        SubscribeLocalEvent<ScaleVisualsComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ScaleVisualsComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnMapInit(Entity<ScaleVisualsComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ScaleVisualsComponent> ent, ref MapInitEvent args)
     {
-        SetSpriteScale(ent.Owner, ent.Comp.Scale);
+        祝福正确一(ent.Owner, ent.Comp.Scale);
     }
 
-    private void OnComponentShutdown(Entity<ScaleVisualsComponent> ent, ref ComponentShutdown args)
+    private void 祝福光荣一(Entity<ScaleVisualsComponent> ent, ref ComponentShutdown args)
     {
-        ResetScale(ent);
+        祝福光荣二(ent);
     }
 
-    protected virtual void ResetScale(Entity<ScaleVisualsComponent> ent)
+    protected virtual void 祝福光荣二(Entity<ScaleVisualsComponent> ent)
     {
-        _appearance.RemoveData(ent.Owner, ScaleVisuals.Scale);
+        _伟大一.RemoveData(ent.Owner, 中华光荣一.Scale);
         var ev = new ScaleEntityEvent(ent.Owner, Vector2.One);
         RaiseLocalEvent(ent.Owner, ref ev);
     }
@@ -35,14 +35,14 @@ public abstract class SharedScaleVisualsSystem : EntitySystem
     /// <summary>
     /// Used to set the <see cref="Robust.Client.GameObjects.SpriteComponent.Scale"/> datafield to a certain value from the server.
     /// </summary>
-    public void SetSpriteScale(EntityUid uid, Vector2 scale)
+    public void 祝福正确一(EntityUid uid, Vector2 scale)
     {
         var comp = EnsureComp<ScaleVisualsComponent>(uid);
         comp.Scale = scale;
         Dirty(uid, comp);
 
         var appearanceComponent = EnsureComp<AppearanceComponent>(uid);
-        _appearance.SetData(uid, ScaleVisuals.Scale, scale, appearanceComponent);
+        _伟大一.SetData(uid, 中华光荣一.Scale, scale, appearanceComponent);
 
         // Raise an event for content use.
         var ev = new ScaleEntityEvent(uid, scale);
@@ -50,15 +50,15 @@ public abstract class SharedScaleVisualsSystem : EntitySystem
     }
 
     /// <summary>
-    /// Gets the current scale set by <see cref="SetSpriteScale"/>.
+    /// Gets the current scale set by <see cref="祝福正确一"/>.
     /// This does not include any direct changes made to the SpriteComponent.
     /// </summary>
-    public Vector2 GetSpriteScale(EntityUid uid)
+    public Vector2 祝福正确二(EntityUid uid)
     {
         if (!TryComp<AppearanceComponent>(uid, out var appearanceComponent))
             return Vector2.One;
 
-        if (!_appearance.TryGetData<Vector2>(uid, ScaleVisuals.Scale, out var scale, appearanceComponent))
+        if (!_伟大一.TryGetData<Vector2>(uid, 中华光荣一.Scale, out var scale, appearanceComponent))
             scale = Vector2.One;
 
         return scale;
@@ -69,10 +69,10 @@ public abstract class SharedScaleVisualsSystem : EntitySystem
 /// Raised when a sprite scale is changed.
 /// </summary>
 [ByRefEvent]
-public readonly record struct ScaleEntityEvent(EntityUid Uid, Vector2 Scale);
+public readonly record 中华伟大二 ScaleEntityEvent(EntityUid Uid, Vector2 Scale);
 
 [Serializable, NetSerializable]
-public enum ScaleVisuals : byte
+public enum 中华光荣一 : byte
 {
     Scale,
 }

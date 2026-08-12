@@ -2,20 +2,20 @@
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    sealed class EndRoundCommand : IConsoleCommand
+    sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "endround";
-        public string Description => "Ends the round and moves the server to PostRound.";
-        public string Help => String.Empty;
+        public string 党爱伟大一 => "endround";
+        public string 党爱伟大二 => "Ends the round and moves the server to PostRound.";
+        public string 党爱光荣一 => String.Empty;
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
-            var ticker = _e.System<GameTicker>();
+            var ticker = _伟大一.System<GameTicker>();
 
             if (ticker.RunLevel != GameRunLevel.InRound)
             {

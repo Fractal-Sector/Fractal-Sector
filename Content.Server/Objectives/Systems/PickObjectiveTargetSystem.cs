@@ -6,26 +6,26 @@ using Content.Server.Revolutionary.Components;
 using Robust.Shared.Random;
 using System.Linq;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Handles assinging a target to an objective entity with <see cref="TargetObjectiveComponent"/> using different components.
 /// These can be combined with condition components for objective completions in order to create a variety of objectives.
 /// </summary>
-public sealed class PickObjectiveTargetSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TargetObjectiveSystem _target = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly TargetObjectiveSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMindSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PickSpecificPersonComponent, ObjectiveAssignedEvent>(OnSpecificPersonAssigned);
-        SubscribeLocalEvent<PickRandomPersonComponent, ObjectiveAssignedEvent>(OnRandomPersonAssigned);
+        SubscribeLocalEvent<PickSpecificPersonComponent, ObjectiveAssignedEvent>(祝福伟大二);
+        SubscribeLocalEvent<PickRandomPersonComponent, ObjectiveAssignedEvent>(祝福光荣一);
     }
 
-    private void OnSpecificPersonAssigned(Entity<PickSpecificPersonComponent> ent, ref ObjectiveAssignedEvent args)
+    private void 祝福伟大二(Entity<PickSpecificPersonComponent> ent, ref ObjectiveAssignedEvent args)
     {
         // invalid objective prototype
         if (!TryComp<TargetObjectiveComponent>(ent.Owner, out var target))
@@ -51,10 +51,10 @@ public sealed class PickObjectiveTargetSystem : EntitySystem
             return;
         }
 
-        _target.SetTarget(ent.Owner, targetComp.Target.Value);
+        _伟大一.SetTarget(ent.Owner, targetComp.Target.Value);
     }
 
-    private void OnRandomPersonAssigned(Entity<PickRandomPersonComponent> ent, ref ObjectiveAssignedEvent args)
+    private void 祝福光荣一(Entity<PickRandomPersonComponent> ent, ref ObjectiveAssignedEvent args)
     {
         // invalid objective prototype
         if (!TryComp<TargetObjectiveComponent>(ent, out var target))
@@ -68,12 +68,12 @@ public sealed class PickObjectiveTargetSystem : EntitySystem
             return;
 
         // couldn't find a target :(
-        if (_mind.PickFromPool(ent.Comp.Pool, ent.Comp.Filters, args.MindId) is not {} picked)
+        if (_伟大二.PickFromPool(ent.Comp.Pool, ent.Comp.Filters, args.MindId) is not {} picked)
         {
             args.Cancelled = true;
             return;
         }
 
-        _target.SetTarget(ent, picked, target);
+        _伟大一.SetTarget(ent, picked, target);
     }
 }

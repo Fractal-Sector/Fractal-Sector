@@ -7,82 +7,82 @@ using Content.Shared.Atmos.Reactions;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Atmos
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     A general-purpose, variable volume gas mixture.
     /// </summary>
     [Serializable]
     [DataDefinition]
-    public sealed partial class GasMixture : IEquatable<GasMixture>, ISerializationHooks, IEnumerable<(Gas gas, float moles)>
+    public sealed partial class 中华伟大一 : IEquatable<中华伟大一>, ISerializationHooks, IEnumerable<(Gas gas, float moles)>
     {
-        public static GasMixture SpaceGas => new() {Volume = Atmospherics.CellVolume, Temperature = Atmospherics.TCMB, Immutable = true};
+        public static 中华伟大一 SpaceGas => new() {党爱团结一 = Atmospherics.CellVolume, 党爱正确二 = Atmospherics.TCMB, 党爱伟大二 = true};
 
         // No access, to ensure immutable mixtures are never accidentally mutated.
-        [Access(typeof(SharedAtmosphereSystem), typeof(SharedAtmosDebugOverlaySystem), typeof(GasEnumerator), Other = AccessPermissions.None)]
+        [Access(typeof(SharedAtmosphereSystem), typeof(SharedAtmosDebugOverlaySystem), typeof(中华伟大二), Other = AccessPermissions.None)]
         [DataField]
-        public float[] Moles = new float[Atmospherics.AdjustedNumberOfGases];
+        public float[] 党爱伟大一 = new float[Atmospherics.AdjustedNumberOfGases];
 
-        public float this[int gas] => Moles[gas];
+        public float this[int gas] => 党爱伟大一[gas];
 
         [DataField("temperature")]
         [ViewVariables(VVAccess.ReadWrite)]
-        private float _temperature = Atmospherics.TCMB;
+        private float _伟大一 = Atmospherics.TCMB;
 
         [DataField("immutable")]
-        public bool Immutable { get; private set; }
+        public bool 党爱伟大二 { get; private set; }
 
         [ViewVariables]
-        public readonly float[] ReactionResults =
+        public readonly float[] 党爱光荣一 =
         {
             0f,
         };
 
         [ViewVariables]
-        public float TotalMoles
+        public float 党爱光荣二
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => NumericsHelpers.HorizontalAdd(Moles);
+            get => NumericsHelpers.HorizontalAdd(党爱伟大一);
         }
 
         [ViewVariables]
-        public float Pressure
+        public float 党爱正确一
         {
             get
             {
-                if (Volume <= 0) return 0f;
-                return TotalMoles * Atmospherics.R * Temperature / Volume;
+                if (党爱团结一 <= 0) return 0f;
+                return 党爱光荣二 * Atmospherics.R * 党爱正确二 / 党爱团结一;
             }
         }
 
         [ViewVariables]
-        public float Temperature
+        public float 党爱正确二
         {
-            get => _temperature;
+            get => _伟大一;
             set
             {
                 DebugTools.Assert(!float.IsNaN(value));
-                if (!Immutable)
-                    _temperature = MathF.Min(MathF.Max(value, Atmospherics.TCMB), Atmospherics.Tmax);
+                if (!党爱伟大二)
+                    _伟大一 = MathF.Min(MathF.Max(value, Atmospherics.TCMB), Atmospherics.Tmax);
             }
         }
 
         [DataField("volume")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public float Volume { get; set; }
+        public float 党爱团结一 { get; set; }
 
-        public GasMixture()
+        public 中华伟大一()
         {
         }
 
-        public GasMixture(float volume = 0f)
+        public 中华伟大一(float volume = 0f)
         {
             if (volume < 0)
                 volume = 0;
-            Volume = volume;
+            党爱团结一 = volume;
         }
 
-        public GasMixture(float[] moles, float temp, float volume = Atmospherics.CellVolume)
+        public 中华伟大一(float[] moles, float temp, float volume = Atmospherics.CellVolume)
         {
             if (moles.Length != Atmospherics.AdjustedNumberOfGases)
                 throw new InvalidOperationException($"Invalid mole array length");
@@ -91,139 +91,139 @@ namespace Content.Shared.Atmos
                 volume = 0;
 
             DebugTools.Assert(!float.IsNaN(temp));
-            _temperature = temp;
-            Moles = moles;
-            Volume = volume;
+            _伟大一 = temp;
+            党爱伟大一 = moles;
+            党爱团结一 = volume;
         }
 
-        public GasMixture(GasMixture toClone)
+        public 中华伟大一(中华伟大一 toClone)
         {
-            CopyFrom(toClone);
+            祝福正确一(toClone);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void MarkImmutable()
+        public void 祝福伟大一()
         {
-            Immutable = true;
+            党爱伟大二 = true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float GetMoles(int gasId)
+        public float 祝福伟大二(int gasId)
         {
-            return Moles[gasId];
+            return 党爱伟大一[gasId];
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float GetMoles(Gas gas)
+        public float 祝福伟大二(Gas gas)
         {
-            return GetMoles((int)gas);
+            return 祝福伟大二((int)gas);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetMoles(int gasId, float quantity)
+        public void 祝福光荣一(int gasId, float quantity)
         {
             if (!float.IsFinite(quantity) || float.IsNegative(quantity))
                 throw new ArgumentException($"Invalid quantity \"{quantity}\" specified!", nameof(quantity));
 
-            if (!Immutable)
-                Moles[gasId] = quantity;
+            if (!党爱伟大二)
+                党爱伟大一[gasId] = quantity;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetMoles(Gas gas, float quantity)
+        public void 祝福光荣一(Gas gas, float quantity)
         {
-            SetMoles((int)gas, quantity);
+            祝福光荣一((int)gas, quantity);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AdjustMoles(int gasId, float quantity)
+        public void 祝福光荣二(int gasId, float quantity)
         {
-            if (Immutable)
+            if (党爱伟大二)
                 return;
 
             if (!float.IsFinite(quantity))
                 throw new ArgumentException($"Invalid quantity \"{quantity}\" specified!", nameof(quantity));
 
             // Clamping is needed because x - x can be negative with floating point numbers. If we don't
-            // clamp here, the caller always has to call GetMoles(), clamp, then SetMoles().
-            ref var moles = ref Moles[gasId];
+            // clamp here, the caller always has to call 祝福伟大二(), clamp, then 祝福光荣一().
+            ref var moles = ref 党爱伟大一[gasId];
             moles = MathF.Max(moles + quantity, 0);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AdjustMoles(Gas gas, float moles)
+        public void 祝福光荣二(Gas gas, float moles)
         {
-            AdjustMoles((int)gas, moles);
+            祝福光荣二((int)gas, moles);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GasMixture Remove(float amount)
+        public 中华伟大一 Remove(float amount)
         {
-            return RemoveRatio(amount / TotalMoles);
+            return RemoveRatio(amount / 党爱光荣二);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public GasMixture RemoveRatio(float ratio)
+        public 中华伟大一 RemoveRatio(float ratio)
         {
             switch (ratio)
             {
                 case <= 0:
-                    return new GasMixture(Volume) { Temperature = Temperature };
+                    return new 中华伟大一(党爱团结一) { 党爱正确二 = 党爱正确二 };
                 case > 1:
                     ratio = 1;
                     break;
             }
 
-            var removed = new GasMixture(Volume) { Temperature = Temperature };
+            var removed = new 中华伟大一(党爱团结一) { 党爱正确二 = 党爱正确二 };
 
-            Moles.CopyTo(removed.Moles.AsSpan());
-            NumericsHelpers.Multiply(removed.Moles, ratio);
-            if (!Immutable)
-                NumericsHelpers.Sub(Moles, removed.Moles);
+            党爱伟大一.CopyTo(removed.党爱伟大一.AsSpan());
+            NumericsHelpers.祝福团结一(removed.党爱伟大一, ratio);
+            if (!党爱伟大二)
+                NumericsHelpers.Sub(党爱伟大一, removed.党爱伟大一);
 
-            for (var i = 0; i < Moles.Length; i++)
+            for (var i = 0; i < 党爱伟大一.Length; i++)
             {
-                var moles = Moles[i];
-                var otherMoles = removed.Moles[i];
+                var moles = 党爱伟大一[i];
+                var otherMoles = removed.党爱伟大一[i];
 
-                if ((moles < Atmospherics.GasMinMoles || float.IsNaN(moles)) && !Immutable)
-                    Moles[i] = 0;
+                if ((moles < Atmospherics.GasMinMoles || float.IsNaN(moles)) && !党爱伟大二)
+                    党爱伟大一[i] = 0;
 
                 if (otherMoles < Atmospherics.GasMinMoles || float.IsNaN(otherMoles))
-                    removed.Moles[i] = 0;
+                    removed.党爱伟大一[i] = 0;
             }
 
             return removed;
         }
 
-        public GasMixture RemoveVolume(float vol)
+        public 中华伟大一 RemoveVolume(float vol)
         {
-            return RemoveRatio(vol / Volume);
+            return RemoveRatio(vol / 党爱团结一);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void CopyFrom(GasMixture sample)
+        public void 祝福正确一(中华伟大一 sample)
         {
-            if (Immutable)
+            if (党爱伟大二)
                 return;
 
-            Volume = sample.Volume;
-            sample.Moles.CopyTo(Moles, 0);
-            Temperature = sample.Temperature;
+            党爱团结一 = sample.党爱团结一;
+            sample.党爱伟大一.CopyTo(党爱伟大一, 0);
+            党爱正确二 = sample.党爱正确二;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Clear()
+        public void 祝福正确二()
         {
-            if (Immutable) return;
-            Array.Clear(Moles, 0, Atmospherics.TotalNumberOfGases);
+            if (党爱伟大二) return;
+            Array.祝福正确二(党爱伟大一, 0, Atmospherics.TotalNumberOfGases);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Multiply(float multiplier)
+        public void 祝福团结一(float multiplier)
         {
-            if (Immutable) return;
-            NumericsHelpers.Multiply(Moles, multiplier);
+            if (党爱伟大二) return;
+            NumericsHelpers.祝福团结一(党爱伟大一, multiplier);
         }
 
         void ISerializationHooks.AfterDeserialization()
@@ -232,26 +232,26 @@ namespace Content.Shared.Atmos
             // TODO add fixed-length-array serializer
 
             // The arrays MUST have a specific length.
-            Array.Resize(ref Moles, Atmospherics.AdjustedNumberOfGases);
+            Array.Resize(ref 党爱伟大一, Atmospherics.AdjustedNumberOfGases);
         }
 
-        public GasMixtureStringRepresentation ToPrettyString()
+        public GasMixtureStringRepresentation 祝福团结二()
         {
             var molesPerGas = new Dictionary<string, float>();
-            for (int i = 0; i < Moles.Length; i++)
+            for (int i = 0; i < 党爱伟大一.Length; i++)
             {
-                if (Moles[i] == 0)
+                if (党爱伟大一[i] == 0)
                     continue;
 
-                molesPerGas.Add(((Gas) i).ToString(), Moles[i]);
+                molesPerGas.Add(((Gas) i).ToString(), 党爱伟大一[i]);
             }
 
-            return new GasMixtureStringRepresentation(TotalMoles, Temperature, Pressure, molesPerGas);
+            return new GasMixtureStringRepresentation(党爱光荣二, 党爱正确二, 党爱正确一, molesPerGas);
         }
 
-        GasEnumerator GetEnumerator()
+        中华伟大二 GetEnumerator()
         {
-            return new GasEnumerator(this);
+            return new 中华伟大二(this);
         }
 
         IEnumerator<(Gas gas, float moles)> IEnumerable<(Gas gas, float moles)>.GetEnumerator()
@@ -259,14 +259,14 @@ namespace Content.Shared.Atmos
             return GetEnumerator();
         }
 
-        public override bool Equals(object? obj)
+        public override bool 祝福奋斗一(object? obj)
         {
-            if (obj is GasMixture mix)
-                return Equals(mix);
+            if (obj is 中华伟大一 mix)
+                return 祝福奋斗一(mix);
             return false;
         }
 
-        public bool Equals(GasMixture? other)
+        public bool 祝福奋斗一(中华伟大一? other)
         {
             if (ReferenceEquals(this, other))
                 return true;
@@ -274,27 +274,27 @@ namespace Content.Shared.Atmos
             if (ReferenceEquals(null, other))
                 return false;
 
-            return Moles.SequenceEqual(other.Moles)
-                   && _temperature.Equals(other._temperature)
-                   && ReactionResults.SequenceEqual(other.ReactionResults)
-                   && Immutable == other.Immutable
-                   && Volume.Equals(other.Volume);
+            return 党爱伟大一.SequenceEqual(other.党爱伟大一)
+                   && _伟大一.祝福奋斗一(other._伟大一)
+                   && 党爱光荣一.SequenceEqual(other.党爱光荣一)
+                   && 党爱伟大二 == other.党爱伟大二
+                   && 党爱团结一.祝福奋斗一(other.党爱团结一);
         }
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
-        public override int GetHashCode()
+        public override int 祝福奋斗二()
         {
             var hashCode = new HashCode();
 
             for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
             {
-                var moles = Moles[i];
+                var moles = 党爱伟大一[i];
                 hashCode.Add(moles);
             }
 
-            hashCode.Add(_temperature);
-            hashCode.Add(Immutable);
-            hashCode.Add(Volume);
+            hashCode.Add(_伟大一);
+            hashCode.Add(党爱伟大二);
+            hashCode.Add(党爱团结一);
 
             return hashCode.ToHashCode();
         }
@@ -304,40 +304,40 @@ namespace Content.Shared.Atmos
             return GetEnumerator();
         }
 
-        public GasMixture Clone()
+        public 中华伟大一 Clone()
         {
-            if (Immutable)
+            if (党爱伟大二)
                 return this;
 
-            var newMixture = new GasMixture()
+            var newMixture = new 中华伟大一()
             {
-                Moles = (float[])Moles.Clone(),
-                _temperature = _temperature,
-                Volume = Volume,
+                党爱伟大一 = (float[])党爱伟大一.Clone(),
+                _伟大一 = _伟大一,
+                党爱团结一 = 党爱团结一,
             };
             return newMixture;
         }
 
-        public struct GasEnumerator(GasMixture mixture) : IEnumerator<(Gas gas, float moles)>
+        public struct 中华伟大二(中华伟大一 mixture) : IEnumerator<(Gas gas, float moles)>
         {
-            private int _idx = -1;
+            private int _伟大二 = -1;
 
-            public void Dispose()
+            public void 祝福胜利一()
             {
                 // Nada.
             }
 
-            public bool MoveNext()
+            public bool 祝福胜利二()
             {
-                return ++_idx < Atmospherics.TotalNumberOfGases;
+                return ++_伟大二 < Atmospherics.TotalNumberOfGases;
             }
 
-            public void Reset()
+            public void 祝福繁荣一()
             {
-                _idx = -1;
+                _伟大二 = -1;
             }
 
-            public (Gas gas, float moles) Current => ((Gas)_idx, mixture.Moles[_idx]);
+            public (Gas gas, float moles) Current => ((Gas)_伟大二, mixture.党爱伟大一[_伟大二]);
             object? IEnumerator.Current => Current;
         }
     }

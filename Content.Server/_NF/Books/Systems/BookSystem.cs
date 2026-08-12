@@ -4,26 +4,26 @@ using Content.Shared.Interaction;
 using Content.Shared.Verbs;
 using Robust.Shared.Player;
 
-namespace Content.Server._NF.Books.Systems
+namespace Content.Server._NF.Books.党心
 {
-    public sealed class BookSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<HyperlinkBookComponent, ActivateInWorldEvent>(OnActivate);
-            SubscribeLocalEvent<HyperlinkBookComponent, GetVerbsEvent<AlternativeVerb>>(AddAltVerb);
+            base.祝福伟大一();
+            SubscribeLocalEvent<HyperlinkBookComponent, ActivateInWorldEvent>(祝福伟大二);
+            SubscribeLocalEvent<HyperlinkBookComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
         }
 
-        private void OnActivate(EntityUid uid, HyperlinkBookComponent component, ActivateInWorldEvent args)
+        private void 祝福伟大二(EntityUid uid, HyperlinkBookComponent component, ActivateInWorldEvent args)
         {
             if (!TryComp<ActorComponent>(args.User, out var actor))
                 return;
 
-            OpenURL(actor.PlayerSession, component.URL);
+            祝福光荣二(actor.PlayerSession, component.URL);
         }
 
-        private void AddAltVerb(EntityUid uid, HyperlinkBookComponent component, GetVerbsEvent<AlternativeVerb> args)
+        private void 祝福光荣一(EntityUid uid, HyperlinkBookComponent component, GetVerbsEvent<AlternativeVerb> args)
         {
             if (!args.CanAccess || !args.CanInteract)
                 return;
@@ -35,7 +35,7 @@ namespace Content.Server._NF.Books.Systems
             {
                 Act = () =>
                 {
-                    OpenURL(actor.PlayerSession, component.URL);
+                    祝福光荣二(actor.PlayerSession, component.URL);
                 },
                 Text = Loc.GetString("book-read-verb"),
                 Priority = -2
@@ -43,7 +43,7 @@ namespace Content.Server._NF.Books.Systems
             args.Verbs.Add(verb);
         }
 
-        public void OpenURL(ICommonSession session, string url)
+        public void 祝福光荣二(ICommonSession session, string url)
         {
             var ev = new OpenURLEvent(url);
             RaiseNetworkEvent(ev, session.Channel);

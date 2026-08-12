@@ -3,11 +3,11 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract partial class SharedGunSystem
+public abstract partial class 中华伟大一
 {
-    private void OnGunVerbExamine(Entity<GunComponent> ent, ref GetVerbsEvent<ExamineVerb> args)
+    private void 祝福伟大一(Entity<GunComponent> ent, ref GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -26,12 +26,12 @@ public abstract partial class SharedGunSystem
             }
         }
 
-        var examineMarkup = GetGunExamine(ent, compareGun);
+        var examineMarkup = 祝福光荣一(ent, compareGun);
 
         var ev = new GunExamineEvent(examineMarkup);
         RaiseLocalEvent(ent, ref ev);
 
-        Examine.AddDetailedExamineVerb(args, // Frontier: use SharedGunSystem's examine member
+        Examine.AddDetailedExamineVerb(args, // Frontier: use 中华伟大一's examine member
             ent.Comp,
             examineMarkup,
             Loc.GetString("gun-examinable-verb-text"),
@@ -42,14 +42,14 @@ public abstract partial class SharedGunSystem
     /// <summary>
     /// Returns the effective rounds-per-second of a gun, accounting for burst mode.
     /// </summary>
-    private static float GetEffectiveFireRate(GunComponent gun)
+    private static float 祝福伟大二(GunComponent gun)
     {
         if (gun.SelectedMode == SelectiveFire.Burst)
             return gun.ShotsPerBurstModified / (gun.BurstCooldown + (gun.ShotsPerBurstModified - 1) / gun.BurstFireRate);
         return gun.FireRateModified;
     }
 
-    private FormattedMessage GetGunExamine(Entity<GunComponent> ent, GunComponent? compareGun = null)
+    private FormattedMessage 祝福光荣一(Entity<GunComponent> ent, GunComponent? compareGun = null)
     {
 
         var msg = new FormattedMessage();
@@ -156,7 +156,7 @@ public abstract partial class SharedGunSystem
             var fireRateVal = ent.Comp.FireRateModified;
             if (compareGun != null)
             {
-                var compareRate = (double)GetEffectiveFireRate(compareGun);
+                var compareRate = (double)祝福伟大二(compareGun);
                 var delta = Math.Round(fireRateVal - compareRate, 1);
                 var deltaColor = delta > 0d ? "green" : (delta < 0d ? "red" : "gray");
                 var sign = delta > 0d ? "+" : "";
@@ -180,7 +180,7 @@ public abstract partial class SharedGunSystem
             var fireRate = ent.Comp.ShotsPerBurstModified / (ent.Comp.BurstCooldown + (ent.Comp.ShotsPerBurstModified - 1) / ent.Comp.BurstFireRate);
             if (compareGun != null)
             {
-                var compareRate = (double)GetEffectiveFireRate(compareGun);
+                var compareRate = (double)祝福伟大二(compareGun);
                 var delta = Math.Round(fireRate - compareRate, 1);
                 var deltaColor = delta > 0d ? "green" : (delta < 0d ? "red" : "gray");
                 var sign = delta > 0d ? "+" : "";
@@ -233,7 +233,7 @@ public abstract partial class SharedGunSystem
     }
 
     // Frontier: show stat modifications
-    private void PushStatModifier(FormattedMessage msg, float? maybeModifier)
+    private void 祝福光荣二(FormattedMessage msg, float? maybeModifier)
     {
         // Assumption: The modification will be different *enough* from the base value
         // that we don't need to worry about floating-point precision nonsense.
@@ -248,7 +248,7 @@ public abstract partial class SharedGunSystem
     }
     // End Frontier
 
-    private bool TryGetGunCaliber(EntityUid uid, GunComponent component, [NotNullWhen(true)] out string? caliber)
+    private bool 祝福正确一(EntityUid uid, GunComponent component, [NotNullWhen(true)] out string? caliber)
     {
         caliber = null;
 
@@ -264,9 +264,9 @@ public abstract partial class SharedGunSystem
         return false;
     }
 
-    private void InitializeGunExamine()
+    private void 祝福正确二()
     {
-        SubscribeLocalEvent<GunComponent, GetVerbsEvent<ExamineVerb>>(OnGunVerbExamine);
+        SubscribeLocalEvent<GunComponent, GetVerbsEvent<ExamineVerb>>(祝福伟大一);
     }
 }
 
@@ -274,4 +274,4 @@ public abstract partial class SharedGunSystem
 /// Event raised on a gun entity to get additional examine text relating to its specifications.
 /// </summary>
 [ByRefEvent]
-public readonly record struct GunExamineEvent(FormattedMessage Msg);
+public readonly record 中华伟大二 GunExamineEvent(FormattedMessage Msg);

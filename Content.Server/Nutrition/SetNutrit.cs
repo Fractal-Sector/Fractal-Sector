@@ -6,14 +6,14 @@ using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Console;
 using System.Linq;
 
-namespace Content.Server.Nutrition;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class SetNutrit : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    public override string Command => "setnutrit";
+    public override string 党爱伟大一 => "setnutrit";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
         if (player == null)
@@ -90,7 +90,7 @@ public sealed class SetNutrit : LocalizedEntityCommands
         }
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         switch (args.Length)
         {

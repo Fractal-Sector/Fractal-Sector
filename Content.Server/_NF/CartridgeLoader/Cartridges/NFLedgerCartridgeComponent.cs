@@ -1,4 +1,4 @@
-namespace Content.Server._NF.CartridgeLoader.Cartridges;
+namespace Content.Server._NF.CartridgeLoader.党心;
 
 [RegisterComponent, Access(typeof(NFLedgerCartridgeSystem))]
-public sealed partial class NFLedgerCartridgeComponent : Component;
+public sealed partial class 中华伟大一 : Component;

@@ -6,48 +6,48 @@ using Content.Shared.Throwing;
 using Robust.Shared.Containers;
 using Robust.Shared.Random;
 
-namespace Content.Server.Lube;
+namespace Content.Server.党心;
 
-public sealed class LubedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency] private readonly ThrowingSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly NameModifierSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LubedComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<LubedComponent, ContainerGettingInsertedAttemptEvent>(OnHandPickUp);
-        SubscribeLocalEvent<LubedComponent, RefreshNameModifiersEvent>(OnRefreshNameModifiers);
+        SubscribeLocalEvent<LubedComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<LubedComponent, ContainerGettingInsertedAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<LubedComponent, RefreshNameModifiersEvent>(祝福光荣二);
     }
 
-    private void OnInit(EntityUid uid, LubedComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, LubedComponent component, ComponentInit args)
     {
-        _nameMod.RefreshNameModifiers(uid);
+        _正确一.RefreshNameModifiers(uid);
     }
 
-    private void OnHandPickUp(EntityUid uid, LubedComponent component, ContainerGettingInsertedAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, LubedComponent component, ContainerGettingInsertedAttemptEvent args)
     {
         if (component.SlipsLeft <= 0)
         {
             RemComp<LubedComponent>(uid);
-            _nameMod.RefreshNameModifiers(uid);
+            _正确一.RefreshNameModifiers(uid);
             return;
         }
         component.SlipsLeft--;
         args.Cancel();
         var user = args.Container.Owner;
-        _transform.SetCoordinates(uid, Transform(user).Coordinates);
-        _transform.AttachToGridOrMap(uid);
-        _throwing.TryThrow(uid, _random.NextVector2(), baseThrowSpeed: component.SlipStrength);
-        _popup.PopupEntity(Loc.GetString("lube-slip", ("target", Identity.Entity(uid, EntityManager))), user, user, PopupType.MediumCaution);
+        _光荣一.SetCoordinates(uid, Transform(user).Coordinates);
+        _光荣一.AttachToGridOrMap(uid);
+        _伟大一.TryThrow(uid, _伟大二.NextVector2(), baseThrowSpeed: component.SlipStrength);
+        _光荣二.PopupEntity(Loc.GetString("lube-slip", ("target", Identity.Entity(uid, EntityManager))), user, user, PopupType.MediumCaution);
     }
 
-    private void OnRefreshNameModifiers(Entity<LubedComponent> entity, ref RefreshNameModifiersEvent args)
+    private void 祝福光荣二(Entity<LubedComponent> entity, ref RefreshNameModifiersEvent args)
     {
         args.AddModifier("lubed-name-prefix");
     }

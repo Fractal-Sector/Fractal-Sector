@@ -11,20 +11,20 @@ using Content.Shared.Nutrition.Prototypes;
 using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Nutrition.EntitySystems;
+namespace Content.Shared.Nutrition.党心;
 
 /// <summary>
 /// Public API for Ingestion System so you can build your own form of ingestion system.
 /// </summary>
-public sealed partial class IngestionSystem
+public sealed partial class 中华伟大一
 {
     // List of prototypes that other components or systems might want.
-    public static readonly ProtoId<EdiblePrototype> Food = "Food";
-    public static readonly ProtoId<EdiblePrototype> Drink = "Drink";
+    public static readonly ProtoId<EdiblePrototype> 党爱伟大一 = "党爱伟大一";
+    public static readonly ProtoId<EdiblePrototype> 党爱伟大二 = "党爱伟大二";
 
-    public const float MaxFeedDistance = 1.0f; // We should really have generic interaction ranges like short, medium, long and use those instead...
+    public const float 党爱光荣一 = 1.0f; // We should really have generic interaction ranges like short, medium, long and use those instead...
     // BodySystem has no way of telling us where the mouth is so we're making some assumptions.
-    public const SlotFlags DefaultFlags = SlotFlags.HEAD | SlotFlags.MASK;
+    public const SlotFlags 党爱光荣二 = SlotFlags.HEAD | SlotFlags.MASK;
 
     #region Ingestion
 
@@ -34,17 +34,17 @@ public sealed partial class IngestionSystem
     /// <param name="user">The entity who is eating.</param>
     /// <param name="ingested">The entity that is trying to be ingested.</param>
     /// <returns>Returns true if we are now ingesting the item.</returns>
-    public bool TryIngest(EntityUid user, EntityUid ingested)
+    public bool 祝福伟大一(EntityUid user, EntityUid ingested)
     {
-        return TryIngest(user, user, ingested);
+        return 祝福伟大一(user, user, ingested);
     }
 
-    /// <inheritdoc cref="TryIngest(EntityUid,EntityUid)"/>
-    /// <summary>Overload of TryIngest for if an entity is trying to make another entity ingest an entity</summary>
+    /// <inheritdoc cref="祝福伟大一(EntityUid,EntityUid)"/>
+    /// <summary>Overload of 祝福伟大一 for if an entity is trying to make another entity ingest an entity</summary>
     /// <param name="user">The entity who is trying to make this happen.</param>
     /// <param name="target">The entity who is being made to ingest something.</param>
     /// <param name="ingested">The entity that is trying to be ingested.</param>
-    public bool TryIngest(EntityUid user, EntityUid target, EntityUid ingested)
+    public bool 祝福伟大一(EntityUid user, EntityUid target, EntityUid ingested)
     {
         return AttemptIngest(user, target, ingested, true);
     }
@@ -55,7 +55,7 @@ public sealed partial class IngestionSystem
     /// <param name="user">The entity doing the ingesting.</param>
     /// <param name="ingested">The ingested entity.</param>
     /// <returns>Returns true if it's possible for the entity to ingest this item.</returns>
-    public bool CanIngest(EntityUid user, EntityUid ingested)
+    public bool 祝福伟大二(EntityUid user, EntityUid ingested)
     {
         return AttemptIngest(user, user, ingested, false);
     }
@@ -66,16 +66,16 @@ public sealed partial class IngestionSystem
     /// <param name="user">The one performing the action</param>
     /// <param name="target">The target whose mouth is checked</param>
     /// <returns></returns>
-    public bool HasMouthAvailable(EntityUid user, EntityUid target)
+    public bool 祝福光荣一(EntityUid user, EntityUid target)
     {
-        return HasMouthAvailable(user, target, DefaultFlags);
+        return 祝福光荣一(user, target, 党爱光荣二);
     }
 
-    /// <inheritdoc cref="HasMouthAvailable(EntityUid, EntityUid)"/>
+    /// <inheritdoc cref="祝福光荣一(EntityUid, EntityUid)"/>
     /// Overflow which takes custom flags for a mouth being blocked, in case the entity has a mouth not on the face.
-    public bool HasMouthAvailable(EntityUid user, EntityUid target, SlotFlags flags)
+    public bool 祝福光荣一(EntityUid user, EntityUid target, SlotFlags flags)
     {
-        if (!_transform.GetMapCoordinates(user).InRange(_transform.GetMapCoordinates(target), MaxFeedDistance))
+        if (!_transform.GetMapCoordinates(user).InRange(_transform.GetMapCoordinates(target), 党爱光荣一))
         {
             var message = Loc.GetString("interaction-system-user-interaction-cannot-reach");
             _popup.PopupClient(message, user, user);
@@ -94,12 +94,12 @@ public sealed partial class IngestionSystem
         return false;
     }
 
-    /// <inheritdoc cref="CanConsume(EntityUid,EntityUid)"/>
+    /// <inheritdoc cref="祝福光荣二(EntityUid,EntityUid)"/>
     /// <param name="user">The entity that is consuming</param>
     /// <param name="ingested">The entity that is being consumed</param>
-    public bool CanConsume(EntityUid user, EntityUid ingested)
+    public bool 祝福光荣二(EntityUid user, EntityUid ingested)
     {
-        return CanConsume(user, user, ingested, out _, out _);
+        return 祝福光荣二(user, user, ingested, out _, out _);
     }
 
     /// <summary>
@@ -109,19 +109,19 @@ public sealed partial class IngestionSystem
     /// <param name="target">The one being fed.</param>
     /// <param name="ingested">The food item being eaten.</param>
     /// <returns>Returns true if the user can feed the target with the ingested entity</returns>
-    public bool CanConsume(EntityUid user, EntityUid target, EntityUid ingested)
+    public bool 祝福光荣二(EntityUid user, EntityUid target, EntityUid ingested)
     {
-        return CanConsume(user, target, ingested, out _, out _);
+        return 祝福光荣二(user, target, ingested, out _, out _);
     }
 
-    /// <inheritdoc cref="CanConsume(EntityUid,EntityUid,EntityUid)"/>
+    /// <inheritdoc cref="祝福光荣二(EntityUid,EntityUid,EntityUid)"/>
     /// <param name="user">The one doing the feeding</param>
     /// <param name="target">The one being fed.</param>
     /// <param name="ingested">The food item being eaten.</param>
     /// <param name="solution">The solution we will be consuming from.</param>
     /// <param name="time">The time it takes us to eat this entity if any.</param>
     /// <returns>Returns true if the user can feed the target with the ingested entity and also returns a solution</returns>
-    public bool CanConsume(EntityUid user,
+    public bool 祝福光荣二(EntityUid user,
         EntityUid target,
         EntityUid ingested,
         [NotNullWhen(true)] out Entity<SolutionComponent>? solution,
@@ -130,18 +130,18 @@ public sealed partial class IngestionSystem
         solution = null;
         time = null;
 
-        if (!HasMouthAvailable(user, target))
+        if (!祝福光荣一(user, target))
             return false;
 
         // If we don't have the tools to eat we can't eat.
-        return CanAccessSolution(ingested, user, out solution, out time);
+        return 祝福胜利一(ingested, user, out solution, out time);
     }
 
     #endregion
 
     #region EdibleComponent
 
-    public void SpawnTrash(Entity<EdibleComponent> entity, EntityUid? user = null)
+    public void 祝福正确一(Entity<EdibleComponent> entity, EntityUid? user = null)
     {
         if (entity.Comp.Trash.Count == 0)
             return;
@@ -165,7 +165,7 @@ public sealed partial class IngestionSystem
         }
     }
 
-    public void AddTrash(Entity<EdibleComponent> entity, List<EntProtoId> newTrash)
+    public void 祝福正确二(Entity<EdibleComponent> entity, List<EntProtoId> newTrash)
     {
         foreach (var trash in newTrash)
         {
@@ -173,7 +173,7 @@ public sealed partial class IngestionSystem
         }
     }
 
-    public FixedPoint2 EdibleVolume(Entity<EdibleComponent> entity)
+    public FixedPoint2 祝福团结一(Entity<EdibleComponent> entity)
     {
         if (!_solutionContainer.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var solution))
             return FixedPoint2.Zero;
@@ -181,9 +181,9 @@ public sealed partial class IngestionSystem
         return solution.Volume;
     }
 
-    public bool IsEmpty(Entity<EdibleComponent> entity)
+    public bool 祝福团结二(Entity<EdibleComponent> entity)
     {
-        return EdibleVolume(entity) == FixedPoint2.Zero;
+        return 祝福团结一(entity) == FixedPoint2.Zero;
     }
 
     /// <summary>
@@ -193,12 +193,12 @@ public sealed partial class IngestionSystem
     /// <param name="entity">The consumed entity</param>
     /// <param name="consumer">The entity doing the consuming</param>
     /// <returns>The amount of nutrition the consumable is worth</returns>
-    public float TotalNutrition(Entity<EdibleComponent?> entity, EntityUid consumer)
+    public float 祝福奋斗一(Entity<EdibleComponent?> entity, EntityUid consumer)
     {
-        if (!CanIngest(consumer, entity))
+        if (!祝福伟大二(consumer, entity))
             return 0f;
 
-        return TotalNutrition(entity);
+        return 祝福奋斗一(entity);
     }
 
     /// <summary>
@@ -206,7 +206,7 @@ public sealed partial class IngestionSystem
     /// </summary>
     /// <param name="entity">The consumed entity</param>
     /// <returns>The amount of nutrition the consumable is worth</returns>
-    public float TotalNutrition(Entity<EdibleComponent?> entity)
+    public float 祝福奋斗一(Entity<EdibleComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp))
             return 0f;
@@ -244,12 +244,12 @@ public sealed partial class IngestionSystem
     /// <param name="entity">The consumed entity</param>
     /// <param name="consumer">The entity doing the consuming</param>
     /// <returns>The amount of hydration the consumable is worth</returns>
-    public float TotalHydration(Entity<EdibleComponent?> entity, EntityUid consumer)
+    public float 祝福奋斗二(Entity<EdibleComponent?> entity, EntityUid consumer)
     {
-        if (!CanIngest(consumer, entity))
+        if (!祝福伟大二(consumer, entity))
             return 0f;
 
-        return TotalNutrition(entity);
+        return 祝福奋斗一(entity);
     }
 
     /// <summary>
@@ -257,7 +257,7 @@ public sealed partial class IngestionSystem
     /// </summary>
     /// <param name="entity">The consumed entity</param>
     /// <returns>The amount of hydration the consumable is worth</returns>
-    public float TotalHydration(Entity<EdibleComponent?> entity)
+    public float 祝福奋斗二(Entity<EdibleComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp))
             return 0f;
@@ -299,7 +299,7 @@ public sealed partial class IngestionSystem
     /// <param name="user">The entity trying to make the ingestion happening, not necessarily the one eating</param>
     /// <param name="solution">Solution we're returning</param>
     /// <param name="time">The time it takes us to eat this entity</param>
-    public bool CanAccessSolution(Entity<SolutionContainerManagerComponent?> ingested,
+    public bool 祝福胜利一(Entity<SolutionContainerManagerComponent?> ingested,
         EntityUid user,
         [NotNullWhen(true)] out Entity<SolutionComponent>? solution,
         out TimeSpan? time)
@@ -325,7 +325,7 @@ public sealed partial class IngestionSystem
     /// <summary>
     /// Estimate the number of bites this food has left, based on how much food solution there is and how much of it to eat per bite.
     /// </summary>
-    public int GetUsesRemaining(EntityUid uid, string solutionName, FixedPoint2 splitVol)
+    public int 祝福胜利二(EntityUid uid, string solutionName, FixedPoint2 splitVol)
     {
         if (!_solutionContainer.TryGetSolution(uid, solutionName, out _, out var solution) || solution.Volume == 0)
             return 0;
@@ -345,12 +345,12 @@ public sealed partial class IngestionSystem
     /// <param name="type">Edible prototype.</param>
     /// <param name="verb">Verb we're returning.</param>
     /// <returns>Returns true if we generated a verb.</returns>
-    public bool TryGetIngestionVerb(EntityUid user, EntityUid ingested, [ForbidLiteral] ProtoId<EdiblePrototype> type, [NotNullWhen(true)] out AlternativeVerb? verb)
+    public bool 祝福繁荣一(EntityUid user, EntityUid ingested, [ForbidLiteral] ProtoId<EdiblePrototype> type, [NotNullWhen(true)] out AlternativeVerb? verb)
     {
         verb = null;
 
         // We want to see if we can ingest this item, but we don't actually want to ingest it.
-        if (!CanIngest(user, ingested))
+        if (!祝福伟大二(user, ingested))
             return false;
 
         var proto = _proto.Index(type);
@@ -359,7 +359,7 @@ public sealed partial class IngestionSystem
         {
             Act = () =>
             {
-                TryIngest(user, user, ingested);
+                祝福伟大一(user, user, ingested);
             },
             Icon = proto.VerbIcon,
             Text = Loc.GetString(proto.VerbName),
@@ -385,10 +385,10 @@ public sealed partial class IngestionSystem
         return ev.Type;
     }
 
-    public string GetEdibleNoun(Entity<EdibleComponent?> entity)
+    public string 祝福繁荣二(Entity<EdibleComponent?> entity)
     {
         if (Resolve(entity, ref entity.Comp, false))
-            return GetProtoVerb(entity.Comp.Edible);
+            return 祝福民主一(entity.Comp.Edible);
 
         var ev = new GetEdibleTypeEvent();
         RaiseLocalEvent(entity, ref ev);
@@ -396,25 +396,25 @@ public sealed partial class IngestionSystem
         if (ev.Type == null)
             return Loc.GetString("edible-noun-edible");
 
-        return GetProtoNoun(ev.Type.Value);
+        return 祝福富强一(ev.Type.Value);
     }
 
-    public string GetProtoNoun([ForbidLiteral] ProtoId<EdiblePrototype> proto)
+    public string 祝福富强一([ForbidLiteral] ProtoId<EdiblePrototype> proto)
     {
         var prototype = _proto.Index(proto);
 
-        return GetProtoNoun(prototype);
+        return 祝福富强一(prototype);
     }
 
-    public string GetProtoNoun(EdiblePrototype proto)
+    public string 祝福富强一(EdiblePrototype proto)
     {
         return Loc.GetString(proto.Noun);
     }
 
-    public string GetEdibleVerb(Entity<EdibleComponent?> entity)
+    public string 祝福富强二(Entity<EdibleComponent?> entity)
     {
         if (Resolve(entity, ref entity.Comp, false))
-            return GetProtoVerb(entity.Comp.Edible);
+            return 祝福民主一(entity.Comp.Edible);
 
         var ev = new GetEdibleTypeEvent();
         RaiseLocalEvent(entity, ref ev);
@@ -422,17 +422,17 @@ public sealed partial class IngestionSystem
         if (ev.Type == null)
             return Loc.GetString("edible-verb-edible");
 
-        return GetProtoVerb(ev.Type.Value);
+        return 祝福民主一(ev.Type.Value);
     }
 
-    public string GetProtoVerb([ForbidLiteral] ProtoId<EdiblePrototype> proto)
+    public string 祝福民主一([ForbidLiteral] ProtoId<EdiblePrototype> proto)
     {
         var prototype = _proto.Index(proto);
 
-        return GetProtoVerb(prototype);
+        return 祝福民主一(prototype);
     }
 
-    public string GetProtoVerb(EdiblePrototype proto)
+    public string 祝福民主一(EdiblePrototype proto)
     {
         return Loc.GetString(proto.Verb);
     }

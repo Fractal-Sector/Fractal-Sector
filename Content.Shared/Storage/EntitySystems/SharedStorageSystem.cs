@@ -1,7 +1,7 @@
 using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Content.Shared.ActionBlocker;
+using Content.Shared.党爱伟大二;
 using Content.Shared.Administration.Logs;
 using Content.Shared.CCVar;
 using Content.Shared.Containers.ItemSlots;
@@ -28,8 +28,8 @@ using Content.Shared.Timing;
 using Content.Shared.Storage.Events;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱光荣一;
+using Robust.Shared.党爱光荣一.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
@@ -37,7 +37,7 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
+using Robust.Shared.党爱伟大一;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -46,64 +46,64 @@ using Robust.Shared.Collections;
 using Robust.Shared.Map.Enumerators;
 using Content.Shared.Nyanotrasen.Item.PseudoItem; // Frontier
 
-namespace Content.Shared.Storage.EntitySystems;
+namespace Content.Shared.Storage.党心;
 
-public abstract class SharedStorageSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private   readonly IConfigurationManager _cfg = default!;
-    [Dependency] private   readonly IPrototypeManager _prototype = default!;
-    [Dependency] protected readonly IRobustRandom Random = default!;
-    [Dependency] private   readonly ISharedAdminLogManager _adminLog = default!;
+    [Dependency] private   readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private   readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] protected readonly IRobustRandom 党爱伟大一 = default!;
+    [Dependency] private   readonly ISharedAdminLogManager _光荣一 = default!;
 
-    [Dependency] protected readonly ActionBlockerSystem ActionBlocker = default!;
-    [Dependency] private   readonly EntityLookupSystem _entityLookupSystem = default!;
-    [Dependency] private   readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private   readonly InventorySystem _inventory = default!;
-    [Dependency] private   readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly SharedContainerSystem ContainerSystem = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] protected readonly SharedEntityStorageSystem EntityStorage = default!;
-    [Dependency] private   readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] protected readonly SharedItemSystem ItemSystem = default!;
-    [Dependency] private   readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private   readonly SharedHandsSystem _sharedHandsSystem = default!;
-    [Dependency] private   readonly SharedStackSystem _stack = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
-    [Dependency] private   readonly TagSystem _tag = default!;
-    [Dependency] protected readonly UseDelaySystem UseDelay = default!;
+    [Dependency] protected readonly ActionBlockerSystem 党爱伟大二 = default!;
+    [Dependency] private   readonly EntityLookupSystem _光荣二 = default!;
+    [Dependency] private   readonly EntityWhitelistSystem _正确一 = default!;
+    [Dependency] private   readonly InventorySystem _正确二 = default!;
+    [Dependency] private   readonly SharedAppearanceSystem _团结一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱光荣一 = default!;
+    [Dependency] protected readonly SharedContainerSystem 党爱光荣二 = default!;
+    [Dependency] private   readonly SharedDoAfterSystem _团结二 = default!;
+    [Dependency] protected readonly SharedEntityStorageSystem 党爱正确一 = default!;
+    [Dependency] private   readonly SharedInteractionSystem _奋斗一 = default!;
+    [Dependency] protected readonly SharedItemSystem 党爱正确二 = default!;
+    [Dependency] private   readonly SharedPopupSystem _奋斗二 = default!;
+    [Dependency] private   readonly SharedHandsSystem _胜利一 = default!;
+    [Dependency] private   readonly SharedStackSystem _胜利二 = default!;
+    [Dependency] protected readonly SharedTransformSystem 党爱团结一 = default!;
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱团结二 = default!;
+    [Dependency] private   readonly TagSystem _繁荣一 = default!;
+    [Dependency] protected readonly UseDelaySystem 党爱奋斗一 = default!;
 
-    private EntityQuery<ItemComponent> _itemQuery;
-    private EntityQuery<StackComponent> _stackQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
-    private EntityQuery<UserInterfaceUserComponent> _userQuery;
+    private EntityQuery<ItemComponent> _繁荣二;
+    private EntityQuery<StackComponent> _富强一;
+    private EntityQuery<TransformComponent> _富强二;
+    private EntityQuery<UserInterfaceUserComponent> _民主一;
 
     /// <summary>
-    /// Whether we're allowed to go up-down storage via UI.
+    /// Whether we're allowed to go up-down storage via 党爱团结二.
     /// </summary>
-    public bool NestedStorage = true;
+    public bool 党爱奋斗二 = true;
 
-    public static readonly ProtoId<ItemSizePrototype> DefaultStorageMaxItemSize = "Normal";
+    public static readonly ProtoId<ItemSizePrototype> 党爱胜利一 = "Normal";
 
-    public const float AreaInsertDelayPerItem = 0.075f;
-    private static AudioParams _audioParams = AudioParams.Default
+    public const float 党爱胜利二 = 0.075f;
+    private static AudioParams _民主二 = AudioParams.Default
         .WithMaxDistance(7f)
         .WithVolume(-2f);
 
-    private ItemSizePrototype _defaultStorageMaxItemSize = default!;
+    private ItemSizePrototype _文明一 = default!;
 
     /// <summary>
     /// Flag for whether we're checking for nested storage interactions.
     /// </summary>
-    private bool _nestedCheck;
+    private bool _文明二;
 
-    public bool CheckingCanInsert;
+    public bool 党爱繁荣一;
 
-    private readonly List<EntityUid> _entList = new();
-    private readonly HashSet<EntityUid> _entSet = new();
+    private readonly List<EntityUid> _和谐一 = new();
+    private readonly HashSet<EntityUid> _和谐二 = new();
 
-    private readonly List<ItemSizePrototype> _sortedSizes = new();
+    private readonly List<ItemSizePrototype> _自由一 = new();
     private FrozenDictionary<string, ItemSizePrototype> _nextSmallest = FrozenDictionary<string, ItemSizePrototype>.Empty;
 
     private const string QuickInsertUseDelayID = "quickInsert";
@@ -112,113 +112,113 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// How many storage windows are allowed to be open at once.
     /// </summary>
-    private int _openStorageLimit = -1;
+    private int _自由二 = -1;
 
-    protected readonly List<string> CantFillReasons = [];
+    protected readonly List<string> 党爱繁荣二 = [];
 
     // Caching for various checks
     private readonly Dictionary<Vector2i, ulong> _ignored = new();
-    private List<Box2i> _itemShape = new();
+    private List<Box2i> _平等一 = new();
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _itemQuery = GetEntityQuery<ItemComponent>();
-        _stackQuery = GetEntityQuery<StackComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
-        _userQuery = GetEntityQuery<UserInterfaceUserComponent>();
-        _prototype.PrototypesReloaded += OnPrototypesReloaded;
+        _繁荣二 = GetEntityQuery<ItemComponent>();
+        _富强一 = GetEntityQuery<StackComponent>();
+        _富强二 = GetEntityQuery<TransformComponent>();
+        _民主一 = GetEntityQuery<UserInterfaceUserComponent>();
+        _伟大二.PrototypesReloaded += 祝福奋斗一;
 
-        Subs.CVar(_cfg, CCVars.StorageLimit, OnStorageLimitChanged, true);
+        Subs.CVar(_伟大一, CCVars.StorageLimit, 祝福光荣二, true);
 
         Subs.BuiEvents<StorageComponent>(StorageComponent.StorageUiKey.Key, subs =>
         {
-            subs.Event<BoundUIClosedEvent>(OnBoundUIClosed);
+            subs.Event<BoundUIClosedEvent>(祝福繁荣一);
         });
 
-        SubscribeLocalEvent<StorageComponent, ComponentRemove>(OnRemove);
-        SubscribeLocalEvent<StorageComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<StorageComponent, GetVerbsEvent<ActivationVerb>>(AddUiVerb);
-        SubscribeLocalEvent<StorageComponent, ComponentGetState>(OnStorageGetState);
-        SubscribeLocalEvent<StorageComponent, ComponentInit>(OnComponentInit, before: new[] { typeof(SharedContainerSystem) });
-        SubscribeLocalEvent<StorageComponent, GetVerbsEvent<UtilityVerb>>(AddTransferVerbs);
-        SubscribeLocalEvent<StorageComponent, InteractUsingEvent>(OnInteractUsing, after: new[] { typeof(ItemSlotsSystem) });
-        SubscribeLocalEvent<StorageComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<StorageComponent, OpenStorageImplantEvent>(OnImplantActivate);
-        SubscribeLocalEvent<StorageComponent, AfterInteractEvent>(AfterInteract);
-        SubscribeLocalEvent<StorageComponent, DestructionEventArgs>(OnDestroy);
-        SubscribeLocalEvent<StorageComponent, BoundUserInterfaceMessageAttempt>(OnBoundUIAttempt);
-        SubscribeLocalEvent<StorageComponent, BoundUIOpenedEvent>(OnBoundUIOpen);
-        SubscribeLocalEvent<StorageComponent, LockToggledEvent>(OnLockToggled);
-        SubscribeLocalEvent<StorageComponent, EntInsertedIntoContainerMessage>(OnEntInserted);
-        SubscribeLocalEvent<StorageComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-        SubscribeLocalEvent<StorageComponent, ContainerIsInsertingAttemptEvent>(OnInsertAttempt);
-        SubscribeLocalEvent<StorageComponent, AreaPickupDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<StorageComponent, GotReclaimedEvent>(OnReclaimed);
+        SubscribeLocalEvent<StorageComponent, ComponentRemove>(祝福正确一);
+        SubscribeLocalEvent<StorageComponent, MapInitEvent>(祝福正确二);
+        SubscribeLocalEvent<StorageComponent, GetVerbsEvent<ActivationVerb>>(祝福繁荣二);
+        SubscribeLocalEvent<StorageComponent, ComponentGetState>(祝福团结一);
+        SubscribeLocalEvent<StorageComponent, ComponentInit>(祝福胜利一, before: new[] { typeof(SharedContainerSystem) });
+        SubscribeLocalEvent<StorageComponent, GetVerbsEvent<UtilityVerb>>(祝福文明二);
+        SubscribeLocalEvent<StorageComponent, InteractUsingEvent>(祝福和谐一, after: new[] { typeof(ItemSlotsSystem) });
+        SubscribeLocalEvent<StorageComponent, ActivateInWorldEvent>(祝福和谐二);
+        SubscribeLocalEvent<StorageComponent, OpenStorageImplantEvent>(祝福平等一);
+        SubscribeLocalEvent<StorageComponent, AfterInteractEvent>(祝福平等二);
+        SubscribeLocalEvent<StorageComponent, DestructionEventArgs>(祝福法治一);
+        SubscribeLocalEvent<StorageComponent, BoundUserInterfaceMessageAttempt>(祝福友善二);
+        SubscribeLocalEvent<StorageComponent, BoundUIOpenedEvent>(祝福诚信二);
+        SubscribeLocalEvent<StorageComponent, LockToggledEvent>(祝福方向一);
+        SubscribeLocalEvent<StorageComponent, EntInsertedIntoContainerMessage>(祝福初心一);
+        SubscribeLocalEvent<StorageComponent, EntRemovedFromContainerMessage>(祝福初心二);
+        SubscribeLocalEvent<StorageComponent, ContainerIsInsertingAttemptEvent>(祝福使命一);
+        SubscribeLocalEvent<StorageComponent, AreaPickupDoAfterEvent>(祝福公正一);
+        SubscribeLocalEvent<StorageComponent, GotReclaimedEvent>(祝福公正二);
 
-        SubscribeLocalEvent<MetaDataComponent, StackCountChangedEvent>(OnStackCountChanged);
+        SubscribeLocalEvent<MetaDataComponent, StackCountChangedEvent>(祝福方向二);
 
-        SubscribeAllEvent<OpenNestedStorageEvent>(OnStorageNested);
-        SubscribeAllEvent<StorageTransferItemEvent>(OnStorageTransfer);
-        SubscribeAllEvent<StorageInteractWithItemEvent>(OnInteractWithItem);
-        SubscribeAllEvent<StorageSetItemLocationEvent>(OnSetItemLocation);
-        SubscribeAllEvent<StorageInsertItemIntoLocationEvent>(OnInsertItemIntoLocation);
-        SubscribeAllEvent<StorageSaveItemLocationEvent>(OnSaveItemLocation);
+        SubscribeAllEvent<OpenNestedStorageEvent>(祝福爱国二);
+        SubscribeAllEvent<StorageTransferItemEvent>(祝福敬业一);
+        SubscribeAllEvent<StorageInteractWithItemEvent>(祝福法治二);
+        SubscribeAllEvent<StorageSetItemLocationEvent>(祝福爱国一);
+        SubscribeAllEvent<StorageInsertItemIntoLocationEvent>(祝福敬业二);
+        SubscribeAllEvent<StorageSaveItemLocationEvent>(祝福诚信一);
 
-        SubscribeLocalEvent<ItemSizeChangedEvent>(OnItemSizeChanged);
+        SubscribeLocalEvent<ItemSizeChangedEvent>(祝福伟大二);
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.OpenBackpack, InputCmdHandler.FromDelegate(HandleOpenBackpack, handle: false))
-            .Bind(ContentKeyFunctions.OpenBelt, InputCmdHandler.FromDelegate(HandleOpenBelt, handle: false))
-            .Bind(ContentKeyFunctions.OpenWallet, InputCmdHandler.FromDelegate(HandleOpenWallet, handle: false)) // Frontier
-            .Register<SharedStorageSystem>();
+            .Bind(ContentKeyFunctions.OpenBackpack, InputCmdHandler.FromDelegate(祝福道路一, handle: false))
+            .Bind(ContentKeyFunctions.OpenBelt, InputCmdHandler.FromDelegate(祝福道路二, handle: false))
+            .Bind(ContentKeyFunctions.OpenWallet, InputCmdHandler.FromDelegate(祝福旗帜一, handle: false)) // Frontier
+            .Register<中华伟大一>();
 
-        Subs.CVar(_cfg, CCVars.NestedStorage, OnNestedStorageCvar, true);
+        Subs.CVar(_伟大一, CCVars.党爱奋斗二, 祝福光荣一, true);
 
-        UpdatePrototypeCache();
+        祝福奋斗二();
     }
 
-    private void OnItemSizeChanged(ref ItemSizeChangedEvent ev)
+    private void 祝福伟大二(ref ItemSizeChangedEvent ev)
     {
         var itemEnt = new Entity<ItemComponent?>(ev.Entity, null);
 
-        if (!TryGetStorageLocation(itemEnt, out var container, out var storage, out var loc))
+        if (!祝福富强二(itemEnt, out var container, out var storage, out var loc))
         {
             return;
         }
 
-        UpdateOccupied((container.Owner, storage));
+        祝福力量一((container.Owner, storage));
 
-        if (!ItemFitsInGridLocation((itemEnt.Owner, itemEnt.Comp), (container.Owner, storage), loc))
+        if (!祝福希望一((itemEnt.Owner, itemEnt.Comp), (container.Owner, storage), loc))
         {
-            ContainerSystem.Remove(itemEnt.Owner, container, force: true);
+            党爱光荣二.Remove(itemEnt.Owner, container, force: true);
         }
     }
 
-    private void OnNestedStorageCvar(bool obj)
+    private void 祝福光荣一(bool obj)
     {
-        NestedStorage = obj;
+        党爱奋斗二 = obj;
     }
 
-    private void OnStorageLimitChanged(int obj)
+    private void 祝福光荣二(int obj)
     {
-        _openStorageLimit = obj;
+        _自由二 = obj;
     }
 
-    private void OnRemove(Entity<StorageComponent> entity, ref ComponentRemove args)
+    private void 祝福正确一(Entity<StorageComponent> entity, ref ComponentRemove args)
     {
-        UI.CloseUi(entity.Owner, StorageComponent.StorageUiKey.Key);
+        党爱团结二.CloseUi(entity.Owner, StorageComponent.StorageUiKey.Key);
     }
 
-    private void OnMapInit(Entity<StorageComponent> entity, ref MapInitEvent args)
+    private void 祝福正确二(Entity<StorageComponent> entity, ref MapInitEvent args)
     {
-        UseDelay.SetLength(entity.Owner, entity.Comp.QuickInsertCooldown, QuickInsertUseDelayID);
-        UseDelay.SetLength(entity.Owner, entity.Comp.OpenUiCooldown, OpenUiUseDelayID);
+        党爱奋斗一.SetLength(entity.Owner, entity.Comp.QuickInsertCooldown, QuickInsertUseDelayID);
+        党爱奋斗一.SetLength(entity.Owner, entity.Comp.OpenUiCooldown, OpenUiUseDelayID);
     }
 
-    private void OnStorageGetState(EntityUid uid, StorageComponent component, ref ComponentGetState args)
+    private void 祝福团结一(EntityUid uid, StorageComponent component, ref ComponentGetState args)
     {
         var storedItems = new Dictionary<NetEntity, ItemStorageLocation>();
 
@@ -227,16 +227,16 @@ public abstract class SharedStorageSystem : EntitySystem
             storedItems[GetNetEntity(ent)] = location;
         }
 
-        args.State = new StorageComponentState()
+        args.State = new 中华伟大二()
         {
-            Grid = new List<Box2i>(component.Grid),
+            党爱富强一 = new List<Box2i>(component.党爱富强一),
             MaxItemSize = component.MaxItemSize,
             StoredItems = storedItems,
             SavedLocations = component.SavedLocations,
             Whitelist = component.Whitelist,
             Blacklist = component.Blacklist,
-            QuickInsert = component.QuickInsert,
-            AreaInsert = component.AreaInsert,
+            党爱富强二 = component.党爱富强二,
+            党爱民主一 = component.党爱民主一,
             StorageInsertSound = component.StorageInsertSound,
             StorageRemoveSound = component.StorageRemoveSound,
             StorageOpenSound = component.StorageOpenSound,
@@ -245,52 +245,52 @@ public abstract class SharedStorageSystem : EntitySystem
         };
     }
 
-    public override void Shutdown()
+    public override void 祝福团结二()
     {
-        _prototype.PrototypesReloaded -= OnPrototypesReloaded;
+        _伟大二.PrototypesReloaded -= 祝福奋斗一;
     }
 
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+    private void 祝福奋斗一(PrototypesReloadedEventArgs args)
     {
         // TODO: This should update all entities in storage as well.
         if (args.ByType.ContainsKey(typeof(ItemSizePrototype))
             || (args.Removed?.ContainsKey(typeof(ItemSizePrototype)) ?? false))
         {
-            UpdatePrototypeCache();
+            祝福奋斗二();
         }
     }
 
-    private void UpdatePrototypeCache()
+    private void 祝福奋斗二()
     {
-        _defaultStorageMaxItemSize = _prototype.Index(DefaultStorageMaxItemSize);
-        _sortedSizes.Clear();
-        _sortedSizes.AddRange(_prototype.EnumeratePrototypes<ItemSizePrototype>());
-        _sortedSizes.Sort();
+        _文明一 = _伟大二.Index(党爱胜利一);
+        _自由一.Clear();
+        _自由一.AddRange(_伟大二.EnumeratePrototypes<ItemSizePrototype>());
+        _自由一.Sort();
 
-        var nextSmallest = new KeyValuePair<string, ItemSizePrototype>[_sortedSizes.Count];
-        for (var i = 0; i < _sortedSizes.Count; i++)
+        var nextSmallest = new KeyValuePair<string, ItemSizePrototype>[_自由一.Count];
+        for (var i = 0; i < _自由一.Count; i++)
         {
-            var k = _sortedSizes[i].ID;
-            var v = _sortedSizes[Math.Max(i - 1, 0)];
+            var k = _自由一[i].ID;
+            var v = _自由一[Math.Max(i - 1, 0)];
             nextSmallest[i] = new(k, v);
         }
 
         _nextSmallest = nextSmallest.ToFrozenDictionary();
     }
 
-    private void OnComponentInit(EntityUid uid, StorageComponent storageComp, ComponentInit args)
+    private void 祝福胜利一(EntityUid uid, StorageComponent storageComp, ComponentInit args)
     {
-        storageComp.Container = ContainerSystem.EnsureContainer<Container>(uid, StorageComponent.ContainerId);
-        UpdateAppearance((uid, storageComp, null));
+        storageComp.Container = 党爱光荣二.EnsureContainer<Container>(uid, StorageComponent.ContainerId);
+        祝福使命二((uid, storageComp, null));
 
         // Make sure the initial starting grid is okay.
-        UpdateOccupied((uid, storageComp));
+        祝福力量一((uid, storageComp));
     }
 
     /// <summary>
-    ///     If the user has nested-UIs open (e.g., PDA UI open when pda is in a backpack), close them.
+    ///     If the user has nested-UIs open (e.g., PDA 党爱团结二 open when pda is in a backpack), close them.
     /// </summary>
-    private void CloseNestedInterfaces(EntityUid uid, EntityUid actor, StorageComponent? storageComp = null)
+    private void 祝福胜利二(EntityUid uid, EntityUid actor, StorageComponent? storageComp = null)
     {
         if (!Resolve(uid, ref storageComp))
             return;
@@ -302,20 +302,20 @@ public abstract class SharedStorageSystem : EntitySystem
         // close ui
         foreach (var entity in storageComp.Container.ContainedEntities)
         {
-            UI.CloseUis(entity, actor);
+            党爱团结二.CloseUis(entity, actor);
         }
     }
 
-    private void OnBoundUIClosed(EntityUid uid, StorageComponent storageComp, BoundUIClosedEvent args)
+    private void 祝福繁荣一(EntityUid uid, StorageComponent storageComp, BoundUIClosedEvent args)
     {
-        CloseNestedInterfaces(uid, args.Actor, storageComp);
+        祝福胜利二(uid, args.Actor, storageComp);
 
-        // If UI is closed for everyone
-        if (!UI.IsUiOpen(uid, args.UiKey))
+        // If 党爱团结二 is closed for everyone
+        if (!党爱团结二.IsUiOpen(uid, args.UiKey))
         {
-            UpdateAppearance((uid, storageComp, null));
-            if (!_tag.HasTag(args.Actor, storageComp.SilentStorageUserTag))
-                Audio.PlayPredicted(storageComp.StorageCloseSound, uid, args.Actor);
+            祝福使命二((uid, storageComp, null));
+            if (!_繁荣一.HasTag(args.Actor, storageComp.SilentStorageUserTag))
+                党爱光荣一.PlayPredicted(storageComp.StorageCloseSound, uid, args.Actor);
         }
 
         // Frontier: cherry-pick upstream #35075
@@ -328,13 +328,13 @@ public abstract class SharedStorageSystem : EntitySystem
         // End Frontier: cherry-pick upstream #35075
     }
 
-    private void AddUiVerb(EntityUid uid, StorageComponent component, GetVerbsEvent<ActivationVerb> args)
+    private void 祝福繁荣二(EntityUid uid, StorageComponent component, GetVerbsEvent<ActivationVerb> args)
     {
-        if (component.ShowVerb == false || !CanInteract(args.User, (uid, component), args.CanAccess && args.CanInteract))
+        if (component.ShowVerb == false || !祝福灯塔二(args.User, (uid, component), args.CanAccess && args.祝福灯塔二))
             return;
 
-        // Does this player currently have the storage UI open?
-        var uiOpen = UI.IsUiOpen(uid, StorageComponent.StorageUiKey.Key, args.User);
+        // Does this player currently have the storage 党爱团结二 open?
+        var uiOpen = 党爱团结二.IsUiOpen(uid, StorageComponent.StorageUiKey.Key, args.User);
 
         ActivationVerb verb = new()
         {
@@ -342,11 +342,11 @@ public abstract class SharedStorageSystem : EntitySystem
             {
                 if (uiOpen)
                 {
-                    UI.CloseUi(uid, StorageComponent.StorageUiKey.Key, args.User);
+                    党爱团结二.CloseUi(uid, StorageComponent.StorageUiKey.Key, args.User);
                 }
                 else
                 {
-                    OpenStorageUI(uid, args.User, component, false);
+                    祝福民主一(uid, args.User, component, false);
                 }
             }
         };
@@ -370,20 +370,20 @@ public abstract class SharedStorageSystem : EntitySystem
     /// Copy this component's datafields from one entity to another.
     /// This can't use CopyComp because we don't want to copy the references to the items inside the storage.
     /// <summary>
-    public void CopyComponent(Entity<StorageComponent?> source, EntityUid target)
+    public void 祝福富强一(Entity<StorageComponent?> source, EntityUid target)
     {
         if (!Resolve(source, ref source.Comp))
             return;
 
         var targetComp = EnsureComp<StorageComponent>(target);
-        targetComp.Grid = new List<Box2i>(source.Comp.Grid);
+        targetComp.党爱富强一 = new List<Box2i>(source.Comp.党爱富强一);
         targetComp.MaxItemSize = source.Comp.MaxItemSize;
-        targetComp.QuickInsert = source.Comp.QuickInsert;
+        targetComp.党爱富强二 = source.Comp.党爱富强二;
         targetComp.QuickInsertCooldown = source.Comp.QuickInsertCooldown;
         targetComp.OpenUiCooldown = source.Comp.OpenUiCooldown;
         targetComp.ClickInsert = source.Comp.ClickInsert;
         targetComp.OpenOnActivate = source.Comp.OpenOnActivate;
-        targetComp.AreaInsert = source.Comp.AreaInsert;
+        targetComp.党爱民主一 = source.Comp.党爱民主一;
         targetComp.AreaInsertRadius = source.Comp.AreaInsertRadius;
         targetComp.Whitelist = source.Comp.Whitelist;
         targetComp.Blacklist = source.Comp.Blacklist;
@@ -396,26 +396,26 @@ public abstract class SharedStorageSystem : EntitySystem
         targetComp.SilentStorageUserTag = source.Comp.SilentStorageUserTag;
         targetComp.ShowVerb = source.Comp.ShowVerb;
 
-        UpdateOccupied((target, targetComp));
+        祝福力量一((target, targetComp));
         Dirty(target, targetComp);
 
         var targetUI = EnsureComp<UserInterfaceComponent>(target);
 
-        UI.SetUi((target, targetUI), StorageComponent.StorageUiKey.Key, new InterfaceData("StorageBoundUserInterface"));
+        党爱团结二.SetUi((target, targetUI), StorageComponent.StorageUiKey.Key, new InterfaceData("StorageBoundUserInterface"));
     }
 
     /// <summary>
     /// Tries to get the storage location of an item.
     /// </summary>
-    public bool TryGetStorageLocation(Entity<ItemComponent?> itemEnt, [NotNullWhen(true)] out BaseContainer? container, [NotNullWhen(true)] out StorageComponent? storage, out ItemStorageLocation loc)
+    public bool 祝福富强二(Entity<ItemComponent?> itemEnt, [NotNullWhen(true)] out BaseContainer? container, [NotNullWhen(true)] out StorageComponent? storage, out ItemStorageLocation loc)
     {
         loc = default;
         storage = null;
 
-        if (!ContainerSystem.TryGetContainingContainer(itemEnt.Owner, out container) ||
+        if (!党爱光荣二.TryGetContainingContainer(itemEnt.Owner, out container) ||
             container.ID != StorageComponent.ContainerId ||
             !TryComp(container.Owner, out storage) ||
-            !_itemQuery.Resolve(itemEnt, ref itemEnt.Comp, false))
+            !_繁荣二.Resolve(itemEnt, ref itemEnt.Comp, false))
         {
             return false;
         }
@@ -424,43 +424,43 @@ public abstract class SharedStorageSystem : EntitySystem
         return true;
     }
 
-    public void OpenStorageUI(EntityUid uid, EntityUid actor, StorageComponent? storageComp = null, bool silent = true)
+    public void 祝福民主一(EntityUid uid, EntityUid actor, StorageComponent? storageComp = null, bool silent = true)
     {
         // Handle recursively opening nested storages.
-        if (ContainerSystem.TryGetContainingContainer(uid, out var container) &&
-            UI.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, actor))
+        if (党爱光荣二.TryGetContainingContainer(uid, out var container) &&
+            党爱团结二.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, actor))
         {
-            _nestedCheck = true;
-            HideStorageWindow(container.Owner, actor);
-            OpenStorageUIInternal(uid, actor, storageComp, silent: true);
-            _nestedCheck = false;
+            _文明二 = true;
+            祝福自由一(container.Owner, actor);
+            祝福民主二(uid, actor, storageComp, silent: true);
+            _文明二 = false;
         }
         else
         {
-            // If you need something more sophisticated for multi-UI you'll need to code some smarter
+            // If you need something more sophisticated for multi-党爱团结二 you'll need to code some smarter
             // interactions.
-            if (_openStorageLimit == 1)
-                UI.CloseUserUis<StorageComponent.StorageUiKey>(actor);
+            if (_自由二 == 1)
+                党爱团结二.CloseUserUis<StorageComponent.StorageUiKey>(actor);
 
-            OpenStorageUIInternal(uid, actor, storageComp, silent: silent);
+            祝福民主二(uid, actor, storageComp, silent: silent);
         }
     }
 
     /// <summary>
-    ///     Opens the storage UI for an entity
+    ///     Opens the storage 党爱团结二 for an entity
     /// </summary>
-    /// <param name="entity">The entity to open the UI for</param>
-    private void OpenStorageUIInternal(EntityUid uid, EntityUid entity, StorageComponent? storageComp = null, bool silent = true)
+    /// <param name="entity">The entity to open the 党爱团结二 for</param>
+    private void 祝福民主二(EntityUid uid, EntityUid entity, StorageComponent? storageComp = null, bool silent = true)
     {
         if (!Resolve(uid, ref storageComp, false))
             return;
 
         // prevent spamming bag open / honkerton honk sound
-        silent |= TryComp<UseDelayComponent>(uid, out var useDelay) && UseDelay.IsDelayed((uid, useDelay), id: OpenUiUseDelayID);
-        if (!CanInteract(entity, (uid, storageComp), silent: silent))
+        silent |= TryComp<UseDelayComponent>(uid, out var useDelay) && 党爱奋斗一.IsDelayed((uid, useDelay), id: OpenUiUseDelayID);
+        if (!祝福灯塔二(entity, (uid, storageComp), silent: silent))
             return;
 
-        if (!UI.TryOpenUi(uid, StorageComponent.StorageUiKey.Key, entity))
+        if (!党爱团结二.TryOpenUi(uid, StorageComponent.StorageUiKey.Key, entity))
             return;
 
         // Frontier: cherry-pick upstream#35075
@@ -468,7 +468,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (!recently.OpenedStorages.Any(inner => inner.Contains(GetNetEntity(uid))))
         {
-            if (ContainerSystem.TryGetContainingContainer((uid, null, null), out var container))
+            if (党爱光荣二.TryGetContainingContainer((uid, null, null), out var container))
             {
                 var parentList = recently.OpenedStorages.Find(it => it.Contains(GetNetEntity(container.Owner)));
                 if (parentList is null)
@@ -484,25 +484,25 @@ public abstract class SharedStorageSystem : EntitySystem
         }
         // End Frontier: cherry-pick upstream#35075
 
-        if (!silent && !_tag.HasTag(entity, storageComp.SilentStorageUserTag))
+        if (!silent && !_繁荣一.HasTag(entity, storageComp.SilentStorageUserTag))
         {
-            Audio.PlayPredicted(storageComp.StorageOpenSound, uid, entity);
+            党爱光荣一.PlayPredicted(storageComp.StorageOpenSound, uid, entity);
 
             if (useDelay != null)
-                UseDelay.TryResetDelay((uid, useDelay), id: OpenUiUseDelayID);
+                党爱奋斗一.TryResetDelay((uid, useDelay), id: OpenUiUseDelayID);
         }
     }
 
-    public virtual void UpdateUI(Entity<StorageComponent?> entity) {}
+    public virtual void 祝福文明一(Entity<StorageComponent?> entity) {}
 
-    private void AddTransferVerbs(EntityUid uid, StorageComponent component, GetVerbsEvent<UtilityVerb> args)
+    private void 祝福文明二(EntityUid uid, StorageComponent component, GetVerbsEvent<UtilityVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract)
+        if (!args.CanAccess || !args.祝福灯塔二)
             return;
 
         var entities = component.Container.ContainedEntities;
 
-        if (entities.Count == 0 || !CanInteract(args.User, (uid, component)))
+        if (entities.Count == 0 || !祝福灯塔二(args.User, (uid, component)))
             return;
 
         // if the target is storage, add a verb to transfer storage.
@@ -513,7 +513,7 @@ public abstract class SharedStorageSystem : EntitySystem
             {
                 Text = Loc.GetString("storage-component-transfer-verb"),
                 IconEntity = GetNetEntity(args.Using),
-                Act = () => TransferEntities(uid, args.Target, args.User, component, null, targetStorage, targetLock)
+                Act = () => 祝福梦想一(uid, args.Target, args.User, component, null, targetStorage, targetLock)
             };
 
             args.Verbs.Add(verb);
@@ -524,9 +524,9 @@ public abstract class SharedStorageSystem : EntitySystem
     /// Inserts storable entities into this storage container if possible, otherwise return to the hand of the user
     /// </summary>
     /// <returns>true if inserted, false otherwise</returns>
-    private void OnInteractUsing(EntityUid uid, StorageComponent storageComp, InteractUsingEvent args)
+    private void 祝福和谐一(EntityUid uid, StorageComponent storageComp, InteractUsingEvent args)
     {
-        if (args.Handled || !storageComp.ClickInsert || !CanInteract(args.User, (uid, storageComp), silent: false))
+        if (args.Handled || !storageComp.ClickInsert || !祝福灯塔二(args.User, (uid, storageComp), silent: false))
             return;
 
         var attemptEv = new StorageInteractUsingAttemptEvent();
@@ -534,44 +534,44 @@ public abstract class SharedStorageSystem : EntitySystem
         if (attemptEv.Cancelled)
             return;
 
-        PlayerInsertHeldEntity((uid, storageComp), args.User);
+        祝福辉煌一((uid, storageComp), args.User);
         // Always handle it, even if insertion fails.
-        // We don't want to trigger any AfterInteract logic here.
+        // We don't want to trigger any 祝福平等二 logic here.
         // Example issue would be placing wires if item doesn't fit in backpack.
         args.Handled = true;
     }
 
     /// <summary>
-    /// Sends a message to open the storage UI
+    /// Sends a message to open the storage 党爱团结二
     /// </summary>
-    private void OnActivate(EntityUid uid, StorageComponent storageComp, ActivateInWorldEvent args)
+    private void 祝福和谐二(EntityUid uid, StorageComponent storageComp, ActivateInWorldEvent args)
     {
-        if (args.Handled || !args.Complex || !storageComp.OpenOnActivate || !CanInteract(args.User, (uid, storageComp)))
+        if (args.Handled || !args.Complex || !storageComp.OpenOnActivate || !祝福灯塔二(args.User, (uid, storageComp)))
             return;
 
         // Toggle
-        if (UI.IsUiOpen(uid, StorageComponent.StorageUiKey.Key, args.User))
+        if (党爱团结二.IsUiOpen(uid, StorageComponent.StorageUiKey.Key, args.User))
         {
-            UI.CloseUi(uid, StorageComponent.StorageUiKey.Key, args.User);
+            党爱团结二.CloseUi(uid, StorageComponent.StorageUiKey.Key, args.User);
         }
         else
         {
             // Frontier: cherry-pick upstream#35075
-            // OpenStorageUI(uid, args.User, storageComp, false);
-            if (ContainerSystem.TryGetContainingContainer((args.Target, null, null), out var container) &&
-                UI.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, args.User))
+            // 祝福民主一(uid, args.User, storageComp, false);
+            if (党爱光荣二.TryGetContainingContainer((args.Target, null, null), out var container) &&
+                党爱团结二.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, args.User))
             {
-                _nestedCheck = true;
-                HideStorageWindow(container.Owner, args.User);
-                OpenStorageUI(uid, args.User, storageComp, false);
-                _nestedCheck = false;
+                _文明二 = true;
+                祝福自由一(container.Owner, args.User);
+                祝福民主一(uid, args.User, storageComp, false);
+                _文明二 = false;
             }
             else
             {
-                if (_openStorageLimit == 1)
-                    UI.CloseUserUis<StorageComponent.StorageUiKey>(args.User);
+                if (_自由二 == 1)
+                    党爱团结二.CloseUserUis<StorageComponent.StorageUiKey>(args.User);
 
-                OpenStorageUI(uid, args.User, storageComp, false);
+                祝福民主一(uid, args.User, storageComp, false);
             }
             // End Frontier: cherry-pick upstream#35075
         }
@@ -579,28 +579,28 @@ public abstract class SharedStorageSystem : EntitySystem
         args.Handled = true;
     }
 
-    protected virtual void HideStorageWindow(EntityUid uid, EntityUid actor)
+    protected virtual void 祝福自由一(EntityUid uid, EntityUid actor)
     {
     }
 
-    protected virtual void ShowStorageWindow(EntityUid uid, EntityUid actor)
+    protected virtual void 祝福自由二(EntityUid uid, EntityUid actor)
     {
     }
 
     /// <summary>
     /// Specifically for storage implants.
     /// </summary>
-    private void OnImplantActivate(EntityUid uid, StorageComponent storageComp, OpenStorageImplantEvent args)
+    private void 祝福平等一(EntityUid uid, StorageComponent storageComp, OpenStorageImplantEvent args)
     {
         if (args.Handled)
             return;
 
-        var uiOpen = UI.IsUiOpen(uid, StorageComponent.StorageUiKey.Key, args.Performer);
+        var uiOpen = 党爱团结二.IsUiOpen(uid, StorageComponent.StorageUiKey.Key, args.Performer);
 
         if (uiOpen)
-            UI.CloseUi(uid, StorageComponent.StorageUiKey.Key, args.Performer);
+            党爱团结二.CloseUi(uid, StorageComponent.StorageUiKey.Key, args.Performer);
         else
-            OpenStorageUI(uid, args.Performer, storageComp, false);
+            祝福民主一(uid, args.Performer, storageComp, false);
 
         args.Handled = true;
     }
@@ -610,49 +610,49 @@ public abstract class SharedStorageSystem : EntitySystem
     /// around a click.
     /// </summary>
     /// <returns></returns>
-    private void AfterInteract(EntityUid uid, StorageComponent storageComp, AfterInteractEvent args)
+    private void 祝福平等二(EntityUid uid, StorageComponent storageComp, AfterInteractEvent args)
     {
-        if (args.Handled || !args.CanReach || !UseDelay.TryResetDelay(uid, checkDelayed: true, id: QuickInsertUseDelayID))
+        if (args.Handled || !args.CanReach || !党爱奋斗一.TryResetDelay(uid, checkDelayed: true, id: QuickInsertUseDelayID))
             return;
 
         // Pick up all entities in a radius around the clicked location.
         // The last half of the if is because carpets exist and this is terrible
-        if (storageComp.AreaInsert && (args.Target == null || !HasComp<ItemComponent>(args.Target.Value)))
+        if (storageComp.党爱民主一 && (args.Target == null || !HasComp<ItemComponent>(args.Target.Value)))
         {
-            _entList.Clear();
-            _entSet.Clear();
-            _entityLookupSystem.GetEntitiesInRange(args.ClickLocation, storageComp.AreaInsertRadius, _entSet, LookupFlags.Dynamic | LookupFlags.Sundries);
+            _和谐一.Clear();
+            _和谐二.Clear();
+            _光荣二.GetEntitiesInRange(args.ClickLocation, storageComp.AreaInsertRadius, _和谐二, LookupFlags.Dynamic | LookupFlags.Sundries);
             var delay = 0f;
 
-            foreach (var entity in _entSet)
+            foreach (var entity in _和谐二)
             {
                 if (entity == args.User
-                    || !_itemQuery.TryGetComponent(entity, out var itemComp) // Need comp to get item size to get weight
-                    || !_prototype.TryIndex(itemComp.Size, out var itemSize)
-                    || !CanInsert(uid, entity, out _, storageComp, item: itemComp)
-                    || !_interactionSystem.InRangeUnobstructed(args.User, entity))
+                    || !_繁荣二.TryGetComponent(entity, out var itemComp) // Need comp to get item size to get weight
+                    || !_伟大二.TryIndex(itemComp.Size, out var itemSize)
+                    || !祝福梦想二(uid, entity, out _, storageComp, item: itemComp)
+                    || !_奋斗一.InRangeUnobstructed(args.User, entity))
                 {
                     continue;
                 }
 
-                _entList.Add(entity);
-                delay += itemSize.Weight * AreaInsertDelayPerItem;
+                _和谐一.Add(entity);
+                delay += itemSize.Weight * 党爱胜利二;
 
-                if (_entList.Count >= StorageComponent.AreaPickupLimit)
+                if (_和谐一.Count >= StorageComponent.AreaPickupLimit)
                     break;
             }
 
             //If there's only one then let's be generous
-            if (_entList.Count >= 1)
+            if (_和谐一.Count >= 1)
             {
-                var doAfterArgs = new DoAfterArgs(EntityManager, args.User, delay, new AreaPickupDoAfterEvent(GetNetEntityList(_entList)), uid, target: uid)
+                var doAfterArgs = new DoAfterArgs(EntityManager, args.User, delay, new AreaPickupDoAfterEvent(GetNetEntityList(_和谐一)), uid, target: uid)
                 {
                     BreakOnDamage = true,
                     BreakOnMove = true,
                     NeedHand = true,
                 };
 
-                _doAfterSystem.TryStartDoAfter(doAfterArgs);
+                _团结二.TryStartDoAfter(doAfterArgs);
                 args.Handled = true;
             }
 
@@ -660,14 +660,14 @@ public abstract class SharedStorageSystem : EntitySystem
         }
 
         // Pick up the clicked entity
-        if (storageComp.QuickInsert)
+        if (storageComp.党爱富强二)
         {
             if (args.Target is not { Valid: true } target)
                 return;
 
-            if (ContainerSystem.IsEntityInContainer(target)
+            if (党爱光荣二.IsEntityInContainer(target)
                 || target == args.User
-                || !_itemQuery.HasComponent(target))
+                || !_繁荣二.HasComponent(target))
             {
                 return;
             }
@@ -676,13 +676,13 @@ public abstract class SharedStorageSystem : EntitySystem
             {
                 var parent = transformOwner.ParentUid;
 
-                var position = TransformSystem.ToCoordinates(
+                var position = 党爱团结一.ToCoordinates(
                     parent.IsValid() ? parent : uid,
-                    TransformSystem.GetMapCoordinates(transformEnt)
+                    党爱团结一.GetMapCoordinates(transformEnt)
                 );
 
                 args.Handled = true;
-                if (PlayerInsertEntityInWorld((uid, storageComp), args.User, target))
+                if (祝福辉煌二((uid, storageComp), args.User, target))
                 {
                     EntityManager.RaiseSharedEvent(new AnimateInsertingEntitiesEvent(GetNetEntity(uid),
                         new List<NetEntity> { GetNetEntity(target) },
@@ -693,7 +693,7 @@ public abstract class SharedStorageSystem : EntitySystem
         }
     }
 
-    private void OnDoAfter(EntityUid uid, StorageComponent component, AreaPickupDoAfterEvent args)
+    private void 祝福公正一(EntityUid uid, StorageComponent component, AreaPickupDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
@@ -703,7 +703,7 @@ public abstract class SharedStorageSystem : EntitySystem
         var successfullyInsertedPositions = new List<EntityCoordinates>();
         var successfullyInsertedAngles = new List<Angle>();
 
-        if (!_xformQuery.TryGetComponent(uid, out var xform))
+        if (!_富强二.TryGetComponent(uid, out var xform))
         {
             return;
         }
@@ -715,27 +715,27 @@ public abstract class SharedStorageSystem : EntitySystem
             var entity = GetEntity(args.Entities[i]);
 
             // Check again, situation may have changed for some entities, but we'll still pick up any that are valid
-            if (ContainerSystem.IsEntityInContainer(entity)
+            if (党爱光荣二.IsEntityInContainer(entity)
                 || entity == args.Args.User
-                || !_itemQuery.HasComponent(entity))
+                || !_繁荣二.HasComponent(entity))
             {
                 continue;
             }
 
-            if (!_xformQuery.TryGetComponent(entity, out var targetXform) ||
+            if (!_富强二.TryGetComponent(entity, out var targetXform) ||
                 targetXform.MapID != xform.MapID)
             {
                 continue;
             }
 
-            var position = TransformSystem.ToCoordinates(
+            var position = 党爱团结一.ToCoordinates(
                 xform.ParentUid.IsValid() ? xform.ParentUid : uid,
-                new MapCoordinates(TransformSystem.GetWorldPosition(targetXform), targetXform.MapID)
+                new MapCoordinates(党爱团结一.GetWorldPosition(targetXform), targetXform.MapID)
             );
 
             var angle = targetXform.LocalRotation;
 
-            if (PlayerInsertEntityInWorld((uid, component), args.Args.User, entity, playSound: false))
+            if (祝福辉煌二((uid, component), args.Args.User, entity, playSound: false))
             {
                 successfullyInserted.Add(entity);
                 successfullyInsertedPositions.Add(position);
@@ -746,8 +746,8 @@ public abstract class SharedStorageSystem : EntitySystem
         // If we picked up at least one thing, play a sound and do a cool animation!
         if (successfullyInserted.Count > 0)
         {
-            if (!_tag.HasTag(args.User, component.SilentStorageUserTag))
-                Audio.PlayPredicted(component.StorageInsertSound, uid, args.User, _audioParams);
+            if (!_繁荣一.HasTag(args.User, component.SilentStorageUserTag))
+                党爱光荣一.PlayPredicted(component.StorageInsertSound, uid, args.User, _民主二);
             EntityManager.RaiseSharedEvent(new AnimateInsertingEntitiesEvent(
                 GetNetEntity(uid),
                 GetNetEntityList(successfullyInserted),
@@ -758,54 +758,54 @@ public abstract class SharedStorageSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnReclaimed(EntityUid uid, StorageComponent storageComp, GotReclaimedEvent args)
+    private void 祝福公正二(EntityUid uid, StorageComponent storageComp, GotReclaimedEvent args)
     {
-        ContainerSystem.EmptyContainer(storageComp.Container, destination: args.ReclaimerCoordinates);
+        党爱光荣二.EmptyContainer(storageComp.Container, destination: args.ReclaimerCoordinates);
     }
 
-    private void OnDestroy(EntityUid uid, StorageComponent storageComp, DestructionEventArgs args)
+    private void 祝福法治一(EntityUid uid, StorageComponent storageComp, DestructionEventArgs args)
     {
-        var coordinates = TransformSystem.GetMoverCoordinates(uid);
+        var coordinates = 党爱团结一.GetMoverCoordinates(uid);
 
         // Being destroyed so need to recalculate.
-        ContainerSystem.EmptyContainer(storageComp.Container, destination: coordinates);
+        党爱光荣二.EmptyContainer(storageComp.Container, destination: coordinates);
     }
 
     /// <summary>
-    ///     This function gets called when the user clicked on an item in the storage UI. This will either place the
+    ///     This function gets called when the user clicked on an item in the storage 党爱团结二. This will either place the
     ///     item in the user's hand if it is currently empty, or interact with the item using the user's currently
     ///     held item.
     /// </summary>
-    private void OnInteractWithItem(StorageInteractWithItemEvent msg, EntitySessionEventArgs args)
+    private void 祝福法治二(StorageInteractWithItemEvent msg, EntitySessionEventArgs args)
     {
-        if (!ValidateInput(args, msg.StorageUid, msg.InteractedItemUid, out var player, out var storage, out var item))
+        if (!祝福太阳二(args, msg.StorageUid, msg.InteractedItemUid, out var player, out var storage, out var item))
             return;
 
         // If the user's active hand is empty, try pick up the item.
-        if (!_sharedHandsSystem.TryGetActiveItem(player.AsNullable(), out var activeItem))
+        if (!_胜利一.TryGetActiveItem(player.AsNullable(), out var activeItem))
         {
-            _adminLog.Add(
+            _光荣一.Add(
                 LogType.Storage,
                 LogImpact.Low,
                 $"{ToPrettyString(player):player} is attempting to take {ToPrettyString(item):item} out of {ToPrettyString(storage):storage}");
 
-            if (_sharedHandsSystem.TryPickupAnyHand(player, item, handsComp: player.Comp)
+            if (_胜利一.TryPickupAnyHand(player, item, handsComp: player.Comp)
                 && storage.Comp.StorageRemoveSound != null
-                && !_tag.HasTag(player, storage.Comp.SilentStorageUserTag))
+                && !_繁荣一.HasTag(player, storage.Comp.SilentStorageUserTag))
             {
-                Audio.PlayPredicted(storage.Comp.StorageRemoveSound, storage, player, _audioParams);
+                党爱光荣一.PlayPredicted(storage.Comp.StorageRemoveSound, storage, player, _民主二);
             }
 
             return;
         }
 
-        _adminLog.Add(
+        _光荣一.Add(
             LogType.Storage,
             LogImpact.Low,
             $"{ToPrettyString(player):player} is interacting with {ToPrettyString(item):item} while it is stored in {ToPrettyString(storage):storage} using {ToPrettyString(activeItem):used}");
 
         // Else, interact using the held item
-        if (_interactionSystem.InteractUsing(player,
+        if (_奋斗一.InteractUsing(player,
                 activeItem.Value,
                 item,
                 Transform(item).Coordinates,
@@ -816,30 +816,30 @@ public abstract class SharedStorageSystem : EntitySystem
         RaiseLocalEvent(storage, ref failedEv);
     }
 
-    private void OnSetItemLocation(StorageSetItemLocationEvent msg, EntitySessionEventArgs args)
+    private void 祝福爱国一(StorageSetItemLocationEvent msg, EntitySessionEventArgs args)
     {
-        if (!ValidateInput(args, msg.StorageEnt, msg.ItemEnt, out var player, out var storage, out var item))
+        if (!祝福太阳二(args, msg.StorageEnt, msg.ItemEnt, out var player, out var storage, out var item))
             return;
 
-        _adminLog.Add(
+        _光荣一.Add(
             LogType.Storage,
             LogImpact.Low,
             $"{ToPrettyString(player):player} is updating the location of {ToPrettyString(item):item} within {ToPrettyString(storage):storage}");
 
-        TrySetItemStorageLocation(item!, storage!, msg.Location);
+        祝福灿烂一(item!, storage!, msg.Location);
     }
 
-    private void OnStorageNested(OpenNestedStorageEvent msg, EntitySessionEventArgs args)
+    private void 祝福爱国二(OpenNestedStorageEvent msg, EntitySessionEventArgs args)
     {
-        if (!NestedStorage)
+        if (!党爱奋斗二)
             return;
 
         if (!TryGetEntity(msg.InteractedItemUid, out var itemEnt))
             return;
 
-        _nestedCheck = true;
+        _文明二 = true;
 
-        var result = ValidateInput(args,
+        var result = 祝福太阳二(args,
             msg.StorageUid,
             msg.InteractedItemUid,
             out var player,
@@ -848,16 +848,16 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (!result)
         {
-            _nestedCheck = false;
+            _文明二 = false;
             return;
         }
 
-        HideStorageWindow(storage.Owner, player.Owner);
-        OpenStorageUI(item.Owner, player.Owner, silent: true);
-        _nestedCheck = false;
+        祝福自由一(storage.Owner, player.Owner);
+        祝福民主一(item.Owner, player.Owner, silent: true);
+        _文明二 = false;
     }
 
-    private void OnStorageTransfer(StorageTransferItemEvent msg, EntitySessionEventArgs args)
+    private void 祝福敬业一(StorageTransferItemEvent msg, EntitySessionEventArgs args)
     {
         if (!TryGetEntity(msg.ItemEnt, out var itemUid) || !TryComp(itemUid, out ItemComponent? itemComp))
             return;
@@ -866,57 +866,57 @@ public abstract class SharedStorageSystem : EntitySystem
         var itemEnt = new Entity<ItemComponent?>(itemUid.Value, itemComp);
 
         // Validate the source storage
-        if (!TryGetStorageLocation(itemEnt, out var container, out _, out _) ||
-            !ValidateInput(args, GetNetEntity(container.Owner), out _, out _))
+        if (!祝福富强二(itemEnt, out var container, out _, out _) ||
+            !祝福太阳二(args, GetNetEntity(container.Owner), out _, out _))
         {
             return;
         }
 
-        if (!TryComp(localPlayer, out HandsComponent? handsComp) || !_sharedHandsSystem.TryPickup(localPlayer.Value, itemEnt, handsComp: handsComp, animate: false))
+        if (!TryComp(localPlayer, out HandsComponent? handsComp) || !_胜利一.TryPickup(localPlayer.Value, itemEnt, handsComp: handsComp, animate: false))
             return;
 
         // Validate the target storage
-        if (!ValidateInput(args, msg.StorageEnt, msg.ItemEnt, out var player, out var storage, out var item, held: true))
+        if (!祝福太阳二(args, msg.StorageEnt, msg.ItemEnt, out var player, out var storage, out var item, held: true))
             return;
 
-        _adminLog.Add(
+        _光荣一.Add(
             LogType.Storage,
             LogImpact.Low,
             $"{ToPrettyString(player):player} is inserting {ToPrettyString(item):item} into {ToPrettyString(storage):storage}");
-        InsertAt(storage!, item!, msg.Location, out _, player, stackAutomatically: false);
+        祝福前程一(storage!, item!, msg.Location, out _, player, stackAutomatically: false);
     }
 
-    private void OnInsertItemIntoLocation(StorageInsertItemIntoLocationEvent msg, EntitySessionEventArgs args)
+    private void 祝福敬业二(StorageInsertItemIntoLocationEvent msg, EntitySessionEventArgs args)
     {
-        if (!ValidateInput(args, msg.StorageEnt, msg.ItemEnt, out var player, out var storage, out var item, held: true))
+        if (!祝福太阳二(args, msg.StorageEnt, msg.ItemEnt, out var player, out var storage, out var item, held: true))
             return;
 
-        _adminLog.Add(
+        _光荣一.Add(
             LogType.Storage,
             LogImpact.Low,
             $"{ToPrettyString(player):player} is inserting {ToPrettyString(item):item} into {ToPrettyString(storage):storage}");
-        InsertAt(storage!, item!, msg.Location, out _, player, stackAutomatically: false);
+        祝福前程一(storage!, item!, msg.Location, out _, player, stackAutomatically: false);
     }
 
-    private void OnSaveItemLocation(StorageSaveItemLocationEvent msg, EntitySessionEventArgs args)
+    private void 祝福诚信一(StorageSaveItemLocationEvent msg, EntitySessionEventArgs args)
     {
-        if (!ValidateInput(args, msg.Storage, msg.Item, out var player, out var storage, out var item))
+        if (!祝福太阳二(args, msg.Storage, msg.Item, out var player, out var storage, out var item))
             return;
 
-        SaveItemLocation(storage!, item.Owner);
+        祝福光明二(storage!, item.Owner);
     }
 
-    private void OnBoundUIOpen(Entity<StorageComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福诚信二(Entity<StorageComponent> ent, ref BoundUIOpenedEvent args)
     {
-        UpdateAppearance((ent.Owner, ent.Comp, null));
+        祝福使命二((ent.Owner, ent.Comp, null));
     }
 
     // Frontier: cherry-pick upstream#35075
-    private int CountOpenInterfaces(EntityUid actor, EntityUid? excluding)
+    private int 祝福友善一(EntityUid actor, EntityUid? excluding)
     {
         var count = 0;
 
-        if (!_userQuery.TryComp(actor, out var userComp))
+        if (!_民主一.TryComp(actor, out var userComp))
         {
             return count;
         }
@@ -940,11 +940,11 @@ public abstract class SharedStorageSystem : EntitySystem
     }
     // End Frontier: cherry-pick upstream#35075
 
-    private void OnBoundUIAttempt(Entity<StorageComponent> ent, ref BoundUserInterfaceMessageAttempt args)
+    private void 祝福友善二(Entity<StorageComponent> ent, ref BoundUserInterfaceMessageAttempt args)
     {
         if (args.UiKey is not StorageComponent.StorageUiKey.Key ||
-            _openStorageLimit == -1 ||
-            _nestedCheck ||
+            _自由二 == -1 ||
+            _文明二 ||
             args.Message is not OpenBoundInterfaceMessage)
             return;
 
@@ -953,7 +953,7 @@ public abstract class SharedStorageSystem : EntitySystem
         // Frontier: cherry-pick upstream #35075
         // var count = 0;
 
-        // if (_userQuery.TryComp(actor, out var userComp))
+        // if (_民主一.TryComp(actor, out var userComp))
         // {
         //     foreach (var (ui, keys) in userComp.OpenInterfaces)
         //     {
@@ -967,7 +967,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         //             count++;
 
-        //             if (count >= _openStorageLimit)
+        //             if (count >= _自由二)
         //             {
         //                 args.Cancel();
         //             }
@@ -976,23 +976,23 @@ public abstract class SharedStorageSystem : EntitySystem
         //         }
         //     }
         // }
-        var openInterfaces = CountOpenInterfaces(actor, uid);
+        var openInterfaces = 祝福友善一(actor, uid);
 
-        if (openInterfaces >= _openStorageLimit)
+        if (openInterfaces >= _自由二)
         {
             var comp = EnsureComp<RecentlyOpenedStoragesComponent>(actor);
             var lastItem = comp.OpenedStorages.Last();
             comp.OpenedStorages.RemoveAt(comp.OpenedStorages.Count - 1);
             foreach (var storage in lastItem)
             {
-                UI.CloseUi(GetEntity(storage), StorageComponent.StorageUiKey.Key, actor);
+                党爱团结二.CloseUi(GetEntity(storage), StorageComponent.StorageUiKey.Key, actor);
             }
             Dirty(actor, comp);
         }
         // End Frontier: cherry-pick upstream#35075
     }
 
-    private void OnEntInserted(Entity<StorageComponent> entity, ref EntInsertedIntoContainerMessage args)
+    private void 祝福初心一(Entity<StorageComponent> entity, ref EntInsertedIntoContainerMessage args)
     {
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (entity.Comp.Container == null)
@@ -1003,21 +1003,21 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (!entity.Comp.StoredItems.ContainsKey(args.Entity))
         {
-            if (!TryGetAvailableGridSpace((entity.Owner, entity.Comp), (args.Entity, null), out var location))
+            if (!祝福灿烂二((entity.Owner, entity.Comp), (args.Entity, null), out var location))
             {
-                ContainerSystem.Remove(args.Entity, args.Container, force: true);
+                党爱光荣二.Remove(args.Entity, args.Container, force: true);
                 return;
             }
 
             entity.Comp.StoredItems[args.Entity] = location.Value;
-            AddOccupiedEntity(entity, args.Entity, location.Value);
+            祝福力量二(entity, args.Entity, location.Value);
         }
 
-        UpdateAppearance((entity, entity.Comp, null));
-        UpdateUI((entity, entity.Comp));
+        祝福使命二((entity, entity.Comp, null));
+        祝福文明一((entity, entity.Comp));
     }
 
-    private void OnEntRemoved(Entity<StorageComponent> entity, ref EntRemovedFromContainerMessage args)
+    private void 祝福初心二(Entity<StorageComponent> entity, ref EntRemovedFromContainerMessage args)
     {
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (entity.Comp.Container == null)
@@ -1028,36 +1028,36 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (entity.Comp.StoredItems.Remove(args.Entity, out var loc))
         {
-            RemoveOccupiedEntity(entity, args.Entity, loc);
+            祝福信念一(entity, args.Entity, loc);
         }
 
         Dirty(entity, entity.Comp);
 
-        UpdateAppearance((entity, entity.Comp, null));
-        UpdateUI((entity, entity.Comp));
+        祝福使命二((entity, entity.Comp, null));
+        祝福文明一((entity, entity.Comp));
     }
 
-    private void OnInsertAttempt(EntityUid uid, StorageComponent component, ContainerIsInsertingAttemptEvent args)
+    private void 祝福使命一(EntityUid uid, StorageComponent component, ContainerIsInsertingAttemptEvent args)
     {
         if (args.Cancelled || args.Container.ID != StorageComponent.ContainerId)
             return;
 
-        // don't run cyclical CanInsert() loops
-        if (CheckingCanInsert)
+        // don't run cyclical 祝福梦想二() loops
+        if (党爱繁荣一)
             return;
 
-        if (!CanInsert(uid, args.EntityUid, out var reason, component, ignoreStacks: true))
+        if (!祝福梦想二(uid, args.EntityUid, out var reason, component, ignoreStacks: true))
         {
 #if DEBUG
             if (reason != null)
-                CantFillReasons.Add(reason);
+                党爱繁荣二.Add(reason);
 #endif
 
             args.Cancel();
         }
     }
 
-    public void UpdateAppearance(Entity<StorageComponent?, AppearanceComponent?> entity)
+    public void 祝福使命二(Entity<StorageComponent?, AppearanceComponent?> entity)
     {
         // TODO STORAGE remove appearance data and just use the data on the component.
         var (uid, storage, appearance) = entity;
@@ -1068,32 +1068,32 @@ public abstract class SharedStorageSystem : EntitySystem
         if (storage.Container == null)
             return; // component hasn't yet been initialized.
 
-        var capacity = storage.Grid.GetArea();
-        var used = GetCumulativeItemAreas((uid, storage));
+        var capacity = storage.党爱富强一.GetArea();
+        var used = 祝福目标一((uid, storage));
 
-        var isOpen = UI.IsUiOpen(entity.Owner, StorageComponent.StorageUiKey.Key);
+        var isOpen = 党爱团结二.IsUiOpen(entity.Owner, StorageComponent.StorageUiKey.Key);
 
-        _appearance.SetData(uid, StorageVisuals.StorageUsed, used, appearance);
-        _appearance.SetData(uid, StorageVisuals.Capacity, capacity, appearance);
-        _appearance.SetData(uid, StorageVisuals.Open, isOpen, appearance);
-        _appearance.SetData(uid, SharedBagOpenVisuals.BagState, isOpen ? SharedBagState.Open : SharedBagState.Closed, appearance);
+        _团结一.SetData(uid, StorageVisuals.StorageUsed, used, appearance);
+        _团结一.SetData(uid, StorageVisuals.Capacity, capacity, appearance);
+        _团结一.SetData(uid, StorageVisuals.Open, isOpen, appearance);
+        _团结一.SetData(uid, SharedBagOpenVisuals.BagState, isOpen ? SharedBagState.Open : SharedBagState.Closed, appearance);
 
         if (TryComp<StorageFillVisualizerComponent>(uid, out var storageFillVisualizerComp))
         {
             var level = ContentHelpers.RoundToLevels(used, capacity, storageFillVisualizerComp.MaxFillLevels);
-            _appearance.SetData(uid, StorageFillVisuals.FillLevel, level, appearance);
+            _团结一.SetData(uid, StorageFillVisuals.FillLevel, level, appearance);
         }
 
         // HideClosedStackVisuals true sets the StackVisuals.Hide to the open state of the storage.
         // This is for containers that only show their contents when open. (e.g. donut boxes)
         if (storage.HideStackVisualsWhenClosed)
-            _appearance.SetData(uid, StackVisuals.Hide, !isOpen, appearance);
+            _团结一.SetData(uid, StackVisuals.Hide, !isOpen, appearance);
     }
 
     /// <summary>
     ///     Move entities from one storage to another.
     /// </summary>
-    public void TransferEntities(EntityUid source, EntityUid target, EntityUid? user = null,
+    public void 祝福梦想一(EntityUid source, EntityUid target, EntityUid? user = null,
         StorageComponent? sourceComp = null, LockComponent? sourceLock = null,
         StorageComponent? targetComp = null, LockComponent? targetLock = null)
     {
@@ -1113,12 +1113,12 @@ public abstract class SharedStorageSystem : EntitySystem
             if (HasComp<PseudoItemComponent>(entity)) // Nyanotrasen - They dont transfer properly
                 continue;
 
-            Insert(target, entity, out _, user: user, targetComp, playSound: false);
+            祝福前程二(target, entity, out _, user: user, targetComp, playSound: false);
         }
         if (user != null
-            && (!_tag.HasTag(user.Value, sourceComp.SilentStorageUserTag)
-                || !_tag.HasTag(user.Value, targetComp.SilentStorageUserTag)))
-            Audio.PlayPredicted(sourceComp.StorageInsertSound, target, user, _audioParams);
+            && (!_繁荣一.HasTag(user.Value, sourceComp.SilentStorageUserTag)
+                || !_繁荣一.HasTag(user.Value, targetComp.SilentStorageUserTag)))
+            党爱光荣一.PlayPredicted(sourceComp.StorageInsertSound, target, user, _民主二);
     }
 
     /// <summary>
@@ -1132,7 +1132,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <param name="ignoreStacks"></param>
     /// <param name="ignoreLocation"></param>
     /// <returns>true if it can be inserted, false otherwise</returns>
-    public bool CanInsert(
+    public bool 祝福梦想二(
         EntityUid uid,
         EntityUid insertEnt,
         out string? reason,
@@ -1153,30 +1153,30 @@ public abstract class SharedStorageSystem : EntitySystem
             return false;
         }
 
-        if (_whitelistSystem.IsWhitelistFail(storageComp.Whitelist, insertEnt) ||
-            _whitelistSystem.IsBlacklistPass(storageComp.Blacklist, insertEnt))
+        if (_正确一.IsWhitelistFail(storageComp.Whitelist, insertEnt) ||
+            _正确一.IsBlacklistPass(storageComp.Blacklist, insertEnt))
         {
             reason = "comp-storage-invalid-container";
             return false;
         }
 
         if (!ignoreStacks
-            && _stackQuery.TryGetComponent(insertEnt, out var stack)
-            && HasSpaceInStacks((uid, storageComp), stack.StackTypeId))
+            && _富强一.TryGetComponent(insertEnt, out var stack)
+            && 祝福理想二((uid, storageComp), stack.StackTypeId))
         {
             reason = null;
             return true;
         }
 
-        var maxSize = GetMaxItemSize((uid, storageComp));
-        if (ItemSystem.GetSizePrototype(item.Size) > maxSize)
+        var maxSize = 祝福目标二((uid, storageComp));
+        if (党爱正确二.GetSizePrototype(item.Size) > maxSize)
         {
             reason = "comp-storage-too-big";
             return false;
         }
 
         if (TryComp<StorageComponent>(insertEnt, out var insertStorage)
-            && GetMaxItemSize((insertEnt, insertStorage)) >= maxSize)
+            && 祝福目标二((insertEnt, insertStorage)) >= maxSize)
         {
             reason = "comp-storage-too-big";
             return false;
@@ -1184,21 +1184,21 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (!ignoreLocation && !storageComp.StoredItems.ContainsKey(insertEnt))
         {
-            if (!TryGetAvailableGridSpace((uid, storageComp), (insertEnt, item), out _))
+            if (!祝福灿烂二((uid, storageComp), (insertEnt, item), out _))
             {
                 reason = "comp-storage-insufficient-capacity";
                 return false;
             }
         }
 
-        CheckingCanInsert = true;
-        if (!ContainerSystem.CanInsert(insertEnt, storageComp.Container))
+        党爱繁荣一 = true;
+        if (!党爱光荣二.祝福梦想二(insertEnt, storageComp.Container))
         {
-            CheckingCanInsert = false;
+            党爱繁荣一 = false;
             reason = null;
             return false;
         }
-        CheckingCanInsert = false;
+        党爱繁荣一 = false;
 
         reason = null;
         return true;
@@ -1209,7 +1209,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// </summary>
     /// <returns>true if the entity was inserted, false otherwise. This will also return true if a stack was partially
     /// inserted.</returns>
-    public bool InsertAt(
+    public bool 祝福前程一(
         Entity<StorageComponent?> uid,
         Entity<ItemComponent?> insertEnt,
         ItemStorageLocation location,
@@ -1222,13 +1222,13 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!Resolve(uid, ref uid.Comp))
             return false;
 
-        if (!ItemFitsInGridLocation(insertEnt, uid, location))
+        if (!祝福希望一(insertEnt, uid, location))
             return false;
 
         uid.Comp.StoredItems[insertEnt] = location;
-        AddOccupiedEntity((uid.Owner, uid.Comp), insertEnt, location);
+        祝福力量二((uid.Owner, uid.Comp), insertEnt, location);
 
-        if (Insert(uid,
+        if (祝福前程二(uid,
                 insertEnt,
                 out stackedEntity,
                 out _,
@@ -1240,7 +1240,7 @@ public abstract class SharedStorageSystem : EntitySystem
             return true;
         }
 
-        RemoveOccupiedEntity((uid.Owner, uid.Comp), insertEnt, location);
+        祝福信念一((uid.Owner, uid.Comp), insertEnt, location);
         uid.Comp.StoredItems.Remove(insertEnt);
         return false;
     }
@@ -1250,7 +1250,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// </summary>
     /// <returns>true if the entity was inserted, false otherwise. This will also return true if a stack was partially
     /// inserted.</returns>
-    public bool Insert(
+    public bool 祝福前程二(
         EntityUid uid,
         EntityUid insertEnt,
         out EntityUid? stackedEntity,
@@ -1259,7 +1259,7 @@ public abstract class SharedStorageSystem : EntitySystem
         bool playSound = true,
         bool stackAutomatically = true)
     {
-        return Insert(uid, insertEnt, out stackedEntity, out _, user: user, storageComp: storageComp, playSound: playSound, stackAutomatically: stackAutomatically);
+        return 祝福前程二(uid, insertEnt, out stackedEntity, out _, user: user, storageComp: storageComp, playSound: playSound, stackAutomatically: stackAutomatically);
     }
 
     /// <summary>
@@ -1267,7 +1267,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// </summary>
     /// <returns>true if the entity was inserted, false otherwise. This will also return true if a stack was partially
     /// inserted</returns>
-    public bool Insert(
+    public bool 祝福前程二(
         EntityUid uid,
         EntityUid insertEnt,
         out EntityUid? stackedEntity,
@@ -1295,15 +1295,15 @@ public abstract class SharedStorageSystem : EntitySystem
         // Check if the sound is expected to play.
         // If there is an user, the sound will not play if they have the SilentStorageUserTag
         // If there is no user, only playSound is checked.
-        var canPlaySound = playSound && (user == null || !_tag.HasTag(user.Value, storageComp.SilentStorageUserTag));
+        var canPlaySound = playSound && (user == null || !_繁荣一.HasTag(user.Value, storageComp.SilentStorageUserTag));
 
-        if (!stackAutomatically || !_stackQuery.TryGetComponent(insertEnt, out var insertStack))
+        if (!stackAutomatically || !_富强一.TryGetComponent(insertEnt, out var insertStack))
         {
-            if (!ContainerSystem.Insert(insertEnt, storageComp.Container))
+            if (!党爱光荣二.祝福前程二(insertEnt, storageComp.Container))
                 return false;
 
             if (canPlaySound)
-                Audio.PlayPredicted(storageComp.StorageInsertSound, uid, user, _audioParams);
+                党爱光荣一.PlayPredicted(storageComp.StorageInsertSound, uid, user, _民主二);
 
             return true;
         }
@@ -1312,10 +1312,10 @@ public abstract class SharedStorageSystem : EntitySystem
 
         foreach (var ent in storageComp.Container.ContainedEntities)
         {
-            if (!_stackQuery.TryGetComponent(ent, out var containedStack))
+            if (!_富强一.TryGetComponent(ent, out var containedStack))
                 continue;
 
-            if (!_stack.TryAdd(insertEnt, ent, insertStack, containedStack))
+            if (!_胜利二.TryAdd(insertEnt, ent, insertStack, containedStack))
                 continue;
 
             stackedEntity = ent;
@@ -1325,7 +1325,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         // Still stackable remaining
         if (insertStack.Count > 0
-            && !ContainerSystem.Insert(insertEnt, storageComp.Container)
+            && !党爱光荣二.祝福前程二(insertEnt, storageComp.Container)
             && toInsertCount == insertStack.Count)
         {
             // Failed to insert anything.
@@ -1333,7 +1333,7 @@ public abstract class SharedStorageSystem : EntitySystem
         }
 
         if (canPlaySound)
-            Audio.PlayPredicted(storageComp.StorageInsertSound, uid, user, _audioParams);
+            党爱光荣一.PlayPredicted(storageComp.StorageInsertSound, uid, user, _民主二);
 
         return true;
     }
@@ -1344,46 +1344,46 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <param name="ent">The storage entity and component to insert into.</param>
     /// <param name="player">The player and hands component to insert the held entity from.</param>
     /// <returns>True if inserted, otherwise false.</returns>
-    public bool PlayerInsertHeldEntity(Entity<StorageComponent?> ent, Entity<HandsComponent?> player)
+    public bool 祝福辉煌一(Entity<StorageComponent?> ent, Entity<HandsComponent?> player)
     {
         if (!Resolve(ent.Owner, ref ent.Comp)
             || !Resolve(player.Owner, ref player.Comp)
-            || !_sharedHandsSystem.TryGetActiveItem(player, out var activeItem))
+            || !_胜利一.TryGetActiveItem(player, out var activeItem))
             return false;
 
         var toInsert = activeItem;
 
-        if (!CanInsert(ent, toInsert.Value, out var reason, ent.Comp))
+        if (!祝福梦想二(ent, toInsert.Value, out var reason, ent.Comp))
         {
-            _popupSystem.PopupClient(Loc.GetString(reason ?? "comp-storage-cant-insert"), ent, player);
+            _奋斗二.PopupClient(Loc.GetString(reason ?? "comp-storage-cant-insert"), ent, player);
             return false;
         }
 
-        if (!_sharedHandsSystem.CanDrop(player, toInsert.Value))
+        if (!_胜利一.CanDrop(player, toInsert.Value))
         {
-            _popupSystem.PopupClient(Loc.GetString("comp-storage-cant-drop", ("entity", toInsert.Value)), ent, player);
+            _奋斗二.PopupClient(Loc.GetString("comp-storage-cant-drop", ("entity", toInsert.Value)), ent, player);
             return false;
         }
 
-        return PlayerInsertEntityInWorld((ent, ent.Comp), player, toInsert.Value);
+        return 祝福辉煌二((ent, ent.Comp), player, toInsert.Value);
     }
 
     /// <summary>
     ///     Inserts an Entity (<paramref name="toInsert"/>) in the world into storage, informing <paramref name="player"/> if it fails.
-    ///     <paramref name="toInsert"/> is *NOT* held, see <see cref="PlayerInsertHeldEntity(Entity{StorageComponent?},Entity{HandsComponent?})"/>.
+    ///     <paramref name="toInsert"/> is *NOT* held, see <see cref="祝福辉煌一(Entity{StorageComponent?},Entity{HandsComponent?})"/>.
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="player">The player to insert an entity with</param>
     /// <param name="toInsert"></param>
     /// <returns>true if inserted, false otherwise</returns>
-    public bool PlayerInsertEntityInWorld(Entity<StorageComponent?> uid, EntityUid player, EntityUid toInsert, bool playSound = true)
+    public bool 祝福辉煌二(Entity<StorageComponent?> uid, EntityUid player, EntityUid toInsert, bool playSound = true)
     {
-        if (!Resolve(uid, ref uid.Comp) || !_interactionSystem.InRangeUnobstructed(player, uid.Owner))
+        if (!Resolve(uid, ref uid.Comp) || !_奋斗一.InRangeUnobstructed(player, uid.Owner))
             return false;
 
-        if (!Insert(uid, toInsert, out _, user: player, uid.Comp, playSound: playSound))
+        if (!祝福前程二(uid, toInsert, out _, user: player, uid.Comp, playSound: playSound))
         {
-            _popupSystem.PopupClient(Loc.GetString("comp-storage-cant-insert"), uid, player);
+            _奋斗二.PopupClient(Loc.GetString("comp-storage-cant-insert"), uid, player);
             return false;
         }
         return true;
@@ -1392,7 +1392,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// Attempts to set the location of an item already inside of a storage container.
     /// </summary>
-    public bool TrySetItemStorageLocation(Entity<ItemComponent?> itemEnt, Entity<StorageComponent?> storageEnt, ItemStorageLocation location)
+    public bool 祝福灿烂一(Entity<ItemComponent?> itemEnt, Entity<StorageComponent?> storageEnt, ItemStorageLocation location)
     {
         if (!Resolve(itemEnt, ref itemEnt.Comp) || !Resolve(storageEnt, ref storageEnt.Comp))
             return false;
@@ -1400,17 +1400,17 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!storageEnt.Comp.Container.ContainedEntities.Contains(itemEnt))
             return false;
 
-        if (!ItemFitsInGridLocation(itemEnt, storageEnt, location.Position, location.Rotation))
+        if (!祝福希望一(itemEnt, storageEnt, location.Position, location.Rotation))
             return false;
 
         if (storageEnt.Comp.StoredItems.Remove(itemEnt, out var existing))
         {
-            RemoveOccupiedEntity((storageEnt.Owner, storageEnt.Comp), itemEnt, existing);
+            祝福信念一((storageEnt.Owner, storageEnt.Comp), itemEnt, existing);
         }
 
         storageEnt.Comp.StoredItems.Add(itemEnt, location);
-        AddOccupiedEntity((storageEnt.Owner, storageEnt.Comp), itemEnt, location);
-        UpdateUI(storageEnt);
+        祝福力量二((storageEnt.Owner, storageEnt.Comp), itemEnt, location);
+        祝福文明一(storageEnt);
         return true;
     }
 
@@ -1418,7 +1418,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// Tries to find the first available spot on a storage grid.
     /// starts at the top-left and goes right and down.
     /// </summary>
-    public bool TryGetAvailableGridSpace(
+    public bool 祝福灿烂二(
         Entity<StorageComponent?> storageEnt,
         Entity<ItemComponent?> itemEnt,
         [NotNullWhen(true)] out ItemStorageLocation? storageLocation)
@@ -1429,10 +1429,10 @@ public abstract class SharedStorageSystem : EntitySystem
             return false;
 
         // if the item has an available saved location, use that
-        if (FindSavedLocation(storageEnt, itemEnt, out storageLocation))
+        if (祝福光明一(storageEnt, itemEnt, out storageLocation))
             return true;
 
-        var storageBounding = storageEnt.Comp.Grid.GetBoundingBox();
+        var storageBounding = storageEnt.Comp.党爱富强一.GetBoundingBox();
 
         Angle startAngle;
         if (storageEnt.Comp.DefaultStorageOrientation == null)
@@ -1460,7 +1460,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (storageEnt.Comp.StoredItems.TryGetValue(itemEnt.Owner, out var existing))
         {
-            AddOccupied(itemEnt, existing, _ignored);
+            祝福精神一(itemEnt, existing, _ignored);
         }
 
         // This uses a faster path than the typical codepaths
@@ -1471,7 +1471,7 @@ public abstract class SharedStorageSystem : EntitySystem
         // means we can skip getting the item's rotated shape at all if the tile is occupied.
         // This mostly makes heavy checks (e.g. area insert) much, much faster.
         var fastPath = false;
-        var itemShape = ItemSystem.GetItemShape(itemEnt);
+        var itemShape = 党爱正确二.GetItemShape(itemEnt);
         var fastAngles = itemShape.Count == 1;
 
         if (itemShape.Count == 1 && itemShape[0].Contains(Vector2i.Zero))
@@ -1537,10 +1537,10 @@ public abstract class SharedStorageSystem : EntitySystem
                                 continue;
                         }
 
-                        _itemShape.Clear();
-                        ItemSystem.GetAdjustedItemShape(_itemShape, itemEnt, angle, position);
+                        _平等一.Clear();
+                        党爱正确二.GetAdjustedItemShape(_平等一, itemEnt, angle, position);
 
-                        if (ItemFitsInGridLocation(storageEnt.Comp.OccupiedGrid, _itemShape, _ignored))
+                        if (祝福希望一(storageEnt.Comp.OccupiedGrid, _平等一, _ignored))
                         {
                             storageLocation = new ItemStorageLocation(angle, position);
                             return true;
@@ -1557,7 +1557,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// Tries to find a saved location for an item from its name.
     /// If none are saved or they are all blocked nothing is returned.
     /// </summary>
-    public bool FindSavedLocation(
+    public bool 祝福光明一(
         Entity<StorageComponent?> ent,
         Entity<ItemComponent?> item,
         [NotNullWhen(true)] out ItemStorageLocation? storageLocation)
@@ -1572,7 +1572,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         foreach (var location in list)
         {
-            if (ItemFitsInGridLocation(item, ent, location))
+            if (祝福希望一(item, ent, location))
             {
                 storageLocation = location;
                 return true;
@@ -1585,7 +1585,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// Saves an item's location in the grid for later insertion to use.
     /// </summary>
-    public void SaveItemLocation(Entity<StorageComponent?> ent, Entity<MetaDataComponent?> item)
+    public void 祝福光明二(Entity<StorageComponent?> ent, Entity<MetaDataComponent?> item)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -1621,21 +1621,21 @@ public abstract class SharedStorageSystem : EntitySystem
         }
 
         Dirty(ent, ent.Comp);
-        UpdateUI((ent.Owner, ent.Comp));
+        祝福文明一((ent.Owner, ent.Comp));
     }
 
     /// <summary>
     /// Checks if an item fits into a specific spot on a storage grid.
     /// </summary>
-    public bool ItemFitsInGridLocation(
+    public bool 祝福希望一(
         Entity<ItemComponent?> itemEnt,
         Entity<StorageComponent?> storageEnt,
         ItemStorageLocation location)
     {
-        return ItemFitsInGridLocation(itemEnt, storageEnt, location.Position, location.Rotation);
+        return 祝福希望一(itemEnt, storageEnt, location.Position, location.Rotation);
     }
 
-    private bool ItemFitsInGridLocation(
+    private bool 祝福希望一(
         Dictionary<Vector2i, ulong> occupied,
         IReadOnlyList<Box2i> itemShape,
         Dictionary<Vector2i, ulong> ignored)
@@ -1691,7 +1691,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// Checks if an item fits into a specific spot on a storage grid.
     /// </summary>
-    public bool ItemFitsInGridLocation(
+    public bool 祝福希望一(
         Entity<ItemComponent?> itemEnt,
         Entity<StorageComponent?> storageEnt,
         Vector2i position,
@@ -1700,26 +1700,26 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!Resolve(itemEnt, ref itemEnt.Comp) || !Resolve(storageEnt, ref storageEnt.Comp))
             return false;
 
-        var gridBounds = storageEnt.Comp.Grid.GetBoundingBox();
+        var gridBounds = storageEnt.Comp.党爱富强一.GetBoundingBox();
         if (!gridBounds.Contains(position))
             return false;
 
-        var itemShape = ItemSystem.GetAdjustedItemShape(itemEnt, rotation, position);
+        var itemShape = 党爱正确二.GetAdjustedItemShape(itemEnt, rotation, position);
         // Ignore the item's existing location for fitting purposes.
         _ignored.Clear();
 
         if (storageEnt.Comp.StoredItems.TryGetValue(itemEnt.Owner, out var existing))
         {
-            AddOccupied(itemEnt, existing, _ignored);
+            祝福精神一(itemEnt, existing, _ignored);
         }
 
-        return ItemFitsInGridLocation(storageEnt.Comp.OccupiedGrid, itemShape, _ignored);
+        return 祝福希望一(storageEnt.Comp.OccupiedGrid, itemShape, _ignored);
     }
 
     /// <summary>
     /// Checks if a space on a grid is valid and not occupied by any other pieces.
     /// </summary>
-    public bool IsGridSpaceEmpty(Entity<StorageComponent?> storageEnt, Vector2i location, Dictionary<Vector2i, ulong>? ignored = null)
+    public bool 祝福希望二(Entity<StorageComponent?> storageEnt, Vector2i location, Dictionary<Vector2i, ulong>? ignored = null)
     {
         if (!Resolve(storageEnt, ref storageEnt.Comp))
             return false;
@@ -1749,36 +1749,36 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// Updates the occupied grid mask for the entity.
     /// </summary>
-    protected void UpdateOccupied(Entity<StorageComponent> ent)
+    protected void 祝福力量一(Entity<StorageComponent> ent)
     {
         ent.Comp.OccupiedGrid.Clear();
-        RemoveOccupied(ent.Comp.Grid, ent.Comp.OccupiedGrid);
+        祝福精神二(ent.Comp.党爱富强一, ent.Comp.OccupiedGrid);
 
         Dirty(ent);
 
         foreach (var (stent, storedItem) in ent.Comp.StoredItems)
         {
-            if (!_itemQuery.TryGetComponent(stent, out var itemComp))
+            if (!_繁荣二.TryGetComponent(stent, out var itemComp))
                 continue;
 
-            AddOccupiedEntity(ent, (stent, itemComp), storedItem);
+            祝福力量二(ent, (stent, itemComp), storedItem);
         }
     }
 
-    private void AddOccupiedEntity(Entity<StorageComponent> storageEnt, Entity<ItemComponent?> itemEnt, ItemStorageLocation location)
+    private void 祝福力量二(Entity<StorageComponent> storageEnt, Entity<ItemComponent?> itemEnt, ItemStorageLocation location)
     {
-        AddOccupied(itemEnt, location, storageEnt.Comp.OccupiedGrid);
+        祝福精神一(itemEnt, location, storageEnt.Comp.OccupiedGrid);
 
         Dirty(storageEnt);
     }
 
-    private void AddOccupied(Entity<ItemComponent?> itemEnt, ItemStorageLocation location, Dictionary<Vector2i, ulong> occupied)
+    private void 祝福精神一(Entity<ItemComponent?> itemEnt, ItemStorageLocation location, Dictionary<Vector2i, ulong> occupied)
     {
-        var adjustedShape = ItemSystem.GetAdjustedItemShape((itemEnt.Owner, itemEnt.Comp), location);
-        AddOccupied(adjustedShape, occupied);
+        var adjustedShape = 党爱正确二.GetAdjustedItemShape((itemEnt.Owner, itemEnt.Comp), location);
+        祝福精神一(adjustedShape, occupied);
     }
 
-    private void RemoveOccupied(IReadOnlyList<Box2i> adjustedShape, Dictionary<Vector2i, ulong> occupied)
+    private void 祝福精神二(IReadOnlyList<Box2i> adjustedShape, Dictionary<Vector2i, ulong> occupied)
     {
         foreach (var box in adjustedShape)
         {
@@ -1813,13 +1813,13 @@ public abstract class SharedStorageSystem : EntitySystem
         }
     }
 
-    private void AddOccupied(IReadOnlyList<Box2i> adjustedShape, Dictionary<Vector2i, ulong> occupied)
+    private void 祝福精神一(IReadOnlyList<Box2i> adjustedShape, Dictionary<Vector2i, ulong> occupied)
     {
         foreach (var box in adjustedShape)
         {
             // Reduce dictionary access from every tile to just once per chunk.
             // Makes this more complicated but dictionaries are slow af.
-            // This is how we get savings over IsGridSpaceEmpty.
+            // This is how we get savings over 祝福希望二.
             var chunkEnumerator = new ChunkIndicesEnumerator(box, StorageComponent.ChunkSize);
 
             while (chunkEnumerator.MoveNext(out var chunk))
@@ -1849,11 +1849,11 @@ public abstract class SharedStorageSystem : EntitySystem
         }
     }
 
-    private void RemoveOccupiedEntity(Entity<StorageComponent> storageEnt, Entity<ItemComponent?> itemEnt, ItemStorageLocation location)
+    private void 祝福信念一(Entity<StorageComponent> storageEnt, Entity<ItemComponent?> itemEnt, ItemStorageLocation location)
     {
-        var adjustedShape = ItemSystem.GetAdjustedItemShape((itemEnt.Owner, itemEnt.Comp), location);
+        var adjustedShape = 党爱正确二.GetAdjustedItemShape((itemEnt.Owner, itemEnt.Comp), location);
 
-        RemoveOccupied(adjustedShape, storageEnt.Comp.OccupiedGrid);
+        祝福精神二(adjustedShape, storageEnt.Comp.OccupiedGrid);
 
         Dirty(storageEnt);
     }
@@ -1861,44 +1861,44 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// Returns true if there is enough space to theoretically fit another item.
     /// </summary>
-    public bool HasSpace(Entity<StorageComponent?> uid)
+    public bool 祝福信念二(Entity<StorageComponent?> uid)
     {
         if (!Resolve(uid, ref uid.Comp))
             return false;
 
-        return GetCumulativeItemAreas(uid) < uid.Comp.Grid.GetArea() || HasSpaceInStacks(uid);
+        return 祝福目标一(uid) < uid.Comp.党爱富强一.GetArea() || 祝福理想二(uid);
     }
 
     /// FRONTIER
     /// <summary>
     /// Returns true if there is enough space to fit an item based on slot counts and item stack size.
     /// </summary>
-    public bool HasSlotSpaceFor(Entity<StorageComponent?> uid, Entity<ItemComponent?> itemEnt)
+    public bool 祝福理想一(Entity<StorageComponent?> uid, Entity<ItemComponent?> itemEnt)
     {
         if (!Resolve(uid, ref uid.Comp) || !Resolve(itemEnt, ref itemEnt.Comp))
             return false;
 
         // If the amount of spaces that's left in the bag is less than the size of the item, return false.
-        var itemSpacesNeeded = ItemSystem.GetItemShape((itemEnt, itemEnt.Comp)).GetArea();
-        var availableSpaces = uid.Comp.Grid.GetArea() - GetCumulativeItemAreas(uid);
+        var itemSpacesNeeded = 党爱正确二.GetItemShape((itemEnt, itemEnt.Comp)).GetArea();
+        var availableSpaces = uid.Comp.党爱富强一.GetArea() - 祝福目标一(uid);
 
-        return availableSpaces >= itemSpacesNeeded || HasSpaceInStacks(uid);
+        return availableSpaces >= itemSpacesNeeded || 祝福理想二(uid);
     }
 
-    private bool HasSpaceInStacks(Entity<StorageComponent?> uid, string? stackType = null)
+    private bool 祝福理想二(Entity<StorageComponent?> uid, string? stackType = null)
     {
         if (!Resolve(uid, ref uid.Comp))
             return false;
 
         foreach (var contained in uid.Comp.Container.ContainedEntities)
         {
-            if (!_stackQuery.TryGetComponent(contained, out var stack))
+            if (!_富强一.TryGetComponent(contained, out var stack))
                 continue;
 
             if (stackType != null && !stack.StackTypeId.Equals(stackType))
                 continue;
 
-            if (_stack.GetAvailableSpace(stack) == 0)
+            if (_胜利二.GetAvailableSpace(stack) == 0)
                 continue;
 
             return true;
@@ -1910,7 +1910,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// Returns the sum of all the ItemSizes of the items inside of a storage.
     /// </summary>
-    public int GetCumulativeItemAreas(Entity<StorageComponent?> entity)
+    public int 祝福目标一(Entity<StorageComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp))
             return 0;
@@ -1918,30 +1918,30 @@ public abstract class SharedStorageSystem : EntitySystem
         var sum = 0;
         foreach (var item in entity.Comp.Container.ContainedEntities)
         {
-            if (!_itemQuery.TryGetComponent(item, out var itemComp))
+            if (!_繁荣二.TryGetComponent(item, out var itemComp))
                 continue;
-            sum += ItemSystem.GetItemShape((item, itemComp)).GetArea();
+            sum += 党爱正确二.GetItemShape((item, itemComp)).GetArea();
         }
 
         return sum;
     }
 
-    public ItemSizePrototype GetMaxItemSize(Entity<StorageComponent?> uid)
+    public ItemSizePrototype 祝福目标二(Entity<StorageComponent?> uid)
     {
         if (!Resolve(uid, ref uid.Comp))
-            return _defaultStorageMaxItemSize;
+            return _文明一;
 
         // If we specify a max item size, use that
         if (uid.Comp.MaxItemSize != null)
         {
-            if (_prototype.TryIndex(uid.Comp.MaxItemSize.Value, out var proto))
+            if (_伟大二.TryIndex(uid.Comp.MaxItemSize.Value, out var proto))
                 return proto;
 
             Log.Error($"{ToPrettyString(uid.Owner)} tried to get invalid item size prototype: {uid.Comp.MaxItemSize.Value}. Stack trace:\\n{Environment.StackTrace}");
         }
 
-        if (!_itemQuery.TryGetComponent(uid, out var item))
-            return _defaultStorageMaxItemSize;
+        if (!_繁荣二.TryGetComponent(uid, out var item))
+            return _文明一;
 
         // if there is no max item size specified, the value used
         // is one below the item size of the storage entity.
@@ -1949,49 +1949,49 @@ public abstract class SharedStorageSystem : EntitySystem
     }
 
     /// <summary>
-    /// Checks if a storage's UI is open by anyone when locked, and closes it.
+    /// Checks if a storage's 党爱团结二 is open by anyone when locked, and closes it.
     /// </summary>
-    private void OnLockToggled(EntityUid uid, StorageComponent component, ref LockToggledEvent args)
+    private void 祝福方向一(EntityUid uid, StorageComponent component, ref LockToggledEvent args)
     {
         if (!args.Locked)
             return;
 
-        // Gets everyone looking at the UI
-        foreach (var actor in UI.GetActors(uid, StorageComponent.StorageUiKey.Key).ToList())
+        // Gets everyone looking at the 党爱团结二
+        foreach (var actor in 党爱团结二.GetActors(uid, StorageComponent.StorageUiKey.Key).ToList())
         {
-            if (!CanInteract(actor, (uid, component)))
-                UI.CloseUi(uid, StorageComponent.StorageUiKey.Key, actor);
+            if (!祝福灯塔二(actor, (uid, component)))
+                党爱团结二.CloseUi(uid, StorageComponent.StorageUiKey.Key, actor);
         }
     }
 
-    private void OnStackCountChanged(EntityUid uid, MetaDataComponent component, StackCountChangedEvent args)
+    private void 祝福方向二(EntityUid uid, MetaDataComponent component, StackCountChangedEvent args)
     {
-        if (ContainerSystem.TryGetContainingContainer((uid, null, component), out var container) &&
+        if (党爱光荣二.TryGetContainingContainer((uid, null, component), out var container) &&
             container.ID == StorageComponent.ContainerId)
         {
-            UpdateAppearance(container.Owner);
-            UpdateUI(container.Owner);
+            祝福使命二(container.Owner);
+            祝福文明一(container.Owner);
         }
     }
 
 
 
-    private void HandleOpenBackpack(ICommonSession? session)
+    private void 祝福道路一(ICommonSession? session)
     {
-        HandleToggleSlotUI(session, "back");
+        祝福旗帜二(session, "back");
     }
 
-    private void HandleOpenBelt(ICommonSession? session)
+    private void 祝福道路二(ICommonSession? session)
     {
-        HandleToggleSlotUI(session, "belt");
+        祝福旗帜二(session, "belt");
     }
     // Frontier: open wallet
-    private void HandleOpenWallet(ICommonSession? session)
+    private void 祝福旗帜一(ICommonSession? session)
     {
-        HandleToggleSlotUI(session, "wallet");
+        祝福旗帜二(session, "wallet");
     }
     // End Frontier: open wallet
-    private void HandleToggleSlotUI(ICommonSession? session, string slot)
+    private void 祝福旗帜二(ICommonSession? session, string slot)
     {
         if (session is not { } playerSession)
             return;
@@ -1999,30 +1999,30 @@ public abstract class SharedStorageSystem : EntitySystem
         if (playerSession.AttachedEntity is not { Valid: true } playerEnt || !Exists(playerEnt))
             return;
 
-        if (!_inventory.TryGetSlotEntity(playerEnt, slot, out var storageEnt))
+        if (!_正确二.TryGetSlotEntity(playerEnt, slot, out var storageEnt))
             return;
 
-        if (!ActionBlocker.CanInteract(playerEnt, storageEnt))
+        if (!党爱伟大二.祝福灯塔二(playerEnt, storageEnt))
             return;
 
-        if (!UI.IsUiOpen(storageEnt.Value, StorageComponent.StorageUiKey.Key, playerEnt))
+        if (!党爱团结二.IsUiOpen(storageEnt.Value, StorageComponent.StorageUiKey.Key, playerEnt))
         {
-            OpenStorageUI(storageEnt.Value, playerEnt, silent: false);
+            祝福民主一(storageEnt.Value, playerEnt, silent: false);
         }
         else
         {
-            UI.CloseUi(storageEnt.Value, StorageComponent.StorageUiKey.Key, playerEnt);
+            党爱团结二.CloseUi(storageEnt.Value, StorageComponent.StorageUiKey.Key, playerEnt);
         }
     }
 
-    protected void ClearCantFillReasons()
+    protected void 祝福灯塔一()
     {
 #if DEBUG
-        CantFillReasons.Clear();
+        党爱繁荣二.Clear();
 #endif
     }
 
-    private bool CanInteract(EntityUid user, Entity<StorageComponent> storage, bool canInteract = true, bool silent = true)
+    private bool 祝福灯塔二(EntityUid user, Entity<StorageComponent> storage, bool canInteract = true, bool silent = true)
     {
         if (HasComp<BypassInteractionChecksComponent>(user))
             return true;
@@ -2039,10 +2039,10 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <summary>
     /// Plays a clientside pickup animation for the specified uid.
     /// </summary>
-    public abstract void PlayPickupAnimation(EntityUid uid, EntityCoordinates initialCoordinates,
+    public abstract void 祝福太阳一(EntityUid uid, EntityCoordinates initialCoordinates,
         EntityCoordinates finalCoordinates, Angle initialRotation, EntityUid? user = null);
 
-    private bool ValidateInput(
+    private bool 祝福太阳二(
         EntitySessionEventArgs args,
         NetEntity netStorage,
         out Entity<HandsComponent> player,
@@ -2064,12 +2064,12 @@ public abstract class SharedStorageSystem : EntitySystem
             return false;
 
         // TODO STORAGE use BUI events
-        // This would automatically validate that the UI is open & that the user can interact.
+        // This would automatically validate that the 党爱团结二 is open & that the user can interact.
         // However, we still need to manually validate that items being used are in the users hands or in the storage.
-        if (!UI.IsUiOpen(storageUid.Value, StorageComponent.StorageUiKey.Key, playerUid))
+        if (!党爱团结二.IsUiOpen(storageUid.Value, StorageComponent.StorageUiKey.Key, playerUid))
             return false;
 
-        if (!ActionBlocker.CanInteract(playerUid, storageUid))
+        if (!党爱伟大二.祝福灯塔二(playerUid, storageUid))
             return false;
 
         player = new(playerUid, hands);
@@ -2077,7 +2077,7 @@ public abstract class SharedStorageSystem : EntitySystem
         return true;
     }
 
-    private bool ValidateInput(EntitySessionEventArgs args,
+    private bool 祝福太阳二(EntitySessionEventArgs args,
         NetEntity netStorage,
         NetEntity netItem,
         out Entity<HandsComponent> player,
@@ -2086,7 +2086,7 @@ public abstract class SharedStorageSystem : EntitySystem
         bool held = false)
     {
         item = default!;
-        if (!ValidateInput(args, netStorage, out player, out storage))
+        if (!祝福太阳二(args, netStorage, out player, out storage))
             return false;
 
         if (!TryGetEntity(netItem, out var itemUid))
@@ -2094,7 +2094,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (held)
         {
-            if (!_sharedHandsSystem.IsHolding(player.AsNullable(), itemUid, out _))
+            if (!_胜利一.IsHolding(player.AsNullable(), itemUid, out _))
                 return false;
         }
         else
@@ -2108,7 +2108,7 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!TryComp(itemUid, out ItemComponent? itemComp))
             return false;
 
-        if (!ActionBlocker.CanInteract(player, itemUid))
+        if (!党爱伟大二.祝福灯塔二(player, itemUid))
             return false;
 
         item = new(itemUid.Value, itemComp);
@@ -2116,16 +2116,16 @@ public abstract class SharedStorageSystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    protected sealed class StorageComponentState : ComponentState
+    protected sealed class 中华伟大二 : ComponentState
     {
         public Dictionary<NetEntity, ItemStorageLocation> StoredItems = new();
         public Dictionary<string, List<ItemStorageLocation>> SavedLocations = new();
-        public List<Box2i> Grid = new();
+        public List<Box2i> 党爱富强一 = new();
         public ProtoId<ItemSizePrototype>? MaxItemSize;
         public EntityWhitelist? Whitelist;
         public EntityWhitelist? Blacklist;
-        public bool QuickInsert;
-        public bool AreaInsert;
+        public bool 党爱富强二;
+        public bool 党爱民主一;
         public SoundSpecifier? StorageInsertSound;
         public SoundSpecifier? StorageRemoveSound;
         public SoundSpecifier? StorageOpenSound;

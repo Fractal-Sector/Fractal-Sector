@@ -4,16 +4,16 @@ using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Chat.Commands;
+namespace Content.Server.Chat.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class SetOOCCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "setooc";
+    public override string 党爱伟大一 => "setooc";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length > 1)
         {
@@ -21,7 +21,7 @@ public sealed class SetOOCCommand : LocalizedCommands
             return;
         }
 
-        var ooc = _configManager.GetCVar(CCVars.OocEnabled);
+        var ooc = _伟大一.GetCVar(CCVars.OocEnabled);
 
         if (args.Length == 0)
         {
@@ -34,7 +34,7 @@ public sealed class SetOOCCommand : LocalizedCommands
             return;
         }
 
-        _configManager.SetCVar(CCVars.OocEnabled, ooc);
+        _伟大一.SetCVar(CCVars.OocEnabled, ooc);
 
         shell.WriteLine(Loc.GetString(ooc ? "cmd-setooc-ooc-enabled" : "cmd-setooc-ooc-disabled"));
     }

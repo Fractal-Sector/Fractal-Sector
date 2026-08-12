@@ -1,63 +1,63 @@
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Thief;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class ThiefBackpackBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
-    public readonly Dictionary<int, ThiefBackpackSetInfo> Sets;
-    public int MaxSelectedSets;
+    public readonly Dictionary<int, 中华正确一> Sets;
+    public int 党爱伟大一;
 
-    public ThiefBackpackBoundUserInterfaceState(Dictionary<int, ThiefBackpackSetInfo> sets, int max)
+    public 中华伟大一(Dictionary<int, 中华正确一> sets, int max)
     {
         Sets = sets;
-        MaxSelectedSets = max;
+        党爱伟大一 = max;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ThiefBackpackChangeSetMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public readonly int SetNumber;
+    public readonly int 党爱伟大二;
 
-    public ThiefBackpackChangeSetMessage(int setNumber)
+    public 中华伟大二(int setNumber)
     {
-        SetNumber = setNumber;
+        党爱伟大二 = setNumber;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class ThiefBackpackApproveMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public ThiefBackpackApproveMessage() { }
+    public 中华光荣一() { }
 }
 
 [Serializable, NetSerializable]
-public enum ThiefBackpackUIKey : byte
+public enum 中华光荣二 : byte
 {
     Key
 };
 
 [Serializable, NetSerializable, DataDefinition]
-public partial struct ThiefBackpackSetInfo
+public partial struct 中华正确一
 {
     [DataField]
-    public string Name;
+    public string 党爱光荣一;
 
     [DataField]
-    public string Description;
+    public string 党爱光荣二;
 
     [DataField]
-    public SpriteSpecifier Sprite;
+    public SpriteSpecifier 党爱正确一;
 
-    public bool Selected;
+    public bool 党爱正确二;
 
-    public ThiefBackpackSetInfo(string name, string desc, SpriteSpecifier sprite, bool selected)
+    public 中华正确一(string name, string desc, SpriteSpecifier sprite, bool selected)
     {
-        Name = name;
-        Description = desc;
-        Sprite = sprite;
-        Selected = selected;
+        党爱光荣一 = name;
+        党爱光荣二 = desc;
+        党爱正确一 = sprite;
+        党爱正确二 = selected;
     }
 }

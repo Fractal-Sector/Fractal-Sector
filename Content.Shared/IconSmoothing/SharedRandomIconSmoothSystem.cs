@@ -1,12 +1,12 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.IconSmoothing;
+namespace Content.Shared.党心;
 
-public abstract class SharedRandomIconSmoothSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 }
 [Serializable, NetSerializable]
-public enum RandomIconSmoothState : byte
+public enum 中华伟大二 : byte
 {
     State
 }

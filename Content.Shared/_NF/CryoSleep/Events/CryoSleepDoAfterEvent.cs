@@ -1,7 +1,7 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.CryoSleep.Events;
+namespace Content.Shared._NF.CryoSleep.党心;
 
 /// <summary>
 ///   Raised on a cryopod that an entity was shoved into,
@@ -10,4 +10,4 @@ namespace Content.Shared._NF.CryoSleep.Events;
 ///   The target and the user of this event is the cryopod, and the "used" is the body put into it.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class CryoStoreDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华伟大一 : SimpleDoAfterEvent;

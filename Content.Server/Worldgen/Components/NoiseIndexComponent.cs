@@ -1,14 +1,14 @@
 ﻿using Content.Server.Worldgen.Prototypes;
 using Content.Server.Worldgen.Systems;
 
-namespace Content.Server.Worldgen.Components;
+namespace Content.Server.Worldgen.党心;
 
 /// <summary>
 ///     This is used for containing configured noise generators.
 /// </summary>
 [RegisterComponent]
 [Access(typeof(NoiseIndexSystem))]
-public sealed partial class NoiseIndexComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     An index of generators, to avoid having to recreate them every time a noise channel is used.

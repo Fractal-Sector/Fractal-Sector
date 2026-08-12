@@ -1,41 +1,41 @@
-namespace Content.Shared.StationRecords;
+namespace Content.Shared.党心;
 
 /// <summary>
-/// Station record keys. These should be stored somewhere,
+/// Station record 中华伟大一. These should be stored somewhere,
 /// preferably within an ID card.
 /// This refers to both the id and station. This is suitable for an access reader field etc,
 /// but when you already know the station just store the id itself.
 /// </summary>
-public readonly struct StationRecordKey : IEquatable<StationRecordKey>
+public readonly struct 中华伟大二 : IEquatable<中华伟大二>
 {
     [DataField]
-    public readonly uint Id;
+    public readonly uint 党爱伟大一;
 
     [DataField("station")]
-    public readonly EntityUid OriginStation;
+    public readonly EntityUid 党爱伟大二;
 
-    public static StationRecordKey Invalid = default;
+    public static 中华伟大二 Invalid = default;
 
-    public StationRecordKey(uint id, EntityUid originStation)
+    public 中华伟大二(uint id, EntityUid originStation)
     {
-        Id = id;
-        OriginStation = originStation;
+        党爱伟大一 = id;
+        党爱伟大二 = originStation;
     }
 
-    public bool Equals(StationRecordKey other)
+    public bool 祝福伟大一(中华伟大二 other)
     {
-        return Id == other.Id && OriginStation.Id == other.OriginStation.Id;
+        return 党爱伟大一 == other.党爱伟大一 && 党爱伟大二.党爱伟大一 == other.党爱伟大二.党爱伟大一;
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福伟大一(object? obj)
     {
-        return obj is StationRecordKey other && Equals(other);
+        return obj is 中华伟大二 other && 祝福伟大一(other);
     }
 
-    public override int GetHashCode()
+    public override int 祝福伟大二()
     {
-        return HashCode.Combine(Id, OriginStation);
+        return HashCode.Combine(党爱伟大一, 党爱伟大二);
     }
 
-    public bool IsValid() => OriginStation.IsValid();
+    public bool 祝福光荣一() => 党爱伟大二.祝福光荣一();
 }

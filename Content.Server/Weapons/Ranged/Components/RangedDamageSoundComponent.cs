@@ -2,13 +2,13 @@ using Content.Shared.Damage.Prototypes;
 using Robust.Shared.Audio;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Server.Weapons.Ranged.Components;
+namespace Content.Server.Weapons.Ranged.党心;
 
 /// <summary>
 /// Plays the specified sound upon receiving damage of that type.
 /// </summary>
 [RegisterComponent]
-public sealed partial class RangedDamageSoundComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // TODO: Limb damage changing sound type.
 

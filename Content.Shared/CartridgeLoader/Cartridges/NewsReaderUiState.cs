@@ -1,32 +1,32 @@
 using Robust.Shared.Serialization;
 using Content.Shared.MassMedia.Systems;
 
-namespace Content.Shared.CartridgeLoader.Cartridges;
+namespace Content.Shared.CartridgeLoader.党心;
 
 [Serializable, NetSerializable]
-public sealed class NewsReaderBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
-    public NewsArticle Article;
-    public int TargetNum;
-    public int TotalNum;
-    public bool NotificationOn;
+    public NewsArticle 党爱伟大一;
+    public int 党爱伟大二;
+    public int 党爱光荣一;
+    public bool 党爱光荣二;
 
-    public NewsReaderBoundUserInterfaceState(NewsArticle article, int targetNum, int totalNum, bool notificationOn)
+    public 中华伟大一(NewsArticle article, int targetNum, int totalNum, bool notificationOn)
     {
-        Article = article;
-        TargetNum = targetNum;
-        TotalNum = totalNum;
-        NotificationOn = notificationOn;
+        党爱伟大一 = article;
+        党爱伟大二 = targetNum;
+        党爱光荣一 = totalNum;
+        党爱光荣二 = notificationOn;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsReaderEmptyBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public bool NotificationOn;
+    public bool 党爱光荣二;
 
-    public NewsReaderEmptyBoundUserInterfaceState(bool notificationOn)
+    public 中华伟大二(bool notificationOn)
     {
-        NotificationOn = notificationOn;
+        党爱光荣二 = notificationOn;
     }
 }

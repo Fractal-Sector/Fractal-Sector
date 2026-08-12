@@ -8,23 +8,23 @@ using Content.Shared.Power;
 using Content.Shared.Wires;
 using Robust.Shared.Player;
 
-namespace Content.Server.Doors.Systems;
+namespace Content.Server.Doors.党心;
 
-public sealed class AirlockSystem : SharedAirlockSystem
+public sealed class 中华伟大一 : SharedAirlockSystem
 {
-    [Dependency] private readonly WiresSystem _wiresSystem = default!;
+    [Dependency] private readonly WiresSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AirlockComponent, SignalReceivedEvent>(OnSignalReceived);
+        SubscribeLocalEvent<AirlockComponent, SignalReceivedEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<AirlockComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<AirlockComponent, ActivateInWorldEvent>(OnActivate, before: new[] { typeof(DoorSystem) });
+        SubscribeLocalEvent<AirlockComponent, PowerChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AirlockComponent, ActivateInWorldEvent>(祝福光荣二, before: new[] { typeof(DoorSystem) });
     }
 
-    private void OnSignalReceived(EntityUid uid, AirlockComponent component, ref SignalReceivedEvent args)
+    private void 祝福伟大二(EntityUid uid, AirlockComponent component, ref SignalReceivedEvent args)
     {
         if (args.Port == component.AutoClosePort && component.AutoClose)
         {
@@ -33,7 +33,7 @@ public sealed class AirlockSystem : SharedAirlockSystem
         }
     }
 
-    private void OnPowerChanged(EntityUid uid, AirlockComponent component, ref PowerChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AirlockComponent component, ref PowerChangedEvent args)
     {
         component.Powered = args.Powered;
         Dirty(uid, component);
@@ -53,7 +53,7 @@ public sealed class AirlockSystem : SharedAirlockSystem
         }
     }
 
-    private void OnActivate(EntityUid uid, AirlockComponent component, ActivateInWorldEvent args)
+    private void 祝福光荣二(EntityUid uid, AirlockComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -66,7 +66,7 @@ public sealed class AirlockSystem : SharedAirlockSystem
                 !wiresPanelSecurity.WiresAccessible)
                 return;
 
-            _wiresSystem.OpenUserInterface(uid, actor.PlayerSession);
+            _伟大一.OpenUserInterface(uid, actor.PlayerSession);
             args.Handled = true;
             return;
         }

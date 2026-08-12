@@ -2,11 +2,11 @@ using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
-    private PathResult UpdateBFSPath(IRobustRandom random, BFSPathRequest request)
+    private PathResult 祝福伟大一(IRobustRandom random, BFSPathRequest request)
     {
         if (request.Task.IsCanceled)
         {

@@ -3,24 +3,24 @@ using Content.Shared.Speech;
 using Content.Server.Speech.EntitySystems;
 using System.Text.RegularExpressions;
 
-namespace Content.Server._NF.Speech.EntitySystems;
+namespace Content.Server._NF.Speech.党心;
 
-public sealed class StreetpunkAccentSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency] private readonly ReplacementAccentSystem _伟大一 = default!;
     private static readonly Regex RegexIng = new(@"ing\b");
     private static readonly Regex RegexAnd = new(@"\band\b");
     private static readonly Regex RegexDve = new("d've");
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StreetpunkAccentComponent, AccentGetEvent>(OnAccentGet);
+        SubscribeLocalEvent<StreetpunkAccentComponent, AccentGetEvent>(祝福光荣一);
     }
 
     // converts left word when typed into the right word. For example typing you becomes ye.
-    public string Accentuate(string message, StreetpunkAccentComponent component)
+    public string 祝福伟大二(string message, StreetpunkAccentComponent component)
     {
         var msg = message;
 
@@ -29,14 +29,14 @@ public sealed class StreetpunkAccentSystem : EntitySystem
         msg = RegexAnd.Replace(msg, "an'");
         msg = RegexDve.Replace(msg, "da");
 
-        msg = _replacement.ApplyReplacements(msg, "streetpunk");
+        msg = _伟大一.ApplyReplacements(msg, "streetpunk");
 
 
         return msg;
     }
 
-    private void OnAccentGet(EntityUid uid, StreetpunkAccentComponent component, AccentGetEvent args)
+    private void 祝福光荣一(EntityUid uid, StreetpunkAccentComponent component, AccentGetEvent args)
     {
-        args.Message = Accentuate(args.Message, component);
+        args.Message = 祝福伟大二(args.Message, component);
     }
 }

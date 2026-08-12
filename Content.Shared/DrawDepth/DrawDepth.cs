@@ -1,10 +1,10 @@
 using Robust.Shared.Serialization;
-using DrawDepthTag = Robust.Shared.GameObjects.DrawDepth;
+using DrawDepthTag = Robust.Shared.GameObjects.中华伟大一;
 
-namespace Content.Shared.DrawDepth
+namespace Content.Shared.党心
 {
     [ConstantsFor(typeof(DrawDepthTag))]
-    public enum DrawDepth
+    public enum 中华伟大一
     {
         /// <summary>
         ///     This is for sub-floors, the floors you see after prying off a tile.

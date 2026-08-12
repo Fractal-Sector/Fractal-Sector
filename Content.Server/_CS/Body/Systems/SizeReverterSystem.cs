@@ -9,50 +9,50 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Server._CS.Body.Systems;
+namespace Content.Server._CS.Body.党心;
 
 /// <summary>
 /// System that handles size reverters - items that revert players to acceptable sizes
 /// when they walk past within a certain range.
 /// </summary>
-public sealed class SizeReverterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SizeManipulationSystem _sizeManipulation = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SizeManipulationSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly AppearanceSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SizeReverterComponent, AnchorStateChangedEvent>(OnAnchorChanged);
-        SubscribeLocalEvent<SizeReverterComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
+        SubscribeLocalEvent<SizeReverterComponent, AnchorStateChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<SizeReverterComponent, UnanchorAttemptEvent>(祝福光荣一);
     }
 
-    private void OnAnchorChanged(EntityUid uid, SizeReverterComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, SizeReverterComponent component, ref AnchorStateChangedEvent args)
     {
         component.IsActive = args.Anchored;
         Dirty(uid, component);
 
-        // Update appearance
-        _appearance.SetData(uid, SizeReverterVisuals.Active, args.Anchored);
+        // 祝福光荣二 appearance
+        _正确一.SetData(uid, SizeReverterVisuals.Active, args.Anchored);
     }
 
-    private void OnUnanchorAttempt(EntityUid uid, SizeReverterComponent component, UnanchorAttemptEvent args)
+    private void 祝福光荣一(EntityUid uid, SizeReverterComponent component, UnanchorAttemptEvent args)
     {
         // Add a 30 second delay to unwrenching
         args.Delay += (float)component.UnanchorDelay.TotalSeconds;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
         var query = EntityQueryEnumerator<SizeReverterComponent, TransformComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
 
         while (query.MoveNext(out var uid, out var reverter, out var xform))
         {
@@ -63,7 +63,7 @@ public sealed class SizeReverterSystem : EntitySystem
             reverter.NextUpdate = curTime + TimeSpan.FromSeconds(reverter.UpdateInterval);
 
             // Get all entities within range
-            var reverterPos = _transform.GetWorldPosition(xform);
+            var reverterPos = _光荣二.GetWorldPosition(xform);
             var nearbyEntities = new List<Entity<MobStateComponent, SizeAffectedComponent, TransformComponent>>();
 
             var mobQuery = EntityQueryEnumerator<MobStateComponent, SizeAffectedComponent, TransformComponent>();
@@ -73,7 +73,7 @@ public sealed class SizeReverterSystem : EntitySystem
                 if (mobXform.MapID != xform.MapID)
                     continue;
 
-                var mobPos = _transform.GetWorldPosition(mobXform);
+                var mobPos = _光荣二.GetWorldPosition(mobXform);
                 var distance = (mobPos - reverterPos).Length();
 
                 // Check if within range
@@ -100,9 +100,9 @@ public sealed class SizeReverterSystem : EntitySystem
                     RaiseLocalEvent(entity, ref recalcEvent);
 
                     // Play subtle effect
-                    PlaySizeReversionEffect(entity);
+                    祝福正确一(entity);
 
-                    _popup.PopupEntity(
+                    _伟大二.PopupEntity(
                         Loc.GetString("size-reverter-normalized-large"),
                         entity,
                         PopupType.Medium);
@@ -118,9 +118,9 @@ public sealed class SizeReverterSystem : EntitySystem
                     RaiseLocalEvent(entity, ref recalcEvent);
 
                     // Play subtle effect
-                    PlaySizeReversionEffect(entity);
+                    祝福正确一(entity);
 
-                    _popup.PopupEntity(
+                    _伟大二.PopupEntity(
                         Loc.GetString("size-reverter-normalized-small"),
                         entity,
                         PopupType.Medium);
@@ -132,13 +132,13 @@ public sealed class SizeReverterSystem : EntitySystem
     /// <summary>
     /// Plays a subtle visual and audio effect when a player's size is reverted
     /// </summary>
-    private void PlaySizeReversionEffect(EntityUid target)
+    private void 祝福正确一(EntityUid target)
     {
         // Spawn a subtle blue sparkle effect at the target's location
         var effect = Spawn("EffectFlashBluespaceQuiet", Transform(target).Coordinates);
 
         // Play a quiet shimmer/whoosh sound
-        _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/teleport_arrival.ogg"), target,
+        _正确二.PlayPvs(new SoundPathSpecifier("/Audio/Effects/teleport_arrival.ogg"), target,
             AudioParams.Default.WithVolume(-8f).WithVariation(0.05f));
     }
 }

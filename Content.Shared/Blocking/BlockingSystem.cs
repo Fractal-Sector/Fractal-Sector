@@ -18,46 +18,46 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Blocking;
+namespace Content.Shared.党心;
 
-public sealed partial class BlockingSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly FixtureSystem _fixtureSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly ActionContainerSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
+    [Dependency] private readonly FixtureSystem _光荣二 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly EntityLookupSystem _团结一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _团结二 = default!;
+    [Dependency] private readonly ExamineSystemShared _奋斗一 = default!;
+    [Dependency] private readonly TurfSystem _奋斗二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         InitializeUser();
 
-        SubscribeLocalEvent<BlockingComponent, GotEquippedHandEvent>(OnEquip);
-        SubscribeLocalEvent<BlockingComponent, GotUnequippedHandEvent>(OnUnequip);
-        SubscribeLocalEvent<BlockingComponent, DroppedEvent>(OnDrop);
+        SubscribeLocalEvent<BlockingComponent, GotEquippedHandEvent>(祝福光荣一);
+        SubscribeLocalEvent<BlockingComponent, GotUnequippedHandEvent>(祝福光荣二);
+        SubscribeLocalEvent<BlockingComponent, DroppedEvent>(祝福正确一);
 
-        SubscribeLocalEvent<BlockingComponent, GetItemActionsEvent>(OnGetActions);
-        SubscribeLocalEvent<BlockingComponent, ToggleActionEvent>(OnToggleAction);
+        SubscribeLocalEvent<BlockingComponent, GetItemActionsEvent>(祝福正确二);
+        SubscribeLocalEvent<BlockingComponent, ToggleActionEvent>(祝福团结一);
 
-        SubscribeLocalEvent<BlockingComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<BlockingComponent, ComponentShutdown>(祝福团结二);
 
-        SubscribeLocalEvent<BlockingComponent, GetVerbsEvent<ExamineVerb>>(OnVerbExamine);
-        SubscribeLocalEvent<BlockingComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<BlockingComponent, GetVerbsEvent<ExamineVerb>>(祝福繁荣二);
+        SubscribeLocalEvent<BlockingComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, BlockingComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, BlockingComponent component, MapInitEvent args)
     {
-        _actionContainer.EnsureAction(uid, ref component.BlockingToggleActionEntity, component.BlockingToggleAction);
+        _伟大二.EnsureAction(uid, ref component.BlockingToggleActionEntity, component.BlockingToggleAction);
         Dirty(uid, component);
     }
 
-    private void OnEquip(EntityUid uid, BlockingComponent component, GotEquippedHandEvent args)
+    private void 祝福光荣一(EntityUid uid, BlockingComponent component, GotEquippedHandEvent args)
     {
         component.User = args.User;
         Dirty(uid, component);
@@ -71,22 +71,22 @@ public sealed partial class BlockingSystem : EntitySystem
         }
     }
 
-    private void OnUnequip(EntityUid uid, BlockingComponent component, GotUnequippedHandEvent args)
+    private void 祝福光荣二(EntityUid uid, BlockingComponent component, GotUnequippedHandEvent args)
     {
-        StopBlockingHelper(uid, component, args.User);
+        祝福繁荣一(uid, component, args.User);
     }
 
-    private void OnDrop(EntityUid uid, BlockingComponent component, DroppedEvent args)
+    private void 祝福正确一(EntityUid uid, BlockingComponent component, DroppedEvent args)
     {
-        StopBlockingHelper(uid, component, args.User);
+        祝福繁荣一(uid, component, args.User);
     }
 
-    private void OnGetActions(EntityUid uid, BlockingComponent component, GetItemActionsEvent args)
+    private void 祝福正确二(EntityUid uid, BlockingComponent component, GetItemActionsEvent args)
     {
         args.AddAction(ref component.BlockingToggleActionEntity, component.BlockingToggleAction);
     }
 
-    private void OnToggleAction(EntityUid uid, BlockingComponent component, ToggleActionEvent args)
+    private void 祝福团结一(EntityUid uid, BlockingComponent component, ToggleActionEvent args)
     {
         if (args.Handled)
             return;
@@ -97,7 +97,7 @@ public sealed partial class BlockingSystem : EntitySystem
         if (!handQuery.TryGetComponent(args.Performer, out var hands))
             return;
 
-        var shields = _handsSystem.EnumerateHeld((args.Performer, hands)).ToArray();
+        var shields = _正确一.EnumerateHeld((args.Performer, hands)).ToArray();
 
         foreach (var shield in shields)
         {
@@ -106,26 +106,26 @@ public sealed partial class BlockingSystem : EntitySystem
 
             if (blockQuery.TryGetComponent(shield, out var otherBlockComp) && otherBlockComp.IsBlocking)
             {
-                CantBlockError(args.Performer);
+                祝福奋斗二(args.Performer);
                 return;
             }
         }
 
         if (component.IsBlocking)
-            StopBlocking(uid, component, args.Performer);
+            祝福胜利二(uid, component, args.Performer);
         else
-            StartBlocking(uid, component, args.Performer);
+            祝福奋斗一(uid, component, args.Performer);
 
         args.Handled = true;
     }
 
-    private void OnShutdown(EntityUid uid, BlockingComponent component, ComponentShutdown args)
+    private void 祝福团结二(EntityUid uid, BlockingComponent component, ComponentShutdown args)
     {
         //In theory the user should not be null when this fires off
         if (component.User != null)
         {
-            _actionsSystem.RemoveProvidedActions(component.User.Value, uid);
-            StopBlockingHelper(uid, component, component.User.Value);
+            _伟大一.RemoveProvidedActions(component.User.Value, uid);
+            祝福繁荣一(uid, component, component.User.Value);
         }
     }
 
@@ -138,7 +138,7 @@ public sealed partial class BlockingSystem : EntitySystem
     /// <param name="component"> The <see cref="BlockingComponent"/></param>
     /// <param name="user"> The entity who's using the item to block</param>
     /// <returns></returns>
-    public bool StartBlocking(EntityUid item, BlockingComponent component, EntityUid user)
+    public bool 祝福奋斗一(EntityUid item, BlockingComponent component, EntityUid user)
     {
         if (component.IsBlocking)
             return false;
@@ -154,46 +154,46 @@ public sealed partial class BlockingSystem : EntitySystem
         //Don't allow someone to block if they're not parented to a grid
         if (xform.GridUid != xform.ParentUid)
         {
-            CantBlockError(user);
+            祝福奋斗二(user);
             return false;
         }
 
         // Don't allow someone to block if they're not holding the shield
-        if (!_handsSystem.IsHolding(user, item, out _))
+        if (!_正确一.IsHolding(user, item, out _))
         {
-            CantBlockError(user);
+            祝福奋斗二(user);
             return false;
         }
 
         //Don't allow someone to block if someone else is on the same tile
-        var playerTileRef = _turf.GetTileRef(xform.Coordinates);
+        var playerTileRef = _奋斗二.GetTileRef(xform.Coordinates);
         if (playerTileRef != null)
         {
-            var intersecting = _lookup.GetLocalEntitiesIntersecting(playerTileRef.Value, 0f);
+            var intersecting = _团结一.GetLocalEntitiesIntersecting(playerTileRef.Value, 0f);
             var mobQuery = GetEntityQuery<MobStateComponent>();
             foreach (var uid in intersecting)
             {
                 if (uid != user && mobQuery.HasComponent(uid))
                 {
-                    TooCloseError(user);
+                    祝福胜利一(user);
                     return false;
                 }
             }
         }
 
         //Don't allow someone to block if they're somehow not anchored.
-        _transformSystem.AnchorEntity(user, xform);
+        _光荣一.AnchorEntity(user, xform);
         if (!xform.Anchored)
         {
-            CantBlockError(user);
+            祝福奋斗二(user);
             return false;
         }
-        _actionsSystem.SetToggled(component.BlockingToggleActionEntity, true);
-        _popupSystem.PopupPredicted(msgUser, msgOther, user, user);
+        _伟大一.SetToggled(component.BlockingToggleActionEntity, true);
+        _正确二.PopupPredicted(msgUser, msgOther, user, user);
 
         if (TryComp<PhysicsComponent>(user, out var physicsComponent))
         {
-            _fixtureSystem.TryCreateFixture(user,
+            _光荣二.TryCreateFixture(user,
                 component.Shape,
                 BlockingComponent.BlockFixtureID,
                 hard: false, // Frontier: true<false, mobs AI abuse.
@@ -207,16 +207,16 @@ public sealed partial class BlockingSystem : EntitySystem
         return true;
     }
 
-    private void CantBlockError(EntityUid user)
+    private void 祝福奋斗二(EntityUid user)
     {
         var msgError = Loc.GetString("action-popup-blocking-user-cant-block");
-        _popupSystem.PopupClient(msgError, user, user);
+        _正确二.PopupClient(msgError, user, user);
     }
 
-    private void TooCloseError(EntityUid user)
+    private void 祝福胜利一(EntityUid user)
     {
         var msgError = Loc.GetString("action-popup-blocking-user-too-close");
-        _popupSystem.PopupClient(msgError, user, user);
+        _正确二.PopupClient(msgError, user, user);
     }
 
     /// <summary>
@@ -226,7 +226,7 @@ public sealed partial class BlockingSystem : EntitySystem
     /// <param name="component"> The <see cref="BlockingComponent"/></param>
     /// <param name="user"> The entity who's using the item to block</param>
     /// <returns></returns>
-    public bool StopBlocking(EntityUid item, BlockingComponent component, EntityUid user)
+    public bool 祝福胜利二(EntityUid item, BlockingComponent component, EntityUid user)
     {
         if (!component.IsBlocking)
             return false;
@@ -245,12 +245,12 @@ public sealed partial class BlockingSystem : EntitySystem
         if (TryComp<BlockingUserComponent>(user, out var blockingUserComponent) && TryComp<PhysicsComponent>(user, out var physicsComponent))
         {
             if (xform.Anchored)
-                _transformSystem.Unanchor(user, xform);
+                _光荣一.Unanchor(user, xform);
 
-            _actionsSystem.SetToggled(component.BlockingToggleActionEntity, false);
-            _fixtureSystem.DestroyFixture(user, BlockingComponent.BlockFixtureID, body: physicsComponent);
-            _physics.SetBodyType(user, blockingUserComponent.OriginalBodyType, body: physicsComponent);
-            _popupSystem.PopupPredicted(msgUser, msgOther, user, user);
+            _伟大一.SetToggled(component.BlockingToggleActionEntity, false);
+            _光荣二.DestroyFixture(user, BlockingComponent.BlockFixtureID, body: physicsComponent);
+            _团结二.SetBodyType(user, blockingUserComponent.OriginalBodyType, body: physicsComponent);
+            _正确二.PopupPredicted(msgUser, msgOther, user, user);
         }
 
         component.IsBlocking = false;
@@ -266,10 +266,10 @@ public sealed partial class BlockingSystem : EntitySystem
     /// <param name="uid"> The item the component is attached to</param>
     /// <param name="component"> The <see cref="BlockingComponent"/> </param>
     /// <param name="user"> The person holding the blocking item </param>
-    private void StopBlockingHelper(EntityUid uid, BlockingComponent component, EntityUid user)
+    private void 祝福繁荣一(EntityUid uid, BlockingComponent component, EntityUid user)
     {
         if (component.IsBlocking)
-            StopBlocking(uid, component, user);
+            祝福胜利二(uid, component, user);
 
         var userQuery = GetEntityQuery<BlockingUserComponent>();
         var handQuery = GetEntityQuery<HandsComponent>();
@@ -277,7 +277,7 @@ public sealed partial class BlockingSystem : EntitySystem
         if (!handQuery.TryGetComponent(user, out var hands))
             return;
 
-        var shields = _handsSystem.EnumerateHeld((user, hands)).ToArray();
+        var shields = _正确一.EnumerateHeld((user, hands)).ToArray();
 
         foreach (var shield in shields)
         {
@@ -292,7 +292,7 @@ public sealed partial class BlockingSystem : EntitySystem
         component.User = null;
     }
 
-    private void OnVerbExamine(EntityUid uid, BlockingComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福繁荣二(EntityUid uid, BlockingComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -303,16 +303,16 @@ public sealed partial class BlockingSystem : EntitySystem
         var msg = new FormattedMessage();
         msg.AddMarkupOrThrow(Loc.GetString("blocking-fraction", ("value", MathF.Round(fraction * 100, 1))));
 
-        AppendCoefficients(modifier, msg);
+        祝福富强一(modifier, msg);
 
-        _examine.AddDetailedExamineVerb(args, component, msg,
+        _奋斗一.AddDetailedExamineVerb(args, component, msg,
             Loc.GetString("blocking-examinable-verb-text"),
             "/Textures/Interface/VerbIcons/dot.svg.192dpi.png",
             Loc.GetString("blocking-examinable-verb-message")
         );
     }
 
-    private void AppendCoefficients(DamageModifierSet modifiers, FormattedMessage msg)
+    private void 祝福富强一(DamageModifierSet modifiers, FormattedMessage msg)
     {
         foreach (var coefficient in modifiers.Coefficients)
         {

@@ -5,49 +5,49 @@ using Content.Shared.Shuttles.Components;
 using Robust.Shared.Prototypes; // Mono
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.Shuttles.Components
+namespace Content.Server.Shuttles.党心
 {
     [RegisterComponent]
-    public sealed partial class ShuttleConsoleComponent : SharedShuttleConsoleComponent
+    public sealed partial class 中华伟大一 : SharedShuttleConsoleComponent
     {
         [ViewVariables]
-        public readonly List<EntityUid> SubscribedPilots = new();
+        public readonly List<EntityUid> 党爱伟大一 = new();
 
         /// <summary>
         /// How much should the pilot's eye be zoomed by when piloting using this console?
         /// </summary>
         [DataField("zoom")]
-        public Vector2 Zoom = new(1.5f, 1.5f);
+        public Vector2 党爱伟大二 = new(1.5f, 1.5f);
 
         /// <summary>
         /// Should this console have access to restricted FTL destinations?
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite), DataField("whitelistSpecific")]
-        public List<EntityUid> FTLWhitelist = new List<EntityUid>();
+        public List<EntityUid> 党爱光荣一 = new List<EntityUid>();
 
         // Frontier: EMP-related state
         /// <summary>
         /// For EMP to allow keeping the shuttle off
         /// </summary>
         [DataField("enabled")]
-        public bool MainBreakerEnabled = true;
+        public bool 党爱光荣二 = true;
 
         /// <summary>
         ///     While disabled by EMP
         /// </summary>
         [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
-        public TimeSpan TimeoutFromEmp = TimeSpan.Zero;
+        public TimeSpan 党爱正确一 = TimeSpan.Zero;
 
         [DataField]
-        public float DisableDuration = 60f;
+        public float 党爱正确二 = 60f;
 
         [DataField]
-        public InertiaDampeningMode DampeningMode = InertiaDampeningMode.Dampen;
+        public InertiaDampeningMode 党爱团结一 = InertiaDampeningMode.Dampen;
         // End Frontier
 
         // Mono: Network Port Button Source Ports
         [DataField]
-        public List<ProtoId<SourcePortPrototype>> SourcePorts = new()
+        public List<ProtoId<SourcePortPrototype>> 党爱团结二 = new()
         {
             "device-button-1",
             "device-button-2",

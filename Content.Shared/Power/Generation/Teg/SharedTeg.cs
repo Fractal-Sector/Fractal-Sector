@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Power.Generation.Teg;
+namespace Content.Shared.Power.Generation.党心;
 
 /// <summary>
 /// Appearance keys for the TEG &amp; its circulators.
 /// </summary>
 [Serializable, NetSerializable]
-public enum TegVisuals
+public enum 中华伟大一
 {
     PowerOutput,
     CirculatorSpeed,
@@ -17,7 +17,7 @@ public enum TegVisuals
 /// Visual sprite layers for the TEG &amp; its circulators.
 /// </summary>
 [Serializable, NetSerializable]
-public enum TegVisualLayers
+public enum 中华伟大二
 {
     PowerOutput,
     CirculatorBase,
@@ -28,7 +28,7 @@ public enum TegVisualLayers
 /// Visual speed levels for the TEG circulators.
 /// </summary>
 [Serializable, NetSerializable]
-public enum TegCirculatorSpeed
+public enum 中华光荣一
 {
     SpeedStill,
     SpeedSlow,

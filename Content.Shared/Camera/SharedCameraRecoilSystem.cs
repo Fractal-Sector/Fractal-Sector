@@ -5,10 +5,10 @@ using JetBrains.Annotations;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Camera;
+namespace Content.Shared.党心;
 
 [UsedImplicitly]
-public abstract class SharedCameraRecoilSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     /// <summary>
     ///     Maximum rate of magnitude restore towards 0 kick.
@@ -28,17 +28,17 @@ public abstract class SharedCameraRecoilSystem : EntitySystem
     /// <summary>
     ///     The maximum magnitude of the kick applied to the camera at any point.
     /// </summary>
-    protected const float KickMagnitudeMax = 1f;
+    protected const float 党爱伟大一 = 1f;
 
-    [Dependency] private readonly SharedContentEyeSystem _eye = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedContentEyeSystem _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<CameraRecoilComponent, GetEyeOffsetEvent>(OnCameraRecoilGetEyeOffset);
+        SubscribeLocalEvent<CameraRecoilComponent, GetEyeOffsetEvent>(祝福伟大二);
     }
 
-    private void OnCameraRecoilGetEyeOffset(Entity<CameraRecoilComponent> ent, ref GetEyeOffsetEvent args)
+    private void 祝福伟大二(Entity<CameraRecoilComponent> ent, ref GetEyeOffsetEvent args)
     {
         args.Offset += ent.Comp.BaseOffset + ent.Comp.CurrentKick;
     }
@@ -50,9 +50,9 @@ public abstract class SharedCameraRecoilSystem : EntitySystem
     ///     If the entity is missing <see cref="CameraRecoilComponent" /> and/or <see cref="EyeComponent" />,
     ///     this call will have no effect. It is safe to call this function on any entity.
     /// </remarks>
-    public abstract void KickCamera(EntityUid euid, Vector2 kickback, CameraRecoilComponent? component = null);
+    public abstract void 祝福光荣一(EntityUid euid, Vector2 kickback, CameraRecoilComponent? component = null);
 
-    private void UpdateEyes(float frameTime)
+    private void 祝福光荣二(float frameTime)
     {
         var query = AllEntityQuery<CameraRecoilComponent, EyeComponent>();
 
@@ -83,32 +83,32 @@ public abstract class SharedCameraRecoilSystem : EntitySystem
                 continue;
 
             recoil.LastKick = recoil.CurrentKick;
-            _eye.UpdateEyeOffset((uid, eye));
+            _伟大一.UpdateEyeOffset((uid, eye));
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        if (_net.IsServer)
-            UpdateEyes(frameTime);
+        if (_伟大二.IsServer)
+            祝福光荣二(frameTime);
     }
 
-    public override void FrameUpdate(float frameTime)
+    public override void 祝福正确二(float frameTime)
     {
-        UpdateEyes(frameTime);
+        祝福光荣二(frameTime);
     }
 }
 
 [Serializable]
 [NetSerializable]
-public sealed class CameraKickEvent : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
-    public readonly NetEntity NetEntity;
-    public readonly Vector2 Recoil;
+    public readonly 党爱伟大二 党爱伟大二;
+    public readonly Vector2 党爱光荣一;
 
-    public CameraKickEvent(NetEntity netEntity, Vector2 recoil)
+    public 中华伟大二(党爱伟大二 netEntity, Vector2 recoil)
     {
-        Recoil = recoil;
-        NetEntity = netEntity;
+        党爱光荣一 = recoil;
+        党爱伟大二 = netEntity;
     }
 }

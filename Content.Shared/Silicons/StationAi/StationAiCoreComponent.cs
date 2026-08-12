@@ -1,13 +1,13 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Silicons.StationAi;
+namespace Content.Shared.Silicons.党心;
 
 /// <summary>
 /// Indicates this entity can interact with station equipment and is a "Station AI".
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class StationAiCoreComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /*
      * I couldn't think of any other reason you'd want to split these out.
@@ -18,7 +18,7 @@ public sealed partial class StationAiCoreComponent : Component
     /// When false, the AI is being projected into a local area, such as a holopad
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Remote = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// The invisible eye entity being used to look around.
@@ -38,7 +38,7 @@ public sealed partial class StationAiCoreComponent : Component
     [DataField(readOnly: true)]
     public EntProtoId? PhysicalEntityProto = "StationAiHoloLocal";
 
-    public const string Container = "station_ai_mind_slot";
+    public const string 党爱伟大二 = "station_ai_mind_slot";
 }
 
 /// <summary>
@@ -46,4 +46,4 @@ public sealed partial class StationAiCoreComponent : Component
 /// </summary>
 /// <param name="NewRemoteEntity">The entity UID of the replacement entity</param>
 [ByRefEvent]
-public record struct StationAiRemoteEntityReplacementEvent(EntityUid? NewRemoteEntity);
+public record 中华伟大二 StationAiRemoteEntityReplacementEvent(EntityUid? NewRemoteEntity);

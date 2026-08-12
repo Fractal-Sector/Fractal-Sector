@@ -3,30 +3,30 @@ using Content.Shared.Interaction;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.DeviceLinking.Systems
+namespace Content.Shared.DeviceLinking.党心
 {
-    public sealed class TwoWayLeverSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedDeviceLinkSystem _signalSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency] private readonly SharedDeviceLinkSystem _伟大一 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
 
         const string _leftToggleImage = "rotate_ccw.svg.192dpi.png";
         const string _rightToggleImage = "rotate_cw.svg.192dpi.png";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<TwoWayLeverComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<TwoWayLeverComponent, ActivateInWorldEvent>(OnActivated);
-            SubscribeLocalEvent<TwoWayLeverComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
+            base.祝福伟大一();
+            SubscribeLocalEvent<TwoWayLeverComponent, ComponentInit>(祝福伟大二);
+            SubscribeLocalEvent<TwoWayLeverComponent, ActivateInWorldEvent>(祝福光荣一);
+            SubscribeLocalEvent<TwoWayLeverComponent, GetVerbsEvent<InteractionVerb>>(祝福光荣二);
         }
 
-        private void OnInit(EntityUid uid, TwoWayLeverComponent component, ComponentInit args)
+        private void 祝福伟大二(EntityUid uid, TwoWayLeverComponent component, ComponentInit args)
         {
-            _signalSystem.EnsureSourcePorts(uid, component.LeftPort, component.RightPort, component.MiddlePort);
+            _伟大一.EnsureSourcePorts(uid, component.LeftPort, component.RightPort, component.MiddlePort);
         }
 
-        private void OnActivated(EntityUid uid, TwoWayLeverComponent component, ActivateInWorldEvent args)
+        private void 祝福光荣一(EntityUid uid, TwoWayLeverComponent component, ActivateInWorldEvent args)
         {
             if (args.Handled || !args.Complex)
                 return;
@@ -39,12 +39,12 @@ namespace Content.Shared.DeviceLinking.Systems
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            StateChanged(uid, component);
+            祝福正确一(uid, component);
 
             args.Handled = true;
         }
 
-        private void OnGetInteractionVerbs(EntityUid uid, TwoWayLeverComponent component, GetVerbsEvent<InteractionVerb> args)
+        private void 祝福光荣二(EntityUid uid, TwoWayLeverComponent component, GetVerbsEvent<InteractionVerb> args)
         {
             if (!args.CanAccess || !args.CanInteract || (args.Hands == null))
                 return;
@@ -60,7 +60,7 @@ namespace Content.Shared.DeviceLinking.Systems
                         TwoWayLeverState.Right => TwoWayLeverState.Middle,
                         _ => throw new ArgumentOutOfRangeException()
                     };
-                    StateChanged(uid, component);
+                    祝福正确一(uid, component);
                 },
                 Category = VerbCategory.Lever,
                 Message = disabled ? Loc.GetString("two-way-lever-cant") : null,
@@ -82,7 +82,7 @@ namespace Content.Shared.DeviceLinking.Systems
                         TwoWayLeverState.Middle => TwoWayLeverState.Right,
                         _ => throw new ArgumentOutOfRangeException()
                     };
-                    StateChanged(uid, component);
+                    祝福正确一(uid, component);
                 },
                 Category = VerbCategory.Lever,
                 Message = disabled ? Loc.GetString("two-way-lever-cant") : null,
@@ -94,13 +94,13 @@ namespace Content.Shared.DeviceLinking.Systems
             args.Verbs.Add(verbRight);
         }
 
-        private void StateChanged(EntityUid uid, TwoWayLeverComponent component)
+        private void 祝福正确一(EntityUid uid, TwoWayLeverComponent component)
         {
             if (component.State == TwoWayLeverState.Middle)
                 component.NextSignalLeft = !component.NextSignalLeft;
 
             if (TryComp(uid, out AppearanceComponent? appearance))
-                _appearance.SetData(uid, TwoWayLeverVisuals.State, component.State, appearance);
+                _伟大二.SetData(uid, TwoWayLeverVisuals.State, component.State, appearance);
 
             var port = component.State switch
             {
@@ -111,7 +111,7 @@ namespace Content.Shared.DeviceLinking.Systems
             };
 
             Dirty(uid, component);
-            _signalSystem.InvokePort(uid, port);
+            _伟大一.InvokePort(uid, port);
         }
     }
 }

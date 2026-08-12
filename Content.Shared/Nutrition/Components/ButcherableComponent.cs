@@ -3,13 +3,13 @@ using Content.Shared.Storage;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization; // EE
 
-namespace Content.Shared.Nutrition.Components;
+namespace Content.Shared.Nutrition.党心;
 
 /// <summary>
 /// Indicates that the entity can be butchered.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ButcherableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// List of the entities that this entity should spawn after being butchered.
@@ -18,22 +18,22 @@ public sealed partial class ButcherableComponent : Component
     /// Note that <see cref="SharedKitchenSpikeSystem"/> spawns one item at a time and decreases the amount until it's zero and then removes the entry.
     /// </remarks>
     [DataField("spawned", required: true), AutoNetworkedField]
-    public List<EntitySpawnEntry> SpawnedEntities = [];
+    public List<EntitySpawnEntry> 党爱伟大一 = [];
 
     /// <summary>
     /// Time required to butcher that entity.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float ButcherDelay = 8.0f;
+    public float 党爱伟大二 = 8.0f;
 
     /// <summary>
     /// Tool type used to butcher that entity.
     /// </summary>
     [DataField("butcheringType"), AutoNetworkedField]
-    public ButcheringType Type = ButcheringType.Knife;
+    public 中华伟大二 Type = 中华伟大二.Knife;
 }
 
-public enum ButcheringType : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     /// E.g. goliaths.

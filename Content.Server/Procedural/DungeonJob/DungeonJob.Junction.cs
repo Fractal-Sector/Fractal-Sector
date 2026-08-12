@@ -5,14 +5,14 @@ using Content.Shared.Procedural.PostGeneration;
 using Content.Shared.Storage;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="JunctionDunGen"/>
     /// </summary>
-    private async Task PostGen(JunctionDunGen gen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task 祝福伟大一(JunctionDunGen gen, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
     {
         var tileDef = _tileDefManager[gen.Tile];
         var contents = _prototype.Index(gen.Contents);

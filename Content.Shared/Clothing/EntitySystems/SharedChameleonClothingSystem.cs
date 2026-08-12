@@ -12,19 +12,19 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
-public abstract class SharedChameleonClothingSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ClothingSystem _clothingSystem = default!;
-    [Dependency] private readonly ContrabandSystem _contraband = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedItemSystem _itemSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] protected readonly IGameTiming _timing = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly ClothingSystem _伟大二 = default!;
+    [Dependency] private readonly ContrabandSystem _光荣一 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣二 = default!;
+    [Dependency] private readonly SharedItemSystem _正确一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确二 = default!;
+    [Dependency] private readonly TagSystem _团结一 = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private readonly LockSystem _团结二 = default!;
 
     private static readonly SlotFlags[] IgnoredSlots =
     {
@@ -37,32 +37,32 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
     private readonly Dictionary<SlotFlags, List<EntProtoId>> _data = new();
 
     public readonly Dictionary<SlotFlags, List<string>> ValidVariants = new();
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱伟大二 = default!;
 
     private static readonly ProtoId<TagPrototype> WhitelistChameleonTag = "WhitelistChameleon";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ChameleonClothingComponent, GotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<ChameleonClothingComponent, GotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<ChameleonClothingComponent, GetVerbsEvent<InteractionVerb>>(OnVerb);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ChameleonClothingComponent, GotEquippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<ChameleonClothingComponent, GotUnequippedEvent>(祝福光荣二);
+        SubscribeLocalEvent<ChameleonClothingComponent, GetVerbsEvent<InteractionVerb>>(祝福正确二);
 
-        SubscribeLocalEvent<ChameleonClothingComponent, PrototypesReloadedEventArgs>(OnPrototypeReload);
-        PrepareAllVariants();
+        SubscribeLocalEvent<ChameleonClothingComponent, PrototypesReloadedEventArgs>(祝福伟大二);
+        祝福奋斗二();
     }
 
-    private void OnPrototypeReload(EntityUid uid, ChameleonClothingComponent component, PrototypesReloadedEventArgs args)
+    private void 祝福伟大二(EntityUid uid, ChameleonClothingComponent component, PrototypesReloadedEventArgs args)
     {
-        PrepareAllVariants();
+        祝福奋斗二();
     }
 
-    private void OnGotEquipped(EntityUid uid, ChameleonClothingComponent component, GotEquippedEvent args)
+    private void 祝福光荣一(EntityUid uid, ChameleonClothingComponent component, GotEquippedEvent args)
     {
         component.User = args.Equipee;
     }
 
-    private void OnGotUnequipped(EntityUid uid, ChameleonClothingComponent component, GotUnequippedEvent args)
+    private void 祝福光荣二(EntityUid uid, ChameleonClothingComponent component, GotUnequippedEvent args)
     {
         component.User = null;
     }
@@ -71,42 +71,42 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
     // This function is called on a server after user selected new outfit.
     // And after that on a client after state was updated.
     // This 100% makes sure that server and client have exactly same data.
-    protected void UpdateVisuals(EntityUid uid, ChameleonClothingComponent component)
+    protected void 祝福正确一(EntityUid uid, ChameleonClothingComponent component)
     {
         if (string.IsNullOrEmpty(component.Default) ||
-            !_proto.TryIndex(component.Default, out EntityPrototype? proto))
+            !_伟大一.TryIndex(component.Default, out EntityPrototype? proto))
             return;
 
         // world sprite icon
-        UpdateSprite(uid, proto);
+        祝福团结一(uid, proto);
 
         // copy name and description, unless its an ID card
         if (!HasComp<IdCardComponent>(uid))
         {
             var meta = MetaData(uid);
-            _metaData.SetEntityName(uid, proto.Name, meta);
-            _metaData.SetEntityDescription(uid, proto.Description, meta);
+            _光荣二.SetEntityName(uid, proto.Name, meta);
+            _光荣二.SetEntityDescription(uid, proto.Description, meta);
         }
 
         // item sprite logic
         if (TryComp(uid, out ItemComponent? item) &&
             proto.TryGetComponent(out ItemComponent? otherItem, Factory))
         {
-            _itemSystem.CopyVisuals(uid, otherItem, item);
+            _正确一.CopyVisuals(uid, otherItem, item);
         }
 
         // clothing sprite logic
         if (TryComp(uid, out ClothingComponent? clothing) &&
             proto.TryGetComponent("Clothing", out ClothingComponent? otherClothing))
         {
-            _clothingSystem.CopyVisuals(uid, otherClothing, clothing);
+            _伟大二.CopyVisuals(uid, otherClothing, clothing);
         }
 
         // appearance data logic
         if (TryComp(uid, out AppearanceComponent? appearance) &&
             proto.TryGetComponent("Appearance", out AppearanceComponent? appearanceOther))
         {
-            _appearance.AppendData(appearanceOther, uid);
+            _正确二.AppendData(appearanceOther, uid);
             Dirty(uid, appearance);
         }
 
@@ -114,7 +114,7 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
         if (proto.TryGetComponent("Contraband", out ContrabandComponent? contra))
         {
             EnsureComp<ContrabandComponent>(uid, out var current);
-            _contraband.CopyDetails(uid, contra, current);
+            _光荣一.CopyDetails(uid, contra, current);
         }
         else
         {
@@ -122,9 +122,9 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
         }
     }
 
-    private void OnVerb(Entity<ChameleonClothingComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
+    private void 祝福正确二(Entity<ChameleonClothingComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || _lock.IsLocked(ent.Owner))
+        if (!args.CanAccess || !args.CanInteract || _团结二.IsLocked(ent.Owner))
             return;
 
         // Can't pass args from a ref event inside of lambdas
@@ -134,26 +134,26 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
         {
             Text = Loc.GetString("chameleon-component-verb-text"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
-            Act = () => UI.TryToggleUi(ent.Owner, ChameleonUiKey.Key, user)
+            Act = () => 党爱伟大二.TryToggleUi(ent.Owner, ChameleonUiKey.Key, user)
         });
     }
 
-    protected virtual void UpdateSprite(EntityUid uid, EntityPrototype proto) { }
+    protected virtual void 祝福团结一(EntityUid uid, EntityPrototype proto) { }
 
     /// <summary>
     ///     Check if this entity prototype is valid target for chameleon item.
     /// </summary>
-    public bool IsValidTarget(EntityPrototype proto, SlotFlags chameleonSlot = SlotFlags.NONE, string? requiredTag = null)
+    public bool 祝福团结二(EntityPrototype proto, SlotFlags chameleonSlot = SlotFlags.NONE, string? requiredTag = null)
     {
         // check if entity is valid
         if (proto.Abstract || proto.HideSpawnMenu)
             return false;
 
         // check if it is marked as valid chameleon target
-        if (!proto.TryGetComponent(out TagComponent? tag, Factory) || !_tag.HasTag(tag, WhitelistChameleonTag))
+        if (!proto.TryGetComponent(out TagComponent? tag, Factory) || !_团结一.HasTag(tag, WhitelistChameleonTag))
             return false;
 
-        if (requiredTag != null && !_tag.HasTag(tag, requiredTag))
+        if (requiredTag != null && !_团结一.HasTag(tag, requiredTag))
             return false;
 
         // check if it's valid clothing
@@ -168,14 +168,14 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
     /// <summary>
     ///     Get a list of valid chameleon targets for these slots.
     /// </summary>
-    public IEnumerable<EntProtoId> GetValidTargets(SlotFlags slot, string? tag = null)
+    public IEnumerable<EntProtoId> 祝福奋斗一(SlotFlags slot, string? tag = null)
     {
         var validTargets = new List<EntProtoId>();
         if (tag != null)
         {
             foreach (var proto in _data[slot])
             {
-                if (IsValidTarget(_proto.Index(proto), slot, tag))
+                if (祝福团结二(_伟大一.Index(proto), slot, tag))
                     validTargets.Add(proto);
             }
         }
@@ -187,15 +187,15 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
         return validTargets;
     }
 
-    protected void PrepareAllVariants()
+    protected void 祝福奋斗二()
     {
         _data.Clear();
-        var prototypes = _proto.EnumeratePrototypes<EntityPrototype>();
+        var prototypes = _伟大一.EnumeratePrototypes<EntityPrototype>();
 
         foreach (var proto in prototypes)
         {
             // check if this is valid clothing
-            if (!IsValidTarget(proto))
+            if (!祝福团结二(proto))
                 continue;
             if (!proto.TryGetComponent(out ClothingComponent? item, Factory))
                 continue;

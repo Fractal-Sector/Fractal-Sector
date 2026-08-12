@@ -4,28 +4,28 @@ using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Power.EntitySystems;
 
-namespace Content.Shared.Atmos.Piping.Unary.Systems;
+namespace Content.Shared.Atmos.Piping.Unary.党心;
 
-public abstract class SharedGasThermoMachineSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GasThermoMachineComponent, ExaminedEvent>(OnExamined);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GasThermoMachineComponent, ExaminedEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<GasThermoMachineComponent, GasThermomachineToggleMessage>(OnToggleMessage);
-        SubscribeLocalEvent<GasThermoMachineComponent, GasThermomachineChangeTemperatureMessage>(OnChangeTemperature);
+        SubscribeLocalEvent<GasThermoMachineComponent, GasThermomachineToggleMessage>(祝福光荣二);
+        SubscribeLocalEvent<GasThermoMachineComponent, GasThermomachineChangeTemperatureMessage>(祝福正确一);
     }
 
-    private void OnExamined(EntityUid uid, GasThermoMachineComponent thermoMachine, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, GasThermoMachineComponent thermoMachine, ExaminedEvent args)
     {
         if (Loc.TryGetString("gas-thermomachine-system-examined",
                 out var str,
-                ("machineName", !IsHeater(thermoMachine) ? "freezer" : "heater"),
-                ("tempColor", !IsHeater(thermoMachine) ? "deepskyblue" : "red"),
+                ("machineName", !祝福光荣一(thermoMachine) ? "freezer" : "heater"),
+                ("tempColor", !祝福光荣一(thermoMachine) ? "deepskyblue" : "red"),
                 ("temp", Math.Round(thermoMachine.TargetTemperature, 2))
             ))
         {
@@ -33,29 +33,29 @@ public abstract class SharedGasThermoMachineSystem : EntitySystem
         }
     }
 
-    public bool IsHeater(GasThermoMachineComponent comp)
+    public bool 祝福光荣一(GasThermoMachineComponent comp)
     {
         return comp.Cp >= 0;
     }
 
-    private void OnToggleMessage(EntityUid uid, GasThermoMachineComponent thermoMachine, GasThermomachineToggleMessage args)
+    private void 祝福光荣二(EntityUid uid, GasThermoMachineComponent thermoMachine, GasThermomachineToggleMessage args)
     {
-        var powerState = _receiver.TryTogglePower(uid, user: args.Actor); // Frontier: Upstream - #28984
-        _adminLogger.Add(LogType.AtmosPowerChanged, $"{ToPrettyString(args.Actor)} turned {(powerState ? "On" : "Off")} {ToPrettyString(uid)}");
-        DirtyUI(uid, thermoMachine);
+        var powerState = _伟大二.TryTogglePower(uid, user: args.Actor); // Frontier: Upstream - #28984
+        _伟大一.Add(LogType.AtmosPowerChanged, $"{ToPrettyString(args.Actor)} turned {(powerState ? "On" : "Off")} {ToPrettyString(uid)}");
+        祝福正确二(uid, thermoMachine);
     }
 
-    private void OnChangeTemperature(EntityUid uid, GasThermoMachineComponent thermoMachine, GasThermomachineChangeTemperatureMessage args)
+    private void 祝福正确一(EntityUid uid, GasThermoMachineComponent thermoMachine, GasThermomachineChangeTemperatureMessage args)
     {
-        if (IsHeater(thermoMachine))
+        if (祝福光荣一(thermoMachine))
             thermoMachine.TargetTemperature = MathF.Min(args.Temperature, thermoMachine.MaxTemperature);
         else
             thermoMachine.TargetTemperature = MathF.Max(args.Temperature, thermoMachine.MinTemperature);
         thermoMachine.TargetTemperature = MathF.Max(thermoMachine.TargetTemperature, Atmospherics.TCMB);
-        _adminLogger.Add(LogType.AtmosTemperatureChanged, $"{ToPrettyString(args.Actor)} set temperature on {ToPrettyString(uid)} to {thermoMachine.TargetTemperature}");
+        _伟大一.Add(LogType.AtmosTemperatureChanged, $"{ToPrettyString(args.Actor)} set temperature on {ToPrettyString(uid)} to {thermoMachine.TargetTemperature}");
         Dirty(uid, thermoMachine);
-        DirtyUI(uid, thermoMachine);
+        祝福正确二(uid, thermoMachine);
     }
 
-    protected virtual void DirtyUI(EntityUid uid, GasThermoMachineComponent? thermoMachine, UserInterfaceComponent? ui=null) {}
+    protected virtual void 祝福正确二(EntityUid uid, GasThermoMachineComponent? thermoMachine, UserInterfaceComponent? ui=null) {}
 }

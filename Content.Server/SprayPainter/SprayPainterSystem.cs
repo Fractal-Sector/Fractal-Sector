@@ -18,43 +18,43 @@ using Robust.Server.GameObjects;
 using System.Linq;
 using System.Numerics;
 
-namespace Content.Server.SprayPainter;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Handles spraying pipes and decals using a spray painter.
 /// Other paintable objects are handled in shared.
 /// </summary>
-public sealed class SprayPainterSystem : SharedSprayPainterSystem
+public sealed class 中华伟大一 : SharedSprayPainterSystem
 {
-    [Dependency] private readonly AtmosPipeColorSystem _pipeColor = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly ChargesSystem _charges = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly AtmosPipeColorSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly DecalSystem _光荣一 = default!;
+    [Dependency] private readonly AudioSystem _光荣二 = default!;
+    [Dependency] private readonly ChargesSystem _正确一 = default!;
+    [Dependency] private readonly TransformSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SprayPainterComponent, SprayPainterPipeDoAfterEvent>(OnPipeDoAfter);
-        SubscribeLocalEvent<SprayPainterComponent, AfterInteractEvent>(OnFloorAfterInteract);
-        SubscribeLocalEvent<AtmosPipeColorComponent, InteractUsingEvent>(OnPipeInteract);
-        SubscribeLocalEvent<GasCanisterComponent, EntityPaintedEvent>(OnCanisterPainted);
+        SubscribeLocalEvent<SprayPainterComponent, SprayPainterPipeDoAfterEvent>(祝福正确一);
+        SubscribeLocalEvent<SprayPainterComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<AtmosPipeColorComponent, InteractUsingEvent>(祝福正确二);
+        SubscribeLocalEvent<GasCanisterComponent, EntityPaintedEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// Handles drawing decals when a spray painter is used to interact with the floor.
     /// Spray painter must have decal painting enabled and enough charges of paint to paint on the floor.
     /// </summary>
-    private void OnFloorAfterInteract(Entity<SprayPainterComponent> ent, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<SprayPainterComponent> ent, ref AfterInteractEvent args)
     {
         if (args.Handled || args.Target != null)
             return;
 
         if (ent.Comp.ColorPickerEnabled)
         {
-            PickColor(ent, ref args);
+            祝福团结一(ent, ref args);
             return;
         }
 
@@ -68,7 +68,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         args.Handled = true;
         if (TryComp(ent, out LimitedChargesComponent? charges) && charges.LastCharges < ent.Comp.DecalChargeCost)
         {
-            _popup.PopupEntity(Loc.GetString("spray-painter-interact-no-charges"), args.User, args.User);
+            _伟大二.PopupEntity(Loc.GetString("spray-painter-interact-no-charges"), args.User, args.User);
             return;
         }
 
@@ -81,34 +81,34 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             // Offset painting for adding decals
             position = position.Offset(new(-0.5f));
 
-            if (!_decals.TryAddDecal(ent.Comp.SelectedDecal, position, out _, ent.Comp.SelectedDecalColor, Angle.FromDegrees(ent.Comp.SelectedDecalAngle), 0, false))
+            if (!_光荣一.TryAddDecal(ent.Comp.SelectedDecal, position, out _, ent.Comp.SelectedDecalColor, Angle.FromDegrees(ent.Comp.SelectedDecalAngle), 0, false))
                 return;
         }
         else
         {
-            var gridUid = _transform.GetGrid(args.ClickLocation);
+            var gridUid = _正确二.GetGrid(args.ClickLocation);
             if (gridUid is not { } grid || !TryComp<DecalGridComponent>(grid, out var decalGridComp))
             {
-                _popup.PopupEntity(Loc.GetString("spray-painter-interact-nothing-to-remove"), args.User, args.User);
+                _伟大二.PopupEntity(Loc.GetString("spray-painter-interact-nothing-to-remove"), args.User, args.User);
                 return;
             }
 
-            var decals = _decals.GetDecalsInRange(grid, position.Position, validDelegate: IsDecalValid);
+            var decals = _光荣一.GetDecalsInRange(grid, position.Position, validDelegate: 祝福光荣一);
             if (decals.Count <= 0)
             {
-                _popup.PopupEntity(Loc.GetString("spray-painter-interact-nothing-to-remove"), args.User, args.User);
+                _伟大二.PopupEntity(Loc.GetString("spray-painter-interact-nothing-to-remove"), args.User, args.User);
                 return;
             }
 
             foreach (var decal in decals)
             {
-                _decals.RemoveDecal(grid, decal.Index, decalGridComp);
+                _光荣一.RemoveDecal(grid, decal.Index, decalGridComp);
             }
         }
 
-        _audio.PlayPvs(ent.Comp.SpraySound, ent);
+        _光荣二.PlayPvs(ent.Comp.SpraySound, ent);
 
-        _charges.TryUseCharges((ent, charges), ent.Comp.DecalChargeCost);
+        _正确一.TryUseCharges((ent, charges), ent.Comp.DecalChargeCost);
 
         AdminLogger.Add(LogType.CrayonDraw, LogImpact.Low, $"{EntityManager.ToPrettyString(args.User):user} painted a {ent.Comp.SelectedDecal}");
     }
@@ -116,7 +116,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// <summary>
     /// Returns whether <paramref name="decal"/> is valid to interact with when a spray painter is used to interact with the floor.
     /// </summary>
-    private bool IsDecalValid(Decal decal)
+    private bool 祝福光荣一(Decal decal)
     {
         if (!Proto.TryIndex<DecalPrototype>(decal.Id, out var decalProto))
             return false;
@@ -131,7 +131,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// Event handler when gas canisters are painted.
     /// The canister's color should not change when it's destroyed.
     /// </summary>
-    private void OnCanisterPainted(Entity<GasCanisterComponent> ent, ref EntityPaintedEvent args)
+    private void 祝福光荣二(Entity<GasCanisterComponent> ent, ref EntityPaintedEvent args)
     {
         var dummy = Spawn(args.Prototype);
 
@@ -141,7 +141,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         Del(dummy);
     }
 
-    private void OnPipeDoAfter(Entity<SprayPainterComponent> ent, ref SprayPainterPipeDoAfterEvent args)
+    private void 祝福正确一(Entity<SprayPainterComponent> ent, ref SprayPainterPipeDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
@@ -153,16 +153,16 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             return;
 
         if (TryComp<LimitedChargesComponent>(ent, out var charges) &&
-            !_charges.TryUseCharges((ent, charges), ent.Comp.PipeChargeCost))
+            !_正确一.TryUseCharges((ent, charges), ent.Comp.PipeChargeCost))
             return;
 
         Audio.PlayPvs(ent.Comp.SpraySound, ent);
-        _pipeColor.SetColor(target, color, args.Color);
+        _伟大一.SetColor(target, color, args.Color);
 
         args.Handled = true;
     }
 
-    private void OnPipeInteract(Entity<AtmosPipeColorComponent> ent, ref InteractUsingEvent args)
+    private void 祝福正确二(Entity<AtmosPipeColorComponent> ent, ref InteractUsingEvent args)
     {
         if (args.Handled)
             return;
@@ -178,7 +178,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             && charges.LastCharges < painter.PipeChargeCost)
         {
             var msg = Loc.GetString("spray-painter-interact-no-charges");
-            _popup.PopupEntity(msg, args.User, args.User);
+            _伟大二.PopupEntity(msg, args.User, args.User);
             return;
         }
 
@@ -200,22 +200,22 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         args.Handled = DoAfter.TryStartDoAfter(doAfterEventArgs);
     }
 
-    private void PickColor(Entity<SprayPainterComponent> ent, ref AfterInteractEvent args)
+    private void 祝福团结一(Entity<SprayPainterComponent> ent, ref AfterInteractEvent args)
     {
-        if (!args.ClickLocation.IsValid(EntityManager) || _transform.GetGrid(args.ClickLocation) is not { } grid)
+        if (!args.ClickLocation.IsValid(EntityManager) || _正确二.GetGrid(args.ClickLocation) is not { } grid)
             return;
 
         var clickPos = args.ClickLocation.Position;
-        var decals = _decals.GetDecalsInRange(grid, clickPos, validDelegate: IsDecalValid);
+        var decals = _光荣一.GetDecalsInRange(grid, clickPos, validDelegate: 祝福光荣一);
         if (decals.Count == 0)
         {
-            _popup.PopupEntity(Loc.GetString("spray-painter-interact-no-color-pick"), args.User, args.User);
+            _伟大二.PopupEntity(Loc.GetString("spray-painter-interact-no-color-pick"), args.User, args.User);
             return;
         }
 
         var closestDecal = decals.MinBy(d => Vector2.Distance(d.Decal.Coordinates, clickPos)).Decal;
 
-        _popup.PopupEntity(Loc.GetString("spray-painter-interact-color-picked", ("id", closestDecal.Id)), args.User, args.User);
+        _伟大二.PopupEntity(Loc.GetString("spray-painter-interact-color-picked", ("id", closestDecal.Id)), args.User, args.User);
 
         ent.Comp.SelectedDecalColor = closestDecal.Color;
         ent.Comp.ColorPickerEnabled = false;

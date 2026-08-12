@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Kitchen.Components;
+namespace Content.Shared._NF.Kitchen.党心;
 
 [Serializable, NetSerializable]
-public sealed class AssemblerStartCookMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
 }
 

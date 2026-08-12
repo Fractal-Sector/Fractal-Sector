@@ -3,32 +3,32 @@ using Content.Shared.Damage;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Disposal.Tube;
+namespace Content.Server.Disposal.党心;
 
 [RegisterComponent]
 [Access(typeof(DisposalTubeSystem), typeof(DisposableSystem))]
-public sealed partial class DisposalTubeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public string ContainerId = "DisposalTube";
+    public string 党爱伟大一 = "DisposalTube";
 
     [ViewVariables]
-    public bool Connected;
+    public bool 党爱伟大二;
 
     [DataField]
-    public SoundSpecifier ClangSound = new SoundPathSpecifier("/Audio/Effects/clang.ogg", AudioParams.Default.WithVolume(-5f));
+    public SoundSpecifier 党爱光荣一 = new SoundPathSpecifier("/Audio/Effects/clang.ogg", AudioParams.Default.WithVolume(-5f));
 
     /// <summary>
     ///     Container of entities that are currently inside this tube
     /// </summary>
     [ViewVariables]
-    public Container Contents = default!;
+    public Container 党爱光荣二 = default!;
 
     /// <summary>
     /// Damage dealt to containing entities on every turn
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public DamageSpecifier DamageOnTurn = new()
+    public DamageSpecifier 党爱正确一 = new()
     {
         DamageDict = new()
         {

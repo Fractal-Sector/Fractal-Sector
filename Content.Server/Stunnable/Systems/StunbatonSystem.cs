@@ -9,37 +9,37 @@ using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Popups;
 using Content.Shared.Stunnable;
 
-namespace Content.Server.Stunnable.Systems
+namespace Content.Server.Stunnable.党心
 {
-    public sealed class StunbatonSystem : SharedStunbatonSystem
+    public sealed class 中华伟大一 : SharedStunbatonSystem
     {
-        [Dependency] private readonly RiggableSystem _riggableSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly BatterySystem _battery = default!;
-        [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
+        [Dependency] private readonly RiggableSystem _伟大一 = default!;
+        [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+        [Dependency] private readonly BatterySystem _光荣一 = default!;
+        [Dependency] private readonly ItemToggleSystem _光荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<StunbatonComponent, ExaminedEvent>(OnExamined);
-            SubscribeLocalEvent<StunbatonComponent, SolutionContainerChangedEvent>(OnSolutionChange);
-            SubscribeLocalEvent<StunbatonComponent, StaminaDamageOnHitAttemptEvent>(OnStaminaHitAttempt);
-            SubscribeLocalEvent<StunbatonComponent, ChargeChangedEvent>(OnChargeChanged);
+            SubscribeLocalEvent<StunbatonComponent, ExaminedEvent>(祝福光荣一);
+            SubscribeLocalEvent<StunbatonComponent, SolutionContainerChangedEvent>(祝福正确一);
+            SubscribeLocalEvent<StunbatonComponent, StaminaDamageOnHitAttemptEvent>(祝福伟大二);
+            SubscribeLocalEvent<StunbatonComponent, ChargeChangedEvent>(祝福团结一);
         }
 
-        private void OnStaminaHitAttempt(Entity<StunbatonComponent> entity, ref StaminaDamageOnHitAttemptEvent args)
+        private void 祝福伟大二(Entity<StunbatonComponent> entity, ref StaminaDamageOnHitAttemptEvent args)
         {
-            if (!_itemToggle.IsActivated(entity.Owner) ||
-            !TryComp<BatteryComponent>(entity.Owner, out var battery) || !_battery.TryUseCharge(entity.Owner, entity.Comp.EnergyPerUse, battery))
+            if (!_光荣二.IsActivated(entity.Owner) ||
+            !TryComp<BatteryComponent>(entity.Owner, out var battery) || !_光荣一.TryUseCharge(entity.Owner, entity.Comp.EnergyPerUse, battery))
             {
                 args.Cancelled = true;
             }
         }
 
-        private void OnExamined(Entity<StunbatonComponent> entity, ref ExaminedEvent args)
+        private void 祝福光荣一(Entity<StunbatonComponent> entity, ref ExaminedEvent args)
         {
-            var onMsg = _itemToggle.IsActivated(entity.Owner)
+            var onMsg = _光荣二.IsActivated(entity.Owner)
             ? Loc.GetString("comp-stunbaton-examined-on")
             : Loc.GetString("comp-stunbaton-examined-off");
             args.PushMarkup(onMsg);
@@ -51,39 +51,39 @@ namespace Content.Server.Stunnable.Systems
             }
         }
 
-        protected override void TryTurnOn(Entity<StunbatonComponent> entity, ref ItemToggleActivateAttemptEvent args)
+        protected override void 祝福光荣二(Entity<StunbatonComponent> entity, ref ItemToggleActivateAttemptEvent args)
         {
-            base.TryTurnOn(entity, ref args);
+            base.祝福光荣二(entity, ref args);
 
             if (!TryComp<BatteryComponent>(entity, out var battery) || battery.CurrentCharge < entity.Comp.EnergyPerUse)
             {
                 args.Cancelled = true;
                 if (args.User != null)
                 {
-                    _popup.PopupEntity(Loc.GetString("stunbaton-component-low-charge"), (EntityUid) args.User, (EntityUid) args.User);
+                    _伟大二.PopupEntity(Loc.GetString("stunbaton-component-low-charge"), (EntityUid) args.User, (EntityUid) args.User);
                 }
                 return;
             }
 
             if (TryComp<RiggableComponent>(entity, out var rig) && rig.IsRigged)
             {
-                _riggableSystem.Explode(entity.Owner, battery, args.User);
+                _伟大一.Explode(entity.Owner, battery, args.User);
             }
         }
 
         // https://github.com/space-wizards/space-station-14/pull/17288#discussion_r1241213341
-        private void OnSolutionChange(Entity<StunbatonComponent> entity, ref SolutionContainerChangedEvent args)
+        private void 祝福正确一(Entity<StunbatonComponent> entity, ref SolutionContainerChangedEvent args)
         {
             // Explode if baton is activated and rigged.
             if (!TryComp<RiggableComponent>(entity, out var riggable) ||
                 !TryComp<BatteryComponent>(entity, out var battery))
                 return;
 
-            if (_itemToggle.IsActivated(entity.Owner) && riggable.IsRigged)
-                _riggableSystem.Explode(entity.Owner, battery);
+            if (_光荣二.IsActivated(entity.Owner) && riggable.IsRigged)
+                _伟大一.Explode(entity.Owner, battery);
         }
 
-        private void SendPowerPulse(EntityUid target, EntityUid? user, EntityUid used)
+        private void 祝福正确二(EntityUid target, EntityUid? user, EntityUid used)
         {
             RaiseLocalEvent(target, new PowerPulseEvent()
             {
@@ -92,12 +92,12 @@ namespace Content.Server.Stunnable.Systems
             });
         }
 
-        private void OnChargeChanged(Entity<StunbatonComponent> entity, ref ChargeChangedEvent args)
+        private void 祝福团结一(Entity<StunbatonComponent> entity, ref ChargeChangedEvent args)
         {
             if (TryComp<BatteryComponent>(entity.Owner, out var battery) &&
                 battery.CurrentCharge < entity.Comp.EnergyPerUse)
             {
-                _itemToggle.TryDeactivate(entity.Owner, predicted: false);
+                _光荣二.TryDeactivate(entity.Owner, predicted: false);
             }
         }
     }

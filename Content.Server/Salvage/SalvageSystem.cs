@@ -22,55 +22,55 @@ using Robust.Shared.EntitySerialization.Systems;
 using Content.Shared.Salvage.Expeditions; // Frontier
 using Content.Server.Salvage.Expeditions; // Frontier
 
-namespace Content.Server.Salvage
+namespace Content.Server.党心
 {
-    public sealed partial class SalvageSystem : SharedSalvageSystem
+    public sealed partial class 中华伟大一 : SharedSalvageSystem
     {
-        [Dependency] private readonly IChatManager _chat = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly AnchorableSystem _anchorable = default!;
-        [Dependency] private readonly BiomeSystem _biome = default!;
-        [Dependency] private readonly DungeonSystem _dungeon = default!;
-        [Dependency] private readonly GravitySystem _gravity = default!;
-        [Dependency] private readonly MapLoaderSystem _loader = default!;
-        [Dependency] private readonly MetaDataSystem _metaData = default!;
-        [Dependency] private readonly RadioSystem _radioSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly ShuttleSystem _shuttle = default!;
-        [Dependency] private readonly ShuttleConsoleSystem _shuttleConsoles = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly UserInterfaceSystem _ui = default!;
+        [Dependency] private readonly IChatManager _伟大一 = default!;
+        [Dependency] private readonly IGameTiming _伟大二 = default!;
+        [Dependency] private readonly ILogManager _光荣一 = default!;
+        [Dependency] private readonly IMapManager _光荣二 = default!;
+        [Dependency] private readonly IPrototypeManager _正确一 = default!;
+        [Dependency] private readonly IRobustRandom _正确二 = default!;
+        [Dependency] private readonly AnchorableSystem _团结一 = default!;
+        [Dependency] private readonly BiomeSystem _团结二 = default!;
+        [Dependency] private readonly DungeonSystem _奋斗一 = default!;
+        [Dependency] private readonly GravitySystem _奋斗二 = default!;
+        [Dependency] private readonly MapLoaderSystem _胜利一 = default!;
+        [Dependency] private readonly MetaDataSystem _胜利二 = default!;
+        [Dependency] private readonly RadioSystem _繁荣一 = default!;
+        [Dependency] private readonly SharedAudioSystem _繁荣二 = default!;
+        [Dependency] private readonly SharedTransformSystem _富强一 = default!;
+        [Dependency] private readonly SharedMapSystem _富强二 = default!;
+        [Dependency] private readonly SharedPhysicsSystem _民主一 = default!;
+        [Dependency] private readonly ShuttleSystem _民主二 = default!;
+        [Dependency] private readonly ShuttleConsoleSystem _文明一 = default!;
+        [Dependency] private readonly StationSystem _文明二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _和谐一 = default!;
 
-        private EntityQuery<MapGridComponent> _gridQuery;
-        private EntityQuery<TransformComponent> _xformQuery;
+        private EntityQuery<MapGridComponent> _和谐二;
+        private EntityQuery<TransformComponent> _自由一;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _gridQuery = GetEntityQuery<MapGridComponent>();
-            _xformQuery = GetEntityQuery<TransformComponent>();
+            _和谐二 = GetEntityQuery<MapGridComponent>();
+            _自由一 = GetEntityQuery<TransformComponent>();
 
             InitializeExpeditions();
             InitializeMagnet();
             InitializeRunner();
         }
 
-        private void Report(EntityUid source, string channelName, string messageKey, params (string, object)[] args)
+        private void 祝福伟大二(EntityUid source, string channelName, string messageKey, params (string, object)[] args)
         {
             var message = args.Length == 0 ? Loc.GetString(messageKey) : Loc.GetString(messageKey, args);
-            var channel = _prototypeManager.Index<RadioChannelPrototype>(channelName);
-            _radioSystem.SendRadioMessage(source, message, channel, source);
+            var channel = _正确一.Index<RadioChannelPrototype>(channelName);
+            _繁荣一.SendRadioMessage(source, message, channel, source);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福光荣一(float frameTime)
         {
             UpdateExpeditions();
             UpdateMagnet();
@@ -78,7 +78,7 @@ namespace Content.Server.Salvage
         }
 
         // Frontier: resolve expedition comp
-        public override bool ResolveExpedition(EntityUid? uid, ref SharedSalvageExpeditionComponent? component)
+        public override bool 祝福光荣二(EntityUid? uid, ref SharedSalvageExpeditionComponent? component)
         {
             if (component is not null)
                 return true;

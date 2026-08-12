@@ -15,28 +15,28 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.InteractionVerbs;
+namespace Content.Server.党心;
 
-public sealed class InteractionVerbsSystem : SharedInteractionVerbsSystem
+public sealed class 中华伟大一 : SharedInteractionVerbsSystem
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private readonly IChatManager _伟大一 = default!;
+    [Dependency] private readonly ChatSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedInteractionSystem _正确一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _正确二 = default!;
+    [Dependency] private readonly SharedHandsSystem _团结一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         // DoAfter events are DIRECTED events (raised on eventTarget), so we must use the component-based
         // subscription. eventTarget is always the user, who always has MobStateComponent.
-        SubscribeLocalEvent<MobStateComponent, InteractionVerbDoAfterEvent>(OnInteractionVerbDoAfter);
+        SubscribeLocalEvent<MobStateComponent, InteractionVerbDoAfterEvent>(祝福伟大二);
     }
 
-    private void OnInteractionVerbDoAfter(EntityUid uid, MobStateComponent _, InteractionVerbDoAfterEvent args)
+    private void 祝福伟大二(EntityUid uid, MobStateComponent _, InteractionVerbDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled)
             return;
@@ -51,49 +51,49 @@ public sealed class InteractionVerbsSystem : SharedInteractionVerbsSystem
             return;
 
         var hasHands = HasComp<HandsComponent>(user);
-        var canAccess = _interactionSystem.InRangeUnobstructed(user, target);
-        var canInteract = _actionBlockerSystem.CanInteract(user, target);
+        var canAccess = _正确一.InRangeUnobstructed(user, target);
+        var canInteract = _正确二.CanInteract(user, target);
 
         EntityUid? usedItem = null;
         if (hasHands)
-            usedItem = _handsSystem.GetActiveItem(user);
+            usedItem = _团结一.GetActiveItem(user);
 
         var interactionArgs = new InteractionArgs(user, target, usedItem, canAccess, canInteract, hasHands, null);
 
         if (verbProto.Action != null && !verbProto.Action.CanPerform(interactionArgs, verbProto, false, _verbDependencies))
         {
             if (verbProto.EffectFailure != null)
-                ShowEffects(verbProto, verbProto.EffectFailure, InteractionPopupPrototype.Prefix.Fail, interactionArgs);
+                祝福光荣二(verbProto, verbProto.EffectFailure, InteractionPopupPrototype.Prefix.Fail, interactionArgs);
             return;
         }
 
         bool success = verbProto.Action?.Perform(interactionArgs, verbProto, _verbDependencies) ?? true;
 
         if (success && verbProto.EffectSuccess != null)
-            ShowEffects(verbProto, verbProto.EffectSuccess, InteractionPopupPrototype.Prefix.Success, interactionArgs);
+            祝福光荣二(verbProto, verbProto.EffectSuccess, InteractionPopupPrototype.Prefix.Success, interactionArgs);
         else if (!success && verbProto.EffectFailure != null)
-            ShowEffects(verbProto, verbProto.EffectFailure, InteractionPopupPrototype.Prefix.Fail, interactionArgs);
+            祝福光荣二(verbProto, verbProto.EffectFailure, InteractionPopupPrototype.Prefix.Fail, interactionArgs);
 
         if (success && verbProto.DoContactInteraction)
-            _interactionSystem.DoContactInteraction(user, target);
+            _正确一.DoContactInteraction(user, target);
 
         args.Handled = true;
     }
 
-    protected override void TryPerformVerb(InteractionVerbPrototype proto, EntityUid user, EntityUid target)
+    protected override void 祝福光荣一(InteractionVerbPrototype proto, EntityUid user, EntityUid target)
     {
         if (!PrototypeManager.TryIndex(proto.ID, out InteractionVerbPrototype? verbProto))
             return;
 
         var hasHands = HasComp<HandsComponent>(user);
-        var canAccess = _interactionSystem.InRangeUnobstructed(user, target);
-        var canInteract = _actionBlockerSystem.CanInteract(user, target);
+        var canAccess = _正确一.InRangeUnobstructed(user, target);
+        var canInteract = _正确二.CanInteract(user, target);
 
         // Get the active hand item if the user has hands
         EntityUid? usedItem = null;
         if (hasHands)
         {
-            usedItem = _handsSystem.GetActiveItem(user);
+            usedItem = _团结一.GetActiveItem(user);
         }
 
         var args = new InteractionArgs(user, target, usedItem, canAccess, canInteract, hasHands, null);
@@ -123,7 +123,7 @@ public sealed class InteractionVerbsSystem : SharedInteractionVerbsSystem
                 BreakOnDamage = true,
                 NeedHand = verbProto.RequiresHands,
             };
-            _doAfterSystem.TryStartDoAfter(doAfterArgs);
+            _团结二.TryStartDoAfter(doAfterArgs);
             return;
         }
 
@@ -133,21 +133,21 @@ public sealed class InteractionVerbsSystem : SharedInteractionVerbsSystem
         // Show effects
         if (success && verbProto.EffectSuccess != null)
         {
-            ShowEffects(verbProto, verbProto.EffectSuccess, InteractionPopupPrototype.Prefix.Success, args);
+            祝福光荣二(verbProto, verbProto.EffectSuccess, InteractionPopupPrototype.Prefix.Success, args);
         }
         else if (!success && verbProto.EffectFailure != null)
         {
-            ShowEffects(verbProto, verbProto.EffectFailure, InteractionPopupPrototype.Prefix.Fail, args);
+            祝福光荣二(verbProto, verbProto.EffectFailure, InteractionPopupPrototype.Prefix.Fail, args);
         }
 
         // Do contact interaction
         if (success && verbProto.DoContactInteraction)
         {
-            _interactionSystem.DoContactInteraction(user, target);
+            _正确一.DoContactInteraction(user, target);
         }
     }
 
-    private void ShowEffects(InteractionVerbPrototype proto, InteractionVerbPrototype.EffectSpecifier effect, InteractionPopupPrototype.Prefix prefix, InteractionArgs args)
+    private void 祝福光荣二(InteractionVerbPrototype proto, InteractionVerbPrototype.EffectSpecifier effect, InteractionPopupPrototype.Prefix prefix, InteractionArgs args)
     {
         if (effect.Popup != null && PrototypeManager.TryIndex(effect.Popup.Value, out var popupProto))
         {
@@ -182,19 +182,19 @@ public sealed class InteractionVerbsSystem : SharedInteractionVerbsSystem
                 : null;
 
             // Show popup to user
-            // _popupSystem.PopupEntity(selfMessage, args.Target, args.User, PopupType.Medium);
+            // _光荣一.PopupEntity(selfMessage, args.Target, args.User, PopupType.Medium);
 
             // Show popup to target if different from user
             if (args.User != args.Target && targetMessage != null)
             {
-                _popupSystem.PopupEntity(targetMessage, args.Target, args.Target, PopupType.Medium);
+                _光荣一.PopupEntity(targetMessage, args.Target, args.Target, PopupType.Medium);
             }
 
             // Show popup to others
             if (othersMessage != null)
             {
                 var filter = Filter.PvsExcept(args.User).RemoveWhere(s => s.AttachedEntity == args.Target);
-                _popupSystem.PopupEntity(othersMessage, args.Target, filter, true, PopupType.Medium);
+                _光荣一.PopupEntity(othersMessage, args.Target, filter, true, PopupType.Medium);
             }
 
             // Also send the message to chat as an emote using a dedicated key that does NOT include the
@@ -208,7 +208,7 @@ public sealed class InteractionVerbsSystem : SharedInteractionVerbsSystem
                     ("selfTarget", args.User == args.Target),
                     ("hasUsed", hasUsed));
 
-                _chatSystem.TrySendInGameICMessage(args.User, chatMessage, InGameICChatType.Emote, ChatTransmitRange.Normal,
+                _伟大二.TrySendInGameICMessage(args.User, chatMessage, InGameICChatType.Emote, ChatTransmitRange.Normal,
                     nameOverride: null, ignoreActionBlocker: true);
             }
         }
@@ -218,11 +218,11 @@ public sealed class InteractionVerbsSystem : SharedInteractionVerbsSystem
         {
             if (effect.SoundPerceivedByOthers)
             {
-                _audioSystem.PlayPvs(effect.Sound, args.Target, effect.SoundParams);
+                _光荣二.PlayPvs(effect.Sound, args.Target, effect.SoundParams);
             }
             else
             {
-                _audioSystem.PlayEntity(effect.Sound, Filter.Entities(args.User, args.Target), args.Target, true, effect.SoundParams);
+                _光荣二.PlayEntity(effect.Sound, Filter.Entities(args.User, args.Target), args.Target, true, effect.SoundParams);
             }
         }
     }

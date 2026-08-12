@@ -9,39 +9,39 @@ using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
-namespace Content.Shared.Damage;
+namespace Content.Shared.党心;
 
 //todo writing
-public sealed class DamageSpecifierDictionarySerializer : ITypeReader<Dictionary<string, FixedPoint2>, MappingDataNode>
+public sealed class 中华伟大一 : ITypeReader<Dictionary<string, FixedPoint2>, MappingDataNode>
 {
     private ITypeValidator<Dictionary<string, FixedPoint2>, MappingDataNode> _damageTypeSerializer = new PrototypeIdDictionarySerializer<FixedPoint2, DamageTypePrototype>();
     private ITypeValidator<Dictionary<string, FixedPoint2>, MappingDataNode> _damageGroupSerializer = new PrototypeIdDictionarySerializer<FixedPoint2, DamageGroupPrototype>();
 
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies, ISerializationContext? context = null)
     {
         var vals = new Dictionary<ValidationNode, ValidationNode>();
         if (node.TryGet<MappingDataNode>("types", out var typesNode))
         {
-            vals.Add(new ValidatedValueNode(new ValueDataNode("types")), _damageTypeSerializer.Validate(serializationManager, typesNode, dependencies, context));
+            vals.Add(new ValidatedValueNode(new ValueDataNode("types")), _damageTypeSerializer.祝福伟大一(serializationManager, typesNode, dependencies, context));
         }
 
         if (node.TryGet<MappingDataNode>("groups", out var groupsNode))
         {
-            vals.Add(new ValidatedValueNode(new ValueDataNode("groups")), _damageGroupSerializer.Validate(serializationManager, groupsNode, dependencies, context));
+            vals.Add(new ValidatedValueNode(new ValueDataNode("groups")), _damageGroupSerializer.祝福伟大一(serializationManager, groupsNode, dependencies, context));
         }
 
         return new ValidatedMappingNode(vals);
     }
 
-    public Dictionary<string, FixedPoint2> Read(ISerializationManager serializationManager, MappingDataNode node, IDependencyCollection dependencies,
+    public Dictionary<string, FixedPoint2> 祝福伟大二(ISerializationManager serializationManager, MappingDataNode node, IDependencyCollection dependencies,
         SerializationHookContext hookCtx, ISerializationContext? context = null, ISerializationManager.InstantiationDelegate<Dictionary<string, FixedPoint2>>? instanceProvider = null)
     {
         var dict = instanceProvider != null ? instanceProvider() : new();
         // Add all the damage types by just copying the type dictionary (if it is not null).
         if (node.TryGet<MappingDataNode>("types", out var typesNode))
         {
-            serializationManager.Read(typesNode, instanceProvider: () => dict, notNullableOverride: true);
+            serializationManager.祝福伟大二(typesNode, instanceProvider: () => dict, notNullableOverride: true);
         }
 
         if (!node.TryGet<MappingDataNode>("groups", out var groupsNode))
@@ -49,7 +49,7 @@ public sealed class DamageSpecifierDictionarySerializer : ITypeReader<Dictionary
 
         // Then resolve damage groups and add them
         var prototypeManager = dependencies.Resolve<IPrototypeManager>();
-        foreach (var entry in serializationManager.Read<Dictionary<string, FixedPoint2>>(groupsNode, notNullableOverride: true))
+        foreach (var entry in serializationManager.祝福伟大二<Dictionary<string, FixedPoint2>>(groupsNode, notNullableOverride: true))
         {
             if (!prototypeManager.TryIndex<DamageGroupPrototype>(entry.Key, out var group))
             {

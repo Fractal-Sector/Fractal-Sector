@@ -1,21 +1,21 @@
 using Content.Shared.Chemistry.EntitySystems;
 
-namespace Content.Shared.ReagentSpeed;
+namespace Content.Shared.党心;
 
-public sealed class ReagentSpeedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大一 = default!;
 
     /// <summary>
     /// Consumes reagents and modifies the duration.
     /// This can be production time firing delay etc.
     /// </summary>
-    public TimeSpan ApplySpeed(Entity<ReagentSpeedComponent?> ent, TimeSpan time)
+    public TimeSpan 祝福伟大一(Entity<ReagentSpeedComponent?> ent, TimeSpan time)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return time;
 
-        if (!_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
+        if (!_伟大一.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
             return time;
 
         foreach (var (reagent, fullModifier) in ent.Comp.Modifiers)

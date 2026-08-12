@@ -3,18 +3,18 @@ using Content.Server.Revenant.EntitySystems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class ShowGhostsCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "showghosts";
-        public string Description => "makes all of the currently present ghosts visible. Cannot be reversed.";
-        public string Help => "showghosts <visible>";
+        public string 党爱伟大一 => "showghosts";
+        public string 党爱伟大二 => "makes all of the currently present ghosts visible. Cannot be reversed.";
+        public string 党爱光荣一 => "showghosts <visible>";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 1)
             {
@@ -28,8 +28,8 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            var ghostSys = _entities.EntitySysManager.GetEntitySystem<GhostSystem>();
-            var revSys = _entities.EntitySysManager.GetEntitySystem<RevenantSystem>();
+            var ghostSys = _伟大一.EntitySysManager.GetEntitySystem<GhostSystem>();
+            var revSys = _伟大一.EntitySysManager.GetEntitySystem<RevenantSystem>();
 
             ghostSys.MakeVisible(visible);
             revSys.MakeVisible(visible);

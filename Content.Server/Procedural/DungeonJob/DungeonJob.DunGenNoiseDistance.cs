@@ -6,9 +6,9 @@ using Content.Shared.Procedural.Distance;
 using Content.Shared.Procedural.DungeonGenerators;
 using Robust.Shared.Map;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /*
      * See https://www.redblobgames.com/maps/terrain-from-noise/#islands
@@ -20,7 +20,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="NoiseDistanceDunGen"/>
     /// </summary>
-    private async Task<Dungeon> GenerateNoiseDistanceDunGen(
+    private async Task<Dungeon> 祝福伟大一(
         Vector2i position,
         NoiseDistanceDunGen dungen,
         HashSet<Vector2i> reservedTiles,
@@ -58,7 +58,7 @@ public sealed partial class DungeonJob
                         var dx = 2 * x / width;
                         var dy = 2 * y / height;
 
-                        var distance = GetDistance(dx, dy, dungen.DistanceConfig);
+                        var distance = 祝福伟大二(dx, dy, dungen.DistanceConfig);
 
                         value = MathHelper.Lerp(value, 1f - distance, dungen.DistanceConfig.BlendWeight);
                     }
@@ -97,7 +97,7 @@ public sealed partial class DungeonJob
         return dungeon;
     }
 
-    private float GetDistance(float dx, float dy, IDunGenDistance distance)
+    private float 祝福伟大二(float dx, float dy, IDunGenDistance distance)
     {
         switch (distance)
         {

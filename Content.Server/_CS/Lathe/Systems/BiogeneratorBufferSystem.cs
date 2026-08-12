@@ -4,47 +4,47 @@ using Content.Server._CS.Lathe.Components;
 using Content.Shared.Lathe;
 using Robust.Shared.Timing;
 
-namespace Content.Server._CS.Lathe.Systems;
+namespace Content.Server._CS.Lathe.党心;
 
-public sealed class BiogeneratorBufferSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly LatheSystem _lathe = default!;
-    [Dependency] private readonly PowerReceiverSystem _power = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly LatheSystem _伟大二 = default!;
+    [Dependency] private readonly PowerReceiverSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BiogeneratorBufferComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<BiogeneratorBufferComponent, MapInitEvent>(祝福光荣一);
 
         // Subscribe to LatheSystem events
-        _lathe.OnGetMaterialAmount += OnGetMaterialAmount;
-        _lathe.OnDeductMaterial += OnDeductMaterial;
-        _lathe.OnGetBufferAmount += OnGetBufferAmount;
+        _伟大二.祝福正确一 += 祝福正确一;
+        _伟大二.祝福正确二 += 祝福正确二;
+        _伟大二.祝福团结一 += 祝福团结一;
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
+        base.祝福伟大二();
 
-        _lathe.OnGetMaterialAmount -= OnGetMaterialAmount;
-        _lathe.OnDeductMaterial -= OnDeductMaterial;
-        _lathe.OnGetBufferAmount -= OnGetBufferAmount;
+        _伟大二.祝福正确一 -= 祝福正确一;
+        _伟大二.祝福正确二 -= 祝福正确二;
+        _伟大二.祝福团结一 -= 祝福团结一;
     }
 
-    private void OnMapInit(EntityUid uid, BiogeneratorBufferComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, BiogeneratorBufferComponent component, MapInitEvent args)
     {
-        component.NextRegen = _timing.CurTime + component.RegenInterval;
+        component.NextRegen = _伟大一.CurTime + component.RegenInterval;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<BiogeneratorBufferComponent, LatheComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         while (query.MoveNext(out var uid, out var buffer, out var lathe))
         {
-            if (!buffer.Active || !_power.IsPowered(uid))
+            if (!buffer.Active || !_光荣一.IsPowered(uid))
                 continue;
 
             if (buffer.NextRegen <= curTime)
@@ -53,14 +53,14 @@ public sealed class BiogeneratorBufferSystem : EntitySystem
                 {
                     var newBuffer = Math.Min(buffer.MaxBuffer, buffer.CurrentBuffer + buffer.RegenAmount);
                     buffer.CurrentBuffer = newBuffer;
-                    _lathe.UpdateUserInterfaceState(uid, lathe);
+                    _伟大二.UpdateUserInterfaceState(uid, lathe);
                 }
                 buffer.NextRegen = curTime + buffer.RegenInterval;
             }
         }
     }
 
-    private void OnGetMaterialAmount(EntityUid uid, LatheComponent lathe, string material, ref int amount)
+    private void 祝福正确一(EntityUid uid, LatheComponent lathe, string material, ref int amount)
     {
         if (material != "Biomass")
             return;
@@ -70,7 +70,7 @@ public sealed class BiogeneratorBufferSystem : EntitySystem
         amount += buffer.CurrentBuffer;
     }
 
-    private void OnDeductMaterial(EntityUid uid, LatheComponent lathe, string material, ref int amount)
+    private void 祝福正确二(EntityUid uid, LatheComponent lathe, string material, ref int amount)
     {
         if (material != "Biomass")
             return;
@@ -82,11 +82,11 @@ public sealed class BiogeneratorBufferSystem : EntitySystem
         {
             buffer.CurrentBuffer -= taken;
             amount -= taken;
-            _lathe.UpdateUserInterfaceState(uid, lathe);
+            _伟大二.UpdateUserInterfaceState(uid, lathe);
         }
     }
 
-    private void OnGetBufferAmount(EntityUid uid, LatheComponent lathe, ref int? bufferAmount)
+    private void 祝福团结一(EntityUid uid, LatheComponent lathe, ref int? bufferAmount)
     {
         if (TryComp<BiogeneratorBufferComponent>(uid, out var buffer))
             bufferAmount = buffer.CurrentBuffer;

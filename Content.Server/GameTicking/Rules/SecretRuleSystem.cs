@@ -13,29 +13,29 @@ using Robust.Shared.Random;
 using Robust.Shared.Configuration;
 using Robust.Shared.Utility;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<SecretRuleComponent>
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣二 = default!;
 
-    private string _ruleCompName = default!;
+    private string _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _ruleCompName = Factory.GetComponentName<GameRuleComponent>();
+        base.祝福伟大一();
+        _正确一 = Factory.GetComponentName<GameRuleComponent>();
     }
 
-    protected override void Added(EntityUid uid, SecretRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, SecretRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.Added(uid, component, gameRule, args);
-        var weights = _configurationManager.GetCVar(CCVars.SecretWeightPrototype);
+        base.祝福伟大二(uid, component, gameRule, args);
+        var weights = _光荣一.GetCVar(CCVars.SecretWeightPrototype);
 
-        if (!TryPickPreset(weights, out var preset))
+        if (!祝福光荣二(weights, out var preset))
         {
             Log.Error($"{ToPrettyString(uid)} failed to pick any preset. Removing rule.");
             Del(uid);
@@ -43,7 +43,7 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
         }
 
         Log.Info($"Selected {preset.ID} as the secret preset.");
-        _adminLogger.Add(LogType.EventStarted, $"Selected {preset.ID} as the secret preset.");
+        _光荣二.Add(LogType.EventStarted, $"Selected {preset.ID} as the secret preset.");
 
         foreach (var rule in preset.Rules)
         {
@@ -61,9 +61,9 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
         }
     }
 
-    protected override void Ended(EntityUid uid, SecretRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void 祝福光荣一(EntityUid uid, SecretRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
-        base.Ended(uid, component, gameRule, args);
+        base.祝福光荣一(uid, component, gameRule, args);
 
         foreach (var rule in component.AdditionalGameRules)
         {
@@ -71,9 +71,9 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
         }
     }
 
-    private bool TryPickPreset(ProtoId<WeightedRandomPrototype> weights, [NotNullWhen(true)] out GamePresetPrototype? preset)
+    private bool 祝福光荣二(ProtoId<WeightedRandomPrototype> weights, [NotNullWhen(true)] out GamePresetPrototype? preset)
     {
-        var options = _prototypeManager.Index(weights).Weights.ShallowClone();
+        var options = _伟大一.Index(weights).Weights.ShallowClone();
         var players = GameTicker.ReadyPlayerCount();
 
         GamePresetPrototype? selectedPreset = null;
@@ -81,14 +81,14 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
         while (options.Count > 0)
         {
             var accumulated = 0f;
-            var rand = _random.NextFloat(sum);
+            var rand = _伟大二.NextFloat(sum);
             foreach (var (key, weight) in options)
             {
                 accumulated += weight;
                 if (accumulated < rand)
                     continue;
 
-                if (!_prototypeManager.TryIndex(key, out selectedPreset))
+                if (!_伟大一.TryIndex(key, out selectedPreset))
                     Log.Error($"Invalid preset {selectedPreset} in secret rule weights: {weights}");
 
                 options.Remove(key);
@@ -96,7 +96,7 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
                 break;
             }
 
-            if (CanPick(selectedPreset, players))
+            if (祝福正确二(selectedPreset, players))
             {
                 preset = selectedPreset;
                 return true;
@@ -110,35 +110,35 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
         return false;
     }
 
-    public bool CanPickAny()
+    public bool 祝福正确一()
     {
-        var secretPresetId = _configurationManager.GetCVar(CCVars.SecretWeightPrototype);
-        return CanPickAny(secretPresetId);
+        var secretPresetId = _光荣一.GetCVar(CCVars.SecretWeightPrototype);
+        return 祝福正确一(secretPresetId);
     }
 
     /// <summary>
     /// Can any of the given presets be picked, taking into account the currently available player count?
     /// </summary>
-    public bool CanPickAny(ProtoId<WeightedRandomPrototype> weightedPresets)
+    public bool 祝福正确一(ProtoId<WeightedRandomPrototype> weightedPresets)
     {
-        var ids = _prototypeManager.Index(weightedPresets).Weights.Keys
+        var ids = _伟大一.Index(weightedPresets).Weights.Keys
             .Select(x => new ProtoId<GamePresetPrototype>(x));
 
-        return CanPickAny(ids);
+        return 祝福正确一(ids);
     }
 
     /// <summary>
     /// Can any of the given presets be picked, taking into account the currently available player count?
     /// </summary>
-    public bool CanPickAny(IEnumerable<ProtoId<GamePresetPrototype>> protos)
+    public bool 祝福正确一(IEnumerable<ProtoId<GamePresetPrototype>> protos)
     {
         var players = GameTicker.ReadyPlayerCount();
         foreach (var id in protos)
         {
-            if (!_prototypeManager.TryIndex(id, out var selectedPreset))
+            if (!_伟大一.TryIndex(id, out var selectedPreset))
                 Log.Error($"Invalid preset {selectedPreset} in secret rule weights: {id}");
 
-            if (CanPick(selectedPreset, players))
+            if (祝福正确二(selectedPreset, players))
                 return true;
         }
 
@@ -148,15 +148,15 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
     /// <summary>
     /// Can the given preset be picked, taking into account the currently available player count?
     /// </summary>
-    private bool CanPick([NotNullWhen(true)] GamePresetPrototype? selected, int players)
+    private bool 祝福正确二([NotNullWhen(true)] GamePresetPrototype? selected, int players)
     {
         if (selected == null)
             return false;
 
         foreach (var ruleId in selected.Rules)
         {
-            if (!_prototypeManager.TryIndex(ruleId, out EntityPrototype? rule)
-                || !rule.TryGetComponent(_ruleCompName, out GameRuleComponent? ruleComp))
+            if (!_伟大一.TryIndex(ruleId, out EntityPrototype? rule)
+                || !rule.TryGetComponent(_正确一, out GameRuleComponent? ruleComp))
             {
                 Log.Error($"Encountered invalid rule {ruleId} in preset {selected.ID}");
                 return false;

@@ -3,42 +3,42 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Events;
 using Content.Shared.Mobs.Systems;
 
-namespace Content.Shared.Traits.Assorted;
+namespace Content.Shared.Traits.党心;
 
-public sealed class PainNumbnessSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
+    [Dependency] private readonly MobThresholdSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PainNumbnessComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<PainNumbnessComponent, ComponentRemove>(OnComponentRemove);
-        SubscribeLocalEvent<PainNumbnessComponent, BeforeForceSayEvent>(OnChangeForceSay);
-        SubscribeLocalEvent<PainNumbnessComponent, BeforeAlertSeverityCheckEvent>(OnAlertSeverityCheck);
+        SubscribeLocalEvent<PainNumbnessComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<PainNumbnessComponent, ComponentRemove>(祝福伟大二);
+        SubscribeLocalEvent<PainNumbnessComponent, BeforeForceSayEvent>(祝福光荣二);
+        SubscribeLocalEvent<PainNumbnessComponent, BeforeAlertSeverityCheckEvent>(祝福正确一);
     }
 
-    private void OnComponentRemove(EntityUid uid, PainNumbnessComponent component, ComponentRemove args)
-    {
-        if (!HasComp<MobThresholdsComponent>(uid))
-            return;
-
-        _mobThresholdSystem.VerifyThresholds(uid);
-    }
-
-    private void OnComponentInit(EntityUid uid, PainNumbnessComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, PainNumbnessComponent component, ComponentRemove args)
     {
         if (!HasComp<MobThresholdsComponent>(uid))
             return;
 
-        _mobThresholdSystem.VerifyThresholds(uid);
+        _伟大一.VerifyThresholds(uid);
     }
 
-    private void OnChangeForceSay(Entity<PainNumbnessComponent> ent, ref BeforeForceSayEvent args)
+    private void 祝福光荣一(EntityUid uid, PainNumbnessComponent component, ComponentInit args)
+    {
+        if (!HasComp<MobThresholdsComponent>(uid))
+            return;
+
+        _伟大一.VerifyThresholds(uid);
+    }
+
+    private void 祝福光荣二(Entity<PainNumbnessComponent> ent, ref BeforeForceSayEvent args)
     {
         args.Prefix = ent.Comp.ForceSayNumbDataset;
     }
 
-    private void OnAlertSeverityCheck(Entity<PainNumbnessComponent> ent, ref BeforeAlertSeverityCheckEvent args)
+    private void 祝福正确一(Entity<PainNumbnessComponent> ent, ref BeforeAlertSeverityCheckEvent args)
     {
         if (args.CurrentAlert == "HumanHealth")
             args.CancelUpdate = true;

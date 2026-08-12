@@ -9,15 +9,15 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Construction.Conditions
+namespace Content.Shared.Construction.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class WallmountCondition : IConstructionCondition
+    public sealed partial class 中华伟大一 : IConstructionCondition
     {
         private static readonly ProtoId<TagPrototype> WallTag = "Wall";
 
-        public bool Condition(EntityUid user, EntityCoordinates location, Direction direction)
+        public bool 祝福伟大一(EntityUid user, EntityCoordinates location, Direction direction)
         {
             var entManager = IoCManager.Resolve<IEntityManager>();
 
@@ -61,7 +61,7 @@ namespace Content.Shared.Construction.Conditions
             return !adjWallRaycastResults.Any();
         }
 
-        public ConstructionGuideEntry GenerateGuideEntry()
+        public ConstructionGuideEntry 祝福伟大二()
         {
             return new ConstructionGuideEntry()
             {

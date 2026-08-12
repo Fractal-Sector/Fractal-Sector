@@ -3,21 +3,21 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Timing;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    sealed class SetShiftEndTimeCommand : IConsoleCommand
+    sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly IGameTiming _伟大二 = default!;
 
-        public string Command => "setshiftendtime";
-        public string Description => "Sets the shift end time in hours from now or from round start.";
-        public string Help => "setshiftendtime <hours> [now|roundstart] - Sets when the shift should end. Defaults to 'now'. Use 0 to clear.";
+        public string 党爱伟大一 => "setshiftendtime";
+        public string 党爱伟大二 => "Sets the shift end time in hours from now or from round start.";
+        public string 党爱光荣一 => "setshiftendtime <hours> [now|roundstart] - Sets when the shift should end. Defaults to 'now'. Use 0 to clear.";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
-            var ticker = _e.System<GameTicker>();
+            var ticker = _伟大一.System<GameTicker>();
 
             if (ticker.RunLevel != GameRunLevel.InRound)
             {
@@ -28,7 +28,7 @@ namespace Content.Server.GameTicking.Commands
             if (args.Length < 1)
             {
                 shell.WriteError("Expected at least 1 argument.");
-                shell.WriteLine(Help);
+                shell.WriteLine(党爱光荣一);
                 return;
             }
 
@@ -53,14 +53,14 @@ namespace Content.Server.GameTicking.Commands
             {
                 // Calculate from round start time
                 // Round start in real time = current real time - (current game time - round start game time)
-                var roundStartRealTime = _timing.RealTime - (_timing.CurTime - ticker.RoundStartTimeSpan);
+                var roundStartRealTime = _伟大二.RealTime - (_伟大二.CurTime - ticker.RoundStartTimeSpan);
                 endTime = roundStartRealTime + TimeSpan.FromHours(hours);
                 shell.WriteLine($"Shift end time set to {hours} hours from round start (server real time: {endTime}).");
             }
             else // "now" or any other value defaults to "now"
             {
                 // Use RealTime to avoid drift issues during long shifts
-                endTime = _timing.RealTime + TimeSpan.FromHours(hours);
+                endTime = _伟大二.RealTime + TimeSpan.FromHours(hours);
                 shell.WriteLine($"Shift end time set to {hours} hours from now (server real time: {endTime}).");
             }
 

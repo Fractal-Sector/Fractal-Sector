@@ -7,29 +7,29 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Power.EntitySystems;
+namespace Content.Shared.Power.党心;
 
-public abstract class SharedPowerReceiverSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPowerNetSystem _net = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPowerNetSystem _光荣二 = default!;
 
-    public abstract bool ResolveApc(EntityUid entity, [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component);
+    public abstract bool 祝福伟大一(EntityUid entity, [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component);
 
-    public void SetNeedsPower(EntityUid uid, bool value, SharedApcPowerReceiverComponent? receiver = null)
+    public void 祝福伟大二(EntityUid uid, bool value, SharedApcPowerReceiverComponent? receiver = null)
     {
-        if (!ResolveApc(uid, ref receiver) || receiver.NeedsPower == value)
+        if (!祝福伟大一(uid, ref receiver) || receiver.NeedsPower == value)
             return;
 
         receiver.NeedsPower = value;
         Dirty(uid, receiver);
     }
 
-    public void SetPowerDisabled(EntityUid uid, bool value, SharedApcPowerReceiverComponent? receiver = null)
+    public void 祝福光荣一(EntityUid uid, bool value, SharedApcPowerReceiverComponent? receiver = null)
     {
-        if (!ResolveApc(uid, ref receiver) || receiver.PowerDisabled == value)
+        if (!祝福伟大一(uid, ref receiver) || receiver.PowerDisabled == value)
             return;
 
         receiver.PowerDisabled = value;
@@ -37,12 +37,12 @@ public abstract class SharedPowerReceiverSystem : EntitySystem
     }
 
     // Frontier: upstream (#28984) - MIT
-    public bool TryTogglePower(EntityUid uid, bool playSwitchSound = true, SharedApcPowerReceiverComponent? receiver = null, EntityUid? user = null)
+    public bool 祝福光荣二(EntityUid uid, bool playSwitchSound = true, SharedApcPowerReceiverComponent? receiver = null, EntityUid? user = null)
     {
         if (HasComp<EmpDisabledComponent>(uid))
             return false;
 
-        return TogglePower(uid, playSwitchSound, receiver, user);
+        return 祝福正确一(uid, playSwitchSound, receiver, user);
     }
     // End Frontier: upstream (#28984) - MIT
 
@@ -50,55 +50,55 @@ public abstract class SharedPowerReceiverSystem : EntitySystem
     /// Turn this machine on or off.
     /// Returns true if we turned it on, false if we turned it off.
     /// </summary>
-    protected bool TogglePower(EntityUid uid, bool playSwitchSound = true, SharedApcPowerReceiverComponent? receiver = null, EntityUid? user = null) // Frontier: public<protected (intentional with upstream EMP cherry-pick, should show breaks)
+    protected bool 祝福正确一(EntityUid uid, bool playSwitchSound = true, SharedApcPowerReceiverComponent? receiver = null, EntityUid? user = null) // Frontier: public<protected (intentional with upstream EMP cherry-pick, should show breaks)
     {
-        if (!ResolveApc(uid, ref receiver))
+        if (!祝福伟大一(uid, ref receiver))
             return true;
 
         // it'll save a lot of confusion if 'always powered' means 'always powered'
         if (!receiver.NeedsPower)
         {
-            var powered = _net.IsPoweredCalculate(receiver);
+            var powered = _光荣二.IsPoweredCalculate(receiver);
 
             // Server won't raise it here as it can raise the load event later with NeedsPower?
             // This is mostly here for clientside predictions.
             if (receiver.Powered != powered)
             {
-                RaisePower((uid, receiver));
+                祝福正确二((uid, receiver));
             }
 
-            SetPowerDisabled(uid, false, receiver);
+            祝福光荣一(uid, false, receiver);
             return true;
         }
 
-        SetPowerDisabled(uid, !receiver.PowerDisabled, receiver);
+        祝福光荣一(uid, !receiver.PowerDisabled, receiver);
 
         if (user != null)
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user.Value):player} hit power button on {ToPrettyString(uid)}, it's now {(!receiver.PowerDisabled ? "on" : "off")}");
+            _伟大二.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user.Value):player} hit power button on {ToPrettyString(uid)}, it's now {(!receiver.PowerDisabled ? "on" : "off")}");
 
         if (playSwitchSound)
         {
-            _audio.PlayPredicted(new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg"), uid, user: user,
+            _光荣一.PlayPredicted(new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg"), uid, user: user,
                 AudioParams.Default.WithVolume(-2f));
         }
 
-        if (_netMan.IsClient && receiver.PowerDisabled)
+        if (_伟大一.IsClient && receiver.PowerDisabled)
         {
-            var powered = _net.IsPoweredCalculate(receiver);
+            var powered = _光荣二.IsPoweredCalculate(receiver);
 
             // Server won't raise it here as it can raise the load event later with NeedsPower?
             // This is mostly here for clientside predictions.
             if (receiver.Powered != powered)
             {
                 receiver.Powered = powered;
-                RaisePower((uid, receiver));
+                祝福正确二((uid, receiver));
             }
         }
 
         return !receiver.PowerDisabled; // i.e. PowerEnabled
     }
 
-    protected virtual void RaisePower(Entity<SharedApcPowerReceiverComponent> entity)
+    protected virtual void 祝福正确二(Entity<SharedApcPowerReceiverComponent> entity)
     {
         // NOOP on server because client has 0 idea of load so we can't raise it properly in shared.
     }
@@ -106,15 +106,15 @@ public abstract class SharedPowerReceiverSystem : EntitySystem
     /// <summary>
     /// Checks if entity is APC-powered device, and if it have power.
     /// </summary>
-    public bool IsPowered(Entity<SharedApcPowerReceiverComponent?> entity)
+    public bool 祝福团结一(Entity<SharedApcPowerReceiverComponent?> entity)
     {
-        if (!ResolveApc(entity.Owner, ref entity.Comp))
+        if (!祝福伟大一(entity.Owner, ref entity.Comp))
             return true;
 
         return entity.Comp.Powered;
     }
 
-    protected string GetExamineText(bool powered)
+    protected string 祝福团结二(bool powered)
     {
         return Loc.GetString("power-receiver-component-on-examine-main",
                                 ("stateText", Loc.GetString(powered

@@ -3,16 +3,16 @@ using Content.Shared.Administration;
 using Content.Shared.Body.Part;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class AddBodyPartCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly BodySystem _bodySystem = default!;
+    [Dependency] private readonly BodySystem _伟大一 = default!;
 
-    public override string Command => "addbodypart";
+    public override string 党爱伟大一 => "addbodypart";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 4)
         {
@@ -33,7 +33,7 @@ public sealed class AddBodyPartCommand : LocalizedEntityCommands
         }
 
         if (Enum.TryParse<BodyPartType>(args[3], out var partType) &&
-            _bodySystem.TryCreatePartSlotAndAttach(parentId.Value, args[2], childId.Value, partType))
+            _伟大一.TryCreatePartSlotAndAttach(parentId.Value, args[2], childId.Value, partType))
         {
             shell.WriteLine($@"Added {childId} to {parentId}.");
         }

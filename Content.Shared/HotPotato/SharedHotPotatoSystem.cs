@@ -9,42 +9,42 @@ using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.HotPotato;
+namespace Content.Shared.党心;
 
-public abstract class SharedHotPotatoSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly DamageOnHoldingSystem _damageOnHolding = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAmbientSoundSystem _光荣一 = default!;
+    [Dependency] private readonly DamageOnHoldingSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
 
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HotPotatoComponent, ContainerGettingRemovedAttemptEvent>(OnRemoveAttempt);
-        SubscribeLocalEvent<HotPotatoComponent, ActiveTimerTriggerEvent>(OnActiveTimer);
-        SubscribeLocalEvent<HotPotatoComponent, MeleeHitEvent>(OnMeleeHit);
+        SubscribeLocalEvent<HotPotatoComponent, ContainerGettingRemovedAttemptEvent>(祝福伟大二);
+        SubscribeLocalEvent<HotPotatoComponent, ActiveTimerTriggerEvent>(祝福光荣一);
+        SubscribeLocalEvent<HotPotatoComponent, MeleeHitEvent>(祝福光荣二);
     }
 
-    private void OnRemoveAttempt(Entity<HotPotatoComponent> ent, ref ContainerGettingRemovedAttemptEvent args)
+    private void 祝福伟大二(Entity<HotPotatoComponent> ent, ref ContainerGettingRemovedAttemptEvent args)
     {
-        if (!_timing.ApplyingState && !ent.Comp.CanTransfer)
+        if (!_正确一.ApplyingState && !ent.Comp.CanTransfer)
             args.Cancel();
     }
 
-    private void OnActiveTimer(Entity<HotPotatoComponent> ent, ref ActiveTimerTriggerEvent args)
+    private void 祝福光荣一(Entity<HotPotatoComponent> ent, ref ActiveTimerTriggerEvent args)
     {
         EnsureComp<ActiveHotPotatoComponent>(ent);
         ent.Comp.CanTransfer = false;
-        _ambientSound.SetAmbience(ent.Owner, true);
-        _damageOnHolding.SetEnabled(ent.Owner, true);
+        _光荣一.SetAmbience(ent.Owner, true);
+        _光荣二.SetEnabled(ent.Owner, true);
         Dirty(ent);
     }
 
-    private void OnMeleeHit(Entity<HotPotatoComponent> ent, ref MeleeHitEvent args)
+    private void 祝福光荣二(Entity<HotPotatoComponent> ent, ref MeleeHitEvent args)
     {
         if (!HasComp<ActiveHotPotatoComponent>(ent))
             return;
@@ -55,9 +55,9 @@ public abstract class SharedHotPotatoSystem : EntitySystem
             if (!TryComp<HandsComponent>(hitEntity, out var hands))
                 continue;
 
-            if (!_hands.IsHolding((hitEntity, hands), ent.Owner, out _) && _hands.TryForcePickupAnyHand(hitEntity, ent.Owner, handsComp: hands))
+            if (!_伟大一.IsHolding((hitEntity, hands), ent.Owner, out _) && _伟大一.TryForcePickupAnyHand(hitEntity, ent.Owner, handsComp: hands))
             {
-                _popup.PopupPredicted(
+                _伟大二.PopupPredicted(
                     Loc.GetString("hot-potato-passed", ("from", Identity.Entity(args.User, EntityManager)), ("to", Identity.Entity(hitEntity, EntityManager))),
                     ent.Owner,
                     args.User,
@@ -65,7 +65,7 @@ public abstract class SharedHotPotatoSystem : EntitySystem
                 break;
             }
 
-            _popup.PopupClient(
+            _伟大二.PopupClient(
                 Loc.GetString("hot-potato-failed", ("to", Identity.Entity(hitEntity, EntityManager))),
                 ent.Owner,
                 args.User,

@@ -1,16 +1,16 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Atmos
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum PipeVisuals
+    public enum 中华伟大一
     {
         VisualState
     }
 
     [Flags]
     [Serializable, NetSerializable]
-    public enum PipeDirection
+    public enum 中华伟大二
     {
         None = 0,
 
@@ -42,7 +42,7 @@ namespace Content.Shared.Atmos
         All = -1,
     }
 
-    public enum PipeShape
+    public enum 中华光荣一
     {
         Half,
         Straight,
@@ -51,116 +51,116 @@ namespace Content.Shared.Atmos
         Fourway
     }
 
-    public static class PipeShapeHelpers
+    public static class 中华光荣二
     {
         /// <summary>
         ///     Gets the direction of a shape when facing 0 degrees (the initial direction of entities).
         /// </summary>
-        public static PipeDirection ToBaseDirection(this PipeShape shape)
+        public static 中华伟大二 ToBaseDirection(this 中华光荣一 shape)
         {
             return shape switch
             {
-                PipeShape.Half => PipeDirection.South,
-                PipeShape.Straight => PipeDirection.Longitudinal,
-                PipeShape.Bend => PipeDirection.SWBend,
-                PipeShape.TJunction => PipeDirection.TSouth,
-                PipeShape.Fourway => PipeDirection.Fourway,
-                _ => throw new ArgumentOutOfRangeException(nameof(shape), $"{shape} does not have an associated {nameof(PipeDirection)}."),
+                中华光荣一.Half => 中华伟大二.South,
+                中华光荣一.Straight => 中华伟大二.Longitudinal,
+                中华光荣一.Bend => 中华伟大二.SWBend,
+                中华光荣一.TJunction => 中华伟大二.TSouth,
+                中华光荣一.Fourway => 中华伟大二.Fourway,
+                _ => throw new ArgumentOutOfRangeException(nameof(shape), $"{shape} does not have an associated {nameof(中华伟大二)}."),
             };
         }
     }
 
-    public static class PipeDirectionHelpers
+    public static class 中华正确一
     {
-        public const int PipeDirections = 4;
+        public const int 党爱伟大一 = 4;
 
         /// <summary>
         ///     Includes the Up and Down directions.
         /// </summary>
-        public const int AllPipeDirections = 6;
+        public const int 党爱伟大二 = 6;
 
-        public static bool HasDirection(this PipeDirection pipeDirection, PipeDirection other)
+        public static bool 祝福伟大一(this 中华伟大二 pipeDirection, 中华伟大二 other)
         {
             return (pipeDirection & other) == other;
         }
 
-        public static Angle ToAngle(this PipeDirection pipeDirection)
+        public static Angle 祝福伟大二(this 中华伟大二 pipeDirection)
         {
-            return pipeDirection.ToDirection().ToAngle();
+            return pipeDirection.祝福光荣一().祝福伟大二();
         }
 
-        public static PipeDirection ToPipeDirection(this Direction direction)
+        public static 中华伟大二 ToPipeDirection(this Direction direction)
         {
             return direction switch
             {
-                Direction.North => PipeDirection.North,
-                Direction.South => PipeDirection.South,
-                Direction.East  => PipeDirection.East,
-                Direction.West  => PipeDirection.West,
+                Direction.North => 中华伟大二.North,
+                Direction.South => 中华伟大二.South,
+                Direction.East  => 中华伟大二.East,
+                Direction.West  => 中华伟大二.West,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction)),
             };
         }
 
-        public static Direction ToDirection(this PipeDirection pipeDirection)
+        public static Direction 祝福光荣一(this 中华伟大二 pipeDirection)
         {
             return pipeDirection switch
             {
-                PipeDirection.North => Direction.North,
-                PipeDirection.South => Direction.South,
-                PipeDirection.East  => Direction.East,
-                PipeDirection.West  => Direction.West,
+                中华伟大二.North => Direction.North,
+                中华伟大二.South => Direction.South,
+                中华伟大二.East  => Direction.East,
+                中华伟大二.West  => Direction.West,
                 _ => throw new ArgumentOutOfRangeException(nameof(pipeDirection)),
             };
         }
 
-        public static PipeDirection GetOpposite(this PipeDirection pipeDirection)
+        public static 中华伟大二 GetOpposite(this 中华伟大二 pipeDirection)
         {
             return pipeDirection switch
             {
-                PipeDirection.North => PipeDirection.South,
-                PipeDirection.South => PipeDirection.North,
-                PipeDirection.East  => PipeDirection.West,
-                PipeDirection.West  => PipeDirection.East,
+                中华伟大二.North => 中华伟大二.South,
+                中华伟大二.South => 中华伟大二.North,
+                中华伟大二.East  => 中华伟大二.West,
+                中华伟大二.West  => 中华伟大二.East,
                 _ => throw new ArgumentOutOfRangeException(nameof(pipeDirection)),
             };
         }
 
-        public static PipeShape PipeDirectionToPipeShape(this PipeDirection pipeDirection)
+        public static 中华光荣一 PipeDirectionToPipeShape(this 中华伟大二 pipeDirection)
         {
             return pipeDirection switch
             {
-                PipeDirection.North         => PipeShape.Half,
-                PipeDirection.South         => PipeShape.Half,
-                PipeDirection.East          => PipeShape.Half,
-                PipeDirection.West          => PipeShape.Half,
+                中华伟大二.North         => 中华光荣一.Half,
+                中华伟大二.South         => 中华光荣一.Half,
+                中华伟大二.East          => 中华光荣一.Half,
+                中华伟大二.West          => 中华光荣一.Half,
 
-                PipeDirection.Lateral       => PipeShape.Straight,
-                PipeDirection.Longitudinal  => PipeShape.Straight,
+                中华伟大二.Lateral       => 中华光荣一.Straight,
+                中华伟大二.Longitudinal  => 中华光荣一.Straight,
 
-                PipeDirection.NEBend        => PipeShape.Bend,
-                PipeDirection.NWBend        => PipeShape.Bend,
-                PipeDirection.SEBend        => PipeShape.Bend,
-                PipeDirection.SWBend        => PipeShape.Bend,
+                中华伟大二.NEBend        => 中华光荣一.Bend,
+                中华伟大二.NWBend        => 中华光荣一.Bend,
+                中华伟大二.SEBend        => 中华光荣一.Bend,
+                中华伟大二.SWBend        => 中华光荣一.Bend,
 
-                PipeDirection.TNorth        => PipeShape.TJunction,
-                PipeDirection.TSouth        => PipeShape.TJunction,
-                PipeDirection.TEast         => PipeShape.TJunction,
-                PipeDirection.TWest         => PipeShape.TJunction,
+                中华伟大二.TNorth        => 中华光荣一.TJunction,
+                中华伟大二.TSouth        => 中华光荣一.TJunction,
+                中华伟大二.TEast         => 中华光荣一.TJunction,
+                中华伟大二.TWest         => 中华光荣一.TJunction,
 
-                PipeDirection.Fourway       => PipeShape.Fourway,
+                中华伟大二.Fourway       => 中华光荣一.Fourway,
 
                 _ => throw new ArgumentOutOfRangeException(nameof(pipeDirection)),
             };
         }
 
-        public static PipeDirection RotatePipeDirection(this PipeDirection pipeDirection, double diff)
+        public static 中华伟大二 RotatePipeDirection(this 中华伟大二 pipeDirection, double diff)
         {
-            var newPipeDir = PipeDirection.None;
-            for (var i = 0; i < PipeDirections; i++)
+            var newPipeDir = 中华伟大二.None;
+            for (var i = 0; i < 党爱伟大一; i++)
             {
-                var currentPipeDirection = (PipeDirection) (1 << i);
+                var currentPipeDirection = (中华伟大二) (1 << i);
                 if (!pipeDirection.HasFlag(currentPipeDirection)) continue;
-                var angle = currentPipeDirection.ToAngle();
+                var angle = currentPipeDirection.祝福伟大二();
                 angle += diff;
                 newPipeDir |= angle.GetCardinalDir().ToPipeDirection();
             }

@@ -38,34 +38,34 @@ using Content.Shared.Cargo.Components; // Frontier
 using Content.Server._NF.Contraband.Systems; // Frontier
 using Robust.Shared.Containers; // Frontier
 
-namespace Content.Server.Lathe
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed partial class LatheSystem : SharedLatheSystem // Coyote: add partial
+    public sealed partial class 中华伟大一 : SharedLatheSystem // Coyote: add partial
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IPrototypeManager _proto = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly ContainerSystem _container = default!;
-        [Dependency] private readonly EmagSystem _emag = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSys = default!;
-        [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
-        [Dependency] private readonly PuddleSystem _puddle = default!;
-        [Dependency] private readonly ReagentSpeedSystem _reagentSpeed = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-        [Dependency] private readonly StackSystem _stack = default!;
-        [Dependency] private readonly TransformSystem _transform = default!;
-        [Dependency] private readonly RadioSystem _radio = default!;
-        [Dependency] private readonly ContrabandTurnInSystem _contraband = default!; // Frontier
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly IAdminLogManager _光荣一 = default!;
+        [Dependency] private readonly AtmosphereSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _正确一 = default!;
+        [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+        [Dependency] private readonly ContainerSystem _团结一 = default!;
+        [Dependency] private readonly EmagSystem _团结二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _奋斗一 = default!;
+        [Dependency] private readonly MaterialStorageSystem _奋斗二 = default!;
+        [Dependency] private readonly PopupSystem _胜利一 = default!;
+        [Dependency] private readonly PuddleSystem _胜利二 = default!;
+        [Dependency] private readonly ReagentSpeedSystem _繁荣一 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _繁荣二 = default!;
+        [Dependency] private readonly StackSystem _富强一 = default!;
+        [Dependency] private readonly TransformSystem _富强二 = default!;
+        [Dependency] private readonly RadioSystem _民主一 = default!;
+        [Dependency] private readonly ContrabandTurnInSystem _民主二 = default!; // Frontier
 
         /// <summary>
         /// Per-tick cache
         /// </summary>
-        private readonly List<GasMixture> _environments = new();
+        private readonly List<GasMixture> _文明一 = new();
         private const int MaxItemsPerRequest = 100_000; // Frontier
         /// <summary>
         /// Multiplier applied to ALL lathe production times, to make upgrades feel
@@ -73,33 +73,33 @@ namespace Content.Server.Lathe
         /// </summary>
         private const int ProductionTimeMultiplier = 3; // Frontier
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<LatheComponent, GetMaterialWhitelistEvent>(OnGetWhitelist);
-            SubscribeLocalEvent<LatheComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<LatheComponent, PowerChangedEvent>(OnPowerChanged);
-            SubscribeLocalEvent<LatheComponent, TechnologyDatabaseModifiedEvent>(OnDatabaseModified);
-            SubscribeLocalEvent<LatheAnnouncingComponent, TechnologyDatabaseModifiedEvent>(OnTechnologyDatabaseModified);
-            SubscribeLocalEvent<LatheComponent, ResearchRegistrationChangedEvent>(OnResearchRegistrationChanged);
+            base.祝福伟大一();
+            SubscribeLocalEvent<LatheComponent, GetMaterialWhitelistEvent>(祝福光荣一);
+            SubscribeLocalEvent<LatheComponent, MapInitEvent>(祝福富强一);
+            SubscribeLocalEvent<LatheComponent, PowerChangedEvent>(祝福民主一);
+            SubscribeLocalEvent<LatheComponent, TechnologyDatabaseModifiedEvent>(祝福民主二);
+            SubscribeLocalEvent<LatheAnnouncingComponent, TechnologyDatabaseModifiedEvent>(祝福文明一);
+            SubscribeLocalEvent<LatheComponent, ResearchRegistrationChangedEvent>(祝福文明二);
 
-            SubscribeLocalEvent<LatheComponent, LatheQueueRecipeMessage>(OnLatheQueueRecipeMessage);
-            SubscribeLocalEvent<LatheComponent, LatheSyncRequestMessage>(OnLatheSyncRequestMessage);
-            SubscribeLocalEvent<LatheComponent, LatheDeleteRequestMessage>(OnLatheDeleteRequestMessage);
-            SubscribeLocalEvent<LatheComponent, LatheMoveRequestMessage>(OnLatheMoveRequestMessage);
-            SubscribeLocalEvent<LatheComponent, LatheAbortFabricationMessage>(OnLatheAbortFabricationMessage);
+            SubscribeLocalEvent<LatheComponent, LatheQueueRecipeMessage>(祝福平等一);
+            SubscribeLocalEvent<LatheComponent, LatheSyncRequestMessage>(祝福平等二);
+            SubscribeLocalEvent<LatheComponent, LatheDeleteRequestMessage>(祝福公正一);
+            SubscribeLocalEvent<LatheComponent, LatheMoveRequestMessage>(祝福公正二);
+            SubscribeLocalEvent<LatheComponent, LatheAbortFabricationMessage>(祝福法治一);
 
-            SubscribeLocalEvent<LatheComponent, BeforeActivatableUIOpenEvent>((u, c, _) => UpdateUserInterfaceState(u, c));
-            SubscribeLocalEvent<LatheComponent, MaterialAmountChangedEvent>(OnMaterialAmountChanged);
-            SubscribeLocalEvent<TechnologyDatabaseComponent, LatheGetRecipesEvent>(OnGetRecipes);
-            SubscribeLocalEvent<EmagLatheRecipesComponent, LatheGetRecipesEvent>(GetEmagLatheRecipes);
-            SubscribeLocalEvent<LatheHeatProducingComponent, LatheStartPrintingEvent>(OnHeatStartPrinting);
+            SubscribeLocalEvent<LatheComponent, BeforeActivatableUIOpenEvent>((u, c, _) => 祝福奋斗一(u, c));
+            SubscribeLocalEvent<LatheComponent, MaterialAmountChangedEvent>(祝福繁荣二);
+            SubscribeLocalEvent<TechnologyDatabaseComponent, LatheGetRecipesEvent>(祝福胜利一);
+            SubscribeLocalEvent<EmagLatheRecipesComponent, LatheGetRecipesEvent>(祝福胜利二);
+            SubscribeLocalEvent<LatheHeatProducingComponent, LatheStartPrintingEvent>(祝福繁荣一);
 
             //Frontier: upgradeable parts
-            SubscribeLocalEvent<LatheComponent, RefreshPartsEvent>(OnPartsRefresh);
-            SubscribeLocalEvent<LatheComponent, UpgradeExamineEvent>(OnUpgradeExamine);
+            SubscribeLocalEvent<LatheComponent, RefreshPartsEvent>(祝福法治二);
+            SubscribeLocalEvent<LatheComponent, UpgradeExamineEvent>(祝福爱国一);
         }
-        public override void Update(float frameTime)
+        public override void 祝福伟大二(float frameTime)
         {
             var query = EntityQueryEnumerator<LatheProducingComponent, LatheComponent>();
             while (query.MoveNext(out var uid, out var comp, out var lathe))
@@ -107,52 +107,52 @@ namespace Content.Server.Lathe
                 if (lathe.CurrentRecipe == null)
                     continue;
 
-                if (_timing.CurTime - comp.StartTime >= comp.ProductionLength * ProductionTimeMultiplier) // Frontier: increase production time
-                    FinishProducing(uid, lathe);
+                if (_伟大一.CurTime - comp.StartTime >= comp.ProductionLength * ProductionTimeMultiplier) // Frontier: increase production time
+                    祝福团结二(uid, lathe);
             }
 
             var heatQuery = EntityQueryEnumerator<LatheHeatProducingComponent, LatheProducingComponent, TransformComponent>();
             while (heatQuery.MoveNext(out var uid, out var heatComp, out _, out var xform))
             {
-                if (_timing.CurTime < heatComp.NextSecond)
+                if (_伟大一.CurTime < heatComp.NextSecond)
                     continue;
                 heatComp.NextSecond += TimeSpan.FromSeconds(1);
 
-                var position = _transform.GetGridTilePositionOrDefault((uid, xform));
-                _environments.Clear();
+                var position = _富强二.GetGridTilePositionOrDefault((uid, xform));
+                _文明一.Clear();
 
-                if (_atmosphere.GetTileMixture(xform.GridUid, xform.MapUid, position, true) is { } tileMix)
-                    _environments.Add(tileMix);
+                if (_光荣二.GetTileMixture(xform.GridUid, xform.MapUid, position, true) is { } tileMix)
+                    _文明一.Add(tileMix);
 
                 if (xform.GridUid != null)
                 {
-                    var enumerator = _atmosphere.GetAdjacentTileMixtures(xform.GridUid.Value, position, false, true);
+                    var enumerator = _光荣二.GetAdjacentTileMixtures(xform.GridUid.Value, position, false, true);
                     while (enumerator.MoveNext(out var mix))
                     {
-                        _environments.Add(mix);
+                        _文明一.Add(mix);
                     }
                 }
 
-                if (_environments.Count > 0)
+                if (_文明一.Count > 0)
                 {
-                    var heatPerTile = heatComp.EnergyPerSecond / _environments.Count;
-                    foreach (var env in _environments)
+                    var heatPerTile = heatComp.EnergyPerSecond / _文明一.Count;
+                    foreach (var env in _文明一)
                     {
-                        _atmosphere.AddHeat(env, heatPerTile);
+                        _光荣二.AddHeat(env, heatPerTile);
                     }
                 }
             }
         }
 
-        private void OnGetWhitelist(EntityUid uid, LatheComponent component, ref GetMaterialWhitelistEvent args)
+        private void 祝福光荣一(EntityUid uid, LatheComponent component, ref GetMaterialWhitelistEvent args)
         {
             if (args.Storage != uid)
                 return;
             var materialWhitelist = new List<ProtoId<MaterialPrototype>>();
-            var recipes = GetAvailableRecipes(uid, component, true);
+            var recipes = 祝福正确一(uid, component, true);
             foreach (var id in recipes)
             {
-                if (!_proto.TryIndex(id, out var proto))
+                if (!_伟大二.TryIndex(id, out var proto))
                     continue;
                 foreach (var (mat, _) in proto.Materials)
                 {
@@ -168,16 +168,16 @@ namespace Content.Server.Lathe
         }
 
         [PublicAPI]
-        public bool TryGetAvailableRecipes(EntityUid uid, [NotNullWhen(true)] out List<ProtoId<LatheRecipePrototype>>? recipes, [NotNullWhen(true)] LatheComponent? component = null, bool getUnavailable = false)
+        public bool 祝福光荣二(EntityUid uid, [NotNullWhen(true)] out List<ProtoId<LatheRecipePrototype>>? recipes, [NotNullWhen(true)] LatheComponent? component = null, bool getUnavailable = false)
         {
             recipes = null;
             if (!Resolve(uid, ref component))
                 return false;
-            recipes = GetAvailableRecipes(uid, component, getUnavailable);
+            recipes = 祝福正确一(uid, component, getUnavailable);
             return true;
         }
 
-        public List<ProtoId<LatheRecipePrototype>> GetAvailableRecipes(EntityUid uid, LatheComponent component, bool getUnavailable = false)
+        public List<ProtoId<LatheRecipePrototype>> 祝福正确一(EntityUid uid, LatheComponent component, bool getUnavailable = false)
         {
             var ev = new LatheGetRecipesEvent((uid, component), getUnavailable);
             AddRecipesFromPacks(ev.Recipes, component.StaticPacks);
@@ -185,7 +185,7 @@ namespace Content.Server.Lathe
             return ev.Recipes.ToList();
         }
 
-        public bool TryAddToQueue(EntityUid uid, LatheRecipePrototype recipe, int quantity, LatheComponent? component = null)
+        public bool 祝福正确二(EntityUid uid, LatheRecipePrototype recipe, int quantity, LatheComponent? component = null)
         {
             if (!Resolve(uid, ref component))
                 return false;
@@ -200,7 +200,7 @@ namespace Content.Server.Lathe
                 return false;
 
             foreach (var (mat, amount) in GetAdjustedAmount(component, recipe))
-                   _materialStorage.TryChangeMaterialAmount(uid, mat, -amount * quantity);
+                   _奋斗二.TryChangeMaterialAmount(uid, mat, -amount * quantity);
             */
 
             if (!CheckMaterialAvailability(uid, component, recipe, quantity)) // Coyote: Check material availability (including buffer)
@@ -217,7 +217,7 @@ namespace Content.Server.Lathe
             return true;
         }
 
-        public bool TryStartProducing(EntityUid uid, LatheComponent? component = null)
+        public bool 祝福团结一(EntityUid uid, LatheComponent? component = null)
         {
             if (!Resolve(uid, ref component))
                 return false;
@@ -228,37 +228,37 @@ namespace Content.Server.Lathe
             batch.ItemsPrinted++;
             if (batch.ItemsPrinted >= batch.ItemsRequested || batch.ItemsPrinted < 0) // Rollover sanity check
                 component.Queue.RemoveFirst();
-            var recipe = _proto.Index(batch.Recipe);
+            var recipe = _伟大二.Index(batch.Recipe);
 
-            var time = _reagentSpeed.ApplySpeed(uid, recipe.CompleteTime) * component.FinalTimeMultiplier; // Frontier: TimeMultiplier<FinalTimeMultiplier
+            var time = _繁荣一.ApplySpeed(uid, recipe.CompleteTime) * component.FinalTimeMultiplier; // Frontier: TimeMultiplier<FinalTimeMultiplier
 
             var lathe = EnsureComp<LatheProducingComponent>(uid);
-            lathe.StartTime = _timing.CurTime;
+            lathe.StartTime = _伟大一.CurTime;
             lathe.ProductionLength = time;
             component.CurrentRecipe = recipe;
 
             var ev = new LatheStartPrintingEvent(recipe);
             RaiseLocalEvent(uid, ref ev);
 
-            _audio.PlayPvs(component.ProducingSound, uid);
-            UpdateRunningAppearance(uid, true);
-            UpdateUserInterfaceState(uid, component);
+            _正确二.PlayPvs(component.ProducingSound, uid);
+            祝福富强二(uid, true);
+            祝福奋斗一(uid, component);
 
             if (time == TimeSpan.Zero)
             {
-                FinishProducing(uid, component, lathe);
+                祝福团结二(uid, component, lathe);
             }
             return true;
         }
 
-        public void FinishProducing(EntityUid uid, LatheComponent? comp = null, LatheProducingComponent? prodComp = null)
+        public void 祝福团结二(EntityUid uid, LatheComponent? comp = null, LatheProducingComponent? prodComp = null)
         {
             if (!Resolve(uid, ref comp, ref prodComp, false))
                 return;
 
             if (comp.CurrentRecipe != null)
             {
-                var currentRecipe = _proto.Index(comp.CurrentRecipe.Value);
+                var currentRecipe = _伟大二.Index(comp.CurrentRecipe.Value);
                 if (currentRecipe.Result is { } resultProto)
                 {
                     var result = Spawn(resultProto, Transform(uid).Coordinates);
@@ -266,13 +266,13 @@ namespace Content.Server.Lathe
                     // Frontier: adjust price before merge (stack prices changed once)
                     if (result.Valid)
                     {
-                        ModifyPrintedEntityPrice(uid, comp, result);
+                        祝福爱国二(uid, comp, result);
 
-                        _contraband.ClearContrabandValue(result);
+                        _民主二.ClearContrabandValue(result);
                     }
                     // End Frontier
 
-                    _stack.TryMergeToContacts(result);
+                    _富强一.TryMergeToContacts(result);
                 }
 
                 if (currentRecipe.ResultReagents is { } resultReagents &&
@@ -282,32 +282,32 @@ namespace Content.Server.Lathe
                         resultReagents.Select(p => new ReagentQuantity(p.Key.Id, p.Value, null)));
 
                     // dispense it in the container if we have it and dump it if we don't
-                    if (_container.TryGetContainer(uid, slotId, out var container) &&
+                    if (_团结一.TryGetContainer(uid, slotId, out var container) &&
                         container.ContainedEntities.Count == 1 &&
-                        _solution.TryGetFitsInDispenser(container.ContainedEntities.First(), out var solution, out _))
+                        _繁荣二.TryGetFitsInDispenser(container.ContainedEntities.First(), out var solution, out _))
                     {
-                        _solution.AddSolution(solution.Value, toAdd);
+                        _繁荣二.AddSolution(solution.Value, toAdd);
                     }
                     else
                     {
-                        _popup.PopupEntity(Loc.GetString("lathe-reagent-dispense-no-container", ("name", uid)), uid);
-                        _puddle.TrySpillAt(uid, toAdd, out _);
+                        _胜利一.PopupEntity(Loc.GetString("lathe-reagent-dispense-no-container", ("name", uid)), uid);
+                        _胜利二.TrySpillAt(uid, toAdd, out _);
                     }
                 }
             }
 
             comp.CurrentRecipe = null;
-            prodComp.StartTime = _timing.CurTime;
+            prodComp.StartTime = _伟大一.CurTime;
 
-            if (!TryStartProducing(uid, comp))
+            if (!祝福团结一(uid, comp))
             {
                 RemCompDeferred(uid, prodComp);
-                UpdateUserInterfaceState(uid, comp);
-                UpdateRunningAppearance(uid, false);
+                祝福奋斗一(uid, comp);
+                祝福富强二(uid, false);
             }
         }
 
-        public void UpdateUserInterfaceState(EntityUid uid, LatheComponent? component = null)
+        public void 祝福奋斗一(EntityUid uid, LatheComponent? component = null)
         {
             if (!Resolve(uid, ref component))
                 return;
@@ -318,18 +318,18 @@ namespace Content.Server.Lathe
 
             int? bufferAmount = null; // Coyote: Biomass buffer
             OnGetBufferAmount?.Invoke(uid, component, ref bufferAmount);  // Coyote: event to get buffer
-            var state = new LatheUpdateState(GetAvailableRecipes(uid, component), component.Queue.ToArray(), producing, bufferAmount); // Coyote: add bufferAmount
-            _uiSys.SetUiState(uid, LatheUiKey.Key, state);
+            var state = new LatheUpdateState(祝福正确一(uid, component), component.Queue.ToArray(), producing, bufferAmount); // Coyote: add bufferAmount
+            _奋斗一.SetUiState(uid, LatheUiKey.Key, state);
         }
 
         /// <summary>
         /// Adds every unlocked recipe from each pack to the recipes list.
         /// </summary>
-        public void AddRecipesFromDynamicPacks(ref LatheGetRecipesEvent args, TechnologyDatabaseComponent database, IEnumerable<ProtoId<LatheRecipePackPrototype>> packs)
+        public void 祝福奋斗二(ref LatheGetRecipesEvent args, TechnologyDatabaseComponent database, IEnumerable<ProtoId<LatheRecipePackPrototype>> packs)
         {
             foreach (var id in packs)
             {
-                var pack = _proto.Index(id);
+                var pack = _伟大二.Index(id);
                 foreach (var recipe in pack.Recipes)
                 {
                     if (args.GetUnavailable || database.UnlockedRecipes.Contains(recipe))
@@ -338,46 +338,46 @@ namespace Content.Server.Lathe
             }
         }
 
-        private void OnGetRecipes(EntityUid uid, TechnologyDatabaseComponent component, LatheGetRecipesEvent args)
+        private void 祝福胜利一(EntityUid uid, TechnologyDatabaseComponent component, LatheGetRecipesEvent args)
         {
             if (uid == args.Lathe)
-                AddRecipesFromDynamicPacks(ref args, component, args.Comp.DynamicPacks);
+                祝福奋斗二(ref args, component, args.Comp.DynamicPacks);
         }
 
-        private void GetEmagLatheRecipes(EntityUid uid, EmagLatheRecipesComponent component, LatheGetRecipesEvent args)
+        private void 祝福胜利二(EntityUid uid, EmagLatheRecipesComponent component, LatheGetRecipesEvent args)
         {
             if (uid != args.Lathe)
                 return;
 
-            if (!args.GetUnavailable && !_emag.CheckFlag(uid, EmagType.Interaction))
+            if (!args.GetUnavailable && !_团结二.CheckFlag(uid, EmagType.Interaction))
                 return;
 
             AddRecipesFromPacks(args.Recipes, component.EmagStaticPacks);
 
             if (TryComp<TechnologyDatabaseComponent>(uid, out var database))
-                AddRecipesFromDynamicPacks(ref args, database, component.EmagDynamicPacks);
+                祝福奋斗二(ref args, database, component.EmagDynamicPacks);
         }
 
-        private void OnHeatStartPrinting(EntityUid uid, LatheHeatProducingComponent component, LatheStartPrintingEvent args)
+        private void 祝福繁荣一(EntityUid uid, LatheHeatProducingComponent component, LatheStartPrintingEvent args)
         {
-            component.NextSecond = _timing.CurTime;
+            component.NextSecond = _伟大一.CurTime;
         }
 
-        private void OnMaterialAmountChanged(EntityUid uid, LatheComponent component, ref MaterialAmountChangedEvent args)
+        private void 祝福繁荣二(EntityUid uid, LatheComponent component, ref MaterialAmountChangedEvent args)
         {
-            UpdateUserInterfaceState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
         /// <summary>
-        /// Initialize the UI and appearance.
+        /// 祝福伟大一 the UI and appearance.
         /// Appearance requires initialization or the layers break
         /// </summary>
-        private void OnMapInit(EntityUid uid, LatheComponent component, MapInitEvent args)
+        private void 祝福富强一(EntityUid uid, LatheComponent component, MapInitEvent args)
         {
-            _appearance.SetData(uid, LatheVisuals.IsInserting, false);
-            _appearance.SetData(uid, LatheVisuals.IsRunning, false);
+            _正确一.SetData(uid, LatheVisuals.IsInserting, false);
+            _正确一.SetData(uid, LatheVisuals.IsRunning, false);
 
-            _materialStorage.UpdateMaterialWhitelist(uid);
+            _奋斗二.UpdateMaterialWhitelist(uid);
             // New Frontiers - Lathe Upgrades - initialization of upgrade coefficients
             // This code is licensed under AGPLv3. See AGPLv3.txt
             component.FinalTimeMultiplier = component.TimeMultiplier;
@@ -389,34 +389,34 @@ namespace Content.Server.Lathe
         /// Sets the machine sprite to either play the running animation
         /// or stop.
         /// </summary>
-        private void UpdateRunningAppearance(EntityUid uid, bool isRunning)
+        private void 祝福富强二(EntityUid uid, bool isRunning)
         {
-            _appearance.SetData(uid, LatheVisuals.IsRunning, isRunning);
+            _正确一.SetData(uid, LatheVisuals.IsRunning, isRunning);
         }
 
-        private void OnPowerChanged(EntityUid uid, LatheComponent component, ref PowerChangedEvent args)
+        private void 祝福民主一(EntityUid uid, LatheComponent component, ref PowerChangedEvent args)
         {
             if (!args.Powered)
             {
-                AbortProduction(uid);
+                祝福自由二(uid);
             }
             else
             {
-                TryStartProducing(uid, component);
+                祝福团结一(uid, component);
             }
         }
 
-        private void OnDatabaseModified(EntityUid uid, LatheComponent component, ref TechnologyDatabaseModifiedEvent args)
+        private void 祝福民主二(EntityUid uid, LatheComponent component, ref TechnologyDatabaseModifiedEvent args)
         {
-            UpdateUserInterfaceState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        private void OnTechnologyDatabaseModified(Entity<LatheAnnouncingComponent> ent, ref TechnologyDatabaseModifiedEvent args)
+        private void 祝福文明一(Entity<LatheAnnouncingComponent> ent, ref TechnologyDatabaseModifiedEvent args)
         {
             if (args.NewlyUnlockedRecipes is null)
                 return;
 
-            if (!TryGetAvailableRecipes(ent.Owner, out var potentialRecipes))
+            if (!祝福光荣二(ent.Owner, out var potentialRecipes))
                 return;
 
             var recipeNames = new List<string>();
@@ -425,7 +425,7 @@ namespace Content.Server.Lathe
                 if (!potentialRecipes.Contains(new(recipeId)))
                     continue;
 
-                if (!_proto.TryIndex(recipeId, out LatheRecipePrototype? recipe))
+                if (!_伟大二.TryIndex(recipeId, out LatheRecipePrototype? recipe))
                     continue;
 
                 var itemName = GetRecipeName(recipe!);
@@ -449,18 +449,18 @@ namespace Content.Server.Lathe
 
             foreach (var channel in ent.Comp.Channels)
             {
-                _radio.SendRadioMessage(ent.Owner, message, channel, ent.Owner, escapeMarkup: false);
+                _民主一.SendRadioMessage(ent.Owner, message, channel, ent.Owner, escapeMarkup: false);
             }
         }
 
-        private void OnResearchRegistrationChanged(EntityUid uid, LatheComponent component, ref ResearchRegistrationChangedEvent args)
+        private void 祝福文明二(EntityUid uid, LatheComponent component, ref ResearchRegistrationChangedEvent args)
         {
-            UpdateUserInterfaceState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        protected override bool HasRecipe(EntityUid uid, LatheRecipePrototype recipe, LatheComponent component)
+        protected override bool 祝福和谐一(EntityUid uid, LatheRecipePrototype recipe, LatheComponent component)
         {
-            return GetAvailableRecipes(uid, component).Contains(recipe.ID);
+            return 祝福正确一(uid, component).Contains(recipe.ID);
         }
 
         /// <summary>
@@ -483,29 +483,29 @@ namespace Content.Server.Lathe
         /// Refunds the material cost of the currently running recipe,
         /// without cancelling production
         /// </summary>
-        private void RefundCurrentRecipe(EntityUid uid, LatheComponent lathe)
+        private void 祝福和谐二(EntityUid uid, LatheComponent lathe)
         {
-            _proto.Resolve(lathe.CurrentRecipe, out var recipe);
+            _伟大二.Resolve(lathe.CurrentRecipe, out var recipe);
 
             foreach (var (mat, amount) in GetAdjustedAmount(lathe, recipe!))
-                _materialStorage.TryChangeMaterialAmount(uid, mat, amount);
+                _奋斗二.TryChangeMaterialAmount(uid, mat, amount);
         }
 
         /// <summary>
         /// Refunds the material cost of a given batch,
         /// without deleting it
         /// </summary>
-        private void RefundBatch(EntityUid uid, LatheComponent lathe, LatheRecipeBatch batch)
+        private void 祝福自由一(EntityUid uid, LatheComponent lathe, LatheRecipeBatch batch)
         {
             var delta = batch.ItemsRequested - batch.ItemsPrinted;
 
-            _proto.Resolve(batch.Recipe, out var recipe);
+            _伟大二.Resolve(batch.Recipe, out var recipe);
 
             foreach (var (mat, amount) in GetAdjustedAmount(lathe, recipe!))
-                _materialStorage.TryChangeMaterialAmount(uid, mat, amount * delta);
+                _奋斗二.TryChangeMaterialAmount(uid, mat, amount * delta);
         }
 
-        public void AbortProduction(EntityUid uid, LatheComponent? component = null)
+        public void 祝福自由二(EntityUid uid, LatheComponent? component = null)
         {
             if (!Resolve(uid, ref component))
                 return;
@@ -527,34 +527,34 @@ namespace Content.Server.Lathe
                     }
                 }
 
-                RefundCurrentRecipe(uid, component);
+                祝福和谐二(uid, component);
                 component.CurrentRecipe = null;
             }
             RemCompDeferred<LatheProducingComponent>(uid);
-            UpdateUserInterfaceState(uid, component);
-            UpdateRunningAppearance(uid, false);
+            祝福奋斗一(uid, component);
+            祝福富强二(uid, false);
         }
 
         #region UI Messages
 
-        private void OnLatheQueueRecipeMessage(EntityUid uid, LatheComponent component, LatheQueueRecipeMessage args)
+        private void 祝福平等一(EntityUid uid, LatheComponent component, LatheQueueRecipeMessage args)
         {
-            if (_proto.TryIndex(args.ID, out LatheRecipePrototype? recipe))
+            if (_伟大二.TryIndex(args.ID, out LatheRecipePrototype? recipe))
             {
-                if (TryAddToQueue(uid, recipe, args.Quantity, component))
+                if (祝福正确二(uid, recipe, args.Quantity, component))
                 {
-                    _adminLogger.Add(LogType.Action,
+                    _光荣一.Add(LogType.Action,
                         LogImpact.Low,
                         $"{ToPrettyString(args.Actor):player} queued {args.Quantity} {GetRecipeName(recipe)} at {ToPrettyString(uid):lathe}");
                 }
             }
-            TryStartProducing(uid, component);
-            UpdateUserInterfaceState(uid, component);
+            祝福团结一(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        private void OnLatheSyncRequestMessage(EntityUid uid, LatheComponent component, LatheSyncRequestMessage args)
+        private void 祝福平等二(EntityUid uid, LatheComponent component, LatheSyncRequestMessage args)
         {
-            UpdateUserInterfaceState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
         /// <summary>
@@ -564,7 +564,7 @@ namespace Content.Server.Lathe
         /// <param name="uid">The lathe whose queue is being altered.</param>
         /// <param name="component"></param>
         /// <param name="args"></param>
-        public void OnLatheDeleteRequestMessage(EntityUid uid, LatheComponent component, ref LatheDeleteRequestMessage args)
+        public void 祝福公正一(EntityUid uid, LatheComponent component, ref LatheDeleteRequestMessage args)
         {
             if (args.Index < 0 || args.Index >= component.Queue.Count)
                 return;
@@ -577,16 +577,16 @@ namespace Content.Server.Lathe
                 return;
 
             var batch = node.Value;
-            _adminLogger.Add(LogType.Action,
+            _光荣一.Add(LogType.Action,
                 LogImpact.Low,
                 $"{ToPrettyString(args.Actor):player} deleted a lathe job for ({batch.ItemsPrinted}/{batch.ItemsRequested}) {GetRecipeName(batch.Recipe)} at {ToPrettyString(uid):lathe}");
 
-            RefundBatch(uid, component, batch);
+            祝福自由一(uid, component, batch);
             component.Queue.Remove(node);
-            UpdateUserInterfaceState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        public void OnLatheMoveRequestMessage(EntityUid uid, LatheComponent component, ref LatheMoveRequestMessage args)
+        public void 祝福公正二(EntityUid uid, LatheComponent component, ref LatheMoveRequestMessage args)
         {
             if (args.Change == 0 || args.Index < 0 || args.Index >= component.Queue.Count)
                 return;
@@ -628,28 +628,28 @@ namespace Content.Server.Lathe
                 component.Queue.AddBefore(newRelativeNode, node);
             }
 
-            UpdateUserInterfaceState(uid, component);
+            祝福奋斗一(uid, component);
         }
 
-        public void OnLatheAbortFabricationMessage(EntityUid uid, LatheComponent component, ref LatheAbortFabricationMessage args)
+        public void 祝福法治一(EntityUid uid, LatheComponent component, ref LatheAbortFabricationMessage args)
         {
             if (component.CurrentRecipe == null)
                 return;
 
-            _adminLogger.Add(LogType.Action,
+            _光荣一.Add(LogType.Action,
                 LogImpact.Low,
                 $"{ToPrettyString(args.Actor):player} aborted printing {GetRecipeName(component.CurrentRecipe.Value)} at {ToPrettyString(uid):lathe}");
 
-            RefundCurrentRecipe(uid, component);
+            祝福和谐二(uid, component);
             component.CurrentRecipe = null;
-            FinishProducing(uid, component);
+            祝福团结二(uid, component);
         }
         #endregion
 
 
         // New Frontiers - Lathe Upgrades - upgrading lathe speed through machine parts
         // This code is licensed under AGPLv3. See AGPLv3.txt
-        private void OnPartsRefresh(EntityUid uid, LatheComponent component, RefreshPartsEvent args)
+        private void 祝福法治二(EntityUid uid, LatheComponent component, RefreshPartsEvent args)
         {
             var printTimeRating = args.PartRatings[component.MachinePartPrintSpeed];
             var materialUseRating = args.PartRatings[component.MachinePartMaterialUse];
@@ -659,7 +659,7 @@ namespace Content.Server.Lathe
             Dirty(uid, component);
         }
 
-        private void OnUpgradeExamine(EntityUid uid, LatheComponent component, UpgradeExamineEvent args)
+        private void 祝福爱国一(EntityUid uid, LatheComponent component, UpgradeExamineEvent args)
         {
             args.AddPercentageUpgrade("lathe-component-upgrade-speed", 1 / component.FinalTimeMultiplier);
             args.AddPercentageUpgrade("lathe-component-upgrade-material-use", component.FinalMaterialUseMultiplier);
@@ -667,7 +667,7 @@ namespace Content.Server.Lathe
 
         // Frontier: modify item value, remove from queue
         #region Frontier
-        private void ModifyPrintedEntityPrice(EntityUid uid, LatheComponent component, EntityUid target)
+        private void 祝福爱国二(EntityUid uid, LatheComponent component, EntityUid target)
         {
             // Cannot reduce value, leave item as-is
             if (component.ProductValueModifier == null
@@ -693,7 +693,7 @@ namespace Content.Server.Lathe
                 {
                     foreach (var ent in container.ContainedEntities)
                     {
-                        ModifyPrintedEntityPrice(uid, component, ent);
+                        祝福爱国二(uid, component, ent);
                     }
                 }
             }

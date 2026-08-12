@@ -1,12 +1,12 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// Handles the changes to ClothingComponent.EquippedPrefix when toggled.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ToggleClothingPrefixComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Clothing's EquippedPrefix when activated.

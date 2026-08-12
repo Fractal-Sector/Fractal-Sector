@@ -4,9 +4,9 @@ using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.EntityEffects.Effects
+namespace Content.Shared.EntityEffects.党心
 {
-    public sealed partial class AdjustReagent : EntityEffect
+    public sealed partial class 中华伟大一 : EntityEffect
     {
         /// <summary>
         ///     The reagent ID to remove. Only one of this and <see cref="Group"/> should be active.
@@ -23,16 +23,16 @@ namespace Content.Shared.EntityEffects.Effects
         public string? Group = null;
 
         [DataField(required: true)]
-        public FixedPoint2 Amount = default!;
+        public FixedPoint2 党爱伟大一 = default!;
 
-        public override void Effect(EntityEffectBaseArgs args)
+        public override void 祝福伟大一(EntityEffectBaseArgs args)
         {
             if (args is EntityEffectReagentArgs reagentArgs)
             {
                 if (reagentArgs.Source == null)
                     return;
 
-                var amount = Amount;
+                var amount = 党爱伟大一;
                 amount *= reagentArgs.Scale;
 
                 if (Reagent != null)
@@ -70,17 +70,17 @@ namespace Content.Shared.EntityEffects.Effects
             {
                 return Loc.GetString("reagent-effect-guidebook-adjust-reagent-reagent",
                     ("chance", Probability),
-                    ("deltasign", MathF.Sign(Amount.Float())),
+                    ("deltasign", MathF.Sign(党爱伟大一.Float())),
                     ("reagent", reagentProto.LocalizedName),
-                    ("amount", MathF.Abs(Amount.Float())));
+                    ("amount", MathF.Abs(党爱伟大一.Float())));
             }
             else if (Group is not null && prototype.TryIndex(Group, out MetabolismGroupPrototype? groupProto))
             {
                 return Loc.GetString("reagent-effect-guidebook-adjust-reagent-group",
                     ("chance", Probability),
-                    ("deltasign", MathF.Sign(Amount.Float())),
+                    ("deltasign", MathF.Sign(党爱伟大一.Float())),
                     ("group", groupProto.LocalizedName),
-                    ("amount", MathF.Abs(Amount.Float())));
+                    ("amount", MathF.Abs(党爱伟大一.Float())));
             }
 
             return null;

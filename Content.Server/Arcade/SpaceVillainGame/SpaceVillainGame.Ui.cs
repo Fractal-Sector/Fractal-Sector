@@ -1,29 +1,29 @@
 using static Content.Shared.Arcade.SharedSpaceVillainArcadeComponent;
 
-namespace Content.Server.Arcade.SpaceVillain;
+namespace Content.Server.Arcade.党心;
 
-public sealed partial class SpaceVillainGame
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Updates the UI.
     /// </summary>
-    private void UpdateUi(EntityUid uid, bool metadata = false)
+    private void 祝福伟大一(EntityUid uid, bool metadata = false)
     {
-        _uiSystem.ServerSendUiMessage(uid, SpaceVillainArcadeUiKey.Key, metadata ? GenerateMetaDataMessage() : GenerateUpdateMessage());
+        _uiSystem.ServerSendUiMessage(uid, SpaceVillainArcadeUiKey.Key, metadata ? 祝福伟大二() : 祝福光荣一());
     }
 
-    private void UpdateUi(EntityUid uid, string message1, string message2, bool metadata = false)
+    private void 祝福伟大一(EntityUid uid, string message1, string message2, bool metadata = false)
     {
         _latestPlayerActionMessage = message1;
         _latestEnemyActionMessage = message2;
-        UpdateUi(uid, metadata);
+        祝福伟大一(uid, metadata);
     }
 
     /// <summary>
     /// Generates a Metadata-message based on the objects values.
     /// </summary>
     /// <returns>A Metadata-message.</returns>
-    public SpaceVillainArcadeMetaDataUpdateMessage GenerateMetaDataMessage()
+    public SpaceVillainArcadeMetaDataUpdateMessage 祝福伟大二()
     {
         return new(
             PlayerChar.Hp, PlayerChar.Mp,
@@ -40,7 +40,7 @@ public sealed partial class SpaceVillainGame
     /// Creates an Update-message based on the objects values.
     /// </summary>
     /// <returns>An Update-Message.</returns>
-    public SpaceVillainArcadeDataUpdateMessage GenerateUpdateMessage()
+    public SpaceVillainArcadeDataUpdateMessage 祝福光荣一()
     {
         return new(
             PlayerChar.Hp, PlayerChar.Mp,

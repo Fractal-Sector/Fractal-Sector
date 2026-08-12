@@ -9,19 +9,19 @@ using Content.Shared.Machines.Components;
 using Content.Shared.Singularity.Components;
 using Robust.Shared.Console;
 
-namespace Content.Server.Singularity
+namespace Content.Server.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class StartSingularityEngineCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly EmitterSystem _emitterSystem = default!;
-        [Dependency] private readonly MultipartMachineSystem _multipartSystem = default!;
-        [Dependency] private readonly ParticleAcceleratorSystem  _paSystem = default!;
-        [Dependency] private readonly RadiationCollectorSystem _radCollectorSystem = default!;
+        [Dependency] private readonly EmitterSystem _伟大一 = default!;
+        [Dependency] private readonly MultipartMachineSystem _伟大二 = default!;
+        [Dependency] private readonly ParticleAcceleratorSystem  _光荣一 = default!;
+        [Dependency] private readonly RadiationCollectorSystem _光荣二 = default!;
 
-        public override string Command => "startsingularityengine";
+        public override string 党爱伟大一 => "startsingularityengine";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 0)
             {
@@ -34,14 +34,14 @@ namespace Content.Server.Singularity
             while (emitterQuery.MoveNext(out var uid, out var emitterComponent))
             {
                 //FIXME: This turns on ALL emitters, including APEs. It should only turn on the containment field emitters.
-                _emitterSystem.SwitchOn(uid, emitterComponent);
+                _伟大一.SwitchOn(uid, emitterComponent);
             }
 
             // Turn on radiation collectors
             var radiationCollectorQuery = EntityManager.EntityQueryEnumerator<RadiationCollectorComponent>();
             while (radiationCollectorQuery.MoveNext(out var uid, out var radiationCollectorComponent))
             {
-                _radCollectorSystem.SetCollectorEnabled(uid, enabled: true, user: null, radiationCollectorComponent);
+                _光荣二.SetCollectorEnabled(uid, enabled: true, user: null, radiationCollectorComponent);
             }
 
             // Setup PA
@@ -51,11 +51,11 @@ namespace Content.Server.Singularity
                 if (!EntityManager.TryGetComponent<MultipartMachineComponent>(paId, out var machine))
                     continue;
 
-                if (!_multipartSystem.Rescan((paId, machine)))
+                if (!_伟大二.Rescan((paId, machine)))
                     continue;
 
-                _paSystem.SetStrength(paId, ParticleAcceleratorPowerState.Level0, comp: paControl);
-                _paSystem.SwitchOn(paId, comp: paControl);
+                _光荣一.SetStrength(paId, ParticleAcceleratorPowerState.Level0, comp: paControl);
+                _光荣一.SwitchOn(paId, comp: paControl);
             }
 
             shell.WriteLine(Loc.GetString($"shell-command-success"));

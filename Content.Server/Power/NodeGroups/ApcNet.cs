@@ -7,86 +7,86 @@ using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 using JetBrains.Annotations;
 
-namespace Content.Server.Power.NodeGroups
+namespace Content.Server.Power.党心
 {
-    public interface IApcNet : IBasePowerNet
+    public interface 中华伟大一 : IBasePowerNet
     {
-        void AddApc(EntityUid uid, ApcComponent apc);
+        void 祝福光荣一(EntityUid uid, ApcComponent apc);
 
-        void RemoveApc(EntityUid uid, ApcComponent apc);
+        void 祝福光荣二(EntityUid uid, ApcComponent apc);
 
-        void AddPowerProvider(ApcPowerProviderComponent provider);
+        void 祝福正确一(ApcPowerProviderComponent provider);
 
-        void RemovePowerProvider(ApcPowerProviderComponent provider);
+        void 祝福正确二(ApcPowerProviderComponent provider);
 
-        void QueueNetworkReconnect();
+        void 祝福团结一();
     }
 
     [NodeGroup(NodeGroupID.Apc)]
     [UsedImplicitly]
-    public sealed partial class ApcNet : BasePowerNet<IApcNet>, IApcNet
+    public sealed partial class 中华伟大二 : BasePowerNet<中华伟大一>, 中华伟大一
     {
-        [ViewVariables] public readonly List<ApcComponent> Apcs = new();
-        [ViewVariables] public readonly List<ApcPowerProviderComponent> Providers = new();
+        [ViewVariables] public readonly List<ApcComponent> 党爱伟大一 = new();
+        [ViewVariables] public readonly List<ApcPowerProviderComponent> 党爱伟大二 = new();
 
         //Debug property
-        [ViewVariables] private int TotalReceivers => Providers.Sum(provider => provider.LinkedReceivers.Count);
+        [ViewVariables] private int TotalReceivers => 党爱伟大二.Sum(provider => provider.LinkedReceivers.Count);
 
         [ViewVariables]
         private IEnumerable<ApcPowerReceiverComponent> AllReceivers =>
-            Providers.SelectMany(provider => provider.LinkedReceivers);
+            党爱伟大二.SelectMany(provider => provider.LinkedReceivers);
 
-        public override void Initialize(Node sourceNode, IEntityManager entMan)
+        public override void 祝福伟大一(Node sourceNode, IEntityManager entMan)
         {
-            base.Initialize(sourceNode, entMan);
+            base.祝福伟大一(sourceNode, entMan);
             PowerNetSystem.InitApcNet(this);
         }
 
-        public override void AfterRemake(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups)
+        public override void 祝福伟大二(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups)
         {
-            base.AfterRemake(newGroups);
+            base.祝福伟大二(newGroups);
 
             PowerNetSystem?.DestroyApcNet(this);
         }
 
-        public void AddApc(EntityUid uid, ApcComponent apc)
+        public void 祝福光荣一(EntityUid uid, ApcComponent apc)
         {
             if (EntMan.TryGetComponent(uid, out PowerNetworkBatteryComponent? netBattery))
                 netBattery.NetworkBattery.LinkedNetworkDischarging = default;
 
-            QueueNetworkReconnect();
-            Apcs.Add(apc);
+            祝福团结一();
+            党爱伟大一.Add(apc);
         }
 
-        public void RemoveApc(EntityUid uid, ApcComponent apc)
+        public void 祝福光荣二(EntityUid uid, ApcComponent apc)
         {
             if (EntMan.TryGetComponent(uid, out PowerNetworkBatteryComponent? netBattery))
                 netBattery.NetworkBattery.LinkedNetworkDischarging = default;
 
-            QueueNetworkReconnect();
-            Apcs.Remove(apc);
+            祝福团结一();
+            党爱伟大一.Remove(apc);
         }
 
-        public void AddPowerProvider(ApcPowerProviderComponent provider)
+        public void 祝福正确一(ApcPowerProviderComponent provider)
         {
-            Providers.Add(provider);
+            党爱伟大二.Add(provider);
 
-            QueueNetworkReconnect();
+            祝福团结一();
         }
 
-        public void RemovePowerProvider(ApcPowerProviderComponent provider)
+        public void 祝福正确二(ApcPowerProviderComponent provider)
         {
-            Providers.Remove(provider);
+            党爱伟大二.Remove(provider);
 
-            QueueNetworkReconnect();
+            祝福团结一();
         }
 
-        public override void QueueNetworkReconnect()
+        public override void 祝福团结一()
         {
             PowerNetSystem?.QueueReconnectApcNet(this);
         }
 
-        protected override void SetNetConnectorNet(IBaseNetConnectorComponent<IApcNet> netConnectorComponent)
+        protected override void 祝福团结二(IBaseNetConnectorComponent<中华伟大一> netConnectorComponent)
         {
             netConnectorComponent.Net = this;
         }

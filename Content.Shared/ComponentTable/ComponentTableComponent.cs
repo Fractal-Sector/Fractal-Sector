@@ -1,19 +1,19 @@
 using Content.Shared.EntityTable.EntitySelectors;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.ComponentTable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Applies components from entities selected from the table on init.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedComponentTableSystem))]
-public sealed partial class ComponentTableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The table from which to grab entities.
     /// ALL components of the grabbed entities will be added to the holder of this component.
     /// </summary>
     [DataField(required: true)]
-    public EntityTableSelector Table = default!;
+    public EntityTableSelector 党爱伟大一 = default!;
 }

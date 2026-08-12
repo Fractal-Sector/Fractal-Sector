@@ -2,30 +2,30 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Chat.TypingIndicator;
+namespace Content.Shared.Chat.党心;
 
 /// <summary>
 ///     Prototype to store chat typing indicator visuals.
 /// </summary>
 [Prototype]
-public sealed partial class TypingIndicatorPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField("spritePath")]
-    public ResPath SpritePath = new("/Textures/Effects/speech.rsi");
+    public ResPath 党爱伟大二 = new("/Textures/Effects/speech.rsi");
 
     [DataField("typingState", required: true)]
-    public string TypingState = default!;
+    public string 党爱光荣一 = default!;
 
     [DataField("idleState", required: true)]
-    public string IdleState = default!;
+    public string 党爱光荣二 = default!;
 
     [DataField("offset")]
-    public Vector2 Offset = new(0, 0);
+    public Vector2 党爱正确一 = new(0, 0);
 
     [DataField("shader")]
-    public string Shader = "shaded";
+    public string 党爱正确二 = "shaded";
 
 }

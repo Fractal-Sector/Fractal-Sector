@@ -1,7 +1,7 @@
 using System.Numerics;
 
-namespace Content.Shared._WF;
-public static class ColorExtensions
+namespace Content.Shared.党心;
+public static class 中华伟大一
 {
     /// <summary>
     /// Generates a random color based on an input string as a seed
@@ -9,7 +9,7 @@ public static class ColorExtensions
     /// <param name="input">The input string to use as a seed</param>
     /// <param name="minimumLightness">An optional minimum lightness to maintain contrast, 0-255</param>
     /// <returns>A random color with the given minimum lightness. Always the same color for the same input string.</returns>
-    public static Color ConsistentRandomSeededColorFromString(string input, int minimumLightness = 0)
+    public static Color 祝福伟大一(string input, int minimumLightness = 0)
     {
         // Use a consistent hash function to generate a seed from the input string
         var seed = input.GetHashCode();

@@ -9,32 +9,32 @@ using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Weapons.Ranged.Systems;
+namespace Content.Shared.Weapons.Ranged.党心;
 
-public abstract class SharedFlyBySoundSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
+    [Dependency] private readonly FixtureSystem _伟大一 = default!;
 
-    public const string FlyByFixture = "fly-by";
+    public const string 党爱伟大一 = "fly-by";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<FlyBySoundComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<FlyBySoundComponent, ComponentShutdown>(OnShutdown);
+        base.祝福伟大一();
+        SubscribeLocalEvent<FlyBySoundComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<FlyBySoundComponent, ComponentShutdown>(祝福光荣一);
     }
 
-    private void OnStartup(EntityUid uid, FlyBySoundComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, FlyBySoundComponent component, ComponentStartup args)
     {
         if (!TryComp<PhysicsComponent>(uid, out var body))
             return;
 
         var shape = new PhysShapeCircle(component.Range);
 
-        _fixtures.TryCreateFixture(uid, shape, FlyByFixture, collisionLayer: (int) CollisionGroup.MobMask, hard: false, body: body);
+        _伟大一.TryCreateFixture(uid, shape, 党爱伟大一, collisionLayer: (int) CollisionGroup.MobMask, hard: false, body: body);
     }
 
-    private void OnShutdown(EntityUid uid, FlyBySoundComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, FlyBySoundComponent component, ComponentShutdown args)
     {
         if (!TryComp<PhysicsComponent>(uid, out var body) ||
             MetaData(uid).EntityLifeStage >= EntityLifeStage.Terminating)
@@ -42,6 +42,6 @@ public abstract class SharedFlyBySoundSystem : EntitySystem
             return;
         }
 
-        _fixtures.DestroyFixture(uid, FlyByFixture, body: body);
+        _伟大一.DestroyFixture(uid, 党爱伟大一, body: body);
     }
 }

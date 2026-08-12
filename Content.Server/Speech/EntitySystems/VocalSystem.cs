@@ -11,32 +11,32 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class VocalSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly ChatSystem _光荣二 = default!;
+    [Dependency] private readonly ActionsSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<VocalComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<VocalComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<VocalComponent, SexChangedEvent>(OnSexChanged);
-        SubscribeLocalEvent<VocalComponent, EmoteEvent>(OnEmote);
-        SubscribeLocalEvent<VocalComponent, ScreamActionEvent>(OnScreamAction);
+        SubscribeLocalEvent<VocalComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<VocalComponent, ComponentShutdown>(祝福光荣二);
+        SubscribeLocalEvent<VocalComponent, SexChangedEvent>(祝福正确一);
+        SubscribeLocalEvent<VocalComponent, EmoteEvent>(祝福正确二);
+        SubscribeLocalEvent<VocalComponent, ScreamActionEvent>(祝福团结一);
     }
 
     /// <summary>
     /// Copy this component's datafields from one entity to another.
     /// This can't use CopyComp because of the ScreamActionEntity DataField, which should not be copied.
     /// <summary>
-    public void CopyComponent(Entity<VocalComponent?> source, EntityUid target)
+    public void 祝福伟大二(Entity<VocalComponent?> source, EntityUid target)
     {
         if (!Resolve(source, ref source.Comp))
             return;
@@ -46,33 +46,33 @@ public sealed class VocalSystem : EntitySystem
         targetComp.ScreamId = source.Comp.ScreamId;
         targetComp.Wilhelm = source.Comp.Wilhelm;
         targetComp.WilhelmProbability = source.Comp.WilhelmProbability;
-        LoadSounds(target, targetComp);
+        祝福奋斗一(target, targetComp);
 
         Dirty(target, targetComp);
     }
 
-    private void OnMapInit(EntityUid uid, VocalComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, VocalComponent component, MapInitEvent args)
     {
         // try to add scream action when vocal comp added
-        _actions.AddAction(uid, ref component.ScreamActionEntity, component.ScreamAction);
-        LoadSounds(uid, component);
+        _正确一.AddAction(uid, ref component.ScreamActionEntity, component.ScreamAction);
+        祝福奋斗一(uid, component);
     }
 
-    private void OnShutdown(EntityUid uid, VocalComponent component, ComponentShutdown args)
+    private void 祝福光荣二(EntityUid uid, VocalComponent component, ComponentShutdown args)
     {
         // remove scream action when component removed
         if (component.ScreamActionEntity != null)
         {
-            _actions.RemoveAction(uid, component.ScreamActionEntity);
+            _正确一.RemoveAction(uid, component.ScreamActionEntity);
         }
     }
 
-    private void OnSexChanged(EntityUid uid, VocalComponent component, SexChangedEvent args)
+    private void 祝福正确一(EntityUid uid, VocalComponent component, SexChangedEvent args)
     {
-        LoadSounds(uid, component, args.NewSex);
+        祝福奋斗一(uid, component, args.NewSex);
     }
 
-    private void OnEmote(EntityUid uid, VocalComponent component, ref EmoteEvent args)
+    private void 祝福正确二(EntityUid uid, VocalComponent component, ref EmoteEvent args)
     {
         if (args.Handled || !args.Emote.Category.HasFlag(EmoteCategory.Vocal))
             return;
@@ -80,7 +80,7 @@ public sealed class VocalSystem : EntitySystem
         // snowflake case for wilhelm scream easter egg
         if (args.Emote.ID == component.ScreamId)
         {
-            args.Handled = TryPlayScreamSound(uid, component);
+            args.Handled = 祝福团结二(uid, component);
             return;
         }
 
@@ -88,33 +88,33 @@ public sealed class VocalSystem : EntitySystem
             return;
 
         // just play regular sound based on emote proto
-        args.Handled = _chat.TryPlayEmoteSound(uid, _proto.Index(sounds), args.Emote);
+        args.Handled = _光荣二.TryPlayEmoteSound(uid, _伟大二.Index(sounds), args.Emote);
     }
 
-    private void OnScreamAction(EntityUid uid, VocalComponent component, ScreamActionEvent args)
+    private void 祝福团结一(EntityUid uid, VocalComponent component, ScreamActionEvent args)
     {
         if (args.Handled)
             return;
 
-        _chat.TryEmoteWithChat(uid, component.ScreamId);
+        _光荣二.TryEmoteWithChat(uid, component.ScreamId);
         args.Handled = true;
     }
 
-    private bool TryPlayScreamSound(EntityUid uid, VocalComponent component)
+    private bool 祝福团结二(EntityUid uid, VocalComponent component)
     {
-        if (_random.Prob(component.WilhelmProbability))
+        if (_伟大一.Prob(component.WilhelmProbability))
         {
-            _audio.PlayPvs(component.Wilhelm, uid, component.Wilhelm.Params);
+            _光荣一.PlayPvs(component.Wilhelm, uid, component.Wilhelm.Params);
             return true;
         }
 
         if (component.EmoteSounds is not { } sounds)
             return false;
 
-        return _chat.TryPlayEmoteSound(uid, _proto.Index(sounds), component.ScreamId);
+        return _光荣二.TryPlayEmoteSound(uid, _伟大二.Index(sounds), component.ScreamId);
     }
 
-    private void LoadSounds(EntityUid uid, VocalComponent component, Sex? sex = null)
+    private void 祝福奋斗一(EntityUid uid, VocalComponent component, Sex? sex = null)
     {
         if (component.Sounds == null)
             return;
@@ -124,7 +124,7 @@ public sealed class VocalSystem : EntitySystem
         if (!component.Sounds.TryGetValue(sex.Value, out var protoId))
             return;
 
-        if (!_proto.HasIndex(protoId))
+        if (!_伟大二.HasIndex(protoId))
             return;
 
         component.EmoteSounds = protoId;

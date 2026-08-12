@@ -1,12 +1,12 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Clock;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedClockSystem))]
 [AutoGenerateComponentState]
-public sealed partial class ClockComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// If not null, this time will be permanently shown.
@@ -18,24 +18,24 @@ public sealed partial class ClockComponent : Component
     /// The format in which time is displayed.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ClockType ClockType = ClockType.TwelveHour;
+    public 中华伟大二 中华伟大二 = 中华伟大二.TwelveHour;
 
     [DataField]
-    public string HoursBase = "hours_";
+    public string 党爱伟大一 = "hours_";
 
     [DataField]
-    public string MinutesBase = "minutes_";
+    public string 党爱伟大二 = "minutes_";
 }
 
 [Serializable, NetSerializable]
-public enum ClockType : byte
+public enum 中华伟大二 : byte
 {
     TwelveHour,
     TwentyFourHour
 }
 
 [Serializable, NetSerializable]
-public enum ClockVisualLayers : byte
+public enum 中华光荣一 : byte
 {
     HourHand,
     MinuteHand

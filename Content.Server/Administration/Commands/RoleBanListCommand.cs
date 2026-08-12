@@ -7,26 +7,26 @@ using Content.Shared.Administration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Ban)]
-public sealed class RoleBanListCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
 
-    [Dependency] private readonly EuiManager _eui = default!;
+    [Dependency] private readonly EuiManager _伟大二 = default!;
 
-    [Dependency] private readonly IPlayerLocator _locator = default!;
+    [Dependency] private readonly IPlayerLocator _光荣一 = default!;
 
-    public string Command => "rolebanlist";
-    public string Description => Loc.GetString("cmd-rolebanlist-desc");
-    public string Help => Loc.GetString("cmd-rolebanlist-help");
+    public string 党爱伟大一 => "rolebanlist";
+    public string 党爱伟大二 => Loc.GetString("cmd-rolebanlist-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-rolebanlist-help");
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1 && args.Length != 2)
         {
-            shell.WriteLine($"Invalid amount of args. {Help}");
+            shell.WriteLine($"Invalid amount of args. {党爱光荣一}");
             return;
         }
 
@@ -37,7 +37,7 @@ public sealed class RoleBanListCommand : IConsoleCommand
             return;
         }
 
-        var data = await _locator.LookupIdByNameOrIdAsync(args[0]);
+        var data = await _光荣一.LookupIdByNameOrIdAsync(args[0]);
 
         if (data == null)
         {
@@ -48,7 +48,7 @@ public sealed class RoleBanListCommand : IConsoleCommand
         if (shell.Player is not { } player)
         {
 
-            var bans = await _dbManager.GetServerRoleBansAsync(data.LastAddress, data.UserId, data.LastLegacyHWId, data.LastModernHWIds, includeUnbanned);
+            var bans = await _伟大一.GetServerRoleBansAsync(data.LastAddress, data.UserId, data.LastLegacyHWId, data.LastModernHWIds, includeUnbanned);
 
             if (bans.Count == 0)
             {
@@ -65,12 +65,12 @@ public sealed class RoleBanListCommand : IConsoleCommand
         }
 
         var ui = new BanListEui();
-        _eui.OpenEui(ui, player);
+        _伟大二.OpenEui(ui, player);
         await ui.ChangeBanListPlayer(data.UserId);
 
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         return args.Length switch
         {

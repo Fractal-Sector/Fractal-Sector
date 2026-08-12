@@ -2,22 +2,22 @@
 using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
 
-namespace Content.Server.Implants;
+namespace Content.Server.党心;
 
-public sealed class RadioImplantSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RadioImplantComponent, ImplantImplantedEvent>(OnImplantImplanted);
-        SubscribeLocalEvent<RadioImplantComponent, ImplantRemovedEvent>(OnImplantRemoved);
+        SubscribeLocalEvent<RadioImplantComponent, ImplantImplantedEvent>(祝福伟大二);
+        SubscribeLocalEvent<RadioImplantComponent, ImplantRemovedEvent>(祝福光荣一);
     }
 
     /// <summary>
     /// If implanted with a radio implant, installs the necessary intrinsic radio components
     /// </summary>
-    private void OnImplantImplanted(Entity<RadioImplantComponent> ent, ref ImplantImplantedEvent args)
+    private void 祝福伟大二(Entity<RadioImplantComponent> ent, ref ImplantImplantedEvent args)
     {
         var activeRadio = EnsureComp<ActiveRadioComponent>(args.Implanted);
         foreach (var channel in ent.Comp.RadioChannels)
@@ -39,7 +39,7 @@ public sealed class RadioImplantSystem : EntitySystem
     /// <summary>
     /// Removes intrinsic radio components once the Radio Implant is removed
     /// </summary>
-    private void OnImplantRemoved(Entity<RadioImplantComponent> ent, ref ImplantRemovedEvent args)
+    private void 祝福光荣一(Entity<RadioImplantComponent> ent, ref ImplantRemovedEvent args)
     {
         if (TryComp<ActiveRadioComponent>(args.Implanted, out var activeRadioComponent))
         {

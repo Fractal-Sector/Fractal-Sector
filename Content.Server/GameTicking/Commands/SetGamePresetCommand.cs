@@ -5,19 +5,19 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
     [AdminCommand(AdminFlags.Round)]
-    public sealed class SetGamePresetCommand : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entity = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-        public string Command => "setgamepreset";
-        public string Description => Loc.GetString("set-game-preset-command-description", ("command", Command));
-        public string Help => Loc.GetString("set-game-preset-command-help-text", ("command", Command));
+        public string 党爱伟大一 => "setgamepreset";
+        public string 党爱伟大二 => Loc.GetString("set-game-preset-command-description", ("command", 党爱伟大一));
+        public string 党爱光荣一 => Loc.GetString("set-game-preset-command-help-text", ("command", 党爱伟大一));
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 1)
             {
@@ -25,7 +25,7 @@ namespace Content.Server.GameTicking.Commands
                 return;
             }
 
-            var ticker = _entity.System<GameTicker>();
+            var ticker = _伟大一.System<GameTicker>();
 
             if (!ticker.TryFindGamePreset(args[0], out var preset))
             {
@@ -45,11 +45,11 @@ namespace Content.Server.GameTicking.Commands
             shell.WriteLine(Loc.GetString("set-game-preset-preset-set-finite", ("preset", preset.ID), ("rounds", rounds.ToString())));
         }
 
-        public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
         {
             if (args.Length == 1)
             {
-                var gamePresets = _prototype.EnumeratePrototypes<GamePresetPrototype>()
+                var gamePresets = _伟大二.EnumeratePrototypes<GamePresetPrototype>()
                     .OrderBy(p => p.ID);
                 var options = new List<string>();
                 foreach (var preset in gamePresets)

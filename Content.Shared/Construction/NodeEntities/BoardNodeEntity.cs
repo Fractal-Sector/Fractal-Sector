@@ -3,7 +3,7 @@ using Content.Shared.Construction.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Construction.NodeEntities;
+namespace Content.Shared.Construction.党心;
 
 /// <summary>
 ///     Works for both <see cref="ComputerBoardComponent"/> and <see cref="MachineBoardComponent"/>
@@ -11,13 +11,13 @@ namespace Content.Shared.Construction.NodeEntities;
 /// </summary>
 [UsedImplicitly]
 [DataDefinition]
-public sealed partial class BoardNodeEntity : IGraphNodeEntity
+public sealed partial class 中华伟大一 : IGraphNodeEntity
 {
     [DataField]
-    public string Container { get; private set; } = string.Empty;
+    public string 党爱伟大一 { get; private set; } = string.Empty;
 
     [DataField] // Frontier
-    public ComputerType Computer { get; private set; } = ComputerType.Default; // Frontier
+    public 中华伟大二 Computer { get; private set; } = 中华伟大二.Default; // Frontier
     public string? GetId(EntityUid? uid, EntityUid? userUid, GraphNodeEntityArgs args)
     {
         if (uid == null)
@@ -25,7 +25,7 @@ public sealed partial class BoardNodeEntity : IGraphNodeEntity
 
         var containerSystem = args.EntityManager.EntitySysManager.GetEntitySystem<SharedContainerSystem>();
 
-        if (!containerSystem.TryGetContainer(uid.Value, Container, out var container)
+        if (!containerSystem.TryGetContainer(uid.Value, 党爱伟大一, out var container)
             || container.ContainedEntities.Count == 0)
             return null;
 
@@ -34,15 +34,15 @@ public sealed partial class BoardNodeEntity : IGraphNodeEntity
         // Frontier - alternative computer variants
         switch (Computer)
         {
-            case ComputerType.Tabletop:
+            case 中华伟大二.Tabletop:
                 if (args.EntityManager.TryGetComponent(board, out ComputerTabletopBoardComponent? tabletopComputer))
                     return tabletopComputer.Prototype;
                 break;
-            case ComputerType.Wallmount:
+            case 中华伟大二.Wallmount:
                 if (args.EntityManager.TryGetComponent(board, out ComputerWallmountBoardComponent? wallmountComputer))
                     return wallmountComputer.Prototype;
                 break;
-            case ComputerType.Default:
+            case 中华伟大二.Default:
             default:
                 break;
         }
@@ -62,7 +62,7 @@ public sealed partial class BoardNodeEntity : IGraphNodeEntity
     }
 
     // Frontier: support for multiple computer types
-    public enum ComputerType : byte
+    public enum 中华伟大二 : byte
     {
         Default, // Default machines
         Tabletop,

@@ -1,5 +1,5 @@
 using Content.Shared.Dice;
 
-namespace Content.Server.Dice;
+namespace Content.Server.党心;
 
-public sealed class DiceSystem : SharedDiceSystem;
+public sealed class 中华伟大一 : SharedDiceSystem;

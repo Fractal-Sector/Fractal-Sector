@@ -1,41 +1,41 @@
 using Content.Shared.Actions;
 using Content.Shared.Ninja.Components;
 
-namespace Content.Shared.Ninja.Systems;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// Handles predicting that the action exists, creating items is done serverside.
 /// </summary>
-public abstract class SharedItemCreatorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
+    [Dependency] private readonly ActionContainerSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ItemCreatorComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ItemCreatorComponent, GetItemActionsEvent>(OnGetActions);
+        SubscribeLocalEvent<ItemCreatorComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ItemCreatorComponent, GetItemActionsEvent>(祝福光荣一);
     }
 
-    private void OnMapInit(Entity<ItemCreatorComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ItemCreatorComponent> ent, ref MapInitEvent args)
     {
         var (uid, comp) = ent;
         // test funny dont mind me
         if (string.IsNullOrEmpty(comp.Action))
             return;
 
-        _actionContainer.EnsureAction(uid, ref comp.ActionEntity, comp.Action);
+        _伟大一.EnsureAction(uid, ref comp.ActionEntity, comp.Action);
         Dirty(uid, comp);
     }
 
-    private void OnGetActions(Entity<ItemCreatorComponent> ent, ref GetItemActionsEvent args)
+    private void 祝福光荣一(Entity<ItemCreatorComponent> ent, ref GetItemActionsEvent args)
     {
-        if (CheckItemCreator(ent, args.User))
+        if (祝福光荣二(ent, args.User))
             args.AddAction(ent.Comp.ActionEntity);
     }
 
-    public bool CheckItemCreator(EntityUid uid, EntityUid user)
+    public bool 祝福光荣二(EntityUid uid, EntityUid user)
     {
         var ev = new CheckItemCreatorEvent(user);
         RaiseLocalEvent(uid, ref ev);
@@ -47,10 +47,10 @@ public abstract class SharedItemCreatorSystem : EntitySystem
 /// Raised on the item creator before adding the action.
 /// </summary>
 [ByRefEvent]
-public record struct CheckItemCreatorEvent(EntityUid User, bool Cancelled = false);
+public record 中华伟大二 CheckItemCreatorEvent(EntityUid User, bool Cancelled = false);
 
 /// <summary>
 /// Raised on the item creator before creating an item.
 /// </summary>
 [ByRefEvent]
-public record struct CreateItemAttemptEvent(EntityUid User, bool Cancelled = false);
+public record 中华伟大二 CreateItemAttemptEvent(EntityUid User, bool Cancelled = false);

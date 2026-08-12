@@ -2,47 +2,47 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.PowerCell.Components;
 
-namespace Content.Shared.PowerCell;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Handles events to integrate PowerCellDraw with ItemToggle
 /// </summary>
-public sealed class ToggleCellDrawSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedPowerCellSystem _cell = default!;
+    [Dependency] private readonly ItemToggleSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPowerCellSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ToggleCellDrawComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ToggleCellDrawComponent, ItemToggleActivateAttemptEvent>(OnActivateAttempt);
-        SubscribeLocalEvent<ToggleCellDrawComponent, ItemToggledEvent>(OnToggled);
-        SubscribeLocalEvent<ToggleCellDrawComponent, PowerCellSlotEmptyEvent>(OnEmpty);
+        SubscribeLocalEvent<ToggleCellDrawComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ToggleCellDrawComponent, ItemToggleActivateAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<ToggleCellDrawComponent, ItemToggledEvent>(祝福光荣二);
+        SubscribeLocalEvent<ToggleCellDrawComponent, PowerCellSlotEmptyEvent>(祝福正确一);
     }
 
-    private void OnMapInit(Entity<ToggleCellDrawComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ToggleCellDrawComponent> ent, ref MapInitEvent args)
     {
-        _cell.SetDrawEnabled(ent.Owner, _toggle.IsActivated(ent.Owner));
+        _伟大二.SetDrawEnabled(ent.Owner, _伟大一.IsActivated(ent.Owner));
     }
 
-    private void OnActivateAttempt(Entity<ToggleCellDrawComponent> ent, ref ItemToggleActivateAttemptEvent args)
+    private void 祝福光荣一(Entity<ToggleCellDrawComponent> ent, ref ItemToggleActivateAttemptEvent args)
     {
-        if (!_cell.HasDrawCharge(ent, user: args.User)
-            || !_cell.HasActivatableCharge(ent, user: args.User))
+        if (!_伟大二.HasDrawCharge(ent, user: args.User)
+            || !_伟大二.HasActivatableCharge(ent, user: args.User))
             args.Cancelled = true;
     }
 
-    private void OnToggled(Entity<ToggleCellDrawComponent> ent, ref ItemToggledEvent args)
+    private void 祝福光荣二(Entity<ToggleCellDrawComponent> ent, ref ItemToggledEvent args)
     {
         var uid = ent.Owner;
         var draw = Comp<PowerCellDrawComponent>(uid);
-        _cell.SetDrawEnabled((uid, draw), args.Activated);
+        _伟大二.SetDrawEnabled((uid, draw), args.Activated);
     }
 
-    private void OnEmpty(Entity<ToggleCellDrawComponent> ent, ref PowerCellSlotEmptyEvent args)
+    private void 祝福正确一(Entity<ToggleCellDrawComponent> ent, ref PowerCellSlotEmptyEvent args)
     {
-        _toggle.TryDeactivate(ent.Owner);
+        _伟大一.TryDeactivate(ent.Owner);
     }
 }

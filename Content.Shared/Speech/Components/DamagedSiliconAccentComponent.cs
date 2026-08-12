@@ -1,17 +1,17 @@
 ﻿using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Speech.Components;
+namespace Content.Shared.Speech.党心;
 
 [RegisterComponent]
 [NetworkedComponent]
-public sealed partial class DamagedSiliconAccentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Enable damage corruption effects
     /// </summary>
     [DataField]
-    public bool EnableDamageCorruption = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     ///     Override total damage for damage corruption effects
@@ -20,13 +20,13 @@ public sealed partial class DamagedSiliconAccentComponent : Component
     public FixedPoint2? OverrideTotalDamage;
 
     /// <summary>
-    ///     The probability that a character will be corrupted when total damage at or above <see cref="MaxDamageCorruption" />.
+    ///     The probability that a character will be corrupted when total damage at or above <see cref="党爱伟大二" />.
     /// </summary>
     [DataField]
-    public float MaxDamageCorruption = 0.5f;
+    public float 党爱伟大二 = 0.5f;
 
     /// <summary>
-    ///     Probability of character corruption will increase linearly to <see cref="MaxDamageCorruption" /> once until
+    ///     Probability of character corruption will increase linearly to <see cref="党爱伟大二" /> once until
     ///     total damage is at or above this value. If null, it will use the value returned by
     ///     DestructibleSystem.DestroyedAt, which is the damage threshold for destruction or breakage.
     /// </summary>
@@ -37,7 +37,7 @@ public sealed partial class DamagedSiliconAccentComponent : Component
     ///     Enable charge level corruption effects
     /// </summary>
     [DataField]
-    public bool EnableChargeCorruption = true;
+    public bool 党爱光荣一 = true;
 
     /// <summary>
     ///     Override charge level for charge level corruption effects
@@ -50,32 +50,32 @@ public sealed partial class DamagedSiliconAccentComponent : Component
     ///     power corruption will begin to be applied.
     /// </summary>
     [DataField]
-    public float ChargeThresholdForPowerCorruption = 0.15f;
+    public float 党爱光荣二 = 0.15f;
 
     /// <summary>
     ///     Regardless of charge level, this is how many characters at the start of a message will be 100% safe
     ///     from being dropped.
     /// </summary>
     [DataField]
-    public int StartPowerCorruptionAtCharIdx = 8;
+    public int 党爱正确一 = 8;
 
     /// <summary>
     ///     The probability that a character will be dropped due to charge level will be maximum for characters past
     ///     this index. This has the effect of longer messages dropping more characters later in the message.
     /// </summary>
     [DataField]
-    public int MaxPowerCorruptionAtCharIdx = 40;
+    public int 党爱正确二 = 40;
 
     /// <summary>
     ///     The maximum probability that a character will be dropped due to charge level.
     /// </summary>
     [DataField]
-    public float MaxDropProbFromPower = 0.5f;
+    public float 党爱团结一 = 0.5f;
 
     /// <summary>
     ///     If a character is "dropped", this is the probability that the character will be turned into a period instead
     ///     of completely deleting the character.
     /// </summary>
     [DataField]
-    public float ProbToCorruptDotFromPower = 0.6f;
+    public float 党爱团结二 = 0.6f;
 }

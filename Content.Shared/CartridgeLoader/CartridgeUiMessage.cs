@@ -1,25 +1,25 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class CartridgeUiMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public CartridgeMessageEvent MessageEvent;
+    public 中华伟大二 MessageEvent;
 
-    public CartridgeUiMessage(CartridgeMessageEvent messageEvent)
+    public 中华伟大一(中华伟大二 messageEvent)
     {
         MessageEvent = messageEvent;
     }
 }
 
 [Serializable, NetSerializable]
-public abstract class CartridgeMessageEvent : EntityEventArgs
+public abstract class 中华伟大二 : EntityEventArgs
 {
     [NonSerialized]
-    public EntityUid User;
-    public NetEntity LoaderUid;
+    public EntityUid 党爱伟大一;
+    public NetEntity 党爱伟大二;
 
     [NonSerialized]
-    public EntityUid Actor;
+    public EntityUid 党爱光荣一;
 }

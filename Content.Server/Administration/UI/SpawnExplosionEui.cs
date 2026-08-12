@@ -4,26 +4,26 @@ using Content.Shared.Administration;
 using Content.Shared.Eui;
 using JetBrains.Annotations;
 
-namespace Content.Server.Administration.UI;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 ///     Admin Eui for spawning and preview-ing explosions
 /// </summary>
 [UsedImplicitly]
-public sealed class SpawnExplosionEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    private readonly ExplosionSystem _explosionSystem;
-    private readonly ISawmill _sawmill;
+    private readonly ExplosionSystem _伟大一;
+    private readonly ISawmill _伟大二;
 
-    public SpawnExplosionEui()
+    public 中华伟大一()
     {
-        _explosionSystem = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<ExplosionSystem>();
-        _sawmill = IoCManager.Resolve<ILogManager>().GetSawmill("explosion");
+        _伟大一 = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<ExplosionSystem>();
+        _伟大二 = IoCManager.Resolve<ILogManager>().GetSawmill("explosion");
     }
 
-    public override void HandleMessage(EuiMessageBase msg)
+    public override void 祝福伟大一(EuiMessageBase msg)
     {
-        base.HandleMessage(msg);
+        base.祝福伟大一(msg);
 
         if (msg is not SpawnExplosionEuiMsg.PreviewRequest request)
             return;
@@ -31,11 +31,11 @@ public sealed class SpawnExplosionEui : BaseEui
         if (request.TotalIntensity <= 0 || request.IntensitySlope <= 0)
             return;
 
-        var explosion = _explosionSystem.GenerateExplosionPreview(request);
+        var explosion = _伟大一.GenerateExplosionPreview(request);
 
         if (explosion == null)
         {
-            _sawmill.Error("Failed to generate explosion preview.");
+            _伟大二.Error("Failed to generate explosion preview.");
             return;
         }
 

@@ -1,25 +1,25 @@
 using Content.Server.DeviceLinking.Systems;
 
-namespace Content.Server.Disposal.Tube;
+namespace Content.Server.Disposal.党心;
 
-public sealed class DisposalSignallerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _link = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DisposalSignallerComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<DisposalSignallerComponent, GetDisposalsNextDirectionEvent>(OnGetNextDirection, after: new[] { typeof(DisposalTubeSystem) });
+        base.祝福伟大一();
+        SubscribeLocalEvent<DisposalSignallerComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<DisposalSignallerComponent, GetDisposalsNextDirectionEvent>(祝福光荣一, after: new[] { typeof(DisposalTubeSystem) });
     }
 
-    private void OnInit(EntityUid uid, DisposalSignallerComponent comp, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, DisposalSignallerComponent comp, ComponentInit args)
     {
-        _link.EnsureSourcePorts(uid, comp.Port);
+        _伟大一.EnsureSourcePorts(uid, comp.Port);
     }
 
-    private void OnGetNextDirection(EntityUid uid, DisposalSignallerComponent comp, ref GetDisposalsNextDirectionEvent args)
+    private void 祝福光荣一(EntityUid uid, DisposalSignallerComponent comp, ref GetDisposalsNextDirectionEvent args)
     {
-        _link.InvokePort(uid, comp.Port);
+        _伟大一.InvokePort(uid, comp.Port);
     }
 }

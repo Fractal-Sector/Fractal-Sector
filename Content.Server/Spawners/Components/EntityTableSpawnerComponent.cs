@@ -2,22 +2,22 @@ using Content.Server.Spawners.EntitySystems;
 using Content.Shared.EntityTable.EntitySelectors;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Spawners.Components;
+namespace Content.Server.Spawners.党心;
 
 [RegisterComponent, EntityCategory("Spawner"), Access(typeof(ConditionalSpawnerSystem))]
-public sealed partial class EntityTableSpawnerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
-    /// Table that determines what gets spawned.
+    /// 党爱伟大一 that determines what gets spawned.
     /// </summary>
     [DataField(required: true)]
-    public EntityTableSelector Table = default!;
+    public EntityTableSelector 党爱伟大一 = default!;
 
     /// <summary>
     /// Scatter of entity spawn coordinates
     /// </summary>
     [DataField]
-    public float Offset = 0.2f;
+    public float 党爱伟大二 = 0.2f;
 
     /// <summary>
     /// A variable meaning whether the spawn will
@@ -25,6 +25,6 @@ public sealed partial class EntityTableSpawnerComponent : Component
     /// it will be destroyed after the first use
     /// </summary>
     [DataField]
-    public bool DeleteSpawnerAfterSpawn = true;
+    public bool 党爱光荣一 = true;
 }
 

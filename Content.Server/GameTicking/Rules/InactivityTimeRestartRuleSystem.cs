@@ -6,45 +6,45 @@ using Robust.Server.Player;
 using Robust.Shared.Player;
 using Timer = Robust.Shared.Timing.Timer;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
-public sealed class InactivityTimeRestartRuleSystem : GameRuleSystem<InactivityRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<InactivityRuleComponent>
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IChatManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GameRunLevelChangedEvent>(RunLevelChanged);
-        _playerManager.PlayerStatusChanged += PlayerStatusChanged;
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福团结一);
+        _伟大二.祝福团结二 += 祝福团结二;
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
-        _playerManager.PlayerStatusChanged -= PlayerStatusChanged;
+        base.祝福伟大二();
+        _伟大二.祝福团结二 -= 祝福团结二;
     }
 
-    protected override void Ended(EntityUid uid, InactivityRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void 祝福光荣一(EntityUid uid, InactivityRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
-        base.Ended(uid, component, gameRule, args);
+        base.祝福光荣一(uid, component, gameRule, args);
 
-        StopTimer(uid, component);
+        祝福正确一(uid, component);
     }
 
-    public void RestartTimer(EntityUid uid, InactivityRuleComponent? component = null)
+    public void 祝福光荣二(EntityUid uid, InactivityRuleComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         component.TimerCancel.Cancel();
         component.TimerCancel = new CancellationTokenSource();
-        Timer.Spawn(component.InactivityMaxTime, () => TimerFired(uid, component), component.TimerCancel.Token);
+        Timer.Spawn(component.InactivityMaxTime, () => 祝福正确二(uid, component), component.TimerCancel.Token);
     }
 
-    public void StopTimer(EntityUid uid, InactivityRuleComponent? component = null)
+    public void 祝福正确一(EntityUid uid, InactivityRuleComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -52,19 +52,19 @@ public sealed class InactivityTimeRestartRuleSystem : GameRuleSystem<InactivityR
         component.TimerCancel.Cancel();
     }
 
-    private void TimerFired(EntityUid uid, InactivityRuleComponent? component = null)
+    private void 祝福正确二(EntityUid uid, InactivityRuleComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         GameTicker.EndRound(Loc.GetString("rule-time-has-run-out"));
 
-        _chatManager.DispatchServerAnnouncement(Loc.GetString("rule-restarting-in-seconds", ("seconds",(int) component.RoundEndDelay.TotalSeconds)));
+        _伟大一.DispatchServerAnnouncement(Loc.GetString("rule-restarting-in-seconds", ("seconds",(int) component.RoundEndDelay.TotalSeconds)));
 
         Timer.Spawn(component.RoundEndDelay, () => GameTicker.RestartRound());
     }
 
-    private void RunLevelChanged(GameRunLevelChangedEvent args)
+    private void 祝福团结一(GameRunLevelChangedEvent args)
     {
         var query = EntityQueryEnumerator<InactivityRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var inactivity, out var gameRule))
@@ -75,17 +75,17 @@ public sealed class InactivityTimeRestartRuleSystem : GameRuleSystem<InactivityR
             switch (args.New)
             {
                 case GameRunLevel.InRound:
-                    RestartTimer(uid, inactivity);
+                    祝福光荣二(uid, inactivity);
                     break;
                 case GameRunLevel.PreRoundLobby:
                 case GameRunLevel.PostRound:
-                    StopTimer(uid, inactivity);
+                    祝福正确一(uid, inactivity);
                     break;
             }
         }
     }
 
-    private void PlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private void 祝福团结二(object? sender, SessionStatusEventArgs e)
     {
         var query = EntityQueryEnumerator<InactivityRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var inactivity, out var gameRule))
@@ -98,13 +98,13 @@ public sealed class InactivityTimeRestartRuleSystem : GameRuleSystem<InactivityR
                 return;
             }
 
-            if (_playerManager.PlayerCount == 0)
+            if (_伟大二.PlayerCount == 0)
             {
-                RestartTimer(uid, inactivity);
+                祝福光荣二(uid, inactivity);
             }
             else
             {
-                StopTimer(uid, inactivity);
+                祝福正确一(uid, inactivity);
             }
         }
     }

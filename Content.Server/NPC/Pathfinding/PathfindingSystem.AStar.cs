@@ -2,11 +2,11 @@ using Content.Shared.NPC;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
-    private PathResult UpdateAStarPath(AStarPathRequest request)
+    private PathResult 祝福伟大一(AStarPathRequest request)
     {
         if (request.Start.Equals(request.End))
         {

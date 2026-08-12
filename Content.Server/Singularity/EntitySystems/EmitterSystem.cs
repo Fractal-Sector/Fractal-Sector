@@ -24,45 +24,45 @@ using Robust.Shared.Utility;
 using Timer = Robust.Shared.Timing.Timer;
 using Content.Shared.Construction.Components; // Frontier
 
-namespace Content.Server.Singularity.EntitySystems
+namespace Content.Server.Singularity.党心
 {
-    public sealed class EmitterSystem : SharedEmitterSystem
+    public sealed class 中华伟大一 : SharedEmitterSystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly ProjectileSystem _projectile = default!;
-        [Dependency] private readonly GunSystem _gun = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _光荣一 = default!;
+        [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+        [Dependency] private readonly ProjectileSystem _正确一 = default!;
+        [Dependency] private readonly GunSystem _正确二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<EmitterComponent, PowerConsumerReceivedChanged>(ReceivedChanged);
-            SubscribeLocalEvent<EmitterComponent, PowerChangedEvent>(OnApcChanged);
-            SubscribeLocalEvent<EmitterComponent, ActivateInWorldEvent>(OnActivate);
-            SubscribeLocalEvent<EmitterComponent, SignalReceivedEvent>(OnSignalReceived);
-            SubscribeLocalEvent<EmitterComponent, RefreshPartsEvent>(OnRefreshParts); // Frontier
-            SubscribeLocalEvent<EmitterComponent, UpgradeExamineEvent>(OnUpgradeExamine); // Frontier
+            SubscribeLocalEvent<EmitterComponent, PowerConsumerReceivedChanged>(祝福光荣二);
+            SubscribeLocalEvent<EmitterComponent, PowerChangedEvent>(祝福正确一);
+            SubscribeLocalEvent<EmitterComponent, ActivateInWorldEvent>(祝福光荣一);
+            SubscribeLocalEvent<EmitterComponent, SignalReceivedEvent>(祝福富强一);
+            SubscribeLocalEvent<EmitterComponent, RefreshPartsEvent>(祝福正确二); // Frontier
+            SubscribeLocalEvent<EmitterComponent, UpgradeExamineEvent>(祝福团结一); // Frontier
         }
 
-        private void OnAnchorStateChanged(EntityUid uid, EmitterComponent component, ref AnchorStateChangedEvent args)
+        private void 祝福伟大二(EntityUid uid, EmitterComponent component, ref AnchorStateChangedEvent args)
         {
             if (args.Anchored)
                 return;
 
-            SwitchOff(uid, component);
+            祝福团结二(uid, component);
         }
 
-        private void OnActivate(EntityUid uid, EmitterComponent component, ActivateInWorldEvent args)
+        private void 祝福光荣一(EntityUid uid, EmitterComponent component, ActivateInWorldEvent args)
         {
             if (args.Handled || !args.Complex)
                 return;
 
             if (TryComp(uid, out LockComponent? lockComp) && lockComp.Locked)
             {
-                _popup.PopupEntity(Loc.GetString("comp-emitter-access-locked",
+                _光荣二.PopupEntity(Loc.GetString("comp-emitter-access-locked",
                     ("target", uid)), uid, args.User);
                 return;
             }
@@ -71,30 +71,30 @@ namespace Content.Server.Singularity.EntitySystems
             {
                 if (!component.IsOn)
                 {
-                    SwitchOn(uid, component);
-                    _popup.PopupEntity(Loc.GetString("comp-emitter-turned-on",
+                    祝福奋斗一(uid, component);
+                    _光荣二.PopupEntity(Loc.GetString("comp-emitter-turned-on",
                         ("target", uid)), uid, args.User);
                 }
                 else
                 {
-                    SwitchOff(uid, component);
-                    _popup.PopupEntity(Loc.GetString("comp-emitter-turned-off",
+                    祝福团结二(uid, component);
+                    _光荣二.PopupEntity(Loc.GetString("comp-emitter-turned-off",
                         ("target", uid)), uid, args.User);
                 }
 
-                _adminLogger.Add(LogType.FieldGeneration,
+                _伟大二.Add(LogType.FieldGeneration,
                     component.IsOn ? LogImpact.Medium : LogImpact.High,
                     $"{ToPrettyString(args.User):player} toggled {ToPrettyString(uid):emitter}");
                 args.Handled = true;
             }
             else
             {
-                _popup.PopupEntity(Loc.GetString("comp-emitter-not-anchored",
+                _光荣二.PopupEntity(Loc.GetString("comp-emitter-not-anchored",
                     ("target", uid)), uid, args.User);
             }
         }
 
-        private void ReceivedChanged(
+        private void 祝福光荣二(
             EntityUid uid,
             EmitterComponent component,
             ref PowerConsumerReceivedChanged args)
@@ -106,15 +106,15 @@ namespace Content.Server.Singularity.EntitySystems
 
             if (args.ReceivedPower < args.DrawRate)
             {
-                PowerOff(uid, component);
+                祝福奋斗二(uid, component);
             }
             else
             {
-                PowerOn(uid, component);
+                祝福胜利一(uid, component);
             }
         }
 
-        private void OnApcChanged(EntityUid uid, EmitterComponent component, ref PowerChangedEvent args)
+        private void 祝福正确一(EntityUid uid, EmitterComponent component, ref PowerChangedEvent args)
         {
             if (!component.IsOn)
             {
@@ -123,16 +123,16 @@ namespace Content.Server.Singularity.EntitySystems
 
             if (!args.Powered)
             {
-                PowerOff(uid, component);
+                祝福奋斗二(uid, component);
             }
             else
             {
-                PowerOn(uid, component);
+                祝福胜利一(uid, component);
             }
         }
 
         // Frontier
-        private void OnRefreshParts(EntityUid uid, EmitterComponent component, RefreshPartsEvent args)
+        private void 祝福正确二(EntityUid uid, EmitterComponent component, RefreshPartsEvent args)
         {
             var fireRateRating = args.PartRatings[component.MachinePartFireRate];
 
@@ -141,24 +141,24 @@ namespace Content.Server.Singularity.EntitySystems
             component.FireBurstDelayMax = component.BaseFireBurstDelayMax * MathF.Pow(component.FireRateMultiplier, fireRateRating - 1);
         }
 
-        private void OnUpgradeExamine(EntityUid uid, EmitterComponent component, UpgradeExamineEvent args)
+        private void 祝福团结一(EntityUid uid, EmitterComponent component, UpgradeExamineEvent args)
         {
             args.AddPercentageUpgrade("emitter-component-upgrade-fire-rate", (float) (component.BaseFireInterval.TotalSeconds / component.FireInterval.TotalSeconds));
         }
         // End Frontier
 
-        public void SwitchOff(EntityUid uid, EmitterComponent component)
+        public void 祝福团结二(EntityUid uid, EmitterComponent component)
         {
             component.IsOn = false;
             if (TryComp<PowerConsumerComponent>(uid, out var powerConsumer))
                 powerConsumer.DrawRate = 1; // this needs to be not 0 so that the visuals still work.
             if (TryComp<ApcPowerReceiverComponent>(uid, out var apcReceiver))
                 apcReceiver.Load = 1;
-            PowerOff(uid, component);
-            UpdateAppearance(uid, component);
+            祝福奋斗二(uid, component);
+            祝福繁荣二(uid, component);
         }
 
-        public void SwitchOn(EntityUid uid, EmitterComponent component)
+        public void 祝福奋斗一(EntityUid uid, EmitterComponent component)
         {
             component.IsOn = true;
             if (TryComp<PowerConsumerComponent>(uid, out var powerConsumer))
@@ -167,14 +167,14 @@ namespace Content.Server.Singularity.EntitySystems
             {
                 apcReceiver.Load = component.PowerUseActive;
                 if (apcReceiver.Powered)
-                    PowerOn(uid, component);
+                    祝福胜利一(uid, component);
             }
-            // Do not directly PowerOn().
+            // Do not directly 祝福胜利一().
             // OnReceivedPowerChanged will get fired due to DrawRate change which will turn it on.
-            UpdateAppearance(uid, component);
+            祝福繁荣二(uid, component);
         }
 
-        public void PowerOff(EntityUid uid, EmitterComponent component)
+        public void 祝福奋斗二(EntityUid uid, EmitterComponent component)
         {
             if (!component.IsPowered)
             {
@@ -187,10 +187,10 @@ namespace Content.Server.Singularity.EntitySystems
             DebugTools.AssertNotNull(component.TimerCancel);
             component.TimerCancel?.Cancel();
 
-            UpdateAppearance(uid, component);
+            祝福繁荣二(uid, component);
         }
 
-        public void PowerOn(EntityUid uid, EmitterComponent component)
+        public void 祝福胜利一(EntityUid uid, EmitterComponent component)
         {
             if (component.IsPowered)
             {
@@ -202,12 +202,12 @@ namespace Content.Server.Singularity.EntitySystems
             component.FireShotCounter = 0;
             component.TimerCancel = new CancellationTokenSource();
 
-            Timer.Spawn(component.FireBurstDelayMax, () => ShotTimerCallback(uid, component), component.TimerCancel.Token);
+            Timer.Spawn(component.FireBurstDelayMax, () => 祝福胜利二(uid, component), component.TimerCancel.Token);
 
-            UpdateAppearance(uid, component);
+            祝福繁荣二(uid, component);
         }
 
-        private void ShotTimerCallback(EntityUid uid, EmitterComponent component)
+        private void 祝福胜利二(EntityUid uid, EmitterComponent component)
         {
             if (component.Deleted)
                 return;
@@ -217,7 +217,7 @@ namespace Content.Server.Singularity.EntitySystems
             DebugTools.Assert(component.IsPowered);
             DebugTools.Assert(component.IsOn);
 
-            Fire(uid, component);
+            祝福繁荣一(uid, component);
 
             TimeSpan delay;
             if (component.FireShotCounter < component.FireBurstSize)
@@ -230,15 +230,15 @@ namespace Content.Server.Singularity.EntitySystems
                 component.FireShotCounter = 0;
                 var diff = component.FireBurstDelayMax - component.FireBurstDelayMin;
                 // TIL you can do TimeSpan * double.
-                delay = component.FireBurstDelayMin + _random.NextFloat() * diff;
+                delay = component.FireBurstDelayMin + _伟大一.NextFloat() * diff;
             }
 
             // Must be set while emitter powered.
             DebugTools.AssertNotNull(component.TimerCancel);
-            Timer.Spawn(delay, () => ShotTimerCallback(uid, component), component.TimerCancel!.Token);
+            Timer.Spawn(delay, () => 祝福胜利二(uid, component), component.TimerCancel!.Token);
         }
 
-        private void Fire(EntityUid uid, EmitterComponent component)
+        private void 祝福繁荣一(EntityUid uid, EmitterComponent component)
         {
             if (!TryComp<GunComponent>(uid, out var gunComponent))
                 return;
@@ -246,14 +246,14 @@ namespace Content.Server.Singularity.EntitySystems
             var xform = Transform(uid);
             var ent = Spawn(component.BoltType, xform.Coordinates);
             var proj = EnsureComp<ProjectileComponent>(ent);
-            _projectile.SetShooter(ent, proj, uid);
+            _正确一.SetShooter(ent, proj, uid);
 
             var targetPos = new EntityCoordinates(uid, new Vector2(0, -1));
 
-            _gun.Shoot(uid, gunComponent, ent, xform.Coordinates, targetPos, out _);
+            _正确二.Shoot(uid, gunComponent, ent, xform.Coordinates, targetPos, out _);
         }
 
-        private void UpdateAppearance(EntityUid uid, EmitterComponent component)
+        private void 祝福繁荣二(EntityUid uid, EmitterComponent component)
         {
             EmitterVisualState state;
             if (component.IsPowered)
@@ -268,10 +268,10 @@ namespace Content.Server.Singularity.EntitySystems
             {
                 state = EmitterVisualState.Off;
             }
-            _appearance.SetData(uid, EmitterVisuals.VisualState, state);
+            _光荣一.SetData(uid, EmitterVisuals.VisualState, state);
         }
 
-        private void OnSignalReceived(EntityUid uid, EmitterComponent component, ref SignalReceivedEvent args)
+        private void 祝福富强一(EntityUid uid, EmitterComponent component, ref SignalReceivedEvent args)
         {
             // must anchor the emitter for signals to work
             if (TryComp<PhysicsComponent>(uid, out var phys) && phys.BodyType != BodyType.Static)
@@ -279,21 +279,21 @@ namespace Content.Server.Singularity.EntitySystems
 
             if (args.Port == component.OffPort)
             {
-                SwitchOff(uid, component);
+                祝福团结二(uid, component);
             }
             else if (args.Port == component.OnPort)
             {
-                SwitchOn(uid, component);
+                祝福奋斗一(uid, component);
             }
             else if (args.Port == component.TogglePort)
             {
                 if (component.IsOn)
                 {
-                    SwitchOff(uid, component);
+                    祝福团结二(uid, component);
                 }
                 else
                 {
-                    SwitchOn(uid, component);
+                    祝福奋斗一(uid, component);
                 }
             }
             else if (component.SetTypePorts.TryGetValue(args.Port, out var boltType))

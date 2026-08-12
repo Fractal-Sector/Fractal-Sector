@@ -3,19 +3,19 @@ using Content.Shared.Cuffs.Components;
 using JetBrains.Annotations;
 using Robust.Shared.GameStates;
 
-namespace Content.Server.Cuffs
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed class CuffableSystem : SharedCuffableSystem
+    public sealed class 中华伟大一 : SharedCuffableSystem
     {
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<CuffableComponent, ComponentGetState>(OnCuffableGetState);
+            SubscribeLocalEvent<CuffableComponent, ComponentGetState>(祝福伟大二);
         }
 
-        private void OnCuffableGetState(EntityUid uid, CuffableComponent component, ref ComponentGetState args)
+        private void 祝福伟大二(EntityUid uid, CuffableComponent component, ref ComponentGetState args)
         {
             // there are 2 approaches i can think of to handle the handcuff overlay on players
             // 1 - make the current RSI the handcuff type that's currently active. all handcuffs on the player will appear the same.

@@ -10,21 +10,21 @@ using Robust.Shared.Random;
 using System.Numerics;
 using Content.Shared.Explosion.EntitySystems;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
-public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
+public sealed class 中华伟大一 : SharedScatteringGrenadeSystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
-    [Dependency] private readonly TriggerSystem _trigger = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly ThrowingSystem _光荣一 = default!;
+    [Dependency] private readonly TransformSystem _光荣二 = default!;
+    [Dependency] private readonly TriggerSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ScatteringGrenadeComponent, TriggerEvent>(OnScatteringTrigger);
+        SubscribeLocalEvent<ScatteringGrenadeComponent, TriggerEvent>(祝福伟大二);
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
     /// will store the event happening in IsTriggered for the next frame update rather than
     /// handling it here to prevent crashing the game
     /// </summary>
-    private void OnScatteringTrigger(Entity<ScatteringGrenadeComponent> entity, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<ScatteringGrenadeComponent> entity, ref TriggerEvent args)
     {
         if (args.Key != entity.Comp.TriggerKey)
             return;
@@ -45,9 +45,9 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
     /// Every frame update we look for scattering grenades that were triggered (by damage or timer)
     /// Then we spawn the contents, throw them, optionally trigger them, then delete the original scatter grenade entity
     /// </summary>
-    public override void Update(float frametime)
+    public override void 祝福光荣一(float frametime)
     {
-        base.Update(frametime);
+        base.祝福光荣一(frametime);
         var query = EntityQueryEnumerator<ScatteringGrenadeComponent>();
 
         while (query.MoveNext(out var uid, out var component))
@@ -57,38 +57,38 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
             // if triggered while empty, (if it's blown up while empty) it'll just delete itself
             if (component.IsTriggered && totalCount > 0)
             {
-                var grenadeCoord = _transformSystem.GetMapCoordinates(uid);
+                var grenadeCoord = _光荣二.GetMapCoordinates(uid);
                 var thrownCount = 0;
                 var segmentAngle = 360 / totalCount;
                 var additionalIntervalDelay = 0f;
 
-                while (TrySpawnContents(grenadeCoord, component, out var contentUid))
+                while (祝福光荣二(grenadeCoord, component, out var contentUid))
                 {
                     Angle angle;
                     if (component.RandomAngle)
-                        angle = _random.NextAngle();
+                        angle = _伟大二.NextAngle();
                     else
                     {
                         var angleMin = segmentAngle * thrownCount;
                         var angleMax = segmentAngle * (thrownCount + 1);
-                        angle = Angle.FromDegrees(_random.Next(angleMin, angleMax));
+                        angle = Angle.FromDegrees(_伟大二.Next(angleMin, angleMax));
                         thrownCount++;
                     }
 
                     Vector2 direction = angle.ToVec().Normalized();
                     if (component.RandomDistance)
-                        direction *= _random.NextFloat(component.RandomThrowDistanceMin, component.RandomThrowDistanceMax);
+                        direction *= _伟大二.NextFloat(component.RandomThrowDistanceMin, component.RandomThrowDistanceMax);
                     else
                         direction *= component.Distance;
 
-                    _throwingSystem.TryThrow(contentUid, direction, component.Velocity);
+                    _光荣一.TryThrow(contentUid, direction, component.Velocity);
 
                     if (component.TriggerContents && TryComp<TimerTriggerComponent>(contentUid, out var contentTimer))
                     {
-                        additionalIntervalDelay += _random.NextFloat(component.IntervalBetweenTriggersMin, component.IntervalBetweenTriggersMax);
+                        additionalIntervalDelay += _伟大二.NextFloat(component.IntervalBetweenTriggersMin, component.IntervalBetweenTriggersMax);
 
-                        _trigger.SetDelay((contentUid, contentTimer), TimeSpan.FromSeconds(component.DelayBeforeTriggerContents + additionalIntervalDelay));
-                        _trigger.ActivateTimerTrigger((contentUid, contentTimer));
+                        _正确一.SetDelay((contentUid, contentTimer), TimeSpan.FromSeconds(component.DelayBeforeTriggerContents + additionalIntervalDelay));
+                        _正确一.ActivateTimerTrigger((contentUid, contentTimer));
                     }
                 }
 
@@ -102,7 +102,7 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
     /// <summary>
     /// Spawns one instance of the fill prototype or contained entity at the coordinate indicated
     /// </summary>
-    private bool TrySpawnContents(MapCoordinates spawnCoordinates, ScatteringGrenadeComponent component, out EntityUid contentUid)
+    private bool 祝福光荣二(MapCoordinates spawnCoordinates, ScatteringGrenadeComponent component, out EntityUid contentUid)
     {
         contentUid = default;
 
@@ -117,7 +117,7 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
         {
             contentUid = component.Container.ContainedEntities[0];
 
-            if (!_container.Remove(contentUid, component.Container))
+            if (!_伟大一.Remove(contentUid, component.Container))
                 return false;
 
             return true;

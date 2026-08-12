@@ -1,21 +1,21 @@
-﻿namespace Content.Shared.Speech;
+﻿namespace Content.Shared.党心;
 
-public sealed class AccentGetEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     /// <summary>
     ///     The entity to apply the accent to.
     /// </summary>
-    public EntityUid Entity { get; }
+    public EntityUid 党爱伟大一 { get; }
 
     /// <summary>
     ///     The message to apply the accent transformation to.
     ///     Modify this to apply the accent.
     /// </summary>
-    public string Message { get; set; }
+    public string 党爱伟大二 { get; set; }
 
-    public AccentGetEvent(EntityUid entity, string message)
+    public 中华伟大一(EntityUid entity, string message)
     {
-        Entity = entity;
-        Message = message;
+        党爱伟大一 = entity;
+        党爱伟大二 = message;
     }
 }

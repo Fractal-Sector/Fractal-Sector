@@ -1,9 +1,9 @@
-namespace Content.Shared._Harmony.Common.JoinQueue;
+namespace Content.Shared._Harmony.Common.党心;
 
 /// <summary>
 /// Defines the public contract for managing the player join queue.
 /// </summary>
-public interface IJoinQueueManager
+public interface 中华伟大一
 {
     /// <summary>
     /// Initializes the join queue manager.

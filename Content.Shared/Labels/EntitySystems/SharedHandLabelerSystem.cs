@@ -9,34 +9,34 @@ using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Labels.EntitySystems;
+namespace Content.Shared.Labels.党心;
 
-public abstract class SharedHandLabelerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly LabelSystem _labelSystem = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!; // Frontier: prevent labelling PseudoItems
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly LabelSystem _伟大二 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly INetManager _光荣二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _正确一 = default!;
+    [Dependency] private readonly TagSystem _正确二 = default!; // Frontier: prevent labelling PseudoItems
 
     [ValidatePrototypeId<TagPrototype>] // Frontier: prevent labelling PseudoItems
     private const string PreventTag = "PreventLabel"; // Frontier: prevent labelling PseudoItems
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HandLabelerComponent, AfterInteractEvent>(AfterInteractOn);
-        SubscribeLocalEvent<HandLabelerComponent, GetVerbsEvent<UtilityVerb>>(OnUtilityVerb);
+        SubscribeLocalEvent<HandLabelerComponent, AfterInteractEvent>(祝福团结一);
+        SubscribeLocalEvent<HandLabelerComponent, GetVerbsEvent<UtilityVerb>>(祝福正确二);
         // Bound UI subscriptions
-        SubscribeLocalEvent<HandLabelerComponent, HandLabelerLabelChangedMessage>(OnHandLabelerLabelChanged);
-        SubscribeLocalEvent<HandLabelerComponent, ComponentGetState>(OnGetState);
-        SubscribeLocalEvent<HandLabelerComponent, ComponentHandleState>(OnHandleState);
+        SubscribeLocalEvent<HandLabelerComponent, HandLabelerLabelChangedMessage>(祝福奋斗一);
+        SubscribeLocalEvent<HandLabelerComponent, ComponentGetState>(祝福伟大二);
+        SubscribeLocalEvent<HandLabelerComponent, ComponentHandleState>(祝福光荣一);
     }
 
-    private void OnGetState(Entity<HandLabelerComponent> ent, ref ComponentGetState args)
+    private void 祝福伟大二(Entity<HandLabelerComponent> ent, ref ComponentGetState args)
     {
         args.State = new HandLabelerComponentState(ent.Comp.AssignedLabel)
         {
@@ -44,7 +44,7 @@ public abstract class SharedHandLabelerSystem : EntitySystem
         };
     }
 
-    private void OnHandleState(Entity<HandLabelerComponent> ent, ref ComponentHandleState args)
+    private void 祝福光荣一(Entity<HandLabelerComponent> ent, ref ComponentHandleState args)
     {
         if (args.Current is not HandLabelerComponentState state)
             return;
@@ -55,14 +55,14 @@ public abstract class SharedHandLabelerSystem : EntitySystem
             return;
 
         ent.Comp.AssignedLabel = state.AssignedLabel;
-        UpdateUI(ent);
+        祝福光荣二(ent);
     }
 
-    protected virtual void UpdateUI(Entity<HandLabelerComponent> ent)
+    protected virtual void 祝福光荣二(Entity<HandLabelerComponent> ent)
     {
     }
 
-    private void AddLabelTo(EntityUid uid, HandLabelerComponent? handLabeler, EntityUid target, out string? result)
+    private void 祝福正确一(EntityUid uid, HandLabelerComponent? handLabeler, EntityUid target, out string? result)
     {
         if (!Resolve(uid, ref handLabeler))
         {
@@ -71,7 +71,7 @@ public abstract class SharedHandLabelerSystem : EntitySystem
         }
 
         // Frontier: prevent tagging PseudoItems
-        if (_tagSystem.HasTag(target, PreventTag))
+        if (_正确二.HasTag(target, PreventTag))
         {
             result = null;
             return;
@@ -80,22 +80,22 @@ public abstract class SharedHandLabelerSystem : EntitySystem
 
         if (handLabeler.AssignedLabel == string.Empty)
         {
-            if (_netManager.IsServer)
-                _labelSystem.Label(target, null);
+            if (_光荣二.IsServer)
+                _伟大二.Label(target, null);
             result = Loc.GetString("hand-labeler-successfully-removed");
             return;
         }
-        if (_netManager.IsServer)
-            _labelSystem.Label(target, handLabeler.AssignedLabel);
+        if (_光荣二.IsServer)
+            _伟大二.Label(target, handLabeler.AssignedLabel);
         result = Loc.GetString("hand-labeler-successfully-applied");
     }
 
-    private void OnUtilityVerb(EntityUid uid, HandLabelerComponent handLabeler, GetVerbsEvent<UtilityVerb> args)
+    private void 祝福正确二(EntityUid uid, HandLabelerComponent handLabeler, GetVerbsEvent<UtilityVerb> args)
     {
-        if (args.Target is not { Valid: true } target || _whitelistSystem.IsWhitelistFail(handLabeler.Whitelist, target) || !args.CanAccess)
+        if (args.Target is not { Valid: true } target || _正确一.IsWhitelistFail(handLabeler.Whitelist, target) || !args.CanAccess)
             return;
 
-        if (_tagSystem.HasTag(target, PreventTag)) // Frontier: prevent tagging PseudoItems
+        if (_正确二.HasTag(target, PreventTag)) // Frontier: prevent tagging PseudoItems
             return; // Frontier: prevent tagging PseudoItems
 
         var labelerText = handLabeler.AssignedLabel == string.Empty ? Loc.GetString("hand-labeler-remove-label-text") : Loc.GetString("hand-labeler-add-label-text");
@@ -104,7 +104,7 @@ public abstract class SharedHandLabelerSystem : EntitySystem
         {
             Act = () =>
             {
-                Labeling(uid, target, args.User, handLabeler);
+                祝福团结二(uid, target, args.User, handLabeler);
             },
             Text = labelerText
         };
@@ -112,36 +112,36 @@ public abstract class SharedHandLabelerSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void AfterInteractOn(EntityUid uid, HandLabelerComponent handLabeler, AfterInteractEvent args)
+    private void 祝福团结一(EntityUid uid, HandLabelerComponent handLabeler, AfterInteractEvent args)
     {
-        if (args.Target is not { Valid: true } target || _whitelistSystem.IsWhitelistFail(handLabeler.Whitelist, target) || !args.CanReach)
+        if (args.Target is not { Valid: true } target || _正确一.IsWhitelistFail(handLabeler.Whitelist, target) || !args.CanReach)
             return;
 
-        Labeling(uid, target, args.User, handLabeler);
+        祝福团结二(uid, target, args.User, handLabeler);
     }
 
-    private void Labeling(EntityUid uid, EntityUid target, EntityUid User, HandLabelerComponent handLabeler)
+    private void 祝福团结二(EntityUid uid, EntityUid target, EntityUid User, HandLabelerComponent handLabeler)
     {
-        AddLabelTo(uid, handLabeler, target, out var result);
+        祝福正确一(uid, handLabeler, target, out var result);
         if (result == null)
             return;
 
-        _popupSystem.PopupClient(result, User, User);
+        _伟大一.PopupClient(result, User, User);
 
         // Log labeling
-        _adminLogger.Add(LogType.Action, LogImpact.Low,
+        _光荣一.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(User):user} labeled {ToPrettyString(target):target} with {ToPrettyString(uid):labeler}");
     }
 
-    private void OnHandLabelerLabelChanged(EntityUid uid, HandLabelerComponent handLabeler, HandLabelerLabelChangedMessage args)
+    private void 祝福奋斗一(EntityUid uid, HandLabelerComponent handLabeler, HandLabelerLabelChangedMessage args)
     {
         var label = args.Label.Trim();
         handLabeler.AssignedLabel = label[..Math.Min(handLabeler.MaxLabelChars, label.Length)];
-        UpdateUI((uid, handLabeler));
+        祝福光荣二((uid, handLabeler));
         Dirty(uid, handLabeler);
 
         // Log label change
-        _adminLogger.Add(LogType.Action, LogImpact.Low,
+        _光荣一.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(args.Actor):user} set {ToPrettyString(uid):labeler} to apply label \"{handLabeler.AssignedLabel}\"");
     }
 }

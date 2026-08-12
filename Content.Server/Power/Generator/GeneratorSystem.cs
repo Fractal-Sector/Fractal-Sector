@@ -14,76 +14,76 @@ using Content.Shared.Audio; // Frontier
 using Content.Shared.Materials; // Frontier
 using Content.Server._NF.Power.Components; // Frontier
 
-namespace Content.Server.Power.Generator;
+namespace Content.Server.Power.党心;
 
 /// <inheritdoc/>
 /// <seealso cref="FuelGeneratorComponent"/>
 /// <seealso cref="ChemicalFuelGeneratorAdapterComponent"/>
 /// <seealso cref="SolidFuelGeneratorAdapterComponent"/>
-public sealed class GeneratorSystem : SharedGeneratorSystem
+public sealed class 中华伟大一 : SharedGeneratorSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
+    [Dependency] private readonly AppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly AmbientSoundSystem _伟大二 = default!;
+    [Dependency] private readonly MaterialStorageSystem _光荣一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _光荣二 = default!;
+    [Dependency] private readonly PopupSystem _正确一 = default!;
+    [Dependency] private readonly PuddleSystem _正确二 = default!;
 
-    [Dependency] private readonly PointLightSystem _pointLight = default!; // Frontier: Rads glow
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!; // Frontier: Rads sound
+    [Dependency] private readonly PointLightSystem _团结一 = default!; // Frontier: Rads glow
+    [Dependency] private readonly SharedAmbientSoundSystem _团结二 = default!; // Frontier: Rads sound
 
-    private EntityQuery<UpgradePowerSupplierComponent> _upgradeQuery; // Frontier: keeping upgradeable power supplies
+    private EntityQuery<UpgradePowerSupplierComponent> _奋斗一; // Frontier: keeping upgradeable power supplies
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _upgradeQuery = GetEntityQuery<UpgradePowerSupplierComponent>(); // Frontier: keeping upgradeable power supplies
+        _奋斗一 = GetEntityQuery<UpgradePowerSupplierComponent>(); // Frontier: keeping upgradeable power supplies
 
         UpdatesBefore.Add(typeof(PowerNetSystem));
 
-        SubscribeLocalEvent<FuelGeneratorComponent, PortableGeneratorSetTargetPowerMessage>(OnTargetPowerSet);
-        SubscribeLocalEvent<FuelGeneratorComponent, PortableGeneratorEjectFuelMessage>(OnEjectFuel);
-        SubscribeLocalEvent<FuelGeneratorComponent, AnchorStateChangedEvent>(OnAnchorStateChanged);
-        SubscribeLocalEvent<SolidFuelGeneratorAdapterComponent, GeneratorGetFuelEvent>(SolidGetFuel);
-        SubscribeLocalEvent<SolidFuelGeneratorAdapterComponent, GeneratorUseFuel>(SolidUseFuel);
-        SubscribeLocalEvent<SolidFuelGeneratorAdapterComponent, GeneratorEmpty>(SolidEmpty);
-        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, GeneratorGetFuelEvent>(ChemicalGetFuel);
-        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, GeneratorUseFuel>(ChemicalUseFuel);
-        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, GeneratorGetCloggedEvent>(ChemicalGetClogged);
-        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, GeneratorEmpty>(ChemicalEmpty);
+        SubscribeLocalEvent<FuelGeneratorComponent, PortableGeneratorSetTargetPowerMessage>(祝福胜利二);
+        SubscribeLocalEvent<FuelGeneratorComponent, PortableGeneratorEjectFuelMessage>(祝福光荣一);
+        SubscribeLocalEvent<FuelGeneratorComponent, AnchorStateChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<SolidFuelGeneratorAdapterComponent, GeneratorGetFuelEvent>(祝福胜利一);
+        SubscribeLocalEvent<SolidFuelGeneratorAdapterComponent, GeneratorUseFuel>(祝福奋斗一);
+        SubscribeLocalEvent<SolidFuelGeneratorAdapterComponent, 中华光荣一>(祝福光荣二);
+        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, GeneratorGetFuelEvent>(祝福团结二);
+        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, GeneratorUseFuel>(祝福团结一);
+        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, GeneratorGetCloggedEvent>(祝福正确二);
+        SubscribeLocalEvent<ChemicalFuelGeneratorAdapterComponent, 中华光荣一>(祝福正确一);
     }
 
-    private void OnAnchorStateChanged(EntityUid uid, FuelGeneratorComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, FuelGeneratorComponent component, ref AnchorStateChangedEvent args)
     {
         // Turn off generator if unanchored while running.
 
         if (!component.On)
             return;
 
-        SetFuelGeneratorOn(uid, false, component);
+        祝福繁荣二(uid, false, component);
     }
 
-    private void OnEjectFuel(EntityUid uid, FuelGeneratorComponent component, PortableGeneratorEjectFuelMessage args)
+    private void 祝福光荣一(EntityUid uid, FuelGeneratorComponent component, PortableGeneratorEjectFuelMessage args)
     {
-        EmptyGenerator(uid);
+        祝福民主二(uid);
     }
 
-    private void SolidEmpty(EntityUid uid, SolidFuelGeneratorAdapterComponent component, GeneratorEmpty args)
+    private void 祝福光荣二(EntityUid uid, SolidFuelGeneratorAdapterComponent component, 中华光荣一 args)
     {
-        _materialStorage.EjectAllMaterial(uid);
+        _光荣一.EjectAllMaterial(uid);
     }
 
-    private void ChemicalEmpty(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorEmpty args)
+    private void 祝福正确一(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref 中华光荣一 args)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (!_光荣二.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
             return;
 
-        var spillSolution = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, solution.Volume);
-        _puddle.TrySpillAt(entity.Owner, spillSolution, out _);
+        var spillSolution = _光荣二.SplitSolution(entity.Comp.Solution.Value, solution.Volume);
+        _正确二.TrySpillAt(entity.Owner, spillSolution, out _);
     }
 
-    private void ChemicalGetClogged(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorGetCloggedEvent args)
+    private void 祝福正确二(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorGetCloggedEvent args)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (!_光荣二.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
             return;
 
         foreach (var reagentQuantity in solution)
@@ -96,9 +96,9 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
         }
     }
 
-    private void ChemicalUseFuel(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorUseFuel args)
+    private void 祝福团结一(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorUseFuel args)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (!_光荣二.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
             return;
 
         var totalReagent = 0f;
@@ -118,20 +118,20 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             var availForRatio = fractionalReagent + availableReagent.Float();
             var removalPercentage = availForRatio / totalReagent;
 
-            var toRemove = RemoveFractionalFuel(
+            var toRemove = 祝福奋斗二(
                 ref fractionalReagent,
                 args.FuelUsed * removalPercentage,
                 multiplier * FixedPoint2.Epsilon.Float(),
                 availableReagent.Value);
 
             entity.Comp.FractionalReagents[reagentId] = fractionalReagent;
-            _solutionContainer.RemoveReagent(entity.Comp.Solution.Value, reagentId, FixedPoint2.FromCents(toRemove));
+            _光荣二.RemoveReagent(entity.Comp.Solution.Value, reagentId, FixedPoint2.FromCents(toRemove));
         }
     }
 
-    private void ChemicalGetFuel(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorGetFuelEvent args)
+    private void 祝福团结二(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorGetFuelEvent args)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (!_光荣二.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
             return;
 
         var fuel = 0f;
@@ -146,19 +146,19 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
         args.Fuel = fuel;
     }
 
-    private void SolidUseFuel(EntityUid uid, SolidFuelGeneratorAdapterComponent component, GeneratorUseFuel args)
+    private void 祝福奋斗一(EntityUid uid, SolidFuelGeneratorAdapterComponent component, GeneratorUseFuel args)
     {
-        var availableMaterial = _materialStorage.GetMaterialAmount(uid, component.FuelMaterial);
-        var toRemove = RemoveFractionalFuel(
+        var availableMaterial = _光荣一.GetMaterialAmount(uid, component.FuelMaterial);
+        var toRemove = 祝福奋斗二(
             ref component.FractionalMaterial,
             args.FuelUsed,
             component.Multiplier,
             availableMaterial);
 
-        _materialStorage.TryChangeMaterialAmount(uid, component.FuelMaterial, -toRemove);
+        _光荣一.TryChangeMaterialAmount(uid, component.FuelMaterial, -toRemove);
     }
 
-    private int RemoveFractionalFuel(ref float fractional, float fuelUsed, float multiplier, int availableQuantity)
+    private int 祝福奋斗二(ref float fractional, float fuelUsed, float multiplier, int availableQuantity)
     {
         // Just a sanity thing since I got worried this might be possible.
         if (!float.IsFinite(fractional))
@@ -176,16 +176,16 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
         return toRemove;
     }
 
-    private void SolidGetFuel(
+    private void 祝福胜利一(
         EntityUid uid,
         SolidFuelGeneratorAdapterComponent component,
         ref GeneratorGetFuelEvent args)
     {
-        var material = component.FractionalMaterial + _materialStorage.GetMaterialAmount(uid, component.FuelMaterial);
+        var material = component.FractionalMaterial + _光荣一.GetMaterialAmount(uid, component.FuelMaterial);
         args.Fuel = material * component.Multiplier;
     }
 
-    private void OnTargetPowerSet(EntityUid uid, FuelGeneratorComponent component,
+    private void 祝福胜利二(EntityUid uid, FuelGeneratorComponent component,
         PortableGeneratorSetTargetPowerMessage args)
     {
         component.TargetPower = Math.Clamp(
@@ -193,11 +193,11 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             component.MinTargetPower / 1000,
             component.MaxTargetPower / 1000) * 1000;
 
-        TryUpdateGeneratorRadiation(uid, component.On, component); // Frontier
+        祝福繁荣一(uid, component.On, component); // Frontier
     }
 
     // Frontier: radioactive generators
-    public void TryUpdateGeneratorRadiation(EntityUid uid, bool on, FuelGeneratorComponent component) // Frontier
+    public void 祝福繁荣一(EntityUid uid, bool on, FuelGeneratorComponent component) // Frontier
     {
         if (!TryComp<RadiationSourceComponent>(uid, out var radiation)) // Frontier
             return;
@@ -215,22 +215,22 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             radiation.Slope = Math.Max(0.5f, radiationSlope); // Slope should always be at least 0.5 (typical for bananium)
 
             EnsureComp<PointLightComponent>(uid, out var light);
-            _pointLight.SetColor(uid, component.RadiationColor, light); // Add glow - on
-            _pointLight.SetRadius(uid, Math.Min(visualRadius, 3.5f)); // Radius should be capped at 3.5 m
-            _pointLight.SetEnergy(uid, component.RadiationIntensity * component.TargetPower / 2);
+            _团结一.SetColor(uid, component.RadiationColor, light); // Add glow - on
+            _团结一.SetRadius(uid, Math.Min(visualRadius, 3.5f)); // Radius should be capped at 3.5 m
+            _团结一.SetEnergy(uid, component.RadiationIntensity * component.TargetPower / 2);
 
-            _ambientSoundSystem.SetAmbience(uid, true);
-            _ambientSoundSystem.SetRange(uid, visualRadius); // Sound based on glow ranage
+            _团结二.SetAmbience(uid, true);
+            _团结二.SetRange(uid, visualRadius); // Sound based on glow ranage
         }
         else
         {
             RemComp<PointLightComponent>(uid); // Remove glow - off
-            _ambientSoundSystem.SetAmbience(uid, false);
+            _团结二.SetAmbience(uid, false);
         }
     }
     // End Frontier
 
-    public void SetFuelGeneratorOn(EntityUid uid, bool on, FuelGeneratorComponent? generator = null)
+    public void 祝福繁荣二(EntityUid uid, bool on, FuelGeneratorComponent? generator = null)
     {
         if (!Resolve(uid, ref generator))
             return;
@@ -241,13 +241,13 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             return;
         }
 
-        TryUpdateGeneratorRadiation(uid, on, generator); // Frontier
+        祝福繁荣一(uid, on, generator); // Frontier
         generator.On = on;
-        UpdateState(uid, generator);
+        祝福文明一(uid, generator);
         Dirty(uid, generator);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福富强一(float frameTime)
     {
         var query = EntityQueryEnumerator<FuelGeneratorComponent, PowerSupplierComponent>();
 
@@ -256,23 +256,23 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             if (!gen.On)
                 continue;
 
-            var fuel = GetFuel(uid);
+            var fuel = 祝福富强二(uid);
             if (fuel <= 0)
             {
-                SetFuelGeneratorOn(uid, false, gen);
+                祝福繁荣二(uid, false, gen);
                 continue;
             }
 
-            if (GetIsClogged(uid))
+            if (祝福民主一(uid))
             {
-                _popup.PopupEntity(Loc.GetString("generator-clogged", ("generator", uid)), uid, PopupType.SmallCaution);
-                SetFuelGeneratorOn(uid, false, gen);
+                _正确一.PopupEntity(Loc.GetString("generator-clogged", ("generator", uid)), uid, PopupType.SmallCaution);
+                祝福繁荣二(uid, false, gen);
                 continue;
             }
 
             supplier.Enabled = true;
 
-            var upgradeMultiplier = _upgradeQuery.CompOrNull(uid)?.ActualScalar ?? 1f;
+            var upgradeMultiplier = _奋斗一.CompOrNull(uid)?.ActualScalar ?? 1f;
 
             supplier.MaxSupply = gen.TargetPower * upgradeMultiplier;
 
@@ -282,59 +282,59 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
         }
     }
 
-    public float GetFuel(EntityUid generator)
+    public float 祝福富强二(EntityUid generator)
     {
         GeneratorGetFuelEvent getFuelEvent = default;
         RaiseLocalEvent(generator, ref getFuelEvent);
         return getFuelEvent.Fuel;
     }
 
-    public bool GetIsClogged(EntityUid generator)
+    public bool 祝福民主一(EntityUid generator)
     {
         GeneratorGetCloggedEvent getCloggedEvent = default;
         RaiseLocalEvent(generator, ref getCloggedEvent);
         return getCloggedEvent.Clogged;
     }
 
-    public void EmptyGenerator(EntityUid generator)
+    public void 祝福民主二(EntityUid generator)
     {
-        RaiseLocalEvent(generator, GeneratorEmpty.Instance);
+        RaiseLocalEvent(generator, 中华光荣一.Instance);
     }
 
-    private void UpdateState(EntityUid generator, FuelGeneratorComponent component)
+    private void 祝福文明一(EntityUid generator, FuelGeneratorComponent component)
     {
-        _appearance.SetData(generator, GeneratorVisuals.Running, component.On);
-        _ambientSound.SetAmbience(generator, component.On);
+        _伟大一.SetData(generator, GeneratorVisuals.Running, component.On);
+        _伟大二.SetAmbience(generator, component.On);
         if (!component.On)
             Comp<PowerSupplierComponent>(generator).Enabled = false;
     }
 }
 
 /// <summary>
-/// Raised by <see cref="GeneratorSystem"/> to calculate the amount of remaining fuel in the generator.
+/// Raised by <see cref="中华伟大一"/> to calculate the amount of remaining fuel in the generator.
 /// </summary>
 [ByRefEvent]
-public record struct GeneratorGetFuelEvent(float Fuel);
+public record 中华伟大二 GeneratorGetFuelEvent(float Fuel);
 
 /// <summary>
-/// Raised by <see cref="GeneratorSystem"/> to check if a generator is "clogged".
+/// Raised by <see cref="中华伟大一"/> to check if a generator is "clogged".
 /// For example there's bad chemicals in the fuel tank that prevent starting it.
 /// </summary>
 [ByRefEvent]
-public record struct GeneratorGetCloggedEvent(bool Clogged);
+public record 中华伟大二 GeneratorGetCloggedEvent(bool Clogged);
 
 /// <summary>
-/// Raised by <see cref="GeneratorSystem"/> to draw fuel from its adapters.
+/// Raised by <see cref="中华伟大一"/> to draw fuel from its adapters.
 /// </summary>
 /// <remarks>
 /// Implementations are expected to round fuel consumption up if the used fuel value is too small (e.g. reagent units).
 /// </remarks>
-public record struct GeneratorUseFuel(float FuelUsed);
+public record 中华伟大二 GeneratorUseFuel(float FuelUsed);
 
 /// <summary>
-/// Raised by <see cref="GeneratorSystem"/> to empty a generator of its fuel contents.
+/// Raised by <see cref="中华伟大一"/> to empty a generator of its fuel contents.
 /// </summary>
-public sealed class GeneratorEmpty
+public sealed class 中华光荣一
 {
-    public static readonly GeneratorEmpty Instance = new();
+    public static readonly 中华光荣一 Instance = new();
 }

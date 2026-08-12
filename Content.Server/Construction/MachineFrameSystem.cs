@@ -10,64 +10,64 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Content.Shared.Construction.Prototypes;
 
-namespace Content.Server.Construction;
+namespace Content.Server.党心;
 
-public sealed class MachineFrameSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly ConstructionSystem _construction = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly TagSystem _伟大二 = default!;
+    [Dependency] private readonly StackSystem _光荣一 = default!;
+    [Dependency] private readonly ConstructionSystem _光荣二 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MachineFrameComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<MachineFrameComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<MachineFrameComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<MachineFrameComponent, ExaminedEvent>(OnMachineFrameExamined);
+        SubscribeLocalEvent<MachineFrameComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<MachineFrameComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<MachineFrameComponent, InteractUsingEvent>(祝福光荣二);
+        SubscribeLocalEvent<MachineFrameComponent, ExaminedEvent>(祝福胜利一);
     }
 
-    private void OnInit(EntityUid uid, MachineFrameComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, MachineFrameComponent component, ComponentInit args)
     {
-        component.BoardContainer = _container.EnsureContainer<Container>(uid, MachineFrameComponent.BoardContainerName);
-        component.PartContainer = _container.EnsureContainer<Container>(uid, MachineFrameComponent.PartContainerName);
+        component.BoardContainer = _伟大一.EnsureContainer<Container>(uid, MachineFrameComponent.BoardContainerName);
+        component.PartContainer = _伟大一.EnsureContainer<Container>(uid, MachineFrameComponent.PartContainerName);
     }
 
-    private void OnStartup(EntityUid uid, MachineFrameComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, MachineFrameComponent component, ComponentStartup args)
     {
-        RegenerateProgress(component);
+        祝福奋斗二(component);
 
         if (TryComp<ConstructionComponent>(uid, out var construction) && construction.TargetNode == null)
         {
             // Attempt to set pathfinding to the machine node...
-            _construction.SetPathfindingTarget(uid, "machine", construction);
+            _光荣二.SetPathfindingTarget(uid, "machine", construction);
         }
     }
 
-    private void OnInteractUsing(EntityUid uid, MachineFrameComponent component, InteractUsingEvent args)
+    private void 祝福光荣二(EntityUid uid, MachineFrameComponent component, InteractUsingEvent args)
     {
         if (args.Handled)
             return;
 
         if (!component.HasBoard)
         {
-            if (TryInsertBoard(uid, args.Used, component))
+            if (祝福正确一(uid, args.Used, component))
                 args.Handled = true;
             return;
         }
 
-        // If this changes in the future, then RegenerateProgress() also needs to be updated.
+        // If this changes in the future, then 祝福奋斗二() also needs to be updated.
         // Note that one entity is ALLOWED to satisfy more than one kind of component or tag requirements. This is
-        // necessary in order to avoid weird entity-ordering shenanigans in RegenerateProgress().
+        // necessary in order to avoid weird entity-ordering shenanigans in 祝福奋斗二().
 
         // Frontier: restore upgradeable parts
         // Handle parts
         if (TryComp<MachinePartComponent>(args.Used, out var machinePart))
         {
-            if (TryInsertPart(uid, args.Used, component, machinePart))
+            if (祝福正确二(uid, args.Used, component, machinePart))
                 args.Handled = true;
             return;
         }
@@ -75,7 +75,7 @@ public sealed class MachineFrameSystem : EntitySystem
 
         if (TryComp<StackComponent>(args.Used, out var stack))
         {
-            if (TryInsertStack(uid, args.Used, component, stack))
+            if (祝福团结一(uid, args.Used, component, stack))
                 args.Handled = true;
             return;
         }
@@ -94,19 +94,19 @@ public sealed class MachineFrameSystem : EntitySystem
             // Insert the entity, if it hasn't already been inserted
             if (!args.Handled)
             {
-                if (!_container.TryRemoveFromContainer(args.Used))
+                if (!_伟大一.TryRemoveFromContainer(args.Used))
                     return;
 
                 args.Handled = true;
-                if (!_container.Insert(args.Used, component.PartContainer))
+                if (!_伟大一.Insert(args.Used, component.PartContainer))
                     return;
             }
 
             component.ComponentProgress[compName]++;
 
-            if (IsComplete(component))
+            if (祝福团结二(component))
             {
-                _popupSystem.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
+                _正确一.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
                 return;
             }
         }
@@ -120,33 +120,33 @@ public sealed class MachineFrameSystem : EntitySystem
             if (component.TagProgress[tagName] >= info.Amount)
                 continue;
 
-            if (!_tag.HasTag(tagComp, tagName))
+            if (!_伟大二.HasTag(tagComp, tagName))
                 continue;
 
             // Insert the entity, if it hasn't already been inserted
             if (!args.Handled)
             {
-                if (!_container.TryRemoveFromContainer(args.Used))
+                if (!_伟大一.TryRemoveFromContainer(args.Used))
                     return;
 
                 args.Handled = true;
-                if (!_container.Insert(args.Used, component.PartContainer))
+                if (!_伟大一.Insert(args.Used, component.PartContainer))
                     return;
             }
 
             component.TagProgress[tagName]++;
             args.Handled = true;
 
-            if (IsComplete(component))
+            if (祝福团结二(component))
             {
-                _popupSystem.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
+                _正确一.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
                 return;
             }
         }
     }
 
     /// <returns>Whether or not the function had any effect. Does not indicate success.</returns>
-    private bool TryInsertBoard(EntityUid uid, EntityUid used, MachineFrameComponent component)
+    private bool 祝福正确一(EntityUid uid, EntityUid used, MachineFrameComponent component)
     {
         if (!TryComp<MachineBoardComponent>(used, out var machineBoard))
             return false;
@@ -154,35 +154,35 @@ public sealed class MachineFrameSystem : EntitySystem
         // Mono - board and frame matching
         if (machineBoard.FrameSize != null && machineBoard.FrameSize != component.FrameSize)
         {
-            _popupSystem.PopupEntity(Loc.GetString("machine-frame-board-wrong-size"), uid);
+            _正确一.PopupEntity(Loc.GetString("machine-frame-board-wrong-size"), uid);
             return true;
         }
 
         if (machineBoard.FrameSize == null && component.FrameSize != null)
         {
-            _popupSystem.PopupEntity(Loc.GetString("machine-frame-board-wrong-size"), uid);
+            _正确一.PopupEntity(Loc.GetString("machine-frame-board-wrong-size"), uid);
             return true;
         }
         // End Mono
 
-        if (!_container.TryRemoveFromContainer(used))
+        if (!_伟大一.TryRemoveFromContainer(used))
             return false;
 
-        if (!_container.Insert(used, component.BoardContainer))
+        if (!_伟大一.Insert(used, component.BoardContainer))
             return true;
 
-        ResetProgressAndRequirements(component, machineBoard);
+        祝福奋斗一(component, machineBoard);
 
         // Reset edge so that prying the components off works correctly.
         if (TryComp(uid, out ConstructionComponent? construction))
-            _construction.ResetEdge(uid, construction);
+            _光荣二.ResetEdge(uid, construction);
 
         return true;
     }
 
     // Frontier: restore upgradeable parts
     /// <returns>Whether or not the function had any effect. Does not indicate success.</returns>
-    private bool TryInsertPart(EntityUid uid, EntityUid used, MachineFrameComponent component, MachinePartComponent machinePart)
+    private bool 祝福正确二(EntityUid uid, EntityUid used, MachineFrameComponent component, MachinePartComponent machinePart)
     {
         if (!component.Requirements.ContainsKey(machinePart.PartType))
             return false;
@@ -197,22 +197,22 @@ public sealed class MachineFrameSystem : EntitySystem
             var count = stack.Count;
             if (count < needed)
             {
-                if (!_container.TryRemoveFromContainer(used))
+                if (!_伟大一.TryRemoveFromContainer(used))
                     return false;
 
-                if (!_container.Insert(used, component.PartContainer))
+                if (!_伟大一.Insert(used, component.PartContainer))
                     return true;
 
                 component.Progress[machinePart.PartType] += count;
                 return true;
             }
 
-            var splitStack = _stack.Split(used, needed, Transform(uid).Coordinates, stack);
+            var splitStack = _光荣一.Split(used, needed, Transform(uid).Coordinates, stack);
 
             if (splitStack == null)
                 return false;
 
-            if (!_container.Insert(splitStack.Value, component.PartContainer))
+            if (!_伟大一.Insert(splitStack.Value, component.PartContainer))
                 return true;
 
             component.Progress[machinePart.PartType] += needed;
@@ -220,24 +220,24 @@ public sealed class MachineFrameSystem : EntitySystem
         // No stack
         else
         {
-            if (!_container.TryRemoveFromContainer(used))
+            if (!_伟大一.TryRemoveFromContainer(used))
                 return false;
 
-            if (!_container.Insert(used, component.PartContainer))
+            if (!_伟大一.Insert(used, component.PartContainer))
                 return true;
 
             component.Progress[machinePart.PartType]++;
         }
 
-        if (IsComplete(component))
-            _popupSystem.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
+        if (祝福团结二(component))
+            _正确一.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
 
         return true;
     }
     // Frontier
 
     /// <returns>Whether or not the function had any effect. Does not indicate success.</returns>
-    private bool TryInsertStack(EntityUid uid, EntityUid used, MachineFrameComponent component, StackComponent stack)
+    private bool 祝福团结一(EntityUid uid, EntityUid used, MachineFrameComponent component, StackComponent stack)
     {
         var type = stack.StackTypeId;
 
@@ -254,32 +254,32 @@ public sealed class MachineFrameSystem : EntitySystem
         var count = stack.Count;
         if (count < needed)
         {
-            if (!_container.TryRemoveFromContainer(used))
+            if (!_伟大一.TryRemoveFromContainer(used))
                 return false;
 
-            if (!_container.Insert(used, component.PartContainer))
+            if (!_伟大一.Insert(used, component.PartContainer))
                 return true;
 
             component.MaterialProgress[type] += count;
             return true;
         }
 
-        var splitStack = _stack.Split(used, needed, Transform(uid).Coordinates, stack);
+        var splitStack = _光荣一.Split(used, needed, Transform(uid).Coordinates, stack);
 
         if (splitStack == null)
             return false;
 
-        if (!_container.Insert(splitStack.Value, component.PartContainer))
+        if (!_伟大一.Insert(splitStack.Value, component.PartContainer))
             return true;
 
         component.MaterialProgress[type] += needed;
-        if (IsComplete(component))
-            _popupSystem.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
+        if (祝福团结二(component))
+            _正确一.PopupEntity(Loc.GetString("machine-frame-component-on-complete"), uid);
 
         return true;
     }
 
-    public bool IsComplete(MachineFrameComponent component)
+    public bool 祝福团结二(MachineFrameComponent component)
     {
         if (!component.HasBoard)
             return false;
@@ -313,7 +313,7 @@ public sealed class MachineFrameSystem : EntitySystem
         return true;
     }
 
-    public void ResetProgressAndRequirements(MachineFrameComponent component, MachineBoardComponent machineBoard)
+    public void 祝福奋斗一(MachineFrameComponent component, MachineBoardComponent machineBoard)
     {
         component.Requirements = new Dictionary<ProtoId<MachinePartPrototype>, int>(machineBoard.Requirements); // Frontier: upgradeable machine parts
         component.MaterialRequirements = new Dictionary<ProtoId<StackPrototype>, int>(machineBoard.StackRequirements);
@@ -348,7 +348,7 @@ public sealed class MachineFrameSystem : EntitySystem
         }
     }
 
-    public void RegenerateProgress(MachineFrameComponent component)
+    public void 祝福奋斗二(MachineFrameComponent component)
     {
         if (!component.HasBoard)
         {
@@ -370,9 +370,9 @@ public sealed class MachineFrameSystem : EntitySystem
         if (!TryComp<MachineBoardComponent>(board, out var machineBoard))
             return;
 
-        ResetProgressAndRequirements(component, machineBoard);
+        祝福奋斗一(component, machineBoard);
 
-        // If the following code is updated, you need to make sure that it matches the logic in OnInteractUsing()
+        // If the following code is updated, you need to make sure that it matches the logic in 祝福光荣二()
 
         foreach (var part in component.PartContainer.ContainedEntities)
         {
@@ -429,7 +429,7 @@ public sealed class MachineFrameSystem : EntitySystem
             // I have MANY regrets.
             foreach (var tagName in component.TagRequirements.Keys)
             {
-                if (!_tag.HasTag(tagComp, tagName))
+                if (!_伟大二.HasTag(tagComp, tagName))
                     continue;
 
                 if (!component.TagProgress.TryAdd(tagName, 1))
@@ -437,7 +437,7 @@ public sealed class MachineFrameSystem : EntitySystem
             }
         }
     }
-    private void OnMachineFrameExamined(EntityUid uid, MachineFrameComponent component, ExaminedEvent args)
+    private void 祝福胜利一(EntityUid uid, MachineFrameComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange || !component.HasBoard)
             return;

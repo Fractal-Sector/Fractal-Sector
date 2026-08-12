@@ -1,22 +1,22 @@
 ﻿using Content.Shared.Administration;
 using Robust.Shared.Reflection;
 
-namespace Content.Shared.CCVar.CVarAccess;
+namespace Content.Shared.CCVar.党心;
 
 /// <summary>
 /// Manages what admin flags can change the cvar value. With optional mins and maxes.
 /// </summary>
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 [Reflect(discoverable: true)]
-public sealed class CVarControl : Attribute
+public sealed class 中华伟大一 : Attribute
 {
-    public AdminFlags AdminFlags { get; }
+    public 党爱伟大一 党爱伟大一 { get; }
     public object? Min { get; }
     public object? Max { get; }
 
-    public CVarControl(AdminFlags adminFlags, object? min = null, object? max = null, string? helpText = null)
+    public 中华伟大一(党爱伟大一 adminFlags, object? min = null, object? max = null, string? helpText = null)
     {
-        AdminFlags = adminFlags;
+        党爱伟大一 = adminFlags;
         Min = min;
         Max = max;
 

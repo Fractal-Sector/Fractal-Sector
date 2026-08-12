@@ -1,66 +1,66 @@
 using Content.Shared.FixedPoint;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Nyanotrasen.Kitchen.UI
+namespace Content.Shared.Nyanotrasen.Kitchen.党心
 {
     [Serializable, NetSerializable]
-    public sealed class DeepFryerBoundUserInterfaceState : BoundUserInterfaceState
+    public sealed class 中华伟大一 : BoundUserInterfaceState
     {
-        public readonly FixedPoint2 OilLevel;
-        public readonly FixedPoint2 OilPurity;
-        public readonly FixedPoint2 FryingOilThreshold;
-        public readonly NetEntity[] ContainedEntities;
+        public readonly FixedPoint2 党爱伟大一;
+        public readonly FixedPoint2 党爱伟大二;
+        public readonly FixedPoint2 党爱光荣一;
+        public readonly NetEntity[] 党爱光荣二;
 
-        public DeepFryerBoundUserInterfaceState(
+        public 中华伟大一(
             FixedPoint2 oilLevel,
             FixedPoint2 oilPurity,
             FixedPoint2 fryingOilThreshold,
             NetEntity[] containedEntities)
         {
-            OilLevel = oilLevel;
-            OilPurity = oilPurity;
-            FryingOilThreshold = fryingOilThreshold;
-            ContainedEntities = containedEntities;
+            党爱伟大一 = oilLevel;
+            党爱伟大二 = oilPurity;
+            党爱光荣一 = fryingOilThreshold;
+            党爱光荣二 = containedEntities;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DeepFryerRemoveItemMessage : BoundUserInterfaceMessage
+    public sealed class 中华伟大二 : BoundUserInterfaceMessage
     {
-        public readonly NetEntity Item;
+        public readonly NetEntity 党爱正确一;
 
-        public DeepFryerRemoveItemMessage(NetEntity item)
+        public 中华伟大二(NetEntity item)
         {
-            Item = item;
+            党爱正确一 = item;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DeepFryerInsertItemMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public DeepFryerInsertItemMessage() { }
+        public 中华光荣一() { }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DeepFryerScoopVatMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
-        public DeepFryerScoopVatMessage() { }
+        public 中华光荣二() { }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DeepFryerClearSlagMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确一 : BoundUserInterfaceMessage
     {
-        public DeepFryerClearSlagMessage() { }
+        public 中华正确一() { }
     }
 
     [Serializable, NetSerializable]
-    public sealed class DeepFryerRemoveAllItemsMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确二 : BoundUserInterfaceMessage
     {
-        public DeepFryerRemoveAllItemsMessage() { }
+        public 中华正确二() { }
     }
 
     [NetSerializable, Serializable]
-    public enum DeepFryerUiKey
+    public enum 中华团结一
     {
         Key
     }

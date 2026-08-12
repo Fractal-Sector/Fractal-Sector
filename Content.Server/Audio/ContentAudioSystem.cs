@@ -12,31 +12,31 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
 
-namespace Content.Server.Audio;
+namespace Content.Server.党心;
 
-public sealed class ContentAudioSystem : SharedContentAudioSystem
+public sealed class 中华伟大一 : SharedContentAudioSystem
 {
-    [Dependency] private readonly AudioSystem _serverAudio = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly AudioSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣二 = default!;
 
     private SoundCollectionPrototype? _lobbyMusicCollection = default!;
     private string[]? _lobbyPlaylist;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         //changes the music collection and reshuffles the playlist to update the lobby music
         Subs.CVar(
-            _cfg,
+            _光荣二,
             CCVars.LobbyMusicCollection,
             x =>
             {
                 //Checks to see if the sound collection exists. If it does change it if not defaults to null
                 // as the new _lobbyMusicCollection meaning it wont play anything in the lobby.
-                if(_prototypeManager.TryIndex<SoundCollectionPrototype>(x, out var outputSoundCollection))
+                if(_光荣一.TryIndex<SoundCollectionPrototype>(x, out var outputSoundCollection))
                 {
                     _lobbyMusicCollection = outputSoundCollection;
                 }
@@ -46,36 +46,36 @@ public sealed class ContentAudioSystem : SharedContentAudioSystem
                     _lobbyMusicCollection = null;
                 }
 
-                _lobbyPlaylist = ShuffleLobbyPlaylist();
+                _lobbyPlaylist = 祝福团结一();
             },
             true);
 
-        SubscribeLocalEvent<RoundEndMessageEvent>(OnRoundEnd);
-        SubscribeLocalEvent<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundCleanup);
-        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStart);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnProtoReload);
+        SubscribeLocalEvent<RoundEndMessageEvent>(祝福正确二);
+        SubscribeLocalEvent<PlayerJoinedLobbyEvent>(祝福正确一);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
+        SubscribeLocalEvent<RoundStartingEvent>(祝福光荣二);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福光荣一);
     }
 
-    private void OnRoundCleanup(RoundRestartCleanupEvent ev)
+    private void 祝福伟大二(RoundRestartCleanupEvent ev)
     {
         SilenceAudio();
     }
 
-    private void OnProtoReload(PrototypesReloadedEventArgs obj)
+    private void 祝福光荣一(PrototypesReloadedEventArgs obj)
     {
         if (obj.WasModified<AudioPresetPrototype>())
-            _serverAudio.ReloadPresets();
+            _伟大一.ReloadPresets();
     }
 
-    private void OnRoundStart(RoundStartingEvent ev)
+    private void 祝福光荣二(RoundStartingEvent ev)
     {
         // On cleanup all entities get purged so need to ensure audio presets are still loaded
         // yeah it's whacky af.
-        _serverAudio.ReloadPresets();
+        _伟大一.ReloadPresets();
     }
 
-    private void OnPlayerJoinedLobby(PlayerJoinedLobbyEvent ev)
+    private void 祝福正确一(PlayerJoinedLobbyEvent ev)
     {
         if (_lobbyPlaylist != null)
         {
@@ -84,17 +84,17 @@ public sealed class ContentAudioSystem : SharedContentAudioSystem
         }
     }
 
-    private void OnRoundEnd(RoundEndMessageEvent ev)
+    private void 祝福正确二(RoundEndMessageEvent ev)
     {
         // The lobby song is set here instead of in RestartRound,
         // because ShowRoundEndScoreboard triggers the start of the music playing
         // at the end of a round, and this needs to be set before RestartRound
         // in order for the lobby song status display to be accurate.
-        _lobbyPlaylist = ShuffleLobbyPlaylist();
+        _lobbyPlaylist = 祝福团结一();
         RaiseNetworkEvent(new LobbyPlaylistChangedEvent(_lobbyPlaylist));
     }
 
-    private string[] ShuffleLobbyPlaylist()
+    private string[] 祝福团结一()
     {
         if (_lobbyMusicCollection == null)
         {
@@ -104,7 +104,7 @@ public sealed class ContentAudioSystem : SharedContentAudioSystem
         var playlist = _lobbyMusicCollection.PickFiles
                                             .Select(x => x.ToString())
                                             .ToArray();
-        _robustRandom.Shuffle(playlist);
+        _伟大二.Shuffle(playlist);
 
         return playlist;
     }

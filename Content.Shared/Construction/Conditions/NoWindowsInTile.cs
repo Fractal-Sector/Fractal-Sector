@@ -4,15 +4,15 @@ using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Construction.Conditions
+namespace Content.Shared.Construction.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class NoWindowsInTile : IConstructionCondition
+    public sealed partial class 中华伟大一 : IConstructionCondition
     {
         private static readonly ProtoId<TagPrototype> WindowTag = "Window";
 
-        public bool Condition(EntityUid user, EntityCoordinates location, Direction direction)
+        public bool 祝福伟大一(EntityUid user, EntityCoordinates location, Direction direction)
         {
             var entManager = IoCManager.Resolve<IEntityManager>();
             var sysMan = entManager.EntitySysManager;
@@ -28,7 +28,7 @@ namespace Content.Shared.Construction.Conditions
             return true;
         }
 
-        public ConstructionGuideEntry GenerateGuideEntry()
+        public ConstructionGuideEntry 祝福伟大二()
         {
             return new ConstructionGuideEntry
             {

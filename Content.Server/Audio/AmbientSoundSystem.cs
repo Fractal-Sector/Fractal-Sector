@@ -4,23 +4,23 @@ using Content.Shared.Audio;
 using Content.Shared.Mobs;
 using Content.Shared.Power;
 
-namespace Content.Server.Audio;
+namespace Content.Server.党心;
 
-public sealed class AmbientSoundSystem : SharedAmbientSoundSystem
+public sealed class 中华伟大一 : SharedAmbientSoundSystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AmbientOnPoweredComponent, PowerChangedEvent>(HandlePowerChange);
-        SubscribeLocalEvent<AmbientOnPoweredComponent, PowerNetBatterySupplyEvent>(HandlePowerSupply);
+        base.祝福伟大一();
+        SubscribeLocalEvent<AmbientOnPoweredComponent, PowerChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AmbientOnPoweredComponent, PowerNetBatterySupplyEvent>(祝福伟大二);
     }
 
-    private void HandlePowerSupply(EntityUid uid, AmbientOnPoweredComponent component, ref PowerNetBatterySupplyEvent args)
+    private void 祝福伟大二(EntityUid uid, AmbientOnPoweredComponent component, ref PowerNetBatterySupplyEvent args)
     {
         SetAmbience(uid, args.Supply);
     }
 
-    private void HandlePowerChange(EntityUid uid, AmbientOnPoweredComponent component, ref PowerChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, AmbientOnPoweredComponent component, ref PowerChangedEvent args)
     {
         SetAmbience(uid, args.Powered);
     }

@@ -11,28 +11,28 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Light.EntitySystems;
+namespace Content.Server.Light.党心;
 
 [UsedImplicitly]
-public sealed class LightReplacerSystem : SharedLightReplacerSystem
+public sealed class 中华伟大一 : SharedLightReplacerSystem
 {
-    [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly PoweredLightSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LightReplacerComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<LightReplacerComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<LightReplacerComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<LightReplacerComponent, InteractUsingEvent>(HandleInteract);
-        SubscribeLocalEvent<LightReplacerComponent, AfterInteractEvent>(HandleAfterInteract);
+        SubscribeLocalEvent<LightReplacerComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<LightReplacerComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<LightReplacerComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<LightReplacerComponent, InteractUsingEvent>(祝福正确二);
+        SubscribeLocalEvent<LightReplacerComponent, AfterInteractEvent>(祝福正确一);
     }
 
-    private void OnExamined(EntityUid uid, LightReplacerComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, LightReplacerComponent component, ExaminedEvent args)
     {
         using (args.PushGroup(nameof(LightReplacerComponent)))
         {
@@ -58,22 +58,22 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         }
     }
 
-    private void OnMapInit(EntityUid uid, LightReplacerComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, LightReplacerComponent component, MapInitEvent args)
     {
         var xform = Transform(uid);
         foreach (var spawn in EntitySpawnCollection.GetSpawns(component.Contents))
         {
             var ent = Spawn(spawn, xform.Coordinates);
-            TryInsertBulb(uid, ent, replacer: component);
+            祝福团结二(uid, ent, replacer: component);
         }
     }
 
-    private void OnInit(EntityUid uid, LightReplacerComponent replacer, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, LightReplacerComponent replacer, ComponentInit args)
     {
-        replacer.InsertedBulbs = _container.EnsureContainer<Container>(uid, "light_replacer_storage");
+        replacer.InsertedBulbs = _光荣一.EnsureContainer<Container>(uid, "light_replacer_storage");
     }
 
-    private void HandleAfterInteract(EntityUid uid, LightReplacerComponent component, AfterInteractEvent eventArgs)
+    private void 祝福正确一(EntityUid uid, LightReplacerComponent component, AfterInteractEvent eventArgs)
     {
         if (eventArgs.Handled)
             return;
@@ -89,14 +89,14 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
 
             // replace broken light in fixture?
             if (TryComp<PoweredLightComponent>(targetUid, out var fixture))
-                eventArgs.Handled = TryReplaceBulb(uid, targetUid, eventArgs.User, component, fixture);
+                eventArgs.Handled = 祝福团结一(uid, targetUid, eventArgs.User, component, fixture);
             // add new bulb to light replacer container?
             else if (TryComp<LightBulbComponent>(targetUid, out var bulb))
-                eventArgs.Handled = TryInsertBulb(uid, targetUid, eventArgs.User, true, component, bulb);
+                eventArgs.Handled = 祝福团结二(uid, targetUid, eventArgs.User, true, component, bulb);
         }
     }
 
-    private void HandleInteract(EntityUid uid, LightReplacerComponent component, InteractUsingEvent eventArgs)
+    private void 祝福正确二(EntityUid uid, LightReplacerComponent component, InteractUsingEvent eventArgs)
     {
         if (eventArgs.Handled)
             return;
@@ -105,10 +105,10 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
 
         // want to insert a new light bulb?
         if (TryComp<LightBulbComponent>(usedUid, out var bulb))
-            eventArgs.Handled = TryInsertBulb(uid, usedUid, eventArgs.User, true, component, bulb);
+            eventArgs.Handled = 祝福团结二(uid, usedUid, eventArgs.User, true, component, bulb);
         // add bulbs from storage?
         else if (TryComp<StorageComponent>(usedUid, out var storage))
-            eventArgs.Handled = TryInsertBulbsFromStorage(uid, usedUid, eventArgs.User, component, storage);
+            eventArgs.Handled = 祝福奋斗一(uid, usedUid, eventArgs.User, component, storage);
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
     ///     using light replacer. Light fixture should have <see cref="PoweredLightComponent"/>.
     /// </summary>
     /// <returns>True if successfully replaced light, false otherwise</returns>
-    public bool TryReplaceBulb(EntityUid replacerUid, EntityUid fixtureUid, EntityUid? userUid = null,
+    public bool 祝福团结一(EntityUid replacerUid, EntityUid fixtureUid, EntityUid? userUid = null,
         LightReplacerComponent? replacer = null, PoweredLightComponent? fixture = null)
     {
         if (!Resolve(replacerUid, ref replacer))
@@ -125,7 +125,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
             return false;
 
         // check if light bulb is broken or missing
-        var fixtureBulbUid = _poweredLight.GetBulb(fixtureUid, fixture);
+        var fixtureBulbUid = _伟大一.GetBulb(fixtureUid, fixture);
         if (fixtureBulbUid != null)
         {
             if (!TryComp<LightBulbComponent>(fixtureBulbUid.Value, out var fixtureBulb))
@@ -142,7 +142,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         if (bulb.Valid) // FirstOrDefault can return default/invalid uid.
         {
             // try to remove it
-            var hasRemoved = _container.Remove(bulb, replacer.InsertedBulbs);
+            var hasRemoved = _光荣一.Remove(bulb, replacer.InsertedBulbs);
             if (!hasRemoved)
                 return false;
         }
@@ -152,16 +152,16 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
             {
                 var msg = Loc.GetString("comp-light-replacer-missing-light",
                     ("light-replacer", replacerUid));
-                _popupSystem.PopupEntity(msg, replacerUid, userUid.Value);
+                _光荣二.PopupEntity(msg, replacerUid, userUid.Value);
             }
             return false;
         }
 
         // insert it into fixture
-        var wasReplaced = _poweredLight.ReplaceBulb(fixtureUid, bulb, fixture);
+        var wasReplaced = _伟大一.ReplaceBulb(fixtureUid, bulb, fixture);
         if (wasReplaced)
         {
-            _audio.PlayPvs(replacer.Sound, replacerUid);
+            _伟大二.PlayPvs(replacer.Sound, replacerUid);
         }
 
         return wasReplaced;
@@ -171,7 +171,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
     ///     Try to insert a new bulb inside light replacer
     /// </summary>
     /// <returns>True if successfully inserted light, false otherwise</returns>
-    public bool TryInsertBulb(EntityUid replacerUid, EntityUid bulbUid, EntityUid? userUid = null, bool showTooltip = false,
+    public bool 祝福团结二(EntityUid replacerUid, EntityUid bulbUid, EntityUid? userUid = null, bool showTooltip = false,
         LightReplacerComponent? replacer = null, LightBulbComponent? bulb = null)
     {
         if (!Resolve(replacerUid, ref replacer))
@@ -185,19 +185,19 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
             if (showTooltip && userUid != null)
             {
                 var msg = Loc.GetString("comp-light-replacer-insert-broken-light");
-                _popupSystem.PopupEntity(msg, replacerUid, userUid.Value);
+                _光荣二.PopupEntity(msg, replacerUid, userUid.Value);
             }
 
             return false;
         }
 
         // try insert light and show message
-        var hasInsert = _container.Insert(bulbUid, replacer.InsertedBulbs);
+        var hasInsert = _光荣一.Insert(bulbUid, replacer.InsertedBulbs);
         if (hasInsert && showTooltip && userUid != null)
         {
             var msg = Loc.GetString("comp-light-replacer-insert-light",
                 ("light-replacer", replacerUid), ("bulb", bulbUid));
-            _popupSystem.PopupEntity(msg, replacerUid, userUid.Value, PopupType.Medium);
+            _光荣二.PopupEntity(msg, replacerUid, userUid.Value, PopupType.Medium);
         }
 
         return hasInsert;
@@ -210,7 +210,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
     ///     Returns true if storage contained at least one light bulb
     ///     which was successfully inserted inside light replacer
     /// </returns>
-    public bool TryInsertBulbsFromStorage(EntityUid replacerUid, EntityUid storageUid, EntityUid? userUid = null,
+    public bool 祝福奋斗一(EntityUid replacerUid, EntityUid storageUid, EntityUid? userUid = null,
         LightReplacerComponent? replacer = null, StorageComponent? storage = null)
     {
         if (!Resolve(replacerUid, ref replacer))
@@ -224,7 +224,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         foreach (var ent in storagedEnts)
         {
             if (TryComp<LightBulbComponent>(ent, out var bulb) &&
-                TryInsertBulb(replacerUid, ent, userUid, false, replacer, bulb))
+                祝福团结二(replacerUid, ent, userUid, false, replacer, bulb))
             {
                 insertedBulbs++;
             }
@@ -234,7 +234,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         if (insertedBulbs > 0 && userUid != null)
         {
             var msg = Loc.GetString("comp-light-replacer-refill-from-storage", ("light-replacer", replacerUid));
-            _popupSystem.PopupEntity(msg, replacerUid, userUid.Value, PopupType.Medium);
+            _光荣二.PopupEntity(msg, replacerUid, userUid.Value, PopupType.Medium);
         }
 
         return insertedBulbs > 0;

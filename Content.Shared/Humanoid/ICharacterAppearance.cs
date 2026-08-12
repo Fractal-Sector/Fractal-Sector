@@ -1,8 +1,8 @@
 
-namespace Content.Shared.Humanoid
+namespace Content.Shared.党心
 {
-    public interface ICharacterAppearance
+    public interface 中华伟大一
     {
-        bool MemberwiseEquals(ICharacterAppearance other);
+        bool MemberwiseEquals(中华伟大一 other);
     }
 }

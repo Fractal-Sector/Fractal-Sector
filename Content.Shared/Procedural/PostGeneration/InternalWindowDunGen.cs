@@ -2,16 +2,16 @@ using Content.Shared.EntityTable;
 using Content.Shared.Maps;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Procedural.PostGeneration;
+namespace Content.Shared.Procedural.党心;
 
 /// <summary>
 /// If internal areas are found will try to generate windows.
 /// </summary>
-public sealed partial class InternalWindowDunGen : IDunGenLayer
+public sealed partial class 中华伟大一 : IDunGenLayer
 {
     [DataField(required: true)]
-    public ProtoId<ContentTileDefinition> Tile;
+    public ProtoId<ContentTileDefinition> 党爱伟大一;
 
     [DataField(required: true)]
-    public ProtoId<EntityTablePrototype> Contents;
+    public ProtoId<EntityTablePrototype> 党爱伟大二;
 }

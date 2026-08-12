@@ -9,27 +9,27 @@ using Content.Shared.Medical.SuitSensor;
 using Content.Shared.Pinpointer;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Medical.CrewMonitoring;
+namespace Content.Server.Medical.党心;
 
-public sealed class CrewMonitoringConsoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PowerCellSystem _cell = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    [Dependency] private readonly PowerCellSystem _伟大一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<CrewMonitoringConsoleComponent, ComponentRemove>(OnRemove);
-        SubscribeLocalEvent<CrewMonitoringConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
-        SubscribeLocalEvent<CrewMonitoringConsoleComponent, BoundUIOpenedEvent>(OnUIOpened);
+        base.祝福伟大一();
+        SubscribeLocalEvent<CrewMonitoringConsoleComponent, ComponentRemove>(祝福伟大二);
+        SubscribeLocalEvent<CrewMonitoringConsoleComponent, DeviceNetworkPacketEvent>(祝福光荣一);
+        SubscribeLocalEvent<CrewMonitoringConsoleComponent, BoundUIOpenedEvent>(祝福光荣二);
     }
 
-    private void OnRemove(EntityUid uid, CrewMonitoringConsoleComponent component, ComponentRemove args)
+    private void 祝福伟大二(EntityUid uid, CrewMonitoringConsoleComponent component, ComponentRemove args)
     {
         component.ConnectedSensors.Clear();
     }
 
-    private void OnPacketReceived(EntityUid uid, CrewMonitoringConsoleComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福光荣一(EntityUid uid, CrewMonitoringConsoleComponent component, DeviceNetworkPacketEvent args)
     {
         var payload = args.Data;
 
@@ -44,23 +44,23 @@ public sealed class CrewMonitoringConsoleSystem : EntitySystem
             return;
 
         component.ConnectedSensors = sensorStatus;
-        UpdateUserInterface(uid, component);
+        祝福正确一(uid, component);
     }
 
-    private void OnUIOpened(EntityUid uid, CrewMonitoringConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福光荣二(EntityUid uid, CrewMonitoringConsoleComponent component, BoundUIOpenedEvent args)
     {
-        if (!_cell.TryUseActivatableCharge(uid))
+        if (!_伟大一.TryUseActivatableCharge(uid))
             return;
 
-        UpdateUserInterface(uid, component);
+        祝福正确一(uid, component);
     }
 
-    private void UpdateUserInterface(EntityUid uid, CrewMonitoringConsoleComponent? component = null)
+    private void 祝福正确一(EntityUid uid, CrewMonitoringConsoleComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        if (!_uiSystem.IsUiOpen(uid, CrewMonitoringUIKey.Key))
+        if (!_伟大二.IsUiOpen(uid, CrewMonitoringUIKey.Key))
             return;
 
         // The grid must have a NavMapComponent to visualize the map in the UI
@@ -71,6 +71,6 @@ public sealed class CrewMonitoringConsoleSystem : EntitySystem
 
         // Update all sensors info
         var allSensors = component.ConnectedSensors.Values.ToList();
-        _uiSystem.SetUiState(uid, CrewMonitoringUIKey.Key, new CrewMonitoringState(allSensors));
+        _伟大二.SetUiState(uid, CrewMonitoringUIKey.Key, new CrewMonitoringState(allSensors));
     }
 }

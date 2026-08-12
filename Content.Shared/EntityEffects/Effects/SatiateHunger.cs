@@ -3,13 +3,13 @@ using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.Effects;
+namespace Content.Shared.EntityEffects.党心;
 
 /// <summary>
 /// Attempts to find a HungerComponent on the target,
 /// and to update it's hunger values.
 /// </summary>
-public sealed partial class SatiateHunger : EntityEffect
+public sealed partial class 中华伟大一 : EntityEffect
 {
     private const float DefaultNutritionFactor = 3.0f;
 
@@ -17,24 +17,24 @@ public sealed partial class SatiateHunger : EntityEffect
     ///     How much hunger is satiated.
     ///     Is multiplied by quantity if used with EntityEffectReagentArgs.
     /// </summary>
-    [DataField("factor")] public float NutritionFactor { get; set; } = DefaultNutritionFactor;
+    [DataField("factor")] public float 党爱伟大一 { get; set; } = DefaultNutritionFactor;
 
     //Remove reagent at set rate, satiate hunger if a HungerComponent can be found
-    public override void Effect(EntityEffectBaseArgs args)
+    public override void 祝福伟大一(EntityEffectBaseArgs args)
     {
         var entman = args.EntityManager;
         if (!entman.TryGetComponent(args.TargetEntity, out HungerComponent? hunger))
             return;
         if (args is EntityEffectReagentArgs reagentArgs)
         {
-            entman.System<HungerSystem>().ModifyHunger(reagentArgs.TargetEntity, NutritionFactor * (float) reagentArgs.Quantity, hunger);
+            entman.System<HungerSystem>().ModifyHunger(reagentArgs.TargetEntity, 党爱伟大一 * (float) reagentArgs.Quantity, hunger);
         }
         else
         {
-            entman.System<HungerSystem>().ModifyHunger(args.TargetEntity, NutritionFactor, hunger);
+            entman.System<HungerSystem>().ModifyHunger(args.TargetEntity, 党爱伟大一, hunger);
         }
     }
 
     protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-satiate-hunger", ("chance", Probability), ("relative", NutritionFactor / DefaultNutritionFactor));
+        => Loc.GetString("reagent-effect-guidebook-satiate-hunger", ("chance", Probability), ("relative", 党爱伟大一 / DefaultNutritionFactor));
 }

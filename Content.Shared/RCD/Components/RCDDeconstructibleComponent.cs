@@ -2,23 +2,23 @@ using Content.Shared.RCD.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.RCD.Components;
+namespace Content.Shared.RCD.党心;
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(RCDSystem))]
-public sealed partial class RCDDeconstructableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Number of charges consumed when the deconstruction is completed
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public int Cost = 1;
+    public int 党爱伟大一 = 1;
 
     /// <summary>
     /// The length of the deconstruction 
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float Delay = 1f;
+    public float 党爱伟大二 = 1f;
 
     /// <summary>
     /// The visual effect that plays during deconstruction
@@ -30,13 +30,13 @@ public sealed partial class RCDDeconstructableComponent : Component
     /// Toggles whether this entity is deconstructable or not
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool Deconstructable = true;
+    public bool 党爱光荣一 = true;
 
     // Starlight Start: RPD
     /// <summary>
     /// Toggles whether this entity is deconstructable by the RPD or not
     /// </summary>
     [DataField("rpd"), ViewVariables(VVAccess.ReadWrite)]
-    public bool RpdDeconstructable = false;
+    public bool 党爱光荣二 = false;
     // Starlight End: RPD
 }

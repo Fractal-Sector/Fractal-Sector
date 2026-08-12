@@ -2,35 +2,35 @@
 using Content.Shared.Maps;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Worldgen.Components.Debris;
+namespace Content.Server.Worldgen.Components.党心;
 
 /// <summary>
 ///     This is used for constructing asteroid debris.
 /// </summary>
 [RegisterComponent]
 [Access(typeof(BlobFloorPlanBuilderSystem))]
-public sealed partial class BlobFloorPlanBuilderComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The probability that placing a floor tile will add up to three-four neighboring tiles as well.
     /// </summary>
-    [DataField("blobDrawProb")] public float BlobDrawProb;
+    [DataField("blobDrawProb")] public float 党爱伟大一;
 
     /// <summary>
     ///     The maximum radius for the structure.
     /// </summary>
-    [DataField("radius", required: true)] public float Radius;
+    [DataField("radius", required: true)] public float 党爱伟大二;
 
     /// <summary>
     ///     The tiles to be used for the floor plan.
     /// </summary>
     [DataField(required: true)]
-    public List<ProtoId<ContentTileDefinition>> FloorTileset { get; private set;  } = default!;
+    public List<ProtoId<ContentTileDefinition>> 党爱光荣一 { get; private set;  } = default!;
 
     /// <summary>
     ///     The number of floor tiles to place when drawing the asteroid layout.
     /// </summary>
     [DataField("floorPlacements", required: true)]
-    public int FloorPlacements { get; private set; }
+    public int 党爱光荣二 { get; private set; }
 }
 

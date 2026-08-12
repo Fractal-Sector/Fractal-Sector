@@ -1,17 +1,17 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Cargo.Events;
+namespace Content.Shared.Cargo.党心;
 
 /// <summary>
 ///     Set order in database as approved.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CargoConsoleApproveOrderMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大一 : BoundUserInterfaceMessage
 {
-    public int OrderId;
+    public int 党爱伟大一;
 
-    public CargoConsoleApproveOrderMessage(int orderId)
+    public 中华伟大一(int orderId)
     {
-        OrderId = orderId;
+        党爱伟大一 = orderId;
     }
 }

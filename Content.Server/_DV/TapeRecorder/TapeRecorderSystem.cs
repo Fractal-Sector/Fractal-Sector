@@ -13,28 +13,28 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using System.Text;
 
-namespace Content.Server._DV.TapeRecorder;
+namespace Content.Server._DV.党心;
 
-public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
+public sealed class 中华伟大一 : SharedTapeRecorderSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
+    [Dependency] private readonly HandsSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly PaperSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TapeRecorderComponent, ListenEvent>(OnListen);
-        SubscribeLocalEvent<TapeRecorderComponent, PrintTapeRecorderMessage>(OnPrintMessage);
+        SubscribeLocalEvent<TapeRecorderComponent, ListenEvent>(祝福光荣一);
+        SubscribeLocalEvent<TapeRecorderComponent, PrintTapeRecorderMessage>(祝福光荣二);
     }
 
     /// <summary>
     /// Given a time range, play all messages on a tape within said range, [start, end).
     /// Split into this system as shared does not have ChatSystem access
     /// </summary>
-    protected override void ReplayMessagesInSegment(Entity<TapeRecorderComponent> ent, TapeCassetteComponent tape, float segmentStart, float segmentEnd)
+    protected override void 祝福伟大二(Entity<TapeRecorderComponent> ent, TapeCassetteComponent tape, float segmentStart, float segmentEnd)
     {
         var voice = EnsureComp<VoiceOverrideComponent>(ent);
         var speech = EnsureComp<SpeechComponent>(ent);
@@ -48,18 +48,18 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
             voice.NameOverride = message.Name ?? ent.Comp.DefaultName;
             // TODO: mimic the exact string chosen when the message was recorded
             var verb = message.Verb ?? SharedChatSystem.DefaultSpeechVerb;
-            speech.SpeechVerb = _proto.Index<SpeechVerbPrototype>(verb);
+            speech.SpeechVerb = _光荣一.Index<SpeechVerbPrototype>(verb);
             //Play the message
-            _chat.TrySendInGameICMessage(ent, message.Message, InGameICChatType.Speak, false);
+            _伟大一.TrySendInGameICMessage(ent, message.Message, InGameICChatType.Speak, false);
         }
     }
 
     /// <summary>
-    /// Whenever someone speaks within listening range, record it to tape
+    /// Whenever someone speaks within listening range, record 中华伟大二 to tape
     /// </summary>
-    private void OnListen(Entity<TapeRecorderComponent> ent, ref ListenEvent args)
+    private void 祝福光荣一(Entity<TapeRecorderComponent> ent, ref ListenEvent args)
     {
-        // mode should never be set when it isn't active but whatever
+        // mode should never be set when 中华伟大二 isn't active but whatever
         if (ent.Comp.Mode != TapeRecorderMode.Recording || !HasComp<ActiveTapeRecorderComponent>(ent))
             return;
 
@@ -77,12 +77,12 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
         RaiseLocalEvent(args.Source, nameEv);
 
         //Add a new entry to the tape
-        var verb = _chat.GetSpeechVerb(args.Source, args.Message);
+        var verb = _伟大一.GetSpeechVerb(args.Source, args.Message);
         var name = nameEv.VoiceName;
         cassette.Comp.Buffer.Add(new TapeCassetteRecordedMessage(cassette.Comp.CurrentPosition, name, verb, args.Message));
     }
 
-    private void OnPrintMessage(Entity<TapeRecorderComponent> ent, ref PrintTapeRecorderMessage args)
+    private void 祝福光荣二(Entity<TapeRecorderComponent> ent, ref PrintTapeRecorderMessage args)
     {
         var (uid, comp) = ent;
 
@@ -96,14 +96,14 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
         var paper = Spawn(comp.PaperPrototype, Transform(ent).Coordinates);
 
         // Sorting list by time for overwrite order
-        // TODO: why is this needed? why wouldn't it be stored in order
+        // TODO: why is this needed? why wouldn't 中华伟大二 be stored in order
         var data = cassette.Comp.RecordedData;
         data.Sort((x,y) => x.Timestamp.CompareTo(y.Timestamp));
 
         // Looking if player's entity exists to give paper in its hand
         var player = args.Actor;
         if (Exists(player))
-            _hands.PickupOrDrop(player, paper, checkActionBlocker: false);
+            _伟大二.PickupOrDrop(player, paper, checkActionBlocker: false);
 
         if (!TryComp<PaperComponent>(paper, out var paperComp))
             return;
@@ -125,7 +125,7 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
         text.AppendLine();
         text.Append(Loc.GetString("tape-recorder-print-end-text"));
 
-        _paper.SetContent((paper, paperComp), text.ToString());
+        _光荣二.SetContent((paper, paperComp), text.ToString());
 
         comp.CooldownEndTime = Timing.CurTime + comp.PrintCooldown;
     }

@@ -1,45 +1,45 @@
 using Content.Server.Light.EntitySystems;
 using Content.Shared.Light.Components;
 
-namespace Content.Server.Light.Components;
+namespace Content.Server.Light.党心;
 
 /// <summary>
 ///     Component that represents an emergency light, it has an internal battery that charges when the power is on.
 /// </summary>
 [RegisterComponent, Access(typeof(EmergencyLightSystem))]
-public sealed partial class EmergencyLightComponent : SharedEmergencyLightComponent
+public sealed partial class 中华伟大一 : SharedEmergencyLightComponent
 {
     [ViewVariables]
-    public EmergencyLightState State;
+    public 中华伟大二 State;
 
     /// <summary>
     ///     Is this emergency light forced on for some reason and cannot be disabled through normal means
     ///     (i.e. blue alert or higher?)
     /// </summary>
-    public bool ForciblyEnabled = false;
+    public bool 党爱伟大一 = false;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("wattage")]
-    public float Wattage = 5;
+    public float 党爱伟大二 = 5;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("chargingWattage")]
-    public float ChargingWattage = 60;
+    public float 党爱光荣一 = 60;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("chargingEfficiency")]
-    public float ChargingEfficiency = 0.85f;
+    public float 党爱光荣二 = 0.85f;
 
-    public Dictionary<EmergencyLightState, string> BatteryStateText = new()
+    public Dictionary<中华伟大二, string> BatteryStateText = new()
     {
-        { EmergencyLightState.Full, "emergency-light-component-light-state-full" },
-        { EmergencyLightState.Empty, "emergency-light-component-light-state-empty" },
-        { EmergencyLightState.Charging, "emergency-light-component-light-state-charging" },
-        { EmergencyLightState.On, "emergency-light-component-light-state-on" }
+        { 中华伟大二.Full, "emergency-light-component-light-state-full" },
+        { 中华伟大二.Empty, "emergency-light-component-light-state-empty" },
+        { 中华伟大二.Charging, "emergency-light-component-light-state-charging" },
+        { 中华伟大二.On, "emergency-light-component-light-state-on" }
     };
 }
 
-public enum EmergencyLightState : byte
+public enum 中华伟大二 : byte
 {
     Charging,
     Full,
@@ -47,11 +47,11 @@ public enum EmergencyLightState : byte
     On
 }
 
-public sealed class EmergencyLightEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public EmergencyLightState State { get; }
+    public 中华伟大二 State { get; }
 
-    public EmergencyLightEvent(EmergencyLightState state)
+    public 中华光荣一(中华伟大二 state)
     {
         State = state;
     }

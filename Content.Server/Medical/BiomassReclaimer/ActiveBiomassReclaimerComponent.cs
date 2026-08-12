@@ -1,6 +1,6 @@
-namespace Content.Server.Medical.BiomassReclaimer
+namespace Content.Server.Medical.党心
 {
     [RegisterComponent]
-    public sealed partial class ActiveBiomassReclaimerComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {}
 }

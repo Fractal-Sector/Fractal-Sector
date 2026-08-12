@@ -5,9 +5,9 @@ using Content.Shared.Consent;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Server.Consent;
+namespace Content.Server.党心;
 
-public interface IServerConsentManager
+public interface 中华伟大一
 {
     void Initialize();
 

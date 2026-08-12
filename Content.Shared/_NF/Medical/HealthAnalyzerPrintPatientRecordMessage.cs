@@ -1,6 +1,6 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Medical;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public sealed class HealthAnalyzerPrintPatientRecordMessage : BoundUserInterfaceMessage;
+public sealed class 中华伟大一 : BoundUserInterfaceMessage;

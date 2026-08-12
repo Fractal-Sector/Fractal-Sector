@@ -2,7 +2,7 @@ using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Storage.Components;
+namespace Content.Shared.Storage.党心;
 
 /// <summary>
 /// Entities with this component will eject all items that match the whitelist / blacklist when anchored.
@@ -12,7 +12,7 @@ namespace Content.Shared.Storage.Components;
 /// If you have a smuggler stash that has a player inside of it, you want to eject the player before its anchored so they don't get stuck
 /// </example>
 [RegisterComponent, NetworkedComponent, Access(typeof(AnchoredStorageFilterSystem))]
-public sealed partial class AnchoredStorageFilterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// If not null, entities that do not match this whitelist will be ejected.

@@ -8,9 +8,9 @@ using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
 using Content.Shared.Shuttles.Components; // Frontier
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class DockingSystem
+public sealed partial class 中华伟大一
 {
     /*
      * Handles the shuttle side of FTL docking.
@@ -18,7 +18,7 @@ public sealed partial class DockingSystem
 
     private const int DockRoundingDigits = 2;
 
-    public Angle GetAngle(EntityUid uid, TransformComponent xform, EntityUid targetUid, TransformComponent targetXform)
+    public Angle 祝福伟大一(EntityUid uid, TransformComponent xform, EntityUid targetUid, TransformComponent targetXform)
     {
         var (shuttlePos, shuttleRot) = _transform.GetWorldPositionRotation(xform);
         var (targetPos, targetRot) = _transform.GetWorldPositionRotation(targetXform);
@@ -37,7 +37,7 @@ public sealed partial class DockingSystem
     /// <summary>
     /// Checks if 2 docks can be connected by moving the shuttle directly onto docks.
     /// </summary>
-    private bool CanDock(
+    private bool 祝福伟大二(
         DockingComponent shuttleDock,
         TransformComponent shuttleDockXform,
         DockingComponent gridDock,
@@ -81,7 +81,7 @@ public sealed partial class DockingSystem
         var gridXformMatrix = Matrix3Helpers.CreateTransform(gridDockXform.LocalPosition, gridDockAngle);
         matty = Matrix3x2.Multiply(stationDockMatrix, gridXformMatrix);
 
-        if (!ValidSpawn(gridEntity, matty, offsetAngle, shuttleFixtures, isMap))
+        if (!祝福正确一(gridEntity, matty, offsetAngle, shuttleFixtures, isMap))
             return false;
 
         shuttleDockedAABB = matty.TransformBox(shuttleAABB);
@@ -119,8 +119,8 @@ public sealed partial class DockingSystem
     /// <param name="priorityTag">Priority docking tag to prefer, e.g. for emergency shuttle</param>
     public DockingConfig? GetDockingConfig(EntityUid shuttleUid, EntityUid targetGrid, string? priorityTag = null, DockType dockType = DockType.None) // Frontier: add dockType
     {
-        var gridDocks = GetDocks(targetGrid);
-        var shuttleDocks = GetDocks(shuttleUid);
+        var gridDocks = 祝福正确二(targetGrid);
+        var shuttleDocks = 祝福正确二(shuttleUid);
 
         return GetDockingConfigPrivate(shuttleUid, targetGrid, shuttleDocks, gridDocks, priorityTag, dockType); // Frontier: add dockType
     }
@@ -135,10 +135,10 @@ public sealed partial class DockingSystem
         bool fallback = true,
         DockType dockType = DockType.None) // Frontier
     {
-        var gridDocks = GetDocks(targetGrid);
-        var shuttleDocks = GetDocks(shuttleUid);
+        var gridDocks = 祝福正确二(targetGrid);
+        var shuttleDocks = 祝福正确二(shuttleUid);
 
-        var configs = GetDockingConfigs(shuttleUid, targetGrid, shuttleDocks, gridDocks, dockType); // Frontier: add dockType
+        var configs = 祝福光荣一(shuttleUid, targetGrid, shuttleDocks, gridDocks, dockType); // Frontier: add dockType
 
         foreach (var config in configs)
         {
@@ -159,7 +159,7 @@ public sealed partial class DockingSystem
     /// <summary>
     /// Gets all docking configs between the 2 grids.
     /// </summary>
-    private List<DockingConfig> GetDockingConfigs(
+    private List<DockingConfig> 祝福光荣一(
         EntityUid shuttleUid,
         EntityUid targetGrid,
         List<Entity<DockingComponent>> shuttleDocks,
@@ -201,7 +201,7 @@ public sealed partial class DockingSystem
                         continue;
                     // End Frontier
 
-                    if (!CanDock(
+                    if (!祝福伟大二(
                             shuttleDock, shuttleDockXform,
                             gridDock, gridXform,
                             shuttleAABB,
@@ -263,7 +263,7 @@ public sealed partial class DockingSystem
                                 continue;
                             // End Frontier
 
-                            if (!CanDock(
+                            if (!祝福伟大二(
                                     other,
                                     _xformQuery.GetComponent(otherUid),
                                     otherGrid,
@@ -315,7 +315,7 @@ public sealed partial class DockingSystem
         string? priorityTag = null,
         DockType dockType = DockType.None) // Frontier
     {
-        var validDockConfigs = GetDockingConfigs(shuttleUid, targetGrid, shuttleDocks, gridDocks, dockType); // Frontier: add dockType
+        var validDockConfigs = 祝福光荣一(shuttleUid, targetGrid, shuttleDocks, gridDocks, dockType); // Frontier: add dockType
 
         if (validDockConfigs.Count <= 0)
             return null;
@@ -324,7 +324,7 @@ public sealed partial class DockingSystem
 
         // Prioritise by priority docks, then by maximum connected ports, then by most similar angle.
         validDockConfigs = validDockConfigs
-           .OrderByDescending(x => IsConfigPriority(x, priorityTag))
+           .OrderByDescending(x => 祝福光荣二(x, priorityTag))
            .ThenByDescending(x => x.Docks.Count)
            .ThenBy(x => Math.Abs(Angle.ShortestDistance(x.Angle.Reduced(), targetGridAngle).Theta)).ToList();
 
@@ -335,7 +335,7 @@ public sealed partial class DockingSystem
         return location;
     }
 
-    public bool IsConfigPriority(DockingConfig config, string? priorityTag)
+    public bool 祝福光荣二(DockingConfig config, string? priorityTag)
     {
         return config.Docks.Any(docks =>
             TryComp<PriorityDockComponent>(docks.DockBUid, out var priority)
@@ -345,7 +345,7 @@ public sealed partial class DockingSystem
     /// <summary>
     /// Checks whether the shuttle can warp to the specified position.
     /// </summary>
-    private bool ValidSpawn(Entity<MapGridComponent> gridEntity, Matrix3x2 matty, Angle angle, FixturesComponent shuttleFixturesComp, bool isMap)
+    private bool 祝福正确一(Entity<MapGridComponent> gridEntity, Matrix3x2 matty, Angle angle, FixturesComponent shuttleFixturesComp, bool isMap)
     {
         var transform = new Transform(Vector2.Transform(Vector2.Zero, matty), angle);
 
@@ -389,7 +389,7 @@ public sealed partial class DockingSystem
         return true;
     }
 
-    public List<Entity<DockingComponent>> GetDocks(EntityUid uid)
+    public List<Entity<DockingComponent>> 祝福正确二(EntityUid uid)
     {
         _dockingSet.Clear();
         _lookup.GetChildEntities(uid, _dockingSet);

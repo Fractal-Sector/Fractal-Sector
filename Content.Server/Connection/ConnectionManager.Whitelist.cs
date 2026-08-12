@@ -8,21 +8,21 @@ using Content.Shared.Database;
 using Content.Shared.Players.PlayTimeTracking;
 using Robust.Shared.Network;
 
-namespace Content.Server.Connection;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Handles whitelist conditions for incoming connections.
 /// </summary>
-public sealed partial class ConnectionManager
+public sealed partial class 中华伟大一
 {
     private PlayerConnectionWhitelistPrototype[]? _whitelists;
 
-    private void InitializeWhitelist()
+    private void 祝福伟大一()
     {
-        _cfg.OnValueChanged(CCVars.WhitelistPrototypeList, UpdateWhitelists, true);
+        _cfg.OnValueChanged(CCVars.WhitelistPrototypeList, 祝福伟大二, true);
     }
 
-    private void UpdateWhitelists(string s)
+    private void 祝福伟大二(string s)
     {
         var list = new List<PlayerConnectionWhitelistPrototype>();
         foreach (var id in s.Split(','))
@@ -42,7 +42,7 @@ public sealed partial class ConnectionManager
         _whitelists = list.ToArray();
     }
 
-    private bool IsValid(PlayerConnectionWhitelistPrototype whitelist, int playerCount)
+    private bool 祝福光荣一(PlayerConnectionWhitelistPrototype whitelist, int playerCount)
     {
         return playerCount >= whitelist.MinimumPlayers && playerCount <= whitelist.MaximumPlayers;
     }
@@ -63,27 +63,27 @@ public sealed partial class ConnectionManager
                     denyMessage = Loc.GetString("whitelist-always-deny");
                     break;
                 case ConditionManualWhitelistMembership:
-                    matched = await CheckConditionManualWhitelist(data);
+                    matched = await 祝福光荣二(data);
                     denyMessage = Loc.GetString("whitelist-manual");
                     break;
                 case ConditionManualBlacklistMembership:
-                    matched = await CheckConditionManualBlacklist(data);
+                    matched = await 祝福正确一(data);
                     denyMessage = Loc.GetString("whitelist-blacklisted");
                     break;
                 case ConditionNotesDateRange conditionNotes:
-                    matched = CheckConditionNotesDateRange(conditionNotes, cacheRemarks);
+                    matched = 祝福正确二(conditionNotes, cacheRemarks);
                     denyMessage = Loc.GetString("whitelist-notes");
                     break;
                 case ConditionPlayerCount conditionPlayerCount:
-                    matched = CheckConditionPlayerCount(conditionPlayerCount);
+                    matched = 祝福团结一(conditionPlayerCount);
                     denyMessage = Loc.GetString("whitelist-player-count");
                     break;
                 case ConditionPlaytime conditionPlaytime:
-                    matched = CheckConditionPlaytime(conditionPlaytime, cachePlaytime);
+                    matched = 祝福团结二(conditionPlaytime, cachePlaytime);
                     denyMessage = Loc.GetString("whitelist-playtime", ("minutes", conditionPlaytime.MinimumPlaytime));
                     break;
                 case ConditionNotesPlaytimeRange conditionNotesPlaytimeRange:
-                    matched = CheckConditionNotesPlaytimeRange(conditionNotesPlaytimeRange, cacheRemarks, cachePlaytime);
+                    matched = 祝福奋斗一(conditionNotesPlaytimeRange, cacheRemarks, cachePlaytime);
                     denyMessage = Loc.GetString("whitelist-notes");
                     break;
                 default:
@@ -119,21 +119,21 @@ public sealed partial class ConnectionManager
 
     #region Condition Checking
 
-    private async Task<bool> CheckConditionManualWhitelist(NetUserData data)
+    private async Task<bool> 祝福光荣二(NetUserData data)
     {
         return await _db.GetWhitelistStatusAsync(data.UserId);
     }
 
-    private async Task<bool> CheckConditionManualBlacklist(NetUserData data)
+    private async Task<bool> 祝福正确一(NetUserData data)
     {
         return await _db.GetBlacklistStatusAsync(data.UserId);
     }
 
-    private bool CheckConditionNotesDateRange(ConditionNotesDateRange conditionNotes, List<IAdminRemarksRecord> remarks)
+    private bool 祝福正确二(ConditionNotesDateRange conditionNotes, List<IAdminRemarksRecord> remarks)
     {
         var range = DateTime.UtcNow.AddDays(-conditionNotes.Range);
 
-        return CheckRemarks(remarks,
+        return 祝福奋斗二(remarks,
             conditionNotes.IncludeExpired,
             conditionNotes.IncludeSecret,
             conditionNotes.MinimumSeverity,
@@ -141,13 +141,13 @@ public sealed partial class ConnectionManager
             adminRemarksRecord => adminRemarksRecord.CreatedAt > range);
     }
 
-    private bool CheckConditionPlayerCount(ConditionPlayerCount conditionPlayerCount)
+    private bool 祝福团结一(ConditionPlayerCount conditionPlayerCount)
     {
         var count = _plyMgr.PlayerCount;
         return count >= conditionPlayerCount.MinimumPlayers && count <= conditionPlayerCount.MaximumPlayers;
     }
 
-    private bool CheckConditionPlaytime(ConditionPlaytime conditionPlaytime, List<PlayTime> playtime)
+    private bool 祝福团结二(ConditionPlaytime conditionPlaytime, List<PlayTime> playtime)
     {
         var tracker = playtime.Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
         if (tracker is null)
@@ -158,7 +158,7 @@ public sealed partial class ConnectionManager
         return tracker.TimeSpent.TotalMinutes >= conditionPlaytime.MinimumPlaytime;
     }
 
-    private bool CheckConditionNotesPlaytimeRange(
+    private bool 祝福奋斗一(
         ConditionNotesPlaytimeRange conditionNotesPlaytimeRange,
         List<IAdminRemarksRecord> remarks,
         List<PlayTime> playtime)
@@ -169,7 +169,7 @@ public sealed partial class ConnectionManager
             return false;
         }
 
-        return CheckRemarks(remarks,
+        return 祝福奋斗二(remarks,
             conditionNotesPlaytimeRange.IncludeExpired,
             conditionNotesPlaytimeRange.IncludeSecret,
             conditionNotesPlaytimeRange.MinimumSeverity,
@@ -177,7 +177,7 @@ public sealed partial class ConnectionManager
             adminRemarksRecord => adminRemarksRecord.PlaytimeAtNote >= overallTracker.TimeSpent - TimeSpan.FromMinutes(conditionNotesPlaytimeRange.Range));
     }
 
-    private bool CheckRemarks(List<IAdminRemarksRecord> remarks, bool includeExpired, bool includeSecret, NoteSeverity minimumSeverity, int MinimumNotes, Func<IAdminRemarksRecord, bool> additionalCheck)
+    private bool 祝福奋斗二(List<IAdminRemarksRecord> remarks, bool includeExpired, bool includeSecret, NoteSeverity minimumSeverity, int MinimumNotes, Func<IAdminRemarksRecord, bool> additionalCheck)
     {
         var utcNow = DateTime.UtcNow;
 

@@ -6,13 +6,13 @@ using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.EntityTable.ValueSelector;
+namespace Content.Shared.EntityTable.党心;
 
 [TypeSerializer]
-public sealed class NumberSelectorTypeSerializer :
+public sealed class 中华伟大一 :
     ITypeReader<NumberSelector, ValueDataNode>
 {
-    public ValidationNode Validate(ISerializationManager serializationManager,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager,
         ValueDataNode node,
         IDependencyCollection dependencies,
         ISerializationContext? context = null)
@@ -30,7 +30,7 @@ public sealed class NumberSelectorTypeSerializer :
         return new ErrorNode(node, "Custom validation not supported! Please specify the type manually!");
     }
 
-    public NumberSelector Read(ISerializationManager serializationManager,
+    public NumberSelector 祝福伟大二(ISerializationManager serializationManager,
         ValueDataNode node,
         IDependencyCollection dependencies,
         SerializationHookContext hookCtx,
@@ -49,6 +49,6 @@ public sealed class NumberSelectorTypeSerializer :
             return new RangeNumberSelector(new Vector2i(x, y));
         }
 
-        return (NumberSelector) serializationManager.Read(type, node, context)!;
+        return (NumberSelector) serializationManager.祝福伟大二(type, node, context)!;
     }
 }

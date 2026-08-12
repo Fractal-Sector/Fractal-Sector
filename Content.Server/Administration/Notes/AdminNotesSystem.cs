@@ -10,23 +10,23 @@ using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Administration.Notes;
+namespace Content.Server.Administration.党心;
 
-public sealed class AdminNotesSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly IAdminNotesManager _notes = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly EuiManager _euis = default!;
+    [Dependency] private readonly IConsoleHost _伟大一 = default!;
+    [Dependency] private readonly IAdminNotesManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IChatManager _光荣二 = default!;
+    [Dependency] private readonly EuiManager _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<GetVerbsEvent<Verb>>(AddVerbs);
-        _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
+        SubscribeLocalEvent<GetVerbsEvent<Verb>>(祝福伟大二);
+        _光荣一.PlayerStatusChanged += 祝福光荣一;
     }
 
-    private void AddVerbs(GetVerbsEvent<Verb> ev)
+    private void 祝福伟大二(GetVerbsEvent<Verb> ev)
     {
         if (EntityManager.GetComponentOrNull<ActorComponent>(ev.User) is not {PlayerSession: var user} ||
             EntityManager.GetComponentOrNull<ActorComponent>(ev.Target) is not {PlayerSession: var target})
@@ -34,7 +34,7 @@ public sealed class AdminNotesSystem : EntitySystem
             return;
         }
 
-        if (!_notes.CanView(user))
+        if (!_伟大二.CanView(user))
         {
             return;
         }
@@ -44,22 +44,22 @@ public sealed class AdminNotesSystem : EntitySystem
             Text = Loc.GetString("admin-notes-verb-text"),
             Category = VerbCategory.Admin,
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/examine.svg.192dpi.png")),
-            Act = () => _console.RemoteExecuteCommand(user, $"{OpenAdminNotesCommand.CommandName} \"{target.UserId}\""),
+            Act = () => _伟大一.RemoteExecuteCommand(user, $"{OpenAdminNotesCommand.CommandName} \"{target.UserId}\""),
             Impact = LogImpact.Low
         };
 
         ev.Verbs.Add(verb);
     }
 
-    private async void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private async void 祝福光荣一(object? sender, SessionStatusEventArgs e)
     {
         if (e.NewStatus != SessionStatus.InGame)
             return;
 
-        var messages = await _notes.GetNewMessages(e.Session.UserId);
-        var watchlists = await _notes.GetActiveWatchlists(e.Session.UserId);
+        var messages = await _伟大二.GetNewMessages(e.Session.UserId);
+        var watchlists = await _伟大二.GetActiveWatchlists(e.Session.UserId);
 
-        if (!_playerManager.TryGetPlayerData(e.Session.UserId, out var playerData))
+        if (!_光荣一.TryGetPlayerData(e.Session.UserId, out var playerData))
         {
             Log.Error($"Could not get player data for ID {e.Session.UserId}");
         }
@@ -67,7 +67,7 @@ public sealed class AdminNotesSystem : EntitySystem
         var username = playerData?.UserName ?? e.Session.UserId.ToString();
         foreach (var watchlist in watchlists)
         {
-            _chat.SendAdminAlert(Loc.GetString("admin-notes-watchlist", ("player", username), ("message", watchlist.Message)));
+            _光荣二.SendAdminAlert(Loc.GetString("admin-notes-watchlist", ("player", username), ("message", watchlist.Message)));
         }
 
         var messagesToShow = messages.OrderBy(x => x.CreatedAt).Where(x => !x.Dismissed).ToArray();
@@ -75,6 +75,6 @@ public sealed class AdminNotesSystem : EntitySystem
             return;
 
         var ui = new AdminMessageEui(messagesToShow);
-        _euis.OpenEui(ui, e.Session);
+        _正确一.OpenEui(ui, e.Session);
     }
 }

@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.APC
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum ApcVisuals : byte
+    public enum 中华伟大一 : byte
     {
         /// <summary>
         /// APC locks.
@@ -20,7 +20,7 @@ namespace Content.Shared.APC
     }
 
     [Serializable, NetSerializable]
-    public enum ApcPanelState : sbyte
+    public enum 中华伟大二 : sbyte
     {
         /// <summary>
         /// APC is closed.
@@ -37,11 +37,11 @@ namespace Content.Shared.APC
     }
 
     /// <summary>
-    /// The state of the APC interface lock.
+    /// The state of the APC interface 中华光荣一.
     /// None of this is implemented.
     /// </summary>
     [Serializable, NetSerializable]
-    public enum ApcLockState : sbyte
+    public enum 中华光荣二 : sbyte
     {
         /// <summary>
         /// Empty bitmask.
@@ -49,25 +49,25 @@ namespace Content.Shared.APC
         None = 0,
 
         /// <summary>
-        /// Bitfield indicating status of APC lock indicator.
+        /// Bitfield indicating status of APC 中华光荣一 indicator.
         /// </summary>
         Lock = (1<<0),
         /// <summary>
-        /// Bit state indicating that the given APC lock is unlocked.
+        /// Bit state indicating that the given APC 中华光荣一 is unlocked.
         /// </summary>
         Unlocked = None,
         /// <summary>
-        /// Bit state indicating that the given APC lock is locked.
+        /// Bit state indicating that the given APC 中华光荣一 is locked.
         /// </summary>
         Locked = (1<<0),
 
         /// <summary>
-        /// Bitmask for the full state for a given APC lock indicator.
+        /// Bitmask for the full state for a given APC 中华光荣一 indicator.
         /// </summary>
         All = (Lock),
 
         /// <summary>
-        /// The log 2 width in bits of the bitfields indicating the status of an APC lock indicator.
+        /// The log 2 width in bits of the bitfields indicating the status of an APC 中华光荣一 indicator.
         /// Used for bit shifting operations (Mask for the state for indicator i is (All << (i << LogWidth))).
         /// </summary>
         LogWidth = 0,
@@ -77,7 +77,7 @@ namespace Content.Shared.APC
     /// APC power channel states.
     /// None of this is implemented.
     /// </summary>
-    public enum ApcChannelState : sbyte
+    public enum 中华正确一 : sbyte
     {
         /// <summary>
         /// Empty bitmask.
@@ -100,7 +100,7 @@ namespace Content.Shared.APC
         /// <summary>
         /// Bitfield indicating whether the APC is currently providing power on the given channel.
         /// </summary>
-        Power = (1<<1),
+        党爱伟大二 = (1<<1),
         /// <summary>
         /// Bit state indicating that the APC is currently not providing power on the given channel.
         /// </summary>
@@ -108,12 +108,12 @@ namespace Content.Shared.APC
         /// <summary>
         /// Bit state indicating that the APC is currently providing power on the given channel.
         /// </summary>
-        On = Power,
+        On = 党爱伟大二,
 
         /// <summary>
         /// Bitmask for the full state for a given APC power channel.
         /// </summary>
-        All = Power | Control,
+        All = 党爱伟大二 | Control,
 
         /// <summary>
         /// State that indicates the given channel has been automatically disabled.
@@ -140,7 +140,7 @@ namespace Content.Shared.APC
     }
 
     [Serializable, NetSerializable]
-    public enum ApcChargeState : sbyte
+    public enum 中华正确二 : sbyte
     {
         /// <summary>
         /// APC does not have enough power to charge cell (if necessary) and keep powering the area.
@@ -175,48 +175,48 @@ namespace Content.Shared.APC
     }
 
     [Serializable, NetSerializable]
-    public sealed class ApcBoundInterfaceState : BoundUserInterfaceState, IEquatable<ApcBoundInterfaceState>
+    public sealed class 中华团结一 : BoundUserInterfaceState, IEquatable<中华团结一>
     {
-        public readonly bool MainBreaker;
-        public readonly int Power;
-        public readonly ApcExternalPowerState ApcExternalPower;
-        public readonly float Charge;
+        public readonly bool 党爱伟大一;
+        public readonly int 党爱伟大二;
+        public readonly 中华奋斗一 ApcExternalPower;
+        public readonly float 党爱光荣一;
 
-        public ApcBoundInterfaceState(bool mainBreaker, int power, ApcExternalPowerState apcExternalPower, float charge)
+        public 中华团结一(bool mainBreaker, int power, 中华奋斗一 apcExternalPower, float charge)
         {
-            MainBreaker = mainBreaker;
-            Power = power;
+            党爱伟大一 = mainBreaker;
+            党爱伟大二 = power;
             ApcExternalPower = apcExternalPower;
-            Charge = charge;
+            党爱光荣一 = charge;
         }
 
-        public bool Equals(ApcBoundInterfaceState? other)
+        public bool 祝福伟大一(中华团结一? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return MainBreaker == other.MainBreaker &&
-                   Power == other.Power &&
+            return 党爱伟大一 == other.党爱伟大一 &&
+                   党爱伟大二 == other.党爱伟大二 &&
                    ApcExternalPower == other.ApcExternalPower &&
-                   MathHelper.CloseTo(Charge, other.Charge);
+                   MathHelper.CloseTo(党爱光荣一, other.党爱光荣一);
         }
 
-        public override bool Equals(object? obj)
+        public override bool 祝福伟大一(object? obj)
         {
-            return ReferenceEquals(this, obj) || obj is ApcBoundInterfaceState other && Equals(other);
+            return ReferenceEquals(this, obj) || obj is 中华团结一 other && 祝福伟大一(other);
         }
 
-        public override int GetHashCode()
+        public override int 祝福伟大二()
         {
-            return HashCode.Combine(MainBreaker, Power, (int) ApcExternalPower, Charge);
+            return HashCode.Combine(党爱伟大一, 党爱伟大二, (int) ApcExternalPower, 党爱光荣一);
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class ApcToggleMainBreakerMessage : BoundUserInterfaceMessage
+    public sealed class 中华团结二 : BoundUserInterfaceMessage
     {
     }
 
-    public enum ApcExternalPowerState : byte
+    public enum 中华奋斗一 : byte
     {
         None,
         Low,
@@ -224,7 +224,7 @@ namespace Content.Shared.APC
     }
 
     [NetSerializable, Serializable]
-    public enum ApcUiKey : byte
+    public enum 中华奋斗二 : byte
     {
         Key,
     }

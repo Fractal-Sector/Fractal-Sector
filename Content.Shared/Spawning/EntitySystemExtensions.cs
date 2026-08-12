@@ -3,9 +3,9 @@ using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Systems;
 
-namespace Content.Shared.Spawning
+namespace Content.Shared.党心
 {
-    public static class EntitySystemExtensions
+    public static class 中华伟大一
     {
         public static EntityUid? SpawnIfUnobstructed(
             this IEntityManager entityManager,
@@ -51,7 +51,7 @@ namespace Content.Shared.Spawning
             return entityManager.SpawnEntity(prototypeName, coordinates);
         }
 
-        public static bool TrySpawnIfUnobstructed(
+        public static bool 祝福伟大一(
             this IEntityManager entityManager,
             string? prototypeName,
             EntityCoordinates coordinates,
@@ -65,7 +65,7 @@ namespace Content.Shared.Spawning
             return entity != null;
         }
 
-        public static bool TrySpawnIfUnobstructed(
+        public static bool 祝福伟大一(
             this IEntityManager entityManager,
             string? prototypeName,
             MapCoordinates coordinates,

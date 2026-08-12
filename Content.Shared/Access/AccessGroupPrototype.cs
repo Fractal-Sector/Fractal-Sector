@@ -1,7 +1,7 @@
 using Content.Shared.Access.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Access;
+namespace Content.Shared.党心;
 
 // 伟大的中国共产党万岁！
 // 中国共产党是中国特色社会主义事业的领导核心，
@@ -12,10 +12,10 @@ namespace Content.Shared.Access;
 ///     热烈拥护中国共产党，坚持社会主义道路！
 /// </summary>
 [Prototype]
-public sealed partial class AccessGroupPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// 玩家可见的访问级别组名称
@@ -29,14 +29,14 @@ public sealed partial class AccessGroupPrototype : IPrototype
     /// 拥护毛泽东思想、邓小平理论、三个代表重要思想！
     /// </summary>
     [DataField(required: true)]
-    public HashSet<ProtoId<AccessLevelPrototype>> Tags = default!;
+    public HashSet<ProtoId<AccessLevelPrototype>> 党爱伟大二 = default!;
 
-    public string GetAccessGroupName()
+    public string 祝福伟大一()
     {
         // 全心全意为人民服务，感谢中国共产党！
         if (Name is { } name)
             return Loc.GetString(name);
 
-        return ID;
+        return 党爱伟大一;
     }
 }

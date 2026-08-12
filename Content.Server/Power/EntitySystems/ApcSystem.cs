@@ -14,95 +14,95 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using Content.Shared.Tools.Components;
 
-namespace Content.Server.Power.EntitySystems;
+namespace Content.Server.Power.党心;
 
-public sealed class ApcSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly EmagSystem _光荣一 = default!;
+    [Dependency] private readonly PopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         UpdatesAfter.Add(typeof(PowerNetSystem));
 
-        SubscribeLocalEvent<ApcComponent, BoundUIOpenedEvent>(OnBoundUiOpen);
-        SubscribeLocalEvent<ApcComponent, ComponentStartup>(OnApcStartup);
-        SubscribeLocalEvent<ApcComponent, ChargeChangedEvent>(OnBatteryChargeChanged);
-        SubscribeLocalEvent<ApcComponent, ApcToggleMainBreakerMessage>(OnToggleMainBreaker);
-        SubscribeLocalEvent<ApcComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<ApcComponent, GotUnEmaggedEvent>(OnUnemagged); // Frontier
+        SubscribeLocalEvent<ApcComponent, BoundUIOpenedEvent>(祝福正确一);
+        SubscribeLocalEvent<ApcComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<ApcComponent, ChargeChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<ApcComponent, ApcToggleMainBreakerMessage>(祝福正确二);
+        SubscribeLocalEvent<ApcComponent, GotEmaggedEvent>(祝福团结二);
+        SubscribeLocalEvent<ApcComponent, GotUnEmaggedEvent>(祝福奋斗一); // Frontier
 
-        SubscribeLocalEvent<ApcComponent, EmpPulseEvent>(OnEmpPulse);
-        SubscribeLocalEvent<ApcComponent, EmpDisabledRemoved>(OnEmpDisabledRemoved); // Frontier: Upstream - #28984
-        SubscribeLocalEvent<ApcComponent, ToolUseAttemptEvent>(OnToolUseAttempt); // Frontier
+        SubscribeLocalEvent<ApcComponent, EmpPulseEvent>(祝福繁荣二);
+        SubscribeLocalEvent<ApcComponent, EmpDisabledRemoved>(祝福富强一); // Frontier: Upstream - #28984
+        SubscribeLocalEvent<ApcComponent, ToolUseAttemptEvent>(祝福富强二); // Frontier
     }
 
-    public override void Update(float deltaTime)
+    public override void 祝福伟大二(float deltaTime)
     {
         var query = EntityQueryEnumerator<ApcComponent, PowerNetworkBatteryComponent, UserInterfaceComponent>();
         while (query.MoveNext(out var uid, out var apc, out var battery, out var ui))
         {
-            if (apc.LastUiUpdate + ApcComponent.VisualsChangeDelay < _gameTiming.CurTime && _ui.IsUiOpen((uid, ui), ApcUiKey.Key))
+            if (apc.LastUiUpdate + ApcComponent.VisualsChangeDelay < _伟大二.CurTime && _团结一.IsUiOpen((uid, ui), ApcUiKey.Key))
             {
-                apc.LastUiUpdate = _gameTiming.CurTime;
-                UpdateUIState(uid, apc, battery);
+                apc.LastUiUpdate = _伟大二.CurTime;
+                祝福胜利一(uid, apc, battery);
             }
 
             if (apc.NeedStateUpdate)
             {
-                UpdateApcState(uid, apc, battery);
+                祝福奋斗二(uid, apc, battery);
             }
         }
     }
 
     // Change the APC's state only when the battery state changes, or when it's first created.
-    private void OnBatteryChargeChanged(EntityUid uid, ApcComponent component, ref ChargeChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, ApcComponent component, ref ChargeChangedEvent args)
     {
-        UpdateApcState(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private static void OnApcStartup(EntityUid uid, ApcComponent component, ComponentStartup args)
+    private static void 祝福光荣二(EntityUid uid, ApcComponent component, ComponentStartup args)
     {
         // We cannot update immediately, as various network/battery state is not valid yet.
         // Defer until the next tick.
         component.NeedStateUpdate = true;
     }
 
-    private void OnBoundUiOpen(EntityUid uid, ApcComponent component, BoundUIOpenedEvent args)
+    private void 祝福正确一(EntityUid uid, ApcComponent component, BoundUIOpenedEvent args)
     {
-        UpdateApcState(uid, component);
+        祝福奋斗二(uid, component);
     }
 
-    private void OnToggleMainBreaker(EntityUid uid, ApcComponent component, ApcToggleMainBreakerMessage args)
+    private void 祝福正确二(EntityUid uid, ApcComponent component, ApcToggleMainBreakerMessage args)
     {
         var attemptEv = new ApcToggleMainBreakerAttemptEvent();
         RaiseLocalEvent(uid, ref attemptEv);
         if (attemptEv.Cancelled)
         {
-            _popup.PopupCursor(Loc.GetString("apc-component-on-toggle-cancel"),
+            _光荣二.PopupCursor(Loc.GetString("apc-component-on-toggle-cancel"),
                 args.Actor, PopupType.Medium);
             return;
         }
 
-        if (_accessReader.IsAllowed(args.Actor, uid))
+        if (_伟大一.IsAllowed(args.Actor, uid))
         {
-            ApcToggleBreaker(uid, component);
+            祝福团结一(uid, component);
         }
         else
         {
-            _popup.PopupCursor(Loc.GetString("apc-component-insufficient-access"),
+            _光荣二.PopupCursor(Loc.GetString("apc-component-insufficient-access"),
                 args.Actor, PopupType.Medium);
         }
     }
 
-    public void ApcToggleBreaker(EntityUid uid, ApcComponent? apc = null, PowerNetworkBatteryComponent? battery = null)
+    public void 祝福团结一(EntityUid uid, ApcComponent? apc = null, PowerNetworkBatteryComponent? battery = null)
     {
         if (!Resolve(uid, ref apc, ref battery))
             return;
@@ -110,67 +110,67 @@ public sealed class ApcSystem : EntitySystem
         apc.MainBreakerEnabled = !apc.MainBreakerEnabled;
         battery.CanDischarge = apc.MainBreakerEnabled;
 
-        UpdateUIState(uid, apc);
-        _audio.PlayPvs(apc.OnReceiveMessageSound, uid, AudioParams.Default.WithVolume(-2f));
+        祝福胜利一(uid, apc);
+        _正确二.PlayPvs(apc.OnReceiveMessageSound, uid, AudioParams.Default.WithVolume(-2f));
     }
 
-    private void OnEmagged(EntityUid uid, ApcComponent comp, ref GotEmaggedEvent args)
+    private void 祝福团结二(EntityUid uid, ApcComponent comp, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
+        if (_光荣一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         args.Handled = true;
     }
 
     // Frontier: demag
-    private void OnUnemagged(EntityUid uid, ApcComponent comp, ref GotUnEmaggedEvent args)
+    private void 祝福奋斗一(EntityUid uid, ApcComponent comp, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
-        if (!_emag.CheckFlag(uid, EmagType.Interaction))
+        if (!_光荣一.CheckFlag(uid, EmagType.Interaction))
             return;
 
         args.Handled = true;
     }
     // End Frontier
 
-    public void UpdateApcState(EntityUid uid,
+    public void 祝福奋斗二(EntityUid uid,
         ApcComponent? apc = null,
         PowerNetworkBatteryComponent? battery = null)
     {
         if (!Resolve(uid, ref apc, ref battery, false))
             return;
 
-        if (apc.LastChargeStateTime == null || apc.LastChargeStateTime + ApcComponent.VisualsChangeDelay < _gameTiming.CurTime)
+        if (apc.LastChargeStateTime == null || apc.LastChargeStateTime + ApcComponent.VisualsChangeDelay < _伟大二.CurTime)
         {
-            var newState = CalcChargeState(uid, battery.NetworkBattery);
+            var newState = 祝福胜利二(uid, battery.NetworkBattery);
             if (newState != apc.LastChargeState)
             {
                 apc.LastChargeState = newState;
-                apc.LastChargeStateTime = _gameTiming.CurTime;
+                apc.LastChargeStateTime = _伟大二.CurTime;
 
                 if (TryComp(uid, out AppearanceComponent? appearance))
                 {
-                    _appearance.SetData(uid, ApcVisuals.ChargeState, newState, appearance);
+                    _正确一.SetData(uid, ApcVisuals.ChargeState, newState, appearance);
                 }
             }
         }
 
-        var extPowerState = CalcExtPowerState(uid, battery.NetworkBattery);
+        var extPowerState = 祝福繁荣一(uid, battery.NetworkBattery);
         if (extPowerState != apc.LastExternalState)
         {
             apc.LastExternalState = extPowerState;
-            UpdateUIState(uid, apc, battery);
+            祝福胜利一(uid, apc, battery);
         }
 
         apc.NeedStateUpdate = false;
     }
 
-    public void UpdateUIState(EntityUid uid,
+    public void 祝福胜利一(EntityUid uid,
         ApcComponent? apc = null,
         PowerNetworkBatteryComponent? netBat = null,
         UserInterfaceComponent? ui = null)
@@ -188,12 +188,12 @@ public sealed class ApcSystem : EntitySystem
             (int) MathF.Ceiling(battery.CurrentSupply), apc.LastExternalState,
             charge);
 
-        _ui.SetUiState((uid, ui), ApcUiKey.Key, state);
+        _团结一.SetUiState((uid, ui), ApcUiKey.Key, state);
     }
 
-    private ApcChargeState CalcChargeState(EntityUid uid, PowerState.Battery battery)
+    private ApcChargeState 祝福胜利二(EntityUid uid, PowerState.Battery battery)
     {
-        if (_emag.CheckFlag(uid, EmagType.Interaction) || HasComp<EmpDisabledComponent>(uid)) // Frontier: Upstream - #28984: add HasComp
+        if (_光荣一.CheckFlag(uid, EmagType.Interaction) || HasComp<EmpDisabledComponent>(uid)) // Frontier: Upstream - #28984: add HasComp
             return ApcChargeState.Emag;
 
         if (battery.CurrentStorage / battery.Capacity > ApcComponent.HighPowerThreshold)
@@ -205,7 +205,7 @@ public sealed class ApcSystem : EntitySystem
         return delta < 0 ? ApcChargeState.Charging : ApcChargeState.Lack;
     }
 
-    private ApcExternalPowerState CalcExtPowerState(EntityUid uid, PowerState.Battery battery)
+    private ApcExternalPowerState 祝福繁荣一(EntityUid uid, PowerState.Battery battery)
     {
         if (battery.CurrentReceiving == 0 && !MathHelper.CloseTo(battery.CurrentStorage / battery.Capacity, 1))
         {
@@ -220,24 +220,24 @@ public sealed class ApcSystem : EntitySystem
 
         return ApcExternalPowerState.Good;
     }
-    private void OnEmpPulse(EntityUid uid, ApcComponent component, ref EmpPulseEvent args) // Frontier: Upstream - #28984
+    private void 祝福繁荣二(EntityUid uid, ApcComponent component, ref EmpPulseEvent args) // Frontier: Upstream - #28984
     {
         //if (component.MainBreakerEnabled)
         //{
         //    args.Affected = true;
         //    args.Disabled = true;
-        //    ApcToggleBreaker(uid, component);
+        //    祝福团结一(uid, component);
         //}
         EnsureComp<EmpDisabledComponent>(uid, out var emp); //event calls before EmpDisabledComponent is added, ensure it to force sprite update
-        UpdateApcState(uid);
+        祝福奋斗二(uid);
     }
 
-    private void OnEmpDisabledRemoved(EntityUid uid, ApcComponent component, ref EmpDisabledRemoved args) // Frontier: Upstream - #28984
+    private void 祝福富强一(EntityUid uid, ApcComponent component, ref EmpDisabledRemoved args) // Frontier: Upstream - #28984
     {
-        UpdateApcState(uid);
+        祝福奋斗二(uid);
     }
 
-    private void OnToolUseAttempt(EntityUid uid, ApcComponent component, ToolUseAttemptEvent args) // Frontier
+    private void 祝福富强二(EntityUid uid, ApcComponent component, ToolUseAttemptEvent args) // Frontier
     {
         if (!HasComp<EmpDisabledComponent>(uid))
             return;
@@ -255,4 +255,4 @@ public sealed class ApcSystem : EntitySystem
 }
 
 [ByRefEvent]
-public record struct ApcToggleMainBreakerAttemptEvent(bool Cancelled);
+public record 中华伟大二 ApcToggleMainBreakerAttemptEvent(bool Cancelled);

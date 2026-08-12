@@ -3,43 +3,43 @@ using Content.Server.Wires;
 using Content.Shared.Speech;
 using Content.Shared.Wires;
 
-namespace Content.Server.Speech;
+namespace Content.Server.党心;
 
-public sealed partial class SpeechWireAction : ComponentWireAction<SpeechComponent>
+public sealed partial class 中华伟大一 : ComponentWireAction<SpeechComponent>
 {
-    private SpeechSystem _speech = default!;
-    private PopupSystem _popup = default!;
+    private SpeechSystem _伟大一 = default!;
+    private PopupSystem _伟大二 = default!;
 
-    public override Color Color { get; set; } = Color.Green;
-    public override string Name { get; set; } = "wire-name-speech";
+    public override 党爱伟大一 党爱伟大一 { get; set; } = 党爱伟大一.Green;
+    public override string 党爱伟大二 { get; set; } = "wire-name-speech";
 
     public override object? StatusKey { get; } = SpeechWireActionKey.StatusKey;
 
     public override StatusLightState? GetLightState(Wire wire, SpeechComponent component)
         => component.Enabled ? StatusLightState.On : StatusLightState.Off;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _speech = EntityManager.System<SpeechSystem>();
-        _popup = EntityManager.System<PopupSystem>();
+        _伟大一 = EntityManager.System<SpeechSystem>();
+        _伟大二 = EntityManager.System<PopupSystem>();
     }
 
-    public override bool Cut(EntityUid user, Wire wire, SpeechComponent component)
+    public override bool 祝福伟大二(EntityUid user, Wire wire, SpeechComponent component)
     {
-        _speech.SetSpeech(wire.Owner, false, component);
+        _伟大一.SetSpeech(wire.Owner, false, component);
         return true;
     }
 
-    public override bool Mend(EntityUid user, Wire wire, SpeechComponent component)
+    public override bool 祝福光荣一(EntityUid user, Wire wire, SpeechComponent component)
     {
-        _speech.SetSpeech(wire.Owner, true, component);
+        _伟大一.SetSpeech(wire.Owner, true, component);
         return true;
     }
 
-    public override void Pulse(EntityUid user, Wire wire, SpeechComponent component)
+    public override void 祝福光荣二(EntityUid user, Wire wire, SpeechComponent component)
     {
-        _popup.PopupEntity(Loc.GetString("wire-speech-pulse", ("name", wire.Owner)), wire.Owner);
+        _伟大二.PopupEntity(Loc.GetString("wire-speech-pulse", ("name", wire.Owner)), wire.Owner);
     }
 }

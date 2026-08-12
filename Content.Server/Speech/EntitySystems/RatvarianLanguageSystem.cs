@@ -6,11 +6,11 @@ using Content.Shared.Speech.EntitySystems;
 using Content.Shared.StatusEffect;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
+public sealed class 中华伟大一 : SharedRatvarianLanguageSystem
 {
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private readonly StatusEffectsSystem _伟大一 = default!;
 
     private static readonly ProtoId<StatusEffectPrototype> RatvarianKey = "RatvarianLanguage";
 
@@ -38,26 +38,26 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
     private static Regex TOMYPattern = new Regex(@"(to|my)\s", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static Regex ProperNouns = new Regex(@"(ratvar)|(nezbere)|(sevtuq)|(nzcrentr)|(inath-neq)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         // Activate before other modifications so translation works properly
-        SubscribeLocalEvent<RatvarianLanguageComponent, AccentGetEvent>(OnAccent, before: new[] {typeof(SharedSlurredSystem), typeof(SharedStutteringSystem)});
+        SubscribeLocalEvent<RatvarianLanguageComponent, AccentGetEvent>(祝福光荣一, before: new[] {typeof(SharedSlurredSystem), typeof(SharedStutteringSystem)});
     }
 
-    public override void DoRatvarian(EntityUid uid, TimeSpan time, bool refresh, StatusEffectsComponent? status = null)
+    public override void 祝福伟大二(EntityUid uid, TimeSpan time, bool refresh, StatusEffectsComponent? status = null)
     {
         if (!Resolve(uid, ref status, false))
             return;
 
-        _statusEffects.TryAddStatusEffect<RatvarianLanguageComponent>(uid, RatvarianKey, time, refresh, status);
+        _伟大一.TryAddStatusEffect<RatvarianLanguageComponent>(uid, RatvarianKey, time, refresh, status);
     }
 
-    private void OnAccent(EntityUid uid, RatvarianLanguageComponent component, AccentGetEvent args)
+    private void 祝福光荣一(EntityUid uid, RatvarianLanguageComponent component, AccentGetEvent args)
     {
-        args.Message = Translate(args.Message);
+        args.Message = 祝福光荣二(args.Message);
     }
 
-    private string Translate(string message)
+    private string 祝福光荣二(string message)
     {
         var ruleTranslation = message;
         var finalMessage = new StringBuilder();

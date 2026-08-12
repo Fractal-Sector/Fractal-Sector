@@ -5,7 +5,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Content.Shared._Corvax.Respawn; // Frontier
 
-namespace Content.Shared.Mind;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     This component stores information about a player/mob mind. The component will be attached to a mind-entity
@@ -24,10 +24,10 @@ namespace Content.Shared.Mind;
 ///     of the mind. As a result it should be safe to network "secret" information like roles & objectives
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class MindComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoNetworkedField]
-    public List<EntityUid> Objectives = new();
+    public List<EntityUid> 党爱伟大一 = new();
 
     /// <summary>
     ///     The session ID of the player owning this mind.
@@ -53,7 +53,7 @@ public sealed partial class MindComponent : Component
     // TODO MIND Fix this properly by adding an OriginalMindContainerComponent or something like that.
 
     [ViewVariables]
-    public bool IsVisitingEntity => VisitingEntity != null;
+    public bool 党爱伟大二 => VisitingEntity != null;
 
     /// <summary>
     /// The entity that this mind may be currently visiting. Used, for example, to allow admin ghosting to not make the owner's body catatonic, as opposed to when normally ghosting.
@@ -84,38 +84,38 @@ public sealed partial class MindComponent : Component
     /// <summary>
     ///     An enumerable over all the objective entities this mind has.
     /// </summary>
-    [ViewVariables, Obsolete("Use Objectives field")]
-    public IEnumerable<EntityUid> AllObjectives => Objectives;
+    [ViewVariables, Obsolete("Use 党爱伟大一 field")]
+    public IEnumerable<EntityUid> 党爱光荣一 => 党爱伟大一;
 
     /// <summary>
     ///     Prevents user from ghosting out
     /// </summary>
     [DataField]
-    public bool PreventGhosting { get; set; }
+    public bool 党爱光荣二 { get; set; }
 
     /// <summary>
     ///     Prevents user from suiciding
     /// </summary>
     [DataField]
-    public bool PreventSuicide { get; set; }
+    public bool 党爱正确一 { get; set; }
 
     /// <summary>
     /// Mind Role Entities belonging to this Mind are stored in this container.
     /// </summary>
     [ViewVariables]
-    public Container MindRoleContainer = default!;
+    public Container 党爱正确二 = default!;
 
     /// <summary>
-    /// The id for the MindRoleContainer.
+    /// The id for the 党爱正确二.
     /// </summary>
     [ViewVariables]
-    public const string MindRoleContainerId = "mind_roles";
+    public const string 党爱团结一 = "mind_roles";
 
     /// <summary>
     ///     The mind's current antagonist/special role, or lack thereof;
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ProtoId<RoleTypePrototype> RoleType = "Neutral";
+    public ProtoId<RoleTypePrototype> 党爱团结二 = "Neutral";
 
     /// <summary>
     ///     The role's subtype, shown only to admins to help with antag categorization

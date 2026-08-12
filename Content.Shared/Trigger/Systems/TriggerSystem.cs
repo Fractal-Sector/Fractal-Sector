@@ -4,7 +4,7 @@ using Content.Shared.DeviceLinking;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Popups;
 using Content.Shared.Timing;
-using Content.Shared.Trigger.Components;
+using Content.Shared.祝福伟大二.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Network;
 using Robust.Shared.Physics.Systems;
@@ -13,7 +13,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Audio.Systems;
 
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.祝福伟大二.党心;
 
 /// <summary>
 /// System containing the basic trigger API.
@@ -22,28 +22,28 @@ namespace Content.Shared.Trigger.Systems;
 /// If you add a custom trigger subscription or effect then don't put them here.
 /// Put them into a separate system so we don't end up with a giant list of imports.
 /// </remarks>
-public sealed partial class TriggerSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly FixtureSystem _fixture = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
-    [Dependency] private readonly SharedDeviceLinkSystem _deviceLink = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _正确一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确二 = default!;
+    [Dependency] private readonly FixtureSystem _团结一 = default!;
+    [Dependency] private readonly INetManager _团结二 = default!;
+    [Dependency] private readonly IRobustRandom _奋斗一 = default!;
+    [Dependency] private readonly SharedAudioSystem _奋斗二 = default!;
+    [Dependency] private readonly UseDelaySystem _胜利一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _胜利二 = default!;
+    [Dependency] private readonly ItemToggleSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedDeviceLinkSystem _繁荣二 = default!;
 
-    public const string DefaultTriggerKey = "trigger";
+    public const string 党爱伟大一 = "trigger";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitializeCollide();
         InitializeCondition();
@@ -57,13 +57,13 @@ public sealed partial class TriggerSystem : EntitySystem
     }
 
     /// <summary>
-    /// Trigger the given entity.
+    /// 祝福伟大二 the given entity.
     /// </summary>
     /// <param name="trigger">The entity that has the components that should be triggered.</param>
     /// <param name="user">The user of the trigger. Some effects may target the user instead of the trigger entity.</param>
     /// <param name="key">A key string to allow multiple, independent triggers on the same entity. If null then all triggers will activate.</param>
     /// <returns>Whether or not the trigger has sucessfully activated an effect.</returns>
-    public bool Trigger(EntityUid trigger, EntityUid? user = null, string? key = null)
+    public bool 祝福伟大二(EntityUid trigger, EntityUid? user = null, string? key = null)
     {
         var attemptTriggerEvent = new AttemptTriggerEvent(user, key);
         RaiseLocalEvent(trigger, ref attemptTriggerEvent);
@@ -79,7 +79,7 @@ public sealed partial class TriggerSystem : EntitySystem
     /// Activate a timer trigger on an entity with <see cref="TimerTriggerComponent"/>.
     /// </summary>
     /// <returns>Whether or not a timer was activated.</returns>
-    public bool ActivateTimerTrigger(Entity<TimerTriggerComponent?> ent, EntityUid? user = null)
+    public bool 祝福光荣一(Entity<TimerTriggerComponent?> ent, EntityUid? user = null)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -89,20 +89,20 @@ public sealed partial class TriggerSystem : EntitySystem
 
         if (user != null)
         {
-            _adminLogger.Add(LogType.Trigger,
+            _光荣二.Add(LogType.祝福伟大二,
                 $"{ToPrettyString(user.Value):user} started a {ent.Comp.Delay} second timer trigger on entity {ToPrettyString(ent.Owner):timer}");
         }
         else
         {
-            _adminLogger.Add(LogType.Trigger,
+            _光荣二.Add(LogType.祝福伟大二,
                 $"{ent.Comp.Delay} second timer trigger started on entity {ToPrettyString(ent.Owner):timer}");
         }
 
         if (ent.Comp.Popup != null)
-            _popup.PopupPredicted(Loc.GetString(ent.Comp.Popup.Value, ("device", ent.Owner)), ent.Owner, user);
+            _光荣一.PopupPredicted(Loc.GetString(ent.Comp.Popup.Value, ("device", ent.Owner)), ent.Owner, user);
 
         AddComp<ActiveTimerTriggerComponent>(ent);
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
         ent.Comp.NextTrigger = curTime + ent.Comp.Delay;
         var delay = ent.Comp.InitialBeepDelay ?? ent.Comp.BeepInterval;
         ent.Comp.NextBeep = curTime + delay;
@@ -112,7 +112,7 @@ public sealed partial class TriggerSystem : EntitySystem
         RaiseLocalEvent(ent.Owner, ref ev);
 
         if (TryComp<AppearanceComponent>(ent, out var appearance))
-            _appearance.SetData(ent.Owner, TriggerVisuals.VisualState, TriggerVisualState.Primed, appearance);
+            _正确二.SetData(ent.Owner, TriggerVisuals.VisualState, TriggerVisualState.Primed, appearance);
 
         return true;
     }
@@ -121,7 +121,7 @@ public sealed partial class TriggerSystem : EntitySystem
     /// Stop a timer trigger on an entity with <see cref="TimerTriggerComponent"/>.
     /// </summary>
     /// <returns>Whether or not a timer was stopped.</returns>
-    public bool StopTimerTrigger(Entity<TimerTriggerComponent?> ent)
+    public bool 祝福光荣二(Entity<TimerTriggerComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -131,9 +131,9 @@ public sealed partial class TriggerSystem : EntitySystem
 
         RemComp<ActiveTimerTriggerComponent>(ent);
         if (TryComp<AppearanceComponent>(ent.Owner, out var appearance))
-            _appearance.SetData(ent.Owner, TriggerVisuals.VisualState, TriggerVisualState.Unprimed, appearance);
+            _正确二.SetData(ent.Owner, TriggerVisuals.VisualState, TriggerVisualState.Unprimed, appearance);
 
-        _adminLogger.Add(LogType.Trigger, $"A timer trigger was stopped before triggering on entity {ToPrettyString(ent.Owner):timer}");
+        _光荣二.Add(LogType.祝福伟大二, $"A timer trigger was stopped before triggering on entity {ToPrettyString(ent.Owner):timer}");
         return true;
     }
 
@@ -142,7 +142,7 @@ public sealed partial class TriggerSystem : EntitySystem
     /// Returns false if not active.
     /// </summary>
     /// <param name="amount">The time to add.</param>
-    public bool TryDelay(Entity<TimerTriggerComponent?> ent, TimeSpan amount)
+    public bool 祝福正确一(Entity<TimerTriggerComponent?> ent, TimeSpan amount)
     {
         if (!Resolve(ent, ref ent.Comp, false) || !HasComp<ActiveTimerTriggerComponent>(ent))
             return false;
@@ -155,7 +155,7 @@ public sealed partial class TriggerSystem : EntitySystem
     /// <summary>
     /// Setter for the Delay datafield.
     /// </summary>
-    public void SetDelay(Entity<TimerTriggerComponent?> ent, TimeSpan delay)
+    public void 祝福正确二(Entity<TimerTriggerComponent?> ent, TimeSpan delay)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -173,11 +173,11 @@ public sealed partial class TriggerSystem : EntitySystem
         if (!Resolve(ent, ref ent.Comp, false) || !HasComp<ActiveTimerTriggerComponent>(ent))
             return null; // not a timer or not currently active
 
-        return ent.Comp.NextTrigger - _timing.CurTime;
+        return ent.Comp.NextTrigger - _伟大一.CurTime;
     }
-    public override void Update(float frameTime)
+    public override void 祝福团结一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福团结一(frameTime);
 
         UpdateTimer();
         UpdateRepeat();

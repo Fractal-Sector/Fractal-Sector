@@ -37,90 +37,90 @@ using Robust.Shared.Spawners;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
 /// <summary>
 /// If enabled spawns players on a separate arrivals station before they can transfer to the main station.
 /// </summary>
-public sealed class ArrivalsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ActorSystem _actor = default!;
-    [Dependency] private readonly BiomeSystem _biomes = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ShuttleSystem _shuttles = default!;
-    [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly IChatManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
+    [Dependency] private readonly IConsoleHost _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly IRobustRandom _正确二 = default!;
+    [Dependency] private readonly ActorSystem _团结一 = default!;
+    [Dependency] private readonly BiomeSystem _团结二 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _奋斗一 = default!;
+    [Dependency] private readonly GameTicker _奋斗二 = default!;
+    [Dependency] private readonly MapLoaderSystem _胜利一 = default!;
+    [Dependency] private readonly MetaDataSystem _胜利二 = default!;
+    [Dependency] private readonly SharedMapSystem _繁荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _繁荣二 = default!;
+    [Dependency] private readonly ShuttleSystem _富强一 = default!;
+    [Dependency] private readonly StationSpawningSystem _富强二 = default!;
+    [Dependency] private readonly StationSystem _民主一 = default!;
 
-    private EntityQuery<PendingClockInComponent> _pendingQuery;
-    private EntityQuery<ArrivalsBlacklistComponent> _blacklistQuery;
-    private EntityQuery<MobStateComponent> _mobQuery;
+    private EntityQuery<PendingClockInComponent> _民主二;
+    private EntityQuery<ArrivalsBlacklistComponent> _文明一;
+    private EntityQuery<MobStateComponent> _文明二;
 
     /// <summary>
     /// If enabled then spawns players on an alternate map so they can take a shuttle to the station.
     /// </summary>
-    public bool Enabled { get; private set; }
+    public bool 党爱伟大一 { get; private set; }
 
     /// <summary>
     /// Flags if all players spawning at the departure terminal have godmode until they leave the terminal.
     /// </summary>
-    public bool ArrivalsGodmode { get; private set; }
+    public bool 党爱伟大二 { get; private set; }
 
     /// <summary>
     ///     The first arrival is a little early, to save everyone 10s
     /// </summary>
     private const float RoundStartFTLDuration = 10f;
 
-    private readonly List<ProtoId<BiomeTemplatePrototype>> _arrivalsBiomeOptions = new()
+    private readonly List<ProtoId<BiomeTemplatePrototype>> _和谐一 = new()
     {
         "Grasslands",
         "LowDesert",
         "Snow",
     };
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PlayerSpawningEvent>(HandlePlayerSpawning, before: new []{ typeof(SpawnPointSystem)}, after: new [] { typeof(ContainerSpawnPointSystem)});
+        SubscribeLocalEvent<PlayerSpawningEvent>(祝福奋斗一, before: new []{ typeof(SpawnPointSystem)}, after: new [] { typeof(ContainerSpawnPointSystem)});
 
-        SubscribeLocalEvent<StationArrivalsComponent, StationPostInitEvent>(OnStationPostInit);
+        SubscribeLocalEvent<StationArrivalsComponent, StationPostInitEvent>(祝福民主二);
 
-        SubscribeLocalEvent<ArrivalsShuttleComponent, ComponentStartup>(OnShuttleStartup);
-        SubscribeLocalEvent<ArrivalsShuttleComponent, FTLTagEvent>(OnShuttleTag);
+        SubscribeLocalEvent<ArrivalsShuttleComponent, ComponentStartup>(祝福胜利二);
+        SubscribeLocalEvent<ArrivalsShuttleComponent, FTLTagEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStarting);
-        SubscribeLocalEvent<ArrivalsShuttleComponent, FTLStartedEvent>(OnArrivalsFTL);
-        SubscribeLocalEvent<ArrivalsShuttleComponent, FTLCompletedEvent>(OnArrivalsDocked);
+        SubscribeLocalEvent<RoundStartingEvent>(祝福富强一);
+        SubscribeLocalEvent<ArrivalsShuttleComponent, FTLStartedEvent>(祝福正确一);
+        SubscribeLocalEvent<ArrivalsShuttleComponent, FTLCompletedEvent>(祝福正确二);
 
-        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(SendDirections);
+        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(祝福奋斗二);
 
-        _pendingQuery = GetEntityQuery<PendingClockInComponent>();
-        _blacklistQuery = GetEntityQuery<ArrivalsBlacklistComponent>();
-        _mobQuery = GetEntityQuery<MobStateComponent>();
+        _民主二 = GetEntityQuery<PendingClockInComponent>();
+        _文明一 = GetEntityQuery<ArrivalsBlacklistComponent>();
+        _文明二 = GetEntityQuery<MobStateComponent>();
 
         // Don't invoke immediately as it will get set in the natural course of things.
-        Enabled = _cfgManager.GetCVar(CCVars.ArrivalsShuttles);
-        ArrivalsGodmode = _cfgManager.GetCVar(CCVars.GodmodeArrivals);
+        党爱伟大一 = _伟大二.GetCVar(CCVars.ArrivalsShuttles);
+        党爱伟大二 = _伟大二.GetCVar(CCVars.GodmodeArrivals);
 
-        _cfgManager.OnValueChanged(CCVars.ArrivalsShuttles, SetArrivals);
-        _cfgManager.OnValueChanged(CCVars.GodmodeArrivals, b => ArrivalsGodmode = b);
+        _伟大二.OnValueChanged(CCVars.ArrivalsShuttles, 祝福民主一);
+        _伟大二.OnValueChanged(CCVars.GodmodeArrivals, b => 党爱伟大二 = b);
 
         // Command so admins can set these for funsies
-        _console.RegisterCommand("arrivals", ArrivalsCommand, ArrivalsCompletion);
+        _光荣一.RegisterCommand("arrivals", 祝福光荣二, 祝福光荣一);
     }
 
-    private void OnShuttleTag(EntityUid uid, ArrivalsShuttleComponent component, ref FTLTagEvent args)
+    private void 祝福伟大二(EntityUid uid, ArrivalsShuttleComponent component, ref FTLTagEvent args)
     {
         if (args.Handled)
             return;
@@ -130,7 +130,7 @@ public sealed class ArrivalsSystem : EntitySystem
         args.Tag = "DockArrivals";
     }
 
-    private CompletionResult ArrivalsCompletion(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福光荣一(IConsoleShell shell, string[] args)
     {
         if (args.Length != 1)
             return CompletionResult.Empty;
@@ -147,7 +147,7 @@ public sealed class ArrivalsSystem : EntitySystem
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void ArrivalsCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -158,32 +158,32 @@ public sealed class ArrivalsSystem : EntitySystem
         switch (args[0])
         {
             case "enable":
-                _cfgManager.SetCVar(CCVars.ArrivalsShuttles, true);
+                _伟大二.SetCVar(CCVars.ArrivalsShuttles, true);
                 break;
             case "disable":
-                _cfgManager.SetCVar(CCVars.ArrivalsShuttles, false);
+                _伟大二.SetCVar(CCVars.ArrivalsShuttles, false);
                 break;
             case "returns":
-                var existing = _cfgManager.GetCVar(CCVars.ArrivalsReturns);
-                _cfgManager.SetCVar(CCVars.ArrivalsReturns, !existing);
+                var existing = _伟大二.GetCVar(CCVars.ArrivalsReturns);
+                _伟大二.SetCVar(CCVars.ArrivalsReturns, !existing);
                 shell.WriteLine(Loc.GetString("cmd-arrivals-returns", ("value", !existing)));
                 break;
             case "force":
                 var query = AllEntityQuery<PendingClockInComponent, TransformComponent>();
                 var spawnPoints = EntityQuery<SpawnPointComponent, TransformComponent>().ToList();
 
-                TryGetArrivals(out var arrivalsUid);
+                祝福繁荣一(out var arrivalsUid);
 
                 while (query.MoveNext(out var uid, out _, out var pendingXform))
                 {
-                    _random.Shuffle(spawnPoints);
+                    _正确二.Shuffle(spawnPoints);
 
                     foreach (var (point, xform) in spawnPoints)
                     {
                         if (point.SpawnType != SpawnPointType.LateJoin || xform.GridUid == arrivalsUid)
                             continue;
 
-                        _transform.SetCoordinates(uid, pendingXform, xform.Coordinates);
+                        _繁荣二.SetCoordinates(uid, pendingXform, xform.Coordinates);
                         break;
                     }
 
@@ -201,15 +201,15 @@ public sealed class ArrivalsSystem : EntitySystem
     /// <summary>
     ///     First sends shuttle timer data, then kicks people off the shuttle if it isn't leaving the arrivals terminal
     /// </summary>
-    private void OnArrivalsFTL(EntityUid shuttleUid, ArrivalsShuttleComponent component, ref FTLStartedEvent args)
+    private void 祝福正确一(EntityUid shuttleUid, ArrivalsShuttleComponent component, ref FTLStartedEvent args)
     {
-        if (!TryGetArrivals(out EntityUid arrivals))
+        if (!祝福繁荣一(out EntityUid arrivals))
             return;
 
         if (TryComp<DeviceNetworkComponent>(shuttleUid, out var netComp))
         {
             TryComp<FTLComponent>(shuttleUid, out var ftlComp);
-            var ftlTime = TimeSpan.FromSeconds(ftlComp?.TravelTime ?? _shuttles.DefaultTravelTime);
+            var ftlTime = TimeSpan.FromSeconds(ftlComp?.TravelTime ?? _富强一.DefaultTravelTime);
 
             var payload = new NetworkPayload
             {
@@ -219,11 +219,11 @@ public sealed class ArrivalsSystem : EntitySystem
 
             // unfortunate levels of spaghetti due to roundstart arrivals ftl behavior
             EntityUid? sourceMap;
-            var arrivalsDelay = _cfgManager.GetCVar(CCVars.ArrivalsCooldown);
+            var arrivalsDelay = _伟大二.GetCVar(CCVars.ArrivalsCooldown);
 
             if (component.FirstRun)
             {
-                var station = _station.GetLargestGrid(component.Station);
+                var station = _民主一.GetLargestGrid(component.Station);
                 sourceMap = station == null ? null : Transform(station.Value)?.MapUid;
                 arrivalsDelay += RoundStartFTLDuration;
                 component.FirstRun = false;
@@ -236,7 +236,7 @@ public sealed class ArrivalsSystem : EntitySystem
             payload.Add(ShuttleTimerMasks.SourceMap, sourceMap);
             payload.Add(ShuttleTimerMasks.SourceTime, ftlTime + TimeSpan.FromSeconds(arrivalsDelay));
 
-            _deviceNetworkSystem.QueuePacket(shuttleUid, null, payload, netComp.TransmitFrequency);
+            _奋斗一.QueuePacket(shuttleUid, null, payload, netComp.TransmitFrequency);
         }
 
         // Don't do anything here when leaving arrivals.
@@ -245,14 +245,14 @@ public sealed class ArrivalsSystem : EntitySystem
             return;
 
         // Any mob then yeet them off the shuttle.
-        if (!_cfgManager.GetCVar(CCVars.ArrivalsReturns) && args.FromMapUid != null)
-            DumpChildren(shuttleUid, ref args);
+        if (!_伟大二.GetCVar(CCVars.ArrivalsReturns) && args.FromMapUid != null)
+            祝福团结一(shuttleUid, ref args);
 
         var pendingQuery = AllEntityQuery<PendingClockInComponent, TransformComponent>();
 
         // We're heading from the station back to arrivals (if leaving arrivals, would have returned above).
         // Process everyone who holds a PendingClockInComponent
-        // Note, due to way DumpChildren works, anyone who doesn't have a PendingClockInComponent gets left in space
+        // Note, due to way 祝福团结一 works, anyone who doesn't have a PendingClockInComponent gets left in space
         // and will not warp. This is intended behavior.
         while (pendingQuery.MoveNext(out var pUid, out _, out var xform))
         {
@@ -260,7 +260,7 @@ public sealed class ArrivalsSystem : EntitySystem
             {
                 // Warp all players who are still on this shuttle to a spawn point. This doesn't let them return to
                 // arrivals. It also ensures noobs, slow players or AFK players safely leave the shuttle.
-                TryTeleportToMapSpawn(pUid, component.Station, xform);
+                祝福胜利一(pUid, component.Station, xform);
             }
 
             // Players who have remained at arrivals keep their warp coupon (PendingClockInComponent) for now.
@@ -271,14 +271,14 @@ public sealed class ArrivalsSystem : EntitySystem
             RemCompDeferred<PendingClockInComponent>(pUid);
             RemCompDeferred<AutoOrientComponent>(pUid);
 
-            if (ArrivalsGodmode)
+            if (党爱伟大二)
                 RemCompDeferred<GodmodeComponent>(pUid);
         }
     }
 
-    private void OnArrivalsDocked(EntityUid uid, ArrivalsShuttleComponent component, ref FTLCompletedEvent args)
+    private void 祝福正确二(EntityUid uid, ArrivalsShuttleComponent component, ref FTLCompletedEvent args)
     {
-        var dockTime = component.NextTransfer - _timing.CurTime + TimeSpan.FromSeconds(_shuttles.DefaultStartupTime);
+        var dockTime = component.NextTransfer - _光荣二.CurTime + TimeSpan.FromSeconds(_富强一.DefaultStartupTime);
 
         if (TryComp<DeviceNetworkComponent>(uid, out var netComp))
         {
@@ -290,34 +290,34 @@ public sealed class ArrivalsSystem : EntitySystem
                 [ShuttleTimerMasks.SourceTime] = dockTime,
                 [ShuttleTimerMasks.Docked] = true
             };
-            _deviceNetworkSystem.QueuePacket(uid, null, payload, netComp.TransmitFrequency);
+            _奋斗一.QueuePacket(uid, null, payload, netComp.TransmitFrequency);
         }
     }
 
-    private void DumpChildren(EntityUid uid, ref FTLStartedEvent args)
+    private void 祝福团结一(EntityUid uid, ref FTLStartedEvent args)
     {
         var toDump = new List<Entity<TransformComponent>>();
-        FindDumpChildren(uid, toDump);
+        祝福团结二(uid, toDump);
         foreach (var (ent, xform) in toDump)
         {
             var rotation = xform.LocalRotation;
-            _transform.SetCoordinates(ent, new EntityCoordinates(args.FromMapUid!.Value, Vector2.Transform(xform.LocalPosition, args.FTLFrom)));
-            _transform.SetWorldRotation(ent, args.FromRotation + rotation);
-            if (_actor.TryGetSession(ent, out var session))
+            _繁荣二.SetCoordinates(ent, new EntityCoordinates(args.FromMapUid!.Value, Vector2.Transform(xform.LocalPosition, args.FTLFrom)));
+            _繁荣二.SetWorldRotation(ent, args.FromRotation + rotation);
+            if (_团结一.TryGetSession(ent, out var session))
             {
-                _chat.DispatchServerMessage(session!, Loc.GetString("latejoin-arrivals-dumped-from-shuttle"));
+                _伟大一.DispatchServerMessage(session!, Loc.GetString("latejoin-arrivals-dumped-from-shuttle"));
             }
         }
     }
 
-    private void FindDumpChildren(EntityUid uid, List<Entity<TransformComponent>> toDump)
+    private void 祝福团结二(EntityUid uid, List<Entity<TransformComponent>> toDump)
     {
-        if (_pendingQuery.HasComponent(uid))
+        if (_民主二.HasComponent(uid))
             return;
 
         var xform = Transform(uid);
 
-        if (_mobQuery.HasComponent(uid) || _blacklistQuery.HasComponent(uid))
+        if (_文明二.HasComponent(uid) || _文明一.HasComponent(uid))
         {
             toDump.Add((uid, xform));
             return;
@@ -326,11 +326,11 @@ public sealed class ArrivalsSystem : EntitySystem
         var children = xform.ChildEnumerator;
         while (children.MoveNext(out var child))
         {
-            FindDumpChildren(child, toDump);
+            祝福团结二(child, toDump);
         }
     }
 
-    public void HandlePlayerSpawning(PlayerSpawningEvent ev)
+    public void 祝福奋斗一(PlayerSpawningEvent ev)
     {
         if (ev.SpawnResult != null)
             return;
@@ -338,13 +338,13 @@ public sealed class ArrivalsSystem : EntitySystem
         // We use arrivals as the default spawn so don't check for job prio.
 
         // Only works on latejoin even if enabled.
-        if (!Enabled || _ticker.RunLevel != GameRunLevel.InRound)
+        if (!党爱伟大一 || _奋斗二.RunLevel != GameRunLevel.InRound)
             return;
 
         if (!HasComp<StationArrivalsComponent>(ev.Station))
             return;
 
-        TryGetArrivals(out var arrivals);
+        祝福繁荣一(out var arrivals);
 
         if (!TryComp(arrivals, out TransformComponent? arrivalsXform))
             return;
@@ -364,8 +364,8 @@ public sealed class ArrivalsSystem : EntitySystem
         if (possiblePositions.Count <= 0)
             return;
 
-        var spawnLoc = _random.Pick(possiblePositions);
-        ev.SpawnResult = _stationSpawning.SpawnPlayerMob(
+        var spawnLoc = _正确二.Pick(possiblePositions);
+        ev.SpawnResult = _富强二.SpawnPlayerMob(
             spawnLoc,
             ev.Job,
             ev.HumanoidCharacterProfile,
@@ -376,13 +376,13 @@ public sealed class ArrivalsSystem : EntitySystem
         EnsureComp<AutoOrientComponent>(ev.SpawnResult.Value);
 
         // If you're forced to spawn, you're invincible until you leave wherever you were forced to spawn.
-        if (ArrivalsGodmode)
+        if (党爱伟大二)
             EnsureComp<GodmodeComponent>(ev.SpawnResult.Value);
     }
 
-    private void SendDirections(PlayerSpawnCompleteEvent ev)
+    private void 祝福奋斗二(PlayerSpawnCompleteEvent ev)
     {
-        if (!Enabled || !ev.LateJoin || ev.Silent || !_pendingQuery.HasComp(ev.Mob))
+        if (!党爱伟大一 || !ev.LateJoin || ev.Silent || !_民主二.HasComp(ev.Mob))
             return;
 
         var arrival = NextShuttleArrival();
@@ -391,10 +391,10 @@ public sealed class ArrivalsSystem : EntitySystem
             ? Loc.GetString("latejoin-arrivals-direction-time", ("time", $"{arrival:mm\\:ss}"))
             : Loc.GetString("latejoin-arrivals-direction");
 
-        _chat.DispatchServerMessage(ev.Player, message);
+        _伟大一.DispatchServerMessage(ev.Player, message);
     }
 
-    private bool TryTeleportToMapSpawn(EntityUid player, EntityUid stationId, TransformComponent? transform = null)
+    private bool 祝福胜利一(EntityUid player, EntityUid stationId, TransformComponent? transform = null)
     {
         if (!Resolve(player, ref transform))
             return false;
@@ -406,7 +406,7 @@ public sealed class ArrivalsSystem : EntitySystem
         while (points.MoveNext(out var uid, out var spawnPoint, out var xform))
         {
             if (spawnPoint.SpawnType == SpawnPointType.LateJoin &&
-                _station.GetOwningStation(uid, xform) == stationId)
+                _民主一.GetOwningStation(uid, xform) == stationId)
             {
                 // Add to list of possible spawn locations
                 possiblePositions.Add(xform.Coordinates);
@@ -416,10 +416,10 @@ public sealed class ArrivalsSystem : EntitySystem
         if (possiblePositions.Count > 0)
         {
             // Move the player to a random late-join spawnpoint.
-            _transform.SetCoordinates(player, transform, _random.Pick(possiblePositions));
-            if (_actor.TryGetSession(player, out var session))
+            _繁荣二.SetCoordinates(player, transform, _正确二.Pick(possiblePositions));
+            if (_团结一.TryGetSession(player, out var session))
             {
-                _chat.DispatchServerMessage(session!, Loc.GetString("latejoin-arrivals-teleport-to-spawn"));
+                _伟大一.DispatchServerMessage(session!, Loc.GetString("latejoin-arrivals-teleport-to-spawn"));
             }
             return true;
         }
@@ -427,12 +427,12 @@ public sealed class ArrivalsSystem : EntitySystem
         return false;
     }
 
-    private void OnShuttleStartup(EntityUid uid, ArrivalsShuttleComponent component, ComponentStartup args)
+    private void 祝福胜利二(EntityUid uid, ArrivalsShuttleComponent component, ComponentStartup args)
     {
         EnsureComp<PreventPilotComponent>(uid);
     }
 
-    private bool TryGetArrivals(out EntityUid uid)
+    private bool 祝福繁荣一(out EntityUid uid)
     {
         var arrivalsQuery = EntityQueryEnumerator<ArrivalsSourceComponent>();
 
@@ -454,17 +454,17 @@ public sealed class ArrivalsSystem : EntitySystem
                 time = comp.NextArrivalsTime;
         }
 
-        var duration = _timing.CurTime;
+        var duration = _光荣二.CurTime;
         return (time < duration) ? null : time - duration;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣二(frameTime);
 
         var query = EntityQueryEnumerator<ArrivalsShuttleComponent, ShuttleComponent, TransformComponent>();
-        var curTime = _timing.CurTime;
-        TryGetArrivals(out var arrivals);
+        var curTime = _光荣二.CurTime;
+        祝福繁荣一(out var arrivals);
 
         if (TryComp(arrivals, out TransformComponent? arrivalsXform))
         {
@@ -473,64 +473,64 @@ public sealed class ArrivalsSystem : EntitySystem
                 if (comp.NextTransfer > curTime)
                     continue;
 
-                var tripTime = _shuttles.DefaultTravelTime + _shuttles.DefaultStartupTime;
+                var tripTime = _富强一.DefaultTravelTime + _富强一.DefaultStartupTime;
 
                 // Go back to arrivals source
                 if (xform.MapUid != arrivalsXform.MapUid)
                 {
                     if (arrivals.IsValid())
-                        _shuttles.FTLToDock(uid, shuttle, arrivals);
+                        _富强一.FTLToDock(uid, shuttle, arrivals);
 
-                    comp.NextArrivalsTime = _timing.CurTime + TimeSpan.FromSeconds(tripTime);
+                    comp.NextArrivalsTime = _光荣二.CurTime + TimeSpan.FromSeconds(tripTime);
                 }
                 // Go to station
                 else
                 {
-                    var targetGrid = _station.GetLargestGrid(comp.Station);
+                    var targetGrid = _民主一.GetLargestGrid(comp.Station);
 
                     if (targetGrid != null)
-                        _shuttles.FTLToDock(uid, shuttle, targetGrid.Value);
+                        _富强一.FTLToDock(uid, shuttle, targetGrid.Value);
 
                     // The ArrivalsCooldown includes the trip there, so we only need to add the time taken for
                     // the trip back.
-                    comp.NextArrivalsTime = _timing.CurTime + TimeSpan.FromSeconds(
-                        _cfgManager.GetCVar(CCVars.ArrivalsCooldown) + tripTime);
+                    comp.NextArrivalsTime = _光荣二.CurTime + TimeSpan.FromSeconds(
+                        _伟大二.GetCVar(CCVars.ArrivalsCooldown) + tripTime);
                 }
 
-                comp.NextTransfer += TimeSpan.FromSeconds(_cfgManager.GetCVar(CCVars.ArrivalsCooldown));
+                comp.NextTransfer += TimeSpan.FromSeconds(_伟大二.GetCVar(CCVars.ArrivalsCooldown));
             }
         }
     }
 
-    private void OnRoundStarting(RoundStartingEvent ev)
+    private void 祝福富强一(RoundStartingEvent ev)
     {
         // Setup arrivals station
-        if (!Enabled)
+        if (!党爱伟大一)
             return;
 
-        SetupArrivalsStation();
+        祝福富强二();
     }
 
-    private void SetupArrivalsStation()
+    private void 祝福富强二()
     {
-        var path = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
-        _mapSystem.CreateMap(out var mapId, runMapInit: false);
-        var mapUid = _mapSystem.GetMap(mapId);
+        var path = new ResPath(_伟大二.GetCVar(CCVars.ArrivalsMap));
+        _繁荣一.CreateMap(out var mapId, runMapInit: false);
+        var mapUid = _繁荣一.GetMap(mapId);
 
-        if (!_loader.TryLoadGrid(mapId, path, out var grid))
+        if (!_胜利一.TryLoadGrid(mapId, path, out var grid))
             return;
 
-        _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
+        _胜利二.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
 
         EnsureComp<ArrivalsSourceComponent>(grid.Value);
         EnsureComp<ProtectedGridComponent>(grid.Value);
         EnsureComp<PreventPilotComponent>(grid.Value);
 
         // Setup planet arrivals if relevant
-        if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
+        if (_伟大二.GetCVar(CCVars.ArrivalsPlanet))
         {
-            var template = _random.Pick(_arrivalsBiomeOptions);
-            _biomes.EnsurePlanet(mapUid, _protoManager.Index(template));
+            var template = _正确二.Pick(_和谐一);
+            _团结二.EnsurePlanet(mapUid, _正确一.Index(template));
             var restricted = new RestrictedRangeComponent
             {
                 Range = 32f
@@ -538,29 +538,29 @@ public sealed class ArrivalsSystem : EntitySystem
             AddComp(mapUid, restricted);
         }
 
-        _mapSystem.InitializeMap(mapId);
+        _繁荣一.InitializeMap(mapId);
 
         // Handle roundstart stations.
         var query = AllEntityQuery<StationArrivalsComponent>();
 
         while (query.MoveNext(out var uid, out var comp))
         {
-            SetupShuttle(uid, comp);
+            祝福文明一(uid, comp);
         }
     }
 
-    private void SetArrivals(bool obj)
+    private void 祝福民主一(bool obj)
     {
-        Enabled = obj;
+        党爱伟大一 = obj;
 
-        if (Enabled)
+        if (党爱伟大一)
         {
-            SetupArrivalsStation();
+            祝福富强二();
             var query = AllEntityQuery<StationArrivalsComponent>();
 
             while (query.MoveNext(out var sUid, out var comp))
             {
-                SetupShuttle(sUid, comp);
+                祝福文明一(sUid, comp);
             }
         }
         else
@@ -581,33 +581,33 @@ public sealed class ArrivalsSystem : EntitySystem
         }
     }
 
-    private void OnStationPostInit(EntityUid uid, StationArrivalsComponent component, ref StationPostInitEvent args)
+    private void 祝福民主二(EntityUid uid, StationArrivalsComponent component, ref StationPostInitEvent args)
     {
-        if (!Enabled)
+        if (!党爱伟大一)
             return;
 
         // If it's a latespawn station then this will fail but that's okey
-        SetupShuttle(uid, component);
+        祝福文明一(uid, component);
     }
 
-    private void SetupShuttle(EntityUid uid, StationArrivalsComponent component)
+    private void 祝福文明一(EntityUid uid, StationArrivalsComponent component)
     {
         if (!Deleted(component.Shuttle))
             return;
 
         // Spawn arrivals on a dummy map then dock it to the source.
-        var dummpMapEntity = _mapSystem.CreateMap(out var dummyMapId);
+        var dummpMapEntity = _繁荣一.CreateMap(out var dummyMapId);
 
-        if (TryGetArrivals(out var arrivals) &&
-            _loader.TryLoadGrid(dummyMapId, component.ShuttlePath, out var shuttle))
+        if (祝福繁荣一(out var arrivals) &&
+            _胜利一.TryLoadGrid(dummyMapId, component.ShuttlePath, out var shuttle))
         {
             component.Shuttle = shuttle.Value;
             var shuttleComp = Comp<ShuttleComponent>(component.Shuttle);
             var arrivalsComp = EnsureComp<ArrivalsShuttleComponent>(component.Shuttle);
             arrivalsComp.Station = uid;
             EnsureComp<ProtectedGridComponent>(uid);
-            _shuttles.FTLToDock(component.Shuttle, shuttleComp, arrivals, hyperspaceTime: RoundStartFTLDuration);
-            arrivalsComp.NextTransfer = _timing.CurTime + TimeSpan.FromSeconds(_cfgManager.GetCVar(CCVars.ArrivalsCooldown));
+            _富强一.FTLToDock(component.Shuttle, shuttleComp, arrivals, hyperspaceTime: RoundStartFTLDuration);
+            arrivalsComp.NextTransfer = _光荣二.CurTime + TimeSpan.FromSeconds(_伟大二.GetCVar(CCVars.ArrivalsCooldown));
         }
 
         // Don't start the arrivals shuttle immediately docked so power has a time to stabilise?

@@ -11,67 +11,67 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Damage.ForceSay;
+namespace Content.Server.Damage.党心;
 
 /// <inheritdoc cref="DamageForceSayComponent"/>
-public sealed class DamageForceSaySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DamageForceSayComponent, StunnedEvent>(OnStunned);
-        SubscribeLocalEvent<DamageForceSayComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<DamageForceSayComponent, StunnedEvent>(祝福正确二);
+        SubscribeLocalEvent<DamageForceSayComponent, MobStateChangedEvent>(祝福团结二);
 
         // need to raise after mobthreshold
         // so that we don't accidentally raise one for damage before one for mobstate
         // (this won't double raise, because of the cooldown)
-        SubscribeLocalEvent<DamageForceSayComponent, DamageChangedEvent>(OnDamageChanged, after: new []{ typeof(MobThresholdSystem)} );
-        SubscribeLocalEvent<DamageForceSayComponent, SleepStateChangedEvent>(OnSleep);
+        SubscribeLocalEvent<DamageForceSayComponent, DamageChangedEvent>(祝福团结一, after: new []{ typeof(MobThresholdSystem)} );
+        SubscribeLocalEvent<DamageForceSayComponent, SleepStateChangedEvent>(祝福正确一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = AllEntityQuery<AllowNextCritSpeechComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (_timing.CurTime < comp.Timeout)
+            if (_伟大一.CurTime < comp.Timeout)
                 continue;
 
             RemCompDeferred<AllowNextCritSpeechComponent>(uid);
         }
     }
 
-    private void TryForceSay(EntityUid uid, DamageForceSayComponent component, bool useSuffix=true)
+    private void 祝福光荣一(EntityUid uid, DamageForceSayComponent component, bool useSuffix=true)
     {
         if (!TryComp<ActorComponent>(uid, out var actor))
             return;
 
         // disallow if cooldown hasn't ended
         if (component.NextAllowedTime != null &&
-            _timing.CurTime < component.NextAllowedTime)
+            _伟大一.CurTime < component.NextAllowedTime)
             return;
 
         var ev = new BeforeForceSayEvent(component.ForceSayStringDataset);
         RaiseLocalEvent(uid, ev);
 
-        if (!_prototype.TryIndex(ev.Prefix, out var prefixList))
+        if (!_伟大二.TryIndex(ev.Prefix, out var prefixList))
             return;
 
-        var suffix = Loc.GetString(_random.Pick(prefixList.Values));
+        var suffix = Loc.GetString(_光荣一.Pick(prefixList.Values));
 
         // set cooldown & raise event
-        component.NextAllowedTime = _timing.CurTime + component.Cooldown;
+        component.NextAllowedTime = _伟大一.CurTime + component.Cooldown;
         RaiseNetworkEvent(new DamageForceSayEvent { Suffix = useSuffix ? suffix : null }, actor.PlayerSession);
     }
 
-    private void AllowNextSpeech(EntityUid uid)
+    private void 祝福光荣二(EntityUid uid)
     {
         if (!TryComp<ActorComponent>(uid, out var actor))
             return;
@@ -79,24 +79,24 @@ public sealed class DamageForceSaySystem : EntitySystem
         var nextCrit = EnsureComp<AllowNextCritSpeechComponent>(uid);
 
         // timeout is *3 ping to compensate for roundtrip + leeway
-        nextCrit.Timeout = _timing.CurTime + TimeSpan.FromMilliseconds(actor.PlayerSession.Ping * 3);
+        nextCrit.Timeout = _伟大一.CurTime + TimeSpan.FromMilliseconds(actor.PlayerSession.Ping * 3);
     }
 
-    private void OnSleep(EntityUid uid, DamageForceSayComponent component, SleepStateChangedEvent args)
+    private void 祝福正确一(EntityUid uid, DamageForceSayComponent component, SleepStateChangedEvent args)
     {
         if (!args.FellAsleep)
             return;
 
-        TryForceSay(uid, component);
-        AllowNextSpeech(uid);
+        祝福光荣一(uid, component);
+        祝福光荣二(uid);
     }
 
-    private void OnStunned(EntityUid uid, DamageForceSayComponent component, ref StunnedEvent args)
+    private void 祝福正确二(EntityUid uid, DamageForceSayComponent component, ref StunnedEvent args)
     {
-        TryForceSay(uid, component);
+        祝福光荣一(uid, component);
     }
 
-    private void OnDamageChanged(EntityUid uid, DamageForceSayComponent component, DamageChangedEvent args)
+    private void 祝福团结一(EntityUid uid, DamageForceSayComponent component, DamageChangedEvent args)
     {
         if (args.DamageDelta == null || !args.DamageIncreased || args.DamageDelta.GetTotal() < component.DamageThreshold)
             return;
@@ -104,7 +104,7 @@ public sealed class DamageForceSaySystem : EntitySystem
         if (component.ValidDamageGroups != null)
         {
             var totalApplicableDamage = FixedPoint2.Zero;
-            foreach (var (group, value) in args.DamageDelta.GetDamagePerGroup(_prototype))
+            foreach (var (group, value) in args.DamageDelta.GetDamagePerGroup(_伟大二))
             {
                 if (!component.ValidDamageGroups.Contains(group))
                     continue;
@@ -116,17 +116,17 @@ public sealed class DamageForceSaySystem : EntitySystem
                 return;
         }
 
-        TryForceSay(uid, component);
+        祝福光荣一(uid, component);
     }
 
-    private void OnMobStateChanged(EntityUid uid, DamageForceSayComponent component, MobStateChangedEvent args)
+    private void 祝福团结二(EntityUid uid, DamageForceSayComponent component, MobStateChangedEvent args)
     {
         if (args is not { OldMobState: MobState.Alive, NewMobState: MobState.Critical or MobState.Dead })
             return;
 
         // no suffix for the drama
         // LING IN MAI-
-        TryForceSay(uid, component, false);
-        AllowNextSpeech(uid);
+        祝福光荣一(uid, component, false);
+        祝福光荣二(uid);
     }
 }

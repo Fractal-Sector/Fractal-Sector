@@ -5,11 +5,11 @@ using Robust.Shared.Player;
 using Robust.Shared.Utility;
 using ChunkIndicesEnumerator = Robust.Shared.Map.Enumerators.ChunkIndicesEnumerator;
 
-namespace Content.Server.Parallax;
+namespace Content.Server.党心;
 
-public sealed partial class BiomeSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializePlayerTracker()
+    private void 祝福伟大一()
     {
         // PlayerTracker methods are now part of this partial class
     }
@@ -17,7 +17,7 @@ public sealed partial class BiomeSystem
     /// <summary>
     /// Processes all players and viewers to determine which chunks need to be loaded.
     /// </summary>
-    private void ProcessPlayerChunkRequests()
+    private void 祝福伟大二()
     {
         // Get chunks in range
         foreach (var pSession in Filter.GetAllPlayers(_playerManager))
@@ -26,15 +26,15 @@ public sealed partial class BiomeSystem
                 _handledEntities.Add(pSession.AttachedEntity.Value) &&
                  _biomeQuery.TryGetComponent(xform.MapUid, out var biome) &&
                 biome.Enabled &&
-                CanLoad(pSession.AttachedEntity.Value))
+                祝福光荣一(pSession.AttachedEntity.Value))
             {
                 var worldPos = _transform.GetWorldPosition(xform);
-                AddChunksInRange(biome, worldPos);
+                祝福光荣二(biome, worldPos);
 
                 foreach (var layer in biome.MarkerLayers)
                 {
                     var layerProto = ProtoManager.Index(layer);
-                    AddMarkerChunksInRange(biome, worldPos, layerProto);
+                    祝福正确一(biome, worldPos, layerProto);
                 }
             }
 
@@ -44,29 +44,29 @@ public sealed partial class BiomeSystem
                     !_xformQuery.TryGetComponent(viewer, out xform) ||
                     !_biomeQuery.TryGetComponent(xform.MapUid, out biome) ||
                     !biome.Enabled ||
-                    !CanLoad(viewer))
+                    !祝福光荣一(viewer))
                 {
                     continue;
                 }
 
                 var worldPos = _transform.GetWorldPosition(xform);
-                AddChunksInRange(biome, worldPos);
+                祝福光荣二(biome, worldPos);
 
                 foreach (var layer in biome.MarkerLayers)
                 {
                     var layerProto = ProtoManager.Index(layer);
-                    AddMarkerChunksInRange(biome, worldPos, layerProto);
+                    祝福正确一(biome, worldPos, layerProto);
                 }
             }
         }
     }
 
-    private bool CanLoad(EntityUid uid)
+    private bool 祝福光荣一(EntityUid uid)
     {
         return !_ghostQuery.HasComp(uid) || _tags.HasTag(uid, AllowBiomeLoadingTag);
     }
 
-    private void AddChunksInRange(BiomeComponent biome, Vector2 worldPos)
+    private void 祝福光荣二(BiomeComponent biome, Vector2 worldPos)
     {
         var enumerator = new ChunkIndicesEnumerator(_loadArea.Translated(worldPos), ChunkSize);
 
@@ -76,7 +76,7 @@ public sealed partial class BiomeSystem
         }
     }
 
-    private void AddMarkerChunksInRange(BiomeComponent biome, Vector2 worldPos, IBiomeMarkerLayer layer)
+    private void 祝福正确一(BiomeComponent biome, Vector2 worldPos, IBiomeMarkerLayer layer)
     {
         // Offset the load area so it's centralised.
         var loadArea = new Box2(0, 0, layer.Size, layer.Size);

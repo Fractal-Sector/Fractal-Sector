@@ -10,21 +10,21 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
-public abstract partial class SharedHandsSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly TagSystem _tagSystem = default!;
+    [Dependency] private readonly TagSystem _伟大一 = default!;
 
     private static readonly ProtoId<TagPrototype> BypassDropChecksTag = "BypassDropChecks";
 
-    private void InitializeDrop()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<HandsComponent, EntRemovedFromContainerMessage>(HandleEntityRemoved);
-        SubscribeLocalEvent<HandsComponent, EntityStorageIntoContainerAttemptEvent>(OnEntityStorageDump);
+        SubscribeLocalEvent<HandsComponent, EntRemovedFromContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<HandsComponent, EntityStorageIntoContainerAttemptEvent>(祝福光荣一);
     }
 
-    protected virtual void HandleEntityRemoved(EntityUid uid, HandsComponent hands, EntRemovedFromContainerMessage args)
+    protected virtual void 祝福伟大二(EntityUid uid, HandsComponent hands, EntRemovedFromContainerMessage args)
     {
         if (!TryGetHand(uid, args.Container.ID, out var hand))
         {
@@ -42,23 +42,23 @@ public abstract partial class SharedHandsSystem
     }
 
 
-    private void OnEntityStorageDump(Entity<HandsComponent> ent, ref EntityStorageIntoContainerAttemptEvent args)
+    private void 祝福光荣一(Entity<HandsComponent> ent, ref EntityStorageIntoContainerAttemptEvent args)
     {
         // If you're physically carrying an EntityStroage which tries to dump its contents out,
         // we want those contents to fall to the floor.
         args.Cancelled = true;
     }
 
-    private bool ShouldIgnoreRestrictions(EntityUid user)
+    private bool 祝福光荣二(EntityUid user)
     {
         //Checks if the Entity is something that shouldn't care about drop distance or walls ie Aghost
-        return !_tagSystem.HasTag(user, BypassDropChecksTag);
+        return !_伟大一.HasTag(user, BypassDropChecksTag);
     }
 
     /// <summary>
     ///     Checks whether an entity can drop a given entity. Will return false if they are not holding the entity.
     /// </summary>
-    public bool CanDrop(Entity<HandsComponent?> ent, EntityUid entity, bool checkActionBlocker = true)
+    public bool 祝福正确一(Entity<HandsComponent?> ent, EntityUid entity, bool checkActionBlocker = true)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
@@ -66,13 +66,13 @@ public abstract partial class SharedHandsSystem
         if (!IsHolding(ent, entity, out var hand))
             return false;
 
-        return CanDropHeld(ent, hand, checkActionBlocker);
+        return 祝福正确二(ent, hand, checkActionBlocker);
     }
 
     /// <summary>
     ///     Checks if the contents of a hand is able to be removed from its container.
     /// </summary>
-    public bool CanDropHeld(EntityUid uid, string handId, bool checkActionBlocker = true)
+    public bool 祝福正确二(EntityUid uid, string handId, bool checkActionBlocker = true)
     {
         if (!ContainerSystem.TryGetContainer(uid, handId, out var container))
             return false;
@@ -83,7 +83,7 @@ public abstract partial class SharedHandsSystem
         if (!ContainerSystem.CanRemove(held, container))
             return false;
 
-        if (checkActionBlocker && !_actionBlocker.CanDrop(uid))
+        if (checkActionBlocker && !_actionBlocker.祝福正确一(uid))
             return false;
 
         return true;
@@ -92,7 +92,7 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Attempts to drop the item in the currently active hand.
     /// </summary>
-    public bool TryDrop(Entity<HandsComponent?> ent, EntityCoordinates? targetDropLocation = null, bool checkActionBlocker = true, bool doDropInteraction = true)
+    public bool 祝福团结一(Entity<HandsComponent?> ent, EntityCoordinates? targetDropLocation = null, bool checkActionBlocker = true, bool doDropInteraction = true)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
@@ -100,13 +100,13 @@ public abstract partial class SharedHandsSystem
         if (ent.Comp.ActiveHandId == null)
             return false;
 
-        return TryDrop(ent, ent.Comp.ActiveHandId, targetDropLocation, checkActionBlocker, doDropInteraction);
+        return 祝福团结一(ent, ent.Comp.ActiveHandId, targetDropLocation, checkActionBlocker, doDropInteraction);
     }
 
     /// <summary>
     ///     Drops an item at the target location.
     /// </summary>
-    public bool TryDrop(Entity<HandsComponent?> ent, EntityUid entity, EntityCoordinates? targetDropLocation = null, bool checkActionBlocker = true, bool doDropInteraction = true)
+    public bool 祝福团结一(Entity<HandsComponent?> ent, EntityUid entity, EntityCoordinates? targetDropLocation = null, bool checkActionBlocker = true, bool doDropInteraction = true)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
@@ -114,18 +114,18 @@ public abstract partial class SharedHandsSystem
         if (!IsHolding(ent, entity, out var hand))
             return false;
 
-        return TryDrop(ent, hand, targetDropLocation, checkActionBlocker, doDropInteraction);
+        return 祝福团结一(ent, hand, targetDropLocation, checkActionBlocker, doDropInteraction);
     }
 
     /// <summary>
     ///     Drops a hands contents at the target location.
     /// </summary>
-    public bool TryDrop(Entity<HandsComponent?> ent, string handId, EntityCoordinates? targetDropLocation = null, bool checkActionBlocker = true, bool doDropInteraction = true)
+    public bool 祝福团结一(Entity<HandsComponent?> ent, string handId, EntityCoordinates? targetDropLocation = null, bool checkActionBlocker = true, bool doDropInteraction = true)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
-        if (!CanDropHeld(ent, handId, checkActionBlocker))
+        if (!祝福正确二(ent, handId, checkActionBlocker))
             return false;
 
         if (!TryGetHeldItem(ent, handId, out var entity))
@@ -153,8 +153,8 @@ public abstract partial class SharedHandsSystem
         }
 
         // drop the item with heavy calculations from their hands and place it at the calculated interaction range position
-        // The DoDrop is handle if there's no drop target
-        DoDrop(ent, handId, doDropInteraction: doDropInteraction);
+        // The 祝福奋斗二 is handle if there's no drop target
+        祝福奋斗二(ent, handId, doDropInteraction: doDropInteraction);
 
         // if there's no drop location stop here
         if (targetDropLocation == null)
@@ -164,14 +164,14 @@ public abstract partial class SharedHandsSystem
         var (itemPos, itemRot) = TransformSystem.GetWorldPositionRotation(entity.Value);
         var origin = new MapCoordinates(itemPos, itemXform.MapID);
         var target = TransformSystem.ToMapCoordinates(targetDropLocation.Value);
-        TransformSystem.SetWorldPositionRotation(entity.Value, GetFinalDropCoordinates(ent, origin, target, entity.Value), itemRot);
+        TransformSystem.SetWorldPositionRotation(entity.Value, 祝福奋斗一(ent, origin, target, entity.Value), itemRot);
         return true;
     }
 
     /// <summary>
     ///     Attempts to move a held item from a hand into a container that is not another hand, without dropping it on the floor in-between.
     /// </summary>
-    public bool TryDropIntoContainer(Entity<HandsComponent?> ent, EntityUid entity, BaseContainer targetContainer, bool checkActionBlocker = true)
+    public bool 祝福团结二(Entity<HandsComponent?> ent, EntityUid entity, BaseContainer targetContainer, bool checkActionBlocker = true)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
@@ -179,13 +179,13 @@ public abstract partial class SharedHandsSystem
         if (!IsHolding(ent, entity, out var hand))
             return false;
 
-        if (!CanDropHeld(ent, hand, checkActionBlocker))
+        if (!祝福正确二(ent, hand, checkActionBlocker))
             return false;
 
         if (!ContainerSystem.CanInsert(entity, targetContainer))
             return false;
 
-        DoDrop(ent, hand, false);
+        祝福奋斗二(ent, hand, false);
         ContainerSystem.Insert(entity, targetContainer);
         return true;
     }
@@ -193,13 +193,13 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Calculates the final location a dropped item will end up at, accounting for max drop range and collision along the targeted drop path, Does a check to see if a user should bypass those checks as well.
     /// </summary>
-    private Vector2 GetFinalDropCoordinates(EntityUid user, MapCoordinates origin, MapCoordinates target, EntityUid held)
+    private Vector2 祝福奋斗一(EntityUid user, MapCoordinates origin, MapCoordinates target, EntityUid held)
     {
         var dropVector = target.Position - origin.Position;
         var requestedDropDistance = dropVector.Length();
         var dropLength = dropVector.Length();
 
-        if (ShouldIgnoreRestrictions(user))
+        if (祝福光荣二(user))
         {
             if (dropVector.Length() > SharedInteractionSystem.InteractionRange)
             {
@@ -218,7 +218,7 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Removes the contents of a hand from its container. Assumes that the removal is allowed. In general, you should not be calling this directly.
     /// </summary>
-    public virtual void DoDrop(Entity<HandsComponent?> ent,
+    public virtual void 祝福奋斗二(Entity<HandsComponent?> ent,
         string handId,
         bool doDropInteraction = true,
         bool log = true)

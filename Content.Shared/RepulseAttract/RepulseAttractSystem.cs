@@ -10,67 +10,67 @@ using System.Numerics;
 using Content.Shared.RepulseAttract.Events;
 using Content.Shared.Weapons.Melee;
 
-namespace Content.Shared.RepulseAttract;
+namespace Content.Shared.党心;
 
-public sealed class RepulseAttractSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ThrowingSystem _throw = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedTransformSystem _xForm = default!;
-    [Dependency] private readonly UseDelaySystem _delay = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly ThrowingSystem _伟大二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly UseDelaySystem _正确一 = default!;
 
-    private EntityQuery<PhysicsComponent> _physicsQuery;
-    private HashSet<EntityUid> _entSet = new();
-    public override void Initialize()
+    private EntityQuery<PhysicsComponent> _正确二;
+    private HashSet<EntityUid> _团结一 = new();
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
+        _正确二 = GetEntityQuery<PhysicsComponent>();
 
-        SubscribeLocalEvent<RepulseAttractComponent, MeleeHitEvent>(OnMeleeAttempt, before: [typeof(UseDelayOnMeleeHitSystem)], after: [typeof(SharedWieldableSystem)]);
-        SubscribeLocalEvent<RepulseAttractComponent, RepulseAttractActionEvent>(OnRepulseAttractAction);
+        SubscribeLocalEvent<RepulseAttractComponent, MeleeHitEvent>(祝福伟大二, before: [typeof(UseDelayOnMeleeHitSystem)], after: [typeof(SharedWieldableSystem)]);
+        SubscribeLocalEvent<RepulseAttractComponent, RepulseAttractActionEvent>(祝福光荣一);
     }
 
-    private void OnMeleeAttempt(Entity<RepulseAttractComponent> ent, ref MeleeHitEvent args)
+    private void 祝福伟大二(Entity<RepulseAttractComponent> ent, ref MeleeHitEvent args)
     {
-        if (_delay.IsDelayed(ent.Owner))
+        if (_正确一.IsDelayed(ent.Owner))
             return;
 
-        TryRepulseAttract(ent, args.User);
+        祝福光荣二(ent, args.User);
     }
 
-    private void OnRepulseAttractAction(Entity<RepulseAttractComponent> ent, ref RepulseAttractActionEvent args)
+    private void 祝福光荣一(Entity<RepulseAttractComponent> ent, ref RepulseAttractActionEvent args)
     {
         if (args.Handled)
             return;
         
-        var position = _xForm.GetMapCoordinates(args.Performer);
-        args.Handled = TryRepulseAttract(position, args.Performer, ent.Comp.Speed, ent.Comp.Range, ent.Comp.Whitelist, ent.Comp.CollisionMask);
+        var position = _光荣二.GetMapCoordinates(args.Performer);
+        args.Handled = 祝福光荣二(position, args.Performer, ent.Comp.Speed, ent.Comp.Range, ent.Comp.Whitelist, ent.Comp.CollisionMask);
     }
 
-    public bool TryRepulseAttract(Entity<RepulseAttractComponent> ent, EntityUid user)
+    public bool 祝福光荣二(Entity<RepulseAttractComponent> ent, EntityUid user)
     {
-        var position = _xForm.GetMapCoordinates(ent.Owner);
-        return TryRepulseAttract(position, user, ent.Comp.Speed, ent.Comp.Range, ent.Comp.Whitelist, ent.Comp.CollisionMask);
+        var position = _光荣二.GetMapCoordinates(ent.Owner);
+        return 祝福光荣二(position, user, ent.Comp.Speed, ent.Comp.Range, ent.Comp.Whitelist, ent.Comp.CollisionMask);
     }
 
-    public bool TryRepulseAttract(MapCoordinates position, EntityUid? user, float speed, float range, EntityWhitelist? whitelist = null, CollisionGroup layer = CollisionGroup.SingularityLayer)
+    public bool 祝福光荣二(MapCoordinates position, EntityUid? user, float speed, float range, EntityWhitelist? whitelist = null, CollisionGroup layer = CollisionGroup.SingularityLayer)
     {
-        _entSet.Clear();
+        _团结一.Clear();
         var epicenter = position.Position;
-        _lookup.GetEntitiesInRange(position.MapId, epicenter, range, _entSet, flags: LookupFlags.Dynamic | LookupFlags.Sundries);
+        _伟大一.GetEntitiesInRange(position.MapId, epicenter, range, _团结一, flags: LookupFlags.Dynamic | LookupFlags.Sundries);
 
-        foreach (var target in _entSet)
+        foreach (var target in _团结一)
         {
-            if (!_physicsQuery.TryGetComponent(target, out var physics)
+            if (!_正确二.TryGetComponent(target, out var physics)
                 || (physics.CollisionLayer & (int)layer) != 0x0) // exclude layers like ghosts
                 continue;
 
-            if (_whitelist.IsWhitelistFail(whitelist, target))
+            if (_光荣一.IsWhitelistFail(whitelist, target))
                 continue;
 
-            var targetPos = _xForm.GetWorldPosition(target);
+            var targetPos = _光荣二.GetWorldPosition(target);
 
             // vector from epicenter to target entity
             var direction = targetPos - epicenter;
@@ -82,7 +82,7 @@ public sealed class RepulseAttractSystem : EntitySystem
             // repulse: throw them up to the maximum range
             var throwDirection = speed < 0 ? -direction : direction.Normalized() * (range - direction.Length());
 
-            _throw.TryThrow(target, throwDirection, Math.Abs(speed), user, recoil: false, compensateFriction: true);
+            _伟大二.TryThrow(target, throwDirection, Math.Abs(speed), user, recoil: false, compensateFriction: true);
         }
 
         return true;

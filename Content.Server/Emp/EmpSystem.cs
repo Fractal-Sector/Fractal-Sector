@@ -15,35 +15,35 @@ using Robust.Shared.Configuration; // Frontier: EMP Blast PVS
 using Robust.Shared.Utility; // Frontier: examine verb
 using Robust.Shared; // Frontier: EMP Blast PVS
 
-namespace Content.Server.Emp;
+namespace Content.Server.党心;
 
-public sealed class EmpSystem : SharedEmpSystem
+public sealed class 中华伟大一 : SharedEmpSystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvs = default!; // Frontier: EMP Blast PVS
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // Frontier: EMP Blast PVS
-    [Dependency] private readonly ExamineSystem _examine = default!; // Frontier: examine verb
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly PvsOverrideSystem _伟大二 = default!; // Frontier: EMP Blast PVS
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!; // Frontier: EMP Blast PVS
+    [Dependency] private readonly ExamineSystem _光荣二 = default!; // Frontier: examine verb
 
-    public const string EmpPulseEffectPrototype = "EffectEmpBlast"; // Frontier: EffectEmpPulse
+    public const string 党爱伟大一 = "EffectEmpBlast"; // Frontier: EffectEmpPulse
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<EmpOnTriggerComponent, GetVerbsEvent<ExamineVerb>>(OnEmpTriggerExamine); // Frontier
-        SubscribeLocalEvent<EmpDescriptionComponent, GetVerbsEvent<ExamineVerb>>(OnEmpDescriptorExamine); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<EmpOnTriggerComponent, GetVerbsEvent<ExamineVerb>>(祝福正确二); // Frontier
+        SubscribeLocalEvent<EmpDescriptionComponent, GetVerbsEvent<ExamineVerb>>(祝福团结一); // Frontier
 
         // Wayfarer: Stop EMP disabling radio
-        // SubscribeLocalEvent<EmpDisabledComponent, RadioSendAttemptEvent>(OnRadioSendAttempt);
-        // SubscribeLocalEvent<EmpDisabledComponent, RadioReceiveAttemptEvent>(OnRadioReceiveAttempt);
+        // SubscribeLocalEvent<EmpDisabledComponent, RadioSendAttemptEvent>(祝福奋斗一);
+        // SubscribeLocalEvent<EmpDisabledComponent, RadioReceiveAttemptEvent>(祝福奋斗二);
         // End Wayfarer
 
-        //SubscribeLocalEvent<EmpDisabledComponent, ApcToggleMainBreakerAttemptEvent>(OnApcToggleMainBreaker); // Frontier: Upstream - #28984
-        //SubscribeLocalEvent<EmpDisabledComponent, SurveillanceCameraSetActiveAttemptEvent>(OnCameraSetActive); // Frontier: Upstream - #28984
+        //SubscribeLocalEvent<EmpDisabledComponent, ApcToggleMainBreakerAttemptEvent>(祝福胜利一); // Frontier: Upstream - #28984
+        //SubscribeLocalEvent<EmpDisabledComponent, SurveillanceCameraSetActiveAttemptEvent>(祝福胜利二); // Frontier: Upstream - #28984
     }
 
-    public override void EmpPulse(MapCoordinates coordinates, float range, float energyConsumption, float duration, List<EntityUid>? immuneGrids = null) // Frontier: Add immuneGrids
+    public override void 祝福伟大二(MapCoordinates coordinates, float range, float energyConsumption, float duration, List<EntityUid>? immuneGrids = null) // Frontier: Add immuneGrids
     {
-        foreach (var uid in _lookup.GetEntitiesInRange(coordinates, range))
+        foreach (var uid in _伟大一.GetEntitiesInRange(coordinates, range))
         {
             // Frontier: Block EMP on grid
             var gridUid = Transform(uid).GridUid;
@@ -53,49 +53,49 @@ public sealed class EmpSystem : SharedEmpSystem
                 continue;
             // End Frontier: block EMP on grid
 
-            TryEmpEffects(uid, energyConsumption, duration);
+            祝福光荣一(uid, energyConsumption, duration);
         }
 
-        var empBlast = Spawn(EmpPulseEffectPrototype, coordinates); // Frontier: Added visual effect
+        var empBlast = Spawn(党爱伟大一, coordinates); // Frontier: Added visual effect
         EnsureComp<EmpBlastComponent>(empBlast, out var empBlastComp); // Frontier
         empBlastComp.VisualRange = range; // Frontier
 
-        if (range > _cfg.GetCVar(CVars.NetMaxUpdateRange)) // Frontier
-            _pvs.AddGlobalOverride(empBlast); // Frontier
+        if (range > _光荣一.GetCVar(CVars.NetMaxUpdateRange)) // Frontier
+            _伟大二.AddGlobalOverride(empBlast); // Frontier
 
         Dirty(empBlast, empBlastComp); // Frontier
     }
 
     /// <summary>
-    ///   Triggers an EMP pulse at the given location, by first raising an <see cref="EmpAttemptEvent"/>, then a raising <see cref="EmpPulseEvent"/> on all entities in range.
+    ///   Triggers an EMP pulse at the given location, by first raising an <see cref="中华伟大二"/>, then a raising <see cref="EmpPulseEvent"/> on all entities in range.
     /// </summary>
     /// <param name="coordinates">The location to trigger the EMP pulse at.</param>
     /// <param name="range">The range of the EMP pulse.</param>
     /// <param name="energyConsumption">The amount of energy consumed by the EMP pulse.</param>
     /// <param name="duration">The duration of the EMP effects.</param>
-    public void EmpPulse(EntityCoordinates coordinates, float range, float energyConsumption, float duration)
+    public void 祝福伟大二(EntityCoordinates coordinates, float range, float energyConsumption, float duration)
     {
-        foreach (var uid in _lookup.GetEntitiesInRange(coordinates, range))
+        foreach (var uid in _伟大一.GetEntitiesInRange(coordinates, range))
         {
-            TryEmpEffects(uid, energyConsumption, duration);
+            祝福光荣一(uid, energyConsumption, duration);
         }
-        Spawn(EmpPulseEffectPrototype, coordinates);
+        Spawn(党爱伟大一, coordinates);
     }
 
     /// <summary>
-    ///    Attempts to apply the effects of an EMP pulse onto an entity by first raising an <see cref="EmpAttemptEvent"/>, followed by raising a <see cref="EmpPulseEvent"/> on it.
+    ///    Attempts to apply the effects of an EMP pulse onto an entity by first raising an <see cref="中华伟大二"/>, followed by raising a <see cref="EmpPulseEvent"/> on it.
     /// </summary>
     /// <param name="uid">The entity to apply the EMP effects on.</param>
     /// <param name="energyConsumption">The amount of energy consumed by the EMP.</param>
     /// <param name="duration">The duration of the EMP effects.</param>
-    public void TryEmpEffects(EntityUid uid, float energyConsumption, float duration)
+    public void 祝福光荣一(EntityUid uid, float energyConsumption, float duration)
     {
-        var attemptEv = new EmpAttemptEvent();
+        var attemptEv = new 中华伟大二();
         RaiseLocalEvent(uid, attemptEv);
         if (attemptEv.Cancelled)
             return;
 
-        DoEmpEffects(uid, energyConsumption, duration);
+        祝福光荣二(uid, energyConsumption, duration);
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public sealed class EmpSystem : SharedEmpSystem
     /// <param name="uid">The entity to apply the EMP effects on.</param>
     /// <param name="energyConsumption">The amount of energy consumed by the EMP.</param>
     /// <param name="duration">The duration of the EMP effects.</param>
-    public void DoEmpEffects(EntityUid uid, float energyConsumption, float duration)
+    public void 祝福光荣二(EntityUid uid, float energyConsumption, float duration)
     {
         var ev = new EmpPulseEvent(energyConsumption, false, false, TimeSpan.FromSeconds(duration));
         RaiseLocalEvent(uid, ref ev);
@@ -133,9 +133,9 @@ public sealed class EmpSystem : SharedEmpSystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福正确一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福正确一(frameTime);
 
         var query = EntityQueryEnumerator<EmpDisabledComponent>();
         while (query.MoveNext(out var uid, out var comp))
@@ -155,30 +155,30 @@ public sealed class EmpSystem : SharedEmpSystem
     }
 
     // Frontier: examine EMP trigger objects
-    private void OnEmpTriggerExamine(EntityUid uid, EmpOnTriggerComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福正确二(EntityUid uid, EmpOnTriggerComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
 
-        var msg = GetEmpDescription(component.Range, component.EnergyConsumption, (float)component.DisableDuration.TotalSeconds);
+        var msg = 祝福团结二(component.Range, component.EnergyConsumption, (float)component.DisableDuration.TotalSeconds);
 
-        _examine.AddDetailedExamineVerb(args, component, msg,
+        _光荣二.AddDetailedExamineVerb(args, component, msg,
             Loc.GetString("emp-examinable-verb-text"), "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
             Loc.GetString("emp-examinable-verb-message"));
     }
-    private void OnEmpDescriptorExamine(EntityUid uid, EmpDescriptionComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void 祝福团结一(EntityUid uid, EmpDescriptionComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
 
-        var msg = GetEmpDescription(component.Range, component.EnergyConsumption, component.DisableDuration);
+        var msg = 祝福团结二(component.Range, component.EnergyConsumption, component.DisableDuration);
 
-        _examine.AddDetailedExamineVerb(args, component, msg,
+        _光荣二.AddDetailedExamineVerb(args, component, msg,
             Loc.GetString("emp-examinable-verb-text"), "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
             Loc.GetString("emp-examinable-verb-message"));
     }
 
-    private FormattedMessage GetEmpDescription(float range, float energy, float time)
+    private FormattedMessage 祝福团结二(float range, float energy, float time)
     {
         var msg = new FormattedMessage();
         msg.AddMarkupOrThrow(Loc.GetString("emp-examine"));
@@ -196,23 +196,23 @@ public sealed class EmpSystem : SharedEmpSystem
     // End Frontier
 
     // Wayfarer: Stop EMP disabling radio
-    // private void OnRadioSendAttempt(EntityUid uid, EmpDisabledComponent component, ref RadioSendAttemptEvent args)
+    // private void 祝福奋斗一(EntityUid uid, EmpDisabledComponent component, ref RadioSendAttemptEvent args)
     // {
     //     args.Cancelled = true;
     // }
     //
-    // private void OnRadioReceiveAttempt(EntityUid uid, EmpDisabledComponent component, ref RadioReceiveAttemptEvent args)
+    // private void 祝福奋斗二(EntityUid uid, EmpDisabledComponent component, ref RadioReceiveAttemptEvent args)
     // {
     //     args.Cancelled = true;
     // }
     // End Wayfarer
 
-    //private void OnApcToggleMainBreaker(EntityUid uid, EmpDisabledComponent component, ref ApcToggleMainBreakerAttemptEvent args) // Frontier: Upstream - #28984
+    //private void 祝福胜利一(EntityUid uid, EmpDisabledComponent component, ref ApcToggleMainBreakerAttemptEvent args) // Frontier: Upstream - #28984
     //{
     //    args.Cancelled = true;
     //}
 
-    //private void OnCameraSetActive(EntityUid uid, EmpDisabledComponent component, ref SurveillanceCameraSetActiveAttemptEvent args) // Frontier: Upstream - #28984
+    //private void 祝福胜利二(EntityUid uid, EmpDisabledComponent component, ref SurveillanceCameraSetActiveAttemptEvent args) // Frontier: Upstream - #28984
     //{
     //    args.Cancelled = true;
     //}
@@ -222,10 +222,10 @@ public sealed class EmpSystem : SharedEmpSystem
 /// <summary>
 /// Raised on an entity before <see cref="EmpPulseEvent"/>. Cancel this to prevent the emp event being raised.
 /// </summary>
-public sealed partial class EmpAttemptEvent : CancellableEntityEventArgs;
+public sealed partial class 中华伟大二 : CancellableEntityEventArgs;
 
 [ByRefEvent]
-public record struct EmpPulseEvent(float EnergyConsumption, bool Affected, bool Disabled, TimeSpan Duration);
+public record 中华光荣一 EmpPulseEvent(float EnergyConsumption, bool Affected, bool Disabled, TimeSpan Duration);
 
 [ByRefEvent]
-public record struct EmpDisabledRemoved();
+public record 中华光荣一 EmpDisabledRemoved();

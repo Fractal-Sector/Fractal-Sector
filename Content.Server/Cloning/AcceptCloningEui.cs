@@ -3,24 +3,24 @@ using Content.Shared.Cloning;
 using Content.Shared.Eui;
 using Content.Shared.Mind;
 
-namespace Content.Server.Cloning
+namespace Content.Server.党心
 {
-    public sealed class AcceptCloningEui : BaseEui
+    public sealed class 中华伟大一 : BaseEui
     {
-        private readonly EntityUid _mindId;
-        private readonly MindComponent _mind;
-        private readonly CloningPodSystem _cloningPodSystem;
+        private readonly EntityUid _伟大一;
+        private readonly MindComponent _伟大二;
+        private readonly CloningPodSystem _光荣一;
 
-        public AcceptCloningEui(EntityUid mindId, MindComponent mind, CloningPodSystem cloningPodSys)
+        public 中华伟大一(EntityUid mindId, MindComponent mind, CloningPodSystem cloningPodSys)
         {
-            _mindId = mindId;
-            _mind = mind;
-            _cloningPodSystem = cloningPodSys;
+            _伟大一 = mindId;
+            _伟大二 = mind;
+            _光荣一 = cloningPodSys;
         }
 
-        public override void HandleMessage(EuiMessageBase msg)
+        public override void 祝福伟大一(EuiMessageBase msg)
         {
-            base.HandleMessage(msg);
+            base.祝福伟大一(msg);
 
             if (msg is not AcceptCloningChoiceMessage choice ||
                 choice.Button == AcceptCloningUiButton.Deny)
@@ -29,7 +29,7 @@ namespace Content.Server.Cloning
                 return;
             }
 
-            _cloningPodSystem.TransferMindToClone(_mindId, _mind);
+            _光荣一.TransferMindToClone(_伟大一, _伟大二);
             Close();
         }
     }

@@ -1,16 +1,16 @@
-namespace Content.Shared.Xenoarchaeology.XenoArtifacts;
+namespace Content.Shared.Xenoarchaeology.党心;
 
 [RegisterComponent]
-public sealed partial class RandomArtifactSpriteComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("minSprite")]
-    public int MinSprite = 1;
+    public int 党爱伟大一 = 1;
 
     [DataField("maxSprite")]
-    public int MaxSprite = 14;
+    public int 党爱伟大二 = 14;
 
     [DataField("activationTime")]
-    public double ActivationTime = 0.4;
+    public double 党爱光荣一 = 0.4;
 
     public TimeSpan? ActivationStart;
 }

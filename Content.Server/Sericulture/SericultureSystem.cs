@@ -1,7 +1,7 @@
 using Content.Shared.Sericulture;
 
-namespace Content.Server.Sericulture;
+namespace Content.Server.党心;
 
-public sealed partial class SericultureSystem : SharedSericultureSystem
+public sealed partial class 中华伟大一 : SharedSericultureSystem
 {
 }

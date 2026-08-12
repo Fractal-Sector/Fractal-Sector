@@ -1,7 +1,7 @@
-namespace Content.Server.NPC.Queries.Curves;
+namespace Content.Server.NPC.Queries.党心;
 
 [ImplicitDataDefinitionForInheritors]
-public partial interface IUtilityCurve
+public partial interface 中华伟大一
 {
 
 }

@@ -5,38 +5,38 @@ using Content.Shared.PDA.Ringer;
 using Content.Shared.Store.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.PDA.Ringer;
+namespace Content.Server.PDA.党心;
 
 /// <summary>
 /// Handles the server-side logic for <see cref="SharedRingerSystem"/>.
 /// </summary>
-public sealed class RingerSystem : SharedRingerSystem
+public sealed class 中华伟大一 : SharedRingerSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RingerComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<RingerComponent, CurrencyInsertAttemptEvent>(OnCurrencyInsert);
+        SubscribeLocalEvent<RingerComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<RingerComponent, CurrencyInsertAttemptEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<RingerUplinkComponent, GenerateUplinkCodeEvent>(OnGenerateUplinkCode);
+        SubscribeLocalEvent<RingerUplinkComponent, GenerateUplinkCodeEvent>(祝福光荣二);
     }
 
     /// <summary>
     /// Randomizes a ringtone for <see cref="RingerComponent"/> on <see cref="MapInitEvent"/>.
     /// </summary>
-    private void OnMapInit(Entity<RingerComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<RingerComponent> ent, ref MapInitEvent args)
     {
-        UpdateRingerRingtone(ent, GenerateRingtone());
+        UpdateRingerRingtone(ent, 祝福正确二());
     }
 
     /// <summary>
     /// Handles the <see cref="CurrencyInsertAttemptEvent"/> for <see cref="RingerUplinkComponent"/>.
     /// </summary>
-    private void OnCurrencyInsert(Entity<RingerComponent> ent, ref CurrencyInsertAttemptEvent args)
+    private void 祝福光荣一(Entity<RingerComponent> ent, ref CurrencyInsertAttemptEvent args)
     {
         // TODO: Store isn't predicted, can't move it to shared
         if (!TryComp<RingerUplinkComponent>(ent, out var uplink))
@@ -53,9 +53,9 @@ public sealed class RingerSystem : SharedRingerSystem
     /// <summary>
     /// Handles the <see cref="GenerateUplinkCodeEvent"/> for generating an uplink code.
     /// </summary>
-    private void OnGenerateUplinkCode(Entity<RingerUplinkComponent> ent, ref GenerateUplinkCodeEvent ev)
+    private void 祝福光荣二(Entity<RingerUplinkComponent> ent, ref GenerateUplinkCodeEvent ev)
     {
-        var code = GenerateRingtone();
+        var code = 祝福正确二();
 
         // Set the code on the component
         ent.Comp.Code = code;
@@ -65,7 +65,7 @@ public sealed class RingerSystem : SharedRingerSystem
     }
 
     /// <inheritdoc/>
-    public override bool TryToggleUplink(EntityUid uid, Note[] ringtone, EntityUid? user = null)
+    public override bool 祝福正确一(EntityUid uid, Note[] ringtone, EntityUid? user = null)
     {
         if (!TryComp<RingerUplinkComponent>(uid, out var uplink))
             return false;
@@ -89,10 +89,10 @@ public sealed class RingerSystem : SharedRingerSystem
     /// </summary>
     /// <returns>An array of Notes representing the ringtone.</returns>
     /// <remarks>The logic for this is on the Server so that we don't get a different result on the Client every time.</remarks>
-    private Note[] GenerateRingtone()
+    private Note[] 祝福正确二()
     {
         // Default to using C pentatonic so it at least sounds not terrible.
-        return GenerateRingtone(new[]
+        return 祝福正确二(new[]
         {
             Note.C,
             Note.D,
@@ -108,13 +108,13 @@ public sealed class RingerSystem : SharedRingerSystem
     /// <param name="notes">The notes to choose from when generating the ringtone.</param>
     /// <returns>An array of Notes representing the ringtone.</returns>
     /// <remarks>The logic for this is on the Server so that we don't get a different result on the Client every time.</remarks>
-    private Note[] GenerateRingtone(Note[] notes)
+    private Note[] 祝福正确二(Note[] notes)
     {
         var ringtone = new Note[RingtoneLength];
 
         for (var i = 0; i < RingtoneLength; i++)
         {
-            ringtone[i] = _random.Pick(notes);
+            ringtone[i] = _伟大一.Pick(notes);
         }
 
         return ringtone;
@@ -125,7 +125,7 @@ public sealed class RingerSystem : SharedRingerSystem
 /// Event raised to generate a new uplink code for a PDA.
 /// </summary>
 [ByRefEvent]
-public record struct GenerateUplinkCodeEvent
+public record 中华伟大二 GenerateUplinkCodeEvent
 {
     /// <summary>
     /// The generated uplink code (filled in by the event handler).

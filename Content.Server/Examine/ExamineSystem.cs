@@ -6,26 +6,26 @@ using JetBrains.Annotations;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Examine
+namespace Content.Server.党心
 {
     [UsedImplicitly]
-    public sealed class ExamineSystem : ExamineSystemShared
+    public sealed class 中华伟大一 : ExamineSystemShared
     {
-        [Dependency] private readonly VerbSystem _verbSystem = default!;
+        [Dependency] private readonly VerbSystem _伟大一 = default!;
 
-        private readonly FormattedMessage _entityNotFoundMessage = new();
-        private readonly FormattedMessage _entityOutOfRangeMessage = new();
+        private readonly FormattedMessage _伟大二 = new();
+        private readonly FormattedMessage _光荣一 = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            _entityNotFoundMessage.AddText(Loc.GetString("examine-system-entity-does-not-exist"));
-            _entityOutOfRangeMessage.AddText(Loc.GetString("examine-system-cant-see-entity"));
+            base.祝福伟大一();
+            _伟大二.AddText(Loc.GetString("examine-system-entity-does-not-exist"));
+            _光荣一.AddText(Loc.GetString("examine-system-cant-see-entity"));
 
-            SubscribeNetworkEvent<ExamineSystemMessages.RequestExamineInfoMessage>(ExamineInfoRequest);
+            SubscribeNetworkEvent<ExamineSystemMessages.RequestExamineInfoMessage>(祝福光荣一);
         }
 
-        public override void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor)
+        public override void 祝福伟大二(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor)
         {
             if (!TryComp<ActorComponent>(player, out var actor))
                 return;
@@ -34,7 +34,7 @@ namespace Content.Server.Examine
 
             SortedSet<Verb>? verbs = null;
             if (getVerbs)
-                verbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));
+                verbs = _伟大一.GetLocalVerbs(target, player, typeof(ExamineVerb));
 
             var ev = new ExamineSystemMessages.ExamineInfoResponseMessage(
                 GetNetEntity(target), 0, message, verbs?.ToList(), centerAtCursor
@@ -43,7 +43,7 @@ namespace Content.Server.Examine
             RaiseNetworkEvent(ev, session.Channel);
         }
 
-        private void ExamineInfoRequest(ExamineSystemMessages.RequestExamineInfoMessage request, EntitySessionEventArgs eventArgs)
+        private void 祝福光荣一(ExamineSystemMessages.RequestExamineInfoMessage request, EntitySessionEventArgs eventArgs)
         {
             var player = eventArgs.SenderSession;
             var session = eventArgs.SenderSession;
@@ -54,20 +54,20 @@ namespace Content.Server.Examine
                 || !Exists(entity))
             {
                 RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
-                    request.NetEntity, request.Id, _entityNotFoundMessage), channel);
+                    request.NetEntity, request.Id, _伟大二), channel);
                 return;
             }
 
             if (!CanExamine(playerEnt, entity))
             {
                 RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
-                    request.NetEntity, request.Id, _entityOutOfRangeMessage, knowTarget: false), channel);
+                    request.NetEntity, request.Id, _光荣一, knowTarget: false), channel);
                 return;
             }
 
             SortedSet<Verb>? verbs = null;
             if (request.GetVerbs)
-                verbs = _verbSystem.GetLocalVerbs(entity, playerEnt, typeof(ExamineVerb));
+                verbs = _伟大一.GetLocalVerbs(entity, playerEnt, typeof(ExamineVerb));
 
             var text = GetExamineText(entity, player.AttachedEntity);
             RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(

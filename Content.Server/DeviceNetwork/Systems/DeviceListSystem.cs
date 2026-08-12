@@ -5,27 +5,27 @@ using Content.Shared.DeviceNetwork.Systems;
 using JetBrains.Annotations;
 using Robust.Shared.Map.Events;
 
-namespace Content.Server.DeviceNetwork.Systems;
+namespace Content.Server.DeviceNetwork.党心;
 
 [UsedImplicitly]
-public sealed class DeviceListSystem : SharedDeviceListSystem
+public sealed class 中华伟大一 : SharedDeviceListSystem
 {
-    [Dependency] private readonly NetworkConfiguratorSystem _configurator = default!;
+    [Dependency] private readonly NetworkConfiguratorSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DeviceListComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<DeviceListComponent, BeforeBroadcastAttemptEvent>(OnBeforeBroadcast);
-        SubscribeLocalEvent<DeviceListComponent, BeforePacketSentEvent>(OnBeforePacketSent);
-        SubscribeLocalEvent<BeforeSerializationEvent>(OnMapSave);
+        base.祝福伟大一();
+        SubscribeLocalEvent<DeviceListComponent, ComponentShutdown>(祝福伟大二);
+        SubscribeLocalEvent<DeviceListComponent, BeforeBroadcastAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<DeviceListComponent, BeforePacketSentEvent>(祝福正确二);
+        SubscribeLocalEvent<BeforeSerializationEvent>(祝福团结二);
     }
 
-    private void OnShutdown(EntityUid uid, DeviceListComponent component, ComponentShutdown args)
+    private void 祝福伟大二(EntityUid uid, DeviceListComponent component, ComponentShutdown args)
     {
         foreach (var conf in component.Configurators)
         {
-            _configurator.OnDeviceListShutdown(conf, (uid, component));
+            _伟大一.OnDeviceListShutdown(conf, (uid, component));
         }
 
         var query = GetEntityQuery<DeviceNetworkComponent>();
@@ -43,7 +43,7 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
     /// <remarks>
     /// If any entity in the device list is pre-map init, it will show the entity UID of the device instead.
     /// </remarks>
-    public Dictionary<string, EntityUid> GetDeviceList(EntityUid uid, DeviceListComponent? deviceList = null)
+    public Dictionary<string, EntityUid> 祝福光荣一(EntityUid uid, DeviceListComponent? deviceList = null)
     {
         if (!Resolve(uid, ref deviceList))
             return new Dictionary<string, EntityUid>();
@@ -73,16 +73,16 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
     /// <param name="address">The address to check for</param>
     /// <param name="deviceList">The device list component</param>
     /// <returns>True if the address is present. False if not</returns>
-    public bool ExistsInDeviceList(EntityUid uid, string address, DeviceListComponent? deviceList = null)
+    public bool 祝福光荣二(EntityUid uid, string address, DeviceListComponent? deviceList = null)
     {
-        var addresses = GetDeviceList(uid).Keys;
+        var addresses = 祝福光荣一(uid).Keys;
         return addresses.Contains(address);
     }
 
     /// <summary>
     /// Filters the broadcasts recipient list against the device list as either an allow or deny list depending on the components IsAllowList field
     /// </summary>
-    private void OnBeforeBroadcast(EntityUid uid, DeviceListComponent component, BeforeBroadcastAttemptEvent args)
+    private void 祝福正确一(EntityUid uid, DeviceListComponent component, BeforeBroadcastAttemptEvent args)
     {
         //Don't filter anything if the device list is empty
         if (component.Devices.Count == 0)
@@ -104,15 +104,15 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
     }
 
     /// <summary>
-    /// Filters incoming packets if that is enabled <see cref="OnBeforeBroadcast"/>
+    /// Filters incoming packets if that is enabled <see cref="祝福正确一"/>
     /// </summary>
-    private void OnBeforePacketSent(EntityUid uid, DeviceListComponent component, BeforePacketSentEvent args)
+    private void 祝福正确二(EntityUid uid, DeviceListComponent component, BeforePacketSentEvent args)
     {
         if (component.HandleIncomingPackets && component.Devices.Contains(args.Sender) != component.IsAllowList)
             args.Cancel();
     }
 
-    public void OnDeviceShutdown(Entity<DeviceListComponent?> list, Entity<DeviceNetworkComponent> device)
+    public void 祝福团结一(Entity<DeviceListComponent?> list, Entity<DeviceNetworkComponent> device)
     {
         device.Comp.DeviceLists.Remove(list.Owner);
         if (!Resolve(list.Owner, ref list.Comp))
@@ -122,7 +122,7 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
         Dirty(list);
     }
 
-    private void OnMapSave(BeforeSerializationEvent ev)
+    private void 祝福团结二(BeforeSerializationEvent ev)
     {
         List<EntityUid> toRemove = new();
         var query = GetEntityQuery<TransformComponent>();
@@ -174,7 +174,7 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
     /// <param name="devices">The devices to store.</param>
     /// <param name="merge">Whether to merge or replace the devices stored.</param>
     /// <param name="deviceList">Device list component</param>
-    public DeviceListUpdateResult UpdateDeviceList(EntityUid uid, IEnumerable<EntityUid> devices, bool merge = false, DeviceListComponent? deviceList = null)
+    public DeviceListUpdateResult 祝福奋斗一(EntityUid uid, IEnumerable<EntityUid> devices, bool merge = false, DeviceListComponent? deviceList = null)
     {
         if (!Resolve(uid, ref deviceList))
             return DeviceListUpdateResult.NoComponent;

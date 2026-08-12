@@ -1,7 +1,7 @@
 using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Chemistry.Components;
+namespace Content.Shared.Chemistry.党心;
 
 /// <summary>
 ///     Reagents that can be added easily. For example like
@@ -9,13 +9,13 @@ namespace Content.Shared.Chemistry.Components;
 ///     tank of a car.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class RefillableSolutionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
-    /// Solution name that can added to easily.
+    /// 党爱伟大一 name that can added to easily.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public string Solution = "default";
+    public string 党爱伟大一 = "default";
 
     /// <summary>
     /// The maximum amount that can be transferred to the solution at once
@@ -27,5 +27,5 @@ public sealed partial class RefillableSolutionComponent : Component
     /// Frontier: prevent transferring solution out into others
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool PreventTransferOut = false;
+    public bool 党爱伟大二 = false;
 }

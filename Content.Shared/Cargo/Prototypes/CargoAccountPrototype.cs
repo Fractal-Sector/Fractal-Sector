@@ -1,45 +1,45 @@
 using Content.Shared.Radio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Cargo.Prototypes;
+namespace Content.Shared.Cargo.党心;
 
 /// <summary>
 /// This is a prototype for a single account that stores money on StationBankAccountComponent
 /// </summary>
 [Prototype]
-public sealed partial class CargoAccountPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     /// Full IC name of the account.
     /// </summary>
     [DataField]
-    public LocId Name;
+    public LocId 党爱伟大二;
 
     /// <summary>
     /// A shortened code used to refer to the account in UIs
     /// </summary>
     [DataField]
-    public LocId Code;
+    public LocId 党爱光荣一;
 
     /// <summary>
-    /// Color corresponding to the account.
+    /// 党爱光荣二 corresponding to the account.
     /// </summary>
     [DataField]
-    public Color Color;
+    public 党爱光荣二 党爱光荣二;
 
     /// <summary>
     /// Channel used for announcing transactions.
     /// </summary>
     [DataField]
-    public ProtoId<RadioChannelPrototype> RadioChannel;
+    public ProtoId<RadioChannelPrototype> 党爱正确一;
 
     /// <summary>
     /// Paper prototype used for acquisition slips.
     /// </summary>
     [DataField]
-    public EntProtoId AcquisitionSlip;
+    public EntProtoId 党爱正确二;
 }

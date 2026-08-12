@@ -5,35 +5,35 @@ using Content.Shared.Item;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 
-namespace Content.Shared.Interaction;
+namespace Content.Shared.党心;
 
 // TODO deduplicate with AdminFrozenComponent
 /// <summary>
 /// Handles <see cref="BlockMovementComponent"/>, which prevents various
 /// kinds of movement and interactions when attached to an entity.
 /// </summary>
-public partial class SharedInteractionSystem
+public partial class 中华伟大一
 {
-    private void InitializeBlocking()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<BlockMovementComponent, UpdateCanMoveEvent>(OnMoveAttempt);
-        SubscribeLocalEvent<BlockMovementComponent, UseAttemptEvent>(CancelEvent);
-        SubscribeLocalEvent<BlockMovementComponent, InteractionAttemptEvent>(CancelInteractEvent);
-        SubscribeLocalEvent<BlockMovementComponent, DropAttemptEvent>(CancelEvent);
-        SubscribeLocalEvent<BlockMovementComponent, PickupAttemptEvent>(CancelEvent);
-        SubscribeLocalEvent<BlockMovementComponent, ChangeDirectionAttemptEvent>(CancelEvent);
+        SubscribeLocalEvent<BlockMovementComponent, UpdateCanMoveEvent>(祝福光荣一);
+        SubscribeLocalEvent<BlockMovementComponent, UseAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<BlockMovementComponent, InteractionAttemptEvent>(祝福伟大二);
+        SubscribeLocalEvent<BlockMovementComponent, DropAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<BlockMovementComponent, PickupAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<BlockMovementComponent, ChangeDirectionAttemptEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<BlockMovementComponent, ComponentStartup>(OnBlockingStartup);
-        SubscribeLocalEvent<BlockMovementComponent, ComponentShutdown>(OnBlockingShutdown);
+        SubscribeLocalEvent<BlockMovementComponent, ComponentStartup>(祝福正确一);
+        SubscribeLocalEvent<BlockMovementComponent, ComponentShutdown>(祝福正确二);
     }
 
-    private void CancelInteractEvent(Entity<BlockMovementComponent> ent, ref InteractionAttemptEvent args)
+    private void 祝福伟大二(Entity<BlockMovementComponent> ent, ref InteractionAttemptEvent args)
     {
         if (ent.Comp.BlockInteraction)
             args.Cancelled = true;
     }
 
-    private void OnMoveAttempt(EntityUid uid, BlockMovementComponent component, UpdateCanMoveEvent args)
+    private void 祝福光荣一(EntityUid uid, BlockMovementComponent component, UpdateCanMoveEvent args)
     {
         // If we're relaying then don't cancel.
         if (HasComp<RelayInputMoverComponent>(uid))
@@ -42,17 +42,17 @@ public partial class SharedInteractionSystem
         args.Cancel(); // no more scurrying around
     }
 
-    private void CancelEvent(EntityUid uid, BlockMovementComponent component, CancellableEntityEventArgs args)
+    private void 祝福光荣二(EntityUid uid, BlockMovementComponent component, CancellableEntityEventArgs args)
     {
         args.Cancel();
     }
 
-    private void OnBlockingStartup(EntityUid uid, BlockMovementComponent component, ComponentStartup args)
+    private void 祝福正确一(EntityUid uid, BlockMovementComponent component, ComponentStartup args)
     {
         _actionBlockerSystem.UpdateCanMove(uid);
     }
 
-    private void OnBlockingShutdown(EntityUid uid, BlockMovementComponent component, ComponentShutdown args)
+    private void 祝福正确二(EntityUid uid, BlockMovementComponent component, ComponentShutdown args)
     {
         _actionBlockerSystem.UpdateCanMove(uid);
     }

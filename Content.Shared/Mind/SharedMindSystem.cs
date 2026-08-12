@@ -23,49 +23,49 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Mind;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedMindSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly SharedPlayerSystem _player = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly MobStateSystem _光荣二 = default!;
+    [Dependency] private readonly SharedObjectivesSystem _正确一 = default!;
+    [Dependency] private readonly SharedPlayerSystem _正确二 = default!;
+    [Dependency] private readonly ISharedPlayerManager _团结一 = default!;
+    [Dependency] private readonly MetaDataSystem _团结二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedContainerSystem _奋斗二 = default!;
 
     [ViewVariables]
     protected readonly Dictionary<NetUserId, EntityUid> UserMinds = new();
 
-    private HashSet<Entity<MindComponent>> _pickingMinds = new();
+    private HashSet<Entity<MindComponent>> _胜利一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MindContainerComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<MindContainerComponent, SuicideEvent>(OnSuicide);
-        SubscribeLocalEvent<VisitingMindComponent, EntityTerminatingEvent>(OnVisitingTerminating);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnReset);
-        SubscribeLocalEvent<MindComponent, ComponentStartup>(OnMindStartup);
-        SubscribeLocalEvent<MindComponent, EntityRenamedEvent>(OnRenamed);
+        SubscribeLocalEvent<MindContainerComponent, ExaminedEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MindContainerComponent, SuicideEvent>(祝福奋斗二);
+        SubscribeLocalEvent<VisitingMindComponent, EntityTerminatingEvent>(祝福团结二);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福光荣二);
+        SubscribeLocalEvent<MindComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<MindComponent, EntityRenamedEvent>(祝福胜利一);
 
         InitializeRelay();
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
-        WipeAllMinds();
+        base.祝福伟大二();
+        祝福正确一();
     }
 
-    private void OnMindStartup(EntityUid uid, MindComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, MindComponent component, ComponentStartup args)
     {
-        component.MindRoleContainer = _container.EnsureContainer<Container>(uid, MindComponent.MindRoleContainerId);
+        component.MindRoleContainer = _奋斗二.EnsureContainer<Container>(uid, MindComponent.MindRoleContainerId);
 
         if (component.UserId == null)
             return;
@@ -88,17 +88,17 @@ public abstract partial class SharedMindSystem : EntitySystem
         component.UserId = null;
     }
 
-    private void OnReset(RoundRestartCleanupEvent ev)
+    private void 祝福光荣二(RoundRestartCleanupEvent ev)
     {
-        WipeAllMinds();
+        祝福正确一();
     }
 
-    public virtual void WipeAllMinds()
+    public virtual void 祝福正确一()
     {
         Log.Info($"Wiping all minds");
         foreach (var mind in UserMinds.Values.ToArray())
         {
-            WipeMind(mind);
+            祝福民主二(mind);
         }
 
         if (UserMinds.Count == 0)
@@ -115,11 +115,11 @@ public abstract partial class SharedMindSystem : EntitySystem
 
     public EntityUid? GetMind(NetUserId user)
     {
-        TryGetMind(user, out var mind, out _);
+        祝福正确二(user, out var mind, out _);
         return mind;
     }
 
-    public virtual bool TryGetMind(NetUserId user, [NotNullWhen(true)] out EntityUid? mindId, [NotNullWhen(true)] out MindComponent? mind)
+    public virtual bool 祝福正确二(NetUserId user, [NotNullWhen(true)] out EntityUid? mindId, [NotNullWhen(true)] out MindComponent? mind)
     {
         if (UserMinds.TryGetValue(user, out var mindIdValue) &&
             TryComp(mindIdValue, out mind))
@@ -135,9 +135,9 @@ public abstract partial class SharedMindSystem : EntitySystem
         return false;
     }
 
-    public bool TryGetMind(NetUserId user, [NotNullWhen(true)] out Entity<MindComponent>? mind)
+    public bool 祝福正确二(NetUserId user, [NotNullWhen(true)] out Entity<MindComponent>? mind)
     {
-        if (!TryGetMind(user, out var mindId, out var mindComp))
+        if (!祝福正确二(user, out var mindId, out var mindComp))
         {
             mind = null;
             return false;
@@ -147,33 +147,33 @@ public abstract partial class SharedMindSystem : EntitySystem
         return true;
     }
 
-    public Entity<MindComponent> GetOrCreateMind(NetUserId user)
+    public Entity<MindComponent> 祝福团结一(NetUserId user)
     {
-        if (!TryGetMind(user, out var mind))
-            mind = CreateMind(user);
+        if (!祝福正确二(user, out var mind))
+            mind = 祝福胜利二(user);
 
         return mind.Value;
     }
 
-    private void OnVisitingTerminating(EntityUid uid, VisitingMindComponent component, ref EntityTerminatingEvent args)
+    private void 祝福团结二(EntityUid uid, VisitingMindComponent component, ref EntityTerminatingEvent args)
     {
         if (component.MindId != null)
-            UnVisit(component.MindId.Value);
+            祝福富强二(component.MindId.Value);
     }
 
-    private void OnExamined(EntityUid uid, MindContainerComponent mindContainer, ExaminedEvent args)
+    private void 祝福奋斗一(EntityUid uid, MindContainerComponent mindContainer, ExaminedEvent args)
     {
         if (!mindContainer.ShowExamineInfo || !args.IsInDetailsRange)
             return;
 
-        // TODO: Move this out of the SharedMindSystem into its own comp and predict it
-        if (_net.IsClient)
+        // TODO: Move this out of the 中华伟大一 into its own comp and predict it
+        if (_伟大二.IsClient)
             return;
 
-        var dead = _mobState.IsDead(uid);
+        var dead = _光荣二.IsDead(uid);
         var mind = CompOrNull<MindComponent>(mindContainer.Mind);
         var hasUserId = mind?.UserId;
-        var hasActiveSession = hasUserId != null && _playerManager.ValidSessionId(hasUserId.Value);
+        var hasActiveSession = hasUserId != null && _团结一.ValidSessionId(hasUserId.Value);
 
         // Scenarios:
         // 1. Dead + No User ID: Entity is permanently dead with no player ever attached
@@ -198,7 +198,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// Checks to see if the user's mind prevents them from suicide
     /// Handles the suicide event without killing the user if true
     /// </summary>
-    private void OnSuicide(EntityUid uid, MindContainerComponent component, SuicideEvent args)
+    private void 祝福奋斗二(EntityUid uid, MindContainerComponent component, SuicideEvent args)
     {
         if (args.Handled)
             return;
@@ -207,7 +207,7 @@ public abstract partial class SharedMindSystem : EntitySystem
             args.Handled = true;
     }
 
-    private void OnRenamed(Entity<MindComponent> ent, ref EntityRenamedEvent args)
+    private void 祝福胜利一(Entity<MindComponent> ent, ref EntityRenamedEvent args)
     {
         ent.Comp.CharacterName = args.NewName;
         Dirty(ent);
@@ -224,13 +224,13 @@ public abstract partial class SharedMindSystem : EntitySystem
         return null;
     }
 
-    public Entity<MindComponent> CreateMind(NetUserId? userId, string? name = null)
+    public Entity<MindComponent> 祝福胜利二(NetUserId? userId, string? name = null)
     {
         var mindId = Spawn(null, MapCoordinates.Nullspace);
-        _metadata.SetEntityName(mindId, name == null ? "mind" : $"mind ({name})");
+        _团结二.SetEntityName(mindId, name == null ? "mind" : $"mind ({name})");
         var mind = EnsureComp<MindComponent>(mindId);
         mind.CharacterName = name;
-        SetUserId(mindId, userId, mind);
+        祝福平等二(mindId, userId, mind);
 
         return (mindId, mind);
     }
@@ -239,7 +239,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     ///     True if the OwnedEntity of this mind is physically dead.
     ///     This specific definition, as opposed to CharacterDeadIC, is used to determine if ghosting should allow return.
     /// </summary>
-    public bool IsCharacterDeadPhysically(MindComponent mind)
+    public bool 祝福繁荣一(MindComponent mind)
     {
         // This is written explicitly so that the logic can be understood.
         // But it's also weird and potentially situational.
@@ -262,7 +262,7 @@ public abstract partial class SharedMindSystem : EntitySystem
         if (targetMobState == null)
             return true;
         // They might actually be alive.
-        return _mobState.IsDead(mind.OwnedEntity.Value, targetMobState);
+        return _光荣二.IsDead(mind.OwnedEntity.Value, targetMobState);
     }
 
     /// <summary>
@@ -270,7 +270,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     ///     This is mainly to check whether a mind is able to inherit their "original" character again without the need for creating a new one.
     ///     In cases of being a brain, being borged or a zombie they are "unrevivable"
     /// </summary>
-    public bool IsCharacterUnrevivablePhysically(MindComponent mind)
+    public bool 祝福繁荣二(MindComponent mind)
     {
         if (mind.OwnedEntity == null)
             return true;
@@ -283,33 +283,33 @@ public abstract partial class SharedMindSystem : EntitySystem
         return false;
     }
 
-    public virtual void Visit(EntityUid mindId, EntityUid entity, MindComponent? mind = null)
+    public virtual void 祝福富强一(EntityUid mindId, EntityUid entity, MindComponent? mind = null)
     {
     }
 
     /// <summary>
     /// Returns the mind to its original entity.
     /// </summary>
-    public virtual void UnVisit(EntityUid mindId, MindComponent? mind = null)
+    public virtual void 祝福富强二(EntityUid mindId, MindComponent? mind = null)
     {
     }
 
     /// <summary>
     /// Returns the mind to its original entity.
     /// </summary>
-    public void UnVisit(ICommonSession? player)
+    public void 祝福富强二(ICommonSession? player)
     {
-        if (player == null || !TryGetMind(player, out var mindId, out var mind))
+        if (player == null || !祝福正确二(player, out var mindId, out var mind))
             return;
 
-        UnVisit(mindId, mind);
+        祝福富强二(mindId, mind);
     }
 
     /// <summary>
     /// Cleans up the VisitingEntity.
     /// </summary>
     /// <param name="mind"></param>
-    protected void RemoveVisitingEntity(EntityUid mindId, MindComponent mind)
+    protected void 祝福民主一(EntityUid mindId, MindComponent mind)
     {
         if (mind.VisitingEntity == null)
             return;
@@ -328,23 +328,23 @@ public abstract partial class SharedMindSystem : EntitySystem
         RaiseLocalEvent(oldVisitingEnt, new MindUnvisitedMessage(), true);
     }
 
-    public void WipeMind(ICommonSession player)
+    public void 祝福民主二(ICommonSession player)
     {
-        var mind = _player.ContentData(player)?.Mind;
+        var mind = _正确二.ContentData(player)?.Mind;
         DebugTools.Assert(GetMind(player.UserId) == mind);
-        WipeMind(mind);
+        祝福民主二(mind);
     }
 
     /// <summary>
     /// Detaches a mind from all entities and clears the user ID.
     /// </summary>
-    public void WipeMind(EntityUid? mindId, MindComponent? mind = null)
+    public void 祝福民主二(EntityUid? mindId, MindComponent? mind = null)
     {
         if (mindId == null || !Resolve(mindId.Value, ref mind, false))
             return;
 
-        TransferTo(mindId.Value, null, createGhost:false, mind: mind);
-        SetUserId(mindId.Value, null, mind: mind);
+        祝福文明一(mindId.Value, null, createGhost:false, mind: mind);
+        祝福平等二(mindId.Value, null, mind: mind);
     }
 
     /// <summary>
@@ -361,35 +361,35 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <exception cref="ArgumentException">
     ///     Thrown if <paramref name="entity"/> is already controlled by another player.
     /// </exception>
-    public virtual void TransferTo(EntityUid mindId, EntityUid? entity, bool ghostCheckOverride = false, bool createGhost = true, MindComponent? mind = null)
+    public virtual void 祝福文明一(EntityUid mindId, EntityUid? entity, bool ghostCheckOverride = false, bool createGhost = true, MindComponent? mind = null)
     {
     }
 
-    public virtual void ControlMob(EntityUid user, EntityUid target) {}
+    public virtual void 祝福文明二(EntityUid user, EntityUid target) {}
 
-    public virtual void ControlMob(NetUserId user, EntityUid target) {}
+    public virtual void 祝福文明二(NetUserId user, EntityUid target) {}
 
     /// <summary>
     /// Tries to create and add an objective from its prototype id.
     /// </summary>
     /// <returns>Returns true if adding the objective succeeded.</returns>
-    public bool TryAddObjective(EntityUid mindId, MindComponent mind, string proto)
+    public bool 祝福和谐一(EntityUid mindId, MindComponent mind, string proto)
     {
-        var objective = _objectives.TryCreateObjective(mindId, mind, proto);
+        var objective = _正确一.TryCreateObjective(mindId, mind, proto);
         if (objective == null)
             return false;
 
-        AddObjective(mindId, mind, objective.Value);
+        祝福和谐二(mindId, mind, objective.Value);
         return true;
     }
 
     /// <summary>
     /// Adds an objective that already exists, and is assumed to have had its requirements checked.
     /// </summary>
-    public void AddObjective(EntityUid mindId, MindComponent mind, EntityUid objective)
+    public void 祝福和谐二(EntityUid mindId, MindComponent mind, EntityUid objective)
     {
         var title = Name(objective);
-        _adminLogger.Add(LogType.Mind, LogImpact.Low, $"Objective {objective} ({title}) added to mind of {MindOwnerLoggingString(mind)}");
+        _伟大一.Add(LogType.Mind, LogImpact.Low, $"Objective {objective} ({title}) added to mind of {祝福法治一(mind)}");
         mind.Objectives.Add(objective);
     }
 
@@ -397,7 +397,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// Removes an objective from this mind.
     /// </summary>
     /// <returns>Returns true if the removal succeeded.</returns>
-    public bool TryRemoveObjective(EntityUid mindId, MindComponent mind, int index)
+    public bool 祝福自由一(EntityUid mindId, MindComponent mind, int index)
     {
         if (index < 0 || index >= mind.Objectives.Count)
             return false;
@@ -405,7 +405,7 @@ public abstract partial class SharedMindSystem : EntitySystem
         var objective = mind.Objectives[index];
 
         var title = Name(objective);
-        _adminLogger.Add(LogType.Mind, LogImpact.Low, $"Objective {objective} ({title}) removed from the mind of {MindOwnerLoggingString(mind)}");
+        _伟大一.Add(LogType.Mind, LogImpact.Low, $"Objective {objective} ({title}) removed from the mind of {祝福法治一(mind)}");
         mind.Objectives.Remove(objective);
 
         // garbage collection - only delete the objective entity if no mind uses it anymore
@@ -423,7 +423,7 @@ public abstract partial class SharedMindSystem : EntitySystem
 
     public bool TryGetObjectiveComp<T>(EntityUid uid, [NotNullWhen(true)] out T? objective) where T : IComponent
     {
-        if (TryGetMind(uid, out var mindId, out var mind) && TryGetObjectiveComp(mindId, out objective, mind))
+        if (祝福正确二(uid, out var mindId, out var mind) && TryGetObjectiveComp(mindId, out objective, mind))
         {
             return true;
         }
@@ -460,7 +460,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <param name="target"> mind entity of the player to copy to </param>
     /// <param name="except"> whitelist for objectives that should be copied </param>
     /// <param name="except"> blacklist for objectives that should not be copied </param>
-    public void CopyObjectives(Entity<MindComponent?> source, Entity<MindComponent?> target, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void 祝福自由二(Entity<MindComponent?> source, Entity<MindComponent?> target, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
     {
         if (!Resolve(source, ref source.Comp) || !Resolve(target, ref target.Comp))
             return;
@@ -470,8 +470,8 @@ public abstract partial class SharedMindSystem : EntitySystem
             if (target.Comp.Objectives.Contains(objective))
                 continue; // target already has this objective
 
-            if (_whitelist.CheckBoth(objective, blacklist, whitelist))
-                AddObjective(target, target.Comp, objective);
+            if (_奋斗一.CheckBoth(objective, blacklist, whitelist))
+                祝福和谐二(target, target.Comp, objective);
         }
     }
 
@@ -481,7 +481,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <remarks>
     /// Will not work for objectives that have no prototype, or duplicate objectives with the same prototype.
     /// <//remarks>
-    public bool TryFindObjective(Entity<MindComponent?> mind, string prototype, [NotNullWhen(true)] out EntityUid? objective)
+    public bool 祝福平等一(Entity<MindComponent?> mind, string prototype, [NotNullWhen(true)] out EntityUid? objective)
     {
         objective = null;
         if (!Resolve(mind, ref mind.Comp))
@@ -507,7 +507,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <param name="mind">The returned mind.</param>
     /// <param name="container">Mind component on <paramref name="uid"/> to get the mind from.</param>
     /// <returns>True if mind found. False if not.</returns>
-    public bool TryGetMind(
+    public bool 祝福正确二(
         EntityUid uid,
         out EntityUid mindId,
         [NotNullWhen(true)] out MindComponent? mind,
@@ -535,7 +535,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     }
 
     // TODO MIND make this return a nullable EntityUid or Entity<MindComponent>
-    public bool TryGetMind(
+    public bool 祝福正确二(
         ICommonSession? player,
         out EntityUid mindId,
         [NotNullWhen(true)] out MindComponent? mind)
@@ -547,7 +547,7 @@ public abstract partial class SharedMindSystem : EntitySystem
             return false;
         }
 
-        if (TryGetMind(player.UserId, out var mindUid, out mind))
+        if (祝福正确二(player.UserId, out var mindUid, out mind))
         {
             mindId = mindUid.Value;
             return true;
@@ -562,7 +562,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// entity that any mind is connected to, except as a side effect of the fact that it may change a player's
     /// attached entity. E.g., ghosts get deleted.
     /// </summary>
-    public virtual void SetUserId(EntityUid mindId, NetUserId? userId, MindComponent? mind = null)
+    public virtual void 祝福平等二(EntityUid mindId, NetUserId? userId, MindComponent? mind = null)
     {
     }
 
@@ -572,7 +572,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     ///     "If administrators decide that zombies are dead, this returns true for zombies."
     ///     (Maybe you were looking for the action blocker system?)
     /// </summary>
-    public bool IsCharacterDeadIc(MindComponent mind)
+    public bool 祝福公正一(MindComponent mind)
     {
         if (mind.OwnedEntity is { } owned)
         {
@@ -583,7 +583,7 @@ public abstract partial class SharedMindSystem : EntitySystem
                 return ev.Dead.Value;
         }
 
-        return IsCharacterDeadPhysically(mind);
+        return 祝福繁荣一(mind);
     }
 
     /// <summary>
@@ -593,7 +593,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     ///     Alternative IsCharacterDeadIC that checks for whether they will be able to inherit their body again.
     ///     State in which they must be given a new body to "live" (borging, being a brain, etc) should count as "unrevivable".
     /// </summary>
-    public bool IsCharacterUnrevivableIc(MindComponent mind)
+    public bool 祝福公正二(MindComponent mind)
     {
         if (mind.OwnedEntity is { } owned)
         {
@@ -604,13 +604,13 @@ public abstract partial class SharedMindSystem : EntitySystem
                 return ev.Unrevivable.Value;
         }
 
-        return IsCharacterUnrevivablePhysically(mind);
+        return 祝福繁荣二(mind);
     }
 
     /// <summary>
     ///     A string to represent the mind for logging
     /// </summary>
-    public string MindOwnerLoggingString(MindComponent mind)
+    public string 祝福法治一(MindComponent mind)
     {
         if (mind.OwnedEntity != null)
             return ToPrettyString(mind.OwnedEntity.Value);
@@ -621,24 +621,24 @@ public abstract partial class SharedMindSystem : EntitySystem
 
     public string? GetCharacterName(NetUserId userId)
     {
-        return TryGetMind(userId, out _, out var mind) ? mind.CharacterName : null;
+        return 祝福正确二(userId, out _, out var mind) ? mind.CharacterName : null;
     }
 
     /// <summary>
     /// Returns a list of every living humanoid player's minds, except for a single one which is exluded.
-    /// A new hashset is allocated for every call, consider using <see cref="AddAliveHumans"/> instead.
+    /// A new hashset is allocated for every call, consider using <see cref="祝福爱国一"/> instead.
     /// </summary>
-    public HashSet<Entity<MindComponent>> GetAliveHumans(EntityUid? exclude = null)
+    public HashSet<Entity<MindComponent>> 祝福法治二(EntityUid? exclude = null)
     {
         var allHumans = new HashSet<Entity<MindComponent>>();
-        AddAliveHumans(allHumans, exclude);
+        祝福爱国一(allHumans, exclude);
         return allHumans;
     }
 
     /// <summary>
     /// Adds to a hashset every living humanoid player's minds, except for a single one which is exluded.
     /// </summary>
-    public void AddAliveHumans(HashSet<Entity<MindComponent>> allHumans, EntityUid? exclude = null)
+    public void 祝福爱国一(HashSet<Entity<MindComponent>> allHumans, EntityUid? exclude = null)
     {
         // HumanoidAppearanceComponent is used to prevent mice, pAIs, etc from being chosen
         var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MobStateComponent>();
@@ -646,7 +646,7 @@ public abstract partial class SharedMindSystem : EntitySystem
         {
             // the player needs to have a mind and not be the excluded one +
             // the player has to be alive
-            if (!TryGetMind(uid, out var mind, out var mindComp) || mind == exclude || !_mobState.IsAlive(uid, mobState))
+            if (!祝福正确二(uid, out var mind, out var mindComp) || mind == exclude || !_光荣二.IsAlive(uid, mobState))
                 continue;
 
             allHumans.Add((mind, mindComp));
@@ -659,20 +659,20 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// </summary>
     public Entity<MindComponent>? PickFromPool(IMindPool pool, List<MindFilter> filters, EntityUid? exclude = null)
     {
-        _pickingMinds.Clear();
-        pool.FindMinds(_pickingMinds, exclude, EntityManager, this);
-        FilterMinds(_pickingMinds, filters, exclude);
+        _胜利一.Clear();
+        pool.FindMinds(_胜利一, exclude, EntityManager, this);
+        祝福爱国二(_胜利一, filters, exclude);
 
-        if (_pickingMinds.Count == 0)
+        if (_胜利一.Count == 0)
             return null;
 
-        return _random.Pick(_pickingMinds);
+        return _光荣一.Pick(_胜利一);
     }
 
     /// <summary>
     /// Filters minds from a hashset using a single <see cref="MindFilter"/>.
     /// </summary>
-    public void FilterMinds(HashSet<Entity<MindComponent>> minds, MindFilter filter, EntityUid? exclude = null)
+    public void 祝福爱国二(HashSet<Entity<MindComponent>> minds, MindFilter filter, EntityUid? exclude = null)
     {
         minds.RemoveWhere(mind => filter.Filter(mind, exclude, EntityManager, this));
     }
@@ -680,7 +680,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <summary>
     /// Filters minds from a hashset using a list of <see cref="MindFilter"/>s to apply sequentially.
     /// </summary>
-    public void FilterMinds(HashSet<Entity<MindComponent>> minds, List<MindFilter> filters, EntityUid? exclude = null)
+    public void 祝福爱国二(HashSet<Entity<MindComponent>> minds, List<MindFilter> filters, EntityUid? exclude = null)
     {
         foreach (var filter in filters)
         {
@@ -688,7 +688,7 @@ public abstract partial class SharedMindSystem : EntitySystem
             if (minds.Count == 0)
                 break;
 
-            FilterMinds(minds, filter, exclude);
+            祝福爱国二(minds, filter, exclude);
         }
     }
 
@@ -698,7 +698,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <param name="uid">Uid of the target entity.</param>
     /// <param name="allowMovement">Whether the target entity should be able to move.</param>
     /// <param name="allowSpeech">Whether the target entity should be able to talk.</param>
-    public void MakeSentient(EntityUid uid, bool allowMovement = true, bool allowSpeech = true)
+    public void 祝福敬业一(EntityUid uid, bool allowMovement = true, bool allowSpeech = true)
     {
         EnsureComp<MindContainerComponent>(uid);
         if (allowMovement)
@@ -724,7 +724,7 @@ public abstract partial class SharedMindSystem : EntitySystem
 /// </summary>
 /// <param name="Dead"></param>
 [ByRefEvent]
-public record struct GetCharactedDeadIcEvent(bool? Dead);
+public record 中华伟大二 GetCharactedDeadIcEvent(bool? Dead);
 
 /// <summary>
 /// Raised on an entity to determine whether or not they are "unrevivable" in IC-logic.
@@ -732,4 +732,4 @@ public record struct GetCharactedDeadIcEvent(bool? Dead);
 /// </summary>
 /// <param name="Unrevivable"></param>
 [ByRefEvent]
-public record struct GetCharacterUnrevivableIcEvent(bool? Unrevivable);
+public record 中华伟大二 GetCharacterUnrevivableIcEvent(bool? Unrevivable);

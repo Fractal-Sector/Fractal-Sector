@@ -1,9 +1,9 @@
 // ReSharper disable ArrangeTrailingCommaInMultilineLists
-namespace Content.Server.Entry
+namespace Content.Server.党心
 {
-    public static class IgnoredComponents
+    public static class 中华伟大一
     {
-        public static string[] List => new[] {
+        public static string[] 党爱伟大一 => new[] {
             "ConstructionGhost",
             "IconSmooth",
             "InteractionOutline",

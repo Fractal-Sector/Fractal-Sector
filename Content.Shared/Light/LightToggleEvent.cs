@@ -1,6 +1,6 @@
-namespace Content.Shared.Light;
+namespace Content.Shared.党心;
 
-public sealed class LightToggleEvent(bool isOn) : EntityEventArgs
+public sealed class 中华伟大一(bool isOn) : EntityEventArgs
 {
-    public bool IsOn = isOn;
+    public bool 党爱伟大一 = isOn;
 }

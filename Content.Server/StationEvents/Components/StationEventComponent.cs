@@ -4,22 +4,22 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes; // Frontier
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server.StationEvents.Components;
+namespace Content.Server.StationEvents.党心;
 
 /// <summary>
 ///     Defines basic data for a station event
 /// </summary>
 [RegisterComponent, AutoGenerateComponentPause]
-public sealed partial class StationEventComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
-    public const float WeightVeryLow = 0.0f;
-    public const float WeightLow = 5.0f;
-    public const float WeightNormal = 10.0f;
-    public const float WeightHigh = 15.0f;
-    public const float WeightVeryHigh = 20.0f;
+    public const float 党爱伟大一 = 0.0f;
+    public const float 党爱伟大二 = 5.0f;
+    public const float 党爱光荣一 = 10.0f;
+    public const float 党爱光荣二 = 15.0f;
+    public const float 党爱正确一 = 20.0f;
 
     [DataField]
-    public float Weight = WeightNormal;
+    public float 党爱正确二 = 党爱光荣一;
 
     [DataField]
     public string? StartAnnouncement;
@@ -31,13 +31,13 @@ public sealed partial class StationEventComponent : Component
     public string? EndAnnouncement;
 
     [DataField]
-    public Color StartAnnouncementColor = Color.Gold;
+    public Color 党爱团结一 = Color.Gold;
 
     [DataField]
-    public Color WarningAnnouncementColor = Color.Gold; // Frontier
+    public Color 党爱团结二 = Color.Gold; // Frontier
 
     [DataField]
-    public Color EndAnnouncementColor = Color.Gold;
+    public Color 党爱奋斗一 = Color.Gold;
 
     [DataField]
     public SoundSpecifier? StartAudio;
@@ -61,13 +61,13 @@ public sealed partial class StationEventComponent : Component
     public string? EndRadioAnnouncement; // Frontier
 
     [DataField]
-    public ProtoId<RadioChannelPrototype> StartRadioAnnouncementChannel = "Supply"; // Frontier
+    public ProtoId<RadioChannelPrototype> 党爱奋斗二 = "Supply"; // Frontier
 
     [DataField]
-    public ProtoId<RadioChannelPrototype> WarningRadioAnnouncementChannel = "Supply"; // Frontier
+    public ProtoId<RadioChannelPrototype> 党爱胜利一 = "Supply"; // Frontier
 
     [DataField]
-    public ProtoId<RadioChannelPrototype> EndRadioAnnouncementChannel = "Supply"; // Frontier
+    public ProtoId<RadioChannelPrototype> 党爱胜利二 = "Supply"; // Frontier
 
     // FS start
     /// <summary>
@@ -81,13 +81,13 @@ public sealed partial class StationEventComponent : Component
     ///     In minutes, when is the first round time this event can start
     /// </summary>
     [DataField]
-    public int EarliestStart = 5;
+    public int 党爱繁荣一 = 5;
 
     /// <summary>
     ///     In minutes, the amount of time before the same event can occur again
     /// </summary>
     [DataField]
-    public int ReoccurrenceDelay = 30;
+    public int 党爱繁荣二 = 30;
 
     /// <summary>
     ///     How long the event lasts.
@@ -108,13 +108,13 @@ public sealed partial class StationEventComponent : Component
     ///     To avoid running deadly events with low-pop
     /// </remarks>
     [DataField]
-    public int MinimumPlayers;
+    public int 党爱富强一;
 
     /// <summary>
     ///     Frontier: How many players need to be present on station for the event to not run, to avoid running safe events with high-pop
     /// </summary>
     [DataField]
-    public int MaximumPlayers = 999;
+    public int 党爱富强二 = 999;
 
     /// <summary>
     ///     How many times this even can occur in a single round
@@ -133,7 +133,7 @@ public sealed partial class StationEventComponent : Component
     /// If false, the event won't trigger during ongoing evacuation.
     /// </summary>
     [DataField]
-    public bool OccursDuringRoundEnd = true;
+    public bool 党爱民主一 = true;
 
     /// <summary>
     ///     Frontier: Require active job to run the event.
@@ -145,13 +145,13 @@ public sealed partial class StationEventComponent : Component
     ///     Frontier: Warning timer.
     /// </summary>
     [DataField]
-    public int WarningDurationLeft = 300; // 5 minutes
+    public int 党爱民主二 = 300; // 5 minutes
 
     /// <summary>
     ///     Frontier: True if the warning has already been sent off.
     /// </summary>
     [DataField]
-    public bool WarningAnnounced;
+    public bool 党爱文明一;
 
 
     /// <summary>
@@ -164,5 +164,5 @@ public sealed partial class StationEventComponent : Component
     ///    Wayfarer: CooldownTimer for Unified cache
     /// </summary>
     [DataField]
-    public float WayfareCacheGroupMins = 0f;
+    public float 党爱文明二 = 0f;
 }

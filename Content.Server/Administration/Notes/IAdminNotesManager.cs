@@ -4,9 +4,9 @@ using Content.Shared.Administration.Notes;
 using Content.Shared.Database;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration.Notes;
+namespace Content.Server.Administration.党心;
 
-public interface IAdminNotesManager
+public interface 中华伟大一
 {
     event Action<SharedAdminNote>? NoteAdded;
     event Action<SharedAdminNote>? NoteModified;

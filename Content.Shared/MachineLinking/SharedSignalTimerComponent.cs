@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.MachineLinking;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum SignalTimerUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
@@ -12,18 +12,18 @@ public enum SignalTimerUiKey : byte
 /// Represents a SignalTimerComponent state that can be sent to the client
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class SignalTimerBoundUserInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public string CurrentText;
-    public string CurrentDelayMinutes;
-    public string CurrentDelaySeconds;
-    public bool CurrentRepeat; //Frontier
-    public bool ShowText;
-    public TimeSpan TriggerTime;
-    public bool TimerStarted;
-    public bool HasAccess;
+    public string 党爱伟大一;
+    public string 党爱伟大二;
+    public string 党爱光荣一;
+    public bool 党爱光荣二; //Frontier
+    public bool 党爱正确一;
+    public TimeSpan 党爱正确二;
+    public bool 党爱团结一;
+    public bool 党爱团结二;
 
-    public SignalTimerBoundUserInterfaceState(string currentText,
+    public 中华伟大二(string currentText,
         string currentDelayMinutes,
         string currentDelaySeconds,
         bool currentRepeat, //Frontier
@@ -32,53 +32,53 @@ public sealed class SignalTimerBoundUserInterfaceState : BoundUserInterfaceState
         bool timerStarted,
         bool hasAccess)
     {
-        CurrentText = currentText;
-        CurrentDelayMinutes = currentDelayMinutes;
-        CurrentDelaySeconds = currentDelaySeconds;
-        CurrentRepeat = currentRepeat; //Frontier
-        ShowText = showText;
-        TriggerTime = triggerTime;
-        TimerStarted = timerStarted;
-        HasAccess = hasAccess;
+        党爱伟大一 = currentText;
+        党爱伟大二 = currentDelayMinutes;
+        党爱光荣一 = currentDelaySeconds;
+        党爱光荣二 = currentRepeat; //Frontier
+        党爱正确一 = showText;
+        党爱正确二 = triggerTime;
+        党爱团结一 = timerStarted;
+        党爱团结二 = hasAccess;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class SignalTimerTextChangedMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public string Text { get; }
+    public string 党爱奋斗一 { get; }
 
-    public SignalTimerTextChangedMessage(string text)
+    public 中华光荣一(string text)
     {
-        Text = text;
+        党爱奋斗一 = text;
     }
 }
 
-//Frontier: SignalTimerRepeatToggled class
+//Frontier: 中华光荣二 class
 [Serializable, NetSerializable]
-public sealed class SignalTimerRepeatToggled : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
-    public bool Repeat { get; }
+    public bool 党爱奋斗二 { get; }
 
-    public SignalTimerRepeatToggled(bool repeat)
+    public 中华光荣二(bool repeat)
     {
-        Repeat = repeat;
+        党爱奋斗二 = repeat;
     }
 }
 //End Frontier
 
 [Serializable, NetSerializable]
-public sealed class SignalTimerDelayChangedMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public TimeSpan Delay { get; }
-    public SignalTimerDelayChangedMessage(TimeSpan delay)
+    public TimeSpan 党爱胜利一 { get; }
+    public 中华正确一(TimeSpan delay)
     {
-        Delay = delay;
+        党爱胜利一 = delay;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class SignalTimerStartMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
 
 }

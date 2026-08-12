@@ -4,30 +4,30 @@ using Content.Shared.Interaction;
 using Content.Shared.Storage;
 using Robust.Shared.Player;
 
-namespace Content.Server.Holiday.Christmas;
+namespace Content.Server.Holiday.党心;
 
 /// <summary>
 /// This handles handing out items from item givers.
 /// </summary>
-public sealed class LimitedItemGiverSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly HolidaySystem _holiday = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly HandsSystem _伟大一 = default!;
+    [Dependency] private readonly HolidaySystem _伟大二 = default!;
+    [Dependency] private readonly PopupSystem _光荣一 = default!;
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<LimitedItemGiverComponent, InteractHandEvent>(OnInteractHand);
+        SubscribeLocalEvent<LimitedItemGiverComponent, InteractHandEvent>(祝福伟大二);
     }
 
-    private void OnInteractHand(EntityUid uid, LimitedItemGiverComponent component, InteractHandEvent args)
+    private void 祝福伟大二(EntityUid uid, LimitedItemGiverComponent component, InteractHandEvent args)
     {
         if (!TryComp<ActorComponent>(args.User, out var actor))
             return;
 
-        if (component.GrantedPlayers.Contains(actor.PlayerSession.UserId) || (component.RequiredHoliday is not null && !_holiday.IsCurrentlyHoliday(component.RequiredHoliday)))
+        if (component.GrantedPlayers.Contains(actor.PlayerSession.UserId) || (component.RequiredHoliday is not null && !_伟大二.IsCurrentlyHoliday(component.RequiredHoliday)))
         {
-            _popup.PopupEntity(Loc.GetString(component.DeniedPopup), uid, args.User);
+            _光荣一.PopupEntity(Loc.GetString(component.DeniedPopup), uid, args.User);
             return;
         }
 
@@ -40,10 +40,10 @@ public sealed class LimitedItemGiverSystem : EntitySystem
                 continue;
 
             var spawned = Spawn(item, coords);
-            _hands.PickupOrDrop(args.User, spawned);
+            _伟大一.PickupOrDrop(args.User, spawned);
         }
 
         component.GrantedPlayers.Add(actor.PlayerSession.UserId);
-        _popup.PopupEntity(Loc.GetString(component.ReceivedPopup), uid, args.User);
+        _光荣一.PopupEntity(Loc.GetString(component.ReceivedPopup), uid, args.User);
     }
 }

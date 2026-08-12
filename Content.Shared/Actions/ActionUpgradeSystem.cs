@@ -9,45 +9,45 @@ using Robust.Shared.Utility;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions;
+namespace Content.Shared.党心;
 
-public sealed class ActionUpgradeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly ActionContainerSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ActionUpgradeComponent, ActionUpgradeEvent>(OnActionUpgradeEvent);
+        SubscribeLocalEvent<ActionUpgradeComponent, ActionUpgradeEvent>(祝福伟大二);
     }
 
-    private void OnActionUpgradeEvent(EntityUid uid, ActionUpgradeComponent component, ActionUpgradeEvent args)
+    private void 祝福伟大二(EntityUid uid, ActionUpgradeComponent component, ActionUpgradeEvent args)
     {
-        if (!CanUpgrade(args.NewLevel, component.EffectedLevels, out var newActionProto)
-            || _actions.GetAction(uid) is not {} action)
+        if (!祝福正确一(args.NewLevel, component.EffectedLevels, out var newActionProto)
+            || _伟大一.GetAction(uid) is not {} action)
             return;
 
         var originalContainer = action.Comp.Container;
         var originalAttachedEntity = action.Comp.AttachedEntity;
 
-        _actionContainer.RemoveAction((action, action));
+        _伟大二.RemoveAction((action, action));
 
         EntityUid? upgradedActionId = null;
         if (originalContainer != null
             && TryComp<ActionsContainerComponent>(originalContainer.Value, out var actionContainerComp))
         {
-            upgradedActionId = _actionContainer.AddAction(originalContainer.Value, newActionProto, actionContainerComp);
+            upgradedActionId = _伟大二.AddAction(originalContainer.Value, newActionProto, actionContainerComp);
 
             if (originalAttachedEntity != null)
-                _actions.GrantContainedActions(originalAttachedEntity.Value, originalContainer.Value);
+                _伟大一.GrantContainedActions(originalAttachedEntity.Value, originalContainer.Value);
             else
-                _actions.GrantContainedActions(originalContainer.Value, originalContainer.Value);
+                _伟大一.GrantContainedActions(originalContainer.Value, originalContainer.Value);
         }
         else if (originalAttachedEntity != null)
         {
-            upgradedActionId = _actionContainer.AddAction(originalAttachedEntity.Value, newActionProto);
+            upgradedActionId = _伟大二.AddAction(originalAttachedEntity.Value, newActionProto);
         }
 
         if (!TryComp<ActionUpgradeComponent>(upgradedActionId, out var upgradeComp))
@@ -60,10 +60,10 @@ public sealed class ActionUpgradeSystem : EntitySystem
         Del(uid);
     }
 
-    public bool TryUpgradeAction(EntityUid? actionId, out EntityUid? upgradeActionId, ActionUpgradeComponent? actionUpgradeComponent = null, int newLevel = 0)
+    public bool 祝福光荣一(EntityUid? actionId, out EntityUid? upgradeActionId, ActionUpgradeComponent? actionUpgradeComponent = null, int newLevel = 0)
     {
         upgradeActionId = null;
-        if (!TryGetActionUpgrade(actionId, out var actionUpgradeComp))
+        if (!祝福团结一(actionId, out var actionUpgradeComp))
             return false;
 
         actionUpgradeComponent ??= actionUpgradeComp;
@@ -73,13 +73,13 @@ public sealed class ActionUpgradeSystem : EntitySystem
         if (newLevel < 1)
             newLevel = actionUpgradeComponent.Level + 1;
 
-        if (!CanLevelUp(newLevel, actionUpgradeComponent.EffectedLevels))
+        if (!祝福光荣二(newLevel, actionUpgradeComponent.EffectedLevels))
             return false;
 
         actionUpgradeComponent.Level = newLevel;
 
         // If it can level up but can't upgrade, still return true and return current actionId as the upgradeId.
-        if (!CanUpgrade(newLevel, actionUpgradeComponent.EffectedLevels, out var newActionProto))
+        if (!祝福正确一(newLevel, actionUpgradeComponent.EffectedLevels, out var newActionProto))
         {
             upgradeActionId = actionId;
             DebugTools.AssertNotNull(upgradeActionId);
@@ -91,7 +91,7 @@ public sealed class ActionUpgradeSystem : EntitySystem
         return true;
     }
 
-    private bool CanLevelUp(int newLevel, Dictionary<int, EntProtoId> levelDict)
+    private bool 祝福光荣二(int newLevel, Dictionary<int, EntProtoId> levelDict)
     {
         if (levelDict.Count < 1)
             return false;
@@ -114,7 +114,7 @@ public sealed class ActionUpgradeSystem : EntitySystem
         return canLevel;
     }
 
-    private bool CanUpgrade(int newLevel, Dictionary<int, EntProtoId> levelDict,  [NotNullWhen(true)]out EntProtoId? newLevelProto)
+    private bool 祝福正确一(int newLevel, Dictionary<int, EntProtoId> levelDict,  [NotNullWhen(true)]out EntProtoId? newLevelProto)
     {
         var canUpgrade = false;
         newLevelProto = null;
@@ -140,7 +140,7 @@ public sealed class ActionUpgradeSystem : EntitySystem
     /// </summary>
     public EntityUid? UpgradeAction(EntityUid? actionId, ActionUpgradeComponent? actionUpgradeComponent = null, EntProtoId? newActionProto = null, int newLevel = 0)
     {
-        if (!TryGetActionUpgrade(actionId, out var actionUpgradeComp))
+        if (!祝福团结一(actionId, out var actionUpgradeComp))
             return null;
 
         actionUpgradeComponent ??= actionUpgradeComp;
@@ -151,10 +151,10 @@ public sealed class ActionUpgradeSystem : EntitySystem
             newLevel = actionUpgradeComponent.Level + 1;
 
         actionUpgradeComponent.Level = newLevel;
-        // RaiseActionUpgradeEvent(newLevel, actionId.Value);
+        // 祝福正确二(newLevel, actionId.Value);
 
-        if (!CanUpgrade(newLevel, actionUpgradeComponent.EffectedLevels, out var newActionPrototype)
-            || _actions.GetAction(actionId) is not {} action)
+        if (!祝福正确一(newLevel, actionUpgradeComponent.EffectedLevels, out var newActionPrototype)
+            || _伟大一.GetAction(actionId) is not {} action)
             return null;
 
         newActionProto ??= newActionPrototype;
@@ -163,22 +163,22 @@ public sealed class ActionUpgradeSystem : EntitySystem
         var originalContainer = action.Comp.Container;
         var originalAttachedEntity = action.Comp.AttachedEntity;
 
-        _actionContainer.RemoveAction((action, action.Comp));
+        _伟大二.RemoveAction((action, action.Comp));
 
         EntityUid? upgradedActionId = null;
         if (originalContainer != null
             && TryComp<ActionsContainerComponent>(originalContainer.Value, out var actionContainerComp))
         {
-            upgradedActionId = _actionContainer.AddAction(originalContainer.Value, newActionProto, actionContainerComp);
+            upgradedActionId = _伟大二.AddAction(originalContainer.Value, newActionProto, actionContainerComp);
 
             if (originalAttachedEntity != null)
-                _actions.GrantContainedActions(originalAttachedEntity.Value, originalContainer.Value);
+                _伟大一.GrantContainedActions(originalAttachedEntity.Value, originalContainer.Value);
             else
-                _actions.GrantContainedActions(originalContainer.Value, originalContainer.Value);
+                _伟大一.GrantContainedActions(originalContainer.Value, originalContainer.Value);
         }
         else if (originalAttachedEntity != null)
         {
-            upgradedActionId = _actionContainer.AddAction(originalAttachedEntity.Value, newActionProto);
+            upgradedActionId = _伟大二.AddAction(originalAttachedEntity.Value, newActionProto);
         }
 
         if (!TryComp<ActionUpgradeComponent>(upgradedActionId, out var upgradeComp))
@@ -193,13 +193,13 @@ public sealed class ActionUpgradeSystem : EntitySystem
         return upgradedActionId.Value;
     }
 
-    private void RaiseActionUpgradeEvent(int level, EntityUid actionId)
+    private void 祝福正确二(int level, EntityUid actionId)
     {
         var ev = new ActionUpgradeEvent(level, actionId);
         RaiseLocalEvent(actionId, ev);
     }
 
-    public bool TryGetActionUpgrade(
+    public bool 祝福团结一(
         [NotNullWhen(true)] EntityUid? uid,
         [NotNullWhen(true)] out ActionUpgradeComponent? result,
         bool logError = true)

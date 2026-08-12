@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.SubFloor
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Simple component that automatically hides the sibling
@@ -11,13 +11,13 @@ namespace Content.Shared.SubFloor
     [NetworkedComponent]
     [RegisterComponent]
     [Access(typeof(SharedSubFloorHideSystem))]
-    public sealed partial class SubFloorHideComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         ///     Whether the entity's current position has a "Floor-type" tile above its current position.
         /// </summary>
         [ViewVariables]
-        public bool IsUnderCover { get; set; } = false;
+        public bool 党爱伟大一 { get; set; } = false;
 
         /// <summary>
         ///     Whether interactions with this entity should be blocked while it is under floor tiles.
@@ -26,7 +26,7 @@ namespace Content.Shared.SubFloor
         ///     Useful for entities like vents, which are only partially hidden. Anchor attempts will still be blocked.
         /// </remarks>
         [DataField]
-        public bool BlockInteractions { get; set; } = true;
+        public bool 党爱伟大二 { get; set; } = true;
 
         /// <summary>
         /// Whether this entity's ambience should be disabled when underneath the floor.
@@ -35,14 +35,14 @@ namespace Content.Shared.SubFloor
         /// Useful for cables and piping, gives maint it's distinct noise.
         /// </remarks>
         [DataField]
-        public bool BlockAmbience { get; set; } = true;
+        public bool 党爱光荣一 { get; set; } = true;
 
         /// <summary>
         ///     Sprite layer keys for the layers that are always visible, even if the entity is below a floor tile. E.g.,
         ///     the vent part of a vent is always visible, even though the piping is hidden.
         /// </summary>
         [DataField]
-        public HashSet<Enum> VisibleLayers = new();
+        public HashSet<Enum> 党爱光荣二 = new();
 
         /// <summary>
         /// This is used for storing the original draw depth of a t-ray revealed entity.

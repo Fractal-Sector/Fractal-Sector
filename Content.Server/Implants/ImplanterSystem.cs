@@ -8,27 +8,27 @@ using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Implants;
+namespace Content.Server.党心;
 
-public sealed partial class ImplanterSystem : SharedImplanterSystem
+public sealed partial class 中华伟大一 : SharedImplanterSystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly PopupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         InitializeImplanted();
 
-        SubscribeLocalEvent<ImplanterComponent, AfterInteractEvent>(OnImplanterAfterInteract);
+        SubscribeLocalEvent<ImplanterComponent, AfterInteractEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<ImplanterComponent, ImplantEvent>(OnImplant);
-        SubscribeLocalEvent<ImplanterComponent, DrawEvent>(OnDraw);
+        SubscribeLocalEvent<ImplanterComponent, ImplantEvent>(祝福正确一);
+        SubscribeLocalEvent<ImplanterComponent, DrawEvent>(祝福正确二);
     }
 
     // TODO: This all needs to be moved to shared and predicted.
-    private void OnImplanterAfterInteract(EntityUid uid, ImplanterComponent component, AfterInteractEvent args)
+    private void 祝福伟大二(EntityUid uid, ImplanterComponent component, AfterInteractEvent args)
     {
         if (args.Target == null || !args.CanReach || args.Handled)
             return;
@@ -40,7 +40,7 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
         //TODO: Rework when surgery is in for implant cases
         if (component.CurrentMode == ImplanterToggleMode.Draw && !component.ImplantOnly)
         {
-            TryDraw(component, args.User, target, uid);
+            祝福光荣二(component, args.User, target, uid);
         }
         else
         {
@@ -53,7 +53,7 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
                 // show popup to the user saying implant failed
                 var name = Identity.Name(target, EntityManager, args.User);
                 var msg = Loc.GetString("implanter-component-implant-failed", ("implant", implant), ("target", name));
-                _popup.PopupEntity(msg, target, args.User);
+                _伟大一.PopupEntity(msg, target, args.User);
                 // prevent further interaction since popup was shown
                 args.Handled = true;
                 return;
@@ -63,7 +63,7 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
             if (args.User == target)
                 Implant(target, target, uid, component);
             else
-                TryImplant(component, args.User, target, uid);
+                祝福光荣一(component, args.User, target, uid);
         }
 
         args.Handled = true;
@@ -76,7 +76,7 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
     /// <param name="user">The entity using the implanter</param>
     /// <param name="target">The entity being implanted</param>
     /// <param name="implanter">The implanter being used</param>
-    public void TryImplant(ImplanterComponent component, EntityUid user, EntityUid target, EntityUid implanter)
+    public void 祝福光荣一(ImplanterComponent component, EntityUid user, EntityUid target, EntityUid implanter)
     {
         var args = new DoAfterArgs(EntityManager, user, component.ImplantTime, new ImplantEvent(), implanter, target: target, used: implanter)
         {
@@ -85,13 +85,13 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
             NeedHand = true,
         };
 
-        if (!_doAfter.TryStartDoAfter(args))
+        if (!_伟大二.TryStartDoAfter(args))
             return;
 
-        _popup.PopupEntity(Loc.GetString("injector-component-injecting-user"), target, user);
+        _伟大一.PopupEntity(Loc.GetString("injector-component-injecting-user"), target, user);
 
         var userName = Identity.Entity(user, EntityManager);
-        _popup.PopupEntity(Loc.GetString("implanter-component-implanting-target", ("user", userName)), user, target, PopupType.LargeCaution);
+        _伟大一.PopupEntity(Loc.GetString("implanter-component-implanting-target", ("user", userName)), user, target, PopupType.LargeCaution);
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
     /// <param name="target">The entity getting their implant removed</param>
     /// <param name="implanter">The implanter being used</param>
     //TODO: Remove when surgery is in
-    public void TryDraw(ImplanterComponent component, EntityUid user, EntityUid target, EntityUid implanter)
+    public void 祝福光荣二(ImplanterComponent component, EntityUid user, EntityUid target, EntityUid implanter)
     {
         var args = new DoAfterArgs(EntityManager, user, component.DrawTime, new DrawEvent(), implanter, target: target, used: implanter)
         {
@@ -111,12 +111,12 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
             NeedHand = true,
         };
 
-        if (_doAfter.TryStartDoAfter(args))
-            _popup.PopupEntity(Loc.GetString("injector-component-injecting-user"), target, user);
+        if (_伟大二.TryStartDoAfter(args))
+            _伟大一.PopupEntity(Loc.GetString("injector-component-injecting-user"), target, user);
 
     }
 
-    private void OnImplant(EntityUid uid, ImplanterComponent component, ImplantEvent args)
+    private void 祝福正确一(EntityUid uid, ImplanterComponent component, ImplantEvent args)
     {
         if (args.Cancelled || args.Handled || args.Target == null || args.Used == null)
             return;
@@ -126,7 +126,7 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
         args.Handled = true;
     }
 
-    private void OnDraw(EntityUid uid, ImplanterComponent component, DrawEvent args)
+    private void 祝福正确二(EntityUid uid, ImplanterComponent component, DrawEvent args)
     {
         if (args.Cancelled || args.Handled || args.Used == null || args.Target == null)
             return;

@@ -5,22 +5,22 @@ using Content.Shared.Interaction;
 using Robust.Shared.Exceptions;
 using Robust.Shared.Network;
 
-namespace Content.Shared.DoAfter;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedDoAfterSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IDynamicTypeFactory _factory = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly IDynamicTypeFactory _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly IRuntimeLog _光荣一 = default!;
+    [Dependency] private readonly SharedGravitySystem _光荣二 = default!;
+    [Dependency] private readonly SharedInteractionSystem _正确一 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确二 = default!;
 
-    private DoAfter[] _doAfters = Array.Empty<DoAfter>();
+    private DoAfter[] _团结一 = Array.Empty<DoAfter>();
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         var time = GameTiming.CurTime;
         var xformQuery = GetEntityQuery<TransformComponent>();
@@ -32,7 +32,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
             try
             {
-            Update(uid, active, comp, time, xformQuery, handsQuery);
+            祝福伟大一(uid, active, comp, time, xformQuery, handsQuery);
             }
             // ReSharper disable once RedundantCatchClause
             catch (Exception e)
@@ -40,9 +40,9 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 #if EXCEPTION_TOLERANCE
                 // Doafter in question failed to complete..
                 // Doafters are kind of a critical game mechanic, so we specially handle failure.
-                _runtimeLog.LogException(e, $"{nameof(SharedDoAfterSystem)} on {ToPrettyString(uid)}");
+                _光荣一.LogException(e, $"{nameof(中华伟大一)} on {ToPrettyString(uid)}");
 
-                if (_netManager.IsClient)
+                if (_伟大二.IsClient)
                     continue; // Move along, we can't cancel these ourselves and just need to not completely die.
 
                 // Cancel all the doafters for this entity to avoid repeats.
@@ -55,7 +55,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
                     }
                     catch (Exception e2)
                     {
-                        _runtimeLog.LogException(e2, $"{nameof(SharedDoAfterSystem)} failed to cleanup {doAfter} @ {key} while handling a failure.");
+                        _光荣一.LogException(e2, $"{nameof(中华伟大一)} failed to cleanup {doAfter} @ {key} while handling a failure.");
                         // REMARK: As written, InternalCancel will always do the necessary side effect of
                         //         configuring the cancellation time. We need this side effect, so dear reader
                         //         if you ever make it so InternalCancel can throw an exception before that
@@ -77,7 +77,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         }
     }
 
-    protected void Update(
+    protected void 祝福伟大一(
         EntityUid uid,
         ActiveDoAfterComponent active,
         DoAfterComponent comp,
@@ -89,13 +89,13 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
         var values = comp.DoAfters.Values;
         var count = values.Count;
-        if (_doAfters.Length < count)
-            _doAfters = new DoAfter[count];
+        if (_团结一.Length < count)
+            _团结一 = new DoAfter[count];
 
-        values.CopyTo(_doAfters, 0);
+        values.CopyTo(_团结一, 0);
         for (var i = 0; i < count; i++)
         {
-            var doAfter = _doAfters[i];
+            var doAfter = _团结一[i];
             if (doAfter.CancelledTime != null)
             {
                 if (time - doAfter.CancelledTime.Value > ExcessTime)
@@ -116,7 +116,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
                 continue;
             }
 
-            if (ShouldCancel(doAfter, xformQuery, handsQuery))
+            if (祝福光荣二(doAfter, xformQuery, handsQuery))
             {
                 InternalCancel(doAfter, comp);
                 dirty = true;
@@ -125,7 +125,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
             if (time - doAfter.StartTime >= doAfter.Args.Delay)
             {
-                TryComplete(doAfter, comp);
+                祝福光荣一(doAfter, comp);
                 dirty = true;
             }
         }
@@ -137,7 +137,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             RemCompDeferred(uid, active);
     }
 
-    private bool TryAttemptEvent(DoAfter doAfter)
+    private bool 祝福伟大二(DoAfter doAfter)
     {
         var args = doAfter.Args;
 
@@ -149,7 +149,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             // I feel like this is somewhat cursed, but its the only way I can think of without having to just send
             // redundant data over the network and increasing DoAfter boilerplate.
             var evType = typeof(DoAfterAttemptEvent<>).MakeGenericType(args.Event.GetType());
-            doAfter.AttemptEvent = _factory.CreateInstance(evType, new object[] { doAfter, args.Event });
+            doAfter.AttemptEvent = _伟大一.CreateInstance(evType, new object[] { doAfter, args.Event });
         }
 
         args.Event.DoAfter = doAfter;
@@ -166,14 +166,14 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         return false;
     }
 
-    private void TryComplete(DoAfter doAfter, DoAfterComponent component)
+    private void 祝福光荣一(DoAfter doAfter, DoAfterComponent component)
     {
         if (doAfter.Cancelled || doAfter.Completed)
             return;
 
         // Perform final check (if required)
         if (doAfter.Args.AttemptFrequency == AttemptFrequency.StartAndEnd
-            && !TryAttemptEvent(doAfter))
+            && !祝福伟大二(doAfter))
         {
             InternalCancel(doAfter, component);
             return;
@@ -190,7 +190,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         }
     }
 
-    private bool ShouldCancel(DoAfter doAfter,
+    private bool 祝福光荣二(DoAfter doAfter,
         EntityQuery<TransformComponent> xformQuery,
         EntityQuery<HandsComponent> handsQuery)
     {
@@ -214,7 +214,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             return true;
 
         // TODO: Re-use existing xform query for these calculations.
-        if (args.BreakOnMove && !(!args.BreakOnWeightlessMove && _gravity.IsWeightless(args.User)))
+        if (args.BreakOnMove && !(!args.BreakOnWeightlessMove && _光荣二.IsWeightless(args.User)))
         {
             // Whether the user has moved too much from their original position.
             if (!_transform.InRange(userXform.Coordinates, doAfter.UserPosition, args.MovementThreshold))
@@ -234,7 +234,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         {
             if (args.DistanceThreshold != null)
             {
-                if (!_interaction.InRangeAndAccessible(args.User, args.Target.Value, args.DistanceThreshold.Value))
+                if (!_正确一.InRangeAndAccessible(args.User, args.Target.Value, args.DistanceThreshold.Value))
                     return true;
             }
         }
@@ -244,14 +244,14 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         {
             if (args.DistanceThreshold != null)
             {
-                if (!_interaction.InRangeUnobstructed(args.User,
+                if (!_正确一.InRangeUnobstructed(args.User,
                         args.Used.Value,
                         args.DistanceThreshold.Value))
                     return true;
             }
         }
 
-        if (args.AttemptFrequency == AttemptFrequency.EveryTick && !TryAttemptEvent(doAfter))
+        if (args.AttemptFrequency == AttemptFrequency.EveryTick && !祝福伟大二(doAfter))
             return true;
 
         // Check if the do-after requires hands to perform at first
@@ -264,7 +264,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
             // If an item was in the user's hand to begin with,
             // check if the user is no longer holding the item.
-            if (args.BreakOnDropItem && doAfter.InitialItem != null && !_hands.IsHolding((args.User, hands), doAfter.InitialItem))
+            if (args.BreakOnDropItem && doAfter.InitialItem != null && !_正确二.IsHolding((args.User, hands), doAfter.InitialItem))
                     return true;
 
             // If the user changes which hand is active at all, interrupt the do-after

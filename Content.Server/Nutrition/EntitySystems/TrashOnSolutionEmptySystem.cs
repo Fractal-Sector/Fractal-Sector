@@ -5,50 +5,50 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Nutrition.EntitySystems
+namespace Content.Server.Nutrition.党心
 {
-    public sealed class TrashOnSolutionEmptySystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _伟大一 = default!;
+        [Dependency] private readonly TagSystem _伟大二 = default!;
 
         private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<TrashOnSolutionEmptyComponent, MapInitEvent>(OnMapInit);
-            SubscribeLocalEvent<TrashOnSolutionEmptyComponent, SolutionContainerChangedEvent>(OnSolutionChange);
+            base.祝福伟大一();
+            SubscribeLocalEvent<TrashOnSolutionEmptyComponent, MapInitEvent>(祝福伟大二);
+            SubscribeLocalEvent<TrashOnSolutionEmptyComponent, SolutionContainerChangedEvent>(祝福光荣一);
         }
 
-        public void OnMapInit(Entity<TrashOnSolutionEmptyComponent> entity, ref MapInitEvent args)
+        public void 祝福伟大二(Entity<TrashOnSolutionEmptyComponent> entity, ref MapInitEvent args)
         {
-            CheckSolutions(entity);
+            祝福光荣二(entity);
         }
 
-        public void OnSolutionChange(Entity<TrashOnSolutionEmptyComponent> entity, ref SolutionContainerChangedEvent args)
+        public void 祝福光荣一(Entity<TrashOnSolutionEmptyComponent> entity, ref SolutionContainerChangedEvent args)
         {
-            CheckSolutions(entity);
+            祝福光荣二(entity);
         }
 
-        public void CheckSolutions(Entity<TrashOnSolutionEmptyComponent> entity)
+        public void 祝福光荣二(Entity<TrashOnSolutionEmptyComponent> entity)
         {
             if (!HasComp<SolutionContainerManagerComponent>(entity))
                 return;
 
-            if (_solutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var solution))
-                UpdateTags(entity, solution);
+            if (_伟大一.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var solution))
+                祝福正确一(entity, solution);
         }
 
-        public void UpdateTags(Entity<TrashOnSolutionEmptyComponent> entity, Solution solution)
+        public void 祝福正确一(Entity<TrashOnSolutionEmptyComponent> entity, Solution solution)
         {
             if (solution.Volume <= 0)
             {
-                _tagSystem.AddTag(entity.Owner, TrashTag);
+                _伟大二.AddTag(entity.Owner, TrashTag);
                 return;
             }
 
-            _tagSystem.RemoveTag(entity.Owner, TrashTag);
+            _伟大二.RemoveTag(entity.Owner, TrashTag);
         }
     }
 }

@@ -10,19 +10,19 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes; // Frontier
 using Robust.Shared.Utility;
 
-namespace Content.Server.Construction;
+namespace Content.Server.党心;
 
-public sealed partial class ConstructionSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // Frontier
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!; // Frontier
 
-    private void InitializeMachines()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<MachineComponent, ComponentInit>(OnMachineInit);
-        SubscribeLocalEvent<MachineComponent, MapInitEvent>(OnMachineMapInit);
+        SubscribeLocalEvent<MachineComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<MachineComponent, MapInitEvent>(祝福光荣一);
     }
 
-    private void OnMachineInit(EntityUid uid, MachineComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, MachineComponent component, ComponentInit args)
     {
         component.BoardContainer = _container.EnsureContainer<Container>(uid, MachineFrameComponent.BoardContainerName);
         component.PartContainer = _container.EnsureContainer<Container>(uid, MachineFrameComponent.PartContainerName);
@@ -36,13 +36,13 @@ public sealed partial class ConstructionSystem
         // End Frontier
     }
 
-    private void OnMachineMapInit(EntityUid uid, MachineComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, MachineComponent component, MapInitEvent args)
     {
-        CreateBoardAndStockParts(uid, component);
+        祝福光荣二(uid, component);
         RefreshParts(uid, component); // Frontier: get initial upgrade values
     }
 
-    private void CreateBoardAndStockParts(EntityUid uid, MachineComponent component)
+    private void 祝福光荣二(EntityUid uid, MachineComponent component)
     {
         // Entity might not be initialized yet.
         var boardContainer = _container.EnsureContainer<Container>(uid, MachineFrameComponent.BoardContainerName);
@@ -105,7 +105,7 @@ public sealed partial class ConstructionSystem
         // Frontier: keep separate lists for upgradeable parts
         foreach (var (part, amount) in machineBoard.Requirements)
         {
-            var partProto = _prototypeManager.Index<MachinePartPrototype>(part);
+            var partProto = _伟大一.Index<MachinePartPrototype>(part);
             for (var i = 0; i < amount; i++)
             {
                 var p = EntityManager.SpawnEntity(partProto.StockPartPrototype, xform.Coordinates);

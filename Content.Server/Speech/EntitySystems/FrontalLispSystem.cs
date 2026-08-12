@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class FrontalLispSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     // @formatter:off
     private static readonly Regex RegexUpperTh = new(@"[T]+[Ss]+|[S]+[Cc]+(?=[IiEeYy]+)|[C]+(?=[IiEeYy]+)|[P][Ss]+|([S]+[Tt]+|[T]+)(?=[Ii]+[Oo]+[Uu]*[Nn]*)|[C]+[Hh]+(?=[Ii]*[Ee]*)|[Z]+|[S]+|[X]+(?=[Ee]+)");
@@ -13,13 +13,13 @@ public sealed class FrontalLispSystem : EntitySystem
     private static readonly Regex RegexLowerEcks = new(@"[e]+[x]+[c]*|[x]+");
     // @formatter:on
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<FrontalLispComponent, AccentGetEvent>(OnAccent);
+        base.祝福伟大一();
+        SubscribeLocalEvent<FrontalLispComponent, AccentGetEvent>(祝福伟大二);
     }
 
-    private void OnAccent(EntityUid uid, FrontalLispComponent component, AccentGetEvent args)
+    private void 祝福伟大二(EntityUid uid, FrontalLispComponent component, AccentGetEvent args)
     {
         var message = args.Message;
 

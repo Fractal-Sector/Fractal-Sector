@@ -1,10 +1,10 @@
 using Content.Shared.Damage.Components;
 
-namespace Content.Shared.Damage.Systems;
+namespace Content.Shared.Damage.党心;
 
-public abstract partial class SharedStaminaSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    public void ToggleStaminaDrain(EntityUid target, float drainRate, bool enabled, bool modifiesSpeed, EntityUid? source = null)
+    public void 祝福伟大一(EntityUid target, float drainRate, bool enabled, bool modifiesSpeed, EntityUid? source = null)
     {
         if (!TryComp<StaminaComponent>(target, out var stamina))
             return;

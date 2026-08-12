@@ -1,13 +1,13 @@
 using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 /// Allows an entity stored in this clothing item to pass inputs to the entity wearing it.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class PilotedClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whitelist for entities that are allowed to act as pilots when inside this entity.
@@ -19,7 +19,7 @@ public sealed partial class PilotedClothingComponent : Component
     /// Should movement input be relayed from the pilot to the target?
     /// </summary>
     [DataField]
-    public bool RelayMovement = true;
+    public bool 党爱伟大一 = true;
 
 
     /// <summary>
@@ -34,5 +34,5 @@ public sealed partial class PilotedClothingComponent : Component
     [DataField, AutoNetworkedField]
     public EntityUid? Wearer;
 
-    public bool IsActive => Pilot != null && Wearer != null;
+    public bool 党爱伟大二 => Pilot != null && Wearer != null;
 }

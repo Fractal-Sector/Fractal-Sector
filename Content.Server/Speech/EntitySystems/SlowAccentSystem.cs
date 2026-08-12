@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 using Content.Server.Speech.Components;
 using Content.Shared.Speech;
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed partial class SlowAccentSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     /// <summary>
     /// Matches whitespace characters or commas (with or without a space after them).
@@ -16,19 +16,19 @@ public sealed partial class SlowAccentSystem : EntitySystem
     /// </summary>
     private static readonly Regex NoFinalPunctuation = new("\\w\\z");
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SlowAccentComponent, AccentGetEvent>(OnAccentGet);
+        SubscribeLocalEvent<SlowAccentComponent, AccentGetEvent>(祝福伟大二);
     }
 
-    private void OnAccentGet(Entity<SlowAccentComponent> ent, ref AccentGetEvent args)
+    private void 祝福伟大二(Entity<SlowAccentComponent> ent, ref AccentGetEvent args)
     {
-        args.Message = Accentuate(ent, args.Message);
+        args.Message = 祝福光荣一(ent, args.Message);
     }
 
-    public string Accentuate(Entity<SlowAccentComponent> ent, string message)
+    public string 祝福光荣一(Entity<SlowAccentComponent> ent, string message)
     {
         // Add... some... delay... between... each... word
         message = WordEndings.Replace(message, "... ");

@@ -5,172 +5,172 @@ using Content.Shared.Standing;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Movement.Systems
+namespace Content.Shared.Movement.党心
 {
-    public sealed class MovementSpeedModifierSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly IConfigurationManager _伟大二 = default!;
 
-        private float _frictionModifier;
-        private float _airDamping;
-        private float _offGridDamping;
+        private float _光荣一;
+        private float _光荣二;
+        private float _正确一;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<MovementSpeedModifierComponent, MapInitEvent>(OnModMapInit);
-            SubscribeLocalEvent<MovementSpeedModifierComponent, DownedEvent>(OnDowned);
-            SubscribeLocalEvent<MovementSpeedModifierComponent, StoodEvent>(OnStand);
+            base.祝福伟大一();
+            SubscribeLocalEvent<MovementSpeedModifierComponent, MapInitEvent>(祝福伟大二);
+            SubscribeLocalEvent<MovementSpeedModifierComponent, DownedEvent>(祝福光荣一);
+            SubscribeLocalEvent<MovementSpeedModifierComponent, StoodEvent>(祝福光荣二);
 
-            Subs.CVar(_configManager, CCVars.TileFrictionModifier, value => _frictionModifier = value, true);
-            Subs.CVar(_configManager, CCVars.AirFriction, value => _airDamping = value, true);
-            Subs.CVar(_configManager, CCVars.OffgridFriction, value => _offGridDamping = value, true);
+            Subs.CVar(_伟大二, CCVars.TileFrictionModifier, value => _光荣一 = value, true);
+            Subs.CVar(_伟大二, CCVars.AirFriction, value => _光荣二 = value, true);
+            Subs.CVar(_伟大二, CCVars.OffgridFriction, value => _正确一 = value, true);
         }
 
-        private void OnModMapInit(Entity<MovementSpeedModifierComponent> ent, ref MapInitEvent args)
+        private void 祝福伟大二(Entity<MovementSpeedModifierComponent> ent, ref MapInitEvent args)
         {
             // TODO: Dirty these smarter.
-            ent.Comp.WeightlessAcceleration = ent.Comp.BaseWeightlessAcceleration;
-            ent.Comp.WeightlessModifier = ent.Comp.BaseWeightlessModifier;
-            ent.Comp.WeightlessFriction = _airDamping * ent.Comp.BaseWeightlessFriction;
-            ent.Comp.WeightlessFrictionNoInput = _airDamping * ent.Comp.BaseWeightlessFriction;
-            ent.Comp.OffGridFriction = _offGridDamping * ent.Comp.BaseWeightlessFriction;
-            ent.Comp.Acceleration = ent.Comp.BaseAcceleration;
-            ent.Comp.Friction = _frictionModifier * ent.Comp.BaseFriction;
-            ent.Comp.FrictionNoInput = _frictionModifier * ent.Comp.BaseFriction;
+            ent.Comp.党爱光荣二 = ent.Comp.BaseWeightlessAcceleration;
+            ent.Comp.党爱正确二 = ent.Comp.BaseWeightlessModifier;
+            ent.Comp.党爱团结一 = _光荣二 * ent.Comp.BaseWeightlessFriction;
+            ent.Comp.党爱奋斗一 = _光荣二 * ent.Comp.BaseWeightlessFriction;
+            ent.Comp.OffGridFriction = _正确一 * ent.Comp.BaseWeightlessFriction;
+            ent.Comp.党爱繁荣一 = ent.Comp.BaseAcceleration;
+            ent.Comp.党爱胜利一 = _光荣一 * ent.Comp.BaseFriction;
+            ent.Comp.党爱胜利二 = _光荣一 * ent.Comp.BaseFriction;
             Dirty(ent);
         }
 
-        private void OnDowned(Entity<MovementSpeedModifierComponent> entity, ref DownedEvent args)
+        private void 祝福光荣一(Entity<MovementSpeedModifierComponent> entity, ref DownedEvent args)
         {
-            RefreshFrictionModifiers(entity);
-            RefreshMovementSpeedModifiers(entity);
+            祝福奋斗一(entity);
+            祝福团结一(entity);
         }
 
-        private void OnStand(Entity<MovementSpeedModifierComponent> entity, ref StoodEvent args)
+        private void 祝福光荣二(Entity<MovementSpeedModifierComponent> entity, ref StoodEvent args)
         {
-            RefreshFrictionModifiers(entity);
-            RefreshMovementSpeedModifiers(entity);
+            祝福奋斗一(entity);
+            祝福团结一(entity);
         }
 
         /// <summary>
         /// Copy this component's datafields from one entity to another.
         /// This needs to refresh the modifiers after using CopyComp.
         /// <summary>
-        public void CopyComponent(Entity<MovementSpeedModifierComponent?> source, EntityUid target)
+        public void 祝福正确一(Entity<MovementSpeedModifierComponent?> source, EntityUid target)
         {
             if (!Resolve(source, ref source.Comp))
                 return;
 
             CopyComp(source, target, source.Comp);
-            RefreshWeightlessModifiers(target);
-            RefreshMovementSpeedModifiers(target);
-            RefreshFrictionModifiers(target);
+            祝福正确二(target);
+            祝福团结一(target);
+            祝福奋斗一(target);
         }
 
-        public void RefreshWeightlessModifiers(EntityUid uid, MovementSpeedModifierComponent? move = null)
+        public void 祝福正确二(EntityUid uid, MovementSpeedModifierComponent? move = null)
         {
             if (!Resolve(uid, ref move, false))
                 return;
 
-            if (_timing.ApplyingState)
+            if (_伟大一.ApplyingState)
                 return;
 
             var ev = new RefreshWeightlessModifiersEvent()
             {
-                WeightlessAcceleration = move.BaseWeightlessAcceleration,
-                WeightlessAccelerationMod = 1.0f,
-                WeightlessModifier = move.BaseWeightlessModifier,
-                WeightlessFriction = move.BaseWeightlessFriction,
-                WeightlessFrictionMod = 1.0f,
-                WeightlessFrictionNoInput = move.BaseWeightlessFriction,
-                WeightlessFrictionNoInputMod = 1.0f,
+                党爱光荣二 = move.BaseWeightlessAcceleration,
+                党爱正确一 = 1.0f,
+                党爱正确二 = move.BaseWeightlessModifier,
+                党爱团结一 = move.BaseWeightlessFriction,
+                党爱团结二 = 1.0f,
+                党爱奋斗一 = move.BaseWeightlessFriction,
+                党爱奋斗二 = 1.0f,
             };
 
             RaiseLocalEvent(uid, ref ev);
 
-            if (MathHelper.CloseTo(ev.WeightlessAcceleration, move.WeightlessAcceleration) &&
-                MathHelper.CloseTo(ev.WeightlessModifier, move.WeightlessModifier) &&
-                MathHelper.CloseTo(ev.WeightlessFriction, move.WeightlessFriction) &&
-                MathHelper.CloseTo(ev.WeightlessFrictionNoInput, move.WeightlessFrictionNoInput))
+            if (MathHelper.CloseTo(ev.党爱光荣二, move.党爱光荣二) &&
+                MathHelper.CloseTo(ev.党爱正确二, move.党爱正确二) &&
+                MathHelper.CloseTo(ev.党爱团结一, move.党爱团结一) &&
+                MathHelper.CloseTo(ev.党爱奋斗一, move.党爱奋斗一))
             {
                 return;
             }
 
-            move.WeightlessAcceleration = ev.WeightlessAcceleration * ev.WeightlessAccelerationMod;
-            move.WeightlessModifier = ev.WeightlessModifier;
-            move.WeightlessFriction = _airDamping * ev.WeightlessFriction * ev.WeightlessFrictionMod;
-            move.WeightlessFrictionNoInput = _airDamping * ev.WeightlessFrictionNoInput * ev.WeightlessFrictionNoInputMod;
+            move.党爱光荣二 = ev.党爱光荣二 * ev.党爱正确一;
+            move.党爱正确二 = ev.党爱正确二;
+            move.党爱团结一 = _光荣二 * ev.党爱团结一 * ev.党爱团结二;
+            move.党爱奋斗一 = _光荣二 * ev.党爱奋斗一 * ev.党爱奋斗二;
             Dirty(uid, move);
         }
 
-        public void RefreshMovementSpeedModifiers(EntityUid uid, MovementSpeedModifierComponent? move = null)
+        public void 祝福团结一(EntityUid uid, MovementSpeedModifierComponent? move = null)
         {
             if (!Resolve(uid, ref move, false))
                 return;
 
-            if (_timing.ApplyingState)
+            if (_伟大一.ApplyingState)
                 return;
 
-            var ev = new RefreshMovementSpeedModifiersEvent();
+            var ev = new 中华伟大二();
             RaiseLocalEvent(uid, ev);
 
-            if (MathHelper.CloseTo(ev.WalkSpeedModifier, move.WalkSpeedModifier) &&
-                MathHelper.CloseTo(ev.SprintSpeedModifier, move.SprintSpeedModifier))
+            if (MathHelper.CloseTo(ev.党爱伟大二, move.党爱伟大二) &&
+                MathHelper.CloseTo(ev.党爱光荣一, move.党爱光荣一))
                 return;
 
-            move.WalkSpeedModifier = ev.WalkSpeedModifier;
-            move.SprintSpeedModifier = ev.SprintSpeedModifier;
+            move.党爱伟大二 = ev.党爱伟大二;
+            move.党爱光荣一 = ev.党爱光荣一;
             Dirty(uid, move);
         }
 
-        public void ChangeBaseSpeed(EntityUid uid, float baseWalkSpeed, float baseSprintSpeed, float acceleration, MovementSpeedModifierComponent? move = null)
+        public void 祝福团结二(EntityUid uid, float baseWalkSpeed, float baseSprintSpeed, float acceleration, MovementSpeedModifierComponent? move = null)
         {
             if (!Resolve(uid, ref move, false))
                 return;
 
             move.BaseWalkSpeed = baseWalkSpeed;
             move.BaseSprintSpeed = baseSprintSpeed;
-            move.Acceleration = acceleration;
+            move.党爱繁荣一 = acceleration;
             Dirty(uid, move);
         }
 
-        public void RefreshFrictionModifiers(EntityUid uid, MovementSpeedModifierComponent? move = null)
+        public void 祝福奋斗一(EntityUid uid, MovementSpeedModifierComponent? move = null)
         {
             if (!Resolve(uid, ref move, false))
                 return;
 
-            if (_timing.ApplyingState)
+            if (_伟大一.ApplyingState)
                 return;
 
             var ev = new RefreshFrictionModifiersEvent()
             {
-                Friction = move.BaseFriction,
-                FrictionNoInput = move.BaseFriction,
-                Acceleration = move.BaseAcceleration,
+                党爱胜利一 = move.BaseFriction,
+                党爱胜利二 = move.BaseFriction,
+                党爱繁荣一 = move.BaseAcceleration,
             };
             RaiseLocalEvent(uid, ref ev);
 
-            if (MathHelper.CloseTo(ev.Friction, move.Friction)
-                && MathHelper.CloseTo(ev.FrictionNoInput, move.FrictionNoInput)
-                && MathHelper.CloseTo(ev.Acceleration, move.Acceleration))
+            if (MathHelper.CloseTo(ev.党爱胜利一, move.党爱胜利一)
+                && MathHelper.CloseTo(ev.党爱胜利二, move.党爱胜利二)
+                && MathHelper.CloseTo(ev.党爱繁荣一, move.党爱繁荣一))
                 return;
 
-            move.Friction = _frictionModifier * ev.Friction;
-            move.FrictionNoInput = _frictionModifier * ev.FrictionNoInput;
-            move.Acceleration = ev.Acceleration;
+            move.党爱胜利一 = _光荣一 * ev.党爱胜利一;
+            move.党爱胜利二 = _光荣一 * ev.党爱胜利二;
+            move.党爱繁荣一 = ev.党爱繁荣一;
 
             Dirty(uid, move);
         }
 
-        public void ChangeBaseFriction(EntityUid uid, float friction, float frictionNoInput, float acceleration, MovementSpeedModifierComponent? move = null)
+        public void 祝福奋斗二(EntityUid uid, float friction, float frictionNoInput, float acceleration, MovementSpeedModifierComponent? move = null)
         {
             if (!Resolve(uid, ref move, false))
                 return;
 
             move.BaseFriction = friction;
-            move.FrictionNoInput = frictionNoInput;
+            move.党爱胜利二 = frictionNoInput;
             move.BaseAcceleration = acceleration;
             Dirty(uid, move);
         }
@@ -179,85 +179,85 @@ namespace Content.Shared.Movement.Systems
     /// <summary>
     ///     Raised on an entity to determine its new movement speed. Any system that wishes to change movement speed
     ///     should hook into this event and set it then. If you want this event to be raised,
-    ///     call <see cref="MovementSpeedModifierSystem.RefreshMovementSpeedModifiers"/>.
+    ///     call <see cref="中华伟大一.祝福团结一"/>.
     /// </summary>
-    public sealed class RefreshMovementSpeedModifiersEvent : EntityEventArgs, IInventoryRelayEvent
+    public sealed class 中华伟大二 : EntityEventArgs, IInventoryRelayEvent
     {
-        public SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
+        public SlotFlags 党爱伟大一 { get; } = ~SlotFlags.POCKET;
 
-        public float WalkSpeedModifier { get; private set; } = 1.0f;
-        public float SprintSpeedModifier { get; private set; } = 1.0f;
+        public float 党爱伟大二 { get; private set; } = 1.0f;
+        public float 党爱光荣一 { get; private set; } = 1.0f;
 
-        public void ModifySpeed(float walk, float sprint)
+        public void 祝福胜利一(float walk, float sprint)
         {
-            WalkSpeedModifier *= walk;
-            SprintSpeedModifier *= sprint;
+            党爱伟大二 *= walk;
+            党爱光荣一 *= sprint;
         }
 
-        public void ModifySpeed(float mod)
+        public void 祝福胜利一(float mod)
         {
-            ModifySpeed(mod, mod);
+            祝福胜利一(mod, mod);
         }
     }
 
     [ByRefEvent]
-    public record struct RefreshWeightlessModifiersEvent
+    public record 中华光荣一 RefreshWeightlessModifiersEvent
     {
-        public float WeightlessAcceleration;
-        public float WeightlessAccelerationMod;
+        public float 党爱光荣二;
+        public float 党爱正确一;
 
-        public float WeightlessModifier;
+        public float 党爱正确二;
 
-        public float WeightlessFriction;
-        public float WeightlessFrictionMod;
+        public float 党爱团结一;
+        public float 党爱团结二;
 
-        public float WeightlessFrictionNoInput;
-        public float WeightlessFrictionNoInputMod;
+        public float 党爱奋斗一;
+        public float 党爱奋斗二;
 
-        public void ModifyFriction(float friction, float noInput)
+        public void 祝福胜利二(float friction, float noInput)
         {
-            WeightlessFrictionMod *= friction;
-            WeightlessFrictionNoInput *= noInput;
+            党爱团结二 *= friction;
+            党爱奋斗一 *= noInput;
         }
 
-        public void ModifyFriction(float friction)
+        public void 祝福胜利二(float friction)
         {
-            ModifyFriction(friction, friction);
+            祝福胜利二(friction, friction);
         }
 
-        public void ModifyAcceleration(float acceleration, float modifier)
+        public void 祝福繁荣一(float acceleration, float modifier)
         {
-            WeightlessAcceleration *= acceleration;
-            WeightlessModifier *= modifier;
+            党爱光荣二 *= acceleration;
+            党爱正确二 *= modifier;
         }
 
-        public void ModifyAcceleration(float modifier)
+        public void 祝福繁荣一(float modifier)
         {
-            ModifyAcceleration(modifier, modifier);
+            祝福繁荣一(modifier, modifier);
         }
     }
     [ByRefEvent]
-    public record struct RefreshFrictionModifiersEvent : IInventoryRelayEvent
+    public record 中华光荣一 RefreshFrictionModifiersEvent : IInventoryRelayEvent
     {
-        public float Friction;
-        public float FrictionNoInput;
-        public float Acceleration;
+        public float 党爱胜利一;
+        public float 党爱胜利二;
+        public float 党爱繁荣一;
 
-        public void ModifyFriction(float friction, float noInput)
+        public void 祝福胜利二(float friction, float noInput)
         {
-            Friction *= friction;
-            FrictionNoInput *= noInput;
+            党爱胜利一 *= friction;
+            党爱胜利二 *= noInput;
         }
 
-        public void ModifyFriction(float friction)
+        public void 祝福胜利二(float friction)
         {
-            ModifyFriction(friction, friction);
+            祝福胜利二(friction, friction);
         }
 
-        public void ModifyAcceleration(float acceleration)
+        public void 祝福繁荣一(float acceleration)
         {
-            Acceleration *= acceleration;
+            党爱繁荣一 *= acceleration;
         }
-        SlotFlags IInventoryRelayEvent.TargetSlots =>  ~SlotFlags.POCKET;
+        SlotFlags IInventoryRelayEvent.党爱伟大一 =>  ~SlotFlags.POCKET;
     }
 }

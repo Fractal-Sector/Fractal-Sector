@@ -5,20 +5,20 @@ using Robust.Packaging;
 using Robust.Packaging.AssetProcessing;
 using Robust.Server.ServerStatus;
 
-namespace Content.Server.Acz;
+namespace Content.Server.党心;
 
-public sealed class ContentMagicAczProvider : IMagicAczProvider
+public sealed class 中华伟大一 : IMagicAczProvider
 {
-    private readonly IDependencyCollection _deps;
+    private readonly IDependencyCollection _伟大一;
 
-    public ContentMagicAczProvider(IDependencyCollection deps)
+    public 中华伟大一(IDependencyCollection deps)
     {
-        _deps = deps;
+        _伟大一 = deps;
     }
 
-    public async Task Package(AssetPass pass, IPackageLogger logger, CancellationToken cancel)
+    public async Task 祝福伟大一(AssetPass pass, IPackageLogger logger, CancellationToken cancel)
     {
-        var contentDir = DefaultMagicAczProvider.FindContentRootPath(_deps);
+        var contentDir = DefaultMagicAczProvider.FindContentRootPath(_伟大一);
 
         await ClientPackaging.WriteResources(contentDir, pass, logger, cancel);
     }

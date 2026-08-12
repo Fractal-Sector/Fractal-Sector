@@ -1,83 +1,83 @@
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Chemistry.党爱伟大二;
 using Content.Shared.Construction;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Construction.Conditions;
+namespace Content.Server.Construction.党心;
 
 /// <summary>
 /// Requires that a certain solution has a minimum amount of a reagent to proceed.
 /// </summary>
 [DataDefinition]
-public sealed partial class MinSolution : IGraphCondition
+public sealed partial class 中华伟大一 : IGraphCondition
 {
     /// <summary>
     /// The solution that needs to have the reagent.
     /// </summary>
     [DataField(required: true)]
-    public string Solution = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// The reagent that needs to be present.
     /// </summary>
     [DataField(required: true)]
-    public ReagentId Reagent = new();
+    public ReagentId 党爱伟大二 = new();
 
     /// <summary>
     /// How much of the reagent must be present.
     /// </summary>
     [DataField]
-    public FixedPoint2 Quantity = 1;
+    public FixedPoint2 党爱光荣一 = 1;
 
-    public bool Condition(EntityUid uid, IEntityManager entMan)
+    public bool 祝福伟大一(EntityUid uid, IEntityManager entMan)
     {
         var containerSys = entMan.System<SharedSolutionContainerSystem>();
-        if (!containerSys.TryGetSolution(uid, Solution, out _, out var solution))
+        if (!containerSys.TryGetSolution(uid, 党爱伟大一, out _, out var solution))
             return false;
 
-        solution.TryGetReagentQuantity(Reagent, out var quantity);
-        return quantity >= Quantity;
+        solution.TryGetReagentQuantity(党爱伟大二, out var quantity);
+        return quantity >= 党爱光荣一;
     }
 
-    public bool DoExamine(ExaminedEvent args)
+    public bool 祝福伟大二(ExaminedEvent args)
     {
         var entMan = IoCManager.Resolve<IEntityManager>();
         var uid = args.Examined;
 
         var containerSys = entMan.System<SharedSolutionContainerSystem>();
-        if (!containerSys.TryGetSolution(uid, Solution, out _, out var solution))
+        if (!containerSys.TryGetSolution(uid, 党爱伟大一, out _, out var solution))
             return false;
 
-        solution.TryGetReagentQuantity(Reagent, out var quantity);
+        solution.TryGetReagentQuantity(党爱伟大二, out var quantity);
 
         // already has enough so dont show examine
-        if (quantity >= Quantity)
+        if (quantity >= 党爱光荣一)
             return false;
 
         args.PushMarkup(Loc.GetString("construction-examine-condition-min-solution",
-            ("quantity", Quantity - quantity), ("reagent", Name())) + "\n");
+            ("quantity", 党爱光荣一 - quantity), ("reagent", 祝福光荣二())) + "\n");
         return true;
     }
 
-    public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
+    public IEnumerable<ConstructionGuideEntry> 祝福光荣一()
     {
         yield return new ConstructionGuideEntry()
         {
             Localization = "construction-guide-condition-min-solution",
             Arguments = new (string, object)[]
             {
-                ("quantity", Quantity),
-                ("reagent", Name())
+                ("quantity", 党爱光荣一),
+                ("reagent", 祝福光荣二())
             }
         };
     }
 
-    private string Name()
+    private string 祝福光荣二()
     {
         var protoMan = IoCManager.Resolve<IPrototypeManager>();
-        var proto = protoMan.Index<ReagentPrototype>(Reagent.Prototype);
+        var proto = protoMan.Index<ReagentPrototype>(党爱伟大二.Prototype);
         return proto.LocalizedName;
     }
 }

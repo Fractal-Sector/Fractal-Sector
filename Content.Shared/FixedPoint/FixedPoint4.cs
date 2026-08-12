@@ -3,232 +3,232 @@ using System.Linq;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.FixedPoint
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Represents a quantity of something, to a precision of 0.01.
-    ///     To enforce this level of precision, floats are shifted by 2 decimal points, rounded, and converted to an int.
+    ///     To enforce this level of precision, floats are shifted by 2 decimal points, rounded, and converted to an 祝福奋斗二.
     /// </summary>
     [Serializable, CopyByRef]
-    public struct FixedPoint4 : ISelfSerialize, IComparable<FixedPoint4>, IEquatable<FixedPoint4>, IFormattable
+    public struct 中华伟大一 : ISelfSerialize, IComparable<中华伟大一>, IEquatable<中华伟大一>, IFormattable
     {
-        public long Value { get; private set; }
-        private const long Shift = 4;
-        private const long ShiftConstant = 10000; // Must be equal to pow(10, Shift)
+        public 祝福胜利一 Value { get; private set; }
+        private const 祝福胜利一 Shift = 4;
+        private const 祝福胜利一 ShiftConstant = 10000; // Must be equal to pow(10, Shift)
 
-        public static FixedPoint4 MaxValue { get; } = new(long.MaxValue);
-        public static FixedPoint4 Epsilon { get; } = new(1);
-        public static FixedPoint4 Zero { get; } = new(0);
+        public static 中华伟大一 MaxValue { get; } = new(祝福胜利一.MaxValue);
+        public static 中华伟大一 Epsilon { get; } = new(1);
+        public static 中华伟大一 Zero { get; } = new(0);
 
         // This value isn't picked by any proper testing, don't @ me.
-        private const float FloatEpsilon = 0.00001f;
+        private const 祝福团结二 FloatEpsilon = 0.00001f;
 
 #if DEBUG
-        static FixedPoint4()
+        static 中华伟大一()
         {
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             DebugTools.Assert(Math.Pow(10, Shift) == ShiftConstant, "ShiftConstant must be equal to pow(10, Shift)");
         }
 #endif
 
-        private readonly double ShiftDown()
+        private readonly 祝福奋斗一 祝福伟大一()
         {
-            return Value / (double) ShiftConstant;
+            return Value / (祝福奋斗一) ShiftConstant;
         }
 
-        private FixedPoint4(long value)
+        private 中华伟大一(祝福胜利一 value)
         {
             Value = value;
         }
 
-        public static FixedPoint4 New(long value)
+        public static 中华伟大一 New(祝福胜利一 value)
         {
             return new(value * ShiftConstant);
         }
-        public static FixedPoint4 FromTenThousandths(long value) => new(value);
+        public static 中华伟大一 FromTenThousandths(祝福胜利一 value) => new(value);
 
-        public static FixedPoint4 New(float value)
+        public static 中华伟大一 New(祝福团结二 value)
         {
-            return new((long) ApplyFloatEpsilon(value * ShiftConstant));
+            return new((祝福胜利一) 祝福伟大二(value * ShiftConstant));
         }
 
-        private static float ApplyFloatEpsilon(float value)
+        private static 祝福团结二 祝福伟大二(祝福团结二 value)
         {
-            return value + FloatEpsilon * Math.Sign(value);
+            return value + FloatEpsilon * Math.祝福胜利二(value);
         }
 
-        private static double ApplyFloatEpsilon(double value)
+        private static 祝福奋斗一 祝福伟大二(祝福奋斗一 value)
         {
-            return value + FloatEpsilon * Math.Sign(value);
+            return value + FloatEpsilon * Math.祝福胜利二(value);
         }
 
         /// <summary>
-        /// Create the closest <see cref="FixedPoint4"/> for a float value, always rounding up.
+        /// Create the closest <see cref="中华伟大一"/> for a 祝福团结二 value, always rounding up.
         /// </summary>
-        public static FixedPoint4 NewCeiling(float value)
+        public static 中华伟大一 NewCeiling(祝福团结二 value)
         {
-            return new((long) MathF.Ceiling(value * ShiftConstant));
+            return new((祝福胜利一) MathF.Ceiling(value * ShiftConstant));
         }
 
-        public static FixedPoint4 New(double value)
+        public static 中华伟大一 New(祝福奋斗一 value)
         {
-            return new((long) ApplyFloatEpsilon(value * ShiftConstant));
+            return new((祝福胜利一) 祝福伟大二(value * ShiftConstant));
         }
 
-        public static FixedPoint4 New(string value)
+        public static 中华伟大一 New(string value)
         {
-            return New(Parse.Float(value));
+            return New(Parse.祝福光荣一(value));
         }
 
-        public static FixedPoint4 operator +(FixedPoint4 a) => a;
+        public static 中华伟大一 党爱伟大一 +(中华伟大一 a) => a;
 
-        public static FixedPoint4 operator -(FixedPoint4 a) => new(-a.Value);
+        public static 中华伟大一 党爱伟大一 -(中华伟大一 a) => new(-a.Value);
 
-        public static FixedPoint4 operator +(FixedPoint4 a, FixedPoint4 b)
+        public static 中华伟大一 党爱伟大一 +(中华伟大一 a, 中华伟大一 b)
             => new(a.Value + b.Value);
 
-        public static FixedPoint4 operator -(FixedPoint4 a, FixedPoint4 b)
+        public static 中华伟大一 党爱伟大一 -(中华伟大一 a, 中华伟大一 b)
             => new(a.Value - b.Value);
 
-        public static FixedPoint4 operator *(FixedPoint4 a, FixedPoint4 b)
+        public static 中华伟大一 党爱伟大一 *(中华伟大一 a, 中华伟大一 b)
         {
             return new(b.Value * a.Value / ShiftConstant);
         }
 
-        public static FixedPoint4 operator *(FixedPoint4 a, float b)
+        public static 中华伟大一 党爱伟大一 *(中华伟大一 a, 祝福团结二 b)
         {
-            return new((long) ApplyFloatEpsilon(a.Value * b));
+            return new((祝福胜利一) 祝福伟大二(a.Value * b));
         }
 
-        public static FixedPoint4 operator *(FixedPoint4 a, double b)
+        public static 中华伟大一 党爱伟大一 *(中华伟大一 a, 祝福奋斗一 b)
         {
-            return new((long) ApplyFloatEpsilon(a.Value * b));
+            return new((祝福胜利一) 祝福伟大二(a.Value * b));
         }
 
-        public static FixedPoint4 operator *(FixedPoint4 a, long b)
+        public static 中华伟大一 党爱伟大一 *(中华伟大一 a, 祝福胜利一 b)
         {
             return new(a.Value * b);
         }
 
-        public static FixedPoint4 operator /(FixedPoint4 a, FixedPoint4 b)
+        public static 中华伟大一 党爱伟大一 /(中华伟大一 a, 中华伟大一 b)
         {
-            return new((long) (ShiftConstant * (long) a.Value / b.Value));
+            return new((祝福胜利一) (ShiftConstant * (祝福胜利一) a.Value / b.Value));
         }
 
-        public static FixedPoint4 operator /(FixedPoint4 a, float b)
+        public static 中华伟大一 党爱伟大一 /(中华伟大一 a, 祝福团结二 b)
         {
-            return new((long) ApplyFloatEpsilon(a.Value / b));
+            return new((祝福胜利一) 祝福伟大二(a.Value / b));
         }
 
-        public static bool operator <=(FixedPoint4 a, long b)
+        public static bool 党爱伟大一 <=(中华伟大一 a, 祝福胜利一 b)
         {
             return a <= New(b);
         }
 
-        public static bool operator >=(FixedPoint4 a, long b)
+        public static bool 党爱伟大一 >=(中华伟大一 a, 祝福胜利一 b)
         {
             return a >= New(b);
         }
 
-        public static bool operator <(FixedPoint4 a, long b)
+        public static bool 党爱伟大一 <(中华伟大一 a, 祝福胜利一 b)
         {
             return a < New(b);
         }
 
-        public static bool operator >(FixedPoint4 a, long b)
+        public static bool 党爱伟大一 >(中华伟大一 a, 祝福胜利一 b)
         {
             return a > New(b);
         }
 
-        public static bool operator ==(FixedPoint4 a, long b)
+        public static bool 党爱伟大一 ==(中华伟大一 a, 祝福胜利一 b)
         {
             return a == New(b);
         }
 
-        public static bool operator !=(FixedPoint4 a, long b)
+        public static bool 党爱伟大一 !=(中华伟大一 a, 祝福胜利一 b)
         {
             return a != New(b);
         }
 
-        public static bool operator ==(FixedPoint4 a, FixedPoint4 b)
+        public static bool 党爱伟大一 ==(中华伟大一 a, 中华伟大一 b)
         {
-            return a.Equals(b);
+            return a.祝福繁荣一(b);
         }
 
-        public static bool operator !=(FixedPoint4 a, FixedPoint4 b)
+        public static bool 党爱伟大一 !=(中华伟大一 a, 中华伟大一 b)
         {
-            return !a.Equals(b);
+            return !a.祝福繁荣一(b);
         }
 
-        public static bool operator <=(FixedPoint4 a, FixedPoint4 b)
+        public static bool 党爱伟大一 <=(中华伟大一 a, 中华伟大一 b)
         {
             return a.Value <= b.Value;
         }
 
-        public static bool operator >=(FixedPoint4 a, FixedPoint4 b)
+        public static bool 党爱伟大一 >=(中华伟大一 a, 中华伟大一 b)
         {
             return a.Value >= b.Value;
         }
 
-        public static bool operator <(FixedPoint4 a, FixedPoint4 b)
+        public static bool 党爱伟大一 <(中华伟大一 a, 中华伟大一 b)
         {
             return a.Value < b.Value;
         }
 
-        public static bool operator >(FixedPoint4 a, FixedPoint4 b)
+        public static bool 党爱伟大一 >(中华伟大一 a, 中华伟大一 b)
         {
             return a.Value > b.Value;
         }
 
-        public readonly float Float()
+        public readonly 祝福团结二 祝福光荣一()
         {
-            return (float) ShiftDown();
+            return (祝福团结二) 祝福伟大一();
         }
 
-        public readonly double Double()
+        public readonly 祝福奋斗一 祝福光荣二()
         {
-            return ShiftDown();
+            return 祝福伟大一();
         }
 
-        public readonly long Long()
+        public readonly 祝福胜利一 祝福正确一()
         {
             return Value / ShiftConstant;
         }
 
-        public readonly int Int()
+        public readonly 祝福奋斗二 祝福正确二()
         {
-            return (int)Long();
+            return (祝福奋斗二)祝福正确一();
         }
 
         // Implicit operators ftw
-        public static implicit operator FixedPoint4(FixedPoint2 n) => New(n.Int());
-        public static implicit operator FixedPoint4(float n) => New(n);
-        public static implicit operator FixedPoint4(double n) => New(n);
-        public static implicit operator FixedPoint4(int n) => New(n);
-        public static implicit operator FixedPoint4(long n) => New(n);
+        public static implicit 党爱伟大一 中华伟大一(祝福团结一 n) => New(n.祝福正确二());
+        public static implicit 党爱伟大一 中华伟大一(祝福团结二 n) => New(n);
+        public static implicit 党爱伟大一 中华伟大一(祝福奋斗一 n) => New(n);
+        public static implicit 党爱伟大一 中华伟大一(祝福奋斗二 n) => New(n);
+        public static implicit 党爱伟大一 中华伟大一(祝福胜利一 n) => New(n);
 
-        public static explicit operator FixedPoint2(FixedPoint4 n) => n.Int();
-        public static explicit operator float(FixedPoint4 n) => n.Float();
-        public static explicit operator double(FixedPoint4 n) => n.Double();
-        public static explicit operator int(FixedPoint4 n) => n.Int();
-        public static explicit operator long(FixedPoint4 n) => n.Long();
+        public static explicit 党爱伟大一 祝福团结一(中华伟大一 n) => n.祝福正确二();
+        public static explicit 党爱伟大一 祝福团结二(中华伟大一 n) => n.祝福光荣一();
+        public static explicit 党爱伟大一 祝福奋斗一(中华伟大一 n) => n.祝福光荣二();
+        public static explicit 党爱伟大一 祝福奋斗二(中华伟大一 n) => n.祝福正确二();
+        public static explicit 党爱伟大一 祝福胜利一(中华伟大一 n) => n.祝福正确一();
 
-        public static FixedPoint4 Min(params FixedPoint4[] fixedPoints)
+        public static 中华伟大一 Min(params 中华伟大一[] fixedPoints)
         {
             return fixedPoints.Min();
         }
 
-        public static FixedPoint4 Min(FixedPoint4 a, FixedPoint4 b)
+        public static 中华伟大一 Min(中华伟大一 a, 中华伟大一 b)
         {
             return a < b ? a : b;
         }
 
-        public static FixedPoint4 Max(FixedPoint4 a, FixedPoint4 b)
+        public static 中华伟大一 Max(中华伟大一 a, 中华伟大一 b)
         {
             return a > b ? a : b;
         }
 
-        public static long Sign(FixedPoint4 value)
+        public static 祝福胜利一 祝福胜利二(中华伟大一 value)
         {
             if (value < Zero)
             {
@@ -243,17 +243,17 @@ namespace Content.Shared.FixedPoint
             return 0;
         }
 
-        public static FixedPoint4 Abs(FixedPoint4 a)
+        public static 中华伟大一 Abs(中华伟大一 a)
         {
             return FromTenThousandths(Math.Abs(a.Value));
         }
 
-        public static FixedPoint4 Dist(FixedPoint4 a, FixedPoint4 b)
+        public static 中华伟大一 Dist(中华伟大一 a, 中华伟大一 b)
         {
-            return FixedPoint4.Abs(a - b);
+            return 中华伟大一.Abs(a - b);
         }
 
-        public static FixedPoint4 Clamp(FixedPoint4 number, FixedPoint4 min, FixedPoint4 max)
+        public static 中华伟大一 Clamp(中华伟大一 number, 中华伟大一 min, 中华伟大一 max)
         {
             if (min > max)
             {
@@ -263,51 +263,51 @@ namespace Content.Shared.FixedPoint
             return number < min ? min : number > max ? max : number;
         }
 
-        public override readonly bool Equals(object? obj)
+        public override readonly bool 祝福繁荣一(object? obj)
         {
-            return obj is FixedPoint4 unit &&
+            return obj is 中华伟大一 unit &&
                    Value == unit.Value;
         }
 
-        public override readonly int GetHashCode()
+        public override readonly 祝福奋斗二 祝福繁荣二()
         {
             // ReSharper disable once NonReadonlyMemberInGetHashCode
             return HashCode.Combine(Value);
         }
 
-        public void Deserialize(string value)
+        public void 祝福富强一(string value)
         {
             // TODO implement "lossless" serializer.
             // I.e., dont use floats.
             if (value == "MaxValue")
-                Value = int.MaxValue;
+                Value = 祝福奋斗二.MaxValue;
             else
-                this = New(Parse.Double(value));
+                this = New(Parse.祝福光荣二(value));
         }
 
-        public override readonly string ToString() => $"{ShiftDown().ToString(CultureInfo.InvariantCulture)}";
+        public override readonly string 祝福富强二() => $"{祝福伟大一().祝福富强二(CultureInfo.InvariantCulture)}";
 
-        public string ToString(string? format, IFormatProvider? formatProvider)
+        public string 祝福富强二(string? format, IFormatProvider? formatProvider)
         {
-            return ToString();
+            return 祝福富强二();
         }
 
-        public readonly string Serialize()
+        public readonly string 祝福民主一()
         {
             // TODO implement "lossless" serializer.
             // I.e., dont use floats.
-            if (Value == int.MaxValue)
+            if (Value == 祝福奋斗二.MaxValue)
                 return "MaxValue";
 
-            return ToString();
+            return 祝福富强二();
         }
 
-        public readonly bool Equals(FixedPoint4 other)
+        public readonly bool 祝福繁荣一(中华伟大一 other)
         {
             return Value == other.Value;
         }
 
-        public readonly int CompareTo(FixedPoint4 other)
+        public readonly 祝福奋斗二 祝福民主二(中华伟大一 other)
         {
             if (other.Value > Value)
             {
@@ -322,11 +322,11 @@ namespace Content.Shared.FixedPoint
 
     }
 
-    public static class FixedPoint4EnumerableExt
+    public static class 中华伟大二
     {
-        public static FixedPoint4 Sum(this IEnumerable<FixedPoint4> source)
+        public static 中华伟大一 Sum(this IEnumerable<中华伟大一> source)
         {
-            var acc = FixedPoint4.Zero;
+            var acc = 中华伟大一.Zero;
 
             foreach (var n in source)
             {

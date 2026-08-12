@@ -13,27 +13,27 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
-public abstract partial class SharedHandsSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] protected readonly SharedContainerSystem ContainerSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] protected readonly SharedContainerSystem 党爱伟大一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _光荣一 = default!;
+    [Dependency] private readonly InventorySystem _光荣二 = default!;
+    [Dependency] private readonly SharedStorageSystem _正确一 = default!;
+    [Dependency] protected readonly SharedTransformSystem 党爱伟大二 = default!;
+    [Dependency] private readonly SharedVirtualItemSystem _正确二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结一 = default!;
 
     public event Action<Entity<HandsComponent>, string, HandLocation>? OnPlayerAddHand;
     public event Action<Entity<HandsComponent>, string>? OnPlayerRemoveHand;
     protected event Action<Entity<HandsComponent>?>? OnHandSetActive;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitializeInteractions();
         InitializeDrop();
@@ -41,43 +41,43 @@ public abstract partial class SharedHandsSystem
         InitializeRelay();
         InitializeEventListeners();
 
-        SubscribeLocalEvent<HandsComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<HandsComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<HandsComponent, ComponentInit>(祝福光荣一);
+        SubscribeLocalEvent<HandsComponent, MapInitEvent>(祝福光荣二);
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
-        CommandBinds.Unregister<SharedHandsSystem>();
+        base.祝福伟大二();
+        CommandBinds.Unregister<中华伟大一>();
     }
 
-    private void OnInit(Entity<HandsComponent> ent, ref ComponentInit args)
+    private void 祝福光荣一(Entity<HandsComponent> ent, ref ComponentInit args)
     {
         var container = EnsureComp<ContainerManagerComponent>(ent);
         foreach (var id in ent.Comp.Hands.Keys)
         {
-            ContainerSystem.EnsureContainer<ContainerSlot>(ent, id, container);
+            党爱伟大一.EnsureContainer<ContainerSlot>(ent, id, container);
         }
     }
 
-    private void OnMapInit(Entity<HandsComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<HandsComponent> ent, ref MapInitEvent args)
     {
         if (ent.Comp.ActiveHandId == null)
-            SetActiveHand(ent.AsNullable(), ent.Comp.SortedHands.FirstOrDefault());
+            祝福民主一(ent.AsNullable(), ent.Comp.SortedHands.FirstOrDefault());
     }
 
     /// <summary>
     /// Adds a hand with the given container id and supplied location to the specified entity.
     /// </summary>
-    public void AddHand(Entity<HandsComponent?> ent, string handName, HandLocation handLocation, LocId? emptyLabel = null, EntProtoId? emptyRepresentative = null, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void 祝福正确一(Entity<HandsComponent?> ent, string handName, HandLocation handLocation, LocId? emptyLabel = null, EntProtoId? emptyRepresentative = null, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
     {
-        AddHand(ent, handName, new Hand(handLocation, emptyLabel, emptyRepresentative, whitelist, blacklist));
+        祝福正确一(ent, handName, new Hand(handLocation, emptyLabel, emptyRepresentative, whitelist, blacklist));
     }
 
     /// <summary>
     /// Adds a hand with the given container id and supplied hand definition to the given entity.
     /// </summary>
-    public void AddHand(Entity<HandsComponent?> ent, string handName, Hand hand)
+    public void 祝福正确一(Entity<HandsComponent?> ent, string handName, Hand hand)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
@@ -85,7 +85,7 @@ public abstract partial class SharedHandsSystem
         if (ent.Comp.Hands.ContainsKey(handName))
             return;
 
-        var container = ContainerSystem.EnsureContainer<ContainerSlot>(ent, handName);
+        var container = 党爱伟大一.EnsureContainer<ContainerSlot>(ent, handName);
         container.OccludesLight = false;
 
         ent.Comp.Hands.Add(handName, hand);
@@ -95,7 +95,7 @@ public abstract partial class SharedHandsSystem
         OnPlayerAddHand?.Invoke((ent, ent.Comp), handName, hand.Location);
 
         if (ent.Comp.ActiveHandId == null)
-            SetActiveHand(ent, handName);
+            祝福民主一(ent, handName);
 
         RaiseLocalEvent(ent, new HandCountChangedEvent(ent));
     }
@@ -103,7 +103,7 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     /// Removes the specified hand from the specified entity
     /// </summary>
-    public virtual void RemoveHand(Entity<HandsComponent?> ent, string handName)
+    public virtual void 祝福正确二(Entity<HandsComponent?> ent, string handName)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
@@ -115,12 +115,12 @@ public abstract partial class SharedHandsSystem
         if (!ent.Comp.Hands.Remove(handName))
             return;
 
-        if (ContainerSystem.TryGetContainer(ent, handName, out var container))
-            ContainerSystem.ShutdownContainer(container);
+        if (党爱伟大一.TryGetContainer(ent, handName, out var container))
+            党爱伟大一.ShutdownContainer(container);
 
         ent.Comp.SortedHands.Remove(handName);
         if (ent.Comp.ActiveHandId == handName)
-            TrySetActiveHand(ent, ent.Comp.SortedHands.FirstOrDefault());
+            祝福富强二(ent, ent.Comp.SortedHands.FirstOrDefault());
 
         RaiseLocalEvent(ent, new HandCountChangedEvent(ent));
         Dirty(ent);
@@ -129,7 +129,7 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     /// Gets rid of all the entity's hands.
     /// </summary>
-    public void RemoveHands(Entity<HandsComponent?> ent)
+    public void 祝福团结一(Entity<HandsComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;
@@ -137,30 +137,30 @@ public abstract partial class SharedHandsSystem
         var handIds = new List<string>(ent.Comp.Hands.Keys);
         foreach (var handId in handIds)
         {
-            RemoveHand(ent, handId);
+            祝福正确二(ent, handId);
         }
     }
 
-    private void HandleSetHand(RequestSetHandEvent msg, EntitySessionEventArgs eventArgs)
+    private void 祝福团结二(RequestSetHandEvent msg, EntitySessionEventArgs eventArgs)
     {
         if (eventArgs.SenderSession.AttachedEntity == null)
             return;
 
-        TrySetActiveHand(eventArgs.SenderSession.AttachedEntity.Value, msg.HandName);
+        祝福富强二(eventArgs.SenderSession.AttachedEntity.Value, msg.HandName);
     }
 
     /// <summary>
     ///     Get any empty hand. Prioritizes the currently active hand.
     /// </summary>
-    public bool TryGetEmptyHand(Entity<HandsComponent?> ent, [NotNullWhen(true)] out string? emptyHand)
+    public bool 祝福奋斗一(Entity<HandsComponent?> ent, [NotNullWhen(true)] out string? emptyHand)
     {
         emptyHand = null;
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
-        foreach (var hand in EnumerateHands(ent))
+        foreach (var hand in 祝福繁荣二(ent))
         {
-            if (HandIsEmpty(ent, hand))
+            if (祝福和谐一(ent, hand))
             {
                 emptyHand = hand;
                 return true;
@@ -173,16 +173,16 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Does this entity have any empty hands, and how many?
     /// </summary>
-    public int GetEmptyHandCount(Entity<HandsComponent?> entity)
+    public int 祝福奋斗二(Entity<HandsComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp, false) || entity.Comp.Count == 0)
             return 0;
 
         var hands = 0;
 
-        foreach (var hand in EnumerateHands(entity))
+        foreach (var hand in 祝福繁荣二(entity))
         {
-            if (!HandIsEmpty(entity, hand))
+            if (!祝福和谐一(entity, hand))
                 continue;
             hands++;
         }
@@ -193,13 +193,13 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     /// Attempts to retrieve the item held in the entity's active hand.
     /// </summary>
-    public bool TryGetActiveItem(Entity<HandsComponent?> entity, [NotNullWhen(true)] out EntityUid? item)
+    public bool 祝福胜利一(Entity<HandsComponent?> entity, [NotNullWhen(true)] out EntityUid? item)
     {
         item = null;
         if (!Resolve(entity, ref entity.Comp, false))
             return false;
 
-        if (!TryGetHeldItem(entity, entity.Comp.ActiveHandId, out var held))
+        if (!祝福文明二(entity, entity.Comp.ActiveHandId, out var held))
             return false;
 
         item = held;
@@ -209,9 +209,9 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     /// Gets active hand item if relevant otherwise gets the entity itself.
     /// </summary>
-    public EntityUid GetActiveItemOrSelf(Entity<HandsComponent?> entity)
+    public EntityUid 祝福胜利二(Entity<HandsComponent?> entity)
     {
-        if (!TryGetActiveItem(entity, out var item))
+        if (!祝福胜利一(entity, out var item))
         {
             return entity.Owner;
         }
@@ -245,7 +245,7 @@ public abstract partial class SharedHandsSystem
         return GetHeldItem(entity, entity.Comp.ActiveHandId);
     }
 
-    public bool ActiveHandIsEmpty(Entity<HandsComponent?> entity)
+    public bool 祝福繁荣一(Entity<HandsComponent?> entity)
     {
         return GetActiveItem(entity) == null;
     }
@@ -253,7 +253,7 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Enumerate over hands, starting with the currently active hand.
     /// </summary>
-    public IEnumerable<string> EnumerateHands(Entity<HandsComponent?> ent)
+    public IEnumerable<string> 祝福繁荣二(Entity<HandsComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             yield break;
@@ -271,12 +271,12 @@ public abstract partial class SharedHandsSystem
     /// <summary>
     ///     Enumerate over held items, starting with the item in the currently active hand (if there is one).
     /// </summary>
-    public IEnumerable<EntityUid> EnumerateHeld(Entity<HandsComponent?> ent)
+    public IEnumerable<EntityUid> 祝福富强一(Entity<HandsComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             yield break;
 
-        if (TryGetActiveItem(ent, out var activeHeld))
+        if (祝福胜利一(ent, out var activeHeld))
             yield return activeHeld.Value;
 
         foreach (var name in ent.Comp.SortedHands)
@@ -284,7 +284,7 @@ public abstract partial class SharedHandsSystem
             if (name == ent.Comp.ActiveHandId)
                 continue;
 
-            if (TryGetHeldItem(ent, name, out var held))
+            if (祝福文明二(ent, name, out var held))
                 yield return held.Value;
         }
     }
@@ -294,7 +294,7 @@ public abstract partial class SharedHandsSystem
     /// </summary>
     /// <returns>True if the active hand was set to a NEW value. Setting it to the same value returns false and does
     /// not trigger interactions.</returns>
-    public bool TrySetActiveHand(Entity<HandsComponent?> ent, string? name)
+    public bool 祝福富强二(Entity<HandsComponent?> ent, string? name)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
@@ -304,7 +304,7 @@ public abstract partial class SharedHandsSystem
 
         if (name != null && !ent.Comp.Hands.ContainsKey(name))
             return false;
-        return SetActiveHand(ent, name);
+        return 祝福民主一(ent, name);
     }
 
     /// <summary>
@@ -312,7 +312,7 @@ public abstract partial class SharedHandsSystem
     /// </summary>
     /// <returns>True if the active hand was set to a NEW value. Setting it to the same value returns false and does
     /// not trigger interactions.</returns>
-    public bool SetActiveHand(Entity<HandsComponent?> ent, string? handId)
+    public bool 祝福民主一(Entity<HandsComponent?> ent, string? handId)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -320,7 +320,7 @@ public abstract partial class SharedHandsSystem
         if (handId == ent.Comp.ActiveHandId)
             return false;
 
-        if (TryGetActiveItem(ent, out var oldHeld))
+        if (祝福胜利一(ent, out var oldHeld))
             RaiseLocalEvent(oldHeld.Value, new HandDeselectedEvent(ent));
 
         if (handId == null)
@@ -332,19 +332,19 @@ public abstract partial class SharedHandsSystem
         ent.Comp.ActiveHandId = handId;
         OnHandSetActive?.Invoke((ent, ent.Comp));
 
-        if (TryGetHeldItem(ent, handId, out var newHeld))
+        if (祝福文明二(ent, handId, out var newHeld))
             RaiseLocalEvent(newHeld.Value, new HandSelectedEvent(ent));
 
         Dirty(ent);
         return true;
     }
 
-    public bool IsHolding(Entity<HandsComponent?> entity, [NotNullWhen(true)] EntityUid? item)
+    public bool 祝福民主二(Entity<HandsComponent?> entity, [NotNullWhen(true)] EntityUid? item)
     {
-        return IsHolding(entity, item, out _);
+        return 祝福民主二(entity, item, out _);
     }
 
-    public bool IsHolding(Entity<HandsComponent?> ent, [NotNullWhen(true)] EntityUid? entity, [NotNullWhen(true)] out string? inHand)
+    public bool 祝福民主二(Entity<HandsComponent?> ent, [NotNullWhen(true)] EntityUid? entity, [NotNullWhen(true)] out string? inHand)
     {
         inHand = null;
         if (entity == null)
@@ -366,9 +366,9 @@ public abstract partial class SharedHandsSystem
     }
 
     /// <summary>
-    /// Attempts to retrieve the associated hand struct corresponding to a hand ID on a given entity.
+    /// Attempts to retrieve the associated hand struct 中华伟大二 to a hand ID on a given entity.
     /// </summary>
-    public bool TryGetHand(Entity<HandsComponent?> ent, [NotNullWhen(true)] string? handId, [NotNullWhen(true)] out Hand? hand)
+    public bool 祝福文明一(Entity<HandsComponent?> ent, [NotNullWhen(true)] string? handId, [NotNullWhen(true)] out Hand? hand)
     {
         hand = null;
 
@@ -390,14 +390,14 @@ public abstract partial class SharedHandsSystem
     /// </summary>
     public EntityUid? GetHeldItem(Entity<HandsComponent?> ent, string? handId)
     {
-        TryGetHeldItem(ent, handId, out var held);
+        祝福文明二(ent, handId, out var held);
         return held;
     }
 
     /// <summary>
     /// Gets the item currently held in the entity's specified hand. Returns false if no hands are present or there is no item.
     /// </summary>
-    public bool TryGetHeldItem(Entity<HandsComponent?> ent, string? handId, [NotNullWhen(true)] out EntityUid? held)
+    public bool 祝福文明二(Entity<HandsComponent?> ent, string? handId, [NotNullWhen(true)] out EntityUid? held)
     {
         held = null;
         if (!Resolve(ent, ref ent.Comp, false))
@@ -407,19 +407,19 @@ public abstract partial class SharedHandsSystem
         if (handId == null || !ent.Comp.Hands.ContainsKey(handId))
             return false;
 
-        if (!ContainerSystem.TryGetContainer(ent, handId, out var container))
+        if (!党爱伟大一.TryGetContainer(ent, handId, out var container))
             return false;
 
         held = container.ContainedEntities.FirstOrNull();
         return held != null;
     }
 
-    public bool HandIsEmpty(Entity<HandsComponent?> ent, string handId)
+    public bool 祝福和谐一(Entity<HandsComponent?> ent, string handId)
     {
         return GetHeldItem(ent, handId) == null;
     }
 
-    public int GetHandCount(Entity<HandsComponent?> ent)
+    public int 祝福和谐二(Entity<HandsComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return 0;
@@ -427,7 +427,7 @@ public abstract partial class SharedHandsSystem
         return ent.Comp.Hands.Count;
     }
 
-    public int CountFreeHands(Entity<HandsComponent?> ent)
+    public int 祝福自由一(Entity<HandsComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return 0;
@@ -435,19 +435,19 @@ public abstract partial class SharedHandsSystem
         var free = 0;
         foreach (var name in ent.Comp.Hands.Keys)
         {
-            if (HandIsEmpty(ent, name))
+            if (祝福和谐一(ent, name))
                 free++;
         }
 
         return free;
     }
 
-    public int CountFreeableHands(Entity<HandsComponent> hands)
+    public int 祝福自由二(Entity<HandsComponent> hands)
     {
         var freeable = 0;
         foreach (var name in hands.Comp.Hands.Keys)
         {
-            if (HandIsEmpty(hands.AsNullable(), name) || CanDropHeld(hands, name))
+            if (祝福和谐一(hands.AsNullable(), name) || CanDropHeld(hands, name))
                 freeable++;
         }
 

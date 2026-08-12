@@ -4,20 +4,20 @@ using Content.Shared.Standing;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Damage.Components;
+namespace Content.Shared.Damage.党心;
 
-public sealed class RequireProjectileTargetSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<RequireProjectileTargetComponent, PreventCollideEvent>(PreventCollide);
-        SubscribeLocalEvent<RequireProjectileTargetComponent, StoodEvent>(StandingBulletHit);
-        SubscribeLocalEvent<RequireProjectileTargetComponent, DownedEvent>(LayingBulletPass);
+        SubscribeLocalEvent<RequireProjectileTargetComponent, PreventCollideEvent>(祝福伟大二);
+        SubscribeLocalEvent<RequireProjectileTargetComponent, StoodEvent>(祝福光荣二);
+        SubscribeLocalEvent<RequireProjectileTargetComponent, DownedEvent>(祝福正确一);
     }
 
-    private void PreventCollide(Entity<RequireProjectileTargetComponent> ent, ref PreventCollideEvent args)
+    private void 祝福伟大二(Entity<RequireProjectileTargetComponent> ent, ref PreventCollideEvent args)
     {
         if (args.Cancelled)
           return;
@@ -39,12 +39,12 @@ public sealed class RequireProjectileTargetSystem : EntitySystem
             if (TerminatingOrDeleted(shooter.Value))
                 return;
 
-            if (!_container.IsEntityOrParentInContainer(shooter.Value))
+            if (!_伟大一.IsEntityOrParentInContainer(shooter.Value))
                args.Cancelled = true;
         }
     }
 
-    private void SetActive(Entity<RequireProjectileTargetComponent> ent, bool value)
+    private void 祝福光荣一(Entity<RequireProjectileTargetComponent> ent, bool value)
     {
         if (ent.Comp.Active == value)
             return;
@@ -53,13 +53,13 @@ public sealed class RequireProjectileTargetSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void StandingBulletHit(Entity<RequireProjectileTargetComponent> ent, ref StoodEvent args)
+    private void 祝福光荣二(Entity<RequireProjectileTargetComponent> ent, ref StoodEvent args)
     {
-        SetActive(ent, false);
+        祝福光荣一(ent, false);
     }
 
-    private void LayingBulletPass(Entity<RequireProjectileTargetComponent> ent, ref DownedEvent args)
+    private void 祝福正确一(Entity<RequireProjectileTargetComponent> ent, ref DownedEvent args)
     {
-        SetActive(ent, true);
+        祝福光荣一(ent, true);
     }
 }

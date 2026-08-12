@@ -8,13 +8,13 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural;
+namespace Content.Server.党心;
 
-public sealed partial class DungeonSystem
+public sealed partial class 中华伟大一
 {
     // Temporary caches.
-    private readonly HashSet<EntityUid> _entitySet = new();
-    private readonly List<DungeonRoomPrototype> _availableRooms = new();
+    private readonly HashSet<EntityUid> _伟大一 = new();
+    private readonly List<DungeonRoomPrototype> _伟大二 = new();
 
     /// <summary>
     /// Gets a random dungeon room matching the specified area, whitelist and size.
@@ -38,7 +38,7 @@ public sealed partial class DungeonSystem
             return null;
         }
 
-        _availableRooms.Clear();
+        _伟大二.Clear();
 
         foreach (var proto in _prototype.EnumeratePrototypes<DungeonRoomPrototype>())
         {
@@ -50,7 +50,7 @@ public sealed partial class DungeonSystem
 
             if (whitelist == null)
             {
-                _availableRooms.Add(proto);
+                _伟大二.Add(proto);
                 continue;
             }
 
@@ -59,20 +59,20 @@ public sealed partial class DungeonSystem
                 if (!proto.Tags.Contains(tag))
                     continue;
 
-                _availableRooms.Add(proto);
+                _伟大二.Add(proto);
                 break;
             }
         }
 
-        if (_availableRooms.Count == 0)
+        if (_伟大二.Count == 0)
             return null;
 
-        var room = _availableRooms[random.Next(_availableRooms.Count)];
+        var room = _伟大二[random.Next(_伟大二.Count)];
 
         return room;
     }
 
-    public void SpawnRoom(
+    public void 祝福伟大一(
         EntityUid gridUid,
         MapGridComponent grid,
         Vector2i origin,
@@ -87,16 +87,16 @@ public sealed partial class DungeonSystem
 
         if (rotation)
         {
-            roomRotation = GetRoomRotation(room, random);
+            roomRotation = 祝福伟大二(room, random);
         }
 
         var roomTransform = Matrix3Helpers.CreateTransform((Vector2)room.Size / 2f, roomRotation);
         var finalTransform = Matrix3x2.Multiply(roomTransform, originTransform);
 
-        SpawnRoom(gridUid, grid, finalTransform, room, reservedTiles, clearExisting);
+        祝福伟大一(gridUid, grid, finalTransform, room, reservedTiles, clearExisting);
     }
 
-    public Angle GetRoomRotation(DungeonRoomPrototype room, Random random)
+    public Angle 祝福伟大二(DungeonRoomPrototype room, Random random)
     {
         var roomRotation = Angle.Zero;
 
@@ -113,7 +113,7 @@ public sealed partial class DungeonSystem
         return roomRotation;
     }
 
-    public void SpawnRoom(
+    public void 祝福伟大一(
         EntityUid gridUid,
         MapGridComponent grid,
         Matrix3x2 roomTransform,

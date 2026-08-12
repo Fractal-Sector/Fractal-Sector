@@ -2,20 +2,20 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Chemistry.Components;
+namespace Content.Shared.Chemistry.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ReagentTankComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public FixedPoint2 TransferAmount { get; set; } = FixedPoint2.New(10);
+    public FixedPoint2 党爱伟大一 { get; set; } = FixedPoint2.New(10);
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public ReagentTankType TankType { get; set; } = ReagentTankType.Unspecified;
+    public 中华伟大二 TankType { get; set; } = 中华伟大二.Unspecified;
 }
 
 [Serializable, NetSerializable]
-public enum ReagentTankType : byte
+public enum 中华伟大二 : byte
 {
     Unspecified,
     Fuel

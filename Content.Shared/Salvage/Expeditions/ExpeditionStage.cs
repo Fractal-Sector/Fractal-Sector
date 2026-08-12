@@ -1,6 +1,6 @@
-namespace Content.Shared.Salvage.Expeditions;
+namespace Content.Shared.Salvage.党心;
 
-public enum ExpeditionStage : byte
+public enum 中华伟大一 : byte
 {
     Added,
     Running,

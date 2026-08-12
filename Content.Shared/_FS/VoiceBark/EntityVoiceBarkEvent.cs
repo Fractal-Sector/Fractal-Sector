@@ -1,6 +1,6 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._FS.VoiceBark;
+namespace Content.Shared._FS.党心;
 
 /// <summary>
 /// Broadcast to nearby clients telling them to play a precomputed bark
@@ -9,8 +9,8 @@ namespace Content.Shared._FS.VoiceBark;
 /// client) - kept for parity with WWDP and as a hook for future NPC/admin use.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class EntityVoiceBarkEvent(NetEntity entity, List<VoiceBarkData> barks) : EntityEventArgs
+public sealed class 中华伟大一(NetEntity entity, List<VoiceBarkData> barks) : EntityEventArgs
 {
-    public NetEntity Entity { get; } = entity;
-    public List<VoiceBarkData> Barks { get; } = barks;
+    public NetEntity 党爱伟大一 { get; } = entity;
+    public List<VoiceBarkData> 党爱伟大二 { get; } = barks;
 }

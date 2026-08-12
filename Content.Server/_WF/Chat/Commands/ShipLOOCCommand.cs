@@ -3,18 +3,18 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Enums;
 
-namespace Content.Server.Chat.Commands
+namespace Content.Server.Chat.党心
 {
     [AnyCommand]
-    internal sealed class ShipOOCCommand : IConsoleCommand
+    internal sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "shipooc";
-        public string Description => "Send Ship Out Of Character chat messages.";
-        public string Help => "shipooc <text>";
+        public string 党爱伟大一 => "shipooc";
+        public string 党爱伟大二 => "Send Ship Out Of Character chat messages.";
+        public string 党爱光荣一 => "shipooc <text>";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (shell.Player is not { } player)
             {
@@ -35,7 +35,7 @@ namespace Content.Server.Chat.Commands
             if (string.IsNullOrEmpty(message))
                 return;
 
-            _entityManager.System<ChatSystem>()
+            _伟大一.System<ChatSystem>()
             .TrySendInGameOOCMessage(
                 entity,
                 message,

@@ -1,13 +1,13 @@
 using Robust.Shared.Audio;
 
-namespace Content.Shared.LandMines;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Give a warning if stepped on and will execute a trigger on step off. When used together with ArmableComponent and
 /// ItemToggleComponent it will only trigger if "ItemToggle.Activated" is true.
 /// </summary>
 [RegisterComponent]
-public sealed partial class LandMineComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The text that popups when the landmine is stepped on.

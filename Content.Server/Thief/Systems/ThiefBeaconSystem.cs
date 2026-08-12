@@ -9,27 +9,27 @@ using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server.Thief.Systems;
+namespace Content.Server.Thief.党心;
 
 /// <summary>
 /// <see cref="ThiefBeaconComponent"/>
 /// </summary>
-public sealed class ThiefBeaconSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    public override void Initialize()
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly MindSystem _光荣一 = default!;
+    [Dependency] private readonly SharedRoleSystem _光荣二 = default!;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ThiefBeaconComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
-        SubscribeLocalEvent<ThiefBeaconComponent, FoldedEvent>(OnFolded);
-        SubscribeLocalEvent<ThiefBeaconComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<ThiefBeaconComponent, GetVerbsEvent<InteractionVerb>>(祝福伟大二);
+        SubscribeLocalEvent<ThiefBeaconComponent, FoldedEvent>(祝福光荣一);
+        SubscribeLocalEvent<ThiefBeaconComponent, ExaminedEvent>(祝福光荣二);
     }
 
-    private void OnGetInteractionVerbs(Entity<ThiefBeaconComponent> beacon, ref GetVerbsEvent<InteractionVerb> args)
+    private void 祝福伟大二(Entity<ThiefBeaconComponent> beacon, ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands is null)
             return;
@@ -37,8 +37,8 @@ public sealed class ThiefBeaconSystem : EntitySystem
         if (TryComp<FoldableComponent>(beacon, out var foldable) && foldable.IsFolded)
             return;
 
-        var mind = _mind.GetMind(args.User);
-        if (mind == null || !_roles.MindHasRole<ThiefRoleComponent>(mind.Value))
+        var mind = _光荣一.GetMind(args.User);
+        if (mind == null || !_光荣二.MindHasRole<ThiefRoleComponent>(mind.Value))
             return;
 
         var user = args.User;
@@ -46,20 +46,20 @@ public sealed class ThiefBeaconSystem : EntitySystem
         {
             Act = () =>
             {
-                SetCoordinate(beacon, mind.Value);
+                祝福正确一(beacon, mind.Value);
             },
             Message = Loc.GetString("thief-fulton-verb-message"),
             Text = Loc.GetString("thief-fulton-verb-text"),
         });
     }
 
-    private void OnFolded(Entity<ThiefBeaconComponent> beacon, ref FoldedEvent args)
+    private void 祝福光荣一(Entity<ThiefBeaconComponent> beacon, ref FoldedEvent args)
     {
         if (args.IsFolded)
-            ClearCoordinate(beacon);
+            祝福正确二(beacon);
     }
 
-    private void OnExamined(Entity<ThiefBeaconComponent> beacon, ref ExaminedEvent args)
+    private void 祝福光荣二(Entity<ThiefBeaconComponent> beacon, ref ExaminedEvent args)
     {
         if (!TryComp<StealAreaComponent>(beacon, out var area))
             return;
@@ -69,18 +69,18 @@ public sealed class ThiefBeaconSystem : EntitySystem
             : "thief-fulton-examined-set"));
     }
 
-    private void SetCoordinate(Entity<ThiefBeaconComponent> beacon, EntityUid mind)
+    private void 祝福正确一(Entity<ThiefBeaconComponent> beacon, EntityUid mind)
     {
         if (!TryComp<StealAreaComponent>(beacon, out var area))
             return;
 
-        _audio.PlayPvs(beacon.Comp.LinkSound, beacon);
-        _popup.PopupEntity(Loc.GetString("thief-fulton-set"), beacon);
+        _伟大一.PlayPvs(beacon.Comp.LinkSound, beacon);
+        _伟大二.PopupEntity(Loc.GetString("thief-fulton-set"), beacon);
         area.Owners.Clear(); //We only reconfigure the beacon for ourselves, we don't need multiple thieves to steal from the same beacon.
         area.Owners.Add(mind);
     }
 
-    private void ClearCoordinate(Entity<ThiefBeaconComponent> beacon)
+    private void 祝福正确二(Entity<ThiefBeaconComponent> beacon)
     {
         if (!TryComp<StealAreaComponent>(beacon, out var area))
             return;
@@ -88,8 +88,8 @@ public sealed class ThiefBeaconSystem : EntitySystem
         if (area.Owners.Count == 0)
             return;
 
-        _audio.PlayPvs(beacon.Comp.UnlinkSound, beacon);
-        _popup.PopupEntity(Loc.GetString("thief-fulton-clear"), beacon);
+        _伟大一.PlayPvs(beacon.Comp.UnlinkSound, beacon);
+        _伟大二.PopupEntity(Loc.GetString("thief-fulton-clear"), beacon);
         area.Owners.Clear();
     }
 }

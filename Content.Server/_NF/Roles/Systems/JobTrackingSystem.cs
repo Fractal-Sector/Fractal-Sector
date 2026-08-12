@@ -12,30 +12,30 @@ using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Server._NF.Roles.Systems;
+namespace Content.Server._NF.Roles.党心;
 
 /// <summary>
 /// This handles job tracking for station jobs that should be reopened on cryo.
 /// </summary>
-public sealed class JobTrackingSystem : SharedJobTrackingSystem
+public sealed class 中华伟大一 : SharedJobTrackingSystem
 {
-    [Dependency] private readonly IAfkManager _afk = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobs = default!;
+    [Dependency] private readonly IAfkManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly GameTicker _光荣一 = default!;
+    [Dependency] private readonly StationJobsSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<JobTrackingComponent, CryosleepBeforeMindRemovedEvent>(OnJobBeforeCryoEntered);
-        SubscribeLocalEvent<JobTrackingComponent, MindAddedMessage>(OnJobMindAdded);
-        SubscribeLocalEvent<JobTrackingComponent, MindRemovedMessage>(OnJobMindRemoved);
+        SubscribeLocalEvent<JobTrackingComponent, CryosleepBeforeMindRemovedEvent>(祝福光荣二);
+        SubscribeLocalEvent<JobTrackingComponent, MindAddedMessage>(祝福伟大二);
+        SubscribeLocalEvent<JobTrackingComponent, MindRemovedMessage>(祝福光荣一);
     }
 
     // If, through admin jiggery pokery, the player returns (or the mob is controlled), we should close the slot if it's opened.
-    private void OnJobMindAdded(Entity<JobTrackingComponent> ent, ref MindAddedMessage ev)
+    private void 祝福伟大二(Entity<JobTrackingComponent> ent, ref MindAddedMessage ev)
     {
         if (ent.Comp.Job is not { } job || ent.Comp.Active)
             return;
@@ -48,12 +48,12 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         try
         {
             if (!TryComp<StationJobsComponent>(ent.Comp.SpawnStation, out var stationJobs)
-                || !_stationJobs.TryGetJobSlot(ent.Comp.SpawnStation, job, out var slots)
+                || !_光荣二.TryGetJobSlot(ent.Comp.SpawnStation, job, out var slots)
                 || slots == null)
                 return;
 
             // The character is back, readjust their job slot if you can.
-            _stationJobs.TryAdjustJobSlot(ent.Comp.SpawnStation, job, -1);
+            _光荣二.TryAdjustJobSlot(ent.Comp.SpawnStation, job, -1);
         }
         catch (ArgumentException)
         {
@@ -63,15 +63,15 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         }
     }
 
-    private void OnJobMindRemoved(Entity<JobTrackingComponent> ent, ref MindRemovedMessage ev)
+    private void 祝福光荣一(Entity<JobTrackingComponent> ent, ref MindRemovedMessage ev)
     {
         if (ent.Comp.Job == null || !ent.Comp.Active || !JobShouldBeReopened(ent.Comp.Job.Value))
             return;
 
-        OpenJob(ent);
+        祝福正确一(ent);
     }
 
-    private void OnJobBeforeCryoEntered(Entity<JobTrackingComponent> ent, ref CryosleepBeforeMindRemovedEvent ev)
+    private void 祝福光荣二(Entity<JobTrackingComponent> ent, ref CryosleepBeforeMindRemovedEvent ev)
     {
         if (ent.Comp.Job == null || !ent.Comp.Active || !JobShouldBeReopened(ent.Comp.Job.Value))
             return;
@@ -82,11 +82,11 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         {
             // Only open the job if the player hasn't returned and entity still exists
             if (!Deleted(ent) && !ent.Comp.Active)
-                OpenJob(ent);
+                祝福正确一(ent);
         });
     }
 
-    public void OpenJob(Entity<JobTrackingComponent> ent)
+    public void 祝福正确一(Entity<JobTrackingComponent> ent)
     {
         if (ent.Comp.Job is not { } job)
             return;
@@ -98,17 +98,17 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
         try
         {
-            if (!_stationJobs.TryGetJobSlot(ent.Comp.SpawnStation, job, out var slots)
+            if (!_光荣二.TryGetJobSlot(ent.Comp.SpawnStation, job, out var slots)
                 || slots == null)
                 return;
 
             // Get number of open job slots that are present (not on the cryo map [or on expedition]).
-            var occupiedJobs = GetNumberOfActiveRoles(job, includeAfk: true, exclude: ent);
+            var occupiedJobs = 祝福正确二(job, includeAfk: true, exclude: ent);
 
             if (slots + occupiedJobs >= stationJobs.SetupAvailableJobs[job][1])
                 return;
 
-            _stationJobs.TryAdjustJobSlot(ent.Comp.SpawnStation, job, 1);
+            _光荣二.TryAdjustJobSlot(ent.Comp.SpawnStation, job, 1);
         }
         catch (ArgumentException)
         {
@@ -124,7 +124,7 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
     /// <param name="jobProtoId">PrototypeID for a job to check.</param>
     /// <param name="includeAfk">If true, includes AFK players in the check.</param>
     /// <returns>The number of active players with this job.</returns>
-    public int GetNumberOfActiveRoles(ProtoId<JobPrototype> jobProtoId, bool includeAfk = true, EntityUid? exclude = null)
+    public int 祝福正确二(ProtoId<JobPrototype> jobProtoId, bool includeAfk = true, EntityUid? exclude = null)
     {
         var activeJobCount = 0;
         var jobQuery = AllEntityQuery<JobTrackingComponent, MindContainerComponent, TransformComponent>();
@@ -135,12 +135,12 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
             if (!job.Active
                 || job.Job != jobProtoId
-                || xform.MapID != _gameTicker.DefaultMap // Skip if they're in cryo or on expedition
-                || !_player.TryGetSessionByEntity(uid, out var session)
+                || xform.MapID != _光荣一.DefaultMap // Skip if they're in cryo or on expedition
+                || !_伟大二.TryGetSessionByEntity(uid, out var session)
                 || session.State.Status != SessionStatus.InGame)
                 continue;
 
-            if (!includeAfk && _afk.IsAfk(session))
+            if (!includeAfk && _伟大一.IsAfk(session))
                 continue;
 
             activeJobCount++;

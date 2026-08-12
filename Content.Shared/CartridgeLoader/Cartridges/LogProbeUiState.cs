@@ -1,22 +1,22 @@
 ﻿using Content.Shared._DeltaV.CartridgeLoader.Cartridges; // DeltaV
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader.Cartridges;
+namespace Content.Shared.CartridgeLoader.党心;
 
 [Serializable, NetSerializable]
-public sealed class LogProbeUiState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
     /// <summary>
     /// The list of probed network devices
     /// </summary>
-    public List<PulledAccessLog> PulledLogs;
+    public List<中华伟大二> PulledLogs;
 
     /// <summary>
     /// DeltaV: The NanoChat data if a card was scanned, null otherwise
     /// </summary>
     public NanoChatData? NanoChatData { get; }
 
-    public LogProbeUiState(List<PulledAccessLog> pulledLogs, NanoChatData? nanoChatData = null) // DeltaV - NanoChat support
+    public 中华伟大一(List<中华伟大二> pulledLogs, NanoChatData? nanoChatData = null) // DeltaV - NanoChat support
     {
         PulledLogs = pulledLogs;
         NanoChatData = nanoChatData; // DeltaV
@@ -24,14 +24,14 @@ public sealed class LogProbeUiState : BoundUserInterfaceState
 }
 
 [Serializable, NetSerializable, DataRecord]
-public sealed partial class PulledAccessLog
+public sealed partial class 中华伟大二
 {
-    public readonly TimeSpan Time;
-    public readonly string Accessor;
+    public readonly TimeSpan 党爱伟大一;
+    public readonly string 党爱伟大二;
 
-    public PulledAccessLog(TimeSpan time, string accessor)
+    public 中华伟大二(TimeSpan time, string accessor)
     {
-        Time = time;
-        Accessor = accessor;
+        党爱伟大一 = time;
+        党爱伟大二 = accessor;
     }
 }

@@ -7,14 +7,14 @@
 
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Shared._FarHorizons.Power.Generation.党心;
 
 #region Reactor Caps
 /// <summary>
 /// Appearance key for the reactor caps.
 /// </summary>
 [Serializable, NetSerializable]
-public enum ReactorCapVisuals
+public enum 中华伟大一
 {
     Sprite
 }
@@ -25,7 +25,7 @@ public enum ReactorCapVisuals
 /// Appearance keys for the reactor.
 /// </summary>
 [Serializable, NetSerializable]
-public enum ReactorVisuals
+public enum 中华伟大二
 {
     Sprite,
     Status,
@@ -40,7 +40,7 @@ public enum ReactorVisuals
 /// Visual sprite layers for the reactor.
 /// </summary>
 [Serializable, NetSerializable]
-public enum ReactorVisualLayers
+public enum 中华光荣一
 {
     Sprite,
     Status,
@@ -55,7 +55,7 @@ public enum ReactorVisualLayers
 /// Reactor sprites.
 /// </summary>
 [Serializable, NetSerializable]
-public enum Reactors
+public enum 中华光荣二
 {
     Normal,
     Melted,
@@ -65,7 +65,7 @@ public enum Reactors
 /// Status screens.
 /// </summary>
 [Serializable, NetSerializable]
-public enum ReactorStatusLights
+public enum 中华正确一
 {
     Off,
     Active,
@@ -77,7 +77,7 @@ public enum ReactorStatusLights
 /// Warning lights settings.
 /// </summary>
 [Serializable, NetSerializable]
-public enum ReactorWarningLights
+public enum 中华正确二
 {
     LightsOff,
     LightsWarning,

@@ -5,16 +5,16 @@ using Content.Shared.DoAfter;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Actions;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedActionsSystem
+public abstract partial class 中华伟大一
 {
-    protected void InitializeActionDoAfter()
+    protected void 祝福伟大一()
     {
-        SubscribeLocalEvent<DoAfterArgsComponent, ActionDoAfterEvent>(OnActionDoAfter);
+        SubscribeLocalEvent<DoAfterArgsComponent, ActionDoAfterEvent>(祝福光荣一);
     }
 
-    private bool TryStartActionDoAfter(Entity<DoAfterArgsComponent> ent, Entity<DoAfterComponent?> performer, TimeSpan? originalUseDelay, RequestPerformActionEvent input)
+    private bool 祝福伟大二(Entity<DoAfterArgsComponent> ent, Entity<DoAfterComponent?> performer, TimeSpan? originalUseDelay, RequestPerformActionEvent input)
     {
         // relay to user
         if (!Resolve(performer, ref performer.Comp))
@@ -46,7 +46,7 @@ public abstract partial class SharedActionsSystem
         return _doAfter.TryStartDoAfter(doAfterArgs, performer);
     }
 
-    private void OnActionDoAfter(Entity<DoAfterArgsComponent> ent, ref ActionDoAfterEvent args)
+    private void 祝福光荣一(Entity<DoAfterArgsComponent> ent, ref ActionDoAfterEvent args)
     {
         if (!_actionQuery.TryComp(ent, out var actionComp))
             return;

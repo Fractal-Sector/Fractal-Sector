@@ -4,26 +4,26 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Power;
 
-namespace Content.Server.Chemistry.EntitySystems;
+namespace Content.Server.Chemistry.党心;
 
 /// <inheritdoc/>
-public sealed class SolutionContainerMixerSystem : SharedSolutionContainerMixerSystem
+public sealed class 中华伟大一 : SharedSolutionContainerMixerSystem
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SolutionContainerMixerComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<SolutionContainerMixerComponent, PowerChangedEvent>(祝福伟大二);
     }
 
-    private void OnPowerChanged(Entity<SolutionContainerMixerComponent> ent, ref PowerChangedEvent args)
+    private void 祝福伟大二(Entity<SolutionContainerMixerComponent> ent, ref PowerChangedEvent args)
     {
         if (!args.Powered)
             StopMix(ent);
     }
 
-    protected override bool HasPower(Entity<SolutionContainerMixerComponent> entity)
+    protected override bool 祝福光荣一(Entity<SolutionContainerMixerComponent> entity)
     {
         return this.IsPowered(entity, EntityManager);
     }

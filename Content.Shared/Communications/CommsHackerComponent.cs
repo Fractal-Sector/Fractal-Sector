@@ -2,26 +2,26 @@ using Content.Shared.Random;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Communications;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Component for hacking a communications console to call in a threat.
 /// Can only be done once, the component is remove afterwards.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedCommsHackerSystem))]
-public sealed partial class CommsHackerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Time taken to hack the console
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public TimeSpan Delay = TimeSpan.FromSeconds(20);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(20);
 
     /// <summary>
     /// Weighted random for the possible threats to choose from.
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<WeightedRandomPrototype> Threats = string.Empty;
+    public ProtoId<WeightedRandomPrototype> 党爱伟大二 = string.Empty;
 }
 
 /// <summary>
@@ -30,20 +30,20 @@ public sealed partial class CommsHackerComponent : Component
 /// You wouldn't do that, right?
 /// </summary>
 [Prototype]
-public sealed partial class NinjaHackingThreatPrototype : IPrototype
+public sealed partial class 中华伟大二 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱光荣一 { get; private set; } = default!;
 
     /// <summary>
     /// Locale id for the announcement to be made from CentCom.
     /// </summary>
     [DataField(required: true)]
-    public LocId Announcement;
+    public LocId 党爱光荣二;
 
     /// <summary>
     /// The game rule for the threat to be added, it should be able to work when added mid-round otherwise this will do nothing.
     /// </summary>
     [DataField(required: true)]
-    public EntProtoId Rule;
+    public EntProtoId 党爱正确一;
 }

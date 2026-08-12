@@ -11,60 +11,60 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 
-namespace Content.Server.Disposal.Unit
+namespace Content.Server.Disposal.党心
 {
-    public sealed class DisposableSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ThrowingSystem _throwing = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageable = default!;
-        [Dependency] private readonly DisposalUnitSystem _disposalUnitSystem = default!;
-        [Dependency] private readonly DisposalTubeSystem _disposalTubeSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-        [Dependency] private readonly SharedMapSystem _maps = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physicsSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
+        [Dependency] private readonly ThrowingSystem _伟大一 = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+        [Dependency] private readonly DamageableSystem _光荣一 = default!;
+        [Dependency] private readonly DisposalUnitSystem _光荣二 = default!;
+        [Dependency] private readonly DisposalTubeSystem _正确一 = default!;
+        [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+        [Dependency] private readonly SharedContainerSystem _团结一 = default!;
+        [Dependency] private readonly SharedMapSystem _团结二 = default!;
+        [Dependency] private readonly SharedPhysicsSystem _奋斗一 = default!;
+        [Dependency] private readonly SharedTransformSystem _奋斗二 = default!;
 
-        private EntityQuery<DisposalTubeComponent> _disposalTubeQuery;
-        private EntityQuery<DisposalUnitComponent> _disposalUnitQuery;
-        private EntityQuery<MetaDataComponent> _metaQuery;
-        private EntityQuery<PhysicsComponent> _physicsQuery;
-        private EntityQuery<TransformComponent> _xformQuery;
+        private EntityQuery<DisposalTubeComponent> _胜利一;
+        private EntityQuery<DisposalUnitComponent> _胜利二;
+        private EntityQuery<MetaDataComponent> _繁荣一;
+        private EntityQuery<PhysicsComponent> _繁荣二;
+        private EntityQuery<TransformComponent> _富强一;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _disposalTubeQuery = GetEntityQuery<DisposalTubeComponent>();
-            _disposalUnitQuery = GetEntityQuery<DisposalUnitComponent>();
-            _metaQuery = GetEntityQuery<MetaDataComponent>();
-            _physicsQuery = GetEntityQuery<PhysicsComponent>();
-            _xformQuery = GetEntityQuery<TransformComponent>();
+            _胜利一 = GetEntityQuery<DisposalTubeComponent>();
+            _胜利二 = GetEntityQuery<DisposalUnitComponent>();
+            _繁荣一 = GetEntityQuery<MetaDataComponent>();
+            _繁荣二 = GetEntityQuery<PhysicsComponent>();
+            _富强一 = GetEntityQuery<TransformComponent>();
 
-            SubscribeLocalEvent<DisposalHolderComponent, ComponentStartup>(OnComponentStartup);
-            SubscribeLocalEvent<DisposalHolderComponent, ContainerIsInsertingAttemptEvent>(CanInsert);
-            SubscribeLocalEvent<DisposalHolderComponent, EntInsertedIntoContainerMessage>(OnInsert);
+            SubscribeLocalEvent<DisposalHolderComponent, ComponentStartup>(祝福伟大二);
+            SubscribeLocalEvent<DisposalHolderComponent, ContainerIsInsertingAttemptEvent>(祝福光荣一);
+            SubscribeLocalEvent<DisposalHolderComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
         }
 
-        private void OnComponentStartup(EntityUid uid, DisposalHolderComponent holder, ComponentStartup args)
+        private void 祝福伟大二(EntityUid uid, DisposalHolderComponent holder, ComponentStartup args)
         {
-            holder.Container = _containerSystem.EnsureContainer<Container>(uid, nameof(DisposalHolderComponent));
+            holder.Container = _团结一.EnsureContainer<Container>(uid, nameof(DisposalHolderComponent));
         }
 
-        private void CanInsert(Entity<DisposalHolderComponent> ent, ref ContainerIsInsertingAttemptEvent args)
+        private void 祝福光荣一(Entity<DisposalHolderComponent> ent, ref ContainerIsInsertingAttemptEvent args)
         {
             if (!HasComp<ItemComponent>(args.EntityUid) && !HasComp<BodyComponent>(args.EntityUid))
                 args.Cancel();
         }
 
-        private void OnInsert(Entity<DisposalHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
+        private void 祝福光荣二(Entity<DisposalHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
         {
-            if (_physicsQuery.TryGetComponent(args.Entity, out var physBody))
-                _physicsSystem.SetCanCollide(args.Entity, false, body: physBody);
+            if (_繁荣二.TryGetComponent(args.Entity, out var physBody))
+                _奋斗一.SetCanCollide(args.Entity, false, body: physBody);
         }
 
-        public void ExitDisposals(EntityUid uid, DisposalHolderComponent? holder = null, TransformComponent? holderTransform = null)
+        public void 祝福正确一(EntityUid uid, DisposalHolderComponent? holder = null, TransformComponent? holderTransform = null)
         {
             if (Terminating(uid))
                 return;
@@ -87,9 +87,9 @@ namespace Content.Server.Disposal.Unit
             var gridUid = holderTransform.GridUid;
             if (TryComp<MapGridComponent>(gridUid, out var grid))
             {
-                foreach (var contentUid in _maps.GetLocal(gridUid.Value, grid, holderTransform.Coordinates))
+                foreach (var contentUid in _团结二.GetLocal(gridUid.Value, grid, holderTransform.Coordinates))
                 {
-                    if (_disposalUnitQuery.TryGetComponent(contentUid, out duc))
+                    if (_胜利二.TryGetComponent(contentUid, out duc))
                     {
                         disposalId = contentUid;
                         break;
@@ -105,46 +105,46 @@ namespace Content.Server.Disposal.Unit
             {
                 RemComp<BeingDisposedComponent>(entity);
 
-                var meta = _metaQuery.GetComponent(entity);
+                var meta = _繁荣一.GetComponent(entity);
                 if (holder.Container.Contains(entity))
-                    _containerSystem.Remove((entity, null, meta), holder.Container, reparent: false, force: true);
+                    _团结一.Remove((entity, null, meta), holder.Container, reparent: false, force: true);
 
-                var xform = _xformQuery.GetComponent(entity);
+                var xform = _富强一.GetComponent(entity);
                 if (xform.ParentUid != uid)
                     continue;
 
                 if (duc != null)
-                    _containerSystem.Insert((entity, xform, meta), duc.Container);
+                    _团结一.Insert((entity, xform, meta), duc.Container);
                 else
                 {
-                    _xformSystem.AttachToGridOrMap(entity, xform);
+                    _奋斗二.AttachToGridOrMap(entity, xform);
                     var direction = holder.CurrentDirection == Direction.Invalid ? holder.PreviousDirection : holder.CurrentDirection;
 
-                    if (direction != Direction.Invalid && _xformQuery.TryGetComponent(gridUid, out var gridXform))
+                    if (direction != Direction.Invalid && _富强一.TryGetComponent(gridUid, out var gridXform))
                     {
                         var directionAngle = direction.ToAngle();
-                        directionAngle += _xformSystem.GetWorldRotation(gridXform);
-                        _throwing.TryThrow(entity, directionAngle.ToWorldVec() * 3f, 10f);
+                        directionAngle += _奋斗二.GetWorldRotation(gridXform);
+                        _伟大一.TryThrow(entity, directionAngle.ToWorldVec() * 3f, 10f);
                     }
                 }
             }
 
             if (disposalId != null && duc != null)
             {
-                _disposalUnitSystem.TryEjectContents(disposalId.Value, duc);
+                _光荣二.TryEjectContents(disposalId.Value, duc);
             }
 
-            if (_atmosphereSystem.GetContainingMixture(uid, false, true) is { } environment)
+            if (_伟大二.GetContainingMixture(uid, false, true) is { } environment)
             {
-                _atmosphereSystem.Merge(environment, holder.Air);
+                _伟大二.Merge(environment, holder.Air);
                 holder.Air.Clear();
             }
 
             Del(uid);
         }
 
-        // Note: This function will cause an ExitDisposals on any failure that does not make an ExitDisposals impossible.
-        public bool EnterTube(EntityUid holderUid, EntityUid toUid, DisposalHolderComponent? holder = null, TransformComponent? holderTransform = null, DisposalTubeComponent? to = null, TransformComponent? toTransform = null)
+        // Note: This function will cause an 祝福正确一 on any failure that does not make an 祝福正确一 impossible.
+        public bool 祝福正确二(EntityUid holderUid, EntityUid toUid, DisposalHolderComponent? holder = null, TransformComponent? holderTransform = null, DisposalTubeComponent? to = null, TransformComponent? toTransform = null)
         {
             if (!Resolve(holderUid, ref holder, ref holderTransform))
                 return false;
@@ -155,7 +155,7 @@ namespace Content.Server.Disposal.Unit
             }
             if (!Resolve(toUid, ref to, ref toTransform))
             {
-                ExitDisposals(holderUid, holder, holderTransform);
+                祝福正确一(holderUid, holder, holderTransform);
                 return false;
             }
 
@@ -166,9 +166,9 @@ namespace Content.Server.Disposal.Unit
             }
 
             // Insert into next tube
-            if (!_containerSystem.Insert(holderUid, to.Contents))
+            if (!_团结一.Insert(holderUid, to.Contents))
             {
-                ExitDisposals(holderUid, holder, holderTransform);
+                祝福正确一(holderUid, holder, holderTransform);
                 return false;
             }
 
@@ -188,7 +188,7 @@ namespace Content.Server.Disposal.Unit
             // Invalid direction = exit now!
             if (holder.CurrentDirection == Direction.Invalid)
             {
-                ExitDisposals(holderUid, holder, holderTransform);
+                祝福正确一(holderUid, holder, holderTransform);
                 return false;
             }
 
@@ -197,24 +197,24 @@ namespace Content.Server.Disposal.Unit
             {
                 foreach (var ent in holder.Container.ContainedEntities)
                 {
-                    _damageable.TryChangeDamage(ent, to.DamageOnTurn);
+                    _光荣一.TryChangeDamage(ent, to.DamageOnTurn);
                 }
-                _audio.PlayPvs(to.ClangSound, toUid);
+                _正确二.PlayPvs(to.ClangSound, toUid);
             }
 
             return true;
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福团结一(float frameTime)
         {
             var query = EntityQueryEnumerator<DisposalHolderComponent>();
             while (query.MoveNext(out var uid, out var holder))
             {
-                UpdateComp(uid, holder, frameTime);
+                祝福团结二(uid, holder, frameTime);
             }
         }
 
-        private void UpdateComp(EntityUid uid, DisposalHolderComponent holder, float frameTime)
+        private void 祝福团结二(EntityUid uid, DisposalHolderComponent holder, float frameTime)
         {
             while (frameTime > 0)
             {
@@ -229,7 +229,7 @@ namespace Content.Server.Disposal.Unit
 
                 if (!Exists(holder.CurrentTube))
                 {
-                    ExitDisposals(uid, holder);
+                    祝福正确一(uid, holder);
                     break;
                 }
 
@@ -237,29 +237,29 @@ namespace Content.Server.Disposal.Unit
                 if (holder.TimeLeft > 0)
                 {
                     var progress = 1 - holder.TimeLeft / holder.StartingTime;
-                    var origin = _xformQuery.GetComponent(currentTube).Coordinates;
+                    var origin = _富强一.GetComponent(currentTube).Coordinates;
                     var destination = holder.CurrentDirection.ToVec();
                     var newPosition = destination * progress;
 
                     // This is some supreme shit code.
-                    _xformSystem.SetCoordinates(uid, _xformSystem.WithEntityId(origin.Offset(newPosition), currentTube));
+                    _奋斗二.SetCoordinates(uid, _奋斗二.WithEntityId(origin.Offset(newPosition), currentTube));
                     continue;
                 }
 
                 // Past this point, we are performing inter-tube transfer!
                 // Remove current tube content
-                _containerSystem.Remove(uid, _disposalTubeQuery.GetComponent(currentTube).Contents, reparent: false, force: true);
+                _团结一.Remove(uid, _胜利一.GetComponent(currentTube).Contents, reparent: false, force: true);
 
                 // Find next tube
-                var nextTube = _disposalTubeSystem.NextTubeFor(currentTube, holder.CurrentDirection);
+                var nextTube = _正确一.NextTubeFor(currentTube, holder.CurrentDirection);
                 if (!Exists(nextTube))
                 {
-                    ExitDisposals(uid, holder);
+                    祝福正确一(uid, holder);
                     break;
                 }
 
                 // Perform remainder of entry process
-                if (!EnterTube(uid, nextTube!.Value, holder))
+                if (!祝福正确二(uid, nextTube!.Value, holder))
                 {
                     break;
                 }

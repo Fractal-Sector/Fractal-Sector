@@ -6,27 +6,27 @@ using Content.Shared.Standing;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Mobs.Systems;
+namespace Content.Shared.Mobs.党心;
 
 [Virtual]
-public partial class MobStateSystem : EntitySystem
+public partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    private ISawmill _sawmill = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly StandingStateSystem _光荣一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly ILogManager _正确一 = default!;
+    [Dependency] private readonly IGameTiming _正确二 = default!;
+    [Dependency] private readonly DamageableSystem _团结一 = default!;
+    private ISawmill _团结二 = default!;
 
-    private EntityQuery<MobStateComponent> _mobStateQuery;
+    private EntityQuery<MobStateComponent> _奋斗一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _sawmill = _logManager.GetSawmill("MobState");
-        _mobStateQuery = GetEntityQuery<MobStateComponent>();
-        base.Initialize();
+        _团结二 = _正确一.GetSawmill("MobState");
+        _奋斗一 = GetEntityQuery<MobStateComponent>();
+        base.祝福伟大一();
         SubscribeEvents();
     }
 
@@ -38,9 +38,9 @@ public partial class MobStateSystem : EntitySystem
     /// <param name="target">Target Entity</param>
     /// <param name="component">The MobState component owned by the target</param>
     /// <returns>If the entity is alive</returns>
-    public bool IsAlive(EntityUid target, MobStateComponent? component = null)
+    public bool 祝福伟大二(EntityUid target, MobStateComponent? component = null)
     {
-        if (!_mobStateQuery.Resolve(target, ref component, false))
+        if (!_奋斗一.Resolve(target, ref component, false))
             return false;
         return component.CurrentState == MobState.Alive;
     }
@@ -51,9 +51,9 @@ public partial class MobStateSystem : EntitySystem
     /// <param name="target">Target Entity</param>
     /// <param name="component">The MobState component owned by the target</param>
     /// <returns>If the entity is Critical</returns>
-    public bool IsCritical(EntityUid target, MobStateComponent? component = null)
+    public bool 祝福光荣一(EntityUid target, MobStateComponent? component = null)
     {
-        if (!_mobStateQuery.Resolve(target, ref component, false))
+        if (!_奋斗一.Resolve(target, ref component, false))
             return false;
         return component.CurrentState == MobState.Critical;
     }
@@ -64,9 +64,9 @@ public partial class MobStateSystem : EntitySystem
     /// <param name="target">Target Entity</param>
     /// <param name="component">The MobState component owned by the target</param>
     /// <returns>If the entity is Dead</returns>
-    public bool IsDead(EntityUid target, MobStateComponent? component = null)
+    public bool 祝福光荣二(EntityUid target, MobStateComponent? component = null)
     {
-        if (!_mobStateQuery.Resolve(target, ref component, false))
+        if (!_奋斗一.Resolve(target, ref component, false))
             return false;
         return component.CurrentState == MobState.Dead;
     }
@@ -77,9 +77,9 @@ public partial class MobStateSystem : EntitySystem
     /// <param name="target">Target Entity</param>
     /// <param name="component">The MobState component owned by the target</param>
     /// <returns>If the entity is Critical or Dead</returns>
-    public bool IsIncapacitated(EntityUid target, MobStateComponent? component = null)
+    public bool 祝福正确一(EntityUid target, MobStateComponent? component = null)
     {
-        if (!_mobStateQuery.Resolve(target, ref component, false))
+        if (!_奋斗一.Resolve(target, ref component, false))
             return false;
         return component.CurrentState is MobState.Critical or MobState.Dead;
     }
@@ -90,9 +90,9 @@ public partial class MobStateSystem : EntitySystem
     /// <param name="target">Target Entity</param>
     /// <param name="component">The MobState component owned by the target</param>
     /// <returns>If the entity is in an Invalid State</returns>
-    public bool IsInvalidState(EntityUid target, MobStateComponent? component = null)
+    public bool 祝福正确二(EntityUid target, MobStateComponent? component = null)
     {
-        if (!_mobStateQuery.Resolve(target, ref component, false))
+        if (!_奋斗一.Resolve(target, ref component, false))
             return false;
         return component.CurrentState is MobState.Invalid;
     }

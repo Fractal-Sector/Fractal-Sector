@@ -17,39 +17,39 @@ using Content.Shared.Trigger.Components.Triggers;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Server._WF.CartridgeLoader.Cartridges;
+namespace Content.Server._WF.CartridgeLoader.党心;
 
-public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
+    [Dependency] private readonly CartridgeLoaderSystem _伟大一 = default!;
+    [Dependency] private readonly StationSystem _伟大二 = default!;
+    [Dependency] private readonly MobStateSystem _光荣一 = default!;
+    [Dependency] private readonly InventorySystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
+    [Dependency] private readonly SharedMindSystem _正确二 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<CriticalImplantTrackerCartridgeComponent, CartridgeMessageEvent>(OnUiMessage);
-        SubscribeLocalEvent<CriticalImplantTrackerCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
+        base.祝福伟大一();
+        SubscribeLocalEvent<CriticalImplantTrackerCartridgeComponent, CartridgeMessageEvent>(祝福伟大二);
+        SubscribeLocalEvent<CriticalImplantTrackerCartridgeComponent, CartridgeUiReadyEvent>(祝福光荣一);
     }
 
-    private void OnUiMessage(EntityUid uid, CriticalImplantTrackerCartridgeComponent component, CartridgeMessageEvent args)
+    private void 祝福伟大二(EntityUid uid, CriticalImplantTrackerCartridgeComponent component, CartridgeMessageEvent args)
     {
         if (args is CriticalImplantTrackerRefreshMessage)
         {
-            UpdateUiState(uid, GetEntity(args.LoaderUid), component);
+            祝福光荣二(uid, GetEntity(args.LoaderUid), component);
         }
     }
 
-    private void OnUiReady(EntityUid uid, CriticalImplantTrackerCartridgeComponent component, CartridgeUiReadyEvent args)
+    private void 祝福光荣一(EntityUid uid, CriticalImplantTrackerCartridgeComponent component, CartridgeUiReadyEvent args)
     {
-        UpdateUiState(uid, args.Loader, component);
+        祝福光荣二(uid, args.Loader, component);
     }
 
-    private void UpdateUiState(EntityUid uid, EntityUid loaderUid, CriticalImplantTrackerCartridgeComponent? component)
+    private void 祝福光荣二(EntityUid uid, EntityUid loaderUid, CriticalImplantTrackerCartridgeComponent? component)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -60,8 +60,8 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
         var query = AllEntityQuery<MobStateComponent>();
         while (query.MoveNext(out var mobUid, out var mobState))
         {
-            var isCritical = _mobStateSystem.IsCritical(mobUid, mobState);
-            var isDead = _mobStateSystem.IsDead(mobUid, mobState);
+            var isCritical = _光荣一.IsCritical(mobUid, mobState);
+            var isDead = _光荣一.IsDead(mobUid, mobState);
 
             // Only consider entities in critical or dead condition
             if (!isCritical && !isDead)
@@ -70,7 +70,7 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
             // For dead entities, check if they have PDA and ID card
             if (isDead)
             {
-                var hasPda = _inventorySystem.TryGetSlotEntity(mobUid, "id", out var idSlot) &&
+                var hasPda = _光荣二.TryGetSlotEntity(mobUid, "id", out var idSlot) &&
                              TryComp<PdaComponent>(idSlot, out var pda) &&
                              pda.ContainedId != null;
 
@@ -100,7 +100,7 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
                 TimeSpan? timeOfDeath = null;
 
                 // Try to get time of death from mind first
-                if (_mindSystem.TryGetMind(mobUid, out var mindId, out var mind) && mind.TimeOfDeath.HasValue)
+                if (_正确二.TryGetMind(mobUid, out var mindId, out var mind) && mind.TimeOfDeath.HasValue)
                 {
                     timeOfDeath = mind.TimeOfDeath.Value;
                 }
@@ -112,7 +112,7 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
 
                 if (timeOfDeath.HasValue)
                 {
-                    var elapsedTime = _gameTiming.CurTime - timeOfDeath.Value;
+                    var elapsedTime = _正确一.CurTime - timeOfDeath.Value;
                     var totalSeconds = (int)elapsedTime.TotalSeconds;
                     var minutes = totalSeconds / 60;
                     var seconds = totalSeconds % 60;
@@ -126,7 +126,7 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
 
             // Check if the entity has a medAlert beacon that is enabled
             var hasActiveBeacon = false;
-            if (_containerSystem.TryGetContainer(mobUid, ImplanterComponent.ImplantSlotId, out var implantContainer))
+            if (_团结一.TryGetContainer(mobUid, ImplanterComponent.ImplantSlotId, out var implantContainer))
             {
                 foreach (var implant in implantContainer.ContainedEntities)
                 {
@@ -154,6 +154,6 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
         }
 
         var state = new CriticalImplantTrackerUiState(patients);
-        _cartridgeLoader.UpdateCartridgeUiState(loaderUid, state);
+        _伟大一.UpdateCartridgeUiState(loaderUid, state);
     }
 }

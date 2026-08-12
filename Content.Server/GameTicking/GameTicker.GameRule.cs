@@ -11,9 +11,9 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Localization;
 
-namespace Content.Server.GameTicking;
+namespace Content.Server.党心;
 
-public sealed partial class GameTicker
+public sealed partial class 中华伟大一
 {
     [ViewVariables] private readonly List<(TimeSpan, string)> _allPreviousGameRules = new();
 
@@ -23,27 +23,27 @@ public sealed partial class GameTicker
     /// </summary>
     public override IReadOnlyList<(TimeSpan, string)> AllPreviousGameRules => _allPreviousGameRules;
 
-    private void InitializeGameRules()
+    private void 祝福伟大一()
     {
         // Add game rule command.
         _consoleHost.RegisterCommand("addgamerule",
             string.Empty,
             "addgamerule <rules>",
-            AddGameRuleCommand,
-            AddGameRuleCompletions);
+            祝福繁荣一,
+            祝福繁荣二);
 
         // End game rule command.
         _consoleHost.RegisterCommand("endgamerule",
             string.Empty,
             "endgamerule <rules>",
-            EndGameRuleCommand,
-            EndGameRuleCompletions);
+            祝福富强一,
+            祝福富强二);
 
         // Clear game rules command.
         _consoleHost.RegisterCommand("cleargamerules",
             string.Empty,
             "cleargamerules",
-            ClearGameRulesCommand);
+            祝福民主一);
 
         // List game rules command.
         var localizedHelp = Loc.GetString("listgamerules-command-help");
@@ -51,10 +51,10 @@ public sealed partial class GameTicker
         _consoleHost.RegisterCommand("listgamerules",
             string.Empty,
             $"listgamerules - {localizedHelp}",
-            ListGameRuleCommand);
+            祝福民主二);
     }
 
-    private void ShutdownGameRules()
+    private void 祝福伟大二()
     {
         _consoleHost.UnregisterCommand("addgamerule");
         _consoleHost.UnregisterCommand("endgamerule");
@@ -67,7 +67,7 @@ public sealed partial class GameTicker
     /// start it yet, instead waiting until the rule is actually started by other code (usually roundstart)
     /// </summary>
     /// <returns>The entity for the added gamerule</returns>
-    public EntityUid AddGameRule(string ruleId)
+    public EntityUid 祝福光荣一(string ruleId)
     {
         var ruleEntity = Spawn(ruleId, MapCoordinates.Nullspace);
         _sawmill.Info($"Added game rule {ToPrettyString(ruleEntity)}");
@@ -99,26 +99,26 @@ public sealed partial class GameTicker
     /// Game rules can be 'started' separately from being added. 'Starting' them usually
     /// happens at round start while they can be added and removed before then.
     /// </summary>
-    public bool StartGameRule(string ruleId)
+    public bool 祝福光荣二(string ruleId)
     {
-        return StartGameRule(ruleId, out _);
+        return 祝福光荣二(ruleId, out _);
     }
 
     /// <summary>
     /// Game rules can be 'started' separately from being added. 'Starting' them usually
     /// happens at round start while they can be added and removed before then.
     /// </summary>
-    public bool StartGameRule(string ruleId, out EntityUid ruleEntity)
+    public bool 祝福光荣二(string ruleId, out EntityUid ruleEntity)
     {
-        ruleEntity = AddGameRule(ruleId);
-        return StartGameRule(ruleEntity);
+        ruleEntity = 祝福光荣一(ruleId);
+        return 祝福光荣二(ruleEntity);
     }
 
     /// <summary>
     /// Game rules can be 'started' separately from being added. 'Starting' them usually
     /// happens at round start while they can be added and removed before then.
     /// </summary>
-    public bool StartGameRule(EntityUid ruleEntity, GameRuleComponent? ruleData = null)
+    public bool 祝福光荣二(EntityUid ruleEntity, GameRuleComponent? ruleData = null)
     {
         if (!Resolve(ruleEntity, ref ruleData))
             ruleData ??= EnsureComp<GameRuleComponent>(ruleEntity);
@@ -176,7 +176,7 @@ public sealed partial class GameTicker
     /// Ends a game rule.
     /// </summary>
     [PublicAPI]
-    public bool EndGameRule(EntityUid ruleEntity, GameRuleComponent? ruleData = null)
+    public bool 祝福正确一(EntityUid ruleEntity, GameRuleComponent? ruleData = null)
     {
         if (!Resolve(ruleEntity, ref ruleData))
             return false;
@@ -202,7 +202,7 @@ public sealed partial class GameTicker
     /// <summary>
     ///     Returns true if a game rule with the given component has been added.
     /// </summary>
-    public bool IsGameRuleAdded<T>()
+    public bool 祝福正确二<T>()
         where T : IComponent
     {
         var query = EntityQueryEnumerator<T, GameRuleComponent>();
@@ -217,14 +217,14 @@ public sealed partial class GameTicker
         return false;
     }
 
-    public bool IsGameRuleAdded(EntityUid ruleEntity, GameRuleComponent? component = null)
+    public bool 祝福正确二(EntityUid ruleEntity, GameRuleComponent? component = null)
     {
         return Resolve(ruleEntity, ref component) && !HasComp<EndedGameRuleComponent>(ruleEntity);
     }
 
-    public bool IsGameRuleAdded(string rule)
+    public bool 祝福正确二(string rule)
     {
-        foreach (var ruleEntity in GetAddedGameRules())
+        foreach (var ruleEntity in 祝福奋斗一())
         {
             if (MetaData(ruleEntity).EntityPrototype?.ID == rule)
                 return true;
@@ -236,7 +236,7 @@ public sealed partial class GameTicker
     /// <summary>
     ///     Returns true if a game rule with the given component is active..
     /// </summary>
-    public bool IsGameRuleActive<T>()
+    public bool 祝福团结一<T>()
         where T : IComponent
     {
         var query = EntityQueryEnumerator<T, ActiveGameRuleComponent, GameRuleComponent>();
@@ -249,14 +249,14 @@ public sealed partial class GameTicker
         return false;
     }
 
-    public bool IsGameRuleActive(EntityUid ruleEntity, GameRuleComponent? component = null)
+    public bool 祝福团结一(EntityUid ruleEntity, GameRuleComponent? component = null)
     {
         return Resolve(ruleEntity, ref component) && HasComp<ActiveGameRuleComponent>(ruleEntity);
     }
 
-    public bool IsGameRuleActive(string rule)
+    public bool 祝福团结一(string rule)
     {
-        foreach (var ruleEntity in GetActiveGameRules())
+        foreach (var ruleEntity in 祝福奋斗二())
         {
             if (MetaData(ruleEntity).EntityPrototype?.ID == rule)
                 return true;
@@ -265,23 +265,23 @@ public sealed partial class GameTicker
         return false;
     }
 
-    public void ClearGameRules()
+    public void 祝福团结二()
     {
-        foreach (var rule in GetAddedGameRules())
+        foreach (var rule in 祝福奋斗一())
         {
-            EndGameRule(rule);
+            祝福正确一(rule);
         }
     }
 
     /// <summary>
     /// Gets all the gamerule entities which are currently active.
     /// </summary>
-    public IEnumerable<EntityUid> GetAddedGameRules()
+    public IEnumerable<EntityUid> 祝福奋斗一()
     {
         var query = EntityQueryEnumerator<GameRuleComponent>();
         while (query.MoveNext(out var uid, out var ruleData))
         {
-            if (IsGameRuleAdded(uid, ruleData))
+            if (祝福正确二(uid, ruleData))
                 yield return uid;
         }
     }
@@ -289,7 +289,7 @@ public sealed partial class GameTicker
     /// <summary>
     /// Gets all the gamerule entities which are currently active.
     /// </summary>
-    public IEnumerable<EntityUid> GetActiveGameRules()
+    public IEnumerable<EntityUid> 祝福奋斗二()
     {
         var query = EntityQueryEnumerator<ActiveGameRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out _, out _))
@@ -301,7 +301,7 @@ public sealed partial class GameTicker
     /// <summary>
     /// Gets all gamerule prototypes
     /// </summary>
-    public IEnumerable<EntityPrototype> GetAllGameRulePrototypes()
+    public IEnumerable<EntityPrototype> 祝福胜利一()
     {
         foreach (var proto in _prototypeManager.EnumeratePrototypes<EntityPrototype>())
         {
@@ -313,7 +313,7 @@ public sealed partial class GameTicker
         }
     }
 
-    private void UpdateGameRules()
+    private void 祝福胜利二()
     {
         var query = EntityQueryEnumerator<DelayedStartRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var delay, out var rule))
@@ -321,14 +321,14 @@ public sealed partial class GameTicker
             if (_gameTiming.CurTime < delay.RuleStartTime)
                 continue;
 
-            StartGameRule(uid, rule);
+            祝福光荣二(uid, rule);
         }
     }
 
     #region Command Implementations
 
     [AdminCommand(AdminFlags.Fun)]
-    private void AddGameRuleCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福繁荣一(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length == 0)
             return;
@@ -351,22 +351,22 @@ public sealed partial class GameTicker
             {
                 _adminLogger.Add(LogType.EventStarted, $"Unknown tried to add game rule [{rule}] via command");
             }
-            var ent = AddGameRule(rule);
+            var ent = 祝福光荣一(rule);
 
             // Start rule if we're already in the middle of a round
             if(RunLevel == GameRunLevel.InRound)
-                StartGameRule(ent);
+                祝福光荣二(ent);
 
         }
     }
 
-    private CompletionResult AddGameRuleCompletions(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福繁荣二(IConsoleShell shell, string[] args)
     {
-        return CompletionResult.FromHintOptions(GetAllGameRulePrototypes().Select(p => p.ID), "<rule>");
+        return CompletionResult.FromHintOptions(祝福胜利一().Select(p => p.ID), "<rule>");
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void EndGameRuleCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福富强一(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length == 0)
             return;
@@ -384,31 +384,31 @@ public sealed partial class GameTicker
                 _adminLogger.Add(LogType.EventStopped, $"Unknown tried to end game rule [{rule}] via command");
             }
 
-            EndGameRule(ruleEnt.Value);
+            祝福正确一(ruleEnt.Value);
         }
     }
 
-    private CompletionResult EndGameRuleCompletions(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福富强二(IConsoleShell shell, string[] args)
     {
-        var opts = GetAddedGameRules().Select(ent => new CompletionOption(ent.ToString(), ToPrettyString(ent))).ToList();
+        var opts = 祝福奋斗一().Select(ent => new CompletionOption(ent.ToString(), ToPrettyString(ent))).ToList();
         return CompletionResult.FromHintOptions(opts, "<added rule>");
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void ClearGameRulesCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福民主一(IConsoleShell shell, string argstr, string[] args)
     {
-        ClearGameRules();
+        祝福团结二();
     }
 
     [AdminCommand(AdminFlags.Admin)]
-    private void ListGameRuleCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福民主二(IConsoleShell shell, string argstr, string[] args)
     {
         _sawmill.Info($"{shell.Player} tried to get list of game rules via command");
         _adminLogger.Add(LogType.Action, $"{shell.Player} tried to get list of game rules via command");
-        var message = GetGameRulesListMessage(false);
+        var message = 祝福文明一(false);
         shell.WriteLine(message);
     }
-    private string GetGameRulesListMessage(bool forChatWindow)
+    private string 祝福文明一(bool forChatWindow)
     {
         if (_allPreviousGameRules.Count > 0)
         {

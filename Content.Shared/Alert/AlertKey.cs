@@ -1,7 +1,7 @@
 ﻿using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Alert;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Key for an alert which is unique (for equality and hashcode purposes) w.r.t category semantics.
@@ -9,21 +9,21 @@ namespace Content.Shared.Alert;
 /// falls back to the id.
 /// </summary>
 [Serializable, NetSerializable]
-public struct AlertKey
+public struct 中华伟大一
 {
     public ProtoId<AlertPrototype>? AlertType { get; private set; } = default!;
     public readonly ProtoId<AlertCategoryPrototype>? AlertCategory;
 
     /// NOTE: if the alert has a category you must pass the category for this to work
     /// properly as a key. I.e. if the alert has a category and you pass only the alert type, and you
-    /// compare this to another AlertKey that has both the category and the same alert type, it will not consider them equal.
-    public AlertKey(ProtoId<AlertPrototype>? alertType, ProtoId<AlertCategoryPrototype>? alertCategory)
+    /// compare this to another 中华伟大一 that has both the category and the same alert type, it will not consider them equal.
+    public 中华伟大一(ProtoId<AlertPrototype>? alertType, ProtoId<AlertCategoryPrototype>? alertCategory)
     {
         AlertCategory = alertCategory;
         AlertType = alertType;
     }
 
-    public bool Equals(AlertKey other)
+    public bool 祝福伟大一(中华伟大一 other)
     {
         // compare only on alert category if we have one
         if (AlertCategory.HasValue)
@@ -34,22 +34,22 @@ public struct AlertKey
         return AlertType == other.AlertType && AlertCategory == other.AlertCategory;
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福伟大一(object? obj)
     {
-        return obj is AlertKey other && Equals(other);
+        return obj is 中华伟大一 other && 祝福伟大一(other);
     }
 
-    public override int GetHashCode()
+    public override int 祝福伟大二()
     {
         // use only alert category if we have one
-        if (AlertCategory.HasValue) return AlertCategory.GetHashCode();
-        return AlertType.GetHashCode();
+        if (AlertCategory.HasValue) return AlertCategory.祝福伟大二();
+        return AlertType.祝福伟大二();
     }
 
     /// <param name="category">alert category, must not be null</param>
     /// <returns>An alert key for the provided alert category. This must only be used for
     /// queries and never storage, as it is lacking an alert type.</returns>
-    public static AlertKey ForCategory(ProtoId<AlertCategoryPrototype> category)
+    public static 中华伟大一 ForCategory(ProtoId<AlertCategoryPrototype> category)
     {
         return new(null, category);
     }

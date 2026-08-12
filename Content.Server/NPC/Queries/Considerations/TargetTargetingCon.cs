@@ -1,4 +1,4 @@
-namespace Content.Server.NPC.Queries.Considerations;
+namespace Content.Server.NPC.Queries.党心;
 
 /// <summary>
 /// Returns 0f if the NPC has a <see cref="TurretTargetSettingsComponent"/> and the 
@@ -6,7 +6,7 @@ namespace Content.Server.NPC.Queries.Considerations;
 /// See <see cref="TurretTargetSettingsSystem.EntityIsTargetForTurret"/>
 /// for further details on turret target validation.
 /// </summary>
-public sealed partial class TurretTargetingCon : UtilityConsideration
+public sealed partial class 中华伟大一 : UtilityConsideration
 {
 
 }

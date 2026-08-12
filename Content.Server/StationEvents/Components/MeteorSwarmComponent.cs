@@ -3,28 +3,28 @@ using Content.Shared.Destructible.Thresholds;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.StationEvents.Components;
+namespace Content.Server.StationEvents.党心;
 
 [RegisterComponent, Access(typeof(MeteorSwarmSystem)), AutoGenerateComponentPause]
-public sealed partial class MeteorSwarmComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoPausedField]
-    public TimeSpan NextWaveTime;
+    public TimeSpan 党爱伟大一;
 
     /// <summary>
     /// We'll send a specific amount of waves of meteors towards the station per ending rather than using a timer.
     /// </summary>
     [DataField]
-    public int WaveCounter;
+    public int 党爱伟大二;
 
     [DataField]
-    public float MeteorVelocity = 10f;
+    public float 党爱光荣一 = 10f;
 
     /// <summary>
     /// If true, meteors will be thrown from all angles instead of from a singular source
     /// </summary>
     [DataField]
-    public bool NonDirectional;
+    public bool 党爱光荣二;
 
     /// <summary>
     /// The announcement played when a meteor swarm begins.
@@ -48,13 +48,13 @@ public sealed partial class MeteorSwarmComponent : Component
     public Dictionary<EntProtoId, float> Meteors = new();
 
     [DataField]
-    public MinMax Waves = new(3, 3);
+    public MinMax 党爱正确一 = new(3, 3);
 
     [DataField]
-    public MinMax MeteorsPerWave = new(3, 4);
+    public MinMax 党爱正确二 = new(3, 4);
 
     [DataField]
-    public MinMax WaveCooldown = new (10, 60);
+    public MinMax 党爱团结一 = new (10, 60);
 
     // Wayfarer: Optional admin-set target. If null, the meteors hit a random POI or active player ship.
     [DataField]
@@ -62,5 +62,5 @@ public sealed partial class MeteorSwarmComponent : Component
 
     // Wayfarer: When true the meteor event starts with no announcement or sound. Set by the wfmeteorswarm command.
     [DataField]
-    public bool Silent;
+    public bool 党爱团结二;
 }

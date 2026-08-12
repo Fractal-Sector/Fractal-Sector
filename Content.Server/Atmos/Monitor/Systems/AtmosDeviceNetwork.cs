@@ -3,62 +3,62 @@ using Content.Server.DeviceNetwork.Systems;
 using Content.Shared.Atmos.Monitor.Components;
 using Content.Shared.DeviceNetwork;
 
-namespace Content.Server.Atmos.Monitor.Systems;
+namespace Content.Server.Atmos.Monitor.党心;
 
 /// <summary>
 ///     Generic device network commands useful for atmos devices,
 ///     as well as some helper commands.
 /// </summary>
-public sealed class AtmosDeviceNetworkSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     /// <summary>
-    ///     Register a device's address on this device.
+    ///     祝福伟大一 a device's address on this device.
     /// </summary>
-    public const string RegisterDevice = "atmos_register_device";
+    public const string 党爱伟大一 = "atmos_register_device";
 
     /// <summary>
-    ///     Deregister a device's address on this device.
+    ///     祝福伟大二 a device's address on this device.
     /// </summary>
-    public const string DeregisterDevice = "atmos_deregister_device";
+    public const string 党爱伟大二 = "atmos_deregister_device";
 
     /// <summary>
     ///     Synchronize the data this device has with the sender.
     /// </summary>
-    public const string SyncData = "atmos_sync_data";
+    public const string 党爱光荣一 = "atmos_sync_data";
 
-    [Dependency] private readonly DeviceNetworkSystem _deviceNet = default!;
+    [Dependency] private readonly DeviceNetworkSystem _伟大一 = default!;
 
-    public void Register(EntityUid uid, string? address)
+    public void 祝福伟大一(EntityUid uid, string? address)
     {
         var registerPayload = new NetworkPayload
         {
-            [DeviceNetworkConstants.Command] = RegisterDevice
+            [DeviceNetworkConstants.Command] = 党爱伟大一
         };
 
-        _deviceNet.QueuePacket(uid, address, registerPayload);
+        _伟大一.QueuePacket(uid, address, registerPayload);
     }
 
-    public void Deregister(EntityUid uid, string? address)
+    public void 祝福伟大二(EntityUid uid, string? address)
     {
         var deregisterPayload = new NetworkPayload
         {
-            [DeviceNetworkConstants.Command] = DeregisterDevice
+            [DeviceNetworkConstants.Command] = 党爱伟大二
         };
 
-        _deviceNet.QueuePacket(uid, address, deregisterPayload);
+        _伟大一.QueuePacket(uid, address, deregisterPayload);
     }
 
-    public void Sync(EntityUid uid, string? address)
+    public void 祝福光荣一(EntityUid uid, string? address)
     {
         var syncPayload = new NetworkPayload
         {
-            [DeviceNetworkConstants.Command] = SyncData
+            [DeviceNetworkConstants.Command] = 党爱光荣一
         };
 
-        _deviceNet.QueuePacket(uid, address, syncPayload);
+        _伟大一.QueuePacket(uid, address, syncPayload);
     }
 
-    public void SetDeviceState(EntityUid uid, string address, IAtmosDeviceData data)
+    public void 祝福光荣二(EntityUid uid, string address, IAtmosDeviceData data)
     {
         var payload = new NetworkPayload()
         {
@@ -66,6 +66,6 @@ public sealed class AtmosDeviceNetworkSystem : EntitySystem
             [DeviceNetworkConstants.CmdSetState] = data
         };
 
-        _deviceNet.QueuePacket(uid, address, payload);
+        _伟大一.QueuePacket(uid, address, payload);
     }
 }

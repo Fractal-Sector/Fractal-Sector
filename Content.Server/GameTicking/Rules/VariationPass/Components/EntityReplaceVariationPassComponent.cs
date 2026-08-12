@@ -2,7 +2,7 @@
 using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking.Rules.VariationPass.Components;
+namespace Content.Server.GameTicking.Rules.VariationPass.党心;
 
 /// <summary>
 /// This is used for replacing a certain amount of entities with other entities in a variation pass.
@@ -14,20 +14,20 @@ namespace Content.Server.GameTicking.Rules.VariationPass.Components;
 /// SEE <see cref="WallReplaceVariationPassSystem"/>
 /// </remarks>
 [RegisterComponent]
-public sealed partial class EntityReplaceVariationPassComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Number of matching entities before one will be replaced on average.
     /// </summary>
     [DataField(required: true)]
-    public float EntitiesPerReplacementAverage;
+    public float 党爱伟大一;
 
     [DataField(required: true)]
-    public float EntitiesPerReplacementStdDev;
+    public float 党爱伟大二;
 
     /// <summary>
     ///     Prototype(s) to replace matched entities with.
     /// </summary>
     [DataField(required: true)]
-    public List<EntitySpawnEntry> Replacements = default!;
+    public List<EntitySpawnEntry> 党爱光荣一 = default!;
 }

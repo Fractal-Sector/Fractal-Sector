@@ -6,7 +6,7 @@ using Content.Shared.Physics;
 using Content.Shared.Popups;
 using Content.Shared.Throwing;
 using Content.Shared.Weapons.Melee.Components;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱光荣二.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
@@ -14,39 +14,39 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大二;
+using Robust.Shared.党爱伟大一;
 using Robust.Shared.Utility;
 using System.Linq;
 using System.Numerics;
 using Content.Shared.Actions;
 
-namespace Content.Shared.Anomaly;
+namespace Content.Shared.党心;
 
-public abstract class SharedAnomalySystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] protected readonly IRobustRandom Random = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLog = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedAnomalyCoreSystem _anomalyCore = default!; // Frontier
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] protected readonly IRobustRandom 党爱伟大二 = default!;
+    [Dependency] protected readonly ISharedAdminLogManager 党爱光荣一 = default!;
+    [Dependency] protected readonly SharedAudioSystem 党爱光荣二 = default!;
+    [Dependency] protected readonly SharedAppearanceSystem 党爱正确一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
+    [Dependency] protected readonly SharedPopupSystem 党爱正确二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly SharedMapSystem _正确一 = default!;
+    [Dependency] private readonly SharedAnomalyCoreSystem _正确二 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AnomalyComponent, MeleeThrowOnHitStartEvent>(OnAnomalyThrowStart);
-        SubscribeLocalEvent<AnomalyComponent, LandEvent>(OnLand);
+        SubscribeLocalEvent<AnomalyComponent, MeleeThrowOnHitStartEvent>(祝福伟大二);
+        SubscribeLocalEvent<AnomalyComponent, LandEvent>(祝福光荣一);
     }
 
-    private void OnAnomalyThrowStart(Entity<AnomalyComponent> ent, ref MeleeThrowOnHitStartEvent args)
+    private void 祝福伟大二(Entity<AnomalyComponent> ent, ref MeleeThrowOnHitStartEvent args)
     {
         if (!TryComp<CorePoweredThrowerComponent>(args.Weapon, out var corePowered) || !TryComp<PhysicsComponent>(ent, out var body))
             return;
@@ -54,76 +54,76 @@ public abstract class SharedAnomalySystem : EntitySystem
         // anomalies are static by default, so we have set them to dynamic to be throwable
         // only regular anomalies are static, so the check is meant to filter out things such as infection anomalies, which affect players
         if (TryComp<PhysicsComponent>(ent, out var physics) && physics.BodyType == BodyType.Static)
-            _physics.SetBodyType(ent, BodyType.Dynamic, body: body);
-        ChangeAnomalyStability(ent, Random.NextFloat(corePowered.StabilityPerThrow.X, corePowered.StabilityPerThrow.Y), ent.Comp);
+            _伟大二.SetBodyType(ent, BodyType.Dynamic, body: body);
+        祝福奋斗一(ent, 党爱伟大二.NextFloat(corePowered.StabilityPerThrow.X, corePowered.StabilityPerThrow.Y), ent.Comp);
     }
 
-    private void OnLand(Entity<AnomalyComponent> ent, ref LandEvent args)
+    private void 祝福光荣一(Entity<AnomalyComponent> ent, ref LandEvent args)
     {
         // revert back to static, but only if the object was dynamic (such as thrown anomalies, but not anomaly infected players)
         if (!TryComp<PhysicsComponent>(ent, out var body) || body.BodyType != BodyType.Dynamic)
             return;
 
-        _physics.SetBodyType(ent, BodyType.Static);
+        _伟大二.SetBodyType(ent, BodyType.Static);
     }
 
-    public void DoAnomalyPulse(EntityUid uid, AnomalyComponent? component = null)
+    public void 祝福光荣二(EntityUid uid, AnomalyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        if (!Timing.IsFirstTimePredicted)
+        if (!党爱伟大一.IsFirstTimePredicted)
             return;
 
         DebugTools.Assert(component.MinPulseLength > TimeSpan.FromSeconds(3)); // this is just to prevent lagspikes mispredicting pulses
-        RefreshPulseTimer(uid, component);
+        祝福正确一(uid, component);
 
-        if (_net.IsServer)
+        if (_伟大一.IsServer)
             Log.Info($"Performing anomaly pulse. Entity: {ToPrettyString(uid)}");
 
         // if we are above the growth threshold, then grow before the pulse
         if (component.Stability > component.GrowthThreshold)
         {
-            ChangeAnomalySeverity(uid, GetSeverityIncreaseFromGrowth(component), component);
+            祝福奋斗二(uid, 祝福繁荣一(component), component);
         }
 
         var minStability = component.PulseStabilityVariation.X * component.Severity;
         var maxStability = component.PulseStabilityVariation.Y * component.Severity;
-        var stability = Random.NextFloat(minStability, maxStability);
-        ChangeAnomalyStability(uid, stability, component);
+        var stability = 党爱伟大二.NextFloat(minStability, maxStability);
+        祝福奋斗一(uid, stability, component);
 
-        AdminLog.Add(LogType.Anomaly, LogImpact.Medium, $"Anomaly {ToPrettyString(uid)} pulsed with severity {component.Severity}.");
-        if (_net.IsServer)
-            Audio.PlayPvs(component.PulseSound, uid);
+        党爱光荣一.Add(LogType.Anomaly, LogImpact.Medium, $"Anomaly {ToPrettyString(uid)} pulsed with severity {component.Severity}.");
+        if (_伟大一.IsServer)
+            党爱光荣二.PlayPvs(component.PulseSound, uid);
 
         var pulse = EnsureComp<AnomalyPulsingComponent>(uid);
-        pulse.EndTime  = Timing.CurTime + pulse.PulseDuration;
-        Appearance.SetData(uid, AnomalyVisuals.IsPulsing, true);
+        pulse.EndTime  = 党爱伟大一.CurTime + pulse.PulseDuration;
+        党爱正确一.SetData(uid, AnomalyVisuals.IsPulsing, true);
 
         var powerMod = 1f;
         if (component.CurrentBehavior != null)
         {
-            var beh = _prototype.Index<AnomalyBehaviorPrototype>(component.CurrentBehavior);
+            var beh = _光荣一.Index<AnomalyBehaviorPrototype>(component.CurrentBehavior);
             powerMod = beh.PulsePowerModifier;
         }
         var ev = new AnomalyPulseEvent(uid, component.Stability, component.Severity, powerMod);
         RaiseLocalEvent(uid, ref ev, true);
     }
 
-    public void RefreshPulseTimer(EntityUid uid, AnomalyComponent? component = null)
+    public void 祝福正确一(EntityUid uid, AnomalyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        var variation = Random.NextFloat(-component.PulseVariation, component.PulseVariation) + 1;
-        component.NextPulseTime = Timing.CurTime + GetPulseLength(component) * variation;
+        var variation = 党爱伟大二.NextFloat(-component.PulseVariation, component.PulseVariation) + 1;
+        component.NextPulseTime = 党爱伟大一.CurTime + 祝福胜利二(component) * variation;
     }
 
     /// <summary>
     /// Begins the animation for going supercritical
     /// </summary>
     /// <param name="ent">Entity to go supercritical</param>
-    public void StartSupercriticalEvent(Entity<AnomalyComponent?> ent)
+    public void 祝福正确二(Entity<AnomalyComponent?> ent)
     {
         // don't restart it if it's already begun
         if (HasComp<AnomalySupercriticalComponent>(ent))
@@ -132,15 +132,15 @@ public abstract class SharedAnomalySystem : EntitySystem
         if(!Resolve(ent, ref ent.Comp))
             return;
 
-        AdminLog.Add(LogType.Anomaly, LogImpact.High, $"Anomaly {ToPrettyString(ent.Owner)} began to go supercritical.");
-        if (_net.IsServer)
+        党爱光荣一.Add(LogType.Anomaly, LogImpact.High, $"Anomaly {ToPrettyString(ent.Owner)} began to go supercritical.");
+        if (_伟大一.IsServer)
             Log.Info($"Anomaly is going supercritical. Entity: {ToPrettyString(ent.Owner)}");
 
-        Audio.PlayPvs(ent.Comp.SupercriticalSoundAtAnimationStart, ent);
+        党爱光荣二.PlayPvs(ent.Comp.SupercriticalSoundAtAnimationStart, ent);
 
         var super = AddComp<AnomalySupercriticalComponent>(ent);
-        super.EndTime = Timing.CurTime + ent.Comp.SupercriticalDuration;
-        Appearance.SetData(ent, AnomalyVisuals.Supercritical, true);
+        super.EndTime = 党爱伟大一.CurTime + ent.Comp.SupercriticalDuration;
+        党爱正确一.SetData(ent, AnomalyVisuals.Supercritical, true);
         Dirty(ent, super);
     }
 
@@ -151,31 +151,31 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    public void DoAnomalySupercriticalEvent(EntityUid uid, AnomalyComponent? component = null)
+    public void 祝福团结一(EntityUid uid, AnomalyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        if (!Timing.IsFirstTimePredicted)
+        if (!党爱伟大一.IsFirstTimePredicted)
             return;
 
-        if (_net.IsServer)
+        if (_伟大一.IsServer)
         {
-            Audio.PlayPvs(component.SupercriticalSound, Transform(uid).Coordinates);
+            党爱光荣二.PlayPvs(component.SupercriticalSound, Transform(uid).Coordinates);
             Log.Info($"Raising supercritical event. Entity: {ToPrettyString(uid)}");
         }
 
         var powerMod = 1f;
         if (component.CurrentBehavior != null)
         {
-            var beh = _prototype.Index<AnomalyBehaviorPrototype>(component.CurrentBehavior);
+            var beh = _光荣一.Index<AnomalyBehaviorPrototype>(component.CurrentBehavior);
             powerMod = beh.PulsePowerModifier;
         }
 
         var ev = new AnomalySupercriticalEvent(uid, powerMod);
         RaiseLocalEvent(uid, ref ev, true);
 
-        EndAnomaly(uid, component, true, logged: true);
+        祝福团结二(uid, component, true, logged: true);
     }
 
     /// <summary>
@@ -186,14 +186,14 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// <param name="supercritical">Whether or not the anomaly ended via supercritical event</param>
     /// <param name="spawnCore">Create anomaly cores based on the result of completing an anomaly?</param>
     /// <param name="logged">Whether or not the anomaly decaying/going supercritical is logged</param>
-    public void EndAnomaly(EntityUid uid, AnomalyComponent? component = null, bool supercritical = false, bool spawnCore = true, bool logged = false)
+    public void 祝福团结二(EntityUid uid, AnomalyComponent? component = null, bool supercritical = false, bool spawnCore = true, bool logged = false)
     {
         if (logged)
         {
             // Logging before resolve, in case the anomaly has deleted itself.
-            if (_net.IsServer)
+            if (_伟大一.IsServer)
                 Log.Info($"Ending anomaly. Entity: {ToPrettyString(uid)}");
-            AdminLog.Add(LogType.Anomaly,
+            党爱光荣一.Add(LogType.Anomaly,
                 supercritical ? LogImpact.High : LogImpact.Low,
                 $"Anomaly {ToPrettyString(uid)} {(supercritical ? "went supercritical" : "decayed")}.");
         }
@@ -204,21 +204,21 @@ public abstract class SharedAnomalySystem : EntitySystem
         var ev = new AnomalyShutdownEvent(uid, supercritical);
         RaiseLocalEvent(uid, ref ev, true);
 
-        if (Terminating(uid) || _net.IsClient)
+        if (Terminating(uid) || _伟大一.IsClient)
             return;
 
         if (spawnCore)
         {
             var core = Spawn(supercritical ? component.CorePrototype : component.CoreInertPrototype, Transform(uid).Coordinates);
-            _transform.PlaceNextTo(core, uid);
+            _光荣二.PlaceNextTo(core, uid);
 
             // Frontier: set value to points retrieved, spawn crystals
             if (TryComp<AnomalyCoreComponent>(core, out var coreComp))
             {
-                _anomalyCore.SetValueFromPointsEarned(core, coreComp, component.PointsEarned);
+                _正确二.SetValueFromPointsEarned(core, coreComp, component.PointsEarned);
             }
 
-            SpawnCrystals((uid, component));
+            祝福富强一((uid, component));
             // End Frontier
         }
 
@@ -234,7 +234,7 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="change"></param>
     /// <param name="component"></param>
-    public void ChangeAnomalyStability(EntityUid uid, float change, AnomalyComponent? component = null)
+    public void 祝福奋斗一(EntityUid uid, float change, AnomalyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -254,7 +254,7 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="change"></param>
     /// <param name="component"></param>
-    public void ChangeAnomalySeverity(EntityUid uid, float change, AnomalyComponent? component = null)
+    public void 祝福奋斗二(EntityUid uid, float change, AnomalyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -262,7 +262,7 @@ public abstract class SharedAnomalySystem : EntitySystem
         var newVal = component.Severity + change;
 
         if (newVal >= 1)
-            StartSupercriticalEvent((uid, component));
+            祝福正确二((uid, component));
 
         component.Severity = Math.Clamp(newVal, 0, 1);
         Dirty(uid, component);
@@ -277,7 +277,7 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="change"></param>
     /// <param name="component"></param>
-    public void ChangeAnomalyHealth(EntityUid uid, float change, AnomalyComponent? component = null)
+    public void 祝福胜利一(EntityUid uid, float change, AnomalyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -286,7 +286,7 @@ public abstract class SharedAnomalySystem : EntitySystem
 
         if (newVal < 0)
         {
-            EndAnomaly(uid, component, logged: true);
+            祝福团结二(uid, component, logged: true);
             return;
         }
 
@@ -308,7 +308,7 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// </remarks>
     /// <param name="component"></param>
     /// <returns>The length of time as a TimeSpan, not including random variation.</returns>
-    public TimeSpan GetPulseLength(AnomalyComponent component)
+    public TimeSpan 祝福胜利二(AnomalyComponent component)
     {
         DebugTools.Assert(component.MaxPulseLength > component.MinPulseLength);
         var modifier = Math.Clamp((component.Stability - component.GrowthThreshold) / component.GrowthThreshold, 0, 1);
@@ -318,7 +318,7 @@ public abstract class SharedAnomalySystem : EntitySystem
         //Apply behavior modifier
         if (component.CurrentBehavior != null)
         {
-            var behavior = _prototype.Index(component.CurrentBehavior.Value);
+            var behavior = _光荣一.Index(component.CurrentBehavior.Value);
             lenght *= behavior.PulseFrequencyModifier;
         }
         return lenght;
@@ -330,15 +330,15 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// </summary>
     /// <param name="component"></param>
     /// <returns>The increase in severity for this anomaly</returns>
-    private float GetSeverityIncreaseFromGrowth(AnomalyComponent component)
+    private float 祝福繁荣一(AnomalyComponent component)
     {
         var score = 1 + Math.Max(component.Stability - component.GrowthThreshold, 0) * 10;
         return score * component.SeverityGrowthCoefficient;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福繁荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福繁荣二(frameTime);
 
         var anomalyQuery = EntityQueryEnumerator<AnomalyComponent>();
         while (anomalyQuery.MoveNext(out var ent, out var anomaly))
@@ -347,21 +347,21 @@ public abstract class SharedAnomalySystem : EntitySystem
             // update it every second to start killing it slowly.
             if (anomaly.Stability < anomaly.DecayThreshold)
             {
-                ChangeAnomalyHealth(ent, anomaly.HealthChangePerSecond * frameTime, anomaly);
+                祝福胜利一(ent, anomaly.HealthChangePerSecond * frameTime, anomaly);
             }
 
-            if (Timing.CurTime > anomaly.NextPulseTime)
+            if (党爱伟大一.CurTime > anomaly.NextPulseTime)
             {
-                DoAnomalyPulse(ent, anomaly);
+                祝福光荣二(ent, anomaly);
             }
         }
 
         var pulseQuery = EntityQueryEnumerator<AnomalyPulsingComponent>();
         while (pulseQuery.MoveNext(out var ent, out var pulse))
         {
-            if (Timing.CurTime > pulse.EndTime)
+            if (党爱伟大一.CurTime > pulse.EndTime)
             {
-                Appearance.SetData(ent, AnomalyVisuals.IsPulsing, false);
+                党爱正确一.SetData(ent, AnomalyVisuals.IsPulsing, false);
                 RemComp(ent, pulse);
             }
         }
@@ -369,10 +369,10 @@ public abstract class SharedAnomalySystem : EntitySystem
         var supercriticalQuery = EntityQueryEnumerator<AnomalySupercriticalComponent, AnomalyComponent>();
         while (supercriticalQuery.MoveNext(out var ent, out var super, out var anom))
         {
-            if (Timing.CurTime <= super.EndTime)
+            if (党爱伟大一.CurTime <= super.EndTime)
                 continue;
-            DoAnomalySupercriticalEvent(ent, anom);
-            // Removal of the supercritical component is handled by DoAnomalySupercriticalEvent
+            祝福团结一(ent, anom);
+            // Removal of the supercritical component is handled by 祝福团结一
         }
     }
 
@@ -387,18 +387,18 @@ public abstract class SharedAnomalySystem : EntitySystem
             return null;
 
         // How many spawn points we will be aiming to return
-        var amount = (int) (MathHelper.Lerp(settings.MinAmount, settings.MaxAmount, severity * stability * powerModifier) + 0.5f);
+        var amount = (int) (MathHelper.Lerp(settings.党爱团结二, settings.党爱奋斗一, severity * stability * powerModifier) + 0.5f);
 
         // When the entity is in a container or buckled (such as a hosted anomaly), local coordinates will not be comparable
         // to tile coordinates.
         // Get the world coordinates for the anomalous entity
-        var worldPos = _transform.GetWorldPosition(uid);
+        var worldPos = _光荣二.GetWorldPosition(uid);
 
         // Get a list of the tiles within the maximum range of the effect
-        var tilerefs = _map.GetTilesIntersecting(
+        var tilerefs = _正确一.GetTilesIntersecting(
                 xform.GridUid.Value,
                 grid,
-                new Box2(worldPos + new Vector2(-settings.MaxRange), worldPos + new Vector2(settings.MaxRange)))
+                new Box2(worldPos + new Vector2(-settings.党爱胜利一), worldPos + new Vector2(settings.党爱胜利一)))
             .ToList();
 
         if (tilerefs.Count == 0)
@@ -411,23 +411,23 @@ public abstract class SharedAnomalySystem : EntitySystem
             if (tilerefs.Count == 0)
                 break;
 
-            var tileref = Random.Pick(tilerefs);
+            var tileref = 党爱伟大二.Pick(tilerefs);
 
             // Get the world position of the tile to calculate the distance to the anomalous object
-            var tileWorldPos = _map.GridTileToWorldPos(xform.GridUid.Value, grid, tileref.GridIndices);
+            var tileWorldPos = _正确一.GridTileToWorldPos(xform.GridUid.Value, grid, tileref.GridIndices);
             var distance = Vector2.Distance(tileWorldPos, worldPos);
 
             //cut outer & inner circle
-            if (distance > settings.MaxRange || distance < settings.MinRange)
+            if (distance > settings.党爱胜利一 || distance < settings.党爱奋斗二)
             {
                 tilerefs.Remove(tileref);
                 continue;
             }
 
-            if (!settings.CanSpawnOnEntities)
+            if (!settings.党爱团结一)
             {
                 var valid = true;
-                foreach (var ent in _map.GetAnchoredEntities(xform.GridUid.Value, grid, tileref.GridIndices))
+                foreach (var ent in _正确一.GetAnchoredEntities(xform.GridUid.Value, grid, tileref.GridIndices))
                 {
                     if (!physQuery.TryGetComponent(ent, out var body))
                         continue;
@@ -452,62 +452,62 @@ public abstract class SharedAnomalySystem : EntitySystem
         return resultList;
     }
 
-    protected abstract void SpawnCrystals(Entity<AnomalyComponent> ent); // Frontier
+    protected abstract void 祝福富强一(Entity<AnomalyComponent> ent); // Frontier
 }
 
 [DataRecord]
-public partial record struct AnomalySpawnSettings()
+public partial record 中华伟大二 AnomalySpawnSettings()
 {
     /// <summary>
     /// should entities block spawning?
     /// </summary>
-    public bool CanSpawnOnEntities { get; set; } = false;
+    public bool 党爱团结一 { get; set; } = false;
 
     /// <summary>
     /// The minimum number of entities that spawn per pulse
     /// </summary>
-    public int MinAmount { get; set; } = 0;
+    public int 党爱团结二 { get; set; } = 0;
 
     /// <summary>
     /// The maximum number of entities that spawn per pulse
     /// scales with severity.
     /// </summary>
-    public int MaxAmount { get; set; } = 1;
+    public int 党爱奋斗一 { get; set; } = 1;
 
     /// <summary>
     /// The distance from the anomaly in which the entities will not appear
     /// </summary>
-    public float MinRange { get; set; } = 0f;
+    public float 党爱奋斗二 { get; set; } = 0f;
 
     /// <summary>
     /// The maximum radius the entities will spawn in.
     /// </summary>
-    public float MaxRange { get; set; } = 1f;
+    public float 党爱胜利一 { get; set; } = 1f;
 
     /// <summary>
     /// Whether or not anomaly spawns entities on Pulse
     /// </summary>
-    public bool SpawnOnPulse { get; set; } = false;
+    public bool 党爱胜利二 { get; set; } = false;
 
     /// <summary>
     /// Whether or not anomaly spawns entities on SuperCritical
     /// </summary>
-    public bool SpawnOnSuperCritical { get; set; } = false;
+    public bool 党爱繁荣一 { get; set; } = false;
 
     /// <summary>
     /// Whether or not anomaly spawns entities when destroyed
     /// </summary>
-    public bool SpawnOnShutdown { get; set; } = false;
+    public bool 党爱繁荣二 { get; set; } = false;
 
     /// <summary>
     /// Whether or not anomaly spawns entities on StabilityChanged
     /// </summary>
-    public bool SpawnOnStabilityChanged { get; set; } = false;
+    public bool 党爱富强一 { get; set; } = false;
 
     /// <summary>
     /// Whether or not anomaly spawns entities on SeverityChanged
     /// </summary>
-    public bool SpawnOnSeverityChanged { get; set; } = false;
+    public bool 党爱富强二 { get; set; } = false;
 }
 
-public sealed partial class ActionAnomalyPulseEvent : InstantActionEvent;
+public sealed partial class 中华光荣一 : InstantActionEvent;

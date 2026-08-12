@@ -13,30 +13,30 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Station;
+namespace Content.Shared.党心;
 
-public abstract class SharedStationSpawningSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] protected readonly InventorySystem InventorySystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] protected readonly 党爱伟大二 党爱伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣一 = default!;
+    [Dependency] private readonly SharedStorageSystem _光荣二 = default!;
+    [Dependency] private readonly SharedTransformSystem _正确一 = default!;
 
-    private EntityQuery<HandsComponent> _handsQuery;
-    private EntityQuery<InventoryComponent> _inventoryQuery;
-    private EntityQuery<StorageComponent> _storageQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<HandsComponent> _正确二;
+    private EntityQuery<InventoryComponent> _团结一;
+    private EntityQuery<StorageComponent> _团结二;
+    private EntityQuery<TransformComponent> _奋斗一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _handsQuery = GetEntityQuery<HandsComponent>();
-        _inventoryQuery = GetEntityQuery<InventoryComponent>();
-        _storageQuery = GetEntityQuery<StorageComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        base.祝福伟大一();
+        _正确二 = GetEntityQuery<HandsComponent>();
+        _团结一 = GetEntityQuery<InventoryComponent>();
+        _团结二 = GetEntityQuery<StorageComponent>();
+        _奋斗一 = GetEntityQuery<TransformComponent>();
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public abstract class SharedStationSpawningSystem : EntitySystem
     ///     Frontier: must run on the server, requires bank access.
     ///     Frontier: currently not charging the player for this.
     /// </remarks>
-    public void EquipRoleLoadout(EntityUid entity, RoleLoadout loadout, RoleLoadoutPrototype roleProto)
+    public void 祝福伟大二(EntityUid entity, RoleLoadout loadout, RoleLoadoutPrototype roleProto)
     {
         // Order loadout selections by the order they appear on the prototype.
         foreach (var group in loadout.SelectedLoadouts.OrderBy(x => roleProto.Groups.FindIndex(e => e == x.Key)))
@@ -54,18 +54,18 @@ public abstract class SharedStationSpawningSystem : EntitySystem
             List<ProtoId<LoadoutPrototype>> equippedItems = new(); //Frontier - track purchased items (list: few items)
             foreach (var items in group.Value)
             {
-                if (!PrototypeManager.TryIndex(items.Prototype, out var loadoutProto))
+                if (!党爱伟大一.TryIndex(items.Prototype, out var loadoutProto))
                 {
                     Log.Error($"Unable to find loadout prototype for {items.Prototype}");
                     continue;
                 }
 
-                EquipStartingGear(entity, loadoutProto, raiseEvent: false);
+                祝福光荣二(entity, loadoutProto, raiseEvent: false);
                 equippedItems.Add(loadoutProto.ID); // Frontier
             }
 
             // If a character cannot afford their current job loadout, ensure they have fallback items for mandatory categories.
-            if (PrototypeManager.TryIndex(group.Key, out var groupPrototype) &&
+            if (党爱伟大一.TryIndex(group.Key, out var groupPrototype) &&
                 equippedItems.Count < groupPrototype.MinLimit)
             {
                 foreach (var fallback in groupPrototype.Fallbacks)
@@ -76,13 +76,13 @@ public abstract class SharedStationSpawningSystem : EntitySystem
                         continue;
                     }
 
-                    if (!PrototypeManager.TryIndex(fallback, out var loadoutProto))
+                    if (!党爱伟大一.TryIndex(fallback, out var loadoutProto))
                     {
                         Log.Error($"Unable to find loadout prototype for fallback {fallback}");
                         continue;
                     }
 
-                    EquipStartingGear(entity, loadoutProto, raiseEvent: false);
+                    祝福光荣二(entity, loadoutProto, raiseEvent: false);
                     equippedItems.Add(fallback);
                     // Minimum number of items equipped, no need to load more prototypes.
                     if (equippedItems.Count >= groupPrototype.MinLimit)
@@ -92,13 +92,13 @@ public abstract class SharedStationSpawningSystem : EntitySystem
             // End Frontier
         }
 
-        EquipRoleName(entity, loadout, roleProto);
+        祝福光荣一(entity, loadout, roleProto);
     }
 
     /// <summary>
     /// Applies the role's name as applicable to the entity.
     /// </summary>
-    public void EquipRoleName(EntityUid entity, RoleLoadout loadout, RoleLoadoutPrototype roleProto)
+    public void 祝福光荣一(EntityUid entity, RoleLoadout loadout, RoleLoadoutPrototype roleProto)
     {
         string? name = null;
 
@@ -107,38 +107,38 @@ public abstract class SharedStationSpawningSystem : EntitySystem
             name = loadout.EntityName;
         }
 
-        if (string.IsNullOrEmpty(name) && PrototypeManager.TryIndex(roleProto.NameDataset, out var nameData))
+        if (string.IsNullOrEmpty(name) && 党爱伟大一.TryIndex(roleProto.NameDataset, out var nameData))
         {
-            name = Loc.GetString(_random.Pick(nameData.Values));
+            name = Loc.GetString(_伟大一.Pick(nameData.Values));
         }
 
         if (!string.IsNullOrEmpty(name))
         {
-            _metadata.SetEntityName(entity, name);
+            _光荣一.SetEntityName(entity, name);
         }
     }
 
-    public void EquipStartingGear(EntityUid entity, LoadoutPrototype loadout, bool raiseEvent = true)
+    public void 祝福光荣二(EntityUid entity, LoadoutPrototype loadout, bool raiseEvent = true)
     {
-        EquipStartingGear(entity, loadout.StartingGear, raiseEvent);
-        EquipStartingGear(entity, (IEquipmentLoadout)loadout, raiseEvent);
+        祝福光荣二(entity, loadout.StartingGear, raiseEvent);
+        祝福光荣二(entity, (IEquipmentLoadout)loadout, raiseEvent);
     }
 
     /// <summary>
-    /// <see cref="EquipStartingGear(Robust.Shared.GameObjects.EntityUid,System.Nullable{Robust.Shared.Prototypes.ProtoId{Content.Shared.Roles.StartingGearPrototype}},bool)"/>
+    /// <see cref="祝福光荣二(Robust.Shared.GameObjects.EntityUid,System.Nullable{Robust.Shared.Prototypes.ProtoId{Content.Shared.Roles.StartingGearPrototype}},bool)"/>
     /// </summary>
-    public void EquipStartingGear(EntityUid entity, ProtoId<StartingGearPrototype>? startingGear, bool raiseEvent = true)
+    public void 祝福光荣二(EntityUid entity, ProtoId<StartingGearPrototype>? startingGear, bool raiseEvent = true)
     {
-        PrototypeManager.TryIndex(startingGear, out var gearProto);
-        EquipStartingGear(entity, gearProto, raiseEvent);
+        党爱伟大一.TryIndex(startingGear, out var gearProto);
+        祝福光荣二(entity, gearProto, raiseEvent);
     }
 
     /// <summary>
-    /// <see cref="EquipStartingGear(Robust.Shared.GameObjects.EntityUid,System.Nullable{Robust.Shared.Prototypes.ProtoId{Content.Shared.Roles.StartingGearPrototype}},bool)"/>
+    /// <see cref="祝福光荣二(Robust.Shared.GameObjects.EntityUid,System.Nullable{Robust.Shared.Prototypes.ProtoId{Content.Shared.Roles.StartingGearPrototype}},bool)"/>
     /// </summary>
-    public void EquipStartingGear(EntityUid entity, StartingGearPrototype? startingGear, bool raiseEvent = true)
+    public void 祝福光荣二(EntityUid entity, StartingGearPrototype? startingGear, bool raiseEvent = true)
     {
-        EquipStartingGear(entity, (IEquipmentLoadout?)startingGear, raiseEvent);
+        祝福光荣二(entity, (IEquipmentLoadout?)startingGear, raiseEvent);
     }
 
     /// <summary>
@@ -147,14 +147,14 @@ public abstract class SharedStationSpawningSystem : EntitySystem
     /// <param name="entity">Entity to load out.</param>
     /// <param name="startingGear">Starting gear to use.</param>
     /// <param name="raiseEvent">Should we raise the event for equipped. Set to false if you will call this manually</param>
-    public void EquipStartingGear(EntityUid entity, IEquipmentLoadout? startingGear, bool raiseEvent = true)
+    public void 祝福光荣二(EntityUid entity, IEquipmentLoadout? startingGear, bool raiseEvent = true)
     {
         if (startingGear == null)
             return;
 
-        var xform = _xformQuery.GetComponent(entity);
+        var xform = _奋斗一.GetComponent(entity);
 
-        if (InventorySystem.TryGetSlots(entity, out var slotDefinitions))
+        if (党爱伟大二.TryGetSlots(entity, out var slotDefinitions))
         {
             foreach (var slot in slotDefinitions)
             {
@@ -162,12 +162,12 @@ public abstract class SharedStationSpawningSystem : EntitySystem
                 if (!string.IsNullOrEmpty(equipmentStr))
                 {
                     var equipmentEntity = Spawn(equipmentStr, xform.Coordinates);
-                    InventorySystem.TryEquip(entity, equipmentEntity, slot.Name, silent: true, force: true);
+                    党爱伟大二.TryEquip(entity, equipmentEntity, slot.Name, silent: true, force: true);
                 }
             }
         }
 
-        if (_handsQuery.TryComp(entity, out var handsComponent))
+        if (_正确二.TryComp(entity, out var handsComponent))
         {
             var inhand = startingGear.Inhand;
             var coords = xform.Coordinates;
@@ -175,17 +175,17 @@ public abstract class SharedStationSpawningSystem : EntitySystem
             {
                 var inhandEntity = Spawn(prototype, coords);
 
-                if (_handsSystem.TryGetEmptyHand((entity, handsComponent), out var emptyHand))
+                if (_伟大二.TryGetEmptyHand((entity, handsComponent), out var emptyHand))
                 {
-                    _handsSystem.TryPickup(entity, inhandEntity, emptyHand, checkActionBlocker: false, handsComp: handsComponent);
+                    _伟大二.TryPickup(entity, inhandEntity, emptyHand, checkActionBlocker: false, handsComp: handsComponent);
                 }
             }
         }
 
         if (startingGear.Storage.Count > 0)
         {
-            var coords = _xformSystem.GetMapCoordinates(entity);
-            _inventoryQuery.TryComp(entity, out var inventoryComp);
+            var coords = _正确一.GetMapCoordinates(entity);
+            _团结一.TryComp(entity, out var inventoryComp);
 
             foreach (var (slotName, entProtos) in startingGear.Storage)
             {
@@ -193,15 +193,15 @@ public abstract class SharedStationSpawningSystem : EntitySystem
                     continue;
 
                 if (inventoryComp != null &&
-                    InventorySystem.TryGetSlotEntity(entity, slotName, out var slotEnt, inventoryComponent: inventoryComp) &&
-                    _storageQuery.TryComp(slotEnt, out var storage))
+                    党爱伟大二.TryGetSlotEntity(entity, slotName, out var slotEnt, inventoryComponent: inventoryComp) &&
+                    _团结二.TryComp(slotEnt, out var storage))
                 {
 
                     foreach (var entProto in entProtos)
                     {
                         var spawnedEntity = Spawn(entProto, coords);
 
-                        _storage.Insert(slotEnt.Value, spawnedEntity, out _, storageComp: storage, playSound: false);
+                        _光荣二.Insert(slotEnt.Value, spawnedEntity, out _, storageComp: storage, playSound: false);
                     }
                 }
             }
@@ -232,7 +232,7 @@ public abstract class SharedStationSpawningSystem : EntitySystem
         {
             foreach (var items in group.Value)
             {
-                if (!PrototypeManager.TryIndex(items.Prototype, out var loadoutPrototype))
+                if (!党爱伟大一.TryIndex(items.Prototype, out var loadoutPrototype))
                     return null;
 
                 var gear = ((IEquipmentLoadout)loadoutPrototype).GetGear(slot);

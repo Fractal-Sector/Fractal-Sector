@@ -20,55 +20,55 @@ using Robust.Shared.Utility;
 using Content.Shared.Emag.Components;
 using Robust.Shared.Audio; // Frontier - DEMAG
 
-namespace Content.Shared.Lock;
+namespace Content.Shared.党心;
 
 /// <summary>
-/// Handles (un)locking and examining of Lock components
+/// Handles (un)locking and examining of 祝福团结一 components
 /// </summary>
 [UsedImplicitly]
-public sealed class LockSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _sharedPopupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] private readonly EmagSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly SharedPopupSystem _正确二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _团结一 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _团结二 = default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<LockComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<LockComponent, ActivateInWorldEvent>(OnActivated, before: [typeof(ActivatableUISystem)]);
-        SubscribeLocalEvent<LockComponent, StorageOpenAttemptEvent>(OnStorageOpenAttempt);
-        SubscribeLocalEvent<LockComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<LockComponent, GetVerbsEvent<AlternativeVerb>>(AddToggleLockVerb);
-        SubscribeLocalEvent<LockComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<LockComponent, LockDoAfter>(OnDoAfterLock);
-        SubscribeLocalEvent<LockComponent, UnlockDoAfter>(OnDoAfterUnlock);
-        SubscribeLocalEvent<LockComponent, GotUnEmaggedEvent>(OnUnEmagged); // Frontier - demag
+        SubscribeLocalEvent<LockComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<LockComponent, ActivateInWorldEvent>(祝福光荣一, before: [typeof(ActivatableUISystem)]);
+        SubscribeLocalEvent<LockComponent, StorageOpenAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<LockComponent, ExaminedEvent>(祝福正确一);
+        SubscribeLocalEvent<LockComponent, GetVerbsEvent<AlternativeVerb>>(祝福繁荣二);
+        SubscribeLocalEvent<LockComponent, GotEmaggedEvent>(祝福富强一);
+        SubscribeLocalEvent<LockComponent, LockDoAfter>(祝福民主一);
+        SubscribeLocalEvent<LockComponent, UnlockDoAfter>(祝福民主二);
+        SubscribeLocalEvent<LockComponent, GotUnEmaggedEvent>(祝福富强二); // Frontier - demag
 
-        SubscribeLocalEvent<LockedWiresPanelComponent, LockToggleAttemptEvent>(OnLockToggleAttempt);
-        SubscribeLocalEvent<LockedWiresPanelComponent, AttemptChangePanelEvent>(OnAttemptChangePanel);
-        SubscribeLocalEvent<LockedAnchorableComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
-        SubscribeLocalEvent<LockedStorageComponent, StorageInteractAttemptEvent>(OnStorageInteractAttempt);
+        SubscribeLocalEvent<LockedWiresPanelComponent, LockToggleAttemptEvent>(祝福文明二);
+        SubscribeLocalEvent<LockedWiresPanelComponent, AttemptChangePanelEvent>(祝福和谐一);
+        SubscribeLocalEvent<LockedAnchorableComponent, UnanchorAttemptEvent>(祝福和谐二);
+        SubscribeLocalEvent<LockedStorageComponent, StorageInteractAttemptEvent>(祝福文明一);
 
-        SubscribeLocalEvent<UIRequiresLockComponent, ActivatableUIOpenAttemptEvent>(OnUIOpenAttempt);
-        SubscribeLocalEvent<UIRequiresLockComponent, LockToggledEvent>(LockToggled);
+        SubscribeLocalEvent<UIRequiresLockComponent, ActivatableUIOpenAttemptEvent>(祝福自由一);
+        SubscribeLocalEvent<UIRequiresLockComponent, LockToggledEvent>(祝福自由二);
 
-        SubscribeLocalEvent<ItemToggleRequiresLockComponent, ItemToggleActivateAttemptEvent>(OnActivateAttempt);
+        SubscribeLocalEvent<ItemToggleRequiresLockComponent, ItemToggleActivateAttemptEvent>(祝福平等一);
     }
 
-    private void OnStartup(EntityUid uid, LockComponent lockComp, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, LockComponent lockComp, ComponentStartup args)
     {
-        _appearanceSystem.SetData(uid, LockVisuals.Locked, lockComp.Locked);
+        _光荣二.SetData(uid, LockVisuals.Locked, lockComp.Locked);
     }
 
-    private void OnActivated(EntityUid uid, LockComponent lockComp, ActivateInWorldEvent args)
+    private void 祝福光荣一(EntityUid uid, LockComponent lockComp, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -77,27 +77,27 @@ public sealed class LockSystem : EntitySystem
         if (lockComp.Locked && lockComp.UnlockOnClick)
         {
             args.Handled = true;
-            TryUnlock(uid, args.User, lockComp);
+            祝福奋斗一(uid, args.User, lockComp);
         }
         else if (!lockComp.Locked && lockComp.LockOnClick)
         {
             args.Handled = true;
-            TryLock(uid, args.User, lockComp);
+            祝福正确二(uid, args.User, lockComp);
         }
     }
 
-    private void OnStorageOpenAttempt(EntityUid uid, LockComponent component, ref StorageOpenAttemptEvent args)
+    private void 祝福光荣二(EntityUid uid, LockComponent component, ref StorageOpenAttemptEvent args)
     {
         if (!component.Locked)
             return;
 
         if (!args.Silent)
-            _sharedPopupSystem.PopupClient(Loc.GetString("entity-storage-component-locked-message"), uid, args.User);
+            _正确二.PopupClient(Loc.GetString("entity-storage-component-locked-message"), uid, args.User);
 
         args.Cancelled = true;
     }
 
-    private void OnExamined(EntityUid uid, LockComponent lockComp, ExaminedEvent args)
+    private void 祝福正确一(EntityUid uid, LockComponent lockComp, ExaminedEvent args)
     {
         if (!lockComp.ShowExamine)
             return;
@@ -119,20 +119,20 @@ public sealed class LockSystem : EntitySystem
     /// <param name="lockComp"></param>
     /// <param name="skipDoAfter">If true, skip the required do-after if one is configured.</param>
     /// <returns>If locking was successful</returns>
-    public bool TryLock(EntityUid uid, EntityUid user, LockComponent? lockComp = null, bool skipDoAfter = false)
+    public bool 祝福正确二(EntityUid uid, EntityUid user, LockComponent? lockComp = null, bool skipDoAfter = false)
     {
         if (!Resolve(uid, ref lockComp))
             return false;
 
-        if (!CanToggleLock(uid, user, quiet: false))
+        if (!祝福胜利二(uid, user, quiet: false))
             return false;
 
-        if (lockComp.UseAccess && !HasUserAccess(uid, user, quiet: false))
+        if (lockComp.UseAccess && !祝福繁荣一(uid, user, quiet: false))
             return false;
 
         if (!skipDoAfter && lockComp.LockTime != TimeSpan.Zero)
         {
-            return _doAfter.TryStartDoAfter(
+            return _团结一.TryStartDoAfter(
                 new DoAfterArgs(EntityManager, user, lockComp.LockTime, new LockDoAfter(), uid, uid)
                 {
                     BreakOnDamage = true,
@@ -142,14 +142,14 @@ public sealed class LockSystem : EntitySystem
                 });
         }
 
-        Lock(uid, user, lockComp);
+        祝福团结一(uid, user, lockComp);
         return true;
     }
 
     /// <summary>
     ///     Forces a given entity to be locked, does not activate a do-after.
     /// </summary>
-    public void Lock(EntityUid uid, EntityUid? user, LockComponent? lockComp = null)
+    public void 祝福团结一(EntityUid uid, EntityUid? user, LockComponent? lockComp = null)
     {
         if (!Resolve(uid, ref lockComp))
             return;
@@ -159,14 +159,14 @@ public sealed class LockSystem : EntitySystem
 
         if (user is { Valid: true })
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-do-lock-success",
+            _正确二.PopupClient(Loc.GetString("lock-comp-do-lock-success",
                 ("entityName", Identity.Name(uid, EntityManager))), uid, user);
         }
 
-        _audio.PlayPredicted(lockComp.LockSound, uid, user);
+        _正确一.PlayPredicted(lockComp.LockSound, uid, user);
 
         lockComp.Locked = true;
-        _appearanceSystem.SetData(uid, LockVisuals.Locked, true);
+        _光荣二.SetData(uid, LockVisuals.Locked, true);
         Dirty(uid, lockComp);
 
         var ev = new LockToggledEvent(true);
@@ -182,7 +182,7 @@ public sealed class LockSystem : EntitySystem
     /// <param name="uid">The entity with the lock</param>
     /// <param name="user">The person unlocking it. Can be null</param>
     /// <param name="lockComp"></param>
-    public void Unlock(EntityUid uid, EntityUid? user, LockComponent? lockComp = null)
+    public void 祝福团结二(EntityUid uid, EntityUid? user, LockComponent? lockComp = null)
     {
         if (!Resolve(uid, ref lockComp))
             return;
@@ -192,14 +192,14 @@ public sealed class LockSystem : EntitySystem
 
         if (user is { Valid: true })
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-do-unlock-success",
+            _正确二.PopupClient(Loc.GetString("lock-comp-do-unlock-success",
                 ("entityName", Identity.Name(uid, EntityManager))), uid, user.Value);
         }
 
-        _audio.PlayPredicted(lockComp.UnlockSound, uid, user);
+        _正确一.PlayPredicted(lockComp.UnlockSound, uid, user);
 
         lockComp.Locked = false;
-        _appearanceSystem.SetData(uid, LockVisuals.Locked, false);
+        _光荣二.SetData(uid, LockVisuals.Locked, false);
         Dirty(uid, lockComp);
 
         var ev = new LockToggledEvent(false);
@@ -218,20 +218,20 @@ public sealed class LockSystem : EntitySystem
     /// <param name="lockComp"></param>
     /// <param name="skipDoAfter">If true, skip the required do-after if one is configured.</param>
     /// <returns>If locking was successful</returns>
-    public bool TryUnlock(EntityUid uid, EntityUid user, LockComponent? lockComp = null, bool skipDoAfter = false)
+    public bool 祝福奋斗一(EntityUid uid, EntityUid user, LockComponent? lockComp = null, bool skipDoAfter = false)
     {
         if (!Resolve(uid, ref lockComp))
             return false;
 
-        if (!CanToggleLock(uid, user, quiet: false))
+        if (!祝福胜利二(uid, user, quiet: false))
             return false;
 
-        if (lockComp.UseAccess && !HasUserAccess(uid, user, quiet: false))
+        if (lockComp.UseAccess && !祝福繁荣一(uid, user, quiet: false))
             return false;
 
         if (!skipDoAfter && lockComp.UnlockTime != TimeSpan.Zero)
         {
-            return _doAfter.TryStartDoAfter(
+            return _团结一.TryStartDoAfter(
                 new DoAfterArgs(EntityManager, user, lockComp.LockTime, new UnlockDoAfter(), uid, uid)
                 {
                     BreakOnDamage = true,
@@ -241,7 +241,7 @@ public sealed class LockSystem : EntitySystem
                 });
         }
 
-        Unlock(uid, user, lockComp);
+        祝福团结二(uid, user, lockComp);
         return true;
     }
 
@@ -251,19 +251,19 @@ public sealed class LockSystem : EntitySystem
     /// <param name="uid">Entity to toggle the lock state of.</param>
     /// <param name="user">The person trying to toggle the lock</param>
     /// <param name="lockComp">Entities lock comp (will be resolved)</param>
-    public void ToggleLock(EntityUid uid, EntityUid? user, LockComponent? lockComp = null)
+    public void 祝福奋斗二(EntityUid uid, EntityUid? user, LockComponent? lockComp = null)
     {
-        if (IsLocked((uid, lockComp)))
-            Unlock(uid, user, lockComp);
+        if (祝福胜利一((uid, lockComp)))
+            祝福团结二(uid, user, lockComp);
         else
-            Lock(uid, user, lockComp);
+            祝福团结一(uid, user, lockComp);
     }
 
     /// <summary>
     /// Returns true if the entity is locked.
     /// Entities with no lock component are considered unlocked.
     /// </summary>
-    public bool IsLocked(Entity<LockComponent?> ent)
+    public bool 祝福胜利一(Entity<LockComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
@@ -275,9 +275,9 @@ public sealed class LockSystem : EntitySystem
     /// Raises an event for other components to check whether or not
     /// the entity can be locked in its current state.
     /// </summary>
-    public bool CanToggleLock(EntityUid uid, EntityUid user, bool quiet = true)
+    public bool 祝福胜利二(EntityUid uid, EntityUid user, bool quiet = true)
     {
-        if (!_actionBlocker.CanComplexInteract(user))
+        if (!_伟大二.CanComplexInteract(user))
             return false;
 
         var ev = new LockToggleAttemptEvent(user, quiet);
@@ -291,31 +291,31 @@ public sealed class LockSystem : EntitySystem
     }
 
     // TODO: this should be a helper on AccessReaderSystem since so many systems copy paste it
-    private bool HasUserAccess(EntityUid uid, EntityUid user, AccessReaderComponent? reader = null, bool quiet = true)
+    private bool 祝福繁荣一(EntityUid uid, EntityUid user, AccessReaderComponent? reader = null, bool quiet = true)
     {
         // Not having an AccessComponent means you get free access. woo!
         if (!Resolve(uid, ref reader, false))
             return true;
 
-        if (_accessReader.IsAllowed(user, uid, reader))
+        if (_伟大一.IsAllowed(user, uid, reader))
             return true;
 
         if (!quiet)
-            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-has-user-access-fail"), uid, user);
+            _正确二.PopupClient(Loc.GetString("lock-comp-has-user-access-fail"), uid, user);
         return false;
     }
 
-    private void AddToggleLockVerb(EntityUid uid, LockComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福繁荣二(EntityUid uid, LockComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || !args.CanComplexInteract || !component.ShowLockVerbs)
             return;
 
         AlternativeVerb verb = new()
         {
-            Disabled = !CanToggleLock(uid, args.User),
+            Disabled = !祝福胜利二(uid, args.User),
             Act = component.Locked
-                ? () => TryUnlock(uid, args.User, component)
-                : () => TryLock(uid, args.User, component),
+                ? () => 祝福奋斗一(uid, args.User, component)
+                : () => 祝福正确二(uid, args.User, component),
             Text = Loc.GetString(component.Locked ? "toggle-lock-verb-unlock" : "toggle-lock-verb-lock"),
             Icon = !component.Locked
                 ? new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/lock.svg.192dpi.png"))
@@ -324,18 +324,18 @@ public sealed class LockSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void OnEmagged(EntityUid uid, LockComponent component, ref GotEmaggedEvent args)
+    private void 祝福富强一(EntityUid uid, LockComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Access))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Access))
             return;
 
         if (!component.Locked || !component.BreakOnAccessBreaker)
             return;
 
-        _audio.PlayPredicted(component.UnlockSound, uid, args.UserUid);
+        _正确一.PlayPredicted(component.UnlockSound, uid, args.UserUid);
 
         component.Locked = false;
-        _appearanceSystem.SetData(uid, LockVisuals.Locked, false);
+        _光荣二.SetData(uid, LockVisuals.Locked, false);
         Dirty(uid, component);
 
         var ev = new LockToggledEvent(false);
@@ -346,18 +346,18 @@ public sealed class LockSystem : EntitySystem
     }
 
     // Frontier: demag ("let me lock this without access?")
-    private void OnUnEmagged(EntityUid uid, LockComponent component, ref GotUnEmaggedEvent args)
+    private void 祝福富强二(EntityUid uid, LockComponent component, ref GotUnEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Access))
+        if (!_光荣一.CompareFlag(args.Type, EmagType.Access))
             return;
 
         if (component.Locked)
             return;
 
-        _audio.PlayPredicted(component.LockSound, uid, args.UserUid);
+        _正确一.PlayPredicted(component.LockSound, uid, args.UserUid);
 
         component.Locked = true;
-        _appearanceSystem.SetData(uid, LockVisuals.Locked, true);
+        _光荣二.SetData(uid, LockVisuals.Locked, true);
         Dirty(uid, component);
 
         var ev = new LockToggledEvent(true);
@@ -367,29 +367,29 @@ public sealed class LockSystem : EntitySystem
     }
     // End Frontier: demag
 
-    private void OnDoAfterLock(EntityUid uid, LockComponent component, LockDoAfter args)
+    private void 祝福民主一(EntityUid uid, LockComponent component, LockDoAfter args)
     {
         if (args.Cancelled)
             return;
 
-        TryLock(uid, args.User, skipDoAfter: true);
+        祝福正确二(uid, args.User, skipDoAfter: true);
     }
 
-    private void OnDoAfterUnlock(EntityUid uid, LockComponent component, UnlockDoAfter args)
+    private void 祝福民主二(EntityUid uid, LockComponent component, UnlockDoAfter args)
     {
         if (args.Cancelled)
             return;
 
-        TryUnlock(uid, args.User, skipDoAfter: true);
+        祝福奋斗一(uid, args.User, skipDoAfter: true);
     }
 
-    private void OnStorageInteractAttempt(Entity<LockedStorageComponent> ent, ref StorageInteractAttemptEvent args)
+    private void 祝福文明一(Entity<LockedStorageComponent> ent, ref StorageInteractAttemptEvent args)
     {
-        if (IsLocked(ent.Owner))
+        if (祝福胜利一(ent.Owner))
             args.Cancelled = true;
     }
 
-    private void OnLockToggleAttempt(Entity<LockedWiresPanelComponent> ent, ref LockToggleAttemptEvent args)
+    private void 祝福文明二(Entity<LockedWiresPanelComponent> ent, ref LockToggleAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -399,7 +399,7 @@ public sealed class LockSystem : EntitySystem
 
         if (!args.Silent)
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString("construction-step-condition-wire-panel-close"),
+            _正确二.PopupClient(Loc.GetString("construction-step-condition-wire-panel-close"),
                 ent,
                 args.User);
         }
@@ -407,7 +407,7 @@ public sealed class LockSystem : EntitySystem
     }
 
 
-    private void OnAttemptChangePanel(Entity<LockedWiresPanelComponent> ent, ref AttemptChangePanelEvent args)
+    private void 祝福和谐一(Entity<LockedWiresPanelComponent> ent, ref AttemptChangePanelEvent args)
     {
         if (args.Cancelled)
             return;
@@ -415,14 +415,14 @@ public sealed class LockSystem : EntitySystem
         if (!TryComp<LockComponent>(ent, out var lockComp) || !lockComp.Locked)
             return;
 
-        _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-generic-fail",
+        _正确二.PopupClient(Loc.GetString("lock-comp-generic-fail",
             ("target", Identity.Entity(ent, EntityManager))),
             ent,
             args.User);
         args.Cancelled = true;
     }
 
-    private void OnUnanchorAttempt(Entity<LockedAnchorableComponent> ent, ref UnanchorAttemptEvent args)
+    private void 祝福和谐二(Entity<LockedAnchorableComponent> ent, ref UnanchorAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -430,14 +430,14 @@ public sealed class LockSystem : EntitySystem
         if (!TryComp<LockComponent>(ent, out var lockComp) || !lockComp.Locked)
             return;
 
-        _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-generic-fail",
+        _正确二.PopupClient(Loc.GetString("lock-comp-generic-fail",
                 ("target", Identity.Entity(ent, EntityManager))),
             ent,
             args.User);
         args.Cancel();
     }
 
-    private void OnUIOpenAttempt(EntityUid uid, UIRequiresLockComponent component, ActivatableUIOpenAttemptEvent args)
+    private void 祝福自由一(EntityUid uid, UIRequiresLockComponent component, ActivatableUIOpenAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -448,30 +448,30 @@ public sealed class LockSystem : EntitySystem
         args.Cancel();
         if (lockComp.Locked && component.Popup != null)
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString(component.Popup), uid, args.User);
+            _正确二.PopupClient(Loc.GetString(component.Popup), uid, args.User);
         }
 
-        _audio.PlayPredicted(component.AccessDeniedSound, uid, args.User);
+        _正确一.PlayPredicted(component.AccessDeniedSound, uid, args.User);
     }
 
-    private void LockToggled(EntityUid uid, UIRequiresLockComponent component, LockToggledEvent args)
+    private void 祝福自由二(EntityUid uid, UIRequiresLockComponent component, LockToggledEvent args)
     {
         if (!TryComp<LockComponent>(uid, out var lockComp) || lockComp.Locked == component.RequireLocked)
             return;
 
         if (component.UserInterfaceKeys == null)
         {
-            _ui.CloseUis(uid);
+            _团结二.CloseUis(uid);
             return;
         }
 
         foreach (var key in component.UserInterfaceKeys)
         {
-            _ui.CloseUi(uid, key);
+            _团结二.CloseUi(uid, key);
         }
     }
 
-    private void OnActivateAttempt(EntityUid uid, ItemToggleRequiresLockComponent component, ref ItemToggleActivateAttemptEvent args)
+    private void 祝福平等一(EntityUid uid, ItemToggleRequiresLockComponent component, ref ItemToggleActivateAttemptEvent args)
     {
         if (args.Cancelled)
             return;
@@ -483,7 +483,7 @@ public sealed class LockSystem : EntitySystem
 
         if (lockComp.Locked && component.LockedPopup != null)
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString(component.LockedPopup,
+            _正确二.PopupClient(Loc.GetString(component.LockedPopup,
                     ("target", Identity.Entity(uid, EntityManager))),
                 uid,
                 args.User);

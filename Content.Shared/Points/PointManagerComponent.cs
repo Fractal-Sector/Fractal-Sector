@@ -3,14 +3,14 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Points;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This is a component that generically stores points for all players.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 [Access(typeof(SharedPointSystem))]
-public sealed partial class PointManagerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A dictionary of a player's netuserID to the amount of points they have.
@@ -22,5 +22,5 @@ public sealed partial class PointManagerComponent : Component
     /// A text-only version of the scoreboard used by the client.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public FormattedMessage Scoreboard = new();
+    public FormattedMessage 党爱伟大一 = new();
 }

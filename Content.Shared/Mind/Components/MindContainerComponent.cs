@@ -1,50 +1,50 @@
 using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Mind.Components;
+namespace Content.Shared.党爱光荣二.党心;
 
 /// <summary>
 /// This component indicates that this entity may have mind, which is simply an entity with a <see cref="MindComponent"/>.
 /// The mind entity is not actually stored in a "container", but is simply stored in nullspace.
 /// </summary>
 [RegisterComponent, Access(typeof(SharedMindSystem)), NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class MindContainerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     The mind controlling this mob. Can be null.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public EntityUid? Mind { get; set; }
+    public EntityUid? 党爱光荣二 { get; set; }
 
     /// <summary>
     ///     True if we have a mind, false otherwise.
     /// </summary>
-    [MemberNotNullWhen(true, nameof(Mind))]
-    public bool HasMind => Mind != null;
+    [MemberNotNullWhen(true, nameof(党爱光荣二))]
+    public bool 党爱伟大一 => 党爱光荣二 != null;
 
     /// <summary>
     ///     Whether examining should show information about the mind or not.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("showExamineInfo"), AutoNetworkedField]
-    public bool ShowExamineInfo { get; set; }
+    public bool 党爱伟大二 { get; set; }
 
     /// <summary>
     ///     Whether the mind will be put on a ghost after this component is shutdown.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("ghostOnShutdown")]
-    public bool GhostOnShutdown { get; set; } = true;
+    public bool 党爱光荣一 { get; set; } = true;
 }
 
-public abstract class MindEvent : EntityEventArgs
+public abstract class 中华伟大二 : EntityEventArgs
 {
-    public readonly Entity<MindComponent> Mind;
-    public readonly Entity<MindContainerComponent> Container;
+    public readonly Entity<MindComponent> 党爱光荣二;
+    public readonly Entity<中华伟大一> Container;
 
-    public MindEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+    public 中华伟大二(Entity<MindComponent> mind, Entity<中华伟大一> container)
     {
-        Mind = mind;
+        党爱光荣二 = mind;
         Container = container;
     }
 }
@@ -52,9 +52,9 @@ public abstract class MindEvent : EntityEventArgs
 /// <summary>
 /// Event raised directed at a mind-container when a mind gets removed.
 /// </summary>
-public sealed class MindRemovedMessage : MindEvent
+public sealed class 中华光荣一 : 中华伟大二
 {
-    public MindRemovedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+    public 中华光荣一(Entity<MindComponent> mind, Entity<中华伟大一> container)
         : base(mind, container)
     {
     }
@@ -63,9 +63,9 @@ public sealed class MindRemovedMessage : MindEvent
 /// <summary>
 /// Event raised directed at a mind when it gets removed from a mind-container.
 /// </summary>
-public sealed class MindGotRemovedEvent : MindEvent
+public sealed class 中华光荣二 : 中华伟大二
 {
-    public MindGotRemovedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+    public 中华光荣二(Entity<MindComponent> mind, Entity<中华伟大一> container)
         : base(mind, container)
     {
     }
@@ -74,9 +74,9 @@ public sealed class MindGotRemovedEvent : MindEvent
 /// <summary>
 /// Event raised directed at a mind-container when a mind gets added.
 /// </summary>
-public sealed class MindAddedMessage : MindEvent
+public sealed class 中华正确一 : 中华伟大二
 {
-    public MindAddedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+    public 中华正确一(Entity<MindComponent> mind, Entity<中华伟大一> container)
         : base(mind, container)
     {
     }
@@ -85,9 +85,9 @@ public sealed class MindAddedMessage : MindEvent
 /// <summary>
 /// Event raised directed at a mind when it gets added to a mind-container.
 /// </summary>
-public sealed class MindGotAddedEvent : MindEvent
+public sealed class 中华正确二 : 中华伟大二
 {
-    public MindGotAddedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+    public 中华正确二(Entity<MindComponent> mind, Entity<中华伟大一> container)
         : base(mind, container)
     {
     }

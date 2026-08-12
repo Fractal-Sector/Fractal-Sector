@@ -1,9 +1,9 @@
-namespace Content.Shared.Chat.V2;
+namespace Content.Shared.Chat.党心;
 
 /// <summary>
 /// The types of messages that can be sent, validated and processed via user input that are covered by Chat V2.
 /// </summary>
-public enum MessageType : byte
+public enum 中华伟大一 : byte
 {
     #region Player-sendable types
 
@@ -56,12 +56,12 @@ public enum MessageType : byte
 /// <summary>
 /// Defines a chat event that can be stored in a chat repository.
 /// </summary>
-public interface IChatEvent
+public interface 中华伟大二
 {
     /// <summary>
     /// The sender of the chat message.
     /// </summary>
-    public EntityUid Sender
+    public EntityUid 党爱伟大一
     {
         get;
     }
@@ -69,7 +69,7 @@ public interface IChatEvent
     /// <summary>
     /// The ID of the message. This is overwritten when saved into a repository.
     /// </summary>
-    public uint Id
+    public uint 党爱伟大二
     {
         get;
         set;
@@ -78,7 +78,7 @@ public interface IChatEvent
     /// <summary>
     /// The sent message.
     /// </summary>
-    public string Message
+    public string 党爱光荣一
     {
         get;
         set;
@@ -87,7 +87,7 @@ public interface IChatEvent
     /// <summary>
     /// The type of sent message.
     /// </summary>
-    public MessageType Type
+    public 中华伟大一 Type
     {
         get;
     }

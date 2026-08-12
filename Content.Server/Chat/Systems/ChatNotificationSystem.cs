@@ -7,21 +7,21 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Chat.Systems;
+namespace Content.Server.Chat.党心;
 
 /// <summary>
 /// This system is used to notify specific players of the occurance of predefined events.
 /// </summary>
-public sealed partial class ChatNotificationSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IChatManager _chats = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IChatManager _伟大二 = default!;
+    [Dependency] private readonly SharedMindSystem _光荣一 = default!;
+    [Dependency] private readonly SharedRoleSystem _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
+    [Dependency] private readonly ILogManager _正确二 = default!;
 
-    private ISawmill _sawmill = default!;
+    private ISawmill _团结一 = default!;
 
     // The following data does not need to be saved
 
@@ -33,13 +33,13 @@ public sealed partial class ChatNotificationSystem : EntitySystem
     // (Recipient, ChatNotification) -> next allowed TOA
     private readonly Dictionary<(EntityUid, ProtoId<ChatNotificationPrototype>), TimeSpan> _chatNotificationsByType = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ActorComponent, ChatNotificationEvent>(OnChatNotification);
+        SubscribeLocalEvent<ActorComponent, ChatNotificationEvent>(祝福伟大二);
 
-        _sawmill = _logManager.GetSawmill("chatnotification");
+        _团结一 = _正确二.GetSawmill("chatnotification");
     }
 
     /// <summary>
@@ -47,11 +47,11 @@ public sealed partial class ChatNotificationSystem : EntitySystem
     /// </summary>
     /// <param name="ent">The player receiving the chat notification.</param>
     /// <param name="args">The chat notification event</param>
-    public void OnChatNotification(Entity<ActorComponent> ent, ref ChatNotificationEvent args)
+    public void 祝福伟大二(Entity<ActorComponent> ent, ref ChatNotificationEvent args)
     {
-        if (!_proto.TryIndex(args.ChatNotification, out var chatNotification))
+        if (!_伟大一.TryIndex(args.ChatNotification, out var chatNotification))
         {
-            _sawmill.Warning("Attempted to index ChatNotificationPrototype " + args.ChatNotification + " but the prototype does not exist.");
+            _团结一.Warning("Attempted to index ChatNotificationPrototype " + args.ChatNotification + " but the prototype does not exist.");
             return;
         }
 
@@ -66,19 +66,19 @@ public sealed partial class ChatNotificationSystem : EntitySystem
                 trackedSources = new();
 
             trackedSources.TryGetValue(source, out var timeSpan);
-            trackedSources[source] = _timing.CurTime + chatNotification.NextDelay;
+            trackedSources[source] = _正确一.CurTime + chatNotification.NextDelay;
 
             _chatNotificationsBySource[playerNotification] = trackedSources;
 
-            if (_timing.CurTime < timeSpan)
+            if (_正确一.CurTime < timeSpan)
                 return;
         }
         else
         {
             _chatNotificationsByType.TryGetValue(playerNotification, out var timeSpan);
-            _chatNotificationsByType[playerNotification] = _timing.CurTime + chatNotification.NextDelay;
+            _chatNotificationsByType[playerNotification] = _正确一.CurTime + chatNotification.NextDelay;
 
-            if (_timing.CurTime < timeSpan)
+            if (_正确一.CurTime < timeSpan)
                 return;
         }
 
@@ -89,7 +89,7 @@ public sealed partial class ChatNotificationSystem : EntitySystem
         var message = Loc.GetString(chatNotification.Message, ("source", sourceName), ("user", userName), ("target", targetName));
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
 
-        _chats.ChatMessageToOne(
+        _伟大二.ChatMessageToOne(
             ChatChannel.Notifications,
             message,
             wrappedMessage,
@@ -99,7 +99,7 @@ public sealed partial class ChatNotificationSystem : EntitySystem
             colorOverride: chatNotification.Color
         );
 
-        if (chatNotification.Sound != null && _mind.TryGetMind(ent, out var mindId, out _))
-            _roles.MindPlaySound(mindId, chatNotification.Sound);
+        if (chatNotification.Sound != null && _光荣一.TryGetMind(ent, out var mindId, out _))
+            _光荣二.MindPlaySound(mindId, chatNotification.Sound);
     }
 }

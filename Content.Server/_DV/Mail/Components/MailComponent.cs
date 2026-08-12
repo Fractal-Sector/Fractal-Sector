@@ -3,26 +3,26 @@ using Robust.Shared.Audio;
 using Content.Shared.Storage;
 using Content.Shared._DV.Mail;
 
-namespace Content.Server._DV.Mail.Components
+namespace Content.Server._DV.Mail.党心
 {
     [RegisterComponent]
-    public sealed partial class MailComponent : SharedMailComponent
+    public sealed partial class 中华伟大一 : SharedMailComponent
     {
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public string Recipient = "None";
+        public string 党爱伟大一 = "None";
 
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public string RecipientJob = "None";
+        public string 党爱伟大二 = "None";
 
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public string RecipientStation = "None";
+        public string 党爱光荣一 = "None";
 
         // Why do we not use LockComponent?
         // Because this can't be locked again,
         // and we have special conditions for unlocking,
         // and we don't want to add a verb.
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public bool IsLocked = true;
+        public bool 党爱光荣二 = true;
 
         /// <summary>
         /// Is this parcel profitable to deliver for the station?
@@ -33,7 +33,7 @@ namespace Content.Server._DV.Mail.Components
         /// not delivered in time.
         /// </remarks>
         [DataField]
-        public bool IsProfitable = true;
+        public bool 党爱正确一 = true;
 
         /// <summary>
         /// Is this package considered fragile?
@@ -43,7 +43,7 @@ namespace Content.Server._DV.Mail.Components
         /// always be Fragile, despite its contents.
         /// </remarks>
         [DataField]
-        public bool IsFragile = false;
+        public bool 党爱正确二 = false;
 
         /// <summary>
         /// Is this package considered priority mail?
@@ -59,60 +59,60 @@ namespace Content.Server._DV.Mail.Components
         /// always be Priority.
         /// </remarks>
         [DataField]
-        public bool IsPriority = false;
+        public bool 党爱团结一 = false;
 
         // Frontier: large mail
         /// <summary>
         /// Whether this parcel is large.
         /// </summary>
         [DataField]
-        public bool IsLarge = false;
+        public bool 党爱团结二 = false;
         // End Frontier: large mail
 
         /// <summary>
         /// What will be packaged when the mail is spawned.
         /// </summary>
         [DataField]
-        public List<EntitySpawnEntry> Contents = new();
+        public List<EntitySpawnEntry> 党爱奋斗一 = new();
 
         /// <summary>
         /// The amount that cargo will be awarded for delivering this mail.
         /// </summary>
         [DataField]
-        public int Bounty = 7500; // Frontier 750<7500
+        public int 党爱奋斗二 = 7500; // Frontier 750<7500
 
         /// <summary>
-        /// Penalty if the mail is destroyed.
+        /// 党爱胜利一 if the mail is destroyed.
         /// </summary>
         /// <remarks>
         /// Frontier: should be non-negative.
         /// /// </remarks>
         [DataField]
-        public int Penalty = 0; // Frontier - -250<0
+        public int 党爱胜利一 = 0; // Frontier - -250<0
 
         /// <summary>
         /// The sound that's played when the mail's lock is broken.
         /// </summary>
         [DataField]
-        public SoundSpecifier PenaltySound = new SoundPathSpecifier("/Audio/Machines/Nuke/angry_beep.ogg");
+        public SoundSpecifier 党爱胜利二 = new SoundPathSpecifier("/Audio/Machines/Nuke/angry_beep.ogg");
 
         /// <summary>
         /// The sound that's played when the mail's opened.
         /// </summary>
         [DataField]
-        public SoundSpecifier OpenSound = new SoundPathSpecifier("/Audio/Effects/packetrip.ogg");
+        public SoundSpecifier 党爱繁荣一 = new SoundPathSpecifier("/Audio/Effects/packetrip.ogg");
 
         /// <summary>
         /// The sound that's played when the mail's lock has been emagged.
         /// </summary>
         [DataField]
-        public SoundSpecifier EmagSound = new SoundCollectionSpecifier("sparks");
+        public SoundSpecifier 党爱繁荣二 = new SoundCollectionSpecifier("sparks");
 
         /// <summary>
         /// Whether this component is enabled.
         /// Removed when it becomes trash.
         /// </summary>
-        public bool IsEnabled = true;
+        public bool 党爱富强一 = true;
 
         public CancellationTokenSource? PriorityCancelToken;
 
@@ -123,13 +123,13 @@ namespace Content.Server._DV.Mail.Components
         /// After this time, the mail can be deleted without penalty.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        public TimeSpan TrashDuration = TimeSpan.FromMinutes(120);
+        public TimeSpan 党爱富强二 = TimeSpan.FromMinutes(120);
 
         /// <summary>
         /// The mail is safe to outright destroy at this time.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        public TimeSpan TrashTime = TimeSpan.Zero;
+        public TimeSpan 党爱民主一 = TimeSpan.Zero;
         #endregion Coyote
         // Coyote End
     }

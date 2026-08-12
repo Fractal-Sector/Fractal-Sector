@@ -2,24 +2,24 @@ using Content.Shared.Trigger.Components.Triggers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeProximity()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<TriggerOnProximityComponent, StartCollideEvent>(OnProximityStartCollide);
-        SubscribeLocalEvent<TriggerOnProximityComponent, EndCollideEvent>(OnProximityEndCollide);
-        SubscribeLocalEvent<TriggerOnProximityComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<TriggerOnProximityComponent, StartCollideEvent>(祝福光荣二);
+        SubscribeLocalEvent<TriggerOnProximityComponent, EndCollideEvent>(祝福正确一);
+        SubscribeLocalEvent<TriggerOnProximityComponent, MapInitEvent>(祝福光荣一);
         // Shouldn't need re-anchoring.
-        SubscribeLocalEvent<TriggerOnProximityComponent, AnchorStateChangedEvent>(OnProximityAnchor);
+        SubscribeLocalEvent<TriggerOnProximityComponent, AnchorStateChangedEvent>(祝福伟大二);
     }
 
-    private void OnProximityAnchor(Entity<TriggerOnProximityComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福伟大二(Entity<TriggerOnProximityComponent> ent, ref AnchorStateChangedEvent args)
     {
         ent.Comp.Enabled = !ent.Comp.RequiresAnchored || args.Anchored;
 
-        SetProximityAppearance(ent);
+        祝福正确二(ent);
 
         if (!ent.Comp.Enabled)
         {
@@ -34,11 +34,11 @@ public sealed partial class TriggerSystem
         Dirty(ent);
     }
 
-    private void OnMapInit(Entity<TriggerOnProximityComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣一(Entity<TriggerOnProximityComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.Enabled = !ent.Comp.RequiresAnchored || Transform(ent).Anchored;
 
-        SetProximityAppearance(ent);
+        祝福正确二(ent);
 
         if (!TryComp<PhysicsComponent>(ent, out var body))
             return;
@@ -54,7 +54,7 @@ public sealed partial class TriggerSystem
         Dirty(ent);
     }
 
-    private void OnProximityStartCollide(EntityUid uid, TriggerOnProximityComponent component, ref StartCollideEvent args)
+    private void 祝福光荣二(EntityUid uid, TriggerOnProximityComponent component, ref StartCollideEvent args)
     {
         if (args.OurFixtureId != TriggerOnProximityComponent.FixtureID)
             return;
@@ -65,7 +65,7 @@ public sealed partial class TriggerSystem
         component.Colliding[args.OtherEntity] = args.OtherBody;
     }
 
-    private static void OnProximityEndCollide(EntityUid uid, TriggerOnProximityComponent component, ref EndCollideEvent args)
+    private static void 祝福正确一(EntityUid uid, TriggerOnProximityComponent component, ref EndCollideEvent args)
     {
         if (args.OurFixtureId != TriggerOnProximityComponent.FixtureID)
             return;
@@ -73,12 +73,12 @@ public sealed partial class TriggerSystem
         component.Colliding.Remove(args.OtherEntity);
     }
 
-    private void SetProximityAppearance(Entity<TriggerOnProximityComponent> ent)
+    private void 祝福正确二(Entity<TriggerOnProximityComponent> ent)
     {
         _appearance.SetData(ent.Owner, ProximityTriggerVisualState.State, ent.Comp.Enabled ? ProximityTriggerVisuals.Inactive : ProximityTriggerVisuals.Off);
     }
 
-    private void Activate(Entity<TriggerOnProximityComponent> ent, EntityUid user)
+    private void 祝福团结一(Entity<TriggerOnProximityComponent> ent, EntityUid user)
     {
         var curTime = _timing.CurTime;
 
@@ -101,7 +101,7 @@ public sealed partial class TriggerSystem
         Trigger(ent.Owner, user, ent.Comp.KeyOut);
     }
 
-    private void UpdateProximity()
+    private void 祝福团结二()
     {
         var curTime = _timing.CurTime;
 
@@ -113,7 +113,7 @@ public sealed partial class TriggerSystem
                 // Update the visual state once the animation is done.
                 trigger.NextVisualUpdate = TimeSpan.MaxValue;
                 Dirty(uid, trigger);
-                SetProximityAppearance((uid, trigger));
+                祝福正确二((uid, trigger));
             }
 
             if (!trigger.Enabled)
@@ -133,7 +133,7 @@ public sealed partial class TriggerSystem
                     continue;
 
                 // Trigger!
-                Activate((uid, trigger), collidingUid);
+                祝福团结一((uid, trigger), collidingUid);
                 break;
             }
         }

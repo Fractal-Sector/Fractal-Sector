@@ -5,49 +5,49 @@ using Content.Shared.Stealth.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Whistle;
+namespace Content.Shared.党心;
 
-public sealed class WhistleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<WhistleComponent, UseInHandEvent>(OnUseInHand);
+        SubscribeLocalEvent<WhistleComponent, UseInHandEvent>(祝福光荣一);
     }
 
-    private void ExclamateTarget(EntityUid target, WhistleComponent component)
+    private void 祝福伟大二(EntityUid target, WhistleComponent component)
     {
         SpawnAttachedTo(component.Effect, target.ToCoordinates());
     }
 
-    public void OnUseInHand(EntityUid uid, WhistleComponent component, UseInHandEvent args)
+    public void 祝福光荣一(EntityUid uid, WhistleComponent component, UseInHandEvent args)
     {
-        if (args.Handled || !_timing.IsFirstTimePredicted)
+        if (args.Handled || !_伟大二.IsFirstTimePredicted)
             return;
 
-        args.Handled = TryMakeLoudWhistle(uid, args.User, component);
+        args.Handled = 祝福光荣二(uid, args.User, component);
     }
 
-    public bool TryMakeLoudWhistle(EntityUid uid, EntityUid owner, WhistleComponent? component = null)
+    public bool 祝福光荣二(EntityUid uid, EntityUid owner, WhistleComponent? component = null)
     {
         if (!Resolve(uid, ref component, false) || component.Distance <= 0)
             return false;
 
-        MakeLoudWhistle(uid, owner, component);
+        祝福正确一(uid, owner, component);
         return true;
     }
 
-    private void MakeLoudWhistle(EntityUid uid, EntityUid owner, WhistleComponent component)
+    private void 祝福正确一(EntityUid uid, EntityUid owner, WhistleComponent component)
     {
         StealthComponent? stealth = null;
 
         foreach (var iterator in
-            _entityLookup.GetEntitiesInRange<HumanoidAppearanceComponent>(_transform.GetMapCoordinates(uid), component.Distance))
+            _伟大一.GetEntitiesInRange<HumanoidAppearanceComponent>(_光荣一.GetMapCoordinates(uid), component.Distance))
         {
             //Avoid pinging invisible entities
             if (TryComp(iterator, out stealth) && stealth.Enabled)
@@ -57,7 +57,7 @@ public sealed class WhistleSystem : EntitySystem
             if (iterator.Owner == owner)
                 continue;
 
-            ExclamateTarget(iterator, component);
+            祝福伟大二(iterator, component);
         }
     }
 }

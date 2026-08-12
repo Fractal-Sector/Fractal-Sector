@@ -1,4 +1,4 @@
-namespace Content.Shared.GridPreloader.Systems;
-public abstract class SharedGridPreloaderSystem : EntitySystem
+namespace Content.Shared.GridPreloader.党心;
+public abstract class 中华伟大一 : EntitySystem
 {
 }

@@ -1,13 +1,13 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Books.Systems;
+namespace Content.Shared._NF.Books.党心;
 
 [Serializable, NetSerializable]
-public sealed class OpenURLEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public string URL { get; }
-    public OpenURLEvent(string url)
+    public string 党爱伟大一 { get; }
+    public 中华伟大一(string url)
     {
-        URL = url;
+        党爱伟大一 = url;
     }
 }

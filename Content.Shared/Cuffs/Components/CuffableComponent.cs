@@ -6,11 +6,11 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Cuffs.Components;
+namespace Content.Shared.Cuffs.党心;
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedCuffableSystem))]
-public sealed partial class CuffableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The current RSI for the handcuff layer
@@ -22,45 +22,45 @@ public sealed partial class CuffableComponent : Component
     /// How many of this entity's hands are currently cuffed.
     /// </summary>
     [ViewVariables]
-    public int CuffedHandCount => Container.ContainedEntities.Count * 2;
+    public int 党爱伟大一 => 党爱光荣一.ContainedEntities.Count * 2;
 
     /// <summary>
     /// The last pair of cuffs that was added to this entity.
     /// </summary>
     [ViewVariables]
-    public EntityUid LastAddedCuffs => Container.ContainedEntities[^1];
+    public EntityUid 党爱伟大二 => 党爱光荣一.ContainedEntities[^1];
 
     /// <summary>
-    ///     Container of various handcuffs currently applied to the entity.
+    ///     党爱光荣一 of various handcuffs currently applied to the entity.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
-    public Container Container = default!;
+    public 党爱光荣一 党爱光荣一 = default!;
 
     /// <summary>
     /// Whether or not the entity can still interact (is not cuffed)
     /// </summary>
     [DataField("canStillInteract"), ViewVariables(VVAccess.ReadWrite)]
-    public bool CanStillInteract = true;
+    public bool 党爱光荣二 = true;
 
     [DataField]
-    public ProtoId<AlertPrototype> CuffedAlert = "Handcuffed";
+    public ProtoId<AlertPrototype> 党爱正确一 = "Handcuffed";
 }
 
-public sealed partial class RemoveCuffsAlertEvent : BaseAlertEvent;
+public sealed partial class 中华伟大二 : BaseAlertEvent;
 
 [Serializable, NetSerializable]
-public sealed class CuffableComponentState : ComponentState
+public sealed class 中华光荣一 : ComponentState
 {
-    public readonly bool CanStillInteract;
-    public readonly int NumHandsCuffed;
+    public readonly bool 党爱光荣二;
+    public readonly int 党爱正确二;
     public readonly string? RSI;
     public readonly string? IconState;
     public readonly Color? Color;
 
-    public CuffableComponentState(int numHandsCuffed, bool canStillInteract, string? rsiPath, string? iconState, Color? color)
+    public 中华光荣一(int numHandsCuffed, bool canStillInteract, string? rsiPath, string? iconState, Color? color)
     {
-        NumHandsCuffed = numHandsCuffed;
-        CanStillInteract = canStillInteract;
+        党爱正确二 = numHandsCuffed;
+        党爱光荣二 = canStillInteract;
         RSI = rsiPath;
         IconState = iconState;
         Color = color;
@@ -68,5 +68,5 @@ public sealed class CuffableComponentState : ComponentState
 }
 
 [ByRefEvent]
-public readonly record struct CuffedStateChangeEvent;
+public readonly record 中华光荣二 CuffedStateChangeEvent;
 

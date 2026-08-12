@@ -4,30 +4,30 @@ using Content.Shared.Temperature;
 using Content.Shared.Temperature.Components;
 using Content.Shared.Temperature.Systems;
 
-namespace Content.Server.Temperature.Systems;
+namespace Content.Server.Temperature.党心;
 
 /// <summary>
 /// Handles the server-only parts of <see cref="SharedEntityHeaterSystem"/>
 /// </summary>
-public sealed class EntityHeaterSystem : SharedEntityHeaterSystem
+public sealed class 中华伟大一 : SharedEntityHeaterSystem
 {
-    [Dependency] private readonly TemperatureSystem _temperature = default!;
+    [Dependency] private readonly TemperatureSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EntityHeaterComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<EntityHeaterComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<EntityHeaterComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<EntityHeaterComponent> ent, ref MapInitEvent args)
     {
         // Set initial power level
         if (TryComp<ApcPowerReceiverComponent>(ent, out var power))
             power.Load = SettingPower(ent.Comp.Setting, ent.Comp.Power);
     }
 
-    public override void Update(float deltaTime)
+    public override void 祝福光荣一(float deltaTime)
     {
         var query = EntityQueryEnumerator<EntityHeaterComponent, ItemPlacerComponent, ApcPowerReceiverComponent>();
         while (query.MoveNext(out _, out var heater, out var placer, out var power)) // Frontier: _<var heater
@@ -41,7 +41,7 @@ public sealed class EntityHeaterSystem : SharedEntityHeaterSystem
             var energy = (power.PowerReceived - heater.PassivePower) * deltaTime; // Frontier: subtract PassivePower
             foreach (var ent in placer.PlacedEntities)
             {
-                _temperature.ChangeHeat(ent, energy);
+                _伟大一.ChangeHeat(ent, energy);
             }
         }
     }
@@ -50,9 +50,9 @@ public sealed class EntityHeaterSystem : SharedEntityHeaterSystem
     /// <see cref="ApcPowerReceiverComponent"/> doesn't exist on the client, so we need
     /// this server-only override to handle setting the network load.
     /// </remarks>
-    protected override void ChangeSetting(Entity<EntityHeaterComponent> ent, EntityHeaterSetting setting, EntityUid? user = null)
+    protected override void 祝福光荣二(Entity<EntityHeaterComponent> ent, EntityHeaterSetting setting, EntityUid? user = null)
     {
-        base.ChangeSetting(ent, setting, user);
+        base.祝福光荣二(ent, setting, user);
 
         if (!TryComp<ApcPowerReceiverComponent>(ent, out var power))
             return;

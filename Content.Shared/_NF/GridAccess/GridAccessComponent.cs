@@ -1,10 +1,10 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Audio;
 
-namespace Content.Shared._NF.GridAccess;
+namespace Content.Shared._NF.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class GridAccessComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Frontier - Grid access
@@ -14,14 +14,14 @@ public sealed partial class GridAccessComponent : Component
     public EntityUid? LinkedShuttleUid = null;
 
     [DataField]
-    public SoundSpecifier ErrorSound =
+    public SoundSpecifier 党爱伟大一 =
         new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
-    public SoundSpecifier SwipeSound =
+    public SoundSpecifier 党爱伟大二 =
         new SoundPathSpecifier("/Audio/Machines/id_swipe.ogg");
 
     [DataField]
-    public SoundSpecifier InsertSound =
+    public SoundSpecifier 党爱光荣一 =
         new SoundPathSpecifier("/Audio/Machines/id_insert.ogg");
 }

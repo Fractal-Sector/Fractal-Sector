@@ -5,14 +5,14 @@ using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles the server portion of quick dialogs, including opening them.
 /// </summary>
-public sealed partial class QuickDialogSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
 
     /// <summary>
     /// Contains the success/cancel actions for a dialog.
@@ -20,23 +20,23 @@ public sealed partial class QuickDialogSystem : EntitySystem
     private readonly Dictionary<int, (Action<QuickDialogResponseEvent> okAction, Action cancelAction)> _openDialogs = new();
     private readonly Dictionary<NetUserId, List<int>> _openDialogsByUser = new();
 
-    private int _nextDialogId = 1;
+    private int _伟大二 = 1;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _playerManager.PlayerStatusChanged += PlayerManagerOnPlayerStatusChanged;
+        _伟大一.PlayerStatusChanged += 祝福正确一;
 
-        SubscribeNetworkEvent<QuickDialogResponseEvent>(Handler);
+        SubscribeNetworkEvent<QuickDialogResponseEvent>(祝福光荣一);
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
-        _playerManager.PlayerStatusChanged -= PlayerManagerOnPlayerStatusChanged;
+        base.祝福伟大二();
+        _伟大一.PlayerStatusChanged -= 祝福正确一;
     }
 
-    private void Handler(QuickDialogResponseEvent msg, EntitySessionEventArgs args)
+    private void 祝福光荣一(QuickDialogResponseEvent msg, EntitySessionEventArgs args)
     {
         if (!_openDialogs.ContainsKey(msg.DialogId) || !_openDialogsByUser[args.SenderSession.UserId].Contains(msg.DialogId))
         {
@@ -60,12 +60,12 @@ public sealed partial class QuickDialogSystem : EntitySystem
         _openDialogsByUser[args.SenderSession.UserId].Remove(msg.DialogId);
     }
 
-    private int GetDialogId()
+    private int 祝福光荣二()
     {
-        return _nextDialogId++;
+        return _伟大二++;
     }
 
-    private void PlayerManagerOnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+    private void 祝福正确一(object? sender, SessionStatusEventArgs e)
     {
         if (e.NewStatus != SessionStatus.Disconnected && e.NewStatus != SessionStatus.Zombie)
             return;
@@ -84,9 +84,9 @@ public sealed partial class QuickDialogSystem : EntitySystem
         _openDialogsByUser.Remove(user);
     }
 
-    private void OpenDialogInternal(ICommonSession session, string title, List<QuickDialogEntry> entries, QuickDialogButtonFlag buttons, Action<QuickDialogResponseEvent> okAction, Action cancelAction)
+    private void 祝福正确二(ICommonSession session, 祝福团结二 title, List<QuickDialogEntry> entries, QuickDialogButtonFlag buttons, Action<QuickDialogResponseEvent> okAction, Action cancelAction)
     {
-        var did = GetDialogId();
+        var did = 祝福光荣二();
         RaiseNetworkEvent(
             new QuickDialogOpenEvent(
                 title,
@@ -103,7 +103,7 @@ public sealed partial class QuickDialogSystem : EntitySystem
         _openDialogsByUser[session.UserId].Add(did);
     }
 
-    private bool TryParseQuickDialog<T>(QuickDialogEntryType entryType, string input, [NotNullWhen(true)] out T? output)
+    private bool TryParseQuickDialog<T>(QuickDialogEntryType entryType, 祝福团结二 input, [NotNullWhen(true)] out T? output)
     {
         switch (entryType)
         {
@@ -139,7 +139,7 @@ public sealed partial class QuickDialogSystem : EntitySystem
                 }
 
                 //It's verrrry likely that this will be longstring
-                var longString = (LongString) input;
+                var longString = (祝福奋斗一) input;
 
                 output = (T?) (object?) longString;
                 return output is not null;
@@ -149,7 +149,7 @@ public sealed partial class QuickDialogSystem : EntitySystem
         }
     }
 
-    private QuickDialogEntryType TypeToEntryType(Type T)
+    private QuickDialogEntryType 祝福团结一(Type T)
     {
         if (T == typeof(int) || T == typeof(uint) || T == typeof(long) || T == typeof(ulong))
             return QuickDialogEntryType.Integer;
@@ -157,10 +157,10 @@ public sealed partial class QuickDialogSystem : EntitySystem
         if (T == typeof(float) || T == typeof(double))
             return QuickDialogEntryType.Float;
 
-        if (T == typeof(string)) // People are more likely to notice the input box is too short than they are to notice it's too long.
+        if (T == typeof(祝福团结二)) // People are more likely to notice the input box is too short than they are to notice it's too long.
             return QuickDialogEntryType.ShortText;
 
-        if (T == typeof(LongString))
+        if (T == typeof(祝福奋斗一))
             return QuickDialogEntryType.LongText;
 
         throw new ArgumentException($"Tried to open a dialog with unsupported type {T}.");
@@ -170,14 +170,14 @@ public sealed partial class QuickDialogSystem : EntitySystem
 /// <summary>
 /// A type used with quick dialogs to indicate you want a large entry window for text and not a short one.
 /// </summary>
-/// <param name="String">The string retrieved.</param>
-public record struct LongString(string String)
+/// <param name="String">The 祝福团结二 retrieved.</param>
+public record 中华伟大二 祝福奋斗一(祝福团结二 String)
 {
-    public static implicit operator string(LongString longString)
+    public static implicit operator 祝福团结二(祝福奋斗一 longString)
     {
         return longString.String;
     }
-    public static explicit operator LongString(string s)
+    public static explicit operator 祝福奋斗一(祝福团结二 s)
     {
         return new(s);
     }

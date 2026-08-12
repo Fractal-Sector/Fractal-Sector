@@ -8,25 +8,25 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.GameTicking.Commands
+namespace Content.Server.GameTicking.党心
 {
     [AnyCommand]
-    sealed class JoinGameCommand : IConsoleCommand
+    sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly IAdminManager _光荣一 = default!;
+        [Dependency] private readonly IConfigurationManager _光荣二 = default!;
 
-        public string Command => "joingame";
-        public string Description => "";
-        public string Help => "";
+        public string 党爱伟大一 => "joingame";
+        public string 党爱伟大二 => "";
+        public string 党爱光荣一 => "";
 
-        public JoinGameCommand()
+        public 中华伟大一()
         {
             IoCManager.InjectDependencies(this);
         }
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
             {
@@ -41,8 +41,8 @@ namespace Content.Server.GameTicking.Commands
                 return;
             }
 
-            var ticker = _entManager.System<GameTicker>();
-            var stationJobs = _entManager.System<StationJobsSystem>();
+            var ticker = _伟大一.System<GameTicker>();
+            var stationJobs = _伟大一.System<StationJobsSystem>();
 
             if (ticker.PlayerGameStatuses.TryGetValue(player.UserId, out var status) && status == PlayerGameStatus.JoinedGame)
             {
@@ -65,17 +65,17 @@ namespace Content.Server.GameTicking.Commands
                     shell.WriteError(Loc.GetString("shell-argument-must-be-number"));
                 }
 
-                var station = _entManager.GetEntity(new NetEntity(sid));
-                var jobPrototype = _prototypeManager.Index<JobPrototype>(id);
+                var station = _伟大一.GetEntity(new NetEntity(sid));
+                var jobPrototype = _伟大二.Index<JobPrototype>(id);
                 if(stationJobs.TryGetJobSlot(station, jobPrototype, out var slots) == false || slots == 0)
                 {
                     shell.WriteLine($"{jobPrototype.LocalizedName} has no available slots.");
                     return;
                 }
 
-                if (_adminManager.IsAdmin(player) && _cfg.GetCVar(CCVars.AdminDeadminOnJoin))
+                if (_光荣一.IsAdmin(player) && _光荣二.GetCVar(CCVars.AdminDeadminOnJoin))
                 {
-                    _adminManager.DeAdmin(player);
+                    _光荣一.DeAdmin(player);
                 }
 
                 ticker.MakeJoinGame(player, station, id);

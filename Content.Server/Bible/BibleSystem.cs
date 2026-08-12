@@ -23,55 +23,55 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
-namespace Content.Server.Bible
+namespace Content.Server.党心
 {
-    public sealed class BibleSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly InventorySystem _invSystem = default!;
-        [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly UseDelaySystem _delay = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly IRobustRandom _伟大一 = default!;
+        [Dependency] private readonly ActionBlockerSystem _伟大二 = default!;
+        [Dependency] private readonly DamageableSystem _光荣一 = default!;
+        [Dependency] private readonly InventorySystem _光荣二 = default!;
+        [Dependency] private readonly MobStateSystem _正确一 = default!;
+        [Dependency] private readonly PopupSystem _正确二 = default!;
+        [Dependency] private readonly SharedActionsSystem _团结一 = default!;
+        [Dependency] private readonly SharedAudioSystem _团结二 = default!;
+        [Dependency] private readonly UseDelaySystem _奋斗一 = default!;
+        [Dependency] private readonly SharedTransformSystem _奋斗二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<BibleComponent, MixingAttemptEvent>(OnMixingAttempt); // Frontier: restrict solution blessing to bible users
-            SubscribeLocalEvent<BibleComponent, AfterInteractEvent>(OnAfterInteract, before: [typeof(ReactionMixerSystem)]); // Frontier: add before parameter
-            SubscribeLocalEvent<SummonableComponent, GetVerbsEvent<AlternativeVerb>>(AddSummonVerb);
-            SubscribeLocalEvent<SummonableComponent, GetItemActionsEvent>(GetSummonAction);
-            SubscribeLocalEvent<SummonableComponent, SummonActionEvent>(OnSummon);
-            SubscribeLocalEvent<FamiliarComponent, MobStateChangedEvent>(OnFamiliarDeath);
-            SubscribeLocalEvent<FamiliarComponent, GhostRoleSpawnerUsedEvent>(OnSpawned);
+            SubscribeLocalEvent<BibleComponent, MixingAttemptEvent>(祝福光荣一); // Frontier: restrict solution blessing to bible users
+            SubscribeLocalEvent<BibleComponent, AfterInteractEvent>(祝福光荣二, before: [typeof(ReactionMixerSystem)]); // Frontier: add before parameter
+            SubscribeLocalEvent<SummonableComponent, GetVerbsEvent<AlternativeVerb>>(祝福正确一);
+            SubscribeLocalEvent<SummonableComponent, GetItemActionsEvent>(祝福正确二);
+            SubscribeLocalEvent<SummonableComponent, SummonActionEvent>(祝福团结一);
+            SubscribeLocalEvent<FamiliarComponent, MobStateChangedEvent>(祝福团结二);
+            SubscribeLocalEvent<FamiliarComponent, GhostRoleSpawnerUsedEvent>(祝福奋斗一);
         }
 
-        private readonly Queue<EntityUid> _addQueue = new();
-        private readonly Queue<EntityUid> _remQueue = new();
+        private readonly Queue<EntityUid> _胜利一 = new();
+        private readonly Queue<EntityUid> _胜利二 = new();
 
         /// <summary>
         /// This handles familiar respawning.
         /// </summary>
-        public override void Update(float frameTime)
+        public override void 祝福伟大二(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福伟大二(frameTime);
 
-            foreach (var entity in _addQueue)
+            foreach (var entity in _胜利一)
             {
                 EnsureComp<SummonableRespawningComponent>(entity);
             }
-            _addQueue.Clear();
+            _胜利一.Clear();
 
-            foreach (var entity in _remQueue)
+            foreach (var entity in _胜利二)
             {
                 RemComp<SummonableRespawningComponent>(entity);
             }
-            _remQueue.Clear();
+            _胜利二.Clear();
 
             var query = EntityQueryEnumerator<SummonableRespawningComponent, SummonableComponent>();
             while (query.MoveNext(out var uid, out var _, out var summonableComp))
@@ -88,33 +88,33 @@ namespace Content.Server.Bible
                     summonableComp.Summon = null;
                 }
                 summonableComp.AlreadySummoned = false;
-                _popupSystem.PopupEntity(Loc.GetString("bible-summon-respawn-ready", ("book", uid)), uid, PopupType.Medium);
-                _audio.PlayPvs(summonableComp.SummonSound, uid);
+                _正确二.PopupEntity(Loc.GetString("bible-summon-respawn-ready", ("book", uid)), uid, PopupType.Medium);
+                _团结二.PlayPvs(summonableComp.SummonSound, uid);
                 // Clean up the accumulator and respawn tracking component
                 summonableComp.Accumulator = 0;
-                _remQueue.Enqueue(uid);
+                _胜利二.Enqueue(uid);
             }
         }
 
         // Frontier: only bible users can bless water/blood
-        private void OnMixingAttempt(EntityUid uid, BibleComponent component, ref MixingAttemptEvent args)
+        private void 祝福光荣一(EntityUid uid, BibleComponent component, ref MixingAttemptEvent args)
         {
             // Block water/blood blessing attempts by non-bible users
             if (component.BlockMix)
             {
-                _popupSystem.PopupEntity(Loc.GetString("bible-bless-solution-failed"), component.LastInteractingUser, component.LastInteractingUser, PopupType.Small);
+                _正确二.PopupEntity(Loc.GetString("bible-bless-solution-failed"), component.LastInteractingUser, component.LastInteractingUser, PopupType.Small);
                 args.Cancelled = true;
                 return;
             }
         }
         // End Frontier
 
-        private void OnAfterInteract(EntityUid uid, BibleComponent component, AfterInteractEvent args)
+        private void 祝福光荣二(EntityUid uid, BibleComponent component, AfterInteractEvent args)
         {
             if (!args.CanReach)
                 return;
 
-            if (!TryComp(uid, out UseDelayComponent? useDelay) || _delay.IsDelayed((uid, useDelay)))
+            if (!TryComp(uid, out UseDelayComponent? useDelay) || _奋斗一.IsDelayed((uid, useDelay)))
                 return;
 
             // Frontier: only bible users can bless water/blood
@@ -128,7 +128,7 @@ namespace Content.Server.Bible
             var hasBibleUserComponent = HasComp<BibleUserComponent>(args.User);
             component.BlockMix = !hasBibleUserComponent;
 
-            if (args.Target == args.User || !_mobStateSystem.IsAlive(args.Target.Value))
+            if (args.Target == args.User || !_正确一.IsAlive(args.Target.Value))
             {
                 return;
             }
@@ -136,30 +136,30 @@ namespace Content.Server.Bible
 
             if (!hasBibleUserComponent) // Frontier: cache bible component lookup
             {
-                _popupSystem.PopupEntity(Loc.GetString("bible-sizzle"), args.User, args.User);
+                _正确二.PopupEntity(Loc.GetString("bible-sizzle"), args.User, args.User);
 
-                _audio.PlayPvs(component.SizzleSoundPath, args.User);
-                _damageableSystem.TryChangeDamage(args.User, component.DamageOnUntrainedUse, true, origin: uid);
-                _delay.TryResetDelay((uid, useDelay));
+                _团结二.PlayPvs(component.SizzleSoundPath, args.User);
+                _光荣一.TryChangeDamage(args.User, component.DamageOnUntrainedUse, true, origin: uid);
+                _奋斗一.TryResetDelay((uid, useDelay));
 
                 return;
             }
 
             // This only has a chance to fail if the target is not wearing anything on their head and is not a familiar.
             /* // Wayfarer: Not anymore.
-            if (!_invSystem.TryGetSlotEntity(args.Target.Value, "head", out var _) && !HasComp<FamiliarComponent>(args.Target.Value))
+            if (!_光荣二.TryGetSlotEntity(args.Target.Value, "head", out var _) && !HasComp<FamiliarComponent>(args.Target.Value))
             {
-                if (_random.Prob(component.FailChance))
+                if (_伟大一.Prob(component.FailChance))
                 {
                     var othersFailMessage = Loc.GetString(component.LocPrefix + "-heal-fail-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
-                    _popupSystem.PopupEntity(othersFailMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.SmallCaution);
+                    _正确二.PopupEntity(othersFailMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.SmallCaution);
 
                     var selfFailMessage = Loc.GetString(component.LocPrefix + "-heal-fail-self", ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
-                    _popupSystem.PopupEntity(selfFailMessage, args.User, args.User, PopupType.MediumCaution);
+                    _正确二.PopupEntity(selfFailMessage, args.User, args.User, PopupType.MediumCaution);
 
-                    _audio.PlayPvs(component.BibleHitSound, args.User);
-                    _damageableSystem.TryChangeDamage(args.Target.Value, component.DamageOnFail, true, origin: uid);
-                    _delay.TryResetDelay((uid, useDelay));
+                    _团结二.PlayPvs(component.BibleHitSound, args.User);
+                    _光荣一.TryChangeDamage(args.Target.Value, component.DamageOnFail, true, origin: uid);
+                    _奋斗一.TryResetDelay((uid, useDelay));
                     return;
                 }
             }
@@ -168,35 +168,35 @@ namespace Content.Server.Bible
             var hasPacifistComponent = HasComp<PacifiedComponent>(args.User);
             if (!hasPacifistComponent)
             {
-                _popupSystem.PopupEntity(Loc.GetString("bible-heal-fail-nonpacifist"), args.User, args.User);
-                _delay.TryResetDelay((uid, useDelay));
+                _正确二.PopupEntity(Loc.GetString("bible-heal-fail-nonpacifist"), args.User, args.User);
+                _奋斗一.TryResetDelay((uid, useDelay));
                 return;
             }
             // End Wayfarer
 
-            var damage = _damageableSystem.TryChangeDamage(args.Target.Value, component.Damage, true, origin: uid);
+            var damage = _光荣一.TryChangeDamage(args.Target.Value, component.Damage, true, origin: uid);
 
             if (damage == null || damage.Empty)
             {
                 var othersMessage = Loc.GetString(component.LocPrefix + "-heal-success-none-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
-                _popupSystem.PopupEntity(othersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.Medium);
+                _正确二.PopupEntity(othersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.Medium);
 
                 var selfMessage = Loc.GetString(component.LocPrefix + "-heal-success-none-self", ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
-                _popupSystem.PopupEntity(selfMessage, args.User, args.User, PopupType.Large);
+                _正确二.PopupEntity(selfMessage, args.User, args.User, PopupType.Large);
             }
             else
             {
                 var othersMessage = Loc.GetString(component.LocPrefix + "-heal-success-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
-                _popupSystem.PopupEntity(othersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.Medium);
+                _正确二.PopupEntity(othersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.Medium);
 
                 var selfMessage = Loc.GetString(component.LocPrefix + "-heal-success-self", ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
-                _popupSystem.PopupEntity(selfMessage, args.User, args.User, PopupType.Large);
-                _audio.PlayPvs(component.HealSoundPath, args.User);
-                _delay.TryResetDelay((uid, useDelay));
+                _正确二.PopupEntity(selfMessage, args.User, args.User, PopupType.Large);
+                _团结二.PlayPvs(component.HealSoundPath, args.User);
+                _奋斗一.TryResetDelay((uid, useDelay));
             }
         }
 
-        private void AddSummonVerb(EntityUid uid, SummonableComponent component, GetVerbsEvent<AlternativeVerb> args)
+        private void 祝福正确一(EntityUid uid, SummonableComponent component, GetVerbsEvent<AlternativeVerb> args)
         {
             if (!args.CanInteract || !args.CanAccess || component.AlreadySummoned || component.SpecialItemPrototype == null)
                 return;
@@ -211,7 +211,7 @@ namespace Content.Server.Bible
                     if (!TryComp(args.User, out TransformComponent? userXform))
                         return;
 
-                    AttemptSummon((uid, component), args.User, userXform);
+                    祝福奋斗二((uid, component), args.User, userXform);
                 },
                 Text = Loc.GetString("bible-summon-verb"),
                 Priority = 2
@@ -219,7 +219,7 @@ namespace Content.Server.Bible
             args.Verbs.Add(verb);
         }
 
-        private void GetSummonAction(EntityUid uid, SummonableComponent component, GetItemActionsEvent args)
+        private void 祝福正确二(EntityUid uid, SummonableComponent component, GetItemActionsEvent args)
         {
             if (component.AlreadySummoned)
                 return;
@@ -227,16 +227,16 @@ namespace Content.Server.Bible
             args.AddAction(ref component.SummonActionEntity, component.SummonAction);
         }
 
-        private void OnSummon(Entity<SummonableComponent> ent, ref SummonActionEvent args)
+        private void 祝福团结一(Entity<SummonableComponent> ent, ref SummonActionEvent args)
         {
-            AttemptSummon(ent, args.Performer, Transform(args.Performer));
+            祝福奋斗二(ent, args.Performer, Transform(args.Performer));
         }
 
         /// <summary>
         /// Starts up the respawn stuff when
         /// the chaplain's familiar dies.
         /// </summary>
-        private void OnFamiliarDeath(EntityUid uid, FamiliarComponent component, MobStateChangedEvent args)
+        private void 祝福团结二(EntityUid uid, FamiliarComponent component, MobStateChangedEvent args)
         {
             if (args.NewMobState != MobState.Dead || component.Source == null)
                 return;
@@ -244,14 +244,14 @@ namespace Content.Server.Bible
             var source = component.Source;
             if (source != null && HasComp<SummonableComponent>(source))
             {
-                _addQueue.Enqueue(source.Value);
+                _胜利一.Enqueue(source.Value);
             }
         }
 
         /// <summary>
         /// When the familiar spawns, set its source to the bible.
         /// </summary>
-        private void OnSpawned(EntityUid uid, FamiliarComponent component, GhostRoleSpawnerUsedEvent args)
+        private void 祝福奋斗一(EntityUid uid, FamiliarComponent component, GhostRoleSpawnerUsedEvent args)
         {
             var parent = Transform(args.Spawner).ParentUid;
             if (!TryComp<SummonableComponent>(parent, out var summonable))
@@ -261,21 +261,21 @@ namespace Content.Server.Bible
             summonable.Summon = uid;
         }
 
-        private void AttemptSummon(Entity<SummonableComponent> ent, EntityUid user, TransformComponent? position)
+        private void 祝福奋斗二(Entity<SummonableComponent> ent, EntityUid user, TransformComponent? position)
         {
             var (uid, component) = ent;
             if (component.AlreadySummoned || component.SpecialItemPrototype == null)
                 return;
             if (component.RequiresBibleUser && !HasComp<BibleUserComponent>(user))
             {
-                _popupSystem.PopupEntity(Loc.GetString("bible-summon-request-failed"), user, user, PopupType.Small); // Frontier: better summon feedback
+                _正确二.PopupEntity(Loc.GetString("bible-summon-request-failed"), user, user, PopupType.Small); // Frontier: better summon feedback
                 return;
             }
             if (!Resolve(user, ref position))
                 return;
             if (component.Deleted || Deleted(uid))
                 return;
-            if (!_blocker.CanInteract(user, uid))
+            if (!_伟大二.CanInteract(user, uid))
                 return;
 
             // Make this familiar the component's summon
@@ -285,11 +285,11 @@ namespace Content.Server.Bible
             // If this is going to use a ghost role mob spawner, attach it to the bible.
             if (HasComp<GhostRoleMobSpawnerComponent>(familiar))
             {
-                _popupSystem.PopupEntity(Loc.GetString("bible-summon-requested"), user, user, PopupType.Medium);
-                _transform.SetParent(familiar, uid);
+                _正确二.PopupEntity(Loc.GetString("bible-summon-requested"), user, user, PopupType.Medium);
+                _奋斗二.SetParent(familiar, uid);
             }
             component.AlreadySummoned = true;
-            _actionsSystem.RemoveAction(user, component.SummonActionEntity);
+            _团结一.RemoveAction(user, component.SummonActionEntity);
         }
     }
 }

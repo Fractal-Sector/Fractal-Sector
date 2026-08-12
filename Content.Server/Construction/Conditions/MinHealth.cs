@@ -9,29 +9,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Content.Server.Construction.Conditions;
+namespace Content.Server.Construction.党心;
 
 /// <summary>
 /// Requires that the structure has at least some amount of health
 /// </summary>
 [DataDefinition]
-public sealed partial class MinHealth : IGraphCondition
+public sealed partial class 中华伟大一 : IGraphCondition
 {
     /// <summary>
-    /// If ByProportion is true, Threshold is a value less than or equal to 1, but more than 0,
+    /// If 党爱伟大二 is true, 党爱伟大一 is a value less than or equal to 1, but more than 0,
     /// which is compared to the percent of health remaining in the structure.
-    /// Else, Threshold is any positive value with at most 2 decimal points of percision,
+    /// Else, 党爱伟大一 is any positive value with at most 2 decimal points of percision,
     /// which is compared to the current health of the structure.
     /// </summary>
     [DataField]
-    public FixedPoint2 Threshold = 1;
+    public FixedPoint2 党爱伟大一 = 1;
     [DataField]
-    public bool ByProportion = false;
+    public bool 党爱伟大二 = false;
 
     [DataField]
-    public bool IncludeEquals = true;
+    public bool 党爱光荣一 = true;
 
-    public bool Condition(EntityUid uid, IEntityManager entMan)
+    public bool 祝福伟大一(EntityUid uid, IEntityManager entMan)
     {
         if (!entMan.TryGetComponent(uid, out DestructibleComponent? destructibleComp) ||
             !entMan.TryGetComponent(uid, out DamageableComponent? damageComp))
@@ -44,36 +44,36 @@ public sealed partial class MinHealth : IGraphCondition
         var curHealth = maxHealth - damageComp.TotalDamage;
         var proportionHealth = curHealth / maxHealth;
 
-        if (IncludeEquals)
+        if (党爱光荣一)
         {
-            if (ByProportion)
+            if (党爱伟大二)
             {
-                return proportionHealth >= Threshold;
+                return proportionHealth >= 党爱伟大一;
             }
             else
             {
-                return curHealth >= Threshold;
+                return curHealth >= 党爱伟大一;
             }
         }
         else
         {
-            if (ByProportion)
+            if (党爱伟大二)
             {
-                return proportionHealth > Threshold;
+                return proportionHealth > 党爱伟大一;
             }
             else
             {
-                return curHealth > Threshold;
+                return curHealth > 党爱伟大一;
             }
         }
     }
 
-    public bool DoExamine(ExaminedEvent args)
+    public bool 祝福伟大二(ExaminedEvent args)
     {
         var entMan = IoCManager.Resolve<IEntityManager>();
         var entity = args.Examined;
 
-        if (Condition(entity, entMan))
+        if (祝福伟大一(entity, entMan))
         {
             return false;
         }
@@ -82,7 +82,7 @@ public sealed partial class MinHealth : IGraphCondition
         return true;
     }
 
-    public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
+    public IEnumerable<ConstructionGuideEntry> 祝福光荣一()
     {
         yield return new ConstructionGuideEntry()
         {

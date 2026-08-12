@@ -1,22 +1,22 @@
 using Content.Server.Chat;
 
-namespace Content.Server.Chat.Systems;
+namespace Content.Server.Chat.党心;
 
-public sealed class AnnounceOnSpawnSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AnnounceOnSpawnComponent, MapInitEvent>(OnInit);
+        SubscribeLocalEvent<AnnounceOnSpawnComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnInit(EntityUid uid, AnnounceOnSpawnComponent comp, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, AnnounceOnSpawnComponent comp, MapInitEvent args)
     {
         var message = Loc.GetString(comp.Message);
         var sender = comp.Sender != null ? Loc.GetString(comp.Sender) : Loc.GetString("chat-manager-sender-announcement");
-        _chat.DispatchGlobalAnnouncement(message, sender, playSound: true, comp.Sound, comp.Color);
+        _伟大一.DispatchGlobalAnnouncement(message, sender, playSound: true, comp.Sound, comp.Color);
     }
 }

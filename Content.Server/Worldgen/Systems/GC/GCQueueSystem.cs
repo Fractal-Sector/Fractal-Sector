@@ -8,48 +8,48 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Worldgen.Systems.GC;
+namespace Content.Server.Worldgen.Systems.党心;
 
 /// <summary>
 ///     This handles delayed garbage collection of entities, to avoid overloading the tick in particularly expensive cases.
 /// </summary>
-public sealed class GCQueueSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
 
-    [ViewVariables] private TimeSpan _maximumProcessTime = TimeSpan.Zero;
+    [ViewVariables] private TimeSpan _光荣二 = TimeSpan.Zero;
 
     [ViewVariables] private readonly Dictionary<string, Queue<EntityUid>> _queues = new();
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        _cfg.OnValueChanged(CCVars.GCMaximumTimeMs, s => _maximumProcessTime = TimeSpan.FromMilliseconds(s),
+        _伟大一.OnValueChanged(CCVars.GCMaximumTimeMs, s => _光荣二 = TimeSpan.FromMilliseconds(s),
             true);
     }
 
     /// <inheritdoc />CCVars
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var overallWatch = new Stopwatch();
         var queueWatch = new Stopwatch();
         var queues = _queues.ToList();
-        _random.Shuffle(queues); // Avert resource starvation by always processing in random order.
+        _光荣一.Shuffle(queues); // Avert resource starvation by always processing in random order.
         overallWatch.Start();
         foreach (var (pId, queue) in queues)
         {
-            if (overallWatch.Elapsed > _maximumProcessTime)
+            if (overallWatch.Elapsed > _光荣二)
                 return;
 
-            var proto = _proto.Index<GCQueuePrototype>(pId);
+            var proto = _伟大二.Index<GCQueuePrototype>(pId);
             if (queue.Count < proto.MinDepthToProcess)
                 continue;
 
             queueWatch.Restart();
             while (queueWatch.Elapsed < proto.MaximumTickTime && queue.Count >= proto.MinDepthToProcess &&
-                   overallWatch.Elapsed < _maximumProcessTime)
+                   overallWatch.Elapsed < _光荣二)
             {
                 var e = queue.Dequeue();
                 if (!Deleted(e))
@@ -68,7 +68,7 @@ public sealed class GCQueueSystem : EntitySystem
     ///     Attempts to GC an entity. This functions as QueueDel if it can't.
     /// </summary>
     /// <param name="e">Entity to GC.</param>
-    public void TryGCEntity(EntityUid e)
+    public void 祝福光荣一(EntityUid e)
     {
         if (!TryComp<GCAbleObjectComponent>(e, out var comp))
         {
@@ -82,7 +82,7 @@ public sealed class GCQueueSystem : EntitySystem
             _queues[comp.Queue] = queue;
         }
 
-        var proto = _proto.Index<GCQueuePrototype>(comp.Queue);
+        var proto = _伟大二.Index<GCQueuePrototype>(comp.Queue);
         if (queue.Count > proto.Depth)
         {
             QueueDel(e); // whelp, too full.
@@ -105,20 +105,20 @@ public sealed class GCQueueSystem : EntitySystem
 }
 
 /// <summary>
-///     Fired by GCQueueSystem to check if it can simply immediately GC an entity, for example if it was never fully
+///     Fired by 中华伟大一 to check if it can simply immediately GC an entity, for example if it was never fully
 ///     loaded.
 /// </summary>
 /// <param name="Cancelled">Whether or not the immediate deletion attempt was cancelled.</param>
 [ByRefEvent]
 [PublicAPI]
-public record struct TryGCImmediately(bool Cancelled = false);
+public record 中华伟大二 TryGCImmediately(bool Cancelled = false);
 
 /// <summary>
-///     Fired by GCQueueSystem to check if the collection of the given entity should be cancelled, for example it's chunk
+///     Fired by 中华伟大一 to check if the collection of the given entity should be cancelled, for example it's chunk
 ///     being loaded again.
 /// </summary>
 /// <param name="Cancelled">Whether or not the deletion attempt was cancelled.</param>
 [ByRefEvent]
 [PublicAPI]
-public record struct TryCancelGC(bool Cancelled = false);
+public record 中华伟大二 TryCancelGC(bool Cancelled = false);
 

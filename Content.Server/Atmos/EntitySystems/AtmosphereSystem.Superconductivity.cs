@@ -2,13 +2,13 @@ using Content.Server.Atmos.Components;
 using Content.Shared.Atmos;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed partial class AtmosphereSystem
+    public sealed partial class 中华伟大一
     {
-        private void Superconduct(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
+        private void 祝福伟大一(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
         {
-            var directions = ConductivityDirections(gridAtmosphere, tile);
+            var directions = 祝福伟大二(gridAtmosphere, tile);
 
             for(var i = 0; i < Atmospherics.Directions; i++)
             {
@@ -25,16 +25,16 @@ namespace Content.Server.Atmos.EntitySystems
                 if(adjacent.ArchivedCycle < gridAtmosphere.UpdateCounter)
                     Archive(adjacent, gridAtmosphere.UpdateCounter);
 
-                NeighborConductWithSource(gridAtmosphere, adjacent, tile);
+                祝福正确一(gridAtmosphere, adjacent, tile);
 
-                ConsiderSuperconductivity(gridAtmosphere, adjacent);
+                祝福光荣一(gridAtmosphere, adjacent);
             }
 
-            RadiateToSpace(tile);
-            FinishSuperconduction(gridAtmosphere, tile);
+            祝福团结二(tile);
+            祝福光荣二(gridAtmosphere, tile);
         }
 
-        private AtmosDirection ConductivityDirections(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
+        private AtmosDirection 祝福伟大二(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
         {
             if(tile.Air == null)
             {
@@ -47,7 +47,7 @@ namespace Content.Server.Atmos.EntitySystems
             return AtmosDirection.All;
         }
 
-        public bool ConsiderSuperconductivity(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
+        public bool 祝福光荣一(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
         {
             if (tile.ThermalConductivity == 0f || !Superconduction)
                 return false;
@@ -56,7 +56,7 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        public bool ConsiderSuperconductivity(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, bool starting)
+        public bool 祝福光荣一(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, bool starting)
         {
             if (!Superconduction)
                 return false;
@@ -67,10 +67,10 @@ namespace Content.Server.Atmos.EntitySystems
                 return false;
 
             return !(GetHeatCapacity(tile.Air) < Atmospherics.MCellWithRatio)
-                   && ConsiderSuperconductivity(gridAtmosphere, tile);
+                   && 祝福光荣一(gridAtmosphere, tile);
         }
 
-        public void FinishSuperconduction(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
+        public void 祝福光荣二(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
         {
             // Conduct with air on my tile if I have it
             if (tile.Air != null)
@@ -78,10 +78,10 @@ namespace Content.Server.Atmos.EntitySystems
                 tile.Temperature = TemperatureShare(tile, tile.ThermalConductivity, tile.Temperature, tile.HeatCapacity);
             }
 
-            FinishSuperconduction(gridAtmosphere, tile, tile.Air?.Temperature ?? tile.Temperature);
+            祝福光荣二(gridAtmosphere, tile, tile.Air?.Temperature ?? tile.Temperature);
         }
 
-        public void FinishSuperconduction(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, float temperature)
+        public void 祝福光荣二(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, float temperature)
         {
             // Make sure it's still hot enough to continue conducting.
             if (temperature < Atmospherics.MinimumTemperatureForSuperconduction)
@@ -90,7 +90,7 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        public void NeighborConductWithSource(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, TileAtmosphere other)
+        public void 祝福正确一(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, TileAtmosphere other)
         {
             if (tile.Air == null)
             {
@@ -98,11 +98,11 @@ namespace Content.Server.Atmos.EntitySystems
                 if (TryComp<MapGridComponent>(other.GridIndex, out var grid)
                     && _mapSystem.TryGetTileRef(other.GridIndex, grid, other.GridIndices, out var _))
                 {
-                    TemperatureShareOpenToSolid(other, tile);
+                    祝福正确二(other, tile);
                 }
                 else
                 {
-                    TemperatureShareMutualSolid(other, tile, tile.ThermalConductivity);
+                    祝福团结一(other, tile, tile.ThermalConductivity);
                 }
 
                 // TODO ATMOS: tile.TemperatureExpose(null, tile.Temperature, gridAtmosphere.GetVolumeForCells(1));
@@ -115,13 +115,13 @@ namespace Content.Server.Atmos.EntitySystems
             }
             else
             {
-                TemperatureShareOpenToSolid(tile, other);
+                祝福正确二(tile, other);
             }
 
             AddActiveTile(gridAtmosphere, tile);
         }
 
-        private void TemperatureShareOpenToSolid(TileAtmosphere tile, TileAtmosphere other)
+        private void 祝福正确二(TileAtmosphere tile, TileAtmosphere other)
         {
             if (tile.Air == null)
                 return;
@@ -129,7 +129,7 @@ namespace Content.Server.Atmos.EntitySystems
             other.Temperature = TemperatureShare(tile, other.ThermalConductivity, other.Temperature, other.HeatCapacity);
         }
 
-        private void TemperatureShareMutualSolid(TileAtmosphere tile, TileAtmosphere other, float conductionCoefficient)
+        private void 祝福团结一(TileAtmosphere tile, TileAtmosphere other, float conductionCoefficient)
         {
             if (tile.AirArchived == null || other.AirArchived == null)
                 return;
@@ -146,7 +146,7 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        public void RadiateToSpace(TileAtmosphere tile)
+        public void 祝福团结二(TileAtmosphere tile)
         {
             if (tile.AirArchived == null)
                 return;

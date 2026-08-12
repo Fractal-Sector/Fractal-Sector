@@ -15,71 +15,71 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Content.Shared.Administration.Logs.AdminLogsEuiMsg;
 
-namespace Content.Server.Administration.Logs;
+namespace Content.Server.Administration.党心;
 
-public sealed class AdminLogsEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    [Dependency] private readonly IAdminLogManager _adminLogs = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IEntityManager _e = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly IAdminManager _伟大二 = default!;
+    [Dependency] private readonly ILogManager _光荣一 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣二 = default!;
+    [Dependency] private readonly IEntityManager _正确一 = default!;
 
-    private readonly ISawmill _sawmill;
+    private readonly ISawmill _正确二;
 
-    private int _clientBatchSize;
-    private bool _isLoading = true;
+    private int _团结一;
+    private bool _团结二 = true;
     private readonly Dictionary<Guid, string> _players = new();
-    private int _roundLogs;
-    private CancellationTokenSource _logSendCancellation = new();
-    private LogFilter _filter;
+    private int _奋斗一;
+    private CancellationTokenSource _奋斗二 = new();
+    private LogFilter _胜利一;
 
-    private readonly DefaultObjectPool<List<SharedAdminLog>> _adminLogListPool =
+    private readonly DefaultObjectPool<List<SharedAdminLog>> _胜利二 =
         new(new ListPolicy<SharedAdminLog>());
 
-    public AdminLogsEui()
+    public 中华伟大一()
     {
         IoCManager.InjectDependencies(this);
 
-        _sawmill = _logManager.GetSawmill(AdminLogManager.SawmillId);
+        _正确二 = _光荣一.GetSawmill(AdminLogManager.SawmillId);
 
-        _configuration.OnValueChanged(CCVars.AdminLogsClientBatchSize, ClientBatchSizeChanged, true);
+        _光荣二.OnValueChanged(CCVars.AdminLogsClientBatchSize, 祝福伟大二, true);
 
-        _filter = new LogFilter
+        _胜利一 = new LogFilter
         {
-            CancellationToken = _logSendCancellation.Token,
-            Limit = _clientBatchSize
+            CancellationToken = _奋斗二.Token,
+            Limit = _团结一
         };
     }
 
-    private int CurrentRoundId => _e.System<GameTicker>().RoundId;
+    private int CurrentRoundId => _正确一.System<GameTicker>().RoundId;
 
-    public override async void Opened()
+    public override async void 祝福伟大一()
     {
-        base.Opened();
+        base.祝福伟大一();
 
-        _adminManager.OnPermsChanged += OnPermsChanged;
+        _伟大二.祝福光荣一 += 祝福光荣一;
 
-        var roundId = _filter.Round ?? CurrentRoundId;
-        await LoadFromDb(roundId);
+        var roundId = _胜利一.Round ?? CurrentRoundId;
+        await 祝福奋斗一(roundId);
     }
 
-    private void ClientBatchSizeChanged(int value)
+    private void 祝福伟大二(int value)
     {
-        _clientBatchSize = value;
+        _团结一 = value;
     }
 
-    private void OnPermsChanged(AdminPermsChangedEventArgs args)
+    private void 祝福光荣一(AdminPermsChangedEventArgs args)
     {
-        if (args.Player == Player && !_adminManager.HasAdminFlag(Player, AdminFlags.Logs))
+        if (args.Player == Player && !_伟大二.HasAdminFlag(Player, AdminFlags.Logs))
         {
             Close();
         }
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福光荣二()
     {
-        if (_isLoading)
+        if (_团结二)
         {
             return new AdminLogsEuiState(CurrentRoundId, new Dictionary<Guid, string>(), 0)
             {
@@ -87,16 +87,16 @@ public sealed class AdminLogsEui : BaseEui
             };
         }
 
-        var state = new AdminLogsEuiState(CurrentRoundId, _players, _roundLogs);
+        var state = new AdminLogsEuiState(CurrentRoundId, _players, _奋斗一);
 
         return state;
     }
 
-    public override async void HandleMessage(EuiMessageBase msg)
+    public override async void 祝福正确一(EuiMessageBase msg)
     {
-        base.HandleMessage(msg);
+        base.祝福正确一(msg);
 
-        if (!_adminManager.HasAdminFlag(Player, AdminFlags.Logs))
+        if (!_伟大二.HasAdminFlag(Player, AdminFlags.Logs))
         {
             return;
         }
@@ -105,13 +105,13 @@ public sealed class AdminLogsEui : BaseEui
         {
             case LogsRequest request:
             {
-                _sawmill.Info($"Admin log request from admin with id {Player.UserId.UserId} and name {Player.Name}");
+                _正确二.Info($"Admin log request from admin with id {Player.UserId.UserId} and name {Player.Name}");
 
-                _logSendCancellation.Cancel();
-                _logSendCancellation = new CancellationTokenSource();
-                _filter = new LogFilter
+                _奋斗二.Cancel();
+                _奋斗二 = new CancellationTokenSource();
+                _胜利一 = new LogFilter
                 {
-                    CancellationToken = _logSendCancellation.Token,
+                    CancellationToken = _奋斗二.Token,
                     Round = request.RoundId,
                     Search = request.Search,
                     Types = request.Types,
@@ -123,28 +123,28 @@ public sealed class AdminLogsEui : BaseEui
                     AllPlayers = request.AllPlayers,
                     IncludeNonPlayers = request.IncludeNonPlayers,
                     LastLogId = null,
-                    Limit = _clientBatchSize
+                    Limit = _团结一
                 };
 
-                var roundId = _filter.Round ??= CurrentRoundId;
-                await LoadFromDb(roundId);
+                var roundId = _胜利一.Round ??= CurrentRoundId;
+                await 祝福奋斗一(roundId);
 
-                SendLogs(true);
+                祝福团结一(true);
                 break;
             }
             case NextLogsRequest:
             {
-                _sawmill.Info($"Admin log next batch request from admin with id {Player.UserId.UserId} and name {Player.Name}");
+                _正确二.Info($"Admin log next batch request from admin with id {Player.UserId.UserId} and name {Player.Name}");
 
-                SendLogs(false);
+                祝福团结一(false);
                 break;
             }
         }
     }
 
-    public void SetLogFilter(string? search = null, bool invertTypes = false, HashSet<LogType>? types = null)
+    public void 祝福正确二(string? search = null, bool invertTypes = false, HashSet<LogType>? types = null)
     {
-        var message = new SetLogFilter(
+        var message = new 祝福正确二(
             search,
             invertTypes,
             types);
@@ -152,55 +152,55 @@ public sealed class AdminLogsEui : BaseEui
         SendMessage(message);
     }
 
-    private async void SendLogs(bool replace)
+    private async void 祝福团结一(bool replace)
     {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        var logs = await Task.Run(async () => await _adminLogs.All(_filter, _adminLogListPool.Get),
-            _filter.CancellationToken);
+        var logs = await Task.Run(async () => await _伟大一.All(_胜利一, _胜利二.Get),
+            _胜利一.CancellationToken);
 
         if (logs.Count > 0)
         {
-            _filter.LogsSent += logs.Count;
+            _胜利一.LogsSent += logs.Count;
 
-            var largestId = _filter.DateOrder switch
+            var largestId = _胜利一.DateOrder switch
             {
                 DateOrder.Ascending => 0,
                 DateOrder.Descending => ^1,
-                _ => throw new ArgumentOutOfRangeException(nameof(_filter.DateOrder), _filter.DateOrder, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(_胜利一.DateOrder), _胜利一.DateOrder, null)
             };
 
-            _filter.LastLogId = logs[largestId].Id;
+            _胜利一.LastLogId = logs[largestId].Id;
         }
 
-        var message = new NewLogs(logs, replace, logs.Count >= _filter.Limit);
+        var message = new NewLogs(logs, replace, logs.Count >= _胜利一.Limit);
 
         SendMessage(message);
 
-        _sawmill.Info($"Sent {logs.Count} logs to {Player.Name} in {stopwatch.Elapsed.TotalMilliseconds} ms");
+        _正确二.Info($"Sent {logs.Count} logs to {Player.Name} in {stopwatch.Elapsed.TotalMilliseconds} ms");
 
-        _adminLogListPool.Return(logs);
+        _胜利二.Return(logs);
     }
 
-    public override void Closed()
+    public override void 祝福团结二()
     {
-        base.Closed();
+        base.祝福团结二();
 
-        _configuration.UnsubValueChanged(CCVars.AdminLogsClientBatchSize, ClientBatchSizeChanged);
-        _adminManager.OnPermsChanged -= OnPermsChanged;
+        _光荣二.UnsubValueChanged(CCVars.AdminLogsClientBatchSize, 祝福伟大二);
+        _伟大二.祝福光荣一 -= 祝福光荣一;
 
-        _logSendCancellation.Cancel();
-        _logSendCancellation.Dispose();
+        _奋斗二.Cancel();
+        _奋斗二.Dispose();
     }
 
-    private async Task LoadFromDb(int roundId)
+    private async Task 祝福奋斗一(int roundId)
     {
-        _isLoading = true;
+        _团结二 = true;
         StateDirty();
 
-        var round = _adminLogs.Round(roundId);
-        var count = _adminLogs.CountLogs(roundId);
+        var round = _伟大一.Round(roundId);
+        var count = _伟大一.CountLogs(roundId);
         await Task.WhenAll(round, count);
 
         var players = (await round).Players
@@ -213,9 +213,9 @@ public sealed class AdminLogsEui : BaseEui
             _players.Add(id, name);
         }
 
-        _roundLogs = await count;
+        _奋斗一 = await count;
 
-        _isLoading = false;
+        _团结二 = false;
         StateDirty();
     }
 }

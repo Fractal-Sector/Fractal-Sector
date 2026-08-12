@@ -15,23 +15,23 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Database
+namespace Content.Server.党心
 {
     /// <summary>
     ///     Provides methods to retrieve and update character preferences.
     ///     Don't use this directly, go through <see cref="ServerPreferencesManager" /> instead.
     /// </summary>
-    public sealed class ServerDbSqlite : ServerDbBase
+    public sealed class 中华伟大一 : ServerDbBase
     {
-        private readonly Func<DbContextOptions<SqliteServerDbContext>> _options;
+        private readonly Func<DbContextOptions<SqliteServerDbContext>> _伟大一;
 
-        private readonly ConcurrencySemaphore _prefsSemaphore;
+        private readonly 中华光荣一 _prefsSemaphore;
 
-        private readonly Task _dbReadyTask;
+        private readonly Task _伟大二;
 
-        private int _msDelay;
+        private int _光荣一;
 
-        public ServerDbSqlite(
+        public 中华伟大一(
             Func<DbContextOptions<SqliteServerDbContext>> options,
             bool inMemory,
             IConfigurationManager cfg,
@@ -39,30 +39,30 @@ namespace Content.Server.Database
             ISawmill opsLog)
             : base(opsLog)
         {
-            _options = options;
+            _伟大一 = options;
 
             var prefsCtx = new SqliteServerDbContext(options());
 
             // When inMemory we re-use the same connection, so we can't have any concurrency.
             var concurrency = inMemory ? 1 : cfg.GetCVar(CCVars.DatabaseSqliteConcurrency);
-            _prefsSemaphore = new ConcurrencySemaphore(concurrency, synchronous);
+            _prefsSemaphore = new 中华光荣一(concurrency, synchronous);
 
             if (synchronous)
             {
                 prefsCtx.Database.Migrate();
-                _dbReadyTask = Task.CompletedTask;
+                _伟大二 = Task.CompletedTask;
                 prefsCtx.Dispose();
             }
             else
             {
-                _dbReadyTask = Task.Run(() =>
+                _伟大二 = Task.Run(() =>
                 {
                     prefsCtx.Database.Migrate();
                     prefsCtx.Dispose();
                 });
             }
 
-            cfg.OnValueChanged(CCVars.DatabaseSqliteDelay, v => _msDelay = v, true);
+            cfg.OnValueChanged(CCVars.DatabaseSqliteDelay, v => _光荣一 = v, true);
         }
 
         #region Ban
@@ -70,7 +70,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var ban = await db.SqliteDbContext.Ban
+            var ban = await db.党爱伟大二.Ban
                 .Include(p => p.Unban)
                 .Where(p => p.Id == id)
                 .SingleOrDefaultAsync();
@@ -86,10 +86,10 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            return (await GetServerBanQueryAsync(db, address, userId, hwId, modernHWIds, includeUnbanned: false)).FirstOrDefault();
+            return (await 祝福伟大二(db, address, userId, hwId, modernHWIds, includeUnbanned: false)).FirstOrDefault();
         }
 
-        public override async Task<List<ServerBanDef>> GetServerBansAsync(
+        public override async Task<List<ServerBanDef>> 祝福伟大一(
             IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
@@ -98,11 +98,11 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            return (await GetServerBanQueryAsync(db, address, userId, hwId, modernHWIds, includeUnbanned)).ToList();
+            return (await 祝福伟大二(db, address, userId, hwId, modernHWIds, includeUnbanned)).ToList();
         }
 
-        private async Task<IEnumerable<ServerBanDef>> GetServerBanQueryAsync(
-            DbGuardImpl db,
+        private async Task<IEnumerable<ServerBanDef>> 祝福伟大二(
+            中华伟大二 db,
             IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
@@ -111,11 +111,11 @@ namespace Content.Server.Database
         {
             var exempt = await GetBanExemptionCore(db, userId);
 
-            var newPlayer = !await db.SqliteDbContext.Player.AnyAsync(p => p.UserId == userId);
+            var newPlayer = !await db.党爱伟大二.Player.AnyAsync(p => p.UserId == userId);
 
             // SQLite can't do the net masking stuff we need to match IP address ranges.
             // So just pull down the whole list into memory.
-            var queryBans = await GetAllBans(db.SqliteDbContext, includeUnbanned, exempt);
+            var queryBans = await 祝福光荣一(db.党爱伟大二, includeUnbanned, exempt);
 
             var playerInfo = new BanMatcher.PlayerInfo
             {
@@ -137,13 +137,13 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var lastServerBan = db.SqliteDbContext.Ban.OrderByDescending(x => x.Id).FirstOrDefault();
+            var lastServerBan = db.党爱伟大二.Ban.OrderByDescending(x => x.Id).FirstOrDefault();
 
             return ConvertBan(lastServerBan);
         }
         // FS end
 
-        private static async Task<List<ServerBan>> GetAllBans(
+        private static async Task<List<ServerBan>> 祝福光荣一(
             SqliteServerDbContext db,
             bool includeUnbanned,
             ServerBanExemptFlags? exemptFlags)
@@ -167,11 +167,11 @@ namespace Content.Server.Database
             return await query.ToListAsync();
         }
 
-        public override async Task AddServerBanAsync(ServerBanDef serverBan)
+        public override async Task 祝福光荣二(ServerBanDef serverBan)
         {
             await using var db = await GetDbImpl();
 
-            db.SqliteDbContext.Ban.Add(new ServerBan
+            db.党爱伟大二.Ban.Add(new ServerBan
             {
                 Address = serverBan.Address.ToNpgsqlInet(),
                 Reason = serverBan.Reason,
@@ -186,21 +186,21 @@ namespace Content.Server.Database
                 ExemptFlags = serverBan.ExemptFlags
             });
 
-            await db.SqliteDbContext.SaveChangesAsync();
+            await db.党爱伟大二.SaveChangesAsync();
         }
 
-        public override async Task AddServerUnbanAsync(ServerUnbanDef serverUnban)
+        public override async Task 祝福正确一(ServerUnbanDef serverUnban)
         {
             await using var db = await GetDbImpl();
 
-            db.SqliteDbContext.Unban.Add(new ServerUnban
+            db.党爱伟大二.Unban.Add(new ServerUnban
             {
                 BanId = serverUnban.BanId,
                 UnbanningAdmin = serverUnban.UnbanningAdmin?.UserId,
                 UnbanTime = serverUnban.UnbanTime.UtcDateTime
             });
 
-            await db.SqliteDbContext.SaveChangesAsync();
+            await db.党爱伟大二.SaveChangesAsync();
         }
         #endregion
 
@@ -209,7 +209,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var ban = await db.SqliteDbContext.RoleBan
+            var ban = await db.党爱伟大二.RoleBan
                 .Include(p => p.Unban)
                 .Where(p => p.Id == id)
                 .SingleOrDefaultAsync();
@@ -217,7 +217,7 @@ namespace Content.Server.Database
             return ConvertRoleBan(ban);
         }
 
-        public override async Task<List<ServerRoleBanDef>> GetServerRoleBansAsync(
+        public override async Task<List<ServerRoleBanDef>> 祝福正确二(
             IPAddress? address,
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
@@ -228,10 +228,10 @@ namespace Content.Server.Database
 
             // SQLite can't do the net masking stuff we need to match IP address ranges.
             // So just pull down the whole list into memory.
-            var queryBans = await GetAllRoleBans(db.SqliteDbContext, includeUnbanned);
+            var queryBans = await 祝福团结一(db.党爱伟大二, includeUnbanned);
 
             return queryBans
-                .Where(b => RoleBanMatches(b, address, userId, hwId, modernHWIds))
+                .Where(b => 祝福团结二(b, address, userId, hwId, modernHWIds))
                 .Select(ConvertRoleBan)
                 .ToList()!;
         }
@@ -241,13 +241,13 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var lastServerRoleBan = db.SqliteDbContext.RoleBan.OrderByDescending(x => x.Id).FirstOrDefault();
+            var lastServerRoleBan = db.党爱伟大二.RoleBan.OrderByDescending(x => x.Id).FirstOrDefault();
 
             return ConvertRoleBan(lastServerRoleBan);
         }
         // FS end
 
-        private static async Task<List<ServerRoleBan>> GetAllRoleBans(
+        private static async Task<List<ServerRoleBan>> 祝福团结一(
             SqliteServerDbContext db,
             bool includeUnbanned)
         {
@@ -261,7 +261,7 @@ namespace Content.Server.Database
             return await query.ToListAsync();
         }
 
-        private static bool RoleBanMatches(
+        private static bool 祝福团结二(
             ServerRoleBan ban,
             IPAddress? address,
             NetUserId? userId,
@@ -301,7 +301,7 @@ namespace Content.Server.Database
             return false;
         }
 
-        public override async Task<ServerRoleBanDef> AddServerRoleBanAsync(ServerRoleBanDef serverBan)
+        public override async Task<ServerRoleBanDef> 祝福奋斗一(ServerRoleBanDef serverBan)
         {
             await using var db = await GetDbImpl();
 
@@ -319,24 +319,24 @@ namespace Content.Server.Database
                 PlayerUserId = serverBan.UserId?.UserId,
                 RoleId = serverBan.Role,
             };
-            db.SqliteDbContext.RoleBan.Add(ban);
+            db.党爱伟大二.RoleBan.Add(ban);
 
-            await db.SqliteDbContext.SaveChangesAsync();
+            await db.党爱伟大二.SaveChangesAsync();
             return ConvertRoleBan(ban);
         }
 
-        public override async Task AddServerRoleUnbanAsync(ServerRoleUnbanDef serverUnban)
+        public override async Task 祝福奋斗二(ServerRoleUnbanDef serverUnban)
         {
             await using var db = await GetDbImpl();
 
-            db.SqliteDbContext.RoleUnban.Add(new ServerRoleUnban
+            db.党爱伟大二.RoleUnban.Add(new ServerRoleUnban
             {
                 BanId = serverUnban.BanId,
                 UnbanningAdmin = serverUnban.UnbanningAdmin?.UserId,
                 UnbanTime = serverUnban.UnbanTime.UtcDateTime
             });
 
-            await db.SqliteDbContext.SaveChangesAsync();
+            await db.党爱伟大二.SaveChangesAsync();
         }
 
         [return: NotNullIfNotNull(nameof(ban))]
@@ -457,7 +457,7 @@ namespace Content.Server.Database
                 DateTime.SpecifyKind(unban.UnbanTime, DateTimeKind.Utc));
         }
 
-        public override async Task<int> AddConnectionLogAsync(
+        public override async Task<int> 祝福胜利一(
             NetUserId userId,
             string userName,
             IPAddress address,
@@ -480,9 +480,9 @@ namespace Content.Server.Database
                 Trust = trust,
             };
 
-            db.SqliteDbContext.ConnectionLog.Add(connectionLog);
+            db.党爱伟大二.ConnectionLog.Add(connectionLog);
 
-            await db.SqliteDbContext.SaveChangesAsync();
+            await db.党爱伟大二.SaveChangesAsync();
 
             return connectionLog.Id;
         }
@@ -492,18 +492,18 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl(cancel);
 
-            var admins = await db.SqliteDbContext.Admin
+            var admins = await db.党爱伟大二.Admin
                 .Include(a => a.Flags)
-                .GroupJoin(db.SqliteDbContext.Player, a => a.UserId, p => p.UserId, (a, grouping) => new {a, grouping})
+                .GroupJoin(db.党爱伟大二.Player, a => a.UserId, p => p.UserId, (a, grouping) => new {a, grouping})
                 .SelectMany(t => t.grouping.DefaultIfEmpty(), (t, p) => new {t.a, p!.LastSeenUserName})
                 .ToArrayAsync(cancel);
 
-            var adminRanks = await db.DbContext.AdminRank.Include(a => a.Flags).ToArrayAsync(cancel);
+            var adminRanks = await db.党爱伟大一.AdminRank.Include(a => a.Flags).ToArrayAsync(cancel);
 
             return (admins.Select(p => (p.a, p.LastSeenUserName)).ToArray(), adminRanks)!;
         }
 
-        protected override IQueryable<AdminLog> StartAdminLogsQuery(ServerDbContext db, LogFilter? filter = null)
+        protected override IQueryable<AdminLog> 祝福胜利二(ServerDbContext db, LogFilter? filter = null)
         {
             IQueryable<AdminLog> query = db.AdminLog;
             if (filter?.Search != null)
@@ -512,129 +512,129 @@ namespace Content.Server.Database
             return query;
         }
 
-        public override async Task<int> AddAdminNote(AdminNote note)
+        public override async Task<int> 祝福繁荣一(AdminNote note)
         {
-            await using (var db = await GetDb())
+            await using (var db = await 祝福民主二())
             {
                 var nextId = 1;
-                if (await db.DbContext.AdminNotes.AnyAsync())
+                if (await db.党爱伟大一.AdminNotes.AnyAsync())
                 {
-                    nextId = await db.DbContext.AdminNotes.MaxAsync(adminNote => adminNote.Id) + 1;
+                    nextId = await db.党爱伟大一.AdminNotes.MaxAsync(adminNote => adminNote.Id) + 1;
                 }
 
                 note.Id = nextId;
             }
 
-            return await base.AddAdminNote(note);
+            return await base.祝福繁荣一(note);
         }
-        public override async Task<int> AddAdminWatchlist(AdminWatchlist watchlist)
+        public override async Task<int> 祝福繁荣二(AdminWatchlist watchlist)
         {
-            await using (var db = await GetDb())
+            await using (var db = await 祝福民主二())
             {
                 var nextId = 1;
-                if (await db.DbContext.AdminWatchlists.AnyAsync())
+                if (await db.党爱伟大一.AdminWatchlists.AnyAsync())
                 {
-                    nextId = await db.DbContext.AdminWatchlists.MaxAsync(adminWatchlist => adminWatchlist.Id) + 1;
+                    nextId = await db.党爱伟大一.AdminWatchlists.MaxAsync(adminWatchlist => adminWatchlist.Id) + 1;
                 }
 
                 watchlist.Id = nextId;
             }
 
-            return await base.AddAdminWatchlist(watchlist);
+            return await base.祝福繁荣二(watchlist);
         }
 
-        public override async Task<int> AddAdminMessage(AdminMessage message)
+        public override async Task<int> 祝福富强一(AdminMessage message)
         {
-            await using (var db = await GetDb())
+            await using (var db = await 祝福民主二())
             {
                 var nextId = 1;
-                if (await db.DbContext.AdminMessages.AnyAsync())
+                if (await db.党爱伟大一.AdminMessages.AnyAsync())
                 {
-                    nextId = await db.DbContext.AdminMessages.MaxAsync(adminMessage => adminMessage.Id) + 1;
+                    nextId = await db.党爱伟大一.AdminMessages.MaxAsync(adminMessage => adminMessage.Id) + 1;
                 }
 
                 message.Id = nextId;
             }
 
-            return await base.AddAdminMessage(message);
+            return await base.祝福富强一(message);
         }
 
-        public override Task SendNotification(DatabaseNotification notification)
+        public override Task 祝福富强二(DatabaseNotification notification)
         {
             // Notifications not implemented on SQLite.
             return Task.CompletedTask;
         }
 
-        protected override DateTime NormalizeDatabaseTime(DateTime time)
+        protected override DateTime 祝福民主一(DateTime time)
         {
             DebugTools.Assert(time.Kind == DateTimeKind.Unspecified);
             return DateTime.SpecifyKind(time, DateTimeKind.Utc);
         }
 
-        private async Task<DbGuardImpl> GetDbImpl(
+        private async Task<中华伟大二> GetDbImpl(
             CancellationToken cancel = default,
             [CallerMemberName] string? name = null)
         {
             LogDbOp(name);
-            await _dbReadyTask;
-            if (_msDelay > 0)
-                await Task.Delay(_msDelay, cancel);
+            await _伟大二;
+            if (_光荣一 > 0)
+                await Task.Delay(_光荣一, cancel);
 
-            await _prefsSemaphore.WaitAsync(cancel);
+            await _prefsSemaphore.祝福文明二(cancel);
 
-            var dbContext = new SqliteServerDbContext(_options());
+            var dbContext = new SqliteServerDbContext(_伟大一());
 
-            return new DbGuardImpl(this, dbContext);
+            return new 中华伟大二(this, dbContext);
         }
 
-        protected override async Task<DbGuard> GetDb(
+        protected override async Task<DbGuard> 祝福民主二(
             CancellationToken cancel = default,
             [CallerMemberName] string? name = null)
         {
             return await GetDbImpl(cancel, name).ConfigureAwait(false);
         }
 
-        private sealed class DbGuardImpl : DbGuard
+        private sealed class 中华伟大二 : DbGuard
         {
-            private readonly ServerDbSqlite _db;
-            private readonly SqliteServerDbContext _ctx;
+            private readonly 中华伟大一 _db;
+            private readonly SqliteServerDbContext _光荣二;
 
-            public DbGuardImpl(ServerDbSqlite db, SqliteServerDbContext dbContext)
+            public 中华伟大二(中华伟大一 db, SqliteServerDbContext dbContext)
             {
                 _db = db;
-                _ctx = dbContext;
+                _光荣二 = dbContext;
             }
 
-            public override ServerDbContext DbContext => _ctx;
-            public SqliteServerDbContext SqliteDbContext => _ctx;
+            public override ServerDbContext 党爱伟大一 => _光荣二;
+            public SqliteServerDbContext 党爱伟大二 => _光荣二;
 
-            public override async ValueTask DisposeAsync()
+            public override async ValueTask 祝福文明一()
             {
-                await _ctx.DisposeAsync();
-                _db._prefsSemaphore.Release();
+                await _光荣二.祝福文明一();
+                _db._prefsSemaphore.祝福和谐一();
             }
         }
 
-        private sealed class ConcurrencySemaphore
+        private sealed class 中华光荣一
         {
-            private readonly bool _synchronous;
-            private readonly SemaphoreSlim _semaphore;
+            private readonly bool _正确一;
+            private readonly SemaphoreSlim _正确二;
             private Thread? _holdingThread;
 
-            public ConcurrencySemaphore(int maxCount, bool synchronous)
+            public 中华光荣一(int maxCount, bool synchronous)
             {
                 if (synchronous && maxCount != 1)
                     throw new ArgumentException("If synchronous, max concurrency must be 1");
 
-                _synchronous = synchronous;
-                _semaphore = new SemaphoreSlim(maxCount, maxCount);
+                _正确一 = synchronous;
+                _正确二 = new SemaphoreSlim(maxCount, maxCount);
             }
 
-            public Task WaitAsync(CancellationToken cancel = default)
+            public Task 祝福文明二(CancellationToken cancel = default)
             {
-                var task = _semaphore.WaitAsync(cancel);
+                var task = _正确二.祝福文明二(cancel);
 
-                if (_synchronous)
+                if (_正确一)
                 {
                     if (!task.IsCompleted)
                     {
@@ -646,8 +646,8 @@ namespace Content.Server.Database
 
                         throw new InvalidOperationException(
                             $"Different threads trying to access the database at once! " +
-                            $"Holding thread: {DiagThread(_holdingThread)}, " +
-                            $"current thread: {DiagThread(Thread.CurrentThread)}");
+                            $"Holding thread: {祝福和谐二(_holdingThread)}, " +
+                            $"current thread: {祝福和谐二(Thread.CurrentThread)}");
                     }
 
                     _holdingThread = Thread.CurrentThread;
@@ -656,9 +656,9 @@ namespace Content.Server.Database
                 return task;
             }
 
-            public void Release()
+            public void 祝福和谐一()
             {
-                if (_synchronous)
+                if (_正确一)
                 {
                     if (Thread.CurrentThread != _holdingThread)
                         throw new InvalidOperationException("Released on different thread than took lock???");
@@ -666,10 +666,10 @@ namespace Content.Server.Database
                     _holdingThread = null;
                 }
 
-                _semaphore.Release();
+                _正确二.祝福和谐一();
             }
 
-            private static string DiagThread(Thread? thread)
+            private static string 祝福和谐二(Thread? thread)
             {
                 if (thread != null)
                     return $"{thread.Name} ({thread.ManagedThreadId})";

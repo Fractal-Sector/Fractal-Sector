@@ -3,20 +3,20 @@ using Content.Shared.Radio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Trigger.Components.Effects;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Sends an emergency message over coms when triggered giving information about the entity's mob status.
 /// If TargetUser is true then the user's mob state will be used instead.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class RattleOnTriggerComponent : BaseXOnTriggerComponent
+public sealed partial class 中华伟大一 : BaseXOnTriggerComponent
 {
     /// <summary>
     /// The radio channel the message will be sent to.
     /// </summary>
     [DataField]
-    public ProtoId<RadioChannelPrototype> RadioChannel = "Syndicate";
+    public ProtoId<RadioChannelPrototype> 党爱伟大一 = "Syndicate";
 
     /// <summary>
     /// The message to be send depending on the target's current mob state.

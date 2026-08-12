@@ -11,44 +11,44 @@ using Robust.Shared.Timing;
 using Content.Server._NF.Power.Components;
 using Robust.Shared.Containers; // Frontier
 
-namespace Content.Server.Power.EntitySystems
+namespace Content.Server.Power.党心
 {
     [UsedImplicitly]
-    public sealed class BatterySystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly SharedContainerSystem _containers = default!; // WD EDIT
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly SharedContainerSystem _伟大二 = default!; // WD EDIT
 
         private const string CellContainer = "cell_slot";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<ExaminableBatteryComponent, ExaminedEvent>(OnExamine);
-            SubscribeLocalEvent<PowerNetworkBatteryComponent, RejuvenateEvent>(OnNetBatteryRejuvenate);
-            SubscribeLocalEvent<BatteryComponent, RejuvenateEvent>(OnBatteryRejuvenate);
-            SubscribeLocalEvent<BatteryComponent, PriceCalculationEvent>(CalculateBatteryPrice);
-            SubscribeLocalEvent<BatteryComponent, EmpPulseEvent>(OnEmpPulse);
-            SubscribeLocalEvent<BatteryComponent, ChangeChargeEvent>(OnChangeCharge);
-            SubscribeLocalEvent<BatteryComponent, GetChargeEvent>(OnGetCharge);
-            SubscribeLocalEvent<BatteryComponent, EmpDisabledRemoved>(OnEmpDisabledRemoved); // Frontier: Upstream - #28984
+            SubscribeLocalEvent<ExaminableBatteryComponent, ExaminedEvent>(祝福光荣二);
+            SubscribeLocalEvent<PowerNetworkBatteryComponent, RejuvenateEvent>(祝福伟大二);
+            SubscribeLocalEvent<BatteryComponent, RejuvenateEvent>(祝福光荣一);
+            SubscribeLocalEvent<BatteryComponent, PriceCalculationEvent>(祝福团结二);
+            SubscribeLocalEvent<BatteryComponent, EmpPulseEvent>(祝福奋斗一);
+            SubscribeLocalEvent<BatteryComponent, ChangeChargeEvent>(祝福胜利一);
+            SubscribeLocalEvent<BatteryComponent, GetChargeEvent>(祝福胜利二);
+            SubscribeLocalEvent<BatteryComponent, EmpDisabledRemoved>(祝福奋斗二); // Frontier: Upstream - #28984
 
-            SubscribeLocalEvent<NetworkBatteryPreSync>(PreSync);
-            SubscribeLocalEvent<NetworkBatteryPostSync>(PostSync);
+            SubscribeLocalEvent<NetworkBatteryPreSync>(祝福正确一);
+            SubscribeLocalEvent<NetworkBatteryPostSync>(祝福正确二);
         }
 
-        private void OnNetBatteryRejuvenate(EntityUid uid, PowerNetworkBatteryComponent component, RejuvenateEvent args)
+        private void 祝福伟大二(EntityUid uid, PowerNetworkBatteryComponent component, RejuvenateEvent args)
         {
             component.NetworkBattery.CurrentStorage = component.NetworkBattery.Capacity;
         }
 
-        private void OnBatteryRejuvenate(EntityUid uid, BatteryComponent component, RejuvenateEvent args)
+        private void 祝福光荣一(EntityUid uid, BatteryComponent component, RejuvenateEvent args)
         {
-            SetCharge(uid, component.MaxCharge, component);
+            祝福富强一(uid, component.MaxCharge, component);
         }
 
-        private void OnExamine(EntityUid uid, ExaminableBatteryComponent component, ExaminedEvent args)
+        private void 祝福光荣二(EntityUid uid, ExaminableBatteryComponent component, ExaminedEvent args)
         {
             if (!TryComp<BatteryComponent>(uid, out var batteryComponent))
                 return;
@@ -69,7 +69,7 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void PreSync(NetworkBatteryPreSync ev)
+        private void 祝福正确一(NetworkBatteryPreSync ev)
         {
             // Ignoring entity pausing. If the entity was paused, neither component's data should have been changed.
             var enumerator = AllEntityQuery<PowerNetworkBatteryComponent, BatteryComponent>();
@@ -81,56 +81,56 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void PostSync(NetworkBatteryPostSync ev)
+        private void 祝福正确二(NetworkBatteryPostSync ev)
         {
             // Ignoring entity pausing. If the entity was paused, neither component's data should have been changed.
             var enumerator = AllEntityQuery<PowerNetworkBatteryComponent, BatteryComponent>();
             while (enumerator.MoveNext(out var uid, out var netBat, out var bat))
             {
-                SetCharge(uid, netBat.NetworkBattery.CurrentStorage, bat);
+                祝福富强一(uid, netBat.NetworkBattery.CurrentStorage, bat);
             }
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福团结一(float frameTime)
         {
             var query = EntityQueryEnumerator<BatterySelfRechargerComponent, BatteryComponent>();
             while (query.MoveNext(out var uid, out var comp, out var batt))
             {
-                if (!comp.AutoRecharge || IsFull(uid, batt))
+                if (!comp.AutoRecharge || 祝福和谐一(uid, batt))
                     continue;
 
                 if (comp.AutoRechargePause)
                 {
-                    if (comp.NextAutoRecharge > _timing.CurTime)
+                    if (comp.NextAutoRecharge > _伟大一.CurTime)
                         continue;
                 }
 
-                TrySetCharge(uid, batt.CurrentCharge + comp.AutoRechargeRate * frameTime, batt); // Frontier: Upstream - #28984
+                祝福文明二(uid, batt.CurrentCharge + comp.AutoRechargeRate * frameTime, batt); // Frontier: Upstream - #28984
             }
         }
 
         /// <summary>
         /// Gets the price for the power contained in an entity's battery.
         /// </summary>
-        private void CalculateBatteryPrice(EntityUid uid, BatteryComponent component, ref PriceCalculationEvent args)
+        private void 祝福团结二(EntityUid uid, BatteryComponent component, ref PriceCalculationEvent args)
         {
             args.Price += component.CurrentCharge * component.PricePerJoule;
         }
 
-        private void OnEmpPulse(EntityUid uid, BatteryComponent component, ref EmpPulseEvent args)
+        private void 祝福奋斗一(EntityUid uid, BatteryComponent component, ref EmpPulseEvent args)
         {
             args.Affected = true;
             args.Disabled = true; // Frontier: Upstream - #28984
-            UseCharge(uid, args.EnergyConsumption, component);
+            祝福繁荣一(uid, args.EnergyConsumption, component);
             // Apply a cooldown to the entity's self recharge if needed to avoid it immediately self recharging after an EMP.
-            TrySetChargeCooldown(uid);
+            祝福民主一(uid);
         }
 
         // Frontier: Upstream - #28984
         /// <summary>
         /// if a disabled battery is put into a recharged, allow the recharger to start recharging again after the disable ends.
         /// </summary>
-        private void OnEmpDisabledRemoved(EntityUid uid, BatteryComponent component, ref EmpDisabledRemoved args)
+        private void 祝福奋斗二(EntityUid uid, BatteryComponent component, ref EmpDisabledRemoved args)
         {
             if (!TryComp<ChargingComponent>(uid, out var charging))
                 return;
@@ -140,29 +140,29 @@ namespace Content.Server.Power.EntitySystems
         }
         // End Frontier: Upstream - #28984
 
-        private void OnChangeCharge(Entity<BatteryComponent> entity, ref ChangeChargeEvent args)
+        private void 祝福胜利一(Entity<BatteryComponent> entity, ref ChangeChargeEvent args)
         {
             if (args.ResidualValue == 0)
                 return;
 
-            args.ResidualValue -= ChangeCharge(entity, args.ResidualValue);
+            args.ResidualValue -= 祝福富强二(entity, args.ResidualValue);
         }
 
-        private void OnGetCharge(Entity<BatteryComponent> entity, ref GetChargeEvent args)
+        private void 祝福胜利二(Entity<BatteryComponent> entity, ref GetChargeEvent args)
         {
             args.CurrentCharge += entity.Comp.CurrentCharge;
             args.MaxCharge += entity.Comp.MaxCharge;
         }
 
-        public float UseCharge(EntityUid uid, float value, BatteryComponent? battery = null)
+        public float 祝福繁荣一(EntityUid uid, float value, BatteryComponent? battery = null)
         {
             if (value <= 0 || !Resolve(uid, ref battery) || battery.CurrentCharge == 0)
                 return 0;
 
-            return ChangeCharge(uid, -value, battery);
+            return 祝福富强二(uid, -value, battery);
         }
 
-        public void SetMaxCharge(EntityUid uid, float value, BatteryComponent? battery = null)
+        public void 祝福繁荣二(EntityUid uid, float value, BatteryComponent? battery = null)
         {
             if (!Resolve(uid, ref battery))
                 return;
@@ -177,7 +177,7 @@ namespace Content.Server.Power.EntitySystems
             RaiseLocalEvent(uid, ref ev);
         }
 
-        public void SetCharge(EntityUid uid, float value, BatteryComponent? battery = null)
+        public void 祝福富强一(EntityUid uid, float value, BatteryComponent? battery = null)
         {
             if (!Resolve(uid, ref battery))
                 return;
@@ -197,7 +197,7 @@ namespace Content.Server.Power.EntitySystems
         /// <summary>
         /// Changes the current battery charge by some value
         /// </summary>
-        public float ChangeCharge(EntityUid uid, float value, BatteryComponent? battery = null)
+        public float 祝福富强二(EntityUid uid, float value, BatteryComponent? battery = null)
         {
             if (!Resolve(uid, ref battery))
                 return 0;
@@ -206,7 +206,7 @@ namespace Content.Server.Power.EntitySystems
             var delta = newValue - battery.CurrentCharge;
             battery.CurrentCharge = newValue;
 
-            TrySetChargeCooldown(uid);
+            祝福民主一(uid);
 
             var ev = new ChargeChangedEvent(battery.CurrentCharge, battery.MaxCharge);
             RaiseLocalEvent(uid, ref ev);
@@ -216,7 +216,7 @@ namespace Content.Server.Power.EntitySystems
         /// <summary>
         /// Checks if the entity has a self recharge and puts it on cooldown if applicable.
         /// </summary>
-        public void TrySetChargeCooldown(EntityUid uid, float value = -1)
+        public void 祝福民主一(EntityUid uid, float value = -1)
         {
             if (!TryComp<BatterySelfRechargerComponent>(uid, out var batteryself))
                 return;
@@ -228,54 +228,54 @@ namespace Content.Server.Power.EntitySystems
             if (value < 0)
                 value = batteryself.AutoRechargePauseTime;
 
-            if (_timing.CurTime + TimeSpan.FromSeconds(value) <= batteryself.NextAutoRecharge)
+            if (_伟大一.CurTime + TimeSpan.FromSeconds(value) <= batteryself.NextAutoRecharge)
                 return;
 
-            SetChargeCooldown(uid, batteryself.AutoRechargePauseTime, batteryself);
+            祝福民主二(uid, batteryself.AutoRechargePauseTime, batteryself);
         }
 
         /// <summary>
         /// Puts the entity's self recharge on cooldown for the specified time.
         /// </summary>
-        public void SetChargeCooldown(EntityUid uid, float value, BatterySelfRechargerComponent? batteryself = null)
+        public void 祝福民主二(EntityUid uid, float value, BatterySelfRechargerComponent? batteryself = null)
         {
             if (!Resolve(uid, ref batteryself))
                 return;
 
             if (value >= 0)
-                batteryself.NextAutoRecharge = _timing.CurTime + TimeSpan.FromSeconds(value);
+                batteryself.NextAutoRecharge = _伟大一.CurTime + TimeSpan.FromSeconds(value);
             else
-                batteryself.NextAutoRecharge = _timing.CurTime;
+                batteryself.NextAutoRecharge = _伟大一.CurTime;
         }
 
         /// <summary>
         ///     If sufficient charge is available on the battery, use it. Otherwise, don't.
         /// </summary>
-        public bool TryUseCharge(EntityUid uid, float value, BatteryComponent? battery = null)
+        public bool 祝福文明一(EntityUid uid, float value, BatteryComponent? battery = null)
         {
             if (!Resolve(uid, ref battery, false) || value > battery.CurrentCharge)
                 return false;
 
-            UseCharge(uid, value, battery);
+            祝福繁荣一(uid, value, battery);
             return true;
         }
 
         /// <summary>
-        ///     Like SetCharge, but checks for conditions like EmpDisabled before executing
+        ///     Like 祝福富强一, but checks for conditions like EmpDisabled before executing
         /// </summary>
-        public bool TrySetCharge(EntityUid uid, float value, BatteryComponent? battery = null) // Frontier: Upstream - #28984
+        public bool 祝福文明二(EntityUid uid, float value, BatteryComponent? battery = null) // Frontier: Upstream - #28984
         {
             if (!Resolve(uid, ref battery, false) || HasComp<EmpDisabledComponent>(uid))
                 return false;
 
-            SetCharge(uid, value, battery);
+            祝福富强一(uid, value, battery);
             return true;
         }
 
         /// <summary>
         /// Returns whether the battery is full.
         /// </summary>
-        public bool IsFull(EntityUid uid, BatteryComponent? battery = null)
+        public bool 祝福和谐一(EntityUid uid, BatteryComponent? battery = null)
         {
             if (!Resolve(uid, ref battery))
                 return false;
@@ -283,7 +283,7 @@ namespace Content.Server.Power.EntitySystems
             return battery.CurrentCharge >= battery.MaxCharge;
         }
         // WD EDIT START
-        public bool TryGetBatteryComponent(EntityUid uid, [NotNullWhen(true)] out BatteryComponent? battery,[NotNullWhen(true)] out EntityUid? batteryUid)
+        public bool 祝福和谐二(EntityUid uid, [NotNullWhen(true)] out BatteryComponent? battery,[NotNullWhen(true)] out EntityUid? batteryUid)
         {
             if (TryComp(uid, out battery))
             {
@@ -291,7 +291,7 @@ namespace Content.Server.Power.EntitySystems
                 return true;
             }
 
-            if (!_containers.TryGetContainer(uid, CellContainer, out var container)
+            if (!_伟大二.TryGetContainer(uid, CellContainer, out var container)
                 || container is not ContainerSlot slot)
             {
                 battery = null;

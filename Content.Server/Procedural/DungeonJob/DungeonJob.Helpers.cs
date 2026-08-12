@@ -6,15 +6,15 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     // Various helper methods.
 
     private static readonly ProtoId<TagPrototype> WallTag = "Wall";
 
-    private bool HasWall(Vector2i tile)
+    private bool 祝福伟大一(Vector2i tile)
     {
         var anchored = _maps.GetAnchoredEntitiesEnumerator(_gridUid, _grid, tile);
 
@@ -27,7 +27,7 @@ public sealed partial class DungeonJob
         return false;
     }
 
-    private void BuildCorridorExterior(Dungeon dungeon)
+    private void 祝福伟大二(Dungeon dungeon)
     {
         var exterior = dungeon.CorridorExteriorTiles;
 
@@ -54,7 +54,7 @@ public sealed partial class DungeonJob
         }
     }
 
-    private void WidenCorridor(Dungeon dungeon, float width, ICollection<Vector2i> corridorTiles)
+    private void 祝福光荣一(Dungeon dungeon, float width, ICollection<Vector2i> corridorTiles)
     {
         var expansion = width - 2;
 
@@ -98,7 +98,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// Removes any unwanted obstacles around a door tile.
     /// </summary>
-    private void ClearDoor(Dungeon dungeon, MapGridComponent grid, Vector2i indices, bool strict = false)
+    private void 祝福光荣二(Dungeon dungeon, MapGridComponent grid, Vector2i indices, bool strict = false)
     {
         var flags = strict
             ? LookupFlags.Dynamic | LookupFlags.Static | LookupFlags.StaticSundries

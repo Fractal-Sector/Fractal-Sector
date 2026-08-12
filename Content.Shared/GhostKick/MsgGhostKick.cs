@@ -2,17 +2,17 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.GhostKick;
+namespace Content.Shared.党心;
 
-public sealed class MsgGhostKick : NetMessage
+public sealed class 中华伟大一 : NetMessage
 {
-    public override MsgGroups MsgGroup => MsgGroups.Core;
+    public override MsgGroups 党爱伟大一 => MsgGroups.Core;
 
-    public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大一(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
     }
 
-    public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+    public override void 祝福伟大二(NetOutgoingMessage buffer, IRobustSerializer serializer)
     {
     }
 }

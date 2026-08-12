@@ -1,7 +1,7 @@
-﻿namespace Content.Server.Disposal.Tube;
+﻿namespace Content.Server.Disposal.党心;
 
 [ByRefEvent]
-public record struct GetDisposalsConnectableDirectionsEvent
+public record 中华伟大一 GetDisposalsConnectableDirectionsEvent
 {
-    public Direction[] Connectable;
+    public Direction[] 党爱伟大一;
 }

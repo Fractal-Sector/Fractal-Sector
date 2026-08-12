@@ -17,59 +17,59 @@ using Robust.Shared.Prototypes;
 using Content.Server._NF.Cargo.Systems;
 using Content.Server.Hands.Systems;
 
-namespace Content.Server._NF.Contraband.Systems;
+namespace Content.Server._NF.Contraband.党心;
 
 /// <summary>
 /// Contraband system. Contraband Pallet UI Console is mostly a copy of the system in cargo. Checkraze Note: copy of my code from cargosystems.shuttles.cs
 /// </summary>
-public sealed partial class ContrabandTurnInSystem : SharedContrabandTurnInSystem
+public sealed partial class 中华伟大一 : SharedContrabandTurnInSystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly HandsSystem _光荣一 = default!;
+    [Dependency] private readonly StackSystem _光荣二 = default!;
+    [Dependency] private readonly StationSystem _正确一 = default!;
+    [Dependency] private readonly TransformSystem _正确二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _团结一 = default!;
 
-    private EntityQuery<MobStateComponent> _mobQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
-    private EntityQuery<CargoSellBlacklistComponent> _blacklistQuery;
+    private EntityQuery<MobStateComponent> _团结二;
+    private EntityQuery<TransformComponent> _奋斗一;
+    private EntityQuery<CargoSellBlacklistComponent> _奋斗二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _xformQuery = GetEntityQuery<TransformComponent>();
-        _blacklistQuery = GetEntityQuery<CargoSellBlacklistComponent>();
-        _mobQuery = GetEntityQuery<MobStateComponent>();
+        _奋斗一 = GetEntityQuery<TransformComponent>();
+        _奋斗二 = GetEntityQuery<CargoSellBlacklistComponent>();
+        _团结二 = GetEntityQuery<MobStateComponent>();
 
-        SubscribeLocalEvent<ContrabandPalletConsoleComponent, ContrabandPalletSellMessage>(OnPalletSale);
-        SubscribeLocalEvent<ContrabandPalletConsoleComponent, ContrabandPalletAppraiseMessage>(OnPalletAppraise);
-        SubscribeLocalEvent<ContrabandPalletConsoleComponent, BoundUIOpenedEvent>(OnPalletUIOpen);
+        SubscribeLocalEvent<ContrabandPalletConsoleComponent, ContrabandPalletSellMessage>(祝福团结二);
+        SubscribeLocalEvent<ContrabandPalletConsoleComponent, ContrabandPalletAppraiseMessage>(祝福光荣二);
+        SubscribeLocalEvent<ContrabandPalletConsoleComponent, BoundUIOpenedEvent>(祝福光荣一);
     }
 
-    private void UpdatePalletConsoleInterface(EntityUid uid, ContrabandPalletConsoleComponent comp)
+    private void 祝福伟大二(EntityUid uid, ContrabandPalletConsoleComponent comp)
     {
-        var bui = _uiSystem.HasUi(uid, ContrabandPalletConsoleUiKey.Contraband);
+        var bui = _团结一.HasUi(uid, ContrabandPalletConsoleUiKey.Contraband);
         if (Transform(uid).GridUid is not EntityUid gridUid)
         {
-            _uiSystem.SetUiState(uid, ContrabandPalletConsoleUiKey.Contraband,
+            _团结一.SetUiState(uid, ContrabandPalletConsoleUiKey.Contraband,
                 new ContrabandPalletConsoleInterfaceState(0, 0, false));
             return;
         }
 
-        GetPalletGoods(gridUid, comp, out var toSell, out var amount);
+        祝福正确二(gridUid, comp, out var toSell, out var amount);
 
-        _uiSystem.SetUiState(uid, ContrabandPalletConsoleUiKey.Contraband,
+        _团结一.SetUiState(uid, ContrabandPalletConsoleUiKey.Contraband,
             new ContrabandPalletConsoleInterfaceState((int) amount, toSell.Count, true));
     }
 
-    private void OnPalletUIOpen(EntityUid uid, ContrabandPalletConsoleComponent component, BoundUIOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, ContrabandPalletConsoleComponent component, BoundUIOpenedEvent args)
     {
         var player = args.Actor;
 
-        UpdatePalletConsoleInterface(uid, component);
+        祝福伟大二(uid, component);
     }
 
     /// <summary>
@@ -80,11 +80,11 @@ public sealed partial class ContrabandTurnInSystem : SharedContrabandTurnInSyste
     /// known for their entity spam i wouldnt put it past them
     /// </summary>
 
-    private void OnPalletAppraise(EntityUid uid, ContrabandPalletConsoleComponent component, ContrabandPalletAppraiseMessage args)
+    private void 祝福光荣二(EntityUid uid, ContrabandPalletConsoleComponent component, ContrabandPalletAppraiseMessage args)
     {
         var player = args.Actor;
 
-        UpdatePalletConsoleInterface(uid, component);
+        祝福伟大二(uid, component);
     }
 
     private List<(EntityUid Entity, ContrabandPalletComponent Component)> GetContrabandPallets(EntityUid gridUid)
@@ -106,10 +106,10 @@ public sealed partial class ContrabandTurnInSystem : SharedContrabandTurnInSyste
         return pads;
     }
 
-    private void SellPallets(EntityUid gridUid, ContrabandPalletConsoleComponent component, EntityUid? station, out int amount)
+    private void 祝福正确一(EntityUid gridUid, ContrabandPalletConsoleComponent component, EntityUid? station, out int amount)
     {
-        station ??= _station.GetOwningStation(gridUid);
-        GetPalletGoods(gridUid, component, out var toSell, out amount);
+        station ??= _正确一.GetOwningStation(gridUid);
+        祝福正确二(gridUid, component, out var toSell, out amount);
 
         Log.Debug($"{component.Faction} sold {toSell.Count} contraband items for {amount}");
 
@@ -125,14 +125,14 @@ public sealed partial class ContrabandTurnInSystem : SharedContrabandTurnInSyste
         }
     }
 
-    private void GetPalletGoods(EntityUid gridUid, ContrabandPalletConsoleComponent console, out HashSet<EntityUid> toSell, out int amount)
+    private void 祝福正确二(EntityUid gridUid, ContrabandPalletConsoleComponent console, out HashSet<EntityUid> toSell, out int amount)
     {
         amount = 0;
         toSell = new HashSet<EntityUid>();
 
         foreach (var (palletUid, _) in GetContrabandPallets(gridUid))
         {
-            foreach (var ent in _lookup.GetEntitiesIntersecting(palletUid,
+            foreach (var ent in _伟大二.GetEntitiesIntersecting(palletUid,
                          LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Approximate))
             {
                 // Dont sell:
@@ -140,13 +140,13 @@ public sealed partial class ContrabandTurnInSystem : SharedContrabandTurnInSyste
                 // - anything anchored (e.g. light fixtures)
                 // - anything blacklisted (e.g. players).
                 if (toSell.Contains(ent) ||
-                    _xformQuery.TryGetComponent(ent, out var xform) &&
-                    (xform.Anchored || !CanSell(ent, xform)))
+                    _奋斗一.TryGetComponent(ent, out var xform) &&
+                    (xform.Anchored || !祝福团结一(ent, xform)))
                 {
                     continue;
                 }
 
-                if (_blacklistQuery.HasComponent(ent))
+                if (_奋斗二.HasComponent(ent))
                     continue;
 
                 if (TryComp<ContrabandComponent>(ent, out var comp))
@@ -164,11 +164,11 @@ public sealed partial class ContrabandTurnInSystem : SharedContrabandTurnInSyste
         }
     }
 
-    private bool CanSell(EntityUid uid, TransformComponent xform)
+    private bool 祝福团结一(EntityUid uid, TransformComponent xform)
     {
-        if (_mobQuery.HasComponent(uid))
+        if (_团结二.HasComponent(uid))
         {
-            if (_mobQuery.GetComponent(uid).CurrentState == MobState.Dead) // Allow selling alive prisoners
+            if (_团结二.GetComponent(uid).CurrentState == MobState.Dead) // Allow selling alive prisoners
             {
                 return false;
             }
@@ -179,34 +179,34 @@ public sealed partial class ContrabandTurnInSystem : SharedContrabandTurnInSyste
         var children = xform.ChildEnumerator;
         while (children.MoveNext(out var child))
         {
-            if (!CanSell(child, _xformQuery.GetComponent(child)))
+            if (!祝福团结一(child, _奋斗一.GetComponent(child)))
                 return false;
         }
         // Look for blacklisted items and stop the selling of the container.
-        if (_blacklistQuery.HasComponent(uid))
+        if (_奋斗二.HasComponent(uid))
         {
             return false;
         }
         return true;
     }
 
-    private void OnPalletSale(EntityUid uid, ContrabandPalletConsoleComponent component, ContrabandPalletSellMessage args)
+    private void 祝福团结二(EntityUid uid, ContrabandPalletConsoleComponent component, ContrabandPalletSellMessage args)
     {
         var player = args.Actor;
 
         if (Transform(uid).GridUid is not EntityUid gridUid)
         {
-            _uiSystem.SetUiState(uid, ContrabandPalletConsoleUiKey.Contraband,
+            _团结一.SetUiState(uid, ContrabandPalletConsoleUiKey.Contraband,
                 new ContrabandPalletConsoleInterfaceState(0, 0, false));
             return;
         }
 
-        SellPallets(gridUid, component, null, out var price);
+        祝福正确一(gridUid, component, null, out var price);
 
-        var stackPrototype = _protoMan.Index<StackPrototype>(component.RewardType);
-        var stackUid = _stack.Spawn(price, stackPrototype, args.Actor.ToCoordinates());
-        if (!_hands.TryPickupAnyHand(args.Actor, stackUid))
-            _transform.SetLocalRotation(stackUid, Angle.Zero); // Orient these to grid north instead of map north
-        UpdatePalletConsoleInterface(uid, component);
+        var stackPrototype = _伟大一.Index<StackPrototype>(component.RewardType);
+        var stackUid = _光荣二.Spawn(price, stackPrototype, args.Actor.ToCoordinates());
+        if (!_光荣一.TryPickupAnyHand(args.Actor, stackUid))
+            _正确二.SetLocalRotation(stackUid, Angle.Zero); // Orient these to grid north instead of map north
+        祝福伟大二(uid, component);
     }
 }

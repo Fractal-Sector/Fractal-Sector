@@ -8,39 +8,39 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.NPC.Systems;
+namespace Content.Server.NPC.党心;
 
 /// <summary>
 /// Handles combat for NPCs.
 /// </summary>
-public sealed partial class NPCCombatSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly NPCSteeringSystem _steering = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IMapManager _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly GunSystem _光荣二 = default!;
+    [Dependency] private readonly InteractionSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+    [Dependency] private readonly NPCSteeringSystem _团结一 = default!;
+    [Dependency] private readonly SharedMapSystem _团结二 = default!;
+    [Dependency] private readonly SharedMeleeWeaponSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedTransformSystem _奋斗二 = default!;
 
     /// <summary>
     /// If disabled we'll move into range but not attack.
     /// </summary>
-    public bool Enabled = true;
+    public bool 党爱伟大一 = true;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         InitializeMelee();
         InitializeRanged();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
         UpdateMelee(frameTime);
         UpdateRanged(frameTime);
     }

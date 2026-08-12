@@ -9,11 +9,11 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 using ChunkIndicesEnumerator = Robust.Shared.Map.Enumerators.ChunkIndicesEnumerator;
 
-namespace Content.Server.Parallax;
+namespace Content.Server.党心;
 
-public sealed partial class BiomeSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializePlanetSetup()
+    private void 祝福伟大一()
     {
         // PlanetSetup methods are now part of this partial class
     }
@@ -21,7 +21,7 @@ public sealed partial class BiomeSystem
     /// <summary>
     /// Creates a simple planet setup for a map.
     /// </summary>
-    public void EnsurePlanet(EntityUid mapUid, BiomeTemplatePrototype biomeTemplate, int? seed = null, MetaDataComponent? metadata = null, Color? mapLight = null)
+    public void 祝福伟大二(EntityUid mapUid, BiomeTemplatePrototype biomeTemplate, int? seed = null, MetaDataComponent? metadata = null, Color? mapLight = null)
     {
         if (!Resolve(mapUid, ref metadata))
             return;
@@ -72,7 +72,7 @@ public sealed partial class BiomeSystem
     /// <summary>
     /// Sets the specified tiles as relevant and marks them as modified.
     /// </summary>
-    public void ReserveTiles(EntityUid mapUid, Box2 bounds, List<(Vector2i Index, Tile Tile)> tiles, BiomeComponent? biome = null, MapGridComponent? mapGrid = null)
+    public void 祝福光荣一(EntityUid mapUid, Box2 bounds, List<(Vector2i Index, Tile Tile)> tiles, BiomeComponent? biome = null, MapGridComponent? mapGrid = null)
     {
         if (!Resolve(mapUid, ref biome, ref mapGrid, false))
             return;
@@ -105,7 +105,7 @@ public sealed partial class BiomeSystem
         _mapSystem.SetTiles(mapUid, mapGrid, tiles);
     }
 
-    private void OnBiomeMapInit(EntityUid uid, BiomeComponent component, MapInitEvent args)
+    private void 祝福光荣二(EntityUid uid, BiomeComponent component, MapInitEvent args)
     {
         if (component.Seed == -1)
         {
@@ -138,7 +138,7 @@ public sealed partial class BiomeSystem
                         var aabb = fixture.Shape.ComputeAABB(pTransform, i);
 
                         setTiles.Clear();
-                        ReserveTiles(uid, aabb, setTiles);
+                        祝福光荣一(uid, aabb, setTiles);
                     }
                 }
             }
@@ -148,7 +148,7 @@ public sealed partial class BiomeSystem
     /// <summary>
     /// Preloads biome for the specified area.
     /// </summary>
-    public void Preload(EntityUid uid, BiomeComponent component, Box2 area)
+    public void 祝福正确一(EntityUid uid, BiomeComponent component, Box2 area)
     {
         var markers = component.MarkerLayers;
         var goobers = _markerChunks.GetOrNew(component);

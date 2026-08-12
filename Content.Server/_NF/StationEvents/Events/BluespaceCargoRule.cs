@@ -12,23 +12,23 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Random;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<BluespaceCargoRuleComponent>
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MapSystem _map = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly MapSystem _光荣二 = default!;
 
-    protected override void Added(EntityUid uid, BluespaceCargoRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, BluespaceCargoRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.Added(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
     }
 
-    protected override void Started(EntityUid uid, BluespaceCargoRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, BluespaceCargoRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大二(uid, component, gameRule, args);
 
         if (!TryGetRandomStation(out var chosenStation, HasComp<StationJobsComponent>))
             return;
@@ -41,14 +41,14 @@ public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleCo
         if (grid is null)
             return;
 
-        var amountToSpawn = _random.Next(component.MinimumSpawns, component.MaximumSpawns + 1); // +1 required: [min, max)
+        var amountToSpawn = _光荣一.Next(component.MinimumSpawns, component.MaximumSpawns + 1); // +1 required: [min, max)
         for (var i = 0; i < amountToSpawn; i++)
         {
-            SpawnOnRandomGridLocation(grid.Value, component.SpawnerPrototype, component.FlashPrototype, component.RequireSafeAtmosphere);
+            祝福光荣一(grid.Value, component.SpawnerPrototype, component.FlashPrototype, component.RequireSafeAtmosphere);
         }
     }
 
-    public void SpawnOnRandomGridLocation(EntityUid grid, string toSpawn, string toSpawnFlash, bool safeAtmosphere)
+    public void 祝福光荣一(EntityUid grid, string toSpawn, string toSpawnFlash, bool safeAtmosphere)
     {
         if (!TryComp<MapGridComponent>(grid, out var gridComp))
             return;
@@ -56,18 +56,18 @@ public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleCo
         var xform = Transform(grid);
 
         var targetCoords = xform.Coordinates;
-        var gridBounds = gridComp.LocalAABB.Scale(_configuration.GetCVar(NFCCVars.CrateGenerationGridBoundsScale));
+        var gridBounds = gridComp.LocalAABB.Scale(_伟大一.GetCVar(NFCCVars.CrateGenerationGridBoundsScale));
 
         for (var i = 0; i < 25; i++)
         {
-            var randomX = _random.Next((int)gridBounds.Left, (int)gridBounds.Right);
-            var randomY = _random.Next((int)gridBounds.Bottom, (int)gridBounds.Top);
+            var randomX = _光荣一.Next((int)gridBounds.Left, (int)gridBounds.Right);
+            var randomY = _光荣一.Next((int)gridBounds.Bottom, (int)gridBounds.Top);
 
             var tile = new Vector2i(randomX, randomY);
 
             // no air-blocked areas.
-            if (_atmosphere.IsTileSpace(grid, xform.MapUid, tile) ||
-                _atmosphere.IsTileAirBlocked(grid, tile, mapGridComp: gridComp))
+            if (_伟大二.IsTileSpace(grid, xform.MapUid, tile) ||
+                _伟大二.IsTileAirBlocked(grid, tile, mapGridComp: gridComp))
             {
                 continue;
             }
@@ -75,7 +75,7 @@ public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleCo
             // don't spawn inside of solid objects
             var physQuery = GetEntityQuery<PhysicsComponent>();
             var valid = true;
-            foreach (var ent in _map.GetAnchoredEntities(grid, gridComp, tile))
+            foreach (var ent in _光荣二.GetAnchoredEntities(grid, gridComp, tile))
             {
                 if (!physQuery.TryGetComponent(ent, out var body))
                     continue;
@@ -90,12 +90,12 @@ public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleCo
             if (!valid)
                 continue;
 
-            if (safeAtmosphere && !_atmosphere.IsTileMixtureProbablySafe(grid, grid, tile))
+            if (safeAtmosphere && !_伟大二.IsTileMixtureProbablySafe(grid, grid, tile))
             {
                 continue;
             }
 
-            targetCoords = _map.GridTileToLocal(grid, gridComp, tile);
+            targetCoords = _光荣二.GridTileToLocal(grid, gridComp, tile);
             break;
         }
 

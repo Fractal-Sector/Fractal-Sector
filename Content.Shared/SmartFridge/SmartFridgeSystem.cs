@@ -12,42 +12,42 @@ using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.SmartFridge;
+namespace Content.Shared.党心;
 
-public sealed class SmartFridgeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣二 = default!;
+    [Dependency] private readonly SharedContainerSystem _正确一 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SmartFridgeComponent, InteractUsingEvent>(OnInteractUsing, after: [typeof(AnchorableSystem)]);
-        SubscribeLocalEvent<SmartFridgeComponent, EntRemovedFromContainerMessage>(OnItemRemoved);
+        SubscribeLocalEvent<SmartFridgeComponent, InteractUsingEvent>(祝福光荣一, after: [typeof(AnchorableSystem)]);
+        SubscribeLocalEvent<SmartFridgeComponent, EntRemovedFromContainerMessage>(祝福光荣二);
 
-        SubscribeLocalEvent<SmartFridgeComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAltVerb);
-        SubscribeLocalEvent<SmartFridgeComponent, GetDumpableVerbEvent>(OnGetDumpableVerb);
-        SubscribeLocalEvent<SmartFridgeComponent, DumpEvent>(OnDump);
+        SubscribeLocalEvent<SmartFridgeComponent, GetVerbsEvent<AlternativeVerb>>(祝福团结一);
+        SubscribeLocalEvent<SmartFridgeComponent, GetDumpableVerbEvent>(祝福团结二);
+        SubscribeLocalEvent<SmartFridgeComponent, DumpEvent>(祝福奋斗一);
 
         Subs.BuiEvents<SmartFridgeComponent>(SmartFridgeUiKey.Key,
             sub =>
             {
-                sub.Event<SmartFridgeDispenseItemMessage>(OnDispenseItem);
+                sub.Event<SmartFridgeDispenseItemMessage>(祝福正确二);
             });
     }
 
-    private bool DoInsert(Entity<SmartFridgeComponent> ent, EntityUid user, IEnumerable<EntityUid> usedItems, bool playSound)
+    private bool 祝福伟大二(Entity<SmartFridgeComponent> ent, EntityUid user, IEnumerable<EntityUid> usedItems, bool playSound)
     {
-        if (!_container.TryGetContainer(ent, ent.Comp.Container, out var container))
+        if (!_正确一.TryGetContainer(ent, ent.Comp.Container, out var container))
             return false;
 
-        if (ent.Comp.CheckAccessOnInsert && !Allowed(ent, user)) // Frontier: add CheckAccessOnInsert
+        if (ent.Comp.CheckAccessOnInsert && !祝福正确一(ent, user)) // Frontier: add CheckAccessOnInsert
             return true;
 
         if (ent.Comp.ContainedEntries.Count >= ent.Comp.MaxContainedCount) // Frontier
@@ -56,11 +56,11 @@ public sealed class SmartFridgeSystem : EntitySystem
         bool anyInserted = false;
         foreach (var used in usedItems)
         {
-            if (!_whitelist.CheckBoth(used, ent.Comp.Blacklist, ent.Comp.Whitelist))
+            if (!_伟大二.CheckBoth(used, ent.Comp.Blacklist, ent.Comp.Whitelist))
                 continue;
             anyInserted = true;
 
-            _container.Insert(used, container);
+            _正确一.Insert(used, container);
             var key = new SmartFridgeEntry(Identity.Name(used, EntityManager));
             if (!ent.Comp.Entries.Contains(key))
                 ent.Comp.Entries.Add(key);
@@ -75,21 +75,21 @@ public sealed class SmartFridgeSystem : EntitySystem
 
         if (anyInserted && playSound)
         {
-            _audio.PlayPredicted(ent.Comp.InsertSound, ent, user);
+            _光荣二.PlayPredicted(ent.Comp.InsertSound, ent, user);
         }
 
         return anyInserted;
     }
 
-    private void OnInteractUsing(Entity<SmartFridgeComponent> ent, ref InteractUsingEvent args)
+    private void 祝福光荣一(Entity<SmartFridgeComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Handled || !_hands.CanDrop(args.User, args.Used))
+        if (args.Handled || !_正确二.CanDrop(args.User, args.Used))
             return;
 
-        args.Handled = DoInsert(ent, args.User, [args.Used], true);
+        args.Handled = 祝福伟大二(ent, args.User, [args.Used], true);
     }
 
-    private void OnItemRemoved(Entity<SmartFridgeComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣二(Entity<SmartFridgeComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         var key = new SmartFridgeEntry(Identity.Name(args.Entity, EntityManager));
 
@@ -108,37 +108,37 @@ public sealed class SmartFridgeSystem : EntitySystem
         Dirty(ent);
     }
 
-    private bool Allowed(Entity<SmartFridgeComponent> machine, EntityUid user)
+    private bool 祝福正确一(Entity<SmartFridgeComponent> machine, EntityUid user)
     {
-        if (_accessReader.IsAllowed(user, machine))
+        if (_伟大一.IsAllowed(user, machine))
             return true;
 
-        _popup.PopupPredicted(Loc.GetString("smart-fridge-component-try-eject-access-denied"), machine, user);
-        _audio.PlayPredicted(machine.Comp.SoundDeny, machine, user);
+        _团结一.PopupPredicted(Loc.GetString("smart-fridge-component-try-eject-access-denied"), machine, user);
+        _光荣二.PlayPredicted(machine.Comp.SoundDeny, machine, user);
         return false;
     }
 
-    private void OnDispenseItem(Entity<SmartFridgeComponent> ent, ref SmartFridgeDispenseItemMessage args)
+    private void 祝福正确二(Entity<SmartFridgeComponent> ent, ref SmartFridgeDispenseItemMessage args)
     {
-        if (!_timing.IsFirstTimePredicted)
+        if (!_光荣一.IsFirstTimePredicted)
             return;
 
-        if (!Allowed(ent, args.Actor))
+        if (!祝福正确一(ent, args.Actor))
             return;
 
         if (!ent.Comp.ContainedEntries.TryGetValue(args.Entry, out var contained))
         {
-            _audio.PlayPredicted(ent.Comp.SoundDeny, ent, args.Actor);
-            _popup.PopupPredicted(Loc.GetString("smart-fridge-component-try-eject-unknown-entry"), ent, args.Actor);
+            _光荣二.PlayPredicted(ent.Comp.SoundDeny, ent, args.Actor);
+            _团结一.PopupPredicted(Loc.GetString("smart-fridge-component-try-eject-unknown-entry"), ent, args.Actor);
             return;
         }
 
         foreach (var item in contained)
         {
-            if (!_container.TryRemoveFromContainer(GetEntity(item)))
+            if (!_正确一.TryRemoveFromContainer(GetEntity(item)))
                 continue;
 
-            _audio.PlayPredicted(ent.Comp.SoundVend, ent, args.Actor);
+            _光荣二.PlayPredicted(ent.Comp.SoundVend, ent, args.Actor);
             contained.Remove(item);
             // Frontier: remove listing when empty
             if (contained.Count <= 0)
@@ -151,37 +151,37 @@ public sealed class SmartFridgeSystem : EntitySystem
             return;
         }
 
-        _audio.PlayPredicted(ent.Comp.SoundDeny, ent, args.Actor);
-        _popup.PopupPredicted(Loc.GetString("smart-fridge-component-try-eject-out-of-stock"), ent, args.Actor);
+        _光荣二.PlayPredicted(ent.Comp.SoundDeny, ent, args.Actor);
+        _团结一.PopupPredicted(Loc.GetString("smart-fridge-component-try-eject-out-of-stock"), ent, args.Actor);
     }
 
-    private void OnGetAltVerb(Entity<SmartFridgeComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福团结一(Entity<SmartFridgeComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         var user = args.User;
 
         if (!args.CanInteract
             || args.Using is not { } item
-            || !_hands.CanDrop(user, item)
-            || !_whitelist.CheckBoth(item, ent.Comp.Blacklist, ent.Comp.Whitelist))
+            || !_正确二.CanDrop(user, item)
+            || !_伟大二.CheckBoth(item, ent.Comp.Blacklist, ent.Comp.Whitelist))
             return;
 
         args.Verbs.Add(new AlternativeVerb
         {
-            Act = () => DoInsert(ent, user, [item], true),
+            Act = () => 祝福伟大二(ent, user, [item], true),
             Text = Loc.GetString("verb-categories-insert"),
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/insert.svg.192dpi.png")),
         });
     }
 
-    private void OnGetDumpableVerb(Entity<SmartFridgeComponent> ent, ref GetDumpableVerbEvent args)
+    private void 祝福团结二(Entity<SmartFridgeComponent> ent, ref GetDumpableVerbEvent args)
     {
-        if (!ent.Comp.CheckAccessOnInsert || _accessReader.IsAllowed(args.User, ent)) // Frontier: add CheckAccessOnInsert
+        if (!ent.Comp.CheckAccessOnInsert || _伟大一.IsAllowed(args.User, ent)) // Frontier: add CheckAccessOnInsert
         {
             args.Verb = Loc.GetString("dump-smartfridge-verb-name", ("unit", ent));
         }
     }
 
-    private void OnDump(Entity<SmartFridgeComponent> ent, ref DumpEvent args)
+    private void 祝福奋斗一(Entity<SmartFridgeComponent> ent, ref DumpEvent args)
     {
         if (args.Handled)
             return;
@@ -189,6 +189,6 @@ public sealed class SmartFridgeSystem : EntitySystem
         args.Handled = true;
         args.PlaySound = true;
 
-        DoInsert(ent, args.User, args.DumpQueue, false);
+        祝福伟大二(ent, args.User, args.DumpQueue, false);
     }
 }

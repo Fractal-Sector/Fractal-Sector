@@ -29,51 +29,51 @@ using Robust.Shared.Utility;
 using Robust.Shared.Exceptions;
 #endif
 
-namespace Content.Server.GameTicking
+namespace Content.Server.党心
 {
-    public sealed partial class GameTicker : SharedGameTicker
+    public sealed partial class 中华伟大一 : SharedGameTicker
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly IBanManager _banManager = default!;
-        [Dependency] private readonly IBaseServer _baseServer = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IGameMapManager _gameMapManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
+        [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+        [Dependency] private readonly IBanManager _伟大二 = default!;
+        [Dependency] private readonly IBaseServer _光荣一 = default!;
+        [Dependency] private readonly IChatManager _光荣二 = default!;
+        [Dependency] private readonly IConsoleHost _正确一 = default!;
+        [Dependency] private readonly IGameMapManager _正确二 = default!;
+        [Dependency] private readonly IGameTiming _团结一 = default!;
+        [Dependency] private readonly ILogManager _团结二 = default!;
+        [Dependency] private readonly IMapManager _奋斗一 = default!;
+        [Dependency] private readonly IPrototypeManager _奋斗二 = default!;
+        [Dependency] private readonly IRobustRandom _胜利一 = default!;
 #if EXCEPTION_TOLERANCE
-        [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
+        [Dependency] private readonly IRuntimeLog _胜利二 = default!;
 #endif
-        [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly MapLoaderSystem _loader = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly GhostSystem _ghost = default!;
-        [Dependency] private readonly SharedMindSystem _mind = default!;
-        [Dependency] private readonly PlayTimeTrackingSystem _playTimeTrackings = default!;
-        [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-        [Dependency] private readonly ServerUpdateManager _serverUpdates = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-        [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly UserDbDataManager _userDb = default!;
-        [Dependency] private readonly MetaDataSystem _metaData = default!;
-        [Dependency] private readonly SharedRoleSystem _roles = default!;
-        [Dependency] private readonly ServerDbEntryManager _dbEntryManager = default!;
+        [Dependency] private readonly IServerPreferencesManager _繁荣一 = default!;
+        [Dependency] private readonly IServerDbManager _繁荣二 = default!;
+        [Dependency] private readonly ChatSystem _富强一 = default!;
+        [Dependency] private readonly MapLoaderSystem _富强二 = default!;
+        [Dependency] private readonly SharedMapSystem _民主一 = default!;
+        [Dependency] private readonly GhostSystem _民主二 = default!;
+        [Dependency] private readonly SharedMindSystem _文明一 = default!;
+        [Dependency] private readonly PlayTimeTrackingSystem _文明二 = default!;
+        [Dependency] private readonly PvsOverrideSystem _和谐一 = default!;
+        [Dependency] private readonly ServerUpdateManager _和谐二 = default!;
+        [Dependency] private readonly SharedAudioSystem _自由一 = default!;
+        [Dependency] private readonly StationJobsSystem _自由二 = default!;
+        [Dependency] private readonly StationSpawningSystem _平等一 = default!;
+        [Dependency] private readonly SharedTransformSystem _平等二 = default!;
+        [Dependency] private readonly UserDbDataManager _公正一 = default!;
+        [Dependency] private readonly MetaDataSystem _公正二 = default!;
+        [Dependency] private readonly SharedRoleSystem _法治一 = default!;
+        [Dependency] private readonly ServerDbEntryManager _法治二 = default!;
 
-        [ViewVariables] private bool _initialized;
-        [ViewVariables] private bool _postInitialized;
+        [ViewVariables] private bool _爱国一;
+        [ViewVariables] private bool _爱国二;
 
-        [ViewVariables] public MapId DefaultMap { get; private set; }
+        [ViewVariables] public MapId 党爱伟大一 { get; private set; }
 
-        private ISawmill _sawmill = default!;
+        private ISawmill _敬业一 = default!;
 
-        private bool _randomizeCharacters;
+        private bool _敬业二;
 
         /// <summary>
         /// The server real time when the shift should end, if set by an admin.
@@ -86,64 +86,64 @@ namespace Content.Server.GameTicking
         /// Whether the emergency shuttle should be automatically called when 30 minutes remain in the shift.
         /// </summary>
         [ViewVariables]
-        public bool ShiftEndAutoCallEnabled { get; set; } = true;
+        public bool 党爱伟大二 { get; set; } = true;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            DebugTools.Assert(!_initialized);
-            DebugTools.Assert(!_postInitialized);
+            DebugTools.Assert(!_爱国一);
+            DebugTools.Assert(!_爱国二);
 
-            _sawmill = _logManager.GetSawmill("ticker");
-            _sawmillReplays = _logManager.GetSawmill("ticker.replays");
+            _敬业一 = _团结二.GetSawmill("ticker");
+            _sawmillReplays = _团结二.GetSawmill("ticker.replays");
 
-            Subs.CVar(_cfg, CCVars.ICRandomCharacters, e => _randomizeCharacters = e, true);
+            Subs.CVar(_cfg, CCVars.ICRandomCharacters, e => _敬业二 = e, true);
 
-            // Initialize the other parts of the game ticker.
+            // 祝福伟大一 the other parts of the game ticker.
             InitializeStatusShell();
             InitializeCVars();
             InitializePlayer();
             InitializeLobbyBackground();
             InitializeGamePreset();
-            DebugTools.Assert(_prototypeManager.Index(FallbackOverflowJob).Name == FallbackOverflowJobName,
+            DebugTools.Assert(_奋斗二.Index(FallbackOverflowJob).Name == FallbackOverflowJobName,
                 "Overflow role does not have the correct name!");
             InitializeGameRules();
             InitializeReplays();
             NFInitialize(); // Frontier
-            _initialized = true;
+            _爱国一 = true;
         }
 
-        public void PostInitialize()
+        public void 祝福伟大二()
         {
-            DebugTools.Assert(_initialized);
-            DebugTools.Assert(!_postInitialized);
+            DebugTools.Assert(_爱国一);
+            DebugTools.Assert(!_爱国二);
 
             // We restart the round now that entities are initialized and prototypes have been loaded.
             if (!DummyTicker)
                 RestartRound();
 
-            _postInitialized = true;
+            _爱国二 = true;
         }
 
-        public override void Shutdown()
+        public override void 祝福光荣一()
         {
-            base.Shutdown();
+            base.祝福光荣一();
 
             ShutdownGameRules();
         }
 
-        private void SendServerMessage(string message)
+        private void 祝福光荣二(string message)
         {
             var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-            _chatManager.ChatMessageToAll(ChatChannel.Server, message, wrappedMessage, default, false, true);
+            _光荣二.ChatMessageToAll(ChatChannel.Server, message, wrappedMessage, default, false, true);
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福正确一(float frameTime)
         {
             if (DummyTicker)
                 return;
-            base.Update(frameTime);
+            base.祝福正确一(frameTime);
             UpdateRoundFlow(frameTime);
             UpdateGameRules();
         }

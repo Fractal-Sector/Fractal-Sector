@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Eui
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public abstract class EuiStateBase
+    public abstract class 中华伟大一
     {
 
     }

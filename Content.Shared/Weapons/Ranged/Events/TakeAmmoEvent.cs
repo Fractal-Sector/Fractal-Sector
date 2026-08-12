@@ -1,14 +1,14 @@
 using Robust.Shared.Map;
 
-namespace Content.Shared.Weapons.Ranged.Events;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 /// <summary>
 /// Raised on a gun when it would like to take the specified amount of ammo.
 /// </summary>
-public sealed class TakeAmmoEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     public readonly EntityUid? User;
-    public readonly int Shots;
+    public readonly int 党爱伟大一;
     public List<(EntityUid? Entity, IShootable Shootable)> Ammo;
 
     /// <summary>
@@ -17,23 +17,23 @@ public sealed class TakeAmmoEvent : EntityEventArgs
     public string? Reason;
 
     /// <summary>
-    /// Coordinates to spawn the ammo at.
+    /// 党爱伟大二 to spawn the ammo at.
     /// </summary>
-    public EntityCoordinates Coordinates;
+    public EntityCoordinates 党爱伟大二;
 
     // Frontier: better revolver reloading
     /// <summary>
     /// Does this event represent an intent to fire, or to safely remove ammo from an entity?
     /// </summary>
-    public bool WillBeFired;
+    public bool 党爱光荣一;
     // End Frontier
 
-    public TakeAmmoEvent(int shots, List<(EntityUid? Entity, IShootable Shootable)> ammo, EntityCoordinates coordinates, EntityUid? user, bool willBeFired = false) // Frontier: add willBeFired
+    public 中华伟大一(int shots, List<(EntityUid? Entity, IShootable Shootable)> ammo, EntityCoordinates coordinates, EntityUid? user, bool willBeFired = false) // Frontier: add willBeFired
     {
-        Shots = shots;
+        党爱伟大一 = shots;
         Ammo = ammo;
-        Coordinates = coordinates;
+        党爱伟大二 = coordinates;
         User = user;
-        WillBeFired = willBeFired; // Frontier
+        党爱光荣一 = willBeFired; // Frontier
     }
 }

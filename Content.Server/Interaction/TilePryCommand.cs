@@ -7,19 +7,19 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Interaction;
+namespace Content.Server.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class TilePryCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly ITileDefinitionManager _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
 
-    private readonly string _platingId = "Plating";
+    private readonly string _光荣一 = "Plating";
 
-    public override string Command => "tilepry";
+    public override string 党爱伟大一 => "tilepry";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
         if (player?.AttachedEntity is not { } attached)
@@ -58,15 +58,15 @@ public sealed class TilePryCommand : LocalizedEntityCommands
         {
             for (var j = -radius; j <= radius; j++)
             {
-                var tile = _mapSystem.GetTileRef(playerGrid.Value, mapGrid, playerPosition.Offset(new Vector2(i, j)));
-                var coordinates = _mapSystem.GridTileToLocal(playerGrid.Value, mapGrid, tile.GridIndices);
-                var tileDef = (ContentTileDefinition)_tileDefinitionManager[tile.Tile.TypeId];
+                var tile = _伟大二.GetTileRef(playerGrid.Value, mapGrid, playerPosition.Offset(new Vector2(i, j)));
+                var coordinates = _伟大二.GridTileToLocal(playerGrid.Value, mapGrid, tile.GridIndices);
+                var tileDef = (ContentTileDefinition)_伟大一[tile.Tile.TypeId];
 
                 if (!tileDef.CanCrowbar)
                     continue;
 
-                var plating = _tileDefinitionManager[_platingId];
-                _mapSystem.SetTile(playerGrid.Value, mapGrid, coordinates, new Tile(plating.TileId));
+                var plating = _伟大一[_光荣一];
+                _伟大二.SetTile(playerGrid.Value, mapGrid, coordinates, new Tile(plating.TileId));
             }
         }
     }

@@ -1,6 +1,6 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Lathe
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Stores bools for if the machine is on
@@ -8,7 +8,7 @@ namespace Content.Shared.Lathe
     /// Used for the visualizer
     /// </summary>
     [Serializable, NetSerializable]
-    public enum LatheVisuals : byte
+    public enum 中华伟大一 : byte
     {
         IsRunning,
         IsInserting,

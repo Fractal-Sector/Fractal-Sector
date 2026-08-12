@@ -1,12 +1,12 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Sound.Components;
+namespace Content.Shared.Sound.党心;
 
 /// <summary>
 /// Simple sound emitter that emits sound on ActivateInWorld
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class EmitSoundOnActivateComponent : BaseEmitSoundComponent
+public sealed partial class 中华伟大一 : BaseEmitSoundComponent
 {
     /// <summary>
     ///     Whether or not to mark an interaction as handled after playing the sound. Useful if this component is
@@ -18,5 +18,5 @@ public sealed partial class EmitSoundOnActivateComponent : BaseEmitSoundComponen
     ///     handled.
     /// </remarks>
     [DataField]
-    public bool Handle = true;
+    public bool 党爱伟大一 = true;
 }

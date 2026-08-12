@@ -11,34 +11,34 @@ using Content.Shared.Power;
 using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Atmos.Portable;
+namespace Content.Server.Atmos.党心;
 
-public sealed class SpaceHeaterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PowerReceiverSystem _power = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly PowerReceiverSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpaceHeaterComponent, ActivatableUIOpenAttemptEvent>(OnUIActivationAttempt);
-        SubscribeLocalEvent<SpaceHeaterComponent, BeforeActivatableUIOpenEvent>(OnBeforeOpened);
+        SubscribeLocalEvent<SpaceHeaterComponent, ActivatableUIOpenAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<SpaceHeaterComponent, BeforeActivatableUIOpenEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<SpaceHeaterComponent, AtmosDeviceUpdateEvent>(OnDeviceUpdated);
-        SubscribeLocalEvent<SpaceHeaterComponent, MapInitEvent>(OnInit);
-        SubscribeLocalEvent<SpaceHeaterComponent, PowerChangedEvent>(OnPowerChanged);
+        SubscribeLocalEvent<SpaceHeaterComponent, AtmosDeviceUpdateEvent>(祝福正确一);
+        SubscribeLocalEvent<SpaceHeaterComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<SpaceHeaterComponent, PowerChangedEvent>(祝福正确二);
 
-        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterChangeModeMessage>(OnModeChanged);
-        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterChangePowerLevelMessage>(OnPowerLevelChanged);
-        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterChangeTemperatureMessage>(OnTemperatureChanged);
-        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterToggleMessage>(OnToggle);
+        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterChangeModeMessage>(祝福奋斗一);
+        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterChangePowerLevelMessage>(祝福奋斗二);
+        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterChangeTemperatureMessage>(祝福团结二);
+        SubscribeLocalEvent<SpaceHeaterComponent, SpaceHeaterToggleMessage>(祝福团结一);
     }
 
-    private void OnInit(EntityUid uid, SpaceHeaterComponent spaceHeater, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, SpaceHeaterComponent spaceHeater, MapInitEvent args)
     {
         if (!TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
             return;
@@ -47,34 +47,34 @@ public sealed class SpaceHeaterSystem : EntitySystem
         thermoMachine.HeatCapacity = spaceHeater.PowerConsumption;
     }
 
-    private void OnBeforeOpened(EntityUid uid, SpaceHeaterComponent spaceHeater, BeforeActivatableUIOpenEvent args)
+    private void 祝福光荣一(EntityUid uid, SpaceHeaterComponent spaceHeater, BeforeActivatableUIOpenEvent args)
     {
-        DirtyUI(uid, spaceHeater);
+        祝福胜利一(uid, spaceHeater);
     }
 
-    private void OnUIActivationAttempt(EntityUid uid, SpaceHeaterComponent spaceHeater, ActivatableUIOpenAttemptEvent args)
+    private void 祝福光荣二(EntityUid uid, SpaceHeaterComponent spaceHeater, ActivatableUIOpenAttemptEvent args)
     {
         if (!Comp<TransformComponent>(uid).Anchored)
         {
-            _popup.PopupEntity(Loc.GetString("comp-space-heater-unanchored", ("device", Loc.GetString("comp-space-heater-device-name"))), uid, args.User);
+            _伟大二.PopupEntity(Loc.GetString("comp-space-heater-unanchored", ("device", Loc.GetString("comp-space-heater-device-name"))), uid, args.User);
             args.Cancel();
         }
     }
 
-    private void OnDeviceUpdated(EntityUid uid, SpaceHeaterComponent spaceHeater, ref AtmosDeviceUpdateEvent args)
+    private void 祝福正确一(EntityUid uid, SpaceHeaterComponent spaceHeater, ref AtmosDeviceUpdateEvent args)
     {
-        if (!_power.IsPowered(uid)
+        if (!_光荣一.IsPowered(uid)
             || !TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
         {
             return;
         }
 
-        UpdateAppearance(uid);
+        祝福胜利二(uid);
 
         // If in automatic temperature mode, check if we need to adjust the heat exchange direction
         if (spaceHeater.Mode == SpaceHeaterMode.Auto)
         {
-            var environment = _atmosphereSystem.GetContainingMixture(uid, args.Grid, args.Map);
+            var environment = _伟大一.GetContainingMixture(uid, args.Grid, args.Map);
             if (environment == null)
                 return;
 
@@ -94,36 +94,36 @@ public sealed class SpaceHeaterSystem : EntitySystem
         }
     }
 
-    private void OnPowerChanged(EntityUid uid, SpaceHeaterComponent spaceHeater, ref PowerChangedEvent args)
+    private void 祝福正确二(EntityUid uid, SpaceHeaterComponent spaceHeater, ref PowerChangedEvent args)
     {
-        UpdateAppearance(uid);
-        DirtyUI(uid, spaceHeater);
+        祝福胜利二(uid);
+        祝福胜利一(uid, spaceHeater);
     }
 
-    private void OnToggle(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterToggleMessage args)
+    private void 祝福团结一(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterToggleMessage args)
     {
         ApcPowerReceiverComponent? powerReceiver = null;
         if (!Resolve(uid, ref powerReceiver))
             return;
 
-        _power.TryTogglePower(uid); // Frontier: Upstream - #28984
+        _光荣一.TryTogglePower(uid); // Frontier: Upstream - #28984
 
-        UpdateAppearance(uid);
-        DirtyUI(uid, spaceHeater);
+        祝福胜利二(uid);
+        祝福胜利一(uid, spaceHeater);
     }
 
-    private void OnTemperatureChanged(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangeTemperatureMessage args)
+    private void 祝福团结二(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangeTemperatureMessage args)
     {
         if (!TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
             return;
 
         thermoMachine.TargetTemperature = float.Clamp(thermoMachine.TargetTemperature + args.Temperature, spaceHeater.MinTemperature, spaceHeater.MaxTemperature);
 
-        UpdateAppearance(uid);
-        DirtyUI(uid, spaceHeater);
+        祝福胜利二(uid);
+        祝福胜利一(uid, spaceHeater);
     }
 
-    private void OnModeChanged(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangeModeMessage args)
+    private void 祝福奋斗一(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangeModeMessage args)
     {
         if (!TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
             return;
@@ -135,10 +135,10 @@ public sealed class SpaceHeaterSystem : EntitySystem
         else if (spaceHeater.Mode == SpaceHeaterMode.Cool)
             thermoMachine.Cp = spaceHeater.CoolingCp;
 
-        DirtyUI(uid, spaceHeater);
+        祝福胜利一(uid, spaceHeater);
     }
 
-    private void OnPowerLevelChanged(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangePowerLevelMessage args)
+    private void 祝福奋斗二(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangePowerLevelMessage args)
     {
         if (!TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
             return;
@@ -160,10 +160,10 @@ public sealed class SpaceHeaterSystem : EntitySystem
                 break;
         }
 
-        DirtyUI(uid, spaceHeater);
+        祝福胜利一(uid, spaceHeater);
     }
 
-    private void DirtyUI(EntityUid uid, SpaceHeaterComponent? spaceHeater)
+    private void 祝福胜利一(EntityUid uid, SpaceHeaterComponent? spaceHeater)
     {
         if (!Resolve(uid, ref spaceHeater)
             || !TryComp<GasThermoMachineComponent>(uid, out var thermoMachine)
@@ -171,29 +171,29 @@ public sealed class SpaceHeaterSystem : EntitySystem
         {
             return;
         }
-        _userInterfaceSystem.SetUiState(uid, SpaceHeaterUiKey.Key,
+        _正确一.SetUiState(uid, SpaceHeaterUiKey.Key,
             new SpaceHeaterBoundUserInterfaceState(spaceHeater.MinTemperature, spaceHeater.MaxTemperature, thermoMachine.TargetTemperature, !powerReceiver.PowerDisabled, spaceHeater.Mode, spaceHeater.PowerLevel));
     }
 
-    private void UpdateAppearance(EntityUid uid)
+    private void 祝福胜利二(EntityUid uid)
     {
-        if (!_power.IsPowered(uid) || !TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
+        if (!_光荣一.IsPowered(uid) || !TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
         {
-            _appearance.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.Off);
+            _光荣二.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.Off);
             return;
         }
 
         if (thermoMachine.LastEnergyDelta > 0)
         {
-            _appearance.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.Heating);
+            _光荣二.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.Heating);
         }
         else if (thermoMachine.LastEnergyDelta < 0)
         {
-            _appearance.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.Cooling);
+            _光荣二.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.Cooling);
         }
         else
         {
-            _appearance.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.StandBy);
+            _光荣二.SetData(uid, SpaceHeaterVisuals.State, SpaceHeaterState.StandBy);
         }
     }
 }

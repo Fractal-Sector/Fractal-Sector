@@ -1,10 +1,10 @@
 using Content.Shared.DoAfter;
 using JetBrains.Annotations;
 
-namespace Content.Server.DoAfter;
+namespace Content.Server.党心;
 
 [UsedImplicitly]
-public sealed class DoAfterSystem : SharedDoAfterSystem
+public sealed class 中华伟大一 : SharedDoAfterSystem
 {
 
 }

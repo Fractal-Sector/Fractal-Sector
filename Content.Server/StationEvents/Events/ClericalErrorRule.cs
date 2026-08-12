@@ -6,15 +6,15 @@ using Content.Shared.StationRecords;
 using Content.Shared.GameTicking.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class ClericalErrorRule : StationEventSystem<ClericalErrorRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<ClericalErrorRuleComponent>
 {
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
+    [Dependency] private readonly StationRecordsSystem _伟大一 = default!;
 
-    protected override void Started(EntityUid uid, ClericalErrorRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, ClericalErrorRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
         if (!TryGetRandomStation(out var chosenStation))
             return;
@@ -39,7 +39,7 @@ public sealed class ClericalErrorRule : StationEventSystem<ClericalErrorRuleComp
         foreach (var id in keys)
         {
             var key = new StationRecordKey(id, chosenStation.Value);
-            _stationRecords.RemoveRecord(key, stationRecords);
+            _伟大一.RemoveRecord(key, stationRecords);
         }
     }
 }

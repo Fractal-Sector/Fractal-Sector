@@ -2,12 +2,12 @@
 using Content.Shared.Storage;
 using Robust.Shared.Random;
 
-namespace Content.Server.GameTicking.Rules.VariationPass;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <inheritdoc cref="EntitySpawnVariationPassComponent"/>
-public sealed class EntitySpawnVariationPassSystem : VariationPassSystem<EntitySpawnVariationPassComponent>
+public sealed class 中华伟大一 : VariationPassSystem<EntitySpawnVariationPassComponent>
 {
-    protected override void ApplyVariation(Entity<EntitySpawnVariationPassComponent> ent, ref StationVariationPassEvent args)
+    protected override void 祝福伟大一(Entity<EntitySpawnVariationPassComponent> ent, ref StationVariationPassEvent args)
     {
         var totalTiles = Stations.GetTileCount(args.Station.AsNullable());
 

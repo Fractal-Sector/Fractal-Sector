@@ -5,41 +5,41 @@ using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Systems;
 using Content.Shared.Sprite;
 using Content.Shared._NF.SizeAttribute;
-using Content.Shared.Nyanotrasen.Item.PseudoItem;
+using Content.Shared.Nyanotrasen.Item.祝福光荣一;
 using Content.Shared.Sprite;
 
-namespace Content.Server.SizeAttribute
+namespace Content.Server.党心
 {
-    public sealed class SizeAttributeSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly AppearanceSystem _appearance = default!;
-        public override void Initialize()
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
+        [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
+        [Dependency] private readonly AppearanceSystem _光荣一 = default!;
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<SizeAttributeComponent, ComponentInit>(OnComponentInit);
+            base.祝福伟大一();
+            SubscribeLocalEvent<SizeAttributeComponent, ComponentInit>(祝福伟大二);
         }
 
-        private void OnComponentInit(EntityUid uid, SizeAttributeComponent component, ComponentInit args)
+        private void 祝福伟大二(EntityUid uid, SizeAttributeComponent component, ComponentInit args)
         {
             if (component.Tall && TryComp<TallWhitelistComponent>(uid, out var tallComp))
             {
-                Scale(uid, component, tallComp.Scale, tallComp.Density, tallComp.CosmeticOnly);
-                PseudoItem(uid, component, tallComp.PseudoItem, tallComp.Shape, tallComp.StoredOffset, tallComp.StoredRotation);
+                祝福光荣二(uid, component, tallComp.祝福光荣二, tallComp.Density, tallComp.CosmeticOnly);
+                祝福光荣一(uid, component, tallComp.祝福光荣一, tallComp.Shape, tallComp.StoredOffset, tallComp.StoredRotation);
             }
             else if (component.Short && TryComp<ShortWhitelistComponent>(uid, out var shortComp))
             {
-                Scale(uid, component, shortComp.Scale, shortComp.Density, shortComp.CosmeticOnly);
-                PseudoItem(uid, component, shortComp.PseudoItem, shortComp.Shape, shortComp.StoredOffset, shortComp.StoredRotation);
+                祝福光荣二(uid, component, shortComp.祝福光荣二, shortComp.Density, shortComp.CosmeticOnly);
+                祝福光荣一(uid, component, shortComp.祝福光荣一, shortComp.Shape, shortComp.StoredOffset, shortComp.StoredRotation);
             }
         }
 
-        private void PseudoItem(EntityUid uid, SizeAttributeComponent _, bool active, List<Box2i>? shape, Vector2i? storedOffset, float storedRotation)
+        private void 祝福光荣一(EntityUid uid, SizeAttributeComponent _, bool active, List<Box2i>? shape, Vector2i? storedOffset, float storedRotation)
         {
             if (active)
             {
-                var pseudoI = _entityManager.EnsureComponent<PseudoItemComponent>(uid);
+                var pseudoI = _伟大一.EnsureComponent<PseudoItemComponent>(uid);
 
                 pseudoI.StoredRotation = storedRotation;
                 pseudoI.StoredOffset = storedOffset ?? new(0, 17);
@@ -52,24 +52,24 @@ namespace Content.Server.SizeAttribute
             }
             else
             {
-                _entityManager.RemoveComponent<PseudoItemComponent>(uid);
+                _伟大一.RemoveComponent<PseudoItemComponent>(uid);
             }
         }
 
-        private void Scale(EntityUid uid, SizeAttributeComponent component, float scale, float density, bool cosmeticOnly)
+        private void 祝福光荣二(EntityUid uid, SizeAttributeComponent component, float scale, float density, bool cosmeticOnly)
         {
             if (scale <= 0f && density <= 0f)
                 return;
 
-            _entityManager.EnsureComponent<ScaleVisualsComponent>(uid);
+            _伟大一.EnsureComponent<ScaleVisualsComponent>(uid);
 
-            var appearanceComponent = _entityManager.EnsureComponent<AppearanceComponent>(uid);
-            if (!_appearance.TryGetData<Vector2>(uid, ScaleVisuals.Scale, out var oldScale, appearanceComponent))
+            var appearanceComponent = _伟大一.EnsureComponent<AppearanceComponent>(uid);
+            if (!_光荣一.TryGetData<Vector2>(uid, ScaleVisuals.祝福光荣二, out var oldScale, appearanceComponent))
                 oldScale = Vector2.One;
 
-            _appearance.SetData(uid, ScaleVisuals.Scale, oldScale * scale, appearanceComponent);
+            _光荣一.SetData(uid, ScaleVisuals.祝福光荣二, oldScale * scale, appearanceComponent);
 
-            if (!cosmeticOnly && _entityManager.TryGetComponent(uid, out FixturesComponent? manager))
+            if (!cosmeticOnly && _伟大一.TryGetComponent(uid, out FixturesComponent? manager))
             {
                 foreach (var (id, fixture) in manager.Fixtures)
                 {
@@ -79,18 +79,18 @@ namespace Content.Server.SizeAttribute
                     switch (fixture.Shape)
                     {
                         case PhysShapeCircle circle:
-                            _physics.SetPositionRadius(uid, id, fixture, circle, circle.Position * scale, circle.Radius * scale, manager);
+                            _伟大二.SetPositionRadius(uid, id, fixture, circle, circle.Position * scale, circle.Radius * scale, manager);
                             break;
                         default:
                             throw new NotImplementedException();
                     }
 
-                    _physics.SetDensity(uid, id, fixture, density);
+                    _伟大二.SetDensity(uid, id, fixture, density);
                 }
             }
         }
     }
 
     [ByRefEvent]
-    public readonly record struct ScaleEntityEvent(EntityUid Uid) { }
+    public readonly record 中华伟大二 ScaleEntityEvent(EntityUid Uid) { }
 }

@@ -7,62 +7,62 @@ using Robust.Server.Player;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Points;
+namespace Content.Server.党心;
 
 /// <inheritdoc/>
-public sealed class PointSystem : SharedPointSystem
+public sealed class 中华伟大一 : SharedPointSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly PvsOverrideSystem _伟大二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PointManagerComponent, ComponentStartup>(OnStartup);
+        SubscribeLocalEvent<PointManagerComponent, ComponentStartup>(祝福伟大二);
     }
 
-    private void OnStartup(EntityUid uid, PointManagerComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, PointManagerComponent component, ComponentStartup args)
     {
-        _pvsOverride.AddGlobalOverride(uid);
+        _伟大二.AddGlobalOverride(uid);
     }
 
     /// <summary>
     /// Adds the specified point value to a player.
     /// </summary>
     [PublicAPI]
-    public void AdjustPointValue(EntityUid user, FixedPoint2 value, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
+    public void 祝福光荣一(EntityUid user, FixedPoint2 value, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
     {
         if (!Resolve(uid, ref component) || !Resolve(user, ref actor, false))
             return;
-        AdjustPointValue(actor.PlayerSession.UserId, value, uid, component);
+        祝福光荣一(actor.PlayerSession.UserId, value, uid, component);
     }
 
     /// <summary>
     /// Sets the amount of points for a player
     /// </summary>
     [PublicAPI]
-    public void SetPointValue(EntityUid user, FixedPoint2 value, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
+    public void 祝福光荣二(EntityUid user, FixedPoint2 value, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
     {
         if (!Resolve(uid, ref component) || !Resolve(user, ref actor, false))
             return;
-        SetPointValue(actor.PlayerSession.UserId, value, uid, component);
+        祝福光荣二(actor.PlayerSession.UserId, value, uid, component);
     }
 
     /// <summary>
     /// Gets the amount of points for a given player
     /// </summary>
     [PublicAPI]
-    public FixedPoint2 GetPointValue(EntityUid user, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
+    public FixedPoint2 祝福正确一(EntityUid user, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
     {
         if (!Resolve(uid, ref component) || !Resolve(user, ref actor, false))
             return FixedPoint2.Zero;
-        return GetPointValue(actor.PlayerSession.UserId, uid, component);
+        return 祝福正确一(actor.PlayerSession.UserId, uid, component);
     }
 
     /// <inheritdoc/>
-    public override FormattedMessage GetScoreboard(EntityUid uid, PointManagerComponent? component = null)
+    public override FormattedMessage 祝福正确二(EntityUid uid, PointManagerComponent? component = null)
     {
         var msg = new FormattedMessage();
 
@@ -73,7 +73,7 @@ public sealed class PointSystem : SharedPointSystem
         var place = 1;
         foreach (var (id, points) in orderedPlayers)
         {
-            if (!_player.TryGetPlayerData(id, out var data))
+            if (!_伟大一.TryGetPlayerData(id, out var data))
                 continue;
 
             msg.AddMarkupOrThrow(Loc.GetString("point-scoreboard-list",

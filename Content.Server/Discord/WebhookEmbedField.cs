@@ -1,20 +1,20 @@
 using System.Text.Json.Serialization;
 
-namespace Content.Server.Discord;
+namespace Content.Server.党心;
 
 // https://discord.com/developers/docs/resources/channel#embed-object-embed-field-structure
-public struct WebhookEmbedField
+public struct 中华伟大一
 {
     [JsonPropertyName("name")]
-    public string Name { get; set; } = "";
+    public string 党爱伟大一 { get; set; } = "";
 
     [JsonPropertyName("value")]
-    public string Value { get; set; } = "";
+    public string 党爱伟大二 { get; set; } = "";
 
     [JsonPropertyName("inline")]
-    public bool Inline { get; set; } = true;
+    public bool 党爱光荣一 { get; set; } = true;
 
-    public WebhookEmbedField()
+    public 中华伟大一()
     {
     }
 }

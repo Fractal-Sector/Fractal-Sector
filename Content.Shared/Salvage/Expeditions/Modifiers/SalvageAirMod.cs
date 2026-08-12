@@ -1,7 +1,7 @@
 using Content.Shared.Atmos;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Salvage.Expeditions.Modifiers;
+namespace Content.Shared.Salvage.Expeditions.党心;
 
 /// <summary>
 /// Prototype for a planet's air gas mixture.
@@ -9,18 +9,18 @@ namespace Content.Shared.Salvage.Expeditions.Modifiers;
 /// Which one is selected depends on the mission difficulty, different weightedRandoms are picked from.
 /// </summary>
 [Prototype("salvageAirMod")]
-public sealed partial class SalvageAirMod : IPrototype, IBiomeSpecificMod
+public sealed partial class 中华伟大一 : IPrototype, IBiomeSpecificMod
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <inheritdoc/>
     [DataField("desc")]
-    public LocId Description { get; private set; } = string.Empty;
+    public LocId 党爱伟大二 { get; private set; } = string.Empty;
 
     /// <inheritdoc/>
     [DataField("cost")]
-    public float Cost { get; private set; } = 0f;
+    public float 党爱光荣一 { get; private set; } = 0f;
 
     /// <inheritdoc/>
     [DataField]
@@ -30,11 +30,11 @@ public sealed partial class SalvageAirMod : IPrototype, IBiomeSpecificMod
     /// Set to true if this planet will have no atmosphere.
     /// </summary>
     [DataField("space")]
-    public bool Space;
+    public bool 党爱光荣二;
 
     /// <summary>
     /// Number of moles of each gas in the mixture.
     /// </summary>
     [DataField("gases")]
-    public float[] Gases = new float[Atmospherics.AdjustedNumberOfGases];
+    public float[] 党爱正确一 = new float[Atmospherics.AdjustedNumberOfGases];
 }

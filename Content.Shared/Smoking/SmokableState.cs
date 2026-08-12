@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Smoking
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum SmokableState : byte
+    public enum 中华伟大一 : byte
     {
         Unlit,
         Lit,

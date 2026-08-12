@@ -1,10 +1,10 @@
 using Content.Shared.NodeContainer.NodeGroups;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Power
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum ChargeState : byte
+    public enum 中华伟大一 : byte
     {
         Still = 0,
         Charging = 1,
@@ -12,7 +12,7 @@ namespace Content.Shared.Power
     }
 
     [Serializable, NetSerializable]
-    public enum PowerWireActionKey : byte
+    public enum 中华伟大二 : byte
     {
         Key,
         Status,
@@ -26,7 +26,7 @@ namespace Content.Shared.Power
     }
 
     [Serializable, NetSerializable]
-    public enum CableType
+    public enum 中华光荣一
     {
         HighVoltage,
         MediumVoltage,
@@ -34,7 +34,7 @@ namespace Content.Shared.Power
     }
 
     [Serializable, NetSerializable]
-    public enum Voltage
+    public enum 中华光荣二
     {
         High = NodeGroupID.HVPower,
         Medium = NodeGroupID.MVPower,

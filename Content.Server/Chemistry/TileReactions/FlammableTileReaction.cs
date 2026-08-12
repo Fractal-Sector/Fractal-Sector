@@ -5,15 +5,15 @@ using Content.Shared.FixedPoint;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-namespace Content.Server.Chemistry.TileReactions
+namespace Content.Server.Chemistry.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class FlammableTileReaction : ITileReaction
+    public sealed partial class 中华伟大一 : ITileReaction
     {
-        [DataField("temperatureMultiplier")] private float _temperatureMultiplier = 1.15f;
+        [DataField("temperatureMultiplier")] private float _伟大一 = 1.15f;
 
-        public FixedPoint2 TileReact(TileRef tile,
+        public FixedPoint2 祝福伟大一(TileRef tile,
             ReagentPrototype reagent,
             FixedPoint2 reactVolume,
             IEntityManager entityManager,
@@ -28,7 +28,7 @@ namespace Content.Server.Chemistry.TileReactions
             if (environment == null || !atmosphereSystem.IsHotspotActive(tile.GridUid, tile.GridIndices))
                 return FixedPoint2.Zero;
 
-            environment.Temperature += MathF.Max(_temperatureMultiplier * reactVolume.Float(), 1f);
+            environment.Temperature += MathF.Max(_伟大一 * reactVolume.Float(), 1f);
             atmosphereSystem.ReactTile(tile.GridUid, tile.GridIndices);
 
             return reactVolume;

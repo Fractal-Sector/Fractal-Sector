@@ -19,7 +19,7 @@ using Content.Shared.Rounding;
 using Robust.Server.GameObjects;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Power.Generation.Teg;
+namespace Content.Server.Power.Generation.党心;
 
 /// <summary>
 /// Handles processing logic for the thermo-electric generator (TEG).
@@ -48,7 +48,7 @@ namespace Content.Server.Power.Generation.Teg;
 /// <seealso cref="TegCirculatorComponent"/>
 /// <seealso cref="TegNodeGroup"/>
 /// <seealso cref="TegSensorData"/>
-public sealed class TegSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     /// <summary>
     /// Node name for the TEG part connection nodes (<see cref="TegNodeGroup"/>).
@@ -68,31 +68,31 @@ public sealed class TegSystem : EntitySystem
     /// <summary>
     /// Device network command to have the TEG output a <see cref="TegSensorData"/> object for its last statistics.
     /// </summary>
-    public const string DeviceNetworkCommandSyncData = "teg_sync_data";
+    public const string 党爱伟大一 = "teg_sync_data";
 
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
+    [Dependency] private readonly AmbientSoundSystem _伟大一 = default!;
+    [Dependency] private readonly AppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly AtmosphereSystem _光荣一 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _光荣二 = default!;
+    [Dependency] private readonly PointLightSystem _正确一 = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _正确二 = default!;
 
-    private EntityQuery<NodeContainerComponent> _nodeContainerQuery;
+    private EntityQuery<NodeContainerComponent> _团结一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TegGeneratorComponent, AtmosDeviceUpdateEvent>(GeneratorUpdate);
-        SubscribeLocalEvent<TegGeneratorComponent, PowerChangedEvent>(GeneratorPowerChange);
-        SubscribeLocalEvent<TegGeneratorComponent, DeviceNetworkPacketEvent>(DeviceNetworkPacketReceived);
+        SubscribeLocalEvent<TegGeneratorComponent, AtmosDeviceUpdateEvent>(祝福光荣一);
+        SubscribeLocalEvent<TegGeneratorComponent, PowerChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<TegGeneratorComponent, DeviceNetworkPacketEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<TegGeneratorComponent, ExaminedEvent>(GeneratorExamined);
+        SubscribeLocalEvent<TegGeneratorComponent, ExaminedEvent>(祝福伟大二);
 
-        _nodeContainerQuery = GetEntityQuery<NodeContainerComponent>();
+        _团结一 = GetEntityQuery<NodeContainerComponent>();
     }
 
-    private void GeneratorExamined(EntityUid uid, TegGeneratorComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, TegGeneratorComponent component, ExaminedEvent args)
     {
         if (GetNodeGroup(uid) is not { IsFullyBuilt: true })
         {
@@ -110,7 +110,7 @@ public sealed class TegSystem : EntitySystem
         }
     }
 
-    private void GeneratorUpdate(EntityUid uid, TegGeneratorComponent component, ref AtmosDeviceUpdateEvent args)
+    private void 祝福光荣一(EntityUid uid, TegGeneratorComponent component, ref AtmosDeviceUpdateEvent args)
     {
         var supplier = Comp<PowerSupplierComponent>(uid);
         var powerReceiver = Comp<ApcPowerReceiverComponent>(uid);
@@ -133,8 +133,8 @@ public sealed class TegSystem : EntitySystem
         var (airA, δpA) = GetCirculatorAirTransfer(inletA.Air, outletA.Air);
         var (airB, δpB) = GetCirculatorAirTransfer(inletB.Air, outletB.Air);
 
-        var cA = _atmosphere.GetHeatCapacity(airA, true);
-        var cB = _atmosphere.GetHeatCapacity(airB, true);
+        var cA = _光荣一.GetHeatCapacity(airA, true);
+        var cB = _光荣一.GetHeatCapacity(airB, true);
 
         // Shift ramp position based on demand and generation from previous tick.
         var curRamp = component.RampPosition;
@@ -206,13 +206,13 @@ public sealed class TegSystem : EntitySystem
         circBComp.LastPressureDelta = δpB;
         circBComp.LastMolesTransferred = airB.TotalMoles;
 
-        _atmosphere.Merge(outletA.Air, airA);
-        _atmosphere.Merge(outletB.Air, airB);
+        _光荣一.Merge(outletA.Air, airA);
+        _光荣一.Merge(outletB.Air, airB);
 
-        UpdateAppearance(uid, component, powerReceiver, tegGroup);
+        祝福光荣二(uid, component, powerReceiver, tegGroup);
     }
 
-    private void UpdateAppearance(
+    private void 祝福光荣二(
         EntityUid uid,
         TegGeneratorComponent component,
         ApcPowerReceiverComponent powerReceiver,
@@ -231,21 +231,21 @@ public sealed class TegSystem : EntitySystem
             powerLevel = 0;
         }
 
-        _ambientSound.SetAmbience(uid, powerLevel >= 1);
+        _伟大一.SetAmbience(uid, powerLevel >= 1);
         // TODO: Ok so this introduces popping which is a major shame big rip.
-        // _ambientSound.SetVolume(uid, MathHelper.Lerp(component.VolumeMin, component.VolumeMax, MathHelper.Clamp01(component.RampPosition / component.MaxVisualPower)));
+        // _伟大一.SetVolume(uid, MathHelper.Lerp(component.VolumeMin, component.VolumeMax, MathHelper.Clamp01(component.RampPosition / component.MaxVisualPower)));
 
-        _appearance.SetData(uid, TegVisuals.PowerOutput, powerLevel);
+        _伟大二.SetData(uid, TegVisuals.PowerOutput, powerLevel);
 
         if (nodeGroup.IsFullyBuilt)
         {
-            UpdateCirculatorAppearance(nodeGroup.CirculatorA!.Owner, powerReceiver.Powered);
-            UpdateCirculatorAppearance(nodeGroup.CirculatorB!.Owner, powerReceiver.Powered);
+            祝福团结一(nodeGroup.CirculatorA!.Owner, powerReceiver.Powered);
+            祝福团结一(nodeGroup.CirculatorB!.Owner, powerReceiver.Powered);
         }
     }
 
     [Access(typeof(TegNodeGroup))]
-    public void UpdateGeneratorConnectivity(
+    public void 祝福正确一(
         EntityUid uid,
         TegNodeGroup group,
         TegGeneratorComponent? component = null)
@@ -255,12 +255,12 @@ public sealed class TegSystem : EntitySystem
 
         var powerReceiver = Comp<ApcPowerReceiverComponent>(uid);
 
-        _receiver.SetPowerDisabled(uid, !group.IsFullyBuilt, powerReceiver);
-        UpdateAppearance(uid, component, powerReceiver, group);
+        _正确二.SetPowerDisabled(uid, !group.IsFullyBuilt, powerReceiver);
+        祝福光荣二(uid, component, powerReceiver, group);
     }
 
     [Access(typeof(TegNodeGroup))]
-    public void UpdateCirculatorConnectivity(
+    public void 祝福正确二(
         EntityUid uid,
         TegNodeGroup group,
         TegCirculatorComponent? component = null)
@@ -272,11 +272,11 @@ public sealed class TegSystem : EntitySystem
         // Otherwise, make sure circulator is set to nothing.
         if (!group.IsFullyBuilt)
         {
-            UpdateCirculatorAppearance((uid, component), false);
+            祝福团结一((uid, component), false);
         }
     }
 
-    private void UpdateCirculatorAppearance(Entity<TegCirculatorComponent?> ent, bool powered)
+    private void 祝福团结一(Entity<TegCirculatorComponent?> ent, bool powered)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -296,17 +296,17 @@ public sealed class TegSystem : EntitySystem
             speed = TegCirculatorSpeed.SpeedStill;
         }
 
-        _appearance.SetData(ent, TegVisuals.CirculatorSpeed, speed);
-        _appearance.SetData(ent, TegVisuals.CirculatorPower, powered);
+        _伟大二.SetData(ent, TegVisuals.CirculatorSpeed, speed);
+        _伟大二.SetData(ent, TegVisuals.CirculatorPower, powered);
 
-        if (_pointLight.TryGetLight(ent, out var pointLight))
+        if (_正确一.TryGetLight(ent, out var pointLight))
         {
-            _pointLight.SetEnabled(ent, powered, pointLight);
-            _pointLight.SetColor(ent, speed == TegCirculatorSpeed.SpeedFast ? circ.LightColorFast : circ.LightColorSlow, pointLight);
+            _正确一.SetEnabled(ent, powered, pointLight);
+            _正确一.SetColor(ent, speed == TegCirculatorSpeed.SpeedFast ? circ.LightColorFast : circ.LightColorSlow, pointLight);
         }
     }
 
-    private void GeneratorPowerChange(EntityUid uid, TegGeneratorComponent component, ref PowerChangedEvent args)
+    private void 祝福团结二(EntityUid uid, TegGeneratorComponent component, ref PowerChangedEvent args)
     {
         // TODO: I wish power events didn't go out on shutdown.
         if (TerminatingOrDeleted(uid))
@@ -316,14 +316,14 @@ public sealed class TegSystem : EntitySystem
         if (nodeGroup == null)
             return;
 
-        UpdateAppearance(uid, component, Comp<ApcPowerReceiverComponent>(uid), nodeGroup);
+        祝福光荣二(uid, component, Comp<ApcPowerReceiverComponent>(uid), nodeGroup);
     }
 
     /// <returns>Null if the node group is not yet available. This can happen during initialization.</returns>
     private TegNodeGroup? GetNodeGroup(EntityUid uidGenerator)
     {
         NodeContainerComponent? nodeContainer = null;
-        if (!_nodeContainerQuery.Resolve(uidGenerator, ref nodeContainer))
+        if (!_团结一.Resolve(uidGenerator, ref nodeContainer))
             return null;
 
         if (!nodeContainer.Nodes.TryGetValue(NodeNameTeg, out var tegNode))
@@ -361,14 +361,14 @@ public sealed class TegSystem : EntitySystem
 
     private (PipeNode inlet, PipeNode outlet) GetPipes(EntityUid uidCirculator)
     {
-        var nodeContainer = _nodeContainerQuery.GetComponent(uidCirculator);
+        var nodeContainer = _团结一.GetComponent(uidCirculator);
         var inlet = (PipeNode) nodeContainer.Nodes[NodeNameInlet];
         var outlet = (PipeNode) nodeContainer.Nodes[NodeNameOutlet];
 
         return (inlet, outlet);
     }
 
-    private void DeviceNetworkPacketReceived(
+    private void 祝福奋斗一(
         EntityUid uid,
         TegGeneratorComponent component,
         DeviceNetworkPacketEvent args)
@@ -378,7 +378,7 @@ public sealed class TegSystem : EntitySystem
 
         switch (cmd)
         {
-            case DeviceNetworkCommandSyncData:
+            case 党爱伟大一:
                 var group = GetNodeGroup(uid);
                 if (group is not { IsFullyBuilt: true })
                     return;
@@ -387,23 +387,23 @@ public sealed class TegSystem : EntitySystem
 
                 var payload = new NetworkPayload
                 {
-                    [DeviceNetworkConstants.Command] = DeviceNetworkCommandSyncData,
-                    [DeviceNetworkCommandSyncData] = new TegSensorData
+                    [DeviceNetworkConstants.Command] = 党爱伟大一,
+                    [党爱伟大一] = new TegSensorData
                     {
-                        CirculatorA = GetCirculatorSensorData(group.CirculatorA!.Owner),
-                        CirculatorB = GetCirculatorSensorData(group.CirculatorB!.Owner),
+                        CirculatorA = 祝福奋斗二(group.CirculatorA!.Owner),
+                        CirculatorB = 祝福奋斗二(group.CirculatorB!.Owner),
                         LastGeneration = component.LastGeneration,
                         PowerOutput = supplier.CurrentSupply,
                         RampPosition = component.RampPosition
                     }
                 };
 
-                _deviceNetwork.QueuePacket(uid, args.SenderAddress, payload);
+                _光荣二.QueuePacket(uid, args.SenderAddress, payload);
                 break;
         }
     }
 
-    private TegSensorData.Circulator GetCirculatorSensorData(EntityUid circulator)
+    private TegSensorData.Circulator 祝福奋斗二(EntityUid circulator)
     {
         var (inlet, outlet) = GetPipes(circulator);
 

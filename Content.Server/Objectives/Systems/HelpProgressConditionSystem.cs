@@ -3,32 +3,32 @@ using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Objectives.Systems;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Handles help progress condition logic.
 /// </summary>
-public sealed class HelpProgressConditionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly TargetObjectiveSystem _target = default!;
+    [Dependency] private readonly SharedObjectivesSystem _伟大一 = default!;
+    [Dependency] private readonly TargetObjectiveSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HelpProgressConditionComponent, ObjectiveGetProgressEvent>(OnGetProgress);
+        SubscribeLocalEvent<HelpProgressConditionComponent, ObjectiveGetProgressEvent>(祝福伟大二);
     }
 
-    private void OnGetProgress(EntityUid uid, HelpProgressConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void 祝福伟大二(EntityUid uid, HelpProgressConditionComponent comp, ref ObjectiveGetProgressEvent args)
     {
-        if (!_target.GetTarget(uid, out var target))
+        if (!_伟大二.GetTarget(uid, out var target))
             return;
 
-        args.Progress = GetProgress(target.Value);
+        args.Progress = 祝福光荣一(target.Value);
     }
 
-    private float GetProgress(EntityUid target)
+    private float 祝福光荣一(EntityUid target)
     {
         var total = 0f; // how much progress they have
         var max = 0f; // how much progress is needed for 100%
@@ -38,7 +38,7 @@ public sealed class HelpProgressConditionSystem : EntitySystem
             foreach (var objective in mind.Objectives)
             {
                 // this has the potential to loop forever, anything setting target has to check that there is no HelpProgressCondition.
-                var info = _objectives.GetInfo(objective, target, mind);
+                var info = _伟大一.GetInfo(objective, target, mind);
                 if (info == null)
                     continue;
 

@@ -1,15 +1,15 @@
 using Robust.Shared.Audio;
 
-namespace Content.Server._NF.Construction.Components;
+namespace Content.Server._NF.Construction.党心;
 
 [RegisterComponent]
-public sealed partial class PartExchangerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How long it takes to exchange the parts
     /// </summary>
     [DataField("exchangeDuration")]
-    public float ExchangeDuration = 3;
+    public float 党爱伟大一 = 3;
 
     /// <summary>
     /// Whether or not the distance check is needed.
@@ -20,10 +20,10 @@ public sealed partial class PartExchangerComponent : Component
     /// i will personally kill your dog.
     /// </remarks>
     [DataField("doDistanceCheck")]
-    public bool DoDistanceCheck = true;
+    public bool 党爱伟大二 = true;
 
     [DataField("exchangeSound")]
-    public SoundSpecifier ExchangeSound = new SoundPathSpecifier("/Audio/Items/rped.ogg");
+    public SoundSpecifier 党爱光荣一 = new SoundPathSpecifier("/Audio/Items/rped.ogg");
 
     public EntityUid? AudioStream;
 }

@@ -1,23 +1,23 @@
 using Content.Shared.Light.Components;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Light;
+namespace Content.Shared.党心;
 
-public abstract class SharedRgbLightControllerSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RgbLightControllerComponent, ComponentGetState>(OnGetState);
+        SubscribeLocalEvent<RgbLightControllerComponent, ComponentGetState>(祝福伟大二);
     }
 
-    private void OnGetState(EntityUid uid, RgbLightControllerComponent component, ref ComponentGetState args)
+    private void 祝福伟大二(EntityUid uid, RgbLightControllerComponent component, ref ComponentGetState args)
     {
         args.State = new RgbLightControllerState(component.CycleRate, component.Layers);
     }
 
-    public void SetLayers(EntityUid uid, List<int>? layers, RgbLightControllerComponent? rgb = null)
+    public void 祝福光荣一(EntityUid uid, List<int>? layers, RgbLightControllerComponent? rgb = null)
     {
         if (!Resolve(uid, ref rgb))
             return;
@@ -26,7 +26,7 @@ public abstract class SharedRgbLightControllerSystem : EntitySystem
         Dirty(uid, rgb);
     }
 
-    public void SetCycleRate(EntityUid uid, float rate, RgbLightControllerComponent? rgb = null)
+    public void 祝福光荣二(EntityUid uid, float rate, RgbLightControllerComponent? rgb = null)
     {
         if (!Resolve(uid, ref rgb))
             return;

@@ -6,15 +6,15 @@ using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Syntax;
 using Robust.Shared.Toolshed.TypeParsers;
 
-namespace Content.Server.Toolshed.Commands.Verbs;
+namespace Content.Server.Toolshed.Commands.党心;
 
 [ToolshedCommand, AdminCommand(AdminFlags.Moderator)]
-public sealed class RunVerbAsCommand : ToolshedCommand
+public sealed class 中华伟大一 : ToolshedCommand
 {
     private SharedVerbSystem? _verb;
 
     [CommandImplementation]
-    public IEnumerable<EntityUid> RunVerbAs(
+    public IEnumerable<EntityUid> 祝福伟大一(
             IInvocationContext ctx,
             [PipedArgument] IEnumerable<EntityUid> input,
             EntityUid runner,

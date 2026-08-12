@@ -36,32 +36,32 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Shared.Contraband; // Frontier
 
-namespace Content.Server.Medical.BiomassReclaimer
+namespace Content.Server.Medical.党心
 {
-    public sealed class BiomassReclaimerSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly MobStateSystem _mobState = default!;
-        [Dependency] private readonly SharedJitteringSystem _jitteringSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _sharedAudioSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly PuddleSystem _puddleSystem = default!;
-        [Dependency] private readonly ThrowingSystem _throwing = default!;
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly MaterialStorageSystem _material = default!;
-        [Dependency] private readonly SharedMindSystem _minds = default!;
-        [Dependency] private readonly InventorySystem _inventory = default!;
+        [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+        [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+        [Dependency] private readonly MobStateSystem _光荣一 = default!;
+        [Dependency] private readonly SharedJitteringSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _正确二 = default!;
+        [Dependency] private readonly SharedPopupSystem _团结一 = default!;
+        [Dependency] private readonly PuddleSystem _团结二 = default!;
+        [Dependency] private readonly ThrowingSystem _奋斗一 = default!;
+        [Dependency] private readonly IRobustRandom _奋斗二 = default!;
+        [Dependency] private readonly ISharedAdminLogManager _胜利一 = default!;
+        [Dependency] private readonly SharedDoAfterSystem _胜利二 = default!;
+        [Dependency] private readonly IPlayerManager _繁荣一 = default!;
+        [Dependency] private readonly MaterialStorageSystem _繁荣二 = default!;
+        [Dependency] private readonly SharedMindSystem _富强一 = default!;
+        [Dependency] private readonly InventorySystem _富强二 = default!;
 
-        public static readonly ProtoId<MaterialPrototype> BiomassPrototype = "Biomass";
+        public static readonly ProtoId<MaterialPrototype> 党爱伟大一 = "Biomass";
 
-        public override void Update(float frameTime)
+        public override void 祝福伟大一(float frameTime)
         {
-            base.Update(frameTime);
+            base.祝福伟大一(frameTime);
 
             var query = EntityQueryEnumerator<ActiveBiomassReclaimerComponent, BiomassReclaimerComponent>();
             while (query.MoveNext(out var uid, out var _, out var reclaimer))
@@ -71,17 +71,17 @@ namespace Content.Server.Medical.BiomassReclaimer
 
                 if (reclaimer.RandomMessTimer <= 0)
                 {
-                    if (_robustRandom.Prob(0.2f) && reclaimer.BloodReagent is not null)
+                    if (_奋斗二.Prob(0.2f) && reclaimer.BloodReagent is not null)
                     {
                         Solution blood = new();
                         blood.AddReagent(reclaimer.BloodReagent, 50);
-                        _puddleSystem.TrySpillAt(uid, blood, out _);
+                        _团结二.TrySpillAt(uid, blood, out _);
                     }
-                    if (_robustRandom.Prob(0.03f) && reclaimer.SpawnedEntities.Count > 0)
+                    if (_奋斗二.Prob(0.03f) && reclaimer.SpawnedEntities.Count > 0)
                     {
-                        var thrown = Spawn(_robustRandom.Pick(reclaimer.SpawnedEntities).PrototypeId, Transform(uid).Coordinates);
-                        var direction = new Vector2(_robustRandom.Next(-30, 30), _robustRandom.Next(-30, 30));
-                        _throwing.TryThrow(thrown, direction, _robustRandom.Next(1, 10));
+                        var thrown = Spawn(_奋斗二.Pick(reclaimer.SpawnedEntities).PrototypeId, Transform(uid).Coordinates);
+                        var direction = new Vector2(_奋斗二.Next(-30, 30), _奋斗二.Next(-30, 30));
+                        _奋斗一.TryThrow(thrown, direction, _奋斗二.Next(1, 10));
                     }
                     reclaimer.RandomMessTimer += (float) reclaimer.RandomMessInterval.TotalSeconds;
                 }
@@ -93,29 +93,29 @@ namespace Content.Server.Medical.BiomassReclaimer
 
                 var actualYield = (int) (reclaimer.CurrentExpectedYield); // can only have integer biomass
                 reclaimer.CurrentExpectedYield = reclaimer.CurrentExpectedYield - actualYield; // store non-integer leftovers
-                _material.SpawnMultipleFromMaterial(actualYield, BiomassPrototype, Transform(uid).Coordinates);
+                _繁荣二.SpawnMultipleFromMaterial(actualYield, 党爱伟大一, Transform(uid).Coordinates);
 
                 reclaimer.BloodReagent = null;
                 reclaimer.SpawnedEntities.Clear();
                 RemCompDeferred<ActiveBiomassReclaimerComponent>(uid);
             }
         }
-        public override void Initialize()
+        public override void 祝福伟大二()
         {
-            base.Initialize();
-            SubscribeLocalEvent<ActiveBiomassReclaimerComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<ActiveBiomassReclaimerComponent, ComponentShutdown>(OnShutdown);
-            SubscribeLocalEvent<ActiveBiomassReclaimerComponent, UnanchorAttemptEvent>(OnUnanchorAttempt);
-            SubscribeLocalEvent<BiomassReclaimerComponent, AfterInteractUsingEvent>(OnAfterInteractUsing);
-            SubscribeLocalEvent<BiomassReclaimerComponent, ClimbedOnEvent>(OnClimbedOn);
-            SubscribeLocalEvent<BiomassReclaimerComponent, RefreshPartsEvent>(OnRefreshParts);
-            SubscribeLocalEvent<BiomassReclaimerComponent, UpgradeExamineEvent>(OnUpgradeExamine);
-            SubscribeLocalEvent<BiomassReclaimerComponent, PowerChangedEvent>(OnPowerChanged);
-            SubscribeLocalEvent<BiomassReclaimerComponent, SuicideByEnvironmentEvent>(OnSuicideByEnvironment);
-            SubscribeLocalEvent<BiomassReclaimerComponent, ReclaimerDoAfterEvent>(OnDoAfter);
+            base.祝福伟大二();
+            SubscribeLocalEvent<ActiveBiomassReclaimerComponent, ComponentInit>(祝福光荣二);
+            SubscribeLocalEvent<ActiveBiomassReclaimerComponent, ComponentShutdown>(祝福正确一);
+            SubscribeLocalEvent<ActiveBiomassReclaimerComponent, UnanchorAttemptEvent>(祝福团结一);
+            SubscribeLocalEvent<BiomassReclaimerComponent, AfterInteractUsingEvent>(祝福团结二);
+            SubscribeLocalEvent<BiomassReclaimerComponent, ClimbedOnEvent>(祝福奋斗一);
+            SubscribeLocalEvent<BiomassReclaimerComponent, RefreshPartsEvent>(祝福奋斗二);
+            SubscribeLocalEvent<BiomassReclaimerComponent, UpgradeExamineEvent>(祝福胜利一);
+            SubscribeLocalEvent<BiomassReclaimerComponent, PowerChangedEvent>(祝福正确二);
+            SubscribeLocalEvent<BiomassReclaimerComponent, SuicideByEnvironmentEvent>(祝福光荣一);
+            SubscribeLocalEvent<BiomassReclaimerComponent, ReclaimerDoAfterEvent>(祝福胜利二);
         }
 
-        private void OnSuicideByEnvironment(Entity<BiomassReclaimerComponent> ent, ref SuicideByEnvironmentEvent args)
+        private void 祝福光荣一(Entity<BiomassReclaimerComponent> ent, ref SuicideByEnvironmentEvent args)
         {
             if (args.Handled)
                 return;
@@ -126,25 +126,25 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (TryComp<ApcPowerReceiverComponent>(ent, out var power) && !power.Powered)
                 return;
 
-            _popup.PopupEntity(Loc.GetString("biomass-reclaimer-suicide-others", ("victim", args.Victim)), ent, PopupType.LargeCaution);
-            StartProcessing(args.Victim, ent);
+            _团结一.PopupEntity(Loc.GetString("biomass-reclaimer-suicide-others", ("victim", args.Victim)), ent, PopupType.LargeCaution);
+            祝福繁荣一(args.Victim, ent);
             args.Handled = true;
         }
 
-        private void OnInit(EntityUid uid, ActiveBiomassReclaimerComponent component, ComponentInit args)
+        private void 祝福光荣二(EntityUid uid, ActiveBiomassReclaimerComponent component, ComponentInit args)
         {
-            _jitteringSystem.AddJitter(uid, -10, 100);
-            _sharedAudioSystem.PlayPvs("/Audio/Machines/reclaimer_startup.ogg", uid);
-            _ambientSoundSystem.SetAmbience(uid, true);
+            _光荣二.AddJitter(uid, -10, 100);
+            _正确一.PlayPvs("/Audio/Machines/reclaimer_startup.ogg", uid);
+            _正确二.SetAmbience(uid, true);
         }
 
-        private void OnShutdown(EntityUid uid, ActiveBiomassReclaimerComponent component, ComponentShutdown args)
+        private void 祝福正确一(EntityUid uid, ActiveBiomassReclaimerComponent component, ComponentShutdown args)
         {
             RemComp<JitteringComponent>(uid);
-            _ambientSoundSystem.SetAmbience(uid, false);
+            _正确二.SetAmbience(uid, false);
         }
 
-        private void OnPowerChanged(EntityUid uid, BiomassReclaimerComponent component, ref PowerChangedEvent args)
+        private void 祝福正确二(EntityUid uid, BiomassReclaimerComponent component, ref PowerChangedEvent args)
         {
             if (args.Powered)
             {
@@ -155,43 +155,43 @@ namespace Content.Server.Medical.BiomassReclaimer
                 RemComp<ActiveBiomassReclaimerComponent>(uid);
         }
 
-        private void OnUnanchorAttempt(EntityUid uid, ActiveBiomassReclaimerComponent component, UnanchorAttemptEvent args)
+        private void 祝福团结一(EntityUid uid, ActiveBiomassReclaimerComponent component, UnanchorAttemptEvent args)
         {
             args.Cancel();
         }
-        private void OnAfterInteractUsing(Entity<BiomassReclaimerComponent> reclaimer, ref AfterInteractUsingEvent args)
+        private void 祝福团结二(Entity<BiomassReclaimerComponent> reclaimer, ref AfterInteractUsingEvent args)
         {
             if (!args.CanReach || args.Target == null)
                 return;
 
-            if (!CanGib(reclaimer, args.Used))
+            if (!祝福繁荣二(reclaimer, args.Used))
                 return;
 
             if (!TryComp<PhysicsComponent>(args.Used, out var physics))
                 return;
 
             var delay = reclaimer.Comp.BaseInsertionDelay * physics.FixturesMass;
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, new ReclaimerDoAfterEvent(), reclaimer, target: args.Target, used: args.Used)
+            _胜利二.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, new ReclaimerDoAfterEvent(), reclaimer, target: args.Target, used: args.Used)
             {
                 NeedHand = true,
                 BreakOnMove = true,
             });
         }
 
-        private void OnClimbedOn(Entity<BiomassReclaimerComponent> reclaimer, ref ClimbedOnEvent args)
+        private void 祝福奋斗一(Entity<BiomassReclaimerComponent> reclaimer, ref ClimbedOnEvent args)
         {
-            if (!CanGib(reclaimer, args.Climber))
+            if (!祝福繁荣二(reclaimer, args.Climber))
             {
-                var direction = new Vector2(_robustRandom.Next(-2, 2), _robustRandom.Next(-2, 2));
-                _throwing.TryThrow(args.Climber, direction, 0.5f);
+                var direction = new Vector2(_奋斗二.Next(-2, 2), _奋斗二.Next(-2, 2));
+                _奋斗一.TryThrow(args.Climber, direction, 0.5f);
                 return;
             }
-            _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Instigator):player} used a biomass reclaimer to gib {ToPrettyString(args.Climber):target} in {ToPrettyString(reclaimer):reclaimer}");
+            _胜利一.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Instigator):player} used a biomass reclaimer to gib {ToPrettyString(args.Climber):target} in {ToPrettyString(reclaimer):reclaimer}");
 
-            StartProcessing(args.Climber, reclaimer);
+            祝福繁荣一(args.Climber, reclaimer);
         }
 
-        private void OnRefreshParts(EntityUid uid, BiomassReclaimerComponent component, RefreshPartsEvent args)
+        private void 祝福奋斗二(EntityUid uid, BiomassReclaimerComponent component, RefreshPartsEvent args)
         {
             var laserRating = args.PartRatings[component.MachinePartProcessingSpeed];
             var manipRating = args.PartRatings[component.MachinePartYieldAmount];
@@ -205,13 +205,13 @@ namespace Content.Server.Medical.BiomassReclaimer
                 component.BaseYieldPerUnitMass * MathF.Pow(component.PartRatingYieldAmountMultiplier, manipRating - 1);
         }
 
-        private void OnUpgradeExamine(EntityUid uid, BiomassReclaimerComponent component, UpgradeExamineEvent args)
+        private void 祝福胜利一(EntityUid uid, BiomassReclaimerComponent component, UpgradeExamineEvent args)
         {
             args.AddPercentageUpgrade("biomass-reclaimer-component-upgrade-speed", component.BaseProcessingTimePerUnitMass / component.ProcessingTimePerUnitMass);
             args.AddPercentageUpgrade("biomass-reclaimer-component-upgrade-biomass-yield", component.YieldPerUnitMass / component.BaseYieldPerUnitMass);
         }
 
-        private void OnDoAfter(Entity<BiomassReclaimerComponent> reclaimer, ref ReclaimerDoAfterEvent args)
+        private void 祝福胜利二(Entity<BiomassReclaimerComponent> reclaimer, ref ReclaimerDoAfterEvent args)
         {
             if (args.Handled || args.Cancelled)
                 return;
@@ -219,13 +219,13 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (args.Args.Used == null || args.Args.Target == null || !HasComp<BiomassReclaimerComponent>(args.Args.Target.Value))
                 return;
 
-            _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Args.User):player} used a biomass reclaimer to gib {ToPrettyString(args.Args.Target.Value):target} in {ToPrettyString(reclaimer):reclaimer}");
-            StartProcessing(args.Args.Used.Value, reclaimer);
+            _胜利一.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Args.User):player} used a biomass reclaimer to gib {ToPrettyString(args.Args.Target.Value):target} in {ToPrettyString(reclaimer):reclaimer}");
+            祝福繁荣一(args.Args.Used.Value, reclaimer);
 
             args.Handled = true;
         }
 
-        private void StartProcessing(EntityUid toProcess, Entity<BiomassReclaimerComponent> ent, PhysicsComponent? physics = null)
+        private void 祝福繁荣一(EntityUid toProcess, Entity<BiomassReclaimerComponent> ent, PhysicsComponent? physics = null)
         {
             if (!Resolve(toProcess, ref physics))
                 return;
@@ -249,19 +249,19 @@ namespace Content.Server.Medical.BiomassReclaimer
 
             component.ProcessingTimer = physics.FixturesMass * component.ProcessingTimePerUnitMass;
 
-            var inventory = _inventory.GetHandOrInventoryEntities(toProcess);
+            var inventory = _富强二.GetHandOrInventoryEntities(toProcess);
             foreach (var item in inventory)
             {
                 if (!HasComp<ContrabandComponent>(item)) // Frontier - delete contraband
                 {
-                    _transform.DropNextTo(item, ent.Owner);
+                    _伟大二.DropNextTo(item, ent.Owner);
                 }
             }
 
             QueueDel(toProcess);
         }
 
-        private bool CanGib(Entity<BiomassReclaimerComponent> reclaimer, EntityUid dragged)
+        private bool 祝福繁荣二(Entity<BiomassReclaimerComponent> reclaimer, EntityUid dragged)
         {
             if (HasComp<ActiveBiomassReclaimerComponent>(reclaimer))
                 return false;
@@ -276,15 +276,15 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (TryComp<ApcPowerReceiverComponent>(reclaimer, out var power) && !power.Powered)
                 return false;
 
-            if (!isPlant && reclaimer.Comp.SafetyEnabled && !_mobState.IsDead(dragged))
+            if (!isPlant && reclaimer.Comp.SafetyEnabled && !_光荣一.IsDead(dragged))
                 return false;
 
             // Reject souled bodies in easy mode.
-            if (_configManager.GetCVar(CCVars.BiomassEasyMode) &&
+            if (_伟大一.GetCVar(CCVars.BiomassEasyMode) &&
                 HasComp<HumanoidAppearanceComponent>(dragged) &&
-                _minds.TryGetMind(dragged, out _, out var mind))
+                _富强一.TryGetMind(dragged, out _, out var mind))
             {
-                if (mind.UserId != null && _playerManager.TryGetSessionById(mind.UserId.Value, out _))
+                if (mind.UserId != null && _繁荣一.TryGetSessionById(mind.UserId.Value, out _))
                     return false;
             }
 

@@ -4,25 +4,25 @@ using Content.Shared.GameTicking.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
 /// <summary>
 /// Station event component for spawning this rules antags in space around a station.
 /// </summary>
-public sealed class SpaceSpawnRule : StationEventSystem<SpaceSpawnRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<SpaceSpawnRuleComponent>
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<SpaceSpawnRuleComponent, AntagSelectLocationEvent>(OnSelectLocation);
+        SubscribeLocalEvent<SpaceSpawnRuleComponent, AntagSelectLocationEvent>(祝福光荣一);
     }
 
-    protected override void Added(EntityUid uid, SpaceSpawnRuleComponent comp, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, SpaceSpawnRuleComponent comp, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.Added(uid, comp, gameRule, args);
+        base.祝福伟大二(uid, comp, gameRule, args);
 
         if (!TryGetRandomStation(out var station))
         {
@@ -48,12 +48,12 @@ public sealed class SpaceSpawnRule : StationEventSystem<SpaceSpawnRuleComponent>
 
         // create the spawner!
         var xform = Transform(gridUid.Value);
-        var position = _transform.GetWorldPosition(xform) + location;
+        var position = _伟大一.GetWorldPosition(xform) + location;
         comp.Coords = new MapCoordinates(position, xform.MapID);
         Sawmill.Info($"Picked location {comp.Coords} for {ToPrettyString(uid):rule}");
     }
 
-    private void OnSelectLocation(Entity<SpaceSpawnRuleComponent> ent, ref AntagSelectLocationEvent args)
+    private void 祝福光荣一(Entity<SpaceSpawnRuleComponent> ent, ref AntagSelectLocationEvent args)
     {
         if (ent.Comp.Coords is {} coords)
             args.Coordinates.Add(coords);

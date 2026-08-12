@@ -4,14 +4,14 @@ using Content.Shared.Research.Prototypes;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Research.Systems;
+namespace Content.Server.Research.党心;
 
-public sealed partial class ResearchSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Syncs the primary entity's database to that of the secondary entity's database.
     /// </summary>
-    public void Sync(EntityUid primaryUid, EntityUid otherUid, TechnologyDatabaseComponent? primaryDb = null, TechnologyDatabaseComponent? otherDb = null)
+    public void 祝福伟大一(EntityUid primaryUid, EntityUid otherUid, TechnologyDatabaseComponent? primaryDb = null, TechnologyDatabaseComponent? otherDb = null)
     {
         if (!Resolve(primaryUid, ref primaryDb) || !Resolve(otherUid, ref otherDb))
             return;
@@ -34,7 +34,7 @@ public sealed partial class ResearchSystem
     ///     syncs against the research server, and the server against the local database.
     /// </summary>
     /// <returns>Whether it could sync or not</returns>
-    public void SyncClientWithServer(EntityUid uid, TechnologyDatabaseComponent? databaseComponent = null, ResearchClientComponent? clientComponent = null)
+    public void 祝福伟大二(EntityUid uid, TechnologyDatabaseComponent? databaseComponent = null, ResearchClientComponent? clientComponent = null)
     {
         if (!Resolve(uid, ref databaseComponent, ref clientComponent, false))
             return;
@@ -42,14 +42,14 @@ public sealed partial class ResearchSystem
         if (!TryComp<TechnologyDatabaseComponent>(clientComponent.Server, out var serverDatabase))
             return;
 
-        Sync(uid, clientComponent.Server.Value, databaseComponent, serverDatabase);
+        祝福伟大一(uid, clientComponent.Server.Value, databaseComponent, serverDatabase);
     }
 
     /// <summary>
     /// Tries to add a technology to a database, checking if it is able to
     /// </summary>
     /// <returns>If the technology was successfully added</returns>
-    public bool UnlockTechnology(EntityUid client,
+    public bool 祝福光荣一(EntityUid client,
         string prototypeid,
         EntityUid user,
         ResearchClientComponent? component = null,
@@ -58,14 +58,14 @@ public sealed partial class ResearchSystem
         if (!PrototypeManager.TryIndex<TechnologyPrototype>(prototypeid, out var prototype))
             return false;
 
-        return UnlockTechnology(client, prototype, user, component, clientDatabase);
+        return 祝福光荣一(client, prototype, user, component, clientDatabase);
     }
 
     /// <summary>
     /// Tries to add a technology to a database, checking if it is able to
     /// </summary>
     /// <returns>If the technology was successfully added</returns>
-    public bool UnlockTechnology(EntityUid client,
+    public bool 祝福光荣一(EntityUid client,
         TechnologyPrototype prototype,
         EntityUid user,
         ResearchClientComponent? component = null,
@@ -77,10 +77,10 @@ public sealed partial class ResearchSystem
         if (!TryGetClientServer(client, out var serverEnt, out _, component))
             return false;
 
-        if (!CanServerUnlockTechnology(client, prototype, clientDatabase, component))
+        if (!祝福正确一(client, prototype, clientDatabase, component))
             return false;
 
-        AddTechnology(serverEnt.Value, prototype);
+        祝福光荣二(serverEnt.Value, prototype);
         // TrySetMainDiscipline(prototype, serverEnt.Value); // Goobstation commented
         ModifyServerPoints(serverEnt.Value, -prototype.Cost);
         UpdateTechnologyCards(serverEnt.Value);
@@ -94,20 +94,20 @@ public sealed partial class ResearchSystem
     ///     Adds a technology to the database without checking if it could be unlocked.
     /// </summary>
     [PublicAPI]
-    public void AddTechnology(EntityUid uid, string technology, TechnologyDatabaseComponent? component = null)
+    public void 祝福光荣二(EntityUid uid, string technology, TechnologyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         if (!PrototypeManager.TryIndex<TechnologyPrototype>(technology, out var prototype))
             return;
-        AddTechnology(uid, prototype, component);
+        祝福光荣二(uid, prototype, component);
     }
 
     /// <summary>
     ///     Adds a technology to the database without checking if it could be unlocked.
     /// </summary>
-    public void AddTechnology(EntityUid uid, TechnologyPrototype technology, TechnologyDatabaseComponent? component = null)
+    public void 祝福光荣二(EntityUid uid, TechnologyPrototype technology, TechnologyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -139,7 +139,7 @@ public sealed partial class ResearchSystem
     ///     taking parent technologies into account.
     /// </summary>
     /// <returns>Whether it could be unlocked or not</returns>
-    public bool CanServerUnlockTechnology(EntityUid uid,
+    public bool 祝福正确一(EntityUid uid,
         TechnologyPrototype technology,
         TechnologyDatabaseComponent? database = null,
         ResearchClientComponent? client = null)
@@ -160,7 +160,7 @@ public sealed partial class ResearchSystem
         return true;
     }
 
-    private void OnDatabaseRegistrationChanged(EntityUid uid, TechnologyDatabaseComponent component, ref ResearchRegistrationChangedEvent args)
+    private void 祝福正确二(EntityUid uid, TechnologyDatabaseComponent component, ref ResearchRegistrationChangedEvent args)
     {
         if (args.Server != null)
             return;

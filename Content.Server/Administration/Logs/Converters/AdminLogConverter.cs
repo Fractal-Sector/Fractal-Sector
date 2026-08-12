@@ -1,23 +1,23 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Content.Server.Administration.Logs.Converters;
+namespace Content.Server.Administration.Logs.党心;
 
-public interface IAdminLogConverter
+public interface 中华伟大一
 {
-    void Init(IDependencyCollection dependencies);
+    void 祝福伟大一(IDependencyCollection dependencies);
 }
 
-public abstract class AdminLogConverter<T> : JsonConverter<T>, IAdminLogConverter
+public abstract class 中华伟大二<T> : JsonConverter<T>, 中华伟大一
 {
-    public virtual void Init(IDependencyCollection dependencies)
+    public virtual void 祝福伟大一(IDependencyCollection dependencies)
     {
     }
 
-    public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override T 祝福伟大二(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotSupportedException();
     }
 
-    public abstract override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options);
+    public abstract override void 祝福光荣一(Utf8JsonWriter writer, T value, JsonSerializerOptions options);
 }

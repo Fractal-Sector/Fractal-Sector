@@ -1,10 +1,10 @@
-namespace Content.Shared.Antag;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Used by AntagSelectionSystem to indicate which types of antag roles are allowed to choose the same entity
 /// For example, Thief HeadRev
 /// </summary>
-public enum AntagAcceptability
+public enum 中华伟大一
 {
     /// <summary>
     /// Dont choose anyone who already has an antag role
@@ -20,7 +20,7 @@ public enum AntagAcceptability
     All,
 }
 
-public enum AntagSelectionTime : byte
+public enum 中华伟大二 : byte
 {
     /// <summary>
     /// Antag roles are assigned before players are assigned jobs and spawned in.

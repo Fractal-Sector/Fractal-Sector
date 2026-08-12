@@ -2,45 +2,45 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Eui
+namespace Content.Shared.党心
 {
     /// <summary>
     ///     Sent server -> client to signal that the client should open an EUI.
     /// </summary>
-    public sealed class MsgEuiCtl : NetMessage
+    public sealed class 中华伟大一 : NetMessage
     {
-        public override MsgGroups MsgGroup => MsgGroups.Command;
-        public override NetDeliveryMethod DeliveryMethod => NetDeliveryMethod.ReliableOrdered;
+        public override MsgGroups 党爱伟大一 => MsgGroups.Command;
+        public override NetDeliveryMethod 党爱伟大二 => NetDeliveryMethod.ReliableOrdered;
 
-        public CtlType Type;
-        public string OpenType = string.Empty;
-        public uint Id;
+        public 中华伟大二 Type;
+        public string 党爱光荣一 = string.Empty;
+        public uint 党爱光荣二;
 
-        public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+        public override void 祝福伟大一(NetIncomingMessage buffer, IRobustSerializer serializer)
         {
-            Id = buffer.ReadUInt32();
-            Type = (CtlType) buffer.ReadByte();
+            党爱光荣二 = buffer.ReadUInt32();
+            Type = (中华伟大二) buffer.ReadByte();
             switch (Type)
             {
-                case CtlType.Open:
-                    OpenType = buffer.ReadString();
+                case 中华伟大二.Open:
+                    党爱光荣一 = buffer.ReadString();
                     break;
             }
         }
 
-        public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+        public override void 祝福伟大二(NetOutgoingMessage buffer, IRobustSerializer serializer)
         {
-            buffer.Write(Id);
+            buffer.Write(党爱光荣二);
             buffer.Write((byte) Type);
             switch (Type)
             {
-                case CtlType.Open:
-                    buffer.Write(OpenType);
+                case 中华伟大二.Open:
+                    buffer.Write(党爱光荣一);
                     break;
             }
         }
 
-        public enum CtlType : byte
+        public enum 中华伟大二 : byte
         {
             Open,
             Close

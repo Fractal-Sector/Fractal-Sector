@@ -16,41 +16,41 @@ using Robust.Shared.Containers;
 using Content.Server._EinsteinEngines.Power.Components;
 using Content.Server._EinsteinEngines.Silicon;
 
-namespace Content.Server._EinsteinEngines.Power;
+namespace Content.Server._EinsteinEngines.党心;
 
-public sealed class BatteryDrinkerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SiliconChargeSystem _silicon = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly ItemSlotsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly BatterySystem _光荣二 = default!;
+    [Dependency] private readonly SiliconChargeSystem _正确一 = default!;
+    [Dependency] private readonly PopupSystem _正确二 = default!;
+    [Dependency] private readonly PowerCellSystem _团结一 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BatteryComponent, GetVerbsEvent<AlternativeVerb>>(AddAltVerb);
+        SubscribeLocalEvent<BatteryComponent, GetVerbsEvent<AlternativeVerb>>(祝福伟大二);
 
-        SubscribeLocalEvent<BatteryDrinkerComponent, BatteryDrinkerDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<BatteryDrinkerComponent, BatteryDrinkerDoAfterEvent>(祝福正确一);
     }
 
-    private void AddAltVerb(EntityUid uid, BatteryComponent batteryComponent, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福伟大二(EntityUid uid, BatteryComponent batteryComponent, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
 
         if (!TryComp<BatteryDrinkerComponent>(args.User, out var drinkerComp) ||
-            !TestDrinkableBattery(uid, drinkerComp) ||
-            !_silicon.TryGetSiliconBattery(args.User, out var drinkerBattery))
+            !祝福光荣一(uid, drinkerComp) ||
+            !_正确一.TryGetSiliconBattery(args.User, out var drinkerBattery))
             return;
 
         AlternativeVerb verb = new()
         {
-            Act = () => DrinkBattery(uid, args.User, drinkerComp),
+            Act = () => 祝福光荣二(uid, args.User, drinkerComp),
             Text = Loc.GetString("battery-drinker-verb-drink"),
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/smite.svg.192dpi.png")),
         };
@@ -58,7 +58,7 @@ public sealed class BatteryDrinkerSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private bool TestDrinkableBattery(EntityUid target, BatteryDrinkerComponent drinkerComp)
+    private bool 祝福光荣一(EntityUid target, BatteryDrinkerComponent drinkerComp)
     {
         if (!drinkerComp.DrinkAll && !HasComp<BatteryDrinkerSourceComponent>(target))
             return false;
@@ -66,7 +66,7 @@ public sealed class BatteryDrinkerSystem : EntitySystem
         return true;
     }
 
-    private void DrinkBattery(EntityUid target, EntityUid user, BatteryDrinkerComponent drinkerComp)
+    private void 祝福光荣二(EntityUid target, EntityUid user, BatteryDrinkerComponent drinkerComp)
     {
         var doAfterTime = drinkerComp.DrinkSpeed;
 
@@ -85,10 +85,10 @@ public sealed class BatteryDrinkerSystem : EntitySystem
             CancelDuplicate = false
         };
 
-        _doAfter.TryStartDoAfter(args);
+        _伟大二.TryStartDoAfter(args);
     }
 
-    private void OnDoAfter(EntityUid uid, BatteryDrinkerComponent drinkerComp, DoAfterEvent args)
+    private void 祝福正确一(EntityUid uid, BatteryDrinkerComponent drinkerComp, DoAfterEvent args)
     {
         if (args.Cancelled || args.Target == null)
             return;
@@ -97,12 +97,12 @@ public sealed class BatteryDrinkerSystem : EntitySystem
         var drinker = uid;
         var sourceBattery = Comp<BatteryComponent>(source);
 
-        _silicon.TryGetSiliconBattery(drinker, out var drinkerBatteryComponent);
+        _正确一.TryGetSiliconBattery(drinker, out var drinkerBatteryComponent);
 
         if (!TryComp(uid, out PowerCellSlotComponent? batterySlot))
             return;
 
-        var container = _container.GetContainer(uid, batterySlot.CellSlotId);
+        var container = _团结二.GetContainer(uid, batterySlot.CellSlotId);
         var drinkerBattery = container.ContainedEntities.First();
 
         TryComp<BatteryDrinkerSourceComponent>(source, out var sourceComp);
@@ -122,21 +122,21 @@ public sealed class BatteryDrinkerSystem : EntitySystem
 
         if (amountToDrink <= 0)
         {
-            _popup.PopupEntity(Loc.GetString("battery-drinker-empty", ("target", source)), drinker, drinker);
+            _正确二.PopupEntity(Loc.GetString("battery-drinker-empty", ("target", source)), drinker, drinker);
             return;
         }
 
-        if (_battery.TryUseCharge(source, amountToDrink))
-            _battery.SetCharge(drinkerBattery, drinkerBatteryComponent.CurrentCharge + amountToDrink, drinkerBatteryComponent);
+        if (_光荣二.TryUseCharge(source, amountToDrink))
+            _光荣二.SetCharge(drinkerBattery, drinkerBatteryComponent.CurrentCharge + amountToDrink, drinkerBatteryComponent);
         else
         {
-            _battery.SetCharge(drinkerBattery, sourceBattery.CurrentCharge + drinkerBatteryComponent.CurrentCharge, drinkerBatteryComponent);
-            _battery.SetCharge(source, 0);
+            _光荣二.SetCharge(drinkerBattery, sourceBattery.CurrentCharge + drinkerBatteryComponent.CurrentCharge, drinkerBatteryComponent);
+            _光荣二.SetCharge(source, 0);
         }
 
         if (sourceComp != null && sourceComp.DrinkSound != null){
-            _popup.PopupEntity(Loc.GetString("ipc-recharge-tip"), drinker, drinker, PopupType.SmallCaution);
-            _audio.PlayPvs(sourceComp.DrinkSound, source);
+            _正确二.PopupEntity(Loc.GetString("ipc-recharge-tip"), drinker, drinker, PopupType.SmallCaution);
+            _光荣一.PlayPvs(sourceComp.DrinkSound, source);
             Spawn("EffectSparks", Transform(source).Coordinates);
         }
     }

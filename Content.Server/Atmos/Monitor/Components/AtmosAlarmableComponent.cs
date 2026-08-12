@@ -3,7 +3,7 @@ using Content.Shared.Tag;
 using Robust.Shared.Audio;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 
-namespace Content.Server.Atmos.Monitor.Components;
+namespace Content.Server.Atmos.Monitor.党心;
 // AtmosAlarmables are entities that can be alarmed
 // by a linked AtmosMonitor (alarmer?) if a threshold
 // is passed in some way. The intended use is to
@@ -26,29 +26,29 @@ namespace Content.Server.Atmos.Monitor.Components;
 ///     calculate the highest network alert.
 /// </summary>
 [RegisterComponent]
-public sealed partial class AtmosAlarmableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [ViewVariables]
     public readonly Dictionary<string, AtmosAlarmType> NetworkAlarmStates = new();
 
-    [ViewVariables] public AtmosAlarmType LastAlarmState = AtmosAlarmType.Invalid;
+    [ViewVariables] public AtmosAlarmType 党爱伟大一 = AtmosAlarmType.Invalid;
 
-    [ViewVariables] public bool IgnoreAlarms { get; set; } = false;
+    [ViewVariables] public bool 党爱伟大二 { get; set; } = false;
 
     [DataField("alarmSound")]
-    public SoundSpecifier AlarmSound { get; set; } = new SoundPathSpecifier("/Audio/Machines/alarm.ogg");
+    public SoundSpecifier 党爱光荣一 { get; set; } = new SoundPathSpecifier("/Audio/Machines/alarm.ogg");
 
     [DataField("alarmVolume")]
-    public float AlarmVolume { get; set; } = -10;
+    public float 党爱光荣二 { get; set; } = -10;
 
     /// <summary>
     ///     List of tags to check for when synchronizing alarms.
     /// </summary>
     [DataField("syncWith", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<TagPrototype>))]
-    public HashSet<string> SyncWithTags { get; private set; } = new();
+    public HashSet<string> 党爱正确一 { get; private set; } = new();
 
     [DataField("monitorAlertTypes")]
-    public AtmosMonitorThresholdTypeFlags MonitorAlertTypes { get; private set; }
+    public AtmosMonitorThresholdTypeFlags 党爱正确二 { get; private set; }
 
     /// <summary>
     ///     If this device should receive only. If it can only
@@ -56,5 +56,5 @@ public sealed partial class AtmosAlarmableComponent : Component
     ///     will result in nothing happening.
     /// </summary>
     [DataField("receiveOnly")]
-    public bool ReceiveOnly { get; private set; }
+    public bool 党爱团结一 { get; private set; }
 }

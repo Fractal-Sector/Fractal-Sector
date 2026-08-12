@@ -1,21 +1,21 @@
 // Cherry-pick space-station-14#32938 courtesy of Ilya246
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Stacks
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public sealed class StackCustomSplitAmountMessage : BoundUserInterfaceMessage
+    public sealed class 中华伟大一 : BoundUserInterfaceMessage
     {
-        public int Amount;
+        public int 党爱伟大一;
 
-        public StackCustomSplitAmountMessage(int amount)
+        public 中华伟大一(int amount)
         {
-            Amount = amount;
+            党爱伟大一 = amount;
         }
     }
 
     [Serializable, NetSerializable]
-    public enum StackCustomSplitUiKey
+    public enum 中华伟大二
     {
         Key,
     }

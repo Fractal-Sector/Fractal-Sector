@@ -1,40 +1,40 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Nuke
+namespace Content.Shared.党心
 {
-    public abstract partial class SharedNukeComponent : Component
+    public abstract partial class 中华伟大一 : Component
     {
-        public const string NukeDiskSlotId = "Nuke";
+        public const string 党爱伟大一 = "Nuke";
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeAnchorMessage : BoundUserInterfaceMessage
+    public sealed class 中华伟大二 : BoundUserInterfaceMessage
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeKeypadMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣一 : BoundUserInterfaceMessage
     {
-        public int Value;
+        public int 党爱伟大二;
 
-        public NukeKeypadMessage(int value)
+        public 中华光荣一(int value)
         {
-            Value = value;
+            党爱伟大二 = value;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeKeypadClearMessage : BoundUserInterfaceMessage
+    public sealed class 中华光荣二 : BoundUserInterfaceMessage
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeKeypadEnterMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确一 : BoundUserInterfaceMessage
     {
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeArmedMessage : BoundUserInterfaceMessage
+    public sealed class 中华正确二 : BoundUserInterfaceMessage
     {
     }
 }

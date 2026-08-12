@@ -6,44 +6,44 @@ using Content.Shared._NF.Atmos.Visuals;
 using Content.Shared.NodeContainer;
 using Robust.Server.GameObjects;
 
-namespace Content.Server._NF.Atmos.Systems;
+namespace Content.Server._NF.Atmos.党心;
 
-public sealed class DockablePipeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
+    [Dependency] private readonly AppearanceSystem _伟大一 = default!;
+    [Dependency] private readonly NodeContainerSystem _伟大二 = default!;
+    [Dependency] private readonly NodeGroupSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DockablePipeComponent, DockEvent>(OnDock);
-        SubscribeLocalEvent<DockablePipeComponent, UndockEvent>(OnUndock);
+        SubscribeLocalEvent<DockablePipeComponent, DockEvent>(祝福伟大二);
+        SubscribeLocalEvent<DockablePipeComponent, UndockEvent>(祝福光荣一);
     }
 
-    private void OnDock(Entity<DockablePipeComponent> ent, ref DockEvent args)
+    private void 祝福伟大二(Entity<DockablePipeComponent> ent, ref DockEvent args)
     {
         // Reflood node?
         if (string.IsNullOrEmpty(ent.Comp.DockNodeName) ||
             !TryComp(ent, out NodeContainerComponent? nodeContainer) ||
-            !_nodeContainer.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe))
+            !_伟大二.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe))
             return;
 
-        _nodeGroup.QueueReflood(dockablePipe);
-        _appearance.SetData(ent, DockablePipeVisuals.Docked, true);
+        _光荣一.QueueReflood(dockablePipe);
+        _伟大一.SetData(ent, DockablePipeVisuals.Docked, true);
     }
 
-    private void OnUndock(Entity<DockablePipeComponent> ent, ref UndockEvent args)
+    private void 祝福光荣一(Entity<DockablePipeComponent> ent, ref UndockEvent args)
     {
         // Clean up node?
         if (string.IsNullOrEmpty(ent.Comp.DockNodeName) ||
             !TryComp(ent, out NodeContainerComponent? nodeContainer) ||
-            !_nodeContainer.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe))
+            !_伟大二.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe))
             return;
 
-        _nodeGroup.QueueNodeRemove(dockablePipe);
+        _光荣一.QueueNodeRemove(dockablePipe);
         dockablePipe.Air.Clear();
-        _appearance.SetData(ent, DockablePipeVisuals.Docked, false);
+        _伟大一.SetData(ent, DockablePipeVisuals.Docked, false);
     }
 }

@@ -4,26 +4,26 @@ using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.Examine;
 
-namespace Content.Shared.Paper;
+namespace Content.Shared.党心;
 
-public sealed class EnvelopeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+    [Dependency] private readonly SharedDoAfterSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private readonly ItemSlotsSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EnvelopeComponent, ItemSlotInsertAttemptEvent>(OnInsertAttempt);
-        SubscribeLocalEvent<EnvelopeComponent, ItemSlotEjectAttemptEvent>(OnEjectAttempt);
-        SubscribeLocalEvent<EnvelopeComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAltVerbs);
-        SubscribeLocalEvent<EnvelopeComponent, EnvelopeDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<EnvelopeComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<EnvelopeComponent, ItemSlotInsertAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<EnvelopeComponent, ItemSlotEjectAttemptEvent>(祝福正确一);
+        SubscribeLocalEvent<EnvelopeComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣一);
+        SubscribeLocalEvent<EnvelopeComponent, EnvelopeDoAfterEvent>(祝福团结一);
+        SubscribeLocalEvent<EnvelopeComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamine(Entity<EnvelopeComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<EnvelopeComponent> ent, ref ExaminedEvent args)
     {
         if (ent.Comp.State == EnvelopeComponent.EnvelopeState.Sealed)
         {
@@ -35,7 +35,7 @@ public sealed class EnvelopeSystem : EntitySystem
         }
     }
 
-    private void OnGetAltVerbs(Entity<EnvelopeComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣一(Entity<EnvelopeComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
@@ -50,22 +50,22 @@ public sealed class EnvelopeSystem : EntitySystem
             IconEntity = GetNetEntity(ent.Owner),
             Act = () =>
             {
-                TryStartDoAfter(ent, user, ent.Comp.State == EnvelopeComponent.EnvelopeState.Open ? ent.Comp.SealDelay : ent.Comp.TearDelay);
+                祝福正确二(ent, user, ent.Comp.State == EnvelopeComponent.EnvelopeState.Open ? ent.Comp.SealDelay : ent.Comp.TearDelay);
             },
         });
     }
 
-    private void OnInsertAttempt(Entity<EnvelopeComponent> ent, ref ItemSlotInsertAttemptEvent args)
+    private void 祝福光荣二(Entity<EnvelopeComponent> ent, ref ItemSlotInsertAttemptEvent args)
     {
         args.Cancelled |= ent.Comp.State != EnvelopeComponent.EnvelopeState.Open;
     }
 
-    private void OnEjectAttempt(Entity<EnvelopeComponent> ent, ref ItemSlotEjectAttemptEvent args)
+    private void 祝福正确一(Entity<EnvelopeComponent> ent, ref ItemSlotEjectAttemptEvent args)
     {
         args.Cancelled |= ent.Comp.State == EnvelopeComponent.EnvelopeState.Sealed;
     }
 
-    private void TryStartDoAfter(Entity<EnvelopeComponent> ent, EntityUid user, TimeSpan delay)
+    private void 祝福正确二(Entity<EnvelopeComponent> ent, EntityUid user, TimeSpan delay)
     {
         if (ent.Comp.EnvelopeDoAfter.HasValue)
             return;
@@ -79,10 +79,10 @@ public sealed class EnvelopeSystem : EntitySystem
             DistanceThreshold = 1.0f,
         };
 
-        if (_doAfterSystem.TryStartDoAfter(doAfterEventArgs, out var doAfterId))
+        if (_伟大一.祝福正确二(doAfterEventArgs, out var doAfterId))
             ent.Comp.EnvelopeDoAfter = doAfterId;
     }
-    private void OnDoAfter(Entity<EnvelopeComponent> ent, ref EnvelopeDoAfterEvent args)
+    private void 祝福团结一(Entity<EnvelopeComponent> ent, ref EnvelopeDoAfterEvent args)
     {
         ent.Comp.EnvelopeDoAfter = null;
 
@@ -91,18 +91,18 @@ public sealed class EnvelopeSystem : EntitySystem
 
         if (ent.Comp.State == EnvelopeComponent.EnvelopeState.Open)
         {
-            _audioSystem.PlayPredicted(ent.Comp.SealSound, ent.Owner, args.User);
+            _伟大二.PlayPredicted(ent.Comp.SealSound, ent.Owner, args.User);
             ent.Comp.State = EnvelopeComponent.EnvelopeState.Sealed;
             Dirty(ent.Owner, ent.Comp);
         }
         else if (ent.Comp.State == EnvelopeComponent.EnvelopeState.Sealed)
         {
-            _audioSystem.PlayPredicted(ent.Comp.TearSound, ent.Owner, args.User);
+            _伟大二.PlayPredicted(ent.Comp.TearSound, ent.Owner, args.User);
             ent.Comp.State = EnvelopeComponent.EnvelopeState.Torn;
             Dirty(ent.Owner, ent.Comp);
 
-            if (_itemSlotsSystem.TryGetSlot(ent.Owner, ent.Comp.SlotId, out var slotComp))
-                _itemSlotsSystem.TryEjectToHands(ent.Owner, slotComp, args.User);
+            if (_光荣一.TryGetSlot(ent.Owner, ent.Comp.SlotId, out var slotComp))
+                _光荣一.TryEjectToHands(ent.Owner, slotComp, args.User);
         }
     }
 }

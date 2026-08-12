@@ -2,41 +2,41 @@
 using Content.Shared.Mobs;
 using Robust.Shared.Network;
 
-namespace Content.Server.KillTracking;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This is used for entities that track player damage sources and killers.
 /// </summary>
 [RegisterComponent, Access(typeof(KillTrackingSystem))]
-public sealed partial class KillTrackerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The mobstate that registers as a "kill"
     /// </summary>
     [DataField("killState")]
-    public MobState KillState = MobState.Critical;
+    public MobState 党爱伟大一 = MobState.Critical;
 
     /// <summary>
     /// A dictionary of sources and how much damage they've done to this entity over time.
     /// </summary>
     [DataField("lifetimeDamage")]
-    public Dictionary<KillSource, FixedPoint2> LifetimeDamage = new();
+    public Dictionary<中华伟大二, FixedPoint2> LifetimeDamage = new();
 }
 
-public abstract record KillSource;
+public abstract record 中华伟大二;
 
 /// <summary>
 /// A kill source for players
 /// </summary>
 [DataDefinition, Serializable]
-public sealed partial record KillPlayerSource : KillSource
+public sealed partial record 中华光荣一 : 中华伟大二
 {
     [DataField("playerId")]
-    public NetUserId PlayerId;
+    public NetUserId 党爱伟大二;
 
-    public KillPlayerSource(NetUserId playerId)
+    public 中华光荣一(NetUserId playerId)
     {
-        PlayerId = playerId;
+        党爱伟大二 = playerId;
     }
 }
 
@@ -44,14 +44,14 @@ public sealed partial record KillPlayerSource : KillSource
 /// A kill source for non-player controlled entities
 /// </summary>
 [DataDefinition, Serializable]
-public sealed partial record KillNpcSource : KillSource
+public sealed partial record 中华光荣二 : 中华伟大二
 {
     [DataField("npcEnt")]
-    public EntityUid NpcEnt;
+    public EntityUid 党爱光荣一;
 
-    public KillNpcSource(EntityUid npcEnt)
+    public 中华光荣二(EntityUid npcEnt)
     {
-        NpcEnt = npcEnt;
+        党爱光荣一 = npcEnt;
     }
 }
 
@@ -59,4 +59,4 @@ public sealed partial record KillNpcSource : KillSource
 /// A kill source for kills with no damage origin
 /// </summary>
 [DataDefinition, Serializable]
-public sealed partial record KillEnvironmentSource : KillSource;
+public sealed partial record 中华正确一 : 中华伟大二;

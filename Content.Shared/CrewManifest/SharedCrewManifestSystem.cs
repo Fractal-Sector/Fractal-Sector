@@ -2,7 +2,7 @@ using Content.Shared.Eui;
 using NetSerializer;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.CrewManifest;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     A message to send to the server when requesting a crew manifest.
@@ -10,54 +10,54 @@ namespace Content.Shared.CrewManifest;
 ///     to the player when it is updated.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class RequestCrewManifestMessage : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public NetEntity Id { get; }
+    public NetEntity 党爱伟大一 { get; }
 
-    public RequestCrewManifestMessage(NetEntity id)
+    public 中华伟大一(NetEntity id)
     {
-        Id = id;
+        党爱伟大一 = id;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class CrewManifestEuiState : EuiStateBase // Coyote: Removed StationName
+public sealed class 中华伟大二 : EuiStateBase // Coyote: Removed StationName
 {
-    public CrewManifestEntries? Entries { get; }
+    public 中华光荣一? Entries { get; }
 
-    public CrewManifestEuiState(CrewManifestEntries? entries) // Coyote: Removed StationName
+    public 中华伟大二(中华光荣一? entries) // Coyote: Removed StationName
     {
         Entries = entries;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class CrewManifestEntries
+public sealed class 中华光荣一
 {
     /// <summary>
     ///     Entries in the crew manifest. Goes by department ID.
     /// </summary>
-    // public Dictionary<string, List<CrewManifestEntry>> Entries = new();
-    public CrewManifestEntry[] Entries = Array.Empty<CrewManifestEntry>();
+    // public Dictionary<string, List<中华光荣二>> Entries = new();
+    public 中华光荣二[] Entries = Array.Empty<中华光荣二>();
 }
 
 [Serializable, NetSerializable]
-public sealed class CrewManifestEntry
+public sealed class 中华光荣二
 {
-    public string Name { get; }
+    public string 党爱伟大二 { get; }
 
-    public string JobTitle { get; }
+    public string 党爱光荣一 { get; }
 
-    public string JobIcon { get; }
+    public string 党爱光荣二 { get; }
 
-    public string JobPrototype { get; }
+    public string 党爱正确一 { get; }
 
-    public CrewManifestEntry(string name, string jobTitle, string jobIcon, string jobPrototype)
+    public 中华光荣二(string name, string jobTitle, string jobIcon, string jobPrototype)
     {
-        Name = name;
-        JobTitle = jobTitle;
-        JobIcon = jobIcon;
-        JobPrototype = jobPrototype;
+        党爱伟大二 = name;
+        党爱光荣一 = jobTitle;
+        党爱光荣二 = jobIcon;
+        党爱正确一 = jobPrototype;
     }
 }
 
@@ -66,5 +66,5 @@ public sealed class CrewManifestEntry
 ///     this entity's point of view.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CrewManifestOpenUiMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {}

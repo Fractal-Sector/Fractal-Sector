@@ -11,7 +11,7 @@ using Robust.Shared.Random;
 using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Toolshed.TypeParsers;
 
-namespace Content.Shared.EntityEffects;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Entity effects describe behavior that occurs on different kinds of triggers, e.g. when a reagent is ingested and metabolized by some
@@ -19,16 +19,16 @@ namespace Content.Shared.EntityEffects;
 /// </summary>
 [ImplicitDataDefinitionForInheritors]
 [MeansImplicitUse]
-public abstract partial class EntityEffect
+public abstract partial 中华光荣二 中华伟大一
 {
-    private protected string _id => this.GetType().Name;
+    private protected string 党爱伟大一 => this.GetType().Name;
     /// <summary>
     ///     The list of conditions required for the effect to activate. Not required.
     /// </summary>
     [DataField("conditions")]
     public EntityEffectCondition[]? Conditions;
 
-    public virtual string ReagentEffectFormat => "guidebook-reagent-effect-description";
+    public virtual string 党爱伟大二 => "guidebook-reagent-effect-description";
 
     protected abstract string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys);
 
@@ -36,16 +36,16 @@ public abstract partial class EntityEffect
     ///     What's the chance, from 0 to 1, that this effect will occur?
     /// </summary>
     [DataField("probability")]
-    public float Probability = 1.0f;
+    public float 党爱光荣一 = 1.0f;
 
-    public virtual LogImpact LogImpact { get; private set; } = LogImpact.Low;
+    public virtual 党爱光荣二 党爱光荣二 { get; private set; } = 党爱光荣二.Low;
 
     /// <summary>
     ///     Should this entity effect log at all?
     /// </summary>
-    public virtual bool ShouldLog { get; private set; } = false;
+    public virtual bool 党爱正确一 { get; private set; } = false;
 
-    public abstract void Effect(EntityEffectBaseArgs args);
+    public abstract void 祝福伟大一(EntityEffectBaseArgs args);
 
     /// <summary>
     /// Produces a localized, bbcode'd guidebook description for this effect.
@@ -63,23 +63,23 @@ public abstract partial class EntityEffect
         conditionsList = conditionsList?.Where(x => x != "NULL!!!").ToList();
         var conditionsListPro = ContentLocalizationManager.FormatList(conditionsList ?? new List<string>());
 
-        return Loc.GetString(ReagentEffectFormat,
+        return Loc.GetString(党爱伟大二,
             ("effect", effect),
-            ("chance", Probability),
+            ("chance", 党爱光荣一),
             ("conditionCount", Conditions?.Length ?? 0),
             ("conditions", conditionsListPro));
     }
 }
 
-public static class EntityEffectExt
+public static 中华光荣二 中华伟大二
 {
-    public static bool ShouldApply(this EntityEffect effect, EntityEffectBaseArgs args,
+    public static bool 祝福伟大二(this 中华伟大一 effect, EntityEffectBaseArgs args,
         IRobustRandom? random = null)
     {
         if (random == null)
             random = IoCManager.Resolve<IRobustRandom>();
 
-        if (effect.Probability < 1.0f && !random.Prob(effect.Probability))
+        if (effect.党爱光荣一 < 1.0f && !random.Prob(effect.党爱光荣一))
             return false;
 
         if (effect.Conditions != null)
@@ -96,15 +96,15 @@ public static class EntityEffectExt
 }
 
 [ByRefEvent]
-public struct ExecuteEntityEffectEvent<T> where T : EntityEffect
+public struct 中华光荣一<T> where T : 中华伟大一
 {
-    public T Effect;
-    public EntityEffectBaseArgs Args;
+    public T 祝福伟大一;
+    public EntityEffectBaseArgs 党爱正确二;
 
-    public ExecuteEntityEffectEvent(T effect, EntityEffectBaseArgs args)
+    public 中华光荣一(T effect, EntityEffectBaseArgs args)
     {
-        Effect = effect;
-        Args = args;
+        祝福伟大一 = effect;
+        党爱正确二 = args;
     }
 }
 
@@ -112,40 +112,40 @@ public struct ExecuteEntityEffectEvent<T> where T : EntityEffect
 ///     EntityEffectBaseArgs only contains the target of an effect.
 ///     If a trigger wants to include more info (e.g. the quantity of the chemical triggering the effect), it can be extended (see EntityEffectReagentArgs).
 /// </summary>
-public record class EntityEffectBaseArgs
+public record 中华光荣二 EntityEffectBaseArgs
 {
-    public EntityUid TargetEntity;
+    public EntityUid 党爱团结一;
 
-    public IEntityManager EntityManager = default!;
+    public IEntityManager 党爱团结二 = default!;
 
     public EntityEffectBaseArgs(EntityUid targetEntity, IEntityManager entityManager)
     {
-        TargetEntity = targetEntity;
-        EntityManager = entityManager;
+        党爱团结一 = targetEntity;
+        党爱团结二 = entityManager;
     }
 }
 
-public record class EntityEffectReagentArgs : EntityEffectBaseArgs
+public record 中华光荣二 EntityEffectReagentArgs : EntityEffectBaseArgs
 {
     public EntityUid? OrganEntity;
 
     public Solution? Source;
 
-    public FixedPoint2 Quantity;
+    public FixedPoint2 党爱奋斗一;
 
     public ReagentPrototype? Reagent;
 
     public ReactionMethod? Method;
 
-    public FixedPoint2 Scale;
+    public FixedPoint2 党爱奋斗二;
 
     public EntityEffectReagentArgs(EntityUid targetEntity, IEntityManager entityManager, EntityUid? organEntity, Solution? source, FixedPoint2 quantity, ReagentPrototype? reagent, ReactionMethod? method, FixedPoint2 scale) : base(targetEntity, entityManager)
     {
         OrganEntity = organEntity;
         Source = source;
-        Quantity = quantity;
+        党爱奋斗一 = quantity;
         Reagent = reagent;
         Method = method;
-        Scale = scale;
+        党爱奋斗二 = scale;
     }
 }

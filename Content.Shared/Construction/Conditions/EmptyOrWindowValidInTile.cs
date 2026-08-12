@@ -2,16 +2,16 @@
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Construction.Conditions
+namespace Content.Shared.Construction.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class EmptyOrWindowValidInTile : IConstructionCondition
+    public sealed partial class 中华伟大一 : IConstructionCondition
     {
         [DataField("tileNotBlocked")]
-        private TileNotBlocked _tileNotBlocked = new();
+        private TileNotBlocked _伟大一 = new();
 
-        public bool Condition(EntityUid user, EntityCoordinates location, Direction direction)
+        public bool 祝福伟大一(EntityUid user, EntityCoordinates location, Direction direction)
         {
             var entManager = IoCManager.Resolve<IEntityManager>();
             var lookupSys = entManager.System<EntityLookupSystem>();
@@ -26,12 +26,12 @@ namespace Content.Shared.Construction.Conditions
             }
 
             if (!result)
-                result = _tileNotBlocked.Condition(user, location, direction);
+                result = _伟大一.祝福伟大一(user, location, direction);
 
             return result;
         }
 
-        public ConstructionGuideEntry GenerateGuideEntry()
+        public ConstructionGuideEntry 祝福伟大二()
         {
             return new ConstructionGuideEntry
             {

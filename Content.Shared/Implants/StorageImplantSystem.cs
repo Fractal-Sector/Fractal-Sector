@@ -4,33 +4,33 @@ using Content.Shared.Storage;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 
-namespace Content.Shared.Implants;
+namespace Content.Shared.党心;
 
-public sealed class StorageImplantSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StorageImplantComponent, ImplantRemovedEvent>(OnImplantRemoved);
+        SubscribeLocalEvent<StorageImplantComponent, ImplantRemovedEvent>(祝福伟大二);
     }
 
-    private void OnImplantRemoved(Entity<StorageImplantComponent> ent, ref ImplantRemovedEvent args)
+    private void 祝福伟大二(Entity<StorageImplantComponent> ent, ref ImplantRemovedEvent args)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return; // TODO: RandomPredicted and DropNextToPredicted
 
-        if (!_container.TryGetContainer(ent.Owner, StorageComponent.ContainerId, out var storageImplant))
+        if (!_伟大一.TryGetContainer(ent.Owner, StorageComponent.ContainerId, out var storageImplant))
             return;
 
         var contained = storageImplant.ContainedEntities.ToArray();
         foreach (var entity in contained)
         {
-            _transform.DropNextTo(entity, ent.Owner);
+            _伟大二.DropNextTo(entity, ent.Owner);
         }
     }
 }

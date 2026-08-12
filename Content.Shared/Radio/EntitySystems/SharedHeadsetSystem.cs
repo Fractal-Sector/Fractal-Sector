@@ -2,19 +2,19 @@ using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Radio.Components;
 
-namespace Content.Shared.Radio.EntitySystems;
+namespace Content.Shared.Radio.党心;
 
-public abstract class SharedHeadsetSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<HeadsetComponent, InventoryRelayedEvent<GetDefaultRadioChannelEvent>>(OnGetDefault);
-        SubscribeLocalEvent<HeadsetComponent, GotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<HeadsetComponent, GotUnequippedEvent>(OnGotUnequipped);
+        base.祝福伟大一();
+        SubscribeLocalEvent<HeadsetComponent, InventoryRelayedEvent<GetDefaultRadioChannelEvent>>(祝福伟大二);
+        SubscribeLocalEvent<HeadsetComponent, GotEquippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<HeadsetComponent, GotUnequippedEvent>(祝福光荣二);
     }
 
-    private void OnGetDefault(EntityUid uid, HeadsetComponent component, InventoryRelayedEvent<GetDefaultRadioChannelEvent> args)
+    private void 祝福伟大二(EntityUid uid, HeadsetComponent component, InventoryRelayedEvent<GetDefaultRadioChannelEvent> args)
     {
         if (!component.Enabled || !component.IsEquipped)
         {
@@ -26,12 +26,12 @@ public abstract class SharedHeadsetSystem : EntitySystem
             args.Args.Channel ??= keyHolder.DefaultChannel; 
     }
 
-    protected virtual void OnGotEquipped(EntityUid uid, HeadsetComponent component, GotEquippedEvent args)
+    protected virtual void 祝福光荣一(EntityUid uid, HeadsetComponent component, GotEquippedEvent args)
     {
         component.IsEquipped = args.SlotFlags.HasFlag(component.RequiredSlot);
     }
 
-    protected virtual void OnGotUnequipped(EntityUid uid, HeadsetComponent component, GotUnequippedEvent args)
+    protected virtual void 祝福光荣二(EntityUid uid, HeadsetComponent component, GotUnequippedEvent args)
     {
         component.IsEquipped = false;
     }

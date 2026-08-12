@@ -35,65 +35,65 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 
-namespace Content.Server._NF.PublicTransit;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// If enabled, spawns a public trasnport grid as definied by cvar, to act as an automatic transit shuttle between designated grids
 /// </summary>
-public sealed class PublicTransitSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly ShuttleSystem _shuttles = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly StationRenameWarpsSystems _renameWarps = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly GameTicker _光荣一 = default!;
+    [Dependency] private readonly MapSystem _光荣二 = default!;
+    [Dependency] private readonly MapLoaderSystem _正确一 = default!;
+    [Dependency] private readonly ShuttleSystem _正确二 = default!;
+    [Dependency] private readonly ChatSystem _团结一 = default!;
+    [Dependency] private readonly MetaDataSystem _团结二 = default!;
+    [Dependency] private readonly StationRenameWarpsSystems _奋斗一 = default!;
+    [Dependency] private readonly IPrototypeManager _奋斗二 = default!;
+    [Dependency] private readonly StationSystem _胜利一 = default!;
+    [Dependency] private readonly AppearanceSystem _胜利二 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _繁荣一 = default!;
+    [Dependency] private readonly SectorServiceSystem _繁荣二 = default!;
+    [Dependency] private readonly IRobustRandom _富强一 = default!;
 
     /// <summary>
     /// If enabled then spawns the bus and sets up the bus line.
     /// </summary>
-    public bool Enabled { get; private set; }
+    public bool 党爱伟大一 { get; private set; }
 
-    private TimeSpan _hyperspaceTimePerRoute = TimeSpan.FromSeconds(10);
+    private TimeSpan _富强二 = TimeSpan.FromSeconds(10);
     private const float ShuttleSpawnBuffer = 4f;
     private const ushort TransitShuttleScreenFrequency = 10000;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StationTransitComponent, ComponentStartup>(OnStationStartup);
-        SubscribeLocalEvent<StationTransitComponent, ComponentRemove>(OnStationRemove);
-        SubscribeLocalEvent<TransitShuttleComponent, FTLCompletedEvent>(OnShuttleArrival);
-        SubscribeLocalEvent<TransitShuttleComponent, FTLTagEvent>(OnShuttleTag);
-        SubscribeLocalEvent<PublicTransitVisualsComponent, MapInitEvent>(OnPublicTransitVisualsInit);
-        SubscribeLocalEvent<BusScheduleComponent, ExaminedEvent>(OnScheduleExamined);
-        SubscribeLocalEvent<StationsGeneratedEvent>(OnStationsGenerated);
+        SubscribeLocalEvent<StationTransitComponent, ComponentStartup>(祝福奋斗二);
+        SubscribeLocalEvent<StationTransitComponent, ComponentRemove>(祝福胜利二);
+        SubscribeLocalEvent<TransitShuttleComponent, FTLCompletedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<TransitShuttleComponent, FTLTagEvent>(祝福光荣一);
+        SubscribeLocalEvent<PublicTransitVisualsComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<BusScheduleComponent, ExaminedEvent>(祝福正确二);
+        SubscribeLocalEvent<StationsGeneratedEvent>(祝福奋斗一);
 
-        Enabled = _cfgManager.GetCVar(NFCCVars.PublicTransit);
-        _cfgManager.OnValueChanged(NFCCVars.PublicTransit, SetTransit);
+        党爱伟大一 = _伟大一.GetCVar(NFCCVars.PublicTransit);
+        _伟大一.OnValueChanged(NFCCVars.PublicTransit, 祝福富强二);
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
-        _cfgManager.UnsubValueChanged(NFCCVars.PublicTransit, SetTransit);
+        base.祝福伟大二();
+        _伟大一.UnsubValueChanged(NFCCVars.PublicTransit, 祝福富强二);
     }
 
 
     /// <summary>
     /// Hardcoded snippit to intercept FTL events. It catches the transit shuttle and ensures its looking for the "DockTransit" priority dock.
     /// </summary>
-    private void OnShuttleTag(Entity<TransitShuttleComponent> ent, ref FTLTagEvent args)
+    private void 祝福光荣一(Entity<TransitShuttleComponent> ent, ref FTLTagEvent args)
     {
         if (args.Handled)
             return;
@@ -103,12 +103,12 @@ public sealed class PublicTransitSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnPublicTransitVisualsInit(Entity<PublicTransitVisualsComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<PublicTransitVisualsComponent> ent, ref MapInitEvent args)
     {
-        TrySetGridVisuals(ent);
+        祝福正确一(ent);
     }
 
-    private bool TrySetGridVisuals(Entity<PublicTransitVisualsComponent> ent)
+    private bool 祝福正确一(Entity<PublicTransitVisualsComponent> ent)
     {
         if (!TryComp(ent, out TransformComponent? xform))
             return false;
@@ -118,31 +118,31 @@ public sealed class PublicTransitSystem : EntitySystem
         // Exception: if this is a route-dedicated bus schedule, just get its route's livery colour
         if (TryComp(ent, out BusScheduleComponent? comp)
             && comp.RouteId != null
-            && _proto.TryIndex(comp.RouteId, out transitRoute))
+            && _奋斗二.TryIndex(comp.RouteId, out transitRoute))
         {
-            _appearance.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
+            _胜利二.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
             return true;
         }
 
         // Otherwise, check the grid we're on.
         if (TryComp(xform.GridUid, out TransitShuttleComponent? transitShuttle)
-            && _proto.TryIndex(transitShuttle.RouteId, out transitRoute))
+            && _奋斗二.TryIndex(transitShuttle.RouteId, out transitRoute))
         {
-            _appearance.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
+            _胜利二.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
             return true;
         }
         else if (TryComp(xform.GridUid, out StationTransitComponent? stationTransit)
             && stationTransit.Routes.Count > 0
-            && _proto.TryIndex(stationTransit.Routes.First().Key, out transitRoute))
+            && _奋斗二.TryIndex(stationTransit.Routes.First().Key, out transitRoute))
         {
-            _appearance.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
+            _胜利二.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
             return true;
         }
 
         return false;
     }
 
-    private void OnScheduleExamined(Entity<BusScheduleComponent> ent, ref ExaminedEvent args)
+    private void 祝福正确二(Entity<BusScheduleComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -159,7 +159,7 @@ public sealed class PublicTransitSystem : EntitySystem
             if (TryComp<TransitShuttleComponent>(xform.GridUid, out var transitShuttle))
             {
                 // This is a bus, it only serves one route - even if the schedule is for a different route, give our info.
-                PrintBusSchedule(transitShuttle.RouteId, (xform.GridUid.Value, transitShuttle), ref args);
+                祝福团结一(transitShuttle.RouteId, (xform.GridUid.Value, transitShuttle), ref args);
             }
             else if (TryComp<StationTransitComponent>(xform.GridUid, out var stationTransit))
             {
@@ -181,7 +181,7 @@ public sealed class PublicTransitSystem : EntitySystem
                     return;
                 }
 
-                PrintStationSchedule(route.Value, xform.GridUid.Value, ref args);
+                祝福团结二(route.Value, xform.GridUid.Value, ref args);
             }
             else
             {
@@ -192,9 +192,9 @@ public sealed class PublicTransitSystem : EntitySystem
         }
     }
 
-    private void PrintBusSchedule(ProtoId<PublicTransitRoutePrototype> route, Entity<TransitShuttleComponent> grid, ref ExaminedEvent args)
+    private void 祝福团结一(ProtoId<PublicTransitRoutePrototype> route, Entity<TransitShuttleComponent> grid, ref ExaminedEvent args)
     {
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit)
+        if (!TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var sectorPublicTransit)
             || !sectorPublicTransit.Routes.TryGetValue(route, out var routeData)
             || !routeData.StopIndicesByGrid.TryGetValue(grid.Comp.CurrentGrid, out var destInfo))
         {
@@ -205,7 +205,7 @@ public sealed class PublicTransitSystem : EntitySystem
         FormattedMessage message = new();
         message.AddMarkupPermissive(Loc.GetString("bus-schedule-arrival-header"));
 
-        var arrivalTime = grid.Comp.NextTransfer - _timing.CurTime + routeData.Prototype.TravelTime;
+        var arrivalTime = grid.Comp.NextTransfer - _伟大二.CurTime + routeData.Prototype.TravelTime;
         // On the way to the next grid
         int maxIndex = routeData.GridStops.Count;
         if (HasComp<FTLComponent>(grid))
@@ -233,10 +233,10 @@ public sealed class PublicTransitSystem : EntitySystem
         args.PushMessage(message);
     }
 
-    private void PrintStationSchedule(ProtoId<PublicTransitRoutePrototype> route, EntityUid grid, ref ExaminedEvent args)
+    private void 祝福团结二(ProtoId<PublicTransitRoutePrototype> route, EntityUid grid, ref ExaminedEvent args)
     {
         // Get stop index on requested route
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit)
+        if (!TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var sectorPublicTransit)
             || !sectorPublicTransit.Routes.TryGetValue(route, out var routeData)
             || !routeData.StopIndicesByGrid.TryGetValue(grid, out var destInfo))
         {
@@ -274,7 +274,7 @@ public sealed class PublicTransitSystem : EntitySystem
         }
 
         // Calculate the departure time from this stop and the arrival time at the next stops.
-        var departureTime = nextBus.Comp.NextTransfer + stopDistance * (routeData.Prototype.TravelTime + routeData.Prototype.WaitTime) - _timing.CurTime;
+        var departureTime = nextBus.Comp.NextTransfer + stopDistance * (routeData.Prototype.TravelTime + routeData.Prototype.WaitTime) - _伟大二.CurTime;
 
         FormattedMessage message = new();
         if (departureTime.TotalSeconds >= 1)
@@ -299,13 +299,13 @@ public sealed class PublicTransitSystem : EntitySystem
         args.PushMessage(message);
     }
 
-    private void OnStationsGenerated(StationsGeneratedEvent args)
+    private void 祝福奋斗一(StationsGeneratedEvent args)
     {
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit))
+        if (!TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var sectorPublicTransit))
             return;
 
-        if (Enabled && !sectorPublicTransit.RoutesCreated)
-            SetupPublicTransit(sectorPublicTransit);
+        if (党爱伟大一 && !sectorPublicTransit.RoutesCreated)
+            祝福民主一(sectorPublicTransit);
 
         sectorPublicTransit.StationsGenerated = true;
     }
@@ -314,12 +314,12 @@ public sealed class PublicTransitSystem : EntitySystem
     /// Checks to make sure the grid is on the appropriate playfield, i.e., not in mapping space being worked on.
     /// If so, adds the grid to the list of bus stops, but only if its not already there
     /// </summary>
-    private void OnStationStartup(Entity<StationTransitComponent> ent, ref ComponentStartup args)
+    private void 祝福奋斗二(Entity<StationTransitComponent> ent, ref ComponentStartup args)
     {
-        if (Transform(ent).MapID != _ticker.DefaultMap) //best solution i could find because of componentinit/mapinit race conditions
+        if (Transform(ent).MapID != _光荣一.DefaultMap) //best solution i could find because of componentinit/mapinit race conditions
             return;
 
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit))
+        if (!TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var sectorPublicTransit))
             return;
 
         // Add each present route
@@ -327,7 +327,7 @@ public sealed class PublicTransitSystem : EntitySystem
         {
             if (!sectorPublicTransit.Routes.TryGetValue(routeId, out var route))
             {
-                if (!_proto.TryIndex(routeId, out var routeProto))
+                if (!_奋斗二.TryIndex(routeId, out var routeProto))
                     continue;
                 route = new PublicTransitRoute(routeProto);
                 sectorPublicTransit.Routes.Add(routeId, route);
@@ -342,12 +342,12 @@ public sealed class PublicTransitSystem : EntitySystem
             while (!route.GridStops.TryAdd(actualRouteIndex, ent))
                 actualRouteIndex++;
 
-            CalculateGridIndices(route);
+            祝福胜利一(route);
         }
         // TODO: add bus if needed, adjust departure times
     }
 
-    private void CalculateGridIndices(PublicTransitRoute route)
+    private void 祝福胜利一(PublicTransitRoute route)
     {
         // Recalculate grid indices
         route.StopIndicesByGrid.Clear();
@@ -361,9 +361,9 @@ public sealed class PublicTransitSystem : EntitySystem
     /// <summary>
     /// When a bus stop gets deleted in-game, we need to remove it from the list of bus stops, or else we get FTL problems
     /// </summary>
-    private void OnStationRemove(Entity<StationTransitComponent> ent, ref ComponentRemove args)
+    private void 祝福胜利二(Entity<StationTransitComponent> ent, ref ComponentRemove args)
     {
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit))
+        if (!TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var sectorPublicTransit))
             return;
 
         foreach (var route in sectorPublicTransit.Routes.Values)
@@ -372,14 +372,14 @@ public sealed class PublicTransitSystem : EntitySystem
             if (index != -1)
                 route.GridStops.RemoveAt(index);
 
-            CalculateGridIndices(route);
+            祝福胜利一(route);
         }
         // TODO: could add logic to rebalance the buses here.
     }
 
-    private void OnShuttleArrival(Entity<TransitShuttleComponent> ent, ref FTLCompletedEvent args)
+    private void 祝福繁荣一(Entity<TransitShuttleComponent> ent, ref FTLCompletedEvent args)
     {
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit))
+        if (!TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var sectorPublicTransit))
             return;
 
         var consoleQuery = EntityQueryEnumerator<ShuttleConsoleComponent, TransformComponent>();
@@ -394,13 +394,13 @@ public sealed class PublicTransitSystem : EntitySystem
                 continue;
 
             // Note: the next grid is not cached in case stations are added or removed.
-            if (!TryGetNextStop(route, ent.Comp.CurrentGrid, out var nextGrid))
+            if (!祝福繁荣二(route, ent.Comp.CurrentGrid, out var nextGrid))
                 continue;
 
             if (!TryComp(nextGrid, out MetaDataComponent? metadata))
                 continue;
 
-            _chat.TrySendInGameICMessage(consoleUid, Loc.GetString("public-transit-arrival",
+            _团结一.TrySendInGameICMessage(consoleUid, Loc.GetString("public-transit-arrival",
                     ("destination", metadata.EntityName), ("waittime", route.Prototype.WaitTime)),
                 InGameICChatType.Speak, ChatTransmitRange.HideChat, hideLog: true, checkRadioPrefix: false,
                 ignoreActionBlocker: true);
@@ -414,7 +414,7 @@ public sealed class PublicTransitSystem : EntitySystem
     /// Then, it checks to make sure that there even is anything in the list
     /// and if so, we return the next station, and then increment our counter for the next time its ran
     /// </summary>
-    private bool TryGetNextStop(PublicTransitRoute route, EntityUid currentGrid, [NotNullWhen(true)] out EntityUid? nextGrid)
+    private bool 祝福繁荣二(PublicTransitRoute route, EntityUid currentGrid, [NotNullWhen(true)] out EntityUid? nextGrid)
     {
         nextGrid = null;
         if (route.GridStops.Count <= 0)
@@ -437,15 +437,15 @@ public sealed class PublicTransitSystem : EntitySystem
     /// If it happens that all bus stops are deleted and we never get a valid stop again, we are going to be stuck FTL'ing forever in ftl space
     /// but at that point, theres nowhere to return to anyway
     /// </summary>
-    public override void Update(float frameTime)
+    public override void 祝福富强一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福富强一(frameTime);
 
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit))
+        if (!TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var sectorPublicTransit))
             return;
 
-        var curTime = _timing.CurTime;
-        // Update periodically, no need to have the buses on time to the millisecond.
+        var curTime = _伟大二.CurTime;
+        // 祝福富强一 periodically, no need to have the buses on time to the millisecond.
         if (sectorPublicTransit.NextUpdate > curTime)
             return;
         sectorPublicTransit.NextUpdate = curTime + sectorPublicTransit.UpdatePeriod;
@@ -463,12 +463,12 @@ public sealed class PublicTransitSystem : EntitySystem
             // Regardless of whether we have a station to go to, don't rerun the same conditions frequently.
             comp.NextTransfer = curTime + route.Prototype.TravelTime + route.Prototype.WaitTime;
 
-            if (!TryGetNextStop(route, comp.CurrentGrid, out var nextGrid))
+            if (!祝福繁荣二(route, comp.CurrentGrid, out var nextGrid))
                 continue; // NOTE: this bus is dead, should we despawn it?
 
             // FTL to next station if it exists.  Do this before the print.
-            var hyperspaceTime = MathF.Max(0.0f, (float)route.Prototype.TravelTime.TotalSeconds - _shuttles.DefaultStartupTime);
-            _shuttles.FTLToDock(uid, shuttle, nextGrid.Value, startupTime: _shuttles.DefaultStartupTime, hyperspaceTime: hyperspaceTime, priorityTag: comp.DockTag); // TODO: Unhard code the priorityTag as it should be added from the system.
+            var hyperspaceTime = MathF.Max(0.0f, (float)route.Prototype.TravelTime.TotalSeconds - _正确二.DefaultStartupTime);
+            _正确二.FTLToDock(uid, shuttle, nextGrid.Value, startupTime: _正确二.DefaultStartupTime, hyperspaceTime: hyperspaceTime, priorityTag: comp.DockTag); // TODO: Unhard code the priorityTag as it should be added from the system.
             comp.CurrentGrid = nextGrid.Value;
 
             if (!TryComp(nextGrid, out MetaDataComponent? metadata))
@@ -481,7 +481,7 @@ public sealed class PublicTransitSystem : EntitySystem
                 if (xform.GridUid != uid)
                     continue;
 
-                _chat.TrySendInGameICMessage(consoleUid, Loc.GetString("public-transit-departure",
+                _团结一.TrySendInGameICMessage(consoleUid, Loc.GetString("public-transit-departure",
                         ("destination", metadata.EntityName), ("flytime", route.Prototype.TravelTime)),
                     InGameICChatType.Speak, ChatTransmitRange.HideChat, hideLog: true, checkRadioPrefix: false,
                     ignoreActionBlocker: true);
@@ -496,11 +496,11 @@ public sealed class PublicTransitSystem : EntitySystem
     /// along with anyone/thing riding the bus
     /// you've been warned
     /// </summary>
-    private void SetTransit(bool obj)
+    private void 祝福富强二(bool obj)
     {
-        Enabled = obj;
+        党爱伟大一 = obj;
 
-        if (!Enabled)
+        if (!党爱伟大一)
         {
             var shuttleQuery = AllEntityQuery<TransitShuttleComponent>();
 
@@ -509,14 +509,14 @@ public sealed class PublicTransitSystem : EntitySystem
                 QueueDel(uid);
             }
 
-            if (TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var publicTransit))
+            if (TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var publicTransit))
                 publicTransit.RoutesCreated = false;
         }
-        else if (TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var publicTransit)
+        else if (TryComp<SectorPublicTransitComponent>(_繁荣二.GetServiceEntity(), out var publicTransit)
                 && !publicTransit.RoutesCreated
                 && publicTransit.StationsGenerated)
         {
-            SetupPublicTransit(publicTransit);
+            祝福民主一(publicTransit);
         }
     }
 
@@ -528,7 +528,7 @@ public sealed class PublicTransitSystem : EntitySystem
     /// <remarks>
     /// Bus scheduling may be clumped if disabled and reenabled with enough stops to require additional buses.
     /// </remarks>
-    private void SetupPublicTransit(SectorPublicTransitComponent comp)
+    private void 祝福民主一(SectorPublicTransitComponent comp)
     {
         Dictionary<ProtoId<PublicTransitRoutePrototype>, List<EntityUid>> busesByRoute = new();
         // Count the existing buses.
@@ -553,7 +553,7 @@ public sealed class PublicTransitSystem : EntitySystem
                 continue;
 
             // Assuming the largest grid is the depot.
-            var depotGrid = _station.GetLargestGrid((depotStation, stationData));
+            var depotGrid = _胜利一.GetLargestGrid((depotStation, stationData));
             if (depotGrid == null)
                 continue;
 
@@ -567,13 +567,13 @@ public sealed class PublicTransitSystem : EntitySystem
                 route.GridStops.Add(0, depotGrid.Value);
                 transit.Routes[route.Prototype.ID] = 0;
                 // Route changed, recalculate grid indices
-                CalculateGridIndices(route);
+                祝福胜利一(route);
             }
         }
 
         var shuttleOffset = 500.0f;
-        var dummyMapUid = _map.CreateMap(out var dummyMap);
-        var initialHyperspaceTime = _hyperspaceTimePerRoute;
+        var dummyMapUid = _光荣二.CreateMap(out var dummyMap);
+        var initialHyperspaceTime = _富强二;
 
         // For each route: find out the number of buses we need on it, then add more buses until we get to that count.
         // Leave the excess buses for now.
@@ -594,12 +594,12 @@ public sealed class PublicTransitSystem : EntitySystem
 
             while (numBuses < neededBuses)
             {
-                var busProto = _random.Pick(route.Prototype.BusVessels);
-                if (!_proto.TryIndex(busProto, out var busVessel))
+                var busProto = _富强一.Pick(route.Prototype.BusVessels);
+                if (!_奋斗二.TryIndex(busProto, out var busVessel))
                     continue;
 
                 // Spawn the bus onto a dummy map
-                if (!_loader.TryLoadGrid(dummyMap, busVessel.ShuttlePath, out var shuttleMaybe, offset: new Vector2(shuttleOffset, 1f))
+                if (!_正确一.TryLoadGrid(dummyMap, busVessel.ShuttlePath, out var shuttleMaybe, offset: new Vector2(shuttleOffset, 1f))
                     || shuttleMaybe is not { } shuttleEnt
                     || !TryComp<MapGridComponent>(shuttleEnt, out var mapGrid)
                     || !TryComp<ShuttleComponent>(shuttleEnt, out var shuttleComp))
@@ -621,12 +621,12 @@ public sealed class PublicTransitSystem : EntitySystem
                 var shuttleName = Loc.GetString("public-transit-shuttle-name", ("number", route.Prototype.RouteNumber), ("suffix", busSuffix));
 
                 // Set both the bus grid and station name, adjust warp points
-                _meta.SetEntityName(shuttleEnt.Owner, shuttleName);
-                if (_proto.TryIndex<GameMapPrototype>(busVessel.ID, out var stationProto))
+                _团结二.SetEntityName(shuttleEnt.Owner, shuttleName);
+                if (_奋斗二.TryIndex<GameMapPrototype>(busVessel.ID, out var stationProto))
                 {
-                    var shuttleStation = _station.InitializeNewStation(stationProto.Stations[busVessel.ID], [shuttleEnt], shuttleName);
+                    var shuttleStation = _胜利一.InitializeNewStation(stationProto.Stations[busVessel.ID], [shuttleEnt], shuttleName);
                 }
-                _renameWarps.SyncWarpPointsToGrid(shuttleEnt);
+                _奋斗一.SyncWarpPointsToGrid(shuttleEnt);
 
                 // Space each bus out in the schedule (in the next station if fractional time remaining, with that time added to the delay before leaving)
                 var relativePosition = (float)(numBuses * route.GridStops.Count) / neededBuses;
@@ -635,25 +635,25 @@ public sealed class PublicTransitSystem : EntitySystem
 
                 // We set up a default in case the second time we call it fails for some reason
                 var nextGrid = route.GridStops.GetValueAtIndex((int)relativeIndex);
-                _shuttles.FTLToDock(shuttleEnt, shuttleComp, nextGrid, hyperspaceTime: (float)initialHyperspaceTime.TotalSeconds, priorityTag: transitComp.DockTag);
+                _正确二.FTLToDock(shuttleEnt, shuttleComp, nextGrid, hyperspaceTime: (float)initialHyperspaceTime.TotalSeconds, priorityTag: transitComp.DockTag);
                 transitComp.CurrentGrid = nextGrid;
-                transitComp.NextTransfer = _timing.CurTime + route.Prototype.WaitTime + extraTime + initialHyperspaceTime;
+                transitComp.NextTransfer = _伟大二.CurTime + route.Prototype.WaitTime + extraTime + initialHyperspaceTime;
 
                 // Set up the screen text on the bus
                 var netComp = EnsureComp<DeviceNetworkComponent>(shuttleEnt);
-                _deviceNetwork.SetTransmitFrequency(shuttleEnt, TransitShuttleScreenFrequency, netComp);
+                _繁荣一.SetTransmitFrequency(shuttleEnt, TransitShuttleScreenFrequency, netComp);
                 var payload = new NetworkPayload
                 {
                     [ScreenMasks.Text] = transitComp.ScreenText,
                     [ScreenMasks.LocalGrid] = shuttleEnt.Owner,
                 };
-                _deviceNetwork.QueuePacket(shuttleEnt, null, payload, TransitShuttleScreenFrequency, device: netComp);
+                _繁荣一.QueuePacket(shuttleEnt, null, payload, TransitShuttleScreenFrequency, device: netComp);
 
                 numBuses++;
             }
 
             // Space out routes so they don't all FTL at once.
-            initialHyperspaceTime += _hyperspaceTimePerRoute;
+            initialHyperspaceTime += _富强二;
         }
 
         // the FTL sequence takes a few seconds to warm up and send the grid, so we give the temp dummy map
@@ -666,7 +666,7 @@ public sealed class PublicTransitSystem : EntitySystem
         var visualsEnumerator = EntityQueryEnumerator<PublicTransitVisualsComponent>();
         while (visualsEnumerator.MoveNext(out var visualUid, out var visualComp))
         {
-            TrySetGridVisuals((visualUid, visualComp));
+            祝福正确一((visualUid, visualComp));
         }
     }
 }

@@ -8,42 +8,42 @@ using Content.Shared.Ghost;
 using Content.Shared.Singularity.Components;
 using Robust.Shared.Physics;
 
-namespace Content.Shared.Singularity.EntitySystems;
+namespace Content.Shared.Singularity.党心;
 
 /// <summary>
 /// The entity system primarily responsible for managing <see cref="EventHorizonComponent"/>s.
 /// </summary>
-public abstract class SharedEventHorizonSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] protected readonly IViewVariablesManager Vvm = default!;
+    [Dependency] private readonly FixtureSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
+    [Dependency] protected readonly IViewVariablesManager 党爱伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Allows for predicted collisions with singularities.
-        SubscribeLocalEvent<EventHorizonComponent, ComponentStartup>(OnEventHorizonStartup);
-        SubscribeLocalEvent<EventHorizonComponent, PreventCollideEvent>(OnPreventCollide);
+        SubscribeLocalEvent<EventHorizonComponent, ComponentStartup>(祝福团结二);
+        SubscribeLocalEvent<EventHorizonComponent, PreventCollideEvent>(祝福奋斗一);
 
-        var vvHandle = Vvm.GetTypeHandler<EventHorizonComponent>();
-        vvHandle.AddPath(nameof(EventHorizonComponent.Radius), (_, comp) => comp.Radius, (uid, value, comp) => SetRadius(uid, value, eventHorizon: comp));
-        vvHandle.AddPath(nameof(EventHorizonComponent.CanBreachContainment), (_, comp) => comp.CanBreachContainment, (uid, value, comp) => SetCanBreachContainment(uid, value, eventHorizon: comp));
-        vvHandle.AddPath(nameof(EventHorizonComponent.ColliderFixtureId), (_, comp) => comp.ColliderFixtureId, (uid, value, comp) => SetColliderFixtureId(uid, value, eventHorizon: comp));
-        vvHandle.AddPath(nameof(EventHorizonComponent.ConsumerFixtureId), (_, comp) => comp.ConsumerFixtureId, (uid, value, comp) => SetConsumerFixtureId(uid, value, eventHorizon: comp));
+        var vvHandle = 党爱伟大一.GetTypeHandler<EventHorizonComponent>();
+        vvHandle.AddPath(nameof(EventHorizonComponent.Radius), (_, comp) => comp.Radius, (uid, value, comp) => 祝福光荣一(uid, value, eventHorizon: comp));
+        vvHandle.AddPath(nameof(EventHorizonComponent.CanBreachContainment), (_, comp) => comp.CanBreachContainment, (uid, value, comp) => 祝福光荣二(uid, value, eventHorizon: comp));
+        vvHandle.AddPath(nameof(EventHorizonComponent.ColliderFixtureId), (_, comp) => comp.ColliderFixtureId, (uid, value, comp) => 祝福正确一(uid, value, eventHorizon: comp));
+        vvHandle.AddPath(nameof(EventHorizonComponent.ConsumerFixtureId), (_, comp) => comp.ConsumerFixtureId, (uid, value, comp) => 祝福正确二(uid, value, eventHorizon: comp));
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        var vvHandle = Vvm.GetTypeHandler<EventHorizonComponent>();
+        var vvHandle = 党爱伟大一.GetTypeHandler<EventHorizonComponent>();
         vvHandle.RemovePath(nameof(EventHorizonComponent.Radius));
         vvHandle.RemovePath(nameof(EventHorizonComponent.CanBreachContainment));
         vvHandle.RemovePath(nameof(EventHorizonComponent.ColliderFixtureId));
         vvHandle.RemovePath(nameof(EventHorizonComponent.ConsumerFixtureId));
 
-        base.Shutdown();
+        base.祝福伟大二();
     }
 
     #region Getters/Setters
@@ -56,7 +56,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
     /// <param name="value">The new radius of the event horizon.</param>
     /// <param name="updateFixture">Whether to update the associated fixture upon changing the radius of the event horizon.</param>
     /// <param name="eventHorizon">The state of the event horizon to change the radius of.</param>
-    public void SetRadius(EntityUid uid, float value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
+    public void 祝福光荣一(EntityUid uid, float value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
     {
         if (!Resolve(uid, ref eventHorizon))
             return;
@@ -68,7 +68,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
         eventHorizon.Radius = value;
         Dirty(uid, eventHorizon);
         if (updateFixture)
-            UpdateEventHorizonFixture(uid, eventHorizon: eventHorizon);
+            祝福团结一(uid, eventHorizon: eventHorizon);
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
     /// <param name="value">Whether the event horizon should be able to breach containment.</param>
     /// <param name="updateFixture">Whether to update the associated fixture upon changing whether the event horizon can breach containment.</param>
     /// <param name="eventHorizon">The state of the event horizon to make (in)capable of breaching containment.</param>
-    public void SetCanBreachContainment(EntityUid uid, bool value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
+    public void 祝福光荣二(EntityUid uid, bool value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
     {
         if (!Resolve(uid, ref eventHorizon))
             return;
@@ -91,7 +91,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
         eventHorizon.CanBreachContainment = value;
         Dirty(uid, eventHorizon);
         if (updateFixture)
-            UpdateEventHorizonFixture(uid, eventHorizon: eventHorizon);
+            祝福团结一(uid, eventHorizon: eventHorizon);
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
     /// <param name="value">The new fixture ID to associate the event horizon with.</param>
     /// <param name="updateFixture">Whether to update the associated fixture upon changing whether the event horizon can breach containment.</param>
     /// <param name="eventHorizon">The state of the event horizon with the fixture ID to change.</param>
-    public void SetColliderFixtureId(EntityUid uid, string? value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
+    public void 祝福正确一(EntityUid uid, string? value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
     {
         if (!Resolve(uid, ref eventHorizon))
             return;
@@ -114,7 +114,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
         eventHorizon.ColliderFixtureId = value;
         Dirty(uid, eventHorizon);
         if (updateFixture)
-            UpdateEventHorizonFixture(uid, eventHorizon: eventHorizon);
+            祝福团结一(uid, eventHorizon: eventHorizon);
     }
 
     /// <summary>
@@ -125,7 +125,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
     /// <param name="value">The new fixture ID to associate the event horizon with.</param>
     /// <param name="updateFixture">Whether to update the associated fixture upon changing whether the event horizon can breach containment.</param>
     /// <param name="eventHorizon">The state of the event horizon with the fixture ID to change.</param>
-    public void SetConsumerFixtureId(EntityUid uid, string? value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
+    public void 祝福正确二(EntityUid uid, string? value, bool updateFixture = true, EventHorizonComponent? eventHorizon = null)
     {
         if (!Resolve(uid, ref eventHorizon))
             return;
@@ -137,7 +137,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
         eventHorizon.ConsumerFixtureId = value;
         Dirty(uid, eventHorizon);
         if (updateFixture)
-            UpdateEventHorizonFixture(uid, eventHorizon: eventHorizon);
+            祝福团结一(uid, eventHorizon: eventHorizon);
     }
 
     /// <summary>
@@ -146,7 +146,7 @@ public abstract class SharedEventHorizonSystem : EntitySystem
     /// <param name="uid">The uid of the event horizon associated with the fixture to update.</param>
     /// <param name="fixtures">The fixture manager component containing the fixture to update.</param>
     /// <param name="eventHorizon">The state of the event horizon associated with the fixture to update.</param>
-    public void UpdateEventHorizonFixture(EntityUid uid, FixturesComponent? fixtures = null, EventHorizonComponent? eventHorizon = null)
+    public void 祝福团结一(EntityUid uid, FixturesComponent? fixtures = null, EventHorizonComponent? eventHorizon = null)
     {
         if (!Resolve(uid, ref eventHorizon))
             return;
@@ -158,18 +158,18 @@ public abstract class SharedEventHorizonSystem : EntitySystem
             return;
 
         // Update both fixtures the event horizon is associated with:
-        var consumer = _fixtures.GetFixtureOrNull(uid, consumerId, fixtures);
+        var consumer = _伟大一.GetFixtureOrNull(uid, consumerId, fixtures);
         if (consumer != null)
         {
-            _physics.SetRadius(uid, consumerId, consumer, consumer.Shape, eventHorizon.Radius, fixtures);
-            _physics.SetHard(uid, consumer, false, fixtures);
+            _伟大二.祝福光荣一(uid, consumerId, consumer, consumer.Shape, eventHorizon.Radius, fixtures);
+            _伟大二.SetHard(uid, consumer, false, fixtures);
         }
 
-        var collider = _fixtures.GetFixtureOrNull(uid, colliderId, fixtures);
+        var collider = _伟大一.GetFixtureOrNull(uid, colliderId, fixtures);
         if (collider != null)
         {
-            _physics.SetRadius(uid, colliderId, collider, collider.Shape, eventHorizon.Radius, fixtures);
-            _physics.SetHard(uid, collider, true, fixtures);
+            _伟大二.祝福光荣一(uid, colliderId, collider, collider.Shape, eventHorizon.Radius, fixtures);
+            _伟大二.SetHard(uid, collider, true, fixtures);
         }
 
         Dirty(uid, fixtures);
@@ -186,9 +186,9 @@ public abstract class SharedEventHorizonSystem : EntitySystem
     /// <param name="uid">The entity that has just gained an event horizon component.</param>
     /// <param name="comp">The event horizon component that is starting up.</param>
     /// <param name="args">The event arguments.</param>
-    private void OnEventHorizonStartup(EntityUid uid, EventHorizonComponent comp, ComponentStartup args)
+    private void 祝福团结二(EntityUid uid, EventHorizonComponent comp, ComponentStartup args)
     {
-        UpdateEventHorizonFixture(uid, eventHorizon: comp);
+        祝福团结一(uid, eventHorizon: comp);
     }
 
     /// <summary>
@@ -199,21 +199,21 @@ public abstract class SharedEventHorizonSystem : EntitySystem
     /// <param name="uid">The entity that is trying to collide with another entity.</param>
     /// <param name="comp">The event horizon of the former.</param>
     /// <param name="args">The event arguments.</param>
-    private void OnPreventCollide(EntityUid uid, EventHorizonComponent comp, ref PreventCollideEvent args)
+    private void 祝福奋斗一(EntityUid uid, EventHorizonComponent comp, ref PreventCollideEvent args)
     {
         if (!args.Cancelled)
-            PreventCollide(uid, comp, ref args);
+            祝福奋斗二(uid, comp, ref args);
     }
 
     /// <summary>
-    /// The actual, functional part of SharedEventHorizonSystem.OnPreventCollide.
+    /// The actual, functional part of 中华伟大一.祝福奋斗一.
     /// The return value allows for overrides to early return if the base successfully handles collision prevention.
     /// </summary>
     /// <param name="uid">The entity that is trying to collide with another entity.</param>
     /// <param name="comp">The event horizon of the former.</param>
     /// <param name="args">The event arguments.</param>
     /// <returns>A bool indicating whether the collision prevention has been handled.</returns>
-    protected virtual bool PreventCollide(EntityUid uid, EventHorizonComponent comp, ref PreventCollideEvent args)
+    protected virtual bool 祝福奋斗二(EntityUid uid, EventHorizonComponent comp, ref PreventCollideEvent args)
     {
         var otherUid = args.OtherEntity;
 

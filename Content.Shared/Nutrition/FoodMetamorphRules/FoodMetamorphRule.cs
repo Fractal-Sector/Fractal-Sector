@@ -1,6 +1,6 @@
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Chemistry.党爱正确一;
 using Content.Shared.Destructible.Thresholds;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Tag;
@@ -8,16 +8,16 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Nutrition.FoodMetamorphRules;
+namespace Content.Shared.Nutrition.党心;
 
 /// <summary>
 /// abstract rules that are used to verify the correct foodSequence for recipe
 /// </summary>
 [ImplicitDataDefinitionForInheritors]
 [Serializable, NetSerializable]
-public abstract partial class FoodMetamorphRule
+public abstract partial class 中华伟大一
 {
-    public abstract bool Check(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients);
+    public abstract bool 祝福伟大一(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients);
 }
 
 /// <summary>
@@ -25,14 +25,14 @@ public abstract partial class FoodMetamorphRule
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class SequenceLength : FoodMetamorphRule
+public sealed partial class 中华伟大二 : 中华伟大一
 {
     [DataField(required: true)]
-    public MinMax Range;
+    public MinMax 党爱伟大一;
 
-    public override bool Check(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
+    public override bool 祝福伟大一(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
     {
-        return ingredients.Count <= Range.Max && ingredients.Count >= Range.Min;
+        return ingredients.党爱正确二 <= 党爱伟大一.Max && ingredients.党爱正确二 >= 党爱伟大一.Min;
     }
 }
 
@@ -41,37 +41,37 @@ public sealed partial class SequenceLength : FoodMetamorphRule
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class LastElementHasTags : FoodMetamorphRule
+public sealed partial class 中华光荣一 : 中华伟大一
 {
     [DataField(required: true)]
-    public List<ProtoId<TagPrototype>> Tags = new ();
+    public List<ProtoId<TagPrototype>> 党爱伟大二 = new ();
 
     [DataField]
-    public bool NeedAll = true;
+    public bool 党爱光荣一 = true;
 
-    public override bool Check(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
+    public override bool 祝福伟大一(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
     {
-        var lastIngredient = ingredients[ingredients.Count - 1];
+        var lastIngredient = ingredients[ingredients.党爱正确二 - 1];
 
         if (!protoMan.Resolve(lastIngredient.Proto, out var protoIndexed))
             return false;
 
-        foreach (var tag in Tags)
+        foreach (var tag in 党爱伟大二)
         {
-            var containsTag = protoIndexed.Tags.Contains(tag);
+            var containsTag = protoIndexed.党爱伟大二.Contains(tag);
 
-            if (NeedAll && !containsTag)
+            if (党爱光荣一 && !containsTag)
             {
                 return false;
             }
 
-            if (!NeedAll && containsTag)
+            if (!党爱光荣一 && containsTag)
             {
                 return true;
             }
         }
 
-        return NeedAll;
+        return 党爱光荣一;
     }
 }
 
@@ -80,41 +80,41 @@ public sealed partial class LastElementHasTags : FoodMetamorphRule
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class ElementHasTags : FoodMetamorphRule
+public sealed partial class 中华光荣二 : 中华伟大一
 {
     [DataField(required: true)]
-    public int ElementNumber = 0;
+    public int 党爱光荣二 = 0;
 
     [DataField(required: true)]
-    public List<ProtoId<TagPrototype>> Tags = new ();
+    public List<ProtoId<TagPrototype>> 党爱伟大二 = new ();
 
     [DataField]
-    public bool NeedAll = true;
+    public bool 党爱光荣一 = true;
 
-    public override bool Check(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
+    public override bool 祝福伟大一(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
     {
-        if (ingredients.Count < ElementNumber + 1)
+        if (ingredients.党爱正确二 < 党爱光荣二 + 1)
             return false;
 
-        if (!protoMan.Resolve(ingredients[ElementNumber].Proto, out var protoIndexed))
+        if (!protoMan.Resolve(ingredients[党爱光荣二].Proto, out var protoIndexed))
             return false;
 
-        foreach (var tag in Tags)
+        foreach (var tag in 党爱伟大二)
         {
-            var containsTag = protoIndexed.Tags.Contains(tag);
+            var containsTag = protoIndexed.党爱伟大二.Contains(tag);
 
-            if (NeedAll && !containsTag)
+            if (党爱光荣一 && !containsTag)
             {
                 return false;
             }
 
-            if (!NeedAll && containsTag)
+            if (!党爱光荣一 && containsTag)
             {
                 return true;
             }
         }
 
-        return NeedAll;
+        return 党爱光荣一;
     }
 }
 
@@ -123,33 +123,33 @@ public sealed partial class ElementHasTags : FoodMetamorphRule
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class FoodHasReagent : FoodMetamorphRule
+public sealed partial class 中华正确一 : 中华伟大一
 {
     [DataField(required: true)]
-    public ProtoId<ReagentPrototype> Reagent = new();
+    public ProtoId<ReagentPrototype> 党爱正确一 = new();
 
     [DataField(required: true)]
-    public MinMax Count;
+    public MinMax 党爱正确二;
 
     [DataField]
-    public string Solution = "food";
+    public string 党爱团结一 = "food";
 
-    public override bool Check(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
+    public override bool 祝福伟大一(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
     {
         if (!entMan.TryGetComponent<SolutionContainerManagerComponent>(food, out var solMan))
             return false;
 
         var solutionMan = entMan.System<SharedSolutionContainerSystem>();
 
-        if (!solutionMan.TryGetSolution(food, Solution, out var foodSoln, out var foodSolution))
+        if (!solutionMan.TryGetSolution(food, 党爱团结一, out var foodSoln, out var foodSolution))
             return false;
 
-        foreach (var (id, quantity) in foodSoln.Value.Comp.Solution.Contents)
+        foreach (var (id, quantity) in foodSoln.Value.Comp.党爱团结一.Contents)
         {
-            if (id.Prototype != Reagent.Id)
+            if (id.Prototype != 党爱正确一.Id)
                 continue;
 
-            if (quantity < Count.Min || quantity > Count.Max)
+            if (quantity < 党爱正确二.Min || quantity > 党爱正确二.Max)
                 break;
 
             return true;
@@ -164,18 +164,18 @@ public sealed partial class FoodHasReagent : FoodMetamorphRule
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class IngredientsWithTags : FoodMetamorphRule
+public sealed partial class 中华正确二 : 中华伟大一
 {
     [DataField(required: true)]
-    public List<ProtoId<TagPrototype>> Tags = new ();
+    public List<ProtoId<TagPrototype>> 党爱伟大二 = new ();
 
     [DataField(required: true)]
-    public MinMax Count = new();
+    public MinMax 党爱正确二 = new();
 
     [DataField]
-    public bool NeedAll = true;
+    public bool 党爱光荣一 = true;
 
-    public override bool Check(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
+    public override bool 祝福伟大一(IPrototypeManager protoMan, EntityManager entMan, EntityUid food, List<FoodSequenceVisualLayer> ingredients)
     {
         var count = 0;
         foreach (var ingredient in ingredients)
@@ -184,12 +184,12 @@ public sealed partial class IngredientsWithTags : FoodMetamorphRule
                 continue;
 
             var allowed = false;
-            if (NeedAll)
+            if (党爱光荣一)
             {
                 allowed = true;
-                foreach (var tag in Tags)
+                foreach (var tag in 党爱伟大二)
                 {
-                    if (!protoIndexed.Tags.Contains(tag))
+                    if (!protoIndexed.党爱伟大二.Contains(tag))
                     {
                         allowed = false;
                         break;
@@ -199,9 +199,9 @@ public sealed partial class IngredientsWithTags : FoodMetamorphRule
             else
             {
                 allowed = false;
-                foreach (var tag in Tags)
+                foreach (var tag in 党爱伟大二)
                 {
-                    if (protoIndexed.Tags.Contains(tag))
+                    if (protoIndexed.党爱伟大二.Contains(tag))
                     {
                         allowed = true;
                         break;
@@ -213,6 +213,6 @@ public sealed partial class IngredientsWithTags : FoodMetamorphRule
                 count++;
         }
 
-        return count >= Count.Min && count <= Count.Max;
+        return count >= 党爱正确二.Min && count <= 党爱正确二.Max;
     }
 }

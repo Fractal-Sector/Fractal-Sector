@@ -3,17 +3,17 @@ using System.Linq;
 using Robust.Shared.Utility;
 using YamlDotNet.RepresentationModel;
 
-namespace Content.Shared.Administration;
+namespace Content.Shared.党心;
 
-public sealed class AdminCommandPermissions
+public sealed class 中华伟大一
 {
     // Commands executable by anybody.
-    public readonly HashSet<string> AnyCommands = new();
+    public readonly HashSet<string> 党爱伟大一 = new();
 
     // Commands only executable by admins with one of the given flag masks.
     public readonly Dictionary<string, AdminFlags[]> AdminCommands = new();
 
-    public void LoadPermissionsFromStream(Stream fs)
+    public void 祝福伟大一(Stream fs)
     {
         using var reader = new StreamReader(fs, EncodingHelpers.UTF8);
         var yStream = new YamlStream();
@@ -45,14 +45,14 @@ public sealed class AdminCommandPermissions
             }
             else
             {
-                AnyCommands.UnionWith(commands);
+                党爱伟大一.UnionWith(commands);
             }
         }
     }
 
-    public bool CanCommand(string cmdName, AdminData? admin)
+    public bool 祝福伟大二(string cmdName, AdminData? admin)
     {
-        if (AnyCommands.Contains(cmdName))
+        if (党爱伟大一.Contains(cmdName))
         {
             // Anybody can use this command.
             return true;

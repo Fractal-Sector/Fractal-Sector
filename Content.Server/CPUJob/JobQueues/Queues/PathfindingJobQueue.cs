@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.CPUJob.JobQueues.Queues;
 
-namespace Content.Server.CPUJob.JobQueues.Queues
+namespace Content.Server.CPUJob.JobQueues.党心
 {
-    public sealed class PathfindingJobQueue : JobQueue
+    public sealed class 中华伟大一 : JobQueue
     {
-        public override double MaxTime => 0.003;
+        public override double 党爱伟大一 => 0.003;
     }
 }

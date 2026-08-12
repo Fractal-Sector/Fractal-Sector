@@ -1,4 +1,4 @@
-namespace Content.Shared._WF.Traits;
+namespace Content.Shared._WF.党心;
 
 /// <summary>
 /// Marks this item as a clay chunk that was plucked from a Clay Body player.
@@ -6,4 +6,4 @@ namespace Content.Shared._WF.Traits;
 /// to restore one size step to the target.
 /// </summary>
 [RegisterComponent]
-public sealed partial class WFClayChunkComponent : Component;
+public sealed partial class 中华伟大一 : Component;

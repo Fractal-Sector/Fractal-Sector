@@ -4,142 +4,142 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 
 
-namespace Content.Server._NF.SectorServices;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 /// System that manages sector-wide services.
 /// Allows service components to be registered and unregistered on a singular entity
 /// </summary>
 [PublicAPI]
-public sealed class SectorServiceSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IEntityManager _伟大二 = default!;
 
     [ViewVariables(VVAccess.ReadOnly)]
-    private EntityUid _entity = EntityUid.Invalid; // The station entity that's storing our services.
+    private EntityUid _光荣一 = EntityUid.Invalid; // The station entity that's storing our services.
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StationSectorServiceHostComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<StationSectorServiceHostComponent, ComponentRemove>(OnComponentRemove);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnCleanup);
+        SubscribeLocalEvent<StationSectorServiceHostComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<StationSectorServiceHostComponent, ComponentRemove>(祝福光荣一);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福光荣二);
     }
 
-    private void OnComponentInit(EntityUid uid, StationSectorServiceHostComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, StationSectorServiceHostComponent component, ComponentInit args)
     {
-        Log.Debug($"OnComponentStartup! Entity: {uid} internal: {_entity}");
-        if (_entity == EntityUid.Invalid)
+        Log.Debug($"OnComponentStartup! Entity: {uid} internal: {_光荣一}");
+        if (_光荣一 == EntityUid.Invalid)
         {
-            _entity = Spawn();
-            component.SectorUid = _entity;
+            _光荣一 = Spawn();
+            component.SectorUid = _光荣一;
 
-            foreach (var servicePrototype in _prototypeManager.EnumeratePrototypes<SectorServicePrototype>())
+            foreach (var servicePrototype in _伟大一.EnumeratePrototypes<SectorServicePrototype>())
             {
                 Log.Debug($"Adding components for service {servicePrototype.ID}");
-                _entityManager.AddComponents(_entity, servicePrototype.Components, false); // removeExisting false - do not override existing components.
+                _伟大二.AddComponents(_光荣一, servicePrototype.Components, false); // removeExisting false - do not override existing components.
             }
         }
     }
 
-    private void OnComponentRemove(EntityUid uid, StationSectorServiceHostComponent component, ComponentRemove args)
+    private void 祝福光荣一(EntityUid uid, StationSectorServiceHostComponent component, ComponentRemove args)
     {
-        Log.Debug($"ComponentRemove called! Entity: {_entity}");
-        DeleteServiceEntity();
+        Log.Debug($"ComponentRemove called! Entity: {_光荣一}");
+        祝福正确一();
     }
 
-    public void OnCleanup(RoundRestartCleanupEvent _)
+    public void 祝福光荣二(RoundRestartCleanupEvent _)
     {
-        Log.Debug($"RoundRestartCleanup called! Entity: {_entity}");
-        DeleteServiceEntity();
+        Log.Debug($"RoundRestartCleanup called! Entity: {_光荣一}");
+        祝福正确一();
     }
 
-    private void DeleteServiceEntity()
+    private void 祝福正确一()
     {
-        if (EntityManager.EntityExists(_entity) && !Terminating(_entity))
+        if (EntityManager.EntityExists(_光荣一) && !Terminating(_光荣一))
         {
-            QueueDel(_entity);
+            QueueDel(_光荣一);
         }
-        _entity = EntityUid.Invalid;
+        _光荣一 = EntityUid.Invalid;
     }
 
-    public EntityUid GetServiceEntity()
+    public EntityUid 祝福正确二()
     {
-        return _entity;
+        return _光荣一;
     }
 
     // Component access (mirroring EntityManager without entity ID)
     // WIP
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public bool TryGetComponent<T>([NotNullWhen(true)] out T? component) where T : IComponent
+    // public bool 祝福团结一<T>([NotNullWhen(true)] out T? component) where T : IComponent
     // {
-    //     return _entityManager.TryGetComponent(_entity, out component);
+    //     return _伟大二.祝福团结一(_光荣一, out component);
     // }
 
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public bool TryGetComponent(Type type, [NotNullWhen(true)] out IComponent? component)
+    // public bool 祝福团结一(Type type, [NotNullWhen(true)] out IComponent? component)
     // {
-    //     return _entityManager.TryGetComponent(_entity, type, out component);
+    //     return _伟大二.祝福团结一(_光荣一, type, out component);
     // }
 
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public bool TryGetComponent(CompIdx type, [NotNullWhen(true)] out IComponent? component)
+    // public bool 祝福团结一(CompIdx type, [NotNullWhen(true)] out IComponent? component)
     // {
-    //     return _entityManager.TryGetComponent(_entity, type, out component);
+    //     return _伟大二.祝福团结一(_光荣一, type, out component);
     // }
 
     // /// <inheritdoc />
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public bool TryGetComponent([NotNullWhen(true)] EntityUid? uid, Type type,
+    // public bool 祝福团结一([NotNullWhen(true)] EntityUid? uid, Type type,
     //     [NotNullWhen(true)] out IComponent? component)
     // {
-    //     return _entityManager.TryGetComponent(_entity, type, out component);
+    //     return _伟大二.祝福团结一(_光荣一, type, out component);
     // }
 
     // /// <inheritdoc />
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public bool TryGetComponent(ushort netId, [MaybeNullWhen(false)] out IComponent component, MetaDataComponent? meta = null)
+    // public bool 祝福团结一(ushort netId, [MaybeNullWhen(false)] out IComponent component, MetaDataComponent? meta = null)
     // {
-    //     return _entityManager.TryGetComponent(_entity, netId, out component, meta);
+    //     return _伟大二.祝福团结一(_光荣一, netId, out component, meta);
     // }
 
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
     // [Pure]
     // public bool TryComp<T>([NotNullWhen(true)] out T? component) where T : IComponent
-    //     => TryGetComponent(out component);
+    //     => 祝福团结一(out component);
 
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
     // [Pure]
     // public T Comp<T>() where T : IComponent
     // {
-    //     return GetComponent<T>();
+    //     return 祝福团结二<T>();
     // }
 
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public T GetComponent<T>() where T : IComponent
+    // public T 祝福团结二<T>() where T : IComponent
     // {
-    //     return _entityManager.GetComponent<T>(_entity);
+    //     return _伟大二.祝福团结二<T>(_光荣一);
     // }
 
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public IComponent GetComponent(CompIdx type)
+    // public IComponent 祝福团结二(CompIdx type)
     // {
-    //     return _entityManager.GetComponent(_entity, type);
+    //     return _伟大二.祝福团结二(_光荣一, type);
     // }
 
     // /// <inheritdoc />
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // public IComponent GetComponent(Type type)
+    // public IComponent 祝福团结二(Type type)
     // {
-    //     return _entityManager.GetComponent(_entity, type);
+    //     return _伟大二.祝福团结二(_光荣一, type);
     // }
 
     // [MethodImpl(MethodImplOptions.AggressiveInlining)]
     // [Pure]
-    // public bool HasComponent(EntityUid? uid)
+    // public bool 祝福奋斗一(EntityUid? uid)
     // {
-    //     return uid != null && HasComponent(uid.Value);
+    //     return uid != null && 祝福奋斗一(uid.Value);
     // }
 }

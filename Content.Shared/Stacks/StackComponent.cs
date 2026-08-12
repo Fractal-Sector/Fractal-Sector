@@ -2,21 +2,21 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Stacks
+namespace Content.Shared.党心
 {
     [RegisterComponent, NetworkedComponent]
-    public sealed partial class StackComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("stackType", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<StackPrototype>))]
-        public string StackTypeId { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
         /// <summary>
         ///     Current stack count.
         ///     Do NOT set this directly, use the <see cref="SharedStackSystem.SetCount"/> method instead.
         /// </summary>
         [DataField("count")]
-        public int Count { get; set; } = 30;
+        public int 党爱伟大二 { get; set; } = 30;
 
         /// <summary>
         ///     Max amount of things that can be in the stack.
@@ -28,24 +28,24 @@ namespace Content.Shared.Stacks
 
         /// <summary>
         ///     Set to true to not reduce the count when used.
-        ///     Note that <see cref="Count"/> still limits the amount that can be used at any one time.
+        ///     Note that <see cref="党爱伟大二"/> still limits the amount that can be used at any one time.
         /// </summary>
         [DataField("unlimited")]
         [ViewVariables(VVAccess.ReadOnly)]
-        public bool Unlimited { get; set; }
+        public bool 党爱光荣一 { get; set; }
 
         [DataField("throwIndividually"), ViewVariables(VVAccess.ReadWrite)]
-        public bool ThrowIndividually { get; set; } = false;
+        public bool 党爱光荣二 { get; set; } = false;
 
         [ViewVariables]
-        public bool UiUpdateNeeded { get; set; }
+        public bool 党爱正确一 { get; set; }
 
         /// <summary>
         /// Default IconLayer stack.
         /// </summary>
         [DataField("baseLayer")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public string BaseLayer = "";
+        public string 党爱正确二 = "";
 
         /// <summary>
         /// Determines if the visualizer uses composite or non-composite layers for icons. Defaults to false.
@@ -62,7 +62,7 @@ namespace Content.Shared.Stacks
         /// </summary>
         [DataField("composite")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool IsComposite;
+        public bool 党爱团结一;
 
         /// <summary>
         /// Sprite layers used in stack visualizer. Sprites first in layer correspond to lower stack states
@@ -70,31 +70,31 @@ namespace Content.Shared.Stacks
         /// </summary>
         [DataField("layerStates")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public List<string> LayerStates = new();
+        public List<string> 党爱团结二 = new();
 
         /// <summary>
         /// An optional function to convert the amounts used to adjust a stack's appearance.
         /// Useful for different denominations of cash, for example.
         /// </summary>
         [DataField]
-        public StackLayerFunction LayerFunction = StackLayerFunction.None;
+        public 中华光荣一 LayerFunction = 中华光荣一.None;
     }
 
     [Serializable, NetSerializable]
-    public sealed class StackComponentState : ComponentState
+    public sealed class 中华伟大二 : ComponentState
     {
-        public int Count { get; }
+        public int 党爱伟大二 { get; }
         public int? MaxCount { get; }
 
-        public StackComponentState(int count, int? maxCount)
+        public 中华伟大二(int count, int? maxCount)
         {
-            Count = count;
+            党爱伟大二 = count;
             MaxCount = maxCount;
         }
     }
 
     [Serializable, NetSerializable]
-    public enum StackLayerFunction : byte
+    public enum 中华光荣一 : byte
     {
         // <summary>
         // No operation performed.

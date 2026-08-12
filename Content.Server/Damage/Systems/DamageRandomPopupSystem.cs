@@ -4,24 +4,24 @@ using Content.Shared.Damage;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
-namespace Content.Server.Damage.Systems;
+namespace Content.Server.Damage.党心;
 
 /// <summary>
 /// Outputs a random pop-up from the strings list when an object receives damage
 /// </summary>
-public sealed class DamageRandomPopupSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly PopupSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<DamageRandomPopupComponent, DamageChangedEvent>(OnDamageChange);
+        base.祝福伟大一();
+        SubscribeLocalEvent<DamageRandomPopupComponent, DamageChangedEvent>(祝福伟大二);
     }
 
-    private void OnDamageChange(EntityUid uid, DamageRandomPopupComponent component, DamageChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, DamageRandomPopupComponent component, DamageChangedEvent args)
     {
-        _popupSystem.PopupEntity(Loc.GetString(_random.Pick(component.Popups)), uid);
+        _伟大一.PopupEntity(Loc.GetString(_伟大二.Pick(component.Popups)), uid);
     }
 }

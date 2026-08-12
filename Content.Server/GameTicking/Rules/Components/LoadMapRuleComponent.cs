@@ -4,14 +4,14 @@ using Content.Shared.GridPreloader.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.GameTicking.Rules.Components;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <summary>
 /// This is used for a game rule that loads a map when activated.
 /// Works with <see cref="RuleGridsComponent"/>.
 /// </summary>
 [RegisterComponent, Access(typeof(LoadMapRuleSystem))]
-public sealed partial class LoadMapRuleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A <see cref="GameMapPrototype"/> to load on a new map.

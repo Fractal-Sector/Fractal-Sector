@@ -23,7 +23,7 @@ using Robust.Shared.Serialization.Markdown;
 using Robust.Shared.Utility;
 using YamlDotNet.RepresentationModel;
 
-namespace Content.Shared.Humanoid;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     HumanoidSystem. Primarily deals with the appearance and visual data
@@ -34,47 +34,47 @@ namespace Content.Shared.Humanoid;
 ///     you still need a local copy so that players can set up their
 ///     characters.
 /// </summary>
-public abstract class SharedHumanoidAppearanceSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly GrammarSystem _grammarSystem = default!;
-    [Dependency] private readonly SharedIdentitySystem _identity = default!;
-    [Dependency] private readonly SharedVoiceBarkSystem _voiceBark = default!; // FS
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly ISerializationManager _光荣二 = default!;
+    [Dependency] private readonly MarkingManager _正确一 = default!;
+    [Dependency] private readonly GrammarSystem _正确二 = default!;
+    [Dependency] private readonly SharedIdentitySystem _团结一 = default!;
+    [Dependency] private readonly SharedVoiceBarkSystem _团结二 = default!; // FS
 
-    public static readonly ProtoId<SpeciesPrototype> DefaultSpecies = "Human";
+    public static readonly ProtoId<SpeciesPrototype> 党爱伟大一 = "Human";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<HumanoidAppearanceComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<HumanoidAppearanceComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<HumanoidAppearanceComponent, ComponentInit>(祝福光荣二);
+        SubscribeLocalEvent<HumanoidAppearanceComponent, ExaminedEvent>(祝福正确一);
     }
 
-    public DataNode ToDataNode(HumanoidCharacterProfile profile)
+    public DataNode 祝福伟大二(HumanoidCharacterProfile profile)
     {
         var export = new HumanoidProfileExport()
         {
-            ForkId = _cfgManager.GetCVar(CVars.BuildForkId),
+            ForkId = _伟大一.GetCVar(CVars.BuildForkId),
             Profile = profile,
         };
 
-        var dataNode = _serManager.WriteValue(export, alwaysWrite: true, notNullableOverride: true);
+        var dataNode = _光荣二.WriteValue(export, alwaysWrite: true, notNullableOverride: true);
         return dataNode;
     }
 
-    public HumanoidCharacterProfile FromStream(Stream stream, ICommonSession session)
+    public HumanoidCharacterProfile 祝福光荣一(Stream stream, ICommonSession session)
     {
         using var reader = new StreamReader(stream, EncodingHelpers.UTF8);
         var yamlStream = new YamlStream();
         yamlStream.Load(reader);
 
         var root = yamlStream.Documents[0].RootNode;
-        var export = _serManager.Read<HumanoidProfileExport>(root.ToDataNode(), notNullableOverride: true);
+        var export = _光荣二.Read<HumanoidProfileExport>(root.祝福伟大二(), notNullableOverride: true);
 
         /*
          * Add custom handling here for forks / version numbers if you care.
@@ -86,7 +86,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         return profile;
     }
 
-    private void OnInit(EntityUid uid, HumanoidAppearanceComponent humanoid, ComponentInit args)
+    private void 祝福光荣二(EntityUid uid, HumanoidAppearanceComponent humanoid, ComponentInit args)
     {
         // Begin CS - Size Gun
         // Migration: Ensure BaseHeight and BaseWidth are initialized for existing characters
@@ -100,15 +100,15 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         }
         // END CS
 
-        if (string.IsNullOrEmpty(humanoid.Species) || _netManager.IsClient && !IsClientSide(uid))
+        if (string.IsNullOrEmpty(humanoid.Species) || _伟大二.IsClient && !IsClientSide(uid))
         {
             return;
         }
 
         if (string.IsNullOrEmpty(humanoid.Initial)
-            || !_proto.TryIndex(humanoid.Initial, out HumanoidProfilePrototype? startingSet))
+            || !_光荣一.TryIndex(humanoid.Initial, out HumanoidProfilePrototype? startingSet))
         {
-            LoadProfile(uid, HumanoidCharacterProfile.DefaultWithSpecies(humanoid.Species), humanoid);
+            祝福民主二(uid, HumanoidCharacterProfile.DefaultWithSpecies(humanoid.Species), humanoid);
             return;
         }
 
@@ -118,14 +118,14 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
             humanoid.CustomBaseLayers.Add(layer, info);
         }
 
-        LoadProfile(uid, startingSet.Profile, humanoid);
+        祝福民主二(uid, startingSet.Profile, humanoid);
     }
 
-    private void OnExamined(EntityUid uid, HumanoidAppearanceComponent component, ExaminedEvent args)
+    private void 祝福正确一(EntityUid uid, HumanoidAppearanceComponent component, ExaminedEvent args)
     {
         var identity = Identity.Entity(uid, EntityManager);
-        var species = GetSpeciesRepresentation(component.Species, component.CustomSpecieName).ToLower();
-        var age = GetAgeRepresentation(component.Species, component.Age);
+        var species = 祝福和谐一(component.Species, component.CustomSpecieName).ToLower();
+        var age = 祝福和谐二(component.Species, component.Age);
 
         args.PushText(Loc.GetString("humanoid-appearance-component-examine", ("user", identity), ("age", age), ("species", species)));
 
@@ -150,7 +150,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="layer">Layer to toggle visibility for</param>
     /// <param name="visible">Whether to hide or show the layer. If more than once piece of clothing is hiding the layer, it may remain hidden.</param>
     /// <param name="source">Equipment slot that has the clothing that is (or was) hiding the layer. If not specified, the change is "permanent" (i.e., see <see cref="HumanoidAppearanceComponent.PermanentlyHidden"/>)</param>
-    public void SetLayerVisibility(Entity<HumanoidAppearanceComponent?> ent,
+    public void 祝福正确二(Entity<HumanoidAppearanceComponent?> ent,
         HumanoidVisualLayers layer,
         bool visible,
         SlotFlags? source = null)
@@ -159,7 +159,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
             return;
 
         var dirty = false;
-        SetLayerVisibility(ent!, layer, visible, source, ref dirty);
+        祝福正确二(ent!, layer, visible, source, ref dirty);
         if (dirty)
             Dirty(ent);
     }
@@ -171,7 +171,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="target">Target entity to apply the source entity's appearance to.</param>
     /// <param name="sourceHumanoid">Source entity's humanoid component.</param>
     /// <param name="targetHumanoid">Target entity's humanoid component.</param>
-    public void CloneAppearance(EntityUid source, EntityUid target, HumanoidAppearanceComponent? sourceHumanoid = null,
+    public void 祝福团结一(EntityUid source, EntityUid target, HumanoidAppearanceComponent? sourceHumanoid = null,
         HumanoidAppearanceComponent? targetHumanoid = null)
     {
         if (!Resolve(source, ref sourceHumanoid, false) || !Resolve(target, ref targetHumanoid, false))
@@ -184,8 +184,8 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         targetHumanoid.CustomBaseLayers = new(sourceHumanoid.CustomBaseLayers);
         targetHumanoid.MarkingSet = new(sourceHumanoid.MarkingSet);
 
-        SetSex(target, sourceHumanoid.Sex, false, targetHumanoid);
-        SetGender((target, targetHumanoid), sourceHumanoid.Gender);
+        祝福繁荣二(target, sourceHumanoid.Sex, false, targetHumanoid);
+        祝福奋斗二((target, targetHumanoid), sourceHumanoid.Gender);
 
         Dirty(target, targetHumanoid);
     }
@@ -196,7 +196,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="ent">Humanoid entity</param>
     /// <param name="layers">An enumerable of all sprite layers that are going to have their visibility set</param>
     /// <param name="visible">The visibility state of the layers given</param>
-    public void SetLayersVisibility(Entity<HumanoidAppearanceComponent?> ent,
+    public void 祝福团结二(Entity<HumanoidAppearanceComponent?> ent,
         IEnumerable<HumanoidVisualLayers> layers,
         bool visible)
     {
@@ -207,15 +207,15 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
 
         foreach (var layer in layers)
         {
-            SetLayerVisibility(ent!, layer, visible, null, ref dirty);
+            祝福正确二(ent!, layer, visible, null, ref dirty);
         }
 
         if (dirty)
             Dirty(ent);
     }
 
-    /// <inheritdoc cref="SetLayerVisibility(Entity{HumanoidAppearanceComponent?},HumanoidVisualLayers,bool,Nullable{SlotFlags})"/>
-    public virtual void SetLayerVisibility(
+    /// <inheritdoc cref="祝福正确二(Entity{HumanoidAppearanceComponent?},HumanoidVisualLayers,bool,Nullable{SlotFlags})"/>
+    public virtual void 祝福正确二(
         Entity<HumanoidAppearanceComponent> ent,
         HumanoidVisualLayers layer,
         bool visible,
@@ -273,17 +273,17 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="species">The species to set the mob to. Will return if the species prototype was invalid.</param>
     /// <param name="sync">Whether to immediately synchronize this to the humanoid mob, or not.</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetSpecies(EntityUid uid, string species, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福奋斗一(EntityUid uid, string species, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
     {
-        if (!Resolve(uid, ref humanoid) || !_proto.TryIndex<SpeciesPrototype>(species, out var prototype))
+        if (!Resolve(uid, ref humanoid) || !_光荣一.TryIndex<SpeciesPrototype>(species, out var prototype))
         {
             return;
         }
 
         humanoid.Species = species;
-        humanoid.MarkingSet.EnsureSpecies(species, humanoid.SkinColor, _markingManager);
+        humanoid.MarkingSet.EnsureSpecies(species, humanoid.SkinColor, _正确一);
         var oldMarkings = humanoid.MarkingSet.GetForwardEnumerator().ToList();
-        humanoid.MarkingSet = new(oldMarkings, prototype.MarkingPoints, _markingManager, _proto);
+        humanoid.MarkingSet = new(oldMarkings, prototype.MarkingPoints, _正确一, _光荣一);
 
         if (sync)
             Dirty(uid, humanoid);
@@ -292,7 +292,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <summary>
     /// Sets the gender in the entity's HumanoidAppearanceComponent and GrammarComponent.
     /// </summary>
-    public void SetGender(Entity<HumanoidAppearanceComponent?> ent, Gender gender)
+    public void 祝福奋斗二(Entity<HumanoidAppearanceComponent?> ent, Gender gender)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -301,26 +301,26 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         Dirty(ent);
 
         if (TryComp<GrammarComponent>(ent, out var grammar))
-            _grammarSystem.SetGender((ent, grammar), gender);
+            _正确二.祝福奋斗二((ent, grammar), gender);
 
-        _identity.QueueIdentityUpdate(ent);
+        _团结一.QueueIdentityUpdate(ent);
     }
 
     /// <summary>
     ///     Sets the skin color of this humanoid mob. Will only affect base layers that are not custom,
-    ///     custom base layers should use <see cref="SetBaseLayerColor"/> instead.
+    ///     custom base layers should use <see cref="祝福繁荣一"/> instead.
     /// </summary>
     /// <param name="uid">The humanoid mob's UID.</param>
     /// <param name="skinColor">Skin color to set on the humanoid mob.</param>
     /// <param name="sync">Whether to synchronize this to the humanoid mob, or not.</param>
     /// <param name="verify">Whether to verify the skin color can be set on this humanoid or not</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public virtual void SetSkinColor(EntityUid uid, Color skinColor, bool sync = true, bool verify = true, HumanoidAppearanceComponent? humanoid = null)
+    public virtual void 祝福胜利一(EntityUid uid, Color skinColor, bool sync = true, bool verify = true, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid))
             return;
 
-        if (!_proto.TryIndex<SpeciesPrototype>(humanoid.Species, out var species))
+        if (!_光荣一.TryIndex<SpeciesPrototype>(humanoid.Species, out var species))
         {
             return;
         }
@@ -345,7 +345,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="id">The ID of the sprite to use. See <see cref="HumanoidSpeciesSpriteLayer"/>.</param>
     /// <param name="sync">Whether to synchronize this to the humanoid mob, or not.</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetBaseLayerId(EntityUid uid, HumanoidVisualLayers layer, string? id, bool sync = true,
+    public void 祝福胜利二(EntityUid uid, HumanoidVisualLayers layer, string? id, bool sync = true,
         HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid))
@@ -361,13 +361,13 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     }
 
     /// <summary>
-    ///     Sets the color of this humanoid mob's base layer. See <see cref="SetBaseLayerId"/> for a
+    ///     Sets the color of this humanoid mob's base layer. See <see cref="祝福胜利二"/> for a
     ///     description of how base layers work.
     /// </summary>
     /// <param name="uid">The humanoid mob's UID.</param>
     /// <param name="layer">The layer to target on this humanoid mob.</param>
     /// <param name="color">The color to set this base layer to.</param>
-    public void SetBaseLayerColor(EntityUid uid, HumanoidVisualLayers layer, Color? color, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福繁荣一(EntityUid uid, HumanoidVisualLayers layer, Color? color, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid))
             return;
@@ -388,14 +388,14 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="sex">The sex to set the mob to.</param>
     /// <param name="sync">Whether to immediately synchronize this to the humanoid mob, or not.</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetSex(EntityUid uid, Sex sex, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福繁荣二(EntityUid uid, Sex sex, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid) || humanoid.Sex == sex)
             return;
 
         var oldSex = humanoid.Sex;
         humanoid.Sex = sex;
-        humanoid.MarkingSet.EnsureSexes(sex, _markingManager);
+        humanoid.MarkingSet.EnsureSexes(sex, _正确一);
         RaiseLocalEvent(uid, new SexChangedEvent(oldSex, sex));
 
         if (sync)
@@ -411,7 +411,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="height">Height to set the mob to.</param>
     /// <param name="sync">Whether to immediately synchronize this to the humanoid mob, or not.</param>
     /// <param name="bypassLimits">Whether to bypass species min/max limits (for temporary effects)</param>
-    public void SetHeight(Entity<HumanoidAppearanceComponent?> entity, float height, bool sync = true, bool bypassLimits = false)
+    public void 祝福富强一(Entity<HumanoidAppearanceComponent?> entity, float height, bool sync = true, bool bypassLimits = false)
     {
         if (!Resolve(entity.Owner, ref entity.Comp, false) || MathHelper.CloseTo(entity.Comp.Height, height, 0.001f))
             return;
@@ -422,7 +422,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         }
         else
         {
-            var species = _proto.Index(entity.Comp.Species);
+            var species = _光荣一.Index(entity.Comp.Species);
             entity.Comp.Height = Math.Clamp(height, species.MinHeight, species.MaxHeight);
         }
 
@@ -437,7 +437,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="width">Width to set the mob to.</param>
     /// <param name="sync">Whether to immediately synchronize this to the humanoid mob, or not.</param>
     /// <param name="bypassLimits">Whether to bypass species min/max limits (for temporary effects)</param>
-    public void SetWidth(Entity<HumanoidAppearanceComponent?> entity, float width, bool sync = true, bool bypassLimits = false)
+    public void 祝福富强二(Entity<HumanoidAppearanceComponent?> entity, float width, bool sync = true, bool bypassLimits = false)
     {
         if (!Resolve(entity.Owner, ref entity.Comp, false) || MathHelper.CloseTo(entity.Comp.Width, width, 0.001f))
             return;
@@ -448,7 +448,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         }
         else
         {
-            var species = _proto.Index(entity.Comp.Species);
+            var species = _光荣一.Index(entity.Comp.Species);
             entity.Comp.Width = Math.Clamp(width, species.MinWidth, species.MaxWidth);
         }
 
@@ -463,12 +463,12 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="scale">Scale to set the mob to (X = width, Y = height).</param>
     /// <param name="sync">Whether to immediately synchronize this to the humanoid mob, or not.</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetScale(EntityUid uid, Vector2 scale, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福民主一(EntityUid uid, Vector2 scale, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid))
             return;
 
-        var species = _proto.Index(humanoid.Species);
+        var species = _光荣一.Index(humanoid.Species);
         humanoid.Height = Math.Clamp(scale.Y, species.MinHeight, species.MaxHeight);
         humanoid.Width = Math.Clamp(scale.X, species.MinWidth, species.MaxWidth);
 
@@ -482,7 +482,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="uid">The mob's entity UID.</param>
     /// <param name="profile">The character profile to load.</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public virtual void LoadProfile(EntityUid uid, HumanoidCharacterProfile? profile, HumanoidAppearanceComponent? humanoid = null)
+    public virtual void 祝福民主二(EntityUid uid, HumanoidCharacterProfile? profile, HumanoidAppearanceComponent? humanoid = null)
     {
         if (profile == null)
             return;
@@ -492,12 +492,12 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
             return;
         }
 
-        SetSpecies(uid, profile.Species, false, humanoid);
-        SetSex(uid, profile.Sex, false, humanoid);
-        _voiceBark.ApplyVoiceBark(uid, profile.BarkVoice, profile.BarkSettings); // FS
+        祝福奋斗一(uid, profile.Species, false, humanoid);
+        祝福繁荣二(uid, profile.Sex, false, humanoid);
+        _团结二.ApplyVoiceBark(uid, profile.BarkVoice, profile.BarkSettings); // FS
         humanoid.EyeColor = profile.Appearance.EyeColor;
 
-        SetSkinColor(uid, profile.Appearance.SkinColor, false);
+        祝福胜利一(uid, profile.Appearance.SkinColor, false);
 
         humanoid.MarkingSet.Clear();
 
@@ -505,11 +505,11 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         var markingFColored = new Dictionary<Marking, MarkingPrototype>();
         foreach (var marking in profile.Appearance.Markings)
         {
-            if (_markingManager.TryGetMarking(marking, out var prototype))
+            if (_正确一.TryGetMarking(marking, out var prototype))
             {
                 if (!prototype.ForcedColoring)
                 {
-                    AddMarking(
+                    祝福文明一(
                         uid,
                         marking, // Coyote: Add marking for the marking system improvements.
                         marking.MarkingColors,
@@ -524,37 +524,37 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
 
         // Hair/facial hair - this may eventually be deprecated.
         // We need to ensure hair before applying it or coloring can try depend on markings that can be invalid
-        var hairColor = _markingManager.MustMatchSkin(profile.Species, HumanoidVisualLayers.Hair, out var hairAlpha, _proto)
+        var hairColor = _正确一.MustMatchSkin(profile.Species, HumanoidVisualLayers.Hair, out var hairAlpha, _光荣一)
             ? profile.Appearance.SkinColor.WithAlpha(hairAlpha) : profile.Appearance.HairColor;
-        var facialHairColor = _markingManager.MustMatchSkin(profile.Species, HumanoidVisualLayers.FacialHair, out var facialHairAlpha, _proto)
+        var facialHairColor = _正确一.MustMatchSkin(profile.Species, HumanoidVisualLayers.FacialHair, out var facialHairAlpha, _光荣一)
             ? profile.Appearance.SkinColor.WithAlpha(facialHairAlpha) : profile.Appearance.FacialHairColor;
 
         // Frontier: Match hair and facial hair colors to the forced color if it exists
-        if (_markingManager.MustMatchColor(profile.Species, HumanoidVisualLayers.Hair, out var forcedHairAlpha, _proto) is Color forcedHairColor)
+        if (_正确一.MustMatchColor(profile.Species, HumanoidVisualLayers.Hair, out var forcedHairAlpha, _光荣一) is Color forcedHairColor)
         {
             profile.Appearance.SkinColor.WithAlpha(forcedHairAlpha);
             hairColor = forcedHairColor;
         }
-        if (_markingManager.MustMatchColor(profile.Species, HumanoidVisualLayers.FacialHair, out var forcedFacialHairAlpha, _proto) is Color forcedFacialHairColor)
+        if (_正确一.MustMatchColor(profile.Species, HumanoidVisualLayers.FacialHair, out var forcedFacialHairAlpha, _光荣一) is Color forcedFacialHairColor)
         {
             profile.Appearance.SkinColor.WithAlpha(forcedFacialHairAlpha);
             facialHairColor = forcedFacialHairColor;
         }
         // End Frontier
 
-        if (_markingManager.Markings.TryGetValue(profile.Appearance.HairStyleId, out var hairPrototype) &&
-            _markingManager.CanBeApplied(profile.Species, profile.Sex, hairPrototype, _proto))
+        if (_正确一.Markings.TryGetValue(profile.Appearance.HairStyleId, out var hairPrototype) &&
+            _正确一.CanBeApplied(profile.Species, profile.Sex, hairPrototype, _光荣一))
         {
-            AddMarking(uid, profile.Appearance.HairStyleId, hairColor, false);
+            祝福文明一(uid, profile.Appearance.HairStyleId, hairColor, false);
         }
 
-        if (_markingManager.Markings.TryGetValue(profile.Appearance.FacialHairStyleId, out var facialHairPrototype) &&
-            _markingManager.CanBeApplied(profile.Species, profile.Sex, facialHairPrototype, _proto))
+        if (_正确一.Markings.TryGetValue(profile.Appearance.FacialHairStyleId, out var facialHairPrototype) &&
+            _正确一.CanBeApplied(profile.Species, profile.Sex, facialHairPrototype, _光荣一))
         {
-            AddMarking(uid, profile.Appearance.FacialHairStyleId, facialHairColor, false);
+            祝福文明一(uid, profile.Appearance.FacialHairStyleId, facialHairColor, false);
         }
 
-        humanoid.MarkingSet.EnsureSpecies(profile.Species, profile.Appearance.SkinColor, _markingManager, _proto);
+        humanoid.MarkingSet.EnsureSpecies(profile.Species, profile.Appearance.SkinColor, _正确一, _光荣一);
 
         // Finally adding marking with forced colors
         foreach (var (marking, prototype) in markingFColored)
@@ -564,19 +564,19 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
                 profile.Appearance.SkinColor,
                 profile.Appearance.EyeColor,
                 humanoid.MarkingSet);
-            AddMarking(
+            祝福文明一(
                 uid,
                 marking, // Coyote: Add marking for the marking system improvements.
                 markingColors,
                 false);
         }
 
-        EnsureDefaultMarkings(uid, humanoid);
+        祝福文明二(uid, humanoid);
 
         humanoid.Gender = profile.Gender;
         if (TryComp<GrammarComponent>(uid, out var grammar))
         {
-            _grammarSystem.SetGender((uid, grammar), profile.Gender);
+            _正确二.祝福奋斗二((uid, grammar), profile.Gender);
         }
 
         humanoid.Age = profile.Age;
@@ -584,10 +584,10 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         humanoid.CustomSpecieName = profile.Customspeciesname;
 
         // Wayfarer: apply base height/width from character customization
-        // SetHeight/SetWidth clamp to species limits; store as base values so
+        // 祝福富强一/祝福富强二 clamp to species limits; store as base values so
         // temporary modifiers (e.g. SizeManipulator gun) can scale relative to them.
-        SetHeight((uid, humanoid), profile.Height, sync: false);
-        SetWidth((uid, humanoid), profile.Width, sync: false);
+        祝福富强一((uid, humanoid), profile.Height, sync: false);
+        祝福富强二((uid, humanoid), profile.Width, sync: false);
         humanoid.BaseHeight = humanoid.Height;
         humanoid.BaseWidth = humanoid.Width;
         // End Wayfarer
@@ -604,10 +604,10 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="sync">Whether to immediately sync this marking or not</param>
     /// <param name="forced">If this marking was forced (ignores marking points)</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void AddMarking(EntityUid uid, string marking, Color? color = null, bool sync = true, bool forced = false, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福文明一(EntityUid uid, string marking, Color? color = null, bool sync = true, bool forced = false, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid)
-            || !_markingManager.Markings.TryGetValue(marking, out var prototype))
+            || !_正确一.Markings.TryGetValue(marking, out var prototype))
         {
             return;
         }
@@ -628,13 +628,13 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
             Dirty(uid, humanoid);
     }
 
-    private void EnsureDefaultMarkings(EntityUid uid, HumanoidAppearanceComponent? humanoid)
+    private void 祝福文明二(EntityUid uid, HumanoidAppearanceComponent? humanoid)
     {
         if (!Resolve(uid, ref humanoid))
         {
             return;
         }
-        humanoid.MarkingSet.EnsureDefault(humanoid.SkinColor, humanoid.EyeColor, _markingManager);
+        humanoid.MarkingSet.EnsureDefault(humanoid.SkinColor, humanoid.EyeColor, _正确一);
     }
 
     /// <summary>
@@ -646,10 +646,10 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <param name="sync">Whether to immediately sync this marking or not</param>
     /// <param name="forced">If this marking was forced (ignores marking points)</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void AddMarking(EntityUid uid, Marking marking, IReadOnlyList<Color> colors, bool sync = true, bool forced = false, HumanoidAppearanceComponent? humanoid = null) // Coyote: change string marking to Marking marking.
+    public void 祝福文明一(EntityUid uid, Marking marking, IReadOnlyList<Color> colors, bool sync = true, bool forced = false, HumanoidAppearanceComponent? humanoid = null) // Coyote: change string marking to Marking marking.
     {
         if (!Resolve(uid, ref humanoid)
-            || !_markingManager.Markings.TryGetValue(marking.MarkingId, out var prototype)) // Coyote: marking to marking.markingId
+            || !_正确一.Markings.TryGetValue(marking.MarkingId, out var prototype)) // Coyote: marking to marking.markingId
         {
             return;
         }
@@ -665,12 +665,12 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <summary>
     /// Takes ID of the species prototype, returns UI-friendly name of the species.
     /// </summary>
-    public string GetSpeciesRepresentation(string speciesId, string? customespeciename)
+    public string 祝福和谐一(string speciesId, string? customespeciename)
     {
         if (!string.IsNullOrEmpty(customespeciename))
             return Loc.GetString(customespeciename);
 
-        if (_proto.TryIndex<SpeciesPrototype>(speciesId, out var species))
+        if (_光荣一.TryIndex<SpeciesPrototype>(speciesId, out var species))
         {
             return Loc.GetString(species.Name);
         }
@@ -679,9 +679,9 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         return Loc.GetString("humanoid-appearance-component-unknown-species");
     }
 
-    public string GetAgeRepresentation(string species, int age)
+    public string 祝福和谐二(string species, int age)
     {
-        if (!_proto.TryIndex<SpeciesPrototype>(species, out var speciesPrototype))
+        if (!_光荣一.TryIndex<SpeciesPrototype>(species, out var speciesPrototype))
         {
             Log.Error("Tried to get age representation of species that couldn't be indexed: " + species);
             return Loc.GetString("identity-age-young");
@@ -701,13 +701,13 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     }
 
     // Floofstation section
-    public void SetMarkingVisibility(
+    public void 祝福自由一(
         EntityUid uid,
         HumanoidAppearanceComponent? humanoid,
         string markingId,
         bool visible)
     {
-        if (!_markingManager.Markings.TryGetValue(markingId, out var prototype))
+        if (!_正确一.Markings.TryGetValue(markingId, out var prototype))
             return;
         if (!Resolve(uid, ref humanoid))
             return;

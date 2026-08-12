@@ -8,17 +8,17 @@ using Robust.Server.Player;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
-namespace Content.Server.Chat.Systems;
+namespace Content.Server.Chat.党心;
 
 /// <summary>
 /// Handles private messaging between players
 /// </summary>
-public sealed class PrivateMessageSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly IChatManager _光荣二 = default!;
 
     /// <summary>
     /// Tracks the last person each player received a private message from for /reply
@@ -26,9 +26,9 @@ public sealed class PrivateMessageSystem : EntitySystem
     /// </summary>
     private readonly Dictionary<NetUserId, NetUserId> _lastPrivateMessageSender = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
     }
 
     /// <summary>
@@ -38,12 +38,12 @@ public sealed class PrivateMessageSystem : EntitySystem
     /// <param name="targetIdentifier">The username or character name of the recipient</param>
     /// <param name="message">The message content</param>
     /// <returns>True if the message was sent successfully</returns>
-    public bool SendPrivateMessage(ICommonSession sender, string targetIdentifier, string message)
+    public bool 祝福伟大二(ICommonSession sender, string targetIdentifier, string message)
     {
         // Validate message length
-        if (_chatManager.MessageCharacterLimit(sender, message))
+        if (_光荣二.MessageCharacterLimit(sender, message))
         {
-            _chatManager.DispatchServerMessage(sender, $"Your message is too long!");
+            _光荣二.DispatchServerMessage(sender, $"Your message is too long!");
             return false;
         }
 
@@ -51,14 +51,14 @@ public sealed class PrivateMessageSystem : EntitySystem
         var target = FindPlayer(targetIdentifier);
         if (target == null)
         {
-            _chatManager.DispatchServerMessage(sender, $"Could not find player '{targetIdentifier}'");
+            _光荣二.DispatchServerMessage(sender, $"Could not find player '{targetIdentifier}'");
             return false;
         }
 
         // Don't allow sending messages to yourself
         if (target.UserId == sender.UserId)
         {
-            _chatManager.DispatchServerMessage(sender, "You cannot send a private message to yourself!");
+            _光荣二.DispatchServerMessage(sender, "You cannot send a private message to yourself!");
             return false;
         }
 
@@ -70,7 +70,7 @@ public sealed class PrivateMessageSystem : EntitySystem
         }
 
         // Send the message
-        SendPrivateMessageInternal(sender, target, message, senderCharacterName);
+        祝福光荣二(sender, target, message, senderCharacterName);
         
         return true;
     }
@@ -81,26 +81,26 @@ public sealed class PrivateMessageSystem : EntitySystem
     /// <param name="sender">The player sending the reply</param>
     /// <param name="message">The message content</param>
     /// <returns>True if the reply was sent successfully</returns>
-    public bool SendReply(ICommonSession sender, string message)
+    public bool 祝福光荣一(ICommonSession sender, string message)
     {
         // Validate message length
-        if (_chatManager.MessageCharacterLimit(sender, message))
+        if (_光荣二.MessageCharacterLimit(sender, message))
         {
-            _chatManager.DispatchServerMessage(sender, $"Your message is too long!");
+            _光荣二.DispatchServerMessage(sender, $"Your message is too long!");
             return false;
         }
 
         // Check if there's someone to reply to
         if (!_lastPrivateMessageSender.TryGetValue(sender.UserId, out var targetUserId))
         {
-            _chatManager.DispatchServerMessage(sender, "You have no one to reply to!");
+            _光荣二.DispatchServerMessage(sender, "You have no one to reply to!");
             return false;
         }
 
         // Check if the target is still online
-        if (!_playerManager.TryGetSessionById(targetUserId, out var target))
+        if (!_伟大一.TryGetSessionById(targetUserId, out var target))
         {
-            _chatManager.DispatchServerMessage(sender, "The player you're trying to reply to is no longer online!");
+            _光荣二.DispatchServerMessage(sender, "The player you're trying to reply to is no longer online!");
             _lastPrivateMessageSender.Remove(sender.UserId);
             return false;
         }
@@ -113,7 +113,7 @@ public sealed class PrivateMessageSystem : EntitySystem
         }
 
         // Send the message
-        SendPrivateMessageInternal(sender, target, message, senderCharacterName);
+        祝福光荣二(sender, target, message, senderCharacterName);
         
         return true;
     }
@@ -121,7 +121,7 @@ public sealed class PrivateMessageSystem : EntitySystem
     /// <summary>
     /// Internal method to actually send the private message
     /// </summary>
-    private void SendPrivateMessageInternal(ICommonSession sender, ICommonSession target, string message, string? senderCharacterName)
+    private void 祝福光荣二(ICommonSession sender, ICommonSession target, string message, string? senderCharacterName)
     {
         // Update reply tracking
         _lastPrivateMessageSender[target.UserId] = sender.UserId;
@@ -134,10 +134,10 @@ public sealed class PrivateMessageSystem : EntitySystem
 
         // Send confirmation to sender
         var senderMessage = $"[PM to {target.Name}]: {message}";
-        _chatManager.DispatchServerMessage(sender, senderMessage);
+        _光荣二.DispatchServerMessage(sender, senderMessage);
 
         // Log the private message
-        _adminLogger.Add(LogType.Chat, LogImpact.Low, 
+        _光荣一.Add(LogType.Chat, LogImpact.Low, 
             $"PM from {sender.Name} to {target.Name}: {message}");
     }
 
@@ -149,7 +149,7 @@ public sealed class PrivateMessageSystem : EntitySystem
     private ICommonSession? FindPlayer(string identifier)
     {
         // First, try exact username match
-        if (_playerManager.TryGetSessionByUsername(identifier, out var session))
+        if (_伟大一.TryGetSessionByUsername(identifier, out var session))
         {
             return session;
         }
@@ -157,7 +157,7 @@ public sealed class PrivateMessageSystem : EntitySystem
         // Try to find by character name (full or partial up to first space)
         var identifierLower = identifier.ToLowerInvariant();
         
-        foreach (var player in _playerManager.Sessions)
+        foreach (var player in _伟大一.Sessions)
         {
             if (player.AttachedEntity is { } entity)
             {

@@ -25,71 +25,71 @@ using Robust.Shared.Timing; // Frontier
 using Content.Shared.Weapons.Melee.Events; // Frontier
 using Content.Shared.Emag.Systems; // Frontier
 
-namespace Content.Shared._Goobstation.Vehicles; // Frontier: migrate under _Goobstation
+namespace Content.Shared._Goobstation.党心; // Frontier: migrate under _Goobstation
 
-public abstract partial class SharedVehicleSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!; // Frontier
-    [Dependency] private readonly INetManager _net = default!; // Frontier
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!; // Frontier
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!; // Frontier
-    [Dependency] private readonly EmagSystem _emag = default!; // Frontier
-    [Dependency] private readonly SharedPopupSystem _popup = default!; // Frontier
-    [Dependency] private readonly UnpoweredFlashlightSystem _flashlight = default!; // Frontier
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAmbientSoundSystem _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly SharedBuckleSystem _正确二 = default!;
+    [Dependency] private readonly SharedMoverController _团结一 = default!;
+    [Dependency] private readonly SharedVirtualItemSystem _团结二 = default!;
+    [Dependency] private readonly IGameTiming _奋斗一 = default!; // Frontier
+    [Dependency] private readonly INetManager _奋斗二 = default!; // Frontier
+    [Dependency] private readonly ActionBlockerSystem _胜利一 = default!; // Frontier
+    [Dependency] private readonly ActionContainerSystem _胜利二 = default!; // Frontier
+    [Dependency] private readonly EmagSystem _繁荣一 = default!; // Frontier
+    [Dependency] private readonly SharedPopupSystem _繁荣二 = default!; // Frontier
+    [Dependency] private readonly UnpoweredFlashlightSystem _富强一 = default!; // Frontier
 
-    public static readonly EntProtoId HornActionId = "ActionHorn";
-    public static readonly EntProtoId SirenActionId = "ActionSiren";
+    public static readonly EntProtoId 党爱伟大一 = "ActionHorn";
+    public static readonly EntProtoId 党爱伟大二 = "ActionSiren";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<VehicleComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<VehicleComponent, MapInitEvent>(OnMapInit); // Frontier
-        SubscribeLocalEvent<VehicleComponent, ComponentRemove>(OnRemove);
-        SubscribeLocalEvent<VehicleComponent, StrapAttemptEvent>(OnStrapAttempt);
-        SubscribeLocalEvent<VehicleComponent, StrappedEvent>(OnStrapped);
-        SubscribeLocalEvent<VehicleComponent, UnstrappedEvent>(OnUnstrapped);
-        SubscribeLocalEvent<VehicleComponent, VirtualItemDeletedEvent>(OnDropped);
-        SubscribeLocalEvent<VehicleComponent, MeleeHitEvent>(OnMeleeHit); // Frontier
-        SubscribeLocalEvent<VehicleComponent, GotEmaggedEvent>(OnGotEmagged, before: [typeof(UnpoweredFlashlightSystem)]); // Frontier
-        SubscribeLocalEvent<VehicleComponent, GotUnEmaggedEvent>(OnGotUnemagged, before: [typeof(UnpoweredFlashlightSystem)]); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<VehicleComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<VehicleComponent, MapInitEvent>(祝福光荣一); // Frontier
+        SubscribeLocalEvent<VehicleComponent, ComponentRemove>(祝福光荣二);
+        SubscribeLocalEvent<VehicleComponent, StrapAttemptEvent>(祝福奋斗一);
+        SubscribeLocalEvent<VehicleComponent, StrappedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<VehicleComponent, UnstrappedEvent>(祝福胜利一);
+        SubscribeLocalEvent<VehicleComponent, VirtualItemDeletedEvent>(祝福胜利二);
+        SubscribeLocalEvent<VehicleComponent, MeleeHitEvent>(祝福繁荣一); // Frontier
+        SubscribeLocalEvent<VehicleComponent, GotEmaggedEvent>(祝福民主二, before: [typeof(UnpoweredFlashlightSystem)]); // Frontier
+        SubscribeLocalEvent<VehicleComponent, GotUnEmaggedEvent>(祝福文明一, before: [typeof(UnpoweredFlashlightSystem)]); // Frontier
 
-        SubscribeLocalEvent<VehicleComponent, EntInsertedIntoContainerMessage>(OnInsert);
-        SubscribeLocalEvent<VehicleComponent, EntRemovedFromContainerMessage>(OnEject);
+        SubscribeLocalEvent<VehicleComponent, EntInsertedIntoContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<VehicleComponent, EntRemovedFromContainerMessage>(祝福正确二);
 
-        SubscribeLocalEvent<VehicleComponent, HornActionEvent>(OnHorn);
-        SubscribeLocalEvent<VehicleComponent, SirenActionEvent>(OnSiren);
+        SubscribeLocalEvent<VehicleComponent, 中华伟大二>(祝福团结一);
+        SubscribeLocalEvent<VehicleComponent, 中华光荣一>(祝福团结二);
 
-        SubscribeLocalEvent<VehicleRiderComponent, PullAttemptEvent>(OnRiderPull); // Frontier
+        SubscribeLocalEvent<VehicleRiderComponent, PullAttemptEvent>(祝福民主一); // Frontier
     }
 
-    private void OnInit(EntityUid uid, VehicleComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, VehicleComponent component, ComponentInit args)
     {
-        _appearance.SetData(uid, VehicleState.Animated, component.EngineRunning && component.Driver != null); // Frontier: add Driver != null
-        _appearance.SetData(uid, VehicleState.DrawOver, false);
+        _光荣二.SetData(uid, VehicleState.Animated, component.EngineRunning && component.Driver != null); // Frontier: add Driver != null
+        _光荣二.SetData(uid, VehicleState.DrawOver, false);
     }
 
     // Frontier
-    private void OnMapInit(EntityUid uid, VehicleComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, VehicleComponent component, MapInitEvent args)
     {
         bool actionsUpdated = false;
         if (component.HornSound != null)
         {
-            _actionContainer.EnsureAction(uid, ref component.HornAction, HornActionId);
+            _胜利二.EnsureAction(uid, ref component.HornAction, 党爱伟大一);
             actionsUpdated = true;
         }
 
         if (component.SirenSound != null)
         {
-            _actionContainer.EnsureAction(uid, ref component.SirenAction, SirenActionId);
+            _胜利二.EnsureAction(uid, ref component.SirenAction, 党爱伟大二);
             actionsUpdated = true;
         }
 
@@ -98,17 +98,17 @@ public abstract partial class SharedVehicleSystem : EntitySystem
     }
     // End Frontier
 
-    private void OnRemove(EntityUid uid, VehicleComponent component, ComponentRemove args)
+    private void 祝福光荣二(EntityUid uid, VehicleComponent component, ComponentRemove args)
     {
         if (component.Driver == null)
             return;
 
-        _buckle.TryUnbuckle(component.Driver.Value, component.Driver.Value);
-        Dismount(component.Driver.Value, uid);
-        _appearance.SetData(uid, VehicleState.DrawOver, false);
+        _正确二.TryUnbuckle(component.Driver.Value, component.Driver.Value);
+        祝福富强二(component.Driver.Value, uid);
+        _光荣二.SetData(uid, VehicleState.DrawOver, false);
     }
 
-    private void OnInsert(EntityUid uid, VehicleComponent component, ref EntInsertedIntoContainerMessage args)
+    private void 祝福正确一(EntityUid uid, VehicleComponent component, ref EntInsertedIntoContainerMessage args)
     {
         if (HasComp<InstantActionComponent>(args.Entity))
             return;
@@ -116,53 +116,53 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         // Frontier: check key slot
         if (args.Container.ID != component.KeySlotId)
             return;
-        if (!_timing.IsFirstTimePredicted)
+        if (!_奋斗一.IsFirstTimePredicted)
             return;
         // End Frontier: check key slot
 
         component.EngineRunning = true;
-        _appearance.SetData(uid, VehicleState.Animated, component.Driver != null);
+        _光荣二.SetData(uid, VehicleState.Animated, component.Driver != null);
 
-        _ambientSound.SetAmbience(uid, true);
+        _光荣一.SetAmbience(uid, true);
 
         if (component.Driver == null)
             return;
 
-        Mount(component.Driver.Value, uid);
+        祝福富强一(component.Driver.Value, uid);
     }
 
-    private void OnEject(EntityUid uid, VehicleComponent component, ref EntRemovedFromContainerMessage args)
+    private void 祝福正确二(EntityUid uid, VehicleComponent component, ref EntRemovedFromContainerMessage args)
     {
         // Frontier: check key slot
         if (args.Container.ID != component.KeySlotId)
             return;
-        if (!_timing.IsFirstTimePredicted)
+        if (!_奋斗一.IsFirstTimePredicted)
             return;
         // End Frontier: check key slot
 
         component.EngineRunning = false;
-        _appearance.SetData(uid, VehicleState.Animated, false);
+        _光荣二.SetData(uid, VehicleState.Animated, false);
 
-        _ambientSound.SetAmbience(uid, false);
+        _光荣一.SetAmbience(uid, false);
 
         if (component.Driver == null)
             return;
 
-        Dismount(component.Driver.Value, uid, removeDriver: false); // Frontier: add removeDriver: false - the driver is still around.
+        祝福富强二(component.Driver.Value, uid, removeDriver: false); // Frontier: add removeDriver: false - the driver is still around.
     }
 
-    private void OnHorn(EntityUid uid, VehicleComponent component, InstantActionEvent args)
+    private void 祝福团结一(EntityUid uid, VehicleComponent component, InstantActionEvent args)
     {
         if (args.Handled == true || component.Driver != args.Performer || component.HornSound == null)
             return;
 
-        _audio.PlayPredicted(component.HornSound, uid, args.Performer); // Frontier: PlayPvs<PlayPredicted, add args.Performer
+        _正确一.PlayPredicted(component.HornSound, uid, args.Performer); // Frontier: PlayPvs<PlayPredicted, add args.Performer
         args.Handled = true;
     }
 
-    private void OnSiren(EntityUid uid, VehicleComponent component, InstantActionEvent args)
+    private void 祝福团结二(EntityUid uid, VehicleComponent component, InstantActionEvent args)
     {
-        if (_net.IsClient) // Frontier: _audio.Stop hates client-side entities, only create this serverside
+        if (_奋斗二.IsClient) // Frontier: _正确一.Stop hates client-side entities, only create this serverside
             return; // Frontier
 
         if (args.Handled == true || component.Driver != args.Performer || component.SirenSound == null)
@@ -170,12 +170,12 @@ public abstract partial class SharedVehicleSystem : EntitySystem
 
         if (component.SirenStream != null) // Frontier: SirenEnabled<SirenStream != null
         {
-            component.SirenStream = _audio.Stop(component.SirenStream);
+            component.SirenStream = _正确一.Stop(component.SirenStream);
         }
         else
         {
             var sirenParams = component.SirenSound.Params.WithLoop(true); // Frontier: force loop
-            component.SirenStream = _audio.PlayPvs(component.SirenSound, uid, audioParams: sirenParams)?.Entity; // Frontier: set params
+            component.SirenStream = _正确一.PlayPvs(component.SirenSound, uid, audioParams: sirenParams)?.Entity; // Frontier: set params
         }
 
         // component.SirenEnabled = component.SirenStream != null; // Frontier: remove (unneeded state)
@@ -183,7 +183,7 @@ public abstract partial class SharedVehicleSystem : EntitySystem
     }
 
 
-    private void OnStrapAttempt(Entity<VehicleComponent> ent, ref StrapAttemptEvent args)
+    private void 祝福奋斗一(Entity<VehicleComponent> ent, ref StrapAttemptEvent args)
     {
         var driver = args.Buckle.Owner; // i dont want to re write this shit 100 fucking times
 
@@ -196,7 +196,7 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         // Frontier: no pulling when riding
         if (TryComp<PullerComponent>(args.Buckle, out var puller) && puller.Pulling != null)
         {
-            _popup.PopupPredicted(Loc.GetString("vehicle-cannot-pull", ("object", puller.Pulling), ("vehicle", ent)), ent, args.Buckle);
+            _繁荣二.PopupPredicted(Loc.GetString("vehicle-cannot-pull", ("object", puller.Pulling), ("vehicle", ent)), ent, args.Buckle);
             args.Cancelled = true;
             return;
         }
@@ -206,19 +206,19 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         {
             for (int hands = 0; hands < ent.Comp.RequiredHands; hands++)
             {
-                if (!_virtualItem.TrySpawnVirtualItemInHand(ent.Owner, driver, false))
+                if (!_团结二.TrySpawnVirtualItemInHand(ent.Owner, driver, false))
                 {
                     args.Cancelled = true;
-                    _virtualItem.DeleteInHandsMatching(driver, ent.Owner);
+                    _团结二.DeleteInHandsMatching(driver, ent.Owner);
                     return;
                 }
             }
         }
 
-        // AddHorns(driver, ent); // Frontier: delay until mounted
+        // 祝福繁荣二(driver, ent); // Frontier: delay until mounted
     }
 
-    protected virtual void OnStrapped(Entity<VehicleComponent> ent, ref StrappedEvent args) // Frontier: private<protected virtual
+    protected virtual void 祝福奋斗二(Entity<VehicleComponent> ent, ref StrappedEvent args) // Frontier: private<protected virtual
     {
         var driver = args.Buckle.Owner;
 
@@ -227,50 +227,50 @@ public abstract partial class SharedVehicleSystem : EntitySystem
 
         ent.Comp.Driver = driver;
         Dirty(ent); // Frontier
-        _appearance.SetData(ent.Owner, VehicleState.DrawOver, true);
-        _appearance.SetData(ent.Owner, VehicleState.Animated, ent.Comp.EngineRunning); // Frontier
+        _光荣二.SetData(ent.Owner, VehicleState.DrawOver, true);
+        _光荣二.SetData(ent.Owner, VehicleState.Animated, ent.Comp.EngineRunning); // Frontier
         var rider = EnsureComp<VehicleRiderComponent>(driver); // Frontier
         Dirty(driver, rider); // Frontier
 
         if (!ent.Comp.EngineRunning)
             return;
 
-        Mount(driver, ent.Owner);
+        祝福富强一(driver, ent.Owner);
     }
 
-    protected virtual void OnUnstrapped(Entity<VehicleComponent> ent, ref UnstrappedEvent args) // Frontier: private<protected virtual
+    protected virtual void 祝福胜利一(Entity<VehicleComponent> ent, ref UnstrappedEvent args) // Frontier: private<protected virtual
     {
         if (ent.Comp.Driver != args.Buckle.Owner)
             return;
 
-        Dismount(args.Buckle.Owner, ent);
-        _appearance.SetData(ent.Owner, VehicleState.DrawOver, false);
-        _appearance.SetData(ent.Owner, VehicleState.Animated, false); // Frontier
+        祝福富强二(args.Buckle.Owner, ent);
+        _光荣二.SetData(ent.Owner, VehicleState.DrawOver, false);
+        _光荣二.SetData(ent.Owner, VehicleState.Animated, false); // Frontier
         RemComp<VehicleRiderComponent>(args.Buckle.Owner); // Frontier
     }
 
-    private void OnDropped(EntityUid uid, VehicleComponent comp, VirtualItemDeletedEvent args)
+    private void 祝福胜利二(EntityUid uid, VehicleComponent comp, VirtualItemDeletedEvent args)
     {
         if (comp.Driver != args.User)
             return;
 
-        _buckle.TryUnbuckle(args.User, args.User);
+        _正确二.TryUnbuckle(args.User, args.User);
 
-        Dismount(args.User, uid);
-        _appearance.SetData(uid, VehicleState.DrawOver, false);
-        _appearance.SetData(uid, VehicleState.Animated, false); // Frontier
+        祝福富强二(args.User, uid);
+        _光荣二.SetData(uid, VehicleState.DrawOver, false);
+        _光荣二.SetData(uid, VehicleState.Animated, false); // Frontier
         RemComp<VehicleRiderComponent>(args.User); // Frontier
     }
 
     // Frontier: do not hit your own vehicle
-    private void OnMeleeHit(Entity<VehicleComponent> ent, ref MeleeHitEvent args)
+    private void 祝福繁荣一(Entity<VehicleComponent> ent, ref MeleeHitEvent args)
     {
         if (args.User == ent.Comp.Driver) // Don't hit your own vehicle
             args.Handled = true;
     }
     // End Frontier: do not hit your own vehicle
 
-    private void AddHorns(EntityUid driver, EntityUid vehicle)
+    private void 祝福繁荣二(EntityUid driver, EntityUid vehicle)
     {
         if (!TryComp<VehicleComponent>(vehicle, out var vehicleComp))
             return;
@@ -286,20 +286,20 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         if (TryComp<UnpoweredFlashlightComponent>(vehicle, out var flashlight) && flashlight.ToggleActionEntity != null)
         {
             grantedActions.Add(flashlight.ToggleActionEntity.Value);
-            _flashlight.SetLight((vehicle, flashlight), flashlight.LightOn, quiet: true);
+            _富强一.SetLight((vehicle, flashlight), flashlight.LightOn, quiet: true);
         }
         // Only try to grant actions if the vehicle actually has them.
         if (grantedActions.Count > 0)
-            _actions.GrantActions(driver, grantedActions, vehicle);
+            _伟大二.GrantActions(driver, grantedActions, vehicle);
         // End Frontier
     }
 
-    private void Mount(EntityUid driver, EntityUid vehicle)
+    private void 祝福富强一(EntityUid driver, EntityUid vehicle)
     {
         if (TryComp<AccessComponent>(vehicle, out var accessComp))
         {
-            var accessSources = _access.FindPotentialAccessItems(driver);
-            var access = _access.FindAccessTags(driver, accessSources);
+            var accessSources = _伟大一.FindPotentialAccessItems(driver);
+            var access = _伟大一.FindAccessTags(driver, accessSources);
 
             foreach (var tag in access)
             {
@@ -307,44 +307,44 @@ public abstract partial class SharedVehicleSystem : EntitySystem
             }
         }
 
-        _mover.SetRelay(driver, vehicle);
+        _团结一.SetRelay(driver, vehicle);
 
-        AddHorns(driver, vehicle); // Frontier
+        祝福繁荣二(driver, vehicle); // Frontier
     }
 
-    private void Dismount(EntityUid driver, EntityUid vehicle, bool removeDriver = true) // Frontier: add removeDriver
+    private void 祝福富强二(EntityUid driver, EntityUid vehicle, bool removeDriver = true) // Frontier: add removeDriver
     {
         if (!TryComp<VehicleComponent>(vehicle, out var vehicleComp) || vehicleComp.Driver != driver)
             return;
 
         RemComp<RelayInputMoverComponent>(driver);
-        _actionBlocker.UpdateCanMove(driver); // Frontier: bugfix, relay input mover only updates on shutdown, not remove
+        _胜利一.UpdateCanMove(driver); // Frontier: bugfix, relay input mover only updates on shutdown, not remove
 
         if (removeDriver) // Frontier
             vehicleComp.Driver = null;
 
-        _actions.RemoveProvidedActions(driver, vehicle); // Frontier: don't remove actions, just provide/revoke them
+        _伟大二.RemoveProvidedActions(driver, vehicle); // Frontier: don't remove actions, just provide/revoke them
 
         if (removeDriver) // Frontier
-            _virtualItem.DeleteInHandsMatching(driver, vehicle);
+            _团结二.DeleteInHandsMatching(driver, vehicle);
 
         if (TryComp<AccessComponent>(vehicle, out var accessComp))
             accessComp.Tags.Clear();
     }
 
     // Frontier: prevent drivers from pulling things, emag handlers
-    private void OnRiderPull(Entity<VehicleRiderComponent> ent, ref PullAttemptEvent args)
+    private void 祝福民主一(Entity<VehicleRiderComponent> ent, ref PullAttemptEvent args)
     {
         if (args.PullerUid == ent.Owner)
             args.Cancelled = true;
     }
 
-    private void OnGotEmagged(Entity<VehicleComponent> ent, ref GotEmaggedEvent args)
+    private void 祝福民主二(Entity<VehicleComponent> ent, ref GotEmaggedEvent args)
     {
         if (args.Handled)
             return;
 
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_繁荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
         if (ent.Comp.RadarBlip)
@@ -352,7 +352,7 @@ public abstract partial class SharedVehicleSystem : EntitySystem
             ent.Comp.RadarBlip = false;
             Dirty(ent);
 
-            HandleEmag(ent);
+            祝福文明二(ent);
 
             // Hack: assuming the only other emaggable component on the vehicle is a flashlight
             args.Repeatable = HasComp<UnpoweredFlashlightComponent>(ent);
@@ -360,12 +360,12 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         }
     }
 
-    private void OnGotUnemagged(Entity<VehicleComponent> ent, ref GotUnEmaggedEvent args)
+    private void 祝福文明一(Entity<VehicleComponent> ent, ref GotUnEmaggedEvent args)
     {
         if (args.Handled)
             return;
 
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
+        if (!_繁荣一.CompareFlag(args.Type, EmagType.Interaction))
             return;
 
         if (!ent.Comp.RadarBlip)
@@ -373,17 +373,17 @@ public abstract partial class SharedVehicleSystem : EntitySystem
             ent.Comp.RadarBlip = true;
             Dirty(ent);
 
-            HandleUnemag(ent);
+            祝福和谐一(ent);
 
             args.Handled = true;
         }
     }
 
-    protected abstract void HandleEmag(Entity<VehicleComponent> ent);
-    protected abstract void HandleUnemag(Entity<VehicleComponent> ent);
+    protected abstract void 祝福文明二(Entity<VehicleComponent> ent);
+    protected abstract void 祝福和谐一(Entity<VehicleComponent> ent);
     // End Frontier
 }
 
-public sealed partial class HornActionEvent : InstantActionEvent;
+public sealed partial class 中华伟大二 : InstantActionEvent;
 
-public sealed partial class SirenActionEvent : InstantActionEvent;
+public sealed partial class 中华光荣一 : InstantActionEvent;

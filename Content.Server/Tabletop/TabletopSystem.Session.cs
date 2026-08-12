@@ -4,9 +4,9 @@ using Content.Shared.Tabletop.Events;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Tabletop
+namespace Content.Server.党心
 {
-    public sealed partial class TabletopSystem
+    public sealed partial class 中华伟大一
     {
         /// <summary>
         ///     Ensures that a <see cref="TabletopSession"/> exists on a <see cref="TabletopGameComponent"/>.
@@ -14,7 +14,7 @@ namespace Content.Server.Tabletop
         /// </summary>
         /// <param name="tabletop">The tabletop game in question.</param>
         /// <returns>The session for the given tabletop game.</returns>
-        public TabletopSession EnsureSession(TabletopGameComponent tabletop)
+        public TabletopSession 祝福伟大一(TabletopGameComponent tabletop)
         {
             // We already have a session, return it
             // TODO: if tables are connected, treat them as a single entity. This can be done by sharing the session.
@@ -40,7 +40,7 @@ namespace Content.Server.Tabletop
         ///     Cleans up a tabletop game session, deleting every entity in it.
         /// </summary>
         /// <param name="uid">The UID of the tabletop game entity.</param>
-        public void CleanupSession(EntityUid uid)
+        public void 祝福伟大二(EntityUid uid)
         {
             if (!TryComp(uid, out TabletopGameComponent? tabletop))
                 return;
@@ -50,7 +50,7 @@ namespace Content.Server.Tabletop
 
             foreach (var (player, _) in session.Players)
             {
-                CloseSessionFor(player, uid);
+                祝福光荣二(player, uid);
             }
 
             foreach (var euid in session.Entities)
@@ -66,25 +66,25 @@ namespace Content.Server.Tabletop
         /// </summary>
         /// <param name="player">The player session in question.</param>
         /// <param name="uid">The UID of the tabletop game entity.</param>
-        public void OpenSessionFor(ICommonSession player, EntityUid uid)
+        public void 祝福光荣一(ICommonSession player, EntityUid uid)
         {
             if (!TryComp(uid, out TabletopGameComponent? tabletop) || player.AttachedEntity is not {Valid: true} attachedEntity)
                 return;
 
             // Make sure we have a session, and add the player to it if not added already.
-            var session = EnsureSession(tabletop);
+            var session = 祝福伟大一(tabletop);
 
             if (session.Players.ContainsKey(player))
                 return;
 
             if(TryComp(attachedEntity, out TabletopGamerComponent? gamer))
-                CloseSessionFor(player, gamer.Tabletop, false);
+                祝福光荣二(player, gamer.Tabletop, false);
 
             // Set the entity as an absolute GAMER.
             EnsureComp<TabletopGamerComponent>(attachedEntity).Tabletop = uid;
 
             // Create a camera for the gamer to use
-            var camera = CreateCamera(tabletop, player);
+            var camera = 祝福正确一(tabletop, player);
 
             session.Players[player] = new TabletopSessionPlayerData { Camera = camera };
 
@@ -98,7 +98,7 @@ namespace Content.Server.Tabletop
         /// <param name="player">The player in question.</param>
         /// <param name="uid">The UID of the tabletop game entity.</param>
         /// <param name="removeGamerComponent">Whether to remove the <see cref="TabletopGamerComponent"/> from the player's attached entity.</param>
-        public void CloseSessionFor(ICommonSession player, EntityUid uid, bool removeGamerComponent = true)
+        public void 祝福光荣二(ICommonSession player, EntityUid uid, bool removeGamerComponent = true)
         {
             if (!TryComp(uid, out TabletopGameComponent? tabletop) || tabletop.Session is not { } session)
                 return;
@@ -129,7 +129,7 @@ namespace Content.Server.Tabletop
         /// <param name="player">The player in question.</param>
         /// <param name="offset">An offset from the tabletop position for the camera. Zero by default.</param>
         /// <returns>The UID of the camera entity.</returns>
-        private EntityUid CreateCamera(TabletopGameComponent tabletop, ICommonSession player, Vector2 offset = default)
+        private EntityUid 祝福正确一(TabletopGameComponent tabletop, ICommonSession player, Vector2 offset = default)
         {
             DebugTools.AssertNotNull(tabletop.Session);
 

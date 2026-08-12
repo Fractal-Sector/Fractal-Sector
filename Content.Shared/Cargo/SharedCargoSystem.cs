@@ -2,32 +2,32 @@ using Content.Shared.Cargo.Components;
 using Content.Shared.Cargo.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Cargo;
+namespace Content.Shared.党心;
 
-public abstract class SharedCargoSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StationBankAccountComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<StationBankAccountComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<StationBankAccountComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<StationBankAccountComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextIncomeTime = Timing.CurTime + ent.Comp.IncomeDelay;
+        ent.Comp.NextIncomeTime = 党爱伟大一.CurTime + ent.Comp.IncomeDelay;
         Dirty(ent);
     }
 
     /// <summary>
     /// For a given station, retrieves the balance in a specific account.
     /// </summary>
-    public int GetBalanceFromAccount(Entity<StationBankAccountComponent?> station, ProtoId<CargoAccountPrototype> account)
+    public int 祝福光荣一(Entity<StationBankAccountComponent?> station, ProtoId<CargoAccountPrototype> account)
     {
         if (!Resolve(station, ref station.Comp))
             return 0;
@@ -40,7 +40,7 @@ public abstract class SharedCargoSystem : EntitySystem
     /// The primary account receives the majority percentage listed on the bank account, with the remaining
     /// funds distributed to all accounts based on <see cref="StationBankAccountComponent.RevenueDistribution"/>
     /// </summary>
-    public Dictionary<ProtoId<CargoAccountPrototype>, double> CreateAccountDistribution(Entity<StationBankAccountComponent> stationBank)
+    public Dictionary<ProtoId<CargoAccountPrototype>, double> 祝福光荣二(Entity<StationBankAccountComponent> stationBank)
     {
         var distribution = new Dictionary<ProtoId<CargoAccountPrototype>, double>
         {
@@ -58,7 +58,7 @@ public abstract class SharedCargoSystem : EntitySystem
 }
 
 [NetSerializable, Serializable]
-public enum CargoConsoleUiKey : byte
+public enum 中华伟大二 : byte
 {
     Orders,
     Bounty,
@@ -67,13 +67,13 @@ public enum CargoConsoleUiKey : byte
 }
 
 [NetSerializable, Serializable]
-public enum CargoPalletConsoleUiKey : byte
+public enum 中华光荣一 : byte
 {
     Sale
 }
 
 [Serializable, NetSerializable]
-public enum CargoTelepadState : byte
+public enum 中华光荣二 : byte
 {
     Unpowered,
     Idle,
@@ -81,7 +81,7 @@ public enum CargoTelepadState : byte
 };
 
 [Serializable, NetSerializable]
-public enum CargoTelepadVisuals : byte
+public enum 中华正确一 : byte
 {
     State,
 };

@@ -2,40 +2,40 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Containers;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Applies / removes an entity prototype from a child entity when it's inserted into a container.
 /// </summary>
-public sealed class ContainerCompSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ContainerCompComponent, EntInsertedIntoContainerMessage>(OnConInsert);
-        SubscribeLocalEvent<ContainerCompComponent, EntRemovedFromContainerMessage>(OnConRemove);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ContainerCompComponent, EntInsertedIntoContainerMessage>(祝福光荣一);
+        SubscribeLocalEvent<ContainerCompComponent, EntRemovedFromContainerMessage>(祝福伟大二);
     }
 
-    private void OnConRemove(Entity<ContainerCompComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福伟大二(Entity<ContainerCompComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        if (args.Container.ID != ent.Comp.Container || _timing.ApplyingState)
+        if (args.Container.ID != ent.Comp.Container || _伟大一.ApplyingState)
             return;
 
-        if (_proto.TryIndex(ent.Comp.Proto, out var entProto))
+        if (_伟大二.TryIndex(ent.Comp.Proto, out var entProto))
         {
             EntityManager.RemoveComponents(args.Entity, entProto.Components);
         }
     }
 
-    private void OnConInsert(Entity<ContainerCompComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福光荣一(Entity<ContainerCompComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        if (args.Container.ID != ent.Comp.Container || _timing.ApplyingState)
+        if (args.Container.ID != ent.Comp.Container || _伟大一.ApplyingState)
             return;
 
-        if (_proto.TryIndex(ent.Comp.Proto, out var entProto))
+        if (_伟大二.TryIndex(ent.Comp.Proto, out var entProto))
         {
             EntityManager.AddComponents(args.Entity, entProto.Components);
         }

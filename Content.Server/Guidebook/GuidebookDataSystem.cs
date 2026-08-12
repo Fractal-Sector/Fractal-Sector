@@ -3,52 +3,52 @@ using Content.Shared.Guidebook;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Guidebook;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Server system for identifying component fields/properties to extract values from entity prototypes.
 /// Extracted data is sent to clients when they connect or when prototypes are reloaded.
 /// </summary>
-public sealed class GuidebookDataSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
 
     private readonly Dictionary<string, List<MemberInfo>> _tagged = [];
-    private GuidebookData _cachedData = new();
+    private GuidebookData _伟大二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeNetworkEvent<RequestGuidebookDataEvent>(OnRequestRules);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
+        SubscribeNetworkEvent<RequestGuidebookDataEvent>(祝福伟大二);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福光荣一);
 
         // Build initial cache
-        GatherData(ref _cachedData);
+        祝福光荣二(ref _伟大二);
     }
 
-    private void OnRequestRules(RequestGuidebookDataEvent ev, EntitySessionEventArgs args)
+    private void 祝福伟大二(RequestGuidebookDataEvent ev, EntitySessionEventArgs args)
     {
         // Send cached data to requesting client
-        var sendEv = new UpdateGuidebookDataEvent(_cachedData);
+        var sendEv = new UpdateGuidebookDataEvent(_伟大二);
         RaiseNetworkEvent(sendEv, args.SenderSession);
     }
 
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+    private void 祝福光荣一(PrototypesReloadedEventArgs args)
     {
         // We only care about entity prototypes
         if (!args.WasModified<EntityPrototype>())
             return;
 
         // The entity prototypes changed! Clear our cache and regather data
-        RebuildDataCache();
+        祝福正确一();
 
         // Send new data to all clients
-        var ev = new UpdateGuidebookDataEvent(_cachedData);
+        var ev = new UpdateGuidebookDataEvent(_伟大二);
         RaiseNetworkEvent(ev);
     }
 
-    private void GatherData(ref GuidebookData cache)
+    private void 祝福光荣二(ref GuidebookData cache)
     {
         // Just for debug metrics
         var memberCount = 0;
@@ -72,7 +72,7 @@ public sealed class GuidebookDataSystem : EntitySystem
         }
 
         // Scan entity prototypes for the component-member pairs we noted
-        var entityPrototypes = _protoMan.EnumeratePrototypes<EntityPrototype>();
+        var entityPrototypes = _伟大一.EnumeratePrototypes<EntityPrototype>();
         foreach (var prototype in entityPrototypes)
         {
             foreach (var (component, entry) in prototype.Components)
@@ -103,9 +103,9 @@ public sealed class GuidebookDataSystem : EntitySystem
     /// <summary>
     /// Clears the cached data, then regathers it.
     /// </summary>
-    private void RebuildDataCache()
+    private void 祝福正确一()
     {
-        _cachedData.Clear();
-        GatherData(ref _cachedData);
+        _伟大二.Clear();
+        祝福光荣二(ref _伟大二);
     }
 }

@@ -1,8 +1,8 @@
 using Content.Shared.FixedPoint;
 
-namespace Content.Shared.Medical.Healing;
+namespace Content.Shared.Medical.党心;
 
-public sealed partial class HealingComponent
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// Optional per-group damage thresholds, if the target's total damage in a group equals or exceeds this value, that means you'll need alternative means to heal them.

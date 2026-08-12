@@ -4,14 +4,14 @@ using Content.Shared.Singularity.EntitySystems;
 using Robust.Shared.Audio;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Singularity.Components;
+namespace Content.Shared.Singularity.党心;
 
 /// <summary>
 /// A component that makes the associated entity accumulate energy when an associated event horizon consumes things.
-/// Energy management is server-side.
+/// 党爱光荣一 management is server-side.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class SingularityComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The current level of the singularity.
@@ -20,7 +20,7 @@ public sealed partial class SingularityComponent : Component
     /// </summary>
     [Access(friends: typeof(SharedSingularitySystem), Other = AccessPermissions.Read, Self = AccessPermissions.Read)]
     [DataField("level")]
-    public byte Level = 1;
+    public byte 党爱伟大一 = 1;
 
     /// <summary>
     /// The amount of radiation this singularity emits per its level.
@@ -30,20 +30,20 @@ public sealed partial class SingularityComponent : Component
     [Access(friends: typeof(SharedSingularitySystem), Other = AccessPermissions.Read, Self = AccessPermissions.Read)]
     [DataField("radsPerLevel")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float RadsPerLevel = 2f;
+    public float 党爱伟大二 = 2f;
 
     /// <summary>
     /// The amount of energy this singularity contains.
     /// </summary>
     [DataField("energy")]
-    public float Energy = 180f;
+    public float 党爱光荣一 = 180f;
 
     /// <summary>
     /// The rate at which this singularity loses energy over time.
     /// </summary>
     [DataField("energyLoss")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float EnergyDrain;
+    public float 党爱光荣二;
 
     #region Audio
 

@@ -8,89 +8,89 @@ using Content.Shared.Tools.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server._NF.Digging.Systems;
+namespace Content.Server._NF.Digging.党心;
 
-public sealed class DiggingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TileSystem _tiles = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedToolSystem _tools = default!;
-    [Dependency] private readonly TurfSystem _turfs = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly TileSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+    [Dependency] private readonly SharedToolSystem _光荣一 = default!;
+    [Dependency] private readonly TurfSystem _光荣二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _正确一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _正确二 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<EarthDiggingComponent, AfterInteractEvent>(OnDiggingAfterInteract);
-        SubscribeLocalEvent<EarthDiggingComponent, EarthDiggingDoAfterEvent>(OnEarthDigComplete);
+        SubscribeLocalEvent<EarthDiggingComponent, AfterInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<EarthDiggingComponent, EarthDiggingDoAfterEvent>(祝福伟大二);
     }
 
 
-    private void OnEarthDigComplete(EntityUid shovel, EarthDiggingComponent comp, EarthDiggingDoAfterEvent args)
+    private void 祝福伟大二(EntityUid shovel, EarthDiggingComponent comp, EarthDiggingDoAfterEvent args)
     {
         var coordinates = GetCoordinates(args.Coordinates);
         if (!TryComp<EarthDiggingComponent>(shovel, out var _))
             return;
-        var gridUid = _transform.GetGrid(coordinates);
+        var gridUid = _团结一.GetGrid(coordinates);
         if (gridUid == null)
             return;
 
         var grid = Comp<MapGridComponent>(gridUid.Value);
-        var tile = _maps.GetTileRef(gridUid.Value, grid, coordinates);
+        var tile = _伟大二.GetTileRef(gridUid.Value, grid, coordinates);
 
-        if (_tileDefManager[tile.Tile.TypeId] is not ContentTileDefinition tileDef
+        if (_正确一[tile.Tile.TypeId] is not ContentTileDefinition tileDef
             || !tileDef.CanShovel
             || string.IsNullOrEmpty(tileDef.BaseTurf)
-            || _turfs.IsTileBlocked(tile, CollisionGroup.MobMask))
+            || _光荣二.IsTileBlocked(tile, CollisionGroup.MobMask))
         {
             return;
         }
 
-        _tiles.DigTile(tile);
+        _伟大一.DigTile(tile);
     }
 
-    private void OnDiggingAfterInteract(EntityUid uid, EarthDiggingComponent component,
+    private void 祝福光荣一(EntityUid uid, EarthDiggingComponent component,
         AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach || args.Target != null)
             return;
 
-        if (TryDig(args.User, uid, component, args.ClickLocation))
+        if (祝福光荣二(args.User, uid, component, args.ClickLocation))
             args.Handled = true;
     }
 
-    private bool TryDig(EntityUid user, EntityUid shovel, EarthDiggingComponent component,
+    private bool 祝福光荣二(EntityUid user, EntityUid shovel, EarthDiggingComponent component,
         EntityCoordinates clickLocation)
     {
         ToolComponent? tool = null;
         if (component.ToolComponentNeeded && !TryComp(shovel, out  tool))
             return false;
 
-        var mapUid = _transform.GetGrid(clickLocation);
+        var mapUid = _团结一.GetGrid(clickLocation);
         if (mapUid == null || !TryComp(mapUid, out MapGridComponent? mapGrid))
             return false;
 
-        var tile = _maps.GetTileRef(mapUid.Value, mapGrid, clickLocation);
+        var tile = _伟大二.GetTileRef(mapUid.Value, mapGrid, clickLocation);
 
-        var coordinates = _maps.GridTileToLocal(mapUid.Value, mapGrid, tile.GridIndices);
+        var coordinates = _伟大二.GridTileToLocal(mapUid.Value, mapGrid, tile.GridIndices);
 
-        if (!_interactionSystem.InRangeUnobstructed(user, coordinates, popup: false))
+        if (!_正确二.InRangeUnobstructed(user, coordinates, popup: false))
             return false;
 
-        if (_tileDefManager[tile.Tile.TypeId] is not ContentTileDefinition tileDef
+        if (_正确一[tile.Tile.TypeId] is not ContentTileDefinition tileDef
             || !tileDef.CanShovel
             || string.IsNullOrEmpty(tileDef.BaseTurf)
-            || _tileDefManager[tileDef.BaseTurf] is not ContentTileDefinition
-            || _turfs.IsTileBlocked(tile, CollisionGroup.MobMask))
+            || _正确一[tileDef.BaseTurf] is not ContentTileDefinition
+            || _光荣二.IsTileBlocked(tile, CollisionGroup.MobMask))
         {
             return false;
         }
 
         var ev = new EarthDiggingDoAfterEvent(GetNetCoordinates(clickLocation));
-        return _tools.UseTool(
+        return _光荣一.UseTool(
             shovel,
             user,
             target: shovel,

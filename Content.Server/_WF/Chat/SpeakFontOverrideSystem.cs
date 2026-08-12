@@ -1,17 +1,17 @@
 ﻿using Content.Shared._WF.Chat;
 using Robust.Shared.GameObjects;
 
-namespace Content.Server._WF.Chat;
+namespace Content.Server._WF.党心;
 
-public sealed class SpeakFontOverrideSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SpeakFontOverrideComponent, TransformSpeechAppearanceEvent>(OnTransformSpeechAppearance);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SpeakFontOverrideComponent, TransformSpeechAppearanceEvent>(祝福伟大二);
     }
 
-    private void OnTransformSpeechAppearance(Entity<SpeakFontOverrideComponent> ent, ref TransformSpeechAppearanceEvent ev)
+    private void 祝福伟大二(Entity<SpeakFontOverrideComponent> ent, ref TransformSpeechAppearanceEvent ev)
     {
         if (!string.IsNullOrEmpty(ent.Comp.FontId))
             ev.FontId = ent.Comp.FontId;

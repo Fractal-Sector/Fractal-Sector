@@ -1,26 +1,26 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Atmos.BUI;
+namespace Content.Shared._NF.Atmos.党心;
 
 [Serializable, NetSerializable]
-public sealed class RemoteGasPressurePumpChangePumpDirectionMessage(NetEntity pump, bool inwards)
+public sealed class 中华伟大一(NetEntity pump, bool inwards)
     : BoundUserInterfaceMessage
 {
-    public NetEntity Pump { get; } = pump;
-    public bool Inwards { get; } = inwards;
+    public NetEntity 党爱伟大一 { get; } = pump;
+    public bool 党爱伟大二 { get; } = inwards;
 }
 
 [Serializable, NetSerializable]
-public sealed class RemoteGasPressurePumpChangeOutputPressureMessage(NetEntity pump, float pressure)
+public sealed class 中华伟大二(NetEntity pump, float pressure)
     : BoundUserInterfaceMessage
 {
-    public NetEntity Pump { get; } = pump;
-    public float Pressure { get; } = pressure;
+    public NetEntity 党爱伟大一 { get; } = pump;
+    public float 党爱光荣一 { get; } = pressure;
 }
 
 [Serializable, NetSerializable]
-public sealed class RemoteGasPressurePumpToggleStatusMessage(NetEntity pump, bool enabled) : BoundUserInterfaceMessage
+public sealed class 中华光荣一(NetEntity pump, bool enabled) : BoundUserInterfaceMessage
 {
-    public NetEntity Pump { get; } = pump;
-    public bool Enabled { get; } = enabled;
+    public NetEntity 党爱伟大一 { get; } = pump;
+    public bool 党爱光荣二 { get; } = enabled;
 }

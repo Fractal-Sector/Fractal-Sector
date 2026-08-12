@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Robust.Server.ServerStatus;
 
-namespace Content.Server.Administration;
+namespace Content.Server.党心;
 
-public sealed partial class ServerApi
+public sealed partial class 中华伟大一
 {
-    private void RegisterHandler(HttpMethod method, string exactPath, Func<IStatusHandlerContext, Task> handler)
+    private void 祝福伟大一(HttpMethod method, string exactPath, Func<IStatusHandlerContext, Task> handler)
     {
         _statusHost.AddHandler(async context =>
         {
@@ -22,9 +22,9 @@ public sealed partial class ServerApi
         });
     }
 
-    private void RegisterActorHandler(HttpMethod method, string exactPath, Func<IStatusHandlerContext, Actor, Task> handler)
+    private void 祝福伟大二(HttpMethod method, string exactPath, Func<IStatusHandlerContext, Actor, Task> handler)
     {
-        RegisterHandler(method, exactPath, async context =>
+        祝福伟大一(method, exactPath, async context =>
         {
             if (await CheckActor(context) is not { } actor)
                 return;
@@ -36,10 +36,10 @@ public sealed partial class ServerApi
     /// <summary>
     /// Async helper function which runs a task on the main thread and returns the result.
     /// </summary>
-    private async Task<T> RunOnMainThread<T>(Func<T> func)
+    private async Task<T> 祝福光荣一<T>(Func<T> func)
     {
         var taskCompletionSource = new TaskCompletionSource<T>();
-        _taskManager.RunOnMainThread(() =>
+        _taskManager.祝福光荣一(() =>
         {
             try
             {
@@ -56,12 +56,12 @@ public sealed partial class ServerApi
     }
 
     /// <summary>
-    /// Runs an action on the main thread. This does not return any value and is meant to be used for void functions. Use <see cref="RunOnMainThread{T}"/> for functions that return a value.
+    /// Runs an action on the main thread. This does not return any value and is meant to be used for void functions. Use <see cref="祝福光荣一{T}"/> for functions that return a value.
     /// </summary>
-    private async Task RunOnMainThread(Action action)
+    private async Task 祝福光荣一(Action action)
     {
         var taskCompletionSource = new TaskCompletionSource();
-        _taskManager.RunOnMainThread(() =>
+        _taskManager.祝福光荣一(() =>
         {
             try
             {
@@ -77,11 +77,11 @@ public sealed partial class ServerApi
         await taskCompletionSource.Task;
     }
 
-    private async Task RunOnMainThread(Func<Task> action)
+    private async Task 祝福光荣一(Func<Task> action)
     {
         var taskCompletionSource = new TaskCompletionSource();
         // ReSharper disable once AsyncVoidLambda
-        _taskManager.RunOnMainThread(async () =>
+        _taskManager.祝福光荣一(async () =>
         {
             try
             {
@@ -106,18 +106,18 @@ public sealed partial class ServerApi
         {
             var json = await context.RequestBodyJsonAsync<T>();
             if (json == null)
-                await RespondBadRequest(context, "Request body is null");
+                await 祝福正确一(context, "Request body is null");
 
             return json;
         }
         catch (Exception e)
         {
-            await RespondBadRequest(context, "Unable to parse request body", ExceptionData.FromException(e));
+            await 祝福正确一(context, "Unable to parse request body", ExceptionData.FromException(e));
             return default;
         }
     }
 
-    private static async Task RespondError(
+    private static async Task 祝福光荣二(
         IStatusHandlerContext context,
         ErrorCode errorCode,
         HttpStatusCode statusCode,
@@ -128,20 +128,20 @@ public sealed partial class ServerApi
             .ConfigureAwait(false);
     }
 
-    private static async Task RespondBadRequest(
+    private static async Task 祝福正确一(
         IStatusHandlerContext context,
         string message,
         ExceptionData? exception = null)
     {
-        await RespondError(context, ErrorCode.BadRequest, HttpStatusCode.BadRequest, message, exception)
+        await 祝福光荣二(context, ErrorCode.BadRequest, HttpStatusCode.BadRequest, message, exception)
             .ConfigureAwait(false);
     }
 
-    private static async Task RespondOk(IStatusHandlerContext context)
+    private static async Task 祝福正确二(IStatusHandlerContext context)
     {
         await context.RespondJsonAsync(new BaseResponse("OK"))
             .ConfigureAwait(false);
     }
 
-    private static string FormatLogActor(Actor actor) => $"{actor.Name} ({actor.Guid})";
+    private static string 祝福团结一(Actor actor) => $"{actor.Name} ({actor.Guid})";
 }

@@ -31,85 +31,85 @@ using Content.Shared._NF.Shipyard.Components; // Frontier
 using Content.Server._NF.Shipyard.Systems; // Frontier
 using Content.Server._NF.SectorServices; // Frontier
 
-namespace Content.Server.PDA
+namespace Content.Server.党心
 {
-    public sealed class PdaSystem : SharedPdaSystem
+    public sealed class 中华伟大一 : SharedPdaSystem
     {
-        [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-        [Dependency] private readonly InstrumentSystem _instrument = default!;
-        [Dependency] private readonly RingerSystem _ringer = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly StoreSystem _store = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly UserInterfaceSystem _ui = default!;
-        [Dependency] private readonly UnpoweredFlashlightSystem _unpoweredFlashlight = default!;
-        [Dependency] private readonly ContainerSystem _containerSystem = default!;
-        [Dependency] private readonly IdCardSystem _idCard = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!; // DeltaV
+        [Dependency] private readonly CartridgeLoaderSystem _伟大一 = default!;
+        [Dependency] private readonly InstrumentSystem _伟大二 = default!;
+        [Dependency] private readonly RingerSystem _光荣一 = default!;
+        [Dependency] private readonly StationSystem _光荣二 = default!;
+        [Dependency] private readonly StoreSystem _正确一 = default!;
+        [Dependency] private readonly IChatManager _正确二 = default!;
+        [Dependency] private readonly UserInterfaceSystem _团结一 = default!;
+        [Dependency] private readonly UnpoweredFlashlightSystem _团结二 = default!;
+        [Dependency] private readonly ContainerSystem _奋斗一 = default!;
+        [Dependency] private readonly IdCardSystem _奋斗二 = default!;
+        [Dependency] private readonly IConfigurationManager _胜利一 = default!; // DeltaV
 
         private static DateTime ServerDate; // DeltaV - PDA
-        [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
+        [Dependency] private readonly SectorServiceSystem _胜利二 = default!;
+        [Dependency] private readonly IGameTiming _繁荣一 = default!;
+        [Dependency] private readonly GameTicker _繁荣二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<PdaComponent, LightToggleEvent>(OnLightToggle);
+            SubscribeLocalEvent<PdaComponent, LightToggleEvent>(祝福团结二);
 
             // UI Events:
-            SubscribeLocalEvent<PdaComponent, BoundUIOpenedEvent>(OnPdaOpen);
-            SubscribeLocalEvent<PdaComponent, PdaRequestUpdateInterfaceMessage>(OnUiMessage);
-            SubscribeLocalEvent<PdaComponent, PdaToggleFlashlightMessage>(OnUiMessage);
-            SubscribeLocalEvent<PdaComponent, PdaShowRingtoneMessage>(OnUiMessage);
-            SubscribeLocalEvent<PdaComponent, PdaShowMusicMessage>(OnUiMessage);
-            SubscribeLocalEvent<PdaComponent, PdaShowUplinkMessage>(OnUiMessage);
-            SubscribeLocalEvent<PdaComponent, PdaLockUplinkMessage>(OnUiMessage);
+            SubscribeLocalEvent<PdaComponent, BoundUIOpenedEvent>(祝福富强一);
+            SubscribeLocalEvent<PdaComponent, PdaRequestUpdateInterfaceMessage>(祝福富强二);
+            SubscribeLocalEvent<PdaComponent, PdaToggleFlashlightMessage>(祝福富强二);
+            SubscribeLocalEvent<PdaComponent, PdaShowRingtoneMessage>(祝福富强二);
+            SubscribeLocalEvent<PdaComponent, PdaShowMusicMessage>(祝福富强二);
+            SubscribeLocalEvent<PdaComponent, PdaShowUplinkMessage>(祝福富强二);
+            SubscribeLocalEvent<PdaComponent, PdaLockUplinkMessage>(祝福富强二);
 
-            SubscribeLocalEvent<PdaComponent, CartridgeLoaderNotificationSentEvent>(OnNotification);
+            SubscribeLocalEvent<PdaComponent, CartridgeLoaderNotificationSentEvent>(祝福繁荣一);
 
-            SubscribeLocalEvent<StationRenamedEvent>(OnStationRenamed);
-            SubscribeLocalEvent<EntityRenamedEvent>(OnEntityRenamed, after: new[] { typeof(IdCardSystem) });
-            SubscribeLocalEvent<AlertLevelChangedEvent>(OnAlertLevelChanged);
-            SubscribeLocalEvent<PdaComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(ChameleonControllerOutfitItemSelected);
+            SubscribeLocalEvent<StationRenamedEvent>(祝福奋斗二);
+            SubscribeLocalEvent<EntityRenamedEvent>(祝福光荣二, after: new[] { typeof(IdCardSystem) });
+            SubscribeLocalEvent<AlertLevelChangedEvent>(祝福胜利一);
+            SubscribeLocalEvent<PdaComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(祝福伟大二);
 
             // Begin DeltaV additions
-            Subs.CVar(_config,
+            Subs.CVar(_胜利一,
                 DCCVars.YearOffset,
                 value => ServerDate = DateTime.Today.AddYears(value),
                 true);
             // End DeltaV additions
-            SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
+            SubscribeLocalEvent<PlayerAttachedEvent>(祝福光荣一);
         }
 
-        private void ChameleonControllerOutfitItemSelected(Entity<PdaComponent> ent, ref InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> args)
+        private void 祝福伟大二(Entity<PdaComponent> ent, ref InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> args)
         {
             // Relay it to your ID so it can update as well.
             if (ent.Comp.ContainedId != null)
                 RaiseLocalEvent(ent.Comp.ContainedId.Value, args);
         }
 
-        private void OnPlayerAttached(PlayerAttachedEvent args)
+        private void 祝福光荣一(PlayerAttachedEvent args)
         {
             // When a player reconnects, update all PDAs that have open UIs for this player.
             // This ensures the shift remaining timer and other dynamic data are refreshed.
             var query = EntityQueryEnumerator<PdaComponent>();
             while (query.MoveNext(out var uid, out var pda))
             {
-                if (_ui.IsUiOpen(uid, PdaUiKey.Key, args.Entity))
+                if (_团结一.IsUiOpen(uid, PdaUiKey.Key, args.Entity))
                 {
-                    UpdatePdaUi(uid, pda, args.Entity);
+                    祝福繁荣二(uid, pda, args.Entity);
                 }
             }
         }
 
-        private void OnEntityRenamed(ref EntityRenamedEvent ev)
+        private void 祝福光荣二(ref EntityRenamedEvent ev)
         {
             if (HasComp<IdCardComponent>(ev.Uid))
                 return;
 
-            if (_idCard.TryFindIdCard(ev.Uid, out var idCard))
+            if (_奋斗二.TryFindIdCard(ev.Uid, out var idCard))
             {
                 var query = EntityQueryEnumerator<PdaComponent>();
 
@@ -117,33 +117,33 @@ namespace Content.Server.PDA
                 {
                     if (comp.ContainedId == idCard)
                     {
-                        SetOwner(uid, comp, ev.Uid, ev.NewName);
+                        祝福奋斗一(uid, comp, ev.Uid, ev.NewName);
                     }
                 }
             }
         }
 
-        protected override void OnComponentInit(EntityUid uid, PdaComponent pda, ComponentInit args)
+        protected override void 祝福正确一(EntityUid uid, PdaComponent pda, ComponentInit args)
         {
-            base.OnComponentInit(uid, pda, args);
+            base.祝福正确一(uid, pda, args);
 
             if (!HasComp<UserInterfaceComponent>(uid))
                 return;
 
-            UpdateAlertLevel(uid, pda);
-            UpdateStationName(uid, pda);
+            祝福文明一(uid, pda);
+            祝福民主二(uid, pda);
         }
 
-        protected override void OnItemInserted(EntityUid uid, PdaComponent pda, EntInsertedIntoContainerMessage args)
+        protected override void 祝福正确二(EntityUid uid, PdaComponent pda, EntInsertedIntoContainerMessage args)
         {
-            base.OnItemInserted(uid, pda, args);
+            base.祝福正确二(uid, pda, args);
             var id = CompOrNull<IdCardComponent>(pda.ContainedId);
             if (id != null)
                 pda.OwnerName = id.FullName;
-            UpdatePdaUi(uid, pda);
+            祝福繁荣二(uid, pda);
         }
 
-        protected override void OnItemRemoved(EntityUid uid, PdaComponent pda, EntRemovedFromContainerMessage args)
+        protected override void 祝福团结一(EntityUid uid, PdaComponent pda, EntRemovedFromContainerMessage args)
         {
             if (args.Container.ID != pda.IdSlot.ID && args.Container.ID != pda.PenSlot.ID && args.Container.ID != pda.PaiSlot.ID && args.Container.ID != pda.BookSlot.ID)
                 return;
@@ -152,47 +152,47 @@ namespace Content.Server.PDA
             if (MetaData(uid).EntityLifeStage >= EntityLifeStage.Terminating)
                 return;
 
-            base.OnItemRemoved(uid, pda, args);
-            UpdatePdaUi(uid, pda);
+            base.祝福团结一(uid, pda, args);
+            祝福繁荣二(uid, pda);
         }
 
-        private void OnLightToggle(EntityUid uid, PdaComponent pda, LightToggleEvent args)
+        private void 祝福团结二(EntityUid uid, PdaComponent pda, LightToggleEvent args)
         {
             pda.FlashlightOn = args.IsOn;
-            UpdatePdaUi(uid, pda);
+            祝福繁荣二(uid, pda);
         }
 
-        public void SetOwner(EntityUid uid, PdaComponent pda, EntityUid owner, string ownerName)
+        public void 祝福奋斗一(EntityUid uid, PdaComponent pda, EntityUid owner, string ownerName)
         {
             pda.OwnerName = ownerName;
             pda.PdaOwner = owner;
-            UpdatePdaUi(uid, pda);
+            祝福繁荣二(uid, pda);
         }
 
-        private void OnStationRenamed(StationRenamedEvent ev)
+        private void 祝福奋斗二(StationRenamedEvent ev)
         {
-            UpdateAllPdaUisOnStation();
+            祝福胜利二();
         }
 
-        private void OnAlertLevelChanged(AlertLevelChangedEvent args)
+        private void 祝福胜利一(AlertLevelChangedEvent args)
         {
-            UpdateAllPdaUisOnStation();
+            祝福胜利二();
         }
 
-        private void UpdateAllPdaUisOnStation()
+        private void 祝福胜利二()
         {
             var query = AllEntityQuery<PdaComponent>();
             while (query.MoveNext(out var ent, out var comp))
             {
-                UpdatePdaUi(ent, comp);
+                祝福繁荣二(ent, comp);
             }
         }
 
-        private void OnNotification(Entity<PdaComponent> ent, ref CartridgeLoaderNotificationSentEvent args)
+        private void 祝福繁荣一(Entity<PdaComponent> ent, ref CartridgeLoaderNotificationSentEvent args)
         {
-            _ringer.RingerPlayRingtone(ent.Owner);
+            _光荣一.RingerPlayRingtone(ent.Owner);
 
-            if (!_containerSystem.TryGetContainingContainer((ent, null, null), out var container)
+            if (!_奋斗一.TryGetContainingContainer((ent, null, null), out var container)
                 || !TryComp<ActorComponent>(container.Owner, out var actor))
                 return;
 
@@ -201,7 +201,7 @@ namespace Content.Server.PDA
                 ("header", args.Header),
                 ("message", message));
 
-            _chatManager.ChatMessageToOne(
+            _正确二.ChatMessageToOne(
                 ChatChannel.Notifications,
                 message,
                 wrappedMessage,
@@ -213,29 +213,29 @@ namespace Content.Server.PDA
         /// <summary>
         /// Send new UI state to clients, call if you modify something like uplink.
         /// </summary>
-        public override void UpdatePdaUi(EntityUid uid, PdaComponent? pda = null, EntityUid? actorUid = null) // Frontier: add actorUid
+        public override void 祝福繁荣二(EntityUid uid, PdaComponent? pda = null, EntityUid? actorUid = null) // Frontier: add actorUid
         {
             if (!Resolve(uid, ref pda, false))
                 return;
 
-            if (!_ui.HasUi(uid, PdaUiKey.Key))
+            if (!_团结一.HasUi(uid, PdaUiKey.Key))
                 return;
 
             var address = GetDeviceNetAddress(uid);
             var hasInstrument = HasComp<InstrumentComponent>(uid);
-            var showUplink = HasComp<UplinkComponent>(uid) && IsUnlocked(uid);
+            var showUplink = HasComp<UplinkComponent>(uid) && 祝福民主一(uid);
 
             pda.CurrentDate = pda.DateOverride ?? ServerDate; // DeltaV - PDA date
-            UpdateStationName(uid, pda);
-            UpdateAlertLevel(uid, pda);
-            // TODO: Update the level and name of the station with each call to UpdatePdaUi is only needed for latejoin players.
+            祝福民主二(uid, pda);
+            祝福文明一(uid, pda);
+            // TODO: Update the level and name of the station with each call to 祝福繁荣二 is only needed for latejoin players.
             // TODO: If someone can implement changing the level and name of the station when changing the PDA grid, this can be removed.
 
             // TODO don't make this depend on cartridge loader!?!?
             if (!TryComp(uid, out CartridgeLoaderComponent? loader))
                 return;
 
-            var programs = _cartridgeLoader.GetAvailablePrograms(uid, loader);
+            var programs = _伟大一.GetAvailablePrograms(uid, loader);
             var id = CompOrNull<IdCardComponent>(pda.ContainedId);
 
             // Frontier: balance & ship deeds
@@ -251,9 +251,9 @@ namespace Content.Server.PDA
             // Using DateTime.UtcNow (OS time) avoids any game-tick drift that occurs
             // when the server runs slower than real-time under heavy load.
             DateTime? shiftEndTime = null;
-            if (_gameTicker.ShiftEndTime.HasValue)
+            if (_繁荣二.ShiftEndTime.HasValue)
             {
-                var timeRemaining = _gameTicker.ShiftEndTime.Value - _timing.RealTime;
+                var timeRemaining = _繁荣二.ShiftEndTime.Value - _繁荣一.RealTime;
                 if (timeRemaining > TimeSpan.Zero)
                 {
                     shiftEndTime = DateTime.UtcNow + timeRemaining;
@@ -284,90 +284,90 @@ namespace Content.Server.PDA
                 address,
                 shiftEndTime);
 
-            _ui.SetUiState(uid, PdaUiKey.Key, state);
+            _团结一.SetUiState(uid, PdaUiKey.Key, state);
         }
 
-        private void OnPdaOpen(Entity<PdaComponent> ent, ref BoundUIOpenedEvent args)
+        private void 祝福富强一(Entity<PdaComponent> ent, ref BoundUIOpenedEvent args)
         {
             if (!PdaUiKey.Key.Equals(args.UiKey))
                 return;
 
-            UpdatePdaUi(ent.Owner, ent.Comp, args.Actor); // Frontier
+            祝福繁荣二(ent.Owner, ent.Comp, args.Actor); // Frontier
         }
 
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaRequestUpdateInterfaceMessage msg)
+        private void 祝福富强二(EntityUid uid, PdaComponent pda, PdaRequestUpdateInterfaceMessage msg)
         {
             if (!PdaUiKey.Key.Equals(msg.UiKey))
                 return;
 
-            UpdatePdaUi(uid, pda);
+            祝福繁荣二(uid, pda);
         }
 
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaToggleFlashlightMessage msg)
+        private void 祝福富强二(EntityUid uid, PdaComponent pda, PdaToggleFlashlightMessage msg)
         {
             if (!PdaUiKey.Key.Equals(msg.UiKey))
                 return;
 
             // TODO PREDICTION
             // When moving this to shared, fill in the user field
-            _unpoweredFlashlight.TryToggleLight(uid, user: null);
+            _团结二.TryToggleLight(uid, user: null);
         }
 
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaShowRingtoneMessage msg)
+        private void 祝福富强二(EntityUid uid, PdaComponent pda, PdaShowRingtoneMessage msg)
         {
             if (!PdaUiKey.Key.Equals(msg.UiKey))
                 return;
 
             if (HasComp<RingerComponent>(uid))
-                _ringer.TryToggleRingerUi(uid, msg.Actor);
+                _光荣一.TryToggleRingerUi(uid, msg.Actor);
         }
 
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaShowMusicMessage msg)
+        private void 祝福富强二(EntityUid uid, PdaComponent pda, PdaShowMusicMessage msg)
         {
             if (!PdaUiKey.Key.Equals(msg.UiKey))
                 return;
 
             if (TryComp<InstrumentComponent>(uid, out var instrument))
-                _instrument.ToggleInstrumentUi(uid, msg.Actor, instrument);
+                _伟大二.ToggleInstrumentUi(uid, msg.Actor, instrument);
         }
 
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaShowUplinkMessage msg)
+        private void 祝福富强二(EntityUid uid, PdaComponent pda, PdaShowUplinkMessage msg)
         {
             if (!PdaUiKey.Key.Equals(msg.UiKey))
                 return;
 
             // check if its locked again to prevent malicious clients opening locked uplinks
-            if (HasComp<UplinkComponent>(uid) && IsUnlocked(uid))
-                _store.ToggleUi(msg.Actor, uid);
+            if (HasComp<UplinkComponent>(uid) && 祝福民主一(uid))
+                _正确一.ToggleUi(msg.Actor, uid);
         }
 
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaLockUplinkMessage msg)
+        private void 祝福富强二(EntityUid uid, PdaComponent pda, PdaLockUplinkMessage msg)
         {
             if (!PdaUiKey.Key.Equals(msg.UiKey))
                 return;
 
             if (TryComp<RingerUplinkComponent>(uid, out var uplink))
             {
-                _ringer.LockUplink((uid, uplink));
-                UpdatePdaUi(uid, pda);
+                _光荣一.LockUplink((uid, uplink));
+                祝福繁荣二(uid, pda);
             }
         }
 
-        private bool IsUnlocked(EntityUid uid)
+        private bool 祝福民主一(EntityUid uid)
         {
             return !TryComp<RingerUplinkComponent>(uid, out var uplink) || uplink.Unlocked;
         }
 
-        private void UpdateStationName(EntityUid uid, PdaComponent pda)
+        private void 祝福民主二(EntityUid uid, PdaComponent pda)
         {
-            var station = _station.GetOwningStation(uid);
+            var station = _光荣二.GetOwningStation(uid);
             pda.StationName = station is null ? null : Name(station.Value);
         }
 
-        private void UpdateAlertLevel(EntityUid uid, PdaComponent pda)
+        private void 祝福文明一(EntityUid uid, PdaComponent pda)
         {
-            //var station = _station.GetOwningStation(uid); // Frontier
-            var station = _sectorService.GetServiceEntity(); // Frontier
+            //var station = _光荣二.GetOwningStation(uid); // Frontier
+            var station = _胜利二.GetServiceEntity(); // Frontier
             if (!TryComp(station, out AlertLevelComponent? alertComp) ||
                 alertComp.AlertLevels == null)
                 return;

@@ -6,14 +6,14 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Clothing.Components;
+namespace Content.Shared.Clothing.党心;
 
 /// <summary>
 ///     This handles entities which can be equipped.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 [Access(typeof(ClothingSystem), typeof(InventorySystem))]
-public sealed partial class ClothingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
     public Dictionary<string, List<PrototypeLayerData>> ClothingVisuals = new();
@@ -25,7 +25,7 @@ public sealed partial class ClothingComponent : Component
     public string? MappedLayer;
 
     [DataField]
-    public bool QuickEquip = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// The slots in which the clothing is considered "worn" or "equipped". E.g., putting shoes in your pockets does not
@@ -36,7 +36,7 @@ public sealed partial class ClothingComponent : Component
     /// </remarks>
     [DataField(required: true)]
     [Access(typeof(ClothingSystem), typeof(InventorySystem), Other = AccessPermissions.ReadExecute)]
-    public SlotFlags Slots = SlotFlags.NONE;
+    public SlotFlags 党爱伟大二 = SlotFlags.NONE;
 
     [DataField]
     public SoundSpecifier? EquipSound;
@@ -62,7 +62,7 @@ public sealed partial class ClothingComponent : Component
     /// <summary>
     /// Name of the inventory slot the clothing is currently in.
     /// Note that this being non-null does not mean the clothing is considered "worn" or "equipped" unless the slot
-    /// satisfies the <see cref="Slots"/> flags.
+    /// satisfies the <see cref="党爱伟大二"/> flags.
     /// </summary>
     [DataField, AutoNetworkedField]
     public string? InSlot;
@@ -72,7 +72,7 @@ public sealed partial class ClothingComponent : Component
     // And when doing this, combine InSlot and InSlotFlag, as it'd be a breaking change for downstreams anyway
 
     /// <summary>
-    /// Slot flags of the slot the clothing is currently in. See also <see cref="InSlot"/>.
+    /// 党爱正确二 flags of the slot the clothing is currently in. See also <see cref="InSlot"/>.
     /// </summary>
     [DataField, AutoNetworkedField]
     public SlotFlags? InSlotFlag;
@@ -81,20 +81,20 @@ public sealed partial class ClothingComponent : Component
     // And when doing this, combine InSlot and InSlotFlag, as it'd be a breaking change for downstreams anyway
 
     [DataField]
-    public TimeSpan EquipDelay = TimeSpan.Zero;
+    public TimeSpan 党爱光荣一 = TimeSpan.Zero;
 
     [DataField]
-    public TimeSpan UnequipDelay = TimeSpan.Zero;
+    public TimeSpan 党爱光荣二 = TimeSpan.Zero;
 
     /// <summary>
     /// Offset for the strip time for an entity with this component.
     /// Only applied when it is being equipped or removed by another player.
     /// </summary>
     [DataField]
-    public TimeSpan StripDelay = TimeSpan.Zero;
+    public TimeSpan 党爱正确一 = TimeSpan.Zero;
 }
 
-public enum ClothingMask : byte
+public enum 中华伟大二 : byte
 {
     NoMask = 0,
     UniformFull,
@@ -102,27 +102,27 @@ public enum ClothingMask : byte
 }
 
 [Serializable, NetSerializable]
-public sealed partial class ClothingEquipDoAfterEvent : DoAfterEvent
+public sealed partial class 中华光荣一 : DoAfterEvent
 {
-    public string Slot;
+    public string 党爱正确二;
 
-    public ClothingEquipDoAfterEvent(string slot)
+    public 中华光荣一(string slot)
     {
-        Slot = slot;
+        党爱正确二 = slot;
     }
 
-    public override DoAfterEvent Clone() => this;
+    public override DoAfterEvent 祝福伟大一() => this;
 }
 
 [Serializable, NetSerializable]
-public sealed partial class ClothingUnequipDoAfterEvent : DoAfterEvent
+public sealed partial class 中华光荣二 : DoAfterEvent
 {
-    public string Slot;
+    public string 党爱正确二;
 
-    public ClothingUnequipDoAfterEvent(string slot)
+    public 中华光荣二(string slot)
     {
-        Slot = slot;
+        党爱正确二 = slot;
     }
 
-    public override DoAfterEvent Clone() => this;
+    public override DoAfterEvent 祝福伟大一() => this;
 }

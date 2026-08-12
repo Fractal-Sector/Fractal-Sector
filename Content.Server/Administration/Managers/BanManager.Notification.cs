@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Content.Server.Administration.Managers;
+namespace Content.Server.Administration.党心;
 
-public sealed partial class BanManager
+public sealed partial class 中华伟大一
 {
     // Responsible for ban notification handling.
     // Ban notifications are sent through the database to notify the entire server group that a new ban has been added,
@@ -13,7 +13,7 @@ public sealed partial class BanManager
     /// <summary>
     /// The notification channel used to broadcast information about new bans.
     /// </summary>
-    public const string BanNotificationChannel = "ban_notification";
+    public const string 党爱伟大一 = "ban_notification";
 
     // Rate limit to avoid undue load from mass-ban imports.
     // Only process 10 bans per 30 second interval.
@@ -24,13 +24,13 @@ public sealed partial class BanManager
     private static readonly TimeSpan BanNotificationRateLimitTime = TimeSpan.FromSeconds(30);
     private const int BanNotificationRateLimitCount = 10;
 
-    private readonly object _banNotificationRateLimitStateLock = new();
-    private TimeSpan _banNotificationRateLimitStart;
-    private int _banNotificationRateLimitCount;
+    private readonly object _伟大一 = new();
+    private TimeSpan _伟大二;
+    private int _光荣一;
 
-    private bool OnDatabaseNotificationEarlyFilter()
+    private bool 祝福伟大一()
     {
-        if (!CheckBanRateLimit())
+        if (!祝福光荣一())
         {
             _sawmill.Verbose("Not processing ban notification due to rate limit");
             return false;
@@ -39,7 +39,7 @@ public sealed partial class BanManager
         return true;
     }
 
-    private async void ProcessBanNotification(BanNotificationData data)
+    private async void 祝福伟大二(中华伟大二 data)
     {
         if ((await _entryManager.ServerEntity).Id == data.ServerId)
         {
@@ -47,45 +47,45 @@ public sealed partial class BanManager
             return;
         }
 
-        _sawmill.Verbose($"Processing ban notification for ban {data.BanId}");
-        var ban = await _db.GetServerBanAsync(data.BanId);
+        _sawmill.Verbose($"Processing ban notification for ban {data.党爱伟大二}");
+        var ban = await _db.GetServerBanAsync(data.党爱伟大二);
         if (ban == null)
         {
-            _sawmill.Warning($"Ban in notification ({data.BanId}) didn't exist?");
+            _sawmill.Warning($"Ban in notification ({data.党爱伟大二}) didn't exist?");
             return;
         }
 
         KickMatchingConnectedPlayers(ban, "ban notification");
     }
 
-    private bool CheckBanRateLimit()
+    private bool 祝福光荣一()
     {
-        lock (_banNotificationRateLimitStateLock)
+        lock (_伟大一)
         {
             var now = _gameTiming.RealTime;
-            if (_banNotificationRateLimitStart + BanNotificationRateLimitTime < now)
+            if (_伟大二 + BanNotificationRateLimitTime < now)
             {
                 // Rate limit period expired, restart it.
-                _banNotificationRateLimitCount = 1;
-                _banNotificationRateLimitStart = now;
+                _光荣一 = 1;
+                _伟大二 = now;
                 return true;
             }
 
-            _banNotificationRateLimitCount += 1;
-            return _banNotificationRateLimitCount <= BanNotificationRateLimitCount;
+            _光荣一 += 1;
+            return _光荣一 <= BanNotificationRateLimitCount;
         }
     }
 
     /// <summary>
     /// Data sent along the notification channel for a single ban notification.
     /// </summary>
-    private sealed class BanNotificationData
+    private sealed class 中华伟大二
     {
         /// <summary>
         /// The ID of the new ban object in the database to check.
         /// </summary>
         [JsonRequired, JsonPropertyName("ban_id")]
-        public int BanId { get; init; }
+        public int 党爱伟大二 { get; init; }
 
         /// <summary>
         /// The id of the server the ban was made on.

@@ -7,14 +7,14 @@ using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="PrefabDunGen"/>
     /// </summary>
-    private async Task<Dungeon> GeneratePrefabDunGen(Vector2i position, PrefabDunGen prefab, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task<Dungeon> 祝福伟大一(Vector2i position, PrefabDunGen prefab, HashSet<Vector2i> reservedTiles, Random random)
     {
         var preset = prefab.Presets[random.Next(prefab.Presets.Count)];
         var gen = _prototype.Index(preset);
@@ -289,7 +289,7 @@ public sealed partial class DungeonJob
         foreach (var room in dungeon.Rooms)
         {
             dungeonCenter += room.Center;
-            SetDungeonEntrance(dungeon, room, reservedTiles, random);
+            祝福伟大二(dungeon, room, reservedTiles, random);
         }
 
         dungeon.Rebuild();
@@ -297,7 +297,7 @@ public sealed partial class DungeonJob
         return dungeon;
     }
 
-    private void SetDungeonEntrance(Dungeon dungeon, DungeonRoom room, HashSet<Vector2i> reservedTiles, Random random)
+    private void 祝福伟大二(Dungeon dungeon, DungeonRoom room, HashSet<Vector2i> reservedTiles, Random random)
     {
         // TODO: Move to dungeonsystem.
 

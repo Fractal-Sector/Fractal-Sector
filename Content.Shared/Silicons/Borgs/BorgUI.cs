@@ -1,57 +1,57 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Silicons.Borgs;
+namespace Content.Shared.Silicons.党心;
 
 [Serializable, NetSerializable]
-public enum BorgUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }
 
 [Serializable, NetSerializable]
-public sealed class BorgBuiState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
-    public float ChargePercent;
+    public float 党爱伟大一;
 
-    public bool HasBattery;
+    public bool 党爱伟大二;
 
-    public BorgBuiState(float chargePercent, bool hasBattery)
+    public 中华伟大二(float chargePercent, bool hasBattery)
     {
-        ChargePercent = chargePercent;
-        HasBattery = hasBattery;
+        党爱伟大一 = chargePercent;
+        党爱伟大二 = hasBattery;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class BorgEjectBrainBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
 
 }
 
 [Serializable, NetSerializable]
-public sealed class BorgEjectBatteryBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣二 : BoundUserInterfaceMessage
 {
 
 }
 
 [Serializable, NetSerializable]
-public sealed class BorgSetNameBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public string Name;
+    public string 党爱光荣一;
 
-    public BorgSetNameBuiMessage(string name)
+    public 中华正确一(string name)
     {
-        Name = name;
+        党爱光荣一 = name;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class BorgRemoveModuleBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华正确二 : BoundUserInterfaceMessage
 {
-    public NetEntity Module;
+    public NetEntity 党爱光荣二;
 
-    public BorgRemoveModuleBuiMessage(NetEntity module)
+    public 中华正确二(NetEntity module)
     {
-        Module = module;
+        党爱光荣二 = module;
     }
 }

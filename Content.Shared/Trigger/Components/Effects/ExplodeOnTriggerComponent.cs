@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Trigger.Components.Effects;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Will explode using the entity's <see cref="ExplosiveComponent"/> when triggered.
@@ -11,4 +11,4 @@ namespace Content.Shared.Trigger.Components.Effects;
 /// TODO: Allow this to work without an ExplosiveComponent on the user via QueueExplosion.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ExplodeOnTriggerComponent : BaseXOnTriggerComponent;
+public sealed partial class 中华伟大一 : BaseXOnTriggerComponent;

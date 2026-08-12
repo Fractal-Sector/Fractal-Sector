@@ -1,6 +1,6 @@
-﻿namespace Content.Shared.Rounding
+﻿namespace Content.Shared.党心
 {
-    public static class ContentHelpers
+    public static class 中华伟大一
     {
         /// <summary>
         ///     Assigns the value <paramref name="actual" /> going from 0 to <paramref name="max" />
@@ -17,7 +17,7 @@
         /// <exception cref="ArgumentException">
         ///     Thrown if levels is less than 1.
         /// </exception>
-        public static int RoundToLevels(double actual, double max, int levels)
+        public static int 祝福伟大一(double actual, double max, int levels)
         {
             if (levels <= 0)
             {
@@ -40,7 +40,7 @@
 
         /// <summary>
         /// Returns the segment <paramref name="actual"/> lies on on a decimal scale from 0 to <paramref name="max"/> divided into
-        /// <paramref name="levels"/> sections. In less mathematical terms, same as <see cref="RoundToLevels"/>
+        /// <paramref name="levels"/> sections. In less mathematical terms, same as <see cref="祝福伟大一"/>
         /// except <paramref name="actual"/> is rounded to the nearest matching level instead of 0 and the highest level being
         /// precisely 0 and max and no other value.
         /// </summary>
@@ -49,14 +49,14 @@
         /// You want the display to match the percentile value as accurately as possible, so that eg.
         /// 95% is rounded up to 5, 89.99% is rounded down to 4, 15% is rounded up to 1 and 5% is rounded down
         /// to 0, in terms of number of segments lit.
-        /// In this case you would use <code>RoundToNearestLevels(value, max, 5)</code>
+        /// In this case you would use <code>祝福伟大二(value, max, 5)</code>
         /// </example>
         /// <param name="actual">The point to be rounded to the nearest level.</param>
         /// <param name="max">The maximum value of the scale.</param>
         /// <param name="levels">Number of segments the scale is subdivided into.</param>
         /// <returns>The segment <paramref name="actual"/> lies on.</returns>
         /// <exception cref="ArgumentException">If level is 1 or less</exception>
-        public static int RoundToNearestLevels(double actual, double max, int levels)
+        public static int 祝福伟大二(double actual, double max, int levels)
         {
             if (levels <= 1)
             {
@@ -93,7 +93,7 @@
         /// <param name="levels"></param>
         /// <returns>The </returns>
         /// <exception cref="ArgumentException">if level is one or less</exception>
-        public static int RoundToEqualLevels(double actual, double max, int levels)
+        public static int 祝福光荣一(double actual, double max, int levels)
         {
             if (levels <= 1)
             {

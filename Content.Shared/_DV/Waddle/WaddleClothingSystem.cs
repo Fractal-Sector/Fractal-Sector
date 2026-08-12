@@ -7,53 +7,53 @@ using Content.Shared.Inventory; //imp edit
 using Content.Shared.Item.ItemToggle.Components;
 using Robust.Shared.Timing; //imp edit
 
-namespace Content.Shared._DV.Waddle;
+namespace Content.Shared._DV.党心;
 
-public sealed class WaddleClothingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!; //imp edit
-    [Dependency] private readonly IGameTiming _timing = default!; //imp edit
+    [Dependency] private readonly AlertsSystem _伟大一 = default!; //imp edit
+    [Dependency] private readonly IGameTiming _伟大二 = default!; //imp edit
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<WaddleWhenWornComponent, ClothingGotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<WaddleWhenWornComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<WaddleWhenWornComponent, ItemToggledEvent>(OnToggled); //imp edit, waddle toggling
+        SubscribeLocalEvent<WaddleWhenWornComponent, ClothingGotEquippedEvent>(祝福伟大二);
+        SubscribeLocalEvent<WaddleWhenWornComponent, ClothingGotUnequippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<WaddleWhenWornComponent, ItemToggledEvent>(祝福光荣二); //imp edit, waddle toggling
     }
 
-    private void OnGotEquipped(Entity<WaddleWhenWornComponent> ent, ref ClothingGotEquippedEvent args)
+    private void 祝福伟大二(Entity<WaddleWhenWornComponent> ent, ref ClothingGotEquippedEvent args)
     {
         // imp edit, return out of method if it is not the first time predicting to avoid log spam
         // then, check if the item has a ToggleComponent. if so, do not add the waddling animation to the wearer if it is no activated
-        if ((!_timing.IsFirstTimePredicted) || (TryComp<ItemToggleComponent>(ent, out var itemToggle) && (!itemToggle.Activated)))
+        if ((!_伟大二.IsFirstTimePredicted) || (TryComp<ItemToggleComponent>(ent, out var itemToggle) && (!itemToggle.Activated)))
             return;
         var user = args.Wearer;
         // imp edit, code moved to its own method
-        AddWaddleAnimationComponent(ent, user);
+        祝福正确一(ent, user);
     }
 
-    private void OnGotUnequipped(Entity<WaddleWhenWornComponent> ent, ref ClothingGotUnequippedEvent args)
+    private void 祝福光荣一(Entity<WaddleWhenWornComponent> ent, ref ClothingGotUnequippedEvent args)
     {
         // imp edit, code moved to its own method
-        RemoveWaddleAnimationComponent(ent, args.Wearer);
+        祝福正确二(ent, args.Wearer);
     }
 
     // imp edit, allows waddling to be toggled through an action
-    private void OnToggled(Entity<WaddleWhenWornComponent> ent, ref ItemToggledEvent args)
+    private void 祝福光荣二(Entity<WaddleWhenWornComponent> ent, ref ItemToggledEvent args)
     {
         if (args.User is null)
             return;
         var user = args.User.Value;
         if (args.Activated)
-            AddWaddleAnimationComponent(ent, user);
+            祝福正确一(ent, user);
         else
-            RemoveWaddleAnimationComponent(ent, user);
+            祝福正确二(ent, user);
     }
 
-    // imp edit, code block moved from OnGotEquipped to this method, since it's used in multiple methods
-    private void AddWaddleAnimationComponent(Entity<WaddleWhenWornComponent> ent, EntityUid user)
+    // imp edit, code block moved from 祝福伟大二 to this method, since it's used in multiple methods
+    private void 祝福正确一(Entity<WaddleWhenWornComponent> ent, EntityUid user)
     {
         // TODO: refcount
         if (EnsureComp<WaddleAnimationComponent>(user, out var waddle))
@@ -76,11 +76,11 @@ public sealed class WaddleClothingSystem : EntitySystem
         Dirty(user, waddle);
         //imp edit, add waddle alert if one is defined
         if (comp.WaddlingAlert is { } alert)
-            _alerts.ShowAlert(user, alert);
+            _伟大一.ShowAlert(user, alert);
     }
 
-    // imp edit, code block moved from OnGotUnequipped to this method, since it's used in multiple methods
-    private void RemoveWaddleAnimationComponent(Entity<WaddleWhenWornComponent> ent, EntityUid user)
+    // imp edit, code block moved from 祝福光荣一 to this method, since it's used in multiple methods
+    private void 祝福正确二(Entity<WaddleWhenWornComponent> ent, EntityUid user)
     {
         if (!ent.Comp.AddedWaddle)
             return;
@@ -91,6 +91,6 @@ public sealed class WaddleClothingSystem : EntitySystem
         Dirty(ent);
         //imp edit, clear waddle alert if one is defined
         if (ent.Comp.WaddlingAlert is { } alert)
-            _alerts.ClearAlert(user, alert);
+            _伟大一.ClearAlert(user, alert);
     }
 }

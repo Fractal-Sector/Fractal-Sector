@@ -4,11 +4,11 @@ using Content.Shared.Research.Systems;
 using Robust.Shared.Prototypes;
 using System.Linq;
 
-namespace Content.Shared._NF.Research;
+namespace Content.Shared._NF.党心;
 
-public static class SharedResearchSystemExtensions
+public static class 中华伟大一
 {
-    public static int GetTierCompletionPercentage(this SharedResearchSystem system,
+    public static int 祝福伟大一(this SharedResearchSystem system,
         TechnologyDatabaseComponent component,
         TechDisciplinePrototype techDiscipline,
         IPrototypeManager prototypeManager)

@@ -3,48 +3,48 @@ using Content.Shared.Movement.Components;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public sealed class AutoOrientSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly SharedMoverController _光荣一 = default!;
 
-    private TimeSpan _delay = TimeSpan.Zero;
+    private TimeSpan _光荣二 = TimeSpan.Zero;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AutoOrientComponent, EntParentChangedMessage>(OnEntParentChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<AutoOrientComponent, EntParentChangedMessage>(祝福光荣一);
 
-        Subs.CVar(_cfgManager, CCVars.AutoOrientDelay, OnAutoOrient, true);
+        Subs.CVar(_伟大一, CCVars.AutoOrientDelay, 祝福伟大二, true);
     }
 
-    private void OnAutoOrient(double obj)
+    private void 祝福伟大二(double obj)
     {
-        _delay = TimeSpan.FromSeconds(obj);
+        _光荣二 = TimeSpan.FromSeconds(obj);
     }
 
-    private void OnEntParentChanged(Entity<AutoOrientComponent> ent, ref EntParentChangedMessage args)
+    private void 祝福光荣一(Entity<AutoOrientComponent> ent, ref EntParentChangedMessage args)
     {
-        ent.Comp.NextChange = _timing.CurTime + _delay;
+        ent.Comp.NextChange = _伟大二.CurTime + _光荣二;
         Dirty(ent);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
         var query = EntityQueryEnumerator<AutoOrientComponent>();
 
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (comp.NextChange <= _timing.CurTime)
+            if (comp.NextChange <= _伟大二.CurTime)
             {
                 comp.NextChange = null;
                 Dirty(uid, comp);
-                _mover.ResetCamera(uid);
+                _光荣一.ResetCamera(uid);
             }
         }
     }

@@ -10,61 +10,61 @@ using Content.Shared.StepTrigger.Components; // imp edit
 using Content.Shared.StepTrigger.Systems; // imp edit
 using Robust.Shared.Map.Components; // imp edit
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
-public sealed class SpeedModifierContactsSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _speedModifierSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly SharedPhysicsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedGravitySystem _伟大二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _光荣一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _光荣二 = default!;
 
-    [Dependency] private readonly SharedMapSystem _map = default!; // imp edit
+    [Dependency] private readonly SharedMapSystem _正确一 = default!; // imp edit
 
     // TODO full-game-save
     // Either these need to be processed before a map is saved, or slowed/slowing entities need to update on init.
-    private readonly HashSet<EntityUid> _toUpdate = new();
-    private readonly HashSet<EntityUid> _toRemove = new();
+    private readonly HashSet<EntityUid> _正确二 = new();
+    private readonly HashSet<EntityUid> _团结一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<SpeedModifierContactsComponent, StartCollideEvent>(OnEntityEnter);
-        SubscribeLocalEvent<SpeedModifierContactsComponent, EndCollideEvent>(OnEntityExit);
-        SubscribeLocalEvent<SpeedModifiedByContactComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeedModifiers);
-        SubscribeLocalEvent<SpeedModifierContactsComponent, ComponentShutdown>(OnShutdown);
+        base.祝福伟大一();
+        SubscribeLocalEvent<SpeedModifierContactsComponent, StartCollideEvent>(祝福团结一);
+        SubscribeLocalEvent<SpeedModifierContactsComponent, EndCollideEvent>(祝福正确二);
+        SubscribeLocalEvent<SpeedModifiedByContactComponent, RefreshMovementSpeedModifiersEvent>(祝福正确一);
+        SubscribeLocalEvent<SpeedModifierContactsComponent, ComponentShutdown>(祝福光荣二);
 
-        SubscribeLocalEvent<SpeedModifierContactsComponent, StepTriggeredOffEvent>(OnStepTriggered); // imp edit
-        SubscribeLocalEvent<SpeedModifierContactsComponent, StepTriggerAttemptEvent>(OnStepTriggerAttempt); // imp edit
+        SubscribeLocalEvent<SpeedModifierContactsComponent, StepTriggeredOffEvent>(祝福奋斗一); // imp edit
+        SubscribeLocalEvent<SpeedModifierContactsComponent, StepTriggerAttemptEvent>(祝福奋斗二); // imp edit
 
         UpdatesAfter.Add(typeof(SharedPhysicsSystem));
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        _toRemove.Clear();
+        _团结一.Clear();
 
-        foreach (var ent in _toUpdate)
+        foreach (var ent in _正确二)
         {
-            _speedModifierSystem.RefreshMovementSpeedModifiers(ent);
+            _光荣一.RefreshMovementSpeedModifiers(ent);
         }
 
-        foreach (var ent in _toRemove)
+        foreach (var ent in _团结一)
         {
             RemComp<SpeedModifiedByContactComponent>(ent);
         }
 
-        _toUpdate.Clear();
+        _正确二.Clear();
     }
 
-    public void ChangeSpeedModifiers(EntityUid uid, float speed, SpeedModifierContactsComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, float speed, SpeedModifierContactsComponent? component = null)
     {
-        ChangeSpeedModifiers(uid, speed, speed, component);
+        祝福光荣一(uid, speed, speed, component);
     }
 
-    public void ChangeSpeedModifiers(EntityUid uid, float walkSpeed, float sprintSpeed, SpeedModifierContactsComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, float walkSpeed, float sprintSpeed, SpeedModifierContactsComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -72,19 +72,19 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         component.WalkSpeedModifier = walkSpeed;
         component.SprintSpeedModifier = sprintSpeed;
         Dirty(uid, component);
-        _toUpdate.UnionWith(_physics.GetContactingEntities(uid));
+        _正确二.UnionWith(_伟大一.GetContactingEntities(uid));
     }
 
-    private void OnShutdown(EntityUid uid, SpeedModifierContactsComponent component, ComponentShutdown args)
+    private void 祝福光荣二(EntityUid uid, SpeedModifierContactsComponent component, ComponentShutdown args)
     {
         if (!TryComp(uid, out PhysicsComponent? phys))
             return;
 
         // Note that the entity may not be getting deleted here. E.g., glue puddles.
-        _toUpdate.UnionWith(_physics.GetContactingEntities(uid, phys));
+        _正确二.UnionWith(_伟大一.GetContactingEntities(uid, phys));
     }
 
-    private void OnRefreshMovementSpeedModifiers(EntityUid uid, SpeedModifiedByContactComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福正确一(EntityUid uid, SpeedModifiedByContactComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         if (!TryComp<PhysicsComponent>(uid, out var physicsComponent))
             return;
@@ -93,15 +93,15 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         var sprintSpeed = 0.0f;
 
         // Cache the result of the airborne check, as it's expensive and independent of contacting entities, hence need only be done once.
-        var isAirborne = physicsComponent.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(uid);
+        var isAirborne = physicsComponent.BodyStatus == BodyStatus.InAir || _伟大二.IsWeightless(uid);
 
         bool remove = true;
         var entries = 0;
-        foreach (var ent in _physics.GetContactingEntities(uid, physicsComponent))
+        foreach (var ent in _伟大一.GetContactingEntities(uid, physicsComponent))
         {
-            // imp edit - StepTrigger and TryBlacklist checks
+            // imp edit - StepTrigger and 祝福胜利一 checks
             if (TryComp<StepTriggerComponent>(ent, out var stepTriggerComponent) &&
-                !TryBlacklist((ent, stepTriggerComponent)))
+                !祝福胜利一((ent, stepTriggerComponent)))
                 continue;
             // Imp End
 
@@ -109,7 +109,7 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
 
             if (TryComp<SpeedModifierContactsComponent>(ent, out var slowContactsComponent))
             {
-                if (_whitelistSystem.IsWhitelistPass(slowContactsComponent.IgnoreWhitelist, uid))
+                if (_光荣二.IsWhitelistPass(slowContactsComponent.IgnoreWhitelist, uid))
                     continue;
 
                 // Entities that are airborne should not be affected by contact slowdowns that are specified to not affect airborne entities.
@@ -158,50 +158,50 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
 
         // no longer colliding with anything
         if (remove)
-            _toRemove.Add(uid);
+            _团结一.Add(uid);
     }
 
-    private void OnEntityExit(EntityUid uid, SpeedModifierContactsComponent component, ref EndCollideEvent args)
+    private void 祝福正确二(EntityUid uid, SpeedModifierContactsComponent component, ref EndCollideEvent args)
     {
         var otherUid = args.OtherEntity;
-        _toUpdate.Add(otherUid);
+        _正确二.Add(otherUid);
     }
 
-    private void OnEntityEnter(EntityUid uid, SpeedModifierContactsComponent component, ref StartCollideEvent args)
+    private void 祝福团结一(EntityUid uid, SpeedModifierContactsComponent component, ref StartCollideEvent args)
     {
         // imp edit - added StepTrigger check
         if (HasComp<StepTriggerComponent>(uid))
             return;
         // Imp End
 
-        AddModifiedEntity(args.OtherEntity);
+        祝福团结二(args.OtherEntity);
     }
 
     /// <summary>
     /// Add an entity to be checked for speed modification from contact with another entity.
     /// </summary>
     /// <param name="uid">The entity to be added.</param>
-    public void AddModifiedEntity(EntityUid uid)
+    public void 祝福团结二(EntityUid uid)
     {
         if (!HasComp<MovementSpeedModifierComponent>(uid))
             return;
 
         EnsureComp<SpeedModifiedByContactComponent>(uid);
-        _toUpdate.Add(uid);
+        _正确二.Add(uid);
     }
 
     // imp edit - copied from StepTriggerSystem, but converting that into a separate method is its own headache
-    private void OnStepTriggered(Entity<SpeedModifierContactsComponent> ent, ref StepTriggeredOffEvent args)
+    private void 祝福奋斗一(Entity<SpeedModifierContactsComponent> ent, ref StepTriggeredOffEvent args)
     {
-        AddModifiedEntity(args.Tripper);
+        祝福团结二(args.Tripper);
     }
 
-    private static void OnStepTriggerAttempt(Entity<SpeedModifierContactsComponent> ent, ref StepTriggerAttemptEvent args)
+    private static void 祝福奋斗二(Entity<SpeedModifierContactsComponent> ent, ref StepTriggerAttemptEvent args)
     {
         args.Continue = true;
     }
 
-    private bool TryBlacklist(Entity<StepTriggerComponent> ent)
+    private bool 祝福胜利一(Entity<StepTriggerComponent> ent)
     {
         if (!ent.Comp.Active ||
             ent.Comp.Colliding.Count == 0)
@@ -214,15 +214,15 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         if (ent.Comp.Blacklist == null || !TryComp<MapGridComponent>(transform.GridUid, out var grid))
             return true;
 
-        var pos = _map.LocalToTile(transform.GridUid.Value, grid, transform.Coordinates);
-        var anch = _map.GetAnchoredEntitiesEnumerator(ent, grid, pos);
+        var pos = _正确一.LocalToTile(transform.GridUid.Value, grid, transform.Coordinates);
+        var anch = _正确一.GetAnchoredEntitiesEnumerator(ent, grid, pos);
 
         while (anch.MoveNext(out var otherEnt))
         {
             if (otherEnt == ent)
                 continue;
 
-            if (_whitelistSystem.IsBlacklistPass(ent.Comp.Blacklist, otherEnt.Value))
+            if (_光荣二.IsBlacklistPass(ent.Comp.Blacklist, otherEnt.Value))
             {
                 return false;
             }

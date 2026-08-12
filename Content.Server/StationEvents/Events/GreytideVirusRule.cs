@@ -10,36 +10,36 @@ using Content.Shared.Station.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
 
 /// <summary>
 ///     Greytide Virus event
 ///     This will open and bolt airlocks and unlock lockers from randomly selected access groups.
 /// </summary>
-public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<GreytideVirusRuleComponent>
 {
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private readonly SharedDoorSystem _伟大二 = default!;
+    [Dependency] private readonly LockSystem _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+    [Dependency] private readonly IRobustRandom _正确一 = default!;
 
-    protected override void Added(EntityUid uid, GreytideVirusRuleComponent virusComp, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, GreytideVirusRuleComponent virusComp, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
 
         // pick severity randomly from range if not specified otherwise
-        virusComp.Severity ??= virusComp.SeverityRange.Next(_random);
+        virusComp.Severity ??= virusComp.SeverityRange.Next(_正确一);
         virusComp.Severity = Math.Min(virusComp.Severity.Value, virusComp.AccessGroups.Count);
 
         stationEvent.StartAnnouncement = Loc.GetString("station-event-greytide-virus-start-announcement", ("severity", virusComp.Severity.Value));
-        base.Added(uid, virusComp, gameRule, args);
+        base.祝福伟大一(uid, virusComp, gameRule, args);
     }
-    protected override void Started(EntityUid uid, GreytideVirusRuleComponent virusComp, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大二(EntityUid uid, GreytideVirusRuleComponent virusComp, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, virusComp, gameRule, args);
+        base.祝福伟大二(uid, virusComp, gameRule, args);
 
         if (virusComp.Severity == null)
             return;
@@ -48,13 +48,13 @@ public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComp
             return;
 
         // pick random access groups
-        var chosen = _random.GetItems(virusComp.AccessGroups, virusComp.Severity.Value, allowDuplicates: false);
+        var chosen = _正确一.GetItems(virusComp.AccessGroups, virusComp.Severity.Value, allowDuplicates: false);
 
         // combine all the selected access groups
         var accessIds = new HashSet<ProtoId<AccessLevelPrototype>>();
         foreach (var group in chosen)
         {
-            if (_prototype.TryIndex(group, out var proto))
+            if (_光荣二.TryIndex(group, out var proto))
                 accessIds.UnionWith(proto.Tags);
         }
 
@@ -75,11 +75,11 @@ public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComp
             // the AreAccessTagsAllowed function is a little weird because it technically has support for certain tags to be locked out of opening something
             // which might have unintened side effects (see the comments in the function itself)
             // but no one uses that yet, so it is fine for now
-            if (!_access.AreAccessTagsAllowed(accessIds, accessComp) || _access.AreAccessTagsAllowed(virusComp.Blacklist, accessComp))
+            if (!_伟大一.AreAccessTagsAllowed(accessIds, accessComp) || _伟大一.AreAccessTagsAllowed(virusComp.Blacklist, accessComp))
                 continue;
 
             // open lockers
-            _lock.Unlock(lockUid, null, lockComp);
+            _光荣一.Unlock(lockUid, null, lockComp);
         }
 
         var airlockQuery = AllEntityQuery<AirlockComponent, DoorComponent, TransformComponent>();
@@ -94,15 +94,15 @@ public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComp
                 continue;
 
             // use the access reader from the door electronics if they exist
-            if (!_access.GetMainAccessReader(airlockUid, out var accessEnt))
+            if (!_伟大一.GetMainAccessReader(airlockUid, out var accessEnt))
                 continue;
 
             // check access
-            if (!_access.AreAccessTagsAllowed(accessIds, accessEnt.Value.Comp) || _access.AreAccessTagsAllowed(virusComp.Blacklist, accessEnt.Value.Comp))
+            if (!_伟大一.AreAccessTagsAllowed(accessIds, accessEnt.Value.Comp) || _伟大一.AreAccessTagsAllowed(virusComp.Blacklist, accessEnt.Value.Comp))
                 continue;
 
             // open and bolt airlocks
-            _door.TryOpenAndBolt(airlockUid, doorComp, airlockComp);
+            _伟大二.TryOpenAndBolt(airlockUid, doorComp, airlockComp);
         }
     }
 }

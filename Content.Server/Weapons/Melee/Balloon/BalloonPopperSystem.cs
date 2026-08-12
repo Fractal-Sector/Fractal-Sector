@@ -8,59 +8,59 @@ using Content.Shared.Throwing;
 using Content.Shared.Weapons.Melee.Balloon;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server.Weapons.Melee.Balloon;
+namespace Content.Server.Weapons.Melee.党心;
 
 /// <summary>
 /// This handles popping ballons when attacked with <see cref="BalloonPopperComponent"/>
 /// </summary>
-public sealed class BalloonPopperSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
+    [Dependency] private readonly HandsSystem _伟大二 = default!;
+    [Dependency] private readonly PopupSystem _光荣一 = default!;
+    [Dependency] private readonly TagSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<BalloonPopperComponent, MeleeHitEvent>(OnMeleeHit);
-        SubscribeLocalEvent<BalloonPopperComponent, ThrowDoHitEvent>(OnThrowHit);
+        SubscribeLocalEvent<BalloonPopperComponent, MeleeHitEvent>(祝福伟大二);
+        SubscribeLocalEvent<BalloonPopperComponent, ThrowDoHitEvent>(祝福光荣一);
     }
 
-    private void OnMeleeHit(EntityUid uid, BalloonPopperComponent component, MeleeHitEvent args)
+    private void 祝福伟大二(EntityUid uid, BalloonPopperComponent component, MeleeHitEvent args)
     {
         foreach (var entity in args.HitEntities)
         {
-            foreach (var held in _hands.EnumerateHeld(entity))
+            foreach (var held in _伟大二.EnumerateHeld(entity))
             {
-                if (_tag.HasTag(held, component.BalloonTag))
-                    PopBallooon(uid, held, component);
+                if (_光荣二.HasTag(held, component.BalloonTag))
+                    祝福光荣二(uid, held, component);
             }
 
-            if (_tag.HasTag(entity, component.BalloonTag))
-                PopBallooon(uid, entity, component);
+            if (_光荣二.HasTag(entity, component.BalloonTag))
+                祝福光荣二(uid, entity, component);
         }
     }
 
-    private void OnThrowHit(EntityUid uid, BalloonPopperComponent component, ThrowDoHitEvent args)
+    private void 祝福光荣一(EntityUid uid, BalloonPopperComponent component, ThrowDoHitEvent args)
     {
-        foreach (var held in _hands.EnumerateHeld(args.Target))
+        foreach (var held in _伟大二.EnumerateHeld(args.Target))
         {
-            if (_tag.HasTag(held, component.BalloonTag))
-                PopBallooon(uid, held, component);
+            if (_光荣二.HasTag(held, component.BalloonTag))
+                祝福光荣二(uid, held, component);
         }
     }
 
     /// <summary>
     /// Pops a target balloon, making a popup and playing a sound.
     /// </summary>
-    public void PopBallooon(EntityUid popper, EntityUid balloon, BalloonPopperComponent? component = null)
+    public void 祝福光荣二(EntityUid popper, EntityUid balloon, BalloonPopperComponent? component = null)
     {
         if (!Resolve(popper, ref component))
             return;
 
-        _audio.PlayPvs(component.PopSound, balloon);
-        _popup.PopupCoordinates(Loc.GetString("melee-balloon-pop",
+        _伟大一.PlayPvs(component.PopSound, balloon);
+        _光荣一.PopupCoordinates(Loc.GetString("melee-balloon-pop",
             ("balloon", Identity.Entity(balloon, EntityManager))), Transform(balloon).Coordinates, PopupType.Large);
         QueueDel(balloon);
     }

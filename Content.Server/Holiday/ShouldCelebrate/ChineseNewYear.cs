@@ -1,11 +1,11 @@
 using System.Globalization;
 using Content.Server.Holiday.Interfaces;
 
-namespace Content.Server.Holiday.ShouldCelebrate
+namespace Content.Server.Holiday.党心
 {
-    public sealed partial class ChineseNewYear : IHolidayShouldCelebrate
+    public sealed partial class 中华伟大一 : IHolidayShouldCelebrate
     {
-        public bool ShouldCelebrate(DateTime date, HolidayPrototype holiday)
+        public bool 祝福伟大一(DateTime date, HolidayPrototype holiday)
         {
             var chinese = new ChineseLunisolarCalendar();
 

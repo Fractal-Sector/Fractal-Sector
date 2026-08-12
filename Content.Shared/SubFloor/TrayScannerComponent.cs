@@ -1,33 +1,33 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.SubFloor;
+namespace Content.Shared.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class TrayScannerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Whether the scanner is currently on.
     /// </summary>
     [DataField]
-    public bool Enabled;
+    public bool 党爱伟大一;
 
     /// <summary>
     ///     Radius in which the scanner will reveal entities. Centered on the <see cref="LastLocation"/>.
     /// </summary>
     [DataField]
-    public float Range = 4f;
+    public float 党爱伟大二 = 4f;
 }
 
 [Serializable, NetSerializable]
-public sealed class TrayScannerState : ComponentState
+public sealed class 中华伟大二 : ComponentState
 {
-    public bool Enabled;
-    public float Range;
+    public bool 党爱伟大一;
+    public float 党爱伟大二;
 
-    public TrayScannerState(bool enabled, float range)
+    public 中华伟大二(bool enabled, float range)
     {
-        Enabled = enabled;
-        Range = range;
+        党爱伟大一 = enabled;
+        党爱伟大二 = range;
     }
 }

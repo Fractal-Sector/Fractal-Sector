@@ -2,20 +2,20 @@ using System.Linq;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Map.Enumerators;
 
-namespace Content.Shared.Tiles;
+namespace Content.Shared.党心;
 
-public sealed class ProtectedGridSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly SharedMapSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ProtectedGridComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ProtectedGridComponent, FloorTileAttemptEvent>(OnFloorTileAttempt);
+        SubscribeLocalEvent<ProtectedGridComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ProtectedGridComponent, FloorTileAttemptEvent>(祝福光荣一);
     }
 
-    private void OnMapInit(Entity<ProtectedGridComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ProtectedGridComponent> ent, ref MapInitEvent args)
     {
         if (!TryComp<MapGridComponent>(ent, out var grid))
             return;
@@ -32,7 +32,7 @@ public sealed class ProtectedGridSystem : EntitySystem
                 for (var y = 0; y < 8; y++)
                 {
                     var index = new Vector2i(x + chunk.Value.X * 8, y + chunk.Value.Y * 8);
-                    var tile = _map.GetTileRef(ent.Owner, grid, index);
+                    var tile = _伟大一.GetTileRef(ent.Owner, grid, index);
 
                     if (tile.Tile.IsEmpty)
                         continue;
@@ -52,7 +52,7 @@ public sealed class ProtectedGridSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnFloorTileAttempt(Entity<ProtectedGridComponent> ent, ref FloorTileAttemptEvent args)
+    private void 祝福光荣一(Entity<ProtectedGridComponent> ent, ref FloorTileAttemptEvent args)
     {
         var chunkOrigin = SharedMapSystem.GetChunkIndices(args.GridIndices, 8);
 

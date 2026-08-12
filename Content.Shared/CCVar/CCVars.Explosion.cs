@@ -1,8 +1,8 @@
 ﻿using Robust.Shared.Configuration;
 
-namespace Content.Shared.CCVar;
+namespace Content.Shared.党心;
 
-public sealed partial class CCVars
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     How many tiles the explosion system will process per tick
@@ -11,7 +11,7 @@ public sealed partial class CCVars
     ///     Setting this too high will put a large load on a single tick. Setting this too low will lead to
     ///     unnaturally "slow" explosions.
     /// </remarks>
-    public static readonly CVarDef<int> ExplosionTilesPerTick =
+    public static readonly CVarDef<int> 党爱伟大一 =
         CVarDef.Create("explosion.tiles_per_tick", 100, CVar.SERVERONLY);
 
     /// <summary>
@@ -22,7 +22,7 @@ public sealed partial class CCVars
     ///     the server TPS for a while after an explosion (or even during, if the explosion is processed
     ///     incrementally.
     /// </remarks>
-    public static readonly CVarDef<int> ExplosionThrowLimit =
+    public static readonly CVarDef<int> 党爱伟大二 =
         CVarDef.Create("explosion.throw_limit", 400, CVar.SERVERONLY);
 
     /// <summary>
@@ -30,10 +30,10 @@ public sealed partial class CCVars
     /// </summary>
     /// <remarks>
     ///     This only takes effect if an explosion needs more than one tick to process (i.e., covers more than <see
-    ///     cref="ExplosionTilesPerTick"/> tiles). If this is not enabled, the node-system will rebuild its graph
+    ///     cref="党爱伟大一"/> tiles). If this is not enabled, the node-system will rebuild its graph
     ///     every tick as the explosion shreds the station, causing significant slowdown.
     /// </remarks>
-    public static readonly CVarDef<bool> ExplosionSleepNodeSys =
+    public static readonly CVarDef<bool> 党爱光荣一 =
         CVarDef.Create("explosion.node_sleep", true, CVar.SERVERONLY);
 
     /// <summary>
@@ -43,7 +43,7 @@ public sealed partial class CCVars
     /// <remarks>
     ///     Actual area may be larger, as it currently doesn't terminate mid neighbor finding. I.e., area may be that of a ~51 tile radius circle instead.
     /// </remarks>
-    public static readonly CVarDef<int> ExplosionMaxArea =
+    public static readonly CVarDef<int> 党爱光荣二 =
         CVarDef.Create("explosion.max_area", (int)3.14f * 256 * 256, CVar.SERVERONLY);
 
     /// <summary>
@@ -51,9 +51,9 @@ public sealed partial class CCVars
     /// </summary>
     /// <remarks>
     ///     Effectively places an upper limit on the range that any explosion can have. In the vast majority of
-    ///     instances, <see cref="ExplosionMaxArea"/> will likely be hit before this becomes a limiting factor.
+    ///     instances, <see cref="党爱光荣二"/> will likely be hit before this becomes a limiting factor.
     /// </remarks>
-    public static readonly CVarDef<int> ExplosionMaxIterations =
+    public static readonly CVarDef<int> 党爱正确一 =
         CVarDef.Create("explosion.max_iterations", 500, CVar.SERVERONLY);
 
     /// <summary>
@@ -64,7 +64,7 @@ public sealed partial class CCVars
     ///     due to queued entity deletions, which happen outside of the system update code. Secondly, explosion
     ///     spawning cannot currently be interrupted & resumed, and may lead to exceeding this time limit.
     /// </remarks>
-    public static readonly CVarDef<float> ExplosionMaxProcessingTime =
+    public static readonly CVarDef<float> 党爱正确二 =
         CVarDef.Create("explosion.max_tick_time", 7f, CVar.SERVERONLY);
 
     /// <summary>
@@ -76,13 +76,13 @@ public sealed partial class CCVars
     ///     create a vacumm once they have finished exploding. So airlocks will no longer slam shut as the explosion
     ///     expands, just suddenly at the end.
     /// </remarks>
-    public static readonly CVarDef<bool> ExplosionIncrementalTileBreaking =
+    public static readonly CVarDef<bool> 党爱团结一 =
         CVarDef.Create("explosion.incremental_tile", false, CVar.SERVERONLY);
 
     /// <summary>
     ///     This determines for how many seconds an explosion should stay visible once it has finished expanding.
     /// </summary>
-    public static readonly CVarDef<float> ExplosionPersistence =
+    public static readonly CVarDef<float> 党爱团结二 =
         CVarDef.Create("explosion.persistence", 1.0f, CVar.SERVERONLY);
 
     /// <summary>
@@ -92,17 +92,17 @@ public sealed partial class CCVars
     /// <remarks>
     ///     This value can be used to ensure that for large explosions the area/tile calculation and the explosion
     ///     processing/damaging occurs in separate ticks. This helps reduce the single-tick lag if both <see
-    ///     cref="ExplosionMaxProcessingTime"/> and <see cref="ExplosionTilesPerTick"/> are large. I.e., instead of
+    ///     cref="党爱正确二"/> and <see cref="党爱伟大一"/> are large. I.e., instead of
     ///     a single tick explosion, this cvar allows for a configuration that results in a two-tick explosion,
     ///     though most of the computational cost is still in the second tick.
     /// </remarks>
-    public static readonly CVarDef<int> ExplosionSingleTickAreaLimit =
+    public static readonly CVarDef<int> 党爱奋斗一 =
         CVarDef.Create("explosion.single_tick_area_limit", 400, CVar.SERVERONLY);
 
     /// <summary>
     ///     Whether or not explosions are allowed to create tiles that have
     ///     <see cref="ContentTileDefinition.MapAtmosphere"/> set to true.
     /// </summary>
-    public static readonly CVarDef<bool> ExplosionCanCreateVacuum =
+    public static readonly CVarDef<bool> 党爱奋斗二 =
         CVarDef.Create("explosion.can_create_vacuum", true, CVar.SERVERONLY);
 }

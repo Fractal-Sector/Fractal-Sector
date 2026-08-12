@@ -4,25 +4,25 @@ using Content.Server._NF.Worldgen.Components.Debris; // Frontier
 using Content.Server._NF.Salvage; // Frontier
 using Content.Server.StationEvents.Events; // Frontier
 
-namespace Content.Server.Worldgen.Systems;
+namespace Content.Server.Worldgen.党心;
 
 /// <summary>
 ///     This handles loading in objects based on distance from player, using some metadata on chunks.
 /// </summary>
-public sealed class LocalityLoaderSystem : BaseWorldSystem
+public sealed class 中华伟大一 : BaseWorldSystem
 {
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!; // Frontier
+    [Dependency] private readonly TransformSystem _伟大一 = default!;
+    [Dependency] private readonly LinkedLifecycleGridSystem _伟大二 = default!; // Frontier
 
     // Frontier: space debris destruction
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SpaceDebrisComponent, EntityTerminatingEvent>(OnDebrisDespawn);
+        SubscribeLocalEvent<SpaceDebrisComponent, EntityTerminatingEvent>(祝福光荣一);
     }
     // End Frontier: space debris destruction
 
     /// <inheritdoc />
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var e = EntityQueryEnumerator<LocalityLoaderComponent, TransformComponent>();
         var loadedQuery = GetEntityQuery<LoadedChunkComponent>();
@@ -53,7 +53,7 @@ public sealed class LocalityLoaderSystem : BaseWorldSystem
                         if (!xformQuery.TryGetComponent(loader, out var loaderXform))
                             continue;
 
-                        if ((_xformSys.GetWorldPosition(loaderXform) - _xformSys.GetWorldPosition(xform)).Length() > loadable.LoadingDistance)
+                        if ((_伟大一.GetWorldPosition(loaderXform) - _伟大一.GetWorldPosition(xform)).Length() > loadable.LoadingDistance)
                             continue;
 
                         RaiseLocalEvent(uid, new LocalStructureLoadedEvent());
@@ -67,7 +67,7 @@ public sealed class LocalityLoaderSystem : BaseWorldSystem
     }
 
     // Frontier
-    private void OnDebrisDespawn(EntityUid entity, SpaceDebrisComponent component, EntityTerminatingEvent e)
+    private void 祝福光荣一(EntityUid entity, SpaceDebrisComponent component, EntityTerminatingEvent e)
     {
         // Handle mobrestrictions getting deleted
         var query = AllEntityQuery<NFSalvageMobRestrictionsComponent>();
@@ -79,7 +79,7 @@ public sealed class LocalityLoaderSystem : BaseWorldSystem
         }
 
         // Do not delete the grid, it is being deleted.
-        _linkedLifecycleGrid.UnparentPlayersFromGrid(grid: entity, deleteGrid: false, ignoreLifeStage: true);
+        _伟大二.UnparentPlayersFromGrid(grid: entity, deleteGrid: false, ignoreLifeStage: true);
     }
     // End Frontier
 }
@@ -87,4 +87,4 @@ public sealed class LocalityLoaderSystem : BaseWorldSystem
 /// <summary>
 ///     A directed fired on a loadable entity when a local loader enters it's vicinity.
 /// </summary>
-public record struct LocalStructureLoadedEvent;
+public record 中华伟大二 LocalStructureLoadedEvent;

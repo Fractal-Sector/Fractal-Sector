@@ -2,49 +2,49 @@ using Content.Shared.Damage;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Weapons.Melee.Events
+namespace Content.Shared.Weapons.Melee.党心
 {
     [Serializable, NetSerializable]
-    public abstract class AttackEvent : EntityEventArgs
+    public abstract class 中华伟大一 : EntityEventArgs
     {
         /// <summary>
-        /// Coordinates being attacked.
+        /// 党爱伟大一 being attacked.
         /// </summary>
-        public readonly NetCoordinates Coordinates;
+        public readonly NetCoordinates 党爱伟大一;
 
-        protected AttackEvent(NetCoordinates coordinates)
+        protected 中华伟大一(NetCoordinates coordinates)
         {
-            Coordinates = coordinates;
+            党爱伟大一 = coordinates;
         }
     }
 
     /// <summary>
     ///     Event raised on entities that have been attacked.
     /// </summary>
-    public sealed class AttackedEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
         /// <summary>
         ///     Entity used to attack, for broadcast purposes.
         /// </summary>
-        public EntityUid Used { get; }
+        public EntityUid 党爱伟大二 { get; }
 
         /// <summary>
         ///     Entity that triggered the attack.
         /// </summary>
-        public EntityUid User { get; }
+        public EntityUid 党爱光荣一 { get; }
 
         /// <summary>
         ///     The original location that was clicked by the user.
         /// </summary>
-        public EntityCoordinates ClickLocation { get; }
+        public EntityCoordinates 党爱光荣二 { get; }
 
-        public DamageSpecifier BonusDamage = new();
+        public DamageSpecifier 党爱正确一 = new();
 
-        public AttackedEvent(EntityUid used, EntityUid user, EntityCoordinates clickLocation)
+        public 中华伟大二(EntityUid used, EntityUid user, EntityCoordinates clickLocation)
         {
-            Used = used;
-            User = user;
-            ClickLocation = clickLocation;
+            党爱伟大二 = used;
+            党爱光荣一 = user;
+            党爱光荣二 = clickLocation;
         }
     }
 }

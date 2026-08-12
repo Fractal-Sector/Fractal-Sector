@@ -6,22 +6,22 @@ using Content.Shared.Administration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 /// <summary>
 ///     Lists someones active Ban Ids or opens a window to see them.
 /// </summary>
 [AdminCommand(AdminFlags.Ban)]
-public sealed class BanListCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly EuiManager _eui = default!;
+    [Dependency] private readonly IPlayerLocator _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IServerDbManager _光荣一 = default!;
+    [Dependency] private readonly EuiManager _光荣二 = default!;
 
-    public override string Command => "banlist";
+    public override string 党爱伟大一 => "banlist";
 
-    public override async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -29,7 +29,7 @@ public sealed class BanListCommand : LocalizedCommands
             return;
         }
 
-        var data = await _locator.LookupIdByNameOrIdAsync(args[0]);
+        var data = await _伟大一.LookupIdByNameOrIdAsync(args[0]);
 
         if (data == null)
         {
@@ -39,7 +39,7 @@ public sealed class BanListCommand : LocalizedCommands
 
         if (shell.Player is not { } player)
         {
-            var bans = await _dbManager.GetServerBansAsync(data.LastAddress, data.UserId, data.LastLegacyHWId, data.LastModernHWIds, false);
+            var bans = await _光荣一.GetServerBansAsync(data.LastAddress, data.UserId, data.LastLegacyHWId, data.LastModernHWIds, false);
 
             if (bans.Count == 0)
             {
@@ -57,17 +57,17 @@ public sealed class BanListCommand : LocalizedCommands
         }
 
         var ui = new BanListEui();
-        _eui.OpenEui(ui, player);
+        _光荣二.OpenEui(ui, player);
         await ui.ChangeBanListPlayer(data.UserId);
     }
 
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length != 1)
             return CompletionResult.Empty;
 
-        var options = _playerManager.Sessions.Select(c => c.Name).OrderBy(c => c).ToArray();
+        var options = _伟大二.Sessions.Select(c => c.Name).OrderBy(c => c).ToArray();
         return CompletionResult.FromHintOptions(options, Loc.GetString("cmd-banlist-hint"));
     }
 }

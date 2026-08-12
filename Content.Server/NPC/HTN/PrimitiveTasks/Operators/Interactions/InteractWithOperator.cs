@@ -3,60 +3,60 @@ using Content.Shared.CombatMode;
 using Content.Shared.DoAfter;
 using Content.Shared.Timing;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Interactions;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.党心;
 
-public sealed partial class InteractWithOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    private SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    private SharedDoAfterSystem _伟大二 = default!;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void 祝福伟大一(IEntitySystemManager sysManager)
     {
-        base.Initialize(sysManager);
-        _doAfterSystem = sysManager.GetEntitySystem<SharedDoAfterSystem>();
+        base.祝福伟大一(sysManager);
+        _伟大二 = sysManager.GetEntitySystem<SharedDoAfterSystem>();
     }
 
     /// <summary>
     /// Key that contains the target entity.
     /// </summary>
     [DataField(required: true)]
-    public string TargetKey = default!;
+    public string 党爱伟大一 = default!;
 
     /// <summary>
     /// Exit with failure if doafter wasn't raised
     /// </summary>
     [DataField]
-    public bool ExpectDoAfter = false;
+    public bool 党爱伟大二 = false;
 
-    public string CurrentDoAfter = "CurrentInteractWithDoAfter";
+    public string 党爱光荣一 = "CurrentInteractWithDoAfter";
 
 
-    // Ensure that CurrentDoAfter doesn't exist as we enter this operator,
+    // Ensure that 党爱光荣一 doesn't exist as we enter this operator,
     // the code currently relies on the result of a TryGetValue
-    public override void Startup(NPCBlackboard blackboard)
+    public override void 祝福伟大二(NPCBlackboard blackboard)
     {
-        blackboard.Remove<ushort>(CurrentDoAfter);
+        blackboard.Remove<ushort>(党爱光荣一);
 
     }
 
     // Not really sure if we should clean it up, I guess some operator could use it
-    public override void TaskShutdown(NPCBlackboard blackboard, HTNOperatorStatus status)
+    public override void 祝福光荣一(NPCBlackboard blackboard, HTNOperatorStatus status)
     {
-        blackboard.Remove<ushort>(CurrentDoAfter);
+        blackboard.Remove<ushort>(党爱光荣一);
     }
 
-    public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
+    public override HTNOperatorStatus 祝福光荣二(NPCBlackboard blackboard, float frameTime)
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
         // Handle ongoing doAfter, and store the doAfter.nextId so we can detect if we started one
         ushort nextId = 0;
-        if (_entManager.TryGetComponent<DoAfterComponent>(owner, out var doAfter))
+        if (_伟大一.TryGetComponent<DoAfterComponent>(owner, out var doAfter))
         {
-            // if CurrentDoAfter contains something, we have an active doAfter
-            if (blackboard.TryGetValue<ushort>(CurrentDoAfter, out var doAfterId, _entManager))
+            // if 党爱光荣一 contains something, we have an active doAfter
+            if (blackboard.TryGetValue<ushort>(党爱光荣一, out var doAfterId, _伟大一))
             {
-                var status = _doAfterSystem.GetStatus(owner, doAfterId, null);
+                var status = _伟大二.GetStatus(owner, doAfterId, null);
                 return status switch
                 {
                     DoAfterStatus.Running => HTNOperatorStatus.Continuing,
@@ -69,29 +69,29 @@ public sealed partial class InteractWithOperator : HTNOperator
         }
 
 
-        if (_entManager.TryGetComponent<UseDelayComponent>(owner, out var useDelay) && _entManager.System<UseDelaySystem>().IsDelayed((owner, useDelay)) ||
-            !blackboard.TryGetValue<EntityUid>(TargetKey, out var moveTarget, _entManager) ||
-            !_entManager.TryGetComponent<TransformComponent>(moveTarget, out var targetXform))
+        if (_伟大一.TryGetComponent<UseDelayComponent>(owner, out var useDelay) && _伟大一.System<UseDelaySystem>().IsDelayed((owner, useDelay)) ||
+            !blackboard.TryGetValue<EntityUid>(党爱伟大一, out var moveTarget, _伟大一) ||
+            !_伟大一.TryGetComponent<TransformComponent>(moveTarget, out var targetXform))
         {
             return HTNOperatorStatus.Continuing;
         }
 
-        if (_entManager.TryGetComponent<CombatModeComponent>(owner, out var combatMode))
+        if (_伟大一.TryGetComponent<CombatModeComponent>(owner, out var combatMode))
         {
-            _entManager.System<SharedCombatModeSystem>().SetInCombatMode(owner, false, combatMode);
+            _伟大一.System<SharedCombatModeSystem>().SetInCombatMode(owner, false, combatMode);
         }
 
-        _entManager.System<InteractionSystem>().UserInteraction(owner, targetXform.Coordinates, moveTarget);
+        _伟大一.System<InteractionSystem>().UserInteraction(owner, targetXform.Coordinates, moveTarget);
 
         // Detect doAfter, save it, and don't exit from this operator
         if (doAfter != null && nextId != doAfter.NextId)
         {
-            blackboard.SetValue(CurrentDoAfter, nextId);
+            blackboard.SetValue(党爱光荣一, nextId);
             return HTNOperatorStatus.Continuing;
         }
 
         // We shouldn't arrive here if we start a doafter, so fail if we expected a doafter
-        if(ExpectDoAfter)
+        if(党爱伟大二)
             return HTNOperatorStatus.Failed;
 
         return HTNOperatorStatus.Finished;

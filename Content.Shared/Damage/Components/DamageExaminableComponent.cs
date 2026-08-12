@@ -1,8 +1,8 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Damage.Components;
+namespace Content.Shared.Damage.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class DamageExaminableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

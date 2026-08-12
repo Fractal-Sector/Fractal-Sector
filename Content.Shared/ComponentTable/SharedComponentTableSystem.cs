@@ -1,30 +1,30 @@
 using Content.Shared.EntityTable;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.ComponentTable;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Applies an entity prototype to an entity on map init. Taken from entities inside an EntityTableSelector.
 /// </summary>
-public sealed class SharedComponentTableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityTableSystem _entTable = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly EntityTableSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ComponentTableComponent, MapInitEvent>(OnTableInit);
+        SubscribeLocalEvent<ComponentTableComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnTableInit(Entity<ComponentTableComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ComponentTableComponent> ent, ref MapInitEvent args)
     {
-        var spawns = _entTable.GetSpawns(ent.Comp.Table);
+        var spawns = _伟大一.GetSpawns(ent.Comp.Table);
 
         foreach (var entity in spawns)
         {
-            if (_proto.TryIndex(entity, out var entProto))
+            if (_伟大二.TryIndex(entity, out var entProto))
             {
                 EntityManager.AddComponents(ent, entProto.Components);
             }

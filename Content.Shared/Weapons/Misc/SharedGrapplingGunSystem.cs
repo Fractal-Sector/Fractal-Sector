@@ -15,43 +15,43 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Dynamics.Joints;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.Weapons.Misc;
+namespace Content.Shared.Weapons.党心;
 
-public abstract class SharedGrapplingGunSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedJointSystem _joints = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedJointSystem _正确一 = default!;
+    [Dependency] private readonly SharedGunSystem _正确二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _团结一 = default!;
 
-    public const string GrapplingJoint = "grappling";
+    public const string 党爱伟大二 = "grappling";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GrapplingProjectileComponent, ProjectileEmbedEvent>(OnGrappleCollide);
-        SubscribeLocalEvent<GrapplingProjectileComponent, JointRemovedEvent>(OnGrappleJointRemoved);
-        SubscribeLocalEvent<CanWeightlessMoveEvent>(OnWeightlessMove);
-        SubscribeAllEvent<RequestGrapplingReelMessage>(OnGrapplingReel);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GrapplingProjectileComponent, ProjectileEmbedEvent>(祝福奋斗二);
+        SubscribeLocalEvent<GrapplingProjectileComponent, JointRemovedEvent>(祝福伟大二);
+        SubscribeLocalEvent<CanWeightlessMoveEvent>(祝福正确二);
+        SubscribeAllEvent<中华伟大二>(祝福正确一);
 
-        SubscribeLocalEvent<GrapplingGunComponent, GunShotEvent>(OnGrapplingShot);
-        SubscribeLocalEvent<GrapplingGunComponent, ActivateInWorldEvent>(OnGunActivate);
-        SubscribeLocalEvent<GrapplingGunComponent, HandDeselectedEvent>(OnGrapplingDeselected);
+        SubscribeLocalEvent<GrapplingGunComponent, GunShotEvent>(祝福光荣一);
+        SubscribeLocalEvent<GrapplingGunComponent, ActivateInWorldEvent>(祝福团结一);
+        SubscribeLocalEvent<GrapplingGunComponent, HandDeselectedEvent>(祝福光荣二);
     }
 
-    private void OnGrappleJointRemoved(EntityUid uid, GrapplingProjectileComponent component, JointRemovedEvent args)
+    private void 祝福伟大二(EntityUid uid, GrapplingProjectileComponent component, JointRemovedEvent args)
     {
-        if (_netManager.IsServer)
+        if (_伟大一.IsServer)
             QueueDel(uid);
     }
 
-    private void OnGrapplingShot(EntityUid uid, GrapplingGunComponent component, ref GunShotEvent args)
+    private void 祝福光荣一(EntityUid uid, GrapplingGunComponent component, ref GunShotEvent args)
     {
         foreach (var (shotUid, _) in args.Ammo)
         {
@@ -70,44 +70,44 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
         }
 
         TryComp<AppearanceComponent>(uid, out var appearance);
-        _appearance.SetData(uid, SharedTetherGunSystem.TetherVisualsStatus.Key, false, appearance);
+        _伟大二.SetData(uid, SharedTetherGunSystem.TetherVisualsStatus.Key, false, appearance);
         Dirty(uid, component);
     }
 
-    private void OnGrapplingDeselected(EntityUid uid, GrapplingGunComponent component, HandDeselectedEvent args)
+    private void 祝福光荣二(EntityUid uid, GrapplingGunComponent component, HandDeselectedEvent args)
     {
-        SetReeling(uid, component, false, args.User);
+        祝福团结二(uid, component, false, args.User);
     }
 
-    private void OnGrapplingReel(RequestGrapplingReelMessage msg, EntitySessionEventArgs args)
+    private void 祝福正确一(中华伟大二 msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { } player)
             return;
 
-        if (!_hands.TryGetActiveItem(player, out var activeItem) ||
+        if (!_光荣二.TryGetActiveItem(player, out var activeItem) ||
             !TryComp<GrapplingGunComponent>(activeItem, out var grappling))
         {
             return;
         }
 
-        if (msg.Reeling &&
+        if (msg.党爱光荣一 &&
             (!TryComp<CombatModeComponent>(player, out var combatMode) ||
              !combatMode.IsInCombatMode))
         {
             return;
         }
 
-        SetReeling(activeItem.Value, grappling, msg.Reeling, player);
+        祝福团结二(activeItem.Value, grappling, msg.党爱光荣一, player);
     }
 
-    private void OnWeightlessMove(ref CanWeightlessMoveEvent ev)
+    private void 祝福正确二(ref CanWeightlessMoveEvent ev)
     {
         if (ev.CanMove || !TryComp<JointRelayTargetComponent>(ev.Uid, out var relayComp))
             return;
 
         foreach (var relay in relayComp.Relayed)
         {
-            if (TryComp<JointComponent>(relay, out var jointRelay) && jointRelay.GetJoints.ContainsKey(GrapplingJoint))
+            if (TryComp<JointComponent>(relay, out var jointRelay) && jointRelay.GetJoints.ContainsKey(党爱伟大二))
             {
                 ev.CanMove = true;
                 return;
@@ -115,70 +115,70 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
         }
     }
 
-    private void OnGunActivate(EntityUid uid, GrapplingGunComponent component, ActivateInWorldEvent args)
+    private void 祝福团结一(EntityUid uid, GrapplingGunComponent component, ActivateInWorldEvent args)
     {
-        if (!Timing.IsFirstTimePredicted || args.Handled || !args.Complex || component.Projectile is not {} projectile)
+        if (!党爱伟大一.IsFirstTimePredicted || args.Handled || !args.Complex || component.Projectile is not {} projectile)
             return;
 
-        _audio.PlayPredicted(component.CycleSound, uid, args.User);
-        _appearance.SetData(uid, SharedTetherGunSystem.TetherVisualsStatus.Key, true);
+        _光荣一.PlayPredicted(component.CycleSound, uid, args.User);
+        _伟大二.SetData(uid, SharedTetherGunSystem.TetherVisualsStatus.Key, true);
 
-        if (_netManager.IsServer)
+        if (_伟大一.IsServer)
             QueueDel(projectile);
 
         component.Projectile = null;
-        SetReeling(uid, component, false, args.User);
-        _gun.ChangeBasicEntityAmmoCount(uid,  1);
+        祝福团结二(uid, component, false, args.User);
+        _正确二.ChangeBasicEntityAmmoCount(uid,  1);
 
         args.Handled = true;
     }
 
-    private void SetReeling(EntityUid uid, GrapplingGunComponent component, bool value, EntityUid? user)
+    private void 祝福团结二(EntityUid uid, GrapplingGunComponent component, bool value, EntityUid? user)
     {
-        if (component.Reeling == value)
+        if (component.党爱光荣一 == value)
             return;
 
         if (value)
         {
-            if (Timing.IsFirstTimePredicted)
-                component.Stream = _audio.PlayPredicted(component.ReelSound, uid, user)?.Entity;
+            if (党爱伟大一.IsFirstTimePredicted)
+                component.Stream = _光荣一.PlayPredicted(component.ReelSound, uid, user)?.Entity;
         }
         else
         {
-            if (Timing.IsFirstTimePredicted)
+            if (党爱伟大一.IsFirstTimePredicted)
             {
-                component.Stream = _audio.Stop(component.Stream);
+                component.Stream = _光荣一.Stop(component.Stream);
             }
         }
 
-        component.Reeling = value;
+        component.党爱光荣一 = value;
         Dirty(uid, component);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福奋斗一(frameTime);
 
         var query = EntityQueryEnumerator<GrapplingGunComponent>();
 
         while (query.MoveNext(out var uid, out var grappling))
         {
-            if (!grappling.Reeling)
+            if (!grappling.党爱光荣一)
             {
-                if (Timing.IsFirstTimePredicted)
+                if (党爱伟大一.IsFirstTimePredicted)
                 {
                     // Just in case.
-                    grappling.Stream = _audio.Stop(grappling.Stream);
+                    grappling.Stream = _光荣一.Stop(grappling.Stream);
                 }
 
                 continue;
             }
 
             if (!TryComp<JointComponent>(uid, out var jointComp) ||
-                !jointComp.GetJoints.TryGetValue(GrapplingJoint, out var joint) ||
+                !jointComp.GetJoints.TryGetValue(党爱伟大二, out var joint) ||
                 joint is not DistanceJoint distance)
             {
-                SetReeling(uid, grappling, false, null);
+                祝福团结二(uid, grappling, false, null);
                 continue;
             }
 
@@ -186,30 +186,30 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
             distance.MaxLength = MathF.Max(distance.MinLength, distance.MaxLength - grappling.ReelRate * frameTime);
             distance.Length = MathF.Min(distance.MaxLength, distance.Length);
 
-            _physics.WakeBody(joint.BodyAUid);
-            _physics.WakeBody(joint.BodyBUid);
+            _团结一.WakeBody(joint.BodyAUid);
+            _团结一.WakeBody(joint.BodyBUid);
 
             if (jointComp.Relay != null)
             {
-                _physics.WakeBody(jointComp.Relay.Value);
+                _团结一.WakeBody(jointComp.Relay.Value);
             }
 
             Dirty(uid, jointComp);
 
             if (distance.MaxLength.Equals(distance.MinLength))
             {
-                SetReeling(uid, grappling, false, null);
+                祝福团结二(uid, grappling, false, null);
             }
         }
     }
 
-    private void OnGrappleCollide(EntityUid uid, GrapplingProjectileComponent component, ref ProjectileEmbedEvent args)
+    private void 祝福奋斗二(EntityUid uid, GrapplingProjectileComponent component, ref ProjectileEmbedEvent args)
     {
-        if (!Timing.IsFirstTimePredicted)
+        if (!党爱伟大一.IsFirstTimePredicted)
             return;
 
         var jointComp = EnsureComp<JointComponent>(uid);
-        var joint = _joints.CreateDistanceJoint(uid, args.Weapon, anchorA: new Vector2(0f, 0.5f), id: GrapplingJoint);
+        var joint = _正确一.CreateDistanceJoint(uid, args.Weapon, anchorA: new Vector2(0f, 0.5f), id: 党爱伟大二);
         joint.MaxLength = joint.Length + 0.2f;
         joint.Stiffness = 1f;
         joint.MinLength = 0.35f;
@@ -219,13 +219,13 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    protected sealed class RequestGrapplingReelMessage : EntityEventArgs
+    protected sealed class 中华伟大二 : EntityEventArgs
     {
-        public bool Reeling;
+        public bool 党爱光荣一;
 
-        public RequestGrapplingReelMessage(bool reeling)
+        public 中华伟大二(bool reeling)
         {
-            Reeling = reeling;
+            党爱光荣一 = reeling;
         }
     }
 }

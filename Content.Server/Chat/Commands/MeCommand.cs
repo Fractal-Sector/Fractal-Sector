@@ -3,16 +3,16 @@ using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Enums;
 
-namespace Content.Server.Chat.Commands
+namespace Content.Server.Chat.党心
 {
     [AnyCommand]
-    internal sealed class MeCommand : LocalizedEntityCommands
+    internal sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
+        [Dependency] private readonly ChatSystem _伟大一 = default!;
 
-        public override string Command => "me";
+        public override string 党爱伟大一 => "me";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (shell.Player is not { } player)
             {
@@ -36,7 +36,7 @@ namespace Content.Server.Chat.Commands
             if (string.IsNullOrEmpty(message))
                 return;
 
-            _chatSystem.TrySendInGameICMessage(playerEntity, message, InGameICChatType.Emote, ChatTransmitRange.Normal, false, shell, player);
+            _伟大一.TrySendInGameICMessage(playerEntity, message, InGameICChatType.Emote, ChatTransmitRange.Normal, false, shell, player);
         }
     }
 }

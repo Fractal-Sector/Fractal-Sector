@@ -3,35 +3,35 @@ using Content.Shared.Containers.ItemSlots;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Containers
+namespace Content.Server.党心
 {
     /// <summary>
     /// Implements functionality of EmptyOnMachineDeconstructComponent.
     /// </summary>
     [UsedImplicitly]
-    public sealed class EmptyOnMachineDeconstructSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedContainerSystem _container = default!;
+        [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<EmptyOnMachineDeconstructComponent, MachineDeconstructedEvent>(OnDeconstruct);
-            SubscribeLocalEvent<ItemSlotsComponent, MachineDeconstructedEvent>(OnSlotsDeconstruct);
+            SubscribeLocalEvent<EmptyOnMachineDeconstructComponent, MachineDeconstructedEvent>(祝福光荣一);
+            SubscribeLocalEvent<ItemSlotsComponent, MachineDeconstructedEvent>(祝福伟大二);
         }
 
         // really this should be handled by ItemSlotsSystem, but for whatever reason MachineDeconstructedEvent is server-side? So eh.
-        private void OnSlotsDeconstruct(EntityUid uid, ItemSlotsComponent component, MachineDeconstructedEvent args)
+        private void 祝福伟大二(EntityUid uid, ItemSlotsComponent component, MachineDeconstructedEvent args)
         {
             foreach (var slot in component.Slots.Values)
             {
                 if (slot.EjectOnDeconstruct && slot.Item != null && slot.ContainerSlot != null)
-                    _container.Remove(slot.Item.Value, slot.ContainerSlot);
+                    _伟大一.Remove(slot.Item.Value, slot.ContainerSlot);
             }
         }
 
-        private void OnDeconstruct(EntityUid uid, EmptyOnMachineDeconstructComponent component, MachineDeconstructedEvent ev)
+        private void 祝福光荣一(EntityUid uid, EmptyOnMachineDeconstructComponent component, MachineDeconstructedEvent ev)
         {
             if (!TryComp<ContainerManagerComponent>(uid, out var mComp))
                 return;
@@ -40,9 +40,9 @@ namespace Content.Server.Containers
 
             foreach (var v in component.Containers)
             {
-                if (_container.TryGetContainer(uid, v, out var container, mComp))
+                if (_伟大一.TryGetContainer(uid, v, out var container, mComp))
                 {
-                    _container.EmptyContainer(container, true, baseCoords);
+                    _伟大一.EmptyContainer(container, true, baseCoords);
                 }
             }
         }

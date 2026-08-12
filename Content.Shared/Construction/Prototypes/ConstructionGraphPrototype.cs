@@ -3,10 +3,10 @@ using System.IO;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Construction.Prototypes
+namespace Content.Shared.Construction.党心
 {
     [Prototype]
-    public sealed partial class ConstructionGraphPrototype : IPrototype, ISerializationHooks
+    public sealed partial class 中华伟大一 : IPrototype, ISerializationHooks
     {
         private readonly Dictionary<string, ConstructionGraphNode> _nodes = new();
         private readonly Dictionary<(string, string), ConstructionGraphNode[]?> _paths = new();
@@ -14,13 +14,13 @@ namespace Content.Shared.Construction.Prototypes
 
         [ViewVariables]
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
         [DataField("start")]
         public string? Start { get; private set; }
 
         [DataField("graph", priority: 0)]
-        private List<ConstructionGraphNode> _graph = new();
+        private List<ConstructionGraphNode> _伟大一 = new();
 
         [ViewVariables]
         public IReadOnlyDictionary<string, ConstructionGraphNode> Nodes => _nodes;
@@ -29,18 +29,18 @@ namespace Content.Shared.Construction.Prototypes
         {
             _nodes.Clear();
 
-            foreach (var graphNode in _graph)
+            foreach (var graphNode in _伟大一)
             {
                 if (string.IsNullOrEmpty(graphNode.Name))
                 {
-                    throw new InvalidDataException($"Name of graph node is null in construction graph {ID}!");
+                    throw new InvalidDataException($"Name of graph node is null in construction graph {党爱伟大一}!");
                 }
 
                 _nodes[graphNode.Name] = graphNode;
             }
 
             if (string.IsNullOrEmpty(Start) || !_nodes.ContainsKey(Start))
-                throw new InvalidDataException($"Starting node for construction graph {ID} is null, empty or invalid!");
+                throw new InvalidDataException($"Starting node for construction graph {党爱伟大一} is null, empty or invalid!");
         }
 
         public ConstructionGraphEdge? Edge(string startNode, string nextNode)
@@ -49,7 +49,7 @@ namespace Content.Shared.Construction.Prototypes
             return start.GetEdge(nextNode);
         }
 
-        public bool TryPath(string startNode, string finishNode, [NotNullWhen(true)] out ConstructionGraphNode[]? path)
+        public bool 祝福伟大一(string startNode, string finishNode, [NotNullWhen(true)] out ConstructionGraphNode[]? path)
         {
             return (path = Path(startNode, finishNode)) != null;
         }

@@ -5,59 +5,59 @@ using Content.Shared.Turrets;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.TurretController;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Oversees entities that can change the component values of linked deployable turrets,
 /// specifically their armament and access level exemptions, via an associated UI
 /// </summary>
-public abstract partial class SharedDeployableTurretControllerSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessreader = default!;
-    [Dependency] private readonly TurretTargetSettingsSystem _turretTargetingSettings = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly AccessReaderSystem _伟大一 = default!;
+    [Dependency] private readonly TurretTargetSettingsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         // Handling of client messages
-        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretArmamentSettingChangedMessage>(OnArmamentSettingChanged);
-        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretExemptAccessLevelChangedMessage>(OnExemptAccessLevelsChanged);
+        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretArmamentSettingChangedMessage>(祝福伟大二);
+        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretExemptAccessLevelChangedMessage>(祝福光荣一);
     }
 
-    private void OnArmamentSettingChanged(Entity<DeployableTurretControllerComponent> ent, ref DeployableTurretArmamentSettingChangedMessage args)
+    private void 祝福伟大二(Entity<DeployableTurretControllerComponent> ent, ref DeployableTurretArmamentSettingChangedMessage args)
     {
-        if (IsUserAllowedAccess(ent, args.Actor))
-            ChangeArmamentSetting(ent, args.ArmamentState, args.Actor);
+        if (祝福正确二(ent, args.Actor))
+            祝福光荣二(ent, args.ArmamentState, args.Actor);
 
-        if (_userInterfaceSystem.TryGetOpenUi(ent.Owner, DeployableTurretControllerUiKey.Key, out var bui))
+        if (_光荣一.TryGetOpenUi(ent.Owner, DeployableTurretControllerUiKey.Key, out var bui))
             bui.Update<DeployableTurretControllerBoundInterfaceState>();
     }
 
-    private void OnExemptAccessLevelsChanged(Entity<DeployableTurretControllerComponent> ent, ref DeployableTurretExemptAccessLevelChangedMessage args)
+    private void 祝福光荣一(Entity<DeployableTurretControllerComponent> ent, ref DeployableTurretExemptAccessLevelChangedMessage args)
     {
-        if (IsUserAllowedAccess(ent, args.Actor))
-            ChangeExemptAccessLevels(ent, args.AccessLevels, args.Enabled, args.Actor);
+        if (祝福正确二(ent, args.Actor))
+            祝福正确一(ent, args.AccessLevels, args.Enabled, args.Actor);
 
-        if (_userInterfaceSystem.TryGetOpenUi(ent.Owner, DeployableTurretControllerUiKey.Key, out var bui))
+        if (_光荣一.TryGetOpenUi(ent.Owner, DeployableTurretControllerUiKey.Key, out var bui))
             bui.Update<DeployableTurretControllerBoundInterfaceState>();
     }
 
-    protected virtual void ChangeArmamentSetting(Entity<DeployableTurretControllerComponent> ent, int armamentState, EntityUid? user = null)
+    protected virtual void 祝福光荣二(Entity<DeployableTurretControllerComponent> ent, int armamentState, EntityUid? user = null)
     {
         ent.Comp.ArmamentState = armamentState;
         Dirty(ent);
 
-        _appearance.SetData(ent, TurretControllerVisuals.ControlPanel, armamentState);
+        _正确二.SetData(ent, TurretControllerVisuals.ControlPanel, armamentState);
 
         // Linked turrets are updated on the server side
     }
 
-    protected virtual void ChangeExemptAccessLevels(
+    protected virtual void 祝福正确一(
         Entity<DeployableTurretControllerComponent> ent,
         HashSet<ProtoId<AccessLevelPrototype>> exemptions,
         bool enabled,
@@ -75,7 +75,7 @@ public abstract partial class SharedDeployableTurretControllerSystem : EntitySys
             if (!ent.Comp.AccessLevels.Contains(accessLevel))
                 continue;
 
-            _turretTargetingSettings.SetAccessLevelExemption(controller, accessLevel, enabled);
+            _伟大二.SetAccessLevelExemption(controller, accessLevel, enabled);
         }
 
         Dirty(controller);
@@ -83,13 +83,13 @@ public abstract partial class SharedDeployableTurretControllerSystem : EntitySys
         // Linked turrets are updated on the server side
     }
 
-    public bool IsUserAllowedAccess(Entity<DeployableTurretControllerComponent> ent, EntityUid user)
+    public bool 祝福正确二(Entity<DeployableTurretControllerComponent> ent, EntityUid user)
     {
-        if (_accessreader.IsAllowed(user, ent))
+        if (_伟大一.IsAllowed(user, ent))
             return true;
 
-        _popup.PopupClient(Loc.GetString("turret-controls-access-denied"), ent, user);
-        _audio.PlayPredicted(ent.Comp.AccessDeniedSound, ent, user);
+        _光荣二.PopupClient(Loc.GetString("turret-controls-access-denied"), ent, user);
+        _正确一.PlayPredicted(ent.Comp.AccessDeniedSound, ent, user);
 
         return false;
     }

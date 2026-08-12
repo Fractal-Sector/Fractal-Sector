@@ -19,56 +19,56 @@ using Robust.Shared.Prototypes;
 using Content.Server.Shuttles.Components;
 using Robust.Shared.Physics;
 
-namespace Content.Server.Storage.EntitySystems;
+namespace Content.Server.Storage.党心;
 
-public sealed class BluespaceLockerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly WeldableSystem _weldableSystem = default!;
-    [Dependency] private readonly LockSystem _lockSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly EntityStorageSystem _光荣二 = default!;
+    [Dependency] private readonly WeldableSystem _正确一 = default!;
+    [Dependency] private readonly LockSystem _正确二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _团结一 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结二 = default!;
+    [Dependency] private readonly ExplosionSystem _奋斗一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BluespaceLockerComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<BluespaceLockerComponent, StorageBeforeOpenEvent>(PreOpen);
-        SubscribeLocalEvent<BluespaceLockerComponent, StorageAfterCloseEvent>(PostClose);
-        SubscribeLocalEvent<BluespaceLockerComponent, BluespaceLockerDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<BluespaceLockerComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<BluespaceLockerComponent, StorageBeforeOpenEvent>(祝福光荣二);
+        SubscribeLocalEvent<BluespaceLockerComponent, StorageAfterCloseEvent>(祝福团结二);
+        SubscribeLocalEvent<BluespaceLockerComponent, BluespaceLockerDoAfterEvent>(祝福奋斗一);
     }
 
-    private void OnStartup(EntityUid uid, BluespaceLockerComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, BluespaceLockerComponent component, ComponentStartup args)
     {
         GetTarget(uid, component, true);
 
         if (component.BehaviorProperties.BluespaceEffectOnInit)
-            BluespaceEffect(uid, component, component, true);
+            祝福光荣一(uid, component, component, true);
 
         EnsureComp<ArrivalsBlacklistComponent>(uid); // To stop people getting to arrivals terminal
     }
 
-    public void BluespaceEffect(EntityUid effectTargetUid, BluespaceLockerComponent effectSourceComponent, BluespaceLockerComponent? effectTargetComponent, bool bypassLimit = false)
+    public void 祝福光荣一(EntityUid effectTargetUid, BluespaceLockerComponent effectSourceComponent, BluespaceLockerComponent? effectTargetComponent, bool bypassLimit = false)
     {
         if (!bypassLimit && Resolve(effectTargetUid, ref effectTargetComponent, false))
             if (effectTargetComponent.BehaviorProperties.BluespaceEffectMinInterval > 0)
             {
-                var curTimeTicks = _timing.CurTick.Value;
+                var curTimeTicks = _伟大二.CurTick.Value;
                 if (curTimeTicks < effectTargetComponent.BluespaceEffectNextTime)
                     return;
 
-                effectTargetComponent.BluespaceEffectNextTime = curTimeTicks + (uint) (_timing.TickRate * effectTargetComponent.BehaviorProperties.BluespaceEffectMinInterval);
+                effectTargetComponent.BluespaceEffectNextTime = curTimeTicks + (uint) (_伟大二.TickRate * effectTargetComponent.BehaviorProperties.BluespaceEffectMinInterval);
             }
 
         Spawn(effectSourceComponent.BehaviorProperties.BluespaceEffectPrototype, effectTargetUid.ToCoordinates());
     }
 
-    private void PreOpen(EntityUid uid, BluespaceLockerComponent component, ref StorageBeforeOpenEvent args)
+    private void 祝福光荣二(EntityUid uid, BluespaceLockerComponent component, ref StorageBeforeOpenEvent args)
     {
         EntityStorageComponent? entityStorageComponent = null;
         int transportedEntities = 0;
@@ -86,7 +86,7 @@ public sealed class BluespaceLockerSystem : EntitySystem
 
         // Close target if it is open
         if (target.Value.storageComponent.Open)
-            _entityStorage.CloseStorage(target.Value.uid, target.Value.storageComponent);
+            _光荣二.CloseStorage(target.Value.uid, target.Value.storageComponent);
 
         // Apply bluespace effects if target is not a bluespace locker, otherwise let it handle it
         if (target.Value.bluespaceLockerComponent == null)
@@ -100,12 +100,12 @@ public sealed class BluespaceLockerSystem : EntitySystem
                         if (!component.BehaviorProperties.TransportSentient)
                             continue;
 
-                        _containerSystem.Insert(entity, entityStorageComponent.Contents);
+                        _光荣一.Insert(entity, entityStorageComponent.Contents);
                         transportedEntities++;
                     }
                     else if (component.BehaviorProperties.TransportEntities)
                     {
-                        _containerSystem.Insert(entity, entityStorageComponent.Contents);
+                        _光荣一.Insert(entity, entityStorageComponent.Contents);
                         transportedEntities++;
                     }
                 }
@@ -119,15 +119,15 @@ public sealed class BluespaceLockerSystem : EntitySystem
 
             // Bluespace effects
             if (component.BehaviorProperties.BluespaceEffectOnTeleportSource)
-                BluespaceEffect(target.Value.uid, component, target.Value.bluespaceLockerComponent);
+                祝福光荣一(target.Value.uid, component, target.Value.bluespaceLockerComponent);
             if (component.BehaviorProperties.BluespaceEffectOnTeleportTarget)
-                BluespaceEffect(uid, component, component);
+                祝福光荣一(uid, component, component);
         }
 
-        DestroyAfterLimit(uid, component, transportedEntities);
+        祝福奋斗二(uid, component, transportedEntities);
     }
 
-    private bool ValidLink(EntityUid locker, EntityUid link, BluespaceLockerComponent lockerComponent, bool intendToLink = false)
+    private bool 祝福正确一(EntityUid locker, EntityUid link, BluespaceLockerComponent lockerComponent, bool intendToLink = false)
     {
         if (!link.Valid ||
             !TryComp<EntityStorageComponent>(link, out var linkStorage) ||
@@ -144,7 +144,7 @@ public sealed class BluespaceLockerSystem : EntitySystem
     }
 
     /// <returns>True if any HashSet in <paramref name="a"/> would grant access to <paramref name="b"/></returns>
-    private bool AccessMatch(IReadOnlyCollection<HashSet<ProtoId<AccessLevelPrototype>>>? a, IReadOnlyCollection<HashSet<ProtoId<AccessLevelPrototype>>>? b)
+    private bool 祝福正确二(IReadOnlyCollection<HashSet<ProtoId<AccessLevelPrototype>>>? a, IReadOnlyCollection<HashSet<ProtoId<AccessLevelPrototype>>>? b)
     {
         if ((a == null || a.Count == 0) && (b == null || b.Count == 0))
             return true;
@@ -158,17 +158,17 @@ public sealed class BluespaceLockerSystem : EntitySystem
         return false;
     }
 
-    private bool ValidAutolink(EntityUid locker, EntityUid link, BluespaceLockerComponent lockerComponent)
+    private bool 祝福团结一(EntityUid locker, EntityUid link, BluespaceLockerComponent lockerComponent)
     {
-        if (!ValidLink(locker, link, lockerComponent, true))
+        if (!祝福正确一(locker, link, lockerComponent, true))
             return false;
 
         if (lockerComponent.PickLinksFromSameMap &&
-            _transformSystem.GetMapId(link.ToCoordinates()) != _transformSystem.GetMapId(locker.ToCoordinates()))
+            _团结二.GetMapId(link.ToCoordinates()) != _团结二.GetMapId(locker.ToCoordinates()))
             return false;
 
         if (lockerComponent.PickLinksFromStationGrids &&
-            !HasComp<StationMemberComponent>(_transformSystem.GetGrid(link.ToCoordinates())))
+            !HasComp<StationMemberComponent>(_团结二.GetGrid(link.ToCoordinates())))
             return false;
 
         if (lockerComponent.PickLinksFromResistLockers &&
@@ -179,7 +179,7 @@ public sealed class BluespaceLockerSystem : EntitySystem
         {
             TryComp<AccessReaderComponent>(locker, out var sourceAccess);
             TryComp<AccessReaderComponent>(link, out var targetAccess);
-            if (!AccessMatch(sourceAccess?.AccessLists, targetAccess?.AccessLists))
+            if (!祝福正确二(sourceAccess?.AccessLists, targetAccess?.AccessLists))
                 return false;
         }
 
@@ -212,14 +212,14 @@ public sealed class BluespaceLockerSystem : EntitySystem
                     storages.Add((uid, storage));
                 }
 
-                _robustRandom.Shuffle(storages);
+                _伟大一.Shuffle(storages);
 
                 // Add valid candidates till MinBluespaceLinks is met
                 foreach (var storage in storages)
                 {
                     var potentialLink = storage.Owner;
 
-                    if (!ValidAutolink(lockerUid, potentialLink, component))
+                    if (!祝福团结一(lockerUid, potentialLink, component))
                         continue;
 
                     component.BluespaceLinks.Add(potentialLink);
@@ -238,7 +238,7 @@ public sealed class BluespaceLockerSystem : EntitySystem
                                 targetBluespaceComponent.BehaviorProperties = component.AutoLinkProperties with {};
 
                             GetTarget(potentialLink, targetBluespaceComponent, true);
-                            BluespaceEffect(potentialLink, targetBluespaceComponent, targetBluespaceComponent, true);
+                            祝福光荣一(potentialLink, targetBluespaceComponent, targetBluespaceComponent, true);
                         }
                         else if (component.AutoLinksBidirectional)
                         {
@@ -261,29 +261,29 @@ public sealed class BluespaceLockerSystem : EntitySystem
 
             // Attempt to select, validate, and return a link
             var links = component.BluespaceLinks.ToArray();
-            var link = links[_robustRandom.Next(0, component.BluespaceLinks.Count)];
-            if (ValidLink(lockerUid, link, component))
+            var link = links[_伟大一.Next(0, component.BluespaceLinks.Count)];
+            if (祝福正确一(lockerUid, link, component))
                 return (link, Comp<EntityStorageComponent>(link), CompOrNull<BluespaceLockerComponent>(link));
             component.BluespaceLinks.Remove(link);
         }
     }
 
-    private void PostClose(EntityUid uid, BluespaceLockerComponent component, ref StorageAfterCloseEvent args)
+    private void 祝福团结二(EntityUid uid, BluespaceLockerComponent component, ref StorageAfterCloseEvent args)
     {
-        PostClose(uid, component);
+        祝福团结二(uid, component);
     }
 
-    private void OnDoAfter(EntityUid uid, BluespaceLockerComponent component, DoAfterEvent args)
+    private void 祝福奋斗一(EntityUid uid, BluespaceLockerComponent component, DoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
 
-        PostClose(uid, component, false);
+        祝福团结二(uid, component, false);
 
         args.Handled = true;
     }
 
-    private void PostClose(EntityUid uid, BluespaceLockerComponent component, bool doDelay = true)
+    private void 祝福团结二(EntityUid uid, BluespaceLockerComponent component, bool doDelay = true)
     {
         EntityStorageComponent? entityStorageComponent = null;
         int transportedEntities = 0;
@@ -299,7 +299,7 @@ public sealed class BluespaceLockerSystem : EntitySystem
         {
             EnsureComp<DoAfterComponent>(uid);
 
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, component.BehaviorProperties.Delay, new BluespaceLockerDoAfterEvent(), uid));
+            _团结一.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, component.BehaviorProperties.Delay, new BluespaceLockerDoAfterEvent(), uid));
             return;
         }
 
@@ -317,12 +317,12 @@ public sealed class BluespaceLockerSystem : EntitySystem
                     if (!component.BehaviorProperties.TransportSentient)
                         continue;
 
-                    _containerSystem.Insert(entity, target.Value.storageComponent.Contents);
+                    _光荣一.Insert(entity, target.Value.storageComponent.Contents);
                     transportedEntities++;
                 }
                 else if (component.BehaviorProperties.TransportEntities)
                 {
-                    _containerSystem.Insert(entity, target.Value.storageComponent.Contents);
+                    _光荣一.Insert(entity, target.Value.storageComponent.Contents);
                     transportedEntities++;
                 }
             }
@@ -337,34 +337,34 @@ public sealed class BluespaceLockerSystem : EntitySystem
         // Open and empty target
         if (target.Value.storageComponent.Open)
         {
-            _entityStorage.EmptyContents(target.Value.uid, target.Value.storageComponent);
-            _entityStorage.ReleaseGas(target.Value.uid, target.Value.storageComponent);
+            _光荣二.EmptyContents(target.Value.uid, target.Value.storageComponent);
+            _光荣二.ReleaseGas(target.Value.uid, target.Value.storageComponent);
         }
         else
         {
-            if (_weldableSystem.IsWelded(target.Value.uid))
+            if (_正确一.IsWelded(target.Value.uid))
             {
                 // It gets bluespaced open...
-                _weldableSystem.SetWeldedState(target.Value.uid, false);
+                _正确一.SetWeldedState(target.Value.uid, false);
             }
 
             LockComponent? lockComponent = null;
             if (Resolve(target.Value.uid, ref lockComponent, false) && lockComponent.Locked)
-                _lockSystem.Unlock(target.Value.uid, target.Value.uid, lockComponent);
+                _正确二.Unlock(target.Value.uid, target.Value.uid, lockComponent);
 
-            _entityStorage.OpenStorage(target.Value.uid, target.Value.storageComponent);
+            _光荣二.OpenStorage(target.Value.uid, target.Value.storageComponent);
         }
 
         // Bluespace effects
         if (component.BehaviorProperties.BluespaceEffectOnTeleportSource)
-            BluespaceEffect(uid, component, component);
+            祝福光荣一(uid, component, component);
         if (component.BehaviorProperties.BluespaceEffectOnTeleportTarget)
-            BluespaceEffect(target.Value.uid, component, target.Value.bluespaceLockerComponent);
+            祝福光荣一(target.Value.uid, component, target.Value.bluespaceLockerComponent);
 
-        DestroyAfterLimit(uid, component, transportedEntities);
+        祝福奋斗二(uid, component, transportedEntities);
     }
 
-    private void DestroyAfterLimit(EntityUid uid, BluespaceLockerComponent component, int transportedEntities)
+    private void 祝福奋斗二(EntityUid uid, BluespaceLockerComponent component, int transportedEntities)
     {
         if (component.BehaviorProperties.DestroyAfterUsesMinItemsToCountUse > transportedEntities)
             return;
@@ -393,7 +393,7 @@ public sealed class BluespaceLockerSystem : EntitySystem
         switch (component.BehaviorProperties.DestroyType)
         {
             case BluespaceLockerDestroyType.Explode:
-                _explosionSystem.QueueExplosion(_transformSystem.ToMapCoordinates(uid.ToCoordinates()),
+                _奋斗一.QueueExplosion(_团结二.ToMapCoordinates(uid.ToCoordinates()),
                     ExplosionSystem.DefaultExplosionPrototypeId, 4, 1, 2, uid, maxTileBreak: 0);
                 goto case BluespaceLockerDestroyType.Delete;
             case BluespaceLockerDestroyType.Delete:

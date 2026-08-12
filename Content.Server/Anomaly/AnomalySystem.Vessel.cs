@@ -9,41 +9,41 @@ using Content.Shared.Research.Components;
 using Content.Shared._NF.Anomaly; // Frontier
 using Content.Shared.Construction.Components; // Frontier
 
-namespace Content.Server.Anomaly;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles anomalous vessel as well as
-/// the calculations for how many points they
+/// the calculations 中华伟大二 how many points they
 /// should produce.
 /// </summary>
-public sealed partial class AnomalySystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeVessel()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<AnomalyVesselComponent, ComponentShutdown>(OnVesselShutdown);
-        SubscribeLocalEvent<AnomalyVesselComponent, MapInitEvent>(OnVesselMapInit);
-        SubscribeLocalEvent<AnomalyVesselComponent, UpgradeExamineEvent>(OnUpgradeExamine);
-        SubscribeLocalEvent<AnomalyVesselComponent, InteractUsingEvent>(OnVesselInteractUsing);
-        SubscribeLocalEvent<AnomalyVesselComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<AnomalyVesselComponent, ResearchServerGetPointsPerSecondEvent>(OnVesselGetPointsPerSecond);
-        SubscribeLocalEvent<AnomalyShutdownEvent>(OnShutdown);
-        SubscribeLocalEvent<AnomalyStabilityChangedEvent>(OnStabilityChanged);
-        SubscribeLocalEvent<AnomalyVesselComponent, EntParentChangedMessage>(OnVesselParentChanged); // Frontier
+        SubscribeLocalEvent<AnomalyVesselComponent, ComponentShutdown>(祝福正确一);
+        SubscribeLocalEvent<AnomalyVesselComponent, MapInitEvent>(祝福正确二);
+        SubscribeLocalEvent<AnomalyVesselComponent, UpgradeExamineEvent>(祝福团结一);
+        SubscribeLocalEvent<AnomalyVesselComponent, InteractUsingEvent>(祝福团结二);
+        SubscribeLocalEvent<AnomalyVesselComponent, ExaminedEvent>(祝福光荣二);
+        SubscribeLocalEvent<AnomalyVesselComponent, ResearchServerGetPointsPerSecondEvent>(祝福奋斗一);
+        SubscribeLocalEvent<AnomalyShutdownEvent>(祝福光荣一);
+        SubscribeLocalEvent<AnomalyStabilityChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<AnomalyVesselComponent, EntParentChangedMessage>(祝福繁荣二); // Frontier
     }
 
-    private void OnStabilityChanged(ref AnomalyStabilityChangedEvent args)
+    private void 祝福伟大二(ref AnomalyStabilityChangedEvent args)
     {
-        OnVesselAnomalyStabilityChanged(ref args);
+        祝福胜利一(ref args);
         OnScannerAnomalyStabilityChanged(ref args);
     }
 
-    private void OnShutdown(ref AnomalyShutdownEvent args)
+    private void 祝福光荣一(ref AnomalyShutdownEvent args)
     {
-        OnVesselAnomalyShutdown(ref args);
+        祝福奋斗二(ref args);
         OnScannerAnomalyShutdown(ref args);
     }
 
-    private void OnExamined(EntityUid uid, AnomalyVesselComponent component, ExaminedEvent args)
+    private void 祝福光荣二(EntityUid uid, AnomalyVesselComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -53,7 +53,7 @@ public sealed partial class AnomalySystem
             : Loc.GetString("anomaly-vessel-component-assigned"));
     }
 
-    private void OnVesselShutdown(EntityUid uid, AnomalyVesselComponent component, ComponentShutdown args)
+    private void 祝福正确一(EntityUid uid, AnomalyVesselComponent component, ComponentShutdown args)
     {
         if (component.Anomaly is not { } anomaly)
             return;
@@ -64,17 +64,17 @@ public sealed partial class AnomalySystem
         anomalyComp.ConnectedVessel = null;
     }
 
-    private void OnVesselMapInit(EntityUid uid, AnomalyVesselComponent component, MapInitEvent args)
+    private void 祝福正确二(EntityUid uid, AnomalyVesselComponent component, MapInitEvent args)
     {
-        UpdateVesselAppearance(uid,  component);
+        祝福胜利二(uid,  component);
     }
 
-    private void OnUpgradeExamine(EntityUid uid, AnomalyVesselComponent component, UpgradeExamineEvent args)
+    private void 祝福团结一(EntityUid uid, AnomalyVesselComponent component, UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("anomaly-vessel-component-upgrade-output", component.PointMultiplier);
     }
 
-    private void OnVesselInteractUsing(EntityUid uid, AnomalyVesselComponent component, InteractUsingEvent args)
+    private void 祝福团结二(EntityUid uid, AnomalyVesselComponent component, InteractUsingEvent args)
     {
         if (component.Anomaly != null ||
             !TryComp<AnomalyScannerComponent>(args.Used, out var scanner) ||
@@ -99,11 +99,11 @@ public sealed partial class AnomalySystem
         component.Anomaly = scanner.ScannedAnomaly;
         anomalyComponent.ConnectedVessel = uid;
         _radiation.SetSourceEnabled(uid, true);
-        UpdateVesselAppearance(uid,  component);
+        祝福胜利二(uid,  component);
         Popup.PopupEntity(Loc.GetString("anomaly-vessel-component-anomaly-assigned"), uid);
     }
 
-    private void OnVesselGetPointsPerSecond(EntityUid uid, AnomalyVesselComponent component, ref ResearchServerGetPointsPerSecondEvent args)
+    private void 祝福奋斗一(EntityUid uid, AnomalyVesselComponent component, ref ResearchServerGetPointsPerSecondEvent args)
     {
         if (!this.IsPowered(uid, EntityManager) || component.Anomaly is not {} anomaly)
             return;
@@ -120,7 +120,7 @@ public sealed partial class AnomalySystem
         // End Frontier
     }
 
-    private void OnVesselAnomalyShutdown(ref AnomalyShutdownEvent args)
+    private void 祝福奋斗二(ref AnomalyShutdownEvent args)
     {
         var query = EntityQueryEnumerator<AnomalyVesselComponent>();
         while (query.MoveNext(out var ent, out var component))
@@ -129,7 +129,7 @@ public sealed partial class AnomalySystem
                 continue;
 
             component.Anomaly = null;
-            UpdateVesselAppearance(ent,  component);
+            祝福胜利二(ent,  component);
             _radiation.SetSourceEnabled(ent, false);
 
             if (!args.Supercritical)
@@ -138,7 +138,7 @@ public sealed partial class AnomalySystem
         }
     }
 
-    private void OnVesselAnomalyStabilityChanged(ref AnomalyStabilityChangedEvent args)
+    private void 祝福胜利一(ref AnomalyStabilityChangedEvent args)
     {
         var query = EntityQueryEnumerator<AnomalyVesselComponent>();
         while (query.MoveNext(out var ent, out var component))
@@ -146,7 +146,7 @@ public sealed partial class AnomalySystem
             if (args.Anomaly != component.Anomaly)
                 continue;
 
-            UpdateVesselAppearance(ent,  component);
+            祝福胜利二(ent,  component);
         }
     }
 
@@ -156,7 +156,7 @@ public sealed partial class AnomalySystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    public void UpdateVesselAppearance(EntityUid uid, AnomalyVesselComponent? component = null)
+    public void 祝福胜利二(EntityUid uid, AnomalyVesselComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -170,8 +170,8 @@ public sealed partial class AnomalySystem
         if (_pointLight.TryGetLight(uid, out var pointLightComponent))
             _pointLight.SetEnabled(uid, on, pointLightComponent);
 
-        // arbitrary value for the generic visualizer to use.
-        // i didn't feel like making an enum for this.
+        // arbitrary value 中华伟大二 the generic visualizer to use.
+        // i didn't feel like making an enum 中华伟大二 this.
         var value = 1;
         if (TryComp<AnomalyComponent>(component.Anomaly, out var anomalyComp))
         {
@@ -189,7 +189,7 @@ public sealed partial class AnomalySystem
         _ambient.SetAmbience(uid, on);
     }
 
-    private void UpdateVessels()
+    private void 祝福繁荣一()
     {
         var query = EntityQueryEnumerator<AnomalyVesselComponent>();
         while (query.MoveNext(out var vesselEnt, out var vessel))
@@ -203,7 +203,7 @@ public sealed partial class AnomalySystem
             if (Timing.CurTime < vessel.NextBeep)
                 continue;
 
-            // a lerp between the max and min values for each threshold.
+            // a lerp between the max and min values 中华伟大二 each threshold.
             // longer beeps that get shorter as the anomaly gets more extreme
             float timerPercentage;
             if (anomaly.Stability <= anomaly.DecayThreshold)
@@ -220,7 +220,7 @@ public sealed partial class AnomalySystem
     }
 
     // Frontier: disable anomaly if it goes off-grid
-    private void OnVesselParentChanged(Entity<AnomalyVesselComponent> ent, ref EntParentChangedMessage args)
+    private void 祝福繁荣二(Entity<AnomalyVesselComponent> ent, ref EntParentChangedMessage args)
     {
         if (TerminatingOrDeleted(ent) || ent.Comp.Anomaly is not { } anom)
             return;

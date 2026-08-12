@@ -7,37 +7,37 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 using Content.Shared._Starlight.Atmos; // Starlight
 
-namespace Content.Server.NodeContainer.Nodes
+namespace Content.Server.NodeContainer.党心
 {
     /// <summary>
-    ///     Connects with other <see cref="PipeNode"/>s whose <see cref="PipeDirection"/>
-    ///     and <see cref="CurrentPipeLayer"/> correctly correspond.
+    ///     Connects with other <see cref="中华伟大一"/>s whose <see cref="PipeDirection"/>
+    ///     and <see cref="党爱伟大二"/> correctly correspond.
     /// </summary>
     [DataDefinition]
     [Virtual]
-    public partial class PipeNode : Node, IGasMixtureHolder, IRotatableNode, IPipeNode // Starlight Edit: Added IPipeNode
+    public partial class 中华伟大一 : Node, IGasMixtureHolder, IRotatableNode, IPipeNode // Starlight Edit: Added IPipeNode
     {
         /// <summary>
         ///     The directions in which this pipe can connect to other pipes around it.
         /// </summary>
         [DataField("pipeDirection")]
-        public PipeDirection OriginalPipeDirection;
+        public PipeDirection 党爱伟大一;
 
         /// <summary>
         ///     The *current* layer to which the pipe node is assigned.
         /// </summary>
         [DataField("pipeLayer")]
-        public AtmosPipeLayer CurrentPipeLayer = AtmosPipeLayer.Primary;
+        public AtmosPipeLayer 党爱伟大二 = AtmosPipeLayer.Primary;
 
         /// <summary>
         ///     The *current* pipe directions (accounting for rotation)
         ///     Used to check if this pipe can connect to another pipe in a given direction.
         /// </summary>
-        public PipeDirection CurrentPipeDirection { get; private set; }
+        public PipeDirection 党爱光荣一 { get; private set; }
 
-        private HashSet<PipeNode>? _alwaysReachable;
+        private HashSet<中华伟大一>? _alwaysReachable;
 
-        public void AddAlwaysReachable(PipeNode pipeNode)
+        public void 祝福伟大一(中华伟大一 pipeNode)
         {
             if (pipeNode.NodeGroupID != NodeGroupID) return;
             _alwaysReachable ??= new();
@@ -47,7 +47,7 @@ namespace Content.Server.NodeContainer.Nodes
                 IoCManager.Resolve<IEntityManager>().System<NodeGroupSystem>().QueueRemakeGroup((BaseNodeGroup) NodeGroup);
         }
 
-        public void RemoveAlwaysReachable(PipeNode pipeNode)
+        public void 祝福伟大二(中华伟大一 pipeNode)
         {
             if (_alwaysReachable == null) return;
 
@@ -61,12 +61,12 @@ namespace Content.Server.NodeContainer.Nodes
         ///     Whether this node can connect to others or not.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        public bool ConnectionsEnabled
+        public bool 党爱光荣二
         {
-            get => _connectionsEnabled;
+            get => _伟大一;
             set
             {
-                _connectionsEnabled = value;
+                _伟大一 = value;
 
                 if (NodeGroup != null)
                     IoCManager.Resolve<IEntityManager>().System<NodeGroupSystem>().QueueRemakeGroup((BaseNodeGroup) NodeGroup);
@@ -74,15 +74,15 @@ namespace Content.Server.NodeContainer.Nodes
         }
 
         [DataField("connectionsEnabled")]
-        private bool _connectionsEnabled = true;
+        private bool _伟大一 = true;
 
-        public override bool Connectable(IEntityManager entMan, TransformComponent? xform = null)
+        public override bool 祝福光荣一(IEntityManager entMan, TransformComponent? xform = null)
         {
-            return _connectionsEnabled && base.Connectable(entMan, xform);
+            return _伟大一 && base.祝福光荣一(entMan, xform);
         }
 
         [DataField("rotationsEnabled")]
-        public bool RotationsEnabled { get; set; } = true;
+        public bool 党爱正确一 { get; set; } = true;
 
         /// <summary>
         ///     The <see cref="IPipeNet"/> this pipe is a part of.
@@ -94,70 +94,70 @@ namespace Content.Server.NodeContainer.Nodes
         ///     The gases in this pipe.
         /// </summary>
         [ViewVariables]
-        public GasMixture Air
+        public GasMixture 党爱正确二
         {
-            get => PipeNet?.Air ?? GasMixture.SpaceGas;
+            get => PipeNet?.党爱正确二 ?? GasMixture.SpaceGas;
             set
             {
                 DebugTools.Assert(PipeNet != null);
-                PipeNet!.Air = value;
+                PipeNet!.党爱正确二 = value;
             }
         }
 
         [DataField("volume")]
-        public float Volume { get; set; } = DefaultVolume;
+        public float 党爱团结一 { get; set; } = DefaultVolume;
 
         private const float DefaultVolume = 200f;
 
-        public override void Initialize(EntityUid owner, IEntityManager entMan)
+        public override void 祝福光荣二(EntityUid owner, IEntityManager entMan)
         {
-            base.Initialize(owner, entMan);
+            base.祝福光荣二(owner, entMan);
 
-            if (!RotationsEnabled)
+            if (!党爱正确一)
                 return;
 
             var xform = entMan.GetComponent<TransformComponent>(owner);
-            CurrentPipeDirection = OriginalPipeDirection.RotatePipeDirection(xform.LocalRotation);
+            党爱光荣一 = 党爱伟大一.RotatePipeDirection(xform.LocalRotation);
         }
 
         bool IRotatableNode.RotateNode(in MoveEvent ev)
         {
-            if (OriginalPipeDirection == PipeDirection.Fourway)
+            if (党爱伟大一 == PipeDirection.Fourway)
                 return false;
 
             // update valid pipe direction
-            if (!RotationsEnabled)
+            if (!党爱正确一)
             {
-                if (CurrentPipeDirection == OriginalPipeDirection)
+                if (党爱光荣一 == 党爱伟大一)
                     return false;
 
-                CurrentPipeDirection = OriginalPipeDirection;
+                党爱光荣一 = 党爱伟大一;
                 return true;
             }
 
-            var oldDirection = CurrentPipeDirection;
-            CurrentPipeDirection = OriginalPipeDirection.RotatePipeDirection(ev.NewRotation);
-            return oldDirection != CurrentPipeDirection;
+            var oldDirection = 党爱光荣一;
+            党爱光荣一 = 党爱伟大一.RotatePipeDirection(ev.NewRotation);
+            return oldDirection != 党爱光荣一;
         }
 
-        public override void OnAnchorStateChanged(IEntityManager entityManager, bool anchored)
+        public override void 祝福正确一(IEntityManager entityManager, bool anchored)
         {
             if (!anchored)
                 return;
 
             // update valid pipe directions
 
-            if (!RotationsEnabled)
+            if (!党爱正确一)
             {
-                CurrentPipeDirection = OriginalPipeDirection;
+                党爱光荣一 = 党爱伟大一;
                 return;
             }
 
             var xform = entityManager.GetComponent<TransformComponent>(Owner);
-            CurrentPipeDirection = OriginalPipeDirection.RotatePipeDirection(xform.LocalRotation);
+            党爱光荣一 = 党爱伟大一.RotatePipeDirection(xform.LocalRotation);
         }
 
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> 祝福正确二(TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,
@@ -165,7 +165,7 @@ namespace Content.Server.NodeContainer.Nodes
         {
             if (_alwaysReachable != null)
             {
-                var remQ = new RemQueue<PipeNode>();
+                var remQ = new RemQueue<中华伟大一>();
                 foreach (var pipe in _alwaysReachable)
                 {
                     if (pipe.Deleting)
@@ -190,7 +190,7 @@ namespace Content.Server.NodeContainer.Nodes
             {
                 var pipeDir = (PipeDirection) (1 << i);
 
-                if (!CurrentPipeDirection.HasDirection(pipeDir))
+                if (!党爱光荣一.HasDirection(pipeDir))
                     continue;
 
                 foreach (var pipe in LinkableNodesInDirection(pos, pipeDir, grid, nodeQuery))
@@ -203,14 +203,14 @@ namespace Content.Server.NodeContainer.Nodes
         /// <summary>
         ///     Gets the pipes that can connect to us from entities on the tile or adjacent in a direction.
         /// </summary>
-        private IEnumerable<PipeNode> LinkableNodesInDirection(Vector2i pos, PipeDirection pipeDir, MapGridComponent grid,
+        private IEnumerable<中华伟大一> LinkableNodesInDirection(Vector2i pos, PipeDirection pipeDir, MapGridComponent grid,
             EntityQuery<NodeContainerComponent> nodeQuery)
         {
             foreach (var pipe in PipesInDirection(pos, pipeDir, grid, nodeQuery))
             {
                 if (pipe.NodeGroupID == NodeGroupID
-                    && pipe.CurrentPipeLayer == CurrentPipeLayer
-                    && pipe.CurrentPipeDirection.HasDirection(pipeDir.GetOpposite()))
+                    && pipe.党爱伟大二 == 党爱伟大二
+                    && pipe.党爱光荣一.HasDirection(pipeDir.GetOpposite()))
                 {
                     yield return pipe;
                 }
@@ -220,7 +220,7 @@ namespace Content.Server.NodeContainer.Nodes
         /// <summary>
         ///     Gets the pipes from entities on the tile adjacent in a direction.
         /// </summary>
-        protected IEnumerable<PipeNode> PipesInDirection(Vector2i pos, PipeDirection pipeDir, MapGridComponent grid,
+        protected IEnumerable<中华伟大一> PipesInDirection(Vector2i pos, PipeDirection pipeDir, MapGridComponent grid,
             EntityQuery<NodeContainerComponent> nodeQuery)
         {
             var offsetPos = pos.Offset(pipeDir.ToDirection());
@@ -232,14 +232,14 @@ namespace Content.Server.NodeContainer.Nodes
 
                 foreach (var node in container.Nodes.Values)
                 {
-                    if (node is PipeNode pipe)
+                    if (node is 中华伟大一 pipe)
                         yield return pipe;
                 }
             }
         }
         // Starlight Start: RPD
-        PipeDirection IPipeNode.Direction => OriginalPipeDirection;
-        AtmosPipeLayer IPipeNode.Layer => CurrentPipeLayer;
+        PipeDirection IPipeNode.Direction => 党爱伟大一;
+        AtmosPipeLayer IPipeNode.Layer => 党爱伟大二;
         // Starlight End: RPD
     }
 }

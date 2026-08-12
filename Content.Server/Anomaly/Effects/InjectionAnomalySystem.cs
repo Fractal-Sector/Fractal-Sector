@@ -5,7 +5,7 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using System.Linq;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 /// <summary>
 /// This component allows the anomaly to inject liquid from the SolutionContainer
 /// into the surrounding entities with the InjectionSolution component
@@ -13,52 +13,52 @@ namespace Content.Server.Anomaly.Effects;
 ///
 
 /// <see cref="InjectionAnomalyComponent"/>
-public sealed class InjectionAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+    [Dependency] private readonly TransformSystem _光荣一 = default!;
 
-    private EntityQuery<InjectableSolutionComponent> _injectableQuery;
+    private EntityQuery<InjectableSolutionComponent> _光荣二;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<InjectionAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<InjectionAnomalyComponent, AnomalySupercriticalEvent>(OnSupercritical, before: new[] { typeof(SharedSolutionContainerSystem) });
+        SubscribeLocalEvent<InjectionAnomalyComponent, AnomalyPulseEvent>(祝福伟大二);
+        SubscribeLocalEvent<InjectionAnomalyComponent, AnomalySupercriticalEvent>(祝福光荣一, before: new[] { typeof(SharedSolutionContainerSystem) });
 
-        _injectableQuery = GetEntityQuery<InjectableSolutionComponent>();
+        _光荣二 = GetEntityQuery<InjectableSolutionComponent>();
     }
 
-    private void OnPulse(Entity<InjectionAnomalyComponent> entity, ref AnomalyPulseEvent args)
+    private void 祝福伟大二(Entity<InjectionAnomalyComponent> entity, ref AnomalyPulseEvent args)
     {
-        PulseScalableEffect(entity, entity.Comp.InjectRadius * args.PowerModifier, entity.Comp.MaxSolutionInjection * args.Severity * args.PowerModifier);
+        祝福光荣二(entity, entity.Comp.InjectRadius * args.PowerModifier, entity.Comp.MaxSolutionInjection * args.Severity * args.PowerModifier);
     }
 
-    private void OnSupercritical(Entity<InjectionAnomalyComponent> entity, ref AnomalySupercriticalEvent args)
+    private void 祝福光荣一(Entity<InjectionAnomalyComponent> entity, ref AnomalySupercriticalEvent args)
     {
-        PulseScalableEffect(entity, entity.Comp.SuperCriticalInjectRadius * args.PowerModifier, entity.Comp.SuperCriticalSolutionInjection * args.PowerModifier);
+        祝福光荣二(entity, entity.Comp.SuperCriticalInjectRadius * args.PowerModifier, entity.Comp.SuperCriticalSolutionInjection * args.PowerModifier);
     }
 
-    private void PulseScalableEffect(Entity<InjectionAnomalyComponent> entity, float injectRadius, float maxInject)
+    private void 祝福光荣二(Entity<InjectionAnomalyComponent> entity, float injectRadius, float maxInject)
     {
-        if (!_solutionContainer.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var sol))
+        if (!_伟大二.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var sol))
             return;
 
         //We get all the entity in the radius into which the reagent will be injected.
         var xformQuery = GetEntityQuery<TransformComponent>();
         var xform = xformQuery.GetComponent(entity);
-        var allEnts = _lookup.GetEntitiesInRange<InjectableSolutionComponent>(_transform.GetMapCoordinates(entity, xform: xform), injectRadius)
+        var allEnts = _伟大一.GetEntitiesInRange<InjectableSolutionComponent>(_光荣一.GetMapCoordinates(entity, xform: xform), injectRadius)
             .Select(x => x.Owner).ToList();
 
         //for each matching entity found
         foreach (var ent in allEnts)
         {
-            if (!_solutionContainer.TryGetInjectableSolution(ent, out var injectable, out _))
+            if (!_伟大二.TryGetInjectableSolution(ent, out var injectable, out _))
                 continue;
 
-            if (_injectableQuery.TryGetComponent(ent, out var injEnt))
+            if (_光荣二.TryGetComponent(ent, out var injEnt))
             {
-                _solutionContainer.TryTransferSolution(injectable.Value, sol, maxInject);
+                _伟大二.TryTransferSolution(injectable.Value, sol, maxInject);
                 //Spawn Effect
                 var uidXform = Transform(ent);
                 Spawn(entity.Comp.VisualEffectPrototype, uidXform.Coordinates);

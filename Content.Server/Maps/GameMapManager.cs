@@ -11,40 +11,40 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Maps;
+namespace Content.Server.党心;
 
-public sealed class GameMapManager : IGameMapManager
+public sealed class 中华伟大一 : IGameMapManager
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IResourceManager _resMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IJoinQueueManager _joinQueueManager = default!; // Harmony Queue
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly IPlayerManager _光荣二 = default!;
+    [Dependency] private readonly IResourceManager _正确一 = default!;
+    [Dependency] private readonly IRobustRandom _正确二 = default!;
+    [Dependency] private readonly IJoinQueueManager _团结一 = default!; // Harmony Queue
 
     [ViewVariables(VVAccess.ReadOnly)]
-    private readonly Queue<string> _previousMaps = new();
+    private readonly Queue<string> _团结二 = new();
     [ViewVariables(VVAccess.ReadOnly)]
     private GameMapPrototype? _configSelectedMap;
     [ViewVariables(VVAccess.ReadOnly)]
     private GameMapPrototype? _selectedMap; // Don't change this value during a round!
     [ViewVariables(VVAccess.ReadOnly)]
-    private bool _mapRotationEnabled;
+    private bool _奋斗一;
     [ViewVariables(VVAccess.ReadOnly)]
-    private int _mapQueueDepth = 1;
+    private int _奋斗二 = 1;
 
-    private ISawmill _log = default!;
+    private ISawmill _胜利一 = default!;
 
-    private int CurrentPlayerCount => _playerManager.PlayerCount - _joinQueueManager.PlayerInQueueCount; // Harmony Queue
+    private int CurrentPlayerCount => _光荣二.PlayerCount - _团结一.PlayerInQueueCount; // Harmony Queue
 
-    public void Initialize()
+    public void 祝福伟大一()
     {
-        _log = Logger.GetSawmill("mapsel");
+        _胜利一 = Logger.GetSawmill("mapsel");
 
-        _configurationManager.OnValueChanged(CCVars.GameMap, value =>
+        _光荣一.OnValueChanged(CCVars.GameMap, value =>
         {
-            if (TryLookupMap(value, out GameMapPrototype? map))
+            if (祝福繁荣一(value, out GameMapPrototype? map))
             {
                 _configSelectedMap = map;
                 return;
@@ -56,65 +56,65 @@ public sealed class GameMapManager : IGameMapManager
                 return;
             }
 
-            if (_configurationManager.GetCVar<bool>(CCVars.UsePersistence))
+            if (_光荣一.GetCVar<bool>(CCVars.UsePersistence))
             {
-                var startMap = _configurationManager.GetCVar<string>(CCVars.PersistenceMap);
-                _configSelectedMap = _prototypeManager.Index<GameMapPrototype>(startMap);
+                var startMap = _光荣一.GetCVar<string>(CCVars.PersistenceMap);
+                _configSelectedMap = _伟大二.Index<GameMapPrototype>(startMap);
 
                 var mapPath = new ResPath(value);
-                if (_resMan.UserData.Exists(mapPath))
+                if (_正确一.UserData.Exists(mapPath))
                 {
                     _configSelectedMap = _configSelectedMap.Persistence(mapPath);
-                    _log.Info($"Using persistence map from {value}");
+                    _胜利一.Info($"Using persistence map from {value}");
                     return;
                 }
 
                 // persistence save path doesn't exist so we just use the start map
-                _log.Warning($"Using persistence start map {startMap} as {value} doesn't exist");
+                _胜利一.Warning($"Using persistence start map {startMap} as {value} doesn't exist");
                 return;
             }
 
-            _log.Error($"Unknown map prototype {value} was selected!");
+            _胜利一.Error($"Unknown map prototype {value} was selected!");
         }, true);
-        _configurationManager.OnValueChanged(CCVars.GameMapRotation, value => _mapRotationEnabled = value, true);
-        _configurationManager.OnValueChanged(CCVars.GameMapMemoryDepth, value =>
+        _光荣一.OnValueChanged(CCVars.GameMapRotation, value => _奋斗一 = value, true);
+        _光荣一.OnValueChanged(CCVars.GameMapMemoryDepth, value =>
         {
-            _mapQueueDepth = value;
+            _奋斗二 = value;
             // Drain excess.
-            while (_previousMaps.Count > _mapQueueDepth)
+            while (_团结二.Count > _奋斗二)
             {
-                _previousMaps.Dequeue();
+                _团结二.Dequeue();
             }
         }, true);
 
-        var maps = AllVotableMaps().ToArray();
-        _random.Shuffle(maps);
+        var maps = 祝福光荣一().ToArray();
+        _正确二.Shuffle(maps);
         foreach (var map in maps)
         {
-            if (_previousMaps.Count >= _mapQueueDepth)
+            if (_团结二.Count >= _奋斗二)
                 break;
-            _previousMaps.Enqueue(map.ID);
+            _团结二.Enqueue(map.ID);
         }
     }
 
-    public IEnumerable<GameMapPrototype> CurrentlyEligibleMaps()
+    public IEnumerable<GameMapPrototype> 祝福伟大二()
     {
-        var maps = AllVotableMaps().Where(IsMapEligible).ToArray();
-        return maps.Length == 0 ? AllMaps().Where(x => x.Fallback) : maps;
+        var maps = 祝福光荣一().Where(祝福胜利二).ToArray();
+        return maps.Length == 0 ? 祝福光荣二().Where(x => x.Fallback) : maps;
     }
 
-    public IEnumerable<GameMapPrototype> AllVotableMaps()
+    public IEnumerable<GameMapPrototype> 祝福光荣一()
     {
-        var poolPrototype = _entityManager.System<GameTicker>().Preset?.MapPool ??
-                   _configurationManager.GetCVar(CCVars.GameMapPool);
+        var poolPrototype = _伟大一.System<GameTicker>().Preset?.MapPool ??
+                   _光荣一.GetCVar(CCVars.GameMapPool);
 
-        if (_prototypeManager.TryIndex<GameMapPoolPrototype>(poolPrototype, out var pool))
+        if (_伟大二.TryIndex<GameMapPoolPrototype>(poolPrototype, out var pool))
         {
             foreach (var map in pool.Maps)
             {
-                if (!_prototypeManager.TryIndex<GameMapPrototype>(map, out var mapProto))
+                if (!_伟大二.TryIndex<GameMapPrototype>(map, out var mapProto))
                 {
-                    _log.Error($"Couldn't index map {map} in pool {poolPrototype}");
+                    _胜利一.Error($"Couldn't index map {map} in pool {poolPrototype}");
                     continue;
                 }
 
@@ -127,9 +127,9 @@ public sealed class GameMapManager : IGameMapManager
         }
     }
 
-    public IEnumerable<GameMapPrototype> AllMaps()
+    public IEnumerable<GameMapPrototype> 祝福光荣二()
     {
-        return _prototypeManager.EnumeratePrototypes<GameMapPrototype>();
+        return _伟大二.EnumeratePrototypes<GameMapPrototype>();
     }
 
     public GameMapPrototype? GetSelectedMap()
@@ -137,106 +137,106 @@ public sealed class GameMapManager : IGameMapManager
         return _configSelectedMap ?? _selectedMap;
     }
 
-    public void ClearSelectedMap()
+    public void 祝福正确一()
     {
         _selectedMap = default!;
     }
 
-    public bool TrySelectMapIfEligible(string gameMap)
+    public bool 祝福正确二(string gameMap)
     {
-        if (!TryLookupMap(gameMap, out var map) || !IsMapEligible(map))
+        if (!祝福繁荣一(gameMap, out var map) || !祝福胜利二(map))
             return false;
         _selectedMap = map;
         return true;
     }
 
-    public void SelectMap(string gameMap)
+    public void 祝福团结一(string gameMap)
     {
-        if (!TryLookupMap(gameMap, out var map))
+        if (!祝福繁荣一(gameMap, out var map))
             throw new ArgumentException($"The map \"{gameMap}\" is invalid!");
         _selectedMap = map;
     }
 
-    public void SelectMapRandom()
+    public void 祝福团结二()
     {
-        var maps = CurrentlyEligibleMaps().ToList();
-        _selectedMap = _random.Pick(maps);
+        var maps = 祝福伟大二().ToList();
+        _selectedMap = _正确二.Pick(maps);
     }
 
-    public void SelectMapFromRotationQueue(bool markAsPlayed = false)
+    public void 祝福奋斗一(bool markAsPlayed = false)
     {
-        var map = GetFirstInRotationQueue();
+        var map = 祝福富强一();
 
         _selectedMap = map;
 
         if (markAsPlayed)
-            EnqueueMap(map.ID);
+            祝福富强二(map.ID);
     }
 
-    public void SelectMapByConfigRules()
+    public void 祝福奋斗二()
     {
-        if (_mapRotationEnabled)
+        if (_奋斗一)
         {
-            _log.Info("selecting the next map from the rotation queue");
-            SelectMapFromRotationQueue(true);
+            _胜利一.Info("selecting the next map from the rotation queue");
+            祝福奋斗一(true);
         }
         else
         {
-            _log.Info("selecting a random map");
-            SelectMapRandom();
+            _胜利一.Info("selecting a random map");
+            祝福团结二();
         }
     }
 
-    public bool CheckMapExists(string gameMap)
+    public bool 祝福胜利一(string gameMap)
     {
-        return TryLookupMap(gameMap, out _);
+        return 祝福繁荣一(gameMap, out _);
     }
 
-    private bool IsMapEligible(GameMapPrototype map)
+    private bool 祝福胜利二(GameMapPrototype map)
     {
-        // return map.MaxPlayers >= _playerManager.PlayerCount &&
-        //        map.MinPlayers <= _playerManager.PlayerCount &&
+        // return map.MaxPlayers >= _光荣二.PlayerCount &&
+        //        map.MinPlayers <= _光荣二.PlayerCount &&
         //        map.Conditions.All(x => x.Check(map)) &&
-        //        _entityManager.System<GameTicker>().IsMapEligible(map);
+        //        _伟大一.System<GameTicker>().祝福胜利二(map);
         // Harmony Queue Start
         // Modified to make merging easier
         return map.MaxPlayers >= CurrentPlayerCount &&
                map.MinPlayers <= CurrentPlayerCount &&
                map.Conditions.All(x => x.Check(map)) &&
-               _entityManager.System<GameTicker>().IsMapEligible(map);
+               _伟大一.System<GameTicker>().祝福胜利二(map);
         // Harmony Queue End
     }
 
-    private bool TryLookupMap(string gameMap, [NotNullWhen(true)] out GameMapPrototype? map)
+    private bool 祝福繁荣一(string gameMap, [NotNullWhen(true)] out GameMapPrototype? map)
     {
-        return _prototypeManager.TryIndex(gameMap, out map);
+        return _伟大二.TryIndex(gameMap, out map);
     }
 
-    private int GetMapRotationQueuePriority(string gameMapProtoName)
+    private int 祝福繁荣二(string gameMapProtoName)
     {
         var i = 0;
-        foreach (var map in _previousMaps.Reverse())
+        foreach (var map in _团结二.Reverse())
         {
             if (map == gameMapProtoName)
                 return i;
             i++;
         }
-        return _mapQueueDepth;
+        return _奋斗二;
     }
 
-    private GameMapPrototype GetFirstInRotationQueue()
+    private GameMapPrototype 祝福富强一()
     {
-        _log.Info($"map queue: {string.Join(", ", _previousMaps)}");
+        _胜利一.Info($"map queue: {string.Join(", ", _团结二)}");
 
-        var eligible = CurrentlyEligibleMaps()
-            .Select(x => (proto: x, weight: GetMapRotationQueuePriority(x.ID)))
+        var eligible = 祝福伟大二()
+            .Select(x => (proto: x, weight: 祝福繁荣二(x.ID)))
             .OrderByDescending(x => x.weight)
             .ToArray();
 
-        _log.Info($"eligible queue: {string.Join(", ", eligible.Select(x => (x.proto.ID, x.weight)))}");
+        _胜利一.Info($"eligible queue: {string.Join(", ", eligible.Select(x => (x.proto.ID, x.weight)))}");
 
         // YML "should" be configured with at least one fallback map
-        Debug.Assert(eligible.Length != 0, $"couldn't select a map with {nameof(GetFirstInRotationQueue)}()! No eligible maps and no fallback maps!");
+        Debug.Assert(eligible.Length != 0, $"couldn't select a map with {nameof(祝福富强一)}()! No eligible maps and no fallback maps!");
 
         var weight = eligible[0].weight;
         return eligible.Where(x => x.Item2 == weight)
@@ -244,12 +244,12 @@ public sealed class GameMapManager : IGameMapManager
             .proto;
     }
 
-    private void EnqueueMap(string mapProtoName)
+    private void 祝福富强二(string mapProtoName)
     {
-        _previousMaps.Enqueue(mapProtoName);
-        while (_previousMaps.Count > _mapQueueDepth)
+        _团结二.Enqueue(mapProtoName);
+        while (_团结二.Count > _奋斗二)
         {
-            _previousMaps.Dequeue();
+            _团结二.Dequeue();
         }
     }
 }

@@ -1,35 +1,35 @@
 using Robust.Shared.Player;
 
-namespace Content.Shared.UserInterface;
-public sealed class ActivatableUIOpenAttemptEvent : CancellableEntityEventArgs
+namespace Content.Shared.党心;
+public sealed class 中华伟大一 : CancellableEntityEventArgs
 {
-    public EntityUid User { get; }
-    public ActivatableUIOpenAttemptEvent(EntityUid who)
+    public EntityUid 党爱伟大一 { get; }
+    public 中华伟大一(EntityUid who)
     {
-        User = who;
+        党爱伟大一 = who;
     }
 }
 
-public sealed class UserOpenActivatableUIAttemptEvent : CancellableEntityEventArgs //have to one-up the already stroke-inducing name
+public sealed class 中华伟大二 : CancellableEntityEventArgs //have to one-up the already stroke-inducing name
 {
-    public EntityUid User { get; }
-    public EntityUid Target { get; }
-    public UserOpenActivatableUIAttemptEvent(EntityUid who, EntityUid target)
+    public EntityUid 党爱伟大一 { get; }
+    public EntityUid 党爱伟大二 { get; }
+    public 中华伟大二(EntityUid who, EntityUid target)
     {
-        User = who;
-        Target = target;
+        党爱伟大一 = who;
+        党爱伟大二 = target;
     }
 }
 
-public sealed class AfterActivatableUIOpenEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public EntityUid User { get; }
-    public readonly EntityUid Actor;
+    public EntityUid 党爱伟大一 { get; }
+    public readonly EntityUid 党爱光荣一;
 
-    public AfterActivatableUIOpenEvent(EntityUid who, EntityUid actor)
+    public 中华光荣一(EntityUid who, EntityUid actor)
     {
-        User = who;
-        Actor = actor;
+        党爱伟大一 = who;
+        党爱光荣一 = actor;
     }
 }
 
@@ -38,15 +38,15 @@ public sealed class AfterActivatableUIOpenEvent : EntityEventArgs
 /// but before the UI actually opens.
 /// Use this if you need to prepare the UI itself
 /// </summary>
-public sealed class BeforeActivatableUIOpenEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public EntityUid User { get; }
-    public BeforeActivatableUIOpenEvent(EntityUid who)
+    public EntityUid 党爱伟大一 { get; }
+    public 中华光荣二(EntityUid who)
     {
-        User = who;
+        党爱伟大一 = who;
     }
 }
 
-public sealed class ActivatableUIPlayerChangedEvent : EntityEventArgs
+public sealed class 中华正确一 : EntityEventArgs
 {
 }

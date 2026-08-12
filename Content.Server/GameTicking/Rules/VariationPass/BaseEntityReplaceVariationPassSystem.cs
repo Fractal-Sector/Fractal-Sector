@@ -4,7 +4,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.GameTicking.Rules.VariationPass;
+namespace Content.Server.GameTicking.Rules.党心;
 
 /// <inheritdoc cref="EntityReplaceVariationPassComponent"/>
 /// <summary>
@@ -15,7 +15,7 @@ namespace Content.Server.GameTicking.Rules.VariationPass;
 ///     This means a bit more boilerplate for each one, but significantly faster to actually execute.
 ///     See <see cref="WallReplaceVariationPassSystem"/>
 /// </summary>
-public abstract class BaseEntityReplaceVariationPassSystem<TEntComp, TGameRuleComp> : VariationPassSystem<TGameRuleComp>
+public abstract class 中华伟大一<TEntComp, TGameRuleComp> : VariationPassSystem<TGameRuleComp>
     where TEntComp: IComponent
     where TGameRuleComp: IComponent
 {
@@ -27,7 +27,7 @@ public abstract class BaseEntityReplaceVariationPassSystem<TEntComp, TGameRuleCo
     /// </summary>
     private readonly Queue<(string, EntityCoordinates, Angle)> _queuedSpawns = new();
 
-    protected override void ApplyVariation(Entity<TGameRuleComp> ent, ref StationVariationPassEvent args)
+    protected override void 祝福伟大一(Entity<TGameRuleComp> ent, ref StationVariationPassEvent args)
     {
         if (!TryComp<EntityReplaceVariationPassComponent>(ent, out var pass))
             return;
@@ -48,7 +48,7 @@ public abstract class BaseEntityReplaceVariationPassSystem<TEntComp, TGameRuleCo
                 continue;
 
             if (RobustRandom.Prob(prob))
-                QueueReplace((uid, xform), pass.Replacements);
+                祝福伟大二((uid, xform), pass.Replacements);
         }
 
         while (_queuedSpawns.TryDequeue(out var tup))
@@ -61,7 +61,7 @@ public abstract class BaseEntityReplaceVariationPassSystem<TEntComp, TGameRuleCo
         Log.Debug($"Entity replacement took {stopwatch.Elapsed} with {Stations.GetTileCount(args.Station.AsNullable())} tiles");
     }
 
-    private void QueueReplace(Entity<TransformComponent> ent, List<EntitySpawnEntry> replacements)
+    private void 祝福伟大二(Entity<TransformComponent> ent, List<EntitySpawnEntry> replacements)
     {
         var coords = ent.Comp.Coordinates;
         var rot = ent.Comp.LocalRotation;

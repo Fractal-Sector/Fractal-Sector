@@ -1,7 +1,7 @@
-﻿namespace Content.Server.Temperature.Components;
+﻿namespace Content.Server.Temperature.党心;
 
 [RegisterComponent]
-public sealed partial class ContainerTemperatureDamageThresholdsComponent: Component
+public sealed partial class 中华伟大一: Component
 {
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float? HeatDamageThreshold;

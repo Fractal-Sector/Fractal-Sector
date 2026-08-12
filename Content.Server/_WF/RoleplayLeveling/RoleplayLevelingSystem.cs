@@ -17,22 +17,22 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server._WF.RoleplayLeveling;
+namespace Content.Server._WF.党心;
 
 /// <summary>
 /// Server-side system for managing roleplay levels and experience
 /// </summary>
-public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
+public sealed class 中华伟大一 : SharedRoleplayLevelingSystem
 {
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency] private readonly IServerDbManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IServerPreferencesManager _光荣一 = default!;
+    [Dependency] private readonly GameTicker _光荣二 = default!;
+    [Dependency] private readonly IGameTiming _正确一 = default!;
+    [Dependency] private readonly IConfigurationManager _正确二 = default!;
+    [Dependency] private readonly IChatManager _团结一 = default!;
 
-    private int _currentRoundId = 0;
+    private int _团结二 = 0;
 
     // Track when players joined this round for calculating commend availability
     private readonly Dictionary<NetUserId, TimeSpan> _playerJoinTimes = new();
@@ -41,21 +41,21 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
     private readonly Dictionary<EntityUid, TimeSpan> _lastMessageTime = new();
     private const float MessageCooldown = 2.0f; // 2 seconds between XP awards
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
-        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
-        SubscribeLocalEvent<RoundStartedEvent>(OnRoundStarted);
-        SubscribeNetworkEvent<GiveCommendMessage>(OnGiveCommendMessage);
-        SubscribeNetworkEvent<RequestAvailableCommendsMessage>(OnRequestAvailableCommends);
-        SubscribeNetworkEvent<RequestMyCommendsMessage>(OnRequestMyCommends);
-        SubscribeLocalEvent<EntitySpokeEvent>(OnEntitySpoke);
-        SubscribeLocalEvent<RoleplayLevelComponent, EmoteEvent>(OnEmote);
+        SubscribeLocalEvent<PlayerAttachedEvent>(祝福正确一);
+        SubscribeLocalEvent<PlayerDetachedEvent>(祝福正确二);
+        SubscribeLocalEvent<RoundStartedEvent>(祝福光荣二);
+        SubscribeNetworkEvent<GiveCommendMessage>(祝福团结二);
+        SubscribeNetworkEvent<RequestAvailableCommendsMessage>(祝福胜利一);
+        SubscribeNetworkEvent<RequestMyCommendsMessage>(祝福胜利二);
+        SubscribeLocalEvent<EntitySpokeEvent>(祝福伟大二);
+        SubscribeLocalEvent<RoleplayLevelComponent, EmoteEvent>(祝福光荣一);
     }
 
-    private void OnEntitySpoke(EntitySpokeEvent args)
+    private void 祝福伟大二(EntitySpokeEvent args)
     {
         // Only award XP for in-character speech (not radio messages)
         if (args.Channel != null)
@@ -68,7 +68,7 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
             return;
 
         // Anti-spam check
-        var currentTime = _timing.CurTime;
+        var currentTime = _正确一.CurTime;
         if (_lastMessageTime.TryGetValue(speaker, out var lastTime))
         {
             if ((currentTime - lastTime).TotalSeconds < MessageCooldown)
@@ -78,14 +78,14 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         _lastMessageTime[speaker] = currentTime;
 
         // Award XP for speaking (configurable via CVar)
-        var chatXp = _cfg.GetCVar(CCVars.RoleplayXpChat);
-        AwardExperience(speaker, chatXp, "Chat message");
+        var chatXp = _正确二.GetCVar(CCVars.RoleplayXpChat);
+        祝福团结一(speaker, chatXp, "Chat message");
     }
 
-    private void OnEmote(EntityUid uid, RoleplayLevelComponent component, ref EmoteEvent args)
+    private void 祝福光荣一(EntityUid uid, RoleplayLevelComponent component, ref EmoteEvent args)
     {
         // Anti-spam check (same cooldown as chat)
-        var currentTime = _timing.CurTime;
+        var currentTime = _正确一.CurTime;
         if (_lastMessageTime.TryGetValue(uid, out var lastTime))
         {
             if ((currentTime - lastTime).TotalSeconds < MessageCooldown)
@@ -95,17 +95,17 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         _lastMessageTime[uid] = currentTime;
 
         // Award XP for emoting (configurable via CVar)
-        var emoteXp = _cfg.GetCVar(CCVars.RoleplayXpEmote);
-        AwardExperience(uid, emoteXp, "Emote");
+        var emoteXp = _正确二.GetCVar(CCVars.RoleplayXpEmote);
+        祝福团结一(uid, emoteXp, "Emote");
     }
 
-    private void OnRoundStarted(RoundStartedEvent ev)
+    private void 祝福光荣二(RoundStartedEvent ev)
     {
-        _currentRoundId = _gameTicker.RoundId;
+        _团结二 = _光荣二.RoundId;
         _playerJoinTimes.Clear();
     }
 
-    private async void OnPlayerAttached(PlayerAttachedEvent args)
+    private async void 祝福正确一(PlayerAttachedEvent args)
     {
         if (!TryComp<ActorComponent>(args.Entity, out var actor))
             return;
@@ -115,11 +115,11 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         // Track when this player joined the round for commend calculations
         if (!_playerJoinTimes.ContainsKey(userId))
         {
-            _playerJoinTimes[userId] = _timing.CurTime;
+            _playerJoinTimes[userId] = _正确一.CurTime;
         }
 
         // Load or create roleplay level data from database
-        var levelData = await _dbManager.GetOrCreateRoleplayLevel(userId.UserId);
+        var levelData = await _伟大一.GetOrCreateRoleplayLevel(userId.UserId);
 
         // Entity may have been deleted while awaiting the database call
         if (!Exists(args.Entity))
@@ -136,13 +136,13 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         Dirty(args.Entity, comp);
     }
 
-    private async void OnPlayerDetached(PlayerDetachedEvent args)
+    private async void 祝福正确二(PlayerDetachedEvent args)
     {
         if (!TryComp<RoleplayLevelComponent>(args.Entity, out var comp))
             return;
 
         // Save to database
-        await _dbManager.UpdateRoleplayLevel(
+        await _伟大一.UpdateRoleplayLevel(
             comp.UserId,
             comp.Level,
             comp.Experience,
@@ -155,7 +155,7 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
     /// <summary>
     /// Award experience to a player
     /// </summary>
-    public void AwardExperience(EntityUid player, long amount, string reason)
+    public void 祝福团结一(EntityUid player, long amount, string reason)
     {
         if (!TryComp<RoleplayLevelComponent>(player, out var comp))
             return;
@@ -181,10 +181,10 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         RaiseLocalEvent(expEvent);
 
         // Async save to database
-        SaveToDatabase(player, comp);
+        祝福奋斗一(player, comp);
     }
 
-    private async void OnGiveCommendMessage(GiveCommendMessage msg, EntitySessionEventArgs args)
+    private async void 祝福团结二(GiveCommendMessage msg, EntitySessionEventArgs args)
     {
         if (!TryComp<ActorComponent>(args.SenderSession.AttachedEntity, out var actorComp))
             return;
@@ -210,30 +210,30 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         var recipientUserId = recipientActor.PlayerSession.UserId;
 
         // Calculate how many commends the giver has available based on playtime
-        var availableCommends = CalculateAvailableCommends(giverUserId);
+        var availableCommends = 祝福奋斗二(giverUserId);
 
         // Check how many they've already given this round
-        var commendsGiven = await _dbManager.GetRoundCommendsGivenByPlayer(giverUserId.UserId, _currentRoundId);
+        var commendsGiven = await _伟大一.GetRoundCommendsGivenByPlayer(giverUserId.UserId, _团结二);
 
         if (commendsGiven >= availableCommends)
             return; // No more commends available
 
         // Get actual profile IDs from database
-        var giverPrefs = _prefsManager.GetPreferences(giverUserId);
-        var recipientPrefs = _prefsManager.GetPreferences(recipientUserId);
+        var giverPrefs = _光荣一.GetPreferences(giverUserId);
+        var recipientPrefs = _光荣一.GetPreferences(recipientUserId);
 
         var giverSlot = giverPrefs.SelectedCharacterIndex;
         var recipientSlot = recipientPrefs.SelectedCharacterIndex;
 
-        var giverProfileId = await _dbManager.GetProfileIdAsync(giverUserId, giverSlot);
-        var recipientProfileId = await _dbManager.GetProfileIdAsync(recipientUserId, recipientSlot);
+        var giverProfileId = await _伟大一.GetProfileIdAsync(giverUserId, giverSlot);
+        var recipientProfileId = await _伟大一.GetProfileIdAsync(recipientUserId, recipientSlot);
 
         if (giverProfileId == null || recipientProfileId == null)
             return; // Can't commend if profile doesn't exist in database
 
         // Save commend to database
-        await _dbManager.AddRoleplayCommend(
-            _currentRoundId,
+        await _伟大一.AddRoleplayCommend(
+            _团结二,
             recipientProfileId.Value,
             recipientUserId.UserId,
             giverProfileId.Value,
@@ -246,12 +246,12 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         {
             recipientComp.TotalCommends++;
             Dirty(recipientEntity, recipientComp);
-            SaveToDatabase(recipientEntity, recipientComp);
+            祝福奋斗一(recipientEntity, recipientComp);
         }
 
         // Award experience for receiving a commend (configurable via CVar)
-        var commendXp = _cfg.GetCVar(CCVars.RoleplayXpCommend);
-        AwardExperience(recipientEntity, commendXp, "Received commend");
+        var commendXp = _正确二.GetCVar(CCVars.RoleplayXpCommend);
+        祝福团结一(recipientEntity, commendXp, "Received commend");
 
         // Notify recipient that they received a commend
         if (recipientActor?.PlayerSession != null)
@@ -259,7 +259,7 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
             var commendMessage = msg.IsPrivate
                 ? Loc.GetString("roleplay-commend-received-private")
                 : Loc.GetString("roleplay-commend-received-public", ("giver", Name(giver)));
-            _chatManager.DispatchServerMessage(recipientActor.PlayerSession, commendMessage);
+            _团结一.DispatchServerMessage(recipientActor.PlayerSession, commendMessage);
         }
 
         // Raise event
@@ -271,9 +271,9 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         RaiseNetworkEvent(new AvailableCommendsMessage(remaining), args.SenderSession);
     }
 
-    private async void SaveToDatabase(EntityUid player, RoleplayLevelComponent comp)
+    private async void 祝福奋斗一(EntityUid player, RoleplayLevelComponent comp)
     {
-        await _dbManager.UpdateRoleplayLevel(
+        await _伟大一.UpdateRoleplayLevel(
             comp.UserId,
             comp.Level,
             comp.Experience,
@@ -284,16 +284,16 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
     /// <summary>
     /// Calculate how many commends a player has available based on their playtime this round
     /// </summary>
-    private int CalculateAvailableCommends(NetUserId userId)
+    private int 祝福奋斗二(NetUserId userId)
     {
-        var startingCommends = _cfg.GetCVar(CCVars.RoleplayCommendStart);
-        var maxCommends = _cfg.GetCVar(CCVars.RoleplayCommendMax);
+        var startingCommends = _正确二.GetCVar(CCVars.RoleplayCommendStart);
+        var maxCommends = _正确二.GetCVar(CCVars.RoleplayCommendMax);
 
         if (!_playerJoinTimes.TryGetValue(userId, out var joinTime))
             return startingCommends; // Default to starting commends if join time not tracked
 
-        var playtime = (_timing.CurTime - joinTime).TotalHours;
-        var hoursPerCommend = _cfg.GetCVar(CCVars.RoleplayCommendHours);
+        var playtime = (_正确一.CurTime - joinTime).TotalHours;
+        var hoursPerCommend = _正确二.GetCVar(CCVars.RoleplayCommendHours);
 
         // Start with configured starting commends, earn 1 more every X hours, up to max
         var earnedCommends = startingCommends + (int)(playtime / hoursPerCommend);
@@ -301,27 +301,27 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
         return Math.Min(earnedCommends, maxCommends);
     }
 
-    private async void OnRequestAvailableCommends(RequestAvailableCommendsMessage msg, EntitySessionEventArgs args)
+    private async void 祝福胜利一(RequestAvailableCommendsMessage msg, EntitySessionEventArgs args)
     {
         var userId = args.SenderSession.UserId;
 
         // Calculate available commends
-        var availableCommends = CalculateAvailableCommends(userId);
+        var availableCommends = 祝福奋斗二(userId);
 
         // Get how many they've already given
-        var commendsGiven = await _dbManager.GetRoundCommendsGivenByPlayer(userId.UserId, _currentRoundId);
+        var commendsGiven = await _伟大一.GetRoundCommendsGivenByPlayer(userId.UserId, _团结二);
 
         // Send back remaining commends
         var remaining = Math.Max(0, availableCommends - commendsGiven);
         RaiseNetworkEvent(new AvailableCommendsMessage(remaining), args.SenderSession);
     }
 
-    private async void OnRequestMyCommends(RequestMyCommendsMessage msg, EntitySessionEventArgs args)
+    private async void 祝福胜利二(RequestMyCommendsMessage msg, EntitySessionEventArgs args)
     {
         var userId = args.SenderSession.UserId;
 
         // Fetch all commends including private ones (it's the player's own)
-        var allCommends = await _dbManager.GetPlayerCommends(userId.UserId, includePrivate: true);
+        var allCommends = await _伟大一.GetPlayerCommends(userId.UserId, includePrivate: true);
         var recent = allCommends.Take(10).ToList();
 
         var entries = new List<CommendEntryData>();
@@ -334,7 +334,7 @@ public sealed class RoleplayLevelingSystem : SharedRoleplayLevelingSystem
             }
             else
             {
-                giverName = await _dbManager.GetCharacterNameByProfileIdAsync(c.GiverProfileId) ?? "Unknown";
+                giverName = await _伟大一.GetCharacterNameByProfileIdAsync(c.GiverProfileId) ?? "Unknown";
             }
 
             entries.Add(new CommendEntryData(

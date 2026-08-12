@@ -5,11 +5,11 @@ using Content.Shared.Popups;
 using Content.Shared.Wires;
 using Robust.Shared.Audio;
 
-namespace Content.Shared.VendingMachines;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedVendingMachineSystem
+public abstract partial class 中华伟大一
 {
-    public bool TryAccessMachine(EntityUid uid,
+    public bool 祝福伟大一(EntityUid uid,
         VendingMachineRestockComponent restock,
         VendingMachineComponent machineComponent,
         EntityUid user,
@@ -29,7 +29,7 @@ public abstract partial class SharedVendingMachineSystem
         return true;
     }
 
-    public bool TryMatchPackageToMachine(EntityUid uid,
+    public bool 祝福伟大二(EntityUid uid,
         VendingMachineRestockComponent component,
         VendingMachineComponent machineComponent,
         EntityUid user,
@@ -46,7 +46,7 @@ public abstract partial class SharedVendingMachineSystem
         return true;
     }
 
-    private void OnAfterInteract(EntityUid uid, VendingMachineRestockComponent component, AfterInteractEvent args)
+    private void 祝福光荣一(EntityUid uid, VendingMachineRestockComponent component, AfterInteractEvent args)
     {
         if (args.Target is not { } target || !args.CanReach || args.Handled)
             return;
@@ -54,10 +54,10 @@ public abstract partial class SharedVendingMachineSystem
         if (!TryComp<VendingMachineComponent>(args.Target, out var machineComponent))
             return;
 
-        if (!TryMatchPackageToMachine(uid, component, machineComponent, args.User, target))
+        if (!祝福伟大二(uid, component, machineComponent, args.User, target))
             return;
 
-        if (!TryAccessMachine(uid, component, machineComponent, args.User, target))
+        if (!祝福伟大一(uid, component, machineComponent, args.User, target))
             return;
 
         args.Handled = true;

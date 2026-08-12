@@ -1,23 +1,23 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Nuke
+namespace Content.Shared.党心
 {
-    public enum NukeVisualLayers
+    public enum 中华伟大一
     {
         Base,
         Unlit
     }
 
     [NetSerializable, Serializable]
-    public enum NukeVisuals
+    public enum 中华伟大二
     {
         Deployed,
         State,
     }
 
     [NetSerializable, Serializable]
-    public enum NukeVisualState
+    public enum 中华光荣一
     {
         Idle,
         Armed,
@@ -25,12 +25,12 @@ namespace Content.Shared.Nuke
     }
 
     [Serializable, NetSerializable]
-    public enum NukeUiKey : byte
+    public enum 中华光荣二 : byte
     {
         Key
     }
 
-    public enum NukeStatus : byte
+    public enum 中华正确一 : byte
     {
         AWAIT_DISK,
         AWAIT_CODE,
@@ -40,20 +40,20 @@ namespace Content.Shared.Nuke
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeUiState : BoundUserInterfaceState
+    public sealed class 中华正确二 : BoundUserInterfaceState
     {
-        public bool DiskInserted;
-        public NukeStatus Status;
-        public int RemainingTime;
-        public int CooldownTime;
-        public bool IsAnchored;
-        public int EnteredCodeLength;
-        public int MaxCodeLength;
-        public bool AllowArm;
+        public bool 党爱伟大一;
+        public 中华正确一 Status;
+        public int 党爱伟大二;
+        public int 党爱光荣一;
+        public bool 党爱光荣二;
+        public int 党爱正确一;
+        public int 党爱正确二;
+        public bool 党爱团结一;
     }
 
     [Serializable, NetSerializable]
-    public sealed partial class NukeDisarmDoAfterEvent : SimpleDoAfterEvent
+    public sealed partial class 中华团结一 : SimpleDoAfterEvent
     {
     }
 }

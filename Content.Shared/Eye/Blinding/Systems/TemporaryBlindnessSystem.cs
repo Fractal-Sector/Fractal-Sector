@@ -2,34 +2,34 @@ using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.StatusEffect;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Eye.Blinding.Systems;
+namespace Content.Shared.Eye.Blinding.党心;
 
-public sealed class TemporaryBlindnessSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public static readonly ProtoId<StatusEffectPrototype> BlindingStatusEffect = "TemporaryBlindness";
+    public static readonly ProtoId<StatusEffectPrototype> 党爱伟大一 = "TemporaryBlindness";
 
-    [Dependency] private readonly BlindableSystem _blindableSystem = default!;
+    [Dependency] private readonly BlindableSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TemporaryBlindnessComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<TemporaryBlindnessComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<TemporaryBlindnessComponent, CanSeeAttemptEvent>(OnBlindTrySee);
+        SubscribeLocalEvent<TemporaryBlindnessComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<TemporaryBlindnessComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<TemporaryBlindnessComponent, CanSeeAttemptEvent>(祝福光荣二);
     }
 
-    private void OnStartup(EntityUid uid, TemporaryBlindnessComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, TemporaryBlindnessComponent component, ComponentStartup args)
     {
-        _blindableSystem.UpdateIsBlind(uid);
+        _伟大一.UpdateIsBlind(uid);
     }
 
-    private void OnShutdown(EntityUid uid, TemporaryBlindnessComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, TemporaryBlindnessComponent component, ComponentShutdown args)
     {
-        _blindableSystem.UpdateIsBlind(uid);
+        _伟大一.UpdateIsBlind(uid);
     }
 
-    private void OnBlindTrySee(EntityUid uid, TemporaryBlindnessComponent component, CanSeeAttemptEvent args)
+    private void 祝福光荣二(EntityUid uid, TemporaryBlindnessComponent component, CanSeeAttemptEvent args)
     {
         if (component.LifeStage <= ComponentLifeStage.Running)
             args.Cancel();

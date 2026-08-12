@@ -18,53 +18,53 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Content.Shared.Atmos;
 
-namespace Content.Server.Nutrition.EntitySystems
+namespace Content.Server.Nutrition.党心
 {
-    public sealed partial class SmokingSystem : EntitySystem
+    public sealed partial class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly ReactiveSystem _reactiveSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
-        [Dependency] private readonly AtmosphereSystem _atmos = default!;
-        [Dependency] private readonly TransformSystem _transformSystem = default!;
-        [Dependency] private readonly InventorySystem _inventorySystem = default!;
-        [Dependency] private readonly ClothingSystem _clothing = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedItemSystem _items = default!;
-        [Dependency] private readonly SharedContainerSystem _container = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly ForensicsSystem _forensics = default!;
+        [Dependency] private readonly ReactiveSystem _伟大一 = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _伟大二 = default!;
+        [Dependency] private readonly BloodstreamSystem _光荣一 = default!;
+        [Dependency] private readonly AtmosphereSystem _光荣二 = default!;
+        [Dependency] private readonly TransformSystem _正确一 = default!;
+        [Dependency] private readonly InventorySystem _正确二 = default!;
+        [Dependency] private readonly ClothingSystem _团结一 = default!;
+        [Dependency] private readonly SharedAudioSystem _团结二 = default!;
+        [Dependency] private readonly SharedItemSystem _奋斗一 = default!;
+        [Dependency] private readonly SharedContainerSystem _奋斗二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _胜利一 = default!;
+        [Dependency] private readonly ForensicsSystem _胜利二 = default!;
 
         private const float UpdateTimer = 3f;
 
-        private float _timer;
+        private float _繁荣一;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            SubscribeLocalEvent<SmokableComponent, IsHotEvent>(OnSmokableIsHotEvent);
-            SubscribeLocalEvent<SmokableComponent, ComponentShutdown>(OnSmokableShutdownEvent);
-            SubscribeLocalEvent<SmokableComponent, GotEquippedEvent>(OnSmokeableEquipEvent);
-            Subs.SubscribeWithRelay<SmokableComponent, ExtinguishEvent>(OnExtinguishEvent);
+            SubscribeLocalEvent<SmokableComponent, IsHotEvent>(祝福光荣二);
+            SubscribeLocalEvent<SmokableComponent, ComponentShutdown>(祝福正确一);
+            SubscribeLocalEvent<SmokableComponent, GotEquippedEvent>(祝福正确二);
+            Subs.SubscribeWithRelay<SmokableComponent, ExtinguishEvent>(祝福伟大二);
 
             InitializeCigars();
             InitializePipes();
             InitializeVapes();
         }
 
-        private void OnExtinguishEvent(Entity<SmokableComponent> ent, ref ExtinguishEvent args)
+        private void 祝福伟大二(Entity<SmokableComponent> ent, ref ExtinguishEvent args)
         {
             if (ent.Comp.State == SmokableState.Lit)
-                SetSmokableState(ent, SmokableState.Burnt, ent);
+                祝福光荣一(ent, SmokableState.Burnt, ent);
         }
 
-        public void SetSmokableState(EntityUid uid, SmokableState state, SmokableComponent? smokable = null,
+        public void 祝福光荣一(EntityUid uid, SmokableState state, SmokableComponent? smokable = null,
             AppearanceComponent? appearance = null, ClothingComponent? clothing = null)
         {
             if (!Resolve(uid, ref smokable, ref appearance, ref clothing) || smokable.State == state)
                 return;
 
             smokable.State = state;
-            _appearance.SetData(uid, SmokingVisuals.Smoking, state, appearance);
+            _胜利一.SetData(uid, SmokingVisuals.Smoking, state, appearance);
 
             var newState = state switch
             {
@@ -73,56 +73,56 @@ namespace Content.Server.Nutrition.EntitySystems
                 _ => smokable.UnlitPrefix
             };
 
-            _clothing.SetEquippedPrefix(uid, newState, clothing);
-            _items.SetHeldPrefix(uid, newState);
+            _团结一.SetEquippedPrefix(uid, newState, clothing);
+            _奋斗一.SetHeldPrefix(uid, newState);
 
             if (state == SmokableState.Lit)
             {
                 EnsureComp<BurningComponent>(uid);
-                _audio.PlayPvs(smokable.LightSound, uid);
+                _团结二.PlayPvs(smokable.LightSound, uid);
                 var igniteEvent = new IgnitedEvent();
                 RaiseLocalEvent(uid, ref igniteEvent);
             }
             else
             {
                 RemComp<BurningComponent>(uid);
-                _audio.PlayPvs(smokable.SnuffSound, uid);
+                _团结二.PlayPvs(smokable.SnuffSound, uid);
                 var extinguishEvent = new ExtinguishedEvent();
                 RaiseLocalEvent(uid, ref extinguishEvent);
             }
         }
 
-        private void OnSmokableIsHotEvent(Entity<SmokableComponent> entity, ref IsHotEvent args)
+        private void 祝福光荣二(Entity<SmokableComponent> entity, ref IsHotEvent args)
         {
             args.IsHot = entity.Comp.State == SmokableState.Lit;
         }
 
-        private void OnSmokableShutdownEvent(Entity<SmokableComponent> entity, ref ComponentShutdown args)
+        private void 祝福正确一(Entity<SmokableComponent> entity, ref ComponentShutdown args)
         {
             RemComp<BurningComponent>(entity);
         }
 
-        private void OnSmokeableEquipEvent(Entity<SmokableComponent> entity, ref GotEquippedEvent args)
+        private void 祝福正确二(Entity<SmokableComponent> entity, ref GotEquippedEvent args)
         {
             if (args.Slot == "mask")
             {
-                _forensics.TransferDna(entity.Owner, args.Equipee, false);
+                _胜利二.TransferDna(entity.Owner, args.Equipee, false);
             }
         }
 
-        public override void Update(float frameTime)
+        public override void 祝福团结一(float frameTime)
         {
-            _timer += frameTime;
+            _繁荣一 += frameTime;
 
-            if (_timer < UpdateTimer)
+            if (_繁荣一 < UpdateTimer)
                 return;
 
             var query = EntityQueryEnumerator<BurningComponent, SmokableComponent>();
             while (query.MoveNext(out var uid, out _, out var smokable))
             {
-                if (!_solutionContainerSystem.TryGetSolution(uid, smokable.Solution, out var soln, out var solution))
+                if (!_伟大二.TryGetSolution(uid, smokable.Solution, out var soln, out var solution))
                 {
-                    SetSmokableState(uid, SmokableState.Unlit, smokable);
+                    祝福光荣一(uid, SmokableState.Unlit, smokable);
                     continue;
                 }
 
@@ -132,16 +132,16 @@ namespace Content.Server.Nutrition.EntitySystems
 
                     if (transform.GridUid is { } gridUid)
                     {
-                        var position = _transformSystem.GetGridOrMapTilePosition(uid, transform);
-                        _atmos.HotspotExpose(gridUid, position, smokable.ExposeTemperature, smokable.ExposeVolume, uid, true);
+                        var position = _正确一.GetGridOrMapTilePosition(uid, transform);
+                        _光荣二.HotspotExpose(gridUid, position, smokable.ExposeTemperature, smokable.ExposeVolume, uid, true);
                     }
                 }
 
-                var inhaledSolution = _solutionContainerSystem.SplitSolution(soln.Value, smokable.InhaleAmount * _timer);
+                var inhaledSolution = _伟大二.SplitSolution(soln.Value, smokable.InhaleAmount * _繁荣一);
 
                 if (solution.Volume == FixedPoint2.Zero)
                 {
-                    RaiseLocalEvent(uid, new SmokableSolutionEmptyEvent(), true);
+                    RaiseLocalEvent(uid, new 中华伟大二(), true);
                 }
 
                 if (inhaledSolution.Volume == FixedPoint2.Zero)
@@ -149,25 +149,25 @@ namespace Content.Server.Nutrition.EntitySystems
 
                 // This is awful. I hate this so much.
                 // TODO: Please, someone refactor containers and free me from this bullshit.
-                if (!_container.TryGetContainingContainer((uid, null, null), out var containerManager) ||
-                    !(_inventorySystem.TryGetSlotEntity(containerManager.Owner, "mask", out var inMaskSlotUid) && inMaskSlotUid == uid) ||
+                if (!_奋斗二.TryGetContainingContainer((uid, null, null), out var containerManager) ||
+                    !(_正确二.TryGetSlotEntity(containerManager.Owner, "mask", out var inMaskSlotUid) && inMaskSlotUid == uid) ||
                     !TryComp(containerManager.Owner, out BloodstreamComponent? bloodstream))
                 {
                     continue;
                 }
 
-                _reactiveSystem.DoEntityReaction(containerManager.Owner, inhaledSolution, ReactionMethod.Ingestion);
-                _bloodstreamSystem.TryAddToChemicals((containerManager.Owner, bloodstream), inhaledSolution);
+                _伟大一.DoEntityReaction(containerManager.Owner, inhaledSolution, ReactionMethod.Ingestion);
+                _光荣一.TryAddToChemicals((containerManager.Owner, bloodstream), inhaledSolution);
             }
 
-            _timer -= UpdateTimer;
+            _繁荣一 -= UpdateTimer;
         }
     }
 
     /// <summary>
     ///     Directed event raised when the smokable solution is empty.
     /// </summary>
-    public sealed class SmokableSolutionEmptyEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
     }
 }

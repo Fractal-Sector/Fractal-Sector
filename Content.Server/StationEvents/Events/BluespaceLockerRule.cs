@@ -7,16 +7,16 @@ using Content.Shared.Station.Components;
 using Content.Shared.Storage.Components;
 using Content.Shared.GameTicking.Components;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class BluespaceLockerRule : StationEventSystem<BluespaceLockerRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<BluespaceLockerRuleComponent>
 {
-    [Dependency] private readonly BluespaceLockerSystem _bluespaceLocker = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly BluespaceLockerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
-    protected override void Started(EntityUid uid, BluespaceLockerRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, BluespaceLockerRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
         var targets = new List<EntityUid>();
         var query = EntityQueryEnumerator<EntityStorageComponent, ResistLockerComponent>();
@@ -30,7 +30,7 @@ public sealed class BluespaceLockerRule : StationEventSystem<BluespaceLockerRule
         {
             if (HasComp<AccessReaderComponent>(potentialLink) ||
                 HasComp<BluespaceLockerComponent>(potentialLink) ||
-                !HasComp<StationMemberComponent>(_transform.GetGrid(potentialLink)))
+                !HasComp<StationMemberComponent>(_伟大二.GetGrid(potentialLink)))
                 continue;
 
             var comp = AddComp<BluespaceLockerComponent>(potentialLink);
@@ -42,8 +42,8 @@ public sealed class BluespaceLockerRule : StationEventSystem<BluespaceLockerRule
             comp.AutoLinksUseProperties = true;
             comp.AutoLinkProperties.BluespaceEffectOnInit = true;
             comp.AutoLinkProperties.BluespaceEffectOnTeleportSource = true;
-            _bluespaceLocker.GetTarget(potentialLink, comp, true);
-            _bluespaceLocker.BluespaceEffect(potentialLink, comp, comp, true);
+            _伟大一.GetTarget(potentialLink, comp, true);
+            _伟大一.BluespaceEffect(potentialLink, comp, comp, true);
 
             Sawmill.Info($"Converted {ToPrettyString(potentialLink)} to bluespace locker");
 

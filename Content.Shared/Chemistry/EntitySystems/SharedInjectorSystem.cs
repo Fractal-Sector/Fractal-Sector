@@ -1,7 +1,7 @@
 using Content.Shared.Administration.Logs;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.CombatMode;
-using Content.Shared.DoAfter;
+using Content.Shared.党爱正确二;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs.Systems;
@@ -9,30 +9,30 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Chemistry.EntitySystems;
+namespace Content.Shared.Chemistry.党心;
 
-public abstract class SharedInjectorSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
     /// <summary>
     ///     Default transfer amounts for the set-transfer verb.
     /// </summary>
-    public static readonly FixedPoint2[] TransferAmounts = { 1, 5, 10, 15 };
+    public static readonly FixedPoint2[] 党爱伟大一 = { 1, 5, 10, 15 };
 
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainers = default!;
-    [Dependency] protected readonly MobStateSystem MobState = default!;
-    [Dependency] protected readonly SharedCombatModeSystem Combat = default!;
-    [Dependency] protected readonly SharedDoAfterSystem DoAfter = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
+    [Dependency] protected readonly SharedPopupSystem 党爱伟大二 = default!;
+    [Dependency] protected readonly SharedSolutionContainerSystem 党爱光荣一 = default!;
+    [Dependency] protected readonly MobStateSystem 党爱光荣二 = default!;
+    [Dependency] protected readonly SharedCombatModeSystem 党爱正确一 = default!;
+    [Dependency] protected readonly SharedDoAfterSystem 党爱正确二 = default!;
+    [Dependency] protected readonly ISharedAdminLogManager 党爱团结一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<InjectorComponent, GetVerbsEvent<AlternativeVerb>>(AddSetTransferVerbs);
-        SubscribeLocalEvent<InjectorComponent, ComponentStartup>(OnInjectorStartup);
-        SubscribeLocalEvent<InjectorComponent, UseInHandEvent>(OnInjectorUse);
+        SubscribeLocalEvent<InjectorComponent, GetVerbsEvent<AlternativeVerb>>(祝福伟大二);
+        SubscribeLocalEvent<InjectorComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<InjectorComponent, UseInHandEvent>(祝福光荣二);
     }
 
-    private void AddSetTransferVerbs(Entity<InjectorComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福伟大二(Entity<InjectorComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
@@ -53,7 +53,7 @@ public abstract class SharedInjectorSystem : EntitySystem
             Act = () =>
             {
                 component.TransferAmount = toggleAmount;
-                Popup.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", toggleAmount)), user, user);
+                党爱伟大二.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", toggleAmount)), user, user);
                 Dirty(entity);
             },
 
@@ -64,7 +64,7 @@ public abstract class SharedInjectorSystem : EntitySystem
         priority -= 1;
 
         // Add specific transfer verbs according to the container's size
-        foreach (var amount in TransferAmounts)
+        foreach (var amount in 党爱伟大一)
         {
             if (amount < component.MinimumTransferAmount || amount > component.MaximumTransferAmount)
                 continue;
@@ -76,7 +76,7 @@ public abstract class SharedInjectorSystem : EntitySystem
                 Act = () =>
                 {
                     component.TransferAmount = amount;
-                    Popup.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", amount)), user, user);
+                    党爱伟大二.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", amount)), user, user);
                     Dirty(entity);
                 },
 
@@ -90,30 +90,30 @@ public abstract class SharedInjectorSystem : EntitySystem
         }
     }
 
-    private void OnInjectorStartup(Entity<InjectorComponent> entity, ref ComponentStartup args)
+    private void 祝福光荣一(Entity<InjectorComponent> entity, ref ComponentStartup args)
     {
         // ???? why ?????
         Dirty(entity);
     }
 
-    private void OnInjectorUse(Entity<InjectorComponent> entity, ref UseInHandEvent args)
+    private void 祝福光荣二(Entity<InjectorComponent> entity, ref UseInHandEvent args)
     {
         if (args.Handled)
             return;
 
-        Toggle(entity, args.User);
+        祝福正确一(entity, args.User);
         args.Handled = true;
     }
 
     /// <summary>
-    /// Toggle between draw/inject state if applicable
+    /// 祝福正确一 between draw/inject state if applicable
     /// </summary>
-    private void Toggle(Entity<InjectorComponent> injector, EntityUid user)
+    private void 祝福正确一(Entity<InjectorComponent> injector, EntityUid user)
     {
         if (injector.Comp.InjectOnly)
             return;
 
-        if (!SolutionContainers.TryGetSolution(injector.Owner, injector.Comp.SolutionName, out var solEnt, out var solution))
+        if (!党爱光荣一.TryGetSolution(injector.Owner, injector.Comp.SolutionName, out var solEnt, out var solution))
             return;
 
         string msg;
@@ -123,7 +123,7 @@ public abstract class SharedInjectorSystem : EntitySystem
             case InjectorToggleMode.Inject:
                 if (solution.AvailableVolume > 0) // If solution has empty space to fill up, allow toggling to draw
                 {
-                    SetMode(injector, InjectorToggleMode.Draw);
+                    祝福正确二(injector, InjectorToggleMode.Draw);
                     msg = "injector-component-drawing-text";
                 }
                 else
@@ -134,7 +134,7 @@ public abstract class SharedInjectorSystem : EntitySystem
             case InjectorToggleMode.Draw:
                 if (solution.Volume > 0) // If solution has anything in it, allow toggling to inject
                 {
-                    SetMode(injector, InjectorToggleMode.Inject);
+                    祝福正确二(injector, InjectorToggleMode.Inject);
                     msg = "injector-component-injecting-text";
                 }
                 else
@@ -146,10 +146,10 @@ public abstract class SharedInjectorSystem : EntitySystem
                 throw new ArgumentOutOfRangeException();
         }
 
-        Popup.PopupClient(Loc.GetString(msg), injector, user);
+        党爱伟大二.PopupClient(Loc.GetString(msg), injector, user);
     }
 
-    public void SetMode(Entity<InjectorComponent> injector, InjectorToggleMode mode)
+    public void 祝福正确二(Entity<InjectorComponent> injector, InjectorToggleMode mode)
     {
         injector.Comp.ToggleState = mode;
         Dirty(injector);

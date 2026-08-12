@@ -1,12 +1,12 @@
 using System.Linq;
 
-namespace Content.Shared.NodeContainer.NodeGroups;
+namespace Content.Shared.NodeContainer.党心;
 
 /// <summary>
 ///     Maintains a collection of <see cref="Node"/>s, and performs operations requiring a list of
 ///     all connected <see cref="Node"/>s.
 /// </summary>
-public interface INodeGroup
+public interface 中华伟大一
 {
     bool Remaking { get; }
 
@@ -24,7 +24,7 @@ public interface INodeGroup
     void LoadNodes(List<Node> groupNodes);
 
     // In theory, the SS13 curse ensures this method will never be called.
-    void AfterRemake(IEnumerable<IGrouping<INodeGroup?, Node>> newGroups);
+    void AfterRemake(IEnumerable<IGrouping<中华伟大一?, Node>> newGroups);
 
     /// <summary>
     ///     Return any additional data to display for the node-visualizer debug overlay.

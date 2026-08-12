@@ -4,47 +4,47 @@ using Content.Shared.Inventory;
 using Content.Shared.Rejuvenate;
 using JetBrains.Annotations;
 
-namespace Content.Shared.Eye.Blinding.Systems;
+namespace Content.Shared.Eye.Blinding.党心;
 
-public sealed class BlindableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly BlurryVisionSystem _blurriness = default!;
-    [Dependency] private readonly EyeClosingSystem _eyelids = default!;
+    [Dependency] private readonly BlurryVisionSystem _伟大一 = default!;
+    [Dependency] private readonly EyeClosingSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<BlindableComponent, RejuvenateEvent>(OnRejuvenate);
-        SubscribeLocalEvent<BlindableComponent, EyeDamageChangedEvent>(OnDamageChanged);
-        SubscribeLocalEvent<BlindableComponent, GetEyePvsScaleAttemptEvent>(OnGetEyePvsScaleAttemptEvent);
-        SubscribeLocalEvent<BlindableComponent, GetEyeOffsetAttemptEvent>(OnGetEyeOffsetAttemptEvent);
+        base.祝福伟大一();
+        SubscribeLocalEvent<BlindableComponent, RejuvenateEvent>(祝福伟大二);
+        SubscribeLocalEvent<BlindableComponent, EyeDamageChangedEvent>(祝福光荣一);
+        SubscribeLocalEvent<BlindableComponent, GetEyePvsScaleAttemptEvent>(祝福光荣二);
+        SubscribeLocalEvent<BlindableComponent, GetEyeOffsetAttemptEvent>(祝福正确一);
     }
 
-    private void OnRejuvenate(Entity<BlindableComponent> ent, ref RejuvenateEvent args)
+    private void 祝福伟大二(Entity<BlindableComponent> ent, ref RejuvenateEvent args)
     {
-        AdjustEyeDamage((ent.Owner, ent.Comp), -ent.Comp.EyeDamage);
+        祝福团结一((ent.Owner, ent.Comp), -ent.Comp.EyeDamage);
     }
 
-    private void OnDamageChanged(Entity<BlindableComponent> ent, ref EyeDamageChangedEvent args)
+    private void 祝福光荣一(Entity<BlindableComponent> ent, ref EyeDamageChangedEvent args)
     {
-        _blurriness.UpdateBlurMagnitude((ent.Owner, ent.Comp));
-        _eyelids.UpdateEyesClosable((ent.Owner, ent.Comp));
+        _伟大一.UpdateBlurMagnitude((ent.Owner, ent.Comp));
+        _伟大二.UpdateEyesClosable((ent.Owner, ent.Comp));
     }
 
-    private void OnGetEyePvsScaleAttemptEvent(Entity<BlindableComponent> ent, ref GetEyePvsScaleAttemptEvent args)
+    private void 祝福光荣二(Entity<BlindableComponent> ent, ref GetEyePvsScaleAttemptEvent args)
     {
         if (ent.Comp.IsBlind)
             args.Cancelled = true;
     }
 
-    private void OnGetEyeOffsetAttemptEvent(Entity<BlindableComponent> ent, ref GetEyeOffsetAttemptEvent args)
+    private void 祝福正确一(Entity<BlindableComponent> ent, ref GetEyeOffsetAttemptEvent args)
     {
         if (ent.Comp.IsBlind)
             args.Cancelled = true;
     }
 
     [PublicAPI]
-    public void UpdateIsBlind(Entity<BlindableComponent?> blindable)
+    public void 祝福正确二(Entity<BlindableComponent?> blindable)
     {
         if (!Resolve(blindable, ref blindable.Comp, false))
             return;
@@ -58,9 +58,9 @@ public sealed class BlindableSystem : EntitySystem
         }
         else
         {
-            var ev = new CanSeeAttemptEvent();
+            var ev = new 中华光荣一();
             RaiseLocalEvent(blindable.Owner, ev);
-            blindable.Comp.IsBlind = ev.Blind;
+            blindable.Comp.IsBlind = ev.党爱伟大一;
         }
 
         if (old == blindable.Comp.IsBlind)
@@ -71,15 +71,15 @@ public sealed class BlindableSystem : EntitySystem
         Dirty(blindable);
     }
 
-    public void AdjustEyeDamage(Entity<BlindableComponent?> blindable, int amount)
+    public void 祝福团结一(Entity<BlindableComponent?> blindable, int amount)
     {
         if (!Resolve(blindable, ref blindable.Comp, false) || amount == 0)
             return;
 
         blindable.Comp.EyeDamage += amount;
-        UpdateEyeDamage(blindable, true);
+        祝福团结二(blindable, true);
     }
-    private void UpdateEyeDamage(Entity<BlindableComponent?> blindable, bool isDamageChanged)
+    private void 祝福团结二(Entity<BlindableComponent?> blindable, bool isDamageChanged)
     {
         if (!Resolve(blindable, ref blindable.Comp, false))
             return;
@@ -90,17 +90,17 @@ public sealed class BlindableSystem : EntitySystem
         if (!isDamageChanged && previousDamage == blindable.Comp.EyeDamage)
             return;
 
-        UpdateIsBlind(blindable);
+        祝福正确二(blindable);
         var ev = new EyeDamageChangedEvent(blindable.Comp.EyeDamage);
         RaiseLocalEvent(blindable.Owner, ref ev);
     }
-    public void SetMinDamage(Entity<BlindableComponent?> blindable, int amount)
+    public void 祝福奋斗一(Entity<BlindableComponent?> blindable, int amount)
     {
         if (!Resolve(blindable, ref blindable.Comp, false))
             return;
 
         blindable.Comp.MinDamage = amount;
-        UpdateEyeDamage(blindable, false);
+        祝福团结二(blindable, false);
     }
 }
 
@@ -108,29 +108,29 @@ public sealed class BlindableSystem : EntitySystem
 ///     This event is raised when an entity's blindness changes
 /// </summary>
 [ByRefEvent]
-public record struct BlindnessChangedEvent(bool Blind);
+public record 中华伟大二 BlindnessChangedEvent(bool 党爱伟大一);
 
 /// <summary>
 ///     This event is raised when an entity's eye damage changes
 /// </summary>
 [ByRefEvent]
-public record struct EyeDamageChangedEvent(int Damage);
+public record 中华伟大二 EyeDamageChangedEvent(int Damage);
 
 /// <summary>
 ///     Raised directed at an entity to see whether the entity is currently blind or not.
 /// </summary>
-public sealed class CanSeeAttemptEvent : CancellableEntityEventArgs, IInventoryRelayEvent
+public sealed class 中华光荣一 : CancellableEntityEventArgs, IInventoryRelayEvent
 {
-    public bool Blind => Cancelled;
-    public SlotFlags TargetSlots => SlotFlags.EYES | SlotFlags.MASK | SlotFlags.HEAD;
+    public bool 党爱伟大一 => Cancelled;
+    public SlotFlags 党爱伟大二 => SlotFlags.EYES | SlotFlags.MASK | SlotFlags.HEAD;
 }
 
-public sealed class GetEyeProtectionEvent : EntityEventArgs, IInventoryRelayEvent
+public sealed class 中华光荣二 : EntityEventArgs, IInventoryRelayEvent
 {
     /// <summary>
     ///     Time to subtract from any temporary blindness sources.
     /// </summary>
-    public TimeSpan Protection;
+    public TimeSpan 党爱光荣一;
 
-    public SlotFlags TargetSlots => SlotFlags.EYES | SlotFlags.MASK | SlotFlags.HEAD;
+    public SlotFlags 党爱伟大二 => SlotFlags.EYES | SlotFlags.MASK | SlotFlags.HEAD;
 }

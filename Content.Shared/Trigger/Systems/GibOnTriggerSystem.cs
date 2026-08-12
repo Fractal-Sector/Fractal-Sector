@@ -3,21 +3,21 @@ using Content.Shared.Inventory;
 using Content.Shared.Trigger.Components.Effects;
 using Content.Shared.Body.Components; // Frontier
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class GibOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly SharedBodySystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GibOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<GibOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<GibOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<GibOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -29,7 +29,7 @@ public sealed class GibOnTriggerSystem : EntitySystem
 
         if (ent.Comp.DeleteItems)
         {
-            var items = _inventory.GetHandOrInventoryEntities(target.Value);
+            var items = _伟大二.GetHandOrInventoryEntities(target.Value);
             foreach (var item in items)
             {
                 PredictedQueueDel(item);
@@ -41,7 +41,7 @@ public sealed class GibOnTriggerSystem : EntitySystem
         {
             if (TryComp<BodyComponent>(ent, out var body))
             {
-                var organs = _body.GetBodyOrganEntityComps<TransformComponent>((ent, body));
+                var organs = _伟大一.GetBodyOrganEntityComps<TransformComponent>((ent, body));
                 foreach (var organ in organs)
                 {
                     Del(organ.Owner);
@@ -50,7 +50,7 @@ public sealed class GibOnTriggerSystem : EntitySystem
         }
 
         if (ent.Comp.Gib)
-            _body.GibBody(target.Value, true);
+            _伟大一.GibBody(target.Value, true);
         // End Frontier
         args.Handled = true;
     }

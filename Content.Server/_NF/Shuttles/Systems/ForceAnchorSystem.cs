@@ -5,21 +5,21 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 
-namespace Content.Server._NF.Shuttles.Systems;
+namespace Content.Server._NF.Shuttles.党心;
 
-public sealed partial class ForceAnchorSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     [Dependency] PhysicsSystem _physics = default!;
     [Dependency] ShuttleSystem _shuttle = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ForceAnchorComponent, MapInitEvent>(OnForceAnchorMapInit);
-        SubscribeLocalEvent<ForceAnchorPostFTLComponent, FTLCompletedEvent>(OnForceAnchorPostFTLCompleted);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ForceAnchorComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ForceAnchorPostFTLComponent, FTLCompletedEvent>(祝福光荣一);
     }
 
-    private void OnForceAnchorMapInit(Entity<ForceAnchorComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ForceAnchorComponent> ent, ref MapInitEvent args)
     {
         if (TryComp<PhysicsComponent>(ent, out var physics))
         {
@@ -31,7 +31,7 @@ public sealed partial class ForceAnchorSystem : EntitySystem
         EnsureComp<PreventGridAnchorChangesComponent>(ent);
     }
 
-    private void OnForceAnchorPostFTLCompleted(Entity<ForceAnchorPostFTLComponent> ent, ref FTLCompletedEvent args)
+    private void 祝福光荣一(Entity<ForceAnchorPostFTLComponent> ent, ref FTLCompletedEvent args)
     {
         if (TryComp<PhysicsComponent>(ent, out var physics))
         {

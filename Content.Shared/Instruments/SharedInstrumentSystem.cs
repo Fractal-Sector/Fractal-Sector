@@ -1,18 +1,18 @@
-namespace Content.Shared.Instruments;
+namespace Content.Shared.党心;
 
-public abstract class SharedInstrumentSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public abstract bool ResolveInstrument(EntityUid uid, ref SharedInstrumentComponent? component);
+    public abstract bool 祝福伟大一(EntityUid uid, ref SharedInstrumentComponent? component);
 
-    public virtual void SetupRenderer(EntityUid uid, bool fromStateChange, SharedInstrumentComponent? instrument = null)
+    public virtual void 祝福伟大二(EntityUid uid, bool fromStateChange, SharedInstrumentComponent? instrument = null)
     {
     }
 
-    public virtual void EndRenderer(EntityUid uid, bool fromStateChange, SharedInstrumentComponent? instrument = null)
+    public virtual void 祝福光荣一(EntityUid uid, bool fromStateChange, SharedInstrumentComponent? instrument = null)
     {
     }
 
-    public void SetInstrumentProgram(EntityUid uid, SharedInstrumentComponent component, byte program, byte bank)
+    public void 祝福光荣二(EntityUid uid, SharedInstrumentComponent component, byte program, byte bank)
     {
         component.InstrumentBank = bank;
         component.InstrumentProgram = program;

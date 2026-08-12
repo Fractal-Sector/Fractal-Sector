@@ -25,69 +25,69 @@ using Robust.Shared.Containers;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Kitchen;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Used to butcher some entities like monkeys.
 /// </summary>
-public sealed class SharedKitchenSpikeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ISharedAdminLogManager _logger = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly DamageableSystem _光荣一 = default!;
+    [Dependency] private readonly ExamineSystemShared _光荣二 = default!;
+    [Dependency] private readonly MetaDataSystem _正确一 = default!;
+    [Dependency] private readonly MobStateSystem _正确二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _团结一 = default!;
+    [Dependency] private readonly SharedAudioSystem _团结二 = default!;
+    [Dependency] private readonly SharedBodySystem _奋斗一 = default!;
+    [Dependency] private readonly SharedContainerSystem _奋斗二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _胜利一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _胜利二 = default!;
+    [Dependency] private readonly SharedPopupSystem _繁荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<KitchenSpikeComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<KitchenSpikeComponent, ContainerIsInsertingAttemptEvent>(OnInsertAttempt);
-        SubscribeLocalEvent<KitchenSpikeComponent, EntInsertedIntoContainerMessage>(OnEntInsertedIntoContainer);
-        SubscribeLocalEvent<KitchenSpikeComponent, EntRemovedFromContainerMessage>(OnEntRemovedFromContainer);
-        SubscribeLocalEvent<KitchenSpikeComponent, InteractHandEvent>(OnInteractHand);
-        SubscribeLocalEvent<KitchenSpikeComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<KitchenSpikeComponent, CanDropTargetEvent>(OnCanDrop);
-        SubscribeLocalEvent<KitchenSpikeComponent, DragDropTargetEvent>(OnDragDrop);
-        SubscribeLocalEvent<KitchenSpikeComponent, SpikeHookDoAfterEvent>(OnSpikeHookDoAfter);
-        SubscribeLocalEvent<KitchenSpikeComponent, SpikeUnhookDoAfterEvent>(OnSpikeUnhookDoAfter);
-        SubscribeLocalEvent<KitchenSpikeComponent, SpikeButcherDoAfterEvent>(OnSpikeButcherDoAfter);
-        SubscribeLocalEvent<KitchenSpikeComponent, ExaminedEvent>(OnSpikeExamined);
-        SubscribeLocalEvent<KitchenSpikeComponent, GetVerbsEvent<Verb>>(OnGetVerbs);
-        SubscribeLocalEvent<KitchenSpikeComponent, DestructionEventArgs>(OnDestruction);
+        SubscribeLocalEvent<KitchenSpikeComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<KitchenSpikeComponent, ContainerIsInsertingAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<KitchenSpikeComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<KitchenSpikeComponent, EntRemovedFromContainerMessage>(祝福正确一);
+        SubscribeLocalEvent<KitchenSpikeComponent, InteractHandEvent>(祝福正确二);
+        SubscribeLocalEvent<KitchenSpikeComponent, InteractUsingEvent>(祝福团结一);
+        SubscribeLocalEvent<KitchenSpikeComponent, CanDropTargetEvent>(祝福团结二);
+        SubscribeLocalEvent<KitchenSpikeComponent, DragDropTargetEvent>(祝福奋斗一);
+        SubscribeLocalEvent<KitchenSpikeComponent, 中华伟大二>(祝福奋斗二);
+        SubscribeLocalEvent<KitchenSpikeComponent, 中华光荣一>(祝福胜利一);
+        SubscribeLocalEvent<KitchenSpikeComponent, 中华光荣二>(祝福胜利二);
+        SubscribeLocalEvent<KitchenSpikeComponent, ExaminedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<KitchenSpikeComponent, GetVerbsEvent<Verb>>(祝福繁荣二);
+        SubscribeLocalEvent<KitchenSpikeComponent, DestructionEventArgs>(祝福富强一);
 
-        SubscribeLocalEvent<KitchenSpikeVictimComponent, ExaminedEvent>(OnVictimExamined);
+        SubscribeLocalEvent<KitchenSpikeVictimComponent, ExaminedEvent>(祝福富强二);
 
         // Prevent the victim from doing anything while on the spike.
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, ChangeDirectionAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, UpdateCanMoveEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, UseAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, ThrowAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, DropAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, AttackAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, PickupAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, IsEquippingAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, IsUnequippingAttemptEvent>(OnAttempt);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, ChangeDirectionAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, UpdateCanMoveEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, UseAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, ThrowAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, DropAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, AttackAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, PickupAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, IsEquippingAttemptEvent>(祝福民主一);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, IsUnequippingAttemptEvent>(祝福民主一);
 
         // Container Jank
-        SubscribeLocalEvent<KitchenSpikeHookedComponent, AccessibleOverrideEvent>(OnAccessibleOverride);
+        SubscribeLocalEvent<KitchenSpikeHookedComponent, AccessibleOverrideEvent>(祝福民主二);
     }
 
-    private void OnInit(Entity<KitchenSpikeComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<KitchenSpikeComponent> ent, ref ComponentInit args)
     {
-        ent.Comp.BodyContainer = _containerSystem.EnsureContainer<ContainerSlot>(ent, ent.Comp.ContainerId);
+        ent.Comp.BodyContainer = _奋斗二.EnsureContainer<ContainerSlot>(ent, ent.Comp.ContainerId);
     }
 
-    private void OnInsertAttempt(Entity<KitchenSpikeComponent> ent, ref ContainerIsInsertingAttemptEvent args)
+    private void 祝福光荣一(Entity<KitchenSpikeComponent> ent, ref ContainerIsInsertingAttemptEvent args)
     {
         if (args.Cancelled || TryComp<ButcherableComponent>(args.EntityUid, out var butcherable) && butcherable.Type == ButcheringType.Spike)
             return;
@@ -95,40 +95,40 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         args.Cancel();
     }
 
-    private void OnEntInsertedIntoContainer(Entity<KitchenSpikeComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福光荣二(Entity<KitchenSpikeComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        if (_gameTiming.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         EnsureComp<KitchenSpikeHookedComponent>(args.Entity);
-        _damageableSystem.TryChangeDamage(args.Entity, ent.Comp.SpikeDamage, true);
+        _光荣一.TryChangeDamage(args.Entity, ent.Comp.SpikeDamage, true);
 
-        ent.Comp.NextDamage = _gameTiming.CurTime + ent.Comp.DamageInterval;
+        ent.Comp.NextDamage = _伟大一.CurTime + ent.Comp.DamageInterval;
         Dirty(ent);
 
         // TODO: Add sprites for different species.
-        _appearanceSystem.SetData(ent.Owner, KitchenSpikeVisuals.Status, KitchenSpikeStatus.Bloody);
+        _团结一.SetData(ent.Owner, KitchenSpikeVisuals.Status, KitchenSpikeStatus.Bloody);
     }
 
-    private void OnEntRemovedFromContainer(Entity<KitchenSpikeComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福正确一(Entity<KitchenSpikeComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        if (_gameTiming.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         RemComp<KitchenSpikeHookedComponent>(args.Entity);
-        _damageableSystem.TryChangeDamage(args.Entity, ent.Comp.SpikeDamage, true);
+        _光荣一.TryChangeDamage(args.Entity, ent.Comp.SpikeDamage, true);
 
-        _appearanceSystem.SetData(ent.Owner, KitchenSpikeVisuals.Status, KitchenSpikeStatus.Empty);
+        _团结一.SetData(ent.Owner, KitchenSpikeVisuals.Status, KitchenSpikeStatus.Empty);
     }
 
-    private void OnInteractHand(Entity<KitchenSpikeComponent> ent, ref InteractHandEvent args)
+    private void 祝福正确二(Entity<KitchenSpikeComponent> ent, ref InteractHandEvent args)
     {
         var victim = ent.Comp.BodyContainer.ContainedEntity;
 
         if (args.Handled || !victim.HasValue)
             return;
 
-        _popupSystem.PopupClient(Loc.GetString("butcherable-need-knife",
+        _繁荣一.PopupClient(Loc.GetString("butcherable-need-knife",
             ("target", Identity.Entity(victim.Value, EntityManager))),
             ent,
             args.User,
@@ -137,7 +137,7 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnInteractUsing(Entity<KitchenSpikeComponent> ent, ref InteractUsingEvent args)
+    private void 祝福团结一(Entity<KitchenSpikeComponent> ent, ref InteractUsingEvent args)
     {
         var victim = ent.Comp.BodyContainer.ContainedEntity;
 
@@ -148,7 +148,7 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
 
         if (!TryComp<SharpComponent>(args.Used, out var sharp))
         {
-            _popupSystem.PopupClient(Loc.GetString("butcherable-need-knife",
+            _繁荣一.PopupClient(Loc.GetString("butcherable-need-knife",
                     ("target", Identity.Entity(victim.Value, EntityManager))),
                     ent,
                     args.User,
@@ -159,7 +159,7 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
 
         var victimIdentity = Identity.Entity(victim.Value, EntityManager);
 
-        _popupSystem.PopupPredicted(Loc.GetString("comp-kitchen-spike-begin-butcher-self", ("victim", victimIdentity)),
+        _繁荣一.PopupPredicted(Loc.GetString("comp-kitchen-spike-begin-butcher-self", ("victim", victimIdentity)),
             Loc.GetString("comp-kitchen-spike-begin-butcher", ("user", Identity.Entity(args.User, EntityManager)), ("victim", victimIdentity)),
             ent,
             args.User,
@@ -167,15 +167,15 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
 
         var delay = TimeSpan.FromSeconds(sharp.ButcherDelayModifier * butcherable.ButcherDelay);
 
-        if (_mobStateSystem.IsAlive(victim.Value))
+        if (_正确二.IsAlive(victim.Value))
             delay += ent.Comp.ButcherDelayAlive;
         else
             delay *= ent.Comp.ButcherModifierDead;
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager,
+        _胜利一.TryStartDoAfter(new DoAfterArgs(EntityManager,
             args.User,
             delay,
-            new SpikeButcherDoAfterEvent(),
+            new 中华光荣二(),
             ent,
             target: victim,
             used: args.Used)
@@ -186,21 +186,21 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         });
     }
 
-    private void OnCanDrop(Entity<KitchenSpikeComponent> ent, ref CanDropTargetEvent args)
+    private void 祝福团结二(Entity<KitchenSpikeComponent> ent, ref CanDropTargetEvent args)
     {
         if (args.Handled)
             return;
 
-        args.CanDrop = _containerSystem.CanInsert(args.Dragged, ent.Comp.BodyContainer);
+        args.CanDrop = _奋斗二.CanInsert(args.Dragged, ent.Comp.BodyContainer);
         args.Handled = true;
     }
 
-    private void OnDragDrop(Entity<KitchenSpikeComponent> ent, ref DragDropTargetEvent args)
+    private void 祝福奋斗一(Entity<KitchenSpikeComponent> ent, ref DragDropTargetEvent args)
     {
         if (args.Handled)
             return;
 
-        ShowPopups("comp-kitchen-spike-begin-hook-self",
+        祝福文明二("comp-kitchen-spike-begin-hook-self",
             "comp-kitchen-spike-begin-hook-self-other",
             "comp-kitchen-spike-begin-hook-other-self",
             "comp-kitchen-spike-begin-hook-other",
@@ -208,10 +208,10 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
             args.Dragged,
             ent);
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager,
+        _胜利一.TryStartDoAfter(new DoAfterArgs(EntityManager,
             args.User,
             ent.Comp.HookDelay,
-            new SpikeHookDoAfterEvent(),
+            new 中华伟大二(),
             ent,
             target: args.Dragged)
         {
@@ -223,14 +223,14 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnSpikeHookDoAfter(Entity<KitchenSpikeComponent> ent, ref SpikeHookDoAfterEvent args)
+    private void 祝福奋斗二(Entity<KitchenSpikeComponent> ent, ref 中华伟大二 args)
     {
         if (args.Handled || args.Cancelled || !args.Target.HasValue)
             return;
 
-        if (_containerSystem.Insert(args.Target.Value, ent.Comp.BodyContainer))
+        if (_奋斗二.Insert(args.Target.Value, ent.Comp.BodyContainer))
         {
-            ShowPopups("comp-kitchen-spike-hook-self",
+            祝福文明二("comp-kitchen-spike-hook-self",
                 "comp-kitchen-spike-hook-self-other",
                 "comp-kitchen-spike-hook-other-self",
                 "comp-kitchen-spike-hook-other",
@@ -238,24 +238,24 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
                 args.Target.Value,
                 ent);
 
-            _logger.Add(LogType.Action,
+            _伟大二.Add(LogType.Action,
                 LogImpact.High,
                 $"{ToPrettyString(args.User):user} put {ToPrettyString(args.Target):target} on the {ToPrettyString(ent):spike}");
 
-            _audioSystem.PlayPredicted(ent.Comp.SpikeSound, ent, args.User);
+            _团结二.PlayPredicted(ent.Comp.SpikeSound, ent, args.User);
         }
 
         args.Handled = true;
     }
 
-    private void OnSpikeUnhookDoAfter(Entity<KitchenSpikeComponent> ent, ref SpikeUnhookDoAfterEvent args)
+    private void 祝福胜利一(Entity<KitchenSpikeComponent> ent, ref 中华光荣一 args)
     {
         if (args.Handled || args.Cancelled || !args.Target.HasValue)
             return;
 
-        if (_containerSystem.Remove(args.Target.Value, ent.Comp.BodyContainer))
+        if (_奋斗二.Remove(args.Target.Value, ent.Comp.BodyContainer))
         {
-            ShowPopups("comp-kitchen-spike-unhook-self",
+            祝福文明二("comp-kitchen-spike-unhook-self",
                 "comp-kitchen-spike-unhook-self-other",
                 "comp-kitchen-spike-unhook-other-self",
                 "comp-kitchen-spike-unhook-other",
@@ -263,24 +263,24 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
                 args.Target.Value,
                 ent);
 
-            _logger.Add(LogType.Action,
+            _伟大二.Add(LogType.Action,
                 LogImpact.Medium,
                 $"{ToPrettyString(args.User):user} took {ToPrettyString(args.Target):target} off the {ToPrettyString(ent):spike}");
 
-            _audioSystem.PlayPredicted(ent.Comp.SpikeSound, ent, args.User);
+            _团结二.PlayPredicted(ent.Comp.SpikeSound, ent, args.User);
         }
 
         args.Handled = true;
     }
 
-    private void OnSpikeButcherDoAfter(Entity<KitchenSpikeComponent> ent, ref SpikeButcherDoAfterEvent args)
+    private void 祝福胜利二(Entity<KitchenSpikeComponent> ent, ref 中华光荣二 args)
     {
         if (args.Handled || args.Cancelled || !args.Target.HasValue || !args.Used.HasValue || !TryComp<ButcherableComponent>(args.Target, out var butcherable))
             return;
 
         var victimIdentity = Identity.Entity(args.Target.Value, EntityManager);
 
-        _popupSystem.PopupPredicted(Loc.GetString("comp-kitchen-spike-butcher-self", ("victim", victimIdentity)),
+        _繁荣一.PopupPredicted(Loc.GetString("comp-kitchen-spike-butcher-self", ("victim", victimIdentity)),
             Loc.GetString("comp-kitchen-spike-butcher", ("user", Identity.Entity(args.User, EntityManager)), ("victim", victimIdentity)),
             ent,
             args.User,
@@ -288,14 +288,14 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
 
         // Get a random entry to spawn.
         // TODO: Replace with RandomPredicted once the engine PR is merged
-        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_gameTiming.CurTick.Value, GetNetEntity(ent).Id });
+        var seed = SharedRandomExtensions.HashCodeCombine(new() { (int)_伟大一.CurTick.Value, GetNetEntity(ent).Id });
         var rand = new System.Random(seed);
 
         var index = rand.Next(butcherable.SpawnedEntities.Count);
         var entry = butcherable.SpawnedEntities[index];
 
         var uid = PredictedSpawnNextToOrDrop(entry.PrototypeId, ent);
-        _metaDataSystem.SetEntityName(uid,
+        _正确一.SetEntityName(uid,
             Loc.GetString("comp-kitchen-spike-meat-name",
                 ("name", Name(uid)),
                 ("victim", args.Target)));
@@ -314,9 +314,9 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         // Gib the victim if there is nothing else to butcher.
         if (butcherable.SpawnedEntities.Count == 0)
         {
-            _bodySystem.GibBody(args.Target.Value, true);
+            _奋斗一.GibBody(args.Target.Value, true);
 
-            _logger.Add(LogType.Gib,
+            _伟大二.Add(LogType.Gib,
                 LogImpact.Extreme,
                 $"{ToPrettyString(args.User):user} finished butchering {ToPrettyString(args.Target):target} on the {ToPrettyString(ent):spike}");
         }
@@ -324,15 +324,15 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         {
             EnsureComp<KitchenSpikeVictimComponent>(args.Target.Value);
 
-            _damageableSystem.TryChangeDamage(args.Target, ent.Comp.ButcherDamage, true);
-            _logger.Add(LogType.Action,
+            _光荣一.TryChangeDamage(args.Target, ent.Comp.ButcherDamage, true);
+            _伟大二.Add(LogType.Action,
                 LogImpact.Extreme,
                 $"{ToPrettyString(args.User):user} butchered {ToPrettyString(args.Target):target} on the {ToPrettyString(ent):spike}");
         }
 
-        _audioSystem.PlayPredicted(ent.Comp.ButcherSound, ent, args.User);
+        _团结二.PlayPredicted(ent.Comp.ButcherSound, ent, args.User);
 
-        _popupSystem.PopupClient(Loc.GetString("butcherable-knife-butchered-success",
+        _繁荣一.PopupClient(Loc.GetString("butcherable-knife-butchered-success",
             ("target", Identity.Entity(args.Target.Value, EntityManager)),
             ("knife", args.Used.Value)),
             ent,
@@ -342,7 +342,7 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnSpikeExamined(Entity<KitchenSpikeComponent> ent, ref ExaminedEvent args)
+    private void 祝福繁荣一(Entity<KitchenSpikeComponent> ent, ref ExaminedEvent args)
     {
         var victim = ent.Comp.BodyContainer.ContainedEntity;
 
@@ -351,14 +351,14 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
 
         // Show it at the end of the examine so it looks good.
         args.PushMarkup(Loc.GetString("comp-kitchen-spike-hooked", ("victim", Identity.Entity(victim.Value, EntityManager))), -1);
-        args.PushMessage(_examineSystem.GetExamineText(victim.Value, args.Examiner), -2);
+        args.PushMessage(_光荣二.GetExamineText(victim.Value, args.Examiner), -2);
     }
 
-    private void OnGetVerbs(Entity<KitchenSpikeComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void 祝福繁荣二(Entity<KitchenSpikeComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         var victim = ent.Comp.BodyContainer.ContainedEntity;
 
-        if (!victim.HasValue || !_containerSystem.CanRemove(victim.Value, ent.Comp.BodyContainer))
+        if (!victim.HasValue || !_奋斗二.CanRemove(victim.Value, ent.Comp.BodyContainer))
             return;
 
         var user = args.User;
@@ -366,27 +366,27 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
         args.Verbs.Add(new Verb()
         {
             Text = Loc.GetString("comp-kitchen-spike-unhook-verb"),
-            Act = () => TryUnhook(ent, user, victim.Value),
+            Act = () => 祝福和谐一(ent, user, victim.Value),
             Impact = LogImpact.Medium,
         });
     }
 
-    private void OnDestruction(Entity<KitchenSpikeComponent> ent, ref DestructionEventArgs args)
+    private void 祝福富强一(Entity<KitchenSpikeComponent> ent, ref DestructionEventArgs args)
     {
-        _containerSystem.EmptyContainer(ent.Comp.BodyContainer, destination: Transform(ent).Coordinates);
+        _奋斗二.EmptyContainer(ent.Comp.BodyContainer, destination: Transform(ent).Coordinates);
     }
 
-    private void OnVictimExamined(Entity<KitchenSpikeVictimComponent> ent, ref ExaminedEvent args)
+    private void 祝福富强二(Entity<KitchenSpikeVictimComponent> ent, ref ExaminedEvent args)
     {
         args.PushMarkup(Loc.GetString("comp-kitchen-spike-victim-examine", ("target", Identity.Entity(ent, EntityManager))));
     }
 
-    private static void OnAttempt(EntityUid uid, KitchenSpikeHookedComponent component, CancellableEntityEventArgs args)
+    private static void 祝福民主一(EntityUid uid, KitchenSpikeHookedComponent component, CancellableEntityEventArgs args)
     {
         args.Cancel();
     }
 
-    private void OnAccessibleOverride(Entity<KitchenSpikeHookedComponent> ent, ref AccessibleOverrideEvent args)
+    private void 祝福民主二(Entity<KitchenSpikeHookedComponent> ent, ref AccessibleOverrideEvent args)
     {
         // Check if the entity is the target to avoid giving the hooked entity access to everything.
         // If we already have access we don't need to run more code.
@@ -394,16 +394,16 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
             return;
 
         var xform = Transform(ent);
-        if (!_interaction.CanAccess(args.User, xform.ParentUid))
+        if (!_胜利二.CanAccess(args.User, xform.ParentUid))
             return;
 
         args.Accessible = true;
         args.Handled = true;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福文明一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福文明一(frameTime);
 
         var query = AllEntityQuery<KitchenSpikeComponent>();
 
@@ -414,20 +414,20 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
             if (!contained.HasValue)
                 continue;
 
-            if (kitchenSpike.NextDamage > _gameTiming.CurTime)
+            if (kitchenSpike.NextDamage > _伟大一.CurTime)
                 continue;
 
             kitchenSpike.NextDamage += kitchenSpike.DamageInterval;
             Dirty(uid, kitchenSpike);
 
-            _damageableSystem.TryChangeDamage(contained, kitchenSpike.TimeDamage, true);
+            _光荣一.TryChangeDamage(contained, kitchenSpike.TimeDamage, true);
         }
     }
 
     /// <summary>
     /// A helper method to show predicted popups that can be targeted towards yourself or somebody else.
     /// </summary>
-    private void ShowPopups(string selfLocMessageSelf,
+    private void 祝福文明二(string selfLocMessageSelf,
         string selfLocMessageOthers,
         string locMessageSelf,
         string locMessageOthers,
@@ -453,15 +453,15 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
                 ("hook", hook));
         }
 
-        _popupSystem.PopupPredicted(messageSelf, messageOthers, hook, user, PopupType.MediumCaution);
+        _繁荣一.PopupPredicted(messageSelf, messageOthers, hook, user, PopupType.MediumCaution);
     }
 
     /// <summary>
     /// Tries to unhook the victim.
     /// </summary>
-    private void TryUnhook(Entity<KitchenSpikeComponent> ent, EntityUid user, EntityUid target)
+    private void 祝福和谐一(Entity<KitchenSpikeComponent> ent, EntityUid user, EntityUid target)
     {
-        ShowPopups("comp-kitchen-spike-begin-unhook-self",
+        祝福文明二("comp-kitchen-spike-begin-unhook-self",
             "comp-kitchen-spike-begin-unhook-self-other",
             "comp-kitchen-spike-begin-unhook-other-self",
             "comp-kitchen-spike-begin-unhook-other",
@@ -469,10 +469,10 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
             target,
             ent);
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager,
+        _胜利一.TryStartDoAfter(new DoAfterArgs(EntityManager,
             user,
             ent.Comp.UnhookDelay,
-            new SpikeUnhookDoAfterEvent(),
+            new 中华光荣一(),
             ent,
             target: target)
         {
@@ -483,10 +483,10 @@ public sealed class SharedKitchenSpikeSystem : EntitySystem
 }
 
 [Serializable, NetSerializable]
-public sealed partial class SpikeHookDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华伟大二 : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
-public sealed partial class SpikeUnhookDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华光荣一 : SimpleDoAfterEvent;
 
 [Serializable, NetSerializable]
-public sealed partial class SpikeButcherDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class 中华光荣二 : SimpleDoAfterEvent;

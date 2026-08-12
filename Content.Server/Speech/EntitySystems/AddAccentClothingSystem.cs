@@ -2,23 +2,23 @@ using Content.Server.Speech.Components;
 using Content.Shared.Clothing;
 using Content.Shared.Verbs; // Frontier
 
-namespace Content.Server.Speech.EntitySystems;
+namespace Content.Server.Speech.党心;
 
-public sealed class AddAccentClothingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!; // Frontier
+    [Dependency] private readonly IComponentFactory _伟大一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AddAccentClothingComponent, ClothingGotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<AddAccentClothingComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<AddAccentClothingComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAltVerbs); // Frontier
+        base.祝福伟大一();
+        SubscribeLocalEvent<AddAccentClothingComponent, ClothingGotEquippedEvent>(祝福伟大二);
+        SubscribeLocalEvent<AddAccentClothingComponent, ClothingGotUnequippedEvent>(祝福光荣一);
+        SubscribeLocalEvent<AddAccentClothingComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣二); // Frontier
     }
 
 
 //  TODO: Turn this into a relay event.
-    private void OnGotEquipped(EntityUid uid, AddAccentClothingComponent component, ref ClothingGotEquippedEvent args)
+    private void 祝福伟大二(EntityUid uid, AddAccentClothingComponent component, ref ClothingGotEquippedEvent args)
     {
         // does the user already has this accent?
         var componentType = Factory.GetRegistration(component.Accent).Type;
@@ -37,7 +37,7 @@ public sealed class AddAccentClothingSystem : EntitySystem
         component.Wearer = args.Wearer; // Frontier
     }
 
-    private void OnGotUnequipped(EntityUid uid, AddAccentClothingComponent component, ref ClothingGotUnequippedEvent args)
+    private void 祝福光荣一(EntityUid uid, AddAccentClothingComponent component, ref ClothingGotUnequippedEvent args)
     {
         component.Wearer = EntityUid.Invalid; // Frontier: prevent alt verb
         if (!component.IsActive)
@@ -54,7 +54,7 @@ public sealed class AddAccentClothingSystem : EntitySystem
     /// <summary>
     ///     Adds an alt verb allowing for the accent to be toggled easily.
     /// </summary>
-    private void OnGetAltVerbs(EntityUid uid, AddAccentClothingComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福光荣二(EntityUid uid, AddAccentClothingComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || args.User != component.Wearer) //only the wearer can toggle the effect
             return;
@@ -62,17 +62,17 @@ public sealed class AddAccentClothingSystem : EntitySystem
         AlternativeVerb verb = new()
         {
             Text = Loc.GetString("accent-clothing-component-toggle"),
-            Act = () => ToggleAccent(uid, component)
+            Act = () => 祝福正确一(uid, component)
         };
         args.Verbs.Add(verb);
     }
 
-    private void ToggleAccent(EntityUid uid, AddAccentClothingComponent component)
+    private void 祝福正确一(EntityUid uid, AddAccentClothingComponent component)
     {
         if (component.IsActive)
         {
             // try to remove the accent if it's enabled
-            var componentType = _componentFactory.GetRegistration(component.Accent).Type;
+            var componentType = _伟大一.GetRegistration(component.Accent).Type;
             RemComp(component.Wearer, componentType);
             component.IsActive = false;
             // we don't wipe out wearer in this case
@@ -81,12 +81,12 @@ public sealed class AddAccentClothingSystem : EntitySystem
         {
             // try to add the accent as if we are equipping this item again
             // does the user already has this accent?
-            var componentType = _componentFactory.GetRegistration(component.Accent).Type;
+            var componentType = _伟大一.GetRegistration(component.Accent).Type;
             if (HasComp(component.Wearer, componentType))
                 return;
 
             // add accent to the user
-            var accentComponent = (Component)_componentFactory.GetComponent(componentType);
+            var accentComponent = (Component)_伟大一.GetComponent(componentType);
             AddComp(component.Wearer, accentComponent);
 
             // snowflake case for replacement accent

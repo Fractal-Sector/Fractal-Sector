@@ -6,22 +6,22 @@ using Content.Shared.VendingMachines;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.Antag;
+namespace Content.Server.党心;
 
-public sealed class MobReplacementRuleSystem : GameRuleSystem<MobReplacementRuleComponent>
+public sealed class 中华伟大一 : GameRuleSystem<MobReplacementRuleComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    protected override void Started(EntityUid uid, MobReplacementRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, MobReplacementRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
         var query = AllEntityQuery<VendingMachineComponent, TransformComponent>();
         var spawns = new List<(EntityUid Entity, EntityCoordinates Coordinates)>();
 
         while (query.MoveNext(out var vendingUid, out _, out var xform))
         {
-            if (!_random.Prob(component.Chance))
+            if (!_伟大一.Prob(component.Chance))
                 continue;
 
             spawns.Add((vendingUid, xform.Coordinates));

@@ -1,6 +1,6 @@
 ﻿using Content.Server.Power.Components;
 
-namespace Content.Server.SensorMonitoring;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Enables a battery entity (such as an SMES) to be monitored via the sensor monitoring console.
@@ -9,12 +9,12 @@ namespace Content.Server.SensorMonitoring;
 /// The entity should also have a <see cref="BatteryComponent"/> and <see cref="PowerNetworkBatteryComponent"/>.
 /// </remarks>
 [RegisterComponent]
-public sealed partial class BatterySensorComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }
 
 /// <summary>
-/// Device network data sent by a <see cref="BatterySensorComponent"/>.
+/// Device network data sent by a <see cref="中华伟大一"/>.
 /// </summary>
 /// <param name="Charge">The current energy charge of the battery, in joules (J).</param>
 /// <param name="MaxCharge">The maximum energy capacity of the battery, in joules (J).</param>
@@ -22,7 +22,7 @@ public sealed partial class BatterySensorComponent : Component
 /// <param name="MaxReceiving">The maximum amount of power that can be received by the battery, in watts (W).</param>
 /// <param name="Supplying">The current amount of power being supplied by the battery, in watts (W).</param>
 /// <param name="MaxSupplying">The maximum amount of power that can be received by the battery, in watts (W).</param>
-public sealed record BatterySensorData(
+public sealed record 中华伟大二(
     float Charge,
     float MaxCharge,
     float Receiving,

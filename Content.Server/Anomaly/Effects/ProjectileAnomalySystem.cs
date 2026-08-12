@@ -8,61 +8,61 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
 /// <summary>
 /// This handles <see cref="ProjectileAnomalyComponent"/> and the events from <seealso cref="AnomalySystem"/>
 /// </summary>
-public sealed class ProjectileAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TransformSystem _xform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly GunSystem _gunSystem = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly TransformSystem _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly IMapManager _光荣二 = default!;
+    [Dependency] private readonly GunSystem _正确一 = default!;
+    [Dependency] private readonly SharedMapSystem _正确二 = default!;
 
-    private EntityQuery<TransformComponent> _xFormQuery;
-    private EntityQuery<MobStateComponent> _mobQuery;
+    private EntityQuery<TransformComponent> _团结一;
+    private EntityQuery<MobStateComponent> _团结二;
 
     /// <summary> Pre-allocated collection for calculating entities in range. </summary>
-    private readonly HashSet<EntityUid> _inRange = new();
+    private readonly HashSet<EntityUid> _奋斗一 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ProjectileAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<ProjectileAnomalyComponent, AnomalySupercriticalEvent>(OnSupercritical);
+        SubscribeLocalEvent<ProjectileAnomalyComponent, AnomalyPulseEvent>(祝福伟大二);
+        SubscribeLocalEvent<ProjectileAnomalyComponent, AnomalySupercriticalEvent>(祝福光荣一);
 
-        _xFormQuery = GetEntityQuery<TransformComponent>();
-        _mobQuery = GetEntityQuery<MobStateComponent>();
+        _团结一 = GetEntityQuery<TransformComponent>();
+        _团结二 = GetEntityQuery<MobStateComponent>();
     }
 
-    private void OnPulse(EntityUid uid, ProjectileAnomalyComponent component, ref AnomalyPulseEvent args)
+    private void 祝福伟大二(EntityUid uid, ProjectileAnomalyComponent component, ref AnomalyPulseEvent args)
     {
-        ShootProjectilesAtEntities(uid, component, args.Severity * args.PowerModifier);
+        祝福光荣二(uid, component, args.Severity * args.PowerModifier);
     }
 
-    private void OnSupercritical(EntityUid uid, ProjectileAnomalyComponent component, ref AnomalySupercriticalEvent args)
+    private void 祝福光荣一(EntityUid uid, ProjectileAnomalyComponent component, ref AnomalySupercriticalEvent args)
     {
-        ShootProjectilesAtEntities(uid, component, args.PowerModifier);
+        祝福光荣二(uid, component, args.PowerModifier);
     }
 
-    private void ShootProjectilesAtEntities(EntityUid uid, ProjectileAnomalyComponent component, float severity)
+    private void 祝福光荣二(EntityUid uid, ProjectileAnomalyComponent component, float severity)
     {
         var projectileCount = (int)MathF.Round(MathHelper.Lerp(component.MinProjectiles, component.MaxProjectiles, severity));
 
-        var xform = _xFormQuery.GetComponent(uid);
+        var xform = _团结一.GetComponent(uid);
 
-        _inRange.Clear();
-        _lookup.GetEntitiesInRange(uid, component.ProjectileRange * severity, _inRange, LookupFlags.Dynamic);
+        _奋斗一.Clear();
+        _伟大二.GetEntitiesInRange(uid, component.ProjectileRange * severity, _奋斗一, LookupFlags.Dynamic);
 
-        if (_inRange.Count == 0)
+        if (_奋斗一.Count == 0)
             return;
 
         var priority = new List<EntityUid>();
-        foreach (var entity in _inRange)
+        foreach (var entity in _奋斗一)
         {
-            if (_mobQuery.HasComponent(entity))
+            if (_团结二.HasComponent(entity))
                 priority.Add(entity);
         }
 
@@ -71,13 +71,13 @@ public sealed class ProjectileAnomalySystem : EntitySystem
         {
             Log.Debug($"{projectileCount}");
             var target = priority.Count > 0
-                ? _random.PickAndTake(priority)
-                : _random.Pick(_inRange);
+                ? _光荣一.PickAndTake(priority)
+                : _光荣一.Pick(_奋斗一);
 
-            var targetXForm= _xFormQuery.GetComponent(target);
-            var targetCoords = targetXForm.Coordinates.Offset(_random.NextVector2(0.5f));
+            var targetXForm= _团结一.GetComponent(target);
+            var targetCoords = targetXForm.Coordinates.Offset(_光荣一.NextVector2(0.5f));
 
-            ShootProjectile(
+            祝福正确一(
                 uid,
                 component,
                 xform.Coordinates,
@@ -88,7 +88,7 @@ public sealed class ProjectileAnomalySystem : EntitySystem
         }
     }
 
-    private void ShootProjectile(
+    private void 祝福正确一(
         EntityUid uid,
         ProjectileAnomalyComponent component,
         EntityCoordinates coords,
@@ -96,20 +96,20 @@ public sealed class ProjectileAnomalySystem : EntitySystem
         float severity
     )
     {
-        var mapPos = _xform.ToMapCoordinates(coords);
+        var mapPos = _伟大一.ToMapCoordinates(coords);
 
-        var spawnCoords = _mapManager.TryFindGridAt(mapPos, out var gridUid, out _)
-                ? _xform.WithEntityId(coords, gridUid)
-                : new(_map.GetMapOrInvalid(mapPos.MapId), mapPos.Position);
+        var spawnCoords = _光荣二.TryFindGridAt(mapPos, out var gridUid, out _)
+                ? _伟大一.WithEntityId(coords, gridUid)
+                : new(_正确二.GetMapOrInvalid(mapPos.MapId), mapPos.Position);
 
         var ent = Spawn(component.ProjectilePrototype, spawnCoords);
-        var direction = _xform.ToMapCoordinates(targetCoords).Position - mapPos.Position;
+        var direction = _伟大一.ToMapCoordinates(targetCoords).Position - mapPos.Position;
 
         if (!TryComp<ProjectileComponent>(ent, out var comp))
             return;
 
         comp.Damage *= severity;
 
-        _gunSystem.ShootProjectile(ent, direction, Vector2.Zero, uid, uid, component.ProjectileSpeed);
+        _正确一.祝福正确一(ent, direction, Vector2.Zero, uid, uid, component.ProjectileSpeed);
     }
 }

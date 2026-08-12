@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Flash.Components;
+namespace Content.Shared.Flash.党心;
 
 /// <summary>
 /// Makes the entity immune to being flashed.
@@ -8,11 +8,11 @@ namespace Content.Shared.Flash.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedFlashSystem))]
-public sealed partial class FlashImmunityComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Is this component currently enabled?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool Enabled = true;
+    public bool 党爱伟大一 = true;
 }

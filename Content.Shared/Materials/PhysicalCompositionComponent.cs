@@ -2,7 +2,7 @@
 using Content.Shared.FixedPoint;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Content.Shared.Materials;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This is used for assigning an innate material/chemical composition to an entity.
@@ -14,7 +14,7 @@ namespace Content.Shared.Materials;
 /// combination of the two systems.
 /// </remarks>
 [RegisterComponent]
-public sealed partial class PhysicalCompositionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The materials that "make up" this entity

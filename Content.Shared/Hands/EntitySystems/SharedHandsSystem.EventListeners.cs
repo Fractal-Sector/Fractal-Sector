@@ -1,23 +1,23 @@
 ﻿using Content.Shared.Hands.Components;
 using Content.Shared.Stunnable;
 
-namespace Content.Shared.Hands.EntitySystems;
+namespace Content.Shared.Hands.党心;
 
 /// <summary>
 /// This is for events that don't affect normal hand functions but do care about hands.
 /// </summary>
-public abstract partial class SharedHandsSystem
+public abstract partial class 中华伟大一
 {
-    private void InitializeEventListeners()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<HandsComponent, GetStandUpTimeEvent>(OnStandupArgs);
-        SubscribeLocalEvent<HandsComponent, KnockedDownRefreshEvent>(OnKnockedDownRefresh);
+        SubscribeLocalEvent<HandsComponent, GetStandUpTimeEvent>(祝福伟大二);
+        SubscribeLocalEvent<HandsComponent, KnockedDownRefreshEvent>(祝福光荣一);
     }
 
     /// <summary>
     /// Reduces the time it takes to stand up based on the number of hands we have available.
     /// </summary>
-    private void OnStandupArgs(Entity<HandsComponent> ent, ref GetStandUpTimeEvent time)
+    private void 祝福伟大二(Entity<HandsComponent> ent, ref GetStandUpTimeEvent time)
     {
         if (!HasComp<KnockedDownComponent>(ent))
             return;
@@ -30,7 +30,7 @@ public abstract partial class SharedHandsSystem
         time.DoAfterTime *= (float)ent.Comp.Count / (hands + ent.Comp.Count);
     }
 
-    private void OnKnockedDownRefresh(Entity<HandsComponent> ent, ref KnockedDownRefreshEvent args)
+    private void 祝福光荣一(Entity<HandsComponent> ent, ref KnockedDownRefreshEvent args)
     {
         var freeHands = CountFreeHands(ent.AsNullable());
         var totalHands = GetHandCount(ent.AsNullable());

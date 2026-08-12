@@ -14,112 +14,112 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.VoiceMask;
+namespace Content.Server.党心;
 
-public sealed partial class VoiceMaskSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly ISharedAdminLogManager _光荣二 = default!;
+    [Dependency] private readonly IPrototypeManager _正确一 = default!;
+    [Dependency] private readonly SharedActionsSystem _正确二 = default!;
+    [Dependency] private readonly LockSystem _团结一 = default!;
+    [Dependency] private readonly SharedContainerSystem _团结二 = default!;
 
     // CCVar.
-    private int _maxNameLength;
+    private int _奋斗一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<VoiceMaskComponent, InventoryRelayedEvent<TransformSpeakerNameEvent>>(OnTransformSpeakerName);
-        SubscribeLocalEvent<VoiceMaskComponent, LockToggledEvent>(OnLockToggled);
-        SubscribeLocalEvent<VoiceMaskComponent, VoiceMaskChangeNameMessage>(OnChangeName);
-        SubscribeLocalEvent<VoiceMaskComponent, VoiceMaskChangeVerbMessage>(OnChangeVerb);
-        SubscribeLocalEvent<VoiceMaskComponent, ClothingGotEquippedEvent>(OnEquip);
-        SubscribeLocalEvent<VoiceMaskSetNameEvent>(OpenUI);
+        base.祝福伟大一();
+        SubscribeLocalEvent<VoiceMaskComponent, InventoryRelayedEvent<TransformSpeakerNameEvent>>(祝福伟大二);
+        SubscribeLocalEvent<VoiceMaskComponent, LockToggledEvent>(祝福光荣一);
+        SubscribeLocalEvent<VoiceMaskComponent, VoiceMaskChangeNameMessage>(祝福正确一);
+        SubscribeLocalEvent<VoiceMaskComponent, VoiceMaskChangeVerbMessage>(祝福光荣二);
+        SubscribeLocalEvent<VoiceMaskComponent, ClothingGotEquippedEvent>(祝福正确二);
+        SubscribeLocalEvent<VoiceMaskSetNameEvent>(祝福团结一);
 
-        Subs.CVar(_cfgManager, CCVars.MaxNameLength, value => _maxNameLength = value, true);
+        Subs.CVar(_光荣一, CCVars.MaxNameLength, value => _奋斗一 = value, true);
     }
 
-    private void OnTransformSpeakerName(Entity<VoiceMaskComponent> entity, ref InventoryRelayedEvent<TransformSpeakerNameEvent> args)
+    private void 祝福伟大二(Entity<VoiceMaskComponent> entity, ref InventoryRelayedEvent<TransformSpeakerNameEvent> args)
     {
-        args.Args.VoiceName = GetCurrentVoiceName(entity);
+        args.Args.VoiceName = 祝福奋斗一(entity);
         args.Args.SpeechVerb = entity.Comp.VoiceMaskSpeechVerb ?? args.Args.SpeechVerb;
     }
 
-    private void OnLockToggled(Entity<VoiceMaskComponent> ent, ref LockToggledEvent args)
+    private void 祝福光荣一(Entity<VoiceMaskComponent> ent, ref LockToggledEvent args)
     {
         if (args.Locked)
-            _actions.RemoveAction(ent.Comp.ActionEntity);
-        else if (_container.TryGetContainingContainer(ent.Owner, out var container))
-            _actions.AddAction(container.Owner, ref ent.Comp.ActionEntity, ent.Comp.Action, ent);
+            _正确二.RemoveAction(ent.Comp.ActionEntity);
+        else if (_团结二.TryGetContainingContainer(ent.Owner, out var container))
+            _正确二.AddAction(container.Owner, ref ent.Comp.ActionEntity, ent.Comp.Action, ent);
     }
 
     #region User inputs from UI
-    private void OnChangeVerb(Entity<VoiceMaskComponent> entity, ref VoiceMaskChangeVerbMessage msg)
+    private void 祝福光荣二(Entity<VoiceMaskComponent> entity, ref VoiceMaskChangeVerbMessage msg)
     {
-        if (msg.Verb is { } id && !_proto.HasIndex<SpeechVerbPrototype>(id))
+        if (msg.Verb is { } id && !_正确一.HasIndex<SpeechVerbPrototype>(id))
             return;
 
         entity.Comp.VoiceMaskSpeechVerb = msg.Verb;
         // verb is only important to metagamers so no need to log as opposed to name
 
-        _popupSystem.PopupEntity(Loc.GetString("voice-mask-popup-success"), entity, msg.Actor);
+        _伟大二.PopupEntity(Loc.GetString("voice-mask-popup-success"), entity, msg.Actor);
 
-        UpdateUI(entity);
+        祝福团结二(entity);
     }
 
-    private void OnChangeName(Entity<VoiceMaskComponent> entity, ref VoiceMaskChangeNameMessage message)
+    private void 祝福正确一(Entity<VoiceMaskComponent> entity, ref VoiceMaskChangeNameMessage message)
     {
-        if (message.Name.Length > _maxNameLength || message.Name.Length <= 0)
+        if (message.Name.Length > _奋斗一 || message.Name.Length <= 0)
         {
-            _popupSystem.PopupEntity(Loc.GetString("voice-mask-popup-failure"), entity, message.Actor, PopupType.SmallCaution);
+            _伟大二.PopupEntity(Loc.GetString("voice-mask-popup-failure"), entity, message.Actor, PopupType.SmallCaution);
             return;
         }
 
         entity.Comp.VoiceMaskName = message.Name;
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(message.Actor):player} set voice of {ToPrettyString(entity):mask}: {entity.Comp.VoiceMaskName}");
+        _光荣二.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(message.Actor):player} set voice of {ToPrettyString(entity):mask}: {entity.Comp.VoiceMaskName}");
 
-        _popupSystem.PopupEntity(Loc.GetString("voice-mask-popup-success"), entity, message.Actor);
+        _伟大二.PopupEntity(Loc.GetString("voice-mask-popup-success"), entity, message.Actor);
 
-        UpdateUI(entity);
+        祝福团结二(entity);
     }
     #endregion
 
     #region UI
-    private void OnEquip(EntityUid uid, VoiceMaskComponent component, ClothingGotEquippedEvent args)
+    private void 祝福正确二(EntityUid uid, VoiceMaskComponent component, ClothingGotEquippedEvent args)
     {
-        if (_lock.IsLocked(uid))
+        if (_团结一.IsLocked(uid))
             return;
 
-        _actions.AddAction(args.Wearer, ref component.ActionEntity, component.Action, uid);
+        _正确二.AddAction(args.Wearer, ref component.ActionEntity, component.Action, uid);
     }
 
-    private void OpenUI(VoiceMaskSetNameEvent ev)
+    private void 祝福团结一(VoiceMaskSetNameEvent ev)
     {
         var maskEntity = ev.Action.Comp.Container;
 
         if (!TryComp<VoiceMaskComponent>(maskEntity, out var voiceMaskComp))
             return;
 
-        if (!_uiSystem.HasUi(maskEntity.Value, VoiceMaskUIKey.Key))
+        if (!_伟大一.HasUi(maskEntity.Value, VoiceMaskUIKey.Key))
             return;
 
-        _uiSystem.OpenUi(maskEntity.Value, VoiceMaskUIKey.Key, ev.Performer);
-        UpdateUI((maskEntity.Value, voiceMaskComp));
+        _伟大一.OpenUi(maskEntity.Value, VoiceMaskUIKey.Key, ev.Performer);
+        祝福团结二((maskEntity.Value, voiceMaskComp));
     }
 
-    private void UpdateUI(Entity<VoiceMaskComponent> entity)
+    private void 祝福团结二(Entity<VoiceMaskComponent> entity)
     {
-        if (_uiSystem.HasUi(entity, VoiceMaskUIKey.Key))
-            _uiSystem.SetUiState(entity.Owner, VoiceMaskUIKey.Key, new VoiceMaskBuiState(GetCurrentVoiceName(entity), entity.Comp.VoiceMaskSpeechVerb));
+        if (_伟大一.HasUi(entity, VoiceMaskUIKey.Key))
+            _伟大一.SetUiState(entity.Owner, VoiceMaskUIKey.Key, new VoiceMaskBuiState(祝福奋斗一(entity), entity.Comp.VoiceMaskSpeechVerb));
     }
     #endregion
 
     #region Helper functions
-    private string GetCurrentVoiceName(Entity<VoiceMaskComponent> entity)
+    private string 祝福奋斗一(Entity<VoiceMaskComponent> entity)
     {
         return entity.Comp.VoiceMaskName ?? Loc.GetString("voice-mask-default-name-override");
     }

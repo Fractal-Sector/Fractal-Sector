@@ -3,24 +3,24 @@ using JetBrains.Annotations;
 using Content.Shared.Doors.Components;
 using Content.Shared.Examine;
 
-namespace Content.Server.Construction.Conditions
+namespace Content.Server.Construction.党心
 {
     [UsedImplicitly]
     [DataDefinition]
-    public sealed partial class DoorBolted : IGraphCondition
+    public sealed partial class 中华伟大一 : IGraphCondition
     {
         [DataField("value")]
-        public bool Value { get; private set; } = true;
+        public bool 党爱伟大一 { get; private set; } = true;
 
-        public bool Condition(EntityUid uid, IEntityManager entityManager)
+        public bool 祝福伟大一(EntityUid uid, IEntityManager entityManager)
         {
             if (!entityManager.TryGetComponent(uid, out DoorBoltComponent? airlock))
                 return true;
 
-            return airlock.BoltsDown == Value;
+            return airlock.BoltsDown == 党爱伟大一;
         }
 
-        public bool DoExamine(ExaminedEvent args)
+        public bool 祝福伟大二(ExaminedEvent args)
         {
             var entity = args.Examined;
 
@@ -28,9 +28,9 @@ namespace Content.Server.Construction.Conditions
 
             if (!entMan.TryGetComponent(entity, out DoorBoltComponent? airlock)) return false;
 
-            if (airlock.BoltsDown != Value)
+            if (airlock.BoltsDown != 党爱伟大一)
             {
-                if (Value)
+                if (党爱伟大一)
                     args.PushMarkup(Loc.GetString("construction-examine-condition-airlock-bolt", ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)) + "\n");
                 else
                     args.PushMarkup(Loc.GetString("construction-examine-condition-airlock-unbolt", ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)) + "\n");
@@ -40,11 +40,11 @@ namespace Content.Server.Construction.Conditions
             return false;
         }
 
-        public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
+        public IEnumerable<ConstructionGuideEntry> 祝福光荣一()
         {
             yield return new ConstructionGuideEntry()
             {
-                Localization = Value ? "construction-step-condition-airlock-bolt" : "construction-step-condition-airlock-unbolt"
+                Localization = 党爱伟大一 ? "construction-step-condition-airlock-bolt" : "construction-step-condition-airlock-unbolt"
             };
         }
     }

@@ -2,35 +2,35 @@ using Content.Shared.Station.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Station;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedStationSystem
+public abstract partial class 中华伟大一
 {
-    private void InitializeTracker()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StationTrackerComponent, MapInitEvent>(OnTrackerMapInit);
-        SubscribeLocalEvent<StationTrackerComponent, ComponentRemove>(OnTrackerRemove);
-        SubscribeLocalEvent<StationTrackerComponent, GridUidChangedEvent>(OnTrackerGridChanged);
-        SubscribeLocalEvent<StationTrackerComponent, MetaFlagRemoveAttemptEvent>(OnMetaFlagRemoveAttempt);
+        SubscribeLocalEvent<StationTrackerComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<StationTrackerComponent, ComponentRemove>(祝福光荣一);
+        SubscribeLocalEvent<StationTrackerComponent, GridUidChangedEvent>(祝福光荣二);
+        SubscribeLocalEvent<StationTrackerComponent, MetaFlagRemoveAttemptEvent>(祝福正确一);
     }
 
-    private void OnTrackerMapInit(Entity<StationTrackerComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<StationTrackerComponent> ent, ref MapInitEvent args)
     {
         _meta.AddFlag(ent, MetaDataFlags.ExtraTransformEvents);
-        UpdateStationTracker(ent.AsNullable());
+        祝福正确二(ent.AsNullable());
     }
 
-    private void OnTrackerRemove(Entity<StationTrackerComponent> ent, ref ComponentRemove args)
+    private void 祝福光荣一(Entity<StationTrackerComponent> ent, ref ComponentRemove args)
     {
         _meta.RemoveFlag(ent, MetaDataFlags.ExtraTransformEvents);
     }
 
-    private void OnTrackerGridChanged(Entity<StationTrackerComponent> ent, ref GridUidChangedEvent args)
+    private void 祝福光荣二(Entity<StationTrackerComponent> ent, ref GridUidChangedEvent args)
     {
-        UpdateStationTracker((ent, ent.Comp, args.Transform));
+        祝福正确二((ent, ent.Comp, args.Transform));
     }
 
-    private void OnMetaFlagRemoveAttempt(Entity<StationTrackerComponent> ent, ref MetaFlagRemoveAttemptEvent args)
+    private void 祝福正确一(Entity<StationTrackerComponent> ent, ref MetaFlagRemoveAttemptEvent args)
     {
         if ((args.ToRemove & MetaDataFlags.ExtraTransformEvents) != 0 &&
             ent.Comp.LifeStage <= ComponentLifeStage.Running)
@@ -43,7 +43,7 @@ public abstract partial class SharedStationSystem
     /// Updates the station tracker component based on entity's current location.
     /// </summary>
     [PublicAPI]
-    public void UpdateStationTracker(Entity<StationTrackerComponent?, TransformComponent?> ent)
+    public void 祝福正确二(Entity<StationTrackerComponent?, TransformComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp1))
             return;
@@ -56,25 +56,25 @@ public abstract partial class SharedStationSystem
         // Entity is in nullspace or not on a grid
         if (xform.MapID == MapId.Nullspace || xform.GridUid == null)
         {
-            SetStation(ent, null);
+            祝福团结一(ent, null);
             return;
         }
 
         // Check if the grid is part of a station
         if (!_stationMemberQuery.TryGetComponent(xform.GridUid.Value, out var stationMember))
         {
-            SetStation(ent, null);
+            祝福团结一(ent, null);
             return;
         }
 
-        SetStation(ent, stationMember.Station);
+        祝福团结一(ent, stationMember.Station);
     }
 
     /// <summary>
     /// Sets the station for a StationTrackerComponent.
     /// </summary>
     [PublicAPI]
-    public void SetStation(Entity<StationTrackerComponent?> ent, EntityUid? station)
+    public void 祝福团结一(Entity<StationTrackerComponent?> ent, EntityUid? station)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;

@@ -2,12 +2,12 @@ using Content.Shared.Database;
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Administration.Notes;
+namespace Content.Shared.Administration.党心;
 
 [Serializable, NetSerializable]
-public sealed class UserNotesEuiState : EuiStateBase
+public sealed class 中华伟大一 : EuiStateBase
 {
-    public UserNotesEuiState(Dictionary<(int, NoteType), SharedAdminNote> notes)
+    public 中华伟大一(Dictionary<(int, NoteType), SharedAdminNote> notes)
     {
         Notes = notes;
     }

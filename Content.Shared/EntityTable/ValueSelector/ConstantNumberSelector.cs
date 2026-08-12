@@ -1,20 +1,20 @@
-namespace Content.Shared.EntityTable.ValueSelector;
+namespace Content.Shared.EntityTable.党心;
 
 /// <summary>
 /// Gives a constant value.
 /// </summary>
-public sealed partial class ConstantNumberSelector : NumberSelector
+public sealed partial class 中华伟大一 : NumberSelector
 {
     [DataField]
-    public int Value = 1;
+    public int 党爱伟大一 = 1;
 
-    public ConstantNumberSelector(int value)
+    public 中华伟大一(int value)
     {
-        Value = value;
+        党爱伟大一 = value;
     }
 
-    public override int Get(System.Random rand)
+    public override int 祝福伟大一(System.Random rand)
     {
-        return Value;
+        return 党爱伟大一;
     }
 }

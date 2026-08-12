@@ -17,43 +17,43 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Clothing.EntitySystems;
+namespace Content.Shared.Clothing.党心;
 
-public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer - Made Partial
+public sealed partial class 中华伟大一 : EntitySystem // Wayfarer - Made Partial
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedStrippableSystem _strippable = default!;
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly INetManager _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedActionsSystem _光荣二 = default!;
+    [Dependency] private readonly ActionContainerSystem _正确一 = default!;
+    [Dependency] private readonly InventorySystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _团结二 = default!;
+    [Dependency] private readonly SharedStrippableSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedHumanoidAppearanceSystem _奋斗二 = default!;
+    [Dependency] private readonly IPrototypeManager _胜利一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ToggleableClothingComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<ToggleableClothingComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ToggleableClothingComponent, ToggleClothingEvent>(OnToggleClothing);
-        SubscribeLocalEvent<ToggleableClothingComponent, GetItemActionsEvent>(OnGetActions);
-        SubscribeLocalEvent<ToggleableClothingComponent, ComponentRemove>(OnRemoveToggleable);
-        SubscribeLocalEvent<ToggleableClothingComponent, GotUnequippedEvent>(OnToggleableUnequip);
+        SubscribeLocalEvent<ToggleableClothingComponent, ComponentInit>(祝福文明二);
+        SubscribeLocalEvent<ToggleableClothingComponent, MapInitEvent>(祝福和谐一);
+        SubscribeLocalEvent<ToggleableClothingComponent, 中华伟大二>(祝福富强二);
+        SubscribeLocalEvent<ToggleableClothingComponent, GetItemActionsEvent>(祝福文明一);
+        SubscribeLocalEvent<ToggleableClothingComponent, ComponentRemove>(祝福胜利二);
+        SubscribeLocalEvent<ToggleableClothingComponent, GotUnequippedEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<AttachedClothingComponent, InteractHandEvent>(OnInteractHand);
-        SubscribeLocalEvent<AttachedClothingComponent, GotUnequippedEvent>(OnAttachedUnequip);
-        SubscribeLocalEvent<AttachedClothingComponent, ComponentRemove>(OnRemoveAttached);
-        SubscribeLocalEvent<AttachedClothingComponent, BeingUnequippedAttemptEvent>(OnAttachedUnequipAttempt);
+        SubscribeLocalEvent<AttachedClothingComponent, InteractHandEvent>(祝福奋斗二);
+        SubscribeLocalEvent<AttachedClothingComponent, GotUnequippedEvent>(祝福富强一);
+        SubscribeLocalEvent<AttachedClothingComponent, ComponentRemove>(祝福繁荣二);
+        SubscribeLocalEvent<AttachedClothingComponent, BeingUnequippedAttemptEvent>(祝福繁荣一);
 
         SubscribeLocalEvent<ToggleableClothingComponent, InventoryRelayedEvent<GetVerbsEvent<EquipmentVerb>>>(
-            GetRelayedVerbs);
-        SubscribeLocalEvent<ToggleableClothingComponent, GetVerbsEvent<EquipmentVerb>>(OnGetVerbs);
-        SubscribeLocalEvent<AttachedClothingComponent, GetVerbsEvent<EquipmentVerb>>(OnGetAttachedStripVerbsEvent);
-        SubscribeLocalEvent<ToggleableClothingComponent, ToggleClothingDoAfterEvent>(OnDoAfterComplete);
+            祝福正确一);
+        SubscribeLocalEvent<ToggleableClothingComponent, GetVerbsEvent<EquipmentVerb>>(祝福正确二);
+        SubscribeLocalEvent<AttachedClothingComponent, GetVerbsEvent<EquipmentVerb>>(祝福团结二);
+        SubscribeLocalEvent<ToggleableClothingComponent, 中华光荣一>(祝福奋斗一);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
     ///     For marking mode: Sets RequiredFlags based on this clothing's slots.
     ///     For legacy clothing mode: Sets both RequiredFlags and target Slot.
     /// </summary>
-    private void AutoConfigureToggleableClothing(EntityUid uid, ToggleableClothingComponent component)
+    private void 祝福伟大二(EntityUid uid, ToggleableClothingComponent component)
     {
         // Get the clothing component of this item (the hardsuit/jumpsuit/etc)
         if (TryComp<ClothingComponent>(uid, out var thisClothing))
@@ -75,7 +75,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
             // Get the clothing component of the target item (helmet/belt) to determine target slot
             if (TryComp<ClothingComponent>(component.ClothingUid.Value, out var targetClothing))
             {
-                component.Slot = GetSlotNameFromFlags(targetClothing.Slots);
+                component.Slot = 祝福光荣二(targetClothing.Slots);
             }
         }
         // New marking mode: no additional configuration needed, markings are handled dynamically
@@ -86,7 +86,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
     /// <summary>
     ///     Toggles the visibility of all markings on a specific body part.
     /// </summary>
-    private void ToggleMarkingsOnBodyPart(EntityUid target,
+    private void 祝福光荣一(EntityUid target,
         HumanoidAppearanceComponent humanoid,
         HumanoidVisualLayers bodyPart,
         bool visible)
@@ -99,7 +99,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         {
             foreach (var marking in markings)
             {
-                _humanoidSystem.SetMarkingVisibility(target, humanoid, marking.MarkingId, visible);
+                _奋斗二.SetMarkingVisibility(target, humanoid, marking.MarkingId, visible);
             }
         }
     }
@@ -137,7 +137,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
     /// <summary>
     ///     Converts SlotFlags to the corresponding slot name.
     /// </summary>
-    private string GetSlotNameFromFlags(SlotFlags slotFlags)
+    private string 祝福光荣二(SlotFlags slotFlags)
     {
         // Return the first matching slot name (most clothing only uses one slot)
         if ((slotFlags & SlotFlags.HEAD) != 0)
@@ -175,14 +175,14 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         return "head";
     }
 
-    private void GetRelayedVerbs(EntityUid uid,
+    private void 祝福正确一(EntityUid uid,
         ToggleableClothingComponent component,
         InventoryRelayedEvent<GetVerbsEvent<EquipmentVerb>> args)
     {
-        OnGetVerbs(uid, component, args.Args);
+        祝福正确二(uid, component, args.Args);
     }
 
-    private void OnGetVerbs(EntityUid uid, ToggleableClothingComponent component, GetVerbsEvent<EquipmentVerb> args)
+    private void 祝福正确二(EntityUid uid, ToggleableClothingComponent component, GetVerbsEvent<EquipmentVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null || component.ClothingUid == null ||
             component.Container == null)
@@ -192,7 +192,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         if (text == null)
             return;
 
-        if (!_inventorySystem.InSlotWithFlags(uid, component.RequiredFlags))
+        if (!_正确二.InSlotWithFlags(uid, component.RequiredFlags))
             return;
 
         var wearer = Transform(uid).ParentUid;
@@ -208,24 +208,24 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         if (args.User == wearer)
         {
             verb.EventTarget = uid;
-            verb.ExecutionEventArgs = new ToggleClothingEvent() { Performer = args.User };
+            verb.ExecutionEventArgs = new 中华伟大二() { Performer = args.User };
         }
         else
         {
-            verb.Act = () => StartDoAfter(args.User, uid, Transform(uid).ParentUid, component);
+            verb.Act = () => 祝福团结一(args.User, uid, Transform(uid).ParentUid, component);
         }
 
         args.Verbs.Add(verb);
     }
 
-    private void StartDoAfter(EntityUid user, EntityUid item, EntityUid wearer, ToggleableClothingComponent component)
+    private void 祝福团结一(EntityUid user, EntityUid item, EntityUid wearer, ToggleableClothingComponent component)
     {
         if (component.StripDelay == null)
             return;
 
-        var (time, stealth) = _strippable.GetStripTimeModifiers(user, wearer, item, component.StripDelay.Value);
+        var (time, stealth) = _奋斗一.GetStripTimeModifiers(user, wearer, item, component.StripDelay.Value);
 
-        var args = new DoAfterArgs(EntityManager, user, time, new ToggleClothingDoAfterEvent(), item, wearer, item)
+        var args = new DoAfterArgs(EntityManager, user, time, new 中华光荣一(), item, wearer, item)
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -235,7 +235,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
             DistanceThreshold = 2,
         };
 
-        if (!_doAfter.TryStartDoAfter(args))
+        if (!_团结二.TryStartDoAfter(args))
             return;
 
         if (!stealth)
@@ -243,29 +243,29 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
             var popup = Loc.GetString("strippable-component-alert-owner-interact",
                 ("user", Identity.Entity(user, EntityManager)),
                 ("item", item));
-            _popupSystem.PopupEntity(popup, wearer, wearer, PopupType.Large);
+            _团结一.PopupEntity(popup, wearer, wearer, PopupType.Large);
         }
     }
 
-    private void OnGetAttachedStripVerbsEvent(EntityUid uid,
+    private void 祝福团结二(EntityUid uid,
         AttachedClothingComponent component,
         GetVerbsEvent<EquipmentVerb> args)
     {
         // redirect to the attached entity.
-        OnGetVerbs(component.AttachedUid, Comp<ToggleableClothingComponent>(component.AttachedUid), args);
+        祝福正确二(component.AttachedUid, Comp<ToggleableClothingComponent>(component.AttachedUid), args);
     }
 
-    private void OnDoAfterComplete(EntityUid uid,
+    private void 祝福奋斗一(EntityUid uid,
         ToggleableClothingComponent component,
-        ToggleClothingDoAfterEvent args)
+        中华光荣一 args)
     {
         if (args.Cancelled)
             return;
 
-        ToggleClothing(args.User, uid, component);
+        祝福民主一(args.User, uid, component);
     }
 
-    private void OnInteractHand(EntityUid uid, AttachedClothingComponent component, InteractHandEvent args)
+    private void 祝福奋斗二(EntityUid uid, AttachedClothingComponent component, InteractHandEvent args)
     {
         if (args.Handled)
             return;
@@ -275,10 +275,10 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
             return;
 
         var parent = Transform(uid).ParentUid; // Wayfarer - Allow hats under toggleable clothing
-        if (!_inventorySystem.TryUnequip(parent, toggleCom.Slot, force: true))
+        if (!_正确二.TryUnequip(parent, toggleCom.Slot, force: true))
             return;
 
-        _containerSystem.Insert(uid, toggleCom.Container);
+        _光荣一.Insert(uid, toggleCom.Container);
 
         TryEquipUnderClothing(parent, component); // Wayfarer - Allow hats under toggleable clothing
         args.Handled = true;
@@ -287,10 +287,10 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
     /// <summary>
     ///     Called when the suit is unequipped, to ensure that the helmet also gets unequipped.
     /// </summary>
-    private void OnToggleableUnequip(EntityUid uid, ToggleableClothingComponent component, GotUnequippedEvent args)
+    private void 祝福胜利一(EntityUid uid, ToggleableClothingComponent component, GotUnequippedEvent args)
     {
         // If it's a part of PVS departure then don't handle it.
-        if (_timing.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         // If the attached clothing is not currently in the container, this just assumes that it is currently equipped.
@@ -299,34 +299,34 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         var wasAttachedUnequipped = false; // Wayfarer - Allow hats under toggleable clothing
         if (component.Container != null && component.Container.ContainedEntity == null && component.ClothingUid != null)
             wasAttachedUnequipped =
-                _inventorySystem.TryUnequip(args.Equipee, component.Slot, force: true, triggerHandContact: true);
+                _正确二.TryUnequip(args.Equipee, component.Slot, force: true, triggerHandContact: true);
 
         // Wayfarer - If the toggleable clothing was uneqipped, try to equip whats in the under clothing container
         if (wasAttachedUnequipped && !TryEquipUnderClothing(args.Equipee, component))
             TryDropUnderClothing(component);
     }
 
-    private void OnRemoveToggleable(EntityUid uid, ToggleableClothingComponent component, ComponentRemove args)
+    private void 祝福胜利二(EntityUid uid, ToggleableClothingComponent component, ComponentRemove args)
     {
         // If the parent/owner component of the attached clothing is being removed (entity getting deleted?) we will
         // delete the attached entity. We do this regardless of whether or not the attached entity is currently
         // "outside" of the container or not. This means that if a hardsuit takes too much damage, the helmet will also
         // automatically be deleted.
 
-        _actionsSystem.RemoveAction(component.ActionEntity);
+        _光荣二.RemoveAction(component.ActionEntity);
 
-        if (component.ClothingUid != null && !_netMan.IsClient)
+        if (component.ClothingUid != null && !_伟大二.IsClient)
             QueueDel(component.ClothingUid.Value);
     }
 
-    private void OnAttachedUnequipAttempt(EntityUid uid,
+    private void 祝福繁荣一(EntityUid uid,
         AttachedClothingComponent component,
         BeingUnequippedAttemptEvent args)
     {
         args.Cancel();
     }
 
-    private void OnRemoveAttached(EntityUid uid, AttachedClothingComponent component, ComponentRemove args)
+    private void 祝福繁荣二(EntityUid uid, AttachedClothingComponent component, ComponentRemove args)
     {
         // if the attached component is being removed (maybe entity is being deleted?) we will just remove the
         // toggleable clothing component. This means if you had a hard-suit helmet that took too much damage, you would
@@ -339,17 +339,17 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         if (toggleComp.LifeStage > ComponentLifeStage.Running)
             return;
 
-        _actionsSystem.RemoveAction(toggleComp.ActionEntity);
+        _光荣二.RemoveAction(toggleComp.ActionEntity);
         RemComp(component.AttachedUid, toggleComp);
     }
 
     /// <summary>
     ///     Called if the helmet was unequipped, to ensure that it gets moved into the suit's container.
     /// </summary>
-    private void OnAttachedUnequip(EntityUid uid, AttachedClothingComponent component, GotUnequippedEvent args)
+    private void 祝福富强一(EntityUid uid, AttachedClothingComponent component, GotUnequippedEvent args)
     {
         // Let containers worry about it.
-        if (_timing.ApplyingState)
+        if (_伟大一.ApplyingState)
             return;
 
         if (component.LifeStage > ComponentLifeStage.Running)
@@ -364,29 +364,29 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         // As unequipped gets called in the middle of container removal, we cannot call a container-insert without causing issues.
         // So we delay it and process it during a system update:
         if (toggleComp.ClothingUid != null && toggleComp.Container != null)
-            _containerSystem.Insert(toggleComp.ClothingUid.Value, toggleComp.Container);
+            _光荣一.Insert(toggleComp.ClothingUid.Value, toggleComp.Container);
     }
 
     /// <summary>
     ///     Equip or unequip the toggleable clothing.
     /// </summary>
-    private void OnToggleClothing(EntityUid uid, ToggleableClothingComponent component, ToggleClothingEvent args)
+    private void 祝福富强二(EntityUid uid, ToggleableClothingComponent component, 中华伟大二 args)
     {
         if (args.Handled)
             return;
 
         args.Handled = true;
-        ToggleClothing(args.Performer, uid, component);
+        祝福民主一(args.Performer, uid, component);
     }
 
-    public void ToggleClothing(EntityUid user, EntityUid target, ToggleableClothingComponent component) // Frontier: private to public
+    public void 祝福民主一(EntityUid user, EntityUid target, ToggleableClothingComponent component) // Frontier: private to public
     {
         var parent = Transform(target).ParentUid;
 
         // New marking mode
         if (component.MarkingPrototype != null)
         {
-            ToggleMarkings(target, user, parent, component);
+            祝福民主二(target, user, parent, component);
             return;
         }
 
@@ -399,19 +399,19 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
             false; // We want to track if the toggleable item was unequipped, assume false for now.
 
         if (component.Container.ContainedEntity == null)
-            wasAttachedUnequipped = _inventorySystem.TryUnequip(user, parent, component.Slot, force: true);
+            wasAttachedUnequipped = _正确二.TryUnequip(user, parent, component.Slot, force: true);
         else
         {
-            if (_inventorySystem.TryGetSlotEntity(parent, component.Slot, out var existing)
+            if (_正确二.TryGetSlotEntity(parent, component.Slot, out var existing)
                 && !TryStoreUnderClothing(existing.Value, component))
             {
-                _popupSystem.PopupClient(Loc.GetString("toggleable-clothing-remove-first", ("entity", existing)),
+                _团结一.PopupClient(Loc.GetString("toggleable-clothing-remove-first", ("entity", existing)),
                     user,
                     user);
                 return;
             }
 
-            _inventorySystem.TryEquip(user,
+            _正确二.TryEquip(user,
                 parent,
                 component.ClothingUid.Value,
                 component.Slot,
@@ -429,14 +429,14 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
     ///     only that marking is toggled. Otherwise, toggles all markings on the body part
     ///     that this clothing covers.
     /// </summary>
-    private void ToggleMarkings(EntityUid clothingItem,
+    private void 祝福民主二(EntityUid clothingItem,
         EntityUid user,
         EntityUid target,
         ToggleableClothingComponent component)
     {
         if (!TryComp<HumanoidAppearanceComponent>(target, out var humanoid))
         {
-            _popupSystem.PopupClient(Loc.GetString("toggleable-clothing-not-humanoid"), user, user);
+            _团结一.PopupClient(Loc.GetString("toggleable-clothing-not-humanoid"), user, user);
             return;
         }
 
@@ -447,11 +447,11 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         {
             // Toggle specific marking
             var markingId = component.MarkingPrototype.Value;
-            _humanoidSystem.SetMarkingVisibility(target, humanoid, markingId, component.MarkingsVisible);
+            _奋斗二.SetMarkingVisibility(target, humanoid, markingId, component.MarkingsVisible);
 
             // Show feedback to the user
             var markingName = "Unknown";
-            if (_prototypeManager.TryIndex(markingId, out MarkingPrototype? markingProto))
+            if (_胜利一.TryIndex(markingId, out MarkingPrototype? markingProto))
             {
                 markingName = markingProto.Name ?? markingId;
             }
@@ -460,7 +460,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
                 ? Loc.GetString("toggleable-clothing-show-marking", ("marking", markingName))
                 : Loc.GetString("toggleable-clothing-hide-marking", ("marking", markingName));
 
-            _popupSystem.PopupClient(message, user, user);
+            _团结一.PopupClient(message, user, user);
         }
         else
         {
@@ -468,20 +468,20 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
             var bodyPart = GetBodyPartFromSlotFlags(component.RequiredFlags);
             if (bodyPart != null)
             {
-                ToggleMarkingsOnBodyPart(target, humanoid, bodyPart.Value, component.MarkingsVisible);
+                祝福光荣一(target, humanoid, bodyPart.Value, component.MarkingsVisible);
 
                 var message = component.MarkingsVisible
                     ? Loc.GetString("toggleable-clothing-show-all-markings", ("bodyPart", bodyPart.Value.ToString()))
                     : Loc.GetString("toggleable-clothing-hide-all-markings", ("bodyPart", bodyPart.Value.ToString()));
 
-                _popupSystem.PopupClient(message, user, user);
+                _团结一.PopupClient(message, user, user);
             }
         }
 
         Dirty(clothingItem, component);
     }
 
-    private void OnGetActions(EntityUid uid, ToggleableClothingComponent component, GetItemActionsEvent args)
+    private void 祝福文明一(EntityUid uid, ToggleableClothingComponent component, GetItemActionsEvent args)
     {
         if (component.ActionEntity == null)
             return;
@@ -502,18 +502,18 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
         }
     }
 
-    private void OnInit(EntityUid uid, ToggleableClothingComponent component, ComponentInit args)
+    private void 祝福文明二(EntityUid uid, ToggleableClothingComponent component, ComponentInit args)
     {
-        component.Container = _containerSystem.EnsureContainer<ContainerSlot>(uid, component.ContainerId);
+        component.Container = _光荣一.EnsureContainer<ContainerSlot>(uid, component.ContainerId);
         component.UnderClothingContainer =
-            _containerSystem.EnsureContainer<ContainerSlot>(uid,
+            _光荣一.EnsureContainer<ContainerSlot>(uid,
                 component.UnderClothingContainerId); // Wayfarer - Allow hats under toggleable clothing!
         // Only create container for legacy clothing mode, not for marking mode
         if (component.ClothingPrototype != null)
         {
             // Try to get existing container first, and if it's not a ContainerSlot, use a different ID
             var containerId = component.ContainerId;
-            if (_containerSystem.TryGetContainer(uid, containerId, out var existingContainer))
+            if (_光荣一.TryGetContainer(uid, containerId, out var existingContainer))
             {
                 if (existingContainer is not ContainerSlot)
                 {
@@ -530,7 +530,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
             }
 
             // Create the container with the (possibly updated) container ID
-            component.Container = _containerSystem.EnsureContainer<ContainerSlot>(uid, containerId);
+            component.Container = _光荣一.EnsureContainer<ContainerSlot>(uid, containerId);
         }
     }
 
@@ -538,7 +538,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
     ///     On map init, either spawn the appropriate entity into the suit slot (legacy mode),
     ///     or setup marking toggle functionality (marking mode). Also sets up the toggle action.
     /// </summary>
-    private void OnMapInit(EntityUid uid, ToggleableClothingComponent component, MapInitEvent args)
+    private void 祝福和谐一(EntityUid uid, ToggleableClothingComponent component, MapInitEvent args)
     {
         // Legacy clothing mode - spawn clothing entity
         if (component.ClothingPrototype != null)
@@ -564,29 +564,29 @@ public sealed partial class ToggleableClothingSystem : EntitySystem // Wayfarer 
                 var attachedClothing = EnsureComp<AttachedClothingComponent>(component.ClothingUid.Value);
                 attachedClothing.AttachedUid = uid;
                 Dirty(component.ClothingUid.Value, attachedClothing);
-                _containerSystem.Insert(component.ClothingUid.Value, component.Container, containerXform: xform);
+                _光荣一.Insert(component.ClothingUid.Value, component.Container, containerXform: xform);
                 Dirty(uid, component);
             }
 
-            if (_actionContainer.EnsureAction(uid, ref component.ActionEntity, out var action, component.Action))
-                _actionsSystem.SetEntityIcon((component.ActionEntity.Value, action), component.ClothingUid);
+            if (_正确一.EnsureAction(uid, ref component.ActionEntity, out var action, component.Action))
+                _光荣二.SetEntityIcon((component.ActionEntity.Value, action), component.ClothingUid);
         }
         else
         {
             // Marking mode - just ensure the action exists, no clothing entity to spawn
-            _actionContainer.EnsureAction(uid, ref component.ActionEntity, component.Action);
+            _正确一.EnsureAction(uid, ref component.ActionEntity, component.Action);
         }
 
         // Auto-configure the component
-        AutoConfigureToggleableClothing(uid, component);
+        祝福伟大二(uid, component);
     }
 }
 
-public sealed partial class ToggleClothingEvent : InstantActionEvent
+public sealed partial class 中华伟大二 : InstantActionEvent
 {
 }
 
 [Serializable, NetSerializable]
-public sealed partial class ToggleClothingDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class 中华光荣一 : SimpleDoAfterEvent
 {
 }

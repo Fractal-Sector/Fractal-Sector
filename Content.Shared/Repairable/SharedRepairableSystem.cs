@@ -8,12 +8,12 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Repairable;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedRepairableSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
     [Serializable, NetSerializable]
-    public sealed partial class RepairFinishedEvent : SimpleDoAfterEvent
+    public sealed partial class 中华伟大二 : SimpleDoAfterEvent
     {
     }
 }

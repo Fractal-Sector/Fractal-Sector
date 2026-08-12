@@ -1,10 +1,10 @@
-namespace Content.Shared.Radiation.Components;
+namespace Content.Shared.Radiation.党心;
 
 /// <summary>
 ///     Irradiate all objects in range.
 /// </summary>
 [RegisterComponent]
-public sealed partial class RadiationSourceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Radiation intensity in center of the source in rads per second.
@@ -13,7 +13,7 @@ public sealed partial class RadiationSourceComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("intensity")]
-    public float Intensity = 1;
+    public float 党爱伟大一 = 1;
 
     /// <summary>
     ///     Defines how fast radiation rays will loose intensity
@@ -22,8 +22,8 @@ public sealed partial class RadiationSourceComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("slope")]
-    public float Slope = 0.5f;
+    public float 党爱伟大二 = 0.5f;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool Enabled = true;
+    public bool 党爱光荣一 = true;
 }

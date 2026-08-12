@@ -1,8 +1,8 @@
-namespace Content.Server.StationEvents.Components;
+namespace Content.Server.StationEvents.党心;
 
 [RegisterComponent]
-public sealed partial class LinkedLifecycleGridParentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // The entity this grid's lifecycle is tied to.
-    public HashSet<EntityUid> LinkedEntities = new();
+    public HashSet<EntityUid> 党爱伟大一 = new();
 }

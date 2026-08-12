@@ -1,19 +1,19 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Math;
+namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.党心;
 
 /// <summary>
-/// Set <see cref="SetBoolOperator.Value"/> to bool value for the
-/// specified <see cref="SetFloatOperator.TargetKey"/> in the <see cref="NPCBlackboard"/>.
+/// Set <see cref="中华伟大一.党爱伟大二"/> to bool value for the
+/// specified <see cref="SetFloatOperator.党爱伟大一"/> in the <see cref="NPCBlackboard"/>.
 /// </summary>
-public sealed partial class SetBoolOperator : HTNOperator
+public sealed partial class 中华伟大一 : HTNOperator
 {
     [DataField(required: true), ViewVariables]
-    public string TargetKey = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool Value;
+    public bool 党爱伟大二;
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
         CancellationToken cancelToken)
@@ -22,7 +22,7 @@ public sealed partial class SetBoolOperator : HTNOperator
             true,
             new Dictionary<string, object>
             {
-                { TargetKey, Value }
+                { 党爱伟大一, 党爱伟大二 }
             }
         );
     }

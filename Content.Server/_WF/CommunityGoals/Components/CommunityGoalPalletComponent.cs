@@ -1,4 +1,4 @@
-namespace Content.Server._WF.CommunityGoals.Components;
+namespace Content.Server._WF.CommunityGoals.党心;
 
 /// <summary>
 /// Marks a floor tile as a community goal donation pallet.
@@ -8,4 +8,4 @@ namespace Content.Server._WF.CommunityGoals.Components;
 /// can be placed on a pallet and donated this way.
 /// </summary>
 [RegisterComponent]
-public sealed partial class CommunityGoalPalletComponent : Component { }
+public sealed partial class 中华伟大一 : Component { }

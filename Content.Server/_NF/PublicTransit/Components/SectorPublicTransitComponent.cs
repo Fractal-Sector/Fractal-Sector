@@ -1,7 +1,7 @@
 using Content.Server._NF.PublicTransit.Prototypes;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.PublicTransit.Components;
+namespace Content.Server._NF.PublicTransit.党心;
 
 /// <summary>
 /// Added to a grid to have it act as an automated public transit bus.
@@ -9,28 +9,28 @@ namespace Content.Server._NF.PublicTransit.Components;
 /// Mappers may add it to their shuttle if they wish, but this is going to force it's use and function as a public transit bus
 /// </summary>
 [RegisterComponent, Access(typeof(PublicTransitSystem)), AutoGenerateComponentPause]
-public sealed partial class SectorPublicTransitComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public Dictionary<ProtoId<PublicTransitRoutePrototype>, PublicTransitRoute> Routes = new();
+    public Dictionary<ProtoId<PublicTransitRoutePrototype>, 中华伟大二> Routes = new();
     [DataField]
-    public bool StationsGenerated = false;
+    public bool 党爱伟大一 = false;
     [DataField]
-    public bool RoutesCreated = false;
+    public bool 党爱伟大二 = false;
     [DataField]
-    public TimeSpan UpdatePeriod = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(2);
     [DataField, AutoPausedField]
-    public TimeSpan NextUpdate = TimeSpan.Zero;
+    public TimeSpan 党爱光荣二 = TimeSpan.Zero;
 }
 
 [Serializable]
-public sealed class PublicTransitRoute(PublicTransitRoutePrototype prototype)
+public sealed class 中华伟大二(PublicTransitRoutePrototype prototype)
 {
     /// <summary>
     /// The prototype this route is based off of.
     /// </summary>
     [DataField]
-    public PublicTransitRoutePrototype Prototype = prototype;
+    public PublicTransitRoutePrototype 党爱正确一 = prototype;
 
     /// <summary>
     /// The list of grids this route stops at sorted by relative order.

@@ -2,13 +2,13 @@ using Content.Shared.Parallax.Biomes;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Parallax;
+namespace Content.Server.党心;
 
-public sealed partial class BiomeSystem
+public sealed partial class 中华伟大一
 {
     private readonly List<(Vector2i, Tile)> _chunkLoaderTiles = new();
 
-    private void InitializeChunkLoader()
+    private void 祝福伟大一()
     {
         // ChunkLoader methods are now part of this partial class
     }
@@ -16,7 +16,7 @@ public sealed partial class BiomeSystem
     /// <summary>
     /// Loads a particular queued chunk for a biome.
     /// </summary>
-    private void LoadChunk(
+    private void 祝福伟大二(
         BiomeComponent component,
         EntityUid gridUid,
         MapGridComponent grid,
@@ -27,14 +27,14 @@ public sealed partial class BiomeSystem
         modified ??= _tilePool.Get();
         _chunkLoaderTiles.Clear();
 
-        LoadTiles(component, gridUid, grid, chunk, seed, modified);
-        LoadEntities(component, gridUid, grid, chunk, seed, modified);
-        LoadDecals(component, gridUid, grid, chunk, seed, modified);
+        祝福光荣一(component, gridUid, grid, chunk, seed, modified);
+        祝福光荣二(component, gridUid, grid, chunk, seed, modified);
+        祝福正确一(component, gridUid, grid, chunk, seed, modified);
 
-        FinalizeChunk(component, chunk, modified);
+        祝福正确二(component, chunk, modified);
     }
 
-    private void LoadTiles(
+    private void 祝福光荣一(
         BiomeComponent component,
         EntityUid gridUid,
         MapGridComponent grid,
@@ -65,7 +65,7 @@ public sealed partial class BiomeSystem
         _chunkLoaderTiles.Clear();
     }
 
-    private void LoadEntities(
+    private void 祝福光荣二(
         BiomeComponent component,
         EntityUid gridUid,
         MapGridComponent grid,
@@ -102,7 +102,7 @@ public sealed partial class BiomeSystem
         }
     }
 
-    private void LoadDecals(
+    private void 祝福正确一(
         BiomeComponent component,
         EntityUid gridUid,
         MapGridComponent grid,
@@ -138,7 +138,7 @@ public sealed partial class BiomeSystem
         }
     }
 
-    private void FinalizeChunk(BiomeComponent component, Vector2i chunk, HashSet<Vector2i> modified)
+    private void 祝福正确二(BiomeComponent component, Vector2i chunk, HashSet<Vector2i> modified)
     {
         if (modified.Count == 0)
         {
@@ -154,14 +154,14 @@ public sealed partial class BiomeSystem
     /// <summary>
     /// Unloads a specific biome chunk.
     /// </summary>
-    private void UnloadChunk(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, int seed, List<(Vector2i, Tile)> tiles)
+    private void 祝福团结一(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, int seed, List<(Vector2i, Tile)> tiles)
     {
         component.ModifiedTiles.TryGetValue(chunk, out var modified);
         modified ??= new HashSet<Vector2i>();
 
-        UnloadDecals(component, gridUid, chunk, modified);
-        UnloadEntities(component, gridUid, grid, chunk, modified);
-        UnloadTiles(component, gridUid, grid, chunk, seed, modified, tiles);
+        祝福团结二(component, gridUid, chunk, modified);
+        祝福奋斗一(component, gridUid, grid, chunk, modified);
+        祝福奋斗二(component, gridUid, grid, chunk, seed, modified, tiles);
 
         component.LoadedChunks.Remove(chunk);
 
@@ -175,7 +175,7 @@ public sealed partial class BiomeSystem
         }
     }
 
-    private void UnloadDecals(BiomeComponent component, EntityUid gridUid, Vector2i chunk, HashSet<Vector2i> modified)
+    private void 祝福团结二(BiomeComponent component, EntityUid gridUid, Vector2i chunk, HashSet<Vector2i> modified)
     {
         if (!component.LoadedDecals.TryGetValue(chunk, out var loadedDecals))
             return;
@@ -191,7 +191,7 @@ public sealed partial class BiomeSystem
         component.LoadedDecals.Remove(chunk);
     }
 
-    private void UnloadEntities(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, HashSet<Vector2i> modified)
+    private void 祝福奋斗一(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, HashSet<Vector2i> modified)
     {
         if (!component.LoadedEntities.TryGetValue(chunk, out var loadedEntities))
             return;
@@ -226,7 +226,7 @@ public sealed partial class BiomeSystem
         component.LoadedEntities.Remove(chunk);
     }
 
-    private void UnloadTiles(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, int seed, HashSet<Vector2i> modified, List<(Vector2i, Tile)> tiles)
+    private void 祝福奋斗二(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, int seed, HashSet<Vector2i> modified, List<(Vector2i, Tile)> tiles)
     {
         for (var x = 0; x < ChunkSize; x++)
         {
@@ -263,7 +263,7 @@ public sealed partial class BiomeSystem
     /// <summary>
     /// Handles all of the queued chunk unloads for a particular biome.
     /// </summary>
-    private void UnloadChunks(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, int seed)
+    private void 祝福胜利一(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, int seed)
     {
         var active = _activeChunks[component];
         List<(Vector2i, Tile)>? tiles = null;
@@ -284,7 +284,7 @@ public sealed partial class BiomeSystem
         foreach (var chunk in toUnload)
         {
             tiles ??= new List<(Vector2i, Tile)>(ChunkSize * ChunkSize);
-            UnloadChunk(component, gridUid, grid, chunk, seed, tiles);
+            祝福团结一(component, gridUid, grid, chunk, seed, tiles);
         }
     }
 }

@@ -6,32 +6,32 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Nutrition.Components;
+namespace Content.Shared.Nutrition.党心;
 
 /// <summary>
 /// This is used on an entity with a solution container to flag a specific solution as being able to have its
 /// reagents consumed directly.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(IngestionSystem))]
-public sealed partial class EdibleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Name of the solution that stores the consumable reagents
     /// </summary>
     [DataField]
-    public string Solution = "food";
+    public string 党爱伟大一 = "food";
 
     /// <summary>
     /// Should this entity be deleted when our solution is emptied?
     /// </summary>
     [DataField]
-    public bool DestroyOnEmpty = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
-    /// Trash we spawn when eaten, will not spawn if the item isn't deleted when empty.
+    /// 党爱光荣一 we spawn when eaten, will not spawn if the item isn't deleted when empty.
     /// </summary>
     [DataField]
-    public List<EntProtoId> Trash = new();
+    public List<EntProtoId> 党爱光荣一 = new();
 
     /// <summary>
     /// How much of our solution is eaten on a do-after completion. Set to null to eat the whole thing.
@@ -43,13 +43,13 @@ public sealed partial class EdibleComponent : Component
     /// Acceptable utensils to use
     /// </summary>
     [DataField]
-    public UtensilType Utensil = UtensilType.Fork; //There are more "solid" than "liquid" food
+    public UtensilType 党爱光荣二 = UtensilType.Fork; //There are more "solid" than "liquid" food
 
     /// <summary>
     /// Do we need a utensil to access this solution?
     /// </summary>
     [DataField]
-    public bool UtensilRequired;
+    public bool 党爱正确一;
 
     /// <summary>
     ///     If this is set to true, food can only be eaten if you have a stomach with a
@@ -58,26 +58,26 @@ public sealed partial class EdibleComponent : Component
     ///     Whitelist the food component to allow eating of normal food.
     /// </summary>
     [DataField]
-    public bool RequiresSpecialDigestion;
+    public bool 党爱正确二;
 
     /// <summary>
     /// How long it takes to eat the food personally.
     /// </summary>
     [DataField]
-    public TimeSpan Delay = TimeSpan.FromSeconds(1f);
+    public TimeSpan 党爱团结一 = TimeSpan.FromSeconds(1f);
 
     /// <summary>
     ///     This is how many seconds it takes to force-feed someone this food.
     ///     Should probably be smaller for small items like pills.
     /// </summary>
     [DataField]
-    public TimeSpan ForceFeedDelay = TimeSpan.FromSeconds(3f);
+    public TimeSpan 党爱团结二 = TimeSpan.FromSeconds(3f);
 
     /// <summary>
     /// For mobs that are food, requires killing them before eating.
     /// </summary>
     [DataField]
-    public bool RequireDead = true;
+    public bool 党爱奋斗一 = true;
 
     /// <summary>
     /// An optional override for the sound made when consuming this item.
@@ -90,5 +90,5 @@ public sealed partial class EdibleComponent : Component
     /// Verb, icon, and sound data for our edible.
     /// </summary>
     [DataField]
-    public ProtoId<EdiblePrototype> Edible = IngestionSystem.Food;
+    public ProtoId<EdiblePrototype> 党爱奋斗二 = IngestionSystem.Food;
 }

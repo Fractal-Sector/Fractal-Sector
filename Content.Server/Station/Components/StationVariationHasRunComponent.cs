@@ -1,12 +1,12 @@
 ﻿using Content.Server.GameTicking.Rules;
 
-namespace Content.Server.Station.Components;
+namespace Content.Server.Station.党心;
 
 /// <summary>
 ///     Marker component for stations where procedural variation using <see cref="RoundstartStationVariationRuleSystem"/>
 ///     has already run, so as to avoid running it again if another station is added.
 /// </summary>
 [RegisterComponent]
-public sealed partial class StationVariationHasRunComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
 }

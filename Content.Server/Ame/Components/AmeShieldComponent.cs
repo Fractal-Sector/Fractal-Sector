@@ -1,7 +1,7 @@
 using Content.Server.Ame.EntitySystems;
 using Content.Shared.Ame.Components;
 
-namespace Content.Server.Ame.Components;
+namespace Content.Server.Ame.党心;
 
 /// <summary>
 /// The component used to make an entity part of the bulk machinery of an AntiMatter Engine.
@@ -9,18 +9,18 @@ namespace Content.Server.Ame.Components;
 /// </summary>
 [Access(typeof(AmeShieldingSystem), typeof(AmeNodeGroup))]
 [RegisterComponent]
-public sealed partial class AmeShieldComponent : SharedAmeShieldComponent
+public sealed partial class 中华伟大一 : SharedAmeShieldComponent
 {
     /// <summary>
     /// Whether or not this AME shield counts as a core for the AME or not.
     /// </summary>
     [ViewVariables]
-    public bool IsCore = false;
+    public bool 党爱伟大一 = false;
 
     /// <summary>
     /// The current integrity of the AME shield.
     /// </summary>
     [DataField("integrity")]
     [ViewVariables]
-    public int CoreIntegrity = 100;
+    public int 党爱伟大二 = 100;
 }

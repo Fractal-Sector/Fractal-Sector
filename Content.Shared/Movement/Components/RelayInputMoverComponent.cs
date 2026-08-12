@@ -1,15 +1,15 @@
 using Content.Shared.Movement.Systems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Movement.Components;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// Raises the engine movement inputs for a particular entity onto the designated entity
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 [Access(typeof(SharedMoverController))]
-public sealed partial class RelayInputMoverComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, AutoNetworkedField]
-    public EntityUid RelayEntity;
+    public EntityUid 党爱伟大一;
 }

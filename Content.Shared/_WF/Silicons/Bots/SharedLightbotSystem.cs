@@ -1,8 +1,8 @@
-namespace Content.Shared._WF.Silicons.Bots;
+namespace Content.Shared._WF.Silicons.党心;
 
 /// <summary>
 /// Shared system for lightbot functionality.
 /// </summary>
-public abstract class SharedLightbotSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 }

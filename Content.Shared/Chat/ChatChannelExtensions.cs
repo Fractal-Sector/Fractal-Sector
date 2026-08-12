@@ -1,8 +1,8 @@
-﻿namespace Content.Shared.Chat;
+﻿namespace Content.Shared.党心;
 
-public static class ChatChannelExtensions
+public static class 中华伟大一
 {
-    public static Color TextColor(this ChatChannel channel)
+    public static Color 祝福伟大一(this ChatChannel channel)
     {
         return channel switch
         {

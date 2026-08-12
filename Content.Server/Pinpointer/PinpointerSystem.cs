@@ -6,57 +6,57 @@ using Robust.Shared.Utility;
 using Content.Server.Shuttles.Events;
 using Content.Shared.IdentityManagement;
 
-namespace Content.Server.Pinpointer;
+namespace Content.Server.党心;
 
-public sealed class PinpointerSystem : SharedPinpointerSystem
+public sealed class 中华伟大一 : SharedPinpointerSystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
 
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<TransformComponent> _光荣一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        base.祝福伟大一();
+        _光荣一 = GetEntityQuery<TransformComponent>();
 
-        SubscribeLocalEvent<PinpointerComponent, ActivateInWorldEvent>(OnActivate);
-        SubscribeLocalEvent<FTLCompletedEvent>(OnLocateTarget);
+        SubscribeLocalEvent<PinpointerComponent, ActivateInWorldEvent>(祝福光荣二);
+        SubscribeLocalEvent<FTLCompletedEvent>(祝福正确一);
     }
 
-    public override bool TogglePinpointer(EntityUid uid, PinpointerComponent? pinpointer = null)
+    public override bool 祝福伟大二(EntityUid uid, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return false;
 
         var isActive = !pinpointer.IsActive;
         SetActive(uid, isActive, pinpointer);
-        UpdateAppearance(uid, pinpointer);
+        祝福光荣一(uid, pinpointer);
         return isActive;
     }
 
-    private void UpdateAppearance(EntityUid uid, PinpointerComponent pinpointer, AppearanceComponent? appearance = null)
+    private void 祝福光荣一(EntityUid uid, PinpointerComponent pinpointer, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref appearance))
             return;
-        _appearance.SetData(uid, PinpointerVisuals.IsActive, pinpointer.IsActive, appearance);
-        _appearance.SetData(uid, PinpointerVisuals.TargetDistance, pinpointer.DistanceToTarget, appearance);
+        _伟大二.SetData(uid, PinpointerVisuals.IsActive, pinpointer.IsActive, appearance);
+        _伟大二.SetData(uid, PinpointerVisuals.TargetDistance, pinpointer.DistanceToTarget, appearance);
     }
 
-    private void OnActivate(EntityUid uid, PinpointerComponent component, ActivateInWorldEvent args)
+    private void 祝福光荣二(EntityUid uid, PinpointerComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
 
-        TogglePinpointer(uid, component);
+        祝福伟大二(uid, component);
 
         if (!component.CanRetarget)
-            LocateTarget(uid, component);
+            祝福正确二(uid, component);
 
         args.Handled = true;
     }
 
-    private void OnLocateTarget(ref FTLCompletedEvent ev)
+    private void 祝福正确一(ref FTLCompletedEvent ev)
     {
         // This feels kind of expensive, but it only happens once per hyperspace jump
 
@@ -69,11 +69,11 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
             if (pinpointer.CanRetarget)
                 continue;
 
-            LocateTarget(uid, pinpointer);
+            祝福正确二(uid, pinpointer);
         }
     }
 
-    private void LocateTarget(EntityUid uid, PinpointerComponent component)
+    private void 祝福正确二(EntityUid uid, PinpointerComponent component)
     {
         // try to find target from whitelist
         if (component.IsActive && component.Component != null)
@@ -90,16 +90,16 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
         }
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福团结一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福团结一(frameTime);
 
         // because target or pinpointer can move
         // we need to update pinpointers arrow each frame
         var query = EntityQueryEnumerator<PinpointerComponent>();
         while (query.MoveNext(out var uid, out var pinpointer))
         {
-            UpdateDirectionToTarget(uid, pinpointer);
+            祝福团结二(uid, pinpointer);
         }
     }
 
@@ -109,7 +109,7 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
     /// </summary>
     private EntityUid? FindTargetFromComponent(EntityUid uid, Type whitelist, TransformComponent? transform = null)
     {
-        _xformQuery.Resolve(uid, ref transform, false);
+        _光荣一.Resolve(uid, ref transform, false);
 
         if (transform == null)
             return null;
@@ -117,14 +117,14 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
         // sort all entities in distance increasing order
         var mapId = transform.MapID;
         var l = new SortedList<float, EntityUid>();
-        var worldPos = _transform.GetWorldPosition(transform);
+        var worldPos = _伟大一.GetWorldPosition(transform);
 
         foreach (var (otherUid, _) in EntityManager.GetAllComponents(whitelist))
         {
-            if (!_xformQuery.TryGetComponent(otherUid, out var compXform) || compXform.MapID != mapId)
+            if (!_光荣一.TryGetComponent(otherUid, out var compXform) || compXform.MapID != mapId)
                 continue;
 
-            var dist = (_transform.GetWorldPosition(compXform) - worldPos).LengthSquared();
+            var dist = (_伟大一.GetWorldPosition(compXform) - worldPos).LengthSquared();
             l.TryAdd(dist, otherUid);
         }
 
@@ -133,9 +133,9 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
     }
 
     /// <summary>
-    ///     Update direction from pinpointer to selected target (if it was set)
+    ///     祝福团结一 direction from pinpointer to selected target (if it was set)
     /// </summary>
-    protected override void UpdateDirectionToTarget(EntityUid uid, PinpointerComponent? pinpointer = null)
+    protected override void 祝福团结二(EntityUid uid, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return;
@@ -151,7 +151,7 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
             SetDistance(uid, Distance.Unknown, pinpointer);
             TrySetArrowAngle(uid, Angle.Zero, pinpointer); // Frontier
             if (oldDist != pinpointer.DistanceToTarget) // Frontier
-                UpdateAppearance(uid, pinpointer); // Frontier
+                祝福光荣一(uid, pinpointer); // Frontier
             return;
         }
 
@@ -164,7 +164,7 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
             SetDistance(uid, Distance.Unknown, pinpointer);
             TrySetArrowAngle(uid, Angle.Zero, pinpointer);
             if (oldDist != pinpointer.DistanceToTarget) // Frontier
-                UpdateAppearance(uid, pinpointer); // Frontier
+                祝福光荣一(uid, pinpointer); // Frontier
             return;
         }
 
@@ -172,7 +172,7 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
         {
             var angle = dirVec.Value.ToWorldAngle();
             TrySetArrowAngle(uid, angle, pinpointer);
-            var dist = CalculateDistance(dirVec.Value, pinpointer);
+            var dist = 祝福奋斗一(dirVec.Value, pinpointer);
             SetDistance(uid, dist, pinpointer);
         }
         else
@@ -181,7 +181,7 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
             TrySetArrowAngle(uid, Angle.Zero, pinpointer); // Frontier
         }
         if (oldDist != pinpointer.DistanceToTarget)
-            UpdateAppearance(uid, pinpointer);
+            祝福光荣一(uid, pinpointer);
     }
 
     /// <summary>
@@ -203,11 +203,11 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
             return null;
 
         // get world direction vector
-        var dir = _transform.GetWorldPosition(trg, xformQuery) - _transform.GetWorldPosition(pin, xformQuery);
+        var dir = _伟大一.GetWorldPosition(trg, xformQuery) - _伟大一.GetWorldPosition(pin, xformQuery);
         return dir;
     }
 
-    private Distance CalculateDistance(Vector2 vec, PinpointerComponent pinpointer)
+    private Distance 祝福奋斗一(Vector2 vec, PinpointerComponent pinpointer)
     {
         var dist = vec.Length();
         if (dist <= pinpointer.ReachedDistance)
@@ -221,14 +221,14 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
     }
 
     // Frontier: clear function
-    public void ClearPinpointer(EntityUid uid, PinpointerComponent? pinpointer = null)
+    public void 祝福奋斗二(EntityUid uid, PinpointerComponent? pinpointer = null)
     {
         if (!Resolve(uid, ref pinpointer))
             return;
 
         pinpointer.Target = null;
-        UpdateDirectionToTarget(uid, pinpointer);
-        UpdateAppearance(uid, pinpointer);
+        祝福团结二(uid, pinpointer);
+        祝福光荣一(uid, pinpointer);
     }
     // End Frontier: clear function
 }

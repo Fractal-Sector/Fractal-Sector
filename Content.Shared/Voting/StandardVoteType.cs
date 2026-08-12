@@ -1,9 +1,9 @@
-namespace Content.Shared.Voting;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Standard vote types that players can initiate themselves from the escape menu.
 /// </summary>
-public enum StandardVoteType : byte
+public enum 中华伟大一 : byte
 {
     /// <summary>
     /// Vote to restart the round.
@@ -29,7 +29,7 @@ public enum StandardVoteType : byte
 /// <summary>
 /// Reasons available to initiate a votekick.
 /// </summary>
-public enum VotekickReasonType : byte
+public enum 中华伟大二 : byte
 {
     Raiding,
     Cheating,

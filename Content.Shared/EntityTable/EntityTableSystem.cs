@@ -4,43 +4,43 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared.EntityTable;
+namespace Content.Shared.党心;
 
-public sealed class EntityTableSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public IEnumerable<EntProtoId> GetSpawns(EntityTablePrototype entTableProto, System.Random? rand = null, EntityTableContext? ctx = null)
+    public IEnumerable<EntProtoId> 祝福伟大一(EntityTablePrototype entTableProto, System.Random? rand = null, 中华伟大二? ctx = null)
     {
         // convenient
-        return GetSpawns(entTableProto.Table, rand, ctx);
+        return 祝福伟大一(entTableProto.Table, rand, ctx);
     }
 
-    public IEnumerable<EntProtoId> GetSpawns(EntityTableSelector? table, System.Random? rand = null, EntityTableContext? ctx = null)
+    public IEnumerable<EntProtoId> 祝福伟大一(EntityTableSelector? table, System.Random? rand = null, 中华伟大二? ctx = null)
     {
         if (table == null)
             return new List<EntProtoId>();
 
-        rand ??= _random.GetRandom();
-        ctx ??= new EntityTableContext();
-        return table.GetSpawns(rand, EntityManager, _prototypeManager, ctx);
+        rand ??= _伟大二.GetRandom();
+        ctx ??= new 中华伟大二();
+        return table.祝福伟大一(rand, EntityManager, _伟大一, ctx);
     }
 }
 
 /// <summary>
 /// Context used by selectors and conditions to evaluate in generic gamestate information.
 /// </summary>
-public sealed class EntityTableContext
+public sealed class 中华伟大二
 {
     private readonly Dictionary<string, object> _data = new();
 
-    public EntityTableContext()
+    public 中华伟大二()
     {
 
     }
 
-    public EntityTableContext(Dictionary<string, object> data)
+    public 中华伟大二(Dictionary<string, object> data)
     {
         _data = data;
     }

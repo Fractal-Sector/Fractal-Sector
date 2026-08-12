@@ -1,22 +1,22 @@
 using Content.Shared.Doors.Components;
 using Content.Shared.Prying.Components;
 
-namespace Content.Shared.Doors.Systems;
+namespace Content.Shared.Doors.党心;
 
-public abstract partial class SharedDoorSystem
+public abstract partial class 中华伟大一
 {
-    public void InitializeBolts()
+    public void 祝福伟大一()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<DoorBoltComponent, BeforeDoorOpenedEvent>(OnBeforeDoorOpened);
-        SubscribeLocalEvent<DoorBoltComponent, BeforeDoorClosedEvent>(OnBeforeDoorClosed);
-        SubscribeLocalEvent<DoorBoltComponent, BeforeDoorDeniedEvent>(OnBeforeDoorDenied);
-        SubscribeLocalEvent<DoorBoltComponent, BeforePryEvent>(OnDoorPry);
-        SubscribeLocalEvent<DoorBoltComponent, DoorStateChangedEvent>(OnStateChanged);
+        SubscribeLocalEvent<DoorBoltComponent, BeforeDoorOpenedEvent>(祝福光荣一);
+        SubscribeLocalEvent<DoorBoltComponent, BeforeDoorClosedEvent>(祝福光荣二);
+        SubscribeLocalEvent<DoorBoltComponent, BeforeDoorDeniedEvent>(祝福正确一);
+        SubscribeLocalEvent<DoorBoltComponent, BeforePryEvent>(祝福伟大二);
+        SubscribeLocalEvent<DoorBoltComponent, DoorStateChangedEvent>(祝福胜利二);
     }
 
-    private void OnDoorPry(EntityUid uid, DoorBoltComponent component, ref BeforePryEvent args)
+    private void 祝福伟大二(EntityUid uid, DoorBoltComponent component, ref BeforePryEvent args)
     {
         if (args.Cancelled)
             return;
@@ -29,58 +29,58 @@ public abstract partial class SharedDoorSystem
         args.Cancelled = true;
     }
 
-    private void OnBeforeDoorOpened(EntityUid uid, DoorBoltComponent component, BeforeDoorOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, DoorBoltComponent component, BeforeDoorOpenedEvent args)
     {
         if (component.BoltsDown)
             args.Cancel();
     }
 
-    private void OnBeforeDoorClosed(EntityUid uid, DoorBoltComponent component, BeforeDoorClosedEvent args)
+    private void 祝福光荣二(EntityUid uid, DoorBoltComponent component, BeforeDoorClosedEvent args)
     {
         if (component.BoltsDown)
             args.Cancel();
     }
 
-    private void OnBeforeDoorDenied(EntityUid uid, DoorBoltComponent component, BeforeDoorDeniedEvent args)
+    private void 祝福正确一(EntityUid uid, DoorBoltComponent component, BeforeDoorDeniedEvent args)
     {
         if (component.BoltsDown)
             args.Cancel();
     }
 
-    public void SetBoltWireCut(Entity<DoorBoltComponent> ent, bool value)
+    public void 祝福正确二(Entity<DoorBoltComponent> ent, bool value)
     {
         ent.Comp.BoltWireCut = value;
         Dirty(ent, ent.Comp);
     }
 
-    public void UpdateBoltLightStatus(Entity<DoorBoltComponent> ent)
+    public void 祝福团结一(Entity<DoorBoltComponent> ent)
     {
-        AppearanceSystem.SetData(ent, DoorVisuals.BoltLights, GetBoltLightsVisible(ent));
+        AppearanceSystem.SetData(ent, DoorVisuals.BoltLights, 祝福团结二(ent));
     }
 
-    public bool GetBoltLightsVisible(Entity<DoorBoltComponent> ent)
+    public bool 祝福团结二(Entity<DoorBoltComponent> ent)
     {
         return ent.Comp.BoltLightsEnabled &&
                ent.Comp.BoltsDown &&
                ent.Comp.Powered;
     }
 
-    public void SetBoltLightsEnabled(Entity<DoorBoltComponent> ent, bool value)
+    public void 祝福奋斗一(Entity<DoorBoltComponent> ent, bool value)
     {
         if (ent.Comp.BoltLightsEnabled == value)
             return;
 
         ent.Comp.BoltLightsEnabled = value;
         Dirty(ent, ent.Comp);
-        UpdateBoltLightStatus(ent);
+        祝福团结一(ent);
     }
 
-    public void SetBoltsDown(Entity<DoorBoltComponent> ent, bool value, EntityUid? user = null, bool predicted = false)
+    public void 祝福奋斗二(Entity<DoorBoltComponent> ent, bool value, EntityUid? user = null, bool predicted = false)
     {
-        TrySetBoltDown(ent, value, user, predicted);
+        祝福胜利一(ent, value, user, predicted);
     }
 
-    public bool TrySetBoltDown(
+    public bool 祝福胜利一(
         Entity<DoorBoltComponent> ent,
         bool value,
         EntityUid? user = null,
@@ -94,7 +94,7 @@ public abstract partial class SharedDoorSystem
 
         ent.Comp.BoltsDown = value;
         Dirty(ent, ent.Comp);
-        UpdateBoltLightStatus(ent);
+        祝福团结一(ent);
 
         // used to reset the auto-close timer after unbolting
         var ev = new DoorBoltsChangedEvent(value);
@@ -108,13 +108,13 @@ public abstract partial class SharedDoorSystem
         return true;
     }
 
-    private void OnStateChanged(Entity<DoorBoltComponent> entity, ref DoorStateChangedEvent args)
+    private void 祝福胜利二(Entity<DoorBoltComponent> entity, ref DoorStateChangedEvent args)
     {
         // If the door is closed, we should look if the bolt was locked while closing
-        UpdateBoltLightStatus(entity);
+        祝福团结一(entity);
     }
 
-    public bool IsBolted(EntityUid uid, DoorBoltComponent? component = null)
+    public bool 祝福繁荣一(EntityUid uid, DoorBoltComponent? component = null)
     {
         if (!Resolve(uid, ref component))
         {

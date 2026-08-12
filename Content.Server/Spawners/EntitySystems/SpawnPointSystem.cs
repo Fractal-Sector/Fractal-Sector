@@ -4,21 +4,21 @@ using Content.Server.Station.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.Spawners.EntitySystems;
+namespace Content.Server.Spawners.党心;
 
-public sealed class SpawnPointSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
+    [Dependency] private readonly GameTicker _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly StationSystem _光荣一 = default!;
+    [Dependency] private readonly StationSpawningSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PlayerSpawningEvent>(OnPlayerSpawning);
+        SubscribeLocalEvent<PlayerSpawningEvent>(祝福伟大二);
     }
 
-    private void OnPlayerSpawning(PlayerSpawningEvent args)
+    private void 祝福伟大二(PlayerSpawningEvent args)
     {
         if (args.SpawnResult != null)
             return;
@@ -29,7 +29,7 @@ public sealed class SpawnPointSystem : EntitySystem
 
         while (points.MoveNext(out var uid, out var spawnPoint, out var xform))
         {
-            if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
+            if (args.Station != null && _光荣一.GetOwningStation(uid, xform) != args.Station)
                 continue;
 
             // Delta-V: Allow setting a desired SpawnPointType
@@ -50,12 +50,12 @@ public sealed class SpawnPointSystem : EntitySystem
                 }
             }
 
-            if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
+            if (_伟大一.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
             {
                 possiblePositions.Add(xform.Coordinates);
             }
 
-            if (_gameTicker.RunLevel != GameRunLevel.InRound &&
+            if (_伟大一.RunLevel != GameRunLevel.InRound &&
                 spawnPoint.SpawnType == SpawnPointType.Job &&
                 (args.Job == null || spawnPoint.Job == null || spawnPoint.Job == args.Job))
             {
@@ -71,19 +71,19 @@ public sealed class SpawnPointSystem : EntitySystem
 
             if (points2.MoveNext(out _, out var xform))
             {
-                Log.Error($"Unable to pick a valid spawn point, picking random spawner as a backup.\nRunLevel: {_gameTicker.RunLevel} Station: {ToPrettyString(args.Station)} Job: {args.Job}");
+                Log.Error($"Unable to pick a valid spawn point, picking random spawner as a backup.\nRunLevel: {_伟大一.RunLevel} Station: {ToPrettyString(args.Station)} Job: {args.Job}");
                 possiblePositions.Add(xform.Coordinates);
             }
             else
             {
-                Log.Error($"No spawn points were available!\nRunLevel: {_gameTicker.RunLevel} Station: {ToPrettyString(args.Station)} Job: {args.Job}");
+                Log.Error($"No spawn points were available!\nRunLevel: {_伟大一.RunLevel} Station: {ToPrettyString(args.Station)} Job: {args.Job}");
                 return;
             }
         }
 
-        var spawnLoc = _random.Pick(possiblePositions);
+        var spawnLoc = _伟大二.Pick(possiblePositions);
 
-        args.SpawnResult = _stationSpawning.SpawnPlayerMob(
+        args.SpawnResult = _光荣二.SpawnPlayerMob(
             spawnLoc,
             args.Job,
             args.HumanoidCharacterProfile,

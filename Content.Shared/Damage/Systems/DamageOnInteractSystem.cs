@@ -14,25 +14,25 @@ using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Effects;
 using Content.Shared.Stunnable;
 
-namespace Content.Shared.Damage.Systems;
+namespace Content.Shared.Damage.党心;
 
-public sealed class DamageOnInteractSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly DamageableSystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly InventorySystem _正确一 = default!;
+    [Dependency] private readonly ThrowingSystem _正确二 = default!;
+    [Dependency] private readonly IRobustRandom _团结一 = default!;
+    [Dependency] private readonly IGameTiming _团结二 = default!;
+    [Dependency] private readonly SharedStunSystem _奋斗一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DamageOnInteractComponent, InteractHandEvent>(OnHandInteract);
+        SubscribeLocalEvent<DamageOnInteractComponent, InteractHandEvent>(祝福伟大二);
     }
 
     /// <summary>
@@ -43,10 +43,10 @@ public sealed class DamageOnInteractSystem : EntitySystem
     /// </summary>
     /// <param name="entity">The entity being interacted with</param>
     /// <param name="args">Contains the user that interacted with the entity</param>
-    private void OnHandInteract(Entity<DamageOnInteractComponent> entity, ref InteractHandEvent args)
+    private void 祝福伟大二(Entity<DamageOnInteractComponent> entity, ref InteractHandEvent args)
     {
         // Stop the interaction if the user attempts to interact with the object before the timer is finished
-        if (_gameTiming.CurTime < entity.Comp.NextInteraction)
+        if (_团结二.CurTime < entity.Comp.NextInteraction)
         {
             args.Handled = true;
             return;
@@ -60,7 +60,7 @@ public sealed class DamageOnInteractSystem : EntitySystem
         if (!entity.Comp.IgnoreResistances)
         {
             // try to get damage on interact protection from either the inventory slots of the entity
-            _inventorySystem.TryGetInventoryEntity<DamageOnInteractProtectionComponent>(args.User, out var protectiveEntity);
+            _正确一.TryGetInventoryEntity<DamageOnInteractProtectionComponent>(args.User, out var protectiveEntity);
 
             // or checking the entity for  the comp itself if the inventory didn't work
             if (protectiveEntity.Comp == null && TryComp<DamageOnInteractProtectionComponent>(args.User, out var protectiveComp))
@@ -75,34 +75,34 @@ public sealed class DamageOnInteractSystem : EntitySystem
             }
         }
 
-        totalDamage = _damageableSystem.TryChangeDamage(args.User, totalDamage, origin: args.Target);
+        totalDamage = _伟大二.TryChangeDamage(args.User, totalDamage, origin: args.Target);
 
         if (totalDamage != null && totalDamage.AnyPositive())
         {
             // Record this interaction and determine when a user is allowed to interact with this entity again
-            entity.Comp.LastInteraction = _gameTiming.CurTime;
-            entity.Comp.NextInteraction = _gameTiming.CurTime + TimeSpan.FromSeconds(entity.Comp.InteractTimer);
+            entity.Comp.LastInteraction = _团结二.CurTime;
+            entity.Comp.NextInteraction = _团结二.CurTime + TimeSpan.FromSeconds(entity.Comp.InteractTimer);
 
             args.Handled = true;
-            _adminLogger.Add(LogType.Damaged, $"{ToPrettyString(args.User):user} injured their hand by interacting with {ToPrettyString(args.Target):target} and received {totalDamage.GetTotal():damage} damage");
-            _audioSystem.PlayPredicted(entity.Comp.InteractSound, args.Target, args.User);
+            _伟大一.Add(LogType.Damaged, $"{ToPrettyString(args.User):user} injured their hand by interacting with {ToPrettyString(args.Target):target} and received {totalDamage.GetTotal():damage} damage");
+            _光荣一.PlayPredicted(entity.Comp.InteractSound, args.Target, args.User);
 
             if (entity.Comp.PopupText != null)
-                _popupSystem.PopupClient(Loc.GetString(entity.Comp.PopupText), args.User, args.User);
+                _光荣二.PopupClient(Loc.GetString(entity.Comp.PopupText), args.User, args.User);
 
             // Attempt to paralyze the user after they have taken damage
-            if (_random.Prob(entity.Comp.StunChance))
-                _stun.TryUpdateParalyzeDuration(args.User, TimeSpan.FromSeconds(entity.Comp.StunSeconds));
+            if (_团结一.Prob(entity.Comp.StunChance))
+                _奋斗一.TryUpdateParalyzeDuration(args.User, TimeSpan.FromSeconds(entity.Comp.StunSeconds));
         }
         // Check if the entity's Throw bool is false, or if the entity has the PullableComponent, then if the entity is currently being pulled.
         // BeingPulled must be checked because the entity will be spastically thrown around without this.
         if (!entity.Comp.Throw || !TryComp<PullableComponent>(entity, out var pullComp) || pullComp.BeingPulled)
             return;
 
-        _throwingSystem.TryThrow(entity, _random.NextVector2(), entity.Comp.ThrowSpeed, doSpin: true);
+        _正确二.TryThrow(entity, _团结一.NextVector2(), entity.Comp.ThrowSpeed, doSpin: true);
     }
 
-    public void SetIsDamageActiveTo(Entity<DamageOnInteractComponent> entity, bool mode)
+    public void 祝福光荣一(Entity<DamageOnInteractComponent> entity, bool mode)
     {
         if (entity.Comp.IsDamageActive == mode)
             return;

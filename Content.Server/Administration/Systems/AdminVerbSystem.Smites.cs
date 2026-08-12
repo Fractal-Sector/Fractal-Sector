@@ -56,40 +56,40 @@ using Content.Server._NF.Speech.Components; // Frontier
 using Content.Shared.Damage.Prototypes; // Frontier
 using Content.Shared.Bed.Sleep; // Frontier
 
-namespace Content.Server.Administration.Systems;
+namespace Content.Server.Administration.党心;
 
-public sealed partial class AdminVerbSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly CreamPieSystem _creamPieSystem = default!;
-    [Dependency] private readonly ElectrocutionSystem _electrocutionSystem = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorageSystem = default!;
-    [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly FlammableSystem _flammableSystem = default!;
-    [Dependency] private readonly GhostKickManager _ghostKickManager = default!;
-    [Dependency] private readonly SharedGodmodeSystem _sharedGodmodeSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifierSystem = default!;
-    [Dependency] private readonly PolymorphSystem _polymorphSystem = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly TabletopSystem _tabletopSystem = default!;
-    [Dependency] private readonly VomitSystem _vomitSystem = default!;
-    [Dependency] private readonly WeldableSystem _weldableSystem = default!;
-    [Dependency] private readonly SharedContentEyeSystem _eyeSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SuperBonkSystem _superBonkSystem = default!;
-    [Dependency] private readonly SlipperySystem _slipperySystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!; // Frontier
-    [Dependency] private readonly DamageableSystem _damageable = default!; // Frontier
-    [Dependency] private readonly SleepingSystem _sleep = default!; // Frontier
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly BloodstreamSystem _伟大二 = default!;
+    [Dependency] private readonly BodySystem _光荣一 = default!;
+    [Dependency] private readonly CreamPieSystem _光荣二 = default!;
+    [Dependency] private readonly ElectrocutionSystem _正确一 = default!;
+    [Dependency] private readonly EntityStorageSystem _正确二 = default!;
+    [Dependency] private readonly ExplosionSystem _团结一 = default!;
+    [Dependency] private readonly FixtureSystem _团结二 = default!;
+    [Dependency] private readonly FlammableSystem _奋斗一 = default!;
+    [Dependency] private readonly GhostKickManager _奋斗二 = default!;
+    [Dependency] private readonly SharedGodmodeSystem _胜利一 = default!;
+    [Dependency] private readonly InventorySystem _胜利二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _繁荣一 = default!;
+    [Dependency] private readonly PolymorphSystem _繁荣二 = default!;
+    [Dependency] private readonly MobThresholdSystem _富强一 = default!;
+    [Dependency] private readonly PopupSystem _富强二 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _民主一 = default!;
+    [Dependency] private readonly TabletopSystem _民主二 = default!;
+    [Dependency] private readonly VomitSystem _文明一 = default!;
+    [Dependency] private readonly WeldableSystem _文明二 = default!;
+    [Dependency] private readonly SharedContentEyeSystem _和谐一 = default!;
+    [Dependency] private readonly SharedTransformSystem _和谐二 = default!;
+    [Dependency] private readonly SuperBonkSystem _自由一 = default!;
+    [Dependency] private readonly SlipperySystem _自由二 = default!;
+    [Dependency] private readonly SharedAudioSystem _平等一 = default!; // Frontier
+    [Dependency] private readonly DamageableSystem _平等二 = default!; // Frontier
+    [Dependency] private readonly SleepingSystem _公正一 = default!; // Frontier
 
     // All smite verbs have names so invokeverb works.
-    private void AddSmiteVerbs(GetVerbsEvent<Verb> args)
+    private void 祝福伟大一(GetVerbsEvent<Verb> args)
     {
         if (!TryComp(args.User, out ActorComponent? actor))
             return;
@@ -111,13 +111,13 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/smite.svg.192dpi.png")),
             Act = () =>
             {
-                var coords = _transformSystem.GetMapCoordinates(args.Target);
+                var coords = _和谐二.GetMapCoordinates(args.Target);
                 Timer.Spawn(_gameTiming.TickPeriod,
-                    () => _explosionSystem.QueueExplosion(coords, ExplosionSystem.DefaultExplosionPrototypeId,
+                    () => _团结一.QueueExplosion(coords, ExplosionSystem.DefaultExplosionPrototypeId,
                         4, 1, 2, args.Target, maxTileBreak: 0), // it gibs, damage doesn't need to be high.
                     CancellationToken.None);
 
-                _bodySystem.GibBody(args.Target);
+                _光荣一.GibBody(args.Target);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", explodeName, Loc.GetString("admin-smite-explode-description")) // we do this so the description tells admins the Text to run it via console.
@@ -132,19 +132,19 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ("/Textures/Objects/Fun/Tabletop/chessboard.rsi"), "chessboard"),
             Act = () =>
             {
-                _sharedGodmodeSystem.EnableGodmode(args.Target); // So they don't suffocate.
+                _胜利一.EnableGodmode(args.Target); // So they don't suffocate.
                 EnsureComp<TabletopDraggableComponent>(args.Target);
                 RemComp<PhysicsComponent>(args.Target); // So they can be dragged around.
                 var xform = Transform(args.Target);
-                _popupSystem.PopupEntity(Loc.GetString("admin-smite-chess-self"), args.Target,
+                _富强二.PopupEntity(Loc.GetString("admin-smite-chess-self"), args.Target,
                     args.Target, PopupType.LargeCaution);
-                _popupSystem.PopupCoordinates(
+                _富强二.PopupCoordinates(
                     Loc.GetString("admin-smite-chess-others", ("name", args.Target)), xform.Coordinates,
                     Filter.PvsExcept(args.Target), true, PopupType.MediumCaution);
                 var board = Spawn("ChessBoard", xform.Coordinates);
-                var session = _tabletopSystem.EnsureSession(Comp<TabletopGameComponent>(board));
-                _transformSystem.SetMapCoordinates(args.Target, session.Position);
-                _transformSystem.SetWorldRotationNoLerp((args.Target, xform), Angle.Zero);
+                var session = _民主二.EnsureSession(Comp<TabletopGameComponent>(board));
+                _和谐二.SetMapCoordinates(args.Target, session.Position);
+                _和谐二.SetWorldRotationNoLerp((args.Target, xform), Angle.Zero);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", chessName, Loc.GetString("admin-smite-chess-dimension-description"))
@@ -163,11 +163,11 @@ public sealed partial class AdminVerbSystem
                 {
                     // Fuck you. Burn Forever.
                     flammable.FireStacks = flammable.MaximumFireStacks;
-                    _flammableSystem.Ignite(args.Target, args.User);
+                    _奋斗一.Ignite(args.Target, args.User);
                     var xform = Transform(args.Target);
-                    _popupSystem.PopupEntity(Loc.GetString("admin-smite-set-alight-self"), args.Target,
+                    _富强二.PopupEntity(Loc.GetString("admin-smite-set-alight-self"), args.Target,
                         args.Target, PopupType.LargeCaution);
-                    _popupSystem.PopupCoordinates(Loc.GetString("admin-smite-set-alight-others", ("name", args.Target)), xform.Coordinates,
+                    _富强二.PopupCoordinates(Loc.GetString("admin-smite-set-alight-others", ("name", args.Target)), xform.Coordinates,
                         Filter.PvsExcept(args.Target), true, PopupType.MediumCaution);
                 },
                 Impact = LogImpact.Extreme,
@@ -184,7 +184,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ("/Textures/Mobs/Animals/monkey.rsi"), "monkey"),
             Act = () =>
             {
-                _polymorphSystem.PolymorphEntity(args.Target, "AdminMonkeySmite");
+                _繁荣二.PolymorphEntity(args.Target, "AdminMonkeySmite");
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", monkeyName, Loc.GetString("admin-smite-monkeyify-description"))
@@ -199,7 +199,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ("/Textures/Structures/Piping/disposal.rsi"), "disposal"),
             Act = () =>
             {
-                _polymorphSystem.PolymorphEntity(args.Target, "AdminDisposalsSmite");
+                _繁荣二.PolymorphEntity(args.Target, "AdminDisposalsSmite");
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", disposalBinName, Loc.GetString("admin-smite-garbage-can-description"))
@@ -218,9 +218,9 @@ public sealed partial class AdminVerbSystem
                 Act = () =>
                 {
                     int damageToDeal;
-                    if (!_mobThresholdSystem.TryGetThresholdForState(args.Target, MobState.Critical, out var criticalThreshold)) {
+                    if (!_富强一.TryGetThresholdForState(args.Target, MobState.Critical, out var criticalThreshold)) {
                         // We can't crit them so try killing them.
-                        if (!_mobThresholdSystem.TryGetThresholdForState(args.Target, MobState.Dead,
+                        if (!_富强一.TryGetThresholdForState(args.Target, MobState.Dead,
                                 out var deadThreshold))
                             return;// whelp.
                         damageToDeal = deadThreshold.Value.Int() - (int) damageable.TotalDamage;
@@ -233,18 +233,18 @@ public sealed partial class AdminVerbSystem
                     if (damageToDeal <= 0)
                         damageToDeal = 100; // murder time.
 
-                    if (_inventorySystem.TryGetSlots(args.Target, out var slotDefinitions))
+                    if (_胜利二.TryGetSlots(args.Target, out var slotDefinitions))
                     {
                         foreach (var slot in slotDefinitions)
                         {
-                            if (!_inventorySystem.TryGetSlotEntity(args.Target, slot.Name, out var slotEnt))
+                            if (!_胜利二.TryGetSlotEntity(args.Target, slot.Name, out var slotEnt))
                                 continue;
 
                             RemComp<InsulatedComponent>(slotEnt.Value); // Fry the gloves.
                         }
                     }
 
-                    _electrocutionSystem.TryDoElectrocution(args.Target, null, damageToDeal,
+                    _正确一.TryDoElectrocution(args.Target, null, damageToDeal,
                         TimeSpan.FromSeconds(30), refresh: true, ignoreInsulation: true);
                 },
                 Impact = LogImpact.Extreme,
@@ -263,7 +263,7 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new ("/Textures/Objects/Consumable/Food/Baked/pie.rsi"), "plain-slice"),
                 Act = () =>
                 {
-                    _creamPieSystem.SetCreamPied(args.Target, creamPied, true);
+                    _光荣二.SetCreamPied(args.Target, creamPied, true);
                 },
                 Impact = LogImpact.Extreme,
                 Message = string.Join(": ", creamPieName, Loc.GetString("admin-smite-creampie-description"))
@@ -281,11 +281,11 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new ("/Textures/Fluids/tomato_splat.rsi"), "puddle-1"),
                 Act = () =>
                 {
-                    _bloodstreamSystem.SpillAllSolutions((args.Target, bloodstream));
+                    _伟大二.SpillAllSolutions((args.Target, bloodstream));
                     var xform = Transform(args.Target);
-                    _popupSystem.PopupEntity(Loc.GetString("admin-smite-remove-blood-self"), args.Target,
+                    _富强二.PopupEntity(Loc.GetString("admin-smite-remove-blood-self"), args.Target,
                         args.Target, PopupType.LargeCaution);
-                    _popupSystem.PopupCoordinates(Loc.GetString("admin-smite-remove-blood-others", ("name", args.Target)), xform.Coordinates,
+                    _富强二.PopupCoordinates(Loc.GetString("admin-smite-remove-blood-others", ("name", args.Target)), xform.Coordinates,
                         Filter.PvsExcept(args.Target), true, PopupType.MediumCaution);
                 },
                 Impact = LogImpact.Extreme,
@@ -305,20 +305,20 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Fluids/vomit_toxin.rsi"), "vomit_toxin-1"),
                 Act = () =>
                 {
-                    _vomitSystem.Vomit(args.Target, -1000, -1000); // You feel hollow!
-                    var organs = _bodySystem.GetBodyOrganEntityComps<TransformComponent>((args.Target, body));
+                    _文明一.Vomit(args.Target, -1000, -1000); // You feel hollow!
+                    var organs = _光荣一.GetBodyOrganEntityComps<TransformComponent>((args.Target, body));
                     var baseXform = Transform(args.Target);
                     foreach (var organ in organs)
                     {
                         if (HasComp<BrainComponent>(organ.Owner) || HasComp<EyeComponent>(organ.Owner))
                             continue;
 
-                        _transformSystem.PlaceNextTo((organ.Owner, organ.Comp1), (args.Target, baseXform));
+                        _和谐二.PlaceNextTo((organ.Owner, organ.Comp1), (args.Target, baseXform));
                     }
 
-                    _popupSystem.PopupEntity(Loc.GetString("admin-smite-vomit-organs-self"), args.Target,
+                    _富强二.PopupEntity(Loc.GetString("admin-smite-vomit-organs-self"), args.Target,
                         args.Target, PopupType.LargeCaution);
-                    _popupSystem.PopupCoordinates(Loc.GetString("admin-smite-vomit-organs-others", ("name", args.Target)), baseXform.Coordinates,
+                    _富强二.PopupCoordinates(Loc.GetString("admin-smite-vomit-organs-others", ("name", args.Target)), baseXform.Coordinates,
                         Filter.PvsExcept(args.Target), true, PopupType.MediumCaution);
                 },
                 Impact = LogImpact.Extreme,
@@ -335,13 +335,13 @@ public sealed partial class AdminVerbSystem
                 Act = () =>
                 {
                     var baseXform = Transform(args.Target);
-                    foreach (var part in _bodySystem.GetBodyChildrenOfType(args.Target, BodyPartType.Hand))
+                    foreach (var part in _光荣一.GetBodyChildrenOfType(args.Target, BodyPartType.Hand))
                     {
-                        _transformSystem.AttachToGridOrMap(part.Id);
+                        _和谐二.AttachToGridOrMap(part.Id);
                     }
-                    _popupSystem.PopupEntity(Loc.GetString("admin-smite-remove-hands-self"), args.Target,
+                    _富强二.PopupEntity(Loc.GetString("admin-smite-remove-hands-self"), args.Target,
                         args.Target, PopupType.LargeCaution);
-                    _popupSystem.PopupCoordinates(Loc.GetString("admin-smite-remove-hands-other", ("name", args.Target)), baseXform.Coordinates,
+                    _富强二.PopupCoordinates(Loc.GetString("admin-smite-remove-hands-other", ("name", args.Target)), baseXform.Coordinates,
                         Filter.PvsExcept(args.Target), true, PopupType.Medium);
                 },
                 Impact = LogImpact.Extreme,
@@ -358,14 +358,14 @@ public sealed partial class AdminVerbSystem
                 Act = () =>
                 {
                     var baseXform = Transform(args.Target);
-                    foreach (var part in _bodySystem.GetBodyChildrenOfType(args.Target, BodyPartType.Hand, body))
+                    foreach (var part in _光荣一.GetBodyChildrenOfType(args.Target, BodyPartType.Hand, body))
                     {
-                        _transformSystem.AttachToGridOrMap(part.Id);
+                        _和谐二.AttachToGridOrMap(part.Id);
                         break;
                     }
-                    _popupSystem.PopupEntity(Loc.GetString("admin-smite-remove-hands-self"), args.Target,
+                    _富强二.PopupEntity(Loc.GetString("admin-smite-remove-hands-self"), args.Target,
                         args.Target, PopupType.LargeCaution);
-                    _popupSystem.PopupCoordinates(Loc.GetString("admin-smite-remove-hands-other", ("name", args.Target)), baseXform.Coordinates,
+                    _富强二.PopupCoordinates(Loc.GetString("admin-smite-remove-hands-other", ("name", args.Target)), baseXform.Coordinates,
                         Filter.PvsExcept(args.Target), true, PopupType.Medium);
                 },
                 Impact = LogImpact.Extreme,
@@ -381,12 +381,12 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new ("/Textures/Mobs/Species/Human/organs.rsi"), "stomach"),
                 Act = () =>
                 {
-                    foreach (var entity in _bodySystem.GetBodyOrganEntityComps<StomachComponent>((args.Target, body)))
+                    foreach (var entity in _光荣一.GetBodyOrganEntityComps<StomachComponent>((args.Target, body)))
                     {
                         QueueDel(entity.Owner);
                     }
 
-                    _popupSystem.PopupEntity(Loc.GetString("admin-smite-stomach-removal-self"), args.Target,
+                    _富强二.PopupEntity(Loc.GetString("admin-smite-stomach-removal-self"), args.Target,
                         args.Target, PopupType.LargeCaution);
                 },
                 Impact = LogImpact.Extreme,
@@ -402,12 +402,12 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new ("/Textures/Mobs/Species/Human/organs.rsi"), "lung-r"),
                 Act = () =>
                 {
-                    foreach (var entity in _bodySystem.GetBodyOrganEntityComps<LungComponent>((args.Target, body)))
+                    foreach (var entity in _光荣一.GetBodyOrganEntityComps<LungComponent>((args.Target, body)))
                     {
                         QueueDel(entity.Owner);
                     }
 
-                    _popupSystem.PopupEntity(Loc.GetString("admin-smite-lung-removal-self"), args.Target,
+                    _富强二.PopupEntity(Loc.GetString("admin-smite-lung-removal-self"), args.Target,
                         args.Target, PopupType.LargeCaution);
                 },
                 Impact = LogImpact.Extreme,
@@ -428,25 +428,25 @@ public sealed partial class AdminVerbSystem
                 {
                     var xform = Transform(args.Target);
                     var fixtures = Comp<FixturesComponent>(args.Target);
-                    _transformSystem.Unanchor(args.Target, xform); // Just in case.
-                    _physics.SetBodyType(args.Target, BodyType.Dynamic, manager: fixtures, body: physics);
-                    _physics.SetBodyStatus(args.Target, physics, BodyStatus.InAir);
-                    _physics.WakeBody(args.Target, manager: fixtures, body: physics);
+                    _和谐二.Unanchor(args.Target, xform); // Just in case.
+                    _民主一.SetBodyType(args.Target, BodyType.Dynamic, manager: fixtures, body: physics);
+                    _民主一.SetBodyStatus(args.Target, physics, BodyStatus.InAir);
+                    _民主一.WakeBody(args.Target, manager: fixtures, body: physics);
 
                     foreach (var fixture in fixtures.Fixtures.Values)
                     {
                         if (!fixture.Hard)
                             continue;
 
-                        _physics.SetRestitution(args.Target, fixture, 1.1f, false, fixtures);
+                        _民主一.SetRestitution(args.Target, fixture, 1.1f, false, fixtures);
                     }
 
-                    _fixtures.FixtureUpdate(args.Target, manager: fixtures, body: physics);
+                    _团结二.FixtureUpdate(args.Target, manager: fixtures, body: physics);
 
-                    _physics.SetLinearVelocity(args.Target, _random.NextVector2(1.5f, 1.5f), manager: fixtures, body: physics);
-                    _physics.SetAngularVelocity(args.Target, MathF.PI * 12, manager: fixtures, body: physics);
-                    _physics.SetLinearDamping(args.Target, physics, 0f);
-                    _physics.SetAngularDamping(args.Target, physics, 0f);
+                    _民主一.SetLinearVelocity(args.Target, _伟大一.NextVector2(1.5f, 1.5f), manager: fixtures, body: physics);
+                    _民主一.SetAngularVelocity(args.Target, MathF.PI * 12, manager: fixtures, body: physics);
+                    _民主一.SetLinearDamping(args.Target, physics, 0f);
+                    _民主一.SetAngularDamping(args.Target, physics, 0f);
                 },
                 Impact = LogImpact.Extreme,
                 Message = string.Join(": ", pinballName, Loc.GetString("admin-smite-pinball-description"))
@@ -463,21 +463,21 @@ public sealed partial class AdminVerbSystem
                 {
                     var xform = Transform(args.Target);
                     var fixtures = Comp<FixturesComponent>(args.Target);
-                    _transformSystem.Unanchor(args.Target); // Just in case.
+                    _和谐二.Unanchor(args.Target); // Just in case.
 
-                    _physics.SetBodyType(args.Target, BodyType.Dynamic, body: physics);
-                    _physics.SetBodyStatus(args.Target, physics, BodyStatus.InAir);
-                    _physics.WakeBody(args.Target, manager: fixtures, body: physics);
+                    _民主一.SetBodyType(args.Target, BodyType.Dynamic, body: physics);
+                    _民主一.SetBodyStatus(args.Target, physics, BodyStatus.InAir);
+                    _民主一.WakeBody(args.Target, manager: fixtures, body: physics);
 
                     foreach (var fixture in fixtures.Fixtures.Values)
                     {
-                        _physics.SetHard(args.Target, fixture, false, manager: fixtures);
+                        _民主一.SetHard(args.Target, fixture, false, manager: fixtures);
                     }
 
-                    _physics.SetLinearVelocity(args.Target, _random.NextVector2(8.0f, 8.0f), manager: fixtures, body: physics);
-                    _physics.SetAngularVelocity(args.Target, MathF.PI * 12, manager: fixtures, body: physics);
-                    _physics.SetLinearDamping(args.Target, physics, 0f);
-                    _physics.SetAngularDamping(args.Target, physics, 0f);
+                    _民主一.SetLinearVelocity(args.Target, _伟大一.NextVector2(8.0f, 8.0f), manager: fixtures, body: physics);
+                    _民主一.SetAngularVelocity(args.Target, MathF.PI * 12, manager: fixtures, body: physics);
+                    _民主一.SetLinearDamping(args.Target, physics, 0f);
+                    _民主一.SetAngularDamping(args.Target, physics, 0f);
                 },
                 Impact = LogImpact.Extreme,
                 Message = string.Join(": ", yeetName, Loc.GetString("admin-smite-yeet-description"))
@@ -493,7 +493,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ("/Textures/Objects/Consumable/Food/Baked/bread.rsi"), "plain"),
             Act = () =>
             {
-                _polymorphSystem.PolymorphEntity(args.Target, "AdminBreadSmite");
+                _繁荣二.PolymorphEntity(args.Target, "AdminBreadSmite");
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", breadName, Loc.GetString("admin-smite-become-bread-description"))
@@ -508,7 +508,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ("/Textures/Mobs/Animals/mouse.rsi"), "icon-0"),
             Act = () =>
             {
-                _polymorphSystem.PolymorphEntity(args.Target, "AdminMouseSmite");
+                _繁荣二.PolymorphEntity(args.Target, "AdminMouseSmite");
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", mouseName, Loc.GetString("admin-smite-become-mouse-description"))
@@ -525,7 +525,7 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/gavel.svg.192dpi.png")),
                 Act = () =>
                 {
-                    _ghostKickManager.DoDisconnect(actorComponent.PlayerSession.Channel, "Smitten.");
+                    _奋斗二.DoDisconnect(actorComponent.PlayerSession.Channel, "Smitten.");
                 },
                 Impact = LogImpact.Extreme,
                 Message = string.Join(": ", ghostKickName, Loc.GetString("admin-smite-ghostkick-description"))
@@ -546,8 +546,8 @@ public sealed partial class AdminVerbSystem
                 {
                     var ears = Spawn("ClothingHeadHatCatEars", Transform(args.Target).Coordinates);
                     EnsureComp<UnremoveableComponent>(ears);
-                    _inventorySystem.TryUnequip(args.Target, "head", true, true, false, inventory);
-                    _inventorySystem.TryEquip(args.Target, ears, "head", true, true, false, inventory);
+                    _胜利二.TryUnequip(args.Target, "head", true, true, false, inventory);
+                    _胜利二.TryEquip(args.Target, ears, "head", true, true, false, inventory);
                 },
                 Impact = LogImpact.Extreme,
                 Message = string.Join(": ", nyanifyName, Loc.GetString("admin-smite-nyanify-description"))
@@ -635,7 +635,7 @@ public sealed partial class AdminVerbSystem
             {
                 QueueDel(args.Target);
                 Spawn("Ash", Transform(args.Target).Coordinates);
-                _popupSystem.PopupEntity(Loc.GetString("admin-smite-turned-ash-other", ("name", args.Target)), args.Target, PopupType.LargeCaution);
+                _富强二.PopupEntity(Loc.GetString("admin-smite-turned-ash-other", ("name", args.Target)), args.Target, PopupType.LargeCaution);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", dustName, Loc.GetString("admin-smite-dust-description"))
@@ -665,7 +665,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ("/Textures/Objects/Fun/Instruments/h_synthesizer.rsi"), "supersynth"),
             Act = () =>
             {
-                _polymorphSystem.PolymorphEntity(args.Target, "AdminInstrumentSmite");
+                _繁荣二.PolymorphEntity(args.Target, "AdminInstrumentSmite");
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", instrumentationName, Loc.GetString("admin-smite-become-instrument-description"))
@@ -703,7 +703,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new ("/Textures/Objects/Fun/Plushies/lizard.rsi"), "icon"),
             Act = () =>
             {
-                _polymorphSystem.PolymorphEntity(args.Target, "AdminLizardSmite");
+                _繁荣二.PolymorphEntity(args.Target, "AdminLizardSmite");
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", reptilianName, Loc.GetString("admin-smite-reptilian-species-swap-description"))
@@ -722,11 +722,11 @@ public sealed partial class AdminVerbSystem
                 var locker = Spawn("ClosetMaintenance", xform.Coordinates);
                 if (TryComp<EntityStorageComponent>(locker, out var storage))
                 {
-                    _entityStorageSystem.ToggleOpen(args.Target, locker, storage);
-                    _entityStorageSystem.Insert(args.Target, locker, storage);
-                    _entityStorageSystem.ToggleOpen(args.Target, locker, storage);
+                    _正确二.ToggleOpen(args.Target, locker, storage);
+                    _正确二.Insert(args.Target, locker, storage);
+                    _正确二.ToggleOpen(args.Target, locker, storage);
                 }
-                _weldableSystem.SetWeldedState(locker, true);
+                _文明二.SetWeldedState(locker, true);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", lockerName, Loc.GetString("admin-smite-locker-stuff-description"))
@@ -757,7 +757,7 @@ public sealed partial class AdminVerbSystem
             Act = () =>
             {
                 var eye = EnsureComp<ContentEyeComponent>(args.Target);
-                _eyeSystem.SetZoom(args.Target, eye.TargetZoom * 0.2f, ignoreLimits: true);
+                _和谐一.SetZoom(args.Target, eye.TargetZoom * 0.2f, ignoreLimits: true);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", zoomInName, Loc.GetString("admin-smite-zoom-in-description"))
@@ -773,7 +773,7 @@ public sealed partial class AdminVerbSystem
             Act = () =>
             {
                 var eye = EnsureComp<ContentEyeComponent>(args.Target);
-                _eyeSystem.SetZoom(args.Target, eye.TargetZoom * -1, ignoreLimits: true);
+                _和谐一.SetZoom(args.Target, eye.TargetZoom * -1, ignoreLimits: true);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", flipEyeName, Loc.GetString("admin-smite-flip-eye-description"))
@@ -793,7 +793,7 @@ public sealed partial class AdminVerbSystem
 
                 Dirty(args.Target, movementSpeed);
 
-                _popupSystem.PopupEntity(Loc.GetString("admin-smite-run-walk-swap-prompt"), args.Target,
+                _富强二.PopupEntity(Loc.GetString("admin-smite-run-walk-swap-prompt"), args.Target,
                     args.Target, PopupType.LargeCaution);
             },
             Impact = LogImpact.Extreme,
@@ -840,9 +840,9 @@ public sealed partial class AdminVerbSystem
             Act = () =>
             {
                 var movementSpeed = EnsureComp<MovementSpeedModifierComponent>(args.Target);
-                _movementSpeedModifierSystem?.ChangeBaseSpeed(args.Target, 400, 8000, 40, movementSpeed);
+                _繁荣一?.ChangeBaseSpeed(args.Target, 400, 8000, 40, movementSpeed);
 
-                _popupSystem.PopupEntity(Loc.GetString("admin-smite-super-speed-prompt"), args.Target,
+                _富强二.PopupEntity(Loc.GetString("admin-smite-super-speed-prompt"), args.Target,
                     args.Target, PopupType.LargeCaution);
             },
             Impact = LogImpact.Extreme,
@@ -859,7 +859,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("Structures/Furniture/Tables/glass.rsi"), "full"),
             Act = () =>
             {
-                _superBonkSystem.StartSuperBonk(args.Target, stopWhenDead: true);
+                _自由一.StartSuperBonk(args.Target, stopWhenDead: true);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", superBonkLiteName, Loc.GetString("admin-smite-super-bonk-lite-description"))
@@ -874,7 +874,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("Structures/Furniture/Tables/generic.rsi"), "full"),
             Act = () =>
             {
-                _superBonkSystem.StartSuperBonk(args.Target);
+                _自由一.StartSuperBonk(args.Target);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", superBonkName, Loc.GetString("admin-smite-super-bonk-description"))
@@ -897,7 +897,7 @@ public sealed partial class AdminVerbSystem
                     slipComponent.SlipData.LaunchForwardsMultiplier = 20;
                 }
 
-                _slipperySystem.TrySlip(args.Target, slipComponent, args.Target, requiresContact: false);
+                _自由二.TrySlip(args.Target, slipComponent, args.Target, requiresContact: false);
                 if (!hadSlipComponent)
                 {
                     RemComp(args.Target, slipComponent);
@@ -929,7 +929,7 @@ public sealed partial class AdminVerbSystem
                 EnsureComp<SpanishAccentComponent>(args.Target);
                 EnsureComp<StutteringAccentComponent>(args.Target);
 
-                if (_random.Next(0, 8) == 0)
+                if (_伟大一.Next(0, 8) == 0)
                 {
                     EnsureComp<BackwardsAccentComponent>(args.Target); // was asked to make this at a low chance idk
                 }
@@ -964,7 +964,7 @@ public sealed partial class AdminVerbSystem
                 if (_prototypeManager.TryIndex<DamageTypePrototype>("Blunt", out var bluntProto))
                 {
                     var bluntDamage = new DamageSpecifier(bluntProto, 10);
-                    _damageable.TryChangeDamage(args.Target, bluntDamage, true);
+                    _平等二.TryChangeDamage(args.Target, bluntDamage, true);
                 }
 
                 // Make them slip and fall.
@@ -977,18 +977,18 @@ public sealed partial class AdminVerbSystem
                     slipComponent.SlipData.LaunchForwardsMultiplier = 1;
                 }
 
-                _slipperySystem.TrySlip(args.Target, slipComponent, args.Target, requiresContact: false);
+                _自由二.TrySlip(args.Target, slipComponent, args.Target, requiresContact: false);
                 if (!hadSlipComponent)
                 {
                     RemComp(args.Target, slipComponent);
                 }
 
                 // Fall asleep
-                _sleep.TrySleeping(args.Target);
+                _公正一.TrySleeping(args.Target);
 
                 // Play a noise, they bonked their head
                 _popup.PopupEntity(Loc.GetString("admin-smite-caveman-self"), args.Target, player, PopupType.LargeCaution);
-                _audio.PlayPvs(new SoundPathSpecifier("/Audio/_NF/Effects/bonk.ogg"), args.Target, AudioParams.Default.WithMaxDistance(30.0f).WithVolume(3.0f));
+                _平等一.PlayPvs(new SoundPathSpecifier("/Audio/_NF/Effects/bonk.ogg"), args.Target, AudioParams.Default.WithMaxDistance(30.0f).WithVolume(3.0f));
 
                 EnsureComp<CavemanAccentComponent>(args.Target);
             },
@@ -1020,7 +1020,7 @@ public sealed partial class AdminVerbSystem
             Text = fuelRodifyName,
             Category = VerbCategory.Smite,
             Icon = new SpriteSpecifier.Rsi(new("/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_parts.rsi"), "default_rod"),
-            Act = () => _polymorphSystem.PolymorphEntity(args.Target, "AdminFuelRodSmite"),
+            Act = () => _繁荣二.PolymorphEntity(args.Target, "AdminFuelRodSmite"),
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", fuelRodifyName, Loc.GetString("admin-smite-become-fuelrod-description"))
         };
@@ -1036,7 +1036,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/Mobs/Species/Human/organs.rsi"), "heart-on"),
             Act = () =>
             {
-                _bodySystem.GibBody(args.Target);
+                _光荣一.GibBody(args.Target);
             },
             Impact = LogImpact.Extreme,
             Message = string.Join(": ", gibName, Loc.GetString("admin-smite-gib-description"))

@@ -1,6 +1,6 @@
 ﻿using Robust.Shared.Containers;
 
-namespace Content.Shared.Construction.Components;
+namespace Content.Shared.Construction.党心;
 
 /// <summary>
 /// This is used for construction which requires a set of
@@ -8,7 +8,7 @@ namespace Content.Shared.Construction.Components;
 /// todo: in a pr that isn't 6k loc, combine this with MechAssemblyComponent
 /// </summary>
 [RegisterComponent]
-public sealed partial class PartAssemblyComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A dictionary of a set of parts to a list of tags for each assembly.
@@ -26,20 +26,20 @@ public sealed partial class PartAssemblyComponent : Component
     /// The container where the parts are stored
     /// </summary>
     [DataField("containerId")]
-    public string ContainerId = "part-container";
+    public string 党爱伟大一 = "part-container";
 
     /// <summary>
     /// The container that stores all of the parts when
     /// they're being assembled.
     /// </summary>
     [ViewVariables]
-    public Container PartsContainer = default!;
+    public Container 党爱伟大二 = default!;
 }
 
 /// <summary>
 /// Event raised when a valid part is inserted into the part assembly.
 /// </summary>
-public sealed class PartAssemblyPartInsertedEvent
+public sealed class 中华伟大二
 {
 
 }

@@ -1,20 +1,20 @@
 using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Xenoarchaeology.Artifact.XAE.Components;
+namespace Content.Server.Xenoarchaeology.Artifact.XAE.党心;
 
 /// <summary>
 /// Generates foam from the artifact when activated.
 /// </summary>
 [RegisterComponent, Access(typeof(XAEFoamSystem))]
-public sealed partial class XAEFoamComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The list of reagents that will randomly be picked from
     /// to choose the foam reagent.
     /// </summary>
     [DataField(required: true)]
-    public List<ProtoId<ReagentPrototype>> Reagents = new();
+    public List<ProtoId<ReagentPrototype>> 党爱伟大一 = new();
 
     /// <summary>
     /// The foam reagent.
@@ -26,31 +26,31 @@ public sealed partial class XAEFoamComponent : Component
     /// How long does the foam last?
     /// </summary>
     [DataField]
-    public float Duration = 10f;
+    public float 党爱伟大二 = 10f;
 
     /// <summary>
     /// How much reagent is in the foam?
     /// </summary>
     [DataField]
-    public float ReagentAmount = 100f;
+    public float 党爱光荣一 = 100f;
 
     /// <summary>
     /// Minimum radius of foam spawned.
     /// </summary>
     [DataField]
-    public int MinFoamAmount = 15;
+    public int 党爱光荣二 = 15;
 
     /// <summary>
     /// Maximum radius of foam spawned.
     /// </summary>
     [DataField]
-    public int MaxFoamAmount = 20;
+    public int 党爱正确一 = 20;
 
     /// <summary>
     /// Marker, if entity where this component is placed should have description replaced with selected chemicals
     /// on component init.
     /// </summary>
     [DataField]
-    public bool ReplaceDescription;
+    public bool 党爱正确二;
 }
 

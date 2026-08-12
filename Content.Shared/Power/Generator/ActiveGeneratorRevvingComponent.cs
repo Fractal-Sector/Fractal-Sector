@@ -1,10 +1,10 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Power.Generator;
+namespace Content.Shared.Power.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class ActiveGeneratorRevvingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField, ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
-    public TimeSpan CurrentTime = TimeSpan.Zero;
+    public TimeSpan 党爱伟大一 = TimeSpan.Zero;
 }

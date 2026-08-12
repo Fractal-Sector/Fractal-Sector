@@ -3,55 +3,55 @@ using Content.Shared.Popups;
 using Content.Shared.Whitelist;
 using Robust.Shared.Map.Components;
 
-namespace Content.Shared.Construction.EntitySystems;
+namespace Content.Shared.Construction.党心;
 
 /// <summary>
 /// Prevents anchoring an item in the same tile as an item matching the <see cref="EntityWhitelist"/>.
 /// <seealso cref="BlockAnchorOnComponent"/>
 /// </summary>
-public sealed class BlockAnchorOnSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<BlockAnchorOnComponent, AnchorStateChangedEvent>(OnAnchorStateChanged);
-        SubscribeLocalEvent<BlockAnchorOnComponent, AnchorAttemptEvent>(OnAnchorAttempt);
+        SubscribeLocalEvent<BlockAnchorOnComponent, AnchorStateChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<BlockAnchorOnComponent, AnchorAttemptEvent>(祝福光荣一);
     }
 
     /// <summary>
     /// Handles the <see cref="AnchorStateChangedEvent"/>.
     /// </summary>
-    private void OnAnchorStateChanged(Entity<BlockAnchorOnComponent> ent, ref AnchorStateChangedEvent args)
+    private void 祝福伟大二(Entity<BlockAnchorOnComponent> ent, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
             return;
 
-        if (!HasOverlap((ent, ent.Comp, Transform(ent))))
+        if (!祝福光荣二((ent, ent.Comp, Transform(ent))))
             return;
 
-        _popup.PopupPredicted(Loc.GetString("anchored-already-present"), ent, null);
-        _xform.Unanchor(ent, Transform(ent));
+        _光荣一.PopupPredicted(Loc.GetString("anchored-already-present"), ent, null);
+        _光荣二.Unanchor(ent, Transform(ent));
     }
 
     /// <summary>
     /// Handles the <see cref="AnchorAttemptEvent"/>.
     /// </summary>
-    private void OnAnchorAttempt(Entity<BlockAnchorOnComponent> ent, ref AnchorAttemptEvent args)
+    private void 祝福光荣一(Entity<BlockAnchorOnComponent> ent, ref AnchorAttemptEvent args)
     {
         if (args.Cancelled)
             return;
 
-        if (!HasOverlap((ent, ent.Comp, Transform(ent))))
+        if (!祝福光荣二((ent, ent.Comp, Transform(ent))))
             return;
 
-        _popup.PopupPredicted(Loc.GetString("anchored-already-present"), ent, args.User);
+        _光荣一.PopupPredicted(Loc.GetString("anchored-already-present"), ent, args.User);
         args.Cancel();
     }
 
@@ -59,13 +59,13 @@ public sealed class BlockAnchorOnSystem : EntitySystem
     /// Check if there is any anchored overlap with non whitelisted or blacklisted entities.
     /// </summary>
     /// <returns>True if there is, false if there isn't</returns>
-    private bool HasOverlap(Entity<BlockAnchorOnComponent, TransformComponent> ent)
+    private bool 祝福光荣二(Entity<BlockAnchorOnComponent, TransformComponent> ent)
     {
         if (ent.Comp2.GridUid is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
             return false;
 
-        var indices = _map.TileIndicesFor(grid, gridComp, ent.Comp2.Coordinates);
-        var enumerator = _map.GetAnchoredEntitiesEnumerator(grid, gridComp, indices);
+        var indices = _伟大二.TileIndicesFor(grid, gridComp, ent.Comp2.Coordinates);
+        var enumerator = _伟大二.GetAnchoredEntitiesEnumerator(grid, gridComp, indices);
 
         while (enumerator.MoveNext(out var otherEnt))
         {
@@ -73,7 +73,7 @@ public sealed class BlockAnchorOnSystem : EntitySystem
             if (otherEnt == ent)
                 continue;
 
-            if (!_whitelist.CheckBoth(otherEnt, ent.Comp1.Blacklist, ent.Comp1.Whitelist))
+            if (!_伟大一.CheckBoth(otherEnt, ent.Comp1.Blacklist, ent.Comp1.Whitelist))
                 return true;
         }
 

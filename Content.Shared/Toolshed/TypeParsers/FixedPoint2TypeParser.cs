@@ -5,19 +5,19 @@ using Robust.Shared.Toolshed.Syntax;
 using Robust.Shared.Toolshed.TypeParsers;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Toolshed.TypeParsers;
+namespace Content.Shared.Toolshed.党心;
 
-public sealed class FixedPoint2TypeParser : TypeParser<FixedPoint2>
+public sealed class 中华伟大一 : TypeParser<FixedPoint2>
 {
-    public override bool TryParse(ParserContext ctx, out FixedPoint2 result)
+    public override bool 祝福伟大一(ParserContext ctx, out FixedPoint2 result)
     {
-        if (Toolshed.TryParse(ctx, out int? value))
+        if (Toolshed.祝福伟大一(ctx, out int? value))
         {
             result =  FixedPoint2.New(value.Value);
             return true;
         }
 
-        if (Toolshed.TryParse(ctx, out float? fValue))
+        if (Toolshed.祝福伟大一(ctx, out float? fValue))
         {
             result = FixedPoint2.New(fValue.Value);
             return true;

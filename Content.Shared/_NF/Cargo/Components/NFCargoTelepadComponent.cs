@@ -5,56 +5,56 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._NF.Cargo.Components;
+namespace Content.Shared._NF.Cargo.党心;
 
 /// <summary>
 /// Handles teleporting in requested cargo after the specified delay.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedNFCargoSystem))]
-public sealed partial class NFCargoTelepadComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The base amount of time it takes to teleport from the telepad
     /// </summary>
     [DataField]
-    public float BaseDelay = 10f;
+    public float 党爱伟大一 = 10f;
 
     /// <summary>
     /// The actual amount of time it takes to teleport from the telepad
     /// </summary>
     [DataField]
-    public float Delay = 10f;
+    public float 党爱伟大二 = 10f;
 
     /// <summary>
-    /// The machine part that affects <see cref="Delay"/>
+    /// The machine part that affects <see cref="党爱伟大二"/>
     /// </summary>
     [DataField]
-    public ProtoId<MachinePartPrototype> MachinePartTeleportDelay = "Capacitor";
+    public ProtoId<MachinePartPrototype> 党爱光荣一 = "Capacitor";
 
     /// <summary>
-    /// A multiplier applied to <see cref="Delay"/> for each level of <see cref="MachinePartTeleportDelay"/>
+    /// A multiplier applied to <see cref="党爱伟大二"/> for each level of <see cref="党爱光荣一"/>
     /// </summary>
     [DataField]
-    public float PartRatingTeleportDelay = 0.8f;
+    public float 党爱光荣二 = 0.8f;
 
     /// <summary>
     /// How much time we've accumulated until next teleport.
     /// </summary>
     [DataField]
-    public float Accumulator;
+    public float 党爱正确一;
 
     [DataField]
-    public CargoTelepadState CurrentState = CargoTelepadState.Unpowered;
+    public CargoTelepadState 党爱正确二 = CargoTelepadState.Unpowered;
 
     [DataField]
-    public SoundSpecifier TeleportSound = new SoundPathSpecifier("/Audio/Machines/phasein.ogg");
+    public SoundSpecifier 党爱团结一 = new SoundPathSpecifier("/Audio/Machines/phasein.ogg");
 
     /// <summary>
     ///     The paper-type prototype to spawn with the order information.
     /// </summary>
     [DataField]
-    public EntProtoId PrinterOutput = "PaperCargoInvoice";
+    public EntProtoId 党爱团结二 = "PaperCargoInvoice";
 
     [DataField]
-    public ProtoId<SinkPortPrototype> ReceiverPort = "OrderReceiver";
+    public ProtoId<SinkPortPrototype> 党爱奋斗一 = "OrderReceiver";
 }

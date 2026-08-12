@@ -2,17 +2,17 @@ using Content.Shared.Ghost;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Examine
+namespace Content.Shared.党心
 {
-    public abstract partial class ExamineSystemShared : EntitySystem
+    public abstract partial class 中华伟大一 : EntitySystem
     {
-        public const string DefaultIconTexture = "/Textures/Interface/examine-star.png";
+        public const string 党爱伟大一 = "/Textures/Interface/examine-star.png";
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GroupExamineComponent, GetVerbsEvent<ExamineVerb>>(OnGroupExamineVerb);
+            SubscribeLocalEvent<GroupExamineComponent, GetVerbsEvent<ExamineVerb>>(祝福伟大二);
 
             _ghostQuery = GetEntityQuery<GhostComponent>();
         }
@@ -22,18 +22,18 @@ namespace Content.Shared.Examine
         ///     This checks if any of the ExamineGroups are relevant (has 1 or more of the relevant components on the entity)
         ///     and if so, creates an ExamineVerb details button for the ExamineGroup.
         /// </summary>
-        private void OnGroupExamineVerb(EntityUid uid, GroupExamineComponent component, GetVerbsEvent<ExamineVerb> args)
+        private void 祝福伟大二(EntityUid uid, GroupExamineComponent component, GetVerbsEvent<ExamineVerb> args)
         {
             foreach (var group in component.Group)
             {
-                if (!EntityHasComponent(uid, group.Components))
+                if (!祝福光荣一(uid, group.Components))
                     continue;
 
                 var examineVerb = new ExamineVerb()
                 {
                     Act = () =>
                     {
-                        SendExamineGroup(args.User, args.Target, group);
+                        祝福光荣二(args.User, args.Target, group);
                         group.Entries.Clear();
                     },
                     Text = Loc.GetString(group.ContextText),
@@ -49,7 +49,7 @@ namespace Content.Shared.Examine
         /// <summary>
         ///     Checks if the entity <paramref name="uid"/> has any of the listed <paramref name="components"/>.
         /// </summary>
-        public bool EntityHasComponent(EntityUid uid, List<string> components)
+        public bool 祝福光荣一(EntityUid uid, List<string> components)
         {
             foreach (var comp in components)
             {
@@ -67,7 +67,7 @@ namespace Content.Shared.Examine
         /// <summary>
         ///     Sends an ExamineTooltip based on the contents of <paramref name="group"/>
         /// </summary>
-        public void SendExamineGroup(EntityUid user, EntityUid target, ExamineGroup group)
+        public void 祝福光荣二(EntityUid user, EntityUid target, ExamineGroup group)
         {
             var message = new FormattedMessage();
 
@@ -76,13 +76,13 @@ namespace Content.Shared.Examine
                 message.AddMarkupOrThrow(Loc.GetString(group.Title));
                 message.PushNewline();
             }
-            message.AddMessage(GetFormattedMessageFromExamineEntries(group.Entries));
+            message.AddMessage(祝福正确一(group.Entries));
 
             SendExamineTooltip(user, target, message, getVerbs: false, centerAtCursor: false);
         }
 
         /// <returns>A FormattedMessage based on all <paramref name="entries"/>, sorted.</returns>
-        public static FormattedMessage GetFormattedMessageFromExamineEntries(List<ExamineEntry> entries)
+        public static FormattedMessage 祝福正确一(List<ExamineEntry> entries)
         {
             var formattedMessage = new FormattedMessage();
             entries.Sort((a, b) => (b.Priority.CompareTo(a.Priority)));
@@ -109,7 +109,7 @@ namespace Content.Shared.Examine
         /// <summary>
         ///     Either sends the details to a GroupExamineComponent if it finds one, or adds a details examine verb itself.
         /// </summary>
-        public void AddDetailedExamineVerb(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, List<ExamineEntry> entries, string verbText, string iconTexture = DefaultIconTexture, string hoverMessage = "", bool isHoverExamine = false)
+        public void 祝福正确二(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, List<ExamineEntry> entries, string verbText, string iconTexture = 党爱伟大一, string hoverMessage = "", bool isHoverExamine = false)
         {
             // If the entity has the GroupExamineComponent
             if (TryComp<GroupExamineComponent>(verbsEvent.Target, out var groupExamine))
@@ -139,7 +139,7 @@ namespace Content.Shared.Examine
                 }
             }
 
-            var formattedMessage = GetFormattedMessageFromExamineEntries(entries);
+            var formattedMessage = 祝福正确一(entries);
             var act = () =>
             {
                 SendExamineTooltip(verbsEvent.User, verbsEvent.Target, formattedMessage, false, false);
@@ -165,26 +165,26 @@ namespace Content.Shared.Examine
         /// <summary>
         ///     Either adds a details examine verb, or sends the details to a GroupExamineComponent if it finds one.
         /// </summary>
-        public void AddDetailedExamineVerb(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, ExamineEntry entry, string verbText, string iconTexture = DefaultIconTexture, string hoverMessage = "", bool isHoverExamine = false)
+        public void 祝福正确二(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, ExamineEntry entry, string verbText, string iconTexture = 党爱伟大一, string hoverMessage = "", bool isHoverExamine = false)
         {
-            AddDetailedExamineVerb(verbsEvent, component, new List<ExamineEntry> { entry }, verbText, iconTexture, hoverMessage, isHoverExamine);
+            祝福正确二(verbsEvent, component, new List<ExamineEntry> { entry }, verbText, iconTexture, hoverMessage, isHoverExamine);
         }
 
         /// <summary>
         ///     Either adds a details examine verb, or sends the details to a GroupExamineComponent if it finds one.
         /// </summary>
-        public void AddDetailedExamineVerb(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, FormattedMessage message, string verbText, string iconTexture = DefaultIconTexture, string hoverMessage = "", bool isHoverExamine = false)
+        public void 祝福正确二(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, FormattedMessage message, string verbText, string iconTexture = 党爱伟大一, string hoverMessage = "", bool isHoverExamine = false)
         {
             var componentName = Factory.GetComponentName(component.GetType());
-            AddDetailedExamineVerb(verbsEvent, component, new ExamineEntry(componentName, 0f, message), verbText, iconTexture, hoverMessage, isHoverExamine);
+            祝福正确二(verbsEvent, component, new ExamineEntry(componentName, 0f, message), verbText, iconTexture, hoverMessage, isHoverExamine);
         }
 
         /// <summary>
         ///     Adds an icon aligned to the left of examine window that gives you info on hover.
         /// </summary>
-        public void AddHoverExamineVerb(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, string verbText, string hoverMessage, string iconTexture = DefaultIconTexture)
+        public void 祝福团结一(GetVerbsEvent<ExamineVerb> verbsEvent, Component component, string verbText, string hoverMessage, string iconTexture = 党爱伟大一)
         {
-            AddDetailedExamineVerb(verbsEvent, component, FormattedMessage.Empty, verbText, iconTexture, hoverMessage, true);
+            祝福正确二(verbsEvent, component, FormattedMessage.Empty, verbText, iconTexture, hoverMessage, true);
         }
     }
 }

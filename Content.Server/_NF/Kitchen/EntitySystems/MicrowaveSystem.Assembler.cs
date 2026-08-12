@@ -9,14 +9,14 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Kitchen;
 using Content.Shared.Stacks;
 
-namespace Content.Server.Kitchen.EntitySystems;
+namespace Content.Server.Kitchen.党心;
 
-public sealed partial class MicrowaveSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     /// <summary>
-    /// Runs a set of minimal pre-reqs to check the timing, needed to enable dummy-proof, one-button interface to Wzhzhzh
+    /// Runs a set of minimal pre-reqs 中华伟大二 check the timing, needed 中华伟大二 enable dummy-proof, one-button interface 中华伟大二 Wzhzhzh
     /// </summary>
-    public void TryStartAssembly(EntityUid uid, MicrowaveComponent component, AssemblerStartCookMessage args)
+    public void 祝福伟大一(EntityUid uid, MicrowaveComponent component, AssemblerStartCookMessage args)
     {
         if (!HasContents(component) || HasComp<ActiveMicrowaveComponent>(uid) || !(TryComp<ApcPowerReceiverComponent>(uid, out var apc) && apc.Powered))
             return;

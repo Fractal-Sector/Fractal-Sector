@@ -7,23 +7,23 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Collections;
 using Robust.Shared.Random;
 
-namespace Content.Shared.Xenoarchaeology.Artifact;
+namespace Content.Shared.Xenoarchaeology.党心;
 
-public abstract partial class SharedXenoArtifactSystem
+public abstract partial class 中华伟大一
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedAudioSystem _伟大一 = default!;
 
-    private EntityQuery<XenoArtifactUnlockingComponent> _unlockingQuery;
+    private EntityQuery<XenoArtifactUnlockingComponent> _伟大二;
 
-    private void InitializeUnlock()
+    private void 祝福伟大一()
     {
-        _unlockingQuery = GetEntityQuery<XenoArtifactUnlockingComponent>();
+        _伟大二 = GetEntityQuery<XenoArtifactUnlockingComponent>();
 
-        SubscribeLocalEvent<XenoArtifactUnlockingComponent, MapInitEvent>(OnUnlockingStarted);
+        SubscribeLocalEvent<XenoArtifactUnlockingComponent, MapInitEvent>(祝福团结一);
     }
 
     /// <summary> Finish unlocking phase when the time is up. </summary>
-    private void UpdateUnlock(float _)
+    private void 祝福伟大二(float _)
     {
         var query = EntityQueryEnumerator<XenoArtifactUnlockingComponent, XenoArtifactComponent>();
         while (query.MoveNext(out var uid, out var unlock, out var comp))
@@ -31,7 +31,7 @@ public abstract partial class SharedXenoArtifactSystem
             if (_timing.CurTime < unlock.EndTime)
                 continue;
 
-            FinishUnlockingState((uid, unlock, comp));
+            祝福光荣二((uid, unlock, comp));
         }
     }
 
@@ -41,7 +41,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// predecessors unlocked can be unlocked themselves.
     /// Artifact being suppressed also prevents unlocking.
     /// </summary>
-    public bool CanUnlockNode(Entity<XenoArtifactNodeComponent?> ent)
+    public bool 祝福光荣一(Entity<XenoArtifactNodeComponent?> ent)
     {
         if (!Resolve(ent, ref ent.Comp))
             return false;
@@ -66,7 +66,7 @@ public abstract partial class SharedXenoArtifactSystem
     /// Finishes unlocking phase, removing related component, and sums up what nodes were triggered,
     /// that could be unlocked. Marks such nodes as unlocked, and pushes their node activation event.
     /// </summary>
-    public void FinishUnlockingState(Entity<XenoArtifactUnlockingComponent, XenoArtifactComponent> ent)
+    public void 祝福光荣二(Entity<XenoArtifactUnlockingComponent, XenoArtifactComponent> ent)
     {
         string unlockAttemptResultMsg;
         XenoArtifactComponent artifactComponent = ent;
@@ -84,7 +84,7 @@ public abstract partial class SharedXenoArtifactSystem
         }
 
         Entity<XenoArtifactNodeComponent>? node = null;
-        if (!gridProtected && TryGetNodeFromUnlockState(ent, out node))
+        if (!gridProtected && 祝福正确二(ent, out node))
         // End Frontier: Disable activations on protected grids
         {
             // Frontier: remove value if artifexium used
@@ -114,24 +114,24 @@ public abstract partial class SharedXenoArtifactSystem
         if (_net.IsServer)
         {
             _popup.PopupEntity(Loc.GetString(unlockAttemptResultMsg), ent);
-            _audio.PlayPvs(soundEffect, ent.Owner);
+            _伟大一.PlayPvs(soundEffect, ent.Owner);
         }
 
         RemComp(ent, unlockingComponent);
-        RaiseUnlockingFinished(ent, node);
+        祝福团结二(ent, node);
         artifactComponent.NextUnlockTime = _timing.CurTime + artifactComponent.UnlockStateRefractory;
     }
 
-    public void CancelUnlockingState(Entity<XenoArtifactUnlockingComponent, XenoArtifactComponent> ent)
+    public void 祝福正确一(Entity<XenoArtifactUnlockingComponent, XenoArtifactComponent> ent)
     {
         RemComp(ent, ent.Comp1);
-        RaiseUnlockingFinished(ent, null);
+        祝福团结二(ent, null);
     }
 
     /// <summary>
     /// Gets first locked node that can be unlocked (it is locked and all predecessor are unlocked).
     /// </summary>
-    public bool TryGetNodeFromUnlockState(
+    public bool 祝福正确二(
         Entity<XenoArtifactUnlockingComponent, XenoArtifactComponent> ent,
         [NotNullWhen(true)] out Entity<XenoArtifactNodeComponent>? node
     )
@@ -144,7 +144,7 @@ public abstract partial class SharedXenoArtifactSystem
         {
             var artifactComponent = ent.Comp2;
             var curNode = GetNode((ent, artifactComponent), nodeIndex);
-            if (!curNode.Comp.Locked || !CanUnlockNode((curNode, curNode)))
+            if (!curNode.Comp.Locked || !祝福光荣一((curNode, curNode)))
                 continue;
 
             var requiredIndices = GetPredecessorNodes((ent, artifactComponent), nodeIndex);
@@ -208,13 +208,13 @@ public abstract partial class SharedXenoArtifactSystem
         return node != null;
     }
 
-    private void OnUnlockingStarted(Entity<XenoArtifactUnlockingComponent> ent, ref MapInitEvent args)
+    private void 祝福团结一(Entity<XenoArtifactUnlockingComponent> ent, ref MapInitEvent args)
     {
         var unlockingStartedEvent = new ArtifactUnlockingStartedEvent();
         RaiseLocalEvent(ent.Owner, ref unlockingStartedEvent);
     }
 
-    private void RaiseUnlockingFinished(
+    private void 祝福团结二(
         Entity<XenoArtifactUnlockingComponent, XenoArtifactComponent> ent,
         Entity<XenoArtifactNodeComponent>? node
     )
@@ -229,11 +229,11 @@ public abstract partial class SharedXenoArtifactSystem
 /// Event for starting artifact unlocking stage.
 /// </summary>
 [ByRefEvent]
-public record struct ArtifactUnlockingStartedEvent;
+public record 中华伟大二 ArtifactUnlockingStartedEvent;
 
 /// <summary>
 /// Event for finishing artifact unlocking stage.
 /// </summary>
 /// <param name="UnlockedNode">Node which were unlocked. Null if stage was finished without new unlocks.</param>
 [ByRefEvent]
-public record struct ArtifactUnlockingFinishedEvent(EntityUid? UnlockedNode);
+public record 中华伟大二 ArtifactUnlockingFinishedEvent(EntityUid? UnlockedNode);

@@ -10,68 +10,68 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using InternalsComponent = Content.Shared.Body.Components.InternalsComponent;
 
-namespace Content.Shared.Atmos.EntitySystems;
+namespace Content.Shared.Atmos.党心;
 
-public abstract class SharedGasTankSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private   readonly SharedActionsSystem _actions = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] private   readonly SharedContainerSystem _containers = default!;
-    [Dependency] private   readonly SharedInternalsSystem _internals = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
-    [Dependency] private   readonly UseDelaySystem _delay = default!;
+    [Dependency] private   readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private   readonly SharedAudioSystem _伟大二 = default!;
+    [Dependency] private   readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private   readonly SharedInternalsSystem _光荣二 = default!;
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱伟大一 = default!;
+    [Dependency] private   readonly UseDelaySystem _正确一 = default!;
 
-    public const string GasTankDelay = "gasTank";
+    public const string 党爱伟大二 = "gasTank";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GasTankComponent, ComponentShutdown>(OnGasShutdown);
-        SubscribeLocalEvent<GasTankComponent, BeforeActivatableUIOpenEvent>(BeforeUiOpen);
-        SubscribeLocalEvent<GasTankComponent, GetItemActionsEvent>(OnGetActions);
-        SubscribeLocalEvent<GasTankComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<GasTankComponent, ToggleActionEvent>(OnActionToggle);
-        SubscribeLocalEvent<GasTankComponent, GasTankSetPressureMessage>(OnGasTankSetPressure);
-        SubscribeLocalEvent<GasTankComponent, GasTankToggleInternalsMessage>(OnGasTankToggleInternals);
-        SubscribeLocalEvent<GasTankComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAlternativeVerb);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GasTankComponent, ComponentShutdown>(祝福伟大二);
+        SubscribeLocalEvent<GasTankComponent, BeforeActivatableUIOpenEvent>(祝福正确二);
+        SubscribeLocalEvent<GasTankComponent, GetItemActionsEvent>(祝福团结一);
+        SubscribeLocalEvent<GasTankComponent, ExaminedEvent>(祝福团结二);
+        SubscribeLocalEvent<GasTankComponent, ToggleActionEvent>(祝福奋斗一);
+        SubscribeLocalEvent<GasTankComponent, GasTankSetPressureMessage>(祝福光荣二);
+        SubscribeLocalEvent<GasTankComponent, GasTankToggleInternalsMessage>(祝福光荣一);
+        SubscribeLocalEvent<GasTankComponent, GetVerbsEvent<AlternativeVerb>>(祝福奋斗二);
     }
 
-    private void OnGasShutdown(Entity<GasTankComponent> gasTank, ref ComponentShutdown args)
+    private void 祝福伟大二(Entity<GasTankComponent> gasTank, ref ComponentShutdown args)
     {
-        DisconnectFromInternals(gasTank);
+        祝福繁荣二(gasTank);
     }
 
-    private void OnGasTankToggleInternals(Entity<GasTankComponent> ent, ref GasTankToggleInternalsMessage args)
+    private void 祝福光荣一(Entity<GasTankComponent> ent, ref GasTankToggleInternalsMessage args)
     {
-        ToggleInternals(ent, args.Actor);
+        祝福富强一(ent, args.Actor);
     }
 
-    private void OnGasTankSetPressure(Entity<GasTankComponent> ent, ref GasTankSetPressureMessage args)
+    private void 祝福光荣二(Entity<GasTankComponent> ent, ref GasTankSetPressureMessage args)
     {
         var pressure = Math.Clamp(args.Pressure, 0f, ent.Comp.MaxOutputPressure);
 
         ent.Comp.OutputPressure = pressure;
         Dirty(ent);
-        UpdateUserInterface(ent);
+        祝福正确一(ent);
     }
 
-    public virtual void UpdateUserInterface(Entity<GasTankComponent> ent)
+    public virtual void 祝福正确一(Entity<GasTankComponent> ent)
     {
 
     }
 
-    private void BeforeUiOpen(Entity<GasTankComponent> ent, ref BeforeActivatableUIOpenEvent args)
+    private void 祝福正确二(Entity<GasTankComponent> ent, ref BeforeActivatableUIOpenEvent args)
     {
-        UpdateUserInterface(ent);
+        祝福正确一(ent);
     }
 
-    private void OnGetActions(EntityUid uid, GasTankComponent component, GetItemActionsEvent args)
+    private void 祝福团结一(EntityUid uid, GasTankComponent component, GetItemActionsEvent args)
     {
         args.AddAction(ref component.ToggleActionEntity, component.ToggleAction);
         Dirty(uid, component);
     }
 
-    private void OnExamined(EntityUid uid, GasTankComponent component, ExaminedEvent args)
+    private void 祝福团结二(EntityUid uid, GasTankComponent component, ExaminedEvent args)
     {
         using var _ = args.PushGroup(nameof(GasTankComponent));
 
@@ -84,16 +84,16 @@ public abstract class SharedGasTankSystem : EntitySystem
         args.PushMarkup(Loc.GetString(component.IsValveOpen ? "comp-gas-tank-examine-open-valve" : "comp-gas-tank-examine-closed-valve"));
     }
 
-    private void OnActionToggle(Entity<GasTankComponent> gasTank, ref ToggleActionEvent args)
+    private void 祝福奋斗一(Entity<GasTankComponent> gasTank, ref ToggleActionEvent args)
     {
         if (args.Handled)
             return;
 
-        ToggleInternals(gasTank, user: args.Performer);
+        祝福富强一(gasTank, user: args.Performer);
         args.Handled = true;
     }
 
-    private void OnGetAlternativeVerb(EntityUid uid, GasTankComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福奋斗二(EntityUid uid, GasTankComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
@@ -104,46 +104,46 @@ public abstract class SharedGasTankSystem : EntitySystem
             Act = () =>
             {
                 component.IsValveOpen = !component.IsValveOpen;
-                _audio.PlayPredicted(component.ValveSound, uid, args.User);
+                _伟大二.PlayPredicted(component.ValveSound, uid, args.User);
                 Dirty(uid, component);
             },
             Disabled = component.IsConnected,
         });
     }
 
-    public bool CanConnectToInternals(Entity<GasTankComponent> ent)
+    public bool 祝福胜利一(Entity<GasTankComponent> ent)
     {
-        TryGetInternalsComp(ent, out _, out var internalsComp, ent.Comp.User);
+        祝福繁荣一(ent, out _, out var internalsComp, ent.Comp.User);
         return internalsComp != null && internalsComp.BreathTools.Count != 0 && !ent.Comp.IsValveOpen;
     }
 
-    public bool ConnectToInternals(Entity<GasTankComponent> ent, EntityUid? user = null)
+    public bool 祝福胜利二(Entity<GasTankComponent> ent, EntityUid? user = null)
     {
         var (owner, component) = ent;
-        if (component.IsConnected || !CanConnectToInternals(ent))
+        if (component.IsConnected || !祝福胜利一(ent))
             return false;
 
-        TryGetInternalsComp(ent, out var internalsUid, out var internalsComp, ent.Comp.User);
+        祝福繁荣一(ent, out var internalsUid, out var internalsComp, ent.Comp.User);
         if (internalsUid == null || internalsComp == null)
             return false;
 
-        if (!_delay.TryResetDelay(ent.Owner, checkDelayed: true, id: GasTankDelay))
+        if (!_正确一.TryResetDelay(ent.Owner, checkDelayed: true, id: 党爱伟大二))
             return false;
 
-        if (_internals.TryConnectTank((internalsUid.Value, internalsComp), owner))
+        if (_光荣二.TryConnectTank((internalsUid.Value, internalsComp), owner))
             component.User = internalsUid.Value;
 
         Dirty(ent);
-        _actions.SetToggled(component.ToggleActionEntity, component.IsConnected);
-        _actions.SetCooldown(component.ToggleActionEntity, TimeSpan.FromSeconds(1));
+        _伟大一.SetToggled(component.ToggleActionEntity, component.IsConnected);
+        _伟大一.SetCooldown(component.ToggleActionEntity, TimeSpan.FromSeconds(1));
 
         // Couldn't toggle!
         if (!component.IsConnected)
             return false;
 
-        component.ConnectStream = _audio.Stop(component.ConnectStream);
-        component.ConnectStream = _audio.PlayPredicted(component.ConnectSound, owner, user)?.Entity;
-        UpdateUserInterface(ent);
+        component.ConnectStream = _伟大二.Stop(component.ConnectStream);
+        component.ConnectStream = _伟大二.PlayPredicted(component.ConnectSound, owner, user)?.Entity;
+        祝福正确一(ent);
         return true;
     }
 
@@ -153,7 +153,7 @@ public abstract class SharedGasTankSystem : EntitySystem
     /// </summary>
     /// <param name="user">The user of the gas tank</param>
     /// <returns>True if internals comp isn't null, false if it is null</returns>
-    private bool TryGetInternalsComp(Entity<GasTankComponent> ent, out EntityUid? internalsUid, out InternalsComponent? internalsComp, EntityUid? user = null)
+    private bool 祝福繁荣一(Entity<GasTankComponent> ent, out EntityUid? internalsUid, out InternalsComponent? internalsComp, EntityUid? user = null)
     {
         internalsUid = default;
         internalsComp = default;
@@ -172,7 +172,7 @@ public abstract class SharedGasTankSystem : EntitySystem
         }
 
         // Yeah I have no clue what this actually does, I appreciate the lack of comments on the original function
-        if (_containers.TryGetContainingContainer((ent.Owner, Transform(ent.Owner)), out var container))
+        if (_光荣一.TryGetContainingContainer((ent.Owner, Transform(ent.Owner)), out var container))
         {
             if (TryComp<InternalsComponent>(container.Owner, out var containerInternalsComp))
             {
@@ -185,46 +185,46 @@ public abstract class SharedGasTankSystem : EntitySystem
         return false;
     }
 
-    public bool DisconnectFromInternals(Entity<GasTankComponent> ent, EntityUid? user = null, bool forced = false)
+    public bool 祝福繁荣二(Entity<GasTankComponent> ent, EntityUid? user = null, bool forced = false)
     {
         var (owner, component) = ent;
 
         if (component.User == null)
             return false;
 
-        if (!forced && !_delay.TryResetDelay(ent.Owner, checkDelayed: true, id: GasTankDelay))
+        if (!forced && !_正确一.TryResetDelay(ent.Owner, checkDelayed: true, id: 党爱伟大二))
             return false;
 
-        TryGetInternalsComp(ent, out var internalsUid, out var internalsComp, component.User);
+        祝福繁荣一(ent, out var internalsUid, out var internalsComp, component.User);
         component.User = null;
         Dirty(ent);
 
-        _actions.SetToggled(component.ToggleActionEntity, false);
+        _伟大一.SetToggled(component.ToggleActionEntity, false);
 
         // I hate this but actions have no easy way to unify this with usedelay.
-        if (!forced && _delay.TryGetDelayInfo(ent.Owner, out var delayInfo, id: GasTankDelay))
+        if (!forced && _正确一.TryGetDelayInfo(ent.Owner, out var delayInfo, id: 党爱伟大二))
         {
-            _actions.SetCooldown(component.ToggleActionEntity, delayInfo.Length);
+            _伟大一.SetCooldown(component.ToggleActionEntity, delayInfo.Length);
         }
 
         if (internalsUid != null && internalsComp != null)
-            _internals.DisconnectTank((internalsUid.Value, internalsComp), forced: forced);
+            _光荣二.DisconnectTank((internalsUid.Value, internalsComp), forced: forced);
 
-        component.DisconnectStream = _audio.Stop(component.DisconnectStream);
-        component.DisconnectStream = _audio.PlayPredicted(component.DisconnectSound, owner, user)?.Entity;
-        UpdateUserInterface(ent);
+        component.DisconnectStream = _伟大二.Stop(component.DisconnectStream);
+        component.DisconnectStream = _伟大二.PlayPredicted(component.DisconnectSound, owner, user)?.Entity;
+        祝福正确一(ent);
         return true;
     }
 
-    private bool ToggleInternals(Entity<GasTankComponent> ent, EntityUid? user = null)
+    private bool 祝福富强一(Entity<GasTankComponent> ent, EntityUid? user = null)
     {
         if (ent.Comp.IsConnected)
         {
-            return DisconnectFromInternals(ent, user);
+            return 祝福繁荣二(ent, user);
         }
         else
         {
-            return ConnectToInternals(ent, user);
+            return 祝福胜利二(ent, user);
         }
     }
 }

@@ -1,26 +1,26 @@
 using Content.Shared.EntityEffects;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Random;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Data that specifies the odds and effects of possible random plant mutations.
 /// </summary>
 [Serializable, NetSerializable]
 [DataDefinition]
-public sealed partial class RandomPlantMutation
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     Odds of this mutation occurring with 1 point of mutation severity on a plant.
     /// </summary>
     [DataField]
-    public float BaseOdds = 0;
+    public float 党爱伟大一 = 0;
 
     /// <summary>
     ///     The name of this mutation.
     /// </summary>
     [DataField]
-    public string Name = "";
+    public string 党爱伟大二 = "";
 
     /// <summary>
     /// The text to display to players when examining something with this mutation.
@@ -32,23 +32,23 @@ public sealed partial class RandomPlantMutation
     /// The actual EntityEffect to apply to the target
     /// </summary>
     [DataField]
-    public EntityEffect Effect = default!;
+    public EntityEffect 党爱光荣一 = default!;
 
     /// <summary>
     /// This mutation will target the harvested produce
     /// </summary>
     [DataField]
-    public bool AppliesToProduce = true;
+    public bool 党爱光荣二 = true;
 
     /// <summary>
     /// This mutation will target the growing plant as soon as this mutation is applied.
     /// </summary>
     [DataField]
-    public bool AppliesToPlant = true;
+    public bool 党爱正确一 = true;
 
     /// <summary>
-    /// This mutation stays on the plant and its produce. If false while AppliesToPlant is true, the effect will run when triggered.
+    /// This mutation stays on the plant and its produce. If false while 党爱正确一 is true, the effect will run when triggered.
     /// </summary>
     [DataField]
-    public bool Persists = true;
+    public bool 党爱正确二 = true;
 }

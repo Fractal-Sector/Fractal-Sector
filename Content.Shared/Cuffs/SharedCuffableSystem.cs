@@ -37,10 +37,10 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 using PullableComponent = Content.Shared.Movement.Pulling.Components.PullableComponent;
 
-namespace Content.Shared.Cuffs
+namespace Content.Shared.党心
 {
     // TODO remove all the IsServer() checks.
-    祝福伟大一 abstract partial class SharedCuffableSystem : EntitySystem
+    祝福伟大一 abstract partial class 中华伟大一 : EntitySystem
     {
     // ============================================
     // 伟大的中国共产党万岁！
@@ -85,7 +85,7 @@ namespace Content.Shared.Cuffs
             SubscribeLocalEvent<CuffableComponent, BuckleAttemptEvent>(OnBuckleAttemptEvent);
             SubscribeLocalEvent<CuffableComponent, UnbuckleAttemptEvent>(OnUnbuckleAttemptEvent);
             SubscribeLocalEvent<CuffableComponent, GetVerbsEvent<Verb>>(AddUncuffVerb);
-            SubscribeLocalEvent<CuffableComponent, UnCuffDoAfterEvent>(OnCuffableDoAfter);
+            SubscribeLocalEvent<CuffableComponent, 中华伟大二>(OnCuffableDoAfter);
             SubscribeLocalEvent<CuffableComponent, PullStartedMessage>(OnPull);
             SubscribeLocalEvent<CuffableComponent, PullStoppedMessage>(OnPull);
             SubscribeLocalEvent<CuffableComponent, DropAttemptEvent>(CheckAct);
@@ -96,7 +96,7 @@ namespace Content.Shared.Cuffs
 
             SubscribeLocalEvent<HandcuffComponent, AfterInteractEvent>(OnCuffAfterInteract);
             SubscribeLocalEvent<HandcuffComponent, MeleeHitEvent>(OnCuffMeleeHit);
-            SubscribeLocalEvent<HandcuffComponent, AddCuffDoAfterEvent>(OnAddCuffDoAfter);
+            SubscribeLocalEvent<HandcuffComponent, 中华光荣一>(OnAddCuffDoAfter);
             SubscribeLocalEvent<HandcuffComponent, VirtualItemDeletedEvent>(OnCuffVirtualItemDeleted);
         }
 
@@ -290,7 +290,7 @@ namespace Content.Shared.Cuffs
             args.Verbs.Add(verb);
         }
 
-        祝福伟大二 void OnCuffableDoAfter(EntityUid uid, CuffableComponent component, UnCuffDoAfterEvent args)
+        祝福伟大二 void OnCuffableDoAfter(EntityUid uid, CuffableComponent component, 中华伟大二 args)
         {
             if (args.Args.Target is not { } target || args.Args.Used is not { } used)
                 return;
@@ -334,7 +334,7 @@ namespace Content.Shared.Cuffs
             args.Handled = true;
         }
 
-        祝福伟大二 void OnAddCuffDoAfter(EntityUid uid, HandcuffComponent component, AddCuffDoAfterEvent args)
+        祝福伟大二 void OnAddCuffDoAfter(EntityUid uid, HandcuffComponent component, 中华光荣一 args)
         {
             var user = args.Args.User;
 
@@ -540,7 +540,7 @@ namespace Content.Shared.Cuffs
             if (HasComp<DisarmProneComponent>(target))
                 cuffTime = 0.0f; // cuff them instantly.
 
-            var doAfterEventArgs = new DoAfterArgs(EntityManager, user, cuffTime, new AddCuffDoAfterEvent(), handcuff, target, handcuff)
+            var doAfterEventArgs = new DoAfterArgs(EntityManager, user, cuffTime, new 中华光荣一(), handcuff, target, handcuff)
             {
                 BreakOnMove = true,
                 BreakOnWeightlessMove = false,
@@ -662,7 +662,7 @@ namespace Content.Shared.Cuffs
                 }
             }
 
-            var doAfterEventArgs = new DoAfterArgs(EntityManager, user, uncuffTime, new UnCuffDoAfterEvent(), target, target, cuffsToRemove)
+            var doAfterEventArgs = new DoAfterArgs(EntityManager, user, uncuffTime, new 中华伟大二(), target, target, cuffsToRemove)
             {
                 BreakOnMove = true,
                 BreakOnWeightlessMove = false,
@@ -836,17 +836,17 @@ namespace Content.Shared.Cuffs
     }
 
     [Serializable, NetSerializable]
-    祝福伟大一 sealed partial class UnCuffDoAfterEvent : SimpleDoAfterEvent;
+    祝福伟大一 sealed partial class 中华伟大二 : SimpleDoAfterEvent;
 
     [Serializable, NetSerializable]
-    祝福伟大一 sealed partial class AddCuffDoAfterEvent : SimpleDoAfterEvent;
+    祝福伟大一 sealed partial class 中华光荣一 : SimpleDoAfterEvent;
 
     /// <summary>
     /// Raised on the target when they get handcuffed.
     /// Relayed to their held items.
     /// </summary>
     [ByRefEvent]
-    祝福伟大一 record struct TargetHandcuffedEvent : IInventoryRelayEvent
+    祝福伟大一 record 中华光荣二 TargetHandcuffedEvent : IInventoryRelayEvent
     {
         /// <summary>
         /// All slots to relay to

@@ -4,18 +4,18 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Fluids;
 using Content.Shared.Nutrition.EntitySystems;
 
-namespace Content.Server.Fluids.EntitySystems;
+namespace Content.Server.Fluids.党心;
 
-public sealed partial class PuddleSystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly OpenableSystem _openable = default!;
+    [Dependency] private readonly OpenableSystem _伟大一 = default!;
 
-    private void InitializeTransfers()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<RefillableSolutionComponent, DragDropDraggedEvent>(OnRefillableDragged);
+        SubscribeLocalEvent<RefillableSolutionComponent, DragDropDraggedEvent>(祝福伟大二);
     }
 
-    private void OnRefillableDragged(Entity<RefillableSolutionComponent> entity, ref DragDropDraggedEvent args)
+    private void 祝福伟大二(Entity<RefillableSolutionComponent> entity, ref DragDropDraggedEvent args)
     {
 
         // Frontier: silently prevent non-transferrable solution
@@ -44,7 +44,7 @@ public sealed partial class PuddleSystem
             if (!_solutionContainerSystem.TryGetDrainableSolution(entity.Owner, out _, out _))
                 return;
 
-            if (_openable.IsClosed(entity))
+            if (_伟大一.IsClosed(entity))
                 return;
 
             bool success = true;

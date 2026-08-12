@@ -9,47 +9,47 @@ using Content.Shared.DeviceLinking.Events;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 
-namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
+namespace Content.Server._FarHorizons.Power.Generation.党心;
 
-public sealed partial class NuclearReactorMonitorSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly NuclearReactorSystem _reactorSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = null!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly EntityManager _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly NuclearReactorSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
+    [Dependency] private readonly DeviceLinkSystem _正确一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确二 = null!;
+    [Dependency] private readonly IGameTiming _团结一 = default!;
 
-    private readonly float _threshold = 0.5f;
-    private float _accumulator = 0f;
+    private readonly float _团结二 = 0.5f;
+    private float _奋斗一 = 0f;
 
-    private sealed class LogData
+    private sealed class 中华伟大二
     {
-        public TimeSpan CreationTime;
-        public NetEntity Reactor;
+        public TimeSpan 党爱伟大一;
+        public NetEntity 党爱伟大二;
         public float? SetControlRodInsertion;
     }
 
-    private readonly Dictionary<KeyValuePair<EntityUid, EntityUid>, LogData> _logQueue = [];
+    private readonly Dictionary<KeyValuePair<EntityUid, EntityUid>, 中华伟大二> _logQueue = [];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NuclearReactorMonitorComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<NuclearReactorMonitorComponent, MapInitEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<NuclearReactorMonitorComponent, NewLinkEvent>(OnNewLink);
-        SubscribeLocalEvent<NuclearReactorMonitorComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<NuclearReactorMonitorComponent, NewLinkEvent>(祝福光荣一);
+        SubscribeLocalEvent<NuclearReactorMonitorComponent, PortDisconnectedEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<NuclearReactorMonitorComponent, ReactorControlRodModifyMessage>(OnControlRodMessage);
+        SubscribeLocalEvent<NuclearReactorMonitorComponent, ReactorControlRodModifyMessage>(祝福团结二);
 
-        SubscribeLocalEvent<NuclearReactorMonitorComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+        SubscribeLocalEvent<NuclearReactorMonitorComponent, AnchorStateChangedEvent>(祝福奋斗一);
     }
 
-    private void OnMapInit(EntityUid uid, NuclearReactorMonitorComponent comp, ref MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, NuclearReactorMonitorComponent comp, ref MapInitEvent args)
     {
-        if (!_entityManager.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink))
+        if (!_伟大一.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink))
             return;
         
         foreach(var source in sink.LinkedSources)
@@ -63,7 +63,7 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         }
     }
 
-    private void OnNewLink(EntityUid uid, NuclearReactorMonitorComponent comp, ref NewLinkEvent args)
+    private void 祝福光荣一(EntityUid uid, NuclearReactorMonitorComponent comp, ref NewLinkEvent args)
     {
         if (!HasComp<NuclearReactorComponent>(args.Source))
             return;
@@ -72,7 +72,7 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         Dirty(uid, comp);
     }
 
-    private void OnPortDisconnected(EntityUid uid, NuclearReactorMonitorComponent comp, ref PortDisconnectedEvent args)
+    private void 祝福光荣二(EntityUid uid, NuclearReactorMonitorComponent comp, ref PortDisconnectedEvent args)
     {
         if (args.Port != comp.LinkingPort)
             return;
@@ -81,13 +81,13 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         Dirty(uid, comp);
     }
 
-    public bool TryGetReactorComp(NuclearReactorMonitorComponent reactorMonitor, [NotNullWhen(true)] out NuclearReactorComponent? reactorComponent)
+    public bool 祝福正确一(NuclearReactorMonitorComponent reactorMonitor, [NotNullWhen(true)] out NuclearReactorComponent? reactorComponent)
     {
         reactorComponent = null;
-        if (!_entityManager.TryGetEntity(reactorMonitor.reactor, out var reactorEnt) || reactorEnt == null)
+        if (!_伟大一.TryGetEntity(reactorMonitor.reactor, out var reactorEnt) || reactorEnt == null)
             return false;
 
-        if (!_entityManager.TryGetComponent<NuclearReactorComponent>(reactorEnt, out var reactor))
+        if (!_伟大一.TryGetComponent<NuclearReactorComponent>(reactorEnt, out var reactor))
             return false;
 
         reactorComponent = reactor;
@@ -95,14 +95,14 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
     }
 
     #region BUI
-    public override void Update(float frameTime)
+    public override void 祝福正确二(float frameTime)
     {
-        _accumulator += frameTime;
-        if (_accumulator > _threshold)
+        _奋斗一 += frameTime;
+        if (_奋斗一 > _团结二)
         {
-            AccUpdate();
+            祝福团结一();
             UpdateLogs();
-            _accumulator = 0;
+            _奋斗一 = 0;
         }
 
         return;
@@ -110,12 +110,12 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         void UpdateLogs()
         {
             var toRemove = new List<KeyValuePair<EntityUid, EntityUid>>();
-            foreach (var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2)))
+            foreach (var log in _logQueue.Where(log => !((_团结一.RealTime - log.Value.党爱伟大一).TotalSeconds < 2)))
             {
                 toRemove.Add(log.Key);
 
                 if (log.Value.SetControlRodInsertion != null)
-                    _adminLog.Add(LogType.Action, $"{ToPrettyString(log.Key.Key):actor} set control rod insertion of {ToPrettyString(log.Value.Reactor):target} to {log.Value.SetControlRodInsertion} through {ToPrettyString(log.Key.Value):monitor}");
+                    _伟大二.Add(LogType.Action, $"{ToPrettyString(log.Key.Key):actor} set control rod insertion of {ToPrettyString(log.Value.党爱伟大二):target} to {log.Value.SetControlRodInsertion} through {ToPrettyString(log.Key.Value):monitor}");
             }
 
             foreach (var kvp in toRemove)
@@ -123,23 +123,23 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         }
     }
 
-    private void AccUpdate()
+    private void 祝福团结一()
     {
         var query = EntityQueryEnumerator<NuclearReactorMonitorComponent>();
 
         while (query.MoveNext(out var uid, out var reactorMonitor))
         {
-            CheckRange(uid, reactorMonitor);
-            if (!TryGetReactorComp(reactorMonitor, out var reactor))
+            祝福奋斗二(uid, reactorMonitor);
+            if (!祝福正确一(reactorMonitor, out var reactor))
                 continue;
 
-            _reactorSystem.UpdateUI(uid, reactor);
+            _光荣一.UpdateUI(uid, reactor);
         }
     }
 
-    private void OnControlRodMessage(EntityUid uid, NuclearReactorMonitorComponent comp, ref ReactorControlRodModifyMessage args)
+    private void 祝福团结二(EntityUid uid, NuclearReactorMonitorComponent comp, ref ReactorControlRodModifyMessage args)
     {
-        if (!TryGetReactorComp(comp, out var reactor))
+        if (!祝福正确一(comp, out var reactor))
             return;
 
         if(SharedNuclearReactorSystem.AdjustControlRods(reactor, args.Change))
@@ -147,49 +147,49 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
             if(!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData {
-                    CreationTime = _gameTiming.RealTime, 
-                    Reactor = comp.reactor!.Value,
+                _logQueue.Add(key, new 中华伟大二 {
+                    党爱伟大一 = _团结一.RealTime, 
+                    党爱伟大二 = comp.reactor!.Value,
                     SetControlRodInsertion = reactor.ControlRodInsertion
                 });
             else
                 value.SetControlRodInsertion = reactor.ControlRodInsertion;
         }
 
-        _reactorSystem.UpdateUI(uid, reactor);
+        _光荣一.UpdateUI(uid, reactor);
     }
     #endregion
 
-    private void OnAnchorChanged(EntityUid uid, NuclearReactorMonitorComponent comp, ref AnchorStateChangedEvent args)
+    private void 祝福奋斗一(EntityUid uid, NuclearReactorMonitorComponent comp, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
             return;
 
-        CheckRange(uid, comp);
+        祝福奋斗二(uid, comp);
     }
 
-    private void CheckRange(EntityUid uid, NuclearReactorMonitorComponent comp)
+    private void 祝福奋斗二(EntityUid uid, NuclearReactorMonitorComponent comp)
     {
-        if (!_entityManager.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink) || sink.LinkedSources.Count < 1)
+        if (!_伟大一.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink) || sink.LinkedSources.Count < 1)
             return;
 
-        if (!_entityManager.TryGetEntity(comp.reactor, out var uidReactor))
+        if (!_伟大一.TryGetEntity(comp.reactor, out var uidReactor))
             return;
 
-        if (!_entityManager.TryGetComponent<DeviceLinkSourceComponent>(uidReactor, out var source))
+        if (!_伟大一.TryGetComponent<DeviceLinkSourceComponent>(uidReactor, out var source))
             return;
 
         var xformMonitor = Transform(uid);
         var xformReactor = Transform(uidReactor.Value);
-        var posMonitor = _transformSystem.GetWorldPosition(xformMonitor);
-        var posReactor = _transformSystem.GetWorldPosition(xformReactor);
+        var posMonitor = _光荣二.GetWorldPosition(xformMonitor);
+        var posReactor = _光荣二.GetWorldPosition(xformReactor);
 
         if (xformMonitor.MapID == xformReactor.MapID && (posMonitor - posReactor).Length() <= source.Range)
             return;
 
-        _uiSystem.CloseUi(uid, NuclearReactorUiKey.Key);
+        _正确二.CloseUi(uid, NuclearReactorUiKey.Key);
         comp.reactor = null;
-        _signal.RemoveSinkFromSource(uidReactor.Value, uid, source, sink);
+        _正确一.RemoveSinkFromSource(uidReactor.Value, uid, source, sink);
         Dirty(uid, comp);
     }
 }

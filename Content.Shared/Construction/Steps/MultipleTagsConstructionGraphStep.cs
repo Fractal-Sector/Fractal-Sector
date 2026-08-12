@@ -1,9 +1,9 @@
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Construction.Steps
+namespace Content.Shared.Construction.党心
 {
-    public sealed partial class MultipleTagsConstructionGraphStep : ArbitraryInsertConstructionGraphStep
+    public sealed partial class 中华伟大一 : ArbitraryInsertConstructionGraphStep
     {
         [DataField("allTags")]
         private List<ProtoId<TagPrototype>>? _allTags;
@@ -16,7 +16,7 @@ namespace Content.Shared.Construction.Steps
             return list == null || list.Count == 0;
         }
 
-        public override bool EntityValid(EntityUid uid, IEntityManager entityManager, IComponentFactory compFactory)
+        public override bool 祝福伟大一(EntityUid uid, IEntityManager entityManager, IComponentFactory compFactory)
         {
             // This step can only happen if either list has tags.
             if (IsNullOrEmpty(_allTags) && IsNullOrEmpty(_anyTags))

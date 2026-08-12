@@ -2,27 +2,27 @@ using Content.Shared.Cargo;
 using Content.Shared.Xenoarchaeology.Artifact;
 using Content.Shared.Xenoarchaeology.Artifact.Components;
 
-namespace Content.Server.Xenoarchaeology.Artifact;
+namespace Content.Server.Xenoarchaeology.党心;
 
 /// <inheritdoc cref="SharedXenoArtifactSystem"/>
-public sealed partial class XenoArtifactSystem : SharedXenoArtifactSystem
+public sealed partial class 中华伟大一 : SharedXenoArtifactSystem
 {
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<XenoArtifactComponent, MapInitEvent>(OnArtifactMapInit);
-        SubscribeLocalEvent<XenoArtifactComponent, PriceCalculationEvent>(OnCalculatePrice);
+        SubscribeLocalEvent<XenoArtifactComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<XenoArtifactComponent, PriceCalculationEvent>(祝福光荣一);
     }
 
-    private void OnArtifactMapInit(Entity<XenoArtifactComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<XenoArtifactComponent> ent, ref MapInitEvent args)
     {
         if (ent.Comp.IsGenerationRequired)
             GenerateArtifactStructure(ent);
     }
 
-    private void OnCalculatePrice(Entity<XenoArtifactComponent> ent, ref PriceCalculationEvent args)
+    private void 祝福光荣一(Entity<XenoArtifactComponent> ent, ref PriceCalculationEvent args)
     {
         foreach (var node in GetAllNodes(ent))
         {

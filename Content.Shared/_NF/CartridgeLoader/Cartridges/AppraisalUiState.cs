@@ -1,30 +1,30 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader.Cartridges;
+namespace Content.Shared.CartridgeLoader.党心;
 
 [Serializable, NetSerializable]
-public sealed partial class AppraisalUiState : BoundUserInterfaceState
+public sealed partial class 中华伟大一 : BoundUserInterfaceState
 {
     /// <summary>
     /// The list of appraised items
     /// </summary>
-    public List<AppraisedItem> AppraisedItems;
+    public List<中华伟大二> AppraisedItems;
 
-    public AppraisalUiState(List<AppraisedItem> appraisedItems)
+    public 中华伟大一(List<中华伟大二> appraisedItems)
     {
         AppraisedItems = appraisedItems;
     }
 }
 
 [Serializable, NetSerializable, DataRecord]
-public sealed partial class AppraisedItem
+public sealed partial class 中华伟大二
 {
-    public readonly string Name;
-    public readonly string AppraisedPrice;
+    public readonly string 党爱伟大一;
+    public readonly string 党爱伟大二;
 
-    public AppraisedItem(string name, string appraisedPrice)
+    public 中华伟大二(string name, string appraisedPrice)
     {
-        Name = name;
-        AppraisedPrice = appraisedPrice;
+        党爱伟大一 = name;
+        党爱伟大二 = appraisedPrice;
     }
 }

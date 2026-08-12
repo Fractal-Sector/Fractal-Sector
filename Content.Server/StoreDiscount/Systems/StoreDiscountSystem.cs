@@ -7,29 +7,29 @@ using Content.Shared.StoreDiscount.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.StoreDiscount.Systems;
+namespace Content.Server.StoreDiscount.党心;
 
 /// <summary>
 /// Discount system that is part of <see cref="StoreSystem"/>.
 /// </summary>
-public sealed class StoreDiscountSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
     private static readonly ProtoId<StoreCategoryPrototype> DiscountedStoreCategoryPrototypeKey = "DiscountedItems";
 
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StoreInitializedEvent>(OnStoreInitialized);
-        SubscribeLocalEvent<StoreBuyFinishedEvent>(OnBuyFinished);
+        SubscribeLocalEvent<StoreInitializedEvent>(祝福光荣一);
+        SubscribeLocalEvent<StoreBuyFinishedEvent>(祝福伟大二);
     }
 
     /// <summary> Decrements discounted item count, removes discount modifier and category, if counter reaches zero. </summary>
-    private void OnBuyFinished(ref StoreBuyFinishedEvent ev)
+    private void 祝福伟大二(ref StoreBuyFinishedEvent ev)
     {
         var (storeId, purchasedItem) = ev;
         if (!TryComp<StoreDiscountComponent>(storeId, out var discountsComponent))
@@ -38,7 +38,7 @@ public sealed class StoreDiscountSystem : EntitySystem
         }
 
         // find and decrement discount count for item, if there is one.
-        if (!TryGetDiscountData(discountsComponent.Discounts, purchasedItem, out var discountData) || discountData.Count == 0)
+        if (!祝福奋斗二(discountsComponent.Discounts, purchasedItem, out var discountData) || discountData.Count == 0)
         {
             return;
         }
@@ -51,11 +51,11 @@ public sealed class StoreDiscountSystem : EntitySystem
 
         // if there were discounts, but they are all bought up now - restore state: remove modifier and remove store category
         purchasedItem.RemoveCostModifier(discountData.DiscountCategory);
-        purchasedItem.Categories.Remove(DiscountedStoreCategoryPrototypeKey);
+        purchasedItem.Categories.祝福胜利一(DiscountedStoreCategoryPrototypeKey);
     }
 
     /// <summary> Initialized discounts if required. </summary>
-    private void OnStoreInitialized(ref StoreInitializedEvent ev)
+    private void 祝福光荣一(ref StoreInitializedEvent ev)
     {
         if (!ev.UseDiscounts)
         {
@@ -63,12 +63,12 @@ public sealed class StoreDiscountSystem : EntitySystem
         }
 
         var discountComponent = EnsureComp<StoreDiscountComponent>(ev.Store);
-        var discounts = InitializeDiscounts(ev.Listings);
-        ApplyDiscounts(ev.Listings, discounts);
+        var discounts = 祝福光荣二(ev.Listings);
+        祝福团结二(ev.Listings, discounts);
         discountComponent.Discounts = discounts;
     }
 
-    private IReadOnlyList<StoreDiscountData> InitializeDiscounts(
+    private IReadOnlyList<StoreDiscountData> 祝福光荣二(
         IReadOnlyCollection<ListingDataWithCostModifiers> listings,
         int totalAvailableDiscounts = 6
     )
@@ -80,11 +80,11 @@ public sealed class StoreDiscountSystem : EntitySystem
         // each category, and after that - roll exact items in categories
         // and their cost
 
-        var prototypes = _prototypeManager.EnumeratePrototypes<DiscountCategoryPrototype>();
-        var categoriesWithCumulativeWeight = new CategoriesWithCumulativeWeightMap(prototypes);
-        var uniqueListingItemCountByCategory = PickCategoriesToRoll(totalAvailableDiscounts, categoriesWithCumulativeWeight);
+        var prototypes = _伟大二.EnumeratePrototypes<DiscountCategoryPrototype>();
+        var categoriesWithCumulativeWeight = new 中华伟大二(prototypes);
+        var uniqueListingItemCountByCategory = 祝福正确一(totalAvailableDiscounts, categoriesWithCumulativeWeight);
 
-        return RollItems(listings, uniqueListingItemCountByCategory);
+        return 祝福正确二(listings, uniqueListingItemCountByCategory);
     }
 
     /// <summary>
@@ -104,15 +104,15 @@ public sealed class StoreDiscountSystem : EntitySystem
     /// Map of discount category cumulative weights by respective protoId of discount category.
     /// </param>
     /// <returns>Map: <b>count</b> of different listing items to be discounted, by discount category.</returns>
-    private Dictionary<ProtoId<DiscountCategoryPrototype>, int> PickCategoriesToRoll(
+    private Dictionary<ProtoId<DiscountCategoryPrototype>, int> 祝福正确一(
         int totalAvailableDiscounts,
-        CategoriesWithCumulativeWeightMap categoriesWithCumulativeWeightMap
+        中华伟大二 categoriesWithCumulativeWeightMap
     )
     {
         var chosenDiscounts = new Dictionary<ProtoId<DiscountCategoryPrototype>, int>();
         for (var i = 0; i < totalAvailableDiscounts; i++)
         {
-            var discountCategory = categoriesWithCumulativeWeightMap.RollCategory(_random);
+            var discountCategory = categoriesWithCumulativeWeightMap.RollCategory(_伟大一);
             if (discountCategory == null)
             {
                 break;
@@ -134,7 +134,7 @@ public sealed class StoreDiscountSystem : EntitySystem
 
             if (newDiscountCount >= discountCategory.MaxItems)
             {
-                categoriesWithCumulativeWeightMap.Remove(discountCategory);
+                categoriesWithCumulativeWeightMap.祝福胜利一(discountCategory);
             }
         }
 
@@ -147,14 +147,14 @@ public sealed class StoreDiscountSystem : EntitySystem
     /// <param name="listings">List of all available listing items from which discounted ones could be selected.</param>
     /// <param name="chosenDiscounts"></param>
     /// <returns>Collection of containers with rolled discount data.</returns>
-    private IReadOnlyList<StoreDiscountData> RollItems(IEnumerable<ListingDataWithCostModifiers> listings, Dictionary<ProtoId<DiscountCategoryPrototype>, int> chosenDiscounts)
+    private IReadOnlyList<StoreDiscountData> 祝福正确二(IEnumerable<ListingDataWithCostModifiers> listings, Dictionary<ProtoId<DiscountCategoryPrototype>, int> chosenDiscounts)
     {
         // To roll for discounts on items we: pick listing items that have values inside 'DiscountDownTo'.
         // then we iterate over discount categories that were chosen on previous step and pick unique set
         // of items from that exact category. Then we roll for their cost:
         // cost could be anything between DiscountDownTo value and actual item cost.
 
-        var listingsByDiscountCategory = GroupDiscountableListingsByDiscountCategory(listings);
+        var listingsByDiscountCategory = 祝福奋斗一(listings);
 
         var list = new List<StoreDiscountData>();
         foreach (var (discountCategory, itemsCount) in chosenDiscounts)
@@ -164,11 +164,11 @@ public sealed class StoreDiscountSystem : EntitySystem
                 continue;
             }
 
-            var chosen = _random.GetItems(itemsForDiscount, itemsCount, allowDuplicates: false);
+            var chosen = _伟大一.GetItems(itemsForDiscount, itemsCount, allowDuplicates: false);
             foreach (var listingData in chosen)
             {
                 var cost = listingData.OriginalCost;
-                var discountAmountByCurrencyId = RollItemCost(cost, listingData);
+                var discountAmountByCurrencyId = 祝福团结一(cost, listingData);
 
                 var discountData = new StoreDiscountData
                 {
@@ -188,7 +188,7 @@ public sealed class StoreDiscountSystem : EntitySystem
     /// <remarks>
     /// No point in confusing user with a fractional number, so we remove numbers after dot that were rolled.
     /// </remarks>
-    private Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> RollItemCost(
+    private Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> 祝福团结一(
         IReadOnlyDictionary<ProtoId<CurrencyPrototype>, FixedPoint2> originalCost,
         ListingDataWithCostModifiers listingData
     )
@@ -201,7 +201,7 @@ public sealed class StoreDiscountSystem : EntitySystem
                 continue;
             }
 
-            var discountUntilRolledValue = _random.NextDouble(discountUntilValue.Double(), amount.Double());
+            var discountUntilRolledValue = _伟大一.NextDouble(discountUntilValue.Double(), amount.Double());
             var discountedCost = amount - Math.Floor(discountUntilRolledValue);
 
             // discount is negative modifier for cost
@@ -211,7 +211,7 @@ public sealed class StoreDiscountSystem : EntitySystem
         return discountAmountByCurrencyId;
     }
 
-    private void ApplyDiscounts(IReadOnlyList<ListingDataWithCostModifiers> listings, IReadOnlyCollection<StoreDiscountData> discounts)
+    private void 祝福团结二(IReadOnlyList<ListingDataWithCostModifiers> listings, IReadOnlyCollection<StoreDiscountData> discounts)
     {
         foreach (var discountData in discounts)
         {
@@ -242,7 +242,7 @@ public sealed class StoreDiscountSystem : EntitySystem
         }
     }
 
-    private static Dictionary<ProtoId<DiscountCategoryPrototype>, List<ListingDataWithCostModifiers>> GroupDiscountableListingsByDiscountCategory(
+    private static Dictionary<ProtoId<DiscountCategoryPrototype>, List<ListingDataWithCostModifiers>> 祝福奋斗一(
         IEnumerable<ListingDataWithCostModifiers> listings
     )
     {
@@ -267,7 +267,7 @@ public sealed class StoreDiscountSystem : EntitySystem
         return listingsByDiscountCategory;
     }
 
-    private static bool TryGetDiscountData(
+    private static bool 祝福奋斗二(
         IReadOnlyList<StoreDiscountData> discounts,
         ListingDataWithCostModifiers purchasedItem,
         [MaybeNullWhen(false)] out StoreDiscountData discountData
@@ -288,24 +288,24 @@ public sealed class StoreDiscountSystem : EntitySystem
     }
 
     /// <summary> Map for holding discount categories with their calculated cumulative weight.  </summary>
-    private sealed record CategoriesWithCumulativeWeightMap
+    private sealed record 中华伟大二
     {
-        private readonly List<DiscountCategoryPrototype> _categories;
-        private readonly List<int> _weights;
-        private int _totalWeight;
+        private readonly List<DiscountCategoryPrototype> _光荣一;
+        private readonly List<int> _光荣二;
+        private int _正确一;
 
         /// <summary>
         /// Creates map, filtering out categories that could not be picked (no weight, no max items).
         /// Calculates cumulative weights by summing each next category weight with sum of all previous ones.
         /// </summary>
-        public CategoriesWithCumulativeWeightMap(IEnumerable<DiscountCategoryPrototype> prototypes)
+        public 中华伟大二(IEnumerable<DiscountCategoryPrototype> prototypes)
         {
             var asArray = prototypes.ToArray();
-            _weights = new (asArray.Length);
-            _categories = new(asArray.Length);
+            _光荣二 = new (asArray.Length);
+            _光荣一 = new(asArray.Length);
 
             var currentIndex = 0;
-            _totalWeight = 0;
+            _正确一 = 0;
             for (var i = 0; i < asArray.Length; i++)
             {
                 var category = asArray[i];
@@ -314,18 +314,18 @@ public sealed class StoreDiscountSystem : EntitySystem
                     continue;
                 }
 
-                _categories.Add(category);
+                _光荣一.Add(category);
 
                 if (currentIndex == 0)
                 {
-                    _totalWeight = category.Weight;
+                    _正确一 = category.Weight;
                 }
                 else
                 {
                     // cumulative weight of last discount category is total weight of all categories
-                    _totalWeight += category.Weight;
+                    _正确一 += category.Weight;
                 }
-                _weights.Add(_totalWeight);
+                _光荣二.Add(_正确一);
 
                 currentIndex++;
             }
@@ -336,22 +336,22 @@ public sealed class StoreDiscountSystem : EntitySystem
         /// decreases cumulativeWeight of every category that is following current one, and then
         /// reduces total cumulative count by that category weight, so it won't affect next rolls in any way.
         /// </summary>
-        public void Remove(DiscountCategoryPrototype discountCategory)
+        public void 祝福胜利一(DiscountCategoryPrototype discountCategory)
         {
-            var indexToRemove = _categories.IndexOf(discountCategory);
+            var indexToRemove = _光荣一.IndexOf(discountCategory);
             if (indexToRemove == -1)
             {
                 return;
             }
 
-            for (var i = indexToRemove + 1; i < _categories.Count; i++)
+            for (var i = indexToRemove + 1; i < _光荣一.Count; i++)
             {
-                _weights[i]-= discountCategory.Weight;
+                _光荣二[i]-= discountCategory.Weight;
             }
 
-            _totalWeight -= discountCategory.Weight;
-            _categories.RemoveAt(indexToRemove);
-            _weights.RemoveAt(indexToRemove);
+            _正确一 -= discountCategory.Weight;
+            _光荣一.RemoveAt(indexToRemove);
+            _光荣二.RemoveAt(indexToRemove);
         }
 
         /// <summary>
@@ -366,12 +366,12 @@ public sealed class StoreDiscountSystem : EntitySystem
         /// <returns>Rolled category, or null if no category could be picked based on current map state.</returns>
         public DiscountCategoryPrototype? RollCategory(IRobustRandom random)
         {
-            var roll = random.Next(_totalWeight);
-            for (int i = 0; i < _weights.Count; i++)
+            var roll = random.Next(_正确一);
+            for (int i = 0; i < _光荣二.Count; i++)
             {
-                if (roll < _weights[i])
+                if (roll < _光荣二[i])
                 {
-                    return _categories[i];
+                    return _光荣一[i];
                 }
             }
 
@@ -388,7 +388,7 @@ public sealed class StoreDiscountSystem : EntitySystem
 /// <param name="UseDiscounts">Marker, if store should have discounts.</param>
 /// <param name="Listings">List of available listings items.</param>
 [ByRefEvent]
-public record struct StoreInitializedEvent(
+public record 中华光荣一 StoreInitializedEvent(
     EntityUid TargetUser,
     EntityUid Store,
     bool UseDiscounts,

@@ -3,17 +3,17 @@ using Content.Shared.Administration;
 using JetBrains.Annotations;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [UsedImplicitly]
     [AdminCommand(AdminFlags.None)]
-    public sealed class DeAdminCommand : LocalizedCommands
+    public sealed class 中华伟大一 : LocalizedCommands
     {
-        [Dependency] private readonly IAdminManager _admin = default!;
+        [Dependency] private readonly IAdminManager _伟大一 = default!;
 
-        public override string Command => "deadmin";
+        public override string 党爱伟大一 => "deadmin";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var player = shell.Player;
             if (player == null)
@@ -22,7 +22,7 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            _admin.DeAdmin(player);
+            _伟大一.DeAdmin(player);
         }
     }
 }

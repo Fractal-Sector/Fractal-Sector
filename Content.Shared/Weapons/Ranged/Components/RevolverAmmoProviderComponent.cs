@@ -5,10 +5,10 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Weapons.Ranged.Components;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class RevolverAmmoProviderComponent : AmmoProviderComponent
+public sealed partial class 中华伟大一 : AmmoProviderComponent
 {
     /*
      * Revolver has an array of its slots of which we can fire from any index.
@@ -19,13 +19,13 @@ public sealed partial class RevolverAmmoProviderComponent : AmmoProviderComponen
     [DataField("whitelist")]
     public EntityWhitelist? Whitelist;
 
-    public Container AmmoContainer = default!;
+    public Container 党爱伟大一 = default!;
 
     [DataField("currentSlot")]
-    public int CurrentIndex;
+    public int 党爱伟大二;
 
     [DataField("capacity")]
-    public int Capacity = 6;
+    public int 党爱光荣一 = 6;
 
     // Like BallisticAmmoProvider we defer spawning until necessary
     // AmmoSlots is the instantiated ammo and Chambers is the unspawned ammo (that may or may not have been shot).
@@ -54,12 +54,12 @@ public sealed partial class RevolverAmmoProviderComponent : AmmoProviderComponen
     /// Is it okay for this entity to directly transfer its valid ammunition into another provider?
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("mayTransfer")]
-    public bool MayTransfer;
+    public bool 党爱光荣二;
 
     /// <summary>
     /// DoAfter delay for filling a bullet into another ballistic ammo provider.
     /// </summary>
     [DataField("fillDelay")]
-    public TimeSpan FillDelay = TimeSpan.FromSeconds(0.7); // Assume revolvers are harder to reload, and so should take more time.
+    public TimeSpan 党爱正确一 = TimeSpan.FromSeconds(0.7); // Assume revolvers are harder to reload, and so should take more time.
     // End Frontier
 }

@@ -11,66 +11,66 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 using Content.Shared.DeviceNetwork.Events;
 
-namespace Content.Server.Research.Systems;
+namespace Content.Server.Research.党心;
 
 /// <summary>
 /// Handles UI and state receiving for the robotics control console.
 /// <c>BorgTransponderComponent<c/> broadcasts state from the station's borgs to consoles.
 /// </summary>
-public sealed class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
+public sealed class 中华伟大一 : SharedRoboticsConsoleSystem
 {
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly DeviceNetworkSystem _伟大一 = default!;
+    [Dependency] private readonly IAdminLogManager _伟大二 = default!;
+    [Dependency] private readonly IGameTiming _光荣一 = default!;
+    [Dependency] private readonly LockSystem _光荣二 = default!;
+    [Dependency] private readonly RadioSystem _正确一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确二 = default!;
 
     // almost never timing out more than 1 per tick so initialize with that capacity
-    private List<string> _removing = new(1);
+    private List<string> _团结一 = new(1);
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RoboticsConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
+        SubscribeLocalEvent<RoboticsConsoleComponent, DeviceNetworkPacketEvent>(祝福光荣一);
         Subs.BuiEvents<RoboticsConsoleComponent>(RoboticsConsoleUiKey.Key, subs =>
         {
-            subs.Event<BoundUIOpenedEvent>(OnOpened);
-            subs.Event<RoboticsConsoleDisableMessage>(OnDisable);
-            subs.Event<RoboticsConsoleDestroyMessage>(OnDestroy);
+            subs.Event<BoundUIOpenedEvent>(祝福光荣二);
+            subs.Event<RoboticsConsoleDisableMessage>(祝福正确一);
+            subs.Event<RoboticsConsoleDestroyMessage>(祝福正确二);
             // TODO: camera stuff
         });
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
-        var now = _timing.CurTime;
+        var now = _光荣一.CurTime;
         var query = EntityQueryEnumerator<RoboticsConsoleComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
             // remove cyborgs that havent pinged in a while
-            _removing.Clear();
+            _团结一.Clear();
             foreach (var (address, data) in comp.Cyborgs)
             {
                 if (now >= data.Timeout)
-                    _removing.Add(address);
+                    _团结一.Add(address);
             }
 
             // needed to prevent modifying while iterating it
-            foreach (var address in _removing)
+            foreach (var address in _团结一)
             {
                 comp.Cyborgs.Remove(address);
             }
 
-            if (_removing.Count > 0)
-                UpdateUserInterface((uid, comp));
+            if (_团结一.Count > 0)
+                祝福团结一((uid, comp));
         }
     }
 
-    private void OnPacketReceived(Entity<RoboticsConsoleComponent> ent, ref DeviceNetworkPacketEvent args)
+    private void 祝福光荣一(Entity<RoboticsConsoleComponent> ent, ref DeviceNetworkPacketEvent args)
     {
         var payload = args.Data;
         if (!payload.TryGetValue(DeviceNetworkConstants.Command, out string? command))
@@ -82,23 +82,23 @@ public sealed class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
             return;
 
         var real = data.Value;
-        real.Timeout = _timing.CurTime + ent.Comp.Timeout;
+        real.Timeout = _光荣一.CurTime + ent.Comp.Timeout;
         ent.Comp.Cyborgs[args.SenderAddress] = real;
 
-        UpdateUserInterface(ent);
+        祝福团结一(ent);
     }
 
-    private void OnOpened(Entity<RoboticsConsoleComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福光荣二(Entity<RoboticsConsoleComponent> ent, ref BoundUIOpenedEvent args)
     {
-        UpdateUserInterface(ent);
+        祝福团结一(ent);
     }
 
-    private void OnDisable(Entity<RoboticsConsoleComponent> ent, ref RoboticsConsoleDisableMessage args)
+    private void 祝福正确一(Entity<RoboticsConsoleComponent> ent, ref RoboticsConsoleDisableMessage args)
     {
         if (!ent.Comp.AllowBorgControl)
             return;
 
-        if (_lock.IsLocked(ent.Owner))
+        if (_光荣二.IsLocked(ent.Owner))
             return;
 
         if (!ent.Comp.Cyborgs.TryGetValue(args.Address, out var data))
@@ -109,19 +109,19 @@ public sealed class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
             [DeviceNetworkConstants.Command] = RoboticsConsoleConstants.NET_DISABLE_COMMAND
         };
 
-        _deviceNetwork.QueuePacket(ent, args.Address, payload);
-        _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Actor):user} disabled borg {data.Name} with address {args.Address}");
+        _伟大一.QueuePacket(ent, args.Address, payload);
+        _伟大二.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Actor):user} disabled borg {data.Name} with address {args.Address}");
     }
 
-    private void OnDestroy(Entity<RoboticsConsoleComponent> ent, ref RoboticsConsoleDestroyMessage args)
+    private void 祝福正确二(Entity<RoboticsConsoleComponent> ent, ref RoboticsConsoleDestroyMessage args)
     {
         if (!ent.Comp.AllowBorgControl)
             return;
 
-        if (_lock.IsLocked(ent.Owner))
+        if (_光荣二.IsLocked(ent.Owner))
             return;
 
-        var now = _timing.CurTime;
+        var now = _光荣一.CurTime;
         if (now < ent.Comp.NextDestroy)
             return;
 
@@ -133,19 +133,19 @@ public sealed class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
             [DeviceNetworkConstants.Command] = RoboticsConsoleConstants.NET_DESTROY_COMMAND
         };
 
-        _deviceNetwork.QueuePacket(ent, args.Address, payload);
+        _伟大一.QueuePacket(ent, args.Address, payload);
 
         var message = Loc.GetString(ent.Comp.DestroyMessage, ("name", data.Name));
-        _radio.SendRadioMessage(ent, message, ent.Comp.RadioChannel, ent);
-        _adminLogger.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(args.Actor):user} destroyed borg {data.Name} with address {args.Address}");
+        _正确一.SendRadioMessage(ent, message, ent.Comp.RadioChannel, ent);
+        _伟大二.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(args.Actor):user} destroyed borg {data.Name} with address {args.Address}");
 
         ent.Comp.NextDestroy = now + ent.Comp.DestroyCooldown;
         Dirty(ent, ent.Comp);
     }
 
-    private void UpdateUserInterface(Entity<RoboticsConsoleComponent> ent)
+    private void 祝福团结一(Entity<RoboticsConsoleComponent> ent)
     {
         var state = new RoboticsConsoleState(ent.Comp.Cyborgs, ent.Comp.AllowBorgControl);
-        _ui.SetUiState(ent.Owner, RoboticsConsoleUiKey.Key, state);
+        _正确二.SetUiState(ent.Owner, RoboticsConsoleUiKey.Key, state);
     }
 }

@@ -5,17 +5,17 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Teleportation.Systems;
 using Robust.Shared.Map;
 
-namespace Content.Server.Teleportation;
+namespace Content.Server.党心;
 
-public sealed class PortalSystem : SharedPortalSystem
+public sealed class 中华伟大一 : SharedPortalSystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
 
     // TODO Move to shared
-    protected override void LogTeleport(EntityUid portal, EntityUid subject, EntityCoordinates source,
+    protected override void 祝福伟大一(EntityUid portal, EntityUid subject, EntityCoordinates source,
         EntityCoordinates target)
     {
         if (HasComp<MindContainerComponent>(subject) && !HasComp<GhostComponent>(subject))
-            _adminLogger.Add(LogType.Teleport, LogImpact.Low, $"{ToPrettyString(subject):player} teleported via {ToPrettyString(portal)} from {source} to {target}");
+            _伟大一.Add(LogType.Teleport, LogImpact.Low, $"{ToPrettyString(subject):player} teleported via {ToPrettyString(portal)} from {source} to {target}");
     }
 }

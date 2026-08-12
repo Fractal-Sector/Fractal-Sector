@@ -1,11 +1,11 @@
 using Content.Shared.Trigger.Systems;
 
-namespace Content.Shared.Trigger.Components.Triggers;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
-/// Base class for components that cause a trigger to be activated.
+/// Base class 中华伟大一 components that cause a trigger to be activated.
 /// </summary>
-public abstract partial class BaseTriggerOnXComponent : Component
+public abstract partial class 中华伟大二 : Component
 {
     /// <summary>
     /// The key that the trigger will activate.

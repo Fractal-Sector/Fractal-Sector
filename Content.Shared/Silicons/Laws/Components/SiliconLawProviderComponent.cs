@@ -1,19 +1,19 @@
 ﻿using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
 
-namespace Content.Shared.Silicons.Laws.Components;
+namespace Content.Shared.Silicons.党爱伟大一.党心;
 
 /// <summary>
 /// This is used for an entity which grants laws to a <see cref="SiliconLawBoundComponent"/>
 /// </summary>
 [RegisterComponent, Access(typeof(SharedSiliconLawSystem))]
-public sealed partial class SiliconLawProviderComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The id of the lawset that is being provided.
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<SiliconLawsetPrototype> Laws = string.Empty;
+    public ProtoId<SiliconLawsetPrototype> 党爱伟大一 = string.Empty;
 
     /// <summary>
     /// Lawset created from the prototype id.
@@ -33,6 +33,6 @@ public sealed partial class SiliconLawProviderComponent : Component
     /// Whether this silicon is subverted by an ion storm or emag.
     /// </summary>
     [DataField]
-    public bool Subverted = false;
+    public bool 党爱伟大二 = false;
 
 }

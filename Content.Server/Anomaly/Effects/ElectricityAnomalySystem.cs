@@ -7,63 +7,63 @@ using Content.Shared.StatusEffect;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
-public sealed class ElectricityAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly LightningSystem _lightning = default!;
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly EmpSystem _emp = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly LightningSystem _光荣二 = default!;
+    [Dependency] private readonly ElectrocutionSystem _正确一 = default!;
+    [Dependency] private readonly EmpSystem _正确二 = default!;
+    [Dependency] private readonly EntityLookupSystem _团结一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<ElectricityAnomalyComponent, AnomalyPulseEvent>(OnPulse);
-        SubscribeLocalEvent<ElectricityAnomalyComponent, AnomalySupercriticalEvent>(OnSupercritical);
+        SubscribeLocalEvent<ElectricityAnomalyComponent, AnomalyPulseEvent>(祝福伟大二);
+        SubscribeLocalEvent<ElectricityAnomalyComponent, AnomalySupercriticalEvent>(祝福光荣一);
     }
 
-    private void OnPulse(Entity<ElectricityAnomalyComponent> anomaly, ref AnomalyPulseEvent args)
+    private void 祝福伟大二(Entity<ElectricityAnomalyComponent> anomaly, ref AnomalyPulseEvent args)
     {
         var range = anomaly.Comp.MaxElectrocuteRange * args.Stability * args.PowerModifier;
 
         int boltCount = (int)MathF.Floor(MathHelper.Lerp((float)anomaly.Comp.MinBoltCount, (float)anomaly.Comp.MaxBoltCount, args.Severity));
 
-        _lightning.ShootRandomLightnings(anomaly, range, boltCount);
+        _光荣二.ShootRandomLightnings(anomaly, range, boltCount);
     }
 
-    private void OnSupercritical(Entity<ElectricityAnomalyComponent> anomaly, ref AnomalySupercriticalEvent args)
+    private void 祝福光荣一(Entity<ElectricityAnomalyComponent> anomaly, ref AnomalySupercriticalEvent args)
     {
         var range = anomaly.Comp.MaxElectrocuteRange * 3 * args.PowerModifier;
 
-        _emp.EmpPulse(_transform.GetMapCoordinates(anomaly), range, anomaly.Comp.EmpEnergyConsumption, anomaly.Comp.EmpDisabledDuration);
-        _lightning.ShootRandomLightnings(anomaly, range, anomaly.Comp.MaxBoltCount * 3, arcDepth: 3);
+        _正确二.EmpPulse(_伟大二.GetMapCoordinates(anomaly), range, anomaly.Comp.EmpEnergyConsumption, anomaly.Comp.EmpDisabledDuration);
+        _光荣二.ShootRandomLightnings(anomaly, range, anomaly.Comp.MaxBoltCount * 3, arcDepth: 3);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
 
         var query = EntityQueryEnumerator<ElectricityAnomalyComponent, AnomalyComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var elec, out var anom, out var xform))
         {
-            if (_timing.CurTime < elec.NextSecond)
+            if (_伟大一.CurTime < elec.NextSecond)
                 continue;
-            elec.NextSecond = _timing.CurTime + TimeSpan.FromSeconds(1);
+            elec.NextSecond = _伟大一.CurTime + TimeSpan.FromSeconds(1);
 
-            if (!_random.Prob(elec.PassiveElectrocutionChance * anom.Stability))
+            if (!_光荣一.Prob(elec.PassiveElectrocutionChance * anom.Stability))
                 continue;
 
             var range = elec.MaxElectrocuteRange * anom.Stability;
             var damage = (int) (elec.MaxElectrocuteDamage * anom.Severity);
             var duration = elec.MaxElectrocuteDuration * anom.Severity;
 
-            foreach (var (ent, comp) in _lookup.GetEntitiesInRange<StatusEffectsComponent>(_transform.GetMapCoordinates(uid, xform), range))
+            foreach (var (ent, comp) in _团结一.GetEntitiesInRange<StatusEffectsComponent>(_伟大二.GetMapCoordinates(uid, xform), range))
             {
-                _electrocution.TryDoElectrocution(ent, uid, damage, duration, true, statusEffects: comp, ignoreInsulation: true);
+                _正确一.TryDoElectrocution(ent, uid, damage, duration, true, statusEffects: comp, ignoreInsulation: true);
             }
         }
     }

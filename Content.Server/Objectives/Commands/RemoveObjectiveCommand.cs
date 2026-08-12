@@ -5,17 +5,17 @@ using Content.Shared.Objectives.Systems;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Objectives.Commands
+namespace Content.Server.Objectives.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class RemoveObjectiveCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _players = default!;
-        [Dependency] private readonly SharedMindSystem _mind = default!;
-        [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly SharedMindSystem _伟大二 = default!;
+        [Dependency] private readonly SharedObjectivesSystem _光荣一 = default!;
 
-        public override string Command => "rmobjective";
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override string 党爱伟大一 => "rmobjective";
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
             {
@@ -23,13 +23,13 @@ namespace Content.Server.Objectives.Commands
                 return;
             }
 
-            if (!_players.TryGetSessionByUsername(args[0], out var session))
+            if (!_伟大一.TryGetSessionByUsername(args[0], out var session))
             {
                 shell.WriteError(Loc.GetString("cmd-rmojective-player-not-found"));
                 return;
             }
 
-            if (!_mind.TryGetMind(session, out var mindId, out var mind))
+            if (!_伟大二.TryGetMind(session, out var mindId, out var mind))
             {
                 shell.WriteError(Loc.GetString("cmd-rmojective-mind-not-found"));
                 return;
@@ -37,7 +37,7 @@ namespace Content.Server.Objectives.Commands
 
             if (int.TryParse(args[1], out var i))
             {
-                shell.WriteLine(Loc.GetString(_mind.TryRemoveObjective(mindId, mind, i)
+                shell.WriteLine(Loc.GetString(_伟大二.TryRemoveObjective(mindId, mind, i)
                     ? "cmd-rmobjective-success"
                     : "cmd-rmobjective-failed"));
             }
@@ -47,7 +47,7 @@ namespace Content.Server.Objectives.Commands
             }
         }
 
-        public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
         {
             if (args.Length == 1)
             {
@@ -55,10 +55,10 @@ namespace Content.Server.Objectives.Commands
             }
             if (args.Length == 2)
             {
-                if (!_players.TryGetSessionByUsername(args[0], out var session))
+                if (!_伟大一.TryGetSessionByUsername(args[0], out var session))
                     return CompletionResult.Empty;
 
-                if (!_mind.TryGetMind(session, out var mindId, out var mind))
+                if (!_伟大二.TryGetMind(session, out var mindId, out var mind))
                     return CompletionResult.Empty;
 
                 if (mind.Objectives.Count == 0)
@@ -67,7 +67,7 @@ namespace Content.Server.Objectives.Commands
                 var options = new List<CompletionOption>();
                 for (int i = 0; i < mind.Objectives.Count; i++)
                 {
-                    var info = _objectives.GetInfo(mind.Objectives[i], mindId, mind);
+                    var info = _光荣一.GetInfo(mind.Objectives[i], mindId, mind);
                     var hint = info == null ? Loc.GetString("cmd-rmobjective-invalid-objective-info") : $"{mind.Objectives[i]} ({info.Value.Title})";
                     options.Add(new CompletionOption(i.ToString(), hint));
                 }

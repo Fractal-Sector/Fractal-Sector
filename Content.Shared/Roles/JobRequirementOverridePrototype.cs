@@ -1,16 +1,16 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Collection of job, antag, and ghost-role job requirements for per-server requirement overrides.
 /// </summary>
 [Prototype]
-public sealed partial class JobRequirementOverridePrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [ViewVariables]
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     [DataField]
     public Dictionary<ProtoId<JobPrototype>, HashSet<JobRequirement>> Jobs = new ();

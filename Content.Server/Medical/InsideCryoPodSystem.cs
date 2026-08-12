@@ -3,22 +3,22 @@ using Content.Server.Body.Systems;
 using Content.Server.Medical.Components;
 using Content.Shared.Medical.Cryogenics;
 
-namespace Content.Server.Medical
+namespace Content.Server.党心
 {
-    public sealed partial class CryoPodSystem
+    public sealed partial class 中华伟大一
     {
-        public override void InitializeInsideCryoPod()
+        public override void 祝福伟大一()
         {
-            base.InitializeInsideCryoPod();
+            base.祝福伟大一();
             // Atmos overrides
-            SubscribeLocalEvent<InsideCryoPodComponent, InhaleLocationEvent>(OnInhaleLocation);
-            SubscribeLocalEvent<InsideCryoPodComponent, ExhaleLocationEvent>(OnExhaleLocation);
-            SubscribeLocalEvent<InsideCryoPodComponent, AtmosExposedGetAirEvent>(OnGetAir);
+            SubscribeLocalEvent<InsideCryoPodComponent, InhaleLocationEvent>(祝福光荣一);
+            SubscribeLocalEvent<InsideCryoPodComponent, ExhaleLocationEvent>(祝福光荣二);
+            SubscribeLocalEvent<InsideCryoPodComponent, AtmosExposedGetAirEvent>(祝福伟大二);
         }
 
         #region Atmos handlers
 
-        private void OnGetAir(EntityUid uid, InsideCryoPodComponent component, ref AtmosExposedGetAirEvent args)
+        private void 祝福伟大二(EntityUid uid, InsideCryoPodComponent component, ref AtmosExposedGetAirEvent args)
         {
             if (TryComp<CryoPodAirComponent>(Transform(uid).ParentUid, out var cryoPodAir))
             {
@@ -27,7 +27,7 @@ namespace Content.Server.Medical
             }
         }
 
-        private void OnInhaleLocation(EntityUid uid, InsideCryoPodComponent component, InhaleLocationEvent args)
+        private void 祝福光荣一(EntityUid uid, InsideCryoPodComponent component, InhaleLocationEvent args)
         {
             if (TryComp<CryoPodAirComponent>(Transform(uid).ParentUid, out var cryoPodAir))
             {
@@ -35,7 +35,7 @@ namespace Content.Server.Medical
             }
         }
 
-        private void OnExhaleLocation(EntityUid uid, InsideCryoPodComponent component, ExhaleLocationEvent args)
+        private void 祝福光荣二(EntityUid uid, InsideCryoPodComponent component, ExhaleLocationEvent args)
         {
             if (TryComp<CryoPodAirComponent>(Transform(uid).ParentUid, out var cryoPodAir))
             {

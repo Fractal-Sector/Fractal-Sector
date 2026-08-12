@@ -4,35 +4,35 @@ using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Tools.Components;
 using Content.Shared.Item.ItemToggle.Components;
 
-namespace Content.Shared.Eye.Blinding.Systems
+namespace Content.Shared.Eye.Blinding.党心
 {
-    public sealed class EyeProtectionSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-        [Dependency] private readonly BlindableSystem _blindingSystem = default!;
+        [Dependency] private readonly StatusEffectsSystem _伟大一 = default!;
+        [Dependency] private readonly BlindableSystem _伟大二 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
-            SubscribeLocalEvent<RequiresEyeProtectionComponent, ToolUseAttemptEvent>(OnUseAttempt);
-            SubscribeLocalEvent<RequiresEyeProtectionComponent, ItemToggledEvent>(OnWelderToggled);
+            base.祝福伟大一();
+            SubscribeLocalEvent<RequiresEyeProtectionComponent, ToolUseAttemptEvent>(祝福光荣二);
+            SubscribeLocalEvent<RequiresEyeProtectionComponent, ItemToggledEvent>(祝福正确一);
 
-            SubscribeLocalEvent<EyeProtectionComponent, GetEyeProtectionEvent>(OnGetProtection);
-            SubscribeLocalEvent<EyeProtectionComponent, InventoryRelayedEvent<GetEyeProtectionEvent>>(OnGetRelayedProtection);
+            SubscribeLocalEvent<EyeProtectionComponent, GetEyeProtectionEvent>(祝福光荣一);
+            SubscribeLocalEvent<EyeProtectionComponent, InventoryRelayedEvent<GetEyeProtectionEvent>>(祝福伟大二);
         }
 
-        private void OnGetRelayedProtection(EntityUid uid, EyeProtectionComponent component,
+        private void 祝福伟大二(EntityUid uid, EyeProtectionComponent component,
             InventoryRelayedEvent<GetEyeProtectionEvent> args)
         {
-            OnGetProtection(uid, component, args.Args);
+            祝福光荣一(uid, component, args.Args);
         }
 
-        private void OnGetProtection(EntityUid uid, EyeProtectionComponent component, GetEyeProtectionEvent args)
+        private void 祝福光荣一(EntityUid uid, EyeProtectionComponent component, GetEyeProtectionEvent args)
         {
             args.Protection += component.ProtectionTime;
         }
 
-        private void OnUseAttempt(EntityUid uid, RequiresEyeProtectionComponent component, ToolUseAttemptEvent args)
+        private void 祝福光荣二(EntityUid uid, RequiresEyeProtectionComponent component, ToolUseAttemptEvent args)
         {
             if (!component.Toggled)
                 return;
@@ -49,12 +49,12 @@ namespace Content.Shared.Eye.Blinding.Systems
 
             // Add permanent eye damage if they had zero protection, also somewhat scale their temporary blindness by
             // how much damage they already accumulated.
-            _blindingSystem.AdjustEyeDamage((args.User, blindable), 1);
+            _伟大二.AdjustEyeDamage((args.User, blindable), 1);
             var statusTimeSpan = TimeSpan.FromSeconds(time * MathF.Sqrt(blindable.EyeDamage));
-            _statusEffectsSystem.TryAddStatusEffect(args.User, TemporaryBlindnessSystem.BlindingStatusEffect,
+            _伟大一.TryAddStatusEffect(args.User, TemporaryBlindnessSystem.BlindingStatusEffect,
                 statusTimeSpan, false, TemporaryBlindnessSystem.BlindingStatusEffect);
         }
-        private void OnWelderToggled(EntityUid uid, RequiresEyeProtectionComponent component, ItemToggledEvent args)
+        private void 祝福正确一(EntityUid uid, RequiresEyeProtectionComponent component, ItemToggledEvent args)
         {
             component.Toggled = args.Activated;
             Dirty(uid, component);

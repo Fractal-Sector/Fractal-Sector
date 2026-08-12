@@ -3,20 +3,20 @@ using Content.Shared.Construction;
 using Robust.Server.Containers;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Construction.Completions
+namespace Content.Server.Construction.党心
 {
     [DataDefinition]
-    public sealed partial class DeleteEntitiesInContainer : IGraphAction
+    public sealed partial class 中华伟大一 : IGraphAction
     {
-        [DataField("container")] public string Container { get; private set; } = string.Empty;
+        [DataField("container")] public string 党爱伟大一 { get; private set; } = string.Empty;
 
-        public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
+        public void 祝福伟大一(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
         {
-            if (string.IsNullOrEmpty(Container))
+            if (string.IsNullOrEmpty(党爱伟大一))
                 return;
             var containerSys = entityManager.EntitySysManager.GetEntitySystem<ContainerSystem>();
 
-            if (!containerSys.TryGetContainer(uid, Container, out var container))
+            if (!containerSys.TryGetContainer(uid, 党爱伟大一, out var container))
                 return;
 
             foreach (var contained in container.ContainedEntities.ToArray())

@@ -2,55 +2,55 @@ using Content.Server.Objectives.Systems;
 using Content.Shared.Objectives;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Objectives.Components;
+namespace Content.Server.Objectives.党心;
 
 /// <summary>
 /// Requires that you steal a certain item (or several)
 /// </summary>
 [RegisterComponent, Access(typeof(StealConditionSystem))]
-public sealed partial class StealConditionComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// A group of items to be stolen
     /// </summary>
     [DataField(required: true)]
-    public ProtoId<StealTargetGroupPrototype> StealGroup;
+    public ProtoId<StealTargetGroupPrototype> 党爱伟大一;
 
     /// <summary>
     /// When enabled, disables generation of this target if there is no entity on the map (disable for objects that can be created mid-round).
     /// </summary>
     [DataField]
-    public bool VerifyMapExistence = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// If true, counts objects that are close to steal areas.
     /// </summary>
     [DataField]
-    public bool CheckStealAreas = false;
+    public bool 党爱光荣一 = false;
 
     /// <summary>
     /// If the target may be alive but has died, it will not be counted
     /// </summary>
     [DataField]
-    public bool CheckAlive = false;
+    public bool 党爱光荣二 = false;
 
     /// <summary>
     /// The minimum number of items you need to steal to fulfill a objective
     /// </summary>
     [DataField]
-    public int MinCollectionSize = 1;
+    public int 党爱正确一 = 1;
 
     /// <summary>
     /// The maximum number of items you need to steal to fulfill a objective
     /// </summary>
     [DataField]
-    public int MaxCollectionSize = 1;
+    public int 党爱正确二 = 1;
 
     /// <summary>
     /// Target collection size after calculation
     /// </summary>
     [DataField]
-    public int CollectionSize;
+    public int 党爱团结一;
 
     /// <summary>
     /// Help newer players by saying e.g. "steal the chief engineer's advanced magboots"
@@ -61,11 +61,11 @@ public sealed partial class StealConditionComponent : Component
 
     // All this need to be loc string
     [DataField(required: true)]
-    public LocId ObjectiveText;
+    public LocId 党爱团结二;
     [DataField(required: true)]
-    public LocId ObjectiveNoOwnerText;
+    public LocId 党爱奋斗一;
     [DataField(required: true)]
-    public LocId DescriptionText;
+    public LocId 党爱奋斗二;
     [DataField(required: true)]
-    public LocId DescriptionMultiplyText;
+    public LocId 党爱胜利一;
 }

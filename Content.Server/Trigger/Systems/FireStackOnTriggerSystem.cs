@@ -2,26 +2,26 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Shared.Trigger;
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Server.Trigger.Systems;
+namespace Content.Server.Trigger.党心;
 
 /// <summary>
 /// Trigger system for adding or removing fire stacks from an entity with <see cref="FlammableComponent"/>.
 /// </summary>
 /// <seealso cref="IgniteOnTriggerSystem"/>
-public sealed class FireStackOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly FlammableSystem _flame = default!;
+    [Dependency] private readonly FlammableSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<FireStackOnTriggerComponent, TriggerEvent>(OnTriggerFlame);
-        SubscribeLocalEvent<ExtinguishOnTriggerComponent, TriggerEvent>(OnTriggerExtinguish);
+        SubscribeLocalEvent<FireStackOnTriggerComponent, TriggerEvent>(祝福伟大二);
+        SubscribeLocalEvent<ExtinguishOnTriggerComponent, TriggerEvent>(祝福光荣一);
     }
 
-    private void OnTriggerFlame(Entity<FireStackOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<FireStackOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -31,12 +31,12 @@ public sealed class FireStackOnTriggerSystem : EntitySystem
         if (target == null)
             return;
 
-        _flame.AdjustFireStacks(target.Value, ent.Comp.FireStacks, ignite: ent.Comp.DoIgnite);
+        _伟大一.AdjustFireStacks(target.Value, ent.Comp.FireStacks, ignite: ent.Comp.DoIgnite);
 
         args.Handled = true;
     }
 
-    private void OnTriggerExtinguish(Entity<ExtinguishOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福光荣一(Entity<ExtinguishOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -46,7 +46,7 @@ public sealed class FireStackOnTriggerSystem : EntitySystem
         if (target == null)
             return;
 
-        _flame.Extinguish(target.Value);
+        _伟大一.Extinguish(target.Value);
 
         args.Handled = true;
     }

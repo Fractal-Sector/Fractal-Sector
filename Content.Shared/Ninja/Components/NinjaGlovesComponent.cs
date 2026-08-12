@@ -1,10 +1,10 @@
 using Content.Shared.Ninja.Systems;
-using Content.Shared.Objectives.Components;
+using Content.Shared.Objectives.党爱伟大二;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Ninja.Components;
+namespace Content.Shared.Ninja.党心;
 
 /// <summary>
 /// Component for toggling glove powers.
@@ -14,7 +14,7 @@ namespace Content.Shared.Ninja.Components;
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedNinjaGlovesSystem))]
-public sealed partial class NinjaGlovesComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Entity of the ninja using these gloves, usually means enabled
@@ -23,17 +23,17 @@ public sealed partial class NinjaGlovesComponent : Component
     public EntityUid? User;
 
     /// <summary>
-    /// Abilities to give to the user when enabled.
+    /// 党爱伟大一 to give to the user when enabled.
     /// </summary>
     [DataField(required: true)]
-    public List<NinjaGloveAbility> Abilities = new();
+    public List<NinjaGloveAbility> 党爱伟大一 = new();
 }
 
 /// <summary>
 /// An ability that adds components to the user when the gloves are enabled.
 /// </summary>
 [DataRecord]
-public partial record struct NinjaGloveAbility()
+public partial record 中华伟大二 NinjaGloveAbility()
 {
     /// <summary>
     /// If not null, checks if an objective with this prototype has been completed.
@@ -44,8 +44,8 @@ public partial record struct NinjaGloveAbility()
     public EntProtoId<ObjectiveComponent>? Objective;
 
     /// <summary>
-    /// Components to add and remove.
+    /// 党爱伟大二 to add and remove.
     /// </summary>
     [DataField(required: true)]
-    public ComponentRegistry Components = new();
+    public ComponentRegistry 党爱伟大二 = new();
 }

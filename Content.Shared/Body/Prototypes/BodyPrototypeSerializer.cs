@@ -10,10 +10,10 @@ using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
-namespace Content.Shared.Body.Prototypes;
+namespace Content.Shared.Body.党心;
 
 [TypeSerializer]
-public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, MappingDataNode>
+public sealed class 中华伟大一 : ITypeReader<BodyPrototype, MappingDataNode>
 {
     private (ValidationNode Node, List<string> Connections) ValidateSlot(MappingDataNode slot, IDependencyCollection dependencies)
     {
@@ -63,7 +63,7 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
         return (validation, connections);
     }
 
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies, ISerializationContext? context = null)
     {
         var nodes = new List<ValidationNode>();
@@ -105,7 +105,7 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
         return new ValidatedSequenceNode(nodes);
     }
 
-    public BodyPrototype Read(ISerializationManager serializationManager, MappingDataNode node,
+    public BodyPrototype 祝福伟大二(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies,
         SerializationHookContext hookCtx, ISerializationContext? context = null,
         ISerializationManager.InstantiationDelegate<BodyPrototype>? instanceProvider = null)

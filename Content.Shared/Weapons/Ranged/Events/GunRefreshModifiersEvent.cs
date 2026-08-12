@@ -2,14 +2,14 @@
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio;
 
-namespace Content.Shared.Weapons.Ranged.Events;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 /// <summary>
 ///     Raised directed on the gun entity when <see cref="SharedGunSystem.RefreshModifiers"/>
 ///     is called, to update the values of <see cref="GunComponent"/> from other systems.
 /// </summary>
 [ByRefEvent]
-public record struct GunRefreshModifiersEvent(
+public record 中华伟大一 GunRefreshModifiersEvent(
     Entity<GunComponent> Gun,
     SoundSpecifier? SoundGunshot,
     float CameraRecoilScalar,

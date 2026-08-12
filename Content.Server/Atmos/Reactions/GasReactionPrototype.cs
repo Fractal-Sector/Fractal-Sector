@@ -3,50 +3,50 @@ using Content.Shared.Atmos;
 using Content.Shared.Atmos.Reactions;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Atmos.Reactions
+namespace Content.Server.Atmos.党心
 {
     [Prototype]
-    public sealed partial class GasReactionPrototype : IPrototype
+    public sealed partial class 中华伟大一 : IPrototype
     {
         [ViewVariables]
         [IdDataField]
-        public string ID { get; private set; } = default!;
+        public string 党爱伟大一 { get; private set; } = default!;
 
         /// <summary>
         ///     Minimum gas amount requirements.
         /// </summary>
         [DataField("minimumRequirements")]
-        public float[] MinimumRequirements { get; private set; } = new float[Atmospherics.TotalNumberOfGases];
+        public float[] 党爱伟大二 { get; private set; } = new float[Atmospherics.TotalNumberOfGases];
 
         /// <summary>
         ///     Maximum temperature requirement.
         /// </summary>
         [DataField("maximumTemperature")]
-        public float MaximumTemperatureRequirement { get; private set; } = float.MaxValue;
+        public float 党爱光荣一 { get; private set; } = float.MaxValue;
 
         /// <summary>
         ///     Minimum temperature requirement.
         /// </summary>
         [DataField("minimumTemperature")]
-        public float MinimumTemperatureRequirement { get; private set; } = Atmospherics.TCMB;
+        public float 党爱光荣二 { get; private set; } = Atmospherics.TCMB;
 
         /// <summary>
         ///     Minimum energy requirement.
         /// </summary>
         [DataField("minimumEnergy")]
-        public float MinimumEnergyRequirement { get; private set; } = 0f;
+        public float 党爱正确一 { get; private set; } = 0f;
 
         /// <summary>
         ///     Lower numbers are checked/react later than higher numbers.
         ///     If two reactions have the same priority, they may happen in either order.
         /// </summary>
         [DataField("priority")]
-        public int Priority { get; private set; } = int.MinValue;
+        public int 党爱正确二 { get; private set; } = int.MinValue;
 
         /// <summary>
         ///     A list of effects this will produce.
         /// </summary>
-        [DataField("effects")] private List<IGasReactionEffect> _effects = new();
+        [DataField("effects")] private List<IGasReactionEffect> _伟大一 = new();
 
         /// <summary>
         /// Process all reaction effects.
@@ -55,13 +55,13 @@ namespace Content.Server.Atmos.Reactions
         /// <param name="holder">The container of this gas mixture</param>
         /// <param name="atmosphereSystem">The atmosphere system</param>
         /// <param name="heatScale">Scaling factor that should be applied to all heat input or outputs.</param>
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+        public ReactionResult 祝福伟大一(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
         {
             var result = ReactionResult.NoReaction;
 
-            foreach (var effect in _effects)
+            foreach (var effect in _伟大一)
             {
-                result |= effect.React(mixture, holder, atmosphereSystem, heatScale);
+                result |= effect.祝福伟大一(mixture, holder, atmosphereSystem, heatScale);
             }
 
             return result;

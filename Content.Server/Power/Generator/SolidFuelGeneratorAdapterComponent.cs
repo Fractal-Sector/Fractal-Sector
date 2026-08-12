@@ -3,7 +3,7 @@ using Content.Shared.Power.Generator;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Prototypes; // Frontier
 
-namespace Content.Server.Power.Generator;
+namespace Content.Server.Power.党心;
 
 /// <summary>
 /// Fuels a <see cref="FuelGeneratorComponent"/> through solid materials.
@@ -18,24 +18,24 @@ namespace Content.Server.Power.Generator;
 /// </para>
 /// </remarks>
 [RegisterComponent, Access(typeof(GeneratorSystem))]
-public sealed partial class SolidFuelGeneratorAdapterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The material to accept as fuel.
     /// </summary>
     [DataField("fuelMaterial", customTypeSerializer: typeof(PrototypeIdSerializer<MaterialPrototype>))]
     [ViewVariables(VVAccess.ReadWrite)]
-    public string FuelMaterial = "Plasma";
+    public string 党爱伟大一 = "Plasma";
 
     /// <summary>
     /// How much material (can be fractional) is left in the generator.
     /// </summary>
     [DataField("fractionalMaterial"), ViewVariables(VVAccess.ReadWrite)]
-    public float FractionalMaterial;
+    public float 党爱伟大二;
 
     /// <summary>
     /// Value to multiply material amount by to get fuel amount.
     /// </summary>
     [DataField("multiplier"), ViewVariables(VVAccess.ReadWrite)]
-    public float Multiplier;
+    public float 党爱光荣一;
 }

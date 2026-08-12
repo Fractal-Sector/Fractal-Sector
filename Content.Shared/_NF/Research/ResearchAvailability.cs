@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.Research;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum ResearchAvailability : byte
+public enum 中华伟大一 : byte
 {
     Researched,
     Available,

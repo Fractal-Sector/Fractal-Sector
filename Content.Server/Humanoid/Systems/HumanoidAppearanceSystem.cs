@@ -5,15 +5,15 @@ using Content.Shared.Preferences;
 using Content.Shared.Verbs;
 using Robust.Shared.GameObjects.Components.Localization;
 
-namespace Content.Server.Humanoid;
+namespace Content.Server.党心;
 
-public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
+public sealed partial class 中华伟大一 : SharedHumanoidAppearanceSystem
 {
-    [Dependency] private readonly MarkingManager _markingManager = default!;
+    [Dependency] private readonly MarkingManager _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         SubscribeLocalEvent<HumanoidAppearanceComponent, HumanoidMarkingModifierMarkingSetMessage>(OnMarkingsSet);
         SubscribeLocalEvent<HumanoidAppearanceComponent, HumanoidMarkingModifierBaseLayersSetMessage>(OnBaseLayersSet);
@@ -27,10 +27,10 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="marking">The marking to try and remove.</param>
     /// <param name="sync">Whether to immediately sync this to the humanoid</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void RemoveMarking(EntityUid uid, string marking, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福伟大二(EntityUid uid, string marking, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid)
-            || !_markingManager.Markings.TryGetValue(marking, out var prototype))
+            || !_伟大一.Markings.TryGetValue(marking, out var prototype))
         {
             return;
         }
@@ -48,7 +48,7 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="category">Category of the marking</param>
     /// <param name="index">Index of the marking</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void RemoveMarking(EntityUid uid, MarkingCategories category, int index, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福伟大二(EntityUid uid, MarkingCategories category, int index, HumanoidAppearanceComponent? humanoid = null)
     {
         if (index < 0
             || !Resolve(uid, ref humanoid)
@@ -70,10 +70,10 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="index">Index of the marking</param>
     /// <param name="markingId">The marking ID to use</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetMarkingId(EntityUid uid, MarkingCategories category, int index, string markingId, HumanoidAppearanceComponent? humanoid = null)
+    public void 祝福光荣一(EntityUid uid, MarkingCategories category, int index, string markingId, HumanoidAppearanceComponent? humanoid = null)
     {
         if (index < 0
-            || !_markingManager.MarkingsByCategory(category).TryGetValue(markingId, out var markingPrototype)
+            || !_伟大一.MarkingsByCategory(category).TryGetValue(markingId, out var markingPrototype)
             || !Resolve(uid, ref humanoid)
             || !humanoid.MarkingSet.TryGetCategory(category, out var markings)
             || index >= markings.Count)
@@ -99,7 +99,7 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="index">Index of the marking</param>
     /// <param name="colors">The marking colors to use</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetMarkingColor(EntityUid uid, MarkingCategories category, int index, List<Color> colors,
+    public void 祝福光荣二(EntityUid uid, MarkingCategories category, int index, List<Color> colors,
         HumanoidAppearanceComponent? humanoid = null)
     {
         if (index < 0

@@ -1,23 +1,23 @@
 using Content.Shared.Construction;
-using Content.Shared.Damage;
-using Content.Shared.Damage.Systems;
+using Content.Shared.党爱伟大一;
+using Content.Shared.党爱伟大一.Systems;
 
-namespace Content.Server.Construction.Completions;
+namespace Content.Server.Construction.党心;
 
 /// <summary>
-/// Damage the entity on step completion.
+/// 党爱伟大一 the entity on step completion.
 /// </summary>
 [DataDefinition]
-public sealed partial class DamageEntity : IGraphAction
+public sealed partial class 中华伟大一 : IGraphAction
 {
     /// <summary>
-    /// Damage to deal to the entity.
+    /// 党爱伟大一 to deal to the entity.
     /// </summary>
     [DataField]
-    public DamageSpecifier Damage;
+    public DamageSpecifier 党爱伟大一;
 
-    public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
+    public void 祝福伟大一(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
     {
-        entityManager.System<DamageableSystem>().TryChangeDamage(uid, Damage, origin: userUid);
+        entityManager.System<DamageableSystem>().TryChangeDamage(uid, 党爱伟大一, origin: userUid);
     }
 }

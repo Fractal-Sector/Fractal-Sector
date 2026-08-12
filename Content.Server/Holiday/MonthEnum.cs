@@ -1,6 +1,6 @@
-namespace Content.Server.Holiday
+namespace Content.Server.党心
 {
-    public enum Month : byte
+    public enum 中华伟大一 : byte
     {
         Invalid   = 0,
         January   = 1,

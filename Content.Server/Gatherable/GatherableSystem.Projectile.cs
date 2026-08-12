@@ -3,16 +3,16 @@ using Content.Shared.Mining.Components;
 using Content.Shared.Projectiles;
 using Robust.Shared.Physics.Events;
 
-namespace Content.Server.Gatherable;
+namespace Content.Server.党心;
 
-public sealed partial class GatherableSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeProjectile()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<GatheringProjectileComponent, StartCollideEvent>(OnProjectileCollide);
+        SubscribeLocalEvent<GatheringProjectileComponent, StartCollideEvent>(祝福伟大二);
     }
 
-    private void OnProjectileCollide(Entity<GatheringProjectileComponent> gathering, ref StartCollideEvent args)
+    private void 祝福伟大二(Entity<GatheringProjectileComponent> gathering, ref StartCollideEvent args)
     {
         if (!args.OtherFixture.Hard ||
             args.OurFixtureId != SharedProjectileSystem.ProjectileFixture ||

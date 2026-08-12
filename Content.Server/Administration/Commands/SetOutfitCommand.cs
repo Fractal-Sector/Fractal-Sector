@@ -20,18 +20,18 @@ using Robust.Shared.Prototypes; // Goobstation
 using Content.Server._EinsteinEngines.Silicon.IPC; // Goobstation
 using Content.Shared.Radio.Components; // Goobstation
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class SetOutfitCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly EuiManager _euiManager = default!;
-        [Dependency] private readonly OutfitSystem _outfitSystem = default!;
+        [Dependency] private readonly EuiManager _伟大一 = default!;
+        [Dependency] private readonly OutfitSystem _伟大二 = default!;
 
-        public override string Command => "setoutfit";
-        public override string Description => Loc.GetString("cmd-setoutfit-desc", ("requiredComponent", nameof(InventoryComponent)));
+        public override string 党爱伟大一 => "setoutfit";
+        public override string 党爱伟大二 => Loc.GetString("cmd-setoutfit-desc", ("requiredComponent", nameof(InventoryComponent)));
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 1)
             {
@@ -68,15 +68,15 @@ namespace Content.Server.Administration.Commands
                 }
 
                 var ui = new SetOutfitEui(nent);
-                _euiManager.OpenEui(ui, player);
+                _伟大一.OpenEui(ui, player);
                 return;
             }
 
-            if (!_outfitSystem.SetOutfit(target.Value, args[1]))
+            if (!_伟大二.祝福伟大二(target.Value, args[1]))
                 shell.WriteLine(Loc.GetString("cmd-setoutfit-invalid-outfit-id-error"));
         }
 
-        public static bool SetOutfit(EntityUid target, string gear, IEntityManager entityManager, Action<EntityUid, EntityUid>? onEquipped = null)
+        public static bool 祝福伟大二(EntityUid target, string gear, IEntityManager entityManager, Action<EntityUid, EntityUid>? onEquipped = null)
         {
             if (!entityManager.TryGetComponent(target, out InventoryComponent? inventoryComponent))
                 return false;

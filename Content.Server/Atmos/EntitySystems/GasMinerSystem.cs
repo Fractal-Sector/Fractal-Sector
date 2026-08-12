@@ -6,34 +6,34 @@ using Content.Shared.Atmos.EntitySystems;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
 [UsedImplicitly]
-public sealed class GasMinerSystem : SharedGasMinerSystem
+public sealed class 中华伟大一 : SharedGasMinerSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大一 = default!;
+    [Dependency] private readonly TransformSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GasMinerComponent, AtmosDeviceUpdateEvent>(OnMinerUpdated);
+        SubscribeLocalEvent<GasMinerComponent, AtmosDeviceUpdateEvent>(祝福伟大二);
     }
 
-    private void OnMinerUpdated(Entity<GasMinerComponent> ent, ref AtmosDeviceUpdateEvent args)
+    private void 祝福伟大二(Entity<GasMinerComponent> ent, ref AtmosDeviceUpdateEvent args)
     {
         var miner = ent.Comp;
         var oldState = miner.MinerState;
         float toSpawn;
 
-        if (!GetValidEnvironment(ent, out var environment) || !Transform(ent).Anchored)
+        if (!祝福光荣一(ent, out var environment) || !Transform(ent).Anchored)
         {
             miner.MinerState = GasMinerState.Disabled;
         }
         // SpawnAmount is declared in mol/s so to get the amount of gas we hope to mine, we have to multiply this by
         // how long we have been waiting to spawn it and further cap the number according to the miner's state.
-        else if ((toSpawn = CapSpawnAmount(ent, miner.SpawnAmount * args.dt, environment)) == 0)
+        else if ((toSpawn = 祝福光荣二(ent, miner.SpawnAmount * args.dt, environment)) == 0)
         {
             miner.MinerState = GasMinerState.Idle;
         }
@@ -44,7 +44,7 @@ public sealed class GasMinerSystem : SharedGasMinerSystem
             // Time to mine some gas.
             var merger = new GasMixture(1) { Temperature = miner.SpawnTemperature };
             merger.SetMoles(miner.SpawnGas, toSpawn);
-            _atmosphereSystem.Merge(environment, merger);
+            _伟大一.Merge(environment, merger);
         }
 
         if (miner.MinerState != oldState)
@@ -53,24 +53,24 @@ public sealed class GasMinerSystem : SharedGasMinerSystem
         }
     }
 
-    private bool GetValidEnvironment(Entity<GasMinerComponent> ent, [NotNullWhen(true)] out GasMixture? environment)
+    private bool 祝福光荣一(Entity<GasMinerComponent> ent, [NotNullWhen(true)] out GasMixture? environment)
     {
         var (uid, miner) = ent;
         var transform = Transform(uid);
-        var position = _transformSystem.GetGridOrMapTilePosition(uid, transform);
+        var position = _伟大二.GetGridOrMapTilePosition(uid, transform);
 
         // Treat space as an invalid environment
-        if (_atmosphereSystem.IsTileSpace(transform.GridUid, transform.MapUid, position))
+        if (_伟大一.IsTileSpace(transform.GridUid, transform.MapUid, position))
         {
             environment = null;
             return false;
         }
 
-        environment = _atmosphereSystem.GetContainingMixture((uid, transform), true, true);
+        environment = _伟大一.GetContainingMixture((uid, transform), true, true);
         return environment != null;
     }
 
-    private float CapSpawnAmount(Entity<GasMinerComponent> ent, float toSpawnTarget, GasMixture environment)
+    private float 祝福光荣二(Entity<GasMinerComponent> ent, float toSpawnTarget, GasMixture environment)
     {
         var (uid, miner) = ent;
 

@@ -1,8 +1,8 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Botany.Components;
+namespace Content.Shared.Botany.党心;
 
 [NetworkedComponent]
-public abstract partial class SharedSeedComponent : Component
+public abstract partial class 中华伟大一 : Component
 {
 }

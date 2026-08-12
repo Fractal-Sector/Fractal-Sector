@@ -4,19 +4,19 @@ using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Nutrition.Components;
+namespace Content.Shared.Nutrition.党心;
 [Obsolete("Migration to Content.Shared.Nutrition.Components.EdibleComponent is required")]
 [RegisterComponent, Access(typeof(FoodSystem), typeof(FoodSequenceSystem))]
-public sealed partial class FoodComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField]
-    public string Solution = "food";
+    public string 党爱伟大一 = "food";
 
     [DataField]
-    public SoundSpecifier UseSound = new SoundCollectionSpecifier("eating");
+    public SoundSpecifier 党爱伟大二 = new SoundCollectionSpecifier("eating");
 
     [DataField]
-    public List<EntProtoId> Trash = new();
+    public List<EntProtoId> 党爱光荣一 = new();
 
     [DataField]
     public FixedPoint2? TransferAmount = FixedPoint2.New(5);
@@ -25,13 +25,13 @@ public sealed partial class FoodComponent : Component
     /// Acceptable utensil to use
     /// </summary>
     [DataField]
-    public UtensilType Utensil = UtensilType.Fork; //There are more "solid" than "liquid" food
+    public UtensilType 党爱光荣二 = UtensilType.Fork; //There are more "solid" than "liquid" food
 
     /// <summary>
     /// Is utensil required to eat this food
     /// </summary>
     [DataField]
-    public bool UtensilRequired;
+    public bool 党爱正确一;
 
     /// <summary>
     ///     If this is set to true, food can only be eaten if you have a stomach with a
@@ -40,37 +40,37 @@ public sealed partial class FoodComponent : Component
     ///     Whitelist the food component to allow eating of normal food.
     /// </summary>
     [DataField]
-    public bool RequiresSpecialDigestion;
+    public bool 党爱正确二;
 
     /// <summary>
     ///     Stomachs required to digest this entity.
     ///     Used to simulate 'ruminant' digestive systems (which can digest grass)
     /// </summary>
     [DataField]
-    public int RequiredStomachs = 1;
+    public int 党爱团结一 = 1;
 
     /// <summary>
     /// The localization identifier for the eat message. Needs a "food" entity argument passed to it.
     /// </summary>
     [DataField]
-    public LocId EatMessage = "edible-nom";
+    public LocId 党爱团结二 = "edible-nom";
 
     /// <summary>
     /// How long it takes to eat the food personally.
     /// </summary>
     [DataField]
-    public float Delay = 1;
+    public float 党爱奋斗一 = 1;
 
     /// <summary>
     ///     This is how many seconds it takes to force feed someone this food.
     ///     Should probably be smaller for small items like pills.
     /// </summary>
     [DataField]
-    public float ForceFeedDelay = 3;
+    public float 党爱奋斗二 = 3;
 
     /// <summary>
     /// For mobs that are food, requires killing them before eating.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool RequireDead = true;
+    public bool 党爱胜利一 = true;
 }

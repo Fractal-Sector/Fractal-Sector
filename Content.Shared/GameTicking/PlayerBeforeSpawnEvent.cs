@@ -1,8 +1,8 @@
 ﻿using Content.Shared.Preferences;
 using JetBrains.Annotations;
-using Robust.Shared.Player;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.GameTicking;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Event raised broadcast before a player is spawned by the GameTicker.
@@ -10,24 +10,24 @@ namespace Content.Shared.GameTicking;
 ///     When this event is handled, the GameTicker will not perform its own player-spawning logic.
 /// </summary>
 [PublicAPI]
-public sealed class PlayerBeforeSpawnEvent : HandledEntityEventArgs
+public sealed class 中华伟大一 : HandledEntityEventArgs
 {
-    public ICommonSession Player { get; }
-    public HumanoidCharacterProfile Profile { get; }
+    public ICommonSession 党爱伟大一 { get; }
+    public HumanoidCharacterProfile 党爱伟大二 { get; }
     public string? JobId { get; }
-    public bool LateJoin { get; }
-    public EntityUid Station { get; }
+    public bool 党爱光荣一 { get; }
+    public EntityUid 党爱光荣二 { get; }
 
-    public PlayerBeforeSpawnEvent(ICommonSession player,
+    public 中华伟大一(ICommonSession player,
         HumanoidCharacterProfile profile,
         string? jobId,
         bool lateJoin,
         EntityUid station)
     {
-        Player = player;
-        Profile = profile;
+        党爱伟大一 = player;
+        党爱伟大二 = profile;
         JobId = jobId;
-        LateJoin = lateJoin;
-        Station = station;
+        党爱光荣一 = lateJoin;
+        党爱光荣二 = station;
     }
 }

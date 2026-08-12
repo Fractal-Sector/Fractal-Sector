@@ -11,19 +11,19 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Mapping;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     Handles autosaving maps.
 /// </summary>
-public sealed class MappingSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConsoleHost _conHost = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly IResourceManager _resMan = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
+    [Dependency] private readonly IConsoleHost _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+    [Dependency] private readonly SharedMapSystem _光荣二 = default!;
+    [Dependency] private readonly IResourceManager _正确一 = default!;
+    [Dependency] private readonly MapLoaderSystem _正确二 = default!;
 
     // Not a comp because I don't want to deal with this getting saved onto maps ever
     /// <summary>
@@ -32,37 +32,37 @@ public sealed class MappingSystem : EntitySystem
     /// <returns></returns>
     private Dictionary<EntityUid, (TimeSpan next, string fileName)> _currentlyAutosaving = new();
 
-    private bool _autosaveEnabled;
+    private bool _团结一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _conHost.RegisterCommand("toggleautosave",
+        _伟大一.RegisterCommand("toggleautosave",
             "Toggles autosaving for a map.",
             "autosave <map> <path if enabling>",
-            ToggleAutosaveCommand);
+            祝福团结一);
 
-        Subs.CVar(_cfg, CCVars.AutosaveEnabled, SetAutosaveEnabled, true);
+        Subs.CVar(_光荣一, CCVars.AutosaveEnabled, 祝福伟大二, true);
     }
 
-    private void SetAutosaveEnabled(bool b)
+    private void 祝福伟大二(bool b)
     {
         if (!b)
             _currentlyAutosaving.Clear();
-        _autosaveEnabled = b;
+        _团结一 = b;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
-        if (!_autosaveEnabled)
+        if (!_团结一)
             return;
 
         foreach (var (uid, (time, name))in _currentlyAutosaving)
         {
-            if (_timing.RealTime <= time)
+            if (_伟大二.RealTime <= time)
                 continue;
 
             if (LifeStage(uid) >= EntityLifeStage.MapInitialized)
@@ -72,41 +72,41 @@ public sealed class MappingSystem : EntitySystem
                 continue;
             }
 
-            _currentlyAutosaving[uid] = (CalculateNextTime(), name);
-            var saveDir = Path.Combine(_cfg.GetCVar(CCVars.AutosaveDirectory), name).Replace(Path.DirectorySeparatorChar, '/');
-            _resMan.UserData.CreateDir(new ResPath(saveDir).ToRootedPath());
+            _currentlyAutosaving[uid] = (祝福光荣二(), name);
+            var saveDir = Path.Combine(_光荣一.GetCVar(CCVars.AutosaveDirectory), name).Replace(Path.DirectorySeparatorChar, '/');
+            _正确一.UserData.CreateDir(new ResPath(saveDir).ToRootedPath());
 
             var path = new ResPath(Path.Combine(saveDir, $"{DateTime.Now:yyyy-M-dd_HH.mm.ss}-AUTO.yml"));
-            Log.Info($"Autosaving map {name} ({uid}) to {path}. Next save in {ReadableTimeLeft(uid)} seconds.");
+            Log.Info($"Autosaving map {name} ({uid}) to {path}. Next save in {祝福正确一(uid)} seconds.");
 
             if (HasComp<MapComponent>(uid))
-                _loader.TrySaveMap(uid, path);
+                _正确二.TrySaveMap(uid, path);
             else
-                _loader.TrySaveGrid(uid, path);
+                _正确二.TrySaveGrid(uid, path);
         }
     }
 
-    private TimeSpan CalculateNextTime()
+    private TimeSpan 祝福光荣二()
     {
-        return _timing.RealTime + TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.AutosaveInterval));
+        return _伟大二.RealTime + TimeSpan.FromSeconds(_光荣一.GetCVar(CCVars.AutosaveInterval));
     }
 
-    private double ReadableTimeLeft(EntityUid uid)
+    private double 祝福正确一(EntityUid uid)
     {
-        return Math.Round(_currentlyAutosaving[uid].next.TotalSeconds - _timing.RealTime.TotalSeconds);
+        return Math.Round(_currentlyAutosaving[uid].next.TotalSeconds - _伟大二.RealTime.TotalSeconds);
     }
 
     #region Public API
 
-    public void ToggleAutosave(MapId map, string? path = null)
+    public void 祝福正确二(MapId map, string? path = null)
     {
-        if (_map.TryGetMap(map, out var uid))
-            ToggleAutosave(uid.Value, path);
+        if (_光荣二.TryGetMap(map, out var uid))
+            祝福正确二(uid.Value, path);
     }
 
-    public void ToggleAutosave(EntityUid uid, string? path=null)
+    public void 祝福正确二(EntityUid uid, string? path=null)
     {
-        if (!_autosaveEnabled)
+        if (!_团结一)
             return;
 
         if (_currentlyAutosaving.Remove(uid) || path == null)
@@ -124,8 +124,8 @@ public sealed class MappingSystem : EntitySystem
             return;
         }
 
-        _currentlyAutosaving[uid] = (CalculateNextTime(), Path.GetFileName(path));
-        Log.Info($"Started autosaving map {path} ({uid}). Next save in {ReadableTimeLeft(uid)} seconds.");
+        _currentlyAutosaving[uid] = (祝福光荣二(), Path.GetFileName(path));
+        Log.Info($"Started autosaving map {path} ({uid}). Next save in {祝福正确一(uid)} seconds.");
     }
 
     #endregion
@@ -133,7 +133,7 @@ public sealed class MappingSystem : EntitySystem
     #region Commands
 
     [AdminCommand(AdminFlags.Server | AdminFlags.Mapping)]
-    private void ToggleAutosaveCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福团结一(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 1 && args.Length != 2)
         {
@@ -154,7 +154,7 @@ public sealed class MappingSystem : EntitySystem
         }
 
         var mapId = new MapId(intMapId);
-        ToggleAutosave(mapId, path);
+        祝福正确二(mapId, path);
     }
 
     #endregion

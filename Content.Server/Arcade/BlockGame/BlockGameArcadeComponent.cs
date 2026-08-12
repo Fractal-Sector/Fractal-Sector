@@ -1,9 +1,9 @@
 using Robust.Shared.Player;
 
-namespace Content.Server.Arcade.BlockGame;
+namespace Content.Server.Arcade.党心;
 
 [RegisterComponent]
-public sealed partial class BlockGameArcadeComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The currently active session of NT-BG.
@@ -18,5 +18,5 @@ public sealed partial class BlockGameArcadeComponent : Component
     /// <summary>
     /// The players currently viewing (but not playing) the active session of NT-BG.
     /// </summary>
-    public readonly List<EntityUid> Spectators = new();
+    public readonly List<EntityUid> 党爱伟大一 = new();
 }

@@ -1,23 +1,23 @@
 using Content.Shared.RCD.Systems;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.RCD.Components;
+namespace Content.Shared.RCD.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(RCDAmmoSystem))]
-public sealed partial class RCDAmmoComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How many charges are contained in this ammo cartridge.
     /// Can be partially transferred into an RCD, until it is empty then it gets deleted.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int Charges = 90; // Wayfarer: 30<90
+    public int 党爱伟大一 = 90; // Wayfarer: 30<90
 
     /// <summary>
     /// ~~~ Frontier ~~~
     /// A flag that limits RCD to the authorized ships.
     /// </summary>
     [DataField("isShipyardRCDAmmo"), AutoNetworkedField]
-    public bool IsShipyardRCDAmmo;
+    public bool 党爱伟大二;
 }

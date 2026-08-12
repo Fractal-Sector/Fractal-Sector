@@ -18,75 +18,75 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
-public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
+public sealed class 中华伟大一 : SharedInnerBodyAnomalySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly AnomalySystem _anomaly = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly JitteringSystem _jitter = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StunSystem _stun = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly AnomalySystem _伟大二 = default!;
+    [Dependency] private readonly SharedAudioSystem _光荣一 = default!;
+    [Dependency] private readonly BodySystem _光荣二 = default!;
+    [Dependency] private readonly IChatManager _正确一 = default!;
+    [Dependency] private readonly ISharedPlayerManager _正确二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结一 = default!;
+    [Dependency] private readonly JitteringSystem _团结二 = default!;
+    [Dependency] private readonly MindSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedPopupSystem _奋斗二 = default!;
+    [Dependency] private readonly IPrototypeManager _胜利一 = default!;
+    [Dependency] private readonly StunSystem _胜利二 = default!;
 
-    private readonly Color _messageColor = Color.FromSrgb(new Color(201, 22, 94));
+    private readonly Color _繁荣一 = Color.FromSrgb(new Color(201, 22, 94));
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InnerBodyAnomalyInjectorComponent, StartCollideEvent>(OnStartCollideInjector);
+        SubscribeLocalEvent<InnerBodyAnomalyInjectorComponent, StartCollideEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<InnerBodyAnomalyComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<InnerBodyAnomalyComponent, ComponentShutdown>(OnCompShutdown);
+        SubscribeLocalEvent<InnerBodyAnomalyComponent, MapInitEvent>(祝福光荣二);
+        SubscribeLocalEvent<InnerBodyAnomalyComponent, ComponentShutdown>(祝福胜利一);
 
-        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalyPulseEvent>(OnAnomalyPulse);
-        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalyShutdownEvent>(OnAnomalyShutdown);
-        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalySupercriticalEvent>(OnAnomalySupercritical);
-        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalySeverityChangedEvent>(OnSeverityChanged);
+        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalyPulseEvent>(祝福正确二);
+        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalyShutdownEvent>(祝福奋斗二);
+        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalySupercriticalEvent>(祝福团结一);
+        SubscribeLocalEvent<InnerBodyAnomalyComponent, AnomalySeverityChangedEvent>(祝福团结二);
 
-        SubscribeLocalEvent<InnerBodyAnomalyComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<InnerBodyAnomalyComponent, MobStateChangedEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<AnomalyComponent, ActionAnomalyPulseEvent>(OnActionPulse);
+        SubscribeLocalEvent<AnomalyComponent, ActionAnomalyPulseEvent>(祝福伟大二);
     }
 
-    private void OnActionPulse(Entity<AnomalyComponent> ent, ref ActionAnomalyPulseEvent args)
+    private void 祝福伟大二(Entity<AnomalyComponent> ent, ref ActionAnomalyPulseEvent args)
     {
         if (args.Handled)
             return;
 
-        _anomaly.DoAnomalyPulse(ent, ent.Comp);
+        _伟大二.DoAnomalyPulse(ent, ent.Comp);
 
         args.Handled = true;
     }
 
-    private void OnStartCollideInjector(Entity<InnerBodyAnomalyInjectorComponent> ent, ref StartCollideEvent args)
+    private void 祝福光荣一(Entity<InnerBodyAnomalyInjectorComponent> ent, ref StartCollideEvent args)
     {
-        if (ent.Comp.Whitelist is not null && !_whitelist.IsValid(ent.Comp.Whitelist, args.OtherEntity))
+        if (ent.Comp.Whitelist is not null && !_团结一.IsValid(ent.Comp.Whitelist, args.OtherEntity))
             return;
         if (TryComp<InnerBodyAnomalyComponent>(args.OtherEntity, out var innerAnom) && innerAnom.Injected)
             return;
-        if (!_mind.TryGetMind(args.OtherEntity, out _, out var mindComponent))
+        if (!_奋斗一.TryGetMind(args.OtherEntity, out _, out var mindComponent))
             return;
 
         EntityManager.AddComponents(args.OtherEntity, ent.Comp.InjectionComponents);
         QueueDel(ent);
     }
 
-    private void OnMapInit(Entity<InnerBodyAnomalyComponent> ent, ref MapInitEvent args)
+    private void 祝福光荣二(Entity<InnerBodyAnomalyComponent> ent, ref MapInitEvent args)
     {
-        AddAnomalyToBody(ent);
+        祝福正确一(ent);
     }
 
-    private void AddAnomalyToBody(Entity<InnerBodyAnomalyComponent> ent)
+    private void 祝福正确一(Entity<InnerBodyAnomalyComponent> ent)
     {
-        if (!_proto.TryIndex(ent.Comp.InjectionProto, out var injectedAnom))
+        if (!_胜利一.TryIndex(ent.Comp.InjectionProto, out var injectedAnom))
             return;
 
         if (ent.Comp.Injected)
@@ -96,51 +96,51 @@ public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
 
         EntityManager.AddComponents(ent, injectedAnom.Components);
 
-        _stun.TryUpdateParalyzeDuration(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration));
-        _jitter.DoJitter(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration), true);
+        _胜利二.TryUpdateParalyzeDuration(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration));
+        _团结二.DoJitter(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration), true);
 
         if (ent.Comp.StartSound is not null)
-            _audio.PlayPvs(ent.Comp.StartSound, ent);
+            _光荣一.PlayPvs(ent.Comp.StartSound, ent);
 
         if (ent.Comp.StartMessage is not null &&
-            _mind.TryGetMind(ent, out _, out var mindComponent) &&
-            _player.TryGetSessionById(mindComponent.UserId, out var session))
+            _奋斗一.TryGetMind(ent, out _, out var mindComponent) &&
+            _正确二.TryGetSessionById(mindComponent.UserId, out var session))
         {
             var message = Loc.GetString(ent.Comp.StartMessage);
             var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-            _chat.ChatMessageToOne(ChatChannel.Server,
+            _正确一.ChatMessageToOne(ChatChannel.Server,
                 message,
                 wrappedMessage,
                 default,
                 false,
                 session.Channel,
-                _messageColor);
+                _繁荣一);
 
-            _popup.PopupEntity(message, ent, ent, PopupType.MediumCaution);
+            _奋斗二.PopupEntity(message, ent, ent, PopupType.MediumCaution);
 
-            _adminLog.Add(LogType.Anomaly,LogImpact.Medium,$"{ToPrettyString(ent)} became anomaly host.");
+            _伟大一.Add(LogType.Anomaly,LogImpact.Medium,$"{ToPrettyString(ent)} became anomaly host.");
         }
         Dirty(ent);
     }
 
-    private void OnAnomalyPulse(Entity<InnerBodyAnomalyComponent> ent, ref AnomalyPulseEvent args)
+    private void 祝福正确二(Entity<InnerBodyAnomalyComponent> ent, ref AnomalyPulseEvent args)
     {
-        _stun.TryUpdateParalyzeDuration(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration / 2 * args.Severity));
-        _jitter.DoJitter(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration / 2 * args.Severity), true);
+        _胜利二.TryUpdateParalyzeDuration(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration / 2 * args.Severity));
+        _团结二.DoJitter(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration / 2 * args.Severity), true);
     }
 
-    private void OnAnomalySupercritical(Entity<InnerBodyAnomalyComponent> ent, ref AnomalySupercriticalEvent args)
+    private void 祝福团结一(Entity<InnerBodyAnomalyComponent> ent, ref AnomalySupercriticalEvent args)
     {
         if (!TryComp<BodyComponent>(ent, out var body))
             return;
 
-        _body.GibBody(ent, true, body, splatModifier: 5f);
+        _光荣二.GibBody(ent, true, body, splatModifier: 5f);
     }
 
-    private void OnSeverityChanged(Entity<InnerBodyAnomalyComponent> ent, ref AnomalySeverityChangedEvent args)
+    private void 祝福团结二(Entity<InnerBodyAnomalyComponent> ent, ref AnomalySeverityChangedEvent args)
     {
-        if (!_mind.TryGetMind(ent, out _, out var mindComponent) ||
-            !_player.TryGetSessionById(mindComponent.UserId, out var session))
+        if (!_奋斗一.TryGetMind(ent, out _, out var mindComponent) ||
+            !_正确二.TryGetSessionById(mindComponent.UserId, out var session))
             return;
 
         var message = string.Empty;
@@ -170,18 +170,18 @@ public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
             return;
 
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-        _chat.ChatMessageToOne(ChatChannel.Server,
+        _正确一.ChatMessageToOne(ChatChannel.Server,
             message,
             wrappedMessage,
             default,
             false,
             session.Channel,
-            _messageColor);
+            _繁荣一);
 
-        _popup.PopupEntity(message, ent, ent, PopupType.MediumCaution);
+        _奋斗二.PopupEntity(message, ent, ent, PopupType.MediumCaution);
     }
 
-    private void OnMobStateChanged(Entity<InnerBodyAnomalyComponent> ent, ref MobStateChangedEvent args)
+    private void 祝福奋斗一(Entity<InnerBodyAnomalyComponent> ent, ref MobStateChangedEvent args)
     {
         if (args.NewMobState != MobState.Dead)
             return;
@@ -191,48 +191,48 @@ public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
         if (ev.Cancelled)
             return;
 
-        _anomaly.ChangeAnomalyHealth(ent, -2); //Shutdown it
+        _伟大二.ChangeAnomalyHealth(ent, -2); //Shutdown it
     }
 
-    private void OnAnomalyShutdown(Entity<InnerBodyAnomalyComponent> ent, ref AnomalyShutdownEvent args)
+    private void 祝福奋斗二(Entity<InnerBodyAnomalyComponent> ent, ref AnomalyShutdownEvent args)
     {
-        RemoveAnomalyFromBody(ent);
+        祝福胜利二(ent);
         RemCompDeferred<InnerBodyAnomalyComponent>(ent);
     }
 
-    private void OnCompShutdown(Entity<InnerBodyAnomalyComponent> ent, ref ComponentShutdown args)
+    private void 祝福胜利一(Entity<InnerBodyAnomalyComponent> ent, ref ComponentShutdown args)
     {
-        RemoveAnomalyFromBody(ent);
+        祝福胜利二(ent);
     }
 
-    private void RemoveAnomalyFromBody(Entity<InnerBodyAnomalyComponent> ent)
+    private void 祝福胜利二(Entity<InnerBodyAnomalyComponent> ent)
     {
         if (!ent.Comp.Injected)
             return;
 
-        if (_proto.TryIndex(ent.Comp.InjectionProto, out var injectedAnom))
+        if (_胜利一.TryIndex(ent.Comp.InjectionProto, out var injectedAnom))
             EntityManager.RemoveComponents(ent, injectedAnom.Components);
 
-        _stun.TryUpdateParalyzeDuration(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration));
+        _胜利二.TryUpdateParalyzeDuration(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration));
 
         if (ent.Comp.EndMessage is not null &&
-            _mind.TryGetMind(ent, out _, out var mindComponent) &&
-            _player.TryGetSessionById(mindComponent.UserId, out var session))
+            _奋斗一.TryGetMind(ent, out _, out var mindComponent) &&
+            _正确二.TryGetSessionById(mindComponent.UserId, out var session))
         {
             var message = Loc.GetString(ent.Comp.EndMessage);
             var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-            _chat.ChatMessageToOne(ChatChannel.Server,
+            _正确一.ChatMessageToOne(ChatChannel.Server,
                 message,
                 wrappedMessage,
                 default,
                 false,
                 session.Channel,
-                _messageColor);
+                _繁荣一);
 
 
-            _popup.PopupEntity(message, ent, ent, PopupType.MediumCaution);
+            _奋斗二.PopupEntity(message, ent, ent, PopupType.MediumCaution);
 
-            _adminLog.Add(LogType.Anomaly, LogImpact.Medium,$"{ToPrettyString(ent)} is no longer a host for the anomaly.");
+            _伟大一.Add(LogType.Anomaly, LogImpact.Medium,$"{ToPrettyString(ent)} is no longer a host for the anomaly.");
         }
 
         ent.Comp.Injected = false;

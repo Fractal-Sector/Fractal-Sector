@@ -5,45 +5,45 @@ using Content.Shared.Xenoarchaeology.Artifact;
 using Content.Shared.Xenoarchaeology.Artifact.XAE;
 using Robust.Shared.Random;
 
-namespace Content.Server.Xenoarchaeology.Artifact.XAE;
+namespace Content.Server.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// System for xeno artifact activation effect that flickers light on and off.
 /// </summary>
-public sealed class XAELightFlickerSystem : BaseXAESystem<XAELightFlickerComponent>
+public sealed class 中华伟大一 : BaseXAESystem<XAELightFlickerComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly EntityLookupSystem _伟大二 = default!;
+    [Dependency] private readonly GhostSystem _光荣一 = default!;
 
-    private EntityQuery<PoweredLightComponent> _lights;
+    private EntityQuery<PoweredLightComponent> _光荣二;
 
     /// <summary> Pre-allocated and re-used collection.</summary>
-    private readonly HashSet<EntityUid> _entities = new();
+    private readonly HashSet<EntityUid> _正确一 = new();
 
     /// <inheritdoc />
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _lights = GetEntityQuery<PoweredLightComponent>();
+        _光荣二 = GetEntityQuery<PoweredLightComponent>();
     }
 
     /// <inheritdoc />
-    protected override void OnActivated(Entity<XAELightFlickerComponent> ent, ref XenoArtifactNodeActivatedEvent args)
+    protected override void 祝福伟大二(Entity<XAELightFlickerComponent> ent, ref XenoArtifactNodeActivatedEvent args)
     {
-        _entities.Clear();
-        _lookup.GetEntitiesInRange(ent.Owner, ent.Comp.Radius, _entities, LookupFlags.StaticSundries);
-        foreach (var light in _entities)
+        _正确一.Clear();
+        _伟大二.GetEntitiesInRange(ent.Owner, ent.Comp.Radius, _正确一, LookupFlags.StaticSundries);
+        foreach (var light in _正确一)
         {
-            if (!_lights.HasComponent(light))
+            if (!_光荣二.HasComponent(light))
                 continue;
 
-            if (!_random.Prob(ent.Comp.FlickerChance))
+            if (!_伟大一.Prob(ent.Comp.FlickerChance))
                 continue;
 
             //todo: extract effect from ghost system, update power system accordingly
-            _ghost.DoGhostBooEvent(light);
+            _光荣一.DoGhostBooEvent(light);
         }
     }
 }

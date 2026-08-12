@@ -1,49 +1,49 @@
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using Content.Server.Salvage.Magnet;
+using Content.Server.Salvage.党爱伟大一;
 using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Procedural;
 using Content.Shared.Radio;
-using Content.Shared.Salvage.Magnet;
+using Content.Shared.Salvage.党爱伟大一;
 using Robust.Shared.Exceptions;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 
-namespace Content.Server.Salvage;
+namespace Content.Server.党心;
 
-public sealed partial class SalvageSystem
+public sealed partial class 中华伟大一
 {
     private const float IdleDebrisLinearVelocityEpsilon = 0.05f;
     private const float IdleDebrisAngularVelocityEpsilon = 0.01f;
 
-    [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
+    [Dependency] private readonly IRuntimeLog _伟大一 = default!;
 
     private static readonly ProtoId<RadioChannelPrototype> MagnetChannel = "Supply";
 
-    private EntityQuery<SalvageMobRestrictionsComponent> _salvMobQuery;
-    private EntityQuery<MobStateComponent> _mobStateQuery;
+    private EntityQuery<SalvageMobRestrictionsComponent> _伟大二;
+    private EntityQuery<MobStateComponent> _光荣一;
 
     private List<(Entity<TransformComponent> Entity, EntityUid MapUid, Vector2 LocalPosition)> _detachEnts = new();
 
-    private void InitializeMagnet()
+    private void 祝福伟大一()
     {
-        _salvMobQuery = GetEntityQuery<SalvageMobRestrictionsComponent>();
-        _mobStateQuery = GetEntityQuery<MobStateComponent>();
+        _伟大二 = GetEntityQuery<SalvageMobRestrictionsComponent>();
+        _光荣一 = GetEntityQuery<MobStateComponent>();
 
-        SubscribeLocalEvent<SalvageMagnetDataComponent, MapInitEvent>(OnMagnetDataMapInit);
+        SubscribeLocalEvent<SalvageMagnetDataComponent, MapInitEvent>(祝福正确一);
 
-        SubscribeLocalEvent<SalvageMagnetTargetComponent, GridSplitEvent>(OnMagnetTargetSplit);
+        SubscribeLocalEvent<SalvageMagnetTargetComponent, GridSplitEvent>(祝福正确二);
 
-        SubscribeLocalEvent<SalvageMagnetComponent, MagnetClaimOfferEvent>(OnMagnetClaim);
-        SubscribeLocalEvent<SalvageMagnetComponent, ComponentStartup>(OnMagnetStartup);
-        SubscribeLocalEvent<SalvageMagnetComponent, AnchorStateChangedEvent>(OnMagnetAnchored);
+        SubscribeLocalEvent<SalvageMagnetComponent, MagnetClaimOfferEvent>(祝福伟大二);
+        SubscribeLocalEvent<SalvageMagnetComponent, ComponentStartup>(祝福光荣一);
+        SubscribeLocalEvent<SalvageMagnetComponent, AnchorStateChangedEvent>(祝福光荣二);
     }
 
-    private void OnMagnetClaim(EntityUid uid, SalvageMagnetComponent component, ref MagnetClaimOfferEvent args)
+    private void 祝福伟大二(EntityUid uid, SalvageMagnetComponent component, ref MagnetClaimOfferEvent args)
     {
         var station = _station.GetOwningStation(uid);
 
@@ -53,28 +53,28 @@ public sealed partial class SalvageSystem
             return;
         }
 
-        TakeMagnetOffer((station.Value, dataComp), args.Index, (uid, component));
+        祝福胜利二((station.Value, dataComp), args.Index, (uid, component));
     }
 
-    private void OnMagnetStartup(EntityUid uid, SalvageMagnetComponent component, ComponentStartup args)
+    private void 祝福光荣一(EntityUid uid, SalvageMagnetComponent component, ComponentStartup args)
     {
-        UpdateMagnetUI((uid, component), Transform(uid));
+        祝福奋斗二((uid, component), Transform(uid));
     }
 
-    private void OnMagnetAnchored(EntityUid uid, SalvageMagnetComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福光荣二(EntityUid uid, SalvageMagnetComponent component, ref AnchorStateChangedEvent args)
     {
         if (!args.Anchored)
             return;
 
-        UpdateMagnetUI((uid, component), args.Transform);
+        祝福奋斗二((uid, component), args.Transform);
     }
 
-    private void OnMagnetDataMapInit(EntityUid uid, SalvageMagnetDataComponent component, ref MapInitEvent args)
+    private void 祝福正确一(EntityUid uid, SalvageMagnetDataComponent component, ref MapInitEvent args)
     {
-        CreateMagnetOffers((uid, component));
+        祝福奋斗一((uid, component));
     }
 
-    private void OnMagnetTargetSplit(EntityUid uid, SalvageMagnetTargetComponent component, ref GridSplitEvent args)
+    private void 祝福正确二(EntityUid uid, SalvageMagnetTargetComponent component, ref GridSplitEvent args)
     {
         // Don't think I'm not onto you people splitting to make new grids.
         if (TryComp(component.DataTarget, out SalvageMagnetDataComponent? dataComp))
@@ -86,19 +86,19 @@ public sealed partial class SalvageSystem
         }
     }
 
-    private void UpdateMagnet()
+    private void 祝福团结一()
     {
         var dataQuery = EntityQueryEnumerator<SalvageMagnetDataComponent>();
         var curTime = _timing.CurTime;
 
         while (dataQuery.MoveNext(out var uid, out var magnetData))
         {
-            // Magnet currently active.
+            // 党爱伟大一 currently active.
             if (magnetData.EndTime != null)
             {
                 if (magnetData.EndTime.Value < curTime)
                 {
-                    EndMagnet((uid, magnetData));
+                    祝福团结二((uid, magnetData));
                 }
                 else if (!magnetData.Announced && (magnetData.EndTime.Value - curTime).TotalSeconds < 31)
                 {
@@ -116,7 +116,7 @@ public sealed partial class SalvageSystem
             }
             if (magnetData.NextOffer < curTime)
             {
-                CreateMagnetOffers((uid, magnetData));
+                祝福奋斗一((uid, magnetData));
             }
         }
     }
@@ -124,7 +124,7 @@ public sealed partial class SalvageSystem
     /// <summary>
     /// Ends the magnet attachment and deletes the relevant grids.
     /// </summary>
-    private void EndMagnet(Entity<SalvageMagnetDataComponent> data)
+    private void 祝福团结二(Entity<SalvageMagnetDataComponent> data)
     {
         if (data.Comp.ActiveEntities != null)
         {
@@ -148,7 +148,7 @@ public sealed partial class SalvageSystem
                 if (xform.GridUid == null || !data.Comp.ActiveEntities.Contains(xform.GridUid.Value) || xform.MapUid == null)
                     continue;
 
-                if (_salvMobQuery.HasComp(mobUid))
+                if (_伟大二.HasComp(mobUid))
                     continue;
 
                 bool CheckParents(EntityUid uid)
@@ -156,7 +156,7 @@ public sealed partial class SalvageSystem
                     do
                     {
                         uid = _transform.GetParentUid(uid);
-                        if (_mobStateQuery.HasComp(uid))
+                        if (_光荣一.HasComp(uid))
                             return true;
                     } while (uid != xform.GridUid && uid != EntityUid.Invalid);
                     return false;
@@ -185,10 +185,10 @@ public sealed partial class SalvageSystem
         }
 
         data.Comp.EndTime = null;
-        UpdateMagnetUIs(data);
+        祝福胜利一(data);
     }
 
-    private void CreateMagnetOffers(Entity<SalvageMagnetDataComponent> data)
+    private void 祝福奋斗一(Entity<SalvageMagnetDataComponent> data)
     {
         data.Comp.Offered.Clear();
 
@@ -210,7 +210,7 @@ public sealed partial class SalvageSystem
         }
 
         data.Comp.NextOffer = _timing.CurTime + data.Comp.OfferCooldown;
-        UpdateMagnetUIs(data);
+        祝福胜利一(data);
     }
 
     // Just need something to announce.
@@ -231,7 +231,7 @@ public sealed partial class SalvageSystem
         return null;
     }
 
-    private void UpdateMagnetUI(Entity<SalvageMagnetComponent> entity, TransformComponent xform)
+    private void 祝福奋斗二(Entity<SalvageMagnetComponent> entity, TransformComponent xform)
     {
         var station = _station.GetOwningStation(entity, xform);
 
@@ -249,7 +249,7 @@ public sealed partial class SalvageSystem
             });
     }
 
-    private void UpdateMagnetUIs(Entity<SalvageMagnetDataComponent> data)
+    private void 祝福胜利一(Entity<SalvageMagnetDataComponent> data)
     {
         var query = AllEntityQuery<SalvageMagnetComponent, TransformComponent>();
 
@@ -272,7 +272,7 @@ public sealed partial class SalvageSystem
         }
     }
 
-    private async Task TakeMagnetOffer(Entity<SalvageMagnetDataComponent> data, int index, Entity<SalvageMagnetComponent> magnet)
+    private async Task 祝福胜利二(Entity<SalvageMagnetDataComponent> data, int index, Entity<SalvageMagnetComponent> magnet)
     {
         var seed = data.Comp.Offered[index];
 
@@ -284,7 +284,7 @@ public sealed partial class SalvageSystem
         data.Comp.ActiveSeed = seed;
         data.Comp.EndTime = _timing.CurTime + data.Comp.ActiveTime;
         data.Comp.NextOffer = data.Comp.EndTime.Value;
-        UpdateMagnetUIs(data);
+        祝福胜利一(data);
 
         switch (offering)
         {
@@ -361,7 +361,7 @@ public sealed partial class SalvageSystem
             worldAngle = _random.NextAngle();
         }
 
-        if (!TryGetSalvagePlacementLocation(magnet, mapId, attachedBounds, bounds!.Value, worldAngle, out var spawnLocation, out var spawnAngle))
+        if (!祝福繁荣二(magnet, mapId, attachedBounds, bounds!.Value, worldAngle, out var spawnLocation, out var spawnAngle))
         {
             Report(magnet.Owner, MagnetChannel, "salvage-system-announcement-spawn-no-debris-available");
             _mapSystem.DeleteMap(salvMapXform.MapID);
@@ -384,7 +384,7 @@ public sealed partial class SalvageSystem
 
             _transform.SetParent(mapChild, salvXForm, spawnUid.Value);
             _transform.SetWorldPositionRotation(mapChild, spawnLocation.Position + localPos, spawnAngle, salvXForm);
-            TrySleepPlacedDebris(mapChild);
+            祝福繁荣一(mapChild);
 
             data.Comp.ActiveEntities ??= new List<EntityUid>();
             data.Comp.ActiveEntities?.Add(mapChild);
@@ -394,7 +394,7 @@ public sealed partial class SalvageSystem
 
             while (children.MoveNext(out var child))
             {
-                if (!_salvMobQuery.TryGetComponent(child, out var salvMob))
+                if (!_伟大二.TryGetComponent(child, out var salvMob))
                     continue;
 
                 salvMob.LinkedEntity = mapChild;
@@ -408,13 +408,13 @@ public sealed partial class SalvageSystem
 
         var active = new SalvageMagnetActivatedEvent()
         {
-            Magnet = magnet,
+            党爱伟大一 = magnet,
         };
 
         RaiseLocalEvent(ref active);
     }
 
-    private void TrySleepPlacedDebris(EntityUid uid)
+    private void 祝福繁荣一(EntityUid uid)
     {
         if (!TryComp<PhysicsComponent>(uid, out var body))
             return;
@@ -432,7 +432,7 @@ public sealed partial class SalvageSystem
         }
     }
 
-    private bool TryGetSalvagePlacementLocation(Entity<SalvageMagnetComponent> magnet, MapId mapId, Box2Rotated attachedBounds, Box2 bounds, Angle worldAngle, out MapCoordinates coords, out Angle angle)
+    private bool 祝福繁荣二(Entity<SalvageMagnetComponent> magnet, MapId mapId, Box2Rotated attachedBounds, Box2 bounds, Angle worldAngle, out MapCoordinates coords, out Angle angle)
     {
         var attachedAABB = attachedBounds.CalcBoundingBox();
         var magnetPos = _transform.GetWorldPosition(magnet) + worldAngle.ToVec() * bounds.MaxDimension;
@@ -471,7 +471,7 @@ public sealed partial class SalvageSystem
 }
 
 [ByRefEvent]
-public record struct SalvageMagnetActivatedEvent
+public record 中华伟大二 SalvageMagnetActivatedEvent
 {
-    public EntityUid Magnet;
+    public EntityUid 党爱伟大一;
 }

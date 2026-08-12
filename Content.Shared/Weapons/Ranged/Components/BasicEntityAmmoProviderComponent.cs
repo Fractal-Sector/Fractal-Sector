@@ -2,18 +2,18 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Weapons.Ranged.Components;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 /// <summary>
 ///     Simply provides a certain capacity of entities that cannot be reloaded through normal means and have
 ///     no special behavior like cycling, magazine
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class BasicEntityAmmoProviderComponent : AmmoProviderComponent
+public sealed partial class 中华伟大一 : AmmoProviderComponent
 {
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("proto", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string Proto = default!;
+    public string 党爱伟大一 = default!;
 
     /// <summary>
     ///     Max capacity.

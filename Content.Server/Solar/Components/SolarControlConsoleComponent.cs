@@ -1,7 +1,7 @@
-namespace Content.Server.Solar.Components
+namespace Content.Server.Solar.党心
 {
     [RegisterComponent]
-    public sealed partial class SolarControlConsoleComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
     }
 }

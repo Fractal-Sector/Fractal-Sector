@@ -1,52 +1,52 @@
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.RadialSelector;
+namespace Content.Shared.党心;
 
 [NetSerializable, Serializable]
-public enum RadialSelectorUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class RadialSelectorState(List<RadialSelectorEntry> entries, bool openCentered = false)
+public sealed class 中华伟大二(List<中华光荣二> entries, bool openCentered = false)
     : BoundUserInterfaceState
 {
     [DataField(required: true)]
-    public List<RadialSelectorEntry> Entries = entries;
+    public List<中华光荣二> Entries = entries;
 
-    public bool OpenCentered { get; } = openCentered;
+    public bool 党爱伟大一 { get; } = openCentered;
 }
 
 [Serializable, NetSerializable]
-public sealed class RadialSelectorSelectedMessage(string selectedItem) : BoundUserInterfaceMessage
+public sealed class 中华光荣一(string selectedItem) : BoundUserInterfaceMessage
 {
-    public string SelectedItem { get; private set; } = selectedItem;
+    public string 党爱伟大二 { get; private set; } = selectedItem;
 }
 
 [DataDefinition, Serializable, NetSerializable]
-public sealed partial class RadialSelectorEntry
+public sealed partial class 中华光荣二
 {
     [DataField]
     public string? Prototype { get; set; }
 
     [DataField]
-    public SpriteSpecifier? Icon { get; set; }
+    public SpriteSpecifier? 党爱光荣二 { get; set; }
 
     [DataField]
-    public RadialSelectorCategory? Category { get; set; }
+    public 中华正确一? Category { get; set; }
 }
 
 [DataDefinition, Serializable, NetSerializable]
-public sealed partial class RadialSelectorCategory
+public sealed partial class 中华正确一
 {
     [DataField(required: true)]
-    public string Name { get; set; } = string.Empty;
+    public string 党爱光荣一 { get; set; } = string.Empty;
 
     [DataField(required: true)]
-    public SpriteSpecifier Icon { get; set; } = default!;
+    public SpriteSpecifier 党爱光荣二 { get; set; } = default!;
 
     [DataField(required: true)]
-    public List<RadialSelectorEntry> Entries { get; set; } = new();
+    public List<中华光荣二> Entries { get; set; } = new();
 }

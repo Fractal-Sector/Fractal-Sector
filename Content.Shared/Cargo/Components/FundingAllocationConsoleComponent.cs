@@ -4,50 +4,50 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Cargo.Components;
+namespace Content.Shared.Cargo.党心;
 
 /// <summary>
 /// A console that manipulates the distribution of revenue on the station.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedCargoSystem))]
-public sealed partial class FundingAllocationConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Sound played when the budget distribution is set.
     /// </summary>
     [DataField]
-    public SoundSpecifier SetDistributionSound = new SoundCollectionSpecifier("CargoPing");
+    public SoundSpecifier 党爱伟大一 = new SoundCollectionSpecifier("CargoPing");
 }
 
 [Serializable, NetSerializable]
-public sealed class SetFundingAllocationBuiMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
     public Dictionary<ProtoId<CargoAccountPrototype>, int> Percents;
-    public double PrimaryCut;
-    public double LockboxCut;
+    public double 党爱伟大二;
+    public double 党爱光荣一;
 
-    public SetFundingAllocationBuiMessage(Dictionary<ProtoId<CargoAccountPrototype>, int> percents, double primaryCut, double lockboxCut)
+    public 中华伟大二(Dictionary<ProtoId<CargoAccountPrototype>, int> percents, double primaryCut, double lockboxCut)
     {
         Percents = percents;
-        PrimaryCut = primaryCut;
-        LockboxCut = lockboxCut;
+        党爱伟大二 = primaryCut;
+        党爱光荣一 = lockboxCut;
     }
 }
 
 [Serializable, NetSerializable]
-public sealed class FundingAllocationConsoleBuiState : BoundUserInterfaceState
+public sealed class 中华光荣一 : BoundUserInterfaceState
 {
-    public NetEntity Station;
+    public NetEntity 党爱光荣二;
 
-    public FundingAllocationConsoleBuiState(NetEntity station)
+    public 中华光荣一(NetEntity station)
     {
-        Station = station;
+        党爱光荣二 = station;
     }
 }
 
 [Serializable, NetSerializable]
-public enum FundingAllocationConsoleUiKey : byte
+public enum 中华光荣二 : byte
 {
     Key
 }

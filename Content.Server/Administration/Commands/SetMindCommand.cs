@@ -5,19 +5,19 @@ using Content.Shared.Players;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Admin)]
-    public sealed class SetMindCommand : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly SharedMindSystem _mindSystem = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly SharedMindSystem _伟大二 = default!;
 
-        public override string Command => "setmind";
+        public override string 党爱伟大一 => "setmind";
 
-        public override string Description => Loc.GetString("cmd-setmind-desc", ("requiredComponent", nameof(MindContainerComponent)));
+        public override string 党爱伟大二 => Loc.GetString("cmd-setmind-desc", ("requiredComponent", nameof(MindContainerComponent)));
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 2)
             {
@@ -51,7 +51,7 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            if (!_playerManager.TryGetSessionByUsername(args[1], out var session))
+            if (!_伟大一.TryGetSessionByUsername(args[1], out var session))
             {
                 shell.WriteLine(Loc.GetString("shell-target-player-does-not-exist"));
                 return;
@@ -67,12 +67,12 @@ namespace Content.Server.Administration.Commands
 
             var metadata = EntityManager.GetComponent<MetaDataComponent>(eUid.Value);
 
-            var mind = playerCData.Mind ?? _mindSystem.CreateMind(session.UserId, metadata.EntityName);
+            var mind = playerCData.Mind ?? _伟大二.CreateMind(session.UserId, metadata.EntityName);
 
-            _mindSystem.TransferTo(mind, eUid, ghostOverride);
+            _伟大二.TransferTo(mind, eUid, ghostOverride);
         }
 
-        public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
         {
             if (args.Length == 2)
                 return CompletionResult.FromHintOptions(CompletionHelper.SessionNames(), Help);

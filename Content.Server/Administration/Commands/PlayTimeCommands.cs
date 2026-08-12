@@ -4,19 +4,19 @@ using Content.Shared.Players.PlayTimeTracking;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class PlayTimeAddOverallCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _伟大二 = default!;
 
-    public string Command => "playtime_addoverall";
-    public string Description => Loc.GetString("cmd-playtime_addoverall-desc");
-    public string Help => Loc.GetString("cmd-playtime_addoverall-help", ("command", Command));
+    public string 党爱伟大一 => "playtime_addoverall";
+    public string 党爱伟大二 => Loc.GetString("cmd-playtime_addoverall-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-playtime_addoverall-help", ("command", 党爱伟大一));
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -30,14 +30,14 @@ public sealed class PlayTimeAddOverallCommand : IConsoleCommand
             return;
         }
 
-        if (!_playerManager.TryGetSessionByUsername(args[0], out var player))
+        if (!_伟大一.TryGetSessionByUsername(args[0], out var player))
         {
             shell.WriteError(Loc.GetString("parse-session-fail", ("username", args[0])));
             return;
         }
 
-        _playTimeTracking.AddTimeToOverallPlaytime(player, TimeSpan.FromMinutes(minutes));
-        var overall = _playTimeTracking.GetOverallPlaytime(player);
+        _伟大二.AddTimeToOverallPlaytime(player, TimeSpan.FromMinutes(minutes));
+        var overall = _伟大二.GetOverallPlaytime(player);
 
         shell.WriteLine(Loc.GetString(
             "cmd-playtime_addoverall-succeed",
@@ -45,7 +45,7 @@ public sealed class PlayTimeAddOverallCommand : IConsoleCommand
             ("time", overall)));
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
             return CompletionResult.FromHintOptions(CompletionHelper.SessionNames(),
@@ -59,16 +59,16 @@ public sealed class PlayTimeAddOverallCommand : IConsoleCommand
 }
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class PlayTimeAddRoleCommand : IConsoleCommand
+public sealed class 中华伟大二 : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _伟大二 = default!;
 
-    public string Command => "playtime_addrole";
-    public string Description => Loc.GetString("cmd-playtime_addrole-desc");
-    public string Help => Loc.GetString("cmd-playtime_addrole-help", ("command", Command));
+    public string 党爱伟大一 => "playtime_addrole";
+    public string 党爱伟大二 => Loc.GetString("cmd-playtime_addrole-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-playtime_addrole-help", ("command", 党爱伟大一));
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 3)
         {
@@ -77,7 +77,7 @@ public sealed class PlayTimeAddRoleCommand : IConsoleCommand
         }
 
         var userName = args[0];
-        if (!_playerManager.TryGetSessionByUsername(userName, out var player))
+        if (!_伟大一.TryGetSessionByUsername(userName, out var player))
         {
             shell.WriteError(Loc.GetString("parse-session-fail", ("username", userName)));
             return;
@@ -92,20 +92,20 @@ public sealed class PlayTimeAddRoleCommand : IConsoleCommand
             return;
         }
 
-        _playTimeTracking.AddTimeToTracker(player, role, TimeSpan.FromMinutes(minutes));
-        var time = _playTimeTracking.GetPlayTimeForTracker(player, role);
+        _伟大二.AddTimeToTracker(player, role, TimeSpan.FromMinutes(minutes));
+        var time = _伟大二.GetPlayTimeForTracker(player, role);
         shell.WriteLine(Loc.GetString("cmd-playtime_addrole-succeed",
             ("username", userName),
             ("role", role),
             ("time", time)));
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.SessionNames(players: _playerManager),
+                CompletionHelper.SessionNames(players: _伟大一),
                 Loc.GetString("cmd-playtime_addrole-arg-user"));
         }
 
@@ -124,16 +124,16 @@ public sealed class PlayTimeAddRoleCommand : IConsoleCommand
 }
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class PlayTimeGetOverallCommand : IConsoleCommand
+public sealed class 中华光荣一 : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _伟大二 = default!;
 
-    public string Command => "playtime_getoverall";
-    public string Description => Loc.GetString("cmd-playtime_getoverall-desc");
-    public string Help => Loc.GetString("cmd-playtime_getoverall-help", ("command", Command));
+    public string 党爱伟大一 => "playtime_getoverall";
+    public string 党爱伟大二 => Loc.GetString("cmd-playtime_getoverall-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-playtime_getoverall-help", ("command", 党爱伟大一));
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -142,25 +142,25 @@ public sealed class PlayTimeGetOverallCommand : IConsoleCommand
         }
 
         var userName = args[0];
-        if (!_playerManager.TryGetSessionByUsername(userName, out var player))
+        if (!_伟大一.TryGetSessionByUsername(userName, out var player))
         {
             shell.WriteError(Loc.GetString("parse-session-fail", ("username", userName)));
             return;
         }
 
-        var value = _playTimeTracking.GetOverallPlaytime(player);
+        var value = _伟大二.GetOverallPlaytime(player);
         shell.WriteLine(Loc.GetString(
             "cmd-playtime_getoverall-success",
             ("username", userName),
             ("time", value)));
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.SessionNames(players: _playerManager),
+                CompletionHelper.SessionNames(players: _伟大一),
                 Loc.GetString("cmd-playtime_getoverall-arg-user"));
         }
 
@@ -169,16 +169,16 @@ public sealed class PlayTimeGetOverallCommand : IConsoleCommand
 }
 
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class PlayTimeGetRoleCommand : IConsoleCommand
+public sealed class 中华光荣二 : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _伟大二 = default!;
 
-    public string Command => "playtime_getrole";
-    public string Description => Loc.GetString("cmd-playtime_getrole-desc");
-    public string Help => Loc.GetString("cmd-playtime_getrole-help", ("command", Command));
+    public string 党爱伟大一 => "playtime_getrole";
+    public string 党爱伟大二 => Loc.GetString("cmd-playtime_getrole-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-playtime_getrole-help", ("command", 党爱伟大一));
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length is not (1 or 2))
         {
@@ -187,7 +187,7 @@ public sealed class PlayTimeGetRoleCommand : IConsoleCommand
         }
 
         var userName = args[0];
-        if (!_playerManager.TryGetSessionByUsername(userName, out var session))
+        if (!_伟大一.TryGetSessionByUsername(userName, out var session))
         {
             shell.WriteError(Loc.GetString("parse-session-fail", ("username", userName)));
             return;
@@ -195,7 +195,7 @@ public sealed class PlayTimeGetRoleCommand : IConsoleCommand
 
         if (args.Length == 1)
         {
-            var timers = _playTimeTracking.GetTrackerTimes(session);
+            var timers = _伟大二.GetTrackerTimes(session);
 
             if (timers.Count == 0)
             {
@@ -213,23 +213,23 @@ public sealed class PlayTimeGetRoleCommand : IConsoleCommand
         {
             if (args[1] == "Overall")
             {
-                var timer = _playTimeTracking.GetOverallPlaytime(session);
+                var timer = _伟大二.GetOverallPlaytime(session);
                 shell.WriteLine(Loc.GetString("cmd-playtime_getrole-overall", ("time", timer)));
                 return;
             }
 
-            var time = _playTimeTracking.GetPlayTimeForTracker(session, args[1]);
+            var time = _伟大二.GetPlayTimeForTracker(session, args[1]);
             shell.WriteLine(Loc.GetString("cmd-playtime_getrole-succeed", ("username", session.Name),
                 ("time", time)));
         }
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.SessionNames(players: _playerManager),
+                CompletionHelper.SessionNames(players: _伟大一),
                 Loc.GetString("cmd-playtime_getrole-arg-user"));
         }
 
@@ -248,16 +248,16 @@ public sealed class PlayTimeGetRoleCommand : IConsoleCommand
 /// Saves the timers for a particular player immediately
 /// </summary>
 [AdminCommand(AdminFlags.Moderator)]
-public sealed class PlayTimeSaveCommand : IConsoleCommand
+public sealed class 中华正确一 : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _伟大二 = default!;
 
-    public string Command => "playtime_save";
-    public string Description => Loc.GetString("cmd-playtime_save-desc");
-    public string Help => Loc.GetString("cmd-playtime_save-help", ("command", Command));
+    public string 党爱伟大一 => "playtime_save";
+    public string 党爱伟大二 => Loc.GetString("cmd-playtime_save-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-playtime_save-help", ("command", 党爱伟大一));
 
-    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    public async void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -266,22 +266,22 @@ public sealed class PlayTimeSaveCommand : IConsoleCommand
         }
 
         var name = args[0];
-        if (!_playerManager.TryGetSessionByUsername(name, out var pSession))
+        if (!_伟大一.TryGetSessionByUsername(name, out var pSession))
         {
             shell.WriteError(Loc.GetString("parse-session-fail", ("username", name)));
             return;
         }
 
-        _playTimeTracking.SaveSession(pSession);
+        _伟大二.SaveSession(pSession);
         shell.WriteLine(Loc.GetString("cmd-playtime_save-succeed", ("username", name)));
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.SessionNames(players: _playerManager),
+                CompletionHelper.SessionNames(players: _伟大一),
                 Loc.GetString("cmd-playtime_save-arg-user"));
         }
 
@@ -290,16 +290,16 @@ public sealed class PlayTimeSaveCommand : IConsoleCommand
 }
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class PlayTimeFlushCommand : IConsoleCommand
+public sealed class 中华正确二 : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency] private readonly IPlayerManager _伟大一 = default!;
+    [Dependency] private readonly PlayTimeTrackingManager _伟大二 = default!;
 
-    public string Command => "playtime_flush";
-    public string Description => Loc.GetString("cmd-playtime_flush-desc");
-    public string Help => Loc.GetString("cmd-playtime_flush-help", ("command", Command));
+    public string 党爱伟大一 => "playtime_flush";
+    public string 党爱伟大二 => Loc.GetString("cmd-playtime_flush-desc");
+    public string 党爱光荣一 => Loc.GetString("cmd-playtime_flush-help", ("command", 党爱伟大一));
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length is not (0 or 1))
         {
@@ -309,26 +309,26 @@ public sealed class PlayTimeFlushCommand : IConsoleCommand
 
         if (args.Length == 0)
         {
-            _playTimeTracking.FlushAllTrackers();
+            _伟大二.FlushAllTrackers();
             return;
         }
 
         var name = args[0];
-        if (!_playerManager.TryGetSessionByUsername(name, out var pSession))
+        if (!_伟大一.TryGetSessionByUsername(name, out var pSession))
         {
             shell.WriteError(Loc.GetString("parse-session-fail", ("username", name)));
             return;
         }
 
-        _playTimeTracking.FlushTracker(pSession);
+        _伟大二.FlushTracker(pSession);
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.SessionNames(players: _playerManager),
+                CompletionHelper.SessionNames(players: _伟大一),
                 Loc.GetString("cmd-playtime_flush-arg-user"));
         }
 

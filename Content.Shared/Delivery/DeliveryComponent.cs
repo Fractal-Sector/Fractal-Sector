@@ -3,38 +3,38 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Delivery;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Component given to deliveries.
 /// Means the entity is a delivery, which upon opening will grant a reward to cargo.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
-public sealed partial class DeliveryComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whether this delivery has been opened before.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsOpened;
+    public bool 党爱伟大一;
 
     /// <summary>
     /// Whether this delivery is still locked using the fingerprint reader.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsLocked = true;
+    public bool 党爱伟大二 = true;
 
     /// <summary>
     /// The base amount of spesos that gets added to the station bank account on unlock.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int BaseSpesoReward = 500;
+    public int 党爱光荣一 = 500;
 
     /// <summary>
     /// The base amount of spesos that will be removed from the station bank account on a penalized delivery
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int BaseSpesoPenalty = 250;
+    public int 党爱光荣二 = 250;
 
     /// <summary>
     /// The name of the recipient of this delivery.
@@ -60,14 +60,14 @@ public sealed partial class DeliveryComponent : Component
     /// The bank account ID of the account to subtract funds from in case of penalization
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ProtoId<CargoAccountPrototype> PenaltyBankAccount = "Cargo";
+    public ProtoId<CargoAccountPrototype> 党爱正确一 = "Cargo";
 
     /// <summary>
     /// Whether this delivery has already received a penalty.
     /// Used to avoid getting penalized several times.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool WasPenalized;
+    public bool 党爱正确二;
 
     /// <summary>
     /// The sound to play when the delivery is unlocked.
@@ -85,5 +85,5 @@ public sealed partial class DeliveryComponent : Component
     /// The container with all the contents of the delivery.
     /// </summary>
     [DataField]
-    public string Container = "delivery";
+    public string 党爱团结一 = "delivery";
 }

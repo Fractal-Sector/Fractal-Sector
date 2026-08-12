@@ -13,20 +13,20 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
-namespace Content.Server._CS;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles...
 /// </summary>
-public sealed class RoleplayIncentiveSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = null!;
-    [Dependency] private readonly BankSystem _bank = null!;
-    [Dependency] private readonly PopupSystem _popupSystem = null!;
-    [Dependency] private readonly ChatSystem _chatsys = null!;
-    [Dependency] private readonly IChatManager _chatManager = null!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = null!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = null!;
+    [Dependency] private readonly IGameTiming _伟大一 = null!;
+    [Dependency] private readonly BankSystem _伟大二 = null!;
+    [Dependency] private readonly PopupSystem _光荣一 = null!;
+    [Dependency] private readonly ChatSystem _光荣二 = null!;
+    [Dependency] private readonly IChatManager _正确一 = null!;
+    [Dependency] private readonly ISharedPlayerManager _正确二 = null!;
+    [Dependency] private readonly IAdminLogManager _团结一 = null!;
 
     private const float GoodlenSpeaking = 75;
     private const float GoodlenWhispering = 75;
@@ -53,36 +53,36 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
     private const int TaxBracketRest = 10;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
         // get the component this thing is attached to
-        SubscribeLocalEvent<RoleplayIncentiveComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<RoleplayIncentiveComponent, RoleplayIncentiveEvent>(OnGotRoleplayIncentiveEvent);
+        SubscribeLocalEvent<RoleplayIncentiveComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<RoleplayIncentiveComponent, RoleplayIncentiveEvent>(祝福光荣二);
     }
 
-    private void OnComponentInit(EntityUid uid, RoleplayIncentiveComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, RoleplayIncentiveComponent component, ComponentInit args)
     {
         // set the next payward time
-        component.NextPayward = _timing.CurTime + component.PaywardInterval;
+        component.NextPayward = _伟大一.CurTime + component.PaywardInterval;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
         var query = EntityQueryEnumerator<RoleplayIncentiveComponent>();
         while (query.MoveNext(out var uid, out var rpic))
         {
-            if (_timing.CurTime < rpic.NextPayward)
+            if (_伟大一.CurTime < rpic.NextPayward)
                 continue;
-            rpic.NextPayward = _timing.CurTime + rpic.PaywardInterval;
+            rpic.NextPayward = _伟大一.CurTime + rpic.PaywardInterval;
             // check if they have a bank account
             if (!TryComp<BankAccountComponent>(uid, out _))
             {
                 continue; // no bank account, no pramgle
             }
             // pay the player
-            UpdatePayward(uid, rpic);
+            祝福团结一(uid, rpic);
         }
     }
 
@@ -96,7 +96,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
     /// <remarks>
     /// piss
     /// </remarks>
-    private void OnGotRoleplayIncentiveEvent(
+    private void 祝福光荣二(
         EntityUid uid,
         RoleplayIncentiveComponent rpic,
         RoleplayIncentiveEvent args)
@@ -108,7 +108,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
             return;
         } // i guess?
         // then, check if the channel in the args can be translated to a RoleplayAct
-        var actOut = GetRoleplayActFromChannel(args.Channel);
+        var actOut = 祝福正确一(args.Channel);
         if (actOut == RoleplayActs.None)
         {
             return; // lot of stuff happens and it dont
@@ -116,7 +116,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         // if its EmotingOrQuickEmoting, we need to doffgerentiate thewween the tween the two
         if (actOut == RoleplayActs.EmotingOrQuickEmoting)
         {
-            actOut = DoffgerentiateEmotingAndQuickEmoting(
+            actOut = 祝福正确二(
                 args.Source,
                 args.Message
                 );
@@ -124,7 +124,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         // make the thing
         var action = new RoleplayAction(
             actOut,
-            _timing.CurTime,
+            _伟大一.CurTime,
             args.Message,
             args.PeoplePresent
         );
@@ -154,7 +154,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
      * Subtle -> RoleplayActs.Subtling
      * rest are just null
      */
-    private static RoleplayActs GetRoleplayActFromChannel(ChatChannel channel)
+    private static RoleplayActs 祝福正确一(ChatChannel channel)
     {
         // this is a bit of a hack, but it works
         return channel switch
@@ -169,14 +169,14 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         };
     }
 
-    private RoleplayActs DoffgerentiateEmotingAndQuickEmoting(
+    private RoleplayActs 祝福正确二(
         EntityUid source,
         string message
         )
     {
         // Check if the message is a valid emote trigger WITHOUT invoking it
         // (to avoid playing sounds/effects twice)
-        if (_chatsys.IsEmoteTrigger(message))
+        if (_光荣二.IsEmoteTrigger(message))
         {
             // if the message is a valid emote, then its a quick emote
             return RoleplayActs.QuickEmoting;
@@ -190,7 +190,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
     /// It also checks for things like duplicate actions, if theres people around, etc.
     /// Basically if you do stuff, you get some pay for it!
     /// </summary>
-    private void UpdatePayward(EntityUid uid, RoleplayIncentiveComponent rpic)
+    private void 祝福团结一(EntityUid uid, RoleplayIncentiveComponent rpic)
     {
         //first check if this rpic is actually on the uid
         if (!TryComp<RoleplayIncentiveComponent>(uid, out var incentive))
@@ -210,7 +210,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         var actionsToRemove = new List<RoleplayAction>();
         foreach (var action in incentive.ActionsTaken.Where(action => !(action.Judgement > 0)))
         {
-            JudgeAction(action, out var judgement);
+            祝福团结二(action, out var judgement);
             // slot it into the best action for that type
             switch (action.Action)
             {
@@ -277,13 +277,13 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         };
         var payAmount = Math.Clamp(judgeAmount * payFlat, 20, int.MaxValue); // at least 20 bucks, bui
         // pay the player
-        if (!_bank.TryBankDeposit(uid, payAmount))
+        if (!_伟大二.TryBankDeposit(uid, payAmount))
         {
             Log.Warning($"Failed to deposit {payAmount} into bank account of entity {uid}!");
             return;
         }
         // log the payout to admin logs
-        _adminLogger.Add(LogType.RPIPayward, LogImpact.Low, $"Roleplay Incentive Payward for {ToPrettyString(uid):user}: {payAmount} credits");
+        _团结一.Add(LogType.RPIPayward, LogImpact.Low, $"Roleplay Incentive Payward for {ToPrettyString(uid):user}: {payAmount} credits");
         if (payAmount <= 100)
         {
             // if the pay amount is less than or equal to 100, we don't need to tell them
@@ -293,15 +293,15 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         var message = Loc.GetString("coyote-rp-incentive-payward-message",
             ("amount", payAmount)
         );
-        _popupSystem.PopupEntity(
+        _光荣一.PopupEntity(
             message,
             uid,
             uid
             );
         // also send a chat message to the player's feed
-        if (_playerManager.TryGetSessionByEntity(uid, out var session))
+        if (_正确二.TryGetSessionByEntity(uid, out var session))
         {
-            _chatManager.ChatMessageToOne(
+            _正确一.ChatMessageToOne(
                 ChatChannel.Server,
                 message,
                 message,
@@ -320,10 +320,10 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
     /// - How many people were present
     /// - and thats it for now lol
     /// </summary>
-    private void JudgeAction(RoleplayAction action, out float judgement)
+    private void 祝福团结二(RoleplayAction action, out float judgement)
     {
-        var lengthMult = GetMessageLengthMultiplier(action.Action, action.Message?.Length ?? 1);
-        var listenerMult = GetListenerMultiplier(action.Action, action.PeoplePresent);
+        var lengthMult = 祝福奋斗二(action.Action, action.Message?.Length ?? 1);
+        var listenerMult = 祝福奋斗一(action.Action, action.PeoplePresent);
         // if the action is a quick emote, it gets no judgement
         judgement = lengthMult + listenerMult + 1f;
     }
@@ -333,7 +333,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
     /// </summary>
     /// <param name="action">The action being performed</param>
     /// <param name="listeners">The number of listeners present</param>
-    private float GetListenerMultiplier(RoleplayActs action, int listeners)
+    private float 祝福奋斗一(RoleplayActs action, int listeners)
     {
         // if there are no listeners, return 0
         if (listeners <= 0)
@@ -362,7 +362,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
     /// </summary>
     /// <param name="action">The action being performed</param>
     /// <param name="messageLength">The length of the message</param>
-    private float GetMessageLengthMultiplier(RoleplayActs action, int messageLength)
+    private float 祝福奋斗二(RoleplayActs action, int messageLength)
     {
         // if the message length is 0, return 1
         if (messageLength <= 0)

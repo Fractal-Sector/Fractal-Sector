@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Trigger;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum ProximityTriggerVisuals : byte
+public enum 中华伟大一 : byte
 {
     Off,
     Inactive,
@@ -11,19 +11,19 @@ public enum ProximityTriggerVisuals : byte
 }
 
 [Serializable, NetSerializable]
-public enum ProximityTriggerVisualState : byte
+public enum 中华伟大二 : byte
 {
     State,
 }
 
 [Serializable, NetSerializable]
-public enum TriggerVisuals : byte
+public enum 中华光荣一 : byte
 {
     VisualState,
 }
 
 [Serializable, NetSerializable]
-public enum TriggerVisualState : byte
+public enum 中华光荣二 : byte
 {
     Primed,
     Unprimed,

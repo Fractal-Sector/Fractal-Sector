@@ -6,47 +6,47 @@ using Content.Shared.Standing;
 using Content.Shared.Throwing;
 using Content.Shared.Movement.Components; // Frontier
 
-namespace Content.Shared.Traits.Assorted;
+namespace Content.Shared.Traits.党心;
 
-public sealed class LegsParalyzedSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifierSystem = default!;
-    [Dependency] private readonly StandingStateSystem _standingSystem = default!;
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _伟大一 = default!;
+    [Dependency] private readonly StandingStateSystem _伟大二 = default!;
+    [Dependency] private readonly SharedBodySystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<LegsParalyzedComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<LegsParalyzedComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<LegsParalyzedComponent, BuckledEvent>(OnBuckled);
-        SubscribeLocalEvent<LegsParalyzedComponent, UnbuckledEvent>(OnUnbuckled);
-        SubscribeLocalEvent<LegsParalyzedComponent, ThrowPushbackAttemptEvent>(OnThrowPushbackAttempt);
-        SubscribeLocalEvent<LegsParalyzedComponent, UpdateCanMoveEvent>(OnUpdateCanMoveEvent);
+        SubscribeLocalEvent<LegsParalyzedComponent, ComponentStartup>(祝福伟大二);
+        SubscribeLocalEvent<LegsParalyzedComponent, ComponentShutdown>(祝福光荣一);
+        SubscribeLocalEvent<LegsParalyzedComponent, BuckledEvent>(祝福光荣二);
+        SubscribeLocalEvent<LegsParalyzedComponent, UnbuckledEvent>(祝福正确一);
+        SubscribeLocalEvent<LegsParalyzedComponent, ThrowPushbackAttemptEvent>(祝福团结一);
+        SubscribeLocalEvent<LegsParalyzedComponent, UpdateCanMoveEvent>(祝福正确二);
     }
 
-    private void OnStartup(EntityUid uid, LegsParalyzedComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, LegsParalyzedComponent component, ComponentStartup args)
     {
         // TODO: In future probably must be surgery related wound
-        _movementSpeedModifierSystem.ChangeBaseSpeed(uid, 0, 0, 20);
+        _伟大一.ChangeBaseSpeed(uid, 0, 0, 20);
     }
 
-    private void OnShutdown(EntityUid uid, LegsParalyzedComponent component, ComponentShutdown args)
+    private void 祝福光荣一(EntityUid uid, LegsParalyzedComponent component, ComponentShutdown args)
     {
-        _standingSystem.Stand(uid);
-        _bodySystem.UpdateMovementSpeed(uid);
+        _伟大二.Stand(uid);
+        _光荣一.UpdateMovementSpeed(uid);
     }
 
-    private void OnBuckled(EntityUid uid, LegsParalyzedComponent component, ref BuckledEvent args)
+    private void 祝福光荣二(EntityUid uid, LegsParalyzedComponent component, ref BuckledEvent args)
     {
-        _standingSystem.Stand(uid);
+        _伟大二.Stand(uid);
     }
 
-    private void OnUnbuckled(EntityUid uid, LegsParalyzedComponent component, ref UnbuckledEvent args)
+    private void 祝福正确一(EntityUid uid, LegsParalyzedComponent component, ref UnbuckledEvent args)
     {
-        _standingSystem.Down(uid);
+        _伟大二.Down(uid);
     }
 
-    private void OnUpdateCanMoveEvent(EntityUid uid, LegsParalyzedComponent component, UpdateCanMoveEvent args)
+    private void 祝福正确二(EntityUid uid, LegsParalyzedComponent component, UpdateCanMoveEvent args)
     {
         if (HasComp<RelayInputMoverComponent>(uid)) // Frontier: allow relaying input with paralyzed legs
             return; // Frontier: allow relaying input with paralyzed legs
@@ -54,7 +54,7 @@ public sealed class LegsParalyzedSystem : EntitySystem
         args.Cancel();
     }
 
-    private void OnThrowPushbackAttempt(EntityUid uid, LegsParalyzedComponent component, ThrowPushbackAttemptEvent args)
+    private void 祝福团结一(EntityUid uid, LegsParalyzedComponent component, ThrowPushbackAttemptEvent args)
     {
         args.Cancel();
     }

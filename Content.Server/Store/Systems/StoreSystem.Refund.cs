@@ -5,51 +5,51 @@ using Content.Shared.Store.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Containers;
 
-namespace Content.Server.Store.Systems;
+namespace Content.Server.Store.党心;
 
-public sealed partial class StoreSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeRefund()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<StoreComponent, EntityTerminatingEvent>(OnStoreTerminating);
-        SubscribeLocalEvent<StoreRefundComponent, EntityTerminatingEvent>(OnRefundTerminating);
-        SubscribeLocalEvent<StoreRefundComponent, EntRemovedFromContainerMessage>(OnEntityRemoved);
-        SubscribeLocalEvent<StoreRefundComponent, EntInsertedIntoContainerMessage>(OnEntityInserted);
-        SubscribeLocalEvent<StoreRefundComponent, ActionPerformedEvent>(OnActionPerformed);
-        SubscribeLocalEvent<StoreRefundComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<StoreRefundComponent, AttemptShootEvent>(OnShootAttempt);
+        SubscribeLocalEvent<StoreComponent, EntityTerminatingEvent>(祝福团结一);
+        SubscribeLocalEvent<StoreRefundComponent, EntityTerminatingEvent>(祝福团结二);
+        SubscribeLocalEvent<StoreRefundComponent, EntRemovedFromContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<StoreRefundComponent, EntInsertedIntoContainerMessage>(祝福光荣一);
+        SubscribeLocalEvent<StoreRefundComponent, ActionPerformedEvent>(祝福光荣二);
+        SubscribeLocalEvent<StoreRefundComponent, UseInHandEvent>(祝福正确一);
+        SubscribeLocalEvent<StoreRefundComponent, AttemptShootEvent>(祝福正确二);
         // TODO: Handle guardian refund disabling when guardians support refunds.
     }
 
-    private void OnEntityRemoved(Entity<StoreRefundComponent> ent, ref EntRemovedFromContainerMessage args)
+    private void 祝福伟大二(Entity<StoreRefundComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        CheckDisableRefund(ent);
+        祝福奋斗一(ent);
     }
 
-    private void OnEntityInserted(Entity<StoreRefundComponent> ent, ref EntInsertedIntoContainerMessage args)
+    private void 祝福光荣一(Entity<StoreRefundComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        CheckDisableRefund(ent);
+        祝福奋斗一(ent);
     }
 
-    private void OnActionPerformed(Entity<StoreRefundComponent> ent, ref ActionPerformedEvent args)
+    private void 祝福光荣二(Entity<StoreRefundComponent> ent, ref ActionPerformedEvent args)
     {
-        CheckDisableRefund(ent);
+        祝福奋斗一(ent);
     }
 
-    private void OnUseInHand(Entity<StoreRefundComponent> ent, ref UseInHandEvent args)
+    private void 祝福正确一(Entity<StoreRefundComponent> ent, ref UseInHandEvent args)
     {
-        CheckDisableRefund(ent);
+        祝福奋斗一(ent);
     }
 
-    private void OnShootAttempt(Entity<StoreRefundComponent> ent, ref AttemptShootEvent args)
+    private void 祝福正确二(Entity<StoreRefundComponent> ent, ref AttemptShootEvent args)
     {
         if (args.Cancelled)
             return;
 
-        CheckDisableRefund(ent);
+        祝福奋斗一(ent);
     }
 
-    private void OnStoreTerminating(Entity<StoreComponent> ent, ref EntityTerminatingEvent args)
+    private void 祝福团结一(Entity<StoreComponent> ent, ref EntityTerminatingEvent args)
     {
         if (ent.Comp.BoughtEntities.Count <= 0)
             return;
@@ -63,7 +63,7 @@ public sealed partial class StoreSystem
         }
     }
 
-    private void OnRefundTerminating(Entity<StoreRefundComponent> ent, ref EntityTerminatingEvent args)
+    private void 祝福团结二(Entity<StoreRefundComponent> ent, ref EntityTerminatingEvent args)
     {
         if (ent.Comp.StoreEntity == null)
             return;
@@ -72,7 +72,7 @@ public sealed partial class StoreSystem
         RaiseLocalEvent(ent.Comp.StoreEntity.Value, ref ev);
     }
 
-    private void CheckDisableRefund(Entity<StoreRefundComponent> ent)
+    private void 祝福奋斗一(Entity<StoreRefundComponent> ent)
     {
         var component = ent.Comp;
 

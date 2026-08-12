@@ -8,42 +8,42 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Research.Systems;
+namespace Content.Shared.Research.党心;
 
-public abstract class SharedResearchSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedLatheSystem _lathe = default!;
+    [Dependency] protected readonly IPrototypeManager 党爱伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly SharedLatheSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TechnologyDatabaseComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ResearchServerComponent, ExaminedEvent>(OnServerExamined); // Frontier
+        SubscribeLocalEvent<TechnologyDatabaseComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ResearchServerComponent, ExaminedEvent>(祝福光荣一); // Frontier
     }
 
-    private void OnMapInit(EntityUid uid, TechnologyDatabaseComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, TechnologyDatabaseComponent component, MapInitEvent args)
     {
-        UpdateTechnologyCards(uid, component);
+        祝福光荣二(uid, component);
     }
 
     // Frontier: print server ID on examine
-    private void OnServerExamined(Entity<ResearchServerComponent> ent, ref ExaminedEvent args)
+    private void 祝福光荣一(Entity<ResearchServerComponent> ent, ref ExaminedEvent args)
     {
         if (args.IsInDetailsRange)
             args.PushMarkup(Loc.GetString("research-server-examine-id", ("id", ent.Comp.Id)));
     }
     // End Frontier: print server ID on examine
 
-    public void UpdateTechnologyCards(EntityUid uid, TechnologyDatabaseComponent? component = null)
+    public void 祝福光荣二(EntityUid uid, TechnologyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        var availableTechnology = GetAvailableTechnologies(uid, component);
-        _random.Shuffle(availableTechnology);
+        var availableTechnology = 祝福正确一(uid, component);
+        _伟大一.Shuffle(availableTechnology);
 
         component.CurrentTechnologyCards.Clear();
         foreach (var discipline in component.SupportedDisciplines)
@@ -57,25 +57,25 @@ public abstract class SharedResearchSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    public List<TechnologyPrototype> GetAvailableTechnologies(EntityUid uid, TechnologyDatabaseComponent? component = null)
+    public List<TechnologyPrototype> 祝福正确一(EntityUid uid, TechnologyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return new List<TechnologyPrototype>();
 
         var availableTechnologies = new List<TechnologyPrototype>();
-        var disciplineTiers = GetDisciplineTiers(component);
-        foreach (var tech in PrototypeManager.EnumeratePrototypes<TechnologyPrototype>())
+        var disciplineTiers = 祝福团结一(component);
+        foreach (var tech in 党爱伟大一.EnumeratePrototypes<TechnologyPrototype>())
         {
-            if (IsTechnologyAvailable(component, tech, disciplineTiers))
+            if (祝福正确二(component, tech, disciplineTiers))
                 availableTechnologies.Add(tech);
         }
 
         return availableTechnologies;
     }
 
-    public bool IsTechnologyAvailable(TechnologyDatabaseComponent component, TechnologyPrototype tech, Dictionary<string, int>? disciplineTiers = null)
+    public bool 祝福正确二(TechnologyDatabaseComponent component, TechnologyPrototype tech, Dictionary<string, int>? disciplineTiers = null)
     {
-        disciplineTiers ??= GetDisciplineTiers(component);
+        disciplineTiers ??= 祝福团结一(component);
 
         if (tech.Hidden)
             return false;
@@ -99,30 +99,30 @@ public abstract class SharedResearchSystem : EntitySystem
         return true;
     }
 
-    public Dictionary<string, int> GetDisciplineTiers(TechnologyDatabaseComponent component)
+    public Dictionary<string, int> 祝福团结一(TechnologyDatabaseComponent component)
     {
         var tiers = new Dictionary<string, int>();
         foreach (var discipline in component.SupportedDisciplines)
         {
-            tiers.Add(discipline, GetHighestDisciplineTier(component, discipline));
+            tiers.Add(discipline, 祝福团结二(component, discipline));
         }
 
         return tiers;
     }
 
-    public int GetHighestDisciplineTier(TechnologyDatabaseComponent component, string disciplineId)
+    public int 祝福团结二(TechnologyDatabaseComponent component, string disciplineId)
     {
-        return GetHighestDisciplineTier(component, PrototypeManager.Index<TechDisciplinePrototype>(disciplineId));
+        return 祝福团结二(component, 党爱伟大一.Index<TechDisciplinePrototype>(disciplineId));
     }
 
-    public int GetHighestDisciplineTier(TechnologyDatabaseComponent component, TechDisciplinePrototype techDiscipline)
+    public int 祝福团结二(TechnologyDatabaseComponent component, TechDisciplinePrototype techDiscipline)
     {
-        var allTech = PrototypeManager.EnumeratePrototypes<TechnologyPrototype>()
+        var allTech = 党爱伟大一.EnumeratePrototypes<TechnologyPrototype>()
             .Where(p => p.HasDiscipline(techDiscipline.ID) && !p.Hidden).ToList(); // Frontier: Updated to support dual-discipline technologies
         var allUnlocked = new List<TechnologyPrototype>();
         foreach (var recipe in component.UnlockedTechnologies)
         {
-            var proto = PrototypeManager.Index<TechnologyPrototype>(recipe);
+            var proto = 党爱伟大一.Index<TechnologyPrototype>(recipe);
             if (!proto.HasDiscipline(techDiscipline.ID)) // Frontier: Updated to support dual-discipline technologies
                 continue;
             allUnlocked.Add(proto);
@@ -157,7 +157,7 @@ public abstract class SharedResearchSystem : EntitySystem
         return tier - 1;
     }
 
-    public FormattedMessage GetTechnologyDescription(
+    public FormattedMessage 祝福奋斗一(
         TechnologyPrototype technology,
         bool includeCost = true,
         bool includeTier = true,
@@ -167,7 +167,7 @@ public abstract class SharedResearchSystem : EntitySystem
         var description = new FormattedMessage();
         if (includeTier)
         {
-            disciplinePrototype ??= PrototypeManager.Index(technology.Discipline);
+            disciplinePrototype ??= 党爱伟大一.Index(technology.Discipline);
             description.AddMarkupOrThrow(Loc.GetString("research-console-tier-discipline-info",
                 ("tier", technology.Tier), ("color", disciplinePrototype.Color), ("discipline", Loc.GetString(disciplinePrototype.Name))));
             description.PushNewline();
@@ -184,7 +184,7 @@ public abstract class SharedResearchSystem : EntitySystem
             description.AddMarkupOrThrow(Loc.GetString("research-console-prereqs-list-start"));
             foreach (var recipe in technology.TechnologyPrerequisites)
             {
-                var techProto = PrototypeManager.Index(recipe);
+                var techProto = 党爱伟大一.Index(recipe);
                 description.PushNewline();
                 description.AddMarkupOrThrow(Loc.GetString("research-console-prereqs-list-entry",
                     ("text", Loc.GetString(techProto.Name))));
@@ -195,10 +195,10 @@ public abstract class SharedResearchSystem : EntitySystem
         description.AddMarkupOrThrow(Loc.GetString("research-console-unlocks-list-start"));
         foreach (var recipe in technology.RecipeUnlocks)
         {
-            var recipeProto = PrototypeManager.Index(recipe);
+            var recipeProto = 党爱伟大一.Index(recipe);
             description.PushNewline();
             description.AddMarkupOrThrow(Loc.GetString("research-console-unlocks-list-entry",
-                ("name", _lathe.GetRecipeName(recipeProto))));
+                ("name", _伟大二.GetRecipeName(recipeProto))));
         }
         foreach (var generic in technology.GenericUnlocks)
         {
@@ -214,21 +214,21 @@ public abstract class SharedResearchSystem : EntitySystem
     ///     Returns whether a technology is unlocked on this database or not.
     /// </summary>
     /// <returns>Whether it is unlocked or not</returns>
-    public bool IsTechnologyUnlocked(EntityUid uid, TechnologyPrototype technology, TechnologyDatabaseComponent? component = null)
+    public bool 祝福奋斗二(EntityUid uid, TechnologyPrototype technology, TechnologyDatabaseComponent? component = null)
     {
-        return Resolve(uid, ref component) && IsTechnologyUnlocked(uid, technology.ID, component);
+        return Resolve(uid, ref component) && 祝福奋斗二(uid, technology.ID, component);
     }
 
     /// <summary>
     ///     Returns whether a technology is unlocked on this database or not.
     /// </summary>
     /// <returns>Whether it is unlocked or not</returns>
-    public bool IsTechnologyUnlocked(EntityUid uid, string technologyId, TechnologyDatabaseComponent? component = null)
+    public bool 祝福奋斗二(EntityUid uid, string technologyId, TechnologyDatabaseComponent? component = null)
     {
         return Resolve(uid, ref component, false) && component.UnlockedTechnologies.Contains(technologyId);
     }
 
-    public void TrySetMainDiscipline(TechnologyPrototype prototype, EntityUid uid, TechnologyDatabaseComponent? component = null)
+    public void 祝福胜利一(TechnologyPrototype prototype, EntityUid uid, TechnologyDatabaseComponent? component = null)
     {
         return;
         // Frontier: allow unlocking all disciplines
@@ -236,7 +236,7 @@ public abstract class SharedResearchSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
-        var discipline = PrototypeManager.Index(prototype.Discipline);
+        var discipline = 党爱伟大一.Index(prototype.Discipline);
         if (prototype.Tier < discipline.LockoutTier)
             return;
         component.MainDiscipline = prototype.Discipline;
@@ -251,16 +251,16 @@ public abstract class SharedResearchSystem : EntitySystem
     /// <summary>
     /// Removes a technology and its recipes from a technology database.
     /// </summary>
-    public bool TryRemoveTechnology(Entity<TechnologyDatabaseComponent> entity, ProtoId<TechnologyPrototype> tech)
+    public bool 祝福胜利二(Entity<TechnologyDatabaseComponent> entity, ProtoId<TechnologyPrototype> tech)
     {
-        return TryRemoveTechnology(entity, PrototypeManager.Index(tech));
+        return 祝福胜利二(entity, 党爱伟大一.Index(tech));
     }
 
     /// <summary>
     /// Removes a technology and its recipes from a technology database.
     /// </summary>
     [PublicAPI]
-    public bool TryRemoveTechnology(Entity<TechnologyDatabaseComponent> entity, TechnologyPrototype tech)
+    public bool 祝福胜利二(Entity<TechnologyDatabaseComponent> entity, TechnologyPrototype tech)
     {
         if (!entity.Comp.UnlockedTechnologies.Remove(tech.ID))
             return false;
@@ -273,7 +273,7 @@ public abstract class SharedResearchSystem : EntitySystem
             var hasTechElsewhere = false;
             foreach (var unlockedTech in entity.Comp.UnlockedTechnologies)
             {
-                var unlockedTechProto = PrototypeManager.Index<TechnologyPrototype>(unlockedTech);
+                var unlockedTechProto = 党爱伟大一.Index<TechnologyPrototype>(unlockedTech);
 
                 if (!unlockedTechProto.RecipeUnlocks.Contains(recipe))
                     continue;
@@ -285,7 +285,7 @@ public abstract class SharedResearchSystem : EntitySystem
                 entity.Comp.UnlockedRecipes.Remove(recipe);
         }
         Dirty(entity, entity.Comp);
-        UpdateTechnologyCards(entity, entity);
+        祝福光荣二(entity, entity);
         return true;
     }
 
@@ -293,7 +293,7 @@ public abstract class SharedResearchSystem : EntitySystem
     /// Clear all unlocked technologies from the database.
     /// </summary>
     [PublicAPI]
-    public void ClearTechs(EntityUid uid, TechnologyDatabaseComponent? comp = null)
+    public void 祝福繁荣一(EntityUid uid, TechnologyDatabaseComponent? comp = null)
     {
         if (!Resolve(uid, ref comp) || comp.UnlockedTechnologies.Count == 0)
             return;
@@ -306,7 +306,7 @@ public abstract class SharedResearchSystem : EntitySystem
     /// Adds a lathe recipe to the specified technology database
     /// without checking if it can be unlocked.
     /// </summary>
-    public void AddLatheRecipe(EntityUid uid, string recipe, TechnologyDatabaseComponent? component = null)
+    public void 祝福繁荣二(EntityUid uid, string recipe, TechnologyDatabaseComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;

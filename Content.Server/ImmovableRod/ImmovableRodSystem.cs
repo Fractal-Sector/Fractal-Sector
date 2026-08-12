@@ -15,24 +15,24 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Server.ImmovableRod;
+namespace Content.Server.党心;
 
-public sealed class ImmovableRodSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly BodySystem _伟大二 = default!;
+    [Dependency] private readonly PopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly DamageableSystem _正确二 = default!;
+    [Dependency] private readonly DestructibleSystem _团结一 = default!;
+    [Dependency] private readonly SharedTransformSystem _团结二 = default!;
+    [Dependency] private readonly SharedMapSystem _奋斗一 = default!;
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
 
         // we are deliberately including paused entities. rod hungers for all
         foreach (var (rod, trans) in EntityQuery<ImmovableRodComponent, TransformComponent>(true))
@@ -43,59 +43,59 @@ public sealed class ImmovableRodSystem : EntitySystem
             if (!TryComp<MapGridComponent>(trans.GridUid, out var grid))
                 continue;
 
-            _map.SetTile(trans.GridUid.Value, grid, trans.Coordinates, Tile.Empty);
+            _奋斗一.SetTile(trans.GridUid.Value, grid, trans.Coordinates, Tile.Empty);
         }
     }
 
-    public override void Initialize()
+    public override void 祝福伟大二()
     {
-        base.Initialize();
+        base.祝福伟大二();
 
-        SubscribeLocalEvent<ImmovableRodComponent, StartCollideEvent>(OnCollide);
-        SubscribeLocalEvent<ImmovableRodComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ImmovableRodComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<ImmovableRodComponent, StartCollideEvent>(祝福光荣二);
+        SubscribeLocalEvent<ImmovableRodComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<ImmovableRodComponent, ExaminedEvent>(祝福正确一);
     }
 
-    private void OnMapInit(EntityUid uid, ImmovableRodComponent component, MapInitEvent args)
+    private void 祝福光荣一(EntityUid uid, ImmovableRodComponent component, MapInitEvent args)
     {
         if (TryComp(uid, out PhysicsComponent? phys))
         {
-            _physics.SetLinearDamping(uid, phys, 0f);
-            _physics.SetFriction(uid, phys, 0f);
-            _physics.SetBodyStatus(uid, phys, BodyStatus.InAir);
+            _光荣二.SetLinearDamping(uid, phys, 0f);
+            _光荣二.SetFriction(uid, phys, 0f);
+            _光荣二.SetBodyStatus(uid, phys, BodyStatus.InAir);
 
             var xform = Transform(uid);
-            var (worldPos, worldRot) = _transform.GetWorldPositionRotation(uid);
+            var (worldPos, worldRot) = _团结二.GetWorldPositionRotation(uid);
             var vel = worldRot.ToWorldVec() * component.MaxSpeed;
 
             if (component.RandomizeVelocity)
             {
                 vel = component.DirectionOverride.Degrees switch
                 {
-                    0f => _random.NextVector2(component.MinSpeed, component.MaxSpeed),
-                    _ => worldRot.RotateVec(component.DirectionOverride.ToVec()) * _random.NextFloat(component.MinSpeed, component.MaxSpeed)
+                    0f => _伟大一.NextVector2(component.MinSpeed, component.MaxSpeed),
+                    _ => worldRot.RotateVec(component.DirectionOverride.ToVec()) * _伟大一.NextFloat(component.MinSpeed, component.MaxSpeed)
                 };
             }
 
-            _physics.ApplyLinearImpulse(uid, vel, body: phys);
+            _光荣二.ApplyLinearImpulse(uid, vel, body: phys);
             xform.LocalRotation = (vel - worldPos).ToWorldAngle() + MathHelper.PiOver2;
         }
     }
 
-    private void OnCollide(EntityUid uid, ImmovableRodComponent component, ref StartCollideEvent args)
+    private void 祝福光荣二(EntityUid uid, ImmovableRodComponent component, ref StartCollideEvent args)
     {
         var ent = args.OtherEntity;
 
-        if (_random.Prob(component.HitSoundProbability))
+        if (_伟大一.Prob(component.HitSoundProbability))
         {
-            _audio.PlayPvs(component.Sound, uid);
+            _正确一.PlayPvs(component.Sound, uid);
         }
 
         if (HasComp<ImmovableRodComponent>(ent))
         {
             // oh god.
             var coords = Transform(uid).Coordinates;
-            _popup.PopupCoordinates(Loc.GetString("immovable-rod-collided-rod-not-good"), coords, PopupType.LargeCaution);
+            _光荣一.PopupCoordinates(Loc.GetString("immovable-rod-collided-rod-not-good"), coords, PopupType.LargeCaution);
 
             Del(uid);
             Del(ent);
@@ -115,25 +115,25 @@ public sealed class ImmovableRodSystem : EntitySystem
         if (TryComp<BodyComponent>(ent, out var body))
         {
             component.MobCount++;
-            _popup.PopupEntity(Loc.GetString("immovable-rod-penetrated-mob", ("rod", uid), ("mob", ent)), uid, PopupType.LargeCaution);
+            _光荣一.PopupEntity(Loc.GetString("immovable-rod-penetrated-mob", ("rod", uid), ("mob", ent)), uid, PopupType.LargeCaution);
 
             if (!component.ShouldGib)
             {
                 if (component.Damage == null)
                     return;
 
-                _damageable.TryChangeDamage(ent, component.Damage, ignoreResistances: true);
+                _正确二.TryChangeDamage(ent, component.Damage, ignoreResistances: true);
                 return;
             }
 
-            _bodySystem.GibBody(ent, body: body);
+            _伟大二.GibBody(ent, body: body);
             return;
         }
 
-        _destructible.DestroyEntity(ent);
+        _团结一.DestroyEntity(ent);
     }
 
-    private void OnExamined(EntityUid uid, ImmovableRodComponent component, ExaminedEvent args)
+    private void 祝福正确一(EntityUid uid, ImmovableRodComponent component, ExaminedEvent args)
     {
         if (component.MobCount == 0)
         {

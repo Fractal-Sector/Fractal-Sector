@@ -8,24 +8,24 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Spawners.EntitySystems;
+namespace Content.Server.Spawners.党心;
 
-public sealed class ContainerSpawnPointSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
+    [Dependency] private readonly ContainerSystem _伟大一 = default!;
+    [Dependency] private readonly GameTicker _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly StationSystem _正确一 = default!;
+    [Dependency] private readonly StationSpawningSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PlayerSpawningEvent>(HandlePlayerSpawning, before: new []{ typeof(SpawnPointSystem) });
+        base.祝福伟大一();
+        SubscribeLocalEvent<PlayerSpawningEvent>(祝福伟大二, before: new []{ typeof(SpawnPointSystem) });
     }
 
-    public void HandlePlayerSpawning(PlayerSpawningEvent args)
+    public void 祝福伟大二(PlayerSpawningEvent args)
     {
         if (args.SpawnResult != null)
             return;
@@ -36,7 +36,7 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
 
         // If it's just a spawn pref check if it's for cryo (silly).
         if (args.HumanoidCharacterProfile?.SpawnPriority != SpawnPriorityPreference.Cryosleep &&
-            (!_proto.TryIndex(args.Job, out var jobProto) || jobProto.JobEntity == null))
+            (!_光荣一.TryIndex(args.Job, out var jobProto) || jobProto.JobEntity == null))
         {
             return;
         }
@@ -46,7 +46,7 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var spawnPoint, out var container, out var xform))
         {
-            if (args.Station != null && _station.GetOwningStation(uid, xform) != args.Station)
+            if (args.Station != null && _正确一.GetOwningStation(uid, xform) != args.Station)
                 continue;
 
             // If it's unset, then we allow it to be used for both roundstart and midround joins
@@ -58,12 +58,12 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
                 continue;
             }
 
-            if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
+            if (_伟大二.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
             {
                 possibleContainers.Add((uid, spawnPoint, container, xform));
             }
 
-            if (_gameTicker.RunLevel != GameRunLevel.InRound &&
+            if (_伟大二.RunLevel != GameRunLevel.InRound &&
                 spawnPoint.SpawnType == SpawnPointType.Job &&
                 (args.Job == null || spawnPoint.Job == args.Job))
             {
@@ -76,20 +76,20 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
         // we just need some default coords so we can spawn the player entity.
         var baseCoords = possibleContainers[0].Comp3.Coordinates;
 
-        args.SpawnResult = _stationSpawning.SpawnPlayerMob(
+        args.SpawnResult = _正确二.SpawnPlayerMob(
             baseCoords,
             args.Job,
             args.HumanoidCharacterProfile,
             args.Station,
             session: args.Session); // Frontier
 
-        _random.Shuffle(possibleContainers);
+        _光荣二.Shuffle(possibleContainers);
         foreach (var (uid, spawnPoint, manager, xform) in possibleContainers)
         {
-            if (!_container.TryGetContainer(uid, spawnPoint.ContainerId, out var container, manager))
+            if (!_伟大一.TryGetContainer(uid, spawnPoint.ContainerId, out var container, manager))
                 continue;
 
-            if (!_container.Insert(args.SpawnResult.Value, container, containerXform: xform))
+            if (!_伟大一.Insert(args.SpawnResult.Value, container, containerXform: xform))
                 continue;
 
             return;

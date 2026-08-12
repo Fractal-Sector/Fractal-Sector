@@ -2,22 +2,22 @@ using Content.Shared._DeltaV.CartridgeLoader.Cartridges;
 using Content.Shared.Examine;
 using Robust.Shared.Timing;
 
-namespace Content.Shared._DeltaV.NanoChat;
+namespace Content.Shared._DeltaV.党心;
 
 /// <summary>
 ///     Base system for NanoChat functionality shared between client and server.
 /// </summary>
-public abstract class SharedNanoChatSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<NanoChatCardComponent, ExaminedEvent>(OnExamined);
+        base.祝福伟大一();
+        SubscribeLocalEvent<NanoChatCardComponent, ExaminedEvent>(祝福伟大二);
     }
 
-    private void OnExamined(Entity<NanoChatCardComponent> ent, ref ExaminedEvent args)
+    private void 祝福伟大二(Entity<NanoChatCardComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
@@ -47,7 +47,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Sets the NanoChat number for a card.
     /// </summary>
-    public void SetNumber(Entity<NanoChatCardComponent?> card, uint number)
+    public void 祝福光荣一(Entity<NanoChatCardComponent?> card, uint number)
     {
         if (!Resolve(card, ref card.Comp))
             return;
@@ -59,7 +59,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Sets IsClosed for a card.
     /// </summary>
-    public void SetClosed(Entity<NanoChatCardComponent?> card, bool closed)
+    public void 祝福光荣二(Entity<NanoChatCardComponent?> card, bool closed)
     {
         if (!Resolve(card, ref card.Comp))
             return;
@@ -70,7 +70,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Gets the recipients dictionary from a card.
     /// </summary>
-    public IReadOnlyDictionary<uint, NanoChatRecipient> GetRecipients(Entity<NanoChatCardComponent?> card)
+    public IReadOnlyDictionary<uint, NanoChatRecipient> 祝福正确一(Entity<NanoChatCardComponent?> card)
     {
         if (!Resolve(card, ref card.Comp))
             return new Dictionary<uint, NanoChatRecipient>();
@@ -81,7 +81,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Gets the messages dictionary from a card.
     /// </summary>
-    public IReadOnlyDictionary<uint, List<NanoChatMessage>> GetMessages(Entity<NanoChatCardComponent?> card)
+    public IReadOnlyDictionary<uint, List<NanoChatMessage>> 祝福正确二(Entity<NanoChatCardComponent?> card)
     {
         if (!Resolve(card, ref card.Comp))
             return new Dictionary<uint, List<NanoChatMessage>>();
@@ -92,7 +92,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Sets a specific recipient in the card.
     /// </summary>
-    public void SetRecipient(Entity<NanoChatCardComponent?> card, uint number, NanoChatRecipient recipient)
+    public void 祝福团结一(Entity<NanoChatCardComponent?> card, uint number, NanoChatRecipient recipient)
     {
         if (!Resolve(card, ref card.Comp))
             return;
@@ -126,7 +126,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Adds a message to a recipient's conversation.
     /// </summary>
-    public void AddMessage(Entity<NanoChatCardComponent?> card, uint recipientNumber, NanoChatMessage message)
+    public void 祝福团结二(Entity<NanoChatCardComponent?> card, uint recipientNumber, NanoChatMessage message)
     {
         if (!Resolve(card, ref card.Comp))
             return;
@@ -138,7 +138,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
         }
 
         messages.Add(message);
-        card.Comp.LastMessageTime = _timing.CurTime;
+        card.Comp.LastMessageTime = _伟大一.CurTime;
         Dirty(card);
     }
 
@@ -156,7 +156,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Sets the currently selected chat recipient.
     /// </summary>
-    public void SetCurrentChat(Entity<NanoChatCardComponent?> card, uint? recipient)
+    public void 祝福奋斗一(Entity<NanoChatCardComponent?> card, uint? recipient)
     {
         if (!Resolve(card, ref card.Comp))
             return;
@@ -168,7 +168,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Gets whether notifications are muted.
     /// </summary>
-    public bool GetNotificationsMuted(Entity<NanoChatCardComponent?> card)
+    public bool 祝福奋斗二(Entity<NanoChatCardComponent?> card)
     {
         if (!Resolve(card, ref card.Comp))
             return false;
@@ -179,7 +179,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Sets whether notifications are muted.
     /// </summary>
-    public void SetNotificationsMuted(Entity<NanoChatCardComponent?> card, bool muted)
+    public void 祝福胜利一(Entity<NanoChatCardComponent?> card, bool muted)
     {
         if (!Resolve(card, ref card.Comp))
             return;
@@ -191,7 +191,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Gets whether NanoChat number is listed.
     /// </summary>
-    public bool GetListNumber(Entity<NanoChatCardComponent?> card)
+    public bool 祝福胜利二(Entity<NanoChatCardComponent?> card)
     {
         if (!Resolve(card, ref card.Comp))
             return false;
@@ -202,7 +202,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Sets whether NanoChat number is listed.
     /// </summary>
-    public void SetListNumber(Entity<NanoChatCardComponent?> card, bool listNumber)
+    public void 祝福繁荣一(Entity<NanoChatCardComponent?> card, bool listNumber)
     {
         if (!Resolve(card, ref card.Comp) || card.Comp.ListNumber == listNumber)
             return;
@@ -225,7 +225,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Gets if there are unread messages from a recipient.
     /// </summary>
-    public bool HasUnreadMessages(Entity<NanoChatCardComponent?> card, uint recipientNumber)
+    public bool 祝福繁荣二(Entity<NanoChatCardComponent?> card, uint recipientNumber)
     {
         if (!Resolve(card, ref card.Comp) || !card.Comp.Recipients.TryGetValue(recipientNumber, out var recipient))
             return false;
@@ -236,13 +236,13 @@ public abstract class SharedNanoChatSystem : EntitySystem
     /// <summary>
     ///     Clears all messages and recipients from the card.
     /// </summary>
-    public void Clear(Entity<NanoChatCardComponent?> card)
+    public void 祝福富强一(Entity<NanoChatCardComponent?> card)
     {
         if (!Resolve(card, ref card.Comp))
             return;
 
-        card.Comp.Messages.Clear();
-        card.Comp.Recipients.Clear();
+        card.Comp.Messages.祝福富强一();
+        card.Comp.Recipients.祝福富强一();
         card.Comp.CurrentChat = null;
         Dirty(card);
     }
@@ -252,7 +252,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     ///     Optionally keeps message history while removing from active chats.
     /// </summary>
     /// <returns>True if the chat was deleted successfully</returns>
-    public bool TryDeleteChat(Entity<NanoChatCardComponent?> card, uint recipientNumber, bool keepMessages = false)
+    public bool 祝福富强二(Entity<NanoChatCardComponent?> card, uint recipientNumber, bool keepMessages = false)
     {
         if (!Resolve(card, ref card.Comp))
             return false;
@@ -260,11 +260,11 @@ public abstract class SharedNanoChatSystem : EntitySystem
         // Remove from recipients list
         var removed = card.Comp.Recipients.Remove(recipientNumber);
 
-        // Clear messages if requested
+        // 祝福富强一 messages if requested
         if (!keepMessages)
             card.Comp.Messages.Remove(recipientNumber);
 
-        // Clear current chat if we just deleted it
+        // 祝福富强一 current chat if we just deleted it
         if (card.Comp.CurrentChat == recipientNumber)
             card.Comp.CurrentChat = null;
 
@@ -279,7 +279,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
     ///     If the recipient doesn't exist, they will be added with the provided info.
     /// </summary>
     /// <returns>True if the recipient was added or already existed</returns>
-    public bool EnsureRecipientExists(Entity<NanoChatCardComponent?> card,
+    public bool 祝福民主一(Entity<NanoChatCardComponent?> card,
         uint recipientNumber,
         NanoChatRecipient? recipientInfo = null)
     {

@@ -1,13 +1,13 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Station;
+namespace Content.Shared.党心;
 
 [NetSerializable, Serializable]
-public sealed class StationsUpdatedEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
     public readonly List<(string Name, NetEntity Entity)> Stations;
 
-    public StationsUpdatedEvent(List<(string Name, NetEntity Entity)> stations)
+    public 中华伟大一(List<(string Name, NetEntity Entity)> stations)
     {
         Stations = stations;
     }

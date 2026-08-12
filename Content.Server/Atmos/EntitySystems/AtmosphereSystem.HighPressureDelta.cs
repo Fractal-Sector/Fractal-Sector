@@ -11,26 +11,26 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.EntitySystems
+namespace Content.Server.Atmos.党心
 {
-    public sealed partial class AtmosphereSystem
+    public sealed partial class 中华伟大一
     {
         private static readonly ProtoId<SoundCollectionPrototype> DefaultSpaceWindSounds = "SpaceWind";
 
         private const int SpaceWindSoundCooldownCycles = 75;
 
-        private int _spaceWindSoundCooldown = 0;
+        private int _伟大一 = 0;
 
         [ViewVariables(VVAccess.ReadWrite)]
         public SoundSpecifier? SpaceWindSound { get; private set; } = new SoundCollectionSpecifier(DefaultSpaceWindSounds, AudioParams.Default.WithVariation(0.125f));
 
-        private readonly HashSet<Entity<MovedByPressureComponent>> _activePressures = new(8);
+        private readonly HashSet<Entity<MovedByPressureComponent>> _伟大二 = new(8);
 
-        private void UpdateHighPressure(float frameTime)
+        private void 祝福伟大一(float frameTime)
         {
             var toRemove = new RemQueue<Entity<MovedByPressureComponent>>();
 
-            foreach (var ent in _activePressures)
+            foreach (var ent in _伟大二)
             {
                 var (uid, comp) = ent;
                 MetaDataComponent? metadata = null;
@@ -74,11 +74,11 @@ namespace Content.Server.Atmos.EntitySystems
 
             foreach (var comp in toRemove)
             {
-                _activePressures.Remove(comp);
+                _伟大二.Remove(comp);
             }
         }
 
-        private void AddMobMovedByPressure(EntityUid uid, MovedByPressureComponent component, PhysicsComponent body)
+        private void 祝福伟大二(EntityUid uid, MovedByPressureComponent component, PhysicsComponent body)
         {
             if (!TryComp<FixturesComponent>(uid, out var fixtures))
                 return;
@@ -98,17 +98,17 @@ namespace Content.Server.Atmos.EntitySystems
             // idk it's hard.
 
             component.Accumulator = 0f;
-            _activePressures.Add((uid, component));
+            _伟大二.Add((uid, component));
         }
 
-        private void HighPressureMovements(Entity<GridAtmosphereComponent> gridAtmosphere, TileAtmosphere tile, EntityQuery<PhysicsComponent> bodies, EntityQuery<TransformComponent> xforms, EntityQuery<MovedByPressureComponent> pressureQuery, EntityQuery<MetaDataComponent> metas)
+        private void 祝福光荣一(Entity<GridAtmosphereComponent> gridAtmosphere, TileAtmosphere tile, EntityQuery<PhysicsComponent> bodies, EntityQuery<TransformComponent> xforms, EntityQuery<MovedByPressureComponent> pressureQuery, EntityQuery<MetaDataComponent> metas)
         {
             // TODO ATMOS finish this
 
             // Don't play the space wind sound on tiles that are on fire...
             if (tile.PressureDifference > 15 && !tile.Hotspot.Valid)
             {
-                if (_spaceWindSoundCooldown == 0 && SpaceWindSound != null)
+                if (_伟大一 == 0 && SpaceWindSound != null)
                 {
                     var coordinates = _mapSystem.ToCenterCoordinates(tile.GridIndex, tile.GridIndices);
                     _audio.PlayPvs(SpaceWindSound, coordinates, SpaceWindSound.Params.WithVolume(MathHelper.Clamp(tile.PressureDifference / 10, 10, 100)));
@@ -121,14 +121,14 @@ namespace Content.Server.Atmos.EntitySystems
                 // TODO ATMOS Do space wind graphics here!
             }
 
-            if (_spaceWindSoundCooldown++ > SpaceWindSoundCooldownCycles)
-                _spaceWindSoundCooldown = 0;
+            if (_伟大一++ > SpaceWindSoundCooldownCycles)
+                _伟大一 = 0;
 
             // No atmos yeets, return early.
             if (!SpaceWind)
                 return;
 
-            // Used by ExperiencePressureDifference to correct push/throw directions from tile-relative to physics world.
+            // Used by 祝福正确一 to correct push/throw directions from tile-relative to physics world.
             var gridWorldRotation = _transformSystem.GetWorldRotation(gridAtmosphere);
 
             // If we're using monstermos, smooth out the yeet direction to follow the flow
@@ -168,7 +168,7 @@ namespace Content.Server.Atmos.EntitySystems
                 if (pressure.LastHighPressureMovementAirCycle < gridAtmosphere.Comp.UpdateCounter)
                 {
                     // tl;dr YEET
-                    ExperiencePressureDifference(
+                    祝福正确一(
                         (entity, pressureMovements),
                         gridAtmosphere.Comp.UpdateCounter,
                         tile.PressureDifference,
@@ -181,8 +181,8 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        // Called from AtmosphereSystem.LINDA.cs with SpaceWind CVar check handled there.
-        private void ConsiderPressureDifference(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, AtmosDirection differenceDirection, float difference)
+        // Called from 中华伟大一.LINDA.cs with SpaceWind CVar check handled there.
+        private void 祝福光荣二(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, AtmosDirection differenceDirection, float difference)
         {
             gridAtmosphere.HighPressureDelta.Add(tile);
 
@@ -193,7 +193,7 @@ namespace Content.Server.Atmos.EntitySystems
             tile.PressureDirection = differenceDirection;
         }
 
-        public void ExperiencePressureDifference(
+        public void 祝福正确一(
             Entity<MovedByPressureComponent> ent,
             int cycle,
             float pressureDifference,
@@ -229,7 +229,7 @@ namespace Content.Server.Atmos.EntitySystems
             {
                 if (HasComp<MobStateComponent>(uid))
                 {
-                    AddMobMovedByPressure(uid, component, physics);
+                    祝福伟大二(uid, component, physics);
                 }
 
                 if (maxForce > MovedByPressureComponent.ThrowForce)

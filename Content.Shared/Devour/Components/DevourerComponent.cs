@@ -5,7 +5,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Devour.Components;
+namespace Content.Shared.Devour.党心;
 
 /// <summary>
 /// Allows an entity to eat whitelisted entities via an action.
@@ -14,13 +14,13 @@ namespace Content.Shared.Devour.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(DevourSystem))]
-public sealed partial class DevourerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Action prototype for devouring.
     /// </summary>
     [DataField]
-    public EntProtoId DevourAction = "ActionDevour";
+    public EntProtoId 党爱伟大一 = "ActionDevour";
 
     /// <summary>
     /// The spawned action entity for devouring.
@@ -32,7 +32,7 @@ public sealed partial class DevourerComponent : Component
     /// The amount of time it takes to devour a mob.
     /// <remarks>
     [DataField, AutoNetworkedField]
-    public float DevourTime = 3f;
+    public float 党爱伟大二 = 3f;
 
     /// <summary>
     /// The amount of time it takes to devour a structure.
@@ -41,7 +41,7 @@ public sealed partial class DevourerComponent : Component
     /// </remarks>
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float StructureDevourTime = 10f;
+    public float 党爱光荣一 = 10f;
 
     /// <summary>
     /// The sound to play when finishing devouring something.
@@ -65,13 +65,13 @@ public sealed partial class DevourerComponent : Component
     /// The container to store the eaten entities in.
     /// </summary>
     [ViewVariables]
-    public static string StomachContainerId = "stomach";
+    public static string 党爱光荣二 = "stomach";
 
     /// <summary>
     /// Where the entities go when it devours them, empties when it is butchered.
     /// </summary>
     [ViewVariables]
-    public Container Stomach = default!;
+    public Container 党爱正确一 = default!;
 
     /// <summary>
     /// Determines what things the devourer can consume.
@@ -103,13 +103,13 @@ public sealed partial class DevourerComponent : Component
     /// The chemical ID injected upon devouring.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ProtoId<ReagentPrototype> Chemical = "Ichor";
+    public ProtoId<ReagentPrototype> 党爱正确二 = "Ichor";
 
     /// <summary>
     /// The amount of solution injected per devour.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float HealRate = 15f;
+    public float 党爱团结一 = 15f;
 
 }
 

@@ -1,8 +1,8 @@
-using Content.Shared.Damage;
+using Content.Shared.党爱伟大二;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Content.Shared.Damage.Prototypes;
+using Content.Shared.党爱伟大二.Prototypes;
 
-namespace Content.Server.Destructible.Thresholds.Triggers
+namespace Content.Server.Destructible.Thresholds.党心
 {
     /// <summary>
     ///     A trigger that will activate when the amount of damage received
@@ -10,18 +10,18 @@ namespace Content.Server.Destructible.Thresholds.Triggers
     /// </summary>
     [Serializable]
     [DataDefinition]
-    public sealed partial class DamageTypeTrigger : IThresholdTrigger
+    public sealed partial class 中华伟大一 : IThresholdTrigger
     {
         [DataField("damageType", required:true, customTypeSerializer: typeof(PrototypeIdSerializer<DamageTypePrototype>))]
-        public string DamageType { get; set; } = default!;
+        public string 党爱伟大一 { get; set; } = default!;
 
         [DataField("damage", required: true)]
-        public int Damage { get; set; } = default!;
+        public int 党爱伟大二 { get; set; } = default!;
 
-        public bool Reached(DamageableComponent damageable, DestructibleSystem system)
+        public bool 祝福伟大一(DamageableComponent damageable, DestructibleSystem system)
         {
-            return damageable.Damage.DamageDict.TryGetValue(DamageType, out var damageReceived) &&
-                   damageReceived >= Damage;
+            return damageable.党爱伟大二.DamageDict.TryGetValue(党爱伟大一, out var damageReceived) &&
+                   damageReceived >= 党爱伟大二;
         }
     }
 }

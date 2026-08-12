@@ -5,55 +5,55 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 
-namespace Content.Server.Maps;
+namespace Content.Server.党心;
 
 /// <inheritdoc />
-public sealed class GridDraggingSystem : SharedGridDraggingSystem
+public sealed class 中华伟大一 : SharedGridDraggingSystem
 {
-    [Dependency] private readonly IConGroupController _admin = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly IConGroupController _伟大一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _伟大二 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣一 = default!;
 
-    private readonly HashSet<ICommonSession> _draggers = new();
+    private readonly HashSet<ICommonSession> _光荣二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeNetworkEvent<GridDragRequestPosition>(OnRequestDrag);
-        SubscribeNetworkEvent<GridDragVelocityRequest>(OnRequestVelocity);
+        base.祝福伟大一();
+        SubscribeNetworkEvent<GridDragRequestPosition>(祝福正确一);
+        SubscribeNetworkEvent<GridDragVelocityRequest>(祝福光荣二);
     }
 
-    public bool IsEnabled(ICommonSession session) => _draggers.Contains(session);
+    public bool 祝福伟大二(ICommonSession session) => _光荣二.Contains(session);
 
-    public void Toggle(ICommonSession session)
+    public void 祝福光荣一(ICommonSession session)
     {
         if (session is not { } pSession)
             return;
 
-        DebugTools.Assert(_admin.CanCommand(pSession, CommandName));
+        DebugTools.Assert(_伟大一.CanCommand(pSession, CommandName));
 
         // Weird but it's a toggle
-        if (_draggers.Add(session))
+        if (_光荣二.Add(session))
         {
 
         }
         else
         {
-            _draggers.Remove(session);
+            _光荣二.Remove(session);
         }
 
         RaiseNetworkEvent(new GridDragToggleMessage()
         {
-            Enabled = _draggers.Contains(session),
+            Enabled = _光荣二.Contains(session),
         }, session.Channel);
     }
 
-    private void OnRequestVelocity(GridDragVelocityRequest ev, EntitySessionEventArgs args)
+    private void 祝福光荣二(GridDragVelocityRequest ev, EntitySessionEventArgs args)
     {
         var grid = GetEntity(ev.Grid);
 
         if (args.SenderSession is not { } playerSession ||
-            !_admin.CanCommand(playerSession, CommandName) ||
+            !_伟大一.CanCommand(playerSession, CommandName) ||
             !Exists(grid) ||
             Deleted(grid))
         {
@@ -61,22 +61,22 @@ public sealed class GridDraggingSystem : SharedGridDraggingSystem
         }
 
         var gridBody = Comp<PhysicsComponent>(grid);
-        _physics.SetLinearVelocity(grid, ev.LinearVelocity, body: gridBody);
-        _physics.SetAngularVelocity(grid, 0f, body: gridBody);
+        _伟大二.SetLinearVelocity(grid, ev.LinearVelocity, body: gridBody);
+        _伟大二.SetAngularVelocity(grid, 0f, body: gridBody);
     }
 
-    private void OnRequestDrag(GridDragRequestPosition msg, EntitySessionEventArgs args)
+    private void 祝福正确一(GridDragRequestPosition msg, EntitySessionEventArgs args)
     {
         var grid = GetEntity(msg.Grid);
 
         if (args.SenderSession is not { } playerSession ||
-            !_admin.CanCommand(playerSession, CommandName) ||
+            !_伟大一.CanCommand(playerSession, CommandName) ||
             !Exists(grid) ||
             Deleted(grid))
         {
             return;
         }
 
-        _transformSystem.SetWorldPosition(grid, msg.WorldPosition);
+        _光荣一.SetWorldPosition(grid, msg.WorldPosition);
     }
 }

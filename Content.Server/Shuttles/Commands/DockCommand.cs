@@ -4,16 +4,16 @@ using Content.Server.Shuttles.Systems;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Shuttles.Commands;
+namespace Content.Server.Shuttles.党心;
 
 [AdminCommand(AdminFlags.Mapping)]
-public sealed class DockCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly DockingSystem _dockSystem = default!;
+    [Dependency] private readonly DockingSystem _伟大一 = default!;
 
-    public override string Command => "dock";
+    public override string 党爱伟大一 => "dock";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
         {
@@ -47,7 +47,7 @@ public sealed class DockCommand : LocalizedEntityCommands
             return;
         }
 
-        _dockSystem.Dock((airlock1.Value, dock1), (airlock2.Value, dock2));
+        _伟大一.Dock((airlock1.Value, dock1), (airlock2.Value, dock2));
 
         if (dock1.DockedWith == airlock2)
             shell.WriteLine(Loc.GetString("cmd-dock-success"));
@@ -55,7 +55,7 @@ public sealed class DockCommand : LocalizedEntityCommands
             shell.WriteError(Loc.GetString("cmd-dock-fail"));
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         return args.Length switch
         {

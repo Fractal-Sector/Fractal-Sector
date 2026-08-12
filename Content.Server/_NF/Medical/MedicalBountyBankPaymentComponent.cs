@@ -1,10 +1,10 @@
 using Content.Shared._NF.Bank.Components;
 
-namespace Content.Server._NF.Medical;
+namespace Content.Server._NF.党心;
 
 [RegisterComponent]
-public sealed partial class MedicalBountyBankPaymentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true)]
-    public SectorBankAccount Account;
+    public SectorBankAccount 党爱伟大一;
 }

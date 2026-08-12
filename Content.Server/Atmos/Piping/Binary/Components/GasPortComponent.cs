@@ -1,15 +1,15 @@
 using Content.Shared.Atmos;
 
-namespace Content.Server.Atmos.Piping.Binary.Components
+namespace Content.Server.Atmos.Piping.Binary.党心
 {
     [RegisterComponent]
-    public sealed partial class GasPortComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("pipe")]
-        public string PipeName { get; set; } = "connected";
+        public string 党爱伟大一 { get; set; } = "connected";
 
         [ViewVariables(VVAccess.ReadOnly)]
-        public GasMixture Buffer { get; } = new();
+        public GasMixture 党爱伟大二 { get; } = new();
     }
 }

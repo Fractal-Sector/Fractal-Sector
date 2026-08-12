@@ -6,18 +6,18 @@ using Robust.Shared.Map;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PersistenceSave : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+    [Dependency] private readonly MapLoaderSystem _光荣一 = default!;
 
-    public override string Command => "persistencesave";
+    public override string 党爱伟大一 => "persistencesave";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 1 || args.Length > 2)
         {
@@ -32,20 +32,20 @@ public sealed class PersistenceSave : LocalizedEntityCommands
         }
 
         var mapId = new MapId(intMapId);
-        if (!_map.MapExists(mapId))
+        if (!_伟大二.MapExists(mapId))
         {
             shell.WriteError(Loc.GetString("cmd-savemap-not-exist"));
             return;
         }
 
-        var saveFilePath = (args.Length > 1 ? args[1] : null) ?? _config.GetCVar(CCVars.GameMap);
+        var saveFilePath = (args.Length > 1 ? args[1] : null) ?? _伟大一.GetCVar(CCVars.GameMap);
         if (string.IsNullOrWhiteSpace(saveFilePath))
         {
             shell.WriteError(Loc.GetString("cmd-persistencesave-no-path", ("cvar", nameof(CCVars.GameMap))));
             return;
         }
 
-        _mapLoader.TrySaveMap(mapId, new ResPath(saveFilePath));
+        _光荣一.TrySaveMap(mapId, new ResPath(saveFilePath));
         shell.WriteLine(Loc.GetString("cmd-savemap-success"));
     }
 }

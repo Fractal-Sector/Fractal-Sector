@@ -1,21 +1,21 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.EntityEffects.EffectConditions;
+namespace Content.Shared.EntityEffects.党心;
 
 /// <summary>
 ///     Condition for if the entity is successfully breathing.
 /// </summary>
-public sealed partial class Breathing : EventEntityEffectCondition<Breathing>
+public sealed partial class 中华伟大一 : EventEntityEffectCondition<中华伟大一>
 {
     /// <summary>
     ///     If true, the entity must not have trouble breathing to pass.
     /// </summary>
     [DataField]
-    public bool IsBreathing = true;
+    public bool 党爱伟大一 = true;
 
-    public override string GuidebookExplanation(IPrototypeManager prototype)
+    public override string 祝福伟大一(IPrototypeManager prototype)
     {
         return Loc.GetString("reagent-effect-condition-guidebook-breathing",
-                            ("isBreathing", IsBreathing));
+                            ("isBreathing", 党爱伟大一));
     }
 }

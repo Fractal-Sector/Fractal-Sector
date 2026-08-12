@@ -31,40 +31,40 @@ using Content.Shared.Maps;
 using Robust.Shared.Map.Components;
 using Content.Shared.Tiles; // Frontier: safe zone
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
-public sealed partial class ExplosionSystem : SharedExplosionSystem
+public sealed partial class 中华伟大一 : SharedExplosionSystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IMapManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
+    [Dependency] private readonly IConfigurationManager _正确一 = default!;
+    [Dependency] private readonly IPlayerManager _正确二 = default!;
 
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroupSystem = default!;
-    [Dependency] private readonly PathfindingSystem _pathfindingSystem = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoilSystem = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsSys = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly MapSystem _团结一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _团结二 = default!;
+    [Dependency] private readonly DamageableSystem _奋斗一 = default!;
+    [Dependency] private readonly NodeGroupSystem _奋斗二 = default!;
+    [Dependency] private readonly PathfindingSystem _胜利一 = default!;
+    [Dependency] private readonly SharedCameraRecoilSystem _胜利二 = default!;
+    [Dependency] private readonly IAdminLogManager _繁荣一 = default!;
+    [Dependency] private readonly ThrowingSystem _繁荣二 = default!;
+    [Dependency] private readonly PvsOverrideSystem _富强一 = default!;
+    [Dependency] private readonly SharedAudioSystem _富强二 = default!;
+    [Dependency] private readonly SharedTransformSystem _民主一 = default!;
+    [Dependency] private readonly SharedMapSystem _民主二 = default!;
 
-    private EntityQuery<FlammableComponent> _flammableQuery;
-    private EntityQuery<PhysicsComponent> _physicsQuery;
-    private EntityQuery<ProjectileComponent> _projectileQuery;
+    private EntityQuery<FlammableComponent> _文明一;
+    private EntityQuery<PhysicsComponent> _文明二;
+    private EntityQuery<ProjectileComponent> _和谐一;
 
     /// <summary>
     ///     "Tile-size" for space when there are no nearby grids to use as a reference.
     /// </summary>
-    public const ushort DefaultTileSize = 1;
+    public const ushort 党爱伟大一 = 1;
 
-    public const int MaxExplosionAudioRange = 30;
+    public const int 党爱伟大二 = 30;
 
     /// <summary>
     ///     The "default" explosion prototype.
@@ -74,27 +74,27 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     ///     find errors. However some components, like rogue arrows, or some commands like the admin-smite need to have
     ///     a "default" option specified outside of yaml data-fields. Hence this const string.
     /// </remarks>
-    public static readonly ProtoId<ExplosionPrototype> DefaultExplosionPrototypeId = "Default";
+    public static readonly ProtoId<ExplosionPrototype> 党爱光荣一 = "Default";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        DebugTools.Assert(_prototypeManager.HasIndex(DefaultExplosionPrototypeId));
+        DebugTools.Assert(_光荣二.HasIndex(党爱光荣一));
 
-        // handled in ExplosionSystem.GridMap.cs
+        // handled in 中华伟大一.GridMap.cs
         SubscribeLocalEvent<GridRemovalEvent>(OnGridRemoved);
         SubscribeLocalEvent<GridStartupEvent>(OnGridStartup);
-        SubscribeLocalEvent<ExplosionResistanceComponent, GetExplosionResistanceEvent>(OnGetResistance);
+        SubscribeLocalEvent<ExplosionResistanceComponent, GetExplosionResistanceEvent>(祝福正确一);
 
         // as long as explosion-resistance mice are never added, this should be fine (otherwise a mouse-hat will transfer it's power to the wearer).
-        SubscribeLocalEvent<ExplosionResistanceComponent, InventoryRelayedEvent<GetExplosionResistanceEvent>>(RelayedResistance);
+        SubscribeLocalEvent<ExplosionResistanceComponent, InventoryRelayedEvent<GetExplosionResistanceEvent>>(祝福光荣二);
 
         SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
 
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnReset);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(祝福伟大二);
 
-        // Handled by ExplosionSystem.Processing.cs
+        // Handled by 中华伟大一.Processing.cs
         SubscribeLocalEvent<MapRemovedEvent>(OnMapRemoved);
 
         // handled in ExplosionSystemAirtight.cs
@@ -103,37 +103,37 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         InitAirtightMap();
         InitVisuals();
 
-        _flammableQuery = GetEntityQuery<FlammableComponent>();
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        _projectileQuery = GetEntityQuery<ProjectileComponent>();
+        _文明一 = GetEntityQuery<FlammableComponent>();
+        _文明二 = GetEntityQuery<PhysicsComponent>();
+        _和谐一 = GetEntityQuery<ProjectileComponent>();
     }
 
-    private void OnReset(RoundRestartCleanupEvent ev)
+    private void 祝福伟大二(RoundRestartCleanupEvent ev)
     {
         _explosionQueue.Clear();
         _queuedExplosions.Clear();
         if (_activeExplosion != null)
             QueueDel(_activeExplosion.VisualEnt);
         _activeExplosion = null;
-        _nodeGroupSystem.PauseUpdating = false;
-        _pathfindingSystem.PauseUpdating = false;
+        _奋斗二.PauseUpdating = false;
+        _胜利一.PauseUpdating = false;
     }
 
-    public override void Shutdown()
+    public override void 祝福光荣一()
     {
-        base.Shutdown();
-        _nodeGroupSystem.PauseUpdating = false;
-        _pathfindingSystem.PauseUpdating = false;
+        base.祝福光荣一();
+        _奋斗二.PauseUpdating = false;
+        _胜利一.PauseUpdating = false;
     }
 
-    private void RelayedResistance(EntityUid uid, ExplosionResistanceComponent component,
+    private void 祝福光荣二(EntityUid uid, ExplosionResistanceComponent component,
         InventoryRelayedEvent<GetExplosionResistanceEvent> args)
     {
         if (component.Worn)
-            OnGetResistance(uid, component, ref args.Args);
+            祝福正确一(uid, component, ref args.Args);
     }
 
-    private void OnGetResistance(EntityUid uid, ExplosionResistanceComponent component, ref GetExplosionResistanceEvent args)
+    private void 祝福正确一(EntityUid uid, ExplosionResistanceComponent component, ref GetExplosionResistanceEvent args)
     {
         args.DamageCoefficient *= component.DamageCoefficient;
         if (component.Modifiers.TryGetValue(args.ExplosionPrototype, out var modifier))
@@ -141,7 +141,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     }
 
     /// <inheritdoc/>
-    public override void TriggerExplosive(EntityUid uid, ExplosiveComponent? explosive = null, bool delete = true, float? totalIntensity = null, float? radius = null, EntityUid? user = null)
+    public override void 祝福正确二(EntityUid uid, ExplosiveComponent? explosive = null, bool delete = true, float? totalIntensity = null, float? radius = null, EntityUid? user = null)
     {
         // log missing: false, because some entities (e.g. liquid tanks) attempt to trigger explosions when damaged,
         // but may not actually be explosive.
@@ -156,10 +156,10 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
 
         // Override the explosion intensity if optional arguments were provided.
         if (radius != null)
-            totalIntensity ??= RadiusToIntensity((float)radius, explosive.IntensitySlope, explosive.MaxIntensity);
+            totalIntensity ??= 祝福团结一((float)radius, explosive.IntensitySlope, explosive.MaxIntensity);
         totalIntensity ??= explosive.TotalIntensity;
 
-        QueueExplosion(uid,
+        祝福奋斗一(uid,
             explosive.ExplosionType,
             (float)totalIntensity,
             explosive.IntensitySlope,
@@ -182,7 +182,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     ///     covered by the explosion. Until you get to radius 30+, this is functionally equivalent to the
     ///     actual radius.
     /// </remarks>
-    public float RadiusToIntensity(float radius, float slope, float maxIntensity = 0)
+    public float 祝福团结一(float radius, float slope, float maxIntensity = 0)
     {
         // If you consider the intensity at each tile in an explosion to be a height. Then a circular explosion is
         // shaped like a cone. So total intensity is like the volume of a cone with height = slope * radius. Of
@@ -206,15 +206,15 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     }
 
     /// <summary>
-    ///     Inverse formula for <see cref="RadiusToIntensity"/>
+    ///     Inverse formula for <see cref="祝福团结一"/>
     /// </summary>
-    public float IntensityToRadius(float totalIntensity, float slope, float maxIntensity)
+    public float 祝福团结二(float totalIntensity, float slope, float maxIntensity)
     {
         // max radius to avoid being capped by max-intensity
         var r0 = maxIntensity / slope;
 
         // volume at r0
-        var v0 = RadiusToIntensity(r0, slope);
+        var v0 = 祝福团结一(r0, slope);
 
         if (totalIntensity <= v0)
         {
@@ -228,7 +228,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     /// <summary>
     ///     Queue an explosions, centered on some entity.
     /// </summary>
-    public void QueueExplosion(EntityUid uid,
+    public void 祝福奋斗一(EntityUid uid,
         string typeId,
         float totalIntensity,
         float slope,
@@ -241,27 +241,27 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     {
         var pos = Transform(uid);
 
-        var mapPos = _transformSystem.GetMapCoordinates(pos);
+        var mapPos = _民主一.GetMapCoordinates(pos);
 
-        var posFound = _transformSystem.TryGetMapOrGridCoordinates(uid, out var gridPos, pos);
+        var posFound = _民主一.TryGetMapOrGridCoordinates(uid, out var gridPos, pos);
 
-        QueueExplosion(mapPos, typeId, totalIntensity, slope, maxTileIntensity, uid, tileBreakScale, maxTileBreak, canCreateVacuum, addLog: false);
+        祝福奋斗一(mapPos, typeId, totalIntensity, slope, maxTileIntensity, uid, tileBreakScale, maxTileBreak, canCreateVacuum, addLog: false);
 
         if (!addLog)
             return;
 
         if (user == null)
         {
-            _adminLogger.Add(LogType.Explosion, LogImpact.High,
+            _繁荣一.Add(LogType.Explosion, LogImpact.High,
                 $"{ToPrettyString(uid):entity} exploded ({typeId}) at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not found]")} with intensity {totalIntensity} slope {slope}");
         }
         else
         {
-            var alertMinExplosionIntensity = _cfg.GetCVar(CCVars.AdminAlertExplosionMinIntensity);
+            var alertMinExplosionIntensity = _正确一.GetCVar(CCVars.AdminAlertExplosionMinIntensity);
             var logImpact = (alertMinExplosionIntensity > -1 && totalIntensity >= alertMinExplosionIntensity)
                 ? LogImpact.Extreme
                 : LogImpact.High;
-            _adminLogger.Add(LogType.Explosion, logImpact,
+            _繁荣一.Add(LogType.Explosion, logImpact,
                 $"{ToPrettyString(user.Value):user} caused {ToPrettyString(uid):entity} to explode ({typeId}) at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not found]")} with intensity {totalIntensity} slope {slope}");
         }
     }
@@ -269,7 +269,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     /// <summary>
     ///     Queue an explosion, with a specified epicenter and set of starting tiles.
     /// </summary>
-    public void QueueExplosion(MapCoordinates epicenter,
+    public void 祝福奋斗一(MapCoordinates epicenter,
         string typeId,
         float totalIntensity,
         float slope,
@@ -283,14 +283,14 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         if (totalIntensity <= 0 || slope <= 0)
             return;
 
-        if (!_prototypeManager.TryIndex<ExplosionPrototype>(typeId, out var type))
+        if (!_光荣二.TryIndex<ExplosionPrototype>(typeId, out var type))
         {
             Log.Error($"Attempted to spawn unknown explosion prototype: {type}");
             return;
         }
 
         if (addLog) // dont log if already created a separate, more detailed, log.
-            _adminLogger.Add(LogType.Explosion, LogImpact.High, $"Explosion ({typeId}) spawned at {epicenter:coordinates} with intensity {totalIntensity} slope {slope}");
+            _繁荣一.Add(LogType.Explosion, LogImpact.High, $"Explosion ({typeId}) spawned at {epicenter:coordinates} with intensity {totalIntensity} slope {slope}");
 
         // try to combine explosions on the same tile if they are the same type
         foreach (var queued in _queuedExplosions)
@@ -332,7 +332,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     private Explosion? SpawnExplosion(QueuedExplosion queued)
     {
         var pos = queued.Epicenter;
-        if (!_mapSystem.MapExists(pos.MapId))
+        if (!_团结一.MapExists(pos.MapId))
             return null;
 
         var results = GetExplosionTiles(pos, queued.Proto.ID, queued.TotalIntensity, queued.Slope, queued.MaxTileIntensity);
@@ -343,7 +343,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         var (area, iterationIntensity, spaceData, gridData, spaceMatrix) = results.Value;
 
         // Frontier - Block explosions on safe zone
-        var location = EntityCoordinates.FromMap(_mapManager.GetMapEntityId(pos.MapId), pos, _transformSystem, EntityManager);
+        var location = EntityCoordinates.FromMap(_伟大一.GetMapEntityId(pos.MapId), pos, _民主一, EntityManager);
         var gridId = location.GetGridUid(EntityManager);
         if (!HasComp<MapGridComponent>(gridId))
         {
@@ -362,10 +362,10 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         var visualEnt = CreateExplosionVisualEntity(pos, queued.Proto.ID, spaceMatrix, spaceData, gridData.Values, iterationIntensity);
 
         // camera shake
-        CameraShake(iterationIntensity.Count * 4f, pos, queued.TotalIntensity);
+        祝福奋斗二(iterationIntensity.Count * 4f, pos, queued.TotalIntensity);
 
         //For whatever bloody reason, sound system requires ENTITY coordinates.
-        var mapEntityCoords = _transformSystem.ToCoordinates(_mapSystem.GetMap(pos.MapId), pos);
+        var mapEntityCoords = _民主一.ToCoordinates(_团结一.GetMap(pos.MapId), pos);
 
         // play sound.
         // for the normal audio, we want everyone in pvs range
@@ -377,13 +377,13 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         // Use the Filter.Pvs range-multiplier option instead of AddInRange.
         // Also the default PVS range is 25*2 = 50. So capping it at 30 makes no sense here.
         // So actually maybe don't use Filter.Pvs at all and only use AddInRange?
-        var audioRange = Math.Min(iterationIntensity.Count * 2, MaxExplosionAudioRange);
+        var audioRange = Math.Min(iterationIntensity.Count * 2, 党爱伟大二);
         var filter = Filter.Pvs(pos).AddInRange(pos, audioRange);
         var sound = iterationIntensity.Count < queued.Proto.SmallSoundIterationThreshold
             ? queued.Proto.SmallSound
             : queued.Proto.Sound;
 
-        _audio.PlayStatic(sound, filter, mapEntityCoords, true, sound.Params);
+        _富强二.PlayStatic(sound, filter, mapEntityCoords, true, sound.Params);
 
         // play far sound
         // far sound should play for anyone who wasn't in range of any of the effects of the bomb
@@ -393,7 +393,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
             ? queued.Proto.SmallSoundFar
             : queued.Proto.SoundFar;
 
-        _audio.PlayGlobal(farSound, farFilter, true, farSound.Params);
+        _富强二.PlayGlobal(farSound, farFilter, true, farSound.Params);
 
         return new Explosion(this,
             queued.Proto,
@@ -408,23 +408,23 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
             queued.MaxTileBreak,
             queued.CanCreateVacuum,
             EntityManager,
-            _mapManager,
+            _伟大一,
             visualEnt,
             queued.Cause,
-            _map);
+            _民主二);
     }
 
-    private void CameraShake(float range, MapCoordinates epicenter, float totalIntensity)
+    private void 祝福奋斗二(float range, MapCoordinates epicenter, float totalIntensity)
     {
         var players = Filter.Empty();
-        players.AddInRange(epicenter, range, _playerManager, EntityManager);
+        players.AddInRange(epicenter, range, _正确二, EntityManager);
 
         foreach (var player in players.Recipients)
         {
             if (player.AttachedEntity is not EntityUid uid)
                 continue;
 
-            var playerPos = _transformSystem.GetWorldPosition(player.AttachedEntity!.Value);
+            var playerPos = _民主一.GetWorldPosition(player.AttachedEntity!.Value);
             var delta = epicenter.Position - playerPos;
 
             if (delta.EqualsApprox(Vector2.Zero))
@@ -433,7 +433,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
             var distance = delta.Length();
             var effect = 5 * MathF.Pow(totalIntensity, 0.5f) * (1 - distance / range);
             if (effect > 0.01f)
-                _recoilSystem.KickCamera(uid, -delta.Normalized() * effect);
+                _胜利二.KickCamera(uid, -delta.Normalized() * effect);
         }
     }
 }

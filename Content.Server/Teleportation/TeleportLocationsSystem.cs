@@ -6,35 +6,35 @@ using Content.Shared.UserInterface;
 using Content.Shared.Warps;
 using Content.Shared.Whitelist;
 
-namespace Content.Server.Teleportation;
+namespace Content.Server.党心;
 
 /// <summary>
 /// <inheritdoc cref="SharedTeleportLocationsSystem"/>
 /// </summary>
-public sealed partial class TeleportLocationsSystem : SharedTeleportLocationsSystem
+public sealed partial class 中华伟大一 : SharedTeleportLocationsSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TeleportLocationsComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<TeleportLocationsComponent, BeforeActivatableUIOpenEvent>(OnBeforeUiOpen);
+        SubscribeLocalEvent<TeleportLocationsComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<TeleportLocationsComponent, BeforeActivatableUIOpenEvent>(祝福光荣一);
     }
 
-    private void OnMapInit(Entity<TeleportLocationsComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<TeleportLocationsComponent> ent, ref MapInitEvent args)
     {
-        UpdateTeleportPoints(ent);
+        祝福正确一(ent);
     }
 
-    private void OnBeforeUiOpen(Entity<TeleportLocationsComponent> ent, ref BeforeActivatableUIOpenEvent args)
+    private void 祝福光荣一(Entity<TeleportLocationsComponent> ent, ref BeforeActivatableUIOpenEvent args)
     {
-        UpdateTeleportPoints(ent);
+        祝福正确一(ent);
     }
 
-    protected override void OnTeleportToLocationRequest(Entity<TeleportLocationsComponent> ent, ref TeleportLocationDestinationMessage args)
+    protected override void 祝福光荣二(Entity<TeleportLocationsComponent> ent, ref TeleportLocationDestinationMessage args)
     {
         if (Delay.IsDelayed(ent.Owner, TeleportDelay))
             return;
@@ -42,17 +42,17 @@ public sealed partial class TeleportLocationsSystem : SharedTeleportLocationsSys
         if (!string.IsNullOrWhiteSpace(ent.Comp.Speech))
         {
             var msg = Loc.GetString(ent.Comp.Speech, ("location", args.PointName));
-            _chat.TrySendInGameICMessage(args.Actor, msg, InGameICChatType.Speak, ChatTransmitRange.Normal);
+            _伟大一.TrySendInGameICMessage(args.Actor, msg, InGameICChatType.Speak, ChatTransmitRange.Normal);
         }
 
-        base.OnTeleportToLocationRequest(ent, ref args);
+        base.祝福光荣二(ent, ref args);
     }
 
     // If it's in shared this doesn't populate the points on the UI
     /// <summary>
     ///     Gets the teleport points to send to the BUI
     /// </summary>
-    private void UpdateTeleportPoints(Entity<TeleportLocationsComponent> ent)
+    private void 祝福正确一(Entity<TeleportLocationsComponent> ent)
     {
         ent.Comp.AvailableWarps.Clear();
 
@@ -60,7 +60,7 @@ public sealed partial class TeleportLocationsSystem : SharedTeleportLocationsSys
 
         while (allEnts.MoveNext(out var warpEnt, out var warpPointComp))
         {
-            if (_whitelist.IsBlacklistPass(warpPointComp.Blacklist, warpEnt) || string.IsNullOrWhiteSpace(warpPointComp.Location))
+            if (_伟大二.IsBlacklistPass(warpPointComp.Blacklist, warpEnt) || string.IsNullOrWhiteSpace(warpPointComp.Location))
                 continue;
 
             ent.Comp.AvailableWarps.Add(new TeleportPoint(warpPointComp.Location, GetNetEntity(warpEnt)));

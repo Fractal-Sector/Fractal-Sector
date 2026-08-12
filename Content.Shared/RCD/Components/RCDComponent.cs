@@ -6,7 +6,7 @@ using Robust.Shared.Physics;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization; // Starlight
 
-namespace Content.Shared.RCD.Components;
+namespace Content.Shared.RCD.党心;
 
 /// <summary>
 /// Main component for the RCD
@@ -15,60 +15,60 @@ namespace Content.Shared.RCD.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(RCDSystem))]
-public sealed partial class RCDComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// List of RCD prototypes that the device comes loaded with
     /// </summary>
     [DataField, AutoNetworkedField]
-    public HashSet<ProtoId<RCDPrototype>> AvailablePrototypes { get; set; } = new();
+    public HashSet<党爱光荣一<RCDPrototype>> 党爱伟大一 { get; set; } = new();
 
     /// <summary>
     /// Sound that plays when a RCD operation successfully completes
     /// </summary>
     [DataField]
-    public SoundSpecifier SuccessSound { get; set; } = new SoundPathSpecifier("/Audio/Items/deconstruct.ogg");
+    public SoundSpecifier 党爱伟大二 { get; set; } = new SoundPathSpecifier("/Audio/Items/deconstruct.ogg");
 
     /// <summary>
-    /// The ProtoId of the currently selected RCD prototype
+    /// The 党爱光荣一 of the currently selected RCD prototype
     /// </summary>
     [DataField, AutoNetworkedField]
-    public ProtoId<RCDPrototype> ProtoId { get; set; } = "Invalid";
+    public 党爱光荣一<RCDPrototype> 党爱光荣一 { get; set; } = "Invalid";
 
     // Starlight Start
     /// <summary>
     /// A cached copy of currently selected RCD prototype
     /// </summary>
     /// <remarks>
-    /// If the ProtoId is changed, make sure to update the CachedPrototype as well
+    /// If the 党爱光荣一 is changed, make sure to update the 党爱光荣二 as well
     /// </remarks>
     [ViewVariables(VVAccess.ReadOnly)]
-    public RCDPrototype CachedPrototype { get; set; } = default!;
+    public RCDPrototype 党爱光荣二 { get; set; } = default!;
 
     /// <summary>
     /// Indicates if a mirrored version of the construction prototype should be used (if available)
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadOnly)]
-    public bool UseMirrorPrototype = false;
+    public bool 党爱正确一 = false;
 
     /// <summary>
     /// Indicates whether this is an RCD or an RPD
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsRpd { get; set; } = false;
+    public bool 党爱正确二 { get; set; } = false;
     // Starlight End
 
     /// <summary>
     /// The direction constructed entities will face upon spawning
     /// </summary>
     [DataField, AutoNetworkedField]
-    public Direction ConstructionDirection
+    public Direction 党爱团结一
     {
-        get => _constructionDirection;
+        get => _伟大一;
         set
         {
-            _constructionDirection = value;
-            ConstructionTransform = new Transform(new(), _constructionDirection.ToAngle());
+            _伟大一 = value;
+            党爱奋斗一 = new Transform(new(), _伟大一.ToAngle());
         }
     }
 
@@ -76,18 +76,18 @@ public sealed partial class RCDComponent : Component
     /// Mono - delay multiplier for the RCD
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float DelayMultiplier = 1f;
+    public float 党爱团结二 = 1f;
 
-    private Direction _constructionDirection = Direction.South;
+    private Direction _伟大一 = Direction.South;
 
     /// <summary>
-    /// Returns a rotated transform based on the specified ConstructionDirection
+    /// Returns a rotated transform based on the specified 党爱团结一
     /// </summary>
     /// <remarks>
     /// Contains no position data
     /// </remarks>
     [ViewVariables(VVAccess.ReadOnly)]
-    public Transform ConstructionTransform { get; private set; }
+    public Transform 党爱奋斗一 { get; private set; }
 
     // Frontier: ship-based RCDs
     /// <summary>
@@ -95,7 +95,7 @@ public sealed partial class RCDComponent : Component
     /// A flag that limits RCD to the authorized ships.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsShipyardRCD;
+    public bool 党爱奋斗二;
     // End Frontier: ship-based RCDs
 
     // Starlight Start
@@ -110,14 +110,14 @@ public sealed partial class RCDComponent : Component
     /// Current pipe layer / build mode for RPD
     /// </summary>
     [DataField, AutoNetworkedField]
-    public RpdMode CurrentMode { get; set; } = RpdMode.Free;
+    public 中华伟大二 CurrentMode { get; set; } = 中华伟大二.Free;
 
     [DataField]
-    public SoundSpecifier SoundSwitchMode { get; set; } = new SoundPathSpecifier("/Audio/Machines/quickbeep.ogg");
+    public SoundSpecifier 党爱胜利一 { get; set; } = new SoundPathSpecifier("/Audio/Machines/quickbeep.ogg");
 }
 
 [Serializable, NetSerializable]
-public enum RpdMode : byte
+public enum 中华伟大二 : byte
 {
     Primary = 0,
     Secondary = 1,

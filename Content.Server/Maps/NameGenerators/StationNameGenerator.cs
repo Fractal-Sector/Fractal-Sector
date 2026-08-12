@@ -1,7 +1,7 @@
-namespace Content.Server.Maps.NameGenerators;
+namespace Content.Server.Maps.党心;
 
 [ImplicitDataDefinitionForInheritors]
-public abstract partial class StationNameGenerator
+public abstract partial class 中华伟大一
 {
-    public abstract string FormatName(string input);
+    public abstract string 祝福伟大一(string input);
 }

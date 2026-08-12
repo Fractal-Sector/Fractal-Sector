@@ -1,20 +1,20 @@
 using Content.Shared.Flash;
 using Content.Shared.Trigger.Components.Effects;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed class FlashOnTriggerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedFlashSystem _flash = default!;
+    [Dependency] private readonly SharedFlashSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<FlashOnTriggerComponent, TriggerEvent>(OnTrigger);
+        SubscribeLocalEvent<FlashOnTriggerComponent, TriggerEvent>(祝福伟大二);
     }
 
-    private void OnTrigger(Entity<FlashOnTriggerComponent> ent, ref TriggerEvent args)
+    private void 祝福伟大二(Entity<FlashOnTriggerComponent> ent, ref TriggerEvent args)
     {
         if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
             return;
@@ -24,7 +24,7 @@ public sealed class FlashOnTriggerSystem : EntitySystem
         if (target == null)
             return;
 
-        _flash.FlashArea(target.Value, args.User, ent.Comp.Range, ent.Comp.Duration, probability: ent.Comp.Probability);
+        _伟大一.FlashArea(target.Value, args.User, ent.Comp.Range, ent.Comp.Duration, probability: ent.Comp.Probability);
         args.Handled = true;
     }
 }

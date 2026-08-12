@@ -1,14 +1,14 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.InteractionVerbs;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Contains the localization strings and settings for the popups shown during an interaction verb.
 /// </summary>
 /// <remarks>
 ///     Interaction popups are localized using the following pattern:
-///     `interaction-{VerbID}-{Prefix.ToString().ToLower()}-{TargetSuffix}-popup`
+///     `interaction-{VerbID}-{中华伟大二.ToString().ToLower()}-{TargetSuffix}-popup`
 ///     Available variables in the localization strings:
 ///     - {$user} - The user performing the verb.
 ///     - {$target} - The target of the verb.
@@ -17,16 +17,16 @@ namespace Content.Shared.InteractionVerbs;
 ///     - {$hasUsed} - A boolean value that indicates whether the user is holding an item ($used is not null).
 /// </remarks>
 [Prototype("InteractionPopup"), Serializable]
-public sealed partial class InteractionPopupPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 
     /// <summary>
     ///     Loc prefix for popups shown for the user performing the verb.
     /// </summary>
     [DataField("self")]
-    public string SelfSuffix = "self";
+    public string 党爱伟大二 = "self";
 
     /// <summary>
     ///     Loc prefix for popups shown for the target of the verb. If set to null, defaults to <see cref="OthersSuffix"/>.
@@ -48,7 +48,7 @@ public sealed partial class InteractionPopupPrototype : IPrototype
     [DataField("emote")]
     public string? EmoteSuffix = null;
 
-    public enum Prefix : byte
+    public enum 中华伟大二 : byte
     {
         Success,
         Fail,

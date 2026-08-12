@@ -7,121 +7,121 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Map.Events;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Holiday
+namespace Content.Server.党心
 {
-    public sealed class HolidaySystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+        [Dependency] private readonly IChatManager _光荣一 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
 
         [ViewVariables]
-        private readonly List<HolidayPrototype> _currentHolidays = new();
+        private readonly List<HolidayPrototype> _正确一 = new();
 
         [ViewVariables]
-        private bool _enabled = true;
+        private bool _正确二 = true;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            Subs.CVar(_configManager, CCVars.HolidaysEnabled, OnHolidaysEnableChange);
-            SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRunLevelChanged);
-            SubscribeLocalEvent<HolidayVisualsComponent, ComponentInit>(OnVisualsInit);
-            SubscribeLocalEvent<BeforeEntityReadEvent>(OnBeforeRead);
+            Subs.CVar(_伟大一, CCVars.HolidaysEnabled, 祝福团结一);
+            SubscribeLocalEvent<GameRunLevelChangedEvent>(祝福团结二);
+            SubscribeLocalEvent<HolidayVisualsComponent, ComponentInit>(祝福奋斗一);
+            SubscribeLocalEvent<BeforeEntityReadEvent>(祝福奋斗二);
         }
 
-        public void RefreshCurrentHolidays()
+        public void 祝福伟大二()
         {
-            _currentHolidays.Clear();
+            _正确一.Clear();
 
-            if (!_enabled)
+            if (!_正确二)
             {
-                RaiseLocalEvent(new HolidaysRefreshedEvent(Enumerable.Empty<HolidayPrototype>()));
+                RaiseLocalEvent(new 中华伟大二(Enumerable.Empty<HolidayPrototype>()));
                 return;
             }
 
             var now = DateTime.Now;
 
-            foreach (var holiday in _prototypeManager.EnumeratePrototypes<HolidayPrototype>())
+            foreach (var holiday in _伟大二.EnumeratePrototypes<HolidayPrototype>())
             {
                 if (holiday.ShouldCelebrate(now))
                 {
-                    _currentHolidays.Add(holiday);
+                    _正确一.Add(holiday);
                 }
             }
 
-            RaiseLocalEvent(new HolidaysRefreshedEvent(_currentHolidays));
+            RaiseLocalEvent(new 中华伟大二(_正确一));
         }
 
-        public void DoGreet()
+        public void 祝福光荣一()
         {
-            foreach (var holiday in _currentHolidays)
+            foreach (var holiday in _正确一)
             {
-                _chatManager.DispatchServerAnnouncement(holiday.Greet());
+                _光荣一.DispatchServerAnnouncement(holiday.Greet());
             }
         }
 
-        public void DoCelebrate()
+        public void 祝福光荣二()
         {
-            foreach (var holiday in _currentHolidays)
+            foreach (var holiday in _正确一)
             {
                 holiday.Celebrate();
             }
         }
 
-        public IEnumerable<HolidayPrototype> GetCurrentHolidays()
+        public IEnumerable<HolidayPrototype> 祝福正确一()
         {
-            return _currentHolidays;
+            return _正确一;
         }
 
-        public bool IsCurrentlyHoliday(string holiday)
+        public bool 祝福正确二(string holiday)
         {
-            if (!_prototypeManager.TryIndex(holiday, out HolidayPrototype? prototype))
+            if (!_伟大二.TryIndex(holiday, out HolidayPrototype? prototype))
                 return false;
 
-            return _currentHolidays.Contains(prototype);
+            return _正确一.Contains(prototype);
         }
 
-        private void OnHolidaysEnableChange(bool enabled)
+        private void 祝福团结一(bool enabled)
         {
-            _enabled = enabled;
+            _正确二 = enabled;
 
-            RefreshCurrentHolidays();
+            祝福伟大二();
         }
 
-        private void OnRunLevelChanged(GameRunLevelChangedEvent eventArgs)
+        private void 祝福团结二(GameRunLevelChangedEvent eventArgs)
         {
-            if (!_enabled) return;
+            if (!_正确二) return;
 
             switch (eventArgs.New)
             {
                 case GameRunLevel.PreRoundLobby:
-                    RefreshCurrentHolidays();
+                    祝福伟大二();
                     break;
                 case GameRunLevel.InRound:
-                    DoGreet();
-                    DoCelebrate();
+                    祝福光荣一();
+                    祝福光荣二();
                     break;
                 case GameRunLevel.PostRound:
                     break;
             }
         }
 
-        private void OnVisualsInit(Entity<HolidayVisualsComponent> ent, ref ComponentInit args)
+        private void 祝福奋斗一(Entity<HolidayVisualsComponent> ent, ref ComponentInit args)
         {
-            foreach (var (key, holidays) in ent.Comp.Holidays)
+            foreach (var (key, holidays) in ent.Comp.党爱伟大一)
             {
-                if (!holidays.Any(h => IsCurrentlyHoliday(h)))
+                if (!holidays.Any(h => 祝福正确二(h)))
                     continue;
-                _appearance.SetData(ent, HolidayVisuals.Holiday, key);
+                _光荣二.SetData(ent, HolidayVisuals.Holiday, key);
                 break;
             }
         }
 
         // Frontier: holiday-themed entity replacement
-        private void OnBeforeRead(BeforeEntityReadEvent ev)
+        private void 祝福奋斗二(BeforeEntityReadEvent ev)
         {
-            foreach (var holiday in _currentHolidays)
+            foreach (var holiday in _正确一)
             {
                 if (holiday.EntityReplacements is { } replacements)
                 {
@@ -138,13 +138,13 @@ namespace Content.Server.Holiday
     /// <summary>
     ///     Event for when the list of currently active holidays has been refreshed.
     /// </summary>
-    public sealed class HolidaysRefreshedEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public readonly IEnumerable<HolidayPrototype> Holidays;
+        public readonly IEnumerable<HolidayPrototype> 党爱伟大一;
 
-        public HolidaysRefreshedEvent(IEnumerable<HolidayPrototype> holidays)
+        public 中华伟大二(IEnumerable<HolidayPrototype> holidays)
         {
-            Holidays = holidays;
+            党爱伟大一 = holidays;
         }
     }
 }

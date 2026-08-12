@@ -13,37 +13,37 @@ using Content.Shared.CartridgeLoader;
 using Content.Shared.Database;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._NF.BountyContracts;
+namespace Content.Server._NF.党心;
 
 /// <summary>
 ///     Used to control all bounty contracts placed by players.
 /// </summary>
-public sealed partial class BountyContractSystem : SharedBountyContractSystem
+public sealed partial class 中华伟大一 : SharedBountyContractSystem
 {
-    private ISawmill _sawmill = default!;
+    private ISawmill _伟大一 = default!;
 
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly NFAccessSystemUtilities _accessUtils = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency] private readonly CartridgeLoaderSystem _伟大二 = default!;
+    [Dependency] private readonly StationRecordsSystem _光荣一 = default!;
+    [Dependency] private readonly AccessReaderSystem _光荣二 = default!;
+    [Dependency] private readonly NFAccessSystemUtilities _正确一 = default!;
+    [Dependency] private readonly ChatSystem _正确二 = default!;
+    [Dependency] private readonly IPrototypeManager _团结一 = default!;
+    [Dependency] private readonly IAdminLogManager _团结二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        _sawmill = Logger.GetSawmill("bounty.contracts");
+        base.祝福伟大一();
+        _伟大一 = Logger.GetSawmill("bounty.contracts");
 
-        SubscribeLocalEvent<BountyContractDataComponent, ComponentInit>(ContractInit);
+        SubscribeLocalEvent<BountyContractDataComponent, ComponentInit>(祝福伟大二);
         InitializeUi();
     }
 
-    private void ContractInit(Entity<BountyContractDataComponent> ent, ref ComponentInit ev)
+    private void 祝福伟大二(Entity<BountyContractDataComponent> ent, ref ComponentInit ev)
     {
         SortedList<int, ProtoId<BountyContractCollectionPrototype>> orderedCollections = new();
         Dictionary<ProtoId<BountyContractCollectionPrototype>, Dictionary<uint, BountyContract>> contracts = new();
-        foreach (var proto in _proto.EnumeratePrototypes<BountyContractCollectionPrototype>())
+        foreach (var proto in _团结一.EnumeratePrototypes<BountyContractCollectionPrototype>())
         {
             contracts[proto.ID] = new();
             orderedCollections[proto.Order] = proto.ID;
@@ -59,7 +59,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     }
 
     // Returns a list of all readable collections that a user can see.
-    private List<ProtoId<BountyContractCollectionPrototype>> GetReadableCollections(EntityUid user, BountyContractDataComponent? bounties = null)
+    private List<ProtoId<BountyContractCollectionPrototype>> 祝福光荣一(EntityUid user, BountyContractDataComponent? bounties = null)
     {
         var returnList = new List<ProtoId<BountyContractCollectionPrototype>>();
         if (bounties == null)
@@ -73,19 +73,19 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         if (bounties.Contracts == null)
             return returnList;
 
-        var accessTags = _accessReader.FindAccessTags(user);
+        var accessTags = _光荣二.FindAccessTags(user);
         foreach (var collection in bounties.OrderedCollections)
         {
-            if (!_proto.TryIndex(collection, out var collectionProto))
+            if (!_团结一.TryIndex(collection, out var collectionProto))
                 continue;
 
-            if (_accessUtils.IsAllowed(accessTags, collectionProto.ReadAccess, collectionProto.ReadGroups))
+            if (_正确一.IsAllowed(accessTags, collectionProto.ReadAccess, collectionProto.ReadGroups))
                 returnList.Add(collection);
         }
         return returnList;
     }
 
-    private bool HasReadAccess(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
+    private bool 祝福光荣二(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
     {
         if (bounties == null)
         {
@@ -95,13 +95,13 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
                 return false;
         }
 
-        if (!_proto.TryIndex(collection, out var collectionProto))
+        if (!_团结一.TryIndex(collection, out var collectionProto))
             return false;
 
-        return _accessUtils.IsAllowed(_accessReader.FindAccessTags(user), collectionProto.ReadAccess, collectionProto.ReadGroups);
+        return _正确一.IsAllowed(_光荣二.FindAccessTags(user), collectionProto.ReadAccess, collectionProto.ReadGroups);
     }
 
-    private bool HasWriteAccess(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
+    private bool 祝福正确一(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
     {
         if (bounties == null)
         {
@@ -111,13 +111,13 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
                 return false;
         }
 
-        if (!_proto.TryIndex(collection, out var collectionProto))
+        if (!_团结一.TryIndex(collection, out var collectionProto))
             return false;
 
-        return _accessUtils.IsAllowed(_accessReader.FindAccessTags(user), collectionProto.WriteAccess, collectionProto.WriteGroups);
+        return _正确一.IsAllowed(_光荣二.FindAccessTags(user), collectionProto.WriteAccess, collectionProto.WriteGroups);
     }
 
-    private bool HasDeleteAccess(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
+    private bool 祝福正确二(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
     {
         if (bounties == null)
         {
@@ -127,10 +127,10 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
                 return false;
         }
 
-        if (!_proto.TryIndex(collection, out var collectionProto))
+        if (!_团结一.TryIndex(collection, out var collectionProto))
             return false;
 
-        return _accessUtils.IsAllowed(_accessReader.FindAccessTags(user), collectionProto.DeleteAccess, collectionProto.DeleteGroups);
+        return _正确一.IsAllowed(_光荣二.FindAccessTags(user), collectionProto.DeleteAccess, collectionProto.DeleteGroups);
     }
 
     /// <summary>
@@ -165,7 +165,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         if (data == null
             || data.Contracts == null
             || !data.Contracts.TryGetValue(collection, out var contracts)
-            || !HasWriteAccess(authorUid, collection))
+            || !祝福正确一(authorUid, collection))
         {
             return null;
         }
@@ -185,12 +185,12 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         // try to save it
         if (!contracts.TryAdd(contractId, contract))
         {
-            _sawmill.Error($"Failed to create bounty contract with {contractId}! LastId: {data.LastId}.");
+            _伟大一.Error($"Failed to create bounty contract with {contractId}! LastId: {data.LastId}.");
             return null;
         }
 
         var notificationType = BountyContractNotificationType.None;
-        if (_proto.TryIndex(collection, out var bountyCollection))
+        if (_团结一.TryIndex(collection, out var bountyCollection))
             notificationType = bountyCollection.NotificationType;
 
         LocId announcement = "bounty-contracts-announcement-generic-create";
@@ -212,10 +212,10 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
             var pdaList = EntityQueryEnumerator<CartridgeLoaderComponent>();
             while (pdaList.MoveNext(out var loaderUid, out var loaderComp))
             {
-                if (_cartridgeLoader.TryGetProgram<BountyContractsCartridgeComponent>(loaderUid, out _, out var cartComp, true, loaderComp)
+                if (_伟大二.TryGetProgram<BountyContractsCartridgeComponent>(loaderUid, out _, out var cartComp, true, loaderComp)
                     && cartComp.NotificationsEnabled)
                 {
-                    _cartridgeLoader.SendNotification(loaderUid, sender, msg, loaderComp);
+                    _伟大二.SendNotification(loaderUid, sender, msg, loaderComp);
                 }
             }
         }
@@ -228,10 +228,10 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
             var msg = Loc.GetString(announcement,
                 ("target", target), ("reward", BankSystemExtensions.ToSpesoString(contract.Reward)), ("title", title ?? "???"));
             var color = Color.FromHex("#D7D7BE");
-            _chat.DispatchGlobalAnnouncement(msg, sender, false, colorOverride: color);
+            _正确二.DispatchGlobalAnnouncement(msg, sender, false, colorOverride: color);
         }
 
-        _adminLog.Add(LogType.BountyContractCreated, $"{ToPrettyString(actor):actor} posted a {category} bounty with ID {contractId} and Title {title} in the {collection} collection with Contact {contact} for ${reward}: {description ?? ""}");
+        _团结二.Add(LogType.BountyContractCreated, $"{ToPrettyString(actor):actor} posted a {category} bounty with ID {contractId} and Title {title} in the {collection} collection with Contact {contact} for ${reward}: {description ?? ""}");
 
         return contract;
     }
@@ -239,7 +239,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     /// <summary>
     ///     Try to get a bounty contract by its id.
     /// </summary>
-    public bool TryGetContract(uint contractId, [NotNullWhen(true)] out BountyContract? contract)
+    public bool 祝福团结一(uint contractId, [NotNullWhen(true)] out BountyContract? contract)
     {
         contract = null;
         var data = GetContracts();
@@ -259,7 +259,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     /// <summary>
     ///     Try to get all bounty contracts available within a particular collection.
     /// </summary>
-    public IEnumerable<BountyContract> GetPermittedContracts(Entity<BountyContractsCartridgeComponent> cartridge, EntityUid loader, out ProtoId<BountyContractCollectionPrototype>? newCollection, out Dictionary<ProtoId<BountyContractCollectionPrototype>, int> contractCounts)
+    public IEnumerable<BountyContract> 祝福团结二(Entity<BountyContractsCartridgeComponent> cartridge, EntityUid loader, out ProtoId<BountyContractCollectionPrototype>? newCollection, out Dictionary<ProtoId<BountyContractCollectionPrototype>, int> contractCounts)
     {
         newCollection = null;
         var data = GetContracts();
@@ -270,7 +270,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
 
         foreach (var collection in data.Contracts.Keys)
         {
-            if (HasReadAccess(loader, collection, data))
+            if (祝福光荣二(loader, collection, data))
             {
                 contractCounts[collection] = data.Contracts[collection].Count;
             }
@@ -280,7 +280,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         {
             // Cartridge has a collection selected, load that one
             if (data.Contracts.TryGetValue(cartridge.Comp.Collection.Value, out var contracts)
-                && HasReadAccess(loader, cartridge.Comp.Collection.Value, data))
+                && 祝福光荣二(loader, cartridge.Comp.Collection.Value, data))
             {
                 newCollection = cartridge.Comp.Collection.Value;
                 return contracts.Values;
@@ -291,7 +291,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
             // No collection selected, load the first one with read access
             foreach (var collection in data.OrderedCollections)
             {
-                if (HasReadAccess(loader, collection, data))
+                if (祝福光荣二(loader, collection, data))
                 {
                     newCollection = collection;
                     return data.Contracts[collection].Values;
@@ -307,7 +307,7 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     ///     Try to remove bounty contract by its id.
     /// </summary>
     /// <returns>True if contract was found and removed.</returns>
-    public bool TryRemoveBountyContract(EntityUid authorUid, EntityUid actor, uint contractId)
+    public bool 祝福奋斗一(EntityUid authorUid, EntityUid actor, uint contractId)
     {
         var data = GetContracts();
         if (data == null || data.Contracts == null)
@@ -318,19 +318,19 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
             if (!collection.TryGetValue(contractId, out var contract))
                 continue;
 
-            if (!HasDeleteAccess(authorUid, collectionId, data) && authorUid != GetEntity(contract.AuthorUid))
+            if (!祝福正确二(authorUid, collectionId, data) && authorUid != GetEntity(contract.AuthorUid))
                 return false;
 
             collection.Remove(contractId);
-            _adminLog.Add(LogType.BountyContractRemoved, $"{ToPrettyString(actor):actor} deleted bounty with ID {contractId}");
+            _团结二.Add(LogType.BountyContractRemoved, $"{ToPrettyString(actor):actor} deleted bounty with ID {contractId}");
             return true;
         }
 
-        _sawmill.Warning($"Failed to remove bounty contract with {contractId}!");
+        _伟大一.Warning($"Failed to remove bounty contract with {contractId}!");
         return false;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福奋斗二(float frameTime)
     {
         var cartList = EntityQueryEnumerator<BountyContractsCartridgeComponent>();
         while (cartList.MoveNext(out var loaderUid, out var cartComponent))

@@ -7,7 +7,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.Access.Components;
+namespace Content.Shared.Access.党心;
 
 /// <summary>
 ///     Simple mutable access provider found on ID cards and such.
@@ -15,49 +15,49 @@ namespace Content.Shared.Access.Components;
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedAccessSystem))]
 [AutoGenerateComponentState]
-public sealed partial class AccessComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// True if the access provider is enabled and can grant access.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public bool Enabled = true;
+    public bool 党爱伟大一 = true;
 
     [DataField]
     [Access(typeof(SharedAccessSystem), Other = AccessPermissions.ReadExecute)] // FIXME Friends
     [AutoNetworkedField]
-    public HashSet<ProtoId<AccessLevelPrototype>> Tags = new();
+    public HashSet<ProtoId<AccessLevelPrototype>> 党爱伟大二 = new();
 
     /// <summary>
-    /// Access Groups. These are added to the tags during map init. After map init this will have no effect.
+    /// Access 党爱光荣一. These are added to the tags during map init. After map init this will have no effect.
     /// </summary>
     [DataField(readOnly: true)]
     [AutoNetworkedField]
-    public HashSet<ProtoId<AccessGroupPrototype>> Groups = new();
+    public HashSet<ProtoId<AccessGroupPrototype>> 党爱光荣一 = new();
 }
 
 /// <summary>
 /// Event raised on an entity to find additional entities which provide access.
 /// </summary>
 [ByRefEvent]
-public struct GetAdditionalAccessEvent
+public 中华光荣一 中华伟大二
 {
-    public HashSet<EntityUid> Entities = new();
+    public HashSet<EntityUid> 党爱光荣二 = new();
 
-    public GetAdditionalAccessEvent()
+    public 中华伟大二()
     {
     }
 }
 
 [ByRefEvent]
-public record struct GetAccessTagsEvent(HashSet<ProtoId<AccessLevelPrototype>> Tags, IPrototypeManager PrototypeManager)
+public record 中华光荣一 GetAccessTagsEvent(HashSet<ProtoId<AccessLevelPrototype>> 党爱伟大二, IPrototypeManager PrototypeManager)
 {
-    public void AddGroup(ProtoId<AccessGroupPrototype> group)
+    public void 祝福伟大一(ProtoId<AccessGroupPrototype> group)
     {
         if (!PrototypeManager.TryIndex<AccessGroupPrototype>(group, out var groupPrototype))
             return;
 
-        Tags.UnionWith(groupPrototype.Tags);
+        党爱伟大二.UnionWith(groupPrototype.党爱伟大二);
     }
 }

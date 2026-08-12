@@ -16,9 +16,9 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.SensorMonitoring;
+namespace Content.Server.党心;
 
-public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
     // TODO: THIS THING IS HEAVILY WIP AND NOT READY FOR GENERAL USE BY PLAYERS.
     // Some of the issues, off the top of my head:
@@ -27,42 +27,42 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
     // Deleting connected devices causes exceptions
     // UI sucks. need a way to make basic dashboards like Grafana, and save them.
 
-    private EntityQuery<DeviceNetworkComponent> _deviceNetworkQuery;
+    private EntityQuery<DeviceNetworkComponent> _伟大一;
 
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly DeviceNetworkSystem _光荣一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
         InitUI();
 
         UpdatesBefore.Add(typeof(UserInterfaceSystem));
 
-        SubscribeLocalEvent<SensorMonitoringConsoleComponent, DeviceListUpdateEvent>(DeviceListUpdated);
-        SubscribeLocalEvent<SensorMonitoringConsoleComponent, ComponentStartup>(ConsoleStartup);
-        SubscribeLocalEvent<SensorMonitoringConsoleComponent, DeviceNetworkPacketEvent>(DevicePacketReceived);
-        SubscribeLocalEvent<SensorMonitoringConsoleComponent, AtmosDeviceUpdateEvent>(AtmosUpdate);
+        SubscribeLocalEvent<SensorMonitoringConsoleComponent, DeviceListUpdateEvent>(祝福正确一);
+        SubscribeLocalEvent<SensorMonitoringConsoleComponent, ComponentStartup>(祝福光荣二);
+        SubscribeLocalEvent<SensorMonitoringConsoleComponent, DeviceNetworkPacketEvent>(祝福团结二);
+        SubscribeLocalEvent<SensorMonitoringConsoleComponent, AtmosDeviceUpdateEvent>(祝福胜利一);
 
-        _deviceNetworkQuery = GetEntityQuery<DeviceNetworkComponent>();
+        _伟大一 = GetEntityQuery<DeviceNetworkComponent>();
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var consoles = EntityQueryEnumerator<SensorMonitoringConsoleComponent>();
         while (consoles.MoveNext(out var entityUid, out var comp))
         {
-            UpdateConsole(entityUid, comp);
+            祝福光荣一(entityUid, comp);
         }
     }
 
-    private void UpdateConsole(EntityUid uid, SensorMonitoringConsoleComponent comp)
+    private void 祝福光荣一(EntityUid uid, SensorMonitoringConsoleComponent comp)
     {
-        var minTime = _gameTiming.CurTime - comp.RetentionTime;
+        var minTime = _伟大二.CurTime - comp.RetentionTime;
 
-        SensorUpdate(uid, comp);
+        祝福胜利二(uid, comp);
 
         foreach (var data in comp.Sensors.Values)
         {
@@ -79,21 +79,21 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         UpdateConsoleUI(uid, comp);
     }
 
-    private void ConsoleStartup(EntityUid uid, SensorMonitoringConsoleComponent component, ComponentStartup args)
+    private void 祝福光荣二(EntityUid uid, SensorMonitoringConsoleComponent component, ComponentStartup args)
     {
         if (TryComp(uid, out DeviceListComponent? network))
-            UpdateDevices(uid, component, network.Devices, Array.Empty<EntityUid>());
+            祝福正确二(uid, component, network.Devices, Array.Empty<EntityUid>());
     }
 
-    private void DeviceListUpdated(
+    private void 祝福正确一(
         EntityUid uid,
         SensorMonitoringConsoleComponent component,
         DeviceListUpdateEvent args)
     {
-        UpdateDevices(uid, component, args.Devices, args.OldDevices);
+        祝福正确二(uid, component, args.Devices, args.OldDevices);
     }
 
-    private void UpdateDevices(
+    private void 祝福正确二(
         EntityUid uid,
         SensorMonitoringConsoleComponent component,
         IEnumerable<EntityUid> newDevices,
@@ -103,7 +103,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
 
         foreach (var newDevice in newDevices)
         {
-            var deviceType = DetectDeviceType(newDevice);
+            var deviceType = 祝福团结一(newDevice);
             if (deviceType == SensorDeviceType.Unknown)
                 continue;
 
@@ -111,7 +111,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
             var sensor = component.Sensors.GetOrNew(newDevice);
             sensor.DeviceType = deviceType;
             if (sensor.NetId == 0)
-                sensor.NetId = MakeNetId(component);
+                sensor.NetId = 祝福奋斗二(component);
         }
 
         foreach (var oldDevice in oldDevices)
@@ -127,7 +127,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         }
     }
 
-    private SensorDeviceType DetectDeviceType(EntityUid entity)
+    private SensorDeviceType 祝福团结一(EntityUid entity)
     {
         if (HasComp<TegGeneratorComponent>(entity))
             return SensorDeviceType.Teg;
@@ -147,7 +147,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         return SensorDeviceType.Unknown;
     }
 
-    private void DevicePacketReceived(EntityUid uid, SensorMonitoringConsoleComponent component,
+    private void 祝福团结二(EntityUid uid, SensorMonitoringConsoleComponent component,
         DeviceNetworkPacketEvent args)
     {
         if (!component.Sensors.TryGetValue(args.Sender, out var sensorData))
@@ -166,20 +166,20 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "teg_last_generated", SensorUnit.EnergyJ, tegData.LastGeneration);
-                WriteSample(component, sensorData, "teg_power",          SensorUnit.PowerW,  tegData.PowerOutput);
+                祝福奋斗一(component, sensorData, "teg_last_generated", SensorUnit.EnergyJ, tegData.LastGeneration);
+                祝福奋斗一(component, sensorData, "teg_power",          SensorUnit.PowerW,  tegData.PowerOutput);
                 if (component.DebugStreams)
-                    WriteSample(component, sensorData, "teg_ramp_pos", SensorUnit.PowerW, tegData.RampPosition);
+                    祝福奋斗一(component, sensorData, "teg_ramp_pos", SensorUnit.PowerW, tegData.RampPosition);
 
-                WriteSample(component, sensorData, "teg_circ_a_in_pressure",     SensorUnit.PressureKpa,  tegData.CirculatorA.InletPressure);
-                WriteSample(component, sensorData, "teg_circ_a_in_temperature",  SensorUnit.TemperatureK, tegData.CirculatorA.InletTemperature);
-                WriteSample(component, sensorData, "teg_circ_a_out_pressure",    SensorUnit.PressureKpa,  tegData.CirculatorA.OutletPressure);
-                WriteSample(component, sensorData, "teg_circ_a_out_temperature", SensorUnit.TemperatureK, tegData.CirculatorA.OutletTemperature);
+                祝福奋斗一(component, sensorData, "teg_circ_a_in_pressure",     SensorUnit.PressureKpa,  tegData.CirculatorA.InletPressure);
+                祝福奋斗一(component, sensorData, "teg_circ_a_in_temperature",  SensorUnit.TemperatureK, tegData.CirculatorA.InletTemperature);
+                祝福奋斗一(component, sensorData, "teg_circ_a_out_pressure",    SensorUnit.PressureKpa,  tegData.CirculatorA.OutletPressure);
+                祝福奋斗一(component, sensorData, "teg_circ_a_out_temperature", SensorUnit.TemperatureK, tegData.CirculatorA.OutletTemperature);
 
-                WriteSample(component, sensorData, "teg_circ_b_in_pressure",     SensorUnit.PressureKpa,  tegData.CirculatorB.InletPressure);
-                WriteSample(component, sensorData, "teg_circ_b_in_temperature",  SensorUnit.TemperatureK, tegData.CirculatorB.InletTemperature);
-                WriteSample(component, sensorData, "teg_circ_b_out_pressure",    SensorUnit.PressureKpa,  tegData.CirculatorB.OutletPressure);
-                WriteSample(component, sensorData, "teg_circ_b_out_temperature", SensorUnit.TemperatureK, tegData.CirculatorB.OutletTemperature);
+                祝福奋斗一(component, sensorData, "teg_circ_b_in_pressure",     SensorUnit.PressureKpa,  tegData.CirculatorB.InletPressure);
+                祝福奋斗一(component, sensorData, "teg_circ_b_in_temperature",  SensorUnit.TemperatureK, tegData.CirculatorB.InletTemperature);
+                祝福奋斗一(component, sensorData, "teg_circ_b_out_pressure",    SensorUnit.PressureKpa,  tegData.CirculatorB.OutletPressure);
+                祝福奋斗一(component, sensorData, "teg_circ_b_out_temperature", SensorUnit.TemperatureK, tegData.CirculatorB.OutletTemperature);
                 // @formatter:on
                 break;
 
@@ -191,8 +191,8 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "atmo_pressure",    SensorUnit.PressureKpa,    atmosData.Pressure);
-                WriteSample(component, sensorData, "atmo_temperature", SensorUnit.TemperatureK, atmosData.Temperature);
+                祝福奋斗一(component, sensorData, "atmo_pressure",    SensorUnit.PressureKpa,    atmosData.Pressure);
+                祝福奋斗一(component, sensorData, "atmo_temperature", SensorUnit.TemperatureK, atmosData.Temperature);
                 // @formatter:on
                 break;
 
@@ -204,7 +204,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "abs_energy_delta", SensorUnit.EnergyJ, MathF.Abs(thermoData.EnergyDelta));
+                祝福奋斗一(component, sensorData, "abs_energy_delta", SensorUnit.EnergyJ, MathF.Abs(thermoData.EnergyDelta));
                 // @formatter:on
                 break;
 
@@ -216,7 +216,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "moles_transferred", SensorUnit.Moles, volumePumpData.LastMolesTransferred);
+                祝福奋斗一(component, sensorData, "moles_transferred", SensorUnit.Moles, volumePumpData.LastMolesTransferred);
                 // @formatter:on
                 break;
 
@@ -228,21 +228,21 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "charge",        SensorUnit.EnergyJ, batteryData.Charge);
-                WriteSample(component, sensorData, "charge_max",    SensorUnit.EnergyJ, batteryData.MaxCharge);
+                祝福奋斗一(component, sensorData, "charge",        SensorUnit.EnergyJ, batteryData.Charge);
+                祝福奋斗一(component, sensorData, "charge_max",    SensorUnit.EnergyJ, batteryData.MaxCharge);
 
-                WriteSample(component, sensorData, "receiving",     SensorUnit.PowerW,  batteryData.Receiving);
-                WriteSample(component, sensorData, "receiving_max", SensorUnit.PowerW,  batteryData.MaxReceiving);
+                祝福奋斗一(component, sensorData, "receiving",     SensorUnit.PowerW,  batteryData.Receiving);
+                祝福奋斗一(component, sensorData, "receiving_max", SensorUnit.PowerW,  batteryData.MaxReceiving);
 
-                WriteSample(component, sensorData, "supplying",     SensorUnit.PowerW,  batteryData.Supplying);
-                WriteSample(component, sensorData, "supplying_max", SensorUnit.PowerW,  batteryData.MaxSupplying);
+                祝福奋斗一(component, sensorData, "supplying",     SensorUnit.PowerW,  batteryData.Supplying);
+                祝福奋斗一(component, sensorData, "supplying_max", SensorUnit.PowerW,  batteryData.MaxSupplying);
                 // @formatter:on
 
                 break;
         }
     }
 
-    private void WriteSample(
+    private void 祝福奋斗一(
         SensorMonitoringConsoleComponent component,
         SensorMonitoringConsoleComponent.SensorData sensorData,
         string streamName,
@@ -252,18 +252,18 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         var stream = sensorData.Streams.GetOrNew(streamName);
         stream.Unit = unit;
         if (stream.NetId == 0)
-            stream.NetId = MakeNetId(component);
+            stream.NetId = 祝福奋斗二(component);
 
-        var time = _gameTiming.CurTime;
+        var time = _伟大二.CurTime;
         stream.Samples.Enqueue(new SensorSample(time, value));
     }
 
-    private static int MakeNetId(SensorMonitoringConsoleComponent component)
+    private static int 祝福奋斗二(SensorMonitoringConsoleComponent component)
     {
         return ++component.IdCounter;
     }
 
-    private void AtmosUpdate(
+    private void 祝福胜利一(
         EntityUid uid,
         SensorMonitoringConsoleComponent comp,
         AtmosDeviceUpdateEvent args)
@@ -295,12 +295,12 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     continue;
             }
 
-            var address = _deviceNetworkQuery.GetComponent(ent);
-            _deviceNetwork.QueuePacket(uid, address.Address, payload);
+            var address = _伟大一.GetComponent(ent);
+            _光荣一.QueuePacket(uid, address.Address, payload);
         }
     }
 
-    private void SensorUpdate(EntityUid uid, SensorMonitoringConsoleComponent comp)
+    private void 祝福胜利二(EntityUid uid, SensorMonitoringConsoleComponent comp)
     {
         foreach (var (ent, data) in comp.Sensors)
         {
@@ -320,8 +320,8 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     continue;
             }
 
-            var address = _deviceNetworkQuery.GetComponent(ent);
-            _deviceNetwork.QueuePacket(uid, address.Address, payload);
+            var address = _伟大一.GetComponent(ent);
+            _光荣一.QueuePacket(uid, address.Address, payload);
         }
     }
 }

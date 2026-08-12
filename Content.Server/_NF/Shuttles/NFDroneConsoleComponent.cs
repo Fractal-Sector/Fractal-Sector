@@ -1,13 +1,13 @@
-namespace Content.Server.Shuttles.Components;
+namespace Content.Server.Shuttles.党心;
 
 /// <summary>
 /// Lets you remotely control a shuttle.
 /// </summary>
 [RegisterComponent]
-public sealed partial class NFDroneConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField(required: true)]
-    public string Id = default!;
+    public string 党爱伟大一 = default!;
 
     /// <summary>
     /// <see cref="ShuttleConsoleComponent"/> that we're proxied into.

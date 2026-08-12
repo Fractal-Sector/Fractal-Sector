@@ -13,9 +13,9 @@ using Content.Shared.Labels.Components;
 using Content.Shared.Paper;
 using Robust.Shared.Map;
 
-namespace Content.Server._NF.Cargo.Systems;
+namespace Content.Server._NF.Cargo.党心;
 
-public sealed partial class NFCargoSystem
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// How much time to wait (in seconds) before processing database orders.
@@ -25,37 +25,37 @@ public sealed partial class NFCargoSystem
     /// <summary>
     /// Keeps track of how much time has elapsed since last balance increase.
     /// </summary>
-    private float _timer;
+    private float _伟大一;
 
 
-    public void InitializeConsole()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<NFCargoOrderConsoleComponent, CargoConsoleAddOrderMessage>(OnAddOrderMessage);
-        SubscribeLocalEvent<NFCargoOrderConsoleComponent, BoundUIOpenedEvent>(OnOrderUIOpened);
-        SubscribeLocalEvent<NFCargoOrderConsoleComponent, ComponentInit>(OnInit);
-        ResetOrders();
+        SubscribeLocalEvent<NFCargoOrderConsoleComponent, CargoConsoleAddOrderMessage>(祝福正确一);
+        SubscribeLocalEvent<NFCargoOrderConsoleComponent, BoundUIOpenedEvent>(祝福正确二);
+        SubscribeLocalEvent<NFCargoOrderConsoleComponent, ComponentInit>(祝福光荣一);
+        祝福伟大二();
     }
 
-    public void ResetOrders()
+    public void 祝福伟大二()
     {
-        _timer = 0;
+        _伟大一 = 0;
     }
 
-    private void OnInit(EntityUid uid, NFCargoOrderConsoleComponent orderConsole, ComponentInit args)
+    private void 祝福光荣一(EntityUid uid, NFCargoOrderConsoleComponent orderConsole, ComponentInit args)
     {
         var station = _station.GetOwningStation(uid);
-        UpdateOrderState((uid, orderConsole), station);
+        祝福团结一((uid, orderConsole), station);
     }
 
-    private void UpdateConsole(float frameTime)
+    private void 祝福光荣二(float frameTime)
     {
-        _timer += frameTime;
+        _伟大一 += frameTime;
 
         // TODO: Doesn't work with serialization and shouldn't just be updating every delay
         // client can just interp this just fine on its own.
-        while (_timer > Delay)
+        while (_伟大一 > Delay)
         {
-            _timer -= Delay;
+            _伟大一 -= Delay;
 
             var query = EntityQueryEnumerator<NFCargoOrderConsoleComponent>();
             while (query.MoveNext(out var uid, out var comp))
@@ -63,13 +63,13 @@ public sealed partial class NFCargoSystem
                 if (!_ui.IsUiOpen(uid, NFCargoConsoleUiKey.Orders)) continue;
 
                 var station = _station.GetOwningStation(uid);
-                UpdateOrderState((uid, comp), station);
+                祝福团结一((uid, comp), station);
             }
         }
     }
 
     #region Interface
-    private void OnAddOrderMessage(Entity<NFCargoOrderConsoleComponent> ent, ref CargoConsoleAddOrderMessage args)
+    private void 祝福正确一(Entity<NFCargoOrderConsoleComponent> ent, ref CargoConsoleAddOrderMessage args)
     {
         if (args.Actor is not { Valid: true } player)
             return;
@@ -79,22 +79,22 @@ public sealed partial class NFCargoSystem
 
         if (!_accessReader.IsAllowed(player, ent))
         {
-            ConsolePopup(args.Actor, Loc.GetString("cargo-console-order-not-allowed"));
-            PlayDenySound(ent);
+            祝福团结二(args.Actor, Loc.GetString("cargo-console-order-not-allowed"));
+            祝福奋斗一(ent);
             return;
         }
 
         if (!HasComp<BankAccountComponent>(player))
         {
-            ConsolePopup(args.Actor, Loc.GetString("cargo-console-nf-no-bank-account"));
-            PlayDenySound(ent);
+            祝福团结二(args.Actor, Loc.GetString("cargo-console-nf-no-bank-account"));
+            祝福奋斗一(ent);
             return;
         }
 
-        if (!TryGetOrderDatabase(ent, out var dbUid, out var orderDatabase))
+        if (!祝福文明二(ent, out var dbUid, out var orderDatabase))
         {
-            ConsolePopup(args.Actor, Loc.GetString("cargo-console-station-not-found"));
-            PlayDenySound(ent);
+            祝福团结二(args.Actor, Loc.GetString("cargo-console-station-not-found"));
+            祝福奋斗一(ent);
             return;
         }
 
@@ -107,16 +107,16 @@ public sealed partial class NFCargoSystem
         if (!ent.Comp.AllowedGroups.Contains(product.Group))
             return;
 
-        var data = GetOrderData(EntityManager.GetNetEntity(ent), args, product, GenerateOrderId(orderDatabase));
+        var data = 祝福奋斗二(EntityManager.GetNetEntity(ent), args, product, 祝福繁荣二(orderDatabase));
 
-        var amount = GetOutstandingOrderCount(orderDatabase);
+        var amount = 祝福胜利一(orderDatabase);
         var capacity = orderDatabase.Capacity;
 
         // Too many orders, avoid them getting spammed in the UI.
         if (amount >= capacity)
         {
-            ConsolePopup(args.Actor, Loc.GetString("cargo-console-too-many"));
-            PlayDenySound(ent);
+            祝福团结二(args.Actor, Loc.GetString("cargo-console-too-many"));
+            祝福奋斗一(ent);
             return;
         }
 
@@ -128,8 +128,8 @@ public sealed partial class NFCargoSystem
         // Not enough balance
         if (!_bank.TryBankWithdraw(player, cost))
         {
-            ConsolePopup(args.Actor, Loc.GetString("cargo-console-insufficient-funds", ("cost", cost)));
-            PlayDenySound(ent);
+            祝福团结二(args.Actor, Loc.GetString("cargo-console-insufficient-funds", ("cost", cost)));
+            祝福奋斗一(ent);
             return;
         }
 
@@ -142,7 +142,7 @@ public sealed partial class NFCargoSystem
             _bank.TrySectorDeposit(account, tax, LedgerEntryType.CargoTax);
         }
 
-        AddOrder(dbUid.Value, data, orderDatabase);
+        祝福繁荣一(dbUid.Value, data, orderDatabase);
 
         // Log order addition
         _adminLogger.Add(LogType.Action, LogImpact.Low,
@@ -151,15 +151,15 @@ public sealed partial class NFCargoSystem
         _audio.PlayPvs(ent.Comp.ConfirmSound, ent);
     }
 
-    private void OnOrderUIOpened(Entity<NFCargoOrderConsoleComponent> ent, ref BoundUIOpenedEvent args)
+    private void 祝福正确二(Entity<NFCargoOrderConsoleComponent> ent, ref BoundUIOpenedEvent args)
     {
         var station = _station.GetOwningStation(ent);
-        UpdateOrderState(ent, station);
+        祝福团结一(ent, station);
     }
 
     #endregion
 
-    private void UpdateOrderState(Entity<NFCargoOrderConsoleComponent> ent, EntityUid? station)
+    private void 祝福团结一(Entity<NFCargoOrderConsoleComponent> ent, EntityUid? station)
     {
         if (!TryComp(ent, out TransformComponent? xform) || xform.GridUid is not { } stationGrid)
             return;
@@ -174,7 +174,7 @@ public sealed partial class NFCargoSystem
             if (TryComp<BankAccountComponent>(user, out var playerBank))
                 balance = playerBank.Balance;
 
-            if (station == null || !TryGetOrderDatabase(station.Value, out var _, out var orderDatabase))
+            if (station == null || !祝福文明二(station.Value, out var _, out var orderDatabase))
                 continue;
 
             // We only want to see orders made on the same computer, so filter them out
@@ -183,7 +183,7 @@ public sealed partial class NFCargoSystem
 
             var state = new NFCargoConsoleInterfaceState(
                 meta.EntityName,
-                GetOutstandingOrderCount(orderDatabase),
+                祝福胜利一(orderDatabase),
                 orderDatabase.Capacity,
                 balance,
                 filteredOrders);
@@ -192,12 +192,12 @@ public sealed partial class NFCargoSystem
         }
     }
 
-    private void ConsolePopup(EntityUid actor, string text)
+    private void 祝福团结二(EntityUid actor, string text)
     {
         _popup.PopupCursor(text, actor);
     }
 
-    private void PlayDenySound(Entity<NFCargoOrderConsoleComponent> ent)
+    private void 祝福奋斗一(Entity<NFCargoOrderConsoleComponent> ent)
     {
         if (_timing.CurTime >= ent.Comp.NextDenySoundTime)
         {
@@ -206,12 +206,12 @@ public sealed partial class NFCargoSystem
         }
     }
 
-    private static NFCargoOrderData GetOrderData(NetEntity consoleUid, CargoConsoleAddOrderMessage args, CargoProductPrototype cargoProduct, int id)
+    private static NFCargoOrderData 祝福奋斗二(NetEntity consoleUid, CargoConsoleAddOrderMessage args, CargoProductPrototype cargoProduct, int id)
     {
         return new NFCargoOrderData(id, cargoProduct.Product, cargoProduct.Name, cargoProduct.Cost, args.Amount, args.Requester, args.Reason, consoleUid);
     }
 
-    public static int GetOutstandingOrderCount(NFStationCargoOrderDatabaseComponent component)
+    public static int 祝福胜利一(NFStationCargoOrderDatabaseComponent component)
     {
         var amount = 0;
 
@@ -225,7 +225,7 @@ public sealed partial class NFCargoSystem
     /// Updates all of the cargo-related consoles for a particular station.
     /// This should be called whenever orders change.
     /// </summary>
-    private void UpdateOrders(EntityUid dbUid)
+    private void 祝福胜利二(EntityUid dbUid)
     {
         // Order added so all consoles need updating.
         var orderQuery = AllEntityQuery<NFCargoOrderConsoleComponent>();
@@ -236,34 +236,34 @@ public sealed partial class NFCargoSystem
             if (station != dbUid)
                 continue;
 
-            UpdateOrderState((uid, comp), station);
+            祝福团结一((uid, comp), station);
         }
     }
 
-    private void AddOrder(EntityUid dbUid, NFCargoOrderData data, NFStationCargoOrderDatabaseComponent component)
+    private void 祝福繁荣一(EntityUid dbUid, NFCargoOrderData data, NFStationCargoOrderDatabaseComponent component)
     {
         component.Orders.Add(data);
-        UpdateOrders(dbUid);
+        祝福胜利二(dbUid);
     }
 
-    private static int GenerateOrderId(NFStationCargoOrderDatabaseComponent orderDB)
+    private static int 祝福繁荣二(NFStationCargoOrderDatabaseComponent orderDB)
     {
         // We need an arbitrary unique ID to identify orders, since they may
         // want to be cancelled later.
         return ++orderDB.NumOrdersCreated;
     }
 
-    public void RemoveOrder(EntityUid dbUid, int index, NFStationCargoOrderDatabaseComponent orderDB)
+    public void 祝福富强一(EntityUid dbUid, int index, NFStationCargoOrderDatabaseComponent orderDB)
     {
         var sequenceIdx = orderDB.Orders.FindIndex(order => order.OrderId == index);
         if (sequenceIdx != -1)
         {
             orderDB.Orders.RemoveAt(sequenceIdx);
         }
-        UpdateOrders(dbUid);
+        祝福胜利二(dbUid);
     }
 
-    public void ClearOrders(NFStationCargoOrderDatabaseComponent component)
+    public void 祝福富强二(NFStationCargoOrderDatabaseComponent component)
     {
         if (component.Orders.Count == 0)
             return;
@@ -271,7 +271,7 @@ public sealed partial class NFCargoSystem
         component.Orders.Clear();
     }
 
-    private static bool PopFrontOrder(List<NetEntity> consoleUidList, NFStationCargoOrderDatabaseComponent orderDB, [NotNullWhen(true)] out NFCargoOrderData? orderOut)
+    private static bool 祝福民主一(List<NetEntity> consoleUidList, NFStationCargoOrderDatabaseComponent orderDB, [NotNullWhen(true)] out NFCargoOrderData? orderOut)
     {
         var orderIdx = orderDB.Orders.FindIndex(order => consoleUidList.Any(consoleUid => consoleUid == order.Computer));
         if (orderIdx == -1)
@@ -294,18 +294,18 @@ public sealed partial class NFCargoSystem
     /// <summary>
     /// Tries to fulfill the next outstanding order.
     /// </summary>
-    private bool FulfillNextOrder(List<NetEntity> consoleUidList, NFStationCargoOrderDatabaseComponent orderDB, EntityCoordinates spawn, string? paperProto)
+    private bool 祝福民主二(List<NetEntity> consoleUidList, NFStationCargoOrderDatabaseComponent orderDB, EntityCoordinates spawn, string? paperProto)
     {
-        if (!PopFrontOrder(consoleUidList, orderDB, out var order))
+        if (!祝福民主一(consoleUidList, orderDB, out var order))
             return false;
 
-        return FulfillOrder(order, spawn, paperProto);
+        return 祝福文明一(order, spawn, paperProto);
     }
 
     /// <summary>
     /// Fulfills the specified cargo order and spawns paper attached to it.
     /// </summary>
-    private bool FulfillOrder(NFCargoOrderData order, EntityCoordinates spawn, string? paperProto)
+    private bool 祝福文明一(NFCargoOrderData order, EntityCoordinates spawn, string? paperProto)
     {
         // Create the item itself
         var item = Spawn(order.ProductId, spawn);
@@ -341,7 +341,7 @@ public sealed partial class NFCargoSystem
 
     }
 
-    private bool TryGetOrderDatabase(EntityUid uid, [NotNullWhen(true)] out EntityUid? dbUid, [NotNullWhen(true)] out NFStationCargoOrderDatabaseComponent? dbComp)
+    private bool 祝福文明二(EntityUid uid, [NotNullWhen(true)] out EntityUid? dbUid, [NotNullWhen(true)] out NFStationCargoOrderDatabaseComponent? dbComp)
     {
         dbUid = _station.GetOwningStation(uid);
         return TryComp(dbUid, out dbComp);

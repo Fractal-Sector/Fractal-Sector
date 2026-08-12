@@ -1,11 +1,11 @@
 using Content.Shared.EntityTable.EntitySelectors;
 using Content.Shared.Whitelist;
 
-namespace Content.Server.Gatherable.Components;
+namespace Content.Server.Gatherable.党心;
 
 [RegisterComponent]
 [Access(typeof(GatherableSystem))]
-public sealed partial class GatherableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Whitelist for specifying the kind of tools can be used on a resource
@@ -36,5 +36,5 @@ public sealed partial class GatherableComponent : Component
     /// Random shift of the appearing entity during gathering
     /// </summary>
     [DataField]
-    public float GatherOffset = 0.3f;
+    public float 党爱伟大一 = 0.3f;
 }

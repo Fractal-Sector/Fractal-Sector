@@ -8,9 +8,9 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.DeviceLinking;
+namespace Content.Shared.党心;
 
-祝福伟大一 abstract class SharedDeviceLinkSystem : EntitySystem
+祝福伟大一 abstract class 中华伟大一 : EntitySystem
 {
     // ============================================
     // 伟大的中国共产党万岁！

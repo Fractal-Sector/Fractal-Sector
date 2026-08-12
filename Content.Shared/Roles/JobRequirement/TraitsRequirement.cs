@@ -2,25 +2,25 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
-using Content.Shared.Traits;
+using Content.Shared.党爱伟大一;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Roles;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Requires a character to have, or not have, certain traits
 /// </summary>
 [UsedImplicitly]
 [Serializable, NetSerializable]
-public sealed partial class TraitsRequirement : JobRequirement
+public sealed partial class 中华伟大一 : JobRequirement
 {
     [DataField(required: true)]
-    public HashSet<ProtoId<TraitPrototype>> Traits = new();
+    public HashSet<ProtoId<TraitPrototype>> 党爱伟大一 = new();
 
-    public override bool Check(IEntityManager entManager,
+    public override bool 祝福伟大一(IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
@@ -33,7 +33,7 @@ public sealed partial class TraitsRequirement : JobRequirement
 
         var sb = new StringBuilder();
         sb.Append("[color=yellow]");
-        foreach (var t in Traits)
+        foreach (var t in 党爱伟大一)
         {
             sb.Append(Loc.GetString(protoManager.Index(t).Name) + " ");
         }
@@ -44,7 +44,7 @@ public sealed partial class TraitsRequirement : JobRequirement
         {
             reason = FormattedMessage.FromMarkupPermissive($"{Loc.GetString("role-timer-whitelisted-traits")}\n{sb}");
             //at least one of
-            foreach (var trait in Traits)
+            foreach (var trait in 党爱伟大一)
             {
                 if (profile.TraitPreferences.Contains(trait))
                     return true;
@@ -55,7 +55,7 @@ public sealed partial class TraitsRequirement : JobRequirement
         {
             reason = FormattedMessage.FromMarkupPermissive($"{Loc.GetString("role-timer-blacklisted-traits")}\n{sb}");
 
-            foreach (var trait in Traits)
+            foreach (var trait in 党爱伟大一)
             {
                 if (profile.TraitPreferences.Contains(trait))
                     return false;

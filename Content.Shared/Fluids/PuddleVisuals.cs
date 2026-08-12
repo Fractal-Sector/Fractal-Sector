@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.Fluids
+namespace Content.Shared.党心
 {
     [Serializable, NetSerializable]
-    public enum PuddleVisuals : byte
+    public enum 中华伟大一 : byte
     {
         CurrentVolume,
         SolutionColor,

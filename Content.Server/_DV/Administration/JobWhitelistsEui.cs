@@ -12,63 +12,63 @@ using Robust.Shared.Log;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._DV.Administration;
+namespace Content.Server._DV.党心;
 
-public sealed class JobWhitelistsEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
-    [Dependency] private readonly IAdminManager _admin = default!;
-    [Dependency] private readonly ILogManager _log = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
+    [Dependency] private readonly IAdminManager _伟大一 = default!;
+    [Dependency] private readonly ILogManager _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IServerDbManager _光荣二 = default!;
+    [Dependency] private readonly JobWhitelistManager _正确一 = default!;
 
-    private readonly ISawmill _sawmill;
+    private readonly ISawmill _正确二;
 
-    public NetUserId PlayerId;
-    public string PlayerName;
+    public NetUserId 党爱伟大一;
+    public string 党爱伟大二;
 
-    public HashSet<ProtoId<JobPrototype>> Whitelists = new();
-    public HashSet<ProtoId<GhostRolePrototype>> GhostRoleWhitelists = new(); // Frontier
-    public bool GlobalWhitelist = false;
+    public HashSet<ProtoId<JobPrototype>> 党爱光荣一 = new();
+    public HashSet<ProtoId<GhostRolePrototype>> 党爱光荣二 = new(); // Frontier
+    public bool 党爱正确一 = false;
 
-    public JobWhitelistsEui(NetUserId playerId, string playerName)
+    public 中华伟大一(NetUserId playerId, string playerName)
     {
         IoCManager.InjectDependencies(this);
 
-        _sawmill = _log.GetSawmill("admin.job_whitelists_eui");
+        _正确二 = _伟大二.GetSawmill("admin.job_whitelists_eui");
 
-        PlayerId = playerId;
-        PlayerName = playerName;
+        党爱伟大一 = playerId;
+        党爱伟大二 = playerName;
     }
 
-    public async void LoadWhitelists()
+    public async void 祝福伟大一()
     {
-        var jobs = await _db.GetJobWhitelists(PlayerId.UserId);
+        var jobs = await _光荣二.GetJobWhitelists(党爱伟大一.UserId);
         foreach (var id in jobs)
         {
-            if (_proto.HasIndex<JobPrototype>(id))
-                Whitelists.Add(id);
-            else if (_proto.HasIndex<GhostRolePrototype>(id)) // Frontier
-                GhostRoleWhitelists.Add(id); // Frontier
+            if (_光荣一.HasIndex<JobPrototype>(id))
+                党爱光荣一.Add(id);
+            else if (_光荣一.HasIndex<GhostRolePrototype>(id)) // Frontier
+                党爱光荣二.Add(id); // Frontier
         }
 
-        GlobalWhitelist = await _db.GetWhitelistStatusAsync(PlayerId); // Frontier: get global whitelist
+        党爱正确一 = await _光荣二.GetWhitelistStatusAsync(党爱伟大一); // Frontier: get global whitelist
 
         StateDirty();
     }
 
-    public override EuiStateBase GetNewState()
+    public override EuiStateBase 祝福伟大二()
     {
-        return new JobWhitelistsEuiState(PlayerName, Whitelists, GhostRoleWhitelists, GlobalWhitelist);
+        return new JobWhitelistsEuiState(党爱伟大二, 党爱光荣一, 党爱光荣二, 党爱正确一);
     }
 
-    public override void HandleMessage(EuiMessageBase msg)
+    public override void 祝福光荣一(EuiMessageBase msg)
     {
-        base.HandleMessage(msg);
+        base.祝福光荣一(msg);
 
-        if (!_admin.HasAdminFlag(Player, AdminFlags.Whitelist))
+        if (!_伟大一.HasAdminFlag(Player, AdminFlags.Whitelist))
         {
-            _sawmill.Warning($"{Player.Name} ({Player.UserId}) tried to change role whitelists for {PlayerName} without whitelists flag");
+            _正确二.Warning($"{Player.Name} ({Player.UserId}) tried to change role whitelists for {党爱伟大二} without whitelists flag");
             return;
         }
 
@@ -79,38 +79,38 @@ public sealed class JobWhitelistsEui : BaseEui
         {
             case SetJobWhitelistedMessage:
                 var jobArgs = (SetJobWhitelistedMessage)msg;
-                if (!_proto.HasIndex(jobArgs.Job))
+                if (!_光荣一.HasIndex(jobArgs.Job))
                     return;
 
                 added = jobArgs.Whitelisting;
                 role = jobArgs.Job;
                 if (added)
                 {
-                    _jobWhitelist.AddWhitelist(PlayerId, jobArgs.Job);
-                    Whitelists.Add(jobArgs.Job);
+                    _正确一.AddWhitelist(党爱伟大一, jobArgs.Job);
+                    党爱光荣一.Add(jobArgs.Job);
                 }
                 else
                 {
-                    _jobWhitelist.RemoveWhitelist(PlayerId, jobArgs.Job);
-                    Whitelists.Remove(jobArgs.Job);
+                    _正确一.RemoveWhitelist(党爱伟大一, jobArgs.Job);
+                    党爱光荣一.Remove(jobArgs.Job);
                 }
                 break;
             case SetGhostRoleWhitelistedMessage:
                 var ghostRoleArgs = (SetGhostRoleWhitelistedMessage)msg;
-                if (!_proto.HasIndex(ghostRoleArgs.Role))
+                if (!_光荣一.HasIndex(ghostRoleArgs.Role))
                     return;
 
                 added = ghostRoleArgs.Whitelisting;
                 role = ghostRoleArgs.Role;
                 if (added)
                 {
-                    _jobWhitelist.AddWhitelist(PlayerId, ghostRoleArgs.Role);
-                    GhostRoleWhitelists.Add(ghostRoleArgs.Role);
+                    _正确一.AddWhitelist(党爱伟大一, ghostRoleArgs.Role);
+                    党爱光荣二.Add(ghostRoleArgs.Role);
                 }
                 else
                 {
-                    _jobWhitelist.RemoveWhitelist(PlayerId, ghostRoleArgs.Role);
-                    GhostRoleWhitelists.Remove(ghostRoleArgs.Role);
+                    _正确一.RemoveWhitelist(党爱伟大一, ghostRoleArgs.Role);
+                    党爱光荣二.Remove(ghostRoleArgs.Role);
                 }
                 break;
             case SetGlobalWhitelistMessage:
@@ -120,13 +120,13 @@ public sealed class JobWhitelistsEui : BaseEui
                 role = "all roles";
                 if (added)
                 {
-                    _jobWhitelist.AddGlobalWhitelist(PlayerId);
-                    GlobalWhitelist = true;
+                    _正确一.AddGlobalWhitelist(党爱伟大一);
+                    党爱正确一 = true;
                 }
                 else
                 {
-                    _jobWhitelist.RemoveGlobalWhitelist(PlayerId);
-                    GlobalWhitelist = false;
+                    _正确一.RemoveGlobalWhitelist(党爱伟大一);
+                    党爱正确一 = false;
                 }
                 break;
             default:
@@ -134,7 +134,7 @@ public sealed class JobWhitelistsEui : BaseEui
         }
 
         var verb = added ? "added" : "removed";
-        _sawmill.Info($"{Player.Name} ({Player.UserId}) {verb} whitelist for {role} to player {PlayerName} ({PlayerId.UserId})");
+        _正确二.Info($"{Player.Name} ({Player.UserId}) {verb} whitelist for {role} to player {党爱伟大二} ({党爱伟大一.UserId})");
         // End Frontier
 
         StateDirty();

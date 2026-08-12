@@ -2,20 +2,20 @@ using Content.Server.Shuttles.Components;
 using Content.Shared.NodeContainer;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.NodeContainer.Nodes;
+namespace Content.Server.NodeContainer.党心;
 
 
 [DataDefinition, Virtual]
-public partial class DockablePipeNode : PipeNode
+public partial class 中华伟大一 : PipeNode
 {
 
-    public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+    public override IEnumerable<Node> 祝福伟大一(TransformComponent xform,
         EntityQuery<NodeContainerComponent> nodeQuery,
         EntityQuery<TransformComponent> xformQuery,
         MapGridComponent? grid,
         IEntityManager entMan)
     {
-        foreach (var pipe in base.GetReachableNodes(xform, nodeQuery, xformQuery, grid, entMan))
+        foreach (var pipe in base.祝福伟大一(xform, nodeQuery, xformQuery, grid, entMan))
         {
             yield return pipe;
         }
@@ -30,7 +30,7 @@ public partial class DockablePipeNode : PipeNode
             // Hack: this doesn't take into account the direction of the dockable port.
             foreach (var node in otherNode.Nodes.Values)
             {
-                if (node is DockablePipeNode pipe)
+                if (node is 中华伟大一 pipe)
                     yield return pipe;
             }
         }

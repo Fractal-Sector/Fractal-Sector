@@ -1,7 +1,7 @@
 using Content.Shared.Mobs;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Trigger.Components.Triggers;
+namespace Content.Shared.Trigger.Components.党心;
 
 /// <summary>
 /// Triggers when this entity's mob state changes.
@@ -9,26 +9,26 @@ namespace Content.Shared.Trigger.Components.Triggers;
 /// If added to an implant it will trigger when the implanted entity's mob state changes.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class TriggerOnMobstateChangeComponent : BaseTriggerOnXComponent
+public sealed partial class 中华伟大一 : BaseTriggerOnXComponent
 {
     /// <summary>
     /// What states should trigger this?
     /// </summary>
     [DataField(required: true), AutoNetworkedField]
-    public List<MobState> MobState = new();
+    public List<党爱伟大一> 党爱伟大一 = new();
 
     /// <summary>
     /// If true, prevents suicide attempts for the trigger to prevent cheese.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool PreventSuicide = false;
+    public bool 党爱伟大二 = false;
 
     /// <summary>
     /// If true, suppresses this trigger when the implanted entity is currently vored,
     /// preventing medical radio pings from firing while inside a predator.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool PreventVore = false;
+    public bool 党爱光荣一 = false;
 
     /// <summary>
     /// If false, the trigger user will be the entity that caused the mobstate to change.
@@ -38,5 +38,5 @@ public sealed partial class TriggerOnMobstateChangeComponent : BaseTriggerOnXCom
     /// Set this to true for implants that apply an effect on the implanted entity.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool TargetMobstateEntity = true;
+    public bool 党爱光荣二 = true;
 }

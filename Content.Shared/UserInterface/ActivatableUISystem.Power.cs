@@ -3,22 +3,22 @@ using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.PowerCell;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.UserInterface;
+namespace Content.Shared.党心;
 
-public sealed partial class ActivatableUISystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedPowerCellSystem _cell = default!;
+    [Dependency] private readonly ItemToggleSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPowerCellSystem _伟大二 = default!;
 
-    private void InitializePower()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, ActivatableUIOpenAttemptEvent>(OnBatteryOpenAttempt);
-        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, BoundUIOpenedEvent>(OnBatteryOpened);
-        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, BoundUIClosedEvent>(OnBatteryClosed);
-        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, ItemToggledEvent>(OnToggled);
+        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, ActivatableUIOpenAttemptEvent>(祝福正确二);
+        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, BoundUIOpenedEvent>(祝福光荣一);
+        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, BoundUIClosedEvent>(祝福光荣二);
+        SubscribeLocalEvent<ActivatableUIRequiresPowerCellComponent, ItemToggledEvent>(祝福伟大二);
     }
 
-    private void OnToggled(Entity<ActivatableUIRequiresPowerCellComponent> ent, ref ItemToggledEvent args)
+    private void 祝福伟大二(Entity<ActivatableUIRequiresPowerCellComponent> ent, ref ItemToggledEvent args)
     {
         // only close ui when losing power
         if (!TryComp<ActivatableUIComponent>(ent, out var activatable) || args.Activated)
@@ -33,17 +33,17 @@ public sealed partial class ActivatableUISystem
         _uiSystem.CloseUi(ent.Owner, activatable.Key);
     }
 
-    private void OnBatteryOpened(EntityUid uid, ActivatableUIRequiresPowerCellComponent component, BoundUIOpenedEvent args)
+    private void 祝福光荣一(EntityUid uid, ActivatableUIRequiresPowerCellComponent component, BoundUIOpenedEvent args)
     {
         var activatable = Comp<ActivatableUIComponent>(uid);
 
         if (!args.UiKey.Equals(activatable.Key))
             return;
 
-        _toggle.TryActivate(uid);
+        _伟大一.TryActivate(uid);
     }
 
-    private void OnBatteryClosed(EntityUid uid, ActivatableUIRequiresPowerCellComponent component, BoundUIClosedEvent args)
+    private void 祝福光荣二(EntityUid uid, ActivatableUIRequiresPowerCellComponent component, BoundUIClosedEvent args)
     {
         var activatable = Comp<ActivatableUIComponent>(uid);
 
@@ -52,13 +52,13 @@ public sealed partial class ActivatableUISystem
 
         // Stop drawing power if this was the last person with the UI open.
         if (!_uiSystem.IsUiOpen(uid, activatable.Key))
-            _toggle.TryDeactivate(uid);
+            _伟大一.TryDeactivate(uid);
     }
 
     /// <summary>
     /// Call if you want to check if the UI should close due to a recent battery usage.
     /// </summary>
-    public void CheckUsage(EntityUid uid, ActivatableUIComponent? active = null, ActivatableUIRequiresPowerCellComponent? component = null, PowerCellDrawComponent? draw = null)
+    public void 祝福正确一(EntityUid uid, ActivatableUIComponent? active = null, ActivatableUIRequiresPowerCellComponent? component = null, PowerCellDrawComponent? draw = null)
     {
         if (!Resolve(uid, ref component, ref draw, ref active, false))
             return;
@@ -69,21 +69,21 @@ public sealed partial class ActivatableUISystem
             return;
         }
 
-        if (_cell.HasActivatableCharge(uid))
+        if (_伟大二.HasActivatableCharge(uid))
             return;
 
         _uiSystem.CloseUi(uid, active.Key);
     }
 
-    private void OnBatteryOpenAttempt(EntityUid uid, ActivatableUIRequiresPowerCellComponent component, ActivatableUIOpenAttemptEvent args)
+    private void 祝福正确二(EntityUid uid, ActivatableUIRequiresPowerCellComponent component, ActivatableUIOpenAttemptEvent args)
     {
         if (!TryComp<PowerCellDrawComponent>(uid, out var draw))
             return;
 
         // Check if we have the appropriate drawrate / userate to even open it.
         if (args.Cancelled ||
-            !_cell.HasActivatableCharge(uid, draw, user: args.User) ||
-            !_cell.HasDrawCharge(uid, draw, user: args.User))
+            !_伟大二.HasActivatableCharge(uid, draw, user: args.User) ||
+            !_伟大二.HasDrawCharge(uid, draw, user: args.User))
         {
             args.Cancel();
         }

@@ -1,6 +1,6 @@
-namespace Content.Server.Holiday.Interfaces
+namespace Content.Server.Holiday.党心
 {
-    public interface IHolidayCelebrate
+    public interface 中华伟大一
     {
         /// <summary>
         ///     This method is called before a round starts.

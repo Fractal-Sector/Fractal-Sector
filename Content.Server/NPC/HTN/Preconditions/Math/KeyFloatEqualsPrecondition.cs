@@ -1,22 +1,22 @@
-﻿namespace Content.Server.NPC.HTN.Preconditions.Math;
+﻿namespace Content.Server.NPC.HTN.Preconditions.党心;
 
 /// <summary>
-/// Checks if there is a float value for the specified <see cref="KeyFloatEqualsPrecondition.Key"/>
-/// in the <see cref="NPCBlackboard"/> and the specified value is equal to the <see cref="KeyFloatEqualsPrecondition.Value"/>.
+/// Checks if there is a float value for the specified <see cref="中华伟大一.党爱伟大一"/>
+/// in the <see cref="NPCBlackboard"/> and the specified value is equal to the <see cref="中华伟大一.党爱伟大二"/>.
 /// </summary>
-public sealed partial class KeyFloatEqualsPrecondition : HTNPrecondition
+public sealed partial class 中华伟大一 : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
 
     [DataField(required: true), ViewVariables]
-    public string Key = string.Empty;
+    public string 党爱伟大一 = string.Empty;
 
     [DataField(required: true), ViewVariables(VVAccess.ReadWrite)]
-    public float Value;
+    public float 党爱伟大二;
 
-    public override bool IsMet(NPCBlackboard blackboard)
+    public override bool 祝福伟大一(NPCBlackboard blackboard)
     {
-        return blackboard.TryGetValue<float>(Key, out var value, _entManager) &&
+        return blackboard.TryGetValue<float>(党爱伟大一, out var value, _伟大一) &&
                MathHelper.CloseTo(value, value);
     }
 }

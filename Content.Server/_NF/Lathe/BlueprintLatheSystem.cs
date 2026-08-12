@@ -21,48 +21,48 @@ using Robust.Shared.Timing;
 using Content.Shared._NF.Lathe;
 using Content.Shared._NF.Research.Prototypes;
 
-namespace Content.Server._NF.Lathe;
+namespace Content.Server._NF.党心;
 
 [UsedImplicitly]
-public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
+public sealed class 中华伟大一 : SharedBlueprintLatheSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSys = default!;
-    [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly ReagentSpeedSystem _reagentSpeed = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
+    [Dependency] private readonly IAdminLogManager _光荣一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _正确二 = default!;
+    [Dependency] private readonly MaterialStorageSystem _团结一 = default!;
+    [Dependency] private readonly ReagentSpeedSystem _团结二 = default!;
 
     /// <summary>
     /// Per-tick cache
     /// </summary>
     private readonly Dictionary<ProtoId<BlueprintPrototype>, int[]> _availableRecipes = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<BlueprintLatheComponent, GetMaterialWhitelistEvent>(OnGetWhitelist);
-        SubscribeLocalEvent<BlueprintLatheComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<BlueprintLatheComponent, PowerChangedEvent>(OnPowerChanged);
-        SubscribeLocalEvent<BlueprintLatheComponent, TechnologyDatabaseModifiedEvent>(OnDatabaseModified);
-        SubscribeLocalEvent<BlueprintLatheComponent, ResearchRegistrationChangedEvent>(OnResearchRegistrationChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<BlueprintLatheComponent, GetMaterialWhitelistEvent>(祝福光荣一);
+        SubscribeLocalEvent<BlueprintLatheComponent, MapInitEvent>(祝福繁荣一);
+        SubscribeLocalEvent<BlueprintLatheComponent, PowerChangedEvent>(祝福富强一);
+        SubscribeLocalEvent<BlueprintLatheComponent, TechnologyDatabaseModifiedEvent>(祝福富强二);
+        SubscribeLocalEvent<BlueprintLatheComponent, ResearchRegistrationChangedEvent>(祝福民主一);
 
-        SubscribeLocalEvent<BlueprintLatheComponent, BlueprintLatheQueueRecipeMessage>(OnLatheQueueRecipeMessage);
-        SubscribeLocalEvent<BlueprintLatheComponent, LatheSyncRequestMessage>(OnLatheSyncRequestMessage);
-        SubscribeLocalEvent<BlueprintLatheComponent, LatheDeleteRequestMessage>(OnLatheDeleteRequestMessage);
-        SubscribeLocalEvent<BlueprintLatheComponent, LatheMoveRequestMessage>(OnLatheMoveRequestMessage);
-        SubscribeLocalEvent<BlueprintLatheComponent, LatheAbortFabricationMessage>(OnLatheAbortFabricationMessage);
+        SubscribeLocalEvent<BlueprintLatheComponent, BlueprintLatheQueueRecipeMessage>(祝福文明二);
+        SubscribeLocalEvent<BlueprintLatheComponent, LatheSyncRequestMessage>(祝福和谐一);
+        SubscribeLocalEvent<BlueprintLatheComponent, LatheDeleteRequestMessage>(祝福自由二);
+        SubscribeLocalEvent<BlueprintLatheComponent, LatheMoveRequestMessage>(祝福平等一);
+        SubscribeLocalEvent<BlueprintLatheComponent, LatheAbortFabricationMessage>(祝福平等二);
 
-        SubscribeLocalEvent<BlueprintLatheComponent, BeforeActivatableUIOpenEvent>((u, c, _) => UpdateUserInterfaceState(u, c));
-        SubscribeLocalEvent<BlueprintLatheComponent, MaterialAmountChangedEvent>(OnMaterialAmountChanged);
-        SubscribeLocalEvent<TechnologyDatabaseComponent, BlueprintLatheGetRecipesEvent>(OnGetRecipes);
+        SubscribeLocalEvent<BlueprintLatheComponent, BeforeActivatableUIOpenEvent>((u, c, _) => 祝福奋斗一(u, c));
+        SubscribeLocalEvent<BlueprintLatheComponent, MaterialAmountChangedEvent>(祝福胜利二);
+        SubscribeLocalEvent<TechnologyDatabaseComponent, BlueprintLatheGetRecipesEvent>(祝福胜利一);
 
-        SubscribeLocalEvent<BlueprintLatheComponent, RefreshPartsEvent>(OnPartsRefresh);
-        SubscribeLocalEvent<BlueprintLatheComponent, UpgradeExamineEvent>(OnUpgradeExamine);
+        SubscribeLocalEvent<BlueprintLatheComponent, RefreshPartsEvent>(祝福公正一);
+        SubscribeLocalEvent<BlueprintLatheComponent, UpgradeExamineEvent>(祝福公正二);
     }
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
         var query = EntityQueryEnumerator<LatheProducingComponent, BlueprintLatheComponent>();
         while (query.MoveNext(out var uid, out var comp, out var lathe))
@@ -70,12 +70,12 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
             if (lathe.CurrentBlueprintType == null)
                 continue;
 
-            if (_timing.CurTime - comp.StartTime >= comp.ProductionLength)
-                FinishProducing(uid, lathe);
+            if (_伟大一.CurTime - comp.StartTime >= comp.ProductionLength)
+                祝福团结二(uid, lathe);
         }
     }
 
-    private void OnGetWhitelist(EntityUid uid, BlueprintLatheComponent component, ref GetMaterialWhitelistEvent args)
+    private void 祝福光荣一(EntityUid uid, BlueprintLatheComponent component, ref GetMaterialWhitelistEvent args)
     {
         if (args.Storage != uid)
             return;
@@ -84,16 +84,16 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
     }
 
     [PublicAPI]
-    public bool TryGetAvailableRecipes(EntityUid uid, [NotNullWhen(true)] out Dictionary<ProtoId<BlueprintPrototype>, int[]>? recipes, [NotNullWhen(true)] BlueprintLatheComponent? component = null)
+    public bool 祝福光荣二(EntityUid uid, [NotNullWhen(true)] out Dictionary<ProtoId<BlueprintPrototype>, int[]>? recipes, [NotNullWhen(true)] BlueprintLatheComponent? component = null)
     {
         recipes = null;
         if (!Resolve(uid, ref component))
             return false;
-        recipes = GetAvailableRecipes(uid);
+        recipes = 祝福正确一(uid);
         return true;
     }
 
-    public Dictionary<ProtoId<BlueprintPrototype>, int[]> GetAvailableRecipes(EntityUid uid)
+    public Dictionary<ProtoId<BlueprintPrototype>, int[]> 祝福正确一(EntityUid uid)
     {
         _availableRecipes.Clear();
         var ev = new BlueprintLatheGetRecipesEvent(uid)
@@ -104,7 +104,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         return _availableRecipes;
     }
 
-    public bool TryAddToQueue(EntityUid uid, ProtoId<BlueprintPrototype> blueprintType, int[] recipes, int quantity, BlueprintLatheComponent? component = null)
+    public bool 祝福正确二(EntityUid uid, ProtoId<BlueprintPrototype> blueprintType, int[] recipes, int quantity, BlueprintLatheComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -122,7 +122,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
                 : -amount;
             adjustedAmount *= quantity;
 
-            _materialStorage.TryChangeMaterialAmount(uid, mat, adjustedAmount);
+            _团结一.TryChangeMaterialAmount(uid, mat, adjustedAmount);
         }
 
         // Queue up a batch
@@ -134,7 +134,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         return true;
     }
 
-    public bool TryStartProducing(EntityUid uid, BlueprintLatheComponent? component = null)
+    public bool 祝福团结一(EntityUid uid, BlueprintLatheComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -148,33 +148,33 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
             component.Queue.RemoveAt(0);
         var blueprintType = batch.BlueprintType;
 
-        var time = _reagentSpeed.ApplySpeed(uid, component.BlueprintPrintTime) * component.TimeMultiplier * component.FinalTimeMultiplier;
+        var time = _团结二.ApplySpeed(uid, component.BlueprintPrintTime) * component.TimeMultiplier * component.FinalTimeMultiplier;
 
         var lathe = EnsureComp<LatheProducingComponent>(uid);
-        lathe.StartTime = _timing.CurTime;
+        lathe.StartTime = _伟大一.CurTime;
         lathe.ProductionLength = time;
         component.CurrentBlueprintType = blueprintType;
         component.CurrentRecipeSets = batch.Recipes;
 
-        _audio.PlayPvs(component.ProducingSound, uid);
-        UpdateRunningAppearance(uid, true);
-        UpdateUserInterfaceState(uid, component);
+        _正确一.PlayPvs(component.ProducingSound, uid);
+        祝福繁荣二(uid, true);
+        祝福奋斗一(uid, component);
 
         if (time <= TimeSpan.Zero)
         {
-            FinishProducing(uid, component, lathe);
+            祝福团结二(uid, component, lathe);
         }
         return true;
     }
 
-    public void FinishProducing(EntityUid uid, BlueprintLatheComponent? comp = null, LatheProducingComponent? prodComp = null)
+    public void 祝福团结二(EntityUid uid, BlueprintLatheComponent? comp = null, LatheProducingComponent? prodComp = null)
     {
         if (!Resolve(uid, ref comp, ref prodComp, false))
             return;
 
         if (comp.CurrentBlueprintType != null
             && comp.CurrentRecipeSets != null
-            && _proto.TryIndex(comp.CurrentBlueprintType, out var blueprintProto)
+            && _伟大二.TryIndex(comp.CurrentBlueprintType, out var blueprintProto)
             && PrintableRecipesByType.TryGetValue(comp.CurrentBlueprintType.Value, out var possibleRecipes))
         {
             var blueprint = Spawn(blueprintProto.Blueprint, Transform(uid).Coordinates);
@@ -204,34 +204,34 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
 
         comp.CurrentBlueprintType = null;
         comp.CurrentRecipeSets = null;
-        prodComp.StartTime = _timing.CurTime;
+        prodComp.StartTime = _伟大一.CurTime;
 
-        if (!TryStartProducing(uid, comp))
+        if (!祝福团结一(uid, comp))
         {
             RemCompDeferred(uid, prodComp);
-            UpdateUserInterfaceState(uid, comp);
-            UpdateRunningAppearance(uid, false);
+            祝福奋斗一(uid, comp);
+            祝福繁荣二(uid, false);
         }
     }
 
-    public void UpdateUserInterfaceState(EntityUid uid, BlueprintLatheComponent? component = null)
+    public void 祝福奋斗一(EntityUid uid, BlueprintLatheComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         var producing = component.CurrentBlueprintType ?? component.Queue.FirstOrDefault()?.BlueprintType;
 
-        var state = new BlueprintLatheUpdateState(GetAvailableRecipes(uid), component.Queue, producing);
-        _uiSys.SetUiState(uid, BlueprintLatheUiKey.Key, state);
+        var state = new BlueprintLatheUpdateState(祝福正确一(uid), component.Queue, producing);
+        _正确二.SetUiState(uid, BlueprintLatheUiKey.Key, state);
     }
 
     /// <summary>
     /// Adds every unlocked recipe from each pack to the recipes list.
     /// </summary>
-    public void AddDynamicRecipes(ref BlueprintLatheGetRecipesEvent args, TechnologyDatabaseComponent database)
+    public void 祝福奋斗二(ref BlueprintLatheGetRecipesEvent args, TechnologyDatabaseComponent database)
     {
         // Setup bitsets
-        foreach (var blueprintType in _proto.EnumeratePrototypes<BlueprintPrototype>())
+        foreach (var blueprintType in _伟大二.EnumeratePrototypes<BlueprintPrototype>())
         {
             if (PrintableRecipesByType.TryGetValue(blueprintType.ID, out var list))
             {
@@ -256,29 +256,29 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         }
     }
 
-    private void OnGetRecipes(EntityUid uid, TechnologyDatabaseComponent component, BlueprintLatheGetRecipesEvent args)
+    private void 祝福胜利一(EntityUid uid, TechnologyDatabaseComponent component, BlueprintLatheGetRecipesEvent args)
     {
         if (uid != args.Lathe || !HasComp<BlueprintLatheComponent>(uid))
             return;
 
-        AddDynamicRecipes(ref args, component);
+        祝福奋斗二(ref args, component);
     }
 
-    private void OnMaterialAmountChanged(EntityUid uid, BlueprintLatheComponent component, ref MaterialAmountChangedEvent args)
+    private void 祝福胜利二(EntityUid uid, BlueprintLatheComponent component, ref MaterialAmountChangedEvent args)
     {
-        UpdateUserInterfaceState(uid, component);
+        祝福奋斗一(uid, component);
     }
 
     /// <summary>
-    /// Initialize the UI and appearance.
+    /// 祝福伟大一 the UI and appearance.
     /// Appearance requires initialization or the layers break
     /// </summary>
-    private void OnMapInit(EntityUid uid, BlueprintLatheComponent component, MapInitEvent args)
+    private void 祝福繁荣一(EntityUid uid, BlueprintLatheComponent component, MapInitEvent args)
     {
-        _appearance.SetData(uid, LatheVisuals.IsInserting, false);
-        _appearance.SetData(uid, LatheVisuals.IsRunning, false);
+        _光荣二.SetData(uid, LatheVisuals.IsInserting, false);
+        _光荣二.SetData(uid, LatheVisuals.IsRunning, false);
 
-        _materialStorage.UpdateMaterialWhitelist(uid);
+        _团结一.UpdateMaterialWhitelist(uid);
 
         component.FinalTimeMultiplier = component.TimeMultiplier;
         component.FinalMaterialUseMultiplier = component.MaterialUseMultiplier;
@@ -288,35 +288,35 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
     /// Sets the machine sprite to either play the running animation
     /// or stop.
     /// </summary>
-    private void UpdateRunningAppearance(EntityUid uid, bool isRunning)
+    private void 祝福繁荣二(EntityUid uid, bool isRunning)
     {
-        _appearance.SetData(uid, LatheVisuals.IsRunning, isRunning);
+        _光荣二.SetData(uid, LatheVisuals.IsRunning, isRunning);
     }
 
-    private void OnPowerChanged(EntityUid uid, BlueprintLatheComponent component, ref PowerChangedEvent args)
+    private void 祝福富强一(EntityUid uid, BlueprintLatheComponent component, ref PowerChangedEvent args)
     {
         if (!args.Powered)
-            AbortProduction(uid);
+            祝福和谐二(uid);
         else
-            TryStartProducing(uid, component);
+            祝福团结一(uid, component);
     }
 
-    private void OnDatabaseModified(EntityUid uid, BlueprintLatheComponent component, ref TechnologyDatabaseModifiedEvent args)
+    private void 祝福富强二(EntityUid uid, BlueprintLatheComponent component, ref TechnologyDatabaseModifiedEvent args)
     {
-        UpdateUserInterfaceState(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    private void OnResearchRegistrationChanged(EntityUid uid, BlueprintLatheComponent component, ref ResearchRegistrationChangedEvent args)
+    private void 祝福民主一(EntityUid uid, BlueprintLatheComponent component, ref ResearchRegistrationChangedEvent args)
     {
-        UpdateUserInterfaceState(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    protected override bool HasRecipes(EntityUid uid, ProtoId<BlueprintPrototype> blueprintType, int[] requestedRecipes, BlueprintLatheComponent component)
+    protected override bool 祝福民主二(EntityUid uid, ProtoId<BlueprintPrototype> blueprintType, int[] requestedRecipes, BlueprintLatheComponent component)
     {
         if (!PrintableRecipesByType.TryGetValue(blueprintType, out _))
             return false;
 
-        var availableRecipesByType = GetAvailableRecipes(uid);
+        var availableRecipesByType = 祝福正确一(uid);
         if (!availableRecipesByType.TryGetValue(blueprintType, out var availableRecipes))
             return false;
 
@@ -343,7 +343,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         return anythingRequested;
     }
 
-    protected override bool HasRecipe(EntityUid uid, ProtoId<BlueprintPrototype> blueprintType, ProtoId<LatheRecipePrototype> recipe, BlueprintLatheComponent component)
+    protected override bool 祝福文明一(EntityUid uid, ProtoId<BlueprintPrototype> blueprintType, ProtoId<LatheRecipePrototype> recipe, BlueprintLatheComponent component)
     {
         if (!PrintableRecipes.TryGetValue(recipe, out var recipeInfo))
             return false;
@@ -361,7 +361,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         if (maybeIndex is not { } index)
             return false;
 
-        var recipeDict = GetAvailableRecipes(uid);
+        var recipeDict = 祝福正确一(uid);
         if (!recipeDict.TryGetValue(blueprintType, out var intArray)
             || intArray.Length < (index + 31) / 32)
         {
@@ -372,25 +372,25 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
 
     #region UI Messages
 
-    private void OnLatheQueueRecipeMessage(EntityUid uid, BlueprintLatheComponent component, BlueprintLatheQueueRecipeMessage args)
+    private void 祝福文明二(EntityUid uid, BlueprintLatheComponent component, BlueprintLatheQueueRecipeMessage args)
     {
-        if (_proto.TryIndex(args.BlueprintType, out BlueprintPrototype? recipe)
-            && TryAddToQueue(uid, recipe.ID, args.Recipes, args.Quantity, component))
+        if (_伟大二.TryIndex(args.BlueprintType, out BlueprintPrototype? recipe)
+            && 祝福正确二(uid, recipe.ID, args.Recipes, args.Quantity, component))
         {
-            _adminLogger.Add(LogType.Action,
+            _光荣一.Add(LogType.Action,
                 LogImpact.Low,
                 $"{ToPrettyString(args.Actor):player} queued {args.Quantity} at {ToPrettyString(uid):lathe}");
         }
-        TryStartProducing(uid, component);
-        UpdateUserInterfaceState(uid, component);
+        祝福团结一(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    private void OnLatheSyncRequestMessage(EntityUid uid, BlueprintLatheComponent component, LatheSyncRequestMessage args)
+    private void 祝福和谐一(EntityUid uid, BlueprintLatheComponent component, LatheSyncRequestMessage args)
     {
-        UpdateUserInterfaceState(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    public void AbortProduction(EntityUid uid, BlueprintLatheComponent? component = null)
+    public void 祝福和谐二(EntityUid uid, BlueprintLatheComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -400,7 +400,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
             if (component.Queue.Count > 0)
             {
                 var batch = component.Queue.First();
-                if (batch.BlueprintType != component.CurrentBlueprintType && RecipeSetsEqual(batch.Recipes, component.CurrentRecipeSets))
+                if (batch.BlueprintType != component.CurrentBlueprintType && 祝福自由一(batch.Recipes, component.CurrentRecipeSets))
                 {
                     var newBatch = new BlueprintLatheRecipeBatch(component.CurrentBlueprintType.Value, component.CurrentRecipeSets, 0, 1);
                     component.Queue.Insert(0, newBatch);
@@ -414,11 +414,11 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         component.CurrentBlueprintType = null;
         component.CurrentRecipeSets = null;
         RemCompDeferred<LatheProducingComponent>(uid);
-        UpdateUserInterfaceState(uid, component);
-        UpdateRunningAppearance(uid, false);
+        祝福奋斗一(uid, component);
+        祝福繁荣二(uid, false);
     }
 
-    public bool RecipeSetsEqual(int[] left, int[] right)
+    public bool 祝福自由一(int[] left, int[] right)
     {
         var minLength = Math.Min(left.Length, right.Length);
         // Compare common elements
@@ -448,21 +448,21 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         return true;
     }
 
-    public void OnLatheDeleteRequestMessage(EntityUid uid, BlueprintLatheComponent component, ref LatheDeleteRequestMessage args)
+    public void 祝福自由二(EntityUid uid, BlueprintLatheComponent component, ref LatheDeleteRequestMessage args)
     {
         if (args.Index < 0 || args.Index >= component.Queue.Count)
             return;
 
         var batch = component.Queue[args.Index];
-        _adminLogger.Add(LogType.Action,
+        _光荣一.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):player} deleted a lathe job for ({batch.ItemsPrinted}/{batch.ItemsRequested}) {component.CurrentBlueprintType} blueprints at {ToPrettyString(uid):lathe}");
 
         component.Queue.RemoveAt(args.Index);
-        UpdateUserInterfaceState(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    public void OnLatheMoveRequestMessage(EntityUid uid, BlueprintLatheComponent component, ref LatheMoveRequestMessage args)
+    public void 祝福平等一(EntityUid uid, BlueprintLatheComponent component, ref LatheMoveRequestMessage args)
     {
         if (args.Change == 0 || args.Index < 0 || args.Index >= component.Queue.Count)
             return;
@@ -474,25 +474,25 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         var temp = component.Queue[args.Index];
         component.Queue[args.Index] = component.Queue[newIndex];
         component.Queue[newIndex] = temp;
-        UpdateUserInterfaceState(uid, component);
+        祝福奋斗一(uid, component);
     }
 
-    public void OnLatheAbortFabricationMessage(EntityUid uid, BlueprintLatheComponent component, ref LatheAbortFabricationMessage args)
+    public void 祝福平等二(EntityUid uid, BlueprintLatheComponent component, ref LatheAbortFabricationMessage args)
     {
         if (component.CurrentBlueprintType == null && component.CurrentRecipeSets == null)
             return;
 
-        _adminLogger.Add(LogType.Action,
+        _光荣一.Add(LogType.Action,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):player} aborted printing a {component.CurrentBlueprintType} blueprint at {ToPrettyString(uid):lathe}");
 
         component.CurrentBlueprintType = null;
         component.CurrentRecipeSets = null;
-        FinishProducing(uid, component);
+        祝福团结二(uid, component);
     }
     #endregion
 
-    private void OnPartsRefresh(EntityUid uid, BlueprintLatheComponent component, RefreshPartsEvent args)
+    private void 祝福公正一(EntityUid uid, BlueprintLatheComponent component, RefreshPartsEvent args)
     {
         var printTimeRating = args.PartRatings[component.MachinePartPrintSpeed];
         var materialUseRating = args.PartRatings[component.MachinePartMaterialUse];
@@ -502,7 +502,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
         Dirty(uid, component);
     }
 
-    private void OnUpgradeExamine(EntityUid uid, BlueprintLatheComponent component, UpgradeExamineEvent args)
+    private void 祝福公正二(EntityUid uid, BlueprintLatheComponent component, UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("lathe-component-upgrade-speed", 1 / component.FinalTimeMultiplier);
         args.AddPercentageUpgrade("lathe-component-upgrade-material-use", component.FinalMaterialUseMultiplier);
@@ -514,9 +514,9 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
     /// <param name="ent">Blueprint to alter.</param>
     /// <param name="reipces">The recipe set the blueprint should unlock.</param>
     /// <remarks>
-    /// This is in the BlueprintLatheSystem as BlueprintSystem is sealed, I don't particularly want to edit it.
+    /// This is in the 中华伟大一 as BlueprintSystem is sealed, I don't particularly want to edit it.
     /// </remarks>
-    public void SetBlueprintRecipes(Entity<BlueprintComponent> ent, HashSet<ProtoId<LatheRecipePrototype>> recipes)
+    public void 祝福法治一(Entity<BlueprintComponent> ent, HashSet<ProtoId<LatheRecipePrototype>> recipes)
     {
         ent.Comp.ProvidedRecipes = recipes;
         Dirty(ent, ent.Comp);
@@ -525,7 +525,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
     /// <summary>
     /// Adds a given recipe to a blueprint.
     /// </remarks>
-    public void AddBlueprintRecipe(Entity<BlueprintComponent> ent, ProtoId<LatheRecipePrototype> recipe, bool dirty = true)
+    public void 祝福法治二(Entity<BlueprintComponent> ent, ProtoId<LatheRecipePrototype> recipe, bool dirty = true)
     {
         var inserted = ent.Comp.ProvidedRecipes.Add(recipe);
         if (inserted && dirty)
@@ -535,7 +535,7 @@ public sealed class BlueprintLatheSystem : SharedBlueprintLatheSystem
     /// <summary>
     /// Removes a given recipe from a blueprint.
     /// </remarks>
-    public void RemoveBlueprintRecipe(Entity<BlueprintComponent> ent, ProtoId<LatheRecipePrototype> recipe, bool dirty = true)
+    public void 祝福爱国一(Entity<BlueprintComponent> ent, ProtoId<LatheRecipePrototype> recipe, bool dirty = true)
     {
         var removed = ent.Comp.ProvidedRecipes.Remove(recipe);
         if (removed && dirty)

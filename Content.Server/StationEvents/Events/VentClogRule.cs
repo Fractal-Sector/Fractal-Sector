@@ -11,16 +11,16 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
 [UsedImplicitly]
-public sealed class VentClogRule : StationEventSystem<VentClogRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<VentClogRuleComponent>
 {
-    [Dependency] private readonly SmokeSystem _smoke = default!;
+    [Dependency] private readonly SmokeSystem _伟大一 = default!;
 
-    protected override void Started(EntityUid uid, VentClogRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, VentClogRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, component, gameRule, args);
+        base.祝福伟大一(uid, component, gameRule, args);
 
         if (!TryGetRandomStation(out var chosenStation))
             return;
@@ -52,7 +52,7 @@ public sealed class VentClogRule : StationEventSystem<VentClogRuleComponent>
 
             var foamEnt = Spawn(ChemicalReactionSystem.FoamReaction, transform.Coordinates);
             var spreadAmount = weak ? component.WeakSpread : component.Spread;
-            _smoke.StartSmoke(foamEnt, solution, component.Time, spreadAmount);
+            _伟大一.StartSmoke(foamEnt, solution, component.Time, spreadAmount);
             Audio.PlayPvs(component.Sound, transform.Coordinates);
         }
     }

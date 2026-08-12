@@ -7,12 +7,12 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Managers;
+namespace Content.Server.Administration.党心;
 
-public interface IBanManager
+public interface 中华伟大一
 {
-    public void Initialize();
-    public void Restart();
+    public void 祝福伟大一();
+    public void 祝福伟大二();
 
     /// <summary>
     /// Bans the specified target, address range and / or HWID. One of them must be non-null
@@ -24,7 +24,7 @@ public interface IBanManager
     /// <param name="minutes">Number of minutes to ban for. 0 and null mean permanent</param>
     /// <param name="severity">Severity of the resulting ban note</param>
     /// <param name="reason">Reason for the ban</param>
-    public void CreateServerBan(NetUserId? target, string? targetUsername, NetUserId? banningAdmin, (IPAddress, int)? addressRange, ImmutableTypedHwid? hwid, uint? minutes, NoteSeverity severity, string reason);
+    public void 祝福光荣一(NetUserId? target, string? targetUsername, NetUserId? banningAdmin, (IPAddress, int)? addressRange, ImmutableTypedHwid? hwid, uint? minutes, NoteSeverity severity, string reason);
     public HashSet<string>? GetRoleBans(NetUserId playerUserId);
     public HashSet<ProtoId<JobPrototype>>? GetJobBans(NetUserId playerUserId);
 
@@ -37,7 +37,7 @@ public interface IBanManager
     /// <param name="reason">Reason for the ban</param>
     /// <param name="minutes">Number of minutes to ban for. 0 and null mean permanent</param>
     /// <param name="timeOfBan">Time when the ban was applied, used for grouping role bans</param>
-    public Task CreateRoleBan(NetUserId? target, string? targetUsername, NetUserId? banningAdmin, (IPAddress, int)? addressRange, ImmutableTypedHwid? hwid, string role, uint? minutes, NoteSeverity severity, string reason, DateTimeOffset timeOfBan);
+    public Task 祝福光荣二(NetUserId? target, string? targetUsername, NetUserId? banningAdmin, (IPAddress, int)? addressRange, ImmutableTypedHwid? hwid, string role, uint? minutes, NoteSeverity severity, string reason, DateTimeOffset timeOfBan);
 
     /// <summary>
     /// Pardons a role ban for the specified target, username or GUID
@@ -45,11 +45,11 @@ public interface IBanManager
     /// <param name="banId">The id of the role ban to pardon.</param>
     /// <param name="unbanningAdmin">The admin, if any, that pardoned the role ban.</param>
     /// <param name="unbanTime">The time at which this role ban was pardoned.</param>
-    public Task<string> PardonRoleBan(int banId, NetUserId? unbanningAdmin, DateTimeOffset unbanTime);
+    public Task<string> 祝福正确一(int banId, NetUserId? unbanningAdmin, DateTimeOffset unbanTime);
 
     /// <summary>
     /// Sends role bans to the target
     /// </summary>
     /// <param name="pSession">Player's session</param>
-    public void SendRoleBans(ICommonSession pSession);
+    public void 祝福正确二(ICommonSession pSession);
 }

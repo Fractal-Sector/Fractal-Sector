@@ -5,27 +5,27 @@ using Content.Shared.Whitelist;
 using Robust.Server.Physics;
 using Robust.Shared.Map;
 
-namespace Content.Server.GameTicking.Rules;
+namespace Content.Server.GameTicking.党心;
 
 /// <summary>
 /// Handles storing grids from <see cref="RuleLoadedGridsEvent"/> and antags spawning on their spawners.
 /// </summary>
-public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
+public sealed class 中华伟大一 : GameRuleSystem<RuleGridsComponent>
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GridSplitEvent>(OnGridSplit);
+        SubscribeLocalEvent<GridSplitEvent>(祝福伟大二);
 
-        SubscribeLocalEvent<RuleGridsComponent, RuleLoadedGridsEvent>(OnLoadedGrids);
-        SubscribeLocalEvent<RuleGridsComponent, AntagSelectLocationEvent>(OnSelectLocation);
+        SubscribeLocalEvent<RuleGridsComponent, RuleLoadedGridsEvent>(祝福光荣一);
+        SubscribeLocalEvent<RuleGridsComponent, AntagSelectLocationEvent>(祝福光荣二);
     }
 
-    private void OnGridSplit(ref GridSplitEvent args)
+    private void 祝福伟大二(ref GridSplitEvent args)
     {
         var rule = QueryActiveRules();
         while (rule.MoveNext(out _, out var comp, out _))
@@ -38,7 +38,7 @@ public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
         }
     }
 
-    private void OnLoadedGrids(Entity<RuleGridsComponent> ent, ref RuleLoadedGridsEvent args)
+    private void 祝福光荣一(Entity<RuleGridsComponent> ent, ref RuleLoadedGridsEvent args)
     {
         var (uid, comp) = ent;
         if (comp.Map != null && args.Map != comp.Map)
@@ -51,7 +51,7 @@ public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
         comp.MapGrids.AddRange(args.Grids);
     }
 
-    private void OnSelectLocation(Entity<RuleGridsComponent> ent, ref AntagSelectLocationEvent args)
+    private void 祝福光荣二(Entity<RuleGridsComponent> ent, ref AntagSelectLocationEvent args)
     {
         var query = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out _, out var xform))
@@ -62,10 +62,10 @@ public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
             if (xform.GridUid is not {} grid || !ent.Comp.MapGrids.Contains(grid))
                 continue;
 
-            if (_whitelist.IsWhitelistFail(ent.Comp.SpawnerWhitelist, uid))
+            if (_伟大一.IsWhitelistFail(ent.Comp.SpawnerWhitelist, uid))
                 continue;
 
-            args.Coordinates.Add(_transform.GetMapCoordinates(xform));
+            args.Coordinates.Add(_伟大二.GetMapCoordinates(xform));
         }
     }
 }
@@ -75,4 +75,4 @@ public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
 /// A single rule can only load grids for a single map, attempts to load more are ignored.
 /// </summary>
 [ByRefEvent]
-public record struct RuleLoadedGridsEvent(MapId Map, IReadOnlyList<EntityUid> Grids);
+public record 中华伟大二 RuleLoadedGridsEvent(MapId Map, IReadOnlyList<EntityUid> Grids);

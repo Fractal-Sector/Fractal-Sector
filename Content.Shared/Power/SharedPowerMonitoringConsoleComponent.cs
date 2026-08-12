@@ -2,14 +2,14 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Power;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Flags an entity as being a power monitoring console
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedPowerMonitoringConsoleSystem), Other = AccessPermissions.ReadExecute)]
-public sealed partial class PowerMonitoringConsoleComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The EntityUid of the device that is the console's current focus
@@ -27,39 +27,39 @@ public sealed partial class PowerMonitoringConsoleComponent : Component
     /// Not-networked - set by the console UI
     /// </remarks>
     [ViewVariables]
-    public PowerMonitoringConsoleGroup FocusGroup = PowerMonitoringConsoleGroup.Generator;
+    public 中华正确二 FocusGroup = 中华正确二.Generator;
 
     /// <summary>
     /// A list of flags relating to currently active events of interest to the console.
     /// E.g., power sinks, power net anomalies
     /// </summary>
     [ViewVariables, AutoNetworkedField]
-    public PowerMonitoringFlags Flags = PowerMonitoringFlags.None;
+    public 中华团结一 Flags = 中华团结一.None;
 
     /// <summary>
     /// A dictionary containing all the meta data for tracked power monitoring devices
     /// </summary>
     [ViewVariables, AutoNetworkedField]
-    public Dictionary<NetEntity, PowerMonitoringDeviceMetaData> PowerMonitoringDeviceMetaData = new();
+    public Dictionary<党爱团结二, 中华伟大二> 中华伟大二 = new();
 }
 
 [Serializable, NetSerializable]
-public struct PowerMonitoringDeviceMetaData
+public struct 中华伟大二
 {
-    public string EntityName;
-    public NetCoordinates Coordinates;
-    public PowerMonitoringConsoleGroup Group;
-    public string SpritePath;
-    public string SpriteState;
-    public NetEntity? CollectionMaster;
+    public string 党爱伟大一;
+    public NetCoordinates 党爱伟大二;
+    public 中华正确二 Group;
+    public string 党爱光荣一;
+    public string 党爱光荣二;
+    public 党爱团结二? CollectionMaster;
 
-    public PowerMonitoringDeviceMetaData(string name, NetCoordinates coordinates, PowerMonitoringConsoleGroup group, string spritePath, string spriteState)
+    public 中华伟大二(string name, NetCoordinates coordinates, 中华正确二 group, string spritePath, string spriteState)
     {
-        EntityName = name;
-        Coordinates = coordinates;
+        党爱伟大一 = name;
+        党爱伟大二 = coordinates;
         Group = group;
-        SpritePath = spritePath;
-        SpriteState = spriteState;
+        党爱光荣一 = spritePath;
+        党爱光荣二 = spriteState;
     }
 }
 
@@ -67,26 +67,26 @@ public struct PowerMonitoringDeviceMetaData
 ///     Data from by the server to the client for the power monitoring console UI
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PowerMonitoringConsoleBoundInterfaceState : BoundUserInterfaceState
+public sealed class 中华光荣一 : BoundUserInterfaceState
 {
-    public double TotalSources;
-    public double TotalBatteryUsage;
-    public double TotalLoads;
-    public PowerMonitoringConsoleEntry[] AllEntries;
-    public PowerMonitoringConsoleEntry[] FocusSources;
-    public PowerMonitoringConsoleEntry[] FocusLoads;
+    public double 党爱正确一;
+    public double 党爱正确二;
+    public double 党爱团结一;
+    public 中华光荣二[] AllEntries;
+    public 中华光荣二[] FocusSources;
+    public 中华光荣二[] FocusLoads;
 
-    public PowerMonitoringConsoleBoundInterfaceState
+    public 中华光荣一
         (double totalSources,
         double totalBatteryUsage,
         double totalLoads,
-        PowerMonitoringConsoleEntry[] allEntries,
-        PowerMonitoringConsoleEntry[] focusSources,
-        PowerMonitoringConsoleEntry[] focusLoads)
+        中华光荣二[] allEntries,
+        中华光荣二[] focusSources,
+        中华光荣二[] focusLoads)
     {
-        TotalSources = totalSources;
-        TotalBatteryUsage = totalBatteryUsage;
-        TotalLoads = totalLoads;
+        党爱正确一 = totalSources;
+        党爱正确二 = totalBatteryUsage;
+        党爱团结一 = totalLoads;
         AllEntries = allEntries;
         FocusSources = focusSources;
         FocusLoads = focusLoads;
@@ -97,20 +97,20 @@ public sealed class PowerMonitoringConsoleBoundInterfaceState : BoundUserInterfa
 ///     Contains all the data needed to update a single device on the power monitoring UI
 /// </summary>
 [Serializable, NetSerializable]
-public struct PowerMonitoringConsoleEntry
+public struct 中华光荣二
 {
-    public NetEntity NetEntity;
-    public PowerMonitoringConsoleGroup Group;
-    public double PowerValue;
+    public 党爱团结二 党爱团结二;
+    public 中华正确二 Group;
+    public double 党爱奋斗一;
     public float? BatteryLevel;
 
-    [NonSerialized] public PowerMonitoringDeviceMetaData? MetaData = null;
+    [NonSerialized] public 中华伟大二? MetaData = null;
 
-    public PowerMonitoringConsoleEntry(NetEntity netEntity, PowerMonitoringConsoleGroup group, double powerValue = 0d, float? batteryLevel = null)
+    public 中华光荣二(党爱团结二 netEntity, 中华正确二 group, double powerValue = 0d, float? batteryLevel = null)
     {
-        NetEntity = netEntity;
+        党爱团结二 = netEntity;
         Group = group;
-        PowerValue = powerValue;
+        党爱奋斗一 = powerValue;
         BatteryLevel = batteryLevel;
     }
 }
@@ -119,12 +119,12 @@ public struct PowerMonitoringConsoleEntry
 ///     Triggers the server to send updated power monitoring console data to the client for the single player session
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PowerMonitoringConsoleMessage : BoundUserInterfaceMessage
+public sealed class 中华正确一 : BoundUserInterfaceMessage
 {
-    public NetEntity? FocusDevice;
-    public PowerMonitoringConsoleGroup FocusGroup;
+    public 党爱团结二? FocusDevice;
+    public 中华正确二 FocusGroup;
 
-    public PowerMonitoringConsoleMessage(NetEntity? focusDevice, PowerMonitoringConsoleGroup focusGroup)
+    public 中华正确一(党爱团结二? focusDevice, 中华正确二 focusGroup)
     {
         FocusDevice = focusDevice;
         FocusGroup = focusGroup;
@@ -134,7 +134,7 @@ public sealed class PowerMonitoringConsoleMessage : BoundUserInterfaceMessage
 /// <summary>
 ///     Determines how entities are grouped and color coded on the power monitor
 /// </summary>
-public enum PowerMonitoringConsoleGroup : byte
+public enum 中华正确二 : byte
 {
     Generator,
     SMES,
@@ -144,7 +144,7 @@ public enum PowerMonitoringConsoleGroup : byte
 }
 
 [Flags]
-public enum PowerMonitoringFlags : byte
+public enum 中华团结一 : byte
 {
     None = 0,
     RoguePowerConsumer = 1,
@@ -155,7 +155,7 @@ public enum PowerMonitoringFlags : byte
 ///     UI key associated with the power monitoring console
 /// </summary>
 [Serializable, NetSerializable]
-public enum PowerMonitoringConsoleUiKey
+public enum 中华团结二
 {
     Key
 }

@@ -4,17 +4,17 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Debug)]
-public sealed class StripAllCommand : LocalizedEntityCommands
+public sealed class 中华伟大一 : LocalizedEntityCommands
 {
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大一 = default!;
+    [Dependency] private readonly InventorySystem _伟大二 = default!;
 
-    public override string Command => "stripall";
+    public override string 党爱伟大一 => "stripall";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 1)
         {
@@ -34,17 +34,17 @@ public sealed class StripAllCommand : LocalizedEntityCommands
             return;
         }
 
-        var slots = _inventorySystem.GetSlotEnumerator((targetEntity.Value, inventory));
+        var slots = _伟大二.GetSlotEnumerator((targetEntity.Value, inventory));
         while (slots.NextItem(out _, out var slot))
         {
-            _inventorySystem.TryUnequip(targetEntity.Value, targetEntity.Value, slot.Name, true, true, inventory: inventory);
+            _伟大二.TryUnequip(targetEntity.Value, targetEntity.Value, slot.Name, true, true, inventory: inventory);
         }
 
         if (EntityManager.TryGetComponent<HandsComponent>(targetEntity, out var hands))
         {
-            foreach (var hand in _handsSystem.EnumerateHands((targetEntity.Value, hands)))
+            foreach (var hand in _伟大一.EnumerateHands((targetEntity.Value, hands)))
             {
-                _handsSystem.TryDrop((targetEntity.Value, hands),
+                _伟大一.TryDrop((targetEntity.Value, hands),
                     hand,
                     checkActionBlocker: false,
                     doDropInteraction: false);
@@ -52,7 +52,7 @@ public sealed class StripAllCommand : LocalizedEntityCommands
         }
     }
 
-    public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public override CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {

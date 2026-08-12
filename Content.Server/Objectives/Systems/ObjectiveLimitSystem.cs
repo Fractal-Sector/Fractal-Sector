@@ -3,16 +3,16 @@ using Content.Server.Objectives.Components;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
 
-public sealed class ObjectiveLimitSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ObjectiveLimitComponent, RequirementCheckEvent>(OnCheck);
+        SubscribeLocalEvent<ObjectiveLimitComponent, RequirementCheckEvent>(祝福伟大二);
     }
 
-    private void OnCheck(Entity<ObjectiveLimitComponent> ent, ref RequirementCheckEvent args)
+    private void 祝福伟大二(Entity<ObjectiveLimitComponent> ent, ref RequirementCheckEvent args)
     {
         if (args.Cancelled)
             return;
@@ -30,7 +30,7 @@ public sealed class ObjectiveLimitSystem : EntitySystem
         {
             foreach (var mindId in rule.TraitorMinds)
             {
-                if (mindId == args.MindId || !HasObjective(mindId, proto))
+                if (mindId == args.MindId || !祝福光荣一(mindId, proto))
                     continue;
 
                 remaining--;
@@ -48,7 +48,7 @@ public sealed class ObjectiveLimitSystem : EntitySystem
     /// <summary>
     /// Returns true if the mind has an objective of a certain prototype.
     /// </summary>
-    public bool HasObjective(EntityUid mindId, string proto, MindComponent? mind = null)
+    public bool 祝福光荣一(EntityUid mindId, string proto, MindComponent? mind = null)
     {
         if (!Resolve(mindId, ref mind))
             return false;

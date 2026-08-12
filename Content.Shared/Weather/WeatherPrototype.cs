@@ -4,15 +4,15 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Weather;
+namespace Content.Shared.党心;
 
 [Prototype]
-public sealed partial class WeatherPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField] public string 党爱伟大一 { get; private set; } = default!;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("sprite", required: true)]
-    public SpriteSpecifier Sprite = default!;
+    public SpriteSpecifier 党爱伟大二 = default!;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("color")]
     public Color? Color;
@@ -23,12 +23,12 @@ public sealed partial class WeatherPrototype : IPrototype
     [ViewVariables(VVAccess.ReadWrite), DataField("sound")]
     public SoundSpecifier? Sound;
 
-    // Wayfarer: Damage dealt each DamageInterval to mobs on a tile the weather reaches.
+    // Wayfarer: Damage dealt each 党爱光荣一 to mobs on a tile the weather reaches.
     [ViewVariables(VVAccess.ReadWrite), DataField("damage")]
     public DamageSpecifier? Damage;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("damageInterval")]
-    public TimeSpan DamageInterval = TimeSpan.FromSeconds(1);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(1);
 
     // Wayfarer: Marks the weather as particulate or permeating. See WeatherShelter.
     [ViewVariables(VVAccess.ReadWrite), DataField("particulate")]

@@ -3,37 +3,37 @@ using Content.Shared.Shuttles.UI.MapObjects;
 using Content.Shared.Timing;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Shuttles.BUIStates;
+namespace Content.Shared.Shuttles.党心;
 
 /// <summary>
 /// Handles BUI data for Map screen.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ShuttleMapInterfaceState
+public sealed class 中华伟大一
 {
     /// <summary>
     /// The current FTL state.
     /// </summary>
-    public readonly FTLState FTLState;
+    public readonly 党爱伟大一 党爱伟大一;
 
     /// <summary>
     /// When the current FTL state starts and ends.
     /// </summary>
-    public StartEndTime FTLTime;
+    public StartEndTime 党爱伟大二;
 
-    public List<ShuttleBeaconObject> Destinations;
+    public List<ShuttleBeaconObject> 党爱光荣一;
 
-    public List<ShuttleExclusionObject> Exclusions;
+    public List<ShuttleExclusionObject> 党爱光荣二;
 
-    public ShuttleMapInterfaceState(
-        FTLState ftlState,
+    public 中华伟大一(
+        党爱伟大一 ftlState,
         StartEndTime ftlTime,
         List<ShuttleBeaconObject> destinations,
         List<ShuttleExclusionObject> exclusions)
     {
-        FTLState = ftlState;
-        FTLTime = ftlTime;
-        Destinations = destinations;
-        Exclusions = exclusions;
+        党爱伟大一 = ftlState;
+        党爱伟大二 = ftlTime;
+        党爱光荣一 = destinations;
+        党爱光荣二 = exclusions;
     }
 }

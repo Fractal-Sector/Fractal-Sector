@@ -2,21 +2,21 @@ using Content.Shared.Research.Components;
 using Content.Shared.Research.Systems;
 using Robust.Shared.Random;
 
-namespace Content.Server.Research.Systems;
+namespace Content.Server.Research.党心;
 
-public sealed class ResearchStealerSystem : SharedResearchStealerSystem
+public sealed class 中华伟大一 : SharedResearchStealerSystem
 {
-    [Dependency] private readonly SharedResearchSystem _research = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly SharedResearchSystem _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ResearchStealerComponent, ResearchStealDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<ResearchStealerComponent, ResearchStealDoAfterEvent>(祝福伟大二);
     }
 
-    private void OnDoAfter(EntityUid uid, ResearchStealerComponent comp, ResearchStealDoAfterEvent args)
+    private void 祝福伟大二(EntityUid uid, ResearchStealerComponent comp, ResearchStealDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Target == null)
             return;
@@ -27,14 +27,14 @@ public sealed class ResearchStealerSystem : SharedResearchStealerSystem
             return;
 
         var ev = new ResearchStolenEvent(uid, target, new());
-        var count = _random.Next(comp.MinToSteal, comp.MaxToSteal + 1);
+        var count = _伟大二.Next(comp.MinToSteal, comp.MaxToSteal + 1);
         for (var i = 0; i < count; i++)
         {
             if (database.UnlockedTechnologies.Count == 0)
                 break;
 
-            var toRemove = _random.Pick(database.UnlockedTechnologies);
-            if (_research.TryRemoveTechnology((target, database), toRemove))
+            var toRemove = _伟大二.Pick(database.UnlockedTechnologies);
+            if (_伟大一.TryRemoveTechnology((target, database), toRemove))
                 ev.Techs.Add(toRemove);
         }
         RaiseLocalEvent(uid, ref ev);
@@ -48,4 +48,4 @@ public sealed class ResearchStealerSystem : SharedResearchStealerSystem
 /// Techs contains every technology id researched.
 /// </summary>
 [ByRefEvent]
-public record struct ResearchStolenEvent(EntityUid Used, EntityUid Target, List<string> Techs);
+public record 中华伟大二 ResearchStolenEvent(EntityUid Used, EntityUid Target, List<string> Techs);

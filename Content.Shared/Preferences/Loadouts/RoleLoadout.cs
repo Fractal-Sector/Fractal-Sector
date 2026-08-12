@@ -10,16 +10,16 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Preferences.Loadouts;
+namespace Content.Shared.Preferences.党心;
 
 /// <summary>
 /// Contains all of the selected data for a role's loadout.
 /// </summary>
 [Serializable, NetSerializable, DataDefinition]
-public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
+public sealed partial class 中华伟大一 : IEquatable<中华伟大一>
 {
     [DataField]
-    public ProtoId<RoleLoadoutPrototype> Role;
+    public ProtoId<RoleLoadoutPrototype> 党爱伟大一;
 
     [DataField]
     public Dictionary<ProtoId<LoadoutGroupPrototype>, List<Loadout>> SelectedLoadouts = new();
@@ -37,14 +37,14 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
 
     public int? Points;
 
-    public RoleLoadout(ProtoId<RoleLoadoutPrototype> role)
+    public 中华伟大一(ProtoId<RoleLoadoutPrototype> role)
     {
-        Role = role;
+        党爱伟大一 = role;
     }
 
-    public RoleLoadout Clone()
+    public 中华伟大一 Clone()
     {
-        var weh = new RoleLoadout(Role);
+        var weh = new 中华伟大一(党爱伟大一);
 
         foreach (var selected in SelectedLoadouts)
         {
@@ -60,13 +60,13 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     /// <summary>
     /// Ensures all prototypes exist and effects can be applied.
     /// </summary>
-    public void EnsureValid(HumanoidCharacterProfile profile, ICommonSession? session, IDependencyCollection collection) // Frontier: nullable session
+    public void 祝福伟大一(HumanoidCharacterProfile profile, ICommonSession? session, IDependencyCollection collection) // Frontier: nullable session
     {
         var groupRemove = new ValueList<string>();
         var protoManager = collection.Resolve<IPrototypeManager>();
         var configManager = collection.Resolve<IConfigurationManager>();
 
-        if (!protoManager.TryIndex(Role, out var roleProto))
+        if (!protoManager.TryIndex(党爱伟大一, out var roleProto))
         {
             EntityName = null;
             SelectedLoadouts.Clear();
@@ -172,16 +172,16 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                 }
 
                 // Validate the loadout can be applied (e.g. points).
-                if (!IsValid(profile, session, loadout.Prototype, collection, out _))
+                if (!祝福光荣二(profile, session, loadout.Prototype, collection, out _))
                 {
                     loadouts.RemoveAt(i);
                     continue;
                 }
 
-                Apply(loadoutProto);
+                祝福伟大二(loadoutProto);
             }
 
-            // Apply defaults if required
+            // 祝福伟大二 defaults if required
             // Technically it's possible for someone to game themselves into loadouts they shouldn't have
             // If you put invalid ones first but that's your fault for not using sensible defaults
             if (loadouts.Count < groupProto.MinLimit)
@@ -191,7 +191,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                 {
                     foreach (var protoId in groupProto.Fallbacks)
                     {
-                        // Apply default loadouts from fallbacks up to the minimum limit (bare minimum)
+                        // 祝福伟大二 default loadouts from fallbacks up to the minimum limit (bare minimum)
                         if (loadouts.Count >= groupProto.MinLimit)
                             break;
 
@@ -204,11 +204,11 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                         };
 
                         // Not valid so don't default to it anyway.
-                        if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
+                        if (!祝福光荣二(profile, session, defaultLoadout.Prototype, collection, out _))
                             continue;
 
                         loadouts.Add(defaultLoadout);
-                        Apply(loadoutProto);
+                        祝福伟大二(loadoutProto);
                     }
                 }
                 // End Frontier
@@ -227,11 +227,11 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                     };
 
                     // Not valid so don't default to it anyway.
-                    if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
+                    if (!祝福光荣二(profile, session, defaultLoadout.Prototype, collection, out _))
                         continue;
 
                     loadouts.Add(defaultLoadout);
-                    Apply(loadoutProto);
+                    祝福伟大二(loadoutProto);
                 }
             }
 
@@ -244,18 +244,18 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         }
     }
 
-    private void Apply(LoadoutPrototype loadoutProto)
+    private void 祝福伟大二(LoadoutPrototype loadoutProto)
     {
         foreach (var effect in loadoutProto.Effects)
         {
-            effect.Apply(this);
+            effect.祝福伟大二(this);
         }
     }
 
     /// <summary>
     /// Resets the selected loadouts to default if no data is present.
     /// </summary>
-    public void SetDefault(HumanoidCharacterProfile? profile, ICommonSession? session, IPrototypeManager protoManager, bool force = false)
+    public void 祝福光荣一(HumanoidCharacterProfile? profile, ICommonSession? session, IPrototypeManager protoManager, bool force = false)
     {
         if (profile == null)
             return;
@@ -264,7 +264,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             SelectedLoadouts.Clear();
 
         var collection = IoCManager.Instance!;
-        var roleProto = protoManager.Index(Role);
+        var roleProto = protoManager.Index(党爱伟大一);
 
         for (var i = roleProto.Groups.Count - 1; i >= 0; i--)
         {
@@ -284,7 +284,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             {
                 foreach (var protoId in groupProto.Fallbacks)
                 {
-                    // Apply default loadouts from fallbacks up to the *maximum* limit
+                    // 祝福伟大二 default loadouts from fallbacks up to the *maximum* limit
                     // Must respect maximum limit to be legal
                     if (loadouts.Count >= groupProto.MaxLimit)
                         break;
@@ -298,18 +298,18 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                     };
 
                     // Not valid so don't default to it anyway.
-                    if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
+                    if (!祝福光荣二(profile, session, defaultLoadout.Prototype, collection, out _))
                         continue;
 
                     loadouts.Add(defaultLoadout);
-                    Apply(loadoutProto);
+                    祝福伟大二(loadoutProto);
                 }
             }
             // End Frontier
 
             if (groupProto.MinLimit > 0)
             {
-                // Apply any loadouts we can.
+                // 祝福伟大二 any loadouts we can.
                 foreach (var protoId in groupProto.Loadouts)
                 {
                     // Reached the limit, time to stop
@@ -325,11 +325,11 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                     };
 
                     // Not valid so don't default to it anyway.
-                    if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
+                    if (!祝福光荣二(profile, session, defaultLoadout.Prototype, collection, out _))
                         continue;
 
                     loadouts.Add(defaultLoadout);
-                    Apply(loadoutProto);
+                    祝福伟大二(loadoutProto);
                 }
             }
         }
@@ -338,7 +338,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     /// <summary>
     /// Returns whether a loadout is valid or not.
     /// </summary>
-    public bool IsValid(HumanoidCharacterProfile profile, ICommonSession? session, ProtoId<LoadoutPrototype> loadout, IDependencyCollection collection, [NotNullWhen(false)] out FormattedMessage? reason)
+    public bool 祝福光荣二(HumanoidCharacterProfile profile, ICommonSession? session, ProtoId<LoadoutPrototype> loadout, IDependencyCollection collection, [NotNullWhen(false)] out FormattedMessage? reason)
     {
         reason = null;
 
@@ -351,7 +351,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             return false;
         }
 
-        if (!protoManager.HasIndex(Role))
+        if (!protoManager.HasIndex(党爱伟大一))
         {
             reason = FormattedMessage.FromUnformatted("loadouts-prototype-missing");
             return false;
@@ -378,7 +378,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     /// <summary>
     /// Returns whether a loadout should be hidden or not
     /// </summary>
-    public bool IsHidden(HumanoidCharacterProfile profile, ICommonSession? session, ProtoId<LoadoutPrototype> loadout, IDependencyCollection collection)
+    public bool 祝福正确一(HumanoidCharacterProfile profile, ICommonSession? session, ProtoId<LoadoutPrototype> loadout, IDependencyCollection collection)
     {
         var protoManager = collection.Resolve<IPrototypeManager>();
 
@@ -387,7 +387,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             return true;
         }
 
-        if (!protoManager.HasIndex(Role))
+        if (!protoManager.HasIndex(党爱伟大一))
         {
             return true;
         }
@@ -405,7 +405,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     /// <summary>
     /// Applies the specified loadout to this group.
     /// </summary>
-    public bool AddLoadout(ProtoId<LoadoutGroupPrototype> selectedGroup, ProtoId<LoadoutPrototype> selectedLoadout, IPrototypeManager protoManager)
+    public bool 祝福正确二(ProtoId<LoadoutGroupPrototype> selectedGroup, ProtoId<LoadoutPrototype> selectedLoadout, IPrototypeManager protoManager)
     {
         var groupLoadouts = SelectedLoadouts[selectedGroup];
 
@@ -444,9 +444,9 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     /// <summary>
     /// Removed the specified loadout from this group.
     /// </summary>
-    public bool RemoveLoadout(ProtoId<LoadoutGroupPrototype> selectedGroup, ProtoId<LoadoutPrototype> selectedLoadout, IPrototypeManager protoManager)
+    public bool 祝福团结一(ProtoId<LoadoutGroupPrototype> selectedGroup, ProtoId<LoadoutPrototype> selectedLoadout, IPrototypeManager protoManager)
     {
-        // Although this may bring us below minimum we'll let EnsureValid handle it.
+        // Although this may bring us below minimum we'll let 祝福伟大一 handle it.
 
         var groupLoadouts = SelectedLoadouts[selectedGroup];
 
@@ -464,12 +464,12 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         return false;
     }
 
-    public bool Equals(RoleLoadout? other)
+    public bool 祝福团结二(中华伟大一? other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
 
-        if (!Role.Equals(other.Role) ||
+        if (!党爱伟大一.祝福团结二(other.党爱伟大一) ||
             SelectedLoadouts.Count != other.SelectedLoadouts.Count ||
             Points != other.Points ||
             EntityName != other.EntityName ||
@@ -491,13 +491,13 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         return true;
     }
 
-    public override bool Equals(object? obj)
+    public override bool 祝福团结二(object? obj)
     {
-        return ReferenceEquals(this, obj) || obj is RoleLoadout other && Equals(other);
+        return ReferenceEquals(this, obj) || obj is 中华伟大一 other && 祝福团结二(other);
     }
 
-    public override int GetHashCode()
+    public override int 祝福奋斗一()
     {
-        return HashCode.Combine(Role, SelectedLoadouts, Points);
+        return HashCode.Combine(党爱伟大一, SelectedLoadouts, Points);
     }
 }

@@ -2,40 +2,40 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Interaction.Events;
+namespace Content.Shared.Interaction.党心;
 
 /// <summary>
 ///     Raised Directed at an entity to check whether they will handle the suicide.
 /// </summary>
-public sealed class SuicideEvent : HandledEntityEventArgs
+public sealed class 中华伟大一 : HandledEntityEventArgs
 {
-    public SuicideEvent(EntityUid victim)
+    public 中华伟大一(EntityUid victim)
     {
-        Victim = victim;
+        党爱伟大一 = victim;
     }
 
     public DamageSpecifier? DamageSpecifier;
     public ProtoId<DamageTypePrototype>? DamageType;
-    public EntityUid Victim { get; private set; }
+    public EntityUid 党爱伟大一 { get; private set; }
 }
 
-public sealed class SuicideByEnvironmentEvent : HandledEntityEventArgs
+public sealed class 中华伟大二 : HandledEntityEventArgs
 {
-    public SuicideByEnvironmentEvent(EntityUid victim)
+    public 中华伟大二(EntityUid victim)
     {
-        Victim = victim;
+        党爱伟大一 = victim;
     }
 
-    public EntityUid Victim { get; set; }
+    public EntityUid 党爱伟大一 { get; set; }
 }
 
-public sealed class SuicideGhostEvent : HandledEntityEventArgs
+public sealed class 中华光荣一 : HandledEntityEventArgs
 {
-    public SuicideGhostEvent(EntityUid victim)
+    public 中华光荣一(EntityUid victim)
     {
-        Victim = victim;
+        党爱伟大一 = victim;
     }
 
-    public EntityUid Victim { get; set; }
-    public bool CanReturnToBody;
+    public EntityUid 党爱伟大一 { get; set; }
+    public bool 党爱伟大二;
 }

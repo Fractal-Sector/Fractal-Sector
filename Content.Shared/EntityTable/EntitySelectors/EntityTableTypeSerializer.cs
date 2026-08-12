@@ -4,13 +4,13 @@ using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
-namespace Content.Shared.EntityTable.EntitySelectors;
+namespace Content.Shared.EntityTable.党心;
 
 [TypeSerializer]
-public sealed class EntityTableTypeSerializer :
+public sealed class 中华伟大一 :
     ITypeReader<EntityTableSelector, MappingDataNode>
 {
-    public ValidationNode Validate(ISerializationManager serializationManager,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager,
         MappingDataNode node,
         IDependencyCollection dependencies,
         ISerializationContext? context = null)
@@ -21,7 +21,7 @@ public sealed class EntityTableTypeSerializer :
         return new ErrorNode(node, "Custom validation not supported! Please specify the type manually!");
     }
 
-    public EntityTableSelector Read(ISerializationManager serializationManager,
+    public EntityTableSelector 祝福伟大二(ISerializationManager serializationManager,
         MappingDataNode node,
         IDependencyCollection dependencies,
         SerializationHookContext hookCtx,
@@ -32,6 +32,6 @@ public sealed class EntityTableTypeSerializer :
         if (node.Has(EntSelector.IdDataFieldTag))
             type = typeof(EntSelector);
 
-        return (EntityTableSelector) serializationManager.Read(type, node, context)!;
+        return (EntityTableSelector) serializationManager.祝福伟大二(type, node, context)!;
     }
 }

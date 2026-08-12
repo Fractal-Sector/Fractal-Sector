@@ -8,11 +8,11 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Destructible.Thresholds.Behaviors
+namespace Content.Server.Destructible.Thresholds.党心
 {
     [Serializable]
     [DataDefinition]
-    public sealed partial class SpawnEntitiesBehavior : IThresholdBehavior
+    public sealed partial class 中华伟大一 : IThresholdBehavior
     {
         /// <summary>
         ///     Entities spawned on reaching this threshold, from a min to a max.
@@ -21,20 +21,20 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
         public Dictionary<EntProtoId, MinMax> Spawn = new();
 
         [DataField("offset")]
-        public float Offset { get; set; } = 0.5f;
+        public float 党爱伟大一 { get; set; } = 0.5f;
 
         [DataField("transferForensics")]
-        public bool DoTransferForensics;
+        public bool 党爱伟大二;
 
         [DataField]
-        public bool SpawnInContainer;
+        public bool 党爱光荣一;
 
-        public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
+        public void 祝福伟大一(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
             var tSys = system.EntityManager.System<TransformSystem>();
             var position = tSys.GetMapCoordinates(owner);
 
-            var getRandomVector = () => new Vector2(system.Random.NextFloat(-Offset, Offset), system.Random.NextFloat(-Offset, Offset));
+            var getRandomVector = () => new Vector2(system.Random.NextFloat(-党爱伟大一, 党爱伟大一), system.Random.NextFloat(-党爱伟大一, 党爱伟大一));
 
             var executions = 1;
             if (system.EntityManager.TryGetComponent<StackComponent>(owner, out var stack))
@@ -55,31 +55,31 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
 
                     if (EntityPrototypeHelpers.HasComponent<StackComponent>(entityId, system.PrototypeManager, system.EntityManager.ComponentFactory))
                     {
-                        var spawned = SpawnInContainer
+                        var spawned = 党爱光荣一
                             ? system.EntityManager.SpawnNextToOrDrop(entityId, owner)
-                            : system.EntityManager.SpawnEntity(entityId, position.Offset(getRandomVector()));
+                            : system.EntityManager.SpawnEntity(entityId, position.党爱伟大一(getRandomVector()));
                         system.StackSystem.SetCount(spawned, count);
 
-                        TransferForensics(spawned, system, owner);
+                        祝福伟大二(spawned, system, owner);
                     }
                     else
                     {
                         for (var i = 0; i < count; i++)
                         {
-                            var spawned = SpawnInContainer
+                            var spawned = 党爱光荣一
                                 ? system.EntityManager.SpawnNextToOrDrop(entityId, owner)
-                                : system.EntityManager.SpawnEntity(entityId, position.Offset(getRandomVector()));
+                                : system.EntityManager.SpawnEntity(entityId, position.党爱伟大一(getRandomVector()));
 
-                            TransferForensics(spawned, system, owner);
+                            祝福伟大二(spawned, system, owner);
                         }
                     }
                 }
             }
         }
 
-        public void TransferForensics(EntityUid spawned, DestructibleSystem system, EntityUid owner)
+        public void 祝福伟大二(EntityUid spawned, DestructibleSystem system, EntityUid owner)
         {
-            if (!DoTransferForensics ||
+            if (!党爱伟大二 ||
                 !system.EntityManager.TryGetComponent<ForensicsComponent>(owner, out var forensicsComponent))
                 return;
 

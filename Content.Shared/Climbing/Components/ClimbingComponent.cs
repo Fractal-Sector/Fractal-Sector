@@ -3,28 +3,28 @@ using System.Numerics;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Climbing.Components;
+namespace Content.Shared.Climbing.党心;
 
 /// <summary>
 /// Indicates that this entity is able to be placed on top of surfaces like tables.
 /// Does not by itself allow the entity to carry out the action of climbing, unless
-/// <see cref="CanClimb"/> is true. Use <see cref="CanForceClimb"/> to control whether
+/// <see cref="党爱伟大一"/> is true. Use <see cref="CanForceClimb"/> to control whether
 /// the entity can force other entities onto surfaces.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class ClimbingComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Whether the owner is able to climb onto things by their own action.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool CanClimb = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     /// Whether the owner is climbing on a climbable entity.
     /// </summary>
     [AutoNetworkedField, DataField]
-    public bool IsClimbing;
+    public bool 党爱伟大二;
 
     /// <summary>
     /// The Climbing DoAfter.
@@ -40,16 +40,16 @@ public sealed partial class ClimbingComponent : Component
     public TimeSpan? NextTransition;
 
     /// <summary>
-    /// Direction to move when transition.
+    /// 党爱光荣一 to move when transition.
     /// </summary>
     [AutoNetworkedField, DataField]
-    public Vector2 Direction;
+    public Vector2 党爱光荣一;
 
     /// <summary>
     /// How fast the entity is moved when climbing.
     /// </summary>
     [DataField]
-    public float TransitionRate = 5f;
+    public float 党爱光荣二 = 5f;
 
     [AutoNetworkedField, DataField]
     public Dictionary<string, int> DisabledFixtureMasks = new();

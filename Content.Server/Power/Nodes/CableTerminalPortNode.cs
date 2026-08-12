@@ -4,12 +4,12 @@ using Content.Shared.NodeContainer;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
-namespace Content.Server.Power.Nodes
+namespace Content.Server.Power.党心
 {
     [DataDefinition]
-    public sealed partial class CableTerminalPortNode : Node
+    public sealed partial class 中华伟大一 : Node
     {
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> 祝福伟大一(TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,

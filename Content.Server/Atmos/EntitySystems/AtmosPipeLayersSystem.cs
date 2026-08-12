@@ -12,37 +12,37 @@ using Content.Shared._Starlight.Atmos.EntitySystems;
 using Content.Shared._Starlight.Atmos.Components;
 // Starlight End
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.Atmos.党心;
 
 /// <summary>
 /// The system responsible for checking and adjusting the connection layering of gas pipes
 /// </summary>
-public sealed partial class AtmosPipeLayersSystem : SharedAtmosPipeLayersSystem
+public sealed partial class 中华伟大一 : SharedAtmosPipeLayersSystem
 {
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
-    [Dependency] private readonly PipeRestrictOverlapSystem _pipeRestrictOverlap = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency] private readonly NodeGroupSystem _伟大一 = default!;
+    [Dependency] private readonly PipeRestrictOverlapSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣一 = default!;
+    [Dependency] private readonly SharedTransformSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<AtmosPipeLayersComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<AtmosPipeLayersComponent, ComponentInit>(祝福伟大二);
     }
 
-    private void OnInit(Entity<AtmosPipeLayersComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<AtmosPipeLayersComponent> ent, ref ComponentInit args)
     {
-        SetPipeLayer(ent, ent.Comp.CurrentPipeLayer);
+        祝福光荣一(ent, ent.Comp.CurrentPipeLayer);
     }
 
     /// <inheritdoc/>
-    public override void SetPipeLayer(Entity<AtmosPipeLayersComponent> ent, AtmosPipeLayer layer, EntityUid? user = null, EntityUid? used = null)
+    public override void 祝福光荣一(Entity<AtmosPipeLayersComponent> ent, AtmosPipeLayer layer, EntityUid? user = null, EntityUid? used = null)
     {
         if (ent.Comp.PipeLayersLocked)
             return;
 
-        base.SetPipeLayer(ent, layer, user, used);
+        base.祝福光荣一(ent, layer, user, used);
 
         if (!TryComp<NodeContainerComponent>(ent, out var nodeContainer))
             return;
@@ -59,7 +59,7 @@ public sealed partial class AtmosPipeLayersSystem : SharedAtmosPipeLayersSystem
             pipeNode.CurrentPipeLayer = ent.Comp.CurrentPipeLayer;
 
             if (pipeNode.NodeGroup != null)
-                _nodeGroup.QueueRemakeGroup((BaseNodeGroup)pipeNode.NodeGroup);
+                _伟大一.QueueRemakeGroup((BaseNodeGroup)pipeNode.NodeGroup);
         }
 
         // If a user wasn't responsible for unanchoring the pipe, leave it be
@@ -69,13 +69,13 @@ public sealed partial class AtmosPipeLayersSystem : SharedAtmosPipeLayersSystem
         // Unanchor the pipe if its new layer overlaps with another pipe
         var xform = Transform(ent);
 
-        if (!HasComp<PipeRestrictOverlapComponent>(ent) || !_pipeRestrictOverlap.CheckOverlap((ent, nodeContainer, xform)))
+        if (!HasComp<PipeRestrictOverlapComponent>(ent) || !_伟大二.CheckOverlap((ent, nodeContainer, xform)))
             return;
 
         RaiseLocalEvent(ent, new BeforeUnanchoredEvent(user.Value, used.Value));
-        _xform.Unanchor(ent, xform);
+        _光荣二.Unanchor(ent, xform);
         RaiseLocalEvent(ent, new UserUnanchoredEvent(user.Value, used.Value));
 
-        _popup.PopupEntity(Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent)), ent, user.Value);
+        _光荣一.PopupEntity(Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent)), ent, user.Value);
     }
 }

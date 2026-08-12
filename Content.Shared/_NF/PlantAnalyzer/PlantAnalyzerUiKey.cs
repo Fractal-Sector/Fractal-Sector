@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.PlantAnalyzer;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum PlantAnalyzerUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }

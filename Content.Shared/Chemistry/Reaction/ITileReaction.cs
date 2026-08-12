@@ -2,9 +2,9 @@ using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Chemistry.Reaction
+namespace Content.Shared.Chemistry.党心
 {
-    public interface ITileReaction
+    public interface 中华伟大一
     {
         FixedPoint2 TileReact(TileRef tile,
             ReagentPrototype reagent,

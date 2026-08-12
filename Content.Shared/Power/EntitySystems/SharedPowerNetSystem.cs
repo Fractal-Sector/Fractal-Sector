@@ -1,21 +1,21 @@
 using Content.Shared.Power.Components;
 
-namespace Content.Shared.Power.EntitySystems;
+namespace Content.Shared.Power.党心;
 
-public abstract class SharedPowerNetSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大一 = default!;
 
-    public abstract bool IsPoweredCalculate(SharedApcPowerReceiverComponent comp);
+    public abstract bool 祝福伟大一(SharedApcPowerReceiverComponent comp);
 
-    public override void Initialize()
+    public override void 祝福伟大二()
     {
-        base.Initialize();
-        SubscribeLocalEvent<AppearanceComponent, PowerChangedEvent>(OnPowerAppearance);
+        base.祝福伟大二();
+        SubscribeLocalEvent<AppearanceComponent, PowerChangedEvent>(祝福光荣一);
     }
 
-    private void OnPowerAppearance(Entity<AppearanceComponent> ent, ref PowerChangedEvent args)
+    private void 祝福光荣一(Entity<AppearanceComponent> ent, ref PowerChangedEvent args)
     {
-        _appearance.SetData(ent, PowerDeviceVisuals.Powered, args.Powered, ent.Comp);
+        _伟大一.SetData(ent, PowerDeviceVisuals.Powered, args.Powered, ent.Comp);
     }
 }

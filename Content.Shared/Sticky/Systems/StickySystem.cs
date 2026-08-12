@@ -7,39 +7,39 @@ using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 
-namespace Content.Shared.Sticky.Systems;
+namespace Content.Shared.Sticky.党心;
 
-public sealed class StickySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly EntityWhitelistSystem _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedContainerSystem _光荣一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣二 = default!;
+    [Dependency] private readonly SharedHandsSystem _正确一 = default!;
+    [Dependency] private readonly SharedInteractionSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
 
     private const string StickerSlotId = "stickers_container";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StickyComponent, AfterInteractEvent>(OnAfterInteract);
-        SubscribeLocalEvent<StickyComponent, StickyDoAfterEvent>(OnStickyDoAfter);
-        SubscribeLocalEvent<StickyComponent, GetVerbsEvent<Verb>>(OnGetVerbs);
+        SubscribeLocalEvent<StickyComponent, AfterInteractEvent>(祝福伟大二);
+        SubscribeLocalEvent<StickyComponent, StickyDoAfterEvent>(祝福正确一);
+        SubscribeLocalEvent<StickyComponent, GetVerbsEvent<Verb>>(祝福光荣一);
     }
 
-    private void OnAfterInteract(Entity<StickyComponent> ent, ref AfterInteractEvent args)
+    private void 祝福伟大二(Entity<StickyComponent> ent, ref AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach || args.Target is not {} target)
             return;
 
         // try stick object to a clicked target entity
-        args.Handled = StartSticking(ent, target, args.User);
+        args.Handled = 祝福光荣二(ent, target, args.User);
     }
 
-    private void OnGetVerbs(Entity<StickyComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void 祝福光荣一(Entity<StickyComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         var (uid, comp) = ent;
         if (comp.StuckTo == null || !comp.CanUnstick || !args.CanInteract || args.Hands == null)
@@ -48,7 +48,7 @@ public sealed class StickySystem : EntitySystem
         // we can't use args.CanAccess, because it stuck in another container
         // we also need to ignore entity that it stuck to
         var user = args.User;
-        var inRange = _interaction.InRangeUnobstructed(uid, user,
+        var inRange = _正确二.InRangeUnobstructed(uid, user,
             predicate: entity => comp.StuckTo == entity);
         if (!inRange)
             return;
@@ -58,17 +58,17 @@ public sealed class StickySystem : EntitySystem
             DoContactInteraction = true,
             Text = Loc.GetString(comp.VerbText),
             Icon = comp.VerbIcon,
-            Act = () => StartUnsticking(ent, user)
+            Act = () => 祝福正确二(ent, user)
         });
     }
 
-    private bool StartSticking(Entity<StickyComponent> ent, EntityUid target, EntityUid user)
+    private bool 祝福光荣二(Entity<StickyComponent> ent, EntityUid target, EntityUid user)
     {
         var (uid, comp) = ent;
 
         // check whitelist and blacklist
-        if (_whitelist.IsWhitelistFail(comp.Whitelist, target) ||
-            _whitelist.IsBlacklistPass(comp.Blacklist, target))
+        if (_伟大一.IsWhitelistFail(comp.Whitelist, target) ||
+            _伟大一.IsBlacklistPass(comp.Blacklist, target))
             return false;
 
         var attemptEv = new AttemptEntityStickEvent(target, user);
@@ -79,7 +79,7 @@ public sealed class StickySystem : EntitySystem
         // skip doafter and popup if it's instant
         if (comp.StickDelay <= TimeSpan.Zero)
         {
-            StickToEntity(ent, target, user);
+            祝福团结一(ent, target, user);
             return true;
         }
 
@@ -87,11 +87,11 @@ public sealed class StickySystem : EntitySystem
         if (comp.StickPopupStart != null)
         {
             var msg = Loc.GetString(comp.StickPopupStart);
-            _popup.PopupClient(msg, user, user);
+            _团结一.PopupClient(msg, user, user);
         }
 
         // start sticking object to target
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, comp.StickDelay, new StickyDoAfterEvent(), uid, target: target, used: uid)
+        _光荣二.TryStartDoAfter(new DoAfterArgs(EntityManager, user, comp.StickDelay, new StickyDoAfterEvent(), uid, target: target, used: uid)
         {
             BreakOnMove = true,
             NeedHand = true,
@@ -100,7 +100,7 @@ public sealed class StickySystem : EntitySystem
         return true;
     }
 
-    private void OnStickyDoAfter(Entity<StickyComponent> ent, ref StickyDoAfterEvent args)
+    private void 祝福正确一(Entity<StickyComponent> ent, ref StickyDoAfterEvent args)
     {
         // target is the surface when sticking/unsticking, it will never be null
         if (args.Handled || args.Cancelled || args.Args.Target is not {} target)
@@ -108,14 +108,14 @@ public sealed class StickySystem : EntitySystem
 
         var user = args.User;
         if (ent.Comp.StuckTo == null)
-            StickToEntity(ent, target, user);
+            祝福团结一(ent, target, user);
         else
-            UnstickFromEntity(ent, user);
+            祝福团结二(ent, user);
 
         args.Handled = true;
     }
 
-    private void StartUnsticking(Entity<StickyComponent> ent, EntityUid user)
+    private void 祝福正确二(Entity<StickyComponent> ent, EntityUid user)
     {
         var (uid, comp) = ent;
         if (comp.StuckTo is not {} stuckTo)
@@ -129,7 +129,7 @@ public sealed class StickySystem : EntitySystem
         // skip doafter and popup if it's instant
         if (comp.UnstickDelay <= TimeSpan.Zero)
         {
-            UnstickFromEntity(ent, user);
+            祝福团结二(ent, user);
             return;
         }
 
@@ -137,18 +137,18 @@ public sealed class StickySystem : EntitySystem
         if (comp.UnstickPopupStart != null)
         {
             var msg = Loc.GetString(comp.UnstickPopupStart);
-            _popup.PopupClient(msg, user, user);
+            _团结一.PopupClient(msg, user, user);
         }
 
         // start unsticking object
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, comp.UnstickDelay, new StickyDoAfterEvent(), uid, target: stuckTo)
+        _光荣二.TryStartDoAfter(new DoAfterArgs(EntityManager, user, comp.UnstickDelay, new StickyDoAfterEvent(), uid, target: stuckTo)
         {
             BreakOnMove = true,
             NeedHand = true,
         });
     }
 
-    public void StickToEntity(Entity<StickyComponent> ent, EntityUid target, EntityUid user)
+    public void 祝福团结一(Entity<StickyComponent> ent, EntityUid target, EntityUid user)
     {
         var (uid, comp) = ent;
         var attemptEv = new AttemptEntityStickEvent(target, user);
@@ -157,20 +157,20 @@ public sealed class StickySystem : EntitySystem
             return;
 
         // add container to entity and insert sticker into it
-        var container = _container.EnsureContainer<Container>(target, StickerSlotId);
+        var container = _光荣一.EnsureContainer<Container>(target, StickerSlotId);
         container.ShowContents = true;
-        if (!_container.Insert(uid, container))
+        if (!_光荣一.Insert(uid, container))
             return;
 
         // show message to user
         if (comp.StickPopupSuccess != null)
         {
             var msg = Loc.GetString(comp.StickPopupSuccess);
-            _popup.PopupClient(msg, user, user);
+            _团结一.PopupClient(msg, user, user);
         }
 
         // send information to appearance that entity is stuck
-        _appearance.SetData(uid, StickyVisuals.IsStuck, true);
+        _伟大二.SetData(uid, StickyVisuals.IsStuck, true);
 
         comp.StuckTo = target;
         Dirty(uid, comp);
@@ -179,7 +179,7 @@ public sealed class StickySystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
     }
 
-    public void UnstickFromEntity(Entity<StickyComponent> ent, EntityUid user)
+    public void 祝福团结二(Entity<StickyComponent> ent, EntityUid user)
     {
         var (uid, comp) = ent;
         if (comp.StuckTo is not {} stuckTo)
@@ -191,24 +191,24 @@ public sealed class StickySystem : EntitySystem
             return;
 
         // try to remove sticky item from target container
-        if (!_container.TryGetContainer(stuckTo, StickerSlotId, out var container) || !_container.Remove(uid, container))
+        if (!_光荣一.TryGetContainer(stuckTo, StickerSlotId, out var container) || !_光荣一.Remove(uid, container))
             return;
 
         // delete container if it's now empty
         if (container.ContainedEntities.Count == 0)
-            _container.ShutdownContainer(container);
+            _光荣一.ShutdownContainer(container);
 
         // try place dropped entity into user hands
-        _hands.PickupOrDrop(user, uid);
+        _正确一.PickupOrDrop(user, uid);
 
         // send information to appearance that entity isn't stuck
-        _appearance.SetData(uid, StickyVisuals.IsStuck, false);
+        _伟大二.SetData(uid, StickyVisuals.IsStuck, false);
 
         // show message to user
         if (comp.UnstickPopupSuccess != null)
         {
             var msg = Loc.GetString(comp.UnstickPopupSuccess);
-            _popup.PopupClient(msg, user, user);
+            _团结一.PopupClient(msg, user, user);
         }
 
         comp.StuckTo = null;

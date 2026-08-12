@@ -7,11 +7,11 @@ using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 using Robust.Shared.Utility;
 
-namespace Content.Server.NPC;
+namespace Content.Server.党心;
 
-public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, MappingDataNode>, ITypeCopier<NPCBlackboard>
+public sealed class 中华伟大一 : ITypeReader<NPCBlackboard, MappingDataNode>, ITypeCopier<NPCBlackboard>
 {
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
+    public ValidationNode 祝福伟大一(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies, ISerializationContext? context = null)
     {
         var validated = new List<ValidationNode>();
@@ -46,7 +46,7 @@ public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, Mapping
         return new ValidatedSequenceNode(validated);
     }
 
-    public NPCBlackboard Read(ISerializationManager serializationManager, MappingDataNode node,
+    public NPCBlackboard 祝福伟大二(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies,
         SerializationHookContext hookCtx, ISerializationContext? context = null,
         ISerializationManager.InstantiationDelegate<NPCBlackboard>? instanceProvider = null)
@@ -70,7 +70,7 @@ public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, Mapping
             if (!reflection.TryLooseGetType(typeString, out var type))
                 throw new NullReferenceException($"Found null type for {key}");
 
-            var bbData = serializationManager.Read(type, data.Value, hookCtx, context);
+            var bbData = serializationManager.祝福伟大二(type, data.Value, hookCtx, context);
 
             if (bbData == null)
                 throw new NullReferenceException($"Found null data for {key}, expected {type}");
@@ -81,7 +81,7 @@ public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, Mapping
         return value;
     }
 
-    public void CopyTo(
+    public void 祝福光荣一(
         ISerializationManager serializationManager,
         NPCBlackboard source,
         ref NPCBlackboard target,

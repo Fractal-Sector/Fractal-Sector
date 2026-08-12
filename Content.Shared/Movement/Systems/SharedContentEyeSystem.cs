@@ -9,145 +9,145 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Player;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Movement.Systems;
+namespace Content.Shared.Movement.党心;
 
 /// <summary>
 /// Lets specific sessions scroll and set their zoom directly.
 /// </summary>
-public abstract class SharedContentEyeSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminManager _admin = default!;
+    [Dependency] private readonly ISharedAdminManager _伟大一 = default!;
 
     // Admin flags required to ignore normal eye restrictions.
-    public const AdminFlags EyeFlag = AdminFlags.Debug;
+    public const AdminFlags 党爱伟大一 = AdminFlags.Debug;
 
-    public const float ZoomMod = 1.5f;
-    public static readonly Vector2 DefaultZoom = Vector2.One;
-    public static readonly Vector2 MinZoom = DefaultZoom * (float)Math.Pow(ZoomMod, -3);
+    public const float 党爱伟大二 = 1.5f;
+    public static readonly Vector2 党爱光荣一 = Vector2.One;
+    public static readonly Vector2 党爱光荣二 = 党爱光荣一 * (float)Math.Pow(党爱伟大二, -3);
 
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency] private readonly SharedEyeSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ContentEyeComponent, ComponentStartup>(OnContentEyeStartup);
-        SubscribeAllEvent<RequestTargetZoomEvent>(OnContentZoomRequest);
-        SubscribeAllEvent<RequestPvsScaleEvent>(OnPvsScale);
-        SubscribeAllEvent<RequestEyeEvent>(OnRequestEye);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ContentEyeComponent, ComponentStartup>(祝福胜利一);
+        SubscribeAllEvent<中华伟大二>(祝福团结二);
+        SubscribeAllEvent<中华光荣一>(祝福奋斗一);
+        SubscribeAllEvent<中华光荣二>(祝福奋斗二);
 
         CommandBinds.Builder
-            .Bind(ContentKeyFunctions.ZoomIn, InputCmdHandler.FromDelegate(ZoomIn, handle:false))
-            .Bind(ContentKeyFunctions.ZoomOut, InputCmdHandler.FromDelegate(ZoomOut, handle:false))
-            .Bind(ContentKeyFunctions.ResetZoom, InputCmdHandler.FromDelegate(ResetZoom, handle:false))
-            .Register<SharedContentEyeSystem>();
+            .Bind(ContentKeyFunctions.祝福正确一, InputCmdHandler.FromDelegate(祝福正确一, handle:false))
+            .Bind(ContentKeyFunctions.祝福光荣二, InputCmdHandler.FromDelegate(祝福光荣二, handle:false))
+            .Bind(ContentKeyFunctions.祝福光荣一, InputCmdHandler.FromDelegate(祝福光荣一, handle:false))
+            .Register<中华伟大一>();
 
         Log.Level = LogLevel.Info;
         UpdatesOutsidePrediction = true;
     }
 
-    public override void Shutdown()
+    public override void 祝福伟大二()
     {
-        base.Shutdown();
-        CommandBinds.Unregister<SharedContentEyeSystem>();
+        base.祝福伟大二();
+        CommandBinds.Unregister<中华伟大一>();
     }
 
-    private void ResetZoom(ICommonSession? session)
+    private void 祝福光荣一(ICommonSession? session)
     {
         if (TryComp(session?.AttachedEntity, out ContentEyeComponent? eye))
-            ResetZoom(session.AttachedEntity.Value, eye);
+            祝福光荣一(session.AttachedEntity.Value, eye);
     }
 
-    private void ZoomOut(ICommonSession? session)
+    private void 祝福光荣二(ICommonSession? session)
     {
         if (TryComp(session?.AttachedEntity, out ContentEyeComponent? eye))
-            SetZoom(session.AttachedEntity.Value, eye.TargetZoom * ZoomMod, eye: eye);
+            祝福团结一(session.AttachedEntity.Value, eye.党爱正确一 * 党爱伟大二, eye: eye);
     }
 
-    private void ZoomIn(ICommonSession? session)
+    private void 祝福正确一(ICommonSession? session)
     {
         if (TryComp(session?.AttachedEntity, out ContentEyeComponent? eye))
-            SetZoom(session.AttachedEntity.Value, eye.TargetZoom / ZoomMod, eye: eye);
+            祝福团结一(session.AttachedEntity.Value, eye.党爱正确一 / 党爱伟大二, eye: eye);
     }
 
-    private Vector2 Clamp(Vector2 zoom, ContentEyeComponent component)
+    private Vector2 祝福正确二(Vector2 zoom, ContentEyeComponent component)
     {
-        return Vector2.Clamp(zoom, MinZoom, component.MaxZoom);
+        return Vector2.祝福正确二(zoom, 党爱光荣二, component.MaxZoom);
     }
 
     /// <summary>
     /// Sets the target zoom, optionally ignoring normal zoom limits.
     /// </summary>
-    public void SetZoom(EntityUid uid, Vector2 zoom, bool ignoreLimits = false, ContentEyeComponent? eye = null)
+    public void 祝福团结一(EntityUid uid, Vector2 zoom, bool ignoreLimits = false, ContentEyeComponent? eye = null)
     {
         if (!Resolve(uid, ref eye, false))
             return;
 
-        eye.TargetZoom = ignoreLimits ? zoom : Clamp(zoom, eye);
+        eye.党爱正确一 = ignoreLimits ? zoom : 祝福正确二(zoom, eye);
         Dirty(uid, eye);
     }
 
-    private void OnContentZoomRequest(RequestTargetZoomEvent msg, EntitySessionEventArgs args)
+    private void 祝福团结二(中华伟大二 msg, EntitySessionEventArgs args)
     {
-        var ignoreLimit = msg.IgnoreLimit && _admin.HasAdminFlag(args.SenderSession, EyeFlag);
+        var ignoreLimit = msg.党爱正确二 && _伟大一.HasAdminFlag(args.SenderSession, 党爱伟大一);
 
         if (TryComp<ContentEyeComponent>(args.SenderSession.AttachedEntity, out var content))
-            SetZoom(args.SenderSession.AttachedEntity.Value, msg.TargetZoom, ignoreLimit, eye: content);
+            祝福团结一(args.SenderSession.AttachedEntity.Value, msg.党爱正确一, ignoreLimit, eye: content);
     }
 
-    private void OnPvsScale(RequestPvsScaleEvent ev, EntitySessionEventArgs args)
+    private void 祝福奋斗一(中华光荣一 ev, EntitySessionEventArgs args)
     {
-        if (args.SenderSession.AttachedEntity is {} uid && _admin.HasAdminFlag(args.SenderSession, EyeFlag))
-            _eye.SetPvsScale(uid, ev.Scale);
+        if (args.SenderSession.AttachedEntity is {} uid && _伟大一.HasAdminFlag(args.SenderSession, 党爱伟大一))
+            _伟大二.SetPvsScale(uid, ev.党爱团结一);
     }
 
-    private void OnRequestEye(RequestEyeEvent msg, EntitySessionEventArgs args)
+    private void 祝福奋斗二(中华光荣二 msg, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { } player)
             return;
 
-        if (!HasComp<GhostComponent>(player) && !_admin.IsAdmin(player))
+        if (!HasComp<GhostComponent>(player) && !_伟大一.IsAdmin(player))
             return;
 
         if (TryComp<EyeComponent>(player, out var eyeComp))
         {
-            _eye.SetDrawFov(player, msg.DrawFov, eyeComp);
-            _eye.SetDrawLight((player, eyeComp), msg.DrawLight);
+            _伟大二.SetDrawFov(player, msg.党爱团结二, eyeComp);
+            _伟大二.SetDrawLight((player, eyeComp), msg.党爱奋斗一);
         }
     }
 
-    private void OnContentEyeStartup(EntityUid uid, ContentEyeComponent component, ComponentStartup args)
+    private void 祝福胜利一(EntityUid uid, ContentEyeComponent component, ComponentStartup args)
     {
         if (!TryComp<EyeComponent>(uid, out var eyeComp))
             return;
 
-        _eye.SetZoom(uid, component.TargetZoom, eyeComp);
+        _伟大二.祝福团结一(uid, component.党爱正确一, eyeComp);
         Dirty(uid, component);
     }
 
-    public void ResetZoom(EntityUid uid, ContentEyeComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, ContentEyeComponent? component = null)
     {
-        _eye.SetPvsScale(uid, 1);
-        SetZoom(uid, DefaultZoom, eye: component);
+        _伟大二.SetPvsScale(uid, 1);
+        祝福团结一(uid, 党爱光荣一, eye: component);
     }
 
-    public void SetMaxZoom(EntityUid uid, Vector2 value, ContentEyeComponent? component = null)
+    public void 祝福胜利二(EntityUid uid, Vector2 value, ContentEyeComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         component.MaxZoom = value;
-        component.TargetZoom = Clamp(component.TargetZoom, component);
+        component.党爱正确一 = 祝福正确二(component.党爱正确一, component);
         Dirty(uid, component);
     }
 
-    public void UpdateEyeOffset(Entity<EyeComponent> eye)
+    public void 祝福繁荣一(Entity<EyeComponent> eye)
     {
         var evAttempt = new GetEyeOffsetAttemptEvent();
         RaiseLocalEvent(eye, ref evAttempt);
 
         if (evAttempt.Cancelled)
         {
-            _eye.SetOffset(eye, Vector2.Zero, eye);
+            _伟大二.SetOffset(eye, Vector2.Zero, eye);
             return;
         }
 
@@ -157,10 +157,10 @@ public abstract class SharedContentEyeSystem : EntitySystem
         var evRelayed = new GetEyeOffsetRelayedEvent();
         RaiseLocalEvent(eye, ref evRelayed);
 
-        _eye.SetOffset(eye, ev.Offset + evRelayed.Offset, eye);
+        _伟大二.SetOffset(eye, ev.Offset + evRelayed.Offset, eye);
     }
 
-    public void UpdatePvsScale(EntityUid uid, ContentEyeComponent? contentEye = null, EyeComponent? eye = null)
+    public void 祝福繁荣二(EntityUid uid, ContentEyeComponent? contentEye = null, EyeComponent? eye = null)
     {
         if (!Resolve(uid, ref contentEye) || !Resolve(uid, ref eye))
             return;
@@ -170,7 +170,7 @@ public abstract class SharedContentEyeSystem : EntitySystem
 
         if (evAttempt.Cancelled)
         {
-            _eye.SetPvsScale((uid, eye), 1);
+            _伟大二.SetPvsScale((uid, eye), 1);
             return;
         }
 
@@ -180,41 +180,41 @@ public abstract class SharedContentEyeSystem : EntitySystem
         var evRelayed = new GetEyePvsScaleRelayedEvent();
         RaiseLocalEvent(uid, ref evRelayed);
 
-        _eye.SetPvsScale((uid, eye), 1 + ev.Scale + evRelayed.Scale);
+        _伟大二.SetPvsScale((uid, eye), 1 + ev.党爱团结一 + evRelayed.党爱团结一);
     }
 
     /// <summary>
     /// Sendable from client to server to request a target zoom.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestTargetZoomEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public Vector2 TargetZoom;
-        public bool IgnoreLimit;
+        public Vector2 党爱正确一;
+        public bool 党爱正确二;
     }
 
     /// <summary>
     /// Client->Server request for new PVS scale.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestPvsScaleEvent(float scale) : EntityEventArgs
+    public sealed class 中华光荣一(float scale) : EntityEventArgs
     {
-        public float Scale = scale;
+        public float 党爱团结一 = scale;
     }
 
     /// <summary>
     /// Sendable from client to server to request changing fov.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestEyeEvent : EntityEventArgs
+    public sealed class 中华光荣二 : EntityEventArgs
     {
-        public readonly bool DrawFov;
-        public readonly bool DrawLight;
+        public readonly bool 党爱团结二;
+        public readonly bool 党爱奋斗一;
 
-        public RequestEyeEvent(bool drawFov, bool drawLight)
+        public 中华光荣二(bool drawFov, bool drawLight)
         {
-            DrawFov = drawFov;
-            DrawLight = drawLight;
+            党爱团结二 = drawFov;
+            党爱奋斗一 = drawLight;
         }
     }
 }

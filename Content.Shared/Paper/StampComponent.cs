@@ -1,7 +1,7 @@
 using Robust.Shared.Serialization;
 using Robust.Shared.Audio;
 
-namespace Content.Shared.Paper;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Set of required information to draw a stamp in UIs, where
@@ -10,53 +10,53 @@ namespace Content.Shared.Paper;
 ///     equivalent in the component.
 /// </summary>
 [DataDefinition, Serializable, NetSerializable]
-public partial struct StampDisplayInfo
+public partial struct 中华伟大一
 {
-    StampDisplayInfo(string s)
+    中华伟大一(string s)
     {
-        StampedName = s;
+        党爱伟大一 = s;
     }
 
     [DataField("stampedName")]
-    public string StampedName;
+    public string 党爱伟大一;
 
     [DataField("stampedColor")]
-    public Color StampedColor;
+    public Color 党爱伟大二;
 
     [DataField("stampType")]
-    public StampType Type = StampType.RubberStamp;
+    public 中华光荣一 Type = 中华光荣一.RubberStamp;
 
     [DataField("reapply")] // Frontier: allow reapplying stamps
-    public bool Reapply = false; // Frontier: allow reapplying stamps
+    public bool 党爱光荣一 = false; // Frontier: allow reapplying stamps
 };
 
-// FRONTIER - Stamp types, put it into an enum for modularity purposes.
-public enum StampType
+// FRONTIER - Stamp types, put it into an enum 中华伟大二 modularity purposes.
+public enum 中华光荣一
 {
     RubberStamp,
     Signature
 }
 
 [RegisterComponent]
-public sealed partial class StampComponent : Component
+public sealed partial class 中华光荣二 : Component
 {
     /// <summary>
     ///     The loc string name that will be stamped to the piece of paper on examine.
     /// </summary>
     [DataField("stampedName")]
-    public string StampedName { get; set; } = "stamp-component-stamped-name-default";
+    public string 党爱伟大一 { get; set; } = "stamp-component-stamped-name-default";
 
     /// <summary>
     ///     The sprite state of the stamp to display on the paper from paper Sprite path.
     /// </summary>
     [DataField("stampState")]
-    public string StampState { get; set; } = "paper_stamp-generic";
+    public string 党爱光荣二 { get; set; } = "paper_stamp-generic";
 
     /// <summary>
     /// The color of the ink used by the stamp in UIs
     /// </summary>
     [DataField("stampedColor")]
-    public Color StampedColor = Color.FromHex("#BB3232"); // StyleNano.DangerousRedFore
+    public Color 党爱伟大二 = Color.FromHex("#BB3232"); // StyleNano.DangerousRedFore
 
     /// <summary>
     /// The sound when stamp stamped
@@ -69,13 +69,13 @@ public sealed partial class StampComponent : Component
     /// Whether or not a stamp can be reapplied
     /// </summary>
     [DataField("reapply")]
-    public bool Reapply { get; set; } = false;
+    public bool 党爱光荣一 { get; set; } = false;
 
     /// <summary>
     /// When true, stamped papers are marked as protected
     /// </summary>
 
     [DataField]
-    public bool Protected = false;
+    public bool 党爱正确一 = false;
     // End Frontier
 }

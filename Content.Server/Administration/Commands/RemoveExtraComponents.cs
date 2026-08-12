@@ -2,24 +2,24 @@
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Mapping)]
-    public sealed class RemoveExtraComponents : LocalizedEntityCommands
+    public sealed class 中华伟大一 : LocalizedEntityCommands
     {
-        [Dependency] private readonly IComponentFactory _compFactory = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IComponentFactory _伟大一 = default!;
+        [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
-        public override string Command => "removeextracomponents";
+        public override string 党爱伟大一 => "removeextracomponents";
 
-        public override void Execute(IConsoleShell shell, string argStr, string[] args)
+        public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             var id = args.Length == 0 ? null : string.Join(" ", args);
 
             EntityPrototype? prototype = null;
             var checkPrototype = !string.IsNullOrEmpty(id);
 
-            if (checkPrototype && !_prototypeManager.TryIndex(id!, out prototype))
+            if (checkPrototype && !_伟大二.TryIndex(id!, out prototype))
             {
                 shell.WriteError(Loc.GetString($"cmd-removeextracomponents-invalid-prototype-id", ("id", $"{id}")));
                 return;
@@ -38,7 +38,7 @@ namespace Content.Server.Administration.Commands
 
                 foreach (var component in EntityManager.GetComponents(entity))
                 {
-                    if (metaData.EntityPrototype.Components.ContainsKey(_compFactory.GetComponentName(component.GetType())))
+                    if (metaData.EntityPrototype.Components.ContainsKey(_伟大一.GetComponentName(component.GetType())))
                         continue;
 
                     EntityManager.RemoveComponent(entity, component);

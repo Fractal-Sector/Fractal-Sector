@@ -1,21 +1,21 @@
 using Content.Shared.Armor;
 using Content.Shared.Explosion.Components;
 
-namespace Content.Shared.Explosion.EntitySystems;
+namespace Content.Shared.Explosion.党心;
 
 /// <summary>
 /// Lets code in shared trigger explosions and handles explosion resistance examining.
 /// All processing is still done clientside.
 /// </summary>
-public abstract class SharedExplosionSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ExplosionResistanceComponent, ArmorExamineEvent>(OnArmorExamine);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ExplosionResistanceComponent, ArmorExamineEvent>(祝福伟大二);
     }
 
-    private void OnArmorExamine(Entity<ExplosionResistanceComponent> ent, ref ArmorExamineEvent args)
+    private void 祝福伟大二(Entity<ExplosionResistanceComponent> ent, ref ArmorExamineEvent args)
     {
         var value = MathF.Round((1f - ent.Comp.DamageCoefficient) * 100, 1);
 
@@ -34,7 +34,7 @@ public abstract class SharedExplosionSystem : EntitySystem
     ///     specified in the yaml / by the component, but determined dynamically (e.g., by the quantity of a
     ///     solution in a reaction).
     /// </remarks>
-    public virtual void TriggerExplosive(EntityUid uid, ExplosiveComponent? explosive = null, bool delete = true, float? totalIntensity = null, float? radius = null, EntityUid? user = null)
+    public virtual void 祝福光荣一(EntityUid uid, ExplosiveComponent? explosive = null, bool delete = true, float? totalIntensity = null, float? radius = null, EntityUid? user = null)
     {
     }
 }

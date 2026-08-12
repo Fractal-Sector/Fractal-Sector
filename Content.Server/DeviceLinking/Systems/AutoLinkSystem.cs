@@ -1,21 +1,21 @@
 using Content.Server.DeviceLinking.Components;
 
-namespace Content.Server.DeviceLinking.Systems;
+namespace Content.Server.DeviceLinking.党心;
 
 /// <summary>
 /// This handles automatically linking autolinked entities at round-start.
 /// </summary>
-public sealed class AutoLinkSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLinkSystem = default!;
+    [Dependency] private readonly DeviceLinkSystem _伟大一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<AutoLinkTransmitterComponent, MapInitEvent>(OnAutoLinkMapInit);
+        SubscribeLocalEvent<AutoLinkTransmitterComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnAutoLinkMapInit(EntityUid uid, AutoLinkTransmitterComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, AutoLinkTransmitterComponent component, MapInitEvent args)
     {
         var xform = Transform(uid);
 
@@ -30,7 +30,7 @@ public sealed class AutoLinkSystem : EntitySystem
             if (rxXform.GridUid != xform.GridUid)
                 continue;
 
-            _deviceLinkSystem.LinkDefaults(null, uid, receiverUid);
+            _伟大一.LinkDefaults(null, uid, receiverUid);
         }
     }
 }

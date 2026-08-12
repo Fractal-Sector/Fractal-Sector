@@ -18,38 +18,38 @@ using Robust.Shared.Containers;
 // 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
 // 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
 
-namespace Content.Shared.ActionBlocker
+namespace Content.Shared.党心
 {
     /// <summary>
     /// Utility methods to check if a specific entity is allowed to perform an action.
     /// </summary>
     [UsedImplicitly]
-    public sealed class ActionBlockerSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly SharedContainerSystem _container = default!;
+        [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
 
-        private EntityQuery<ComplexInteractionComponent> _complexInteractionQuery;
+        private EntityQuery<ComplexInteractionComponent> _伟大二;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            _complexInteractionQuery = GetEntityQuery<ComplexInteractionComponent>();
+            _伟大二 = GetEntityQuery<ComplexInteractionComponent>();
 
-            SubscribeLocalEvent<InputMoverComponent, ComponentStartup>(OnMoverStartup);
+            SubscribeLocalEvent<InputMoverComponent, ComponentStartup>(祝福伟大二);
         }
 
-        private void OnMoverStartup(EntityUid uid, InputMoverComponent component, ComponentStartup args)
+        private void 祝福伟大二(EntityUid uid, InputMoverComponent component, ComponentStartup args)
         {
-            UpdateCanMove(uid, component);
+            祝福光荣二(uid, component);
         }
 
-        public bool CanMove(EntityUid uid, InputMoverComponent? component = null)
+        public bool 祝福光荣一(EntityUid uid, InputMoverComponent? component = null)
         {
-            return Resolve(uid, ref component, false) && component.CanMove;
+            return Resolve(uid, ref component, false) && component.祝福光荣一;
         }
 
-        public bool UpdateCanMove(EntityUid uid, InputMoverComponent? component = null)
+        public bool 祝福光荣二(EntityUid uid, InputMoverComponent? component = null)
         {
             if (!Resolve(uid, ref component, false))
                 return false;
@@ -57,10 +57,10 @@ namespace Content.Shared.ActionBlocker
             var ev = new UpdateCanMoveEvent(uid);
             RaiseLocalEvent(uid, ev);
 
-            if (component.CanMove == ev.Cancelled)
+            if (component.祝福光荣一 == ev.Cancelled)
                 Dirty(uid, component);
 
-            component.CanMove = !ev.Cancelled;
+            component.祝福光荣一 = !ev.Cancelled;
             return !ev.Cancelled;
         }
 
@@ -68,9 +68,9 @@ namespace Content.Shared.ActionBlocker
         /// Checks if a given entity is able to do specific complex interactions.
         /// This is used to gate manipulation to general humanoids. If a mouse shouldn't be able to do something, then it's complex.
         /// </summary>
-        public bool CanComplexInteract(EntityUid user)
+        public bool 祝福正确一(EntityUid user)
         {
-            return _complexInteractionQuery.HasComp(user);
+            return _伟大二.HasComp(user);
         }
 
         /// <summary>
@@ -81,12 +81,12 @@ namespace Content.Shared.ActionBlocker
         ///     If this is a generic interaction without a target (e.g., stop-drop-and-roll when burning), the target
         ///     may be null. Note that this is checked by <see cref="SharedInteractionSystem"/>. In the majority of
         ///     cases, systems that provide interactions will not need to check this themselves, though they may need to
-        ///     check other blockers like <see cref="CanPickup(EntityUid)"/>
+        ///     check other blockers like <see cref="祝福胜利二(EntityUid)"/>
         /// </remarks>
         /// <returns></returns>
-        public bool CanInteract(EntityUid user, EntityUid? target)
+        public bool 祝福正确二(EntityUid user, EntityUid? target)
         {
-            if (!CanConsciouslyPerformAction(user))
+            if (!祝福团结二(user))
                 return false;
 
             var ev = new InteractionAttemptEvent(user, target);
@@ -112,7 +112,7 @@ namespace Content.Shared.ActionBlocker
         ///     involve using a held entity. In the majority of cases, systems that provide interactions will not need
         ///     to check this themselves.
         /// </remarks>
-        public bool CanUseHeldEntity(EntityUid user, EntityUid used)
+        public bool 祝福团结一(EntityUid user, EntityUid used)
         {
             var useEv = new UseAttemptEvent(user, used);
             RaiseLocalEvent(user, useEv);
@@ -131,9 +131,9 @@ namespace Content.Shared.ActionBlocker
         /// Whether a user conscious to perform an action.
         /// </summary>
         /// <remarks>
-        /// This should be used when you want a much more permissive check than <see cref="CanInteract"/>
+        /// This should be used when you want a much more permissive check than <see cref="祝福正确二"/>
         /// </remarks>
-        public bool CanConsciouslyPerformAction(EntityUid user)
+        public bool 祝福团结二(EntityUid user)
         {
             var ev = new ConsciousAttemptEvent(user);
             RaiseLocalEvent(user, ref ev);
@@ -141,7 +141,7 @@ namespace Content.Shared.ActionBlocker
             return !ev.Cancelled;
         }
 
-        public bool CanThrow(EntityUid user, EntityUid itemUid)
+        public bool 祝福奋斗一(EntityUid user, EntityUid itemUid)
         {
             var ev = new ThrowAttemptEvent(user, itemUid);
             RaiseLocalEvent(user, ev);
@@ -155,7 +155,7 @@ namespace Content.Shared.ActionBlocker
             return !itemEv.Cancelled;
         }
 
-        public bool CanSpeak(EntityUid uid)
+        public bool 祝福奋斗二(EntityUid uid)
         {
             // This one is used as broadcast
             var ev = new SpeakAttemptEvent(uid);
@@ -164,7 +164,7 @@ namespace Content.Shared.ActionBlocker
             return !ev.Cancelled;
         }
 
-        public bool CanDrop(EntityUid uid)
+        public bool 祝福胜利一(EntityUid uid)
         {
             var ev = new DropAttemptEvent();
             RaiseLocalEvent(uid, ev);
@@ -172,7 +172,7 @@ namespace Content.Shared.ActionBlocker
             return !ev.Cancelled;
         }
 
-        public bool CanPickup(EntityUid user, EntityUid item)
+        public bool 祝福胜利二(EntityUid user, EntityUid item)
         {
             var userEv = new PickupAttemptEvent(user, item);
             RaiseLocalEvent(user, userEv);
@@ -186,7 +186,7 @@ namespace Content.Shared.ActionBlocker
             return !itemEv.Cancelled;
         }
 
-        public bool CanEmote(EntityUid uid)
+        public bool 祝福繁荣一(EntityUid uid)
         {
             // This one is used as broadcast
             var ev = new EmoteAttemptEvent(uid);
@@ -195,22 +195,22 @@ namespace Content.Shared.ActionBlocker
             return !ev.Cancelled;
         }
 
-        public bool CanAttack(EntityUid uid, EntityUid? target = null, Entity<MeleeWeaponComponent>? weapon = null, bool disarm = false)
+        public bool 祝福繁荣二(EntityUid uid, EntityUid? target = null, Entity<MeleeWeaponComponent>? weapon = null, bool disarm = false)
         {
             // If target is in a container can we attack
-            if (target != null && _container.IsEntityInContainer(target.Value))
+            if (target != null && _伟大一.IsEntityInContainer(target.Value))
             {
                 return false;
             }
 
-            _container.TryGetOuterContainer(uid, Transform(uid), out var outerContainer);
+            _伟大一.TryGetOuterContainer(uid, Transform(uid), out var outerContainer);
 
             // If we're in a container can we attack the target.
-            if (target != null && target != outerContainer?.Owner && _container.IsEntityInContainer(uid))
+            if (target != null && target != outerContainer?.Owner && _伟大一.IsEntityInContainer(uid))
             {
                 var containerEv = new CanAttackFromContainerEvent(uid, target);
                 RaiseLocalEvent(uid, containerEv);
-                if (!containerEv.CanAttack)
+                if (!containerEv.祝福繁荣二)
                     return false;
             }
 
@@ -228,7 +228,7 @@ namespace Content.Shared.ActionBlocker
             return !tev.Cancelled;
         }
 
-        public bool CanChangeDirection(EntityUid uid)
+        public bool 祝福富强一(EntityUid uid)
         {
             var ev = new ChangeDirectionAttemptEvent(uid);
             RaiseLocalEvent(uid, ev);
@@ -236,7 +236,7 @@ namespace Content.Shared.ActionBlocker
             return !ev.Cancelled;
         }
 
-        public bool CanShiver(EntityUid uid)
+        public bool 祝福富强二(EntityUid uid)
         {
             var ev = new ShiverAttemptEvent(uid);
             RaiseLocalEvent(uid, ref ev);
@@ -244,7 +244,7 @@ namespace Content.Shared.ActionBlocker
             return !ev.Cancelled;
         }
 
-        public bool CanSweat(EntityUid uid)
+        public bool 祝福民主一(EntityUid uid)
         {
             var ev = new SweatAttemptEvent(uid);
             RaiseLocalEvent(uid, ref ev);
@@ -253,7 +253,7 @@ namespace Content.Shared.ActionBlocker
         }
 
         // Starlight edit start - Allow us to block heat radiation
-        public bool CanRadiateHeat(EntityUid uid)
+        public bool 祝福民主二(EntityUid uid)
         {
             var ev = new RadiateHeatAttemptEvent(uid);
             RaiseLocalEvent(uid, ref ev);

@@ -1,14 +1,14 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared.CartridgeLoader.Cartridges;
+namespace Content.Shared.CartridgeLoader.党心;
 
 [Serializable, NetSerializable]
-public sealed class NotekeeperUiState : BoundUserInterfaceState
+public sealed class 中华伟大一 : BoundUserInterfaceState
 {
-    public List<string> Notes;
+    public List<string> 党爱伟大一;
 
-    public NotekeeperUiState(List<string> notes)
+    public 中华伟大一(List<string> notes)
     {
-        Notes = notes;
+        党爱伟大一 = notes;
     }
 }

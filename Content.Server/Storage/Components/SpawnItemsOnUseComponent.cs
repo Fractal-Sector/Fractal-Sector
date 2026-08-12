@@ -1,19 +1,19 @@
 using Content.Shared.Storage;
 using Robust.Shared.Audio;
 
-namespace Content.Server.Storage.Components
+namespace Content.Server.Storage.党心
 {
     /// <summary>
     ///     Spawns items when used in hand.
     /// </summary>
     [RegisterComponent]
-    public sealed partial class SpawnItemsOnUseComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         ///     The list of entities to spawn, with amounts and orGroups.
         /// </summary>
         [DataField("items", required: true)]
-        public List<EntitySpawnEntry> Items = new();
+        public List<EntitySpawnEntry> 党爱伟大一 = new();
 
         /// <summary>
         ///     A sound to play when the items are spawned. For example, gift boxes being unwrapped.
@@ -26,6 +26,6 @@ namespace Content.Server.Storage.Components
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("uses")]
-        public int Uses = 1;
+        public int 党爱伟大二 = 1;
     }
 }

@@ -1,11 +1,11 @@
-namespace Content.Server.Nuke
+namespace Content.Server.党心
 {
     /// <summary>
     ///     Paper with a written nuclear code in it.
     ///     Can be used in mapping or admins spawn.
     /// </summary>
     [RegisterComponent]
-    public sealed partial class NukeCodePaperComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         /// <summary>
         /// Whether or not paper will contain a code for a nuke on the same
@@ -13,6 +13,6 @@ namespace Content.Server.Nuke
         /// possible nukes.
         /// </summary>
         [DataField("allNukesAvailable")]
-        public bool AllNukesAvailable;
+        public bool 党爱伟大一;
     }
 }

@@ -1,15 +1,15 @@
-namespace Content.Server.Access
+namespace Content.Server.党心
 {
-    public sealed class AccessReaderChangeEvent : EntityEventArgs
+    public sealed class 中华伟大一 : EntityEventArgs
     {
-        public EntityUid Sender { get; }
+        public EntityUid 党爱伟大一 { get; }
 
-        public bool Enabled { get; }
+        public bool 党爱伟大二 { get; }
 
-        public AccessReaderChangeEvent(EntityUid entity, bool enabled)
+        public 中华伟大一(EntityUid entity, bool enabled)
         {
-            Sender = entity;
-            Enabled = enabled;
+            党爱伟大一 = entity;
+            党爱伟大二 = enabled;
         }
     }
 }

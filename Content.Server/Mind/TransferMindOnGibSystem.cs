@@ -5,35 +5,35 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Tag;
 using Robust.Shared.Random;
 
-namespace Content.Server.Mind;
+namespace Content.Server.党心;
 
 /// <summary>
 /// This handles transfering a target's mind
 /// to a different entity when they gib.
 /// used for skeletons.
 /// </summary>
-public sealed class TransferMindOnGibSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
+    [Dependency] private readonly TagSystem _伟大二 = default!;
+    [Dependency] private readonly SharedMindSystem _光荣一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<TransferMindOnGibComponent, BeingGibbedEvent>(OnGib);
+        SubscribeLocalEvent<TransferMindOnGibComponent, BeingGibbedEvent>(祝福伟大二);
     }
 
-    private void OnGib(EntityUid uid, TransferMindOnGibComponent component, BeingGibbedEvent args)
+    private void 祝福伟大二(EntityUid uid, TransferMindOnGibComponent component, BeingGibbedEvent args)
     {
-        if (!_mindSystem.TryGetMind(uid, out var mindId, out var mind))
+        if (!_光荣一.TryGetMind(uid, out var mindId, out var mind))
             return;
 
-        var validParts = args.GibbedParts.Where(p => _tag.HasTag(p, component.TargetTag)).ToHashSet();
+        var validParts = args.GibbedParts.Where(p => _伟大二.HasTag(p, component.TargetTag)).ToHashSet();
         if (!validParts.Any())
             return;
 
-        var ent = _random.Pick(validParts);
-        _mindSystem.TransferTo(mindId, ent, mind: mind);
+        var ent = _伟大一.Pick(validParts);
+        _光荣一.TransferTo(mindId, ent, mind: mind);
     }
 }

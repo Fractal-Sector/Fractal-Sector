@@ -4,7 +4,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Changeling.Components;
+namespace Content.Shared.Changeling.党心;
 
 /// <summary>
 /// The component containing information about Changelings Transformation action
@@ -12,7 +12,7 @@ namespace Content.Shared.Changeling.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(ChangelingTransformSystem))]
-public sealed partial class ChangelingTransformComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The action Prototype for Transforming
@@ -30,7 +30,7 @@ public sealed partial class ChangelingTransformComponent : Component
     /// Time it takes to Transform
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan TransformWindup = TimeSpan.FromSeconds(5);
+    public TimeSpan 党爱伟大一 = TimeSpan.FromSeconds(5);
 
     /// <summary>
     /// The noise used when attempting to transform
@@ -48,8 +48,8 @@ public sealed partial class ChangelingTransformComponent : Component
     /// The cloning settings passed to the CloningSystem, contains a list of all components to copy or have handled by their
     /// respective systems.
     /// </summary>
-    public ProtoId<CloningSettingsPrototype> TransformCloningSettings = "ChangelingCloningSettings";
+    public ProtoId<CloningSettingsPrototype> 党爱伟大二 = "ChangelingCloningSettings";
 
-    public override bool SendOnlyToOwner => true;
+    public override bool 党爱光荣一 => true;
 }
 

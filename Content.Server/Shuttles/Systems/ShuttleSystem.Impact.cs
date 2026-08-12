@@ -21,25 +21,25 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using System.Numerics;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
 // shuttle impact damage ported from Goobstation (AGPLv3) with agreement of all coders involved
-public sealed partial class ShuttleSystem
+public sealed partial class 中华伟大一
 {
-    private bool _enabled;
-    private float _minimumImpactInertia;
-    private float _minimumImpactVelocity;
-    private float _tileBreakEnergyMultiplier;
-    private float _damageMultiplier;
-    private float _structuralDamage;
-    private float _sparkEnergy;
-    private float _impactRadius;
-    private float _impactSlowdown;
-    private float _minThrowVelocity;
-    private float _massBias;
-    private float _inertiaScaling;
+    private bool _伟大一;
+    private float _伟大二;
+    private float _光荣一;
+    private float _光荣二;
+    private float _正确一;
+    private float _正确二;
+    private float _团结一;
+    private float _团结二;
+    private float _奋斗一;
+    private float _奋斗二;
+    private float _胜利一;
+    private float _胜利二;
     // this doesn't update if plating mass is changed but edgecase
-    private float _platingMass;
+    private float _繁荣一;
 
     private const float _sparkChance = 0.2f;
     // shuttle mass to consider the neutral point for inertia scaling
@@ -47,48 +47,48 @@ public sealed partial class ShuttleSystem
     // exists primarily for optimisation so not a cvar
     private const float _minImpulseVelocity = 0.07f;
     // high-speed collisions tend to be a series of increasingly smaller collisions so don't spam admin logs
-    private readonly TimeSpan _adminLogSpacing = TimeSpan.FromSeconds(3);
+    private readonly TimeSpan _繁荣二 = TimeSpan.FromSeconds(3);
 
-    private readonly SoundCollectionSpecifier _shuttleImpactSound = new("ShuttleImpactSound");
-    private readonly ProtoId<ContentTileDefinition> _platingId = "Plating";
-    private readonly EntProtoId _sparkEffect = "EffectSparks";
+    private readonly SoundCollectionSpecifier _富强一 = new("ShuttleImpactSound");
+    private readonly ProtoId<ContentTileDefinition> _富强二 = "Plating";
+    private readonly EntProtoId _民主一 = "EffectSparks";
 
-    private EntityQuery<DamageableComponent> _dmgQuery;
-    private EntityQuery<ProjectileComponent> _projQuery;
+    private EntityQuery<DamageableComponent> _民主二;
+    private EntityQuery<ProjectileComponent> _文明一;
 
-    private HashSet<EntityUid> _countedEnts = new();
-    private HashSet<EntityUid> _intersecting = new();
-    // for _adminLogSpacing
+    private HashSet<EntityUid> _文明二 = new();
+    private HashSet<EntityUid> _和谐一 = new();
+    // for _繁荣二
     private Dictionary<EntityUid, TimeSpan> _impactedAt = new();
 
-    private void InitializeImpact()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ShuttleComponent, StartCollideEvent>(OnShuttleCollide);
+        SubscribeLocalEvent<ShuttleComponent, StartCollideEvent>(祝福伟大二);
 
-        _dmgQuery = GetEntityQuery<DamageableComponent>();
-        _projQuery = GetEntityQuery<ProjectileComponent>();
+        _民主二 = GetEntityQuery<DamageableComponent>();
+        _文明一 = GetEntityQuery<ProjectileComponent>();
 
-        Subs.CVar(_cfg, CCVars.ImpactEnabled, value => _enabled = value, true);
-        Subs.CVar(_cfg, CCVars.MinimumImpactInertia, value => _minimumImpactInertia = value, true);
-        Subs.CVar(_cfg, CCVars.MinimumImpactInertia, value => _minimumImpactInertia = value, true);
-        Subs.CVar(_cfg, CCVars.MinimumImpactVelocity, value => _minimumImpactVelocity = value, true);
-        Subs.CVar(_cfg, CCVars.TileBreakEnergyMultiplier, value => _tileBreakEnergyMultiplier = value, true);
-        Subs.CVar(_cfg, CCVars.ImpactDamageMultiplier, value => _damageMultiplier = value, true);
-        Subs.CVar(_cfg, CCVars.ImpactStructuralDamage, value => _structuralDamage = value, true);
-        Subs.CVar(_cfg, CCVars.SparkEnergy, value => _sparkEnergy = value, true);
-        Subs.CVar(_cfg, CCVars.ImpactRadius, value => _impactRadius = value, true);
-        Subs.CVar(_cfg, CCVars.ImpactSlowdown, value => _impactSlowdown = value, true);
-        Subs.CVar(_cfg, CCVars.ImpactMinThrowVelocity, value => _minThrowVelocity = value, true);
-        Subs.CVar(_cfg, CCVars.ImpactMassBias, value => _massBias = value, true);
-        Subs.CVar(_cfg, CCVars.ImpactInertiaScaling, value => _inertiaScaling = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactEnabled, value => _伟大一 = value, true);
+        Subs.CVar(_cfg, CCVars.MinimumImpactInertia, value => _伟大二 = value, true);
+        Subs.CVar(_cfg, CCVars.MinimumImpactInertia, value => _伟大二 = value, true);
+        Subs.CVar(_cfg, CCVars.MinimumImpactVelocity, value => _光荣一 = value, true);
+        Subs.CVar(_cfg, CCVars.TileBreakEnergyMultiplier, value => _光荣二 = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactDamageMultiplier, value => _正确一 = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactStructuralDamage, value => _正确二 = value, true);
+        Subs.CVar(_cfg, CCVars.SparkEnergy, value => _团结一 = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactRadius, value => _团结二 = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactSlowdown, value => _奋斗一 = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactMinThrowVelocity, value => _奋斗二 = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactMassBias, value => _胜利一 = value, true);
+        Subs.CVar(_cfg, CCVars.ImpactInertiaScaling, value => _胜利二 = value, true);
 
-        _platingMass = _protoManager.Index(_platingId).Mass;
+        _繁荣一 = _protoManager.Index(_富强二).Mass;
     }
 
     /// <summary>
     /// Handles collision between two shuttles, applying impact damage and effects.
     /// </summary>
-    private void OnShuttleCollide(EntityUid uid, ShuttleComponent component, ref StartCollideEvent args)
+    private void 祝福伟大二(EntityUid uid, ShuttleComponent component, ref StartCollideEvent args)
     {
         if (TerminatingOrDeleted(uid) || EntityManager.IsQueuedForDeletion(uid)
             || TerminatingOrDeleted(args.OtherEntity) || EntityManager.IsQueuedForDeletion(args.OtherEntity)
@@ -132,7 +132,7 @@ public sealed partial class ShuttleSystem
             var effectiveInertia = jungleDiff * effectiveInertiaMult;
 
             // TODO: squish damage so that a tiny splinter grid can't stop 2 big grids by being in the way
-            if (jungleDiff < _minimumImpactVelocity && effectiveInertia < _minimumImpactInertia
+            if (jungleDiff < _光荣一 && effectiveInertia < _伟大二
                 || ourXform.MapUid == null
                 || float.IsNaN(jungleDiff))
             {
@@ -144,18 +144,18 @@ public sealed partial class ShuttleSystem
 
             var volume = MathF.Min(10f, MathF.Pow(jungleDiff, 0.5f) - 5f);
             var audioParams = AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation).WithVolume(volume);
-            _audio.PlayPvs(_shuttleImpactSound, coordinates, audioParams);
+            _audio.PlayPvs(_富强一, coordinates, audioParams);
 
             // if we're not enabled, stop after playing sound
-            if (!_enabled)
+            if (!_伟大一)
                 continue;
 
             // Convert the collision point directly to tile indices
             var ourTile = new Vector2i((int)Math.Floor(ourPoint.X / ourGrid.TileSize), (int)Math.Floor(ourPoint.Y / ourGrid.TileSize));
             var otherTile = new Vector2i((int)Math.Floor(otherPoint.X / otherGrid.TileSize), (int)Math.Floor(otherPoint.Y / otherGrid.TileSize));
 
-            var ourMass = GetRegionMass(args.OurEntity, ourGrid, ourTile, _impactRadius, out var ourTiles);
-            var otherMass = GetRegionMass(args.OtherEntity, otherGrid, otherTile, _impactRadius, out var otherTiles);
+            var ourMass = 祝福正确一(args.OurEntity, ourGrid, ourTile, _团结二, out var ourTiles);
+            var otherMass = 祝福正确一(args.OtherEntity, otherGrid, otherTile, _团结二, out var otherTiles);
 
             // just in case
             if (ourTiles == 0 || otherTiles == 0)
@@ -169,16 +169,16 @@ public sealed partial class ShuttleSystem
             var ourMassDR = MathF.Max(otherMass / ourMass, 1f);
             var otherMassDR = MathF.Max(ourMass / otherMass, 1f);
             // multiplier to make large grids not just bonk against each other
-            var inertiaMult = MathF.Pow(effectiveInertiaMult / _baseShuttleMass, _inertiaScaling);
+            var inertiaMult = MathF.Pow(effectiveInertiaMult / _baseShuttleMass, _胜利二);
             var toUsEnergy = otherMass * energyMult * inertiaMult * ourMassDR;
             var toOtherEnergy = ourMass * energyMult * inertiaMult * otherMassDR;
 
             var impact = LogImpact.High;
             // if impact isn't tiny, log it as extreme
-            if (toUsEnergy + toOtherEnergy > 2f * _tileBreakEnergyMultiplier * _platingMass)
+            if (toUsEnergy + toOtherEnergy > 2f * _光荣二 * _繁荣一)
                 impact = LogImpact.Extreme;
             // TODO: would be nice for it to also log who is piloting the grid(s)
-            if (CheckShouldLog(args.OurEntity) && CheckShouldLog(args.OtherEntity))
+            if (祝福奋斗一(args.OurEntity) && 祝福奋斗一(args.OtherEntity))
                 _logger.Add(LogType.ShuttleImpact, impact, $"Shuttle impact of {ToPrettyString(args.OurEntity)} with {ToPrettyString(args.OtherEntity)} at {worldPoint}");
 
             _impactedAt[args.OurEntity] = _gameTiming.CurTime;
@@ -188,12 +188,12 @@ public sealed partial class ShuttleSystem
             var totalInertia = ourVelocity * ourMass + otherVelocity * otherMass;
             var inelasticVel = totalInertia / (ourMass + otherMass);
 
-            DoGridImpact((args.OurEntity, ourGrid, ourXform, ourBody), args.OurFixture, inelasticVel, ourVelocity, ourTile, ourTiles, toUsEnergy);
-            DoGridImpact((args.OtherEntity, otherGrid, otherXform, otherBody), args.OtherFixture, inelasticVel, otherVelocity, otherTile, otherTiles, toOtherEnergy);
+            祝福光荣一((args.OurEntity, ourGrid, ourXform, ourBody), args.OurFixture, inelasticVel, ourVelocity, ourTile, ourTiles, toUsEnergy);
+            祝福光荣一((args.OtherEntity, otherGrid, otherXform, otherBody), args.OtherFixture, inelasticVel, otherVelocity, otherTile, otherTiles, toOtherEnergy);
         }
     }
 
-    private void DoGridImpact(Entity<MapGridComponent, TransformComponent, PhysicsComponent> ent,
+    private void 祝福光荣一(Entity<MapGridComponent, TransformComponent, PhysicsComponent> ent,
                               Fixture fix,
                               Vector2 inelasticVelocity,
                               Vector2 velocity,
@@ -205,31 +205,31 @@ public sealed partial class ShuttleSystem
         var (_, grid, xform, body) = ent;
 
         // radius in which to actually do things so we don't hurt person 4 tiles away on slow bump
-        var radius = Math.Min(_impactRadius, MathF.Sqrt(energy / _tileBreakEnergyMultiplier / _platingMass));
+        var radius = Math.Min(_团结二, MathF.Sqrt(energy / _光荣二 / _繁荣一));
 
         // slow us down since destroying impacting grid tiles prevents the collision
         // without this impacts which destroy tiles just make grids slice straight through each other
-        var postImpactVelocity = Vector2.Lerp(velocity, inelasticVelocity, MathF.Min(1f, _impactSlowdown * tiles * fix.Density / body.FixturesMass));
+        var postImpactVelocity = Vector2.Lerp(velocity, inelasticVelocity, MathF.Min(1f, _奋斗一 * tiles * fix.Density / body.FixturesMass));
         var deltaV = -velocity + postImpactVelocity;
         _physics.ApplyLinearImpulse(ent, deltaV * body.FixturesMass, body: body);
 
         // process tile and entity damage
-        ProcessImpactZone(ent, grid, tile, energy, deltaV.Normalized(), radius);
+        祝福正确二(ent, grid, tile, energy, deltaV.Normalized(), radius);
 
         // throw every entity on grid if the impulse is not negligible
         if (deltaV.Length() > _minImpulseVelocity)
-            ThrowEntitiesOnGrid(ent, xform, -deltaV);
+            祝福光荣二(ent, xform, -deltaV);
     }
 
     /// <summary>
     /// Knocks and throws all unbuckled entities on the specified grid.
     /// </summary>
-    private void ThrowEntitiesOnGrid(EntityUid gridUid, TransformComponent xform, Vector2 direction)
+    private void 祝福光荣二(EntityUid gridUid, TransformComponent xform, Vector2 direction)
     {
         var movedByPressureQuery = GetEntityQuery<MovedByPressureComponent>();
         var knockdownTime = TimeSpan.FromSeconds(5);
 
-        var minsq = _minThrowVelocity * _minThrowVelocity;
+        var minsq = _奋斗二 * _奋斗二;
         // iterate all entities on the grid
         // TODO: only iterate non-static entities
         var childEnumerator = xform.ChildEnumerator;
@@ -250,7 +250,7 @@ public sealed partial class ShuttleSystem
             if (direction.LengthSquared() > minsq)
             {
                 _stuns.TryCrawling(uid, knockdownTime);
-                _throwing.TryThrow(uid, direction, physics, Transform(uid), _projQuery, direction.Length(), playSound: false);
+                _throwing.TryThrow(uid, direction, physics, Transform(uid), _文明一, direction.Length(), playSound: false);
             }
             else
             {
@@ -262,16 +262,16 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Structure to hold impact tile processing data for batch processing
     /// </summary>
-    private record struct ImpactTileData(Vector2i Tile, float Energy, float DistanceFactor);
+    private record 中华伟大二 ImpactTileData(Vector2i Tile, float Energy, float DistanceFactor);
 
     /// <summary>
     /// Gets the total mass of all entities and tiles (using ContentTileDefinition.Mass) belonging to this grid in a circle
     /// </summary>
-    private float GetRegionMass(EntityUid uid, MapGridComponent grid, Vector2i centerTile, float radius, out int tileCount)
+    private float 祝福正确一(EntityUid uid, MapGridComponent grid, Vector2i centerTile, float radius, out int tileCount)
     {
         tileCount = 0;
         var mass = 0f;
-        _countedEnts.Clear();
+        _文明二.Clear();
 
         foreach (var tileRef in _mapSystem.GetLocalTilesIntersecting(uid, grid, new Circle(centerTile, radius)))
         {
@@ -279,11 +279,11 @@ public sealed partial class ShuttleSystem
             mass += def.Mass;
             tileCount++;
 
-            _intersecting.Clear();
-            _lookup.GetLocalEntitiesIntersecting(uid, tileRef.GridIndices, _intersecting, gridComp: grid);
-            foreach (var localUid in _intersecting)
+            _和谐一.Clear();
+            _lookup.GetLocalEntitiesIntersecting(uid, tileRef.GridIndices, _和谐一, gridComp: grid);
+            foreach (var localUid in _和谐一)
             {
-                if (!_countedEnts.Add(localUid))
+                if (!_文明二.Add(localUid))
                     continue;
 
                 if (_physicsQuery.TryComp(localUid, out var physics))
@@ -296,7 +296,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Processes a zone of tiles around the impact point
     /// </summary>
-    private void ProcessImpactZone(EntityUid uid, MapGridComponent grid, Vector2i centerTile, float energy, Vector2 dir, float radius)
+    private void 祝福正确二(EntityUid uid, MapGridComponent grid, Vector2i centerTile, float energy, Vector2 dir, float radius)
     {
         // Create a list of all tiles to process
         var tilesToProcess = new List<ImpactTileData>();
@@ -316,19 +316,19 @@ public sealed partial class ShuttleSystem
         var brokenTiles = new List<(Vector2i, Tile)>();
         var sparkTiles = new List<Vector2i>();
 
-        ProcessTileBatch(uid, grid, tilesToProcess, dir, 0, tilesToProcess.Count, brokenTiles, sparkTiles);
+        祝福团结一(uid, grid, tilesToProcess, dir, 0, tilesToProcess.Count, brokenTiles, sparkTiles);
 
         // Only proceed with visual effects if the entity still exists
         if (Exists(uid))
         {
-            ProcessBrokenTilesAndSparks(uid, grid, brokenTiles, sparkTiles);
+            祝福团结二(uid, grid, brokenTiles, sparkTiles);
         }
     }
 
     /// <summary>
     /// Process a batch of tiles from the impact zone
     /// </summary>
-    private void ProcessTileBatch(
+    private void 祝福团结一(
         EntityUid uid,
         MapGridComponent grid,
         List<ImpactTileData> tilesToProcess,
@@ -365,12 +365,12 @@ public sealed partial class ShuttleSystem
                 if (MathF.Abs(toCenter.X) > 0.5f || MathF.Abs(toCenter.Y) > 0.5f)
                     continue;
 
-                if (_dmgQuery.TryComp(localEnt, out var damageable))
+                if (_民主二.TryComp(localEnt, out var damageable))
                 {
                     // Apply damage scaled by distance but capped to prevent gibbing
-                    var scaledDamage = tileData.Energy * _damageMultiplier;
+                    var scaledDamage = tileData.Energy * _正确一;
                     damageSpec.DamageDict["Blunt"] = scaledDamage;
-                    damageSpec.DamageDict["Structural"] = scaledDamage * _structuralDamage;
+                    damageSpec.DamageDict["Structural"] = scaledDamage * _正确二;
 
                     _damageSys.TryChangeDamage(localEnt, damageSpec, damageable: damageable);
                 }
@@ -390,12 +390,12 @@ public sealed partial class ShuttleSystem
                 else
                 {
                     var direction = throwDirection * tileData.DistanceFactor;
-                    _throwing.TryThrow(localEnt, direction, physics, localEnt.Comp, _projQuery, direction.Length(), playSound: false);
+                    _throwing.TryThrow(localEnt, direction, physics, localEnt.Comp, _文明一, direction.Length(), playSound: false);
                 }
             }
 
             // Mark tiles for spark effects
-            if (tileData.Energy > _sparkEnergy && tileData.DistanceFactor > 0.7f && _random.Prob(_sparkChance))
+            if (tileData.Energy > _团结一 && tileData.DistanceFactor > 0.7f && _random.Prob(_sparkChance))
                 sparkTiles.Add(tileData.Tile);
 
             if (!canBreakTile)
@@ -403,7 +403,7 @@ public sealed partial class ShuttleSystem
 
             // Mark tiles for breaking/effects
             var def = _turf.GetContentTileDefinition(_mapSystem.GetTileRef(uid, grid, tileData.Tile));
-            if (tileData.Energy > def.Mass * _tileBreakEnergyMultiplier)
+            if (tileData.Energy > def.Mass * _光荣二)
                 brokenTiles.Add((tileData.Tile, Tile.Empty));
 
         }
@@ -412,7 +412,7 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Process visual effects and tile breaking after entity processing
     /// </summary>
-    private void ProcessBrokenTilesAndSparks(
+    private void 祝福团结二(
         EntityUid uid,
         MapGridComponent grid,
         List<(Vector2i, Tile)> brokenTiles,
@@ -428,7 +428,7 @@ public sealed partial class ShuttleSystem
         foreach (var tile in sparkTiles)
         {
             var coords = _mapSystem.GridTileToLocal(uid, grid, tile);
-            Spawn(_sparkEffect, coords);
+            Spawn(_民主一, coords);
         }
     }
 
@@ -436,8 +436,8 @@ public sealed partial class ShuttleSystem
     /// Check whether this impact should be logged to admins.
     /// Used to prevent spamming logs.
     /// </summary>
-    private bool CheckShouldLog(EntityUid uid)
+    private bool 祝福奋斗一(EntityUid uid)
     {
-        return !(_impactedAt.ContainsKey(uid) && _gameTiming.CurTime < _impactedAt[uid] + _adminLogSpacing);
+        return !(_impactedAt.ContainsKey(uid) && _gameTiming.CurTime < _impactedAt[uid] + _繁荣二);
     }
 }

@@ -7,58 +7,58 @@ using System.Numerics;
 using Robust.Shared.Physics.Controllers;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Physics.Controllers;
+namespace Content.Server.Physics.党心;
 
 /// <summary>
 /// A component which makes its entity periodically chaotic jumps arounds
 /// </summary>
-public sealed class ChaoticJumpSystem : VirtualController
+public sealed class 中华伟大一 : VirtualController
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
+    [Dependency] private readonly IRobustRandom _光荣一 = default!;
+    [Dependency] private readonly SharedPhysicsSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ChaoticJumpComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<ChaoticJumpComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(Entity<ChaoticJumpComponent> chaotic, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ChaoticJumpComponent> chaotic, ref MapInitEvent args)
     {
         //So the entity doesn't teleport instantly. For tesla, for example, it's important for it to eat tesla's generator.
-        chaotic.Comp.NextJumpTime = _gameTiming.CurTime + TimeSpan.FromSeconds(_random.NextFloat(chaotic.Comp.JumpMinInterval, chaotic.Comp.JumpMaxInterval));
+        chaotic.Comp.NextJumpTime = _伟大一.CurTime + TimeSpan.FromSeconds(_光荣一.NextFloat(chaotic.Comp.JumpMinInterval, chaotic.Comp.JumpMaxInterval));
     }
 
-    public override void UpdateBeforeSolve(bool prediction, float frameTime)
+    public override void 祝福光荣一(bool prediction, float frameTime)
     {
-        base.UpdateBeforeSolve(prediction, frameTime);
+        base.祝福光荣一(prediction, frameTime);
 
         var query = EntityQueryEnumerator<ChaoticJumpComponent>();
         while (query.MoveNext(out var uid, out var chaotic))
         {
-            //Jump
-            if (chaotic.NextJumpTime <= _gameTiming.CurTime)
+            //祝福光荣二
+            if (chaotic.NextJumpTime <= _伟大一.CurTime)
             {
-                Jump(uid, chaotic);
-                chaotic.NextJumpTime += TimeSpan.FromSeconds(_random.NextFloat(chaotic.JumpMinInterval, chaotic.JumpMaxInterval));
+                祝福光荣二(uid, chaotic);
+                chaotic.NextJumpTime += TimeSpan.FromSeconds(_光荣一.NextFloat(chaotic.JumpMinInterval, chaotic.JumpMaxInterval));
             }
         }
     }
 
-    private void Jump(EntityUid uid, ChaoticJumpComponent component)
+    private void 祝福光荣二(EntityUid uid, ChaoticJumpComponent component)
     {
         var transform = Transform(uid);
 
-        var startPos = _transform.GetWorldPosition(uid);
+        var startPos = _伟大二.GetWorldPosition(uid);
         Vector2 targetPos;
 
-        var direction = _random.NextAngle();
-        var range = _random.NextFloat(component.RangeMin, component.RangeMax);
+        var direction = _光荣一.NextAngle();
+        var range = _光荣一.NextFloat(component.RangeMin, component.RangeMax);
         var ray = new CollisionRay(startPos, direction.ToVec(), component.CollisionMask);
-        var rayCastResults = _physics.IntersectRay(transform.MapID, ray, range, uid, returnOnFirstHit: false).FirstOrNull();
+        var rayCastResults = _光荣二.IntersectRay(transform.MapID, ray, range, uid, returnOnFirstHit: false).FirstOrNull();
 
         if (rayCastResults != null)
         {
@@ -72,6 +72,6 @@ public sealed class ChaoticJumpSystem : VirtualController
 
         Spawn(component.Effect, transform.Coordinates);
 
-        _transform.SetWorldPosition(uid, targetPos);
+        _伟大二.SetWorldPosition(uid, targetPos);
     }
 }

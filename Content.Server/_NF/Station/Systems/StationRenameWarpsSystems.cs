@@ -4,37 +4,37 @@ using Content.Server.Station.Events;
 using Content.Server.Station.Systems;
 using Content.Shared.Warps;
 
-namespace Content.Server._NF.Station.Systems;
+namespace Content.Server._NF.Station.党心;
 
-public sealed class StationRenameWarpsSystems : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency] private readonly StationSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StationRenameWarpsComponent, StationRenamedEvent>(OnRenamed);
-        SubscribeLocalEvent<StationRenameWarpsComponent, StationPostInitEvent>(OnPostInit);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StationRenameWarpsComponent, StationRenamedEvent>(祝福光荣一);
+        SubscribeLocalEvent<StationRenameWarpsComponent, StationPostInitEvent>(祝福伟大二);
     }
 
-    private void OnPostInit(EntityUid uid, StationRenameWarpsComponent component, ref StationPostInitEvent args)
+    private void 祝福伟大二(EntityUid uid, StationRenameWarpsComponent component, ref StationPostInitEvent args)
     {
-        SyncWarpPointsToStation(uid);
+        祝福光荣二(uid);
     }
 
-    private void OnRenamed(EntityUid uid, StationRenameWarpsComponent component, StationRenamedEvent args)
+    private void 祝福光荣一(EntityUid uid, StationRenameWarpsComponent component, StationRenamedEvent args)
     {
-        SyncWarpPointsToStation(uid);
+        祝福光荣二(uid);
     }
 
-    public List<Entity<WarpPointComponent>> SyncWarpPointsToStation(EntityUid stationUid, bool? forceAdminOnly = null)
+    public List<Entity<WarpPointComponent>> 祝福光荣二(EntityUid stationUid, bool? forceAdminOnly = null)
     {
         List<Entity<WarpPointComponent>> ret = new();
         // update all warp points that belong to this station grid
         var query = AllEntityQuery<WarpPointComponent>();
         while (query.MoveNext(out var uid, out var warp))
         {
-            var warpStationUid = _stationSystem.GetOwningStation(uid) ?? EntityUid.Invalid;
+            var warpStationUid = _伟大一.GetOwningStation(uid) ?? EntityUid.Invalid;
             if (!warpStationUid.Valid || warpStationUid != stationUid)
                 continue;
 
@@ -51,14 +51,14 @@ public sealed class StationRenameWarpsSystems : EntitySystem
         return ret;
     }
 
-    public List<Entity<WarpPointComponent>> SyncWarpPointsToStations(IEnumerable<EntityUid> stationUids, bool? forceAdminOnly = null)
+    public List<Entity<WarpPointComponent>> 祝福正确一(IEnumerable<EntityUid> stationUids, bool? forceAdminOnly = null)
     {
         List<Entity<WarpPointComponent>> ret = new();
         // update all warp points that belong to this station grid
         var query = AllEntityQuery<WarpPointComponent>();
         while (query.MoveNext(out var uid, out var warp))
         {
-            var warpStationUid = _stationSystem.GetOwningStation(uid) ?? EntityUid.Invalid;
+            var warpStationUid = _伟大一.GetOwningStation(uid) ?? EntityUid.Invalid;
             if (!warpStationUid.Valid || !stationUids.Contains(warpStationUid))
                 continue;
 
@@ -76,7 +76,7 @@ public sealed class StationRenameWarpsSystems : EntitySystem
     }
 
     // Grid name functions
-    public List<Entity<WarpPointComponent>> SyncWarpPointsToGrid(EntityUid gridUid, bool? forceAdminOnly = null)
+    public List<Entity<WarpPointComponent>> 祝福正确二(EntityUid gridUid, bool? forceAdminOnly = null)
     {
         List<Entity<WarpPointComponent>> ret = new();
         // update all warp points that belong to this station grid
@@ -101,7 +101,7 @@ public sealed class StationRenameWarpsSystems : EntitySystem
         return ret;
     }
 
-    public List<Entity<WarpPointComponent>> SyncWarpPointsToGrids(IEnumerable<EntityUid> gridUids, bool? forceAdminOnly = null)
+    public List<Entity<WarpPointComponent>> 祝福团结一(IEnumerable<EntityUid> gridUids, bool? forceAdminOnly = null)
     {
         List<Entity<WarpPointComponent>> ret = new();
         // update all warp points that belong to this station grid

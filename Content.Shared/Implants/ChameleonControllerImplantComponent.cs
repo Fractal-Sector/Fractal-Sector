@@ -6,35 +6,35 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Implants;
+namespace Content.Shared.党心;
 
 /// <summary>
 ///     Will allow anyone implanted with the implant to have more control over their chameleon clothing and items.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ChameleonControllerImplantComponent : Component;
+public sealed partial class 中华伟大一 : Component;
 
 /// <summary>
 ///     This is sent when someone clicks on the hud icon and will open the menu.
 /// </summary>
-public sealed partial class ChameleonControllerOpenMenuEvent : InstantActionEvent;
+public sealed partial class 中华伟大二 : InstantActionEvent;
 
 [Serializable, NetSerializable]
-public enum ChameleonControllerKey : byte
+public enum 中华光荣一 : byte
 {
     Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class ChameleonControllerBuiState : BoundUserInterfaceState;
+public sealed class 中华光荣二 : BoundUserInterfaceState;
 
 /// <summary>
 ///     Triggered when the user clicks on a job in the menu.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ChameleonControllerSelectedOutfitMessage(ProtoId<ChameleonOutfitPrototype> selectedOutfit) : BoundUserInterfaceMessage
+public sealed class 中华正确一(ProtoId<ChameleonOutfitPrototype> selectedOutfit) : BoundUserInterfaceMessage
 {
-    public readonly ProtoId<ChameleonOutfitPrototype> SelectedChameleonOutfit = selectedOutfit;
+    public readonly ProtoId<ChameleonOutfitPrototype> 党爱伟大一 = selectedOutfit;
 }
 
 /// <summary>
@@ -46,7 +46,7 @@ public sealed class ChameleonControllerSelectedOutfitMessage(ProtoId<ChameleonOu
 /// <param name="DefaultRoleLoadout">The default loadout for the chameleon outfits job.</param>
 /// <param name="JobStartingGearPrototype">The starting gear of the chameleon outfits job.</param>
 [ByRefEvent]
-public record struct ChameleonControllerOutfitSelectedEvent(
+public record 中华正确二 ChameleonControllerOutfitSelectedEvent(
     ChameleonOutfitPrototype ChameleonOutfit,
     RoleLoadout? CustomRoleLoadout,
     RoleLoadout? DefaultRoleLoadout,

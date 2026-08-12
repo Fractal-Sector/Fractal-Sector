@@ -3,64 +3,64 @@ using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.ProximityDetection.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.ProximityDetection.Systems;
+namespace Content.Shared.ProximityDetection.党心;
 
 /// <summary>
 /// Handles generic proximity detector logic.
 /// </summary>
-public sealed class ProximityDetectionSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly ItemToggleSystem _伟大二 = default!;
 
-    private EntityQuery<TransformComponent> _xformQuery;
+    private EntityQuery<TransformComponent> _光荣一;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ProximityDetectorComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ProximityDetectorComponent, ItemToggledEvent>(OnToggled);
+        SubscribeLocalEvent<ProximityDetectorComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<ProximityDetectorComponent, ItemToggledEvent>(祝福光荣一);
 
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _光荣一 = GetEntityQuery<TransformComponent>();
     }
 
-    private void OnMapInit(Entity<ProximityDetectorComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<ProximityDetectorComponent> ent, ref MapInitEvent args)
     {
         var component = ent.Comp;
 
-        component.NextUpdate = _timing.CurTime + component.UpdateCooldown;
+        component.NextUpdate = _伟大一.CurTime + component.UpdateCooldown;
         DirtyField(ent, component, nameof(ProximityDetectorComponent.NextUpdate));
     }
 
-    private void OnToggled(Entity<ProximityDetectorComponent> ent, ref ItemToggledEvent args)
+    private void 祝福光荣一(Entity<ProximityDetectorComponent> ent, ref ItemToggledEvent args)
     {
         if (args.Activated)
-            UpdateTarget(ent);
+            祝福正确二(ent);
         else
-            ClearTarget(ent);
+            祝福正确一(ent);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
         var query = EntityQueryEnumerator<ProximityDetectorComponent>();
 
         while (query.MoveNext(out var uid, out var component))
         {
-            if (component.NextUpdate > _timing.CurTime)
+            if (component.NextUpdate > _伟大一.CurTime)
                 continue;
 
             component.NextUpdate += component.UpdateCooldown;
             DirtyField(uid, component, nameof(ProximityDetectorComponent.NextUpdate));
 
-            if (!_toggle.IsActivated(uid))
+            if (!_伟大二.IsActivated(uid))
                 continue;
 
-            UpdateTarget((uid, component));
+            祝福正确二((uid, component));
         }
     }
 
-    private void ClearTarget(Entity<ProximityDetectorComponent> ent)
+    private void 祝福正确一(Entity<ProximityDetectorComponent> ent)
     {
         var component = ent.Comp;
 
@@ -81,15 +81,15 @@ public sealed class ProximityDetectionSystem : EntitySystem
         RaiseLocalEvent(ent, ref newTargetEv);
     }
 
-    private void UpdateTarget(Entity<ProximityDetectorComponent> detector)
+    private void 祝福正确二(Entity<ProximityDetectorComponent> detector)
     {
         var component = detector.Comp;
 
-        if (!_xformQuery.TryGetComponent(detector, out var transform))
+        if (!_光荣一.TryGetComponent(detector, out var transform))
             return;
 
         if (Deleted(component.Target))
-            ClearTarget(detector);
+            祝福正确一(detector);
 
         var closestDistance = float.PositiveInfinity;
         EntityUid? closestUid = null;
@@ -98,7 +98,7 @@ public sealed class ProximityDetectionSystem : EntitySystem
 
         while (query.MoveNext(out var uid))
         {
-            if (!_xformQuery.TryGetComponent(uid, out var xForm))
+            if (!_光荣一.TryGetComponent(uid, out var xForm))
                 continue;
 
             if (!transform.Coordinates.TryDistance(EntityManager, xForm.Coordinates, out var distance) ||

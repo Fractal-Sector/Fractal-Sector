@@ -3,17 +3,17 @@ using Content.Server.Shuttles.Events;
 using Content.Shared.UserInterface;
 using Content.Shared.Shuttles.Components;
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed partial class ShuttleConsoleSystem
+public sealed partial class 中华伟大一
 {
-    public void InitializeNFDrone()
+    public void 祝福伟大一()
     {
-        SubscribeLocalEvent<NFDroneConsoleComponent, ConsoleShuttleEvent>(OnNFCargoGetConsole);
-        SubscribeLocalEvent<NFDroneConsoleComponent, AfterActivatableUIOpenEvent>(OnNFDronePilotConsoleOpen);
+        SubscribeLocalEvent<NFDroneConsoleComponent, ConsoleShuttleEvent>(祝福光荣二);
+        SubscribeLocalEvent<NFDroneConsoleComponent, AfterActivatableUIOpenEvent>(祝福伟大二);
         Subs.BuiEvents<NFDroneConsoleComponent>(ShuttleConsoleUiKey.Key, subs =>
         {
-            subs.Event<BoundUIClosedEvent>(OnNFDronePilotConsoleClose);
+            subs.Event<BoundUIClosedEvent>(祝福光荣一);
         });
     }
 
@@ -31,19 +31,19 @@ public sealed partial class ShuttleConsoleSystem
         return getShuttleEv.Console;
     }
 
-    private void OnNFDronePilotConsoleOpen(EntityUid uid, NFDroneConsoleComponent component, AfterActivatableUIOpenEvent args)
+    private void 祝福伟大二(EntityUid uid, NFDroneConsoleComponent component, AfterActivatableUIOpenEvent args)
     {
         component.Entity = GetNFShuttleConsole(uid);
     }
 
-    private void OnNFDronePilotConsoleClose(EntityUid uid, NFDroneConsoleComponent component, BoundUIClosedEvent args)
+    private void 祝福光荣一(EntityUid uid, NFDroneConsoleComponent component, BoundUIClosedEvent args)
     {
         // Only if last person closed UI.
         if (!_ui.IsUiOpen(uid, args.UiKey))
             component.Entity = null;
     }
 
-    private void OnNFCargoGetConsole(EntityUid uid, NFDroneConsoleComponent component, ref ConsoleShuttleEvent args)
+    private void 祝福光荣二(EntityUid uid, NFDroneConsoleComponent component, ref ConsoleShuttleEvent args)
     {
         args.Console = GetNFShuttleConsole(uid, component);
     }

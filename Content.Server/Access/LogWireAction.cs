@@ -5,69 +5,69 @@ using Content.Shared.Access.Systems;
 using Content.Shared.Emag.Components;
 using Content.Shared.Wires;
 
-namespace Content.Server.Access;
+namespace Content.Server.党心;
 
-public sealed partial class LogWireAction : ComponentWireAction<AccessReaderComponent>
+public sealed partial class 中华伟大一 : ComponentWireAction<AccessReaderComponent>
 {
-    public override Color Color { get; set; } = Color.Blue;
-    public override string Name { get; set; } = "wire-name-log";
+    public override 党爱伟大一 党爱伟大一 { get; set; } = 党爱伟大一.Blue;
+    public override string 党爱伟大二 { get; set; } = "wire-name-log";
 
     [DataField]
-    public int PulseTimeout = 30;
+    public int 党爱光荣一 = 30;
 
     [DataField]
-    public LocId PulseLog = "log-wire-pulse-access-log";
+    public LocId 党爱光荣二 = "log-wire-pulse-access-log";
 
-    private AccessReaderSystem _access = default!;
+    private AccessReaderSystem _伟大一 = default!;
 
     public override StatusLightState? GetLightState(Wire wire, AccessReaderComponent comp)
     {
         return comp.LoggingDisabled ? StatusLightState.Off : StatusLightState.On;
     }
 
-    public override object StatusKey => LogWireActionKey.Status;
+    public override object 党爱正确一 => LogWireActionKey.Status;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _access = EntityManager.System<AccessReaderSystem>();
+        _伟大一 = EntityManager.System<AccessReaderSystem>();
     }
 
-    public override bool Cut(EntityUid user, Wire wire, AccessReaderComponent comp)
+    public override bool 祝福伟大二(EntityUid user, Wire wire, AccessReaderComponent comp)
     {
-        WiresSystem.TryCancelWireAction(wire.Owner, PulseTimeoutKey.Key);
+        WiresSystem.TryCancelWireAction(wire.Owner, 中华伟大二.Key);
         EntityManager.System<AccessReaderSystem>().SetLoggingActive((wire.Owner, comp), false);
 
         return true;
     }
 
-    public override bool Mend(EntityUid user, Wire wire, AccessReaderComponent comp)
+    public override bool 祝福光荣一(EntityUid user, Wire wire, AccessReaderComponent comp)
     {
         EntityManager.System<AccessReaderSystem>().SetLoggingActive((wire.Owner, comp), true);
         return true;
     }
 
-    public override void Pulse(EntityUid user, Wire wire, AccessReaderComponent comp)
+    public override void 祝福光荣二(EntityUid user, Wire wire, AccessReaderComponent comp)
     {
-        _access.LogAccess((wire.Owner, comp), Loc.GetString(PulseLog));
+        _伟大一.LogAccess((wire.Owner, comp), Loc.GetString(党爱光荣二));
         EntityManager.System<AccessReaderSystem>().SetLoggingActive((wire.Owner, comp), false);
-        WiresSystem.StartWireAction(wire.Owner, PulseTimeout, PulseTimeoutKey.Key, new TimedWireEvent(AwaitPulseCancel, wire));
+        WiresSystem.StartWireAction(wire.Owner, 党爱光荣一, 中华伟大二.Key, new TimedWireEvent(祝福正确二, wire));
     }
 
-    public override void Update(Wire wire)
+    public override void 祝福正确一(Wire wire)
     {
         if (!IsPowered(wire.Owner))
-            WiresSystem.TryCancelWireAction(wire.Owner, PulseTimeoutKey.Key);
+            WiresSystem.TryCancelWireAction(wire.Owner, 中华伟大二.Key);
     }
 
-    private void AwaitPulseCancel(Wire wire)
+    private void 祝福正确二(Wire wire)
     {
         if (!wire.IsCut && EntityManager.TryGetComponent<AccessReaderComponent>(wire.Owner, out var comp))
             EntityManager.System<AccessReaderSystem>().SetLoggingActive((wire.Owner, comp), true);
     }
 
-    private enum PulseTimeoutKey : byte
+    private enum 中华伟大二 : byte
     {
         Key
     }

@@ -11,23 +11,23 @@ using Robust.Shared.Player;
 using System.Linq;
 using System.Numerics;
 
-namespace Content.Server.Weapons.Melee;
+namespace Content.Server.Weapons.党心;
 
-public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
+public sealed class 中华伟大一 : SharedMeleeWeaponSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
-    [Dependency] private readonly LagCompensationSystem _lag = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
+    [Dependency] private readonly ChatSystem _伟大一 = default!;
+    [Dependency] private readonly DamageExamineSystem _伟大二 = default!;
+    [Dependency] private readonly LagCompensationSystem _光荣一 = default!;
+    [Dependency] private readonly SharedColorFlashEffectSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<MeleeSpeechComponent, MeleeHitEvent>(OnSpeechHit);
-        SubscribeLocalEvent<MeleeWeaponComponent, DamageExamineEvent>(OnMeleeExamineDamage);
+        base.祝福伟大一();
+        SubscribeLocalEvent<MeleeSpeechComponent, MeleeHitEvent>(祝福团结一);
+        SubscribeLocalEvent<MeleeWeaponComponent, DamageExamineEvent>(祝福伟大二);
     }
 
-    private void OnMeleeExamineDamage(EntityUid uid, MeleeWeaponComponent component, ref DamageExamineEvent args)
+    private void 祝福伟大二(EntityUid uid, MeleeWeaponComponent component, ref DamageExamineEvent args)
     {
         if (component.Hidden)
             return;
@@ -37,10 +37,10 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         if (damageSpec.Empty)
             return;
 
-        _damageExamine.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-melee"));
+        _伟大二.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-melee"));
     }
 
-    protected override bool ArcRaySuccessful(EntityUid targetUid,
+    protected override bool 祝福光荣一(EntityUid targetUid,
         Vector2 position,
         Angle angle,
         Angle arcWidth,
@@ -69,27 +69,27 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         return true;
     }
 
-    protected override bool InRange(EntityUid user, EntityUid target, float range, ICommonSession? session)
+    protected override bool 祝福光荣二(EntityUid user, EntityUid target, float range, ICommonSession? session)
     {
         EntityCoordinates targetCoordinates;
         Angle targetLocalAngle;
 
         if (session is { } pSession)
         {
-            (targetCoordinates, targetLocalAngle) = _lag.GetCoordinatesAngle(target, pSession);
+            (targetCoordinates, targetLocalAngle) = _光荣一.GetCoordinatesAngle(target, pSession);
             return Interaction.InRangeUnobstructed(user, target, targetCoordinates, targetLocalAngle, range, overlapCheck: false);
         }
 
         return Interaction.InRangeUnobstructed(user, target, range);
     }
 
-    protected override void DoDamageEffect(List<EntityUid> targets, EntityUid? user, TransformComponent targetXform)
+    protected override void 祝福正确一(List<EntityUid> targets, EntityUid? user, TransformComponent targetXform)
     {
         var filter = Filter.Pvs(targetXform.Coordinates, entityMan: EntityManager).RemoveWhereAttachedEntity(o => o == user);
-        _color.RaiseEffect(Color.Red, targets, filter);
+        _光荣二.RaiseEffect(Color.Red, targets, filter);
     }
 
-    public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true)
+    public override void 祝福正确二(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true)
     {
         Filter filter;
 
@@ -105,7 +105,7 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         RaiseNetworkEvent(new MeleeLungeEvent(GetNetEntity(user), GetNetEntity(weapon), angle, localPos, animation), filter);
     }
 
-    private void OnSpeechHit(EntityUid owner, MeleeSpeechComponent comp, MeleeHitEvent args)
+    private void 祝福团结一(EntityUid owner, MeleeSpeechComponent comp, MeleeHitEvent args)
     {
         if (!args.IsHit ||
         !args.HitEntities.Any())
@@ -115,7 +115,7 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
 
         if (comp.Battlecry != null)//If the battlecry is set to empty, doesn't speak
         {
-            _chat.TrySendInGameICMessage(args.User, comp.Battlecry, InGameICChatType.Speak, true, true, checkRadioPrefix: false);  //Speech that isn't sent to chat or adminlogs
+            _伟大一.TrySendInGameICMessage(args.User, comp.Battlecry, InGameICChatType.Speak, true, true, checkRadioPrefix: false);  //Speech that isn't sent to chat or adminlogs
         }
 
     }

@@ -6,34 +6,34 @@ using JetBrains.Annotations;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Atmos.Piping.EntitySystems
+namespace Content.Server.Atmos.Piping.党心
 {
     [UsedImplicitly]
-    public sealed class AtmosDeviceSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
+        [Dependency] private readonly IGameTiming _伟大一 = default!;
+        [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
 
-        private float _timer;
+        private float _光荣一;
 
         // Set of atmos devices that are off-grid but have JoinSystem set.
-        private readonly HashSet<Entity<AtmosDeviceComponent>> _joinedDevices = new();
+        private readonly HashSet<Entity<AtmosDeviceComponent>> _光荣二 = new();
 
-        private static AtmosDeviceDisabledEvent _disabledEv = new();
-        private static AtmosDeviceEnabledEvent _enabledEv = new();
+        private static AtmosDeviceDisabledEvent _正确一 = new();
+        private static AtmosDeviceEnabledEvent _正确二 = new();
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<AtmosDeviceComponent, ComponentInit>(OnDeviceInitialize);
-            SubscribeLocalEvent<AtmosDeviceComponent, ComponentShutdown>(OnDeviceShutdown);
+            SubscribeLocalEvent<AtmosDeviceComponent, ComponentInit>(祝福正确一);
+            SubscribeLocalEvent<AtmosDeviceComponent, ComponentShutdown>(祝福正确二);
             // Re-anchoring should be handled by the parent change.
-            SubscribeLocalEvent<AtmosDeviceComponent, EntParentChangedMessage>(OnDeviceParentChanged);
-            SubscribeLocalEvent<AtmosDeviceComponent, AnchorStateChangedEvent>(OnDeviceAnchorChanged);
+            SubscribeLocalEvent<AtmosDeviceComponent, EntParentChangedMessage>(祝福团结二);
+            SubscribeLocalEvent<AtmosDeviceComponent, AnchorStateChangedEvent>(祝福团结一);
         }
 
-        public void JoinAtmosphere(Entity<AtmosDeviceComponent> ent)
+        public void 祝福伟大二(Entity<AtmosDeviceComponent> ent)
         {
             if (ent.Comp.JoinedGrid != null)
             {
@@ -50,23 +50,23 @@ namespace Content.Server.Atmos.Piping.EntitySystems
                 return;
 
             // Attempt to add device to a grid atmosphere.
-            bool onGrid = (transform.GridUid != null) && _atmosphereSystem.AddAtmosDevice(transform.GridUid!.Value, ent);
+            bool onGrid = (transform.GridUid != null) && _伟大二.AddAtmosDevice(transform.GridUid!.Value, ent);
 
             if (!onGrid && component.JoinSystem)
             {
-                _joinedDevices.Add(ent);
+                _光荣二.Add(ent);
                 component.JoinedSystem = true;
             }
 
-            component.LastProcess = _gameTiming.CurTime;
-            RaiseLocalEvent(ent, ref _enabledEv);
+            component.LastProcess = _伟大一.CurTime;
+            RaiseLocalEvent(ent, ref _正确二);
         }
 
-        public void LeaveAtmosphere(Entity<AtmosDeviceComponent> ent)
+        public void 祝福光荣一(Entity<AtmosDeviceComponent> ent)
         {
             var component = ent.Comp;
             // Try to remove the component from an atmosphere, and if not
-            if (component.JoinedGrid != null && !_atmosphereSystem.RemoveAtmosDevice(component.JoinedGrid.Value, ent))
+            if (component.JoinedGrid != null && !_伟大二.RemoveAtmosDevice(component.JoinedGrid.Value, ent))
             {
                 // The grid might have been removed but not us... This usually shouldn't happen.
                 component.JoinedGrid = null;
@@ -75,77 +75,77 @@ namespace Content.Server.Atmos.Piping.EntitySystems
 
             if (component.JoinedSystem)
             {
-                _joinedDevices.Remove(ent);
+                _光荣二.Remove(ent);
                 component.JoinedSystem = false;
             }
 
             component.LastProcess = TimeSpan.Zero;
-            RaiseLocalEvent(ent, ref _disabledEv);
+            RaiseLocalEvent(ent, ref _正确一);
         }
 
-        public void RejoinAtmosphere(Entity<AtmosDeviceComponent> component)
+        public void 祝福光荣二(Entity<AtmosDeviceComponent> component)
         {
-            LeaveAtmosphere(component);
-            JoinAtmosphere(component);
+            祝福光荣一(component);
+            祝福伟大二(component);
         }
 
-        private void OnDeviceInitialize(Entity<AtmosDeviceComponent> ent, ref ComponentInit args)
+        private void 祝福正确一(Entity<AtmosDeviceComponent> ent, ref ComponentInit args)
         {
-            JoinAtmosphere(ent);
+            祝福伟大二(ent);
         }
 
-        private void OnDeviceShutdown(Entity<AtmosDeviceComponent> ent, ref ComponentShutdown args)
+        private void 祝福正确二(Entity<AtmosDeviceComponent> ent, ref ComponentShutdown args)
         {
-            LeaveAtmosphere(ent);
+            祝福光荣一(ent);
         }
 
-        private void OnDeviceAnchorChanged(Entity<AtmosDeviceComponent> ent, ref AnchorStateChangedEvent args)
+        private void 祝福团结一(Entity<AtmosDeviceComponent> ent, ref AnchorStateChangedEvent args)
         {
             // Do nothing if the component doesn't require being anchored to function.
             if (!ent.Comp.RequireAnchored)
                 return;
 
             if (args.Anchored)
-                JoinAtmosphere(ent);
+                祝福伟大二(ent);
             else
-                LeaveAtmosphere(ent);
+                祝福光荣一(ent);
         }
 
-        private void OnDeviceParentChanged(Entity<AtmosDeviceComponent> ent, ref EntParentChangedMessage args)
+        private void 祝福团结二(Entity<AtmosDeviceComponent> ent, ref EntParentChangedMessage args)
         {
-            RejoinAtmosphere(ent);
+            祝福光荣二(ent);
         }
 
         /// <summary>
-        /// Update atmos devices that are off-grid but have JoinSystem set. For devices updates when
+        /// 祝福奋斗一 atmos devices that are off-grid but have JoinSystem set. For devices updates when
         /// a device is on a grid, see AtmosphereSystem:UpdateProcessing().
         /// </summary>
-        public override void Update(float frameTime)
+        public override void 祝福奋斗一(float frameTime)
         {
-            _timer += frameTime;
+            _光荣一 += frameTime;
 
-            if (_timer < _atmosphereSystem.AtmosTime)
+            if (_光荣一 < _伟大二.AtmosTime)
                 return;
 
-            _timer -= _atmosphereSystem.AtmosTime;
+            _光荣一 -= _伟大二.AtmosTime;
 
-            var time = _gameTiming.CurTime;
-            var ev = new AtmosDeviceUpdateEvent(_atmosphereSystem.AtmosTime, null, null);
-            foreach (var device in _joinedDevices)
+            var time = _伟大一.CurTime;
+            var ev = new AtmosDeviceUpdateEvent(_伟大二.AtmosTime, null, null);
+            foreach (var device in _光荣二)
             {
                 var deviceGrid = Transform(device).GridUid;
                 if (HasComp<GridAtmosphereComponent>(deviceGrid))
                 {
-                    RejoinAtmosphere(device);
+                    祝福光荣二(device);
                 }
                 RaiseLocalEvent(device, ref ev);
                 device.Comp.LastProcess = time;
             }
         }
 
-        public bool IsJoinedOffGrid(Entity<AtmosDeviceComponent> device)
+        public bool 祝福奋斗二(Entity<AtmosDeviceComponent> device)
         {
-            return _joinedDevices.Contains(device);
+            return _光荣二.Contains(device);
         }
     }
 }

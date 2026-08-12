@@ -7,31 +7,31 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 
-namespace Content.Shared._NF.Chemistry.EntitySystems;
+namespace Content.Shared._NF.Chemistry.党心;
 
 /// <summary>
 ///     Allows an entity to change an injector component's whitelist via a UI box
 /// </summary>
-public sealed class ReagentWhitelistChangeSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly IPrototypeManager _伟大二 = default!;
 
     [NetSerializable, Serializable]
-    public enum ReagentWhitelistChangeUIKey : byte
+    public enum 中华伟大二 : byte
     {
         Key
     }
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ReagentWhitelistChangeComponent, GetVerbsEvent<InteractionVerb>>(AddChangeFilterVerb);
-        SubscribeLocalEvent<ReagentWhitelistChangeComponent, ReagentWhitelistChangeMessage>(OnReagentWhitelistChange);
-        SubscribeLocalEvent<ReagentWhitelistChangeComponent, ReagentWhitelistResetMessage>(OnReagentWhitelistReset);
+        SubscribeLocalEvent<ReagentWhitelistChangeComponent, GetVerbsEvent<InteractionVerb>>(祝福伟大二);
+        SubscribeLocalEvent<ReagentWhitelistChangeComponent, ReagentWhitelistChangeMessage>(祝福光荣一);
+        SubscribeLocalEvent<ReagentWhitelistChangeComponent, ReagentWhitelistResetMessage>(祝福光荣二);
     }
 
-    private void AddChangeFilterVerb(Entity<ReagentWhitelistChangeComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
+    private void 祝福伟大二(Entity<ReagentWhitelistChangeComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
     {
         var (uid, comp) = ent;
 
@@ -44,20 +44,20 @@ public sealed class ReagentWhitelistChangeSystem : EntitySystem
             //Icon = new SpriteSpecifier(),
             Act = () =>
             {
-                _ui.OpenUi(uid, ReagentWhitelistChangeUIKey.Key, @event.User);
+                _伟大一.OpenUi(uid, 中华伟大二.Key, @event.User);
             },
             Priority = 1
         });
     }
 
-    private void OnReagentWhitelistChange(Entity<ReagentWhitelistChangeComponent> ent, ref ReagentWhitelistChangeMessage args)
+    private void 祝福光荣一(Entity<ReagentWhitelistChangeComponent> ent, ref ReagentWhitelistChangeMessage args)
     {
         if (!TryComp<InjectorComponent>(ent.Owner, out var injectorComp))
         {
             return;
         }
 
-        if (!_prototypeManager.TryIndex(args.NewReagentProto, out var protoComp))
+        if (!_伟大二.TryIndex(args.NewReagentProto, out var protoComp))
         {
             return;
         }
@@ -70,7 +70,7 @@ public sealed class ReagentWhitelistChangeSystem : EntitySystem
         injectorComp.ReagentWhitelist = new() { args.NewReagentProto };
     }
 
-    private void OnReagentWhitelistReset(Entity<ReagentWhitelistChangeComponent> ent, ref ReagentWhitelistResetMessage args)
+    private void 祝福光荣二(Entity<ReagentWhitelistChangeComponent> ent, ref ReagentWhitelistResetMessage args)
     {
         if (!TryComp<InjectorComponent>(ent.Owner, out var injectorComp))
         {

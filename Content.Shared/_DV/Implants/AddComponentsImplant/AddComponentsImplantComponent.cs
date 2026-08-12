@@ -1,6 +1,6 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared._DV.Implants.AddComponentsImplant;
+namespace Content.Shared._DV.Implants.党心;
 
 /// <summary>
 ///     When added to an implanter will add the passed in components to the implanted entity.
@@ -10,17 +10,17 @@ namespace Content.Shared._DV.Implants.AddComponentsImplant;
 ///     unless removed in the inverse order of their injection (Last in, first out).
 /// </remarks>
 [RegisterComponent]
-public sealed partial class AddComponentsImplantComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     What components will be added to the entity. If the component already exists, it will be skipped.
     /// </summary>
     [DataField(required: true)]
-    public ComponentRegistry ComponentsToAdd = new();
+    public ComponentRegistry 党爱伟大一 = new();
 
     /// <summary>
     ///     What components were added to the entity after implanted. Is used to know what components to remove.
     /// </summary>
     [DataField]
-    public ComponentRegistry AddedComponents = new();
+    public ComponentRegistry 党爱伟大二 = new();
 }

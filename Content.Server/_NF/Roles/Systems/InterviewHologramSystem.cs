@@ -24,60 +24,60 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server._NF.Roles.Systems;
+namespace Content.Server._NF.Roles.党心;
 
-public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
+public sealed class 中华伟大一 : SharedInterviewHologramSystem
 {
-    [Dependency] private IAdminLogManager _adminLogger = default!;
-    [Dependency] private IChatManager _chat = default!;
-    [Dependency] private GameTicker _gameTicker = default!;
-    [Dependency] private IPlayerManager _player = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
-    [Dependency] private IServerPreferencesManager _prefs = default!;
-    [Dependency] private ActionsSystem _actions = default!;
-    [Dependency] private InventorySystem _inventory = default!;
-    [Dependency] private MetaDataSystem _meta = default!;
-    [Dependency] private RingerSystem _ringer = default!;
-    [Dependency] private SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private SharedMindSystem _mind = default!;
-    [Dependency] private SharedRoleSystem _roles = default!;
-    [Dependency] private StationJobsSystem _stationJobs = default!;
-    [Dependency] private StationSpawningSystem _stationSpawning = default!;
-    [Dependency] private StationSystem _station = default!;
+    [Dependency] private IAdminLogManager _伟大一 = default!;
+    [Dependency] private IChatManager _伟大二 = default!;
+    [Dependency] private GameTicker _光荣一 = default!;
+    [Dependency] private IPlayerManager _光荣二 = default!;
+    [Dependency] private IPrototypeManager _正确一 = default!;
+    [Dependency] private IServerPreferencesManager _正确二 = default!;
+    [Dependency] private ActionsSystem _团结一 = default!;
+    [Dependency] private InventorySystem _团结二 = default!;
+    [Dependency] private MetaDataSystem _奋斗一 = default!;
+    [Dependency] private RingerSystem _奋斗二 = default!;
+    [Dependency] private SharedHumanoidAppearanceSystem _胜利一 = default!;
+    [Dependency] private SharedMindSystem _胜利二 = default!;
+    [Dependency] private SharedRoleSystem _繁荣一 = default!;
+    [Dependency] private StationJobsSystem _繁荣二 = default!;
+    [Dependency] private StationSpawningSystem _富强一 = default!;
+    [Dependency] private StationSystem _富强二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<InterviewHologramComponent, PlayerSpawnCompleteEvent>(OnHologramPlayerSpawnComplete);
-        SubscribeLocalEvent<InterviewHologramComponent, MapInitEvent>(OnHologramMapInit);
-        SubscribeLocalEvent<InterviewHologramComponent, GetVerbsEvent<AlternativeVerb>>(OnAlternativeVerb);
-        SubscribeLocalEvent<InterviewHologramComponent, MindRemovedMessage>(OnHologramMindRemoved);
-        SubscribeLocalEvent<InterviewHologramComponent, MindAddedMessage>(OnHologramMindAdded);
-        SubscribeLocalEvent<InterviewHologramComponent, CancelInterviewEvent>(OnHologramCancelInterview);
-        SubscribeLocalEvent<InterviewHologramComponent, DismissInterviewEvent>(OnHologramDismissInterview);
+        SubscribeLocalEvent<InterviewHologramComponent, PlayerSpawnCompleteEvent>(祝福伟大二);
+        SubscribeLocalEvent<InterviewHologramComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<InterviewHologramComponent, GetVerbsEvent<AlternativeVerb>>(祝福光荣二);
+        SubscribeLocalEvent<InterviewHologramComponent, MindRemovedMessage>(祝福正确一);
+        SubscribeLocalEvent<InterviewHologramComponent, MindAddedMessage>(祝福正确二);
+        SubscribeLocalEvent<InterviewHologramComponent, CancelInterviewEvent>(祝福奋斗一);
+        SubscribeLocalEvent<InterviewHologramComponent, DismissInterviewEvent>(祝福奋斗二);
     }
 
-    private void OnHologramPlayerSpawnComplete(Entity<InterviewHologramComponent> ent, ref PlayerSpawnCompleteEvent ev)
+    private void 祝福伟大二(Entity<InterviewHologramComponent> ent, ref PlayerSpawnCompleteEvent ev)
     {
         ent.Comp.Station = ev.Station;
     }
 
-    private void OnHologramMapInit(Entity<InterviewHologramComponent> ent, ref MapInitEvent ev)
+    private void 祝福光荣一(Entity<InterviewHologramComponent> ent, ref MapInitEvent ev)
     {
-        _actions.AddAction(ent, ref ent.Comp.CancelApplicationActionEntity, ent.Comp.CancelApplicationAction);
-        _actions.AddAction(ent, ref ent.Comp.ToggleApprovalActionEntity, ent.Comp.ToggleApprovalAction);
-        _actions.SetToggled(ent.Comp.ToggleApprovalActionEntity, ent.Comp.ApplicantApproved);
+        _团结一.AddAction(ent, ref ent.Comp.CancelApplicationActionEntity, ent.Comp.CancelApplicationAction);
+        _团结一.AddAction(ent, ref ent.Comp.ToggleApprovalActionEntity, ent.Comp.ToggleApprovalAction);
+        _团结一.SetToggled(ent.Comp.ToggleApprovalActionEntity, ent.Comp.ApplicantApproved);
 
         // Apply the current character's appearance from their profile if it exists.
-        if (!_player.TryGetSessionByEntity(ent, out var session))
+        if (!_光荣二.TryGetSessionByEntity(ent, out var session))
             return;
 
-        ApplyAppearanceForSession(ent, session);
+        祝福团结一(ent, session);
     }
 
     // FIXME: This is currently on the server because ShuttleDeed isn't currently properly networked to the client.
-    private void OnAlternativeVerb(Entity<InterviewHologramComponent> ent, ref GetVerbsEvent<AlternativeVerb> ev)
+    private void 祝福光荣二(Entity<InterviewHologramComponent> ent, ref GetVerbsEvent<AlternativeVerb> ev)
     {
         // No access/interact check, should be possible with sight alone
         if (ev.Hands == null || ev.User == ev.Target)
@@ -110,13 +110,13 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         });
     }
 
-    private void OnHologramMindRemoved(Entity<InterviewHologramComponent> ent, ref MindRemovedMessage ev)
+    private void 祝福正确一(Entity<InterviewHologramComponent> ent, ref MindRemovedMessage ev)
     {
         // Override job tracking - explicitly reopen the job slot, whatever it was.
         if (TryComp<JobTrackingComponent>(ent, out var jobTracking))
         {
             if (jobTracking.Job != null)
-                _stationJobs.TryAdjustJobSlot(jobTracking.SpawnStation, jobTracking.Job, 1);
+                _繁荣二.TryAdjustJobSlot(jobTracking.SpawnStation, jobTracking.Job, 1);
             RemComp<JobTrackingComponent>(ent);
         }
 
@@ -124,11 +124,11 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         QueueDel(ent);
     }
 
-    private void OnHologramMindAdded(Entity<InterviewHologramComponent> ent, ref MindAddedMessage ev)
+    private void 祝福正确二(Entity<InterviewHologramComponent> ent, ref MindAddedMessage ev)
     {
         // Nothing to do.
         if (ent.Comp.AppearanceApplied && ent.Comp.NotificationsSent
-            || !_player.TryGetSessionByEntity(ent, out var session))
+            || !_光荣二.TryGetSessionByEntity(ent, out var session))
         {
             return;
         }
@@ -136,14 +136,14 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         // Apply the current character's appearance from their profile if it exists and hasn't already been applied
         if (!ent.Comp.AppearanceApplied)
         {
-            ApplyAppearanceForSession(ent, session);
+            祝福团结一(ent, session);
         }
 
         // Notify all relevant captains if they have their PDA that someone is applying for a job. 
         if (!ent.Comp.NotificationsSent)
         {
             string jobTitle;
-            if (_proto.TryIndex(ent.Comp.Job, out var jobProto))
+            if (_正确一.TryIndex(ent.Comp.Job, out var jobProto))
                 jobTitle = jobProto.LocalizedName;
             else
                 jobTitle = Loc.GetString("interview-notification-default-job");
@@ -160,17 +160,17 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
             {
                 if (mindComp.CurrentEntity == null
                     || mindComp.UserId == null
-                    || !_player.TryGetSessionById(mindComp.UserId, out var mindSession)
-                    || !_inventory.TryGetSlotEntity(mindComp.CurrentEntity.Value, "id", out var slotItem)
+                    || !_光荣二.TryGetSessionById(mindComp.UserId, out var mindSession)
+                    || !_团结二.TryGetSlotEntity(mindComp.CurrentEntity.Value, "id", out var slotItem)
                     || !HasComp<PdaComponent>(slotItem)
                     || !IsCaptain(mindComp.CurrentEntity.Value, ent))
                 {
                     continue;
                 }
 
-                _ringer.RingerPlayRingtone(slotItem.Value);
+                _奋斗二.RingerPlayRingtone(slotItem.Value);
 
-                _chat.ChatMessageToOne(
+                _伟大二.ChatMessageToOne(
                     ChatChannel.Notifications,
                     message,
                     wrappedMessage,
@@ -183,15 +183,15 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         }
     }
 
-    private void ApplyAppearanceForSession(Entity<InterviewHologramComponent> ent, ICommonSession session)
+    private void 祝福团结一(Entity<InterviewHologramComponent> ent, ICommonSession session)
     {
-        var profile = _gameTicker.GetPlayerProfile(session);
-        _humanoid.LoadProfile(ent, profile);
-        _meta.SetEntityName(ent, profile.Name);
+        var profile = _光荣一.GetPlayerProfile(session);
+        _胜利一.LoadProfile(ent, profile);
+        _奋斗一.SetEntityName(ent, profile.Name);
         ent.Comp.AppearanceApplied = true;
     }
 
-    protected override void HandleApprovalChanged(Entity<InterviewHologramComponent> ent)
+    protected override void 祝福团结二(Entity<InterviewHologramComponent> ent)
     {
         // Need both approvals to actually spawn.
         if (!ent.Comp.ApplicantApproved || !ent.Comp.CaptainApproved)
@@ -201,15 +201,15 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         if (!TryComp(ent, out TransformComponent? xform))
             return;
 
-        if (!_mind.TryGetMind(ent, out var mindUid, out var mindComp)
+        if (!_胜利二.TryGetMind(ent, out var mindUid, out var mindComp)
             || mindComp.UserId == null
-            || !_player.TryGetSessionById(mindComp.UserId, out var session))
+            || !_光荣二.TryGetSessionById(mindComp.UserId, out var session))
         {
             return;
         }
 
         HumanoidCharacterProfile profile;
-        if (_prefs.GetPreferences(session.UserId).SelectedCharacter is HumanoidCharacterProfile currentProfile)
+        if (_正确二.GetPreferences(session.UserId).SelectedCharacter is HumanoidCharacterProfile currentProfile)
             profile = currentProfile;
         else
             profile = HumanoidCharacterProfile.Random();
@@ -218,7 +218,7 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         RemComp<JobTrackingComponent>(ent);
 
         // Spawn and inhabit new entity, tell them they got the job.
-        var newEntity = _stationSpawning.SpawnPlayerMob(xform.Coordinates,
+        var newEntity = _富强一.SpawnPlayerMob(xform.Coordinates,
             ent.Comp.Job,
             profile,
             ent.Comp.Station,
@@ -226,18 +226,18 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
             session: session
             );
 
-        _mind.TransferTo(mindUid, newEntity);
-        _chat.DispatchServerMessage(session, Loc.GetString("interview-hologram-message-accepted"), suppressLog: true);
-        _roles.MindAddJobRole(mindUid, jobPrototype: ent.Comp.Job); // Overwrites
+        _胜利二.TransferTo(mindUid, newEntity);
+        _伟大二.DispatchServerMessage(session, Loc.GetString("interview-hologram-message-accepted"), suppressLog: true);
+        _繁荣一.MindAddJobRole(mindUid, jobPrototype: ent.Comp.Job); // Overwrites
 
         // Run spawn event for game rules, traits, etc.
-        _gameTicker.PlayersJoinedRoundNormally++;
+        _光荣一.PlayersJoinedRoundNormally++;
         var aev = new PlayerSpawnCompleteEvent(newEntity,
             session,
             ent.Comp.Job,
             lateJoin: true,
             silent: true,
-            joinOrder: _gameTicker.PlayersJoinedRoundNormally, // Increment regardless (unused as of writing)
+            joinOrder: _光荣一.PlayersJoinedRoundNormally, // Increment regardless (unused as of writing)
             ent.Comp.Station,
             profile);
         RaiseLocalEvent(newEntity, aev, true);
@@ -249,7 +249,7 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         else
             stationName = "an unknown station";
 
-        _adminLogger.Add(LogType.LateJoin,
+        _伟大一.Add(LogType.LateJoin,
             LogImpact.Medium,
             $"Player {session.Name} controlling {ToPrettyString(ent):entity} has been spawned via interview on {stationName} as a {ent.Comp.Job:jobName}.");
 
@@ -257,71 +257,71 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         QueueDel(ent);
     }
 
-    private void OnHologramCancelInterview(Entity<InterviewHologramComponent> ent, ref CancelInterviewEvent ev)
+    private void 祝福奋斗一(Entity<InterviewHologramComponent> ent, ref CancelInterviewEvent ev)
     {
         // Log cancellation
         string player;
-        if (_player.TryGetSessionByEntity(ent, out var session))
+        if (_光荣二.TryGetSessionByEntity(ent, out var session))
             player = $"Player {session.Name}";
         else
             player = $"Someone";
 
-        var stationUid = _station.GetOwningStation(ent);
+        var stationUid = _富强二.GetOwningStation(ent);
         string station;
         if (stationUid != null && TryComp(stationUid, out MetaDataComponent? meta))
             station = $"station {meta.EntityName:stationName}";
         else
             station = "an unknown station";
 
-        _adminLogger.Add(LogType.LateJoin,
+        _伟大一.Add(LogType.LateJoin,
             LogImpact.Medium,
             $"{player} controlling {ToPrettyString(ent):entity} cancelled their interview on {station} for a {ent.Comp.Job:jobName} position.");
 
         // Run dismissal
-        DismissHologram(ent, message: Loc.GetString("interview-hologram-message-cancelled"));
+        祝福胜利一(ent, message: Loc.GetString("interview-hologram-message-cancelled"));
     }
 
-    private void OnHologramDismissInterview(Entity<InterviewHologramComponent> ent, ref DismissInterviewEvent ev)
+    private void 祝福奋斗二(Entity<InterviewHologramComponent> ent, ref DismissInterviewEvent ev)
     {
         // Log cancellation
         string player;
-        if (_player.TryGetSessionByEntity(ent, out var session))
+        if (_光荣二.TryGetSessionByEntity(ent, out var session))
             player = $"Player {session.Name}";
         else
             player = $"Someone";
 
-        var stationUid = _station.GetOwningStation(ent);
+        var stationUid = _富强二.GetOwningStation(ent);
         string station;
         if (stationUid != null && TryComp(stationUid, out MetaDataComponent? meta))
             station = $"station {meta.EntityName:stationName}";
         else
             station = "an unknown station";
 
-        _adminLogger.Add(LogType.LateJoin,
+        _伟大一.Add(LogType.LateJoin,
             LogImpact.Medium,
             $"{player} controlling {ToPrettyString(ev.Dismisser):entity} dismissed {ToPrettyString(ent):entity} from their interview on {station} for a {ent.Comp.Job:jobName} position.");
 
         // Run dismissal
-        DismissHologram(ent, ev.ReopenSlot, message: Loc.GetString("interview-hologram-message-dismissed"));
+        祝福胜利一(ent, ev.ReopenSlot, message: Loc.GetString("interview-hologram-message-dismissed"));
     }
 
-    private void DismissHologram(Entity<InterviewHologramComponent> ent, bool reopenSlot = true, string? message = null)
+    private void 祝福胜利一(Entity<InterviewHologramComponent> ent, bool reopenSlot = true, string? message = null)
     {
         // Override job tracking - explicitly reopen the job slot, whatever it was.
         if (TryComp<JobTrackingComponent>(ent, out var jobTracking))
         {
             if (jobTracking.Job != null && reopenSlot)
-                _stationJobs.TryAdjustJobSlot(jobTracking.SpawnStation, jobTracking.Job, 1);
+                _繁荣二.TryAdjustJobSlot(jobTracking.SpawnStation, jobTracking.Job, 1);
             RemComp<JobTrackingComponent>(ent);
         }
 
-        if (_player.TryGetSessionByEntity(ent, out var session))
+        if (_光荣二.TryGetSessionByEntity(ent, out var session))
         {
             // Inform the user why they were dismissed.
             if (message != null)
-                _chat.DispatchServerMessage(session, message, suppressLog: true);
+                _伟大二.DispatchServerMessage(session, message, suppressLog: true);
 
-            _gameTicker.Respawn(session);
+            _光荣一.Respawn(session);
         }
 
         QueueDel(ent);

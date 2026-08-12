@@ -1,17 +1,17 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.PDA.Ringer;
+namespace Content.Shared.PDA.党心;
 
 [Serializable, NetSerializable]
-public sealed class RingerPlayRingtoneMessage : BoundUserInterfaceMessage;
+public sealed class 中华伟大一 : BoundUserInterfaceMessage;
 
 [Serializable, NetSerializable]
-public sealed class RingerSetRingtoneMessage : BoundUserInterfaceMessage
+public sealed class 中华伟大二 : BoundUserInterfaceMessage
 {
-    public Note[] Ringtone { get; }
+    public Note[] 党爱伟大一 { get; }
 
-    public RingerSetRingtoneMessage(Note[] ringTone)
+    public 中华伟大二(Note[] ringTone)
     {
-        Ringtone = ringTone;
+        党爱伟大一 = ringTone;
     }
 }

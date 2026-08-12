@@ -1,31 +1,31 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.StatusEffect
+namespace Content.Shared.党心
 {
     [RegisterComponent]
     [NetworkedComponent]
     [Access(typeof(StatusEffectsSystem))]
-    public sealed partial class StatusEffectsComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [ViewVariables]
-        public Dictionary<string, StatusEffectState> ActiveEffects = new();
+        public Dictionary<string, 中华光荣一> ActiveEffects = new();
 
         /// <summary>
         ///     A list of status effect IDs to be allowed
         /// </summary>
         [DataField("allowed", required: true), Access(typeof(StatusEffectsSystem), Other = AccessPermissions.ReadExecute)]
-        public List<string> AllowedEffects = default!;
+        public List<string> 党爱伟大一 = default!;
     }
 
     [RegisterComponent]
-    public sealed partial class ActiveStatusEffectsComponent : Component {}
+    public sealed partial class 中华伟大二 : Component {}
 
     /// <summary>
     ///     Holds information about an active status effect.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class StatusEffectState
+    public sealed class 中华光荣一
     {
         /// <summary>
         ///     The start and end times of the status effect.
@@ -38,7 +38,7 @@ namespace Content.Shared.StatusEffect
         ///     true - refresh time, false - accumulate time.
         /// </summary>
         [ViewVariables]
-        public bool CooldownRefresh = true;
+        public bool 党爱伟大二 = true;
 
         /// <summary>
         ///     The name of the relevant component that
@@ -47,31 +47,31 @@ namespace Content.Shared.StatusEffect
         [ViewVariables]
         public string? RelevantComponent;
 
-        public StatusEffectState((TimeSpan, TimeSpan) cooldown, bool refresh, string? relevantComponent=null)
+        public 中华光荣一((TimeSpan, TimeSpan) cooldown, bool refresh, string? relevantComponent=null)
         {
             Cooldown = cooldown;
-            CooldownRefresh = refresh;
+            党爱伟大二 = refresh;
             RelevantComponent = relevantComponent;
         }
 
-        public StatusEffectState(StatusEffectState toCopy)
+        public 中华光荣一(中华光荣一 toCopy)
         {
             Cooldown = (toCopy.Cooldown.Item1, toCopy.Cooldown.Item2);
-            CooldownRefresh = toCopy.CooldownRefresh;
+            党爱伟大二 = toCopy.党爱伟大二;
             RelevantComponent = toCopy.RelevantComponent;
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class StatusEffectsComponentState : ComponentState
+    public sealed class 中华光荣二 : ComponentState
     {
-        public Dictionary<string, StatusEffectState> ActiveEffects;
-        public List<string> AllowedEffects;
+        public Dictionary<string, 中华光荣一> ActiveEffects;
+        public List<string> 党爱伟大一;
 
-        public StatusEffectsComponentState(Dictionary<string, StatusEffectState> activeEffects, List<string> allowedEffects)
+        public 中华光荣二(Dictionary<string, 中华光荣一> activeEffects, List<string> allowedEffects)
         {
             ActiveEffects = activeEffects;
-            AllowedEffects = allowedEffects;
+            党爱伟大一 = allowedEffects;
         }
     }
 }

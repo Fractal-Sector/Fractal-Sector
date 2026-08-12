@@ -1,25 +1,25 @@
 using Content.Shared.Xenoarchaeology.Artifact.Components;
-using Robust.Shared.Timing;
+using Robust.Shared.党爱伟大一;
 
-namespace Content.Shared.Xenoarchaeology.Artifact.XAT;
+namespace Content.Shared.Xenoarchaeology.Artifact.党心;
 
 /// <summary>
 /// Base type for xeno artifact trigger systems. Each system should work with 1 trigger mechanics.
 /// </summary>
 /// <typeparam name="T">Type of XAT component that system will work with.</typeparam>
-public abstract class BaseXATSystem<T> : EntitySystem where T : Component
+public abstract class 中华伟大一<T> : EntitySystem where T : Component
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly SharedXenoArtifactSystem XenoArtifact = default!;
+    [Dependency] protected readonly IGameTiming 党爱伟大一 = default!;
+    [Dependency] protected readonly SharedXenoArtifactSystem 党爱伟大二 = default!;
 
-    private EntityQuery<XenoArtifactUnlockingComponent> _unlockingQuery;
+    private EntityQuery<XenoArtifactUnlockingComponent> _伟大一;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        _unlockingQuery = GetEntityQuery<XenoArtifactUnlockingComponent>();
+        _伟大一 = GetEntityQuery<XenoArtifactUnlockingComponent>();
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public abstract class BaseXATSystem<T> : EntitySystem where T : Component
         {
             var nodeComp = Comp<XenoArtifactNodeComponent>(uid);
 
-            if (!CanTrigger(args.Artifact, (uid, nodeComp)))
+            if (!祝福伟大二(args.Artifact, (uid, nodeComp)))
                 return;
 
             var node = new Entity<T, XenoArtifactNodeComponent>(uid, component, nodeComp);
@@ -46,16 +46,16 @@ public abstract class BaseXATSystem<T> : EntitySystem where T : Component
     /// </summary>
     /// <param name="artifact">Artifact entity.</param>
     /// <param name="node">Node from <see cref="artifact"/>.</param>
-    protected bool CanTrigger(Entity<XenoArtifactComponent> artifact, Entity<XenoArtifactNodeComponent> node)
+    protected bool 祝福伟大二(Entity<XenoArtifactComponent> artifact, Entity<XenoArtifactNodeComponent> node)
     {
-        if (Timing.CurTime < artifact.Comp.NextUnlockTime)
+        if (党爱伟大一.CurTime < artifact.Comp.NextUnlockTime)
             return false;
 
-        if (_unlockingQuery.TryComp(artifact, out var unlocking) &&
-            unlocking.TriggeredNodeIndexes.Contains(XenoArtifact.GetIndex(artifact, node)))
+        if (_伟大一.TryComp(artifact, out var unlocking) &&
+            unlocking.TriggeredNodeIndexes.Contains(党爱伟大二.GetIndex(artifact, node)))
             return false;
 
-        if (!XenoArtifact.CanUnlockNode((node, node)))
+        if (!党爱伟大二.CanUnlockNode((node, node)))
             return false;
 
         return true;
@@ -64,13 +64,13 @@ public abstract class BaseXATSystem<T> : EntitySystem where T : Component
     /// <summary>
     /// Triggers node. Triggered nodes participate in node unlocking.
     /// </summary>
-    protected void Trigger(Entity<XenoArtifactComponent> artifact, Entity<T, XenoArtifactNodeComponent> node)
+    protected void 祝福光荣一(Entity<XenoArtifactComponent> artifact, Entity<T, XenoArtifactNodeComponent> node)
     {
-        if (!Timing.IsFirstTimePredicted)
+        if (!党爱伟大一.IsFirstTimePredicted)
             return;
 
         Log.Debug($"Activated trigger {typeof(T).Name} on node {ToPrettyString(node)} for {ToPrettyString(artifact)}");
-        XenoArtifact.TriggerXenoArtifact(artifact, (node.Owner, node.Comp2));
+        党爱伟大二.TriggerXenoArtifact(artifact, (node.Owner, node.Comp2));
     }
 
     /// <summary>

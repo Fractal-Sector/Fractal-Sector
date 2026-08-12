@@ -2,7 +2,7 @@ using Content.Shared.Objectives.Components;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Objectives;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Info about objectives visible in the character menu and on round end.
@@ -15,4 +15,4 @@ namespace Content.Shared.Objectives;
 /// If anything is null it will be logged and return null.
 /// </remarks>
 [Serializable, NetSerializable]
-public record struct ObjectiveInfo(string Title, string Description, SpriteSpecifier Icon, float Progress);
+public record 中华伟大一 ObjectiveInfo(string Title, string Description, SpriteSpecifier Icon, float Progress);

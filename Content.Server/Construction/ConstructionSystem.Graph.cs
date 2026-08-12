@@ -10,11 +10,11 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using System.Linq;
 
-namespace Content.Server.Construction
+namespace Content.Server.党心
 {
-    public sealed partial class ConstructionSystem
+    public sealed partial class 中华伟大一
     {
-        private void InitializeGraphs()
+        private void 祝福伟大一()
         {
         }
 
@@ -27,7 +27,7 @@ namespace Content.Server.Construction
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether we could set the container as being handled by construction or not. Also returns false if
         ///          the entity does not have a <see cref="ConstructionComponent"/>.</returns>
-        public bool AddContainer(EntityUid uid, string container, ConstructionComponent? construction = null)
+        public bool 祝福伟大二(EntityUid uid, string container, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
                 return false;
@@ -240,7 +240,7 @@ namespace Content.Server.Construction
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether the node change succeeded or not. Also returns false if the entity does not have a <see cref="ConstructionComponent"/>.</returns>
         /// <remarks>This method also updates the construction pathfinding automatically, if the node change succeeds.</remarks>
-        public bool ChangeNode(EntityUid uid, EntityUid? userUid, string id, bool performActions = true, ConstructionComponent? construction = null)
+        public bool 祝福光荣一(EntityUid uid, EntityUid? userUid, string id, bool performActions = true, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
                 return false;
@@ -331,7 +331,7 @@ namespace Content.Server.Construction
             newConstruction.Containers.UnionWith(construction.Containers);
 
             // Prevent MapInitEvent spawned entities from spawning into the containers.
-            // Containers created by ChangeNode() actions do not exist until after this function is complete,
+            // Containers created by 祝福光荣一() actions do not exist until after this function is complete,
             // but this should be fine, as long as the target entity properly declared its managed containers.
             if (TryComp(newUid, out ContainerFillComponent? containerFill) && containerFill.IgnoreConstructionSpawn)
             {
@@ -345,7 +345,7 @@ namespace Content.Server.Construction
             // If not, we effectively restart the construction graph, so the new entity can be completed.
             if (construction.Graph == newConstruction.Graph)
             {
-                ChangeNode(newUid, userUid, construction.Node, false, newConstruction);
+                祝福光荣一(newUid, userUid, construction.Node, false, newConstruction);
 
                 // Retain the target node if an entity change happens in response to deconstruction;
                 // in that case, we must continue to move towards the start node.
@@ -396,7 +396,7 @@ namespace Content.Server.Construction
                 }
             }
 
-            var entChangeEv = new ConstructionChangeEntityEvent(newUid, uid);
+            var entChangeEv = new 中华伟大二(newUid, uid);
             RaiseLocalEvent(uid, entChangeEv);
             RaiseLocalEvent(newUid, entChangeEv, broadcast: true);
 
@@ -429,7 +429,7 @@ namespace Content.Server.Construction
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether the construction graph change succeeded or not. Returns false if the entity does not have
         ///          a <see cref="ConstructionComponent"/>.</returns>
-        public bool ChangeGraph(EntityUid uid, EntityUid? userUid, string graphId, string nodeId, bool performActions = true, ConstructionComponent? construction = null)
+        public bool 祝福光荣二(EntityUid uid, EntityUid? userUid, string graphId, string nodeId, bool performActions = true, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
                 return false;
@@ -441,7 +441,7 @@ namespace Content.Server.Construction
                 return false;
 
             construction.Graph = graphId;
-            return ChangeNode(uid, userUid, nodeId, performActions, construction);
+            return 祝福光荣一(uid, userUid, nodeId, performActions, construction);
         }
     }
 
@@ -449,15 +449,15 @@ namespace Content.Server.Construction
     ///     This event gets raised when an entity changes prototype / uid during construction. The event is raised
     ///     directed both at the old and new entity.
     /// </summary>
-    public sealed class ConstructionChangeEntityEvent : EntityEventArgs
+    public sealed class 中华伟大二 : EntityEventArgs
     {
-        public readonly EntityUid New;
-        public readonly EntityUid Old;
+        public readonly EntityUid 党爱伟大一;
+        public readonly EntityUid 党爱伟大二;
 
-        public ConstructionChangeEntityEvent(EntityUid newUid, EntityUid oldUid)
+        public 中华伟大二(EntityUid newUid, EntityUid oldUid)
         {
-            New = newUid;
-            Old = oldUid;
+            党爱伟大一 = newUid;
+            党爱伟大二 = oldUid;
         }
     }
 
@@ -466,10 +466,10 @@ namespace Content.Server.Construction
     /// This is only raised at the new entity, after it has been initialized.
     /// </summary>
     /// <param name="Graph">Construction graph for this entity.</param>
-    /// <param name="CurrentNode">New node that has become active.</param>
+    /// <param name="CurrentNode">党爱伟大一 node that has become active.</param>
     /// <param name="PreviousNode">Previous node that was active on the graph.</param>
     [ByRefEvent]
-    public record struct AfterConstructionChangeEntityEvent(string Graph, string CurrentNode, string? PreviousNode)
+    public record 中华光荣一 AfterConstructionChangeEntityEvent(string Graph, string CurrentNode, string? PreviousNode)
     {
     }
 }

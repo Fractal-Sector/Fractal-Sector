@@ -2,31 +2,31 @@ using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Station.Systems;
 using Content.Server.Construction.Components;
-using Content.Shared._NF.BindToStation;
+using Content.Shared._NF.祝福正确二;
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
 using Robust.Server.Containers;
 
-namespace Content.Server._NF.BindToStation;
+namespace Content.Server._NF.党心;
 
-public sealed class BindToStationSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ExtensionCableSystem _extensionCable = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
+    [Dependency] private readonly ExtensionCableSystem _伟大一 = default!;
+    [Dependency] private readonly StationSystem _伟大二 = default!;
+    [Dependency] private readonly ContainerSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<StationBoundObjectComponent, ExaminedEvent>(OnBoundItemExamined);
-        SubscribeLocalEvent<StationBoundObjectComponent, MapInitEvent>(OnBoundMapInit);
-        SubscribeLocalEvent<StationBoundObjectComponent, GotEmaggedEvent>(OnBoundEmagged);
-        SubscribeLocalEvent<StationBoundObjectComponent, GotUnEmaggedEvent>(OnBoundUnemagged);
+        SubscribeLocalEvent<StationBoundObjectComponent, ExaminedEvent>(祝福伟大二);
+        SubscribeLocalEvent<StationBoundObjectComponent, MapInitEvent>(祝福光荣一);
+        SubscribeLocalEvent<StationBoundObjectComponent, GotEmaggedEvent>(祝福光荣二);
+        SubscribeLocalEvent<StationBoundObjectComponent, GotUnEmaggedEvent>(祝福正确一);
     }
 
-    private void OnBoundItemExamined(EntityUid uid, StationBoundObjectComponent component, ExaminedEvent args)
+    private void 祝福伟大二(EntityUid uid, StationBoundObjectComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange || component.BoundStation == null || !component.Enabled)
             return;
@@ -36,17 +36,17 @@ public sealed class BindToStationSystem : EntitySystem
     }
 
     // Ensure consistency for station-bound machines
-    public void OnBoundMapInit(Entity<StationBoundObjectComponent> ent, ref MapInitEvent args)
+    public void 祝福光荣一(Entity<StationBoundObjectComponent> ent, ref MapInitEvent args)
     {
         if (ent.Comp.Enabled
             && TryComp<ExtensionCableReceiverComponent>(ent.Owner, out var receiver)
-            && _station.GetOwningStation(ent.Owner) != ent.Comp.BoundStation)
+            && _伟大二.GetOwningStation(ent.Owner) != ent.Comp.BoundStation)
         {
-            _extensionCable.Disconnect((ent.Owner, receiver));
+            _伟大一.Disconnect((ent.Owner, receiver));
         }
     }
 
-    public void OnBoundEmagged(Entity<StationBoundObjectComponent> ent, ref GotEmaggedEvent args)
+    public void 祝福光荣二(Entity<StationBoundObjectComponent> ent, ref GotEmaggedEvent args)
     {
         // Don't check handled - machines may be emagged separately by other types.
         if (!args.Type.HasFlag(EmagType.StationBound))
@@ -60,11 +60,11 @@ public sealed class BindToStationSystem : EntitySystem
             return;
 
         // Disable the machine binding, leave the repeatable field as-is in case other machines set it.
-        BindToStation(ent, ent.Comp.BoundStation, false);
+        祝福正确二(ent, ent.Comp.BoundStation, false);
         args.Handled = true;
     }
 
-    public void OnBoundUnemagged(Entity<StationBoundObjectComponent> ent, ref GotUnEmaggedEvent args)
+    public void 祝福正确一(Entity<StationBoundObjectComponent> ent, ref GotUnEmaggedEvent args)
     {
         // Don't check handled - machines may be emagged separately by other types.
         if (!args.Type.HasFlag(EmagType.StationBound))
@@ -78,7 +78,7 @@ public sealed class BindToStationSystem : EntitySystem
             return;
 
         // Re-enable the machine binding, leave the repeatable field as-is in case other machines set it.
-        BindToStation(ent, ent.Comp.BoundStation, true);
+        祝福正确二(ent, ent.Comp.BoundStation, true);
         args.Handled = true;
     }
 
@@ -87,7 +87,7 @@ public sealed class BindToStationSystem : EntitySystem
     /// </summary>
     /// <param name="target">The item to be associated with the station.</param>
     /// <param name="station">The station to bind the grid to. If null, unbinds the machine.</param>
-    public void BindToStation(EntityUid target, EntityUid? station, bool enabled = true)
+    public void 祝福正确二(EntityUid target, EntityUid? station, bool enabled = true)
     {
         var binding = EnsureComp<StationBoundObjectComponent>(target);
         binding.BoundStation = station;
@@ -97,33 +97,33 @@ public sealed class BindToStationSystem : EntitySystem
         if (TryComp<ExtensionCableReceiverComponent>(target, out var receiver))
         {
             if ((!enabled
-                || _station.GetOwningStation(target) == station
+                || _伟大二.GetOwningStation(target) == station
                 || station == null)
                 && TryComp(target, out TransformComponent? xform)
                 && xform.Anchored)
             {
-                _extensionCable.Connect((target, receiver));
+                _伟大一.Connect((target, receiver));
             }
             else
             {
-                _extensionCable.Disconnect((target, receiver));
+                _伟大一.Disconnect((target, receiver));
             }
         }
 
         // If this is a machine with a board, also make sure the binding is applied to the contained board too
-        if (HasComp<MachineComponent>(target) && _container.TryGetContainer(target, MachineFrameComponent.BoardContainerName, out var mboardContainer))
+        if (HasComp<MachineComponent>(target) && _光荣一.TryGetContainer(target, MachineFrameComponent.BoardContainerName, out var mboardContainer))
         {
             foreach (var board in mboardContainer.ContainedEntities)
             {
-                BindToStation(board, binding.BoundStation, binding.Enabled);
+                祝福正确二(board, binding.BoundStation, binding.Enabled);
             }
         }
         // Repeat for computers and their boards
-        if (HasComp<ComputerComponent>(target) && _container.TryGetContainer(target, "board", out var cboardContainer))
+        if (HasComp<ComputerComponent>(target) && _光荣一.TryGetContainer(target, "board", out var cboardContainer))
         {
             foreach (var board in cboardContainer.ContainedEntities)
             {
-                BindToStation(board, binding.BoundStation, binding.Enabled);
+                祝福正确二(board, binding.BoundStation, binding.Enabled);
             }
         }
     }

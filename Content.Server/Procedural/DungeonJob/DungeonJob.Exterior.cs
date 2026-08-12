@@ -6,14 +6,14 @@ using Content.Shared.Procedural.DungeonGenerators;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Procedural.DungeonJob;
+namespace Content.Server.Procedural.党心;
 
-public sealed partial class DungeonJob
+public sealed partial class 中华伟大一
 {
     /// <summary>
     /// <see cref="ExteriorDunGen"/>
     /// </summary>
-    private async Task<List<Dungeon>> GenerateExteriorDungen(Vector2i position, ExteriorDunGen dungen, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task<List<Dungeon>> 祝福伟大一(Vector2i position, ExteriorDunGen dungen, HashSet<Vector2i> reservedTiles, Random random)
     {
         DebugTools.Assert(_grid.ChunkCount > 0);
 

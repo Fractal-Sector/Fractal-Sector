@@ -7,30 +7,30 @@ using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
 
 
-namespace Content.Shared.Species;
+namespace Content.Shared.党心;
 
-public sealed partial class GibActionSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedBodySystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<GibActionComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<GibActionComponent, GibActionEvent>(OnGibAction);
+        SubscribeLocalEvent<GibActionComponent, MobStateChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<GibActionComponent, 中华伟大二>(祝福光荣一);
     }
 
-    private void OnMobStateChanged(EntityUid uid, GibActionComponent comp, MobStateChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, GibActionComponent comp, MobStateChangedEvent args)
     {
         // When the mob changes state, check if they're dead and give them the action if so. 
         if (!TryComp<MobStateComponent>(uid, out var mobState))
             return;
 
-        if (!_protoManager.TryIndex<EntityPrototype>(comp.ActionPrototype, out var actionProto))
+        if (!_光荣一.TryIndex<EntityPrototype>(comp.ActionPrototype, out var actionProto))
             return;
 
 
@@ -39,23 +39,23 @@ public sealed partial class GibActionSystem : EntitySystem
             if(allowedState == mobState.CurrentState)
             {
                 // The mob should never have more than 1 state so I don't see this being an issue
-                _actionsSystem.AddAction(uid, ref comp.ActionEntity, comp.ActionPrototype);
+                _伟大一.AddAction(uid, ref comp.ActionEntity, comp.ActionPrototype);
                 return;
             }
         }
 
         // If they aren't given the action, remove it.
-        _actionsSystem.RemoveAction(uid, comp.ActionEntity);
+        _伟大一.RemoveAction(uid, comp.ActionEntity);
     }
     
-    private void OnGibAction(EntityUid uid, GibActionComponent comp, GibActionEvent args)
+    private void 祝福光荣一(EntityUid uid, GibActionComponent comp, 中华伟大二 args)
     {
         // When they use the action, gib them.
-        _popupSystem.PopupClient(Loc.GetString(comp.PopupText, ("name", uid)), uid, uid);
-        _bodySystem.GibBody(uid, true);
+        _光荣二.PopupClient(Loc.GetString(comp.PopupText, ("name", uid)), uid, uid);
+        _伟大二.GibBody(uid, true);
     }
        
 
 
-    public sealed partial class GibActionEvent : InstantActionEvent { } 
+    public sealed partial class 中华伟大二 : InstantActionEvent { } 
 }

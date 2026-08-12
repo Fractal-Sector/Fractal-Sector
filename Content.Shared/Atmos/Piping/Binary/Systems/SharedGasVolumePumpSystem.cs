@@ -6,61 +6,61 @@ using Content.Shared.Examine;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
 
-namespace Content.Shared.Atmos.Piping.Binary.Systems;
+namespace Content.Shared.Atmos.Piping.Binary.党心;
 
-public abstract class SharedGasVolumePumpSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
+    [Dependency] private readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _伟大二 = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<GasVolumePumpComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<GasVolumePumpComponent, PowerChangedEvent>(OnPowerChanged);
+        base.祝福伟大一();
+        SubscribeLocalEvent<GasVolumePumpComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<GasVolumePumpComponent, PowerChangedEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<GasVolumePumpComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<GasVolumePumpComponent, GasVolumePumpToggleStatusMessage>(OnToggleStatusMessage);
-        SubscribeLocalEvent<GasVolumePumpComponent, GasVolumePumpChangeTransferRateMessage>(OnTransferRateChangeMessage);
+        SubscribeLocalEvent<GasVolumePumpComponent, ExaminedEvent>(祝福团结一);
+        SubscribeLocalEvent<GasVolumePumpComponent, GasVolumePumpToggleStatusMessage>(祝福正确一);
+        SubscribeLocalEvent<GasVolumePumpComponent, GasVolumePumpChangeTransferRateMessage>(祝福正确二);
     }
 
-    private void OnInit(Entity<GasVolumePumpComponent> ent, ref ComponentInit args)
+    private void 祝福伟大二(Entity<GasVolumePumpComponent> ent, ref ComponentInit args)
     {
-        UpdateAppearance(ent.Owner, ent.Comp);
+        祝福团结二(ent.Owner, ent.Comp);
     }
 
-    private void OnPowerChanged(Entity<GasVolumePumpComponent> ent, ref PowerChangedEvent args)
+    private void 祝福光荣一(Entity<GasVolumePumpComponent> ent, ref PowerChangedEvent args)
     {
-        UpdateAppearance(ent.Owner, ent.Comp);
+        祝福团结二(ent.Owner, ent.Comp);
     }
 
-    protected virtual void UpdateUi(Entity<GasVolumePumpComponent> entity)
+    protected virtual void 祝福光荣二(Entity<GasVolumePumpComponent> entity)
     {
 
     }
 
-    private void OnToggleStatusMessage(EntityUid uid, GasVolumePumpComponent pump, GasVolumePumpToggleStatusMessage args)
+    private void 祝福正确一(EntityUid uid, GasVolumePumpComponent pump, GasVolumePumpToggleStatusMessage args)
     {
         pump.Enabled = args.Enabled;
-        _adminLogger.Add(LogType.AtmosPowerChanged, LogImpact.Medium,
+        _伟大一.Add(LogType.AtmosPowerChanged, LogImpact.Medium,
             $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}");
 
         Dirty(uid, pump);
-        UpdateUi((uid, pump));
-        UpdateAppearance(uid, pump);
+        祝福光荣二((uid, pump));
+        祝福团结二(uid, pump);
     }
 
-    private void OnTransferRateChangeMessage(EntityUid uid, GasVolumePumpComponent pump, GasVolumePumpChangeTransferRateMessage args)
+    private void 祝福正确二(EntityUid uid, GasVolumePumpComponent pump, GasVolumePumpChangeTransferRateMessage args)
     {
         pump.TransferRate = Math.Clamp(args.TransferRate, 0f, pump.MaxTransferRate);
         Dirty(uid, pump);
-        UpdateUi((uid, pump));
-        _adminLogger.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
+        祝福光荣二((uid, pump));
+        _伟大一.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
             $"{ToPrettyString(args.Actor):player} set the transfer rate on {ToPrettyString(uid):device} to {args.TransferRate}");
     }
 
-    private void OnExamined(EntityUid uid, GasVolumePumpComponent pump, ExaminedEvent args)
+    private void 祝福团结一(EntityUid uid, GasVolumePumpComponent pump, ExaminedEvent args)
     {
         if (!Transform(uid).Anchored)
             return;
@@ -75,17 +75,17 @@ public abstract class SharedGasVolumePumpSystem : EntitySystem
         }
     }
 
-    protected void UpdateAppearance(EntityUid uid, GasVolumePumpComponent? pump = null, AppearanceComponent? appearance = null)
+    protected void 祝福团结二(EntityUid uid, GasVolumePumpComponent? pump = null, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref pump, ref appearance, false))
             return;
 
-        bool pumpOn = pump.Enabled && _receiver.IsPowered(uid);
+        bool pumpOn = pump.Enabled && _光荣一.IsPowered(uid);
         if (!pumpOn)
-            _appearance.SetData(uid, GasVolumePumpVisuals.State, GasVolumePumpState.Off, appearance);
+            _伟大二.SetData(uid, GasVolumePumpVisuals.State, GasVolumePumpState.Off, appearance);
         else if (pump.Blocked)
-            _appearance.SetData(uid, GasVolumePumpVisuals.State, GasVolumePumpState.Blocked, appearance);
+            _伟大二.SetData(uid, GasVolumePumpVisuals.State, GasVolumePumpState.Blocked, appearance);
         else
-            _appearance.SetData(uid, GasVolumePumpVisuals.State, GasVolumePumpState.On, appearance);
+            _伟大二.SetData(uid, GasVolumePumpVisuals.State, GasVolumePumpState.On, appearance);
     }
 }

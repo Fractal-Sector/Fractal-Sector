@@ -3,39 +3,39 @@ using Content.Shared.Timing;
 using Content.Shared.UserInterface;
 using Content.Shared.Warps;
 
-namespace Content.Shared.Teleportation.Systems;
+namespace Content.Shared.Teleportation.党心;
 
 /// <summary>
 /// <inheritdoc cref="TeleportLocationsComponent"/>
 /// </summary>
-public abstract partial class SharedTeleportLocationsSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] protected readonly UseDelaySystem Delay = default!;
+    [Dependency] protected readonly UseDelaySystem 党爱伟大一 = default!;
 
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency] private readonly SharedUserInterfaceSystem _伟大一 = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大二 = default!;
 
-    protected const string TeleportDelay = "TeleportDelay";
+    protected const string 党爱伟大二 = "党爱伟大二";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TeleportLocationsComponent, ActivatableUIOpenAttemptEvent>(OnUiOpenAttempt);
-        SubscribeLocalEvent<TeleportLocationsComponent, TeleportLocationDestinationMessage>(OnTeleportToLocationRequest);
+        SubscribeLocalEvent<TeleportLocationsComponent, ActivatableUIOpenAttemptEvent>(祝福伟大二);
+        SubscribeLocalEvent<TeleportLocationsComponent, TeleportLocationDestinationMessage>(祝福光荣一);
     }
 
-    private void OnUiOpenAttempt(Entity<TeleportLocationsComponent> ent, ref ActivatableUIOpenAttemptEvent args)
+    private void 祝福伟大二(Entity<TeleportLocationsComponent> ent, ref ActivatableUIOpenAttemptEvent args)
     {
-        if (!Delay.IsDelayed(ent.Owner, TeleportDelay))
+        if (!党爱伟大一.IsDelayed(ent.Owner, 党爱伟大二))
             return;
 
         args.Cancel();
     }
 
-    protected virtual void OnTeleportToLocationRequest(Entity<TeleportLocationsComponent> ent, ref TeleportLocationDestinationMessage args)
+    protected virtual void 祝福光荣一(Entity<TeleportLocationsComponent> ent, ref TeleportLocationDestinationMessage args)
     {
-        if (!TryGetEntity(args.NetEnt, out var telePointEnt) || TerminatingOrDeleted(telePointEnt) || !HasComp<WarpPointComponent>(telePointEnt) || Delay.IsDelayed(ent.Owner, TeleportDelay))
+        if (!TryGetEntity(args.NetEnt, out var telePointEnt) || TerminatingOrDeleted(telePointEnt) || !HasComp<WarpPointComponent>(telePointEnt) || 党爱伟大一.IsDelayed(ent.Owner, 党爱伟大二))
             return;
 
         var comp = ent.Comp;
@@ -44,16 +44,16 @@ public abstract partial class SharedTeleportLocationsSystem : EntitySystem
 
         SpawnAtPosition(comp.TeleportEffect, Transform(originEnt).Coordinates);
 
-        _xform.SetMapCoordinates(originEnt, _xform.GetMapCoordinates(telePointEnt.Value, telePointXForm));
+        _伟大二.SetMapCoordinates(originEnt, _伟大二.GetMapCoordinates(telePointEnt.Value, telePointXForm));
 
         SpawnAtPosition(comp.TeleportEffect, telePointXForm.Coordinates);
 
-        Delay.TryResetDelay(ent.Owner, true, id: TeleportDelay);
+        党爱伟大一.TryResetDelay(ent.Owner, true, id: 党爱伟大二);
 
         if (!ent.Comp.CloseAfterTeleport)
             return;
 
         // Teleport's done, now tell the BUI to close if needed.
-        _ui.CloseUi(ent.Owner, TeleportLocationUiKey.Key);
+        _伟大一.CloseUi(ent.Owner, TeleportLocationUiKey.Key);
     }
 }

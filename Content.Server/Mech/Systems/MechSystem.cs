@@ -30,51 +30,51 @@ using Content.Shared.Mobs; // Frontier
 using Content.Shared.NPC.Systems; // Frontier
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Mech.Systems;
+namespace Content.Server.Mech.党心;
 
 /// <inheritdoc/>
-public sealed partial class MechSystem : SharedMechSystem
+public sealed partial class 中华伟大一 : SharedMechSystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!; // Frontier
+    [Dependency] private readonly ActionBlockerSystem _伟大一 = default!;
+    [Dependency] private readonly AtmosphereSystem _伟大二 = default!;
+    [Dependency] private readonly BatterySystem _光荣一 = default!;
+    [Dependency] private readonly ContainerSystem _光荣二 = default!;
+    [Dependency] private readonly DamageableSystem _正确一 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _正确二 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _团结二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedToolSystem _奋斗二 = default!;
+    [Dependency] private readonly NpcFactionSystem _胜利一 = default!; // Frontier
 
     private static readonly ProtoId<ToolQualityPrototype> PryingQuality = "Prying";
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MechComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<MechComponent, EntInsertedIntoContainerMessage>(OnInsertBattery);
-        SubscribeLocalEvent<MechComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<MechComponent, GetVerbsEvent<AlternativeVerb>>(OnAlternativeVerb);
-        SubscribeLocalEvent<MechComponent, MechOpenUiEvent>(OnOpenUi);
-        SubscribeLocalEvent<MechComponent, RemoveBatteryEvent>(OnRemoveBattery);
-        SubscribeLocalEvent<MechComponent, MechEntryEvent>(OnMechEntry);
-        SubscribeLocalEvent<MechComponent, MechExitEvent>(OnMechExit);
+        SubscribeLocalEvent<MechComponent, InteractUsingEvent>(祝福光荣一);
+        SubscribeLocalEvent<MechComponent, EntInsertedIntoContainerMessage>(祝福光荣二);
+        SubscribeLocalEvent<MechComponent, MapInitEvent>(祝福正确二);
+        SubscribeLocalEvent<MechComponent, GetVerbsEvent<AlternativeVerb>>(祝福奋斗二);
+        SubscribeLocalEvent<MechComponent, MechOpenUiEvent>(祝福团结二);
+        SubscribeLocalEvent<MechComponent, RemoveBatteryEvent>(祝福正确一);
+        SubscribeLocalEvent<MechComponent, MechEntryEvent>(祝福胜利一);
+        SubscribeLocalEvent<MechComponent, MechExitEvent>(祝福胜利二);
 
-        SubscribeLocalEvent<MechComponent, DamageChangedEvent>(OnDamageChanged);
-        SubscribeLocalEvent<MechComponent, MechEquipmentRemoveMessage>(OnRemoveEquipmentMessage);
+        SubscribeLocalEvent<MechComponent, DamageChangedEvent>(祝福繁荣一);
+        SubscribeLocalEvent<MechComponent, MechEquipmentRemoveMessage>(祝福团结一);
 
-        SubscribeLocalEvent<MechComponent, UpdateCanMoveEvent>(OnMechCanMoveEvent);
+        SubscribeLocalEvent<MechComponent, UpdateCanMoveEvent>(祝福伟大二);
 
 
-        SubscribeLocalEvent<MechPilotComponent, ToolUserAttemptUseEvent>(OnToolUseAttempt);
-        SubscribeLocalEvent<MechPilotComponent, InhaleLocationEvent>(OnInhale);
-        SubscribeLocalEvent<MechPilotComponent, ExhaleLocationEvent>(OnExhale);
-        SubscribeLocalEvent<MechPilotComponent, AtmosExposedGetAirEvent>(OnExpose);
+        SubscribeLocalEvent<MechPilotComponent, ToolUserAttemptUseEvent>(祝福奋斗一);
+        SubscribeLocalEvent<MechPilotComponent, InhaleLocationEvent>(祝福文明二);
+        SubscribeLocalEvent<MechPilotComponent, ExhaleLocationEvent>(祝福和谐一);
+        SubscribeLocalEvent<MechPilotComponent, AtmosExposedGetAirEvent>(祝福和谐二);
 
-        SubscribeLocalEvent<MechAirComponent, GetFilterAirEvent>(OnGetFilterAir);
+        SubscribeLocalEvent<MechAirComponent, GetFilterAirEvent>(祝福自由一);
 
         #region Equipment UI message relays
         SubscribeLocalEvent<MechComponent, MechGrabberEjectMessage>(ReceiveEquipmentUiMesssages);
@@ -82,25 +82,25 @@ public sealed partial class MechSystem : SharedMechSystem
         #endregion
     }
 
-    private void OnMechCanMoveEvent(EntityUid uid, MechComponent component, UpdateCanMoveEvent args)
+    private void 祝福伟大二(EntityUid uid, MechComponent component, UpdateCanMoveEvent args)
     {
-        if (component.Broken || component.Integrity <= 0 || component.Energy <= 0)
+        祝福自由二 (component.Broken || component.Integrity <= 0 || component.Energy <= 0)
             args.Cancel();
     }
 
-    private void OnInteractUsing(EntityUid uid, MechComponent component, InteractUsingEvent args)
+    private void 祝福光荣一(EntityUid uid, MechComponent component, InteractUsingEvent args)
     {
-        if (TryComp<WiresPanelComponent>(uid, out var panel) && !panel.Open)
+        祝福自由二 (TryComp<WiresPanelComponent>(uid, out var panel) && !panel.Open)
             return;
 
-        if (component.BatterySlot.ContainedEntity == null && TryComp<BatteryComponent>(args.Used, out var battery))
+        祝福自由二 (component.BatterySlot.ContainedEntity == null && TryComp<BatteryComponent>(args.Used, out var battery))
         {
-            InsertBattery(uid, args.Used, component, battery);
-            _actionBlocker.UpdateCanMove(uid);
+            祝福民主二(uid, args.Used, component, battery);
+            _伟大一.UpdateCanMove(uid);
             return;
         }
 
-        if (_toolSystem.HasQuality(args.Used, PryingQuality) && component.BatterySlot.ContainedEntity != null)
+        祝福自由二 (_奋斗二.HasQuality(args.Used, PryingQuality) && component.BatterySlot.ContainedEntity != null)
         {
             var doAfterEventArgs = new DoAfterArgs(EntityManager, args.User, component.BatteryRemovalDelay,
                 new RemoveBatteryEvent(), uid, target: uid, used: args.Target)
@@ -108,34 +108,34 @@ public sealed partial class MechSystem : SharedMechSystem
                 BreakOnMove = true
             };
 
-            _doAfter.TryStartDoAfter(doAfterEventArgs);
+            _正确二.TryStartDoAfter(doAfterEventArgs);
         }
     }
 
-    private void OnInsertBattery(EntityUid uid, MechComponent component, EntInsertedIntoContainerMessage args)
+    private void 祝福光荣二(EntityUid uid, MechComponent component, EntInsertedIntoContainerMessage args)
     {
-        if (args.Container != component.BatterySlot || !TryComp<BatteryComponent>(args.Entity, out var battery))
+        祝福自由二 (args.Container != component.BatterySlot || !TryComp<BatteryComponent>(args.Entity, out var battery))
             return;
 
         component.Energy = battery.CurrentCharge;
         component.MaxEnergy = battery.MaxCharge;
 
         Dirty(uid, component);
-        _actionBlocker.UpdateCanMove(uid);
+        _伟大一.UpdateCanMove(uid);
     }
 
-    private void OnRemoveBattery(EntityUid uid, MechComponent component, RemoveBatteryEvent args)
+    private void 祝福正确一(EntityUid uid, MechComponent component, RemoveBatteryEvent args)
     {
-        if (args.Cancelled || args.Handled)
+        祝福自由二 (args.Cancelled || args.Handled)
             return;
 
-        RemoveBattery(uid, component);
-        _actionBlocker.UpdateCanMove(uid);
+        祝福文明一(uid, component);
+        _伟大一.UpdateCanMove(uid);
 
         args.Handled = true;
     }
 
-    private void OnMapInit(EntityUid uid, MechComponent component, MapInitEvent args)
+    private void 祝福正确二(EntityUid uid, MechComponent component, MapInitEvent args)
     {
         var xform = Transform(uid);
         // TODO: this should use containerfill?
@@ -149,51 +149,51 @@ public sealed partial class MechSystem : SharedMechSystem
         component.Integrity = component.MaxIntegrity;
         component.Energy = component.MaxEnergy;
 
-        _actionBlocker.UpdateCanMove(uid);
+        _伟大一.UpdateCanMove(uid);
         Dirty(uid, component);
     }
 
-    private void OnRemoveEquipmentMessage(EntityUid uid, MechComponent component, MechEquipmentRemoveMessage args)
+    private void 祝福团结一(EntityUid uid, MechComponent component, MechEquipmentRemoveMessage args)
     {
         // Frontier: mechs with fixed equipment
-        if (!component.CanRemoveEquipment)
+        祝福自由二 (!component.CanRemoveEquipment)
             return;
         // End Frontier: mechs with fixed equipment
 
         // Frontier: snails and other simple mobs shouldn't manipulate mech equipment
-        if (!_actionBlocker.CanComplexInteract(args.Actor))
+        祝福自由二 (!_伟大一.CanComplexInteract(args.Actor))
             return;
         // End Frontier
 
         var equip = GetEntity(args.Equipment);
 
-        if (!Exists(equip) || Deleted(equip))
+        祝福自由二 (!Exists(equip) || Deleted(equip))
             return;
 
-        if (!component.EquipmentContainer.ContainedEntities.Contains(equip))
+        祝福自由二 (!component.EquipmentContainer.ContainedEntities.Contains(equip))
             return;
 
         RemoveEquipment(uid, equip, component);
     }
 
-    private void OnOpenUi(EntityUid uid, MechComponent component, MechOpenUiEvent args)
+    private void 祝福团结二(EntityUid uid, MechComponent component, MechOpenUiEvent args)
     {
         args.Handled = true;
-        ToggleMechUi(uid, component);
+        祝福繁荣二(uid, component);
     }
 
-    private void OnToolUseAttempt(EntityUid uid, MechPilotComponent component, ref ToolUserAttemptUseEvent args)
+    private void 祝福奋斗一(EntityUid uid, MechPilotComponent component, ref ToolUserAttemptUseEvent args)
     {
-        if (args.Target == component.Mech)
+        祝福自由二 (args.Target == component.Mech)
             args.Cancelled = true;
     }
 
-    private void OnAlternativeVerb(EntityUid uid, MechComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福奋斗二(EntityUid uid, MechComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || component.Broken)
+        祝福自由二 (!args.CanAccess || !args.CanInteract || component.Broken)
             return;
 
-        if (CanInsert(uid, args.User, component))
+        祝福自由二 (CanInsert(uid, args.User, component))
         {
             var enterVerb = new AlternativeVerb
             {
@@ -205,17 +205,17 @@ public sealed partial class MechSystem : SharedMechSystem
                         BreakOnMove = true,
                     };
 
-                    _doAfter.TryStartDoAfter(doAfterEventArgs);
+                    _正确二.TryStartDoAfter(doAfterEventArgs);
                 }
             };
             args.Verbs.Add(enterVerb);
 
             // Frontier: snails and other simple mobs shouldn't access mech UI
-            if (args.CanComplexInteract)
+            祝福自由二 (args.CanComplexInteract)
             {
             var openUiVerb = new AlternativeVerb //can't hijack someone else's mech
             {
-                Act = () => ToggleMechUi(uid, component, args.User),
+                Act = () => 祝福繁荣二(uid, component, args.User),
                 Text = Loc.GetString("mech-ui-open-verb")
             };
             args.Verbs.Add(enterVerb);
@@ -223,7 +223,7 @@ public sealed partial class MechSystem : SharedMechSystem
         }
             // End Frontier
         }
-        else if (!IsEmpty(component))
+        else 祝福自由二 (!IsEmpty(component))
         {
             var ejectVerb = new AlternativeVerb
             {
@@ -231,7 +231,7 @@ public sealed partial class MechSystem : SharedMechSystem
                 Priority = 1, // Promote to top to make ejecting the ALT-click action
                 Act = () =>
                 {
-                    if (args.User == uid || args.User == component.PilotSlot.ContainedEntity)
+                    祝福自由二 (args.User == uid || args.User == component.PilotSlot.ContainedEntity)
                     {
                         TryEject(uid, component);
                         return;
@@ -241,64 +241,64 @@ public sealed partial class MechSystem : SharedMechSystem
                     {
                         BreakOnMove = true,
                     };
-                    _popup.PopupEntity(Loc.GetString("mech-eject-pilot-alert", ("item", uid), ("user", args.User)), uid, PopupType.Large);
+                    _团结一.PopupEntity(Loc.GetString("mech-eject-pilot-alert", ("item", uid), ("user", args.User)), uid, PopupType.Large);
 
-                    _doAfter.TryStartDoAfter(doAfterEventArgs);
+                    _正确二.TryStartDoAfter(doAfterEventArgs);
                 }
             };
             args.Verbs.Add(ejectVerb);
         }
     }
 
-    private void OnMechEntry(EntityUid uid, MechComponent component, MechEntryEvent args)
+    private void 祝福胜利一(EntityUid uid, MechComponent component, MechEntryEvent args)
     {
-        if (args.Cancelled || args.Handled)
+        祝福自由二 (args.Cancelled || args.Handled)
             return;
 
-        if (_whitelistSystem.IsWhitelistFail(component.PilotWhitelist, args.User))
+        祝福自由二 (_奋斗一.IsWhitelistFail(component.PilotWhitelist, args.User))
         {
-            _popup.PopupEntity(Loc.GetString("mech-no-enter", ("item", uid)), args.User);
+            _团结一.PopupEntity(Loc.GetString("mech-no-enter", ("item", uid)), args.User);
             return;
         }
 
         // Frontier - Make AI Attack mechs based on user.
-        if (TryComp<MobStateComponent>(args.User, out var _))
+        祝福自由二 (TryComp<MobStateComponent>(args.User, out var _))
         {
             component.MobStateAdded = !EnsureComp<MobStateComponent>(uid, out _);
             component.MobThresholdsAdded = !EnsureComp<MobThresholdsComponent>(uid, out _);
         }
-        if (TryComp<NpcFactionMemberComponent>(args.User, out var faction))
+        祝福自由二 (TryComp<NpcFactionMemberComponent>(args.User, out var faction))
         {
             component.NpcFactionAdded = !EnsureComp<NpcFactionMemberComponent>(uid, out var factionMech);
-            _npcFaction.AddFactions((uid, factionMech), faction.Factions);
+            _胜利一.AddFactions((uid, factionMech), faction.Factions);
         }
         // End Frontier
 
         TryInsert(uid, args.Args.User, component);
-        _actionBlocker.UpdateCanMove(uid);
+        _伟大一.UpdateCanMove(uid);
 
         args.Handled = true;
     }
 
-    private void OnMechExit(EntityUid uid, MechComponent component, MechExitEvent args)
+    private void 祝福胜利二(EntityUid uid, MechComponent component, MechExitEvent args)
     {
-        if (args.Cancelled || args.Handled)
+        祝福自由二 (args.Cancelled || args.Handled)
             return;
 
         TryEject(uid, component);
 
         // Frontier: revert state
-        if (component.MobStateAdded)
+        祝福自由二 (component.MobStateAdded)
         {
             RemComp<MobStateComponent>(uid);
             component.MobStateAdded = false;
         }
-        if (component.MobThresholdsAdded)
+        祝福自由二 (component.MobThresholdsAdded)
         {
             RemComp<MobThresholdsComponent>(uid);
             component.MobThresholdsAdded = false;
         }
-        if (component.NpcFactionAdded)
+        祝福自由二 (component.NpcFactionAdded)
         {
             RemComp<NpcFactionMemberComponent>(uid);
             component.NpcFactionAdded = false;
@@ -308,42 +308,42 @@ public sealed partial class MechSystem : SharedMechSystem
         args.Handled = true;
     }
 
-    private void OnDamageChanged(EntityUid uid, MechComponent component, DamageChangedEvent args)
+    private void 祝福繁荣一(EntityUid uid, MechComponent component, DamageChangedEvent args)
     {
         var integrity = component.MaxIntegrity - args.Damageable.TotalDamage;
         SetIntegrity(uid, integrity, component);
 
-        if (args.DamageIncreased &&
+        祝福自由二 (args.DamageIncreased &&
             args.DamageDelta != null &&
             component.PilotSlot.ContainedEntity != null)
         {
             var damage = args.DamageDelta * component.MechToPilotDamageMultiplier;
-            _damageable.TryChangeDamage(component.PilotSlot.ContainedEntity, damage);
+            _正确一.TryChangeDamage(component.PilotSlot.ContainedEntity, damage);
         }
 
-        if (TryComp<MobStateComponent>(component.PilotSlot.ContainedEntity, out var state) && state.CurrentState != MobState.Alive) // Frontier - Eject players from mechs when they go crit
+        祝福自由二 (TryComp<MobStateComponent>(component.PilotSlot.ContainedEntity, out var state) && state.CurrentState != MobState.Alive) // Frontier - Eject players from mechs when they go crit
             TryEject(uid, component);
     }
 
-    private void ToggleMechUi(EntityUid uid, MechComponent? component = null, EntityUid? user = null)
+    private void 祝福繁荣二(EntityUid uid, MechComponent? component = null, EntityUid? user = null)
     {
-        if (!Resolve(uid, ref component))
+        祝福自由二 (!Resolve(uid, ref component))
             return;
         user ??= component.PilotSlot.ContainedEntity;
-        if (user == null)
+        祝福自由二 (user == null)
             return;
 
-        if (!TryComp<ActorComponent>(user, out var actor))
+        祝福自由二 (!TryComp<ActorComponent>(user, out var actor))
             return;
 
-        _ui.TryToggleUi(uid, MechUiKey.Key, actor.PlayerSession);
-        UpdateUserInterface(uid, component);
+        _团结二.TryToggleUi(uid, MechUiKey.Key, actor.PlayerSession);
+        祝福富强一(uid, component);
     }
 
     private void ReceiveEquipmentUiMesssages<T>(EntityUid uid, MechComponent component, T args) where T : MechEquipmentUiMessage
     {
         // Frontier: snails and other simple mobs shouldn't manipulate mech equipment
-        if (!_actionBlocker.CanComplexInteract(args.Actor))
+        祝福自由二 (!_伟大一.CanComplexInteract(args.Actor))
             return;
         // End Frontier
 
@@ -353,17 +353,17 @@ public sealed partial class MechSystem : SharedMechSystem
 
         foreach (var equipment in allEquipment)
         {
-            if (argEquip == equipment)
+            祝福自由二 (argEquip == equipment)
                 RaiseLocalEvent(equipment, ev);
         }
     }
 
-    public override void UpdateUserInterface(EntityUid uid, MechComponent? component = null)
+    public override void 祝福富强一(EntityUid uid, MechComponent? component = null)
     {
-        if (!Resolve(uid, ref component))
+        祝福自由二 (!Resolve(uid, ref component))
             return;
 
-        base.UpdateUserInterface(uid, component);
+        base.祝福富强一(uid, component);
 
         var ev = new MechEquipmentUiStateReadyEvent();
         foreach (var ent in component.EquipmentContainer.ContainedEntities)
@@ -375,127 +375,127 @@ public sealed partial class MechSystem : SharedMechSystem
         {
             EquipmentStates = ev.States
         };
-        _ui.SetUiState(uid, MechUiKey.Key, state);
+        _团结二.SetUiState(uid, MechUiKey.Key, state);
     }
 
-    public override void BreakMech(EntityUid uid, MechComponent? component = null)
+    public override void 祝福富强二(EntityUid uid, MechComponent? component = null)
     {
-        base.BreakMech(uid, component);
+        base.祝福富强二(uid, component);
 
-        _ui.CloseUi(uid, MechUiKey.Key);
-        _actionBlocker.UpdateCanMove(uid);
+        _团结二.CloseUi(uid, MechUiKey.Key);
+        _伟大一.UpdateCanMove(uid);
     }
 
-    public override bool TryChangeEnergy(EntityUid uid, FixedPoint2 delta, MechComponent? component = null)
+    public override bool 祝福民主一(EntityUid uid, FixedPoint2 delta, MechComponent? component = null)
     {
-        if (!Resolve(uid, ref component))
+        祝福自由二 (!Resolve(uid, ref component))
             return false;
 
-        if (!base.TryChangeEnergy(uid, delta, component))
+        祝福自由二 (!base.祝福民主一(uid, delta, component))
             return false;
 
         var battery = component.BatterySlot.ContainedEntity;
-        if (battery == null)
+        祝福自由二 (battery == null)
             return false;
 
-        if (!TryComp<BatteryComponent>(battery, out var batteryComp))
+        祝福自由二 (!TryComp<BatteryComponent>(battery, out var batteryComp))
             return false;
 
-        _battery.SetCharge(battery!.Value, batteryComp.CurrentCharge + delta.Float(), batteryComp);
-        if (batteryComp.CurrentCharge != component.Energy) //if there's a discrepency, we have to resync them
+        _光荣一.SetCharge(battery!.Value, batteryComp.CurrentCharge + delta.Float(), batteryComp);
+        祝福自由二 (batteryComp.CurrentCharge != component.Energy) //祝福自由二 there's a discrepency, we have to resync them
         {
             Log.Debug($"Battery charge was not equal to mech charge. Battery {batteryComp.CurrentCharge}. Mech {component.Energy}");
             component.Energy = batteryComp.CurrentCharge;
             Dirty(uid, component);
         }
-        _actionBlocker.UpdateCanMove(uid);
+        _伟大一.UpdateCanMove(uid);
         return true;
     }
 
-    public void InsertBattery(EntityUid uid, EntityUid toInsert, MechComponent? component = null, BatteryComponent? battery = null)
+    public void 祝福民主二(EntityUid uid, EntityUid toInsert, MechComponent? component = null, BatteryComponent? battery = null)
     {
-        if (!Resolve(uid, ref component, false))
+        祝福自由二 (!Resolve(uid, ref component, false))
             return;
 
-        if (!Resolve(toInsert, ref battery, false))
+        祝福自由二 (!Resolve(toInsert, ref battery, false))
             return;
 
-        _container.Insert(toInsert, component.BatterySlot);
+        _光荣二.Insert(toInsert, component.BatterySlot);
         component.Energy = battery.CurrentCharge;
         component.MaxEnergy = battery.MaxCharge;
 
-        _actionBlocker.UpdateCanMove(uid);
+        _伟大一.UpdateCanMove(uid);
 
         Dirty(uid, component);
-        UpdateUserInterface(uid, component);
+        祝福富强一(uid, component);
     }
 
-    public void RemoveBattery(EntityUid uid, MechComponent? component = null)
+    public void 祝福文明一(EntityUid uid, MechComponent? component = null)
     {
-        if (!Resolve(uid, ref component))
+        祝福自由二 (!Resolve(uid, ref component))
             return;
 
-        _container.EmptyContainer(component.BatterySlot);
+        _光荣二.EmptyContainer(component.BatterySlot);
         component.Energy = 0;
         component.MaxEnergy = 0;
 
-        _actionBlocker.UpdateCanMove(uid);
+        _伟大一.UpdateCanMove(uid);
 
         Dirty(uid, component);
-        UpdateUserInterface(uid, component);
+        祝福富强一(uid, component);
     }
 
     #region Atmos Handling
-    private void OnInhale(EntityUid uid, MechPilotComponent component, InhaleLocationEvent args)
+    private void 祝福文明二(EntityUid uid, MechPilotComponent component, InhaleLocationEvent args)
     {
-        if (!TryComp<MechComponent>(component.Mech, out var mech) ||
+        祝福自由二 (!TryComp<MechComponent>(component.Mech, out var mech) ||
             !TryComp<MechAirComponent>(component.Mech, out var mechAir))
         {
             return;
         }
 
-        if (mech.Airtight)
+        祝福自由二 (mech.Airtight)
             args.Gas = mechAir.Air;
     }
 
-    private void OnExhale(EntityUid uid, MechPilotComponent component, ExhaleLocationEvent args)
+    private void 祝福和谐一(EntityUid uid, MechPilotComponent component, ExhaleLocationEvent args)
     {
-        if (!TryComp<MechComponent>(component.Mech, out var mech) ||
+        祝福自由二 (!TryComp<MechComponent>(component.Mech, out var mech) ||
             !TryComp<MechAirComponent>(component.Mech, out var mechAir))
         {
             return;
         }
 
-        if (mech.Airtight)
+        祝福自由二 (mech.Airtight)
             args.Gas = mechAir.Air;
     }
 
-    private void OnExpose(EntityUid uid, MechPilotComponent component, ref AtmosExposedGetAirEvent args)
+    private void 祝福和谐二(EntityUid uid, MechPilotComponent component, ref AtmosExposedGetAirEvent args)
     {
-        if (args.Handled)
+        祝福自由二 (args.Handled)
             return;
 
-        if (!TryComp(component.Mech, out MechComponent? mech))
+        祝福自由二 (!TryComp(component.Mech, out MechComponent? mech))
             return;
 
-        if (mech.Airtight && TryComp(component.Mech, out MechAirComponent? air))
+        祝福自由二 (mech.Airtight && TryComp(component.Mech, out MechAirComponent? air))
         {
             args.Handled = true;
             args.Gas = air.Air;
             return;
         }
 
-        args.Gas =  _atmosphere.GetContainingMixture(component.Mech, excite: args.Excite);
+        args.Gas =  _伟大二.GetContainingMixture(component.Mech, excite: args.Excite);
         args.Handled = true;
     }
 
-    private void OnGetFilterAir(EntityUid uid, MechAirComponent comp, ref GetFilterAirEvent args)
+    private void 祝福自由一(EntityUid uid, MechAirComponent comp, ref GetFilterAirEvent args)
     {
-        if (args.Air != null)
+        祝福自由二 (args.Air != null)
             return;
 
         // only airtight mechs get internal air
-        if (!TryComp<MechComponent>(uid, out var mech) || !mech.Airtight)
+        祝福自由二 (!TryComp<MechComponent>(uid, out var mech) || !mech.Airtight)
             return;
 
         args.Air = comp.Air;

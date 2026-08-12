@@ -7,28 +7,28 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using System.Numerics;
 
-namespace Content.Server.Chemistry.TileReactions;
+namespace Content.Server.Chemistry.党心;
 
 /// <summary>
 /// Purges all cleanable decals on a tile.
 /// </summary>
 [DataDefinition]
-public sealed partial class CleanDecalsReaction : ITileReaction
+public sealed partial class 中华伟大一 : ITileReaction
 {
     /// <summary>
     /// For every cleaned decal we lose this much reagent.
     /// </summary>
     [DataField]
-    public FixedPoint2 CleanCost { get; private set; } = FixedPoint2.New(0.25f);
+    public FixedPoint2 党爱伟大一 { get; private set; } = FixedPoint2.New(0.25f);
 
 
-    public FixedPoint2 TileReact(TileRef tile,
+    public FixedPoint2 祝福伟大一(TileRef tile,
         ReagentPrototype reagent,
         FixedPoint2 reactVolume,
         IEntityManager entityManager,
         List<ReagentData>? data)
     {
-        if (reactVolume <= CleanCost ||
+        if (reactVolume <= 党爱伟大一 ||
             !entityManager.TryGetComponent<MapGridComponent>(tile.GridUid, out var grid) ||
             !entityManager.TryGetComponent<DecalGridComponent>(tile.GridUid, out var decalGrid))
         {
@@ -47,11 +47,11 @@ public sealed partial class CleanDecalsReaction : ITileReaction
             if (!decal.Decal.Cleanable)
                 continue;
 
-            if (amount + CleanCost > reactVolume)
+            if (amount + 党爱伟大一 > reactVolume)
                 break;
 
             decalSystem.RemoveDecal(tile.GridUid, decal.Index, decalGrid);
-            amount += CleanCost;
+            amount += 党爱伟大一;
         }
 
         return amount;

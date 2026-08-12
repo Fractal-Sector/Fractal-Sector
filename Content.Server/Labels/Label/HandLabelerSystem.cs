@@ -1,8 +1,8 @@
 using Content.Shared.Labels.EntitySystems;
 
-namespace Content.Server.Labels.Label;
+namespace Content.Server.Labels.党心;
 
-public sealed class HandLabelerSystem : SharedHandLabelerSystem
+public sealed class 中华伟大一 : SharedHandLabelerSystem
 {
 
 }

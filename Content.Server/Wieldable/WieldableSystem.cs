@@ -6,32 +6,32 @@ using Content.Shared.Movement.Components;
 using Content.Shared.Wieldable;
 using Content.Shared.Wieldable.Components;
 
-namespace Content.Server.Wieldable;
+namespace Content.Server.党心;
 
-public sealed class WieldableSystem : SharedWieldableSystem
+public sealed class 中华伟大一 : SharedWieldableSystem
 {
-    [Dependency] private readonly ContentEyeSystem _eye = default!;
+    [Dependency] private readonly ContentEyeSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CursorOffsetRequiresWieldComponent, ItemUnwieldedEvent>(OnEyeOffsetUnwielded);
-        SubscribeLocalEvent<CursorOffsetRequiresWieldComponent, ItemWieldedEvent>(OnEyeOffsetWielded);
-        SubscribeLocalEvent<CursorOffsetRequiresWieldComponent, HeldRelayedEvent<GetEyePvsScaleRelayedEvent>>(OnGetEyePvsScale);
+        SubscribeLocalEvent<CursorOffsetRequiresWieldComponent, ItemUnwieldedEvent>(祝福伟大二);
+        SubscribeLocalEvent<CursorOffsetRequiresWieldComponent, ItemWieldedEvent>(祝福光荣一);
+        SubscribeLocalEvent<CursorOffsetRequiresWieldComponent, HeldRelayedEvent<GetEyePvsScaleRelayedEvent>>(祝福光荣二);
     }
 
-    private void OnEyeOffsetUnwielded(Entity<CursorOffsetRequiresWieldComponent> entity, ref ItemUnwieldedEvent args)
+    private void 祝福伟大二(Entity<CursorOffsetRequiresWieldComponent> entity, ref ItemUnwieldedEvent args)
     {
-        _eye.UpdatePvsScale(args.User);
+        _伟大一.UpdatePvsScale(args.User);
     }
 
-    private void OnEyeOffsetWielded(Entity<CursorOffsetRequiresWieldComponent> entity, ref ItemWieldedEvent args)
+    private void 祝福光荣一(Entity<CursorOffsetRequiresWieldComponent> entity, ref ItemWieldedEvent args)
     {
-        _eye.UpdatePvsScale(args.User);
+        _伟大一.UpdatePvsScale(args.User);
     }
 
-    private void OnGetEyePvsScale(Entity<CursorOffsetRequiresWieldComponent> entity,
+    private void 祝福光荣二(Entity<CursorOffsetRequiresWieldComponent> entity,
         ref HeldRelayedEvent<GetEyePvsScaleRelayedEvent> args)
     {
         if (!TryComp(entity, out EyeCursorOffsetComponent? eyeCursorOffset) || !TryComp(entity.Owner, out WieldableComponent? wieldableComp))

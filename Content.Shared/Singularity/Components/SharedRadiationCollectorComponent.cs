@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Singularity.Components
+namespace Content.Shared.Singularity.党心
 {
     [NetSerializable, Serializable]
-    public enum RadiationCollectorVisuals
+    public enum 中华伟大一
     {
         VisualState,
         TankInserted,
@@ -11,7 +11,7 @@ namespace Content.Shared.Singularity.Components
     }
 
     [NetSerializable, Serializable]
-    public enum RadiationCollectorVisualState
+    public enum 中华伟大二
     {
         Active = (1<<0),
         Activating = (1<<1) | Active,

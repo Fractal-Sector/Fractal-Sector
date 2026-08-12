@@ -10,13 +10,13 @@ using Content.Shared.Interaction;
 using Content.Shared.Power.EntitySystems;
 using Robust.Shared.Player;
 
-namespace Content.Shared.Disposal.Mailing;
+namespace Content.Shared.Disposal.党心;
 
-public abstract class SharedMailingUnitSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedDeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
+    [Dependency] private readonly SharedDeviceNetworkSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _伟大二 = default!;
+    [Dependency] protected readonly SharedUserInterfaceSystem 党爱伟大一 = default!;
 
     private const string MailTag = "mail";
 
@@ -29,32 +29,32 @@ public abstract class SharedMailingUnitSystem : EntitySystem
     private const string NetCmdRequest = "get_mailer_tag";
     private const string NetCmdResponse = "mailer_tag";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<MailingUnitComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<MailingUnitComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
-        SubscribeLocalEvent<MailingUnitComponent, BeforeDisposalFlushEvent>(OnBeforeFlush);
-        SubscribeLocalEvent<MailingUnitComponent, ConfigurationUpdatedEvent>(OnConfigurationUpdated);
-        SubscribeLocalEvent<MailingUnitComponent, ActivateInWorldEvent>(HandleActivate, before: new[] { typeof(SharedDisposalUnitSystem) });
-        SubscribeLocalEvent<MailingUnitComponent, TargetSelectedMessage>(OnTargetSelected);
+        SubscribeLocalEvent<MailingUnitComponent, ComponentInit>(祝福伟大二);
+        SubscribeLocalEvent<MailingUnitComponent, DeviceNetworkPacketEvent>(祝福光荣一);
+        SubscribeLocalEvent<MailingUnitComponent, BeforeDisposalFlushEvent>(祝福正确一);
+        SubscribeLocalEvent<MailingUnitComponent, ConfigurationUpdatedEvent>(祝福团结二);
+        SubscribeLocalEvent<MailingUnitComponent, ActivateInWorldEvent>(祝福奋斗一, before: new[] { typeof(SharedDisposalUnitSystem) });
+        SubscribeLocalEvent<MailingUnitComponent, TargetSelectedMessage>(祝福奋斗二);
     }
 
-    private void OnComponentInit(EntityUid uid, MailingUnitComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid uid, MailingUnitComponent component, ComponentInit args)
     {
-        UpdateTargetList(uid, component);
+        祝福团结一(uid, component);
     }
 
-    private void OnPacketReceived(EntityUid uid, MailingUnitComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福光荣一(EntityUid uid, MailingUnitComponent component, DeviceNetworkPacketEvent args)
     {
-        if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command) || !_power.IsPowered(uid))
+        if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command) || !_伟大二.IsPowered(uid))
             return;
 
         switch (command)
         {
             case NetCmdRequest:
-                SendTagRequestResponse(uid, args, component.Tag);
+                祝福光荣二(uid, args, component.Tag);
                 break;
             case NetCmdResponse when args.Data.TryGetValue(NetTag, out string? tag):
                 //Add the received tag request response to the list of targets
@@ -67,7 +67,7 @@ public abstract class SharedMailingUnitSystem : EntitySystem
     /// <summary>
     /// Sends the given tag as a response to a <see cref="NetCmdRequest"/> if it's not null
     /// </summary>
-    private void SendTagRequestResponse(EntityUid uid, DeviceNetworkPacketEvent args, string? tag)
+    private void 祝福光荣二(EntityUid uid, DeviceNetworkPacketEvent args, string? tag)
     {
         if (tag == null)
             return;
@@ -78,13 +78,13 @@ public abstract class SharedMailingUnitSystem : EntitySystem
             [NetTag] = tag
         };
 
-        _deviceNetworkSystem.QueuePacket(uid, args.Address, payload, args.Frequency);
+        _伟大一.QueuePacket(uid, args.Address, payload, args.Frequency);
     }
 
     /// <summary>
     /// Prevents the unit from flushing if no target is selected
     /// </summary>
-    private void OnBeforeFlush(EntityUid uid, MailingUnitComponent component, BeforeDisposalFlushEvent args)
+    private void 祝福正确一(EntityUid uid, MailingUnitComponent component, BeforeDisposalFlushEvent args)
     {
         if (string.IsNullOrEmpty(component.Target))
         {
@@ -96,13 +96,13 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         args.Tags.Add(MailTag);
         args.Tags.Add(component.Target);
 
-        BroadcastSentMessage(uid, component);
+        祝福正确二(uid, component);
     }
 
     /// <summary>
     /// Broadcast that a mail was sent including the src and target tags
     /// </summary>
-    private void BroadcastSentMessage(EntityUid uid, MailingUnitComponent component, DeviceNetworkComponent? device = null)
+    private void 祝福正确二(EntityUid uid, MailingUnitComponent component, DeviceNetworkComponent? device = null)
     {
         if (string.IsNullOrEmpty(component.Tag) || string.IsNullOrEmpty(component.Target) || !Resolve(uid, ref device))
             return;
@@ -114,14 +114,14 @@ public abstract class SharedMailingUnitSystem : EntitySystem
             [NetTarget] = component.Target
         };
 
-        _deviceNetworkSystem.QueuePacket(uid, null, payload, null, null, device);
+        _伟大一.QueuePacket(uid, null, payload, null, null, device);
     }
 
     /// <summary>
     /// Clears the units target list and broadcasts a <see cref="NetCmdRequest"/>.
     /// The target list will then get populated with <see cref="NetCmdResponse"/> responses from all active mailing units on the same grid
     /// </summary>
-    private void UpdateTargetList(EntityUid uid, MailingUnitComponent component, DeviceNetworkComponent? device = null)
+    private void 祝福团结一(EntityUid uid, MailingUnitComponent component, DeviceNetworkComponent? device = null)
     {
         if (!Resolve(uid, ref device, false))
             return;
@@ -132,13 +132,13 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         };
 
         component.TargetList.Clear();
-        _deviceNetworkSystem.QueuePacket(uid, null, payload, null, null, device);
+        _伟大一.QueuePacket(uid, null, payload, null, null, device);
     }
 
     /// <summary>
     /// Gets called when the units tag got updated
     /// </summary>
-    private void OnConfigurationUpdated(EntityUid uid, MailingUnitComponent component, ConfigurationUpdatedEvent args)
+    private void 祝福团结二(EntityUid uid, MailingUnitComponent component, ConfigurationUpdatedEvent args)
     {
         var configuration = args.Configuration.Config;
         if (!configuration.ContainsKey(TagConfigurationKey) || configuration[TagConfigurationKey] == string.Empty)
@@ -151,7 +151,7 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    private void HandleActivate(EntityUid uid, MailingUnitComponent component, ActivateInWorldEvent args)
+    private void 祝福奋斗一(EntityUid uid, MailingUnitComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -162,11 +162,11 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         }
 
         args.Handled = true;
-        UpdateTargetList(uid, component);
-        UserInterfaceSystem.OpenUi(uid, MailingUnitUiKey.Key, actor.PlayerSession);
+        祝福团结一(uid, component);
+        党爱伟大一.OpenUi(uid, MailingUnitUiKey.Key, actor.PlayerSession);
     }
 
-    private void OnTargetSelected(EntityUid uid, MailingUnitComponent component, TargetSelectedMessage args)
+    private void 祝福奋斗二(EntityUid uid, MailingUnitComponent component, TargetSelectedMessage args)
     {
         component.Target = args.Target;
         Dirty(uid, component);

@@ -1,10 +1,10 @@
 ﻿using Content.Shared.Interaction.Components;
 
-namespace Content.Shared.Interaction;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedInteractionSystem
+public abstract partial class 中华伟大一
 {
-    public void SetRelay(EntityUid uid, EntityUid? relayEntity, InteractionRelayComponent? component = null)
+    public void 祝福伟大一(EntityUid uid, EntityUid? relayEntity, InteractionRelayComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;

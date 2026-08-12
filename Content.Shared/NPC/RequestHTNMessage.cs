@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.NPC;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public sealed class RequestHTNMessage : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public bool Enabled;
+    public bool 党爱伟大一;
 }

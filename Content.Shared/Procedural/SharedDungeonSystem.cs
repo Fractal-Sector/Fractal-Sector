@@ -1,6 +1,6 @@
-namespace Content.Shared.Procedural;
+namespace Content.Shared.党心;
 
-public abstract class SharedDungeonSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
 
 }

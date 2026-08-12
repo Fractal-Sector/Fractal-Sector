@@ -5,27 +5,27 @@ using Content.Shared.Verbs;
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Animals.Systems;
+namespace Content.Shared.Animals.党心;
 
-public abstract class SharedParrotMemorySystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ISharedAdminManager _admin = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大一 = default!;
+    [Dependency] private readonly ISharedAdminManager _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ParrotMemoryComponent, GetVerbsEvent<Verb>>(OnGetVerbs);
+        SubscribeLocalEvent<ParrotMemoryComponent, GetVerbsEvent<Verb>>(祝福伟大二);
     }
 
-    private void OnGetVerbs(Entity<ParrotMemoryComponent> entity, ref GetVerbsEvent<Verb> args)
+    private void 祝福伟大二(Entity<ParrotMemoryComponent> entity, ref GetVerbsEvent<Verb> args)
     {
         var user = args.User;
 
         // limit this to admins
-        if (!_admin.IsAdmin(user))
+        if (!_伟大二.IsAdmin(user))
             return;
 
         // simple verb that just clears the memory list
@@ -36,9 +36,9 @@ public abstract class SharedParrotMemorySystem : EntitySystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/clear-parrot.png")),
             Act = () =>
             {
-                _popup.PopupClient(Loc.GetString("parrot-popup-memory-cleared"), entity.Owner, user);
+                _伟大一.PopupClient(Loc.GetString("parrot-popup-memory-cleared"), entity.Owner, user);
 
-                if (_net.IsServer)
+                if (_光荣一.IsServer)
                     entity.Comp.SpeechMemories.Clear();
             },
         };

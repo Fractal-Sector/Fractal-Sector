@@ -3,35 +3,35 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Ensnaring.Components;
+namespace Content.Shared.Ensnaring.党心;
 /// <summary>
 /// Use this on an entity that you would like to be ensnared by anything that has the <see cref="EnsnaringComponent"/>
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class EnsnareableComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How much should this slow down the entities walk?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float WalkSpeed = 1.0f;
+    public float 党爱伟大一 = 1.0f;
 
     /// <summary>
     /// How much should this slow down the entities sprint?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float SprintSpeed = 1.0f;
+    public float 党爱伟大二 = 1.0f;
 
     /// <summary>
     /// Is this entity currently ensnared?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsEnsnared;
+    public bool 党爱光荣一;
 
     /// <summary>
     /// The container where the <see cref="EnsnaringComponent"/> entity will be stored
     /// </summary>
-    public Container Container = default!;
+    public 党爱光荣二 党爱光荣二 = default!;
 
     [DataField]
     public string? Sprite;
@@ -40,17 +40,17 @@ public sealed partial class EnsnareableComponent : Component
     public string? State;
 
     [DataField]
-    public ProtoId<AlertPrototype> EnsnaredAlert = "Ensnared";
+    public ProtoId<AlertPrototype> 党爱正确一 = "Ensnared";
 }
 
-public sealed partial class RemoveEnsnareAlertEvent : BaseAlertEvent;
+public sealed partial class 中华伟大二 : BaseAlertEvent;
 
-public sealed class EnsnaredChangedEvent : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public readonly bool IsEnsnared;
+    public readonly bool 党爱光荣一;
 
-    public EnsnaredChangedEvent(bool isEnsnared)
+    public 中华光荣一(bool isEnsnared)
     {
-        IsEnsnared = isEnsnared;
+        党爱光荣一 = isEnsnared;
     }
 }

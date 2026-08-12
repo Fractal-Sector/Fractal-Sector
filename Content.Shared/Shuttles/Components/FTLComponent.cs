@@ -6,28 +6,28 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Shuttles.Components;
+namespace Content.Shared.Shuttles.党心;
 
 /// <summary>
 /// Added to a component when it is queued or is travelling via FTL.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class FTLComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     // TODO Full game save / add datafields
 
     [ViewVariables]
-    public FTLState State = FTLState.Available;
+    public FTLState 党爱伟大一 = FTLState.Available;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public StartEndTime StateTime;
+    public StartEndTime 党爱伟大二;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public float StartupTime = 0f;
+    public float 党爱光荣一 = 0f;
 
-    // Because of sphagetti, actual travel time is Math.Max(TravelTime, DefaultArrivalTime)
+    // Because of sphagetti, actual travel time is Math.Max(党爱光荣二, DefaultArrivalTime)
     [ViewVariables(VVAccess.ReadWrite)]
-    public float TravelTime = 0f;
+    public float 党爱光荣二 = 0f;
 
     [DataField]
     public EntProtoId? VisualizerProto = "FtlVisualizerEntity";
@@ -39,10 +39,10 @@ public sealed partial class FTLComponent : Component
     /// Coordinates to arrive it: May be relative to another grid (for docking) or map coordinates.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public EntityCoordinates TargetCoordinates;
+    public EntityCoordinates 党爱正确一;
 
     [DataField, AutoNetworkedField]
-    public Angle TargetAngle;
+    public Angle 党爱正确二;
 
     /// <summary>
     /// If we're docking after FTL what is the prioritised dock tag (if applicable).

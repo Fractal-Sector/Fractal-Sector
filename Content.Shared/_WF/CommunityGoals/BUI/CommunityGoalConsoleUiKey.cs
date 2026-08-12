@@ -1,9 +1,9 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._WF.CommunityGoals.BUI;
+namespace Content.Shared._WF.CommunityGoals.党心;
 
 [Serializable, NetSerializable]
-public enum CommunityGoalConsoleUiKey : byte
+public enum 中华伟大一 : byte
 {
     Key
 }

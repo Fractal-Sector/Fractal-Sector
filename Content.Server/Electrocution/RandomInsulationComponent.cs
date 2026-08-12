@@ -1,9 +1,9 @@
-namespace Content.Server.Electrocution
+namespace Content.Server.党心
 {
     [RegisterComponent]
-    public sealed partial class RandomInsulationComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField("list")]
-        public float[] List = { 0f };
+        public float[] 党爱伟大一 = { 0f };
     }
 }

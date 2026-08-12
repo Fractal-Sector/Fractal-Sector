@@ -8,21 +8,21 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Fun)]
-public sealed class PlayGlobalSoundCommand : IConsoleCommand
+public sealed class 中华伟大一 : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
+    [Dependency] private readonly IEntityManager _伟大一 = default!;
+    [Dependency] private readonly IPlayerManager _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IResourceManager _光荣二 = default!;
 
-    public string Command => "playglobalsound";
-    public string Description => Loc.GetString("play-global-sound-command-description");
-    public string Help => Loc.GetString("play-global-sound-command-help");
+    public string 党爱伟大一 => "playglobalsound";
+    public string 党爱伟大二 => Loc.GetString("play-global-sound-command-description");
+    public string 党爱光荣一 => Loc.GetString("play-global-sound-command-help");
 
-    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         Filter filter;
         var audio = AudioParams.Default;
@@ -39,7 +39,7 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
             // No users, play sound for everyone.
             case 1:
                 // Filter.Broadcast does resolves IPlayerManager, so use this instead.
-                filter = Filter.Empty().AddAllPlayers(_playerManager);
+                filter = Filter.Empty().AddAllPlayers(_伟大二);
                 break;
 
             // One or more users specified.
@@ -61,7 +61,7 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
                 // No users specified so play for them all.
                 if (args.Length == 2)
                 {
-                    filter = Filter.Empty().AddAllPlayers(_playerManager);
+                    filter = Filter.Empty().AddAllPlayers(_伟大二);
                 }
                 else
                 {
@@ -74,7 +74,7 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
                     {
                         var username = args[i];
 
-                        if (!_playerManager.TryGetSessionByUsername(username, out var session))
+                        if (!_伟大二.TryGetSessionByUsername(username, out var session))
                         {
                             shell.WriteError(Loc.GetString("play-global-sound-command-player-not-found", ("username", username)));
                             continue;
@@ -88,16 +88,16 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
         }
 
         audio = audio.AddVolume(-8);
-        _entManager.System<ServerGlobalSoundSystem>().PlayAdminGlobal(filter, args[0], audio, replay);
+        _伟大一.System<ServerGlobalSoundSystem>().PlayAdminGlobal(filter, args[0], audio, replay);
     }
 
-    public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+    public CompletionResult 祝福伟大二(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
         {
             var hint = Loc.GetString("play-global-sound-command-arg-path");
 
-            var options = CompletionHelper.AudioFilePath(args[0], _protoManager, _res);
+            var options = CompletionHelper.AudioFilePath(args[0], _光荣一, _光荣二);
 
             return CompletionResult.FromHintOptions(options, hint);
         }
@@ -107,7 +107,7 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
 
         if (args.Length > 2)
         {
-            var options = _playerManager.Sessions.Select<ICommonSession, string>(c => c.Name);
+            var options = _伟大二.Sessions.Select<ICommonSession, string>(c => c.Name);
             return CompletionResult.FromHintOptions(
                 options,
                 Loc.GetString("play-global-sound-command-arg-usern", ("user", args.Length - 2)));

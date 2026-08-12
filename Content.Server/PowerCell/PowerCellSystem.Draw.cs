@@ -2,17 +2,17 @@ using Content.Server.Power.Components;
 using Content.Shared.PowerCell;
 using Content.Shared.PowerCell.Components;
 
-namespace Content.Server.PowerCell;
+namespace Content.Server.党心;
 
-public sealed partial class PowerCellSystem
+public sealed partial class 中华伟大一
 {
     /*
      * Handles PowerCellDraw
      */
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大一(frameTime);
         var query = EntityQueryEnumerator<PowerCellDrawComponent, PowerCellSlotComponent>();
 
         while (query.MoveNext(out var uid, out var comp, out var slot))
@@ -36,9 +36,9 @@ public sealed partial class PowerCellSystem
         }
     }
 
-    private void OnDrawChargeChanged(EntityUid uid, PowerCellDrawComponent component, ref ChargeChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, PowerCellDrawComponent component, ref ChargeChangedEvent args)
     {
-        // Update the bools for client prediction.
+        // 祝福伟大一 the bools for client prediction.
         var canUse = component.UseRate <= 0f || args.Charge > component.UseRate;
 
         var canDraw = component.DrawRate <= 0f || args.Charge > 0f;
@@ -51,7 +51,7 @@ public sealed partial class PowerCellSystem
         }
     }
 
-    private void OnDrawCellChanged(EntityUid uid, PowerCellDrawComponent component, PowerCellChangedEvent args)
+    private void 祝福光荣一(EntityUid uid, PowerCellDrawComponent component, PowerCellChangedEvent args)
     {
         var canDraw = !args.Ejected && HasCharge(uid, float.MinValue);
         var canUse = !args.Ejected && HasActivatableCharge(uid, component);

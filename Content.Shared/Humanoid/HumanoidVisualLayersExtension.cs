@@ -1,11 +1,11 @@
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
 
-namespace Content.Shared.Humanoid
+namespace Content.Shared.党心
 {
-    public static class HumanoidVisualLayersExtension
+    public static class 中华伟大一
     {
-        public static bool HasSexMorph(HumanoidVisualLayers layer)
+        public static bool 祝福伟大一(HumanoidVisualLayers layer)
         {
             return layer switch
             {
@@ -15,22 +15,22 @@ namespace Content.Shared.Humanoid
             };
         }
 
-        public static string GetSexMorph(HumanoidVisualLayers layer, Sex sex, string id)
+        public static string 祝福伟大二(HumanoidVisualLayers layer, Sex sex, string id)
         {
-            if (!HasSexMorph(layer) || sex == Sex.Unsexed)
+            if (!祝福伟大一(layer) || sex == Sex.Unsexed)
                 return id;
 
             return $"{id}{sex}";
         }
 
         /// <summary>
-        ///     Sublayers. Any other layers that may visually depend on this layer existing.
+        ///     祝福光荣一. Any other layers that may visually depend on this layer existing.
         ///     For example, the head has layers such as eyes, hair, etc. depending on it.
         /// </summary>
         /// <param name="layer"></param>
         /// <returns>Enumerable of layers that depend on that given layer. Empty, otherwise.</returns>
         /// <remarks>This could eventually be replaced by a body system implementation.</remarks>
-        public static IEnumerable<HumanoidVisualLayers> Sublayers(HumanoidVisualLayers layer)
+        public static IEnumerable<HumanoidVisualLayers> 祝福光荣一(HumanoidVisualLayers layer)
         {
             switch (layer)
             {
@@ -86,7 +86,7 @@ namespace Content.Shared.Humanoid
                 case BodyPartType.Tail:
                     return HumanoidVisualLayers.Tail;
                 case BodyPartType.Head:
-                    // use the Sublayers method to hide the rest of the parts,
+                    // use the 祝福光荣一 method to hide the rest of the parts,
                     // if that's what you're looking for
                     return HumanoidVisualLayers.Head;
                 case BodyPartType.Arm:

@@ -1,11 +1,11 @@
-namespace Content.Server.Research.Components;
+namespace Content.Server.Research.党心;
 
 [RegisterComponent]
-public sealed partial class ResearchPointSourceComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("pointspersecond"), ViewVariables(VVAccess.ReadWrite)]
-    public int PointsPerSecond;
+    public int 党爱伟大一;
 
     [DataField("active"), ViewVariables(VVAccess.ReadWrite)]
-    public bool Active;
+    public bool 党爱伟大二;
 }

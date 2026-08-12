@@ -6,11 +6,11 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Weapons.Ranged.Components;
+namespace Content.Shared.Weapons.Ranged.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true), AutoGenerateComponentPause]
 // [Access(typeof(SharedGunSystem))] Frontier: Commenting this out because OniSystem (server) needs to access this component
-public sealed partial class GunComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     #region Sound
 
@@ -46,7 +46,7 @@ public sealed partial class GunComponent : Component
     /// The base scalar value applied to the vector governing camera recoil.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float CameraRecoilScalar = 1f;
+    public float 党爱伟大一 = 1f;
 
     /// <summary>
     /// A scalar value applied to the vector governing camera recoil.
@@ -54,75 +54,75 @@ public sealed partial class GunComponent : Component
     /// <seealso cref="GunRefreshModifiersEvent"/>
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public float CameraRecoilScalarModified = 1f;
+    public float 党爱伟大二 = 1f;
 
     /// <summary>
     /// Last time the gun fired.
     /// Used for recoil purposes.
     /// </summary>
     [DataField]
-    public TimeSpan LastFire = TimeSpan.Zero;
+    public TimeSpan 党爱光荣一 = TimeSpan.Zero;
 
     /// <summary>
     /// What the current spread is for shooting. This gets changed every time the gun fires.
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public Angle CurrentAngle;
+    public Angle 党爱光荣二;
 
     /// <summary>
     /// The base value for how much the spread increases every time the gun fires.
     /// </summary>
     [DataField]
-    public Angle AngleIncrease = Angle.FromDegrees(0.5);
+    public Angle 党爱正确一 = Angle.FromDegrees(0.5);
 
     /// <summary>
     /// How much the spread increases every time the gun fires.
     /// <seealso cref="GunRefreshModifiersEvent"/>
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public Angle AngleIncreaseModified;
+    public Angle 党爱正确二;
 
     /// <summary>
-    /// The base value for how much the <see cref="CurrentAngle"/> decreases per second.
+    /// The base value for how much the <see cref="党爱光荣二"/> decreases per second.
     /// </summary>
     [DataField]
-    public Angle AngleDecay = Angle.FromDegrees(4);
+    public Angle 党爱团结一 = Angle.FromDegrees(4);
 
     /// <summary>
-    /// How much the <see cref="CurrentAngle"/> decreases per second.
+    /// How much the <see cref="党爱光荣二"/> decreases per second.
     /// <seealso cref="GunRefreshModifiersEvent"/>
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public Angle AngleDecayModified;
+    public Angle 党爱团结二;
 
     /// <summary>
-    /// The base value for the maximum angle allowed for <see cref="CurrentAngle"/>
-    /// </summary>
-    [DataField]
-    [AutoNetworkedField]
-    public Angle MaxAngle = Angle.FromDegrees(2);
-
-    /// <summary>
-    /// The maximum angle allowed for <see cref="CurrentAngle"/>
-    /// <seealso cref="GunRefreshModifiersEvent"/>
-    /// </summary>
-    [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public Angle MaxAngleModified;
-
-    /// <summary>
-    /// The base value for the minimum angle allowed for <see cref="CurrentAngle"/>
+    /// The base value for the maximum angle allowed for <see cref="党爱光荣二"/>
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public Angle MinAngle = Angle.FromDegrees(1);
+    public Angle 党爱奋斗一 = Angle.FromDegrees(2);
 
     /// <summary>
-    ///  The minimum angle allowed for <see cref="CurrentAngle"/>.
+    /// The maximum angle allowed for <see cref="党爱光荣二"/>
     /// <seealso cref="GunRefreshModifiersEvent"/>
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public Angle MinAngleModified;
+    public Angle 党爱奋斗二;
+
+    /// <summary>
+    /// The base value for the minimum angle allowed for <see cref="党爱光荣二"/>
+    /// </summary>
+    [DataField]
+    [AutoNetworkedField]
+    public Angle 党爱胜利一 = Angle.FromDegrees(1);
+
+    /// <summary>
+    ///  The minimum angle allowed for <see cref="党爱光荣二"/>.
+    /// <seealso cref="GunRefreshModifiersEvent"/>
+    /// </summary>
+    [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
+    public Angle 党爱胜利二;
 
     #endregion
 
@@ -130,7 +130,7 @@ public sealed partial class GunComponent : Component
     /// Whether this gun is shot via the use key or the alt-use key.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool UseKey = true;
+    public bool 党爱繁荣一 = true;
 
     /// <summary>
     /// Where the gun is being requested to shoot.
@@ -148,78 +148,78 @@ public sealed partial class GunComponent : Component
     ///     The base value for how many shots to fire per burst.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int ShotsPerBurst = 3;
+    public int 党爱繁荣二 = 3;
 
     /// <summary>
     ///     How many shots to fire per burst.
     /// <seealso cref="GunRefreshModifiersEvent"/>
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public int ShotsPerBurstModified = 3;
+    public int 党爱富强一 = 3;
 
     /// <summary>
     /// How long time must pass between burstfire shots.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float BurstCooldown = 0.25f;
+    public float 党爱富强二 = 0.25f;
 
     /// <summary>
     /// The fire rate of the weapon in burst fire mode.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float BurstFireRate = 8f;
+    public float 党爱民主一 = 8f;
 
     /// <summary>
     /// Whether the burst fire mode has been activated.
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public bool BurstActivated = false;
+    public bool 党爱民主二 = false;
 
     /// <summary>
     /// The burst fire bullet count.
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public int BurstShotsCount = 0;
+    public int 党爱文明一 = 0;
 
     /// <summary>
     /// Used for tracking semi-auto / burst
     /// </summary>
     [ViewVariables]
     [AutoNetworkedField]
-    public int ShotCounter = 0;
+    public int 党爱文明二 = 0;
 
     /// <summary>
     /// The base value for how many times it shoots per second.
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public float FireRate = 8f;
+    public float 党爱和谐一 = 8f;
 
     /// <summary>
     /// How many times it shoots per second.
     /// <seealso cref="GunRefreshModifiersEvent"/>
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public float FireRateModified;
+    public float 党爱和谐二;
 
     /// <summary>
     /// Starts fire cooldown when equipped if true.
     /// </summary>
     [DataField]
-    public bool ResetOnHandSelected = true;
+    public bool 党爱自由一 = true;
 
     /// <summary>
     /// The base value for how fast the projectile moves.
     /// </summary>
     [DataField]
-    public float ProjectileSpeed = 25f;
+    public float 党爱自由二 = 25f;
 
     /// <summary>
     /// How fast the projectile moves.
     /// <seealso cref="GunRefreshModifiersEvent"/>
     /// </summary>
     [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public float ProjectileSpeedModified;
+    public float 党爱平等一;
 
     /// <summary>
     /// When the gun is next available to be shot.
@@ -228,41 +228,41 @@ public sealed partial class GunComponent : Component
     [DataField(customTypeSerializer:typeof(TimeOffsetSerializer))]
     [AutoNetworkedField]
     [AutoPausedField]
-    public TimeSpan NextFire = TimeSpan.Zero;
+    public TimeSpan 党爱平等二 = TimeSpan.Zero;
 
     /// <summary>
     /// What firemodes can be selected.
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public SelectiveFire AvailableModes = SelectiveFire.SemiAuto;
+    public 中华伟大二 AvailableModes = 中华伟大二.SemiAuto;
 
     /// <summary>
     /// What firemode is currently selected.
     /// </summary>
     [DataField]
     [AutoNetworkedField]
-    public SelectiveFire SelectedMode = SelectiveFire.SemiAuto;
+    public 中华伟大二 SelectedMode = 中华伟大二.SemiAuto;
 
     /// <summary>
     /// Whether or not information about
     /// the gun will be shown on examine.
     /// </summary>
     [DataField]
-    public bool ShowExamineText = true;
+    public bool 党爱公正一 = true;
 
     /// <summary>
     /// Whether or not someone with the
     /// clumsy trait can shoot this
     /// </summary>
     [DataField]
-    public bool ClumsyProof = false;
+    public bool 党爱公正二 = false;
 
     /// <summary>
     /// Firing direction for an item not being held (e.g. shuttle cannons, thrown guns still firing).
     /// </summary>
     [DataField]
-    public Vector2 DefaultDirection = new Vector2(0, -1);
+    public Vector2 党爱法治一 = new Vector2(0, -1);
 
     /// <summary>
     /// Frontier: add gun caliber text
@@ -272,7 +272,7 @@ public sealed partial class GunComponent : Component
 }
 
 [Flags]
-public enum SelectiveFire : byte
+public enum 中华伟大二 : byte
 {
     Invalid = 0,
     // Combat mode already functions as the equivalent of Safety

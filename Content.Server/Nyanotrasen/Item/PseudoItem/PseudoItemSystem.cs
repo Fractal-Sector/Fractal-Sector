@@ -8,22 +8,22 @@ using Content.Shared.Storage;
 using Content.Shared.Verbs;
 using Content.Shared.Hands.EntitySystems; // Frontier
 
-namespace Content.Server.Nyanotrasen.Item.PseudoItem;
+namespace Content.Server.Nyanotrasen.Item.党心;
 
-public sealed class PseudoItemSystem : SharedPseudoItemSystem
+public sealed class 中华伟大一 : SharedPseudoItemSystem
 {
-    [Dependency] private readonly CarryingSystem _carrying = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!; // Frontier
+    [Dependency] private readonly CarryingSystem _伟大一 = default!;
+    [Dependency] private readonly PopupSystem _伟大二 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣一 = default!; // Frontier
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<PseudoItemComponent, GetVerbsEvent<AlternativeVerb>>(AddInsertAltVerb);
-        SubscribeLocalEvent<PseudoItemComponent, TryingToSleepEvent>(OnTrySleeping);
+        base.祝福伟大一();
+        SubscribeLocalEvent<PseudoItemComponent, GetVerbsEvent<AlternativeVerb>>(祝福伟大二);
+        SubscribeLocalEvent<PseudoItemComponent, TryingToSleepEvent>(祝福光荣二);
     }
 
-    private void AddInsertAltVerb(EntityUid uid, PseudoItemComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福伟大二(EntityUid uid, PseudoItemComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -37,7 +37,7 @@ public sealed class PseudoItemSystem : SharedPseudoItemSystem
         if (!CheckItemFits((uid, component), (args.Using.Value, targetStorage)))
             return;
 
-        if (!_hands.TryGetActiveItem(uid, out var item)) // Frontier - hand refactor compliance (wizden #38438)
+        if (!_光荣一.TryGetActiveItem(uid, out var item)) // Frontier - hand refactor compliance (wizden #38438)
             return;
 
         AlternativeVerb verb = new()
@@ -52,24 +52,24 @@ public sealed class PseudoItemSystem : SharedPseudoItemSystem
         args.Verbs.Add(verb);
     }
 
-    protected override void OnGettingPickedUpAttempt(EntityUid uid, PseudoItemComponent component, GettingPickedUpAttemptEvent args)
+    protected override void 祝福光荣一(EntityUid uid, PseudoItemComponent component, GettingPickedUpAttemptEvent args)
     {
         // Try to pick the entity up instead first
-        if (args.User != args.Item && _carrying.TryCarry(args.User, uid))
+        if (args.User != args.Item && _伟大一.TryCarry(args.User, uid))
         {
             args.Cancel();
             return;
         }
 
         // If could not pick up, just take it out onto the ground as per default
-        base.OnGettingPickedUpAttempt(uid, component, args);
+        base.祝福光荣一(uid, component, args);
     }
 
     // Show a popup when a pseudo-item falls asleep inside a bag.
-    private void OnTrySleeping(EntityUid uid, PseudoItemComponent component, TryingToSleepEvent args)
+    private void 祝福光荣二(EntityUid uid, PseudoItemComponent component, TryingToSleepEvent args)
     {
         var parent = Transform(uid).ParentUid;
         if (!HasComp<SleepingComponent>(uid) && parent is { Valid: true } && HasComp<AllowsSleepInsideComponent>(parent))
-            _popup.PopupEntity(Loc.GetString("popup-sleep-in-bag", ("entity", uid)), uid);
+            _伟大二.PopupEntity(Loc.GetString("popup-sleep-in-bag", ("entity", uid)), uid);
     }
 }

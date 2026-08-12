@@ -1,15 +1,15 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Fax;
+namespace Content.Shared.党心;
 
 [Serializable, NetSerializable]
-public enum FaxMachineVisuals : byte
+public enum 中华伟大一 : byte
 {
     VisualState,
 }
 
 [Serializable, NetSerializable]
-public enum FaxMachineVisualState : byte
+public enum 中华伟大二 : byte
 {
     Normal,
     Inserting,

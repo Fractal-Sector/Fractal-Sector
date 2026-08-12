@@ -1,12 +1,12 @@
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.NPC.Events;
+namespace Content.Shared.NPC.党心;
 
 /// <summary>
 /// Raised from client to server to request NPC steering debug info.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class RequestNPCSteeringDebugEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public bool Enabled;
+    public bool 党爱伟大一;
 }

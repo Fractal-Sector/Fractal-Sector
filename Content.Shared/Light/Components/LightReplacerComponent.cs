@@ -5,17 +5,17 @@ using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 
-namespace Content.Shared.Light.Components;
+namespace Content.Shared.Light.党心;
 
 /// <summary>
 ///     Device that allows user to quikly change bulbs in <see cref="PoweredLightComponent"/>
 ///     Can be reloaded by new light tubes or light bulbs
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedLightReplacerSystem))]
-public sealed partial class LightReplacerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataField("sound")]
-    public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/Weapons/click.ogg")
+    public SoundSpecifier 党爱伟大一 = new SoundPathSpecifier("/Audio/Weapons/click.ogg")
     {
         Params = new()
         {
@@ -27,11 +27,11 @@ public sealed partial class LightReplacerComponent : Component
     /// Bulbs that were inserted inside light replacer
     /// </summary>
     [ViewVariables]
-    public Container InsertedBulbs = default!;
+    public Container 党爱伟大二 = default!;
 
     /// <summary>
     /// The default starting bulbs
     /// </summary>
     [DataField("contents")]
-    public List<EntitySpawnEntry> Contents = new();
+    public List<EntitySpawnEntry> 党爱光荣一 = new();
 }

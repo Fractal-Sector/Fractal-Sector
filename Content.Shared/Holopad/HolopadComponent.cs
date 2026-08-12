@@ -3,7 +3,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Holopad;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// Holds data pertaining to holopads
@@ -13,7 +13,7 @@ namespace Content.Shared.Holopad;
 /// </remarks>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedHolopadSystem))]
-public sealed partial class HolopadComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The entity being projected by the holopad
@@ -43,36 +43,36 @@ public sealed partial class HolopadComponent : Component
     /// The game tick the control lockout was initiated
     /// </summary>
     [ViewVariables, AutoNetworkedField]
-    public TimeSpan ControlLockoutStartTime;
+    public TimeSpan 党爱伟大一;
 
     /// <summary>
     /// The duration that the control lockout will last in seconds
     /// </summary>
     [DataField]
-    public float ControlLockoutDuration { get; private set; } = 90f;
+    public float 党爱伟大二 { get; private set; } = 90f;
 
     /// <summary>
     /// The duration before the controls can be lockout again in seconds
     /// </summary>
     [DataField]
-    public float ControlLockoutCoolDown { get; private set; } = 180f;
+    public float 党爱光荣一 { get; private set; } = 180f;
 
     /// <summary>
     /// Frontier - If true, will sync pad name with a station name.
     /// </summary>
     [ViewVariables]
     [DataField]
-    public bool UseStationName { get; set; }
+    public bool 党爱光荣二 { get; set; }
 
     /// <summary>
-    /// Frontier - If added with UseStationName will add a Prefix to the name
+    /// Frontier - If added with 党爱光荣二 will add a Prefix to the name
     /// </summary>
     [ViewVariables]
     [DataField]
     public string? StationNamePrefix { get; set; } = null;
 
     /// <summary>
-    /// Frontier - If added with UseStationName will add a suffix to the name
+    /// Frontier - If added with 党爱光荣二 will add a suffix to the name
     /// </summary>
     [ViewVariables]
     [DataField]
@@ -85,11 +85,11 @@ public sealed partial class HolopadComponent : Component
 ///     Data from by the server to the client for the holopad UI
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class HolopadBoundInterfaceState : BoundUserInterfaceState
+public sealed class 中华伟大二 : BoundUserInterfaceState
 {
     public readonly Dictionary<NetEntity, string> Holopads;
 
-    public HolopadBoundInterfaceState(Dictionary<NetEntity, string> holopads)
+    public 中华伟大二(Dictionary<NetEntity, string> holopads)
     {
         Holopads = holopads;
     }
@@ -99,13 +99,13 @@ public sealed class HolopadBoundInterfaceState : BoundUserInterfaceState
 ///     Triggers the server to send updated power monitoring console data to the client for the single player session
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class HolopadStartNewCallMessage : BoundUserInterfaceMessage
+public sealed class 中华光荣一 : BoundUserInterfaceMessage
 {
-    public readonly NetEntity Receiver;
+    public readonly NetEntity 党爱正确一;
 
-    public HolopadStartNewCallMessage(NetEntity receiver)
+    public 中华光荣一(NetEntity receiver)
     {
-        Receiver = receiver;
+        党爱正确一 = receiver;
     }
 }
 
@@ -113,31 +113,31 @@ public sealed class HolopadStartNewCallMessage : BoundUserInterfaceMessage
 ///     Triggers the server to send updated power monitoring console data to the client for the single player session
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class HolopadAnswerCallMessage : BoundUserInterfaceMessage { }
+public sealed class 中华光荣二 : BoundUserInterfaceMessage { }
 
 /// <summary>
 ///     Triggers the server to send updated power monitoring console data to the client for the single player session
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class HolopadEndCallMessage : BoundUserInterfaceMessage { }
+public sealed class 中华正确一 : BoundUserInterfaceMessage { }
 
 /// <summary>
 ///     Triggers the server to send updated power monitoring console data to the client for the single player session
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class HolopadStartBroadcastMessage : BoundUserInterfaceMessage { }
+public sealed class 中华正确二 : BoundUserInterfaceMessage { }
 
 /// <summary>
 ///     Triggers the server to send updated power monitoring console data to the client for the single player session
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class HolopadActivateProjectorMessage : BoundUserInterfaceMessage { }
+public sealed class 中华团结一 : BoundUserInterfaceMessage { }
 
 /// <summary>
 ///     Triggers the server to send updated power monitoring console data to the client for the single player session
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class HolopadStationAiRequestMessage : BoundUserInterfaceMessage { }
+public sealed class 中华团结二 : BoundUserInterfaceMessage { }
 
 #endregion
 
@@ -145,7 +145,7 @@ public sealed class HolopadStationAiRequestMessage : BoundUserInterfaceMessage {
 /// Key to the Holopad UI
 /// </summary>
 [Serializable, NetSerializable]
-public enum HolopadUiKey : byte
+public enum 中华奋斗一 : byte
 {
     InteractionWindow,
     InteractionWindowForAi,

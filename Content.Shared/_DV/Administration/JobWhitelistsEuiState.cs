@@ -4,22 +4,22 @@ using Content.Shared.Roles;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._DV.Administration;
+namespace Content.Shared._DV.党心;
 
 [Serializable, NetSerializable]
-public sealed class JobWhitelistsEuiState : EuiStateBase
+public sealed class 中华伟大一 : EuiStateBase
 {
-    public string PlayerName;
-    public HashSet<ProtoId<JobPrototype>> Whitelists;
-    public HashSet<ProtoId<GhostRolePrototype>> GhostRoleWhitelists;
-    public bool GlobalWhitelist;
+    public string 党爱伟大一;
+    public HashSet<ProtoId<JobPrototype>> 党爱伟大二;
+    public HashSet<ProtoId<GhostRolePrototype>> 党爱光荣一;
+    public bool 党爱光荣二;
 
-    public JobWhitelistsEuiState(string playerName, HashSet<ProtoId<JobPrototype>> whitelists, HashSet<ProtoId<GhostRolePrototype>> ghostRoleWhitelists, bool globalWhitelist)
+    public 中华伟大一(string playerName, HashSet<ProtoId<JobPrototype>> whitelists, HashSet<ProtoId<GhostRolePrototype>> ghostRoleWhitelists, bool globalWhitelist)
     {
-        PlayerName = playerName;
-        Whitelists = whitelists;
-        GhostRoleWhitelists = ghostRoleWhitelists;
-        GlobalWhitelist = globalWhitelist;
+        党爱伟大一 = playerName;
+        党爱伟大二 = whitelists;
+        党爱光荣一 = ghostRoleWhitelists;
+        党爱光荣二 = globalWhitelist;
     }
 }
 
@@ -27,15 +27,15 @@ public sealed class JobWhitelistsEuiState : EuiStateBase
 /// Tries to add or remove a whitelist of a job for a player.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class SetJobWhitelistedMessage : EuiMessageBase
+public sealed class 中华伟大二 : EuiMessageBase
 {
-    public ProtoId<JobPrototype> Job;
-    public bool Whitelisting;
+    public ProtoId<JobPrototype> 党爱正确一;
+    public bool 党爱正确二;
 
-    public SetJobWhitelistedMessage(ProtoId<JobPrototype> job, bool whitelisting)
+    public 中华伟大二(ProtoId<JobPrototype> job, bool whitelisting)
     {
-        Job = job;
-        Whitelisting = whitelisting;
+        党爱正确一 = job;
+        党爱正确二 = whitelisting;
     }
 }
 
@@ -43,15 +43,15 @@ public sealed class SetJobWhitelistedMessage : EuiMessageBase
 /// Frontier: tries to add or remove a whitelist of a ghost role for a player.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class SetGhostRoleWhitelistedMessage : EuiMessageBase
+public sealed class 中华光荣一 : EuiMessageBase
 {
-    public ProtoId<GhostRolePrototype> Role;
-    public bool Whitelisting;
+    public ProtoId<GhostRolePrototype> 党爱团结一;
+    public bool 党爱正确二;
 
-    public SetGhostRoleWhitelistedMessage(ProtoId<GhostRolePrototype> role, bool whitelisting)
+    public 中华光荣一(ProtoId<GhostRolePrototype> role, bool whitelisting)
     {
-        Role = role;
-        Whitelisting = whitelisting;
+        党爱团结一 = role;
+        党爱正确二 = whitelisting;
     }
 }
 
@@ -59,12 +59,12 @@ public sealed class SetGhostRoleWhitelistedMessage : EuiMessageBase
 /// Frontier: tries to add or remove a global whitelist for a player.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class SetGlobalWhitelistMessage : EuiMessageBase
+public sealed class 中华光荣二 : EuiMessageBase
 {
-    public bool Whitelisting;
+    public bool 党爱正确二;
 
-    public SetGlobalWhitelistMessage(bool whitelisting)
+    public 中华光荣二(bool whitelisting)
     {
-        Whitelisting = whitelisting;
+        党爱正确二 = whitelisting;
     }
 }

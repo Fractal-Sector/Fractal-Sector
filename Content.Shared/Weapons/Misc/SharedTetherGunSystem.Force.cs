@@ -2,17 +2,17 @@ using System.Numerics;
 using Content.Shared.Interaction;
 using Robust.Shared.Map;
 
-namespace Content.Shared.Weapons.Misc;
+namespace Content.Shared.Weapons.党心;
 
-public abstract partial class SharedTetherGunSystem
+public abstract partial class 中华伟大一
 {
-    private void InitializeForce()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<ForceGunComponent, AfterInteractEvent>(OnForceRanged);
-        SubscribeLocalEvent<ForceGunComponent, ActivateInWorldEvent>(OnForceActivate);
+        SubscribeLocalEvent<ForceGunComponent, AfterInteractEvent>(祝福光荣一);
+        SubscribeLocalEvent<ForceGunComponent, ActivateInWorldEvent>(祝福伟大二);
     }
 
-    private void OnForceActivate(EntityUid uid, ForceGunComponent component, ActivateInWorldEvent args)
+    private void 祝福伟大二(EntityUid uid, ForceGunComponent component, ActivateInWorldEvent args)
     {
         if (!args.Complex)
             return;
@@ -20,9 +20,9 @@ public abstract partial class SharedTetherGunSystem
         StopTether(uid, component);
     }
 
-    private void OnForceRanged(EntityUid uid, ForceGunComponent component, AfterInteractEvent args)
+    private void 祝福光荣一(EntityUid uid, ForceGunComponent component, AfterInteractEvent args)
     {
-        if (IsTethered(component))
+        if (祝福光荣二(component))
         {
             if (!args.ClickLocation.TryDistance(EntityManager, TransformSystem, Transform(uid).Coordinates,
                     out var distance) ||
@@ -51,7 +51,7 @@ public abstract partial class SharedTetherGunSystem
         }
     }
 
-    private bool IsTethered(ForceGunComponent component)
+    private bool 祝福光荣二(ForceGunComponent component)
     {
         return component.Tethered != null;
     }

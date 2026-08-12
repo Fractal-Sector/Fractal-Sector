@@ -3,21 +3,21 @@ using Content.Shared.Mind;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Roles.Components;
 
-namespace Content.Server.Roles;
+namespace Content.Server.党心;
 
 /// <summary>
 ///     System responsible for giving a ghost of a paradox clone a name modifier.
 /// </summary>
-public sealed class ParadoxCloneRoleSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ParadoxCloneRoleComponent, MindRelayedEvent<RefreshNameModifiersEvent>>(OnRefreshNameModifiers);
+        SubscribeLocalEvent<ParadoxCloneRoleComponent, MindRelayedEvent<RefreshNameModifiersEvent>>(祝福伟大二);
     }
 
-    private void OnRefreshNameModifiers(Entity<ParadoxCloneRoleComponent> ent, ref MindRelayedEvent<RefreshNameModifiersEvent> args)
+    private void 祝福伟大二(Entity<ParadoxCloneRoleComponent> ent, ref MindRelayedEvent<RefreshNameModifiersEvent> args)
     {
         var mindId = Transform(ent).ParentUid; // the mind role entity is in a container in the mind entity
 

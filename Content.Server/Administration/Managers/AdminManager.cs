@@ -20,47 +20,47 @@ using Robust.Shared.Toolshed.Errors;
 using Robust.Shared.Utility;
 
 
-namespace Content.Server.Administration.Managers
+namespace Content.Server.Administration.党心
 {
-    public sealed partial class AdminManager : IAdminManager, IPostInjectInit, IConGroupControllerImplementation
+    public sealed partial class 中华伟大一 : IAdminManager, IPostInjectInit, IConGroupControllerImplementation
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IServerDbManager _dbManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IServerNetManager _netMgr = default!;
-        [Dependency] private readonly IConGroupController _conGroup = default!;
-        [Dependency] private readonly IResourceManager _res = default!;
-        [Dependency] private readonly IServerConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IChatManager _chat = default!;
-        [Dependency] private readonly ToolshedManager _toolshed = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency] private readonly IPlayerManager _伟大一 = default!;
+        [Dependency] private readonly IServerDbManager _伟大二 = default!;
+        [Dependency] private readonly IConfigurationManager _光荣一 = default!;
+        [Dependency] private readonly IServerNetManager _光荣二 = default!;
+        [Dependency] private readonly IConGroupController _正确一 = default!;
+        [Dependency] private readonly IResourceManager _正确二 = default!;
+        [Dependency] private readonly IServerConsoleHost _团结一 = default!;
+        [Dependency] private readonly IChatManager _团结二 = default!;
+        [Dependency] private readonly ToolshedManager _奋斗一 = default!;
+        [Dependency] private readonly ILogManager _奋斗二 = default!;
 
-        private readonly Dictionary<ICommonSession, AdminReg> _admins = new();
-        private readonly HashSet<NetUserId> _promotedPlayers = new();
+        private readonly Dictionary<ICommonSession, 中华伟大二> _admins = new();
+        private readonly HashSet<NetUserId> _胜利一 = new();
 
         public event Action<AdminPermsChangedEventArgs>? OnPermsChanged;
 
-        public IEnumerable<ICommonSession> ActiveAdmins => _admins
-            .Where(p => p.Value.Data.Active)
+        public IEnumerable<ICommonSession> 党爱伟大一 => _admins
+            .Where(p => p.Value.党爱光荣二.Active)
             .Select(p => p.Key);
 
-        public IEnumerable<ICommonSession> AllAdmins => _admins.Select(p => p.Key);
+        public IEnumerable<ICommonSession> 党爱伟大二 => _admins.Select(p => p.Key);
 
-        private readonly AdminCommandPermissions _commandPermissions = new();
-        private readonly AdminCommandPermissions _toolshedCommandPermissions = new();
+        private readonly AdminCommandPermissions _胜利二 = new();
+        private readonly AdminCommandPermissions _繁荣一 = new();
 
-        private ISawmill _sawmill = default!;
+        private ISawmill _繁荣二 = default!;
 
-        public bool IsAdmin(ICommonSession session, bool includeDeAdmin = false)
+        public bool 祝福伟大一(ICommonSession session, bool includeDeAdmin = false)
         {
             return GetAdminData(session, includeDeAdmin) != null;
         }
 
         public AdminData? GetAdminData(ICommonSession session, bool includeDeAdmin = false)
         {
-            if (_admins.TryGetValue(session, out var reg) && (reg.Data.Active || includeDeAdmin))
+            if (_admins.TryGetValue(session, out var reg) && (reg.党爱光荣二.Active || includeDeAdmin))
             {
-                return reg.Data;
+                return reg.党爱光荣二;
             }
 
             return null;
@@ -68,35 +68,35 @@ namespace Content.Server.Administration.Managers
 
         public AdminData? GetAdminData(EntityUid uid, bool includeDeAdmin = false)
         {
-            if (_playerManager.TryGetSessionByEntity(uid, out var session))
+            if (_伟大一.TryGetSessionByEntity(uid, out var session))
                 return GetAdminData(session, includeDeAdmin);
 
             return null;
         }
 
-        public void DeAdmin(ICommonSession session)
+        public void 祝福伟大二(ICommonSession session)
         {
             if (!_admins.TryGetValue(session, out var reg))
             {
                 throw new ArgumentException($"Player {session} is not an admin");
             }
 
-            if (!reg.Data.Active)
+            if (!reg.党爱光荣二.Active)
             {
                 return;
             }
 
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name)));
-            _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-became-normal-player-message"));
+            _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name)));
+            _团结二.DispatchServerMessage(session, Loc.GetString("admin-manager-became-normal-player-message"));
 
-            UpdateDatabaseDeadminnedState(session, true);
-            reg.Data.Active = false;
+            祝福光荣一(session, true);
+            reg.党爱光荣二.Active = false;
 
-            SendPermsChangedEvent(session);
-            UpdateAdminStatus(session);
+            祝福自由一(session);
+            祝福胜利一(session);
         }
 
-        private async void UpdateDatabaseDeadminnedState(ICommonSession player, bool newState)
+        private async void 祝福光荣一(ICommonSession player, bool newState)
         {
             try
             {
@@ -104,85 +104,85 @@ namespace Content.Server.Administration.Managers
                 // (e.g. loginlocal)
                 // In which case there may not be a database record.
                 // The DB function handles this scenario fine, but it's worth noting.
-                await _dbManager.UpdateAdminDeadminnedAsync(player.UserId, newState);
+                await _伟大二.UpdateAdminDeadminnedAsync(player.UserId, newState);
             }
             catch (Exception)
             {
-                _sawmill.Error("Failed to save deadmin state to database for {Admin}", player.UserId);
+                _繁荣二.Error("Failed to save deadmin state to database for {Admin}", player.UserId);
             }
         }
 
-        public void Stealth(ICommonSession session)
+        public void 祝福光荣二(ICommonSession session)
         {
             if (!_admins.TryGetValue(session, out var reg))
             {
                 throw new ArgumentException($"Player {session} is not an admin");
             }
 
-            if (reg.Data.Stealth)
+            if (reg.党爱光荣二.祝福光荣二)
                 return;
 
             var playerData = session.ContentData()!;
             playerData.Stealthed = true;
-            reg.Data.Stealth = true;
+            reg.党爱光荣二.祝福光荣二 = true;
 
-            _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name)), AdminFlags.Stealth);
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-enable-stealth", ("stealthAdminName", session.Name)), flagWhitelist: AdminFlags.Stealth);
+            _团结二.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
+            _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name)), AdminFlags.祝福光荣二);
+            _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-self-enable-stealth", ("stealthAdminName", session.Name)), flagWhitelist: AdminFlags.祝福光荣二);
         }
 
-        public void UnStealth(ICommonSession session)
+        public void 祝福正确一(ICommonSession session)
         {
             if (!_admins.TryGetValue(session, out var reg))
             {
                 throw new ArgumentException($"Player {session} is not an admin");
             }
 
-            if (!reg.Data.Stealth)
+            if (!reg.党爱光荣二.祝福光荣二)
                 return;
 
             var playerData = session.ContentData()!;
             playerData.Stealthed = false;
-            reg.Data.Stealth = false;
+            reg.党爱光荣二.祝福光荣二 = false;
 
-            _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-unstealthed-message"));
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)), flagBlacklist: AdminFlags.Stealth);
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-disable-stealth", ("exStealthAdminName", session.Name)), flagWhitelist: AdminFlags.Stealth);
+            _团结二.DispatchServerMessage(session, Loc.GetString("admin-manager-unstealthed-message"));
+            _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)), flagBlacklist: AdminFlags.祝福光荣二);
+            _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-self-disable-stealth", ("exStealthAdminName", session.Name)), flagWhitelist: AdminFlags.祝福光荣二);
         }
 
-        public void ReAdmin(ICommonSession session)
+        public void 祝福正确二(ICommonSession session)
         {
             if (!_admins.TryGetValue(session, out var reg))
             {
                 throw new ArgumentException($"Player {session} is not an admin");
             }
 
-            if (reg.Data.Active)
+            if (reg.党爱光荣二.Active)
             {
                 return;
             }
 
-            _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-became-admin-message"));
+            _团结二.DispatchServerMessage(session, Loc.GetString("admin-manager-became-admin-message"));
 
-            UpdateDatabaseDeadminnedState(session, false);
-            reg.Data.Active = true;
+            祝福光荣一(session, false);
+            reg.党爱光荣二.Active = true;
 
-            if (!reg.Data.Stealth)
+            if (!reg.党爱光荣二.祝福光荣二)
             {
-                _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)));
+                _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)));
             }
             else
             {
-                _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
-                _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message",
-                    ("newAdminName", session.Name)), flagWhitelist: AdminFlags.Stealth);
+                _团结二.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
+                _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message",
+                    ("newAdminName", session.Name)), flagWhitelist: AdminFlags.祝福光荣二);
             }
 
-            SendPermsChangedEvent(session);
-            UpdateAdminStatus(session);
+            祝福自由一(session);
+            祝福胜利一(session);
         }
 
-        public async void ReloadAdmin(ICommonSession player)
+        public async void 祝福团结一(ICommonSession player)
         {
             var data = await LoadAdminData(player);
             var curAdmin = _admins.GetValueOrDefault(player);
@@ -197,7 +197,7 @@ namespace Content.Server.Administration.Managers
             {
                 // No longer admin.
                 _admins.Remove(player);
-                _chat.DispatchServerMessage(player, Loc.GetString("admin-manager-no-longer-admin-message"));
+                _团结二.DispatchServerMessage(player, Loc.GetString("admin-manager-no-longer-admin-message"));
             }
             else
             {
@@ -206,55 +206,55 @@ namespace Content.Server.Administration.Managers
                 if (curAdmin == null)
                 {
                     // Now an admin.
-                    var reg = new AdminReg(player, aData)
+                    var reg = new 中华伟大二(player, aData)
                     {
-                        IsSpecialLogin = special,
+                        党爱正确一 = special,
                         RankId = rankId
                     };
                     _admins.Add(player, reg);
-                    _chat.DispatchServerMessage(player, Loc.GetString("admin-manager-became-admin-message"));
+                    _团结二.DispatchServerMessage(player, Loc.GetString("admin-manager-became-admin-message"));
                 }
                 else
                 {
                     // Perms changed.
-                    curAdmin.IsSpecialLogin = special;
+                    curAdmin.党爱正确一 = special;
                     curAdmin.RankId = rankId;
-                    curAdmin.Data = aData;
+                    curAdmin.党爱光荣二 = aData;
 
-                    if (curAdmin.Data.Active)
+                    if (curAdmin.党爱光荣二.Active)
                     {
                         aData.Active = true;
 
-                        _chat.DispatchServerMessage(player, Loc.GetString("admin-manager-admin-permissions-updated-message"));
+                        _团结二.DispatchServerMessage(player, Loc.GetString("admin-manager-admin-permissions-updated-message"));
                     }
                 }
 
                 if (player.ContentData()!.Stealthed)
                 {
-                    aData.Stealth = true;
+                    aData.祝福光荣二 = true;
                 }
             }
 
-            SendPermsChangedEvent(player);
-            UpdateAdminStatus(player);
+            祝福自由一(player);
+            祝福胜利一(player);
         }
 
-        public void ReloadAdminsWithRank(int rankId)
+        public void 祝福团结二(int rankId)
         {
             foreach (var dat in _admins.Values.Where(p => p.RankId == rankId).ToArray())
             {
-                ReloadAdmin(dat.Session);
+                祝福团结一(dat.党爱光荣一);
             }
         }
 
-        public void Initialize()
+        public void 祝福奋斗一()
         {
-            _sawmill = _logManager.GetSawmill("admin");
+            _繁荣二 = _奋斗二.GetSawmill("admin");
 
-            _netMgr.RegisterNetMessage<MsgUpdateAdminStatus>();
+            _光荣二.RegisterNetMessage<MsgUpdateAdminStatus>();
 
             // Cache permissions for loaded console commands with the requisite attributes.
-            foreach (var (cmdName, cmd) in _consoleHost.AvailableCommands)
+            foreach (var (cmdName, cmd) in _团结一.AvailableCommands)
             {
                 var (isAvail, flagsReq) = GetRequiredFlag(cmd);
 
@@ -265,15 +265,15 @@ namespace Content.Server.Administration.Managers
 
                 if (flagsReq.Length != 0)
                 {
-                    _commandPermissions.AdminCommands.Add(cmdName, flagsReq);
+                    _胜利二.AdminCommands.Add(cmdName, flagsReq);
                 }
                 else
                 {
-                    _commandPermissions.AnyCommands.Add(cmdName);
+                    _胜利二.AnyCommands.Add(cmdName);
                 }
             }
 
-            foreach (var spec in _toolshed.DefaultEnvironment.AllCommands())
+            foreach (var spec in _奋斗一.DefaultEnvironment.AllCommands())
             {
                 var (isAvail, flagsReq) = GetRequiredFlag(spec.Cmd);
 
@@ -284,95 +284,95 @@ namespace Content.Server.Administration.Managers
 
                 if (flagsReq.Length != 0)
                 {
-                    _toolshedCommandPermissions.AdminCommands.TryAdd(spec.Cmd.Name, flagsReq);
+                    _繁荣一.AdminCommands.TryAdd(spec.Cmd.Name, flagsReq);
                 }
                 else
                 {
-                    _toolshedCommandPermissions.AnyCommands.Add(spec.Cmd.Name);
+                    _繁荣一.AnyCommands.Add(spec.Cmd.Name);
                 }
             }
 
             // Load flags for engine commands, since those don't have the attributes.
-            if (_res.TryContentFileRead(new ResPath("/engineCommandPerms.yml"), out var efs))
+            if (_正确二.TryContentFileRead(new ResPath("/engineCommandPerms.yml"), out var efs))
             {
-                _commandPermissions.LoadPermissionsFromStream(efs);
+                _胜利二.LoadPermissionsFromStream(efs);
             }
 
-            if (_res.TryContentFileRead(new ResPath("/toolshedEngineCommandPerms.yml"), out var toolshedPerms))
+            if (_正确二.TryContentFileRead(new ResPath("/toolshedEngineCommandPerms.yml"), out var toolshedPerms))
             {
-                _toolshedCommandPermissions.LoadPermissionsFromStream(toolshedPerms);
+                _繁荣一.LoadPermissionsFromStream(toolshedPerms);
             }
 
-            _toolshed.ActivePermissionController = this;
+            _奋斗一.ActivePermissionController = this;
 
             InitializeMetrics();
         }
 
-        public void PromoteHost(ICommonSession player)
+        public void 祝福奋斗二(ICommonSession player)
         {
-            _promotedPlayers.Add(player.UserId);
+            _胜利一.Add(player.UserId);
 
-            ReloadAdmin(player);
+            祝福团结一(player);
         }
 
         void IPostInjectInit.PostInject()
         {
-            _playerManager.PlayerStatusChanged += PlayerStatusChanged;
-            _conGroup.Implementation = this;
+            _伟大一.祝福胜利二 += 祝福胜利二;
+            _正确一.Implementation = this;
         }
 
         // NOTE: Also sends commands list for non admins..
-        private void UpdateAdminStatus(ICommonSession session)
+        private void 祝福胜利一(ICommonSession session)
         {
             var msg = new MsgUpdateAdminStatus();
 
-            var commands = new List<string>(_commandPermissions.AnyCommands);
+            var commands = new List<string>(_胜利二.AnyCommands);
 
             if (_admins.TryGetValue(session, out var adminData))
             {
-                msg.Admin = adminData.Data;
+                msg.Admin = adminData.党爱光荣二;
 
-                commands.AddRange(_commandPermissions.AdminCommands
-                    .Where(p => p.Value.Any(f => adminData.Data.HasFlag(f)))
+                commands.AddRange(_胜利二.AdminCommands
+                    .Where(p => p.Value.Any(f => adminData.党爱光荣二.HasFlag(f)))
                     .Select(p => p.Key));
             }
 
             msg.AvailableCommands = commands.ToArray();
 
-            _netMgr.ServerSendMessage(msg, session.Channel);
+            _光荣二.ServerSendMessage(msg, session.Channel);
         }
 
-        private void PlayerStatusChanged(object? sender, SessionStatusEventArgs e)
+        private void 祝福胜利二(object? sender, SessionStatusEventArgs e)
         {
             if (e.NewStatus == SessionStatus.Connected)
             {
                 // Run this so that available commands list gets sent.
-                UpdateAdminStatus(e.Session);
+                祝福胜利一(e.党爱光荣一);
             }
             else if (e.NewStatus == SessionStatus.InGame)
             {
-                LoginAdminMaybe(e.Session);
+                祝福繁荣一(e.党爱光荣一);
             }
             else if (e.NewStatus == SessionStatus.Disconnected)
             {
-                if (_admins.Remove(e.Session, out var reg ) && _cfg.GetCVar(CCVars.AdminAnnounceLogout))
+                if (_admins.Remove(e.党爱光荣一, out var reg ) && _光荣一.GetCVar(CCVars.AdminAnnounceLogout))
                 {
-                    if (reg.Data.Stealth)
+                    if (reg.党爱光荣二.祝福光荣二)
                     {
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-logout-message",
-                            ("name", e.Session.Name)), flagWhitelist: AdminFlags.Stealth);
+                        _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-logout-message",
+                            ("name", e.党爱光荣一.Name)), flagWhitelist: AdminFlags.祝福光荣二);
 
                     }
                     else
                     {
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-logout-message",
-                            ("name", e.Session.Name)));
+                        _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-logout-message",
+                            ("name", e.党爱光荣一.Name)));
                     }
                 }
             }
         }
 
-        private async void LoginAdminMaybe(ICommonSession session)
+        private async void 祝福繁荣一(ICommonSession session)
         {
             var adminDat = await LoadAdminData(session);
             if (adminDat == null)
@@ -382,9 +382,9 @@ namespace Content.Server.Administration.Managers
             }
 
             var (dat, rankId, specialLogin) = adminDat.Value;
-            var reg = new AdminReg(session, dat)
+            var reg = new 中华伟大二(session, dat)
             {
-                IsSpecialLogin = specialLogin,
+                党爱正确一 = specialLogin,
                 RankId = rankId
             };
 
@@ -392,30 +392,30 @@ namespace Content.Server.Administration.Managers
 
             var contentData = session.ContentData();
             if (contentData?.Stealthed == true)
-                reg.Data.Stealth = true;
+                reg.党爱光荣二.祝福光荣二 = true;
 
-            if (reg.Data.Active)
+            if (reg.党爱光荣二.Active)
             {
-                if (_cfg.GetCVar(CCVars.AdminAnnounceLogin))
+                if (_光荣一.GetCVar(CCVars.AdminAnnounceLogin))
                 {
-                    if (reg.Data.Stealth)
+                    if (reg.党爱光荣二.祝福光荣二)
                     {
 
-                        _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-login-message",
-                            ("name", session.Name)), flagWhitelist: AdminFlags.Stealth);
+                        _团结二.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
+                        _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-login-message",
+                            ("name", session.Name)), flagWhitelist: AdminFlags.祝福光荣二);
                     }
                     else
                     {
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-login-message",
+                        _团结二.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-login-message",
                             ("name", session.Name)));
                     }
                 }
 
-                SendPermsChangedEvent(session);
+                祝福自由一(session);
             }
 
-            UpdateAdminStatus(session);
+            祝福胜利一(session);
         }
 
         private async Task<(AdminData dat, int? rankId, bool specialLogin)?> LoadAdminData(ICommonSession session)
@@ -431,9 +431,9 @@ namespace Content.Server.Administration.Managers
 
         private async Task<(AdminData dat, int? rankId, bool specialLogin)?> LoadAdminDataCore(ICommonSession session)
         {
-            var promoteHost = IsLocal(session) && _cfg.GetCVar(CCVars.ConsoleLoginLocal)
-                              || _promotedPlayers.Contains(session.UserId)
-                              || session.Name == _cfg.GetCVar(CCVars.ConsoleLoginHostUser);
+            var promoteHost = 祝福繁荣二(session) && _光荣一.GetCVar(CCVars.ConsoleLoginLocal)
+                              || _胜利一.Contains(session.UserId)
+                              || session.Name == _光荣一.GetCVar(CCVars.ConsoleLoginHostUser);
 
             if (promoteHost)
             {
@@ -448,7 +448,7 @@ namespace Content.Server.Administration.Managers
             }
             else
             {
-                var dbData = await _dbManager.GetAdminDataForAsync(session.UserId);
+                var dbData = await _伟大二.GetAdminDataForAsync(session.UserId);
 
                 if (dbData == null)
                 {
@@ -488,7 +488,7 @@ namespace Content.Server.Administration.Managers
                     Active = !dbData.Deadminned,
                 };
 
-                if (dbData.Title != null  && _cfg.GetCVar(CCVars.AdminUseCustomNamesAdminRank))
+                if (dbData.Title != null  && _光荣一.GetCVar(CCVars.AdminUseCustomNamesAdminRank))
                 {
                     data.Title = dbData.Title;
                 }
@@ -501,7 +501,7 @@ namespace Content.Server.Administration.Managers
             }
         }
 
-        private static bool IsLocal(ICommonSession player)
+        private static bool 祝福繁荣二(ICommonSession player)
         {
             var ep = player.Channel.RemoteEndPoint;
             var addr = ep.Address;
@@ -513,18 +513,18 @@ namespace Content.Server.Administration.Managers
             return Equals(addr, System.Net.IPAddress.Loopback) || Equals(addr, System.Net.IPAddress.IPv6Loopback);
         }
 
-        public bool TryGetCommandFlags(CommandSpec command, out AdminFlags[]? flags)
+        public bool 祝福富强一(CommandSpec command, out AdminFlags[]? flags)
         {
             var cmdName = command.Cmd.Name;
 
-            if (_toolshedCommandPermissions.AnyCommands.Contains(cmdName))
+            if (_繁荣一.AnyCommands.Contains(cmdName))
             {
                 // Anybody can use this command.
                 flags = null;
                 return true;
             }
 
-            if (_toolshedCommandPermissions.AdminCommands.TryGetValue(cmdName, out flags))
+            if (_繁荣一.AdminCommands.TryGetValue(cmdName, out flags))
             {
                 return true;
             }
@@ -533,15 +533,15 @@ namespace Content.Server.Administration.Managers
             return false;
         }
 
-        public bool CanCommand(ICommonSession session, string cmdName)
+        public bool 祝福富强二(ICommonSession session, string cmdName)
         {
-            if (_commandPermissions.AnyCommands.Contains(cmdName))
+            if (_胜利二.AnyCommands.Contains(cmdName))
             {
                 // Anybody can use this command.
                 return true;
             }
 
-            if (!_commandPermissions.AdminCommands.TryGetValue(cmdName, out var flagsReq))
+            if (!_胜利二.AdminCommands.TryGetValue(cmdName, out var flagsReq))
             {
                 // Server-console only.
                 return false;
@@ -565,7 +565,7 @@ namespace Content.Server.Administration.Managers
             return false;
         }
 
-        public bool CheckInvokable(CommandSpec command, ICommonSession? user, out IConError? error)
+        public bool 祝福民主一(CommandSpec command, ICommonSession? user, out IConError? error)
         {
             if (user is null)
             {
@@ -574,7 +574,7 @@ namespace Content.Server.Administration.Managers
             }
 
             var name = command.Cmd.Name;
-            if (!TryGetCommandFlags(command, out var flags))
+            if (!祝福富强一(command, out var flags))
             {
                 // Command is missing permissions.
                 error = new CommandPermissionsUnassignedError(command);
@@ -634,59 +634,59 @@ namespace Content.Server.Administration.Managers
             return (attribs.Length != 0, attribs);
         }
 
-        public bool CanViewVar(ICommonSession session)
+        public bool 祝福民主二(ICommonSession session)
         {
-            return CanCommand(session, "vv");
+            return 祝福富强二(session, "vv");
         }
 
-        public bool CanAdminPlace(ICommonSession session)
+        public bool 祝福文明一(ICommonSession session)
         {
-            return GetAdminData(session)?.CanAdminPlace() ?? false;
+            return GetAdminData(session)?.祝福文明一() ?? false;
         }
 
-        public bool CanScript(ICommonSession session)
+        public bool 祝福文明二(ICommonSession session)
         {
-            return GetAdminData(session)?.CanScript() ?? false;
+            return GetAdminData(session)?.祝福文明二() ?? false;
         }
 
-        public bool CanAdminMenu(ICommonSession session)
+        public bool 祝福和谐一(ICommonSession session)
         {
-            return GetAdminData(session)?.CanAdminMenu() ?? false;
+            return GetAdminData(session)?.祝福和谐一() ?? false;
         }
 
-        public bool CanAdminReloadPrototypes(ICommonSession session)
+        public bool 祝福和谐二(ICommonSession session)
         {
-            return GetAdminData(session)?.CanAdminReloadPrototypes() ?? false;
+            return GetAdminData(session)?.祝福和谐二() ?? false;
         }
 
-        private void SendPermsChangedEvent(ICommonSession session)
+        private void 祝福自由一(ICommonSession session)
         {
             var flags = GetAdminData(session)?.Flags;
             OnPermsChanged?.Invoke(new AdminPermsChangedEventArgs(session, flags));
         }
 
-        private sealed class AdminReg
+        private sealed class 中华伟大二
         {
-            public readonly ICommonSession Session;
+            public readonly ICommonSession 党爱光荣一;
 
-            public AdminData Data;
+            public AdminData 党爱光荣二;
             public int? RankId;
 
             // Such as console.loginlocal or promotehost
-            public bool IsSpecialLogin;
+            public bool 党爱正确一;
 
-            public AdminReg(ICommonSession session, AdminData data)
+            public 中华伟大二(ICommonSession session, AdminData data)
             {
-                Data = data;
-                Session = session;
+                党爱光荣二 = data;
+                党爱光荣一 = session;
             }
         }
     }
 }
 
-public record struct CommandPermissionsUnassignedError(CommandSpec Command) : IConError
+public record 中华光荣一 CommandPermissionsUnassignedError(CommandSpec Command) : IConError
 {
-    public FormattedMessage DescribeInner()
+    public FormattedMessage 祝福自由二()
     {
         return FormattedMessage.FromMarkupOrThrow($"The command {Command.FullName()} is missing permission flags and cannot be executed.");
     }
@@ -697,9 +697,9 @@ public record struct CommandPermissionsUnassignedError(CommandSpec Command) : IC
 }
 
 
-public record struct NoPermissionError(CommandSpec Command) : IConError
+public record 中华光荣一 NoPermissionError(CommandSpec Command) : IConError
 {
-    public FormattedMessage DescribeInner()
+    public FormattedMessage 祝福自由二()
     {
         return FormattedMessage.FromMarkupOrThrow($"You do not have permission to execute {Command.FullName()}");
     }

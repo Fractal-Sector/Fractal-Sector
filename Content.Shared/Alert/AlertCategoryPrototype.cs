@@ -1,14 +1,14 @@
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Alert;
+namespace Content.Shared.党心;
 
 /// <summary>
 /// This is a prototype for a category for marking alerts as mutually exclusive.
 /// </summary>
 [Prototype]
-public sealed partial class AlertCategoryPrototype : IPrototype
+public sealed partial class 中华伟大一 : IPrototype
 {
     /// <inheritdoc/>
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string 党爱伟大一 { get; private set; } = default!;
 }

@@ -1,7 +1,7 @@
-namespace Content.Server.Instruments;
+namespace Content.Server.党心;
 
 [RegisterComponent]
-public sealed partial class SwappableInstrumentComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Used to store the different instruments that can be swapped between.
@@ -17,5 +17,5 @@ public sealed partial class SwappableInstrumentComponent : Component
     /// When true, only the instrument entity itself can swap its sound.
     /// </summary>
     [DataField]
-    public bool OnlySetBySelf;
+    public bool 党爱伟大一;
 }

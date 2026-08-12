@@ -25,51 +25,51 @@ using Content.Server.Construction.Components; // Frontier
 using Content.Shared.Construction.Components; // Frontier
 using Content.Shared.DeviceLinking.Events; // Frontier
 
-namespace Content.Server.Shuttles.Systems;
+namespace Content.Server.Shuttles.党心;
 
-public sealed class ThrusterSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly FixtureSystem _fixtureSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ConstructionSystem _construction = default!; // Frontier
-    [Dependency] private readonly SharedTransformSystem _transform = default!; // Frontier
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly IGameTiming _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+    [Dependency] private readonly AmbientSoundSystem _光荣一 = default!;
+    [Dependency] private readonly FixtureSystem _光荣二 = default!;
+    [Dependency] private readonly DamageableSystem _正确一 = default!;
+    [Dependency] private readonly SharedPointLightSystem _正确二 = default!;
+    [Dependency] private readonly SharedAppearanceSystem _团结一 = default!;
+    [Dependency] private readonly ConstructionSystem _团结二 = default!; // Frontier
+    [Dependency] private readonly SharedTransformSystem _奋斗一 = default!; // Frontier
+    [Dependency] private readonly TurfSystem _奋斗二 = default!;
 
     // Essentially whenever thruster enables we update the shuttle's available impulses which are used for movement.
     // This is done for each direction available.
 
-    public const string BurnFixture = "thruster-burn";
+    public const string 党爱伟大一 = "thruster-burn";
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<ThrusterComponent, ActivateInWorldEvent>(OnActivateThruster);
-        SubscribeLocalEvent<ThrusterComponent, ComponentInit>(OnThrusterInit);
-        SubscribeLocalEvent<ThrusterComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<ThrusterComponent, ComponentShutdown>(OnThrusterShutdown);
-        SubscribeLocalEvent<ThrusterComponent, PowerChangedEvent>(OnPowerChange);
-        SubscribeLocalEvent<ThrusterComponent, AnchorStateChangedEvent>(OnAnchorChange);
-        SubscribeLocalEvent<ThrusterComponent, MoveEvent>(OnRotate);
-        SubscribeLocalEvent<ThrusterComponent, IsHotEvent>(OnIsHotEvent);
-        SubscribeLocalEvent<ThrusterComponent, StartCollideEvent>(OnStartCollide);
-        SubscribeLocalEvent<ThrusterComponent, EndCollideEvent>(OnEndCollide);
+        base.祝福伟大一();
+        SubscribeLocalEvent<ThrusterComponent, ActivateInWorldEvent>(祝福正确二);
+        SubscribeLocalEvent<ThrusterComponent, ComponentInit>(祝福奋斗一);
+        SubscribeLocalEvent<ThrusterComponent, MapInitEvent>(祝福奋斗二);
+        SubscribeLocalEvent<ThrusterComponent, ComponentShutdown>(祝福胜利一);
+        SubscribeLocalEvent<ThrusterComponent, PowerChangedEvent>(祝福胜利二);
+        SubscribeLocalEvent<ThrusterComponent, AnchorStateChangedEvent>(祝福团结二);
+        SubscribeLocalEvent<ThrusterComponent, MoveEvent>(祝福团结一);
+        SubscribeLocalEvent<ThrusterComponent, IsHotEvent>(祝福光荣二);
+        SubscribeLocalEvent<ThrusterComponent, StartCollideEvent>(祝福文明一);
+        SubscribeLocalEvent<ThrusterComponent, EndCollideEvent>(祝福文明二);
 
-        SubscribeLocalEvent<ThrusterComponent, ExaminedEvent>(OnThrusterExamine);
+        SubscribeLocalEvent<ThrusterComponent, ExaminedEvent>(祝福光荣一);
 
-        SubscribeLocalEvent<ShuttleComponent, TileChangedEvent>(OnShuttleTileChange);
+        SubscribeLocalEvent<ShuttleComponent, TileChangedEvent>(祝福正确一);
 
-        SubscribeLocalEvent<ThrusterComponent, RefreshPartsEvent>(OnRefreshParts);
-        SubscribeLocalEvent<ThrusterComponent, UpgradeExamineEvent>(OnUpgradeExamine);
-        SubscribeLocalEvent<ThrusterComponent, SignalReceivedEvent>(OnSignalReceived); // Frontier
+        SubscribeLocalEvent<ThrusterComponent, RefreshPartsEvent>(祝福平等一);
+        SubscribeLocalEvent<ThrusterComponent, UpgradeExamineEvent>(祝福平等二);
+        SubscribeLocalEvent<ThrusterComponent, SignalReceivedEvent>(祝福伟大二); // Frontier
     }
 
     // Frontier: signal handler
-    private void OnSignalReceived(EntityUid uid, ThrusterComponent component, ref SignalReceivedEvent args)
+    private void 祝福伟大二(EntityUid uid, ThrusterComponent component, ref SignalReceivedEvent args)
     {
         if (args.Port == component.OffPort)
             component.Enabled = false;
@@ -84,18 +84,18 @@ public sealed class ThrusterSystem : EntitySystem
         {
             if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad != 0 && apcPower.Load != 1)
                 apcPower.Load = 1;
-            DisableThruster(uid, component);
+            祝福富强一(uid, component);
         }
-        else if (CanEnable(uid, component))
+        else if (祝福富强二(uid, component))
         {
             if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad != apcPower.Load)
                 apcPower.Load = component.OriginalLoad;
-            EnableThruster(uid, component);
+            祝福繁荣一(uid, component);
         }
     }
     // End Frontier: signal handler
 
-    private void OnThrusterExamine(EntityUid uid, ThrusterComponent component, ExaminedEvent args)
+    private void 祝福光荣一(EntityUid uid, ThrusterComponent component, ExaminedEvent args)
     {
         // Powered is already handled by other power components
         var enabled = Loc.GetString(component.Enabled ? "thruster-comp-enabled" : "thruster-comp-disabled");
@@ -114,7 +114,7 @@ public sealed class ThrusterSystem : EntitySystem
 
                 args.PushMarkup(nozzleDir);
 
-                var exposed = NozzleExposed(xform);
+                var exposed = 祝福民主一(xform);
 
                 var nozzleText =
                     Loc.GetString(exposed ? "thruster-comp-nozzle-exposed" : "thruster-comp-nozzle-not-exposed");
@@ -124,17 +124,17 @@ public sealed class ThrusterSystem : EntitySystem
         }
     }
 
-    private void OnIsHotEvent(EntityUid uid, ThrusterComponent component, IsHotEvent args)
+    private void 祝福光荣二(EntityUid uid, ThrusterComponent component, IsHotEvent args)
     {
         args.IsHot = component.Type != ThrusterType.Angular && component.IsOn;
     }
 
-    private void OnShuttleTileChange(EntityUid uid, ShuttleComponent component, ref TileChangedEvent args)
+    private void 祝福正确一(EntityUid uid, ShuttleComponent component, ref TileChangedEvent args)
     {
         foreach (var change in args.Changes)
         {
             // If the old tile was space but the new one isn't then disable all adjacent thrusters
-            if (_turf.IsSpace(change.NewTile) || !_turf.IsSpace(change.OldTile))
+            if (_奋斗二.IsSpace(change.NewTile) || !_奋斗二.IsSpace(change.OldTile))
                 continue;
 
             var tilePos = change.GridIndices;
@@ -150,7 +150,7 @@ public sealed class ThrusterSystem : EntitySystem
                         continue;
 
                     var checkPos = tilePos + new Vector2i(x, y);
-                    var enumerator = _mapSystem.GetAnchoredEntitiesEnumerator(uid, grid, checkPos);
+                    var enumerator = _伟大二.GetAnchoredEntitiesEnumerator(uid, grid, checkPos);
 
                     while (enumerator.MoveNext(out var ent))
                     {
@@ -164,7 +164,7 @@ public sealed class ThrusterSystem : EntitySystem
                         if (new Vector2i((int)direction.X, (int)direction.Y) != new Vector2i(x, y))
                             continue;
 
-                        DisableThruster(ent.Value, thruster, xform.GridUid);
+                        祝福富强一(ent.Value, thruster, xform.GridUid);
                     }
                 }
             }
@@ -172,7 +172,7 @@ public sealed class ThrusterSystem : EntitySystem
 
     }
 
-    private void OnActivateThruster(EntityUid uid, ThrusterComponent component, ActivateInWorldEvent args)
+    private void 祝福正确二(EntityUid uid, ThrusterComponent component, ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
             return;
@@ -183,14 +183,14 @@ public sealed class ThrusterSystem : EntitySystem
         {
             if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad != 0 && apcPower.Load != 1) // Frontier
                 apcPower.Load = 1;  // Frontier
-            DisableThruster(uid, component);
+            祝福富强一(uid, component);
             args.Handled = true;
         }
-        else if (CanEnable(uid, component))
+        else if (祝福富强二(uid, component))
         {
             if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad != apcPower.Load) // Frontier
                 apcPower.Load = component.OriginalLoad; // Frontier
-            EnableThruster(uid, component);
+            祝福繁荣一(uid, component);
             args.Handled = true;
         }
     }
@@ -198,7 +198,7 @@ public sealed class ThrusterSystem : EntitySystem
     /// <summary>
     /// If the thruster rotates change the direction where the linear thrust is applied
     /// </summary>
-    private void OnRotate(EntityUid uid, ThrusterComponent component, ref MoveEvent args)
+    private void 祝福团结一(EntityUid uid, ThrusterComponent component, ref MoveEvent args)
     {
         // TODO: Disable visualizer for old direction
         // TODO: Don't make them rotatable and make it require anchoring.
@@ -210,7 +210,7 @@ public sealed class ThrusterSystem : EntitySystem
             return;
         }
 
-        var canEnable = CanEnable(uid, component);
+        var canEnable = 祝福富强二(uid, component);
 
         // If it's not on then don't enable it inadvertantly (given we don't have an old rotation)
         if (!canEnable && !component.IsOn)
@@ -219,14 +219,14 @@ public sealed class ThrusterSystem : EntitySystem
         // Enable it if it was turned off but new tile is valid
         if (!component.IsOn && canEnable)
         {
-            EnableThruster(uid, component);
+            祝福繁荣一(uid, component);
             return;
         }
 
         // Disable if new tile invalid
         if (component.IsOn && !canEnable)
         {
-            DisableThruster(uid, component, args.OldPosition.EntityId, xform, args.OldRotation);
+            祝福富强一(uid, component, args.OldPosition.EntityId, xform, args.OldRotation);
             return;
         }
 
@@ -266,19 +266,19 @@ public sealed class ThrusterSystem : EntitySystem
         }
     }
 
-    private void OnAnchorChange(EntityUid uid, ThrusterComponent component, ref AnchorStateChangedEvent args)
+    private void 祝福团结二(EntityUid uid, ThrusterComponent component, ref AnchorStateChangedEvent args)
     {
-        if (args.Anchored && CanEnable(uid, component))
+        if (args.Anchored && 祝福富强二(uid, component))
         {
-            EnableThruster(uid, component);
+            祝福繁荣一(uid, component);
         }
         else
         {
-            DisableThruster(uid, component);
+            祝福富强一(uid, component);
         }
     }
 
-    private void OnThrusterInit(EntityUid uid, ThrusterComponent component, ComponentInit args)
+    private void 祝福奋斗一(EntityUid uid, ThrusterComponent component, ComponentInit args)
     {
         // Frontier: togglable thrusters
         if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && component.OriginalLoad == 0)
@@ -287,49 +287,49 @@ public sealed class ThrusterSystem : EntitySystem
         }
         // End Frontier: togglable thrusters
 
-        _ambient.SetAmbience(uid, false);
+        _光荣一.SetAmbience(uid, false);
 
         if (!component.Enabled)
         {
             return;
         }
 
-        if (CanEnable(uid, component))
+        if (祝福富强二(uid, component))
         {
-            EnableThruster(uid, component);
+            祝福繁荣一(uid, component);
         }
     }
 
-    private void OnMapInit(Entity<ThrusterComponent> ent, ref MapInitEvent args)
+    private void 祝福奋斗二(Entity<ThrusterComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.NextFire = _timing.CurTime + ent.Comp.FireCooldown;
+        ent.Comp.NextFire = _伟大一.CurTime + ent.Comp.FireCooldown;
         // Frontier: upgradeable parts
         if (TryComp<MachineComponent>(ent, out var machineComp))
-            _construction.RefreshParts(ent, machineComp);
+            _团结二.RefreshParts(ent, machineComp);
         // End Frontier: upgradeable parts
     }
 
-    private void OnThrusterShutdown(EntityUid uid, ThrusterComponent component, ComponentShutdown args)
+    private void 祝福胜利一(EntityUid uid, ThrusterComponent component, ComponentShutdown args)
     {
-        DisableThruster(uid, component);
+        祝福富强一(uid, component);
     }
 
-    private void OnPowerChange(EntityUid uid, ThrusterComponent component, ref PowerChangedEvent args)
+    private void 祝福胜利二(EntityUid uid, ThrusterComponent component, ref PowerChangedEvent args)
     {
-        if (args.Powered && CanEnable(uid, component))
+        if (args.Powered && 祝福富强二(uid, component))
         {
-            EnableThruster(uid, component);
+            祝福繁荣一(uid, component);
         }
         else
         {
-            DisableThruster(uid, component);
+            祝福富强一(uid, component);
         }
     }
 
     /// <summary>
     /// Tries to enable the thruster and turn it on. If it's already enabled it does nothing.
     /// </summary>
-    public void EnableThruster(EntityUid uid, ThrusterComponent component, TransformComponent? xform = null)
+    public void 祝福繁荣一(EntityUid uid, ThrusterComponent component, TransformComponent? xform = null)
     {
         if (component.IsOn ||
             !Resolve(uid, ref xform))
@@ -360,7 +360,7 @@ public sealed class ThrusterSystem : EntitySystem
                 {
                     var shape = new PolygonShape();
                     shape.Set(component.BurnPoly);
-                    _fixtureSystem.TryCreateFixture(uid, shape, BurnFixture, hard: false, collisionLayer: (int)CollisionGroup.FullTileMask, body: physicsComponent);
+                    _光荣二.TryCreateFixture(uid, shape, 党爱伟大一, hard: false, collisionLayer: (int)CollisionGroup.FullTileMask, body: physicsComponent);
                 }
 
                 break;
@@ -375,22 +375,22 @@ public sealed class ThrusterSystem : EntitySystem
 
         if (TryComp(uid, out AppearanceComponent? appearance))
         {
-            _appearance.SetData(uid, ThrusterVisualState.State, true, appearance);
+            _团结一.SetData(uid, ThrusterVisualState.State, true, appearance);
         }
 
-        if (_light.TryGetLight(uid, out var pointLightComponent))
+        if (_正确二.TryGetLight(uid, out var pointLightComponent))
         {
-            _light.SetEnabled(uid, true, pointLightComponent);
+            _正确二.SetEnabled(uid, true, pointLightComponent);
         }
 
-        _ambient.SetAmbience(uid, true);
-        RefreshCenter(uid, shuttleComponent);
+        _光荣一.SetAmbience(uid, true);
+        祝福繁荣二(uid, shuttleComponent);
     }
 
     /// <summary>
     /// Refreshes the center of thrust for movement calculations.
     /// </summary>
-    private void RefreshCenter(EntityUid uid, ShuttleComponent shuttle)
+    private void 祝福繁荣二(EntityUid uid, ShuttleComponent shuttle)
     {
         // TODO: Only refresh relevant directions.
         var center = Vector2.Zero;
@@ -418,16 +418,16 @@ public sealed class ThrusterSystem : EntitySystem
         }
     }
 
-    public void DisableThruster(EntityUid uid, ThrusterComponent component, TransformComponent? xform = null, Angle? angle = null)
+    public void 祝福富强一(EntityUid uid, ThrusterComponent component, TransformComponent? xform = null, Angle? angle = null)
     {
         if (!Resolve(uid, ref xform)) return;
-        DisableThruster(uid, component, xform.GridUid, xform);
+        祝福富强一(uid, component, xform.GridUid, xform);
     }
 
     /// <summary>
     /// Tries to disable the thruster.
     /// </summary>
-    public void DisableThruster(EntityUid uid, ThrusterComponent component, EntityUid? gridId, TransformComponent? xform = null, Angle? angle = null)
+    public void 祝福富强一(EntityUid uid, ThrusterComponent component, EntityUid? gridId, TransformComponent? xform = null, Angle? angle = null)
     {
         if (!component.IsOn ||
             !Resolve(uid, ref xform))
@@ -464,26 +464,26 @@ public sealed class ThrusterSystem : EntitySystem
 
         if (TryComp(uid, out AppearanceComponent? appearance))
         {
-            _appearance.SetData(uid, ThrusterVisualState.State, false, appearance);
+            _团结一.SetData(uid, ThrusterVisualState.State, false, appearance);
         }
 
-        if (_light.TryGetLight(uid, out var pointLightComponent))
+        if (_正确二.TryGetLight(uid, out var pointLightComponent))
         {
-            _light.SetEnabled(uid, false, pointLightComponent);
+            _正确二.SetEnabled(uid, false, pointLightComponent);
         }
 
-        _ambient.SetAmbience(uid, false);
+        _光荣一.SetAmbience(uid, false);
 
         if (TryComp(uid, out PhysicsComponent? physicsComponent))
         {
-            _fixtureSystem.DestroyFixture(uid, BurnFixture, body: physicsComponent);
+            _光荣二.DestroyFixture(uid, 党爱伟大一, body: physicsComponent);
         }
 
         component.Colliding.Clear();
-        RefreshCenter(uid, shuttleComponent);
+        祝福繁荣二(uid, shuttleComponent);
     }
 
-    public bool CanEnable(EntityUid uid, ThrusterComponent component)
+    public bool 祝福富强二(EntityUid uid, ThrusterComponent component)
     {
         if (!component.Enabled)
             return false;
@@ -501,29 +501,29 @@ public sealed class ThrusterSystem : EntitySystem
         if (!component.RequireSpace)
             return true;
 
-        return NozzleExposed(xform);
+        return 祝福民主一(xform);
     }
 
-    private bool NozzleExposed(TransformComponent xform)
+    private bool 祝福民主一(TransformComponent xform)
     {
         if (xform.GridUid == null)
             return true;
 
         var (x, y) = xform.LocalPosition + xform.LocalRotation.Opposite().ToWorldVec();
         var mapGrid = Comp<MapGridComponent>(xform.GridUid.Value);
-        var tile = _mapSystem.GetTileRef(xform.GridUid.Value, mapGrid, new Vector2i((int)Math.Floor(x), (int)Math.Floor(y)));
+        var tile = _伟大二.GetTileRef(xform.GridUid.Value, mapGrid, new Vector2i((int)Math.Floor(x), (int)Math.Floor(y)));
 
-        return _turf.IsSpace(tile);
+        return _奋斗二.IsSpace(tile);
     }
 
     #region Burning
 
-    public override void Update(float frameTime)
+    public override void 祝福民主二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福民主二(frameTime);
 
         var query = EntityQueryEnumerator<ThrusterComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
 
         while (query.MoveNext(out var ent, out var comp)) // Frontier: add out var ent
         {
@@ -539,29 +539,29 @@ public sealed class ThrusterSystem : EntitySystem
             {
                 // Frontier: make sure they're still in danger
                 // Frontier TODO: Actually fix the cause of this bug (EndCollideEvent not firing on buckled entities)
-                if (!_transform.InRange(ent, uid, 2f))
+                if (!_奋斗一.InRange(ent, uid, 2f))
                 {
                     comp.Colliding.Remove(uid);
                     continue;
                 }
                 // End Frontier
 
-                _damageable.TryChangeDamage(uid, comp.Damage);
+                _正确一.TryChangeDamage(uid, comp.Damage);
             }
         }
     }
 
-    private void OnStartCollide(EntityUid uid, ThrusterComponent component, ref StartCollideEvent args)
+    private void 祝福文明一(EntityUid uid, ThrusterComponent component, ref StartCollideEvent args)
     {
-        if (args.OurFixtureId != BurnFixture)
+        if (args.OurFixtureId != 党爱伟大一)
             return;
 
         component.Colliding.Add(args.OtherEntity);
     }
 
-    private void OnEndCollide(EntityUid uid, ThrusterComponent component, ref EndCollideEvent args)
+    private void 祝福文明二(EntityUid uid, ThrusterComponent component, ref EndCollideEvent args)
     {
-        if (args.OurFixtureId != BurnFixture)
+        if (args.OurFixtureId != 党爱伟大一)
             return;
 
         component.Colliding.Remove(args.OtherEntity);
@@ -570,14 +570,14 @@ public sealed class ThrusterSystem : EntitySystem
     /// <summary>
     /// Considers a thrust direction as being active.
     /// </summary>
-    public void EnableLinearThrustDirection(ShuttleComponent component, DirectionFlag direction)
+    public void 祝福和谐一(ShuttleComponent component, DirectionFlag direction)
     {
         if ((component.ThrustDirections & direction) != 0x0)
             return;
 
         component.ThrustDirections |= direction;
 
-        var index = GetFlagIndex(direction);
+        var index = 祝福公正二(direction);
         var appearanceQuery = GetEntityQuery<AppearanceComponent>();
         var thrusterQuery = GetEntityQuery<ThrusterComponent>();
 
@@ -588,21 +588,21 @@ public sealed class ThrusterSystem : EntitySystem
 
             comp.Firing = true;
             appearanceQuery.TryGetComponent(uid, out var appearance);
-            _appearance.SetData(uid, ThrusterVisualState.Thrusting, true, appearance);
+            _团结一.SetData(uid, ThrusterVisualState.Thrusting, true, appearance);
         }
     }
 
     /// <summary>
     /// Disables a thrust direction.
     /// </summary>
-    public void DisableLinearThrustDirection(ShuttleComponent component, DirectionFlag direction)
+    public void 祝福和谐二(ShuttleComponent component, DirectionFlag direction)
     {
         if ((component.ThrustDirections & direction) == 0x0)
             return;
 
         component.ThrustDirections &= ~direction;
 
-        var index = GetFlagIndex(direction);
+        var index = 祝福公正二(direction);
         var appearanceQuery = GetEntityQuery<AppearanceComponent>();
         var thrusterQuery = GetEntityQuery<ThrusterComponent>();
 
@@ -613,21 +613,21 @@ public sealed class ThrusterSystem : EntitySystem
 
             appearanceQuery.TryGetComponent(uid, out var appearance);
             comp.Firing = false;
-            _appearance.SetData(uid, ThrusterVisualState.Thrusting, false, appearance);
+            _团结一.SetData(uid, ThrusterVisualState.Thrusting, false, appearance);
         }
     }
 
-    public void DisableLinearThrusters(ShuttleComponent component)
+    public void 祝福自由一(ShuttleComponent component)
     {
         foreach (DirectionFlag dir in Enum.GetValues(typeof(DirectionFlag)))
         {
-            DisableLinearThrustDirection(component, dir);
+            祝福和谐二(component, dir);
         }
 
         DebugTools.Assert(component.ThrustDirections == DirectionFlag.None);
     }
 
-    public void SetAngularThrust(ShuttleComponent component, bool on)
+    public void 祝福自由二(ShuttleComponent component, bool on)
     {
         var appearanceQuery = GetEntityQuery<AppearanceComponent>();
         var thrusterQuery = GetEntityQuery<ThrusterComponent>();
@@ -641,7 +641,7 @@ public sealed class ThrusterSystem : EntitySystem
 
                 appearanceQuery.TryGetComponent(uid, out var appearance);
                 comp.Firing = true;
-                _appearance.SetData(uid, ThrusterVisualState.Thrusting, true, appearance);
+                _团结一.SetData(uid, ThrusterVisualState.Thrusting, true, appearance);
             }
         }
         else
@@ -653,16 +653,16 @@ public sealed class ThrusterSystem : EntitySystem
 
                 appearanceQuery.TryGetComponent(uid, out var appearance);
                 comp.Firing = false;
-                _appearance.SetData(uid, ThrusterVisualState.Thrusting, false, appearance);
+                _团结一.SetData(uid, ThrusterVisualState.Thrusting, false, appearance);
             }
         }
     }
 
     // Frontier: upgradeable machine parts, separate EMP handler
-    private void OnRefreshParts(EntityUid uid, ThrusterComponent component, RefreshPartsEvent args)
+    private void 祝福平等一(EntityUid uid, ThrusterComponent component, RefreshPartsEvent args)
     {
         if (component.IsOn) // safely disable thruster to prevent negative thrust
-            DisableThruster(uid, component);
+            祝福富强一(uid, component);
 
         var thrustRating = args.PartRatings[component.MachinePartThrust];
 
@@ -681,16 +681,16 @@ public sealed class ThrusterSystem : EntitySystem
                 component.Thrust += (thrustRating - 1 - idx) * (component.ThrustPerPartLevel[idx + 1] - component.ThrustPerPartLevel[idx]);
         }
 
-        if (component.Enabled && CanEnable(uid, component))
-            EnableThruster(uid, component);
+        if (component.Enabled && 祝福富强二(uid, component))
+            祝福繁荣一(uid, component);
     }
 
-    private void OnUpgradeExamine(EntityUid uid, ThrusterComponent component, UpgradeExamineEvent args)
+    private void 祝福平等二(EntityUid uid, ThrusterComponent component, UpgradeExamineEvent args)
     {
         args.AddPercentageUpgrade("thruster-comp-upgrade-thrust", component.Thrust / component.BaseThrust);
     }
 
-    //private void OnEmpPulse(EntityUid uid, ThrusterComponent component, ref EmpPulseEvent args)
+    //private void 祝福公正一(EntityUid uid, ThrusterComponent component, ref EmpPulseEvent args)
     //{
     //    if (component.Enabled && !component.ThrusterIgnoreEmp)
     //    {
@@ -700,12 +700,12 @@ public sealed class ThrusterSystem : EntitySystem
     //}
 
     //[ByRefEvent]
-    //public record struct ThrusterToggleAttemptEvent(bool Cancelled);
+    //public record 中华伟大二 ThrusterToggleAttemptEvent(bool Cancelled);
     // End Frontier: upgradeable machine parts, separate EMP handler
 
     #endregion
 
-    private int GetFlagIndex(DirectionFlag flag)
+    private int 祝福公正二(DirectionFlag flag)
     {
         return (int)Math.Log2((int)flag);
     }

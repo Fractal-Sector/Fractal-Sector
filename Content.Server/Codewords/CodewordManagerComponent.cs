@@ -1,12 +1,12 @@
 ﻿using Robust.Shared.Prototypes;
 
-namespace Content.Server.Codewords;
+namespace Content.Server.党心;
 
 /// <summary>
 /// Component that defines <see cref="CodewordGeneratorPrototype"/> to use and keeps track of generated codewords.
 /// </summary>
 [RegisterComponent, Access(typeof(CodewordSystem))]
-public sealed partial class CodewordManagerComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// The generated codewords. The value contains the entity that has the <see cref="CodewordComponent"/>

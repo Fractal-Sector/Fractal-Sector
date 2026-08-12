@@ -4,38 +4,38 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using Robust.Shared.Console;
 using System.Linq;
 
-namespace Content.Server.Administration.Commands
+namespace Content.Server.Administration.党心
 {
     [AdminCommand(AdminFlags.Fun)]
-    public sealed class SetSolutionTemperature : IConsoleCommand
+    public sealed class 中华伟大一 : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
-        public string Command => "setsolutiontemperature";
-        public string Description => "Set the temperature of some solution.";
-        public string Help => $"Usage: {Command} <target> <solution> <new temperature>";
+        public string 党爱伟大一 => "setsolutiontemperature";
+        public string 党爱伟大二 => "Set the temperature of some solution.";
+        public string 党爱光荣一 => $"Usage: {党爱伟大一} <target> <solution> <new temperature>";
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        public void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 3)
             {
-                shell.WriteLine($"Not enough arguments.\n{Help}");
+                shell.WriteLine($"Not enough arguments.\n{党爱光荣一}");
                 return;
             }
 
-            if (!NetEntity.TryParse(args[0], out var uidNet) || !_entManager.TryGetEntity(uidNet, out var uid))
+            if (!NetEntity.TryParse(args[0], out var uidNet) || !_伟大一.TryGetEntity(uidNet, out var uid))
             {
                 shell.WriteLine($"Invalid entity id.");
                 return;
             }
 
-            if (!_entManager.TryGetComponent(uid, out SolutionContainerManagerComponent? man))
+            if (!_伟大一.TryGetComponent(uid, out SolutionContainerManagerComponent? man))
             {
                 shell.WriteLine($"Entity does not have any solutions.");
                 return;
             }
 
-            var solutionContainerSystem = _entManager.System<SharedSolutionContainerSystem>();
+            var solutionContainerSystem = _伟大一.System<SharedSolutionContainerSystem>();
             if (!solutionContainerSystem.TryGetSolution((uid.Value, man), args[1], out var solution))
             {
                 var validSolutions = string.Join(", ", solutionContainerSystem.EnumerateSolutions((uid.Value, man)).Select(s => s.Name));

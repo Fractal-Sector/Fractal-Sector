@@ -10,30 +10,30 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs;
 using Content.Shared.Verbs;
 
-namespace Content.Shared.Implants;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedSubdermalImplantSystem : EntitySystem
+public abstract partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大二 = default!;
+    [Dependency] private readonly INetManager _光荣一 = default!;
+    [Dependency] private readonly IGameTiming _光荣二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
         InitializeRelay();
 
-        SubscribeLocalEvent<SubdermalImplantComponent, EntGotInsertedIntoContainerMessage>(OnInsert);
-        SubscribeLocalEvent<SubdermalImplantComponent, ContainerGettingRemovedAttemptEvent>(OnRemoveAttempt);
-        SubscribeLocalEvent<SubdermalImplantComponent, EntGotRemovedFromContainerMessage>(OnRemove);
+        SubscribeLocalEvent<SubdermalImplantComponent, EntGotInsertedIntoContainerMessage>(祝福伟大二);
+        SubscribeLocalEvent<SubdermalImplantComponent, ContainerGettingRemovedAttemptEvent>(祝福光荣一);
+        SubscribeLocalEvent<SubdermalImplantComponent, EntGotRemovedFromContainerMessage>(祝福光荣二);
 
     }
 
-    private void OnInsert(Entity<SubdermalImplantComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void 祝福伟大二(Entity<SubdermalImplantComponent> ent, ref EntGotInsertedIntoContainerMessage args)
     {
         // The results of the container change are already networked on their own
-        if (_timing.ApplyingState)
+        if (_光荣二.ApplyingState)
             return;
 
         if (args.Container.ID != ImplanterComponent.ImplantSlotId)
@@ -44,22 +44,22 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
 
         EntityManager.AddComponents(ent.Comp.ImplantedEntity.Value, ent.Comp.ImplantComponents);
         if (ent.Comp.ImplantAction != null)
-            _actions.AddAction(ent.Comp.ImplantedEntity.Value, ref ent.Comp.Action, ent.Comp.ImplantAction, ent.Owner);
+            _伟大一.AddAction(ent.Comp.ImplantedEntity.Value, ref ent.Comp.Action, ent.Comp.ImplantAction, ent.Owner);
 
         var ev = new ImplantImplantedEvent(ent.Owner, ent.Comp.ImplantedEntity.Value);
         RaiseLocalEvent(ent.Owner, ref ev);
     }
 
-    private void OnRemoveAttempt(Entity<SubdermalImplantComponent> ent, ref ContainerGettingRemovedAttemptEvent args)
+    private void 祝福光荣一(Entity<SubdermalImplantComponent> ent, ref ContainerGettingRemovedAttemptEvent args)
     {
         if (ent.Comp.Permanent && ent.Comp.ImplantedEntity != null)
             args.Cancel();
     }
 
-    private void OnRemove(Entity<SubdermalImplantComponent> ent, ref EntGotRemovedFromContainerMessage args)
+    private void 祝福光荣二(Entity<SubdermalImplantComponent> ent, ref EntGotRemovedFromContainerMessage args)
     {
         // The results of the container change are already networked on their own
-        if (_timing.ApplyingState)
+        if (_光荣二.ApplyingState)
             return;
 
         if (args.Container.ID != ImplanterComponent.ImplantSlotId)
@@ -69,7 +69,7 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
             return;
 
         EntityManager.RemoveComponents(ent.Comp.ImplantedEntity.Value, ent.Comp.ImplantComponents);
-        _actions.RemoveAction(ent.Comp.ImplantedEntity.Value, ent.Comp.Action);
+        _伟大一.RemoveAction(ent.Comp.ImplantedEntity.Value, ent.Comp.Action);
         ent.Comp.Action = null;
 
         var ev = new ImplantRemovedEvent(ent.Owner, ent.Comp.ImplantedEntity.Value);
@@ -83,7 +83,7 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
     /// Add a list of implants to a person.
     /// Logs any implant ids that don't have <see cref="SubdermalImplantComponent"/>.
     /// </summary>
-    public void AddImplants(EntityUid uid, IEnumerable<EntProtoId> implants)
+    public void 祝福正确一(EntityUid uid, IEnumerable<EntProtoId> implants)
     {
         foreach (var id in implants)
         {
@@ -100,7 +100,7 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
     /// </returns>>
     public EntityUid? AddImplant(EntityUid target, EntProtoId implantId)
     {
-        if (_net.IsClient)
+        if (_光荣一.IsClient)
             return null; // can't interact with predicted spawns yet
 
         var coords = Transform(target).Coordinates;
@@ -108,7 +108,7 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
 
         if (TryComp<SubdermalImplantComponent>(implant, out var implantComp))
         {
-            ForceImplant(target, (implant, implantComp));
+            祝福正确二(target, (implant, implantComp));
         }
         else
         {
@@ -127,7 +127,7 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
     /// </summary>
     /// <param name="target">The entity to be implanted</param>
     /// <param name="implant"> The implant</param>
-    public void ForceImplant(EntityUid target, Entity<SubdermalImplantComponent?> implant)
+    public void 祝福正确二(EntityUid target, Entity<SubdermalImplantComponent?> implant)
     {
         if (!Resolve(implant, ref implant.Comp))
             return;
@@ -136,7 +136,7 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
         var implantedComp = EnsureComp<ImplantedComponent>(target);
 
         implant.Comp.ImplantedEntity = target;
-        _container.Insert(implant.Owner, implantedComp.ImplantContainer);
+        _伟大二.Insert(implant.Owner, implantedComp.ImplantContainer);
     }
 
     /// <summary>
@@ -144,12 +144,12 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
     /// </summary>
     /// <param name="target">the implanted entity</param>
     /// <param name="implant">the implant</param>
-    public void ForceRemove(Entity<ImplantedComponent?> target, EntityUid implant)
+    public void 祝福团结一(Entity<ImplantedComponent?> target, EntityUid implant)
     {
         if (!Resolve(target, ref target.Comp))
             return;
 
-        _container.Remove(implant, target.Comp.ImplantContainer);
+        _伟大二.Remove(implant, target.Comp.ImplantContainer);
         PredictedQueueDel(implant);
     }
 
@@ -157,11 +157,11 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
     /// Removes and deletes implants by force
     /// </summary>
     /// <param name="target">The entity to have implants removed</param>
-    public void WipeImplants(Entity<ImplantedComponent?> target)
+    public void 祝福团结二(Entity<ImplantedComponent?> target)
     {
         if (!Resolve(target, ref target.Comp, false))
             return;
-        _container.CleanContainer(target.Comp.ImplantContainer);
+        _伟大二.CleanContainer(target.Comp.ImplantContainer);
     }
 }
 
@@ -173,15 +173,15 @@ public abstract partial class SharedSubdermalImplantSystem : EntitySystem
 /// implant implant implant implant
 /// </remarks>
 [ByRefEvent]
-public readonly record struct ImplantImplantedEvent
+public readonly record 中华伟大二 ImplantImplantedEvent
 {
-    public readonly EntityUid Implant;
-    public readonly EntityUid Implanted;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
 
     public ImplantImplantedEvent(EntityUid implant, EntityUid implanted)
     {
-        Implant = implant;
-        Implanted = implanted;
+        党爱伟大一 = implant;
+        党爱伟大二 = implanted;
     }
 }
 
@@ -191,14 +191,14 @@ public readonly record struct ImplantImplantedEvent
 /// </summary>
 
 [ByRefEvent]
-public readonly record struct ImplantRemovedEvent
+public readonly record 中华伟大二 ImplantRemovedEvent
 {
-    public readonly EntityUid Implant;
-    public readonly EntityUid Implanted;
+    public readonly EntityUid 党爱伟大一;
+    public readonly EntityUid 党爱伟大二;
 
     public ImplantRemovedEvent(EntityUid implant, EntityUid implanted)
     {
-        Implant = implant;
-        Implanted = implanted;
+        党爱伟大一 = implant;
+        党爱伟大二 = implanted;
     }
 }

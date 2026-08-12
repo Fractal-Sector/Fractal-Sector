@@ -2,14 +2,14 @@
 using Content.Shared.CCVar.CVarAccess;
 using Robust.Shared.Configuration;
 
-namespace Content.Shared.CCVar;
+namespace Content.Shared.党心;
 
-public sealed partial class CCVars
+public sealed partial class 中华伟大一
 {
     /// <summary>
     ///     Delay for auto-orientation. Used for people arriving via arrivals.
     /// </summary>
-    public static readonly CVarDef<double> AutoOrientDelay =
+    public static readonly CVarDef<double> 党爱伟大一 =
         CVarDef.Create("shuttle.auto_orient_delay", 2.0, CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
@@ -18,194 +18,194 @@ public sealed partial class CCVars
     ///     False means the player has control over the camera rotation.
     ///     - When traversing grids it will snap to the nearest cardinal which will generally be imperceptible.
     /// </summary>
-    public static readonly CVarDef<bool> CameraRotationLocked =
+    public static readonly CVarDef<bool> 党爱伟大二 =
         CVarDef.Create("shuttle.camera_rotation_locked", false, CVar.REPLICATED);
 
     /// <summary>
     ///     Whether the arrivals terminal should be on a planet map.
     /// </summary>
-    public static readonly CVarDef<bool> ArrivalsPlanet =
+    public static readonly CVarDef<bool> 党爱光荣一 =
         CVarDef.Create("shuttle.arrivals_planet", true, CVar.SERVERONLY);
 
     /// <summary>
     ///     Whether the arrivals shuttle is enabled.
     /// </summary>
-    public static readonly CVarDef<bool> ArrivalsShuttles =
+    public static readonly CVarDef<bool> 党爱光荣二 =
         CVarDef.Create("shuttle.arrivals", false, CVar.SERVERONLY); // Frontier: false
 
     /// <summary>
     ///     The map to use for the arrivals station.
     /// </summary>
-    public static readonly CVarDef<string> ArrivalsMap =
+    public static readonly CVarDef<string> 党爱正确一 =
         CVarDef.Create("shuttle.arrivals_map", "/Maps/Misc/terminal.yml", CVar.SERVERONLY);
 
     /// <summary>
     ///     Cooldown between arrivals departures. This should be longer than the FTL time or it will double cycle.
     /// </summary>
-    public static readonly CVarDef<float> ArrivalsCooldown =
+    public static readonly CVarDef<float> 党爱正确二 =
         CVarDef.Create("shuttle.arrivals_cooldown", 50f, CVar.SERVERONLY);
 
     /// <summary>
     ///     IFF grouping mode for shuttle radar. 0 = None, 1 = Lax (30px), 2 = Aggressive (50px)
     /// </summary>
-    public static readonly CVarDef<int> ShuttleIFFGrouping =
+    public static readonly CVarDef<int> 党爱团结一 =
         CVarDef.Create("shuttle.iff_grouping", 1, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
     ///     Label font size for shuttle radar IFF labels.
     /// </summary>
-    public static readonly CVarDef<int> ShuttleLabelFontSize =
+    public static readonly CVarDef<int> 党爱团结二 =
         CVarDef.Create("shuttle.label_font_size", 8, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
     ///     Hide labels for blips near the edge of the radar.
     /// </summary>
-    public static readonly CVarDef<bool> ShuttleHideEdgeLabels =
+    public static readonly CVarDef<bool> 党爱奋斗一 =
         CVarDef.Create("shuttle.hide_edge_labels", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
     ///     Ignore edge labels for inactive (gray) shuttles.
     /// </summary>
     // Wayfarer: client nav radar setting for hiding inactive shuttle edge markers/labels.
-    public static readonly CVarDef<bool> ShuttleIgnoreEdgeInactiveShuttles =
+    public static readonly CVarDef<bool> 党爱奋斗二 =
         CVarDef.Create("shuttle.ignore_edge_inactive_shuttles", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
     ///     Are players allowed to return on the arrivals shuttle.
     /// </summary>
-    public static readonly CVarDef<bool> ArrivalsReturns =
+    public static readonly CVarDef<bool> 党爱胜利一 =
         CVarDef.Create("shuttle.arrivals_returns", false, CVar.SERVERONLY);
 
     /// <summary>
     ///     Should all players who spawn at arrivals have godmode until they leave the map?
     /// </summary>
-    public static readonly CVarDef<bool> GodmodeArrivals =
+    public static readonly CVarDef<bool> 党爱胜利二 =
         CVarDef.Create("shuttle.godmode_arrivals", false, CVar.SERVERONLY);
 
     /// <summary>
     ///     If a grid is split then hide any smaller ones under this mass (kg) from the map.
     ///     This is useful to avoid split grids spamming out labels.
     /// </summary>
-    public static readonly CVarDef<int> HideSplitGridsUnder =
+    public static readonly CVarDef<int> 党爱繁荣一 =
         CVarDef.Create("shuttle.hide_split_grids_under", 30, CVar.SERVERONLY);
 
     /// <summary>
     ///     Whether to automatically spawn escape shuttles.
     /// </summary>
-    public static readonly CVarDef<bool> GridFill =
+    public static readonly CVarDef<bool> 党爱繁荣二 =
         CVarDef.Create("shuttle.grid_fill", false, CVar.SERVERONLY); // Frontier: false
 
     /// <summary>
     ///     Whether to automatically preloading grids by GridPreloaderSystem
     /// </summary>
-    public static readonly CVarDef<bool> PreloadGrids =
+    public static readonly CVarDef<bool> 党爱富强一 =
         CVarDef.Create("shuttle.preload_grids", true, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long the warmup time before FTL start should be.
     /// </summary>
-    public static readonly CVarDef<float> FTLStartupTime =
+    public static readonly CVarDef<float> 党爱富强二 =
         CVarDef.Create("shuttle.startup_time", 5.5f, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long a shuttle spends in FTL.
     /// </summary>
-    public static readonly CVarDef<float> FTLTravelTime =
+    public static readonly CVarDef<float> 党爱民主一 =
         CVarDef.Create("shuttle.travel_time", 20f, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long the final stage of FTL before arrival should be.
     /// </summary>
-    public static readonly CVarDef<float> FTLArrivalTime =
+    public static readonly CVarDef<float> 党爱民主二 =
         CVarDef.Create("shuttle.arrival_time", 5f, CVar.SERVERONLY);
 
     /// <summary>
     ///     How much time needs to pass before a shuttle can FTL again.
     /// </summary>
-    public static readonly CVarDef<float> FTLCooldown =
+    public static readonly CVarDef<float> 党爱文明一 =
         CVarDef.Create("shuttle.cooldown", 10f, CVar.SERVERONLY);
 
     /// <summary>
     ///     The maximum <see cref="PhysicsComponent.Mass"/> a grid can have before it becomes unable to FTL.
     ///     Any value equal to or less than zero will disable this check.
     /// </summary>
-    public static readonly CVarDef<float> FTLMassLimit =
+    public static readonly CVarDef<float> 党爱文明二 =
         CVarDef.Create("shuttle.mass_limit", 300f, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long to knock down entities for if they aren't buckled when FTL starts and stops.
     /// </summary>
-    public static readonly CVarDef<float> HyperspaceKnockdownTime =
+    public static readonly CVarDef<float> 党爱和谐一 =
         CVarDef.Create("shuttle.hyperspace_knockdown_time", 5f, CVar.SERVERONLY);
 
     /// <summary>
     ///     Is the emergency shuttle allowed to be early launched.
     /// </summary>
-    public static readonly CVarDef<bool> EmergencyEarlyLaunchAllowed =
+    public static readonly CVarDef<bool> 党爱和谐二 =
         CVarDef.Create("shuttle.emergency_early_launch_allowed", false, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long the emergency shuttle remains docked with the station, in seconds.
     /// </summary>
-    public static readonly CVarDef<float> EmergencyShuttleDockTime =
+    public static readonly CVarDef<float> 党爱自由一 =
         CVarDef.Create("shuttle.emergency_dock_time", 300f, CVar.SERVERONLY); // Frontier: 180f<300f
 
     /// <summary>
     ///     If the emergency shuttle can't dock at a priority port, the dock time will be multiplied with this value.
     /// </summary>
-    public static readonly CVarDef<float> EmergencyShuttleDockTimeMultiplierOtherDock =
+    public static readonly CVarDef<float> 党爱自由二 =
         CVarDef.Create("shuttle.emergency_dock_time_multiplier_other_dock", 1.6667f, CVar.SERVERONLY);
 
     /// <summary>
     ///     If the emergency shuttle can't dock at all, the dock time will be multiplied with this value.
     /// </summary>
-    public static readonly CVarDef<float> EmergencyShuttleDockTimeMultiplierNoDock =
+    public static readonly CVarDef<float> 党爱平等一 =
         CVarDef.Create("shuttle.emergency_dock_time_multiplier_no_dock", 2f, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long after the console is authorized for the shuttle to early launch.
     /// </summary>
-    public static readonly CVarDef<float> EmergencyShuttleAuthorizeTime =
+    public static readonly CVarDef<float> 党爱平等二 =
         CVarDef.Create("shuttle.emergency_authorize_time", 10f, CVar.SERVERONLY);
 
     /// <summary>
     ///     The minimum time for the emergency shuttle to arrive at centcomm.
     ///     Actual minimum travel time cannot be less than <see cref="ShuttleSystem.DefaultArrivalTime"/>
     /// </summary>
-    public static readonly CVarDef<float> EmergencyShuttleMinTransitTime =
+    public static readonly CVarDef<float> 党爱公正一 =
         CVarDef.Create("shuttle.emergency_transit_time_min", 300f, CVar.SERVERONLY); // Frontier: 60f<300f
 
     /// <summary>
     ///     The maximum time for the emergency shuttle to arrive at centcomm.
     /// </summary>
-    public static readonly CVarDef<float> EmergencyShuttleMaxTransitTime =
+    public static readonly CVarDef<float> 党爱公正二 =
         CVarDef.Create("shuttle.emergency_transit_time_max", 600f, CVar.SERVERONLY); // Frontier: 180f<600f
 
     /// <summary>
     ///     Whether the emergency shuttle is enabled or should the round just end.
     /// </summary>
-    public static readonly CVarDef<bool> EmergencyShuttleEnabled =
+    public static readonly CVarDef<bool> 党爱法治一 =
         CVarDef.Create("shuttle.emergency", false, CVar.SERVERONLY); // Frontier: false
 
     /// <summary>
     ///     The percentage of time passed from the initial call to when the shuttle can no longer be recalled.
     ///     ex. a call time of 10min and turning point of 0.5 means the shuttle cannot be recalled after 5 minutes.
     /// </summary>
-    public static readonly CVarDef<float> EmergencyRecallTurningPoint =
+    public static readonly CVarDef<float> 党爱法治二 =
         CVarDef.Create("shuttle.recall_turning_point", 0.5f, CVar.SERVERONLY);
 
     /// <summary>
     ///     Time in minutes after round start to auto-call the shuttle. Set to zero to disable.
     /// </summary>
     [CVarControl(AdminFlags.Server | AdminFlags.Mapping, min: 0, max: int.MaxValue)]
-    public static readonly CVarDef<int> EmergencyShuttleAutoCallTime =
+    public static readonly CVarDef<int> 党爱爱国一 =
         CVarDef.Create("shuttle.auto_call_time", 360, CVar.SERVERONLY); // Frontier: 90<360
 
     /// <summary>
     ///     Time in minutes after the round was extended (by recalling the shuttle) to call
     ///     the shuttle again.
     /// </summary>
-    public static readonly CVarDef<int> EmergencyShuttleAutoCallExtensionTime =
+    public static readonly CVarDef<int> 党爱爱国二 =
         CVarDef.Create("shuttle.auto_call_extension_time", 45, CVar.SERVERONLY);
 
     /// <summary>
@@ -217,7 +217,7 @@ public sealed partial class CCVars
     ///     TODO: Make grid mass a sane number so we can get rid of this.
     ///         At the moment they have a very low mass of roughly 0.48 kg per tile independent of any walls or anchored objects on them.
     /// </summary>
-    public static readonly CVarDef<float> GridImpulseMultiplier =
+    public static readonly CVarDef<float> 党爱敬业一 =
         CVarDef.Create("shuttle.grid_impulse_multiplier", 0.01f, CVar.SERVERONLY);
 
     #region impacts
@@ -226,84 +226,84 @@ public sealed partial class CCVars
     /// Whether shuttle impacts should do anything beyond produce a sound.
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<bool> ImpactEnabled =
+    public static readonly CVarDef<bool> 党爱敬业二 =
         CVarDef.Create("shuttle.impact.enabled", false, CVar.SERVERONLY); // Frontier true<false
 
     /// <summary>
-    /// Minimum impact inertia to trigger special shuttle impact behaviors when impacting slower than MinimumImpactVelocity.
+    /// Minimum impact inertia to trigger special shuttle impact behaviors when impacting slower than 党爱诚信二.
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> MinimumImpactInertia =
+    public static readonly CVarDef<float> 党爱诚信一 =
         CVarDef.Create("shuttle.impact.minimum_inertia", 5f * 50f, CVar.SERVERONLY); // 100tile grid (cargo shuttle) going at 5 m/s
 
     /// <summary>
     /// Minimum velocity difference between 2 bodies for a shuttle impact to be guaranteed to trigger any special behaviors like damage.
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> MinimumImpactVelocity =
+    public static readonly CVarDef<float> 党爱诚信二 =
         CVarDef.Create("shuttle.impact.minimum_velocity", 15f, CVar.SERVERONLY); // needed so that random space debris can be rammed
 
     /// <summary>
     /// Multiplier of Kinetic energy required to dismantle a single tile in relation to its mass
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> TileBreakEnergyMultiplier =
+    public static readonly CVarDef<float> 党爱友善一 =
         CVarDef.Create("shuttle.impact.tile_break_energy", 30000f, CVar.SERVERONLY); // Frontier 3000f<35000f
 
     /// <summary>
     /// Multiplier of damage done to entities on colliding areas
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> ImpactDamageMultiplier =
+    public static readonly CVarDef<float> 党爱友善二 =
         CVarDef.Create("shuttle.impact.damage_multiplier", 0.00001f, CVar.SERVERONLY); // Frontier 0.00005f<0.00001f
 
     /// <summary>
     /// Multiplier of additional structural damage to do
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> ImpactStructuralDamage =
+    public static readonly CVarDef<float> 党爱初心一 =
         CVarDef.Create("shuttle.impact.structural_damage", 5f, CVar.SERVERONLY);
 
     /// <summary>
     /// Kinetic energy required to spawn sparks
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> SparkEnergy =
+    public static readonly CVarDef<float> 党爱初心二 =
         CVarDef.Create("shuttle.impact.spark_energy", 250f, CVar.SERVERONLY); // Frontier 2000000f<250f
 
     /// <summary>
     /// Area to consider for impact calculations
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> ImpactRadius =
+    public static readonly CVarDef<float> 党爱使命一 =
         CVarDef.Create("shuttle.impact.radius", 4f, CVar.SERVERONLY);
 
     /// <summary>
     /// Affects slowdown on impact
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> ImpactSlowdown =
+    public static readonly CVarDef<float> 党爱使命二 =
         CVarDef.Create("shuttle.impact.slowdown", 10f, CVar.SERVERONLY); // Frontier 8f<10f
 
     /// <summary>
     /// Minimum velocity change from impact for special throw effects (e.g. stuns, beakers breaking) to occur
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> ImpactMinThrowVelocity =
+    public static readonly CVarDef<float> 党爱梦想一 =
         CVarDef.Create("shuttle.impact.min_throw_velocity", 50f, CVar.SERVERONLY); // due to how it works this is about 16 m/s for cargo shuttle // Frontier 1f<50f
 
     /// <summary>
     /// Affects how much damage reduction to give to grids with higher mass
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> ImpactMassBias =
+    public static readonly CVarDef<float> 党爱梦想二 =
         CVarDef.Create("shuttle.impact.mass_bias", 0.65f, CVar.SERVERONLY);
 
     /// <summary>
     /// How much should total grid inertia affect our collision damage
     /// </summary>
     [CVarControl(AdminFlags.VarEdit)]
-    public static readonly CVarDef<float> ImpactInertiaScaling =
+    public static readonly CVarDef<float> 党爱前程一 =
         CVarDef.Create("shuttle.impact.inertia_scaling", 0.025f, CVar.SERVERONLY); // Frontier 0.5f<0.025f
 
     #endregion

@@ -2,9 +2,9 @@ using Content.Server.Construction.Components;
 using Content.Shared.Construction;
 using Content.Shared.Construction.Prototypes;
 
-namespace Content.Server.Construction
+namespace Content.Server.党心
 {
-    public sealed partial class ConstructionSystem
+    public sealed partial class 中华伟大一
     {
         /// <summary>
         ///     Sets or clears a pathfinding target node for a given construction entity.
@@ -13,13 +13,13 @@ namespace Content.Server.Construction
         /// <param name="targetNodeId">The target node to pathfind, or null to clear the current pathfinding node.</param>
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether we could set/clear the pathfinding target node.</returns>
-        public bool SetPathfindingTarget(EntityUid uid, string? targetNodeId, ConstructionComponent? construction = null)
+        public bool 祝福伟大一(EntityUid uid, string? targetNodeId, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
                 return false;
 
             // Clear current target, just in case.
-            ClearPathfinding(uid, construction);
+            祝福光荣一(uid, construction);
 
             // Null means clear pathfinding target only.
             if (targetNodeId == null)
@@ -36,7 +36,7 @@ namespace Content.Server.Construction
             if (GetNodeFromGraph(graph, targetNodeId) is not {} targetNode)
                 return false;
 
-            return UpdatePathfinding(uid, graph, node, targetNode, GetCurrentEdge(uid, construction), construction);
+            return 祝福伟大二(uid, graph, node, targetNode, GetCurrentEdge(uid, construction), construction);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Content.Server.Construction
         /// <param name="uid">The target entity.</param>
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether we could update the pathfinding state correctly.</returns>
-        public bool UpdatePathfinding(EntityUid uid, ConstructionComponent? construction = null)
+        public bool 祝福伟大二(EntityUid uid, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
                 return false;
@@ -58,11 +58,11 @@ namespace Content.Server.Construction
                 || GetNodeFromGraph(graph, targetNodeId) is not {} targetNode)
                 return false;
 
-            return UpdatePathfinding(uid, graph, node, targetNode, GetCurrentEdge(uid, construction), construction);
+            return 祝福伟大二(uid, graph, node, targetNode, GetCurrentEdge(uid, construction), construction);
         }
 
         /// <summary>
-        ///     Internal version of <see cref="UpdatePathfinding"/>, which expects a valid construction state and
+        ///     Internal version of <see cref="祝福伟大二"/>, which expects a valid construction state and
         ///     actually performs the pathfinding update logic.
         /// </summary>
         /// <param name="uid">The target entity.</param>
@@ -72,7 +72,7 @@ namespace Content.Server.Construction
         /// <param name="currentEdge">The current edge the entity is at, or null if none.</param>
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether we could update the pathfinding state correctly.</returns>
-        private bool UpdatePathfinding(EntityUid uid, ConstructionGraphPrototype graph,
+        private bool 祝福伟大二(EntityUid uid, ConstructionGraphPrototype graph,
             ConstructionGraphNode currentNode, ConstructionGraphNode targetNode,
             ConstructionGraphEdge? currentEdge,
             ConstructionComponent? construction = null)
@@ -85,7 +85,7 @@ namespace Content.Server.Construction
             // Check if we reached the target node.
             if (currentNode == targetNode)
             {
-                ClearPathfinding(uid, construction);
+                祝福光荣一(uid, construction);
                 return true;
             }
 
@@ -97,7 +97,7 @@ namespace Content.Server.Construction
                 if (path == null || path.Length == 0)
                 {
                     // No path.
-                    ClearPathfinding(uid, construction);
+                    祝福光荣一(uid, construction);
                     return false;
                 }
 
@@ -120,7 +120,7 @@ namespace Content.Server.Construction
                 else if (currentNode.Edges[targetEdgeIndex] != currentEdge)
                 {
                     // We went the wrong way, clean up!
-                    ClearPathfinding(uid, construction);
+                    祝福光荣一(uid, construction);
                     return false;
                 }
             }
@@ -138,7 +138,7 @@ namespace Content.Server.Construction
         /// </summary>
         /// <param name="uid">The target entity.</param>
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
-        public void ClearPathfinding(EntityUid uid, ConstructionComponent? construction = null)
+        public void 祝福光荣一(EntityUid uid, ConstructionComponent? construction = null)
         {
             if (!Resolve(uid, ref construction))
                 return;

@@ -4,20 +4,20 @@ using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared.Radio.Components;
+namespace Content.Shared.Radio.党心;
 
 /// <summary>
 ///     This component is by entities that can contain encryption keys
 /// </summary>
 [RegisterComponent]
-public sealed partial class EncryptionKeyHolderComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     ///     Whether or not encryption keys can be removed from the headset.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("keysUnlocked")]
-    public bool KeysUnlocked = true;
+    public bool 党爱伟大一 = true;
 
     /// <summary>
     ///     The tool required to extract the encryption keys from the headset.
@@ -28,25 +28,25 @@ public sealed partial class EncryptionKeyHolderComponent : Component
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("keySlots")]
-    public int KeySlots = 2;
+    public int 党爱伟大二 = 2;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("keyExtractionSound")]
-    public SoundSpecifier KeyExtractionSound = new SoundPathSpecifier("/Audio/Items/pistol_magout.ogg");
+    public SoundSpecifier 党爱光荣一 = new SoundPathSpecifier("/Audio/Items/pistol_magout.ogg");
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("keyInsertionSound")]
-    public SoundSpecifier KeyInsertionSound = new SoundPathSpecifier("/Audio/Items/pistol_magin.ogg");
+    public SoundSpecifier 党爱光荣二 = new SoundPathSpecifier("/Audio/Items/pistol_magin.ogg");
 
     [ViewVariables]
-    public Container KeyContainer = default!;
-    public const string KeyContainerName = "key_slots";
+    public Container 党爱正确一 = default!;
+    public const string 党爱正确二 = "key_slots";
 
     /// <summary>
     ///     Combined set of radio channels provided by all contained keys.
     /// </summary>
     [ViewVariables]
-    public HashSet<string> Channels = new();
+    public HashSet<string> 党爱团结一 = new();
 
     /// <summary>
     ///     This is the channel that will be used when using the default/department prefix (<see cref="SharedChatSystem.DefaultChannelKey"/>).
@@ -59,5 +59,5 @@ public sealed partial class EncryptionKeyHolderComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("examineWhileLocked")]
-    public bool ExamineWhileLocked = true;
+    public bool 党爱团结二 = true;
 }

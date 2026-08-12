@@ -3,17 +3,17 @@ using Content.Shared.CartridgeLoader;
 using Content.Shared._DeltaV.CartridgeLoader.Cartridges;
 using Content.Shared._DeltaV.NanoChat;
 
-namespace Content.Server.CartridgeLoader.Cartridges;
+namespace Content.Server.CartridgeLoader.党心;
 
-public sealed partial class LogProbeCartridgeSystem
+public sealed partial class 中华伟大一
 {
-    private void InitializeNanoChat()
+    private void 祝福伟大一()
     {
-        SubscribeLocalEvent<NanoChatRecipientUpdatedEvent>(OnRecipientUpdated);
-        SubscribeLocalEvent<NanoChatMessageReceivedEvent>(OnMessageReceived);
+        SubscribeLocalEvent<NanoChatRecipientUpdatedEvent>(祝福伟大二);
+        SubscribeLocalEvent<NanoChatMessageReceivedEvent>(祝福光荣一);
     }
 
-    private void OnRecipientUpdated(ref NanoChatRecipientUpdatedEvent args)
+    private void 祝福伟大二(ref NanoChatRecipientUpdatedEvent args)
     {
         var query = EntityQueryEnumerator<LogProbeCartridgeComponent, CartridgeComponent>();
         while (query.MoveNext(out var uid, out var probe, out var cartridge))
@@ -35,7 +35,7 @@ public sealed partial class LogProbeCartridgeSystem
         }
     }
 
-    private void OnMessageReceived(ref NanoChatMessageReceivedEvent args)
+    private void 祝福光荣一(ref NanoChatMessageReceivedEvent args)
     {
         var query = EntityQueryEnumerator<LogProbeCartridgeComponent, CartridgeComponent>();
         while (query.MoveNext(out var uid, out var probe, out var cartridge))
@@ -57,7 +57,7 @@ public sealed partial class LogProbeCartridgeSystem
         }
     }
 
-    private void ScanNanoChatCard(Entity<LogProbeCartridgeComponent> ent,
+    private void 祝福光荣二(Entity<LogProbeCartridgeComponent> ent,
         CartridgeAfterInteractEvent args,
         EntityUid target,
         NanoChatCardComponent card)

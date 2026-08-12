@@ -11,36 +11,36 @@ using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
-namespace Content.Shared.Animals;
+namespace Content.Shared.党心;
 /// <summary>
 ///     Gives the ability to produce milkable reagents;
 ///     produces endlessly if the owner does not have a HungerComponent.
 /// </summary>
-public sealed class UdderSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private readonly HungerSystem _伟大一 = default!;
+    [Dependency] private readonly IGameTiming _伟大二 = default!;
+    [Dependency] private readonly MobStateSystem _光荣一 = default!;
+    [Dependency] private readonly SharedPopupSystem _光荣二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _正确一 = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _正确二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<UdderComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<UdderComponent, GetVerbsEvent<AlternativeVerb>>(AddMilkVerb);
-        SubscribeLocalEvent<UdderComponent, MilkingDoAfterEvent>(OnDoAfter);
-        SubscribeLocalEvent<UdderComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
+        SubscribeLocalEvent<UdderComponent, MapInitEvent>(祝福伟大二);
+        SubscribeLocalEvent<UdderComponent, GetVerbsEvent<AlternativeVerb>>(祝福团结一);
+        SubscribeLocalEvent<UdderComponent, MilkingDoAfterEvent>(祝福正确二);
+        SubscribeLocalEvent<UdderComponent, EntRemovedFromContainerMessage>(祝福光荣一);
     }
 
-    private void OnMapInit(EntityUid uid, UdderComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, UdderComponent component, MapInitEvent args)
     {
-        component.NextGrowth = _timing.CurTime + component.GrowthDelay;
+        component.NextGrowth = _伟大二.CurTime + component.GrowthDelay;
     }
 
-    private void OnEntRemoved(Entity<UdderComponent> entity, ref EntRemovedFromContainerMessage args)
+    private void 祝福光荣一(Entity<UdderComponent> entity, ref EntRemovedFromContainerMessage args)
     {
         // Make sure the removed entity was our contained solution
         if (entity.Comp.Solution == null || args.Entity != entity.Comp.Solution.Value.Owner)
@@ -50,21 +50,21 @@ public sealed class UdderSystem : EntitySystem
         entity.Comp.Solution = null;
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣二(frameTime);
         var query = EntityQueryEnumerator<UdderComponent>();
         while (query.MoveNext(out var uid, out var udder))
         {
-            if (_timing.CurTime < udder.NextGrowth)
+            if (_伟大二.CurTime < udder.NextGrowth)
                 continue;
 
             udder.NextGrowth += udder.GrowthDelay;
 
-            if (_mobState.IsDead(uid))
+            if (_光荣一.IsDead(uid))
                 continue;
 
-            if (!_solutionContainerSystem.ResolveSolution(uid, udder.SolutionName, ref udder.Solution, out var solution))
+            if (!_正确二.ResolveSolution(uid, udder.SolutionName, ref udder.Solution, out var solution))
                 continue;
 
             if (solution.AvailableVolume == 0)
@@ -74,18 +74,18 @@ public sealed class UdderSystem : EntitySystem
             if (TryComp(uid, out HungerComponent? hunger))
             {
                 // Is there enough nutrition to produce reagent?
-                if (_hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
+                if (_伟大一.GetHungerThreshold(hunger) < HungerThreshold.Okay)
                     continue;
 
-                _hunger.ModifyHunger(uid, -udder.HungerUsage, hunger);
+                _伟大一.ModifyHunger(uid, -udder.HungerUsage, hunger);
             }
 
             //TODO: toxins from bloodstream !?
-            _solutionContainerSystem.TryAddReagent(udder.Solution.Value, udder.ReagentId, udder.QuantityPerUpdate, out _);
+            _正确二.TryAddReagent(udder.Solution.Value, udder.ReagentId, udder.QuantityPerUpdate, out _);
         }
     }
 
-    private void AttemptMilk(Entity<UdderComponent?> udder, EntityUid userUid, EntityUid containerUid)
+    private void 祝福正确一(Entity<UdderComponent?> udder, EntityUid userUid, EntityUid containerUid)
     {
         if (!Resolve(udder, ref udder.Comp))
             return;
@@ -97,39 +97,39 @@ public sealed class UdderSystem : EntitySystem
             MovementThreshold = 1.0f,
         };
 
-        _doAfterSystem.TryStartDoAfter(doargs);
+        _正确一.TryStartDoAfter(doargs);
     }
 
-    private void OnDoAfter(Entity<UdderComponent> entity, ref MilkingDoAfterEvent args)
+    private void 祝福正确二(Entity<UdderComponent> entity, ref MilkingDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Args.Used == null)
             return;
 
-        if (!_solutionContainerSystem.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (!_正确二.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
             return;
 
-        if (!_solutionContainerSystem.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
+        if (!_正确二.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
             return;
 
         args.Handled = true;
         var quantity = solution.Volume;
         if (quantity == 0)
         {
-            _popupSystem.PopupClient(Loc.GetString("udder-system-dry"), entity.Owner, args.Args.User);
+            _光荣二.PopupClient(Loc.GetString("udder-system-dry"), entity.Owner, args.Args.User);
             return;
         }
 
         if (quantity > targetSolution.AvailableVolume)
             quantity = targetSolution.AvailableVolume;
 
-        var split = _solutionContainerSystem.SplitSolution(entity.Comp.Solution.Value, quantity);
-        _solutionContainerSystem.TryAddSolution(targetSoln.Value, split);
+        var split = _正确二.SplitSolution(entity.Comp.Solution.Value, quantity);
+        _正确二.TryAddSolution(targetSoln.Value, split);
 
-        _popupSystem.PopupClient(Loc.GetString("udder-system-success", ("amount", quantity), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner,
+        _光荣二.PopupClient(Loc.GetString("udder-system-success", ("amount", quantity), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner,
             args.Args.User, PopupType.Medium);
     }
 
-    private void AddMilkVerb(Entity<UdderComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
+    private void 祝福团结一(Entity<UdderComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (args.Using == null ||
              !args.CanInteract ||
@@ -143,7 +143,7 @@ public sealed class UdderSystem : EntitySystem
         {
             Act = () =>
             {
-                AttemptMilk(uid, user, used);
+                祝福正确一(uid, user, used);
             },
             Text = Loc.GetString("udder-system-verb-milk"),
             Priority = 2

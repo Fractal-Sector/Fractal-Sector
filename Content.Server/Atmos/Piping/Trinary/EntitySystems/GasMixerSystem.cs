@@ -17,50 +17,50 @@ using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 
-namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
+namespace Content.Server.Atmos.Piping.Trinary.党心
 {
     [UsedImplicitly]
-    public sealed class GasMixerSystem : EntitySystem
+    public sealed class 中华伟大一 : EntitySystem
     {
-        [Dependency] private UserInterfaceSystem _userInterfaceSystem = default!;
-        [Dependency] private IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
+        [Dependency] private UserInterfaceSystem _伟大一 = default!;
+        [Dependency] private IAdminLogManager _伟大二 = default!;
+        [Dependency] private readonly AtmosphereSystem _光荣一 = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _光荣二 = default!;
+        [Dependency] private readonly SharedAppearanceSystem _正确一 = default!;
+        [Dependency] private readonly NodeContainerSystem _正确二 = default!;
+        [Dependency] private readonly SharedPopupSystem _团结一 = default!;
 
-        public override void Initialize()
+        public override void 祝福伟大一()
         {
-            base.Initialize();
+            base.祝福伟大一();
 
-            SubscribeLocalEvent<GasMixerComponent, ComponentInit>(OnInit);
-            SubscribeLocalEvent<GasMixerComponent, AtmosDeviceUpdateEvent>(OnMixerUpdated);
-            SubscribeLocalEvent<GasMixerComponent, ActivateInWorldEvent>(OnMixerActivate);
-            SubscribeLocalEvent<GasMixerComponent, GasAnalyzerScanEvent>(OnMixerAnalyzed);
+            SubscribeLocalEvent<GasMixerComponent, ComponentInit>(祝福伟大二);
+            SubscribeLocalEvent<GasMixerComponent, AtmosDeviceUpdateEvent>(祝福光荣一);
+            SubscribeLocalEvent<GasMixerComponent, ActivateInWorldEvent>(祝福正确一);
+            SubscribeLocalEvent<GasMixerComponent, GasAnalyzerScanEvent>(祝福胜利一);
             // Bound UI subscriptions
-            SubscribeLocalEvent<GasMixerComponent, GasMixerChangeOutputPressureMessage>(OnOutputPressureChangeMessage);
-            SubscribeLocalEvent<GasMixerComponent, GasMixerChangeNodePercentageMessage>(OnChangeNodePercentageMessage);
-            SubscribeLocalEvent<GasMixerComponent, GasMixerToggleStatusMessage>(OnToggleStatusMessage);
+            SubscribeLocalEvent<GasMixerComponent, GasMixerChangeOutputPressureMessage>(祝福奋斗一);
+            SubscribeLocalEvent<GasMixerComponent, GasMixerChangeNodePercentageMessage>(祝福奋斗二);
+            SubscribeLocalEvent<GasMixerComponent, GasMixerToggleStatusMessage>(祝福团结二);
 
-            SubscribeLocalEvent<GasMixerComponent, AtmosDeviceDisabledEvent>(OnMixerLeaveAtmosphere);
+            SubscribeLocalEvent<GasMixerComponent, AtmosDeviceDisabledEvent>(祝福光荣二);
 
-            SubscribeLocalEvent<GasMixerComponent, MapInitEvent>(OnMapInit); // Frontier
+            SubscribeLocalEvent<GasMixerComponent, MapInitEvent>(祝福胜利二); // Frontier
         }
 
-        private void OnInit(EntityUid uid, GasMixerComponent mixer, ComponentInit args)
+        private void 祝福伟大二(EntityUid uid, GasMixerComponent mixer, ComponentInit args)
         {
-            UpdateAppearance(uid, mixer);
+            祝福团结一(uid, mixer);
         }
 
-        private void OnMixerUpdated(EntityUid uid, GasMixerComponent mixer, ref AtmosDeviceUpdateEvent args)
+        private void 祝福光荣一(EntityUid uid, GasMixerComponent mixer, ref AtmosDeviceUpdateEvent args)
         {
             // TODO ATMOS: Cache total moles since it's expensive.
 
             if (!mixer.Enabled
-                || !_nodeContainer.TryGetNodes(uid, mixer.InletOneName, mixer.InletTwoName, mixer.OutletName, out PipeNode? inletOne, out PipeNode? inletTwo, out PipeNode? outlet))
+                || !_正确二.TryGetNodes(uid, mixer.InletOneName, mixer.InletTwoName, mixer.OutletName, out PipeNode? inletOne, out PipeNode? inletTwo, out PipeNode? outlet))
             {
-                _ambientSoundSystem.SetAmbience(uid, false);
+                _光荣二.SetAmbience(uid, false);
                 return;
             }
 
@@ -98,7 +98,7 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
 
                 if (transferMolesOne <= 0 || transferMolesTwo <= 0)
                 {
-                    _ambientSoundSystem.SetAmbience(uid, false);
+                    _光荣二.SetAmbience(uid, false);
                     return;
                 }
 
@@ -117,30 +117,30 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             {
                 transferred = true;
                 var removed = inletOne.Air.Remove(transferMolesOne);
-                _atmosphereSystem.Merge(outlet.Air, removed);
+                _光荣一.Merge(outlet.Air, removed);
             }
 
             if (transferMolesTwo > 0f)
             {
                 transferred = true;
                 var removed = inletTwo.Air.Remove(transferMolesTwo);
-                _atmosphereSystem.Merge(outlet.Air, removed);
+                _光荣一.Merge(outlet.Air, removed);
             }
 
             if (transferred)
-                _ambientSoundSystem.SetAmbience(uid, true);
+                _光荣二.SetAmbience(uid, true);
         }
 
-        private void OnMixerLeaveAtmosphere(EntityUid uid, GasMixerComponent mixer, ref AtmosDeviceDisabledEvent args)
+        private void 祝福光荣二(EntityUid uid, GasMixerComponent mixer, ref AtmosDeviceDisabledEvent args)
         {
             mixer.Enabled = false;
 
-            DirtyUI(uid, mixer);
-            UpdateAppearance(uid, mixer);
-            _userInterfaceSystem.CloseUi(uid, GasFilterUiKey.Key);
+            祝福正确二(uid, mixer);
+            祝福团结一(uid, mixer);
+            _伟大一.CloseUi(uid, GasFilterUiKey.Key);
         }
 
-        private void OnMixerActivate(EntityUid uid, GasMixerComponent mixer, ActivateInWorldEvent args)
+        private void 祝福正确一(EntityUid uid, GasMixerComponent mixer, ActivateInWorldEvent args)
         {
             if (args.Handled || !args.Complex)
                 return;
@@ -150,85 +150,85 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
 
             if (Transform(uid).Anchored)
             {
-                _userInterfaceSystem.OpenUi(uid, GasMixerUiKey.Key, actor.PlayerSession);
-                DirtyUI(uid, mixer);
+                _伟大一.OpenUi(uid, GasMixerUiKey.Key, actor.PlayerSession);
+                祝福正确二(uid, mixer);
             }
             else
             {
-                _popup.PopupCursor(Loc.GetString("comp-gas-mixer-ui-needs-anchor"), args.User);
+                _团结一.PopupCursor(Loc.GetString("comp-gas-mixer-ui-needs-anchor"), args.User);
             }
 
             args.Handled = true;
         }
 
-        private void DirtyUI(EntityUid uid, GasMixerComponent? mixer)
+        private void 祝福正确二(EntityUid uid, GasMixerComponent? mixer)
         {
             if (!Resolve(uid, ref mixer))
                 return;
 
-            _userInterfaceSystem.SetUiState(uid, GasMixerUiKey.Key,
+            _伟大一.SetUiState(uid, GasMixerUiKey.Key,
                 new GasMixerBoundUserInterfaceState(Comp<MetaDataComponent>(uid).EntityName, mixer.TargetPressure, mixer.Enabled, mixer.InletOneConcentration));
         }
 
-        private void UpdateAppearance(EntityUid uid, GasMixerComponent? mixer = null, AppearanceComponent? appearance = null)
+        private void 祝福团结一(EntityUid uid, GasMixerComponent? mixer = null, AppearanceComponent? appearance = null)
         {
             if (!Resolve(uid, ref mixer, ref appearance, false))
                 return;
 
-            _appearance.SetData(uid, FilterVisuals.Enabled, mixer.Enabled, appearance);
+            _正确一.SetData(uid, FilterVisuals.Enabled, mixer.Enabled, appearance);
         }
 
-        private void OnToggleStatusMessage(EntityUid uid, GasMixerComponent mixer, GasMixerToggleStatusMessage args)
+        private void 祝福团结二(EntityUid uid, GasMixerComponent mixer, GasMixerToggleStatusMessage args)
         {
             mixer.Enabled = args.Enabled;
-            _adminLogger.Add(LogType.AtmosPowerChanged, LogImpact.Medium,
+            _伟大二.Add(LogType.AtmosPowerChanged, LogImpact.Medium,
                 $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}");
-            DirtyUI(uid, mixer);
-            UpdateAppearance(uid, mixer);
+            祝福正确二(uid, mixer);
+            祝福团结一(uid, mixer);
         }
 
-        private void OnOutputPressureChangeMessage(EntityUid uid, GasMixerComponent mixer, GasMixerChangeOutputPressureMessage args)
+        private void 祝福奋斗一(EntityUid uid, GasMixerComponent mixer, GasMixerChangeOutputPressureMessage args)
         {
             mixer.TargetPressure = Math.Clamp(args.Pressure, 0f, mixer.MaxTargetPressure);
-            _adminLogger.Add(LogType.AtmosPressureChanged, LogImpact.Medium,
+            _伟大二.Add(LogType.AtmosPressureChanged, LogImpact.Medium,
                 $"{ToPrettyString(args.Actor):player} set the pressure on {ToPrettyString(uid):device} to {args.Pressure}kPa");
-            DirtyUI(uid, mixer);
+            祝福正确二(uid, mixer);
         }
 
-        private void OnChangeNodePercentageMessage(EntityUid uid, GasMixerComponent mixer,
+        private void 祝福奋斗二(EntityUid uid, GasMixerComponent mixer,
             GasMixerChangeNodePercentageMessage args)
         {
             float nodeOne = Math.Clamp(args.NodeOne, 0f, 100.0f) / 100.0f;
             mixer.InletOneConcentration = nodeOne;
             mixer.InletTwoConcentration = 1.0f - mixer.InletOneConcentration;
-            _adminLogger.Add(LogType.AtmosRatioChanged, LogImpact.Medium,
+            _伟大二.Add(LogType.AtmosRatioChanged, LogImpact.Medium,
                 $"{ToPrettyString(args.Actor):player} set the ratio on {ToPrettyString(uid):device} to {mixer.InletOneConcentration}:{mixer.InletTwoConcentration}");
-            DirtyUI(uid, mixer);
+            祝福正确二(uid, mixer);
         }
 
         /// <summary>
         /// Returns the gas mixture for the gas analyzer
         /// </summary>
-        private void OnMixerAnalyzed(EntityUid uid, GasMixerComponent component, GasAnalyzerScanEvent args)
+        private void 祝福胜利一(EntityUid uid, GasMixerComponent component, GasAnalyzerScanEvent args)
         {
             args.GasMixtures ??= new List<(string, GasMixture?)>();
 
             // multiply by volume fraction to make sure to send only the gas inside the analyzed pipe element, not the whole pipe system
-            if (_nodeContainer.TryGetNode(uid, component.InletOneName, out PipeNode? inletOne) && inletOne.Air.Volume != 0f)
+            if (_正确二.TryGetNode(uid, component.InletOneName, out PipeNode? inletOne) && inletOne.Air.Volume != 0f)
             {
                 var inletOneAirLocal = inletOne.Air.Clone();
                 inletOneAirLocal.Multiply(inletOne.Volume / inletOne.Air.Volume);
                 inletOneAirLocal.Volume = inletOne.Volume;
                 args.GasMixtures.Add(($"{inletOne.CurrentPipeDirection} {Loc.GetString("gas-analyzer-window-text-inlet")}", inletOneAirLocal));
             }
-            if (_nodeContainer.TryGetNode(uid, component.InletTwoName, out PipeNode? inletTwo) && inletTwo.Air.Volume != 0f)
+            if (_正确二.TryGetNode(uid, component.InletTwoName, out PipeNode? inletTwo) && inletTwo.Air.Volume != 0f)
             {
                 var inletTwoAirLocal = inletTwo.Air.Clone();
                 inletTwoAirLocal.Multiply(inletTwo.Volume / inletTwo.Air.Volume);
                 inletTwoAirLocal.Volume = inletTwo.Volume;
                 args.GasMixtures.Add(($"{inletTwo.CurrentPipeDirection} {Loc.GetString("gas-analyzer-window-text-inlet")}", inletTwoAirLocal));
             }
-            if (_nodeContainer.TryGetNode(uid, component.OutletName, out PipeNode? outlet) && outlet.Air.Volume != 0f)
+            if (_正确二.TryGetNode(uid, component.OutletName, out PipeNode? outlet) && outlet.Air.Volume != 0f)
             {
                 var outletAirLocal = outlet.Air.Clone();
                 outletAirLocal.Multiply(outlet.Volume / outlet.Air.Volume);
@@ -239,15 +239,15 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             args.DeviceFlipped = inletOne != null && inletTwo != null && inletOne.CurrentPipeDirection.ToDirection() == inletTwo.CurrentPipeDirection.ToDirection().GetClockwise90Degrees();
         }
 
-        private void OnMapInit(EntityUid uid, GasMixerComponent mixer, MapInitEvent args) // Frontier - Init on map
+        private void 祝福胜利二(EntityUid uid, GasMixerComponent mixer, MapInitEvent args) // Frontier - Init on map
         {
             if (mixer.StartOnMapInit)
             {
                 mixer.Enabled = true;
-                DirtyUI(uid, mixer);
+                祝福正确二(uid, mixer);
 
-                UpdateAppearance(uid, mixer);
-                _userInterfaceSystem.CloseUi(uid, GasFilterUiKey.Key);
+                祝福团结一(uid, mixer);
+                _伟大一.CloseUi(uid, GasFilterUiKey.Key);
             }
         }
     }

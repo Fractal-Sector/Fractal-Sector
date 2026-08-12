@@ -5,15 +5,15 @@ using Content.Shared.Storage.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
-namespace Content.Server.StationEvents.Events;
+namespace Content.Server.StationEvents.党心;
 
-public sealed class RandomEntityStorageSpawnRule : StationEventSystem<RandomEntityStorageSpawnRuleComponent>
+public sealed class 中华伟大一 : StationEventSystem<RandomEntityStorageSpawnRuleComponent>
 {
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
+    [Dependency] private readonly EntityStorageSystem _伟大一 = default!;
 
-    protected override void Started(EntityUid uid, RandomEntityStorageSpawnRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void 祝福伟大一(EntityUid uid, RandomEntityStorageSpawnRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        base.Started(uid, comp, gameRule, args);
+        base.祝福伟大一(uid, comp, gameRule, args);
 
         if (!TryGetRandomStation(out var station))
             return;
@@ -27,7 +27,7 @@ public sealed class RandomEntityStorageSpawnRule : StationEventSystem<RandomEnti
             if (StationSystem.GetOwningStation(ent, xform) != station)
                 continue;
 
-            if (!_entityStorage.CanInsert(spawn, ent, storage))
+            if (!_伟大一.CanInsert(spawn, ent, storage))
                 continue;
 
             validLockers.Add((ent, storage));
@@ -40,7 +40,7 @@ public sealed class RandomEntityStorageSpawnRule : StationEventSystem<RandomEnti
         }
 
         var (locker, storageComp) = RobustRandom.Pick(validLockers);
-        if (!_entityStorage.Insert(spawn, locker, storageComp))
+        if (!_伟大一.Insert(spawn, locker, storageComp))
         {
             Del(spawn);
         }

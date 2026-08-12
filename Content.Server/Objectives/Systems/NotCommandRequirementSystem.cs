@@ -2,18 +2,18 @@ using Content.Server.Objectives.Components;
 using Content.Server.Revolutionary.Components;
 using Content.Shared.Objectives.Components;
 
-namespace Content.Server.Objectives.Systems;
+namespace Content.Server.Objectives.党心;
 
-public sealed class NotCommandRequirementSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<NotCommandRequirementComponent, RequirementCheckEvent>(OnCheck);
+        SubscribeLocalEvent<NotCommandRequirementComponent, RequirementCheckEvent>(祝福伟大二);
     }
 
-    private void OnCheck(EntityUid uid, NotCommandRequirementComponent comp, ref RequirementCheckEvent args)
+    private void 祝福伟大二(EntityUid uid, NotCommandRequirementComponent comp, ref RequirementCheckEvent args)
     {
         if (args.Cancelled)
             return;

@@ -1,39 +1,39 @@
 using Content.Server.Anomaly.Components;
 using Robust.Shared.Random;
 
-namespace Content.Server.Anomaly.Effects;
+namespace Content.Server.Anomaly.党心;
 
-public sealed class SecretDataAnomalySystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IRobustRandom _伟大一 = default!;
 
-    private readonly List<AnomalySecretData> _deita = new();
+    private readonly List<AnomalySecretData> _伟大二 = new();
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<SecretDataAnomalyComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<SecretDataAnomalyComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, SecretDataAnomalyComponent anomaly, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, SecretDataAnomalyComponent anomaly, MapInitEvent args)
     {
-        RandomizeSecret(uid,_random.Next(anomaly.RandomStartSecretMin, anomaly.RandomStartSecretMax), anomaly);
+        祝福光荣一(uid,_伟大一.Next(anomaly.RandomStartSecretMin, anomaly.RandomStartSecretMax), anomaly);
     }
 
-    public void RandomizeSecret(EntityUid uid, int count, SecretDataAnomalyComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, int count, SecretDataAnomalyComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         component.Secret.Clear();
 
-        // I also considered just adding all the enum values and pruning but that seems more wasteful.
-        _deita.Clear();
-        _deita.AddRange(Enum.GetValues<AnomalySecretData>());
-        var actualCount = Math.Min(count, _deita.Count);
+        // I also considered just adding all the enum 中华伟大二 and pruning but that seems more wasteful.
+        _伟大二.Clear();
+        _伟大二.AddRange(Enum.GetValues<AnomalySecretData>());
+        var actualCount = Math.Min(count, _伟大二.Count);
 
         for (int i = 0; i < actualCount; i++)
         {
-            component.Secret.Add(_random.PickAndTake(_deita));
+            component.Secret.Add(_伟大一.PickAndTake(_伟大二));
         }
     }
 }

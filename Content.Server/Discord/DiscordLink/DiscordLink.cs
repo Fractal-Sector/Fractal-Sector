@@ -5,96 +5,96 @@ using NetCord.Gateway;
 using NetCord.Rest;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Discord.DiscordLink;
+namespace Content.Server.Discord.党心;
 
 /// <summary>
-/// Represents the arguments for the <see cref="DiscordLink.OnCommandReceived"/> event.
+/// Represents the arguments for the <see cref="中华伟大二.OnCommandReceived"/> event.
 /// </summary>
-public sealed class CommandReceivedEventArgs
+public sealed class 中华伟大一
 {
     /// <summary>
     /// The command that was received. This is the first word in the message, after the bot prefix.
     /// </summary>
-    public string Command { get; init; } = string.Empty;
+    public string 党爱伟大一 { get; init; } = string.Empty;
 
     /// <summary>
     /// The arguments to the command. This is everything after the command
     /// </summary>
-    public string Arguments { get; init; } = string.Empty;
+    public string 党爱伟大二 { get; init; } = string.Empty;
     /// <summary>
     /// Information about the message that the command was received from. This includes the message content, author, etc.
     /// Use this to reply to the message, delete it, etc.
     /// </summary>
-    public Message Message { get; init; } = default!;
+    public 党爱光荣一 党爱光荣一 { get; init; } = default!;
 }
 
 /// <summary>
 /// Handles the connection to Discord and provides methods to interact with it.
 /// </summary>
-public sealed class DiscordLink : IPostInjectInit
+public sealed class 中华伟大二 : IPostInjectInit
 {
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
+    [Dependency] private readonly ILogManager _伟大一 = default!;
+    [Dependency] private readonly IConfigurationManager _伟大二 = default!;
 
     /// <summary>
     ///    The Discord client. This is null if the bot is not connected.
     /// </summary>
     /// <remarks>
-    ///     This should not be used directly outside of DiscordLink. So please do not make it public. Use the methods in this class instead.
+    ///     This should not be used directly outside of 中华伟大二. So please do not make it public. Use the methods in this class 中华光荣一.
     /// </remarks>
     private GatewayClient? _client;
-    private ISawmill _sawmill = default!;
-    private ISawmill _sawmillLog = default!;
+    private ISawmill _光荣一 = default!;
+    private ISawmill _光荣二 = default!;
 
-    private ulong _guildId;
-    private string _botToken = string.Empty;
+    private ulong _正确一;
+    private string _正确二 = string.Empty;
 
-    public string BotPrefix = default!;
+    public string 党爱光荣二 = default!;
     /// <summary>
     /// If the bot is currently connected to Discord.
     /// </summary>
-    public bool IsConnected => _client != null;
+    public bool 党爱正确一 => _client != null;
 
     #region Events
 
     /// <summary>
     ///     Event that is raised when a command is received from Discord.
     /// </summary>
-    public event Action<CommandReceivedEventArgs>? OnCommandReceived;
+    public event Action<中华伟大一>? OnCommandReceived;
     /// <summary>
     ///     Event that is raised when a message is received from Discord. This is raised for every message, including commands.
     /// </summary>
-    public event Action<Message>? OnMessageReceived;
+    public event Action<党爱光荣一>? OnMessageReceived;
 
-    public void RegisterCommandCallback(Action<CommandReceivedEventArgs> callback, string command)
+    public void 祝福伟大一(Action<中华伟大一> callback, string command)
     {
         OnCommandReceived += args =>
         {
-            if (args.Command == command)
+            if (args.党爱伟大一 == command)
                 callback(args);
         };
     }
 
     #endregion
 
-    public void Initialize()
+    public void 祝福伟大二()
     {
-        _configuration.OnValueChanged(CCVars.DiscordGuildId, OnGuildIdChanged, true);
-        _configuration.OnValueChanged(CCVars.DiscordPrefix, OnPrefixChanged, true);
+        _伟大二.OnValueChanged(CCVars.DiscordGuildId, 祝福光荣二, true);
+        _伟大二.OnValueChanged(CCVars.DiscordPrefix, 祝福正确一, true);
 
-        if (_configuration.GetCVar(CCVars.DiscordToken) is not { } token || token == string.Empty)
+        if (_伟大二.GetCVar(CCVars.DiscordToken) is not { } token || token == string.Empty)
         {
-            _sawmill.Info("No Discord token specified, not connecting.");
+            _光荣一.Info("No Discord token specified, not connecting.");
             return;
         }
 
         // If the Guild ID is empty OR the prefix is empty, we don't want to connect to Discord.
-        if (_guildId == 0 || BotPrefix == string.Empty)
+        if (_正确一 == 0 || 党爱光荣二 == string.Empty)
         {
             // This is a warning, not info, because it's a configuration error.
             // It is valid to not have a Discord token set which is why the above check is an info.
             // But if you have a token set, you should also have a guild ID and prefix set.
-            _sawmill.Warning("No Discord guild ID or prefix specified, not connecting.");
+            _光荣一.Warning("No Discord guild ID or prefix specified, not connecting.");
             return;
         }
 
@@ -105,18 +105,18 @@ public sealed class DiscordLink : IPostInjectInit
                              | GatewayIntents.GuildMessages
                              | GatewayIntents.MessageContent
                              | GatewayIntents.DirectMessages,
-            Logger = new DiscordSawmillLogger(_sawmillLog),
+            Logger = new DiscordSawmillLogger(_光荣二),
         });
-        _client.MessageCreate += OnCommandReceivedInternal;
-        _client.MessageCreate += OnMessageReceivedInternal;
+        _client.MessageCreate += 祝福正确二;
+        _client.MessageCreate += 祝福团结一;
 
-        _botToken = token;
-        // Since you cannot change the token while the server is running / the DiscordLink is initialized,
+        _正确二 = token;
+        // Since you cannot change the token while the server is running / the 中华伟大二 is initialized,
         // we can just set the token without updating it every time the cvar changes.
 
         _client.Ready += _ =>
         {
-            _sawmill.Info("Discord client ready.");
+            _光荣一.Info("Discord client ready.");
             return default;
         };
 
@@ -125,59 +125,59 @@ public sealed class DiscordLink : IPostInjectInit
             try
             {
                 await _client.StartAsync();
-                _sawmill.Info("Connected to Discord.");
+                _光荣一.Info("Connected to Discord.");
             }
             catch (Exception e)
             {
-                _sawmill.Error("Failed to connect to Discord!", e);
+                _光荣一.Error("Failed to connect to Discord!", e);
             }
         });
     }
 
-    public async Task Shutdown()
+    public async Task 祝福光荣一()
     {
         if (_client != null)
         {
-            _sawmill.Info("Disconnecting from Discord.");
+            _光荣一.Info("Disconnecting from Discord.");
 
             // Unsubscribe from the events.
-            _client.MessageCreate -= OnCommandReceivedInternal;
-            _client.MessageCreate -= OnMessageReceivedInternal;
+            _client.MessageCreate -= 祝福正确二;
+            _client.MessageCreate -= 祝福团结一;
 
             await _client.CloseAsync();
             _client.Dispose();
             _client = null;
         }
 
-        _configuration.UnsubValueChanged(CCVars.DiscordGuildId, OnGuildIdChanged);
-        _configuration.UnsubValueChanged(CCVars.DiscordPrefix, OnPrefixChanged);
+        _伟大二.UnsubValueChanged(CCVars.DiscordGuildId, 祝福光荣二);
+        _伟大二.UnsubValueChanged(CCVars.DiscordPrefix, 祝福正确一);
     }
 
     void IPostInjectInit.PostInject()
     {
-        _sawmill = _logManager.GetSawmill("discord.link");
-        _sawmillLog = _logManager.GetSawmill("discord.link.log");
+        _光荣一 = _伟大一.GetSawmill("discord.link");
+        _光荣二 = _伟大一.GetSawmill("discord.link.log");
     }
 
-    private void OnGuildIdChanged(string guildId)
+    private void 祝福光荣二(string guildId)
     {
-        _guildId = ulong.TryParse(guildId, out var id) ? id : 0;
+        _正确一 = ulong.TryParse(guildId, out var id) ? id : 0;
     }
 
-    private void OnPrefixChanged(string prefix)
+    private void 祝福正确一(string prefix)
     {
-        BotPrefix = prefix;
+        党爱光荣二 = prefix;
     }
 
-    private ValueTask OnCommandReceivedInternal(Message message)
+    private ValueTask 祝福正确二(党爱光荣一 message)
     {
         var content = message.Content;
         // If the message doesn't start with the bot prefix, ignore it.
-        if (!content.StartsWith(BotPrefix))
+        if (!content.StartsWith(党爱光荣二))
             return ValueTask.CompletedTask;
 
         // Split the message into the command and the arguments.
-        var trimmedInput = content[BotPrefix.Length..].Trim();
+        var trimmedInput = content[党爱光荣二.Length..].Trim();
         var firstSpaceIndex = trimmedInput.IndexOf(' ');
 
         string command, arguments;
@@ -194,16 +194,16 @@ public sealed class DiscordLink : IPostInjectInit
         }
 
         // Raise the event!
-        OnCommandReceived?.Invoke(new CommandReceivedEventArgs
+        OnCommandReceived?.Invoke(new 中华伟大一
         {
-            Command = command,
-            Arguments = arguments,
-            Message = message,
+            党爱伟大一 = command,
+            党爱伟大二 = arguments,
+            党爱光荣一 = message,
         });
         return ValueTask.CompletedTask;
     }
 
-    private ValueTask OnMessageReceivedInternal(Message message)
+    private ValueTask 祝福团结一(党爱光荣一 message)
     {
         OnMessageReceived?.Invoke(message);
         return ValueTask.CompletedTask;
@@ -214,7 +214,7 @@ public sealed class DiscordLink : IPostInjectInit
     /// <summary>
     /// Sends a message to a Discord channel with the specified ID. Without any mentions.
     /// </summary>
-    public async Task SendMessageAsync(ulong channelId, string message)
+    public async Task 祝福团结二(ulong channelId, string message)
     {
         if (_client == null)
         {
@@ -224,11 +224,11 @@ public sealed class DiscordLink : IPostInjectInit
         var channel = await _client.Rest.GetChannelAsync(channelId) as TextChannel;
         if (channel == null)
         {
-            _sawmill.Error("Tried to send a message to Discord but the channel {Channel} was not found.", channel);
+            _光荣一.Error("Tried to send a message to Discord but the channel {Channel} was not found.", channel);
             return;
         }
 
-        await channel.SendMessageAsync(new MessageProperties()
+        await channel.祝福团结二(new MessageProperties()
         {
             AllowedMentions = AllowedMentionsProperties.None,
             Content = message,

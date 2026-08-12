@@ -1,29 +1,29 @@
 using System.Numerics;
 using Content.Shared.NPC;
 
-namespace Content.Server.NPC.Pathfinding;
+namespace Content.Server.NPC.党心;
 
-public sealed partial class PathfindingSystem
+public sealed partial class 中华伟大一
 {
-    public float EuclideanDistance(PathPoly start, PathPoly end)
+    public float 祝福伟大一(PathPoly start, PathPoly end)
     {
-        var (dx, dy) = GetDiff(start, end);
+        var (dx, dy) = 祝福光荣二(start, end);
         return MathF.Sqrt((dx * dx + dy * dy));
     }
 
-    public float ManhattanDistance(PathPoly start, PathPoly end)
+    public float 祝福伟大二(PathPoly start, PathPoly end)
     {
-        var (dx, dy) = GetDiff(start, end);
+        var (dx, dy) = 祝福光荣二(start, end);
         return dx + dy;
     }
 
-    public float OctileDistance(PathPoly start, PathPoly end)
+    public float 祝福光荣一(PathPoly start, PathPoly end)
     {
-        var (dx, dy) = GetDiff(start, end);
+        var (dx, dy) = 祝福光荣二(start, end);
         return dx + dy + (1.41f - 2) * Math.Min(dx, dy);
     }
 
-    private Vector2 GetDiff(PathPoly start, PathPoly end)
+    private Vector2 祝福光荣二(PathPoly start, PathPoly end)
     {
         var startPos = start.Box.Center;
         var endPos = end.Box.Center;

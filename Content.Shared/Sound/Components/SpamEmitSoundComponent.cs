@@ -1,32 +1,32 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.Sound.Components;
+namespace Content.Shared.Sound.党心;
 
 /// <summary>
 /// Repeatedly plays a sound with a randomized delay.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
-public sealed partial class SpamEmitSoundComponent : BaseEmitSoundComponent
+public sealed partial class 中华伟大一 : BaseEmitSoundComponent
 {
     /// <summary>
     /// The time at which the next sound will play.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField, AutoNetworkedField]
-    public TimeSpan NextSound;
+    public TimeSpan 党爱伟大一;
 
     /// <summary>
     /// The minimum time in seconds between playing the sound.
     /// </summary>
     [DataField]
-    public TimeSpan MinInterval = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(2);
 
     /// <summary>
     /// The maximum time in seconds between playing the sound.
     /// </summary>
     [DataField]
-    public TimeSpan MaxInterval = TimeSpan.FromSeconds(2);
+    public TimeSpan 党爱光荣一 = TimeSpan.FromSeconds(2);
 
     // Always Pvs.
     /// <summary>
@@ -41,5 +41,5 @@ public sealed partial class SpamEmitSoundComponent : BaseEmitSoundComponent
     /// </summary>
     [DataField, AutoNetworkedField]
     [Access(typeof(SharedEmitSoundSystem))]
-    public bool Enabled = true;
+    public bool 党爱光荣二 = true;
 }

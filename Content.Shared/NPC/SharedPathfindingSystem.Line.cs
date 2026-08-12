@@ -1,8 +1,8 @@
-namespace Content.Shared.NPC;
+namespace Content.Shared.党心;
 
-public abstract partial class SharedPathfindingSystem
+public abstract partial class 中华伟大一
 {
-    public static void GridCast(Vector2i start, Vector2i end, Vector2iCallback callback)
+    public static void 祝福伟大一(Vector2i start, Vector2i end, 祝福伟大二 callback)
     {
         // https://gist.github.com/Pyr3z/46884d67641094d6cf353358566db566
         // declare all locals at the top so it's obvious how big the footprint is
@@ -70,5 +70,5 @@ public abstract partial class SharedPathfindingSystem
         }
     }
 
-    public delegate bool Vector2iCallback(Vector2i index);
+    public delegate bool 祝福伟大二(Vector2i index);
 }

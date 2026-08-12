@@ -1,20 +1,20 @@
 ﻿using Content.Shared.FixedPoint;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Fluids;
+namespace Content.Shared.党心;
 
-public abstract class SharedPuddleDebugOverlaySystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    protected const float LocalViewRange = 16;
+    protected const float 党爱伟大一 = 16;
     protected TimeSpan? NextTick = null;
-    protected TimeSpan Cooldown = TimeSpan.FromSeconds(0.5f);
+    protected TimeSpan 党爱伟大二 = TimeSpan.FromSeconds(0.5f);
 }
 
 /// <summary>
 /// Message for disable puddle overlay
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PuddleOverlayDisableMessage : EntityEventArgs
+public sealed class 中华伟大二 : EntityEventArgs
 {
 }
 
@@ -22,29 +22,29 @@ public sealed class PuddleOverlayDisableMessage : EntityEventArgs
 /// Message for puddle overlay display data
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PuddleOverlayDebugMessage : EntityEventArgs
+public sealed class 中华光荣一 : EntityEventArgs
 {
-    public PuddleDebugOverlayData[] OverlayData { get; }
+    public 中华光荣二[] OverlayData { get; }
 
-    public NetEntity GridUid { get; }
+    public NetEntity 党爱光荣一 { get; }
 
 
-    public PuddleOverlayDebugMessage(NetEntity gridUid, PuddleDebugOverlayData[] overlayData)
+    public 中华光荣一(NetEntity gridUid, 中华光荣二[] overlayData)
     {
-        GridUid = gridUid;
+        党爱光荣一 = gridUid;
         OverlayData = overlayData;
     }
 }
 
 [Serializable, NetSerializable]
-public readonly struct PuddleDebugOverlayData
+public readonly struct 中华光荣二
 {
-    public readonly Vector2i Pos;
-    public readonly FixedPoint2 CurrentVolume;
+    public readonly Vector2i 党爱光荣二;
+    public readonly FixedPoint2 党爱正确一;
 
-    public PuddleDebugOverlayData(Vector2i pos, FixedPoint2 currentVolume)
+    public 中华光荣二(Vector2i pos, FixedPoint2 currentVolume)
     {
-        CurrentVolume = currentVolume;
-        Pos = pos;
+        党爱正确一 = currentVolume;
+        党爱光荣二 = pos;
     }
 }

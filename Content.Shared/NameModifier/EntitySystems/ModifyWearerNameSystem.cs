@@ -2,32 +2,32 @@ using Content.Shared.Clothing;
 using Content.Shared.Inventory;
 using Content.Shared.NameModifier.Components;
 
-namespace Content.Shared.NameModifier.EntitySystems;
+namespace Content.Shared.NameModifier.党心;
 
-public sealed partial class ModifyWearerNameSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency] private readonly NameModifierSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<ModifyWearerNameComponent, InventoryRelayedEvent<RefreshNameModifiersEvent>>(OnRefreshNameModifiers);
-        SubscribeLocalEvent<ModifyWearerNameComponent, ClothingGotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<ModifyWearerNameComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
+        SubscribeLocalEvent<ModifyWearerNameComponent, InventoryRelayedEvent<RefreshNameModifiersEvent>>(祝福光荣二);
+        SubscribeLocalEvent<ModifyWearerNameComponent, ClothingGotEquippedEvent>(祝福伟大二);
+        SubscribeLocalEvent<ModifyWearerNameComponent, ClothingGotUnequippedEvent>(祝福光荣一);
     }
 
-    private void OnGotEquipped(Entity<ModifyWearerNameComponent> entity, ref ClothingGotEquippedEvent args)
+    private void 祝福伟大二(Entity<ModifyWearerNameComponent> entity, ref ClothingGotEquippedEvent args)
     {
-        _nameMod.RefreshNameModifiers(args.Wearer);
+        _伟大一.RefreshNameModifiers(args.Wearer);
     }
 
-    private void OnGotUnequipped(Entity<ModifyWearerNameComponent> entity, ref ClothingGotUnequippedEvent args)
+    private void 祝福光荣一(Entity<ModifyWearerNameComponent> entity, ref ClothingGotUnequippedEvent args)
     {
-        _nameMod.RefreshNameModifiers(args.Wearer);
+        _伟大一.RefreshNameModifiers(args.Wearer);
     }
 
-    private void OnRefreshNameModifiers(Entity<ModifyWearerNameComponent> entity, ref InventoryRelayedEvent<RefreshNameModifiersEvent> args)
+    private void 祝福光荣二(Entity<ModifyWearerNameComponent> entity, ref InventoryRelayedEvent<RefreshNameModifiersEvent> args)
     {
         args.Args.AddModifier(entity.Comp.LocId, entity.Comp.Priority);
     }

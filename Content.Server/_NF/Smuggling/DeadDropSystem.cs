@@ -28,159 +28,159 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server._NF.Smuggling;
+namespace Content.Server._NF.党心;
 
-public sealed class DeadDropSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly MapLoaderSystem _map = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ShipyardSystem _shipyard = default!;
-    [Dependency] private readonly ShuttleSystem _shuttle = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMapSystem _mapManager = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly SharedGameTicker _ticker = default!;
-    [Dependency] private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!;
-    [Dependency] private readonly StationRenameWarpsSystems _stationRenameWarps = default!;
-    private ISawmill _sawmill = default!;
+    [Dependency] private readonly IAdminLogManager _伟大一 = default!;
+    [Dependency] private readonly SharedHandsSystem _伟大二 = default!;
+    [Dependency] private readonly MapLoaderSystem _光荣一 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣二 = default!;
+    [Dependency] private readonly PaperSystem _正确一 = default!;
+    [Dependency] private readonly IPrototypeManager _正确二 = default!;
+    [Dependency] private readonly RadioSystem _团结一 = default!;
+    [Dependency] private readonly IRobustRandom _团结二 = default!;
+    [Dependency] private readonly ShipyardSystem _奋斗一 = default!;
+    [Dependency] private readonly ShuttleSystem _奋斗二 = default!;
+    [Dependency] private readonly IGameTiming _胜利一 = default!;
+    [Dependency] private readonly SharedMapSystem _胜利二 = default!;
+    [Dependency] private readonly StationSystem _繁荣一 = default!;
+    [Dependency] private readonly SectorServiceSystem _繁荣二 = default!;
+    [Dependency] private readonly IConfigurationManager _富强一 = default!;
+    [Dependency] private readonly SharedGameTicker _富强二 = default!;
+    [Dependency] private readonly LinkedLifecycleGridSystem _民主一 = default!;
+    [Dependency] private readonly StationRenameWarpsSystems _民主二 = default!;
+    private ISawmill _文明一 = default!;
 
-    private readonly Queue<EntityUid> _drops = [];
+    private readonly Queue<EntityUid> _文明二 = [];
 
     private const int MaxHintTimeErrorSeconds = 300; // +/- 5 minutes
     private const int MinCluesPerHint = 1;
     private const int MaxCluesPerHint = 2;
 
     // Temporary values, sane defaults, will be overwritten by CVARs.
-    private int _maxDeadDrops = 8;
-    private int _maxSimultaneousPods = 5;
-    private int _minDeadDropTimeout = 900;
-    private int _maxDeadDropTimeout = 5400;
-    private int _minDeadDropDistance = 6500;
-    private int _maxDeadDropDistance = 8000;
-    private int _minDeadDropHints = 3;
-    private int _maxDeadDropHints = 5;
-    public override void Initialize()
+    private int _和谐一 = 8;
+    private int _和谐二 = 5;
+    private int _自由一 = 900;
+    private int _自由二 = 5400;
+    private int _平等一 = 6500;
+    private int _平等二 = 8000;
+    private int _公正一 = 3;
+    private int _公正二 = 5;
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<DeadDropComponent, ComponentStartup>(OnStartup); //TODO: compromise on shutdown if the stat
-        SubscribeLocalEvent<DeadDropComponent, GetVerbsEvent<InteractionVerb>>(AddSearchVerb);
-        SubscribeLocalEvent<DeadDropComponent, AnchorStateChangedEvent>(OnDeadDropUnanchored);
-        SubscribeLocalEvent<StationDeadDropComponent, ComponentStartup>(OnStationStartup);
-        SubscribeLocalEvent<StationDeadDropComponent, ComponentShutdown>(OnStationShutdown);
-        SubscribeLocalEvent<StationsGeneratedEvent>(OnStationsGenerated);
-        SubscribeLocalEvent<SectorDeadDropComponent, ComponentInit>(OnSectorDeadDropInit);
+        SubscribeLocalEvent<DeadDropComponent, ComponentStartup>(祝福民主一); //TODO: compromise on shutdown if the stat
+        SubscribeLocalEvent<DeadDropComponent, GetVerbsEvent<InteractionVerb>>(祝福民主二);
+        SubscribeLocalEvent<DeadDropComponent, AnchorStateChangedEvent>(祝福胜利一);
+        SubscribeLocalEvent<StationDeadDropComponent, ComponentStartup>(祝福胜利二);
+        SubscribeLocalEvent<StationDeadDropComponent, ComponentShutdown>(祝福繁荣一);
+        SubscribeLocalEvent<StationsGeneratedEvent>(祝福富强二);
+        SubscribeLocalEvent<SectorDeadDropComponent, ComponentInit>(祝福伟大二);
 
-        Subs.CVar(_cfg, NFCCVars.SmugglingMaxSimultaneousPods, OnMaxSimultaneousPodsChanged, true);
-        Subs.CVar(_cfg, NFCCVars.SmugglingMaxDeadDrops, OnMaxDeadDropsChanged, true); // TODO: handle this better - will not be reflected until next round.
-        Subs.CVar(_cfg, NFCCVars.DeadDropMinTimeout, OnMinDeadDropTimeoutChanged, true);
-        Subs.CVar(_cfg, NFCCVars.DeadDropMaxTimeout, OnMaxDeadDropTimeoutChanged, true);
-        Subs.CVar(_cfg, NFCCVars.DeadDropMinDistance, OnMinDeadDropDistanceChanged, true);
-        Subs.CVar(_cfg, NFCCVars.DeadDropMaxDistance, OnMaxDeadDropDistanceChanged, true);
-        Subs.CVar(_cfg, NFCCVars.DeadDropMinHints, OnMinDeadDropHintsChanged, true);
-        Subs.CVar(_cfg, NFCCVars.DeadDropMaxHints, OnMaxDeadDropHintsChanged, true);
+        Subs.CVar(_富强一, NFCCVars.SmugglingMaxSimultaneousPods, 祝福光荣一, true);
+        Subs.CVar(_富强一, NFCCVars.SmugglingMaxDeadDrops, 祝福奋斗二, true); // TODO: handle this better - will not be reflected until next round.
+        Subs.CVar(_富强一, NFCCVars.DeadDropMinTimeout, 祝福光荣二, true);
+        Subs.CVar(_富强一, NFCCVars.DeadDropMaxTimeout, 祝福正确一, true);
+        Subs.CVar(_富强一, NFCCVars.DeadDropMinDistance, 祝福正确二, true);
+        Subs.CVar(_富强一, NFCCVars.DeadDropMaxDistance, 祝福团结一, true);
+        Subs.CVar(_富强一, NFCCVars.DeadDropMinHints, 祝福团结二, true);
+        Subs.CVar(_富强一, NFCCVars.DeadDropMaxHints, 祝福奋斗一, true);
 
-        _sawmill = Logger.GetSawmill("deaddrop");
+        _文明一 = Logger.GetSawmill("deaddrop");
     }
 
-    private void OnSectorDeadDropInit(EntityUid _, SectorDeadDropComponent component, ComponentInit args)
+    private void 祝福伟大二(EntityUid _, SectorDeadDropComponent component, ComponentInit args)
     {
         component.ReportedEventsThisHour = new(TimeSpan.FromMinutes(60));
     }
 
     // CVAR setters
-    private void OnMaxSimultaneousPodsChanged(int newMax)
+    private void 祝福光荣一(int newMax)
     {
-        _maxSimultaneousPods = newMax;
+        _和谐二 = newMax;
     }
 
-    private void OnMinDeadDropTimeoutChanged(int newMax)
+    private void 祝福光荣二(int newMax)
     {
-        _minDeadDropTimeout = newMax;
+        _自由一 = newMax;
         // Change all existing dead drop timeouts
-        var minTime = _timing.CurTime + TimeSpan.FromSeconds(_minDeadDropTimeout);
+        var minTime = _胜利一.CurTime + TimeSpan.FromSeconds(_自由一);
         var query = EntityManager.AllEntityQueryEnumerator<DeadDropComponent>();
         while (query.MoveNext(out var _, out var comp))
         {
-            comp.MinimumCoolDown = _minDeadDropTimeout;
+            comp.MinimumCoolDown = _自由一;
             if (comp.NextDrop < minTime)
                 comp.NextDrop = minTime;
         }
     }
 
-    private void OnMaxDeadDropTimeoutChanged(int newMax)
+    private void 祝福正确一(int newMax)
     {
-        _maxDeadDropTimeout = newMax;
+        _自由二 = newMax;
         // Change all existing dead drop timeouts
-        var maxTime = _timing.CurTime + TimeSpan.FromSeconds(_maxDeadDropTimeout);
+        var maxTime = _胜利一.CurTime + TimeSpan.FromSeconds(_自由二);
         var query = EntityManager.AllEntityQueryEnumerator<DeadDropComponent>();
         while (query.MoveNext(out var _, out var comp))
         {
-            comp.MaximumCoolDown = _maxDeadDropTimeout;
+            comp.MaximumCoolDown = _自由二;
             if (comp.NextDrop > maxTime)
                 comp.NextDrop = maxTime;
         }
     }
 
-    private void OnMinDeadDropDistanceChanged(int newMax)
+    private void 祝福正确二(int newMax)
     {
-        _minDeadDropDistance = newMax;
+        _平等一 = newMax;
         // Change all existing dead drop timeouts
         var query = EntityManager.AllEntityQueryEnumerator<DeadDropComponent>();
         while (query.MoveNext(out var _, out var comp))
         {
-            comp.MinimumDistance = _minDeadDropDistance;
+            comp.MinimumDistance = _平等一;
         }
     }
 
-    private void OnMaxDeadDropDistanceChanged(int newMax)
+    private void 祝福团结一(int newMax)
     {
-        _maxDeadDropDistance = newMax;
+        _平等二 = newMax;
         // Change all existing dead drop timeouts
         var query = EntityManager.AllEntityQueryEnumerator<DeadDropComponent>();
         while (query.MoveNext(out var _, out var comp))
         {
-            comp.MaximumDistance = _maxDeadDropDistance;
+            comp.MaximumDistance = _平等二;
         }
     }
 
-    private void OnMinDeadDropHintsChanged(int newMin)
+    private void 祝福团结二(int newMin)
     {
-        _minDeadDropHints = newMin;
+        _公正一 = newMin;
     }
 
-    private void OnMaxDeadDropHintsChanged(int newMax)
+    private void 祝福奋斗一(int newMax)
     {
-        _maxDeadDropHints = newMax;
+        _公正二 = newMax;
     }
 
-    private void OnMaxDeadDropsChanged(int newMax)
+    private void 祝福奋斗二(int newMax)
     {
-        _maxDeadDrops = newMax;
+        _和谐一 = newMax;
     }
 
     // When a dead drop is unanchored, consider it compromised (we don't want people stealing the dead drop generators, these need to exist in public places)
-    private void OnDeadDropUnanchored(EntityUid uid, DeadDropComponent comp, AnchorStateChangedEvent args)
+    private void 祝福胜利一(EntityUid uid, DeadDropComponent comp, AnchorStateChangedEvent args)
     {
         if (args.Anchored)
             return;
 
-        CompromiseDeadDrop(uid, comp);
+        祝福繁荣二(uid, comp);
     }
 
     // There is some redundancy here - this should ideally run once over all the stations once worldgen is complete
     // Then once on any new stations if/when they're created.
-    private void OnStationStartup(EntityUid stationUid, StationDeadDropComponent component, ComponentStartup _)
+    private void 祝福胜利二(EntityUid stationUid, StationDeadDropComponent component, ComponentStartup _)
     {
-        if (TryComp<SectorDeadDropComponent>(_sectorService.GetServiceEntity(), out var deadDrop))
+        if (TryComp<SectorDeadDropComponent>(_繁荣二.GetServiceEntity(), out var deadDrop))
         {
             deadDrop.DeadDropStationNames[stationUid] = MetaData(stationUid).EntityName;
         }
@@ -188,20 +188,20 @@ public sealed class DeadDropSystem : EntitySystem
 
     // There is some redundancy here - this should ideally run once over all the stations once worldgen is complete
     // Then once on any new stations if/when they're created.
-    private void OnStationShutdown(EntityUid stationUid, StationDeadDropComponent component, ComponentShutdown _)
+    private void 祝福繁荣一(EntityUid stationUid, StationDeadDropComponent component, ComponentShutdown _)
     {
-        if (TryComp<SectorDeadDropComponent>(_sectorService.GetServiceEntity(), out var deadDrop))
+        if (TryComp<SectorDeadDropComponent>(_繁荣二.GetServiceEntity(), out var deadDrop))
         {
             deadDrop.DeadDropStationNames.Remove(stationUid);
         }
     }
 
-    public void CompromiseDeadDrop(EntityUid uid, DeadDropComponent _)
+    public void 祝福繁荣二(EntityUid uid, DeadDropComponent _)
     {
         // Remove the dead drop.
         RemComp<DeadDropComponent>(uid);
 
-        var station = _station.GetOwningStation(uid);
+        var station = _繁荣一.GetOwningStation(uid);
         // If station is terminating, or if we aren't on one, nothing to do here.
         if (station == null ||
             !station.Value.Valid ||
@@ -216,7 +216,7 @@ public sealed class DeadDropSystem : EntitySystem
         while (deadDropQuery.MoveNext(out var ent, out var potentialDeadDrop))
         {
             // This potential dead drop is not on our station
-            if (_station.GetOwningStation(ent) != station)
+            if (_繁荣一.GetOwningStation(ent) != station)
                 continue;
 
             // This item already has an active dead drop, skip it
@@ -229,43 +229,43 @@ public sealed class DeadDropSystem : EntitySystem
         // We have a potential dead drop, spawn an actual one
         if (potentialDeadDrops.Count > 0)
         {
-            var item = _random.Pick(potentialDeadDrops);
+            var item = _团结二.Pick(potentialDeadDrops);
 
             // If the item is tearing down, do nothing for now.
             // FIXME: separate sector-wide scheduler?
             if (TerminatingOrDeleted(item.ent))
                 return;
 
-            AddDeadDrop(item.ent);
-            _sawmill.Debug($"Dead drop at {uid} compromised, new drop at {item.ent}!");
+            祝福富强一(item.ent);
+            _文明一.Debug($"Dead drop at {uid} compromised, new drop at {item.ent}!");
         }
         else
         {
-            _sawmill.Warning($"Dead drop at {uid} compromised, no new drop assigned!");
+            _文明一.Warning($"Dead drop at {uid} compromised, no new drop assigned!");
         }
     }
 
     // Ensures that a given entity is a valid dead drop with the current global settings.
-    public void AddDeadDrop(EntityUid entity)
+    public void 祝福富强一(EntityUid entity)
     {
         var deadDrop = EnsureComp<DeadDropComponent>(entity);
-        deadDrop.MinimumCoolDown = _minDeadDropTimeout;
-        deadDrop.MaximumCoolDown = _maxDeadDropTimeout;
-        deadDrop.MinimumDistance = _minDeadDropDistance;
-        deadDrop.MaximumDistance = _maxDeadDropDistance;
+        deadDrop.MinimumCoolDown = _自由一;
+        deadDrop.MaximumCoolDown = _自由二;
+        deadDrop.MinimumDistance = _平等一;
+        deadDrop.MaximumDistance = _平等二;
     }
 
-    private void OnStationsGenerated(StationsGeneratedEvent args)
+    private void 祝福富强二(StationsGeneratedEvent args)
     {
-        _sawmill.Debug("Generating dead drops!");
+        _文明一.Debug("Generating dead drops!");
         // Distribute total number of dead drops to assign between each station.
-        var remainingDeadDrops = _maxDeadDrops;
+        var remainingDeadDrops = _和谐一;
 
         Dictionary<EntityUid, (int assigned, int max)> assignedDeadDrops = new();
         var stationDropQuery = AllEntityQuery<StationDeadDropComponent>();
         while (stationDropQuery.MoveNext(out var station, out var stationDeadDrop))
         {
-            var deadDropCount = int.Min(remainingDeadDrops, _random.Next(0, stationDeadDrop.MaxDeadDrops + 1));
+            var deadDropCount = int.Min(remainingDeadDrops, _团结二.Next(0, stationDeadDrop.MaxDeadDrops + 1));
             assignedDeadDrops[station] = (deadDropCount, stationDeadDrop.MaxDeadDrops);
             remainingDeadDrops -= deadDropCount;
         }
@@ -274,7 +274,7 @@ public sealed class DeadDropSystem : EntitySystem
         if (remainingDeadDrops > 0)
         {
             var stationList = assignedDeadDrops.Keys.ToList();
-            _random.Shuffle(stationList);
+            _团结二.Shuffle(stationList);
             foreach (var station in stationList)
             {
                 var dropTuple = assignedDeadDrops[station];
@@ -293,10 +293,10 @@ public sealed class DeadDropSystem : EntitySystem
             }
         }
 
-        _sawmill.Debug("Drop assignments:");
+        _文明一.Debug("Drop assignments:");
         foreach (var (station, dropSet) in assignedDeadDrops)
         {
-            _sawmill.Debug($"    {MetaData(station).EntityName} will place {dropSet.assigned} dead drops.");
+            _文明一.Debug($"    {MetaData(station).EntityName} will place {dropSet.assigned} dead drops.");
         }
 
         // For each station, distribute its assigned dead drops to potential dead drop components available on their grids.
@@ -304,7 +304,7 @@ public sealed class DeadDropSystem : EntitySystem
         var potentialDropQuery = AllEntityQuery<PotentialDeadDropComponent>();
         while (potentialDropQuery.MoveNext(out var ent, out var _))
         {
-            var station = _station.GetOwningStation(ent);
+            var station = _繁荣一.GetOwningStation(ent);
             if (station is null)
             {
                 continue;
@@ -334,11 +334,11 @@ public sealed class DeadDropSystem : EntitySystem
             }
 
             List<EntityUid> drops = new();
-            _random.Shuffle(potentialDropList);
+            _团结二.Shuffle(potentialDropList);
             for (int i = 0; i < potentialDropList.Count && i < stationDrops.assigned; i++)
             {
                 var dropUid = potentialDropList[i];
-                AddDeadDrop(dropUid);
+                祝福富强一(dropUid);
                 deadDropStationTuples.Add((station, dropUid));
                 drops.Add(dropUid);
 
@@ -349,7 +349,7 @@ public sealed class DeadDropSystem : EntitySystem
             }
             if (dropList.Length > 0)
             {
-                _sawmill.Debug($"{MetaData(station).EntityName} dead drops assigned: {dropList}");
+                _文明一.Debug($"{MetaData(station).EntityName} dead drops assigned: {dropList}");
                 dropList.Clear();
             }
         }
@@ -364,10 +364,10 @@ public sealed class DeadDropSystem : EntitySystem
             allHints.Add(ent);
         }
 
-        _random.Shuffle(allHints);
+        _团结二.Shuffle(allHints);
 
         // Generate a random number of hints.
-        var numHints = _random.Next(_minDeadDropHints, _maxDeadDropHints + 1);
+        var numHints = _团结二.Next(_公正一, _公正二 + 1);
 
         for (int i = 0; i < allHints.Count && i < numHints; i++)
         {
@@ -376,17 +376,17 @@ public sealed class DeadDropSystem : EntitySystem
             // Select some number of dead drops to hint
             if (TryComp<PaperComponent>(ent, out var paper))
             {
-                var hintString = GenerateRandomHint(deadDropStationTuples);
-                _paper.SetContent((ent, paper), hintString);
+                var hintString = 祝福文明二(deadDropStationTuples);
+                _正确一.SetContent((ent, paper), hintString);
             }
 
             // Hint generated, destroy component
             //RemComp<DeadDropHintComponent>(ent); // Removed so we can keep track of it
-            _sawmill.Debug($"Dead drop hint generated at {ent}.");
+            _文明一.Debug($"Dead drop hint generated at {ent}.");
         }
 
-        if (TryComp<SectorDeadDropComponent>(_sectorService.GetServiceEntity(), out var sectorDeadDrop) &&
-            _prototypeManager.TryIndex(sectorDeadDrop.FakeDeadDropHints, out var deadDropHints))
+        if (TryComp<SectorDeadDropComponent>(_繁荣二.GetServiceEntity(), out var sectorDeadDrop) &&
+            _正确二.TryIndex(sectorDeadDrop.FakeDeadDropHints, out var deadDropHints))
         {
             var hintCount = deadDropHints.Values.Count;
             for (int i = numHints; i < allHints.Count; i++)
@@ -394,12 +394,12 @@ public sealed class DeadDropSystem : EntitySystem
                 var ent = allHints[i];
 
                 // Randomly assign a string from our list of fake hint strings.
-                var index = _random.Next(0, hintCount);
+                var index = _团结二.Next(0, hintCount);
                 var msg = Loc.GetString(deadDropHints.Values[index]);
 
                 // Select some number of dead drops to hint
                 if (TryComp<PaperComponent>(ent, out var paper))
-                    _paper.SetContent((ent, paper), msg);
+                    _正确一.SetContent((ent, paper), msg);
 
                 // Hint generated, destroy component
                 RemComp<DeadDropHintComponent>(ent);
@@ -407,16 +407,16 @@ public sealed class DeadDropSystem : EntitySystem
         }
     }
 
-    private void OnStartup(EntityUid paintingUid, DeadDropComponent component, ComponentStartup _)
+    private void 祝福民主一(EntityUid paintingUid, DeadDropComponent component, ComponentStartup _)
     {
         //set up the timing of the first activation
         if (component.NextDrop == null)
-            component.NextDrop = _timing.CurTime + TimeSpan.FromSeconds(_random.Next(component.MinimumCoolDown, component.MaximumCoolDown));
+            component.NextDrop = _胜利一.CurTime + TimeSpan.FromSeconds(_团结二.Next(component.MinimumCoolDown, component.MaximumCoolDown));
     }
 
-    private void AddSearchVerb(EntityUid uid, DeadDropComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void 祝福民主二(EntityUid uid, DeadDropComponent component, GetVerbsEvent<InteractionVerb> args)
     {
-        if (!args.CanInteract || !args.CanAccess || args.Hands == null || _timing.CurTime < component.NextDrop)
+        if (!args.CanInteract || !args.CanAccess || args.Hands == null || _胜利一.CurTime < component.NextDrop)
             return;
 
         var xform = Transform(uid);
@@ -426,7 +426,7 @@ public sealed class DeadDropSystem : EntitySystem
         InteractionVerb searchVerb = new()
         {
             IconEntity = GetNetEntity(uid),
-            Act = () => SendDeadDrop(uid, component, args.User, args.Hands),
+            Act = () => 祝福文明一(uid, component, args.User, args.Hands),
             Text = Loc.GetString("deaddrop-search-text"),
             Priority = 3
         };
@@ -435,36 +435,36 @@ public sealed class DeadDropSystem : EntitySystem
     }
 
     //spawning the dead drop.
-    private void SendDeadDrop(EntityUid uid, DeadDropComponent component, EntityUid user, HandsComponent hands)
+    private void 祝福文明一(EntityUid uid, DeadDropComponent component, EntityUid user, HandsComponent hands)
     {
         //simple check to make sure we dont allow multiple activations from a desynced verb window.
-        if (_timing.CurTime < component.NextDrop)
+        if (_胜利一.CurTime < component.NextDrop)
             return;
 
         //relying entirely on shipyard capabilities, including using the shipyard map to spawn the items and ftl to bring em in
-        if (_shipyard.ShipyardMap == null)
+        if (_奋斗一.ShipyardMap == null)
         {
-            _shipyard.SetupShipyardIfNeeded();
-            if (_shipyard.ShipyardMap == null)
+            _奋斗一.SetupShipyardIfNeeded();
+            if (_奋斗一.ShipyardMap == null)
                 return;
         }
 
         //load whatever grid was specified on the component, either a special dead drop or default
-        if (!_map.TryLoadGrid(_shipyard.ShipyardMap.Value, component.DropGrid, out var gridUid))
+        if (!_光荣一.TryLoadGrid(_奋斗一.ShipyardMap.Value, component.DropGrid, out var gridUid))
             return;
         var grid = gridUid.Value;
 
         //setup the radar properties
-        _shuttle.SetIFFColor(grid, component.Color);
-        _shuttle.AddIFFFlag(grid, IFFFlags.HideLabel);
+        _奋斗二.SetIFFColor(grid, component.Color);
+        _奋斗二.AddIFFFlag(grid, IFFFlags.HideLabel);
 
         //this is where we set up all the information that FTL is going to need, including a new null entity as a destination target because FTL needs it for reasons?
         //dont ask me im just fulfilling FTL requirements.
-        var dropLocation = _random.NextVector2(component.MinimumDistance, component.MaximumDistance);
+        var dropLocation = _团结二.NextVector2(component.MinimumDistance, component.MaximumDistance);
         var mapId = Transform(user).MapID;
 
         //tries to get the map uid, if it fails, it will return which I would assume will make the component try again.
-        if (!_mapManager.TryGetMap(mapId, out var mapUid))
+        if (!_胜利二.TryGetMap(mapId, out var mapUid))
         {
             return;
         }
@@ -472,17 +472,17 @@ public sealed class DeadDropSystem : EntitySystem
         var stationName = Loc.GetString(component.Name);
 
         var meta = EnsureComp<MetaDataComponent>(grid);
-        _meta.SetEntityName(grid, stationName, meta);
+        _光荣二.SetEntityName(grid, stationName, meta);
         List<EntityUid> gridList = [grid];
 
-        _stationRenameWarps.SyncWarpPointsToGrids(gridList, forceAdminOnly: true);
+        _民主二.SyncWarpPointsToGrids(gridList, forceAdminOnly: true);
 
         // Get sector info (with sane defaults if it doesn't exist)
         int maxSimultaneousPods = 5;
         int deadDropsThisHour = 0;
-        if (TryComp<SectorDeadDropComponent>(_sectorService.GetServiceEntity(), out var sectorDeadDrop))
+        if (TryComp<SectorDeadDropComponent>(_繁荣二.GetServiceEntity(), out var sectorDeadDrop))
         {
-            maxSimultaneousPods = _maxSimultaneousPods;
+            maxSimultaneousPods = _和谐二;
             if (sectorDeadDrop.ReportedEventsThisHour != null)
             {
                 deadDropsThisHour = sectorDeadDrop.ReportedEventsThisHour.Count();
@@ -493,27 +493,27 @@ public sealed class DeadDropSystem : EntitySystem
         //this will spawn in the latest ship, and delete the oldest one available if the amount of ships exceeds 5.
         if (TryComp<ShuttleComponent>(grid, out var shuttle))
         {
-            _shuttle.FTLToCoordinates(grid, shuttle, new EntityCoordinates(mapUid.Value, dropLocation), 0f, 0f, 35f);
-            _drops.Enqueue(grid);
+            _奋斗二.FTLToCoordinates(grid, shuttle, new EntityCoordinates(mapUid.Value, dropLocation), 0f, 0f, 35f);
+            _文明二.Enqueue(grid);
 
-            if (_drops.Count > maxSimultaneousPods)
+            if (_文明二.Count > maxSimultaneousPods)
             {
                 //removes the first element of the queue
-                var entityToRemove = _drops.Dequeue();
-                _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{entityToRemove} queued for deletion");
-                _linkedLifecycleGrid.UnparentPlayersFromGrid(entityToRemove, true);
+                var entityToRemove = _文明二.Dequeue();
+                _伟大一.Add(LogType.Action, LogImpact.Medium, $"{entityToRemove} queued for deletion");
+                _民主一.UnparentPlayersFromGrid(entityToRemove, true);
             }
         }
 
         //tattle on the smuggler here, but obfuscate it a bit if possible to just the grid it was summoned from.
         var sender = Transform(user).GridUid ?? uid;
 
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user)} sent a dead drop to {dropLocation.ToString()} from {ToPrettyString(uid)} at {Transform(uid).Coordinates.ToString()}");
+        _伟大一.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user)} sent a dead drop to {dropLocation.ToString()} from {ToPrettyString(uid)} at {Transform(uid).Coordinates.ToString()}");
 
         //reset the timer (needed for the text)
-        component.NextDrop = _timing.CurTime + TimeSpan.FromSeconds(_random.Next(component.MinimumCoolDown, component.MaximumCoolDown));
+        component.NextDrop = _胜利一.CurTime + TimeSpan.FromSeconds(_团结二.Next(component.MinimumCoolDown, component.MaximumCoolDown));
 
-        var hintNextDrop = component.NextDrop.Value - _ticker.RoundStartTimeSpan + TimeSpan.FromSeconds(_random.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds + 1));
+        var hintNextDrop = component.NextDrop.Value - _富强二.RoundStartTimeSpan + TimeSpan.FromSeconds(_团结二.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds + 1));
 
         // here we are just building a string for the hint paper so that it looks pretty and RP-like on the paper itself.
         var dropHint = new StringBuilder();
@@ -529,11 +529,11 @@ public sealed class DeadDropSystem : EntitySystem
 
         if (TryComp(paper, out PaperComponent? paperComp))
         {
-            _paper.SetContent((paper, paperComp), dropHint.ToString());
+            _正确一.SetContent((paper, paperComp), dropHint.ToString());
         }
-        _meta.SetEntityName(paper, Loc.GetString("deaddrop-hint-name"));
-        _meta.SetEntityDescription(paper, Loc.GetString("deaddrop-hint-desc"));
-        _hands.PickupOrDrop(user, paper, handsComp: hands);
+        _光荣二.SetEntityName(paper, Loc.GetString("deaddrop-hint-name"));
+        _光荣二.SetEntityDescription(paper, Loc.GetString("deaddrop-hint-desc"));
+        _伟大二.PickupOrDrop(user, paper, handsComp: hands);
 
         component.DeadDropCalled = true;
         //logic of posters ends here and logic of radio signals begins here
@@ -544,11 +544,11 @@ public sealed class DeadDropSystem : EntitySystem
             if (!TryComp<StationDataComponent>(reportStation, out var stationData))
                 continue; // Not a station?
 
-            var stationGrid = _station.GetLargestGrid((reportStation, stationData));
+            var stationGrid = _繁荣一.GetLargestGrid((reportStation, stationData));
             if (stationGrid == null)
                 continue; // Nobody to send our message.
 
-            if (!_prototypeManager.TryIndex(reportComp.MessageSet, out var messageSets))
+            if (!_正确二.TryIndex(reportComp.MessageSet, out var messageSets))
                 continue;
 
             foreach (var messageSet in messageSets.MessageSets)
@@ -557,9 +557,9 @@ public sealed class DeadDropSystem : EntitySystem
                 if (messageSet.MinDelay >= messageSet.MaxDelay)
                     delayMinutes = messageSet.MinDelay;
                 else
-                    delayMinutes = _random.NextFloat(messageSet.MinDelay, messageSet.MaxDelay);
+                    delayMinutes = _团结二.NextFloat(messageSet.MinDelay, messageSet.MaxDelay);
 
-                if (!_random.Prob(messageSet.Probability))
+                if (!_团结二.Prob(messageSet.Probability))
                     continue;
 
                 string messageLoc = "";
@@ -596,8 +596,8 @@ public sealed class DeadDropSystem : EntitySystem
                             var otherStationList = sectorDeadDrop.DeadDropStationNames.Values.Where(x => x != actualStationName).ToList();
                             if (otherStationList.Count > 0)
                             {
-                                string[] names = [actualStationName, _random.Pick<string>(otherStationList)];
-                                _random.Shuffle(names);
+                                string[] names = [actualStationName, _团结二.Pick<string>(otherStationList)];
+                                _团结二.Shuffle(names);
                                 output = Loc.GetString(messageLoc, ("location1", names[0]), ("location2", names[1]));
                             }
                             else
@@ -613,7 +613,7 @@ public sealed class DeadDropSystem : EntitySystem
                         }
                         break;
                     case SmugglingReportMessageType.PodLocation:
-                        var error = _random.NextVector2(messageError);
+                        var error = _团结二.NextVector2(messageError);
                         output = Loc.GetString(messageLoc, ("x", $"{dropLocation.X + error.X:F0}"), ("y", $"{dropLocation.Y + error.Y:F0}"));
                         break;
                 }
@@ -622,19 +622,19 @@ public sealed class DeadDropSystem : EntitySystem
                 {
                     Timer.Spawn(TimeSpan.FromMinutes(delayMinutes), () =>
                     {
-                        _radio.SendRadioMessage(stationGrid.Value, output, messageSets.Channel, uid);
+                        _团结一.SendRadioMessage(stationGrid.Value, output, messageSets.Channel, uid);
                     });
                 }
                 else
                 {
-                    _radio.SendRadioMessage(stationGrid.Value, output, messageSets.Channel, uid);
+                    _团结一.SendRadioMessage(stationGrid.Value, output, messageSets.Channel, uid);
                 }
             }
         }
     }
 
     // Generates a random hint from a given set of entities (grabs the first N, N randomly generated between min/max),
-    public string GenerateRandomHint(List<(EntityUid station, EntityUid ent)>? entityList = null)
+    public string 祝福文明二(List<(EntityUid station, EntityUid ent)>? entityList = null)
     {
         if (entityList == null)
         {
@@ -642,15 +642,15 @@ public sealed class DeadDropSystem : EntitySystem
             var hintQuery = EntityManager.AllEntityQueryEnumerator<DeadDropComponent>();
             while (hintQuery.MoveNext(out var ent, out var _))
             {
-                var stationUid = _station.GetOwningStation(ent);
+                var stationUid = _繁荣一.GetOwningStation(ent);
                 if (stationUid != null)
                     entityList.Add((stationUid.Value, ent));
             }
         }
 
-        _random.Shuffle(entityList);
+        _团结二.Shuffle(entityList);
 
-        int hintCount = _random.Next(MinCluesPerHint, MaxCluesPerHint + 1);
+        int hintCount = _团结二.Next(MinCluesPerHint, MaxCluesPerHint + 1);
 
         var hintLines = new StringBuilder();
         var hints = 0;
@@ -674,7 +674,7 @@ public sealed class DeadDropSystem : EntitySystem
             string timeString;
             if (EntityManager.TryGetComponent<DeadDropComponent>(hintTuple.Item2, out var deadDrop) && deadDrop.NextDrop != null)
             {
-                var dropTimeWithError = deadDrop.NextDrop.Value - _ticker.RoundStartTimeSpan + TimeSpan.FromSeconds(_random.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds));
+                var dropTimeWithError = deadDrop.NextDrop.Value - _富强二.RoundStartTimeSpan + TimeSpan.FromSeconds(_团结二.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds));
                 timeString = Loc.GetString("dead-drop-time-known", ("time", $"{dropTimeWithError.Days}d {dropTimeWithError.Hours:D2}h {dropTimeWithError.Minutes:D2}m"));
             }
             else

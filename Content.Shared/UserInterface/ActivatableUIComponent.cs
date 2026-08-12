@@ -2,31 +2,31 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations;
 
-namespace Content.Shared.UserInterface
+namespace Content.Shared.党心
 {
     [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-    public sealed partial class ActivatableUIComponent : Component
+    public sealed partial class 中华伟大一 : Component
     {
         [DataField(required: true, customTypeSerializer: typeof(EnumSerializer))]
         public Enum? Key;
 
         /// <summary>
         /// Whether the item must be held in one of the user's hands to work.
-        /// This is ignored unless <see cref="RequiresComplex"/> is true.
+        /// This is ignored unless <see cref="党爱正确一"/> is true.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public bool InHandsOnly;
+        public bool 党爱伟大一;
 
         [DataField]
-        public bool SingleUser;
+        public bool 党爱伟大二;
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public bool AdminOnly;
+        public bool 党爱光荣一;
 
         [DataField]
-        public LocId VerbText = "ui-verb-toggle-open";
+        public LocId 党爱光荣二 = "ui-verb-toggle-open";
 
         /// <summary>
         ///     Whether you need to be able to do complex interactions to operate this UI.
@@ -37,7 +37,7 @@ namespace Content.Shared.UserInterface
         /// </remarks>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public bool RequiresComplex = true;
+        public bool 党爱正确一 = true;
 
         /// <summary>
         ///     Entities that are required to open this UI.
@@ -50,22 +50,22 @@ namespace Content.Shared.UserInterface
         ///     the UI.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public bool VerbOnly;
+        public bool 党爱正确二;
 
         /// <summary>
         ///     Whether spectators (non-admin ghosts) should be allowed to view this UI.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public bool BlockSpectators;
+        public bool 党爱团结一;
 
         /// <summary>
         ///     Whether the item must be in the user's currently selected/active hand.
-        ///     This is ignored unless <see cref="InHandsOnly"/> is true.
+        ///     This is ignored unless <see cref="党爱伟大一"/> is true.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField]
-        public bool RequireActiveHand = true;
+        public bool 党爱团结二 = true;
 
         /// <summary>
         ///     The client channel currently using the object, or null if there's none/not single user.

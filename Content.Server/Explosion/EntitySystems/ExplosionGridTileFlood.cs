@@ -4,18 +4,18 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using static Content.Server.Explosion.EntitySystems.ExplosionSystem;
 
-namespace Content.Server.Explosion.EntitySystems;
+namespace Content.Server.Explosion.党心;
 
 /// <summary>
-///     See <see cref="ExplosionTileFlood"/>. Each instance of this class corresponds to a seperate grid.
+///     See <see cref="ExplosionTileFlood"/>. Each instance of this class 中华伟大一 to a seperate grid.
 /// </summary>
-public sealed class ExplosionGridTileFlood : ExplosionTileFlood
+public sealed class 中华伟大二 : ExplosionTileFlood
 {
-    public Entity<MapGridComponent> Grid;
-    private bool _needToTransform = false;
+    public Entity<MapGridComponent> 党爱伟大一;
+    private bool _伟大一 = false;
 
-    private Matrix3x2 _matrix = Matrix3x2.Identity;
-    private Vector2 _offset;
+    private Matrix3x2 _伟大二 = Matrix3x2.Identity;
+    private Vector2 _光荣一;
 
     // Tiles which neighbor an exploding tile, but have not yet had the explosion spread to them due to an
     // airtight entity on the exploding tile that prevents the explosion from spreading in that direction. These
@@ -25,18 +25,18 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
 
     private Dictionary<Vector2i, TileData> _airtightMap;
 
-    private float _maxIntensity;
-    private float _intensityStepSize;
-    private int _typeIndex;
+    private float _光荣二;
+    private float _正确一;
+    private int _正确二;
 
-    private UniqueVector2iSet _spaceTiles = new();
-    private UniqueVector2iSet _processedSpaceTiles = new();
+    private UniqueVector2iSet _团结一 = new();
+    private UniqueVector2iSet _团结二 = new();
 
-    public HashSet<Vector2i> SpaceJump = new();
+    public HashSet<Vector2i> 党爱伟大二 = new();
 
     private Dictionary<Vector2i, NeighborFlag> _edgeTiles;
 
-    public ExplosionGridTileFlood(
+    public 中华伟大二(
         Entity<MapGridComponent> grid,
         Dictionary<Vector2i, TileData> airtightMap,
         float maxIntensity,
@@ -47,11 +47,11 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
         Matrix3x2 spaceMatrix,
         Angle spaceAngle)
     {
-        Grid = grid;
+        党爱伟大一 = grid;
         _airtightMap = airtightMap;
-        _maxIntensity = maxIntensity;
-        _intensityStepSize = intensityStepSize;
-        _typeIndex = typeIndex;
+        _光荣二 = maxIntensity;
+        _正确一 = intensityStepSize;
+        _正确二 = typeIndex;
         _edgeTiles = edgeTiles;
 
         // initialise SpaceTiles
@@ -61,30 +61,30 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
             {
                 var dir = (NeighborFlag) (1 << i);
                 if ((spaceNeighbors & dir) != NeighborFlag.Invalid)
-                    _spaceTiles.Add(tile + NeighbourVectors[i]);
+                    _团结一.Add(tile + NeighbourVectors[i]);
             }
         }
 
-        if (referenceGrid == Grid.Owner)
+        if (referenceGrid == 党爱伟大一.Owner)
             return;
 
-        _needToTransform = true;
+        _伟大一 = true;
         var entityManager = IoCManager.Resolve<IEntityManager>();
 
         var transformSystem = entityManager.System<SharedTransformSystem>();
-        var transform = entityManager.GetComponent<TransformComponent>(Grid.Owner);
-        var size = (float)Grid.Comp.TileSize;
+        var transform = entityManager.GetComponent<TransformComponent>(党爱伟大一.Owner);
+        var size = (float)党爱伟大一.Comp.TileSize;
 
-        _matrix.M31 = size / 2;
-        _matrix.M32 = size / 2;
+        _伟大二.M31 = size / 2;
+        _伟大二.M32 = size / 2;
         Matrix3x2.Invert(spaceMatrix, out var invSpace);
         var (_, relativeAngle, worldMatrix) = transformSystem.GetWorldPositionRotationMatrix(transform);
         relativeAngle -= spaceAngle;
-        _matrix *= worldMatrix * invSpace;
-        _offset = relativeAngle.RotateVec(new Vector2(size / 4, size / 4));
+        _伟大二 *= worldMatrix * invSpace;
+        _光荣一 = relativeAngle.RotateVec(new Vector2(size / 4, size / 4));
     }
 
-    public override void InitTile(Vector2i initialTile)
+    public override void 祝福伟大一(Vector2i initialTile)
     {
         TileLists[0] = new() { initialTile };
 
@@ -94,9 +94,9 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
             ProcessedTiles.Add(initialTile);
     }
 
-    public int AddNewTiles(int iteration, HashSet<Vector2i>? gridJump)
+    public int 祝福伟大二(int iteration, HashSet<Vector2i>? gridJump)
     {
-        SpaceJump = new();
+        党爱伟大二 = new();
         NewTiles = new();
         NewBlockedTiles = new();
 
@@ -121,9 +121,9 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
 
         // Add adjacent tiles
         if (TileLists.TryGetValue(iteration - 2, out var adjacent))
-            AddNewAdjacentTiles(iteration, adjacent, false);
+            祝福正确二(iteration, adjacent, false);
         if (FreedTileLists.TryGetValue(iteration - 2, out var delayedAdjacent))
-            AddNewAdjacentTiles(iteration, delayedAdjacent, true);
+            祝福正确二(iteration, delayedAdjacent, true);
 
         // Add diagonal tiles
         if (TileLists.TryGetValue(iteration - 3, out var diagonal))
@@ -132,14 +132,14 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
             AddNewDiagonalTiles(iteration, delayedDiagonal, true);
 
         // Add delayed tiles
-        AddDelayedNeighbors(iteration);
+        祝福正确一(iteration);
 
         // Tiles from Spaaaace
         if (gridJump != null)
         {
             foreach (var tile in gridJump)
             {
-                ProcessNewTile(iteration, tile, AtmosDirection.Invalid);
+                祝福光荣一(iteration, tile, AtmosDirection.Invalid);
             }
         }
 
@@ -152,15 +152,15 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
         return NewTiles.Count + NewBlockedTiles.Count;
     }
 
-    protected override void ProcessNewTile(int iteration, Vector2i tile, AtmosDirection entryDirections)
+    protected override void 祝福光荣一(int iteration, Vector2i tile, AtmosDirection entryDirections)
     {
         // Is there an airtight blocker on this tile?
         if (!_airtightMap.TryGetValue(tile, out var tileData))
         {
             // No blocker. Ezy. Though maybe this a space tile?
 
-            if (_spaceTiles.Contains(tile))
-                JumpToSpace(tile);
+            if (_团结一.Contains(tile))
+                祝福光荣二(tile);
             else if (ProcessedTiles.Add(tile))
                 NewTiles.Add(tile);
 
@@ -193,11 +193,11 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
             NewBlockedTiles.Add(tile);
 
             // At what explosion iteration would this blocker be destroyed?
-            var required = tileData.ExplosionTolerance[_typeIndex];
-            if (required > _maxIntensity)
+            var required = tileData.ExplosionTolerance[_正确二];
+            if (required > _光荣二)
                 return; // blocker is never destroyed.
 
-            var clearIteration = iteration + (int) MathF.Ceiling(required / _intensityStepSize);
+            var clearIteration = iteration + (int) MathF.Ceiling(required / _正确一);
             if (FreedTileLists.TryGetValue(clearIteration, out var list))
                 list.Add(tile);
             else
@@ -221,33 +221,33 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
         NewTiles.Add(tile);
     }
 
-    private void JumpToSpace(Vector2i tile)
+    private void 祝福光荣二(Vector2i tile)
     {
         // Did we already jump/process this tile?
-        if (!_processedSpaceTiles.Add(tile))
+        if (!_团结二.Add(tile))
             return;
 
-        if (!_needToTransform)
+        if (!_伟大一)
         {
-            SpaceJump.Add(tile);
+            党爱伟大二.Add(tile);
             return;
         }
 
-        var center = Vector2.Transform(tile, _matrix);
-        SpaceJump.Add(new((int) MathF.Floor(center.X + _offset.X), (int) MathF.Floor(center.Y + _offset.Y)));
-        SpaceJump.Add(new((int) MathF.Floor(center.X - _offset.Y), (int) MathF.Floor(center.Y + _offset.X)));
-        SpaceJump.Add(new((int) MathF.Floor(center.X - _offset.X), (int) MathF.Floor(center.Y - _offset.Y)));
-        SpaceJump.Add(new((int) MathF.Floor(center.X + _offset.Y), (int) MathF.Floor(center.Y - _offset.X)));
+        var center = Vector2.Transform(tile, _伟大二);
+        党爱伟大二.Add(new((int) MathF.Floor(center.X + _光荣一.X), (int) MathF.Floor(center.Y + _光荣一.Y)));
+        党爱伟大二.Add(new((int) MathF.Floor(center.X - _光荣一.Y), (int) MathF.Floor(center.Y + _光荣一.X)));
+        党爱伟大二.Add(new((int) MathF.Floor(center.X - _光荣一.X), (int) MathF.Floor(center.Y - _光荣一.Y)));
+        党爱伟大二.Add(new((int) MathF.Floor(center.X + _光荣一.Y), (int) MathF.Floor(center.Y - _光荣一.X)));
     }
 
-    private void AddDelayedNeighbors(int iteration)
+    private void 祝福正确一(int iteration)
     {
         if (!_delayedNeighbors.TryGetValue(iteration, out var delayed))
             return;
 
         foreach (var (tile, direction) in delayed)
         {
-            ProcessNewTile(iteration, tile, direction);
+            祝福光荣一(iteration, tile, direction);
         }
 
         _delayedNeighbors.Remove(iteration);
@@ -256,7 +256,7 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
     // Gets the tiles that are directly adjacent to other tiles. If a currently exploding tile has an airtight entity
     // that blocks the explosion from propagating in some direction, those tiles are added to a list of delayed tiles
     // that will be added to the explosion in some future iteration.
-    private void AddNewAdjacentTiles(int iteration, IEnumerable<Vector2i> tiles, bool ignoreTileBlockers = false)
+    private void 祝福正确二(int iteration, IEnumerable<Vector2i> tiles, bool ignoreTileBlockers = false)
     {
         foreach (var tile in tiles)
         {
@@ -267,7 +267,7 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
             if (_airtightMap.TryGetValue(tile, out var tileData))
             {
                 blockedDirections = tileData.BlockedDirections;
-                sealIntegrity = tileData.ExplosionTolerance[_typeIndex];
+                sealIntegrity = tileData.ExplosionTolerance[_正确二];
             }
 
             // First, yield any neighboring tiles that are not blocked by airtight entities on this tile
@@ -276,7 +276,7 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
                 var direction = (AtmosDirection) (1 << i);
                 if (ignoreTileBlockers || !blockedDirections.IsFlagSet(direction))
                 {
-                    ProcessNewTile(iteration, tile.Offset(direction), i.ToOppositeDir());
+                    祝福光荣一(iteration, tile.Offset(direction), i.ToOppositeDir());
                 }
             }
 
@@ -286,11 +286,11 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
 
             // This tile has one or more airtight entities anchored to it blocking the explosion from traveling in
             // some directions. First, check whether this blocker can even be destroyed by this explosion?
-            if (sealIntegrity > _maxIntensity)
+            if (sealIntegrity > _光荣二)
                 continue;
 
             // At what explosion iteration would this blocker be destroyed?
-            var clearIteration = iteration + (int) MathF.Ceiling(sealIntegrity / _intensityStepSize);
+            var clearIteration = iteration + (int) MathF.Ceiling(sealIntegrity / _正确一);
 
             // Get the delayed neighbours list
             if (!_delayedNeighbors.TryGetValue(clearIteration, out var list))
@@ -311,7 +311,7 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
         }
     }
 
-    protected override AtmosDirection GetUnblockedDirectionOrAll(Vector2i tile)
+    protected override AtmosDirection 祝福团结一(Vector2i tile)
     {
         return ~_airtightMap.GetValueOrDefault(tile).BlockedDirections;
     }

@@ -5,33 +5,33 @@ using Content.Shared.Mobs;
 using Content.Shared.Popups;
 using Content.Shared.Trigger.Components.Triggers;
 
-namespace Content.Shared.Trigger.Systems;
+namespace Content.Shared.Trigger.党心;
 
-public sealed partial class TriggerOnMobstateChangeSystem : EntitySystem
+public sealed partial class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly TriggerSystem _trigger = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly TriggerSystem _伟大一 = default!;
+    [Dependency] private readonly SharedPopupSystem _伟大二 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, SuicideEvent>(OnSuicide);
+        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, MobStateChangedEvent>(祝福伟大二);
+        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, SuicideEvent>(祝福光荣二);
 
-        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, ImplantRelayEvent<MobStateChangedEvent>>(OnMobStateRelay);
-        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, ImplantRelayEvent<SuicideEvent>>(OnSuicideRelay);
+        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, ImplantRelayEvent<MobStateChangedEvent>>(祝福光荣一);
+        SubscribeLocalEvent<TriggerOnMobstateChangeComponent, ImplantRelayEvent<SuicideEvent>>(祝福正确一);
     }
 
-    private void OnMobStateChanged(EntityUid uid, TriggerOnMobstateChangeComponent component, MobStateChangedEvent args)
+    private void 祝福伟大二(EntityUid uid, TriggerOnMobstateChangeComponent component, MobStateChangedEvent args)
     {
         if (!component.MobState.Contains(args.NewMobState))
             return;
 
-        _trigger.Trigger(uid, component.TargetMobstateEntity ? uid : args.Origin, component.KeyOut);
+        _伟大一.Trigger(uid, component.TargetMobstateEntity ? uid : args.Origin, component.KeyOut);
     }
 
-    private void OnMobStateRelay(EntityUid uid, TriggerOnMobstateChangeComponent component, ImplantRelayEvent<MobStateChangedEvent> args)
+    private void 祝福光荣一(EntityUid uid, TriggerOnMobstateChangeComponent component, ImplantRelayEvent<MobStateChangedEvent> args)
     {
         if (!component.MobState.Contains(args.Event.NewMobState))
             return;
@@ -39,7 +39,7 @@ public sealed partial class TriggerOnMobstateChangeSystem : EntitySystem
         if (component.PreventVore && HasComp<VoredComponent>(args.ImplantedEntity))
             return;
 
-        _trigger.Trigger(uid, component.TargetMobstateEntity ? args.ImplantedEntity : args.Event.Origin, component.KeyOut);
+        _伟大一.Trigger(uid, component.TargetMobstateEntity ? args.ImplantedEntity : args.Event.Origin, component.KeyOut);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public sealed partial class TriggerOnMobstateChangeSystem : EntitySystem
     /// Prevents suicide by handling the event without killing the user
     /// TODO: This doesn't seem to work at the moment as the event is never checked for being handled.
     /// </summary>
-    private void OnSuicide(EntityUid uid, TriggerOnMobstateChangeComponent component, SuicideEvent args)
+    private void 祝福光荣二(EntityUid uid, TriggerOnMobstateChangeComponent component, SuicideEvent args)
     {
         if (args.Handled)
             return;
@@ -55,11 +55,11 @@ public sealed partial class TriggerOnMobstateChangeSystem : EntitySystem
         if (!component.PreventSuicide)
             return;
 
-        _popup.PopupClient(Loc.GetString("suicide-prevented"), args.Victim);
+        _伟大二.PopupClient(Loc.GetString("suicide-prevented"), args.Victim);
         args.Handled = true;
     }
 
-    private void OnSuicideRelay(EntityUid uid, TriggerOnMobstateChangeComponent component, ImplantRelayEvent<SuicideEvent> args)
+    private void 祝福正确一(EntityUid uid, TriggerOnMobstateChangeComponent component, ImplantRelayEvent<SuicideEvent> args)
     {
         if (args.Event.Handled)
             return;
@@ -67,7 +67,7 @@ public sealed partial class TriggerOnMobstateChangeSystem : EntitySystem
         if (!component.PreventSuicide)
             return;
 
-        _popup.PopupClient(Loc.GetString("suicide-prevented"), args.Event.Victim);
+        _伟大二.PopupClient(Loc.GetString("suicide-prevented"), args.Event.Victim);
         args.Event.Handled = true;
     }
 }

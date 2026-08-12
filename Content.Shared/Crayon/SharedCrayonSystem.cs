@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Crayon;
+﻿namespace Content.Shared.党心;
 
 [Virtual]
-public abstract class SharedCrayonSystem : EntitySystem { }
+public abstract class 中华伟大一 : EntitySystem { }

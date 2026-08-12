@@ -1,25 +1,25 @@
 using Content.Server.Pointing.EntitySystems;
 using Content.Shared.Pointing.Components;
 
-namespace Content.Server.Pointing.Components
+namespace Content.Server.Pointing.党心
 {
     [RegisterComponent]
     [Access(typeof(RoguePointingSystem))]
-    public sealed partial class RoguePointingArrowComponent : SharedRoguePointingArrowComponent
+    public sealed partial class 中华伟大一 : SharedRoguePointingArrowComponent
     {
         [ViewVariables]
         public EntityUid? Chasing;
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("turningDelay")]
-        public float TurningDelay = 2;
+        public float 党爱伟大一 = 2;
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("chasingSpeed")]
-        public float ChasingSpeed = 5;
+        public float 党爱伟大二 = 5;
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("chasingTime")]
-        public float ChasingTime = 1;
+        public float 党爱光荣一 = 1;
     }
 }

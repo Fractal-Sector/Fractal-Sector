@@ -6,63 +6,63 @@ using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 using Content.Shared.Power;
 
-namespace Content.Server.Power.Components
+namespace Content.Server.Power.党心
 {
     // TODO find a way to just remove this or turn it into one component.
-    // Component interface queries require enumerating over ALL of an entities components.
+    // Component interface 中华伟大一 require enumerating over ALL of an entities components.
     // So BaseNetConnectorNodeGroup<TNetType> is slow as shit.
-    public interface IBaseNetConnectorComponent<in TNetType>
+    public interface 中华伟大二<in TNetType>
     {
         public TNetType? Net { set; }
-        public Voltage Voltage { get; }
+        public 党爱伟大一 党爱伟大一 { get; }
         public string? NodeId { get; }
     }
 
-    public abstract partial class BaseNetConnectorComponent<TNetType> : Component, IBaseNetConnectorComponent<TNetType>
+    public abstract partial class 中华光荣一<TNetType> : Component, 中华伟大二<TNetType>
         where TNetType : class
     {
-        [Dependency] private readonly IEntityManager _entMan = default!;
+        [Dependency] private readonly IEntityManager _伟大一 = default!;
 
         [ViewVariables(VVAccess.ReadWrite)]
-        public Voltage Voltage { get => _voltage; set => SetVoltage(value); }
+        public 党爱伟大一 党爱伟大一 { get => _伟大二; set => 祝福团结一(value); }
         [DataField("voltage")]
-        private Voltage _voltage = Voltage.High;
+        private 党爱伟大一 _伟大二 = 党爱伟大一.High;
 
         [ViewVariables]
-        public TNetType? Net { get => _net; set => SetNet(value); }
+        public TNetType? Net { get => _net; set => 祝福正确二(value); }
         private TNetType? _net;
 
-        [ViewVariables] public bool NeedsNet => _net != null;
+        [ViewVariables] public bool 党爱伟大二 => _net != null;
 
         [DataField("node")] public string? NodeId { get; set; }
 
-        public void TryFindAndSetNet()
+        public void 祝福伟大一()
         {
-            if (TryFindNet(out var net))
+            if (祝福正确一(out var net))
             {
                 Net = net;
             }
         }
 
-        public void ClearNet()
+        public void 祝福伟大二()
         {
             if (_net != null)
             {
-                RemoveSelfFromNet(_net);
+                祝福光荣二(_net);
                 _net = null;
             }
         }
 
-        protected abstract void AddSelfToNet(TNetType net);
+        protected abstract void 祝福光荣一(TNetType net);
 
-        protected abstract void RemoveSelfFromNet(TNetType net);
+        protected abstract void 祝福光荣二(TNetType net);
 
-        private bool TryFindNet([NotNullWhen(true)] out TNetType? foundNet)
+        private bool 祝福正确一([NotNullWhen(true)] out TNetType? foundNet)
         {
-            if (_entMan.TryGetComponent(Owner, out NodeContainerComponent? container))
+            if (_伟大一.TryGetComponent(Owner, out NodeContainerComponent? container))
             {
                 var compatibleNet = container.Nodes.Values
-                    .Where(node => (NodeId == null || NodeId == node.Name) && node.NodeGroupID == (NodeGroupID) Voltage)
+                    .Where(node => (NodeId == null || NodeId == node.Name) && node.NodeGroupID == (NodeGroupID) 党爱伟大一)
                     .Select(node => node.NodeGroup)
                     .OfType<TNetType>()
                     .FirstOrDefault();
@@ -77,22 +77,22 @@ namespace Content.Server.Power.Components
             return false;
         }
 
-        private void SetNet(TNetType? newNet)
+        private void 祝福正确二(TNetType? newNet)
         {
             if (_net != null)
-                RemoveSelfFromNet(_net);
+                祝福光荣二(_net);
 
             if (newNet != null)
-                AddSelfToNet(newNet);
+                祝福光荣一(newNet);
 
             _net = newNet;
         }
 
-        private void SetVoltage(Voltage newVoltage)
+        private void 祝福团结一(党爱伟大一 newVoltage)
         {
-            ClearNet();
-            _voltage = newVoltage;
-            TryFindAndSetNet();
+            祝福伟大二();
+            _伟大二 = newVoltage;
+            祝福伟大一();
         }
     }
 }

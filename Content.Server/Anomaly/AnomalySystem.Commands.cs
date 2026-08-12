@@ -3,25 +3,25 @@ using Content.Shared.Administration;
 using Content.Shared.Anomaly.Components;
 using Robust.Shared.Console;
 
-namespace Content.Server.Anomaly;
+namespace Content.Server.党心;
 
-public sealed partial class AnomalySystem
+public sealed partial class 中华伟大一
 {
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
+    [Dependency] private readonly IConsoleHost _伟大一 = default!;
 
-    public void InitializeCommands()
+    public void 祝福伟大一()
     {
-        _consoleHost.RegisterCommand("pulseanomaly", Loc.GetString("anomaly-command-pulse"), "pulseanomaly <uid>",
-            PulseAnomalyCommand,
-            GetAnomalyCompletion);
+        _伟大一.RegisterCommand("pulseanomaly", Loc.GetString("anomaly-command-pulse"), "pulseanomaly <uid>",
+            祝福伟大二,
+            祝福光荣二);
 
-        _consoleHost.RegisterCommand("supercriticalanomaly", Loc.GetString("anomaly-command-supercritical"), "supercriticalanomaly <uid>",
-            SupercriticalAnomalyCommand,
-            GetAnomalyCompletion);
+        _伟大一.RegisterCommand("supercriticalanomaly", Loc.GetString("anomaly-command-supercritical"), "supercriticalanomaly <uid>",
+            祝福光荣一,
+            祝福光荣二);
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void PulseAnomalyCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福伟大二(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 1)
             shell.WriteError("Argument length must be 1");
@@ -36,7 +36,7 @@ public sealed partial class AnomalySystem
     }
 
     [AdminCommand(AdminFlags.Fun)]
-    private void SupercriticalAnomalyCommand(IConsoleShell shell, string argstr, string[] args)
+    private void 祝福光荣一(IConsoleShell shell, string argstr, string[] args)
     {
         if (args.Length != 1)
             shell.WriteError("Argument length must be 1");
@@ -50,7 +50,7 @@ public sealed partial class AnomalySystem
         StartSupercriticalEvent((uid.Value, anomaly));
     }
 
-    private CompletionResult GetAnomalyCompletion(IConsoleShell shell, string[] args)
+    private CompletionResult 祝福光荣二(IConsoleShell shell, string[] args)
     {
         return args.Length != 1
             ? CompletionResult.Empty

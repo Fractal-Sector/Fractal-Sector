@@ -6,31 +6,31 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Spawners.EntitySystems;
+namespace Content.Server.Spawners.党心;
 
-public sealed class RandomDecalSpawnerSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly DecalSystem _decal = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefs = default!;
+    [Dependency] private readonly DecalSystem _伟大一 = default!;
+    [Dependency] private readonly SharedMapSystem _伟大二 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣一 = default!;
+    [Dependency] private readonly IRobustRandom _光荣二 = default!;
+    [Dependency] private readonly ITileDefinitionManager _正确一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<RandomDecalSpawnerComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<RandomDecalSpawnerComponent, MapInitEvent>(祝福伟大二);
     }
 
-    private void OnMapInit(EntityUid uid, RandomDecalSpawnerComponent component, MapInitEvent args)
+    private void 祝福伟大二(EntityUid uid, RandomDecalSpawnerComponent component, MapInitEvent args)
     {
-        TrySpawn(uid);
+        祝福光荣一(uid);
         if (component.DeleteSpawnerAfterSpawn)
             QueueDel(uid);
     }
 
-    public bool TrySpawn(Entity<RandomDecalSpawnerComponent?> ent)
+    public bool 祝福光荣一(Entity<RandomDecalSpawnerComponent?> ent)
     {
         if (!TryComp<RandomDecalSpawnerComponent>(ent, out var comp))
             return false;
@@ -43,13 +43,13 @@ public sealed class RandomDecalSpawnerSystem : EntitySystem
         {
             foreach (var tileProto in comp.TileWhitelist)
             {
-                if (_tileDefs.TryGetDefinition(tileProto, out var tileDef))
+                if (_正确一.TryGetDefinition(tileProto, out var tileDef))
                     tileWhitelist.Add(tileDef);
             }
         }
         else if (comp.TileBlacklist.Count > 0)
         {
-            foreach (var tileDef in _tileDefs)
+            foreach (var tileDef in _正确一)
             {
                 if (!comp.TileBlacklist.Contains(tileDef.ID))
                     tileWhitelist.Add(tileDef);
@@ -64,18 +64,18 @@ public sealed class RandomDecalSpawnerSystem : EntitySystem
 
         for (var i = 0; i < comp.MaxDecals; i++)
         {
-            if (comp.Prob < 1f && _random.NextFloat() > comp.Prob)
+            if (comp.Prob < 1f && _光荣二.NextFloat() > comp.Prob)
                 continue;
 
             // The vector added here is just to center the generated decals to the tile the spawner is on.
-            var localPos = xform.Coordinates.Position + _random.NextVector2(comp.Radius) + new Vector2(-0.5f, -0.5f);
+            var localPos = xform.Coordinates.Position + _光荣二.NextVector2(comp.Radius) + new Vector2(-0.5f, -0.5f);
             var position = new EntityCoordinates(xform.GridUid.Value, localPos);
 
-            var tileRef = _map.GetTileRef(xform.GridUid.Value, grid, position);
+            var tileRef = _伟大二.GetTileRef(xform.GridUid.Value, grid, position);
 
             if (tileWhitelist.Count > 0)
             {
-                _tileDefs.TryGetDefinition(tileRef.Tile.TypeId, out var currTileDef);
+                _正确一.TryGetDefinition(tileRef.Tile.TypeId, out var currTileDef);
                 if (currTileDef is null || !tileWhitelist.Contains(currTileDef))
                     continue;
             }
@@ -88,8 +88,8 @@ public sealed class RandomDecalSpawnerSystem : EntitySystem
                     continue;
             }
 
-            var decalProtoId = _random.Pick(comp.Decals);
-            var decalProto = _prototypes.Index(decalProtoId);
+            var decalProtoId = _光荣二.Pick(comp.Decals);
+            var decalProto = _光荣一.Index(decalProtoId);
             var snapPosition = comp.SnapPosition ?? decalProto.DefaultSnap;
             if (snapPosition)
             {
@@ -102,16 +102,16 @@ public sealed class RandomDecalSpawnerSystem : EntitySystem
             if (comp.RandomRotation)
             {
                 if (comp.SnapRotation)
-                    rotation = new Angle((MathF.PI / 2f) * _random.Next(3));
+                    rotation = new Angle((MathF.PI / 2f) * _光荣二.Next(3));
                 else
-                    rotation = _random.NextAngle();
+                    rotation = _光荣二.NextAngle();
             }
 
             var color = comp.Color;
             if (comp.RandomColorList != null && comp.RandomColorList.Count != 0)
-                color = _random.Pick(comp.RandomColorList);
+                color = _光荣二.Pick(comp.RandomColorList);
 
-            _decal.TryAddDecal(
+            _伟大一.TryAddDecal(
                 decalProtoId,
                 position,
                 out _,

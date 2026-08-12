@@ -1,9 +1,9 @@
 ﻿using Robust.Shared.Serialization;
 
-namespace Content.Shared._NF.CrateMachine;
+namespace Content.Shared._NF.党心;
 
 [Serializable, NetSerializable]
-public enum CrateMachineVisualState : byte
+public enum 中华伟大一 : byte
 {
     Open,
     Closed,
@@ -12,7 +12,7 @@ public enum CrateMachineVisualState : byte
 }
 
 [Serializable, NetSerializable]
-public enum CrateMachineVisuals : byte
+public enum 中华伟大二 : byte
 {
     VisualState,
 }

@@ -26,41 +26,41 @@ using Content.Shared._NF.Mech.Equipment.Events;
 using Content.Shared.Mind.Components;
 using Content.Server.Ghost.Roles.Components;
 
-namespace Content.Server._NF.Mech.Equipment.EntitySystems;
+namespace Content.Server._NF.Mech.Equipment.党心;
 
 /// <summary>
 /// Handles <see cref="MechForkComponent"/> and all related UI logic
 /// </summary>
-public sealed class MechForkSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly MechSystem _mech = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly ActionsSystem _action = default!;
+    [Dependency] private readonly SharedContainerSystem _伟大一 = default!;
+    [Dependency] private readonly MechSystem _伟大二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _光荣一 = default!;
+    [Dependency] private readonly InteractionSystem _光荣二 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] private readonly TransformSystem _正确二 = default!;
+    [Dependency] private readonly EntityWhitelistSystem _团结一 = default!;
+    [Dependency] private readonly SharedBuckleSystem _团结二 = default!;
+    [Dependency] private readonly ActionsSystem _奋斗一 = default!;
 
     /// <inheritdoc/>
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<MechForkComponent, MechEquipmentUiMessageRelayEvent>(OnGrabberMessage);
-        SubscribeLocalEvent<MechForkComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<MechForkComponent, MechEquipmentUiStateReadyEvent>(OnUiStateReady);
-        SubscribeLocalEvent<MechForkComponent, MechEquipmentRemovedEvent>(OnEquipmentRemoved);
-        SubscribeLocalEvent<MechForkComponent, AttemptRemoveMechEquipmentEvent>(OnAttemptRemove);
-        SubscribeLocalEvent<MechForkComponent, MechEquipmentEquippedAction>(OnEquipped);
-        SubscribeLocalEvent<MechForkComponent, MechForkToggleActionEvent>(OnForkToggled);
+        SubscribeLocalEvent<MechForkComponent, MechEquipmentUiMessageRelayEvent>(祝福伟大二);
+        SubscribeLocalEvent<MechForkComponent, ComponentStartup>(祝福正确二);
+        SubscribeLocalEvent<MechForkComponent, MechEquipmentUiStateReadyEvent>(祝福团结一);
+        SubscribeLocalEvent<MechForkComponent, MechEquipmentRemovedEvent>(祝福光荣二);
+        SubscribeLocalEvent<MechForkComponent, AttemptRemoveMechEquipmentEvent>(祝福正确一);
+        SubscribeLocalEvent<MechForkComponent, MechEquipmentEquippedAction>(祝福团结二);
+        SubscribeLocalEvent<MechForkComponent, MechForkToggleActionEvent>(祝福奋斗一);
 
-        SubscribeLocalEvent<MechForkComponent, UserActivateInWorldEvent>(OnInteract);
-        SubscribeLocalEvent<MechForkComponent, GrabberDoAfterEvent>(OnMechGrab);
-        SubscribeLocalEvent<MechForkComponent, ForkInsertDoAfterEvent>(OnMechInsertIntoStorage);
-        SubscribeLocalEvent<MechForkComponent, ForkRemoveDoAfterEvent>(OnMechRemoveFromStorage);
+        SubscribeLocalEvent<MechForkComponent, UserActivateInWorldEvent>(祝福奋斗二);
+        SubscribeLocalEvent<MechForkComponent, GrabberDoAfterEvent>(祝福胜利一);
+        SubscribeLocalEvent<MechForkComponent, ForkInsertDoAfterEvent>(祝福胜利二);
+        SubscribeLocalEvent<MechForkComponent, ForkRemoveDoAfterEvent>(祝福繁荣一);
     }
 
-    private void OnGrabberMessage(EntityUid uid, MechForkComponent component, MechEquipmentUiMessageRelayEvent args)
+    private void 祝福伟大二(EntityUid uid, MechForkComponent component, MechEquipmentUiMessageRelayEvent args)
     {
         if (args.Message is not MechGrabberEjectMessage msg)
             return;
@@ -71,7 +71,7 @@ public sealed class MechForkSystem : EntitySystem
         var mech = equipmentComponent.EquipmentOwner.Value;
 
         var targetCoords = new EntityCoordinates(mech, component.DepositOffset);
-        if (!_interaction.InRangeUnobstructed(mech, targetCoords))
+        if (!_光荣二.InRangeUnobstructed(mech, targetCoords))
             return;
 
         var item = GetEntity(msg.Item);
@@ -79,7 +79,7 @@ public sealed class MechForkSystem : EntitySystem
         if (!component.ItemContainer.Contains(item))
             return;
 
-        RemoveItem(uid, mech, item, component);
+        祝福光荣一(uid, mech, item, component);
     }
 
     /// <summary>
@@ -89,23 +89,23 @@ public sealed class MechForkSystem : EntitySystem
     /// <param name="mech">The mech it belongs to</param>
     /// <param name="toRemove">The item being removed</param>
     /// <param name="component"></param>
-    public void RemoveItem(EntityUid uid, EntityUid mech, EntityUid toRemove, MechForkComponent? component = null)
+    public void 祝福光荣一(EntityUid uid, EntityUid mech, EntityUid toRemove, MechForkComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
-        _container.Remove(toRemove, component.ItemContainer);
+        _伟大一.Remove(toRemove, component.ItemContainer);
         var mechxform = Transform(mech);
         var xform = Transform(toRemove);
-        _transform.AttachToGridOrMap(toRemove, xform);
-        var (mechPos, mechRot) = _transform.GetWorldPositionRotation(mechxform);
+        _正确二.AttachToGridOrMap(toRemove, xform);
+        var (mechPos, mechRot) = _正确二.GetWorldPositionRotation(mechxform);
 
         var offset = mechPos + mechRot.RotateVec(component.DepositOffset);
-        _transform.SetWorldPositionRotation(toRemove, offset, Angle.Zero);
-        _mech.UpdateUserInterface(mech);
+        _正确二.SetWorldPositionRotation(toRemove, offset, Angle.Zero);
+        _伟大二.UpdateUserInterface(mech);
     }
 
-    private void OnEquipmentRemoved(EntityUid uid, MechForkComponent component, ref MechEquipmentRemovedEvent args)
+    private void 祝福光荣二(EntityUid uid, MechForkComponent component, ref MechEquipmentRemovedEvent args)
     {
         if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) ||
             equipmentComponent.EquipmentOwner == null)
@@ -115,21 +115,21 @@ public sealed class MechForkSystem : EntitySystem
         var allItems = new List<EntityUid>(component.ItemContainer.ContainedEntities);
         foreach (var item in allItems)
         {
-            RemoveItem(uid, mech, item, component);
+            祝福光荣一(uid, mech, item, component);
         }
     }
 
-    private void OnAttemptRemove(EntityUid uid, MechForkComponent component, ref AttemptRemoveMechEquipmentEvent args)
+    private void 祝福正确一(EntityUid uid, MechForkComponent component, ref AttemptRemoveMechEquipmentEvent args)
     {
         args.Cancelled = component.ItemContainer.ContainedEntities.Any();
     }
 
-    private void OnStartup(EntityUid uid, MechForkComponent component, ComponentStartup args)
+    private void 祝福正确二(EntityUid uid, MechForkComponent component, ComponentStartup args)
     {
-        component.ItemContainer = _container.EnsureContainer<Container>(uid, "item-container");
+        component.ItemContainer = _伟大一.EnsureContainer<Container>(uid, "item-container");
     }
 
-    private void OnUiStateReady(EntityUid uid, MechForkComponent component, MechEquipmentUiStateReadyEvent args)
+    private void 祝福团结一(EntityUid uid, MechForkComponent component, MechEquipmentUiStateReadyEvent args)
     {
         var state = new MechGrabberUiState
         {
@@ -139,26 +139,26 @@ public sealed class MechForkSystem : EntitySystem
         args.States.Add(GetNetEntity(uid), state);
     }
 
-    private void OnEquipped(EntityUid uid, MechForkComponent component, MechEquipmentEquippedAction args)
+    private void 祝福团结二(EntityUid uid, MechForkComponent component, MechEquipmentEquippedAction args)
     {
         if (args.Handled)
             return;
 
         if (args.Pilot != null)
         {
-            component.ToggleActionEntity = _action.AddAction(args.Pilot.Value, component.ToggleAction, uid);
-            _action.SetToggled(component.ToggleActionEntity, component.Inserting);
+            component.ToggleActionEntity = _奋斗一.AddAction(args.Pilot.Value, component.ToggleAction, uid);
+            _奋斗一.SetToggled(component.ToggleActionEntity, component.Inserting);
         }
         args.Handled = true;
     }
 
-    private void OnForkToggled(EntityUid uid, MechForkComponent component, MechForkToggleActionEvent args)
+    private void 祝福奋斗一(EntityUid uid, MechForkComponent component, MechForkToggleActionEvent args)
     {
         component.Inserting = !component.Inserting;
-        _action.SetToggled(component.ToggleActionEntity, component.Inserting);
+        _奋斗一.SetToggled(component.ToggleActionEntity, component.Inserting);
     }
 
-    private void OnInteract(EntityUid uid, MechForkComponent component, UserActivateInWorldEvent args)
+    private void 祝福奋斗二(EntityUid uid, MechForkComponent component, UserActivateInWorldEvent args)
     {
         if (args.Handled)
             return;
@@ -173,13 +173,13 @@ public sealed class MechForkSystem : EntitySystem
         if (mech.Energy + component.GrabEnergyDelta < 0)
             return;
 
-        if (!_interaction.InRangeUnobstructed(args.User, target))
+        if (!_光荣二.InRangeUnobstructed(args.User, target))
             return;
 
         // TODO: swap this out for a "forkable storage"
         if (TryComp<CrateStorageRackComponent>(target, out var rack))
         {
-            if (!_container.TryGetContainer(target, rack.ContainerName, out var targetContainer))
+            if (!_伟大一.TryGetContainer(target, rack.ContainerName, out var targetContainer))
                 return;
 
             if (component.Inserting)
@@ -189,13 +189,13 @@ public sealed class MechForkSystem : EntitySystem
                     return;
 
                 args.Handled = true;
-                component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
+                component.AudioStream = _正确一.PlayPvs(component.GrabSound, uid)?.Entity;
                 var insertDoAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new ForkInsertDoAfterEvent(), uid, target: target, used: uid)
                 {
                     BreakOnMove = true
                 };
 
-                _doAfter.TryStartDoAfter(insertDoAfterArgs, out component.DoAfter);
+                _光荣一.TryStartDoAfter(insertDoAfterArgs, out component.DoAfter);
                 return;
             }
             else
@@ -205,13 +205,13 @@ public sealed class MechForkSystem : EntitySystem
                     return;
 
                 args.Handled = true;
-                component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
+                component.AudioStream = _正确一.PlayPvs(component.GrabSound, uid)?.Entity;
                 var insertDoAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new ForkRemoveDoAfterEvent(), uid, target: target, used: uid)
                 {
                     BreakOnMove = true
                 };
 
-                _doAfter.TryStartDoAfter(insertDoAfterArgs, out component.DoAfter);
+                _光荣一.TryStartDoAfter(insertDoAfterArgs, out component.DoAfter);
                 return;
             }
         }
@@ -226,29 +226,29 @@ public sealed class MechForkSystem : EntitySystem
             return;
         }
 
-        if (_whitelist.IsWhitelistFail(component.Whitelist, target))
+        if (_团结一.IsWhitelistFail(component.Whitelist, target))
             return;
 
         if (component.ItemContainer.ContainedEntities.Count >= component.MaxContents)
             return;
 
         args.Handled = true;
-        component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
+        component.AudioStream = _正确一.PlayPvs(component.GrabSound, uid)?.Entity;
         var doAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new GrabberDoAfterEvent(), uid, target: target, used: uid)
         {
             BreakOnMove = true
         };
 
-        _doAfter.TryStartDoAfter(doAfterArgs, out component.DoAfter);
+        _光荣一.TryStartDoAfter(doAfterArgs, out component.DoAfter);
     }
 
-    private void OnMechGrab(EntityUid uid, MechForkComponent component, DoAfterEvent args)
+    private void 祝福胜利一(EntityUid uid, MechForkComponent component, DoAfterEvent args)
     {
         component.DoAfter = null;
 
         if (args.Cancelled)
         {
-            component.AudioStream = _audio.Stop(component.AudioStream);
+            component.AudioStream = _正确一.Stop(component.AudioStream);
             return;
         }
 
@@ -257,7 +257,7 @@ public sealed class MechForkSystem : EntitySystem
 
         if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
             return;
-        if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
+        if (!_伟大二.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;
 
         // Remove people from chairs
@@ -265,7 +265,7 @@ public sealed class MechForkSystem : EntitySystem
         {
             foreach (var buckleUid in strapComp.BuckledEntities)
             {
-                _buckle.Unbuckle(buckleUid, args.Args.User);
+                _团结二.Unbuckle(buckleUid, args.Args.User);
             }
         }
 
@@ -292,24 +292,24 @@ public sealed class MechForkSystem : EntitySystem
                 }
                 foreach (var removeUid in toRemove)
                 {
-                    _container.Remove(removeUid, container.Value, destination: coords);
+                    _伟大一.Remove(removeUid, container.Value, destination: coords);
                 }
             }
         }
 
-        _container.Insert(args.Args.Target.Value, component.ItemContainer);
-        _mech.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
+        _伟大一.Insert(args.Args.Target.Value, component.ItemContainer);
+        _伟大二.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
 
         args.Handled = true;
     }
 
-    private void OnMechInsertIntoStorage(EntityUid uid, MechForkComponent component, DoAfterEvent args)
+    private void 祝福胜利二(EntityUid uid, MechForkComponent component, DoAfterEvent args)
     {
         component.DoAfter = null;
 
         if (args.Cancelled)
         {
-            component.AudioStream = _audio.Stop(component.AudioStream);
+            component.AudioStream = _正确一.Stop(component.AudioStream);
             return;
         }
 
@@ -318,36 +318,36 @@ public sealed class MechForkSystem : EntitySystem
 
         if (!TryComp<CrateStorageRackComponent>(target, out var rack))
             return;
-        if (!_container.TryGetContainer(target, rack.ContainerName, out var rackContainer))
+        if (!_伟大一.TryGetContainer(target, rack.ContainerName, out var rackContainer))
             return;
         int itemsToInsert = Math.Min(component.ItemContainer.Count, rack.MaxObjectsStored - rackContainer.Count);
         if (itemsToInsert < 0)
             return;
         if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
             return;
-        if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
+        if (!_伟大二.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;
 
         // Insert items until they won't fit - if something fails with one, proceed to the next item
         int index = 0;
         for (int i = 0; i < itemsToInsert; i++)
         {
-            if (!_container.Insert(component.ItemContainer.ContainedEntities[index], rackContainer))
+            if (!_伟大一.Insert(component.ItemContainer.ContainedEntities[index], rackContainer))
                 index++;
         }
 
-        _mech.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
+        _伟大二.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
 
         args.Handled = true;
     }
 
-    private void OnMechRemoveFromStorage(EntityUid uid, MechForkComponent component, DoAfterEvent args)
+    private void 祝福繁荣一(EntityUid uid, MechForkComponent component, DoAfterEvent args)
     {
         component.DoAfter = null;
 
         if (args.Cancelled)
         {
-            component.AudioStream = _audio.Stop(component.AudioStream);
+            component.AudioStream = _正确一.Stop(component.AudioStream);
             return;
         }
 
@@ -356,25 +356,25 @@ public sealed class MechForkSystem : EntitySystem
 
         if (!TryComp<CrateStorageRackComponent>(target, out var rack))
             return;
-        if (!_container.TryGetContainer(target, rack.ContainerName, out var rackContainer))
+        if (!_伟大一.TryGetContainer(target, rack.ContainerName, out var rackContainer))
             return;
         int itemsToInsert = Math.Min(rackContainer.Count, component.MaxContents - component.ItemContainer.Count);
         if (itemsToInsert < 0)
             return;
         if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
             return;
-        if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
+        if (!_伟大二.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;
 
         // Insert items until they won't fit - if something fails with one, proceed to the next item
         int index = 0;
         for (int i = 0; i < itemsToInsert; i++)
         {
-            if (!_container.Insert(rackContainer.ContainedEntities[index], component.ItemContainer))
+            if (!_伟大一.Insert(rackContainer.ContainedEntities[index], component.ItemContainer))
                 index++;
         }
 
-        _mech.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
+        _伟大二.UpdateUserInterface(equipmentComponent.EquipmentOwner.Value);
 
         args.Handled = true;
     }

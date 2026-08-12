@@ -3,18 +3,18 @@ using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
-namespace Content.Server.Administration.Commands;
+namespace Content.Server.Administration.党心;
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PanicBunkerCommand : LocalizedCommands
+public sealed class 中华伟大一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "panicbunker";
+    public override string 党爱伟大一 => "panicbunker";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var toggle = Toggle(CCVars.PanicBunkerEnabled, shell, args, _cfg, LocalizationManager);
+        var toggle = Toggle(CCVars.PanicBunkerEnabled, shell, args, _伟大一, LocalizationManager);
         if (toggle == null)
             return;
 
@@ -48,15 +48,15 @@ public sealed class PanicBunkerCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PanicBunkerDisableWithAdminsCommand : LocalizedCommands
+public sealed class 中华伟大二 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "panicbunker_disable_with_admins";
+    public override string 党爱伟大一 => "panicbunker_disable_with_admins";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var toggle = PanicBunkerCommand.Toggle(CCVars.PanicBunkerDisableWithAdmins, shell, args, _cfg, LocalizationManager);
+        var toggle = 中华伟大一.Toggle(CCVars.PanicBunkerDisableWithAdmins, shell, args, _伟大一, LocalizationManager);
         if (toggle == null)
             return;
 
@@ -68,15 +68,15 @@ public sealed class PanicBunkerDisableWithAdminsCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PanicBunkerEnableWithoutAdminsCommand : LocalizedCommands
+public sealed class 中华光荣一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "panicbunker_enable_without_admins";
+    public override string 党爱伟大一 => "panicbunker_enable_without_admins";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var toggle = PanicBunkerCommand.Toggle(CCVars.PanicBunkerEnableWithoutAdmins, shell, args, _cfg, LocalizationManager);
+        var toggle = 中华伟大一.Toggle(CCVars.PanicBunkerEnableWithoutAdmins, shell, args, _伟大一, LocalizationManager);
         if (toggle == null)
             return;
 
@@ -88,15 +88,15 @@ public sealed class PanicBunkerEnableWithoutAdminsCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PanicBunkerCountDeadminnedCommand : LocalizedCommands
+public sealed class 中华光荣二 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "panicbunker_count_deadminned_admins";
+    public override string 党爱伟大一 => "panicbunker_count_deadminned_admins";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var toggle = PanicBunkerCommand.Toggle(CCVars.PanicBunkerCountDeadminnedAdmins, shell, args, _cfg, LocalizationManager);
+        var toggle = 中华伟大一.Toggle(CCVars.PanicBunkerCountDeadminnedAdmins, shell, args, _伟大一, LocalizationManager);
         if (toggle == null)
             return;
 
@@ -108,15 +108,15 @@ public sealed class PanicBunkerCountDeadminnedCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PanicBunkerShowReasonCommand : LocalizedCommands
+public sealed class 中华正确一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "panicbunker_show_reason";
+    public override string 党爱伟大一 => "panicbunker_show_reason";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
-        var toggle = PanicBunkerCommand.Toggle(CCVars.PanicBunkerShowReason, shell, args, _cfg, LocalizationManager);
+        var toggle = 中华伟大一.Toggle(CCVars.PanicBunkerShowReason, shell, args, _伟大一, LocalizationManager);
         if (toggle == null)
             return;
 
@@ -128,17 +128,17 @@ public sealed class PanicBunkerShowReasonCommand : LocalizedCommands
 }
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PanicBunkerMinAccountAgeCommand : LocalizedCommands
+public sealed class 中华正确二 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "panicbunker_min_account_age";
+    public override string 党爱伟大一 => "panicbunker_min_account_age";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
-            var current = _cfg.GetCVar(CCVars.PanicBunkerMinAccountAge);
+            var current = _伟大一.GetCVar(CCVars.PanicBunkerMinAccountAge);
             shell.WriteLine(Loc.GetString("panicbunker-command-min-account-age-is", ("minutes", current)));
         }
 
@@ -154,23 +154,23 @@ public sealed class PanicBunkerMinAccountAgeCommand : LocalizedCommands
             return;
         }
 
-        _cfg.SetCVar(CCVars.PanicBunkerMinAccountAge, minutes);
+        _伟大一.SetCVar(CCVars.PanicBunkerMinAccountAge, minutes);
         shell.WriteLine(Loc.GetString("panicbunker-command-min-overall-minutes-set", ("minutes", minutes)));
     }
 }
 
 [AdminCommand(AdminFlags.Server)]
-public sealed class PanicBunkerMinOverallMinutesCommand : LocalizedCommands
+public sealed class 中华团结一 : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
 
-    public override string Command => "panicbunker_min_overall_minutes";
+    public override string 党爱伟大一 => "panicbunker_min_overall_minutes";
 
-    public override void Execute(IConsoleShell shell, string argStr, string[] args)
+    public override void 祝福伟大一(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
         {
-            var current = _cfg.GetCVar(CCVars.PanicBunkerMinOverallMinutes);
+            var current = _伟大一.GetCVar(CCVars.PanicBunkerMinOverallMinutes);
             shell.WriteLine(Loc.GetString("panicbunker-command-min-overall-minutes-is", ("minutes", current)));
         }
 
@@ -186,7 +186,7 @@ public sealed class PanicBunkerMinOverallMinutesCommand : LocalizedCommands
             return;
         }
 
-        _cfg.SetCVar(CCVars.PanicBunkerMinOverallMinutes, minutes);
+        _伟大一.SetCVar(CCVars.PanicBunkerMinOverallMinutes, minutes);
         shell.WriteLine(Loc.GetString("panicbunker-command-min-overall-minutes-set", ("minutes", minutes)));
     }
 }

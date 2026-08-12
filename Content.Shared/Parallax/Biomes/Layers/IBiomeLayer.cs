@@ -1,9 +1,9 @@
 using Robust.Shared.Noise;
 
-namespace Content.Shared.Parallax.Biomes.Layers;
+namespace Content.Shared.Parallax.Biomes.党心;
 
 [ImplicitDataDefinitionForInheritors]
-public partial interface IBiomeLayer
+public partial interface 中华伟大一
 {
     /// <summary>
     /// Seed is used an offset from the relevant BiomeComponent's seed.
@@ -18,5 +18,5 @@ public partial interface IBiomeLayer
     /// <summary>
     /// Is the thresold inverted so we need to be lower than it.
     /// </summary>
-    public bool Invert { get; }
+    public bool 党爱伟大一 { get; }
 }

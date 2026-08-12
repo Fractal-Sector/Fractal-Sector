@@ -2,16 +2,16 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Tools.Components;
+namespace Content.Shared.Tools.党心;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class MultipleToolComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     [DataDefinition]
-    public sealed partial class ToolEntry
+    public sealed partial class 中华伟大二
     {
         [DataField(required: true)]
-        public PrototypeFlags<ToolQualityPrototype> Behavior = new();
+        public PrototypeFlags<ToolQualityPrototype> 党爱伟大一 = new();
 
         [DataField]
         public SoundSpecifier? UseSound;
@@ -24,18 +24,18 @@ public sealed partial class MultipleToolComponent : Component
     }
 
     [DataField(required: true)]
-    public ToolEntry[] Entries { get; private set; } = Array.Empty<ToolEntry>();
+    public 中华伟大二[] Entries { get; private set; } = Array.Empty<中华伟大二>();
 
     [ViewVariables]
     [AutoNetworkedField]
-    public uint CurrentEntry = 0;
+    public uint 党爱伟大二 = 0;
 
     [ViewVariables]
-    public string CurrentQualityName = string.Empty;
+    public string 党爱光荣一 = string.Empty;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public bool UiUpdateNeeded;
+    public bool 党爱光荣二;
 
     [DataField]
-    public bool StatusShowBehavior = true;
+    public bool 党爱正确一 = true;
 }

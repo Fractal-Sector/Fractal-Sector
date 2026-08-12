@@ -1,6 +1,6 @@
 using Content.Shared.Stunnable;
 
-namespace Content.Server.Stunnable;
+namespace Content.Server.党心;
 
-public sealed class StunSystem : SharedStunSystem;
+public sealed class 中华伟大一 : SharedStunSystem;
 

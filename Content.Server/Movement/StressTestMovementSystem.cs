@@ -1,26 +1,26 @@
 using System.Numerics;
 using Content.Server.Movement.Components;
 
-namespace Content.Server.Movement;
+namespace Content.Server.党心;
 
-public sealed class StressTestMovementSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedTransformSystem _伟大一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
-        SubscribeLocalEvent<StressTestMovementComponent, ComponentStartup>(OnStressStartup);
+        base.祝福伟大一();
+        SubscribeLocalEvent<StressTestMovementComponent, ComponentStartup>(祝福伟大二);
     }
 
-    private void OnStressStartup(EntityUid uid, StressTestMovementComponent component, ComponentStartup args)
+    private void 祝福伟大二(EntityUid uid, StressTestMovementComponent component, ComponentStartup args)
     {
-        component.Origin = _transform.GetWorldPosition(uid);
+        component.Origin = _伟大一.GetWorldPosition(uid);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福光荣一(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福光荣一(frameTime);
 
         var query = EntityQueryEnumerator<StressTestMovementComponent, TransformComponent>();
 
@@ -39,7 +39,7 @@ public sealed class StressTestMovementSystem : EntitySystem
             var x = MathF.Sin(stressTest.Progress * MathHelper.TwoPi);
             var y = MathF.Cos(stressTest.Progress * MathHelper.TwoPi);
 
-            _transform.SetWorldPosition((uid, transform), stressTest.Origin + new Vector2(x, y) * 5);
+            _伟大一.SetWorldPosition((uid, transform), stressTest.Origin + new Vector2(x, y) * 5);
         }
     }
 }

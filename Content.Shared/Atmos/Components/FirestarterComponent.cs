@@ -3,19 +3,19 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Atmos.Components;
+namespace Content.Shared.Atmos.党心;
 
 /// <summary>
 /// Lets its owner entity ignite flammables around it and also heal some damage.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedFirestarterSystem))]
-public sealed partial class FirestarterComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// Radius of objects that will be ignited if flammable.
     /// </summary>
     [DataField]
-    public float IgnitionRadius = 4f;
+    public float 党爱伟大一 = 4f;
 
     /// <summary>
     /// The action entity.
@@ -30,5 +30,5 @@ public sealed partial class FirestarterComponent : Component
     /// Radius of objects that will be ignited if flammable.
     /// </summary>
     [DataField]
-    public SoundSpecifier IgniteSound = new SoundPathSpecifier("/Audio/Magic/rumble.ogg");
+    public SoundSpecifier 党爱伟大二 = new SoundPathSpecifier("/Audio/Magic/rumble.ogg");
 }

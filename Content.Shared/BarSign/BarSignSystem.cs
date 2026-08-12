@@ -2,53 +2,53 @@ using System.Linq;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Shared.BarSign;
+namespace Content.Shared.党心;
 
-public sealed class BarSignSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency] private readonly IPrototypeManager _伟大一 = default!;
+    [Dependency] private readonly IRobustRandom _伟大二 = default!;
+    [Dependency] private readonly MetaDataSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<BarSignComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<BarSignComponent, MapInitEvent>(祝福伟大二);
         Subs.BuiEvents<BarSignComponent>(BarSignUiKey.Key,
             subs =>
         {
-            subs.Event<SetBarSignMessage>(OnSetBarSignMessage);
+            subs.Event<SetBarSignMessage>(祝福光荣一);
         });
     }
 
-    private void OnMapInit(Entity<BarSignComponent> ent, ref MapInitEvent args)
+    private void 祝福伟大二(Entity<BarSignComponent> ent, ref MapInitEvent args)
     {
         if (ent.Comp.Current != null)
             return;
 
-        var newPrototype = _random.Pick(GetAllBarSigns(_prototypeManager));
-        SetBarSign(ent, newPrototype);
+        var newPrototype = _伟大二.Pick(祝福正确一(_伟大一));
+        祝福光荣二(ent, newPrototype);
     }
 
-    private void OnSetBarSignMessage(Entity<BarSignComponent> ent, ref SetBarSignMessage args)
+    private void 祝福光荣一(Entity<BarSignComponent> ent, ref SetBarSignMessage args)
     {
-        if (!_prototypeManager.TryIndex(args.Sign, out var signPrototype))
+        if (!_伟大一.TryIndex(args.Sign, out var signPrototype))
             return;
 
-        SetBarSign(ent, signPrototype);
+        祝福光荣二(ent, signPrototype);
     }
 
-    public void SetBarSign(Entity<BarSignComponent> ent, BarSignPrototype newPrototype)
+    public void 祝福光荣二(Entity<BarSignComponent> ent, BarSignPrototype newPrototype)
     {
         var meta = MetaData(ent);
         var name = Loc.GetString(newPrototype.Name);
-        _metaData.SetEntityName(ent, name, meta);
-        _metaData.SetEntityDescription(ent, Loc.GetString(newPrototype.Description), meta);
+        _光荣一.SetEntityName(ent, name, meta);
+        _光荣一.SetEntityDescription(ent, Loc.GetString(newPrototype.Description), meta);
 
         ent.Comp.Current = newPrototype.ID;
         Dirty(ent);
     }
 
-    public static List<BarSignPrototype> GetAllBarSigns(IPrototypeManager prototypeManager)
+    public static List<BarSignPrototype> 祝福正确一(IPrototypeManager prototypeManager)
     {
         return prototypeManager
             .EnumeratePrototypes<BarSignPrototype>()

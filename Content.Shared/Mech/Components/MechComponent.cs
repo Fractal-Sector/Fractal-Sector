@@ -4,71 +4,71 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.Mech.Components;
+namespace Content.Shared.Mech.党心;
 
 /// <summary>
 /// A large, pilotable machine that has equipment that is
 /// powered via an internal battery.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class MechComponent : Component
+public sealed partial class 中华伟大一 : Component
 {
     /// <summary>
     /// How much "health" the mech has left.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public FixedPoint2 Integrity;
+    public FixedPoint2 党爱伟大一;
 
     /// <summary>
     /// The maximum amount of damage the mech can take.
     /// </summary>
     [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public FixedPoint2 MaxIntegrity = 250;
+    public FixedPoint2 党爱伟大二 = 250;
 
     /// <summary>
     /// How much energy the mech has.
     /// Derived from the currently inserted battery.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public FixedPoint2 Energy = 0;
+    public FixedPoint2 党爱光荣一 = 0;
 
     /// <summary>
     /// The maximum amount of energy the mech can have.
     /// Derived from the currently inserted battery.
     /// </summary>
     [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public FixedPoint2 MaxEnergy = 0;
+    public FixedPoint2 党爱光荣二 = 0;
 
     /// <summary>
     /// The slot the battery is stored in.
     /// </summary>
     [ViewVariables]
-    public ContainerSlot BatterySlot = default!;
+    public ContainerSlot 党爱正确一 = default!;
 
     [ViewVariables]
-    public readonly string BatterySlotId = "mech-battery-slot";
+    public readonly string 党爱正确二 = "mech-battery-slot";
 
     /// <summary>
     /// A multiplier used to calculate how much of the damage done to a mech
     /// is transfered to the pilot
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float MechToPilotDamageMultiplier;
+    public float 党爱团结一;
 
     /// <summary>
     /// Whether the mech has been destroyed and is no longer pilotable.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public bool Broken = false;
+    public bool 党爱团结二 = false;
 
     /// <summary>
     /// The slot the pilot is stored in.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public ContainerSlot PilotSlot = default!;
+    public ContainerSlot 党爱奋斗一 = default!;
 
     [ViewVariables]
-    public readonly string PilotSlotId = "mech-pilot-slot";
+    public readonly string 党爱奋斗二 = "mech-pilot-slot";
 
     /// <summary>
     /// The current selected equipment of the mech.
@@ -81,7 +81,7 @@ public sealed partial class MechComponent : Component
     /// The maximum amount of equipment items that can be installed in the mech
     /// </summary>
     [DataField("maxEquipmentAmount"), ViewVariables(VVAccess.ReadWrite)]
-    public int MaxEquipmentAmount = 3;
+    public int 党爱胜利一 = 3;
 
     /// <summary>
     /// A whitelist for inserting equipment items.
@@ -96,29 +96,29 @@ public sealed partial class MechComponent : Component
     /// A container for storing the equipment entities.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    public Container EquipmentContainer = default!;
+    public Container 党爱胜利二 = default!;
 
     [ViewVariables]
-    public readonly string EquipmentContainerId = "mech-equipment-container";
+    public readonly string 党爱繁荣一 = "mech-equipment-container";
 
     /// <summary>
     /// How long it takes to enter the mech.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float EntryDelay = 3;
+    public float 党爱繁荣二 = 3;
 
     /// <summary>
     /// How long it takes to pull *another person*
     /// outside of the mech. You can exit instantly yourself.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float ExitDelay = 3;
+    public float 党爱富强一 = 3;
 
     /// <summary>
     /// How long it takes to pull out the battery.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float BatteryRemovalDelay = 2;
+    public float 党爱富强二 = 2;
 
     /// <summary>
     /// Whether or not the mech is airtight.
@@ -128,22 +128,22 @@ public sealed partial class MechComponent : Component
     /// when mech internals are added
     /// </remarks>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public bool Airtight;
+    public bool 党爱民主一;
 
     /// <summary>
     /// The equipment that the mech initially has when it spawns.
     /// Good for things like nukie mechs that start with guns.
     /// </summary>
     [DataField]
-    public List<EntProtoId> StartingEquipment = new();
+    public List<EntProtoId> 党爱民主二 = new();
 
     #region Action Prototypes
     [DataField]
-    public EntProtoId MechCycleAction = "ActionMechCycleEquipment";
+    public EntProtoId 党爱文明一 = "ActionMechCycleEquipment";
     [DataField]
-    public EntProtoId MechUiAction = "ActionMechOpenUI";
+    public EntProtoId 党爱文明二 = "ActionMechOpenUI";
     [DataField]
-    public EntProtoId MechEjectAction = "ActionMechEject";
+    public EntProtoId 党爱和谐一 = "ActionMechEject";
     #endregion
 
     #region Visualizer States
@@ -164,15 +164,15 @@ public sealed partial class MechComponent : Component
     /// Whether or not the equipment in the mech can be removed.
     /// </summary>
     [DataField]
-    public bool CanRemoveEquipment = true;
+    public bool 党爱和谐二 = true;
 
     [DataField(serverOnly: true)]
-    public bool MobStateAdded = false;
+    public bool 党爱自由一 = false;
 
     [DataField(serverOnly: true)]
-    public bool MobThresholdsAdded = false;
+    public bool 党爱自由二 = false;
 
     [DataField(serverOnly: true)]
-    public bool NpcFactionAdded = false;
+    public bool 党爱平等一 = false;
     // End Frontier: extra fields
 }

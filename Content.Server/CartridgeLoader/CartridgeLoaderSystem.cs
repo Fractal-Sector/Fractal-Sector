@@ -11,29 +11,29 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 
-namespace Content.Server.CartridgeLoader;
+namespace Content.Server.党心;
 
-public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
+public sealed class 中华伟大一 : SharedCartridgeLoaderSystem
 {
-    [Dependency] private readonly ContainerSystem _containerSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly PdaSystem _pda = default!;
+    [Dependency] private readonly ContainerSystem _伟大一 = default!;
+    [Dependency] private readonly UserInterfaceSystem _伟大二 = default!;
+    [Dependency] private readonly PdaSystem _光荣一 = default!;
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<CartridgeLoaderComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<CartridgeLoaderComponent, MapInitEvent>(祝福富强二);
 
-        SubscribeLocalEvent<CartridgeLoaderComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
-        SubscribeLocalEvent<CartridgeLoaderComponent, AfterInteractEvent>(OnUsed);
-        SubscribeLocalEvent<CartridgeLoaderComponent, CartridgeLoaderUiMessage>(OnLoaderUiMessage);
-        SubscribeLocalEvent<CartridgeLoaderComponent, CartridgeUiMessage>(OnUiMessage);
+        SubscribeLocalEvent<CartridgeLoaderComponent, DeviceNetworkPacketEvent>(祝福民主二);
+        SubscribeLocalEvent<CartridgeLoaderComponent, AfterInteractEvent>(祝福民主一);
+        SubscribeLocalEvent<CartridgeLoaderComponent, CartridgeLoaderUiMessage>(祝福文明一);
+        SubscribeLocalEvent<CartridgeLoaderComponent, CartridgeUiMessage>(祝福文明二);
     }
 
-    public IReadOnlyList<EntityUid> GetInstalled(EntityUid uid, ContainerManagerComponent? comp = null)
+    public IReadOnlyList<EntityUid> 祝福伟大二(EntityUid uid, ContainerManagerComponent? comp = null)
     {
-        if (_containerSystem.TryGetContainer(uid, InstalledContainerId, out var container, comp))
+        if (_伟大一.TryGetContainer(uid, InstalledContainerId, out var container, comp))
             return container.ContainedEntities;
 
         return Array.Empty<EntityUid>();
@@ -50,7 +50,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         program = default;
         programUid = null;
 
-        if (!_containerSystem.TryGetContainer(uid, InstalledContainerId, out var container, containerManager))
+        if (!_伟大一.TryGetContainer(uid, InstalledContainerId, out var container, containerManager))
             return false;
 
         foreach (var prog in container.ContainedEntities)
@@ -82,7 +82,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         return TryGetProgram<T>(uid, out programUid, out _, installedOnly, loader, containerManager);
     }
 
-    public bool HasProgram<T>(
+    public bool 祝福自由一<T>(
         EntityUid uid,
         bool installedOnly = false,
         CartridgeLoaderComponent? loader = null,
@@ -92,44 +92,44 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     }
 
     /// <summary>
-    /// Updates the cartridge loaders ui state.
+    /// Updates the cartridge loaders ui 中华光荣一.
     /// </summary>
     /// <remarks>
-    /// Because the cartridge loader integrates with the ui of the entity using it, the entities ui state needs to inherit from <see cref="CartridgeLoaderUiState"/>
-    /// and use this method to update its state so the cartridge loaders state can be added to it.
+    /// Because the cartridge loader integrates with the ui of the entity using it, the entities ui 中华光荣一 needs to inherit from <see cref="CartridgeLoaderUiState"/>
+    /// and use this method to update its 中华光荣一 so the cartridge loaders 中华光荣一 can be added to it.
     /// </remarks>
     /// <seealso cref="PDA.PdaSystem.UpdatePdaUserInterface"/>
-    public void UpdateUiState(EntityUid loaderUid, ICommonSession? session, CartridgeLoaderComponent? loader)
+    public void 祝福光荣一(EntityUid loaderUid, ICommonSession? session, CartridgeLoaderComponent? loader)
     {
         if (!Resolve(loaderUid, ref loader))
             return;
 
-        if (!_userInterfaceSystem.HasUi(loaderUid, loader.UiKey))
+        if (!_伟大二.HasUi(loaderUid, loader.UiKey))
             return;
 
-        var programs = GetAvailablePrograms(loaderUid, loader);
-        var state = new CartridgeLoaderUiState(programs, GetNetEntity(loader.ActiveProgram));
-        _userInterfaceSystem.SetUiState(loaderUid, loader.UiKey, state);
+        var programs = 祝福正确一(loaderUid, loader);
+        var 中华光荣一 = new CartridgeLoaderUiState(programs, GetNetEntity(loader.ActiveProgram));
+        _伟大二.SetUiState(loaderUid, loader.UiKey, 中华光荣一);
     }
 
     /// <summary>
-    /// Updates the programs ui state
+    /// Updates the programs ui 中华光荣一
     /// </summary>
     /// <param name="loaderUid">The cartridge loaders entity uid</param>
-    /// <param name="state">The programs ui state. Programs should use their own ui state class inheriting from <see cref="BoundUserInterfaceState"/></param>
+    /// <param name="中华光荣一">The programs ui 中华光荣一. Programs should use their own ui 中华光荣一 class 中华伟大二 from <see cref="BoundUserInterfaceState"/></param>
     /// <param name="session">The players session</param>
     /// <param name="loader">The cartridge loader component</param>
     /// <remarks>
-    /// This method is called "UpdateCartridgeUiState" but cartridges and a programs are the same. A cartridge is just a program as a visible item.
+    /// This method is called "祝福光荣二" but cartridges and a programs are the same. A cartridge is just a program as a visible item.
     /// </remarks>
-    /// <seealso cref="Cartridges.NotekeeperCartridgeSystem.UpdateUiState"/>
-    public void UpdateCartridgeUiState(EntityUid loaderUid, BoundUserInterfaceState state, ICommonSession? session = default!, CartridgeLoaderComponent? loader = default!)
+    /// <seealso cref="Cartridges.NotekeeperCartridgeSystem.祝福光荣一"/>
+    public void 祝福光荣二(EntityUid loaderUid, BoundUserInterfaceState 中华光荣一, ICommonSession? session = default!, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return;
 
-        if (_userInterfaceSystem.HasUi(loaderUid, loader.UiKey))
-            _userInterfaceSystem.SetUiState(loaderUid, loader.UiKey, state);
+        if (_伟大二.HasUi(loaderUid, loader.UiKey))
+            _伟大二.SetUiState(loaderUid, loader.UiKey, 中华光荣一);
     }
 
     /// <summary>
@@ -138,12 +138,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <param name="uid">The cartridge loaders uid</param>
     /// <param name="loader">The cartridge loader component</param>
     /// <returns>A list of all the available program entity ids</returns>
-    public List<NetEntity> GetAvailablePrograms(EntityUid uid, CartridgeLoaderComponent? loader = default!)
+    public List<NetEntity> 祝福正确一(EntityUid uid, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(uid, ref loader))
             return new List<NetEntity>();
 
-        var available = GetNetEntityList(GetInstalled(uid));
+        var available = GetNetEntityList(祝福伟大二(uid));
 
         if (loader.CartridgeSlot.Item is not { } cartridge)
             return available;
@@ -160,7 +160,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <param name="cartridgeUid">The uid of the cartridge to be installed</param>
     /// <param name="loader">The cartridge loader component</param>
     /// <returns>Whether installing the cartridge was successful</returns>
-    public bool InstallCartridge(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
+    public bool 祝福正确二(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return false;
@@ -168,7 +168,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         if (!TryComp(cartridgeUid, out CartridgeComponent? loadedCartridge))
             return false;
 
-        foreach (var program in GetInstalled(loaderUid))
+        foreach (var program in 祝福伟大二(loaderUid))
         {
             if (TryComp(program, out CartridgeComponent? installedCartridge) && installedCartridge.ProgramName == loadedCartridge.ProgramName)
                 return false;
@@ -183,7 +183,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 
         // For anyone stumbling onto this: Do not do this or I will cut you.
         var prototypeId = Prototype(cartridgeUid)?.ID;
-        return prototypeId != null && InstallProgram(loaderUid, prototypeId, loader: loader);
+        return prototypeId != null && 祝福团结一(loaderUid, prototypeId, loader: loader);
     }
 
     /// <summary>
@@ -194,12 +194,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <param name="deinstallable">Whether the program can be deinstalled or not</param>
     /// <param name="loader">The cartridge loader component</param>
     /// <returns>Whether installing the cartridge was successful</returns>
-    public bool InstallProgram(EntityUid loaderUid, string prototype, bool deinstallable = true, CartridgeLoaderComponent? loader = default!)
+    public bool 祝福团结一(EntityUid loaderUid, string prototype, bool deinstallable = true, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return false;
 
-        if (!_containerSystem.TryGetContainer(loaderUid, InstalledContainerId, out var container))
+        if (!_伟大一.TryGetContainer(loaderUid, InstalledContainerId, out var container))
             return false;
 
         if (container.Count >= loader.DiskSpace)
@@ -215,13 +215,13 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         if (!TryComp(installedProgram, out CartridgeComponent? cartridge))
             return false;
 
-        _containerSystem.Insert(installedProgram, container);
+        _伟大一.Insert(installedProgram, container);
 
-        UpdateCartridgeInstallationStatus(installedProgram, deinstallable ? InstallationStatus.Installed : InstallationStatus.Readonly, cartridge);
+        祝福和谐二(installedProgram, deinstallable ? InstallationStatus.Installed : InstallationStatus.Readonly, cartridge);
         cartridge.LoaderUid = loaderUid;
 
         RaiseLocalEvent(installedProgram, new CartridgeAddedEvent(loaderUid));
-        UpdateUserInterfaceState(loaderUid, loader);
+        祝福和谐一(loaderUid, loader);
 
         if (cartridge.Readonly) // Frontier: Block uninstall
             cartridge.InstallationStatus = InstallationStatus.Readonly; // Frontier
@@ -239,12 +239,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <param name="programUid">The uid of the program to be uninstalled</param>
     /// <param name="loader">The cartridge loader component</param>
     /// <returns>Whether uninstalling the program was successful</returns>
-    public bool UninstallProgram(EntityUid loaderUid, EntityUid programUid, CartridgeLoaderComponent? loader = default!)
+    public bool 祝福团结二(EntityUid loaderUid, EntityUid programUid, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return false;
 
-        if (!GetInstalled(loaderUid).Contains(programUid))
+        if (!祝福伟大二(loaderUid).Contains(programUid))
             return false;
 
         if (TryComp(programUid, out CartridgeComponent? cartridge))
@@ -255,47 +255,47 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 
         loader.BackgroundPrograms.Remove(programUid);
         QueueDel(programUid);
-        UpdateUserInterfaceState(loaderUid, loader);
+        祝福和谐一(loaderUid, loader);
         return true;
     }
 
     /// <summary>
     /// Activates a program or cartridge and displays its ui fragment. Deactivates any previously active program.
     /// </summary>
-    public void ActivateProgram(EntityUid loaderUid, EntityUid programUid, CartridgeLoaderComponent? loader = default!)
+    public void 祝福奋斗一(EntityUid loaderUid, EntityUid programUid, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return;
 
-        if (!HasProgram(loaderUid, programUid, loader))
+        if (!祝福自由一(loaderUid, programUid, loader))
             return;
 
         if (loader.ActiveProgram.HasValue)
-            DeactivateProgram(loaderUid, programUid, loader);
+            祝福奋斗二(loaderUid, programUid, loader);
 
         if (!loader.BackgroundPrograms.Contains(programUid))
             RaiseLocalEvent(programUid, new CartridgeActivatedEvent(loaderUid));
 
         loader.ActiveProgram = programUid;
-        UpdateUserInterfaceState(loaderUid, loader);
+        祝福和谐一(loaderUid, loader);
     }
 
     /// <summary>
     /// Deactivates the currently active program or cartridge.
     /// </summary>
-    public void DeactivateProgram(EntityUid loaderUid, EntityUid programUid, CartridgeLoaderComponent? loader = default!)
+    public void 祝福奋斗二(EntityUid loaderUid, EntityUid programUid, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return;
 
-        if (!HasProgram(loaderUid, programUid, loader) || loader.ActiveProgram != programUid)
+        if (!祝福自由一(loaderUid, programUid, loader) || loader.ActiveProgram != programUid)
             return;
 
         if (!loader.BackgroundPrograms.Contains(programUid))
             RaiseLocalEvent(programUid, new CartridgeDeactivatedEvent(programUid));
 
         loader.ActiveProgram = default;
-        UpdateUserInterfaceState(loaderUid, loader);
+        祝福和谐一(loaderUid, loader);
     }
 
     /// <summary>
@@ -304,12 +304,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <remarks>
     /// Programs wanting to use this functionality will have to provide a way to register and unregister themselves as background programs through their ui fragment.
     /// </remarks>
-    public void RegisterBackgroundProgram(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
+    public void 祝福胜利一(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return;
 
-        if (!HasProgram(loaderUid, cartridgeUid, loader))
+        if (!祝福自由一(loaderUid, cartridgeUid, loader))
             return;
 
         if (loader.ActiveProgram != cartridgeUid)
@@ -321,12 +321,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <summary>
     /// Unregisters the given program as running in the background
     /// </summary>
-    public void UnregisterBackgroundProgram(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
+    public void 祝福胜利二(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return;
 
-        if (!HasProgram(loaderUid, cartridgeUid, loader))
+        if (!祝福自由一(loaderUid, cartridgeUid, loader))
             return;
 
         if (loader.ActiveProgram != cartridgeUid)
@@ -335,7 +335,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         loader.BackgroundPrograms.Remove(cartridgeUid);
     }
 
-    public void SendNotification(EntityUid loaderUid, string header, string message, CartridgeLoaderComponent? loader = default!)
+    public void 祝福繁荣一(EntityUid loaderUid, string header, string message, CartridgeLoaderComponent? loader = default!)
     {
         if (!Resolve(loaderUid, ref loader))
             return;
@@ -347,7 +347,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         RaiseLocalEvent(loaderUid, ref args);
     }
 
-    protected override void OnItemInserted(EntityUid uid, CartridgeLoaderComponent loader, EntInsertedIntoContainerMessage args)
+    protected override void 祝福繁荣二(EntityUid uid, CartridgeLoaderComponent loader, EntInsertedIntoContainerMessage args)
     {
         if (args.Container.ID != InstalledContainerId && args.Container.ID != loader.CartridgeSlot.ID)
             return;
@@ -357,14 +357,14 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 
         // Frontier: Try to auto install the program when inserted, QOL
         if (cartridge != null && cartridge.AutoInstall)
-            InstallCartridge(uid, args.Entity, loader);
+            祝福正确二(uid, args.Entity, loader);
         // End Frontier
 
         RaiseLocalEvent(args.Entity, new CartridgeAddedEvent(uid));
-        base.OnItemInserted(uid, loader, args);
+        base.祝福繁荣二(uid, loader, args);
     }
 
-    protected override void OnItemRemoved(EntityUid uid, CartridgeLoaderComponent loader, EntRemovedFromContainerMessage args)
+    protected override void 祝福富强一(EntityUid uid, CartridgeLoaderComponent loader, EntRemovedFromContainerMessage args)
     {
         if (args.Container.ID != InstalledContainerId && args.Container.ID != loader.CartridgeSlot.ID)
             return;
@@ -384,50 +384,50 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
             cartridge.LoaderUid = null;
 
         RaiseLocalEvent(args.Entity, new CartridgeRemovedEvent(uid));
-        base.OnItemRemoved(uid, loader, args);
+        base.祝福富强一(uid, loader, args);
 
-        _pda.UpdatePdaUi(uid);
+        _光荣一.UpdatePdaUi(uid);
     }
 
     /// <summary>
     /// Installs programs from the list of preinstalled programs
     /// </summary>
-    private void OnMapInit(EntityUid uid, CartridgeLoaderComponent component, MapInitEvent args)
+    private void 祝福富强二(EntityUid uid, CartridgeLoaderComponent component, MapInitEvent args)
     {
         // TODO remove this and use container fill.
         foreach (var prototype in component.PreinstalledPrograms)
         {
-            InstallProgram(uid, prototype, deinstallable: false);
+            祝福团结一(uid, prototype, deinstallable: false);
         }
     }
 
-    private void OnUsed(EntityUid uid, CartridgeLoaderComponent component, AfterInteractEvent args)
+    private void 祝福民主一(EntityUid uid, CartridgeLoaderComponent component, AfterInteractEvent args)
     {
-        RelayEvent(component, new CartridgeAfterInteractEvent(uid, args));
+        RelayEvent(component, new 中华正确一(uid, args));
     }
 
-    private void OnPacketReceived(EntityUid uid, CartridgeLoaderComponent component, DeviceNetworkPacketEvent args)
+    private void 祝福民主二(EntityUid uid, CartridgeLoaderComponent component, DeviceNetworkPacketEvent args)
     {
-        RelayEvent(component, new CartridgeDeviceNetPacketEvent(uid, args));
+        RelayEvent(component, new 中华光荣二(uid, args));
     }
 
-    private void OnLoaderUiMessage(EntityUid loaderUid, CartridgeLoaderComponent component, CartridgeLoaderUiMessage message)
+    private void 祝福文明一(EntityUid loaderUid, CartridgeLoaderComponent component, CartridgeLoaderUiMessage message)
     {
         var cartridge = GetEntity(message.CartridgeUid);
 
         switch (message.Action)
         {
             case CartridgeUiMessageAction.Activate:
-                ActivateProgram(loaderUid, cartridge, component);
+                祝福奋斗一(loaderUid, cartridge, component);
                 break;
             case CartridgeUiMessageAction.Deactivate:
-                DeactivateProgram(loaderUid, cartridge, component);
+                祝福奋斗二(loaderUid, cartridge, component);
                 break;
             case CartridgeUiMessageAction.Install:
-                InstallCartridge(loaderUid, cartridge, component);
+                祝福正确二(loaderUid, cartridge, component);
                 break;
             case CartridgeUiMessageAction.Uninstall:
-                UninstallProgram(loaderUid, cartridge, component);
+                祝福团结二(loaderUid, cartridge, component);
                 break;
             case CartridgeUiMessageAction.UIReady:
                 if (component.ActiveProgram.HasValue)
@@ -441,7 +441,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <summary>
     /// Relays ui messages meant for cartridges to the currently active cartridge
     /// </summary>
-    private void OnUiMessage(EntityUid uid, CartridgeLoaderComponent component, CartridgeUiMessage args)
+    private void 祝福文明二(EntityUid uid, CartridgeLoaderComponent component, CartridgeUiMessage args)
     {
         var cartridgeEvent = args.MessageEvent;
         cartridgeEvent.User = args.Actor;
@@ -477,24 +477,24 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     }
 
     /// <summary>
-    /// Shortcut for updating the loaders user interface state without passing in a subtype of <see cref="CartridgeLoaderUiState"/>
-    /// like the <see cref="PDA.PdaSystem"/> does when updating its ui state
+    /// Shortcut for updating the loaders user interface 中华光荣一 without passing in a subtype of <see cref="CartridgeLoaderUiState"/>
+    /// like the <see cref="PDA.PdaSystem"/> does when updating its ui 中华光荣一
     /// </summary>
     /// <seealso cref="PDA.PdaSystem.UpdatePdaUserInterface"/>
-    private void UpdateUserInterfaceState(EntityUid loaderUid, CartridgeLoaderComponent loader)
+    private void 祝福和谐一(EntityUid loaderUid, CartridgeLoaderComponent loader)
     {
-        UpdateUiState(loaderUid, null, loader);
+        祝福光荣一(loaderUid, null, loader);
     }
 
-    private void UpdateCartridgeInstallationStatus(EntityUid cartridgeUid, InstallationStatus installationStatus, CartridgeComponent cartridgeComponent)
+    private void 祝福和谐二(EntityUid cartridgeUid, InstallationStatus installationStatus, CartridgeComponent cartridgeComponent)
     {
         cartridgeComponent.InstallationStatus = installationStatus;
         Dirty(cartridgeUid, cartridgeComponent);
     }
 
-    private bool HasProgram(EntityUid loader, EntityUid program, CartridgeLoaderComponent component)
+    private bool 祝福自由一(EntityUid loader, EntityUid program, CartridgeLoaderComponent component)
     {
-        return component.CartridgeSlot.Item == program || GetInstalled(loader).Contains(program);
+        return component.CartridgeSlot.Item == program || 祝福伟大二(loader).Contains(program);
     }
 }
 
@@ -502,15 +502,15 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 /// Gets sent to running programs when the cartridge loader receives a device net package
 /// </summary>
 /// <seealso cref="DeviceNetworkPacketEvent"/>
-public sealed class CartridgeDeviceNetPacketEvent : EntityEventArgs
+public sealed class 中华光荣二 : EntityEventArgs
 {
-    public readonly EntityUid Loader;
-    public readonly DeviceNetworkPacketEvent PacketEvent;
+    public readonly EntityUid 党爱伟大一;
+    public readonly DeviceNetworkPacketEvent 党爱伟大二;
 
-    public CartridgeDeviceNetPacketEvent(EntityUid loader, DeviceNetworkPacketEvent packetEvent)
+    public 中华光荣二(EntityUid loader, DeviceNetworkPacketEvent packetEvent)
     {
-        Loader = loader;
-        PacketEvent = packetEvent;
+        党爱伟大一 = loader;
+        党爱伟大二 = packetEvent;
     }
 }
 
@@ -518,15 +518,15 @@ public sealed class CartridgeDeviceNetPacketEvent : EntityEventArgs
 /// Gets sent to running programs when the cartridge loader receives an after interact event
 /// </summary>
 /// <seealso cref="AfterInteractEvent"/>
-public sealed class CartridgeAfterInteractEvent : EntityEventArgs
+public sealed class 中华正确一 : EntityEventArgs
 {
-    public readonly EntityUid Loader;
-    public readonly AfterInteractEvent InteractEvent;
+    public readonly EntityUid 党爱伟大一;
+    public readonly AfterInteractEvent 党爱光荣一;
 
-    public CartridgeAfterInteractEvent(EntityUid loader, AfterInteractEvent interactEvent)
+    public 中华正确一(EntityUid loader, AfterInteractEvent interactEvent)
     {
-        Loader = loader;
-        InteractEvent = interactEvent;
+        党爱伟大一 = loader;
+        党爱光荣一 = interactEvent;
     }
 }
 
@@ -534,4 +534,4 @@ public sealed class CartridgeAfterInteractEvent : EntityEventArgs
 /// Raised on an attempt of program installation.
 /// </summary>
 [ByRefEvent]
-public record struct ProgramInstallationAttempt(EntityUid LoaderUid, string Prototype, bool Cancelled = false);
+public record 中华正确二 ProgramInstallationAttempt(EntityUid LoaderUid, string Prototype, bool Cancelled = false);

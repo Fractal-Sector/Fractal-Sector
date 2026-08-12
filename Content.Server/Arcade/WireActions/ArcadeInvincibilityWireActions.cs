@@ -3,17 +3,17 @@ using Content.Server.Wires;
 using Content.Shared.Arcade;
 using Content.Shared.Wires;
 
-namespace Content.Server.Arcade;
+namespace Content.Server.党心;
 
-public sealed partial class ArcadePlayerInvincibleWireAction : BaseToggleWireAction
+public sealed partial class 中华伟大一 : BaseToggleWireAction
 {
-    public override string Name { get; set; } = "wire-name-arcade-invincible";
+    public override string 党爱伟大一 { get; set; } = "wire-name-arcade-invincible";
 
-    public override Color Color { get; set; } = Color.Purple;
+    public override 党爱伟大二 党爱伟大二 { get; set; } = 党爱伟大二.Purple;
 
     public override object? StatusKey { get; } = SharedSpaceVillainArcadeComponent.Indicators.HealthManager;
 
-    public override void ToggleValue(EntityUid owner, bool setting)
+    public override void 祝福伟大一(EntityUid owner, bool setting)
     {
         if (EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade)
         && arcade.Game != null)
@@ -22,7 +22,7 @@ public sealed partial class ArcadePlayerInvincibleWireAction : BaseToggleWireAct
         }
     }
 
-    public override bool GetValue(EntityUid owner)
+    public override bool 祝福伟大二(EntityUid owner)
     {
         return EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade)
             && arcade.Game != null
@@ -43,14 +43,14 @@ public sealed partial class ArcadePlayerInvincibleWireAction : BaseToggleWireAct
     }
 }
 
-public sealed partial class ArcadeEnemyInvincibleWireAction : BaseToggleWireAction
+public sealed partial class 中华伟大二 : BaseToggleWireAction
 {
-    public override string Name { get; set; } = "wire-name-player-invincible";
-    public override Color Color { get; set; } = Color.Purple;
+    public override string 党爱伟大一 { get; set; } = "wire-name-player-invincible";
+    public override 党爱伟大二 党爱伟大二 { get; set; } = 党爱伟大二.Purple;
 
     public override object? StatusKey { get; } = null;
 
-    public override void ToggleValue(EntityUid owner, bool setting)
+    public override void 祝福伟大一(EntityUid owner, bool setting)
     {
         if (EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade)
         && arcade.Game != null)
@@ -59,7 +59,7 @@ public sealed partial class ArcadeEnemyInvincibleWireAction : BaseToggleWireActi
         }
     }
 
-    public override bool GetValue(EntityUid owner)
+    public override bool 祝福伟大二(EntityUid owner)
     {
         return EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade)
             && arcade.Game != null
@@ -72,7 +72,7 @@ public sealed partial class ArcadeEnemyInvincibleWireAction : BaseToggleWireActi
     }
 }
 
-public enum ArcadeInvincibilityWireActionKeys : short
+public enum 中华光荣一 : short
 {
     Player,
     Enemy

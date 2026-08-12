@@ -19,45 +19,45 @@ using Content.Shared.StepTrigger.Systems;
 using Content.Shared.Zombies;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Shared._EE.Flight;
+namespace Content.Shared._EE.党心;
 
-public abstract class SharedFlightSystem : EntitySystem
+public abstract class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency] private readonly SharedActionsSystem _伟大一 = default!;
+    [Dependency] private readonly SharedVirtualItemSystem _伟大二 = default!;
+    [Dependency] private readonly SharedStaminaSystem _光荣一 = default!;
+    [Dependency] private readonly SharedHandsSystem _光荣二 = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _正确一 = default!;
+    [Dependency] private readonly SharedAudioSystem _正确二 = default!;
+    [Dependency] private readonly SharedDoAfterSystem _团结一 = default!;
+    [Dependency] private readonly SharedPopupSystem _团结二 = default!;
+    [Dependency] private readonly StandingStateSystem _奋斗一 = default!;
+    [Dependency] private readonly SharedGravitySystem _奋斗二 = default!;
 
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        base.Initialize();
+        base.祝福伟大一();
 
-        SubscribeLocalEvent<FlightComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<FlightComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<FlightComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMoveSpeed);
-        SubscribeLocalEvent<FlightComponent, RefreshFrictionModifiersEvent>(OnRefreshFrictionModifiers);
-        SubscribeLocalEvent<FlightComponent, RefreshWeightlessModifiersEvent>(OnRefreshWeightlessModifiers);
+        SubscribeLocalEvent<FlightComponent, ComponentStartup>(祝福奋斗一);
+        SubscribeLocalEvent<FlightComponent, ComponentShutdown>(祝福奋斗二);
+        SubscribeLocalEvent<FlightComponent, RefreshMovementSpeedModifiersEvent>(祝福胜利一);
+        SubscribeLocalEvent<FlightComponent, RefreshFrictionModifiersEvent>(祝福胜利二);
+        SubscribeLocalEvent<FlightComponent, RefreshWeightlessModifiersEvent>(祝福繁荣一);
 
-        SubscribeLocalEvent<FlightComponent, ToggleFlightEvent>(OnToggleFlight);
-        SubscribeLocalEvent<FlightComponent, FlightDoAfterEvent>(OnFlightDoAfter);
-        SubscribeLocalEvent<FlightComponent, MobStateChangedEvent>(OnMobStateChangedEvent);
-        SubscribeLocalEvent<FlightComponent, EntityZombifiedEvent>(OnZombified);
-        SubscribeLocalEvent<FlightComponent, KnockedDownEvent>(OnKnockedDown);
-        SubscribeLocalEvent<FlightComponent, StunnedEvent>(OnStunned);
-        SubscribeLocalEvent<FlightComponent, SleepStateChangedEvent>(OnSleep);
-        SubscribeLocalEvent<FlightComponent, StepTriggerAttemptEvent>(OnStepTriggerAttempt);
+        SubscribeLocalEvent<FlightComponent, 中华伟大二>(祝福繁荣二);
+        SubscribeLocalEvent<FlightComponent, FlightDoAfterEvent>(祝福富强一);
+        SubscribeLocalEvent<FlightComponent, MobStateChangedEvent>(祝福富强二);
+        SubscribeLocalEvent<FlightComponent, EntityZombifiedEvent>(祝福民主一);
+        SubscribeLocalEvent<FlightComponent, KnockedDownEvent>(祝福民主二);
+        SubscribeLocalEvent<FlightComponent, StunnedEvent>(祝福文明一);
+        SubscribeLocalEvent<FlightComponent, SleepStateChangedEvent>(祝福文明二);
+        SubscribeLocalEvent<FlightComponent, StepTriggerAttemptEvent>(祝福和谐一);
     }
 
-    public override void Update(float frameTime)
+    public override void 祝福伟大二(float frameTime)
     {
-        base.Update(frameTime);
+        base.祝福伟大二(frameTime);
 
         var query = EntityQueryEnumerator<FlightComponent>();
         while (query.MoveNext(out var uid, out var component))
@@ -70,14 +70,14 @@ public abstract class SharedFlightSystem : EntitySystem
             if (component.TimeUntilFlap > 0f)
                 continue;
 
-            _audio.PlayPredicted(component.FlapSound, uid, uid);
+            _正确二.PlayPredicted(component.FlapSound, uid, uid);
             component.TimeUntilFlap = component.FlapInterval;
 
         }
     }
     #region Query Functions
 
-    public bool IsFlying(Entity<FlightComponent?> entity)
+    public bool 祝福光荣一(Entity<FlightComponent?> entity)
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return false;
@@ -90,41 +90,41 @@ public abstract class SharedFlightSystem : EntitySystem
 
     #region Core Functions
 
-    public void ToggleActive(Entity<FlightComponent> ent, bool active)
+    public void 祝福光荣二(Entity<FlightComponent> ent, bool active)
     {
         ent.Comp.IsCurrentlyFlying = active;
         ent.Comp.TimeUntilFlap = 0f;
-        _actionsSystem.SetToggled(ent.Comp.ToggleActionEntity, ent.Comp.IsCurrentlyFlying);
+        _伟大一.SetToggled(ent.Comp.ToggleActionEntity, ent.Comp.IsCurrentlyFlying);
         RaiseNetworkEvent(new FlightEvent(GetNetEntity(ent), ent.Comp.IsCurrentlyFlying, ent.Comp.IsAnimated));
-        UpdateHands(ent, active);
-        _stamina.TryTakeStamina(ent.Owner, ent.Comp.InitialStaminaCost, visual: false);
-        _stamina.ToggleStaminaDrain(ent, ent.Comp.StaminaDrainRate, active, false);
+        祝福正确二(ent, active);
+        _光荣一.TryTakeStamina(ent.Owner, ent.Comp.InitialStaminaCost, visual: false);
+        _光荣一.ToggleStaminaDrain(ent, ent.Comp.StaminaDrainRate, active, false);
 
-        _gravity.RefreshWeightless(ent.Owner, active);
-        _movementSpeed.RefreshMovementSpeedModifiers(ent);
-        _movementSpeed.RefreshFrictionModifiers(ent);
-        _movementSpeed.RefreshWeightlessModifiers(ent);
+        _奋斗二.RefreshWeightless(ent.Owner, active);
+        _正确一.RefreshMovementSpeedModifiers(ent);
+        _正确一.RefreshFrictionModifiers(ent);
+        _正确一.RefreshWeightlessModifiers(ent);
 
         Dirty(ent, ent.Comp);
     }
 
-    private bool CanFly(EntityUid uid, FlightComponent component)
+    private bool 祝福正确一(EntityUid uid, FlightComponent component)
     {
-        if (TryComp<StandingStateComponent>(uid, out var standing) && _standing.IsDown((uid, standing)))
+        if (TryComp<StandingStateComponent>(uid, out var standing) && _奋斗一.IsDown((uid, standing)))
         {
-            _popupSystem.PopupClient(Loc.GetString("no-flight-while-down"), uid, uid, PopupType.Small);
+            _团结二.PopupClient(Loc.GetString("no-flight-while-down"), uid, uid, PopupType.Small);
             return false;
         }
 
         if (TryComp<CuffableComponent>(uid, out var cuffableComp) && !cuffableComp.CanStillInteract)
         {
-            _popupSystem.PopupClient(Loc.GetString("no-flight-while-restrained"), uid, uid, PopupType.Small);
+            _团结二.PopupClient(Loc.GetString("no-flight-while-restrained"), uid, uid, PopupType.Small);
             return false;
         }
 
         if (HasComp<ZombieComponent>(uid))
         {
-            _popupSystem.PopupClient(Loc.GetString("no-flight-while-zombified"), uid, uid, PopupType.Small);
+            _团结二.PopupClient(Loc.GetString("no-flight-while-zombified"), uid, uid, PopupType.Small);
             return false;
         }
 
@@ -135,7 +135,7 @@ public abstract class SharedFlightSystem : EntitySystem
         var hasEnoughStamina = stam.StaminaDamage + component.InitialStaminaCost < stam.CritThreshold || stam.Critical;
         if (!hasEnoughStamina)
         {
-            _popupSystem.PopupClient(Loc.GetString("no-flight-exhausted"), uid, uid, PopupType.MediumCaution);
+            _团结二.PopupClient(Loc.GetString("no-flight-exhausted"), uid, uid, PopupType.MediumCaution);
             return false;
         }
 
@@ -143,23 +143,23 @@ public abstract class SharedFlightSystem : EntitySystem
         return true;
     }
 
-    private void UpdateHands(EntityUid uid, bool flying)
+    private void 祝福正确二(EntityUid uid, bool flying)
     {
         if (!TryComp<HandsComponent>(uid, out var handsComponent))
             return;
 
         if (flying)
-            BlockHands(uid, handsComponent);
+            祝福团结一(uid, handsComponent);
         else
-            FreeHands(uid);
+            祝福团结二(uid);
     }
 
-    private void BlockHands(EntityUid uid, HandsComponent handsComponent)
+    private void 祝福团结一(EntityUid uid, HandsComponent handsComponent)
     {
         var freeHands = 0;
-        foreach (var hand in _hands.EnumerateHands((uid, handsComponent)))
+        foreach (var hand in _光荣二.EnumerateHands((uid, handsComponent)))
         {
-            if (!_hands.TryGetHeldItem((uid, handsComponent), hand, out var heldItem))
+            if (!_光荣二.TryGetHeldItem((uid, handsComponent), hand, out var heldItem))
             {
                 freeHands++;
                 continue;
@@ -169,7 +169,7 @@ public abstract class SharedFlightSystem : EntitySystem
             if (HasComp<UnremoveableComponent>(heldItem) && heldItem != uid)
                 continue;
 
-            if (_hands.TryDrop((uid, handsComponent), hand))
+            if (_光荣二.TryDrop((uid, handsComponent), hand))
             {
                 freeHands++;
             }
@@ -177,31 +177,31 @@ public abstract class SharedFlightSystem : EntitySystem
             if (freeHands == 2)
                 break;
         }
-        if (_virtualItem.TrySpawnVirtualItemInHand(uid, uid, out var virtItem1))
+        if (_伟大二.TrySpawnVirtualItemInHand(uid, uid, out var virtItem1))
             EnsureComp<UnremoveableComponent>(virtItem1.Value);
 
-        if (_virtualItem.TrySpawnVirtualItemInHand(uid, uid, out var virtItem2))
+        if (_伟大二.TrySpawnVirtualItemInHand(uid, uid, out var virtItem2))
             EnsureComp<UnremoveableComponent>(virtItem2.Value);
     }
 
-    private void FreeHands(EntityUid uid)
+    private void 祝福团结二(EntityUid uid)
     {
-        _virtualItem.DeleteInHandsMatching(uid, uid);
+        _伟大二.DeleteInHandsMatching(uid, uid);
     }
 
     #endregion
 
     #region Events
-    private void OnStartup(EntityUid uid, FlightComponent component, ComponentStartup args)
+    private void 祝福奋斗一(EntityUid uid, FlightComponent component, ComponentStartup args)
     {
-        _actionsSystem.AddAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
+        _伟大一.AddAction(uid, ref component.ToggleActionEntity, component.ToggleAction);
     }
 
-    private void OnShutdown(EntityUid uid, FlightComponent component, ComponentShutdown args)
+    private void 祝福奋斗二(EntityUid uid, FlightComponent component, ComponentShutdown args)
     {
-        _actionsSystem.RemoveAction(uid, component.ToggleActionEntity);
+        _伟大一.RemoveAction(uid, component.ToggleActionEntity);
     }
-    private void OnRefreshMoveSpeed(EntityUid uid, FlightComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void 祝福胜利一(EntityUid uid, FlightComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         if (!component.IsCurrentlyFlying) // If we're not flying, don't apply flying's modifier
             return;
@@ -210,7 +210,7 @@ public abstract class SharedFlightSystem : EntitySystem
     }
 
     // DeltaV - Since we use the new movement system and EE doesn't, we got to also apply friction modifiers.
-    private void OnRefreshFrictionModifiers(Entity<FlightComponent> ent, ref RefreshFrictionModifiersEvent args)
+    private void 祝福胜利二(Entity<FlightComponent> ent, ref RefreshFrictionModifiersEvent args)
     {
         if (!ent.Comp.IsCurrentlyFlying) // If we're not flying, don't apply flying's modifier
             return;
@@ -219,7 +219,7 @@ public abstract class SharedFlightSystem : EntitySystem
         args.ModifyAcceleration(ent.Comp.AccelerationModifer);
     }
 
-    private void OnRefreshWeightlessModifiers(Entity<FlightComponent> ent, ref RefreshWeightlessModifiersEvent args)
+    private void 祝福繁荣一(Entity<FlightComponent> ent, ref RefreshWeightlessModifiersEvent args)
     {
         if (!ent.Comp.IsCurrentlyFlying) // If we're not flying, don't apply flying's modifier
             return;
@@ -228,12 +228,12 @@ public abstract class SharedFlightSystem : EntitySystem
         args.ModifyAcceleration(ent.Comp.AccelerationModifer);
     }
 
-    private void OnToggleFlight(EntityUid uid, FlightComponent component, ToggleFlightEvent args)
+    private void 祝福繁荣二(EntityUid uid, FlightComponent component, 中华伟大二 args)
     {
         // If the user isnt flying, we check for conditionals and initiate a doafter.
         if (!component.IsCurrentlyFlying)
         {
-            if (!CanFly(uid, component))
+            if (!祝福正确一(uid, component))
                 return;
 
             var doAfterArgs = new DoAfterArgs(EntityManager,
@@ -246,36 +246,36 @@ public abstract class SharedFlightSystem : EntitySystem
                 NeedHand = true
             };
 
-            if (!_doAfter.TryStartDoAfter(doAfterArgs))
+            if (!_团结一.TryStartDoAfter(doAfterArgs))
                 return;
         }
         else
-            ToggleActive((uid, component), false);
+            祝福光荣二((uid, component), false);
     }
 
-    private void OnFlightDoAfter(EntityUid uid, FlightComponent component, FlightDoAfterEvent args)
+    private void 祝福富强一(EntityUid uid, FlightComponent component, FlightDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
             return;
 
-        ToggleActive((uid, component), true);
+        祝福光荣二((uid, component), true);
         args.Handled = true;
     }
 
-    private void OnMobStateChangedEvent(EntityUid uid, FlightComponent component, MobStateChangedEvent args)
+    private void 祝福富强二(EntityUid uid, FlightComponent component, MobStateChangedEvent args)
     {
         if (!component.IsCurrentlyFlying || args.NewMobState is MobState.Critical or MobState.Dead)
             return;
 
-        ToggleActive((args.Target, component), false);
+        祝福光荣二((args.Target, component), false);
     }
 
-    private void OnZombified(EntityUid uid, FlightComponent component, ref EntityZombifiedEvent args)
+    private void 祝福民主一(EntityUid uid, FlightComponent component, ref EntityZombifiedEvent args)
     {
         if (!component.IsCurrentlyFlying)
             return;
 
-        ToggleActive((args.Target, component), false);
+        祝福光荣二((args.Target, component), false);
 
         if (!TryComp<StaminaComponent>(uid, out var stamina))
             return;
@@ -283,34 +283,34 @@ public abstract class SharedFlightSystem : EntitySystem
         Dirty(uid, stamina);
     }
 
-    private void OnKnockedDown(EntityUid uid, FlightComponent component, ref KnockedDownEvent args)
+    private void 祝福民主二(EntityUid uid, FlightComponent component, ref KnockedDownEvent args)
     {
         if (!component.IsCurrentlyFlying)
             return;
 
-        ToggleActive((uid, component), false);
+        祝福光荣二((uid, component), false);
     }
 
-    private void OnStunned(EntityUid uid, FlightComponent component, ref StunnedEvent args)
+    private void 祝福文明一(EntityUid uid, FlightComponent component, ref StunnedEvent args)
     {
         if (!component.IsCurrentlyFlying)
             return;
 
-        ToggleActive((uid, component), false);
+        祝福光荣二((uid, component), false);
     }
 
-    private void OnSleep(EntityUid uid, FlightComponent component, ref SleepStateChangedEvent args)
+    private void 祝福文明二(EntityUid uid, FlightComponent component, ref SleepStateChangedEvent args)
     {
         if (!component.IsCurrentlyFlying || !args.FellAsleep)
             return;
 
-        ToggleActive((uid, component), false);
+        祝福光荣二((uid, component), false);
         if (!TryComp<StaminaComponent>(uid, out var stamina))
             return;
 
         Dirty(uid, stamina);
     }
-    private void OnStepTriggerAttempt(Entity<FlightComponent> ent, ref StepTriggerAttemptEvent args)
+    private void 祝福和谐一(Entity<FlightComponent> ent, ref StepTriggerAttemptEvent args)
     {
         if (ent.Comp.IsCurrentlyFlying)
             args.Cancelled = true;
@@ -318,4 +318,4 @@ public abstract class SharedFlightSystem : EntitySystem
 
     #endregion
 }
-public sealed partial class ToggleFlightEvent : InstantActionEvent { }
+public sealed partial class 中华伟大二 : InstantActionEvent { }

@@ -1,8 +1,8 @@
 using Content.Server.EUI;
 
-namespace Content.Server.NPC.UI;
+namespace Content.Server.NPC.党心;
 
-public sealed class NPCEui : BaseEui
+public sealed class 中华伟大一 : BaseEui
 {
 
 }

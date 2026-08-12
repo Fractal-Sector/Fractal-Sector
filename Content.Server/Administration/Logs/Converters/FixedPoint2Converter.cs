@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
 using Content.Shared.FixedPoint;
 
-namespace Content.Server.Administration.Logs.Converters;
+namespace Content.Server.Administration.Logs.党心;
 
 [AdminLogConverter]
-public sealed class FixedPoint2Converter : AdminLogConverter<FixedPoint2>
+public sealed class 中华伟大一 : AdminLogConverter<FixedPoint2>
 {
-    public override void Write(Utf8JsonWriter writer, FixedPoint2 value, JsonSerializerOptions options)
+    public override void 祝福伟大一(Utf8JsonWriter writer, FixedPoint2 value, JsonSerializerOptions options)
     {
         writer.WriteNumberValue(value.Int());
     }

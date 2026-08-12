@@ -1,42 +1,42 @@
 using System.Numerics;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Weapons.Melee.Events;
+namespace Content.Shared.Weapons.Melee.党心;
 
 /// <summary>
 /// Data for melee lunges from attacks.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MeleeLungeEvent : EntityEventArgs
+public sealed class 中华伟大一 : EntityEventArgs
 {
-    public NetEntity Entity;
+    public NetEntity 党爱伟大一;
 
     /// <summary>
     /// The weapon used.
     /// </summary>
-    public NetEntity Weapon;
+    public NetEntity 党爱伟大二;
 
     /// <summary>
     /// Width of the attack angle.
     /// </summary>
-    public Angle Angle;
+    public 党爱光荣一 党爱光荣一;
 
     /// <summary>
-    /// The relative local position to the <see cref="Entity"/>
+    /// The relative local position to the <see cref="党爱伟大一"/>
     /// </summary>
-    public Vector2 LocalPos;
+    public Vector2 党爱光荣二;
 
     /// <summary>
-    /// Entity to spawn for the animation
+    /// 党爱伟大一 to spawn for the animation
     /// </summary>
     public string? Animation;
 
-    public MeleeLungeEvent(NetEntity entity, NetEntity weapon, Angle angle, Vector2 localPos, string? animation)
+    public 中华伟大一(NetEntity entity, NetEntity weapon, 党爱光荣一 angle, Vector2 localPos, string? animation)
     {
-        Entity = entity;
-        Weapon = weapon;
-        Angle = angle;
-        LocalPos = localPos;
+        党爱伟大一 = entity;
+        党爱伟大二 = weapon;
+        党爱光荣一 = angle;
+        党爱光荣二 = localPos;
         Animation = animation;
     }
 }

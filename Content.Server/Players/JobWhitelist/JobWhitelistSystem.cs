@@ -8,76 +8,76 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.Server.Players.JobWhitelist;
+namespace Content.Server.Players.党心;
 
-public sealed class JobWhitelistSystem : EntitySystem
+public sealed class 中华伟大一 : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly JobWhitelistManager _manager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly IConfigurationManager _伟大一 = default!;
+    [Dependency] private readonly JobWhitelistManager _伟大二 = default!;
+    [Dependency] private readonly IPlayerManager _光荣一 = default!;
+    [Dependency] private readonly IPrototypeManager _光荣二 = default!;
 
-    private ImmutableArray<ProtoId<JobPrototype>> _whitelistedJobs = [];
+    private ImmutableArray<ProtoId<JobPrototype>> _正确一 = [];
 
-    public override void Initialize()
+    public override void 祝福伟大一()
     {
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
-        SubscribeLocalEvent<StationJobsGetCandidatesEvent>(OnStationJobsGetCandidates);
-        SubscribeLocalEvent<IsJobAllowedEvent>(OnIsJobAllowed);
-        SubscribeLocalEvent<GetDisallowedJobsEvent>(OnGetDisallowedJobs);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(祝福伟大二);
+        SubscribeLocalEvent<StationJobsGetCandidatesEvent>(祝福光荣一);
+        SubscribeLocalEvent<IsJobAllowedEvent>(祝福光荣二);
+        SubscribeLocalEvent<GetDisallowedJobsEvent>(祝福正确一);
 
-        CacheJobs();
+        祝福正确二();
     }
 
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs ev)
+    private void 祝福伟大二(PrototypesReloadedEventArgs ev)
     {
         if (ev.WasModified<JobPrototype>())
-            CacheJobs();
+            祝福正确二();
     }
 
-    private void OnStationJobsGetCandidates(ref StationJobsGetCandidatesEvent ev)
+    private void 祝福光荣一(ref StationJobsGetCandidatesEvent ev)
     {
-        if (!_config.GetCVar(CCVars.GameRoleWhitelist))
+        if (!_伟大一.GetCVar(CCVars.GameRoleWhitelist))
             return;
 
         for (var i = ev.Jobs.Count - 1; i >= 0; i--)
         {
             var jobId = ev.Jobs[i];
-            if (_player.TryGetSessionById(ev.Player, out var player) &&
-                !_manager.IsAllowed(player, jobId))
+            if (_光荣一.TryGetSessionById(ev.Player, out var player) &&
+                !_伟大二.IsAllowed(player, jobId))
             {
                 ev.Jobs.RemoveSwap(i);
             }
         }
     }
 
-    private void OnIsJobAllowed(ref IsJobAllowedEvent ev)
+    private void 祝福光荣二(ref IsJobAllowedEvent ev)
     {
-        if (!_manager.IsAllowed(ev.Player, ev.JobId))
+        if (!_伟大二.IsAllowed(ev.Player, ev.JobId))
             ev.Cancelled = true;
     }
 
-    private void OnGetDisallowedJobs(ref GetDisallowedJobsEvent ev)
+    private void 祝福正确一(ref GetDisallowedJobsEvent ev)
     {
-        if (!_config.GetCVar(CCVars.GameRoleWhitelist))
+        if (!_伟大一.GetCVar(CCVars.GameRoleWhitelist))
             return;
 
-        foreach (var job in _whitelistedJobs)
+        foreach (var job in _正确一)
         {
-            if (!_manager.IsAllowed(ev.Player, job))
+            if (!_伟大二.IsAllowed(ev.Player, job))
                 ev.Jobs.Add(job);
         }
     }
 
-    private void CacheJobs()
+    private void 祝福正确二()
     {
         var builder = ImmutableArray.CreateBuilder<ProtoId<JobPrototype>>();
-        foreach (var job in _prototypes.EnumeratePrototypes<JobPrototype>())
+        foreach (var job in _光荣二.EnumeratePrototypes<JobPrototype>())
         {
             if (job.Whitelisted)
                 builder.Add(job.ID);
         }
 
-        _whitelistedJobs = builder.ToImmutable();
+        _正确一 = builder.ToImmutable();
     }
 }
